@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BF71EB8FC7
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 12:49:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B1BFEB8FC7
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 12:50:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A59E10E639;
-	Wed,  6 Sep 2023 12:49:57 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2074.outbound.protection.outlook.com [40.107.237.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82C5410E639
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 12:49:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 822FE10E63B;
+	Wed,  6 Sep 2023 12:50:01 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20619.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e89::619])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7DAF10E63A
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 12:49:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FW6IF8qFUoM6Oll5W+hKCYVj9THkEIlUfLR6EupKges777L9b64ObVTTXHIlRhv0bbXhXcwtudcivdoU659Y4Ik92XkR51qb7SLP9yCsbzLxfFdYZ7PWYNit0K5ArgET0fMZLKUaCHooKntCnpjaLUgOAJxHJmjTkhTDa9FtTj6fb+KAH5A3Ir/KDpVbN1higPUS3d/xtzcvep/yWZHO9KwlbOLYlPYRJv5AKX3ik9dfSnUO3qI8eZb1oC/I4rEUK4MqZrtrEGFC1KM0LTqTCG3uy/9uXWiPc79MFeLYmnDD8q/ev2UyA4XXunU/DV5a+WmrKdcvPGOvKyuNMXMcMw==
+ b=KA/WQ36f7v3FoCVH6KbuixFNRAKm64UNDJ2CHcuaHndEHR5Is/nYx8VfbD2yXb8B35gdBk/B/Dy8ZkIBZVvowW8TAr4VgOxeKkfuCTePQNU7EAxcBKyTd5H/lXhLL4qFoZqk998nvm1f1vgVzzr2RuZTUnLNzus/2vKdePTWO/KQFKE/vxXu/2BFWe8X3nSZAwD0tgxKUB/tvNhmw7h6rEAiIalqg2JzTJVhhycTQZsPgqWjEa+ByAop7QW/xJZkZBcq1wFqKygYOKYYxtBP2RiowNJRF8cfaQ0ouyBabdDnJKk1W0l92BR3sB3noiH1FTq4vE7aeKf5cj0kM4mAtg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M/h1RoeRQsaOquE37F7+nx6Vs6eu6kW4FlMhGROeGhs=;
- b=g/QNd7MooIJ4yZBANaD5juBtPtfdnDCqjBvXhVJys+2+ZFybBJN9SGLI2GrSwZJl4kqW4iitslZuFG7+Thbq/UNOfFIcXqy0kp+nWOlCaY+izZff2pXdxz3ieLv26CN//YJAylJVBcgzEPAiCaZ8Tl1jlqaKTkeicim2cszU21KdJWX+xYrxrTH3JFWKg5+mcSrx7XNlOdewKC8DyBWYLyev8Octn6K6RvZbu/Vj6d1GhnmNGpYnxQd/zGNOyNFS4fD5EucisiRY78sbcsBCHmOF5dynGGnP9prilo2SwBO+Pr2V0m9WsbXV2tnPFoqQb0IxyCHBqDehMRI6aJXgDQ==
+ bh=SvEJgS8bQb3gcKrnQmou0xujgTZPFvIPn8e3i0+u9XI=;
+ b=I5/8uJK3KrIPJThhKMf3bEza6QwUTa/p8AgE98usKlvdOmWfpeekxiMy2Kk8mRTqlYsNrApBzUnIfrRqRfXjqx2J5Z038nmD9Ap96ifQJlboazJGT3hHyVuMK+fhlIye6BOj6C25oUtsIA9y/X76W8n2lQSbR4gbQDZGax7HN7GepKWEvsNf7WRqQQVKHbqO7+0beMgZ+QmnNExaHO73qFn1cPKy/Sj9gmJxPIVyM3ex1g9mTMZUXFI0ioeo6+nrgfwY6QNE8SmnQ3Ms4UxO5BaRLrX9Wftq89PlWrM500h2biD9uOI2idWKRrlFdi91AlQvXS0pmHNGwpV0sFbLbQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M/h1RoeRQsaOquE37F7+nx6Vs6eu6kW4FlMhGROeGhs=;
- b=FIzzQnDTe8IiIf090RZP0K2tZX+ZOQ7OCMYz1H95EL4p3Z1T5UFQU+8CEQD+3G2TB7m0qRMVsmaJBBsNLjyVDKid38khAcGpi7tu+aHz0AhsBvmwiVh4tD0/zel63ArlBFqlOHCZ7Lj02ZlssqpEgjoJ6vPtWO7SkOsYGmP6R3I=
-Received: from CYZPR10CA0019.namprd10.prod.outlook.com (2603:10b6:930:8a::28)
- by LV2PR12MB5991.namprd12.prod.outlook.com (2603:10b6:408:14f::9)
+ bh=SvEJgS8bQb3gcKrnQmou0xujgTZPFvIPn8e3i0+u9XI=;
+ b=EdCGA5OmUHAeMi+KjtaVjrXTetw4/FnCYpPKnXNQG0X5p0DaMYkObW/jWtXUFmyJElcpw1KfYyRD31C39F0fu81yxczPxZleZsDTyHykXFiRRN0+LbgCeT2iVWB0tP9m4fGna3UUi+4pd3FkZIkh1kw/7vkRbBJJQ3UsMhl7ubs=
+Received: from CYZPR05CA0034.namprd05.prod.outlook.com (2603:10b6:930:a3::20)
+ by IA1PR12MB6482.namprd12.prod.outlook.com (2603:10b6:208:3a9::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.35; Wed, 6 Sep
- 2023 12:49:51 +0000
-Received: from CY4PEPF0000EDD1.namprd03.prod.outlook.com
- (2603:10b6:930:8a:cafe::48) by CYZPR10CA0019.outlook.office365.com
- (2603:10b6:930:8a::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.36 via Frontend
- Transport; Wed, 6 Sep 2023 12:49:50 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.34; Wed, 6 Sep
+ 2023 12:49:55 +0000
+Received: from CY4PEPF0000EDD3.namprd03.prod.outlook.com
+ (2603:10b6:930:a3:cafe::7) by CYZPR05CA0034.outlook.office365.com
+ (2603:10b6:930:a3::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.25 via Frontend
+ Transport; Wed, 6 Sep 2023 12:49:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +46,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EDD1.mail.protection.outlook.com (10.167.241.205) with Microsoft
+ CY4PEPF0000EDD3.mail.protection.outlook.com (10.167.241.207) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6768.25 via Frontend Transport; Wed, 6 Sep 2023 12:49:50 +0000
+ 15.20.6768.25 via Frontend Transport; Wed, 6 Sep 2023 12:49:55 +0000
 Received: from stylon-EliteDesk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 6 Sep
- 2023 07:49:46 -0500
+ 2023 07:49:50 -0500
 From: Stylon Wang <stylon.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 12/28] drm/amd/display: Add new logs for AutoDPMTest
-Date: Wed, 6 Sep 2023 20:28:17 +0800
-Message-ID: <20230906124915.586250-13-stylon.wang@amd.com>
+Subject: [PATCH 13/28] drm/amd/display: Add DCHUBBUB callback to report MALL
+ status
+Date: Wed, 6 Sep 2023 20:28:18 +0800
+Message-ID: <20230906124915.586250-14-stylon.wang@amd.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20230906124915.586250-1-stylon.wang@amd.com>
 References: <20230906124915.586250-1-stylon.wang@amd.com>
@@ -68,26 +70,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD1:EE_|LV2PR12MB5991:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee845cae-1558-49cb-c097-08dbaed7c29a
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD3:EE_|IA1PR12MB6482:EE_
+X-MS-Office365-Filtering-Correlation-Id: d656969f-1d84-46b1-03fd-08dbaed7c51f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: irb15JuGORx/wRA8ASMQxT6rPPxfzKVnRNwCKWS/2hEqXTtigwrXF7ZXTzFHNiYHfn6G3uXqLuoiDZZrCiTVkAh9vWgnB5DJqR4xdj+OZ/8+O3pcCPgImUhL4USM4W9WcvZ0imqJM3gvUvNGE+DZgBNL2VsaWCjktpebqB6SIlziQGMhWoc9GEWcUfBHA0lhJNEYfvUALO1Xf22iSyWBWPod2Pg/jt+TmGb3amk5oP52kMs3gS3/sRYocu+7LALNf+wTl0MEzCIZucns4fDa4MgNEnqWXcN0MyNWAl/CjFeqHoMzyNtevyhANFr2x+sIwYVgq2f9uGS9s50leEAuPkx9g4OowQcwo5SNDpdzDchC0jHGrayzrxAuQDlvozzzJmDdTZ/5GyB3UxBWUJXB3XJiABFUY5BL+NffQQKTruHJGay5EJsTRigz47IZGnjKCJNjJNB1Rry1KwcWdHK+tM2hyIC7K3TK97CMu7mzPFIAy95JXSLXB3bdV7n+l9h/YROYgLWsWEAdxde23drFMyFWOVxRLQxo7LbZrQQ4RRhiZ1MR9PfvHKA8wzBRnIv5S6FFVwEAdm/xoMsFq6CXsNXslk6p23kxjGWWDlQ6fUHa0XxjV2t9/pUKKZ7sK9hhFdejOag16diqzVnGcdoQnEeqSRYUhIUhSmNU6KY/NZgu1JIIH5znGeqAb7XxpnQcfafz6p2HAaulRMShC5wKYLSsnoUb9mPeQIZkfuSj121lSHL2igzct/6w7HVCRiEBxF2Rlu4v23MJpX3tor+4mA==
+X-Microsoft-Antispam-Message-Info: Auf/DfcHx+4Yb9FONrehobQ4TEx0XnmmwoFzkeyRrv25tS3ifVrRi0uV7h+SZ5uGSAswV164CPKm7WkcG/Cw0fSi7GkBWJ+/4hQIRfGLj7b2mVrEPFCUL8AA6ABlYQCiihGcOs1FpNrJfZVtwmOHJFHMtxL2VL1qKfNfp4gascTbbFnFau+GkSA4QDPALiAi+95j8WXFmUZerXua+/luF3QkZzkdXXZJJ4seolc9y9E77YRKVwkhISzRO0BUnBKLvfw4kGXM1cdPds/C6Ofy9OGc3rHJ7XshbT4Q5tEZgjoAxUOhz85VZAYTtzDvKXq+icxtVHsaI06ESnyOO68lR5CTAmZ5WGUXJ6XoH10JlgFZh6yV1x4nNDBeqBq9KEUpeAUMvH35m8KOsOEi1OvlxedSmxftXJl1zPe9qHCSiRFpiyUi5Q/7aJRDsJq2ncMsQz96TQ8YxOL+XLq+SMeWzvHAZqDrYdjVgyendXbM6t/QHLuCFaF5iI7l4PUhjyheDpw6hEAyNdVHhGoD/b1bKiBPEGbPAu5MPw/ULtznUO+gwDe0boGuG6YYTWaoZS1FI4B1Qxa1KDJhEAK09D52NhBGRZaHmEfSW6UnXJZicCr7O3nXVFGf8/EuXPg21d3eJb8/0obobKs9zOEqspSkSNRJc+8GOi4r6a9oEyOthCf78qknlt7kZjpbwrGa6wviM1aMtgYM/q5GE5H6Gg8SBigbM5FnqM+LZaFn0cZ4vezq1/eXK7we5uTRAjhHHUUaI1O4fmaCJwA0h8KLsjEicg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(136003)(376002)(346002)(39860400002)(396003)(451199024)(82310400011)(1800799009)(186009)(40470700004)(36840700001)(46966006)(6666004)(7696005)(478600001)(83380400001)(26005)(1076003)(2616005)(426003)(16526019)(336012)(2906002)(44832011)(6916009)(54906003)(316002)(41300700001)(70586007)(70206006)(5660300002)(4326008)(8936002)(8676002)(40460700003)(40480700001)(47076005)(36860700001)(86362001)(36756003)(82740400003)(81166007)(356005)(36900700001);
+ SFS:(13230031)(4636009)(39860400002)(376002)(396003)(346002)(136003)(82310400011)(186009)(1800799009)(451199024)(36840700001)(46966006)(40470700004)(6666004)(7696005)(478600001)(83380400001)(1076003)(2616005)(26005)(426003)(16526019)(336012)(2906002)(54906003)(6916009)(44832011)(41300700001)(70206006)(316002)(70586007)(5660300002)(4326008)(8936002)(8676002)(40460700003)(36756003)(40480700001)(47076005)(36860700001)(86362001)(81166007)(356005)(82740400003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2023 12:49:50.8243 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee845cae-1558-49cb-c097-08dbaed7c29a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2023 12:49:55.0309 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d656969f-1d84-46b1-03fd-08dbaed7c51f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD1.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD3.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5991
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6482
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,126 +101,167 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Ethan Bitnun <etbitnun@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Aurabindo Pillai <aurabindo.pillai@amd.com>,
  Alvin Lee <alvin.lee2@amd.com>, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
  agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ethan Bitnun <etbitnun@amd.com>
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-[Description]
- - Add new logs to be used by the AutoDPMTest
- - Enclose AutoDPMTest logs in settings
- - Add logging definition
+[Why&How]
+For enabling automated testing, add a hook to DCHUBBUB interface so that
+mall status can be queried by userspace through debugfs. This removes
+dependence on requiring a userspace tool like UMR for querying status
+for MALL static screen IGT test.
 
 Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
 Acked-by: Stylon Wang <stylon.wang@amd.com>
-Signed-off-by: Ethan Bitnun <etbitnun@amd.com>
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  | 36 +++++++++++++++++++
- drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
- .../drm/amd/display/include/logger_types.h    |  5 ++-
- 3 files changed, 41 insertions(+), 1 deletion(-)
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c  | 13 ++++++++++---
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h    |  5 ++++-
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c    | 14 +++++++++++++-
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.h    |  6 +++++-
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_resource.h  |  1 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h   |  1 +
+ 6 files changed, 34 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-index 984b52923534..4fd25bb1ab92 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-@@ -450,6 +450,38 @@ static int dcn32_get_dispclk_from_dentist(struct clk_mgr *clk_mgr_base)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index 05c1ad98a1f6..1259d6351c50 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -37,6 +37,7 @@
+ #include "link_hwss.h"
+ #include "dc/dc_dmub_srv.h"
+ #include "link/protocols/link_dp_capability.h"
++#include "inc/hw/dchubbub.h"
+ 
+ #ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
+ #include "amdgpu_dm_psr.h"
+@@ -3642,10 +3643,16 @@ DEFINE_DEBUGFS_ATTRIBUTE(disable_hpd_ops, disable_hpd_get,
+ static int capabilities_show(struct seq_file *m, void *unused)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)m->private;
+-	struct dc_caps caps = adev->dm.dc->caps;
+-	bool mall_supported = caps.mall_size_total;
++	struct dc *dc = adev->dm.dc;
++	bool mall_supported = dc->caps.mall_size_total;
++	unsigned int mall_in_use = false;
++	struct hubbub *hubbub = dc->res_pool->hubbub;
++
++	if (hubbub->funcs->get_mall_en)
++		hubbub->funcs->get_mall_en(hubbub, &mall_in_use);
+ 
+-	seq_printf(m, "mall: %s\n", mall_supported ? "yes" : "no");
++	seq_printf(m, "mall supported: %s, enabled: %s\n",
++			   mall_supported ? "yes" : "no", mall_in_use ? "yes" : "no");
+ 
  	return 0;
  }
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h
+index adc876156d2e..5ddf2b36986e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h
+@@ -171,6 +171,7 @@ struct dcn_hubbub_registers {
+ 	uint32_t DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_B;
+ 	uint32_t DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_C;
+ 	uint32_t DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_D;
++	uint32_t DCHUBBUB_ARB_MALL_CNTL;
+ 	uint32_t SDPIF_REQUEST_RATE_LIMIT;
+ 	uint32_t DCHUBBUB_SDPIF_CFG0;
+ 	uint32_t DCHUBBUB_SDPIF_CFG1;
+@@ -194,7 +195,9 @@ struct dcn_hubbub_registers {
+ 		type DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_A;\
+ 		type DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_B;\
+ 		type DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_C;\
+-		type DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_D
++		type DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_D;\
++		type MALL_PREFETCH_COMPLETE;\
++		type MALL_IN_USE
  
-+static void dcn32_auto_dpm_test_log(struct dc_clocks *new_clocks, struct clk_mgr_internal *clk_mgr)
-+{
-+	////////////////////////////////////////////////////////////////////////////
-+	//	IMPORTANT: 	When adding more clocks to these logs, do NOT put a newline
-+	//	 			anywhere other than at the very end of the string.
-+	//
-+	//	Formatting example (make sure to have " - " between each entry):
-+	//
-+	//				AutoDPMTest: clk1:%d - clk2:%d - clk3:%d - clk4:%d\n"
-+	////////////////////////////////////////////////////////////////////////////
-+	if (new_clocks &&
-+		new_clocks->dramclk_khz > 0 &&
-+		new_clocks->fclk_khz > 0 &&
-+		new_clocks->dcfclk_khz > 0 &&
-+		new_clocks->dppclk_khz > 0) {
-+
-+		if (new_clocks->p_state_change_support) {
-+			DC_LOG_AUTO_DPM_TEST("AutoDPMTest: dramclk_khz:%d - fclk_khz:%d - "
-+						 "dcfclk_khz:%d - dppclk_khz:%d\n",
-+						 new_clocks->dramclk_khz,
-+						 new_clocks->fclk_khz,
-+						 new_clocks->dcfclk_khz,
-+						 new_clocks->dppclk_khz);
-+		} else {
-+			DC_LOG_AUTO_DPM_TEST("AutoDPMTest: dramclk_khz:1249000 - fclk_khz:%d - "
-+						 "dcfclk_khz:%d - dppclk_khz:%d\n",
-+						 new_clocks->fclk_khz,
-+						 new_clocks->dcfclk_khz,
-+						 new_clocks->dppclk_khz);
-+		}
-+	}
-+}
- 
- static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
- 			struct dc_state *context,
-@@ -646,6 +678,10 @@ static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
- 		/*update dmcu for wait_loop count*/
- 		dmcu->funcs->set_psr_wait_loop(dmcu,
- 				clk_mgr_base->clks.dispclk_khz / 1000 / 7);
-+
-+	if (dc->config.enable_auto_dpm_test_logs) {
-+	    dcn32_auto_dpm_test_log(new_clocks, clk_mgr);
-+	}
+ #define HUBBUB_REG_FIELD_LIST_DCN35(type) \
+ 		type DCHUBBUB_FGCG_REP_DIS
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c
+index 8bfef6d095b2..88dfc907553d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c
+@@ -945,6 +945,17 @@ void hubbub32_force_wm_propagate_to_pipes(struct hubbub *hubbub)
+ 			DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_A, prog_wm_value);
  }
  
- static uint32_t dcn32_get_vco_frequency_from_reg(struct clk_mgr_internal *clk_mgr)
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 7e6f819a9952..05ab24c81041 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -420,6 +420,7 @@ struct dc_config {
- 	int sdpif_request_limit_words_per_umc;
- 	bool use_old_fixed_vs_sequence;
- 	bool dc_mode_clk_limit_support;
-+	bool enable_auto_dpm_test_logs;
++void hubbub32_get_mall_en(struct hubbub *hubbub, unsigned int *mall_in_use)
++{
++	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
++	uint32_t prefetch_complete, mall_en;
++
++	REG_GET_2(DCHUBBUB_ARB_MALL_CNTL, MALL_IN_USE, &mall_en,
++			  MALL_PREFETCH_COMPLETE, &prefetch_complete);
++
++	*mall_in_use = prefetch_complete && mall_en;
++}
++
+ void hubbub32_init(struct hubbub *hubbub)
+ {
+ 	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
+@@ -995,7 +1006,8 @@ static const struct hubbub_funcs hubbub32_funcs = {
+ 	.init_crb = dcn32_init_crb,
+ 	.hubbub_read_state = hubbub2_read_state,
+ 	.force_usr_retraining_allow = hubbub32_force_usr_retraining_allow,
+-	.set_request_limit = hubbub32_set_request_limit
++	.set_request_limit = hubbub32_set_request_limit,
++	.get_mall_en = hubbub32_get_mall_en,
  };
  
- enum visual_confirm {
-diff --git a/drivers/gpu/drm/amd/display/include/logger_types.h b/drivers/gpu/drm/amd/display/include/logger_types.h
-index 3bf08a60c45c..fb657f7408a7 100644
---- a/drivers/gpu/drm/amd/display/include/logger_types.h
-+++ b/drivers/gpu/drm/amd/display/include/logger_types.h
-@@ -73,6 +73,7 @@
- #define DC_LOG_SMU(...) pr_debug("[SMU_MSG]:"__VA_ARGS__)
- #define DC_LOG_DWB(...) DRM_DEBUG_KMS(__VA_ARGS__)
- #define DC_LOG_DP2(...) DRM_DEBUG_KMS(__VA_ARGS__)
-+#define DC_LOG_AUTO_DPM_TEST(...) pr_debug("[AutoDPMTest]: "__VA_ARGS__)
+ void hubbub32_construct(struct dcn20_hubbub *hubbub2,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.h b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.h
+index ad33427192c6..f073839a4b6d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.h
+@@ -110,7 +110,9 @@
+ 	HUBBUB_SF(DCHUBBUB_CLOCK_CNTL, DCFCLK_R_DCHUBBUB_GATE_DIS, mask_sh),\
+ 	HUBBUB_SF(DCHUBBUB_SDPIF_CFG0, SDPIF_PORT_CONTROL, mask_sh),\
+ 	HUBBUB_SF(DCHUBBUB_SDPIF_CFG1, SDPIF_MAX_NUM_OUTSTANDING, mask_sh),\
+-	HUBBUB_SF(DCHUBBUB_MEM_PWR_MODE_CTRL, DET_MEM_PWR_LS_MODE, mask_sh)
++	HUBBUB_SF(DCHUBBUB_MEM_PWR_MODE_CTRL, DET_MEM_PWR_LS_MODE, mask_sh),\
++	HUBBUB_SF(DCHUBBUB_ARB_MALL_CNTL, MALL_PREFETCH_COMPLETE, mask_sh),\
++	HUBBUB_SF(DCHUBBUB_ARB_MALL_CNTL, MALL_IN_USE, mask_sh)
  
- struct dal_logger;
  
-@@ -128,6 +129,7 @@ enum dc_log_type {
- 	LOG_SAMPLE_1DLUT,
- 	LOG_DP2,
- 	LOG_DC2RESERVED12,
-+	LOG_AUTO_DPM_TEST,
+ 
+@@ -157,4 +159,6 @@ void hubbub32_construct(struct dcn20_hubbub *hubbub2,
+ 
+ void hubbub32_set_request_limit(struct hubbub *hubbub, int umc_count, int words_per_umc);
+ 
++void hubbub32_get_mall_en(struct hubbub *hubbub, unsigned int *mall_in_use);
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h
+index c76de61029e0..f075982363be 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h
+@@ -1283,6 +1283,7 @@ bool dcn32_subvp_vblank_admissable(struct dc *dc, struct dc_state *context, int
+       SR(DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_B),                         \
+       SR(DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_C),                         \
+       SR(DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_D),                         \
++      SR(DCHUBBUB_ARB_MALL_CNTL),                                              \
+       SR(DCN_VM_FAULT_ADDR_MSB), SR(DCN_VM_FAULT_ADDR_LSB),                    \
+       SR(DCN_VM_FAULT_CNTL), SR(DCN_VM_FAULT_STATUS),                          \
+       SR(SDPIF_REQUEST_RATE_LIMIT)                                             \
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
+index f5677dbb4e7d..cea05843990c 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
+@@ -193,6 +193,7 @@ struct hubbub_funcs {
+ 	void (*force_usr_retraining_allow)(struct hubbub *hubbub, bool allow);
+ 	void (*set_request_limit)(struct hubbub *hubbub, int memory_channel_count, int words_per_channel);
+ 	void (*dchubbub_init)(struct hubbub *hubbub);
++	void (*get_mall_en)(struct hubbub *hubbub, unsigned int *mall_in_use);
  };
  
- #define DC_MIN_LOG_MASK ((1 << LOG_ERROR) | \
-@@ -157,7 +159,8 @@ enum dc_log_type {
- 		(1ULL << LOG_IF_TRACE) | \
- 		(1ULL << LOG_HDMI_FRL) | \
- 		(1ULL << LOG_SCALER) | \
--		(1ULL << LOG_DTN) /* | \
-+		(1ULL << LOG_DTN) | \
-+		(1ULL << LOG_AUTO_DPM_TEST)/* | \
- 		(1ULL << LOG_DEBUG) | \
- 		(1ULL << LOG_BIOS) | \
- 		(1ULL << LOG_SURFACE) | \
+ struct hubbub {
 -- 
 2.42.0
 
