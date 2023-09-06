@@ -4,60 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1CA9EE14A0
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 16:01:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 519EBEE14A0
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 16:03:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 494F910E6AD;
-	Wed,  6 Sep 2023 16:01:09 +0000 (UTC)
-Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
- [IPv6:2001:4860:4864:20::30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 002D410E6A7;
- Wed,  6 Sep 2023 16:01:05 +0000 (UTC)
-Received: by mail-oa1-x30.google.com with SMTP id
- 586e51a60fabf-1cc61f514baso2299909fac.1; 
- Wed, 06 Sep 2023 09:01:05 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBDDD10E6B1;
+	Wed,  6 Sep 2023 16:02:59 +0000 (UTC)
+Received: from mail-oo1-xc2c.google.com (mail-oo1-xc2c.google.com
+ [IPv6:2607:f8b0:4864:20::c2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A92CE10E6A8
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 16:02:58 +0000 (UTC)
+Received: by mail-oo1-xc2c.google.com with SMTP id
+ 006d021491bc7-57128297bd7so2437003eaf.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 06 Sep 2023 09:02:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1694016065; x=1694620865; darn=lists.freedesktop.org;
+ d=gmail.com; s=20221208; t=1694016178; x=1694620978; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=X6LWx34t6RPAjjhmdGIBM9ahXBcms5DV7AzJj+GPzQA=;
- b=LCOALADZCexz0ZRSTQWB57xLnn3JQN68o6kvyvntivnepN2PUlhdJNgb0iXpoZ85k3
- dNQTRCzabFIBP7MfSBNnobpxZ7gucIbytbmV0dNXCRP3dRt5VHXk/wVg+tbcQJlfXHWi
- WqVh7o/ASncKIemBXXHO91vFhX+bFSkOfTrV0R1ko706AaKhiE033dtYiSRJp/cvbd05
- 1lmeNjOZGsI54LqLtr/jn2+ZGsh9Kytd9Dm6HEzoiAfX6eslkU9xbY6OKJ/vtTaeLPq2
- 0t/Db/LDnqWBgXggUYygj+D1REDNbfvkFnDDxVb0Z2JzGfcSQ94cxYFA1QA8GQP5bv6/
- hXxg==
+ bh=Xpf2OK2TtDsutjShLH/JWHF6tUm2pW1spbo4msuC6v4=;
+ b=fEtMpVVbx4sivgigwJewfoXxrOlN2/7H/UwA0bBoVk18/g0UmnD2h6WmBNILUJWKi6
+ 3hYeULDgpBJNVFLDLq+Ug2V0qYk5JiiGCf6IMNVVgtTObxGDYr25Q1YAG1oeAA3zigzn
+ OjwxMR2Udvsz/bn16IDYY2Ozi1DJ7hpT9CzSQ05p6+Ywoew8Zovgimgjtm0ya4vfJ415
+ SDKqIsv+el4NDi2RGxo31dzA/zK0qyM6/ZrWV3UPr86rQM3h3vQZPPrkJKjc8xfWup59
+ AKXPgrLPYBpjzg/jki1/iRtEjzxX8k/4Lz1QC7ArQvBL8wa8lSvFkdiQcFk1967NDCys
+ f6hA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1694016065; x=1694620865;
+ d=1e100.net; s=20221208; t=1694016178; x=1694620978;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=X6LWx34t6RPAjjhmdGIBM9ahXBcms5DV7AzJj+GPzQA=;
- b=OmdoeP09cLpNwtG+KBBjfU8VNicMH9kD9HYr2B8czYZpmkZBs95RqMmfaxavMk5qw7
- VU3UV8cJedNCYHLXABOkc5K4X9k7QeK07USWAH3vHi1pIovFn8IadzW7liILB0A0jFgc
- vA4uIRgeAiSs8eCzh18reKs+g1G6wuJ19jfYRSc3gDWuywy9tT9jZz0EdAGnzhyrg0CM
- B1GQY/At6KyOjEGrEQzfI+/ziKWh2cCQqK39UTyP5Xi0gVShder9VZowwtCkQwqHdBzA
- /Oe4g/a5a7PpcWBBeh/FBbMkIO8rwP3YABN7uzZ2i3bE2CwXdHYp/CYgjKX1BlrGxy37
- Z/VQ==
-X-Gm-Message-State: AOJu0YwAsTdtFVIUQkCT8SUY+oobUe+Gs14LdSeBnkeZP/IKCShqSbLR
- aVOIvBYqPD/UuihfOgCFmPsd5yraqMNv/oMvHhykyTD+b4Y=
-X-Google-Smtp-Source: AGHT+IF+5jWUuhtjXrUwCDU2vqm+oD8PcmuCjMCceh985Ms+NPGpiBmtRG8mj/pojUh/Gya7OusMLGeBbVHAX3QI5GA=
-X-Received: by 2002:a05:6870:d79f:b0:1bc:26d:6664 with SMTP id
- bd31-20020a056870d79f00b001bc026d6664mr17177800oab.16.1694016065112; Wed, 06
- Sep 2023 09:01:05 -0700 (PDT)
+ bh=Xpf2OK2TtDsutjShLH/JWHF6tUm2pW1spbo4msuC6v4=;
+ b=h2lMjkDKYzuBYzlphKdIetp8jiWN/zKhSxf2XsoWcZMhoEERwgcDk5/llwCCGHjP9q
+ HMRlEfCXulsabPPxipZx9ZfaZSco60XWb4mxdofGbxoUZ3xkCQ7uwsRvoKuhfDwmcWh5
+ fq6Wavj1DsVXzQYYT2cIPYSgEJdd7iX+s/rs/q9TyHaqzFOiVnZl+g4nqIuZk/fBatrA
+ jyk3M3vD6Njqzil2bU/KdzdczazN3qAi5B2YXftcbxwcoI4b1pyIPFxyhPZXb5Ki6ByE
+ KUTa1no7EuLzKs1XeOmphB0M65H1uMCdIOXuo8UN0GjAlzUSl/BR4bV4DSh+I/c3K43D
+ 85jQ==
+X-Gm-Message-State: AOJu0YyEyl6eGgloFq+2s7tEeEvtoTCoDUmSdq++G/nt0tm7EXHMQgC7
+ 7d2zy1hmU0H76kR/RH6qH9kf93B9iXemSlElN7A/Ndvl
+X-Google-Smtp-Source: AGHT+IHMD/xapZM5LTAjFPxlUks0RIsiIJzShPcwiUWFfzsCUWQfbUBCGv0QrTXp5Wc9ywR3QiIT7YHdpH85D6OKLgc=
+X-Received: by 2002:a4a:d212:0:b0:573:4da2:4427 with SMTP id
+ c18-20020a4ad212000000b005734da24427mr15009665oos.7.1694016177784; Wed, 06
+ Sep 2023 09:02:57 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230904195724.633404-1-sui.jingfeng@linux.dev>
- <20230904195724.633404-4-sui.jingfeng@linux.dev>
- <d3e6a9ce-1c7a-8e44-3127-413cd471a8e9@amd.com>
- <40f32814-ca87-6e29-0e10-4b4463a2920d@loongson.cn>
-In-Reply-To: <40f32814-ca87-6e29-0e10-4b4463a2920d@loongson.cn>
+References: <20230906153907.216159-1-mukul.joshi@amd.com>
+In-Reply-To: <20230906153907.216159-1-mukul.joshi@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 6 Sep 2023 12:00:53 -0400
-Message-ID: <CADnq5_OYPha5cGF+tSj4fvSmf-6tObzNSe2__nG-SbjX6v_2vw@mail.gmail.com>
-Subject: Re: [RFC,
- drm-misc-next v4 3/9] drm/radeon: Implement .be_primary() callback
-To: suijingfeng <suijingfeng@loongson.cn>
+Date: Wed, 6 Sep 2023 12:02:46 -0400
+Message-ID: <CADnq5_MqUw5xd9O7vA=E2s89mqztKt49stsXiid-kMrTNy13Jw@mail.gmail.com>
+Subject: Re: [PATCHv3] drm/amdkfd: Fix unaligned 64-bit doorbell warning
+To: Mukul Joshi <mukul.joshi@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -71,157 +68,96 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sui Jingfeng <sui.jingfeng@linux.dev>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx@lists.freedesktop.org, linux-pci@vger.kernel.org,
- Bjorn Helgaas <bhelgaas@google.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: felix.kuehling@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 5, 2023 at 1:25=E2=80=AFPM suijingfeng <suijingfeng@loongson.cn=
-> wrote:
->
-> Hi,
->
->
-> On 2023/9/5 13:50, Christian K=C3=B6nig wrote:
-> > Am 04.09.23 um 21:57 schrieb Sui Jingfeng:
-> >> From: Sui Jingfeng <suijingfeng@loongson.cn>
-> >>
-> >> On a machine with multiple GPUs, a Linux user has no control over
-> >> which one
-> >> is primary at boot time.
-> >
-> > Question is why is that useful? Should we give users the ability to
-> > control that?
-> >
-> > I don't see an use case for this.
-> >
->
-> On a specific machine with multiple GPUs mounted, only the
-> primary graphics get POST-ed (initialized) by the firmware.
-> Therefore the DRM drivers for the rest video cards have to
-> work without the prerequisite setups done by firmware, This
-> is called as POST.
++ Shashank
 
-I think that should be regarded as a bug in the driver that should be
-fixed and this would not help with that case.  If a driver can't
-initialize a device without aid from the pre-OS environment, that
-should be fixed in the driver.  This solution also doesn't fix which
-device is selected as the primary by the pre-OS environment.  That can
-only be fixed in the pre-OS environment code.
-
+On Wed, Sep 6, 2023 at 11:45=E2=80=AFAM Mukul Joshi <mukul.joshi@amd.com> w=
+rote:
 >
-> One of the use cases is to test if a specific DRM driver
-> would works properly, under the circumstance of not being
-> POST-ed, The ast drm driver is the first one which refused
-> to work if not being POST-ed by the firmware.
+> This patch fixes the following unaligned 64-bit doorbell
+> warning seen when submitting packets on HIQ on GFX v9.4.3
+> by making the HIQ doorbell 64-bit aligned.
+> The warning is seen when GPU is loaded in any mode other
+> than SPX mode.
 >
-> Before apply this series, I was unable make drm/ast as the
-> primary video card easily. The problem is that on a multiple
-> video card configuration, the monitor connected with my
-> AST2400 card not light up. While confusing, a naive programmer
-> may suspect the PRIME is not working.
+> [  +0.000301] ------------[ cut here ]------------
+> [  +0.000003] Unaligned 64-bit doorbell
+> [  +0.000030] WARNING: /amdkfd/kfd_doorbell.c:339 write_kernel_doorbell64=
++0x72/0x80
+> [  +0.000003] RIP: 0010:write_kernel_doorbell64+0x72/0x80
+> [  +0.000004] RSP: 0018:ffffc90004287730 EFLAGS: 00010246
+> [  +0.000005] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000=
+000000
+> [  +0.000003] RDX: 0000000000000001 RSI: ffffffff82837c71 RDI: 00000000ff=
+ffffff
+> [  +0.000003] RBP: ffffc90004287748 R08: 0000000000000003 R09: 0000000000=
+000001
+> [  +0.000002] R10: 000000000000001a R11: ffff88a034008198 R12: ffffc90001=
+3bd004
+> [  +0.000003] R13: 0000000000000008 R14: ffffc900042877b0 R15: 0000000000=
+00007f
+> [  +0.000003] FS:  00007fa8c7b62000(0000) GS:ffff889f88400000(0000) knlGS=
+:0000000000000000
+> [  +0.000004] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [  +0.000003] CR2: 000056111c45aaf0 CR3: 00000001414f2002 CR4: 0000000000=
+770ee0
+> [  +0.000003] PKRU: 55555554
+> [  +0.000002] Call Trace:
+> [  +0.000004]  <TASK>
+> [  +0.000006]  kq_submit_packet+0x45/0x50 [amdgpu]
+> [  +0.000524]  pm_send_set_resources+0x7f/0xc0 [amdgpu]
+> [  +0.000500]  set_sched_resources+0xe4/0x160 [amdgpu]
+> [  +0.000503]  start_cpsch+0x1c5/0x2a0 [amdgpu]
+> [  +0.000497]  kgd2kfd_device_init.cold+0x816/0xb42 [amdgpu]
+> [  +0.000743]  amdgpu_amdkfd_device_init+0x15f/0x1f0 [amdgpu]
+> [  +0.000602]  amdgpu_device_init.cold+0x1813/0x2176 [amdgpu]
+> [  +0.000684]  ? pci_bus_read_config_word+0x4a/0x80
+> [  +0.000012]  ? do_pci_enable_device+0xdc/0x110
+> [  +0.000008]  amdgpu_driver_load_kms+0x1a/0x110 [amdgpu]
+> [  +0.000545]  amdgpu_pci_probe+0x197/0x400 [amdgpu]
 >
-> After applied this series and passing ast.modeset=3D10 on the
-> kernel cmd line, I found that the monitor connected with my
-> ast2400 video card still black, It doesn't display and It
-> doesn't show image to me.
-
-The problem with adding modeset=3D10 is that it only helps when you have
-one GPU driven by that driver in the system.  If you have multiple
-GPUs driven by that driver, which one would that apply to?  E.g., what
-if you have 2 AMD GPUs in the system.
-
+> Fixes: cfeaeb3c0ce7 ("drm/amdgpu: use doorbell mgr for kfd kernel doorbel=
+ls")
+> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+> ---
+> v1->v2:
+> - Update the logic to make it work with both 32 bit
+>   64 bit doorbells.
+> - Add the Fixed tag
+> v2->v3:
+> - Revert to the original change to align it with whats done in
+>   amdgpu_doorbell_index_on_bar.
 >
-> While in the process of study drm/ast, I know that drm/ast
-> driver has the POST code shipped, See the ast_post_gpu() function.
-> Then, I was wondering why this function doesn't works.
+>  drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 2 ++
+>  1 file changed, 2 insertions(+)
 >
-> After a short-time (hasty) debugging, I found that the ast_post_gpu()
-> function didn't get run. Because it have something to do with the
-> ast->config_mode. Without thinking too much, I hardcoded the
-> ast->config_mode as ast_use_p2a, the key point is to force the
-> ast_post_gpu() function to run.
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/=
+amd/amdkfd/kfd_doorbell.c
+> index c2e0b79dcc6d..7b38537c7c99 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+> @@ -162,6 +162,7 @@ void __iomem *kfd_get_kernel_doorbell(struct kfd_dev =
+*kfd,
+>                 return NULL;
 >
+>         *doorbell_off =3D amdgpu_doorbell_index_on_bar(kfd->adev, kfd->do=
+orbells, inx);
+> +       inx *=3D 2;
 >
-> ```
+>         pr_debug("Get kernel queue doorbell\n"
+>                         "     doorbell offset   =3D=3D 0x%08X\n"
+> @@ -176,6 +177,7 @@ void kfd_release_kernel_doorbell(struct kfd_dev *kfd,=
+ u32 __iomem *db_addr)
+>         unsigned int inx;
 >
-> --- a/drivers/gpu/drm/ast/ast_main.c
-> +++ b/drivers/gpu/drm/ast/ast_main.c
-> @@ -132,6 +132,8 @@ static int ast_device_config_init(struct ast_device
-> *ast)
->                  }
->          }
+>         inx =3D (unsigned int)(db_addr - kfd->doorbell_kernel_ptr);
+> +       inx /=3D 2;
 >
-> +       ast->config_mode =3D ast_use_p2a;
-> +
->          switch (ast->config_mode) {
->          case ast_use_defaults:
->                  drm_info(dev, "Using default configuration\n");
+>         mutex_lock(&kfd->doorbell_mutex);
+>         __clear_bit(inx, kfd->doorbell_bitmap);
+> --
+> 2.35.1
 >
-> ```
->
-> Then, the monitor light up, it display the Ubuntu greeter to me. Therefor=
-e
-> my patch is useful, at least for the Linux drm driver tester and develope=
-r.
-> It allow programmers to test the specific part of a specific driver witho=
-ut
-> changing a line of the source code and without the need of sudo authority=
-.
->
-> It improves the efficiency of the testing and patch verification. I know
-> the PrimaryGPU option of Xorg conf, but this approach will remember the
-> setup have been made, you need modify it with root authority each time
-> you want to switch the primary. But on the process of rapid developing
-> and/or testing for multiple video drivers, with only one computer hardwar=
-e
-> resource available. What we really want is a one-shot command, as provide=
-d
-> by this series.  So, this is the first use case.
->
->
-> The second use case is that sometime the firmware is not reliable.
-> While there are thousands of ARM64, PowerPC and Mips servers machine,
-> Most of them don't have a good UEFI firmware support. I haven't test the
-> drm/amdgpu and drm/radeon at my ARM64 server yet. Because this ARM64
-> server always use the platform(BMC) integrated display controller as prim=
-ary.
-> The UEFI firmware of it does not provide options menu to tune.
-> So, for the first time, the discrete card because useless, despite more p=
-owerful.
-> I will take time to carry on the testing, so I will be able to tell more
-> in the future.
->
->
-> Even on X86, when select the PEG as primary on the UEFI BIOS menu.
-> There is no way to tell the bios which one of my three
-> discrete video be the primary. Not to mention some old UEFI
-> firmware, which doesn't provide a setting at all.
-> While the benefit of my approach is the flexibility.
-> Yes the i915, amdgpu and radeon are good quality,
-> but there may have programmers want to try nouveau.
->
->
-> The third use case is that VGAARB is also not reliable, It will
-> select a wrong device as primary. Especially on Arm64, Loongarch
-> and mips arch etc. And the X server will use this wrong device
-> as primary and completely crash there. Either because of lacking
-> a driver or the driver has a bug which can not bear the graphic
-> environment up. VGAARB is firmware dependent.
-> My patch provide a temporary method to rescue.
->
-
-It sounds like we need a general purpose "primary" selector.  I think
-it's sort of orthogonal to VGA.  VGAARB is just for managing VGA
-routing on PCI.  It's not really directly related to which GPU you
-want to be the primary when the OS loads.  Maybe some new kernel
-parameter, E.g., primary_display=3D<string> where the string would be
-the specific device you wanted to be the primary,  E.g., you could use
-the PCI BDF on PCI devices, primary_display=3D0000:0a:00.0 or some other
-device string for non-PCI devices.
-
-Alex
