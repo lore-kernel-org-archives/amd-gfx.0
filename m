@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B1BFEB8FC7
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 12:50:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AE88EB8FC7
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 12:50:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 822FE10E63B;
-	Wed,  6 Sep 2023 12:50:01 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20619.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e89::619])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7DAF10E63A
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 12:49:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9DA610E641;
+	Wed,  6 Sep 2023 12:50:30 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2052.outbound.protection.outlook.com [40.107.92.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AE9810E63A
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 12:50:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KA/WQ36f7v3FoCVH6KbuixFNRAKm64UNDJ2CHcuaHndEHR5Is/nYx8VfbD2yXb8B35gdBk/B/Dy8ZkIBZVvowW8TAr4VgOxeKkfuCTePQNU7EAxcBKyTd5H/lXhLL4qFoZqk998nvm1f1vgVzzr2RuZTUnLNzus/2vKdePTWO/KQFKE/vxXu/2BFWe8X3nSZAwD0tgxKUB/tvNhmw7h6rEAiIalqg2JzTJVhhycTQZsPgqWjEa+ByAop7QW/xJZkZBcq1wFqKygYOKYYxtBP2RiowNJRF8cfaQ0ouyBabdDnJKk1W0l92BR3sB3noiH1FTq4vE7aeKf5cj0kM4mAtg==
+ b=X7vjHgQVuNcro0uKUKtuXFjYu1ThC3zdJTYXtE7pMddnTtlJ8KOObOrAzGoHSpgNX1kTxxZ+5shOb70f4nSdhpIwoVrY9B4cISy2ye08Be0pEZu7Mx0ctX9IAMBgvIZGwAyQMTSIVo/InZWCH1HpBuGMsmltpn99soOrrE01vhTGFAgkd6NcwzWGseZacsgDYBY83bBbn0x4c3+Hig7hpDWCDVnzTauwVEMKEiCQmmDbMRflep7QQSVG8xX05UAQD8Ue7oUJSzTzuIgFAll0u3Q1j3vBxVdzRIW8mrXv7rohf+iO4hoeGrE5Nvl/PzTBvtljR9vvCjZWYTbfal9oZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SvEJgS8bQb3gcKrnQmou0xujgTZPFvIPn8e3i0+u9XI=;
- b=I5/8uJK3KrIPJThhKMf3bEza6QwUTa/p8AgE98usKlvdOmWfpeekxiMy2Kk8mRTqlYsNrApBzUnIfrRqRfXjqx2J5Z038nmD9Ap96ifQJlboazJGT3hHyVuMK+fhlIye6BOj6C25oUtsIA9y/X76W8n2lQSbR4gbQDZGax7HN7GepKWEvsNf7WRqQQVKHbqO7+0beMgZ+QmnNExaHO73qFn1cPKy/Sj9gmJxPIVyM3ex1g9mTMZUXFI0ioeo6+nrgfwY6QNE8SmnQ3Ms4UxO5BaRLrX9Wftq89PlWrM500h2biD9uOI2idWKRrlFdi91AlQvXS0pmHNGwpV0sFbLbQ==
+ bh=JFSv/WV9eeMcyPuS/HzSaMCoIQ3uWItlJnjg34dpYPM=;
+ b=Ym9JEklt9mQxGsTX3snKlRY56KhhzNZFZcnvxmM32d04BXKyHeDg8jp2RGO7gBHdM1f7E7ujKTlSIvC2e/fi4T4Wy5OY6rUvcGyubFIQw8mr0/gKF6rTjI8l40yRSZAiXY8Ygzsx2Du6u5P66c5PJZi3hHMzrsC9FDhprRfpDrwgPH06YSB/XoqPCsvNuJWHQTGIKe8ytjvC65O1qwJAJMioxzLF9rBlPFuzZGl94KbI654LMCHAfwyh0qXDJNKbbVB4HTvdej5pKLhwK6BqOzEm14ktPN1niKZw7qEUD4ltO+hqNcdskueadQrr5uw+iRNO6WuY26PnpojFRSyV8A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SvEJgS8bQb3gcKrnQmou0xujgTZPFvIPn8e3i0+u9XI=;
- b=EdCGA5OmUHAeMi+KjtaVjrXTetw4/FnCYpPKnXNQG0X5p0DaMYkObW/jWtXUFmyJElcpw1KfYyRD31C39F0fu81yxczPxZleZsDTyHykXFiRRN0+LbgCeT2iVWB0tP9m4fGna3UUi+4pd3FkZIkh1kw/7vkRbBJJQ3UsMhl7ubs=
-Received: from CYZPR05CA0034.namprd05.prod.outlook.com (2603:10b6:930:a3::20)
- by IA1PR12MB6482.namprd12.prod.outlook.com (2603:10b6:208:3a9::18)
+ bh=JFSv/WV9eeMcyPuS/HzSaMCoIQ3uWItlJnjg34dpYPM=;
+ b=T8WbqOrPROC3vFYVoB2/bum8LZK0lnhcsSC8bF8CP6G5Mskb94IE1uE6eNf7kY28IMj8g0vEi5kB5xq7eBfnVD6OUc8cM6/KXLRD/UCRRBEpZxIfgFvU6Ox8ZvENFogtrq/yp01u+l3DA9RewXD58ihnulCohVTdJHwPg9oumtI=
+Received: from CY8PR12CA0064.namprd12.prod.outlook.com (2603:10b6:930:4c::10)
+ by IA0PR12MB8895.namprd12.prod.outlook.com (2603:10b6:208:491::5)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.34; Wed, 6 Sep
- 2023 12:49:55 +0000
-Received: from CY4PEPF0000EDD3.namprd03.prod.outlook.com
- (2603:10b6:930:a3:cafe::7) by CYZPR05CA0034.outlook.office365.com
- (2603:10b6:930:a3::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.25 via Frontend
- Transport; Wed, 6 Sep 2023 12:49:55 +0000
+ 2023 12:50:26 +0000
+Received: from CY4PEPF0000EDD2.namprd03.prod.outlook.com
+ (2603:10b6:930:4c:cafe::91) by CY8PR12CA0064.outlook.office365.com
+ (2603:10b6:930:4c::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.36 via Frontend
+ Transport; Wed, 6 Sep 2023 12:50:26 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -46,19 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EDD3.mail.protection.outlook.com (10.167.241.207) with Microsoft
+ CY4PEPF0000EDD2.mail.protection.outlook.com (10.167.241.206) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6768.25 via Frontend Transport; Wed, 6 Sep 2023 12:49:55 +0000
+ 15.20.6768.25 via Frontend Transport; Wed, 6 Sep 2023 12:49:58 +0000
 Received: from stylon-EliteDesk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 6 Sep
- 2023 07:49:50 -0500
+ 2023 07:49:54 -0500
 From: Stylon Wang <stylon.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 13/28] drm/amd/display: Add DCHUBBUB callback to report MALL
- status
-Date: Wed, 6 Sep 2023 20:28:18 +0800
-Message-ID: <20230906124915.586250-14-stylon.wang@amd.com>
+Subject: [PATCH 14/28] drm/amd/display: remove a function that does complex
+ calculation in every frame but not used
+Date: Wed, 6 Sep 2023 20:28:19 +0800
+Message-ID: <20230906124915.586250-15-stylon.wang@amd.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20230906124915.586250-1-stylon.wang@amd.com>
 References: <20230906124915.586250-1-stylon.wang@amd.com>
@@ -70,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD3:EE_|IA1PR12MB6482:EE_
-X-MS-Office365-Filtering-Correlation-Id: d656969f-1d84-46b1-03fd-08dbaed7c51f
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD2:EE_|IA0PR12MB8895:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8447d16d-0a5b-4ee5-d3be-08dbaed7d79b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Auf/DfcHx+4Yb9FONrehobQ4TEx0XnmmwoFzkeyRrv25tS3ifVrRi0uV7h+SZ5uGSAswV164CPKm7WkcG/Cw0fSi7GkBWJ+/4hQIRfGLj7b2mVrEPFCUL8AA6ABlYQCiihGcOs1FpNrJfZVtwmOHJFHMtxL2VL1qKfNfp4gascTbbFnFau+GkSA4QDPALiAi+95j8WXFmUZerXua+/luF3QkZzkdXXZJJ4seolc9y9E77YRKVwkhISzRO0BUnBKLvfw4kGXM1cdPds/C6Ofy9OGc3rHJ7XshbT4Q5tEZgjoAxUOhz85VZAYTtzDvKXq+icxtVHsaI06ESnyOO68lR5CTAmZ5WGUXJ6XoH10JlgFZh6yV1x4nNDBeqBq9KEUpeAUMvH35m8KOsOEi1OvlxedSmxftXJl1zPe9qHCSiRFpiyUi5Q/7aJRDsJq2ncMsQz96TQ8YxOL+XLq+SMeWzvHAZqDrYdjVgyendXbM6t/QHLuCFaF5iI7l4PUhjyheDpw6hEAyNdVHhGoD/b1bKiBPEGbPAu5MPw/ULtznUO+gwDe0boGuG6YYTWaoZS1FI4B1Qxa1KDJhEAK09D52NhBGRZaHmEfSW6UnXJZicCr7O3nXVFGf8/EuXPg21d3eJb8/0obobKs9zOEqspSkSNRJc+8GOi4r6a9oEyOthCf78qknlt7kZjpbwrGa6wviM1aMtgYM/q5GE5H6Gg8SBigbM5FnqM+LZaFn0cZ4vezq1/eXK7we5uTRAjhHHUUaI1O4fmaCJwA0h8KLsjEicg==
+X-Microsoft-Antispam-Message-Info: ZhKacKq76RNyB6IFoXOM7NLSnlo3VB4t0TrrYj7JfCQE8hc8FI740x1HYymDd8MUxEEddjjnO0B13gWWRJOXdyFvUbPWOTgcAfDa82wAW/LRIVUSO7X44GDAZRvg+kf4TKU4zkU94RLMiRks6zVWeG1OaO4kCIGeBkpSi2kc+kDsDw29KowHJPo15v2+HPzcApR4Vge49Ql9EpliGcdBEJ0kbxCdbdySPGpi5wN+gnXlm0XTzxF/QxFRf8554ZMrznWefPgO+uMm8FCzwxLfgxd9rO8elLDvTL1WhdD99+7b9dPHTpB7iR2UTuEAvwSbkpKQYp19DgGmnWFsrdw7BIN/tImT5CFvWVy5X8S8sUV1Qa9szAiHzPWPQ58aC1NXAdZQWxHxtXnTNq6mgPDRVlT1qsGEeDI0FGRHVbz7ko1niWBH2bjuyZCEDuIftDEB7PP2ZYtV5P40N3NP2BA4vo3GMB7d7YNZ1Aoguhc2+Nx/1l62G/cdWNRQpOqupJ6p9S6JicvarOYPAced5tlkxoY959XSVQ4tgvcp8qTYOgGoZoiKjHrwoPzPp9eU1hE+iK82b6hvYO7IkaXLJymz2c66x/A1daJ04b3VEsAEwho1Ue1XtcHsEUMS8nPH1PT64xjvIo1PvsgX1PdSgQgDeQjINx+TcuUtoEA6V0P5Vwz9ijIvGEHqJhGuV71YelQtqykR/C+oqUs31js5VNKrDzFSr3+weecUbAWP60gStQTX0KOpBy4DzoB7K/s5GqeqElYP6tWxKP8tnpu030GKfA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(376002)(396003)(346002)(136003)(82310400011)(186009)(1800799009)(451199024)(36840700001)(46966006)(40470700004)(6666004)(7696005)(478600001)(83380400001)(1076003)(2616005)(26005)(426003)(16526019)(336012)(2906002)(54906003)(6916009)(44832011)(41300700001)(70206006)(316002)(70586007)(5660300002)(4326008)(8936002)(8676002)(40460700003)(36756003)(40480700001)(47076005)(36860700001)(86362001)(81166007)(356005)(82740400003)(36900700001);
+ SFS:(13230031)(4636009)(376002)(396003)(39860400002)(346002)(136003)(451199024)(82310400011)(1800799009)(186009)(36840700001)(40470700004)(46966006)(8936002)(8676002)(4326008)(478600001)(70206006)(70586007)(44832011)(5660300002)(40480700001)(83380400001)(2906002)(41300700001)(6666004)(316002)(86362001)(54906003)(6916009)(7696005)(40460700003)(82740400003)(2616005)(1076003)(356005)(81166007)(26005)(16526019)(336012)(426003)(47076005)(36860700001)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2023 12:49:55.0309 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d656969f-1d84-46b1-03fd-08dbaed7c51f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2023 12:49:58.8134 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8447d16d-0a5b-4ee5-d3be-08dbaed7d79b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD3.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD2.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6482
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8895
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,167 +100,153 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Alvin Lee <alvin.lee2@amd.com>, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Dillon Varone <dillon.varone@amd.com>,
+ Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, Wenjing Liu <wenjing.liu@amd.com>,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+From: Wenjing Liu <wenjing.liu@amd.com>
 
-[Why&How]
-For enabling automated testing, add a hook to DCHUBBUB interface so that
-mall status can be queried by userspace through debugfs. This removes
-dependence on requiring a userspace tool like UMR for querying status
-for MALL static screen IGT test.
+[why]
+The result of predict_pipe_split calculation is no longer used but the
+function is not removed. This will cause unnecessary calculation
+of pipe split prediction in every frame update.
 
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
 Acked-by: Stylon Wang <stylon.wang@amd.com>
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 ---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c  | 13 ++++++++++---
- .../gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h    |  5 ++++-
- .../gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c    | 14 +++++++++++++-
- .../gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.h    |  6 +++++-
- .../gpu/drm/amd/display/dc/dcn32/dcn32_resource.h  |  1 +
- drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h   |  1 +
- 6 files changed, 34 insertions(+), 6 deletions(-)
+ .../drm/amd/display/dc/dcn32/dcn32_resource.c |  3 -
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 84 -------------------
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.h  |  3 -
+ 3 files changed, 90 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index 05c1ad98a1f6..1259d6351c50 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -37,6 +37,7 @@
- #include "link_hwss.h"
- #include "dc/dc_dmub_srv.h"
- #include "link/protocols/link_dp_capability.h"
-+#include "inc/hw/dchubbub.h"
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+index fd12791995a7..8cb6b94e83d2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+@@ -2031,9 +2031,6 @@ int dcn32_populate_dml_pipes_from_context(
+ 			}
+ 		}
  
- #ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
- #include "amdgpu_dm_psr.h"
-@@ -3642,10 +3643,16 @@ DEFINE_DEBUGFS_ATTRIBUTE(disable_hpd_ops, disable_hpd_get,
- static int capabilities_show(struct seq_file *m, void *unused)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)m->private;
--	struct dc_caps caps = adev->dm.dc->caps;
--	bool mall_supported = caps.mall_size_total;
-+	struct dc *dc = adev->dm.dc;
-+	bool mall_supported = dc->caps.mall_size_total;
-+	unsigned int mall_in_use = false;
-+	struct hubbub *hubbub = dc->res_pool->hubbub;
-+
-+	if (hubbub->funcs->get_mall_en)
-+		hubbub->funcs->get_mall_en(hubbub, &mall_in_use);
+-		DC_FP_START();
+-		dcn32_predict_pipe_split(context, &pipes[pipe_cnt]);
+-		DC_FP_END();
  
--	seq_printf(m, "mall: %s\n", mall_supported ? "yes" : "no");
-+	seq_printf(m, "mall supported: %s, enabled: %s\n",
-+			   mall_supported ? "yes" : "no", mall_in_use ? "yes" : "no");
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h
-index adc876156d2e..5ddf2b36986e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h
-@@ -171,6 +171,7 @@ struct dcn_hubbub_registers {
- 	uint32_t DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_B;
- 	uint32_t DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_C;
- 	uint32_t DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_D;
-+	uint32_t DCHUBBUB_ARB_MALL_CNTL;
- 	uint32_t SDPIF_REQUEST_RATE_LIMIT;
- 	uint32_t DCHUBBUB_SDPIF_CFG0;
- 	uint32_t DCHUBBUB_SDPIF_CFG1;
-@@ -194,7 +195,9 @@ struct dcn_hubbub_registers {
- 		type DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_A;\
- 		type DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_B;\
- 		type DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_C;\
--		type DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_D
-+		type DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_D;\
-+		type MALL_PREFETCH_COMPLETE;\
-+		type MALL_IN_USE
- 
- #define HUBBUB_REG_FIELD_LIST_DCN35(type) \
- 		type DCHUBBUB_FGCG_REP_DIS
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c
-index 8bfef6d095b2..88dfc907553d 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c
-@@ -945,6 +945,17 @@ void hubbub32_force_wm_propagate_to_pipes(struct hubbub *hubbub)
- 			DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_A, prog_wm_value);
+ 		pipe_cnt++;
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+index 0c68cd97a461..496f0f58fa7d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+@@ -348,90 +348,6 @@ void dcn32_helper_populate_phantom_dlg_params(struct dc *dc,
+ 	}
  }
  
-+void hubbub32_get_mall_en(struct hubbub *hubbub, unsigned int *mall_in_use)
-+{
-+	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
-+	uint32_t prefetch_complete, mall_en;
-+
-+	REG_GET_2(DCHUBBUB_ARB_MALL_CNTL, MALL_IN_USE, &mall_en,
-+			  MALL_PREFETCH_COMPLETE, &prefetch_complete);
-+
-+	*mall_in_use = prefetch_complete && mall_en;
-+}
-+
- void hubbub32_init(struct hubbub *hubbub)
+-/**
+- * dcn32_predict_pipe_split - Predict if pipe split will occur for a given DML pipe
+- * @context: [in] New DC state to be programmed
+- * @pipe_e2e: [in] DML pipe end to end context
+- *
+- * This function takes in a DML pipe (pipe_e2e) and predicts if pipe split is required (both
+- * ODM and MPC). For pipe split, ODM combine is determined by the ODM mode, and MPC combine is
+- * determined by DPPClk requirements
+- *
+- * This function follows the same policy as DML:
+- * - Check for ODM combine requirements / policy first
+- * - MPC combine is only chosen if there is no ODM combine requirements / policy in place, and
+- *   MPC is required
+- *
+- * Return: Number of splits expected (1 for 2:1 split, 3 for 4:1 split, 0 for no splits).
+- */
+-uint8_t dcn32_predict_pipe_split(struct dc_state *context,
+-				  display_e2e_pipe_params_st *pipe_e2e)
+-{
+-	double pscl_throughput;
+-	double pscl_throughput_chroma;
+-	double dpp_clk_single_dpp, clock;
+-	double clk_frequency = 0.0;
+-	double vco_speed = context->bw_ctx.dml.soc.dispclk_dppclk_vco_speed_mhz;
+-	bool total_available_pipes_support = false;
+-	uint32_t number_of_dpp = 0;
+-	enum odm_combine_mode odm_mode = dm_odm_combine_mode_disabled;
+-	double req_dispclk_per_surface = 0;
+-	uint8_t num_splits = 0;
+-
+-	dc_assert_fp_enabled();
+-
+-	dml32_CalculateODMMode(context->bw_ctx.dml.ip.maximum_pixels_per_line_per_dsc_unit,
+-			pipe_e2e->pipe.dest.hactive,
+-			pipe_e2e->dout.output_format,
+-			pipe_e2e->dout.output_type,
+-			pipe_e2e->pipe.dest.odm_combine_policy,
+-			context->bw_ctx.dml.soc.clock_limits[context->bw_ctx.dml.soc.num_states - 1].dispclk_mhz,
+-			context->bw_ctx.dml.soc.clock_limits[context->bw_ctx.dml.soc.num_states - 1].dispclk_mhz,
+-			pipe_e2e->dout.dsc_enable != 0,
+-			0, /* TotalNumberOfActiveDPP can be 0 since we're predicting pipe split requirement */
+-			context->bw_ctx.dml.ip.max_num_dpp,
+-			pipe_e2e->pipe.dest.pixel_rate_mhz,
+-			context->bw_ctx.dml.soc.dcn_downspread_percent,
+-			context->bw_ctx.dml.ip.dispclk_ramp_margin_percent,
+-			context->bw_ctx.dml.soc.dispclk_dppclk_vco_speed_mhz,
+-			pipe_e2e->dout.dsc_slices,
+-			/* Output */
+-			&total_available_pipes_support,
+-			&number_of_dpp,
+-			&odm_mode,
+-			&req_dispclk_per_surface);
+-
+-	dml32_CalculateSinglePipeDPPCLKAndSCLThroughput(pipe_e2e->pipe.scale_ratio_depth.hscl_ratio,
+-			pipe_e2e->pipe.scale_ratio_depth.hscl_ratio_c,
+-			pipe_e2e->pipe.scale_ratio_depth.vscl_ratio,
+-			pipe_e2e->pipe.scale_ratio_depth.vscl_ratio_c,
+-			context->bw_ctx.dml.ip.max_dchub_pscl_bw_pix_per_clk,
+-			context->bw_ctx.dml.ip.max_pscl_lb_bw_pix_per_clk,
+-			pipe_e2e->pipe.dest.pixel_rate_mhz,
+-			pipe_e2e->pipe.src.source_format,
+-			pipe_e2e->pipe.scale_taps.htaps,
+-			pipe_e2e->pipe.scale_taps.htaps_c,
+-			pipe_e2e->pipe.scale_taps.vtaps,
+-			pipe_e2e->pipe.scale_taps.vtaps_c,
+-			/* Output */
+-			&pscl_throughput, &pscl_throughput_chroma,
+-			&dpp_clk_single_dpp);
+-
+-	clock = dpp_clk_single_dpp * (1 + context->bw_ctx.dml.soc.dcn_downspread_percent / 100);
+-
+-	if (clock > 0)
+-		clk_frequency = vco_speed * 4.0 / ((int)(vco_speed * 4.0) / clock);
+-
+-	if (odm_mode == dm_odm_combine_mode_2to1)
+-		num_splits = 1;
+-	else if (odm_mode == dm_odm_combine_mode_4to1)
+-		num_splits = 3;
+-	else if (clk_frequency > context->bw_ctx.dml.soc.clock_limits[context->bw_ctx.dml.soc.num_states - 1].dppclk_mhz)
+-		num_splits = 1;
+-
+-	return num_splits;
+-}
+-
+ static float calculate_net_bw_in_kbytes_sec(struct _vcs_dpi_voltage_scaling_st *entry)
  {
- 	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
-@@ -995,7 +1006,8 @@ static const struct hubbub_funcs hubbub32_funcs = {
- 	.init_crb = dcn32_init_crb,
- 	.hubbub_read_state = hubbub2_read_state,
- 	.force_usr_retraining_allow = hubbub32_force_usr_retraining_allow,
--	.set_request_limit = hubbub32_set_request_limit
-+	.set_request_limit = hubbub32_set_request_limit,
-+	.get_mall_en = hubbub32_get_mall_en,
- };
+ 	float memory_bw_kbytes_sec;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h
+index defbee866be6..d25c3f730a59 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h
+@@ -36,9 +36,6 @@ void dcn32_helper_populate_phantom_dlg_params(struct dc *dc,
+ 					      display_e2e_pipe_params_st *pipes,
+ 					      int pipe_cnt);
  
- void hubbub32_construct(struct dcn20_hubbub *hubbub2,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.h b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.h
-index ad33427192c6..f073839a4b6d 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.h
-@@ -110,7 +110,9 @@
- 	HUBBUB_SF(DCHUBBUB_CLOCK_CNTL, DCFCLK_R_DCHUBBUB_GATE_DIS, mask_sh),\
- 	HUBBUB_SF(DCHUBBUB_SDPIF_CFG0, SDPIF_PORT_CONTROL, mask_sh),\
- 	HUBBUB_SF(DCHUBBUB_SDPIF_CFG1, SDPIF_MAX_NUM_OUTSTANDING, mask_sh),\
--	HUBBUB_SF(DCHUBBUB_MEM_PWR_MODE_CTRL, DET_MEM_PWR_LS_MODE, mask_sh)
-+	HUBBUB_SF(DCHUBBUB_MEM_PWR_MODE_CTRL, DET_MEM_PWR_LS_MODE, mask_sh),\
-+	HUBBUB_SF(DCHUBBUB_ARB_MALL_CNTL, MALL_PREFETCH_COMPLETE, mask_sh),\
-+	HUBBUB_SF(DCHUBBUB_ARB_MALL_CNTL, MALL_IN_USE, mask_sh)
- 
- 
- 
-@@ -157,4 +159,6 @@ void hubbub32_construct(struct dcn20_hubbub *hubbub2,
- 
- void hubbub32_set_request_limit(struct hubbub *hubbub, int umc_count, int words_per_umc);
- 
-+void hubbub32_get_mall_en(struct hubbub *hubbub, unsigned int *mall_in_use);
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h
-index c76de61029e0..f075982363be 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h
-@@ -1283,6 +1283,7 @@ bool dcn32_subvp_vblank_admissable(struct dc *dc, struct dc_state *context, int
-       SR(DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_B),                         \
-       SR(DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_C),                         \
-       SR(DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_D),                         \
-+      SR(DCHUBBUB_ARB_MALL_CNTL),                                              \
-       SR(DCN_VM_FAULT_ADDR_MSB), SR(DCN_VM_FAULT_ADDR_LSB),                    \
-       SR(DCN_VM_FAULT_CNTL), SR(DCN_VM_FAULT_STATUS),                          \
-       SR(SDPIF_REQUEST_RATE_LIMIT)                                             \
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
-index f5677dbb4e7d..cea05843990c 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
-@@ -193,6 +193,7 @@ struct hubbub_funcs {
- 	void (*force_usr_retraining_allow)(struct hubbub *hubbub, bool allow);
- 	void (*set_request_limit)(struct hubbub *hubbub, int memory_channel_count, int words_per_channel);
- 	void (*dchubbub_init)(struct hubbub *hubbub);
-+	void (*get_mall_en)(struct hubbub *hubbub, unsigned int *mall_in_use);
- };
- 
- struct hubbub {
+-uint8_t dcn32_predict_pipe_split(struct dc_state *context,
+-				  display_e2e_pipe_params_st *pipe_e2e);
+-
+ void dcn32_set_phantom_stream_timing(struct dc *dc,
+ 				     struct dc_state *context,
+ 				     struct pipe_ctx *ref_pipe,
 -- 
 2.42.0
 
