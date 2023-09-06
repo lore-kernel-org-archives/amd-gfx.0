@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AB31EB8FCB
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 12:52:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAF8FEB8FC7
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 12:52:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FFA810E647;
-	Wed,  6 Sep 2023 12:52:15 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2085.outbound.protection.outlook.com [40.107.237.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B65F510E647
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 12:52:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71B8E10E649;
+	Wed,  6 Sep 2023 12:52:18 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2062d.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8d::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1A5B10E64A
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 12:52:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Bjy4DwrxzBLMJgE2nNk4fChb+r0YnB76yoe9xsd3AzsAHaFN6BWj18eb7cx41k8KeU5am254KVR4F1t+zbMpV9HcM7DDvb2gBw696Rk/HMqErJyJqqBkY1OUcRXZsbUgfnGOUGWt7Fx7N5kdMgUetLvtH72EhOtiilrBmcfDhN7SpFY4eEuW9Nm9a7fKw+O6X8LbRlHQ7z25jzPhiTtK3pItLs0BXN6nio7xgRp4+tsd3qbfPY4MPeJsTUWefq8RHA5IXxroK+mmSTfkNPVrZOGAVwoP77CBhlg66hQlWx+BlvWF93d+T6i4D+z5xoKBvAjh5fh2CUWT8ntuxHMaqg==
+ b=NdP/FnCvez78Wh2T1CV8CNvwMXlJX8PaIekT77c3cA5cOxsvVaw9/VjfR3TNx/oUEPKaZmPnLiO3jKj1aCvXEtmq0kbYewSMSgSDM40sSDD6vFcUjkV84k/TTWtQTZj4F/TWmUi3Gso07AzSZXr8jKseyOeo3UWU7/tTUJiDouFJnjwez3Fdk1Jgj+KPf1HFRTmHXBqyP4OEIBSBurINRf4B7rShz7XG9Iky/qKnN4RiOzRnl8UH/roRd36oBycWrXMG2ByAxCAGEU+qUgyLhj1pUQTBdkPiqN4rwh5YIVQDd0iuKQ0ZCWAfPxzsifLhL78vpm2xv2Gx3LDzsACnaQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/CoFV5Wz9eB6TLMk6NBvmm0IaOOZiqOPdMN6Hjdbzxc=;
- b=c1PdroiNXlfylJ4g4HMywARkiWZEkwd54BacGpwAxZDpV+q18qEnvfpD283LAbmcqBgd9VES8m114buK7R5pEtJBQ7gsQxReNSOiPmV85DEhLWvibhVg8wd48tVJ//uEF0huAb5xQIBKtiG9uzL5UgEPgUhfxCIvhO/1MRJHwR1oeqasm1BW0/Nov00fnrSL4esekZm4geT/g449gRDss005/vYPMwSjbFvCrpLhuEQMrpd9rvj7rMkXceKaSV8I6+zLXVyN+RIgoEf6nR2XA7D5cmm8AgK6DvoiEj6aTAkFe/yCz7WW32bh9uK+ig8ghA53/EK+toZDpN7OyD1Gkg==
+ bh=gXhXr/I11yL1l0ZVOGASLlpG/t9u9jXUGqpJitCUTpE=;
+ b=REyULsl0Ia/zKSKSNs7lAk/OntsgDSZhk2GEi81Yq0VPDvxh8LWhHofb2HJoUfTx0IVKgUktLeIVWUF2Ilyhk6NmWfO9utoLALC9uMhWgdFkGEAZLHbXUbHoD4GB1fLUXzMccyV+3KtBuJ4x1/U05gXmAoqHv8Bk1hyx8KYFcCa3Keief3GyWEKDRP7Ab+7x35K8LGPaJQuu+T8ltKTK7i6/KQ7rFhLYODY4pci+wKt1W5luuxATX/G0cV2u5woLAK953wzzf/woVod6QLqRiBWObSHzvhp4KfFVfJ+cwOJVbNdCfhuF+j/Z0Ul4gLJ1GMf6WGcgsIVcVjdinueCfw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/CoFV5Wz9eB6TLMk6NBvmm0IaOOZiqOPdMN6Hjdbzxc=;
- b=nG98dSdsYxj1Uv+BF/lsCAmwK+4KSojoNn2zY/2HsYSEGChm2DFGqEQ2xZXLtbdD1S5TrKu2nbkejzky7ZUboEA57feABIKQ3GHTx3no2qW+xm2NFHzpFA01BHSWUrQ/8qy9ryavKqyCCEic1x9U0M2yR3+RCPRh0paRIsBceN8=
-Received: from BL1PR13CA0258.namprd13.prod.outlook.com (2603:10b6:208:2ba::23)
- by CH2PR12MB4229.namprd12.prod.outlook.com (2603:10b6:610:a5::15)
+ bh=gXhXr/I11yL1l0ZVOGASLlpG/t9u9jXUGqpJitCUTpE=;
+ b=aacLfZqMvXY0gWgFf7A/uLCN3Y638qmE0vkFDsAwyUcWe/yResdsmtT2F1T1OQmhLVxq6UkGvaIrP6JD8hRtdQ2iL6MiT5NWrEVS8aBDT/l2ldkegEKHqIHUYnTCWn05Y1Y/wx8Ljwbwm/Xy+IST1GEYTj+dE815v/idW3Y63uY=
+Received: from BLAPR03CA0124.namprd03.prod.outlook.com (2603:10b6:208:32e::9)
+ by SJ0PR12MB6853.namprd12.prod.outlook.com (2603:10b6:a03:47b::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.34; Wed, 6 Sep
- 2023 12:52:09 +0000
-Received: from BL02EPF0001A104.namprd05.prod.outlook.com
- (2603:10b6:208:2ba:cafe::18) by BL1PR13CA0258.outlook.office365.com
- (2603:10b6:208:2ba::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.27 via Frontend
- Transport; Wed, 6 Sep 2023 12:52:08 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.33; Wed, 6 Sep
+ 2023 12:52:12 +0000
+Received: from BL02EPF0001A105.namprd05.prod.outlook.com
+ (2603:10b6:208:32e:cafe::10) by BLAPR03CA0124.outlook.office365.com
+ (2603:10b6:208:32e::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.36 via Frontend
+ Transport; Wed, 6 Sep 2023 12:52:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +46,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A104.mail.protection.outlook.com (10.167.241.135) with Microsoft
+ BL02EPF0001A105.mail.protection.outlook.com (10.167.241.137) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6768.25 via Frontend Transport; Wed, 6 Sep 2023 12:52:08 +0000
+ 15.20.6768.25 via Frontend Transport; Wed, 6 Sep 2023 12:52:11 +0000
 Received: from stylon-EliteDesk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 6 Sep
- 2023 07:52:03 -0500
+ 2023 07:52:06 -0500
 From: Stylon Wang <stylon.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 26/28] drm/amd/display: add seamless pipe topology transition
- check
-Date: Wed, 6 Sep 2023 20:28:31 +0800
-Message-ID: <20230906124915.586250-27-stylon.wang@amd.com>
+Subject: [PATCH 27/28] drm/amd/display: move odm power optimization decision
+ after subvp optimization
+Date: Wed, 6 Sep 2023 20:28:32 +0800
+Message-ID: <20230906124915.586250-28-stylon.wang@amd.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20230906124915.586250-1-stylon.wang@amd.com>
 References: <20230906124915.586250-1-stylon.wang@amd.com>
@@ -69,26 +70,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A104:EE_|CH2PR12MB4229:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0fead6dc-71a8-49f2-6a65-08dbaed8149e
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A105:EE_|SJ0PR12MB6853:EE_
+X-MS-Office365-Filtering-Correlation-Id: 45c60123-d61f-4d75-64e8-08dbaed816bc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: l5fTjNYXaiSK4cUOfqA885Z8U4j2MSzTz/B5R8taBKhGggkE2fnOWYfifB018NpfN51OHwnqQLm+f2ypwMaNd3rHsC2DgEQBFCS/mLWlaHF1QbeyeT7nefrxDgUIM51KjW33EsvbtS+VdbN3c3m3nf332LhFuhXx4E3dA07OmVYpbR+7GTKQGMw+PL7uCzM9w41Oj174z+rSvezihySe8Msvb0qonrzLAlbsopbAb+d9i5HCHFhQIAj5AkKlm0wAirKaVhPZM2X+z9epjXvlLqYKuR/adlI+iz5c5URJoXnmxxmDYVxYsZQBqO0cy3v4aoX/CvISfLAC/Z6Q4UfySyQp4JuxK6HTVJ/jiKuy+zXAk+fqLkOgqIcAKvjM5JKVHXlyMSWzSuWi24KAkq2n1ZRGJOWTHznPZ1FEOy8D82BJU6rxkPZnZjgVQyHVyjdAWbYDRPMARNubZDHjXnwQYsgcaO7ow/agzxsBmV01f5aDxOb91QrPMaTp8jpOg8AbsdH71betjbVMuPBWV/PjabEK6m9BriI2ci7emc7zkrTa3zO7aZtrCxBjSBr/Jkdt+OjYXgfeUKQfKNUuSnZ+xEmmST1/u9Skv59JH6jUDiLkyBDGoaKLai7fYi5UlHiZjy9uXiP2MJaWh6bZAb9MS+5v1B2fdFEsUHRIz8xYh5hO9EeZ6VGsl0Ea2EjsQHMj3+xglIF1uMFhT9ZsL9Wu2r789XYJ7x5l41ZZKAIDaslbMHMIubCLkjnoTeR8JhFA/ew9eNKIJ2PN+rHqKmSNJg==
+X-Microsoft-Antispam-Message-Info: Tfcq1OqGsBVHh+bBxdFO6oM9z2igUIeIFh/6eRooUahTI3YIE2bhLgU4OnGcGrwfqDAa8sF/X0zYMiyUAny+oBfivkIhuF0HixgTVBKRlXGAPAu3qpeZSGi93Qbn9Q/E+z3rql5pcWl/tkGaLLF3it5qDOzWbgSJ2LoCwpzLCEvf9lYkDgO3Wuir1ALd13QZ27kho4xCt6SWFHu2ywGrqcTZ05AU/FrZQAHtODxiy41umEAKrmthTcrDDFQ7A+Sh/Wvd9NyOTaH7h4Fr+iT5bT+7FkSAdNNC38woM8+Y3jTkf5YL+Ag16D/+TS/IthgpbTniFFa/msYpdsXzWYleQSU+96gOcVLKaoQ8FfZKEkFelm4EgxZNeXWI+rAsFV+2hRnLGDC1xWsS5At+4rvknBlrA+N4y5Hc1xfYqc5PD1IKknKFEis4yqx+fd0cCrkeSpop4VAvFsI90e7Ksb7aelI/7FYuimMP/sSRhrqYq7VzliYpOJYBOSshGYflmzBZzJYXneb1/NHpdL/dEnXfO82c+OSEUirlXkeT/3tViOgmxxZpYIxf4mF3ZEveenaKcs/m0Uj7Sn9pZqRqF18iGwCat8jRe/ECvh5y++TAtvroEP7IWlVnF8JZWm4MaSAr3pNU8k7nYcJcHGajS+Y/5jNXlTl6rQy+j7v23iRXhQINKdXYXqFzS2svJkU9UzXuLmI8NL5qxUwv+UO0UUf2kO8HzSHR57Lp4H4mf6j/B/BbKnvfvRUk7DeHoeTxTuKkh82chMEcI/+MTtqcZE07mw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(346002)(396003)(39860400002)(136003)(451199024)(1800799009)(186009)(82310400011)(36840700001)(46966006)(40470700004)(4326008)(1076003)(5660300002)(8936002)(8676002)(36756003)(44832011)(7696005)(2906002)(36860700001)(41300700001)(6666004)(26005)(2616005)(16526019)(81166007)(82740400003)(316002)(6916009)(356005)(70206006)(54906003)(70586007)(47076005)(86362001)(83380400001)(40460700003)(478600001)(336012)(426003)(40480700001)(36900700001);
+ SFS:(13230031)(4636009)(39860400002)(346002)(376002)(136003)(396003)(1800799009)(451199024)(186009)(82310400011)(36840700001)(46966006)(40470700004)(36756003)(86362001)(82740400003)(40480700001)(6666004)(1076003)(26005)(5660300002)(16526019)(70586007)(54906003)(7696005)(336012)(70206006)(316002)(6916009)(426003)(41300700001)(4326008)(44832011)(8676002)(8936002)(2616005)(2906002)(40460700003)(356005)(47076005)(36860700001)(478600001)(81166007)(83380400001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2023 12:52:08.4683 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0fead6dc-71a8-49f2-6a65-08dbaed8149e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2023 12:52:11.9265 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 45c60123-d61f-4d75-64e8-08dbaed816bc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A104.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A105.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4229
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6853
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,141 +112,50 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Wenjing Liu <wenjing.liu@amd.com>
 
 [why]
-We have a few cases where we need to perform update topology update
-in dc update interface. However some of the updates are not seamless
-This could cause user noticible glitches. To enforce seamless transition
-we are adding a checking condition and error logging so the corruption
-as result of non seamless transition can be easily spotted.
+ODM power optimization excludes subvp power optimization but subvp
+optimization can override ODM power optimization even if subvp optimization
+configuration is not found. This happens with 4k144hz + 1 5k desktop plane.
+We could have applied ODM power optimization however this is overridden by
+subvp but subvp ends up deciding not apply its optimization.
+
+[how]
+Move ODM power optimization decision after subvp so it will try ODM power
+optimization after subvp optimization is not possible.
 
 Reviewed-by: Dillon Varone <dillon.varone@amd.com>
 Acked-by: Stylon Wang <stylon.wang@amd.com>
 Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  8 +++
- .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    | 52 +++++++++++++++++++
- .../drm/amd/display/dc/dcn32/dcn32_hwseq.h    |  4 ++
- .../gpu/drm/amd/display/dc/dcn32/dcn32_init.c |  1 +
- .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |  3 ++
- 5 files changed, 68 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index a857de5ebe85..f91d0f6b0d7d 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -4370,6 +4370,14 @@ bool dc_update_planes_and_stream(struct dc *dc,
- 				update_type,
- 				context);
- 	} else {
-+		if (!stream_update &&
-+				dc->hwss.is_pipe_topology_transition_seamless &&
-+				!dc->hwss.is_pipe_topology_transition_seamless(
-+						dc, dc->current_state, context)) {
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+index 92e2d1df5b32..1f53883d8f56 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+@@ -1441,10 +1441,6 @@ static void dcn32_full_validate_bw_helper(struct dc *dc,
+ 		vba->VoltageLevel = *vlevel;
+ 	}
+ 
+-	if (should_allow_odm_power_optimization(dc, context, vba, split, merge))
+-		try_odm_power_optimization_and_revalidate(
+-				dc, context, pipes, split, merge, vlevel, *pipe_cnt);
+-
+ 	/* Conditions for setting up phantom pipes for SubVP:
+ 	 * 1. Not force disable SubVP
+ 	 * 2. Full update (i.e. !fast_validate)
+@@ -1563,6 +1559,11 @@ static void dcn32_full_validate_bw_helper(struct dc *dc,
+ 			assign_subvp_index(dc, context);
+ 		}
+ 	}
 +
-+			DC_LOG_ERROR("performing non-seamless pipe topology transition with surface only update!\n");
-+			BREAK_TO_DEBUGGER();
-+		}
- 		commit_planes_for_stream(
- 				dc,
- 				srf_updates,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-index cae5e1e68c86..018376146d97 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-@@ -1619,3 +1619,55 @@ void dcn32_blank_phantom(struct dc *dc,
- 	if (tg->funcs->is_tg_enabled(tg))
- 		hws->funcs.wait_for_blank_complete(opp);
++	if (should_allow_odm_power_optimization(dc, context, vba, split, merge))
++		try_odm_power_optimization_and_revalidate(
++				dc, context, pipes, split, merge, vlevel, *pipe_cnt);
++
  }
-+
-+bool dcn32_is_pipe_topology_transition_seamless(struct dc *dc,
-+		const struct dc_state *cur_ctx,
-+		const struct dc_state *new_ctx)
-+{
-+	int i;
-+	const struct pipe_ctx *cur_pipe, *new_pipe;
-+	bool is_seamless = true;
-+
-+	for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+		cur_pipe = &cur_ctx->res_ctx.pipe_ctx[i];
-+		new_pipe = &new_ctx->res_ctx.pipe_ctx[i];
-+
-+		if (resource_is_pipe_type(cur_pipe, FREE_PIPE) ||
-+				resource_is_pipe_type(new_pipe, FREE_PIPE))
-+			/* adding or removing free pipes is always seamless */
-+			continue;
-+		else if (resource_is_pipe_type(cur_pipe, OTG_MASTER)) {
-+			if (resource_is_pipe_type(new_pipe, OTG_MASTER))
-+				if (cur_pipe->stream->stream_id == new_pipe->stream->stream_id)
-+				/* OTG master with the same stream is seamless */
-+					continue;
-+		} else if (resource_is_pipe_type(cur_pipe, OPP_HEAD)) {
-+			if (resource_is_pipe_type(new_pipe, OPP_HEAD)) {
-+				if (cur_pipe->stream_res.tg == new_pipe->stream_res.tg)
-+					/*
-+					 * OPP heads sharing the same timing
-+					 * generator is seamless
-+					 */
-+					continue;
-+			}
-+		} else if (resource_is_pipe_type(cur_pipe, DPP_PIPE)) {
-+			if (resource_is_pipe_type(new_pipe, DPP_PIPE)) {
-+				if (cur_pipe->stream_res.opp == new_pipe->stream_res.opp)
-+					/*
-+					 * DPP pipes sharing the same OPP head is
-+					 * seamless
-+					 */
-+					continue;
-+			}
-+		}
-+
-+		/*
-+		 * This pipe's transition doesn't fall under any seamless
-+		 * conditions
-+		 */
-+		is_seamless = false;
-+		break;
-+	}
-+
-+	return is_seamless;
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h
-index 616d5219119e..9992e40acd21 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h
-@@ -120,4 +120,8 @@ void dcn32_blank_phantom(struct dc *dc,
- 		int width,
- 		int height);
  
-+bool dcn32_is_pipe_topology_transition_seamless(struct dc *dc,
-+		const struct dc_state *cur_ctx,
-+		const struct dc_state *new_ctx);
-+
- #endif /* __DC_HWSS_DCN32_H__ */
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
-index eb4227926006..1edadff39a5e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
-@@ -116,6 +116,7 @@ static const struct hw_sequencer_funcs dcn32_funcs = {
- 	.update_dsc_pg = dcn32_update_dsc_pg,
- 	.apply_update_flags_for_phantom = dcn32_apply_update_flags_for_phantom,
- 	.blank_phantom = dcn32_blank_phantom,
-+	.is_pipe_topology_transition_seamless = dcn32_is_pipe_topology_transition_seamless,
- };
- 
- static const struct hwseq_private_funcs dcn32_private_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
-index 1ccdb7359894..e0dd56182841 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
-@@ -410,6 +410,9 @@ struct hw_sequencer_funcs {
- 			struct dc_state *context,
- 			struct pipe_ctx *phantom_pipe);
- 	void (*apply_update_flags_for_phantom)(struct pipe_ctx *phantom_pipe);
-+	bool (*is_pipe_topology_transition_seamless)(struct dc *dc,
-+			const struct dc_state *cur_ctx,
-+			const struct dc_state *new_ctx);
- 
- 	void (*calc_blocks_to_gate)(struct dc *dc, struct dc_state *context,
- 		struct pg_block_update *update_state);
+ static bool is_dtbclk_required(struct dc *dc, struct dc_state *context)
 -- 
 2.42.0
 
