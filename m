@@ -4,68 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EA8CEB8FA5
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 08:50:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E5F2EB8FAD
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 09:08:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03B5B10E5A6;
-	Wed,  6 Sep 2023 08:50:42 +0000 (UTC)
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C27D10E5A6
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 08:50:41 +0000 (UTC)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-401187f8071so4450025e9.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 06 Sep 2023 01:50:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1693990240; x=1694595040; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=yk9K5ZtVG8yzd+XDRlHHxjBq6nAv1CkaCqmEc/NzO1o=;
- b=K+yKbwPSlFKTjg7tDiGOrPHHagzsnK0QxyyAVpguKpsLQ8P/2p6IaGBXGhFGQxUIMO
- MZ7g99IguLW2pfQ804CQvWm29mLcnpHHM4Mi1rnDrtNI7vtvwjVFez9RsesPuhSaCIj5
- Kofhn8qJZ3cLYtipu5RoOm6WABhxBJJP9o9BjhC7vffLnIqwBEr1Je52m8SGHS3CjuuA
- xIGicCeCU5KsKj42z8/4/Jlex4Ij7lJ/s2mnCP/SH3wj0eBWvRIX4hIpD5+YRxh04jKH
- e8Ha+byJ2va3OCB07zkSHcEL10XZvrmr6tR1+Gvoi55VE+n0KQk7ITCpBpk21/5xrKRi
- 4ZAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693990240; x=1694595040;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=yk9K5ZtVG8yzd+XDRlHHxjBq6nAv1CkaCqmEc/NzO1o=;
- b=Q36ZHoUxoww6FqcIp0khX2ZzWtf3zvIMSseRp/gL5PEk+7sNc+0+sjtJinlB9BPrnD
- PGwz1iJwBUmDvyQi2n1Wof7G0uA82A1WYX8LYFJTerfCMvSgvsmawhqCI1+suI3T8CjE
- oBWJwJa3LLxqKQBvAfWGcvTtRYVmYMttwJX4xnTQVnhTLBM6ESF8vsqiHSBICUVpWdFg
- fgYm7VjGmhfhPIC92NRjpi9J7Y1a+KTgAnaqXs2l4m6u8Dnta+dosZcOXqPqO4XRaIiN
- WXetS4jbO3hYtrrsnmoOX0JU9IlBTB/U/S8BsKAt4M8sitQUO+oBCBcLKj6zd1cOjdhE
- c3FA==
-X-Gm-Message-State: AOJu0Yw5676AS/GqZfu2dZdC2y0NECo/1uwMZ5Kerfk/IRMGbkNVm1kW
- CP8vreXgdCk2x88iI108TEaUgRhlN0c7qQ==
-X-Google-Smtp-Source: AGHT+IGi+tPhY2X/Nt/nHeCggUDyy4D+JZazjIXQCsPYNnggbDKipuvjl03l4cpDAf6Zidr8hM4dyQ==
-X-Received: by 2002:a05:600c:1ca6:b0:400:140c:6083 with SMTP id
- k38-20020a05600c1ca600b00400140c6083mr1937579wms.2.1693990239357; 
- Wed, 06 Sep 2023 01:50:39 -0700 (PDT)
-Received: from [10.254.108.106] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- 10-20020a05600c234a00b003fc06169ab3sm22246081wmq.20.2023.09.06.01.50.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Sep 2023 01:50:38 -0700 (PDT)
-Message-ID: <c6c0237b-87c4-af88-bc5b-a0a9a3fe45f3@gmail.com>
-Date: Wed, 6 Sep 2023 10:50:35 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0298410E1A5;
+	Wed,  6 Sep 2023 09:08:18 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id CBE3D10E1A5;
+ Wed,  6 Sep 2023 09:08:14 +0000 (UTC)
+Received: from loongson.cn (unknown [10.20.42.43])
+ by gateway (Coremail) with SMTP id _____8DxVuh8Qfhk0EAgAA--.29532S3;
+ Wed, 06 Sep 2023 17:08:12 +0800 (CST)
+Received: from [0.0.0.0] (unknown [10.20.42.43])
+ by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8CxvM56QfhkpFxuAA--.3166S3; 
+ Wed, 06 Sep 2023 17:08:10 +0800 (CST)
+Message-ID: <b51d49f3-e3de-6b8d-9cb4-df5c03f3cdc0@loongson.cn>
+Date: Wed, 6 Sep 2023 17:08:10 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH 01/11] drm/amdgpu: fix and cleanup gmc_v9_0_flush_gpu_tlb
+ Thunderbird/102.15.0
+Subject: Re: [Nouveau] [RFC, drm-misc-next v4 0/9] PCI/VGA: Allowing the user
+ to select the primary video adapter at boot time
 Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <20230905060415.1400-1-christian.koenig@amd.com>
- <20230905060415.1400-2-christian.koenig@amd.com>
- <CADnq5_Mu9mNohqHNA=k0pjn0vPY4aXd5T+sR4o0GCkGt_TSqvQ@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CADnq5_Mu9mNohqHNA=k0pjn0vPY4aXd5T+sR4o0GCkGt_TSqvQ@mail.gmail.com>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Sui Jingfeng <sui.jingfeng@linux.dev>, Bjorn Helgaas <bhelgaas@google.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Daniel Vetter <daniel@ffwll.ch>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+References: <20230904195724.633404-1-sui.jingfeng@linux.dev>
+ <44ec8549-dc36-287e-4359-abd3ec8d22d6@suse.de>
+ <5afd2efb-f838-f9b7-02a9-2cf4d4fd2382@loongson.cn>
+ <2adfa653-ac35-d560-be52-c92848a1eef5@gmail.com>
+From: suijingfeng <suijingfeng@loongson.cn>
+In-Reply-To: <2adfa653-ac35-d560-be52-c92848a1eef5@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: AQAAf8CxvM56QfhkpFxuAA--.3166S3
+X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
+X-Coremail-Antispam: 1Uk129KBj93XoWxArWruw1kuFW8Ar4UKF1xJFc_yoWrJw1rpF
+ 4YqFyUtr4kGr1rAr4Skw48WFZ5AFsFqFy5GF1vgr1Fv398Xr1Fvr9rtF4UCa4UXrn7Z3W0
+ 9rWFqrW7GF4DZFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUx529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUP2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v2
+ 6F4UJVW0owAaw2AFwI0_JF0_Jw1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0c
+ Ia020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_
+ Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrw
+ CYjI0SjxkI62AI1cAE67vIY487MxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48J
+ MxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI
+ 0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
+ 0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+ WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1l
+ IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8uc_3UUUU
+ U==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,122 +72,100 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, shashank.sharma@amd.com
+Cc: nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-pci@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 05.09.23 um 22:45 schrieb Alex Deucher:
-> On Tue, Sep 5, 2023 at 3:00 AM Christian König
-> <ckoenig.leichtzumerken@gmail.com> wrote:
->> The KIQ code path was ignoring the second flush. Also avoid long lines and
->> re-calculating the register offsets over and over again.
-> I'd split this into two patches, one for the code cleanup and one to
-> fix the missing flush.
+Hi,
 
-I've later opted for moving the whole workarounds a layer up because we 
-seem to have missed this in a couple of more places.
 
-So I should probably just completely drop fixing this here.
-
-Christian.
-
+On 2023/9/6 14:45, Christian König wrote:
+> Am 05.09.23 um 15:30 schrieb suijingfeng:
+>> Hi,
+>>
+>>
+>> On 2023/9/5 18:45, Thomas Zimmermann wrote:
+>>> Hi
+>>>
+>>> Am 04.09.23 um 21:57 schrieb Sui Jingfeng:
+>>>> From: Sui Jingfeng <suijingfeng@loongson.cn>
+>>>>
+>>>> On a machine with multiple GPUs, a Linux user has no control over 
+>>>> which
+>>>> one is primary at boot time. This series tries to solve above 
+>>>> mentioned
+>>>
+>>> If anything, the primary graphics adapter is the one initialized by 
+>>> the firmware. I think our boot-up graphics also make this assumption 
+>>> implicitly.
+>>>
+>>
+>> Yes, but by the time of DRM drivers get loaded successfully,the 
+>> boot-up graphics already finished.
 >
-> Alex
+> This is an incorrect assumption.
 >
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 29 +++++++++++++++++----------
->>   1 file changed, 18 insertions(+), 11 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->> index 0673cda547bb..4f6990ba71cb 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->> @@ -814,13 +814,17 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
->>                                          uint32_t vmhub, uint32_t flush_type)
->>   {
->>          bool use_semaphore = gmc_v9_0_use_invalidate_semaphore(adev, vmhub);
->> +       u32 j, inv_req, inv_req2, tmp, sem, req, ack;
->>          const unsigned int eng = 17;
->> -       u32 j, inv_req, inv_req2, tmp;
->>          struct amdgpu_vmhub *hub;
->>
->>          BUG_ON(vmhub >= AMDGPU_MAX_VMHUBS);
->>
->>          hub = &adev->vmhub[vmhub];
->> +       sem = hub->vm_inv_eng0_sem + hub->eng_distance * eng;
->> +       req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
->> +       ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
->> +
->>          if (adev->gmc.xgmi.num_physical_nodes &&
->>              adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 0)) {
->>                  /* Vega20+XGMI caches PTEs in TC and TLB. Add a
->> @@ -852,6 +856,10 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
->>
->>                  amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack, inv_req,
->>                                                     1 << vmid);
->> +               if (inv_req2)
->> +                       amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack,
->> +                                                          inv_req2, 1 << vmid);
->> +
->>                  up_read(&adev->reset_domain->sem);
->>                  return;
->>          }
->> @@ -870,9 +878,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
->>                  for (j = 0; j < adev->usec_timeout; j++) {
->>                          /* a read return value of 1 means semaphore acquire */
->>                          if (vmhub >= AMDGPU_MMHUB0(0))
->> -                               tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, hub->vm_inv_eng0_sem + hub->eng_distance * eng);
->> +                               tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, sem);
->>                          else
->> -                               tmp = RREG32_SOC15_IP_NO_KIQ(GC, hub->vm_inv_eng0_sem + hub->eng_distance * eng);
->> +                               tmp = RREG32_SOC15_IP_NO_KIQ(GC, sem);
->>                          if (tmp & 0x1)
->>                                  break;
->>                          udelay(1);
->> @@ -884,9 +892,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
->>
->>          do {
->>                  if (vmhub >= AMDGPU_MMHUB0(0))
->> -                       WREG32_SOC15_IP_NO_KIQ(MMHUB, hub->vm_inv_eng0_req + hub->eng_distance * eng, inv_req);
->> +                       WREG32_SOC15_IP_NO_KIQ(MMHUB, req, inv_req);
->>                  else
->> -                       WREG32_SOC15_IP_NO_KIQ(GC, hub->vm_inv_eng0_req + hub->eng_distance * eng, inv_req);
->> +                       WREG32_SOC15_IP_NO_KIQ(GC, req, inv_req);
->>
->>                  /*
->>                   * Issue a dummy read to wait for the ACK register to
->> @@ -895,14 +903,13 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
->>                   */
->>                  if ((vmhub == AMDGPU_GFXHUB(0)) &&
->>                      (adev->ip_versions[GC_HWIP][0] < IP_VERSION(9, 4, 2)))
->> -                       RREG32_NO_KIQ(hub->vm_inv_eng0_req +
->> -                                     hub->eng_distance * eng);
->> +                       RREG32_NO_KIQ(req);
->>
->>                  for (j = 0; j < adev->usec_timeout; j++) {
->>                          if (vmhub >= AMDGPU_MMHUB0(0))
->> -                               tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, hub->vm_inv_eng0_ack + hub->eng_distance * eng);
->> +                               tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, ack);
->>                          else
->> -                               tmp = RREG32_SOC15_IP_NO_KIQ(GC, hub->vm_inv_eng0_ack + hub->eng_distance * eng);
->> +                               tmp = RREG32_SOC15_IP_NO_KIQ(GC, ack);
->>                          if (tmp & (1 << vmid))
->>                                  break;
->>                          udelay(1);
->> @@ -919,9 +926,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
->>                   * write with 0 means semaphore release
->>                   */
->>                  if (vmhub >= AMDGPU_MMHUB0(0))
->> -                       WREG32_SOC15_IP_NO_KIQ(MMHUB, hub->vm_inv_eng0_sem + hub->eng_distance * eng, 0);
->> +                       WREG32_SOC15_IP_NO_KIQ(MMHUB, sem, 0);
->>                  else
->> -                       WREG32_SOC15_IP_NO_KIQ(GC, hub->vm_inv_eng0_sem + hub->eng_distance * eng, 0);
->> +                       WREG32_SOC15_IP_NO_KIQ(GC, sem, 0);
->>          }
->>
->>          spin_unlock(&adev->gmc.invalidate_lock);
->> --
->> 2.34.1
->>
+> drm_aperture_remove_conflicting_pci_framebuffers() and co don't kill 
+> the framebuffer, 
+
+Well, my original description to this technique point is that
+
+1) "Firmware framebuffer device already get killed by the drm_aperture_remove_conflicting_pci_framebuffers() function (or its siblings)"
+2) "By the time of DRM drivers get loaded successfully, the boot-up graphics already finished."
+
+The word "killed" here is rough and coarse description about
+how does the drm device driver take over the firmware framebuffer.
+Since there seems have something obscure our communication,
+lets make the things clear. See below for more elaborate description.
+
+
+> they just remove the current framebuffer driver to avoid further updates.
+>
+This statement doesn't sound right, for UEFI environment,
+a correct description is that they remove the platform device, not the framebuffer driver.
+For the machines with the UEFI firmware, framebuffer driver here definitely refer to the efifb.
+The efifb still reside in the system(linux kernel).
+
+Please see the aperture_detach_platform_device() function in video/aperture.c
+
+> So what happens (at least for amdgpu) is that we take over the 
+> framebuffer,
+
+This statement here is also not an accurate description.
+
+Strictly speaking, drm/amdgpu takes over the device (the VRAM hardware),
+not the framebuffer.
+
+The word "take over" here is also dubious, because drm/amdgpu takes over nothing.
+
+ From the perspective of device-driver model, the GPU hardware *belongs* to the amdgpu drivers.
+Why you need to take over a thing originally and belong to you?
+
+If you could build the drm/amdgpu into the kernel and make it get loaded
+before the efifb. Then, there no need to use the firmware framebuffer (
+the talking is limited to the display boot graphics purpose here).
+On such a case, the so-called "take over" will not happen.
+
+The truth is that the efifb create a platform device, which *occupy*
+part of the VRAM hardware resource. Thus, the efifb and the drm/amdgpu
+form the conflict. There are conflict because they share the same
+hardware resource. It is the hardware resources(address ranges) used
+by two different driver are conflict. Not the efifb driver itself
+conflict with drm/amdgpu driver.
+
+Thus, drm_aperture_remove_conflicting_xxxxxx() function have to kill
+one of the device are conflicting. Not to kill the driver. Therefore,
+the correct word would be the "reclaim".
+drm/amdgpu *reclaim* the hardware resource (vram address range) originally belong to you.
+
+The modeset state (including the framebuffer content) still reside in the amdgpu device.
+You just get the dirty framebuffer image in the framebuffer object.
+But the framebuffer object already dirty since it in the UEFI firmware stage.
+
+In conclusion, *reclaim* is more accurate than the "take over".
+And as far as I'm understanding, the drm/amdgpu take over nothing, no gains.
+
+Well, welcome to correct me if I'm wrong.
 
