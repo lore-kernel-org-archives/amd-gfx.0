@@ -4,61 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8E1AEB8FAD
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 09:48:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8DC6EB8FA5
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 10:11:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 482A610E5C0;
-	Wed,  6 Sep 2023 09:48:42 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8658410E5B9;
- Wed,  6 Sep 2023 09:48:35 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.43])
- by gateway (Coremail) with SMTP id _____8Ax1fDxSvhkEEggAA--.64833S3;
- Wed, 06 Sep 2023 17:48:33 +0800 (CST)
-Received: from [0.0.0.0] (unknown [10.20.42.43])
- by localhost.localdomain (Coremail) with SMTP id
- AQAAf8Bx3yPvSvhkg2huAA--.28402S3; 
- Wed, 06 Sep 2023 17:48:31 +0800 (CST)
-Message-ID: <3f41eea5-d441-304d-f441-eaf7ce63d3e1@loongson.cn>
-Date: Wed, 6 Sep 2023 17:48:31 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E6A710E5E9;
+	Wed,  6 Sep 2023 10:11:00 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2077.outbound.protection.outlook.com [40.107.96.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA13B10E5E8
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 10:10:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NF9S9zcGLxqTfJpXRGzDROQoQScTih0wkLDRvtkocfo0/cYGD1+7GVQU7bGyustZsXjn3Qa7jxIQ0UrDAlT3VDYVme1+6kduY9vPjNSvywZO04NEMfDtnBPPvbOI672OM0wP7qRIpNjzo2WEiBFg6qPl/PNgcjF7TQ7fq/m2m8nFbCDCkSrhkYdGy56p85jvPGJXPdiAxXji0tSq4J0HHM4x5xhxrR/j2o4t4imFyB4hysaZTHEmLvZHOZw9PO/wpsq/9BJHC1V2b3CesPcMNCFC7iRV3pupmvs8pvN/2jlAKzJZdJtf+OIRN65Hh8HOwxMZSt5yqGoSO+S95zoASw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZSWVW58ojsHr0iqlWQheVlAhaaPP8VxIVVhqLNjDyvQ=;
+ b=Y6URVaiVvz0jVd97N+DYeoTUoYJmFZo1hQijJZNpL/sirC6hMnw30Vtk8QryKXHIVLLXblRNFmqGqw4vnN+mUejdxsGyrjPXmIToWP1gJ/qKqOujoYCtSWZ7Xvl/s72p0jVmHwq9Jm2FxiHYShRXykREFq8zcXLjUGjXNE/Bx1oHuTrW8/IQKOynBmuj1o5ksZiwL8aCX58/9oKjuP24an9VBIw5I8sDKvrGCA4xPMDwS2ctYiiJU63sUQOXpIUHqGstubejJ6BmcdJmpU72MyYYuXG4EEekN3I+3JcOfJNrkFloTbTBz5r490HC2Xqkm76a+E7vdatSk1w4m5ms7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZSWVW58ojsHr0iqlWQheVlAhaaPP8VxIVVhqLNjDyvQ=;
+ b=E3bjvKN+dx9gTrTy7t/iVoVW69ZDCU68zKehSqTte9d+ntyWG+lcnEm3e/1IO6iCOwfWLL0ABxx4uFFueEYFDUp7etbGfpFNHile/sBRDvexLblW0gyDOREiskJ3CWDDqsw3uQMDzulLkfeYhdy0zmO+kkF7Eq8HUtuQe/8iFbQ=
+Received: from BYAPR06CA0015.namprd06.prod.outlook.com (2603:10b6:a03:d4::28)
+ by CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.34; Wed, 6 Sep
+ 2023 10:10:55 +0000
+Received: from CO1PEPF000044F5.namprd05.prod.outlook.com
+ (2603:10b6:a03:d4:cafe::40) by BYAPR06CA0015.outlook.office365.com
+ (2603:10b6:a03:d4::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.34 via Frontend
+ Transport; Wed, 6 Sep 2023 10:10:55 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000044F5.mail.protection.outlook.com (10.167.241.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6768.25 via Frontend Transport; Wed, 6 Sep 2023 10:10:55 +0000
+Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 6 Sep
+ 2023 05:10:30 -0500
+From: Tao Zhou <tao.zhou1@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <hawking.zhang@amd.com>,
+ <stanley.yang@amd.com>, <Candice.Li@amd.com>, <yipeng.chai@amd.com>
+Subject: [PATCH 2/3] drm/amdgpu: add channel index table for UMC v12
+Date: Wed, 6 Sep 2023 18:10:15 +0800
+Message-ID: <20230906101016.22726-2-tao.zhou1@amd.com>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20230906101016.22726-1-tao.zhou1@amd.com>
+References: <20230906101016.22726-1-tao.zhou1@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.0
-Subject: Re: [Nouveau] [RFC, drm-misc-next v4 0/9] PCI/VGA: Allowing the user
- to select the primary video adapter at boot time
-Content-Language: en-US
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- Sui Jingfeng <sui.jingfeng@linux.dev>, Bjorn Helgaas <bhelgaas@google.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20230904195724.633404-1-sui.jingfeng@linux.dev>
- <151c0429-dbc2-e987-1491-6c733ca159ac@suse.de>
- <3eced3f5-622f-31a6-f8a0-ff0812be74ff@loongson.cn>
- <6035cf27-1506-dda7-e1ca-d83ce5cb5340@suse.de>
-From: suijingfeng <suijingfeng@loongson.cn>
-In-Reply-To: <6035cf27-1506-dda7-e1ca-d83ce5cb5340@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: AQAAf8Bx3yPvSvhkg2huAA--.28402S3
-X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
-X-Coremail-Antispam: 1Uk129KBj93XoWxtF4UuFWxWr17Gw47JryrAFc_yoWxJw17pF
- ykuay5KF4kJrn5C340v3WUuFWFq3y8JFWfJrn3G345ua90kryUZFZFgw4Y9asrCr4fXF15
- tF4Ut3429343AagCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUBFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AK
- xVWxJr0_GcWln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
- xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y
- 6r17McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr4
- 1lc7I2V7IY0VAS07AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
- JVW8JwCFI7km07C267AKxVWUtVW8ZwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
- vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IY
- x2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26c
- xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAF
- wI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jFa0PUUUUU=
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F5:EE_|CY8PR12MB7195:EE_
+X-MS-Office365-Filtering-Correlation-Id: cdd2da2f-c7e8-48bc-8af1-08dbaec18f00
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ztpuVfPJEJfgDWtFrHilWlkd+Il6HZ1gFN6RHCLqpCVDSbbmBeSmaeCDPf6QnXGcIoVucmjQYSyBsicdmfst8JNzm+LvHOa8sq3yCVJgtl2jIMb0ueM8YXniNp/RaIAu9Z5c8NuAwiCUNpZnqIQ3R3IYusRFksVXLxMFKMMkwCvbIItqISCM5rD7vN5QyxH6AAjS65P5nWHFgWKCGf/tg+8eH0aGNg8VYqvqqw4X9m/XaeNgQ5PSl9ZYYABs7NKu4Nsvjw92IuloiRkBHhhcf1tstota8WiikDfRzrdzoFBv8EEpz84g3jJyneR7D/0G0DfGQqfLD2sqtGLVhc/GY5H8n0eVMIONRz4W+uk/VNrkItGL0LmIDvXi37woywf5A8rJPLlYLs3rx0kNAD8tcsAbrllSSEdoZkSk1gxJPdgNsCCt0PQ+4ReWMscd0TavsEdxFbWh6OPoauMzilq+66U2387E0IS1UjrZYrH5w7e8qdg6YclNnE9xJ2pykDf0ZcnqFcPFf/h/DdQo/fbwTD8BZUr09LWwg+W9os2GghqWmZl1B2tb8B+M5MltrzND/6b7EVFax8Uu6rk+gjCjxuAOqpwQbKqx8YCslbckxaUmPyvSqWLpDtvYVmSrUb5EdSfO4F7PHaQ+jIhjzZ0q1spayIt354WKPXZmgZ0LwCFYpb01mAx7v8d2+Hc7j416+Y/fgCGndLYb+DJYdt4d0bqmAjd7cCD3ak5EiJFKBpLpnD0q+V62lQkPWTQgDHHX11pjVLCmm84XYfc1fMW8Qq0igcPpcdhuXJZSDIEUjf8=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(376002)(396003)(136003)(39860400002)(346002)(451199024)(186009)(82310400011)(1800799009)(36840700001)(46966006)(40470700004)(8936002)(4326008)(8676002)(478600001)(110136005)(70206006)(70586007)(5660300002)(40480700001)(2906002)(6666004)(41300700001)(316002)(6636002)(86362001)(7696005)(40460700003)(82740400003)(2616005)(1076003)(356005)(81166007)(26005)(16526019)(426003)(336012)(47076005)(36860700001)(36756003)(36900700001)(358055004);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2023 10:10:55.2749 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cdd2da2f-c7e8-48bc-8af1-08dbaec18f00
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F5.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7195
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,173 +100,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org
+Cc: Tao Zhou <tao.zhou1@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Get UMC phyical channel index according to node id, umc instance and
+channel instance.
 
+Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  |  1 +
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.c | 14 ++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.h |  5 +++++
+ 3 files changed, 20 insertions(+)
 
-On 2023/9/6 16:05, Thomas Zimmermann wrote:
-> Hi
->
-> Am 05.09.23 um 17:59 schrieb suijingfeng:
-> [...]
->>> FYI: per-driver modeset parameters are deprecated and not to be 
->>> used. Please don't promote them.
->>
->>
->> Well, please wait, I want to explain.
->>
->>
->>
->> drm/nouveau already promote it a little bit.
->>
->> Despite no code of conduct or specification guiding how the modules 
->> parameters should be.
->> Noticed that there already have a lot of DRM drivers support the 
->> modeset parameters,
->
-> Please look at the history and discussion around this parameter. To my 
-> knowledge, 'modeset' got introduced when modesetting with still done 
-> in userspace. It was an easy way of disabling the kernel driver if the 
-> system's Xorg did no yet support kernel mode setting.
->
-> Fast forward a few years and all Linux' use kernel modesetting, which 
-> make the modeset parameters obsolete. We discussed and decided to keep 
-> them in, because many articles and blog posts refer to them. We didn't 
-> want to invalidate them. BUT modeset is deprecated and not allowed in 
-> new code. If you look at existing modeset usage, you will eventually 
-> come across the comment at [1].
->
-
-OK, no problem. I agree what you said.
-
-
-> There's 'nomodeset', which disables all native drivers. It's useful 
-> for debugging or as a quick-fix if the graphics driver breaks. If you 
-> want to disable a specific driver, please use one of the options for 
-> blacklisting.
->
-Yeah, the 'nomodeset' disables all native drivers,
-this is a good point of it, but this is also the weak point of it.
-
-Sometimes, when you are developing a drm driver for a new device.
-You will see the pain. Its too often a programmer's modification
-make the entire Linux kernel hang there. The problematic drm
-driver kernel module already in the initrd. Then, the real
-need to disable the ill-functional drm driver kernel module
-only. While what you recommend to disable them all. There
-are subtle difference.
-
-Another limitation of the 'nomodeset' parameter is that
-it is only available on recent upstream kernel. Low version
-downstream kernel don't has this parameter supported yet.
-So this create inconstant developing experience. I believe that
-there always some people need do back-port and upstream work
-for various reasons.
-
-While (kindly, no offensive) debating, since we have the modprobe.blacklist
-why we still need the 'nomodeset' parameter ?
-why not try modprobe.blacklist="amdgpu,radeon,i915,ast,nouveau,gma500_gfx, ..."
-
-:-/
-
-
-But OK in overall, I will listen to your advice.
-
-
-> Best regards
-> Thomas
->
-> [1] 
-> https://elixir.bootlin.com/linux/v6.5/source/include/drm/drm_module.h#L83
->
->
->> for the modeset parameter, authors of various device driver try to 
->> make the usage not
->> conflict with others. I believe that this is good thing for Linux users.
->> It is probably the responsibility of the drm core maintainers to 
->> force various drm
->> drivers to reach a minimal consensus. Probably it pains to do so and 
->> doesn't pay off.
->> But reach a minimal consensus do benefit to Linux users.
->>
->>
->>> You can use modprobe.blacklist or initcall_blacklist on the kernel 
->>> command line.
->>>
->> There are some cases where the modprobe.blacklist doesn't works,
->> I have come cross several time during the past.
->> Because the device selected by the VGAARB is device-level thing,
->> it is not the driver's problem.
->>
->> Sometimes when VGAARB has a bug, it will select a wrong device as 
->> primary.
->> And the X server will use this wrong device as primary and completely 
->> crash
->> there, due to lack a driver. Take my old S3 Graphics as an example:
->>
->> $ lspci | grep VGA
->>
->>   00:06.1 VGA compatible controller: Loongson Technology LLC DC 
->> (Display Controller) (rev 01)
->>   03:00.0 VGA compatible controller: Advanced Micro Devices, Inc. 
->> [AMD/ATI] Caicos XT [Radeon HD 7470/8470 / R5 235/310 OEM]
->>   07:00.0 VGA compatible controller: S3 Graphics Ltd. Device 9070 
->> (rev 01)
->>   08:00.0 VGA compatible controller: S3 Graphics Ltd. Device 9070 
->> (rev 01)
->>
->> Before apply this patch:
->>
->> [    0.361748] pci 0000:00:06.1: vgaarb: setting as boot VGA device
->> [    0.361753] pci 0000:00:06.1: vgaarb: VGA device added: 
->> decodes=io+mem,owns=io+mem,locks=none
->> [    0.361765] pci 0000:03:00.0: vgaarb: VGA device added: 
->> decodes=io+mem,owns=none,locks=none
->> [    0.361773] pci 0000:07:00.0: vgaarb: VGA device added: 
->> decodes=io+mem,owns=none,locks=none
->> [    0.361779] pci 0000:08:00.0: vgaarb: VGA device added: 
->> decodes=io+mem,owns=none,locks=none
->> [    0.361781] vgaarb: loaded
->> [    0.367838] pci 0000:00:06.1: Overriding boot device as 1002:6778
->> [    0.367841] pci 0000:00:06.1: Overriding boot device as 5333:9070
->> [    0.367843] pci 0000:00:06.1: Overriding boot device as 5333:9070
->>
->>
->> For known reason, one of my system select the S3 Graphics as primary 
->> GPU.
->> But this S3 Graphics not even have a decent drm upstream driver yet.
->> Under such a case, I begin to believe that only the device who has a
->> driver deserve the primary.
->>
->> Under such a condition, I want to reboot and enter the graphic 
->> environment
->> with other working video cards. Either platform integrated and 
->> discrete GPU.
->> This don't means I should compromise by un-mount the S3 graphics card 
->> from
->> the motherboard, this also don't means that I should update my BIOS 
->> setting.
->> As sometimes, the BIOS is more worse.
->>
->> With this series applied, all I need to do is to reboot the computer and
->> pass a command line. By force override another video card (who has a
->> decent driver support) as primary, I'm able to do the debugging under
->> graphic environment. I would like to examine what's wrong with the 
->> vgaarb
->> on a specific platform under X server graphic environment.
->>
->> Probably try compile a driver for this card and see it works, simply 
->> reboot
->> without the need to change anything. It is so efficient. So this is 
->> probably
->> the second usage of my patch. It hand the right of control back to the
->> graphic developer.
->>
->>
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index f12c6c7e6204..7af6659ca936 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1498,6 +1498,7 @@ static void gmc_v9_0_set_umc_funcs(struct amdgpu_device *adev)
+ 		adev->umc.active_mask = adev->aid_mask;
+ 		if (!adev->gmc.xgmi.connected_to_cpu && !adev->gmc.is_app_apu)
+ 			adev->umc.ras = &umc_v12_0_ras;
++		adev->umc.channel_idx_tbl = &umc_v12_0_channel_idx_tbl[0][0][0];
+ 	default:
+ 		break;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+index 2a135fd8ec15..5f056dd7691e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+@@ -27,6 +27,20 @@
+ #include "umc/umc_12_0_0_offset.h"
+ #include "umc/umc_12_0_0_sh_mask.h"
+ 
++const uint32_t
++	umc_v12_0_channel_idx_tbl[]
++			[UMC_V12_0_UMC_INSTANCE_NUM]
++			[UMC_V12_0_CHANNEL_INSTANCE_NUM] = {
++		{{3,   7,   11,  15,  2,   6,   10,  14},  {1,   5,   9,   13,  0,   4,   8,   12},
++		 {19,  23,  27,  31,  18,  22,  26,  30},  {17,  21,  25,  29,  16,  20,  24,  28}},
++		{{47,  43,  39,  35,  46,  42,  38,  34},  {45,  41,  37,  33,  44,  40,  36,  32},
++		 {63,  59,  55,  51,  62,  58,  54,  50},  {61,  57,  53,  49,  60,  56,  52,  48}},
++		{{79,  75,  71,  67,  78,  74,  70,  66},  {77,  73,  69,  65,  76,  72,  68,  64},
++		 {95,  91,  87,  83,  94,  90,  86,  82},  {93,  89,  85,  81,  92,  88,  84,  80}},
++		{{99,  103, 107, 111, 98,  102, 106, 110}, {97,  101, 105, 109, 96,  100, 104, 108},
++		 {115, 119, 123, 127, 114, 118, 122, 126}, {113, 117, 121, 125, 112, 116, 120, 124}}
++	};
++
+ /* mapping of MCA error address to normalized address */
+ static const uint32_t umc_v12_0_ma2na_mapping[] = {
+ 	0,  5,  6,  8,  9,  14, 12, 13,
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.h b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.h
+index c20b4b4cbfda..e8d358ed8e61 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.h
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.h
+@@ -115,6 +115,11 @@
+ #define GET_CROSS_NODE_ADDR(reg) \
+ 	((((reg) >> 32) & 0x3) ? ((reg) | (1ULL << 34)) : (reg))
+ 
++extern const uint32_t
++	umc_v12_0_channel_idx_tbl[]
++			[UMC_V12_0_UMC_INSTANCE_NUM]
++			[UMC_V12_0_CHANNEL_INSTANCE_NUM];
++
+ extern struct amdgpu_umc_ras umc_v12_0_ras;
+ 
+ #endif
+-- 
+2.35.1
 
