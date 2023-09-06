@@ -4,60 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CC53EE49AD
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 22:51:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA548CCFA08
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 01:55:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFEA410E1BA;
-	Tue,  5 Sep 2023 22:51:55 +0000 (UTC)
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C09BB10E1BA
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 22:51:54 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id
- 5614622812f47-3a7781225b4so2044783b6e.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 05 Sep 2023 15:51:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1693954314; x=1694559114; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=eIWqRo+x4wwLxtN4PZRlBxMZysMn/JbKLSQBLs9KtQ8=;
- b=duh5nuTu0TkVrIlEidfeoG3s/TW6YauedHTBzrMpd/JJK38HxbqvU9joQCcp9rX4Yo
- AHiyPyneg7KM+Fp0O5/sn338SojfIMDWa4ms0/mx3L0+S8F6W5Sg0WUarAHZ8SOmG3ty
- VEntlJd9b7jtLlcSMfJemWSX+QT7JXHyNvJg1UoeK1l7DACrRvWl6yoR1s6d/N7bnS90
- GJN7aqBTTYNl5oTnPU8Ii9wneyhOKXj76JW4t57p64bc7z1FrO/F1yRljHx3l93bDbRa
- TzI9hgHDRIMQl/bcKtBKrCoQVdJCwSF3zs7/gIR8Ma6N6YyrfPvJK9TBHg30hNHyX8hS
- pI0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693954314; x=1694559114;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=eIWqRo+x4wwLxtN4PZRlBxMZysMn/JbKLSQBLs9KtQ8=;
- b=JBDK8ojOxEQNGednPY/vkLfzsLJA3Y6nzWykWJqtReJzuxxVAejDSUK3mIpmttRKni
- rGKaD8CWxZpMynaQf2agq0WfZzehtGl2vBI3gxWTp5Bed/w4QPQ7827k43LQvxj/ldIl
- wqO+FI6VMhn9+EZi2nfY8b3XPLRn7CbLUmf4olvPOaYVMtPi65esTAOmMMA/luLNBgwJ
- HbfbyXSNyeDUQtEkRXOQI4EZxIRKhGBrewPgRaYY5EbeefmvcgqjDsHJKycS7pXVIBfT
- 8o6XaDjDuqcHWo/ums873DDFa2noHPigbmQ4E7pl0btV3chymquvU1LImGQHQynZCc+l
- VnnQ==
-X-Gm-Message-State: AOJu0Yy4vohxiesqOahBjN1FcD819q3/Iz+t3Z1Rge6sS6joxRKLcF57
- 9mjCUnUN7+xtu9DC0hDJazQ+U2sN+e/zW2vOsi3qytE+JHU=
-X-Google-Smtp-Source: AGHT+IETXxSwcqJUVcMa3I08403wM6kEp0+Kv6CjTXecsUcGPx69ziZUwQQes1ro3t5JvO1ZhIj+nkeCErTMwL8eBw8=
-X-Received: by 2002:a05:6808:2020:b0:3a8:4af7:67b1 with SMTP id
- q32-20020a056808202000b003a84af767b1mr17273317oiw.55.1693954313987; Tue, 05
- Sep 2023 15:51:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6BE010E10E;
+	Wed,  6 Sep 2023 01:55:46 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33B9610E10E
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 01:55:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=G9xn+6PAke/KxO2LS5gBf7UyDD3towf2RMeWO3gqgF97nn4uO95WTZzm4Wm20yg7kNHFtIQxFbE3RMsCDCALUOGD1QYFBkwC/HyBKkEnVTJTQA8kTY068q0bcrQuhi/LFptsZYt9kO/hx9MVinFTL9T2RCfDOFK1ckzye6uqRBbwVqQayl8GsqCf0ic2HK2wj92QIsH6hcv/GvWewoNrE7PoGiEyKEmh1K2Ys5GmfVLFEkzWCVw2UWWN3liHwz4T9dFeg1ZMuiYtRsSHseBipadpXvyDLhB4XjtaE+sxCr6es+mJziJOa8PEYBSE55OtCFxUnEt2MZHibbPdbMfKTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sy+nhmLEkFdULf0/Pok7bg9o4HORiFhbKkVQQcXrQG4=;
+ b=eyrFAdNWic9C7/Q1ZLJBCStXuxwniN9O29Gxy+AoB2CSpbr20WGkAU1lHDfYeTiAz1vLBp8cduXaWhEXKHlP9v1B0TUh/hqSvi32R1w87sXbbW84AnVFSSR1q4HC2mb2K+s7IsCm6a0ACBXUHSkHF3fQWSTl2AHGKz0yBNlo+BUg6LTD9HiMCjr5ocALK9jtnyAs213hr+whzjeuxR/Qrvruvg1E6nevBIlGqX9Dag8VZN3S0SgU4xvVMZH59myGBjevK2FauyzF436XO01Hi6xGKrhDbK0hg+6KFXst5rzuIEHI7evOFwNI0Pdtl5qrpGaFGBY8xPBFdwXbZY5TuQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sy+nhmLEkFdULf0/Pok7bg9o4HORiFhbKkVQQcXrQG4=;
+ b=CxuSOL5139GefJdYus0o4/EGN7ZnzLq0XtXzli8UHPpDsCDuN3Hq5bFl1N6tPnal35VejR1pdRXrwIymBWCk5nhQckRqdgWITUV5PxDL5rUNMVeseCwUxz+Vbcgw/CEOX2EzZbrdCFDU7VUWeTW3FGVctwPS6/UNYGpul+n/JhU=
+Received: from CY5P221CA0080.NAMP221.PROD.OUTLOOK.COM (2603:10b6:930:9::28) by
+ IA0PR12MB7774.namprd12.prod.outlook.com (2603:10b6:208:430::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.32; Wed, 6 Sep
+ 2023 01:55:41 +0000
+Received: from CY4PEPF0000EE3B.namprd03.prod.outlook.com
+ (2603:10b6:930:9:cafe::72) by CY5P221CA0080.outlook.office365.com
+ (2603:10b6:930:9::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.34 via Frontend
+ Transport; Wed, 6 Sep 2023 01:55:40 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EE3B.mail.protection.outlook.com (10.167.242.15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6768.25 via Frontend Transport; Wed, 6 Sep 2023 01:55:40 +0000
+Received: from primary-host.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 5 Sep
+ 2023 20:54:58 -0500
+From: Lin.Cao <lincao12@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] SWDEV-420310 - struct pm4_mes_runlist in amdgpu is conflict
+ with spec struct pm4_mes_runlist is different with mes pm4 packet nv10 spec
+ Modification: add last dword of the design of spec into struct
+ pm4_mes_runlist
+Date: Wed, 6 Sep 2023 09:54:15 +0800
+Message-ID: <20230906015415.227847-1-lincao12@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20230905060415.1400-1-christian.koenig@amd.com>
- <20230905060415.1400-12-christian.koenig@amd.com>
-In-Reply-To: <20230905060415.1400-12-christian.koenig@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 5 Sep 2023 18:51:42 -0400
-Message-ID: <CADnq5_MUwWDcFM=xN=wB8LKM5V72kRGQKQ1oZDu00zvUvgFoVQ@mail.gmail.com>
-Subject: Re: [PATCH 11/11] drm/amdgpu: further move TLB hw workarounds a layer
- up
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3B:EE_|IA0PR12MB7774:EE_
+X-MS-Office365-Filtering-Correlation-Id: e1986d67-33ff-4c81-609d-08dbae7c5f80
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Q/vdIIVsxB0vR0Js4hHmqt0e1ox04ULlYp0V10hE7GRfxt02hbK2sdwjSpoI5+ORf4cRcmZuMG+mxwe6kh4ZAUoovZZ8+gOvqt2YxpoXLzUWs4eYWMA0Q6jsQmX4c4Eo2Gv7RovGiYyS1wr1Gl862QhH1tO472HUtPhcG2VRhvCdnl6vKqF85iw6uV+U8kShHKFbZ9+zr8pNdYIYI9SeHu8Obeq1XKkjDwTHZrR6olMMkpmjz6BQkk2ehnvuE2ldTM0sFna/RdeSji/Eqnbq7EZ8L+HxYHoL0ivUSbCtq9z539ineTS+94BlNGd5mztcKlmXU2w2/uHvA6x2UQEmdICZH7+9MNUvmVsrGbuQgYixPa2tUMDp2MD+fbKFZDf+HH3AEkogTlG1SbxjKxALQT6xuBIo6y0AwKes2x2THLJI2MZDCxW33JCcnR+e19WUHmQhLw2uP64oxMpWg79PsEykiT6+wwrgA/MrfHTVL6gFlpKtN9Di8Ib8NCEQLrLzk3lFTdq6fbP+rgqvelw7LzwPf8Ut3lFdfXLXYdrO7Nrg3FhvGkcWN7b+/g53bUmHeaUxQK/RmX4Uj1raRKDA4kL0gQnrWeiBbQ3HikZhfeU4TlXZD4XZ+WUeCN06LqbrdE4wiaUKZ8yW/wJthqvBfRqkRWG3mzYRmW4KBATI2tPLdyf4ZaQ3aAgpMXz+CTMnanJhQNkS8SLE/HRlrhcpaz8Pe8f2yKBimehJfIA0r/7gB5+D5rSqWbmvJC1oqhbVQ4Fb8WWeqWILfMnFMLwLkg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(346002)(376002)(396003)(136003)(39860400002)(1800799009)(451199024)(186009)(82310400011)(46966006)(36840700001)(40470700004)(36860700001)(40480700001)(82740400003)(81166007)(356005)(36756003)(5660300002)(40460700003)(41300700001)(47076005)(70586007)(426003)(336012)(2616005)(478600001)(26005)(70206006)(1076003)(6666004)(16526019)(8936002)(8676002)(6916009)(4326008)(7696005)(54906003)(2906002)(316002)(4744005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2023 01:55:40.3389 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e1986d67-33ff-4c81-609d-08dbae7c5f80
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3B.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7774
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,200 +100,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, shashank.sharma@amd.com
+Cc: JingWen.Chen2@amd.com, Felix Kuehling <Felix.Kuehling@amd.com>,
+ lincao12@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 5, 2023 at 3:00=E2=80=AFAM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> For the PASID flushing we already handled that at a higher layer, apply
-> those workarounds to the standard flush as well.
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+Signed-off-by: Lin.Cao <lincao12@amd.com>
+Change-Id: I1322c010d1428b2c1df5080b72da94e90cf17fec
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h b/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h
+index 8b6b2bd5c148..d50feaf59b8a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h
+@@ -129,6 +129,18 @@ struct pm4_mes_runlist {
+ 		uint32_t ordinal4;
+ 	};
+ 
++	union
++	{
++		struct
++		{
++			uint32_t level_1_static_queue_cnt:4;
++			uint32_t level_2_static_queue_cnt:4;
++			uint32_t level_3_static_queue_cnt:4;
++			uint32_t reserved4:20;
++		} bitfields5;
++		uint32_t ordinal5;
++	};
++
+ };
+ #endif
+ 
+-- 
+2.25.1
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 19 +++++++
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 74 ++++++++-----------------
->  2 files changed, 42 insertions(+), 51 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gmc.c
-> index c24252304d48..8a5381ca7713 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -597,6 +597,14 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *=
-adev, uint32_t vmid,
->                 if(!down_read_trylock(&adev->reset_domain->sem))
->                         return;
->
-> +               if (adev->gmc.flush_tlb_needs_extra_type_2)
-> +                       adev->gmc.gmc_funcs->flush_gpu_tlb(adev, vmid,
-> +                                                          vmhub, 2);
-> +
-> +               if (adev->gmc.flush_tlb_needs_extra_type_0 && flush_type =
-=3D=3D 2)
-> +                       adev->gmc.gmc_funcs->flush_gpu_tlb(adev, vmid,
-> +                                                          vmhub, 0);
-> +
->                 adev->gmc.gmc_funcs->flush_gpu_tlb(adev, vmid, vmhub,
->                                                    flush_type);
->                 up_read(&adev->reset_domain->sem);
-> @@ -647,6 +655,17 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_dev=
-ice *adev, uint16_t pasid,
->
->         if (!adev->gmc.flush_pasid_uses_kiq || !ring->sched.ready ||
->             !down_read_trylock(&adev->reset_domain->sem)) {
-> +
-> +               if (adev->gmc.flush_tlb_needs_extra_type_2)
-> +                       adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pa=
-sid,
-> +                                                                2, all_h=
-ub,
-> +                                                                inst);
-> +
-> +               if (adev->gmc.flush_tlb_needs_extra_type_0 && flush_type =
-=3D=3D 2)
-> +                       adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pa=
-sid,
-> +                                                                0, all_h=
-ub,
-> +                                                                inst);
-> +
->                 adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pasid,
->                                                          flush_type, all_=
-hub,
->                                                          inst);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gmc_v9_0.c
-> index c5df8f052f3f..a1a6f4b63208 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -812,37 +812,18 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_de=
-vice *adev, uint32_t vmid,
->                                         uint32_t vmhub, uint32_t flush_ty=
-pe)
->  {
->         bool use_semaphore =3D gmc_v9_0_use_invalidate_semaphore(adev, vm=
-hub);
-> -       u32 j, inv_req, inv_req2, tmp, sem, req, ack;
-> +       u32 j, inv_req, tmp, sem, req, ack;
->         const unsigned int eng =3D 17;
->         struct amdgpu_vmhub *hub;
->
->         BUG_ON(vmhub >=3D AMDGPU_MAX_VMHUBS);
->
->         hub =3D &adev->vmhub[vmhub];
-> +       inv_req =3D gmc_v9_0_get_invalidate_req(vmid, flush_type);
->         sem =3D hub->vm_inv_eng0_sem + hub->eng_distance * eng;
->         req =3D hub->vm_inv_eng0_req + hub->eng_distance * eng;
->         ack =3D hub->vm_inv_eng0_ack + hub->eng_distance * eng;
->
-> -       if (adev->gmc.xgmi.num_physical_nodes &&
-> -           adev->ip_versions[GC_HWIP][0] =3D=3D IP_VERSION(9, 4, 0)) {
-> -               /* Vega20+XGMI caches PTEs in TC and TLB. Add a
-> -                * heavy-weight TLB flush (type 2), which flushes
-> -                * both. Due to a race condition with concurrent
-> -                * memory accesses using the same TLB cache line, we
-> -                * still need a second TLB flush after this.
-> -                */
-> -               inv_req =3D gmc_v9_0_get_invalidate_req(vmid, 2);
-> -               inv_req2 =3D gmc_v9_0_get_invalidate_req(vmid, flush_type=
-);
-> -       } else if (flush_type =3D=3D 2 &&
-> -                  adev->ip_versions[GC_HWIP][0] =3D=3D IP_VERSION(9, 4, =
-3) &&
-> -                  adev->rev_id =3D=3D 0) {
-> -               inv_req =3D gmc_v9_0_get_invalidate_req(vmid, 0);
-> -               inv_req2 =3D gmc_v9_0_get_invalidate_req(vmid, flush_type=
-);
-> -       } else {
-> -               inv_req =3D gmc_v9_0_get_invalidate_req(vmid, flush_type)=
-;
-> -               inv_req2 =3D 0;
-> -       }
-> -
->         /* This is necessary for a HW workaround under SRIOV as well
->          * as GFXOFF under bare metal
->          */
-> @@ -853,10 +834,6 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_dev=
-ice *adev, uint32_t vmid,
->
->                 amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack, inv_re=
-q,
->                                                    1 << vmid);
-> -               if (inv_req2)
-> -                       amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack=
-,
-> -                                                          inv_req2, 1 <<=
- vmid);
-> -
->                 return;
->         }
->
-> @@ -886,34 +863,29 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_de=
-vice *adev, uint32_t vmid,
->                         DRM_ERROR("Timeout waiting for sem acquire in VM =
-flush!\n");
->         }
->
-> -       do {
-> -               if (vmhub >=3D AMDGPU_MMHUB0(0))
-> -                       WREG32_SOC15_IP_NO_KIQ(MMHUB, req, inv_req);
-> -               else
-> -                       WREG32_SOC15_IP_NO_KIQ(GC, req, inv_req);
-> -
-> -               /*
-> -                * Issue a dummy read to wait for the ACK register to
-> -                * be cleared to avoid a false ACK due to the new fast
-> -                * GRBM interface.
-> -                */
-> -               if ((vmhub =3D=3D AMDGPU_GFXHUB(0)) &&
-> -                   (adev->ip_versions[GC_HWIP][0] < IP_VERSION(9, 4, 2))=
-)
-> -                       RREG32_NO_KIQ(req);
-> +       if (vmhub >=3D AMDGPU_MMHUB0(0))
-> +               WREG32_SOC15_IP_NO_KIQ(MMHUB, req, inv_req);
-> +       else
-> +               WREG32_SOC15_IP_NO_KIQ(GC, req, inv_req);
->
-> -               for (j =3D 0; j < adev->usec_timeout; j++) {
-> -                       if (vmhub >=3D AMDGPU_MMHUB0(0))
-> -                               tmp =3D RREG32_SOC15_IP_NO_KIQ(MMHUB, ack=
-);
-> -                       else
-> -                               tmp =3D RREG32_SOC15_IP_NO_KIQ(GC, ack);
-> -                       if (tmp & (1 << vmid))
-> -                               break;
-> -                       udelay(1);
-> -               }
-> +       /*
-> +        * Issue a dummy read to wait for the ACK register to
-> +        * be cleared to avoid a false ACK due to the new fast
-> +        * GRBM interface.
-> +        */
-> +       if ((vmhub =3D=3D AMDGPU_GFXHUB(0)) &&
-> +           (adev->ip_versions[GC_HWIP][0] < IP_VERSION(9, 4, 2)))
-> +               RREG32_NO_KIQ(req);
->
-> -               inv_req =3D inv_req2;
-> -               inv_req2 =3D 0;
-> -       } while (inv_req);
-> +       for (j =3D 0; j < adev->usec_timeout; j++) {
-> +               if (vmhub >=3D AMDGPU_MMHUB0(0))
-> +                       tmp =3D RREG32_SOC15_IP_NO_KIQ(MMHUB, ack);
-> +               else
-> +                       tmp =3D RREG32_SOC15_IP_NO_KIQ(GC, ack);
-> +               if (tmp & (1 << vmid))
-> +                       break;
-> +               udelay(1);
-> +       }
->
->         /* TODO: It needs to continue working on debugging with semaphore=
- for GFXHUB as well. */
->         if (use_semaphore) {
-> --
-> 2.34.1
->
