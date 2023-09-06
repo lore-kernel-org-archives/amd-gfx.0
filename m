@@ -4,59 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 519EBEE14A0
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 16:03:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB0EFEE14B1
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 16:42:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBDDD10E6B1;
-	Wed,  6 Sep 2023 16:02:59 +0000 (UTC)
-Received: from mail-oo1-xc2c.google.com (mail-oo1-xc2c.google.com
- [IPv6:2607:f8b0:4864:20::c2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A92CE10E6A8
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 16:02:58 +0000 (UTC)
-Received: by mail-oo1-xc2c.google.com with SMTP id
- 006d021491bc7-57128297bd7so2437003eaf.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 06 Sep 2023 09:02:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1694016178; x=1694620978; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Xpf2OK2TtDsutjShLH/JWHF6tUm2pW1spbo4msuC6v4=;
- b=fEtMpVVbx4sivgigwJewfoXxrOlN2/7H/UwA0bBoVk18/g0UmnD2h6WmBNILUJWKi6
- 3hYeULDgpBJNVFLDLq+Ug2V0qYk5JiiGCf6IMNVVgtTObxGDYr25Q1YAG1oeAA3zigzn
- OjwxMR2Udvsz/bn16IDYY2Ozi1DJ7hpT9CzSQ05p6+Ywoew8Zovgimgjtm0ya4vfJ415
- SDKqIsv+el4NDi2RGxo31dzA/zK0qyM6/ZrWV3UPr86rQM3h3vQZPPrkJKjc8xfWup59
- AKXPgrLPYBpjzg/jki1/iRtEjzxX8k/4Lz1QC7ArQvBL8wa8lSvFkdiQcFk1967NDCys
- f6hA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1694016178; x=1694620978;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Xpf2OK2TtDsutjShLH/JWHF6tUm2pW1spbo4msuC6v4=;
- b=h2lMjkDKYzuBYzlphKdIetp8jiWN/zKhSxf2XsoWcZMhoEERwgcDk5/llwCCGHjP9q
- HMRlEfCXulsabPPxipZx9ZfaZSco60XWb4mxdofGbxoUZ3xkCQ7uwsRvoKuhfDwmcWh5
- fq6Wavj1DsVXzQYYT2cIPYSgEJdd7iX+s/rs/q9TyHaqzFOiVnZl+g4nqIuZk/fBatrA
- jyk3M3vD6Njqzil2bU/KdzdczazN3qAi5B2YXftcbxwcoI4b1pyIPFxyhPZXb5Ki6ByE
- KUTa1no7EuLzKs1XeOmphB0M65H1uMCdIOXuo8UN0GjAlzUSl/BR4bV4DSh+I/c3K43D
- 85jQ==
-X-Gm-Message-State: AOJu0YyEyl6eGgloFq+2s7tEeEvtoTCoDUmSdq++G/nt0tm7EXHMQgC7
- 7d2zy1hmU0H76kR/RH6qH9kf93B9iXemSlElN7A/Ndvl
-X-Google-Smtp-Source: AGHT+IHMD/xapZM5LTAjFPxlUks0RIsiIJzShPcwiUWFfzsCUWQfbUBCGv0QrTXp5Wc9ywR3QiIT7YHdpH85D6OKLgc=
-X-Received: by 2002:a4a:d212:0:b0:573:4da2:4427 with SMTP id
- c18-20020a4ad212000000b005734da24427mr15009665oos.7.1694016177784; Wed, 06
- Sep 2023 09:02:57 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B39710E1BB;
+	Wed,  6 Sep 2023 16:42:50 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A31AE10E1BB;
+ Wed,  6 Sep 2023 16:42:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1694018568; x=1725554568;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=Bd+eR1D8MJ14EOAkMNWnmTSrj7/rtOLUPkFcbu+nGIk=;
+ b=WvEp4jdoDJrahonbrmYkyp1cok4BxFwPErpufe/i2f7oemL+GPhSXbwS
+ ZoEamt09ss2SuCX1/vUsfXdDxFHkBWFNw+AiDxDDPW+7xBFDQWvUlHtly
+ i7qwUVUa/vGg04t+IDHQCOpqGWC8bUWlDq4n0wCy/0/efH9VKYswCuLH8
+ PYhcbYDFGRVljDlBQA/WNYnyG0/ejxqf1/wJEPDdflCr2HBrv+xgs3g4K
+ I0xjlc+j2Q3/T4bLc6VxARqr9UzPoyObSJGqWjiOYKw/9PX5Z+qTIis2X
+ MkokvsyEEjB9DkNWeuOtBMZTzqcLEThH3WPvBiLrzkhOOWlGLVDYl9XdI g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10825"; a="380916556"
+X-IronPort-AV: E=Sophos;i="6.02,232,1688454000"; d="scan'208";a="380916556"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Sep 2023 09:42:48 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10825"; a="770835198"
+X-IronPort-AV: E=Sophos;i="6.02,232,1688454000"; d="scan'208";a="770835198"
+Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
+ by orsmga008.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 06 Sep 2023 09:42:47 -0700
+Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.32; Wed, 6 Sep 2023 09:42:46 -0700
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.27 via Frontend Transport; Wed, 6 Sep 2023 09:42:46 -0700
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.176)
+ by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.27; Wed, 6 Sep 2023 09:42:46 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nOztwVmbBtZKvh6N9Jny71CyKqkRTRUCovelDiRQkESfaklZUq9ToALQvSLqvX7tGiZ7HCdZNycMX4WCqzIETQJiSeJs7nhz8ssHZLCJTLMn+QZMvQUU6xh+kzQ3HX43fgkKkiC2OJC12MHrv/4Y6bvi5SFp0c2BY134KOHjJ5Ktn4FQY0k9JFlV7rxLOHMA4NgUeFFim1OMizMapjlUmZnncydMHmS0cACyXm3SLcGYlRLkMSNii2JBhu6umTPJiM+RLubZBoGuJW/vMno7LScwo8Kz7cc/MnF7DFcXYEQ77oj//3ZWIRPyldG7mpM1XO6lrog/eUnxBlmLwiVnHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OmqXDNQ7XkHp6MZXnHUOvCRHI8TTIVQzSM7sz3xYHbY=;
+ b=F0j85sdLIR8Nm7J9Of8rgHLegZvhIPOgnMddBoh7nTfxN65opFzV6SfWHtu0pQBjlAyIWVgxSKcTQQq/0NollsD1ofH/eAapyula4WhbAWa8xhS2LWAZHaWywuoLN3EP4sx6CB2616BTJG4hF5UVKOVqMZG+bXU1ZVGgjjO1ubjFA1wRUehZ31/VvN6tt4WLnGJAO/8oba7gUyEgc7Z8eIz4bDHgtay/3fAaDnqFhbIefHGGilovrCNkyg0CpIFoly+1BXmcoBqWwfTSIpdTx+w49m8nMRx7OfDuooKH1qzWzFmfNpNsrujA+kDmJOzCkhnK56HA8S5S5ScTbb6jDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MN0PR11MB6059.namprd11.prod.outlook.com (2603:10b6:208:377::9)
+ by SJ0PR11MB8294.namprd11.prod.outlook.com (2603:10b6:a03:478::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.33; Wed, 6 Sep
+ 2023 16:42:44 +0000
+Received: from MN0PR11MB6059.namprd11.prod.outlook.com
+ ([fe80::7f94:b6c4:1ce2:294]) by MN0PR11MB6059.namprd11.prod.outlook.com
+ ([fe80::7f94:b6c4:1ce2:294%5]) with mapi id 15.20.6745.034; Wed, 6 Sep 2023
+ 16:42:44 +0000
+Date: Wed, 6 Sep 2023 12:42:35 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Andi Shyti <andi.shyti@linux.intel.com>
+Subject: Re: [PATCH v2 3/6] drm_dbg: add trailing newlines to msgs
+Message-ID: <ZPir+7VYXcKv117q@intel.com>
+References: <20230903184607.272198-1-jim.cromie@gmail.com>
+ <20230903184607.272198-4-jim.cromie@gmail.com>
+ <ZPV6CMBlDWriMyva@ashyti-mobl2.lan>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <ZPV6CMBlDWriMyva@ashyti-mobl2.lan>
+X-ClientProxiedBy: SJ0PR03CA0011.namprd03.prod.outlook.com
+ (2603:10b6:a03:33a::16) To MN0PR11MB6059.namprd11.prod.outlook.com
+ (2603:10b6:208:377::9)
 MIME-Version: 1.0
-References: <20230906153907.216159-1-mukul.joshi@amd.com>
-In-Reply-To: <20230906153907.216159-1-mukul.joshi@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 6 Sep 2023 12:02:46 -0400
-Message-ID: <CADnq5_MqUw5xd9O7vA=E2s89mqztKt49stsXiid-kMrTNy13Jw@mail.gmail.com>
-Subject: Re: [PATCHv3] drm/amdkfd: Fix unaligned 64-bit doorbell warning
-To: Mukul Joshi <mukul.joshi@amd.com>,
- Shashank Sharma <shashank.sharma@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR11MB6059:EE_|SJ0PR11MB8294:EE_
+X-MS-Office365-Filtering-Correlation-Id: 342f2e74-1d49-48da-7f93-08dbaef84b31
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: wsb34ZNaIpz75bglQoLj1j6vUUmeW+TScoeEKDh1HF097g656MdFYsFkw1IPLtg6nPCTchT8aCBDQob6eiNPsQZLj56J+pOQTXyem/bo2fOOAlFmRYUW4kC+dR0QSnvX4EV40UGoJf4NuRz4yvk6wopcRVFUOHiEOYNLZrOBaiyIl2xNT5CBCdsJaNYmOD0EsNAhhD6X7jR96wFYoJWSN5MroLevaQyi3SKzp8T/isiLK1epvFcntd8YNBUROUZziMUogWAb+VJZR0yQpOHWa9onoOWBsRkKSx+X+0fzoZtNiVbkXRD6Gu4oS3DSxyBv12m2RxlQiEyvaE0nAv6LhlQ2vVs9GeIKB9HXhJjZin5hNyII7sL3suRCRzaZY5Nvy0eyEEzk9zAoqddxhXdS+smJ28WO3Pc/EuHm4NCPAhzB6XNv/9g8SHip/mWXRmOGd25x38s9SRvtN8GTUU1GGgmyq1A5Biv/Y2ZDejsNhXyqXAAVH29mu95r2GmAk5Z/mVY77UfGDzpDL1YP9htg1ljmUZHsS09xay0uZpfj+gLAl6zTYYo8kHRYts0NCBQmkiSGVC3hp5Z25Sp3iYIT4QgijbOpBLUPQHueEynDx48=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR11MB6059.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(366004)(346002)(396003)(376002)(39860400002)(451199024)(186009)(1800799009)(26005)(2906002)(83380400001)(8936002)(8676002)(6512007)(2616005)(6486002)(6506007)(7416002)(36756003)(86362001)(82960400001)(38100700002)(44832011)(478600001)(5660300002)(6666004)(966005)(4326008)(316002)(6916009)(66946007)(66476007)(66556008)(54906003)(41300700001)(67856001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?6feADvTnj6kmk3/BwpavmgIGUaDg4VtPiS9Sfj3hTgOFE4Csyqdd8rfD1HQC?=
+ =?us-ascii?Q?EQCaEI0ALtDa8Vr4z+HzrFub1p61XC2zJKtK9RyOYJF4SWVrBpndCgril+CH?=
+ =?us-ascii?Q?oHJyZdra3acfKQNAsXrZiQnUGJufKw/P+2+1lie3s2J692aj7b4b/XpqCsVG?=
+ =?us-ascii?Q?cQXOYHeh9PEQB/XxtK8Z7fkZv0IZd3ywnmp1CsUn+af3RbU1A3X+h0eo19Nz?=
+ =?us-ascii?Q?b1QYk9rwJBy6k0TY2LLHuXF0Cmawjvw0epyYmb6JMGT3DgyGdwo2TmM5OhTX?=
+ =?us-ascii?Q?Xx/XmX6mcKGs3lWktCqJYwNqVcLhMRjkAJQtziqp8WFmGsf+B/oDmY9Cp8MK?=
+ =?us-ascii?Q?Nd6Kspg9j3A3i8NxIs9WrkrqbO7qBZ9S4Gfm/a3MwxLFQfoz8obWi3yq4Bvt?=
+ =?us-ascii?Q?QxjkVgTP1DFWBrgD0xhCgS9sI8lhlHHZu38XKuARh6/HMvRStTiXYoQ538BP?=
+ =?us-ascii?Q?zTlPG1GzScHu3/+FdhHW0Uxnh8Di4oK8bKQ95wgrAXh5HX+fVRLoZcd1RkML?=
+ =?us-ascii?Q?3xJ/v12pJ7jyHFMkpRgts/ag5D5PHeaSSI34SBW/ujLZah+Bo9DAZ6RzT2AA?=
+ =?us-ascii?Q?I1ZY+l8SSvNdtqqny0n0ykqULeKWZfHIimjhndrQXqs9RZWSJ8Zt+3FzyEio?=
+ =?us-ascii?Q?Kb3ANA6VfN2RYtPR0wFk6Kxv70BXWtakLNCuTDzy8MHqqRni6LcX3TCXZweW?=
+ =?us-ascii?Q?KAFMYSpIZ78Ev2tTPgseLgKkAr1SngI/wARfoXw2l8kYLUWmRX0Lkhw6rOCq?=
+ =?us-ascii?Q?fNotFMv7DsRm9wvCFfn/lYq9SREw3JXikpVE/YXBDRLHQBGgrq7gSdG2aGoP?=
+ =?us-ascii?Q?7AqrFt8NWhgr+zaFxRn8V/O5Zcb4ShvJ+1kxdjJ1gHowSZ4Qa5ra3zLozzab?=
+ =?us-ascii?Q?sKjzqQ1TuIUGws+ge9Nz3nHfEfLmUAP2LAt0iCcy22jBJ3Oh2LwiaDfZHim0?=
+ =?us-ascii?Q?jDkp+MYMvH6dV2Pkkd/QurQtC4JNSpxMI0PqC6tAi3w+HpAD1Qmsrvvwliwn?=
+ =?us-ascii?Q?NlcVLxR8zTx2VdwVV+pSLoi8F1RPYjfbtGxUU6b7NX9ktlRtnkbximI5EyCT?=
+ =?us-ascii?Q?HQq9A5YK8HtgVAaZ+HGWw2ke5M/Kk+ELagLL5e92d4ScEXD1hJNCY2iRE0IK?=
+ =?us-ascii?Q?JP0P4TKU5bfeXiyo7QVNArAO6pUq8BralwuKY849VWhujzC4VeqcZfrYOX2M?=
+ =?us-ascii?Q?PqhsG4efKSY1vbK/8ue+9bBBgr+dxGTmWGZlUW/+GnCn/M8zRvtHCn8kB6EC?=
+ =?us-ascii?Q?GGiwrZKWIcdqMone0foGFDY/mYwI6JCMs3Z7YFz1jUd3I2pbrhPftx6+mAv6?=
+ =?us-ascii?Q?w7ys9njArcNlA6aZTaKub8yS07sPnynJeef2eZqAPWGLUn4iVydF+TgY0IId?=
+ =?us-ascii?Q?4A0Syk6eBrdVJvfVm4vq9dYd8adVYdCEYLKuyDwaE9yaDreCx+GkTVjWV4lK?=
+ =?us-ascii?Q?cI6FsZKOAAqKQHOjy/ja+1xW2Jgv+2M2AafWT0OWnZ54FrkksyYC8wpeNpJG?=
+ =?us-ascii?Q?he5wBIZADiezIwmjjCVSF7q5bZ3RFuPa/3Sui7xIOEodBKr2Aye7MPgP1lPx?=
+ =?us-ascii?Q?txDlO5/uMYrjRnZlrUB1HOCl85eRb36OiesMD7MEf0nucwh3CODwTjUlTg/8?=
+ =?us-ascii?Q?Kg=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 342f2e74-1d49-48da-7f93-08dbaef84b31
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR11MB6059.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2023 16:42:44.3200 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VkeZ/gf8WZWL8g89X6My1qvmTLrQojCqbKhP1XtHPB4YhjysNZTRZyzfEn/kUoYQl1XJNrxIeLE87Cf0l1fjkw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB8294
+X-OriginatorOrg: intel.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,96 +145,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: felix.kuehling@amd.com, amd-gfx@lists.freedesktop.org
+Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>, Fei Yang <fei.yang@intel.com>,
+ daniel.vetter@ffwll.ch, Imre Deak <imre.deak@intel.com>, Joonas
+ Lahtinen <joonas.lahtinen@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>, Andrzej
+ Hajda <andrzej.hajda@intel.com>, David Airlie <airlied@gmail.com>,
+ ville.syrjala@linux.intel.com, Rob Clark <robdclark@chromium.org>,
+ amd-gfx@lists.freedesktop.org, Matthew Auld <matthew.auld@intel.com>,
+ Mika Kahola <mika.kahola@intel.com>,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>, jani.nikula@intel.com,
+ intel-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ seanpaul@chromium.org,
+ =?iso-8859-1?Q?Jos=E9?= Roberto de Souza <jose.souza@intel.com>,
+ intel-gvt-dev@lists.freedesktop.org,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
+ Jim Cromie <jim.cromie@gmail.com>, linux-kernel@vger.kernel.org,
+ robdclark@gmail.com, daniel@ffwll.ch
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+ Shashank
+On Mon, Sep 04, 2023 at 08:32:40AM +0200, Andi Shyti wrote:
+> Hi Jim,
+> 
+> On Sun, Sep 03, 2023 at 12:46:00PM -0600, Jim Cromie wrote:
+> > By at least strong convention, a print-buffer's trailing newline says
+> > "message complete, send it".  The exception (no TNL, followed by a call
+> > to pr_cont) proves the general rule.
+> > 
+> > Most DRM.debug calls already comport with this: 207 DRM_DEV_DEBUG,
+> > 1288 drm_dbg.  Clean up the remainders, in maintainer sized chunks.
+> > 
+> > No functional changes.
+> > 
+> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> 
+> Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com> 
 
-On Wed, Sep 6, 2023 at 11:45=E2=80=AFAM Mukul Joshi <mukul.joshi@amd.com> w=
-rote:
->
-> This patch fixes the following unaligned 64-bit doorbell
-> warning seen when submitting packets on HIQ on GFX v9.4.3
-> by making the HIQ doorbell 64-bit aligned.
-> The warning is seen when GPU is loaded in any mode other
-> than SPX mode.
->
-> [  +0.000301] ------------[ cut here ]------------
-> [  +0.000003] Unaligned 64-bit doorbell
-> [  +0.000030] WARNING: /amdkfd/kfd_doorbell.c:339 write_kernel_doorbell64=
-+0x72/0x80
-> [  +0.000003] RIP: 0010:write_kernel_doorbell64+0x72/0x80
-> [  +0.000004] RSP: 0018:ffffc90004287730 EFLAGS: 00010246
-> [  +0.000005] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000=
-000000
-> [  +0.000003] RDX: 0000000000000001 RSI: ffffffff82837c71 RDI: 00000000ff=
-ffffff
-> [  +0.000003] RBP: ffffc90004287748 R08: 0000000000000003 R09: 0000000000=
-000001
-> [  +0.000002] R10: 000000000000001a R11: ffff88a034008198 R12: ffffc90001=
-3bd004
-> [  +0.000003] R13: 0000000000000008 R14: ffffc900042877b0 R15: 0000000000=
-00007f
-> [  +0.000003] FS:  00007fa8c7b62000(0000) GS:ffff889f88400000(0000) knlGS=
-:0000000000000000
-> [  +0.000004] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  +0.000003] CR2: 000056111c45aaf0 CR3: 00000001414f2002 CR4: 0000000000=
-770ee0
-> [  +0.000003] PKRU: 55555554
-> [  +0.000002] Call Trace:
-> [  +0.000004]  <TASK>
-> [  +0.000006]  kq_submit_packet+0x45/0x50 [amdgpu]
-> [  +0.000524]  pm_send_set_resources+0x7f/0xc0 [amdgpu]
-> [  +0.000500]  set_sched_resources+0xe4/0x160 [amdgpu]
-> [  +0.000503]  start_cpsch+0x1c5/0x2a0 [amdgpu]
-> [  +0.000497]  kgd2kfd_device_init.cold+0x816/0xb42 [amdgpu]
-> [  +0.000743]  amdgpu_amdkfd_device_init+0x15f/0x1f0 [amdgpu]
-> [  +0.000602]  amdgpu_device_init.cold+0x1813/0x2176 [amdgpu]
-> [  +0.000684]  ? pci_bus_read_config_word+0x4a/0x80
-> [  +0.000012]  ? do_pci_enable_device+0xdc/0x110
-> [  +0.000008]  amdgpu_driver_load_kms+0x1a/0x110 [amdgpu]
-> [  +0.000545]  amdgpu_pci_probe+0x197/0x400 [amdgpu]
->
-> Fixes: cfeaeb3c0ce7 ("drm/amdgpu: use doorbell mgr for kfd kernel doorbel=
-ls")
-> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
-> ---
-> v1->v2:
-> - Update the logic to make it work with both 32 bit
->   64 bit doorbells.
-> - Add the Fixed tag
-> v2->v3:
-> - Revert to the original change to align it with whats done in
->   amdgpu_doorbell_index_on_bar.
->
->  drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/=
-amd/amdkfd/kfd_doorbell.c
-> index c2e0b79dcc6d..7b38537c7c99 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> @@ -162,6 +162,7 @@ void __iomem *kfd_get_kernel_doorbell(struct kfd_dev =
-*kfd,
->                 return NULL;
->
->         *doorbell_off =3D amdgpu_doorbell_index_on_bar(kfd->adev, kfd->do=
-orbells, inx);
-> +       inx *=3D 2;
->
->         pr_debug("Get kernel queue doorbell\n"
->                         "     doorbell offset   =3D=3D 0x%08X\n"
-> @@ -176,6 +177,7 @@ void kfd_release_kernel_doorbell(struct kfd_dev *kfd,=
- u32 __iomem *db_addr)
->         unsigned int inx;
->
->         inx =3D (unsigned int)(db_addr - kfd->doorbell_kernel_ptr);
-> +       inx /=3D 2;
->
->         mutex_lock(&kfd->doorbell_mutex);
->         __clear_bit(inx, kfd->doorbell_bitmap);
-> --
-> 2.35.1
->
+I pushed this i915 one to our drm-intel-next.
+While doing it I have changed the subject to make it clear
+this is 'drm/i915:'.
+
+I believe you should do similar change to all the other patches
+to make it clear in the subject about which domain that commit
+is touching... instead of only 'drm_dbg'.
+
+i.e.: 183670347b06 ("drm/i915: add trailing newlines to msgs")
+https://cgit.freedesktop.org/drm-intel/commit/?h=drm-intel-next&id=183670347b060521920a81f84ff7f10e227ebe05
+
+Thanks for the patch,
+Rodrigo.
+
+> 
+> Andi
