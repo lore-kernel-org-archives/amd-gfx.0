@@ -4,62 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8260FEB8FCE
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 13:25:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88348EB8FD4
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 13:25:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25A7410E659;
-	Wed,  6 Sep 2023 13:25:09 +0000 (UTC)
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 751B610E60C
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 11:14:46 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2ba1e9b1fa9so58116311fa.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 06 Sep 2023 04:14:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0C6010E654;
+	Wed,  6 Sep 2023 13:25:08 +0000 (UTC)
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E05310E5FA
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 10:54:43 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-31c65820134so3011315f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 06 Sep 2023 03:54:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693998884; x=1694603684; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=I7I0PovVYLasu/UMUTWYTFB8t8j//23E1al0pSkqV8M=;
- b=wKKfE9OXWSOSsZTZWCU5JC4fWzkYg8T5FSKzebAKd5knQ/eHZW6uxe5/IUvZxIehfT
- etolxsm6/j4nt2/pVRt58bdhfyBAbCqkewJRShV7QgHYJNAuZZn4s3l3y9FZZx5X+ZjX
- ojsrtyjCdrc7OvC6Hl0h8a5yOyyOo05svG5EEMdn9INzsNvesdb9ysZLp0l0Aaz1TJKf
- XQDfJ21OGmrPv0dKc+Sk/TYHrRFUXod1TuoHGHk3pZk2XKmlrrGBcn+ibh6ZFbwoKupn
- EU2px5NdLdXt8a2p1noXmgEU5TUKD19FT8+UMTJtnb97xHoc7KIyYttGKk+3AuQwDntQ
- ms4A==
+ d=linaro.org; s=google; t=1693997681; x=1694602481; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=LCKeiVfXbpOHNlhl0gQNMuWrM7Q36OD6Fy+jaBM3zr0=;
+ b=Ad3xXY/acXv6X86+iwmvRHC1Fx3T6O/moSLWcGPlzYHSLYEnLsS5lN0me1h9J4DKBK
+ gOyKY0Z9/WYzp5aZirKfV5CZqTus7btjN3YzD5vOcFQTPE3JVKnyHXmjdfPl4bLE+7Gh
+ YUPUrIj1DK22o0E8eY8s3TrPUcY/D4ON89Nys8CFGnkb4kod3kCFtdTikagb55BIxqIb
+ q7ceyrdbE4FHuT9h9jHjP8tBfqzFEZ07dmgZGpz3jlXWyC2lXM4wugnB6hwa1nExidGA
+ GA9EQvHYatI4ixyh336IZ9Pr//kQ4FINYwDtRMzi5Fa4KsDxF3eEqlkrNyEP8bEIGAM4
+ sYuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693998884; x=1694603684;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=I7I0PovVYLasu/UMUTWYTFB8t8j//23E1al0pSkqV8M=;
- b=YkDMqYLD/g2CCtq2wy4ncUgdRr9TRTOLhsPvYFQW5CYlIoZSflZpp6a7ip6bXE6Xwa
- hWhoq9dWOKYD9xE/2APnwLQCc38jUEJpTtXLwMvpSgHHM7Pk/8zpVU8Eik+l/Bq19/Kl
- h65TqkdJ2dhmIDEt0lY1pCjVSJeZ+pMX9NS5p9qZV8S4hv+1e3FyBxsPMrhiRPSr/1Rw
- EtvkemCINbhsIi7Nek2VDt+wLsYkj1UXTy4zDjdFm92sucITLoWlgyGwcuFnnGALhH5R
- U6uo2cbQ/GNfTNXp6yfxKNf5CBIwL0sVvlvCUtCOBc8E/4kxTxs/zJXBs5s7dziTssWl
- aLgg==
-X-Gm-Message-State: AOJu0YxBpGIoOSBKgcCtoALBbfaY5cWLDjSTB/7/9TfJl4yZNUVuAyvk
- xj2SKXDj7W84VMGSrZRjmVT4yPLn3tNLntwr9GI=
-X-Google-Smtp-Source: AGHT+IHG1fKvcZQXJ1n48+9u6Ljj1Lda0Fp64jQ4gDu8kbd1jVHTMaqUy7BPZpnR3mA6fNAUSxOPaA==
-X-Received: by 2002:a2e:b0e7:0:b0:2bc:c557:84a0 with SMTP id
- h7-20020a2eb0e7000000b002bcc55784a0mr2156237ljl.30.1693998884620; 
- Wed, 06 Sep 2023 04:14:44 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1693997682; x=1694602482;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=LCKeiVfXbpOHNlhl0gQNMuWrM7Q36OD6Fy+jaBM3zr0=;
+ b=BUmVrCYOaqIki7UKPi9nRqzlj3nhatzuW3RLAMkYXb28lAe8rtov1HoiprbxJHnVDo
+ 4Qlq+bRSilRvx/6cr5qXOzvAHFcWIKUzuwgYPBRWTefy8VaGvpssO01qYyOQ9Dw56MKq
+ sXcZo4ce6v4UkLu33/I62YOb3g7WlqdEeA6t37PEPyryFahpbW4UjbrqcEGm1ZECDFqK
+ 4SKsxriGZPMQLpG14dH9YKNTp+KMRRyRiClhff+XMgp3CzWo3+IOzVI5qIWO/BXMCMEb
+ Fw8bdXNSphQVNbSnzHeR3P+ULpt0YtDvqtKjKyBXaIG8XsPevcZQ+w8aGMHoaMskX6Az
+ 5tsQ==
+X-Gm-Message-State: AOJu0Yz8ka5bnc/fwKAE6+MuT0sfArUhTQOqN4ogA8SxpHHI6i/RPwHk
+ IujIO083Yz6d7KgD0zXNcb7Z3A==
+X-Google-Smtp-Source: AGHT+IEgpsMHaoM6HOfWi7u9qCzbaxmCm1tHHH2l8saUdqiH4tWYuh1cPZiI1bMgsHD5B4zKGALA6g==
+X-Received: by 2002:adf:fa46:0:b0:317:6ef1:7939 with SMTP id
+ y6-20020adffa46000000b003176ef17939mr1722000wrr.23.1693997681665; 
+ Wed, 06 Sep 2023 03:54:41 -0700 (PDT)
 Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- p1-20020a05600c204100b003fe1630a8f0sm22456217wmg.24.2023.09.06.04.14.43
+ r12-20020adfce8c000000b00317afc7949csm19979128wrn.50.2023.09.06.03.54.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Sep 2023 04:14:44 -0700 (PDT)
-Date: Wed, 6 Sep 2023 14:14:41 +0300
+ Wed, 06 Sep 2023 03:54:41 -0700 (PDT)
+Date: Wed, 6 Sep 2023 13:54:38 +0300
 From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Lang Yu <Lang.Yu@amd.com>
-Subject: Re: [bug report] drm/amdgpu: add selftest framework for UMSCH
-Message-ID: <da2ea1d6-1b7f-4af7-ada0-ce59a6fe2356@kadam.mountain>
-References: <dd425f64-868a-470f-b78c-8bf6a7b7daa9@moroto.mountain>
- <ZPhddADtKmOuVyDq@lang-desktop>
+To: Evan Quan <evan.quan@amd.com>, Yang Wang <KevinYang.Wang@amd.com>
+Subject: [PATCH] drm/amdgpu: fix retry loop test
+Message-ID: <ea9bfa9b-2689-45cf-95b7-57577f0d76c2@moroto.mountain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ZPhddADtKmOuVyDq@lang-desktop>
+X-Mailer: git-send-email haha only kidding
 X-Mailman-Approved-At: Wed, 06 Sep 2023 13:25:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,22 +69,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
+ Lijo Lazar <lijo.lazar@amd.com>, kernel-janitors@vger.kernel.org,
+ Asad Kamal <asad.kamal@amd.com>, Mario Limonciello <mario.limonciello@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 06, 2023 at 07:07:32PM +0800, Lang Yu wrote:
-> On 09/06/ , Dan Carpenter wrote:
-> 
-> Thanks for reporting this bug. Can you give a link to this bug report? Commit message requests it.
-> ("Reported-by: should be immediately followed by Link: with a URL to the report")
-> 
+This loop will exit with "retry" set to -1 if it fails but the code
+checks for if "retry" is zero.  Fix this by changing post-op to a
+pre-op.  --retry vs retry--.
 
-My email hasn't hit lore.kernel.org yet...  Presumably it will in a bit.
-We could link to yours or swap out the the message-id.
+Fixes: e01eeffc3f86 ("drm/amd/pm: avoid driver getting empty metrics table for the first time")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+Obviously this only loop 99 times now instead of a hundred but that's
+fine, this is an approximation.
 
-https://lore.kernel.org/all/ZPhddADtKmOuVyDq@lang-desktop/
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-regards,
-dan carpenter
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index ff58ee14a68f..20163a9b2a66 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -336,7 +336,7 @@ static int smu_v13_0_6_setup_driver_pptable(struct smu_context *smu)
+ 
+ 	/* Store one-time values in driver PPTable */
+ 	if (!pptable->Init) {
+-		while (retry--) {
++		while (--retry) {
+ 			ret = smu_v13_0_6_get_metrics_table(smu, NULL, true);
+ 			if (ret)
+ 				return ret;
+-- 
+2.39.2
 
