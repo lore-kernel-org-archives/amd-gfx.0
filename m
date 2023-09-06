@@ -4,115 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EC12EB8FA5
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 10:22:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5C34EB8FA5
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 10:50:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDD2C10E5F2;
-	Wed,  6 Sep 2023 10:22:24 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2072.outbound.protection.outlook.com [40.107.102.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 730B910E5F2
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 10:22:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=D2r0XPdjOxZ2ewsQf6uC5GSfdaITh46a6TKVIV7pvxXrbiLtYJ9bhwe0ngluRqolCH+1rl7OZUgkuEIDmmW8Wr8kNpAZJdNRHSBSPZskfv5BnuNq/5A2WdO0vmafC5I+tgAg/djv2Uj4ZSU4s1/N1LDt8oShVOekl8zl1R70/OY8TCxASJqYtgw68uYLF8z/fBvPLDno67tjmwEDzF7CQKyiK3pKV2DzQyfInQRjMyfZZ9hnPsq+ABrRy/mtkKVV4uAhCptdODncwhTLPoVxZubhKd1zqTIedF8SQU+2aGlZVTyIgXzLUBOOkY72NSb4ecilBrVy1ainlMxbl5+54A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S/U/XEnbLWuRUDp77fNKiKXzytbI66CSG03YAWYXYpw=;
- b=JbkxcmKGRs5bXrSzgBuzbHoh9bumlwfDEGaBZvo6KzZaHkDYV0xGNyIDP0cVPJegADrvN/g3X0jJ0e2BECenF0wYHB6jf/BZYb+gjjMOXDmManeOs5M+Rxv3veni7ed0vyNStW8BlgQYqVuKdFmUaX+kHh1DMrNzXhhGSToXNBwaYaH8MbIgmyvd2lJGQMTtp5ajtUxw4hS77u5xgNYH8h9HW3nn8qGKWV+AM29ekkRr3Wiby3/sbYPJ748b7YmhA0q3lXjUsC87aL8Uk3WHhI2jjwnaUE/DjtE3drd+QvYlPKL1vvQy+5mm+tHGo5aXR5hdgA3SNFnK8qczdwRtkg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S/U/XEnbLWuRUDp77fNKiKXzytbI66CSG03YAWYXYpw=;
- b=dE79H1iV+c2FI4n+VTPjtD1ztzg6SLHkO8Ug1ZKKy2OrmL3copHfewLkDECV1TZCL/sXb/sE8MWbYjjuP13yulfr9KgywWnPdx0dPYNCVzTDyG+WYaSZ3866MnIZUt9XQHqHYB+iez7FiIidYwiB5JKv3UVyPCP7vYKzbnemSNE=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by BY5PR12MB4968.namprd12.prod.outlook.com (2603:10b6:a03:1d2::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.34; Wed, 6 Sep
- 2023 10:22:20 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::422d:63c2:1a93:6a20]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::422d:63c2:1a93:6a20%6]) with mapi id 15.20.6745.030; Wed, 6 Sep 2023
- 10:22:20 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Yang, Stanley" <Stanley.Yang@amd.com>, "Li, 
- Candice" <Candice.Li@amd.com>, "Chai, Thomas" <YiPeng.Chai@amd.com>
-Subject: RE: [PATCH 3/3] drm/amdgpu: print more address info of UMC bad page
-Thread-Topic: [PATCH 3/3] drm/amdgpu: print more address info of UMC bad page
-Thread-Index: AQHZ4KpuRz8EM2Vi402/VjmYpNM/z7ANlpbg
-Date: Wed, 6 Sep 2023 10:22:20 +0000
-Message-ID: <BN9PR12MB5257968992D48D941417DD64FCEFA@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20230906101016.22726-1-tao.zhou1@amd.com>
- <20230906101016.22726-3-tao.zhou1@amd.com>
-In-Reply-To: <20230906101016.22726-3-tao.zhou1@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=b6df7286-6e52-4a98-90ae-8b1aa8538686;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-09-06T10:21:55Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|BY5PR12MB4968:EE_
-x-ms-office365-filtering-correlation-id: e39a4422-b229-49a3-3e61-08dbaec3276b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: glA4gZXGxgbv5MxX/8JbFrRC5xsM4kIyVuWeti1LGRuUuyyhnVZ3fEgF6NlD2Z00zdwo9i6e8M49Fays4AUDhnSyRfd1do0TwTrdZiRkZmsDpbeRlws6FZzfjzbL2ccArEmnqQ15L0G4LrpiV90nqHkC2q9/0y5ctA8vw2WKK3GeV/rbRMasZPkbnh0/5N2M6ILbYSXqqo6uhiBB78vJpPYEfcTJmPoE/08kqqA4AeuU+5twoAEdBljAZcFSlE0lkgyTgRFQzKm1U3ug2uuVaqv0nxY3cVb9mRafJMCFcSelkkV3TBw4x34O7lVunZrqx3IwOW1bt6HJBoyVPrp3dr2agr0y/B+qk7wEKWc/DVas5WIfIiJQtOJmQretugqL96r7Tt+S/nXRjMmUkaayiGwdxmsxwbW6N0uKFOPbi6fFI5JtOgY6QcjF1+dt+wdqippuT38rqzHHQhmifU2/uMMk2ZiNEnBXojLpOPrssRypwPYPoXxqWlZRIw81mVkC4ZQLq9M8GgENVtEbD8EqMw91+EGIT85nut5FaAdOYUToIQrDFhfUDZiLwBRJ3og9mSpSBtrsu10PrjjEQxUnTKnS8ShFk6x9a3VIBM2wsl/rCXMug8voFXRxblR+U/tx
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(376002)(39860400002)(346002)(396003)(366004)(186009)(1800799009)(451199024)(55016003)(76116006)(66946007)(64756008)(66556008)(66476007)(66446008)(6636002)(478600001)(316002)(110136005)(122000001)(38070700005)(38100700002)(2906002)(86362001)(8936002)(8676002)(41300700001)(5660300002)(52536014)(83380400001)(53546011)(9686003)(71200400001)(7696005)(6506007)(26005)(33656002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?tFWj4vFfShH5cBK0bs3tLSCHAWEtRKgDYTiK0lLoQShPhiRwIP/d20+LlODE?=
- =?us-ascii?Q?W6Ya7HEQs2j0b9gqIaHk5xhsBhyOTW1dajSCQ9r2+5+FkNXEc0y46ij6vBcW?=
- =?us-ascii?Q?WFvsoQO10fu8i94O4q0AXjRL8XuIsNsC2IvBhYxjo6GPUtkSkwll6mf95ut0?=
- =?us-ascii?Q?Gfj8DksRcJbS6WjLp2Z2BBjmt42fuWpbNmcMRVpgFVVySRgnu36rSZ+s2SQG?=
- =?us-ascii?Q?isSp/LiFmjNOeaafn2OHwNSZ6RFNSvSxzkSozt/PpwjNbylkb7abc89KodUf?=
- =?us-ascii?Q?mjU0mwZhX5gIG28zV8bnmsKq9Wtl2bMqcMzlB1AlrbFdlbUN5sj1+pqeeI6n?=
- =?us-ascii?Q?9GFpjnuDWCVJXS8uR1qWHzTY9ASuIY2NBUZDfONufluf8IW3y30kJQCk98bh?=
- =?us-ascii?Q?2NCBoJTfOBbNMKHWWCCVwO/xYv9BP0hYh/jht6jnIVv1mOOySAXIJpKHyleW?=
- =?us-ascii?Q?WBgex14kCLT43B9qh0IS4zXXzEeFdOeU/DJxROfNC8Mt+LCRKBgD0UTeZf6X?=
- =?us-ascii?Q?Zx+mrY0T+Z8OSnuI6rn13VY3N5iHrE4w8qpag45qHVpaKEWwgk2xZNqWBMPg?=
- =?us-ascii?Q?aYjjpDJdYe4+hL8g28I/5SePakggEkfpDR+FhuITzm6bYiIY93TK7zSdDZLz?=
- =?us-ascii?Q?sa7bKDHKFZVMqmWlq0AJJmVVYnTH3R3ruMdYIS37m9AB2lJKjs4YBfmPkRNT?=
- =?us-ascii?Q?gCycKPyZwtKdkoPVs2aqFMvayu9UsEk0EtX5lu+rWtdvdgs9tHmrb0AskZ++?=
- =?us-ascii?Q?BaBb0Z9hp/O6DhirVzBojpIHYsfC04aQhuXBD+KRg1MFfvlNK8otRZ+OZRZ+?=
- =?us-ascii?Q?YqiC6V+sXtiphkwVlbz5KzirX7ECo2+QW6PUlG6v1GW0HPIl+9kNSooEjSUE?=
- =?us-ascii?Q?65d8jauqkSujAJ8WviqsJrNyzimRVf1ARhEovNOqPndcj8+42Vngpji44h0u?=
- =?us-ascii?Q?mtCTTX3ToKrdxw1DairjsWVvB0n9zIAlbn8nIFjikQSEGvJvIJBtJRnL8TJv?=
- =?us-ascii?Q?6T4uCC5ZI7QRyor60E5s5LBvDLyHPdmsIapAtUYQj67+kfcTvc+SkLHiVc8t?=
- =?us-ascii?Q?GRooMQjjH3/4x20+Wk9OBZuJO8kUYfVL05HsQv47NukXoc/S7IT4rnEnp8hX?=
- =?us-ascii?Q?GUOiXpiPhuRF9uPN1ZIK/EOn9BsBcDKeqm3Hb+QqO1RVI4EtyMhIDQZ0ReX7?=
- =?us-ascii?Q?bXHyaRlYs86tKCy6nc8f27TNftKbKh1TCDqlgVZN2JfWtkaCKSVezvXYsAVb?=
- =?us-ascii?Q?kpiuAlZis38s4mZFeBO+aGpVFqwqBemJsXKIfpiq0qA+Z57PtfeyIo5dyL3V?=
- =?us-ascii?Q?VF8IAv4snDMdc5CN09lnaNMmKMC5fCFO2MaHc/QDIhXDsavglH1wC9rZzLY+?=
- =?us-ascii?Q?8SopHd7Tt3SUw0GWjQxZh1MOFFnlrJCRHpTHjHyCiz9eGSDOHNlg1chuIXYz?=
- =?us-ascii?Q?HIKjER4HHk8KTQCpgpyd+7XkFhHvxBprN+CPCukJNAbh8Q37nQqVF41niz9+?=
- =?us-ascii?Q?n8oj3I7O2KTrDFipZUuigf+0KUdIXNHxhmGpYuOI8iLI2eGe9/cFElCDgGdq?=
- =?us-ascii?Q?cVK6sWrPtcxEeEf6XgznuPUDylfqvddX+TxyctU+?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id E73AE10E601;
+	Wed,  6 Sep 2023 10:50:40 +0000 (UTC)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 768F710E5FC;
+ Wed,  6 Sep 2023 10:50:38 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-99de884ad25so544119466b.3; 
+ Wed, 06 Sep 2023 03:50:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1693997437; x=1694602237; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=nPk6ISCbpC/CANW4MjLpjXtvg/rj6Md91X1eJZ3mRGw=;
+ b=K9iTodjT63sbj5YmRBg6givoK7SfuuguYA1mpOcXf2l1r736e4f51z9R8zLHxOSeqI
+ aFJIaa1QaSW7RYB4cd4qOvQR1iG+MT97V+IqbD0TPHS6R3OKjEmegGozQLzHrZaOOSn0
+ iNhx9/TebdFBKBegJBImMXfoPF5eqmTm9gr8YSaLHuxL6W6QPAZFWwYflyFRksbph9Dw
+ z3Lfimq9sZfBSJHxC7Djs5vAX00oCgkTMAUViWJduFFHdfJzBWIAHla7caKLIubW550Y
+ W4gUmEdmPfDJ5aw+LVO/r1vpuQvAsLR6pkWeLTNBYm6xsECL/RLf7cjc/ayMHgMXmZv3
+ fV9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1693997437; x=1694602237;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=nPk6ISCbpC/CANW4MjLpjXtvg/rj6Md91X1eJZ3mRGw=;
+ b=XNSk9e9T+tbSGSvW5oP4d7bxDgCgUygYs2pXpJcqUWmtyOavp18az1f3hzPcu7yjBs
+ bhCdNA8g+xTeH97uUs+Zv9wG7qapuKmhCEswZJmK2YBJ/+4JiknlQxqoojXFYO0cuU9L
+ RwcXGnjxhgGZRw6YBBLeIt5CpUYPY9XHX9N6ItSYhnMPWszCSmlIJIMP7734bq1eP7uv
+ xJCsWSY1F//xMrXupikVX9Mmt+mLLQDiDSyJVb0WhJhdCByZMbMk3m77rOxkJgit8iap
+ ZCUO+btCRsM2PFQ+hCFhGJqqtUGsv74r/wFxM10LGgI+pnyeMiW1NJ5eBt3tg2KFb3EC
+ tn9Q==
+X-Gm-Message-State: AOJu0Yyrqki0uEglfJ9NZSUUVfJT8BPu4CCMeRjX8xW8ZT2QG+4s2O/R
+ /CfoR08XW+ya4df0mS3SG8A=
+X-Google-Smtp-Source: AGHT+IFk9TQYmwQo+qVqsWZZOhkdOtC/LJqkg8MfHz53csekPCdvAFo5iqnoSkWLn7w1U6kezNBPxQ==
+X-Received: by 2002:a17:906:4ad1:b0:99c:55ac:3a61 with SMTP id
+ u17-20020a1709064ad100b0099c55ac3a61mr1964920ejt.56.1693997436639; 
+ Wed, 06 Sep 2023 03:50:36 -0700 (PDT)
+Received: from [192.168.178.25] ([134.19.97.6])
+ by smtp.gmail.com with ESMTPSA id
+ w22-20020a170906131600b0099d9b50d786sm8880526ejb.199.2023.09.06.03.50.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 06 Sep 2023 03:50:33 -0700 (PDT)
+Message-ID: <4df435a0-dd9b-121a-8820-e331bb8a046f@gmail.com>
+Date: Wed, 6 Sep 2023 12:50:31 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e39a4422-b229-49a3-3e61-08dbaec3276b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Sep 2023 10:22:20.5988 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: b3ksmfkYTKJonTXrUtHwc3WxkiNPE5nwtC8gTdy5+PvKduyTmNaHIHuuEH9oL0x5dXui/XQXNuolc1cJGFJD7w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4968
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [Nouveau] [RFC, drm-misc-next v4 0/9] PCI/VGA: Allowing the user
+ to select the primary video adapter at boot time
+Content-Language: en-US
+To: Sui Jingfeng <sui.jingfeng@linux.dev>,
+ suijingfeng <suijingfeng@loongson.cn>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Bjorn Helgaas
+ <bhelgaas@google.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Daniel Vetter <daniel@ffwll.ch>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+References: <20230904195724.633404-1-sui.jingfeng@linux.dev>
+ <44ec8549-dc36-287e-4359-abd3ec8d22d6@suse.de>
+ <5afd2efb-f838-f9b7-02a9-2cf4d4fd2382@loongson.cn>
+ <2adfa653-ac35-d560-be52-c92848a1eef5@gmail.com>
+ <873b331a-d0ce-658c-6daa-02bf816e92d1@linux.dev>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <873b331a-d0ce-658c-6daa-02bf816e92d1@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,81 +85,98 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-pci@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Am 06.09.23 um 12:31 schrieb Sui Jingfeng:
+> Hi,
+>
+> On 2023/9/6 14:45, Christian König wrote:
+>>> Firmware framebuffer device already get killed by the 
+>>> drm_aperture_remove_conflicting_pci_framebuffers()
+>>> function (or its siblings). So, this series is definitely not to 
+>>> interact with the firmware framebuffer
+>>> (or more intelligent framebuffer drivers).  It is for user space 
+>>> program, such as X server and Wayland
+>>> compositor. Its for Linux user or drm drivers testers, which allow 
+>>> them to direct graphic display server
+>>> using right hardware of interested as primary video card.
+>>>
+>>> Also, I believe that X server and Wayland compositor are the best 
+>>> test examples.
+>>> If a specific DRM driver can't work with X server as a primary,
+>>> then there probably have something wrong.
+>>>
+>>>
+>>>> But what's the use case for overriding this setting?
+>>>>
+>>>
+>>> On a specific machine with multiple GPUs mounted,
+>>> only the primary graphics get POST-ed (initialized) by the firmware.
+>>> Therefore, the DRM drivers for the rest video cards, have to choose to
+>>> work without the prerequisite setups done by firmware, This is 
+>>> called as POST.
+>>
+>> Well, you don't seem to understand the background here. This is 
+>> perfectly normal behavior.
+>>
+>> Secondary cards are posted after loading the appropriate DRM driver. 
+>> At least for amdgpu this is done by calling the appropriate functions 
+>> in the BIOS. 
+>
+>
+> Well, thanks for you tell me this. You know more than me and 
+> definitely have a better understanding.
+>
+> Are you telling me that the POST function for AMDGPU reside in the BIOS?
+> The kernel call into the BIOS?
 
-Series is
+Yes, exactly that.
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+> Does the BIOS here refer to the UEFI runtime or ATOM BIOS or something 
+> else?
+
+On dGPUs it's the VBIOS on a flashrom on the board, for iGPUs (APUs as 
+AMD calls them) it's part of the system BIOS.
+
+UEFI is actually just a small subsystem in the system BIOS which 
+replaced the old interface used between system BIOS, video BIOS and 
+operating system.
+
+>
+> But the POST function for the drm ast, reside in the kernel space (in 
+> other word, in ast.ko).
+> Is this statement correct?
+
+I don't know the ast driver well enough to answer that, but I assume 
+they just read the BIOS and execute the appropriate functions.
+
+>
+> I means that for ASpeed BMC chip, if the firmware not POST the display 
+> controller.
+> Then we have to POST it at the kernel space before doing various 
+> modeset option.
+> We can only POST this chip by directly operate the various registers.
+> Am I correct for the judgement about ast drm driver?
+
+Well POST just means Power On Self Test, but what you mean is 
+initializing the hardware.
+
+Some drivers can of course initialize the hardware without the help of 
+the BIOS, but I don't think AST can do that. As far as I know it's a 
+relatively simple driver.
+
+BTW firmware is not the same as the BIOS (which runs the POST), firmware 
+usually refers to something run on microcontrollers inside the ASIC 
+while the (system or video) BIOS runs on the host CPU.
 
 Regards,
-Hawking
------Original Message-----
-From: Zhou1, Tao <Tao.Zhou1@amd.com>
-Sent: Wednesday, September 6, 2023 18:10
-To: amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>; =
-Yang, Stanley <Stanley.Yang@amd.com>; Li, Candice <Candice.Li@amd.com>; Cha=
-i, Thomas <YiPeng.Chai@amd.com>
-Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu: print more address info of UMC bad page
+Christian.
 
-Print out row, column and bank value of UMC error address for UMC v12.
-
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/umc_v12_0.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/umc_v12_0.c
-index 5f056dd7691e..6fde85367272 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-@@ -173,7 +173,7 @@ static void umc_v12_0_convert_error_address(struct amdg=
-pu_device *adev,  {
-        uint32_t channel_index, i;
-        uint64_t soc_pa, na, retired_page, column;
--       uint32_t bank_hash0, bank_hash1, bank_hash2, bank_hash3, col, row;
-+       uint32_t bank_hash0, bank_hash1, bank_hash2, bank_hash3, col, row,
-+row_xor;
-        uint32_t bank0, bank1, bank2, bank3, bank;
-
-        bank_hash0 =3D (err_addr >> UMC_V12_0_MCA_B0_BIT) & 0x1ULL; @@ -228=
-,17 +228,23 @@ static void umc_v12_0_convert_error_address(struct amdgpu_de=
-vice *adev,
-        /* clear [C4] in soc physical address */
-        soc_pa &=3D ~(0x1ULL << UMC_V12_0_PA_C4_BIT);
-
-+       row_xor =3D row ^ (0x1ULL << 13);
-        /* loop for all possibilities of [C4 C3 C2] */
-        for (column =3D 0; column < UMC_V12_0_NA_MAP_PA_NUM; column++) {
-                retired_page =3D soc_pa | ((column & 0x3) << UMC_V12_0_PA_C=
-2_BIT);
-                retired_page |=3D (((column & 0x4) >> 2) << UMC_V12_0_PA_C4=
-_BIT);
--               dev_info(adev->dev, "Error Address(PA): 0x%llx\n", retired_=
-page);
-+               /* include column bit 0 and 1 */
-+               col &=3D 0x3;
-+               col |=3D (column << 2);
-+               dev_info(adev->dev, "Error Address(PA):0x%llx Row:0x%x Col:=
-0x%x Bank:0x%x\n",
-+                       retired_page, row, col, bank);
-                amdgpu_umc_fill_error_record(err_data, err_addr,
-                        retired_page, channel_index, umc_inst);
-
-                /* shift R13 bit */
-                retired_page ^=3D (0x1ULL << UMC_V12_0_PA_R13_BIT);
--               dev_info(adev->dev, "Error Address(PA): 0x%llx\n", retired_=
-page);
-+               dev_info(adev->dev, "Error Address(PA):0x%llx Row:0x%x Col:=
-0x%x Bank:0x%x\n",
-+                       retired_page, row_xor, col, bank);
-                amdgpu_umc_fill_error_record(err_data, err_addr,
-                        retired_page, channel_index, umc_inst);
-        }
---
-2.35.1
+>
+> Thanks for your reviews.
+>
 
