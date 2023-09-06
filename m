@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EEDEEB8FD3
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 13:25:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18BC9EB8FB3
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 13:26:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96B3910E65A;
-	Wed,  6 Sep 2023 13:25:09 +0000 (UTC)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7656810E5FB
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 10:50:28 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-31768ce2e81so2879077f8f.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 06 Sep 2023 03:50:28 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A18E410E655;
+	Wed,  6 Sep 2023 13:26:39 +0000 (UTC)
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CCC410E655
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 13:26:38 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id
+ 5614622812f47-3a9a6a7a824so490962b6e.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 06 Sep 2023 06:26:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693997427; x=1694602227; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=pmLzb3c8+z0miJKXkfyMStT5Ebobfn4mx44yjcaNrOM=;
- b=AfapApe1rOa+zANUmZnV2bqEYUzLFcVTfTXjgN8jZm96UwQrw2JrRjCV1fBsj0K8bh
- UnQ+10HaXLOBiDO+Q8w3XhxIWKS8lndEQzccf7Cmq4CMeWab5oc30YSmYYraHnHZ8hrx
- wNd5ki5ebQ+EXZd9aUR1uYCFX4O0eHIsdii+Tahx9XEdmiwE5Qh07XNUcbEtRqMwMUll
- IUaz0Txr/xs0EGmyZ+hj+pwK8hcjXnbb8tk5suTxU8+9cGoZ/S/VmiOwJyfDBq7OYFtr
- 6Zym3nIV8BcQjT4tP+Oou5MkiFSprVQFTDhh98Rq57OcluTqqtyJp5wy9DxjkZ3Hsira
- f/ew==
+ d=gmail.com; s=20221208; t=1694006797; x=1694611597; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ls6Dol8nzkYKJhhT+Ry7ewwxhpTglxexiwUyXxZFHnY=;
+ b=nUvC5Jy3HUTk5DJ4AqysPh2Lk7Oau0SkMgnrjdt1r1kmfGpyFMJP+DZ+D039+Q4mI+
+ eKoRfuFiTXF82syWghj41365qo3GaG4Xatq/NZD8iYdQJttV7VbdWdyn8UBfj7ITrleT
+ kkN/uPFqzV646tNuIbrBoQ6m+EQVgEOn8WOW2HqV2+7W7Z6gZPKVVb5yxQOyV4cmqEy0
+ 9WQStpHEDNw74hjjmVqkWYUJooMziCaKivw8qpPkI45l/iNlT9gUTIfCNi2K32DQdgKR
+ IUNPwuj2Fu9AYdFc42Ft4+KAiTnNkXFbxTP2kcsN4BjgxopxCirTaiFaEhO6FAsarpr+
+ aaHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693997427; x=1694602227;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=pmLzb3c8+z0miJKXkfyMStT5Ebobfn4mx44yjcaNrOM=;
- b=kyS1FuzZXtEb3/liFCR5gxPbhue9+0sreKyI3TwEY2oJGa2Qj7gemxuBecJZa+FinJ
- 7pxskmynPr3GLQbwEt/8ePjSbOcUhaaZ8I6I4gImnFXBToJOnrX9Ftt8IYblURdri7eo
- +AGj3E+9UPh7S1oTAy3fET0rQL4pT/9tYj/p1dd4EEntACmxJxGjNhFQlzssle+UV3TE
- L6oUEVcV/lnv3DelaL1ywlgMGKWxEz5JQDXoOjOjEwDIbFuVDQqYv+6SORnKHEqYvtIq
- 6HZ/h+7mc54qEWGduSDgV41IbfTjsREDITNmfUglfyZH3XpUdR39lkl7wb9L2y8/fcq5
- ygQQ==
-X-Gm-Message-State: AOJu0YweXBxz5x7I18Ayq0gnm7YVFzUMCHqzGFA85krjKMim+s9qR1EA
- jbFmTDiCqjE1ru1/s4fDhk9dmvQE+FVcOCmcWlI=
-X-Google-Smtp-Source: AGHT+IHsfjUKU2O9rgaS83IsXQqHqTue7DbwbtHK0lTz/riAqcujWBySJWavR65O3jnUFoam/Gx5Vg==
-X-Received: by 2002:a5d:6907:0:b0:317:5168:c21f with SMTP id
- t7-20020a5d6907000000b003175168c21fmr2066741wru.31.1693997426766; 
- Wed, 06 Sep 2023 03:50:26 -0700 (PDT)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- a28-20020a5d457c000000b00317f70240afsm20105195wrc.27.2023.09.06.03.50.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Sep 2023 03:50:26 -0700 (PDT)
-Date: Wed, 6 Sep 2023 13:50:23 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Qingqing.Zhuo@amd.com
-Subject: [bug report] drm/amd/display: Add DCN35 CLK_MGR
-Message-ID: <e9176137-0aa4-4adc-9c16-dc1adbfff394@moroto.mountain>
+ d=1e100.net; s=20221208; t=1694006797; x=1694611597;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ls6Dol8nzkYKJhhT+Ry7ewwxhpTglxexiwUyXxZFHnY=;
+ b=TS6hCmytv4s4WNbDrIeD6pPUUubOE5qMGpgbjkn6fBQhB6gdmQF1F6HTKIcO4zjCyB
+ tP69yuZcF+Yd6GMv0CXYGKbFgrxUFHf9iIDpf88GJqoArOXHYCquSKfM9F+eoPqMhgDI
+ NKhJUDNDlgr53jR6JMkzs4N8NNHBtCga45Zer4a/n9+HWYamTs4WuZ3VsKMsOpQyEKym
+ xKoGDA5o9b4CjwstWOdFUHufMxs9EKhuexv9uK6T1Wed2pHTwEC583VRRvHhViX22FKs
+ 2FBNPO5jeD8KP+LrLEOBw1CUv7Zm3xAchSP+E3mdUzIW2vfIRoRiO8jD4qiVwcEhkMkL
+ VO0w==
+X-Gm-Message-State: AOJu0YyRrTsQorEOeajdR8UbP8+6Dd5xof7meFd0sEgqAazivOmk+xO7
+ jXT1bqsXWYrtNIHwOMbTi26NEDkE6CkmP89bBq8=
+X-Google-Smtp-Source: AGHT+IEfNFEqyTtuPV4ZYZya4b1amPv2EZsqeDcmioxNdRroUaeeILMi7Wscefe2+AyH1ujzsaX2lOI5ijnPVtJ23ZY=
+X-Received: by 2002:a05:6808:128e:b0:3a4:316f:7d06 with SMTP id
+ a14-20020a056808128e00b003a4316f7d06mr9671178oiw.27.1694006797441; Wed, 06
+ Sep 2023 06:26:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailman-Approved-At: Wed, 06 Sep 2023 13:25:05 +0000
+References: <dd425f64-868a-470f-b78c-8bf6a7b7daa9@moroto.mountain>
+ <ZPhddADtKmOuVyDq@lang-desktop>
+In-Reply-To: <ZPhddADtKmOuVyDq@lang-desktop>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 6 Sep 2023 09:26:26 -0400
+Message-ID: <CADnq5_N76Yr=6rPSkRBx5UBhAxR_RxBQorFsaEP22Px=tL+MHw@mail.gmail.com>
+Subject: Re: [bug report] drm/amdgpu: add selftest framework for UMSCH
+To: Lang Yu <Lang.Yu@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,100 +68,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, Dan Carpenter <dan.carpenter@linaro.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Qingqing Zhuo,
+On Wed, Sep 6, 2023 at 8:25=E2=80=AFAM Lang Yu <Lang.Yu@amd.com> wrote:
+>
+> On 09/06/ , Dan Carpenter wrote:
+>
+> Thanks for reporting this bug. Can you give a link to this bug report? Co=
+mmit message requests it.
+> ("Reported-by: should be immediately followed by Link: with a URL to the =
+report")
 
-This is a semi-automatic email about new static checker warnings.
+For something reported on the mailing list you can just provide the
+link the the mailing list archive:
+Link: https://lists.freedesktop.org/archives/amd-gfx/2023-September/098254.=
+html
 
-The patch 8774029f76b9: "drm/amd/display: Add DCN35 CLK_MGR" from Aug
-2, 2023, leads to the following Smatch complaint:
+Alex
 
-    drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c:980 dcn35_clk_mgr_construct()
-    warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 913)
-
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-   912	
-   913			if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType) {
-                            ^^^^^^^^^^^^
-Unchecked dereference.  Also why is does AMD code have weird indenting
-like this?  It's totally unique to AMD.  I guess there was an if
-statement which was deleted or maybe this is autogenerated somehow?
-
-   914				dcn35_bw_params.wm_table = lpddr5_wm_table;
-   915			} else {
-   916				dcn35_bw_params.wm_table = ddr5_wm_table;
-   917			}
-   918			/* Saved clocks configured at boot for debug purposes */
-   919			 dcn35_dump_clk_registers(&clk_mgr->base.base.boot_snapshot, &clk_mgr->base.base, &log_info);
-   920	
-   921		clk_mgr->base.base.dprefclk_khz = dcn35_smu_get_dprefclk(&clk_mgr->base);
-   922		clk_mgr->base.base.clks.ref_dtbclk_khz = dcn35_smu_get_dtbclk(&clk_mgr->base);
-   923	
-   924		if (!clk_mgr->base.base.clks.ref_dtbclk_khz)
-   925			dcn35_smu_set_dtbclk(&clk_mgr->base, true);
-   926	
-   927		clk_mgr->base.base.clks.dtbclk_en = true;
-   928		dce_clock_read_ss_info(&clk_mgr->base);
-   929		/*when clk src is from FCH, it could have ss, same clock src as DPREF clk*/
-   930	
-   931		dcn35_read_ss_info_from_lut(&clk_mgr->base);
-   932		clk_mgr->base.base.dprefclk_khz =
-   933			dce_adjust_dp_ref_freq_for_ss(&clk_mgr->base, clk_mgr->base.base.dprefclk_khz);
-   934	
-   935		clk_mgr->base.base.bw_params = &dcn35_bw_params;
-   936	
-   937		if (clk_mgr->base.base.ctx->dc->debug.pstate_enabled) {
-   938			int i;
-   939			dcn35_get_dpm_table_from_smu(&clk_mgr->base, &smu_dpm_clks);
-   940			DC_LOG_SMU("NumDcfClkLevelsEnabled: %d\n"
-   941					   "NumDispClkLevelsEnabled: %d\n"
-   942					   "NumSocClkLevelsEnabled: %d\n"
-   943					   "VcnClkLevelsEnabled: %d\n"
-   944					   "NumDfPst atesEnabled: %d\n"
-   945					   "MinGfxClk: %d\n"
-   946					   "MaxGfxClk: %d\n",
-   947					   smu_dpm_clks.dpm_clks->NumDcfClkLevelsEnabled,
-   948					   smu_dpm_clks.dpm_clks->NumDispClkLevelsEnabled,
-   949					   smu_dpm_clks.dpm_clks->NumSocClkLevelsEnabled,
-   950					   smu_dpm_clks.dpm_clks->VcnClkLevelsEnabled,
-   951					   smu_dpm_clks.dpm_clks->NumDfPstatesEnabled,
-   952					   smu_dpm_clks.dpm_clks->MinGfxClk,
-   953					   smu_dpm_clks.dpm_clks->MaxGfxClk);
-   954			for (i = 0; i < smu_dpm_clks.dpm_clks->NumDcfClkLevelsEnabled; i++) {
-   955				DC_LOG_SMU("smu_dpm_clks.dpm_clks->DcfClocks[%d] = %d\n",
-   956						   i,
-   957						   smu_dpm_clks.dpm_clks->DcfClocks[i]);
-   958			}
-   959			for (i = 0; i < smu_dpm_clks.dpm_clks->NumDispClkLevelsEnabled; i++) {
-   960				DC_LOG_SMU("smu_dpm_clks.dpm_clks->DispClocks[%d] = %d\n",
-   961						   i, smu_dpm_clks.dpm_clks->DispClocks[i]);
-   962			}
-   963			for (i = 0; i < smu_dpm_clks.dpm_clks->NumSocClkLevelsEnabled; i++) {
-   964				DC_LOG_SMU("smu_dpm_clks.dpm_clks->SocClocks[%d] = %d\n",
-   965						   i, smu_dpm_clks.dpm_clks->SocClocks[i]);
-   966			}
-   967			for (i = 0; i < NUM_SOC_VOLTAGE_LEVELS; i++)
-   968				DC_LOG_SMU("smu_dpm_clks.dpm_clks->SocVoltage[%d] = %d\n",
-   969						   i, smu_dpm_clks.dpm_clks->SocVoltage[i]);
-   970	
-   971			for (i = 0; i < NUM_DF_PSTATE_LEVELS; i++) {
-   972				DC_LOG_SMU("smu_dpm_clks.dpm_clks.DfPstateTable[%d].FClk = %d\n"
-   973						   "smu_dpm_clks.dpm_clks->DfPstateTable[%d].MemClk= %d\n"
-   974						   "smu_dpm_clks.dpm_clks->DfPstateTable[%d].Voltage = %d\n",
-   975						   i, smu_dpm_clks.dpm_clks->DfPstateTable[i].FClk,
-   976						   i, smu_dpm_clks.dpm_clks->DfPstateTable[i].MemClk,
-   977						   i, smu_dpm_clks.dpm_clks->DfPstateTable[i].Voltage);
-   978			}
-   979	
-   980			if (ctx->dc_bios && ctx->dc_bios->integrated_info && ctx->dc->config.use_default_clock_table == false) {
-                            ^^^^^^^^^^^^
-This NULL check is too late.  It will already have crashed.
-
-   981				dcn35_clk_mgr_helper_populate_bw_params(
-   982						&clk_mgr->base,
-
-regards,
-dan carpenter
+>
+> Regards,
+> Lang
+>
+> > Hello Lang Yu,
+> >
+> > The patch 5d5eac7e8303: "drm/amdgpu: add selftest framework for
+> > UMSCH" from Jun 21, 2023 (linux-next), leads to the following Smatch
+> > static checker warning:
+> >
+> >       drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c:338 setup_umsch_mm_t=
+est()
+> >       warn: unsigned error codes 'test->pasid'
+> >
+> > drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
+> >     319 static int setup_umsch_mm_test(struct amdgpu_device *adev,
+> >     320                           struct umsch_mm_test *test)
+> >     321 {
+> >     322         struct amdgpu_vmhub *hub =3D &adev->vmhub[AMDGPU_MMHUB0=
+(0)];
+> >     323         int r;
+> >     324
+> >     325         test->vm_cntx_cntl =3D hub->vm_cntx_cntl;
+> >     326
+> >     327         test->vm =3D kzalloc(sizeof(*test->vm), GFP_KERNEL);
+> >     328         if (!test->vm) {
+> >     329                 r =3D -ENOMEM;
+> >     330                 return r;
+> >     331         }
+> >     332
+> >     333         r =3D amdgpu_vm_init(adev, test->vm, -1);
+> >     334         if (r)
+> >     335                 goto error_free_vm;
+> >     336
+> >     337         test->pasid =3D amdgpu_pasid_alloc(16);
+> > --> 338         if (test->pasid < 0) {
+> >                     ^^^^^^^^^^^^^^^
+> > Unsigned can't be less than zero.
+> >
+> >     339                 r =3D test->pasid;
+> >     340                 goto error_fini_vm;
+> >     341         }
+> >     342
+> >     343         r =3D amdgpu_bo_create_kernel(adev, sizeof(struct umsch=
+_mm_test_ctx_data),
+> >
+> > regards,
+> > dan carpenter
