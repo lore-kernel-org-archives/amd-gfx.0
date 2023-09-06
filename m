@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FA3BEE14A0
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 15:47:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63BC7EE14A5
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 15:47:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4996A10E6A3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F12C810E6A5;
 	Wed,  6 Sep 2023 15:47:44 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2076.outbound.protection.outlook.com [40.107.94.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB5C610E6A3
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 15:47:41 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32A9C10E6A3
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 15:47:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HsgfabXc+18rtNrUqt/3W3vUfp7itB8kS4PBJn58RyEjiulm9h2MIhKz4rMnpkm2Ouqx+zmxDp47uiy57TFbYCvhJSWbcnssbOtnsHe6zNDtuaXcdvLwqxU+1kPtv5HHVYSTyxw3hv8RnN36C4JlDF+h2sXmH5oGUcmQ9Zgvi8vZj+uLeLHY7Nxcz41uz9CNvHqvPlo7wOfnJ2ZzeWTmHiUSHC2lvlZPSxQQ98lEraP72seLB0jDg8FBgj0S++KD/l3kCs97fjJuY/QKTmojdj9H3Xqg8d6qx0Nhn+kypvHToItdokCUK07u8t3QqCJpax42VvEOSAIyfyHrShrmKg==
+ b=CzV8EhGSIwk2x1mdv8CMageICxm1HpX5QziY89TFWlWHwrEYFF/Cyx1YxDMgSDaTROg4Yd+UC7A4RdXyoEs0GbjgPDJ/4R8xYBz1MMKNT04HWmLwTl5uxTKKhRYXvBPiDjbiB67zb/JTDlOX8FOEx46Uc5W93Mnjh+BU2k83Mxnz91v7gTylN9qxGUVx0r263wlDaA+5hRDKczFc47zJX/DkeJWyYfQcutKk2FZllN7egoWtOKykQC2BvK8O+fsbHRwRUPH/4qrB+MFHp1JCoK6W4n/lt5otf00J6zMc2nYlMDbh9khtYKDxZDu54keSPPAOUu8mapNR7mQLzGSrRg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6tVtAl+Jaf2Bp36HSylEIRM7+Px+zXHf9uswCv6CZy4=;
- b=kxIOxE7Sao8rAp1mePIoT5eDwQibuzM0JxwOLTUgS20/T7TSCJ9heAQoDbTsYUyhqs8RRDLO/XmjF4DsXY+fVBRHiGZ3o1+faqFVfm+TGIi4nSOwiPrCFwUSVwTNZcXAjMraaXVGQ0HXlxxYP4lqiX6NapbrvJ9jjaIZnw1f/YwLMEwnBy1jIQllz16iVT42EkPE1NGwQ87DqaYYT75nAAFC88WQEUwidAHP+sS6YCq5vsXmnzrDtt2PaoZQ+CcLKYX5XwFEz5xo4X7Ok7LYTZhJTyBo7ZDRMFoNiHVOGzCFIFG2xtpp3iqF/V8OigwNsHQSbHfEwcf7rXRPuHnUQA==
+ bh=gbPgih/5p8dSIa6Y6HnP0A6dfp4910wE6dLNLAVc2tE=;
+ b=B/cS4cea+JDpEP1mylYE3O7x5Ho/r3o4gl7Id6bhn7MHzHfjhqKBLibYzhtiIHop5GDY2gjwFD8V35R6PVTs8fpHImumFUuSESwuIrCKPKHNqzCdQSC5FpXHr1kVmTd2vp2ouuzdEbUC27kM83UTmgy2yHKmO0Uci/EHDUVAsRqk1G5GobVvvqvpfPePZ8KLg13hlxg1hUN/NEQ9RMKypibWqDfvEst4esS7kI7vVjl3RsC18w8ZlsW4imB1DOIRzm/pB0Ai28uQWlkCwCCCC9cNaSTCq8X6y0tWx0bTU5keQ8HiRjhIY/BAOUg8uUPxAMHzd+QPSZ5x2T/h4uzI6w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6tVtAl+Jaf2Bp36HSylEIRM7+Px+zXHf9uswCv6CZy4=;
- b=tQXhvn9+w5kaDi6LvrL/j/eRySsXJYd0dD9xbOHmrQFcGxllA7PkJkC5htV07NumFFb7UlXLEEjIyEbY4fQy6jxIhxkLbmnFzNgCv9zyDxIK11P14o1FShZE9F9v8BNHG1ZcHMvnEkUiva+bt8Wxp5Tx8VUi9hD0zsSZxhS3u7I=
-Received: from DS7PR05CA0010.namprd05.prod.outlook.com (2603:10b6:5:3b9::15)
- by PH7PR12MB7139.namprd12.prod.outlook.com (2603:10b6:510:1ef::21) with
+ bh=gbPgih/5p8dSIa6Y6HnP0A6dfp4910wE6dLNLAVc2tE=;
+ b=TtVZ3ByN82XYg/S8YBo5CZA5UBH8UQ6k907AZoQT0xADkrnDRaXzeu98Mp7CE5YWrMQT6TG/EsP620odHnepSQ28VSPnHFT08HKglsuhRJB8kVvES1IUPyV7ZGsxQFvd7CVo9EKQ4hRL/MXuOzK//mw6UFgmVc3GB3ZFKgEu9f8=
+Received: from DS7PR05CA0012.namprd05.prod.outlook.com (2603:10b6:5:3b9::17)
+ by SA1PR12MB6872.namprd12.prod.outlook.com (2603:10b6:806:24c::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.20; Wed, 6 Sep
- 2023 15:47:39 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.34; Wed, 6 Sep
+ 2023 15:47:40 +0000
 Received: from DS1PEPF0001709D.namprd05.prod.outlook.com
- (2603:10b6:5:3b9:cafe::ff) by DS7PR05CA0010.outlook.office365.com
- (2603:10b6:5:3b9::15) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:5:3b9:cafe::bd) by DS7PR05CA0012.outlook.office365.com
+ (2603:10b6:5:3b9::17) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.27 via Frontend
- Transport; Wed, 6 Sep 2023 15:47:39 +0000
+ Transport; Wed, 6 Sep 2023 15:47:40 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DS1PEPF0001709D.mail.protection.outlook.com (10.167.18.107) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6768.25 via Frontend Transport; Wed, 6 Sep 2023 15:47:39 +0000
+ 15.20.6768.25 via Frontend Transport; Wed, 6 Sep 2023 15:47:40 +0000
 Received: from mukjoshi-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 6 Sep
- 2023 10:47:37 -0500
+ 2023 10:47:38 -0500
 From: Mukul Joshi <mukul.joshi@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCHv2 2/4] drm/amdkfd: Update cache info reporting for GFX v9.4.3
-Date: Wed, 6 Sep 2023 11:44:27 -0400
-Message-ID: <20230906154429.216489-2-mukul.joshi@amd.com>
+Subject: [PATCHv2 3/4] drm/amdkfd: Update CU masking for GFX 9.4.3
+Date: Wed, 6 Sep 2023 11:44:28 -0400
+Message-ID: <20230906154429.216489-3-mukul.joshi@amd.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20230906154429.216489-1-mukul.joshi@amd.com>
 References: <20230906154429.216489-1-mukul.joshi@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0001709D:EE_|PH7PR12MB7139:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8d1e9562-6b5b-44fb-f8aa-08dbaef0999a
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001709D:EE_|SA1PR12MB6872:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3cc46cc7-3864-4455-6b33-08dbaef099ee
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qt/J0sx8qkFO+IBfcC+30yEAc7cOc96XFw/dZs8sFaH0o/MrlBi7qMYWZTs1uRFoSyIBDnjynr5fWhs/QKkDiSaKpXBfMApjap886O658ktSf+Cr3K2ea+kkIHnETUXvOnDlWTzTT8zneAM0jAWWz733mERD4+N99spuQD+g2gVJ9kHtU6uFIq5ltHxV738oSNj2exGPdSvBi1kh3O3FrLAg2vm7N+IAv7dK5O+k26NgbD2+gzgJB84/ufgBwucHfwFK2SNLr8hqwAzIvPVkg5CDQMjk8l26kiDnMDa+BORKOj6Sppw/qbCAkWJ2RB5xhhJ+tkm+JpdpvTvM55ItgYCbcti6FcfBqJF9Z/BctX3buS42UG6iTrCfRT6AiiKTFTN5774KOb3KYuamaPLDjlUGws0kQy/gVeMv2t7FYNC5SRhviQkU1GVShaofwitTggLdWtv44tBeDRYuWy3Q90J+FCblY/DJRYjt01WIIj9s7ldjuceXIK58O9ZzVQUPKXguVyBq44t/j+GTXgpWjVND2jJUt8eib5aC+rB5EAdZWiIvn3ItF+eUrmLt7e8Iq957SXy6TyXMW2PRDuj2kxJiagzql9XttNeWSfQSGavDrNPHkI24NudtnLr3qu+0hH0fkUjTDjPq/pyiVCd+6PSo8lOievEuqzH4nLvwwhLm6nl7y+QGeMPYJDXhSDPbPUxWY5TyoITQNwU/6BU5z4JQI+1bSD9DvF3ZIwUNlMvbHQzGIUK+kqh4NsGMzpBGjGmxkzI2/C/RnnrUgiRp8Q==
+X-Microsoft-Antispam-Message-Info: KgNVVO1AQArYRg8klwGhjeJNExIC38huUD+sVcsbi97iUWy+62jnChhDlCicNnVheonoLkh6Nv0S37bdstmbDmm4KopRmY8BbdvfF997eRk0sh3FSLqmY8ZXwKEe2hND6FZGjOx5FO6h9WYBkKgbchOMZqqpJ2M+OrKU9580smJBQ7wfuUtM0hFCeQb7S3++NpIAkPflGGnu33MG4w2CglzOqQjMFxBRyiFMs0jPrvcSbJdPSxYZtsMoO6S+TQo+Y9TvW0CuT7f5ENTs4nadbijMML5kduV2dFFN9BVBBhX4+yRKmHIeWVE1fuIlB5/CrllSRX5y7aJU2HLgZ934N+QhzuQXwHEIW/MpI7aiKYx5fZGcLO/BsB8jIkEriKIWldwEqycwYLsx74CQqFCm64o4DPquESuOzDVRu+3qYCRDphVNNyZwLC+uTXe8Q0mdXsKIOeuvO+emlSjNR4YI+qj5UUQnGulDIOqP/h4BsfZCwOzeHd4a+ta4zhqQQ7+tEU0/Ns8URIlUdW+yKeDc2XIQ6Y43RIQaU14cW9DD0cS/k59NptBo1JyD0OkRAgygrCUSxxtGb1WGEtv5ZbEfKpjNKchwg/mF7ecb1MAK5sfSPWDPxxXUsWvZD0qGsyQyknnbMu9gjELJRIBLlvyFWT/tjEo1GaHM4uvUCmPPuwzCnAY75HdwpIAMjYHe+DbG8/8M1bMaUSwLSm//AHbYS/rSViImgJlRU4LFQ+WyEtgtIRqXuu0p95mHvC7D+c2KedRMfsy3gbd381xqOwW4iA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(376002)(346002)(136003)(396003)(451199024)(186009)(1800799009)(82310400011)(36840700001)(40470700004)(46966006)(70206006)(316002)(47076005)(8936002)(83380400001)(8676002)(4326008)(41300700001)(478600001)(6666004)(16526019)(36860700001)(54906003)(2616005)(426003)(1076003)(6916009)(7696005)(26005)(336012)(81166007)(2906002)(82740400003)(44832011)(15650500001)(356005)(86362001)(40480700001)(36756003)(5660300002)(40460700003)(70586007)(36900700001);
+ SFS:(13230031)(4636009)(346002)(39860400002)(136003)(376002)(396003)(82310400011)(186009)(1800799009)(451199024)(40470700004)(36840700001)(46966006)(82740400003)(2616005)(40460700003)(26005)(81166007)(16526019)(356005)(1076003)(7696005)(47076005)(36756003)(36860700001)(426003)(336012)(83380400001)(40480700001)(4326008)(478600001)(8676002)(15650500001)(8936002)(70586007)(44832011)(70206006)(5660300002)(54906003)(86362001)(316002)(6916009)(6666004)(2906002)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2023 15:47:39.4730 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d1e9562-6b5b-44fb-f8aa-08dbaef0999a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2023 15:47:40.0199 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3cc46cc7-3864-4455-6b33-08dbaef099ee
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001709D.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7139
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6872
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,177 +103,244 @@ Cc: Mukul Joshi <mukul.joshi@amd.com>, felix.kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update cache info reporting in sysfs to report the correct
-number of CUs and associated cache information based on
-different spatial partitioning modes.
+The CU mask passed from user-space will change based on
+different spatial partitioning mode. As a result, update
+CU masking code for GFX9.4.3 to work for all partitioning
+modes.
 
 Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
 ---
 v1->v2:
-- Revert the change in kfd_crat.c
-- Add a comment to not change value of CRAT_SIBLINGMAP_SIZE.
+- Incorporate Felix's review comments.
 
- drivers/gpu/drm/amd/amdkfd/kfd_crat.h     |  4 ++
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 82 +++++++++++++----------
- drivers/gpu/drm/amd/amdkfd/kfd_topology.h |  2 +-
- 3 files changed, 51 insertions(+), 37 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c  | 28 ++++++++---
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h  |  2 +-
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c  |  2 +-
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c  |  2 +-
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c  |  2 +-
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   | 46 ++++++++++++-------
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c   |  2 +-
+ 7 files changed, 56 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
-index 387a8ef49385..74c2d7a0d628 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
-@@ -79,6 +79,10 @@ struct crat_header {
- #define CRAT_SUBTYPE_IOLINK_AFFINITY		5
- #define CRAT_SUBTYPE_MAX			6
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
+index 763966236658..447829c22295 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
+@@ -97,14 +97,16 @@ void free_mqd_hiq_sdma(struct mqd_manager *mm, void *mqd,
  
-+/*
-+ * Do not change the value of CRAT_SIBLINGMAP_SIZE from 32
-+ * as it breaks the ABI.
-+ */
- #define CRAT_SIBLINGMAP_SIZE	32
- 
- /*
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index c54795682dfb..b98cc7930e4c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1596,14 +1596,17 @@ static int fill_in_l1_pcache(struct kfd_cache_properties **props_ext,
- static int fill_in_l2_l3_pcache(struct kfd_cache_properties **props_ext,
- 				struct kfd_gpu_cache_info *pcache_info,
- 				struct kfd_cu_info *cu_info,
--				int cache_type, unsigned int cu_processor_id)
-+				int cache_type, unsigned int cu_processor_id,
-+				struct kfd_node *knode)
+ void mqd_symmetrically_map_cu_mask(struct mqd_manager *mm,
+ 		const uint32_t *cu_mask, uint32_t cu_mask_count,
+-		uint32_t *se_mask)
++		uint32_t *se_mask, uint32_t inst)
  {
- 	unsigned int cu_sibling_map_mask;
- 	int first_active_cu;
--	int i, j, k;
-+	int i, j, k, xcc, start, end;
- 	struct kfd_cache_properties *pcache = NULL;
+ 	struct kfd_cu_info cu_info;
+ 	uint32_t cu_per_sh[KFD_MAX_NUM_SE][KFD_MAX_NUM_SH_PER_SE] = {0};
+ 	bool wgp_mode_req = KFD_GC_VERSION(mm->dev) >= IP_VERSION(10, 0, 0);
+ 	uint32_t en_mask = wgp_mode_req ? 0x3 : 0x1;
+-	int i, se, sh, cu, cu_bitmap_sh_mul, inc = wgp_mode_req ? 2 : 1;
++	int i, se, sh, cu, cu_bitmap_sh_mul, cu_inc = wgp_mode_req ? 2 : 1;
+ 	uint32_t cu_active_per_node;
++	int inc = cu_inc * NUM_XCC(mm->dev->xcc_mask);
++	int xcc_inst = inst + ffs(mm->dev->xcc_mask) - 1;
  
--	cu_sibling_map_mask = cu_info->cu_bitmap[0][0][0];
-+	start = ffs(knode->xcc_mask) - 1;
-+	end = start + NUM_XCC(knode->xcc_mask);
-+	cu_sibling_map_mask = cu_info->cu_bitmap[start][0][0];
- 	cu_sibling_map_mask &=
- 		((1 << pcache_info[cache_type].num_cu_shared) - 1);
- 	first_active_cu = ffs(cu_sibling_map_mask);
-@@ -1638,16 +1641,18 @@ static int fill_in_l2_l3_pcache(struct kfd_cache_properties **props_ext,
- 		cu_sibling_map_mask = cu_sibling_map_mask >> (first_active_cu - 1);
- 		k = 0;
+ 	amdgpu_amdkfd_get_cu_info(mm->dev->adev, &cu_info);
  
--		for (i = 0; i < cu_info->num_shader_engines; i++) {
--			for (j = 0; j < cu_info->num_shader_arrays_per_engine; j++) {
--				pcache->sibling_map[k] = (uint8_t)(cu_sibling_map_mask & 0xFF);
--				pcache->sibling_map[k+1] = (uint8_t)((cu_sibling_map_mask >> 8) & 0xFF);
--				pcache->sibling_map[k+2] = (uint8_t)((cu_sibling_map_mask >> 16) & 0xFF);
--				pcache->sibling_map[k+3] = (uint8_t)((cu_sibling_map_mask >> 24) & 0xFF);
--				k += 4;
--
--				cu_sibling_map_mask = cu_info->cu_bitmap[0][i % 4][j + i / 4];
--				cu_sibling_map_mask &= ((1 << pcache_info[cache_type].num_cu_shared) - 1);
-+		for (xcc = start; xcc < end; xcc++) {
-+			for (i = 0; i < cu_info->num_shader_engines; i++) {
-+				for (j = 0; j < cu_info->num_shader_arrays_per_engine; j++) {
-+					pcache->sibling_map[k] = (uint8_t)(cu_sibling_map_mask & 0xFF);
-+					pcache->sibling_map[k+1] = (uint8_t)((cu_sibling_map_mask >> 8) & 0xFF);
-+					pcache->sibling_map[k+2] = (uint8_t)((cu_sibling_map_mask >> 16) & 0xFF);
-+					pcache->sibling_map[k+3] = (uint8_t)((cu_sibling_map_mask >> 24) & 0xFF);
-+					k += 4;
-+
-+					cu_sibling_map_mask = cu_info->cu_bitmap[start][i % 4][j + i / 4];
-+					cu_sibling_map_mask &= ((1 << pcache_info[cache_type].num_cu_shared) - 1);
-+				}
- 			}
- 		}
- 		pcache->sibling_map_size = k;
-@@ -1665,7 +1670,7 @@ static int fill_in_l2_l3_pcache(struct kfd_cache_properties **props_ext,
- static void kfd_fill_cache_non_crat_info(struct kfd_topology_device *dev, struct kfd_node *kdev)
- {
- 	struct kfd_gpu_cache_info *pcache_info = NULL;
--	int i, j, k;
-+	int i, j, k, xcc, start, end;
- 	int ct = 0;
- 	unsigned int cu_processor_id;
- 	int ret;
-@@ -1699,37 +1704,42 @@ static void kfd_fill_cache_non_crat_info(struct kfd_topology_device *dev, struct
- 	 *			then it will consider only one CU from
- 	 *			the shared unit
+@@ -143,7 +145,8 @@ void mqd_symmetrically_map_cu_mask(struct mqd_manager *mm,
+ 	for (se = 0; se < cu_info.num_shader_engines; se++)
+ 		for (sh = 0; sh < cu_info.num_shader_arrays_per_engine; sh++)
+ 			cu_per_sh[se][sh] = hweight32(
+-				cu_info.cu_bitmap[0][se % 4][sh + (se / 4) * cu_bitmap_sh_mul]);
++				cu_info.cu_bitmap[xcc_inst][se % 4][sh + (se / 4) *
++				cu_bitmap_sh_mul]);
+ 
+ 	/* Symmetrically map cu_mask to all SEs & SHs:
+ 	 * se_mask programs up to 2 SH in the upper and lower 16 bits.
+@@ -166,20 +169,33 @@ void mqd_symmetrically_map_cu_mask(struct mqd_manager *mm,
+ 	 * cu_mask[0] bit8 -> se_mask[0] bit1 (SE0,SH0,CU1)
+ 	 * ...
+ 	 *
++	 * For GFX 9.4.3, the following code only looks at a
++	 * subset of the cu_mask corresponding to the inst parameter.
++	 * If we have n XCCs under one GPU node
++	 * cu_mask[0] bit0 -> XCC0 se_mask[0] bit0 (XCC0,SE0,SH0,CU0)
++	 * cu_mask[0] bit1 -> XCC1 se_mask[0] bit0 (XCC1,SE0,SH0,CU0)
++	 * ..
++	 * cu_mask[0] bitn -> XCCn se_mask[0] bit0 (XCCn,SE0,SH0,CU0)
++	 * cu_mask[0] bit n+1 -> XCC0 se_mask[1] bit0 (XCC0,SE1,SH0,CU0)
++	 *
++	 * For example, if there are 6 XCCs under 1 KFD node, this code
++	 * running for each inst, will look at the bits as:
++	 * inst, inst + 6, inst + 12...
++	 *
+ 	 * First ensure all CUs are disabled, then enable user specified CUs.
  	 */
-+	start = ffs(kdev->xcc_mask) - 1;
-+	end = start + NUM_XCC(kdev->xcc_mask);
-+
- 	for (ct = 0; ct < num_of_cache_types; ct++) {
- 		cu_processor_id = gpu_processor_id;
- 		if (pcache_info[ct].cache_level == 1) {
--			for (i = 0; i < pcu_info->num_shader_engines; i++) {
--				for (j = 0; j < pcu_info->num_shader_arrays_per_engine; j++) {
--					for (k = 0; k < pcu_info->num_cu_per_sh; k += pcache_info[ct].num_cu_shared) {
--
--						ret = fill_in_l1_pcache(&props_ext, pcache_info, pcu_info,
--									pcu_info->cu_bitmap[0][i % 4][j + i / 4], ct,
--									cu_processor_id, k);
--
--						if (ret < 0)
--							break;
--
--						if (!ret) {
--							num_of_entries++;
--							list_add_tail(&props_ext->list, &dev->cache_props);
-+			for (xcc = start; xcc < end; xcc++) {
-+				for (i = 0; i < pcu_info->num_shader_engines; i++) {
-+					for (j = 0; j < pcu_info->num_shader_arrays_per_engine; j++) {
-+						for (k = 0; k < pcu_info->num_cu_per_sh; k += pcache_info[ct].num_cu_shared) {
-+
-+							ret = fill_in_l1_pcache(&props_ext, pcache_info, pcu_info,
-+										pcu_info->cu_bitmap[xcc][i % 4][j + i / 4], ct,
-+										cu_processor_id, k);
-+
-+							if (ret < 0)
-+								break;
-+
-+							if (!ret) {
-+								num_of_entries++;
-+								list_add_tail(&props_ext->list, &dev->cache_props);
-+							}
-+
-+							/* Move to next CU block */
-+							num_cu_shared = ((k + pcache_info[ct].num_cu_shared) <=
-+								pcu_info->num_cu_per_sh) ?
-+								pcache_info[ct].num_cu_shared :
-+								(pcu_info->num_cu_per_sh - k);
-+							cu_processor_id += num_cu_shared;
- 						}
--
--						/* Move to next CU block */
--						num_cu_shared = ((k + pcache_info[ct].num_cu_shared) <=
--							pcu_info->num_cu_per_sh) ?
--							pcache_info[ct].num_cu_shared :
--							(pcu_info->num_cu_per_sh - k);
--						cu_processor_id += num_cu_shared;
- 					}
+ 	for (i = 0; i < cu_info.num_shader_engines; i++)
+ 		se_mask[i] = 0;
+ 
+-	i = 0;
+-	for (cu = 0; cu < 16; cu += inc) {
++	i = inst;
++	for (cu = 0; cu < 16; cu += cu_inc) {
+ 		for (sh = 0; sh < cu_info.num_shader_arrays_per_engine; sh++) {
+ 			for (se = 0; se < cu_info.num_shader_engines; se++) {
+ 				if (cu_per_sh[se][sh] > cu) {
+ 					if (cu_mask[i / 32] & (en_mask << (i % 32)))
+ 						se_mask[se] |= en_mask << (cu + sh * 16);
+ 					i += inc;
+-					if (i == cu_mask_count)
++					if (i >= cu_mask_count)
+ 						return;
  				}
  			}
- 		} else {
- 			ret = fill_in_l2_l3_pcache(&props_ext, pcache_info,
--								pcu_info, ct, cu_processor_id);
-+					pcu_info, ct, cu_processor_id, kdev);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
+index 23158db7da03..57bf5e513f4d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
+@@ -138,7 +138,7 @@ void free_mqd_hiq_sdma(struct mqd_manager *mm, void *mqd,
  
- 			if (ret < 0)
- 				break;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
-index dea32a9e5506..27386ce9a021 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
-@@ -89,7 +89,7 @@ struct kfd_mem_properties {
- 	struct attribute	attr;
- };
+ void mqd_symmetrically_map_cu_mask(struct mqd_manager *mm,
+ 		const uint32_t *cu_mask, uint32_t cu_mask_count,
+-		uint32_t *se_mask);
++		uint32_t *se_mask, uint32_t inst);
  
--#define CACHE_SIBLINGMAP_SIZE 64
-+#define CACHE_SIBLINGMAP_SIZE 128
+ int kfd_hiq_load_mqd_kiq(struct mqd_manager *mm, void *mqd,
+ 		uint32_t pipe_id, uint32_t queue_id,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
+index ee1d32d957f2..1a4a69943c71 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
+@@ -52,7 +52,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
+ 		return;
  
- struct kfd_cache_properties {
- 	struct list_head	list;
+ 	mqd_symmetrically_map_cu_mask(mm,
+-		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask);
++		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask, 0);
+ 
+ 	m = get_mqd(mqd);
+ 	m->compute_static_thread_mgmt_se0 = se_mask[0];
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+index 83699392c808..8b7fed913526 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+@@ -52,7 +52,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
+ 		return;
+ 
+ 	mqd_symmetrically_map_cu_mask(mm,
+-		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask);
++		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask, 0);
+ 
+ 	m = get_mqd(mqd);
+ 	m->compute_static_thread_mgmt_se0 = se_mask[0];
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+index 0bbf0edbabd4..964b5d50a77e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+@@ -71,7 +71,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
+ 	}
+ 
+ 	mqd_symmetrically_map_cu_mask(mm,
+-		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask);
++		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask, 0);
+ 
+ 	m->compute_static_thread_mgmt_se0 = se_mask[0];
+ 	m->compute_static_thread_mgmt_se1 = se_mask[1];
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index e23d32f35607..42d881809dc7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -60,7 +60,7 @@ static inline struct v9_sdma_mqd *get_sdma_mqd(void *mqd)
+ }
+ 
+ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
+-			struct mqd_update_info *minfo)
++			struct mqd_update_info *minfo, uint32_t inst)
+ {
+ 	struct v9_mqd *m;
+ 	uint32_t se_mask[KFD_MAX_NUM_SE] = {0};
+@@ -69,27 +69,36 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
+ 		return;
+ 
+ 	mqd_symmetrically_map_cu_mask(mm,
+-		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask);
++		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask, inst);
+ 
+ 	m = get_mqd(mqd);
++
+ 	m->compute_static_thread_mgmt_se0 = se_mask[0];
+ 	m->compute_static_thread_mgmt_se1 = se_mask[1];
+ 	m->compute_static_thread_mgmt_se2 = se_mask[2];
+ 	m->compute_static_thread_mgmt_se3 = se_mask[3];
+-	m->compute_static_thread_mgmt_se4 = se_mask[4];
+-	m->compute_static_thread_mgmt_se5 = se_mask[5];
+-	m->compute_static_thread_mgmt_se6 = se_mask[6];
+-	m->compute_static_thread_mgmt_se7 = se_mask[7];
+-
+-	pr_debug("update cu mask to %#x %#x %#x %#x %#x %#x %#x %#x\n",
+-		m->compute_static_thread_mgmt_se0,
+-		m->compute_static_thread_mgmt_se1,
+-		m->compute_static_thread_mgmt_se2,
+-		m->compute_static_thread_mgmt_se3,
+-		m->compute_static_thread_mgmt_se4,
+-		m->compute_static_thread_mgmt_se5,
+-		m->compute_static_thread_mgmt_se6,
+-		m->compute_static_thread_mgmt_se7);
++	if (KFD_GC_VERSION(mm->dev) != IP_VERSION(9, 4, 3)) {
++		m->compute_static_thread_mgmt_se4 = se_mask[4];
++		m->compute_static_thread_mgmt_se5 = se_mask[5];
++		m->compute_static_thread_mgmt_se6 = se_mask[6];
++		m->compute_static_thread_mgmt_se7 = se_mask[7];
++
++		pr_debug("update cu mask to %#x %#x %#x %#x %#x %#x %#x %#x\n",
++			m->compute_static_thread_mgmt_se0,
++			m->compute_static_thread_mgmt_se1,
++			m->compute_static_thread_mgmt_se2,
++			m->compute_static_thread_mgmt_se3,
++			m->compute_static_thread_mgmt_se4,
++			m->compute_static_thread_mgmt_se5,
++			m->compute_static_thread_mgmt_se6,
++			m->compute_static_thread_mgmt_se7);
++	} else {
++		pr_debug("inst: %u, update cu mask to %#x %#x %#x %#x\n",
++			inst, m->compute_static_thread_mgmt_se0,
++			m->compute_static_thread_mgmt_se1,
++			m->compute_static_thread_mgmt_se2,
++			m->compute_static_thread_mgmt_se3);
++	}
+ }
+ 
+ static void set_priority(struct v9_mqd *m, struct queue_properties *q)
+@@ -290,7 +299,8 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
+ 	if (mm->dev->kfd->cwsr_enabled && q->ctx_save_restore_area_address)
+ 		m->cp_hqd_ctx_save_control = 0;
+ 
+-	update_cu_mask(mm, mqd, minfo);
++	if (KFD_GC_VERSION(mm->dev) != IP_VERSION(9, 4, 3))
++		update_cu_mask(mm, mqd, minfo, 0);
+ 	set_priority(m, q);
+ 
+ 	q->is_active = QUEUE_IS_ACTIVE(*q);
+@@ -676,6 +686,8 @@ static void update_mqd_v9_4_3(struct mqd_manager *mm, void *mqd,
+ 		m = get_mqd(mqd + size * xcc);
+ 		update_mqd(mm, m, q, minfo);
+ 
++		update_cu_mask(mm, mqd, minfo, xcc);
++
+ 		if (q->format == KFD_QUEUE_FORMAT_AQL) {
+ 			switch (xcc) {
+ 			case 0:
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+index 657c37822980..3e1a574d4ea6 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+@@ -55,7 +55,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
+ 		return;
+ 
+ 	mqd_symmetrically_map_cu_mask(mm,
+-		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask);
++		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask, 0);
+ 
+ 	m = get_mqd(mqd);
+ 	m->compute_static_thread_mgmt_se0 = se_mask[0];
 -- 
 2.35.1
 
