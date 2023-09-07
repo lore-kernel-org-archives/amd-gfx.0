@@ -4,88 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AAC0EC8735
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Sep 2023 14:41:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93D17EC8734
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Sep 2023 15:27:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1AF010E7DE;
-	Thu,  7 Sep 2023 14:41:17 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A6B310E7DE
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Sep 2023 14:41:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FL3IcNfSbYsvXbmL0fSfdmUYB2y3nsbKDQTpY8VzZaeWFZHKkEjvOg7Ri8X2mCggAZuruLCigUIhF71POWUgHiDiIhRWnbQYhBXM8FcBuv4LyOeyeyD41/Nno0VlR1UowHfUsC3tfh8uAfDmkHVhp6w6pQeIbHAWChEeHOAl8oIVMK9TZpxHRrXUaKHLdb6xnoP9Nucl1GJisy5cGGg7urUD5a3/aKeaotkwC6PoQIQzfZ7/SUOshdShWKcQDBEkvCREUuG/23HH+NpzkICE2OeD8L7Zr5jBDsOlJbevWWR2DfXIzH53ASzjLBCx20TeIQfWPSMEwQhpaM8Z8eItbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EbMNQ6li6bI5WuF+XTnNEwyziCEWsONB4Mv+9sTn2P0=;
- b=SiBuPeYMnvuGwH087FwvuQe3pguaxNW+8VMsc2WueDiO7+FrZYtvQ3+Xnaj2wUIkhP4d4jOrj9gRwnuQLz68rlJpwHtsQ8hPRiCx8/Qk6G3juAic51kPJyAgSR8fuFQG5p27vWBT9k0y7hpeXpu9mkXQQL9SLnXiVIyKAMJjWXPzYZIbGawKiqoMvItMegOZ8Ny5gwaEo+Q1Vw+gic+lIttQYFyUk7pQY9wJIYTKA7g9g7MO+kMnjPVrO4oXwDb2pfdjp6IF19Td4nO5CanNsY2HdKgApE9Ht+tSiR8dRo3fDbThz2x1BS/GtVUNq7HAdd4hY4PgyQjVvh7Z/sKF7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EbMNQ6li6bI5WuF+XTnNEwyziCEWsONB4Mv+9sTn2P0=;
- b=LwQmqWrqIN/fsDVFUzo8Dvfb9HVzQEssYABLGMirrB5kFCRZFOkrVutgMOA++106WUCS+yEJRlQlDAs6mhp1guAdUU9eQwsz3yH5LSd/wAZeYrDOuNdbLlbP84RiuVOIg3xb8QsqpyjyM1sTD543UN4fBMCPGW1GY2xnTPnSpPA=
-Received: from CH0P221CA0017.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11c::26)
- by CYYPR12MB8923.namprd12.prod.outlook.com (2603:10b6:930:bc::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.30; Thu, 7 Sep
- 2023 14:41:14 +0000
-Received: from DS3PEPF000099D6.namprd04.prod.outlook.com
- (2603:10b6:610:11c:cafe::c) by CH0P221CA0017.outlook.office365.com
- (2603:10b6:610:11c::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.30 via Frontend
- Transport; Thu, 7 Sep 2023 14:41:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099D6.mail.protection.outlook.com (10.167.17.7) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6768.25 via Frontend Transport; Thu, 7 Sep 2023 14:41:13 +0000
-Received: from work-495456.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 7 Sep
- 2023 09:41:12 -0500
-From: James Zhu <James.Zhu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdxcp: fix amdxcp unloads incompletely
-Date: Thu, 7 Sep 2023 10:41:00 -0400
-Message-ID: <20230907144100.81325-1-James.Zhu@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAA0810E7F8;
+	Thu,  7 Sep 2023 15:27:23 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C78EF10E7F8;
+ Thu,  7 Sep 2023 15:27:20 +0000 (UTC)
+Received: from loongson.cn (unknown [10.20.42.43])
+ by gateway (Coremail) with SMTP id _____8Cxh+jV6_lk2HwhAA--.31173S3;
+ Thu, 07 Sep 2023 23:27:17 +0800 (CST)
+Received: from [0.0.0.0] (unknown [10.20.42.43])
+ by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8AxzyO_6_lkAtlwAA--.32479S3; 
+ Thu, 07 Sep 2023 23:27:12 +0800 (CST)
+Message-ID: <d3c38433-a23e-56b3-634a-9bb4c492245d@loongson.cn>
+Date: Thu, 7 Sep 2023 23:26:55 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.0
+Subject: Re: [Nouveau] [RFC, drm-misc-next v4 0/9] PCI/VGA: Allowing the user
+ to select the primary video adapter at boot time
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Sui Jingfeng <sui.jingfeng@linux.dev>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Bjorn Helgaas
+ <bhelgaas@google.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+References: <20230904195724.633404-1-sui.jingfeng@linux.dev>
+ <44ec8549-dc36-287e-4359-abd3ec8d22d6@suse.de>
+ <5afd2efb-f838-f9b7-02a9-2cf4d4fd2382@loongson.cn>
+ <2adfa653-ac35-d560-be52-c92848a1eef5@gmail.com>
+ <b51d49f3-e3de-6b8d-9cb4-df5c03f3cdc0@loongson.cn>
+ <10509692-ce04-e225-5a27-abc955554bdc@gmail.com>
+ <a9af88c5-4509-96ff-a7fd-a0f72d2f1e6a@linux.dev>
+ <127fab21-bc5c-f782-e42b-1092fbb8df34@amd.com>
+ <5d9f9780-995f-33dc-e3db-3112aa085062@loongson.cn>
+ <714d5ecf-f0dd-c099-0970-9ee765d35161@amd.com>
+Content-Language: en-US
+From: suijingfeng <suijingfeng@loongson.cn>
+In-Reply-To: <714d5ecf-f0dd-c099-0970-9ee765d35161@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099D6:EE_|CYYPR12MB8923:EE_
-X-MS-Office365-Filtering-Correlation-Id: 24d019d0-dc70-4c8d-6a37-08dbafb07c62
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hsojRbS5YJ8whD9y4NsAOnT8nx/L5sHzuZzDMraNWBIbNqafiBJdhZBRmvLKjKYhxBVjC/cayh1wOp+A94lxvvveIduUkw8+5NIBK+NOfwxCDmCbFCrcnB+HX//OuPHFSsdb88bhib+c1vvAPm0vRzgr2+4ze0S4e5ecuf1/3fS2Z/Xb/AfuMVhvdiAGltRlKxLxiJEAByVxwLCU3P2ilmBBoB07gOWSrkoFUUPmb54yUbx4PGd5CCpdtb32SMd1epck0uha8d5YIOisTJmKjUm0ybPx6MIeDPW/cy0IKFWWUWWsAzgVyAk174lH8JncBpo8CiTQfwyjTTNW/xquHZpJchdtqHfsNLrM8Pj8fogu2M0MDo+HsLSHMkspbr1wV2WXqDjh0WBxvrVaxZ5odCL9K7Kug2m7XXXQc6xC91XcvMWKDiEVE2Dr4LCzzD7u/9pQtdcQI0bZge+XCsGHn3dXyZPRoAFJK4Xeod7pgFk2oU3jWyiUjBCra2kZoh9l0RPqNhZ2Ki/rcqozhsxJ7yi47ghHv5x/OrYQZ6hS83hwzf8upe5Ev80uzc/qxAQQOgFfKX1N/q2tm/dlJWBuJWT6kUZofHDbGlsZY5//IuqaMHKbEffWnT8tf6gQaOt+wPBdgZUqqyF/cc+bUJsYU8xsZWeDMHA89QpsDEWt/WOqeNiWpskXMpNj3BV7qDFOCi6XCUJW0BkwpJ3KO9qDA4VLnTd3BYkieFwmLXGZ7DAdmg2tQq+cVQ2roJwPPJsK7L3Bu+CcD/oSwJW3EcSIJw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(396003)(136003)(376002)(39860400002)(82310400011)(186009)(451199024)(1800799009)(40470700004)(46966006)(36840700001)(36756003)(356005)(1076003)(40460700003)(40480700001)(41300700001)(83380400001)(8676002)(5660300002)(26005)(4326008)(8936002)(426003)(6666004)(16526019)(336012)(7696005)(36860700001)(2616005)(47076005)(82740400003)(2906002)(316002)(86362001)(478600001)(6916009)(70206006)(54906003)(70586007)(81166007)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2023 14:41:13.7892 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 24d019d0-dc70-4c8d-6a37-08dbafb07c62
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099D6.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8923
+X-CM-TRANSID: AQAAf8AxzyO_6_lkAtlwAA--.32479S3
+X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
+X-Coremail-Antispam: 1Uk129KBj93XoW3XFy5KFWUCFW7Gw4xXF47trc_yoWxKw48pF
+ WfW39IgrW8ur48J34IvF1UWw4agF4rJF45AryFkwn0k3WUWFn0vwnagw4Iga4UArs7uF4j
+ vry0q3yFyw1UCagCm3ZEXasCq-sJn29KB7ZKAUJUUUUx529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUP2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v2
+ 6F4UJVW0owAaw2AFwI0_JF0_Jw1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0c
+ Ia020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_
+ Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrw
+ CYjI0SjxkI62AI1cAE67vIY487MxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48J
+ MxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI
+ 0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
+ 0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+ WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1l
+ IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8uc_3UUUU
+ U==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,39 +79,171 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Amber.Lin@amd.com, jamesz@amd.com, asad.kamal@amd.com
+Cc: nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-pci@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdxcp unloads incompletely, and below error will be seen during load/unload,
-sysfs: cannot create duplicate filename '/devices/platform/amdgpu_xcp.0'
+Hi,
 
-devres_release_group will free xcp device at first, platform device will be
-unregistered later in platform_device_unregister.
 
-Signed-off-by: James Zhu <James.Zhu@amd.com>
----
- drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+On 2023/9/7 20:43, Christian König wrote:
+> Am 07.09.23 um 14:32 schrieb suijingfeng:
+>> Hi,
+>>
+>>
+>> On 2023/9/7 17:08, Christian König wrote:
+>>> Well, I have over 25 years of experience with display hardware and 
+>>> what you describe here was never an issue. 
+>>
+>> I want to give you an example to let you know more.
+>>
+>> I have a ASRock AD2550B-ITX board[1],
+>> When another discrete video card is mounted into it mini PCIe slot or 
+>> PCI slot,
+>> The IGD cannot be the primary display adapter anymore. The display is 
+>> totally black.
+>> I have try to draft a few trivial patch to help fix this[2].
+>>
+>> And I want to use the IGD as primary, does this count as an issue?
+>
+> No, this is completely expected behavior and a limitation of the 
+> hardware design.
+>
+> As far as I know both AMD and Intel GPUs work the same here.
+>
+> Regards,
+> Christian.
+>
+>>
+>> [1] https://www.asrock.com/mb/Intel/AD2550-ITX/
+>> [2] https://patchwork.freedesktop.org/series/123073/
+>>
 
-diff --git a/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c b/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c
-index 353597fc908d..90ddd8371176 100644
---- a/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c
-+++ b/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c
-@@ -89,9 +89,10 @@ EXPORT_SYMBOL(amdgpu_xcp_drm_dev_alloc);
- void amdgpu_xcp_drv_release(void)
- {
- 	for (--pdev_num; pdev_num >= 0; --pdev_num) {
--		devres_release_group(&xcp_dev[pdev_num]->pdev->dev, NULL);
--		platform_device_unregister(xcp_dev[pdev_num]->pdev);
--		xcp_dev[pdev_num]->pdev = NULL;
-+		struct platform_device *pdev = xcp_dev[pdev_num]->pdev;
-+
-+		devres_release_group(&pdev->dev, NULL);
-+		platform_device_unregister(pdev);
- 		xcp_dev[pdev_num] = NULL;
- 	}
- 	pdev_num = 0;
--- 
-2.34.1
+Then, I'll give you another example, see below for elaborate description.
+I have one AMD BC160 GPU, see[1] to get what it looks like.
+
+The GPU don't has a display connector interface exported.
+It actually can be seen as a render-only GPU or compute class GPU for bitcoin.
+But the firmware of it still acclaim this GPU as VGA compatible.
+When mount this GPU onto motherboard, the system always select this GPU as primary.
+But this GPU can't be able to connect with a monitor.
+
+Under such a situation, modprobe.blacklist=amdgpu don't works either,
+because vgaarb always select this GPU as primary, this is a device-level decision.
+
+$ dmesg | grep vgaarb:
+
+[    3.541405] pci 0000:0c:00.0: vgaarb: BAR 0: [mem 0xa0000000-0xafffffff 64bit pref] contains firmware FB [0xa0000000-0xa02fffff]
+[    3.901448] pci 0000:05:00.0: vgaarb: setting as boot VGA device
+[    3.905375] pci 0000:05:00.0: vgaarb: VGA device added: decodes=io+mem,owns=none,locks=none
+[    3.905382] pci 0000:0c:00.0: vgaarb: setting as boot VGA device (overriding previous)
+[    3.909375] pci 0000:0c:00.0: vgaarb: VGA device added: decodes=io+mem,owns=io+mem,locks=none
+[    3.913375] pci 0000:0d:00.0: vgaarb: VGA device added: decodes=io+mem,owns=none,locks=none
+[    3.913377] vgaarb: loaded
+[   13.513760] amdgpu 0000:0c:00.0: vgaarb: deactivate vga console
+[   19.020992] amdgpu 0000:0c:00.0: vgaarb: changed VGA decodes: olddecodes=io+mem,decodes=none:owns=io+mem
+
+I'm using ubuntu 22.04 system, with ast.modeset=10 passed on the cmd line,
+I still be able to enter the graphics system. And views this GPU as a render-only GPU.
+Probably continue to examine what's wrong, except this, drm/amdgpu report
+" *ERROR* IB test failed on sdma0 (-110)" to me.
+
+Does this count as problem?
+
+Before I could find solution, I have keep this de-fact render only GPU mounted.
+Because I need recompile kennel module, install the kernel module and testing.
+
+All I need is a 2D video card to display something, ast drm is OK, despite simple.
+It suit the need for my daily usage with VIM, that's enough for me.
+
+Now, the real questions that I want ask is:
+
+1)
+
+Does the fact that when the kernel driver module got blocked (by modprobe.blacklist=amdgpu),
+while the vgaarb still select it as primary which leave the X server crash there (because no kennel space driver loaded)
+count as a problem?
+
+
+2)
+
+Does my approach that mounting another GPU as the primary display adapter,
+while its real purpose is to solving bugs and development for another GPU,
+count as a use case?
+
+
+$ cat demsg.txt | grep drm
+
+[   10.099888] ACPI: bus type drm_connector registered
+[   11.083920] etnaviv 0000:0d:00.0: [drm] bind etnaviv-display, master 
+name: 0000:0d:00.0
+[   11.084106] [drm] Initialized etnaviv 1.3.0 20151214 for 0000:0d:00.0 
+on minor 0
+[   13.301702] [drm] amdgpu kernel modesetting enabled.
+[   13.359820] [drm] initializing kernel modesetting (NAVI12 
+0x1002:0x7360 0x1002:0x0A34 0xC7).
+[   13.368246] [drm] register mmio base: 0xEB100000
+[   13.372861] [drm] register mmio size: 524288
+[   13.380788] [drm] add ip block number 0 <nv_common>
+[   13.385661] [drm] add ip block number 1 <gmc_v10_0>
+[   13.390531] [drm] add ip block number 2 <navi10_ih>
+[   13.395405] [drm] add ip block number 3 <psp>
+[   13.399760] [drm] add ip block number 4 <smu>
+[   13.404111] [drm] add ip block number 5 <dm>
+[   13.408378] [drm] add ip block number 6 <gfx_v10_0>
+[   13.413249] [drm] add ip block number 7 <sdma_v5_0>
+[   13.433546] [drm] add ip block number 8 <vcn_v2_0>
+[   13.433547] [drm] add ip block number 9 <jpeg_v2_0>
+[   13.497757] [drm] VCN decode is enabled in VM mode
+[   13.502540] [drm] VCN encode is enabled in VM mode
+[   13.508785] [drm] JPEG decode is enabled in VM mode
+[   13.529596] [drm] vm size is 262144 GB, 4 levels, block size is 
+9-bit, fragment size is 9-bit
+[   13.564762] [drm] Detected VRAM RAM=8176M, BAR=256M
+[   13.569628] [drm] RAM width 2048bits HBM
+[   13.574167] [drm] amdgpu: 8176M of VRAM memory ready
+[   13.579125] [drm] amdgpu: 15998M of GTT memory ready.
+[   13.584184] [drm] GART: num cpu pages 131072, num gpu pages 131072
+[   13.590505] [drm] PCIE GART of 512M enabled (table at 
+0x0000008000300000).
+[   13.598749] [drm] Found VCN firmware Version ENC: 1.16 DEC: 5 VEP: 0 
+Revision: 4
+[   13.671786] [drm] reserve 0xe00000 from 0x81fd000000 for PSP TMR
+[   13.801235] [drm] Display Core v3.2.247 initialized on DCN 2.0
+[   13.807061] [drm] DP-HDMI FRL PCON supported
+[   13.832382] [drm] kiq ring mec 2 pipe 1 q 0
+[   13.838131] [drm] VCN decode and encode initialized 
+successfully(under DPG Mode).
+[   13.845877] [drm] JPEG decode initialized successfully.
+[   14.072508] [drm] Initialized amdgpu 3.54.0 20150101 for 0000:0c:00.0 
+on minor 1
+[   14.080976] amdgpu 0000:0c:00.0: [drm] Cannot find any crtc or sizes
+[   14.087341] [drm] DSC precompute is not needed.
+[   16.487330] systemd[1]: Starting Load Kernel Module drm...
+[  619.901873] [drm] PCIE GART of 512M enabled (table at 
+0x0000008000300000).
+[  619.901898] [drm] PSP is resuming...
+[  619.925307] [drm] reserve 0xe00000 from 0x81fd000000 for PSP TMR
+[  619.991034] [drm] psp gfx command AUTOLOAD_RLC(0x21) failed and 
+response status is (0xFFFF000D)
+[  620.294366] [drm] kiq ring mec 2 pipe 1 q 0
+[  620.298953] [drm] VCN decode and encode initialized 
+successfully(under DPG Mode).
+[  620.299103] [drm] JPEG decode initialized successfully.
+[  621.309543] [drm:sdma_v5_0_ring_test_ib [amdgpu]] *ERROR* amdgpu: IB 
+test timed out
+[  621.317577] amdgpu 0000:0c:00.0: [drm:amdgpu_ib_ring_tests [amdgpu]] 
+*ERROR* IB test failed on sdma0 (-110).
+[  622.333548] [drm:sdma_v5_0_ring_test_ib [amdgpu]] *ERROR* amdgpu: IB 
+test timed out
+[  622.341587] amdgpu 0000:0c:00.0: [drm:amdgpu_ib_ring_tests [amdgpu]] 
+*ERROR* IB test failed on sdma1 (-110).
+[  622.354071] [drm:amdgpu_device_delayed_init_work_handler [amdgpu]] 
+*ERROR* ib ring test failed (-110).
+[  622.363721] amdgpu 0000:0c:00.0: [drm] Cannot find any crtc or sizes
+
+[1] https://www.techpowerup.com/gpu-specs/xfx-bc-160.b9346
+
 
