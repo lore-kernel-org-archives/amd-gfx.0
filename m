@@ -4,67 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FE6CEC873D
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Sep 2023 16:33:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3128EC8758
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Sep 2023 19:47:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFD0010E80E;
-	Thu,  7 Sep 2023 16:33:26 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id B53F810E23E;
- Thu,  7 Sep 2023 16:33:20 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.43])
- by gateway (Coremail) with SMTP id _____8Cx7+tK+_lkFYchAA--.44S3;
- Fri, 08 Sep 2023 00:33:14 +0800 (CST)
-Received: from [0.0.0.0] (unknown [10.20.42.43])
- by localhost.localdomain (Coremail) with SMTP id
- AQAAf8AxDCNK+_lkoPBwAA--.55158S3; 
- Fri, 08 Sep 2023 00:33:14 +0800 (CST)
-Message-ID: <39736dad-41e3-8b24-ccef-ac3425a6c9f4@loongson.cn>
-Date: Fri, 8 Sep 2023 00:33:13 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F1CD10E0A7;
+	Thu,  7 Sep 2023 19:47:41 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2053.outbound.protection.outlook.com [40.107.92.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D343610E0A7
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Sep 2023 19:47:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=V6RmCmEvEvFgCzLi/jPKlvfJkSEPvqETHZ7xvuiv10d46gZ9YH7kZZioMcktcj+EU1E4j60ajaFKp6pF1MDQZw9arWLtvJs30pRsdJkpkiXbVw+nh+IIbMtCgItJ6dZS5T6wU7vvzbwuF8fgnr7WtxN6wU/CJUeEJFiXnCnTtR5HiWlVPTSwsF1L8pSKc7gy27nRHGnCfX/QzH0o5g+8kA9qMgwyx27CxHUK5oTu9LgWUFHT4Q38dp3yBXKRVEAlHSC75FaG7kAGtD6JQ+t1TftQlh8FQp3+8Fk3Sw2wYoVfbimQxsswgI6gUoqZHay+w5aimjcgSo6CKPeF0MNNjg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gj7fVwb6RNnor2ocNrIDRp35f4uuyvu/IHws3XzyEZg=;
+ b=TCiYYKf93+wbqqbGZbimR/78wok0LZejroxZHEySOO2VhccI4Xs5XJYILo1Co+T4jOnHvnxQSb5FHj2CIBwXY+gYkyR3HYE7uDSAvKLjmXuSTSuteAacIV3zcwGIu0zimxAJSv7SVIaMqTHGoszREVV7yolkqEXHcZwuRlQuQOB9aErhjJwoNpSuPU8KSCoS70tudtnExV9fkNicn8eZ+TCKQasVFgK/8+cxB/5NiXAFgY1QsMf//5rx1aL58u7XXxsEch7CvL0rYCc0rpAUxs0ao/3oel1p1MlkXJG1xutm1K6hzwStc2y7SAit6u6Ml+CtdAcsUgrOGE8kEayy7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gj7fVwb6RNnor2ocNrIDRp35f4uuyvu/IHws3XzyEZg=;
+ b=KujqPKdT1+c5UHW4YKn9GGI7UTj7j5gdT1DzOWh+WRAhZLI/QZaOnFIh+QualjeFTrGhAaAJD7Wo6TMx7GzxfHHaEBx7plI5fEk9XHfSvainK5/kScDroNOrwmfSo/XkKDwGWGJTL7ReFuD08ioD4FPL/nwX+VLTURZzLEln1D4=
+Received: from DM6PR04CA0001.namprd04.prod.outlook.com (2603:10b6:5:334::6) by
+ SA0PR12MB4351.namprd12.prod.outlook.com (2603:10b6:806:71::14) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6768.30; Thu, 7 Sep 2023 19:47:35 +0000
+Received: from DS1PEPF00017097.namprd05.prod.outlook.com
+ (2603:10b6:5:334:cafe::12) by DM6PR04CA0001.outlook.office365.com
+ (2603:10b6:5:334::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.36 via Frontend
+ Transport; Thu, 7 Sep 2023 19:47:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF00017097.mail.protection.outlook.com (10.167.18.101) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6768.30 via Frontend Transport; Thu, 7 Sep 2023 19:47:35 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 7 Sep
+ 2023 14:47:33 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu/nbio4.3: set proper rmmio_remap.reg_offset for
+ SR-IOV
+Date: Thu, 7 Sep 2023 15:47:12 -0400
+Message-ID: <20230907194712.501666-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.0
-Subject: Re: [Nouveau] [RFC, drm-misc-next v4 0/9] PCI/VGA: Allowing the user
- to select the primary video adapter at boot time
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Sui Jingfeng <sui.jingfeng@linux.dev>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Bjorn Helgaas
- <bhelgaas@google.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20230904195724.633404-1-sui.jingfeng@linux.dev>
- <44ec8549-dc36-287e-4359-abd3ec8d22d6@suse.de>
- <5afd2efb-f838-f9b7-02a9-2cf4d4fd2382@loongson.cn>
- <2adfa653-ac35-d560-be52-c92848a1eef5@gmail.com>
- <b51d49f3-e3de-6b8d-9cb4-df5c03f3cdc0@loongson.cn>
- <10509692-ce04-e225-5a27-abc955554bdc@gmail.com>
- <a9af88c5-4509-96ff-a7fd-a0f72d2f1e6a@linux.dev>
- <127fab21-bc5c-f782-e42b-1092fbb8df34@amd.com>
-From: suijingfeng <suijingfeng@loongson.cn>
-In-Reply-To: <127fab21-bc5c-f782-e42b-1092fbb8df34@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: AQAAf8AxDCNK+_lkoPBwAA--.55158S3
-X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
-X-Coremail-Antispam: 1Uk129KBj9xXoW7JrW5CryktF1fZFy8GrWDKFX_yoWfZFbE9F
- 18t34kCw4jyan3XrWSgr47W39Ygr47Gr18ZrWrWrya934rKa98KrZ5C395ZryrGF10grn8
- GryFqa4fC3s29osvyTuYvTs0mTUanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUj1kv1TuYvT
- s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
- cSsGvfJTRUUUbf8YFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
- vaj40_Wr0E3s1l1IIY67AEw4v_JrI_Jryl8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
- w2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
- W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z280aVCY1x0267AKxVW8
- JVW8Jr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2
- x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17
- McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7
- I2V7IY0VAS07AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8
- JwCFI7km07C267AKxVWUXVWUAwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14
- v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY
- 67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2
- IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_
- Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8fsqJUUUUU==
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017097:EE_|SA0PR12MB4351:EE_
+X-MS-Office365-Filtering-Correlation-Id: c6a0a68c-bc5c-4d58-406d-08dbafdb4886
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: wlGMPx2UFkX65c/RX+mfzCgZSVx6Mh+RUMmuREvjtiYxHlkS1eeLNmoEoid/upTmHYidJwF7qYuE9KYBIJ2j5yoPTrVBOzw/2YvsPd9ZAlQpGRUawc3s7G6jeqY8Iy0tHU4XVguPHOguBx/oYm+5PO7mkQgf0ASneFU466+EvREp63w62LXIc4kF/GdIxKGuM4JoOR1JY1br3gL/+QdvIdjYMz2M1dVP5BWgTo+/q+r+labqLhqwlrvvwJN+1LcVqR2AFduVMfWpIoNr6PtPv6Z9WfewnHZ4++GMBEc/mzSQwj58H6Dj5NUkoVSKAGF99ODlh3EKh/PjkDPe/mM/mI27m31p0W/1xf2IBC+v/SRTtJRfopgTlzZGwipQo02uNXhKPSCA1l9PfNllXhfXyWmW1OV72vfzLyBpHH06pHE3DPYGo1uDcPq7OOiOVkH79y8qh/v1KW2xrsqnv1q50V8XTveWPNbgcLvHrsCas71IDf/BAK9UEHHYfKEHTRwOs932I7wX9jqVFPDvhCICUJ6uP7ATV10bgHh1DIleAEnw9PH/n8dXnOQ3pLyCOExM15mdZJeIPMWAqAK5kpVeuwarbF2hWzTLDCUCBSSOydTpkLOJuBwebk8wdVJ2fTwpTW5isAthTBsukI3yogGGvM1rR681BVjtJmoVDfsRSn6BsmnGEBZNoY+xxGPBhE96bDn6lEBX89e4FYS+8Fqwk/Rb6YZ5BKQHu5D1M35hhoBXcTpf9bFr6HkrSAYZMkkHls86q1c/8Wgx3uNoG8Ho7w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(346002)(396003)(376002)(136003)(39860400002)(186009)(1800799009)(451199024)(82310400011)(40470700004)(46966006)(36840700001)(4326008)(5660300002)(8676002)(8936002)(40480700001)(41300700001)(4744005)(70206006)(70586007)(316002)(6916009)(2906002)(40460700003)(356005)(81166007)(47076005)(36860700001)(82740400003)(1076003)(2616005)(16526019)(26005)(426003)(336012)(86362001)(36756003)(478600001)(7696005)(6666004)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2023 19:47:35.1732 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c6a0a68c-bc5c-4d58-406d-08dbafdb4886
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017097.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4351
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,37 +98,31 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-pci@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Needed for HDP flush to work correctly.
 
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-On 2023/9/7 17:08, Christian König wrote:
-
-
-> I strongly suggest that you just completely drop this here 
-
-
-Drop this is OK, no problem. Then I will go to develop something else.
-This version is not intended to merge originally, as it's a RFC.
-Also, the core mechanism already finished, it is the first patch in this series.
-Things left are just policy (how to specify one and parse the kernel CMD line) and nothing interesting left.
-It is actually to fulfill my promise at V3 which is to give some examples as usage cases.
-
-
-> and go into the AST driver and try to fix it. 
-
-Well, someone tell me that this is well defined behavior yesterday,
-which imply that it is not a bug. I'm not going to fix a non-bug.
-But if thomas ask me to fix it, then I probably have to try to fix.
-But I suggest if things not broken, don't fix it. Otherwise this may
-incur more big trouble. For server's single display use case, it is
-good enough.
-
-
-Thanks.
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
+index d5ed9e0e1a5f..e5b5b0f4940f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
+@@ -345,6 +345,9 @@ static void nbio_v4_3_init_registers(struct amdgpu_device *adev)
+ 		data &= ~RCC_DEV0_EPF2_STRAP2__STRAP_NO_SOFT_RESET_DEV0_F2_MASK;
+ 		WREG32_SOC15(NBIO, 0, regRCC_DEV0_EPF2_STRAP2, data);
+ 	}
++	if (amdgpu_sriov_vf(adev))
++		adev->rmmio_remap.reg_offset = SOC15_REG_OFFSET(NBIO, 0,
++			regBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
+ }
+ 
+ static u32 nbio_v4_3_get_rom_offset(struct amdgpu_device *adev)
+-- 
+2.41.0
 
