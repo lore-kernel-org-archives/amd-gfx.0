@@ -4,115 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A62DEC8758
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Sep 2023 20:55:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0863FEC8759
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Sep 2023 20:55:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00FFC10E249;
-	Thu,  7 Sep 2023 20:55:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8877910E267;
+	Thu,  7 Sep 2023 20:55:40 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2052.outbound.protection.outlook.com [40.107.220.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D82BC10E249
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Sep 2023 20:54:58 +0000 (UTC)
+ (mail-co1nam11on2071.outbound.protection.outlook.com [40.107.220.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B488A10E7D7
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Sep 2023 20:55:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UBfMa7Z9e39bA+E5luv6RH1igSYwmUF1QcaUisx/90x9RaQA5TI21FIghMti1JSyCY8LAuchs3iAF3P8V3lbVj98lNl3BMbVv013u9G0bmuN1OOsAs1XghcGS4hSpTF199G6fDDidzLWNLk3cl5N+bgSimPFmxjlObuoFbCTibJtR4fPXdCnGd9tC3wACa1hn+AuG/SgQuJ4wgXyeWe6JCm7ecsPQoqhhsLvBQPF0YFam8iGl8VlaIIvDLRUSGlpEni0YZ0NoiPUWKTOBAFKI+T1hfB/fjRxyJku/Gbh9W8bSVbwrpCzw5GP5R/98qXK/1b9XGYWEBsjQS/RtohOxw==
+ b=A+y+z00V4ETdbkJzyG6FYSadv0Sy44u6qvk5+wmV+5zmZX24+YNSDVmTw+AXoZZDznEyN8k+bsiUPO0ALBL9ls1Djf4Y0X5CFOoLDEPZ8JnrMD/CbVthoqFHNEEgazcAzPSobyjKv2oI/Kxrmp654dtAHfvlJNuSSZcAmlyK3p2pp8G2tdhODqi5vqVnXXotElxg2u4QdclEdXBahkreHqLYNFg3mxfC1WAqe0HCJ1yUeRV1gEZ5N6ZWjgfPy9cHadZjrus4dTZii2WaRa8WC0QJ0JBHgzKN6idRSH85edRJikwBBBbKNi93T6gbMnCvwaK7Kf7ERuXDt/w5lTL6XQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ecnPJaC8j5CXAlCVSihBmY1aRIwW2ENK7zALYNm1qME=;
- b=Zlk7n9xZHtfoCHJsj7mpFSwl3EWneaMO7uARWBYFWszgshBM+pSTvEEwRZZ7nYG20tB17Kl1aQuhDuh9xVqLblTaYiulC7F3L9DNnDGrUgmJ0nSZrXveVFUjBFnPPzzpqpMFs5dgXLqSHYaYoxzt4USATMrh2L6xRIRol/L4yJuj+irqlyaZq6vFzG89LsM6BwDp+KQ7B8xkW8auk978n7aT7n8BocpoMIIjGj4lGHbjR2ebSSPwemJd/qfRO//KvofYwwD8AXP2UP+hy5mOZHHHuI8I/XEK9cuoWK2l0FH/KfMaQ6DPgOGvobEFEDXx+FJ7vQ2K+ftisUz186NRjw==
+ bh=X1z67t8rUBs/HHLD0is5nVNS6COvVh87oATE8oP5wkA=;
+ b=YJMOOz0mHU0mYRoV42OPwVhFvhXssb35qTUCCEIOambwFCKj8C4dhCqdjHMLp43LY1bqHugbpieNKT2A2OlX6xPWp9W4RkPkb78v+PbZ4NgJLFnjVhFb23cl7UM+CgOJtsVoIYJrt2F9jzZgYJggfgnJlLOWQSVVd3DTHX3vQ/hmdhP4wOonArykx6ZHbBiu3UnfOuWU4E6o0SWIMSxbGMYbZMCWDarxmR5iFYCFVKyBtZ2u5MdRLQloYgKtTmGM7Ao0H9rFTG4/Z2yKV5DOL1Bsi6AUtVnYWdXyCEUttFrh2CkZUJZyok/wXmCM4RN1gdTt7o+0D0f1cI+ju30Esw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ecnPJaC8j5CXAlCVSihBmY1aRIwW2ENK7zALYNm1qME=;
- b=wROViPI+Gnxq6YEPBohFUzwz/AbsrpSNET+6+7huFza7qwoln8pDHEb7L1Edtdyt7TPNdvAPIiJpmjVgLRgJz7SlJotFxT+J2bpmycrh4/xOoXZ+mJEMKiTVSUGDFPlrnBLF4BQ7gUjP59t6wCBnTbVcSdzqqmhnIBh8ChGKDeU=
+ bh=X1z67t8rUBs/HHLD0is5nVNS6COvVh87oATE8oP5wkA=;
+ b=bz72rUloPrjewmi9qJV9h5oXa6sWMVm1vQLIyWVHLXQJVMG3fR4lpxbs70BFv6aTiXaTjVQhirE/XW9RDwk4JmF8CfY9UsqXT8VuHs+SlREylg0iNie+hZW0rhVtp+HRG3/I7oQ1zwotu01I/dC9oN5bhbJUhpVZZPbrGorYLIk=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
  by DM6PR12MB4266.namprd12.prod.outlook.com (2603:10b6:5:21a::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.30; Thu, 7 Sep
- 2023 20:54:57 +0000
+ 2023 20:55:36 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::ca28:efb4:a838:58fb]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::ca28:efb4:a838:58fb%4]) with mapi id 15.20.6745.035; Thu, 7 Sep 2023
- 20:54:56 +0000
-Message-ID: <30c7df1a-6803-67f0-c9db-92026939cf46@amd.com>
-Date: Thu, 7 Sep 2023 16:54:54 -0400
+ 20:55:36 +0000
+Message-ID: <f04e3c88-70f5-9b8c-43fc-a26ea61db21a@amd.com>
+Date: Thu, 7 Sep 2023 16:55:34 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.0
-Subject: Re: [PATCHv2 3/4] drm/amdkfd: Update CU masking for GFX 9.4.3
+Subject: Re: [PATCH 4/4] drm/amdgpu: Rename KGD_MAX_QUEUES to AMDGPU_MAX_QUEUES
 Content-Language: en-US
 To: Mukul Joshi <mukul.joshi@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20230906154429.216489-1-mukul.joshi@amd.com>
- <20230906154429.216489-3-mukul.joshi@amd.com>
+ <20230906154429.216489-4-mukul.joshi@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <20230906154429.216489-3-mukul.joshi@amd.com>
+In-Reply-To: <20230906154429.216489-4-mukul.joshi@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0191.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:110::24) To BN9PR12MB5115.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT4PR01CA0184.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:110::21) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM6PR12MB4266:EE_
-X-MS-Office365-Filtering-Correlation-Id: 93558c8c-b165-4ad6-38c2-08dbafe4b16b
+X-MS-Office365-Filtering-Correlation-Id: 325226fc-c0d9-445d-40fa-08dbafe4c901
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: aTC7NfmTBxp7tL5aygD+AjxfdpcJR1sMq5U2t7f0lstBcpAh+HPM1D9cApuWPlaMbHQNIJ57llzCSY/dctTgtgQ4O9UWJ4tYaXeAzDkP8Ttaqx46aZkzGetigxwWd9iyYkImSheyD84Z0HqB6g2kXfWn8boqk7Ra44aWXziUOBSDUBPKTDWb50dhwjDX29ORxHK2qOYq32kvjYBfhDiNfV9DUW2AeZTlIja4k2LI0rlanh3D5/DfS0NkcDKGWF7+9+orBbl1xQr0uXA3eBMOG3jG58jsAB5eThMAwd1PXEXH72QhlS87VG0b6uTO8LTu59zdv68BCM7jmI3yNmBOOYeazYna6267z07y5TT5mRKEJ7fGjO1QInUQ/V9Jq7yBNM6fLy6Xa3a/i3HZ6rM33ngJj2+Fu/8NqW9wtWg/xCgaLeITt/AAcPQE1F6ny9Y6JFeg0MnNTynhUp/vFCYr6kJXefBnv7zLlEkJYlU91yYfkQgHVqkWz1qNYWSEsx0zGM9nSN6hxELxbNRfn+eumVi+teZcU6DRa5uCVcUowTCcFx/3ho3RYjPiQY83SGvSrYTNZCX90yeHkt2yfl9Udw023U4nx4+GcfuJ10WbiDTYqDhwDH7iNomtSEBv/GcXOkqCi5QTYTMRTkdZwfnf4A==
+X-Microsoft-Antispam-Message-Info: QfB5YRyLiFvVOFjmtmBQjL8qGnlmQZaDniJ2pS6XGgKPWHcJbSF0Z7IP1khHueI7ylKxsbrtmjvvcW+Uec9yP41TalLDjQNWOJdrDTqpNO7w+IHfZKxQVYr+MKTRlfbYqirVHwW/jiV7Gza1AtChdja8tqePVB8X138QoWIJ+HvfjEpzj+hNaonQwF50o9ktsyWljN/ljQePuXyVZSPNNLItIOaA3ZoihdL4D/N5oKt2u13cr6MU1qmMVqaL3LCz7CRMkGwLOeoigPum59iKid9ueTqZo3fJNGXE4ElbODUHk4xaBVo07uu/ev1DcMjq02XF4gJYY6OzvtheoMHMI7ikcPY3E6qRmWHcAxORZJUgD/n0ZP8ud1+h2HFCkcOGjVnadCIgt6Sp4PXOQVjpU3wXlrU+gnduYmoZ3AqKmz+QC58WXhOowKH/vU94MFKtXr2x0uZAKU2GlmNblZdKbhLZfHCGNOiOmIgmVMc47pIjBHB6A8z6W5ung3jeXjpsVQK0kfq49gKZF8mQ+451d6GtJRhwU6whS5rqna0gbveXotd/bhSdV1w32Rz5E8F2Q8a2Zz4oG69NWyeKwi8YFGWtt0AsHjIB0NX7o70GsIXfHQX47KlkNIpk/Dz5hB5A1bvsLf7+2vv+buc+jDNKyg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(346002)(396003)(376002)(136003)(366004)(186009)(451199024)(1800799009)(5660300002)(8676002)(8936002)(41300700001)(66946007)(66556008)(66476007)(44832011)(15650500001)(31686004)(316002)(2906002)(38100700002)(83380400001)(36916002)(53546011)(2616005)(26005)(86362001)(31696002)(6512007)(6506007)(36756003)(478600001)(6486002)(45980500001)(43740500002);
+ SFS:(13230031)(39860400002)(346002)(396003)(376002)(136003)(366004)(186009)(451199024)(1800799009)(5660300002)(8676002)(8936002)(41300700001)(66946007)(66556008)(66476007)(44832011)(31686004)(316002)(2906002)(38100700002)(83380400001)(36916002)(53546011)(2616005)(26005)(86362001)(31696002)(6512007)(6506007)(36756003)(478600001)(6486002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NEZOcngwem0vWGNjb1E2U2JHQVNvUUpLWXRES28wd05XUzFMeE5jS0dDZkxs?=
- =?utf-8?B?bFJmUmcxR1F1cGdCdWo5eWM0UEhnKzIxV09lWlpyeWtPM3paeW9IYitIQlpJ?=
- =?utf-8?B?RFZaWXBiSW92WTdwcEtrNFlHU1psVTVoWUNYVWdSNUdxdVJCajFQYVMyNEth?=
- =?utf-8?B?OGxvQ1RDWmd2eTNld3pIeVZtTTdXQzVUYUFpMEtYT3dCUkxuN0ZuaWNNVnha?=
- =?utf-8?B?b2xPLzlVK05Qa29tV2NDakYvckFYRWV4eW55Q0RYcHJhL1BoNXpXT3NFZ1Bv?=
- =?utf-8?B?L0RXYmxJTGdsdUpVQUw3RjZDc1R2STlLeDd4aGlpRlVuNmdDbDliUTFsNXdH?=
- =?utf-8?B?MFYxM1Z4cTlXUW5EQjZmQzFwWmdvSVdvMXB0cEQzWWEzRUswcFVyWDdoVm5X?=
- =?utf-8?B?aytpTFFFNllGUTFFVXduNEU3Q3ZETWFOdGJQL05DVG5OTWErcFdwV3RoSlBX?=
- =?utf-8?B?bTdUQjNUZ2YyS25kZGE1bmFwY2lGdCtMdFRMMjdrQlo0T3YrWWkrTVdSWmZu?=
- =?utf-8?B?cEdYb1lrU05OZEo4NWcvTGFkU3FSNWlrRVdLSmh5V3BKL3ZJV3E3UGZyU29U?=
- =?utf-8?B?YnBrRDhEc0djdDQ4S2ludDBnYzUzK3RMOHVab2JLeEUrZ3dFNC8xUnpOeE1u?=
- =?utf-8?B?TWhVZXBXYW01NU1HNGk2R08xSFJvOFl1OEhNKzhzeS81SmRObFdtbDdORWkz?=
- =?utf-8?B?aHI5cVdWekIwek5RL1R2M01CeVNpTEJKeFU2U2VoZ2FDMnZDQlEyQUdTcnBI?=
- =?utf-8?B?U2E0cks5N2N1b1ZLWkM0QVFJS2x2UUN2VWZvS1R1RGNkeUxWNk1naDZwTWtq?=
- =?utf-8?B?NFR4VnY2enUvYktzQ1J4UGVrVkl6ck5DaGZib3lBdTRqMVYwSll6MnVTVlRp?=
- =?utf-8?B?K3Q4ZUsxTnRVc0RmbUhJSHZEcFpDT2ptaGJGZFVVdmJyd3lzOURHTWlvUzc4?=
- =?utf-8?B?WkRMcTJ2U093d3FyZ0ZMNkw5Z3o3VFlNN2NtcklXVVhnalhKSDV0bVhrd3lH?=
- =?utf-8?B?bGl3TU1GU1QzUWJOeDdWWlFvQXN4TFdxcjFjTVhjOTZWNUIvSlNmMmVjZTZy?=
- =?utf-8?B?eUp0YVY5S29DOXNtc0wxSTUvTjFPVjdodTdWemFXcWtEaTRXa2xMbmlNWlVP?=
- =?utf-8?B?N3VoV2hhemFtWkJWMHlzWHlxdFJ2K0ZNazVRQnBWMWxWbTlNbVpZNDl0bEdO?=
- =?utf-8?B?dFQ0MmF6QVRUNE1Rci92eml3anU5TTNZNXJqaWNsaFp2QTVFWlFIRVlxWUJL?=
- =?utf-8?B?eGYzNVZ6OXBEWlRaVDRxQklWSFVURVJnN1kzU3ZhbitXak0xZSt5Z1FqN2Yw?=
- =?utf-8?B?cS9hY25zOURIT1NzOVduMnQ3T2ZxUmtMSktPU3grNGhBUGhUWGRRRUxkRlNG?=
- =?utf-8?B?RFFFa1dHMXVjU09KdC9pQkRycTVhMTJYSHN5dEgzNGVMaEtoM3lwWHhpTGtz?=
- =?utf-8?B?VENKcTREMkFvQTZ0NStmQ1crblNsUW1NbHplREdpUzRYNWc3a2VqRzNtcnBv?=
- =?utf-8?B?bFpoSVBodkJpbWxnakdrN09XY2xOQmk3VXNnMWFyQytOOVBTVkt3Q0RjNHJZ?=
- =?utf-8?B?ZytWbmEvWWJ0UndiK3NCTkJYUDhYMnNsN050ckg5SDRvZkVZVDdYbENSQnBE?=
- =?utf-8?B?ODhjNnpwWjA5T2VhQlpBY0ZQeXdzWnliOStRS1R4ck9LRkczM2JvVlBwU25R?=
- =?utf-8?B?TENXR2tXUXJLVmphVkU1VjZmVEFlRlpnTzRFYjVUajVMK2Vlc3hIUTBuTERN?=
- =?utf-8?B?NHdVR2lEQlhvL1p1SUdRRFc5bnRXQTlSeURHdFAwWWJLanF2ZGp5RWg3UVVj?=
- =?utf-8?B?UVp2NnRtS2hHYnZmb3hJNUxBRmlyOHljUFJCa2xKZmlDK0JOOHhYNjc1Y1FF?=
- =?utf-8?B?NStBM0dRc0xmdzV0SkdWa3hkY0Z1bmNpOWZ3dGQxOEU0RHVJMGQ1ekFTQlMx?=
- =?utf-8?B?RUtERko4dFN6a1NGeXphZW9ndmtwVGJSZUhTajdzSzd1T2MyWnBJSmZoZkNj?=
- =?utf-8?B?MDJHcW1uMDJNL0ZGcElpWW96SFJhSEZLMi94OFAxU3RDM2M3clk5bDlRcWVv?=
- =?utf-8?B?NHJVcVd3UnJIVnFLN2Q4N2xjRzUrcXpROFpZQzB2L3pCSVpiUUcwbytiTHVF?=
- =?utf-8?Q?nNNCNAKIqhQ1VTribHIinbRf0?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MVZNUkVGdnZxN3RjS3FrdUw3c2V6eWRrMFpZTDhneENsV2VOQlRuUFVTS04w?=
+ =?utf-8?B?SERXcWtxMzhoa1pZcFhqN3dmdWdHYTZoUUUzTXNoWXVzQndVR01FZzZnVGNQ?=
+ =?utf-8?B?SnU2MEtoeEd6SWZKbWtITkx0TjE0VEpBTWVwcU1lR2ZieFZyREZkRDZQUkFI?=
+ =?utf-8?B?V09XVWx2azdvQmUvQXV0cllYOFBDaTRqS1E0V1IrRFNoQmNaUXc1TjQwNy9T?=
+ =?utf-8?B?YTRnUEZ1czdMK012bkV6N3Z1R2NhQ29YWEY3K245b3JjeFQ3WEo1ZkpCaGhW?=
+ =?utf-8?B?VVFMZGlLRkMxNmRKWlNsS0JqR21aaGtaU0wwQlI4VnpFV2NRcUlIbUFxdTl3?=
+ =?utf-8?B?c2lLQWVWVmQ2N3RMNWxhcEJWN1JaekVRVWlTcTBaWmRsMjB4aVNoeTBNNW04?=
+ =?utf-8?B?MzVvL0RVbFZxUjZQays4MFhkK0hHMjdUVTVWZGlmSmFVSUU0eHhTSGd6Q1R5?=
+ =?utf-8?B?TENHSjQ1d2V2Z3ZqanFyaG9LdnZMSnVDQTEzdGhJQnQ2SVFMbzR4TGxia1po?=
+ =?utf-8?B?WlpZZXRSMkNWZThoNGxvNTA4b2IyT2dlQnduT2xGbnoyaUJPeGY1cTFXK0tQ?=
+ =?utf-8?B?Y2RVWjhkbnVPVGJTZHNlYThRQnVuMWc1ZUJDTHBPTktJMDh4RlVERS9tMHdE?=
+ =?utf-8?B?NGtWTjE1WGs2Y2drbENSck13NVhGRW5PQTNrU0E2d2xwS2cvSktCUzh3K2FD?=
+ =?utf-8?B?SVBEOEViS05WMHZzWk1hQSszM1I0YzhNNlJxWDRXZXdhazlnbTlGZGFodHpW?=
+ =?utf-8?B?VVNaYTBKWmJmNmFmYTVVT1lIZ1hOaENMeWVtQVVVYmkvZUZVQUx3Mm5IYTAy?=
+ =?utf-8?B?R2IxTm5zN1FQb2lxWkJ0QUE0OTNZWmg2NGhJTU1TOUZhZUxPb2VWcGFILzZt?=
+ =?utf-8?B?b1NEZWsvN0ppcmNZK2tibGVraUZyK2VRTFJTV0JtSC9mc1djWnpHMllaTXYw?=
+ =?utf-8?B?SlNCVTdGK25LUXhKa2tXWC9uNTk3dTNNYkQ2N052RWdhZGUvQUZpSXA3VVpj?=
+ =?utf-8?B?dFEwVmdxRVdGODRhZytVeEZhSFlzWkExQmRBa2c0akUvOEFQcWlGWWEwV09K?=
+ =?utf-8?B?Zmsxd1hWR3I3b0xsUGpFa0V5WnRja3NzbWx4OStpWHFya1I0K2VlM0xWNGx2?=
+ =?utf-8?B?OVg4RUl1ancwalhtbUNlbzRtT2JwZmh5b2x3R1hRaFhqbWx3N2kwaXpuWWFI?=
+ =?utf-8?B?SW9qZklmUDE5U2Z3NUNrZ3NydHFic0dWZUNqQUZINGM0S0c4aE8wTHdrdVkw?=
+ =?utf-8?B?YWk3aVcyVGVzSEYrQUtXVmtNaFVVMnhkWXJONHBTOXpwRHo3bjk4bi95azBQ?=
+ =?utf-8?B?cXNCUVZRYjNKc2xidnBVOUl3RmRoTlpsVUx0ZU1GMFNRMEY5TXM1UkVFbnRy?=
+ =?utf-8?B?Zkpqdm44WXF0NXlvTEJNdXBid202SVBUYTZmNFRrUGZtM3c5SzJ0WUlYUk1k?=
+ =?utf-8?B?ODJ3U01lQlM4NEl4QW94VEJzUFVwTHlEeGJvRUVxSDBITEN3akl0QlJ5QjNO?=
+ =?utf-8?B?SEROMXRPZFFvWnVyY0ZqQjZDM2hqZ21hRnRNTWQ2OXp0Ny9VWDlrbXFXTFU5?=
+ =?utf-8?B?V0hGbnNQOWJBcDFISjk1UUVGZ1dGZzJzZHpMYlJMMG4vbkVQQWZ1VWlXZG1o?=
+ =?utf-8?B?blkvSU43d0MxaW1Xd0ZBUmVMaGdqcFJmMkYrb2t0eitRbzkwdDIxMUZ6SEZN?=
+ =?utf-8?B?YVhnQWw3UnRTemd4dHl2d2lmTUlleHJjeUdoK1g1SmpGaE9Db0tabVhCZUVG?=
+ =?utf-8?B?Wml6VEt4Nm9EVHVPclRYbVlXbG9Ja1FPa1IrM3l0MUtldzJtT3djSFE2VHJi?=
+ =?utf-8?B?TVFUcFdRV2pUODdERi9mUWlpWGxTcG0rVENZTVo1Ukw4aHlSMTJwZTBpOFFL?=
+ =?utf-8?B?VzVkRFhDYUR3cjRzS2ZwTlc5aUZhMHhVNzdvYUg4cnptWFdQYXMrRi9UcUVV?=
+ =?utf-8?B?enIrUG5sRERidUJDUEE2Z0pOK0tZYXZRZW53YktmdTE1a3daYzIwMHZNRE0v?=
+ =?utf-8?B?eThGN0VIVVZjUmNMRnk5TjhwUW1hY0hlYzhEc0NaeVRjMi9mdDFFbWtpM0V1?=
+ =?utf-8?B?RzR5bVNVY3BjczA3dURUT0czMndKbkplWU8zU3g2bW0vSXI1dEdGOTArUitE?=
+ =?utf-8?Q?Kn8FBCf66WCqZmlPWWiiXKBrI?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93558c8c-b165-4ad6-38c2-08dbafe4b16b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 325226fc-c0d9-445d-40fa-08dbafe4c901
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2023 20:54:56.8915 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2023 20:55:36.3880 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O8PVZ9IlLox7Zi7xL5a+o+53p2DQYrTKYz1o03wB6zXA70hOi9ZSBFnGRbqJqgrZ/KV67b/346QmKcPPnIcrvw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: eBT22SZeD0IUJ/SM6N+4Co1fC6aeNkZUTuNUxHZOUgWpmq1Rkw/XvX4uqBZafiDUoIYQ/E/JWhs/Dzdr/lqgEA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4266
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -129,10 +129,9 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 2023-09-06 11:44, Mukul Joshi wrote:
-> The CU mask passed from user-space will change based on
-> different spatial partitioning mode. As a result, update
-> CU masking code for GFX9.4.3 to work for all partitioning
-> modes.
+> Rename KGD_MAX_QUEUES to AMDGPU_MAX_QUEUES to conform with
+> the naming convention followed in amdgpu_gfx.h. No functional
+> change.
 >
 > Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
 
@@ -140,234 +139,107 @@ Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
 
 > ---
-> v1->v2:
-> - Incorporate Felix's review comments.
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c            | 4 ++--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c     | 4 ++--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h               | 6 +++---
+>   drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 4 ++--
+>   drivers/gpu/drm/amd/include/kgd_kfd_interface.h       | 2 +-
+>   5 files changed, 10 insertions(+), 10 deletions(-)
 >
->   drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c  | 28 ++++++++---
->   drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h  |  2 +-
->   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c  |  2 +-
->   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c  |  2 +-
->   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c  |  2 +-
->   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   | 46 ++++++++++++-------
->   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c   |  2 +-
->   7 files changed, 56 insertions(+), 28 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
-> index 763966236658..447829c22295 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
-> @@ -97,14 +97,16 @@ void free_mqd_hiq_sdma(struct mqd_manager *mm, void *mqd,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> index 25d5fda5b243..26ff5f8d9795 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> @@ -164,7 +164,7 @@ void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
+>   		 */
+>   		bitmap_complement(gpu_resources.cp_queue_bitmap,
+>   				  adev->gfx.mec_bitmap[0].queue_bitmap,
+> -				  KGD_MAX_QUEUES);
+> +				  AMDGPU_MAX_QUEUES);
 >   
->   void mqd_symmetrically_map_cu_mask(struct mqd_manager *mm,
->   		const uint32_t *cu_mask, uint32_t cu_mask_count,
-> -		uint32_t *se_mask)
-> +		uint32_t *se_mask, uint32_t inst)
->   {
->   	struct kfd_cu_info cu_info;
->   	uint32_t cu_per_sh[KFD_MAX_NUM_SE][KFD_MAX_NUM_SH_PER_SE] = {0};
->   	bool wgp_mode_req = KFD_GC_VERSION(mm->dev) >= IP_VERSION(10, 0, 0);
->   	uint32_t en_mask = wgp_mode_req ? 0x3 : 0x1;
-> -	int i, se, sh, cu, cu_bitmap_sh_mul, inc = wgp_mode_req ? 2 : 1;
-> +	int i, se, sh, cu, cu_bitmap_sh_mul, cu_inc = wgp_mode_req ? 2 : 1;
->   	uint32_t cu_active_per_node;
-> +	int inc = cu_inc * NUM_XCC(mm->dev->xcc_mask);
-> +	int xcc_inst = inst + ffs(mm->dev->xcc_mask) - 1;
+>   		/* According to linux/bitmap.h we shouldn't use bitmap_clear if
+>   		 * nbits is not compile time constant
+> @@ -172,7 +172,7 @@ void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
+>   		last_valid_bit = 1 /* only first MEC can have compute queues */
+>   				* adev->gfx.mec.num_pipe_per_mec
+>   				* adev->gfx.mec.num_queue_per_pipe;
+> -		for (i = last_valid_bit; i < KGD_MAX_QUEUES; ++i)
+> +		for (i = last_valid_bit; i < AMDGPU_MAX_QUEUES; ++i)
+>   			clear_bit(i, gpu_resources.cp_queue_bitmap);
 >   
->   	amdgpu_amdkfd_get_cu_info(mm->dev->adev, &cu_info);
+>   		amdgpu_doorbell_get_kfd_info(adev,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> index 3c45a188b701..04b8c7dacd30 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> @@ -1037,7 +1037,7 @@ void kgd_gfx_v9_get_cu_occupancy(struct amdgpu_device *adev, int pasid,
+>   	int pasid_tmp;
+>   	int max_queue_cnt;
+>   	int vmid_wave_cnt = 0;
+> -	DECLARE_BITMAP(cp_queue_bitmap, KGD_MAX_QUEUES);
+> +	DECLARE_BITMAP(cp_queue_bitmap, AMDGPU_MAX_QUEUES);
 >   
-> @@ -143,7 +145,8 @@ void mqd_symmetrically_map_cu_mask(struct mqd_manager *mm,
->   	for (se = 0; se < cu_info.num_shader_engines; se++)
->   		for (sh = 0; sh < cu_info.num_shader_arrays_per_engine; sh++)
->   			cu_per_sh[se][sh] = hweight32(
-> -				cu_info.cu_bitmap[0][se % 4][sh + (se / 4) * cu_bitmap_sh_mul]);
-> +				cu_info.cu_bitmap[xcc_inst][se % 4][sh + (se / 4) *
-> +				cu_bitmap_sh_mul]);
->   
->   	/* Symmetrically map cu_mask to all SEs & SHs:
->   	 * se_mask programs up to 2 SH in the upper and lower 16 bits.
-> @@ -166,20 +169,33 @@ void mqd_symmetrically_map_cu_mask(struct mqd_manager *mm,
->   	 * cu_mask[0] bit8 -> se_mask[0] bit1 (SE0,SH0,CU1)
->   	 * ...
->   	 *
-> +	 * For GFX 9.4.3, the following code only looks at a
-> +	 * subset of the cu_mask corresponding to the inst parameter.
-> +	 * If we have n XCCs under one GPU node
-> +	 * cu_mask[0] bit0 -> XCC0 se_mask[0] bit0 (XCC0,SE0,SH0,CU0)
-> +	 * cu_mask[0] bit1 -> XCC1 se_mask[0] bit0 (XCC1,SE0,SH0,CU0)
-> +	 * ..
-> +	 * cu_mask[0] bitn -> XCCn se_mask[0] bit0 (XCCn,SE0,SH0,CU0)
-> +	 * cu_mask[0] bit n+1 -> XCC0 se_mask[1] bit0 (XCC0,SE1,SH0,CU0)
-> +	 *
-> +	 * For example, if there are 6 XCCs under 1 KFD node, this code
-> +	 * running for each inst, will look at the bits as:
-> +	 * inst, inst + 6, inst + 12...
-> +	 *
->   	 * First ensure all CUs are disabled, then enable user specified CUs.
+>   	lock_spi_csq_mutexes(adev);
+>   	soc15_grbm_select(adev, 1, 0, 0, 0, inst);
+> @@ -1047,7 +1047,7 @@ void kgd_gfx_v9_get_cu_occupancy(struct amdgpu_device *adev, int pasid,
+>   	 * to get number of waves in flight
 >   	 */
->   	for (i = 0; i < cu_info.num_shader_engines; i++)
->   		se_mask[i] = 0;
+>   	bitmap_complement(cp_queue_bitmap, adev->gfx.mec_bitmap[0].queue_bitmap,
+> -			  KGD_MAX_QUEUES);
+> +			  AMDGPU_MAX_QUEUES);
+>   	max_queue_cnt = adev->gfx.mec.num_pipe_per_mec *
+>   			adev->gfx.mec.num_queue_per_pipe;
+>   	sh_cnt = adev->gfx.config.max_sh_per_se;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> index 0ca95c4d4bfb..42ac6d1bf9ca 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> @@ -43,10 +43,10 @@
+>   #define AMDGPU_GFX_LBPW_DISABLED_MODE		0x00000008L
 >   
-> -	i = 0;
-> -	for (cu = 0; cu < 16; cu += inc) {
-> +	i = inst;
-> +	for (cu = 0; cu < 16; cu += cu_inc) {
->   		for (sh = 0; sh < cu_info.num_shader_arrays_per_engine; sh++) {
->   			for (se = 0; se < cu_info.num_shader_engines; se++) {
->   				if (cu_per_sh[se][sh] > cu) {
->   					if (cu_mask[i / 32] & (en_mask << (i % 32)))
->   						se_mask[se] |= en_mask << (cu + sh * 16);
->   					i += inc;
-> -					if (i == cu_mask_count)
-> +					if (i >= cu_mask_count)
->   						return;
->   				}
->   			}
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-> index 23158db7da03..57bf5e513f4d 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-> @@ -138,7 +138,7 @@ void free_mqd_hiq_sdma(struct mqd_manager *mm, void *mqd,
+>   #define AMDGPU_MAX_GC_INSTANCES		8
+> -#define KGD_MAX_QUEUES			128
+> +#define AMDGPU_MAX_QUEUES		128
 >   
->   void mqd_symmetrically_map_cu_mask(struct mqd_manager *mm,
->   		const uint32_t *cu_mask, uint32_t cu_mask_count,
-> -		uint32_t *se_mask);
-> +		uint32_t *se_mask, uint32_t inst);
+> -#define AMDGPU_MAX_GFX_QUEUES KGD_MAX_QUEUES
+> -#define AMDGPU_MAX_COMPUTE_QUEUES KGD_MAX_QUEUES
+> +#define AMDGPU_MAX_GFX_QUEUES AMDGPU_MAX_QUEUES
+> +#define AMDGPU_MAX_COMPUTE_QUEUES AMDGPU_MAX_QUEUES
 >   
->   int kfd_hiq_load_mqd_kiq(struct mqd_manager *mm, void *mqd,
->   		uint32_t pipe_id, uint32_t queue_id,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
-> index ee1d32d957f2..1a4a69943c71 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
-> @@ -52,7 +52,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
->   		return;
->   
->   	mqd_symmetrically_map_cu_mask(mm,
-> -		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask);
-> +		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask, 0);
->   
->   	m = get_mqd(mqd);
->   	m->compute_static_thread_mgmt_se0 = se_mask[0];
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-> index 83699392c808..8b7fed913526 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-> @@ -52,7 +52,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
->   		return;
->   
->   	mqd_symmetrically_map_cu_mask(mm,
-> -		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask);
-> +		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask, 0);
->   
->   	m = get_mqd(mqd);
->   	m->compute_static_thread_mgmt_se0 = se_mask[0];
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-> index 0bbf0edbabd4..964b5d50a77e 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-> @@ -71,7 +71,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
->   	}
->   
->   	mqd_symmetrically_map_cu_mask(mm,
-> -		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask);
-> +		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask, 0);
->   
->   	m->compute_static_thread_mgmt_se0 = se_mask[0];
->   	m->compute_static_thread_mgmt_se1 = se_mask[1];
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> index e23d32f35607..42d881809dc7 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> @@ -60,7 +60,7 @@ static inline struct v9_sdma_mqd *get_sdma_mqd(void *mqd)
->   }
->   
->   static void update_cu_mask(struct mqd_manager *mm, void *mqd,
-> -			struct mqd_update_info *minfo)
-> +			struct mqd_update_info *minfo, uint32_t inst)
+>   enum amdgpu_gfx_pipe_priority {
+>   	AMDGPU_GFX_PIPE_PRIO_NORMAL = AMDGPU_RING_PRIO_1,
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index 4170e3d32630..6d07a5dd2648 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -92,7 +92,7 @@ static bool is_pipe_enabled(struct device_queue_manager *dqm, int mec, int pipe)
+>   unsigned int get_cp_queues_num(struct device_queue_manager *dqm)
 >   {
->   	struct v9_mqd *m;
->   	uint32_t se_mask[KFD_MAX_NUM_SE] = {0};
-> @@ -69,27 +69,36 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
->   		return;
->   
->   	mqd_symmetrically_map_cu_mask(mm,
-> -		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask);
-> +		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask, inst);
->   
->   	m = get_mqd(mqd);
-> +
->   	m->compute_static_thread_mgmt_se0 = se_mask[0];
->   	m->compute_static_thread_mgmt_se1 = se_mask[1];
->   	m->compute_static_thread_mgmt_se2 = se_mask[2];
->   	m->compute_static_thread_mgmt_se3 = se_mask[3];
-> -	m->compute_static_thread_mgmt_se4 = se_mask[4];
-> -	m->compute_static_thread_mgmt_se5 = se_mask[5];
-> -	m->compute_static_thread_mgmt_se6 = se_mask[6];
-> -	m->compute_static_thread_mgmt_se7 = se_mask[7];
-> -
-> -	pr_debug("update cu mask to %#x %#x %#x %#x %#x %#x %#x %#x\n",
-> -		m->compute_static_thread_mgmt_se0,
-> -		m->compute_static_thread_mgmt_se1,
-> -		m->compute_static_thread_mgmt_se2,
-> -		m->compute_static_thread_mgmt_se3,
-> -		m->compute_static_thread_mgmt_se4,
-> -		m->compute_static_thread_mgmt_se5,
-> -		m->compute_static_thread_mgmt_se6,
-> -		m->compute_static_thread_mgmt_se7);
-> +	if (KFD_GC_VERSION(mm->dev) != IP_VERSION(9, 4, 3)) {
-> +		m->compute_static_thread_mgmt_se4 = se_mask[4];
-> +		m->compute_static_thread_mgmt_se5 = se_mask[5];
-> +		m->compute_static_thread_mgmt_se6 = se_mask[6];
-> +		m->compute_static_thread_mgmt_se7 = se_mask[7];
-> +
-> +		pr_debug("update cu mask to %#x %#x %#x %#x %#x %#x %#x %#x\n",
-> +			m->compute_static_thread_mgmt_se0,
-> +			m->compute_static_thread_mgmt_se1,
-> +			m->compute_static_thread_mgmt_se2,
-> +			m->compute_static_thread_mgmt_se3,
-> +			m->compute_static_thread_mgmt_se4,
-> +			m->compute_static_thread_mgmt_se5,
-> +			m->compute_static_thread_mgmt_se6,
-> +			m->compute_static_thread_mgmt_se7);
-> +	} else {
-> +		pr_debug("inst: %u, update cu mask to %#x %#x %#x %#x\n",
-> +			inst, m->compute_static_thread_mgmt_se0,
-> +			m->compute_static_thread_mgmt_se1,
-> +			m->compute_static_thread_mgmt_se2,
-> +			m->compute_static_thread_mgmt_se3);
-> +	}
+>   	return bitmap_weight(dqm->dev->kfd->shared_resources.cp_queue_bitmap,
+> -				KGD_MAX_QUEUES);
+> +				AMDGPU_MAX_QUEUES);
 >   }
 >   
->   static void set_priority(struct v9_mqd *m, struct queue_properties *q)
-> @@ -290,7 +299,8 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
->   	if (mm->dev->kfd->cwsr_enabled && q->ctx_save_restore_area_address)
->   		m->cp_hqd_ctx_save_control = 0;
+>   unsigned int get_queues_per_pipe(struct device_queue_manager *dqm)
+> @@ -1576,7 +1576,7 @@ static int set_sched_resources(struct device_queue_manager *dqm)
+>   	res.vmid_mask = dqm->dev->compute_vmid_bitmap;
 >   
-> -	update_cu_mask(mm, mqd, minfo);
-> +	if (KFD_GC_VERSION(mm->dev) != IP_VERSION(9, 4, 3))
-> +		update_cu_mask(mm, mqd, minfo, 0);
->   	set_priority(m, q);
+>   	res.queue_mask = 0;
+> -	for (i = 0; i < KGD_MAX_QUEUES; ++i) {
+> +	for (i = 0; i < AMDGPU_MAX_QUEUES; ++i) {
+>   		mec = (i / dqm->dev->kfd->shared_resources.num_queue_per_pipe)
+>   			/ dqm->dev->kfd->shared_resources.num_pipe_per_mec;
 >   
->   	q->is_active = QUEUE_IS_ACTIVE(*q);
-> @@ -676,6 +686,8 @@ static void update_mqd_v9_4_3(struct mqd_manager *mm, void *mqd,
->   		m = get_mqd(mqd + size * xcc);
->   		update_mqd(mm, m, q, minfo);
+> diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> index 3b5a56585c4b..255adc30f802 100644
+> --- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> +++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> @@ -123,7 +123,7 @@ struct kgd2kfd_shared_resources {
+>   	uint32_t num_queue_per_pipe;
 >   
-> +		update_cu_mask(mm, mqd, minfo, xcc);
-> +
->   		if (q->format == KFD_QUEUE_FORMAT_AQL) {
->   			switch (xcc) {
->   			case 0:
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-> index 657c37822980..3e1a574d4ea6 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-> @@ -55,7 +55,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
->   		return;
+>   	/* Bit n == 1 means Queue n is available for KFD */
+> -	DECLARE_BITMAP(cp_queue_bitmap, KGD_MAX_QUEUES);
+> +	DECLARE_BITMAP(cp_queue_bitmap, AMDGPU_MAX_QUEUES);
 >   
->   	mqd_symmetrically_map_cu_mask(mm,
-> -		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask);
-> +		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask, 0);
->   
->   	m = get_mqd(mqd);
->   	m->compute_static_thread_mgmt_se0 = se_mask[0];
+>   	/* SDMA doorbell assignments (SOC15 and later chips only). Only
+>   	 * specific doorbells are routed to each SDMA engine. Others
