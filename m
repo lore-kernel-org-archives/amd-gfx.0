@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BB80EC8724
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Sep 2023 12:57:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7003EEC8727
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Sep 2023 12:57:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08ED610E235;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7953110E236;
 	Thu,  7 Sep 2023 12:57:34 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6766E10E780;
- Thu,  7 Sep 2023 07:57:07 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A2AC10E785;
+ Thu,  7 Sep 2023 07:49:31 +0000 (UTC)
 Received: from eldfell (unknown [194.136.85.206])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested) (Authenticated sender: pq)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id E6EB466072B7;
- Thu,  7 Sep 2023 08:57:04 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id ADBAC66072A2;
+ Thu,  7 Sep 2023 08:49:28 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1694073426;
- bh=g+zS9zscqa9JocFtFfRFrRl394UC/ee5ATCSkFjjF+4=;
+ s=mail; t=1694072969;
+ bh=ZIJfnKxyJrhwkA3M7TnSs0WqP7fDyFYDHeph5tlVMs4=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=O4ZOyNTxA/ImhVlDiFeW/iReSYn2smPZdiUHfhkYDjiElNKYftZT2r3DiMHNSuIKI
- 1qnRlndG6JsKWAd/q/v2WX7oln96sXrO7DdJjJ5XsTu/tOyUjW1FI/xkDiC0ytpvI2
- R1Q/VCo1i2PiR/gzabNXz9EHt/Ec3UXDLDItWjY8lGii/u4fl9BI9wRDEiG+wxfSCJ
- OLzMeUiDV31LL66ADe3bn08np0O4QM0KLy8ZwF3PU+TZnlWkcFvu/rjJ0X1FItaT8X
- kdLYNCD82pciP3Azy5HRW86lh2/3akXDGs+TWXom58btCYtvqoNFd0uFrGeDGdhBEU
- SYmTOTk37kVYw==
-Date: Thu, 7 Sep 2023 10:57:01 +0300
+ b=DXvLz2MUXdEMqPC6l/y3xU/OTFWRDEOy44e5xL3B/gBqep+Ay1ORAvlnj0GnDTP4Q
+ ZKSyFVmUcfBWx4agGpkuHnG++BfD2hH+Aee/jz4DoJeoQzNFA9RDlPESN+TsY8zdDQ
+ 92K08kX9V2epWmNApf0f3qPp85qC9H7RTXaoQxiA2eAOmWRfjf6jAJXbEMLlXUhcdz
+ /a0wTXNJKJXbCaEYjhI7ptB75jL1f8WDfVZ+WBG8QB9I1IJZ8gl1pAVZurxgRGD/X8
+ nmE7X5Eczift4uWCLec2QfVRA2OrQ1jLoXcDDe00GLzHcaZkNwQJ7TYDyE3Huju9zM
+ BVz9KUzY7vnMw==
+Date: Thu, 7 Sep 2023 10:49:17 +0300
 From: Pekka Paalanen <pekka.paalanen@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [PATCH v2 10/34] drm/amd/display: add plane 3D LUT
- driver-specific properties
-Message-ID: <20230907105701.5b1c115f.pekka.paalanen@collabora.com>
-In-Reply-To: <758deee7-7530-4931-830e-d5a4acff337f@amd.com>
+Subject: Re: [PATCH v2 07/34] drm/amd/display: explicitly define EOTF and
+ inverse EOTF
+Message-ID: <20230907104917.7cf8e22e.pekka.paalanen@collabora.com>
+In-Reply-To: <40f1fabe-69ce-4b23-aed8-9f0837fe9988@amd.com>
 References: <20230810160314.48225-1-mwen@igalia.com>
- <20230810160314.48225-11-mwen@igalia.com>
- <758deee7-7530-4931-830e-d5a4acff337f@amd.com>
+ <20230810160314.48225-8-mwen@igalia.com>
+ <20230822140242.162a843a.pekka.paalanen@collabora.com>
+ <20230825141639.vurga52ysal37n2m@mail.igalia.com>
+ <40f1fabe-69ce-4b23-aed8-9f0837fe9988@amd.com>
 X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/qq/QqCqDCx028D8be33an6X";
+Content-Type: multipart/signed; boundary="Sig_/_KsfrGyb4A/tYnFSiA2jZGF";
  protocol="application/pgp-signature"; micalg=pgp-sha256
 X-Mailman-Approved-At: Thu, 07 Sep 2023 12:57:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,100 +71,236 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>, linux-kernel@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/qq/QqCqDCx028D8be33an6X
+--Sig_/_KsfrGyb4A/tYnFSiA2jZGF
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 6 Sep 2023 15:30:04 -0400
+On Wed, 6 Sep 2023 16:15:10 -0400
 Harry Wentland <harry.wentland@amd.com> wrote:
 
-> On 2023-08-10 12:02, Melissa Wen wrote:
-> > Add 3D LUT property for plane gamma correction using a 3D lookup table.
-> > Since a 3D LUT has a limited number of entries in each dimension we want
-> > to use them in an optimal fashion. This means using the 3D LUT in a
-> > colorspace that is optimized for human vision, such as sRGB, PQ, or
-> > another non-linear space. Therefore, userpace may need one 1D LUT
-> > (shaper) before it to delinearize content and another 1D LUT after 3D
-> > LUT (blend) to linearize content again for blending. The next patches
-> > add these 1D LUTs to the plane color mgmt pipeline.
+> On 2023-08-25 10:18, Melissa Wen wrote:
+> > On 08/22, Pekka Paalanen wrote: =20
+> >> On Thu, 10 Aug 2023 15:02:47 -0100
+> >> Melissa Wen <mwen@igalia.com> wrote:
+> >> =20
+> >>> Instead of relying on color block names to get the transfer function
+> >>> intention regarding encoding pixel's luminance, define supported
+> >>> Electro-Optical Transfer Functions (EOTFs) and inverse EOTFs, that
+> >>> includes pure gamma or standardized transfer functions.
+> >>>
+> >>> Suggested-by: Harry Wentland <harry.wentland@amd.com>
+> >>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+> >>> ---
+> >>>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 19 +++--
+> >>>  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 69 +++++++++++++++--=
+--
+> >>>  2 files changed, 67 insertions(+), 21 deletions(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/driv=
+ers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> >>> index c749c9cb3d94..f6251ed89684 100644
+> >>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> >>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> >>> @@ -718,14 +718,21 @@ extern const struct amdgpu_ip_block_version dm_=
+ip_block;
+> >>> =20
+> >>>  enum amdgpu_transfer_function {
+> >>>  	AMDGPU_TRANSFER_FUNCTION_DEFAULT,
+> >>> -	AMDGPU_TRANSFER_FUNCTION_SRGB,
+> >>> -	AMDGPU_TRANSFER_FUNCTION_BT709,
+> >>> -	AMDGPU_TRANSFER_FUNCTION_PQ,
+> >>> +	AMDGPU_TRANSFER_FUNCTION_SRGB_EOTF,
+> >>> +	AMDGPU_TRANSFER_FUNCTION_BT709_EOTF,
+> >>> +	AMDGPU_TRANSFER_FUNCTION_PQ_EOTF,
+> >>>  	AMDGPU_TRANSFER_FUNCTION_LINEAR,
+> >>>  	AMDGPU_TRANSFER_FUNCTION_UNITY,
+> >>> -	AMDGPU_TRANSFER_FUNCTION_GAMMA22,
+> >>> -	AMDGPU_TRANSFER_FUNCTION_GAMMA24,
+> >>> -	AMDGPU_TRANSFER_FUNCTION_GAMMA26,
+> >>> +	AMDGPU_TRANSFER_FUNCTION_GAMMA22_EOTF,
+> >>> +	AMDGPU_TRANSFER_FUNCTION_GAMMA24_EOTF,
+> >>> +	AMDGPU_TRANSFER_FUNCTION_GAMMA26_EOTF,
+> >>> +	AMDGPU_TRANSFER_FUNCTION_SRGB_INV_EOTF,
+> >>> +	AMDGPU_TRANSFER_FUNCTION_BT709_INV_EOTF,
+> >>> +	AMDGPU_TRANSFER_FUNCTION_PQ_INV_EOTF,
+> >>> +	AMDGPU_TRANSFER_FUNCTION_GAMMA22_INV_EOTF,
+> >>> +	AMDGPU_TRANSFER_FUNCTION_GAMMA24_INV_EOTF,
+> >>> +	AMDGPU_TRANSFER_FUNCTION_GAMMA26_INV_EOTF,
+> >>> +        AMDGPU_TRANSFER_FUNCTION_COUNT
+> >>>  };
+> >>> =20
+> >>>  struct dm_plane_state {
+> >>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> >>> index 56ce008b9095..cc2187c0879a 100644
+> >>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> >>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> >>> @@ -85,18 +85,59 @@ void amdgpu_dm_init_color_mod(void)
+> >>>  }
+> >>> =20
+> >>>  #ifdef AMD_PRIVATE_COLOR
+> >>> -static const struct drm_prop_enum_list amdgpu_transfer_function_enum=
+_list[] =3D {
+> >>> -	{ AMDGPU_TRANSFER_FUNCTION_DEFAULT, "Default" },
+> >>> -	{ AMDGPU_TRANSFER_FUNCTION_SRGB, "sRGB" },
+> >>> -	{ AMDGPU_TRANSFER_FUNCTION_BT709, "BT.709" },
+> >>> -	{ AMDGPU_TRANSFER_FUNCTION_PQ, "PQ (Perceptual Quantizer)" },
+> >>> -	{ AMDGPU_TRANSFER_FUNCTION_LINEAR, "Linear" },
+> >>> -	{ AMDGPU_TRANSFER_FUNCTION_UNITY, "Unity" },
+> >>> -	{ AMDGPU_TRANSFER_FUNCTION_GAMMA22, "Gamma 2.2" },
+> >>> -	{ AMDGPU_TRANSFER_FUNCTION_GAMMA24, "Gamma 2.4" },
+> >>> -	{ AMDGPU_TRANSFER_FUNCTION_GAMMA26, "Gamma 2.6" },
+> >>> +static const char * const
+> >>> +amdgpu_transfer_function_names[] =3D {
+> >>> +	[AMDGPU_TRANSFER_FUNCTION_DEFAULT]		=3D "Default",
+> >>> +	[AMDGPU_TRANSFER_FUNCTION_LINEAR]		=3D "Linear", =20
+> >>
+> >> Hi,
+> >>
+> >> if the below is identity, then what is linear? Is there a coefficient
+> >> (multiplier) somewhere? Offset?
+> >> =20
+> >>> +	[AMDGPU_TRANSFER_FUNCTION_UNITY]		=3D "Unity", =20
+> >>
+> >> Should "Unity" be called "Identity"? =20
 > >=20
-> > Signed-off-by: Melissa Wen <mwen@igalia.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      | 10 ++++++++
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  9 ++++++++
-> >  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 14 +++++++++++
-> >  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 23 +++++++++++++++++++
-> >  4 files changed, 56 insertions(+)
+> > AFAIU, AMD treats Linear and Unity as the same: Identity. So, IIUC,
+> > indeed merging both as identity sounds the best approach.    =20
+>=20
+> Agreed.
+>=20
+> >>
+> >> Doesn't unity mean that the output is always 1.0 regardless of input?
+> >> =20
+> >>> +	[AMDGPU_TRANSFER_FUNCTION_SRGB_EOTF]		=3D "sRGB EOTF",
+> >>> +	[AMDGPU_TRANSFER_FUNCTION_BT709_EOTF]		=3D "BT.709 EOTF", =20
+> >>
+> >> BT.709 says about "Overall opto-electronic transfer characteristics at
+> >> source":
+> >>
+> >> 	In typical production practice the encoding function of image
+> >> 	sources is adjusted so that the final picture has the desired
+> >> 	look, as viewed on a reference monitor having the reference
+> >> 	decoding function of Recommendation ITU-R BT.1886, in the
+> >> 	reference viewing environment defined in Recommendation ITU-R
+> >> 	BT.2035.
+> >>
+> >> IOW, typically people tweak the encoding function instead of using
+> >> BT.709 OETF as is, which means that inverting the BT.709 OETF produces
+> >> something slightly unknown. The note about BT.1886 means that that
+> >> something is also not quite how it's supposed to be turned into light.
+> >>
+> >> Should this enum item be "BT.709 inverse OETF" and respectively below a
+> >> "BT.709 OETF"?
+> >>
+> >> What curve does the hardware actually implement? =20
 > >=20
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_mode.h
-> > index 66bae0eed80c..730a88236501 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> > @@ -363,6 +363,16 @@ struct amdgpu_mode_info {
-> >  	 * @plane_hdr_mult_property:
-> >  	 */
-> >  	struct drm_property *plane_hdr_mult_property;
-> > +	/**
-> > +	 * @plane_lut3d_property: Plane property for gamma correction using a
-> > +	 * 3D LUT (pre-blending).
-> > +	 */ =20
+> > Hmmmm.. I think I got confused in using OETF here since it's done within
+> > a camera. Looking at the coefficients used by AMD color module when not
+> > using ROM but build encoding and decoding curves[1] on pre-defined TF
+> > setup, I understand it's using OETF parameters for building both sRGB
+> > and BT 709:
+> >=20
+> > ```
+> > /*sRGB     709     2.2 2.4 P3*/
+> > static const int32_t numerator01[] =3D { 31308,   180000, 0,  0,  0};
+> > static const int32_t numerator02[] =3D { 12920,   4500,   0,  0,  0};
+> > static const int32_t numerator03[] =3D { 55,      99,     0,  0,  0};
+> > static const int32_t numerator04[] =3D { 55,      99,     0,  0,  0};
+> > static const int32_t numerator05[] =3D { 2400,    2222,   2200, 2400, 2=
+600};
+> > ```
+> >  =20
 >=20
-> I think we'll want to describe how the 3DLUT entries are laid out.
-> Something that describes how userspace should fill it, like
-> gamescope does for example:
-> https://github.com/ValveSoftware/gamescope/blob/7108880ed80b68c21750369e2=
-ac9b7315fecf264/src/color_helpers.cpp#L302
+> The first column here looks like the sRGB coefficients in Skia:
+> https://skia.googlesource.com/skia/+/19936eb1b23fef5187b07fb2e0e67dcf605c=
+0672/include/core/SkColorSpace.h#46
 >=20
-> Something like: a three-dimensional array, with each dimension
-> having a size of the cubed root of lut3d_size, blue being the
-> outermost dimension, red the innermost.
->
+> The color module uses the same coefficients to calculate the transform
+> to linear space and from linear space. So it would support a TF and its
+> inverse.
+>=20
+> From what I understand for sRGB and PQ its the EOTF and its inverse.
+>=20
+> For BT.709 we should probably call it BT.709 inverse OETF (instead of
+> EOTF) and BT.709 OETF (instead of inverse EOTF).
+>=20
+> While I'm okay to move ahead with these AMD driver-specific properties
+> without IGT tests (since they're not enabled and not UABI) we really
+> need IGT tests once they become UABI with the Color Pipeline API. And we
+> need more than just CRC testing. We'll need to do pixel-by-pixel comparis=
+on
+> so we can verify that the KMS driver behaves exactly how we expect for a
+> large range of values.
 
-Here is an example of how we defined a 3D LUT layout in Weston:
+Yes, please, very much, about the generic color UAPI.
 
-https://gitlab.freedesktop.org/wayland/weston/-/blob/68e2a606c056c8453c7702=
-63f41f34cd68bdc9d0/libweston/color.h#L114-152
+I believe IGT should contain the reference curve for all named fixed
+curves computed with standard libc math functions in double precision,
+and compute error statistics between that and hardware results.
+The actual test image would iterate through e.g. 1024 (all 10-bit
+values for integer format framebuffer) different values - 1024 is
+nothing as a number of pixels. Then we decide on acceptable error
+thresholds.
 
-I think that is the most clear definition it can be, without needing to
-understand specific terminology.
+It should also be tested with a floating-point framebuffer format, FP16
+or FP32, with a value distribution designed to be sensitive to typical
+numerical problems. For example, an inverse EOTF should be carefully
+tested with values near zero, since those are the most problematic and
+likely cause the most visible errors.
+
+Once all that is done, we can be very sure of what curve any hardware
+actually implements.
+
+I might even go far enough to suggest that any generic color UAPI with
+named fixed curves cannot land without such tests.
 
 
 Thanks,
 pq
 
 >=20
-> > +	struct drm_property *plane_lut3d_property;
-> > +	/**
-> > +	 * @plane_degamma_lut_size_property: Plane property to define the max
-> > +	 * size of 3D LUT as supported by the driver (read-only).
-> > +	 */ =20
->=20
-> We should probably document that the size of the 3DLUT should
-> be the size of one dimension cubed, or that the cubed root of
-> the LUT size gives the size per dimension.
->=20
 > Harry
+>=20
+> > Then EOTF and inverse EOTF for PQ [2], and OETF and it seems an inverse
+> > OETF but called EOTF for HLG[3]. But I'm an external dev, better if
+> > Harry can confirm.
+> >=20
+> > Thank you for pointing it out.
+> >=20
+> > [1] https://cgit.freedesktop.org/drm/drm-misc/tree/drivers/gpu/drm/amd/=
+display/modules/color/color_gamma.c#n55
+> > [2] https://cgit.freedesktop.org/drm/drm-misc/tree/drivers/gpu/drm/amd/=
+display/modules/color/color_gamma.c#n106
+> > [3] https://cgit.freedesktop.org/drm/drm-misc/tree/drivers/gpu/drm/amd/=
+display/modules/color/color_gamma.c#n174
+> >  =20
+> >>
+> >> The others seem fine to me.
+> >>
+> >>
+> >> Thanks,
+> >> pq
 
---Sig_/qq/QqCqDCx028D8be33an6X
+--Sig_/_KsfrGyb4A/tYnFSiA2jZGF
 Content-Type: application/pgp-signature
 Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmT5gk0ACgkQI1/ltBGq
-qqcZIBAAmODUClwcQF98Uyvdh1zkV1ESp4m8wA7eTjeL6D6nqsh7bAkggZ+FzRoY
-N9pv1n2Zf6s+RR12MBgLyyl5KhUH/Jl7FUldIC4DRlvFHMGn1VtC64ta8QZH5H8a
-/QtgB9TVWjiti7HCuHFJTscqoLYNgMivei1WJwKFiUssvX5YZKNDHxRvIGCcVgzf
-4VxhbwGwI+g1rA2r4I9HlL3IwNg2Arj/0llhI+i34wMYWG68q2UhwOAWi80bY+Dg
-2qJvcXi2ZxYeli1NmRavp0X1D5IEMlw/py39NrlJtXBVErqrKUq/kcDNKQPYyuDB
-CX08ix6l5NEQOpwZ93Il00d3vj2z441Wd/m3S4B9Ool7beDhS0746c4idM+jvX6n
-ghgiSGgl68v8kT7VAJZY/IleABlbSflkofzbZEk2Fku7eo7YbtpoZu5gY8VPyqUx
-ce1+YH70A6qNhZj8EhuwU95G8e+l5TSUKytZXAef9lAT01Yf+KkQI5vZW15A0xnk
-DvVbVTQRYxOOeiKmx91l8U5X5uj6DxsfspFE//kzE+4t82WE0m12IB8Hu9J2YmlB
-M0egvTn1ImXH7eR+hNiDCJEp+GxvXEVEu6gk/rTJAM5vKql74BNLClYzpUj9JKcx
-i7MYh4+7P4lHSZJqCtPdbEbWX76dQkyXcfzGetSsL7XaqLWa8yA=
-=/DSd
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmT5gH0ACgkQI1/ltBGq
+qqeLqQ/+NRS9c9EMovhxJR3p9HNdz39dMuBaG/jf6bHcp68pQ4uVblMFj11v2uuV
+vEY70YxZS0hiqjHb3NEq3P/FCyH7tss3lFOvMtAkOL/wT0f2CN4367WMKtpXrbEG
+WcYyPi68uHvn0vLVxQ1n/F1xblI5HJL6U5ZzhsKo9LkGGzLoieKIL476PeWy3yxx
+YKefUzfPgPlx2zOe04PLMYOM0fky2GugMTa8goQcGaj0MAd2DWVjV2JpdGzIBXr4
+9iqN1siqMHudL43UnRLQISpTnYUsGHdaFapUDYso1F7UhBVS2kKpw8ouItTMmPBH
+Vzu3jGZQD8G348QsacBU3+em6MNre93tRWxIibV/GLC1g5+pWtED7gGxZ9VLB7HW
+/sFF/VGY4mvVi6uStwL8McHdQyzBHLeEeZdHVXnut8AGhJ6A7PSOn8AH1Bb7W6cQ
+8lnptyeIpTdqjl1H18WaIpATsEoW2hx9PdM/czqz/Ds6/dd/YmExBOUeq0cz4vEW
+hGO3xh6E1RnI2Dr+VcVpDrE257h0qBYfaVALYqM0VCCiaybG+1VhXxF/rM5yzbDw
+8519JALkomQS915gacrBcjs1fl8KEOgPveCyoX+AOrneVGF19Yj/TJgmZaeceuHG
+YvKP3Oc9LyEK93QCRpSAvvN1ekQC1l6RdmTRMV2Pq59qUUohfLg=
+=0EKb
 -----END PGP SIGNATURE-----
 
---Sig_/qq/QqCqDCx028D8be33an6X--
+--Sig_/_KsfrGyb4A/tYnFSiA2jZGF--
