@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F33D2EEB566
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Sep 2023 19:35:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15519EEB569
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Sep 2023 19:36:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC6E110E93B;
-	Fri,  8 Sep 2023 19:35:28 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8489510E93C;
- Fri,  8 Sep 2023 19:35:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91ABA10E052;
+	Fri,  8 Sep 2023 19:36:04 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E4CD10E052;
+ Fri,  8 Sep 2023 19:36:03 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id C5823CE1C55;
- Fri,  8 Sep 2023 19:35:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B83FC116A5;
- Fri,  8 Sep 2023 19:35:17 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C2E1661540;
+ Fri,  8 Sep 2023 19:36:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F252CC4160E;
+ Fri,  8 Sep 2023 19:35:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1694201719;
- bh=J7dpjR5ngNwc4YKM4N/jveZjrGD1BrvRxcXzagXsBO8=;
+ s=k20201202; t=1694201762;
+ bh=ImZm7DpYTTMM/kvELotNQQ6qpF9CgRVqXZpsXmm2rFo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=NSCeuXO0+XYZ3g/gZZ0KDADznywScLO3V/OODqG2B0KGuTAR3ZJzkzktYHSfaCTiZ
- BjOkyTO9ujxJHLpDDwkTkQxoTJ56l358WZwtWKb7Q12aFChpA8ptMGH0BzCY8w+Kxx
- f+zc5RT5qHAuGZvbwiDIwrxim0MZodBJFzumC40jZ3rO5mc7XmhsL9682xMdwW3akA
- C7yMBEhEUR87tACVryGRNmZfi7toIA6HOx4/Pg03GKWpT9rUXYP08d53u5KS2vzXAr
- qFLWsSioo9Y/T+fu1RXPfCs6t8HP7TztTQB4IqKF2DMxoJ9HaSxQKwgjtahtsZ3jZk
- oBOOw/Cg3nNdQ==
+ b=tETWa41tavgukY4AFUR6ikVnbLZpd0dhkMDY0GpKnjPx0oiGU/FM5BLACNFcCbky4
+ RRv/npXcKKI3AW7kfacKZ3xaCNcArlNuqTPoPg+igtVC89siZaK3VuCrcQxEuhcR4t
+ 8mKOOP1YV53Q5vb141Ac+fXKcF/FKStSBSwqkPuDVFtaVdP9OfY7z8PPCTRn0wI2gt
+ O7MOr4EpOPsDeOY0JKOfZlGQ36kFAcfnFhXT3q4TlfCLAGL9EuTJ/v6epDt14Etagg
+ TyZidaS3Zo/5RtBzboJ4yKiBXxNZ3NzL1CKW9MKGcgqygll/FN5HuxJjoYGfvudu5d
+ UFRq8dIRHiUtg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 16/22] drm/amd/display: Blocking invalid 420 modes
- on HDMI TMDS for DCN314
-Date: Fri,  8 Sep 2023 15:34:00 -0400
-Message-Id: <20230908193407.3463368-16-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 09/13] drm/amd/display: Blocking invalid 420
+ modes on HDMI TMDS for DCN31
+Date: Fri,  8 Sep 2023 15:35:25 -0400
+Message-Id: <20230908193530.3463647-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230908193407.3463368-1-sashal@kernel.org>
-References: <20230908193407.3463368-1-sashal@kernel.org>
+In-Reply-To: <20230908193530.3463647-1-sashal@kernel.org>
+References: <20230908193530.3463647-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.1.52
+X-stable-base: Linux 5.15.131
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,25 +57,25 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Daniel.Miess@amd.com,
- Tom Chung <chiahsuan.chung@amd.com>, Charlene.Liu@amd.com, sunpeng.li@amd.com,
- airlied@gmail.com, Leo Chen <sancchen@amd.com>, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, jerry.zuo@amd.com, amd-gfx@lists.freedesktop.org,
+Cc: Sasha Levin <sashal@kernel.org>, Charlene.Liu@amd.com,
+ Zhongwei.Zhang@amd.com, Tom Chung <chiahsuan.chung@amd.com>,
+ sunpeng.li@amd.com, airlied@gmail.com, Leo Chen <sancchen@amd.com>,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org,
  christian.koenig@amd.com, nathan@kernel.org,
- Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, Paul.Hsieh@amd.com,
- Jun.Lei@amd.com, harry.wentland@amd.com,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+ Daniel Wheeler <daniel.wheeler@amd.com>, Dmytro.Laktyushkin@amd.com,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, Paul.Hsieh@amd.com,
+ harry.wentland@amd.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Leo Chen <sancchen@amd.com>
 
-[ Upstream commit 4c6107a653ccf361cb1b6ba35d558a1a5e6e57ac ]
+[ Upstream commit 026a71babf48efb6b9884a3a66fa31aec9e1ea54 ]
 
 [Why & How]
 HDMI TMDS does not have ODM support. Filtering 420 modes that
-exceed the 4096 FMT limitation on DCN314 will resolve
+exceed the 4096 FMT limitation on DCN31 will resolve
 intermittent corruptions issues.
 
 Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
@@ -85,21 +85,21 @@ Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c  | 4 +++-
+ .../gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c    | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
-index 4998b211ccac7..5b47ccde64241 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
-@@ -4225,7 +4225,9 @@ void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+index aa0507e017926..c5e0de4f77b31 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+@@ -4162,7 +4162,9 @@ void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
  				}
- 				if (v->OutputFormat[k] == dm_420 && v->HActive[k] > DCN314_MAX_FMT_420_BUFFER_WIDTH
+ 				if (v->OutputFormat[k] == dm_420 && v->HActive[k] > DCN31_MAX_FMT_420_BUFFER_WIDTH
  						&& v->ODMCombineEnablePerState[i][k] != dm_odm_combine_mode_4to1) {
--					if (v->HActive[k] / 2 > DCN314_MAX_FMT_420_BUFFER_WIDTH) {
+-					if (v->HActive[k] / 2 > DCN31_MAX_FMT_420_BUFFER_WIDTH) {
 +					if (v->Output[k] == dm_hdmi) {
 +						FMTBufferExceeded = true;
-+					} else if (v->HActive[k] / 2 > DCN314_MAX_FMT_420_BUFFER_WIDTH) {
++					} else if (v->HActive[k] / 2 > DCN31_MAX_FMT_420_BUFFER_WIDTH) {
  						v->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_4to1;
  						v->PlaneRequiredDISPCLK = v->PlaneRequiredDISPCLKWithODMCombine4To1;
  
