@@ -4,55 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFDA5EEB566
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Sep 2023 19:51:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D538EEEB569
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Sep 2023 19:55:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6061210E1DB;
-	Fri,  8 Sep 2023 19:51:57 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2078.outbound.protection.outlook.com [40.107.212.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B41AD10E1DB
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Sep 2023 19:51:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4711810E941;
+	Fri,  8 Sep 2023 19:55:42 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2078.outbound.protection.outlook.com [40.107.93.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BCC510E941
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Sep 2023 19:55:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KAqqvmR4yLBZ1Wepshakd/A2bVeNkg3IS81d27ghET79bib9EazGv6yny9RUdrVuUCRjILrITycb3hK7FXDUo6jC2NcfDGNY8R6NIzXrxINTufO6QWk9o1yj9hDmTiMPP3QlvS5BRThI9cAJp4yAezT0lTxXYOFBxtwucFT5rE43K7Xu2RGjXUKl87NUaSH+vkLsiP09dyidjS5rt1Xf1sb3+TU23v3ruyNeOC60FRMNQ2FWvFVUFqW+hLiwj2nL10IDGEHxU+v7VlckOgkL18ySkNBDsHK95iYSLw5fCh8ipa6vLrxw72C9lJFla8q9k2J+w5jwyr0GtWnyYNZbRg==
+ b=XokcXyt9685gG390dzUNRUV0uVHsWv7cS7QStBCdr+CKd1XqN+dpMEOl3Q0mbhUp7DEjVbuHyGJA+xsZOd9wMKBktQdcWQUSErwPyamv+XmLsyWcL38kGsETsPq83Vs07K4l7zFjq1Um5uqcwUie/8fDiX7gD/vkEGEsq8wK73S7Jm3QcTQLXNoFjLnFQceWxWMB0v00ySPEkr0TCFcIyfh5gGclKxdASmNzFsE/4SRj3BqKVgCiWQH0Yj1OahhGir2YuxfX02IM+9gTAWGFbRR9Ij2CL2FZc0UR0z3XkuRbQ1GDOS9RbbzV2HGFUmRwgju42CcMarkXYflpOfQN5g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mZ5s4hmGnCdLtCwdAoypaHKvsXog09PdibT364uXl08=;
- b=fopJc4byortKaFQdDSP2NNJZY7kPx0B2Ea7mQMZdpp50BLqVxui16wnH1YqcT9w/LSdQ9XfbTa2DoJQg6C7l93h6IgZDDh31DtwXUXz7DLSra8RcGRvcyuBiDeCjQ3iW77dzoR+xa8iOkoLGv8CrLHpNP3RdGmAsR5cAZUF72iPxeURJ+uRePejt5j6NVzbdUjIc9AscJqpWarOlryKOPyrMPXuT8KzK5DEpeKLRRvBhyqyWElF0/Hn+9GK5JWfOg5mlzCI7N6LfXuqQYrpUHPoCueJkUfbyF/YNjHmzP2ZFEzyyIC8TVXda8+SBaei74bvA9kyy5dzOL8HkfxN9Ng==
+ bh=Xg8+4mOQneBEMF12ukJ3IfTzDxWO6GkbrPLjP7TIuno=;
+ b=Rgvx81Ah5CpfDWmgkdNo9CR273mk6n+G/tuGAk4sSkaDiRJkh/QTXDefKW3YKA4MFMIvB3z1eSIYXUEnJPOXTzKjfUECMkEcozvmJVU6JRWF/u4dYh6pa5B4riEAGcWfATjY5QYBgFKUHTbku94BRK5cQB7LosOXG5FPa4+o37NlndFuRx6mY2rGm58Vvc7crVrrA+RYEvtLl4G3wyZt3K/qDDQXPn8AeOEyHzQ5zwyE+zi2P41Y9TAsNU6Yu9moMtlo90lWkW6DSYPGPk0Xq73AYMZo4vm5ej8rcg3EHVwT7GHsmTVfntR+4XgUV84MGZmsNhQBVJsPB6OzBY24zA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mZ5s4hmGnCdLtCwdAoypaHKvsXog09PdibT364uXl08=;
- b=ISYCUT9UAVukbPRoamV73pu7R4a5s7qDkFc5zwFWMoudaMhgkXINRUgql51AwI5rR6i/svScTxCJ7VfnKqGYhnr9zhAIhnTBMyzBlsABZ35RspX3yWKPNfNNt2EY6rCJ+E0zCY4m4IE5ixvsz93Ek8lpMZ5I6hhsTyXuv+965Xg=
+ bh=Xg8+4mOQneBEMF12ukJ3IfTzDxWO6GkbrPLjP7TIuno=;
+ b=nYmgNFe00i/MRL+u7YiKV/9PVUrnhfBIasBHX93TXHqyJDDL3ImKe4cgiIq1bg9o2anFjeYlDeRAmVS1R58c62iJybuNsJO3N39T2LXLRmjh/LVeYHixBc4fGqiEIhEnTiFt02MM5KEZ14CKPB1+anq4t5euPQS6//Hp0i9Tnec=
 Received: from IA0PR12MB8713.namprd12.prod.outlook.com (2603:10b6:208:48e::7)
  by MW4PR12MB6900.namprd12.prod.outlook.com (2603:10b6:303:20e::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.30; Fri, 8 Sep
- 2023 19:51:45 +0000
+ 2023 19:55:37 +0000
 Received: from IA0PR12MB8713.namprd12.prod.outlook.com
  ([fe80::2ea7:3e66:b686:bdbc]) by IA0PR12MB8713.namprd12.prod.outlook.com
  ([fe80::2ea7:3e66:b686:bdbc%3]) with mapi id 15.20.6745.030; Fri, 8 Sep 2023
- 19:51:44 +0000
+ 19:55:37 +0000
 From: "Tsai, Timmy" <Timmy.Tsai@amd.com>
 To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu/soc21: don't remap HDP registers for SR-IOV
-Thread-Topic: [PATCH] drm/amdgpu/soc21: don't remap HDP registers for SR-IOV
-Thread-Index: AQHZ4NfzgObSuWizmUGxMJdXrDidOrARWUNHgAAAVXY=
-Date: Fri, 8 Sep 2023 19:51:44 +0000
-Message-ID: <IA0PR12MB8713C5D7D6C59C75D5A8FF2A98EDA@IA0PR12MB8713.namprd12.prod.outlook.com>
-References: <20230906153623.507284-1-alexander.deucher@amd.com>
- <DS0PR12MB8813BE64575EA3D952425B6AF4EDA@DS0PR12MB8813.namprd12.prod.outlook.com>
-In-Reply-To: <DS0PR12MB8813BE64575EA3D952425B6AF4EDA@DS0PR12MB8813.namprd12.prod.outlook.com>
-Accept-Language: en-US, en-CA
+Subject: Re: [PATCH] drm/amdgpu/nbio4.3: set proper rmmio_remap.reg_offset for
+ SR-IOV
+Thread-Topic: [PATCH] drm/amdgpu/nbio4.3: set proper rmmio_remap.reg_offset
+ for SR-IOV
+Thread-Index: AQHZ4cQtSTi9F+wgEUWS4fIXgbK1GLARV3qxgAAAyyw=
+Date: Fri, 8 Sep 2023 19:55:37 +0000
+Message-ID: <IA0PR12MB871302C006C3A0398C03F10698EDA@IA0PR12MB8713.namprd12.prod.outlook.com>
+References: <20230907194712.501666-1-alexander.deucher@amd.com>
+ <DS0PR12MB88130DE097FDBDF8DBF03A83F4EDA@DS0PR12MB8813.namprd12.prod.outlook.com>
+In-Reply-To: <DS0PR12MB88130DE097FDBDF8DBF03A83F4EDA@DS0PR12MB8813.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-09-08T19:51:43.604Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-09-08T19:55:37.102Z;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
@@ -60,56 +62,56 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: IA0PR12MB8713:EE_|MW4PR12MB6900:EE_
-x-ms-office365-filtering-correlation-id: 20ff4f5f-bcf3-4f7c-762c-08dbb0a50751
+x-ms-office365-filtering-correlation-id: a35bed55-97e9-4197-63a1-08dbb0a5928e
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: XMUQ+10Mv+Nlgqh5rljp55GnN5KV1NDjg0RT52uzP8KJO2Bc7Ckld0kcbngqlPQb4RJ/x4Y3sxHBpR6Z56EAu8PC7lX8p0nOhnmFTVn8OilvUiaJfu06+R6YgPTs0WD+zLhvzs2xdxfhNj7oAahRPBLZJXqtO6cQW6JyHmAQQx6a1AWnuU/vldMwhK67rPM5u5zuN5mH8rqRhTxKS+BL+pZpjl5X7vsvgjoPeBFvmHeKibLp485cCwaieXq+A6DcwLpwOCkxed4Z7WHnrCJ+ixZSqr8BrVcWG6lkvFy/837ISLKhyjJCPv7ZnskS8Jx9dUXlM3iJwS49exuixtrY/q49XB2IjqqKCfVsFeJi5XPIt98eXc+x4mAH8fqdJWe8xIdtN4QMDF6ZeFqTbCT7OFP2sTyxZUCR7YpBrTILIehSaXkLKjWqfSTAEM9AtRKhuJ865m+NCwqDcoAqAP2kYpBApoK2sn8TC2fm5BaRnVSxL1A1dzdQgnmsZ1CUfOPUFl9Vrqs7DHf2emkVF7NqzkjxXLoDB/gRlz+cIb1fh27oNgQu61ye4xoS+Mp9JpmFm61zrDWyMTdPeXx6pq7f0m73jTugvFYfVQXcDutFADwSr1URc21ti5CrsmP4SACN
+x-microsoft-antispam-message-info: MuyVlAqHjO8ZDdhWDsXkklhjU89CcIPHR0f0t4bxTP8//43s0t86fwKh0GCKjZSOvH3y46a0DyE8/1WtUuF0t2ixyweJ6Oy4xDDN/GBdM6SirrnFATCMGETUIlH1OuimScVMtkvK1jst8CmgE+3bZ0q/7KXQBYaeGOKaLlZFWhoqb27rNMygX4VcIhL+hkF6ltuOCh/QItSuXzpGQHoFWGbKvZirYasqHpFlP8Amk2WViRcv1dVoe4WhEQT9i1juJyAJj7qm+J59Q08NFgHZJX6mn+5HzzxrrcN12Vn9KfTYfSQK/sRhlydlGq09UsnGeHFFlPR6ke/8IRY5A1E66itxw/3KIqG5CmeHonTzrWzsTTdlm4kHWPwqslopRvbZgP+tXIwz0IUMfkEYsaIy5u905/4EEsUqup1qiOmbBl8379jri2dT+el0PKwPdnZ/1ybaKhNOyOnybGNheIFUEjhSYJeE9J1QOUcNksh8fR25illsN/I46izlerDnexlD7TGMR4qHQ/Ar7NFxsjbE7UKH71t1Zgd9RLDXcGaKwBlUAIP7CEP9oFOewyhkFEdLbBC9ITre7u4SmWOwahrLvFne7XcCOS138HV0R6K8H3aVj+tKnisEtv/KYMZ38h/t
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:IA0PR12MB8713.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(136003)(376002)(396003)(346002)(366004)(1800799009)(451199024)(186009)(38100700002)(55016003)(38070700005)(83380400001)(122000001)(2906002)(6916009)(91956017)(71200400001)(76116006)(66446008)(19627405001)(66476007)(66556008)(64756008)(66946007)(53546011)(316002)(6506007)(7696005)(9686003)(33656002)(86362001)(478600001)(26005)(52536014)(8676002)(4326008)(8936002)(41300700001)(5660300002);
+ SFS:(13230031)(39860400002)(136003)(376002)(396003)(346002)(366004)(1800799009)(451199024)(186009)(38100700002)(55016003)(38070700005)(122000001)(2906002)(6916009)(91956017)(71200400001)(76116006)(66446008)(19627405001)(66476007)(66556008)(64756008)(66946007)(53546011)(316002)(6506007)(7696005)(9686003)(33656002)(86362001)(478600001)(26005)(52536014)(8676002)(4326008)(8936002)(41300700001)(5660300002);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?ARjkIZmolf9V7XZL0chakBgak1B1lVMYecVsvCxOXMW/FzpGylHzIRcz+Y?=
- =?iso-8859-1?Q?hnZRYgOIbOlW9FBQDnBPzeLpu4NLz/m5ugfjyAOcY2RKxo5+Sio2c2TGox?=
- =?iso-8859-1?Q?Fmeoe1asHMV0E6szASY6gORFpIafkrbQV6VgsxUfVPn9EqbD3fVQ3HKD9D?=
- =?iso-8859-1?Q?q4599HmDTff80XInqpS4af0d3pSiPi/Cx6Zs6RvNi7vLFKPhw57RKfIjkT?=
- =?iso-8859-1?Q?OAJ6NYVE6/V+8N4mWGj+8dqYXYFaT9pSRp8yDsgTy+D29KBCrG2XK8NBPN?=
- =?iso-8859-1?Q?JEto5xMYeJfsBCrZwbE/C2uubo88JWWBTsERYx7ZvMDsrXL0zDZ6lrFTJ8?=
- =?iso-8859-1?Q?CZe4NZd1FY1lQwJCAqQdMeDg31mgK2ATZ1/9umC50GOZSUe2RTRelRukoS?=
- =?iso-8859-1?Q?P10Y0btLVPB4/Jwa+n2FKujWkWxZ9f7tKCiP4iLq7WFX9TBB/WvBDegvZ3?=
- =?iso-8859-1?Q?3QB+v2YizcYNJawIUcbWPQrKx7OyFQ4jd4oBhy1ZmNUQJnbzX/6lAvX8Xu?=
- =?iso-8859-1?Q?7plXDF2Rx3JTjctHLMax7eov+AsxJad5Nkg3tbKZRV82WtHNMnJSpTglzh?=
- =?iso-8859-1?Q?JiHiphPhNVMXauYn/sjfjYyMSAQdE1BejbLb2TPOIml7O1vxWp2RLUPSMp?=
- =?iso-8859-1?Q?ADWSTqRTWT4v9HtoWRmdJUfpBZLNa38cbt5YjXkyILN/vOisFcyeRrbtoW?=
- =?iso-8859-1?Q?+JEyPb6Z+y8jSiMlThLzamD7eRJ5iUYa6LMSKfNC0igkVSrjm5LA9mQqUJ?=
- =?iso-8859-1?Q?9hDLlL6PQv9xFcU9LMBcryViM9L+K44I0ODrs0fkPa3pOhquY6rzJvadgI?=
- =?iso-8859-1?Q?j/FE7plGpaALPtu5E3SWGuu5iKWN6mOBRbIWcvLMudAq8s92XzjOrDFyz4?=
- =?iso-8859-1?Q?QtYa/xNjAWr/iFUnUHj5TIARCMorbhuw1O0rlAEo/WKNhBA372LdiMOdq5?=
- =?iso-8859-1?Q?6aI5HTO8ucXvvcWljK6jEySObNQOUy4hHIC6qqxC0oc7fW9Z/+N1KIYfW0?=
- =?iso-8859-1?Q?3KzjdViL486omvwale9FJJ9eyVoAmJN4llFbZGBgcZ/w1pX2v46rjFd/+L?=
- =?iso-8859-1?Q?C8X3pBs+qFGizJwz8ZUgQGaJepun0WMQrSoU4Tr3dvDLU6tw5ijvbW2be5?=
- =?iso-8859-1?Q?j/THJ152jQhQKcFjl/1H6EUxDwOXb88nmQqyeTXGvf32MNBpEr0wOhSzHG?=
- =?iso-8859-1?Q?sO3JxoiIfGnbFOkneg4rdPbfwk3xwDCYxsjrL6VOoc1X1Zl0eQSBjv5oMN?=
- =?iso-8859-1?Q?WOkAfwpKYHo+cqk0ffs99YgXGJzUEh78B6FZlkUGrb8d4izFRoRK/PEhHn?=
- =?iso-8859-1?Q?dZO4DMSRYwkBGljgvEvV/HeeyEbUwLJHRidZFgtLJhBgjbXBxl6Pj9c713?=
- =?iso-8859-1?Q?ouYf2FyFWvIyjoHSSYRALBMRqATzeKb1yWACC82C/heQ8o1Z3VNDLifBAa?=
- =?iso-8859-1?Q?QGYXLxAkQ9VBcIBuMmV5AqAZfRtLOAQ7Bg8EgQRCH4LKQqj4WphhJSjrx3?=
- =?iso-8859-1?Q?hn3XUfBt07LNuRjeRgA4Y4ywjZvr4/WDDyn02dmCSndEnsKdKlfz8c0+SW?=
- =?iso-8859-1?Q?1codNd520mawHprR38ZxxRE7ML5+JeSyOMQUf09Q8PdOhaCOo3IbNUAwMH?=
- =?iso-8859-1?Q?i9iMvBTdmYCOo=3D?=
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?tfML1VDD7bnBjaJpocQ6veOMZOzLEvArxGyPGsiWQS4NPJobguVfP69F3e?=
+ =?iso-8859-1?Q?iN0JIxNuzYbgy+uGTSeVmX6HIvojXaVV2UiBTfWorw33lnWg2pl2BceCVd?=
+ =?iso-8859-1?Q?j4jQOlmu6DuRn9IjitxXbeFj92Mn8+o6z49YM14SWGYiBN5OaeHEqKu91L?=
+ =?iso-8859-1?Q?iqCgdK20eeyckuUhaUikj/k8nD8XTcX7LI2bQmqQv2cl1mhL1VwNvIRrZG?=
+ =?iso-8859-1?Q?kpjsWcDhyL3giSuoM6X4GEzluXPGv/gwgEGAJ5fgC5SxoFxkjwirlaJTl/?=
+ =?iso-8859-1?Q?nn0yiirqnt8RiAlc83FypBirIQaa6JcjaHvSIMHYkJZ9axtOjUw48g3flN?=
+ =?iso-8859-1?Q?JkD+4ubxPmQVWJzPE+f5MA2rBLH5MHU9ssBkYAEoBTT3pwBb28f4pIuGqK?=
+ =?iso-8859-1?Q?C4MGvtcHu6XLqeGpas+xMgmbE06DE//ZHYK9ILt+cd5OlMA5MuSmRlrE6J?=
+ =?iso-8859-1?Q?Ft32uAK3NrfaxuPyBt/NQsD8a4G17F25lud0CGH2PeUSeMdpa5T7AuadEj?=
+ =?iso-8859-1?Q?0+M2QVJ+8dPfSf9va1ytaWUw7scJsTHiRwcZ0NoIpKrN8mMGfNpSq6Mo7A?=
+ =?iso-8859-1?Q?fbRAB6UanRzltTey2u1u1lX242dRMkg4fXpAeTL9sZ71oYKaILSIZaRyyk?=
+ =?iso-8859-1?Q?8vlByaBHE4+d7LSkgGVWP7+R//L3HWioYGtyg46CXiKnDch28Tb5gk8Dfj?=
+ =?iso-8859-1?Q?WY/UFDgjleO9ai+kNc91maULzhV8C2UGx+BQtX5CMnA8dmj2durEMvpvX3?=
+ =?iso-8859-1?Q?avo99hSfJskGdoKZM61CUo9v6zgTbu5iaKHP8YIAAAyZx9FdO8SN8qOKUX?=
+ =?iso-8859-1?Q?svXyM85s5qHtJahOGrO6wBAwZbBTq71IxOp2ke6M9nJGkwJS3mGGX043VO?=
+ =?iso-8859-1?Q?WcTC1q8cB30yfh6ZMEDaKUHFkaTFFBkLBhj8E5Fg+EdfB6gee3NgujeRr6?=
+ =?iso-8859-1?Q?+yOphL4RK+xzhsHWGsC6+0VrjkDpFIZHTk9dflN+WIwUom3LiwyEFv/WZ0?=
+ =?iso-8859-1?Q?qY5EhX//J1jRhaZ8oOMw6ywcp0Yy9L3SM7MC7h5bQ/tvf6pjx5w0bk9rmH?=
+ =?iso-8859-1?Q?e7x2JbytqOl8++z6G6axqivjD91HjvuNZ1Rgkxlu50nR6+OsJeEqad5daQ?=
+ =?iso-8859-1?Q?F+mbp/K0tPBMJqDOlin0kql1B+C2UJuf6Kz2UdrepRMAeZDecQlOCMYTZE?=
+ =?iso-8859-1?Q?PnyCr7PKsJIAto1ZvBmaKU7i/2kjGIZVtuQVzfV6jK+MDS5T4wrY7jZNvs?=
+ =?iso-8859-1?Q?AKlF4YF8zQpaqmEN9BBRpvYGSXKVomf7kYB6V8t7fQmWduvRMRQ3jxeJIS?=
+ =?iso-8859-1?Q?79al/EjrkOSh903s5e2t5WDStMX5bapt6NL6wemljP3S2JPmUZjmFLwBmx?=
+ =?iso-8859-1?Q?V8MNIRpumhdJV2s+/htJ5Fhr1e+ELazu6zNeBbauazZsgl7wOwFj1cpj4p?=
+ =?iso-8859-1?Q?lqV7szGCeq/nDVSuPVvRoCvACK2SpejXHJs1mOYkIbvTcd9Wkc39qufX+6?=
+ =?iso-8859-1?Q?dzMyvsvcySuG2wK8mMNjaJSzhft0ckJCBojJHZlrNx5vpbB+7x7447M+kR?=
+ =?iso-8859-1?Q?T7CPLbiQnqI/LAOwtPKWzQI+5PI50lzYc0US7hkC9mxb0tnwLugJbEj8wl?=
+ =?iso-8859-1?Q?ZPcbGtoQr/euc=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_IA0PR12MB8713C5D7D6C59C75D5A8FF2A98EDAIA0PR12MB8713namp_"
+ boundary="_000_IA0PR12MB871302C006C3A0398C03F10698EDAIA0PR12MB8713namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8713.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20ff4f5f-bcf3-4f7c-762c-08dbb0a50751
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Sep 2023 19:51:44.1505 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a35bed55-97e9-4197-63a1-08dbb0a5928e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Sep 2023 19:55:37.7477 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: FTaZJoNt3J2CJ2Vt0xKv2Nm3ColWCa4xKhLFe2nxjQB6OknkjuzCinG822W4lDlIyY009uVe9SUXd1q2oqaU/g==
+X-MS-Exchange-CrossTenant-userprincipalname: 61YU7p/X424lz3atMziHgxzBk9keo2XEconME8hCTAUgRkyPdn489EL0qUOrhd9qRbLrQp9dnZ6BmnTaU1PNiA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6900
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -126,7 +128,7 @@ Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_IA0PR12MB8713C5D7D6C59C75D5A8FF2A98EDAIA0PR12MB8713namp_
+--_000_IA0PR12MB871302C006C3A0398C03F10698EDAIA0PR12MB8713namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -134,42 +136,45 @@ Content-Transfer-Encoding: quoted-printable
 
 Reviewed-by: Timmy Tsai <timmtsai@amd.com>
 
-
 ________________________________
 From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Alex Deu=
 cher <alexander.deucher@amd.com>
-Sent: Wednesday, September 6, 2023 11:36 AM
+Sent: Thursday, September 7, 2023 3:47 PM
 To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
 Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-Subject: [PATCH] drm/amdgpu/soc21: don't remap HDP registers for SR-IOV
+Subject: [PATCH] drm/amdgpu/nbio4.3: set proper rmmio_remap.reg_offset for =
+SR-IOV
 
-This matches the behavior for soc15 and nv.
+Needed for HDP flush to work correctly.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/soc21.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgp=
-u/soc21.c
-index ef297b41623b..2ecc8c9a078b 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -778,7 +778,7 @@ static int soc21_common_hw_init(void *handle)
-          * for the purpose of expose those registers
-          * to process space
-          */
--       if (adev->nbio.funcs->remap_hdp_registers)
-+       if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(adev)=
-)
-                 adev->nbio.funcs->remap_hdp_registers(adev);
-         /* enable the doorbell aperture */
-         adev->nbio.funcs->enable_doorbell_aperture(adev, true);
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c b/drivers/gpu/drm/amd/a=
+mdgpu/nbio_v4_3.c
+index d5ed9e0e1a5f..e5b5b0f4940f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
+@@ -345,6 +345,9 @@ static void nbio_v4_3_init_registers(struct amdgpu_devi=
+ce *adev)
+                 data &=3D ~RCC_DEV0_EPF2_STRAP2__STRAP_NO_SOFT_RESET_DEV0_=
+F2_MASK;
+                 WREG32_SOC15(NBIO, 0, regRCC_DEV0_EPF2_STRAP2, data);
+         }
++       if (amdgpu_sriov_vf(adev))
++               adev->rmmio_remap.reg_offset =3D SOC15_REG_OFFSET(NBIO, 0,
++                       regBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNT=
+L) << 2;
+ }
+
+ static u32 nbio_v4_3_get_rom_offset(struct amdgpu_device *adev)
 --
 2.41.0
 
 
---_000_IA0PR12MB8713C5D7D6C59C75D5A8FF2A98EDAIA0PR12MB8713namp_
+--_000_IA0PR12MB871302C006C3A0398C03F10698EDAIA0PR12MB8713namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -187,18 +192,14 @@ style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
 </p>
 <br>
 <div>
-<div dir=3D"ltr">
-<div align=3D"Left" style=3D"font-family: Arial; font-size: 10pt; margin: 6=
-.66667px 5pt; font-style: normal; font-weight: normal; text-decoration: non=
-e; color: rgb(0, 0, 255);" class=3D"elementToProof">
-<span style=3D"font-family: &quot;Segoe UI Web (West European)&quot;, &quot=
-;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica=
- Neue&quot;, sans-serif; font-size: 14.6667px; text-align: start; display: =
-inline !important; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255=
-);">Reviewed-by:
- Timmy Tsai &lt;timmtsai@amd.com&gt;</span><br>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
 </div>
-<br>
+<div class=3D"elementToProof"><span style=3D"font-size: 14.6667px; color: r=
+gb(0, 0, 0);">Reviewed-by: Timmy Tsai &lt;timmtsai@amd.com&gt;</span><br>
+</div>
+<div dir=3D"ltr">
 <div>
 <div class=3D"x_elementToProof" style=3D"font-family: Calibri, Arial, Helve=
 tica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);">
@@ -210,45 +211,47 @@ tica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);">
 style=3D"font-size: 11pt; color: rgb(0, 0, 0);"><b>From:</b> amd-gfx &lt;am=
 d-gfx-bounces@lists.freedesktop.org&gt; on behalf of Alex Deucher &lt;alexa=
 nder.deucher@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, September 6, 2023 11:36 AM<br>
+<b>Sent:</b> Thursday, September 7, 2023 3:47 PM<br>
 <b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
 gt;<br>
 <b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu/soc21: don't remap HDP registers for SR-=
-IOV</font>
+<b>Subject:</b> [PATCH] drm/amdgpu/nbio4.3: set proper rmmio_remap.reg_offs=
+et for SR-IOV</font>
 <div>&nbsp;</div>
 </div>
 <div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
 t">
-<div class=3D"x_PlainText">This matches the behavior for soc15 and nv.<br>
+<div class=3D"x_PlainText">Needed for HDP flush to work correctly.<br>
 <br>
 Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/soc21.c | 2 +-<br>
-&nbsp;1 file changed, 1 insertion(+), 1 deletion(-)<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c | 3 +++<br>
+&nbsp;1 file changed, 3 insertions(+)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgp=
-u/soc21.c<br>
-index ef297b41623b..2ecc8c9a078b 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c<br>
-@@ -778,7 +778,7 @@ static int soc21_common_hw_init(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * for the purpose of=
- expose those registers<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * to process space<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;nbio.funcs-&gt;remap_hdp=
-_registers)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;nbio.funcs-&gt;remap_hdp=
-_registers &amp;&amp; !amdgpu_sriov_vf(adev))<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c b/drivers/gpu/drm/amd/a=
+mdgpu/nbio_v4_3.c<br>
+index d5ed9e0e1a5f..e5b5b0f4940f 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c<br>
+@@ -345,6 +345,9 @@ static void nbio_v4_3_init_registers(struct amdgpu_devi=
+ce *adev)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; adev-&gt;nbio.funcs-&gt;remap_hdp_registers(adev);<br=
+sp;&nbsp;&nbsp;&nbsp; data &amp;=3D ~RCC_DEV0_EPF2_STRAP2__STRAP_NO_SOFT_RE=
+SET_DEV0_F2_MASK;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(NBIO, 0, regRCC_DEV0_EPF2_STRAP2, data);=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;rmmio_remap.reg_offset =3D SOC15_REG_OFFSET(NBIO, 0,<br=
 >
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* enable the doorbell ape=
-rture */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;nbio.funcs-&gt;en=
-able_doorbell_aperture(adev, true);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; regBIF_BX_DEV0_E=
+PF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL) &lt;&lt; 2;<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;static u32 nbio_v4_3_get_rom_offset(struct amdgpu_device *adev)<br>
 -- <br>
 2.41.0<br>
 <br>
@@ -260,4 +263,4 @@ able_doorbell_aperture(adev, true);<br>
 </body>
 </html>
 
---_000_IA0PR12MB8713C5D7D6C59C75D5A8FF2A98EDAIA0PR12MB8713namp_--
+--_000_IA0PR12MB871302C006C3A0398C03F10698EDAIA0PR12MB8713namp_--
