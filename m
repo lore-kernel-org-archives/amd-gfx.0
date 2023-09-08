@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BC74EEB56B
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Sep 2023 19:33:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 055CEEEB566
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Sep 2023 19:34:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFA7610E92A;
-	Fri,  8 Sep 2023 19:33:41 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEDEE10E929;
- Fri,  8 Sep 2023 19:33:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A26EF10E930;
+	Fri,  8 Sep 2023 19:34:41 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEFAC10E933;
+ Fri,  8 Sep 2023 19:34:39 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 6C8D9B821D4;
- Fri,  8 Sep 2023 19:33:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64E06C433C8;
- Fri,  8 Sep 2023 19:33:32 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 8298FB821E4;
+ Fri,  8 Sep 2023 19:34:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DA42C43395;
+ Fri,  8 Sep 2023 19:34:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1694201614;
- bh=JMKvFF/mO4Fy7zywmrn6rJrOXMgKA2FB+Jkhi/pphAM=;
+ s=k20201202; t=1694201677;
+ bh=oydeY7LMES6UGzJ49BFWh3Ok2ahwHYWzx3M2c5QljD0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ma7/2v9Iu1+C9RRNzEp45QQwrlJ5Q3YWkELpmvTr3YejE4Dh2rW2i19eF06IzYy1k
- 5V/Lq5t9p29h40n1Z1Z+HNKtRyOVAkOKxTEfM1WNPXn7gbN4WSvKWcI/MgoEHZYOcq
- SnW1Gn7cHmCvNJHNOoDrNAukkNV2hDPEe03AaiHSsRex+brtpYIh0rwIZvDobVSEu+
- c2fcZLXy+tvbl0EuplzzHpao2IGoZfFPjx+X+UXWG7zhV4/GXYFwuyMydYr+8zyfZL
- m2j4trJw7UNtKj3/yhy8ywbhS2xw1GCHl5nSPWvBnLAnYce3+5ZcAaO+l6o1+lDlbe
- kitSuWMFiREMg==
+ b=pEnjrothwlkwp1dHOAzwEHuzQln1tG8XGUVqI3mleC0+oaaiGV951gb8o4GkwK/KH
+ zXYDf+J/9KIcHIQN33GmdcojT2Ky+22XvDBh/cAm+YDRRedJrVWYaGx8jgjYEAVfz5
+ yHiUAYYDWjhM9aADJhqeXh7u7RD6VuszsgxwE7zTba/yM2c/LVqkYt7xTmt4tR4T03
+ hW2DXW3iguXNZDJ3tVhAAVXj12IJFFWFQqWX1hPaqKtSqMlAZcB//AlG3HJEXc5MmM
+ 4a3q6DA86UxGwAccbDP0c1CJmr3SCbKBqIGZbni9+MWLZ1eYeDDO19Br94CXi2AgDH
+ aZ0r3X1wEu8/A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.4 20/31] drm/amd/display: Blocking invalid 420 modes
- on HDMI TMDS for DCN314
-Date: Fri,  8 Sep 2023 15:31:49 -0400
-Message-Id: <20230908193201.3462957-20-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 08/22] drm/amd/display: Read down-spread
+ percentage from lut to adjust dprefclk.
+Date: Fri,  8 Sep 2023 15:33:52 -0400
+Message-Id: <20230908193407.3463368-8-sashal@kernel.org>
 X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230908193201.3462957-1-sashal@kernel.org>
-References: <20230908193201.3462957-1-sashal@kernel.org>
+In-Reply-To: <20230908193407.3463368-1-sashal@kernel.org>
+References: <20230908193407.3463368-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.4.15
+X-stable-base: Linux 6.1.52
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,51 +56,131 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, Jun.Lei@amd.com, airlied@gmail.com,
- Sasha Levin <sashal@kernel.org>, Charlene.Liu@amd.com,
- Leo Chen <sancchen@amd.com>, Rodrigo.Siqueira@amd.com,
- amd-gfx@lists.freedesktop.org, jerry.zuo@amd.com, harry.wentland@amd.com,
- sunpeng.li@amd.com, nathan@kernel.org, Daniel Wheeler <daniel.wheeler@amd.com>,
- Paul.Hsieh@amd.com, Daniel.Miess@amd.com, Tom Chung <chiahsuan.chung@amd.com>,
- Xinhui.Pan@amd.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Dmytro.Laktyushkin@amd.com, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
+Cc: dri-devel@lists.freedesktop.org, meenakshikumar.somasundaram@amd.com,
+ Jun.Lei@amd.com, airlied@gmail.com, Sasha Levin <sashal@kernel.org>,
+ sancchen@amd.com, Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org,
+ sunpeng.li@amd.com, harry.wentland@amd.com, Martin Tsai <martin.tsai@amd.com>,
+ Alex Hung <alex.hung@amd.com>, duncan.ma@amd.com,
+ Daniel Wheeler <daniel.wheeler@amd.com>, Daniel.Miess@amd.com,
+ qingqing.zhuo@amd.com, Xinhui.Pan@amd.com,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, daniel@ffwll.ch,
+ wayne.lin@amd.com, Alex Deucher <alexander.deucher@amd.com>,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Leo Chen <sancchen@amd.com>
+From: Martin Tsai <martin.tsai@amd.com>
 
-[ Upstream commit 4c6107a653ccf361cb1b6ba35d558a1a5e6e57ac ]
+[ Upstream commit 6917b0b711713b9d84d7e0844e9aa613997a51b2 ]
 
-[Why & How]
-HDMI TMDS does not have ODM support. Filtering 420 modes that
-exceed the 4096 FMT limitation on DCN314 will resolve
-intermittent corruptions issues.
+[Why]
+Panels show corruption with high refresh rate timings when
+ss is enabled.
+
+[How]
+Read down-spread percentage from lut to adjust dprefclk.
 
 Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Acked-by: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Leo Chen <sancchen@amd.com>
+Acked-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Martin Tsai <martin.tsai@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c  | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ .../dc/clk_mgr/dcn314/dcn314_clk_mgr.c        | 33 +++++++++++++++++--
+ .../dc/clk_mgr/dcn314/dcn314_clk_mgr.h        |  7 ++++
+ 2 files changed, 38 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
-index 7eb2173b7691e..168dca6e8fcd1 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
-@@ -4227,7 +4227,9 @@ void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_
- 				}
- 				if (v->OutputFormat[k] == dm_420 && v->HActive[k] > DCN314_MAX_FMT_420_BUFFER_WIDTH
- 						&& v->ODMCombineEnablePerState[i][k] != dm_odm_combine_mode_4to1) {
--					if (v->HActive[k] / 2 > DCN314_MAX_FMT_420_BUFFER_WIDTH) {
-+					if (v->Output[k] == dm_hdmi) {
-+						FMTBufferExceeded = true;
-+					} else if (v->HActive[k] / 2 > DCN314_MAX_FMT_420_BUFFER_WIDTH) {
- 						v->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_4to1;
- 						v->PlaneRequiredDISPCLK = v->PlaneRequiredDISPCLKWithODMCombine4To1;
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
+index e43b4d7dc60e2..0316fd8df3841 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
+@@ -87,6 +87,14 @@ static const struct IP_BASE CLK_BASE = { { { { 0x00016C00, 0x02401800, 0, 0, 0,
+ #define CLK1_CLK_PLL_REQ__PllSpineDiv_MASK	0x0000F000L
+ #define CLK1_CLK_PLL_REQ__FbMult_frac_MASK	0xFFFF0000L
+ 
++#define regCLK1_CLK2_BYPASS_CNTL			0x029c
++#define regCLK1_CLK2_BYPASS_CNTL_BASE_IDX	0
++
++#define CLK1_CLK2_BYPASS_CNTL__CLK2_BYPASS_SEL__SHIFT	0x0
++#define CLK1_CLK2_BYPASS_CNTL__LK2_BYPASS_DIV__SHIFT	0x10
++#define CLK1_CLK2_BYPASS_CNTL__CLK2_BYPASS_SEL_MASK		0x00000007L
++#define CLK1_CLK2_BYPASS_CNTL__LK2_BYPASS_DIV_MASK		0x000F0000L
++
+ #define REG(reg_name) \
+ 	(CLK_BASE.instance[0].segment[reg ## reg_name ## _BASE_IDX] + reg ## reg_name)
+ 
+@@ -440,6 +448,11 @@ static DpmClocks314_t dummy_clocks;
+ 
+ static struct dcn314_watermarks dummy_wms = { 0 };
+ 
++static struct dcn314_ss_info_table ss_info_table = {
++	.ss_divider = 1000,
++	.ss_percentage = {0, 0, 375, 375, 375}
++};
++
+ static void dcn314_build_watermark_ranges(struct clk_bw_params *bw_params, struct dcn314_watermarks *table)
+ {
+ 	int i, num_valid_sets;
+@@ -719,6 +732,20 @@ static struct clk_mgr_funcs dcn314_funcs = {
+ };
+ extern struct clk_mgr_funcs dcn3_fpga_funcs;
+ 
++static void dcn314_read_ss_info_from_lut(struct clk_mgr_internal *clk_mgr)
++{
++	uint32_t clock_source;
++
++	REG_GET(CLK1_CLK2_BYPASS_CNTL, CLK2_BYPASS_SEL, &clock_source);
++
++	clk_mgr->dprefclk_ss_percentage = ss_info_table.ss_percentage[clock_source];
++
++	if (clk_mgr->dprefclk_ss_percentage != 0) {
++		clk_mgr->ss_on_dprefclk = true;
++		clk_mgr->dprefclk_ss_divider = ss_info_table.ss_divider;
++	}
++}
++
+ void dcn314_clk_mgr_construct(
+ 		struct dc_context *ctx,
+ 		struct clk_mgr_dcn314 *clk_mgr,
+@@ -791,9 +818,11 @@ void dcn314_clk_mgr_construct(
+ 
+ 	clk_mgr->base.base.dprefclk_khz = 600000;
+ 	clk_mgr->base.base.clks.ref_dtbclk_khz = 600000;
+-	dce_clock_read_ss_info(&clk_mgr->base);
++
++	dcn314_read_ss_info_from_lut(&clk_mgr->base);
+ 	/*if bios enabled SS, driver needs to adjust dtb clock, only enable with correct bios*/
+-	//clk_mgr->base.dccg->ref_dtbclk_khz = dce_adjust_dp_ref_freq_for_ss(clk_mgr_internal, clk_mgr->base.base.dprefclk_khz);
++	clk_mgr->base.base.dprefclk_khz =
++		dce_adjust_dp_ref_freq_for_ss(&clk_mgr->base, clk_mgr->base.base.dprefclk_khz);
+ 
+ 	clk_mgr->base.base.bw_params = &dcn314_bw_params;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.h
+index 171f84340eb2f..e0670dafe2600 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.h
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.h
+@@ -28,6 +28,8 @@
+ #define __DCN314_CLK_MGR_H__
+ #include "clk_mgr_internal.h"
+ 
++#define NUM_CLOCK_SOURCES   5
++
+ struct dcn314_watermarks;
+ 
+ struct dcn314_smu_watermark_set {
+@@ -40,6 +42,11 @@ struct clk_mgr_dcn314 {
+ 	struct dcn314_smu_watermark_set smu_wm_set;
+ };
+ 
++struct dcn314_ss_info_table {
++	uint32_t ss_divider;
++	uint32_t ss_percentage[NUM_CLOCK_SOURCES];
++};
++
+ bool dcn314_are_clock_states_equal(struct dc_clocks *a,
+ 		struct dc_clocks *b);
  
 -- 
 2.40.1
