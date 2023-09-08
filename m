@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B56AEEEB566
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Sep 2023 19:31:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3B87EEB569
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Sep 2023 19:32:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2941810E922;
-	Fri,  8 Sep 2023 19:31:08 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5562F10E932;
- Fri,  8 Sep 2023 19:31:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B08210E1DD;
+	Fri,  8 Sep 2023 19:32:40 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E205810E1DD;
+ Fri,  8 Sep 2023 19:32:37 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 151A1B821E2;
- Fri,  8 Sep 2023 19:31:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77506C4339A;
- Fri,  8 Sep 2023 19:31:01 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 61272614BF;
+ Fri,  8 Sep 2023 19:32:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50D25C433C7;
+ Fri,  8 Sep 2023 19:32:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1694201463;
- bh=FNhRXj0vE4XTs9u78Jg7KGumTQtffqkpeiDGPEe1NNU=;
+ s=k20201202; t=1694201556;
+ bh=4uP1niyAXOLk6XmcLQBeaiuj8tMsLnjP2insbuuF6TQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=IEUXji/JAFMckijVjCfmxeZPzD7jsDvcDL4mnw5C/x+dR1cLe+7N7V0o+8ROjmuSB
- eFRZrp839ipeD8rLh9kvMS6yh9UyVVgdMV7nMQybbFbKiI3jIZtkWo+dVDPb4W0G6Q
- 0WRAUNYmLbAWIQQFX/8t/T+wDKHZj+oJBm03lRRI3mX5+49nRCL8RIRPMoC8AIDnPD
- mX8QcmCxNvkWvzZOpDtdzhZjb2Eg3Fn2zZpO5dGpQ6f9OyzJYc5cuP+BeyjCcTDeHx
- Q6JYbQPAGFL0E5G9IxCe5Y4f0B3yVbF222QkhSMWrZPVyD1XOUcoX+NPYF5phZGCiQ
- UAA50flPIy2oQ==
+ b=SUkflhW5oPcDwdJA0uS98n0bd5Svi2Ps00XynXHHrkiKkUvtsC3qf4h8STb/LSJzJ
+ EZGZdHOSk5NHT8EQyotRkGlS1s1UqWKXPGKpH0Fnu4PU6hsn/M1oLfp5STMf0ofA1N
+ y2CFcoXR3t23VPH2qxmaDzm3TBZuLvGGSzqne8q+rQVipIuwu+Y6HA3g/S74dB/XAD
+ +fLaVEenjt4azRIaU8mp3/wYMHkYaBfKEwDK/Gqrgkv0PPF7VquABnHuY3QqnxbjPL
+ GI+4EP2TPqS0eDxHpFMyMDSEr6Svh9nDXhYP8PMeGlP+HpTQOdS+a2+TRFtWOpD0sI
+ e05161DDRM85A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.5 23/36] drm/amd/display: Use max memclk variable
- when setting max memclk
-Date: Fri,  8 Sep 2023 15:28:34 -0400
-Message-Id: <20230908192848.3462476-23-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.4 10/31] drm/amd/display: Add stream overhead in BW
+ calculations for 128b/132b
+Date: Fri,  8 Sep 2023 15:31:39 -0400
+Message-Id: <20230908193201.3462957-10-sashal@kernel.org>
 X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230908192848.3462476-1-sashal@kernel.org>
-References: <20230908192848.3462476-1-sashal@kernel.org>
+In-Reply-To: <20230908193201.3462957-1-sashal@kernel.org>
+References: <20230908193201.3462957-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.5.2
+X-stable-base: Linux 6.4.15
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,52 +57,124 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Dillon.Varone@amd.com, Chris.Park@amd.com,
- Tom Chung <chiahsuan.chung@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com, airlied@gmail.com,
- qingqing.zhuo@amd.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
- Samson Tam <samson.tam@amd.com>, wenjing.liu@amd.com,
- Daniel Wheeler <daniel.wheeler@amd.com>, aurabindo.pillai@amd.com,
- Alvin Lee <alvin.lee2@amd.com>, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, jun.lei@amd.com,
- harry.wentland@amd.com, christian.koenig@amd.com
+Cc: aric.cyr@amd.com, Wenjing Liu <wenjing.liu@amd.com>,
+ dri-devel@lists.freedesktop.org, hamza.mahfooz@amd.com, jun.lei@amd.com,
+ airlied@gmail.com, nasir.osman@amd.com, Sasha Levin <sashal@kernel.org>,
+ Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, alvin.lee2@amd.com,
+ George Shen <george.shen@amd.com>, harry.wentland@amd.com,
+ Alan Liu <haoping.liu@amd.com>, sunpeng.li@amd.com,
+ Daniel Wheeler <daniel.wheeler@amd.com>, Mike.Hsieh@amd.com,
+ qingqing.zhuo@amd.com, Xinhui.Pan@amd.com, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <alvin.lee2@amd.com>
+From: George Shen <george.shen@amd.com>
 
-[ Upstream commit 2b1b838ea8e5437ef06a29818d16e9efdfaf0037 ]
+[ Upstream commit 974764180838516f80a13257da67a1ec6afb87d4 ]
 
-[Description]
-In overclocking scenarios the max memclk could be higher
-than the DC mode limit. However, for configs that don't
-support MCLK switching we need to set the max memclk to
-the overclocked max instead of the DC mode max or we
-could result in underflow.
+[Why]
+Current BW calculations do not account for the additional padding added
+for uncompressed pixel-to-symbol packing.
 
-Reviewed-by: Samson Tam <samson.tam@amd.com>
-Acked-by: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
+This results in X.Y being too low for 128b/132b SST streams in certain
+scenarios. If X.Y is too low, end user can observe image corruption.
+
+[How]
+Add function to calculate stream overhead to timing BW calculation for
+128b/132b SST cases.
+
+Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
+Acked-by: Alan Liu <haoping.liu@amd.com>
+Signed-off-by: George Shen <george.shen@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dc.h         |  2 +
+ drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c | 42 +++++++++++++++++++++
+ 2 files changed, 44 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-index cb992aca760dc..5fc78bf927bbc 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-@@ -802,7 +802,7 @@ static void dcn32_set_hard_min_memclk(struct clk_mgr *clk_mgr_base, bool current
- 					khz_to_mhz_ceil(clk_mgr_base->clks.dramclk_khz));
- 		else
- 			dcn32_smu_set_hard_min_by_freq(clk_mgr, PPCLK_UCLK,
--					clk_mgr_base->bw_params->clk_table.entries[clk_mgr_base->bw_params->clk_table.num_entries_per_clk.num_memclk_levels - 1].memclk_mhz);
-+					clk_mgr_base->bw_params->max_memclk_mhz);
- 	} else {
- 		dcn32_smu_set_hard_min_by_freq(clk_mgr, PPCLK_UCLK,
- 				clk_mgr_base->bw_params->clk_table.entries[0].memclk_mhz);
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 9279990e43694..508fd6ab58e80 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -1375,6 +1375,8 @@ struct dc_plane_state *dc_get_surface_for_mpcc(struct dc *dc,
+ 
+ uint32_t dc_get_opp_for_plane(struct dc *dc, struct dc_plane_state *plane);
+ 
++void dc_set_disable_128b_132b_stream_overhead(bool disable);
++
+ /* The function returns minimum bandwidth required to drive a given timing
+  * return - minimum required timing bandwidth in kbps.
+  */
+diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+index 2bdc47615543c..9a0c9f9353b41 100644
+--- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
++++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+@@ -40,6 +40,8 @@ static bool dsc_policy_enable_dsc_when_not_needed;
+ 
+ static bool dsc_policy_disable_dsc_stream_overhead;
+ 
++static bool disable_128b_132b_stream_overhead;
++
+ #ifndef MAX
+ #define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
+ #endif
+@@ -47,6 +49,41 @@ static bool dsc_policy_disable_dsc_stream_overhead;
+ #define MIN(X, Y) ((X) < (Y) ? (X) : (Y))
+ #endif
+ 
++/* Need to account for padding due to pixel-to-symbol packing
++ * for uncompressed 128b/132b streams.
++ */
++static uint32_t apply_128b_132b_stream_overhead(
++	const struct dc_crtc_timing *timing, const uint32_t kbps)
++{
++	uint32_t total_kbps = kbps;
++
++	if (disable_128b_132b_stream_overhead)
++		return kbps;
++
++	if (!timing->flags.DSC) {
++		struct fixed31_32 bpp;
++		struct fixed31_32 overhead_factor;
++
++		bpp = dc_fixpt_from_int(kbps);
++		bpp = dc_fixpt_div_int(bpp, timing->pix_clk_100hz / 10);
++
++		/* Symbols_per_HActive = HActive * bpp / (4 lanes * 32-bit symbol size)
++		 * Overhead_factor = ceil(Symbols_per_HActive) / Symbols_per_HActive
++		 */
++		overhead_factor = dc_fixpt_from_int(timing->h_addressable);
++		overhead_factor = dc_fixpt_mul(overhead_factor, bpp);
++		overhead_factor = dc_fixpt_div_int(overhead_factor, 128);
++		overhead_factor = dc_fixpt_div(
++			dc_fixpt_from_int(dc_fixpt_ceil(overhead_factor)),
++			overhead_factor);
++
++		total_kbps = dc_fixpt_ceil(
++			dc_fixpt_mul_int(overhead_factor, total_kbps));
++	}
++
++	return total_kbps;
++}
++
+ uint32_t dc_bandwidth_in_kbps_from_timing(
+ 	const struct dc_crtc_timing *timing)
+ {
+@@ -1160,6 +1197,11 @@ void dc_dsc_policy_set_disable_dsc_stream_overhead(bool disable)
+ 	dsc_policy_disable_dsc_stream_overhead = disable;
+ }
+ 
++void dc_set_disable_128b_132b_stream_overhead(bool disable)
++{
++	disable_128b_132b_stream_overhead = disable;
++}
++
+ void dc_dsc_get_default_config_option(const struct dc *dc, struct dc_dsc_config_options *options)
+ {
+ 	options->dsc_min_slice_height_override = dc->debug.dsc_min_slice_height_override;
 -- 
 2.40.1
 
