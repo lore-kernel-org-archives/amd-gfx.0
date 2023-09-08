@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D3BBEE8010
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Sep 2023 14:35:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39C6AEE8011
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Sep 2023 14:35:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEEC310E8CF;
-	Fri,  8 Sep 2023 14:35:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49BB510E8D3;
+	Fri,  8 Sep 2023 14:35:45 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B32C810E8CF;
- Fri,  8 Sep 2023 14:35:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03AA110E8D1;
+ Fri,  8 Sep 2023 14:35:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
@@ -19,31 +19,29 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=sm5cLPPVnG35jNFyBxl/t+oSTz+wIWhzfnyLq38aQvs=; b=Bnc9BuYin8EAbj4eKmI80pe/ao
- /JISTSOQ8OQ9Y0hgfcI7dzk6ztA+3k6ffIewZXCOYCHW6+tyg09tVyGz5X+IOMJOUGJF8RGOveGEm
- 5FNp+KGqcmd1VR4q//XmQtVfh4dcSPBN+oMqpzid5HX6Vw4Pg7SDmGx81NUFHI8DB2bmK7TrtB8le
- jSmtpHKGiJFAjQOeV7KhlJS75zgqN3D3NNK1938a7c7gT8OqJAZwLV2xFY+69ylrTGgJlostruEmW
- v0xTBiCQXzd5sMYeuWp+MDBk6KYwG8wI59n0pKhUWgG8O8uyKWUHG9+jv9xNKpQr0XfPNfZ7WUJ1q
- jym+Z0ZA==;
+ bh=KhangHqvifzsEmrU/jafDlCuZhalHpNTZ2BYg95hJmg=; b=ix0N7KiqUqtc7Vy3wXgBLQgdTe
+ UqQ+5O4MJGXwxfxWwg7t0y3BBZ3yQXdBoOArASHDG0Z1U35gY4q/JjjpdZaT3aSbjYNBLwG+hvq7u
+ +jq5bWLk1q86bGKvJPgWWlSrmC+hErrD/kvKZrilDMgWuYY0y6p4JDlurVzHi/GT+mFijHbnxWZSs
+ O4k9ateSk/Z0HEL2qxRep8+/5Kt1B+KUgkUFnxQJdSc0jeKZ669RxiafnR8MCFVTLGgDb9exjTGWi
+ 6Rj4G0dOHuhW1ru/4E5ZiiOiYTppAGsb2cv2uXReFvt/5ROvZI5VHrpykuiG/ZD/jV/Uy40d38K9/
+ t1JQkkPA==;
 Received: from [38.44.68.151] (helo=mail.igalia.com)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qecFw-001Ot2-7P; Fri, 08 Sep 2023 16:14:43 +0200
-Date: Fri, 8 Sep 2023 13:14:38 -0100
+ id 1qecDd-001Oqj-VU; Fri, 08 Sep 2023 16:12:21 +0200
+Date: Fri, 8 Sep 2023 13:11:59 -0100
 From: Melissa Wen <mwen@igalia.com>
 To: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [PATCH v2 07/34] drm/amd/display: explicitly define EOTF and
- inverse EOTF
-Message-ID: <20230908141429.j5qaukyjo4n5na7d@mail.igalia.com>
+Subject: Re: [PATCH v2 01/34] drm/amd/display: fix segment distribution for
+ linear LUTs
+Message-ID: <20230908141159.6hfne5r7hxi6bycs@mail.igalia.com>
 References: <20230810160314.48225-1-mwen@igalia.com>
- <20230810160314.48225-8-mwen@igalia.com>
- <20230822140242.162a843a.pekka.paalanen@collabora.com>
- <20230825141639.vurga52ysal37n2m@mail.igalia.com>
- <40f1fabe-69ce-4b23-aed8-9f0837fe9988@amd.com>
+ <20230810160314.48225-2-mwen@igalia.com>
+ <7e11c23d-2824-4f32-b863-13cc631a6d40@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <40f1fabe-69ce-4b23-aed8-9f0837fe9988@amd.com>
+In-Reply-To: <7e11c23d-2824-4f32-b863-13cc631a6d40@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,246 +69,162 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 09/06, Harry Wentland wrote:
-> 
-> 
-> On 2023-08-25 10:18, Melissa Wen wrote:
-> > On 08/22, Pekka Paalanen wrote:
-> >> On Thu, 10 Aug 2023 15:02:47 -0100
-> >> Melissa Wen <mwen@igalia.com> wrote:
-> >>
-> >>> Instead of relying on color block names to get the transfer function
-> >>> intention regarding encoding pixel's luminance, define supported
-> >>> Electro-Optical Transfer Functions (EOTFs) and inverse EOTFs, that
-> >>> includes pure gamma or standardized transfer functions.
-> >>>
-> >>> Suggested-by: Harry Wentland <harry.wentland@amd.com>
-> >>> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> >>> ---
-> >>>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 19 +++--
-> >>>  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 69 +++++++++++++++----
-> >>>  2 files changed, 67 insertions(+), 21 deletions(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> >>> index c749c9cb3d94..f6251ed89684 100644
-> >>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> >>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> >>> @@ -718,14 +718,21 @@ extern const struct amdgpu_ip_block_version dm_ip_block;
-> >>>  
-> >>>  enum amdgpu_transfer_function {
-> >>>  	AMDGPU_TRANSFER_FUNCTION_DEFAULT,
-> >>> -	AMDGPU_TRANSFER_FUNCTION_SRGB,
-> >>> -	AMDGPU_TRANSFER_FUNCTION_BT709,
-> >>> -	AMDGPU_TRANSFER_FUNCTION_PQ,
-> >>> +	AMDGPU_TRANSFER_FUNCTION_SRGB_EOTF,
-> >>> +	AMDGPU_TRANSFER_FUNCTION_BT709_EOTF,
-> >>> +	AMDGPU_TRANSFER_FUNCTION_PQ_EOTF,
-> >>>  	AMDGPU_TRANSFER_FUNCTION_LINEAR,
-> >>>  	AMDGPU_TRANSFER_FUNCTION_UNITY,
-> >>> -	AMDGPU_TRANSFER_FUNCTION_GAMMA22,
-> >>> -	AMDGPU_TRANSFER_FUNCTION_GAMMA24,
-> >>> -	AMDGPU_TRANSFER_FUNCTION_GAMMA26,
-> >>> +	AMDGPU_TRANSFER_FUNCTION_GAMMA22_EOTF,
-> >>> +	AMDGPU_TRANSFER_FUNCTION_GAMMA24_EOTF,
-> >>> +	AMDGPU_TRANSFER_FUNCTION_GAMMA26_EOTF,
-> >>> +	AMDGPU_TRANSFER_FUNCTION_SRGB_INV_EOTF,
-> >>> +	AMDGPU_TRANSFER_FUNCTION_BT709_INV_EOTF,
-> >>> +	AMDGPU_TRANSFER_FUNCTION_PQ_INV_EOTF,
-> >>> +	AMDGPU_TRANSFER_FUNCTION_GAMMA22_INV_EOTF,
-> >>> +	AMDGPU_TRANSFER_FUNCTION_GAMMA24_INV_EOTF,
-> >>> +	AMDGPU_TRANSFER_FUNCTION_GAMMA26_INV_EOTF,
-> >>> +        AMDGPU_TRANSFER_FUNCTION_COUNT
-> >>>  };
-> >>>  
-> >>>  struct dm_plane_state {
-> >>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> >>> index 56ce008b9095..cc2187c0879a 100644
-> >>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> >>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> >>> @@ -85,18 +85,59 @@ void amdgpu_dm_init_color_mod(void)
-> >>>  }
-> >>>  
-> >>>  #ifdef AMD_PRIVATE_COLOR
-> >>> -static const struct drm_prop_enum_list amdgpu_transfer_function_enum_list[] = {
-> >>> -	{ AMDGPU_TRANSFER_FUNCTION_DEFAULT, "Default" },
-> >>> -	{ AMDGPU_TRANSFER_FUNCTION_SRGB, "sRGB" },
-> >>> -	{ AMDGPU_TRANSFER_FUNCTION_BT709, "BT.709" },
-> >>> -	{ AMDGPU_TRANSFER_FUNCTION_PQ, "PQ (Perceptual Quantizer)" },
-> >>> -	{ AMDGPU_TRANSFER_FUNCTION_LINEAR, "Linear" },
-> >>> -	{ AMDGPU_TRANSFER_FUNCTION_UNITY, "Unity" },
-> >>> -	{ AMDGPU_TRANSFER_FUNCTION_GAMMA22, "Gamma 2.2" },
-> >>> -	{ AMDGPU_TRANSFER_FUNCTION_GAMMA24, "Gamma 2.4" },
-> >>> -	{ AMDGPU_TRANSFER_FUNCTION_GAMMA26, "Gamma 2.6" },
-> >>> +static const char * const
-> >>> +amdgpu_transfer_function_names[] = {
-> >>> +	[AMDGPU_TRANSFER_FUNCTION_DEFAULT]		= "Default",
-> >>> +	[AMDGPU_TRANSFER_FUNCTION_LINEAR]		= "Linear",
-> >>
-> >> Hi,
-> >>
-> >> if the below is identity, then what is linear? Is there a coefficient
-> >> (multiplier) somewhere? Offset?
-> >>
-> >>> +	[AMDGPU_TRANSFER_FUNCTION_UNITY]		= "Unity",
-> >>
-> >> Should "Unity" be called "Identity"?
+> On 2023-08-10 12:02, Melissa Wen wrote:
+> > From: Harry Wentland <harry.wentland@amd.com>
 > > 
-> > AFAIU, AMD treats Linear and Unity as the same: Identity. So, IIUC,
-> > indeed merging both as identity sounds the best approach.   
-> 
-> Agreed.
-> 
-> >>
-> >> Doesn't unity mean that the output is always 1.0 regardless of input?
-> >>
-> >>> +	[AMDGPU_TRANSFER_FUNCTION_SRGB_EOTF]		= "sRGB EOTF",
-> >>> +	[AMDGPU_TRANSFER_FUNCTION_BT709_EOTF]		= "BT.709 EOTF",
-> >>
-> >> BT.709 says about "Overall opto-electronic transfer characteristics at
-> >> source":
-> >>
-> >> 	In typical production practice the encoding function of image
-> >> 	sources is adjusted so that the final picture has the desired
-> >> 	look, as viewed on a reference monitor having the reference
-> >> 	decoding function of Recommendation ITU-R BT.1886, in the
-> >> 	reference viewing environment defined in Recommendation ITU-R
-> >> 	BT.2035.
-> >>
-> >> IOW, typically people tweak the encoding function instead of using
-> >> BT.709 OETF as is, which means that inverting the BT.709 OETF produces
-> >> something slightly unknown. The note about BT.1886 means that that
-> >> something is also not quite how it's supposed to be turned into light.
-> >>
-> >> Should this enum item be "BT.709 inverse OETF" and respectively below a
-> >> "BT.709 OETF"?
-> >>
-> >> What curve does the hardware actually implement?
+> > The region and segment calculation was incapable of dealing
+> > with regions of more than 16 segments. We first fix this.
 > > 
-> > Hmmmm.. I think I got confused in using OETF here since it's done within
-> > a camera. Looking at the coefficients used by AMD color module when not
-> > using ROM but build encoding and decoding curves[1] on pre-defined TF
-> > setup, I understand it's using OETF parameters for building both sRGB
-> > and BT 709:
+> > Now that we can support regions up to 256 elements we can
+> > define a better segment distribution for near-linear LUTs
+> > for our maximum of 256 HW-supported points.
 > > 
-> > ```
-> > /*sRGB     709     2.2 2.4 P3*/
-> > static const int32_t numerator01[] = { 31308,   180000, 0,  0,  0};
-> > static const int32_t numerator02[] = { 12920,   4500,   0,  0,  0};
-> > static const int32_t numerator03[] = { 55,      99,     0,  0,  0};
-> > static const int32_t numerator04[] = { 55,      99,     0,  0,  0};
-> > static const int32_t numerator05[] = { 2400,    2222,   2200, 2400, 2600};
-> > ```
+> > With these changes an "identity" LUT looks visually
+> > indistinguishable from bypass and allows us to use
+> > our 3DLUT.
 > > 
 > 
-> The first column here looks like the sRGB coefficients in Skia:
-> https://skia.googlesource.com/skia/+/19936eb1b23fef5187b07fb2e0e67dcf605c0672/include/core/SkColorSpace.h#46
-> 
-> The color module uses the same coefficients to calculate the transform
-> to linear space and from linear space. So it would support a TF and its
-> inverse.
-> 
-> From what I understand for sRGB and PQ its the EOTF and its inverse.
-> 
-> For BT.709 we should probably call it BT.709 inverse OETF (instead of
-> EOTF) and BT.709 OETF (instead of inverse EOTF).
+> Have you had a chance to test whether this patch makes a
+> difference? I haven't had the time yet.
 
-I see. I'll update the transfer function list and docs accordingly.
+Last time I tested there was a banding issue on plane shaper LUT PQ ->
+Display Native, but it seems I don't have this use case on tester
+anymore, so I wasn't able to double-check if the issue persist. Maybe
+Joshua can provide some inputs here.
 
-Thanks
+Something I noticed is that shaper LUTs are the only 1D LUT on DCN30
+pipeline that uses cm_helper_translate_curve_to_hw_format(), all others
+(dpp-degamma/dpp-blend/mpc-regamma) call cm3_helper_translate_curve_*.
+
+We can drop it from this series until we get the steps to report the
+issue properly.
 
 Melissa
 
 > 
-> While I'm okay to move ahead with these AMD driver-specific properties
-> without IGT tests (since they're not enabled and not UABI) we really
-> need IGT tests once they become UABI with the Color Pipeline API. And we
-> need more than just CRC testing. We'll need to do pixel-by-pixel comparison
-> so we can verify that the KMS driver behaves exactly how we expect for a
-> large range of values.
-> 
 > Harry
 > 
-> > Then EOTF and inverse EOTF for PQ [2], and OETF and it seems an inverse
-> > OETF but called EOTF for HLG[3]. But I'm an external dev, better if
-> > Harry can confirm.
+> > Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> > Signed-off-by: Melissa Wen <mwen@igalia.com>
+> > ---
+> >  .../amd/display/dc/dcn10/dcn10_cm_common.c    | 93 +++++++++++++++----
+> >  1 file changed, 75 insertions(+), 18 deletions(-)
 > > 
-> > Thank you for pointing it out.
-> > 
-> > [1] https://cgit.freedesktop.org/drm/drm-misc/tree/drivers/gpu/drm/amd/display/modules/color/color_gamma.c#n55
-> > [2] https://cgit.freedesktop.org/drm/drm-misc/tree/drivers/gpu/drm/amd/display/modules/color/color_gamma.c#n106
-> > [3] https://cgit.freedesktop.org/drm/drm-misc/tree/drivers/gpu/drm/amd/display/modules/color/color_gamma.c#n174
-> > 
-> >>
-> >> The others seem fine to me.
-> >>
-> >>
-> >> Thanks,
-> >> pq
-> >>
-> >>> +	[AMDGPU_TRANSFER_FUNCTION_PQ_EOTF]		= "PQ EOTF",
-> >>> +	[AMDGPU_TRANSFER_FUNCTION_GAMMA22_EOTF]		= "Gamma 2.2 EOTF",
-> >>> +	[AMDGPU_TRANSFER_FUNCTION_GAMMA24_EOTF]		= "Gamma 2.4 EOTF",
-> >>> +	[AMDGPU_TRANSFER_FUNCTION_GAMMA26_EOTF]		= "Gamma 2.6 EOTF",
-> >>> +	[AMDGPU_TRANSFER_FUNCTION_SRGB_INV_EOTF]	= "sRGB inv_EOTF",
-> >>> +	[AMDGPU_TRANSFER_FUNCTION_BT709_INV_EOTF]	= "BT.709 inv_EOTF",
-> >>> +	[AMDGPU_TRANSFER_FUNCTION_PQ_INV_EOTF]		= "PQ inv_EOTF",
-> >>> +	[AMDGPU_TRANSFER_FUNCTION_GAMMA22_INV_EOTF]	= "Gamma 2.2 inv_EOTF",
-> >>> +	[AMDGPU_TRANSFER_FUNCTION_GAMMA24_INV_EOTF]	= "Gamma 2.4 inv_EOTF",
-> >>> +	[AMDGPU_TRANSFER_FUNCTION_GAMMA26_INV_EOTF]	= "Gamma 2.6 inv_EOTF",
-> >>>  };
-> >>>  
-> >>> +static const u32 amdgpu_eotf =
-> >>> +	BIT(AMDGPU_TRANSFER_FUNCTION_SRGB_EOTF) |
-> >>> +	BIT(AMDGPU_TRANSFER_FUNCTION_BT709_EOTF) |
-> >>> +	BIT(AMDGPU_TRANSFER_FUNCTION_PQ_EOTF) |
-> >>> +	BIT(AMDGPU_TRANSFER_FUNCTION_GAMMA22_EOTF) |
-> >>> +	BIT(AMDGPU_TRANSFER_FUNCTION_GAMMA24_EOTF) |
-> >>> +	BIT(AMDGPU_TRANSFER_FUNCTION_GAMMA26_EOTF);
-> >>> +
-> >>> +static struct drm_property *
-> >>> +amdgpu_create_tf_property(struct drm_device *dev,
-> >>> +			  const char *name,
-> >>> +			  u32 supported_tf)
-> >>> +{
-> >>> +	u32 transfer_functions = supported_tf |
-> >>> +				 BIT(AMDGPU_TRANSFER_FUNCTION_DEFAULT) |
-> >>> +				 BIT(AMDGPU_TRANSFER_FUNCTION_LINEAR) |
-> >>> +				 BIT(AMDGPU_TRANSFER_FUNCTION_UNITY);
-> >>> +	struct drm_prop_enum_list enum_list[AMDGPU_TRANSFER_FUNCTION_COUNT];
-> >>> +	int i, len;
-> >>> +
-> >>> +	len = 0;
-> >>> +	for (i = 0; i < AMDGPU_TRANSFER_FUNCTION_COUNT; i++) {
-> >>> +		if ((transfer_functions & BIT(i)) == 0)
-> >>> +			continue;
-> >>> +
-> >>> +		enum_list[len].type = i;
-> >>> +		enum_list[len].name = amdgpu_transfer_function_names[i];
-> >>> +		len++;
-> >>> +	}
-> >>> +
-> >>> +	return drm_property_create_enum(dev, DRM_MODE_PROP_ENUM,
-> >>> +					name, enum_list, len);
-> >>> +}
-> >>> +
-> >>>  int
-> >>>  amdgpu_dm_create_color_properties(struct amdgpu_device *adev)
-> >>>  {
-> >>> @@ -116,11 +157,9 @@ amdgpu_dm_create_color_properties(struct amdgpu_device *adev)
-> >>>  		return -ENOMEM;
-> >>>  	adev->mode_info.plane_degamma_lut_size_property = prop;
-> >>>  
-> >>> -	prop = drm_property_create_enum(adev_to_drm(adev),
-> >>> -					DRM_MODE_PROP_ENUM,
-> >>> -					"AMD_PLANE_DEGAMMA_TF",
-> >>> -					amdgpu_transfer_function_enum_list,
-> >>> -					ARRAY_SIZE(amdgpu_transfer_function_enum_list));
-> >>> +	prop = amdgpu_create_tf_property(adev_to_drm(adev),
-> >>> +					 "AMD_PLANE_DEGAMMA_TF",
-> >>> +					 amdgpu_eotf);
-> >>>  	if (!prop)
-> >>>  		return -ENOMEM;
-> >>>  	adev->mode_info.plane_degamma_tf_property = prop;
-> >>
-> > 
-> > 
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c
+> > index 3538973bd0c6..04b2e04b68f3 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c
+> > @@ -349,20 +349,37 @@ bool cm_helper_translate_curve_to_hw_format(struct dc_context *ctx,
+> >  		 * segment is from 2^-10 to 2^1
+> >  		 * There are less than 256 points, for optimization
+> >  		 */
+> > -		seg_distr[0] = 3;
+> > -		seg_distr[1] = 4;
+> > -		seg_distr[2] = 4;
+> > -		seg_distr[3] = 4;
+> > -		seg_distr[4] = 4;
+> > -		seg_distr[5] = 4;
+> > -		seg_distr[6] = 4;
+> > -		seg_distr[7] = 4;
+> > -		seg_distr[8] = 4;
+> > -		seg_distr[9] = 4;
+> > -		seg_distr[10] = 1;
+> > +		if (output_tf->tf == TRANSFER_FUNCTION_LINEAR) {
+> > +			seg_distr[0] = 0; /* 2 */
+> > +			seg_distr[1] = 1; /* 4 */
+> > +			seg_distr[2] = 2; /* 4 */
+> > +			seg_distr[3] = 3; /* 8 */
+> > +			seg_distr[4] = 4; /* 16 */
+> > +			seg_distr[5] = 5; /* 32 */
+> > +			seg_distr[6] = 6; /* 64 */
+> > +			seg_distr[7] = 7; /* 128 */
+> > +
+> > +			region_start = -8;
+> > +			region_end = 1;
+> > +		} else {
+> > +			seg_distr[0] = 3; /* 8 */
+> > +			seg_distr[1] = 4; /* 16 */
+> > +			seg_distr[2] = 4;
+> > +			seg_distr[3] = 4;
+> > +			seg_distr[4] = 4;
+> > +			seg_distr[5] = 4;
+> > +			seg_distr[6] = 4;
+> > +			seg_distr[7] = 4;
+> > +			seg_distr[8] = 4;
+> > +			seg_distr[9] = 4;
+> > +			seg_distr[10] = 1; /* 2 */
+> > +			/* total = 8*16 + 8 + 64 + 2 = */
+> > +
+> > +			region_start = -10;
+> > +			region_end = 1;
+> > +		}
+> > +
+> >  
+> > -		region_start = -10;
+> > -		region_end = 1;
+> >  	}
+> >  
+> >  	for (i = region_end - region_start; i < MAX_REGIONS_NUMBER ; i++)
+> > @@ -375,16 +392,56 @@ bool cm_helper_translate_curve_to_hw_format(struct dc_context *ctx,
+> >  
+> >  	j = 0;
+> >  	for (k = 0; k < (region_end - region_start); k++) {
+> > -		increment = NUMBER_SW_SEGMENTS / (1 << seg_distr[k]);
+> > +		/*
+> > +		 * We're using an ugly-ish hack here. Our HW allows for
+> > +		 * 256 segments per region but SW_SEGMENTS is 16.
+> > +		 * SW_SEGMENTS has some undocumented relationship to
+> > +		 * the number of points in the tf_pts struct, which
+> > +		 * is 512, unlike what's suggested TRANSFER_FUNC_POINTS.
+> > +		 *
+> > +		 * In order to work past this dilemma we'll scale our
+> > +		 * increment by (1 << 4) and then do the inverse (1 >> 4)
+> > +		 * when accessing the elements in tf_pts.
+> > +		 *
+> > +		 * TODO: find a better way using SW_SEGMENTS and
+> > +		 *       TRANSFER_FUNC_POINTS definitions
+> > +		 */
+> > +		increment = (NUMBER_SW_SEGMENTS << 4) / (1 << seg_distr[k]);
+> >  		start_index = (region_start + k + MAX_LOW_POINT) *
+> >  				NUMBER_SW_SEGMENTS;
+> > -		for (i = start_index; i < start_index + NUMBER_SW_SEGMENTS;
+> > +		for (i = (start_index << 4); i < (start_index << 4) + (NUMBER_SW_SEGMENTS << 4);
+> >  				i += increment) {
+> > +			struct fixed31_32 in_plus_one, in;
+> > +			struct fixed31_32 value, red_value, green_value, blue_value;
+> > +			uint32_t t = i & 0xf;
+> > +
+> >  			if (j == hw_points - 1)
+> >  				break;
+> > -			rgb_resulted[j].red = output_tf->tf_pts.red[i];
+> > -			rgb_resulted[j].green = output_tf->tf_pts.green[i];
+> > -			rgb_resulted[j].blue = output_tf->tf_pts.blue[i];
+> > +
+> > +			in_plus_one = output_tf->tf_pts.red[(i >> 4) + 1];
+> > +			in = output_tf->tf_pts.red[i >> 4];
+> > +			value = dc_fixpt_sub(in_plus_one, in);
+> > +			value = dc_fixpt_shr(dc_fixpt_mul_int(value, t),  4);
+> > +			value = dc_fixpt_add(in, value);
+> > +			red_value = value;
+> > +
+> > +			in_plus_one = output_tf->tf_pts.green[(i >> 4) + 1];
+> > +			in = output_tf->tf_pts.green[i >> 4];
+> > +			value = dc_fixpt_sub(in_plus_one, in);
+> > +			value = dc_fixpt_shr(dc_fixpt_mul_int(value, t),  4);
+> > +			value = dc_fixpt_add(in, value);
+> > +			green_value = value;
+> > +
+> > +			in_plus_one = output_tf->tf_pts.blue[(i >> 4) + 1];
+> > +			in = output_tf->tf_pts.blue[i >> 4];
+> > +			value = dc_fixpt_sub(in_plus_one, in);
+> > +			value = dc_fixpt_shr(dc_fixpt_mul_int(value, t),  4);
+> > +			value = dc_fixpt_add(in, value);
+> > +			blue_value = value;
+> > +
+> > +			rgb_resulted[j].red = red_value;
+> > +			rgb_resulted[j].green = green_value;
+> > +			rgb_resulted[j].blue = blue_value;
+> >  			j++;
+> >  		}
+> >  	}
 > 
