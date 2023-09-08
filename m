@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CF47EEB56B
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Sep 2023 19:33:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6F9DEEB566
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Sep 2023 19:33:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D45E310E91B;
-	Fri,  8 Sep 2023 19:33:01 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7C5C10E211;
- Fri,  8 Sep 2023 19:33:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B4E610E91D;
+	Fri,  8 Sep 2023 19:33:26 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 656A410E91D;
+ Fri,  8 Sep 2023 19:33:25 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4078F61562;
- Fri,  8 Sep 2023 19:33:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2330BC4AF6F;
- Fri,  8 Sep 2023 19:32:56 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B28A1B821E2;
+ Fri,  8 Sep 2023 19:33:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10D16C433CC;
+ Fri,  8 Sep 2023 19:33:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1694201580;
- bh=wgz3VInpTZXOJ0IT8rln9c8uTobUqTSN4k5Jsfw0xi4=;
+ s=k20201202; t=1694201601;
+ bh=oFVOEI2vl5Izjjz2tJf5CFJD+of6q2SmaDV8PqTkO0g=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=F+4rjWqf/vgVnVdgs0EteCfA2pNfeljC1k7M65oEt9sHkj6v55hK95+Swl4vSZaLS
- sELejNz0LsA3tnshccN36AV4CQhMGYY4C7TEBMVQXg6gWfnOeXyDnijp2tOmQiV16H
- qOE+bpYms/l5iOKroZdauru5ydvLC2RL3NdoDct2LMG3ZFrsEqR+Db6MlvG2eDfP1o
- F+qEmyZVoLv70DLbzvvatvrDbB7G8I6SpJBLVen1MmfYVIJVfU8jRMmciyNWBUP0/O
- /T+0043mFbnw9nhvlTMiDlg7QArsf4Z0n74BJjH607bM4xIZ3vMn3MdszeumXGzmk/
- wV1kXRX89+Cbw==
+ b=nhWoFm44PFPA0AZ70ECVHgonDx5Sa1Pv5KjRDPKpS56n573kKEPX2O5fsuJnu3nbG
+ eR29xxd24fK7AnqYZhkmHPhtTLMY5dGXxxMP405QSttiYQPlVojA9xFrzVmhGPrYTx
+ v+83WqtKbgdNQ/uotuPem3bNgoawMUFtgLPitg+FG3/vBVV7bd76H2eWIm+znFPgc9
+ Dhb5cfNFa5vpMt+g4QIiXB+XnVioilGi3ACSSLUCpAJ8bI2mB+e4ql+lgiP8/VFbqt
+ RXy+JrEhTfTDNZKSF+V2InE+ygjL05byBD3kty/eONG0QHwFZTHB5/RuR79ERqnI15
+ OLasl5LqEy0LA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.4 13/31] drm/amd/display: Fix underflow issue on
- 175hz timing
-Date: Fri,  8 Sep 2023 15:31:42 -0400
-Message-Id: <20230908193201.3462957-13-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.4 18/31] drm/amd/display: Use DTBCLK as refclk
+ instead of DPREFCLK
+Date: Fri,  8 Sep 2023 15:31:47 -0400
+Message-Id: <20230908193201.3462957-18-sashal@kernel.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230908193201.3462957-1-sashal@kernel.org>
 References: <20230908193201.3462957-1-sashal@kernel.org>
@@ -56,75 +57,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Dillon Varone <dillon.varone@amd.com>,
- chris.park@amd.com, Alex Hung <alex.hung@amd.com>, airlied@gmail.com,
- dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
- amd-gfx@lists.freedesktop.org, nathan@kernel.org, sunpeng.li@amd.com,
- Daniel Wheeler <daniel.wheeler@amd.com>, Alvin.Lee2@amd.com, daniel@ffwll.ch,
- george.shen@amd.com, Alex Deucher <alexander.deucher@amd.com>,
- Leo Ma <hanghong.ma@amd.com>, Jun.Lei@amd.com, harry.wentland@amd.com,
+Cc: Sasha Levin <sashal@kernel.org>, Austin Zheng <austin.zheng@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>, dri-devel@lists.freedesktop.org,
+ jiapeng.chong@linux.alibaba.com, sunpeng.li@amd.com, airlied@gmail.com,
+ qingqing.zhuo@amd.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
+ Syed.Hassan@amd.com, amd-gfx@lists.freedesktop.org, syedsaaem.rizvi@amd.com,
+ Daniel Wheeler <daniel.wheeler@amd.com>, hersenxs.wu@amd.com,
+ Alvin Lee <alvin.lee2@amd.com>, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, harry.wentland@amd.com,
  christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Leo Ma <hanghong.ma@amd.com>
+From: Austin Zheng <austin.zheng@amd.com>
 
-[ Upstream commit 735688eb905db529efea0c78466fccc1461c3fde ]
+[ Upstream commit 4a30cc2bd281fa176a68b5305cd3695d636152ad ]
 
 [Why]
-Screen underflows happen on 175hz timing for 3 plane overlay case.
+Flash of corruption observed when UCLK switching after transitioning
+from DTBCLK to DPREFCLK on subVP(DP) + subVP(HDMI) config
+Scenario where DPREFCLK is required instead of DTBCLK is not expected
 
 [How]
-Based on dst y prefetch value clamp to equ or oto for bandwidth
-calculation.
+Always set the DTBCLK source as DTBCLK0
 
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Leo Ma <hanghong.ma@amd.com>
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Acked-by: Tom Chung <chiahsuan.chung@amd.com>
+Signed-off-by: Austin Zheng <austin.zheng@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../amd/display/dc/dml/dcn32/display_mode_vba_util_32.c    | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-index 61cc4904ade41..4c645854b263b 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-@@ -3463,6 +3463,7 @@ bool dml32_CalculatePrefetchSchedule(
- 	double TimeForFetchingMetaPTE = 0;
- 	double TimeForFetchingRowInVBlank = 0;
- 	double LinesToRequestPrefetchPixelData = 0;
-+	double LinesForPrefetchBandwidth = 0;
- 	unsigned int HostVMDynamicLevelsTrips;
- 	double  trip_to_mem;
- 	double  Tvm_trips;
-@@ -3892,11 +3893,15 @@ bool dml32_CalculatePrefetchSchedule(
- 			TimeForFetchingMetaPTE = Tvm_oto;
- 			TimeForFetchingRowInVBlank = Tr0_oto;
- 			*PrefetchBandwidth = prefetch_bw_oto;
-+			/* Clamp to oto for bandwidth calculation */
-+			LinesForPrefetchBandwidth = dst_y_prefetch_oto;
- 		} else {
- 			*DestinationLinesForPrefetch = dst_y_prefetch_equ;
- 			TimeForFetchingMetaPTE = Tvm_equ;
- 			TimeForFetchingRowInVBlank = Tr0_equ;
- 			*PrefetchBandwidth = prefetch_bw_equ;
-+			/* Clamp to equ for bandwidth calculation */
-+			LinesForPrefetchBandwidth = dst_y_prefetch_equ;
- 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c
+index ffbb739d85b69..8496ff4a25e35 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c
+@@ -290,7 +290,8 @@ static void dccg32_set_dpstreamclk(
+ 	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
  
- 		*DestinationLinesToRequestVMInVBlank = dml_ceil(4.0 * TimeForFetchingMetaPTE / LineTime, 1.0) / 4.0;
-@@ -3904,7 +3909,7 @@ bool dml32_CalculatePrefetchSchedule(
- 		*DestinationLinesToRequestRowInVBlank =
- 				dml_ceil(4.0 * TimeForFetchingRowInVBlank / LineTime, 1.0) / 4.0;
+ 	/* set the dtbclk_p source */
+-	dccg32_set_dtbclk_p_src(dccg, src, otg_inst);
++	/* always program refclk as DTBCLK. No use-case expected to require DPREFCLK as refclk */
++	dccg32_set_dtbclk_p_src(dccg, DTBCLK0, otg_inst);
  
--		LinesToRequestPrefetchPixelData = *DestinationLinesForPrefetch -
-+		LinesToRequestPrefetchPixelData = LinesForPrefetchBandwidth -
- 				*DestinationLinesToRequestVMInVBlank - 2 * *DestinationLinesToRequestRowInVBlank;
- 
- #ifdef __DML_VBA_DEBUG__
+ 	/* enabled to select one of the DTBCLKs for pipe */
+ 	switch (dp_hpo_inst) {
 -- 
 2.40.1
 
