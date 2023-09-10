@@ -4,68 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65A60EE57DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Sep 2023 13:08:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EC7AEE7FF4
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Sep 2023 13:08:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA21E10E2EC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 342A110E1AD;
 	Mon, 11 Sep 2023 13:08:25 +0000 (UTC)
-Received: from mail-qk1-x72d.google.com (mail-qk1-x72d.google.com
- [IPv6:2607:f8b0:4864:20::72d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 635BD10E09A;
- Sun, 10 Sep 2023 20:43:05 +0000 (UTC)
-Received: by mail-qk1-x72d.google.com with SMTP id
- af79cd13be357-76ef27a8e4dso243499085a.1; 
- Sun, 10 Sep 2023 13:43:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1694378584; x=1694983384; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language:subject
- :references:cc:to:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to;
- bh=9msZ5DbtmGekV4G9H997JGWjDCJ9TtwZbavZxL9DMMc=;
- b=Ws4kA8DDL2E8lIb98YEvMhF1EV7TV1x519is+nuJJX2zQ95XwU/GLgxmxqN+Nlkq6v
- qNSIBxWsI66nHFRYyBZX5rz4WfB8JjgTyBTN6ANjvj/of0zeLlmeaU4M564OUy8Ez8d3
- sDVDY5HhzLGnOgQiOc/R21rCnfLoM+SHN74RH/tSkNzmV3ozRQzkEdvLIE8eQDlrc/m9
- dant51Vy7i1Mn4R7n0n5XWecnaTMd45ZaG6+AYxz8i4b1DB+33KQCwrCR6Fz0JOqKkyM
- GKpP9GdTgM+DWeqQyMZ0NK3m+LJ/STIQPnN3VIr34HLPdX44yHKrj2+jsOBuyEyzfVwz
- NYww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694378584; x=1694983384;
- h=content-transfer-encoding:in-reply-to:from:content-language:subject
- :references:cc:to:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=9msZ5DbtmGekV4G9H997JGWjDCJ9TtwZbavZxL9DMMc=;
- b=eq1EX/wUaCG/JVjC35oHRk7QQbIbQFCJq2hPBIRHHA52ApkhME5DKwODbiK656iUVN
- T55rIYWMKZnAUXTlsbHGjbDV+ynJVjc0LOYHBvla3Y98AWwWJplCD33xhQkl4Rl+LxQH
- or6LkSgTb4tQf1n8gyTemXpTwFccGsTKTXhPB6HAGqMmMTN03wBczxnk7q3PjaKSP09C
- 7Jzga4voo9ho89FikYBya4uI/4Cx+nhid47JNFrC8OlHDhDBkhlAYJL/lPdW4dmbLQPZ
- n7pzjC/E1LRQsTENzIFeK16Ytd4sD68+sPAFqmbi9PtECSC3mmjuoJkjWERM6jNh95wD
- evqA==
-X-Gm-Message-State: AOJu0YzBTJwe5lQ+W2bwmdvgIMs63XMogXFEAwkORj6otILeSNzNzKas
- GxgvaDGwgGqUtqhiVixtlg==
-X-Google-Smtp-Source: AGHT+IGFD46wMQVTSgKn/nRK0+OF5Uj0+a2n5PrWm4+i0yeQVx8oqrj3HKfG4ybkZzKzbEaxQ/+V/g==
-X-Received: by 2002:a05:620a:4316:b0:76c:a673:5271 with SMTP id
- u22-20020a05620a431600b0076ca6735271mr10659649qko.24.1694378584265; 
- Sun, 10 Sep 2023 13:43:04 -0700 (PDT)
-Received: from ?IPV6:2603:6010:7a04:7681:ad4:cff:fe30:e67?
- (2603-6010-7a04-7681-0ad4-0cff-fe30-0e67.res6.spectrum.com.
- [2603:6010:7a04:7681:ad4:cff:fe30:e67])
- by smtp.googlemail.com with ESMTPSA id
- qz8-20020a05620a8c0800b00770f2a690a8sm1208073qkn.53.2023.09.10.13.43.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 10 Sep 2023 13:43:03 -0700 (PDT)
-Message-ID: <d32d6919-47cf-4ddc-955a-0759088220ae@gmail.com>
-Date: Sun, 10 Sep 2023 15:43:01 -0500
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C41010E00B;
+ Sun, 10 Sep 2023 23:44:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=psFHv5kVZjBZeSjSwTGpttOqkbU4kOzBlHIhUIId7P8=; b=caYFO9eaBmvQfAm7wMM/auiAzw
+ 0HYDndat46HAViXPi597CkWvxYkycwL8jH55f1Jn9XHJu8YdD854xHCvwC8dTFSoO7hk2I9SxENKm
+ qWh9cbfHlrsi+LbGTegt1yumvwHVwuVaMyvs6Vj2wcGV4VUNkw39ZviVBTnNn/zvKdhjqKbtoC3dR
+ W9RSiQFEYApN0LiRJYUtr6XQqjjNBrBm+t0lZVHVcEYnmFULtzu1NKcm48eT4Uq5P2uCu9nFFrOcF
+ w6tkepsKUReqftkY9T8oBcPC7eInm+zpyLVEunM8Q2K+Cy3nbGQ8h2wzOEA12JgrCXSD28v2bSZ37
+ HKnxgUmw==;
+Received: from [2601:1c2:980:9ec0::9fed] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1qfU6l-00GzAn-0h; Sun, 10 Sep 2023 23:44:51 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/display: fix replay_mode kernel-doc warning
+Date: Sun, 10 Sep 2023 16:44:50 -0700
+Message-ID: <20230910234450.15962-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: gregkh@linuxfoundation.org
-References: <2023083119-phoney-ascend-d4ec@gregkh>
-Subject: Re: [PATCH AUTOSEL 5.10 13/22] drm/amdgpu: install stub fence into
- potential unused fence pointers
-Content-Language: en-US
-From: Bryan Jennings <bryjen423@gmail.com>
-In-Reply-To: <2023083119-phoney-ascend-d4ec@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 11 Sep 2023 13:08:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,14 +46,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sashal@kernel.org, airlied@linux.ie, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, olvaffe@gmail.com,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- stable@vger.kernel.org, Lang.Yu@amd.com, christian.koenig@amd.com
+Cc: kernel test robot <lkp@intel.com>, Leo Li <sunpeng.li@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is also causing log spam on 5.15.  It was included in 5.15.128 as 
-commit 4921792e04f2125b5eadef9dbe9417a8354c7eff.  I encountered this and 
-found https://gitlab.freedesktop.org/drm/amd/-/issues/2820 while 
-researching the problem.
+Fix the typo in the kernel-doc for @replay_mode to prevent
+kernel-doc warnings:
+
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h:623: warning: Incorrect use of kernel-doc format:          * @replay mode: Replay supported
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h:626: warning: Function parameter or member 'replay_mode' not described in 'amdgpu_hdmi_vsdb_info'
+
+Fixes: ec8e59cb4e0c ("drm/amd/display: Get replay info from VSDB")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Reported-by: kernel test robot <lkp@intel.com>
+Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff -- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -620,7 +620,7 @@ struct amdgpu_hdmi_vsdb_info {
+ 	unsigned int max_refresh_rate_hz;
+ 
+ 	/**
+-	 * @replay mode: Replay supported
++	 * @replay_mode: Replay supported
+ 	 */
+ 	bool replay_mode;
+ };
