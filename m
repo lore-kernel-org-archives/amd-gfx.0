@@ -4,66 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E7F0EE57DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Sep 2023 13:08:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48B57EE7FF4
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Sep 2023 13:08:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17D5710E2ED;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBC0F10E2EE;
 	Mon, 11 Sep 2023 13:08:29 +0000 (UTC)
-Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
- [IPv6:2607:f8b0:4864:20::534])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25DE110E139;
- Sat,  9 Sep 2023 11:00:55 +0000 (UTC)
-Received: by mail-pg1-x534.google.com with SMTP id
- 41be03b00d2f7-51b4ef5378bso2413838a12.1; 
- Sat, 09 Sep 2023 04:00:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1694257254; x=1694862054; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=0MKE8EZz8+wkisaN/pk04lbVR7Q5FuzqtTxgn480aHE=;
- b=CH4262mUBnA9BloXajAZyvaXiDx9Z3NJ0lvC4fxZoWXOKX/s9EHwGZjxZSh2Jlcpwv
- gDmdTpo5WfbI14ybl0nSvSf9tqHeCKqunHdu7f7qSCieLUzBD6zS0FHs1oBajsz9p/V8
- 1pzwF+z8Qhse5eG1wjwuHXx1Dnc/V9bJjWz11FxWwdZ/NxUfPcVBVBhX0PYPc9AhYRDf
- uME2j2l6JMQuELuexOnMYsijdGsF8qcBIXayhfq3HlSqdEIbcogG+tkw1hnJT5iT6/mU
- Oq5jwZg4+MVj5SeyZb5rPDv3VbfyHFsp9lfxI3dHx5MIcaDU2eozSSY5mqnxPq0weR/k
- /rkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694257254; x=1694862054;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0MKE8EZz8+wkisaN/pk04lbVR7Q5FuzqtTxgn480aHE=;
- b=uIByEB4CuhtN6vUBQgC5CPvmsymfV1OmVxEpOAfESy7dThoxTGm4clMtKBy1/GgEpn
- 8rdSNDWqbMj9jJhhIgb0niNXEqUQlWCJVAMETgLi8nwJ/t4ffGlyJh+JDDSeX7IRLuHc
- N8J0P7JvDqhlqhwWqIS2Zyaka209CEfzUJ2I3bg97bh/wzFxxEZZw6TEj5hJLLrgJf39
- CGjZ6HLM7WpiAESOdRIIsO62J33+S6Dr9M2Tf4slw3Fwh2Vf38CVSXkYmEVWpOJFCtjt
- 9KNoVJ48Vetj+5qxcW4pjD46TsWdomre32pGqfC4TtiECdrK0/Fu8NeMAAwW+AbYVhRI
- PpHQ==
-X-Gm-Message-State: AOJu0YwzuULh7qiuplcCHQITnpl38dg1j7rVwVe1bXijqMizcinYkeM/
- iRY9z6dg2s4TMMnjpAUUi+E=
-X-Google-Smtp-Source: AGHT+IHjR9ImlRNAJDU14CsSwYU+UYCaHpx9AY/5PxIX5+9RLyupEWZUwucf1ozgfoBZISKR1BTvIg==
-X-Received: by 2002:a17:902:ea0a:b0:1bf:4a1f:2b57 with SMTP id
- s10-20020a170902ea0a00b001bf4a1f2b57mr6365856plg.13.1694257254474; 
- Sat, 09 Sep 2023 04:00:54 -0700 (PDT)
-Received: from debian.me ([103.124.138.83]) by smtp.gmail.com with ESMTPSA id
- 17-20020a170902c11100b001b8a1a25e6asm3028909pli.128.2023.09.09.04.00.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 09 Sep 2023 04:00:53 -0700 (PDT)
-Received: by debian.me (Postfix, from userid 1000)
- id 39C208A6E187; Sat,  9 Sep 2023 18:00:49 +0700 (WIB)
-Date: Sat, 9 Sep 2023 18:00:49 +0700
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: bugzilla-daemon@kernel.org, dri-devel@lists.freedesktop.org,
- Michael Mair-Keimberger <mmk+bugs@levelnine.at>
-Subject: Re: [Bug 217892] New: [amdgpu]: system freezes when trying to turn
- back on monitor
-Message-ID: <ZPxQYWLJQl7x2qAc@debian.me>
-References: <bug-217892-2300@https.bugzilla.kernel.org/>
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9C5710E19A;
+ Mon, 11 Sep 2023 08:42:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1694421743; x=1725957743;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=kXCb911Im1WYlhVa1w+GsUGBVADxyxhDRL0Nfwv2OM4=;
+ b=dLHEJLAC5ob/YE/az4Uxb64byqgFTvtSwVJyYYzTuW+Pn6/FIr7Y/n6y
+ Udf6i0Fo9YgWMzCfgBaxLj1iF0Gd55urKSAau8cx58YELpUx7OTsWO6Xj
+ 3Y+HjoJyJPmCOlr+pIg+CsSJOYWmSCytEzuecRVbi+VJsLKaCHZAiJPlA
+ JIC7YSyCFrMZc9c9D9QZ8U104Tm5qUU2U6+6rG/ocxS7ACW0CPH9Izkhd
+ mgrUT7029J8FEbcy0mrIBjH+89YgGZqHFqtVTYXT7QS2UwumqjfOMrcUD
+ JQNbKg4G3uUm+n5vO97A+bBRSuhMsI+FbMCOR+PjFnQyiQ670+wZrkcYW w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10829"; a="368268883"
+X-IronPort-AV: E=Sophos;i="6.02,243,1688454000"; d="scan'208";a="368268883"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Sep 2023 01:42:23 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10829"; a="916949458"
+X-IronPort-AV: E=Sophos;i="6.02,243,1688454000"; d="scan'208";a="916949458"
+Received: from kschuele-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.252.63.119])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Sep 2023 01:42:17 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/amd/display: Remove unwanted drm edid references
+In-Reply-To: <20230905171354.2657889-1-alex.hung@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20230905171354.2657889-1-alex.hung@amd.com>
+Date: Mon, 11 Sep 2023 11:42:15 +0300
+Message-ID: <87tts1f6e0.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="pfTqKnr0Pj4UuA1x"
-Content-Disposition: inline
-In-Reply-To: <bug-217892-2300@https.bugzilla.kernel.org/>
+Content-Type: text/plain
 X-Mailman-Approved-At: Mon, 11 Sep 2023 13:08:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,103 +59,84 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux Regressions <regressions@lists.linux.dev>,
- Xinhui <Xinhui.Pan@amd.com>, Pan@debian.me,
- Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: stylon.wang@amd.com, haoping.liu@amd.com, srinivasan.shanmugam@amd.com,
+ sunpeng.li@amd.com, airlied@gmail.com, Qingqing.Zhuo@amd.com,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, Alex Hung <alex.hung@amd.com>,
+ daniel.wheeler@amd.com, aurabindo.pillai@amd.com, hersenxs.wu@amd.com,
+ hamza.mahfooz@amd.com, daniel@ffwll.ch, wayne.lin@amd.com,
+ alexander.deucher@amd.com, harry.wentland@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Tue, 05 Sep 2023, Alex Hung <alex.hung@amd.com> wrote:
+> [WHY]
+> edid_override and drm_edid_override_connector_update, according to drm
+> documentation, should not be referred outside drm_edid.
+>
+> [HOW]
+> Remove and replace them accordingly.
+>
+> Signed-off-by: Alex Hung <alex.hung@amd.com>
 
---pfTqKnr0Pj4UuA1x
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+FWIW,
 
-On Sat, Sep 09, 2023 at 10:19:36AM +0000, bugzilla-daemon@kernel.org wrote:
-> Hi,
->=20
-> My setup is a dual monitor 4K/144Hz with running sway on it. Both monitor=
-s are
-> connected via DP to a Advanced Micro Devices, Inc. [AMD/ATI] Navi 31 [Rad=
-eon RX
-> 7900 XT/7900 XTX]. Usually if i don't change monitor settings everything =
-works
-> as expected. The monitors do also wake up flawlessly after system idling.=
-=20
->=20
-> However, sometimes i turn off the second monitor (for example for playing
-> games). For that i made a shortcut in sway which looks like this.=20
-> > bindsym $mod+Shift+F12 output DP-2 toggle
->=20
-> Now, turning the monitor of works as expected. However, turning it back o=
-n i
-> encounter following erros/problems:
-> Main Workspace (Desktop) freezes, second monitor tries to get turned on. =
-(The
-> monitor led goes up)
-> After some time (couple of seconds, around 10-15sec) the main desktop wor=
-ks
-> again, the second screen goes off again.
-> At that point i usually have to reboot the system to get the second monit=
-or
-> back.
->=20
-> In dmesg is see following entries:
-> [ 8623.325357] [drm] enabling link 1 failed: 15
-> [ 8623.382238] [drm] REG_WAIT timeout 10us * 5000 tries -
-> enc32_stream_encoder_dp_unblank line:348
-> [ 8623.437493] [drm] REG_WAIT timeout 10us * 5000 tries -
-> enc32_stream_encoder_dp_unblank line:357
-> [ 8638.435963] [drm:amdgpu_dm_atomic_check] *ERROR* [CRTC:81:crtc-3] hw_d=
-one or
-> flip_done timed out
->=20
-> This is also something which can be reproduces quite easily. However some=
-times
-> it works almost without problems. (in that case, the monitor comes back b=
-ut the
-> desktop on the main monitor looks distorted/corruped - maximizing a appli=
-cation
-> fixes that)
->=20
-> This also seems to be a regression. With kernel 6.2 and 6.3 this worked as
-> expected.
->=20
-> I'm using following kernel:
-> Linux x2 6.5.2-gentoo #1 SMP PREEMPT_DYNAMIC Sat Sep  9 00:29:42 CEST 2023
-> x86_64 AMD Ryzen 9 7950X3D 16-Core Processor AuthenticAMD GNU/Linux
->=20
-> As soon as there is a linux-6.6 kernel available in gentoo i'll try that =
-one
-> too.
+Acked-by: Jani Nikula <jani.nikula@intel.com>
 
-You may try compiling your own kernel instead of having to wait for the ker=
-nel
-package to be updated. See
-Documentation/admin-guide/quickly-build-trimmed-linux.rst for full
-instructions.
+and thanks for doing this!
 
-In any case, please also report to freedesktop tracker [1].
+BR,
+Jani.
 
-Thanks.
 
-[1]: https://gitlab.freedesktop.org/drm/amd/-/issues
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 23 ++-----------------
+>  1 file changed, 2 insertions(+), 21 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 1bb1a394f55f..f6a255773242 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -6372,15 +6372,12 @@ amdgpu_dm_connector_late_register(struct drm_connector *connector)
+>  static void amdgpu_dm_connector_funcs_force(struct drm_connector *connector)
+>  {
+>  	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
+> +	struct amdgpu_connector *amdgpu_connector = to_amdgpu_connector(connector);
+>  	struct dc_link *dc_link = aconnector->dc_link;
+>  	struct dc_sink *dc_em_sink = aconnector->dc_em_sink;
+>  	struct edid *edid;
+>  
+> -	if (!connector->edid_override)
+> -		return;
+> -
+> -	drm_edid_override_connector_update(&aconnector->base);
+> -	edid = aconnector->base.edid_blob_ptr->data;
+> +	edid = drm_get_edid(connector, &amdgpu_connector->ddc_bus->aux.ddc);
+>  	aconnector->edid = edid;
+>  
+>  	/* Update emulated (virtual) sink's EDID */
+> @@ -6421,22 +6418,6 @@ static void create_eml_sink(struct amdgpu_dm_connector *aconnector)
+>  	};
+>  	struct edid *edid;
+>  
+> -	if (!aconnector->base.edid_blob_ptr) {
+> -		/* if connector->edid_override valid, pass
+> -		 * it to edid_override to edid_blob_ptr
+> -		 */
+> -
+> -		drm_edid_override_connector_update(&aconnector->base);
+> -
+> -		if (!aconnector->base.edid_blob_ptr) {
+> -			DRM_ERROR("No EDID firmware found on connector: %s ,forcing to OFF!\n",
+> -					aconnector->base.name);
+> -
+> -			aconnector->base.force = DRM_FORCE_OFF;
+> -			return;
+> -		}
+> -	}
+> -
+>  	edid = (struct edid *) aconnector->base.edid_blob_ptr->data;
+>  
+>  	aconnector->edid = edid;
 
---=20
-An old man doll... just what I always wanted! - Clara
-
---pfTqKnr0Pj4UuA1x
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZPxQXQAKCRD2uYlJVVFO
-o7KZAQDWMADIGvvTcahTyNGWKOyAYdfWQGERAaGcM4K0W5ionQD+KHDoQB1jBzbF
-QbCHiwM1qujrWM3QbnITdlz1lWH8kAs=
-=wMBf
------END PGP SIGNATURE-----
-
---pfTqKnr0Pj4UuA1x--
+-- 
+Jani Nikula, Intel Open Source Graphics Center
