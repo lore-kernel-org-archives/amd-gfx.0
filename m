@@ -4,60 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A5DACA0EC8
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Sep 2023 23:09:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5335ACA0EC8
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Sep 2023 23:09:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A349A10E38A;
-	Mon, 11 Sep 2023 23:09:08 +0000 (UTC)
-Received: from mail-io1-xd33.google.com (mail-io1-xd33.google.com
- [IPv6:2607:f8b0:4864:20::d33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A346C10E375;
- Mon, 11 Sep 2023 23:09:02 +0000 (UTC)
-Received: by mail-io1-xd33.google.com with SMTP id
- ca18e2360f4ac-792965813e7so188158439f.2; 
- Mon, 11 Sep 2023 16:09:02 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41C8210E37E;
+	Mon, 11 Sep 2023 23:09:10 +0000 (UTC)
+Received: from mail-il1-x134.google.com (mail-il1-x134.google.com
+ [IPv6:2607:f8b0:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C275410E37D;
+ Mon, 11 Sep 2023 23:09:05 +0000 (UTC)
+Received: by mail-il1-x134.google.com with SMTP id
+ e9e14a558f8ab-34bbc5eb310so18205485ab.2; 
+ Mon, 11 Sep 2023 16:09:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1694473742; x=1695078542; darn=lists.freedesktop.org;
+ d=gmail.com; s=20221208; t=1694473745; x=1695078545; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=BXZWG/nA8iNczDldd6SjpWfFw/ABPHN8JU5LNr6qz3s=;
- b=c0eT2OJ43DQFaCrxkCALrvZDnjGXbLlN84L6M1ttbiFNgF75q8zdNNc2MDh32JL052
- tB9UDKEP782MN6sOFYpJb9DFZ6R6T1PQQyuBkb6bN8RD+xhttncAYeo1Ombm0sKOnBjX
- E7LaStdwwXQC/ajjb2AcF1GdkFVYuBIY2TK+QQi650Ko/u+O0G3NYfwn1nNJ682Cpa0F
- Gd5sR2FGLE4w+aDNSTSxnxTwaBRdG3BcqLF02FRNwG6lPhfQrK+9C7fsGEusW9TeStze
- TYautONgqmv60ompxNRhWG5mlKQqRmB+rnZI5Mv7ssA3t0Q61iPOARydi/9oxZv9OsKu
- G2Nw==
+ bh=zeh7PAP1bDfU/ByWs4XqsTralpUOih5UTW3jDedZc7E=;
+ b=I207Q6vNSXApiphbh6jkAhsuJM1h1V8DWOes5CfGC4ezrfYJ2PExKRrbHxjXVlrl/k
+ FRgBmdUfhhnyFUTDjDrIj9oWhrLNT+ON3tO/EtaNpIRaqnXI294iEfYD4na5SH1+XtLP
+ 0PUcsP2hn65UypnXXXY4s44sJBFq3JXIbwYPFxI5rJzC488GXeiosBVtLrEohZ4Ml6+t
+ RGK1Odmpk+7VzVZWr5A5Id+EKuPAOQxSue8kTOqppyIlS3S8gUGTJGlXx1xkKv6LMucw
+ WQ8mj5sC2HV5MOZv0rdYttNaXjj3X+ju1Ild7RJOKyCE6RQ+O9tjTIfRxyG2fnj9IsWx
+ Jtuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694473742; x=1695078542;
+ d=1e100.net; s=20230601; t=1694473745; x=1695078545;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=BXZWG/nA8iNczDldd6SjpWfFw/ABPHN8JU5LNr6qz3s=;
- b=TWg/6tGM/BHNZ8+QO0k/aCLs1isuITveuiUhTk4XoURHGggqWijBNtcqoBrQJF4kVT
- k6ZY7d4VNRZ/osDaucAeTKO2lSSUTCTwmzwFqSUrICbpD85oMwWaS9VcTTA5kNmQf/xW
- 45/T5Jw/Vx8mlL9aUTCN8Np04+6UGy6v7QcAx79tppK/f9Zc45sqzqzUAPBfSrtuVcoi
- 93WeUIXdLr1Nsajw+whA9GDYgxyGWMCkZ/2nLzKqzjY0zaVAhnBXvEOrgGgB2fej278D
- ZHkty1+AhcKKF4jo/Q3TAhkBL2l6fMaVO0L9l7ROlfiHYDeLNBKPXKgGevDxf0JJuvAC
- uRKg==
-X-Gm-Message-State: AOJu0YzXtOH42FxQ7T623aYBluOSIKLpYMgqbjgtMXQ1S1s3fW05IfbE
- mTCxvybqHZQZ5BjdZFmIRIMh8Xgd5g2PBQ==
-X-Google-Smtp-Source: AGHT+IGY+Y9DO+vyrjnMRL7HVOugzwFjUd7HmRNBSMbrU8a8Upu6hXUK9+5a2CqGJ5tFV3wuipMVBQ==
-X-Received: by 2002:a05:6602:388c:b0:798:2665:8939 with SMTP id
- br12-20020a056602388c00b0079826658939mr5726278iob.20.1694473741943; 
- Mon, 11 Sep 2023 16:09:01 -0700 (PDT)
+ bh=zeh7PAP1bDfU/ByWs4XqsTralpUOih5UTW3jDedZc7E=;
+ b=J2qMn1R3VNNuQRom0HW6QN5GTT7a7K3x1YkGJcIm8YYnjU2W35BnihMeitpydRMzuF
+ BZ61PLppUdMB+qqy4iE9sjm7jIXNk41xg1RytcX3+gxjCP2VfiwO3eiiiSGZMq3kMv/1
+ olw3BSvsEsxb1pizYf8EK2hm5zGQX4T+LyUjZkYL86dvMv8z/LwpImmwUA4xX+6eMCFQ
+ d2Db/yiEiLkB8tbslSw/o9i5GqIlXeQRFDRobEhAG5p1my8K9TcRyyfrUKslbYkFQ6cf
+ zWb0IBBxNgmY9OecuvXR6EVe1lU5VjxF/79SKVWcSSduhexxx0GJzjaSRRpe4428keRc
+ 0YBw==
+X-Gm-Message-State: AOJu0YzKp0A8m6MI3bCJ7eAXB9z6QHWwYpSG4OjEMNcKkwor6ht+cwdA
+ UAdfcS3J+PagPOCAT720cD8=
+X-Google-Smtp-Source: AGHT+IFOVUo/VwcxfVY8ZADs8CkL6phLCtLh6KlZ/IQ/cX8VOt/0wmLERhDHtLnKqrozckRxSOEdzw==
+X-Received: by 2002:a05:6e02:1053:b0:34c:f665:861e with SMTP id
+ p19-20020a056e02105300b0034cf665861emr12027086ilj.21.1694473745039; 
+ Mon, 11 Sep 2023 16:09:05 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- z4-20020a029f04000000b00423240c7296sm2512607jal.69.2023.09.11.16.09.00
+ z4-20020a029f04000000b00423240c7296sm2512607jal.69.2023.09.11.16.09.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Sep 2023 16:09:01 -0700 (PDT)
+ Mon, 11 Sep 2023 16:09:04 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org, mcgrof@kernel.org,
  daniel.vetter@ffwll.ch
-Subject: [PATCH v6 16/22] dyndbg-test: build it with just
- CONFIG_DYNAMIC_DEBUG_CORE
-Date: Mon, 11 Sep 2023 17:08:32 -0600
-Message-ID: <20230911230838.14461-17-jim.cromie@gmail.com>
+Subject: [PATCH v6 18/22] dyndbg: reserve flag bit _DPRINTK_FLAGS_PREFIX_CACHED
+Date: Mon, 11 Sep 2023 17:08:34 -0600
+Message-ID: <20230911230838.14461-19-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230911230838.14461-1-jim.cromie@gmail.com>
 References: <20230911230838.14461-1-jim.cromie@gmail.com>
@@ -82,52 +81,37 @@ Cc: linux-doc@vger.kernel.org, jani.nikula@intel.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Make the test-module buildable with just CONFIG_DYNAMIC_DEBUG_CORE;
-add CFLAGS_$ofile defns to supply -DDYNAMIC_DEBUG_MODULE to cc.
-Change the Kconfig entry to allow building with just _CORE, and fix
-the help text.
+Reserve bit 7 to remember that a pr-debug callsite is/was:
+- enabled, with +p
+- wants a dynamic-prefix, with one+ of module:function:sourcfile
+- was previously called
+- was thus saved in the cache. NOT YET.
+
+Its unclear whether any cache fetch would be faster than 2-3 field
+fetches, but theres another factor; the 3 columns in the __dyndbg
+section are highly redundant and compressible, but to get the
+compression, we need field accessors, which will rebalance the
+tradeoff.
+
+So, for now, its just the bit reservation.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/Kconfig.debug | 10 +++++-----
- lib/Makefile      |  2 ++
- 2 files changed, 7 insertions(+), 5 deletions(-)
+ include/linux/dynamic_debug.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index d6798513a8c2..a40bc9ab689a 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -2794,12 +2794,12 @@ config TEST_STATIC_KEYS
- 	  If unsure, say N.
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 15edac27cb56..bdb0d12b13ec 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -38,6 +38,7 @@ struct _ddebug {
+ #define _DPRINTK_FLAGS_INCL_LINENO	(1<<3)
+ #define _DPRINTK_FLAGS_INCL_TID		(1<<4)
+ #define _DPRINTK_FLAGS_INCL_SOURCENAME	(1<<5)
++#define _DPRINTK_FLAGS_PREFIX_CACHED	(1<<7)
  
- config TEST_DYNAMIC_DEBUG
--	tristate "Test DYNAMIC_DEBUG"
--	depends on DYNAMIC_DEBUG
-+	tristate "Build test-dynamic-debug module"
-+	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
- 	help
--	  This module registers a tracer callback to count enabled
--	  pr_debugs in a 'do_debugging' function, then alters their
--	  enablements, calls the function, and compares counts.
-+	  This module works/demo's the dyndbg's classmap API, by
-+	  creating 2 classes: a DISJOINT classmap (like DRM.debug)
-+	  and a LEVELS/VERBOSE classmap (like verbose2 > verbose1).
- 
- 	  If unsure, say N.
- 
-diff --git a/lib/Makefile b/lib/Makefile
-index 31195c75f5a0..943492d94771 100644
---- a/lib/Makefile
-+++ b/lib/Makefile
-@@ -239,6 +239,8 @@ obj-$(CONFIG_HAVE_ARCH_TRACEHOOK) += syscall.o
- obj-$(CONFIG_DYNAMIC_DEBUG_CORE) += dynamic_debug.o
- #ensure exported functions have prototypes
- CFLAGS_dynamic_debug.o := -DDYNAMIC_DEBUG_MODULE
-+CFLAGS_test_dynamic_debug.o := -DDYNAMIC_DEBUG_MODULE
-+CFLAGS_test_dynamic_debug_submod.o := -DDYNAMIC_DEBUG_MODULE
- 
- obj-$(CONFIG_SYMBOLIC_ERRNAME) += errname.o
- 
+ #define _DPRINTK_FLAGS_INCL_ANY		\
+ 	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |\
 -- 
 2.41.0
 
