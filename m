@@ -4,88 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41D2AEE7FF4
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Sep 2023 05:54:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7A6CEE57DF
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Sep 2023 07:58:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A923C10E030;
-	Mon, 11 Sep 2023 05:54:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2683210E11E;
+	Mon, 11 Sep 2023 07:58:16 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2053.outbound.protection.outlook.com [40.107.220.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D23D910E030
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Sep 2023 05:54:18 +0000 (UTC)
+ (mail-co1nam11on2044.outbound.protection.outlook.com [40.107.220.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87A8110E11E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Sep 2023 07:58:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YpsJpYYuGQPqyLlDFOvDbrcjVPhozDjNW/ccoMCXh5855NROOO+Ho+M9ue26I+aDgu4/vY/k7slRgIFigbhKtYztzRX0VoA1qe62hfBYTv72GuB/e/9nawIeyQ3uRoQOeXiK+4GPFwFPb41JUYUWUjOGYeEQJIGCNWh2NHZsdaTcd/pCAiaeBbxbdNlnvF9OCVUKOc0OKqOBdq1ZjOXyOMFLe4Z1QDfL3YOvN6vbOT1w2slvf8v99J5YEoPJZ7tzqh0LVKyGt8DeCXaqV0BkQv5f8/bmbuUmHU+75kttvSXoZe2u94APIg37ZVHYjYZPFZRUQgpgN13x+LLxg3CPzQ==
+ b=YatmcpccKxgIDownHpAk8FVZIM0wyRslW40p9joLSSFrPB+i95OkwFeAx67HzOoC6CKBgiPCyaJEXHaqTikYnSIiiFjiPsoCQH5MJiifaaZtVDyqOLS/o0qGd6kLKhpxWRbP4ScWcraZCdc4Jthpm/P5rEF9iFN5e2d/4xTmJxHddJi+eKDRw/icMQ3vGpY5V7CSDL0UVnShAoMWkYIenWggofSTG0vfSXzxn22bcVnLQeMFci18YwodAsJu7r2L+SU3X4x9QADvGze8gRR8GgnYoT07Z3wCcKB8Ty2PbgsipFPEE0GHxz8fmIYMQbHUn5sGRxaL1Zu+G3cwYlNLSw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=waaLXTw7tXjivj3/XTXSbGHBifKwgg/vnaNWrf0LHoo=;
- b=V2hgBonlWV5ljecvqc2GmcrE4jZ8nGush7/S3Jf1fyCpeRBrGSYmIp7UD87cqP80tMIbppad3k7U/WCn+5nWOEa5/wXj4Izh3qGUYeyVOidfIOzVCRguJlrAutNXieidqdD+vkZpFnFlgoOh4ZwRXtjCUb3+bqqeEesnwTO+rjw+PEVwLYyu/AB0jzdanoCds15Zph89w4azl+PbH479EhFWk22GVAlR0To0X4Y6UYRM9f9+Ziwa5SEU/6B5cltx2QgegXHnDfiBJ3Lu9L7czIkyqgYta00/H6yj4VjEdGoQs2oZ9yd3rLpGe74lLQknPcpfHVpoYbXcT6vJUIas8g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=HoBxVUo0HxJMiyv/DGWZSKb38PMmADfoPodFCQ2Qr2g=;
+ b=H0G6rj5jjHrZ3c3LMGkiVvop+klBCSAnYrVr1X2IZnfDCiQG1J4LqiF2xyJlXbHG+2z3/AoshgYRTk2VdQoQGpasMF1QixCCRffgdWCBaAXpoRW7QLc7/B7WYtsWJQ0SAY3B4fSKCXBiwLVw0M1UJam0a8vTxrX92ebEQlj7bRmIEBejbpz4p5tGB13xa7z4oA7Y53r6Mkm7mt3cQiMNDsVE9PcSiuS1CXHRwxUkMQlr4slf5rxWuH950lOJRAgzAMRLClQyYFTZqfkSaRDa42oLmafnh2x3cUDK5w1SDGeYihPOb1PpBH5Y7SUeBAmXbHiAtwLJXIC+EL0qNgLD7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=waaLXTw7tXjivj3/XTXSbGHBifKwgg/vnaNWrf0LHoo=;
- b=H6ZxBJl7z/i/onnKxknfSsXXGpKeioDHJQ2G8esoyG+DPnKZV/piiO4DYkGXZ7pK0vtwZWXvets8mEZJ97+xxrw7x4jTJYT38z6tebS5XpYk3Nv8QUDkju7bGMcVJavbtHbPoCjJdYnLhAlegIu/JeBG97iuYZatd8L4Ti+BJC0=
-Received: from MW4PR04CA0257.namprd04.prod.outlook.com (2603:10b6:303:88::22)
- by DM4PR12MB6615.namprd12.prod.outlook.com (2603:10b6:8:8d::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6768.31; Mon, 11 Sep 2023 05:54:15 +0000
-Received: from CO1PEPF000044F5.namprd05.prod.outlook.com
- (2603:10b6:303:88:cafe::f0) by MW4PR04CA0257.outlook.office365.com
- (2603:10b6:303:88::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.35 via Frontend
- Transport; Mon, 11 Sep 2023 05:54:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000044F5.mail.protection.outlook.com (10.167.241.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6792.16 via Frontend Transport; Mon, 11 Sep 2023 05:54:15 +0000
-Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 11 Sep
- 2023 00:54:12 -0500
-From: Ma Jun <Jun.Ma2@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>
-Subject: [PATCH] drm/amd/pm: Add reset option for fan_curve on smu13_0_0
-Date: Mon, 11 Sep 2023 13:53:50 +0800
-Message-ID: <20230911055350.3940534-1-Jun.Ma2@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F5:EE_|DM4PR12MB6615:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9d4c1c04-e02b-4d18-0435-08dbb28b87f6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2if2dmvoS5wUZ2Xa6Yny0G5kL20kySWPxSWZke9ZOxjj3baZHqbH//Ceo8Hy1H7zvLCo8+/Mo7s6nhoPk1dLWMhLG1r78Ig3ftsyI4WepO3P5ZJ1x0d8isiixSSQaAx/1sD4619IQRMMWr5qdusJ6gE1ztXFzVcGXbbXsoi0R8tIvcSXIOocWDMFU4ioB8gkRAZmOyeMydN5fILquHv3Dpz+UcWup+hHOZZDwAEZcaqFx91uEJ7Bh9e4P+cOviKVzVd6eTSNFKmTKknlr68hzpyWUsKgb/SvJKQO3H0mR6+NSy9tTS+ZToRHyLAceNaal8RhW+27AhBcCoBQ0siLn1mMbzuLoii69S3r9qBZEwTYJTQk/TA4vIv4P4Zc2T3UTV9jeOP7BieVrc++AwQgEvhpniNMSw1FpMhdQF9izQBuh263D/3xOhw6eyxZZ8C7Jnb1WebcMCaQRau/jVak/wm5hojwFIOWHXNQZ5QlP1KQF4pfoRIjnZEdN301YD0KnozQ4xzsDDOAeqIDIU6IV4XYKGdRXututkjGQReWwAZdJItxBQcZV15yywaptySqeKsNtVM8HntFtjk+MgHFf4LYgm7P39d94IPzmyTj+CsCHzfRU0BVTTUpzK/AOZmg1VA6quUaXVQTIbYWpEWUN6x/0yNTWJcmCO1jjU2zx3XOKC6x1b75nHPotY9o/XQa3Kyc0cg1UIDqR8s7CUhPwINIUm2cM64GUfHSlTe/xkzYJGserH8ojHRCQl1E/AIccfAuM0cWhA9Lv7MTNPBBs0wXkSGzr5oCdw2HkB1+NcE=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(376002)(39860400002)(346002)(136003)(82310400011)(451199024)(186009)(1800799009)(46966006)(36840700001)(40470700004)(2906002)(4326008)(8936002)(41300700001)(5660300002)(54906003)(70586007)(70206006)(110136005)(8676002)(6636002)(316002)(478600001)(40460700003)(6666004)(7696005)(1076003)(2616005)(16526019)(47076005)(26005)(426003)(336012)(83380400001)(36756003)(36860700001)(40480700001)(81166007)(356005)(86362001)(82740400003)(36900700001)(2101003);
+ bh=HoBxVUo0HxJMiyv/DGWZSKb38PMmADfoPodFCQ2Qr2g=;
+ b=t0tuUsWjGbzIbAY5yCXEMcxBhQORildiaRILQE5a4//IrtaxqTJqJJS8W5/hUWP69HHU1AtS97GoymGqT7Ti0KfKY5U3JPlvCa46jBn3nEYVKcJbn93s6WnMwVFdeO68p3fXpjzE0t16HZ3XzFIDc1wYDPv/Xrj7MnoPXKaSUP8=
+Received: from DS7PR12MB6071.namprd12.prod.outlook.com (2603:10b6:8:9d::11) by
+ IA1PR12MB6307.namprd12.prod.outlook.com (2603:10b6:208:3e5::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.30; Mon, 11 Sep
+ 2023 07:58:12 +0000
+Received: from DS7PR12MB6071.namprd12.prod.outlook.com
+ ([fe80::c363:292a:63cc:ccf4]) by DS7PR12MB6071.namprd12.prod.outlook.com
+ ([fe80::c363:292a:63cc:ccf4%3]) with mapi id 15.20.6768.029; Mon, 11 Sep 2023
+ 07:58:11 +0000
+From: "Kamal, Asad" <Asad.Kamal@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Restore partition mode after reset
+Thread-Topic: [PATCH] drm/amdgpu: Restore partition mode after reset
+Thread-Index: AQHZ4kDTk5SElkr9JkS25pLHCwdjhbAVRi0Q
+Date: Mon, 11 Sep 2023 07:58:11 +0000
+Message-ID: <DS7PR12MB60715D9BCBE7B13A3C3DF00C8EF2A@DS7PR12MB6071.namprd12.prod.outlook.com>
+References: <20230908103942.995604-1-lijo.lazar@amd.com>
+In-Reply-To: <20230908103942.995604-1-lijo.lazar@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=587420c3-dd11-448f-9ea7-1c2fc59637c9;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-09-11T07:55:33Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS7PR12MB6071:EE_|IA1PR12MB6307:EE_
+x-ms-office365-filtering-correlation-id: 77e5246b-8e92-46b8-5062-08dbb29cd813
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: kCZNF3oGUCpyyFD/SMrXG+0v9HvyBje0/+6IHAlFV+LE1vz04Rq8FnTFjHyI8BJx1emDJoIi/tzZIgJpGIfhDEfYWgJ1UzVBZNqwme0pUp6EuM0PYhMAChPMqgJc+3XehqnkRWNZXaOpL6SAa1cbKp9LalinyNLy84Mai4Q5upISoFmj1lVkIOdk5l0MxTZhY2IbdqbgnKxGGxJClxEYXuMXoP7NSRdAjpbM1QMeQDPR9r/TMEE8Umwk5YuFfYUHdudpwTNKss+ZyJRbwv4VQbuNbgo7Dhl5ppoti+DUGIC3FteSnSWnMED9MqMtb6ti/pQf88TdpMDSZzjnF4KZHHcB5Wm4ho6up0lAymiaRo03dK98bjTm4taIX1l9+ehQhyQPzSDgcKvHe1Y79SdQ7zLeQcU/Z26Vfcz5nQEHb2ZIMr8llt7INiwPK+aZtMaEgihWhk/l5ZZxLW0O3iqX6fiZrsSgclsyI+DkuOdJKexBuyArftPuEGDZ+ZWkoDe1U9Z9s8f/s/SYAKZ3O4X3lH/cjyM4yx9xXpviJAMQjO/500B8g5sX740svDKjeaA8h5zgZY1Kk0GxgDt4pwfKxZQ8EJ0p2I75Z06ekLmUah2IvXIIxTxd0xQ63wGSiNo4
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6071.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366004)(39860400002)(396003)(376002)(136003)(346002)(1800799009)(451199024)(186009)(8676002)(8936002)(4326008)(41300700001)(110136005)(66556008)(54906003)(64756008)(52536014)(5660300002)(66476007)(76116006)(316002)(66946007)(66446008)(2906002)(122000001)(38070700005)(38100700002)(83380400001)(55016003)(9686003)(53546011)(26005)(86362001)(33656002)(71200400001)(6506007)(478600001)(7696005);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?VMLX39fKKB+2dkYqZf9aqWPbHptkna+uj5ch5290lMucA6Yth+7p4ZEunxER?=
+ =?us-ascii?Q?Nmbbe536meT7EUYR46IqeurzHA5Y4mPcU4s3Mfe7HwBOMOeUBtQnLDaxoHv1?=
+ =?us-ascii?Q?7DVDUAhBeFYif8tnBtua7R7qvHXNjeZJktmvJjdObwjFJPtNjbrzMtTHpJ/m?=
+ =?us-ascii?Q?P71oLiMVIUBlUs+WtX8mfpRJFTjBOrnoz/SrFEHYqt8LSo7e25KF/S7NHWne?=
+ =?us-ascii?Q?mBNqx+8e5iy6WdvCIg/CJYPmOe20SXpJhd+5aYZhJtnoh2iZll0/sw2CCHHR?=
+ =?us-ascii?Q?rCq1TftN9uv5jE5QLRitpiVp7aKcAG+fqO+xgJHFNhWyeuLFtET5jIAY7bBC?=
+ =?us-ascii?Q?IbiknYuMZvb95mn9aupDVVpr3RV2HH4D91ay817L0hBmcuIzIJf309Zog4Td?=
+ =?us-ascii?Q?3uhD69l7CcZPtGAtNcPYHAVyk3QXNEFO+D+7eJwjZjze1RaLT/yAEhJMmwT7?=
+ =?us-ascii?Q?nX+YKkIn3gjz88FKGFdxgyOosUoKUOFKj3QYqgglAXCUVr032FlYsDUhGhZf?=
+ =?us-ascii?Q?vC5E/pAc/7LYg/rn2NHggldLd+UimxYdamej0UxSAvYAbEu4Fk4LDsV+K9dG?=
+ =?us-ascii?Q?JhiwOj1vi7RkGqzU7Bx9ae/yT13wogcxYnJkHpB43lpjDcYtdWSxczjKOsVi?=
+ =?us-ascii?Q?GtYcGY64vZ0gpUmit53Nihu6MV/Q75rfeyEC/+Bwlf9H6DnvKa0mj+ncStIv?=
+ =?us-ascii?Q?z0o+drHwYrTuIbb1WKrvi0vZDJpSH+TOTeiQgMQBCv72RSSeLbbTeBs951zw?=
+ =?us-ascii?Q?Ot+VYVeNpEVZ//TxihDv4Z36uOQt+76DecpC6hQdJxasvHhe4ehZJqpN6UCY?=
+ =?us-ascii?Q?32FzgbbrrM1ADcbIDFHaJoCar3qkqVv1GQ7QVTJfD/c+ryE+ZI/ryN3vBqkA?=
+ =?us-ascii?Q?sFWGVMaE6nYJnw9vzX1ABaPCZ8b8aqwXvdOUmlZkm/C64lss9RvWbypjjLdv?=
+ =?us-ascii?Q?LjPBU06sNRxWwh8Z0m379JcQ0zm1KbAEnqs8OWkqhj3tIpQWNtZ2Rw11E1KC?=
+ =?us-ascii?Q?aYQBSz5JhVTU434FFxtNASFls96sYRyJ12t8hpde/5uohYVWGF+NvXrdfkL1?=
+ =?us-ascii?Q?8RV0VeSBtpF82QNbWNJeekbBZa5vS0d1hIHOG/t2MlwXSLsBZpA4HvEv8D6C?=
+ =?us-ascii?Q?wlsHVsN2g6Ke/wTr5Q6KHze64rEMohd7Qikp3yvKktxnCyMJyJ9pqGgQEtnu?=
+ =?us-ascii?Q?oYSaYxbRLXwhugQoTqbheAfzFW2vI5qioaGNHgE4bj+/XMcT00zMYJPCzy/l?=
+ =?us-ascii?Q?hoafRLeaqqUJyuxdwoMEwH2da0eCdcs07HquFzqWdLMVMC0SfXJ3J3u5dw4P?=
+ =?us-ascii?Q?SaPeaFeLEIs4yrSKuuHn6jJ3pw+RhfaGEn1vhvSWEA9ZeoHkqaRFPiGI7h1Q?=
+ =?us-ascii?Q?CcQzfoQl1qDvrAPrO5bg70jO1jLbopGQuOW4xwRHye5HpCviQKIoZnaT/328?=
+ =?us-ascii?Q?bn1Fe0kWnHB8QfCOr3Kwc9J8KT86dJ/dBON4uH4m/qzbfcmx/fUzy2p71iE5?=
+ =?us-ascii?Q?DqA2hiEqyan9nBFHXxeLixwy/B+TjJBNu4xoPS2/9G5wN3Epj2j6ZTR74h94?=
+ =?us-ascii?Q?TNaID8B320vaSuMVTwY=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2023 05:54:15.2896 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d4c1c04-e02b-4d18-0435-08dbb28b87f6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F5.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6615
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6071.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77e5246b-8e92-46b8-5062-08dbb29cd813
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Sep 2023 07:58:11.2624 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: U9w/7EjWE+Ej5pmTAMf7+Y9C7thgW6IjJgNI7F26/wa1ltw/UyK/vRgY2WgBKe3q9X7TZPQ+B4D4uX6BG7hy8w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6307
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,110 +122,138 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ma Jun <Jun.Ma2@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add reset option for fan_curve.
-User can use command "echo r > fan_cure" to reset the fan_curve
-to boot value
+[AMD Official Use Only - General]
 
-Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+Reviewed-by: Asad Kamal <asad.kamal@amd.com>
+Tested-by: Asad Kamal <asad.kamal@amd.com>
+
+Thanks & Regards
+Asad
+
+-----Original Message-----
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Friday, September 8, 2023 4:10 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
+eucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>
+Subject: [PATCH] drm/amdgpu: Restore partition mode after reset
+
+On a full device reset, PSP FW gets unloaded. Hence restore the partition m=
+ode by placing a new request.
+
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_pm.c            |  8 ++++
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 43 +++++++++++++++++--
- 2 files changed, 47 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  5 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c    | 28 ++++++++++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h    |  1 +
+ drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c |  2 +-
+ 4 files changed, 28 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index d05d9cd61331..2acac21387bc 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -3437,6 +3437,11 @@ static int parse_input_od_command_lines(const char *buf,
- 	case 'c':
- 		*type = PP_OD_COMMIT_DPM_TABLE;
- 		return 0;
-+	case 'r':
-+		params[parameter_size] = *type;
-+		*num_of_params = 1;
-+		*type = PP_OD_RESTORE_DEFAULT_TABLE;
-+		return 0;
- 	default:
- 		break;
- 	}
-@@ -3531,6 +3536,9 @@ amdgpu_distribute_custom_od_settings(struct amdgpu_device *adev,
-  * When you have finished the editing, write "c" (commit) to the file to commit
-  * your changes.
-  *
-+ * If you want to reset to the default value, write "r" (reset) to the file to
-+ * reset them
-+ *
-  * There are two fan control modes supported: auto and manual. With auto mode,
-  * PMFW handles the fan speed control(how fan speed reacts to ASIC temperature).
-  * While with manual mode, users can set their own fan curve line as what
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index a719bae54e2c..644773c4bccb 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -1484,6 +1484,36 @@ static int smu_v13_0_0_print_clk_levels(struct smu_context *smu,
- 	return size;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index 5f32e8d4f3d3..5d2b6a7c5f6e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5115,6 +5115,11 @@ int amdgpu_do_asic_reset(struct list_head *device_li=
+st_handle,
+                                if (r)
+                                        return r;
+
++                               r =3D amdgpu_xcp_restore_partition_mode(
++                                       tmp_adev->xcp_mgr);
++                               if (r)
++                                       goto out;
++
+                                r =3D amdgpu_device_ip_resume_phase2(tmp_ad=
+ev);
+                                if (r)
+                                        goto out;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_xcp.c
+index 565a1fa436d4..2b99eed5ba19 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+@@ -163,16 +163,11 @@ int amdgpu_xcp_init(struct amdgpu_xcp_mgr *xcp_mgr, i=
+nt num_xcps, int mode)
+        return 0;
  }
- 
-+
-+static int smu_v13_0_0_od_restore_table_single(struct smu_context *smu, long input)
-+{
-+	struct smu_table_context *table_context = &smu->smu_table;
-+	OverDriveTableExternal_t *boot_overdrive_table =
-+		(OverDriveTableExternal_t *)table_context->boot_overdrive_table;
-+	OverDriveTableExternal_t *od_table =
-+		(OverDriveTableExternal_t *)table_context->overdrive_table;
-+	struct amdgpu_device *adev = smu->adev;
-+	int i;
-+
-+	switch (input) {
-+	case PP_OD_EDIT_FAN_CURVE:
-+		for (i = 0; i < NUM_OD_FAN_MAX_POINTS; i++) {
-+			od_table->OverDriveTable.FanLinearTempPoints[i] =
-+					boot_overdrive_table->OverDriveTable.FanLinearTempPoints[i];
-+			od_table->OverDriveTable.FanLinearPwmPoints[i] =
-+					boot_overdrive_table->OverDriveTable.FanLinearPwmPoints[i];
-+		}
-+		od_table->OverDriveTable.FanMode = FAN_MODE_AUTO;
-+		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_FAN_CURVE_BIT);
-+		break;
-+	default:
-+		dev_info(adev->dev, "Invalid table index: %ld\n", input);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
- static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
- 					 enum PP_OD_DPM_TABLE_COMMAND type,
- 					 long input[],
-@@ -1770,13 +1800,18 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
- 		break;
- 
- 	case PP_OD_RESTORE_DEFAULT_TABLE:
--		feature_ctrlmask = od_table->OverDriveTable.FeatureCtrlMask;
--		memcpy(od_table,
-+		if (size == 1) {
-+			ret = smu_v13_0_0_od_restore_table_single(smu, input[0]);
-+			if (ret)
-+				return ret;
-+		} else {
-+			feature_ctrlmask = od_table->OverDriveTable.FeatureCtrlMask;
-+			memcpy(od_table,
- 		       table_context->boot_overdrive_table,
- 		       sizeof(OverDriveTableExternal_t));
--		od_table->OverDriveTable.FeatureCtrlMask = feature_ctrlmask;
-+			od_table->OverDriveTable.FeatureCtrlMask = feature_ctrlmask;
-+		}
- 		fallthrough;
+
+-int amdgpu_xcp_switch_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr, int m=
+ode)
++static int __amdgpu_xcp_switch_partition_mode(struct amdgpu_xcp_mgr *xcp_m=
+gr,
++                                             int mode)
+ {
+        int ret, curr_mode, num_xcps =3D 0;
+
+-       if (!xcp_mgr || mode =3D=3D AMDGPU_XCP_MODE_NONE)
+-               return -EINVAL;
 -
- 	case PP_OD_COMMIT_DPM_TABLE:
- 		/*
- 		 * The member below instructs PMFW the settings focused in
--- 
-2.34.1
+-       if (xcp_mgr->mode =3D=3D mode)
+-               return 0;
+-
+        if (!xcp_mgr->funcs || !xcp_mgr->funcs->switch_partition_mode)
+                return 0;
+
+@@ -201,6 +196,25 @@ int amdgpu_xcp_switch_partition_mode(struct amdgpu_xcp=
+_mgr *xcp_mgr, int mode)
+        return ret;
+ }
+
++int amdgpu_xcp_switch_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr,
++int mode) {
++       if (!xcp_mgr || mode =3D=3D AMDGPU_XCP_MODE_NONE)
++               return -EINVAL;
++
++       if (xcp_mgr->mode =3D=3D mode)
++               return 0;
++
++       return __amdgpu_xcp_switch_partition_mode(xcp_mgr, mode); }
++
++int amdgpu_xcp_restore_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr) {
++       if (!xcp_mgr || xcp_mgr->mode =3D=3D AMDGPU_XCP_MODE_NONE)
++               return 0;
++
++       return __amdgpu_xcp_switch_partition_mode(xcp_mgr, xcp_mgr->mode); =
+}
++
+ int amdgpu_xcp_query_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr, u32 fl=
+ags)  {
+        int mode;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_xcp.h
+index 9a1036aeec2a..90138bc5f03d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
+@@ -129,6 +129,7 @@ int amdgpu_xcp_mgr_init(struct amdgpu_device *adev, int=
+ init_mode,  int amdgpu_xcp_init(struct amdgpu_xcp_mgr *xcp_mgr, int num_xc=
+ps, int mode);  int amdgpu_xcp_query_partition_mode(struct amdgpu_xcp_mgr *=
+xcp_mgr, u32 flags);  int amdgpu_xcp_switch_partition_mode(struct amdgpu_xc=
+p_mgr *xcp_mgr, int mode);
++int amdgpu_xcp_restore_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr);
+ int amdgpu_xcp_get_partition(struct amdgpu_xcp_mgr *xcp_mgr,
+                             enum AMDGPU_XCP_IP_BLOCK ip, int instance);
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/a=
+md/amdgpu/aqua_vanjaram.c
+index d0fc62784e82..3f715e7fe1a9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
++++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+@@ -500,7 +500,7 @@ static int aqua_vanjaram_switch_partition_mode(struct a=
+mdgpu_xcp_mgr *xcp_mgr,
+                return -EINVAL;
+        }
+
+-       if (adev->kfd.init_complete)
++       if (adev->kfd.init_complete && !amdgpu_in_reset(adev))
+                flags |=3D AMDGPU_XCP_OPS_KFD;
+
+        if (flags & AMDGPU_XCP_OPS_KFD) {
+--
+2.25.1
 
