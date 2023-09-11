@@ -4,88 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A57B9EE7FF4
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Sep 2023 13:44:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D781DEE7FF4
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Sep 2023 13:54:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CA8210E2FE;
-	Mon, 11 Sep 2023 13:44:29 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2069.outbound.protection.outlook.com [40.107.223.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1812F10E2FE
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Sep 2023 13:44:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JAENtNXkwDdiqUuHyHxrak1YlqHZF9qaX+EE2CZUyHDKCSHR9foWoi4k6+lb5OtKXa/+79TXJb2k14wZjRIdgDUK9GEklgkSnFXZZi0x5YwC3nUG9S3PysNY6cN0FhuUZstSgvkJMBZeJtlDRmikhy5E6bHyxJfJUumY+7RNvSy7tPAfizbJ+r08xkH4OeD1F3LYPojOafZhT1o1KfrJIKJohw2XjIU7LYwtTxGqAlXuH9OQEV9Q69eqekpHOR9GaeqlT4wSitoJmBhdv20RIvchLyETcl4RZa1ILiAfNLoCHQUQWVYOe1YCrqI4kFyF1NB5+bL1Jfn8YxaQnGFZDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R4j2yTl67F+91TwIT5S+uY+2N+7vqYtsWxgbHEWzjis=;
- b=LPwrjmlk4EOt1LGeW86qTr8oOYAvolqUWhsp0hdkTYYqGI6R7ldZDZFw7/iUCUke0o2SKZB+M0BDD1njoVAgyDtsHs94ZryZ20SLQDeE9rldAHQM03//YZae8r+8Yi9nVYbsqruvR9ngXr7hM1l4SydQjvXPqAt2oYHkQEbIsXEFYXwjwEeayzVQv2ta/uLunsZjW9On6o1I9nwS6YtBG/wvxHWT+Eq2hT9UdD64vvhRKl12ZKnvWjy9o/04Wv5Jz2CXmp/0jzZNmOzn0bWH4RzXTP2LL8gesDqHsRopFJGV+xfcMZiG29QM5RdyqMYM6LS0KRh+2FpGRp27BW8XbQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R4j2yTl67F+91TwIT5S+uY+2N+7vqYtsWxgbHEWzjis=;
- b=AxV4LHHH1La+WhkbflASHyF9VSvIBc0sPzCePhNkgBtvttlXegnw2pnyCP0aJUh2m2imU8RziadPydpvXfI+B9lMXMVH8irqVApbKB6HdQdzOa01EyzgmfnetfEx0hSWfpVaVSyWp45e5v2KKd3qZezoXeDAS5ZE8gNoHQnqGgE=
-Received: from MW2PR2101CA0002.namprd21.prod.outlook.com (2603:10b6:302:1::15)
- by DM8PR12MB5445.namprd12.prod.outlook.com (2603:10b6:8:24::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6768.35; Mon, 11 Sep 2023 13:44:22 +0000
-Received: from MWH0EPF000989E6.namprd02.prod.outlook.com
- (2603:10b6:302:1:cafe::fa) by MW2PR2101CA0002.outlook.office365.com
- (2603:10b6:302:1::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.4 via Frontend
- Transport; Mon, 11 Sep 2023 13:44:22 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000989E6.mail.protection.outlook.com (10.167.241.133) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6792.16 via Frontend Transport; Mon, 11 Sep 2023 13:44:22 +0000
-Received: from fdavid-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 11 Sep
- 2023 08:44:20 -0500
-From: David Francis <David.Francis@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2] drm/amdgpu: Handle null atom context in VBIOS info ioctl
-Date: Mon, 11 Sep 2023 09:44:03 -0400
-Message-ID: <20230911134403.511233-1-David.Francis@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63EDB10E302;
+	Mon, 11 Sep 2023 13:54:22 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D575610E302;
+ Mon, 11 Sep 2023 13:54:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=NOZn0iX5NJmucoEApAcnEmag3C9oOJw3BJHX9r9tqr4=; b=kqniQH+QmYHSts0IHynDVr1D0j
+ xoeDhzp06kyLdTcDlqc2IZu37/BipalVYyNlfdASJjdmyFHohAxO8WiNOD5w2aRISoodotAgVM9h4
+ Z6M1lgGWthJIC9TRdoJD7SbG5mls/oE6uAIzchXfVJsm1kErbI49X25kMhm9IuYnNHtabuxWxnup4
+ Wj4P74CGrwypsQZzn02/N9gjPqKGlb2l4Q5R7FhWtfN002HFH+m8OywIk9QivkImbz7189p+KV7go
+ +R++l5sdEm6RJGDm9mqPFVf6dXfKQpbjF026MUhdBOBs9fzq3KohP2HKn5gNJhhl/q1BdIGmuD+WN
+ UdLHGm4g==;
+Received: from [187.10.203.89] (helo=[192.168.1.111])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1qfhMo-002LXI-Ic; Mon, 11 Sep 2023 15:54:18 +0200
+Message-ID: <63b44028-8f80-4de6-9f17-25c9f713caba@igalia.com>
+Date: Mon, 11 Sep 2023 10:54:13 -0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/2] Merge all debug module parameters
+To: christian.koenig@amd.com, alexander.deucher@amd.com
+References: <20230831152903.521404-1-andrealmeid@igalia.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <20230831152903.521404-1-andrealmeid@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989E6:EE_|DM8PR12MB5445:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5b1f414a-e833-40b6-8d70-08dbb2cd34a4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lHjovfgeyHcYxw4VCcEqretSMGhPsrCrpFQwPv8hrzoUaibl4h5ROMHs8L9fTZ5Or5A3SDWyWyv0s+iog3VbjPlKQWGW9g2SVzIAcW82OVGL16oqaOdCw16M3QZz2M4ymZeuOymBGP5YKBOPlL3EJ7UCg7Q5afvrLRG5hfXZDjDb8e9Trvy6jxTqPQW5XUZVbnPCwvYEj4dVb0KcY3qOreI8q8VDERALBsiHjJauri8T8Jeo1mV1vVoOgp+g8f5DC9zOAGNw0sxCo4ocgFnBVqrb6vF3jxItZG/e6DiheYn+Uv0JxR4Tpry/bWa15yYLrQkLy3BpBvC+J5ihuEKK753ETHXm+B9opGs486z9Sv/SScHp5uhDge/zTTTt+BbNOn38bWud4iHx3oTb8wtweAEuaD14zR7Izw4j5P43vZ9Zp6ab973WWrDO5KmNLjSwanq8er5QonYIXAGcisgTs243aIZ0DOyuRdkaTMAYn+ic5c123VrbMwZyE3NWi8QZGbmQT118CYHqHRibI7m++g70Xmrq/bVhUkCcuXmDeGbrIedjwtxUaAuLzMnndbMPc3cDlO57MuWBzZS77YDfPrS9BBvdbxyob/q6Bk4wyrHVDzlw9gt6KEPDrY+itXH3tgWExjbMGNsJCLTC1acN3vwRfR1czU/hFefGmwvMjjyVJCyTB0i4O8Y9lskqIVp2LLFBUBbFzhPj9dMYUjZcregFwv6UXVe6jkPmBw/JyY6gsX9jZA1LTnJtGL1mliGFqqLlYfT/4zJNdSwsb2pNwQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(39860400002)(346002)(136003)(396003)(451199024)(82310400011)(186009)(1800799009)(46966006)(36840700001)(40470700004)(81166007)(7696005)(6666004)(41300700001)(356005)(36756003)(40460700003)(86362001)(40480700001)(82740400003)(36860700001)(47076005)(1076003)(2616005)(336012)(2906002)(16526019)(426003)(83380400001)(478600001)(316002)(70586007)(70206006)(8676002)(8936002)(4326008)(5660300002)(26005)(6916009)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2023 13:44:22.2890 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5b1f414a-e833-40b6-8d70-08dbb2cd34a4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E6.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5445
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,51 +52,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Francis <David.Francis@amd.com>
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On some APU systems, there is no atom context and so the
-atom_context struct is null.
+Christian, Alex, I think this series is ready to be picked as well.
 
-Add a check to the VBIOS_INFO branch of amdgpu_info_ioctl
-to handle this case, returning all zeroes.
-
-v2: Maintain current use of {} initialization.
-
-Signed-off-by: David Francis <David.Francis@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index d462b36adf4b..a74ea53899f6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -951,12 +951,17 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 			struct atom_context *atom_context;
- 
- 			atom_context = adev->mode_info.atom_context;
--			memcpy(vbios_info.name, atom_context->name, sizeof(atom_context->name));
--			memcpy(vbios_info.vbios_pn, atom_context->vbios_pn, sizeof(atom_context->vbios_pn));
--			vbios_info.version = atom_context->version;
--			memcpy(vbios_info.vbios_ver_str, atom_context->vbios_ver_str,
--						sizeof(atom_context->vbios_ver_str));
--			memcpy(vbios_info.date, atom_context->date, sizeof(atom_context->date));
-+			if (atom_context) {
-+				memcpy(vbios_info.name, atom_context->name,
-+				       sizeof(atom_context->name));
-+				memcpy(vbios_info.vbios_pn, atom_context->vbios_pn,
-+				       sizeof(atom_context->vbios_pn));
-+				vbios_info.version = atom_context->version;
-+				memcpy(vbios_info.vbios_ver_str, atom_context->vbios_ver_str,
-+				       sizeof(atom_context->vbios_ver_str));
-+				memcpy(vbios_info.date, atom_context->date,
-+				       sizeof(atom_context->date));
-+			}
- 
- 			return copy_to_user(out, &vbios_info,
- 						min((size_t)size, sizeof(vbios_info))) ? -EFAULT : 0;
--- 
-2.34.1
-
+Em 31/08/2023 12:29, André Almeida escreveu:
+> As suggested by Christian at [0], this patchset merges all debug modules
+> parameters and creates a new one for disabling soft recovery:
+> 
+>> Maybe we can overload the amdgpu_gpu_recovery module option with this.
+>> Or even better merge all the developer module parameter into a
+>> amdgpu_debug option. This way it should be pretty obvious that this
+>> isn't meant to be used by someone who doesn't know how to use it.
+> 
+> [0] https://lore.kernel.org/dri-devel/55f69184-1aa2-55d6-4a10-1560d75c7324@amd.com/
+> 
+> Changelog:
+> - move enum from include/amd_shared.h to amdgpu/amdgpu_drv.c
+> v2: https://lore.kernel.org/lkml/20230830220808.421935-1-andrealmeid@igalia.com/
+> 
+> - drop old module params
+> - use BIT() macros
+> - replace global var with adev-> vars
+> v1: https://lore.kernel.org/lkml/20230824162505.173399-1-andrealmeid@igalia.com/
+> 
+> André Almeida (2):
+>    drm/amdgpu: Merge debug module parameters
+>    drm/amdgpu: Create an option to disable soft recovery
+> 
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  5 ++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  | 63 ++++++++++++++++--------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c  |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c |  6 ++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c   |  2 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  2 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c    |  2 +-
+>   8 files changed, 58 insertions(+), 26 deletions(-)
+> 
