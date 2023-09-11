@@ -4,90 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2F8DCA0EC6
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Sep 2023 21:47:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 555A2CA0EC6
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Sep 2023 23:08:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E7CD10E1EE;
-	Mon, 11 Sep 2023 21:47:20 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2057.outbound.protection.outlook.com [40.107.243.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6542A10E1E2
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Sep 2023 21:47:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=anaVT/5PJ7IxlnAX0oqyeoeIXwg4Adm6p2RLxeL0ezYnVivkG2ScHdsln24+yBWbI1fiyZHtoK9sJ1LsdY2yPZGPlyJFk8/pkN8AXwMHTxs6XFfEJ/aIOo5JMLQdamHVFNAhoFsILlGBtym9Jfp2FCDjDbf4B+NhQqtijTLZolEJj6MbXdVsXjz+Z7HTETVJKPPiCHfq84XkCWe3GmkIxfdv2TVddKGQU0iDxGrDowdO4pTbK4+QewLtT2fkXBAif3e+L4j3thC8+VOnL7gBfv68g+h6SZv2LCSeIm+CLy1Z4pj5j+icGasG1zwW0J4BEMWI7p38AfZBkNmVvQMbFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Uu3YQKpkVZWa+IHtXODdLWvD9zWiO5CrKSDTnK6sWlE=;
- b=ON8+Jd7XvysNo25BzhxDsRL5CAl3q0Lk+FR7ucZvpS7LviojfZeURALwPyW0pJw1w83XlO+m4ZfEmZJEj/mmEEeNc6NAyg0X5lHa09NJ8fVrW3VE2ZIdR/Cct83Quf71CRNcD2Hb2aGBsh3Cnq6KDyfpV4vyBVREPf3PZEtmYylmtixJ4gdQNJUvwXntasZq0ZSogkC265vDHbyXjqWIqY5m5RmXJGbSYOnQHk/d1adq8hVDUgHSn+CT9xj5yTNZXEXanoGdj3cmBRDox8UPedYF177ambp9Z4GguUjDLThfweGGlWo5LuDRoYJbvAZESN0Ro9msyr1DiQGrgEtKlg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Uu3YQKpkVZWa+IHtXODdLWvD9zWiO5CrKSDTnK6sWlE=;
- b=jQv1BRV8ITe2DhLFD2wJLb4JYW3cwQ7zSUh1oFVlde0w0SgZ/1RLVt1EIdWbYvojHmpHQDMMYlUvCHXdo6ORvvGyy9aTf32vJIm/SsQvMyYXv2yjtI0xcuz+JZ7ToW+Oil1oC8ulbPjdv1gd3Fd2XBDx+5tuQKT2fqOmiCFwZLk=
-Received: from SA9PR03CA0001.namprd03.prod.outlook.com (2603:10b6:806:20::6)
- by BL3PR12MB6449.namprd12.prod.outlook.com (2603:10b6:208:3b8::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.36; Mon, 11 Sep
- 2023 21:47:14 +0000
-Received: from SN1PEPF00026367.namprd02.prod.outlook.com
- (2603:10b6:806:20:cafe::8e) by SA9PR03CA0001.outlook.office365.com
- (2603:10b6:806:20::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.35 via Frontend
- Transport; Mon, 11 Sep 2023 21:47:13 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF00026367.mail.protection.outlook.com (10.167.241.132) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6792.17 via Frontend Transport; Mon, 11 Sep 2023 21:47:13 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 11 Sep
- 2023 16:47:12 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/amdgpu: add remap_hdp_registers callback for nbio 7.11
-Date: Mon, 11 Sep 2023 17:46:59 -0400
-Message-ID: <20230911214659.1074052-2-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE38910E1C7;
+	Mon, 11 Sep 2023 23:08:28 +0000 (UTC)
+Received: from mail-io1-xd2d.google.com (mail-io1-xd2d.google.com
+ [IPv6:2607:f8b0:4864:20::d2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C306210E1C7;
+ Mon, 11 Sep 2023 23:08:26 +0000 (UTC)
+Received: by mail-io1-xd2d.google.com with SMTP id
+ ca18e2360f4ac-7926b7f8636so122840539f.1; 
+ Mon, 11 Sep 2023 16:08:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1694473706; x=1695078506; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=4QPvsUCuesDbdqzdhDuBEQMp4BSGGOAe53BRO5DTLhU=;
+ b=Fo8RcEfpUEb7txFLa63858RK7NwICncC34p6F7RnL56x33h734DhOMHuZ/VGjXSMeY
+ 0B59mUdiAUmzr2yJ0zCFIpx2JQYNBC0Q+l1vrKCXXC8XqPUcRr30QsWfzQ9wO4h5zUM+
+ J+4DpveO256grlAeO3X7ivu7wXPlHSQLoKtj+UmXSroLDOF949JH8uMI1GG9P8j5L+92
+ xAvxZAL1l77Yk6s8iDXT5RxxdQBDv/AFPG1+YRx4+Q/iEhCahaITPUMlYFxVzJX6CRM7
+ Qalxsd8DyICfE8Ck/LdygCW2ciVGOLJESZsNxoHB2nIP4ahC8DNQRBLzy90EbvK9S6ay
+ cqgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1694473706; x=1695078506;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=4QPvsUCuesDbdqzdhDuBEQMp4BSGGOAe53BRO5DTLhU=;
+ b=A/HAAbL82pSE2n1tYfVaY6NGD5OGEpD5xHmFp02aL+kj2ASMcqwmBR1R8u4gs2body
+ oHXtijqvW8XViFX8WnshK90xaxAAyBcCd2kIMuQ44RVDWrfHzzVzt0RZ9gy6UZvftRZq
+ m/wXzunzaaWtGMF/AWGzA+8UlyY48buMkWBj2MXiT3B8aYnEVbY9kFrq1HPrXK/VlLJv
+ kDbZRH8fyT9XM+Nsd1CgZVGPy4M5EAnkup2PF1y1pWxrB3sX4PvPVYc+3q7SKZ0w0e+P
+ F33dBFXlKR9NSfxsjS8cWHrsjmvrrKWfM9iSxephCfuvEYnwNXDkW+NW/fFfODcd7QvH
+ CrKw==
+X-Gm-Message-State: AOJu0YyfaXSUq8ni4yOgg9/WvD/GnkdMuQeLfk8VvkVG45pbbFlf5sUV
+ VahdDROMVpzcajLrzBzeXy4=
+X-Google-Smtp-Source: AGHT+IG7bYicJCrmUYKVqmd3OJOt+rHV8pZgZGqdIESBV9//RY1GB+4nospOwL2Y8hO5uFJ5BARkiQ==
+X-Received: by 2002:a05:6602:2e89:b0:792:8c29:7b with SMTP id
+ m9-20020a0566022e8900b007928c29007bmr1041872iow.10.1694473705771; 
+ Mon, 11 Sep 2023 16:08:25 -0700 (PDT)
+Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
+ by smtp.googlemail.com with ESMTPSA id
+ u1-20020a02c041000000b0042b1061c6a8sm2518671jam.84.2023.09.11.16.08.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 11 Sep 2023 16:08:25 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: jbaron@akamai.com, gregkh@linuxfoundation.org, mcgrof@kernel.org,
+ daniel.vetter@ffwll.ch
+Subject: [PATCH v6 00/22] fix DRM_USE_DYNAMIC_DEBUG regression
+Date: Mon, 11 Sep 2023 17:07:55 -0600
+Message-ID: <20230911230817.14402-1-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230911214659.1074052-1-alexander.deucher@amd.com>
-References: <20230911214659.1074052-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00026367:EE_|BL3PR12MB6449:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ccefe39-6999-45a8-6e80-08dbb310a90a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Mi7wpwbqhtEE+HCg4Rb7dWX9MnUVvoyn25krFjoIBerYMP1q3nx8/8LCKU6+IyyuOMuDGsToTWkXf+l1Ls3NwaA3NtaiM5OFmviTMtrSTlF38LDzqNdOEtY4lmJDjUmzbmdCXSdoEizXXwFPrrwUifclAyWiiIiC+ndNUk2D6pjmGySb9z9FzlrTp996iQBMAUQDodLYSGeMUJOwlAoqBMeQ/v/QdpojFQxXPnT06VC+pjYB/no2J2xTc6ySLi17Eqdei0Ohn0dzVnCWPVF+nf2sK5slgKmQOJ8UdgRtKVwkNYT24oxbBHYymjGAW9yH3prkQl9zCwoB4AkTPag6y9pqyijL3sK6mIHNFEPlA0pCsP5bFcOqrecXOj4tgj9HFZ1PRJJLo+tTkQWBUWsOu74bQPjtN8XudXVJiZYS6v6XID1B6R0nQpaGUaP5gqWDT4CSTkn1mBYcF8kGo+sESLQJRCZTb7fPtnXxFEQk9lhdNs1Ze+A8jqDluAzIOBBlekHh7GKpAIzEIWtTV/Y4UYadVBtUp8RcD2sD9GlgQ9HDXRyfQHKLTzarB5JfAP21z9fpEPTZ6YyTKfKFvZGhxevbHlg6gogIDlkQOx0tZr73d9dhxSVRu4fv2YrAF7MXzC0dT0Mqkx68r7mwtQ6JGbeUTRFihUlVmKqeFJggQQW8JTNCEc1FauMpUMYFO9MdIuAJ+yRYCjYGgfV/IS09AxljYZfxDFDeXe8fJfuZdFFXP9oYWtA0Li7WXQ7qIdVMKHRXsawFvubfxTIujMQOoQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(136003)(39860400002)(396003)(376002)(1800799009)(451199024)(186009)(82310400011)(36840700001)(40470700004)(46966006)(81166007)(86362001)(7696005)(6666004)(356005)(26005)(36756003)(40460700003)(36860700001)(47076005)(2616005)(40480700001)(82740400003)(2906002)(336012)(16526019)(478600001)(1076003)(70586007)(5660300002)(70206006)(8936002)(4326008)(426003)(6916009)(316002)(41300700001)(8676002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2023 21:47:13.9313 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ccefe39-6999-45a8-6e80-08dbb310a90a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00026367.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6449
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,43 +70,222 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: linux-doc@vger.kernel.org, jani.nikula@intel.com,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Jim Cromie <jim.cromie@gmail.com>,
+ robdclark@gmail.com, seanpaul@chromium.org, dri-devel@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org, ville.syrjala@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Implement support for remapping the HDP aperture registers for
-NBIO 7.11.
+This series fixes the regression in DRM_USE_DYNAMIC_DEBUG=y
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+blame analysis: (all mine)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
-index bcf5fb420fda..6873eead1e19 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
-@@ -28,6 +28,14 @@
- #include "nbio/nbio_7_11_0_sh_mask.h"
- #include <uapi/linux/kfd_ioctl.h>
- 
-+static void nbio_v7_11_remap_hdp_registers(struct amdgpu_device *adev)
-+{
-+	WREG32_SOC15(NBIO, 0, regBIF_BX0_REMAP_HDP_MEM_FLUSH_CNTL,
-+		     adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL);
-+	WREG32_SOC15(NBIO, 0, regBIF_BX0_REMAP_HDP_REG_FLUSH_CNTL,
-+		     adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_REG_FLUSH_CNTL);
-+}
-+
- static u32 nbio_v7_11_get_rev_id(struct amdgpu_device *adev)
- {
- 	u32 tmp;
-@@ -284,4 +292,5 @@ const struct amdgpu_nbio_funcs nbio_v7_11_funcs = {
- 	.ih_doorbell_range = nbio_v7_11_ih_doorbell_range,
- 	.ih_control = nbio_v7_11_ih_control,
- 	.init_registers = nbio_v7_11_init_registers,
-+	.remap_hdp_registers = nbio_v7_11_remap_hdp_registers,
- };
+1. my early test scripts did a lot of 'modprobe $m $*',
+   with dyndbg=.. and debug=.. args
+   this obscured the lack of drm.debug -> drivers propagation
+
+2. I broke K&R rule: "define once, refer many times".
+   the classmaps DECLAREd by the drivers would run on args in 1
+
+The thinko beneath that was imitating the "static struct" in the
+definition of DEFINE_DYNAMIC_DEBUG_METADATA.  Imitating __drm_debug
+export instead broke the mental logjam.
+
+So the patchset splits DECLARE_DYNDBG_CLASSMAP duty in 2: with
+DYNDBG_CLASSMAP_DEFINE/_USE, where _DEFINE exports the classmap, so
+_USE can reference it.  The _USEs are added into a new section:
+__dyndbg_class_users.
+
+ddebug_add_module() now also scans class_users at modprobe time,
+whence it finds the kernel-param that refs the classmap, and applies
+its initialized state to the user/driver.
+
+test-dynamic-debug is extended with a _submod, allowing it to
+recapitulate the drm.ddebug -/-> drivers failure scenario.
+
+
+NOTE: patch-14 does the DECLARE -> _DEFINE/_USE, so it also changes
+DRM to follow the API change.  That makes it buildable, but crosses 2
+trees, which isn't so great.  But since the feature is marked BROKEN
+at this point, perhaps I should have split them.
+
+Finally 3 DRM patches: drops BROKEN on DRM_USE_DYNAMIC_DEBUG, fixes
+drm/Makefile, and wires a bunch more drivers to _USE DRM's
+drm_debug_classmap.
+
+You can bang at the test module with:
+#!/bin/bash
+
+ddcmd () {
+    echo $* > /proc/dynamic_debug/control
+}
+vx () {
+    echo $1 > /sys/module/dynamic_debug/parameters/verbose
+}
+ddgrep () {
+    grep $1 /proc/dynamic_debug/control
+}
+doprints () {
+    cat   /sys/module/test_dynamic_debug/parameters/do_prints
+}
+
+note () {
+    echo NOTE: $* >&2
+    $*
+}
+ddparms () {
+    note ls -l /sys/module/test_dynamic_debug/parameters/
+    note cat   /sys/module/test_dynamic_debug/parameters/*
+}
+up () {
+    modprobe drm debug=0x03 debug_trace=0x1ff
+}
+dn () {
+    rmmod drm
+}
+ddtraceon () {
+    echo 1 > /sys/kernel/tracing/tracing_on
+    echo 1 > /sys/kernel/tracing/events/dyndbg/enable
+}
+
+# replay drm.debug dependent-module scenario
+submod () {
+    echo  MP test_dynamic_debug $1 $2 dyndbg=+pm $3 $4
+
+    # extra complexity to avoid passing param=s since theyre explicit inits
+    if [[ -z $1 ]] ; then
+	modprobe test_dynamic_debug dyndbg=+pm
+    elif [[ -z $2 ]] ; then
+	modprobe test_dynamic_debug dyndbg=+pm \
+		 p_disjoint_bits=${1:-0}
+    elif [[ -z $3 ]] ; then
+	# force 3,4 off, undoing DEBUG - declutter
+	modprobe test_dynamic_debug dyndbg=+pm \
+		 p_disjoint_bits=${1:-0} p_level_num=${2:-0}
+		 # p_disjoint_names=${3:-MID,-LOW,-HI} p_level_names=${4:-L3}
+    elif [[ -z $4 ]] ; then
+	modprobe test_dynamic_debug dyndbg=+pm \
+		 p_disjoint_bits=${1:-0} p_level_num=${2:-0}
+		 # p_disjoint_names=${3:-MID}
+    else
+	modprobe test_dynamic_debug dyndbg=+pm \
+		 p_disjoint_bits=${1:-0} p_level_num=${2:-0}
+		 # p_disjoint_names=${3:-MID} p_level_names=${4:-L3}
+    fi
+    
+    # _submod should pick up kparams
+    echo  MP test_dynamic_debug_submod dyndbg=+pmf
+    modprobe test_dynamic_debug_submod dyndbg=+pmf
+}
+unmod () {
+    rmmod test_dynamic_debug_submod
+    rmmod test_dynamic_debug
+}
+
+# The test:
+submod_test () {
+    unmod
+    submod $*
+    sleep 1
+    
+    note "above submod.s D2_* prdbgs should have printed"
+    note "because they are enabled here:"
+    ddgrep _submod
+
+    echo 1 > /sys/module/test_dynamic_debug/parameters/do_prints
+
+    note submod prdbgs should print here
+    echo 1 > /sys/module/test_dynamic_debug_submod/parameters/do_prints
+}
+
+# old-code: triggered jump-label init panic, fixed by doing
+# dyndbg-init in notifier, after jump-label
+submod_force () {
+    unmod
+    submod $*
+    sleep 1
+    # force all classes off, then on
+    note trigger toggled warning by turning off the supposed enabled prdbgs in submod
+
+    echo 0     > /sys/module/test_dynamic_debug/parameters/disjoint_bits
+    echo 0x2ff > /sys/module/test_dynamic_debug/parameters/disjoint_bits
+
+    note now theyre on
+    doprints
+}
+
+setup () {
+    echo dynbg-verbose-0, clearing kmsg, and running submod_test
+    vx 0
+    dmesg -W &
+    submod_test  7 7
+    ddcmd class V +mfl
+    ddcmd class V2 +tmfsl
+    ddcmd class V3 +mfsl
+    ddcmd class V4 +mfs
+    ddcmd class V5 +mf
+    ddcmd class V6 +m
+    doprints
+}
+
+
+
+Jim Cromie (22):
+  test-dyndbg: fixup CLASSMAP usage error
+  dyndbg: make ddebug_class_param union members same size
+  dyndbg: replace classmap list with a vector
+  dyndbg: ddebug_apply_class_bitmap - add module arg, select on it
+  dyndbg: split param_set_dyndbg_classes to module/wrapper fns
+  dyndbg: drop NUM_TYPE_ARRAY
+  dyndbg: reduce verbose/debug clutter
+  dyndbg: silence debugs with no-change updates
+  dyndbg: tighten ddebug_class_name() 1st arg type
+  dyndbg: tighten fn-sig of ddebug_apply_class_bitmap
+  dyndbg-API: remove DD_CLASS_TYPE_(DISJOINT|LEVEL)_NAMES and code
+  dyndbg-API: fix CONFIG_DRM_USE_DYNAMIC_DEBUG regression
+  dyndbg: add for_each_boxed_vector
+  dyndbg: refactor ddebug_classparam_clamp_input
+  dyndbg-API: promote DYNDBG_CLASSMAP_PARAM to API
+  dyndbg-test: build it with just CONFIG_DYNAMIC_DEBUG_CORE
+  dyndbg-doc: add classmap info to howto
+  dyndbg: reserve flag bit _DPRINTK_FLAGS_PREFIX_CACHED
+  dyndbg: add _DPRINTK_FLAGS_INCL_LOOKUP
+  drm: use correct ccflags-y spelling
+  drm-drivers: DRM_CLASSMAP_USE in 2nd batch of drivers, helpers
+  drm: restore CONFIG_DRM_USE_DYNAMIC_DEBUG un-BROKEN
+
+ .../admin-guide/dynamic-debug-howto.rst       |  60 ++-
+ MAINTAINERS                                   |   2 +-
+ drivers/gpu/drm/Kconfig                       |   3 +-
+ drivers/gpu/drm/Makefile                      |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  12 +-
+ drivers/gpu/drm/display/drm_dp_helper.c       |  12 +-
+ drivers/gpu/drm/drm_crtc_helper.c             |  12 +-
+ drivers/gpu/drm/drm_gem_shmem_helper.c        |   2 +
+ drivers/gpu/drm/drm_print.c                   |  35 +-
+ drivers/gpu/drm/gud/gud_drv.c                 |   2 +
+ drivers/gpu/drm/i915/i915_params.c            |  12 +-
+ drivers/gpu/drm/mgag200/mgag200_drv.c         |   2 +
+ drivers/gpu/drm/nouveau/nouveau_drm.c         |  12 +-
+ drivers/gpu/drm/qxl/qxl_drv.c                 |   2 +
+ drivers/gpu/drm/radeon/radeon_drv.c           |   2 +
+ drivers/gpu/drm/udl/udl_main.c                |   2 +
+ drivers/gpu/drm/vkms/vkms_drv.c               |   2 +
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |   2 +
+ include/asm-generic/vmlinux.lds.h             |   1 +
+ include/drm/drm_print.h                       |  12 +-
+ include/linux/dynamic_debug.h                 | 122 ++++--
+ kernel/module/main.c                          |   3 +
+ lib/Kconfig.debug                             |  10 +-
+ lib/Makefile                                  |   4 +-
+ lib/dynamic_debug.c                           | 407 +++++++++++-------
+ lib/test_dynamic_debug.c                      | 137 +++---
+ lib/test_dynamic_debug_submod.c               |  17 +
+ 27 files changed, 546 insertions(+), 346 deletions(-)
+ create mode 100644 lib/test_dynamic_debug_submod.c
+
 -- 
 2.41.0
 
