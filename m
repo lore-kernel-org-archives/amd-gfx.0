@@ -4,59 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1876ECA0EC3
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Sep 2023 23:08:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24CF6CA0EC3
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Sep 2023 23:08:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A5D110E1C8;
-	Mon, 11 Sep 2023 23:08:46 +0000 (UTC)
-Received: from mail-io1-xd36.google.com (mail-io1-xd36.google.com
- [IPv6:2607:f8b0:4864:20::d36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7FE010E1C8;
- Mon, 11 Sep 2023 23:08:44 +0000 (UTC)
-Received: by mail-io1-xd36.google.com with SMTP id
- ca18e2360f4ac-79545e141c7so123874439f.0; 
- Mon, 11 Sep 2023 16:08:44 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42E9A10E1CF;
+	Mon, 11 Sep 2023 23:08:48 +0000 (UTC)
+Received: from mail-io1-xd31.google.com (mail-io1-xd31.google.com
+ [IPv6:2607:f8b0:4864:20::d31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A44AD10E1CF;
+ Mon, 11 Sep 2023 23:08:46 +0000 (UTC)
+Received: by mail-io1-xd31.google.com with SMTP id
+ ca18e2360f4ac-7926a450a0aso172883839f.3; 
+ Mon, 11 Sep 2023 16:08:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1694473724; x=1695078524; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=4QPvsUCuesDbdqzdhDuBEQMp4BSGGOAe53BRO5DTLhU=;
- b=drh3nAo87t6o16cVI0HLlTzpfT0+vUGXs2xJo4ST3x0PEYGsWL6oQG7jM6gzjBymxS
- kB4IlOBV3yg3vSssG6lL0ZF3NkovN5ojrFdZPcRI82Bx4TnygfD4GdW7Bzj7PCguxza6
- sFSQtp2Tf1QDJc2YJ1ik6wpLNtI5S+wNG4Qyawzt3gYfT0kCkETTGsE5lkGkmjP1J7ie
- yFNKtSWOyW+lVzU5qZ7SSofkjTWkz+yoy1f3shIcNMiChzbb/A5bBy02BaGSzm0oWiR+
- pVaAcfEaCKEwTkpYpryY2puXIrcOI3UrhWNhfyWlM6pVYjM+gynu0CcSqWIvsGNhrPT4
- m2PQ==
+ d=gmail.com; s=20221208; t=1694473726; x=1695078526; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Mmy4CQw8YdfUBsoDy2sZHYo8FTokxGCRVZcEnly2Jnk=;
+ b=i4quwF8/GrHr5U3hjdwSV95I1qU2Da2fZhSqm6cj5xRqYnNH4NGPXZi3nbebhHl9p7
+ e/ejafLVarv+0y47e4IuZ4nGMMFwqNKAGTzwCXr0qhQr7UKFLslhBcqZcl3gOwCZ/3xS
+ K0KytC+56LmOI23yu12Xq6Faw7mK3qOBcJwM7b5faTGinpWCMgD4a5TLnUJgbNyYQNyF
+ nqrT7Wuj6jT4F3hQ0r1SNYShMT5b9u182NryzMukTSS4xdR4UufARydcFCjTFelV+dCS
+ O5FtRt56FUtDNaBP2RFyX5aW95tzPkFPKA+O/Qtj5thTCMFLFnktmtDIoE1ZMEKM1K5C
+ ic7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694473724; x=1695078524;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=4QPvsUCuesDbdqzdhDuBEQMp4BSGGOAe53BRO5DTLhU=;
- b=rTAgjMZu1Q6BGlzdjYRNx/gIBDgLyonsr6vKeq6yMTJS2YUdLvwNrIkKvrg+Z8e/xO
- BA0ChJDx64t24s3CaB6GgnTn8op3y158PV1HxdEFvC0xKzbbaWSqJadDUoeNaqhuo4Fw
- RQCtg9UGOVsWGINOq2dTA0oKDBxTWMfbdHCrOIpq8hYLqyhKJNaMufR/NpSJsL20sCtI
- IUtg7NmQ7IjoQan+lh31XIclRiJYOkS5xgfJBv2kOVXguO61BAo0GPVBkxRXa6CvajbV
- dmieBvhecmjmRKywehzCHScTi7bKZYBjKd39bFU217W9aRbckVI3KExagLfloXoWA6XA
- Vupw==
-X-Gm-Message-State: AOJu0Yx9lhg0h1Qf6wAv9QT3KFWJ8OHL7NgEdtNQOhyd5k21Oxxn2tY/
- sJ8t7gkdp1/fDurXQEiZveg=
-X-Google-Smtp-Source: AGHT+IFUPQoRpMf1cn/UePxbHse2ZRULTpQVv0MhBdRfgttJDXNSROjhhVjOL6jgLU7aV8tcFnbiDQ==
-X-Received: by 2002:a5d:9d9a:0:b0:792:7c46:3dec with SMTP id
- ay26-20020a5d9d9a000000b007927c463decmr1259726iob.4.1694473723879; 
- Mon, 11 Sep 2023 16:08:43 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1694473726; x=1695078526;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Mmy4CQw8YdfUBsoDy2sZHYo8FTokxGCRVZcEnly2Jnk=;
+ b=s23sjwLUeDLMYAkExQABpaTp3376idvAvJY6fvhLsE43MwbYVzu7R2lBjie9g2etXC
+ pyDnRBgtye2dpq0xVR+rSD34+sIYiapDhFWaeJHbxh/rapVqh2qwG6hdgGJboAGxsyBU
+ IZ+yW4HEiCjmIDCUyi4GOFFCsNofyEdDAiIgChzvsJgKdKPIWbjtYxqtXJA4wCU755wj
+ +pTJWqgTCnHtR/tsJaFysWwRxO/9R7TkvSb7JJvOoaTUbFI5XLrCTGlDxjIJJeLwljG8
+ cx8oFA7rHvetQimlQEcQ8+UZ2OTBUrEbAZPxUaMdOPTbOA/7w50Dv75Hg/pmZ3h80JR6
+ 0h7Q==
+X-Gm-Message-State: AOJu0YzGcly8joQv9GsJWFYE2TIQj440ygMY672iWUd2zMOOiFuI2InR
+ vs59iAQBVF2Hh9ac6ckElss=
+X-Google-Smtp-Source: AGHT+IHLAdJUICDJlpY2SLsUaMJZhDgX9mAPnhl1PjVBKn7g0kArqTJLgGWW4MmaywrbY9ZEQTsn9Q==
+X-Received: by 2002:a05:6602:197:b0:791:1b1c:b758 with SMTP id
+ m23-20020a056602019700b007911b1cb758mr13933894ioo.19.1694473725817; 
+ Mon, 11 Sep 2023 16:08:45 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- z4-20020a029f04000000b00423240c7296sm2512607jal.69.2023.09.11.16.08.42
+ z4-20020a029f04000000b00423240c7296sm2512607jal.69.2023.09.11.16.08.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Sep 2023 16:08:43 -0700 (PDT)
+ Mon, 11 Sep 2023 16:08:45 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org, mcgrof@kernel.org,
  daniel.vetter@ffwll.ch
-Subject: [PATCH v6 00/22] fix DRM_USE_DYNAMIC_DEBUG regression
-Date: Mon, 11 Sep 2023 17:08:16 -0600
-Message-ID: <20230911230838.14461-1-jim.cromie@gmail.com>
+Subject: [PATCH v6 02/22] dyndbg: make ddebug_class_param union members same
+ size
+Date: Mon, 11 Sep 2023 17:08:18 -0600
+Message-ID: <20230911230838.14461-3-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230911230838.14461-1-jim.cromie@gmail.com>
+References: <20230911230838.14461-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -78,214 +82,42 @@ Cc: linux-doc@vger.kernel.org, jani.nikula@intel.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This series fixes the regression in DRM_USE_DYNAMIC_DEBUG=y
+struct ddebug_class_param keeps a ref to the state-storage of the
+param, make both flavors use the same unsigned long under-type.
+ISTM this is simpler and safer.
 
-blame analysis: (all mine)
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ include/linux/dynamic_debug.h | 2 +-
+ lib/dynamic_debug.c           | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-1. my early test scripts did a lot of 'modprobe $m $*',
-   with dyndbg=.. and debug=.. args
-   this obscured the lack of drm.debug -> drivers propagation
-
-2. I broke K&R rule: "define once, refer many times".
-   the classmaps DECLAREd by the drivers would run on args in 1
-
-The thinko beneath that was imitating the "static struct" in the
-definition of DEFINE_DYNAMIC_DEBUG_METADATA.  Imitating __drm_debug
-export instead broke the mental logjam.
-
-So the patchset splits DECLARE_DYNDBG_CLASSMAP duty in 2: with
-DYNDBG_CLASSMAP_DEFINE/_USE, where _DEFINE exports the classmap, so
-_USE can reference it.  The _USEs are added into a new section:
-__dyndbg_class_users.
-
-ddebug_add_module() now also scans class_users at modprobe time,
-whence it finds the kernel-param that refs the classmap, and applies
-its initialized state to the user/driver.
-
-test-dynamic-debug is extended with a _submod, allowing it to
-recapitulate the drm.ddebug -/-> drivers failure scenario.
-
-
-NOTE: patch-14 does the DECLARE -> _DEFINE/_USE, so it also changes
-DRM to follow the API change.  That makes it buildable, but crosses 2
-trees, which isn't so great.  But since the feature is marked BROKEN
-at this point, perhaps I should have split them.
-
-Finally 3 DRM patches: drops BROKEN on DRM_USE_DYNAMIC_DEBUG, fixes
-drm/Makefile, and wires a bunch more drivers to _USE DRM's
-drm_debug_classmap.
-
-You can bang at the test module with:
-#!/bin/bash
-
-ddcmd () {
-    echo $* > /proc/dynamic_debug/control
-}
-vx () {
-    echo $1 > /sys/module/dynamic_debug/parameters/verbose
-}
-ddgrep () {
-    grep $1 /proc/dynamic_debug/control
-}
-doprints () {
-    cat   /sys/module/test_dynamic_debug/parameters/do_prints
-}
-
-note () {
-    echo NOTE: $* >&2
-    $*
-}
-ddparms () {
-    note ls -l /sys/module/test_dynamic_debug/parameters/
-    note cat   /sys/module/test_dynamic_debug/parameters/*
-}
-up () {
-    modprobe drm debug=0x03 debug_trace=0x1ff
-}
-dn () {
-    rmmod drm
-}
-ddtraceon () {
-    echo 1 > /sys/kernel/tracing/tracing_on
-    echo 1 > /sys/kernel/tracing/events/dyndbg/enable
-}
-
-# replay drm.debug dependent-module scenario
-submod () {
-    echo  MP test_dynamic_debug $1 $2 dyndbg=+pm $3 $4
-
-    # extra complexity to avoid passing param=s since theyre explicit inits
-    if [[ -z $1 ]] ; then
-	modprobe test_dynamic_debug dyndbg=+pm
-    elif [[ -z $2 ]] ; then
-	modprobe test_dynamic_debug dyndbg=+pm \
-		 p_disjoint_bits=${1:-0}
-    elif [[ -z $3 ]] ; then
-	# force 3,4 off, undoing DEBUG - declutter
-	modprobe test_dynamic_debug dyndbg=+pm \
-		 p_disjoint_bits=${1:-0} p_level_num=${2:-0}
-		 # p_disjoint_names=${3:-MID,-LOW,-HI} p_level_names=${4:-L3}
-    elif [[ -z $4 ]] ; then
-	modprobe test_dynamic_debug dyndbg=+pm \
-		 p_disjoint_bits=${1:-0} p_level_num=${2:-0}
-		 # p_disjoint_names=${3:-MID}
-    else
-	modprobe test_dynamic_debug dyndbg=+pm \
-		 p_disjoint_bits=${1:-0} p_level_num=${2:-0}
-		 # p_disjoint_names=${3:-MID} p_level_names=${4:-L3}
-    fi
-    
-    # _submod should pick up kparams
-    echo  MP test_dynamic_debug_submod dyndbg=+pmf
-    modprobe test_dynamic_debug_submod dyndbg=+pmf
-}
-unmod () {
-    rmmod test_dynamic_debug_submod
-    rmmod test_dynamic_debug
-}
-
-# The test:
-submod_test () {
-    unmod
-    submod $*
-    sleep 1
-    
-    note "above submod.s D2_* prdbgs should have printed"
-    note "because they are enabled here:"
-    ddgrep _submod
-
-    echo 1 > /sys/module/test_dynamic_debug/parameters/do_prints
-
-    note submod prdbgs should print here
-    echo 1 > /sys/module/test_dynamic_debug_submod/parameters/do_prints
-}
-
-# old-code: triggered jump-label init panic, fixed by doing
-# dyndbg-init in notifier, after jump-label
-submod_force () {
-    unmod
-    submod $*
-    sleep 1
-    # force all classes off, then on
-    note trigger toggled warning by turning off the supposed enabled prdbgs in submod
-
-    echo 0     > /sys/module/test_dynamic_debug/parameters/disjoint_bits
-    echo 0x2ff > /sys/module/test_dynamic_debug/parameters/disjoint_bits
-
-    note now theyre on
-    doprints
-}
-
-setup () {
-    echo dynbg-verbose-0, clearing kmsg, and running submod_test
-    vx 0
-    dmesg -W &
-    submod_test  7 7
-    ddcmd class V +mfl
-    ddcmd class V2 +tmfsl
-    ddcmd class V3 +mfsl
-    ddcmd class V4 +mfs
-    ddcmd class V5 +mf
-    ddcmd class V6 +m
-    doprints
-}
-
-
-
-Jim Cromie (22):
-  test-dyndbg: fixup CLASSMAP usage error
-  dyndbg: make ddebug_class_param union members same size
-  dyndbg: replace classmap list with a vector
-  dyndbg: ddebug_apply_class_bitmap - add module arg, select on it
-  dyndbg: split param_set_dyndbg_classes to module/wrapper fns
-  dyndbg: drop NUM_TYPE_ARRAY
-  dyndbg: reduce verbose/debug clutter
-  dyndbg: silence debugs with no-change updates
-  dyndbg: tighten ddebug_class_name() 1st arg type
-  dyndbg: tighten fn-sig of ddebug_apply_class_bitmap
-  dyndbg-API: remove DD_CLASS_TYPE_(DISJOINT|LEVEL)_NAMES and code
-  dyndbg-API: fix CONFIG_DRM_USE_DYNAMIC_DEBUG regression
-  dyndbg: add for_each_boxed_vector
-  dyndbg: refactor ddebug_classparam_clamp_input
-  dyndbg-API: promote DYNDBG_CLASSMAP_PARAM to API
-  dyndbg-test: build it with just CONFIG_DYNAMIC_DEBUG_CORE
-  dyndbg-doc: add classmap info to howto
-  dyndbg: reserve flag bit _DPRINTK_FLAGS_PREFIX_CACHED
-  dyndbg: add _DPRINTK_FLAGS_INCL_LOOKUP
-  drm: use correct ccflags-y spelling
-  drm-drivers: DRM_CLASSMAP_USE in 2nd batch of drivers, helpers
-  drm: restore CONFIG_DRM_USE_DYNAMIC_DEBUG un-BROKEN
-
- .../admin-guide/dynamic-debug-howto.rst       |  60 ++-
- MAINTAINERS                                   |   2 +-
- drivers/gpu/drm/Kconfig                       |   3 +-
- drivers/gpu/drm/Makefile                      |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  12 +-
- drivers/gpu/drm/display/drm_dp_helper.c       |  12 +-
- drivers/gpu/drm/drm_crtc_helper.c             |  12 +-
- drivers/gpu/drm/drm_gem_shmem_helper.c        |   2 +
- drivers/gpu/drm/drm_print.c                   |  35 +-
- drivers/gpu/drm/gud/gud_drv.c                 |   2 +
- drivers/gpu/drm/i915/i915_params.c            |  12 +-
- drivers/gpu/drm/mgag200/mgag200_drv.c         |   2 +
- drivers/gpu/drm/nouveau/nouveau_drm.c         |  12 +-
- drivers/gpu/drm/qxl/qxl_drv.c                 |   2 +
- drivers/gpu/drm/radeon/radeon_drv.c           |   2 +
- drivers/gpu/drm/udl/udl_main.c                |   2 +
- drivers/gpu/drm/vkms/vkms_drv.c               |   2 +
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |   2 +
- include/asm-generic/vmlinux.lds.h             |   1 +
- include/drm/drm_print.h                       |  12 +-
- include/linux/dynamic_debug.h                 | 122 ++++--
- kernel/module/main.c                          |   3 +
- lib/Kconfig.debug                             |  10 +-
- lib/Makefile                                  |   4 +-
- lib/dynamic_debug.c                           | 407 +++++++++++-------
- lib/test_dynamic_debug.c                      | 137 +++---
- lib/test_dynamic_debug_submod.c               |  17 +
- 27 files changed, 546 insertions(+), 346 deletions(-)
- create mode 100644 lib/test_dynamic_debug_submod.c
-
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 4fcbf4d4fd0a..5231aaf361c4 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -124,7 +124,7 @@ struct _ddebug_info {
+ struct ddebug_class_param {
+ 	union {
+ 		unsigned long *bits;
+-		unsigned int *lvl;
++		unsigned long *lvl;
+ 	};
+ 	char flags[8];
+ 	const struct ddebug_class_map *map;
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index fea732db7323..6fee76fcddd1 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -796,7 +796,7 @@ int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
+ 
+ 	case DD_CLASS_TYPE_LEVEL_NAMES:
+ 	case DD_CLASS_TYPE_LEVEL_NUM:
+-		return scnprintf(buffer, PAGE_SIZE, "%d\n", *dcp->lvl);
++		return scnprintf(buffer, PAGE_SIZE, "%ld\n", *dcp->lvl);
+ 	default:
+ 		return -1;
+ 	}
 -- 
 2.41.0
 
