@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 242A5EE01E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Sep 2023 16:43:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96059EE01E7
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Sep 2023 16:43:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C74DD10E4B6;
-	Wed, 13 Sep 2023 16:43:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 916CF10E4B4;
+	Wed, 13 Sep 2023 16:43:45 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C18E310E47C;
- Wed, 13 Sep 2023 16:43:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 263F210E4B3;
+ Wed, 13 Sep 2023 16:43:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,25 +19,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=QLX7651WP/di2UupuPM6pAWhGNGlxMnnSysfYFPg1Qw=; b=GsJBcb5qeCFG9aJLVsisK6JKaC
- 95+yXo+rfcQfrka6sO4eBXME0kOqseMF7YBxwdyFes5KKfRL0z3ZX2ljrSlAqyc1eDshlAmmURUT6
- rpOXBOoAR6lCled3W01ou+kHKxuMHH+6p2rg8/VWbE+bOjf0CWMGH/x+NtM0rk4IDkw0gJXxGE26i
- vhSd4GIkpH36S7EgFQ5yiFgLPSZ+hU61jIq8dXeo1uaJ70z6/vvxXABkNIFF+BySlP4mb2EmHfr1w
- 270B747ua3nvVG8+BlHqMPsZd5h+Xrx89VCqs+Eb8X/LxsPuqXR+w3zg01ZpbwVngL7LdQ+v1rmyA
- Qpv6eq1Q==;
+ bh=+ZMJI5Sj2Rg9CxMIiUKOPSK0emM/G0J4TLRMWorV5dQ=; b=pWWmY+LnEfGVsQBJ48hLlPaoRJ
+ piQLu7k3MVlyjcs+IMlQ4hC616qGxgRNzQA4StPjZohod6t9TNsK9QhEQTSvomtILuJbuNugJnSDb
+ NxgMNNcBWIIgzcCcF2LOfI1M+yFGAHGqiQsqI0MbjWA58HYRy+A9PtcE3j6dQQQ77IdEQfONKzFH5
+ WC8fRePoL8OEF/u2rVgEtoFjmdS8kBnrww4qudEDhyT8+dw27tbOjI2lmM9KT1OZXfttoDWF+QkmN
+ pZMA0vEo1heNkVAw+frK7QYJkLzwIflGjf+4YTyTebvml3cx9lJ2G28l3gDixgA8d7gKJvDgo2BO0
+ s/+112GQ==;
 Received: from [38.44.68.151] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qgSxk-003PbD-El; Wed, 13 Sep 2023 18:43:36 +0200
+ id 1qgSxn-003PbD-O6; Wed, 13 Sep 2023 18:43:39 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  airlied@gmail.com, daniel@ffwll.ch
-Subject: [RFC PATCH v2 3/5] drm/amd/display: create DCN3-specific log for MPC
- state
-Date: Wed, 13 Sep 2023 15:43:27 -0100
-Message-Id: <20230913164329.123687-4-mwen@igalia.com>
+Subject: [RFC PATCH v2 5/5] drm/amd/display: add DPP and MPC color caps to DTN
+ log
+Date: Wed, 13 Sep 2023 15:43:29 -0100
+Message-Id: <20230913164329.123687-6-mwen@igalia.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230913164329.123687-1-mwen@igalia.com>
 References: <20230913164329.123687-1-mwen@igalia.com>
@@ -61,108 +61,96 @@ Cc: Krunoslav Kovac <krunoslav.kovac@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Logging DCN3 MPC state was following DCN1 implementation that doesn't
-consider new DCN3 MPC color blocks. Create new elements according to
-DCN3 MPC color caps and a new DCN3-specific function for reading MPC
-data.
+Add color caps information for DPP and MPC block to show HW color caps.
 
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c  | 55 ++++++++++++++++++-
- drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h   | 13 +++++
- 2 files changed, 67 insertions(+), 1 deletion(-)
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.c | 23 +++++++++++++++++++
+ .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    | 23 +++++++++++++++++++
+ 2 files changed, 46 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
-index d1500b223858..d164fbf89212 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
-@@ -1382,8 +1382,61 @@ static void mpc3_set_mpc_mem_lp_mode(struct mpc *mpc)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index 9255425ef794..49285f0a146a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -330,6 +330,24 @@ dcn10_log_color_state(struct dc *dc,
+ 		DTN_INFO("\n");
  	}
+ 	DTN_INFO("\n");
++	DTN_INFO("DPP Color Caps: input_lut_shared:%d  icsc:%d"
++		 "  dgam_ram:%d  dgam_rom: srgb:%d,bt2020:%d,gamma2_2:%d,pq:%d,hlg:%d"
++		 "  post_csc:%d  gamcor:%d  dgam_rom_for_yuv:%d  3d_lut:%d"
++		 "  blnd_lut:%d  oscs:%d\n\n",
++		 dc->caps.color.dpp.input_lut_shared,
++		 dc->caps.color.dpp.icsc,
++		 dc->caps.color.dpp.dgam_ram,
++		 dc->caps.color.dpp.dgam_rom_caps.srgb,
++		 dc->caps.color.dpp.dgam_rom_caps.bt2020,
++		 dc->caps.color.dpp.dgam_rom_caps.gamma2_2,
++		 dc->caps.color.dpp.dgam_rom_caps.pq,
++		 dc->caps.color.dpp.dgam_rom_caps.hlg,
++		 dc->caps.color.dpp.post_csc,
++		 dc->caps.color.dpp.gamma_corr,
++		 dc->caps.color.dpp.dgam_rom_for_yuv,
++		 dc->caps.color.dpp.hw_3d_lut,
++		 dc->caps.color.dpp.ogam_ram,
++		 dc->caps.color.dpp.ocsc);
+ 
+ 	DTN_INFO("MPCC:  OPP  DPP  MPCCBOT  MODE  ALPHA_MODE  PREMULT  OVERLAP_ONLY  IDLE\n");
+ 	for (i = 0; i < pool->pipe_count; i++) {
+@@ -343,6 +361,11 @@ dcn10_log_color_state(struct dc *dc,
+ 				s.idle);
+ 	}
+ 	DTN_INFO("\n");
++	DTN_INFO("MPC Color Caps: gamut_remap:%d, 3dlut:%d, ogam_ram:%d, ocsc:%d\n\n",
++		 dc->caps.color.mpc.gamut_remap,
++		 dc->caps.color.mpc.num_3dluts,
++		 dc->caps.color.mpc.ogam_ram,
++		 dc->caps.color.mpc.ocsc);
  }
  
-+static void mpc3_read_mpcc_state(
-+		struct mpc *mpc,
-+		int mpcc_inst,
-+		struct mpcc_state *s)
-+{
-+	struct dcn30_mpc *mpc30 = TO_DCN30_MPC(mpc);
-+	uint32_t rmu_status = 0xf;
-+
-+	REG_GET(MPCC_OPP_ID[mpcc_inst], MPCC_OPP_ID, &s->opp_id);
-+	REG_GET(MPCC_TOP_SEL[mpcc_inst], MPCC_TOP_SEL, &s->dpp_id);
-+	REG_GET(MPCC_BOT_SEL[mpcc_inst], MPCC_BOT_SEL, &s->bot_mpcc_id);
-+	REG_GET_4(MPCC_CONTROL[mpcc_inst], MPCC_MODE, &s->mode,
-+			MPCC_ALPHA_BLND_MODE, &s->alpha_mode,
-+			MPCC_ALPHA_MULTIPLIED_MODE, &s->pre_multiplied_alpha,
-+			MPCC_BLND_ACTIVE_OVERLAP_ONLY, &s->overlap_only);
-+	REG_GET_2(MPCC_STATUS[mpcc_inst], MPCC_IDLE, &s->idle,
-+			MPCC_BUSY, &s->busy);
-+
-+	/* Color blocks state */
-+	REG_GET(MPC_RMU_CONTROL, MPC_RMU0_MUX_STATUS, &rmu_status);
-+	if (rmu_status == mpcc_inst) {
-+		REG_GET(SHAPER_CONTROL[0],
-+			MPC_RMU_SHAPER_LUT_MODE_CURRENT, &s->shaper_lut_mode);
-+		REG_GET(RMU_3DLUT_MODE[0],
-+			MPC_RMU_3DLUT_MODE_CURRENT,  &s->lut3d_mode);
-+		REG_GET(RMU_3DLUT_READ_WRITE_CONTROL[0],
-+			MPC_RMU_3DLUT_30BIT_EN, &s->lut3d_bit_depth);
-+		REG_GET(RMU_3DLUT_MODE[0],
-+			MPC_RMU_3DLUT_SIZE, &s->lut3d_size);
-+	} else {
-+		REG_GET(SHAPER_CONTROL[1],
-+			MPC_RMU_SHAPER_LUT_MODE_CURRENT, &s->shaper_lut_mode);
-+		REG_GET(RMU_3DLUT_MODE[1],
-+			MPC_RMU_3DLUT_MODE_CURRENT,  &s->lut3d_mode);
-+		REG_GET(RMU_3DLUT_READ_WRITE_CONTROL[1],
-+			MPC_RMU_3DLUT_30BIT_EN, &s->lut3d_bit_depth);
-+		REG_GET(RMU_3DLUT_MODE[1],
-+			MPC_RMU_3DLUT_SIZE, &s->lut3d_size);
-+	}
-+         REG_GET_2(MPCC_OGAM_CONTROL[mpcc_inst],
-+		   MPCC_OGAM_MODE_CURRENT, &s->rgam_mode,
-+		   MPCC_OGAM_SELECT_CURRENT, &s->rgam_lut);
-+	REG_GET(MPCC_GAMUT_REMAP_MODE[mpcc_inst],
-+		MPCC_GAMUT_REMAP_MODE_CURRENT, &s->gamut_remap_mode);
-+	if (s->gamut_remap_mode == 1) {
-+		s->gamut_remap_c11_c12 = REG_READ(MPC_GAMUT_REMAP_C11_C12_A[mpcc_inst]);
-+		s->gamut_remap_c33_c34 = REG_READ(MPC_GAMUT_REMAP_C33_C34_A[mpcc_inst]);
-+	} else if (s->gamut_remap_mode == 2) {
-+		s->gamut_remap_c11_c12 = REG_READ(MPC_GAMUT_REMAP_C11_C12_B[mpcc_inst]);
-+		s->gamut_remap_c33_c34 = REG_READ(MPC_GAMUT_REMAP_C33_C34_B[mpcc_inst]);
-+	}
-+}
-+
- static const struct mpc_funcs dcn30_mpc_funcs = {
--	.read_mpcc_state = mpc1_read_mpcc_state,
-+	.read_mpcc_state = mpc3_read_mpcc_state,
- 	.insert_plane = mpc1_insert_plane,
- 	.remove_mpcc = mpc1_remove_mpcc,
- 	.mpc_init = mpc1_mpc_init,
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-index 8d86159d9de0..e60b3503605b 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-@@ -193,6 +193,19 @@ struct mpcc_state {
- 	uint32_t overlap_only;
- 	uint32_t idle;
- 	uint32_t busy;
-+	uint32_t shaper_lut_mode;
-+	uint32_t lut3d_mode;
-+	uint32_t lut3d_bit_depth;
-+	uint32_t lut3d_size;
-+	uint32_t rgam_mode;
-+	uint32_t rgam_lut;
-+	uint32_t gamut_remap_mode;
-+	uint32_t gamut_remap_c11_c12;
-+	uint32_t gamut_remap_c13_c14;
-+	uint32_t gamut_remap_c21_c22;
-+	uint32_t gamut_remap_c23_c24;
-+	uint32_t gamut_remap_c31_c32;
-+	uint32_t gamut_remap_c33_c34;
- };
+ void dcn10_log_hw_state(struct dc *dc,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+index 47119ae80e98..f604c684c853 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+@@ -124,6 +124,24 @@ dcn30_log_color_state(struct dc *dc,
+ 		DTN_INFO("\n");
+ 	}
+ 	DTN_INFO("\n");
++	DTN_INFO("DPP Color Caps: input_lut_shared:%d  icsc:%d"
++		 "  dgam_ram:%d  dgam_rom: srgb:%d,bt2020:%d,gamma2_2:%d,pq:%d,hlg:%d"
++		 "  post_csc:%d  gamcor:%d  dgam_rom_for_yuv:%d  3d_lut:%d"
++		 "  blnd_lut:%d  oscs:%d\n\n",
++		 dc->caps.color.dpp.input_lut_shared,
++		 dc->caps.color.dpp.icsc,
++		 dc->caps.color.dpp.dgam_ram,
++		 dc->caps.color.dpp.dgam_rom_caps.srgb,
++		 dc->caps.color.dpp.dgam_rom_caps.bt2020,
++		 dc->caps.color.dpp.dgam_rom_caps.gamma2_2,
++		 dc->caps.color.dpp.dgam_rom_caps.pq,
++		 dc->caps.color.dpp.dgam_rom_caps.hlg,
++		 dc->caps.color.dpp.post_csc,
++		 dc->caps.color.dpp.gamma_corr,
++		 dc->caps.color.dpp.dgam_rom_for_yuv,
++		 dc->caps.color.dpp.hw_3d_lut,
++		 dc->caps.color.dpp.ogam_ram,
++		 dc->caps.color.dpp.ocsc);
  
- /**
+ 	DTN_INFO("MPCC:  OPP  DPP  MPCCBOT  MODE  ALPHA_MODE  PREMULT  OVERLAP_ONLY  IDLE"
+ 		 "  SHAPER mode  3DLUT mode  3DLUT bit-depth  3DLUT size  OGAM mode  OGAM LUT"
+@@ -155,6 +173,11 @@ dcn30_log_color_state(struct dc *dc,
+ 				s.gamut_remap_c11_c12, s.gamut_remap_c33_c34);
+ 	}
+ 	DTN_INFO("\n");
++	DTN_INFO("MPC Color Caps: gamut_remap:%d, 3dlut:%d, ogam_ram:%d, ocsc:%d\n\n",
++		 dc->caps.color.mpc.gamut_remap,
++		 dc->caps.color.mpc.num_3dluts,
++		 dc->caps.color.mpc.ogam_ram,
++		 dc->caps.color.mpc.ocsc);
+ }
+ 
+ bool dcn30_set_blend_lut(
 -- 
 2.40.1
 
