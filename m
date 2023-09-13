@@ -4,115 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BF58EE3F3F
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Sep 2023 00:35:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F410AEE3F3F
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Sep 2023 00:49:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68C1F10E0BF;
-	Wed, 13 Sep 2023 00:35:44 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2076.outbound.protection.outlook.com [40.107.223.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 692EF10E0BF
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Sep 2023 00:35:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8036E10E0CB;
+	Wed, 13 Sep 2023 00:49:23 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2043.outbound.protection.outlook.com [40.107.237.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BFDF10E0CB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Sep 2023 00:49:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SaqQxZQB/lO0Ah/67s2CjJtIboIR5H9hiXcCWysqxo5gIqfpKBAch8TeQXF0ldOVG9mQYrRUu+fi0pst+CouS1EKj5qC5hkiEG9zYb3Oxbrl9h4fG3zsWGAq9fCfuA1zGQ8I93dbYKmBlV58mQXQScL2IzY/hOc+vmmLW8d/3GVdoOgpmGh/PNiVCIk6DEKXgLnp6f4kqTrTqMZvLXGWQEoMcUOsUn0ksJwKjVpRTTM5IQ8ebuSCd68LeEQ2BtR4YPKJlmS88Axx8NcgaO8eZOx049I38SrJjaYA2ubL9TorqomihaiQrm4RHMzILZNZtWPbf63I84CDUl8lxA0+KQ==
+ b=mlrj3PCNRJsHuIA9Rp6KnpzqSCG3V+xtSD+N13VUZ7bEMgrjPASGPxSyCA8ij2niffaugrLn7qBFtaUA0KADLIPpmSTGN6HvpaWCaZwgHi58vRfeWw6XwaaeHxPk1X6mcW59gcVIXxGI6A902nBrDbKA4pVDBaOOGPYS5nc8gfAjLAWwH/U5kzknudK8Ho3XB6jeuoaTgUEKtYnOnhIIxaZtIxWzTaq94cDkocrujeijc+DlGG4YgqqqvLCQS0L+4AqLn3OPvVGkI6iS2nPC5YOC+GA/6R+9q1R0A8Nn9tnSM0XahGrf8Wp3bjP1lk/vBqPMNYWLMMGQqBPyyIJQ5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MuxEA3D+ZlILzcljeyuIaK/NHwN+RJ1QyNtndlExptc=;
- b=aKJ4L4wfxDuIi8eNh2NtFqkwSzTSbgjHCa7uGrV8Ubw1pf6+uAAZptGkFw39Ckhe5qupmH+2FzuJt4kztWbZg744HgSnS45Gl4PhIEseHcP32bllB+YDZa5tGrE+fW2ieq7+iaxK/xhIEJ8LKv6rB3mSm+zYpUrX3uvtm5vUPgaN7BLraBzyRmbSmtzbCW7jhnm5eeyO4gUZ1b3rUaSdjQR/kbDNZxfno0qApe3GuefKiF1Kyjx8L2+MRV+yZbDTAIr7qbwPsk6EitDAboRA1xIP8wrQ2LwXV1up1D7zZKkkN+umOI3d4I6V7WzZ3DBaVrDhq5zibqlnmSRa0hVMsg==
+ bh=6QWMDCNmuuk2vGKG0nxtRqc3hhetacO4s4Oh8bjGEHk=;
+ b=UnMrwoDuIec7rQPEY0CVU3Ls2bqe/XqUFmQbp0M0eMRazg7m1xTiXtohwW2LpXb6b0K75bc5fwzQQD8mPAV7PHjXpVQiP8t+IbZeRh5vmtzluBP1CtG7bgpYpIrA7tEz91xHEXf9k4xBX0RASX/BnMSS+TuEQ27tAG+T4Yr67c2QysdyXZhKTdadn23QYRXfMIONRVWBQ+GJa54RZtfSUG5kqIVJ15O7zysDp9sqjoYuHE54cJqe4BVXH4Dl91MliOgLVJdH+dcpf0vu24nwl6XY+Qib8/7LXvmlQdgKrpZ8+dY7fI5aqdooQ8AD+wmWZDy+sZOb5JP7i1zpAwxDUQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MuxEA3D+ZlILzcljeyuIaK/NHwN+RJ1QyNtndlExptc=;
- b=YOtgVihjCLOjz5OdZgL+yArDcCxQbjVvatsvrq7q9J/rRXBxIlD6sr4BNm3Q9S5ChBHnZ1xUxNSdiFBSsWs4Ca/NZqFY+zyfQ01iAL2Cn/zwT4YvjjAlNOn7GtWjQ+w5YT49cSIHyoxhwWfE12M/ZXhj2wXkDLzgfM51QLD9DQk=
+ bh=6QWMDCNmuuk2vGKG0nxtRqc3hhetacO4s4Oh8bjGEHk=;
+ b=NZ7QyUDitnYAy0C8Q1rGMxHHaADO0WnHLY1j03/cyUxSfb8vXbaN+0hfuUSkXyixKpjuxTOO7maGqGfBmtGcFfk9GMcrXdS2H+QrMwdi9etxZlw2ARRSAlTv6G9RLH7oWP2jY2ukXKQsuB4U84XmLpcwcocdH0iWVxK8wV1NKGg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by PH0PR12MB5435.namprd12.prod.outlook.com (2603:10b6:510:ed::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.37; Wed, 13 Sep
- 2023 00:35:40 +0000
+ by DM4PR12MB5056.namprd12.prod.outlook.com (2603:10b6:5:38b::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.35; Wed, 13 Sep
+ 2023 00:49:16 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::620f:8aa7:43d6:8010]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::620f:8aa7:43d6:8010%6]) with mapi id 15.20.6768.029; Wed, 13 Sep 2023
- 00:35:40 +0000
-Message-ID: <97d7d655-66b8-e117-471e-0785affeb660@amd.com>
-Date: Tue, 12 Sep 2023 20:35:37 -0400
+ 00:49:16 +0000
+Content-Type: multipart/alternative;
+ boundary="------------KtXos1DFO1jRaeVZS3VSBNks"
+Message-ID: <c04dd9a3-ab81-5d5d-fafa-93877073017e@amd.com>
+Date: Tue, 12 Sep 2023 20:48:52 -0400
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.0
-Subject: Re: [PATCH] drm/amdkfd: fix add queue process context clear for hsa
- non-init cases
+Subject: Re: [PATCH] drm/amdkfd: Insert missing TLB flush on GFX10 and later
 Content-Language: en-US
-To: Jonathan Kim <Jonathan.Kim@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230912121721.3035694-1-Jonathan.Kim@amd.com>
+To: Lang Yu <Lang.Yu@amd.com>,
+ Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+References: <20230911190023.193702-1-Harish.Kasiviswanathan@amd.com>
+ <ZP/SdUd9am/f2WJw@lang-desktop>
 From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20230912121721.3035694-1-Jonathan.Kim@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBP288CA0011.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:c01:6a::22) To BN9PR12MB5115.namprd12.prod.outlook.com
+In-Reply-To: <ZP/SdUd9am/f2WJw@lang-desktop>
+X-ClientProxiedBy: YQBPR0101CA0303.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6d::14) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|PH0PR12MB5435:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c35fa97-652c-46c7-a503-08dbb3f15b4c
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM4PR12MB5056:EE_
+X-MS-Office365-Filtering-Correlation-Id: eae23bcc-4962-497a-4b86-08dbb3f34163
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9tJdmRjCx1G8UqzbGA/cYprOqoYbLn7ceR82ZuJltR3Fm/6y/0LA1PsmijveDaun6jwmhOPFzuHnbK0FEIwIFj0Rbo7J/KRD4zCI85y6gh03guALRCyih19iSgdig2aH+2g5FhQSp6Ozg0/N//Kowh1haGnkn4lEKVpJa6zf8e0XwnGc7m8NYKlmInPbnA6XfUrD51Lu5rX95mczecifl8/Mhw11U0n/IHcyRgYt/v36FaotrFlMKgZu10vmX+j3SsKNCen7He1sIBbI5N1L3DNEXyGmbRo/HM17TdMVTzGVwU/K9X8kR6ba374Nx3V6nwZEMr/Nk1ZwV/8/Kj06w1B9FWWRCZSUQgWXC0ckqJu8pGhvxs2HA+3meAUkoUnD4w6R1kntcjTV6wbcQwlB07zFiiDjJeb9hd+vFNUyX3LqaR4Y3dm+MUfKukodcIwTTD2t3tiVOQOJy2OCqdeDbFiEBtRqsbuQIWa8kWZlDnUokWVOj8kadNfYlmV9x1Kmitnl2h8ud+VhLqUjLHX1smSnUP2sTmrhVSmDIG7e86oUufkQUQmTI8HiVmbkN/3RsL9JzcKk7dLXD8XXDesgW/X1eyYWu6sfjZBBnOpWiPXzKLe71aD8jeZbq7xxXLsOqsGfmnh1ZvTtU6gusauIOA==
+X-Microsoft-Antispam-Message-Info: YQmZNP5WvltW7CRBORrul5oXjSIhCDStsu9cqUlDveyvZObs5NYY/hWZu9+jS6k5bpXI9gZbySzi31Q312g1DqtRVGB/lGafEfxeWA3x3rKN4L4Lkl1V/EeJnJY4JJSgRB6baaL7l3XbTvQzqKvWeAGRE76nOuCQNnL1NaiYCHTxGXDqMC946VfQya/4vaYm4wGPb3cqkk09EiV1SzpEz5cYZ3BzejGK7QZaSnkPn8GtmEJY9DgPAbOfnEEtYD0VWNNl6ipPsfh50Cfi0D6UgsuxbeRjdPIbPr/mLA7oDMa+Zo/AX/XXDHyUbgvVMWl4xxUZvDcDjlnF8KWXIFk8wxPnN3KCl/HML/omqeWD8Iu0joaw4yrO21V2fkl7t6S2jKA2l7p5T0bzAB5txuhmfrQJH1E1YbkPYZ/PE8htWWoyR9NOU24hA3VLB9HILcvD9IPXh+ihJyXAioJUI63vzH1rFA0H1ABmkN1uZ7BAagqOegsbs5QWoIaIPor8clSUiFlHCkGken8l9Cbz/JmngTrqkUF9g4fjgVvezlQvf5B/iT74VH0qg4phnrvYIOPOXddik1QWtTQnKsUJ4+Xc1df6zjVU5M/4AzDbYlpSDPvCIRgxBS2Y+XMhiPv5zl8IDRzpb9I2URcYIMoJMV5/cA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(346002)(366004)(396003)(376002)(39860400002)(451199024)(1800799009)(186009)(31696002)(86362001)(2906002)(38100700002)(478600001)(53546011)(6666004)(6486002)(6506007)(6512007)(66476007)(316002)(66946007)(83380400001)(66556008)(31686004)(26005)(44832011)(2616005)(4326008)(8676002)(36756003)(8936002)(5660300002)(41300700001)(45980500001)(43740500002);
+ SFS:(13230031)(39860400002)(366004)(376002)(346002)(136003)(396003)(186009)(1800799009)(451199024)(6486002)(53546011)(6506007)(6512007)(26005)(6666004)(36756003)(2616005)(33964004)(478600001)(2906002)(316002)(66946007)(31686004)(6636002)(66476007)(66556008)(38100700002)(110136005)(41300700001)(8936002)(5660300002)(8676002)(4326008)(83380400001)(44832011)(86362001)(31696002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Wm1ER2hxUmNQYlBkQkg4OHUwL2RHOXA4UTlxdmtjd1RQZ1BWL2lTczllTjk2?=
- =?utf-8?B?Z3pjRGxtUWJvMFFiNWdPRVBDaDFmb1VkZG9QVnVFdE40SjZxRjdoSlJLdjE5?=
- =?utf-8?B?eVJlRG9jby8wSU1iRGVtclhDSjlFWVVBZXFPb2RBcGNDZnVaTlhqWTh0SVBp?=
- =?utf-8?B?TmRGVWVLbEdFQ09SNTk4Q0ZlZzJUVEF3NVpvdkkzV01qNW1ObFZFd2dJSmNu?=
- =?utf-8?B?SjlRTU9Oa3NjMEUxT1hnb3VsSFNKSFdpMy9iWlRkdEZmdkV2MXlXeXZsY3VL?=
- =?utf-8?B?bE9HS1NCOVYvbStpNnNWY2JoWFJOOVJvUlVmUURQdVhienpiUTZDUnJSckRu?=
- =?utf-8?B?QTdzUy9rdThTT2ZGN2R4QzlydmtiMkFRTllBZmNnZFduRSszWkNYV2xLM3Jn?=
- =?utf-8?B?S3gwVlU2TEpmc051ZzZTQVk2ZThzdXBJeUR3SzZhaEJnR29XaWRqZnBPbW5j?=
- =?utf-8?B?VUNwSWVRdG8yOGpzazJnNEFlby8rakpHY2Z6RkkzS0Y5WHVURjJjZDRralQ5?=
- =?utf-8?B?ZWxNL3J4SkZEWnY3dTZKeWdXL3cxQ3RKVC9CenBrOWVhc3VYYkZTcWIrYzNB?=
- =?utf-8?B?NFBSblZSNHVCWmV2THRFeXNLdElkNXhkRFRIQkhIdGttZVl3NjF0R1A2Mk8r?=
- =?utf-8?B?SEpBMkQvQ1J0YzJ0Z1lGYmVjdG0yM1NqZGVuZ3UxbE1GTWlXaWhwM2UxQ1Rv?=
- =?utf-8?B?a2dLRHRxbDJnY2xpcVVXRWdQWmNoeU82VVFUWmFoZkI2Y2lKWjRYcDl1RWw4?=
- =?utf-8?B?dkZsOWkzWlVoeTdzTjE5Q0RjRlAzQzRKVUtQdzNvL25YTFQ3Q2Y0TERMRERn?=
- =?utf-8?B?WUlQMit6cndtQ2xrdVUzdXBQMnMvdFY2M0ljTmFPQmdRSW16Uk5VR3dOd05F?=
- =?utf-8?B?QlBKL1VDYlFKWEZFdVpJeHNXUU4xZk56dUtTSGdBSlpnQWFpOXR1UHdvOVRN?=
- =?utf-8?B?UTQ3bXVqaDY5ek5PdGoyaFYwME45VVdkYnNGd2l2QmR0RjJzdHFrQkR1Rk0w?=
- =?utf-8?B?ZE4vQXdzMzV1Y25MclpqbFJPT2RpTlphK25abGZRTGp2QTVRa2JZbXY0SzRX?=
- =?utf-8?B?S0ExbjdEbjdrT1JZWHRXU2ZLTWVLN0RGeTQyVU1TQlhRNlVsbEdqV2tPT2M2?=
- =?utf-8?B?Q3RlL01jaFp4RHB1OGhPTkh3akJWSDNBQkhlN2NMWGxQNGlQcnJvejlnM1pj?=
- =?utf-8?B?V2IrR2xWZy9DSnJQeVVNZ1hSUEJDK2doazhGc3h6MHg0QzdLV0lNK2o5dzNi?=
- =?utf-8?B?MWNLU0ZPbEcwMzZIYUs3cngzVlpMbWx1di9nZEErYm5xRkNPU1lpRDhqTUgz?=
- =?utf-8?B?M3lsc241MHQwZVc3UzVVWm9QUVllR3VIa2tPbnZiRnczNG1qWGhreURwdm5R?=
- =?utf-8?B?L0VtUERRclVBVk1RMi81QXkraEpDS1pTS0hkaUFVSlJCQ1BucjI3MXFrMEhO?=
- =?utf-8?B?dzc3UWs2aUNyR1p3bDZqcjhPT2pGcm1PS3lQMnQyWEM1bG81UE45S0FETTJx?=
- =?utf-8?B?RXNSUEJNVHZtd2JCWWtkZVhmV1dXTGllWTFHWTM3OEFCdDM0SzNyTXNiazRp?=
- =?utf-8?B?RGNwQVAvNXFRQ1JUMTJFclplU011am5FblZCekdwbEQrcHJDN2U0R01vN0VX?=
- =?utf-8?B?WVdTWGQ4UGlmNGVJSXRYQ3NFZ1Q3M0xjYVF2UC9WcGhqNHZYWlZGQ0ptNnpK?=
- =?utf-8?B?WHNUbVpjdmMwSHh4T0hPamw2UlptV0NKS28wTmI0UjRNYzlGQldLOW5BU0FC?=
- =?utf-8?B?UTN1cFY2am5zTG9EVlJFRjZENlQ0aGgvMzlpZDBDK3J5WkhHZ1BscWNzeWYx?=
- =?utf-8?B?Sk5zVitUeWxkcE41YXpBWFZGeUx5K29pOTkxNmdaNm9TZHVNYUgxSGE5eUg2?=
- =?utf-8?B?STRuUVBUZkliMHE1bjhxWkJ4TnNWS2tSRmI2cjV4SjlFdmdXazlMRGhvOE1V?=
- =?utf-8?B?K09VRzFMSndkWWlGcFZLVzh2VDR1OG1LQU1nZmdyMHhPVk55KzV1a1NEbHZh?=
- =?utf-8?B?UFNzYWtOcElRWXBrb1pPYkxRTlZmQzVpSWpkVkhycG5ndERVQ1BhYkU2ai9i?=
- =?utf-8?B?dDNKeTJtWi9qMDVxYWttTmNVNUtEZHo0YkVBbXErekk0b0o4akVCVWhXajZv?=
- =?utf-8?Q?UlBmWpkD/muOMdLGmi/rSmD+J?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dTdJNnZTNjFHanZHdjRIVndmc3VDSjI0RzJLUDlkZVRkV21QOEZiYWJ3amxN?=
+ =?utf-8?B?SHovQnZFcHFHVjJRSThpeG83L2tUcS9CWGc1VVVUeHM3ZXpCUUpuUzRsSFdv?=
+ =?utf-8?B?cGR3ek1rRzVJUEhqTTdsZm84VVBqVjhwZUhZdWdtbTJhc1Z6M0J5clJmdnJT?=
+ =?utf-8?B?MVEvV2RqbVFmMUtWSHkvZDhFaWo5R0pMYzBzeDZNV2dENTV0QmcrMldWODN1?=
+ =?utf-8?B?bmRlQ3VneUl6YmduM0hqekFpUmlFT3JCbFRCNTdibXBXeU5rYjlFVXkySzZs?=
+ =?utf-8?B?NURhSVFwdzBwQ0gyakl0YU5TM2tSOWFRNnhsN1JMa1NlTnJJUlBVY1FkY3ZU?=
+ =?utf-8?B?VHpSSXFtc2RWcEsyOVJhSzNzSk5QcjBKNExyOG0wL1lHY3I2M3lsSkxEb3FP?=
+ =?utf-8?B?M0RMSzR1MzNiS0hkL2pWQm05dGptTG56WitHUWJxZStJaTM1UzZWdWJCVEJ0?=
+ =?utf-8?B?TU1tR05DT3FjRHZqRDF5RjlRTGIzMGFKK3pYZjR0VDRNN3BKbTB3RFVLWmc3?=
+ =?utf-8?B?RXFUaUFYYWVPUlVMS0NIMmdyV2ErYlRTeThtMUtFamhxZDZSUzdOVFQxaXJH?=
+ =?utf-8?B?My9NWFpNOVc3Nno2dFZmZndIdWJUVGJ2RUM1b1l5TWJqTnYvUm1nK2t5U0J3?=
+ =?utf-8?B?M1dpY1hVU2ZLL0JmV3h3T2l6czEyQ0UxRDAxZzhMdVNnUHh2NnVmUm0vK3B2?=
+ =?utf-8?B?c3dHVWdzTlVrRTJxbjRSWlJoWFlYMENHaGE0ZGlKNy9IS254Qk0vME9UUnhL?=
+ =?utf-8?B?QlQ5dmFldjE5T2tRU2hFblNhWUtUVFJLN3N1dVNLb0EwUnZWK1Y1Z2VoL0c1?=
+ =?utf-8?B?TnJjdzFPclZ2czVNV2J1bXFYQjVha2luZTdBL0JEY2ZwbnlrYjlkT2MxVm1t?=
+ =?utf-8?B?MnhNdTZSTHJOL2JZZlRodzlNNis4SXhJMjMyclRzWlR5Nk5oMUxsb1I5K2lq?=
+ =?utf-8?B?L0NlVzBqSHpFTTgzU1J4bjNsbVRnb29QeUVHQzAzNDh1TE1Qbll1YjE2YmZB?=
+ =?utf-8?B?aUhhMjRCcGVEWU5UOEJxWHNDcWllR2hGRjI3VzdzdU5pQjJhSldDTithbEJB?=
+ =?utf-8?B?YVRlUlhlZXNIVm1sK1dkNjVhUzUwZDMrN09TR3FoRHlyTUlTTFhWUll6aHZT?=
+ =?utf-8?B?L1VKcGladFQ4N1RaTldUVDJNV0NvWmxKY1NaVDFGTHduWHZPRmQzUnpod1Yr?=
+ =?utf-8?B?T05heTIyWmVNU1llZjhuRkx4NjV6WGRhdHpRbTBCTEJNRjc0ODZQOFVmVTJq?=
+ =?utf-8?B?K09QZVo5TmdQRW5VeHVSTTVWV3kwWjZtQ2VYY2JId3lIYk1LZHFUMHNTQTZh?=
+ =?utf-8?B?Tnk0RDhFeHJsRzdmSEg1eDh2WU9JR0hWZng4bGdPTkR1NGUrcEpQVTJCdnNU?=
+ =?utf-8?B?VGJmWlgrbTNjVW9uUmcrVU9pblpZMmxmVUg1ZXlyRmxPUkFBWnM2K0RKSEtq?=
+ =?utf-8?B?N2NkbVdWK3duK2d6cmhOeXJJR1AxQS85Q29jZWw4WGtLOGt2djlobDBjb09T?=
+ =?utf-8?B?VHhzZ2xjbHF0azlTdnF4dVdJbG93cEsyS2UwcUM0Mk1LSUlLdVdGS0hZYXEy?=
+ =?utf-8?B?OHp3OGV2S0ZVODBqYlI0TXJCVEgyR0JvSnpNMWlpcmY5Y2hIOGloVWtiR3h0?=
+ =?utf-8?B?dzNMWTlrWEVpRmdhM0lrbWpKMmwwWnFKdjBvZDJUR2oweFpvaVowaVV1Sk9J?=
+ =?utf-8?B?RlNnc2VZSFYvMXI2WmNoTWUvT3hWWkVZM01HY2VPVVlQbjVTOVVyN3loVjBI?=
+ =?utf-8?B?MWhjNmViQTU3cnFPcURuNkRRKytJVHJUMW5YMlpzQmNTWkcrS2JRWmxuMnkw?=
+ =?utf-8?B?OHFBOUk1NGZ6K09CZ2RjODVXdVZNN1p0YVpBOTlIYXNwUVVMK2Qra1FXWUZB?=
+ =?utf-8?B?UWMydW5jTEZZOXYveEY4dmlwbUZSQk9IamFZU1VxZ3dQRGpqenlzMmI1Mlpi?=
+ =?utf-8?B?NWgrZ1BTWjdybzY0Rm5lYlFiN0JscDRoQlhoQTFRQ0xyaXJURXAxWHdMeTB3?=
+ =?utf-8?B?RWhjQ1BRSExJL2tHSkxUYkNqNUUvS0hMc2xkbjgrdVBRZnh0VUk0eE1XLzVa?=
+ =?utf-8?B?Z2FGRi9vVDRzMlhxaFB5c2VFbzZpdkhiWHFSRVIvRy93U3FUV1RrdFBWelRB?=
+ =?utf-8?Q?iPkKYOm0s/Zsyta2o5qScUIa9?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c35fa97-652c-46c7-a503-08dbb3f15b4c
+X-MS-Exchange-CrossTenant-Network-Message-Id: eae23bcc-4962-497a-4b86-08dbb3f34163
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2023 00:35:40.4533 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2023 00:49:16.3618 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ix5UzntjJwoP+uhd9iiatVQGb/x12MFniCi2f2o0Msnl8CX9HOQlSZfTIO8RHKdyH5/fOaCVrff603Zi2c+r+Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5435
+X-MS-Exchange-CrossTenant-UserPrincipalName: yvrzkflSSzv/fN+TH5OIvmKCujqUTnPL51i4boRmRRvagk4Xu4xMLuiSJZzRbBW7P8gcMrW672RNCPFX3HtjeA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5056
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,49 +125,187 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ruili.Ji@amd.com, JinHuiEricHuang@amd.com, Shikai.Guo@amd.com
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023-09-12 8:17, Jonathan Kim wrote:
-> There are cases where HSA is not initialized when adding queues
+--------------KtXos1DFO1jRaeVZS3VSBNks
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-This statement doesn't make sense to me. If HSA is not initialized, it 
-means user mode hasn't opened the KFD device. So it can't create queues. 
-What do you really mean here?
+On 2023-09-11 22:52, Lang Yu wrote:
+> On 09/11/ , Harish Kasiviswanathan wrote:
+>> Heavy-weight TLB flush is required after unmap on all GPUs for
+>> correctness and security.
+>>
+>> Signed-off-by: Harish Kasiviswanathan<Harish.Kasiviswanathan@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h | 3 +--
+>>   1 file changed, 1 insertion(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> index b315311dfe2a..b9950074aee0 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> @@ -1466,8 +1466,7 @@ void kfd_flush_tlb(struct kfd_process_device *pdd, enum TLB_FLUSH_TYPE type);
+>>   
+>>   static inline bool kfd_flush_tlb_after_unmap(struct kfd_dev *dev)
+>>   {
+>> -	return KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 3) ||
+>> -	       KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2) ||
+>> +	return KFD_GC_VERSION(dev) > IP_VERSION(9, 4, 2) ||
+>>   	       (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 1) && dev->sdma_fw_version >= 18) ||
+>>   	       KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 0);
+>>   }
+> 1, If TLB_FLUSH_HEAVYWEIGHT is required after unmap on all GPUs
+> as described in commmit message, why we have this whitelist
+> instead of a blacklist?
+
+That was a bug that this patch is fixing. There were specific GPUs and 
+firmware versions where the TLB flush after unmap was causing 
+intermittent problems in specific tests. This should have always been a 
+blacklist.
+
+
+>
+> 2, kfd_flush_tlb(pdd, TLB_FLUSH_HEAVYWEIGHT) is also called
+> in svm_range_unmap_from_gpus(). Why not add this whitelist there?
+
+There was a patch that used kfd_flush_tlb_after_unmap in the SVM code. 
+But you reverted that patch, probably because it caused more problems 
+than it solved. SVM really must flush TLBs the way it does because it is 
+so tightly integrated with Linux's virtual memory management and because 
+with XNACK, memory can be unmapped while GPU work is in progress without 
+preemting queues (implicitly flushing TLBs and caches):
+
+commit 515d7cebc2e2d2b4f0a276d26f3b790a83cdfe06
+Author: Lang Yu<Lang.Yu@amd.com>
+Date:   Wed Apr 20 10:24:31 2022 +0800
+
+     Revert "drm/amdkfd: only allow heavy-weight TLB flush on some ASICs for SVM too"
+     
+     This reverts commit 36bf93216ecbe399c40c5e0486f0f0e3a4afa69e.
+     
+     It causes SVM regressions on Vega10 with XNACK-ON. Just revert it
+     at the moment.
+     
+     ./kfdtest --gtest_filter=KFDSVMRangeTest.MigratePolicyTest
+     
+     Signed-off-by: Lang Yu<Lang.Yu@amd.com>
+     Reviewed-by: Philip Yang<Philip.Yang@amd.com>
+     Signed-off-by: Alex Deucher<alexander.deucher@amd.com>
 
 Regards,
    Felix
 
 
->   and
-> the ADD_QUEUE API should clear the MES process context instead of
-> SET_SHADER_DEBUGGER.
 >
-> The only time ADD_QUEUE.skip_process_ctx_clear is required is for
-> debugger use cases and a debugged process is always runtime enabled
-> when adding a queue.
+> Regards,
+> Lang
 >
-> Tested-by: Shikai Guo <shikai.guo@amd.com>
-> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index 6d07a5dd2648..77159b03a422 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -227,8 +227,10 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
->   	queue_input.tba_addr = qpd->tba_addr;
->   	queue_input.tma_addr = qpd->tma_addr;
->   	queue_input.trap_en = !kfd_dbg_has_cwsr_workaround(q->device);
-> -	queue_input.skip_process_ctx_clear = qpd->pqm->process->debug_trap_enabled ||
-> -					     kfd_dbg_has_ttmps_always_setup(q->device);
-> +	queue_input.skip_process_ctx_clear =
-> +		qpd->pqm->process->runtime_info.runtime_state == DEBUG_RUNTIME_STATE_ENABLED &&
-> +						(qpd->pqm->process->debug_trap_enabled ||
-> +						 kfd_dbg_has_ttmps_always_setup(q->device));
->   
->   	queue_type = convert_to_mes_queue_type(q->properties.type);
->   	if (queue_type < 0) {
+>> -- 
+>> 2.34.1
+>>
+--------------KtXos1DFO1jRaeVZS3VSBNks
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <div class="moz-cite-prefix">On 2023-09-11 22:52, Lang Yu wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:ZP%2FSdUd9am%2Ff2WJw@lang-desktop">
+      <pre class="moz-quote-pre" wrap="">On 09/11/ , Harish Kasiviswanathan wrote:
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">Heavy-weight TLB flush is required after unmap on all GPUs for
+correctness and security.
+
+Signed-off-by: Harish Kasiviswanathan <a class="moz-txt-link-rfc2396E" href="mailto:Harish.Kasiviswanathan@amd.com">&lt;Harish.Kasiviswanathan@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index b315311dfe2a..b9950074aee0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1466,8 +1466,7 @@ void kfd_flush_tlb(struct kfd_process_device *pdd, enum TLB_FLUSH_TYPE type);
+ 
+ static inline bool kfd_flush_tlb_after_unmap(struct kfd_dev *dev)
+ {
+-	return KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 3) ||
+-	       KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2) ||
++	return KFD_GC_VERSION(dev) &gt; IP_VERSION(9, 4, 2) ||
+ 	       (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 1) &amp;&amp; dev-&gt;sdma_fw_version &gt;= 18) ||
+ 	       KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 0);
+ }
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+1, If TLB_FLUSH_HEAVYWEIGHT is required after unmap on all GPUs
+as described in commmit message, why we have this whitelist
+instead of a blacklist?</pre>
+    </blockquote>
+    <p>That was a bug that this patch is fixing. There were specific
+      GPUs and firmware versions where the TLB flush after unmap was
+      causing intermittent problems in specific tests. This should have
+      always been a blacklist.<br>
+    </p>
+    <p><br>
+    </p>
+    <blockquote type="cite" cite="mid:ZP%2FSdUd9am%2Ff2WJw@lang-desktop">
+      <pre class="moz-quote-pre" wrap="">
+
+2, kfd_flush_tlb(pdd, TLB_FLUSH_HEAVYWEIGHT) is also called
+in svm_range_unmap_from_gpus(). Why not add this whitelist there?</pre>
+    </blockquote>
+    <p>There was a patch that used kfd_flush_tlb_after_unmap in the SVM
+      code. But you reverted that patch, probably because it caused more
+      problems than it solved. SVM really must flush TLBs the way it
+      does because it is so tightly integrated with Linux's virtual
+      memory management and because with XNACK, memory can be unmapped
+      while GPU work is in progress without preemting queues (implicitly
+      flushing TLBs and caches):</p>
+    <pre>commit 515d7cebc2e2d2b4f0a276d26f3b790a83cdfe06
+Author: Lang Yu <a class="moz-txt-link-rfc2396E" href="mailto:Lang.Yu@amd.com">&lt;Lang.Yu@amd.com&gt;</a>
+Date:   Wed Apr 20 10:24:31 2022 +0800
+
+    Revert &quot;drm/amdkfd: only allow heavy-weight TLB flush on some ASICs for SVM too&quot;
+    
+    This reverts commit 36bf93216ecbe399c40c5e0486f0f0e3a4afa69e.
+    
+    It causes SVM regressions on Vega10 with XNACK-ON. Just revert it
+    at the moment.
+    
+    ./kfdtest --gtest_filter=KFDSVMRangeTest.MigratePolicyTest
+    
+    Signed-off-by: Lang Yu <a class="moz-txt-link-rfc2396E" href="mailto:Lang.Yu@amd.com">&lt;Lang.Yu@amd.com&gt;</a>
+    Reviewed-by: Philip Yang<a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
+    Signed-off-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a>
+</pre>
+    <p>Regards,<br>
+      &nbsp; Felix<br>
+    </p>
+    <p><br>
+    </p>
+    <blockquote type="cite" cite="mid:ZP%2FSdUd9am%2Ff2WJw@lang-desktop">
+      <pre class="moz-quote-pre" wrap="">
+
+Regards,
+Lang
+
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">-- 
+2.34.1
+
+</pre>
+      </blockquote>
+    </blockquote>
+  </body>
+</html>
+
+--------------KtXos1DFO1jRaeVZS3VSBNks--
