@@ -4,90 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECFB5EE01F4
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Sep 2023 17:15:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CAAEEE01F4
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Sep 2023 17:24:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 810F710E4BE;
-	Wed, 13 Sep 2023 17:15:34 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2078.outbound.protection.outlook.com [40.107.94.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EF3910E4CA
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Sep 2023 17:15:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A2BA10E4BB;
+	Wed, 13 Sep 2023 17:24:17 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2073.outbound.protection.outlook.com [40.107.100.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB2A610E4BB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Sep 2023 17:24:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MN+PCFbqvugUkRs7/fYS08eX6F+yhGKZb0TlMBFeXfBUHXFGsnIgrxwSP6PR4Hb/I6O1QmiryDpfWgEYrRnPOzj8yecyRRMgaQzWyo5UcP+tA+1QteTsJjcb9mCAbpvWi1sA3YKSXIKphOgBkDZP4dc8VGai8gcABd/QbkFVlmQZNye20KXoAlMhC3mw/N7p3YYFeGmhxSTThJNM+bA9CBQM7v+D1KBP+k6cNH55yReBCjUNnUe83HtrGDkbya/bnrMO7AKhXqCAKAY3QNOSH7agSZOobz+oEtnlV6I2b0jhG5DvyPjKJJgyZojvtbi7S8FaTxHQVx5aFE3VqRyipw==
+ b=VFbVkBL0gO3EPowyyuE/BAUUOl8FcsniqXXy8G5zEq7i+u8h6Xp+0uhccvMd0OcgDmgsJQfVE1N63wE67qLBHm3Pl/oxV9sffNEINhIqeC2I1HoTzaVHBUXjH46XdOAEx1z3BtGNdATXtOEjl0kRr81mXILQ/hb0EnM7NUBktz7qv1E+E4xu4gdNc1diWU2fZdDp4X62+1Ob2/mEXUEGG2TlMfhKe/smAqWkawLuWua/PZS7Uin0nnP+yOihNP23p737S5CTzMG2Lvit3SqibSDzkX+mK9wqIYRd4/n7p14q6Q8wZEMioJKR5AvNQcPfRbQGThoCpWV2o1vswQ49wQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/QwKIDwPxhjPh60arrFlHUeuyui9exxOkhEfvTiQK3Y=;
- b=aYD5iHkfrnheKKPvgVbWFmB9WyqXUqWbJqmDbLzvyi9pbK9KtHkfQbP4c5LIua1W8bE8FyMQFFCAonM6mvMDsz9O0v4g0kcPAJ+uHqYZWaldnl4BlnoGLJoPUJacAlsaPJ/XH4EUel5ifpT31GWNtyADSARs+DxSmeMb0QtjUdiysA2/Lr43Q/SdxPbg5BFvx/6KTlztmO4KPO5I3uld22RhZtJA0V2EN/hCfi14psdEhpa+ohxVWTXQk0t6Fm2OoqpmiE9aAIn6eYc8kP4ZgI0BL8Olnghj3G7JXIF9bqmu68sYzbBugARcDR939ThVbyt2wMskshUoEctHvl87qw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=09/Zr3HcMbKJi3WEcJwS/4U3ngYa31rqpRb+YWnTl38=;
+ b=YSqCaoZLE18DsXu123MiokCYYAotvwZoJ1mAbJuI8Skx9OgPGckmvGk3deBSxeO3mDzfZ/dWSimACO+MCsx6U+GrkHfXW28CjpQxGpbrDu9l2iXbh7ly8hJRDEGPx5C9ake9dzqzBVza97RWUsM2Eacb0uNUk159Yf8iJKLmZNWR2MgIy3m/7JI4V8qOp6oIdE5vaE9+vo6M2OtfqDY1zx1Izs16yLdSg47ugD+gSBpdfQcvxHYuQse9qB8eGDGcvZkBBPxCr/QkZQByYaM2kWnni4UIlFV3VfcUKtJKeym4NfGOw7PSrsDYeTIJmdtb2soY6JwUfWxEBxDGc3kPEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/QwKIDwPxhjPh60arrFlHUeuyui9exxOkhEfvTiQK3Y=;
- b=x94GclQoH0GOa/tchiVK9e5lpBhy0U3yiKzlXVtAqSzQvyNn9ihbJ6YXsiBm3HBJlWhemsH7UwuRBDlM6Ot61XVChCWQjmicVGAi8rovUJxVh50RId7qg4/dhxAmTX75E/45qnyFC0pltif46Yya1VAKdxFfmyAinhZScGv4dns=
-Received: from DM6PR13CA0043.namprd13.prod.outlook.com (2603:10b6:5:134::20)
- by SA1PR12MB6948.namprd12.prod.outlook.com (2603:10b6:806:24f::17) with
+ bh=09/Zr3HcMbKJi3WEcJwS/4U3ngYa31rqpRb+YWnTl38=;
+ b=v+LOTurQpCWmFQBxddyL7wOA9O5YgtUmuiv+RuaNj7BsQtaOH1jn9Sg1GL3cVki+4+feOc5Vd4p/hCIL5/7obvB78bPUQg726qAFW2px9mgV2bl5wPp9CzsSPrKpICkihQ6HMiBzE2Y1+LbsM+VNBcQt5LPpjiTkb2clQjg9H1E=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by PH7PR12MB8014.namprd12.prod.outlook.com (2603:10b6:510:27c::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.36; Wed, 13 Sep
- 2023 17:15:28 +0000
-Received: from DS1PEPF0001708F.namprd03.prod.outlook.com
- (2603:10b6:5:134:cafe::b1) by DM6PR13CA0043.outlook.office365.com
- (2603:10b6:5:134::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.19 via Frontend
- Transport; Wed, 13 Sep 2023 17:15:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0001708F.mail.protection.outlook.com (10.167.17.139) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6792.20 via Frontend Transport; Wed, 13 Sep 2023 17:15:28 +0000
-Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 13 Sep
- 2023 12:15:26 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 4/4] drm/amd: Enable seamless boot by default on newer ASICs
-Date: Wed, 13 Sep 2023 12:14:55 -0500
-Message-ID: <20230913171455.153412-5-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230913171455.153412-1-mario.limonciello@amd.com>
-References: <20230913171455.153412-1-mario.limonciello@amd.com>
-MIME-Version: 1.0
+ 2023 17:24:12 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::b69d:ce48:b96b:833b]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::b69d:ce48:b96b:833b%5]) with mapi id 15.20.6792.019; Wed, 13 Sep 2023
+ 17:24:12 +0000
+Message-ID: <9867e17c-decb-a29a-cf87-c4018bd89cbe@amd.com>
+Date: Wed, 13 Sep 2023 13:24:08 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] drm/amdkfd: handle errors from svm validate and map
+Content-Language: en-US
+To: Felix Kuehling <felix.kuehling@amd.com>, Philip Yang
+ <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230913151617.18894-1-Philip.Yang@amd.com>
+ <afb950e9-47ac-5823-8ed2-4c1e01fb5f0d@amd.com>
+From: Philip Yang <yangp@amd.com>
+In-Reply-To: <afb950e9-47ac-5823-8ed2-4c1e01fb5f0d@amd.com>
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YQBPR0101CA0148.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:e::21) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0001708F:EE_|SA1PR12MB6948:EE_
-X-MS-Office365-Filtering-Correlation-Id: 553bdc72-f0c4-4563-a24a-08dbb47d0702
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|PH7PR12MB8014:EE_
+X-MS-Office365-Filtering-Correlation-Id: f7c8333b-cd69-40e9-ab3c-08dbb47e3efd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: mp9fvk5cHCUQi2UNxc3wLCvHEr0pp/NXJLYVp0OT1Lnkf5i4Tif38Kh/oWiHzkeD9R0+2PrBNu9c5ATXgGFpQebko/GK3SIuU6r+dHzsZZO6Agl4s9EkQQVUdXy4N3/duZGuNsR4CYDaYwhX+C1/4HoeFP2Ao3Zy0YkmwVpjlQg3rPXwahK+CfqfLlLM5I4BoExn1Z/sbf/z9DYRneQxA0r5+pR01xpQjM8NXSwVgfTAlTgdaNtvNJH4LcWH/2Rk2zOAR/kXKo6cwZTKShYzoZzUw8OduFhVxxelGVbMT/JY0QD5so3DSS2l7DIi1DFc0YzeEW0pO7WQSgLz9hUfrUK4AYQ/7t9uvRdudhPbqWMkYXf9AqnSh3XZq5UuHkYWMO+MRlyyA0eYftde7y/1VYOk3KNQ3UMZMFFe9Q0nmRQzN8K43A2i9gMX/c4uNEuRcsij30ex/JPg3xwlSwrGryhsE+JJDEVtV5Y3eLGFInaAUGhmdEf3KpL1bg4MJ448povvB3a35lixZs2nfjlhYF+zcNnU1wIjTwxlRf6TZnOfx7wQGpqt3xJFKE74yhqTZ14fmkNGivbpkwFQYHBwIL6xYVsNPwZ9kBO0BIFOC4KbLkaqFM9S672SD6Y1ZkmpWlRxFIlKhhNI3F45kZCmxhps0jz07Wd+ur/t6jRtEw/rmjS7jC27Ixn5FUZpf3WZ/UEtkyiCJU8/8Uy6RKbAYqbsJ6mTJhyjoZhVA6Z42VYbIAuoA9vJA9SPt5gphzOcO9B4gn4gyDbg1zirNiAtOA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(396003)(346002)(136003)(376002)(451199024)(186009)(1800799009)(82310400011)(36840700001)(46966006)(40470700004)(40460700003)(36860700001)(2906002)(47076005)(36756003)(86362001)(82740400003)(81166007)(356005)(40480700001)(2616005)(16526019)(26005)(4326008)(8936002)(8676002)(6666004)(1076003)(41300700001)(54906003)(6916009)(70206006)(70586007)(316002)(7696005)(83380400001)(336012)(426003)(478600001)(44832011)(5660300002)(36900700001);
+X-Microsoft-Antispam-Message-Info: RleVFU8kuRxxBUwnakjll7qbBT9ZUNE6e3YY+v/mpgBqNlTXgVD5o7oZ4CBmpIXDpsokWBoBOXVc64N/RCzFJHHErY/iM6lV8daCGFea7k/eVgi4DeRMqBQef0cDKswC5R8a+izctBiZzwsRSTKpr9HuXm23TojAVTbURMQ04Ur8buKczm59bo0jZD7BjKaxzgwz7Hxn+ZN6MMau5vgaS/UZWIj9UWtMrjGdK2vAJTHeNHypxYAv3qkmD7FA37Dl4zFRaCIP/3VlRGhhEOjDV3HXZywL3ryKtfAIetEP27Xmp4cHMP3KLVEXdjTkYNz8qtgDqRUPjk3X1p/t0IC33S9quRZZ1JRempQsrTK2P/syubwXs5RCi+IZQwkUwdk/KCVez2D8jPtYbR65ZfHrguMsF5vdT0oqF+3Ve8AP7NKpcmcYvR/jMxpR2qMwV9a/aDP2q8l4sny17SxlyRvZApvb18w+AB5VibinV2Vjn2f23nE21y9kfp2Y5rTAyTHqBRuYyxhE31gAPW/2nMQQsVXzrgZL0w781jq5GOMeMl9FGBXT9m5a6bozUnxX5uFD01rxbISqeQR8Qp2wreUnrnf0l/b+u3ebJ/cMVduqPv34P6oo/IiJ5Esq3piJzN58VcGi9gVd+SYEf+IKdEFs6g==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366004)(346002)(136003)(376002)(396003)(39860400002)(1800799009)(451199024)(186009)(36756003)(15650500001)(2906002)(66899024)(31696002)(8936002)(316002)(41300700001)(8676002)(4326008)(5660300002)(6666004)(31686004)(478600001)(26005)(2616005)(53546011)(6486002)(38100700002)(6512007)(6506007)(66476007)(83380400001)(66946007)(110136005)(66556008)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YlNFVmMreDlxc0phYytSYzJ4cU8rN3dzL1FkM3diUXdvdTZVeU03QnIyd3NQ?=
+ =?utf-8?B?bnZkNEdGbTlsSm9lWi8yeXFGemJHQVNPZUN0d3hDVjRwOTJDeXFjU0FYYURV?=
+ =?utf-8?B?TG03eVcxeWV5RXB4c1hlbjB6eHArOUliSDQzN0IwY2N5ZW9SajZKNk1idkpD?=
+ =?utf-8?B?QWJYL01IaE9QYzNnaHlLWm1qbWFKTTBxMjJVdGZOa3ArZGs0TjFCS3VUajh6?=
+ =?utf-8?B?dmRDRmN1WnVnRWJpajkyZWRMR01nUTEwcS9Gb1ZJSThhb1REMjloYlhxcTRM?=
+ =?utf-8?B?YkFUSnp2czMrMDlzNkcrb2pHaXRGUXRzaDh1bGptZUVaMjM1MTJlckxZeTJm?=
+ =?utf-8?B?a2kvYWFSSWxtZytsNTJvOTJkWVBzaW9GQ2lOVVFIN0FGNXQ5aWcva1VDZ08r?=
+ =?utf-8?B?SzBMQW1iZDJnZU1JRzVsNXVqMXpVYndaV1ZDVGJjbno2N00yUi9WU3VhWkZF?=
+ =?utf-8?B?TnZRa0tiZU9DaHNDZFBidUFEWWFvSzdIMlk5dlk4WXcyMVBQY0hwR1c5WFp2?=
+ =?utf-8?B?QkZ4TnFtMEEzM1FsL0tHOWdOM1hSVUlJOXhVS3ZMaldyZkptZUJmd1JtVGNz?=
+ =?utf-8?B?ZU9iLzBySXkrQXN4eTFGL1dNRUlhSUVOTjZXcy9sVnArLzRvT2dXUVhNL25E?=
+ =?utf-8?B?WHd2NUxsZlNYTk1XaGpORTlBVGlzLzdBQ1dhMGhmWWZxNmg5Zk9tN0lkc1Br?=
+ =?utf-8?B?UzFrMGdWYkw2bVZNTlJ3T1hBWmhrbHZRclNsYmRXc0d5V2dackFhSVRPYTR0?=
+ =?utf-8?B?Sm04V1hrRHE2ZWNiajJ3dGxFeTJtaDMvZUVzaFNmWkptV0VxNG9pRWVZOEtU?=
+ =?utf-8?B?M3NYdjZzTkJXQmFxdStXRVdJLzZtOERoSUx4d3dXRFhMWi95MnpkTmVnd0hO?=
+ =?utf-8?B?R0JocEtrRDg1WitRd1lBRzdLWWJWeFk2MXE4Z2l0a2N2Vklrd21JYUdJTS8w?=
+ =?utf-8?B?L0ZHdUNqV1VDaktZbWdjS1dtQnd4bWdzU0U3LzBzZ042YWRJN2Q5cTM5TVl6?=
+ =?utf-8?B?dEw1aXEwWWd5R1NiYWxON2pRK1ZwWUo3ditRWFF5RWIxa01VbXBrdEE2WTM4?=
+ =?utf-8?B?dmJJMlU0ZW5ISnlQWlhyQVhSTVRlMkNrY3RBZ08rYVpQR0haTnZOU1lPYmpa?=
+ =?utf-8?B?QmVpMnlQMzNJN0dNRy9IOEkrbjFndm5tall2Qkkyc0ZOSS9HRXh0WWNuWUZX?=
+ =?utf-8?B?MXkxS1BVeldxcmlBK291U0tZM1JKbnREQ1dFeXI2bEs4T09GajlCcE9BcmFU?=
+ =?utf-8?B?SWRUYzAraGhkanNwalUwRHp2REtOUVZrMitYays3WSt3aVZHNDNDWTVJWXNO?=
+ =?utf-8?B?Rm0xd2lYclVrSDNNc2VoT3Nia1RES2tvNzdYTmczZkNzNmQxdDJTQ2pZZmpD?=
+ =?utf-8?B?ckpsMm9vczg5ODRwVTBITGtvM1lGaHVwUGF6L1R4U3lWY2RIYXRuaXhNeE9s?=
+ =?utf-8?B?RmJwN09MRkIwQ1JzanFBaXdVa0Jvemdna1BFQXlXdXllV0ZqWVFlOXpIRWYw?=
+ =?utf-8?B?SVQyVWhEbG5YNGZsK1BIOTFEZjdXaXBUK1h1RERnUlZncVo3UzBEem45c1hK?=
+ =?utf-8?B?ZzZSemprMnY1TWZ4QUdZQ2IwQ3ovOHk1SVRnci8xdTljK3JGK0RFdUI4K1FO?=
+ =?utf-8?B?d3J2REMxeEc5N1hLbTlVT21vZ0NidDNyTHpMVEF2NjFWajNVZEVhT3BJeFFG?=
+ =?utf-8?B?SkRoamM1MklrVHZQckJmQis4c0MrSm5XQVFBQ1FWemsrQlh0MlBBREFzZWor?=
+ =?utf-8?B?dWZ6THZ2YlhZY0IvT3BvcG1xUjRqc3NUaFR5VlVDZWh0KzlXVzhwT3Zzd1pF?=
+ =?utf-8?B?d2NOMFliaGkwbTdaVkQ1NG4rNURBQjY2TXBvZGtoemdOeG9zNFFWK1o0UHF5?=
+ =?utf-8?B?Q0s5S0ZrNU11c2FBZms4NGJxOTFtc25FNWpiS2F6NU1uakJLOExFSlVkQjJC?=
+ =?utf-8?B?eEJXcjgrMURYNHBGNWRqQlFxWk9acGREZjlBWUFQcHNSbW5IaEpqajkyOVVx?=
+ =?utf-8?B?UGhwVnYrNUZ2enVGVHQ5UStvNEprcVVCTmswN2VlMHMvcG5oUnl3UEl3TXVl?=
+ =?utf-8?B?MGRmdDVxc0VNUm15cCtBL3Nna3lsQStpd29YSndRMEZJNE9BTG12UlFEalFt?=
+ =?utf-8?Q?GFZNtH6yd2I8eOENzjdCKy/DQ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2023 17:15:28.3488 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 553bdc72-f0c4-4563-a24a-08dbb47d0702
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7c8333b-cd69-40e9-ab3c-08dbb47e3efd
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2023 17:24:12.0245 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001708F.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6948
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YPSPjRjB4R8y7qLCrgiWMa68r7X1a/Cjna9cmyNnwsR2nPGHhsCqXKVm1UEcjlxw
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8014
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,56 +125,142 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, harry.wentland@amd.com,
- Mario Limonciello <mario.limonciello@amd.com>
+Cc: alex.sierra@amd.com, james.zhu@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Seamless boot can technically be supported as far back as DCN1
-but to avoid regressions on older hardware, enable it for DCN3 and
-later.
-
-If users report using the module parameter that it works on older
-ASICs as well, this can be adjusted.
-
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 15 ++++-----------
- 1 file changed, 4 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 2116e016178a..38fafed31a1b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1361,9 +1361,9 @@ bool amdgpu_device_need_post(struct amdgpu_device *adev)
- /*
-  * Check whether seamless boot is supported.
-  *
-- * So far we only support seamless boot on select ASICs.
-- * If everything goes well, we may consider expanding
-- * seamless boot to other ASICs.
-+ * So far we only support seamless boot on DCE 3.0 or later.
-+ * If users report that it works on older ASICS as well, we may
-+ * loosen this.
-  */
- bool amdgpu_device_seamless_boot_supported(struct amdgpu_device *adev)
- {
-@@ -1383,14 +1383,7 @@ bool amdgpu_device_seamless_boot_supported(struct amdgpu_device *adev)
- 	if (adev->mman.keep_stolen_vga_memory)
- 		return false;
- 
--	switch (adev->ip_versions[DCE_HWIP][0]) {
--	case IP_VERSION(3, 0, 1):
--		return true;
--	default:
--		break;
--	}
--
--	return false;
-+	return adev->ip_versions[DCE_HWIP][0] > IP_VERSION(3, 0, 0);
- }
- 
- /*
--- 
-2.34.1
-
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2023-09-13 12:14, Felix Kuehling
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:afb950e9-47ac-5823-8ed2-4c1e01fb5f0d@amd.com">On
+      2023-09-13 11:16, Philip Yang wrote:
+      <br>
+      <blockquote type="cite">If new range is added to update list,
+        splited to multiple pranges with
+        <br>
+        max_svm_range_pages alignment, and svm validate and map returns
+        error
+        <br>
+        for the first prange, then the caller retry should add pranges
+        with
+        <br>
+        prange-&gt;is_error_flag or prange without
+        prange-&gt;mapped_to_gpu to the
+        <br>
+        update list, to update GPU mapping for the entire range.
+        <br>
+      </blockquote>
+      <br>
+      It looks like the only new thing here is to remove the &quot;same
+      attribute&quot; optimization for ranges that are not mapped on the GPU.
+      I don't fully understand the scenario you're describing here, but
+      it feels like this change has a bigger impact than it needs to
+      have. Your description specifically talks about ranges split at
+      max_svm_range_pages boundaries. But your patch affects all ranges
+      not mapped on the GPU, even it prange-&gt;is_error_flag is not
+      set.
+      <br>
+      <br>
+      Maybe that's OK, because the expensive thing is updating existing
+      mappings unnecessarily. If there is no existing mapping yet, it's
+      probably not a big deal. I just don't understand the scenario that
+      requires a retry&nbsp; without the prange-&gt;is_error_flag being set.
+      Maybe a better fix would be to ensure that
+      prange-&gt;is_error_flag gets set in your scenario.
+      <br>
+    </blockquote>
+    <p>Yes, this will not affect existing mapping.</p>
+    <p>For example set_attr 128MB range, split to 2 pranges at 64MB
+      boundary, added to update_list, then the first prange svm validate
+      and map returns error -EAGAIN because NUMA balancing, with
+      prange-&gt;is_error_flag set, the second prange-&gt;is_error_flag
+      is not set. Then Thunk retry set_attr,the first prange added to
+      update_list, but the second prange is not added to update_list,
+      with xnack off, the second prange is not mapped to GPUs, and
+      generate GPU page fault later.<br>
+    </p>
+    <p>Regards,</p>
+    <p>Philip<br>
+    </p>
+    <br>
+    <blockquote type="cite" cite="mid:afb950e9-47ac-5823-8ed2-4c1e01fb5f0d@amd.com">
+      <br>
+      Regards,
+      <br>
+      &nbsp; Felix
+      <br>
+      <br>
+      <br>
+      <blockquote type="cite">
+        <br>
+        Fixes: c22b04407097 (&quot;drm/amdkfd: flag added to handle errors
+        from svm validate and map&quot;)
+        <br>
+        Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
+        <br>
+        Tested-by: James Zhu <a class="moz-txt-link-rfc2396E" href="mailto:james.zhu@amd.com">&lt;james.zhu@amd.com&gt;</a>
+        <br>
+        ---
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 5 +++--
+        <br>
+        &nbsp; 1 file changed, 3 insertions(+), 2 deletions(-)
+        <br>
+        <br>
+        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+        b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+        <br>
+        index 61dd66bddc3c..8871329e9cbd 100644
+        <br>
+        --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+        <br>
+        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+        <br>
+        @@ -825,7 +825,7 @@ svm_range_is_same_attrs(struct kfd_process
+        *p, struct svm_range *prange,
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+        <br>
+        &nbsp; -&nbsp;&nbsp;&nbsp; return !prange-&gt;is_error_flag;
+        <br>
+        +&nbsp;&nbsp;&nbsp; return true;
+        <br>
+        &nbsp; }
+        <br>
+        &nbsp; &nbsp; /**
+        <br>
+        @@ -2228,7 +2228,8 @@ svm_range_add(struct kfd_process *p,
+        uint64_t start, uint64_t size,
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; next = interval_tree_iter_next(node, start, last);
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; next_start = min(node-&gt;last, last) + 1;
+        <br>
+        &nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (svm_range_is_same_attrs(p, prange, nattr, attrs))
+        {
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!prange-&gt;is_error_flag &amp;&amp;
+        prange-&gt;mapped_to_gpu &amp;&amp;
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svm_range_is_same_attrs(p, prange, nattr, attrs)) {
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* nothing to do */
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (node-&gt;start &lt; start || node-&gt;last
+        &gt; last) {
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* node intersects the update range and its
+        attributes
+        <br>
+      </blockquote>
+    </blockquote>
+  </body>
+</html>
