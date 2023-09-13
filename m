@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D58F6CA5520
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Sep 2023 09:32:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B40EFCA5520
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Sep 2023 09:32:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6205310E04E;
-	Wed, 13 Sep 2023 09:32:18 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2043.outbound.protection.outlook.com [40.107.243.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0DC710E04E
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Sep 2023 09:32:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 323A410E05C;
+	Wed, 13 Sep 2023 09:32:21 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20628.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::628])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71E9910E05C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Sep 2023 09:32:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=b6Ykw9uMKp45Q8W8LryqGPh652Yf5zeqGtJG1cIzjsoEo6dO1IE3Hj2MBI8Qt1fLxC/l86abisugaLhpZrwkOaTj7QMY/9iB0mhtOt3wWzqL7eCfQKevMmZfgGzrEr2SS182ydCk2AAexnDerqJYSCKy0hzecmD+4Hf11bwGjohtXFpqnXQtu6nsvqlnE0giwFE4f3SLgx3CcSkWqGvO9BYHiTMCo0rBBXU/e4UK+RTLmoE5ulG7aNRRuX8JDmM6I4DfJjvGCfIQNioKEIYc5lrIkiaEpol1P4vg8GDf1Yzhqh5n4CePMLmc5wi9a6xgSMbfiZ9mcy5w6UVCWJN1MQ==
+ b=hbXLzNFzCOP/JNmQKYKU4InagdI8bL9BxkyuNGWHDYohgcImWRYQ0HkCZ5ESvfcvHcSE4NBoQ5Klatjo4azlbhla621mwHswagRkKORJC+l23cPHZ4dDX2378uu4Kb0lNFHFvYKwfQmd6bYCl7628DerPI95V/lMqSbLZgy7KkAeMkAPYy7Ti/jHchjH2J2TrKddcS5sthFApjBMEj6XrMWIFKbq725Ud/iZowlJxDhD499Bq3nSc3lDljhRSiWcZzznfetjr8KDpqx7bSGfTtRM8SOrqQTPYFP5TmQ3plwNZL/z8tZVtZE0VJOb3D3OjQpm4kQOjVYy8daoQui0nQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZxwbI4cLM8LoKza9EGVaRFfi+/RChYFI9ygAuB3qvGE=;
- b=Frb3oVLtAyvkzKBTNMAfxOlm75mcct4iZ6djZV/NXaqLWqTBqyQggTGhVfLVy/BdKhBHr/XktiK/lPTC4joDxh6w4U5X1dBl9GAA+lrmeiegYGixnYQlRACqkw6mzr1/pNiOSfiZKXVrxY91ZIzIOQ6AKxLqohJ1asOgqu6Srx/aZLiDFpMGC0RUOUMcvgvP9kk3mmgZktdC2ZO48qgWHHkYe5hXLyeQCuLaBm2JrUwg5AuUXMfnzzzhMaMJk5MORcaLBVW9ToGznHGrGBUF8at+8JX2BMzLNT/cAPn599j1A6RcjdUWwMokV50sZTg9G3t4OlPDlfPBUi8B1o5QVg==
+ bh=pEjHbth38Y42CdH208I3pKvMX4YYHCM6h+wCw1YTnEU=;
+ b=VDOKA61ZuFmpvrIQH0dUzMeaeKNG6Te87BGDY/TNSffjp6m7JdsXX+qNBEiyObIWN9kOiYub4roLUfp8Kf6XBqFYJj+6OmvRu1ffGz5GdLXX/sFDeFHV+DKA6CuY7jxE3/kqpWcC1PmGIJfTEwDsiwoccwUyDJFPtRJkoOqa2BQa8YeN4dQZIOM96Cka0mNKno6DXw1MYWA5RNAOTn4kgRbkpKGA7HnWETuncFzcjP5UL7OIDwjJofzw39MyIj490tDHP4M0PRW7RsTPYDNw8jMIvr74ACVcqkQJ8a/CbBogh8sw721KIzP55hwS+Bk9CdnZN83kVD0eVVOff0Q3VQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZxwbI4cLM8LoKza9EGVaRFfi+/RChYFI9ygAuB3qvGE=;
- b=IK6XRnIsmlHDnmK8MFg2DTzjhHqtroLqukyRuAx7inCpBp847xWEysTbYYels0qCby7ThGmxwY2Utpu/Rt5tAuK1Dgwe9/AmZDiDsfYkevJzOYn+9mD7wc3AINl0AniMDrWXaepn8Qiv8yeq7yqfpZTlSthkpVj9/yN8xAHxstw=
-Received: from DM6PR12CA0008.namprd12.prod.outlook.com (2603:10b6:5:1c0::21)
- by PH7PR12MB7818.namprd12.prod.outlook.com (2603:10b6:510:269::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.30; Wed, 13 Sep
- 2023 09:32:14 +0000
-Received: from DS1PEPF0001709B.namprd05.prod.outlook.com
- (2603:10b6:5:1c0:cafe::62) by DM6PR12CA0008.outlook.office365.com
- (2603:10b6:5:1c0::21) with Microsoft SMTP Server (version=TLS1_2,
+ bh=pEjHbth38Y42CdH208I3pKvMX4YYHCM6h+wCw1YTnEU=;
+ b=kCHk+YqIoIXgKeCDNTHvgevvMUaNLeWBLmjIP8vsAMbG8MIihY1BUYGE9521/Qzdps+WLK3MH03eCCQOgX7HEudEU45gtsp1u3A/Ki3X3vJ4uVYbw2UuVRMcNTQ84+7FENVdZeu1S2/OyOui3sidbfbKY0zcnKvlldGOMINkk1A=
+Received: from DM5PR07CA0050.namprd07.prod.outlook.com (2603:10b6:4:ad::15) by
+ SA0PR12MB4510.namprd12.prod.outlook.com (2603:10b6:806:94::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6792.19; Wed, 13 Sep 2023 09:32:16 +0000
+Received: from DS1PEPF00017098.namprd05.prod.outlook.com
+ (2603:10b6:4:ad:cafe::d5) by DM5PR07CA0050.outlook.office365.com
+ (2603:10b6:4:ad::15) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.19 via Frontend
- Transport; Wed, 13 Sep 2023 09:32:14 +0000
+ Transport; Wed, 13 Sep 2023 09:32:16 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +46,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0001709B.mail.protection.outlook.com (10.167.18.105) with Microsoft
+ DS1PEPF00017098.mail.protection.outlook.com (10.167.18.102) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6792.20 via Frontend Transport; Wed, 13 Sep 2023 09:32:14 +0000
+ 15.20.6792.16 via Frontend Transport; Wed, 13 Sep 2023 09:32:16 +0000
 Received: from kevin-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 13 Sep
- 2023 04:32:12 -0500
+ 2023 04:32:14 -0500
 From: Yang Wang <kevinyang.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/4] drm/amdgpu: add amdgpu smu mca dump feature support
-Date: Wed, 13 Sep 2023 17:31:57 +0800
-Message-ID: <20230913093200.312429-1-kevinyang.wang@amd.com>
+Subject: [PATCH 2/4] drm/amdgpu: add amdgpu mca debug sysfs support
+Date: Wed, 13 Sep 2023 17:31:58 +0800
+Message-ID: <20230913093200.312429-2-kevinyang.wang@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230913093200.312429-1-kevinyang.wang@amd.com>
+References: <20230913093200.312429-1-kevinyang.wang@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0001709B:EE_|PH7PR12MB7818:EE_
-X-MS-Office365-Filtering-Correlation-Id: 028bb757-e2af-4bc1-bb7b-08dbb43c507d
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017098:EE_|SA0PR12MB4510:EE_
+X-MS-Office365-Filtering-Correlation-Id: e8221871-1a14-454d-8abe-08dbb43c5195
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jPOVmX7IzeEV9xQui+lHdHYr4Ccb3PgzF9NdMtkoujBzld8AnnEx8r5hmpYlM6cAA5mvaKsBN2nFGI2AGzqr/fUFx9tRvRgfKgKisOsk40UTxdYkXh62/zteTexkCrtI4jv/4uz2tIfI1evZOpt6j5ehhxDRLqS8/O5Js7mH2Sp3U/ugfgcmi5GSptODqs7MfiKx51vDW5gMM0/zlf7lHEp8953X28nDngHqXDXy3pJQuzOOLUy0a1+fm4UxuKVia8IDha5cxhJsOmpVJ5BXCPwjW+OkrEjcYlDBAPxc0ysJCILr5u0C3FgHhpkR9a8wOuqkVVq3nVoT2dHVfW08/JVWFLfBrY6WwLPFAeBniLi2qc/Kj2f45hprXo1XjQ0XVgYf8wkoC3p9lbloh4nMUaYracTAeflAF48BWF1UUF1FFf4oZPtLp8XLlK68eam0O+S+fF5dlqvoKwewb/Q/SzVLgdlKlsM9Yzkm/cOIBONIuh+jB1ujUcVB7G7ESLt32taMJ3PT6MU7nyqT0LyMtVlorV30h5btori9PiPXJ3KObRSuSUGrD4iTrXicIHwlPWE8rlqR6dgcFGo7/lszlqRGIiC3C2ul7ILptYQRIQoIupMbNEI/kq22jsqCis7IsnjbmHjlo8UTAhDyoL42CGltVka45tUl1d7gdPX0PEZ+XwcoBjJulJmjck0Y2uJYL0Fkr1MWfZxZfbYOvOgYtdAQiacXqaCd2ibsbYPyCnHRr5ZZgYY53wAoza1NXnA2e2nRksBM815ZZxM4z2bNUg==
+X-Microsoft-Antispam-Message-Info: l39JQ21/YR9Vz99jpTb5kYJmHGqbkotjdlnU7DM8CunJ+hQFqFYMbTLMJo7fwRMh/dh8Yno48Tj6J21zNWFbS2TvuT6TudT+ShteXKj2EerRhAOanMFqBAyZsr6lcctA7DeLnsxEcEcUnuDY99kVwcoon4B3LHYdRSKNdCwWTGbXBHz7AVigY5LnMZQP8uZZksL34dQsENqyUSsaAIpAHqxHyRJdbSl0ONnTf7ifSlX+cm3CJLkCJflJk3DALbYr0pHwMmP4Q/Lesi9Ht87KE/by3+O4j70akQoB3oBnWPvVdBHsZNO0s3Tsje85yXqjun9yfET6YbgFg6LgUddORGcH2M/FtZaYxvM1OAvcSoKBgc/RnHmJkifJZMeLioxGMkSLEJZfj49nkzxSbn6TEBgTuzWpKsCqwhwpDBZoluv4TYo88ja2ACXpn6ivpd2+HfQJa5qCU8PnR5iqbtmO5ViEax8THj2turV/jjMsDxUQlWIujy1aLadlWb4Sc/N2RK2RDnmyEN2hHDqKfJuFG/LvkF2W1Dqpc6bQXwAu3zQWMGx65VGO7W5sq08p/gDo+IUu4HljsDksT4a37WE9WBG/wfDBjvfyLVz2TrTae/wPhugnbI+w0OgfX8e4asZQXHwpRLVLifXyXQBqX1Evxf7vDkADN64I5gEuSmU1jwk9zDBwJys2EmEzvtIXjLLuMU9v/r2gsLW2IJsCgyS31d/NIDBcXvUdwRTi7zRu3goADojKz1omCfoHIKHC6cRWNlGQDqfIn/HOwDaXfAgNvA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(39860400002)(396003)(376002)(136003)(82310400011)(1800799009)(186009)(451199024)(36840700001)(46966006)(40470700004)(356005)(7696005)(40460700003)(41300700001)(316002)(81166007)(2906002)(82740400003)(86362001)(36756003)(478600001)(6916009)(70206006)(70586007)(6666004)(54906003)(40480700001)(83380400001)(1076003)(5660300002)(47076005)(8936002)(4326008)(8676002)(2616005)(16526019)(26005)(36860700001)(336012)(426003)(36900700001);
+ SFS:(13230031)(4636009)(136003)(376002)(39860400002)(346002)(396003)(82310400011)(186009)(1800799009)(451199024)(36840700001)(40470700004)(46966006)(40460700003)(41300700001)(81166007)(82740400003)(356005)(6666004)(86362001)(2906002)(478600001)(83380400001)(2616005)(47076005)(426003)(16526019)(40480700001)(1076003)(7696005)(36860700001)(36756003)(336012)(26005)(54906003)(70206006)(70586007)(6916009)(316002)(8936002)(4326008)(8676002)(5660300002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2023 09:32:14.3730 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 028bb757-e2af-4bc1-bb7b-08dbb43c507d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2023 09:32:16.2068 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8221871-1a14-454d-8abe-08dbb43c5195
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001709B.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017098.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7818
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4510
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,171 +105,164 @@ Cc: alexander.deucher@amd.com, Yang Wang <kevinyang.wang@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-add amdgpu smu mca dump feature support.
+add amdgpu mca debug sysfs support.
 
 Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c | 68 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h | 57 +++++++++++++++++++++
- 2 files changed, 125 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c | 116 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c |   2 +
+ 3 files changed, 120 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
-index 8d9ff9e151de..9fa88ae81b12 100644
+index 9fa88ae81b12..35d592293106 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
-@@ -142,3 +142,71 @@ int amdgpu_mca_mpio_ras_sw_init(struct amdgpu_device *adev)
- 
- 	return 0;
+@@ -210,3 +210,119 @@ int amdgpu_mca_smu_get_mca_entry(struct amdgpu_device *adev,enum amdgpu_mca_erro
+ 	return -ENOTSUPP;
  }
-+
-+void amdgpu_mca_smu_init_funcs(struct amdgpu_device *adev, const struct amdgpu_mca_smu_funcs *mca_funcs)
+ 
++#if defined(CONFIG_DEBUG_FS)
++static int amdgpu_mca_smu_debug_mode_set(void *data, u64 val)
 +{
-+	struct amdgpu_mca *mca = &adev->mca;
++	struct amdgpu_device *adev = (struct amdgpu_device *)data;
++	int ret;
 +
-+	mca->mca_funcs = mca_funcs;
++	ret = amdgpu_mca_smu_set_debug_mode(adev, val ? true : false);
++	if (ret)
++		return ret;
++
++	dev_info(adev->dev, "amdgpu set smu mca debug mode %s success\n", val ? "on" : "off");
++
++	return 0;
 +}
 +
-+int amdgpu_mca_smu_set_debug_mode(struct amdgpu_device *adev, bool enable)
++static void mca_dump_entry(struct seq_file *m, struct mca_bank_entry *entry)
 +{
-+	const struct amdgpu_mca_smu_funcs *mca_funcs = adev->mca.mca_funcs;
++	int i, idx = entry->idx;
 +
-+	if (mca_funcs && mca_funcs->mca_set_debug_mode)
-+		return mca_funcs->mca_set_debug_mode(adev, enable);
++	seq_printf(m, "mca entry[%d].type: %s\n", idx, entry->type == AMDGPU_MCA_ERROR_TYPE_UE ? "UE" : "CE");
++	seq_printf(m, "mca entry[%d].ip: %d\n", idx, entry->ip);
++	seq_printf(m, "mca entry[%d].info: socketid:%d aid:%d hwid:0x%03x mcatype:0x%04x\n",
++		   idx, entry->info.socket_id, entry->info.aid, entry->info.hwid, entry->info.mcatype);
 +
-+	return -ENOTSUPP;
++	for (i = 0; i < ARRAY_SIZE(entry->regs); i++)
++		seq_printf(m, "mca entry[%d].regs[%d]: 0x%016llx\n", idx, i, entry->regs[i]);
 +}
 +
-+int amdgpu_mca_smu_get_valid_mca_count(struct amdgpu_device *adev, enum amdgpu_mca_error_type type, uint32_t *count)
++static int mca_dump_show(struct seq_file *m, enum amdgpu_mca_error_type type)
 +{
-+	const struct amdgpu_mca_smu_funcs *mca_funcs = adev->mca.mca_funcs;
++	struct amdgpu_device *adev = (struct amdgpu_device *)m->private;
++	struct mca_bank_entry *entry;
++	uint32_t count = 0;
++	int i, ret;
++
++	ret = amdgpu_mca_smu_get_valid_mca_count(adev, type, &count);
++	if (ret)
++		return ret;
++
++	seq_printf(m, "amdgpu smu %s valid mca count: %d\n",
++		   type == AMDGPU_MCA_ERROR_TYPE_UE ? "UE" : "CE", count);
 +
 +	if (!count)
-+		return -EINVAL;
++		return 0;
 +
-+	if (mca_funcs && mca_funcs->mca_get_valid_mca_count)
-+		return mca_funcs->mca_get_valid_mca_count(adev, type, count);
++	entry = kmalloc(sizeof(*entry), GFP_KERNEL);
++	if (!entry)
++		return -ENOMEM;
 +
-+	return -ENOTSUPP;
-+}
++	for (i = 0; i < count; i++) {
++		memset(entry, 0, sizeof(*entry));
 +
-+int amdgpu_mca_smu_get_error_count(struct amdgpu_device *adev, enum amdgpu_ras_block blk, enum amdgpu_mca_error_type type, uint32_t *count)
-+{
-+	const struct amdgpu_mca_smu_funcs *mca_funcs = adev->mca.mca_funcs;
-+	if (!count)
-+		return -EINVAL;
++		ret = amdgpu_mca_smu_get_mca_entry(adev, type, i, entry);
++		if (ret)
++			goto err_free_entry;
 +
-+	if (mca_funcs && mca_funcs->mca_get_error_count)
-+		return mca_funcs->mca_get_error_count(adev, blk, type, count);
-+
-+	return -ENOTSUPP;
-+}
-+
-+int amdgpu_mca_smu_get_mca_entry(struct amdgpu_device *adev,enum amdgpu_mca_error_type type, int idx, struct mca_bank_entry *entry)
-+{
-+	const struct amdgpu_mca_smu_funcs *mca_funcs = adev->mca.mca_funcs;
-+	int count;
-+
-+	switch (type) {
-+	case AMDGPU_MCA_ERROR_TYPE_UE:
-+		count = mca_funcs->max_ue_count;
-+		break;
-+	case AMDGPU_MCA_ERROR_TYPE_CE:
-+		count = mca_funcs->max_ce_count;
-+		break;
-+	default:
-+		return -EINVAL;
++		mca_dump_entry(m, entry);
 +	}
 +
-+	if (idx >= count)
-+		return -EINVAL;
++err_free_entry:
++	kfree(entry);
 +
-+	if (mca_funcs && mca_funcs->mca_get_mca_entry)
-+		return mca_funcs->mca_get_mca_entry(adev, type, idx, entry);
++	return ret;
++}
 +
-+	return -ENOTSUPP;
++static int mca_dump_ce_show(struct seq_file *m, void *unused)
++{
++	return mca_dump_show(m, AMDGPU_MCA_ERROR_TYPE_CE);
++}
++
++static int mca_dump_ce_open(struct inode *inode, struct file *file)
++{
++	return single_open(file, mca_dump_ce_show, inode->i_private);
++}
++
++static const struct file_operations mca_ce_dump_debug_fops = {
++	.owner = THIS_MODULE,
++	.open = mca_dump_ce_open,
++	.read = seq_read,
++	.llseek = seq_lseek,
++	.release = single_release,
++};
++
++static int mca_dump_ue_show(struct seq_file *m, void *unused)
++{
++	return mca_dump_show(m, AMDGPU_MCA_ERROR_TYPE_UE);
++}
++
++static int mca_dump_ue_open(struct inode *inode, struct file *file)
++{
++	return single_open(file, mca_dump_ue_show, inode->i_private);
++}
++
++static const struct file_operations mca_ue_dump_debug_fops = {
++	.owner = THIS_MODULE,
++	.open = mca_dump_ue_open,
++	.read = seq_read,
++	.llseek = seq_lseek,
++	.release = single_release,
++};
++
++DEFINE_DEBUGFS_ATTRIBUTE(mca_debug_mode_fops, NULL, amdgpu_mca_smu_debug_mode_set, "%llu\n");
++#endif
++
++void amdgpu_mca_smu_debugfs_init(struct amdgpu_device *adev, struct dentry *root)
++{
++#if defined(CONFIG_DEBUG_FS)
++	if (!root || adev->ip_versions[MP1_HWIP][0] != IP_VERSION(13, 0, 6))
++		return;
++
++	debugfs_create_file("mca_debug_mode", 0200, root, adev, &mca_debug_mode_fops);
++	debugfs_create_file("mca_ue_dump", 0400, root, adev, &mca_ue_dump_debug_fops);
++	debugfs_create_file("mca_ce_dump", 0400, root, adev, &mca_ce_dump_debug_fops);
++#endif
 +}
 +
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h
-index 997a073e2409..6915ae0d5b92 100644
+index 6915ae0d5b92..0f8cbfb929dd 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h
-@@ -21,6 +21,26 @@
- #ifndef __AMDGPU_MCA_H__
- #define __AMDGPU_MCA_H__
+@@ -110,4 +110,6 @@ int amdgpu_mca_smu_get_valid_mca_count(struct amdgpu_device *adev, enum amdgpu_m
+ int amdgpu_mca_smu_get_error_count(struct amdgpu_device *adev, enum amdgpu_ras_block blk, enum amdgpu_mca_error_type type, uint32_t *count);
+ int amdgpu_mca_smu_get_mca_entry(struct amdgpu_device *adev,enum amdgpu_mca_error_type type, int idx, struct mca_bank_entry *entry);
  
-+#include "amdgpu_ras.h"
-+
-+#define MCA_MAX_REGS_COUNT	(16)
-+
-+enum amdgpu_mca_ip {
-+	AMDGPU_MCA_IP_UNKNOW = -1,
-+	AMDGPU_MCA_IP_PSP = 0,
-+	AMDGPU_MCA_IP_SDMA,
-+	AMDGPU_MCA_IP_GC,
-+	AMDGPU_MCA_IP_SMU,
-+	AMDGPU_MCA_IP_MP5,
-+	AMDGPU_MCA_IP_UMC,
-+	AMDGPU_MCA_IP_COUNT,
-+};
-+
-+enum amdgpu_mca_error_type {
-+	AMDGPU_MCA_ERROR_TYPE_UE = 0,
-+	AMDGPU_MCA_ERROR_TYPE_CE,
-+};
-+
- struct amdgpu_mca_ras_block {
- 	struct amdgpu_ras_block_object ras_block;
- };
-@@ -34,6 +54,36 @@ struct amdgpu_mca {
- 	struct amdgpu_mca_ras mp0;
- 	struct amdgpu_mca_ras mp1;
- 	struct amdgpu_mca_ras mpio;
-+	const struct amdgpu_mca_smu_funcs *mca_funcs;
-+};
-+
-+struct mca_bank_info {
-+	int socket_id;
-+	int aid;
-+	int hwid;
-+	int mcatype;
-+};
-+
-+struct mca_bank_entry {
-+	int idx;
-+	enum amdgpu_mca_error_type type;
-+	enum amdgpu_mca_ip ip;
-+	struct mca_bank_info info;
-+	uint64_t regs[MCA_MAX_REGS_COUNT];
-+};
-+
-+struct amdgpu_mca_smu_funcs {
-+	int max_ue_count;
-+	int max_ce_count;
-+	int (*mca_set_debug_mode)(struct amdgpu_device *adev, bool enable);
-+	int (*mca_get_error_count)(struct amdgpu_device *adev, enum amdgpu_ras_block blk,
-+				   enum amdgpu_mca_error_type type, uint32_t *count);
-+	int (*mca_get_valid_mca_count)(struct amdgpu_device *adev, enum amdgpu_mca_error_type type,
-+				       uint32_t *count);
-+	int (*mca_get_mca_entry)(struct amdgpu_device *adev, enum amdgpu_mca_error_type type,
-+				 int idx, struct mca_bank_entry *entry);
-+	int (*mca_get_ras_mca_idx_array)(struct amdgpu_device *adev, enum amdgpu_ras_block blk,
-+					 enum amdgpu_mca_error_type type, int *idx_array, int *idx_array_size);
- };
- 
- void amdgpu_mca_query_correctable_error_count(struct amdgpu_device *adev,
-@@ -53,4 +103,11 @@ void amdgpu_mca_query_ras_error_count(struct amdgpu_device *adev,
- int amdgpu_mca_mp0_ras_sw_init(struct amdgpu_device *adev);
- int amdgpu_mca_mp1_ras_sw_init(struct amdgpu_device *adev);
- int amdgpu_mca_mpio_ras_sw_init(struct amdgpu_device *adev);
-+
-+void amdgpu_mca_smu_init_funcs(struct amdgpu_device *adev, const struct amdgpu_mca_smu_funcs *mca_funcs);
-+int amdgpu_mca_smu_set_debug_mode(struct amdgpu_device *adev, bool enable);
-+int amdgpu_mca_smu_get_valid_mca_count(struct amdgpu_device *adev, enum amdgpu_mca_error_type type, uint32_t *count);
-+int amdgpu_mca_smu_get_error_count(struct amdgpu_device *adev, enum amdgpu_ras_block blk, enum amdgpu_mca_error_type type, uint32_t *count);
-+int amdgpu_mca_smu_get_mca_entry(struct amdgpu_device *adev,enum amdgpu_mca_error_type type, int idx, struct mca_bank_entry *entry);
++void amdgpu_mca_smu_debugfs_init(struct amdgpu_device *adev, struct dentry *root);
 +
  #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index eeb695f9ff1c..4e4ba2149595 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -1570,6 +1570,8 @@ void amdgpu_ras_debugfs_create_all(struct amdgpu_device *adev)
+ 			amdgpu_ras_debugfs_create(adev, &fs_info, dir);
+ 		}
+ 	}
++
++	amdgpu_mca_smu_debugfs_init(adev, dir);
+ }
+ 
+ /* debugfs end */
 -- 
 2.34.1
 
