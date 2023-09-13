@@ -4,55 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7442DCA5537
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Sep 2023 16:11:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F93DCA5539
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Sep 2023 16:14:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1F5910E4D5;
-	Wed, 13 Sep 2023 16:11:00 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF41910E02A;
- Wed, 13 Sep 2023 16:10:58 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8B40C61A0A;
- Wed, 13 Sep 2023 16:10:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25ED1C433C7;
- Wed, 13 Sep 2023 16:10:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1694621456;
- bh=zb3Av1pFNOsjED2IV5DGzeXlf/onH5EprDbHqtbQT5U=;
- h=From:Date:Subject:To:Cc:From;
- b=Qg4IGxYynpdACteEvT7EkdE/xPD94USvg2ihnnUDmzCmtoft/v+c+9krD+k6TD0jN
- MShDL5F1gOGib2CK3QpH2OWrd9tZT8fD1XWETdVHMyEmBUWeRw1tu5oHLEk33aH9iv
- R/qJtAQBOUY5sZdbDG/4ZQUjCO9IyRvwzoCzfDZEajMn8wbBxZU0a/wWD3ESOYVmjH
- 1tuqBmdU1bstlLEMTcgs5IfHJNBom30nKSqlx4rGinVZgrrKtfGp23+4emdqvYu5R4
- x4sRkZQ/2JthyaTxQyj1wsdC1SMNXc5IWDZiyG38HJjqWkTXS3HKMU9I5IiUV0RNmv
- pXBWzds3PKp2A==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Wed, 13 Sep 2023 09:10:36 -0700
-Subject: [PATCH] drm/amd/display: Fix -Wuninitialized in
- dm_helpers_dp_mst_send_payload_allocation()
+	by gabe.freedesktop.org (Postfix) with ESMTP id 139B410E02A;
+	Wed, 13 Sep 2023 16:14:18 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2043.outbound.protection.outlook.com [40.107.93.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76D7F10E02A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Sep 2023 16:14:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Nu0Bb/iVRxBiFGMmcoXnQmDcPRNIHcPfqaL42Yh2+U0oT8qiT5+d3kviq548OpzRkS16k61yWUEW8U2lQfIG9S5phDHTA7GW+AofhjlwA1NCHFoxP+381Esd6rJ2xpJtEUnDzp3arLbCiHhOVPXXA9LjsPXxVvbyMDFPwpBzLNTm1WA0ohu8Z35LqKVDDx++sR1UyCF2E0vD9yOItXXLsSiPKMcSa75EdWGe8DA08CJg7vya0WophfRRECSIj5qAGSenAKdQFvCObcKYLrgN6JzWG/Zv0wOKMuj2gjeiXvQkZGSXjNLNiyPLdgd9oyy9xrhWpGbEqUVa2Cluqb/25Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2lTswuW9MFFCcc+1O6yYWzvvigt599tiBv8evhYAbcs=;
+ b=frm1f2CyPCKRGfShv2xvoKQ1Y4GFeo2DmnpjIlhbuwDjCD+j5W8RpuKa93nEzo/HINiSZrYzcZL7rS+9QZmJ0zuGRcRmY3fX+lB9zCqG/ORbKpIHcsyJi1qNP0ly1Y0zToUXjxU7PRo+NmY3UafcF+ee9ZEBszBzxL6qnn3Dy737cZcs+Cx60ho3FWh1UHtKmvDeTsJ2I/0FVSlaWRnlYz6YSoEknowJ9SSmd3MsFHN72f3II1Orqn/QiJQpxX6455gSaID5OXopTbkWvtCVyhuGJF/Ol0/HCkyYBhmX8O6CCjlE5//yZ9gTm9dZDyhMcQbKIuvQmLieqdaodgV42w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2lTswuW9MFFCcc+1O6yYWzvvigt599tiBv8evhYAbcs=;
+ b=SClY1w6vuc21cjOnLhc7fu02acJPAo9Ct689Jdu9jufVqv4L3OgCWe1uDruiZTwWxb0brT/Q+8oXZ1cZhV5TMpRqlocBd15vN0G4drL5J01BgybMjAnpQJVbA2kPf/bkfZs94+xE3XLIhGKo9vfPWY8BW49G5zvNWymw25MuTCE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by DM6PR12MB5024.namprd12.prod.outlook.com (2603:10b6:5:20a::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.39; Wed, 13 Sep
+ 2023 16:14:12 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::620f:8aa7:43d6:8010]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::620f:8aa7:43d6:8010%6]) with mapi id 15.20.6792.019; Wed, 13 Sep 2023
+ 16:14:12 +0000
+Message-ID: <afb950e9-47ac-5823-8ed2-4c1e01fb5f0d@amd.com>
+Date: Wed, 13 Sep 2023 12:14:09 -0400
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.0
+Subject: Re: [PATCH] drm/amdkfd: handle errors from svm validate and map
+Content-Language: en-US
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230913151617.18894-1-Philip.Yang@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20230913151617.18894-1-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR01CA0027.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01::35)
+ To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230913-fix-wuninitialized-dm_helpers_dp_mst_send_payload_allocation-v1-1-2d1b0a3ef16c@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAPveAWUC/x3NSQ7DIAxA0atEXhcphEWHq1QVcrHbWCKAMB2j3
- L2oy795fwXlKqxwGlao/BSVnHrY3QBhxnRnI9QbpnFy49E6c5O3eT2SJGmCUb5MhhY/cyxc1VP
- xizavnMgX/MSM5DHGHLB12AS3vzqHiGQP0Belcvf++/Nl2358pnq5jgAAAA==
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, 
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, 
- Wayne.Lin@amd.com, lyude@redhat.com
-X-Mailer: b4 0.13-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2845; i=nathan@kernel.org;
- h=from:subject:message-id; bh=zb3Av1pFNOsjED2IV5DGzeXlf/onH5EprDbHqtbQT5U=;
- b=owGbwMvMwCEmm602sfCA1DTG02pJDKmM9/lf+i24czf2fN73Jy6zvQwNtkj95LHXVnnBnBDiF
- Jb7zVq8o5SFQYyDQVZMkaX6sepxQ8M5ZxlvnJoEM4eVCWQIAxenAExkqSvDb5YvF4xeJYp3O5s9
- NEpbWrmmo+G71c0vimJ6k3Qr056d3szwv6TNLavXbXvqzXWMNm0r16zZ6P/u7dwLPCqhlbaWBo8
- n8AAA
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM6PR12MB5024:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1d28e120-0bf6-4061-fac8-08dbb47477c9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: g/daPG7V4nGVFPDShqNUqZznsmwQocSdKkKpsbrHY4cZr2vn/N5nIx1dpWchoC/X7/c62b/kzjkmlwNQiHWMya+yM7flqG+mlGMwZQyASiy0YvsmSI6+YcTkiF2nuxJdoeU5QOArYlLcRDDGY1sq1UEJgFwmziI+VVfz02s6PWbrWhw0Tar4cUb66PvN/A6WGCirZGm/DXjZ61/8EI8FD0JsSxS60ll8AdC3fT1OtNrW7yLbrYi2nOi+R8InHC4BaA9MjLTOwKYQesouHXvNFpe6XBs6tr/dyYgS77Obyr8G6/OMiNAAMFQtZMluCpbnXss9aNkvWnZ/0oIXszIIE4ZvBaBprBPtkhJu7Kp9hMTmvMn4+Tm2NNctJebEJuOarTthLJujEuT1eYYezi5zBw6ZCbhhYoV2fsOtXni/BJ9IdMAAVy+3PaCiRvRut3siFgAS4bCiQvXTjk6RhQG9wbrSJhJz+gbsPJX1GQtr/a6OVp1h/nwhv82Kk9ZvH6QBK/LpXrEg2vs4lpgtzvzK/ruWomwKSfHsX4IZYgRgfnyez2fhnaZVf6yMdJ8KWcZP2vRHxdI8Ep1ozF96GDohcTeA7VQFYCrH/VMTOt4rgovsCNV/byE8E/nI6DkD/Tam8pLxt/QxOUVSDQ4S+2dqqw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(346002)(396003)(366004)(39860400002)(376002)(186009)(451199024)(1800799009)(66899024)(31686004)(6666004)(6486002)(6506007)(53546011)(36756003)(86362001)(31696002)(38100700002)(26005)(2616005)(83380400001)(15650500001)(6512007)(2906002)(44832011)(478600001)(5660300002)(4326008)(316002)(8676002)(41300700001)(8936002)(66556008)(66476007)(66946007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q3BVUFNzWGFBTzVvWjh4VkRLbStLS2lKNG12R0lOWVJLbmpjaTlvRkdaUndw?=
+ =?utf-8?B?citsUkpIZ1FpR0QzalVXNEIrNEVzd1hvUWNLbU92eWJyb1Q4NG5CdEdsRUF4?=
+ =?utf-8?B?cDExMXhyLytoVHhkYkNwZUduTTA1R3FnQTJHaTBmK2pQWFFjRjRJdGRHbnkx?=
+ =?utf-8?B?cmp3Snp4TVJucmprWlF1RkRrdjA3OTFUcUg0SEtEU3pXVW5kc1RuYjAyNGdW?=
+ =?utf-8?B?QnpiSVhKWmhjTzQ4SmJ6NHRObFJsNFVQalBYOXE1SkRMN045b1VYdzdrT1BN?=
+ =?utf-8?B?T3VWVzJycDZWclN0NEl5bk9aS0xISWtpWm1OVHhNdDd3MDhFZGYxLzYzaHIz?=
+ =?utf-8?B?M3FZYTZhbGxBTnpVbWVTUFVFYnNvblgwbk5PR3VLRWZiTm05N3lvMGlVQS9Y?=
+ =?utf-8?B?d1ZMTU9KZVU4RDBlbzNYUktSbTlKYUNsWTN2VkxVNmdmdG5GcVRiTnJSNzNH?=
+ =?utf-8?B?UllHd1JBdHhDUlJHdTcwcEk1Q1BXZW9ReDMyZDdDZE1WOWc0MmlkbGhyNHdo?=
+ =?utf-8?B?OHQ2aTJndG9USkNsc3BDWDQ2N3BnK2pBUWw3Z2FldjFpZ3lNQytXOU5jV2xh?=
+ =?utf-8?B?SzkyUXUxSXNsNzVkc1B5MTI1Mi85VExjdUF1TVROSmsrbGUzNmZ2YjI0eFJB?=
+ =?utf-8?B?K2pzLy9jdUFGU1JBWm44K3F3VndyQ053SGE4R28xTXJLWCs1Y0pNSnpnYURw?=
+ =?utf-8?B?VzVrL2x2Q2Jva1RaYVhxZWxLMkpIWm1icUxYdEI5YWhKWGZRaXV1L0JRVVNJ?=
+ =?utf-8?B?K0JkbUh4RXhMRE9xNlJWTkdwT0lZZVgyeEhod25td0l4cTN5MFBkaW50a25o?=
+ =?utf-8?B?czJkdGFCQWMxK2pKMjZoZlFWcldXc2t4QjBRUXpjYm9wVWtQQXJuakt4dEhE?=
+ =?utf-8?B?V25jbE5JeU5CTG9ieDR0YUZJaVA3OUVxZUxTVTZJcHJjWFBBU1NtZGFkTEVC?=
+ =?utf-8?B?WjdFVTlKcytGYmYxK2d1elNrdnRBci9XN0JuazRaZG56TytHM0thcHY3NVRy?=
+ =?utf-8?B?TlRjVGhYbjUxcnBYZXJXZis3SW1ON21jOEFxTDZjdE5mZ1d2dWN3NGZxMm9w?=
+ =?utf-8?B?YWR3SmtES1hXR3A5VEJJalpML25LQ2UwUEY4R2RhRjJzQzZSUjJWSE8yNmlG?=
+ =?utf-8?B?UG14VXQ0cXpXZTlDMEpYSitaY0NJYStKUHdERUZ0S1F5M1QyZlkwS3YzV1JZ?=
+ =?utf-8?B?dnBNbU0xOHV4MS9IOEJuRFlPQkJNOVcyTXFHeFVzcTI1OGpQQ2pZNXIvdlZO?=
+ =?utf-8?B?dGpkdnZHQ2dRTFVYSmFLdGh6NzhFdEQ5OWQwbUw4V1d2dStzcmRmclVNdVhB?=
+ =?utf-8?B?emVhcWJERExRMkIwVERmTTVNT0NyZUUyNER5ZVAxRjUwRDNrclVReTNCWHhu?=
+ =?utf-8?B?ZGF6VnFOWDVFek1zWVJQUHNRZWRQeFRKMGlMSUg3eUdZT3p1cEMxTWRjWmp6?=
+ =?utf-8?B?NmNGSllMYnFHUDczM2VhT1lZSXBhdC9uQVlpODFRcHF3Tm1BM0dOcVBiNkRm?=
+ =?utf-8?B?MmNBRUMxb0xZb0FEWDUrM2NhZ3FIbmJOdjZZSWhTQWFOTnpna0tnM3h2MVZF?=
+ =?utf-8?B?a1htUEVwR2NWVEdPTDZFbGVCK2ZhNjYrWHFzd3pkRUhNKzZ5cURoY3g1RFdh?=
+ =?utf-8?B?S2t5L21TeEN0Z1JyNjNRTFNBWkZEZ3Zjc1Z3T0piYjY1QjFyNGpEaTNLMGo4?=
+ =?utf-8?B?cllaNzU5Z0tiL20rNWJiU0tERElzTTlwSW1rQ1dwQVBGMEVydWMwVkwrK2kr?=
+ =?utf-8?B?b1hnQTZsOVI0UDdWSTc2ZGU1RW9GRnBuWWVyVFpRRjRrdWVrWGZQMFFQT0Nn?=
+ =?utf-8?B?cno3eWVkb2lTeDlTTXNSbUFhTER0SHVhOEdveFVTNTVvR3hQZ3hta080aE5S?=
+ =?utf-8?B?RUtuNUZWWTg0Rnplc3BhSGgweWM3aXprcXI2NnFWbE52Q1k0M3RzRGNqUjhI?=
+ =?utf-8?B?SGR1NFRNWE80MmNLRlVTZ0ZsN1JhSmRBSG9zSS84Z1BwdWl5bGRYaFBSWUFX?=
+ =?utf-8?B?N0lUWStwaVRBTHdtOGVLS3liSFFGeEVBVVgzRHR1TlpWVzhrbkh6VUlFaVZ4?=
+ =?utf-8?B?RVFscHAzbmozUEsxRDV3RUtzaU9LZm1ZSXRkeG1iMTRrZzExcTFvcjgzbVZY?=
+ =?utf-8?Q?qey2G2byEMNZWCirWS/w4LHpg?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d28e120-0bf6-4061-fac8-08dbb47477c9
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2023 16:14:12.3216 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: g2ihBCDev3xthRpk16tVueo39gqQ4VDseZU6gXiSA3ElxiZNU2OX+M+u34wz/ASoaGA+FfpzbklyG3HlLmWeOg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB5024
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,65 +123,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: trix@redhat.com, llvm@lists.linux.dev, ndesaulniers@google.com,
- patches@lists.linux.dev, dri-devel@lists.freedesktop.org,
- Nathan Chancellor <nathan@kernel.org>, amd-gfx@lists.freedesktop.org
+Cc: alex.sierra@amd.com, james.zhu@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When building with clang, there is a warning (or error when
-CONFIG_WERROR is set):
+On 2023-09-13 11:16, Philip Yang wrote:
+> If new range is added to update list, splited to multiple pranges with
+> max_svm_range_pages alignment, and svm validate and map returns error
+> for the first prange, then the caller retry should add pranges with
+> prange->is_error_flag or prange without prange->mapped_to_gpu to the
+> update list, to update GPU mapping for the entire range.
 
-  drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_helpers.c:368:21: error: variable 'old_payload' is uninitialized when used here [-Werror,-Wuninitialized]
-    368 |                                                  new_payload, old_payload);
-        |                                                               ^~~~~~~~~~~
-  drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_helpers.c:344:61: note: initialize the variable 'old_payload' to silence this warning
-    344 |         struct drm_dp_mst_atomic_payload *new_payload, *old_payload;
-        |                                                                    ^
-        |                                                                     = NULL
-  1 error generated.
+It looks like the only new thing here is to remove the "same attribute" 
+optimization for ranges that are not mapped on the GPU. I don't fully 
+understand the scenario you're describing here, but it feels like this 
+change has a bigger impact than it needs to have. Your description 
+specifically talks about ranges split at max_svm_range_pages boundaries. 
+But your patch affects all ranges not mapped on the GPU, even it 
+prange->is_error_flag is not set.
 
-This variable is not required outside of this function so allocate
-old_payload on the stack and pass it by reference to
-dm_helpers_construct_old_payload(), resolving the warning.
+Maybe that's OK, because the expensive thing is updating existing 
+mappings unnecessarily. If there is no existing mapping yet, it's 
+probably not a big deal. I just don't understand the scenario that 
+requires a retry  without the prange->is_error_flag being set. Maybe a 
+better fix would be to ensure that prange->is_error_flag gets set in 
+your scenario.
 
-Closes: https://github.com/ClangBuiltLinux/linux/issues/1931
-Fixes: 5aa1dfcdf0a4 ("drm/mst: Refactor the flow for payload allocation/removement")
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Regards,
+   Felix
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 9ad509279b0a..c4c35f6844f4 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -341,7 +341,7 @@ bool dm_helpers_dp_mst_send_payload_allocation(
- 	struct amdgpu_dm_connector *aconnector;
- 	struct drm_dp_mst_topology_state *mst_state;
- 	struct drm_dp_mst_topology_mgr *mst_mgr;
--	struct drm_dp_mst_atomic_payload *new_payload, *old_payload;
-+	struct drm_dp_mst_atomic_payload *new_payload, old_payload;
- 	enum mst_progress_status set_flag = MST_ALLOCATE_NEW_PAYLOAD;
- 	enum mst_progress_status clr_flag = MST_CLEAR_ALLOCATED_PAYLOAD;
- 	int ret = 0;
-@@ -365,8 +365,8 @@ bool dm_helpers_dp_mst_send_payload_allocation(
- 		ret = drm_dp_add_payload_part2(mst_mgr, mst_state->base.state, new_payload);
- 	} else {
- 		dm_helpers_construct_old_payload(stream->link, mst_state->pbn_div,
--						 new_payload, old_payload);
--		drm_dp_remove_payload_part2(mst_mgr, mst_state, old_payload, new_payload);
-+						 new_payload, &old_payload);
-+		drm_dp_remove_payload_part2(mst_mgr, mst_state, &old_payload, new_payload);
- 	}
- 
- 	if (ret) {
 
----
-base-commit: 8569c31545385195bdb0c021124e68336e91c693
-change-id: 20230913-fix-wuninitialized-dm_helpers_dp_mst_send_payload_allocation-c37b33aaad18
-
-Best regards,
--- 
-Nathan Chancellor <nathan@kernel.org>
-
+>
+> Fixes: c22b04407097 ("drm/amdkfd: flag added to handle errors from svm validate and map")
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> Tested-by: James Zhu <james.zhu@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 5 +++--
+>   1 file changed, 3 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index 61dd66bddc3c..8871329e9cbd 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -825,7 +825,7 @@ svm_range_is_same_attrs(struct kfd_process *p, struct svm_range *prange,
+>   		}
+>   	}
+>   
+> -	return !prange->is_error_flag;
+> +	return true;
+>   }
+>   
+>   /**
+> @@ -2228,7 +2228,8 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
+>   		next = interval_tree_iter_next(node, start, last);
+>   		next_start = min(node->last, last) + 1;
+>   
+> -		if (svm_range_is_same_attrs(p, prange, nattr, attrs)) {
+> +		if (!prange->is_error_flag && prange->mapped_to_gpu &&
+> +		    svm_range_is_same_attrs(p, prange, nattr, attrs)) {
+>   			/* nothing to do */
+>   		} else if (node->start < start || node->last > last) {
+>   			/* node intersects the update range and its attributes
