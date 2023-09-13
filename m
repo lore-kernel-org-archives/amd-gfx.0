@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2DB8CA5507
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Sep 2023 08:25:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4725CA5505
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Sep 2023 08:27:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5440A10E47F;
-	Wed, 13 Sep 2023 08:25:54 +0000 (UTC)
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E2CD10E47F
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Sep 2023 08:25:53 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-313e742a787so397618f8f.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Sep 2023 01:25:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2639810E480;
+	Wed, 13 Sep 2023 08:27:18 +0000 (UTC)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E37B10E480
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Sep 2023 08:27:16 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-500cfb168c6so10710382e87.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Sep 2023 01:27:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1694593552; x=1695198352; darn=lists.freedesktop.org;
+ d=gmail.com; s=20221208; t=1694593634; x=1695198434; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:references:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=DwXTnWTtSXUbbQId+gxVpa7JS1gAFAWvNd1AHN7nJE0=;
- b=UDEF+A1pHnfvE6z/FowLpbZPqdpZM7Fe9fKIzhLZX/7PDJH2pM5iiHdB0trz39QEdz
- xnz6RbbPsXlzMO5g+7mxhV9a0tbjHNBY0Ui3GPX7uPXJS0zF1GCtrOKHs8JB/1j1pzYI
- 4D2RmxVh7V97ZkHmMMVtW5X70ctSjQHLD8/+y0n7jFsEo0kcVPZCpQUhb4asxozx3+R7
- n/0uX4QLhyvl2BzUi5VKLF8Z/dAryXY+jSqVNSvpSRc5eAvVhFmNAay6tdRil9KF1wu5
- VGCSdb/syr97XBqkV1ze73zSyFZedASF3eecVyEd7RkNxRGHIWLAfuguFwm9/771TAbO
- f6gA==
+ bh=B8x+PyxeapJ29onTcTTfUALL3fK6WsA3a/PmKejf9Eo=;
+ b=i5PvWq6gZkzSh+TD5I28Zjk13cl9XWD7miyJGIb+7dhnYxuS46+3ZyI2fCMWVzJ5tC
+ oVhycDFU0zV6Sfy3IIuCHUodpWxi3epOVtyGap7AZQpEuZBJv8v724aM1k9fkvzEEv0l
+ xHiKakgT7PHhXdGnpc1W5xcp3iPV6SdUNrnVsfMHCwSlLBqMDbiS1x0648wmXRJ6xLBV
+ js7bCk/lfma2e6p+7uSI3zxXEZOQqCakbJl7OdTNtmVsdLSFtGa/EhbFIqdtxcqAeBvu
+ 2ejCJmJ2AG/KfE5UeY7EBvDw0ftgG3sAP5k2xNuRkFo8Gjf3wd3oH608SnP5n3viKg1D
+ BC2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694593552; x=1695198352;
+ d=1e100.net; s=20230601; t=1694593634; x=1695198434;
  h=content-transfer-encoding:in-reply-to:from:references:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=DwXTnWTtSXUbbQId+gxVpa7JS1gAFAWvNd1AHN7nJE0=;
- b=MyZ2qP8tXGMVSEl223r3AQ5yah2QeWSWtMshisp5wycut0k413ql8OCMhSTxj4Tex5
- ecIrglj6t0Rh08RWlRJKc89v5nFx125OttQX6TF8c7bXMZI8P0NhMftwANLh2UebAQvN
- NhS5uErDHj2cgGWeyKnKN6MxeNwc17RjJCvcAyQXSBAK8OVB01sMDfJj6ACQjEe/x3gL
- Io4bUmPRR9ELjQHxPfiEefSG1lOQ7EXDaNQDJy4wLVG/ntc22KsAAwVeE6hNN8jWlDvo
- ii+psiCvaYs7FtR+LhLa89RoTDW7tB512hBJdPlua5YyDgV8zRvOi5VRAMG611pli4NT
- eP1A==
-X-Gm-Message-State: AOJu0Yy1nfHBoxXfnPCwA4SRNFfo0sty2QjkYJI+c+zsiAHbqrusYo6X
- bZc8u/RiQy0ik38kzAY2IpsBgqaxh55moQ==
-X-Google-Smtp-Source: AGHT+IHPOks8IkXFm2SnyxZ1y2ZciaF+Mg/DvvhPv3CqrSi6/muV1TMqfacuhICQNrVMkTMeaxMbUg==
-X-Received: by 2002:a05:6000:1364:b0:31c:8c5f:877e with SMTP id
- q4-20020a056000136400b0031c8c5f877emr3777749wrz.33.1694593551671; 
- Wed, 13 Sep 2023 01:25:51 -0700 (PDT)
+ bh=B8x+PyxeapJ29onTcTTfUALL3fK6WsA3a/PmKejf9Eo=;
+ b=axQpoPDjJGbapRZkW/gD283fQSlAwviX1/8oMfeznGmaxAkwFD74IPB8MCUQ0YwH/2
+ naXyQNadMpZrTE3TKH1IVR8w6ako7HsZP6yulKR1O2fUDYSGswMU9FKq8d9j5/pPrmv/
+ xaVRt6NRsEGbRCogYSPKltXiXZTPHfqw3C7AWdB+MurEKQWV2phtqYytmD1h1VL6aMjO
+ FE2h/k/fduQoTZpAb1h/yKku/wj4gRDUPLmSlexICdZ0Y8c9nFqZAbfh0WN4kHWA0bo3
+ wphgX6fuD0k5o17APtHr+i6R6kzU2Gf3eG1AcKtjyLftODJ7P/XoBbSl8Eru9mKPCxLR
+ Saig==
+X-Gm-Message-State: AOJu0Yw34ux2nbFpniBFhl3wQyqF52tjVh7KSrGwC9EYkki4fQfksOy6
+ WKtKZFvGhDfayVinGfmdp3g=
+X-Google-Smtp-Source: AGHT+IEuB3GxZpmXCSw7UCmyJt9R4t6EIg9mGjjI2CrKs93Lsc2u4JOaaKzHxMMhJzAYzPs2GxjYXw==
+X-Received: by 2002:a19:381b:0:b0:502:d800:615c with SMTP id
+ f27-20020a19381b000000b00502d800615cmr1698151lfa.27.1694593633995; 
+ Wed, 13 Sep 2023 01:27:13 -0700 (PDT)
 Received: from [10.254.108.106] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- d6-20020a5d4f86000000b0031c77c010e1sm14855707wru.96.2023.09.13.01.25.50
+ e20-20020a05600c219400b003fe1c332810sm1312520wme.33.2023.09.13.01.27.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Sep 2023 01:25:51 -0700 (PDT)
-Message-ID: <c13acfe2-6867-613b-ef7e-356928e84e89@gmail.com>
-Date: Wed, 13 Sep 2023 10:25:48 +0200
+ Wed, 13 Sep 2023 01:27:13 -0700 (PDT)
+Message-ID: <964e53a6-de4b-c2a1-5334-afea06de93e3@gmail.com>
+Date: Wed, 13 Sep 2023 10:27:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.0
-Subject: Re: [PATCH] drm/amdkfd: Insert missing TLB flush on GFX10 and later
+Subject: Re: [PATCH] drm/amdgpu: add VPE IP discovery info to HW IP info query
 Content-Language: en-US
-To: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20230911190023.193702-1-Harish.Kasiviswanathan@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230912212843.2807760-1-alexander.deucher@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230911190023.193702-1-Harish.Kasiviswanathan@amd.com>
+In-Reply-To: <20230912212843.2807760-1-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -79,30 +78,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 11.09.23 um 21:00 schrieb Harish Kasiviswanathan:
-> Heavy-weight TLB flush is required after unmap on all GPUs for
-> correctness and security.
+Am 12.09.23 um 23:28 schrieb Alex Deucher:
+> Add missing IP discovery info.
 >
-> Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
-Acked-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
 > ---
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 3 +++
+>   1 file changed, 3 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index b315311dfe2a..b9950074aee0 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -1466,8 +1466,7 @@ void kfd_flush_tlb(struct kfd_process_device *pdd, enum TLB_FLUSH_TYPE type);
->   
->   static inline bool kfd_flush_tlb_after_unmap(struct kfd_dev *dev)
->   {
-> -	return KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 3) ||
-> -	       KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2) ||
-> +	return KFD_GC_VERSION(dev) > IP_VERSION(9, 4, 2) ||
->   	       (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 1) && dev->sdma_fw_version >= 18) ||
->   	       KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 0);
->   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index a74ea53899f6..512eb3d8eaf1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -514,6 +514,9 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
+>   		case AMD_IP_BLOCK_TYPE_VCE:
+>   			result->ip_discovery_version = adev->ip_versions[VCE_HWIP][0];
+>   			break;
+> +		case AMD_IP_BLOCK_TYPE_VPE:
+> +			result->ip_discovery_version = adev->ip_versions[VPE_HWIP][0];
+> +			break;
+>   		default:
+>   			result->ip_discovery_version = 0;
+>   			break;
 
