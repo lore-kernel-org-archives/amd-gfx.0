@@ -4,115 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3618CEE0212
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Sep 2023 22:50:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23D2EEE0211
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Sep 2023 23:02:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E15710E175;
-	Wed, 13 Sep 2023 22:50:38 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2084.outbound.protection.outlook.com [40.107.93.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 538F710E175;
- Wed, 13 Sep 2023 22:50:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C788410E1C5;
+	Wed, 13 Sep 2023 23:02:15 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2079.outbound.protection.outlook.com [40.107.223.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 815B010E1C5;
+ Wed, 13 Sep 2023 23:02:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TyatSFNFfbX9imcenSKcMbHqILeJMj9zPgjf6fxQBPFjRIu+tJ8pO+ILUOVs9+reLTAnMPt5m9JnxRjcfJ6iCBW7mIm1UCt71io/tbq8DEOaZIO3A2QfQg0AURsqiwXmeZmSJx1KYcyi7aRcn7K19NgMmSeX72f6YIeA0fSyjWVMUNszwmuOkJCMhRX+FwSlfBr78ZwDkTTXPs3lMHADTUis4PlTwBFwgo5i9n1QFXxeqiLmiRoYSgqDOCpm0Zn5CR2uGknojn5uoBwGD0uo0FvlcTeyV6K3bVFKkUwQ9lwwm/R9cw7Nm2KVKp+8HzAmO9iwcgF3FKME+xogG1C0ow==
+ b=Pzxx7kX/lD6V8zUEJ+Rd+dsJ5URh3Ntm3FvvXomtTariDYBMVACkMSr3+Xylll0+LqC9ZtETQYkjuv1o0ma+UBnGbisKyinoAzAJl7M+iRzzolv2aNFTMONqa5hKJvydluSR3+uT2S/qos2gosPWvghdfFy+zmd8aIWJizG9ubFQHAiNApXxPJCDsBMuaQjoUG460neweB0+yK4+1tCmRYoMY2Aj1Dprpg/+ugqtNwG5Re8G4CZA9TuBlwu1kEGSkF8CSs0kDegvpwM5psyLFsOMql3tfohLIBYnoVIktb8hopxVbTuj1494T8Eic/1q2rqphPt/U7fzg2fuOFejuQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qvK+56dy0xe8CdVPiQd8Aug01z/HH8AD1cITaXrhOb0=;
- b=ZtF9+DmEHIYBmW5j8RxVOpcixmlJmOsqnY5okwvnax6CTwnNpQGY3jYdTsJUgZrgB3UGLGfnsv/RfEj3JCBsa55IcjSwzTH8+XH6IirfqvR3/ljpkSlvzKfduF3/bDOeSTHhFWuMdBOJy8HNcxdk64F1ZvcO3e4tDKv1KlVrHfQSAyiZgLhRYAuRxOeI20+Hh7zodxfBmL9QDxTtT/b/GTukGu4/bC/JU/JUsRjgouMEhWnXTS427riMx1OYuHKqDIxLwsZAF3HrQB0FAKM5V7c6PIxjqvzRFa0dlxx++g+EVX64xu7/YRg2nglyQPGwU19L+pmVu0HI1g9kEsI9HA==
+ bh=P2JcnuA06G+wfkTK1cmcSP77dgXhQG2EYK74g25mVCk=;
+ b=de0tuFsYaefZNYyZ6ldY0t705VavkB9CK2DbIzv7vBfhO6rtE3frgM/EHYWqZRtymbI23GN7IZsg1pTwDFE+++Us/PNbYXsQ4/1BqNq4oAq94037xp8PX4plDfPHIATDMaLHUw9L/rJpE9aTT6EVmTLjYs1nNaaP9cbbIo5aCi09t8vNfIliSKE333VaAcu2pDcC5rnwf24GXEjFtijajV18b+31C09hHNznr3iVgWIW6cNhvh7dCfkj8lTTrY6CwjBfFc9UuwwUJlaWFVhyPQuysfYBSAfZJUPMkqCnvWHFBF/uUbNfLUbLJL/J2kemrf9zjyt0+smd3zGmKL0v8Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qvK+56dy0xe8CdVPiQd8Aug01z/HH8AD1cITaXrhOb0=;
- b=ZQSjVvhPqhl25+5c2S6LxEjc0V+2CkNzQLAoxtc0pZrfaMmFhBYKbKnx1a8Tl2uPisDEqR9ZOfDwpUrjorn+Is7PBST5OOvkJfwpe/r0nTKWqaYPOsXUFbgClusZkwAEOFc2KuVK+iaFpEml5Ol5QH2D3BxBQpD+/mZeMqRiQKk=
+ bh=P2JcnuA06G+wfkTK1cmcSP77dgXhQG2EYK74g25mVCk=;
+ b=EMcVJACUK4Gv6uIJZ+fadZE3v6R7cZuukyfswy8dcOr72XEVRma3i7MnZhtrlg7yJpLA0U0gB6EZFQqdRCmfvYDnaqFZGZLl8ZS0zqIwSEvMQ0pzi7EGtvmy0RK8KWBMy7RIcGEncx3vL/i9BkL+c8HAGenR4xd/iuiLJCqEJl8=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from MN2PR12MB2941.namprd12.prod.outlook.com (2603:10b6:208:a9::12)
- by LV8PR12MB9451.namprd12.prod.outlook.com (2603:10b6:408:206::19)
+ by BL1PR12MB5208.namprd12.prod.outlook.com (2603:10b6:208:311::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.30; Wed, 13 Sep
- 2023 22:50:34 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.19; Wed, 13 Sep
+ 2023 23:02:11 +0000
 Received: from MN2PR12MB2941.namprd12.prod.outlook.com
  ([fe80::30b2:5369:3468:696a]) by MN2PR12MB2941.namprd12.prod.outlook.com
  ([fe80::30b2:5369:3468:696a%4]) with mapi id 15.20.6768.036; Wed, 13 Sep 2023
- 22:50:34 +0000
-Message-ID: <1a512339-f67a-40ab-a588-bd44686cb980@amd.com>
-Date: Wed, 13 Sep 2023 16:50:29 -0600
+ 23:02:11 +0000
+Message-ID: <bd04f984-9eae-4fcb-9c03-c2758aea02d6@amd.com>
+Date: Wed, 13 Sep 2023 17:02:06 -0600
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 2/5] drm/amd/display: fill up DCN3 DPP color state
+Subject: Re: [RFC PATCH v2 0/5] drm/amd/display: improve DTN color state log
 Content-Language: en-US
 To: Melissa Wen <mwen@igalia.com>, Harry Wentland <harry.wentland@amd.com>,
- sunpeng.li@amd.com, alexander.deucher@amd.com, Xinhui.Pan@amd.com
+ sunpeng.li@amd.com, alexander.deucher@amd.com
 References: <20230913164329.123687-1-mwen@igalia.com>
- <20230913164329.123687-3-mwen@igalia.com>
 From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20230913164329.123687-3-mwen@igalia.com>
+In-Reply-To: <20230913164329.123687-1-mwen@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN1PR12CA0017.namprd12.prod.outlook.com
- (2603:10b6:408:e1::22) To MN2PR12MB2941.namprd12.prod.outlook.com
+X-ClientProxiedBy: BN9PR03CA0575.namprd03.prod.outlook.com
+ (2603:10b6:408:10d::10) To MN2PR12MB2941.namprd12.prod.outlook.com
  (2603:10b6:208:a9::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB2941:EE_|LV8PR12MB9451:EE_
-X-MS-Office365-Filtering-Correlation-Id: 629f84c7-c3fc-4e23-86fe-08dbb4abd6c6
+X-MS-TrafficTypeDiagnostic: MN2PR12MB2941:EE_|BL1PR12MB5208:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72d12308-96f6-42b7-52c4-08dbb4ad763e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IXaqPQDwxq1LZbAPbukma98OzY7jsF7dKDAm7UIap34q3+yDEXTZpfVhqZPNpYvq2FeoHzdzT+7kEV3KkX3dyDEHpiWIok5DNeF0QTXrWAqyMSOH7gAD85DJcrOby1GB9xNuvcQiVn3xDj+19hUSWwuuOxb+R9JZNo0qCP87L62QtmpDA4MDDHoOXj7T9S+A/1wjeEC6qEuSmIpA60jDbOfVELHUYHkbtZ+WnRUqShNhdBPaNFEfvwfY6aFMg4XZlgNaRjZ/pW1MIP73puRpJE/2yq17ctFWXxanebkIG9CfyRfoIPTM1IpAM17C93PhBrZgmYjkhlSSN5zfbpcy+EjQLxy6MTQLOuBDRumDwhA8KUXOx/Q199dHX0HXVsfFFn//NNTuS4LhhPeeqAZkTilB1LVtPuNbGxNr1JoMYlFmXOCEKJVpTlvCqsoVB1NlVvOZ3cTVGiBvfnSk0YCfqBOPbEhMJxMBBXkq1qiyLnKRkaFOh2V9NBi/005qRbp34O5Q43e1+L/ap8jhjjxHouR1wxP90qZHqBWfqCTBJS2mPf4c9w4Inqlq1vfxxzutFuuN/Q6HFKVN5kMJHH0NsQSdVzZHXM0Jdr6n3ZVKzVItNZJ4d+b04MH5MTDZ3OpCGXEhKXq39dCO4Y+2d902UQ==
+X-Microsoft-Antispam-Message-Info: ox1ic3ul5bW/MurY4MLSyREUFqi2MQBLD1N67VahIDWgbWSMATbcpK8LumxlLes4uKoYPlHJK/yEbG5MvZ1dXlwGhSSQEIX1paOYHbuVqxN9eZci/675kdgbz6qfsgWbyKf6UbS90OM05MTjfbuZRnGsqF3wABq2WZHyZ8s6JlulbzAUQvEX8d3Ctoc5+jMXqVaye/c9WofynGkdB/L+VQZjRWFkNs9eD84sHkPhTjKNCv9PBP1BTP2HX8OQhW7wMRSe+VvgrM0Eyvb4n8uTwoPWrG/HXzJlcjbeF/CpzMxfHbd+csPgZ8sIkHiF8b13uSUmFhpJHm40rsBfo6j8Jfwp49cT+cwQmX9VrxUmm3p+Fr1FMJrMPLVzTx50ivGKZj4W3APDYK/Eooq4mdf0s4/OVwESz6N6o13Cta8Xj1SyDZSfMO8V29XE7dWzKxUqWZjcsn5CPjwcRQrIx69Shqr1t2nHXHGhAO45QhKFU3/SdJFvXzLhs6018Rk4MmRj/U5Y6QH4ohl5AKtqeAji+hDft/1P/2SQgR8eazIMGQghefguWv2I64wOTzaZsohwPMSLSCXwfWDgzozUWp6k4raLMm2IjiTvL0Xnd5+iNXzS7KHyDOABQ39ncDR1ammycosblzLmf5Zo9bqwtx7C/15ELot0CcmrCFEklH4tcyNV/2/a3XZ1/LaM6D0J6/Uh
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB2941.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(346002)(136003)(366004)(376002)(396003)(451199024)(186009)(1800799009)(110136005)(38100700002)(86362001)(36756003)(31696002)(2906002)(6512007)(31686004)(6666004)(316002)(6506007)(53546011)(8676002)(8936002)(5660300002)(66556008)(54906003)(6486002)(41300700001)(4326008)(66476007)(66946007)(6636002)(478600001)(83380400001)(2616005)(26005)(43740500002)(45980500001);
+ SFS:(13230031)(136003)(376002)(346002)(396003)(39860400002)(366004)(451199024)(1800799009)(186009)(31696002)(8676002)(86362001)(8936002)(4326008)(5660300002)(2906002)(36756003)(6666004)(38100700002)(83380400001)(53546011)(6506007)(6512007)(6486002)(26005)(966005)(478600001)(66946007)(2616005)(110136005)(66476007)(6636002)(66556008)(54906003)(316002)(31686004)(41300700001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WGhHUFdRaXc1QzhGY3Z4aEhBVS9BTWlycllKYWVDckR4VGV2WFMyeXVWWENS?=
- =?utf-8?B?K1FFaEY3cUt2UVVvM01JNlloUWxkaG1MOTZuNDZPYURMWkVTUVpTVDhvNHVB?=
- =?utf-8?B?d2NPdGp4eEpUdlBieHVQZ0x2aWM5UVhvTm5PZGxJSXVCUkc0ZUVaV3VrZ3lq?=
- =?utf-8?B?UnBBTGoxb1Jjc2EzN1JZaXljUVRrYlkvajMxU2hVOHVGVlBleUtWYlJGMlFT?=
- =?utf-8?B?cjNXZjFwSGJKR1VnVTBOTmpIM1J6Ky9Hdm1MMUh5THNHbFhNeVZOZ3VZWW9L?=
- =?utf-8?B?UVpTWldaREdHc053UC94STBmVWxZQ0VEeTZocW9SZk93R1NOanplcG5kNnA1?=
- =?utf-8?B?bk9xYlM1SlAzR2RoQi81d0pDeFdqTmd3VkRWM0Y3WC9aMGtXRnl0T0tTQ2Rz?=
- =?utf-8?B?Wjkxa3hBOGNmdUFUaC94ZWhvVmZKL2RJRjdqaDNINmpzUHBVSFNsSkNmeUd1?=
- =?utf-8?B?bzdDWUpabXp0Rm90cWdvcDZhM1hvN1pLQ3laZmV4dTE3MzFlTWprNFZyT3k4?=
- =?utf-8?B?cUU1OGJzaG9zNW0vS1hYbnBhUytPVHB6RVU1RmZFWmFtNmFwTHNsNU13dlo4?=
- =?utf-8?B?VjJORjBWL1BmSVRqRVVEenNDdWdRTVpPaFYxdDF2MjFiYUU0TzVpUTV4QWly?=
- =?utf-8?B?VWxOdEc5L1l1a2RDa3ZESmUrUjUybTkwbCtMTVdQNERKMDkvekFGOVRDMFBv?=
- =?utf-8?B?RUNOK08xZlcrcENnNG5OcHh0MTU2dWlGZmMrVG1CdFozRldESDcwSDZNUmRs?=
- =?utf-8?B?NEVSZzlURnk2TFhjWWRrdGwzcGMxOXlGUndKMFF6QVFMQVJBT3FKQXZoRGdK?=
- =?utf-8?B?ZmRZaDJHcnVyNnNweTAwUUFGMEFZSVdHYzRNUnR3ZGZXa2o5RW1VdjV4TWNW?=
- =?utf-8?B?YzZRR3U4M05KeGhSNTJOMmg3VWFsYjQ4aVF1NGZNZzViR0ZKZEtYb0ZQTU9N?=
- =?utf-8?B?bFZWK0t6d3JjbXkvbXFDRlVPMlBJQklSVDFOSjcwck9wLzh4VGF4TU9QV2xX?=
- =?utf-8?B?M21NL1ZhRE5LdUZXbzU1S0tMVzhSR3I4SUNieEF3aSt2eVJ4T2ZCVzdGRUI4?=
- =?utf-8?B?cVN6L1Z2dFQ2Q0xUaXU0a3BuOXlkL3hGTzkvQUZGMVVpeEREcUY3ZmxmeDE3?=
- =?utf-8?B?UFJ3alJJeGZ2aThVWUppaDlSQ21kN01pcWhXRCtzbGlyNEd1SEhZdE5IUXVY?=
- =?utf-8?B?aGt1S29MblBOd04xbkM4ZmFWWllVTTE1K29BWW03ZXZrVWJjVHd1TlVWK0VD?=
- =?utf-8?B?UUhTVk1DTE5xeWc4U3hJcXV3N0dOcTZDeEM0b3l0ZlExVEVyS2owVXFhdWNP?=
- =?utf-8?B?YUZRQWxHQ2FON2Q5bG10ZW5wQXRFNlU2NHFLTGxDZTJ5Vi8wWjRDd3Zycksy?=
- =?utf-8?B?VnlMZm1RRDRPUEhZMFNFRVhTbnlOZldrcG5sbUdXTEZET0NrZTlVTHR1OGtK?=
- =?utf-8?B?Nm5GQW54OWRMTU9jN280ajAwVnlLWW9FaDBHcEhXTVZvRE9yOXVvbEZzSGli?=
- =?utf-8?B?Sk5ISnVsVFRVdVlVRHZ0UGRDUHczMlhTeTUzNHR0STdqSEpQaUJaaVV1RjZt?=
- =?utf-8?B?ZTlKN3ZJVm84eTcrKzVwRXllcVMzNVFxUW14YVdxb1pGOUxwZW9uWWNLZ1FJ?=
- =?utf-8?B?cVBjdzRJVCt4MVBIMndIOUpjMDhsMjlDV2xkdEdZeVh5OHA4VENVNEhMM2dN?=
- =?utf-8?B?bUdkalpqVEtPVklTenJEbUI5c0tISTJFcHNJdktNVVN0NFFmSzN3aU9xaGUv?=
- =?utf-8?B?U2toeEtqWjJXcWtaN2RWVzY2ZVlUczdnbEhVVHlSazhiVHJqTVViZitDWjlP?=
- =?utf-8?B?T2hLaldhUFhpaUZZQnhGYkFQUStVbmdGbHozeHlVOEdncVZndjJqVzV0WmJZ?=
- =?utf-8?B?cFhkbXFXUkwxeE5uZFU4NS85YUhxMGhFeEFMTUhZeU1DSDYyL0RsZGJ0dk1v?=
- =?utf-8?B?MkwySlZ6NTRTVkRIVUpPSUljR0xYL3B5cEQ0NHZ2dDlRSG56Y05WSFE0NGIw?=
- =?utf-8?B?dllmWGhHR1JqcFpjMUd0eWFHbzdPRXBGNGN1MjRNVzlBRmxGQnpvU3NsYWxS?=
- =?utf-8?B?ZkVVQ0R5aWM0cU1LeEZyVXpQSTIyc2RHM3Vud1BUNndqU1dhVk5BSTNRbWt2?=
- =?utf-8?Q?CNgOkBUSQMbOeHgvuRvmfsagv?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U2VJYUlpNW9Ccm95em1jTUtBNmc0UFNxYm1Qc2JHTk5DNEJRRStaZDN5M2NH?=
+ =?utf-8?B?bmVnVTNXMVBMSWFCaThCdXdKTUJZbW1NSmwwK1VUVTU2V3ZXdGJpdkV6MG96?=
+ =?utf-8?B?cTM4WERlR1g4MEV5aE10QTdORmgvVG5aa3FZR01XQW1KWmllbDZrUHlZRzZF?=
+ =?utf-8?B?NW1OVVhTMUJ3MmtjN2R2dHJrWjI4YmFQR3ZBcWVrRzFCS2l6WWVkSTY3SUpP?=
+ =?utf-8?B?c3RDaU4wNU1rejl0dWJESVR0Wk5tWGpDOFJZVXo1U3ptOGc5a1hsR3lJdVU1?=
+ =?utf-8?B?MW5aMWJ2NzI2SnlYZWhLcUZCWW5JOVJUdEY4Z1Vrcjh3eEVtb2lhNzhLdDNC?=
+ =?utf-8?B?eVhrR2Zxd296L29rUUwwbjd4azRFek5EWGFqY04zSWpraWpLQ3RteUNuajBh?=
+ =?utf-8?B?dnE0RFROdW9wWWl3d05ZNS9SeXFRcFdRNzYyWGJZOFMyWDNhaHp6bDhhdlpz?=
+ =?utf-8?B?QnlMUFNmNVFJalQ3SncrcVZKSWhCVXROTXdkRVU5b2JBTjJGQld2VnVVZ2N0?=
+ =?utf-8?B?T3FKQTRVWlRNcGh1S05CRExJWEJOeG4vR2w4QURYcFNNL2Q0ei9UOGIrcFdC?=
+ =?utf-8?B?YmhFUGdyOEFycGd0bGlrTDB2UEF1eVFwWGJESGQ3RU1MR29lZXNmUmQySkUz?=
+ =?utf-8?B?UUF4UWU5YkRZdE9hQ3NhdWZEOFI2U0JtbjlEV3RCeENGMExpZ0ZkQ254aGUx?=
+ =?utf-8?B?bjFrN0FwM3NtYnVjTUprUHRLWExKdG5kT2hUQW9ESnQ0anRlQmg2bUIyUzRR?=
+ =?utf-8?B?a08zcmlOcFphNGV1QmJDY09SeHpWN0Y3RS9peGI1cjZ3RUQ4TVQ3Z0lzNkhH?=
+ =?utf-8?B?UDNKUldxa1FHMUJyb1pjSmdHbUVsaWV1bHlDYlpsb3BnK01IK0FIMlBxSzVo?=
+ =?utf-8?B?RUVMdWlzaklhRkE2eSt0OTJYRTZPd1hTYUJTYWQ1bEx4SXZxOW9iZHJIRmZJ?=
+ =?utf-8?B?NUR2UnJUS0lYdHVSdW5ycFgzakNWenpUUitxd1J5UFJoZHVJQ2ZrRzJmNDNM?=
+ =?utf-8?B?a1NJTkU1eFlhVldoalgyelQ0cVZVMkhJUDM3SGQ2SGMzY2hPWlhZWHltSk1K?=
+ =?utf-8?B?M3BtdGVLY2pnZGkrcjFDSVVSekpLc01EeGtmcGFrREFlYWhQSWFreDhsUS90?=
+ =?utf-8?B?bUowOTNmK0ZPMnBndHV3bGtMK3NEZHRtQlFSN2lUcUZPNjdBQzFIRUlHVEtX?=
+ =?utf-8?B?Wnc2S3RMUDdtOG1ZMTR1RjQrTENqTW5zcjJpK1A3b1FEcFBwenhWUVdXQlR0?=
+ =?utf-8?B?MXlaNnNHMlAwVEg2d2p5U1F4M0w0ZGk0TnV2cXhkUU9OTGsvdEJWQmcwS1Br?=
+ =?utf-8?B?K1V2cG9wZllteWk0ZnNvUHRabDNLVGIyQWlmdFNtVU81Yzc2akZNWlpXbi9x?=
+ =?utf-8?B?dGtqdk9NcFFhbWozeHRRc1luNGVLLytKb0VVY1h4dERqYTZhWUdjUTNKclFq?=
+ =?utf-8?B?aGdRZjk1ZUhKN0pkUkJVMU5OaElCNmtGSkhuSnM3YzFybk1QY0xRdEI0ODIx?=
+ =?utf-8?B?TVk2czBkSVJmTHZQR2FNZlhJeVBhRDgxandsbDVwSGJMbVpXRzZqY2srenhK?=
+ =?utf-8?B?aHgrc05XT1dyRkh6THBtQ1gyRzIvQ3dGK1ljUU44T2VzTmIwOWNiYlU1bmhJ?=
+ =?utf-8?B?R21qdEtUSlJVSGI3ellUWmJUbVdpOUJSa2ZYS3pFZjI0V1gyZ3YxdHczcFgw?=
+ =?utf-8?B?NFA0WU1uVkpyRTR4R09BZ3BBUzRkK0RqcnRjb3VKY3BSZXFhM3ZweS9zZUtr?=
+ =?utf-8?B?c1FUekFJdEpseFZzbnhsd2F2QzMzK2ZPdTU2VG1ONTZDWW13bHVyRndSZ2JU?=
+ =?utf-8?B?TWhBWmVDWWhHb0xJMHFVeGhJNTdtQzViOGZERFJDWHJPTEg0R0FDY0l3ZEdT?=
+ =?utf-8?B?SjJHSjhXTWcyVTk0Tm5SRUVKaE5oSnBQckw1NG03ckZSc1VhajMweThQU2RO?=
+ =?utf-8?B?cmZRaEQ3VEl0UUs2RGt4Ri96QVlpbzVNMW5QWm1SZk80T1FONnV2UTVMeXBI?=
+ =?utf-8?B?bGU2NVJoTWlhR3kxMUJ0Tzd4eUdLZ2cwRFp2N1BWYnEvbGJVREtLRkpGMGxn?=
+ =?utf-8?B?NzZaTGRhaCtUMUpuQ2lpekp1Q2xnWEZyUXlkc1RxVHE2TGxrcm12bzJubmR2?=
+ =?utf-8?Q?TDxvt+i//bCgH1vrYCaXTM63t?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 629f84c7-c3fc-4e23-86fe-08dbb4abd6c6
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72d12308-96f6-42b7-52c4-08dbb4ad763e
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2941.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2023 22:50:34.3074 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2023 23:02:11.0676 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Siln+JFUpdDhayQAI4AssEOOwCXD/x86FzfA9Qf7sUMluL0t1Ol/Lq9vVvLmtcfbVNOMDQw9L4xbszzovczqyw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9451
+X-MS-Exchange-CrossTenant-UserPrincipalName: hT0XkBpQAKkBv3Wm7L/5nh31py3mePTgVpiypWfr95TOKuDhSCHSoovjAX09bBFA6nUFayxD7gKGI1a/OroPOg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5208
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,9 +124,9 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Krunoslav Kovac <krunoslav.kovac@amd.com>, daniel@ffwll.ch,
- Shashank Sharma <Shashank.Sharma@amd.com>, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, airlied@gmail.com,
+ Shashank Sharma <Shashank.Sharma@amd.com>, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com, airlied@gmail.com,
  Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, sungjoon.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
@@ -135,98 +134,127 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 9/13/23 10:43, Melissa Wen wrote:
-> DCN3 DPP color state was uncollected and some state elements from DCN1
-> doesn't fit DCN3. Create new elements according to DCN3 color caps and
-> fill them up for DTN log output.
+> Hi,
 > 
-> rfc-v2:
-> - fix reading of gamcor and blnd gamma states
+> This is an update of previous RFC [0] improving the data collection of
+> Gamma Correction and Blend Gamma color blocks.
 > 
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> ---
->   .../gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c  | 45 +++++++++++++++++--
->   drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h   |  8 ++++
->   2 files changed, 50 insertions(+), 3 deletions(-)
+> As I mentioned in the last version, I'm updating the color state part of
+> DTN log to match DCN3.0 HW better. Currently, the DTN log considers the
+> DCN10 color pipeline, which is useless for DCN3.0 because of all the
+> differences in color caps between DCN versions. In addition to new color
+> blocks and caps, some semantic differences made the DCN10 output not fit
+> DCN30.
 > 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
-> index 50dc83404644..a26b33c84ae0 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
-> @@ -44,11 +44,50 @@
->   void dpp30_read_state(struct dpp *dpp_base, struct dcn_dpp_state *s)
->   {
->   	struct dcn3_dpp *dpp = TO_DCN30_DPP(dpp_base);
-> +	uint32_t gamcor_lut_mode, rgam_lut_mode;
->   
->   	REG_GET(DPP_CONTROL,
-> -			DPP_CLOCK_ENABLE, &s->is_enabled);
-> -
-> -	// TODO: Implement for DCN3
-> +		DPP_CLOCK_ENABLE, &s->is_enabled);
-> +	// Pre-degamma (ROM)
-> +	REG_GET_2(PRE_DEGAM,
-> +		  PRE_DEGAM_MODE, &s->pre_dgam_mode,
-> +		  PRE_DEGAM_SELECT, &s->pre_dgam_select);
+> In this RFC, the first patch adds new color state elements to DPP and
+> implements the reading of registers according to HW blocks. Similarly to
+> MPC, the second patch also creates a DCN3-specific function to read the
+> MPC state and add the MPC color state logging to it. With DPP and MPC
+> color-register reading, I detach DCN10 color state logging from the HW
+> log and create a `.log_color_state` hook for logging color state
+> according to HW color blocks with DCN30 as the first use case. Finally,
+> the last patch adds DPP and MPC color caps output to facilitate
+> understanding of the color state log.
+> 
+> This version works well with the driver-specific color properties[1] and
+> steamdeck/gamescope[2] together, where we can see color state changing
+> from default values.
+> 
+> Here is a before vs. after example:
+> 
+> Without this series:
+> ===================
+> DPP:    IGAM format  IGAM mode    DGAM mode    RGAM mode  GAMUT mode  C11 C12   C13 C14   C21 C22   C23 C24   C31 C32   C33 C34
+> [ 0]:            0h  BypassFixed  Bypass       Bypass            0    00000000h 00000000h 00000000h 00000000h 00000000h 00000000h
+> [ 3]:            0h  BypassFixed  Bypass       Bypass            0    00000000h 00000000h 00000000h 00000000h 00000000h 00000000h
+> 
+> MPCC:  OPP  DPP  MPCCBOT  MODE  ALPHA_MODE  PREMULT  OVERLAP_ONLY  IDLE
+> [ 0]:   0h   0h       3h     3           2        0             0     0
+> [ 3]:   0h   3h       fh     2           2        0             0     0
+> 
+> With this series (Steamdeck/Gamescope):
+> ======================================
+> 
+> DPP:  DGAM ROM  DGAM ROM type  DGAM LUT  SHAPER mode  3DLUT mode  3DLUT bit depth  3DLUT size  RGAM mode  GAMUT mode  C11 C12   C13 C14   C21 C22   C23 C24   C31 C32   C33 C34
+> [ 0]:        1           sRGB    Bypass        RAM A       RAM B           12-bit    17x17x17      RAM A           0  00000000h 00000000h 00000000h 00000000h 00000000h 00000000h
+> [ 1]:        1           sRGB    Bypass        RAM B       RAM A           12-bit    17x17x17      RAM A           0  00000000h 00000000h 00000000h 00000000h 00000000h 00000000h
+> [ 2]:        1           sRGB    Bypass        RAM B       RAM A           12-bit    17x17x17      RAM A           0  00000000h 00000000h 00000000h 00000000h 00000000h 00000000h
+> [ 3]:        1           sRGB    Bypass        RAM A       RAM B           12-bit    17x17x17      RAM A           0  00000000h 00000000h 00000000h 00000000h 00000000h 00000000h
+> 
+> DPP Color Caps: input_lut_shared:0  icsc:1  dgam_ram:0  dgam_rom: srgb:1,bt2020:1,gamma2_2:1,pq:1,hlg:1  post_csc:1  gamcor:1  dgam_rom_for_yuv:0  3d_lut:1  blnd_lut:1  oscs:0
+> 
+> MPCC:  OPP  DPP  MPCCBOT  MODE  ALPHA_MODE  PREMULT  OVERLAP_ONLY  IDLE  SHAPER mode  3DLUT_mode  3DLUT bit-depth  3DLUT size  OGAM mode  OGAM LUT  GAMUT mode  C11 C12   C33 C34
+> [ 0]:   0h   0h       2h     3           0        1             0     0       Bypass      Bypass           12-bit    17x17x17        RAM         A           0 00000000h 00000000h
+> [ 1]:   0h   1h       fh     2           2        0             0     0       Bypass      Bypass           12-bit    17x17x17     Bypass         A           0 00000000h 00000000h
+> [ 2]:   0h   2h       3h     3           0        1             0     0       Bypass      Bypass           12-bit    17x17x17     Bypass         A           0 00000000h 00000000h
+> [ 3]:   0h   3h       1h     3           2        0             0     0       Bypass      Bypass           12-bit    17x17x17     Bypass         A           0 00000000h 00000000h
+> 
+> MPC Color Caps: gamut_remap:1, 3dlut:2, ogam_ram:1, ocsc:1
 
-nitpick:
-Add a new line before each comment in this function.
+I liked this new visualization. At some point, we need to document this 
+information as a kernel-doc to make it easy to understand this DTN LOG.
 
-> +	// Gamma Correction (RAM)
-> +	REG_GET(CM_GAMCOR_CONTROL,
-> +		CM_GAMCOR_MODE_CURRENT, &s->gamcor_mode);
-> +	if (s->gamcor_mode) {
-> +		REG_GET(CM_GAMCOR_CONTROL, CM_GAMCOR_SELECT_CURRENT, &gamcor_lut_mode);
-> +		if (!gamcor_lut_mode)
-> +			s->gamcor_mode = LUT_RAM_A; // Otherwise, LUT_RAM_B
-> +	}
-> +	// Shaper LUT (RAM), 3D LUT (mode, bit-depth, size)
-> +	REG_GET(CM_SHAPER_CONTROL,
-> +		CM_SHAPER_LUT_MODE, &s->shaper_lut_mode);
-> +	REG_GET(CM_3DLUT_MODE,
-> +		CM_3DLUT_MODE_CURRENT, &s->lut3d_mode);
-> +	REG_GET(CM_3DLUT_READ_WRITE_CONTROL,
-> +		CM_3DLUT_30BIT_EN, &s->lut3d_bit_depth);
-> +	REG_GET(CM_3DLUT_MODE,
-> +		CM_3DLUT_SIZE, &s->lut3d_size);
-> +	// Gamut Remap Matrix (3x4)
-> +	REG_GET(CM_GAMUT_REMAP_CONTROL,
-> +		CM_GAMUT_REMAP_MODE, &s->gamut_remap_mode);
-> +	if (s->gamut_remap_mode) {
-> +		s->gamut_remap_c11_c12 = REG_READ(CM_GAMUT_REMAP_C11_C12);
-> +		s->gamut_remap_c13_c14 = REG_READ(CM_GAMUT_REMAP_C13_C14);
-> +		s->gamut_remap_c21_c22 = REG_READ(CM_GAMUT_REMAP_C21_C22);
-> +		s->gamut_remap_c23_c24 = REG_READ(CM_GAMUT_REMAP_C23_C24);
-> +		s->gamut_remap_c31_c32 = REG_READ(CM_GAMUT_REMAP_C31_C32);
-> +		s->gamut_remap_c33_c34 = REG_READ(CM_GAMUT_REMAP_C33_C34);
-> +	}
-> +	// Blend/Out Gamma (RAM)
-> +	REG_GET(CM_BLNDGAM_CONTROL,
-> +		CM_BLNDGAM_MODE_CURRENT, &s->rgam_lut_mode);
-> +	if (s->rgam_lut_mode){
-> +		REG_GET(CM_BLNDGAM_CONTROL, CM_BLNDGAM_SELECT_CURRENT, &rgam_lut_mode);
-> +		if (!rgam_lut_mode)
-> +			s->rgam_lut_mode = LUT_RAM_A; // Otherwise, LUT_RAM_B
-> +	}
->   }
->   /*program post scaler scs block in dpp CM*/
->   void dpp3_program_post_csc(
-> diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h
-> index f4aa76e02518..1dfe08dc4364 100644
-> --- a/drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h
-> +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h
-> @@ -148,6 +148,14 @@ struct dcn_dpp_state {
->   	uint32_t gamut_remap_c23_c24;
->   	uint32_t gamut_remap_c31_c32;
->   	uint32_t gamut_remap_c33_c34;
-> +	uint32_t shaper_lut_mode;
-> +	uint32_t lut3d_mode;
-> +	uint32_t lut3d_bit_depth;
-> +	uint32_t lut3d_size;
-> +	uint32_t blnd_lut_mode;
-> +	uint32_t pre_dgam_mode;
-> +	uint32_t pre_dgam_select;
-> +	uint32_t gamcor_mode;
->   };
->   
->   struct CM_bias_params {
+> With this series (Steamdeck/KDE):
+> ================================
+> 
+> DPP:  DGAM ROM  DGAM ROM type  DGAM LUT  SHAPER mode  3DLUT mode  3DLUT bit depth  3DLUT size  RGAM mode  GAMUT mode  C11 C12   C13 C14   C21 C22   C23 C24   C31 C32   C33 C34
+> [ 0]:        0           sRGB    Bypass       Bypass      Bypass           12-bit       9x9x9     Bypass           0  00000000h 00000000h 00000000h 00000000h 00000000h 00000000h
+> [ 3]:        0           sRGB    Bypass       Bypass      Bypass           12-bit       9x9x9     Bypass           0  00000000h 00000000h 00000000h 00000000h 00000000h 00000000h
+> 
+> DPP Color Caps: input_lut_shared:0  icsc:1  dgam_ram:0  dgam_rom: srgb:1,bt2020:1,gamma2_2:1,pq:1,hlg:1  post_csc:1  gamcor:1  dgam_rom_for_yuv:0  3d_lut:1  blnd_lut:1  oscs:0
+> 
+> MPCC:  OPP  DPP  MPCCBOT  MODE  ALPHA_MODE  PREMULT  OVERLAP_ONLY  IDLE  SHAPER mode  3DLUT_mode  3DLUT bit-depth  3DLUT size  OGAM mode  OGAM LUT  GAMUT mode  C11 C12   C33 C34
+> [ 0]:   0h   0h       3h     3           2        0             0     0       Bypass      Bypass           12-bit    17x17x17        RAM         A           1 00002000h 00002000h
+> [ 3]:   0h   3h       fh     2           2        0             0     0       Bypass      Bypass           12-bit    17x17x17     Bypass         A           0 00000000h 00000000h
+> 
+> MPC Color Caps: gamut_remap:1, 3dlut:2, ogam_ram:1, ocsc:1
+> 
+> Before extending it to other DCN families, I have some doubts.
+> - Does this approach of the `.log_color_state` hook make sense for you?
+
+It does; it follows the code organization. Additionally, this might be 
+different between ASICs.
+
+> - Is there any conflict between logging color state by HW version and
+>    DTN log usage?
+> - Is there a template/style for DTN log output that I should follow or
+>    information that I should include?
+
+afaik, we don't have any template or style.
+
+Anyway, this series looks really nice, and I pass through all the 
+patches. Aside from code style changes, I have nothing else to add.
+
+Thanks
+Siqueira
+
+> Let me know your thoughts.
+> 
+> Thanks,
+> 
+> Melissa
+> 
+> [0] https://lore.kernel.org/amd-gfx/20230905142545.451153-1-mwen@igalia.com/
+> [1] https://lore.kernel.org/amd-gfx/20230810160314.48225-1-mwen@igalia.com/
+> [2] https://github.com/ValveSoftware/gamescope
+> 
+> Melissa Wen (5):
+>    drm/amd/display: detach color state from hw state logging
+>    drm/amd/display: fill up DCN3 DPP color state
+>    drm/amd/display: create DCN3-specific log for MPC state
+>    drm/amd/display: hook DCN30 color state logging to DTN log
+>    drm/amd/display: add DPP and MPC color caps to DTN log
+> 
+>   .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |  53 +++++++--
+>   .../gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c  |  45 ++++++-
+>   .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    | 111 ++++++++++++++++++
+>   .../drm/amd/display/dc/dcn30/dcn30_hwseq.h    |   3 +
+>   .../gpu/drm/amd/display/dc/dcn30/dcn30_init.c |   1 +
+>   .../gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c  |  55 ++++++++-
+>   .../drm/amd/display/dc/dcn301/dcn301_init.c   |   1 +
+>   drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h   |   8 ++
+>   drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h   |  13 ++
+>   .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |   2 +
+>   10 files changed, 280 insertions(+), 12 deletions(-)
+> 
 
