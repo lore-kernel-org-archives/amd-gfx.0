@@ -4,79 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFF7CEDE986
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 06:24:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84782EDE983
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 06:39:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7095710E253;
-	Thu, 14 Sep 2023 06:24:01 +0000 (UTC)
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A63B910E253
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 06:23:59 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-31fc91d5ca6so555413f8f.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Sep 2023 23:23:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1694672638; x=1695277438; darn=lists.freedesktop.org;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=mqy5cwN0LTnrFIBTaYrfFf1QTGbY5nnnR5m7Z0q4bls=;
- b=rn6bqI76CRmK8cZhem4Gh5k3RMG24uKUiB8BRjAOmyRTEnMsH7oJ6urMtB3+lftnd5
- rFD1ISRNC35NzucUJ1BS1DnDk/wFOGx2TFHKoWFHP4ysSZgVo7jFXkM6hZFoaKBZLIDV
- NGqPtbREHG81af7HA3Ib5awOtEVNC7yUwffDLK8Oqr1dPexshGXRdMpWtkhkw+ReC18s
- Vg5tl5BRzJfw0Lk9jksolXSFaW9TgdI0UYM3YXCAm5E7OPeEZnIVEQ3Ecd5Zu8pSCZqF
- xNtac9KgdDMbem85DSJfV1GhPU8W3xm+flN79RS2Kimeerrc/oaZyHuz/Ep6Yo83pq6z
- Gckg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694672638; x=1695277438;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=mqy5cwN0LTnrFIBTaYrfFf1QTGbY5nnnR5m7Z0q4bls=;
- b=lGuRnDMOFO7HleA46NjxOOJHjzVRica6i4nlcej7czCeVNod9jgQEm4YyPVH7Krtnu
- IU3xvS/svj865kQ2d0BPrPxDJzjMF20y1/feiW+8ftJMeLZuFEFMC3PlCrQOmZvq7nlA
- 42UgOD3wto9l3iKEsh3wNUrq3QQ1yME+GncIdLaBwnHCdszaLCEQyISIpNESOK+3x80G
- kvnDJhhjWRwNm8LSk2XwZA3e+4iLxaVlEMI26kNtUBE930E7q11j7TrS8X70yEJPT0Yu
- GPcLUmjRrAPLCtiH4peOK7X6egz0cPrVi037Y9LR2CffRinc/w607cTzr3EEj2Qagny3
- eE7g==
-X-Gm-Message-State: AOJu0YwvVK9jlzyct5+hjPiLEdWGazBxrQlTfdBKEswsPQkmiy1lDZYl
- ba5b8aNU0FBGhWkBJ1/5dWTNMLT3WlEkLw==
-X-Google-Smtp-Source: AGHT+IFnEhxQBqQeF316TkvCo7T2ak3S+NO8c/a2/Mu81mM23+b0FzONOuiUfao1W1BlUBWdowXnhA==
-X-Received: by 2002:a5d:4944:0:b0:315:ad00:e628 with SMTP id
- r4-20020a5d4944000000b00315ad00e628mr3587484wrs.47.1694672637465; 
- Wed, 13 Sep 2023 23:23:57 -0700 (PDT)
-Received: from [10.254.108.106] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- e8-20020a5d5008000000b0031f8be5b41bsm820550wrt.5.2023.09.13.23.23.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Sep 2023 23:23:54 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------IViCcbGdgLtGB10kUm80YvFX"
-Message-ID: <2e2c730d-f8f2-cda7-74cb-91b493da8902@gmail.com>
-Date: Thu, 14 Sep 2023 08:23:51 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: =?UTF-8?B?UmU6IOWbnuWkjTogW1BBVENIXSBkcm0vYW1kZ3B1OiBJZ25vcmUgZmly?=
- =?UTF-8?Q?st_evction_failure_during_suspend?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CFB110E507;
+	Thu, 14 Sep 2023 06:39:48 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2074.outbound.protection.outlook.com [40.107.237.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13E7710E507
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 06:39:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gKUl3g0qF5nMFiXY4O/6uTR94QcSMsi7qo8tQ162x9hjOimkLTA6OUpSXqSXEkLGQTn87t7IXkICa0V9A2TEnbzdU7kr1xr3FRez8GsjwhLVqEkcFpWFKpPGer+EpKCZfPL7NbCMwX9pN+pjghkv5eEJHZtlsuUTTN3atwnyxWNaqYrsVLMwcH94R5rOhH2ysbfrkSHdbZArX2ZNb/1aNDtVYJIPyyZyFBIdteVMSk0fGgoGqEEd8uIQUjhKM+fsOHqz58iqSHCxfpoyiL/VPa9TumrX9VNYLNDZanuY/26YGWdsmug4VVS7jBSiHCSCfRW5qh5bsD4gAuPu//eAqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bYmwF4T8zWw0rVNmqb/9v7bC+7CJoBkBcJsg94ET9R0=;
+ b=TvxcyBvWaqnHLfL/BRR3njVkLj9AZj6McfVy0nspF3uKWmcbPGE8xkASx6GuqT5mXATiij/PjY2oM6G/LQMViFxE5rbPC41KOm+W6P6JY6BcLPgNUNAJeITKvCliPPBrS3gr61NDXrpNE+g0rZdrE+GUi8u3PTLcDaW+GVIOSyN3ILvzp+hNgnlKtE8ISEDNtm5NFAvgcAe1RGtF8EWMGmXs559nRw15lpHqLOYJOHhXVpvLQYXoWPFPt0FPHC05RhR7o3CF9ryUBzVQKOFpQEZYv66sbTzkI0su56VS9R8TeWXTk10x+D+Ru5Qk+UQKqjQqCHU47AgCyzJSx25TzA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bYmwF4T8zWw0rVNmqb/9v7bC+7CJoBkBcJsg94ET9R0=;
+ b=PTxID3GGuzHcutCfsfIbwbfIvm9EcL/w4nsIhxWZFWuowh6zscmuTw4kmx7enCPudyBYkiTDXe1I2wPnI3ZobaLTXQMNWMU+A7Au/+gnG8haZROQHgFq2vfKx7Rctzm4Qi/93vTpKfQIHWCQtUQtRLeiz9P4vY/8A0DnZZxZn6c=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by BN9PR12MB5227.namprd12.prod.outlook.com (2603:10b6:408:100::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.20; Thu, 14 Sep
+ 2023 06:39:37 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::186c:dd6c:34f0:5632]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::186c:dd6c:34f0:5632%6]) with mapi id 15.20.6792.019; Thu, 14 Sep 2023
+ 06:39:37 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] Revert "drm/amdgpu: Report vbios version instead of PN"
+Thread-Topic: [PATCH] Revert "drm/amdgpu: Report vbios version instead of PN"
+Thread-Index: AQHZ5tNEBCKAmyoBUUyIfj01xGjc2LAZ3qRA
+Date: Thu, 14 Sep 2023 06:39:37 +0000
+Message-ID: <BN9PR12MB525703947F0EF9F42C2CA64CFCF7A@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20230914061803.1231775-1-lijo.lazar@amd.com>
+In-Reply-To: <20230914061803.1231775-1-lijo.lazar@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20230908033952.41872-1-xinhui.pan@amd.com>
- <9ee0c0b2-dbe8-7e47-cd64-d35b974861e3@gmail.com>
- <DM4PR12MB5165CCF46CDD5781D41920EE87F1A@DM4PR12MB5165.namprd12.prod.outlook.com>
- <55b144a2-ce60-4f37-e5d8-a25c3b5e21ef@gmail.com>
- <DM4PR12MB516574733B83A0F3F8451A5887F0A@DM4PR12MB5165.namprd12.prod.outlook.com>
- <303c2bbb-865c-d5da-1418-21dc803f61a3@gmail.com>
- <d9037d0e-e9fb-35f6-9e00-a2e1799bc2f6@amd.com>
- <59d9927d-5216-e2fa-22cd-205e4a35ebaa@amd.com>
- <DM4PR12MB516507AC620DD2812610C11287F7A@DM4PR12MB5165.namprd12.prod.outlook.com>
- <DM4PR12MB5165B9687FBB14DAEF11944187F7A@DM4PR12MB5165.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <DM4PR12MB5165B9687FBB14DAEF11944187F7A@DM4PR12MB5165.namprd12.prod.outlook.com>
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=d2edddba-f51a-42b4-b8b3-7a3508ffec70;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-09-14T06:39:01Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|BN9PR12MB5227:EE_
+x-ms-office365-filtering-correlation-id: 2a55bf95-f149-4fae-2f9e-08dbb4ed5db1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: jXuHiCOH4rgYiVfkiQLpwZU1yacgfwoGnk/fpaEqGw6rLYXZdnvtwXQMhngMReJTXJ8Q0izalvSlmQ4Tpn1h/mycbB4njbOnBRS3EARIbNbGPcz3ujclg/uyBAH4sODPWBb/JZ4CDi2IahVclQ3SlEyjATNF/rScPNgruIL6QiROovJtHgwt9pdiMnCaWdEu42RqFKw0wzeyDmn0rx/mX8PfJHUeuB7IZyr6gPSJBPF/5Z/RQMixDyMAGoFWDShoTIYEZK9Fc9JP7GqEUO2dM2OuAt5fbfFc5B+gDRyTGiLGTK9+uXkdFBN5SAkcf7fFK+tq8odTuvtTHkbqJq/DU8m5sEgQCGDjSdGZB6eT/L0OQpmo5CeJgftuRRlob+P9VwG7D8SVz3/C6AksXrvq5IrP37Zt3rjMKQyo+qkxqbB/ZkanUGMozml4MDPS42tTUhepXuT+FgLSvp0f8yq6jkyRZTnDtkKNxIpIoPnIdhd2Az4dY25l40TDQeCo6A6VB7LBwxnLR3ugT+cvTXLEgKPipFmmH88DetusNB/fOet2zpfJMS8o2g9WknuGBmOKsu4Vh1SMiQGumoUTSx/hjR6/hjfiaAiJoLsIXs+1kwFf8kM0nbfCPZOIROf8YvfZ
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(396003)(346002)(366004)(376002)(136003)(39860400002)(186009)(1800799009)(451199024)(71200400001)(76116006)(66946007)(64756008)(52536014)(5660300002)(4326008)(41300700001)(38070700005)(66556008)(38100700002)(66446008)(66476007)(316002)(110136005)(478600001)(26005)(7696005)(6506007)(2906002)(8676002)(8936002)(83380400001)(53546011)(9686003)(122000001)(33656002)(86362001)(55016003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?CiYE2a/iOKQOduRBcQscbdlt21d85IY6dH0m46hf/TuRq04DnRktMJOTgklT?=
+ =?us-ascii?Q?pCXwAO71szFNKVN3N5sc/B/RD9ZssSOr04bHjMulo6s9EdoPgccj65KncffE?=
+ =?us-ascii?Q?md+XK1Mxjs+m8zXNisv0uKod80y1vBjBWKtOvZ7CmLhcYkdextrGJD8b3QBZ?=
+ =?us-ascii?Q?CIFCyhuH/BTbBrVDke0NkQY+fBaJUGGWiJle5Ov6vTa00IV80Mn1EM9Z2TM0?=
+ =?us-ascii?Q?SgTXFgZL9orMWApMrkrCu2M8rwu2e70qFE8wqWGluviZIkCjpbgkWtXkXDPt?=
+ =?us-ascii?Q?oUre85f0aYUMAJxDqmO1gzzY6XV3ufzylrQgAc5N6I5/t19iYvidSGJr1Ulh?=
+ =?us-ascii?Q?wArYmTcKp1tdfU7THeCk+pnJjt/XLpP4ywFfxAg0ETtO+/aQDV/Y9r49QYvE?=
+ =?us-ascii?Q?dXfgJXiwj42Ybl3tNii8S1LLC2fKe2Zf98xHpY7CA9Wr1lagQTt0H493jnUY?=
+ =?us-ascii?Q?QMznO988KSjjaB8oyMevqYv1oguMtN9EBXkLDGSGf9bmDPvFrJAjKSBhGSP3?=
+ =?us-ascii?Q?/lhi1IrG+Yf64Pa01iwJZJzY/Hk/tHz9LGpEDPzXnKfNcPRUcc5yNCX9AEqV?=
+ =?us-ascii?Q?QHGNP5KQASWlouyMts92tAlXidji3pBUe/xYbqWAWMI/Kw+8oIAMkQQicrD6?=
+ =?us-ascii?Q?UIWNT/JBkD9palTElHydJyCM+pf1uYhdpMo2VUPO4yCK1OQzGymAwqS19ARq?=
+ =?us-ascii?Q?DeOfj/JblDhJDCoFvQ+RKZox3z/n7vpxkHSKgu14nAmt3wr6xyuprRvL6SfV?=
+ =?us-ascii?Q?gCw1ADttt6ntwO1zCZGnaCcYc4P8pNuwAwZkswashB2+G2hVDewbqXoQnT8O?=
+ =?us-ascii?Q?l8iRZ3sCIaw4oFdA8DlPwcixvAw6A8EYSLELOcxc142vEoh7ig3yXFT+Hjgg?=
+ =?us-ascii?Q?FHY6RQW3Zxp+Jwey3fHCaxthWkXmCjy7Xs8/QI2MMZqTas3O1Rxe8/HO6N4b?=
+ =?us-ascii?Q?3K7MjiU/SnWQ0FhOIsj+/Z/Si1enNREdQwaslW1dZ8WLDIFUVwwjGpOxWlSt?=
+ =?us-ascii?Q?Dqd94YG32CN+C/Zg8Jse3yXRNKI3qL4vlYZi6DBi3yY14eO2BFXJJrANE1dQ?=
+ =?us-ascii?Q?J9EuxnXvg12411lWUlvCxMRIBs2jgE/AQey7kUOdw1CTQRxvLcmSWiXuQ/pf?=
+ =?us-ascii?Q?65UbIMnWdtSY8UhLH01zhf1vt5grlBDQ+B40uAA8cyShNFwXZJyKJX1iYRle?=
+ =?us-ascii?Q?akgIcwoYxAnnrSvHAsN8S3tSEY9ZwlMywM7nbeGkplOZwOdNgtKvmeYOdKS9?=
+ =?us-ascii?Q?G7s6CN+8u7KgHbtEXKDE7Vj+MNfIeluWWVyuN3bdgWyzCptXidXawpijEssu?=
+ =?us-ascii?Q?trnjKaipl/DGkrnLJEe5Zntx+L2nC++2LfrrotA/jhdaX5jGjOCVsOaoMAog?=
+ =?us-ascii?Q?Y8Hc3d3EUFOLFe30Nq9u7t6KIkNJW0ozW0HClJWWpPnoUfWb5I3JIYS5m887?=
+ =?us-ascii?Q?/FAAI/bSDvtDTfrSIMSEprq+dQoychXYMO14TfpAkgzn2olbH+bOyVkVVyTB?=
+ =?us-ascii?Q?JvZ2gIovdeREAyeF6/FfNkVG8mjN0wSjApkJ8ucXQIoHjVdHzYEnHXeEDHoq?=
+ =?us-ascii?Q?7Q++NP4NlM6f8HeEkgAGXMXTN/+qXk/rUC33Sy9a?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a55bf95-f149-4fae-2f9e-08dbb4ed5db1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Sep 2023 06:39:37.4794 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: xSi8i6FKaU6BKPU8GOgM5SmikY83lR5UKI6ZobAJIUn0Di+Qt38mfTElL2Oowi8vIl64M71B2mf7hlVY5T2LNQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5227
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,972 +122,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Fan,
- Shikang" <Shikang.Fan@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------IViCcbGdgLtGB10kUm80YvFX
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+[AMD Official Use Only - General]
 
-[putting Harry on BCC, sorry for the noise]
-
-Yeah, that is clearly a bug in the KFD.
-
-During the second eviction the hw should already be disabled, so we 
-don't have any SDMA or similar to evict BOs any more and can only copy 
-them with the CPU.
-
-@Felix what workqueue do you guys use for the restore work? I've just 
-double checked and on the system workqueues you explicitly need to 
-specify that stuff is freezable. E.g. use system_freezable_wq instead of 
-system_wq.
-
-Alternatively as Xinhui mentioned it might be necessary to flush all 
-restore work before the first eviction phase or we have the chance that 
-BOs are moved back into VRAM again.
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
 Regards,
-Christian.
+Hawking
+-----Original Message-----
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Thursday, September 14, 2023 14:18
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
+eucher@amd.com>
+Subject: [PATCH] Revert "drm/amdgpu: Report vbios version instead of PN"
 
-Am 14.09.23 um 03:54 schrieb Pan, Xinhui:
->
-> [AMD Official Use Only - General]
->
->
-> I just make one debug patch to show busy BO’s alloc-trace when the 
-> eviction fails in suspend.
->
-> And dmesg log attached.
->
-> Looks like they are just kfd user Bos and locked by evict/restore work.
->
-> So in kfd suspend callback, it really need to flush the evict/restore 
-> work before HW fini as it do now.
->
-> That is why the first very early eviction fails and the second 
-> eviction succeed.
->
-> Thanks
->
-> xinhui
->
-> *From:* Pan, Xinhui
-> *Sent:* Thursday, September 14, 2023 8:02 AM
-> *To:* Koenig, Christian <Christian.Koenig@amd.com>; Kuehling, Felix 
-> <Felix.Kuehling@amd.com>; Christian König 
-> <ckoenig.leichtzumerken@gmail.com>; amd-gfx@lists.freedesktop.org; 
-> Wentland, Harry <Harry.Wentland@amd.com>
-> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com>; Fan, Shikang 
-> <Shikang.Fan@amd.com>
-> *Subject:* RE: 回复: [PATCH] drm/amdgpu: Ignore first evction failure 
-> during suspend
->
-> Chris,
->
-> I can dump these busy BOs with their alloc/free stack later today.
->
-> BTW, the two evictions and the kfd suspend are all called before 
-> hw_fini. IOW, between phase 1 and phase 2. SDMA is turned only in 
-> phase2. So current code works fine maybe.
->
-> *From:* Koenig, Christian <Christian.Koenig@amd.com>
-> *Sent:* Wednesday, September 13, 2023 10:29 PM
-> *To:* Kuehling, Felix <Felix.Kuehling@amd.com>; Christian König 
-> <ckoenig.leichtzumerken@gmail.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; 
-> amd-gfx@lists.freedesktop.org; Wentland, Harry <Harry.Wentland@amd.com>
-> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com>; Fan, Shikang 
-> <Shikang.Fan@amd.com>
-> *Subject:* Re: 回复: [PATCH] drm/amdgpu: Ignore first evction failure 
-> during suspend
->
-> [+Harry]
->
-> Am 13.09.23 um 15:54 schrieb Felix Kuehling:
->
->     On 2023-09-13 4:07, Christian König wrote:
->
->         [+Fleix]
->
->         Well that looks like quite a serious bug.
->
->         If I'm not completely mistaken the KFD work item tries to
->         restore the process by moving BOs into memory even after the
->         suspend freeze. Normally work items are frozen together with
->         the user space processes unless explicitly marked as not
->         freezable.
->
->         That this causes problem during the first eviction phase is
->         just the tip of the iceberg here. If a BO is moved into
->         invisible memory during this we wouldn't be able to get it out
->         of that in the second phase because SDMA and hw is already
->         turned off.
->
->         @Felix any idea how that can happen? Have you guys marked a
->         work item / work queue as not freezable?
->
->     We don't set anything to non-freezable in KFD.
->
->     Regards,
->       Felix
->
->         Or maybe the display guys?
->
->
-> Do you guys in the display do any delayed update in a work item which 
-> is marked as not-freezable?
->
-> Otherwise I have absolutely no idea what's going on here.
->
-> Thanks,
-> Christian.
->
->
->         @Xinhui please investigate what work item that is and where
->         that is coming from. Something like "if (adev->in_suspend)
->         dump_stack();" in the right place should probably do it.
->
->         Thanks,
->         Christian.
->
->         Am 13.09.23 um 07:13 schrieb Pan, Xinhui:
->
->             [AMD Official Use Only - General]
->
->             I notice that only user space process are frozen on my
->             side.  kthread and workqueue  keeps running. Maybe some
->             kernel configs are not enabled.
->
->             I made one module which just prints something like i++
->             with mutex lock both in workqueue and kthread. I paste
->             some logs below.
->
->             [438619.696196] XH: 14 from workqueue
->
->             [438619.700193] XH: 15 from kthread
->
->             [438620.394335] PM: suspend entry (deep)
->
->             [438620.399619] Filesystems sync: 0.001 seconds
->
->             [438620.403887] PM: Preparing system for sleep (deep)
->
->             [438620.409299] Freezing user space processes
->
->             [438620.414862] Freezing user space processes completed
->             (elapsed 0.001 seconds)
->
->             [438620.421881] OOM killer disabled.
->
->             [438620.425197] Freezing remaining freezable tasks
->
->             [438620.430890] Freezing remaining freezable tasks
->             completed (elapsed 0.001 seconds)
->
->             [438620.438348] PM: Suspending system (deep)
->
->             .....
->
->             [438623.746038] PM: suspend of devices complete after
->             3303.137 msecs
->
->             [438623.752125] PM: start suspend of devices complete
->             after 3309.713 msecs
->
->             [438623.758722] PM: suspend debug: Waiting for 5 second(s).
->
->             [438623.792166] XH: 22 from kthread
->
->             [438623.824140] XH: 23 from workqueue
->
->             So BOs definitely can be in use during suspend.
->
->             Even if kthread or workqueue can be stopped with one
->             special kernel config. I think suspend can only stop the
->             workqueue with its callback finish.
->
->             otherwise something like below makes things crazy.
->
->             LOCK BO
->
->             do something
->
->             -> schedule or wait, anycode might sleep. Stopped by
->             suspend now? no, i think.
->
->             UNLOCK BO
->
->             I do tests  with  cmds below.
->
->             echo devices  > /sys/power/pm_test
->
->             echo 0  > /sys/power/pm_async
->
->             echo 1  > /sys/power/pm_print_times
->
->             echo 1 > /sys/power/pm_debug_messages
->
->             echo 1 > /sys/module/amdgpu/parameters/debug_evictions
->
->             ./kfd.sh --gtest_filter=KFDEvictTest.BasicTest
->
->             pm-suspend
->
->             thanks
->
->             xinhui
->
->             ------------------------------------------------------------------------
->
->             *发件人:*Christian König <ckoenig.leichtzumerken@gmail.com>
->             <mailto:ckoenig.leichtzumerken@gmail.com>
->             *发送时间:*2023年9月12日17:01
->             *收件人:*Pan, Xinhui <Xinhui.Pan@amd.com>
->             <mailto:Xinhui.Pan@amd.com>; amd-gfx@lists.freedesktop.org
->             <amd-gfx@lists.freedesktop.org>
->             <mailto:amd-gfx@lists.freedesktop.org>
->             *抄送:*Deucher, Alexander <Alexander.Deucher@amd.com>
->             <mailto:Alexander.Deucher@amd.com>; Koenig, Christian
->             <Christian.Koenig@amd.com>
->             <mailto:Christian.Koenig@amd.com>; Fan, Shikang
->             <Shikang.Fan@amd.com> <mailto:Shikang.Fan@amd.com>
->             *主题:*Re: [PATCH] drm/amdgpu: Ignore first evction failure
->             during suspend
->
->             When amdgpu_device_suspend() is called processes should be
->             frozen
->             already. In other words KFD queues etc... should already
->             be idle.
->
->             So when the eviction fails here we missed something
->             previously and that
->             in turn can cause tons amount of problems.
->
->             So ignoring those errors is most likely not a good idea at
->             all.
->
->             Regards,
->             Christian.
->
->             Am 12.09.23 um 02:21 schrieb Pan, Xinhui:
->             > [AMD Official Use Only - General]
->             >
->             > Oh yep, Pinned BO is moved to other LRU list, So
->             eviction fails because of other reason.
->             > I will change the comments in the patch.
->             > The problem is eviction fails as many reasons, say, BO
->             is locked.
->             > ASAIK, kfd will stop the queues and flush some
->             evict/restore work in its suspend callback. SO the first
->             eviction before kfd callback likely fails.
->             >
->             > -----Original Message-----
->             > From: Christian König <ckoenig.leichtzumerken@gmail.com>
->             <mailto:ckoenig.leichtzumerken@gmail.com>
->             > Sent: Friday, September 8, 2023 2:49 PM
->             > To: Pan, Xinhui <Xinhui.Pan@amd.com>
->             <mailto:Xinhui.Pan@amd.com>; amd-gfx@lists.freedesktop.org
->             > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
->             <mailto:Alexander.Deucher@amd.com>; Koenig, Christian
->             <Christian.Koenig@amd.com>
->             <mailto:Christian.Koenig@amd.com>; Fan, Shikang
->             <Shikang.Fan@amd.com> <mailto:Shikang.Fan@amd.com>
->             > Subject: Re: [PATCH] drm/amdgpu: Ignore first evction
->             failure during suspend
->             >
->             > Am 08.09.23 um 05:39 schrieb xinhui pan:
->             >> Some BOs might be pinned. So the first eviction's
->             failure will abort
->             >> the suspend sequence. These pinned BOs will be unpined
->             afterwards
->             >> during suspend.
->             > That doesn't make much sense since pinned BOs don't
->             cause eviction failure here.
->             >
->             > What exactly is the error code you see?
->             >
->             > Christian.
->             >
->             >> Actaully it has evicted most BOs, so that should stil
->             work fine in
->             >> sriov full access mode.
->             >>
->             >> Fixes: 47ea20762bb7 ("drm/amdgpu: Add an extra
->             evict_resource call
->             >> during device_suspend.")
->             >> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
->             <mailto:xinhui.pan@amd.com>
->             >> ---
->             >> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 9 +++++----
->             >>    1 file changed, 5 insertions(+), 4 deletions(-)
->             >>
->             >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->             >> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->             >> index 5c0e2b766026..39af526cdbbe 100644
->             >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->             >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->             >> @@ -4148,10 +4148,11 @@ int
->             amdgpu_device_suspend(struct drm_device
->             >> *dev, bool fbcon)
->             >>
->             >>        adev->in_suspend = true;
->             >>
->             >> -     /* Evict the majority of BOs before grabbing the
->             full access */
->             >> -     r = amdgpu_device_evict_resources(adev);
->             >> -     if (r)
->             >> -             return r;
->             >> +     /* Try to evict the majority of BOs before
->             grabbing the full access
->             >> +      * Ignore the ret val at first place as we will
->             unpin some BOs if any
->             >> +      * afterwards.
->             >> +      */
->             >> + (void)amdgpu_device_evict_resources(adev);
->             >>
->             >>        if (amdgpu_sriov_vf(adev)) {
->             >> amdgpu_virt_fini_data_exchange(adev);
->
+This reverts commit c187a67725b47f9c1603359a51b79cc19e27442a.
 
---------------IViCcbGdgLtGB10kUm80YvFX
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+vbios_version sysfs node is used to identify Part Number also. Revert to th=
+e same so that it doesn't break scripts/software which parse this.
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    [putting Harry on BCC, sorry for the noise]<br>
-    <br>
-    Yeah, that is clearly a bug in the KFD.<br>
-    <br>
-    During the second eviction the hw should already be disabled, so we
-    don't have any SDMA or similar to evict BOs any more and can only
-    copy them with the CPU.<br>
-    <br>
-    @Felix what workqueue do you guys use for the restore work? I've
-    just double checked and on the system workqueues you explicitly need
-    to specify that stuff is freezable. E.g. use system_freezable_wq
-    instead of system_wq.<br>
-    <br>
-    Alternatively as Xinhui mentioned it might be necessary to flush all
-    restore work before the first eviction phase or we have the chance
-    that BOs are moved back into VRAM again.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <div class="moz-cite-prefix">Am 14.09.23 um 03:54 schrieb Pan,
-      Xinhui:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:DM4PR12MB5165B9687FBB14DAEF11944187F7A@DM4PR12MB5165.namprd12.prod.outlook.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <meta name="Generator" content="Microsoft Word 15 (filtered
-        medium)">
-      <!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]-->
-      <style>@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}@font-face
-	{font-family:"Microsoft YaHei";
-	panose-1:2 11 5 3 2 2 4 2 2 4;}@font-face
-	{font-family:"\@Microsoft YaHei";}@font-face
-	{font-family:Aptos;}@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}span.EmailStyle21
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;
-	mso-ligatures:none;}div.WordSection1
-	{page:WordSection1;}</style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext="edit" spidmax="1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext="edit">
-<o:idmap v:ext="edit" data="1" />
-</o:shapelayout></xml><![endif]-->
-      <p
-style="font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-style:normal;font-weight:normal;text-decoration:none;"
-        align="Left">
-        [AMD Official Use Only - General]<br>
-      </p>
-      <br>
-      <div>
-        <div class="WordSection1">
-          <p class="MsoNormal">I just make one debug patch to show busy
-            BO’s alloc-trace when the eviction fails in suspend.<o:p></o:p></p>
-          <p class="MsoNormal">And dmesg log attached.<o:p></o:p></p>
-          <p class="MsoNormal">Looks like they are just kfd user Bos and
-            locked by evict/restore work.<o:p></o:p></p>
-          <p class="MsoNormal">So in kfd suspend callback, it really
-            need to flush the evict/restore work before HW fini as it do
-            now.<o:p></o:p></p>
-          <p class="MsoNormal">That is why the first very early eviction
-            fails and the second eviction succeed.<o:p></o:p></p>
-          <p class="MsoNormal"><o:p> </o:p></p>
-          <p class="MsoNormal">Thanks<o:p></o:p></p>
-          <p class="MsoNormal">xinhui<o:p></o:p></p>
-          <div>
-            <div style="border:none;border-top:solid #E1E1E1
-              1.0pt;padding:3.0pt 0in 0in 0in">
-              <p class="MsoNormal"><b>From:</b> Pan, Xinhui <br>
-                <b>Sent:</b> Thursday, September 14, 2023 8:02 AM<br>
-                <b>To:</b> Koenig, Christian
-                <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>; Kuehling, Felix
-                <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>; Christian König
-                <a class="moz-txt-link-rfc2396E" href="mailto:ckoenig.leichtzumerken@gmail.com">&lt;ckoenig.leichtzumerken@gmail.com&gt;</a>;
-                <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>; Wentland, Harry
-                <a class="moz-txt-link-rfc2396E" href="mailto:Harry.Wentland@amd.com">&lt;Harry.Wentland@amd.com&gt;</a><br>
-                <b>Cc:</b> Deucher, Alexander
-                <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>; Fan, Shikang
-                <a class="moz-txt-link-rfc2396E" href="mailto:Shikang.Fan@amd.com">&lt;Shikang.Fan@amd.com&gt;</a><br>
-                <b>Subject:</b> RE: <span
-                  style="font-family:&quot;Microsoft
-                  YaHei&quot;,sans-serif" lang="ZH-CN">
-                  回复</span>: [PATCH] drm/amdgpu: Ignore first evction
-                failure during suspend<o:p></o:p></p>
-            </div>
-          </div>
-          <p class="MsoNormal"><o:p> </o:p></p>
-          <p class="MsoNormal">Chris,<o:p></o:p></p>
-          <p class="MsoNormal">I can dump these busy BOs with their
-            alloc/free stack later today.<o:p></o:p></p>
-          <p class="MsoNormal"><o:p> </o:p></p>
-          <p class="MsoNormal">BTW, the two evictions and the kfd
-            suspend are all called before hw_fini. IOW, between phase 1
-            and phase 2. SDMA is turned only in phase2. So current code
-            works fine maybe.<o:p></o:p></p>
-          <p class="MsoNormal"><o:p> </o:p></p>
-          <div>
-            <div style="border:none;border-top:solid #E1E1E1
-              1.0pt;padding:3.0pt 0in 0in 0in">
-              <p class="MsoNormal"><b>From:</b> Koenig, Christian &lt;<a
-                  href="mailto:Christian.Koenig@amd.com"
-                  moz-do-not-send="true" class="moz-txt-link-freetext">Christian.Koenig@amd.com</a>&gt;
-                <br>
-                <b>Sent:</b> Wednesday, September 13, 2023 10:29 PM<br>
-                <b>To:</b> Kuehling, Felix &lt;<a
-                  href="mailto:Felix.Kuehling@amd.com"
-                  moz-do-not-send="true" class="moz-txt-link-freetext">Felix.Kuehling@amd.com</a>&gt;;
-                Christian König &lt;<a
-                  href="mailto:ckoenig.leichtzumerken@gmail.com"
-                  moz-do-not-send="true" class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;;
-                Pan, Xinhui &lt;<a href="mailto:Xinhui.Pan@amd.com"
-                  moz-do-not-send="true" class="moz-txt-link-freetext">Xinhui.Pan@amd.com</a>&gt;;
-                <a href="mailto:amd-gfx@lists.freedesktop.org"
-                  moz-do-not-send="true" class="moz-txt-link-freetext">amd-gfx@lists.freedesktop.org</a>;
-                Wentland, Harry &lt;<a
-                  href="mailto:Harry.Wentland@amd.com"
-                  moz-do-not-send="true" class="moz-txt-link-freetext">Harry.Wentland@amd.com</a>&gt;<br>
-                <b>Cc:</b> Deucher, Alexander &lt;<a
-                  href="mailto:Alexander.Deucher@amd.com"
-                  moz-do-not-send="true" class="moz-txt-link-freetext">Alexander.Deucher@amd.com</a>&gt;;
-                Fan, Shikang &lt;<a href="mailto:Shikang.Fan@amd.com"
-                  moz-do-not-send="true" class="moz-txt-link-freetext">Shikang.Fan@amd.com</a>&gt;<br>
-                <b>Subject:</b> Re: <span
-                  style="font-family:&quot;Microsoft
-                  YaHei&quot;,sans-serif" lang="ZH-CN">
-                  回复</span>: [PATCH] drm/amdgpu: Ignore first evction
-                failure during suspend<o:p></o:p></p>
-            </div>
-          </div>
-          <p class="MsoNormal"><o:p> </o:p></p>
-          <p class="MsoNormal" style="margin-bottom:12.0pt">[+Harry]<o:p></o:p></p>
-          <div>
-            <p class="MsoNormal">Am 13.09.23 um 15:54 schrieb Felix
-              Kuehling:<o:p></o:p></p>
-          </div>
-          <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-            <div>
-              <p class="MsoNormal">On 2023-09-13 4:07, Christian König
-                wrote:<o:p></o:p></p>
-            </div>
-            <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-              <p class="MsoNormal">[+Fleix]<br>
-                <br>
-                Well that looks like quite a serious bug.<br>
-                <br>
-                If I'm not completely mistaken the KFD work item tries
-                to restore the process by moving BOs into memory even
-                after the suspend freeze. Normally work items are frozen
-                together with the user space processes unless explicitly
-                marked as not freezable.<br>
-                <br>
-                That this causes problem during the first eviction phase
-                is just the tip of the iceberg here. If a BO is moved
-                into invisible memory during this we wouldn't be able to
-                get it out of that in the second phase because SDMA and
-                hw is already turned off.<br>
-                <br>
-                @Felix any idea how that can happen? Have you guys
-                marked a work item / work queue as not freezable?<o:p></o:p></p>
-            </blockquote>
-            <p>We don't set anything to non-freezable in KFD.<o:p></o:p></p>
-            <p><o:p> </o:p></p>
-            <p>Regards,<br>
-                Felix<o:p></o:p></p>
-            <p><o:p> </o:p></p>
-            <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-              <p class="MsoNormal">Or maybe the display guys?<o:p></o:p></p>
-            </blockquote>
-          </blockquote>
-          <p class="MsoNormal" style="margin-bottom:12.0pt"><br>
-            Do you guys in the display do any delayed update in a work
-            item which is marked as not-freezable?<br>
-            <br>
-            Otherwise I have absolutely no idea what's going on here.<br>
-            <br>
-            Thanks,<br>
-            Christian.<br>
-            <br>
-            <o:p></o:p></p>
-          <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-            <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-              <p class="MsoNormal" style="margin-bottom:12.0pt"><br>
-                @Xinhui please investigate what work item that is and
-                where that is coming from. Something like "if
-                (adev-&gt;in_suspend) dump_stack();" in the right place
-                should probably do it.<br>
-                <br>
-                Thanks,<br>
-                Christian.<o:p></o:p></p>
-              <div>
-                <p class="MsoNormal">Am 13.09.23 um 07:13 schrieb Pan,
-                  Xinhui:<o:p></o:p></p>
-              </div>
-              <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-                <p style="margin:5.0pt"><span
-style="font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD
-                    Official Use Only - General]<o:p></o:p></span></p>
-                <p class="MsoNormal"><o:p> </o:p></p>
-                <div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">I
-                        notice that only user space process are frozen
-                        on my side.  kthread and workqueue  keeps
-                        running. Maybe some kernel configs are not
-                        enabled.<o:p></o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">I
-                        made one module which just prints something like
-                        i++ with mutex lock both in workqueue and
-                        kthread. I paste some logs below.<o:p></o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">[438619.696196]
-                        XH: 14 from workqueue
-                        <o:p></o:p></span></p>
-                    <div>
-                      <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">[438619.700193]
-                          XH: 15 from kthread<o:p></o:p></span></p>
-                    </div>
-                    <div>
-                      <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">[438620.394335]
-                          PM: suspend entry (deep)<o:p></o:p></span></p>
-                    </div>
-                    <div>
-                      <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">[438620.399619]
-                          Filesystems sync: 0.001 seconds<o:p></o:p></span></p>
-                    </div>
-                    <div>
-                      <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">[438620.403887]
-                          PM: Preparing system for sleep (deep)<o:p></o:p></span></p>
-                    </div>
-                    <div>
-                      <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">[438620.409299]
-                          Freezing user space processes<o:p></o:p></span></p>
-                    </div>
-                    <div>
-                      <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">[438620.414862]
-                          Freezing user space processes completed
-                          (elapsed 0.001 seconds)<o:p></o:p></span></p>
-                    </div>
-                    <div>
-                      <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">[438620.421881]
-                          OOM killer disabled.<o:p></o:p></span></p>
-                    </div>
-                    <div>
-                      <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">[438620.425197]
-                          Freezing remaining freezable tasks<o:p></o:p></span></p>
-                    </div>
-                    <div>
-                      <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">[438620.430890]
-                          Freezing remaining freezable tasks completed
-                          (elapsed 0.001 seconds)<o:p></o:p></span></p>
-                    </div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">[438620.438348]
-                        PM: Suspending system (deep)<o:p></o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">.....<o:p></o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">[438623.746038]
-                        PM: suspend of devices complete after 3303.137
-                        msecs
-                        <o:p></o:p></span></p>
-                    <div>
-                      <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">[438623.752125]
-                          PM: start suspend of devices complete after
-                          3309.713 msecs<o:p></o:p></span></p>
-                    </div>
-                    <div>
-                      <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">[438623.758722]
-                          PM: suspend debug: Waiting for 5 second(s).<o:p></o:p></span></p>
-                    </div>
-                    <div>
-                      <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">[438623.792166]
-                          XH: 22 from kthread<o:p></o:p></span></p>
-                    </div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">[438623.824140]
-                        XH: 23 from workqueue<o:p></o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black"><o:p> </o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black"><o:p> </o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">So
-                        BOs definitely can be in use during suspend.<o:p></o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">Even
-                        if kthread or workqueue can be stopped with one
-                        special kernel config. I think suspend can only
-                        stop the workqueue with its callback finish.
-                        <o:p></o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">otherwise
-                        something like below makes things crazy.<o:p></o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">LOCK
-                        BO<o:p></o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">do
-                        something<o:p></o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">   
-                        -&gt; schedule or wait, anycode might sleep. 
-                        Stopped by suspend now? no, i think.<o:p></o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">UNLOCK
-                        BO<o:p></o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black"><o:p> </o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">I
-                        do tests  with  cmds below.<o:p></o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">echo
-                        devices  &gt; /sys/power/pm_test
-                        <o:p></o:p></span></p>
-                    <div>
-                      <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">echo
-                          0  &gt; /sys/power/pm_async<o:p></o:p></span></p>
-                    </div>
-                    <div>
-                      <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">echo
-                          1  &gt; /sys/power/pm_print_times<o:p></o:p></span></p>
-                    </div>
-                    <div>
-                      <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">echo
-                          1 &gt; /sys/power/pm_debug_messages<o:p></o:p></span></p>
-                    </div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">echo
-                        1 &gt;
-                        /sys/module/amdgpu/parameters/debug_evictions<o:p></o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">./kfd.sh
-                        --gtest_filter=KFDEvictTest.BasicTest<o:p></o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">pm-suspend<o:p></o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black"><o:p> </o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">thanks<o:p></o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black">xinhui<o:p></o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black"><o:p> </o:p></span></p>
-                  </div>
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;color:black"><o:p> </o:p></span></p>
-                  </div>
-                  <div class="MsoNormal" style="text-align:center"
-                    align="center">
-                    <hr width="98%" size="1" align="center">
-                  </div>
-                  <div id="divRplyFwdMsg">
-                    <p class="MsoNormal"><b><span
-                          style="font-family:&quot;Microsoft
-                          YaHei&quot;,sans-serif;color:black"
-                          lang="ZH-CN">发件人</span><span
-                          style="color:black">:</span></b><span
-                        style="color:black"> Christian König
-                        <a
-                          href="mailto:ckoenig.leichtzumerken@gmail.com"
-                          moz-do-not-send="true">&lt;ckoenig.leichtzumerken@gmail.com&gt;</a><br>
-                      </span><b><span style="font-family:&quot;Microsoft
-                          YaHei&quot;,sans-serif;color:black"
-                          lang="ZH-CN">发送时间</span><span
-                          style="color:black">:</span></b><span
-                        style="color:black"> 2023</span><span
-                        style="font-family:&quot;Microsoft
-                        YaHei&quot;,sans-serif;color:black" lang="ZH-CN">年</span><span
-                        style="color:black">9</span><span
-                        style="font-family:&quot;Microsoft
-                        YaHei&quot;,sans-serif;color:black" lang="ZH-CN">月</span><span
-                        style="color:black">12</span><span
-                        style="font-family:&quot;Microsoft
-                        YaHei&quot;,sans-serif;color:black" lang="ZH-CN">日</span><span
-                        style="color:black"> 17:01<br>
-                      </span><b><span style="font-family:&quot;Microsoft
-                          YaHei&quot;,sans-serif;color:black"
-                          lang="ZH-CN">收件人</span><span
-                          style="color:black">:</span></b><span
-                        style="color:black"> Pan, Xinhui
-                        <a href="mailto:Xinhui.Pan@amd.com"
-                          moz-do-not-send="true">&lt;Xinhui.Pan@amd.com&gt;</a>;
-                        <a href="mailto:amd-gfx@lists.freedesktop.org"
-                          moz-do-not-send="true"
-                          class="moz-txt-link-freetext">
-                          amd-gfx@lists.freedesktop.org</a> <a
-                          href="mailto:amd-gfx@lists.freedesktop.org"
-                          moz-do-not-send="true">
-                          &lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
-                      </span><b><span style="font-family:&quot;Microsoft
-                          YaHei&quot;,sans-serif;color:black"
-                          lang="ZH-CN">抄送</span><span
-                          style="color:black">:</span></b><span
-                        style="color:black"> Deucher, Alexander
-                        <a href="mailto:Alexander.Deucher@amd.com"
-                          moz-do-not-send="true">&lt;Alexander.Deucher@amd.com&gt;</a>;
-                        Koenig, Christian
-                        <a href="mailto:Christian.Koenig@amd.com"
-                          moz-do-not-send="true">&lt;Christian.Koenig@amd.com&gt;</a>;
-                        Fan, Shikang
-                        <a href="mailto:Shikang.Fan@amd.com"
-                          moz-do-not-send="true">&lt;Shikang.Fan@amd.com&gt;</a><br>
-                      </span><b><span style="font-family:&quot;Microsoft
-                          YaHei&quot;,sans-serif;color:black"
-                          lang="ZH-CN">主题</span><span
-                          style="color:black">:</span></b><span
-                        style="color:black"> Re: [PATCH] drm/amdgpu:
-                        Ignore first evction failure during suspend</span>
-                      <o:p></o:p></p>
-                    <div>
-                      <p class="MsoNormal"> <o:p></o:p></p>
-                    </div>
-                  </div>
-                  <div>
-                    <div>
-                      <p class="MsoNormal" style="margin-bottom:12.0pt">When
-                        amdgpu_device_suspend() is called processes
-                        should be frozen
-                        <br>
-                        already. In other words KFD queues etc... should
-                        already be idle.<br>
-                        <br>
-                        So when the eviction fails here we missed
-                        something previously and that <br>
-                        in turn can cause tons amount of problems.<br>
-                        <br>
-                        So ignoring those errors is most likely not a
-                        good idea at all.<br>
-                        <br>
-                        Regards,<br>
-                        Christian.<br>
-                        <br>
-                        Am 12.09.23 um 02:21 schrieb Pan, Xinhui:<br>
-                        &gt; [AMD Official Use Only - General]<br>
-                        &gt;<br>
-                        &gt; Oh yep, Pinned BO is moved to other LRU
-                        list, So eviction fails because of other reason.<br>
-                        &gt; I will change the comments in the patch.<br>
-                        &gt; The problem is eviction fails as many
-                        reasons, say, BO is locked.<br>
-                        &gt; ASAIK, kfd will stop the queues and flush
-                        some evict/restore work in its suspend callback.
-                        SO the first eviction before kfd callback likely
-                        fails.<br>
-                        &gt;<br>
-                        &gt; -----Original Message-----<br>
-                        &gt; From: Christian König <a
-                          href="mailto:ckoenig.leichtzumerken@gmail.com"
-                          moz-do-not-send="true">&lt;ckoenig.leichtzumerken@gmail.com&gt;</a><br>
-                        &gt; Sent: Friday, September 8, 2023 2:49 PM<br>
-                        &gt; To: Pan, Xinhui <a
-                          href="mailto:Xinhui.Pan@amd.com"
-                          moz-do-not-send="true">&lt;Xinhui.Pan@amd.com&gt;</a>;
-                        <a href="mailto:amd-gfx@lists.freedesktop.org"
-                          moz-do-not-send="true"
-                          class="moz-txt-link-freetext">
-                          amd-gfx@lists.freedesktop.org</a><br>
-                        &gt; Cc: Deucher, Alexander <a
-                          href="mailto:Alexander.Deucher@amd.com"
-                          moz-do-not-send="true">&lt;Alexander.Deucher@amd.com&gt;</a>;
-                        Koenig, Christian
-                        <a href="mailto:Christian.Koenig@amd.com"
-                          moz-do-not-send="true">&lt;Christian.Koenig@amd.com&gt;</a>;
-                        Fan, Shikang
-                        <a href="mailto:Shikang.Fan@amd.com"
-                          moz-do-not-send="true">&lt;Shikang.Fan@amd.com&gt;</a><br>
-                        &gt; Subject: Re: [PATCH] drm/amdgpu: Ignore
-                        first evction failure during suspend<br>
-                        &gt;<br>
-                        &gt; Am 08.09.23 um 05:39 schrieb xinhui pan:<br>
-                        &gt;&gt; Some BOs might be pinned. So the first
-                        eviction's failure will abort<br>
-                        &gt;&gt; the suspend sequence. These pinned BOs
-                        will be unpined afterwards<br>
-                        &gt;&gt; during suspend.<br>
-                        &gt; That doesn't make much sense since pinned
-                        BOs don't cause eviction failure here.<br>
-                        &gt;<br>
-                        &gt; What exactly is the error code you see?<br>
-                        &gt;<br>
-                        &gt; Christian.<br>
-                        &gt;<br>
-                        &gt;&gt; Actaully it has evicted most BOs, so
-                        that should stil work fine in<br>
-                        &gt;&gt; sriov full access mode.<br>
-                        &gt;&gt;<br>
-                        &gt;&gt; Fixes: 47ea20762bb7 ("drm/amdgpu: Add
-                        an extra evict_resource call<br>
-                        &gt;&gt; during device_suspend.")<br>
-                        &gt;&gt; Signed-off-by: xinhui pan <a
-                          href="mailto:xinhui.pan@amd.com"
-                          moz-do-not-send="true">&lt;xinhui.pan@amd.com&gt;</a><br>
-                        &gt;&gt; ---<br>
-                        &gt;&gt;   
-                        drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 9
-                        +++++----<br>
-                        &gt;&gt;    1 file changed, 5 insertions(+), 4
-                        deletions(-)<br>
-                        &gt;&gt;<br>
-                        &gt;&gt; diff --git
-                        a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-                        &gt;&gt;
-                        b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-                        &gt;&gt; index 5c0e2b766026..39af526cdbbe 100644<br>
-                        &gt;&gt; ---
-                        a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-                        &gt;&gt; +++
-                        b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-                        &gt;&gt; @@ -4148,10 +4148,11 @@ int
-                        amdgpu_device_suspend(struct drm_device<br>
-                        &gt;&gt; *dev, bool fbcon)<br>
-                        &gt;&gt;<br>
-                        &gt;&gt;        adev-&gt;in_suspend = true;<br>
-                        &gt;&gt;<br>
-                        &gt;&gt; -     /* Evict the majority of BOs
-                        before grabbing the full access */<br>
-                        &gt;&gt; -     r =
-                        amdgpu_device_evict_resources(adev);<br>
-                        &gt;&gt; -     if (r)<br>
-                        &gt;&gt; -             return r;<br>
-                        &gt;&gt; +     /* Try to evict the majority of
-                        BOs before grabbing the full access<br>
-                        &gt;&gt; +      * Ignore the ret val at first
-                        place as we will unpin some BOs if any<br>
-                        &gt;&gt; +      * afterwards.<br>
-                        &gt;&gt; +      */<br>
-                        &gt;&gt; +    
-                        (void)amdgpu_device_evict_resources(adev);<br>
-                        &gt;&gt;<br>
-                        &gt;&gt;        if (amdgpu_sriov_vf(adev)) {<br>
-                        &gt;&gt;               
-                        amdgpu_virt_fini_data_exchange(adev);<o:p></o:p></p>
-                    </div>
-                  </div>
-                </div>
-              </blockquote>
-              <p class="MsoNormal"><o:p> </o:p></p>
-            </blockquote>
-          </blockquote>
-          <p class="MsoNormal"><o:p> </o:p></p>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---------------IViCcbGdgLtGB10kUm80YvFX--
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_atombios.c
+index 73ee14f7a9a4..dce9e7d5e4ec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+@@ -1776,7 +1776,7 @@ static ssize_t amdgpu_atombios_get_vbios_version(stru=
+ct device *dev,
+        struct amdgpu_device *adev =3D drm_to_adev(ddev);
+        struct atom_context *ctx =3D adev->mode_info.atom_context;
+
+-       return sysfs_emit(buf, "%s\n", ctx->vbios_ver_str);
++       return sysfs_emit(buf, "%s\n", ctx->vbios_pn);
+ }
+
+ static DEVICE_ATTR(vbios_version, 0444, amdgpu_atombios_get_vbios_version,
+--
+2.25.1
+
