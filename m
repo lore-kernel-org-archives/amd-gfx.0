@@ -4,28 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB8B5CA553C
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 13:10:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89F88CA553C
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 13:10:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE68D10E131;
-	Thu, 14 Sep 2023 13:10:51 +0000 (UTC)
-Received: from out30-118.freemail.mail.aliyun.com
- (out30-118.freemail.mail.aliyun.com [115.124.30.118])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D04A10E50B;
- Thu, 14 Sep 2023 06:42:40 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R101e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045168;
- MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
- TI=SMTPD_---0Vs1G6jX_1694673747; 
-Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0Vs1G6jX_1694673747) by smtp.aliyun-inc.com;
- Thu, 14 Sep 2023 14:42:36 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: harry.wentland@amd.com
-Subject: [PATCH] alpha: clean up some inconsistent indenting
-Date: Thu, 14 Sep 2023 14:42:25 +0800
-Message-Id: <20230914064225.122860-1-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFF9510E273;
+	Thu, 14 Sep 2023 13:10:52 +0000 (UTC)
+X-Greylist: delayed 305 seconds by postgrey-1.36 at gabe;
+ Thu, 14 Sep 2023 09:51:24 UTC
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9F2C10E559;
+ Thu, 14 Sep 2023 09:51:23 +0000 (UTC)
+X-UUID: bebcfc2cd5234480a8d300e4f6e5c3b5-20230914
+X-CID-O-RULE: Release_Ham
+X-CID-RULE: EDM_GE969F26
+X-CID-O-INFO: VERSION:1.1.31, REQID:fd810b43-069c-4082-a0de-37e72278df8d, IP:10,
+ URL:0,TC:0,Content:0,EDM:-25,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,AC
+ TION:release,TS:-30
+X-CID-INFO: VERSION:1.1.31, REQID:fd810b43-069c-4082-a0de-37e72278df8d, IP:10,
+ UR
+ L:0,TC:0,Content:0,EDM:-25,RT:0,SF:-15,FILE:0,BULK:0,RULE:EDM_GE969F26,ACT
+ ION:release,TS:-30
+X-CID-META: VersionHash:0ad78a4, CLOUDID:4256ef13-4929-4845-9571-38c601e9c3c9,
+ B
+ ulkID:230914174555IULG59O1,BulkQuantity:0,Recheck:0,SF:19|44|38|24|17|102,
+ TC:nil,Content:0,EDM:1,IP:-2,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,
+ OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
+X-CID-BVR: 0
+X-CID-BAS: 0,_,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR, TF_CID_SPAM_AEC, TF_CID_SPAM_FAS,
+ TF_CID_SPAM_FSD, TF_CID_SPAM_FSI
+X-UUID: bebcfc2cd5234480a8d300e4f6e5c3b5-20230914
+X-User: liucong2@kylinos.cn
+Received: from localhost.localdomain [(116.128.244.171)] by mailgw
+ (envelope-from <liucong2@kylinos.cn>) (Generic MTA)
+ with ESMTP id 1588511505; Thu, 14 Sep 2023 17:45:53 +0800
+From: Cong Liu <liucong2@kylinos.cn>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Stanley Yang <Stanley.Yang@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
+Subject: [PATCH] fix a memory leak in amdgpu_ras_feature_enable
+Date: Thu, 14 Sep 2023 17:45:33 +0800
+Message-Id: <20230914094533.213548-1-liucong2@kylinos.cn>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 14 Sep 2023 13:10:51 +0000
@@ -40,117 +62,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, sunpeng.li@amd.com,
- Abaci Robot <abaci@linux.alibaba.com>, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, alexander.deucher@amd.com, airlied@gmail.com,
- christian.koenig@amd.com
+Cc: Cong Liu <liucong2@kylinos.cn>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-No functional modification involved.
+This patch fixes a memory leak in the amdgpu_ras_feature_enable() function.
+The leak occurs when the function sends a command to the firmware to enable
+or disable a RAS feature for a GFX block. If the command fails, the kfree()
+function is not called to free the info memory.
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c:491 dcn32_auto_dpm_test_log() warn: inconsistent indenting.
-
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=6574
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Fixes: bf7aa8bea9cb ("drm/amdgpu: Free ras cmd input buffer properly")
+Signed-off-by: Cong Liu <liucong2@kylinos.cn>
 ---
- .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  | 72 +++++++++----------
- 1 file changed, 34 insertions(+), 38 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-index 37ffa0050e60..e34b1d6dd964 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-@@ -460,25 +460,25 @@ static int dcn32_get_dispclk_from_dentist(struct clk_mgr *clk_mgr_base)
- 
- static void dcn32_auto_dpm_test_log(struct dc_clocks *new_clocks, struct clk_mgr_internal *clk_mgr)
- {
--    unsigned int dispclk_khz_reg    = REG_READ(CLK1_CLK0_CURRENT_CNT); // DISPCLK
--    unsigned int dppclk_khz_reg     = REG_READ(CLK1_CLK1_CURRENT_CNT); // DPPCLK
--    unsigned int dprefclk_khz_reg   = REG_READ(CLK1_CLK2_CURRENT_CNT); // DPREFCLK
--    unsigned int dcfclk_khz_reg     = REG_READ(CLK1_CLK3_CURRENT_CNT); // DCFCLK
--    unsigned int dtbclk_khz_reg     = REG_READ(CLK1_CLK4_CURRENT_CNT); // DTBCLK
--    unsigned int fclk_khz_reg       = REG_READ(CLK4_CLK0_CURRENT_CNT); // FCLK
--
--    // Overrides for these clocks in case there is no p_state change support
--    int dramclk_khz_override = new_clocks->dramclk_khz;
--    int fclk_khz_override = new_clocks->fclk_khz;
--
--    int num_fclk_levels = clk_mgr->base.bw_params->clk_table.num_entries_per_clk.num_fclk_levels - 1;
--
--    if (!new_clocks->p_state_change_support) {
--	    dramclk_khz_override = clk_mgr->base.bw_params->max_memclk_mhz * 1000;
--    }
--    if (!new_clocks->fclk_p_state_change_support) {
--	    fclk_khz_override = clk_mgr->base.bw_params->clk_table.entries[num_fclk_levels].fclk_mhz * 1000;
--    }
-+	unsigned int dispclk_khz_reg    = REG_READ(CLK1_CLK0_CURRENT_CNT); // DISPCLK
-+	unsigned int dppclk_khz_reg     = REG_READ(CLK1_CLK1_CURRENT_CNT); // DPPCLK
-+	unsigned int dprefclk_khz_reg   = REG_READ(CLK1_CLK2_CURRENT_CNT); // DPREFCLK
-+	unsigned int dcfclk_khz_reg     = REG_READ(CLK1_CLK3_CURRENT_CNT); // DCFCLK
-+	unsigned int dtbclk_khz_reg     = REG_READ(CLK1_CLK4_CURRENT_CNT); // DTBCLK
-+	unsigned int fclk_khz_reg       = REG_READ(CLK4_CLK0_CURRENT_CNT); // FCLK
-+
-+	// Overrides for these clocks in case there is no p_state change support
-+	int dramclk_khz_override = new_clocks->dramclk_khz;
-+	int fclk_khz_override = new_clocks->fclk_khz;
-+
-+	int num_fclk_levels = clk_mgr->base.bw_params->clk_table.num_entries_per_clk.num_fclk_levels - 1;
-+
-+	if (!new_clocks->p_state_change_support) {
-+		dramclk_khz_override = clk_mgr->base.bw_params->max_memclk_mhz * 1000;
-+	}
-+	if (!new_clocks->fclk_p_state_change_support) {
-+		fclk_khz_override = clk_mgr->base.bw_params->clk_table.entries[num_fclk_levels].fclk_mhz * 1000;
-+	}
- 
- 	////////////////////////////////////////////////////////////////////////////
- 	//	IMPORTANT: 	When adding more clocks to these logs, do NOT put a newline
-@@ -488,26 +488,22 @@ static void dcn32_auto_dpm_test_log(struct dc_clocks *new_clocks, struct clk_mgr
- 	//
- 	//				AutoDPMTest: clk1:%d - clk2:%d - clk3:%d - clk4:%d\n"
- 	////////////////////////////////////////////////////////////////////////////
--	if (new_clocks &&
--		new_clocks->dramclk_khz > 0 &&
--		new_clocks->fclk_khz > 0 &&
--		new_clocks->dcfclk_khz > 0 &&
--		new_clocks->dppclk_khz > 0) {
--
-+	if (new_clocks && new_clocks->dramclk_khz > 0 && new_clocks->fclk_khz > 0 &&
-+	    new_clocks->dcfclk_khz > 0 && new_clocks->dppclk_khz > 0) {
- 		DC_LOG_AUTO_DPM_TEST("AutoDPMTest: dramclk:%d - fclk:%d - "
--			"dcfclk:%d - dppclk:%d - dispclk_hw:%d - "
--			"dppclk_hw:%d - dprefclk_hw:%d - dcfclk_hw:%d - "
--			"dtbclk_hw:%d - fclk_hw:%d\n",
--			dramclk_khz_override,
--			fclk_khz_override,
--			new_clocks->dcfclk_khz,
--			new_clocks->dppclk_khz,
--			dispclk_khz_reg,
--			dppclk_khz_reg,
--			dprefclk_khz_reg,
--			dcfclk_khz_reg,
--			dtbclk_khz_reg,
--			fclk_khz_reg);
-+				     "dcfclk:%d - dppclk:%d - dispclk_hw:%d - "
-+				     "dppclk_hw:%d - dprefclk_hw:%d - dcfclk_hw:%d - "
-+				     "dtbclk_hw:%d - fclk_hw:%d\n",
-+				     dramclk_khz_override,
-+				     fclk_khz_override,
-+				     new_clocks->dcfclk_khz,
-+				     new_clocks->dppclk_khz,
-+				     dispclk_khz_reg,
-+				     dppclk_khz_reg,
-+				     dprefclk_khz_reg,
-+				     dcfclk_khz_reg,
-+				     dtbclk_khz_reg,
-+				     fclk_khz_reg);
- 	}
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 8eb6f6943778..b4a8ea946410 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -802,6 +802,7 @@ int amdgpu_ras_feature_enable(struct amdgpu_device *adev,
+ 				enable ? "enable":"disable",
+ 				get_ras_block_str(head),
+ 				amdgpu_ras_is_poison_mode_supported(adev), ret);
++			kfree(info);
+ 			return ret;
+ 		}
  
 -- 
-2.20.1.7.g153144c
+2.34.1
 
