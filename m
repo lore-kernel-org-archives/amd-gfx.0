@@ -4,91 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBB25EEAA5D
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 18:22:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85070EEAA5D
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 18:50:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A449810E2AE;
-	Thu, 14 Sep 2023 18:22:31 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20626.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e88::626])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F55210E2AC
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 18:22:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=M2SBe5bo8BdxQIRrGSmmFoUvx/dAUHi9nV8yXqPZoDAxMnnkkKN8XcqH6h9kImSjjjiGY78yD/s2jwZ4/N59d7S3+BVCuN3UIBSkbz4aFu0eeoYYu1w6dn7LWgEGHi86IPk5xnGQugqjkFWYLVu6Ecc51qlmwY5SJWzAc+TZc4+Pa9WaW0MYiv2ZWiYuH8g6LgWX0cj6/26XbwNELmWIYWbe4sf+IRqjfJ1jMirn/qE6NwlU72rpHri46cx5g476clVRGuZ+f9sKCJ77FFLbQbUPdM0AtKIhlWkOtZLapGksl87t9PUuWWnE1RZAke5sX+TQMGXZxaLPwB7xZNORwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W8gfENjH5zMNSTf7hZUr8EVGd5852V2pqRmepos2RVU=;
- b=lzJbqEWRdcsaOMwjMsje26bClSU9xuXN4nla3Wy+6KqhZD3/6mN61+CesGZ0S8BmJTIcQOD+gmi/fvWgPJC4jwJpOouXNAih58TYINVhdc3DAXSZQvAShyfJFti+1IZN4T3A+0jovSJZ7UzEp5NjRIQzkN7c7URRsT6wbmt6kAoC9H7Oln0i9qno1PT0GiFnH/eaujM/xE0M4cYoDzaR7Zy6EH7apmiJqOB6oEkEBfoHaFUXXuWHgLvhBB3f162z8hHPmqTAp2tfADuuhsumCrm3jetpRsMh3xSQp2eF50UL9Xxxkb9Cr8mDHnpMGwJu9jDxN+9p1ltbDUOh/0bRmw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W8gfENjH5zMNSTf7hZUr8EVGd5852V2pqRmepos2RVU=;
- b=CtqmYymGzapmOOrjGIsPB39byPLkkLBDRk14icfTLnuLFd/82kP8oj70hZoNL+mXtjcvyhVHIRH6khJiw5/e4WWLiQmBZXhStgxNxC3klu6wWzBwDXaef4md+cS92Zh1Wq7L82fVyu2a94UsuX3XMn/4TLfSdSemp/6mbwo5v9s=
-Received: from CH0PR04CA0063.namprd04.prod.outlook.com (2603:10b6:610:74::8)
- by IA0PR12MB8424.namprd12.prod.outlook.com (2603:10b6:208:40c::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.35; Thu, 14 Sep
- 2023 18:22:25 +0000
-Received: from DS3PEPF000099DA.namprd04.prod.outlook.com
- (2603:10b6:610:74:cafe::a0) by CH0PR04CA0063.outlook.office365.com
- (2603:10b6:610:74::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.20 via Frontend
- Transport; Thu, 14 Sep 2023 18:22:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099DA.mail.protection.outlook.com (10.167.17.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6792.20 via Frontend Transport; Thu, 14 Sep 2023 18:22:25 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 14 Sep
- 2023 13:22:24 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/4] drm/amdgpu/gmc11: set gart placement GC11
-Date: Thu, 14 Sep 2023 14:21:58 -0400
-Message-ID: <20230914182200.679059-2-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230914182200.679059-1-alexander.deucher@amd.com>
-References: <20230914182200.679059-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1E8F10E15A;
+	Thu, 14 Sep 2023 18:50:07 +0000 (UTC)
+Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com
+ [IPv6:2607:f8b0:4864:20::c34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CEB910E15A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 18:50:06 +0000 (UTC)
+Received: by mail-oo1-xc34.google.com with SMTP id
+ 006d021491bc7-57358a689d2so775796eaf.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 11:50:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1694717405; x=1695322205; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fn+vGWvfCg+cffDi23GevCWEnRyx5DxlhXIfoOyj4Qc=;
+ b=GwoLbvEQ7+4wSpeax07n2DW2yRKqEwtLcUQuid67wq2Z+zEqEfx4YI2r/W57mO7pgj
+ aGQkZtzFDzBXUmgMBYPbMAldOJvXKQrcwlrWEFZiE168exU25iqkdax1eamEjerIU6Sf
+ a3PTw8fU5o6Fz+7tSbF5nNvgZa1Dl2JsSu6Z75Ieunip2eCXrQvrNY2cb5UI4rdRfPdt
+ R8T6Np6VT0YRAU1ito5B73xAL6hcJ4lxOhnM2bF94CMuTw88vyrakJTZQKHZOsijGd40
+ cdEJDV8U0UTld6/t7xJI6kX/ZahACa5AeGcC50a9Dnbj0NJUKv4ZkERAk2ziUCngI1Zr
+ BliA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1694717405; x=1695322205;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=fn+vGWvfCg+cffDi23GevCWEnRyx5DxlhXIfoOyj4Qc=;
+ b=Xf/u8/V79alzUd773pf5a6IXFOLY06yLtD606+o5NZEf/507eCFObH+Hz6gZN6sFyX
+ TxzB4eVsPUkmjIi/yfOj7T+6upxI+FkuoWpz+LZ+RsvM7PnQiF4ood5Z7NUqHO9erPnI
+ 8FfYFoAGIL2k4sERwO9sRTqVwR3NjnzMX4Dh+09j/hRULlz5ZA7liWcQ7MyYeuqARK/W
+ nvezHj9t6ToEpMX7E101whfrNGqJHlo0xRGIc6QkAye/gyp3OYa3RLf6cSfBBFEDFgky
+ HTHjqmIuu3EpLpG7O+TnImd4EfTTbw0s/CzG/KAYSaP7rV+OhPwFW0F9a7mas5fJt+Fu
+ BngQ==
+X-Gm-Message-State: AOJu0YyEGMj2dLqIEU18AbFNVZnJLGrxJcLZuT1J9c3ip8XODMf+Rg35
+ 6GgojIGzzOmvhXTK/zyy9RKk0ZZ86c6Rv5V831E=
+X-Google-Smtp-Source: AGHT+IG+gydLHgg4ec5w6gf8jotpQctAB6S0U2sp0t+mkd+fkWbwm9eYjmBk5reU+zAeEQ24a8AF/6Wwg7NlRSFTwk8=
+X-Received: by 2002:a05:6870:a2d1:b0:1d4:d016:22a3 with SMTP id
+ w17-20020a056870a2d100b001d4d01622a3mr6617480oak.7.1694717405322; Thu, 14 Sep
+ 2023 11:50:05 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099DA:EE_|IA0PR12MB8424:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f6f01e3-518c-466b-2744-08dbb54f8bb5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PtCJhNKhH+8GGXl0XbfsCqdQs9/xYULrdF3/VcrK1ESfwvyRBUnqUrRoyenU/Akjh1dgv4W0A5eNLeNl2KRE7QcyBW9bz4154WSuMMg2om5bWZnH/G6kwNmZxitL7Yn3oRuC7zPDPnFhZy09U55rrISwAJP8CV2WKmfRfqnFR+G1vyXqbLZp9GkfuSBO5ubj0pWgsq+4Zeef7EY1mZj73c4acpa7HT+fSR4QSuti8ElbKb4N8U5KqDCECkTyVQhbutXBxV1IufP26oOLna6Gx/vEW9dSeqEdK5tDVJK0D186mNpmcJHszIUtZKVrePmpTE6e6/W44WxfowoGeJh7cGFfAc4gD0DAf54EknXtATsdmi1XAUqiMb2/ZAXidBpsBe4nPbK08At45+yXwz1UH32hW2oaPpPizmI+hw/1BdND4s5hoWci9kaxOD3Gu5MY8BFA+g8gm+gdpS2rufFRFE7rLKLMyHatvX0EpvH60RGuq3NDGlHIoeJdMzsi8/ZuSRPai4lXKNABINfzhaehyE3neQvwD4In7YAPq6h8TC9aUliD1zXabd5rkdxJxO1ozBKJW7ho8mM5Byy/a0Op8plzfmq8v4HLHM7BRd9LmIXv127ydlOGs427jCECKO5nUe7w7UNxqmVKZAmanG7d0+VRFEIxdJ2xUR0Jl12nFweC+L832+e7bw3ltckW9WvMrunZ0kocBwe2oylbMk8qb35TvwcF5uMg1jXCfDqL58wisSli+s0lbttHH5Sf2QmVFCZ5bNM6aitEU0XHqpdNUg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(376002)(396003)(136003)(346002)(1800799009)(82310400011)(451199024)(186009)(36840700001)(40470700004)(46966006)(356005)(6666004)(7696005)(2906002)(478600001)(36756003)(2616005)(5660300002)(4744005)(16526019)(41300700001)(426003)(316002)(6916009)(70206006)(70586007)(336012)(4326008)(8676002)(8936002)(81166007)(82740400003)(40480700001)(36860700001)(40460700003)(47076005)(26005)(86362001)(1076003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2023 18:22:25.3224 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f6f01e3-518c-466b-2744-08dbb54f8bb5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099DA.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8424
+References: <20230914182200.679059-1-alexander.deucher@amd.com>
+ <20230914182200.679059-4-alexander.deucher@amd.com>
+In-Reply-To: <20230914182200.679059-4-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 14 Sep 2023 14:49:54 -0400
+Message-ID: <CADnq5_OucfrjjRtTsV=yiaCcYJT8oADr5xdQLUsrBhfNs_npDw@mail.gmail.com>
+Subject: Re: [PATCH 4/4] drm/amdgpu/gmc11: disable AGP on GC 11.5
+To: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,34 +68,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Needed to avoid a hardware issue.
+On Thu, Sep 14, 2023 at 2:31=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
+.com> wrote:
+>
+> AGP aperture is deprecated and no longer functional.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gmc_v11_0.c
+> index 6947b598e9b2..7ee91b66f761 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> @@ -745,6 +745,9 @@ static int gmc_v11_0_mc_init(struct amdgpu_device *ad=
+ev)
+>                 adev->gmc.gart_placement =3D AMDGPU_GART_PLACEMENT_LOW;
+>         else
+>                 adev->gmc.gart_placement =3D AMDGPU_GART_PLACEMENT_HIGH;
+> +       /* AGP aperture is removed on GC11.5 */
+> +       if (amdgpu_ip_version(adev, GC_HWIP, -2) >=3D IP_VERSION(11, 5, 0=
+))
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Not sure what happened here.  I've replaced the -2 with 0 locally.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-index e1f47f9c1881..6947b598e9b2 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-@@ -740,6 +740,12 @@ static int gmc_v11_0_mc_init(struct amdgpu_device *adev)
- 	else
- 		adev->gmc.gart_size = (u64)amdgpu_gart_size << 20;
- 
-+	/* force GART to avoid a hw issue in GC11 */
-+	if (adev->flags & AMD_IS_APU)
-+		adev->gmc.gart_placement = AMDGPU_GART_PLACEMENT_LOW;
-+	else
-+		adev->gmc.gart_placement = AMDGPU_GART_PLACEMENT_HIGH;
-+
- 	gmc_v11_0_vram_gtt_location(adev, &adev->gmc);
- 
- 	return 0;
--- 
-2.41.0
+Alex
 
+> +               adev->gmc.no_agp =3D true;
+>
+>         gmc_v11_0_vram_gtt_location(adev, &adev->gmc);
+>
+> --
+> 2.41.0
+>
