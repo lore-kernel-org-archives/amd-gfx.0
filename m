@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAAB9EE0213
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 02:01:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19541EE0203
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 02:01:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12D4710E21D;
-	Thu, 14 Sep 2023 02:01:37 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2076.outbound.protection.outlook.com [40.107.237.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5512C10E219
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 02:01:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A744B10E21E;
+	Thu, 14 Sep 2023 02:01:41 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2070.outbound.protection.outlook.com [40.107.96.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8188710E216
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 02:01:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oPR2OTUP8/sVDtfPGFoiU7vcC8jc22n0JzjQd+43QitsEmjIEESH6wGJzS7hiLy2CqxQm2fPONX1scV900RSZNRU3/W+2jXQVIFIHLyW6+uAiLFrJRqh8lxIw17wOBfja17EdNqq5LvC9JQO39PA+cqX55YmwOwWirhJ4nSg7Kg4F3z+syNx/4k8tiOfiWKelYw4tMbX9TUPa7NWb1UUjHuS/RsV3hnjKoYM0beT1/jpg+EhkA8W4FB/xmaa+6INHVu+Nu6wfSHd5ee4RNG/7+g7AslXIpbJGciGGwMAZUkOG/+Z7N9YVFroSt9o7SMpaB8d6r6jPZgtOcg/WWJ11Q==
+ b=dxFo/SvzXkbiYXdtt6/mhSi3dluZg0PQMMTkMWcxy3uZ+iSTIkbb3LsaXqzWOHbXF8LPBTs6ssTmes9W7hzDM+jxuVk+Ju7biNSZ4TdySsrHl2g7VnuGt+QOTo0sZeueKRwKEh9Ze7w5P2Y4OYTFGeThd6cBrOPK0ud4LA+VGV+0dq7/MeKAwB3/UrdFhsr/j77OaQd7i14wXLg4ZrPY2nlkEhQW4DGWEaeCzupH/08dKrw0mGkejXLMDKwg8f7R6SF4CDvkVVqnX+/R2klsIWGiV0LtsCkbyBwV8DNrJPs3Vl0Yzx/bEqdrROsj9kbXMsOl0lM1U85YWnwq4dAz7A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1bNqtWw213DM6fO4IOoERaJ7HIr2F2+8btUFqMtVVuU=;
- b=QmH0XN7RCOBs4DzijziyFEYRFnJhjVv3vc9jzE4zDVX/wRDKu9AaeW5TVb8m1GR2DALu3A4frRUbiCeYxSZqEHdkftzuSS7SG3yX58nW9vLFr7Pm5LjOXeKq34RUqb5o6bcdki2c1lLU2bXrggiSLb6+nfipR/xpguIsRkoeYD9kW++zmYqD7TKwbq5DMELb7IvB93t9IbuMry3m9WCDp4LhZxba7kq/HUpeoqDiYuoNWuwYo9DTmhrbgKVqEub03TeIPY3/8tBVYwq0ksFKVm67WXX8Kqaz7KoPpJtJVpq9VPrnhNjgr4HJUU08KajmzzSQYupCheWBIJcBcy/bDA==
+ bh=Cd++oqapxpU+oYS30mGO6xRqvqzYGQMArf+ecI65/oM=;
+ b=VgJ/BtAHj4KKKRuQWaAZPR04mDP+TB+tsHbnIXXpxrBW82p6jpRv++/fbuPYvcbEauob+P+hHV/teVejuV30HALQG11Yj8OWETbIJYkM2Fp7RUSC62KqumdLDvXdrTLRpvuXWjeeMNK+qzVmxWwrqMkd8qVVqgtut2sAWz1qcJFoLF7WlZ9vdE1wudwSOtrr7DwmN2RZZm50bqIHNS1cSpdSj8f5KGBZmKwY0oR3d+LAxtBW4A+uieXUJqKZFjiznKQ8/+Hq3HwAgDiKzv7WI4ne4nd49oRkz8OitCwPHKFHuJ07f/tuFhd+4sPDuhbobqEhTFjueW26yuwsxsnTxg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1bNqtWw213DM6fO4IOoERaJ7HIr2F2+8btUFqMtVVuU=;
- b=v7t6m0DJgnBIKVxxNMxe/DLvU1WWqiIcMWdkXV07FYRcQIb/iKEJbePQFBm2XxHjWw7jrQMkOl9WOKiw6RzecF6XmSjvUPrUeXH22/Ngus4EidR8IX52QOGe68bmvtyyI05Csp9otOdgkJu7GzEwhRuspFC5aXHt6N1HgdBRmJ0=
-Received: from SN6PR05CA0024.namprd05.prod.outlook.com (2603:10b6:805:de::37)
- by LV3PR12MB9268.namprd12.prod.outlook.com (2603:10b6:408:216::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.31; Thu, 14 Sep
- 2023 02:01:33 +0000
+ bh=Cd++oqapxpU+oYS30mGO6xRqvqzYGQMArf+ecI65/oM=;
+ b=ZyjAohT6f+N/HQoYmI4JoPcphmmVrNaREDKfY8bMsO1qi6NWeRm38S9srXbSH10wzyJ21mXGrNmvrSs112onma6Lg2WsdHOkBgsekW7biDsyDo2wvYkR7FCzKeJv5EZxebtA7XxNgw3YdI0SnEfeGS9WsXIQaLXRGOLybv+azzc=
+Received: from SN6PR05CA0012.namprd05.prod.outlook.com (2603:10b6:805:de::25)
+ by DM6PR12MB4434.namprd12.prod.outlook.com (2603:10b6:5:2ad::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.19; Thu, 14 Sep
+ 2023 02:01:35 +0000
 Received: from SA2PEPF000015CD.namprd03.prod.outlook.com
- (2603:10b6:805:de:cafe::52) by SN6PR05CA0024.outlook.office365.com
- (2603:10b6:805:de::37) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:805:de:cafe::df) by SN6PR05CA0012.outlook.office365.com
+ (2603:10b6:805:de::25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.20 via Frontend
- Transport; Thu, 14 Sep 2023 02:01:33 +0000
+ Transport; Thu, 14 Sep 2023 02:01:35 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  SA2PEPF000015CD.mail.protection.outlook.com (10.167.241.203) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6792.20 via Frontend Transport; Thu, 14 Sep 2023 02:01:32 +0000
+ 15.20.6792.20 via Frontend Transport; Thu, 14 Sep 2023 02:01:35 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 13 Sep
- 2023 21:01:30 -0500
+ 2023 21:01:32 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 08/28] drm/amd/display: Add pointer check before function call
-Date: Wed, 13 Sep 2023 20:00:01 -0600
-Message-ID: <20230914020021.2890026-9-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 09/28] drm/amd/display: fix static screen detection setting
+ for DCN35
+Date: Wed, 13 Sep 2023 20:00:02 -0600
+Message-ID: <20230914020021.2890026-10-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230914020021.2890026-1-Rodrigo.Siqueira@amd.com>
 References: <20230914020021.2890026-1-Rodrigo.Siqueira@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015CD:EE_|LV3PR12MB9268:EE_
-X-MS-Office365-Filtering-Correlation-Id: 93f08481-46e3-446a-a5b9-08dbb4c684e7
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015CD:EE_|DM6PR12MB4434:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d779da7-e507-4f37-6f8a-08dbb4c68635
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zFW8p8HqAMtYvHz+vn1zbQhTIpoeFs1M14G4jIwOCqpaKQifS4a3TAaQdsIJRrvS7bLEHN0uql+o3OXN6AWE32NMZsvO64Wb7KLK8JX2ZpXtNL3tSrmdeN2g2epqj6nHEcmo2GFXcm+fKDP6bcb+yR0GbsYWzv97fUHYC09e7OeSbLIfHFbF9cNoJnKL07Yo2ASQh40PEGAiickDenfjFcy2JEoOAhqJsdwrZqgb8TuPySr7rQLvp5gNyOQ70vW6h1jwpDmTYEIjYMwbfIu2lEwCIhj2poX2pMZfiQhT5ltbAtat6s+2Pyjji8C3Hw9ti6B7iwWf4lFubqGvpYCBESGd4budSexh4Qm6HB1+DAjh1NoIp59emCINpPXkFc/C7dTxAi+5gl+3mbgHHzsLz52E7KpFD8pBxQCMk350o8qACatGxwM7Gs4nvv5x7EAiLuNuuKBfUTcxv4+RShR3aPsFwpUS40nstlvupQ/hJ4A8j3zGubRCjJ4O2xV1xORChubshlMTpBVnCnGUyodDq7TuFu2Ka4gd+A0I8QzU7Bg6iq1efbVFGxtPX431L0aPiR91vSu7xwUSaCX2tVU616KBBLNVd3wcZZmuzgkswD2jBtYU1AkoUa1VYY4iF32lU8zPehWqNG+DzE6KQhgjADGCTYV+r/GTfmcGYWLP9uwdR7Txol10MBOZ7NUd7lLn6vtVmHj1dxMy+hEMn/BCfrISVVB8atYy3zFa8rsLE2Lvr8fEQttlI7GSIM4Cdw/lplABpAFiE+MaGiFXi65T0A==
+X-Microsoft-Antispam-Message-Info: FAa9hjD+ksv59+H6hZFZOd66Z+OjFG0q2u7t5UqWWqoeeipg/HoxdM0fZGfIOPuvUdZ3IWjXFQynl8ko7oJIdt4QVv6hGpPDJbeHVUKrbew3s1WIpxLU7FiThzA+P7hv65qeB76c/KEVSKbuyZUJsEDIywHoTwafjU9IXxQ+TSqHB7syO/mYkMc1KVMGY/hMqMgLKOXGkqODN8SRGwaOeBL2Dv7aZK/Aas34dqldFmu5U3hiP17jX3jkNB0w7hnNiyTCYsAHgUJ1KMfwrWHxoCrBsaLeLc+MEELz1H2u238yTbEQLM+J4MZnWpZUXQxYADBjNFLMNaKej3CT5I6wtdAJB2qbaaNcMqEIA3g9NAkQBMW7q+vf9+CRAOG2KmlRqj1R3U4pkFcjX1WjcKnEL207Vu3J3b9W60qyJMMAJo/ytRn5tpuxgpfyVkjRw6wJvH6blLs7/vMUWeA8VzvrT/sg4+e1mmXiHZXGnUsBcUe01C02DRl+fOwWsZ8qrj6OXg1jzncu18lTLPHhh0XVBHubnrNPgsaW0H5L4AUbKW76Q10RfiX+Wqg31GkHKR+y2Q8QmbASNUbxBq23O1x8lvtYvMtPP5l8v7T58VTxj3Om9u8G3Qna7Hq7nNaj9FzJ8J0ogBOV/E0KEz25zQKF+372mh23b8FEzKhy1FIuk06z6pSSdMYKUX4UKBwOYjMab1Lhc4VP6Ck+3rzvgpgLZ5jzOONGBf+lXIw7pqwaH3WV540Khf05lGg5XaQ90/ofmnM8AKWNFd3G6O6Yac7MeQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(136003)(376002)(396003)(346002)(1800799009)(186009)(82310400011)(451199024)(36840700001)(40470700004)(46966006)(40480700001)(6666004)(1076003)(16526019)(2616005)(26005)(8676002)(8936002)(86362001)(41300700001)(4326008)(40460700003)(356005)(316002)(36756003)(70206006)(70586007)(5660300002)(81166007)(54906003)(6916009)(2906002)(82740400003)(478600001)(426003)(83380400001)(36860700001)(47076005)(336012)(36900700001);
+ SFS:(13230031)(4636009)(346002)(396003)(376002)(39860400002)(136003)(82310400011)(186009)(1800799009)(451199024)(40470700004)(36840700001)(46966006)(6666004)(478600001)(83380400001)(1076003)(5660300002)(2616005)(16526019)(26005)(426003)(336012)(2906002)(70586007)(6916009)(54906003)(70206006)(316002)(4326008)(8676002)(8936002)(41300700001)(47076005)(40460700003)(40480700001)(36860700001)(86362001)(36756003)(81166007)(82740400003)(356005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2023 02:01:32.8730 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93f08481-46e3-446a-a5b9-08dbb4c684e7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2023 02:01:35.0605 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d779da7-e507-4f37-6f8a-08dbb4c68635
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015CD.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9268
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4434
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,43 +100,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Charlene Liu <charlene.liu@amd.com>,
- Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+Cc: stylon.wang@amd.com, Anthony Koo <anthony.koo@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, solomon.chiu@amd.com, Sung-huai Wang <danny.wang@amd.com>,
  Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- Sung Joon Kim <sungkim@amd.com>, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sung Joon Kim <sungkim@amd.com>
+From: Sung-huai Wang <danny.wang@amd.com>
 
 [Why & How]
-Call to immediate_disable_crtc was not checked before calling,
-exposing a potential null pointer hang. Fix it.
+set_static_screen_control has been updated for
+DCN3 series. Update it for DCN35.
 
-Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Reviewed-by: Anthony Koo <anthony.koo@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Sung Joon Kim <sungkim@amd.com>
+Signed-off-by: Sung-huai Wang <danny.wang@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dcn35/dcn35_init.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-index 98d6a1f8af60..ca6ce13921a7 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-@@ -128,7 +128,9 @@ static void dcn35_disable_otg_wa(struct clk_mgr *clk_mgr_base, struct dc_state *
- 				if (stream_enc && stream_enc->funcs->disable_fifo)
- 					pipe->stream_res.stream_enc->funcs->disable_fifo(stream_enc);
- 
--				pipe->stream_res.tg->funcs->immediate_disable_crtc(pipe->stream_res.tg);
-+				if (pipe->stream_res.tg && pipe->stream_res.tg->funcs->immediate_disable_crtc)
-+					pipe->stream_res.tg->funcs->immediate_disable_crtc(pipe->stream_res.tg);
-+
- 				reset_sync_context_for_pipe(dc, context, i);
- 			} else {
- 				pipe->stream_res.tg->funcs->enable_crtc(pipe->stream_res.tg);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_init.c b/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_init.c
+index fdbc3a7854c2..d68efe5c64a4 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_init.c
+@@ -68,7 +68,7 @@ static const struct hw_sequencer_funcs dcn35_funcs = {
+ 	.update_bandwidth = dcn20_update_bandwidth,
+ 	.set_drr = dcn10_set_drr,
+ 	.get_position = dcn10_get_position,
+-	.set_static_screen_control = dcn10_set_static_screen_control,
++	.set_static_screen_control = dcn30_set_static_screen_control,
+ 	.setup_stereo = dcn10_setup_stereo,
+ 	.set_avmute = dcn30_set_avmute,
+ 	.log_hw_state = dcn10_log_hw_state,
 -- 
 2.40.1
 
