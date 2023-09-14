@@ -4,57 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB0B3EEAA74
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 20:45:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11A1BEEAA71
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 20:52:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31BBE10E19C;
-	Thu, 14 Sep 2023 20:45:37 +0000 (UTC)
-Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
- [IPv6:2001:4860:4864:20::2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D55F410E19C;
- Thu, 14 Sep 2023 20:45:35 +0000 (UTC)
-Received: by mail-oa1-x2b.google.com with SMTP id
- 586e51a60fabf-1d577c89a4fso735375fac.1; 
- Thu, 14 Sep 2023 13:45:35 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8642F10E57E;
+	Thu, 14 Sep 2023 20:52:57 +0000 (UTC)
+Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
+ [IPv6:2001:4860:4864:20::29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 482EF10E583
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 20:52:56 +0000 (UTC)
+Received: by mail-oa1-x29.google.com with SMTP id
+ 586e51a60fabf-1c504386370so797723fac.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 13:52:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1694724335; x=1695329135; darn=lists.freedesktop.org;
+ d=gmail.com; s=20221208; t=1694724775; x=1695329575; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=lYFkx59s2xs5GUhtqs0B2NG56CjyPAmSZL2SFzjSb1A=;
- b=Q0TT/6MriI6cDv5FZfcTzA/RRKNMlAxOMuJfj7u1xz0FjiEUpVzW/G+SfZnSFKaiUN
- rWaegKFqxEK94Zy2mhzZJnkqpW/A+uSYUPYGx5ppg4g2WPA8w950t584Lu9hAAAyJVdR
- rw8L++fspXLjz3lQpWiHsDETUmajcvpO7KpwWxeru6gLf9HQh1Izl7OOjReiJ5RAMGzk
- gqrnS1M0uzjcZ81dLuy9nzpB7oBxTNkd7h96yR+PNgmLLyeQsnELs3ZyiPE3lyj+R86T
- rXyLNZWna1OafMuJcb5D60v0DbUZrvahCX3NF0WpZWcrU9YjfzfP95a3hJCv+qNx9Pf8
- xnHQ==
+ bh=/H+DMo2HUiVvHB4YDLhJMrCVy2xySAe+OvK4zkA2/5c=;
+ b=FeJo09RjcrG33O6+alGH6dslhSy+gxN7gS1FDsYOLuco4Zdvp2c7kDyNHHe8VmsFs0
+ D+I//QNTb1bEEBZM9AVTXnRfdB5WdFGk8ZcllbEHOmSTK70aKT6d/eleDuYO+qW5QSRT
+ XoTJGYfc7NZxjlcLkOEVbGft8tevHdV78bTr9wvhYmJQ39UxcqUh6UmizHUMyf+dnz2X
+ O41qo+a2p13ekFiQ5FBsvOiHc34qk6j0fH0IhuYX2S+V7HeAb5p0j4n8sgnqh/5frmnQ
+ TWH36no173KvD4SahvWpFEU7xFTm3OwdfGWcfg0qwngkMaQHmPX3MXodjydklpBJWJhx
+ 2ZXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694724335; x=1695329135;
+ d=1e100.net; s=20230601; t=1694724775; x=1695329575;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=lYFkx59s2xs5GUhtqs0B2NG56CjyPAmSZL2SFzjSb1A=;
- b=prrEgXjv/yoYKvWs82+sKh7q/szz/+kcKd12PEzG5OANBoTzOV3VNDNKmrvcc0rjrr
- 8RZEbYkdp7Nq8JYKbwP0iWScCEZNBmVEj4r2IKYdr4KR3/+b/h6TA4MwsBLCf1ye5uy1
- wHiss5uZV0jyYyyZFZ1Gzg3XTU+W808rylDwUvMo05rQUny6qjDaNAWLFp6nznfyTUss
- TxOoHhnzw5Xy0oVTssA3eKYnwuvozDcEGWwqPcreCG47MueE247lgKvi9ntamJHbAqeS
- e3sNdw0jO5Nd/icxH3pQtId10b5UdobtPbPM7Fkup5N3enyk+VqV9nyIoqsHC1ANj61J
- heRw==
-X-Gm-Message-State: AOJu0YxCZFdowbbMqiBG2SDZG6hX8DbbNOPZlfBqaK6U0sPlVX0bqNH5
- kaWFk+DeyllSWqySUGQwamXXCnS0DIa+GnSQR4U=
-X-Google-Smtp-Source: AGHT+IF0ninFMuKfFQj4R5kEyD2TqpllZdJ07TUZpeOjkb7E2DciQ4ukpmEmeloHGp0094kz4pau7MLErnTAD7pMk9o=
-X-Received: by 2002:a05:6870:3412:b0:1ad:5317:1f7d with SMTP id
- g18-20020a056870341200b001ad53171f7dmr6949318oah.39.1694724334982; Thu, 14
- Sep 2023 13:45:34 -0700 (PDT)
+ bh=/H+DMo2HUiVvHB4YDLhJMrCVy2xySAe+OvK4zkA2/5c=;
+ b=ao8ixJFX/DyuNvaC3Px8cWHnjv92Va1grTDD8DBIk1gWAYjejM2qd6kMsZm3z1Emf7
+ Np0U2M1i/P8sfvcmumgTpN03zOrDPHSsnk6tzQrbxnApqVUU1+bBV72PMcaxTh6HtXtf
+ MKHxfvBsaA3GG3mbJcTEDfIJ7o4BDdU28mYFliumby73ZCFIMEK4g+1hHBekJ3Rm7SbS
+ Zis6sUffrVOkxpr7AtF44i4XdFDafl3jusLjc6U3GPHVVzmVg5YN2QoLdVzuBypIjfIX
+ LPxhX4ePch3SrtbSLEzZY4Y7w+FRu5LoeO+tzUh81ISHiCuGMl3SjPVb1BwR5ffpmzOq
+ heHQ==
+X-Gm-Message-State: AOJu0Yy0JnKwoxhwH7peL9MuWU88FEjdNJ1zVHqSlt6P2NjO36ODQv9e
+ TvvCXzJzkP9JTPAEK5LUPvcD+a5zMAwNyvYdkz5V738fjSU=
+X-Google-Smtp-Source: AGHT+IHOcXCKVUilRe9nbKYN0yKCqPSQaDsGeIyPpqRjM3NrfgxJumzS+gPRyo16tCLKDC1o+CRzJuVb4D5P94EMeE4=
+X-Received: by 2002:a05:6870:ea84:b0:1bb:bcc3:c96 with SMTP id
+ s4-20020a056870ea8400b001bbbcc30c96mr7198451oap.33.1694724775344; Thu, 14 Sep
+ 2023 13:52:55 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230914094533.213548-1-liucong2@kylinos.cn>
- <BN9PR12MB52574EE1CDCCD04336E963FFFCF7A@BN9PR12MB5257.namprd12.prod.outlook.com>
-In-Reply-To: <BN9PR12MB52574EE1CDCCD04336E963FFFCF7A@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20230911143639.3110-1-michel@daenzer.net>
+In-Reply-To: <20230911143639.3110-1-michel@daenzer.net>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 14 Sep 2023 16:45:23 -0400
-Message-ID: <CADnq5_Oaw6Cm+oUb_TpfPwTt_euA85CB1aY6dxcW=r2hjp_Aig@mail.gmail.com>
-Subject: Re: [PATCH] fix a memory leak in amdgpu_ras_feature_enable
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Date: Thu, 14 Sep 2023 16:52:44 -0400
+Message-ID: <CADnq5_P-r5mtirGWgb3HzOwj9AeLSn3rB30u969gLxBF3DVHGQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Handle NULL dccg in dce110_disable_stream
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,67 +67,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Cong Liu <liucong2@kylinos.cn>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Yang, Stanley" <Stanley.Yang@amd.com>,
- David Airlie <airlied@gmail.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Mon, Sep 11, 2023 at 10:36=E2=80=AFAM Michel D=C3=A4nzer <michel@daenzer=
+.net> wrote:
+>
+> From: Michel D=C3=A4nzer <mdaenzer@redhat.com>
+>
+> It can be NULL e.g. with Raven.
+>
+> Fixes: 927e784c180c ("drm/amd/display: Add symclk enable/disable during s=
+tream enable/disable")
+> Signed-off-by: Michel D=C3=A4nzer <mdaenzer@redhat.com>
 
-On Thu, Sep 14, 2023 at 5:53=E2=80=AFAM Zhang, Hawking <Hawking.Zhang@amd.c=
-om> wrote:
->
-> [AMD Official Use Only - General]
->
-> Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
->
-> Regards,
-> Hawking
-> -----Original Message-----
-> From: Cong Liu <liucong2@kylinos.cn>
-> Sent: Thursday, September 14, 2023 17:46
-> To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Ch=
-ristian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; David Airlie <ai=
-rlied@gmail.com>; Daniel Vetter <daniel@ffwll.ch>; Yang, Stanley <Stanley.Y=
-ang@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
-> Cc: Cong Liu <liucong2@kylinos.cn>; amd-gfx@lists.freedesktop.org; dri-de=
-vel@lists.freedesktop.org; linux-kernel@vger.kernel.org
-> Subject: [PATCH] fix a memory leak in amdgpu_ras_feature_enable
->
-> This patch fixes a memory leak in the amdgpu_ras_feature_enable() functio=
-n.
-> The leak occurs when the function sends a command to the firmware to enab=
-le or disable a RAS feature for a GFX block. If the command fails, the kfre=
-e() function is not called to free the info memory.
->
-> Fixes: bf7aa8bea9cb ("drm/amdgpu: Free ras cmd input buffer properly")
-> Signed-off-by: Cong Liu <liucong2@kylinos.cn>
+Looks like this was fixed in:
+https://gitlab.freedesktop.org/agd5f/linux/-/commit/7f7925e258288cfcfa2b0e0=
+631fcd91a39744f94
+but needs to be applied to 6.6.  I'll queue it up for 6.6.
+
+Alex
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 1 +
->  1 file changed, 1 insertion(+)
+>  drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ras.c
-> index 8eb6f6943778..b4a8ea946410 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -802,6 +802,7 @@ int amdgpu_ras_feature_enable(struct amdgpu_device *a=
-dev,
->                                 enable ? "enable":"disable",
->                                 get_ras_block_str(head),
->                                 amdgpu_ras_is_poison_mode_supported(adev)=
-, ret);
-> +                       kfree(info);
->                         return ret;
->                 }
+> diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c =
+b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+> index ad967b58d7be..a9dca69ee8f6 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+> @@ -1179,9 +1179,11 @@ void dce110_disable_stream(struct pipe_ctx *pipe_c=
+tx)
+>                 dccg->funcs->set_dtbclk_dto(dccg, &dto_params);
+>                 dccg->funcs->disable_symclk32_se(dccg, dp_hpo_inst);
+>                 dccg->funcs->set_dpstreamclk(dccg, REFCLK, tg->inst, dp_h=
+po_inst);
+> -       } else if (pipe_ctx->stream->signal =3D=3D SIGNAL_TYPE_DISPLAY_PO=
+RT_MST && dccg->funcs->disable_symclk_se)
+> +       } else if (pipe_ctx->stream->signal =3D=3D SIGNAL_TYPE_DISPLAY_PO=
+RT_MST &&
+> +                  dccg && dccg->funcs->disable_symclk_se) {
+>                 dccg->funcs->disable_symclk_se(dccg, stream_enc->stream_e=
+nc_inst,
+> -                               link_enc->transmitter - TRANSMITTER_UNIPH=
+Y_A);
+> +                                              link_enc->transmitter - TR=
+ANSMITTER_UNIPHY_A);
+> +       }
 >
+>         if (dc->link_srv->dp_is_128b_132b_signal(pipe_ctx)) {
+>                 /* TODO: This looks like a bug to me as we are disabling =
+HPO IO when
 > --
-> 2.34.1
+> 2.40.1
 >
