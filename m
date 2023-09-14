@@ -4,119 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCFB0EEAA44
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 14:18:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D10DEEAA4F
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 14:55:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5589410E26C;
-	Thu, 14 Sep 2023 14:18:11 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2087.outbound.protection.outlook.com [40.107.94.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56D5C10E26C
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 14:18:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3147D10E57A;
+	Thu, 14 Sep 2023 14:55:19 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2043.outbound.protection.outlook.com [40.107.92.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D33210E57B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 14:55:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gdZenq0+X2cY9gflVM+HGlEvYK/1HtRSsbwrddS4WWB/G/4GEFwUKfpIAdgRulxubesBX+blgp9LjweASLqh9tFyu7pzswuzB3LpAhKdp5Vh3CPRleYgz4mnahYG/Vm4SONbKT4qX7n52yxtbYLXLRPWLnhfZ+RW4cVUB1p+tQ7PqcopPFvYhXLxU7Kihxgj2Rx3EH9UiCV33xW2VAeEnESasoMdf+cDqScLkk+h7a1s1+6Aj7aGOG8HZQz9o4W9uguolbLP1tpVTaKwaCh3gMufhchp0LXOxXUXZdQj0B5u7PuEsvU9TG5xL9dIgZSYxYIb2Anu0pAxCZ50ljzywA==
+ b=R5ZascXPL6rD7kbKgrbwSRzxuy70oC/ajheqQq1PKV4ayrKU5bJg+aGvtGS8Hw7Rf6zeQdqqNyqEXK4L7yCFWzl/8R4Wjujrj3lj7NIxQQ86OG++GqHFrmZ1R5uvO06pCCwB9j6n7SJo6ghVAn7nj2BMf9IUk37pPQLqYVT0PgXfTXpTQfX44tX54cTjDGdWl2zj2q7i4XtbFmH1sRAPvBSodd7tRy1Kze6vXmP1R9+oghPE4ptYzWcTukB5ufSFJA0csG0VQPjScmKBGWT9AvsO+Z5ML9IrZjHlIIj45vkYxQ4k6dVkTTH7UKZ9EmJnZSyoNkL/DFVgMh3Zw3n8uQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b6JJWCyat/FFw7Icc7DwyL9RDf6ApfboLlW1zuA7PUo=;
- b=NjBbczTPpKIWuBK0YfuYDMcrBgrF3Ze4vvcUFf4GamrNwy21u42xk4r6q2VKMosg48E4MuL9ScLmMsmnsLyD4OAmcdmh2Wn3L9wGDfhWoYD4sXcudglRE94h2fGXl7tdtmKHhmHWSL4or83qOQVHIGwA8xt8YK0lvIqmf45dCMOAbgnQj4ta5NdHALn2hWwKyYBFb77PDArN4JfvIlYRkIX4kzp32+v/3xf24zM7VtdHL3l95DeJxrFlPUj6dosyE6tTS0YsS+MVNn8jFQv9eBCbixfhdavYXHj32YN5Utp/ucoYj0eWhfjM2g1ZUW0YJLqS8vm9XkUiTqj4MhoBCA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=vQVAG7kfHdv7xROv7Dr5VY4CfAnCvjUrlVF0y5vpmkM=;
+ b=Z+whnOFzArUHMhQupkTBBKSaqADPRIXKTc52Zfv8fe1MEuCMxQJ37r/vk3AbhbSvd0MKTwcRcEGz2+4ZuLV5F1tUydTq2JJ4n6vyNihVoAodJ0ZsXV2tnYmdUSofBXLR/AtPbQGr8fMJ1RzCQ+hc4wEyXN+q2vsfniF7QTb9kBhHP5vgSWuzDb1w6ddyg192n0O6NY4+Awwa+dPxNoeKKdQskL6ff5jyb3Ej8jVvYLGrhTArQsXk9G2wUucKeMmYLyqeaeTxmhnhqGfGC6XDP/ZZELIWMFrxDUwdKn7/lzie9lZJ7x0YxR5sg9tCd+1d6t6uS7CA6qA/EqgNsiObcg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b6JJWCyat/FFw7Icc7DwyL9RDf6ApfboLlW1zuA7PUo=;
- b=vgTGbwEniTfIfZc5Uj0s8QigN/1Eecaqg46HXPngN093h8JujdIKLhASDbfJZBgAK78kFX9zrDQ8ZN8NK9GKHpBVoTpeb7zjk7yVp9LgsiQa+5/GrV2CsLPZqpEuc8Rz6BDEkphSChLmNL66+S7Bdv+49d+TF/eAkQDxGbGigu0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by IA1PR12MB8540.namprd12.prod.outlook.com (2603:10b6:208:454::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.19; Thu, 14 Sep
- 2023 14:18:05 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::620f:8aa7:43d6:8010]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::620f:8aa7:43d6:8010%6]) with mapi id 15.20.6792.019; Thu, 14 Sep 2023
- 14:18:05 +0000
-Content-Type: multipart/alternative;
- boundary="------------0XC9An06glw6i000PPIOglGR"
-Message-ID: <e7913001-ff45-169d-7110-3f2bef86208a@amd.com>
-Date: Thu, 14 Sep 2023 10:17:59 -0400
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH v2] drm/amdgpu: always use legacy tlb flush on
- cyan_skilfish
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Lang Yu <Lang.Yu@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230914092350.3512016-1-Lang.Yu@amd.com>
- <40c096af-6c59-ce6d-af26-5cce7bceab83@amd.com>
- <1317e1a5-b1c0-2c3d-6082-b628fde5ab4d@amd.com>
- <745145aa-76fb-bb17-6065-c5e29c37f3c6@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <745145aa-76fb-bb17-6065-c5e29c37f3c6@amd.com>
-X-ClientProxiedBy: YQXPR0101CA0056.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:14::33) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ bh=vQVAG7kfHdv7xROv7Dr5VY4CfAnCvjUrlVF0y5vpmkM=;
+ b=vcr/6xj/CasgGxq9/3q/WkNwIrSFzIpdP1/nxpDsrb0kX/1x4PSWNqj2568D2ccOzhTe0oIWcIA1wfzGsqgHvk9looQy77QAMgnxegY2bTxNT1BKMT0GLqTf4/jx6bc7FlyhTBGVC6GvXCI+AeO2eVK95/1HH4IcSY3i9qysASA=
+Received: from DS7PR03CA0284.namprd03.prod.outlook.com (2603:10b6:5:3ad::19)
+ by CY8PR12MB8067.namprd12.prod.outlook.com (2603:10b6:930:74::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.37; Thu, 14 Sep
+ 2023 14:55:15 +0000
+Received: from DS2PEPF0000343C.namprd02.prod.outlook.com
+ (2603:10b6:5:3ad:cafe::3d) by DS7PR03CA0284.outlook.office365.com
+ (2603:10b6:5:3ad::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.20 via Frontend
+ Transport; Thu, 14 Sep 2023 14:55:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS2PEPF0000343C.mail.protection.outlook.com (10.167.18.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6792.19 via Frontend Transport; Thu, 14 Sep 2023 14:55:15 +0000
+Received: from fdavid-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 14 Sep
+ 2023 09:55:14 -0500
+From: David Francis <David.Francis@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v4] drm/amdgpu: Add EXT_COHERENT memory allocation flags
+Date: Thu, 14 Sep 2023 10:54:59 -0400
+Message-ID: <20230914145459.1174743-1-David.Francis@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|IA1PR12MB8540:EE_
-X-MS-Office365-Filtering-Correlation-Id: aad8b595-cf7d-4a5c-e260-08dbb52d698e
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343C:EE_|CY8PR12MB8067:EE_
+X-MS-Office365-Filtering-Correlation-Id: efaa05c7-bd31-4088-0b11-08dbb5329ac9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CqhSrypwph2XOOumFCsU8GTN6fO+2+UFWjpatHetnBGggsKAAMrpsrahqHqdA3wx1izTeAcOuhVqS40hIh4FGGAdix4r5m83AmkzbLH3+GwlBIOZ1k6RF2ippy3LM1w+PqtqLWeT5sl0rtlvhQdZPSIgfiZfzcrIvdSiuhX5lBfRFIdQgxXH3PLbITumTKTtWk1KXKd3kx2yl0BMSlD50p6sKJCOEAubWyr4PzgiILfhp8XB8ei4WRoRKycVAWC46x3Y1gGOO0OFic4gwreCj9NDe5rPwSHtBs2kJCMG8xdPFPAtg8CyttS+nHUsx9ulexVhI2VGRxPMSp0ODlOuu9oocQI3DY3acUGvthJ/vjCWDQ9H8uxWgYcjTwFr41Tlqb6JMccWXgYGQlX5rdgkUQdEKjowOEPf3Wtts2eqZLHoCspNp3T9cTiuei3E89DI4g+VWyoOHWKHPIppeQBS6vGivvt77UXG4bz1xN36/R1q25QzfwoeWp1krzNUqmzPB3ES/CajuCNbP6C5fU6nPPq7z07MIVhuN8tIxQIjkBINPE5yAF/IeshtEAwAG/M0lPha6xvbVZwqEcycMKMiq1Ym4XUTb0xr5up6WxbTN4y9X3s7CWQCjvQ8puABOQ1e8xcpwgmf97sgWvD1cJdm1Q==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(366004)(39860400002)(376002)(346002)(396003)(1800799009)(186009)(451199024)(31686004)(38100700002)(2906002)(54906003)(66899024)(6512007)(4326008)(66556008)(36756003)(41300700001)(316002)(8936002)(66476007)(8676002)(44832011)(5660300002)(6666004)(6506007)(31696002)(33964004)(53546011)(6486002)(2616005)(66574015)(86362001)(110136005)(26005)(66946007)(478600001)(83380400001)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: nc0kQFNkWcSJTLTDleVwmISnHA0ba9mF2HTGmaLdjxo5yFCgI5UnAW9fVNS3Bpvk9fwO1pdad1cWSnt20JPjRf3PWHltq74+nRYR4eUx2ljToDcuaqQjIlgIZmOE4UUP3En0dvlmxQMxinaKYJqZ7WKd60fGnBWHbfTDfGdupT9s8BGKXxXhZVlwnqMSM595M8nyM0aX96Ck8HM/d1oUSrFO8ZpxY7jv29wK4FzzM7fZEUfC6d0/pdTUPrlHAJYnZoGaf1qrp2te03CM4kJXWCZDp5Fh4ZWkntqT0qDGijpvVEPdHg5R0MA0fS382/1q2ha2bBmqMZ7nvEm+epTcxT3oprhywsTJM4plBPYiDdG7ZhTrg+ekbkz8jfvvVfzgYiv054qV/neR3076/uRtifh+X+gbhb6ItiaXhoof8pXq+FDkFj7Q/zjem6sYqCAXUwQBOL/GVAQZ8Ix6mt5P9boJXXRO5Vk6I7iq7qlmZi0H6LKGYr83eaQuWKBTyYuQKqvOykIb72t46EtcrG9skj4zTAxVRzxWkpX2WuKiFwENZIr2VOvWfrdGLpbspMs6O6xSqcrjRKkLMa9WSbZYM3iXrVQG9hI9oAuEyuhT60YQt50IkUR7+UAnozarQftzRjhC/OCfm/Bwu7JINvAkNuSOht2Xd2bSbsnKbG/J91XUeCo4O6lZgEcttoajcQFQHKB4NxXfym7sicE6CegxToRj6nmwQ5W1/v9anpI+BuMxcYC3bxrFN+Ra6Id5KH4h
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(39860400002)(396003)(136003)(346002)(376002)(1800799009)(451199024)(82310400011)(186009)(46966006)(40470700004)(36840700001)(41300700001)(54906003)(70586007)(70206006)(478600001)(40480700001)(356005)(6916009)(316002)(81166007)(966005)(40460700003)(36756003)(2906002)(86362001)(5660300002)(4326008)(8936002)(8676002)(426003)(36860700001)(1076003)(336012)(26005)(16526019)(2616005)(83380400001)(7696005)(82740400003)(47076005)(6666004)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?KzgwcTlrOFlWNjBCSStxdS9EM0EyejJNejBKTGdxMEZXWGJEZVF6RzV5bDlY?=
- =?utf-8?B?THMxaE9nTjVIcXNIY0VyTHNCRi9jUUtRVnRoZjJIRE85YWcyd05BMEZXM3Va?=
- =?utf-8?B?L2txZ3pGTllJS2tvTHJDL0NJcTZBRzI3NncrODkxRTB5M21TZTFraWpmSGVz?=
- =?utf-8?B?Q1FKWmdjN25iV2k1UWZLTVNxcFRVVURDY3J1cHRUQ05QbVhENi93WXRyRis5?=
- =?utf-8?B?di9jeHUzUTZkSk9BcHV4c2xnSXhEL3hHRU5CQTRJOU5LSkJPTzlscThidDBE?=
- =?utf-8?B?NjN3Mk5mdGpGbkNzYTk1cGROYWM3Vk1Cc3VUVHRySUpPMjFXV05XbTQ1K3cx?=
- =?utf-8?B?L3c1MVN1NmRyZ3JteFo2U1FiL3pHS3dvSzBqV3JiUEh3b3BKb2trZUJOb1ly?=
- =?utf-8?B?eWRMdG0wQXlWeE4zbnhoc3dlUzZ1TjlrWEI3NXE5cVNoeU1ITk9Sek11SnFX?=
- =?utf-8?B?eXJ0SndVMTFhS0dMd21sb2wzNisvaW1zNXJNM1IwVzlDYjMvM3BlNGlFaVo4?=
- =?utf-8?B?QVZsdjBob1lZVklEL1IwVktjV0ZxRFQxSWlXYlZ4dzFpbVZndUhhYUd6Ukk5?=
- =?utf-8?B?ZVNxdGFpMUtpd21ZZjRkNU1RL3U3Q2RaYXBsQzgrR1lHT2VHekE0dTc0KzVu?=
- =?utf-8?B?Ym9jSklmOHM4WklNa1RLUGN2Vm9KRk5WT1ErdXQrQ0RaRlFsRndUR3dDRGto?=
- =?utf-8?B?YkdXWTBzK0JrTEthandveUpQNlpmMG9scWM4Z2FRZ3pSb2I4c25VNFp2bHky?=
- =?utf-8?B?UW1EaUN1czhYb0Y4dk1rMTg4TkIzd3FUS1A2Vnk5eE4yVFE3NVdZUkI3QVVu?=
- =?utf-8?B?K2hUeGgwUmVVd0U1Q3JKdGZIbGpmNGp3WEFFSFY3Mm1MWmJLM0ovNTAydEt2?=
- =?utf-8?B?MEpRbVVjdHRtaTdmZGVWNUpQVlVoWjEwdmVCdWp3c2loZmpoN0VEN3NJS1lT?=
- =?utf-8?B?YkpNOUlhUmJ3TVcwZTJGbk9nUURualUxVFMrNFhYcWttajVoNzQ1TXQrL2xt?=
- =?utf-8?B?MWI1b1ViVVpoV0o0NGp2R2NZZjB2cnM1MXVaUmFaY0JMQWhKZkFmSENMcHBB?=
- =?utf-8?B?aVJVV2loMWE3dFFxQ2FOalhVdS9xYlorOWZGMmlQWldQbmoyYzZFZFF2OXUv?=
- =?utf-8?B?QnpQY2dSMklTZGFGeDljYUNQN01JbHErcDBDTHMvK3ViY1JFQWtIdnNYTlhM?=
- =?utf-8?B?b29KRnZRdVIvMnJEK1BvSU9wQjBlWTJqTTF6bVJpSnMxRHVXSjVaUDlaT0k1?=
- =?utf-8?B?TEIzd0V3MmJUSlQ5Nkk4VzRyN3RuMkJIL0hmYnFFb3VtRVdOZmJWMkx4cllD?=
- =?utf-8?B?OUJTcHNsNWIwSmFUajY2VXoxZENMZHFMNVg3MkM0VjNYcEY3TlBGKzZydVF6?=
- =?utf-8?B?WHdaSTFXTXIxaHV1VkRYV21IVVpBQ05BQ1JxWHZPd2dyQ3MwTXRoMi9Ma0J4?=
- =?utf-8?B?Wk0yYi81RVh5R3NrMXlsY0lNdHFkVzZka0VWNzNLcXpOQ2V3WklKZjA3TTZz?=
- =?utf-8?B?TlY2L1NRNjh5OXFtUGFGNlF5YUpmODdJSHVKcUQrenI4ZW11MUlYSXllQ2U4?=
- =?utf-8?B?N1ZDL0w5WnI3U0RydVowMkgxeGt0aUwvK2VERG8zd2hENnBWNG16WnZSeG1m?=
- =?utf-8?B?N2xUVk1LT0VwQ09aQ29TRnJJOFppRHQ4cXVrR1BoODR6NHhsU3dUc0F3OFBR?=
- =?utf-8?B?K3I1V2d1Y3FMUUF4dGtZMFhJbnVWY1JUU3JuMFBLb1BnOTRid0xEdncxKzBs?=
- =?utf-8?B?dXNteWhHbi9aUVdSYWd1aHVTK2NhRXljUGtsUFd5enFldEZldjB5eVZ6YWRa?=
- =?utf-8?B?RVluVTZPMU9pOEV4TWRtWk81cmlnenhXbEY0aDRLVlNHdW9ZeTBIMU5xbXRR?=
- =?utf-8?B?b2dNQjRHWGNQWTIvVFRmTzRvOU5Cc2UveVoxSVVaZmxrZDR0eTFPTUd2NHZ4?=
- =?utf-8?B?ZTByVlY4Q1hWWU1maFBlZHRLTDVXV09pVVhaT0tYY0R4ZEtqQjBIdklrTzhJ?=
- =?utf-8?B?akR2anlDbjZGZGZueEJySjdCeDFCQ3RTbmQzeGF6NWUweHptYThCVDkxS2tk?=
- =?utf-8?B?OUZrN1djeGtlUk5GMGZRNjJydURFQVQ1VXNoQUE2UVZlYmUrdU1MT0FjN3ov?=
- =?utf-8?Q?xmhG2Ldj5RA7PUB4nvS5/qC+a?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aad8b595-cf7d-4a5c-e260-08dbb52d698e
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2023 14:18:05.3883 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2023 14:55:15.2134 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: efaa05c7-bd31-4088-0b11-08dbb5329ac9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kz2KfA/mbeouUZ8Zocqr8T0Q2gsFrDslBbJxjs+LFbYPeUVYt66DBOLzxmyrJJOIWhYR1KDNzK9+aN7BIpDyMQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8540
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343C.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8067
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,336 +97,195 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Yifan Zhang <yifan1.zhang@amd.com>, stable@vger.kernel.org
+Cc: David Francis <David.Francis@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------0XC9An06glw6i000PPIOglGR
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+These flags (for GEM and SVM allocations) allocate
+memory that allows for system-scope atomic semantics.
 
-On 2023-09-14 10:02, Christian König wrote:
->
->
-> Am 14.09.23 um 15:59 schrieb Felix Kuehling:
->>
->> On 2023-09-14 9:39, Christian König wrote:
->>> Is a single legacy flush sufficient to emulate an heavyweight flush 
->>> as well?
->>>
->>> On previous generations we needed to issue at least two legacy 
->>> flushes for this.
->> I assume you are referring to the Vega20 XGMI workaround. That is a 
->> very different issue. Because PTEs would be cached in L2, we had to 
->> always use a heavy-weight flush that would also flush the L2 cache as 
->> well, and follow that with another legacy flush to deal with race 
->> conditions where stale PTEs could be re-fetched from L2 before the L2 
->> flush was complete.
->
-> No, we also have another (badly documented) workaround which issues a 
-> legacy flush before each heavy weight on some hw generations. See the 
-> my TLB flush cleanup patches.
->
->>
->> A heavy-weight flush guarantees that there are no more possible 
->> memory accesses using the old PTEs. With physically addressed caches 
->> on GFXv9 that includes a cache flush because the address translation 
->> happened before putting data into the cache. I think the address 
->> translation and cache architecture works differently on GFXv10. So 
->> maybe the cache-flush is not required here.
->>
->> But even then a legacy flush probably allows for in-flight memory 
->> accesses with old physical addresses to complete after the TLB flush. 
->> So there is a small risk of memory corruption that was assumed to not 
->> be accessed by the GPU any more. Or when using IOMMU device isolation 
->> it would result in IOMMU faults if the DMA mappings are invalidated 
->> slightly too early.
->
-> Mhm, that's quite bad. Any idea how to avoid that?
+On GFX943 these flags cause caches to be avoided on
+non-local memory.
 
-A few ideas
+On all other ASICs they are identical in functionality to the
+equivalent COHERENT flags.
 
-  * Add an arbitrary delay and hope that it is longer than the FIFOs in
-    the HW
-  * Execute an atomic operation to memory on some GPU engine that could
-    act as a fence, maybe just a RELEASE_MEM on the CP to some writeback
-    location would do the job
-  * If needed, RELEASE_MEM could also perform a cache flush
+Corresponding Thunk patch is at
+https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/pull/88
 
-Regards,
-   Felix
+v3: changed name of flag
+v4: added checks for invalid flag combinations
 
+Reviewed-by: David Yat Sin <David.YatSin@amd.com>w
+Signed-off-by: David Francis <David.Francis@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c |  7 +++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c      |  1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c           |  1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c           |  1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c            |  5 ++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c             | 10 +++++++++-
+ include/uapi/drm/amdgpu_drm.h                    | 10 +++++++++-
+ include/uapi/linux/kfd_ioctl.h                   |  3 +++
+ 8 files changed, 35 insertions(+), 3 deletions(-)
 
->
-> Regards,
-> Christian.
->
->>
->> Regards,
->>   Felix
->>
->>
->>>
->>> And please don't push before getting an rb from Felix as well.
->>>
->>> Regards,
->>> Christian.
->>>
->>>
->>> Am 14.09.23 um 11:23 schrieb Lang Yu:
->>>> cyan_skilfish has problems with other flush types.
->>>>
->>>> v2: fix incorrect ternary conditional operator usage.(Yifan)
->>>>
->>>> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
->>>> Cc: <stable@vger.kernel.org> # v5.15+
->>>> ---
->>>>   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 7 ++++++-
->>>>   1 file changed, 6 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c 
->>>> b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->>>> index d3da13f4c80e..c6d11047169a 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->>>> @@ -236,7 +236,8 @@ static void gmc_v10_0_flush_vm_hub(struct 
->>>> amdgpu_device *adev, uint32_t vmid,
->>>>   {
->>>>       bool use_semaphore = gmc_v10_0_use_invalidate_semaphore(adev, 
->>>> vmhub);
->>>>       struct amdgpu_vmhub *hub = &adev->vmhub[vmhub];
->>>> -    u32 inv_req = hub->vmhub_funcs->get_invalidate_req(vmid, 
->>>> flush_type);
->>>> +    u32 inv_req = hub->vmhub_funcs->get_invalidate_req(vmid,
->>>> +              (adev->asic_type != CHIP_CYAN_SKILLFISH) ? 
->>>> flush_type : 0);
->>>>       u32 tmp;
->>>>       /* Use register 17 for GART */
->>>>       const unsigned int eng = 17;
->>>> @@ -331,6 +332,8 @@ static void gmc_v10_0_flush_gpu_tlb(struct 
->>>> amdgpu_device *adev, uint32_t vmid,
->>>>         int r;
->>>>   +    flush_type = (adev->asic_type != CHIP_CYAN_SKILLFISH) ? 
->>>> flush_type : 0;
->>>> +
->>>>       /* flush hdp cache */
->>>>       adev->hdp.funcs->flush_hdp(adev, NULL);
->>>>   @@ -426,6 +429,8 @@ static int 
->>>> gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
->>>>       struct amdgpu_ring *ring = &adev->gfx.kiq[0].ring;
->>>>       struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
->>>>   +    flush_type = (adev->asic_type != CHIP_CYAN_SKILLFISH) ? 
->>>> flush_type : 0;
->>>> +
->>>>       if (amdgpu_emu_mode == 0 && ring->sched.ready) {
->>>>           spin_lock(&adev->gfx.kiq[0].ring_lock);
->>>>           /* 2 dwords flush + 8 dwords fence */
->>>
->
---------------0XC9An06glw6i000PPIOglGR
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index b5b940485059..ec9e9e95e5f4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -1738,9 +1738,16 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 
+ 	if (flags & KFD_IOC_ALLOC_MEM_FLAGS_COHERENT)
+ 		alloc_flags |= AMDGPU_GEM_CREATE_COHERENT;
++	if (flags & KFD_IOC_ALLOC_MEM_FLAGS_EXT_COHERENT)
++		alloc_flags |= AMDGPU_GEM_CREATE_EXT_COHERENT;
+ 	if (flags & KFD_IOC_ALLOC_MEM_FLAGS_UNCACHED)
+ 		alloc_flags |= AMDGPU_GEM_CREATE_UNCACHED;
+ 
++	if (((flags & KFD_IOC_ALLOC_MEM_FLAGS_COHERENT) && (flags & KFD_IOC_ALLOC_MEM_FLAGS_EXT_COHERENT)) ||
++	    ((flags & KFD_IOC_ALLOC_MEM_FLAGS_UNCACHED) && (flags & KFD_IOC_ALLOC_MEM_FLAGS_EXT_COHERENT)) ||
++	    ((flags & KFD_IOC_ALLOC_MEM_FLAGS_COHERENT) && (flags & KFD_IOC_ALLOC_MEM_FLAGS_UNCACHED)))
++		return -EINVAL;	
++
+ 	*mem = kzalloc(sizeof(struct kgd_mem), GFP_KERNEL);
+ 	if (!*mem) {
+ 		ret = -ENOMEM;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index 12210598e5b8..76b618735dc0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -331,6 +331,7 @@ amdgpu_dma_buf_create_obj(struct drm_device *dev, struct dma_buf *dma_buf)
+ 
+ 		flags |= other->flags & (AMDGPU_GEM_CREATE_CPU_GTT_USWC |
+ 					 AMDGPU_GEM_CREATE_COHERENT |
++					 AMDGPU_GEM_CREATE_EXT_COHERENT |
+ 					 AMDGPU_GEM_CREATE_UNCACHED);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index fa87a85e1017..c45fde9f1887 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -634,6 +634,7 @@ static void gmc_v10_0_get_vm_pte(struct amdgpu_device *adev,
+ 	}
+ 
+ 	if (bo && bo->flags & (AMDGPU_GEM_CREATE_COHERENT |
++			       AMDGPU_GEM_CREATE_EXT_COHERENT |
+ 			       AMDGPU_GEM_CREATE_UNCACHED))
+ 		*flags = (*flags & ~AMDGPU_PTE_MTYPE_NV10_MASK) |
+ 			 AMDGPU_PTE_MTYPE_NV10(MTYPE_UC);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index 671e288c7575..dd135d8b25f7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -543,6 +543,7 @@ static void gmc_v11_0_get_vm_pte(struct amdgpu_device *adev,
+ 	}
+ 
+ 	if (bo && bo->flags & (AMDGPU_GEM_CREATE_COHERENT |
++			       AMDGPU_GEM_CREATE_EXT_COHERENT |
+ 			       AMDGPU_GEM_CREATE_UNCACHED))
+ 		*flags = (*flags & ~AMDGPU_PTE_MTYPE_NV10_MASK) |
+ 			 AMDGPU_PTE_MTYPE_NV10(MTYPE_UC);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 3d13d0bba7b1..e63d9c39fc35 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1185,7 +1185,8 @@ static void gmc_v9_0_get_coherence_flags(struct amdgpu_device *adev,
+ {
+ 	struct amdgpu_device *bo_adev = amdgpu_ttm_adev(bo->tbo.bdev);
+ 	bool is_vram = bo->tbo.resource->mem_type == TTM_PL_VRAM;
+-	bool coherent = bo->flags & AMDGPU_GEM_CREATE_COHERENT;
++	bool coherent = bo->flags & (AMDGPU_GEM_CREATE_COHERENT | AMDGPU_GEM_CREATE_EXT_COHERENT);
++	bool ext_coherent = bo->flags & AMDGPU_GEM_CREATE_EXT_COHERENT;
+ 	bool uncached = bo->flags & AMDGPU_GEM_CREATE_UNCACHED;
+ 	struct amdgpu_vm *vm = mapping->bo_va->base.vm;
+ 	unsigned int mtype_local, mtype;
+@@ -1253,6 +1254,8 @@ static void gmc_v9_0_get_coherence_flags(struct amdgpu_device *adev,
+ 		snoop = true;
+ 		if (uncached) {
+ 			mtype = MTYPE_UC;
++		} else if (ext_coherent) {
++			mtype = is_local ? MTYPE_CC : MTYPE_UC;
+ 		} else if (adev->flags & AMD_IS_APU) {
+ 			mtype = is_local ? mtype_local : MTYPE_NC;
+ 		} else {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 841ba6102bbb..25de243ef0a8 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1187,7 +1187,8 @@ svm_range_get_pte_flags(struct kfd_node *node,
+ 	uint32_t mapping_flags = 0;
+ 	uint64_t pte_flags;
+ 	bool snoop = (domain != SVM_RANGE_VRAM_DOMAIN);
+-	bool coherent = flags & KFD_IOCTL_SVM_FLAG_COHERENT;
++	bool coherent = flags & (KFD_IOCTL_SVM_FLAG_COHERENT | KFD_IOCTL_SVM_FLAG_EXT_COHERENT);
++	bool ext_coherent = flags & KFD_IOCTL_SVM_FLAG_EXT_COHERENT;
+ 	bool uncached = false; /*flags & KFD_IOCTL_SVM_FLAG_UNCACHED;*/
+ 	unsigned int mtype_local;
+ 
+@@ -1235,6 +1236,13 @@ svm_range_get_pte_flags(struct kfd_node *node,
+ 		snoop = true;
+ 		if (uncached) {
+ 			mapping_flags |= AMDGPU_VM_MTYPE_UC;
++		} else if (ext_coherent) {
++			/* local HBM region close to partition */
++			if (bo_node->adev == node->adev &&
++			    (!bo_node->xcp || !node->xcp || bo_node->xcp->mem_id == node->xcp->mem_id))
++				mapping_flags |= AMDGPU_VM_MTYPE_CC;
++			else
++				mapping_flags |= AMDGPU_VM_MTYPE_UC;
+ 		} else if (domain == SVM_RANGE_VRAM_DOMAIN) {
+ 			/* local HBM region close to partition */
+ 			if (bo_node->adev == node->adev &&
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index ec437120b083..984fc16577ca 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -150,7 +150,7 @@ extern "C" {
+  */
+ #define AMDGPU_GEM_CREATE_DISCARDABLE		(1 << 12)
+ /* Flag that BO is shared coherently between multiple devices or CPU threads.
+- * May depend on GPU instructions to flush caches explicitly
++ * May depend on GPU instructions to flush caches to system scope explicitly.
+  *
+  * This influences the choice of MTYPE in the PTEs on GFXv9 and later GPUs and
+  * may override the MTYPE selected in AMDGPU_VA_OP_MAP.
+@@ -163,6 +163,14 @@ extern "C" {
+  * may override the MTYPE selected in AMDGPU_VA_OP_MAP.
+  */
+ #define AMDGPU_GEM_CREATE_UNCACHED		(1 << 14)
++/* Flag that BO should be coherent across devices when using device-level
++ * atomics. May depend on GPU instructions to flush caches to device scope
++ * explicitly, promoting them to system scope automatically.
++ *
++ * This influences the choice of MTYPE in the PTEs on GFXv9 and later GPUs and
++ * may override the MTYPE selected in AMDGPU_VA_OP_MAP.
++ */
++#define AMDGPU_GEM_CREATE_EXT_COHERENT		(1 << 15)
+ 
+ struct drm_amdgpu_gem_create_in  {
+ 	/** the requested memory size */
+diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+index eeb2fdcbdcb7..f0ed68974c54 100644
+--- a/include/uapi/linux/kfd_ioctl.h
++++ b/include/uapi/linux/kfd_ioctl.h
+@@ -405,6 +405,7 @@ struct kfd_ioctl_acquire_vm_args {
+ #define KFD_IOC_ALLOC_MEM_FLAGS_AQL_QUEUE_MEM	(1 << 27)
+ #define KFD_IOC_ALLOC_MEM_FLAGS_COHERENT	(1 << 26)
+ #define KFD_IOC_ALLOC_MEM_FLAGS_UNCACHED	(1 << 25)
++#define KFD_IOC_ALLOC_MEM_FLAGS_EXT_COHERENT	(1 << 24)
+ 
+ /* Allocate memory for later SVM (shared virtual memory) mapping.
+  *
+@@ -659,6 +660,8 @@ enum kfd_mmio_remap {
+ #define KFD_IOCTL_SVM_FLAG_GPU_READ_MOSTLY     0x00000020
+ /* Keep GPU memory mapping always valid as if XNACK is disable */
+ #define KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED   0x00000040
++/* Fine grained coherency between all devices using device-scope atomics */
++#define KFD_IOCTL_SVM_FLAG_EXT_COHERENT        0x00000080
+ 
+ /**
+  * kfd_ioctl_svm_op - SVM ioctl operations
+-- 
+2.34.1
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">On 2023-09-14 10:02, Christian König
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:745145aa-76fb-bb17-6065-c5e29c37f3c6@amd.com">
-      <br>
-      <br>
-      Am 14.09.23 um 15:59 schrieb Felix Kuehling:
-      <br>
-      <blockquote type="cite">
-        <br>
-        On 2023-09-14 9:39, Christian König wrote:
-        <br>
-        <blockquote type="cite">Is a single legacy flush sufficient to
-          emulate an heavyweight flush as well?
-          <br>
-          <br>
-          On previous generations we needed to issue at least two legacy
-          flushes for this.
-          <br>
-        </blockquote>
-        I assume you are referring to the Vega20 XGMI workaround. That
-        is a very different issue. Because PTEs would be cached in L2,
-        we had to always use a heavy-weight flush that would also flush
-        the L2 cache as well, and follow that with another legacy flush
-        to deal with race conditions where stale PTEs could be
-        re-fetched from L2 before the L2 flush was complete.
-        <br>
-      </blockquote>
-      <br>
-      No, we also have another (badly documented) workaround which
-      issues a legacy flush before each heavy weight on some hw
-      generations. See the my TLB flush cleanup patches.
-      <br>
-      <br>
-      <blockquote type="cite">
-        <br>
-        A heavy-weight flush guarantees that there are no more possible
-        memory accesses using the old PTEs. With physically addressed
-        caches on GFXv9 that includes a cache flush because the address
-        translation happened before putting data into the cache. I think
-        the address translation and cache architecture works differently
-        on GFXv10. So maybe the cache-flush is not required here.
-        <br>
-        <br>
-        But even then a legacy flush probably allows for in-flight
-        memory accesses with old physical addresses to complete after
-        the TLB flush. So there is a small risk of memory corruption
-        that was assumed to not be accessed by the GPU any more. Or when
-        using IOMMU device isolation it would result in IOMMU faults if
-        the DMA mappings are invalidated slightly too early.
-        <br>
-      </blockquote>
-      <br>
-      Mhm, that's quite bad. Any idea how to avoid that?
-      <br>
-    </blockquote>
-    <p>A few ideas<br>
-    </p>
-    <ul>
-      <li>Add an arbitrary delay and hope that it is longer than the
-        FIFOs in the HW</li>
-      <li>Execute an atomic operation to memory on some GPU engine that
-        could act as a fence, maybe just a RELEASE_MEM on the CP to some
-        writeback location would do the job</li>
-      <li>If needed, RELEASE_MEM could also perform a cache flush<br>
-      </li>
-    </ul>
-    <p>Regards,<br>
-      &nbsp; Felix</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:745145aa-76fb-bb17-6065-c5e29c37f3c6@amd.com">
-      <br>
-      Regards,
-      <br>
-      Christian.
-      <br>
-      <br>
-      <blockquote type="cite">
-        <br>
-        Regards,
-        <br>
-        &nbsp; Felix
-        <br>
-        <br>
-        <br>
-        <blockquote type="cite">
-          <br>
-          And please don't push before getting an rb from Felix as well.
-          <br>
-          <br>
-          Regards,
-          <br>
-          Christian.
-          <br>
-          <br>
-          <br>
-          Am 14.09.23 um 11:23 schrieb Lang Yu:
-          <br>
-          <blockquote type="cite">cyan_skilfish has problems with other
-            flush types.
-            <br>
-            <br>
-            v2: fix incorrect ternary conditional operator usage.(Yifan)
-            <br>
-            <br>
-            Signed-off-by: Lang Yu <a class="moz-txt-link-rfc2396E" href="mailto:Lang.Yu@amd.com">&lt;Lang.Yu@amd.com&gt;</a>
-            <br>
-            Cc: <a class="moz-txt-link-rfc2396E" href="mailto:stable@vger.kernel.org">&lt;stable@vger.kernel.org&gt;</a> # v5.15+
-            <br>
-            ---
-            <br>
-            &nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 7 ++++++-
-            <br>
-            &nbsp; 1 file changed, 6 insertions(+), 1 deletion(-)
-            <br>
-            <br>
-            diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-            b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-            <br>
-            index d3da13f4c80e..c6d11047169a 100644
-            <br>
-            --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-            <br>
-            +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-            <br>
-            @@ -236,7 +236,8 @@ static void
-            gmc_v10_0_flush_vm_hub(struct amdgpu_device *adev, uint32_t
-            vmid,
-            <br>
-            &nbsp; {
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool use_semaphore =
-            gmc_v10_0_use_invalidate_semaphore(adev, vmhub);
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vmhub *hub = &amp;adev-&gt;vmhub[vmhub];
-            <br>
-            -&nbsp;&nbsp;&nbsp; u32 inv_req =
-            hub-&gt;vmhub_funcs-&gt;get_invalidate_req(vmid,
-            flush_type);
-            <br>
-            +&nbsp;&nbsp;&nbsp; u32 inv_req =
-            hub-&gt;vmhub_funcs-&gt;get_invalidate_req(vmid,
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;asic_type != CHIP_CYAN_SKILLFISH) ?
-            flush_type : 0);
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 tmp;
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Use register 17 for GART */
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const unsigned int eng = 17;
-            <br>
-            @@ -331,6 +332,8 @@ static void
-            gmc_v10_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t
-            vmid,
-            <br>
-            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;
-            <br>
-            &nbsp; +&nbsp;&nbsp;&nbsp; flush_type = (adev-&gt;asic_type !=
-            CHIP_CYAN_SKILLFISH) ? flush_type : 0;
-            <br>
-            +
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* flush hdp cache */
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;hdp.funcs-&gt;flush_hdp(adev, NULL);
-            <br>
-            &nbsp; @@ -426,6 +429,8 @@ static int
-            gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring =
-            &amp;adev-&gt;gfx.kiq[0].ring;
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_kiq *kiq = &amp;adev-&gt;gfx.kiq[0];
-            <br>
-            &nbsp; +&nbsp;&nbsp;&nbsp; flush_type = (adev-&gt;asic_type !=
-            CHIP_CYAN_SKILLFISH) ? flush_type : 0;
-            <br>
-            +
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_emu_mode == 0 &amp;&amp;
-            ring-&gt;sched.ready) {
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_lock(&amp;adev-&gt;gfx.kiq[0].ring_lock);
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* 2 dwords flush + 8 dwords fence */
-            <br>
-          </blockquote>
-          <br>
-        </blockquote>
-      </blockquote>
-      <br>
-    </blockquote>
-  </body>
-</html>
-
---------------0XC9An06glw6i000PPIOglGR--
