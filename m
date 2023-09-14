@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4532EE0212
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 02:02:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71366EE0213
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 02:02:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C30410E4E9;
-	Thu, 14 Sep 2023 02:02:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E107610E4E7;
+	Thu, 14 Sep 2023 02:02:28 +0000 (UTC)
 Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2078.outbound.protection.outlook.com [40.107.212.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3098C10E4E5
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 02:02:21 +0000 (UTC)
+ (mail-bn1nam02on2076.outbound.protection.outlook.com [40.107.212.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E169F10E4E7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 02:02:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RpZuXIVTn9aykW/YaKJLfvJeFbdb4b5ciPv37ecEy0xj3wMo3hZTBVqj/utOFC/mbk5lk42RDmlYgGcQNJ0xleRQSHQiXieDfDqv3/dkD/KBSDxVFEY9xq40Kkfc7cLAetVjWefoTw8MGgaXPvrjrJfWjl3m7CERQgdTUAv1ubLsGgRqQCaApqT3huCWTAl2DEDVbtd3P+9fv1gl2JIBB8QwS6vfGYaoV+RE7uaC0c3QYoCinepkgzMKqv8fHnixssql9Gq+QgIxAwg0mQ8YHtOC7U7xnhZFhr7lE8Q6TePS+bOFg1TuBxNiRHoQVUxlkf9OxwELhP2IhHx0nbuC6g==
+ b=GAQel/SlrxuUOgURSdQplzLNTQUEyzagB689CdLCm8+GXMwwk49Ez8gUEXgZLXQR/9kiibzvrgfhfFBvOQuvIW8aWVxdlV4pRi6xf4SlNF7m/KAme8fiv23fN5n+PoqrLq0QDZJV5TZI83Ll9tmgZPvh6dFaYkJXbot+E8PyKiB+QyDmyXVnkWAWBBwct2azYImNxkjHZrMMM3uT3Kvg6yGJocJJXaNEf7FCfL+OJREE9GcxPEEsrKN+CobAhkoJ573BL4YPtsh70uq1v2Wi7vrFfCgdY2aLRfeZUw1QM3KuJo8El4lCPOtwoNiSEpERaB3Z03NXVTqzMJ03efTrtA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jnGi92PH6vsf2wT+5kgZV/G2C0WeTkr+AWxeXXo/2fU=;
- b=LOx+/RRHxCgSQ56RlJrL+O4du5GBgwQ7CFyKjQuy634fN2SlV8sNjWFYjOrU5uhZWoiJAa4ErIswdkMkhPnr4f8MgKq7+DIJpr0YH0Lilmh8CnzgBmdkPDh8NKTaGfQvXDZgM1QHry+xWiK5pt5Fs7LKFV1Ke4qzavIFUTarhTpM2dIaVQjknY8NknYKunbGwrq+qSDHA2AdWC5Hw5FVCD/OedlUrkqSr1pQJOSWhnvkxQ86rYqabb0FzAK4YFToNtDQEF+Y1QQ2vN54Wcq9K0N7mysv5i27p6jDjD6bibuMWlCTLgAQJojdkHA1Bp7I8T0+NvKAKD/hUO/4z3ElaA==
+ bh=zxFQD+2l3Q6yklM/QW4LSGuHcPGTthY2augZ1iqegK4=;
+ b=QNr8qPHwaR0GK3YYYkPVUVtmnIy4wn8ntel+UDNM0vKixP1bw+4LVhWcjj/+p7M5mV+Cq0pjtQUMu3OESUV+3uCK84Lx58evY7SPbTeJdsh80st9UurOXhCcfoeWmobF6ZOn9IWce3JVfX9qJE/6vc1oQyIiFiOPnUDfhMv1v1DetTFSPaP4Gm5K+ZLxu7kGWFeYim82Uj0nVmYZmxUgLSvkcnXfdQMJMhLRg8LkTDrh+qR98dVsk6DLcx0Ek/U+8w72qMWrr3CyvmIDVnQiqqeGX2V9RK8gmL+4bvmnT4q4QS9iKz6XcX3mXZIL74CbtIcOEbu4tZ3g4A+MeWGUuQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jnGi92PH6vsf2wT+5kgZV/G2C0WeTkr+AWxeXXo/2fU=;
- b=IeUa6CXjmIyEH0wZr1N1j3pwfWUo06kjQ+7rMAOFfUR+IISJiZzKiMEGSWarGS73GqWxtayuJnZyVX6Yi+A+SZIu2MjzGwVCWO1kXqOLb5cVooF/aWrfrfF/dNtaMqhufYOA5nkzNSB2cCHmaLfLtPzMqjdwPKePKfHwmlJZe+s=
-Received: from SA0PR11CA0045.namprd11.prod.outlook.com (2603:10b6:806:d0::20)
- by SA3PR12MB9158.namprd12.prod.outlook.com (2603:10b6:806:380::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.35; Thu, 14 Sep
- 2023 02:02:18 +0000
+ bh=zxFQD+2l3Q6yklM/QW4LSGuHcPGTthY2augZ1iqegK4=;
+ b=ivMGg0mQjNFORFHXUI65UfG3GeKjk3TP+zE+W/GyQSevAZRSfr+HgB8JbK1rH2do84xHgQPa0PdGflKCNFWluNg9VPNoGxRKS8spdZC3JJKQy6KrqM2hSc3mn2guNqrY5rGP7pqURpc8Tn/AEBEyyw4CEgpZ+CFMlScYmp8b/1s=
+Received: from SA0PR11CA0048.namprd11.prod.outlook.com (2603:10b6:806:d0::23)
+ by DS0PR12MB6439.namprd12.prod.outlook.com (2603:10b6:8:c9::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6745.35; Thu, 14 Sep 2023 02:02:20 +0000
 Received: from SA2PEPF000015CA.namprd03.prod.outlook.com
- (2603:10b6:806:d0:cafe::89) by SA0PR11CA0045.outlook.office365.com
- (2603:10b6:806:d0::20) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:806:d0:cafe::2d) by SA0PR11CA0048.outlook.office365.com
+ (2603:10b6:806:d0::23) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.20 via Frontend
- Transport; Thu, 14 Sep 2023 02:02:18 +0000
+ Transport; Thu, 14 Sep 2023 02:02:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  SA2PEPF000015CA.mail.protection.outlook.com (10.167.241.200) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6792.20 via Frontend Transport; Thu, 14 Sep 2023 02:02:18 +0000
+ 15.20.6792.20 via Frontend Transport; Thu, 14 Sep 2023 02:02:20 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 13 Sep
- 2023 21:02:10 -0500
+ 2023 21:02:12 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 27/28] drm/amd/display: Drop unused code
-Date: Wed, 13 Sep 2023 20:00:20 -0600
-Message-ID: <20230914020021.2890026-28-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 28/28] drm/amd/display: 3.2.252
+Date: Wed, 13 Sep 2023 20:00:21 -0600
+Message-ID: <20230914020021.2890026-29-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230914020021.2890026-1-Rodrigo.Siqueira@amd.com>
 References: <20230914020021.2890026-1-Rodrigo.Siqueira@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015CA:EE_|SA3PR12MB9158:EE_
-X-MS-Office365-Filtering-Correlation-Id: e50909cc-3e36-4f06-ae20-08dbb4c6a036
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015CA:EE_|DS0PR12MB6439:EE_
+X-MS-Office365-Filtering-Correlation-Id: ff6ad05f-d34b-4a40-a32c-08dbb4c6a12e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ierieMtujMD9xWqSQ5iYgkONo4srnEFNUIWcRXX451i5gEIQlpvJJMo14js04vTg1nPdpJ12tgmqyyTd6+jjzLoM4ouE2smmYqYU9BpM1JZlDYDAY99qhNupchg/W66+Y0lYR7pIkYNh8F+qP1QQ4Awf/1rssZFo6JCmh4lLye4O3Lu/7QbccteQ2jIiYNFVSO7RgKeOaNF0EzLqz4jYeeOGM2JA14X1ysFceSwIg6Gh4hXsGzwPwre8lSwxh+X+FgxpmKDb7tBUTG6cUY1zxhUkmMiroo0yQjQiwZvrA+lUndx/dESgNMPV8gjARvJNepvb6dEnOOIHVF02+cEyLez9hqdYLAvdzkelZnfrsj4+7A99zMOJM+jJFO47Ev3XXuZh3kebdw2CzJcv18lzwy8byS5bgDWZ7Ahr037TpSPLIFA6XrPJDDwERKUQfqQO5avfhmc3t/K/mQb6l6CqNhkPIEMmt14MeDrVTFr4/nsBjUJ6s5LAMN3Sxe/9AsoFAsFLaDhEsnmxhw2HMzAewhNLTtBaoS3jWhtJS+M2+kdx9oMWKM7gMkUmx0HGcGYFOIxSKQiua65sjar9nMtAKgalZazSSdwGVA+6aNKiaPfCJ40BTg2KoL5myDxuDb7xS14QI5wDfMPNd1+pzg0cAqoFDHUnWIpySsSgbTepV9R2WKhaszzJwkAaZPDXeDOlTD8yeAaxopnjtm9POgc56jGQ13SkhJTAgeznDnSEvGcgT51N+r1y87FeJCt8hDS2rRYjnRG0bwiHcUC3WX+5+w==
+X-Microsoft-Antispam-Message-Info: vXBmO+G2ByM/aeeM5pwmFcttpLqgr4aq3pH2dqEm5XQBlJvwx9e6KaJbDOsS5Iycqh+Hew718kkNbKpDRoVSs8FHH1nr4MPG9ZseSe5CEmuyJIEL8wFAHb4aB8SKaOc2FVoLQ5EUiS6lrbf6UYKiWMxRs7urM6hKhph0CW0cOOjizMAjePyc428XNsNftQnmmsO6LjIVgUvYPBfUgxjYbz87dWjzIWTnebRq4/8V98GkyL902eDyx63n4nYG+iMy+r0Od07FBpTvVzsZS1M3NbzX+iZ6MSFEj+FL31Y5NTPz8r6ue/8mGfd6uFuUnRhVknGqLRKLp3TyIXsegl2KeySysdj1U9fjmgRKENv6f1achaEXrf76WHQFAMJBQP3lKZ2bKjoVFkUTv9IbY7CtolA5fDwio/U56LAmekzAykGvL/5jjZCLt3kKkMVx2XxEuqLMz4gbrAL2urBdYaXZN3s26uTghpS8GurJowhkWcwOvDJmZNUHdsBmSVICBuf7LMBHvxF39y2MlojlLUTPHAibNzLW8kY9z1v/qi91TtHJfEI3i8LAyTKxL0zIbR7DvBeJXAISayVhZkoNDkeVNzfKtB2DaMfhJ9hZCpifnH5uNtN+qS5tSMgDrY1iC6xfnBFqvSrn/Kmq6/9us1F3TMdqIj9SvGBiP6zuwlvQ8+huE4+lbb3VS1RGjpkzErumkcXbcVzuJ+n5iDb/k/V0frVv4TmYo1JzFIG9CiK4ULGFw6pYghv+Qyzyv55JQZCJ7/1wL9TzpEWbN4igWmRicw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(136003)(376002)(346002)(39860400002)(186009)(451199024)(82310400011)(1800799009)(36840700001)(46966006)(40470700004)(5660300002)(70206006)(41300700001)(4326008)(8676002)(8936002)(6916009)(316002)(54906003)(66899024)(70586007)(40460700003)(81166007)(478600001)(36756003)(6666004)(26005)(2616005)(2906002)(86362001)(83380400001)(1076003)(16526019)(40480700001)(426003)(336012)(47076005)(356005)(36860700001)(82740400003)(36900700001);
+ SFS:(13230031)(4636009)(396003)(346002)(376002)(136003)(39860400002)(82310400011)(186009)(1800799009)(451199024)(36840700001)(40470700004)(46966006)(40460700003)(6916009)(5660300002)(6666004)(41300700001)(426003)(47076005)(83380400001)(54906003)(1076003)(26005)(16526019)(36860700001)(8936002)(2616005)(316002)(70586007)(336012)(70206006)(8676002)(4744005)(2906002)(478600001)(4326008)(356005)(82740400003)(36756003)(86362001)(81166007)(40480700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2023 02:02:18.6894 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e50909cc-3e36-4f06-ae20-08dbb4c6a036
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2023 02:02:20.3300 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff6ad05f-d34b-4a40-a32c-08dbb4c6a12e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015CA.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9158
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6439
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,229 +99,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+Cc: stylon.wang@amd.com, Aric Cyr <aric.cyr@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
+ Rodrigo Siqueira <rodrigo.siqueira@amd.com>, roman.li@amd.com,
  solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
  Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There are multiple parts of the code that DC does not use anymore, and
-this commit drops those dead codes.
+From: Aric Cyr <aric.cyr@amd.com>
 
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+This version brings along the following:
+
+- Use optc32 instead of optc30 in DC
+- Optimize OLED T7 delay
+- Multiple fixes for MST, register mas, and others
+- Update driver and IPS interop
+- Improve z8 watermark mask
+- DCN35 updates
+- Enable replay for DCN35
+- Temporarily disable clock gating
+
+Acked-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+Signed-off-by: Aric Cyr <aric.cyr@amd.com>
 ---
- .../drm/amd/display/dc/bios/bios_parser2.c    |  9 --
- drivers/gpu/drm/amd/display/dc/link/Makefile  |  4 +-
- .../display/dc/link/accessories/link_fpga.c   | 95 -------------------
- .../display/dc/link/accessories/link_fpga.h   | 30 ------
- .../gpu/drm/amd/display/dc/link/link_dpms.c   |  1 -
- .../drm/amd/display/dc/link/link_factory.c    |  1 -
- 6 files changed, 2 insertions(+), 138 deletions(-)
- delete mode 100644 drivers/gpu/drm/amd/display/dc/link/accessories/link_fpga.c
- delete mode 100644 drivers/gpu/drm/amd/display/dc/link/accessories/link_fpga.h
+ drivers/gpu/drm/amd/display/dc/dc.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-index 484d62bcf2c2..2ec496be778a 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-@@ -1723,15 +1723,6 @@ static void bios_parser_set_scratch_critical_state(
- 	bios_set_scratch_critical_state(dcb, state);
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 48021d196484..fd5040966ba0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -47,7 +47,7 @@ struct aux_payload;
+ struct set_config_cmd_payload;
+ struct dmub_notification;
  
--struct atom_dig_transmitter_info_header_v5_3 {
--    struct atom_common_table_header table_header;
--    uint16_t dpphy_hdmi_settings_offset;
--    uint16_t dpphy_dvi_settings_offset;
--    uint16_t dpphy_dp_setting_table_offset;
--    uint16_t uniphy_xbar_settings_v2_table_offset;
--    uint16_t dpphy_internal_reg_overide_offset;
--};
--
- static enum bp_result bios_parser_get_firmware_info(
- 	struct dc_bios *dcb,
- 	struct dc_firmware_info *info)
-diff --git a/drivers/gpu/drm/amd/display/dc/link/Makefile b/drivers/gpu/drm/amd/display/dc/link/Makefile
-index 6af8a97d4a77..84c7af5fa589 100644
---- a/drivers/gpu/drm/amd/display/dc/link/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/link/Makefile
-@@ -33,7 +33,7 @@ AMD_DISPLAY_FILES += $(AMD_DAL_LINK)
- ###############################################################################
- # accessories
- ###############################################################################
--LINK_ACCESSORIES = link_dp_trace.o link_dp_cts.o link_fpga.o
-+LINK_ACCESSORIES = link_dp_trace.o link_dp_cts.o
+-#define DC_VER "3.2.251"
++#define DC_VER "3.2.252"
  
- AMD_DAL_LINK_ACCESSORIES = $(addprefix $(AMDDALPATH)/dc/link/accessories/, \
- $(LINK_ACCESSORIES))
-@@ -61,4 +61,4 @@ link_edp_panel_control.o link_dp_irq_handler.o link_dp_dpia_bw.o
- AMD_DAL_LINK_PROTOCOLS = $(addprefix $(AMDDALPATH)/dc/link/protocols/, \
- $(LINK_PROTOCOLS))
- 
--AMD_DISPLAY_FILES += $(AMD_DAL_LINK_PROTOCOLS)
-\ No newline at end of file
-+AMD_DISPLAY_FILES += $(AMD_DAL_LINK_PROTOCOLS)
-diff --git a/drivers/gpu/drm/amd/display/dc/link/accessories/link_fpga.c b/drivers/gpu/drm/amd/display/dc/link/accessories/link_fpga.c
-deleted file mode 100644
-index d3cc604eed67..000000000000
---- a/drivers/gpu/drm/amd/display/dc/link/accessories/link_fpga.c
-+++ /dev/null
-@@ -1,95 +0,0 @@
--/*
-- * Copyright 2023 Advanced Micro Devices, Inc.
-- *
-- * Permission is hereby granted, free of charge, to any person obtaining a
-- * copy of this software and associated documentation files (the "Software"),
-- * to deal in the Software without restriction, including without limitation
-- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-- * and/or sell copies of the Software, and to permit persons to whom the
-- * Software is furnished to do so, subject to the following conditions:
-- *
-- * The above copyright notice and this permission notice shall be included in
-- * all copies or substantial portions of the Software.
-- *
-- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-- * OTHER DEALINGS IN THE SOFTWARE.
-- *
-- * Authors: AMD
-- *
-- */
--#include "link_fpga.h"
--#include "link/link_dpms.h"
--#include "dm_helpers.h"
--#include "link_hwss.h"
--#include "dccg.h"
--#include "resource.h"
--
--#define DC_LOGGER_INIT(logger)
--
--void dp_fpga_hpo_enable_link_and_stream(struct dc_state *state, struct pipe_ctx *pipe_ctx)
--{
--	struct dc *dc = pipe_ctx->stream->ctx->dc;
--	struct dc_stream_state *stream = pipe_ctx->stream;
--	struct link_mst_stream_allocation_table proposed_table = {0};
--	struct fixed31_32 avg_time_slots_per_mtp;
--	uint8_t req_slot_count = 0;
--	uint8_t vc_id = 1; /// VC ID always 1 for SST
--	struct dc_link_settings link_settings = pipe_ctx->link_config.dp_link_settings;
--	const struct link_hwss *link_hwss = get_link_hwss(stream->link, &pipe_ctx->link_res);
--	DC_LOGGER_INIT(pipe_ctx->stream->ctx->logger);
--
--	stream->link->cur_link_settings = link_settings;
--
--	if (link_hwss->ext.enable_dp_link_output)
--		link_hwss->ext.enable_dp_link_output(stream->link, &pipe_ctx->link_res,
--				stream->signal, pipe_ctx->clock_source->id,
--				&link_settings);
--
--	/* Enable DP_STREAM_ENC */
--	dc->hwss.enable_stream(pipe_ctx);
--
--	/* Set DPS PPS SDP (AKA "info frames") */
--	if (pipe_ctx->stream->timing.flags.DSC) {
--		link_set_dsc_pps_packet(pipe_ctx, true, true);
--	}
--
--	/* Allocate Payload */
--	if ((stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST) && (state->stream_count > 1)) {
--		// MST case
--		uint8_t i;
--
--		proposed_table.stream_count = state->stream_count;
--		for (i = 0; i < state->stream_count; i++) {
--			avg_time_slots_per_mtp = link_calculate_sst_avg_time_slots_per_mtp(state->streams[i], state->streams[i]->link);
--			req_slot_count = dc_fixpt_ceil(avg_time_slots_per_mtp);
--			proposed_table.stream_allocations[i].slot_count = req_slot_count;
--			proposed_table.stream_allocations[i].vcp_id = i+1;
--			/* NOTE: This makes assumption that pipe_ctx index is same as stream index */
--			proposed_table.stream_allocations[i].hpo_dp_stream_enc = state->res_ctx.pipe_ctx[i].stream_res.hpo_dp_stream_enc;
--		}
--	} else {
--		// SST case
--		avg_time_slots_per_mtp = link_calculate_sst_avg_time_slots_per_mtp(stream, stream->link);
--		req_slot_count = dc_fixpt_ceil(avg_time_slots_per_mtp);
--		proposed_table.stream_count = 1; /// Always 1 stream for SST
--		proposed_table.stream_allocations[0].slot_count = req_slot_count;
--		proposed_table.stream_allocations[0].vcp_id = vc_id;
--		proposed_table.stream_allocations[0].hpo_dp_stream_enc = pipe_ctx->stream_res.hpo_dp_stream_enc;
--	}
--
--	link_hwss->ext.update_stream_allocation_table(stream->link,
--			&pipe_ctx->link_res,
--			&proposed_table);
--
--	if (link_hwss->ext.set_throttled_vcp_size)
--		link_hwss->ext.set_throttled_vcp_size(pipe_ctx, avg_time_slots_per_mtp);
--
--	dc->hwss.unblank_stream(pipe_ctx, &stream->link->cur_link_settings);
--	dc->hwss.enable_audio_stream(pipe_ctx);
--}
--
-diff --git a/drivers/gpu/drm/amd/display/dc/link/accessories/link_fpga.h b/drivers/gpu/drm/amd/display/dc/link/accessories/link_fpga.h
-deleted file mode 100644
-index 3a80f5595943..000000000000
---- a/drivers/gpu/drm/amd/display/dc/link/accessories/link_fpga.h
-+++ /dev/null
-@@ -1,30 +0,0 @@
--/*
-- * Copyright 2023 Advanced Micro Devices, Inc.
-- *
-- * Permission is hereby granted, free of charge, to any person obtaining a
-- * copy of this software and associated documentation files (the "Software"),
-- * to deal in the Software without restriction, including without limitation
-- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-- * and/or sell copies of the Software, and to permit persons to whom the
-- * Software is furnished to do so, subject to the following conditions:
-- *
-- * The above copyright notice and this permission notice shall be included in
-- * all copies or substantial portions of the Software.
-- *
-- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-- * OTHER DEALINGS IN THE SOFTWARE.
-- *
-- * Authors: AMD
-- *
-- */
--#ifndef __LINK_FPGA_H__
--#define __LINK_FPGA_H__
--#include "link.h"
--void dp_fpga_hpo_enable_link_and_stream(struct dc_state *state,
--		struct pipe_ctx *pipe_ctx);
--#endif /* __LINK_FPGA_H__ */
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-index d8327911c467..5a4f732e1e6c 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-@@ -38,7 +38,6 @@
- #include "link_dpms.h"
- #include "link_hwss.h"
- #include "link_validation.h"
--#include "accessories/link_fpga.h"
- #include "accessories/link_dp_trace.h"
- #include "protocols/link_dpcd.h"
- #include "protocols/link_ddc.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_factory.c b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
-index e406561c2c23..754aab662489 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_factory.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
-@@ -33,7 +33,6 @@
- #include "link_dpms.h"
- #include "accessories/link_dp_cts.h"
- #include "accessories/link_dp_trace.h"
--#include "accessories/link_fpga.h"
- #include "protocols/link_ddc.h"
- #include "protocols/link_dp_capability.h"
- #include "protocols/link_dp_dpia_bw.h"
+ #define MAX_SURFACES 3
+ #define MAX_PLANES 6
 -- 
 2.40.1
 
