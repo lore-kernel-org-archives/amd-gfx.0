@@ -4,88 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47685EE6456
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Sep 2023 11:07:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5467EE645C
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Sep 2023 12:50:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE82610E179;
-	Fri, 15 Sep 2023 11:07:01 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2042.outbound.protection.outlook.com [40.107.220.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 904FD10E179
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Sep 2023 11:07:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DpxK7SPhe5faqBz+wJq5EtQeaZtVyNDWWtr4lpvSw5Rc4I4V2kGku983m2NLte9WwR/gnGIa6HdpFbHRDA/uXVoY028iNZV7fBMBJeBa1wtIkbfnAO2ru0xEIxoUSXYDY/9E5x9SwkQHFPsJJmEnT0HzIFz+/2EfD/b7rZyG4OECdqa7ezs/P3JTI24AlJ+Chzzws7lwRWsK+ItMowDXuuLygO8JMuAWd0DCrgdOi1X4tAckmosLzhOaSCGVxGZpb2hRiZbWGpMULHBLnPWZaYSRsZ4rVCgOtnqTtbMSWWbv8TMcyoTqy5FwtY1o2s2Up3oSgSHCSmyPVlfWkncpPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eu6KNwU3GuQtKIFdd3N69ZIxNMw9Srf4cpR8fT8BO2M=;
- b=ijjlxW5vyQ4Z0zgvKD5C2GlcCwvcALCz2yoIhLKejSzT/3700TJJIHhsoErbqcVr4VjaXuTjLb+NvX9jcAnJ8L3x/pMY0hFcNOpXMR3vZxUVZt/hWuZkK1bnyC8ILd5J7Smh3+vi9jxj95PC8eHrXPdwzM4EVF0spEZULY54jIbotJf9K46wFDjysO6i11oxxSmyfAE6w0fRImuStlNVHO+3QgVIJQzCjca/Y0GKVUuketZYWYixRpRqEuI+7m396JxQJYmNlbLGD6hvyqArys7JQSqJ4zmAIR70CUMkrOs4s9BIt5i7NjmjhaybnhbVKtrlN0DVDMAryUIUjdhS7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eu6KNwU3GuQtKIFdd3N69ZIxNMw9Srf4cpR8fT8BO2M=;
- b=NaFuVDBGk4OygP9gIS4McjBPDlkrrmv1txyBmqxEuyr4smsvQyh/8113Nw+7ZLiTawv718wwwWY8hVcIm3U2ECJBujW5nnwPbKPx7tQO3PeUO2dDd6oIE4ploKpxBWLFjmD9FBl4u9Km1/IoXFFJ1pyT4Ck1WPPw2gQO54tNYXM=
-Received: from DM6PR04CA0005.namprd04.prod.outlook.com (2603:10b6:5:334::10)
- by SJ0PR12MB6925.namprd12.prod.outlook.com (2603:10b6:a03:483::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.36; Fri, 15 Sep
- 2023 11:06:59 +0000
-Received: from DS1PEPF0001709B.namprd05.prod.outlook.com
- (2603:10b6:5:334:cafe::1e) by DM6PR04CA0005.outlook.office365.com
- (2603:10b6:5:334::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.21 via Frontend
- Transport; Fri, 15 Sep 2023 11:06:59 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS1PEPF0001709B.mail.protection.outlook.com (10.167.18.105) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6792.20 via Frontend Transport; Fri, 15 Sep 2023 11:06:59 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 15 Sep
- 2023 06:06:58 -0500
-Received: from stanley-test.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Fri, 15 Sep 2023 06:06:57 -0500
-From: Stanley.Yang <Stanley.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH Review V2 1/1] drm/amdgpu: Fix false positive error log
-Date: Fri, 15 Sep 2023 19:06:51 +0800
-Message-ID: <20230915110651.1849740-1-Stanley.Yang@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34C3C10E186;
+	Fri, 15 Sep 2023 12:50:19 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 119B910E17C;
+ Fri, 15 Sep 2023 12:02:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1694779328; x=1726315328;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=gwM5fnXuG8powd+ajq+cI+5GyVGOVUj5BEzCq+gdTz4=;
+ b=nGCUZJa3up8s4GxdRRWlm3y9/LwtBBBzhukqc0LiHPiqyFNT092RIBkD
+ Z1go+IzkuixgAtrhCDWc6YWL3VGcoANGj4G32bFDk8TsWxt6Xz+NMZuXh
+ nu1mp+oMJGwFjn6uhEwo5NKNgYHOg9ifW6Q73ncQE1spAA5oH9urVpGtv
+ /+NiN+6+r2J1T2dNEAjcaUeWb5T3cTfGUK82JF9YyeFasiXqKjB3Y2NWN
+ reBJJHOoRh7cNUXNradGfpkOY414erNYRGf7WsUPESPGfcGoa5ybRKgNt
+ XdjK76EITE0ul/YImBhyfUwnOdEwCu2lyDPwTGx2/jtC0RTRYg14Iz7mH w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="378145956"
+X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="378145956"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2023 05:02:07 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="774292786"
+X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="774292786"
+Received: from srdoo-mobl1.ger.corp.intel.com (HELO
+ ijarvine-mobl2.ger.corp.intel.com) ([10.252.38.99])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2023 05:02:01 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: linux-pci@vger.kernel.org, Bjorn Helgaas <helgaas@kernel.org>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Rob Herring <robh@kernel.org>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+ Lukas Wunner <lukas@wunner.de>, Alexandru Gagniuc <mr.nuke.me@gmail.com>,
+ Krishna chaitanya chundru <quic_krichai@quicinc.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, linux-pm@vger.kernel.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 02/10] drm/radeon: Use RMW accessors for changing LNKCTL2
+Date: Fri, 15 Sep 2023 15:01:34 +0300
+Message-Id: <20230915120142.32987-3-ilpo.jarvinen@linux.intel.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20230915120142.32987-1-ilpo.jarvinen@linux.intel.com>
+References: <20230915120142.32987-1-ilpo.jarvinen@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0001709B:EE_|SJ0PR12MB6925:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3f929275-3b22-45d4-06f4-08dbb5dbe1a7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: INehxJfhy9+N4/FBsLD5i0vnWQUTpIeUcabcZSnlXC+S87FM8TnfK7e2SXJAYfV4Rcv+ii7o1FcBEkTvsxCHD4uZBPJke+BgXteqwIzljJekjU9jHicDsnADP8156lmY8CtYaNpbsqPgGTj7uVHuQe2riJeQrp0kqZC7vGFUv5Eey2bwSwYRy/CiNiquV8vq+QxKCgZbWHk6jEp2T7khtycJT4HTzu444MhQVq/KTo/yBR/hr4rTpjx+8ct/3A0fKoNkpkXrHJ36lTuazkEw7txCC6xZivb811zIIbSQ2fDzWCfYOoIcb5TD4bSj+4YwtqbaRdmvZbhOe5xCRdsRzC4IIGbWZcMW7lN1DJRJgf/J+gf6yHydSHNYgt2KB6Gmfq3OQ40RuPEFteao0vxFbg9iH5svj0UhkboIPwjab54VAXeks5gjPcTakVE7t9zyAnZ6IQwFpdk1+u4WySxlCo9OoLKZGVPpatOnuVQoMIr4LlvxXjNyEYmQWHf6iKV11LN4ML+TRfmAxbkA4T7+nwQv8iKIVi3O9pZxWQKydErBlJ2JOirRJ8QzMBkqpcKWzsXGSNlSBBnqsQgWVZqa6jiqroqSLm7zvsrQvo19OiugPyh+wA+AoVfebtmUTNbVHJbAxTZctfl+Wl/DOIUF0RCIrpRreOTZ8B5VrAWn9x8cu5mtqkOVPY9tOKYEvQNGf2L/58XQj7UJYySjej8wqYcXe7Uau6T9x/O8u4kYx45SxI+LK5EOUdm5Rapo+uvM4y7EtCd7IInGczGkQjmPjg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(39860400002)(376002)(396003)(136003)(1800799009)(451199024)(82310400011)(186009)(40470700004)(46966006)(36840700001)(36860700001)(70206006)(356005)(70586007)(36756003)(81166007)(47076005)(40460700003)(8936002)(8676002)(4326008)(6916009)(5660300002)(41300700001)(82740400003)(2906002)(40480700001)(316002)(2616005)(83380400001)(7696005)(336012)(6666004)(426003)(86362001)(26005)(478600001)(1076003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2023 11:06:59.0561 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f929275-3b22-45d4-06f4-08dbb5dbe1a7
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001709B.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6925
+X-Mailman-Approved-At: Fri, 15 Sep 2023 12:50:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,46 +71,156 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Stanley.Yang" <Stanley.Yang@amd.com>
+Cc: Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Zhang Rui <rui.zhang@intel.com>, Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Amit Kucheria <amitk@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It should first check block ras obj whether be set, it should
-return 0 directly if block ras obj or hw_ops is not set.
+Don't assume that only the driver would be accessing LNKCTL2. In the
+case of upstream (parent), the driver does not even own the device it's
+changing the registers for.
 
-Changed from V1:
-	return 0 directly if block ras obj or hw ops is not set
+Use RMW capability accessors which do proper locking to avoid losing
+concurrent updates to the register value. This change is also useful as
+a cleanup.
 
-Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
+Suggested-by: Lukas Wunner <lukas@wunner.de>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/radeon/cik.c | 40 ++++++++++++++----------------------
+ drivers/gpu/drm/radeon/si.c  | 40 ++++++++++++++----------------------
+ 2 files changed, 30 insertions(+), 50 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 4a6df4e24243..25514af6cf8f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1105,15 +1105,15 @@ int amdgpu_ras_reset_error_status(struct amdgpu_device *adev,
- {
- 	struct amdgpu_ras_block_object *block_obj = amdgpu_ras_get_ras_block(adev, block, 0);
+diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
+index 10be30366c2b..b5e96a8fc2c1 100644
+--- a/drivers/gpu/drm/radeon/cik.c
++++ b/drivers/gpu/drm/radeon/cik.c
+@@ -9592,28 +9592,18 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
+ 								   PCI_EXP_LNKCTL_HAWD);
  
--	if (!amdgpu_ras_is_supported(adev, block))
--		return -EINVAL;
+ 				/* linkctl2 */
+-				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
+-							  &tmp16);
+-				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
+-					   PCI_EXP_LNKCTL2_TX_MARGIN);
+-				tmp16 |= (bridge_cfg2 &
+-					  (PCI_EXP_LNKCTL2_ENTER_COMP |
+-					   PCI_EXP_LNKCTL2_TX_MARGIN));
+-				pcie_capability_write_word(root,
+-							   PCI_EXP_LNKCTL2,
+-							   tmp16);
 -
--	if (!block_obj || !block_obj->hw_ops)   {
-+	if (!block_obj || !block_obj->hw_ops) {
- 		dev_dbg_once(adev->dev, "%s doesn't config RAS function\n",
- 			     ras_block_str(block));
--		return -EINVAL;
-+		return 0;
- 	}
+-				pcie_capability_read_word(rdev->pdev,
+-							  PCI_EXP_LNKCTL2,
+-							  &tmp16);
+-				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
+-					   PCI_EXP_LNKCTL2_TX_MARGIN);
+-				tmp16 |= (gpu_cfg2 &
+-					  (PCI_EXP_LNKCTL2_ENTER_COMP |
+-					   PCI_EXP_LNKCTL2_TX_MARGIN));
+-				pcie_capability_write_word(rdev->pdev,
+-							   PCI_EXP_LNKCTL2,
+-							   tmp16);
++				pcie_capability_clear_and_set_word(root, PCI_EXP_LNKCTL2,
++								   PCI_EXP_LNKCTL2_ENTER_COMP |
++								   PCI_EXP_LNKCTL2_TX_MARGIN,
++								   bridge_cfg2 |
++								   (PCI_EXP_LNKCTL2_ENTER_COMP |
++								    PCI_EXP_LNKCTL2_TX_MARGIN));
++				pcie_capability_clear_and_set_word(rdev->pdev, PCI_EXP_LNKCTL2,
++								   PCI_EXP_LNKCTL2_ENTER_COMP |
++								   PCI_EXP_LNKCTL2_TX_MARGIN,
++								   gpu_cfg2 |
++								   (PCI_EXP_LNKCTL2_ENTER_COMP |
++								    PCI_EXP_LNKCTL2_TX_MARGIN));
  
-+	if (!amdgpu_ras_is_supported(adev, block))
-+		return -EINVAL;
-+
- 	if (block_obj->hw_ops->reset_ras_error_count)
- 		block_obj->hw_ops->reset_ras_error_count(adev);
+ 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
+ 				tmp &= ~LC_SET_QUIESCE;
+@@ -9627,15 +9617,15 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
+ 	speed_cntl &= ~LC_FORCE_DIS_SW_SPEED_CHANGE;
+ 	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
  
+-	pcie_capability_read_word(rdev->pdev, PCI_EXP_LNKCTL2, &tmp16);
+-	tmp16 &= ~PCI_EXP_LNKCTL2_TLS;
++	tmp16 = 0;
+ 	if (speed_cap == PCIE_SPEED_8_0GT)
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_8_0GT; /* gen3 */
+ 	else if (speed_cap == PCIE_SPEED_5_0GT)
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_5_0GT; /* gen2 */
+ 	else
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_2_5GT; /* gen1 */
+-	pcie_capability_write_word(rdev->pdev, PCI_EXP_LNKCTL2, tmp16);
++	pcie_capability_clear_and_set_word(rdev->pdev, PCI_EXP_LNKCTL2,
++					   PCI_EXP_LNKCTL2_TLS, tmp16);
+ 
+ 	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
+ 	speed_cntl |= LC_INITIATE_LINK_SPEED_CHANGE;
+diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
+index a91012447b56..32871ca09a0f 100644
+--- a/drivers/gpu/drm/radeon/si.c
++++ b/drivers/gpu/drm/radeon/si.c
+@@ -7189,28 +7189,18 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
+ 								   PCI_EXP_LNKCTL_HAWD);
+ 
+ 				/* linkctl2 */
+-				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
+-							  &tmp16);
+-				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
+-					   PCI_EXP_LNKCTL2_TX_MARGIN);
+-				tmp16 |= (bridge_cfg2 &
+-					  (PCI_EXP_LNKCTL2_ENTER_COMP |
+-					   PCI_EXP_LNKCTL2_TX_MARGIN));
+-				pcie_capability_write_word(root,
+-							   PCI_EXP_LNKCTL2,
+-							   tmp16);
+-
+-				pcie_capability_read_word(rdev->pdev,
+-							  PCI_EXP_LNKCTL2,
+-							  &tmp16);
+-				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
+-					   PCI_EXP_LNKCTL2_TX_MARGIN);
+-				tmp16 |= (gpu_cfg2 &
+-					  (PCI_EXP_LNKCTL2_ENTER_COMP |
+-					   PCI_EXP_LNKCTL2_TX_MARGIN));
+-				pcie_capability_write_word(rdev->pdev,
+-							   PCI_EXP_LNKCTL2,
+-							   tmp16);
++				pcie_capability_clear_and_set_word(root, PCI_EXP_LNKCTL2,
++								   PCI_EXP_LNKCTL2_ENTER_COMP |
++								   PCI_EXP_LNKCTL2_TX_MARGIN,
++								   bridge_cfg2 &
++								   (PCI_EXP_LNKCTL2_ENTER_COMP |
++								    PCI_EXP_LNKCTL2_TX_MARGIN));
++				pcie_capability_clear_and_set_word(rdev->pdev, PCI_EXP_LNKCTL2,
++								   PCI_EXP_LNKCTL2_ENTER_COMP |
++								   PCI_EXP_LNKCTL2_TX_MARGIN,
++								   gpu_cfg2 &
++								   (PCI_EXP_LNKCTL2_ENTER_COMP |
++								    PCI_EXP_LNKCTL2_TX_MARGIN));
+ 
+ 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
+ 				tmp &= ~LC_SET_QUIESCE;
+@@ -7224,15 +7214,15 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
+ 	speed_cntl &= ~LC_FORCE_DIS_SW_SPEED_CHANGE;
+ 	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
+ 
+-	pcie_capability_read_word(rdev->pdev, PCI_EXP_LNKCTL2, &tmp16);
+-	tmp16 &= ~PCI_EXP_LNKCTL2_TLS;
++	tmp16 = 0;
+ 	if (speed_cap == PCIE_SPEED_8_0GT)
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_8_0GT; /* gen3 */
+ 	else if (speed_cap == PCIE_SPEED_5_0GT)
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_5_0GT; /* gen2 */
+ 	else
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_2_5GT; /* gen1 */
+-	pcie_capability_write_word(rdev->pdev, PCI_EXP_LNKCTL2, tmp16);
++	pcie_capability_clear_and_set_word(rdev->pdev, PCI_EXP_LNKCTL2,
++					   PCI_EXP_LNKCTL2_TLS, tmp16);
+ 
+ 	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
+ 	speed_cntl |= LC_INITIATE_LINK_SPEED_CHANGE;
 -- 
-2.25.1
+2.30.2
 
