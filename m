@@ -4,62 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D15EEE645D
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Sep 2023 12:50:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3741EE645B
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Sep 2023 13:00:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7348910E622;
-	Fri, 15 Sep 2023 12:50:19 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64E6D10E61D;
- Fri, 15 Sep 2023 12:02:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694779335; x=1726315335;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=oWLIDmT8V8yYTYSf+Z4MKL980NvQzXj0f/SDHZh0VdQ=;
- b=Y9159pSIuvrK4qQhk+Q8PvaF+vtuq4B5y1syorMmjmbqT6cmS1eRa18U
- HQhHHvw3xLahBS9JBnUpg774hbIl95AkFtJlZ9+byPB6tOPudJZ5/Uocy
- 1RiNI2HLWaReBdzuNIGNanTPjsZPiPXtMGP3HNH1ZBFWHkXNJoreAU4QE
- JAAto/Mq8/ZVYDhL4EFY/3ZbI3yYFNhHlGNgU9oqKBt7KRvbdICm/FIBn
- Hvqkc6HuPU/ST0NYgKDTkvsLqbQZJuFzjlAAW//hB/QQnSBKlRmyCxeuh
- 2UXRdUA4WNFIcNkIgL/6ZNL6sGZLb2805WIByIm4LaT/2kRrFqbDLVJvs g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="378145978"
-X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="378145978"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2023 05:02:14 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="774292805"
-X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="774292805"
-Received: from srdoo-mobl1.ger.corp.intel.com (HELO
- ijarvine-mobl2.ger.corp.intel.com) ([10.252.38.99])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2023 05:02:08 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: linux-pci@vger.kernel.org, Bjorn Helgaas <helgaas@kernel.org>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Rob Herring <robh@kernel.org>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
- Lukas Wunner <lukas@wunner.de>, Alexandru Gagniuc <mr.nuke.me@gmail.com>,
- Krishna chaitanya chundru <quic_krichai@quicinc.com>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>, linux-pm@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 03/10] drm/amdgpu: Use RMW accessors for changing LNKCTL2
-Date: Fri, 15 Sep 2023 15:01:35 +0300
-Message-Id: <20230915120142.32987-4-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230915120142.32987-1-ilpo.jarvinen@linux.intel.com>
-References: <20230915120142.32987-1-ilpo.jarvinen@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CB9A10E625;
+	Fri, 15 Sep 2023 13:00:21 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2055.outbound.protection.outlook.com [40.107.243.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93C6510E628
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Sep 2023 13:00:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BuqeACg/h+aJD1QKSlI+YJlktqKVuCpJFwNrN9KGFlIIhSn2pCeZxqRnk20PpmedsYUXf6/qlVPCvQpYlS/M5tzgbn8vOBJv03augx4+aX1W3VJ3H54csXmwYC3HQWQa5xT25cPGxo1O9O2X9LdfodHtU9So5Sb9MspuiWrOg4GsTDWgFK3kBA5sipZeABpAcyrzP+xCZGdD9PTyqRTQPVAeH4KQU6plexNAHLVBblZc4YlBsFEuMH0dte4zWbSMLAuj2pIH4/48kWPA/L4mYmIHnQbLymxYIl7xaHM3sVxz1e3xQzGj9qGOQPwvllpgmzjyNcNOzQVFwCidpojkGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=U7VOOZf9OKMYzzCQcm3oK+xmJ4657CoxFvAGaJOkwzE=;
+ b=CpU5PLEwqswElg16r2pTlJh4rsiTEw3MKfNDh2TBmzTq0IDT811VojeV3dlEP6Jix5RrWY50OfnhLYueTSPpKL2GTrQEA23gLIq28FdzOkjmO96rgv9WdXh6Gxc90EqTQ5H7ndRfJfnWaWnhXCqpRhD9PNQloasIYwQAXz/cKbeuc3OQ2x5K6Apk38MPdxWvgKZERHYQjeiky/qRCEJIDcSoBii1ao60tiX7h4gtGVSrWm+eWhzPoKFqNfZLo67IWqTL36bdDNOgyKC6pmwiEO8fH06xohT4ZW8RAhm+0AvfYv9T5jr1alPfvbaQEUhnkLoCRmoI07TP3gBwvE2Zkw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=U7VOOZf9OKMYzzCQcm3oK+xmJ4657CoxFvAGaJOkwzE=;
+ b=5JGR3wac1R/I09ySYT8PxmlJAAymN0GZXZxVxlbkxNUef874ft2gOZfw8Bd6v56ohB5UNW5cMO6rcTc/RNkxK0GdT7CJHVXqRzLueUuFs6q4R0MIOAZnWvIaNvO6SAbNpn+dCPkp+WcIwC7N81ZupjkXp2meYjvYQGV31KtCako=
+Received: from DM6PR03CA0073.namprd03.prod.outlook.com (2603:10b6:5:333::6) by
+ PH7PR12MB8054.namprd12.prod.outlook.com (2603:10b6:510:27f::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.20; Fri, 15 Sep
+ 2023 13:00:14 +0000
+Received: from DS2PEPF00003439.namprd02.prod.outlook.com
+ (2603:10b6:5:333:cafe::d) by DM6PR03CA0073.outlook.office365.com
+ (2603:10b6:5:333::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.21 via Frontend
+ Transport; Fri, 15 Sep 2023 13:00:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS2PEPF00003439.mail.protection.outlook.com (10.167.18.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6792.11 via Frontend Transport; Fri, 15 Sep 2023 13:00:14 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 15 Sep
+ 2023 08:00:08 -0500
+From: Lijo Lazar <lijo.lazar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: Round Q10 format values in SMU v13.0.6
+Date: Fri, 15 Sep 2023 18:29:37 +0530
+Message-ID: <20230915125937.1261267-1-lijo.lazar@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 15 Sep 2023 12:50:17 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003439:EE_|PH7PR12MB8054:EE_
+X-MS-Office365-Filtering-Correlation-Id: 95f46dab-fc3b-4f13-6bd8-08dbb5ebb425
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: spKWIjpv/wfIjusLSN8iuJYJNrTX05PGpXZnFMyTgk0ok9Xoag1H+bXK5r8FqL+CeqrHK1b95ALFKN2aG6IBRZVPZGW5fq6ROuuckaaS1IXQ5yOfZv0z2bNLtjoMP0djRXyWFPZklCaAI76WNSk1TBPmmjWFaEDnVGvxsXdV16SuNFiOXxgMm3muc0+XAE8ggWxjau7Da3wrnr9DZzzTGXIGSblFXTgRTCVmF4+gjHp3+AeRNbOM3R9ElkavdZ8fPehUfcQHrC4zPd4+IROMpLF0FRPWuOcB+fa84AYsZ+RlyRuFloZojK1GZJlyI2zZ7/ktco+7zYIEA5IjF2KlRegV57mKTw7kq32021dZ0/srUSkd31d+pM3TwzdqA1BtYLaUwEBZmT4QDp0cSiU/YdBXut6q9Y5Hi2NLTVciK8UZ3zSD8T4QmDPjEADk8zf+SBYe7v9WQOt3WkfZDFzgdwc/SL328yqvtfd9JS6Gv9olb2ohQVyqLd39OUL2xtcbXSE1pkrGK9QxdvOtUBMeuwr16eNrH/NzNZRXOT+ZsA1YnvSH3+lJoEVEBoM/LD7Pyem4BV6ddYlViBN3lIpHiy+wd8qn+nsxkIwECGmYgGYAQht7uyo70Jt/46uaiZk7N5aXmWnk8sljCY3a+37sbvn2QJaT/rtk9GmHtaVs0CqO3HF8RZJi4dfU+GYFlEMCll/Uszszos5mLLKzIBPDlTVTa6qj7lynW6/sa8ZiQcnivbH+bpKaoxUTU+Q1MYGGZJ8+0YAoEMKnTeKLMPDGow==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(396003)(346002)(376002)(136003)(39860400002)(82310400011)(451199024)(186009)(1800799009)(46966006)(36840700001)(40470700004)(6916009)(70586007)(40480700001)(70206006)(316002)(81166007)(478600001)(356005)(86362001)(54906003)(40460700003)(36756003)(2906002)(82740400003)(41300700001)(44832011)(8676002)(8936002)(5660300002)(4326008)(26005)(336012)(426003)(16526019)(1076003)(2616005)(36860700001)(83380400001)(47076005)(6666004)(7696005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2023 13:00:14.6412 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95f46dab-fc3b-4f13-6bd8-08dbb5ebb425
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003439.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8054
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,158 +97,186 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexdeucher@gmail.com>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Zhang Rui <rui.zhang@intel.com>, Daniel Lezcano <daniel.lezcano@linaro.org>,
- Amit Kucheria <amitk@kernel.org>
+Cc: Alexander.Deucher@amd.com, Asad.Kamal@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Don't assume that only the driver would be accessing LNKCTL2. In the
-case of upstream (parent), the driver does not even own the device it's
-changing the registers for.
+Instead of neglecting fractional part, round the Q10 format values in
+SMU v13.0.6 metrics table.
 
-Use RMW capability accessors which do proper locking to avoid losing
-concurrent updates to the register value. This change is also useful as
-a cleanup.
-
-Suggested-by: Lukas Wunner <lukas@wunner.de>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/cik.c | 41 ++++++++++++--------------------
- drivers/gpu/drm/amd/amdgpu/si.c  | 41 ++++++++++++--------------------
- 2 files changed, 30 insertions(+), 52 deletions(-)
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 70 ++++++++++---------
+ 1 file changed, 36 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
-index e63abdf52b6c..7bcd41996927 100644
---- a/drivers/gpu/drm/amd/amdgpu/cik.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cik.c
-@@ -1638,28 +1638,18 @@ static void cik_pcie_gen3_enable(struct amdgpu_device *adev)
- 								   PCI_EXP_LNKCTL_HAWD);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index f9c1219f0c4f..11a6cd96c601 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -244,6 +244,8 @@ struct PPTable_t {
+ };
  
- 				/* linkctl2 */
--				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
--							  &tmp16);
--				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
--					   PCI_EXP_LNKCTL2_TX_MARGIN);
--				tmp16 |= (bridge_cfg2 &
--					  (PCI_EXP_LNKCTL2_ENTER_COMP |
--					   PCI_EXP_LNKCTL2_TX_MARGIN));
--				pcie_capability_write_word(root,
--							   PCI_EXP_LNKCTL2,
--							   tmp16);
--
--				pcie_capability_read_word(adev->pdev,
--							  PCI_EXP_LNKCTL2,
--							  &tmp16);
--				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
--					   PCI_EXP_LNKCTL2_TX_MARGIN);
--				tmp16 |= (gpu_cfg2 &
--					  (PCI_EXP_LNKCTL2_ENTER_COMP |
--					   PCI_EXP_LNKCTL2_TX_MARGIN));
--				pcie_capability_write_word(adev->pdev,
--							   PCI_EXP_LNKCTL2,
--							   tmp16);
-+				pcie_capability_clear_and_set_word(root, PCI_EXP_LNKCTL2,
-+								   PCI_EXP_LNKCTL2_ENTER_COMP |
-+								   PCI_EXP_LNKCTL2_TX_MARGIN,
-+								   bridge_cfg2 &
-+								   (PCI_EXP_LNKCTL2_ENTER_COMP |
-+								    PCI_EXP_LNKCTL2_TX_MARGIN));
-+				pcie_capability_clear_and_set_word(adev->pdev, PCI_EXP_LNKCTL2,
-+								   PCI_EXP_LNKCTL2_ENTER_COMP |
-+								   PCI_EXP_LNKCTL2_TX_MARGIN,
-+								   gpu_cfg2 &
-+								   (PCI_EXP_LNKCTL2_ENTER_COMP |
-+								    PCI_EXP_LNKCTL2_TX_MARGIN));
+ #define SMUQ10_TO_UINT(x) ((x) >> 10)
++#define SMUQ10_FRAC(x) ((x) & 0x3ff)
++#define SMUQ10_ROUND(x) ((SMUQ10_TO_UINT(x)) + ((SMUQ10_FRAC(x)) >= 0x200))
  
- 				tmp = RREG32_PCIE(ixPCIE_LC_CNTL4);
- 				tmp &= ~PCIE_LC_CNTL4__LC_SET_QUIESCE_MASK;
-@@ -1674,16 +1664,15 @@ static void cik_pcie_gen3_enable(struct amdgpu_device *adev)
- 	speed_cntl &= ~PCIE_LC_SPEED_CNTL__LC_FORCE_DIS_SW_SPEED_CHANGE_MASK;
- 	WREG32_PCIE(ixPCIE_LC_SPEED_CNTL, speed_cntl);
+ struct smu_v13_0_6_dpm_map {
+ 	enum smu_clk_type clk_type;
+@@ -389,25 +391,25 @@ static int smu_v13_0_6_setup_driver_pptable(struct smu_context *smu)
+ 			return -ETIME;
  
--	pcie_capability_read_word(adev->pdev, PCI_EXP_LNKCTL2, &tmp16);
--	tmp16 &= ~PCI_EXP_LNKCTL2_TLS;
--
-+	tmp16 = 0;
- 	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)
- 		tmp16 |= PCI_EXP_LNKCTL2_TLS_8_0GT; /* gen3 */
- 	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN2)
- 		tmp16 |= PCI_EXP_LNKCTL2_TLS_5_0GT; /* gen2 */
- 	else
- 		tmp16 |= PCI_EXP_LNKCTL2_TLS_2_5GT; /* gen1 */
--	pcie_capability_write_word(adev->pdev, PCI_EXP_LNKCTL2, tmp16);
-+	pcie_capability_clear_and_set_word(adev->pdev, PCI_EXP_LNKCTL2,
-+					   PCI_EXP_LNKCTL2_TLS, tmp16);
+ 		pptable->MaxSocketPowerLimit =
+-			SMUQ10_TO_UINT(metrics->MaxSocketPowerLimit);
++			SMUQ10_ROUND(metrics->MaxSocketPowerLimit);
+ 		pptable->MaxGfxclkFrequency =
+-			SMUQ10_TO_UINT(metrics->MaxGfxclkFrequency);
++			SMUQ10_ROUND(metrics->MaxGfxclkFrequency);
+ 		pptable->MinGfxclkFrequency =
+-			SMUQ10_TO_UINT(metrics->MinGfxclkFrequency);
++			SMUQ10_ROUND(metrics->MinGfxclkFrequency);
  
- 	speed_cntl = RREG32_PCIE(ixPCIE_LC_SPEED_CNTL);
- 	speed_cntl |= PCIE_LC_SPEED_CNTL__LC_INITIATE_LINK_SPEED_CHANGE_MASK;
-diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-index 4b81f29e5fd5..8ea60fdd1b1d 100644
---- a/drivers/gpu/drm/amd/amdgpu/si.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si.c
-@@ -2331,28 +2331,18 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
- 								   gpu_cfg &
- 								   PCI_EXP_LNKCTL_HAWD);
+ 		for (i = 0; i < 4; ++i) {
+ 			pptable->FclkFrequencyTable[i] =
+-				SMUQ10_TO_UINT(metrics->FclkFrequencyTable[i]);
++				SMUQ10_ROUND(metrics->FclkFrequencyTable[i]);
+ 			pptable->UclkFrequencyTable[i] =
+-				SMUQ10_TO_UINT(metrics->UclkFrequencyTable[i]);
+-			pptable->SocclkFrequencyTable[i] = SMUQ10_TO_UINT(
++				SMUQ10_ROUND(metrics->UclkFrequencyTable[i]);
++			pptable->SocclkFrequencyTable[i] = SMUQ10_ROUND(
+ 				metrics->SocclkFrequencyTable[i]);
+ 			pptable->VclkFrequencyTable[i] =
+-				SMUQ10_TO_UINT(metrics->VclkFrequencyTable[i]);
++				SMUQ10_ROUND(metrics->VclkFrequencyTable[i]);
+ 			pptable->DclkFrequencyTable[i] =
+-				SMUQ10_TO_UINT(metrics->DclkFrequencyTable[i]);
++				SMUQ10_ROUND(metrics->DclkFrequencyTable[i]);
+ 			pptable->LclkFrequencyTable[i] =
+-				SMUQ10_TO_UINT(metrics->LclkFrequencyTable[i]);
++				SMUQ10_ROUND(metrics->LclkFrequencyTable[i]);
+ 		}
  
--				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
--							  &tmp16);
--				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
--					   PCI_EXP_LNKCTL2_TX_MARGIN);
--				tmp16 |= (bridge_cfg2 &
--					  (PCI_EXP_LNKCTL2_ENTER_COMP |
--					   PCI_EXP_LNKCTL2_TX_MARGIN));
--				pcie_capability_write_word(root,
--							   PCI_EXP_LNKCTL2,
--							   tmp16);
--
--				pcie_capability_read_word(adev->pdev,
--							  PCI_EXP_LNKCTL2,
--							  &tmp16);
--				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
--					   PCI_EXP_LNKCTL2_TX_MARGIN);
--				tmp16 |= (gpu_cfg2 &
--					  (PCI_EXP_LNKCTL2_ENTER_COMP |
--					   PCI_EXP_LNKCTL2_TX_MARGIN));
--				pcie_capability_write_word(adev->pdev,
--							   PCI_EXP_LNKCTL2,
--							   tmp16);
-+				pcie_capability_clear_and_set_word(root, PCI_EXP_LNKCTL2,
-+								   PCI_EXP_LNKCTL2_ENTER_COMP |
-+								   PCI_EXP_LNKCTL2_TX_MARGIN,
-+								   bridge_cfg2 &
-+								   (PCI_EXP_LNKCTL2_ENTER_COMP |
-+								    PCI_EXP_LNKCTL2_TX_MARGIN));
-+				pcie_capability_clear_and_set_word(adev->pdev, PCI_EXP_LNKCTL2,
-+								   PCI_EXP_LNKCTL2_ENTER_COMP |
-+								   PCI_EXP_LNKCTL2_TX_MARGIN,
-+								   gpu_cfg2 &
-+								   (PCI_EXP_LNKCTL2_ENTER_COMP |
-+								    PCI_EXP_LNKCTL2_TX_MARGIN));
+ 		/* use AID0 serial number by default */
+@@ -730,50 +732,50 @@ static int smu_v13_0_6_get_smu_metrics_data(struct smu_context *smu,
+ 		smu_cmn_get_smc_version(smu, NULL, &smu_version);
+ 		if (smu_version >= 0x552F00) {
+ 			xcc_id = GET_INST(GC, 0);
+-			*value = SMUQ10_TO_UINT(metrics->GfxclkFrequency[xcc_id]);
++			*value = SMUQ10_ROUND(metrics->GfxclkFrequency[xcc_id]);
+ 		} else {
+ 			*value = 0;
+ 		}
+ 		break;
+ 	case METRICS_CURR_SOCCLK:
+ 	case METRICS_AVERAGE_SOCCLK:
+-		*value = SMUQ10_TO_UINT(metrics->SocclkFrequency[0]);
++		*value = SMUQ10_ROUND(metrics->SocclkFrequency[0]);
+ 		break;
+ 	case METRICS_CURR_UCLK:
+ 	case METRICS_AVERAGE_UCLK:
+-		*value = SMUQ10_TO_UINT(metrics->UclkFrequency);
++		*value = SMUQ10_ROUND(metrics->UclkFrequency);
+ 		break;
+ 	case METRICS_CURR_VCLK:
+-		*value = SMUQ10_TO_UINT(metrics->VclkFrequency[0]);
++		*value = SMUQ10_ROUND(metrics->VclkFrequency[0]);
+ 		break;
+ 	case METRICS_CURR_DCLK:
+-		*value = SMUQ10_TO_UINT(metrics->DclkFrequency[0]);
++		*value = SMUQ10_ROUND(metrics->DclkFrequency[0]);
+ 		break;
+ 	case METRICS_CURR_FCLK:
+-		*value = SMUQ10_TO_UINT(metrics->FclkFrequency);
++		*value = SMUQ10_ROUND(metrics->FclkFrequency);
+ 		break;
+ 	case METRICS_AVERAGE_GFXACTIVITY:
+-		*value = SMUQ10_TO_UINT(metrics->SocketGfxBusy);
++		*value = SMUQ10_ROUND(metrics->SocketGfxBusy);
+ 		break;
+ 	case METRICS_AVERAGE_MEMACTIVITY:
+-		*value = SMUQ10_TO_UINT(metrics->DramBandwidthUtilization);
++		*value = SMUQ10_ROUND(metrics->DramBandwidthUtilization);
+ 		break;
+ 	case METRICS_CURR_SOCKETPOWER:
+-		*value = SMUQ10_TO_UINT(metrics->SocketPower) << 8;
++		*value = SMUQ10_ROUND(metrics->SocketPower) << 8;
+ 		break;
+ 	case METRICS_TEMPERATURE_HOTSPOT:
+-		*value = SMUQ10_TO_UINT(metrics->MaxSocketTemperature) *
++		*value = SMUQ10_ROUND(metrics->MaxSocketTemperature) *
+ 			 SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
+ 		break;
+ 	case METRICS_TEMPERATURE_MEM:
+-		*value = SMUQ10_TO_UINT(metrics->MaxHbmTemperature) *
++		*value = SMUQ10_ROUND(metrics->MaxHbmTemperature) *
+ 			 SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
+ 		break;
+ 	/* This is the max of all VRs and not just SOC VR.
+ 	 * No need to define another data type for the same.
+ 	 */
+ 	case METRICS_TEMPERATURE_VRSOC:
+-		*value = SMUQ10_TO_UINT(metrics->MaxVrTemperature) *
++		*value = SMUQ10_ROUND(metrics->MaxVrTemperature) *
+ 			 SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
+ 		break;
+ 	default:
+@@ -1996,33 +1998,33 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
+ 	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 3);
  
- 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
- 				tmp &= ~LC_SET_QUIESCE;
-@@ -2365,16 +2355,15 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
- 	speed_cntl &= ~LC_FORCE_DIS_SW_SPEED_CHANGE;
- 	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
+ 	gpu_metrics->temperature_hotspot =
+-		SMUQ10_TO_UINT(metrics->MaxSocketTemperature);
++		SMUQ10_ROUND(metrics->MaxSocketTemperature);
+ 	/* Individual HBM stack temperature is not reported */
+ 	gpu_metrics->temperature_mem =
+-		SMUQ10_TO_UINT(metrics->MaxHbmTemperature);
++		SMUQ10_ROUND(metrics->MaxHbmTemperature);
+ 	/* Reports max temperature of all voltage rails */
+ 	gpu_metrics->temperature_vrsoc =
+-		SMUQ10_TO_UINT(metrics->MaxVrTemperature);
++		SMUQ10_ROUND(metrics->MaxVrTemperature);
  
--	pcie_capability_read_word(adev->pdev, PCI_EXP_LNKCTL2, &tmp16);
--	tmp16 &= ~PCI_EXP_LNKCTL2_TLS;
--
-+	tmp16 = 0;
- 	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)
- 		tmp16 |= PCI_EXP_LNKCTL2_TLS_8_0GT; /* gen3 */
- 	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN2)
- 		tmp16 |= PCI_EXP_LNKCTL2_TLS_5_0GT; /* gen2 */
- 	else
- 		tmp16 |= PCI_EXP_LNKCTL2_TLS_2_5GT; /* gen1 */
--	pcie_capability_write_word(adev->pdev, PCI_EXP_LNKCTL2, tmp16);
-+	pcie_capability_clear_and_set_word(adev->pdev, PCI_EXP_LNKCTL2,
-+					   PCI_EXP_LNKCTL2_TLS, tmp16);
+ 	gpu_metrics->average_gfx_activity =
+-		SMUQ10_TO_UINT(metrics->SocketGfxBusy);
++		SMUQ10_ROUND(metrics->SocketGfxBusy);
+ 	gpu_metrics->average_umc_activity =
+-		SMUQ10_TO_UINT(metrics->DramBandwidthUtilization);
++		SMUQ10_ROUND(metrics->DramBandwidthUtilization);
  
- 	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
- 	speed_cntl |= LC_INITIATE_LINK_SPEED_CHANGE;
+ 	gpu_metrics->average_socket_power =
+-		SMUQ10_TO_UINT(metrics->SocketPower);
++		SMUQ10_ROUND(metrics->SocketPower);
+ 	/* Energy counter reported in 15.259uJ (2^-16) units */
+ 	gpu_metrics->energy_accumulator = metrics->SocketEnergyAcc;
+ 
+ 	gpu_metrics->current_gfxclk =
+-		SMUQ10_TO_UINT(metrics->GfxclkFrequency[xcc0]);
++		SMUQ10_ROUND(metrics->GfxclkFrequency[xcc0]);
+ 	gpu_metrics->current_socclk =
+-		SMUQ10_TO_UINT(metrics->SocclkFrequency[inst0]);
+-	gpu_metrics->current_uclk = SMUQ10_TO_UINT(metrics->UclkFrequency);
++		SMUQ10_ROUND(metrics->SocclkFrequency[inst0]);
++	gpu_metrics->current_uclk = SMUQ10_ROUND(metrics->UclkFrequency);
+ 	gpu_metrics->current_vclk0 =
+-		SMUQ10_TO_UINT(metrics->VclkFrequency[inst0]);
++		SMUQ10_ROUND(metrics->VclkFrequency[inst0]);
+ 	gpu_metrics->current_dclk0 =
+-		SMUQ10_TO_UINT(metrics->DclkFrequency[inst0]);
++		SMUQ10_ROUND(metrics->DclkFrequency[inst0]);
+ 
+ 	gpu_metrics->average_gfxclk_frequency = gpu_metrics->current_gfxclk;
+ 	gpu_metrics->average_socclk_frequency = gpu_metrics->current_socclk;
+@@ -2047,9 +2049,9 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
+ 	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
+ 
+ 	gpu_metrics->gfx_activity_acc =
+-		SMUQ10_TO_UINT(metrics->SocketGfxBusyAcc);
++		SMUQ10_ROUND(metrics->SocketGfxBusyAcc);
+ 	gpu_metrics->mem_activity_acc =
+-		SMUQ10_TO_UINT(metrics->DramBandwidthUtilizationAcc);
++		SMUQ10_ROUND(metrics->DramBandwidthUtilizationAcc);
+ 
+ 	gpu_metrics->firmware_timestamp = metrics->Timestamp;
+ 
 -- 
-2.30.2
+2.25.1
 
