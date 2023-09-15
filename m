@@ -4,114 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70192EE643D
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Sep 2023 08:16:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 947F7EE6449
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Sep 2023 08:54:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0724510E5C8;
-	Fri, 15 Sep 2023 08:16:22 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2059.outbound.protection.outlook.com [40.107.223.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D6A010E5C8
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Sep 2023 08:16:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F33210E5D1;
+	Fri, 15 Sep 2023 08:54:05 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2064.outbound.protection.outlook.com [40.107.101.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB0A810E16E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Sep 2023 08:54:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dKCjx8KSywuyOi2T5Pru1S3xGgErKTgreBC8ypteTrBDpWX9BfZe5KgLLbcydg+pIj7nA85DtDi2UFyyPS2XQ/GyposRPT5t9f0T7rg5rJTkwBb/NJDHRHZjR0zuGWwYhTQ8p0XWV8JCO1UVpo2E6GHuClJNX6PB61yX1GLczB1wnZUWq3YFiRw/qCER5L3rMTOwRLsj4stCNdRWzDMZHuWtpXUUjAl2UhQoHv1iNQ4D3FBRA6gkgUT4keHv1/tZt2CUCXGGON6dDV/TVYTFWAPlpsJoo+MdWeavLVv8MzLF91CDHXN5wmuKZ2IqkQpJ/3Yeui7Wcc7j7zTMNChAIA==
+ b=bJTQa4GC/6WRhkzuxGjJW3DKnNUxIRNpcf9MGccVfU8Yci+ax/eDDxPsRwfLTDBOUE2VH83y4m3+v8hy1P9cDoQmU5584i6d2mMnWjlbUqJA77wRRemyUfkSRCvlrfxTv7X3iOzmBhY20Iva2p3mAWbDmcSoCciyvgF0POcohzN2AV3akmWEtmciGjjjdt5PB163G5OLw4ERe5R3jkMOavHyPckl50fzjbePLWHk/aZqoIiO9lU2SnKNYO+zoTx+XsP7HQt7O3rgo9M1g8exFJ090mWt7SU2WTGQzwqnVMUZjD86gaASeZJZdAyCU3h3nSqaF/wdvEQvM6gvTSOPWw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iTpxoTDOWWTzatq7RKx3AMeJwDdy8XFZIVsVd8kKkUg=;
- b=bxzJI4z3dv5HVVhuF8xvX6CNgS2s24tgaljk+ksYItIg/URX7MoaiOepURK5nPRpecXkcMYxypKqv0S5xHa4bCUs+X3CBrWQcvDwI4zww1+flfJhWqD720Mg4HCjgRI3K7euV6MwHz9jYzyWvcANkfdLMu71PHmJeeGF7U9aUs1t5Wd1VnIHCoHQCADypZTe39orvp4VBub8iteZPnPPSf23jpAG5TzAu9q/8+s/FtSQGNjhRdoyTQ/oCLL9b6gDWE/Ez18pdCfkzCDxU13cVgjcCLE492q9a0PFDRrNBD4+V77uivZt7vTwnH6NIimy/FEBh5All2T3YIaw8LmtZw==
+ bh=28aS58c5R6gDFoohf46C/eaU6Z3Wb/cSALBuljSYgd4=;
+ b=lLqn7yxsJlefpp6IiYE2rDAtT3ub1vbJLJxSGuvN1VBB6jd5QRCQLdxXdjRSfSYRv1N0d1IkAdXYYWVUo7xAojstsCLAYSBHLVFotkbZxICHhv+d14kTPiLHW2NXIfhKHx2RQdECD9Q7mMGyEonYCCL4v29we8wDlwuXvTUr06EjyZLCTrRIpaDtTdXAPGjkIIt75rnb1fhKYqk3ZXbfJUJWFFR4648rzEnmGh23fHr2HHmcbsIia9+4XGXU+dEIxKqdkGs7Sh8jXzCZClmP9xW6wHYLJbsy82t6kD2xXd/n4W6t5uZ0M1iWlzIEnAWGrXSbp1lHIid/qAkrz8WvbQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iTpxoTDOWWTzatq7RKx3AMeJwDdy8XFZIVsVd8kKkUg=;
- b=4/3SHsrmh81m9vg5H2L2qLdOe8V4ZH+UEDG6ceagyPJTSqR7tIbKOk2qxK2dlc8pZQc2u346oTTijMLa6/g+Fp6vOcIwiVC0uPPupdWCscWPOg2kIzR+Bsxt4TVhSBFIedvP6lO/mdR2Yi+X4+KgYfnX2MOERyVziXlhJy2LA/g=
+ bh=28aS58c5R6gDFoohf46C/eaU6Z3Wb/cSALBuljSYgd4=;
+ b=UmuPVYASJZP5cWoh5UtWGlztJSwmzimyutnBedAioIzNK4bYlFGehEF4T1m+O6F9u6+9dbSor7MBwB7jcrz9nmrv/30xzd4zYaBDmVYFuY7ht6pvLQebFi2kyZ5lph1lrfLUSlLHo8esACoi+QrKdkdc8DmbFyi95f4MiGzj/h0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
- by DM6PR12MB4976.namprd12.prod.outlook.com (2603:10b6:5:1ba::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.20; Fri, 15 Sep
- 2023 08:16:16 +0000
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::d8f7:4906:d21e:f0ab]) by BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::d8f7:4906:d21e:f0ab%6]) with mapi id 15.20.6792.020; Fri, 15 Sep 2023
- 08:16:15 +0000
-Message-ID: <0dea2b3b-faf9-54a2-2421-d83e7e1e65e4@amd.com>
-Date: Fri, 15 Sep 2023 13:46:04 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.1
-Subject: Re: [PATCH] drm/amdgpu: use error code EOPNOTSUPP instead of ENOTSUPPT
-Content-Language: en-US
-To: Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230915000605.1597561-1-kevinyang.wang@amd.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20230915000605.1597561-1-kevinyang.wang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0031.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:22::6) To BYAPR12MB4614.namprd12.prod.outlook.com
- (2603:10b6:a03:a6::22)
+Received: from MW6PR12MB8898.namprd12.prod.outlook.com (2603:10b6:303:246::8)
+ by IA1PR12MB7494.namprd12.prod.outlook.com (2603:10b6:208:41a::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.30; Fri, 15 Sep
+ 2023 08:53:59 +0000
+Received: from MW6PR12MB8898.namprd12.prod.outlook.com
+ ([fe80::a67a:d5d:8219:56ce]) by MW6PR12MB8898.namprd12.prod.outlook.com
+ ([fe80::a67a:d5d:8219:56ce%3]) with mapi id 15.20.6768.041; Fri, 15 Sep 2023
+ 08:53:58 +0000
+Date: Fri, 15 Sep 2023 16:53:45 +0800
+From: Lang Yu <Lang.Yu@amd.com>
+To: Felix Kuehling <felix.kuehling@amd.com>
+Subject: Re: [PATCH v2] drm/amdgpu: always use legacy tlb flush on
+ cyan_skilfish
+Message-ID: <ZQQbmfuivo/F+b9o@lang-desktop>
+References: <20230914092350.3512016-1-Lang.Yu@amd.com>
+ <40c096af-6c59-ce6d-af26-5cce7bceab83@amd.com>
+ <1317e1a5-b1c0-2c3d-6082-b628fde5ab4d@amd.com>
+ <745145aa-76fb-bb17-6065-c5e29c37f3c6@amd.com>
+ <e7913001-ff45-169d-7110-3f2bef86208a@amd.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <e7913001-ff45-169d-7110-3f2bef86208a@amd.com>
+X-ClientProxiedBy: SI1PR02CA0060.apcprd02.prod.outlook.com
+ (2603:1096:4:1f5::17) To MW6PR12MB8898.namprd12.prod.outlook.com
+ (2603:10b6:303:246::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR12MB4614:EE_|DM6PR12MB4976:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9a9182a8-6871-4957-3657-08dbb5c407ef
+X-MS-TrafficTypeDiagnostic: MW6PR12MB8898:EE_|IA1PR12MB7494:EE_
+X-MS-Office365-Filtering-Correlation-Id: 970c632f-990d-4ab7-75a2-08dbb5c94c51
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Nqir3Jwf9VbyybpY5Y2KLxGbexshM6Lg8mZdHkWuwmtAoz6buwRYdmbcKlehRsfMI2CzTNWebtAR0FBF6d47ROIUB9jO5hqiBzY3gz1I30xEPtQzUa6kZxdfttqC0nAZ6fMsFWVv4rtcujQTGbPClGUsyQD2PTo7UF/H4z5ClmcY2KsrsUGsnOb+xK9xRKUhOeF7pXn1SIf3pkOSuVr7YFolC3k9hD8LVy4Caqognu5CYL5y/wlQFp3yPDDJw1IkFDQO6Iir8Xk/pakW5GRfbVzrCcukKI5rY/9curchMAQWUe7tYNumVPQnSLBU/5bWMgjUMbURFY4nCunCsdPnG30lrds8gtzahYAHr4UVpcNC1Tj8mWknher786GBsRbqLera7ewp+OfD8uTOzhg1VzXM9VWHtJFUNXrd+/2PuoM1FYTrzZVzwqUlALd9N1SdQjwr/fx4N64ufuyzf8oWBc5ANBH9LVyVi70z4ES7KVwXfoZq19ZSGv+5iXr/qiqxoCfezDli+HKOmcOz/lxw6GtmRI26EzViYlXZMELXz2mRks7gSwiV+uMPtCOw1uUr1amxfSUZ3jv00IOCOCurHoP+9/FbJu1rAv2M7YU/ndsP2Q2+lZgu3scMgjyHL29DcEtNB8/ar40O/i4fL17+hw==
+X-Microsoft-Antispam-Message-Info: fXxlEfIhSNXI/FfcfpmOCBJvCv0qhqn1BPdmJODGy3RbNdo4BZAZx4wsm2O/uKsS5TldqDI4iDMQ7hgo9c++bGdXHAzGPFFZFbRg9lvwXFc324m05x+I+gq4aqouxq2liCTxdBZXcPXgiE4YsPVsOdvwpFcM1ITcJ/URnDXFBBC+tq8anXPE3xzA22c41n2GiWB1U7vP9NxTSQkn5NVr97CZrbhBQqke0hghSfWNVirA0bRXvAC6TGCFHWZrQHEyQM2h9GazIelJoRTzOAP+wW0OWKwRhDfaoHgyPBLJjM0hBWKwKjI/Xi/kfn03EfyRpTukQUpIbt1PLdBeXgaoUjCw//2AMNs8qu/wSoXuJCLEj+kM/nhWGT0bnBMu8tzv8UXnUxPIh/+mEBscv9S6nVBsmjcnIVpDdznCLVAPJa/tZi4UmAzG8eJ+6EiQ8YFQb15PW2y2QlwBcBimx0NypTvQdfO2J2znvJ0p/9rEHss3c6wMBWyzxyYrEtniFh0+C3vqYSDs/NjGsZubqjFO4gtOyerSgVD1kFUCWa2ZXosrHU8HKQn25lQ96o1eX1io
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(376002)(396003)(346002)(366004)(136003)(451199024)(1800799009)(186009)(26005)(2616005)(478600001)(6666004)(6512007)(6506007)(6486002)(53546011)(2906002)(30864003)(31696002)(86362001)(5660300002)(8936002)(36756003)(8676002)(41300700001)(66476007)(66556008)(66946007)(316002)(31686004)(83380400001)(38100700002)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:MW6PR12MB8898.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(7916004)(376002)(39860400002)(396003)(136003)(366004)(346002)(451199024)(1800799009)(186009)(66899024)(6486002)(53546011)(6666004)(6506007)(38100700002)(86362001)(54906003)(2906002)(5660300002)(9686003)(83380400001)(478600001)(41300700001)(66476007)(6862004)(26005)(66574015)(6512007)(4326008)(66946007)(66556008)(8936002)(316002)(33716001)(6636002)(8676002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MXltOWxrYktVc01SSGVlZno1emY2dG4yL2JjSGJmandWazZHa21RcGJ3aVZU?=
- =?utf-8?B?NWhVdUNEQUp6TEIvNlBpRHNwdVFJYURLVHdxK1ZsWWJ5dTBnU2tPTXNQalox?=
- =?utf-8?B?bnF3QUVqVTRRcDRHaXo1cVBhS3hnWE9CeTJiTDhhTUZlQ0pYbXpXamNod2xv?=
- =?utf-8?B?elBFbkNXQmhFTzlFODZoYXRzQUI2N3RvckdyYTl6eFovWi9mckNxZEUvVmk0?=
- =?utf-8?B?SEI2N0F2cnRwTE1lVXZaZDhnc2Q4N0ZJWHhxUnA1UCtoZnVZeXVOcTNFSWxL?=
- =?utf-8?B?UGxCTVo2V2J1cDQyYkczdnRobVZnd09ZdXdwbDI4RmROYUR6WkNsZFVDZGdr?=
- =?utf-8?B?N2dTaTQvZGIxQzIwY0hnd0lwdEh6RThPcTVqWDlzVHlHRzladjZJN3JjcE9G?=
- =?utf-8?B?YkkxSmRYSlRJSjg4Z1BoS3lFZ1B6cTJieHo1OGZrWTVjbk5aWE56bUlTL2Yr?=
- =?utf-8?B?NWtsU2lpWTQwUEZBcU4xTGJNNXMvR2E2MStQTlNUR0s2ejduWWVBV1M1T04v?=
- =?utf-8?B?M0tKcXV6WHYrVXR4aWZjOWhpaGFKeERMa29vc1pzRXU3MisvUkxoQ3hFWUZi?=
- =?utf-8?B?cWZiVmdYYlYyKzBRTEZ0aWV2bm9zdnNIekk4LzR4TDZiZDRoUnYyMTFvbnJI?=
- =?utf-8?B?dTkzQ1lqeWM5SXRxMEJLaVpnZVgvQXlhdXpycGFpb2Q4blh6d2FLU3BXWnQ2?=
- =?utf-8?B?NHAyYkZJTkYrSVc1dEZHQ0Z0UnA0L0ZpWjlIME5KdlFQMFJjSjN3ZGJ1Zlh6?=
- =?utf-8?B?ZExjVzJuUEhjTkdTb1RQR0lhcHZvWXlhZnpHbVZKS21OMmdYMElwbFFBK3F6?=
- =?utf-8?B?Qkdsc29nbWlPREhGRjdHTE5LbXRwTDBXTTl1clFhWWlRekJMV08ycEVrdStM?=
- =?utf-8?B?TlNsSHZCUkExc2FULytuR3I4QnJCUGg4Nm5XaXU5WE1ueHM5U0tuaFNzeGQ4?=
- =?utf-8?B?Yzd5YlRKNGR2NjBHTGxtS21vVmtpZWNKRXk0RTJJUW5VRnYvVWpvY0VjVUp2?=
- =?utf-8?B?ZmJSeWpkNytrcklTcWk3WVJyd0x3TFBIQ1FkZW9sUmNkRGNJdXFNaW9LMDNJ?=
- =?utf-8?B?WlliRW1SejlwdVZQaXVkellPOWE5OVJxR3p6QWEyanF2NEtpUUdGWnQya1JM?=
- =?utf-8?B?NTNrR2pYZVJiUVNqMDI2aUdtZkdNUzFvNHpaVVVzUUQ4UXlrRjVYVUhOcWhq?=
- =?utf-8?B?UEc0OHRPSExRV2J6QzBQWkVsNGlrUGpnMCtlb0VZMXRFbDFGa3BMRWhwaDlC?=
- =?utf-8?B?Ymw2eWRBVm92R0d1cytyR2t2Tks5L3B0OVNjTm9UdHBUS1p1N0kzZ3ZseEUv?=
- =?utf-8?B?MUhFUUtvdnRiVTdXNUM1RUlveVU1OHRjVUFQaWx6MHBRVnNNNUwxL0JJZi9v?=
- =?utf-8?B?S2Z2d0gwUVM5emh3eFB3M3RxWjloblhOdk1ZVURMRHVDTUw0RmlQa2paUGNC?=
- =?utf-8?B?Y3JlZnMzUWtWVlJkNkY5WSs5bnkwWnQ4YkpjSDRhbGJkS3diZkxyMlpVbndv?=
- =?utf-8?B?MGFWemJoKzkvZXl6UVR6U1VnK1BvS1NuZm1HaVlQM0lnUitXbUdUS0JVRThu?=
- =?utf-8?B?Szc2S2QxMCtYZE10eUpydXU4WVYycm1MdWNhUkpYWE5jbTV2RTNUell0TXZB?=
- =?utf-8?B?UDZla2xxTUFHUUpvZkNEcTlCSjhvVlN4dUhNWmwyMm1sT0lDNmtYYUJtd0F1?=
- =?utf-8?B?bTdGRjQ4cnBBQURjZ010T24yRXBaUVUvQk9mcFhPVXhiTHV2ZUtvQjV0OVNY?=
- =?utf-8?B?WUZIR2FqZ1ZvYVVFdjJNZ2ZZNlJhWFlQbmtiVk1PRTMvSnNvWUcrS3oxUVBH?=
- =?utf-8?B?TXRLU1BxdHVkUUxKZFhTL1FLZTN2blRkTDJ4TUt6bkJEMW9aSlJxMGR0UEZ6?=
- =?utf-8?B?T20rVXd4ZmhBVFFXRHhOUFphV0EzMkVhUlJCSE9qMlBGYjhnbWNoSFRyNXRq?=
- =?utf-8?B?emlkekttS2dYTkFiS2diaVhnczRZT3FmaWN3bXd3bnNxQmFsMHliQWEzdFBI?=
- =?utf-8?B?dGJtUGZJZmJ5Njg4ZjQzakN2bDBkRFVmMnF0Y1QxTjZCYlZOVzZ0NDBZeDRN?=
- =?utf-8?B?cHJMeHpZREJhRGJ5NlIwcHp0aHkxdWZaQ0p5aXFNa0llVWlKUThQVncwcUYy?=
- =?utf-8?Q?Mw3jwMDmhbVlwQ/A4bH4rWql6?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?JeMV+Rhh1iGdqGExFBg5LeCPhV0JcL3Fbi807jvc+N9Dzb0+qVZWPaKH9U?=
+ =?iso-8859-1?Q?ASAhnBmEeMauM7dU2Bji2D7wLfBYLp5EtKEuzd6Oc73aYlq5M5QWcNU4Gt?=
+ =?iso-8859-1?Q?NgL2flOPRa9K62ZAqHVs8Hzaj7W+iylvj20PSuF066UG3HytM5Ut/1CZuW?=
+ =?iso-8859-1?Q?ArPgZalhiw4VgZ6Z3766Uc25kgYaxznMknQgWq0F+SpEA86QPhTZzPfP5k?=
+ =?iso-8859-1?Q?85fXMBa7ikotAhHyHeXl5enoIXP2Ppyknj7qPMzB+ruBjECTd3HM2Q5XYf?=
+ =?iso-8859-1?Q?56gkmFVyrd6cOyGofDe3+l3mFTnD+HrpSuqn/ZixVEoKl7euIw4qvdTfoz?=
+ =?iso-8859-1?Q?TDRp+jA3eTlPrTO7gwLGBPxYI353FeMg1mHtotzDOFm/dcrTtYs5Drmqo1?=
+ =?iso-8859-1?Q?xcn8HOqGBpIW/1E5ArbNr+2n7KIMYQS2uAfmNeyi4HIu7C1H0Y+kkrO4xA?=
+ =?iso-8859-1?Q?WOMzMyCOwaGJ1t9dtezdKU4vz9zlRXezc17/oJa1ZfSZh4Zeg84C8vxe/L?=
+ =?iso-8859-1?Q?s2pn2WGC9USF8bcB28k7OBFVq1WcCeI3kmQnUOvsOv/p4Wc1GKfmBo/y2h?=
+ =?iso-8859-1?Q?Pz3JZyHYdEdPlwyEg6Gl0Rvu4urA9iDH+izvv7IUCeBSJAEhYqKR4jmArw?=
+ =?iso-8859-1?Q?3s/5dyfsgKxUWTc/KD73l7GhK+H6vHvE2rtk8SrCl3E0CL0tEI7HrD1CZr?=
+ =?iso-8859-1?Q?D7TC0dJhF0rR6+ZdT/g1mTyHtGocEwSatkHgAJEHiClkcbeEOfN5CzTse6?=
+ =?iso-8859-1?Q?MeHYpIkHT7pBMNy2YHHq845c5HPZ5hvpz70Q8GhOFhNUw7EaMt9+r6NCpU?=
+ =?iso-8859-1?Q?iWkY/xQtpgv71PDawETwmiY84sIYHovz565ghhtulVhDEMeVBLCPO0jVf/?=
+ =?iso-8859-1?Q?WpkGalwxopSxYE+Lr2MQrFOOBfnfkWxljiz27VASDezPqbys4LKHHGMH8/?=
+ =?iso-8859-1?Q?U3u6oBQkPqYXRKoff+eCPl668yrzGRax3RYOm/lFiqNmh21LSdUQunwvs4?=
+ =?iso-8859-1?Q?VZMw1UpwFyGdx5maaWOelEU8LVR0MXOqTEA2yLXbnGLemEgi/nkePWZKgC?=
+ =?iso-8859-1?Q?f+k/Ij4fZd8KGoH7HabFVr2l25NnGOwNCMKX39hWVeb09WRMm4JDeix4VG?=
+ =?iso-8859-1?Q?Cp5mYt5C31JJUjYPrBADHaWGJRR1JerMMr9lLJDZRgUkWWcEAW/FZPy7u1?=
+ =?iso-8859-1?Q?0jr0TEjoC9LSx0pKcFp9O4ziozc8fkEplXaZD2oF11H8oIOIdBY7Hw9H7r?=
+ =?iso-8859-1?Q?tw7kxLWhN+FrBz2lzhKL8lI43wd9Xmnx3WhScy9LXdZE1MLLbhO+6VwIdM?=
+ =?iso-8859-1?Q?26hkLrHAih57pifnvfI1AcMGqscfp5T+JLretOINqpQ6ByDEcrI25mWurR?=
+ =?iso-8859-1?Q?qL+m3qhBuxuXwFjAUutoKseACUxvb1emYC+BUDZ1r3LZggjGqZaLLCOmHN?=
+ =?iso-8859-1?Q?01e1Tyn9Zq/+7JWtDtsHEl7AwSahBOqyTca1TxGZFd/112pOR3yrec1xdi?=
+ =?iso-8859-1?Q?DqnG9vHbKstsGrZRVwhn1DLHCux5VPWfaxD1YzM+w43sQKuEF7Z4YcLBt0?=
+ =?iso-8859-1?Q?vzJeCMUvQgZTdrh1zPSWEbt6VKJDIXKAh3d/Em4hVRibqgiw2s0FIIgGqF?=
+ =?iso-8859-1?Q?YZa6BRrpznkE5Skqb+PfTgbITHWGJi4Zno?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a9182a8-6871-4957-3657-08dbb5c407ef
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 970c632f-990d-4ab7-75a2-08dbb5c94c51
+X-MS-Exchange-CrossTenant-AuthSource: MW6PR12MB8898.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2023 08:16:15.7767 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2023 08:53:58.5693 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S/oVgrySM94gGtC3athG0tyw0jtafgVKJchSkOBqt1bkjlmMM1dL020PFr+eiQrS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4976
+X-MS-Exchange-CrossTenant-UserPrincipalName: t6JWn08UIdZOo0ye6G42u7VsQRr1l5yd90+KIL9Re3hpsGgxTI2t84otW0smHQEBvfogo+NjygzjhsVBej7T4Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7494
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,369 +118,138 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>, stable@vger.kernel.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 09/14/ , Felix Kuehling wrote:
+> On 2023-09-14 10:02, Christian König wrote:
+
+Do we still need to use legacy flush to emulate heavyweight flush
+if we don't use SVM? And can I push this now?
+
+Regards,
+Lang
 
 
-On 9/15/2023 5:36 AM, Yang Wang wrote:
-> WARNING: ENOTSUPP is not a SUSV4 error code, prefer EOPNOTSUPP
+> > 
+> > Am 14.09.23 um 15:59 schrieb Felix Kuehling:
+> > > 
+> > > On 2023-09-14 9:39, Christian König wrote:
+> > > > Is a single legacy flush sufficient to emulate an heavyweight
+> > > > flush as well?
+> > > > 
+> > > > On previous generations we needed to issue at least two legacy
+> > > > flushes for this.
+> > > I assume you are referring to the Vega20 XGMI workaround. That is a
+> > > very different issue. Because PTEs would be cached in L2, we had to
+> > > always use a heavy-weight flush that would also flush the L2 cache
+> > > as well, and follow that with another legacy flush to deal with race
+> > > conditions where stale PTEs could be re-fetched from L2 before the
+> > > L2 flush was complete.
+> > 
+> > No, we also have another (badly documented) workaround which issues a
+> > legacy flush before each heavy weight on some hw generations. See the my
+> > TLB flush cleanup patches.
+> > 
+> > > 
+> > > A heavy-weight flush guarantees that there are no more possible
+> > > memory accesses using the old PTEs. With physically addressed caches
+> > > on GFXv9 that includes a cache flush because the address translation
+> > > happened before putting data into the cache. I think the address
+> > > translation and cache architecture works differently on GFXv10. So
+> > > maybe the cache-flush is not required here.
+> > > 
+> > > But even then a legacy flush probably allows for in-flight memory
+> > > accesses with old physical addresses to complete after the TLB
+> > > flush. So there is a small risk of memory corruption that was
+> > > assumed to not be accessed by the GPU any more. Or when using IOMMU
+> > > device isolation it would result in IOMMU faults if the DMA mappings
+> > > are invalidated slightly too early.
+> > 
+> > Mhm, that's quite bad. Any idea how to avoid that?
 > 
-> $ find drivers/gpu/drm/amd -type f \
->    -exec sed -i 's/\-ENOTSUPP/\-EOPNOTSUPP/g' {} \;
+> A few ideas
 > 
-> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c     |  6 +++---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c        |  2 +-
->   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c         |  2 +-
->   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c       |  2 +-
->   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c      |  2 +-
->   .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c    |  6 +++---
->   .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    |  4 ++--
->   .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   | 18 +++++++++---------
->   .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   | 18 +++++++++---------
->   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c         |  4 ++--
->   10 files changed, 32 insertions(+), 32 deletions(-)
+>  * Add an arbitrary delay and hope that it is longer than the FIFOs in
+>    the HW
+>  * Execute an atomic operation to memory on some GPU engine that could
+>    act as a fence, maybe just a RELEASE_MEM on the CP to some writeback
+>    location would do the job
+>  * If needed, RELEASE_MEM could also perform a cache flush
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index e055e06d020c..a7f0b6ccd137 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1268,7 +1268,7 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
->   	r = pci_resize_resource(adev->pdev, 0, rbar_size);
->   	if (r == -ENOSPC)
->   		DRM_INFO("Not enough PCI address space for a large BAR.");
-> -	else if (r && r != -ENOTSUPP)
-> +	else if (r && r != -EOPNOTSUPP)
-
-pci_resize_resource returns -ENOTSUPP.
-
->   		DRM_ERROR("Problem resizing BAR0 (%d).", r);
->   
->   	pci_assign_unassigned_bus_resources(adev->pdev->bus);
-> @@ -5747,7 +5747,7 @@ int amdgpu_device_baco_enter(struct drm_device *dev)
->   	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
->   
->   	if (!amdgpu_device_supports_baco(dev))
-> -		return -ENOTSUPP;
-> +		return -EOPNOTSUPP;
->   
->   	if (ras && adev->ras_enabled &&
->   	    adev->nbio.funcs->enable_doorbell_interrupt)
-> @@ -5763,7 +5763,7 @@ int amdgpu_device_baco_exit(struct drm_device *dev)
->   	int ret = 0;
->   
->   	if (!amdgpu_device_supports_baco(dev))
-> -		return -ENOTSUPP;
-> +		return -EOPNOTSUPP;
->   
->   	ret = amdgpu_dpm_baco_exit(adev);
->   	if (ret)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index e3471293846f..ffd7035603cd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2126,7 +2126,7 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
->   	    ((flags & AMD_ASIC_MASK) == CHIP_RAVEN)) {
->   		dev_info(&pdev->dev,
->   			 "SME is not compatible with RAVEN\n");
-> -		return -ENOTSUPP;
-> +		return -EOPNOTSUPP;
-
-Since pci base considers this as a valid one, I think it's ok to retain 
--ENOTSUPP.
-
-For few external ones like *_od_edit_dpm_table, need to be cautious as 
-the user apps may be checking against older error code.
-
-Thanks,
-Lijo
-
->   	}
->   
->   #ifdef CONFIG_DRM_AMDGPU_SI
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index 42fc0cc13fdd..e31b7f9fcddc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -867,7 +867,7 @@ static int gfx_v11_0_get_gfx_shadow_info(struct amdgpu_device *adev,
->   		return 0;
->   	} else {
->   		memset(shadow_info, 0, sizeof(struct amdgpu_gfx_shadow_info));
-> -		return -ENOTSUPP;
-> +		return -EOPNOTSUPP;
->   	}
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index 65d2b9ae16bb..120b815a3f27 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -262,7 +262,7 @@ static int set_queue_properties_from_user(struct queue_properties *q_properties,
->   	else if (args->queue_type == KFD_IOC_QUEUE_TYPE_SDMA_XGMI)
->   		q_properties->type = KFD_QUEUE_TYPE_SDMA_XGMI;
->   	else
-> -		return -ENOTSUPP;
-> +		return -EOPNOTSUPP;
->   
->   	if (args->queue_type == KFD_IOC_QUEUE_TYPE_COMPUTE_AQL)
->   		q_properties->format = KFD_QUEUE_FORMAT_AQL;
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> index e6f1620acdd4..2c88dbe2d718 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -147,7 +147,7 @@ int smu_get_dpm_freq_range(struct smu_context *smu,
->   			   uint32_t *min,
->   			   uint32_t *max)
->   {
-> -	int ret = -ENOTSUPP;
-> +	int ret = -EOPNOTSUPP;
->   
->   	if (!min && !max)
->   		return -EINVAL;
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> index 650482cedd1f..f48ec6c62307 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> @@ -2591,7 +2591,7 @@ static int navi10_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM_TABL
->   	case PP_OD_EDIT_SCLK_VDDC_TABLE:
->   		if (!navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_GFXCLK_LIMITS)) {
->   			dev_warn(smu->adev->dev, "GFXCLK_LIMITS not supported!\n");
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   		}
->   		if (!table_context->overdrive_table) {
->   			dev_err(smu->adev->dev, "Overdrive is not initialized\n");
-> @@ -2637,7 +2637,7 @@ static int navi10_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM_TABL
->   	case PP_OD_EDIT_MCLK_VDDC_TABLE:
->   		if (!navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_UCLK_MAX)) {
->   			dev_warn(smu->adev->dev, "UCLK_MAX not supported!\n");
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   		}
->   		if (size < 2) {
->   			dev_info(smu->adev->dev, "invalid number of parameters: %d\n", size);
-> @@ -2680,7 +2680,7 @@ static int navi10_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM_TABL
->   	case PP_OD_EDIT_VDDC_CURVE:
->   		if (!navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_GFXCLK_CURVE)) {
->   			dev_warn(smu->adev->dev, "GFXCLK_CURVE not supported!\n");
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   		}
->   		if (size < 3) {
->   			dev_info(smu->adev->dev, "invalid number of parameters: %d\n", size);
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> index 164c2264027d..828e6676e713 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> @@ -2256,7 +2256,7 @@ static int sienna_cichlid_od_edit_dpm_table(struct smu_context *smu,
->   		if (!sienna_cichlid_is_od_feature_supported(od_settings,
->   							    SMU_11_0_7_ODCAP_GFXCLK_LIMITS)) {
->   			dev_warn(smu->adev->dev, "GFXCLK_LIMITS not supported!\n");
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   		}
->   
->   		for (i = 0; i < size; i += 2) {
-> @@ -2306,7 +2306,7 @@ static int sienna_cichlid_od_edit_dpm_table(struct smu_context *smu,
->   	case PP_OD_EDIT_MCLK_VDDC_TABLE:
->   		if (!sienna_cichlid_is_od_feature_supported(od_settings, SMU_11_0_7_ODCAP_UCLK_LIMITS)) {
->   			dev_warn(smu->adev->dev, "UCLK_LIMITS not supported!\n");
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   		}
->   
->   		for (i = 0; i < size; i += 2) {
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> index a3cbe15c3123..a928ed20884c 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> @@ -1529,7 +1529,7 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
->   	case PP_OD_EDIT_SCLK_VDDC_TABLE:
->   		if (!smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATURE_GFXCLK_BIT)) {
->   			dev_warn(adev->dev, "GFXCLK_LIMITS setting not supported!\n");
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   		}
->   
->   		for (i = 0; i < size; i += 2) {
-> @@ -1590,7 +1590,7 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
->   	case PP_OD_EDIT_MCLK_VDDC_TABLE:
->   		if (!smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATURE_UCLK_BIT)) {
->   			dev_warn(adev->dev, "UCLK_LIMITS setting not supported!\n");
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   		}
->   
->   		for (i = 0; i < size; i += 2) {
-> @@ -1651,7 +1651,7 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
->   	case PP_OD_EDIT_VDDGFX_OFFSET:
->   		if (!smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATURE_GFX_VF_CURVE_BIT)) {
->   			dev_warn(adev->dev, "Gfx offset setting not supported!\n");
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   		}
->   
->   		smu_v13_0_0_get_od_setting_limits(smu,
-> @@ -1673,7 +1673,7 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
->   	case PP_OD_EDIT_FAN_CURVE:
->   		if (!smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATURE_FAN_CURVE_BIT)) {
->   			dev_warn(adev->dev, "Fan curve setting not supported!\n");
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   		}
->   
->   		if (input[0] >= NUM_OD_FAN_MAX_POINTS - 1 ||
-> @@ -1711,7 +1711,7 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
->   	case PP_OD_EDIT_ACOUSTIC_LIMIT:
->   		if (!smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATURE_FAN_CURVE_BIT)) {
->   			dev_warn(adev->dev, "Fan curve setting not supported!\n");
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   		}
->   
->   		smu_v13_0_0_get_od_setting_limits(smu,
-> @@ -1733,7 +1733,7 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
->   	case PP_OD_EDIT_ACOUSTIC_TARGET:
->   		if (!smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATURE_FAN_CURVE_BIT)) {
->   			dev_warn(adev->dev, "Fan curve setting not supported!\n");
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   		}
->   
->   		smu_v13_0_0_get_od_setting_limits(smu,
-> @@ -1755,7 +1755,7 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
->   	case PP_OD_EDIT_FAN_TARGET_TEMPERATURE:
->   		if (!smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATURE_FAN_CURVE_BIT)) {
->   			dev_warn(adev->dev, "Fan curve setting not supported!\n");
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   		}
->   
->   		smu_v13_0_0_get_od_setting_limits(smu,
-> @@ -1777,7 +1777,7 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
->   	case PP_OD_EDIT_FAN_MINIMUM_PWM:
->   		if (!smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATURE_FAN_CURVE_BIT)) {
->   			dev_warn(adev->dev, "Fan curve setting not supported!\n");
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   		}
->   
->   		smu_v13_0_0_get_od_setting_limits(smu,
-> @@ -2356,7 +2356,7 @@ static int smu_v13_0_0_get_power_profile_mode(struct smu_context *smu,
->   		workload_type = smu_cmn_to_asic_specific_index(smu,
->   							       CMN2ASIC_MAPPING_WORKLOAD,
->   							       i);
-> -		if (workload_type == -ENOTSUPP)
-> +		if (workload_type == -EOPNOTSUPP)
->   			continue;
->   		else if (workload_type < 0)
->   			return -EINVAL;
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> index 430ad1b05ba3..f85e0ef60fea 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> @@ -1515,7 +1515,7 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
->   	case PP_OD_EDIT_SCLK_VDDC_TABLE:
->   		if (!smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATURE_GFXCLK_BIT)) {
->   			dev_warn(adev->dev, "GFXCLK_LIMITS setting not supported!\n");
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   		}
->   
->   		for (i = 0; i < size; i += 2) {
-> @@ -1576,7 +1576,7 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
->   	case PP_OD_EDIT_MCLK_VDDC_TABLE:
->   		if (!smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATURE_UCLK_BIT)) {
->   			dev_warn(adev->dev, "UCLK_LIMITS setting not supported!\n");
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   		}
->   
->   		for (i = 0; i < size; i += 2) {
-> @@ -1637,7 +1637,7 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
->   	case PP_OD_EDIT_VDDGFX_OFFSET:
->   		if (!smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATURE_GFX_VF_CURVE_BIT)) {
->   			dev_warn(adev->dev, "Gfx offset setting not supported!\n");
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   		}
->   
->   		smu_v13_0_7_get_od_setting_limits(smu,
-> @@ -1659,7 +1659,7 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
->   	case PP_OD_EDIT_FAN_CURVE:
->   		if (!smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATURE_FAN_CURVE_BIT)) {
->   			dev_warn(adev->dev, "Fan curve setting not supported!\n");
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   		}
->   
->   		if (input[0] >= NUM_OD_FAN_MAX_POINTS - 1 ||
-> @@ -1697,7 +1697,7 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
->   	case PP_OD_EDIT_ACOUSTIC_LIMIT:
->   		if (!smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATURE_FAN_CURVE_BIT)) {
->   			dev_warn(adev->dev, "Fan curve setting not supported!\n");
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   		}
->   
->   		smu_v13_0_7_get_od_setting_limits(smu,
-> @@ -1719,7 +1719,7 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
->   	case PP_OD_EDIT_ACOUSTIC_TARGET:
->   		if (!smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATURE_FAN_CURVE_BIT)) {
->   			dev_warn(adev->dev, "Fan curve setting not supported!\n");
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   		}
->   
->   		smu_v13_0_7_get_od_setting_limits(smu,
-> @@ -1741,7 +1741,7 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
->   	case PP_OD_EDIT_FAN_TARGET_TEMPERATURE:
->   		if (!smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATURE_FAN_CURVE_BIT)) {
->   			dev_warn(adev->dev, "Fan curve setting not supported!\n");
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   		}
->   
->   		smu_v13_0_7_get_od_setting_limits(smu,
-> @@ -1763,7 +1763,7 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
->   	case PP_OD_EDIT_FAN_MINIMUM_PWM:
->   		if (!smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATURE_FAN_CURVE_BIT)) {
->   			dev_warn(adev->dev, "Fan curve setting not supported!\n");
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   		}
->   
->   		smu_v13_0_7_get_od_setting_limits(smu,
-> @@ -2310,7 +2310,7 @@ static int smu_v13_0_7_get_power_profile_mode(struct smu_context *smu, char *buf
->   		workload_type = smu_cmn_to_asic_specific_index(smu,
->   							       CMN2ASIC_MAPPING_WORKLOAD,
->   							       i);
-> -		if (workload_type == -ENOTSUPP)
-> +		if (workload_type == -EOPNOTSUPP)
->   			continue;
->   		else if (workload_type < 0) {
->   			result = -EINVAL;
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> index b3682807cec2..f81ffe7ce7bb 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> @@ -50,7 +50,7 @@ static const char * const __smu_message_names[] = {
->   #define smu_cmn_call_asic_func(intf, smu, args...)                             \
->   	((smu)->ppt_funcs ? ((smu)->ppt_funcs->intf ?                          \
->   				     (smu)->ppt_funcs->intf(smu, ##args) :     \
-> -				     -ENOTSUPP) :                              \
-> +				     -EOPNOTSUPP) :                              \
->   			    -EINVAL)
->   
->   static const char *smu_get_message_name(struct smu_context *smu,
-> @@ -492,7 +492,7 @@ int smu_cmn_to_asic_specific_index(struct smu_context *smu,
->   
->   		mapping = smu->workload_map[index];
->   		if (!mapping.valid_mapping)
-> -			return -ENOTSUPP;
-> +			return -EOPNOTSUPP;
->   
->   		return mapping.map_to;
->   
+> Regards,
+>   Felix
+> 
+> 
+> > 
+> > Regards,
+> > Christian.
+> > 
+> > > 
+> > > Regards,
+> > >   Felix
+> > > 
+> > > 
+> > > > 
+> > > > And please don't push before getting an rb from Felix as well.
+> > > > 
+> > > > Regards,
+> > > > Christian.
+> > > > 
+> > > > 
+> > > > Am 14.09.23 um 11:23 schrieb Lang Yu:
+> > > > > cyan_skilfish has problems with other flush types.
+> > > > > 
+> > > > > v2: fix incorrect ternary conditional operator usage.(Yifan)
+> > > > > 
+> > > > > Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+> > > > > Cc: <stable@vger.kernel.org> # v5.15+
+> > > > > ---
+> > > > >   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 7 ++++++-
+> > > > >   1 file changed, 6 insertions(+), 1 deletion(-)
+> > > > > 
+> > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> > > > > b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> > > > > index d3da13f4c80e..c6d11047169a 100644
+> > > > > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> > > > > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> > > > > @@ -236,7 +236,8 @@ static void
+> > > > > gmc_v10_0_flush_vm_hub(struct amdgpu_device *adev, uint32_t
+> > > > > vmid,
+> > > > >   {
+> > > > >       bool use_semaphore =
+> > > > > gmc_v10_0_use_invalidate_semaphore(adev, vmhub);
+> > > > >       struct amdgpu_vmhub *hub = &adev->vmhub[vmhub];
+> > > > > -    u32 inv_req =
+> > > > > hub->vmhub_funcs->get_invalidate_req(vmid, flush_type);
+> > > > > +    u32 inv_req = hub->vmhub_funcs->get_invalidate_req(vmid,
+> > > > > +              (adev->asic_type != CHIP_CYAN_SKILLFISH) ?
+> > > > > flush_type : 0);
+> > > > >       u32 tmp;
+> > > > >       /* Use register 17 for GART */
+> > > > >       const unsigned int eng = 17;
+> > > > > @@ -331,6 +332,8 @@ static void
+> > > > > gmc_v10_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t
+> > > > > vmid,
+> > > > >         int r;
+> > > > >   +    flush_type = (adev->asic_type != CHIP_CYAN_SKILLFISH)
+> > > > > ? flush_type : 0;
+> > > > > +
+> > > > >       /* flush hdp cache */
+> > > > >       adev->hdp.funcs->flush_hdp(adev, NULL);
+> > > > >   @@ -426,6 +429,8 @@ static int
+> > > > > gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+> > > > >       struct amdgpu_ring *ring = &adev->gfx.kiq[0].ring;
+> > > > >       struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
+> > > > >   +    flush_type = (adev->asic_type != CHIP_CYAN_SKILLFISH)
+> > > > > ? flush_type : 0;
+> > > > > +
+> > > > >       if (amdgpu_emu_mode == 0 && ring->sched.ready) {
+> > > > >           spin_lock(&adev->gfx.kiq[0].ring_lock);
+> > > > >           /* 2 dwords flush + 8 dwords fence */
+> > > > 
+> > 
