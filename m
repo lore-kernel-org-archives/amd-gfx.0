@@ -4,123 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8F57EE645C
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Sep 2023 13:50:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AE08EE645D
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Sep 2023 14:03:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43C4D10E62F;
-	Fri, 15 Sep 2023 13:50:50 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20615.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5a::615])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 612CF10E635
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Sep 2023 13:50:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E815810E637;
+	Fri, 15 Sep 2023 14:03:04 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2072.outbound.protection.outlook.com [40.107.101.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AB6110E635
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Sep 2023 14:03:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Rmdywy5bJ7r+/Fc35Bcs47MubyAMDTXDhtTuJBtbRJUEEbuIAklc1gwWa0z008Mmo3gaaQupjREJQzpIw3nCB5gd9tiIW23Kcl2roztMPigj+S6oEgjYkf30fYXSpyH/rQj3eX5K12rNhE7Wk5sfC5jCAMtzfvaHLn470MRQBStYWwxmbzD+mF08TUtItN5tsHJ9NtwD9aLPs9bUhQiPo368mCJjHH7BVuha0zibwQxIQakVlT5A0IYM3Lvf823QxU7NR6dH+iu/CCBOZgde9W6XUdqev2/h0Ey47k8YVsuxLwCfl7Rwmbh+0P7XxZKwftVlj+dV4i/vSIDYcqlIHQ==
+ b=gFZ4iDfobNNXynECP78Exv0bxtCVsU/Dx5brvdqEbBk0TVz6ccFyfudkyEtBizx4fBj24HOYCVMF6/3evc9YGLqbbjb5RI+vkBrFIPoPYbFt3H6G/yTJr44dfajxafK9AcoP4yFNfV2svuFo5jA9GMNg0kXmEiCu0RwpzMGeMybpBe0FrCM/IzMISxEc6gimQ0q2kIVR9+Gvm7dUwZcXaYq6J0alstIzV5VsDHVpHrEWTGQ7ogmSv0gjBHPZYXVc5a0uySEhNmoI9xvctaaUqf0U9gtb7Hyj9858HbL8pCvKR/MKY++QStSgenaiuo1vKw9lYQgIXh7x6papCH8wCw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ytz5JGsz3QVNOh3JhSi81VkLnWjoQ+vJN5s+1zaAv5A=;
- b=AW7HupCe1HXaYmM4xyG6WcVdYO1JbA8r0DS0W8ZL3E/CVnkQWS9ZXaDwQWjrXGWWguXoTvjfqtKcgrETJJg4XNOH0DkIzX8XVY2+xL4Opl8DB/PtHz/e09qvhHmPaEZ9jmB+hJ7GJZvcvrVVHCJmYpE00+4IjOQDmJMzZF6rWCFm6Y31zGQbQNjgL7WiaLx2sVU84lZ17Y1MzC4WtsZa4EmUWciZ+CExXw5yWfGFLhVo0z3PkW3K+QyNy8nwJDvYEubTfpRvnOmrkYkEXuh3yhptCCqBMLFYb4mQQnFHislozTtzl3Vv3Zqti+DjRDHzDrAHT410e67B47Pd2S+L9g==
+ bh=RE4ijbVJyY37gynpBj2lnURDY4C7//8YCnv5Lo7ONl4=;
+ b=i49CAxuwI4dcAh9dX1X7v9Xt/4GsNn7Won58bA0kpXRv+YTZNbMTu/3z6xbA6elBHQj3DYxLFjU8huwlI3ZlF5Enjj7Pgt4FT5x92cWJEkEqoGAl0+ffpg1DhF5d+enJvK3IFnzhzFGEtvcLciTM/bd97Qgu8050fLRPXsWuvwBV/9gd0/VBOqonWQvIvIJBEOy5F+ib6QjppQJJzS/uYHKXu4xWiAXHs2Zw78sLekDvf32NlIQvtng6CAYK6gW5oL+kW0jcHIP7XLa9C2WEzOTsaCflFu+hkG9Kh2q9O9ChW8pBRZFjYe/36Ja1rZ8tE/Pnft6VO0DedUIBG2ZWCg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ytz5JGsz3QVNOh3JhSi81VkLnWjoQ+vJN5s+1zaAv5A=;
- b=jFK+GzYMR5MGfFvxl2MvsY8AjTha2YlkMOBIU4Zv6dvfVQn1hGf4EWrsOFLHWmxqnrJjlzntZ0cOT5yqPStWIG0QMCzK0yqA8MXSc5hbqpe+iKQAL1dwBi/PjsrIm0art1fkjOLxbQq6yzIWMxki8PQv+fkRdk0/N9lTR78y/fE=
-Received: from DM8PR12MB5399.namprd12.prod.outlook.com (2603:10b6:8:34::5) by
- DM4PR12MB9070.namprd12.prod.outlook.com (2603:10b6:8:bc::12) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6792.20; Fri, 15 Sep 2023 13:50:43 +0000
-Received: from DM8PR12MB5399.namprd12.prod.outlook.com
- ([fe80::6017:888c:bd65:cc08]) by DM8PR12MB5399.namprd12.prod.outlook.com
- ([fe80::6017:888c:bd65:cc08%4]) with mapi id 15.20.6792.021; Fri, 15 Sep 2023
- 13:50:43 +0000
-From: "Liu, Leo" <Leo.Liu@amd.com>
+ bh=RE4ijbVJyY37gynpBj2lnURDY4C7//8YCnv5Lo7ONl4=;
+ b=PjTUM4S8LMgSNPJBMEA2qSl6Pu4YceDm1y4nJaSYHxLcSq4BoAOr9i3iyWpqmek+1U75ajr9TU5TduGUTqMOiMkfsPs+ZA+LYKOzLnsiGnD/aor4AwuLfD9d0hUQ7GbO2DvVjn8Isx6JzV7ejSse7yxD69unFPAvA8RA0T/bJ9c=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by SA3PR12MB7782.namprd12.prod.outlook.com (2603:10b6:806:31c::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.21; Fri, 15 Sep
+ 2023 14:02:59 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::629e:e981:228d:3822]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::629e:e981:228d:3822%4]) with mapi id 15.20.6792.021; Fri, 15 Sep 2023
+ 14:02:59 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 To: "Sundararaju, Sathishkumar" <Sathishkumar.Sundararaju@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: update IP count INFO query
+Subject: Re: [PATCH] drm/amdgpu: update IP count INFO query
 Thread-Topic: [PATCH] drm/amdgpu: update IP count INFO query
-Thread-Index: AQHZ5ySw+X6GVu2qWUqbWI1xXnnyhrAb6NpA
-Date: Fri, 15 Sep 2023 13:50:43 +0000
-Message-ID: <DM8PR12MB5399C08114B347294739A0CEE5F6A@DM8PR12MB5399.namprd12.prod.outlook.com>
+Thread-Index: AQHZ5ySwqfU39905/E26pZJOLvtUlbAb69p3
+Date: Fri, 15 Sep 2023 14:02:59 +0000
+Message-ID: <BL1PR12MB514444896B3183F907CCBD07F7F6A@BL1PR12MB5144.namprd12.prod.outlook.com>
 References: <20230914160050.2672457-1-sathishkumar.sundararaju@amd.com>
 In-Reply-To: <20230914160050.2672457-1-sathishkumar.sundararaju@amd.com>
-Accept-Language: en-CA, en-US
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=462c0a57-4086-456a-81e8-938b798f4edb;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-09-15T13:50:21Z;
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-09-15T14:02:19.759Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM8PR12MB5399:EE_|DM4PR12MB9070:EE_
-x-ms-office365-filtering-correlation-id: 28fdf622-b7c0-493b-bbb1-08dbb5f2c129
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|SA3PR12MB7782:EE_
+x-ms-office365-filtering-correlation-id: 07e112c7-f5b6-4077-69dd-08dbb5f47838
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: D4Asl9DntGtSuGHlnmjlV7JpLGLUjlzRyJ18YAvO1RJ/cywkwTsDxrJ6FZTN679xl9cwNFXAsbV4P/NwYW1YphUb//DqZKjTE3G8rXkzcszlTjZOW0bJGlP3rYuWxTE49Jhv2quEJB64DRxdDvcj7KDsFlpoKstMCTPfHPYhb+qenm/A/bA4OLzU18DwTn8lD1vteXx39Z43KF7D4qpaoqYJJIfhqq6pG5cZRqVCZtEYzwbmqohs5Uj6S8aJ0WkJ3xIQbpnvqGqKjzYP1KyhhNMpgII/lYE76IWTmJSosqz7WMwMq/GwO0L4as0wLbTMYb9wAunCpivXtwh9rpJWVZF+DkpTETxblm8qp7+GQQkXCpIgu/QVrp1IPMChxI3hZ+4Odrvwqkjw6XPigwTAfbxSoB3Wp0Q9FQI9axHUBujlxRo1OVhqXKB7CG9mvkIHsr6dqjd8v37OsTKgUKLq/xcns0rRBdUE4CEid+xSRvvz92SwGNs5XW8+XJgOAI+/rjHbB55AZ55gdVs9DbdKYahOuX/v89iF8XtCe+9NIQPE/ES/Y7qmB3XYlh9KGrrSjj6gfEVQ9yz3pAvzlDFHpvKTahyRlG9WopcRmXjRwfrdzegRTljamjJHjQpB1O2F
+x-microsoft-antispam-message-info: IrxK9XnRbSqyhsLmM+tq2s6JxCQrNjgYlLlIKalhObj09qwEtFIJCqEa+dmGzBlMcpC/66vsZOeND/yYZGd+vBe5IjBjjzy6eWFOw0pQxcV78epljTAl70eKTK4p/N07eQemuqYBd6p25VPKPiIUmkzdFTQsc9/ungpDQ3fXdPDU4WiegaLRqb+rJ0fGw6w/k8WvNOV+QFhj3i3dfAYY/pE/IppFBXBOnuS+8KrNUqMCMpRBr9FDiZYlvOLvtg//P5hklo79AyIk2RybW5xgaVaxEPTg6rjQ8kdKv59Yf3bkhm3XCZP9Voe9pMjV85NOscO+LW6q5ysRM/U6PZK/u2MT4Xs/a07tqhQFJkK3EayikLlc25eJn6307osvlTgVA4AshSW5CUIz23KXx5vtc1HbFVGBBe7Bn3YVOi587w7x7yiyCqcITKq4sfujLg64+SqOioXQ+DIgDYFFvqF+weM/ha8qJWfrskcft56C4mUskocl9iDah3MR+43CAFevFPD3W1phrAmYTlJMQYWbw0wdZyU6yguSNEhAhSjfB0yIK/UQVcL6O/IyNUqN4eOcKcLNhNxUGdyRlDLnZIjV9Fyidssjp+ENynnnhVN6//dHr/28H355MliCPY1ur/Cp
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM8PR12MB5399.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(346002)(136003)(376002)(366004)(39860400002)(186009)(1800799009)(451199024)(5660300002)(15650500001)(2906002)(55016003)(41300700001)(316002)(54906003)(110136005)(66476007)(64756008)(66446008)(66556008)(76116006)(66946007)(52536014)(8936002)(8676002)(4326008)(86362001)(33656002)(122000001)(478600001)(6506007)(7696005)(53546011)(71200400001)(83380400001)(9686003)(38070700005)(38100700002)(26005);
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(376002)(136003)(346002)(366004)(396003)(451199024)(186009)(1800799009)(122000001)(38070700005)(38100700002)(86362001)(33656002)(19627405001)(55016003)(7696005)(6506007)(9686003)(2906002)(478600001)(52536014)(8676002)(110136005)(8936002)(15650500001)(41300700001)(5660300002)(4326008)(53546011)(71200400001)(83380400001)(54906003)(316002)(76116006)(66446008)(66476007)(66556008)(64756008)(66946007)(26005);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?czlwNGJYSkNkVGQzcTNZajBJOHJNSDRiRjRSZUlDREFlakVBY1BxUEd3bGFN?=
- =?utf-8?B?SWtrNW03QXI1L2xKUnI4MDBPSEU3Ukt2ZnFlYnR0UGt5L2p5bURlOFA4aXA4?=
- =?utf-8?B?OGdPbnh3MXB1Vld5bmkwVFI4RDE1K1Z5TGdoNHFOUkRtc0tpR2d2Y1I3V2Ns?=
- =?utf-8?B?U3diczhHZGtNUm5RbzhtNmRWc29pSVFFQS9tekNGcGtlRVI3emN6eFVMQTha?=
- =?utf-8?B?ZUl1czVsUWFldDB4YmV4S3YwRFdyNlZhQlpEd04zMmJFMWx1VllhbzFVRW8r?=
- =?utf-8?B?QVAzN2U0ZzQzRDdNMk9XbHZpK3JiczNqZy9keUpoSGdXU01BR0QyTFRKaFpN?=
- =?utf-8?B?SDlOQnhlenRTRFpxQ201SVdZaUhEUituWTlUVGJuZWJDSzRqZDh3bS82bk5q?=
- =?utf-8?B?aDRRa1c4Nzd2ZzdVZitydWxEcDBQVmNoL2hnNGYwcy9VK211OVAzR2dmVU9w?=
- =?utf-8?B?c2hlaUtSYkpFODl3RlNMWDlGcytwZTd4clZSUGJFTDRRMUlXTjZOTmRrWUxD?=
- =?utf-8?B?ZGNKelc0eFo4WkVPTlAwbEgreVhRTmFIUFRIRnZNZkZDRlFpaExTMERxNEtm?=
- =?utf-8?B?Nk1PTW1VTkd4eE0xU3pZZnNHZkdwV0pqOHZJck40UXYyTUkyZ1k5Ukd0YjBL?=
- =?utf-8?B?YVhDOHNKSFpPbEs4Y1Q3OGxJc2RGT05pa2V0ZVk4QmpreVRpYnlRS0NIellB?=
- =?utf-8?B?UUtKZjlTVVhZV3Y5QldhVlNESnVIRkFnWTlnQW5QNkJTQ1lUT0xkYS9seUVC?=
- =?utf-8?B?aHVXMjV4b0ZOTlAyeFNDVFNPMTI4SCs0TVF3VFRQdTVVVGpZY1lhTTFvdTYz?=
- =?utf-8?B?VzRRd1ZmOXF4cmZIeXlzWEZTMWVnTzJnL0d3Z05BeVJnK3B1U0xaZTBjSHdR?=
- =?utf-8?B?TDdqVE8rK3BVdkJiSDBCOXMyV3JQMzJiMlhaVXZNdHZuQnViaUhuc0tBY1JW?=
- =?utf-8?B?L0xHMXZBN29KcEVvZXBudTd3ZVhoeHEySlNQZGtseEZDdTNMOTNJaEhQOFJQ?=
- =?utf-8?B?Z1dJZWNoUDMrbndjTUp4NVVYWDBSYVFuM2tNOWRPVXNuWlk1RU1YRVJWVlIv?=
- =?utf-8?B?Q0lEQnluUlJ3Yll6STEvZTg1S0ZJQWtaWmpsVmp5UmowV1hlTWV2Ty9zZldQ?=
- =?utf-8?B?MXFsbkY1cS85N2JLa3pzMUNzcndNOU9jVWZ3V0dmWFNwOUhzM0syQUQ4dzFN?=
- =?utf-8?B?T0NLR09sQ1dnZnVIdE44Mno1T0FVcHN6TkZKeTZtQm1QN3RxeTYzSTR2V3N6?=
- =?utf-8?B?Skx3N2VhbWtFOE5XOTNzRG9nUUxWTDl4K3J1N1BWQzhNM2xvb3RaMjMzU0h0?=
- =?utf-8?B?YStPQ2c1UEw5UG9HbDZFRDYxY09UN0VOR1RMZ2RWcEg2Q2pScVA4bENwSlBI?=
- =?utf-8?B?ZG5sMURvcUVFSGladVNJOU1iK1FXbEl3R0dueUdabDBhdjdjdWo3d1crWDg0?=
- =?utf-8?B?ZERodGV1MmFaRVFad1dTNVQ5UWRMZmx3eEJ3b2pXZ0lqZ09vNW5yQndBekM5?=
- =?utf-8?B?ZlBpaVNYRzZ3SEtHTmlLOVZIbS9GTEdLWXl6SC9BOXgyWmo0aG1QOEFnQnAx?=
- =?utf-8?B?ZzRKRUdEUVZLelpaQVBLQ0paT2Zxdkd0SDU4elNvcnFzZUptT05MN29QbUlF?=
- =?utf-8?B?d0RLVG5UWkF6VG8vQXl3MEY0MVpjMHdXa0RqSkZ0V1Q2NDNaUnBOdHA5c05H?=
- =?utf-8?B?OC9JNG4yWFBFZllqTTRxRzQ5M3lqcWFjOTBXeXJNWFI5VldibzdlcWVOYnJj?=
- =?utf-8?B?U1NHSHBVeGlIUG0ySXhJQUZQazhEQVp2YUhQRlFXaUNWdllLTjdUZTlWeHFr?=
- =?utf-8?B?S3VvdzlJbWV6THpwM0s1MWQvdVRiaWNwZmt3SXYrR094VUVnbnlvc0plcEVw?=
- =?utf-8?B?OVNxQ01jTjFjMXlXUldmTnFIbmxtWVdUbEtJVm1ERVZaRURLUlVqUkRsTEVi?=
- =?utf-8?B?MmJYdFNkTUZGVStIZGI3VWJPVEtTRmhqWC90b2pDU1RXckZ4bzNHMmIwMS9o?=
- =?utf-8?B?SkJJUFNYU29zQkEvWDNtN2NLMGRiQ1NzT3NMYVdlZkZhTFdsMS9ZOFU3d1Bo?=
- =?utf-8?B?ZUFXM2ZpblVOazVsQjIxb3Ixb1pIaUtlLzZNK2xpMDJnWTdpK3M2ODk4dXNL?=
- =?utf-8?Q?b5wo=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?PXWzNH+yncBtRtrjaTb/3+YRgcAXYib99zmtb2BM4EqZz5fXopJ7Ug1yDSps?=
+ =?us-ascii?Q?BfMa36mdX2K8HyUBpMM5R43WNN3zvxLjaFFnhr16gSMUnItmAnzBW0bZqbzv?=
+ =?us-ascii?Q?3/GgkN1VfMDE/Qsm5zlYR+cxPAyCpoJjGL2/kGi1P1TbaWrW1XryMnIg32Iq?=
+ =?us-ascii?Q?20dTDXURdUlxKQrpXjJzVqGz26edQtuXyfVRc4vRA4qx6canebTWe0Ra/+ma?=
+ =?us-ascii?Q?kO6IYU6Z23lLCps1LfZ3i1Scqoli7UHiIEnAssUlCPlo4vbjcdXZO7jHJghC?=
+ =?us-ascii?Q?OEpLY12cyppqqQPPvLxaV+nyZehAM9K0Cee9q17QXbI/JRQjYOqVk03WX2U2?=
+ =?us-ascii?Q?DdHxZzX5QdsIdF+OdD5N2FHWZeERF1rOMXk0lCwp0sWu2Kpu6g/i4rVOCefZ?=
+ =?us-ascii?Q?ia9dk+x6jeInIrK2cKmATdA9kEzAGXRrgX8mGpZxl6EO91dlwhjCCrawvZwb?=
+ =?us-ascii?Q?PRdF9khjQgSWzpMJAiX+xB7n8PArqk20zT/uX2q/gHm+oTUQAD9ztyTvfMhx?=
+ =?us-ascii?Q?2VfzwEFwDkxztbdWaNZK6DyvYPUQPtS2kOxSBBqUcUFonyIjjtfaED43aOZf?=
+ =?us-ascii?Q?XFa7Zd5P9Yqa5G6R69QKVqsJlr45z0U4+DaI+BULDABssbnPdc09BBqBaceU?=
+ =?us-ascii?Q?NztszYYbLngXH/mI6qfK23Ky0jfpUi9msRTzobLUt0TWR+3p6oXKABjc16Z5?=
+ =?us-ascii?Q?wNJTElxJi5JGDyrikKumej+bo7Beuroq9JKrfODSOX7vlqDHWMOcsTGb+mH3?=
+ =?us-ascii?Q?bCfzSUdxQ+y0cyTUR+lGSVnDxOIZftM8NNcs6J6BhQfueIpPEv9amZq/esuU?=
+ =?us-ascii?Q?mfZ2w8bZiD6Ml4jthKsYToY5RtNpxxI8B3KWWyD8mPuO+yKkU6Kcx1nz1DcB?=
+ =?us-ascii?Q?DdC2xsfSC1BKI3QBWfwbN9lncKgXeq/PY1s73CZDdfoo4Ba9JveX7WT0MXFK?=
+ =?us-ascii?Q?G1mGEnFNd39pspClP68t69BX7oj9/qFtaPX5erRMHXKiAjA1qZZTu4Fp8Dcp?=
+ =?us-ascii?Q?T4+26JtuFzioGK54N0+g+cz3L8EIqJgGAClMm+6ttA1Js2pWvt4nrLrCwJha?=
+ =?us-ascii?Q?hgVqQTSKmWXwg15xuY7gvraoT5eFLofMr49xanZO3cOYKR6CxsxtfJUAZs0X?=
+ =?us-ascii?Q?l/l/SYpUEOHzU7A6Q9zp9MWw0z47hQYTMum0dcuKAqp9p2/bw0joAZOotz3w?=
+ =?us-ascii?Q?tUsGI8Ysy3epLmz+xqRzWrfC1dSYvccPqse8rZQUkr8W1oUYbhDt3prpzFti?=
+ =?us-ascii?Q?mbR1F5IuAO5jRUOyQlNbseaRc1LsduBSHEWvBRcbw5pQWV3xxdCWkJsHz72T?=
+ =?us-ascii?Q?4kFIoMMYFYkuQ/FTRCotoPaXSAa36MSCLblzm+qVTlilqP+q0LtoYLh+CMI7?=
+ =?us-ascii?Q?9f5V+w7cNiFNGjZzrFDrlJItx5UiGkB8b822COOfKqHErnXrpNS6n68r8OKR?=
+ =?us-ascii?Q?o/mJjMSVBlkqmT6G+s3VrVhaRC96QS/YTXg5W9gz40OOzbu/3za3gTsNLY30?=
+ =?us-ascii?Q?sNMzbTLQU6IydkZIqyASMUTVMKGcvvLKO0E7bqUW65YF2X9zuoaGgKU0QgsE?=
+ =?us-ascii?Q?DDHH2sskywDvUag0CzY=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB514444896B3183F907CCBD07F7F6ABL1PR12MB5144namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5399.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 28fdf622-b7c0-493b-bbb1-08dbb5f2c129
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Sep 2023 13:50:43.0511 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 07e112c7-f5b6-4077-69dd-08dbb5f47838
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Sep 2023 14:02:59.6117 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 5vGcuUUwu7TgdAHOZkDz3UecoAd0u3xLaG9ploYLheWWfKHszbbDg3cHV5qTLzh/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB9070
+X-MS-Exchange-CrossTenant-userprincipalname: dXgBZJ5OENN36IPOmVZIKwPPQWCecwLhz+rffmkyPOBfIkxW4tYoJOGJFVJpjk0TaUFbuhXVDu588fwMPuJJcQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7782
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,111 +121,487 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+Cc: "Liu, Leo" <Leo.Liu@amd.com>, "Koenig,
  Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNClJldmlld2VkLWJ5OiBMZW8gTGl1
-IDxsZW8ubGl1QGFtZC5jb20+DQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBT
-dW5kYXJhcmFqdSwgU2F0aGlzaGt1bWFyIDxTYXRoaXNoa3VtYXIuU3VuZGFyYXJhanVAYW1kLmNv
-bT4NClNlbnQ6IFRodXJzZGF5LCBTZXB0ZW1iZXIgMTQsIDIwMjMgMTI6MDEgUE0NClRvOiBhbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KQ2M6IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFu
-ZGVyLkRldWNoZXJAYW1kLmNvbT47IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmln
-QGFtZC5jb20+OyBMaXUsIExlbyA8TGVvLkxpdUBhbWQuY29tPjsgU3VuZGFyYXJhanUsIFNhdGhp
-c2hrdW1hciA8U2F0aGlzaGt1bWFyLlN1bmRhcmFyYWp1QGFtZC5jb20+DQpTdWJqZWN0OiBbUEFU
-Q0hdIGRybS9hbWRncHU6IHVwZGF0ZSBJUCBjb3VudCBJTkZPIHF1ZXJ5DQoNCnVwZGF0ZSB0aGUg
-cXVlcnkgdG8gcmV0dXJuIHRoZSBudW1iZXIgb2YgZnVuY3Rpb25hbCBpbnN0YW5jZXMgd2hlcmUg
-dGhlcmUgaXMgbW9yZSB0aGFuIGFuIGluc3RhbmNlIG9mIHRoZSByZXF1ZXN0ZWQgdHlwZSBhbmQg
-Zm9yIG90aGVycyBjb250aW51ZSB0byByZXR1cm4gb25lLg0KDQpTaWduZWQtb2ZmLWJ5OiBTYXRo
-aXNoa3VtYXIgUyA8c2F0aGlzaGt1bWFyLnN1bmRhcmFyYWp1QGFtZC5jb20+DQotLS0NCiBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgfCA5MCArKysrKysrKysrKysrKysr
-Ky0tLS0tLS0tDQogMSBmaWxlIGNoYW5nZWQsIDYxIGluc2VydGlvbnMoKyksIDI5IGRlbGV0aW9u
-cygtKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2tt
-cy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jDQppbmRleCAzYTQ4
-YmVjMTBhZWEuLjk1MjFmYTdhMWJmOSAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9rbXMuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2ttcy5jDQpAQCAtMjAwLDYgKzIwMCw0NCBAQCBpbnQgYW1kZ3B1X2RyaXZlcl9sb2FkX2tt
-cyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdW5zaWduZWQgbG9uZyBmbGFncykNCiAgICAg
-ICAgcmV0dXJuIHI7DQogfQ0KDQorc3RhdGljIGVudW0gYW1kX2lwX2Jsb2NrX3R5cGUgYW1kZ3B1
-X2lwX2dldF9ibG9ja190eXBlKA0KKyAgICAgICAgICAgICAgIHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2LCB1aW50MzJfdCBpcCkgew0KKyAgICAgICBlbnVtIGFtZF9pcF9ibG9ja190eXBlIHR5
-cGU7DQorDQorICAgICAgIHN3aXRjaCAoaXApIHsNCisgICAgICAgY2FzZSBBTURHUFVfSFdfSVBf
-R0ZYOg0KKyAgICAgICAgICAgICAgIHR5cGUgPSBBTURfSVBfQkxPQ0tfVFlQRV9HRlg7DQorICAg
-ICAgICAgICAgICAgYnJlYWs7DQorICAgICAgIGNhc2UgQU1ER1BVX0hXX0lQX0NPTVBVVEU6DQor
-ICAgICAgICAgICAgICAgdHlwZSA9IEFNRF9JUF9CTE9DS19UWVBFX0dGWDsNCisgICAgICAgICAg
-ICAgICBicmVhazsNCisgICAgICAgY2FzZSBBTURHUFVfSFdfSVBfRE1BOg0KKyAgICAgICAgICAg
-ICAgIHR5cGUgPSBBTURfSVBfQkxPQ0tfVFlQRV9TRE1BOw0KKyAgICAgICAgICAgICAgIGJyZWFr
-Ow0KKyAgICAgICBjYXNlIEFNREdQVV9IV19JUF9VVkQ6DQorICAgICAgIGNhc2UgQU1ER1BVX0hX
-X0lQX1VWRF9FTkM6DQorICAgICAgICAgICAgICAgdHlwZSA9IEFNRF9JUF9CTE9DS19UWVBFX1VW
-RDsNCisgICAgICAgICAgICAgICBicmVhazsNCisgICAgICAgY2FzZSBBTURHUFVfSFdfSVBfVkNF
-Og0KKyAgICAgICAgICAgICAgIHR5cGUgPSBBTURfSVBfQkxPQ0tfVFlQRV9WQ0U7DQorICAgICAg
-ICAgICAgICAgYnJlYWs7DQorICAgICAgIGNhc2UgQU1ER1BVX0hXX0lQX1ZDTl9ERUM6DQorICAg
-ICAgIGNhc2UgQU1ER1BVX0hXX0lQX1ZDTl9FTkM6DQorICAgICAgICAgICAgICAgdHlwZSA9IEFN
-RF9JUF9CTE9DS19UWVBFX1ZDTjsNCisgICAgICAgICAgICAgICBicmVhazsNCisgICAgICAgY2Fz
-ZSBBTURHUFVfSFdfSVBfVkNOX0pQRUc6DQorICAgICAgICAgICAgICAgdHlwZSA9IChhbWRncHVf
-ZGV2aWNlX2lwX2dldF9pcF9ibG9jayhhZGV2LCBBTURfSVBfQkxPQ0tfVFlQRV9KUEVHKSkgPw0K
-KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBTURfSVBfQkxPQ0tfVFlQRV9KUEVH
-IDogQU1EX0lQX0JMT0NLX1RZUEVfVkNOOw0KKyAgICAgICAgICAgICAgIGJyZWFrOw0KKyAgICAg
-ICBkZWZhdWx0Og0KKyAgICAgICAgICAgICAgIHR5cGUgPSBBTURfSVBfQkxPQ0tfVFlQRV9OVU07
-DQorICAgICAgICAgICAgICAgYnJlYWs7DQorICAgICAgIH0NCisNCisgICAgICAgcmV0dXJuIHR5
-cGU7DQorfQ0KKw0KIHN0YXRpYyBpbnQgYW1kZ3B1X2Zpcm13YXJlX2luZm8oc3RydWN0IGRybV9h
-bWRncHVfaW5mb19maXJtd2FyZSAqZndfaW5mbywNCiAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgc3RydWN0IGRybV9hbWRncHVfcXVlcnlfZncgKnF1ZXJ5X2Z3LA0KICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCkBAIC01OTIs
-NDUgKzYzMCwzOSBAQCBpbnQgYW1kZ3B1X2luZm9faW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRl
-diwgdm9pZCAqZGF0YSwgc3RydWN0IGRybV9maWxlICpmaWxwKQ0KICAgICAgICB9DQogICAgICAg
-IGNhc2UgQU1ER1BVX0lORk9fSFdfSVBfQ09VTlQ6IHsNCiAgICAgICAgICAgICAgICBlbnVtIGFt
-ZF9pcF9ibG9ja190eXBlIHR5cGU7DQorICAgICAgICAgICAgICAgc3RydWN0IGFtZGdwdV9pcF9i
-bG9jayAqaXBfYmxvY2sgPSBOVUxMOw0KICAgICAgICAgICAgICAgIHVpbnQzMl90IGNvdW50ID0g
-MDsNCg0KLSAgICAgICAgICAgICAgIHN3aXRjaCAoaW5mby0+cXVlcnlfaHdfaXAudHlwZSkgew0K
-LSAgICAgICAgICAgICAgIGNhc2UgQU1ER1BVX0hXX0lQX0dGWDoNCi0gICAgICAgICAgICAgICAg
-ICAgICAgIHR5cGUgPSBBTURfSVBfQkxPQ0tfVFlQRV9HRlg7DQotICAgICAgICAgICAgICAgICAg
-ICAgICBicmVhazsNCi0gICAgICAgICAgICAgICBjYXNlIEFNREdQVV9IV19JUF9DT01QVVRFOg0K
-LSAgICAgICAgICAgICAgICAgICAgICAgdHlwZSA9IEFNRF9JUF9CTE9DS19UWVBFX0dGWDsNCi0g
-ICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOw0KLSAgICAgICAgICAgICAgIGNhc2UgQU1ER1BV
-X0hXX0lQX0RNQToNCi0gICAgICAgICAgICAgICAgICAgICAgIHR5cGUgPSBBTURfSVBfQkxPQ0tf
-VFlQRV9TRE1BOw0KLSAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQotICAgICAgICAgICAg
-ICAgY2FzZSBBTURHUFVfSFdfSVBfVVZEOg0KLSAgICAgICAgICAgICAgICAgICAgICAgdHlwZSA9
-IEFNRF9JUF9CTE9DS19UWVBFX1VWRDsNCisgICAgICAgICAgICAgICB0eXBlID0gYW1kZ3B1X2lw
-X2dldF9ibG9ja190eXBlKGFkZXYsIGluZm8tPnF1ZXJ5X2h3X2lwLnR5cGUpOw0KKyAgICAgICAg
-ICAgICAgIGlwX2Jsb2NrID0gYW1kZ3B1X2RldmljZV9pcF9nZXRfaXBfYmxvY2soYWRldiwgdHlw
-ZSk7DQorICAgICAgICAgICAgICAgaWYgKCFpcF9ibG9jayB8fCAhaXBfYmxvY2stPnN0YXR1cy52
-YWxpZCkNCisgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KKw0KKyAgICAg
-ICAgICAgICAgIHN3aXRjaCAodHlwZSkgew0KKyAgICAgICAgICAgICAgIGNhc2UgQU1EX0lQX0JM
-T0NLX1RZUEVfR0ZYOg0KKyAgICAgICAgICAgICAgIGNhc2UgQU1EX0lQX0JMT0NLX1RZUEVfVkNF
-Og0KKyAgICAgICAgICAgICAgICAgICAgICAgY291bnQgPSAxOw0KICAgICAgICAgICAgICAgICAg
-ICAgICAgYnJlYWs7DQotICAgICAgICAgICAgICAgY2FzZSBBTURHUFVfSFdfSVBfVkNFOg0KLSAg
-ICAgICAgICAgICAgICAgICAgICAgdHlwZSA9IEFNRF9JUF9CTE9DS19UWVBFX1ZDRTsNCisgICAg
-ICAgICAgICAgICBjYXNlIEFNRF9JUF9CTE9DS19UWVBFX1NETUE6DQorICAgICAgICAgICAgICAg
-ICAgICAgICBjb3VudCA9IGFkZXYtPnNkbWEubnVtX2luc3RhbmNlczsNCiAgICAgICAgICAgICAg
-ICAgICAgICAgIGJyZWFrOw0KLSAgICAgICAgICAgICAgIGNhc2UgQU1ER1BVX0hXX0lQX1VWRF9F
-TkM6DQotICAgICAgICAgICAgICAgICAgICAgICB0eXBlID0gQU1EX0lQX0JMT0NLX1RZUEVfVVZE
-Ow0KKyAgICAgICAgICAgICAgIGNhc2UgQU1EX0lQX0JMT0NLX1RZUEVfSlBFRzoNCisgICAgICAg
-ICAgICAgICAgICAgICAgIGNvdW50ID0gYWRldi0+anBlZy5udW1fanBlZ19pbnN0Ow0KICAgICAg
-ICAgICAgICAgICAgICAgICAgYnJlYWs7DQotICAgICAgICAgICAgICAgY2FzZSBBTURHUFVfSFdf
-SVBfVkNOX0RFQzoNCi0gICAgICAgICAgICAgICBjYXNlIEFNREdQVV9IV19JUF9WQ05fRU5DOg0K
-LSAgICAgICAgICAgICAgICAgICAgICAgdHlwZSA9IEFNRF9JUF9CTE9DS19UWVBFX1ZDTjsNCisg
-ICAgICAgICAgICAgICBjYXNlIEFNRF9JUF9CTE9DS19UWVBFX1ZDTjoNCisgICAgICAgICAgICAg
-ICAgICAgICAgIGNvdW50ID0gYWRldi0+dmNuLm51bV92Y25faW5zdDsNCiAgICAgICAgICAgICAg
-ICAgICAgICAgIGJyZWFrOw0KLSAgICAgICAgICAgICAgIGNhc2UgQU1ER1BVX0hXX0lQX1ZDTl9K
-UEVHOg0KLSAgICAgICAgICAgICAgICAgICAgICAgdHlwZSA9IChhbWRncHVfZGV2aWNlX2lwX2dl
-dF9pcF9ibG9jayhhZGV2LCBBTURfSVBfQkxPQ0tfVFlQRV9KUEVHKSkgPw0KLSAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBBTURfSVBfQkxPQ0tfVFlQRV9KUEVHIDogQU1EX0lQX0JMT0NL
-X1RZUEVfVkNOOw0KKyAgICAgICAgICAgICAgIGNhc2UgQU1EX0lQX0JMT0NLX1RZUEVfVVZEOg0K
-KyAgICAgICAgICAgICAgICAgICAgICAgY291bnQgPSBhZGV2LT51dmQubnVtX3V2ZF9pbnN0Ow0K
-ICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQorICAgICAgICAgICAgICAgLyogRm9yIGFs
-bCBvdGhlciBJUCBibG9jayB0eXBlcyBub3QgbGlzdGVkIGluIHRoZSBzd2l0Y2ggc3RhdGVtZW50
-DQorICAgICAgICAgICAgICAgICogdGhlIGlwIHN0YXR1cyBpcyB2YWxpZCBoZXJlIGFuZCB0aGUg
-aW5zdGFuY2UgY291bnQgaXMgb25lLg0KKyAgICAgICAgICAgICAgICAqLw0KICAgICAgICAgICAg
-ICAgIGRlZmF1bHQ6DQotICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsNCisg
-ICAgICAgICAgICAgICAgICAgICAgIGNvdW50ID0gMTsNCisgICAgICAgICAgICAgICAgICAgICAg
-IGJyZWFrOw0KICAgICAgICAgICAgICAgIH0NCg0KLSAgICAgICAgICAgICAgIGZvciAoaSA9IDA7
-IGkgPCBhZGV2LT5udW1faXBfYmxvY2tzOyBpKyspDQotICAgICAgICAgICAgICAgICAgICAgICBp
-ZiAoYWRldi0+aXBfYmxvY2tzW2ldLnZlcnNpb24tPnR5cGUgPT0gdHlwZSAmJg0KLSAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIGFkZXYtPmlwX2Jsb2Nrc1tpXS5zdGF0dXMudmFsaWQgJiYNCi0g
-ICAgICAgICAgICAgICAgICAgICAgICAgICBjb3VudCA8IEFNREdQVV9IV19JUF9JTlNUQU5DRV9N
-QVhfQ09VTlQpDQotICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvdW50Kys7DQotDQog
-ICAgICAgICAgICAgICAgcmV0dXJuIGNvcHlfdG9fdXNlcihvdXQsICZjb3VudCwgbWluKHNpemUs
-IDR1KSkgPyAtRUZBVUxUIDogMDsNCiAgICAgICAgfQ0KICAgICAgICBjYXNlIEFNREdQVV9JTkZP
-X1RJTUVTVEFNUDoNCi0tDQoyLjI1LjENCg0K
+--_000_BL1PR12MB514444896B3183F907CCBD07F7F6ABL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - General]
+
+For jpeg, if the rings actually represent independent JPEG engines, we prob=
+ably want to expose adev->jpeg.num_jpeg_inst * adev->jpeg.num_jpeg_rings.
+
+Alex
+________________________________
+From: Sundararaju, Sathishkumar <Sathishkumar.Sundararaju@amd.com>
+Sent: Thursday, September 14, 2023 12:00 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
+stian.Koenig@amd.com>; Liu, Leo <Leo.Liu@amd.com>; Sundararaju, Sathishkuma=
+r <Sathishkumar.Sundararaju@amd.com>
+Subject: [PATCH] drm/amdgpu: update IP count INFO query
+
+update the query to return the number of functional
+instances where there is more than an instance of the requested
+type and for others continue to return one.
+
+Signed-off-by: Sathishkumar S <sathishkumar.sundararaju@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 90 +++++++++++++++++--------
+ 1 file changed, 61 insertions(+), 29 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_kms.c
+index 3a48bec10aea..9521fa7a1bf9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -200,6 +200,44 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev,=
+ unsigned long flags)
+         return r;
+ }
+
++static enum amd_ip_block_type amdgpu_ip_get_block_type(
++               struct amdgpu_device *adev, uint32_t ip)
++{
++       enum amd_ip_block_type type;
++
++       switch (ip) {
++       case AMDGPU_HW_IP_GFX:
++               type =3D AMD_IP_BLOCK_TYPE_GFX;
++               break;
++       case AMDGPU_HW_IP_COMPUTE:
++               type =3D AMD_IP_BLOCK_TYPE_GFX;
++               break;
++       case AMDGPU_HW_IP_DMA:
++               type =3D AMD_IP_BLOCK_TYPE_SDMA;
++               break;
++       case AMDGPU_HW_IP_UVD:
++       case AMDGPU_HW_IP_UVD_ENC:
++               type =3D AMD_IP_BLOCK_TYPE_UVD;
++               break;
++       case AMDGPU_HW_IP_VCE:
++               type =3D AMD_IP_BLOCK_TYPE_VCE;
++               break;
++       case AMDGPU_HW_IP_VCN_DEC:
++       case AMDGPU_HW_IP_VCN_ENC:
++               type =3D AMD_IP_BLOCK_TYPE_VCN;
++               break;
++       case AMDGPU_HW_IP_VCN_JPEG:
++               type =3D (amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_=
+TYPE_JPEG)) ?
++                                  AMD_IP_BLOCK_TYPE_JPEG : AMD_IP_BLOCK_TY=
+PE_VCN;
++               break;
++       default:
++               type =3D AMD_IP_BLOCK_TYPE_NUM;
++               break;
++       }
++
++       return type;
++}
++
+ static int amdgpu_firmware_info(struct drm_amdgpu_info_firmware *fw_info,
+                                 struct drm_amdgpu_query_fw *query_fw,
+                                 struct amdgpu_device *adev)
+@@ -592,45 +630,39 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *d=
+ata, struct drm_file *filp)
+         }
+         case AMDGPU_INFO_HW_IP_COUNT: {
+                 enum amd_ip_block_type type;
++               struct amdgpu_ip_block *ip_block =3D NULL;
+                 uint32_t count =3D 0;
+
+-               switch (info->query_hw_ip.type) {
+-               case AMDGPU_HW_IP_GFX:
+-                       type =3D AMD_IP_BLOCK_TYPE_GFX;
+-                       break;
+-               case AMDGPU_HW_IP_COMPUTE:
+-                       type =3D AMD_IP_BLOCK_TYPE_GFX;
+-                       break;
+-               case AMDGPU_HW_IP_DMA:
+-                       type =3D AMD_IP_BLOCK_TYPE_SDMA;
+-                       break;
+-               case AMDGPU_HW_IP_UVD:
+-                       type =3D AMD_IP_BLOCK_TYPE_UVD;
++               type =3D amdgpu_ip_get_block_type(adev, info->query_hw_ip.t=
+ype);
++               ip_block =3D amdgpu_device_ip_get_ip_block(adev, type);
++               if (!ip_block || !ip_block->status.valid)
++                       return -EINVAL;
++
++               switch (type) {
++               case AMD_IP_BLOCK_TYPE_GFX:
++               case AMD_IP_BLOCK_TYPE_VCE:
++                       count =3D 1;
+                         break;
+-               case AMDGPU_HW_IP_VCE:
+-                       type =3D AMD_IP_BLOCK_TYPE_VCE;
++               case AMD_IP_BLOCK_TYPE_SDMA:
++                       count =3D adev->sdma.num_instances;
+                         break;
+-               case AMDGPU_HW_IP_UVD_ENC:
+-                       type =3D AMD_IP_BLOCK_TYPE_UVD;
++               case AMD_IP_BLOCK_TYPE_JPEG:
++                       count =3D adev->jpeg.num_jpeg_inst;
+                         break;
+-               case AMDGPU_HW_IP_VCN_DEC:
+-               case AMDGPU_HW_IP_VCN_ENC:
+-                       type =3D AMD_IP_BLOCK_TYPE_VCN;
++               case AMD_IP_BLOCK_TYPE_VCN:
++                       count =3D adev->vcn.num_vcn_inst;
+                         break;
+-               case AMDGPU_HW_IP_VCN_JPEG:
+-                       type =3D (amdgpu_device_ip_get_ip_block(adev, AMD_I=
+P_BLOCK_TYPE_JPEG)) ?
+-                               AMD_IP_BLOCK_TYPE_JPEG : AMD_IP_BLOCK_TYPE_=
+VCN;
++               case AMD_IP_BLOCK_TYPE_UVD:
++                       count =3D adev->uvd.num_uvd_inst;
+                         break;
++               /* For all other IP block types not listed in the switch st=
+atement
++                * the ip status is valid here and the instance count is on=
+e.
++                */
+                 default:
+-                       return -EINVAL;
++                       count =3D 1;
++                       break;
+                 }
+
+-               for (i =3D 0; i < adev->num_ip_blocks; i++)
+-                       if (adev->ip_blocks[i].version->type =3D=3D type &&
+-                           adev->ip_blocks[i].status.valid &&
+-                           count < AMDGPU_HW_IP_INSTANCE_MAX_COUNT)
+-                               count++;
+-
+                 return copy_to_user(out, &count, min(size, 4u)) ? -EFAULT =
+: 0;
+         }
+         case AMDGPU_INFO_TIMESTAMP:
+--
+2.25.1
+
+
+--_000_BL1PR12MB514444896B3183F907CCBD07F7F6ABL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
+style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - General]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+For jpeg, if the rings actually represent independent JPEG engines, we prob=
+ably want to expose
+<font size=3D"3" face=3D"Times New Roman"><span style=3D"font-size:12pt"><f=
+ont size=3D"2"><span style=3D"font-size:11pt" class=3D"ContentPasted0">adev=
+-&gt;jpeg.num_jpeg_inst</span></font></span></font> *
+<font size=3D"3" face=3D"Times New Roman"><span style=3D"font-size:12pt"><f=
+ont size=3D"2"><span style=3D"font-size:11pt" class=3D"ContentPasted1">adev=
+-&gt;jpeg.num_jpeg_rings.</span></font></span></font></div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<font size=3D"3" face=3D"Times New Roman"><span style=3D"font-size:12pt"><f=
+ont size=3D"2"><span style=3D"font-size:11pt" class=3D"ContentPasted1"><br>
+</span></font></span></font></div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<font size=3D"3" face=3D"Times New Roman"><span style=3D"font-size:12pt"><f=
+ont size=3D"2"><span style=3D"font-size:11pt" class=3D"ContentPasted1">Alex=
+<br>
+</span></font></span></font></div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Sundararaju, Sathishk=
+umar &lt;Sathishkumar.Sundararaju@amd.com&gt;<br>
+<b>Sent:</b> Thursday, September 14, 2023 12:00 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
+ristian &lt;Christian.Koenig@amd.com&gt;; Liu, Leo &lt;Leo.Liu@amd.com&gt;;=
+ Sundararaju, Sathishkumar &lt;Sathishkumar.Sundararaju@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: update IP count INFO query</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">update the query to return the number of functiona=
+l<br>
+instances where there is more than an instance of the requested<br>
+type and for others continue to return one.<br>
+<br>
+Signed-off-by: Sathishkumar S &lt;sathishkumar.sundararaju@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 90 +++++++++++++++++-------=
+-<br>
+&nbsp;1 file changed, 61 insertions(+), 29 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_kms.c<br>
+index 3a48bec10aea..9521fa7a1bf9 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+@@ -200,6 +200,44 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev,=
+ unsigned long flags)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&nbsp;}<br>
+&nbsp;<br>
++static enum amd_ip_block_type amdgpu_ip_get_block_type(<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; struct amdgpu_device *adev, uint32_t ip)<br>
++{<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum amd_ip_block_type type;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (ip) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_HW_IP_GFX:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; type =3D AMD_IP_BLOCK_TYPE_GFX;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; break;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_HW_IP_COMPUTE:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; type =3D AMD_IP_BLOCK_TYPE_GFX;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; break;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_HW_IP_DMA:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; type =3D AMD_IP_BLOCK_TYPE_SDMA;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; break;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_HW_IP_UVD:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_HW_IP_UVD_ENC:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; type =3D AMD_IP_BLOCK_TYPE_UVD;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; break;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_HW_IP_VCE:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; type =3D AMD_IP_BLOCK_TYPE_VCE;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; break;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_HW_IP_VCN_DEC:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_HW_IP_VCN_ENC:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; type =3D AMD_IP_BLOCK_TYPE_VCN;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; break;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_HW_IP_VCN_JPEG:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; type =3D (amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_=
+JPEG)) ?<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_IP_BLOCK_TYPE_JPEG : =
+AMD_IP_BLOCK_TYPE_VCN;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; break;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; type =3D AMD_IP_BLOCK_TYPE_NUM;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; break;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return type;<br>
++}<br>
++<br>
+&nbsp;static int amdgpu_firmware_info(struct drm_amdgpu_info_firmware *fw_i=
+nfo,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_amdgpu_query_fw *quer=
+y_fw,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev)<br>
+@@ -592,45 +630,39 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *d=
+ata, struct drm_file *filp)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_INFO_HW_IP_COU=
+NT: {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; enum amd_ip_block_type type;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; struct amdgpu_ip_block *ip_block =3D NULL;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; uint32_t count =3D 0;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; switch (info-&gt;query_hw_ip.type) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case AMDGPU_HW_IP_GFX:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type =3D AMD_IP_=
+BLOCK_TYPE_GFX;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case AMDGPU_HW_IP_COMPUTE:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type =3D AMD_IP_=
+BLOCK_TYPE_GFX;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case AMDGPU_HW_IP_DMA:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type =3D AMD_IP_=
+BLOCK_TYPE_SDMA;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case AMDGPU_HW_IP_UVD:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type =3D AMD_IP_=
+BLOCK_TYPE_UVD;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; type =3D amdgpu_ip_get_block_type(adev, info-&gt;query_hw_ip.typ=
+e);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ip_block =3D amdgpu_device_ip_get_ip_block(adev, type);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (!ip_block || !ip_block-&gt;status.valid)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<=
+br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; switch (type) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case AMD_IP_BLOCK_TYPE_GFX:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case AMD_IP_BLOCK_TYPE_VCE:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count =3D 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break=
+;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case AMDGPU_HW_IP_VCE:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type =3D AMD_IP_=
+BLOCK_TYPE_VCE;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case AMD_IP_BLOCK_TYPE_SDMA:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count =3D adev-&=
+gt;sdma.num_instances;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break=
+;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case AMDGPU_HW_IP_UVD_ENC:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type =3D AMD_IP_=
+BLOCK_TYPE_UVD;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case AMD_IP_BLOCK_TYPE_JPEG:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count =3D adev-&=
+gt;jpeg.num_jpeg_inst;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break=
+;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case AMDGPU_HW_IP_VCN_DEC:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case AMDGPU_HW_IP_VCN_ENC:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type =3D AMD_IP_=
+BLOCK_TYPE_VCN;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case AMD_IP_BLOCK_TYPE_VCN:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count =3D adev-&=
+gt;vcn.num_vcn_inst;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break=
+;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case AMDGPU_HW_IP_VCN_JPEG:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type =3D (amdgpu=
+_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_JPEG)) ?<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_IP_BLOCK_TYPE_JPEG : AMD_IP_BLOCK_TYPE_=
+VCN;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case AMD_IP_BLOCK_TYPE_UVD:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count =3D adev-&=
+gt;uvd.num_uvd_inst;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break=
+;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; /* For all other IP block types not listed in the switch stateme=
+nt<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * the ip status is valid here and the instance count is on=
+e.<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; default:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<=
+br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count =3D 1;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; for (i =3D 0; i &lt; adev-&gt;num_ip_blocks; i++)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;ip_=
+blocks[i].version-&gt;type =3D=3D type &amp;&amp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; adev-&gt;ip_blocks[i].status.valid &amp;&amp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; count &lt; AMDGPU_HW_IP_INSTANCE_MAX_COUNT)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count++;<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return copy_to_user(out, &amp;count, min(size, 4u)) ?=
+ -EFAULT : 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_INFO_TIMESTAMP=
+:<br>
+-- <br>
+2.25.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BL1PR12MB514444896B3183F907CCBD07F7F6ABL1PR12MB5144namp_--
