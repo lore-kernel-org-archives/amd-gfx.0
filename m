@@ -4,72 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 032AFEE6454
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Sep 2023 10:19:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 424D0EE6456
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Sep 2023 10:57:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 905AB10E612;
-	Fri, 15 Sep 2023 10:19:21 +0000 (UTC)
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27A7E10E61A
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Sep 2023 10:19:19 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-31f6ddb3047so1808736f8f.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Sep 2023 03:19:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1694773157; x=1695377957; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=sK9Eyjty3WcSPQgzQfhXSPOXZAdD5UkhlLQAAi98pcA=;
- b=Kr5+QmCuGZx9cN24MzOKYZ8NBXh43+H8mHl5l4eLod5AThvxzh0MtXQySv1Xmx8tK5
- FD9KndpPdV8/JApk4EcwWqLMFP+SsZxXBgvuMfyUc0nHGLcbb3OkDJpMLcuy9xN8Zim8
- ZQj+MvU5/8RFyWSae0d9CMH4rp4yDuTnBOSxTaJZR70U3x2Lf8ymUlWmVaZ59NTqghCu
- z9BfHxbKmWZg7JXfroxorxMl5eUcgpNbKiQY0FSnc7Ov09uPP+83BneCi5A197ibGLF0
- gk6jhvPKxupfzKHgEUxDfVbm0ScqR2SWqM1tQaaFVWNbm2/6s00x20yyRm2ARoJXFpWZ
- WyrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694773157; x=1695377957;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=sK9Eyjty3WcSPQgzQfhXSPOXZAdD5UkhlLQAAi98pcA=;
- b=c5phKAPAsdW9igAkwJjultVIVpcgMrSNQqbSeXfMCuWChiA+mEdpy7Z+bYIhnFEhn7
- /tZ8MuoQVi31eDSuELubTflZzT3+c+2yYDLtpu1KCqXiiY4AA6lAuPg1zz5HOyTREBq1
- F9sBplk8C2pr7/oivOsZsFILdVZPAvD4vvMtB8R077OYOxK2vsuFOY150V5BOrr5wWV/
- /Q+z6NmutRaC8aPgDs2B8LV3KDELcKaupIaevqbXQ+UX44QBmpouMkRFQpdqcrSu384F
- ejRJDtZxHo12/+ZjSEOpMD23Z2hu9lgKqbdp7c9fzlJqi3dl+ULikqhyHxURn/UBflUi
- UCxQ==
-X-Gm-Message-State: AOJu0YwT04hzcXHJBsZAa1gVoZIdg1Dle1PcakLV0BeFX1kFwhCWjKS9
- l+TbUtwkxRhAnCCAVuRFSqw=
-X-Google-Smtp-Source: AGHT+IHB2R8E1JJhdEyHIDzJJv9xzmQEjZsoALFdszxJJyova8my7tMp6WkYUw4nrIO1rC9lZYwwlg==
-X-Received: by 2002:a5d:6309:0:b0:315:9e1b:4ea6 with SMTP id
- i9-20020a5d6309000000b003159e1b4ea6mr846507wru.58.1694773157085; 
- Fri, 15 Sep 2023 03:19:17 -0700 (PDT)
-Received: from [10.254.108.106] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- q5-20020a5d6585000000b0031accc7228asm4101670wru.34.2023.09.15.03.19.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Sep 2023 03:19:16 -0700 (PDT)
-Message-ID: <39f0c4d9-0959-73ed-9bca-43a342fb906a@gmail.com>
-Date: Fri, 15 Sep 2023 12:19:13 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id C810D10E61E;
+	Fri, 15 Sep 2023 10:57:38 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2068.outbound.protection.outlook.com [40.107.100.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E01B10E61B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Sep 2023 10:57:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EWPA3UwyGFN7J+Jk9IuawcUZ9IwOl+qATCoou+RO8lsU1ODZIAV08BOXbhbKQmyXWeSOtBgZc2kSAmgQ7Z67MIE+iiPtL2j0iDWji+NSQgwGN/KcurtcJKHxYT0E4So7c+iHoC75pzm9dkHz6K3Nd64ryUfZeScK/6pxNe3DgWF0ruhxzoUKXimM2FUS7Pgq5QPIC38KROgHA59g5Qc5UPSyxJjUxosCemCIU3+NIcTj6To6GQaSPXquQgKsf/cLWvHrYCNVJjubi52i/sVPkcfmwOIJ9EfZChKzQf+o4irBW7GRDR9nMWQoZGsw/IMIfCXdZCDozZO964EzLdvIKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qldFVlsQKbawyXj+k/LM/XA8/70X1O9ELygqAecIJvc=;
+ b=QgjmNS/2JDvWAHplNtfjPG+AvLyrLkBZdHF7QJtiVmajLIrh69itL27aI0I40uLSooDboKHFp7IfwmQQwPMwLKOoBmgqz3g2tSI1FucJD/zCRO/f6G8gDKxbisHW9t85aL254NVoAKq/rNJrkAqeSfyE6XXvM2flmLN+kHjMpf/Liigjv9ypxQArPE5w30JKVE5EoVxRbDoBTXfLZ/JDH+h4xkC55H6KhDxSTQHeKCI0TF8LeMhWdPXLcRdFN/fb59HPj9o1atefgb0CKJ3VfisskIq5aDSvhNwXBbrPbwZ/W9y1EZF99kTc3eelP8cVEV7TXwNxBcTHo+/qyLlYYw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qldFVlsQKbawyXj+k/LM/XA8/70X1O9ELygqAecIJvc=;
+ b=PA5HNlPHWzzVUz69YuR5i2RN+ZC5Exb/mjacM+9F3hRu48Q6k9ooIiWk03btZliv7sYJvKbMkfaDDtjP05UBGMUnDRyRXclxiCST+3xGoGfAIHHVY59ppbTDnkdbjglCOTmMFT0VdVtti7hzw/wpkGavfgn2bL2mUj3nwEwsZrk=
+Received: from SN6PR05CA0030.namprd05.prod.outlook.com (2603:10b6:805:de::43)
+ by BL0PR12MB4913.namprd12.prod.outlook.com (2603:10b6:208:1c7::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.21; Fri, 15 Sep
+ 2023 10:57:33 +0000
+Received: from SA2PEPF00001508.namprd04.prod.outlook.com
+ (2603:10b6:805:de:cafe::f5) by SN6PR05CA0030.outlook.office365.com
+ (2603:10b6:805:de::43) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.21 via Frontend
+ Transport; Fri, 15 Sep 2023 10:57:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SA2PEPF00001508.mail.protection.outlook.com (10.167.242.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6792.20 via Frontend Transport; Fri, 15 Sep 2023 10:57:33 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 15 Sep
+ 2023 05:57:32 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 15 Sep
+ 2023 03:57:32 -0700
+Received: from stanley-test.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
+ Transport; Fri, 15 Sep 2023 05:57:31 -0500
+From: Stanley.Yang <Stanley.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH Review 1/1] drm/amdgpu: Fix false positive error log
+Date: Fri, 15 Sep 2023 18:57:29 +0800
+Message-ID: <20230915105729.1849284-1-Stanley.Yang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH v2] drm/amdgpu: always use legacy tlb flush on
- cyan_skilfish
-Content-Language: en-US
-To: Lang Yu <Lang.Yu@amd.com>, Felix Kuehling <felix.kuehling@amd.com>
-References: <20230914092350.3512016-1-Lang.Yu@amd.com>
- <40c096af-6c59-ce6d-af26-5cce7bceab83@amd.com>
- <1317e1a5-b1c0-2c3d-6082-b628fde5ab4d@amd.com>
- <745145aa-76fb-bb17-6065-c5e29c37f3c6@amd.com>
- <e7913001-ff45-169d-7110-3f2bef86208a@amd.com>
- <ZQQbmfuivo/F+b9o@lang-desktop>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <ZQQbmfuivo/F+b9o@lang-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00001508:EE_|BL0PR12MB4913:EE_
+X-MS-Office365-Filtering-Correlation-Id: ecb4c398-73d9-4aca-7a5c-08dbb5da905c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: spq9FFjv7FBSm/6+AsNLS/cvBD2o6hmTQu/faDk88jxGr8J2XSUYVyMoL42y/SSV5x0RdteOgP87Ms2UNe89Yf2THUGUo+cnNYIvXFVG63YJcdWO/PJpF2yFiWbgOblPCEi7n6CxCnQNxgwIVMVCaKChLBg/koWz68pWMfzrqZ1fc5gT3tM39tDEGq6TqSA+EayUc0U01b26xWnnAdAsM5CG9ot9SlbLmUJhi4Fz0POV1G0e38GrHk3xGli5M5cb2rUW7SPFtBAQhuuCjj89mFf2uyHxSnvtJTjntrpiIVmTtYLDY7mvGYGLZe7UOllh2MtcfXswfP3ZKm93C4ijuBE8RVNcsG4Fr4+YMnVI4AXxBpnbh3X054t2lInbgP7IUX2Hrm3z9yFcQnIi1X2fIKWVKAuUQ1gKg+9r/gFF56GY6Cb65PmPEupPvAYjwUovqRbkcOWdDN2F81UjJ5RC1JvbKZyInNAVI1sHAnth9WskAaY313OWjmFC45Srn1I5daGgfLMDDX8YVqiIL6MGSPdkOlKbO3CCmHoANd6ZXzQFrhKCuYb4ELFKWghX6sA45664N3tTufZCQ0RpbFoGu16braj9mimWft93O3oOxtvfQ5KWNf//iEbvhZ01feckT2pyMZ4Hs5XjLXeWfyJy0e5XBV80hlcGR8hTVHcC2mokvYWIXCyS7cHm1YATN4+8dlSI9vE8SToKNZG/9WXHGyR3hcw4JBNW4h2kugAmvE+p7+YAsSJFHUkz6Qs+V2MPQ/DFWiCcBu+dbNL5t+ZUxA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(376002)(346002)(39860400002)(396003)(136003)(1800799009)(186009)(82310400011)(451199024)(36840700001)(40470700004)(46966006)(478600001)(1076003)(2616005)(26005)(356005)(7696005)(81166007)(40480700001)(40460700003)(82740400003)(86362001)(316002)(6916009)(4744005)(70206006)(70586007)(41300700001)(83380400001)(36756003)(5660300002)(47076005)(8676002)(8936002)(4326008)(36860700001)(426003)(336012)(2906002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2023 10:57:33.1753 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ecb4c398-73d9-4aca-7a5c-08dbb5da905c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00001508.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4913
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,138 +101,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Yifan Zhang <yifan1.zhang@amd.com>, amd-gfx@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- stable@vger.kernel.org
+Cc: "Stanley.Yang" <Stanley.Yang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 15.09.23 um 10:53 schrieb Lang Yu:
-> On 09/14/ , Felix Kuehling wrote:
->> On 2023-09-14 10:02, Christian König wrote:
-> Do we still need to use legacy flush to emulate heavyweight flush
-> if we don't use SVM? And can I push this now?
+It should first check block ras obj whether be set, it should
+return directly if block ras obj is not set.
 
-Felix needs to decide that. From what I understand the KFD needs 
-heavyweight flushes for secure SVM operation.
+Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-If heavyweight flushes are buggy papering over that by using legacy 
-flushes is only a mediocre workaround.
-
-Regards,
-Christian.
-
->
-> Regards,
-> Lang
->
->
->>> Am 14.09.23 um 15:59 schrieb Felix Kuehling:
->>>> On 2023-09-14 9:39, Christian König wrote:
->>>>> Is a single legacy flush sufficient to emulate an heavyweight
->>>>> flush as well?
->>>>>
->>>>> On previous generations we needed to issue at least two legacy
->>>>> flushes for this.
->>>> I assume you are referring to the Vega20 XGMI workaround. That is a
->>>> very different issue. Because PTEs would be cached in L2, we had to
->>>> always use a heavy-weight flush that would also flush the L2 cache
->>>> as well, and follow that with another legacy flush to deal with race
->>>> conditions where stale PTEs could be re-fetched from L2 before the
->>>> L2 flush was complete.
->>> No, we also have another (badly documented) workaround which issues a
->>> legacy flush before each heavy weight on some hw generations. See the my
->>> TLB flush cleanup patches.
->>>
->>>> A heavy-weight flush guarantees that there are no more possible
->>>> memory accesses using the old PTEs. With physically addressed caches
->>>> on GFXv9 that includes a cache flush because the address translation
->>>> happened before putting data into the cache. I think the address
->>>> translation and cache architecture works differently on GFXv10. So
->>>> maybe the cache-flush is not required here.
->>>>
->>>> But even then a legacy flush probably allows for in-flight memory
->>>> accesses with old physical addresses to complete after the TLB
->>>> flush. So there is a small risk of memory corruption that was
->>>> assumed to not be accessed by the GPU any more. Or when using IOMMU
->>>> device isolation it would result in IOMMU faults if the DMA mappings
->>>> are invalidated slightly too early.
->>> Mhm, that's quite bad. Any idea how to avoid that?
->> A few ideas
->>
->>   * Add an arbitrary delay and hope that it is longer than the FIFOs in
->>     the HW
->>   * Execute an atomic operation to memory on some GPU engine that could
->>     act as a fence, maybe just a RELEASE_MEM on the CP to some writeback
->>     location would do the job
->>   * If needed, RELEASE_MEM could also perform a cache flush
->>
->> Regards,
->>    Felix
->>
->>
->>> Regards,
->>> Christian.
->>>
->>>> Regards,
->>>>    Felix
->>>>
->>>>
->>>>> And please don't push before getting an rb from Felix as well.
->>>>>
->>>>> Regards,
->>>>> Christian.
->>>>>
->>>>>
->>>>> Am 14.09.23 um 11:23 schrieb Lang Yu:
->>>>>> cyan_skilfish has problems with other flush types.
->>>>>>
->>>>>> v2: fix incorrect ternary conditional operator usage.(Yifan)
->>>>>>
->>>>>> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
->>>>>> Cc: <stable@vger.kernel.org> # v5.15+
->>>>>> ---
->>>>>>    drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 7 ++++++-
->>>>>>    1 file changed, 6 insertions(+), 1 deletion(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->>>>>> b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->>>>>> index d3da13f4c80e..c6d11047169a 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->>>>>> @@ -236,7 +236,8 @@ static void
->>>>>> gmc_v10_0_flush_vm_hub(struct amdgpu_device *adev, uint32_t
->>>>>> vmid,
->>>>>>    {
->>>>>>        bool use_semaphore =
->>>>>> gmc_v10_0_use_invalidate_semaphore(adev, vmhub);
->>>>>>        struct amdgpu_vmhub *hub = &adev->vmhub[vmhub];
->>>>>> -    u32 inv_req =
->>>>>> hub->vmhub_funcs->get_invalidate_req(vmid, flush_type);
->>>>>> +    u32 inv_req = hub->vmhub_funcs->get_invalidate_req(vmid,
->>>>>> +              (adev->asic_type != CHIP_CYAN_SKILLFISH) ?
->>>>>> flush_type : 0);
->>>>>>        u32 tmp;
->>>>>>        /* Use register 17 for GART */
->>>>>>        const unsigned int eng = 17;
->>>>>> @@ -331,6 +332,8 @@ static void
->>>>>> gmc_v10_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t
->>>>>> vmid,
->>>>>>          int r;
->>>>>>    +    flush_type = (adev->asic_type != CHIP_CYAN_SKILLFISH)
->>>>>> ? flush_type : 0;
->>>>>> +
->>>>>>        /* flush hdp cache */
->>>>>>        adev->hdp.funcs->flush_hdp(adev, NULL);
->>>>>>    @@ -426,6 +429,8 @@ static int
->>>>>> gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
->>>>>>        struct amdgpu_ring *ring = &adev->gfx.kiq[0].ring;
->>>>>>        struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
->>>>>>    +    flush_type = (adev->asic_type != CHIP_CYAN_SKILLFISH)
->>>>>> ? flush_type : 0;
->>>>>> +
->>>>>>        if (amdgpu_emu_mode == 0 && ring->sched.ready) {
->>>>>>            spin_lock(&adev->gfx.kiq[0].ring_lock);
->>>>>>            /* 2 dwords flush + 8 dwords fence */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 4a6df4e24243..ee62f5fa4456 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -1105,10 +1105,13 @@ int amdgpu_ras_reset_error_status(struct amdgpu_device *adev,
+ {
+ 	struct amdgpu_ras_block_object *block_obj = amdgpu_ras_get_ras_block(adev, block, 0);
+ 
++	if (!block_obj)
++		return 0;
++
+ 	if (!amdgpu_ras_is_supported(adev, block))
+ 		return -EINVAL;
+ 
+-	if (!block_obj || !block_obj->hw_ops)   {
++	if (!block_obj->hw_ops)   {
+ 		dev_dbg_once(adev->dev, "%s doesn't config RAS function\n",
+ 			     ras_block_str(block));
+ 		return -EINVAL;
+-- 
+2.25.1
 
