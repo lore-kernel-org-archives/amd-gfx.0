@@ -4,69 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDAD5CD13D1
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Sep 2023 07:17:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2425CD37B0
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Sep 2023 08:21:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 167D410E1F1;
-	Mon, 18 Sep 2023 07:17:37 +0000 (UTC)
-Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
- [IPv6:2607:f8b0:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87F2410E6B4;
- Sat, 16 Sep 2023 00:05:13 +0000 (UTC)
-Received: by mail-pf1-x42f.google.com with SMTP id
- d2e1a72fcca58-68fc9e0e22eso2262206b3a.1; 
- Fri, 15 Sep 2023 17:05:13 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1387010E20D;
+	Mon, 18 Sep 2023 08:21:55 +0000 (UTC)
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E99C910E20D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Sep 2023 08:21:52 +0000 (UTC)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-9adca291f99so343673866b.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Sep 2023 01:21:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1694822713; x=1695427513; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=uBFU91Ab8Ty50yBCscF+Su8H4xiggY1DMOJHupjwHzg=;
- b=Gpvf3UXxTu/PnH0KuCmdqSVjYb9YOM062pMEITnAWoSgRYgPhArcDq54iLhcA+bZJ4
- flXXW2rxtFrsye+YmjCfauM3cS3hgvT+lqmaHvc+Yw5YsG12QQ3D4YCsr+hBcVAiGQfn
- N1tJ877eY6KVZGqpXG03g8zgc4OkGqSwZuaaQ4I06EEiq5VulphU8gWYr3ts8RjuChJB
- 5xswhnV8b1YvL5TXGg96XKzWzDQTytkiyz5tMBrdbxBy8UNz3WQAdZvhjPOeAMmwgEV2
- EYWftvnTRMxobv5OoozBCO3UkvlCHCUJ2jgamL8HzPNF0nPlG2PBuNUUbh2hwOfsJ90G
- St5w==
+ d=gmail.com; s=20230601; t=1695025311; x=1695630111; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=XjotZRTmXQAlKrR3OOYpmLlde104eHkf9pJTnNbgJ24=;
+ b=f5EY7VT57x4CjNIDP3LSfrIdIg5DPS4BuaJUrDvEGKu1KggKTNapD7cmpoo6Yct11l
+ P4kWzX3LMiHFVtU1BZ1THc5Yr6XWVBTmqW7uuwnOb4fCZ9hfw5vHicfQ5gooK8CeXh12
+ s8cNn2LauFqTnyO66FcwBun/obV+6YLvKrTgu8sJgl3fXzIpQcGUOiViBLMoqpqe11HV
+ dD/jAKk6i7LVYOq6vojFMke7awbEl6It3FTsIUi6PE+4aKbQAmtzAhMrghrf7tEVVKAu
+ EV/kgcx5+hVusEL8MSRm4WnKHuRBm632fuepok+/EY1dfjDGZ/wEnx4jP0Udov8kjWVU
+ +vKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694822713; x=1695427513;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uBFU91Ab8Ty50yBCscF+Su8H4xiggY1DMOJHupjwHzg=;
- b=dA5/PXjqs8EQdI7QfsID3Sc77hgqYyTOno3EaexvKRwGv7ujR9Na8qS0At0FAE6h9N
- QyCDFVb4zRy+YoONj9HHMPMCx3E/0BzDhrs9eBWt3jc+6ca0yNi6KlhRY7xbtqFJAMPm
- 7TNLlMrZpZvgOf8VAl4otJNkOUxjaOSAeSxNkNjBArt+dslay2yyjgpKwlg/SXtsHzVS
- HBm5Y1klenX4QVF5KNbBTNjj8ApAyoCK9WZkRFe8vfUGJRQmsPjPoDn5/nRWcp1ptF7n
- JjqKpVcQImPClPLS1gGJsxPLiqpbM91/ggxB2zEKVNYT5XzAjxv8CuK0rNOB2W3tYzMP
- NLBQ==
-X-Gm-Message-State: AOJu0YyRublX04zD8YIBp7JXXu5xEorBvIyd8ERD49EJig2/5pjDe+Av
- 9xTv1RCB0rCJ455NZJ1ZbK4mjYPABAs=
-X-Google-Smtp-Source: AGHT+IF0Gziwgjs8IBkPNW32gp0eqmvsqmMuvS0x7PTIdUhgCFb6Vt3ZXEPLS8yJVzATlvoLr0H0cw==
-X-Received: by 2002:a05:6a00:1588:b0:68c:4e22:8f78 with SMTP id
- u8-20020a056a00158800b0068c4e228f78mr3528463pfk.25.1694822712935; 
- Fri, 15 Sep 2023 17:05:12 -0700 (PDT)
-Received: from debian.me ([103.124.138.83]) by smtp.gmail.com with ESMTPSA id
- c5-20020aa78805000000b0068ff6d21563sm3569946pfo.148.2023.09.15.17.05.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Sep 2023 17:05:11 -0700 (PDT)
-Received: by debian.me (Postfix, from userid 1000)
- id 33456811F023; Sat, 16 Sep 2023 07:05:07 +0700 (WIB)
-Date: Sat, 16 Sep 2023 07:05:07 +0700
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Tester47 <e598@gmx.com>
-Subject: Re: Fwd: Kernel 6.6-rc1 fails to reboot or shutdown Ryzen 5825U
-Message-ID: <ZQTxM0JdyV8mpxbt@debian.me>
-References: <2bc62c07-2195-e378-c057-f28e8d4a6034@gmail.com>
+ d=1e100.net; s=20230601; t=1695025311; x=1695630111;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=XjotZRTmXQAlKrR3OOYpmLlde104eHkf9pJTnNbgJ24=;
+ b=baZOaZ7oyDhVN/EulDrwBB9R39fjPAPCoObTWTiWZKWNjvLkG/CaXbUPRkIEYFKkR0
+ cLTadCNSvpcnabyss6p+37Gsnk/IJjyO6udNBhVIxee6Hw7w7K7TZufx66C+LaChhEsj
+ Key/7AURl8nJimKLKaPXfgEPlHwincK3i/AeJF1Igt4ULAVPTjgZAw2ip7uwY6sxqq+/
+ +LY87QYr1lgW/qqREemLyouAyCMxa2Ie9xB4yRJiQAgDpwfiLaNZsa9lB8IagVluwDCI
+ JS2fpq3KQsLOQa51oU4OEBOK0kl965DZkqBiDunBZAY56Q0P8ivvIHLAdiCyypHvxlB2
+ RSgQ==
+X-Gm-Message-State: AOJu0Ywjd8nxQoLKkh1NsydaghYk8K9CtnvRBydVWKEScccFJzgJy3rz
+ mVaekhhOg7FaMPm3H2XDStg=
+X-Google-Smtp-Source: AGHT+IEOnve26PUMJpcZMEBOj/RZRsxV7/1Za5lzGFu8D/mdyeCXfzYTuZAp5sgz624t75s6ntQyEQ==
+X-Received: by 2002:a17:906:31c7:b0:9ad:be8a:a588 with SMTP id
+ f7-20020a17090631c700b009adbe8aa588mr7349813ejf.1.1695025311097; 
+ Mon, 18 Sep 2023 01:21:51 -0700 (PDT)
+Received: from [192.168.178.25] ([185.254.126.99])
+ by smtp.gmail.com with ESMTPSA id
+ e6-20020a170906374600b009ad81554c1bsm6068934ejc.55.2023.09.18.01.21.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 18 Sep 2023 01:21:50 -0700 (PDT)
+Message-ID: <10c0952c-03fb-c6b2-35be-ad80425669cc@gmail.com>
+Date: Mon, 18 Sep 2023 10:21:49 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Xh9/EH8MO3HbfOrP"
-Content-Disposition: inline
-In-Reply-To: <2bc62c07-2195-e378-c057-f28e8d4a6034@gmail.com>
-X-Mailman-Approved-At: Mon, 18 Sep 2023 07:17:33 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH] drm/amdgpu: Increase IH soft ring size for GFX v9.4.3
+Content-Language: en-US
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230915193409.18822-1-Philip.Yang@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20230915193409.18822-1-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,43 +75,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux DRI Development <dri-devel@lists.freedesktop.org>,
- Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux TTY & Serial <linux-serial@vger.kernel.org>,
- Linux Regressions <regressions@lists.linux.dev>
+Cc: Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 15.09.23 um 21:34 schrieb Philip Yang:
+> On GFX v9.4.3, application have random timeout failure when XNACK on,
+> with dmesg log "amdgpu: IH soft ring buffer overflow 0x900, 0x900",
+> means retry CAM has more than 256 entries. After increasing IH soft ring
+> to 512 entries, the test passed repeatly, no IH soft ring overflow
+> message.
+>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 
---Xh9/EH8MO3HbfOrP
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I suggest to have a new define for those cases or maybe even completely 
+drop the define and fixed values and a comment.
 
-On Thu, Sep 14, 2023 at 02:03:00PM +0700, Bagas Sanjaya wrote:
-> #regzbot introduced: v6.5..v6.6 https://bugzilla.kernel.org/show_bug.cgi?=
-id=3D217905
-> #regzbot title: shutdown/reboot hang on Ryzen 5825U (stuck on amdgpu init=
-ialization)
->=20
+Christian.
 
-Fixing up commit range:
+> ---
+>   drivers/gpu/drm/amd/amdgpu/vega20_ih.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+> index ddfc6941f9d5..f9cde0d083fa 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+> @@ -566,7 +566,7 @@ static int vega20_ih_sw_init(void *handle)
+>   	/* initialize ih control registers offset */
+>   	vega20_ih_init_register_offset(adev);
+>   
+> -	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, IH_SW_RING_SIZE, use_bus_addr);
+> +	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, IH_SW_RING_SIZE * 2, use_bus_addr);
+>   	if (r)
+>   		return r;
+>   
 
-#regzbot introduced: v6.5..v6.6-rc1
-
---=20
-An old man doll... just what I always wanted! - Clara
-
---Xh9/EH8MO3HbfOrP
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZQTxLQAKCRD2uYlJVVFO
-o8rgAPwIzBXYXKeK6pcEOYV2weLfbQUqgqPF2jOk3Ec5KM6KWQD/bUH8Sr/mt0Fy
-cMDw3XSd1I3kgWf0GonS0cLKCV7tpQ0=
-=kMdp
------END PGP SIGNATURE-----
-
---Xh9/EH8MO3HbfOrP--
