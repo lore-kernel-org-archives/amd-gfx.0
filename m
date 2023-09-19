@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD773CD5BA3
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 12:08:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8A34CD5BA5
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 12:08:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45D5310E39C;
-	Tue, 19 Sep 2023 12:08:34 +0000 (UTC)
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D73C910E262
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 12:08:27 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-50308217223so4485254e87.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 05:08:27 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17D5910E39F;
+	Tue, 19 Sep 2023 12:08:35 +0000 (UTC)
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [IPv6:2a00:1450:4864:20::52a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1256610E262
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 12:08:29 +0000 (UTC)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-532c3b4b55eso610800a12.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 05:08:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1695125306; x=1695730106; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1695125307; x=1695730107; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=ZeB2y+24IlgiZeYbu1POFLVYcZD2836633KR4dO/QDg=;
- b=D1bA+zGiB9NHas6Lhk8YmK5Mm0s9YTODmRHJkspqD/rKWEW+8I0tn/+EDEdOW8Osgd
- eN+gXl6OSQ6/2xwXwhMUm34qCS0gKnnKWPRbtHm4fpaqH62F5mnpTT52bfjfkFUVT6vn
- siODf8Iz8cn/BlRVdoTPY/EACW5q1ZJIlUAi7UxTIE1UMMnjHucpf/cY/I3VuAGwfbWT
- LxgISpw73bl3I8Ub5rPtJCkso5urx9KwRD5um05M+DSSZaM8loF2B8aancMJqC4ymN+D
- 2gi+Kj+ZgqN23+quk0aV3naM1X3u7rT7gJAaeo5tFp6a4odObdIfM43AJM/mQGJSsL46
- 76ww==
+ :reply-to; bh=PgMUqe8nXUxqRt1Fi3a97nVsT0Q647xLxlLWbpSoTHs=;
+ b=SoX+spCfbdljW1PLRTpa1PcHXiSBjuJsMUKi+xLtHbI11Ld7aLHcV6uO0beMUOKHsb
+ fDoZMKq9euz51rtaOJc/O5NSecBQ1vv9GzS17Oj7IJFVfSsKMyJuav0fFuqR3lhsc1pe
+ UZ4xs7vIf4z+xFbW01q+3ndf8tBvQn/fVPnNrxztQa4QGi3YH9NlywMt1WkSIRSx0GSR
+ VEimWEvpzaeHcaIuvpFImv/2MDnj4bkJ3NWf9yrdhrAAlEICt1PBo+R9eP/RYOEtJjGZ
+ FjCASPxxPREDzktYqPSC9zZ0wGXHtYmGkIcp3cLF7+R6TAUWexLG2MZuFuCME6egZ+TA
+ rTrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695125306; x=1695730106;
+ d=1e100.net; s=20230601; t=1695125307; x=1695730107;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ZeB2y+24IlgiZeYbu1POFLVYcZD2836633KR4dO/QDg=;
- b=NpsWSMZ2UKhHycfx/ae68UyMQHpZcT+OCtouSNiVeEOe/OgZCHFXHDE926aZw9l5kZ
- PuQsDpbfa53OKTnvhsmNWUOpOTEFjSssXrYuue8qdzOFS92/2+EJbxM5LcbQBOPTSSiR
- Xi93PvP9L0ND9TwwXDJrW/WOjNK8ze5/omulaxloqKO9xgf5jFA5xjjyxNrSTYot/OZ7
- D4Y9R75DSl1YNqTLs5J6BEVPzo+E+3JHFqjSGBuzl28yR9XzImT2gG7Mea6Jf9Z1X/ar
- YaslSyVweOJ+NwvEP5snsORfUNoT0Uj7V8jLGi41tVWFH5q1DQ4TIL8R1uJf1MVJ/L3N
- sZ0Q==
-X-Gm-Message-State: AOJu0Yxq8PmLpp/UcEz2Lj5oYoh/6FLVsp964vm9KfAOkeockj/LNaff
- /KHal1DLbsAVqb843stmXMd9u8RTk/pJRw==
-X-Google-Smtp-Source: AGHT+IGWJHYMDvqS0bjnZYPJ0LNsWE9FXx9i+2njG1UAzwXtXErP1dsQcu3+Jwawc9wMaOx5yvce7A==
-X-Received: by 2002:ac2:5f99:0:b0:503:970:4dbf with SMTP id
- r25-20020ac25f99000000b0050309704dbfmr5628854lfe.15.1695125305756; 
- Tue, 19 Sep 2023 05:08:25 -0700 (PDT)
+ bh=PgMUqe8nXUxqRt1Fi3a97nVsT0Q647xLxlLWbpSoTHs=;
+ b=s062mx9Lct8nbOT2TmN0eh2swd91UMYzNM37ru9g0VNN2U/HFIyAZsAYoJoHAymzvE
+ b+9jO1Df3ZB4CjBTqWLLg7UFXLsZ9UzSbWgPxNBnNVqK4cbE5qFoICbsIHzz9QmbjMdw
+ gwAIiazFMGpxnrHIm6xT1kFa7GF+St9c7IZhYuBDQ325bZvCjkqOaIEHc1Z1NZ3sNwIM
+ Gbnu2ULa7nh/4ZkIY9MpWCc8eoV1EazOTnLH/8SY7uucZK3mypORY4MycywexQ3N1Nuy
+ e82cFdM1HrwcKpvb+XAUxeevrnQvSykw3/A7DjFSVEHQGL7sW7jo6GbfRpGjcIoXQrie
+ G5SA==
+X-Gm-Message-State: AOJu0YxGw2ukVexKwfoO68KNjw67R5n1rht6bcRf/L5tgfs3LspYyvv4
+ Qs14QKkPm6GwoLdSIBXOspo=
+X-Google-Smtp-Source: AGHT+IELZmjoZ5ewpYNMx/rh8GisUSwzZXNQ61s1cBqBl1ebahXXjbFiEzqZikw3tH+vWSnnKkAp3A==
+X-Received: by 2002:a05:6402:b8e:b0:532:d596:1c1f with SMTP id
+ cf14-20020a0564020b8e00b00532d5961c1fmr600144edb.12.1695125307349; 
+ Tue, 19 Sep 2023 05:08:27 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:15bc:9900:21a0:f69e:f2eb:dcf5])
  by smtp.gmail.com with ESMTPSA id
- q5-20020aa7cc05000000b0052a1a623267sm7283100edt.62.2023.09.19.05.08.25
+ q5-20020aa7cc05000000b0052a1a623267sm7283100edt.62.2023.09.19.05.08.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Sep 2023 05:08:25 -0700 (PDT)
+ Tue, 19 Sep 2023 05:08:27 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: felix.kuehling@amd.com, alexdeucher@gmail.com, shashank.sharma@amd.com,
  amd-gfx@lists.freedesktop.org
-Subject: [PATCH 04/11] drm/amdgpu: fix and cleanup gmc_v7_0_flush_gpu_tlb_pasid
-Date: Tue, 19 Sep 2023 14:08:15 +0200
-Message-Id: <20230919120822.95241-4-christian.koenig@amd.com>
+Subject: [PATCH 06/11] drm/amdgpu: fix and cleanup gmc_v9_0_flush_gpu_tlb_pasid
+Date: Tue, 19 Sep 2023 14:08:17 +0200
+Message-Id: <20230919120822.95241-6-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230919120822.95241-1-christian.koenig@amd.com>
 References: <20230919120822.95241-1-christian.koenig@amd.com>
@@ -79,63 +79,264 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Testing for reset is pointless since the reset can start right after the
-test. Grab the reset semaphore instead.
+test.
 
-The same PASID can be used by more than once VMID, build a mask of VMIDs
-to invalidate instead of just restting the first one.
+The same PASID can be used by more than one VMID, invalidate each of them.
+
+Move the KIQ and all the workaround handling into common GMC code.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Reviewed-by: Shashank Sharma <shashank.sharma@amd.com>
-Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c | 19 ++++++++++---------
- 1 file changed, 10 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c |  60 +++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  10 ++-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 111 ++++++++----------------
+ 3 files changed, 102 insertions(+), 79 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-index 6a6929ac2748..9e19a752f94b 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-@@ -33,6 +33,7 @@
- #include "amdgpu_ucode.h"
- #include "amdgpu_amdkfd.h"
- #include "amdgpu_gem.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 7db2884ceb3a..07f657e2f3a2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -32,6 +32,7 @@
+ #include "amdgpu.h"
+ #include "amdgpu_gmc.h"
+ #include "amdgpu_ras.h"
 +#include "amdgpu_reset.h"
+ #include "amdgpu_xgmi.h"
  
- #include "bif/bif_4_1_d.h"
- #include "bif/bif_4_1_sh_mask.h"
-@@ -426,23 +427,23 @@ static int gmc_v7_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ #include <drm/drm_drv.h>
+@@ -627,6 +628,65 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 	dev_err(adev->dev, "Error flushing GPU TLB using the SDMA (%d)!\n", r);
+ }
+ 
++int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
++				   uint32_t flush_type, bool all_hub,
++				   uint32_t inst)
++{
++	u32 usec_timeout = amdgpu_sriov_vf(adev) ? SRIOV_USEC_TIMEOUT :
++		adev->usec_timeout;
++	struct amdgpu_ring *ring = &adev->gfx.kiq[inst].ring;
++	struct amdgpu_kiq *kiq = &adev->gfx.kiq[inst];
++	unsigned int ndw;
++	signed long r;
++	uint32_t seq;
++
++	if (!adev->gmc.flush_pasid_uses_kiq || !ring->sched.ready ||
++	    !down_read_trylock(&adev->reset_domain->sem)) {
++		return adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pasid,
++								flush_type,
++								all_hub, inst);
++	}
++
++	/* 2 dwords flush + 8 dwords fence */
++	ndw = kiq->pmf->invalidate_tlbs_size + 8;
++
++	if (adev->gmc.flush_tlb_needs_extra_type_2)
++		ndw += kiq->pmf->invalidate_tlbs_size;
++
++	if (adev->gmc.flush_tlb_needs_extra_type_0)
++		ndw += kiq->pmf->invalidate_tlbs_size;
++
++	spin_lock(&adev->gfx.kiq[inst].ring_lock);
++	amdgpu_ring_alloc(ring, ndw);
++	if (adev->gmc.flush_tlb_needs_extra_type_2)
++		kiq->pmf->kiq_invalidate_tlbs(ring, pasid, 2, all_hub);
++
++	if (flush_type == 2 && adev->gmc.flush_tlb_needs_extra_type_0)
++		kiq->pmf->kiq_invalidate_tlbs(ring, pasid, 0, all_hub);
++
++	kiq->pmf->kiq_invalidate_tlbs(ring, pasid, flush_type, all_hub);
++	r = amdgpu_fence_emit_polling(ring, &seq, MAX_KIQ_REG_WAIT);
++	if (r) {
++		amdgpu_ring_undo(ring);
++		spin_unlock(&adev->gfx.kiq[inst].ring_lock);
++		goto error_unlock_reset;
++	}
++
++	amdgpu_ring_commit(ring);
++	spin_unlock(&adev->gfx.kiq[inst].ring_lock);
++	r = amdgpu_fence_wait_polling(ring, seq, usec_timeout);
++	if (r < 1) {
++		dev_err(adev->dev, "wait for kiq fence error: %ld.\n", r);
++		r = -ETIME;
++		goto error_unlock_reset;
++	}
++	r = 0;
++
++error_unlock_reset:
++	up_read(&adev->reset_domain->sem);
++	return r;
++}
++
+ /**
+  * amdgpu_gmc_tmz_set -- check and set if a device supports TMZ
+  * @adev: amdgpu_device pointer
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index 9e7df2f69123..7732d4ef845e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -335,11 +335,12 @@ struct amdgpu_gmc {
+ 	u64 MC_VM_MX_L1_TLB_CNTL;
+ 
+ 	u64 noretry_flags;
++
++	bool flush_tlb_needs_extra_type_0;
++	bool flush_tlb_needs_extra_type_2;
++	bool flush_pasid_uses_kiq;
+ };
+ 
+-#define amdgpu_gmc_flush_gpu_tlb_pasid(adev, pasid, type, allhub, inst) \
+-	((adev)->gmc.gmc_funcs->flush_gpu_tlb_pasid \
+-	((adev), (pasid), (type), (allhub), (inst)))
+ #define amdgpu_gmc_emit_flush_gpu_tlb(r, vmid, addr) (r)->adev->gmc.gmc_funcs->emit_flush_gpu_tlb((r), (vmid), (addr))
+ #define amdgpu_gmc_emit_pasid_mapping(r, vmid, pasid) (r)->adev->gmc.gmc_funcs->emit_pasid_mapping((r), (vmid), (pasid))
+ #define amdgpu_gmc_map_mtype(adev, flags) (adev)->gmc.gmc_funcs->map_mtype((adev),(flags))
+@@ -404,6 +405,9 @@ void amdgpu_gmc_ras_fini(struct amdgpu_device *adev);
+ int amdgpu_gmc_allocate_vm_inv_eng(struct amdgpu_device *adev);
+ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 			      uint32_t vmhub, uint32_t flush_type);
++int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
++				   uint32_t flush_type, bool all_hub,
++				   uint32_t inst);
+ 
+ extern void amdgpu_gmc_tmz_set(struct amdgpu_device *adev);
+ extern void amdgpu_gmc_noretry_set(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 0f82ab48887a..37b33eb84210 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -956,89 +956,30 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
  					uint16_t pasid, uint32_t flush_type,
  					bool all_hub, uint32_t inst)
  {
-+	u32 mask = 0x0;
- 	int vmid;
--	unsigned int tmp;
- 
+-	int vmid, i;
+-	signed long r;
+-	uint32_t seq;
+-	uint16_t queried_pasid;
+-	bool ret;
+-	u32 usec_timeout = amdgpu_sriov_vf(adev) ? SRIOV_USEC_TIMEOUT : adev->usec_timeout;
+-	struct amdgpu_ring *ring = &adev->gfx.kiq[inst].ring;
+-	struct amdgpu_kiq *kiq = &adev->gfx.kiq[inst];
+-
 -	if (amdgpu_in_reset(adev))
 -		return -EIO;
-+	if(!down_read_trylock(&adev->reset_domain->sem))
-+		return 0;
+-
+-	if (ring->sched.ready && down_read_trylock(&adev->reset_domain->sem)) {
+-		/* Vega20+XGMI caches PTEs in TC and TLB. Add a
+-		 * heavy-weight TLB flush (type 2), which flushes
+-		 * both. Due to a race condition with concurrent
+-		 * memory accesses using the same TLB cache line, we
+-		 * still need a second TLB flush after this.
+-		 */
+-		bool vega20_xgmi_wa = (adev->gmc.xgmi.num_physical_nodes &&
+-				       amdgpu_ip_version(adev, GC_HWIP, 0) ==
+-					       IP_VERSION(9, 4, 0));
+-		/* 2 dwords flush + 8 dwords fence */
+-		unsigned int ndw = kiq->pmf->invalidate_tlbs_size + 8;
+-
+-		if (vega20_xgmi_wa)
+-			ndw += kiq->pmf->invalidate_tlbs_size;
+-
+-		spin_lock(&adev->gfx.kiq[inst].ring_lock);
+-		/* 2 dwords flush + 8 dwords fence */
+-		amdgpu_ring_alloc(ring, ndw);
+-		if (vega20_xgmi_wa)
+-			kiq->pmf->kiq_invalidate_tlbs(ring,
+-						      pasid, 2, all_hub);
+-
+-		if (flush_type == 2 &&
+-		    amdgpu_ip_version(adev, GC_HWIP, 0) ==
+-			    IP_VERSION(9, 4, 3) &&
+-		    adev->rev_id == 0)
+-			kiq->pmf->kiq_invalidate_tlbs(ring,
+-						pasid, 0, all_hub);
+-
+-		kiq->pmf->kiq_invalidate_tlbs(ring,
+-					pasid, flush_type, all_hub);
+-		r = amdgpu_fence_emit_polling(ring, &seq, MAX_KIQ_REG_WAIT);
+-		if (r) {
+-			amdgpu_ring_undo(ring);
+-			spin_unlock(&adev->gfx.kiq[inst].ring_lock);
+-			up_read(&adev->reset_domain->sem);
+-			return -ETIME;
+-		}
+-
+-		amdgpu_ring_commit(ring);
+-		spin_unlock(&adev->gfx.kiq[inst].ring_lock);
+-		r = amdgpu_fence_wait_polling(ring, seq, usec_timeout);
+-		if (r < 1) {
+-			dev_err(adev->dev, "wait for kiq fence error: %ld.\n", r);
+-			up_read(&adev->reset_domain->sem);
+-			return -ETIME;
+-		}
+-		up_read(&adev->reset_domain->sem);
+-		return 0;
+-	}
++	uint16_t queried;
++	int i, vmid;
  
  	for (vmid = 1; vmid < 16; vmid++) {
-+		u32 tmp = RREG32(mmATC_VMID0_PASID_MAPPING + vmid);
++		bool valid;
  
--		tmp = RREG32(mmATC_VMID0_PASID_MAPPING + vmid);
- 		if ((tmp & ATC_VMID0_PASID_MAPPING__VALID_MASK) &&
--			(tmp & ATC_VMID0_PASID_MAPPING__PASID_MASK) == pasid) {
--			WREG32(mmVM_INVALIDATE_REQUEST, 1 << vmid);
--			RREG32(mmVM_INVALIDATE_RESPONSE);
+-		ret = gmc_v9_0_get_atc_vmid_pasid_mapping_info(adev, vmid,
+-				&queried_pasid);
+-		if (ret && queried_pasid == pasid) {
+-			if (all_hub) {
+-				for_each_set_bit(i, adev->vmhubs_mask, AMDGPU_MAX_VMHUBS)
+-					gmc_v9_0_flush_gpu_tlb(adev, vmid,
+-							i, flush_type);
+-			} else {
+-				gmc_v9_0_flush_gpu_tlb(adev, vmid,
+-						AMDGPU_GFXHUB(0), flush_type);
+-			}
 -			break;
--		}
-+		    (tmp & ATC_VMID0_PASID_MAPPING__PASID_MASK) == pasid)
-+			mask |= 1 << vmid;
++		valid = gmc_v9_0_get_atc_vmid_pasid_mapping_info(adev, vmid,
++								 &queried);
++		if (!valid || queried != pasid)
++			continue;
++
++		if (all_hub) {
++			for_each_set_bit(i, adev->vmhubs_mask,
++					 AMDGPU_MAX_VMHUBS)
++				gmc_v9_0_flush_gpu_tlb(adev, vmid, i,
++						       flush_type);
++		} else {
++			gmc_v9_0_flush_gpu_tlb(adev, vmid,
++					       AMDGPU_GFXHUB(0),
++					       flush_type);
+ 		}
  	}
  
-+	WREG32(mmVM_INVALIDATE_REQUEST, mask);
-+	RREG32(mmVM_INVALIDATE_RESPONSE);
-+	up_read(&adev->reset_domain->sem);
  	return 0;
+-
  }
+ 
+ static uint64_t gmc_v9_0_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
+@@ -2360,6 +2301,24 @@ static int gmc_v9_0_hw_init(void *handle)
+ 	bool value;
+ 	int i, r;
+ 
++	adev->gmc.flush_pasid_uses_kiq = true;
++
++	/* Vega20+XGMI caches PTEs in TC and TLB. Add a heavy-weight TLB flush
++	 * (type 2), which flushes both. Due to a race condition with
++	 * concurrent memory accesses using the same TLB cache line, we still
++	 * need a second TLB flush after this.
++	 */
++	adev->gmc.flush_tlb_needs_extra_type_2 =
++		amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 0) &&
++		adev->gmc.xgmi.num_physical_nodes;
++	/*
++	 * TODO: This workaround is badly documented and had a buggy
++	 * implementation. We should probably verify what we do here.
++	 */
++	adev->gmc.flush_tlb_needs_extra_type_0 =
++		amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) &&
++		adev->rev_id == 0;
++
+ 	/* The sequence of these two function calls matters.*/
+ 	gmc_v9_0_init_golden_registers(adev);
  
 -- 
 2.34.1
