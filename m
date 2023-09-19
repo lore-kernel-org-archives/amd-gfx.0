@@ -4,115 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D35ABCD343E
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 06:10:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE68ECD54A5
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 08:01:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CA2F10E1F7;
-	Tue, 19 Sep 2023 06:10:44 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2082.outbound.protection.outlook.com [40.107.244.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFC4E10E1F7
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 06:10:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GlECmjZ821numYjQ0CX9Qu7ra3SQU/3cn+BEDk+P6K07DYDunMPG3jjzedkmJPeX0GVJuv+rEjseFAEKpKl36SooakdvSLI/mziPsUfmHDeIPC0p7iOQ4tBob4e1Vgm/2LX59SUd/EiKkRXWctiyfSvw+acZe7bgem6PvlrF50Ipx84dcWqj5YoAfFFnRwF+hq3qc03yfiDfpBMKHdENtDz9d0jm0MBii0gGED4zVMBGtUOaa/fOQ1WLPv2gwARyfemBhmDtOnqMmI52tyvf/5jpN6IVSCRqmvIOEltJH1pulyOMdSnKqz729Y8qQ+eREosERVywHfUip3ncaPDfbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eic3ucoC1NWFLw1gDbXH7uXECExm0bkFuqMhUzESB+4=;
- b=aqWK1RvnobUeqJizwIYKRfhB3NJOoP6v3iYWXluzlP2AAR9/WPrDEib8HqwdKO3b8V/r2jR6YQsUboPMPlVvlMcGy6kFbffjGkwwIeTyGOuuUgHBFggnM+oTHkx5f9UCMvNy/lw+yTUDlzhKfoTyw4s3IE8ELC87fvDjmJGHKS2cBrJqleIduv/toy7aJ6ZziiQNQnzuh1GR9BkHkbVEEH3I6dCiDaVsuj3z0mnnmHRX+4ZH+7B5pnl2R3knapsx8XDefL10HrFA3e6p3pXJo01C04262HWglX1y2Vr0TZevcX3027cBuCfWJ9I/4qsbalfN38nOPruwnVCdZLto2g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eic3ucoC1NWFLw1gDbXH7uXECExm0bkFuqMhUzESB+4=;
- b=F84MMW2AzriGzd52WZkTnHjgcN0F8mNXjp/yVvPqT8eMGiZ3X3HRkHHjNGOhhq2+c1BdULeZdvD7z8Hknu71Gh0Nav4YfO1PSFhz4jEbUR2tfE+iA3pbG+6T/aKNrsACPKOnx19CqDVYHg9TIqErE+QqiqrkLVbqUphRRv6Zjdg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DM3PR12MB9288.namprd12.prod.outlook.com (2603:10b6:0:4a::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.27; Tue, 19 Sep
- 2023 06:10:40 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::55cb:215b:389e:eced]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::55cb:215b:389e:eced%5]) with mapi id 15.20.6792.026; Tue, 19 Sep 2023
- 06:10:40 +0000
-Message-ID: <de4657e0-4eaf-3dc8-f1ad-f0a3b4ceb09a@amd.com>
-Date: Tue, 19 Sep 2023 08:10:36 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FF7C10E367;
+	Tue, 19 Sep 2023 08:01:42 +0000 (UTC)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E962910E367
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 08:01:39 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-404773f2501so50003675e9.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 01:01:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1695110498; x=1695715298; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ErpUi+ORq59JFehWhlASYkmE00V3qL9c3IKNA27HKbM=;
+ b=CF/IFDLxqtRRCORr2PmRmbygu0p0Ltla/BccC0+HhaAQalVVso1yYespTj+dmoJqB0
+ O0QyP0E+URuanIUs1lyRk7cpjLL29o3mUVqm2/AENmf0RnA8/mjfSzFrOJsJydM9NhAa
+ LsGDU8Wbst7TP6w7yCGTQk9ELY6hduTddUCzIiyoIwUdPmfZcahlgphflpu8o86SZOxR
+ Nl8E8/eNbHbKqN1YtfWeUNm31ViolDSM0nPG3LxVG3a4Mp3QhhTllBABVeBKJ4PpLvZr
+ AE02jyFAl/+nvbwYcLzJ4/QZbplOTYTyovNAguNgRyrAfLnIytnl3+rxpL4ossUQ2jfp
+ LPhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695110498; x=1695715298;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ErpUi+ORq59JFehWhlASYkmE00V3qL9c3IKNA27HKbM=;
+ b=Kg+d4BTvPKJ68jXYbWupXStv5NaIp9ARbZAPE9+tSclrwVLSF8m4tLfs+wF66SCM/h
+ eUVLTKYVjRQx4/I8Dv5SWCDK7V2MaGAG0HGLtbXVbIePpJRe8Orhl5CUuDLGYpg0bgXO
+ QNdCUAPnZfEKVSYsj+JFFaINJpO0jxvrQJTRZ5UjFv475nbL4vXxigmWkx8lDVXyhenr
+ BTw51L8bTXJKzvLQVnmu7Yo9vHoRH3kH4N61j7qLQ6LOp9w5QFMTT44Baz1obym6LeXt
+ fmcjgC6HwjWItps99jCd1eBgGfqogyjpG6wIfY/iuTMX+ihS1M8RpAZehJ2qHIEQSDj9
+ ab/A==
+X-Gm-Message-State: AOJu0YyycV+XYPRPG05JGxUcNxvIHVVDN/tcSGbFaRcdT7E3WEW61l5T
+ aW1E1eMld2vQgZNkKn9LAV0=
+X-Google-Smtp-Source: AGHT+IHzECwmwH8ZTtDcMoEtlT5efXS8O/zRZlARvZU6J3uztgctQzmTFqpE1Ldpq+1eC+2jUlKlbA==
+X-Received: by 2002:a05:600c:2109:b0:402:f8ea:be3e with SMTP id
+ u9-20020a05600c210900b00402f8eabe3emr9048549wml.7.1695110497944; 
+ Tue, 19 Sep 2023 01:01:37 -0700 (PDT)
+Received: from [10.254.108.106] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ z15-20020a5d4c8f000000b0030647449730sm14829339wrs.74.2023.09.19.01.01.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 19 Sep 2023 01:01:37 -0700 (PDT)
+Message-ID: <936fc851-39ce-6c68-f188-6e35ab25faaa@gmail.com>
+Date: Tue, 19 Sep 2023 10:01:34 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.1
-Subject: Re: [PATCH 1/4] drm/amdgpu/gmc: add a way to force a particular
- placement for GART
+Subject: Re: [PATCH 01/11] drm/amdgpu: fix and cleanup gmc_v9_0_flush_gpu_tlb
 Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230914182200.679059-1-alexander.deucher@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230914182200.679059-1-alexander.deucher@amd.com>
+To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230905060415.1400-1-christian.koenig@amd.com>
+ <20230905060415.1400-2-christian.koenig@amd.com>
+ <42a4ca26-1698-7838-df27-ce1e21eb065c@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <42a4ca26-1698-7838-df27-ce1e21eb065c@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0018.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:15::23) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DM3PR12MB9288:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7e34734f-6558-46ac-c48c-08dbb8d72623
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OWO2vrVuifIgKg+gy/Nn+XmFZ38ddgRhQw2by+291hzk2OOPOJy19OaYyDLKTPSYZGsFJ7/3EHbMcK28flRtqO7xg0p3eVuT56/QP5wuD/WTGUOrAEBvZ3iYkPDgPVAZ7q91dMVA4y6TynhJFlFAI6r8iZmKrAd5ky/N6/tqBelWzRg0eWjxuPDwQ5hjFe1KRUB0zTppv8Yg2iZmxHSkbI0faQ0gFC0JZxkis61gaoyUqZiEBlNei9xVn+bi0J+PAkXbPGEv3gvxuAmGjTzKEPf/r6EYKioA1KT+fZoZ9kdoTwZU4KECKRgEMeTKGjDb8kn7wWTuKBtk73mSgdIOei4gin3L13i5AsJ/B25eJWZlXi6uXd2uZve3g7nxPU6xuA1Wphq3BNwYiZ9AW0GXadINxdRx/TIGhTwzI3Md4OI+tIx1d4+B3uPQBOmqAR14PXkH/kJGRvVUwekNsgN4XFvVUcU9gUslHg/3UYC/nAv0KRuwrYP4PscBV39q32yRvKPnecmHbAK1Sf3LGJ2xI/FEzTcOBk/3qNdb8psCo95SKmzQAoetQg+aPexaYYWKaqj69p3vbztqDfBygDKDhG3bYqIeeqIXH1QtzrVr/4gO0YFG9QwHCMxXSPHhi0miaZr3ZLyhRlH/kzdig6QFAjNrku8jmD6CJJ3a/YiXfeo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366004)(39860400002)(136003)(376002)(396003)(346002)(1800799009)(186009)(451199024)(86362001)(66899024)(2616005)(8676002)(66476007)(41300700001)(6512007)(8936002)(66556008)(38100700002)(66946007)(2906002)(316002)(5660300002)(83380400001)(31696002)(26005)(6666004)(36756003)(6506007)(6486002)(478600001)(31686004)(43043002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SFZySGIyWXJyVGt3ZzlIWlRGZGlKRnFqdHlnMjdoQ2Z5V2hUdHZPRHBFQ0ls?=
- =?utf-8?B?ellJVXBEK0RtZXpZV3ZYLzlUbXgreEVIMXRtbnFkYzE3N1hVL1RFNlUxc1J4?=
- =?utf-8?B?ajNqSWE1c3RWMU8vcWdHM0F0aGFxWXMrUlFtdTNEYmFDQ3FDZWlXV0xUdjBa?=
- =?utf-8?B?K3pVdXlGaGNTUk4weXAxZmRFK0lvY0hGNDN1cjdvaHJwUE13ZlNrQ2VRZFoz?=
- =?utf-8?B?ZHlTWHFwL0pHa0VjZ0FmdHBadG8wWTEwM0ZPcVNsODZoNGc3L1ZVeGNvKzlW?=
- =?utf-8?B?V2FPcHM3cGEvMlZranRRdnl3LzhJQVM5SjNmY1Z5eGl4UGdWNVhYcVZkcDBr?=
- =?utf-8?B?MXN0cDkwOFpYS01NcUVhVnVMTmNOdGdIenhPYmJiZVRUUjUwTFFZM3JkMldQ?=
- =?utf-8?B?RFV4SFY0Smg5eVI0UURUYzEycnBGRGpOMC96U0hhRHBoOStIbzBLRkFzR0to?=
- =?utf-8?B?Wi95aHRFUW5XRzZlZXFiQml6VEF2VHVsU3lKVHdnWmZVWk5CYWFPM3hRajUr?=
- =?utf-8?B?UlJEVHlqTTE0eEdISjAwcTREUDYwR050YXZ4aFo5SDlYNUVVcThkU0NuZzha?=
- =?utf-8?B?cUFiaWs1YS9wYUhxcHpWYjArL0tDUDdYNFhiRjFaNk1TNW9INDJFZVVQRXJI?=
- =?utf-8?B?NmZ2bTVoWTl6bXdiSEc5a0pudW9mSmozMDBDQlJCUnlxdEJrdWw5K3N6dE9O?=
- =?utf-8?B?ZklzL2Z1MVUwZEpKYXNFQWVBSThIcW15cTZWUVpWWVRoWmtabHZOZ1hGd05u?=
- =?utf-8?B?WS9wYkZhL1R4R0lZKytQbjhjSWJKc0lZNXNOU21paFZ3MmM4QWVWTDBvaU9i?=
- =?utf-8?B?Ym1ML0VSOTNKY0d0NDEzMHFVdUFLN0pKcTM2Y2JQZW1YakdOOWpQQUV0QWJC?=
- =?utf-8?B?d3ptdUZhOUUvekJkTjRIbEdEZGEzdzV3V0lGYjJMdXNKT29UOGdkOGVFcFIy?=
- =?utf-8?B?b3hGb3dSTGlKQTJYY2RZSFBaNUtSMnVacXdHNzRaYXIzckh5d3ZseHlIOEFh?=
- =?utf-8?B?aWo2NThQWkhNSkVwZ1BBdWp1QWpHVWVrYStpN1FwRXhCcjBuK0VDVkVNRklj?=
- =?utf-8?B?RlU2aURtbUtERHozV3ZkNkpPeU5BRTZSU2tHWk9NRnYxbkE0UVhnem8xYy9C?=
- =?utf-8?B?NytlY3k1WEZldmNTUUxmbVo5b2tkSWNQckZuMUFNT1BrRHBEUlJmTjVaUjk4?=
- =?utf-8?B?N29NV0JVNUJVeWpHb2c0SHRSSHBoQTUyaDZrTzU4djhZQmhyZGpNTWJFbmZK?=
- =?utf-8?B?Y3Z5aHVjUWdSaG80MVh6S3ZCWkNNcWFTRjk1Q0xrdi9OWlljS2I1TjRVNnVs?=
- =?utf-8?B?RmcwVGp5M1k1aHVES3IyUGJFdStTZmZvT0htdGpic1dZaDRiQnVJRmpaRHpB?=
- =?utf-8?B?SHlNcFRzWk4zT0tKaWlKVFJDeWdhT2JRODNzU1YzWUhDcFM4bldSc2J6TlIx?=
- =?utf-8?B?WGQyZXpGL3lkUk92LzFIVUdiZEs4RW5PQXNjWDlHc0tiRGI0QnVIZnI1djNW?=
- =?utf-8?B?RFZYSGJjbjdxY1pXRE1vSm1MZmtWdllFOVgzd05uN1RtM1M4akRIREtoR0t5?=
- =?utf-8?B?NGtnallCbmFXZWJZbTB0eXdvMGpzUDdkWHZ5bjFCRkd3R0RmaHNhVFBQY05X?=
- =?utf-8?B?cFVqSFFGcFRiK3FtcjFaQW1XVUdHNlduUDBOTWZ3Vm4xTmMwbjBJeFVDQmxC?=
- =?utf-8?B?ek9uOFpPbm9ycTErRWJMbFRFK3A0VzRMV3MxN09NZWhHUERQTUpuTmU2QXBl?=
- =?utf-8?B?a2F2dWxyUTFaM0ttNW4vMlN6OTNPdXdNN2g1eE1NbjVHU0gxWHRta2w3aEZo?=
- =?utf-8?B?dXV5dlJ2ZDM0dDVSb0ZYTGR2bEtHU2Q4QytzZHN1bWt5WnlaTmg1N3B1bi9x?=
- =?utf-8?B?Z2RkRHNJUEtSbVJiSDZhQ2UvMEdJSEFKTms2UTJJRnNIZ0kvSDliS01DbmE1?=
- =?utf-8?B?YUgvbGlIajF2QTByMEcvL1Qrcmd5cnB6NHpmMytSaWh2ZjVLaGJwUXY1Y1ky?=
- =?utf-8?B?cmZRWjcvQ1dkaHlCR28vc3pPcDZGZk04TW9kQWxuYm94VU1ia041c3dGYjF4?=
- =?utf-8?B?RlkvZXYrMHFNMlBWQ0V2clZnM1pyMXRpYXFXalpkMDVSZGIzUXkxamtzUDFM?=
- =?utf-8?Q?fG65IvWUFmzOy0hdE4BM1penB?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e34734f-6558-46ac-c48c-08dbb8d72623
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2023 06:10:40.1482 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lAjDXqZM/8y7ib1EtNEbAo1Id9jvL8mdJs/rmpEAP3dt1mOw2BAAszKs4IM9JH+b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9288
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,86 +77,134 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: shashank.sharma@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 14.09.23 um 20:21 schrieb Alex Deucher:
-> We normally place GART based on the location of VRAM and the
-> available address space around that, but provide an option
-> to force a particular location for hardware that needs it.
-
-Ah, somehow that patch arrived delayed in my inbox.
-
+Am 08.09.23 um 20:58 schrieb Felix Kuehling:
 >
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 19 +++++++++++++++----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  7 +++++++
->   2 files changed, 22 insertions(+), 4 deletions(-)
+> On 2023-09-05 02:04, Christian König wrote:
+>> The KIQ code path was ignoring the second flush. Also avoid long 
+>> lines and
+>> re-calculating the register offsets over and over again.
+>>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 29 +++++++++++++++++----------
+>>   1 file changed, 18 insertions(+), 11 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c 
+>> b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>> index 0673cda547bb..4f6990ba71cb 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>> @@ -814,13 +814,17 @@ static void gmc_v9_0_flush_gpu_tlb(struct 
+>> amdgpu_device *adev, uint32_t vmid,
+>>                       uint32_t vmhub, uint32_t flush_type)
+>>   {
+>>       bool use_semaphore = gmc_v9_0_use_invalidate_semaphore(adev, 
+>> vmhub);
+>> +    u32 j, inv_req, inv_req2, tmp, sem, req, ack;
+>>       const unsigned int eng = 17;
+>> -    u32 j, inv_req, inv_req2, tmp;
+>>       struct amdgpu_vmhub *hub;
+>>         BUG_ON(vmhub >= AMDGPU_MAX_VMHUBS);
+>>         hub = &adev->vmhub[vmhub];
+>> +    sem = hub->vm_inv_eng0_sem + hub->eng_distance * eng;
+>> +    req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
+>> +    ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> index c7793db6d098..c41321c456fe 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -286,11 +286,22 @@ void amdgpu_gmc_gart_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc)
->   		mc->gart_size = max(size_bf, size_af);
->   	}
->   
-> -	if ((size_bf >= mc->gart_size && size_bf < size_af) ||
-> -	    (size_af < mc->gart_size))
-> -		mc->gart_start = 0;
-> -	else
-> +	switch (mc->gart_placement) {
-> +	case AMDGPU_GART_PLACEMENT_HIGH:
->   		mc->gart_start = max_mc_address - mc->gart_size + 1;
-> +		break;
-> +	case AMDGPU_GART_PLACEMENT_LOW:
-> +		mc->gart_start = 0;
-> +		break;
-> +	case AMDGPU_GART_PLACEMENT_BEST_FIT:
-> +	default:
-> +		if ((size_bf >= mc->gart_size && size_bf < size_af) ||
-> +		    (size_af < mc->gart_size))
-> +			mc->gart_start = 0;
-> +		else
-> +			mc->gart_start = max_mc_address - mc->gart_size + 1;
-> +		break;
-> +	}
+> If you use SOC15_REG_OFFSET here, you can drop all the if (vmhub >= 
+> AMDGPU_MMHUB0(0)) conditions below.
 
-I'm not very keen of this because it doesn't really handle the problem, 
-but rather just works around it.
+I though about that as well, but that won't work since we don't know the 
+register name.
 
-Ideally we would use the kernels resource management functions for the 
-internal address space and declare everything which is reserved as such.
-
+Regards,
 Christian.
 
->   
->   	mc->gart_start &= ~(four_gb - 1);
->   	mc->gart_end = mc->gart_start + mc->gart_size - 1;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> index fdc25cd559b6..caa15639d3d5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> @@ -197,6 +197,12 @@ struct amdgpu_mem_partition_info {
->   
->   #define INVALID_PFN    -1
->   
-> +enum amdgpu_gart_placement {
-> +	AMDGPU_GART_PLACEMENT_BEST_FIT = 0,
-> +	AMDGPU_GART_PLACEMENT_HIGH,
-> +	AMDGPU_GART_PLACEMENT_LOW,
-> +};
-> +
->   struct amdgpu_gmc {
->   	/* FB's physical address in MMIO space (for CPU to
->   	 * map FB). This is different compared to the agp/
-> @@ -333,6 +339,7 @@ struct amdgpu_gmc {
->   	u64 MC_VM_MX_L1_TLB_CNTL;
->   
->   	u64 noretry_flags;
-> +	enum amdgpu_gart_placement gart_placement;
->   };
->   
->   #define amdgpu_gmc_flush_gpu_tlb(adev, vmid, vmhub, type) ((adev)->gmc.gmc_funcs->flush_gpu_tlb((adev), (vmid), (vmhub), (type)))
+>
+> Other than that, the patch looks good to me.
+>
+> Regards,
+>   Felix
+>
+>
+>> +
+>>       if (adev->gmc.xgmi.num_physical_nodes &&
+>>           adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 0)) {
+>>           /* Vega20+XGMI caches PTEs in TC and TLB. Add a
+>> @@ -852,6 +856,10 @@ static void gmc_v9_0_flush_gpu_tlb(struct 
+>> amdgpu_device *adev, uint32_t vmid,
+>>             amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack, inv_req,
+>>                              1 << vmid);
+>> +        if (inv_req2)
+>> +            amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack,
+>> +                               inv_req2, 1 << vmid);
+>> +
+>>           up_read(&adev->reset_domain->sem);
+>>           return;
+>>       }
+>> @@ -870,9 +878,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct 
+>> amdgpu_device *adev, uint32_t vmid,
+>>           for (j = 0; j < adev->usec_timeout; j++) {
+>>               /* a read return value of 1 means semaphore acquire */
+>>               if (vmhub >= AMDGPU_MMHUB0(0))
+>> -                tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, 
+>> hub->vm_inv_eng0_sem + hub->eng_distance * eng);
+>> +                tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, sem);
+>>               else
+>> -                tmp = RREG32_SOC15_IP_NO_KIQ(GC, 
+>> hub->vm_inv_eng0_sem + hub->eng_distance * eng);
+>> +                tmp = RREG32_SOC15_IP_NO_KIQ(GC, sem);
+>>               if (tmp & 0x1)
+>>                   break;
+>>               udelay(1);
+>> @@ -884,9 +892,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct 
+>> amdgpu_device *adev, uint32_t vmid,
+>>         do {
+>>           if (vmhub >= AMDGPU_MMHUB0(0))
+>> -            WREG32_SOC15_IP_NO_KIQ(MMHUB, hub->vm_inv_eng0_req + 
+>> hub->eng_distance * eng, inv_req);
+>> +            WREG32_SOC15_IP_NO_KIQ(MMHUB, req, inv_req);
+>>           else
+>> -            WREG32_SOC15_IP_NO_KIQ(GC, hub->vm_inv_eng0_req + 
+>> hub->eng_distance * eng, inv_req);
+>> +            WREG32_SOC15_IP_NO_KIQ(GC, req, inv_req);
+>>             /*
+>>            * Issue a dummy read to wait for the ACK register to
+>> @@ -895,14 +903,13 @@ static void gmc_v9_0_flush_gpu_tlb(struct 
+>> amdgpu_device *adev, uint32_t vmid,
+>>            */
+>>           if ((vmhub == AMDGPU_GFXHUB(0)) &&
+>>               (adev->ip_versions[GC_HWIP][0] < IP_VERSION(9, 4, 2)))
+>> -            RREG32_NO_KIQ(hub->vm_inv_eng0_req +
+>> -                      hub->eng_distance * eng);
+>> +            RREG32_NO_KIQ(req);
+>>             for (j = 0; j < adev->usec_timeout; j++) {
+>>               if (vmhub >= AMDGPU_MMHUB0(0))
+>> -                tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, 
+>> hub->vm_inv_eng0_ack + hub->eng_distance * eng);
+>> +                tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, ack);
+>>               else
+>> -                tmp = RREG32_SOC15_IP_NO_KIQ(GC, 
+>> hub->vm_inv_eng0_ack + hub->eng_distance * eng);
+>> +                tmp = RREG32_SOC15_IP_NO_KIQ(GC, ack);
+>>               if (tmp & (1 << vmid))
+>>                   break;
+>>               udelay(1);
+>> @@ -919,9 +926,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct 
+>> amdgpu_device *adev, uint32_t vmid,
+>>            * write with 0 means semaphore release
+>>            */
+>>           if (vmhub >= AMDGPU_MMHUB0(0))
+>> -            WREG32_SOC15_IP_NO_KIQ(MMHUB, hub->vm_inv_eng0_sem + 
+>> hub->eng_distance * eng, 0);
+>> +            WREG32_SOC15_IP_NO_KIQ(MMHUB, sem, 0);
+>>           else
+>> -            WREG32_SOC15_IP_NO_KIQ(GC, hub->vm_inv_eng0_sem + 
+>> hub->eng_distance * eng, 0);
+>> +            WREG32_SOC15_IP_NO_KIQ(GC, sem, 0);
+>>       }
+>>         spin_unlock(&adev->gmc.invalidate_lock);
 
