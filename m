@@ -4,66 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41AB6CD5BA8
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 12:08:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1D0CCD5BA9
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 12:39:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B53010E3A6;
-	Tue, 19 Sep 2023 12:08:47 +0000 (UTC)
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4C7010E399
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 12:08:32 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-532aaba8747so1337456a12.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 05:08:32 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06E0A10E279;
+	Tue, 19 Sep 2023 12:39:52 +0000 (UTC)
+Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
+ [IPv6:2607:f8b0:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E691C10E239;
+ Tue, 19 Sep 2023 09:34:19 +0000 (UTC)
+Received: by mail-pl1-x630.google.com with SMTP id
+ d9443c01a7336-1c44a25bd0bso22058175ad.0; 
+ Tue, 19 Sep 2023 02:34:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1695125311; x=1695730111; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=pJsGUMusQcL2Op+zLbc8x0bVz3w2XJ4XJX4nO+4s1Ow=;
- b=Qsq4sY8lV7oofaHwwYzQwqD7wVTYTEZRxtw0zx+Io6zcqNJ6QnGgDEglbKQ00AJXcG
- 1wriIiEkl2EXdPF/T4cU5x8RT8Y4a5yyB86swJRvhf9YvUTNgFHU7F/HTaB2jTa2ZWTF
- IisQkfcqx2INpRDdJNPGLLCj+adqNh4W6mi6+1JXwLRuNoVAzS35FO+XVdF9rMZVB6HC
- 4rVYUeW5IBJHQjYbsL44G9cuC33h/hbV1OBFpXLn7X050ZJRBgJjIt0YQRr7iRTuFW8e
- FTQR+ICoS9QTXAZlGjoAFaSlCEUUrdMV97i6NLtvnD0/qK/e+yxwWYu6QyKYHCkqwcIT
- Oihg==
+ d=gmail.com; s=20230601; t=1695116059; x=1695720859; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=QVf5D/+j5N+ia+SFzQBn7+4Q88aksoEeF9OLLDBHLuM=;
+ b=Ad8MGuOLVZ+lrHCZeozgWwlzTRtB8uFWHlR5alvqryv5oQBxvR8wnJfBCvTitQ+vTN
+ K9i7hkg3SdazdDlZViW0Z1BNNse9lO4Fb70dpjXW6JMh2bA2EYjuxcyDeTmIzeE73S9q
+ 6l2bzRTmthix6nW2WQXy662/wtIBg5PWHas5j0iqcIy8zWtFusC3fWnPjXgckr0MA9lM
+ qm85uSuV6/RhOQUnL+Npdt4k6pBMzSC6GTk2v8W7Xvhp01iSfUEUwzMG/qzDTkNZCEXG
+ GXyUYfBkVdOVj4cSYlRjVOWGC7nBEj1qxKh9GlEb/flRd+UIb9tYHZYgqYgFzxJkzRkX
+ 9X0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695125311; x=1695730111;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=pJsGUMusQcL2Op+zLbc8x0bVz3w2XJ4XJX4nO+4s1Ow=;
- b=IJ2lBdTkPIZLTD1W/+skq7M5I2d0fRyco2oNC6NTgcyPEn0tMfs9P53srnWCV/SxUN
- rmkYtx0QJie0FXEixcISeQiQwDFqmr54xDD9EHbI3r83qBs9W6tezZrAF3C3mvF4ajy4
- CGrSjmcWxCF0lmmFTkhf0I2k8MjYSo00kVnSYCMnJgqoMqF/UI9rkNUUWywTaPWyN0Cr
- X6BuJGKP8ncIx6yb6wEMvR25sf+aBQQvjTAlfsRN+JShZ541x+133Z9jr1cbtRMm9cED
- a+rxDrn58YQe4exkKKTDWCeZiuJq1lCHDK4ctPLTFqWUDniCid6PN3Z2dv1YrjDw5yqD
- I/TQ==
-X-Gm-Message-State: AOJu0Ywnf0bh1/vGRbPuwsibtp1KFl6kGoXFn52tk6/MrxjehgpzfPTG
- jGHGelJ9dktc4RuhDz0DdSI=
-X-Google-Smtp-Source: AGHT+IEfEwkvWhJsETYmCS57xsZBDkgKEdZU6GILr/WU1ifgqhpSR4FL5LKrgMpa+LR8/nZ+QD7btA==
-X-Received: by 2002:aa7:d394:0:b0:525:691c:cd50 with SMTP id
- x20-20020aa7d394000000b00525691ccd50mr11447008edq.24.1695125311392; 
- Tue, 19 Sep 2023 05:08:31 -0700 (PDT)
-Received: from able.fritz.box ([2a00:e180:15bc:9900:21a0:f69e:f2eb:dcf5])
+ d=1e100.net; s=20230601; t=1695116059; x=1695720859;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=QVf5D/+j5N+ia+SFzQBn7+4Q88aksoEeF9OLLDBHLuM=;
+ b=di/6THuZ/o1v1XnoP5Omg9idsyOVigxev+3+HtCfgfUalEEi4ygzsmxjca5DexOfe9
+ QayqZTqFXj6/xKLwKhHQUaA5AQQEW2+7q7XGCUqI8Q/nHW1bmHY+muSV5zQ4heSU/cNv
+ 1vxct7p5SJaiF+BgsdNn3sOfeNuk+eo3zyqr0I8h5PcV0dCesPC5tQbu2N5O8hBbOyjP
+ 9o9sQXLGT7JXCXjeNOKzaWQt2Gz3+9SehRbaM8ltKSNGhzxg3yN0N5E1cqp8ByKALyE1
+ pwwLwlQrR1uJLdyEqwV8vAkic4mfwpYHLSpPO0eNDRyImXU63ZErGzuC214P970l/EuM
+ 4ndw==
+X-Gm-Message-State: AOJu0YwdFlx5qSgD4+0UsfpB8/cd5E7wpJ773CcYB5gwsEshx2zTDb2B
+ T+9ShN5R+yEYXHe6VFmX8P0=
+X-Google-Smtp-Source: AGHT+IFEM34YO2uN1IhUDPCwqvzRc2cQqob4GZnt3NU716uhhFhKM1D0NXBeVCyJWYwKQ2stjepyvQ==
+X-Received: by 2002:a17:902:d507:b0:1c1:d5d1:a364 with SMTP id
+ b7-20020a170902d50700b001c1d5d1a364mr2849526plg.33.1695116059209; 
+ Tue, 19 Sep 2023 02:34:19 -0700 (PDT)
+Received: from swarup-virtual-machine.localdomain ([171.76.87.78])
  by smtp.gmail.com with ESMTPSA id
- q5-20020aa7cc05000000b0052a1a623267sm7283100edt.62.2023.09.19.05.08.30
+ ji1-20020a170903324100b001c44489ee55sm6487608plb.273.2023.09.19.02.34.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Sep 2023 05:08:30 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: felix.kuehling@amd.com, alexdeucher@gmail.com, shashank.sharma@amd.com,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH 11/11] drm/amdgpu: further move TLB hw workarounds a layer up
-Date: Tue, 19 Sep 2023 14:08:22 +0200
-Message-Id: <20230919120822.95241-11-christian.koenig@amd.com>
+ Tue, 19 Sep 2023 02:34:18 -0700 (PDT)
+From: Swarup Laxman Kotiaklapudi <swarupkotikalapudi@gmail.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ swarupkotikalapudi@gmail.com
+Subject: [PATCH] gpu: drm: amd: display: fix kernel-doc warnings
+Date: Tue, 19 Sep 2023 15:03:11 +0530
+Message-Id: <20230919093318.16407-1-swarupkotikalapudi@gmail.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230919120822.95241-1-christian.koenig@amd.com>
-References: <20230919120822.95241-1-christian.koenig@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 19 Sep 2023 12:39:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,168 +74,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: linux-kernel-mentees@lists.linuxfoundation.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For the PASID flushing we already handled that at a higher layer, apply
-those workarounds to the standard flush as well.
+Fix kernel-doc warnings discovered in AMD gpu display driver.
+Fixes these warnings:
+./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:110: warning:
+Function parameter or member 'overlap_only'
+not described in 'mpcc_blnd_cfg'.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:110: warning:
+Function parameter or member 'bottom_gain_mode'
+not described in 'mpcc_blnd_cfg'.
+
+./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:110: warning:
+Function parameter or member 'background_color_bpc'
+not described in 'mpcc_blnd_cfg'.
+
+./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:110:
+warning: Function parameter or member 'top_gain'
+not described in 'mpcc_blnd_cfg'.
+
+./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:110:
+warning: Function parameter or member 'bottom_inside_gain'
+not described in 'mpcc_blnd_cfg'.
+
+./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:110:
+warning: Function parameter or member 'bottom_outside_gain'
+not described in 'mpcc_blnd_cfg'.
+
+Signed-off-by: Swarup Laxman Kotiaklapudi <swarupkotikalapudi@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 19 +++++++
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 74 ++++++++-----------------
- 2 files changed, 42 insertions(+), 51 deletions(-)
+ drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index b074dc75f59f..ff65f7fee1df 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -601,6 +601,14 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
- 		if (!down_read_trylock(&adev->reset_domain->sem))
- 			return;
- 
-+		if (adev->gmc.flush_tlb_needs_extra_type_2)
-+			adev->gmc.gmc_funcs->flush_gpu_tlb(adev, vmid,
-+							   vmhub, 2);
-+
-+		if (adev->gmc.flush_tlb_needs_extra_type_0 && flush_type == 2)
-+			adev->gmc.gmc_funcs->flush_gpu_tlb(adev, vmid,
-+							   vmhub, 0);
-+
- 		adev->gmc.gmc_funcs->flush_gpu_tlb(adev, vmid, vmhub,
- 						   flush_type);
- 		up_read(&adev->reset_domain->sem);
-@@ -651,6 +659,17 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
- 
- 	if (!adev->gmc.flush_pasid_uses_kiq || !ring->sched.ready ||
- 	    !down_read_trylock(&adev->reset_domain->sem)) {
-+
-+		if (adev->gmc.flush_tlb_needs_extra_type_2)
-+			adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pasid,
-+								 2, all_hub,
-+								 inst);
-+
-+		if (adev->gmc.flush_tlb_needs_extra_type_0 && flush_type == 2)
-+			adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pasid,
-+								 0, all_hub,
-+								 inst);
-+
- 		adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pasid,
- 							 flush_type, all_hub,
- 							 inst);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index adb38698eac7..ba75ed60f8ba 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -814,37 +814,18 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
- 					uint32_t vmhub, uint32_t flush_type)
- {
- 	bool use_semaphore = gmc_v9_0_use_invalidate_semaphore(adev, vmhub);
--	u32 j, inv_req, inv_req2, tmp, sem, req, ack;
-+	u32 j, inv_req, tmp, sem, req, ack;
- 	const unsigned int eng = 17;
- 	struct amdgpu_vmhub *hub;
- 
- 	BUG_ON(vmhub >= AMDGPU_MAX_VMHUBS);
- 
- 	hub = &adev->vmhub[vmhub];
-+	inv_req = gmc_v9_0_get_invalidate_req(vmid, flush_type);
- 	sem = hub->vm_inv_eng0_sem + hub->eng_distance * eng;
- 	req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
- 	ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
- 
--	if (adev->gmc.xgmi.num_physical_nodes &&
--	    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 0)) {
--		/* Vega20+XGMI caches PTEs in TC and TLB. Add a
--		 * heavy-weight TLB flush (type 2), which flushes
--		 * both. Due to a race condition with concurrent
--		 * memory accesses using the same TLB cache line, we
--		 * still need a second TLB flush after this.
--		 */
--		inv_req = gmc_v9_0_get_invalidate_req(vmid, 2);
--		inv_req2 = gmc_v9_0_get_invalidate_req(vmid, flush_type);
--	} else if (flush_type == 2 &&
--		   amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) &&
--		   adev->rev_id == 0) {
--		inv_req = gmc_v9_0_get_invalidate_req(vmid, 0);
--		inv_req2 = gmc_v9_0_get_invalidate_req(vmid, flush_type);
--	} else {
--		inv_req = gmc_v9_0_get_invalidate_req(vmid, flush_type);
--		inv_req2 = 0;
--	}
--
- 	/* This is necessary for a HW workaround under SRIOV as well
- 	 * as GFXOFF under bare metal
- 	 */
-@@ -855,10 +836,6 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
- 
- 		amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack, inv_req,
- 						   1 << vmid);
--		if (inv_req2)
--			amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack,
--							   inv_req2, 1 << vmid);
--
- 		return;
- 	}
- 
-@@ -888,34 +865,29 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
- 			DRM_ERROR("Timeout waiting for sem acquire in VM flush!\n");
- 	}
- 
--	do {
--		if (vmhub >= AMDGPU_MMHUB0(0))
--			WREG32_SOC15_IP_NO_KIQ(MMHUB, req, inv_req);
--		else
--			WREG32_SOC15_IP_NO_KIQ(GC, req, inv_req);
--
--		/*
--		 * Issue a dummy read to wait for the ACK register to
--		 * be cleared to avoid a false ACK due to the new fast
--		 * GRBM interface.
--		 */
--		if ((vmhub == AMDGPU_GFXHUB(0)) &&
--		    (amdgpu_ip_version(adev, GC_HWIP, 0) < IP_VERSION(9, 4, 2)))
--			RREG32_SOC15_IP_NO_KIQ(GC, req);
-+	if (vmhub >= AMDGPU_MMHUB0(0))
-+		WREG32_SOC15_IP_NO_KIQ(MMHUB, req, inv_req);
-+	else
-+		WREG32_SOC15_IP_NO_KIQ(GC, req, inv_req);
- 
--		for (j = 0; j < adev->usec_timeout; j++) {
--			if (vmhub >= AMDGPU_MMHUB0(0))
--				tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, ack);
--			else
--				tmp = RREG32_SOC15_IP_NO_KIQ(GC, ack);
--			if (tmp & (1 << vmid))
--				break;
--			udelay(1);
--		}
-+	/*
-+	 * Issue a dummy read to wait for the ACK register to
-+	 * be cleared to avoid a false ACK due to the new fast
-+	 * GRBM interface.
-+	 */
-+	if ((vmhub == AMDGPU_GFXHUB(0)) &&
-+	    (adev->ip_versions[GC_HWIP][0] < IP_VERSION(9, 4, 2)))
-+		RREG32_NO_KIQ(req);
- 
--		inv_req = inv_req2;
--		inv_req2 = 0;
--	} while (inv_req);
-+	for (j = 0; j < adev->usec_timeout; j++) {
-+		if (vmhub >= AMDGPU_MMHUB0(0))
-+			tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, ack);
-+		else
-+			tmp = RREG32_SOC15_IP_NO_KIQ(GC, ack);
-+		if (tmp & (1 << vmid))
-+			break;
-+		udelay(1);
-+	}
- 
- 	/* TODO: It needs to continue working on debugging with semaphore for GFXHUB as well. */
- 	if (use_semaphore) {
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
+index 8d86159d9de0..61a2406dcc53 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
+@@ -91,6 +91,12 @@ enum mpcc_alpha_blend_mode {
+  * @global_gain: used when blend mode considers both pixel alpha and plane
+  * alpha value and assumes the global alpha value.
+  * @global_alpha: plane alpha value
++ * @overlap_only: whether overlapping of different planes is allowed
++ * @bottom_gain_mode: blend mode for bottom gain setting
++ * @background_color_bpc: background color for bpc
++ * @top_gain: top gain setting
++ * @bottom_inside_gain: blend mode for bottom inside
++ * @bottom_outside_gain:  blend mode for bottom outside
+  */
+ struct mpcc_blnd_cfg {
+ 	struct tg_color black_color;	/* background color */
 -- 
 2.34.1
 
