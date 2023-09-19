@@ -4,50 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD918CD5BA7
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 12:39:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1861CD5BC4
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 14:10:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A75610E3B4;
-	Tue, 19 Sep 2023 12:39:54 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C27010E114;
- Tue, 19 Sep 2023 09:53:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695117219; x=1726653219;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=yak+PZr/1NdKj6PUYM085G1Vbxe36GSiN0JLTc97SxI=;
- b=Zwl7a887fnHvHAq0fy+24mQd/hqyx2fh/M0xxhRGi7Gn50HO9tlQm/lx
- D64gRrW7QdtFnoLzPvPk29unpkt2p9AAVwGBLC2aId0QzeU+TcTQRbJAj
- opbBILT0lvPoN3qn8Iq1ctt8dPgL3vWdX1igicOTk6jXcr+eO5JzcAVa+
- 9TUR8fXbW54klceJcKLozsdbnM5II6kYb7TAwbVsNE6EXrMxHLvroYswO
- 7XW5uoiU+21TteKZhVozcZm8VCQI6QDOW8zuoLCbl33PyCub/H2g9I/IG
- 6RNTknmFWSdYhr0D793JjU0dThDpKPzshIjf8IzjDOCLTVvSWnMt/8hMV w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="466227201"
-X-IronPort-AV: E=Sophos;i="6.02,159,1688454000"; d="scan'208";a="466227201"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2023 02:53:38 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="739624229"
-X-IronPort-AV: E=Sophos;i="6.02,159,1688454000"; d="scan'208";a="739624229"
-Received: from tjquresh-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.37.227])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2023 02:53:33 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH][V3] drm/amd/display: Remove unwanted drm edid references
-In-Reply-To: <20230918130455.2868485-1-alex.hung@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230918130455.2868485-1-alex.hung@amd.com>
-Date: Tue, 19 Sep 2023 12:53:30 +0300
-Message-ID: <87pm2etrol.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D511210E131;
+	Tue, 19 Sep 2023 14:10:31 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C430010E131
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 14:10:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=W0ugheNDyegtEzIbKCLmc3YsdgRGiMjYF3XXqJiJ355lExoHBEs5llfduP1v+l81PQLD+vG/9tDtsIHW6vNztQSyeL26d58THl7Wxi9AJLPUjYSyzwYsNx+WKAlFkzjG5V4Qq/6bOpSW0JGVQu8u412EIEpxjTOXZVk21DIwjXtO/XrJ4SGSlAbGkH52EH0M6l+38ghKCcNtth+MMbTztFxn3TqBSijXhcp1MYYNcBGEOmkr7XoDAlqFE/5PcDAgmJLLHbQD7PwaxLTXOwSXKQXOBN8D2FBZCF7RZ50aJOBRHVSXY4Zu/Ujo73ougVYce/NlNqhj2mzJaizFY/8SOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=i//DCXP1QBLKtkW+ZU1kyNmyAxjKcvB5nl501/f6jTQ=;
+ b=go0ue6CEYazrAAM+d9iNeuX+qQYRYcL4+ZkT+cDH7fV6AoFI7+uGfOwWUpFgRHMMuNYwZFHyhX9my/0X2o24EJYun/GG0mJf5DDL6+8tj1B6OgrcBdfxa4uncaJ0CGpdyxaETt/Su6Hl26rnv+X7MQnGF/Npq797hMcaAtleVXZL1YsPuZZy7jBtOIIJAb1qVg9tbfCEjgyyyDqhkJ2nAiB2ZKrKTzHc4V6HWYzliSuJEBacf6qeHfc8TbAoc+kCHG00Vbk8nXOR9xMGwRsNGnygFRmGET/AY0klOG31pQ8JafGqzduDb8Be3iFCNA/MGpt7yOyoO/h0cxrMBbtSog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=i//DCXP1QBLKtkW+ZU1kyNmyAxjKcvB5nl501/f6jTQ=;
+ b=uMRtMzRr5kqzW8xSCAbjeLfhez9JswbA/ILvVafTikg9yfxMDzquInaCWfu1iqNG3W0reNlFDqa4IFcJxkWI+0BEdjPp4a6V4MYPP4Bdugj8K++DWMnYtMxU6pgLG465G1RL4R1BBsvllqWZzugghjlMIYEEfCPDaA/MXp7oB+4=
+Received: from DM6PR07CA0108.namprd07.prod.outlook.com (2603:10b6:5:330::14)
+ by CH3PR12MB9249.namprd12.prod.outlook.com (2603:10b6:610:1bc::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.27; Tue, 19 Sep
+ 2023 14:10:28 +0000
+Received: from DS1PEPF0001709D.namprd05.prod.outlook.com
+ (2603:10b6:5:330:cafe::55) by DM6PR07CA0108.outlook.office365.com
+ (2603:10b6:5:330::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.28 via Frontend
+ Transport; Tue, 19 Sep 2023 14:10:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF0001709D.mail.protection.outlook.com (10.167.18.107) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6792.19 via Frontend Transport; Tue, 19 Sep 2023 14:10:28 +0000
+Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 19 Sep
+ 2023 09:10:27 -0500
+From: Philip Yang <Philip.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdkfd: Don't use sw fault filter if retry cam enabled
+Date: Tue, 19 Sep 2023 10:09:54 -0400
+Message-ID: <20230919140954.8150-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Mailman-Approved-At: Tue, 19 Sep 2023 12:39:50 +0000
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001709D:EE_|CH3PR12MB9249:EE_
+X-MS-Office365-Filtering-Correlation-Id: 75b88e3b-d83c-49d1-3fc8-08dbb91a2d2f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: sa2JZO14P+9JhVEMn7aBNuHisR0thkH0vpHaFMGS73g2IiQNDz0p4sNTUAISjmzvOiZTHqqWenH6lNH6WF3rdSyLaotx3Q0+K3+04lq7jf9I4LOlmuOkm7nsA5mbEVgfP7YzNOw1v2o3jTWZDhkAgN8hby7JavEjV54kMgDGwzEDBLZihYmekU6ftAAkwXfcKq7PbXRU6vbf0fcIynQfkMtwGgNjJXwOzoY+VOEbBfRjVuPzOJx5oYHVvt2okaHYuTBHWRLJqZGEjGVAnAjny1fDApBI+EzeNp71ta/FH1DhPGaUzvGULcr5YWR8WHRsN48JXVQqLfsadQ2lnTg8Uy5evl6uJvhCEwyTYNney8EmCvFf13tneiXtecnan5dSI9s7/1SAjnAuMoQxXW9PnkhbJPqwUdWEZlxZq/jl7GEpNVQgcOM6JwFc/AvGefVNs9YpOEm7x/hYF8PGa5qR7dR5LL8pIjtj7xYc3TaBx69NpTm20THdnG3+RaEWj3rCg+Tf4ScLsFQK4f0ey/WYqk5tgIScQw52yLaHyjYVI6q0Xrxuy3ithEzYv4VvzUTDNAEuEEpAI2fVV8vgh6Ux9+hFfAFitz/x7c2zaG8ajxoiU1VIsw476H3oFbKnpHl1n1NBaE2LOp9beBE2ivzdCwBySrW+P8CIBjRm9R/YSq0JfJ3ZzHstKK5JHpOluGPhoYajebSsFRFTJ9ZLbeVgDlyAIALNfFmznBGOiin6lW4/G6PPPqFhQKG+4BRG+/OsocGg9ZMJePbRTw0estJ9Fg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(39860400002)(136003)(346002)(396003)(376002)(451199024)(1800799009)(82310400011)(186009)(36840700001)(46966006)(40470700004)(6666004)(7696005)(40460700003)(86362001)(81166007)(82740400003)(40480700001)(36756003)(356005)(36860700001)(8676002)(2616005)(26005)(47076005)(1076003)(426003)(336012)(2906002)(4744005)(16526019)(83380400001)(478600001)(8936002)(4326008)(6916009)(5660300002)(41300700001)(54906003)(316002)(70586007)(70206006)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2023 14:10:28.0477 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75b88e3b-d83c-49d1-3fc8-08dbb91a2d2f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001709D.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9249
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,106 +97,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, haoping.liu@amd.com, srinivasan.shanmugam@amd.com,
- sunpeng.li@amd.com, airlied@gmail.com, Qingqing.Zhuo@amd.com,
- Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, Alex Hung <alex.hung@amd.com>,
- daniel.wheeler@amd.com, aurabindo.pillai@amd.com, hersenxs.wu@amd.com,
- hamza.mahfooz@amd.com, daniel@ffwll.ch, wayne.lin@amd.com,
- alexander.deucher@amd.com, harry.wentland@amd.com, christian.koenig@amd.com
+Cc: mukul.joshi@amd.com, Felix.Kuehling@amd.com,
+ Philip Yang <Philip.Yang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 18 Sep 2023, Alex Hung <alex.hung@amd.com> wrote:
-> [WHY]
-> edid_override and drm_edid_override_connector_update, according to drm
-> documentation, should not be referred outside drm_edid.
->
-> [HOW]
-> Remove and replace them accordingly. This can tested by IGT's
-> kms_hdmi_inject test.
->
-> Signed-off-by: Alex Hung <alex.hung@amd.com>
+If retry cam enabled, we don't use sw retry fault filter and add fault
+into sw filter ring, so we shouldn't remove fault from sw filter.
 
-FWIW, Acked-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 42 ++++++++++---------
->  1 file changed, 23 insertions(+), 19 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 5efebc06296b..3968dd9cef7f 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -6444,15 +6444,23 @@ amdgpu_dm_connector_late_register(struct drm_connector *connector)
->  static void amdgpu_dm_connector_funcs_force(struct drm_connector *connector)
->  {
->  	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
-> +	struct amdgpu_connector *amdgpu_connector = to_amdgpu_connector(connector);
->  	struct dc_link *dc_link = aconnector->dc_link;
->  	struct dc_sink *dc_em_sink = aconnector->dc_em_sink;
->  	struct edid *edid;
->  
-> -	if (!connector->edid_override)
-> +	/*
-> +	 * Note: drm_get_edid gets edid in the following order:
-> +	 * 1) override EDID if set via edid_override debugfs,
-> +	 * 2) firmware EDID if set via edid_firmware module parameter
-> +	 * 3) regular DDC read.
-> +	 */
-> +	edid = drm_get_edid(connector, &amdgpu_connector->ddc_bus->aux.ddc);
-> +	if (!edid) {
-> +		DRM_ERROR("No EDID found on connector: %s.\n", connector->name);
->  		return;
-> +	}
->  
-> -	drm_edid_override_connector_update(&aconnector->base);
-> -	edid = aconnector->base.edid_blob_ptr->data;
->  	aconnector->edid = edid;
->  
->  	/* Update emulated (virtual) sink's EDID */
-> @@ -6487,30 +6495,26 @@ static int get_modes(struct drm_connector *connector)
->  
->  static void create_eml_sink(struct amdgpu_dm_connector *aconnector)
->  {
-> +	struct drm_connector *connector = &aconnector->base;
-> +	struct amdgpu_connector *amdgpu_connector = to_amdgpu_connector(&aconnector->base);
->  	struct dc_sink_init_data init_params = {
->  			.link = aconnector->dc_link,
->  			.sink_signal = SIGNAL_TYPE_VIRTUAL
->  	};
->  	struct edid *edid;
->  
-> -	if (!aconnector->base.edid_blob_ptr) {
-> -		/* if connector->edid_override valid, pass
-> -		 * it to edid_override to edid_blob_ptr
-> -		 */
-> -
-> -		drm_edid_override_connector_update(&aconnector->base);
-> -
-> -		if (!aconnector->base.edid_blob_ptr) {
-> -			DRM_ERROR("No EDID firmware found on connector: %s ,forcing to OFF!\n",
-> -					aconnector->base.name);
-> -
-> -			aconnector->base.force = DRM_FORCE_OFF;
-> -			return;
-> -		}
-> +	/*
-> +	 * Note: drm_get_edid gets edid in the following order:
-> +	 * 1) override EDID if set via edid_override debugfs,
-> +	 * 2) firmware EDID if set via edid_firmware module parameter
-> +	 * 3) regular DDC read.
-> +	 */
-> +	edid = drm_get_edid(connector, &amdgpu_connector->ddc_bus->aux.ddc);
-> +	if (!edid) {
-> +		DRM_ERROR("No EDID found on connector: %s.\n", connector->name);
-> +		return;
->  	}
->  
-> -	edid = (struct edid *) aconnector->base.edid_blob_ptr->data;
-> -
->  	aconnector->edid = edid;
->  
->  	aconnector->dc_em_sink = dc_link_add_remote_sink(
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index c7793db6d098..f357d1f7353a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -452,7 +452,10 @@ void amdgpu_gmc_filter_faults_remove(struct amdgpu_device *adev, uint64_t addr,
+ 	uint32_t hash;
+ 	uint64_t tmp;
+ 
+-	ih = adev->irq.retry_cam_enabled ? &adev->irq.ih_soft : &adev->irq.ih1;
++	if (adev->irq.retry_cam_enabled)
++		return;
++
++	ih = &adev->irq.ih1;
+ 	/* Get the WPTR of the last entry in IH ring */
+ 	last_wptr = amdgpu_ih_get_wptr(adev, ih);
+ 	/* Order wptr with ring data. */
 -- 
-Jani Nikula, Intel
+2.35.1
+
