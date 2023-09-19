@@ -4,64 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1D0CCD5BA9
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 12:39:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD918CD5BA7
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 12:39:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06E0A10E279;
-	Tue, 19 Sep 2023 12:39:52 +0000 (UTC)
-Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
- [IPv6:2607:f8b0:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E691C10E239;
- Tue, 19 Sep 2023 09:34:19 +0000 (UTC)
-Received: by mail-pl1-x630.google.com with SMTP id
- d9443c01a7336-1c44a25bd0bso22058175ad.0; 
- Tue, 19 Sep 2023 02:34:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1695116059; x=1695720859; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=QVf5D/+j5N+ia+SFzQBn7+4Q88aksoEeF9OLLDBHLuM=;
- b=Ad8MGuOLVZ+lrHCZeozgWwlzTRtB8uFWHlR5alvqryv5oQBxvR8wnJfBCvTitQ+vTN
- K9i7hkg3SdazdDlZViW0Z1BNNse9lO4Fb70dpjXW6JMh2bA2EYjuxcyDeTmIzeE73S9q
- 6l2bzRTmthix6nW2WQXy662/wtIBg5PWHas5j0iqcIy8zWtFusC3fWnPjXgckr0MA9lM
- qm85uSuV6/RhOQUnL+Npdt4k6pBMzSC6GTk2v8W7Xvhp01iSfUEUwzMG/qzDTkNZCEXG
- GXyUYfBkVdOVj4cSYlRjVOWGC7nBEj1qxKh9GlEb/flRd+UIb9tYHZYgqYgFzxJkzRkX
- 9X0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695116059; x=1695720859;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=QVf5D/+j5N+ia+SFzQBn7+4Q88aksoEeF9OLLDBHLuM=;
- b=di/6THuZ/o1v1XnoP5Omg9idsyOVigxev+3+HtCfgfUalEEi4ygzsmxjca5DexOfe9
- QayqZTqFXj6/xKLwKhHQUaA5AQQEW2+7q7XGCUqI8Q/nHW1bmHY+muSV5zQ4heSU/cNv
- 1vxct7p5SJaiF+BgsdNn3sOfeNuk+eo3zyqr0I8h5PcV0dCesPC5tQbu2N5O8hBbOyjP
- 9o9sQXLGT7JXCXjeNOKzaWQt2Gz3+9SehRbaM8ltKSNGhzxg3yN0N5E1cqp8ByKALyE1
- pwwLwlQrR1uJLdyEqwV8vAkic4mfwpYHLSpPO0eNDRyImXU63ZErGzuC214P970l/EuM
- 4ndw==
-X-Gm-Message-State: AOJu0YwdFlx5qSgD4+0UsfpB8/cd5E7wpJ773CcYB5gwsEshx2zTDb2B
- T+9ShN5R+yEYXHe6VFmX8P0=
-X-Google-Smtp-Source: AGHT+IFEM34YO2uN1IhUDPCwqvzRc2cQqob4GZnt3NU716uhhFhKM1D0NXBeVCyJWYwKQ2stjepyvQ==
-X-Received: by 2002:a17:902:d507:b0:1c1:d5d1:a364 with SMTP id
- b7-20020a170902d50700b001c1d5d1a364mr2849526plg.33.1695116059209; 
- Tue, 19 Sep 2023 02:34:19 -0700 (PDT)
-Received: from swarup-virtual-machine.localdomain ([171.76.87.78])
- by smtp.gmail.com with ESMTPSA id
- ji1-20020a170903324100b001c44489ee55sm6487608plb.273.2023.09.19.02.34.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Sep 2023 02:34:18 -0700 (PDT)
-From: Swarup Laxman Kotiaklapudi <swarupkotikalapudi@gmail.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- swarupkotikalapudi@gmail.com
-Subject: [PATCH] gpu: drm: amd: display: fix kernel-doc warnings
-Date: Tue, 19 Sep 2023 15:03:11 +0530
-Message-Id: <20230919093318.16407-1-swarupkotikalapudi@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A75610E3B4;
+	Tue, 19 Sep 2023 12:39:54 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C27010E114;
+ Tue, 19 Sep 2023 09:53:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1695117219; x=1726653219;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=yak+PZr/1NdKj6PUYM085G1Vbxe36GSiN0JLTc97SxI=;
+ b=Zwl7a887fnHvHAq0fy+24mQd/hqyx2fh/M0xxhRGi7Gn50HO9tlQm/lx
+ D64gRrW7QdtFnoLzPvPk29unpkt2p9AAVwGBLC2aId0QzeU+TcTQRbJAj
+ opbBILT0lvPoN3qn8Iq1ctt8dPgL3vWdX1igicOTk6jXcr+eO5JzcAVa+
+ 9TUR8fXbW54klceJcKLozsdbnM5II6kYb7TAwbVsNE6EXrMxHLvroYswO
+ 7XW5uoiU+21TteKZhVozcZm8VCQI6QDOW8zuoLCbl33PyCub/H2g9I/IG
+ 6RNTknmFWSdYhr0D793JjU0dThDpKPzshIjf8IzjDOCLTVvSWnMt/8hMV w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="466227201"
+X-IronPort-AV: E=Sophos;i="6.02,159,1688454000"; d="scan'208";a="466227201"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Sep 2023 02:53:38 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="739624229"
+X-IronPort-AV: E=Sophos;i="6.02,159,1688454000"; d="scan'208";a="739624229"
+Received: from tjquresh-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.37.227])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Sep 2023 02:53:33 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH][V3] drm/amd/display: Remove unwanted drm edid references
+In-Reply-To: <20230918130455.2868485-1-alex.hung@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20230918130455.2868485-1-alex.hung@amd.com>
+Date: Tue, 19 Sep 2023 12:53:30 +0300
+Message-ID: <87pm2etrol.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Mailman-Approved-At: Tue, 19 Sep 2023 12:39:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,58 +59,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel-mentees@lists.linuxfoundation.org
+Cc: stylon.wang@amd.com, haoping.liu@amd.com, srinivasan.shanmugam@amd.com,
+ sunpeng.li@amd.com, airlied@gmail.com, Qingqing.Zhuo@amd.com,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, Alex Hung <alex.hung@amd.com>,
+ daniel.wheeler@amd.com, aurabindo.pillai@amd.com, hersenxs.wu@amd.com,
+ hamza.mahfooz@amd.com, daniel@ffwll.ch, wayne.lin@amd.com,
+ alexander.deucher@amd.com, harry.wentland@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix kernel-doc warnings discovered in AMD gpu display driver.
-Fixes these warnings:
-./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:110: warning:
-Function parameter or member 'overlap_only'
-not described in 'mpcc_blnd_cfg'.
+On Mon, 18 Sep 2023, Alex Hung <alex.hung@amd.com> wrote:
+> [WHY]
+> edid_override and drm_edid_override_connector_update, according to drm
+> documentation, should not be referred outside drm_edid.
+>
+> [HOW]
+> Remove and replace them accordingly. This can tested by IGT's
+> kms_hdmi_inject test.
+>
+> Signed-off-by: Alex Hung <alex.hung@amd.com>
 
-./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:110: warning:
-Function parameter or member 'bottom_gain_mode'
-not described in 'mpcc_blnd_cfg'.
+FWIW, Acked-by: Jani Nikula <jani.nikula@intel.com>
 
-./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:110: warning:
-Function parameter or member 'background_color_bpc'
-not described in 'mpcc_blnd_cfg'.
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 42 ++++++++++---------
+>  1 file changed, 23 insertions(+), 19 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 5efebc06296b..3968dd9cef7f 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -6444,15 +6444,23 @@ amdgpu_dm_connector_late_register(struct drm_connector *connector)
+>  static void amdgpu_dm_connector_funcs_force(struct drm_connector *connector)
+>  {
+>  	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
+> +	struct amdgpu_connector *amdgpu_connector = to_amdgpu_connector(connector);
+>  	struct dc_link *dc_link = aconnector->dc_link;
+>  	struct dc_sink *dc_em_sink = aconnector->dc_em_sink;
+>  	struct edid *edid;
+>  
+> -	if (!connector->edid_override)
+> +	/*
+> +	 * Note: drm_get_edid gets edid in the following order:
+> +	 * 1) override EDID if set via edid_override debugfs,
+> +	 * 2) firmware EDID if set via edid_firmware module parameter
+> +	 * 3) regular DDC read.
+> +	 */
+> +	edid = drm_get_edid(connector, &amdgpu_connector->ddc_bus->aux.ddc);
+> +	if (!edid) {
+> +		DRM_ERROR("No EDID found on connector: %s.\n", connector->name);
+>  		return;
+> +	}
+>  
+> -	drm_edid_override_connector_update(&aconnector->base);
+> -	edid = aconnector->base.edid_blob_ptr->data;
+>  	aconnector->edid = edid;
+>  
+>  	/* Update emulated (virtual) sink's EDID */
+> @@ -6487,30 +6495,26 @@ static int get_modes(struct drm_connector *connector)
+>  
+>  static void create_eml_sink(struct amdgpu_dm_connector *aconnector)
+>  {
+> +	struct drm_connector *connector = &aconnector->base;
+> +	struct amdgpu_connector *amdgpu_connector = to_amdgpu_connector(&aconnector->base);
+>  	struct dc_sink_init_data init_params = {
+>  			.link = aconnector->dc_link,
+>  			.sink_signal = SIGNAL_TYPE_VIRTUAL
+>  	};
+>  	struct edid *edid;
+>  
+> -	if (!aconnector->base.edid_blob_ptr) {
+> -		/* if connector->edid_override valid, pass
+> -		 * it to edid_override to edid_blob_ptr
+> -		 */
+> -
+> -		drm_edid_override_connector_update(&aconnector->base);
+> -
+> -		if (!aconnector->base.edid_blob_ptr) {
+> -			DRM_ERROR("No EDID firmware found on connector: %s ,forcing to OFF!\n",
+> -					aconnector->base.name);
+> -
+> -			aconnector->base.force = DRM_FORCE_OFF;
+> -			return;
+> -		}
+> +	/*
+> +	 * Note: drm_get_edid gets edid in the following order:
+> +	 * 1) override EDID if set via edid_override debugfs,
+> +	 * 2) firmware EDID if set via edid_firmware module parameter
+> +	 * 3) regular DDC read.
+> +	 */
+> +	edid = drm_get_edid(connector, &amdgpu_connector->ddc_bus->aux.ddc);
+> +	if (!edid) {
+> +		DRM_ERROR("No EDID found on connector: %s.\n", connector->name);
+> +		return;
+>  	}
+>  
+> -	edid = (struct edid *) aconnector->base.edid_blob_ptr->data;
+> -
+>  	aconnector->edid = edid;
+>  
+>  	aconnector->dc_em_sink = dc_link_add_remote_sink(
 
-./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:110:
-warning: Function parameter or member 'top_gain'
-not described in 'mpcc_blnd_cfg'.
-
-./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:110:
-warning: Function parameter or member 'bottom_inside_gain'
-not described in 'mpcc_blnd_cfg'.
-
-./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:110:
-warning: Function parameter or member 'bottom_outside_gain'
-not described in 'mpcc_blnd_cfg'.
-
-Signed-off-by: Swarup Laxman Kotiaklapudi <swarupkotikalapudi@gmail.com>
----
- drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-index 8d86159d9de0..61a2406dcc53 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-@@ -91,6 +91,12 @@ enum mpcc_alpha_blend_mode {
-  * @global_gain: used when blend mode considers both pixel alpha and plane
-  * alpha value and assumes the global alpha value.
-  * @global_alpha: plane alpha value
-+ * @overlap_only: whether overlapping of different planes is allowed
-+ * @bottom_gain_mode: blend mode for bottom gain setting
-+ * @background_color_bpc: background color for bpc
-+ * @top_gain: top gain setting
-+ * @bottom_inside_gain: blend mode for bottom inside
-+ * @bottom_outside_gain:  blend mode for bottom outside
-  */
- struct mpcc_blnd_cfg {
- 	struct tg_color black_color;	/* background color */
 -- 
-2.34.1
-
+Jani Nikula, Intel
