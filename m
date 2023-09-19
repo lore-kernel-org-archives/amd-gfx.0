@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D35CACD5BA2
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 12:08:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32DA9CD5BA0
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 12:08:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74E5210E37D;
-	Tue, 19 Sep 2023 12:08:28 +0000 (UTC)
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [IPv6:2a00:1450:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F15BB10E1FD
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 12:08:25 +0000 (UTC)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-52c88a03f99so6497234a12.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 05:08:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B079210E262;
+	Tue, 19 Sep 2023 12:08:32 +0000 (UTC)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A36510E262
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 12:08:31 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-99c93638322so1211627366b.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 05:08:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1695125304; x=1695730104; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1695125309; x=1695730109; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=xaVpn93+6922B9Eqr2AT0gZ118e1GPSPxQdDlsu9XdI=;
- b=WNh7pfdaaC3VR1lYTD07lsqX77o6ykpkVpRwGV3mZ3wgmMgPXZCDQW+Z5IOcNYNy5n
- GtTmswZD5U3BBzbhL8VLjtZaIuS6+69jehSJc7CUHO0YpaX7Y9q23h7mrMoig99AwvvA
- odjTsrWF7QfuowjZrb4sJ3pE8U93ocM3J9+aUSPL3+ptBYqTNrZ6TrXVvklgC+q69WCM
- XsikxVp5f0XvkF1VbXMpwCbfbXfVh9+cz2Z+HEU3KYz9inTnGrS7tYabuK7r056RBE0f
- Mupm7A6Zy9zDJyCE6HUcy9rbqAph7VNl6XtOTQO46Aklxh2Ijk4MefD5OAWfJo/xgjnp
- DOrA==
+ :reply-to; bh=QG0vtBD2zkKfnwMMMubLROcF9/167tSMO3zfGI2fKd0=;
+ b=BWgC10RA3Dz+6KR0nB9sLnuTSksM+Rrcp2+KxejWScbJrRj3zCohQ+JvONhlFMAeEs
+ Lod3eEQIp9nATDuXMgUiG3I3ufs7Ah4BdHIBY96L9Rb2a9U5puAUkOXwKyGwUz+ouyXb
+ S+AmIrglBW8rwNmUCqazuWIs2LEEJnOaxqTUwN9bcmbsVLHyswfw/DZnJiKwUXagMbHz
+ EZpXRjI3ZQJZgsSp36DgBkFV/Tc/2nTkAPI/9XV+IdAeV7blGJs+YtTJUZVHZTDyYKiJ
+ dkjA/j8D+LfMfguCGmqiWy+ZHbhtUUl8cj8QXO3/qT49/LHfAPBjrYh+hh66XjTcTiti
+ 2n2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695125304; x=1695730104;
+ d=1e100.net; s=20230601; t=1695125309; x=1695730109;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=xaVpn93+6922B9Eqr2AT0gZ118e1GPSPxQdDlsu9XdI=;
- b=Cm/Rno2dThko7F+jeQjB3VrTqhdu/+pBEcxIZ/iVJgZMRkv5Oy1NWxWVithuRT5rUK
- y2+Vh9fxf4GWjG2DVUY8zlECcNJfFTu9dYbZ+vLH45nllon0dTas9Bmh4qwgneTTxy5n
- 3a2jzFffSztSsDs4ifA2y/2MumS42e8C3woWwM7EiRFNWUulgRwpTJ6gNHpKFlYmU1EO
- 5eoyjrnp0aCE8ASPOFmdFQF+OHMzsEJBDinWw4+DbZpEwSKPP4/R2lnotNhCE6RR2HRG
- zCOvOLR4ouvuK2T53LWfaRDXW6Cb2Yib7ZiL/fMMVZ7rHGPTXkmrVBgXB0YBMnP7Km2x
- SxlA==
-X-Gm-Message-State: AOJu0YxpELe7vA5ut4vV5wd4viTNBJR32bmysqqKxuC861MWXfqeovzG
- Dj8lo3x3SriguiiatSIZW4Rb8Z0R5na36A==
-X-Google-Smtp-Source: AGHT+IGYgh2itHgS7yv+SBeAt1BC+LznuDKYsT/elRcXM2pZL+UDBCy/i7ZKmYTrIo9r9TDiaNEmuw==
-X-Received: by 2002:aa7:db56:0:b0:52b:d169:b373 with SMTP id
- n22-20020aa7db56000000b0052bd169b373mr8934321edt.32.1695125304332; 
- Tue, 19 Sep 2023 05:08:24 -0700 (PDT)
+ bh=QG0vtBD2zkKfnwMMMubLROcF9/167tSMO3zfGI2fKd0=;
+ b=nhPgLwnSfhwEYCmPYJAwZnKHDz1MiaQp5G6GfrrST02WgvgquwGHVW+cifFfbmDu8z
+ czpbqM7BlFsML+uzo9RQfUK+ohWyLYjQ/m0cXLUk6yu5PlH/KB7Oqvx0zULMXC8Ao9Fb
+ uQLVKwLyf2xRW1GsH4u9ZfZbjpveyaJnslNHwejveiuIkXxQN4J/BdKlYLp6SotsODDR
+ eRaegLbcy1dknCHnTqORR59KGzQBamO73VGLcj9rVsgmejMWIqaBHq40MJMK//QBWLTF
+ WN02a4Nfo2mSzaxOPqB5JQIcf7LcDy8EI83oYBwZmLnUJwjmu+seKmO1p2vLo3mLz4RI
+ F08w==
+X-Gm-Message-State: AOJu0YxPEVBXTD8NpCO1kDq1evk4YYiSyasfd5aC4OHgVVviJ8gjw6fV
+ GnBQkRk97eHHquWWHI7SyM0=
+X-Google-Smtp-Source: AGHT+IHFFXoYD5nI+O5hWeNkJR36iAtQA2wJQYPe7/EqvGDXVrx3rw4ul8cWRi2B0PklORIIQptJSw==
+X-Received: by 2002:a17:907:97cb:b0:9aa:f7f:e276 with SMTP id
+ js11-20020a17090797cb00b009aa0f7fe276mr3324840ejc.38.1695125309491; 
+ Tue, 19 Sep 2023 05:08:29 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:15bc:9900:21a0:f69e:f2eb:dcf5])
  by smtp.gmail.com with ESMTPSA id
- q5-20020aa7cc05000000b0052a1a623267sm7283100edt.62.2023.09.19.05.08.23
+ q5-20020aa7cc05000000b0052a1a623267sm7283100edt.62.2023.09.19.05.08.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Sep 2023 05:08:23 -0700 (PDT)
+ Tue, 19 Sep 2023 05:08:29 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: felix.kuehling@amd.com, alexdeucher@gmail.com, shashank.sharma@amd.com,
  amd-gfx@lists.freedesktop.org
-Subject: [PATCH 02/11] drm/amdgpu: rework gmc_v10_0_flush_gpu_tlb v2
-Date: Tue, 19 Sep 2023 14:08:13 +0200
-Message-Id: <20230919120822.95241-2-christian.koenig@amd.com>
+Subject: [PATCH 09/11] drm/amdgpu: drop error return from flush_gpu_tlb_pasid
+Date: Tue, 19 Sep 2023 14:08:20 +0200
+Message-Id: <20230919120822.95241-9-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230919120822.95241-1-christian.koenig@amd.com>
 References: <20230919120822.95241-1-christian.koenig@amd.com>
@@ -78,349 +78,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move the SDMA workaround necessary for Navi 1x into a higher layer.
-
-v2: use dev_err
+That function never fails, drop the error return.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c  |  48 +++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h  |   5 +-
- drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c |   3 +
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c   | 160 ++++++-----------------
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c   |   2 +-
- 5 files changed, 99 insertions(+), 119 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 7 ++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h | 6 +++---
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 7 +++----
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  | 7 +++----
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c   | 9 ++++-----
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   | 9 ++++-----
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 8 +++-----
+ 7 files changed, 24 insertions(+), 29 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index c7793db6d098..7db2884ceb3a 100644
+index 07f657e2f3a2..eaba4e9f247e 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -579,6 +579,54 @@ int amdgpu_gmc_allocate_vm_inv_eng(struct amdgpu_device *adev)
- 	return 0;
- }
+@@ -642,9 +642,10 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
  
-+void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
-+			      uint32_t vmhub, uint32_t flush_type)
-+{
-+	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
-+	struct amdgpu_vmhub *hub = &adev->vmhub[vmhub];
-+	struct dma_fence *fence;
-+	struct amdgpu_job *job;
-+	int r;
-+
-+	if (!hub->sdma_invalidation_workaround || vmid ||
-+	    !adev->mman.buffer_funcs_enabled ||
-+	    !adev->ib_pool_ready || amdgpu_in_reset(adev) ||
-+	    !ring->sched.ready) {
-+		adev->gmc.gmc_funcs->flush_gpu_tlb(adev, vmid, vmhub,
-+						   flush_type);
-+		return;
-+	}
-+
-+	/* The SDMA on Navi 1x has a bug which can theoretically result in memory
-+	 * corruption if an invalidation happens at the same time as an VA
-+	 * translation. Avoid this by doing the invalidation from the SDMA
-+	 * itself at least for GART.
-+	 */
-+	mutex_lock(&adev->mman.gtt_window_lock);
-+	r = amdgpu_job_alloc_with_ib(ring->adev, &adev->mman.high_pr,
-+				     AMDGPU_FENCE_OWNER_UNDEFINED,
-+				     16 * 4, AMDGPU_IB_POOL_IMMEDIATE,
-+				     &job);
-+	if (r)
-+		goto error_alloc;
-+
-+	job->vm_pd_addr = amdgpu_gmc_pd_addr(adev->gart.bo);
-+	job->vm_needs_flush = true;
-+	job->ibs->ptr[job->ibs->length_dw++] = ring->funcs->nop;
-+	amdgpu_ring_pad_ib(ring, &job->ibs[0]);
-+	fence = amdgpu_job_submit(job);
-+	mutex_unlock(&adev->mman.gtt_window_lock);
-+
-+	dma_fence_wait(fence, false);
-+	dma_fence_put(fence);
-+
-+	return;
-+
-+error_alloc:
-+	mutex_unlock(&adev->mman.gtt_window_lock);
-+	dev_err(adev->dev, "Error flushing GPU TLB using the SDMA (%d)!\n", r);
-+}
-+
- /**
-  * amdgpu_gmc_tmz_set -- check and set if a device supports TMZ
-  * @adev: amdgpu_device pointer
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-index fdc25cd559b6..9e7df2f69123 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-@@ -117,6 +117,8 @@ struct amdgpu_vmhub {
- 
- 	uint32_t	vm_contexts_disable;
- 
-+	bool		sdma_invalidation_workaround;
-+
- 	const struct amdgpu_vmhub_funcs *vmhub_funcs;
- };
- 
-@@ -335,7 +337,6 @@ struct amdgpu_gmc {
- 	u64 noretry_flags;
- };
- 
--#define amdgpu_gmc_flush_gpu_tlb(adev, vmid, vmhub, type) ((adev)->gmc.gmc_funcs->flush_gpu_tlb((adev), (vmid), (vmhub), (type)))
- #define amdgpu_gmc_flush_gpu_tlb_pasid(adev, pasid, type, allhub, inst) \
- 	((adev)->gmc.gmc_funcs->flush_gpu_tlb_pasid \
- 	((adev), (pasid), (type), (allhub), (inst)))
-@@ -401,6 +402,8 @@ int amdgpu_gmc_ras_sw_init(struct amdgpu_device *adev);
- int amdgpu_gmc_ras_late_init(struct amdgpu_device *adev);
- void amdgpu_gmc_ras_fini(struct amdgpu_device *adev);
- int amdgpu_gmc_allocate_vm_inv_eng(struct amdgpu_device *adev);
-+void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
-+			      uint32_t vmhub, uint32_t flush_type);
- 
- extern void amdgpu_gmc_tmz_set(struct amdgpu_device *adev);
- extern void amdgpu_gmc_noretry_set(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-index a041c6c970e1..8521c45e8f38 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-@@ -471,6 +471,9 @@ static void gfxhub_v2_0_init(struct amdgpu_device *adev)
- 		GCVM_CONTEXT1_CNTL__WRITE_PROTECTION_FAULT_ENABLE_INTERRUPT_MASK |
- 		GCVM_CONTEXT1_CNTL__EXECUTE_PROTECTION_FAULT_ENABLE_INTERRUPT_MASK;
- 
-+	/* TODO: This is only needed on some Navi 1x revisions */
-+	hub->sdma_invalidation_workaround = true;
-+
- 	hub->vmhub_funcs = &gfxhub_v2_0_vmhub_funcs;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index e582073b57c8..70c953919089 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -231,20 +231,49 @@ static bool gmc_v10_0_get_atc_vmid_pasid_mapping_info(
-  * by the amdgpu vm/hsa code.
-  */
- 
--static void gmc_v10_0_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
--				   unsigned int vmhub, uint32_t flush_type)
-+/**
-+ * gmc_v10_0_flush_gpu_tlb - gart tlb flush callback
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @vmid: vm instance to flush
-+ * @vmhub: vmhub type
-+ * @flush_type: the flush type
-+ *
-+ * Flush the TLB for the requested page table.
-+ */
-+static void gmc_v10_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
-+					uint32_t vmhub, uint32_t flush_type)
- {
- 	bool use_semaphore = gmc_v10_0_use_invalidate_semaphore(adev, vmhub);
- 	struct amdgpu_vmhub *hub = &adev->vmhub[vmhub];
- 	u32 inv_req = hub->vmhub_funcs->get_invalidate_req(vmid, flush_type);
--	u32 tmp;
- 	/* Use register 17 for GART */
- 	const unsigned int eng = 17;
--	unsigned int i;
- 	unsigned char hub_ip = 0;
-+	u32 sem, req, ack;
-+	unsigned int i;
-+	u32 tmp;
- 
--	hub_ip = (vmhub == AMDGPU_GFXHUB(0)) ?
--		   GC_HWIP : MMHUB_HWIP;
-+	sem = hub->vm_inv_eng0_sem + hub->eng_distance * eng;
-+	req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
-+	ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
-+
-+	/* flush hdp cache */
-+	adev->hdp.funcs->flush_hdp(adev, NULL);
-+
-+	/* For SRIOV run time, driver shouldn't access the register through MMIO
-+	 * Directly use kiq to do the vm invalidation instead
-+	 */
-+	if (adev->gfx.kiq[0].ring.sched.ready && !adev->enable_mes &&
-+	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev)) &&
-+	    down_read_trylock(&adev->reset_domain->sem)) {
-+		amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack, inv_req,
-+				1 << vmid);
-+		up_read(&adev->reset_domain->sem);
-+		return;
-+	}
-+
-+	hub_ip = (vmhub == AMDGPU_GFXHUB(0)) ? GC_HWIP : MMHUB_HWIP;
- 
- 	spin_lock(&adev->gmc.invalidate_lock);
- 	/*
-@@ -258,9 +287,7 @@ static void gmc_v10_0_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
- 	if (use_semaphore) {
- 		for (i = 0; i < adev->usec_timeout; i++) {
- 			/* a read return value of 1 means semaphore acuqire */
--			tmp = RREG32_RLC_NO_KIQ(hub->vm_inv_eng0_sem +
--					 hub->eng_distance * eng, hub_ip);
--
-+			tmp = RREG32_RLC_NO_KIQ(sem, hub_ip);
- 			if (tmp & 0x1)
- 				break;
- 			udelay(1);
-@@ -270,9 +297,7 @@ static void gmc_v10_0_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
- 			DRM_ERROR("Timeout waiting for sem acquire in VM flush!\n");
+ 	if (!adev->gmc.flush_pasid_uses_kiq || !ring->sched.ready ||
+ 	    !down_read_trylock(&adev->reset_domain->sem)) {
+-		return adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pasid,
+-								flush_type,
+-								all_hub, inst);
++		adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pasid,
++							 flush_type, all_hub,
++							 inst);
++		return 0;
  	}
  
--	WREG32_RLC_NO_KIQ(hub->vm_inv_eng0_req +
--			  hub->eng_distance * eng,
--			  inv_req, hub_ip);
-+	WREG32_RLC_NO_KIQ(req, inv_req, hub_ip);
- 
- 	/*
- 	 * Issue a dummy read to wait for the ACK register to be cleared
-@@ -280,14 +305,11 @@ static void gmc_v10_0_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
- 	 */
- 	if ((vmhub == AMDGPU_GFXHUB(0)) &&
- 	    (amdgpu_ip_version(adev, GC_HWIP, 0) < IP_VERSION(10, 3, 0)))
--		RREG32_RLC_NO_KIQ(hub->vm_inv_eng0_req +
--				  hub->eng_distance * eng, hub_ip);
-+		RREG32_RLC_NO_KIQ(req, hub_ip);
- 
- 	/* Wait for ACK with a delay.*/
- 	for (i = 0; i < adev->usec_timeout; i++) {
--		tmp = RREG32_RLC_NO_KIQ(hub->vm_inv_eng0_ack +
--				  hub->eng_distance * eng, hub_ip);
--
-+		tmp = RREG32_RLC_NO_KIQ(ack, hub_ip);
- 		tmp &= 1 << vmid;
- 		if (tmp)
- 			break;
-@@ -297,109 +319,13 @@ static void gmc_v10_0_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
- 
- 	/* TODO: It needs to continue working on debugging with semaphore for GFXHUB as well. */
- 	if (use_semaphore)
--		/*
--		 * add semaphore release after invalidation,
--		 * write with 0 means semaphore release
--		 */
--		WREG32_RLC_NO_KIQ(hub->vm_inv_eng0_sem +
--				  hub->eng_distance * eng, 0, hub_ip);
-+		WREG32_RLC_NO_KIQ(sem, 0, hub_ip);
- 
- 	spin_unlock(&adev->gmc.invalidate_lock);
- 
--	if (i < adev->usec_timeout)
--		return;
--
--	DRM_ERROR("Timeout waiting for VM flush hub: %d!\n", vmhub);
--}
--
--/**
-- * gmc_v10_0_flush_gpu_tlb - gart tlb flush callback
-- *
-- * @adev: amdgpu_device pointer
-- * @vmid: vm instance to flush
-- * @vmhub: vmhub type
-- * @flush_type: the flush type
-- *
-- * Flush the TLB for the requested page table.
-- */
--static void gmc_v10_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
--					uint32_t vmhub, uint32_t flush_type)
--{
--	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
--	struct dma_fence *fence;
--	struct amdgpu_job *job;
--
--	int r;
--
--	/* flush hdp cache */
--	adev->hdp.funcs->flush_hdp(adev, NULL);
--
--	/* For SRIOV run time, driver shouldn't access the register through MMIO
--	 * Directly use kiq to do the vm invalidation instead
--	 */
--	if (adev->gfx.kiq[0].ring.sched.ready && !adev->enable_mes &&
--	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev)) &&
--	    down_read_trylock(&adev->reset_domain->sem)) {
--		struct amdgpu_vmhub *hub = &adev->vmhub[vmhub];
--		const unsigned int eng = 17;
--		u32 inv_req = hub->vmhub_funcs->get_invalidate_req(vmid, flush_type);
--		u32 req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
--		u32 ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
--
--		amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack, inv_req,
--				1 << vmid);
--
--		up_read(&adev->reset_domain->sem);
--		return;
--	}
--
--	mutex_lock(&adev->mman.gtt_window_lock);
--
--	if (vmhub == AMDGPU_MMHUB0(0)) {
--		gmc_v10_0_flush_vm_hub(adev, vmid, AMDGPU_MMHUB0(0), 0);
--		mutex_unlock(&adev->mman.gtt_window_lock);
--		return;
--	}
--
--	BUG_ON(vmhub != AMDGPU_GFXHUB(0));
--
--	if (!adev->mman.buffer_funcs_enabled ||
--	    !adev->ib_pool_ready ||
--	    amdgpu_in_reset(adev) ||
--	    ring->sched.ready == false) {
--		gmc_v10_0_flush_vm_hub(adev, vmid, AMDGPU_GFXHUB(0), 0);
--		mutex_unlock(&adev->mman.gtt_window_lock);
--		return;
--	}
--
--	/* The SDMA on Navi has a bug which can theoretically result in memory
--	 * corruption if an invalidation happens at the same time as an VA
--	 * translation. Avoid this by doing the invalidation from the SDMA
--	 * itself.
--	 */
--	r = amdgpu_job_alloc_with_ib(ring->adev, &adev->mman.high_pr,
--				     AMDGPU_FENCE_OWNER_UNDEFINED,
--				     16 * 4, AMDGPU_IB_POOL_IMMEDIATE,
--				     &job);
--	if (r)
--		goto error_alloc;
--
--	job->vm_pd_addr = amdgpu_gmc_pd_addr(adev->gart.bo);
--	job->vm_needs_flush = true;
--	job->ibs->ptr[job->ibs->length_dw++] = ring->funcs->nop;
--	amdgpu_ring_pad_ib(ring, &job->ibs[0]);
--	fence = amdgpu_job_submit(job);
--
--	mutex_unlock(&adev->mman.gtt_window_lock);
--
--	dma_fence_wait(fence, false);
--	dma_fence_put(fence);
--
--	return;
--
--error_alloc:
--	mutex_unlock(&adev->mman.gtt_window_lock);
--	DRM_ERROR("Error flushing GPU TLB using the SDMA (%d)!\n", r);
-+	if (i >= adev->usec_timeout)
-+		dev_err(adev->dev, "Timeout waiting for VM flush hub: %d!\n",
-+			vmhub);
+ 	/* 2 dwords flush + 8 dwords fence */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index 7732d4ef845e..dd0ede75e5d7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -130,9 +130,9 @@ struct amdgpu_gmc_funcs {
+ 	void (*flush_gpu_tlb)(struct amdgpu_device *adev, uint32_t vmid,
+ 				uint32_t vmhub, uint32_t flush_type);
+ 	/* flush the vm tlb via pasid */
+-	int (*flush_gpu_tlb_pasid)(struct amdgpu_device *adev, uint16_t pasid,
+-					uint32_t flush_type, bool all_hub,
+-					uint32_t inst);
++	void (*flush_gpu_tlb_pasid)(struct amdgpu_device *adev, uint16_t pasid,
++				    uint32_t flush_type, bool all_hub,
++				    uint32_t inst);
+ 	/* flush the vm tlb via ring */
+ 	uint64_t (*emit_flush_gpu_tlb)(struct amdgpu_ring *ring, unsigned vmid,
+ 				       uint64_t pd_addr);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index 5cc77c207dbf..87c1b945e82d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -339,9 +339,9 @@ static void gmc_v10_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+  *
+  * Flush the TLB for the requested pasid.
+  */
+-static int gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+-					uint16_t pasid, uint32_t flush_type,
+-					bool all_hub, uint32_t inst)
++static void gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
++					  uint16_t pasid, uint32_t flush_type,
++					  bool all_hub, uint32_t inst)
+ {
+ 	uint16_t queried;
+ 	int vmid, i;
+@@ -364,7 +364,6 @@ static int gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ 						flush_type);
+ 		}
+ 	}
+-	return 0;
  }
  
- /**
+ static uint64_t gmc_v10_0_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
 diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-index 69f65e9c4f93..f9c1ff2d940b 100644
+index a129166a721c..7d61f66625fa 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-@@ -271,7 +271,7 @@ static void gmc_v11_0_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
- 	if (i < adev->usec_timeout)
- 		return;
- 
--	DRM_ERROR("Timeout waiting for VM flush ACK!\n");
-+	dev_err(adev->dev, "Timeout waiting for VM flush ACK!\n");
+@@ -299,9 +299,9 @@ static void gmc_v11_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+  *
+  * Flush the TLB for the requested pasid.
+  */
+-static int gmc_v11_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+-					uint16_t pasid, uint32_t flush_type,
+-					bool all_hub, uint32_t inst)
++static void gmc_v11_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
++					  uint16_t pasid, uint32_t flush_type,
++					  bool all_hub, uint32_t inst)
+ {
+ 	uint16_t queried;
+ 	int vmid, i;
+@@ -324,7 +324,6 @@ static int gmc_v11_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ 						flush_type);
+ 		}
+ 	}
+-	return 0;
  }
  
- /**
+ static uint64_t gmc_v11_0_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+index 9e19a752f94b..fa3586efacd2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+@@ -423,15 +423,15 @@ static int gmc_v7_0_mc_init(struct amdgpu_device *adev)
+  *
+  * Flush the TLB for the requested pasid.
+  */
+-static int gmc_v7_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+-					uint16_t pasid, uint32_t flush_type,
+-					bool all_hub, uint32_t inst)
++static void gmc_v7_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
++					 uint16_t pasid, uint32_t flush_type,
++					 bool all_hub, uint32_t inst)
+ {
+ 	u32 mask = 0x0;
+ 	int vmid;
+ 
+ 	if(!down_read_trylock(&adev->reset_domain->sem))
+-		return 0;
++		return;
+ 
+ 	for (vmid = 1; vmid < 16; vmid++) {
+ 		u32 tmp = RREG32(mmATC_VMID0_PASID_MAPPING + vmid);
+@@ -444,7 +444,6 @@ static int gmc_v7_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ 	WREG32(mmVM_INVALIDATE_REQUEST, mask);
+ 	RREG32(mmVM_INVALIDATE_RESPONSE);
+ 	up_read(&adev->reset_domain->sem);
+-	return 0;
+ }
+ 
+ /*
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+index 2d51531a1f2d..ffcd79d28b9a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+@@ -613,15 +613,15 @@ static int gmc_v8_0_mc_init(struct amdgpu_device *adev)
+  *
+  * Flush the TLB for the requested pasid.
+  */
+-static int gmc_v8_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+-					uint16_t pasid, uint32_t flush_type,
+-					bool all_hub, uint32_t inst)
++static void gmc_v8_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
++					 uint16_t pasid, uint32_t flush_type,
++					 bool all_hub, uint32_t inst)
+ {
+ 	u32 mask = 0x0;
+ 	int vmid;
+ 
+ 	if(!down_read_trylock(&adev->reset_domain->sem))
+-		return 0;
++		return;
+ 
+ 	for (vmid = 1; vmid < 16; vmid++) {
+ 		u32 tmp = RREG32(mmATC_VMID0_PASID_MAPPING + vmid);
+@@ -634,7 +634,6 @@ static int gmc_v8_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ 	WREG32(mmVM_INVALIDATE_REQUEST, mask);
+ 	RREG32(mmVM_INVALIDATE_RESPONSE);
+ 	up_read(&adev->reset_domain->sem);
+-	return 0;
+ }
+ 
+ /*
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 37b33eb84210..448966069312 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -952,9 +952,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+  *
+  * Flush the TLB for the requested pasid.
+  */
+-static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+-					uint16_t pasid, uint32_t flush_type,
+-					bool all_hub, uint32_t inst)
++static void gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
++					 uint16_t pasid, uint32_t flush_type,
++					 bool all_hub, uint32_t inst)
+ {
+ 	uint16_t queried;
+ 	int i, vmid;
+@@ -978,8 +978,6 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ 					       flush_type);
+ 		}
+ 	}
+-
+-	return 0;
+ }
+ 
+ static uint64_t gmc_v9_0_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
 -- 
 2.34.1
 
