@@ -4,118 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDB7FCE79DC
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Sep 2023 14:35:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DEF3CE79DC
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Sep 2023 14:47:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86D0B10E4D0;
-	Wed, 20 Sep 2023 14:35:34 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2054.outbound.protection.outlook.com [40.107.93.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45E4210E4D0
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Sep 2023 14:35:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14C8410E4BB;
+	Wed, 20 Sep 2023 14:47:46 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2061a.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e89::61a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82B2410E4BB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Sep 2023 14:47:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=R5WB2NLGSsyQLjsiSf/oYySA098ID2xk+2uvxx6lUsCbdegDBtmdQwcNwrq3KBaeCF9aA00we9+qnUGnVhWekehZRaUaZUOh8/AJmQgSizgve1QD6qwd2vbgecZniEsxLgTg0QJtMTEmKDDovfXdOOPslJU5WznfH7jQ3ZWu1X7pv3rCW8Z8+g7SLD8nZoK6UMb/g8KPXOVnI+xxQTr9SDWXPe+CcMFavitERUcv/bWH+gVXBnjreHN3PEFuthylgs7nMCE3EQc0R+yCDHXn7q+P7eII0DsMYuXqss3pMxQaE9c0FPyiEO+V1/VSxtMRYU9YockTYffqzawcmZP9Ag==
+ b=QMrpVXWbjb/dZN9ytX5HVJ6S3fVpfb7NmyppFcy4a3L8iLw0+Pkez9/Bl9QEPZAOHjG8zG9N5FjuaNdIgsqRHArpRYtesLRRCDlKAlWgSyqvGoQ+kfp/S0llmrnkvZNzYg2q8i8//ME2sm7bSf8+QBO+pkpexP2sNbxzxnbQCaN60XJl1bHTbMcQEoHXP/0mzCaK9AxWIsGoR9bIaoCmU5T4vmWb0ZJzyslZnqkZmujcPI7M+a639dJ8orrs1dN0vaG7g11+AN0M7CdE+N2g+eUCWQwW+dAoQtUlMuzv5tPw2JW2jFIlbZcEirdJlQzk68UTjwIDH1kB8PO8UCZYKg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2g/NO86acIZ6z2o7maTeEa6uz8Nq0Ba6uQYArTFco6E=;
- b=EC0JYEbd1W1SgjhQZzyYeozQ4BtMndIDz8GE9BfNKaOrjyJuFZOGgi/iI3qpSqPkIEeWsXLKhMiN+1qhZTYhP1AFWQ63+stJnO00FVP6rFY95CIM8od4ruUoqAh71VjtoNJpCT6AFn1BtQSEI6JqO5E2TS/LD8iXqLs9wrDJs5qjlPRKwJOwCO8goYOxOJM3r502CMlW//zFCsl+g3XWx/FZ5pzyHps9IpRkZiHDMwXh88Likfo79TSKIntErLtFwjronCAJKQbbZnDga9Zaut1roqauYhJS3xvIpgLsOtYHTMejQ3tNIKaWE8EAwPz9W7UEe27aH7dg/r1ZeXDCbQ==
+ bh=5YfrJ145CjDBge4d75dGk0JRgUEr3IL/E89HRRMmdC4=;
+ b=edYSU2518nm67MoFJmfuw/F99KS2js+7ic/HkMpbIM3CUpfdoommAt/j027WYkLoydan3YNfHM9KDNaB824xSzK4j98hSB6cV0hqKe8X91OZxUNbE0q4i1CdUJpMKyW5TwGI0Pe0cTyoIa76DMyPjmW90/9KeMzoF4hqHENmwkkyumHM396VIYrPhPPJQoaUyj04iXmeK2g9UxdanuE7ZoyOCQABNzYK1yWmug/Lx+RVT3rOaxCX/ZpXWIrTOZVMdSKWXzBEQC6wE+IRnCOmYf8KPjcEWalLD5B57i1y6RhTNAURalNVcHqL7LU0kqAQEEh7DIFbci6KbZZgGuW3zg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2g/NO86acIZ6z2o7maTeEa6uz8Nq0Ba6uQYArTFco6E=;
- b=kOXmL2jt+T10v2I98ymZfbBnTwmiasNEunr1gmHLJUJQ4pgphVyRb2qbaWmt0rFO1zxafG5t+eJNhRAB5LY8CZf9lpk5ncf3R4Ip7KElxnTwiaoZgX8cTfczGgpzBPjE8yplj5szP0a/o3pEeUOVmhi46oArT7z//FHpIuUT9Gs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by MN0PR12MB6055.namprd12.prod.outlook.com (2603:10b6:208:3cd::20)
+ bh=5YfrJ145CjDBge4d75dGk0JRgUEr3IL/E89HRRMmdC4=;
+ b=SpeDQFNNMdbj6UaDJNRu66Z5p1VK3X1oTj9VKXQ8E4mPAKIWlu6Id0N7nHiIYNhdfC03mCS1J+G1Rh3zAuOeSLj00hoWBpcIXAkIwOH407DrK2VAJ7YXtc/jm8xVsAFvonFfgbWzPzLgx3WPftn4i0ICfnpg/Q0MOTuH5jQp4OE=
+Received: from CY5PR12MB6369.namprd12.prod.outlook.com (2603:10b6:930:21::10)
+ by MW6PR12MB7069.namprd12.prod.outlook.com (2603:10b6:303:238::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.27; Wed, 20 Sep
- 2023 14:35:28 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::2e40:ffd7:e752:644f]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::2e40:ffd7:e752:644f%6]) with mapi id 15.20.6813.018; Wed, 20 Sep 2023
- 14:35:28 +0000
-Message-ID: <b6fb1ca2-906c-08c5-9dd7-34e7f21af870@amd.com>
-Date: Wed, 20 Sep 2023 10:35:25 -0400
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH v3] drm/amdkfd: Handle errors from svm validate and map
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.28; Wed, 20 Sep
+ 2023 14:47:39 +0000
+Received: from CY5PR12MB6369.namprd12.prod.outlook.com
+ ([fe80::901b:d130:b9df:f9cd]) by CY5PR12MB6369.namprd12.prod.outlook.com
+ ([fe80::901b:d130:b9df:f9cd%5]) with mapi id 15.20.6792.026; Wed, 20 Sep 2023
+ 14:47:39 +0000
+From: "Zhang, Yifan" <Yifan1.Zhang@amd.com>
+To: "Sharma, Shashank" <Shashank.Sharma@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH v6 3/9] drm/amdgpu: add new IOCTL for usermode queue
+Thread-Topic: [PATCH v6 3/9] drm/amdgpu: add new IOCTL for usermode queue
+Thread-Index: AQHZ4m5nn3DiJ53on0u/TwQpmU9PZrAj2WEw
+Date: Wed, 20 Sep 2023 14:47:39 +0000
+Message-ID: <CY5PR12MB636955AB9DCEEC4F934AB935C1F9A@CY5PR12MB6369.namprd12.prod.outlook.com>
+References: <20230908160446.2188-1-shashank.sharma@amd.com>
+ <20230908160446.2188-4-shashank.sharma@amd.com>
+In-Reply-To: <20230908160446.2188-4-shashank.sharma@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Philip Yang <yangp@amd.com>, Philip Yang <Philip.Yang@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20230913151617.18894-1-Philip.Yang@amd.com>
- <20230919142124.15092-1-Philip.Yang@amd.com>
- <cb12d72b-8427-89c1-209f-eb08901eb40f@amd.com>
- <b505cf13-aa3f-efaa-9510-fdc71ec94fd3@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <b505cf13-aa3f-efaa-9510-fdc71ec94fd3@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQXPR0101CA0042.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:14::19) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MN0PR12MB6055:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb24be65-2f5f-454d-6699-08dbb9e6d5e5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: imoUqd1WG78zihn7zPsjIMXTuyJsc6fImnttTl68duuxe+I1u2KDhK3iGfPKhSQD7brYvjuyWN+d64BBCu4veuzqQ1RvJuObJZEAjmAF/W+SnHIkVs3NaIaKKPPuZNrzyP9koooH6sIOGA8gY8yFTvIaYqMeFncxsG4zLv1V4v5rKgjLRoYhT5AI14SOcfT2p3swdMV9hebKKgX2tNX7bOeo0f3C9g2YlcOrWZ2NQm+U2Yw6brqNfCiDaeEs1PUvwVzrNFuEHsSXqqzotaokadMDKgSBcqWUBZsQBW6tGGlchrUqvodnWXzpY6c3PtUt0GMC2OjxCW/22uvhQVagIuGTTaixzlbm4TJPOWycl1GgVZ2RA1GnYGNTET85JmS/6A1iNK9kjoYS8Gb7xHgXOQd2bms72Uz6PdgqHnruJL2HYTvss5qZ7T9O/tR4Q4mESvQx+su5fyqS4nN3WB9ysBbPtRj0lDB+LMzUOpNWVdo1jr1QID3klmoDuNSd+tKVRU2W/qXzmbExS1sh382wE/fCU2L9ke+TeNxKUR9ReF2XYt5yMHanttpnoQj/Sr4L1jv5YgP4nts/IcrIH5mqvt+frx1MmoXIEsMQl/3uNySBAH2BlG8Xm5k3EDjOyZPIly3iUuUXqV+uWDwyBDKJPWZW6YAjWYB3SlZxAaeSZ51wYX5X5s4PxpYxSMcBLXDq
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(39860400002)(376002)(346002)(136003)(366004)(451199024)(186009)(1800799009)(44832011)(66946007)(6486002)(53546011)(6506007)(31686004)(66556008)(110136005)(66476007)(41300700001)(6512007)(316002)(478600001)(6666004)(4326008)(8936002)(8676002)(2616005)(26005)(5660300002)(36756003)(38100700002)(83380400001)(2906002)(86362001)(15650500001)(31696002)(43740500002)(45980500001)(309714004);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=33982da7-8922-4990-b309-0096fc5ee3dd;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-09-20T14:31:19Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY5PR12MB6369:EE_|MW6PR12MB7069:EE_
+x-ms-office365-filtering-correlation-id: 37d3a329-de04-4b35-0051-08dbb9e88982
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: I2lRq2mamT+iRMCAfIk/4MtHX11O+dAIKFXm7nhRz03u9g3rh2pFv7TjB5c/8EhqaQZ217Fv/QKWW0/C3KZdk3l6WAD6XKkHlWiRgtJ+1jJYLuYJ2oNjt5cyiIQaLt8ux1c9ftIqCtnW+pAmUficMdkbtI1PfXnq7JVi+0eM+n4KGA7gyST39nupoDEjlGVlzoLOChzNUKnqOVd6BB8Vp9Q62u4eJOEj/r2xXMgLWzeJAgCQJBCH7lP/ujUoWfJMlzU5IdlVpeXQrisw8rLofiW1P8LRGpObbpK74cgTudAjdFhlgKkmrFbv4XWiQWG5KkZVsS7K1fEGpAy/qjBu6XHYdpjC59qi59jnn7kypXz+UKFBRbtBO36YWR5Zebg/swxtEwNyrkI/GrbIX3zbLHpumiNBcs31rEZ8lkmrH/oMcOdKli9ymxdpHvrEIlEi5VX8z5cEpWlpSuU8BFlL2eaHP3kKka+t5GLRgrHGZZXd/xhWyhKbMk1Yicx+8wAg0m9KWbxsGjf4Bdlvvbzvffogey+Qso9RqlP+HYbkBxGndUA0FQIkRK26jzD13gXygjydYtTorPWzJmIKoc538KFSSdZUeR6GBaDMl0ENvYQp32fx1Jfdh9KGrZ1BTcys
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY5PR12MB6369.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(39860400002)(396003)(366004)(346002)(376002)(1800799009)(186009)(451199024)(64756008)(54906003)(316002)(66946007)(110136005)(66476007)(66556008)(66446008)(26005)(76116006)(83380400001)(122000001)(55016003)(7696005)(71200400001)(6506007)(38070700005)(38100700002)(86362001)(53546011)(33656002)(9686003)(478600001)(2906002)(8676002)(4326008)(8936002)(41300700001)(52536014)(5660300002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U21ZQ052VGRXWTBySi80bjI4ZmpTVHBTV3IzTk5EOGw1YStnVy9RcWo1UXdv?=
- =?utf-8?B?MDJQRVBHZXB0RVo1VWZCYXpIa2lid09zaElVcmJIKzU3YVVpT3lzUU9XbEpz?=
- =?utf-8?B?Nitqb3J3Ui9oVEZxdlZCNmRQMWtyVU1hV1UwdGhVRXJwRVRRZTdCTmxXK3lB?=
- =?utf-8?B?ZlNCSmx0WmgzZGk0S25nRDJpdW1hVHdiTmNrUUxab1dIaGdpdUtYa0hwdVpn?=
- =?utf-8?B?QTlwbVpybkJpVFhtV3JIU2x3NjNlWHI4Sk0yYjJEcG5lakxySkdNVkZtTmo3?=
- =?utf-8?B?TkhKWEdPK3ROWEwyUDVTN2JwWjFTUzg2ZGp4OEFGdldpVUpBeDhPRkhzZnAz?=
- =?utf-8?B?cHFaVHFCZ0d0NDdtU3BzQmpmSnptUFZUK3phSmNpUmRTZEx5THZMTVZTSENO?=
- =?utf-8?B?V1Z4U3VSdlRWalJRdVJxN21MbEw5REhwRWx0VXpSY2FQMW0zbEwwZUc2Zng3?=
- =?utf-8?B?Z1pBZ2VIT2QwVkVxc0p5cHRjUWRXZlpldEJod3BFdmFQZXJiWkl6b09xbjM1?=
- =?utf-8?B?ZWF2SWF5YzBMenFzUEhVQTlIT3B4WmJCOHQ5Zm5Qc09oTHhJdFk3QzEzRjN1?=
- =?utf-8?B?bGpBdlRCVFBTazRzUFp0VlI2ZGZMZWh2SnNhSEV0T2Z2cTEzczhRVWJhUTNQ?=
- =?utf-8?B?T2xQY2RiV3VmbjNjSEpoQTFRWjVKNGcwc3ZXRVA1U2lteHZOcjVhSElqTURo?=
- =?utf-8?B?U2pxMnJiMUNlTEtaSzBTSnBoYS9Dc3dNRUhiNEZ0VXg2b2ltT0gzTXpPL0NC?=
- =?utf-8?B?RW9tS2JyK0dqeGtXdnBRaVNQT3JrOWJxcWgvRTYrQTVwZmsxaExIdDM4WnJO?=
- =?utf-8?B?WnI2MjVwL1IvZFBjUWRCYjBIMHFvaW9CcDRLYnZndElicWJ2WjYxeEN0aC8v?=
- =?utf-8?B?SnE5YTRlT3NjOFluRDJKV3d4VDZpQlNkQmhCR0JOVVJMTnQ0b3ZwSEd0R05B?=
- =?utf-8?B?L2xRYkZFeEh4WlM2VFd5eTNiMFhUaUdrTkZGa2EzZVZHN0xuQ1hzRU5yTjg1?=
- =?utf-8?B?anZRQ0J0WkVGeGFlSjRkbzNObGNiU054a0lNRFZFUXU4d2hCclQ3YVM4bTQ1?=
- =?utf-8?B?bGZLWXBwallqaTFxU09Td0VwbmpQaTJiWVh0elB1aWs2S3JCU1hkSXRwMWJq?=
- =?utf-8?B?NnZidlJvSVFOV2psT2V4RG9YdkpyTHFlL3p5eWhsQTgzTUgrQ0xCc3JDVHpO?=
- =?utf-8?B?MUhtbDNoTWJhcU9sM0xaWk80Z1QvTnBXeG5nN0l3TmFuaFYxN0p4Y1JWZ2xh?=
- =?utf-8?B?RW1KS2Q1c1Q2L2hiTU1kaTZsTlZhMXFrR0dIcVpIS0diTzdIZGhITUNsR09U?=
- =?utf-8?B?aVYwb0ZFVFFpZSt5bUc3TE10YnZkRjFFUzFPUDVyb3NGUStKN1lSTE5TdlNL?=
- =?utf-8?B?RGlja08xSUpnU2ZmZGRsSUdQL3hQTDV2YUJISjhEN3VmODdMZE9xMkJ0cXA1?=
- =?utf-8?B?bHlXNFpNWTNUdnNGNnlIUEVHZXlYRkdPSngzV3c1bkNpSGtIc1JvdlBIOFpW?=
- =?utf-8?B?c0tNcENXTjRESWV5QXlMU3NCYmdtTnJBMDVMRmlnVjBRQVRlWjA3VlhlbG5R?=
- =?utf-8?B?YTJodEtzaVdWZndqN3E2TkpjYktabHhIZXVxd3ZJVmFzOHhXQW1BNmc1RUJh?=
- =?utf-8?B?TVNDSFZtcXlZZEVwejVTRithajZ3NytNbTBnOG1wbW1aM0VhMk5WRDgxYTdo?=
- =?utf-8?B?Mmx6M2pNMkFYYVB3TGJ1SGd3QkthMWd5Mzk0RGM5RHJnT21hTW1FSWoyc1FC?=
- =?utf-8?B?RHFRY0VwcEluTk1FUW43Q3k0NmJDekdVQWhpcHo1Y2hlcmVSdElVM1A0NUJq?=
- =?utf-8?B?L0l3M2FpSlQyaGYrNzl4YW5tY3hlMnV6ODN3WllUUUQ3VHpJRTRpMVE4WnND?=
- =?utf-8?B?VXVtVGZ1b0ZvYjJaakJheHdIcjhqWE1zNUpaNGxRZllRMU9Sa3F5K0hwN0Zp?=
- =?utf-8?B?Mi9TeXl2WkRRTXZjd1V6ZHpmS0txY2lna3pRcUFLYnFwYlRVaGdQNmJkazVh?=
- =?utf-8?B?KzVibHlBT0dxRHlJNEZVcUQxOEU5RDZ4OHNHSW1VbUFzSjlJa1FXekQzMkNK?=
- =?utf-8?B?eDFWbFdJd3BrZTNrSS9FTVBndkJSd1JzR0NWTDdGYkhJRlBBajlJemdoTnRt?=
- =?utf-8?Q?6Kppcg4Se0/eytIb0SHakhN/V?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?XONsY86iVhJKyHO9m76OXTOpCiZqUGM0b5S8mO0KLMhvZhrf9aCTl0ExAN5m?=
+ =?us-ascii?Q?q1bdGdsLfeVIr4vDgkVh9PDlcO+qKwL4GFRGjeLNZQmOm+KJxRx8sNAzGsdp?=
+ =?us-ascii?Q?2VHW/PVAEw0YDSE3sAFBjSJkZx+Q+NqWxHdF72HadTreJ5cGbAjH8mZr5BLc?=
+ =?us-ascii?Q?5BV4mMxCgnPnzIx32j3I+yCNfUuyIwIA1v3PUoxpSs+k2A89Rw2mYQJWZ1eR?=
+ =?us-ascii?Q?e4yGFjO6Ww7AYDwJWvNKmdGtJ6HvR585cSBoTcHOAaK0ibN9RmratEa8J6H+?=
+ =?us-ascii?Q?d5XNnibB2Lqzz0vXr8ndewA3dpXmiDbx8uB97G1bR3AiZROeHLH6VOfoJlDT?=
+ =?us-ascii?Q?V8dzkmeTmOPfiTG9YYeDcipyIS/tQqxyJhYsPnneOQdI0tR0h0UeoirxOc7Y?=
+ =?us-ascii?Q?Lc+TaogEBeyilbwJehFZyIqrjQYL0FTI/lNAPXHcukBMmCm367WnC1eb+gAU?=
+ =?us-ascii?Q?XfbBnPHVEri2yeAO12hHJOLeOhuTAR3yn4PXFhrovbc4LRJHffXjAtAimQFP?=
+ =?us-ascii?Q?3Ag3I8FIVY30KapbmQSMTLzBMcGDd9hLrqxIrGXeFXy/ZF8nsHdXHCDrNRH0?=
+ =?us-ascii?Q?A+qFNgPTH9/6RRB9Yhf+jtzftoMPywcGzQOQBKZipBWY1+moAlX6A6iyoLXD?=
+ =?us-ascii?Q?pPT7o+OSc6XgcduVeGos+1qOyuTCXV4DctkO/mPNA7gZ4B1OnKFHOZ78xvQs?=
+ =?us-ascii?Q?9NZXb5DCOPAm1djOMLGBCIB58Un6NNbfPZZJCBge0b0ayOkvTXH79MWK63I5?=
+ =?us-ascii?Q?Q+o7aXA6cpULZqCME62DIDgjkTsZjCb3EMorv2d2fpbNdlJPNoznrtOPXKFP?=
+ =?us-ascii?Q?rj0gqjIIeyHNbwbj73i/EWPUsR4ImQfJcRf4HKsvK6avuETEHwgEIkCXo5rj?=
+ =?us-ascii?Q?Ckgcf0b/GqpAFxG8Uy67doi2a04ngV7N+AJl5yImAzEe7W7W/6ZRm/R3Bv5X?=
+ =?us-ascii?Q?WAk6TZ3kpxGPCzLoFwh8XVJms+tQpbXry1n5xLUbw4qcAdsKLK2f6nF6lpNY?=
+ =?us-ascii?Q?bWMF+apCtPp0mb7DKUxgvsNLCZkXsnwx2qAx8uqY9+T3TBjeEtzIhrJZhzsC?=
+ =?us-ascii?Q?LgVQZzbEIIzyT9wyxYjE9v5lxYnN3b9UAXahrBSYJE2Br0QaqngpfsiPah8J?=
+ =?us-ascii?Q?HgF7Hm/4A6dgspV/YRhk1+5bqBYGtr+JE62WWuSf2ssRKO9j6ISgsccKSWAA?=
+ =?us-ascii?Q?iN8k9XtyRsO7D0/ICrVur0mywMlbDJ49cDqrFAxjv3Re7LuBapILz1yySCYO?=
+ =?us-ascii?Q?im5KbWeugtczXnAXqBuX6UIGHwu3DqdqQG9ONw6dZMhtMr/QJJPis3wCDSvd?=
+ =?us-ascii?Q?3BnJ7XlTM/NpD+sJpRV4VSFa6GbL+QNSVWYy+BJtN/Ts3TbBEEZ+AAWhNh8/?=
+ =?us-ascii?Q?CO4hfCHPoTWTrpDngZ12MfpeTo/U5QoWoFutpKEwDlZgM+3RQ3zrq6rvg2cw?=
+ =?us-ascii?Q?kElJdC6K+VIrtVhZgLMKFndUWEnEBkAs7tQPDrIIOiAH7a0YkkzvXDjkXiLz?=
+ =?us-ascii?Q?ej5s/nrs/+oWkKGKcbcJsgBPIqQlOjjyILHmkd48bHbaG3FaA7cQHKJ/Py6l?=
+ =?us-ascii?Q?qD2xd4rKO1bQWP+xms4=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb24be65-2f5f-454d-6699-08dbb9e6d5e5
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2023 14:35:28.6887 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3c3rM7MkqYsyGlc1Rf/Egop+8Albmd3oRcQKdZ2mXRRoBulhwWckL9Klb0k1XsGSWc4+aK/y3Tv+NpkhmeWZOA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6055
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6369.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 37d3a329-de04-4b35-0051-08dbb9e88982
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Sep 2023 14:47:39.3398 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: UPHPJZXt/BS7W6YAPZjQAQGRNJNHv3AGKS+oxB+3qIpsYTL4h/exZtJeTMrp1tDh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB7069
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,233 +124,244 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alex.sierra@amd.com, james.zhu@amd.com
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Yadav, Arvind" <Arvind.Yadav@amd.com>,
+ "Sharma, Shashank" <Shashank.Sharma@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only - General]
 
-On 2023-09-20 10:20, Philip Yang wrote:
->
->
-> On 2023-09-19 17:15, Felix Kuehling wrote:
->>
->> On 2023-09-19 10:21, Philip Yang wrote:
->>> If new range is splited to multiple pranges with max_svm_range_pages
->>> alignment and added to update_list, svm validate and map should keep
->>> going after error to make sure prange->mapped_to_gpu flag is up to date
->>> for the whole range.
->>>
->>> svm validate and map update set prange->mapped_to_gpu after mapping to
->>> GPUs successfully, otherwise clear prange->mapped_to_gpu flag (for
->>> update mapping case) instead of setting error flag, we can remove
->>> the redundant error flag to simpliy code.
->>>
->>> Refactor to remove goto and update prange->mapped_to_gpu flag inside
->>> svm_range_lock, to guarant we always evict queues or unmap from GPUs if
->>> there are invalid ranges.
->>>
->>> After svm validate and map return error -EAGIN, the caller retry will
->>> update the mapping for the whole range again.
->>>
->>> Fixes: c22b04407097 ("drm/amdkfd: flag added to handle errors from 
->>> svm validate and map")
->>> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 78 
->>> +++++++++++++---------------
->>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.h |  1 -
->>>   2 files changed, 36 insertions(+), 43 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c 
->>> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>> index 50c29fd844fb..4812f4ac5579 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>> @@ -818,7 +818,7 @@ svm_range_is_same_attrs(struct kfd_process *p, 
->>> struct svm_range *prange,
->>>           }
->>>       }
->>>   -    return !prange->is_error_flag;
->>> +    return true;
->>>   }
->>>     /**
->>> @@ -1671,7 +1671,7 @@ static int svm_range_validate_and_map(struct 
->>> mm_struct *mm,
->>>         start = prange->start << PAGE_SHIFT;
->>>       end = (prange->last + 1) << PAGE_SHIFT;
->>> -    for (addr = start; addr < end && !r; ) {
->>> +    for (addr = start; !r && addr < end; ) {
->>>           struct hmm_range *hmm_range;
->>>           struct vm_area_struct *vma;
->>>           unsigned long next;
->>> @@ -1680,62 +1680,55 @@ static int svm_range_validate_and_map(struct 
->>> mm_struct *mm,
->>>           bool readonly;
->>>             vma = vma_lookup(mm, addr);
->>> -        if (!vma) {
->>> +        if (vma) {
->>> +            readonly = !(vma->vm_flags & VM_WRITE);
->>> +
->>> +            next = min(vma->vm_end, end);
->>> +            npages = (next - addr) >> PAGE_SHIFT;
->>> +            WRITE_ONCE(p->svms.faulting_task, current);
->>> +            r = amdgpu_hmm_range_get_pages(&prange->notifier, addr, 
->>> npages,
->>> +                               readonly, owner, NULL,
->>> +                               &hmm_range);
->>> +            WRITE_ONCE(p->svms.faulting_task, NULL);
->>> +            if (r) {
->>> +                pr_debug("failed %d to get svm range pages\n", r);
->>> +                if (r == -EBUSY)
->>> +                    r = -EAGAIN;
->>> +            }
->>> +        } else {
->>>               r = -EFAULT;
->>> -            goto unreserve_out;
->>> -        }
->>> -        readonly = !(vma->vm_flags & VM_WRITE);
->>> -
->>> -        next = min(vma->vm_end, end);
->>> -        npages = (next - addr) >> PAGE_SHIFT;
->>> -        WRITE_ONCE(p->svms.faulting_task, current);
->>> -        r = amdgpu_hmm_range_get_pages(&prange->notifier, addr, 
->>> npages,
->>> -                           readonly, owner, NULL,
->>> -                           &hmm_range);
->>> -        WRITE_ONCE(p->svms.faulting_task, NULL);
->>> -        if (r) {
->>> -            pr_debug("failed %d to get svm range pages\n", r);
->>> -            if (r == -EBUSY)
->>> -                r = -EAGAIN;
->>> -            goto unreserve_out;
->>>           }
->>>   -        offset = (addr - start) >> PAGE_SHIFT;
->>> -        r = svm_range_dma_map(prange, ctx->bitmap, offset, npages,
->>> -                      hmm_range->hmm_pfns);
->>> -        if (r) {
->>> -            pr_debug("failed %d to dma map range\n", r);
->>> -            goto unreserve_out;
->>> +        if (!r) {
->>> +            offset = (addr - start) >> PAGE_SHIFT;
->>> +            r = svm_range_dma_map(prange, ctx->bitmap, offset, npages,
->>> +                          hmm_range->hmm_pfns);
->>> +            if (r)
->>> +                pr_debug("failed %d to dma map range\n", r);
->>>           }
->>>             svm_range_lock(prange);
->>> -        if (amdgpu_hmm_range_get_pages_done(hmm_range)) {
->>> +        if (!r && amdgpu_hmm_range_get_pages_done(hmm_range)) {
->>>               pr_debug("hmm update the range, need validate again\n");
->>>               r = -EAGAIN;
->>> -            goto unlock_out;
->>>           }
->>> -        if (!list_empty(&prange->child_list)) {
->>> +
->>> +        if (!r && !list_empty(&prange->child_list)) {
->>>               pr_debug("range split by unmap in parallel, validate 
->>> again\n");
->>>               r = -EAGAIN;
->>> -            goto unlock_out;
->>>           }
->>>   -        r = svm_range_map_to_gpus(prange, offset, npages, readonly,
->>> -                      ctx->bitmap, wait, flush_tlb);
->>> +        if (!r)
->>> +            r = svm_range_map_to_gpus(prange, offset, npages, 
->>> readonly,
->>> +                          ctx->bitmap, wait, flush_tlb);
->>>   -unlock_out:
->>> +        prange->mapped_to_gpu = !r;
->>
->> I'm still concerned that this can update prange->mapped_to_gpu to 
->> "true" before the entire range has been successfully mapped. This 
->> could cause race conditions if someone looks at this variable while a 
->> validate_and_map is in progress. This would avoid such race conditions:
->>
->>         if (!r && next == end)
->>             prange->mapped_to_gpu = true;
->>
-> thanks, will also add else path for error handling, to exit the loop 
-> with correct flag.
->
->           else if (r)
->
->              prange->mapped_to_gpu = false;
->
-I thought about that. I think the flag should be false going into the 
-function. There should be no need to validate and map the range if it's 
-already mapped and valid. So if anything, we should set the flag to 
-false in the beginning.
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Shashank=
+ Sharma
+Sent: Saturday, September 9, 2023 12:05 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
+stian.Koenig@amd.com>; Yadav, Arvind <Arvind.Yadav@amd.com>; Sharma, Shasha=
+nk <Shashank.Sharma@amd.com>
+Subject: [PATCH v6 3/9] drm/amdgpu: add new IOCTL for usermode queue
 
-Regards,
-   Felix
+This patch adds:
+- A new IOCTL function to create and destroy
+- A new structure to keep all the user queue data in one place.
+- A function to generate unique index for the queue.
 
+V1: Worked on review comments from RFC patch series:
+  - Alex: Keep a list of queues, instead of single queue per process.
+  - Christian: Use the queue manager instead of global ptrs,
+           Don't keep the queue structure in amdgpu_ctx
 
-> Regards,
->
-> Philip
->
->> Regards,
->>   Felix
->>
->>
->>>           svm_range_unlock(prange);
->>>             addr = next;
->>>       }
->>>   -    if (addr == end)
->>> -        prange->mapped_to_gpu = true;
->>> -
->>> -unreserve_out:
->>>       svm_range_unreserve_bos(ctx);
->>> -
->>> -    prange->is_error_flag = !!r;
->>>       if (!r)
->>>           prange->validate_timestamp = ktime_get_boottime();
->>>   @@ -2104,7 +2097,8 @@ svm_range_add(struct kfd_process *p, 
->>> uint64_t start, uint64_t size,
->>>           next = interval_tree_iter_next(node, start, last);
->>>           next_start = min(node->last, last) + 1;
->>>   -        if (svm_range_is_same_attrs(p, prange, nattr, attrs)) {
->>> +        if (svm_range_is_same_attrs(p, prange, nattr, attrs) &&
->>> +            prange->mapped_to_gpu) {
->>>               /* nothing to do */
->>>           } else if (node->start < start || node->last > last) {
->>>               /* node intersects the update range and its attributes
->>> @@ -3517,7 +3511,7 @@ svm_range_set_attr(struct kfd_process *p, 
->>> struct mm_struct *mm,
->>>       struct svm_range *next;
->>>       bool update_mapping = false;
->>>       bool flush_tlb;
->>> -    int r = 0;
->>> +    int r, ret = 0;
->>>         pr_debug("pasid 0x%x svms 0x%p [0x%llx 0x%llx] pages 0x%llx\n",
->>>            p->pasid, &p->svms, start, start + size - 1, size);
->>> @@ -3605,7 +3599,7 @@ svm_range_set_attr(struct kfd_process *p, 
->>> struct mm_struct *mm,
->>>   out_unlock_range:
->>>           mutex_unlock(&prange->migrate_mutex);
->>>           if (r)
->>> -            break;
->>> +            ret = r;
->>>       }
->>>         dynamic_svm_range_dump(svms);
->>> @@ -3618,7 +3612,7 @@ svm_range_set_attr(struct kfd_process *p, 
->>> struct mm_struct *mm,
->>>       pr_debug("pasid 0x%x svms 0x%p [0x%llx 0x%llx] done, r=%d\n", 
->>> p->pasid,
->>>            &p->svms, start, start + size - 1, r);
->>>   -    return r;
->>> +    return ret ? ret : r;
->>>   }
->>>     static int
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h 
->>> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
->>> index c216c8dd13c6..25f711905738 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
->>> @@ -133,7 +133,6 @@ struct svm_range {
->>>       DECLARE_BITMAP(bitmap_access, MAX_GPU_INSTANCE);
->>>       DECLARE_BITMAP(bitmap_aip, MAX_GPU_INSTANCE);
->>>       bool                mapped_to_gpu;
->>> -    bool                is_error_flag;
->>>   };
->>>     static inline void svm_range_lock(struct svm_range *prange)
+V2: Worked on review comments:
+ - Christian:
+   - Formatting of text
+   - There is no need for queuing of userqueues, with idr in place
+ - Alex:
+   - Remove use_doorbell, its unnecessary
+   - Reuse amdgpu_mqd_props for saving mqd fields
+
+ - Code formatting and re-arrangement
+
+V3:
+ - Integration with doorbell manager
+
+V4:
+ - Accommodate MQD union related changes in UAPI (Alex)
+ - Do not set the queue size twice (Bas)
+
+V5:
+- Remove wrapper functions for queue indexing (Christian)
+- Do not save the queue id/idr in queue itself (Christian)
+- Move the idr allocation in the IP independent generic space
+  (Christian)
+
+V6:
+- Check the validity of input IP type (Christian)
+
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian Koenig <christian.koenig@amd.com>
+Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 116 ++++++++++++++++++
+ .../gpu/drm/amd/include/amdgpu_userqueue.h    |   2 +
+ 3 files changed, 119 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c
+index 2a89e303c3db..214a66b33dfa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2830,6 +2830,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] =3D {
+        DRM_IOCTL_DEF_DRV(AMDGPU_GEM_VA, amdgpu_gem_va_ioctl, DRM_AUTH|DRM_=
+RENDER_ALLOW),
+        DRM_IOCTL_DEF_DRV(AMDGPU_GEM_OP, amdgpu_gem_op_ioctl, DRM_AUTH|DRM_=
+RENDER_ALLOW),
+        DRM_IOCTL_DEF_DRV(AMDGPU_GEM_USERPTR, amdgpu_gem_userptr_ioctl, DRM=
+_AUTH|DRM_RENDER_ALLOW),
++       DRM_IOCTL_DEF_DRV(AMDGPU_USERQ, amdgpu_userq_ioctl,
++DRM_AUTH|DRM_RENDER_ALLOW),
+ };
+
+ static const struct drm_driver amdgpu_kms_driver =3D { diff --git a/driver=
+s/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu=
+_userqueue.c
+index effc0c7c02cf..44769423ba30 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+@@ -23,6 +23,122 @@
+  */
+
+ #include "amdgpu.h"
++#include "amdgpu_vm.h"
++#include "amdgpu_userqueue.h"
++
++static struct amdgpu_usermode_queue *
++amdgpu_userqueue_find(struct amdgpu_userq_mgr *uq_mgr, int qid) {
++       return idr_find(&uq_mgr->userq_idr, qid); }
++
++static int
++amdgpu_userqueue_destroy(struct drm_file *filp, int queue_id) {
++       struct amdgpu_fpriv *fpriv =3D filp->driver_priv;
++       struct amdgpu_userq_mgr *uq_mgr =3D &fpriv->userq_mgr;
++       const struct amdgpu_userq_funcs *uq_funcs;
++       struct amdgpu_usermode_queue *queue;
++
++       mutex_lock(&uq_mgr->userq_mutex);
++
++       queue =3D amdgpu_userqueue_find(uq_mgr, queue_id);
++       if (!queue) {
++               DRM_DEBUG_DRIVER("Invalid queue id to destroy\n");
++               mutex_unlock(&uq_mgr->userq_mutex);
++               return -EINVAL;
++       }
++       uq_funcs =3D uq_mgr->userq_funcs[queue->queue_type];
++       uq_funcs->mqd_destroy(uq_mgr, queue);
++       idr_remove(&uq_mgr->userq_idr, queue_id);
++       kfree(queue);
++
++       mutex_unlock(&uq_mgr->userq_mutex);
++       return 0;
++}
++
++static int
++amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq
++*args) {
++       struct amdgpu_fpriv *fpriv =3D filp->driver_priv;
++       struct amdgpu_userq_mgr *uq_mgr =3D &fpriv->userq_mgr;
++       const struct amdgpu_userq_funcs *uq_funcs;
++       struct amdgpu_usermode_queue *queue;
++       int qid, r =3D 0;
++
++       /* Usermode queues are only supported for GFX/SDMA engines as of no=
+w */
++       if (args->in.ip_type !=3D AMDGPU_HW_IP_GFX && args->in.ip_type !=3D=
+ AMDGPU_HW_IP_DMA) {
++               DRM_ERROR("Usermode queue doesn't support IP type %u\n", ar=
+gs->in.ip_type);
++               return -EINVAL;
++       }
++
++       mutex_lock(&uq_mgr->userq_mutex);
++
++       uq_funcs =3D uq_mgr->userq_funcs[args->in.ip_type];
++       if (!uq_funcs) {
++               DRM_ERROR("Usermode queue is not supported for this IP (%u)=
+\n", args->in.ip_type);
++               r =3D -EINVAL;
++               goto unlock;
++       }
++
++       queue =3D kzalloc(sizeof(struct amdgpu_usermode_queue), GFP_KERNEL)=
+;
++       if (!queue) {
++               DRM_ERROR("Failed to allocate memory for queue\n");
++               r =3D -ENOMEM;
++               goto unlock;
++       }
++       queue->doorbell_handle =3D args->in.doorbell_handle;
++       queue->doorbell_index =3D args->in.doorbell_offset;
++       queue->queue_type =3D args->in.ip_type;
++       queue->flags =3D args->in.flags;
++       queue->vm =3D &fpriv->vm;
++
++       r =3D uq_funcs->mqd_create(uq_mgr, &args->in, queue);
++       if (r) {
++               DRM_ERROR("Failed to create Queue\n");
++               goto unlock;
+
+Should kfree(queue) in this path to avoid memory leak
+
++       }
++
++       qid =3D idr_alloc(&uq_mgr->userq_idr, queue, 1, AMDGPU_MAX_USERQ_CO=
+UNT, GFP_KERNEL);
++       if (qid < 0) {
++               DRM_ERROR("Failed to allocate a queue id\n");
++               uq_funcs->mqd_destroy(uq_mgr, queue);
++               r =3D -ENOMEM;
++               goto unlock;
+
+Should kfree(queue)  in this path to avoid memory leak
+
++       }
++       args->out.queue_id =3D qid;
++
+
+Should add
+free_queue:
+        kfree(queue) ;
+to avoid memory leak
+
++unlock:
++       mutex_unlock(&uq_mgr->userq_mutex);
++       return r;
++}
++
++int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
++                      struct drm_file *filp)
++{
++       union drm_amdgpu_userq *args =3D data;
++       int r =3D 0;
++
++       switch (args->in.op) {
++       case AMDGPU_USERQ_OP_CREATE:
++               r =3D amdgpu_userqueue_create(filp, args);
++               if (r)
++                       DRM_ERROR("Failed to create usermode queue\n");
++               break;
++
++       case AMDGPU_USERQ_OP_FREE:
++               r =3D amdgpu_userqueue_destroy(filp, args->in.queue_id);
++               if (r)
++                       DRM_ERROR("Failed to destroy usermode queue\n");
++               break;
++
++       default:
++               DRM_ERROR("Invalid user queue op specified: %d\n", args->in=
+.op);
++               return -EINVAL;
++       }
++
++       return r;
++}
+
+ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amdgp=
+u_device *adev)  { diff --git a/drivers/gpu/drm/amd/include/amdgpu_userqueu=
+e.h b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+index 79ffa131a514..55ed6512a565 100644
+--- a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
++++ b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+@@ -55,6 +55,8 @@ struct amdgpu_userq_mgr {
+        const struct amdgpu_userq_funcs *userq_funcs[AMDGPU_HW_IP_NUM];  };
+
++int amdgpu_userq_ioctl(struct drm_device *dev, void *data, struct
++drm_file *filp);
++
+ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amdgp=
+u_device *adev);
+
+ void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr);
+--
+2.42.0
+
