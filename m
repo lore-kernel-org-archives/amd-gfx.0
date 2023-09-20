@@ -4,115 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65FA3CE79A9
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Sep 2023 03:00:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41F7ACE79A8
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Sep 2023 03:17:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0781B10E41D;
-	Wed, 20 Sep 2023 03:00:43 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2075.outbound.protection.outlook.com [40.107.243.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27C4810E41D
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Sep 2023 03:00:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF21A10E03F;
+	Wed, 20 Sep 2023 03:17:26 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2061b.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::61b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0562B10E03F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Sep 2023 03:17:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HMw/DGMkIOOjmJyIOZqI07pBo2n0EW6M5wU5iigSjI544MFMx9Qeot4z+uHgqwnaD12JhtdCe91kopKnMcIhNLwAg0aMgqrVwZCK2RuJ/dFLAxjfRwHj0+qC+sbpnJiX7By6nnPXQZUdY5oVzncIKJW2scP72I2S80d+8axAfL7tgGZ59ExphhOs0BZ9T2jxEjT5N4vbtVddFkoDanP+ACCDOQ5Ha7cXg4oM9aTnWJdLHnUe+9h3UvN/PiITt+RUZ04ohXsx8DEwRbpz+v4TvOL5ftyGUow3+U0kYoCPHfOGu+tMroq471u+NhY3UfzoBDMuVDbx7JzO9hXksRGNnQ==
+ b=Cu8okRiELxhBPpuFjobn6vOleQcEyX4Tvq0NXRSZ+x3ZzEZX7fvB6qL9lzjNQpvrxcLoTzkkBy/ekc+ZGpAZSXGUXMHjWWIK/tq5vkCFmNgYZWBIbgWhWzrMCxOiHY8hUgCDNRXVnrbKvqFMDyrwU7LxGIXwydhwsloBjeUGpJA8SamUyGJLSWjVihKYtgnkK531tOqkORw6WZ2jocnIxL32XEKEpTK1aQpYJ8rIP2w/llwSyIhc9Tc7vo+MlqlkyLiRnhdDfUlGJ8kq6IobaXQV0wPgHi1UtHAHt/WFXRsgmx7cfSvKJjxzyVY10H+I6SA7Yq2fSuk/CXrsTvaKeQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y7VZlNo335iGvX97p/MFnemsdVT4xEqyiaE2pEvZ5gY=;
- b=PRThBQkTQsEMx2AkjIsqwHjCW+ztMTKhXecvbkNnohPlSuOLzqprR93nbjsf0e9HhhRaJsX0rIyMO4c6VP2B28nUQ9Ygz/1dajMNaNnnt1NbhwSBN4YbHrVB8ODMhcpxPlZKdcI6Ou+1Yb/RXJhwcgpYSvzy6dLFpt8dEU+NIeeoEmMP11ppb51hT5xYnK2o/EtZgiLjNVo074aOqeLpai3Lc2VSCssInf/d6fiqyMOKrjJgDP44WFfRLFEpWlgTx9OqNH68++s4zO+o9BIQ+68NKEGWU5f75cZdEJCN5zmUmPD8R9/bXExOqnZyVKyAXpRjVGghkyq3BwXVSOnYqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=G8hKtWj2zEeKCOY0oBjiyobrUxyBCNO+jhJSVOIzHMQ=;
+ b=MzeUZlyJdUvcjS/V3uwrb3p8Pj7793wMAJtKh9G09UebgXkUxRUsR7DscJTBgdXcqbisq/RFwTaNQ5sWKTimNLibFRmT+iJpjn5cHVmytMtRkig2w/vgv67SGMMo6qWklKxTe/ABh93HC47mYCTEBECvniMHsNZgwnOSRfCew9p+tWUiC42pqh/DQVLm9421R0+frmAYTzSF6DuECMRY8W1JOcStPHAN+quP3gULeLbRReMkNup/oUu/dVlZ8B90ntI+jWHt6WJegiw0kxgQ5FJ2f+7VeH/P7OQQAtAnD72cLqeqxviipvtwN/ASNf+Ye+C2sjJUavHn0Og0EDjdKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y7VZlNo335iGvX97p/MFnemsdVT4xEqyiaE2pEvZ5gY=;
- b=0MdtyAZELdIw3DkSWLtXqApVr+apC7vdE7r/GS/kGdXlYguAGO0BvV1COuhq24wCoq/c5Lpjhp7pgv9w7JjGSGNk0jhEne52Rl7n4jx8AmD1WWOBUtrNWaqpIPFzwLCw+P6Mpd1H6TPsK4y0Kh3LXjsMwh71YRLEpBk0y+njEp8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6351.namprd12.prod.outlook.com (2603:10b6:8:a2::6) by
- IA1PR12MB8288.namprd12.prod.outlook.com (2603:10b6:208:3fe::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6792.27; Wed, 20 Sep 2023 03:00:36 +0000
-Received: from DM4PR12MB6351.namprd12.prod.outlook.com
- ([fe80::d713:8aa1:8769:af10]) by DM4PR12MB6351.namprd12.prod.outlook.com
- ([fe80::d713:8aa1:8769:af10%7]) with mapi id 15.20.6792.026; Wed, 20 Sep 2023
- 03:00:36 +0000
-Message-ID: <429163f7-5a22-331e-4caf-697c9e73a78d@amd.com>
-Date: Wed, 20 Sep 2023 11:00:25 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH] drm/amd/pm: Add reset option for fan_curve on smu13_0_0
-To: Alex Deucher <alexdeucher@gmail.com>, Ma Jun <Jun.Ma2@amd.com>
-References: <20230911055350.3940534-1-Jun.Ma2@amd.com>
- <CADnq5_OXMm9aP0oXpqA2bpV+UcikuXbDcNjGs8JMD+i4nq4JvQ@mail.gmail.com>
-Content-Language: en-US
-From: "Ma, Jun" <majun@amd.com>
-In-Reply-To: <CADnq5_OXMm9aP0oXpqA2bpV+UcikuXbDcNjGs8JMD+i4nq4JvQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SG2PR02CA0107.apcprd02.prod.outlook.com
- (2603:1096:4:92::23) To DM4PR12MB6351.namprd12.prod.outlook.com
- (2603:10b6:8:a2::6)
+ bh=G8hKtWj2zEeKCOY0oBjiyobrUxyBCNO+jhJSVOIzHMQ=;
+ b=Ab70HFfXCQupRznCsto3ruHfnzCSkAd9INya56BJ/2okbxNmhLfrKmXhwQDKx7ixouhpmJj3QdoB3KKlkTGj8lzcVE6U7TSIdCjaiqsW+4u0+FM4b2un5JtlLrhwyIQ7aslB0Em+1WS4MZ8OVzJUQQMYcwW70XVmisnNgIeNwu8=
+Received: from BL1P222CA0010.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:2c7::15)
+ by DS0PR12MB8785.namprd12.prod.outlook.com (2603:10b6:8:14c::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.19; Wed, 20 Sep
+ 2023 03:17:20 +0000
+Received: from MN1PEPF0000F0E3.namprd04.prod.outlook.com
+ (2603:10b6:208:2c7:cafe::b0) by BL1P222CA0010.outlook.office365.com
+ (2603:10b6:208:2c7::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.28 via Frontend
+ Transport; Wed, 20 Sep 2023 03:17:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ MN1PEPF0000F0E3.mail.protection.outlook.com (10.167.242.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6792.20 via Frontend Transport; Wed, 20 Sep 2023 03:17:20 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 19 Sep
+ 2023 22:17:17 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 19 Sep
+ 2023 20:17:05 -0700
+Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
+ Transport; Tue, 19 Sep 2023 22:16:55 -0500
+From: Wayne Lin <Wayne.Lin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 00/19] DC Patches September 22, 2023
+Date: Wed, 20 Sep 2023 11:16:05 +0800
+Message-ID: <20230920031624.3129206-1-Wayne.Lin@amd.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6351:EE_|IA1PR12MB8288:EE_
-X-MS-Office365-Filtering-Correlation-Id: c8de68d8-798d-4c52-d0e0-08dbb985c322
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E3:EE_|DS0PR12MB8785:EE_
+X-MS-Office365-Filtering-Correlation-Id: baefb295-c6af-4c8b-9424-08dbb98819ec
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PpwIsUgCgSjVPC08+87FNgy5wl0gkzVw6CozgGHz5sN4dwRynI55iSj/Fm3xgiETvR3Vqtab+NBYUpw+YeNYI0jfdIGkLr6gmbR7HzsDgS+kMX9QIlkTNhyHVJ/LfBPV3Y+y1E+IrhGzmRj2tw0GKf4T1SAKbCjUpHIFcc0UdyQoSUcJtetvje6Nf/VwtSAVJeiTmXGi8LXEeImF7Qh+DZb+eR0B702WvWGnctCK61m6qoLtpX+K6GoZ0gdL0uDhEtThDSk52P+D3gxU99SJjqGMALDkoqHEogQpq/4/PT/st1C9YrO4Mm/ZA4vWEPiuq9ZYQOkppA5usO3eM5GFi9yYWVMlLSpHl1QMP5eCfRiv9PGxum5D8ZHQpf81+i4sjXw1L8Fqt83F0KsgbizieMjfL1sEX1Cc6Dt5Je2PnyOJUib8/qQhFV0KLOrcH+1RTBGdy+SNWb5AWJCxOjf6DcX4+8n85GNaeCOjazBlDVZ4+M44amKcMOPISbR6YvuNfxgTWxCBzoWvfbLR38+Mh5Ylm4cqjhtEDeA42grSHXrNFA7RhkBMLae3fFEW1mPVoDMD7V07VTq0EMGPQ0Wa/MrTcTi/eV5o8S/Ohj5olURnPzhZ4a671mi/ymDyfQeGKGKFUqm++zykRFNA3y9pLg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6351.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(136003)(396003)(366004)(39860400002)(376002)(186009)(1800799009)(451199024)(41300700001)(6506007)(6486002)(53546011)(6512007)(66946007)(36756003)(478600001)(110136005)(2906002)(31696002)(38100700002)(6666004)(6636002)(66476007)(316002)(66556008)(8676002)(4326008)(8936002)(2616005)(83380400001)(5660300002)(26005)(31686004)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: pTsVKRTRiMo092zozwaCR+gNIxFsuiIkNhwjTManxh0gbWS4F0s7tWU6zG04eil9dXuAR/toDNvgovPIeaDpOZoXOrpSd4Rps5ABargPA27Dj8tihtxmQAWvUNoJ03XWjXsBC+rejcOZbsRXVIreQzU0oD9T7QkT32vVC9LQzgU6OSXF7eeXjJg90DbHKPCyvpcAmKnFZwtwy3Un7PQ0Cbp9gfBO/GFaoud6+hY8dydkdO4m9Nko4IM6K9XBtEBUhPnLQF0FnYUfvWVzH93sfPQibfMrSaIO9PwXHLEVSB1oyNGTw8KRXR1LUG0UdF333fNv6aiX8I+isIJq5EUTHCtEtnk1myhIBtxqksfa+FfM+2lBugeaLbcQrrupYG/KQdByntJjNNqegknYFM7M3FixbYxqekz3csPrkLe2w267WThiibr36BzBD1+Sx1kVY1c1WrH/rXIJeVEzeXLtVgORg7G9fSg0VMWc2iuv0T5l7gua86XRyzhEZoxKv2f6HeMFGyvO9OUS0nVv/w6rmp4jpgSnryS1Epfa/+BX89vCXh+bpdfrb7PRvZOYy8Yq9IK4rNNNHn1a8ZdmGMWuNLtK7bT/WxVtVujc6R4UYvr2vpwyTCC/FpTT811i6Pw4cmhB6pV9zTZ33pMwsmqAFvbxjE32yooG7x5PpS9/M1/e4tgj/jP5yuY8NlYurahLI3qIlJpvv2F1qIt4KMVxnNh2KUGXuqe2h9ZGl9roNYQnskXnUkTk7tSSxq3IvZ4ZDSzzF819nzZYFhm+i2/BfA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(346002)(376002)(136003)(396003)(39860400002)(186009)(451199024)(1800799009)(82310400011)(40470700004)(46966006)(36840700001)(2616005)(5660300002)(40460700003)(1076003)(41300700001)(426003)(336012)(26005)(47076005)(2906002)(356005)(81166007)(82740400003)(86362001)(36756003)(36860700001)(4326008)(40480700001)(8676002)(8936002)(83380400001)(7696005)(6666004)(478600001)(316002)(6916009)(70206006)(54906003)(70586007)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K3ozRHkzWkY1Sm1yY3lXVDNRbjlzR3BMTUNTOVRVcFl1a0NPZTljcXZHbmsr?=
- =?utf-8?B?OXVNU05KTWF2bkdkWGVwUTcrNkpkYVhiRk5hdkIrUjZpVnZ0cG9CczdWMGFw?=
- =?utf-8?B?U25KYzY3Wk1HSmVvbjNxakprTThHSHEwenZubG1QQ1dXRGhOYy9McHBXOFln?=
- =?utf-8?B?T3I4V1JvTWRBK0kxRDAxQ2RHNHpvcFMvRVhFTjdqTXhFM2JsYVpVdndLSTJz?=
- =?utf-8?B?WU5aZUNGdEIwaUxxL3htZFdxNjBqaXQ0Q3lOeGtreUp0Nml1QlhieThzcVgz?=
- =?utf-8?B?elJPRlRuaDhLR0tZcWd4M1VVMkcvY3ZlWHFpR0V6K2MwdkttTUtocmNXVzJz?=
- =?utf-8?B?b0JSdm0xZURzaGl6VVo1bXBWcTltbDZCRU5lODlYRGxDSC9nUUFqMHRxODFS?=
- =?utf-8?B?MmNrY1o3L1h2dS9uK3FnR1FtSWJQazBreU5RTXdDZmFnSlFEeVU5ZFhOQXpa?=
- =?utf-8?B?blBsQnkyOEc4Z3VkczQ5U1NpUERpdURNV2ZodE83dGVXcXZ6U1hIT3lUM05x?=
- =?utf-8?B?djAwZU5PRU9JRHdVRjU2OTJRN3BPdDM0ckN6andZam82Yk5VY0t6VnZKQTNk?=
- =?utf-8?B?ZENxUUFNWGsyUDM2Q1VkOFBOOTNyNUZEdWZETGRVMmdXNXVRRjFkVm5vaG54?=
- =?utf-8?B?eXErSGJYNXRYdWQwQjBRRmJHWHBJSFV3bzNlL09ObCt1VHdEVWsxTUp5TW5t?=
- =?utf-8?B?MlpZSzhnc1pmVWFRK0lmVjhnZ2NOREtlOWxCKzhia2pxVUJ0RmRyc3RlMStw?=
- =?utf-8?B?WUZRRVk0NWppQkJVOEc3RmdoWDhteVpWNlJ2WnJ3REcyT1VKVy81UzBZVVhS?=
- =?utf-8?B?N3pxQ0VwNUFOeTdGNGxhWGdWa0JOTVFHUXVMTldPSll3MDVJbERkR2NRQlZi?=
- =?utf-8?B?MUF3emV6QjJReTNHZkZOYVZINFp1eUVTUFRNOGtjSk5rRlJ1OGFlbWY4OG9W?=
- =?utf-8?B?ZWtCenVRUU9tQ0Zwb25NYnNJVDk2K2w3N1M2cTE3TzV6YnpEb3NqZ1hZKy9p?=
- =?utf-8?B?ZS9rbmxwSmcvbGhXeFBUWXczWEhoT01veHBZbEFzaUFKSnJXbXRFdkt0UzhY?=
- =?utf-8?B?QjFLOCs3d3RGSkd6c3hKTlVEcjhFNzNCeVQ2SU5RaVBDN0VpS2htMkVoMEdT?=
- =?utf-8?B?MEE4aW00cTlLa2tybzJ5R0ZzelZEcEREMzRTUmlYL0lnd0h5dzEyTFdtb2F6?=
- =?utf-8?B?NUNlUlVWb3ZDZXhkMndUaDh3bVY5ZnhlS3pqeENiRXBKYWY5NWMvcFNTcENl?=
- =?utf-8?B?bTdiU3FneEErbEFDbmQyaEE2YlNnUzJLMmNMeW5rajZYZzlrUmpLd3FTSFhV?=
- =?utf-8?B?WWxSWHZucjYwMEhGdG1wMW11L0tYUEM2dlZmUXprRW1rbVErSSs3NXRITUtI?=
- =?utf-8?B?UHViSjVaRktWMG82MVFLVEVKeW8vblVwQytTUWxYenlFZXM4WitUY0VkWDl0?=
- =?utf-8?B?U0lUeWlaODdvWnFiZmhJQTZCM29hZTMyaFRLeklVb3p5Sml1Vk5oUlVjLzJu?=
- =?utf-8?B?WWhjQ3J1RWVPQ0h5c0hVMWR1dUtSSkJRZlJqN2ZBbDRIeHFjbEZUMkswZ0l0?=
- =?utf-8?B?Y0toUm92S0JuWUtUWTVUMysvOGlTam5MTXFJbjFyMVNFVGtGak9uUVRzS0tB?=
- =?utf-8?B?dFFLQ1RkSFp4eFpLZEdJbk8rT25wSG50RnZaMWxUS3dEcXA3NUNrMkFNaThP?=
- =?utf-8?B?UDU2ZXBzbFUrekl1ei81MWhUbDNSd3R0bm5NODJPUnhlNEF0ekhlYkV4L2tu?=
- =?utf-8?B?QnFYS3JHQ2tRNVlYdnQzbGtpbnBqWTNXeU1uZ3FvVTlsVXR4dHNSbFdjVkZ2?=
- =?utf-8?B?bnd0ck9WTis5TFp4MU5FSUxMeVZsaDBLUy9yOEE1SmRtVUtuWEFKSU9SZ2Jo?=
- =?utf-8?B?blIzNzR6RVFZbDBkQktEVWdjVFo0V1JOMk0yZVpEOXJLcThMVVhkQTJrQlpw?=
- =?utf-8?B?V0VGb2czdVFaUUFPbFFoRWk5dE5jbGFXQWZhYVdjY0JsYXJ1V1ZlRkRhWkRz?=
- =?utf-8?B?SWZqcVVwa3ltV003ZFc5R1B2aENGQXozMWNIZU01MHgzYjZxL0RvQXJVK1Br?=
- =?utf-8?B?Y2FKV1E5aHV0RUVTQ3ErL1hxVTBlaEhJT25PUUMvdkZMNmRDOFNWRm40Nkdl?=
- =?utf-8?Q?xM0JttfHGmUFTHctJUmaIEYIB?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c8de68d8-798d-4c52-d0e0-08dbb985c322
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6351.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2023 03:00:35.9904 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2023 03:17:20.4214 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: baefb295-c6af-4c8b-9424-08dbb98819ec
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: j4odsghakkaNZ5NOpXVXv7iRsuImmLtITz8CFPw9ZEkosK4zrAhlLVvJmAIZ8YYR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8288
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E3.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8785
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,136 +102,110 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Daniel Wheeler <daniel.wheeler@amd.com>,
+ Aurabindo.Pillai@amd.com, Wayne Lin <Wayne.Lin@amd.com>,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Alex,
+This DC patchset brings improvements in multiple areas. In summary, we highlight:
 
-On 9/18/2023 10:05 PM, Alex Deucher wrote:
-> On Mon, Sep 11, 2023 at 2:00 AM Ma Jun <Jun.Ma2@amd.com> wrote:
->>
->> Add reset option for fan_curve.
->> User can use command "echo r > fan_cure" to reset the fan_curve
->> to boot value
->>
->> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
->> ---
->>  drivers/gpu/drm/amd/pm/amdgpu_pm.c            |  8 ++++
->>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 43 +++++++++++++++++--
->>  2 files changed, 47 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->> index d05d9cd61331..2acac21387bc 100644
->> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->> @@ -3437,6 +3437,11 @@ static int parse_input_od_command_lines(const char *buf,
->>         case 'c':
->>                 *type = PP_OD_COMMIT_DPM_TABLE;
->>                 return 0;
->> +       case 'r':
->> +               params[parameter_size] = *type;
->> +               *num_of_params = 1;
->> +               *type = PP_OD_RESTORE_DEFAULT_TABLE;
->> +               return 0;
->>         default:
->>                 break;
->>         }
->> @@ -3531,6 +3536,9 @@ amdgpu_distribute_custom_od_settings(struct amdgpu_device *adev,
->>   * When you have finished the editing, write "c" (commit) to the file to commit
->>   * your changes.
->>   *
->> + * If you want to reset to the default value, write "r" (reset) to the file to
->> + * reset them
->> + *
->>   * There are two fan control modes supported: auto and manual. With auto mode,
->>   * PMFW handles the fan speed control(how fan speed reacts to ASIC temperature).
->>   * While with manual mode, users can set their own fan curve line as what
->> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
->> index a719bae54e2c..644773c4bccb 100644
->> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
->> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
->> @@ -1484,6 +1484,36 @@ static int smu_v13_0_0_print_clk_levels(struct smu_context *smu,
->>         return size;
->>  }
->>
->> +
->> +static int smu_v13_0_0_od_restore_table_single(struct smu_context *smu, long input)
->> +{
->> +       struct smu_table_context *table_context = &smu->smu_table;
->> +       OverDriveTableExternal_t *boot_overdrive_table =
->> +               (OverDriveTableExternal_t *)table_context->boot_overdrive_table;
->> +       OverDriveTableExternal_t *od_table =
->> +               (OverDriveTableExternal_t *)table_context->overdrive_table;
->> +       struct amdgpu_device *adev = smu->adev;
->> +       int i;
->> +
->> +       switch (input) {
->> +       case PP_OD_EDIT_FAN_CURVE:
->> +               for (i = 0; i < NUM_OD_FAN_MAX_POINTS; i++) {
->> +                       od_table->OverDriveTable.FanLinearTempPoints[i] =
->> +                                       boot_overdrive_table->OverDriveTable.FanLinearTempPoints[i];
->> +                       od_table->OverDriveTable.FanLinearPwmPoints[i] =
->> +                                       boot_overdrive_table->OverDriveTable.FanLinearPwmPoints[i];
->> +               }
->> +               od_table->OverDriveTable.FanMode = FAN_MODE_AUTO;
->> +               od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_FAN_CURVE_BIT);
->> +               break;
->> +       default:
->> +               dev_info(adev->dev, "Invalid table index: %ld\n", input);
->> +               return -EINVAL;
->> +       }
->> +
->> +       return 0;
->> +}
->> +
->>  static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
->>                                          enum PP_OD_DPM_TABLE_COMMAND type,
->>                                          long input[],
->> @@ -1770,13 +1800,18 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
->>                 break;
->>
->>         case PP_OD_RESTORE_DEFAULT_TABLE:
->> -               feature_ctrlmask = od_table->OverDriveTable.FeatureCtrlMask;
->> -               memcpy(od_table,
->> +               if (size == 1) {
->> +                       ret = smu_v13_0_0_od_restore_table_single(smu, input[0]);
->> +                       if (ret)
->> +                               return ret;
->> +               } else {
->> +                       feature_ctrlmask = od_table->OverDriveTable.FeatureCtrlMask;
->> +                       memcpy(od_table,
->>                        table_context->boot_overdrive_table,
->>                        sizeof(OverDriveTableExternal_t));
->> -               od_table->OverDriveTable.FeatureCtrlMask = feature_ctrlmask;
->> +                       od_table->OverDriveTable.FeatureCtrlMask = feature_ctrlmask;
->> +               }
->>                 fallthrough;
-> 
-> I'm not sure the fallthrough here is correct.  I think setting the
-> reset should just reset the values, but you'd still need to commit to
-> actually set them to the firmware.  Double check that the behavior is
-> consistent with older chips.
-> 
+- fix incorrect odm change detection logic
+- add primary pipe check when building slice table for dcn3x
+- add get primary dpp pipe resource interface
+- add missing function pointer for DCN321 resource
+- Rename DisableMinDispClkODM in dc_config
+- Break after finding supported vlevel for repopulate
+- Update OPP counter from new interface
+- augment display clock in dc_cap structure
+- Improve code style on bios_parser2
+- skip audio config for virtual signal
+- block MPO if it prevents pstate support
+- Fix DP2.0 timing sync
+- Improve x86 and dmub ips handshake
+- remove guaranteed viewports limitation for odm
+- add new windowed mpo odm minimal transition sequence
+- reset stream slice count for new ODM policy
+- determine fast update only before commit minimal transition state
+- remove unused mmhub_reg_offsets
 
-We also use the "fallthrough" in sienna_cichlid_od_edit_dpm_table() and
-smu_v13_0_7_od_edit_dpm_table().
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+---
+Alex Hung (1):
+  drm/amd/display: skip audio config for virtual signal
 
-But other chips used "break" here for reset. I think user maybe need
-to use command " echo r > xx" and "echo c > xx" to reset.
+Alvin Lee (1):
+  drm/amd/display: Break after finding supported vlevel for repopulate
 
-So, It seems that it makes more sense to use  "fallthrough" here.
+Aric Cyr (1):
+  drm/amd/display: 3.2.253
 
-Regards,
-Ma Jun
+Dmytro Laktyushkin (1):
+  drm/amd/display: block MPO if it prevents pstate support
 
-> Alex
-> 
-> 
->> -
->>         case PP_OD_COMMIT_DPM_TABLE:
->>                 /*
->>                  * The member below instructs PMFW the settings focused in
->> --
->> 2.34.1
->>
+Duncan Ma (1):
+  drm/amd/display: Improve x86 and dmub ips handshake
+
+Gabe Teeger (1):
+  drm/amd/display: Rename DisableMinDispClkODM in dc_config
+
+Hong-lu Cheng (1):
+  drm/amd/display: Update OPP counter from new interface
+
+Ilya Bakoulin (1):
+  drm/amd/display: Fix DP2.0 timing sync
+
+Max Tseng (1):
+  drm/amd/display: augment display clock in dc_cap structure
+
+Qingqing Zhuo (1):
+  drm/amd/display: remove unused mmhub_reg_offsets
+
+Rodrigo Siqueira (1):
+  drm/amd/display: Improve code style on bios_parser2
+
+Wenjing Liu (8):
+  drm/amd/display: determine fast update only before commit minimal
+    transition state
+  drm/amd/display: reset stream slice count for new ODM policy
+  drm/amd/display: add new windowed mpo odm minimal transition sequence
+  drm/amd/display: remove guaranteed viewports limitation for odm
+  drm/amd/display: add missing function pointer for DCN321 resource
+  drm/amd/display: add get primary dpp pipe resource interface
+  drm/amd/display: add primary pipe check when building slice table for
+    dcn3x
+  drm/amd/display: fix incorrect odm change detection logic
+
+ .../drm/amd/display/dc/bios/bios_parser2.c    |  37 +--
+ .../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  |  37 +++
+ .../amd/display/dc/clk_mgr/dcn35/dcn35_smu.c  |  14 +-
+ .../amd/display/dc/clk_mgr/dcn35/dcn35_smu.h  |   4 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 311 ++++++++++++------
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  46 +++
+ drivers/gpu/drm/amd/display/dc/dc.h           |  13 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  57 +++-
+ .../gpu/drm/amd/display/dc/dce/dce_audio.c    |   4 +
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  89 ++---
+ .../drm/amd/display/dc/dcn314/dcn314_dccg.c   |   1 +
+ .../amd/display/dc/dcn314/dcn314_resource.c   |   2 +
+ .../amd/display/dc/dcn315/dcn315_resource.c   |   4 +-
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c |   1 +
+ .../amd/display/dc/dcn321/dcn321_resource.c   |   1 +
+ .../gpu/drm/amd/display/dc/dcn35/dcn35_dccg.c |   1 +
+ .../drm/amd/display/dc/dcn35/dcn35_hwseq.c    |  30 +-
+ .../drm/amd/display/dc/dcn35/dcn35_hwseq.h    |   3 +
+ .../gpu/drm/amd/display/dc/dcn35/dcn35_init.c |   4 +-
+ .../drm/amd/display/dc/dcn35/dcn35_resource.c |  14 +-
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |  44 +--
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |  11 +
+ .../gpu/drm/amd/display/dc/inc/hw/clk_mgr.h   |   2 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h  |   4 +
+ .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |   3 +-
+ drivers/gpu/drm/amd/display/dc/inc/resource.h |  16 +
+ 26 files changed, 527 insertions(+), 226 deletions(-)
+
+-- 
+2.37.3
+
