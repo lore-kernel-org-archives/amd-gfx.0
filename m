@@ -4,68 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54DC5CE79A9
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Sep 2023 03:18:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76D0ECE79A9
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Sep 2023 03:18:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE9D310E427;
-	Wed, 20 Sep 2023 03:18:49 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5b::600])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8118910E428
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Sep 2023 03:18:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0436110E429;
+	Wed, 20 Sep 2023 03:18:56 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E705610E428
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Sep 2023 03:18:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EAWWjUj7olaJelZqLcE+LWPhLbok3WWMa+EBephbHjJLXMWqv2bGPQfBmf/sGvgNKE+LkLrGEG4y9hOEVRSoaBUPAmvg7XiavunsO9dw0LRnt0pC4IsRu13LYbyGTyudCuSyebaNsCjnegxyMobu/u8ZkpXpXjKHpVMVLcqOP1tm70y3bHUHCVylAuy4S13Pv+5jMYvubTvxrdWUZxdBUJqelHRjuNhKOxuwdAVLYfsXcvU1Xy1irLeQHBbfE9T5c2s8u27SPstMMoFzNtnCg+ZOaQ5ablzgwe0ob63xyoQud1d3KJkt6n2iXR9ZWctBm5s0r8RhdnW4LEmnyDOHcw==
+ b=iW8X/W7KYoqv7XMO5mj4d/pl8dhyoHDegwiLUSo2YFe4fPAl9RKf2TEfdeRNJxPJ4UO3Z4cHeF9oHKe+o7Jvv3s/+jYXyiIq0O4sH1ksYey7VpvNpWXN3d/MBe5ldAzH7aAUdUda6EGdIvdjIKM8XYp2MRQfjZwfmNj+7mOGsQOjZJdVnjpZy8NSRlnEYZiDnSgVW8W0UuCkWxF0Ow3oAzSknCjP6NmzWwYxcz3STNQVYVoIMFtFM1xfTx3OAgaVI+r8t0XvjgyRroRGA+at/HIW96xnIdgVpX+iSKQboRwGzPApDCOhv0ZbRhUfdG9vnQpuVT6fLxNoPMVdaj2VCg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QEShJATqFTLxs/vni8zsOiqB5XNeNdPAoBNRmWpwXgw=;
- b=NkyKuM+yuA3/twzUPxXHlp3Bq+FERRO+a1ZOLHcoBttFP1iixYE4pjb3Wc+XUwy7TR17v+NLzkH9bUx6gNKZ0RmYz3LjlwZUbHuJUe+hO11qQhcs3U0yFUDcSPFtB3L04PZCsf70R4k9mXYKZGC1qxIPGWQX0LZcKa7QE40pKrFuFlj6Z6Y/q0js/Ei5b4M/jHHcyksUYnRkVyy5mBiqeuqiwVhl/4K64fcqdRhshH8fJ78nFLLzsaJqByE23lv6C2hvu+aewXnqoIOIBZhF8Lq99ssCKe3e2vpj3G++0y8zGOm4Ulzk8WqhNW947Fh2iFtt34LlHgcDscMBdTX42A==
+ bh=Ptq6MQuZScGRLez7/g5q6eebTC5OmqoZqY1QCV8gBN0=;
+ b=dlUxAlgswv/fviK6Q8/x1Pbo4p4fr362iyeXX5+LEvGRZGSoqJw41zCybEF+rUjBb5vIZP6Lv7Z5YYnoC0Y26qs882VAHsj033+xKEVjl2LcQDYM86p+uaKBNBQkkQFLPgLW6Wy2fSfvtJr5v6vfzYEKCfautcumoFSpzcadRBq00nzVKnqaoYQTypwvw6ut8tgmnMxnoUIKbZqiF4fDmm+0msn98kBrcA2nYtYphZ2riXG5D7rjelyU7Wy6HokQx6AQe700Cmg5J6PTqjrXoi016KUK3qccN1RX+zoCz0gFwxf4+S0rdgveesAnZ72zN5kcnc3DO034LJWOY/UA3w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QEShJATqFTLxs/vni8zsOiqB5XNeNdPAoBNRmWpwXgw=;
- b=GbKcgl1cKHJ10iXTAeqgVH6mitufGt81m5YWEALnXyqE9fZ1MlhcNPL9Dd/Me5/K8Ibk+fPLV4xaQsRyHffkwvhXpGXG7krpOi7UOl/KR4/ph75acLaqjAK6G3H31qbzK7upsuf9Uyi01oYoC4uyRrjCUu9IgFafBI2uRuVf9Us=
-Received: from DM6PR08CA0025.namprd08.prod.outlook.com (2603:10b6:5:80::38) by
- DM6PR12MB4234.namprd12.prod.outlook.com (2603:10b6:5:213::18) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6813.19; Wed, 20 Sep 2023 03:18:34 +0000
-Received: from DS1PEPF00017091.namprd03.prod.outlook.com
- (2603:10b6:5:80:cafe::50) by DM6PR08CA0025.outlook.office365.com
- (2603:10b6:5:80::38) with Microsoft SMTP Server (version=TLS1_2,
+ bh=Ptq6MQuZScGRLez7/g5q6eebTC5OmqoZqY1QCV8gBN0=;
+ b=NP/a9booOEC33TzlOs2eKZ2wwT+VERtPdUW6B2Iwknp3R8tQ8VEp+lreoRtqVJ7BUkwjBYbnDTsgFT+e/ktL1qqam1ObZnDX6413L8D6tcdeQPcKyjGR4OPbCgHMp8aVaSZjaLj5YlghDvnbOm3Qg59sk30yrgTRimCANC10A1g=
+Received: from MN2PR08CA0019.namprd08.prod.outlook.com (2603:10b6:208:239::24)
+ by PH8PR12MB6891.namprd12.prod.outlook.com (2603:10b6:510:1cb::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.27; Wed, 20 Sep
+ 2023 03:18:49 +0000
+Received: from MN1PEPF0000F0DE.namprd04.prod.outlook.com
+ (2603:10b6:208:239:cafe::95) by MN2PR08CA0019.outlook.office365.com
+ (2603:10b6:208:239::24) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.29 via Frontend
- Transport; Wed, 20 Sep 2023 03:18:34 +0000
+ Transport; Wed, 20 Sep 2023 03:18:49 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF00017091.mail.protection.outlook.com (10.167.17.133) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ MN1PEPF0000F0DE.mail.protection.outlook.com (10.167.242.36) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6792.19 via Frontend Transport; Wed, 20 Sep 2023 03:18:33 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6792.20 via Frontend Transport; Wed, 20 Sep 2023 03:18:49 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 19 Sep
- 2023 22:18:30 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 22:18:47 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 19 Sep
- 2023 22:18:12 -0500
+ 2023 22:18:37 -0500
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Tue, 19 Sep 2023 22:18:08 -0500
+ Transport; Tue, 19 Sep 2023 22:18:32 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 04/19] drm/amd/display: add new windowed mpo odm minimal
- transition sequence
-Date: Wed, 20 Sep 2023 11:16:09 +0800
-Message-ID: <20230920031624.3129206-5-Wayne.Lin@amd.com>
+Subject: [PATCH 05/19] drm/amd/display: remove guaranteed viewports limitation
+ for odm
+Date: Wed, 20 Sep 2023 11:16:10 +0800
+Message-ID: <20230920031624.3129206-6-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20230920031624.3129206-1-Wayne.Lin@amd.com>
 References: <20230920031624.3129206-1-Wayne.Lin@amd.com>
@@ -74,26 +73,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017091:EE_|DM6PR12MB4234:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8b4f16fb-6977-4a1f-0ced-08dbb98845c3
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DE:EE_|PH8PR12MB6891:EE_
+X-MS-Office365-Filtering-Correlation-Id: e387806a-c990-431e-5a66-08dbb9884ecf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EgNOIXiCbAXacBHZ9qdhYSADrJPd+jbQO4GTzRqiq2/wL+Vjwp+3FU90xxsABYHbXiCHt1DTiWdm0JG+Sn+9LRm56FLC3hFSP3bshgXrTf1ffehGRveqk1n6RlzwUEQoxwrVTpwV4kycvRm3zsYRiSVh2zj/OLDQjOgSpOM6jQ7CA0UVO5d2IZBLv+8CtEmtXAhe5JUu4+It9NygWnYVpS8eHxahxv9nQ/lpltVH/eiKuNIh4zvEnCvEPMWDA+z1Jw8rQa7jlqCGiXOlKQ5bL46tTdwgBlco8Pu1bc1BHJ4lxc630iLyiAftEoXhSFxyUog2ys++P7fCcFzWvSrUfBbJDzUpCPbXlCEXKf2OxLnr9qb+wnWToJ2bQMO3YerOncOfTi/kjlFKXmtqU3xXL83DzbEFHvjbToMbQmOVOmw5qrv3V2/+RHgMzycF3JhqODItUy2koAe5QoTdcNMmPxiOYL+lklr03hczlia6UGCrwXLtwPWDCc+Bp3giekzT+Yoa6WWFGuFfMyPw6vrggvo5VK0tDcPX2lrwqQR71fdQ+JvBXllRcdzV7DarYtmB+IEPgoKHiNSB/yo1ZQuYhfw7NTq5LH+jL/3AN1UWzu2aQu0GcOa7tQY2+ipmqn2lX0fs231rYGTBn/nGSZlH6e9iNlCmUYoRy5XrNKPji/AT3cR2kbw+kKxda1+LUn7j0fcWYRdnsOwfXcsy30fhkXoU6dgoI0h4kgPfN3mt55T7OlrpfDzJZ5V7COg50lsLBsl7/9RFd8TRnot2y7wJHw==
+X-Microsoft-Antispam-Message-Info: uox+9itDGExv8UCry0KSdWU006RCsXpYYinx1obxxxYOiMJP6stB9Pqdg3uNKt/7FqcMsFyK9w8cjo/qImRewKfosY1eoxs/r3RdQsUP4YDnDlDYOAjCGOt0nk/Hh3Nd+31LP4cDwgXtxSOPltM5/mLIeF2a1xclrRmNGQPGljMQYhTzq3Fc9UeqjDNf+zkXJQyz7F6J3JWr7a6DfAQBkzoubrntc8AxZ4aZX2x/TERFpQP5yVG9irg2SGdrE2m2YPBCYMBfGpOGn12vYijrND3NAg5sEaAEvnG6AmaE0+mmYkNktl/1VKnqnFbz+NGHYB0gb1yyFaSts3501yKc1/v1qVUYREdrLESgkY/vQP3cAzAZpMRyeP5tUxRiAkhvqU0d6JY2+qkqIMZj2pbuWTtt3mqlPWbncyaLGNWz3qPLPVYkZWkFWwHpVQ7DVi2DNciMzz9jYk7A5rAqjk0DBGDwf6G/C6Al2fdhONLFCdI8rzWSBrIhT97KNfr1qR3fwPR/RiC5Ptl++rBge8zS80zog+bERZJWf/dgnverb18HpnqwnWB60GDBuTDt1NHJEiP0BIwy1O95jEVzMsz7xs8qlSRWVKSelB7DDVdQxg+ZrJQgqQoFh+Jk7aPXxvWoXdvCvGm+qdVIvWB+N1hmBvhJMk6gJTGoMDh3IQcX1P9+4KbwlAVFESZUdCWO0yB759Lo2nMWALKymMhG0jIru3K4FrlWv3raiJ9vis7tJxEFigs5kioTss25G3PMB6J9GAocYu5MCg3/brs1/RXo6Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(136003)(346002)(39860400002)(396003)(186009)(451199024)(82310400011)(1800799009)(46966006)(40470700004)(36840700001)(2906002)(5660300002)(26005)(1076003)(40480700001)(426003)(336012)(54906003)(41300700001)(316002)(6916009)(70206006)(70586007)(30864003)(478600001)(8936002)(8676002)(4326008)(7696005)(40460700003)(36756003)(2616005)(36860700001)(47076005)(356005)(81166007)(86362001)(82740400003)(83380400001)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(376002)(39860400002)(346002)(396003)(136003)(1800799009)(82310400011)(186009)(451199024)(36840700001)(46966006)(40470700004)(7696005)(40460700003)(478600001)(36860700001)(6666004)(82740400003)(81166007)(86362001)(356005)(47076005)(426003)(36756003)(2616005)(83380400001)(26005)(1076003)(70586007)(6916009)(54906003)(2906002)(8676002)(8936002)(70206006)(316002)(41300700001)(40480700001)(5660300002)(336012)(4326008)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2023 03:18:33.9377 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8b4f16fb-6977-4a1f-0ced-08dbb98845c3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2023 03:18:49.1647 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e387806a-c990-431e-5a66-08dbb9884ecf
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017091.namprd03.prod.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0DE.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4234
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6891
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,381 +115,107 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Wenjing Liu <wenjing.liu@amd.com>
 
 [why]
-We do not have a programming sequence to support seamless transition
-between MPC combine to ODM combine when plane count remains the same.
-This can happen with windowed MPO ODM use cases when plane scaling
-is changed over ODM Combine's capability.
-
-[How]
-We are adding a programming sequence specifically to handle the transition
-between MPC combine and ODM combine during plane scaling change.
+With the more generic hw minimal state transition sequence,
+this limitation has been overcome.
 
 Reviewed-by: Aric Cyr <aric.cyr@amd.com>
 Acked-by: Wayne Lin <wayne.lin@amd.com>
 Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 252 ++++++++++++++----
- .../gpu/drm/amd/display/dc/inc/core_types.h   |  11 +
- 2 files changed, 207 insertions(+), 56 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 34 -------------------
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 27 ---------------
+ 2 files changed, 61 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 195ea6286c33..e2dcb836a0f0 100644
+index e2dcb836a0f0..a2360dfdc83b 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -2965,6 +2965,34 @@ static void copy_stream_update_to_stream(struct dc *dc,
- 	}
- }
- 
-+static void backup_plane_states_for_stream(
-+		struct dc_plane_state plane_states[MAX_SURFACE_NUM],
-+		struct dc_stream_state *stream)
-+{
-+	int i;
-+	struct dc_stream_status *status = dc_stream_get_status(stream);
-+
-+	if (!status)
-+		return;
-+
-+	for (i = 0; i < status->plane_count; i++)
-+		plane_states[i] = *status->plane_states[i];
-+}
-+
-+static void restore_plane_states_for_stream(
-+		struct dc_plane_state plane_states[MAX_SURFACE_NUM],
-+		struct dc_stream_state *stream)
-+{
-+	int i;
-+	struct dc_stream_status *status = dc_stream_get_status(stream);
-+
-+	if (!status)
-+		return;
-+
-+	for (i = 0; i < status->plane_count; i++)
-+		*status->plane_states[i] = plane_states[i];
-+}
-+
- static bool update_planes_and_stream_state(struct dc *dc,
- 		struct dc_surface_update *srf_updates, int surface_count,
- 		struct dc_stream_state *stream,
-@@ -2988,7 +3016,7 @@ static bool update_planes_and_stream_state(struct dc *dc,
- 	}
- 
- 	context = dc->current_state;
+@@ -3948,40 +3948,6 @@ static bool could_mpcc_tree_change_for_active_pipes(struct dc *dc,
+ 				*is_plane_addition = true;
+ 			}
+ 		}
+-		if (dc->config.enable_windowed_mpo_odm) {
+-			const struct rect *guaranteed_viewport = &stream->src;
+-			const struct rect *surface_src, *surface_dst;
+-			bool are_cur_planes_guaranteed = true;
+-			bool are_new_planes_guaranteed = true;
 -
-+	backup_plane_states_for_stream(dc->current_state->scratch.plane_states, stream);
- 	update_type = dc_check_update_surfaces_for_stream(
- 			dc, srf_updates, surface_count, stream_update, stream_status);
- 
-@@ -3095,6 +3123,7 @@ static bool update_planes_and_stream_state(struct dc *dc,
- 
- 	*new_context = context;
- 	*new_update_type = update_type;
-+	backup_plane_states_for_stream(context->scratch.plane_states, stream);
- 
- 	return true;
- 
-@@ -3986,6 +4015,107 @@ static bool could_mpcc_tree_change_for_active_pipes(struct dc *dc,
- 	return force_minimal_pipe_splitting;
- }
- 
-+struct pipe_split_policy_backup {
-+	bool dynamic_odm_policy;
-+	bool subvp_policy;
-+	enum pipe_split_policy mpc_policy;
-+};
-+
-+static void release_minimal_transition_state(struct dc *dc,
-+		struct dc_state *context, struct pipe_split_policy_backup *policy)
-+{
-+	dc_release_state(context);
-+	/* restore previous pipe split and odm policy */
-+	if (!dc->config.is_vmin_only_asic)
-+		dc->debug.pipe_split_policy = policy->mpc_policy;
-+	dc->debug.enable_single_display_2to1_odm_policy = policy->dynamic_odm_policy;
-+	dc->debug.force_disable_subvp = policy->subvp_policy;
-+}
-+
-+static struct dc_state *create_minimal_transition_state(struct dc *dc,
-+		struct dc_state *base_context, struct pipe_split_policy_backup *policy)
-+{
-+	struct dc_state *minimal_transition_context = dc_create_state(dc);
-+	unsigned int i, j;
-+
-+	if (!dc->config.is_vmin_only_asic) {
-+		policy->mpc_policy = dc->debug.pipe_split_policy;
-+		dc->debug.pipe_split_policy = MPC_SPLIT_AVOID;
-+	}
-+	policy->dynamic_odm_policy = dc->debug.enable_single_display_2to1_odm_policy;
-+	dc->debug.enable_single_display_2to1_odm_policy = false;
-+	policy->subvp_policy = dc->debug.force_disable_subvp;
-+	dc->debug.force_disable_subvp = true;
-+
-+	dc_resource_state_copy_construct(base_context, minimal_transition_context);
-+
-+	/* commit minimal state */
-+	if (dc->res_pool->funcs->validate_bandwidth(dc, minimal_transition_context, false)) {
-+		for (i = 0; i < minimal_transition_context->stream_count; i++) {
-+			struct dc_stream_status *stream_status = &minimal_transition_context->stream_status[i];
-+
-+			for (j = 0; j < stream_status->plane_count; j++) {
-+				struct dc_plane_state *plane_state = stream_status->plane_states[j];
-+
-+				/* force vsync flip when reconfiguring pipes to prevent underflow
-+				 * and corruption
-+				 */
-+				plane_state->flip_immediate = false;
-+			}
-+		}
-+	} else {
-+		/* this should never happen */
-+		release_minimal_transition_state(dc, minimal_transition_context, policy);
-+		BREAK_TO_DEBUGGER();
-+		minimal_transition_context = NULL;
-+	}
-+	return minimal_transition_context;
-+}
-+
-+static bool commit_minimal_transition_state_for_windowed_mpo_odm(struct dc *dc,
-+		struct dc_state *context,
-+		struct dc_stream_state *stream)
-+{
-+	bool success = false;
-+	struct dc_state *minimal_transition_context;
-+	struct pipe_split_policy_backup policy;
-+
-+	/* commit based on new context */
-+	minimal_transition_context = create_minimal_transition_state(dc,
-+			context, &policy);
-+	if (minimal_transition_context) {
-+		if (dc->hwss.is_pipe_topology_transition_seamless(
-+					dc, dc->current_state, minimal_transition_context) &&
-+			dc->hwss.is_pipe_topology_transition_seamless(
-+					dc, minimal_transition_context, context)) {
-+			DC_LOG_DC("%s base = new state\n", __func__);
-+			success = dc_commit_state_no_check(dc, minimal_transition_context) == DC_OK;
-+		}
-+		release_minimal_transition_state(dc, minimal_transition_context, &policy);
-+	}
-+
-+	if (!success) {
-+		/* commit based on current context */
-+		restore_plane_states_for_stream(dc->current_state->scratch.plane_states, stream);
-+		minimal_transition_context = create_minimal_transition_state(dc,
-+				dc->current_state, &policy);
-+		if (minimal_transition_context) {
-+			if (dc->hwss.is_pipe_topology_transition_seamless(
-+					dc, dc->current_state, minimal_transition_context) &&
-+				dc->hwss.is_pipe_topology_transition_seamless(
-+						dc, minimal_transition_context, context)) {
-+				DC_LOG_DC("%s base = current state\n", __func__);
-+				success = dc_commit_state_no_check(dc, minimal_transition_context) == DC_OK;
-+			}
-+			release_minimal_transition_state(dc, minimal_transition_context, &policy);
-+		}
-+		restore_plane_states_for_stream(context->scratch.plane_states, stream);
-+	}
-+
-+	ASSERT(success);
-+	return success;
-+}
-+
- /**
-  * commit_minimal_transition_state - Create a transition pipe split state
-  *
-@@ -4007,23 +4137,14 @@ static bool could_mpcc_tree_change_for_active_pipes(struct dc *dc,
- static bool commit_minimal_transition_state(struct dc *dc,
- 		struct dc_state *transition_base_context)
- {
--	struct dc_state *transition_context = dc_create_state(dc);
--	enum pipe_split_policy tmp_mpc_policy = 0;
--	bool temp_dynamic_odm_policy = 0;
--	bool temp_subvp_policy = 0;
-+	struct dc_state *transition_context;
-+	struct pipe_split_policy_backup policy;
- 	enum dc_status ret = DC_ERROR_UNEXPECTED;
- 	unsigned int i, j;
- 	unsigned int pipe_in_use = 0;
- 	bool subvp_in_use = false;
- 	bool odm_in_use = false;
- 
--	if (!transition_context)
--		return false;
--	/* Setup:
--	 * Store the current ODM and MPC config in some temp variables to be
--	 * restored after we commit the transition state.
--	 */
+-			for (i = 0; i < cur_stream_status->plane_count; i++) {
+-				surface_src = &cur_stream_status->plane_states[i]->src_rect;
+-				surface_dst = &cur_stream_status->plane_states[i]->dst_rect;
+-				if ((surface_src->height > surface_dst->height && surface_src->height > guaranteed_viewport->height) ||
+-						(surface_src->width > surface_dst->width && surface_src->width > guaranteed_viewport->width))
+-					are_cur_planes_guaranteed = false;
+-			}
 -
- 	/* check current pipes in use*/
- 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
- 		struct pipe_ctx *pipe = &transition_base_context->res_ctx.pipe_ctx[i];
-@@ -4064,10 +4185,8 @@ static bool commit_minimal_transition_state(struct dc *dc,
- 	 * Reduce the scenarios to use dc_commit_state_no_check in the stage of flip. Especially
- 	 * enter/exit MPO when DCN still have enough resources.
- 	 */
--	if (pipe_in_use != dc->res_pool->pipe_count && !subvp_in_use && !odm_in_use) {
--		dc_release_state(transition_context);
-+	if (pipe_in_use != dc->res_pool->pipe_count && !subvp_in_use && !odm_in_use)
- 		return true;
--	}
- 
- 	DC_LOG_DC("%s base = %s state, reason = %s\n", __func__,
- 			dc->current_state == transition_base_context ? "current" : "new",
-@@ -4076,49 +4195,13 @@ static bool commit_minimal_transition_state(struct dc *dc,
- 			dc->debug.pipe_split_policy != MPC_SPLIT_AVOID ? "MPC in Use" :
- 			"Unknown");
- 
--	if (!dc->config.is_vmin_only_asic) {
--		tmp_mpc_policy = dc->debug.pipe_split_policy;
--		dc->debug.pipe_split_policy = MPC_SPLIT_AVOID;
--	}
+-			for (i = 0; i < surface_count; i++) {
+-				if (srf_updates[i].scaling_info) {
+-					surface_src = &srf_updates[i].scaling_info->src_rect;
+-					surface_dst = &srf_updates[i].scaling_info->dst_rect;
+-				} else {
+-					surface_src = &srf_updates[i].surface->src_rect;
+-					surface_dst = &srf_updates[i].surface->dst_rect;
+-				}
+-				if ((surface_src->height > surface_dst->height && surface_src->height > guaranteed_viewport->height) ||
+-						(surface_src->width > surface_dst->width && surface_src->width > guaranteed_viewport->width))
+-					are_new_planes_guaranteed = false;
+-			}
 -
--	temp_dynamic_odm_policy = dc->debug.enable_single_display_2to1_odm_policy;
--	dc->debug.enable_single_display_2to1_odm_policy = false;
--
--	temp_subvp_policy = dc->debug.force_disable_subvp;
--	dc->debug.force_disable_subvp = true;
--
--	dc_resource_state_copy_construct(transition_base_context, transition_context);
--
--	/* commit minimal state */
--	if (dc->res_pool->funcs->validate_bandwidth(dc, transition_context, false)) {
--		for (i = 0; i < transition_context->stream_count; i++) {
--			struct dc_stream_status *stream_status = &transition_context->stream_status[i];
--
--			for (j = 0; j < stream_status->plane_count; j++) {
--				struct dc_plane_state *plane_state = stream_status->plane_states[j];
--
--				/* force vsync flip when reconfiguring pipes to prevent underflow
--				 * and corruption
--				 */
--				plane_state->flip_immediate = false;
+-			if (are_cur_planes_guaranteed && !are_new_planes_guaranteed) {
+-				force_minimal_pipe_splitting = true;
+-				*is_plane_addition = true;
+-			} else if (!are_cur_planes_guaranteed && are_new_planes_guaranteed) {
+-				force_minimal_pipe_splitting = true;
 -			}
 -		}
--
-+	transition_context = create_minimal_transition_state(dc,
-+			transition_base_context, &policy);
-+	if (transition_context) {
- 		ret = dc_commit_state_no_check(dc, transition_context);
-+		release_minimal_transition_state(dc, transition_context, &policy);
  	}
  
--	/* always release as dc_commit_state_no_check retains in good case */
--	dc_release_state(transition_context);
--
--	/* TearDown:
--	 * Restore original configuration for ODM and MPO.
--	 */
--	if (!dc->config.is_vmin_only_asic)
--		dc->debug.pipe_split_policy = tmp_mpc_policy;
--
--	dc->debug.enable_single_display_2to1_odm_policy = temp_dynamic_odm_policy;
--	dc->debug.force_disable_subvp = temp_subvp_policy;
--
- 	if (ret != DC_OK) {
- 		/* this should never happen */
- 		BREAK_TO_DEBUGGER();
-@@ -4290,6 +4373,51 @@ static bool fast_update_only(struct dc *dc,
- 			&& !full_update_required(dc, srf_updates, surface_count, stream_update, stream);
- }
+ 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+index 1f53883d8f56..dcbd38bb3ed1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+@@ -1267,8 +1267,6 @@ static bool should_allow_odm_power_optimization(struct dc *dc,
+ {
+ 	struct dc_stream_state *stream = context->streams[0];
+ 	struct pipe_slice_table slice_table;
+-	struct dc_plane_state *plane;
+-	struct rect guaranteed_viewport;
+ 	int i;
  
-+static bool should_commit_minimal_transition_for_windowed_mpo_odm(struct dc *dc,
-+		struct dc_stream_state *stream,
-+		struct dc_state *context)
-+{
-+	struct pipe_ctx *cur_pipe, *new_pipe;
-+	bool cur_is_odm_in_use, new_is_odm_in_use;
-+	struct dc_stream_status *cur_stream_status = stream_get_status(dc->current_state, stream);
-+	struct dc_stream_status *new_stream_status = stream_get_status(context, stream);
-+
-+	if (!dc->debug.enable_single_display_2to1_odm_policy ||
-+			!dc->config.enable_windowed_mpo_odm)
-+		/* skip the check if windowed MPO ODM or dynamic ODM is turned
-+		 * off.
-+		 */
-+		return false;
-+
-+	if (context == dc->current_state)
-+		/* skip the check for fast update */
-+		return false;
-+
-+	if (new_stream_status->plane_count != cur_stream_status->plane_count)
-+		/* plane count changed, not a plane scaling update so not the
-+		 * case we are looking for
-+		 */
-+		return false;
-+
-+	cur_pipe = resource_get_otg_master_for_stream(&dc->current_state->res_ctx, stream);
-+	new_pipe = resource_get_otg_master_for_stream(&context->res_ctx, stream);
-+	cur_is_odm_in_use = resource_get_odm_slice_count(cur_pipe) > 1;
-+	new_is_odm_in_use = resource_get_odm_slice_count(new_pipe) > 1;
-+	if (cur_is_odm_in_use == new_is_odm_in_use)
-+		/* ODM state isn't changed, not the case we are looking for */
-+		return false;
-+
-+	if (dc->hwss.is_pipe_topology_transition_seamless &&
-+			dc->hwss.is_pipe_topology_transition_seamless(
-+					dc, dc->current_state, context))
-+		/* transition can be achieved without the need for committing
-+		 * minimal transition state first
-+		 */
-+		return false;
-+
-+	return true;
-+}
-+
- bool dc_update_planes_and_stream(struct dc *dc,
- 		struct dc_surface_update *srf_updates, int surface_count,
- 		struct dc_stream_state *stream,
-@@ -4362,6 +4490,19 @@ bool dc_update_planes_and_stream(struct dc *dc,
- 		update_type = UPDATE_TYPE_FULL;
- 	}
- 
-+	/* when windowed MPO ODM is supported, we need to handle a special case
-+	 * where we can transition between ODM combine and MPC combine due to
-+	 * plane scaling update. This transition will require us to commit
-+	 * minimal transition state. The condition to trigger this update can't
-+	 * be predicted by could_mpcc_tree_change_for_active_pipes because we
-+	 * can only determine it after DML validation. Therefore we can't rely
-+	 * on the existing commit minimal transition state sequence. Instead
-+	 * we have to add additional handling here to handle this transition
-+	 * with its own special sequence.
-+	 */
-+	if (should_commit_minimal_transition_for_windowed_mpo_odm(dc, stream, context))
-+		commit_minimal_transition_state_for_windowed_mpo_odm(dc,
-+				context, stream);
- 	update_seamless_boot_flags(dc, context, surface_count, stream);
- 	if (is_fast_update_only && !dc->debug.enable_legacy_fast_update) {
- 		commit_planes_for_stream_fast(dc,
-@@ -4376,7 +4517,6 @@ bool dc_update_planes_and_stream(struct dc *dc,
- 				dc->hwss.is_pipe_topology_transition_seamless &&
- 				!dc->hwss.is_pipe_topology_transition_seamless(
- 						dc, dc->current_state, context)) {
+ 	/*
+@@ -1333,31 +1331,6 @@ static bool should_allow_odm_power_optimization(struct dc *dc,
+ 		for (i = 0; i < slice_table.odm_combine_count; i++)
+ 			if (slice_table.odm_combines[i].slice_count > 1)
+ 				return false;
 -
- 			DC_LOG_ERROR("performing non-seamless pipe topology transition with surface only update!\n");
- 			BREAK_TO_DEBUGGER();
- 		}
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-index 9f41e8d15065..c095ccbb80c4 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-@@ -563,6 +563,17 @@ struct dc_state {
- 	struct {
- 		unsigned int stutter_period_us;
- 	} perf_params;
-+
-+	struct {
-+		/* used to temporarily backup plane states of a stream during
-+		 * dc update. The reason is that plane states are overwritten
-+		 * with surface updates in dc update. Once they are overwritten
-+		 * current state is no longer valid. We want to temporarily
-+		 * store current value in plane states so we can still recover
-+		 * a valid current state during dc update.
-+		 */
-+		struct dc_plane_state plane_states[MAX_SURFACE_NUM];
-+	} scratch;
- };
- 
- struct replay_context {
+-		/* up to here we know that a plane with viewport equal to stream
+-		 * src can be validated with single DPP pipe. Therefore any
+-		 * planes with smaller or equal viewport is guaranteed to work
+-		 * regardless of its position and scaling ratio. Also we know
+-		 * any plane without downscale ratio greater than 1 should also
+-		 * work. Up until DCN3x we still have software limitation that
+-		 * doesn't implement a smooth transition between ODM combine and
+-		 * MPC combine during plane resizing when we are crossing ODM
+-		 * capability boundary. So we are adding this guaranteed
+-		 * viewport condition to limit ODM power optimization support
+-		 * for only the planes within the guaranteed viewport size. Such
+-		 * planes can be supported with ODM power optimization without
+-		 * ever the need to transition to MPC combine in any scaling
+-		 * ratios and positions. Therefore we cover the software
+-		 * limitation of this transition sequence.
+-		 */
+-		guaranteed_viewport = stream->src;
+-		for (i = 0; i < context->stream_status[0].plane_count; i++) {
+-			plane = context->stream_status[0].plane_states[i];
+-
+-			if ((plane->src_rect.height > plane->dst_rect.height && plane->src_rect.height > guaranteed_viewport.height) ||
+-					(plane->src_rect.width > plane->dst_rect.width && plane->src_rect.width > guaranteed_viewport.width))
+-				return false;
+-		}
+ 	} else {
+ 		/*
+ 		 * the new ODM power optimization feature reduces software
 -- 
 2.37.3
 
