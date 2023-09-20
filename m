@@ -4,120 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D180CC04AA7
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Sep 2023 15:38:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68969C04AAA
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Sep 2023 15:47:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56B8010E047;
-	Wed, 20 Sep 2023 15:38:39 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2062b.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5b::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2004410E047
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Sep 2023 15:38:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE9D410E516;
+	Wed, 20 Sep 2023 15:47:29 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2080.outbound.protection.outlook.com [40.107.101.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2449310E516
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Sep 2023 15:47:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YZVYCaIOH85p5YmovW9Pl9EzV0czk94vPjCKLIqA+mX0CWgmnKceM9kebbAd5UGIeMm72oHLm4tfzcND7uCN7KQmAl6tm1WgMd9yCQZts2yS/sKc7tC/NS5OZ+NvmTqLO0luePI+wgAkUEyLVX+zEv7+LfMdR0wHW5Qz9nmicImtbfqRFDf5pXi4tGEv2bRd04OYwZOXdGFwOb17MgY7ifQqWdoAxGEV+dx+XguYydiHtitbY9hiGvo0yL6JMkJK1pcz3GnXGDHXrFbbJDjw8MiVZnQq+2Xp+SyDMHRENV5APEJepkBoMmWSxI/Ric2IUqEiqIVOc6rNGJBOVj04yw==
+ b=f0lbIn8OCVZIYT3sxH9K9wM2Bz84HkYtuB/F95zMIORQSR7Fhcq6svh7/+4gkE5l5JX0G/gvRYh1xBaLhgIo440REmVKlaK8b74ChnxXHPTfsYLkBcQtKxyf7oJ4nV1zzZEDI2vTJQZ8B3nqhCVozJZ69FGrG2qoe3GOh//K8kW7KRVnszx8JknWnrTMHDh49FbKgALA4GXDwn3p4s4y9MhfGJmF16gjNH9TLZlGDSPF9Za9EXm+r2NAU7oXxzu6cWOQSaVa6/JwMLVqr2tgoTvIPH9LAOjIbaNXBY/ljV+j4T+8vGj1toTL0kMKEkInuvrlo9zAkf26qVTDB5S/Ig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nYcmLwjNO1Gcdx4v/oBFyXG2bgxRQO6wCN2DiWOn6i4=;
- b=ELJssOOAESwMnYYiKta+12ZZDiHg0l2l0GsxL6icziJR/fcF0q3b19sWAsBO51YeRWb4RsQQHj16/RSUMegqByDFDNR01gLEektMMP/ugQpiGDFkEnetg/H4FoFsGkzngFwvSKfHVSG+5nZTwt+tOtbCkQJ9wx7MJj7bwIruicuVdKuDv47YgNL7XCy1+O7Q6BEg91UdiLwtE7P5JuAA6BYd1GtQ9aHFmpCm5fpa/jOEzgbZHDqf4tW+3GV6j6mOQ+MOTc72tfforjH8YXqdR4SUAbOabllvJuIL4GpScDyPga8y30dcJ4ZBwBYwcXOSqf/05YfXa1aQNsXNnKt3gg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=Oy4JLXZlvAdnC7eYMeWxdSuo9C7Bx0MZTkJAS82vPjI=;
+ b=NcA8Hi6G9j85VuXcMv/b/2tHVqGEjz3uVCZpv3H/Al1Ft3oJkMrKMf2IvVWzBXnPtghLZ7NFVYDgSbqJ/rNeKbNBa83P60ZVrb/p82jOhoHgl6S/X6hUAjyQgJyOW3ltse8HeUiU+jwv67ljc/xETK+5CYRC9LegSAeMrlXS6AjB7SCYWLM0nWE9h1Ax+9UTQwysrEIS5BiNJF4ngkUM+8idBycvEjlfZp+rj1I+zFCpivJ5X73i2fTYUWOBdpqIc4T+DwayRwNmUNaUHBSS3Ig/DkN5kA2zWbkiNmSawI/BDCedmU7QNjh/47v7XgjKSLOuxyXvuv8PluQQqg5Txg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nYcmLwjNO1Gcdx4v/oBFyXG2bgxRQO6wCN2DiWOn6i4=;
- b=3+F10wZpjVlLlwc1clggDfxbXcViIQCpeIgvLhFFX7pJJbfZu90Id0RZXpAe0+L1ZAmd9wQLgNyKQDo6w4TOGApdceZw9CGxdE2i7/eWjZutGqGgzZxuv4/VYGDnU51a+IfRUEnxnfs2FD7kCHhW8rwi4Ebg2oxw9Rhwe/gJNtU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by SJ2PR12MB9209.namprd12.prod.outlook.com (2603:10b6:a03:558::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.20; Wed, 20 Sep
- 2023 15:38:31 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::b69d:ce48:b96b:833b]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::b69d:ce48:b96b:833b%5]) with mapi id 15.20.6792.026; Wed, 20 Sep 2023
- 15:38:31 +0000
-Message-ID: <28100466-4bef-7bac-ca19-9b5541b3f590@amd.com>
-Date: Wed, 20 Sep 2023 11:38:28 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v3] drm/amdkfd: Handle errors from svm validate and map
-Content-Language: en-US
-To: Felix Kuehling <felix.kuehling@amd.com>, Philip Yang
- <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+ bh=Oy4JLXZlvAdnC7eYMeWxdSuo9C7Bx0MZTkJAS82vPjI=;
+ b=gYC68feX7/ltcU1Rl2fcP1iZjR0qyg8I8IV4ac4UTDISgIbwtQFNXAaiDbajpy0G1oIH8j5MvfS/yQvCIv0tWWNS2mmqPDUW7lajmMJE3NHkMTkIje50N7/YRg00WvyTm4fOyLMf5jjkANVq7/7G6LLu0sFyG/qJxUC13e7xnSI=
+Received: from BL1P223CA0013.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:2c4::18)
+ by BL1PR12MB5993.namprd12.prod.outlook.com (2603:10b6:208:399::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.30; Wed, 20 Sep
+ 2023 15:47:23 +0000
+Received: from MN1PEPF0000F0DF.namprd04.prod.outlook.com
+ (2603:10b6:208:2c4:cafe::b5) by BL1P223CA0013.outlook.office365.com
+ (2603:10b6:208:2c4::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.29 via Frontend
+ Transport; Wed, 20 Sep 2023 15:47:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MN1PEPF0000F0DF.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6792.20 via Frontend Transport; Wed, 20 Sep 2023 15:47:23 +0000
+Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 20 Sep
+ 2023 10:47:20 -0500
+From: Philip Yang <Philip.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v4] drm/amdkfd: Handle errors from svm validate and map
+Date: Wed, 20 Sep 2023 11:45:30 -0400
+Message-ID: <20230920154530.18588-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20230913151617.18894-1-Philip.Yang@amd.com>
 References: <20230913151617.18894-1-Philip.Yang@amd.com>
- <20230919142124.15092-1-Philip.Yang@amd.com>
- <cb12d72b-8427-89c1-209f-eb08901eb40f@amd.com>
- <b505cf13-aa3f-efaa-9510-fdc71ec94fd3@amd.com>
- <b6fb1ca2-906c-08c5-9dd7-34e7f21af870@amd.com>
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <b6fb1ca2-906c-08c5-9dd7-34e7f21af870@amd.com>
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0316.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:6c::10) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|SJ2PR12MB9209:EE_
-X-MS-Office365-Filtering-Correlation-Id: 38aa3036-dac6-4692-a02f-08dbb9efa495
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DF:EE_|BL1PR12MB5993:EE_
+X-MS-Office365-Filtering-Correlation-Id: e62501df-6800-4952-8545-08dbb9f0e1ad
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: SJp41TG5uMlsXT15m2T5Gv5G2tNXOj7wCrwBRCO7oo8TsRY9s6o86hY2dcUtEECwd5NBGN3kKnaTmN1xt7z9siUskU7fjM3U1ani4Fa4rydwebAqb+JONCKiWzMV4RiZdNh7PJjkZfdodiE/AJ7OXJEoTUTX7FhG7pOlclqv0AXqX2WaQkNNGv4z7+TUvaZczDclrqi620LVfUNrunomQyEjadKVO68ccB/q0pHX1LTmF8NGPVpFHKAki4becGdXo6LiXdW5c6ugOz2guoa3h8xKyqTQfPrMKJ9kQ+oFUt0yI1vn5YQe9LDVfaVqrXNN300cKXbswh/95djESqUKyJJgz2YQguWRm8LVHPBV3BPnxvyUcmqSKS79Hb8oQURVE777YZgm1od0vyIjpv4yRmQWI69hdeGSs9HxjMS2DV7/fBna0onMq9o61EhzLciWZgrE2W7P2wAuqc6FtHHUne1zqqPDrj0u98V/uSJVvLc4VArMFgWOIzQXUL07xHrfts/K7GJ6RDtts4ud1bje+GVhuIdW4fOoSM1wbSnUJjPjMSpJYKf0l32vIICtBb9s+E45PE7bEt0GDSVEhS+IQxSKasqsIVj3coiT274XYwU9+LnokJCjTm3Cwg46If/0GvtA2VQZ/3c7Xmc8R3MUub6jGPcSeHUOZ8LzgyZjAfb8045tGE/k2sHzrbV9S2yp
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(366004)(39860400002)(136003)(396003)(376002)(186009)(1800799009)(451199024)(6512007)(53546011)(6506007)(2616005)(38100700002)(6486002)(66946007)(110136005)(6666004)(31696002)(478600001)(26005)(66556008)(66476007)(5660300002)(4326008)(8676002)(316002)(41300700001)(8936002)(2906002)(36756003)(15650500001)(31686004)(83380400001)(45980500001)(43740500002)(309714004);
+X-Microsoft-Antispam-Message-Info: BRXUq6/dYC4g9a/VfiNG3n0HKQjhNsfF6G00OQ+c38woRASVDSwFedg0dhWx4wOhLwc1TidmylzfNWWLGCv10ABeVPQ7QCLamPoIAqu8IyjeNhGitO8R9D4UCy3eqDVDyr2Wom0gwg/4jy8l/gkMo4ftm/Dz1wKIGGNT/PJRfIsPG0TPMazy3jJBsLy4SLhz9UY41D/gRhmryNnR9PrP0HB0H8ghWN7fxPQAPzPqVYStHVdekQ9Q0lDZOzbREpqhCCT/vN5w1ZuS9Qvku5ZjwfGgcvz4xX/Ub27M5SBWLPLSMt7CZ/B86Olu+RoG098/tSTWKqmQX9zfjizTQcT4tSt4i+7Nvdui46T6ZcdSeJ2ym+Zt2U8QDnxwqnBATQaXgu1vFXxWUz+B1gBzDqWX3+6RcByIJ4vuz1mryST9S5qqV9jk1MrVyT5WQe8t5YudxzSFmzM+ZLa983QAsaonWOIAZTaU+U0Qy/28iMqGjsjEV2P9QXyS8dHp6j+KAuHLU7EurnCqjh3EorEuhKtfgwbsf1BD5msagKMp5Mc99jmri7sgQ4hB9/5TKdpjgq+qhjWzp2ou4KGv3H+WDDqHK5DMsrRz9bfTGJhh53o+48nB0BEYCz0yj6e8gxBG4bCpUNiGN/W8nqGGto/61gi9lTI36/OkTNfhMi8Bs7ZbHskOtWzOztLWOmBUV8U0G2/sowCPRn0sWC/BHa4cROfapVFQxTrVbWcZoevGRDtPdu+/t+1YRcwdJUB+CX+zpkH0pAqwDfFkDRQV8P5OEak4vltKfngEMn/CMQ+/c60XbnQ=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(346002)(376002)(39860400002)(396003)(136003)(82310400011)(1800799009)(186009)(451199024)(36840700001)(46966006)(40470700004)(15650500001)(2906002)(5660300002)(8936002)(8676002)(1076003)(26005)(41300700001)(40480700001)(6916009)(316002)(70586007)(54906003)(70206006)(4326008)(16526019)(478600001)(6666004)(336012)(36756003)(2616005)(83380400001)(40460700003)(47076005)(36860700001)(356005)(81166007)(82740400003)(86362001)(7696005)(426003)(36900700001)(309714004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a29SZFRBaVdqV2pTL1Fib1I5UEs3M0dqcmNXbXNSUkhkSmZtaE9Ia2djVlV5?=
- =?utf-8?B?QXFyMmFUTHZhZEJaK2FzdVpTRk15VSt2S0dzbDdVcmFmVVdzRXd4cVN2TzdU?=
- =?utf-8?B?U3ZRSjlJQ0F4dGFmZkUvM1RJMkdJUmY5MFU2ZGp5NlozZllpYWhFc09lUUlO?=
- =?utf-8?B?TXRZQzZFSjdTZDhNaWJ3SXBXY1U2ZEdpR2hnRktvK3A4ZmVZTXRMbGYwdkVM?=
- =?utf-8?B?M09YYzBUa1FpSzN6TGtuOVcyNkZGcnltT01xTlRIc2kzWGRNbkZaNUJqRHZm?=
- =?utf-8?B?a1dwT24wMWVjbWI2ZUgwdmZ2N3JnKzgyWkk1eEtBYmpuWUdNcnVPY01CK3Zv?=
- =?utf-8?B?SFo3RVo3bmdQTEU3bEdMZWx6Y1ZGKzhuS2pVOGlTL0xzVEpnYjM1U3dxNTJX?=
- =?utf-8?B?WTczQUlRcTBYT3pTYXFMWEVCM1FHQUJ3OFVlL3hmdmNralVvTEdlU1RlUzJF?=
- =?utf-8?B?SHVPS2xrRDY1aDBBV2tjTWx1aVB5SEF5M1djMStHenJmWDg2eHBoZGlHMW5n?=
- =?utf-8?B?NERoWmpWbm1WTy9aWnErbEtyWUFUTzc1cHdWZDNZdWFXVlRiODdHVXpxU3c0?=
- =?utf-8?B?MTNCRmNoVEs2VmZJZ1BuSHJpUXJ5OUk4S1NPdU5nU0MyUktvV2NDU0d6WVYy?=
- =?utf-8?B?V3JkQmd6WFRpR3I4aU14c3c5ZXp4WG5VdWt2RG5UemVTeHFibTlNWU0rVGp2?=
- =?utf-8?B?eDFIOFRmOVh1MkVvY2lseGVlOVA0amhmNUh0eWo4QVBNU3ZzRkxxbzZraWNj?=
- =?utf-8?B?dDcwcERiYUFSeWF3VUZGRHlhQStQQ0Zyb2NoOHY2ajYyL0IybmJuNzNUTVJp?=
- =?utf-8?B?dU8wNzluUjBJM3Z1MmVxY3hhZExSQ1VEY0RnQ2pld05VYTRjUWJrVjAvVU1E?=
- =?utf-8?B?WDNrY04wWUE0UUgrTWdPbDkvQ0xwcE50OGd5elVweVFWUFZnd0dnR3YxcTBp?=
- =?utf-8?B?Z0ZpbHpQM1paYmNlZndnYzMzVGlUTmVqTzFJc09uV3ltb3Z1OGFuRWJHTThm?=
- =?utf-8?B?bVlEbjJMTExCQndsUVpQc2NSMUVTbmpFM1BLa1pZNm9TQVlSNFFuVkRqSk9n?=
- =?utf-8?B?UlVrRUpnekt6NzdvS0twQktVVy8rOERMU2g3Zjhiay9qZk9mc1VZZ3F4MU9K?=
- =?utf-8?B?STVnRVZ1WGFWNlFsOHUxeWlITzJ5dzdHTE9jSEw4bi9rQVRmYTFUNlZ4cG5o?=
- =?utf-8?B?NUp1dFhOUTZGc05PbngvN3BUMFhRVCs0UjNqeThyY0FmY1JXemZxTU9tZk1y?=
- =?utf-8?B?VHF4L0s2elZGQVZmQms2M2kyS3pjYTQwNVc3SGI1WGt4UVNsQytWYWlwYXU3?=
- =?utf-8?B?S3RpRE9hczU2bjFPNnFoWlAvc0Z1b2lXZWFrYk1jNTA4Vkh0eWFiaUJUMStN?=
- =?utf-8?B?QnB4TTJtV0lXWmJyOGFRRXphb3pwNjRTVzQ1ZWZMVkx5dGxjS3luSU5ORHVn?=
- =?utf-8?B?ZDlFS0lVMU5FWlZSemVWeC9KME0yMTNxS0M0cnFaU1BLVXcrQ2VDcEFQVWR3?=
- =?utf-8?B?WG9QUFJQMWg0Ums1MUNnRmkwWEU1TnR2eTdoa0lIY0g3M2lmQ21lcDl5ZVlF?=
- =?utf-8?B?Z2swVm5ndUZyUmVjSERseWRYOHlTOEYvbnJmNmhhVTF4SlBwaE1RWEYyOXpX?=
- =?utf-8?B?VU5nU3lkRStGWUlJc1Frd2NpQnVDV3NQV0hZU1NPNkowYVU1VFRSQllYYnc2?=
- =?utf-8?B?RUE1ZjNUYXZ6ZnNTclR3WkFpZG1zSkFjeWF0dm52ZUFHYnA4YlF2Rmt4TEVk?=
- =?utf-8?B?RzRKcnF3UDVFTFQ0RGFOWDRwSm8wUGhEbUhMRmw4cTAwUTUxZjFOUEh0NCsw?=
- =?utf-8?B?alBxMFNINFN4eWJVayt1UmdUcU5zWENnY0t5a3U3dlNuUUtOSnBFYzJtZ3JF?=
- =?utf-8?B?Tk5VOUlQYW9EdTdyQit2VnE4KzlXNVBHdzlDaVQyQ3dUS2NMcjNLT0ptYmNp?=
- =?utf-8?B?c0lGeFlEWE5KRWFQRmFlak1ZMzN6MWZEOHVhWTRPT0dKMmFOTzA4cVlKKzdQ?=
- =?utf-8?B?cDdKZERYaUIzMWw3WmRVckZ4T0xpbDNCZXAvV2VqM0FHdWZpUWhLVkJQUTlm?=
- =?utf-8?B?WEZNRnpOaU42ZHFhTU9CdFRBOEdpQ0Q0OWtIbWEyNzh2SitjaXpXbWQyRFpD?=
- =?utf-8?Q?F3QR6OlGZgzzIDN8msG+/Ty9W?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38aa3036-dac6-4692-a02f-08dbb9efa495
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2023 15:38:31.4175 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2023 15:47:23.2123 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e62501df-6800-4952-8545-08dbb9f0e1ad
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9+GSDQCSfoHbbuPKkmnJyDyDAPEZmA49Gso69NSBy0Y5Llux6GpWPm77CZoWlO7O
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9209
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0DF.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5993
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,474 +99,200 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alex.sierra@amd.com, james.zhu@amd.com
+Cc: alex.sierra@amd.com, Philip Yang <Philip.Yang@amd.com>,
+ Felix.Kuehling@amd.com, james.zhu@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2023-09-20 10:35, Felix Kuehling
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:b6fb1ca2-906c-08c5-9dd7-34e7f21af870@amd.com">
-      <br>
-      On 2023-09-20 10:20, Philip Yang wrote:
-      <br>
-      <blockquote type="cite">
-        <br>
-        <br>
-        On 2023-09-19 17:15, Felix Kuehling wrote:
-        <br>
-        <blockquote type="cite">
-          <br>
-          On 2023-09-19 10:21, Philip Yang wrote:
-          <br>
-          <blockquote type="cite">If new range is splited to multiple
-            pranges with max_svm_range_pages
-            <br>
-            alignment and added to update_list, svm validate and map
-            should keep
-            <br>
-            going after error to make sure prange-&gt;mapped_to_gpu flag
-            is up to date
-            <br>
-            for the whole range.
-            <br>
-            <br>
-            svm validate and map update set prange-&gt;mapped_to_gpu
-            after mapping to
-            <br>
-            GPUs successfully, otherwise clear prange-&gt;mapped_to_gpu
-            flag (for
-            <br>
-            update mapping case) instead of setting error flag, we can
-            remove
-            <br>
-            the redundant error flag to simpliy code.
-            <br>
-            <br>
-            Refactor to remove goto and update prange-&gt;mapped_to_gpu
-            flag inside
-            <br>
-            svm_range_lock, to guarant we always evict queues or unmap
-            from GPUs if
-            <br>
-            there are invalid ranges.
-            <br>
-            <br>
-            After svm validate and map return error -EAGIN, the caller
-            retry will
-            <br>
-            update the mapping for the whole range again.
-            <br>
-            <br>
-            Fixes: c22b04407097 (&quot;drm/amdkfd: flag added to handle
-            errors from svm validate and map&quot;)
-            <br>
-            Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
-            <br>
-            ---
-            <br>
-            &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 78
-            +++++++++++++---------------
-            <br>
-            &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_svm.h |&nbsp; 1 -
-            <br>
-            &nbsp; 2 files changed, 36 insertions(+), 43 deletions(-)
-            <br>
-            <br>
-            diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-            b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-            <br>
-            index 50c29fd844fb..4812f4ac5579 100644
-            <br>
-            --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-            <br>
-            +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-            <br>
-            @@ -818,7 +818,7 @@ svm_range_is_same_attrs(struct
-            kfd_process *p, struct svm_range *prange,
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-            <br>
-            &nbsp; -&nbsp;&nbsp;&nbsp; return !prange-&gt;is_error_flag;
-            <br>
-            +&nbsp;&nbsp;&nbsp; return true;
-            <br>
-            &nbsp; }
-            <br>
-            &nbsp; &nbsp; /**
-            <br>
-            @@ -1671,7 +1671,7 @@ static int
-            svm_range_validate_and_map(struct mm_struct *mm,
-            <br>
-            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; start = prange-&gt;start &lt;&lt; PAGE_SHIFT;
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end = (prange-&gt;last + 1) &lt;&lt; PAGE_SHIFT;
-            <br>
-            -&nbsp;&nbsp;&nbsp; for (addr = start; addr &lt; end &amp;&amp; !r; ) {
-            <br>
-            +&nbsp;&nbsp;&nbsp; for (addr = start; !r &amp;&amp; addr &lt; end; ) {
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct hmm_range *hmm_range;
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct vm_area_struct *vma;
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long next;
-            <br>
-            @@ -1680,62 +1680,55 @@ static int
-            svm_range_validate_and_map(struct mm_struct *mm,
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool readonly;
-            <br>
-            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vma = vma_lookup(mm, addr);
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!vma) {
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vma) {
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; readonly = !(vma-&gt;vm_flags &amp; VM_WRITE);
-            <br>
-            +
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; next = min(vma-&gt;vm_end, end);
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; npages = (next - addr) &gt;&gt; PAGE_SHIFT;
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WRITE_ONCE(p-&gt;svms.faulting_task, current);
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =
-            amdgpu_hmm_range_get_pages(&amp;prange-&gt;notifier, addr,
-            npages,
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; readonly, owner, NULL,
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;hmm_range);
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WRITE_ONCE(p-&gt;svms.faulting_task, NULL);
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;failed %d to get svm range
-            pages\n&quot;, r);
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r == -EBUSY)
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = -EAGAIN;
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = -EFAULT;
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto unreserve_out;
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; readonly = !(vma-&gt;vm_flags &amp; VM_WRITE);
-            <br>
-            -
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; next = min(vma-&gt;vm_end, end);
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; npages = (next - addr) &gt;&gt; PAGE_SHIFT;
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WRITE_ONCE(p-&gt;svms.faulting_task, current);
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =
-            amdgpu_hmm_range_get_pages(&amp;prange-&gt;notifier, addr,
-            npages,
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; readonly, owner, NULL,
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;hmm_range);
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WRITE_ONCE(p-&gt;svms.faulting_task, NULL);
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;failed %d to get svm range pages\n&quot;,
-            r);
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r == -EBUSY)
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = -EAGAIN;
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto unreserve_out;
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-            <br>
-            &nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; offset = (addr - start) &gt;&gt; PAGE_SHIFT;
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = svm_range_dma_map(prange, ctx-&gt;bitmap,
-            offset, npages,
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hmm_range-&gt;hmm_pfns);
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;failed %d to dma map range\n&quot;, r);
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto unreserve_out;
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!r) {
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; offset = (addr - start) &gt;&gt; PAGE_SHIFT;
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = svm_range_dma_map(prange, ctx-&gt;bitmap,
-            offset, npages,
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hmm_range-&gt;hmm_pfns);
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;failed %d to dma map range\n&quot;,
-            r);
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-            <br>
-            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svm_range_lock(prange);
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_hmm_range_get_pages_done(hmm_range)) {
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!r &amp;&amp;
-            amdgpu_hmm_range_get_pages_done(hmm_range)) {
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;hmm update the range, need validate
-            again\n&quot;);
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = -EAGAIN;
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto unlock_out;
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!list_empty(&amp;prange-&gt;child_list)) {
-            <br>
-            +
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!r &amp;&amp;
-            !list_empty(&amp;prange-&gt;child_list)) {
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;range split by unmap in parallel,
-            validate again\n&quot;);
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = -EAGAIN;
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto unlock_out;
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-            <br>
-            &nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = svm_range_map_to_gpus(prange, offset, npages,
-            readonly,
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;bitmap, wait, flush_tlb);
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!r)
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = svm_range_map_to_gpus(prange, offset,
-            npages, readonly,
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;bitmap, wait, flush_tlb);
-            <br>
-            &nbsp; -unlock_out:
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prange-&gt;mapped_to_gpu = !r;
-            <br>
-          </blockquote>
-          <br>
-          I'm still concerned that this can update
-          prange-&gt;mapped_to_gpu to &quot;true&quot; before the entire range has
-          been successfully mapped. This could cause race conditions if
-          someone looks at this variable while a validate_and_map is in
-          progress. This would avoid such race conditions:
-          <br>
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!r &amp;&amp; next == end)
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prange-&gt;mapped_to_gpu = true;
-          <br>
-          <br>
-        </blockquote>
-        thanks, will also add else path for error handling, to exit the
-        loop with correct flag.
-        <br>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (r)
-        <br>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prange-&gt;mapped_to_gpu = false;
-        <br>
-        <br>
-      </blockquote>
-      I thought about that. I think the flag should be false going into
-      the function. There should be no need to validate and map the
-      range if it's already mapped and valid. So if anything, we should
-      set the flag to false in the beginning.
-      <br>
-    </blockquote>
-    <p>I was overthinking, you are right, if set_attr update multiple
-      pranges failed, set_attr retry will not process
-      prange-&gt;mapped_to_gpu, evict and restore worker will handle it
-      correctly with xnack off, and restore page will update mapping
-      with xnack on.</p>
-    <p>Regards,</p>
-    <p>Philip<br>
-    </p>
-    <blockquote type="cite" cite="mid:b6fb1ca2-906c-08c5-9dd7-34e7f21af870@amd.com">
-      <br>
-      Regards,
-      <br>
-      &nbsp; Felix
-      <br>
-      <br>
-      <br>
-      <blockquote type="cite">Regards,
-        <br>
-        <br>
-        Philip
-        <br>
-        <br>
-        <blockquote type="cite">Regards,
-          <br>
-          &nbsp; Felix
-          <br>
-          <br>
-          <br>
-          <blockquote type="cite">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svm_range_unlock(prange);
-            <br>
-            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; addr = next;
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-            <br>
-            &nbsp; -&nbsp;&nbsp;&nbsp; if (addr == end)
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prange-&gt;mapped_to_gpu = true;
-            <br>
-            -
-            <br>
-            -unreserve_out:
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svm_range_unreserve_bos(ctx);
-            <br>
-            -
-            <br>
-            -&nbsp;&nbsp;&nbsp; prange-&gt;is_error_flag = !!r;
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!r)
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prange-&gt;validate_timestamp =
-            ktime_get_boottime();
-            <br>
-            &nbsp; @@ -2104,7 +2097,8 @@ svm_range_add(struct kfd_process *p,
-            uint64_t start, uint64_t size,
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; next = interval_tree_iter_next(node, start, last);
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; next_start = min(node-&gt;last, last) + 1;
-            <br>
-            &nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (svm_range_is_same_attrs(p, prange, nattr,
-            attrs)) {
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (svm_range_is_same_attrs(p, prange, nattr,
-            attrs) &amp;&amp;
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prange-&gt;mapped_to_gpu) {
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* nothing to do */
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (node-&gt;start &lt; start ||
-            node-&gt;last &gt; last) {
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* node intersects the update range and its
-            attributes
-            <br>
-            @@ -3517,7 +3511,7 @@ svm_range_set_attr(struct kfd_process
-            *p, struct mm_struct *mm,
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct svm_range *next;
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool update_mapping = false;
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool flush_tlb;
-            <br>
-            -&nbsp;&nbsp;&nbsp; int r = 0;
-            <br>
-            +&nbsp;&nbsp;&nbsp; int r, ret = 0;
-            <br>
-            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;pasid 0x%x svms 0x%p [0x%llx 0x%llx] pages
-            0x%llx\n&quot;,
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p-&gt;pasid, &amp;p-&gt;svms, start, start + size
-            - 1, size);
-            <br>
-            @@ -3605,7 +3599,7 @@ svm_range_set_attr(struct kfd_process
-            *p, struct mm_struct *mm,
-            <br>
-            &nbsp; out_unlock_range:
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;prange-&gt;migrate_mutex);
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret = r;
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-            <br>
-            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dynamic_svm_range_dump(svms);
-            <br>
-            @@ -3618,7 +3612,7 @@ svm_range_set_attr(struct kfd_process
-            *p, struct mm_struct *mm,
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;pasid 0x%x svms 0x%p [0x%llx 0x%llx] done,
-            r=%d\n&quot;, p-&gt;pasid,
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;p-&gt;svms, start, start + size - 1, r);
-            <br>
-            &nbsp; -&nbsp;&nbsp;&nbsp; return r;
-            <br>
-            +&nbsp;&nbsp;&nbsp; return ret ? ret : r;
-            <br>
-            &nbsp; }
-            <br>
-            &nbsp; &nbsp; static int
-            <br>
-            diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-            b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-            <br>
-            index c216c8dd13c6..25f711905738 100644
-            <br>
-            --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-            <br>
-            +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-            <br>
-            @@ -133,7 +133,6 @@ struct svm_range {
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DECLARE_BITMAP(bitmap_access, MAX_GPU_INSTANCE);
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DECLARE_BITMAP(bitmap_aip, MAX_GPU_INSTANCE);
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mapped_to_gpu;
-            <br>
-            -&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; is_error_flag;
-            <br>
-            &nbsp; };
-            <br>
-            &nbsp; &nbsp; static inline void svm_range_lock(struct svm_range
-            *prange)
-            <br>
-          </blockquote>
-        </blockquote>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
+If new range is splited to multiple pranges with max_svm_range_pages
+alignment and added to update_list, svm validate and map should keep
+going after error to make sure prange->mapped_to_gpu flag is up to date
+for the whole range.
+
+svm validate and map update set prange->mapped_to_gpu after mapping to
+GPUs successfully, otherwise clear prange->mapped_to_gpu flag (for
+update mapping case) instead of setting error flag, we can remove
+the redundant error flag to simpliy code.
+
+Refactor to remove goto and update prange->mapped_to_gpu flag inside
+svm_range_lock, to guarant we always evict queues or unmap from GPUs if
+there are invalid ranges.
+
+After svm validate and map return error -EAGIN, the caller retry will
+update the mapping for the whole range again.
+
+Fixes: c22b04407097 ("drm/amdkfd: flag added to handle errors from svm validate and map")
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 80 +++++++++++++---------------
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h |  1 -
+ 2 files changed, 38 insertions(+), 43 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index fb55cf80d74e..0b6a70171320 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -827,7 +827,7 @@ svm_range_is_same_attrs(struct kfd_process *p, struct svm_range *prange,
+ 		}
+ 	}
+ 
+-	return !prange->is_error_flag;
++	return true;
+ }
+ 
+ /**
+@@ -1680,7 +1680,7 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
+ 
+ 	start = prange->start << PAGE_SHIFT;
+ 	end = (prange->last + 1) << PAGE_SHIFT;
+-	for (addr = start; addr < end && !r; ) {
++	for (addr = start; !r && addr < end; ) {
+ 		struct hmm_range *hmm_range;
+ 		struct vm_area_struct *vma;
+ 		unsigned long next;
+@@ -1689,62 +1689,57 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
+ 		bool readonly;
+ 
+ 		vma = vma_lookup(mm, addr);
+-		if (!vma) {
++		if (vma) {
++			readonly = !(vma->vm_flags & VM_WRITE);
++
++			next = min(vma->vm_end, end);
++			npages = (next - addr) >> PAGE_SHIFT;
++			WRITE_ONCE(p->svms.faulting_task, current);
++			r = amdgpu_hmm_range_get_pages(&prange->notifier, addr, npages,
++						       readonly, owner, NULL,
++						       &hmm_range);
++			WRITE_ONCE(p->svms.faulting_task, NULL);
++			if (r) {
++				pr_debug("failed %d to get svm range pages\n", r);
++				if (r == -EBUSY)
++					r = -EAGAIN;
++			}
++		} else {
+ 			r = -EFAULT;
+-			goto unreserve_out;
+-		}
+-		readonly = !(vma->vm_flags & VM_WRITE);
+-
+-		next = min(vma->vm_end, end);
+-		npages = (next - addr) >> PAGE_SHIFT;
+-		WRITE_ONCE(p->svms.faulting_task, current);
+-		r = amdgpu_hmm_range_get_pages(&prange->notifier, addr, npages,
+-					       readonly, owner, NULL,
+-					       &hmm_range);
+-		WRITE_ONCE(p->svms.faulting_task, NULL);
+-		if (r) {
+-			pr_debug("failed %d to get svm range pages\n", r);
+-			if (r == -EBUSY)
+-				r = -EAGAIN;
+-			goto unreserve_out;
+ 		}
+ 
+-		offset = (addr - start) >> PAGE_SHIFT;
+-		r = svm_range_dma_map(prange, ctx->bitmap, offset, npages,
+-				      hmm_range->hmm_pfns);
+-		if (r) {
+-			pr_debug("failed %d to dma map range\n", r);
+-			goto unreserve_out;
++		if (!r) {
++			offset = (addr - start) >> PAGE_SHIFT;
++			r = svm_range_dma_map(prange, ctx->bitmap, offset, npages,
++					      hmm_range->hmm_pfns);
++			if (r)
++				pr_debug("failed %d to dma map range\n", r);
+ 		}
+ 
+ 		svm_range_lock(prange);
+-		if (amdgpu_hmm_range_get_pages_done(hmm_range)) {
++		if (!r && amdgpu_hmm_range_get_pages_done(hmm_range)) {
+ 			pr_debug("hmm update the range, need validate again\n");
+ 			r = -EAGAIN;
+-			goto unlock_out;
+ 		}
+-		if (!list_empty(&prange->child_list)) {
++
++		if (!r && !list_empty(&prange->child_list)) {
+ 			pr_debug("range split by unmap in parallel, validate again\n");
+ 			r = -EAGAIN;
+-			goto unlock_out;
+ 		}
+ 
+-		r = svm_range_map_to_gpus(prange, offset, npages, readonly,
+-					  ctx->bitmap, wait, flush_tlb);
++		if (!r)
++			r = svm_range_map_to_gpus(prange, offset, npages, readonly,
++						  ctx->bitmap, wait, flush_tlb);
++
++		if (!r && next == end)
++			prange->mapped_to_gpu = true;
+ 
+-unlock_out:
+ 		svm_range_unlock(prange);
+ 
+ 		addr = next;
+ 	}
+ 
+-	if (addr == end)
+-		prange->mapped_to_gpu = true;
+-
+-unreserve_out:
+ 	svm_range_unreserve_bos(ctx);
+-
+-	prange->is_error_flag = !!r;
+ 	if (!r)
+ 		prange->validate_timestamp = ktime_get_boottime();
+ 
+@@ -2113,7 +2108,8 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
+ 		next = interval_tree_iter_next(node, start, last);
+ 		next_start = min(node->last, last) + 1;
+ 
+-		if (svm_range_is_same_attrs(p, prange, nattr, attrs)) {
++		if (svm_range_is_same_attrs(p, prange, nattr, attrs) &&
++		    prange->mapped_to_gpu) {
+ 			/* nothing to do */
+ 		} else if (node->start < start || node->last > last) {
+ 			/* node intersects the update range and its attributes
+@@ -3526,7 +3522,7 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
+ 	struct svm_range *next;
+ 	bool update_mapping = false;
+ 	bool flush_tlb;
+-	int r = 0;
++	int r, ret = 0;
+ 
+ 	pr_debug("pasid 0x%x svms 0x%p [0x%llx 0x%llx] pages 0x%llx\n",
+ 		 p->pasid, &p->svms, start, start + size - 1, size);
+@@ -3614,7 +3610,7 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
+ out_unlock_range:
+ 		mutex_unlock(&prange->migrate_mutex);
+ 		if (r)
+-			break;
++			ret = r;
+ 	}
+ 
+ 	dynamic_svm_range_dump(svms);
+@@ -3627,7 +3623,7 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
+ 	pr_debug("pasid 0x%x svms 0x%p [0x%llx 0x%llx] done, r=%d\n", p->pasid,
+ 		 &p->svms, start, start + size - 1, r);
+ 
+-	return r;
++	return ret ? ret : r;
+ }
+ 
+ static int
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+index 5fd958a97a28..c528df1d0ba2 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+@@ -133,7 +133,6 @@ struct svm_range {
+ 	DECLARE_BITMAP(bitmap_access, MAX_GPU_INSTANCE);
+ 	DECLARE_BITMAP(bitmap_aip, MAX_GPU_INSTANCE);
+ 	bool				mapped_to_gpu;
+-	bool				is_error_flag;
+ };
+ 
+ static inline void svm_range_lock(struct svm_range *prange)
+-- 
+2.35.1
+
