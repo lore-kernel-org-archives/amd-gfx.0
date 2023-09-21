@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BF5CE71068
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 12:50:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0825E71072
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 14:13:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E576610E07C;
-	Thu, 21 Sep 2023 12:50:06 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2060e.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8a::60e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CB9C10E07C
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Sep 2023 12:50:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BDC710E096;
+	Thu, 21 Sep 2023 14:13:22 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2067.outbound.protection.outlook.com [40.107.237.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8524110E096
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Sep 2023 14:13:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EzrA7W6U7RYRyIQJ3QuegpKZrKpFfdxoCBRVk6UHIQbJs5m9OpuAIS6SYUPK6vBlJSiadphCvrdSdvW2DLtYueNcG5GxO859YkE0jR4+rBq9Mi68jjzVaFMXtdrEKTX+fls+BuSFlP7Nbp/7XzmIehO+dcjSDaxv4AJmog+z97KcEmQJkMnfEItUFMTBLyJjXbPnTVxJHjQzrpVppuaAEwyOBq23NC4+elYi2PV5JWe5P/cBas5977W5bbJ00TZXWy/uvZG2csAcLKr/UOYbx+OrjDjnidl0EHyZ8aJulI4WmoEWwVD3lShT+jug6QCdj/cc8+wZISGHmaK6yUZe4Q==
+ b=YFwT0lmZ03/0w8SV2Hy6oomYRegMfXwT9OXdwwq2wVJLy8oByUp+tPqlfr2LxU9WlWeKCmRMIA+DAk1DFDjzOiww1qszDGt6/PF0HjjNUFAuapmr4JVIkTbVfGAM4KbT1brJhCw8J7oMB8V9YRf2dQyROHFPuWkJ8dy4FF+AuXD20vRqKCT3EvbORYK8WB9NmPSmON4HQAnyVGUIGF/IkLk6OuXUOT32ZkerpHGokl7bfGZnvCbJAtMbSf5MZ4eh9J1E6jmhAMXnfO6XeKYgy5XxsRtIp0xcXE6A6eNYP9ERpTNIFax0+Dwzc51c/HqOwpx6fy22q/kUX1S5sTRSxA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eE3CEsiMtCSyHBi1CpI9H1wayrsfTGY7l3MAYTGEa7o=;
- b=RWpqFJPlkBllecrspAOXK6GiN/axufH5Ij9YxEH1py6D5JrHBvS3nxW7hJ0K+SnFuwnvbU0Nr9dZjYLO9VmI+cfpV4khebe+tfPgVOL1p/WgpiSnKK6ZMCw2SNiQ11MNzvUYumTOFYShbDXp+NF3OhOf/QaqmrNOdLwH0GgTPF+sxfLTr5+Vntd/Pzk/3IPErIxr7ogl1izbCqLLcA62KAt98EE/LxnbdHw0yLnSb1ZdKIEfTg7xKBwRg0tiwIBiLhD/ofUmxDOkVFQO1RWMmU+tAjP72oenUSkKWdmP/3QYHIuJZboqrzTXaS9YuC5Ej5uzW+G6MYAihBuABK+dDg==
+ bh=A4TT8Orug4fKVQIjL4qCUhLE8TCDOYctKqfYdN3aAm4=;
+ b=cHguaKHgVXgmzvpvaHriHDbqYCuHwMzX+46wLdyyzZlyqean9PyuIBPjoCRPj4cHXsEnWED3Bo3C+vCQL8+Ey6yB31x81S/rgU+HPoQK5hBCB5/SSpJTTJoAaV97pLOB2ujkTQCakkHmlAzstGYyQZqVqWLGFdClMYQD89vH0OhyCAEC03gc3iypGLsfyH25vV995NSQ7vjNDzQSCs4S3mXFEcEubqXSSGfgUuKSEuVIu37wNeJbvdV+U31VsTP+R7QAAgv41BQHUEasomdng2S9S5o3E3OKYr35QLmVLvRrXCwT11paw+QzD3ekzQ8YL46MSloBrMMFyehpuHhK4A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eE3CEsiMtCSyHBi1CpI9H1wayrsfTGY7l3MAYTGEa7o=;
- b=a0WPKLSo5bAgCVg4V2TIptsYT3Gjc+qFKtTBcAYIbGudob7jlqFNKExuBkAjHh52/naWlcQsC6JYVMyX0mjJVPXYexGLoQZ0rR2KushuiceYvesluFh32tLufTY3oz8EZXOHdRg3RtKYNVn31Qb2o0ZCU3GtNEECn9ZhdTJ5J6U=
-Received: from DM6PR08CA0054.namprd08.prod.outlook.com (2603:10b6:5:1e0::28)
- by BL1PR12MB5045.namprd12.prod.outlook.com (2603:10b6:208:310::15) with
+ bh=A4TT8Orug4fKVQIjL4qCUhLE8TCDOYctKqfYdN3aAm4=;
+ b=b4cTWSMKG3Ifhe7KgKM3OWKQLKmnC+6zPdkwdalTwToHp04fcK6tbhEoOzL+U/y2GVxPGViUEIro0rsrWBTG0S2xWk9wXc2f2ljr/X/TJ1U2bosQgOmAFh8SNf6UcS+w5lpW0AHEJEQyX0oqgll+HmITdcWfzutWDdBZrRw3/Gg=
+Received: from BY5PR13CA0019.namprd13.prod.outlook.com (2603:10b6:a03:180::32)
+ by DS0PR12MB6391.namprd12.prod.outlook.com (2603:10b6:8:cd::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.20; Thu, 21 Sep
- 2023 12:50:01 +0000
-Received: from DS1PEPF00017091.namprd03.prod.outlook.com
- (2603:10b6:5:1e0:cafe::24) by DM6PR08CA0054.outlook.office365.com
- (2603:10b6:5:1e0::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.30 via Frontend
- Transport; Thu, 21 Sep 2023 12:50:01 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.26; Thu, 21 Sep
+ 2023 14:13:18 +0000
+Received: from CO1PEPF000044F3.namprd05.prod.outlook.com
+ (2603:10b6:a03:180:cafe::39) by BY5PR13CA0019.outlook.office365.com
+ (2603:10b6:a03:180::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.11 via Frontend
+ Transport; Thu, 21 Sep 2023 14:13:17 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -46,47 +45,49 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF00017091.mail.protection.outlook.com (10.167.17.133) with Microsoft
+ CO1PEPF000044F3.mail.protection.outlook.com (10.167.241.73) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6792.19 via Frontend Transport; Thu, 21 Sep 2023 12:50:00 +0000
-Received: from sathish-X570-AORUS-ELITE.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27; Thu, 21 Sep 2023 07:49:57 -0500
-From: Sathishkumar S <sathishkumar.sundararaju@amd.com>
+ 15.20.6792.20 via Frontend Transport; Thu, 21 Sep 2023 14:13:17 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 21 Sep
+ 2023 09:13:12 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2] drm/amdgpu: fix ip count query for xcp partitions
-Date: Thu, 21 Sep 2023 18:19:29 +0530
-Message-ID: <20230921124929.1965750-1-sathishkumar.sundararaju@amd.com>
-X-Mailer: git-send-email 2.25.1
+Subject: [PATCH 2/3] drm/amdgpu/gmc: set a default disable value for AGP
+Date: Thu, 21 Sep 2023 10:12:59 -0400
+Message-ID: <20230921141300.415876-2-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230921141300.415876-1-alexander.deucher@amd.com>
+References: <20230921141300.415876-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017091:EE_|BL1PR12MB5045:EE_
-X-MS-Office365-Filtering-Correlation-Id: 18b7806a-58c9-4e3e-f09a-08dbbaa144c5
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F3:EE_|DS0PR12MB6391:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5974024a-9d29-4158-f2b5-08dbbaace6ff
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Mtu15teFBWv3M/4xEjXdsX/hzJoxsw0vxM1HP6ld90T/DmXXaiMNfUnkOeIRXTjsueyppcaBKsH/nh/QEtX9a95ZYbrlis/7BAf9U2+gg/JmC+YHI9CEJIBZLU5Owz2hOJDLf6YP1v+1U2NfFvINqDSrZg4gJ3OYXopD82UBJ664R2hLQ2D+m3s0RLej4nZVP83i0FOZs+1y4QYZLOghVv50GMonNIp8javk3fZCSnAybhmDUBUuq0s2jH8VIPZqEwaKkn4LEzXJZ6qWwmaZqngfq6gr7VlKRyg8PuY6LwcvaJ2ovfeRnNOHCDF5KoUz7LqKNcV50TMSumyZ+IaLpq+4JQSNL+xLe6uIUw2xPLAZcHfiyuEzSDJ3/1mJskQB5ssVby0T8WrJEdFVB9jQ2yG7zcQbBHxX4hKGvwk6+tzCooSF2lG9nDWCFzdbBQt7NBXibQfl8MQ/LXFr+p8PDrqCELqPoJJ2Qa/NIGgVe7jUoE30qn00k61a7O3ZHajYoXnj/UF1MBKUfqh7dyUveFWPZxyT9dS5bTHGfKeBIOUmDI8zuCJ45J5I1mkI+jcJ4g5kuH8Hl62jGC22UgoHVJZKtFsYbb66H5rfrQCbESaf9poMfqGaXKtffr7W0oLaZBHPDbSz/JN6KMWc0tisLUlDhVzXcuIoL6DEBJkn1x6v4ECcn3EZh2NB0eC8tNm3DMtQHIolWKIcm1Jzwbf/wNDs4B5k8yYvfK7DlUTh3cT729Loq1SzYE8wOlrKkdu5/0//8BtbqXoVBi6ZpA9PhQ==
+X-Microsoft-Antispam-Message-Info: +WjWURrEK+2z7o00lubFHkDqtTUwA/p980NDRMQh5inxb/viZPElUuXcCAOOi13XnWQ3PGaGp+MkGNI2w0FvOwBdv4l6bz400tkk/9Pa8+NTHZtQhrKVca3CEmbMfJG5HjViWSe+NjpIbM00EDuWR6tdhXszg/WK6dyXos9EXhaL0Z4maG7eeABMoHNW0yncGVmmCL6VACNDufH4w/vtpdge7+KaBg830IzELjFVAVpdpwhJQU4+PKAGOec1cniXPfLD4sORDow7CgIEV8QrWMf9TP10Na7mkOVnLomDN8VwzR/zZ+ToVu8Y4WCnVKAOjrz7DPlATkXUSSjpCpAkVD4rai9c2A8r6HkwyWcBHedznk7pffRXaHgr1gqRnR1Lrx+2niTI417vK7gkaaXkZr2P1gfTR89XSiNpUvIadQFKeiONEYNHOiLsdmnjaBwqwyzdbYZeSZDZEvmodE2N1V2WcvyknkHqtbzZa2/Tm8aYtyJ6XYeTC0eEo7gBo2leRNb5GmBjcOEI58+NMf/RJHf9e6/YhsGQORU+JAz7Ppza1obcqHXavKmXo0EPYelhN9y1fqDuTLnPt5jO2621YRKl8Mp9BavAWWM1ZY4brLCHdkBN3ftx50cgs/E+XnVSHr4wF5GgaNbBwxKROd444nj5NUemYgmynhfYx91GCHrWuE5zxamEFkXzUQDSnd0vDxNfaf3Rbfhov06joHJHnQODBnG/3t4J2pAiLK0qGJkUZqV1P2LcCqhsQbRf5GxXgMG1XWYwF4svJRe2sGVW5w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(136003)(39860400002)(376002)(346002)(1800799009)(451199024)(186009)(82310400011)(40470700004)(36840700001)(46966006)(7696005)(6666004)(16526019)(36756003)(356005)(40480700001)(82740400003)(81166007)(86362001)(36860700001)(2616005)(1076003)(426003)(2906002)(478600001)(26005)(83380400001)(47076005)(4326008)(5660300002)(41300700001)(336012)(40460700003)(316002)(6916009)(54906003)(70206006)(8676002)(8936002)(70586007)(36900700001);
+ SFS:(13230031)(4636009)(346002)(39860400002)(136003)(376002)(396003)(1800799009)(82310400011)(186009)(451199024)(46966006)(40470700004)(36840700001)(16526019)(356005)(81166007)(26005)(82740400003)(2616005)(8936002)(8676002)(4326008)(1076003)(40460700003)(83380400001)(36860700001)(2906002)(336012)(36756003)(426003)(47076005)(40480700001)(86362001)(7696005)(6666004)(5660300002)(6916009)(316002)(478600001)(70206006)(70586007)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2023 12:50:00.8599 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18b7806a-58c9-4e3e-f09a-08dbbaa144c5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2023 14:13:17.4325 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5974024a-9d29-4158-f2b5-08dbbaace6ff
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017091.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F3.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5045
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6391
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,118 +99,201 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sathishkumar S <sathishkumar.sundararaju@amd.com>,
- Kuehling Felix <Felix.Kuehling@amd.com>,
- Alexander Deucher <Alexander.Deucher@amd.com>, Zhu James <James.Zhu@amd.com>,
- Leo Liu <Leo.Liu@amd.com>, Koenig Christian <Christian.Koenig@amd.com>,
- Srinath Rao <Srinath.rao@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-fix wrong ip count INFO on spatial partitions. update the query
-to return the instance count corresponding to the partition id.
+To disable AGP, the start needs to be set to a higher
+value than the end.  Set a default disable value for
+the AGP aperture and allow the IP specific GMC code
+to enable it selectively be calling amdgpu_gmc_agp_location().
 
-v2:
- initialize variables only when required to be (Christian)
- move variable declarations to the beginning of function (Christian)
-
-Signed-off-by: Sathishkumar S <sathishkumar.sundararaju@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 44 ++++++++++++++++++++-----
- 1 file changed, 36 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       | 27 +++++++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h       |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |  3 +++
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |  3 ++-
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |  3 ++-
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         |  4 +--
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |  4 +--
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         |  4 +--
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         |  3 ++-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
+ 10 files changed, 37 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 081bd28e2443..d4ccbe7c78d6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -595,11 +595,16 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 	struct drm_amdgpu_info *info = data;
- 	struct amdgpu_mode_info *minfo = &adev->mode_info;
- 	void __user *out = (void __user *)(uintptr_t)info->return_pointer;
-+	struct amdgpu_fpriv *fpriv;
-+	struct amdgpu_ip_block *ip_block;
-+	enum amd_ip_block_type type;
-+	struct amdgpu_xcp *xcp;
-+	uint32_t count, inst_mask;
- 	uint32_t size = info->return_size;
- 	struct drm_crtc *crtc;
- 	uint32_t ui32 = 0;
- 	uint64_t ui64 = 0;
--	int i, found;
-+	int i, found, ret;
- 	int ui32_size = sizeof(ui32);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index c7793db6d098..d0653f5ba8a9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -315,14 +315,6 @@ void amdgpu_gmc_agp_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc)
+ 	const uint64_t sixteen_gb_mask = ~(sixteen_gb - 1);
+ 	u64 size_af, size_bf;
  
- 	if (!info->return_size || !info->return_pointer)
-@@ -627,7 +632,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		return copy_to_user(out, &ui32, min(size, 4u)) ? -EFAULT : 0;
- 	case AMDGPU_INFO_HW_IP_INFO: {
- 		struct drm_amdgpu_info_hw_ip ip = {};
--		int ret;
- 
- 		ret = amdgpu_hw_ip_info(adev, info, &ip);
- 		if (ret)
-@@ -637,15 +641,41 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		return ret ? -EFAULT : 0;
- 	}
- 	case AMDGPU_INFO_HW_IP_COUNT: {
--		enum amd_ip_block_type type;
--		struct amdgpu_ip_block *ip_block = NULL;
--		uint32_t count = 0;
+-	if (amdgpu_sriov_vf(adev)) {
+-		mc->agp_start = 0xffffffffffff;
+-		mc->agp_end = 0x0;
+-		mc->agp_size = 0;
 -
-+		fpriv = (struct amdgpu_fpriv *) filp->driver_priv;
- 		type = amdgpu_ip_get_block_type(adev, info->query_hw_ip.type);
- 		ip_block = amdgpu_device_ip_get_ip_block(adev, type);
+-		return;
+-	}
+-
+ 	if (mc->fb_start > mc->gart_start) {
+ 		size_bf = (mc->fb_start & sixteen_gb_mask) -
+ 			ALIGN(mc->gart_end + 1, sixteen_gb);
+@@ -346,6 +338,25 @@ void amdgpu_gmc_agp_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc)
+ 			mc->agp_size >> 20, mc->agp_start, mc->agp_end);
+ }
+ 
++/**
++ * amdgpu_gmc_set_agp_default - Set the default AGP aperture value.
++ * @adev: amdgpu device structure holding all necessary information
++ * @mc: memory controller structure holding memory information
++ *
++ * To disable the AGP aperture, you need to set the start to a larger
++ * value than the end.  This function sets the default value which
++ * can then be overridden using amdgpu_gmc_agp_location() if you want
++ * to enable the AGP aperture on a specific chip.
++ *
++ */
++void amdgpu_gmc_set_agp_default(struct amdgpu_device *adev,
++				struct amdgpu_gmc *mc)
++{
++	mc->agp_start = 0xffffffffffff;
++	mc->agp_end = 0;
++	mc->agp_size = 0;
++}
 +
- 		if (!ip_block || !ip_block->status.valid)
- 			return -EINVAL;
- 
-+		if (adev->xcp_mgr && adev->xcp_mgr->num_xcps > 0 &&
-+			fpriv->xcp_id >= 0 && fpriv->xcp_id < adev->xcp_mgr->num_xcps) {
-+			xcp = &adev->xcp_mgr->xcp[fpriv->xcp_id];
-+			switch (type) {
-+			case AMD_IP_BLOCK_TYPE_GFX:
-+				ret = amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_GFX, &inst_mask);
-+				count = hweight32(inst_mask);
-+				break;
-+			case AMD_IP_BLOCK_TYPE_SDMA:
-+				ret = amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_SDMA, &inst_mask);
-+				count = hweight32(inst_mask);
-+				break;
-+			case AMD_IP_BLOCK_TYPE_JPEG:
-+				ret = amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_VCN, &inst_mask);
-+				count = hweight32(inst_mask) * adev->jpeg.num_jpeg_rings;
-+				break;
-+			case AMD_IP_BLOCK_TYPE_VCN:
-+				ret = amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_VCN, &inst_mask);
-+				count = hweight32(inst_mask);
-+				break;
-+			default:
-+				return -EINVAL;
-+			}
-+			if (ret)
-+				return ret;
-+			return copy_to_user(out, &count, min(size, 4u)) ? -EFAULT : 0;
-+		}
+ /**
+  * amdgpu_gmc_fault_key - get hask key from vm fault address and pasid
+  *
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index fdc25cd559b6..49a28379fc79 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -392,6 +392,8 @@ void amdgpu_gmc_gart_location(struct amdgpu_device *adev,
+ 			      struct amdgpu_gmc *mc);
+ void amdgpu_gmc_agp_location(struct amdgpu_device *adev,
+ 			     struct amdgpu_gmc *mc);
++void amdgpu_gmc_set_agp_default(struct amdgpu_device *adev,
++				struct amdgpu_gmc *mc);
+ bool amdgpu_gmc_filter_faults(struct amdgpu_device *adev,
+ 			      struct amdgpu_ih_ring *ih, uint64_t addr,
+ 			      uint16_t pasid, uint64_t timestamp);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index cef920a93924..0dcb6c36b02c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1062,6 +1062,9 @@ static const char * const amdgpu_vram_names[] = {
+  */
+ int amdgpu_bo_init(struct amdgpu_device *adev)
+ {
++	/* set the default AGP aperture state */
++	amdgpu_gmc_set_agp_default(adev, &adev->gmc);
 +
- 		switch (type) {
- 		case AMD_IP_BLOCK_TYPE_GFX:
- 		case AMD_IP_BLOCK_TYPE_VCE:
-@@ -678,7 +708,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
- 	case AMDGPU_INFO_FW_VERSION: {
- 		struct drm_amdgpu_info_firmware fw_info;
--		int ret;
+ 	/* On A+A platform, VRAM can be mapped as WB */
+ 	if (!adev->gmc.xgmi.connected_to_cpu && !adev->gmc.is_app_apu) {
+ 		/* reserve PAT memory space to WC for VRAM */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index e582073b57c8..e6f76cd19c94 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -780,7 +780,8 @@ static void gmc_v10_0_vram_gtt_location(struct amdgpu_device *adev,
  
- 		/* We only support one instance of each IP block right now. */
- 		if (info->query_fw.ip_instance != 0)
-@@ -823,7 +852,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		struct drm_amdgpu_info_device *dev_info;
- 		uint64_t vm_size;
- 		uint32_t pcie_gen_mask;
--		int ret;
+ 	amdgpu_gmc_vram_location(adev, &adev->gmc, base);
+ 	amdgpu_gmc_gart_location(adev, mc);
+-	amdgpu_gmc_agp_location(adev, mc);
++	if (!amdgpu_sriov_vf(adev))
++		amdgpu_gmc_agp_location(adev, mc);
  
- 		dev_info = kzalloc(sizeof(*dev_info), GFP_KERNEL);
- 		if (!dev_info)
+ 	/* base offset of vram pages */
+ 	adev->vm_manager.vram_base_offset = adev->gfxhub.funcs->get_mc_fb_offset(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index 69f65e9c4f93..0bd7de1488f2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -689,7 +689,8 @@ static void gmc_v11_0_vram_gtt_location(struct amdgpu_device *adev,
+ 
+ 	amdgpu_gmc_vram_location(adev, &adev->gmc, base);
+ 	amdgpu_gmc_gart_location(adev, mc);
+-	amdgpu_gmc_agp_location(adev, mc);
++	if (!amdgpu_sriov_vf(adev))
++		amdgpu_gmc_agp_location(adev, mc);
+ 
+ 	/* base offset of vram pages */
+ 	if (amdgpu_sriov_vf(adev))
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+index 07579fa26fa3..3f31f268e0eb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+@@ -253,8 +253,8 @@ static void gmc_v6_0_mc_program(struct amdgpu_device *adev)
+ 	WREG32(mmMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR,
+ 	       adev->mem_scratch.gpu_addr >> 12);
+ 	WREG32(mmMC_VM_AGP_BASE, 0);
+-	WREG32(mmMC_VM_AGP_TOP, 0);
+-	WREG32(mmMC_VM_AGP_BOT, 0x0FFFFFFF);
++	WREG32(mmMC_VM_AGP_TOP, adev->gmc.agp_end >> 22);
++	WREG32(mmMC_VM_AGP_BOT, adev->gmc.agp_start >> 22);
+ 
+ 	if (gmc_v6_0_wait_for_idle((void *)adev))
+ 		dev_warn(adev->dev, "Wait for MC idle timedout !\n");
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+index e77e5593e1ab..e5e64366a814 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+@@ -288,8 +288,8 @@ static void gmc_v7_0_mc_program(struct amdgpu_device *adev)
+ 	WREG32(mmMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR,
+ 	       adev->mem_scratch.gpu_addr >> 12);
+ 	WREG32(mmMC_VM_AGP_BASE, 0);
+-	WREG32(mmMC_VM_AGP_TOP, 0);
+-	WREG32(mmMC_VM_AGP_BOT, 0x0FFFFFFF);
++	WREG32(mmMC_VM_AGP_TOP, adev->gmc.agp_end >> 22);
++	WREG32(mmMC_VM_AGP_BOT, adev->gmc.agp_start >> 22);
+ 	if (gmc_v7_0_wait_for_idle((void *)adev))
+ 		dev_warn(adev->dev, "Wait for MC idle timedout !\n");
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+index 6acf649469dd..4be407bbb7c3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+@@ -473,8 +473,8 @@ static void gmc_v8_0_mc_program(struct amdgpu_device *adev)
+ 	}
+ 
+ 	WREG32(mmMC_VM_AGP_BASE, 0);
+-	WREG32(mmMC_VM_AGP_TOP, 0);
+-	WREG32(mmMC_VM_AGP_BOT, 0x0FFFFFFF);
++	WREG32(mmMC_VM_AGP_TOP, adev->gmc.agp_end >> 22);
++	WREG32(mmMC_VM_AGP_BOT, adev->gmc.agp_start >> 22);
+ 	if (gmc_v8_0_wait_for_idle((void *)adev))
+ 		dev_warn(adev->dev, "Wait for MC idle timedout !\n");
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 2936a0fb7527..e5588408f4a5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1696,7 +1696,8 @@ static void gmc_v9_0_vram_gtt_location(struct amdgpu_device *adev,
+ 	} else {
+ 		amdgpu_gmc_vram_location(adev, mc, base);
+ 		amdgpu_gmc_gart_location(adev, mc);
+-		amdgpu_gmc_agp_location(adev, mc);
++		if (!amdgpu_sriov_vf(adev))
++			amdgpu_gmc_agp_location(adev, mc);
+ 	}
+ 	/* base offset of vram pages */
+ 	adev->vm_manager.vram_base_offset = adev->gfxhub.funcs->get_mc_fb_offset(adev);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 2e4a8bdbf50e..c2cb4b4cd2d7 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1255,7 +1255,7 @@ static void mmhub_read_system_context(struct amdgpu_device *adev, struct dc_phy_
+ 	agp_top = adev->gmc.agp_end >> 24;
+ 
+ 	/* AGP aperture is disabled */
+-	if (agp_bot == agp_top) {
++	if (agp_bot > agp_top) {
+ 		logical_addr_low = adev->gmc.fb_start >> 18;
+ 		if (adev->apu_flags & AMD_APU_IS_RAVEN2)
+ 			/*
 -- 
-2.25.1
+2.41.0
 
