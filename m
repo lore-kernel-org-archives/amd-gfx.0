@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFF4CE7107F
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 14:34:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCCDBE7107F
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 14:34:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CD1710E5D2;
-	Thu, 21 Sep 2023 14:34:45 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de
- [IPv6:2a0a:51c0:0:12e:550::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 041D610E5CC
+	by gabe.freedesktop.org (Postfix) with ESMTP id 120CB10E5E4;
+	Thu, 21 Sep 2023 14:34:50 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC50D10E5C6
  for <amd-gfx@lists.freedesktop.org>; Thu, 21 Sep 2023 14:25:10 +0000 (UTC)
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1695305725;
+ s=2020; t=1695305726;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=dQNP4qnayxb8k0G9c9g8gb+q5OeXVIV16Tw418a50N0=;
- b=R1e2ZUboVrm1yLGexIoE7faY8XdhJ19BfrSYjPAWiIRFQOLkWNxMcfW9XmVilqgg2FrFYb
- 1ZEhc4pSVXT24om0L5YH7l7/uLNWlDhr9Djae/phlQUQL/9SGKFzMeyLyMVc3M6TRbrokX
- WryG7D43QXGitxnMYbCOkYvJOqLc66mppzoTzubvW0q4Hr3FWOe9x7P4U4PL0nLASaiy2i
- XA9IAOHEEkGy1yrxp+7N7UqE5gH9MTnV2KVz6ARq1iqIkZszh0jqPH6CbjwOa9egPVhPOP
- JwZOZYr8PQ1O5oTk7I+lRjeopRQ8cqhkPJtK1uOXf39codTf2yYh9oDi8iMvWw==
+ bh=3QKfJEY1uLi87VIrjkLudvRExB2VG8jcVhhoK+qWqrU=;
+ b=zE/czbZ4vhjGgipLwIvYHBCSOwaXOsr2FHzPwUl12r9qkPAilJqqhw04tSHieJiqr+nrjB
+ HFV+3rx8nqby67Q8tVSb5ihXER9ip/f9Yn8kp4Pf0/l8r9CWmCESe9y0ebW3Gjwp9lVTNV
+ Zq7HP6jFjUvpfI+2bXsGtgFsBu+a3vi5G+LqoxybmlCAe58GPgb6FN2Rh/vhU/ToULLgRX
+ 9CSRWlAt8Gj4urqYo75pU0daqpFK5SbyFhXaPZQI7PURhYyZKZWBGDxCiPiKnnzUIMzTjj
+ HMrGBErt3D49XlwnZRM/Pl+/mnm9UPBT3CKvGCXMaEj5sz5MYBQFMvXkO55I6g==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1695305725;
+ s=2020e; t=1695305726;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=dQNP4qnayxb8k0G9c9g8gb+q5OeXVIV16Tw418a50N0=;
- b=ITLG7Vr8nA2Acv93CdsFEZspA29eBMF5N9dgjI2frMX6U341lbdKyZqjTl26y24Y8XcIyr
- PAOk7arYcvyD+2Cw==
+ bh=3QKfJEY1uLi87VIrjkLudvRExB2VG8jcVhhoK+qWqrU=;
+ b=DZ/H+yLvkKfU6D2WwvKVS0fxhhgMN7NtQ3+NP/OLmnyTklcdRT0JyqBbvhMrSqxDJY9QEV
+ 72CINHkotZEzKEAw==
 To: dri-devel@lists.freedesktop.org,
 	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/5] drm/amd/display: Add a warning if the FPU is used outside
- from task context.
-Date: Thu, 21 Sep 2023 16:15:14 +0200
-Message-Id: <20230921141516.520471-4-bigeasy@linutronix.de>
+Subject: [PATCH 5/5] drm/amd/display: Move the memory allocation out of
+ dcn20_validate_bandwidth_fp().
+Date: Thu, 21 Sep 2023 16:15:16 +0200
+Message-Id: <20230921141516.520471-6-bigeasy@linutronix.de>
 In-Reply-To: <20230921141516.520471-1-bigeasy@linutronix.de>
 References: <20230921141516.520471-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
@@ -67,29 +66,147 @@ Cc: Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a warning if the FPU is used from any context other than task
-context. This is only precaution since the code is not able to be used
-from softirq while the API allows it on x86 for instance.
+dcn20_validate_bandwidth_fp() is invoked while FPU access has been
+enabled. FPU access requires disabling preemption even on PREEMPT_RT.
+It is not possible to allocate memory with disabled preemption even with
+GFP_ATOMIC on PREEMPT_RT.
+
+Move the memory allocation before FPU access is enabled.
+To preserve previous "clean" state of "pipes" add a memset() before the
+second invocation of dcn20_validate_bandwidth_internal() where the
+variable is used.
 
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../drm/amd/display/dc/dcn20/dcn20_resource.c    | 10 +++++++++-
+ .../gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c | 16 +++++++---------
+ .../gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h |  5 ++---
+ 3 files changed, 18 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/d=
-rm/amd/display/amdgpu_dm/dc_fpu.c
-index 8bd5926b47e06..4ae4720535a56 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-@@ -84,6 +84,7 @@ void dc_fpu_begin(const char *function_name, const int li=
-ne)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/driver=
+s/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index d587f807dfd7c..5036a3e608324 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -2141,9 +2141,17 @@ bool dcn20_validate_bandwidth(struct dc *dc, struct =
+dc_state *context,
+ 		bool fast_validate)
  {
- 	int depth;
+ 	bool voltage_supported;
++	display_e2e_pipe_params_st *pipes;
++
++	pipes =3D kcalloc(dc->res_pool->pipe_count, sizeof(display_e2e_pipe_param=
+s_st), GFP_KERNEL);
++	if (!pipes)
++		return false;
++
+ 	DC_FP_START();
+-	voltage_supported =3D dcn20_validate_bandwidth_fp(dc, context, fast_valid=
+ate);
++	voltage_supported =3D dcn20_validate_bandwidth_fp(dc, context, fast_valid=
+ate, pipes);
+ 	DC_FP_END();
++
++	kfree(pipes);
+ 	return voltage_supported;
+ }
 =20
-+	WARN_ON_ONCE(!in_task());
- 	preempt_disable();
- 	depth =3D __this_cpu_inc_return(fpu_recursion_depth);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c b/drivers=
+/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+index 8b2038162a7e1..2ad92497b9bf2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+@@ -1923,7 +1923,7 @@ void dcn20_patch_bounding_box(struct dc *dc, struct _=
+vcs_dpi_soc_bounding_box_st
+ }
 =20
+ static bool dcn20_validate_bandwidth_internal(struct dc *dc, struct dc_sta=
+te *context,
+-		bool fast_validate)
++		bool fast_validate, display_e2e_pipe_params_st *pipes)
+ {
+ 	bool out =3D false;
+=20
+@@ -1932,7 +1932,6 @@ static bool dcn20_validate_bandwidth_internal(struct =
+dc *dc, struct dc_state *co
+ 	int vlevel =3D 0;
+ 	int pipe_split_from[MAX_PIPES];
+ 	int pipe_cnt =3D 0;
+-	display_e2e_pipe_params_st *pipes =3D kzalloc(dc->res_pool->pipe_count * =
+sizeof(display_e2e_pipe_params_st), GFP_ATOMIC);
+ 	DC_LOGGER_INIT(dc->ctx->logger);
+=20
+ 	BW_VAL_TRACE_COUNT();
+@@ -1967,16 +1966,14 @@ static bool dcn20_validate_bandwidth_internal(struc=
+t dc *dc, struct dc_state *co
+ 	out =3D false;
+=20
+ validate_out:
+-	kfree(pipes);
+=20
+ 	BW_VAL_TRACE_FINISH();
+=20
+ 	return out;
+ }
+=20
+-bool dcn20_validate_bandwidth_fp(struct dc *dc,
+-				 struct dc_state *context,
+-				 bool fast_validate)
++bool dcn20_validate_bandwidth_fp(struct dc *dc, struct dc_state *context,
++				 bool fast_validate, display_e2e_pipe_params_st *pipes)
+ {
+ 	bool voltage_supported =3D false;
+ 	bool full_pstate_supported =3D false;
+@@ -1995,11 +1992,11 @@ bool dcn20_validate_bandwidth_fp(struct dc *dc,
+ 	ASSERT(context !=3D dc->current_state);
+=20
+ 	if (fast_validate) {
+-		return dcn20_validate_bandwidth_internal(dc, context, true);
++		return dcn20_validate_bandwidth_internal(dc, context, true, pipes);
+ 	}
+=20
+ 	// Best case, we support full UCLK switch latency
+-	voltage_supported =3D dcn20_validate_bandwidth_internal(dc, context, fals=
+e);
++	voltage_supported =3D dcn20_validate_bandwidth_internal(dc, context, fals=
+e, pipes);
+ 	full_pstate_supported =3D context->bw_ctx.bw.dcn.clk.p_state_change_suppo=
+rt;
+=20
+ 	if (context->bw_ctx.dml.soc.dummy_pstate_latency_us =3D=3D 0 ||
+@@ -2011,7 +2008,8 @@ bool dcn20_validate_bandwidth_fp(struct dc *dc,
+ 	// Fallback: Try to only support G6 temperature read latency
+ 	context->bw_ctx.dml.soc.dram_clock_change_latency_us =3D context->bw_ctx.=
+dml.soc.dummy_pstate_latency_us;
+=20
+-	voltage_supported =3D dcn20_validate_bandwidth_internal(dc, context, fals=
+e);
++	memset(pipes, 0, dc->res_pool->pipe_count * sizeof(display_e2e_pipe_param=
+s_st));
++	voltage_supported =3D dcn20_validate_bandwidth_internal(dc, context, fals=
+e, pipes);
+ 	dummy_pstate_supported =3D context->bw_ctx.bw.dcn.clk.p_state_change_supp=
+ort;
+=20
+ 	if (voltage_supported && (dummy_pstate_supported || !(context->stream_cou=
+nt))) {
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h b/drivers=
+/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h
+index a81a0b9e68842..b6c34198ddc86 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h
+@@ -61,9 +61,8 @@ void dcn20_update_bounding_box(struct dc *dc,
+ 			       unsigned int num_states);
+ void dcn20_patch_bounding_box(struct dc *dc,
+ 			      struct _vcs_dpi_soc_bounding_box_st *bb);
+-bool dcn20_validate_bandwidth_fp(struct dc *dc,
+-				 struct dc_state *context,
+-				 bool fast_validate);
++bool dcn20_validate_bandwidth_fp(struct dc *dc, struct dc_state *context,
++				 bool fast_validate, display_e2e_pipe_params_st *pipes);
+ void dcn20_fpu_set_wm_ranges(int i,
+ 			     struct pp_smu_wm_range_sets *ranges,
+ 			     struct _vcs_dpi_soc_bounding_box_st *loaded_bb);
 --=20
 2.40.1
 
