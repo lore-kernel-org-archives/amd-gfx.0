@@ -4,47 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7AD5E7107E
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 14:35:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A90EE71083
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 14:47:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A31F10E5DC;
-	Thu, 21 Sep 2023 14:34:58 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E323E10E5CA
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Sep 2023 14:25:10 +0000 (UTC)
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1695305725;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=FOWN2bP3bL+i8WU1AdRgy2WvLGaYMKjJkqdur8ZMT5U=;
- b=zORUY5Xkv3wz1yjY4DDKkQzFNInGAaoCeKEqG8+SzR8M7zDT0N1ruCuMNVKDpM/fKlgh73
- fCJ9m049d4T1G6He4zIdup4YW9DyLZfJ3UttPGqrGWJ9oE7ZDP7ycRW5rcLKKikjQCRGET
- jCLgZa1VMJ7KQVKgCsAC3egfUFh3s+VfG4ZqUPCPd3sjB2aTLTTj+gpVxI0tR5NdXqVO5l
- 3bXUalpS8v/0gDxhZJLRMkBHXbg1kii1QG768G1dMAVf5JAGh1f0A/30F6o1mOJcITctew
- //OuRxjrxXhzO68wK9aob0OVtekkra0z7oi6HKnN5NN1ekbE6Ih5O43FeqhxxQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1695305725;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=FOWN2bP3bL+i8WU1AdRgy2WvLGaYMKjJkqdur8ZMT5U=;
- b=sHscKoKcbk8ILIhokgaU/401GuFMDm+ywMOvfMNuLAGr4ihRWdmUt0LzNlUx4RJMoS+GcD
- MZ3VQCQlC4Y4mODQ==
-To: dri-devel@lists.freedesktop.org,
-	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/5] drm/amd/display: Remove migrate_en/dis from
- dc_fpu_begin().
-Date: Thu, 21 Sep 2023 16:15:12 +0200
-Message-Id: <20230921141516.520471-2-bigeasy@linutronix.de>
-In-Reply-To: <20230921141516.520471-1-bigeasy@linutronix.de>
-References: <20230921141516.520471-1-bigeasy@linutronix.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B687310E0EF;
+	Thu, 21 Sep 2023 14:47:35 +0000 (UTC)
+Received: from mail-oo1-xc2b.google.com (mail-oo1-xc2b.google.com
+ [IPv6:2607:f8b0:4864:20::c2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3120010E0EF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Sep 2023 14:47:35 +0000 (UTC)
+Received: by mail-oo1-xc2b.google.com with SMTP id
+ 006d021491bc7-57129417cecso519353eaf.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Sep 2023 07:47:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1695307654; x=1695912454; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+KLQ/xnaI4+3RA1YXnTzrkfLYoA/KTVRE9AjZd5QSKM=;
+ b=ATiY3eOJxdBvbZoNds5JDxq5IIMGF9dTKbvyvz+A042XRzhTvyRnKguZF+SY55HMOV
+ UiUGaxk+hmGgwicWokay4nififAw6i5mtXsIq7TS5NQxqj6LSA2jo7qDvWfttZCmdXc0
+ gKOf8xdPP1kxbhTK4/PaVeA8pXORkzumRTC3wNcQ/vHybW7mVFs6JFlpIty9qepqhihr
+ 9ad8Bepwd8fKDwBZ4pMh3jbvFSsXEQuxNovluP4RJ7uHD5qiWBWaB7NTUc2yKC3CZ77f
+ 7bmfgFOa3iCknpdySR/sVxwFOfnw0jDrcq7azasdSXrX7mKB/8jyDBeFEKE5ZYZ+ygYi
+ 4vIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695307654; x=1695912454;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=+KLQ/xnaI4+3RA1YXnTzrkfLYoA/KTVRE9AjZd5QSKM=;
+ b=OwLLu4TduzfS2DnoxY+jUQjY16QWB2y45fGFPF1UHEA0CO6do5kdxA5ohDW0BzG1h2
+ rarnNkVuBb8IkeGc87QAk6BjOyx0mJHvWMgkO7/AkA8eZ79+kWgEeZF9xkaPcyNSahfT
+ ibinqf5WdkLp1RlbfWCv2moErLiSEfUIVa97tttv3+HofhtaoesuBv/OZmOqNBdkJ4/s
+ JSCyseYa+zCz2sONtiGPlstcFIlxKWbozZZo/ka+n7pGLVGMwfJfpXp3wsOeXfwwFA5b
+ OL7V4wGkOl+EOxgqKXmqL22gzNrbQJT9S5UWizmXCWnnzHcek7tUDtfiFvRR0RlVIkTP
+ Y9mA==
+X-Gm-Message-State: AOJu0YxKxfXaWNuskqsWU8PgRXYA+dTyif4Kq5FrkTbw1Qq3aXJr4QVi
+ noUdLtCRYxWdjExg7jiWM+z5rI5/jh/xweUTgO0=
+X-Google-Smtp-Source: AGHT+IHt44HVqhj9vYsZBzQpfHgmd4rzjFLvykMP0s5tH0vXIZ7rPWB5ZQRlXxg+gwQvGTMAVR0Ju/JLeS3heEfz8qg=
+X-Received: by 2002:a05:6871:890:b0:1d6:ce75:d472 with SMTP id
+ r16-20020a056871089000b001d6ce75d472mr5997487oaq.6.1695307654222; Thu, 21 Sep
+ 2023 07:47:34 -0700 (PDT)
 MIME-Version: 1.0
+References: <20230921124929.1965750-1-sathishkumar.sundararaju@amd.com>
+In-Reply-To: <20230921124929.1965750-1-sathishkumar.sundararaju@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 21 Sep 2023 10:47:22 -0400
+Message-ID: <CADnq5_NTHMU5OAb_Rw1iWyHB0ksgv8v7C2J7A9TnUdgRt-1_Yg@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: fix ip count query for xcp partitions
+To: Sathishkumar S <sathishkumar.sundararaju@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Thu, 21 Sep 2023 14:34:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,103 +67,141 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tianci Yin <tianci.yin@amd.com>, Leo Li <sunpeng.li@amd.com>,
- David Airlie <airlied@gmail.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Thomas Gleixner <tglx@linutronix.de>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Kuehling Felix <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alexander Deucher <Alexander.Deucher@amd.com>, Zhu James <James.Zhu@amd.com>,
+ Leo Liu <Leo.Liu@amd.com>, Koenig Christian <Christian.Koenig@amd.com>,
+ Srinath Rao <Srinath.rao@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a revert of the commit mentioned below while it is not wrong, as
-in the kernel will explode, having migrate_disable() here it is
-complete waste of resources.
+On Thu, Sep 21, 2023 at 9:07=E2=80=AFAM Sathishkumar S
+<sathishkumar.sundararaju@amd.com> wrote:
+>
+> fix wrong ip count INFO on spatial partitions. update the query
+> to return the instance count corresponding to the partition id.
+>
+> v2:
+>  initialize variables only when required to be (Christian)
+>  move variable declarations to the beginning of function (Christian)
+>
+> Signed-off-by: Sathishkumar S <sathishkumar.sundararaju@amd.com>
 
-Additionally commit message is plain wrong the review tag does not make
-it any better. The migrate_disable() interface has a fat comment
-describing it and it includes the word "undesired" in the headline which
-should tickle people to read it before using it.
-Initially I assumed it is worded too harsh but now I beg to differ.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-The reviewer of the original commit, even not understanding what
-migrate_disable() does should ask the following:
-
-- migrate_disable() is added only to the CONFIG_X86 block and it claims
-  to protect fpu_recursion_depth. Why are the other the architectures
-  excluded?
-
-- migrate_disable() is added after fpu_recursion_depth was modified.
-  Shouldn't it be added before the modification or referencing takes
-  place?
-
-Moving on.
-Disabling preemption DOES prevent CPU migration. A task, that can not be
-pushed away from the CPU by the scheduler (due to disabled preemption)
-can not be pushed or migrated to another CPU.
-
-Disabling migration DOES NOT ensure consistency of per-CPU variables. It
-only ensures that the task acts always on the same per-CPU variable. The
-task remains preemptible meaning multiple tasks can access the same
-per-CPU variable. This in turn leads to inconsistency for the statement
-
-                  *pcpu -=3D 1;
-
-with two tasks on one CPU and a preemption point during the RMW
-operation:
-
-     Task A                           Task B
-     read pcpu to reg  # 0
-     inc reg           # 0 -> 1
-                                      read pcpu to reg  # 0
-                                      inc reg           # 0 -> 1
-                                      write reg to pcpu # 1
-     write reg to pcpu # 1
-
-At the end pcpu reads 1 but should read 2 instead. Boom.
-
-get_cpu_ptr() already contains a preempt_disable() statement. That means
-that the per-CPU variable can only be referenced by a single task which
-is currently running. The only inconsistency that can occur if the
-variable is additionally accessed from an interrupt.
-
-Remove migrate_disable/enable() from dc_fpu_begin/end().
-
-Cc: Tianci Yin <tianci.yin@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Fixes: 0c316556d1249 ("drm/amd/display: Disable migration to ensure consist=
-ency of per-CPU variable")
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/d=
-rm/amd/display/amdgpu_dm/dc_fpu.c
-index 172aa10a8800f..86f4c0e046548 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-@@ -91,7 +91,6 @@ void dc_fpu_begin(const char *function_name, const int li=
-ne)
-=20
- 	if (*pcpu =3D=3D 1) {
- #if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
--		migrate_disable();
- 		kernel_fpu_begin();
- #elif defined(CONFIG_PPC64)
- 		if (cpu_has_feature(CPU_FTR_VSX_COMP)) {
-@@ -132,7 +131,6 @@ void dc_fpu_end(const char *function_name, const int li=
-ne)
- 	if (*pcpu <=3D 0) {
- #if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
- 		kernel_fpu_end();
--		migrate_enable();
- #elif defined(CONFIG_PPC64)
- 		if (cpu_has_feature(CPU_FTR_VSX_COMP)) {
- 			disable_kernel_vsx();
---=20
-2.40.1
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 44 ++++++++++++++++++++-----
+>  1 file changed, 36 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_kms.c
+> index 081bd28e2443..d4ccbe7c78d6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -595,11 +595,16 @@ int amdgpu_info_ioctl(struct drm_device *dev, void =
+*data, struct drm_file *filp)
+>         struct drm_amdgpu_info *info =3D data;
+>         struct amdgpu_mode_info *minfo =3D &adev->mode_info;
+>         void __user *out =3D (void __user *)(uintptr_t)info->return_point=
+er;
+> +       struct amdgpu_fpriv *fpriv;
+> +       struct amdgpu_ip_block *ip_block;
+> +       enum amd_ip_block_type type;
+> +       struct amdgpu_xcp *xcp;
+> +       uint32_t count, inst_mask;
+>         uint32_t size =3D info->return_size;
+>         struct drm_crtc *crtc;
+>         uint32_t ui32 =3D 0;
+>         uint64_t ui64 =3D 0;
+> -       int i, found;
+> +       int i, found, ret;
+>         int ui32_size =3D sizeof(ui32);
+>
+>         if (!info->return_size || !info->return_pointer)
+> @@ -627,7 +632,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *d=
+ata, struct drm_file *filp)
+>                 return copy_to_user(out, &ui32, min(size, 4u)) ? -EFAULT =
+: 0;
+>         case AMDGPU_INFO_HW_IP_INFO: {
+>                 struct drm_amdgpu_info_hw_ip ip =3D {};
+> -               int ret;
+>
+>                 ret =3D amdgpu_hw_ip_info(adev, info, &ip);
+>                 if (ret)
+> @@ -637,15 +641,41 @@ int amdgpu_info_ioctl(struct drm_device *dev, void =
+*data, struct drm_file *filp)
+>                 return ret ? -EFAULT : 0;
+>         }
+>         case AMDGPU_INFO_HW_IP_COUNT: {
+> -               enum amd_ip_block_type type;
+> -               struct amdgpu_ip_block *ip_block =3D NULL;
+> -               uint32_t count =3D 0;
+> -
+> +               fpriv =3D (struct amdgpu_fpriv *) filp->driver_priv;
+>                 type =3D amdgpu_ip_get_block_type(adev, info->query_hw_ip=
+.type);
+>                 ip_block =3D amdgpu_device_ip_get_ip_block(adev, type);
+> +
+>                 if (!ip_block || !ip_block->status.valid)
+>                         return -EINVAL;
+>
+> +               if (adev->xcp_mgr && adev->xcp_mgr->num_xcps > 0 &&
+> +                       fpriv->xcp_id >=3D 0 && fpriv->xcp_id < adev->xcp=
+_mgr->num_xcps) {
+> +                       xcp =3D &adev->xcp_mgr->xcp[fpriv->xcp_id];
+> +                       switch (type) {
+> +                       case AMD_IP_BLOCK_TYPE_GFX:
+> +                               ret =3D amdgpu_xcp_get_inst_details(xcp, =
+AMDGPU_XCP_GFX, &inst_mask);
+> +                               count =3D hweight32(inst_mask);
+> +                               break;
+> +                       case AMD_IP_BLOCK_TYPE_SDMA:
+> +                               ret =3D amdgpu_xcp_get_inst_details(xcp, =
+AMDGPU_XCP_SDMA, &inst_mask);
+> +                               count =3D hweight32(inst_mask);
+> +                               break;
+> +                       case AMD_IP_BLOCK_TYPE_JPEG:
+> +                               ret =3D amdgpu_xcp_get_inst_details(xcp, =
+AMDGPU_XCP_VCN, &inst_mask);
+> +                               count =3D hweight32(inst_mask) * adev->jp=
+eg.num_jpeg_rings;
+> +                               break;
+> +                       case AMD_IP_BLOCK_TYPE_VCN:
+> +                               ret =3D amdgpu_xcp_get_inst_details(xcp, =
+AMDGPU_XCP_VCN, &inst_mask);
+> +                               count =3D hweight32(inst_mask);
+> +                               break;
+> +                       default:
+> +                               return -EINVAL;
+> +                       }
+> +                       if (ret)
+> +                               return ret;
+> +                       return copy_to_user(out, &count, min(size, 4u)) ?=
+ -EFAULT : 0;
+> +               }
+> +
+>                 switch (type) {
+>                 case AMD_IP_BLOCK_TYPE_GFX:
+>                 case AMD_IP_BLOCK_TYPE_VCE:
+> @@ -678,7 +708,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *d=
+ata, struct drm_file *filp)
+>                 return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT =
+: 0;
+>         case AMDGPU_INFO_FW_VERSION: {
+>                 struct drm_amdgpu_info_firmware fw_info;
+> -               int ret;
+>
+>                 /* We only support one instance of each IP block right no=
+w. */
+>                 if (info->query_fw.ip_instance !=3D 0)
+> @@ -823,7 +852,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *d=
+ata, struct drm_file *filp)
+>                 struct drm_amdgpu_info_device *dev_info;
+>                 uint64_t vm_size;
+>                 uint32_t pcie_gen_mask;
+> -               int ret;
+>
+>                 dev_info =3D kzalloc(sizeof(*dev_info), GFP_KERNEL);
+>                 if (!dev_info)
+> --
+> 2.25.1
+>
