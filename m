@@ -4,67 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49ABFCD5BD5
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 07:53:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 659D4E706F8
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 09:14:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C287410E576;
-	Thu, 21 Sep 2023 07:53:44 +0000 (UTC)
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [IPv6:2a00:1450:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFB4510E576
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Sep 2023 07:53:42 +0000 (UTC)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-401187f8071so3539045e9.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Sep 2023 00:53:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1695282821; x=1695887621; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=2F+TKc3lBL9Y2etFcUFLlo/t60iTFhXynhS8m7tZLt8=;
- b=KvlPs9kR/PAgVgxNqJXtXlN05COLG0tRtFJOwMaAJe3W49txOwIYG0+nsNqRu4+h32
- bOK0QysuVpPNIKdcj/2MTzzkpPvqXgKinFDxvFwBjLH3BcT75GJKpOpNxI0v9KnaWi5w
- /y2yzEBWTKpwEg8kIvRnU9OCG4MDlf9G9Fh+PVbnIZFR35s5iOPssaZiF6t5ETqD0la2
- /oKj9O8oIA6DLEGtdpIlFQGcf4OXYE+bGpSFzH2zlFdZ7zQE1etjUfmEQPTQPVRurgCE
- zWHZQCTmVwDzBUs43eT7nq/gtNcsHiYQ3bPHSdESRQ0f7htKfb7YKkCDO9CeCfQglWmx
- eVcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695282821; x=1695887621;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=2F+TKc3lBL9Y2etFcUFLlo/t60iTFhXynhS8m7tZLt8=;
- b=B39R1gAlya2QjU94Xqb7RW0FLw9Q4O+pwaQKVL22U7IDYXh944PSROui62Pq3e24ol
- CEmpT1EZCIejQyaVJ8I4duzlxFv4eMobe0qdIw/AdT72HQxn3zaW/WpSmnBc8itOz6B9
- aUIVrBnJu/w209DQ2SvPWUVWfq5vPNxRMseIViMYA+noctXkn6uT1NUXu4s74i6OvV/p
- ThfeKAffxBHRdcUy0/Q6pRnAxHhhC/R9B9wLuF1bHxp+JoCiMsBzSa4Jme6aVq32jQ8p
- zN2Am6wvpCDgSv1pVGBTycnI0VecoiOn7jz+Ibm9bAbH+eIiYU86Xw9vpWgOncA5Mjt7
- 9/uQ==
-X-Gm-Message-State: AOJu0YymQgGm3G+vvIrPwO7NzbGi/kEo0vDRql+nzWRWOyrQhBoEgfYW
- qM/lFhMq88J9PV72B/FLugg=
-X-Google-Smtp-Source: AGHT+IHfvKNXS0EjZGiHH54hjDWL6O5pk1HiGoSYNyoEM9OcIKHcrT7Y4wOAROOF0ISmJ/pa6T4ohg==
-X-Received: by 2002:a05:600c:b89:b0:401:c7ec:b930 with SMTP id
- fl9-20020a05600c0b8900b00401c7ecb930mr6012377wmb.10.1695282820926; 
- Thu, 21 Sep 2023 00:53:40 -0700 (PDT)
-Received: from [10.254.108.106] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- t1-20020a1c7701000000b003fe23b10fdfsm4039914wmi.36.2023.09.21.00.53.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Sep 2023 00:53:39 -0700 (PDT)
-Message-ID: <cd1ab757-f406-c2df-e602-bd1e6e9b459e@gmail.com>
-Date: Thu, 21 Sep 2023 09:53:37 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH 2/3] drm/amdgpu/gmc: add a flag to disable AGP
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00D7E10E597;
+	Thu, 21 Sep 2023 09:14:36 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20600.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eae::600])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46D8410E597
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Sep 2023 09:14:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kKo4BE9iP4aMOiBZZWxhDzMh3uWbB+5fdEBPccwZSXlcTbLo9dDYzd/YMc/yxm4E33zy2Qm+TAtaVcstF53odKbZW5b6/WMG0K8Zoyx1pvwM+20zo1a/xdypyBkr4+Yew2DN2U8ZG/69zEqySCAoESCzO4TytbILIIsRFkaUSZDihfoCDi0M+UTxPq7LQYTaFo7aIKDYCHCc1rUjzI/4ijLawxUe0FCogHntEQEHwV7reEM6IwrbzAlOXvZiwNqFHUCvvjxCBRiCTmlzUf8aUmy4bqgNKBGs+qWrC8kN/xzilCBzeiJKChUhwseD0ida4HniKqnqCFsfPC1/c2e7Jw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xLUsQRo/Q7A5CpzxeGWWqBrajkkaOorXt+yKmcj4c9o=;
+ b=YEenYr3p/hPmpwM1u+mEE2sgTTw3PPa0GNpOhfYFmodHKWy2PfxPir3TXvOZyD90ZvXGYhBZG4A+gmEE+ZVurOEnr+yrM1s1BSM0pUER3DKNzVsGhblDReUccu5MvTEjvw5DHmyoOv0zfNpiigNfaOJEXWV9NADdlVXaOqeT11xrAD3GX+uD/aThs+HS+06nWY7Are/EnAkv9AvBFXWMQCj6xb/6F5hmzUszBGp0k0JqyK7duPQWZLwxWQZsGVAhuIyqF0DKFxxQFBaCkWSuMzb3V8ITJHNIOwRjUasW8NE/1UjxYPqSPtIGS9N9fJpIY2oSjm+Vns2FFgMqGx82+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xLUsQRo/Q7A5CpzxeGWWqBrajkkaOorXt+yKmcj4c9o=;
+ b=rWb2DP4nzcb4+8lkLNkSUq9YXoEOIeklim1inlBUzWTUc81Nm6cjX1q7+IU9UJ2LQpOKCpxxXaKz0gOgZGTkVFmQ+IcbbX/N5dx6hcQVDRsmndDbmskc2ep+FrojK+9RbllvM4pq+Xr4usDUcKu9nWvEc0bWKV/CEJqCrmCw0mw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by PH0PR12MB8030.namprd12.prod.outlook.com (2603:10b6:510:28d::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.20; Thu, 21 Sep
+ 2023 09:14:29 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::d8f7:4906:d21e:f0ab]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::d8f7:4906:d21e:f0ab%7]) with mapi id 15.20.6813.017; Thu, 21 Sep 2023
+ 09:14:29 +0000
+Message-ID: <0a924f0b-1892-c8b0-6985-7bc259c65c0e@amd.com>
+Date: Thu, 21 Sep 2023 14:44:16 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.1
+Subject: Re: [PATCH] drm/amdgpu:Expose physical id of device in XGMI hive
 Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230920175823.3099627-1-alexander.deucher@amd.com>
- <20230920175823.3099627-2-alexander.deucher@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230920175823.3099627-2-alexander.deucher@amd.com>
+To: "Kamal, Asad" <Asad.Kamal@amd.com>, "Gadre, Mangesh"
+ <Mangesh.Gadre@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Ma, Le" <Le.Ma@amd.com>,
+ "Zhang, Morris" <Shiwu.Zhang@amd.com>
+References: <20230921043551.3903891-1-Mangesh.Gadre@amd.com>
+ <CY5PR12MB60813F7A23726EE11AA88DFD8EF8A@CY5PR12MB6081.namprd12.prod.outlook.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <CY5PR12MB60813F7A23726EE11AA88DFD8EF8A@CY5PR12MB6081.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2PR01CA0189.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:e8::10) To BYAPR12MB4614.namprd12.prod.outlook.com
+ (2603:10b6:a03:a6::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BYAPR12MB4614:EE_|PH0PR12MB8030:EE_
+X-MS-Office365-Filtering-Correlation-Id: 084cc316-abdd-4fad-3c1c-08dbba832890
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: KLXH/ZzGtei8k44pRLyjfBAFOsrdTiXsWVA7xmmNQD1mP3aYhLJ96nJqyF4QJ1JSMEnVup0Lo0v1tZHHayXXZf9S27Bua7rhzFXnAcxYupSIaNIfTAEVo+S7NqGU/6UGdReUEihboZ6yNFZRfvZN0UhF5bmf5UdYWKZPrJR7yMzmgxV6bKwR9pBi0sRlE4u24nzPozCULGibcAeKYA4obhsxEi2SjChAl6t3tJ2nCAJcPYL+0k/yi6ecUcbM2COGPWpRPSBZrfmULIjIVSKTcV3ZW4D0OB6Ot9dkyj+hQfkycA9V6LmsXdQ6kGRg694euF38MEixWo5z2EGCsH5Lv9G79YW93GojWo/H4bFWXjUyugsxhDdSnzJvmSO7TefeJrU00dI+BjqriKWohSYv3cFB3OWSnFx2+E3k0LkMNiPZXiWsHU0SkaaR/YBDV0jp+rCLPNn0LYL4gVWRlrnwCDcy7PFTgL/5+MMoQ/+yqgg7L1UBDf7yVfCY+oU+UlwO217KUm31T2tc+NjUkA92r3VFQ/7bogvkfk1YX2/zTIXfyKAavip+D6FazPG8ePn36TihqNIbJnh0btKg+uran2DGeea/lRLXZOiCBLrlMJb1yhQbLd3n8yssULbVYwGcXsjqYvph5Lb4csrM1aVcnxcnjk/rAfVbpKQRUS5UuOM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(366004)(346002)(396003)(376002)(136003)(1800799009)(186009)(451199024)(6512007)(53546011)(6486002)(6506007)(6666004)(83380400001)(38100700002)(921005)(31696002)(86362001)(36756003)(2616005)(26005)(110136005)(316002)(6636002)(66556008)(66476007)(41300700001)(66946007)(2906002)(5660300002)(8936002)(8676002)(31686004)(478600001)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ak90V01QTXNoNkhPZVRKTFgxQ3Fxa1l0VkNNUU1SeFpLUXJNeURsVEVBVXU0?=
+ =?utf-8?B?bXhXQk1sTWZDNWdFMkV1VUwzbERBZE5mR3lid3l4Z2VZTHYvYzBmcGJnZlFz?=
+ =?utf-8?B?TnpBRTNXY29xeWhMZTBsOTNEK3dXT3BNMUp1NkZsZm1FOVlURTJFVk85UW9o?=
+ =?utf-8?B?Yi83UjlSZUYxM0ZYdTMwbEJaRXkrWHhEOG1sVXV0ZE1URjJYMmJ1NHdxQXE1?=
+ =?utf-8?B?eDhQcWo2dGZnWTNxdnhVMGJQU1NZWXF2VmNWQ2NlYjVaQTRHOU1LRUtueGxM?=
+ =?utf-8?B?TTlVNVFjNThsZGRrWW9JcTdqMm9oUXVkWWtIMlRkODAybnhJajljZ3ZQRjVO?=
+ =?utf-8?B?Nm5pVUQzdVJZTk56U2FBYkE4VXVpMWE2Ty9FWVhhMDhodjZoTUJEOHN0Q2Iz?=
+ =?utf-8?B?Tnd0elJkUUNIMzBZMHRCdUtiTkRRUTRWSFdCWGlnRnVWUkpGVlpialI5dkZq?=
+ =?utf-8?B?SDJTK2tuNTMycmdBdXY0YTVpSVpWVGpXazBzSzZ0cmY4N0VOQjQyR2RsaE1a?=
+ =?utf-8?B?cWVYMHRPMHBSMzJwNGxpMUtrNXZ1Ny9kTnduc1lnZGN3OC9qeFFIZkUrSHBZ?=
+ =?utf-8?B?NDYyczExL3FTSE9ZS0NDaE13YWRUdFFEWFVzUGtsMnlmOVdFcEJvMXhaNHlm?=
+ =?utf-8?B?M2UrVmhnQlpGMzRJZjNlM3B1K2w0ZjhHREU2bHNQaTVTV2hTb2k4bkd4L1k3?=
+ =?utf-8?B?Y0RMbHJ6eEZ4ZGJGeUt3Z3grdW5DWUdocVJ2Z0RRcHNuYnVTWlRRRHovSzRG?=
+ =?utf-8?B?ZU1OUzI5d0MvZjhaZWpySWwzTVpVQU00RmV0TDVvaDR2SG91K1pkK2JFYVhI?=
+ =?utf-8?B?RENkbitrMGw2TEpxbVkvQnZXeXdNRU8wN3VnUml6bkZBZ09pYy9IL3k5RVc4?=
+ =?utf-8?B?OElVdnplaVlmSHhBeHU5R3FBKzl0L1QzRzdEZUpIckZiVThEQ1A1TUl3ZzN6?=
+ =?utf-8?B?eDRXbENKeVc3dkcwUTdZeUpzMUtVak1JNkJMUVZoQnBSQmoxNWZ3dU9vbzQw?=
+ =?utf-8?B?NlpFUCtYUEUzN1VmQmdnYzhNY0hJc2kxVVd0WnhIQTJTZ20wQTBhMkZOb0hm?=
+ =?utf-8?B?ZkxYTXVJU0NyY3FQOVl6ZmhoUXRqN1ZTbnBwSlgzc0doakZHZFkvcXRZdUZq?=
+ =?utf-8?B?U0I5VWEzNmk3V3ozWnlIb2NQaG5UemI2RUtLUTB1NlFrcDNkSDlqZi9FRnRx?=
+ =?utf-8?B?VGFVSDdwakNRbzRIRy9idTN1UDY4VnNMSTJjZWtzdlFBZDlOTlZtaDhPbC92?=
+ =?utf-8?B?THBNRGk2RVpsR2NFd3BwbjdvZFFya0lFVWxIZU1oMTJXUG5RRjhFYkpwV2Yy?=
+ =?utf-8?B?RUoxQWt2UWxwSVBtam9PRFFOSGh6dnBOcGxhYTVpaVZEYzVkajZiTk1CK2ZZ?=
+ =?utf-8?B?ejBiSGFjVUlBWWtWcjF2b1BqOFF1Y1Z5Q041ZjJWTHhIVW1mUmN1L3hOUUxR?=
+ =?utf-8?B?bm5ya1dkZzFaSGhhdW5rejg1Tkxhb2YxMy9nNkVMdlFZV1gwUjc1QnFxZGtk?=
+ =?utf-8?B?elA5TG5obXN2bVkvVVd2QkxnYUk1Y1pBSEhxbFJVN09MQ2ZiNmtNRXo2SWhZ?=
+ =?utf-8?B?RFd6VkNiekhha1Jmc2lLcFNIcXVaT3MwclNLOEplNEJzQXVuYmJRUGdsUFF0?=
+ =?utf-8?B?RjA4Q0VsMG9zVWthdjJiTFIxc0k3YnY3dFdPcHdSaG5mTUJvUWpxSGhHSUZu?=
+ =?utf-8?B?eVZGMzJpMk8xb2g2ODhxTUJlUk5ZVDVQeGJEbEZIaTA2dVJPUE1JbnRDVnJE?=
+ =?utf-8?B?UkVjTzNCcTBRdS9YUXRiaCtMRXpyajhESXNHdWtEUjBMekpFQWRtRmp2ZHdL?=
+ =?utf-8?B?b0N5MG9iYkNpNUNnLzdzN3RUSkJjbU94NFc4dWRZK0hGYzRTVFE0VVc1YkNB?=
+ =?utf-8?B?cFFYWEloVThMUjNESjNucE9zUXpwOG9COUxhNTdMOXIzdW9LdFp5MlVDTG02?=
+ =?utf-8?B?V0F1SlR4U1JCMHpuY0VaYTJETmordHRJTktEekkvcGRNVzRzZjhlOS90eXV3?=
+ =?utf-8?B?Q2syMGtxU2RRanZxVkp1VmlTbWEwVTJQbFQvM01aR3poQnQ4SDF5NG1DTzZ2?=
+ =?utf-8?B?SU0xV2VqTjRzbHlYQXdMVG8wa3ZKbk1Qd1Jqa29KS3NzUnAvbEhZZ3lzNVdQ?=
+ =?utf-8?Q?uiIJKwvfdWeefN3A4D6PI3LtO?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 084cc316-abdd-4fad-3c1c-08dbba832890
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2023 09:14:29.2036 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5+Pm4Nr9pjKPorwHEOj7zPR7vtyBmXg6iR9lrtXawX2mERZLoTJ2owFhWqPbNiJV
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8030
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,209 +132,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 20.09.23 um 19:58 schrieb Alex Deucher:
-> Allows the driver to disable the AGP aperture when
-> it's not needed.  Program AGP explictly for all asics,
-> but set the flag to align with previous behavior.  No
-> functional change.
->
-> v2: rework patch
-> v3: fix broken rebase
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+
+
+On 9/21/2023 12:34 PM, Kamal, Asad wrote:
+> [AMD Official Use Only - General]
+> 
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Mangesh Gadre
+> Sent: Thursday, September 21, 2023 10:06 AM
+> To: amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Ma, Le <Le.Ma@amd.com>; Zhang, Morris <Shiwu.Zhang@amd.com>
+> Cc: Gadre, Mangesh <Mangesh.Gadre@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>
+> Subject: [PATCH] drm/amdgpu:Expose physical id of device in XGMI hive
+> 
+> This identifies the physical ordering of devices in the hive
+> 
+> Signed-off-by: Mangesh Gadre <Mangesh.Gadre@amd.com>
+> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c           | 2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h           | 2 ++
->   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c            | 2 ++
->   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c            | 2 ++
->   drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c             | 6 ++++--
->   drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c             | 6 ++++--
->   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c             | 6 ++++--
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c             | 3 ++-
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
->   9 files changed, 22 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> index c7793db6d098..fc1a585d05bf 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -315,7 +315,7 @@ void amdgpu_gmc_agp_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc)
->   	const uint64_t sixteen_gb_mask = ~(sixteen_gb - 1);
->   	u64 size_af, size_bf;
->   
-> -	if (amdgpu_sriov_vf(adev)) {
-> +	if (mc->disable_agp) {
->   		mc->agp_start = 0xffffffffffff;
->   		mc->agp_end = 0x0;
->   		mc->agp_size = 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> index fdc25cd559b6..d3b014b84fa9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> @@ -333,6 +333,8 @@ struct amdgpu_gmc {
->   	u64 MC_VM_MX_L1_TLB_CNTL;
->   
->   	u64 noretry_flags;
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 20 ++++++++++++++++++++
+>   1 file changed, 20 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> index 061534e845a7..4cf38164d72c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> @@ -325,6 +325,17 @@ static ssize_t amdgpu_xgmi_show_device_id(struct device *dev,
+> 
+>   }
+> 
+> +static ssize_t amdgpu_xgmi_show_physical_id(struct device *dev,
+> +                                    struct device_attribute *attr,
+> +                                    char *buf)
+> +{
+> +       struct drm_device *ddev = dev_get_drvdata(dev);
+> +       struct amdgpu_device *adev = drm_to_adev(ddev);
 > +
-> +	bool disable_agp;
+> +       return sysfs_emit(buf, "%llu\n", adev->gmc.xgmi.physical_node_id);
+> +
+> +}
+> +
+>   static ssize_t amdgpu_xgmi_show_num_hops(struct device *dev,
+>                                          struct device_attribute *attr,
+>                                          char *buf)
+> @@ -390,6 +401,7 @@ static ssize_t amdgpu_xgmi_show_error(struct device *dev,
+> 
+> 
+>   static DEVICE_ATTR(xgmi_device_id, S_IRUGO, amdgpu_xgmi_show_device_id, NULL);
+> +static DEVICE_ATTR(xgmi_physical_id, 0444,
+> +amdgpu_xgmi_show_physical_id, NULL);
+> [Kamal, Asad]  Can we use S_IRUGO in place of hard code value 0444?
+> 
+This is the recommended way by checkpatch. S_IR* will result in 
+"Symbolic permissions are not preferred. Consider using octal permissions"
 
-I would still rather have adev->gmc.agp_start and adev->gmc.agp_end and 
-initialized to valid default values and then never call 
-amdgpu_gmc_agp_location().
+Thanks,
+Lijo
 
-This here basically just tells the function to not do anything, so we 
-could rather not call it in the first place.
-
-Regards,
-Christian.
-
->   };
->   
->   #define amdgpu_gmc_flush_gpu_tlb(adev, vmid, vmhub, type) ((adev)->gmc.gmc_funcs->flush_gpu_tlb((adev), (vmid), (vmhub), (type)))
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> index e582073b57c8..2923007847bf 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> @@ -842,6 +842,8 @@ static int gmc_v10_0_mc_init(struct amdgpu_device *adev)
->   		adev->gmc.gart_size = (u64)amdgpu_gart_size << 20;
->   	}
->   
-> +	if (amdgpu_sriov_vf(adev))
-> +		adev->gmc.disable_agp = true;
->   	gmc_v10_0_vram_gtt_location(adev, &adev->gmc);
->   
->   	return 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> index 69f65e9c4f93..28dc08fe542b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> @@ -741,6 +741,8 @@ static int gmc_v11_0_mc_init(struct amdgpu_device *adev)
->   	else
->   		adev->gmc.gart_size = (u64)amdgpu_gart_size << 20;
->   
-> +	if (amdgpu_sriov_vf(adev))
-> +		adev->gmc.disable_agp = true;
->   	gmc_v11_0_vram_gtt_location(adev, &adev->gmc);
->   
->   	return 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> index 07579fa26fa3..a65118926ed7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> @@ -213,6 +213,7 @@ static void gmc_v6_0_vram_gtt_location(struct amdgpu_device *adev,
->   
->   	amdgpu_gmc_vram_location(adev, mc, base);
->   	amdgpu_gmc_gart_location(adev, mc);
-> +	amdgpu_gmc_agp_location(adev, mc);
->   }
->   
->   static void gmc_v6_0_mc_program(struct amdgpu_device *adev)
-> @@ -253,8 +254,8 @@ static void gmc_v6_0_mc_program(struct amdgpu_device *adev)
->   	WREG32(mmMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR,
->   	       adev->mem_scratch.gpu_addr >> 12);
->   	WREG32(mmMC_VM_AGP_BASE, 0);
-> -	WREG32(mmMC_VM_AGP_TOP, 0);
-> -	WREG32(mmMC_VM_AGP_BOT, 0x0FFFFFFF);
-> +	WREG32(mmMC_VM_AGP_TOP, adev->gmc.agp_end >> 22);
-> +	WREG32(mmMC_VM_AGP_BOT, adev->gmc.agp_start >> 22);
->   
->   	if (gmc_v6_0_wait_for_idle((void *)adev))
->   		dev_warn(adev->dev, "Wait for MC idle timedout !\n");
-> @@ -339,6 +340,7 @@ static int gmc_v6_0_mc_init(struct amdgpu_device *adev)
->   	}
->   
->   	adev->gmc.gart_size += adev->pm.smu_prv_buffer_size;
-> +	adev->gmc.disable_agp = true;
->   	gmc_v6_0_vram_gtt_location(adev, &adev->gmc);
->   
->   	return 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> index e77e5593e1ab..680c7bc58c85 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> @@ -241,6 +241,7 @@ static void gmc_v7_0_vram_gtt_location(struct amdgpu_device *adev,
->   
->   	amdgpu_gmc_vram_location(adev, mc, base);
->   	amdgpu_gmc_gart_location(adev, mc);
-> +	amdgpu_gmc_agp_location(adev, mc);
->   }
->   
->   /**
-> @@ -288,8 +289,8 @@ static void gmc_v7_0_mc_program(struct amdgpu_device *adev)
->   	WREG32(mmMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR,
->   	       adev->mem_scratch.gpu_addr >> 12);
->   	WREG32(mmMC_VM_AGP_BASE, 0);
-> -	WREG32(mmMC_VM_AGP_TOP, 0);
-> -	WREG32(mmMC_VM_AGP_BOT, 0x0FFFFFFF);
-> +	WREG32(mmMC_VM_AGP_TOP, adev->gmc.agp_end >> 22);
-> +	WREG32(mmMC_VM_AGP_BOT, adev->gmc.agp_start >> 22);
->   	if (gmc_v7_0_wait_for_idle((void *)adev))
->   		dev_warn(adev->dev, "Wait for MC idle timedout !\n");
->   
-> @@ -406,6 +407,7 @@ static int gmc_v7_0_mc_init(struct amdgpu_device *adev)
->   	}
->   
->   	adev->gmc.gart_size += adev->pm.smu_prv_buffer_size;
-> +	adev->gmc.disable_agp = true;
->   	gmc_v7_0_vram_gtt_location(adev, &adev->gmc);
->   
->   	return 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> index 6acf649469dd..1576d22c8197 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> @@ -415,6 +415,7 @@ static void gmc_v8_0_vram_gtt_location(struct amdgpu_device *adev,
->   
->   	amdgpu_gmc_vram_location(adev, mc, base);
->   	amdgpu_gmc_gart_location(adev, mc);
-> +	amdgpu_gmc_agp_location(adev, mc);
->   }
->   
->   /**
-> @@ -473,8 +474,8 @@ static void gmc_v8_0_mc_program(struct amdgpu_device *adev)
->   	}
->   
->   	WREG32(mmMC_VM_AGP_BASE, 0);
-> -	WREG32(mmMC_VM_AGP_TOP, 0);
-> -	WREG32(mmMC_VM_AGP_BOT, 0x0FFFFFFF);
-> +	WREG32(mmMC_VM_AGP_TOP, adev->gmc.agp_end >> 22);
-> +	WREG32(mmMC_VM_AGP_BOT, adev->gmc.agp_start >> 22);
->   	if (gmc_v8_0_wait_for_idle((void *)adev))
->   		dev_warn(adev->dev, "Wait for MC idle timedout !\n");
->   
-> @@ -596,6 +597,7 @@ static int gmc_v8_0_mc_init(struct amdgpu_device *adev)
->   	}
->   
->   	adev->gmc.gart_size += adev->pm.smu_prv_buffer_size;
-> +	adev->gmc.disable_agp = true;
->   	gmc_v8_0_vram_gtt_location(adev, &adev->gmc);
->   
->   	return 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index 2936a0fb7527..83a4e293ec4b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1788,7 +1788,8 @@ static int gmc_v9_0_mc_init(struct amdgpu_device *adev)
->   	}
->   
->   	adev->gmc.gart_size += adev->pm.smu_prv_buffer_size;
-> -
-> +	if (amdgpu_sriov_vf(adev))
-> +		adev->gmc.disable_agp = true;
->   	gmc_v9_0_vram_gtt_location(adev, &adev->gmc);
->   
->   	return 0;
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 2e4a8bdbf50e..c2cb4b4cd2d7 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -1255,7 +1255,7 @@ static void mmhub_read_system_context(struct amdgpu_device *adev, struct dc_phy_
->   	agp_top = adev->gmc.agp_end >> 24;
->   
->   	/* AGP aperture is disabled */
-> -	if (agp_bot == agp_top) {
-> +	if (agp_bot > agp_top) {
->   		logical_addr_low = adev->gmc.fb_start >> 18;
->   		if (adev->apu_flags & AMD_APU_IS_RAVEN2)
->   			/*
-
+> Regards
+> Asad
+>   static DEVICE_ATTR(xgmi_error, S_IRUGO, amdgpu_xgmi_show_error, NULL);  static DEVICE_ATTR(xgmi_num_hops, S_IRUGO, amdgpu_xgmi_show_num_hops, NULL);  static DEVICE_ATTR(xgmi_num_links, S_IRUGO, amdgpu_xgmi_show_num_links, NULL); @@ -407,6 +419,12 @@ static int amdgpu_xgmi_sysfs_add_dev_info(struct amdgpu_device *adev,
+>                  return ret;
+>          }
+> 
+> +       ret = device_create_file(adev->dev, &dev_attr_xgmi_physical_id);
+> +       if (ret) {
+> +               dev_err(adev->dev, "XGMI: Failed to create device file xgmi_physical_id\n");
+> +               return ret;
+> +       }
+> +
+>          /* Create xgmi error file */
+>          ret = device_create_file(adev->dev, &dev_attr_xgmi_error);
+>          if (ret)
+> @@ -448,6 +466,7 @@ static int amdgpu_xgmi_sysfs_add_dev_info(struct amdgpu_device *adev,
+> 
+>   remove_file:
+>          device_remove_file(adev->dev, &dev_attr_xgmi_device_id);
+> +       device_remove_file(adev->dev, &dev_attr_xgmi_physical_id);
+>          device_remove_file(adev->dev, &dev_attr_xgmi_error);
+>          device_remove_file(adev->dev, &dev_attr_xgmi_num_hops);
+>          device_remove_file(adev->dev, &dev_attr_xgmi_num_links); @@ -463,6 +482,7 @@ static void amdgpu_xgmi_sysfs_rem_dev_info(struct amdgpu_device *adev,
+>          memset(node, 0, sizeof(node));
+> 
+>          device_remove_file(adev->dev, &dev_attr_xgmi_device_id);
+> +       device_remove_file(adev->dev, &dev_attr_xgmi_physical_id);
+>          device_remove_file(adev->dev, &dev_attr_xgmi_error);
+>          device_remove_file(adev->dev, &dev_attr_xgmi_num_hops);
+>          device_remove_file(adev->dev, &dev_attr_xgmi_num_links);
+> --
+> 2.34.1
+> 
