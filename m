@@ -4,44 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AA5CE7107F
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 14:34:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7AD5E7107E
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 14:35:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C559810E5D7;
-	Thu, 21 Sep 2023 14:34:57 +0000 (UTC)
-X-Greylist: delayed 583 seconds by postgrey-1.36 at gabe;
- Thu, 21 Sep 2023 14:25:10 UTC
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A31F10E5DC;
+	Thu, 21 Sep 2023 14:34:58 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9E9710E5BB
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E323E10E5CA
  for <amd-gfx@lists.freedesktop.org>; Thu, 21 Sep 2023 14:25:10 +0000 (UTC)
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1695305726;
+ s=2020; t=1695305725;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=nf89mi48+BTDl9P9LgC24tFBtIdB1s51h5vIjiQv4aM=;
- b=nfJnajQm2EfomGeimuqmYKDLizXeJivS+k4dgKb5mHbY+A2J42EWPVgFFt4MrmJVQhdT1T
- 01VAKFj7bsGz2SJfb+oeL1anUzjfdCM/NE8Aji8jXMlCfk2jwaynq5No7HC5Dham2aRIxi
- abZ3iQoR1W+TTxJ3I03KrTrSnWlirrjUY0cxjAByjybfYigGilZ31Jq3QOoxZ+WgUmIgGS
- iTQjyZSEr7vowPWotLkrxVbR4m3uouJObGYygKHeAhhTV5IjggswjqMh2wT0FYhkTLXUCY
- 4PtAdNzSkDmj1kC2Sns6pEv34qGcO4oVxDWt88MUXykKE5amRr+UZYyad+89Hg==
+ bh=FOWN2bP3bL+i8WU1AdRgy2WvLGaYMKjJkqdur8ZMT5U=;
+ b=zORUY5Xkv3wz1yjY4DDKkQzFNInGAaoCeKEqG8+SzR8M7zDT0N1ruCuMNVKDpM/fKlgh73
+ fCJ9m049d4T1G6He4zIdup4YW9DyLZfJ3UttPGqrGWJ9oE7ZDP7ycRW5rcLKKikjQCRGET
+ jCLgZa1VMJ7KQVKgCsAC3egfUFh3s+VfG4ZqUPCPd3sjB2aTLTTj+gpVxI0tR5NdXqVO5l
+ 3bXUalpS8v/0gDxhZJLRMkBHXbg1kii1QG768G1dMAVf5JAGh1f0A/30F6o1mOJcITctew
+ //OuRxjrxXhzO68wK9aob0OVtekkra0z7oi6HKnN5NN1ekbE6Ih5O43FeqhxxQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1695305726;
+ s=2020e; t=1695305725;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=nf89mi48+BTDl9P9LgC24tFBtIdB1s51h5vIjiQv4aM=;
- b=vDdumqZ+OuhqqEqPf5tBX4Z38hg1tC9FoJ+b7EXxM+auQmdl0twrEvTK0dwjFvUhccxKDI
- j0SwiWJVTdARuDCw==
+ bh=FOWN2bP3bL+i8WU1AdRgy2WvLGaYMKjJkqdur8ZMT5U=;
+ b=sHscKoKcbk8ILIhokgaU/401GuFMDm+ywMOvfMNuLAGr4ihRWdmUt0LzNlUx4RJMoS+GcD
+ MZ3VQCQlC4Y4mODQ==
 To: dri-devel@lists.freedesktop.org,
 	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 4/5] drm/amd/display: Move the memory allocation out of
- dcn21_validate_bandwidth_fp().
-Date: Thu, 21 Sep 2023 16:15:15 +0200
-Message-Id: <20230921141516.520471-5-bigeasy@linutronix.de>
+Subject: [PATCH 1/5] drm/amd/display: Remove migrate_en/dis from
+ dc_fpu_begin().
+Date: Thu, 21 Sep 2023 16:15:12 +0200
+Message-Id: <20230921141516.520471-2-bigeasy@linutronix.de>
 In-Reply-To: <20230921141516.520471-1-bigeasy@linutronix.de>
 References: <20230921141516.520471-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
@@ -58,113 +56,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
+Cc: Tianci Yin <tianci.yin@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ David Airlie <airlied@gmail.com>,
  Sebastian Andrzej Siewior <bigeasy@linutronix.de>, "Pan,
  Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Peter Zijlstra <peterz@infradead.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
  Alex Deucher <alexander.deucher@amd.com>, Thomas Gleixner <tglx@linutronix.de>,
  Harry Wentland <harry.wentland@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-dcn21_validate_bandwidth_fp() is invoked while FPU access has been
-enabled. FPU access requires disabling preemption even on PREEMPT_RT.
-It is not possible to allocate memory with disabled preemption even with
-GFP_ATOMIC on PREEMPT_RT.
+This is a revert of the commit mentioned below while it is not wrong, as
+in the kernel will explode, having migrate_disable() here it is
+complete waste of resources.
 
-Move the memory allocation before FPU access is enabled.
+Additionally commit message is plain wrong the review tag does not make
+it any better. The migrate_disable() interface has a fat comment
+describing it and it includes the word "undesired" in the headline which
+should tickle people to read it before using it.
+Initially I assumed it is worded too harsh but now I beg to differ.
 
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=3D217928
+The reviewer of the original commit, even not understanding what
+migrate_disable() does should ask the following:
+
+- migrate_disable() is added only to the CONFIG_X86 block and it claims
+  to protect fpu_recursion_depth. Why are the other the architectures
+  excluded?
+
+- migrate_disable() is added after fpu_recursion_depth was modified.
+  Shouldn't it be added before the modification or referencing takes
+  place?
+
+Moving on.
+Disabling preemption DOES prevent CPU migration. A task, that can not be
+pushed away from the CPU by the scheduler (due to disabled preemption)
+can not be pushed or migrated to another CPU.
+
+Disabling migration DOES NOT ensure consistency of per-CPU variables. It
+only ensures that the task acts always on the same per-CPU variable. The
+task remains preemptible meaning multiple tasks can access the same
+per-CPU variable. This in turn leads to inconsistency for the statement
+
+                  *pcpu -=3D 1;
+
+with two tasks on one CPU and a preemption point during the RMW
+operation:
+
+     Task A                           Task B
+     read pcpu to reg  # 0
+     inc reg           # 0 -> 1
+                                      read pcpu to reg  # 0
+                                      inc reg           # 0 -> 1
+                                      write reg to pcpu # 1
+     write reg to pcpu # 1
+
+At the end pcpu reads 1 but should read 2 instead. Boom.
+
+get_cpu_ptr() already contains a preempt_disable() statement. That means
+that the per-CPU variable can only be referenced by a single task which
+is currently running. The only inconsistency that can occur if the
+variable is additionally accessed from an interrupt.
+
+Remove migrate_disable/enable() from dc_fpu_begin/end().
+
+Cc: Tianci Yin <tianci.yin@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Fixes: 0c316556d1249 ("drm/amd/display: Disable migration to ensure consist=
+ency of per-CPU variable")
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 ---
- drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c | 10 +++++++++-
- drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  |  7 ++-----
- drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h  |  5 ++---
- 3 files changed, 13 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/driver=
-s/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-index d1a25fe6c44fa..5674c3450fc36 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-@@ -953,9 +953,17 @@ static bool dcn21_validate_bandwidth(struct dc *dc, st=
-ruct dc_state *context,
- 		bool fast_validate)
- {
- 	bool voltage_supported;
-+	display_e2e_pipe_params_st *pipes;
-+
-+	pipes =3D kcalloc(dc->res_pool->pipe_count, sizeof(display_e2e_pipe_param=
-s_st), GFP_KERNEL);
-+	if (!pipes)
-+		return false;
-+
- 	DC_FP_START();
--	voltage_supported =3D dcn21_validate_bandwidth_fp(dc, context, fast_valid=
-ate);
-+	voltage_supported =3D dcn21_validate_bandwidth_fp(dc, context, fast_valid=
-ate, pipes);
- 	DC_FP_END();
-+
-+	kfree(pipes);
- 	return voltage_supported;
- }
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/d=
+rm/amd/display/amdgpu_dm/dc_fpu.c
+index 172aa10a8800f..86f4c0e046548 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+@@ -91,7 +91,6 @@ void dc_fpu_begin(const char *function_name, const int li=
+ne)
 =20
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c b/drivers=
-/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
-index 5805fb02af14e..8b2038162a7e1 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
-@@ -2216,9 +2216,8 @@ static void dcn21_calculate_wm(struct dc *dc, struct =
-dc_state *context,
- 						&context->bw_ctx.dml, pipes, pipe_cnt);
- }
-=20
--bool dcn21_validate_bandwidth_fp(struct dc *dc,
--				 struct dc_state *context,
--				 bool fast_validate)
-+bool dcn21_validate_bandwidth_fp(struct dc *dc, struct dc_state *context,
-+				 bool fast_validate, display_e2e_pipe_params_st *pipes)
- {
- 	bool out =3D false;
-=20
-@@ -2227,7 +2226,6 @@ bool dcn21_validate_bandwidth_fp(struct dc *dc,
- 	int vlevel =3D 0;
- 	int pipe_split_from[MAX_PIPES];
- 	int pipe_cnt =3D 0;
--	display_e2e_pipe_params_st *pipes =3D kzalloc(dc->res_pool->pipe_count * =
-sizeof(display_e2e_pipe_params_st), GFP_ATOMIC);
- 	DC_LOGGER_INIT(dc->ctx->logger);
-=20
- 	BW_VAL_TRACE_COUNT();
-@@ -2267,7 +2265,6 @@ bool dcn21_validate_bandwidth_fp(struct dc *dc,
- 	out =3D false;
-=20
- validate_out:
--	kfree(pipes);
-=20
- 	BW_VAL_TRACE_FINISH();
-=20
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h b/drivers=
-/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h
-index c51badf7b68a9..a81a0b9e68842 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h
-@@ -77,9 +77,8 @@ int dcn21_populate_dml_pipes_from_context(struct dc *dc,
- 					  struct dc_state *context,
- 					  display_e2e_pipe_params_st *pipes,
- 					  bool fast_validate);
--bool dcn21_validate_bandwidth_fp(struct dc *dc,
--				 struct dc_state *context,
--				 bool fast_validate);
-+bool dcn21_validate_bandwidth_fp(struct dc *dc, struct dc_state *context, =
-bool
-+				 fast_validate, display_e2e_pipe_params_st *pipes);
- void dcn21_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_=
-params);
-=20
- void dcn21_clk_mgr_set_bw_params_wm_table(struct clk_bw_params *bw_params);
+ 	if (*pcpu =3D=3D 1) {
+ #if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
+-		migrate_disable();
+ 		kernel_fpu_begin();
+ #elif defined(CONFIG_PPC64)
+ 		if (cpu_has_feature(CPU_FTR_VSX_COMP)) {
+@@ -132,7 +131,6 @@ void dc_fpu_end(const char *function_name, const int li=
+ne)
+ 	if (*pcpu <=3D 0) {
+ #if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
+ 		kernel_fpu_end();
+-		migrate_enable();
+ #elif defined(CONFIG_PPC64)
+ 		if (cpu_has_feature(CPU_FTR_VSX_COMP)) {
+ 			disable_kernel_vsx();
 --=20
 2.40.1
 
