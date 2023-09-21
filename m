@@ -4,88 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13C72E7D0A2
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 19:18:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCE7DE7D0A8
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 19:28:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9876F10E149;
-	Thu, 21 Sep 2023 19:18:50 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2040.outbound.protection.outlook.com [40.107.94.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0234610E149
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Sep 2023 19:18:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ItISTCvTD0CUhiWNJZmMFrZr+DdjqEEyrCFNfnR1VBze9i1+928jCOtzaVIC/La1O0XJPoC8PE+JMywkH+fRx/kUzeX7piAC7gPwvqqpoujci7rkbmLBoVg5VKPAvWqoHF/IEcXZeBtwYKZ6+o3tzaDZhcizTZ8umJ58IUgXDRSDnbUpqOpYcEDFz416N4yJWI+fd2YfuN9KJXWxwu2kq5feEq9QnjvWctrB4U5pry8bwqbNvVd50ya6NiHdN4hz9ELp1Rpl+MmMuaeb8sIICZEFppupHBKHuzfIMjFon4+tZvC+XOaZ2dm5Q0NDtCWwuTSE/gy38zq9Z4U0kHG29g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3iomdxFfiatwpULez+TKsXNAul58rGmnPPBeY3nPokQ=;
- b=SM6jcPhqEJkjB5D8g/Zq4UjR9nWmfViYYnGQqdk8173atosg8E7mkdjW0Rg/ofpaoWmRI1fcQ3Jo7APSQ48SwKwMPNtKCsFFtkH1KpjEL/8usJTaQy6WHxuiwISDb6uRBELZ5i1rmIxXKf7yV99VFnIay2yr0O9dgFgspNe9S/6SJG+GQ/NjKTeSQH5r7+G+7cHW8I/tMdWldzdjXzd9vuNi4XLVdzMrYFb76Nwmh9IUz51NaqjnW79XAALk+zSdVc1MaifLVZ3a8MVy/zBsJ63GMQxQAnQ73jG5tTCR4y1cBhp8xWhdwDjHVn/vfP7JNikcJ4injcpJw1QfjuJJjw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3iomdxFfiatwpULez+TKsXNAul58rGmnPPBeY3nPokQ=;
- b=lJ/+9hZWy2OCi/bKM95rZA50BcrQn6l97g3MMa9MKQ8etmvWj0gmhEFnDGdvL2FPlNTMS1U6Ll8XTUDl5qkEITFVyUf8xgH5J466r8IBbvNTM4iCAWKrLeqXU4o1uWKN4os2ipmHr6NXE+NbwbQJAD2Qg0SYANG+o6jjbPBUoow=
-Received: from MN2PR18CA0030.namprd18.prod.outlook.com (2603:10b6:208:23c::35)
- by BY5PR12MB4131.namprd12.prod.outlook.com (2603:10b6:a03:212::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.20; Thu, 21 Sep
- 2023 19:18:46 +0000
-Received: from BL02EPF0001A0F9.namprd03.prod.outlook.com
- (2603:10b6:208:23c:cafe::bc) by MN2PR18CA0030.outlook.office365.com
- (2603:10b6:208:23c::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.30 via Frontend
- Transport; Thu, 21 Sep 2023 19:18:46 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A0F9.mail.protection.outlook.com (10.167.242.100) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6792.19 via Frontend Transport; Thu, 21 Sep 2023 19:18:46 +0000
-Received: from david-X399-DESIGNARE-EX.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27; Thu, 21 Sep 2023 14:18:45 -0500
-From: "David (Ming Qiang) Wu" <David.Wu3@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: not to save bo in the case of RAS err_event_athub
-Date: Thu, 21 Sep 2023 15:18:25 -0400
-Message-ID: <20230921191825.528262-1-David.Wu3@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD4F810E5EE;
+	Thu, 21 Sep 2023 19:28:17 +0000 (UTC)
+Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
+ [IPv6:2607:f8b0:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58FFC10E5EC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Sep 2023 19:28:15 +0000 (UTC)
+Received: by mail-pf1-x42d.google.com with SMTP id
+ d2e1a72fcca58-690f7bf73ddso1146186b3a.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Sep 2023 12:28:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1695324495; x=1695929295;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=TaaYKX/WzN2yAJiXuwCzXo10Y+Z2eYCI0rB7JbtaKbk=;
+ b=YFxhyTZHuJzCYbtJKMhKmI43jPtDWfqrmT/BKKfX2SUmtdi7RuYkvTm3DJmMt0u46c
+ XRDf5vMv66daoCh5wMWKhu7KW7rItja6WRPrTRh5UDxxj+7qTWjPO6od+HIUn04l2wyR
+ NiuQxlFUCnDvOqVN5+kxSYQJ6QYEV1l/HZQBg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695324495; x=1695929295;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=TaaYKX/WzN2yAJiXuwCzXo10Y+Z2eYCI0rB7JbtaKbk=;
+ b=vhUcp0xnupY46ipbljg0F9UWf6B9xfS7/2S+AILdbJbRHiLCyClQwn6LV+xCgv7FZo
+ KvY/xeObOv79L4MVkmws6mcrKfoXKjI+EGTbGmlMhBaE3fdRZxqVz+mp9gt+Gs3YDep6
+ S4SlbP1cU3Q9JyF8M083CRkjB2NnlgKXdaDryXs7XydnZggErJtTNJ+bMHtHK2a1C7MQ
+ 0U/QJRX/lgbSVILVKt1r3lMhL5Y7i/2HNyMzcCyNlPDsQGsyxatRlB7jl0WLk+s+hpmp
+ Kq0VOdcVce1sDgNN3+KMqBLo5e4Ijd+OHMkeaysaKjai+yz7YCZjB0DXONkqRDZy6dW/
+ 549g==
+X-Gm-Message-State: AOJu0Yx8unbCRVyy2To+oO4z4YqDBXbGNfATOnOLPFlTqNaWhR7fncNW
+ y7EblPNXrYQ2pIs+mXDEd2yGMw==
+X-Google-Smtp-Source: AGHT+IEMW+st7pK1ERCOwxwoalcSvIpW84hrr+4hW9zDszK+PkTuQiJ5+HlDQX/MBJ7tT52BBQ4d4g==
+X-Received: by 2002:a05:6a21:4985:b0:151:991c:84b6 with SMTP id
+ ax5-20020a056a21498500b00151991c84b6mr6676548pzc.59.1695324494675; 
+ Thu, 21 Sep 2023 12:28:14 -0700 (PDT)
+Received: from tictac2.mtv.corp.google.com
+ ([2620:15c:9d:2:e6ed:6d49:f262:8041])
+ by smtp.gmail.com with ESMTPSA id
+ w8-20020a1709029a8800b001b9f032bb3dsm1892875plp.3.2023.09.21.12.28.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 Sep 2023 12:28:13 -0700 (PDT)
+From: Douglas Anderson <dianders@chromium.org>
+To: dri-devel@lists.freedesktop.org,
+	Maxime Ripard <mripard@kernel.org>
+Subject: [RFT PATCH v2 00/12] drm: call drm_atomic_helper_shutdown() at the
+ right times
+Date: Thu, 21 Sep 2023 12:26:43 -0700
+Message-ID: <20230921192749.1542462-1-dianders@chromium.org>
+X-Mailer: git-send-email 2.42.0.515.g380fc7ccd1-goog
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0F9:EE_|BY5PR12MB4131:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5255c922-2660-441e-a54d-08dbbad793f6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bu/ojnveBu6ks43SWbj7sMPdvz4+dbsaxzjPfwmCf+EMz8/O7f7Y/m5L8nvIh6ZJyPz3NGyzBNf/ZIT9XY8T2UbDd18WG9bk0HKQqp+6jVk/p+p1xZoQ9hmfyetegs3D5PtrxwErPOhCmaO5/CCfLYg+wThwoSTSxgbMlwEZu76phK1+VG/fHhQfMwwjHqfsbA4IWKvVgqw3UhJNOQ9VS904HFS/TVUedldeMp/a7PeWELe8cvLl2gmZ1O2AeiLoVpmAosa01yLbX1QeqLjTNHPirKJzkeU2fABykeW7bsIXMJG2B94Daazdlv4/2AHP5y3LSC/gJuWN2Hq/DUN4Tf4VVtD6+c9H+mGsOVyGJDUuhn15IOvj9btf7vaSFGQNJSGwM/6FnbsYGkkIzX2okqNOxGZYhNuiqJ57oUr8+QiNdekZ0xKS7lQh4LElGGI8OsD/j07g1K9xeWFqPTQSpSs/yhNE5UWn0C2RwkLc86rzzm0PEy7gFbBF4sZGHu8gDXEIMod3s+zCik0QbA75AiWhDQA+/5ZnI/wwp/WikHxZulLmq4k7EBv0miPfMjOsXhbUpSDOIBcGnNSZwYJ4IEPJkAMYPm9vXxvAcdWDpwEUm9VUCo3NCCjMJAVrExxFFMCOsQLKthaOuqL5NTEymbwUXo7TVc11rE3kV/ppWgIDiFosDphos8HBsmLxldHXAeQVDvQEet8wgITJa1CHpp/f7LnQh7K4AyUgFaCdkaqdUkvRuMpuEYFbsdhaa8BtiezfXNrk4CYISlPQeI58hA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(39860400002)(346002)(376002)(136003)(82310400011)(1800799009)(451199024)(186009)(40470700004)(46966006)(36840700001)(356005)(7696005)(82740400003)(40480700001)(81166007)(2616005)(70586007)(70206006)(86362001)(478600001)(6666004)(47076005)(426003)(336012)(1076003)(36860700001)(40460700003)(26005)(16526019)(5660300002)(4326008)(8676002)(6916009)(316002)(8936002)(54906003)(41300700001)(2906002)(36756003)(83380400001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2023 19:18:46.5894 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5255c922-2660-441e-a54d-08dbbad793f6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0F9.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4131
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,40 +70,141 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, leo.liu@amd.com, Christian.Koenig@amd.com
+Cc: geert+renesas@glider.be, nouveau@lists.freedesktop.org, Victor.Zhao@amd.com,
+ edmund.j.dea@intel.com, linux-kernel@vger.kernel.org, paul@crapouillou.net,
+ linux-tegra@vger.kernel.org, mdaenzer@redhat.com, thierry.reding@gmail.com,
+ laurent.pinchart@ideasonboard.com, alim.akhtar@samsung.com,
+ anitha.chrisanthus@intel.com, srinivasan.shanmugam@amd.com,
+ steven.price@arm.com, airlied@gmail.com, mario.limonciello@amd.com,
+ robh@kernel.org, linux-samsung-soc@vger.kernel.org, kherbst@redhat.com,
+ festevam@gmail.com, abrodkin@synopsys.com, kyungmin.park@samsung.com,
+ amd-gfx@lists.freedesktop.org, jonathanh@nvidia.com, matthias.bgg@gmail.com,
+ bskeggs@redhat.com, sam@ravnborg.org, orsonzhai@gmail.com, linux-imx@nxp.com,
+ p.zabel@pengutronix.de, chunkuang.hu@kernel.org, lijo.lazar@amd.com,
+ kernel@pengutronix.de, mperttunen@nvidia.com, Bokun.Zhang@amd.com,
+ Sascha Hauer <s.hauer@pengutronix.de>, maarten.lankhorst@linux.intel.com,
+ shiwu.zhang@amd.com, inki.dae@samsung.com, le.ma@amd.com,
+ linux-mediatek@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, laurentiu.palcu@oss.nxp.com,
+ biju.das.jz@bp.renesas.com, James.Zhu@amd.com,
+ linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com,
+ jim.cromie@gmail.com, tzimmermann@suse.de, felix.kuehling@amd.com,
+ Xinhui.Pan@amd.com, sw0312.kim@samsung.com,
+ Douglas Anderson <dianders@chromium.org>, patrik.r.jakobsson@gmail.com,
+ linux-renesas-soc@vger.kernel.org, krzysztof.kozlowski@linaro.org,
+ kieran.bingham+renesas@ideasonboard.com, daniel@ffwll.ch, zhang.lyra@gmail.com,
+ alexander.deucher@amd.com, l.stach@pengutronix.de, shawnguo@kernel.org,
+ christian.koenig@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-err_event_athub will corrupt VCPU buffer and not good to
-be restored in amdgpu_vcn_resume() and in this case
-the VCPU buffer needs to be cleared for VCN firmware to
-work properly.
 
-Signed-off-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+This patch series came about after a _long_ discussion between me and
+Maxime Ripard in response to a different patch I sent out [1]. As part
+of that discussion, we realized that it would be good if DRM drivers
+consistently called drm_atomic_helper_shutdown() properly at shutdown
+and driver remove time as it's documented that they should do. The
+eventual goal of this would be to enable removing some hacky code from
+panel drivers where they had to hook into shutdown themselves because
+the DRM driver wasn't calling them.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index c93f3a4c0e31..f4963330c772 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -294,8 +294,15 @@ int amdgpu_vcn_suspend(struct amdgpu_device *adev)
- 	void *ptr;
- 	int i, idx;
- 
-+	bool in_ras_intr = amdgpu_ras_intr_triggered();
-+
- 	cancel_delayed_work_sync(&adev->vcn.idle_work);
- 
-+	/* err_event_athub will corrupt VCPU buffer, so we need to
-+	 * restore fw data and clear buffer in amdgpu_vcn_resume() */
-+	if (in_ras_intr)
-+		return 0;
-+
- 	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
- 		if (adev->vcn.harvest_config & (1 << i))
- 			continue;
+It turns out that quite a lot of drivers seemed to be missing
+drm_atomic_helper_shutdown() in one or both places that it was
+supposed to be. This patch series attempts to fix all the drivers that
+I was able to identify.
+
+NOTE: fixing this wasn't exactly cookie cutter. Each driver has its
+own unique way of setting itself up and tearing itself down. Some
+drivers also use the component model, which adds extra fun. I've made
+my best guess at solving this and I've run a bunch of compile tests
+(specifically, allmodconfig for amd64, arm64, and powerpc). That being
+said, these code changes are not totally trivial and I've done zero
+real testing on them. Making these patches was also a little mind
+numbing and I'm certain my eyes glazed over at several points when
+writing them. What I'm trying to say is to please double-check that I
+didn't do anything too silly, like cast your driver's drvdata to the
+wrong type. Even better, test these patches!
+
+I've labeled this patch series as RFT (request for testing) to help
+call attention to the fact that I didn't personally test any of these
+patches.
+
+I'd like to call out a few drivers that I _didn't_ fix in this series
+and why. If any of these drivers should be fixed then please yell.
+- DRM drivers backed by usb_driver (like gud, gm12u320, udl): I didn't
+  add the call to drm_atomic_helper_shutdown() at shutdown time
+  because there's no ".shutdown" callback for them USB drivers. Given
+  that USB is hotpluggable, I'm assuming that they are robust against
+  this and the special shutdown callback isn't needed.
+- ofdrm and simpledrm: These didn't have drm_atomic_helper_shutdown()
+  in either shutdown or remove, but I didn't add it. I think that's OK
+  since they're sorta special and not really directly controlling
+  hardware power sequencing.
+- virtio, vkms, vmwgfx, xen: I believe these are all virtual (thus
+  they wouldn't directly drive a panel) and adding the shutdown
+  didn't look straightforward, so I skipped them.
+
+I've let each patch in the series get CCed straight from
+get_maintainer. That means not everyone will have received every patch
+but everyone should be on the cover letter. I know some people dislike
+this but when touching this many drivers there's not much
+choice. dri-devel and lkml have been CCed and lore/lei exist, so
+hopefully that's enough for folks. I'm happy to add people to the
+whole series for future posts.
+
+NOTE: I landed everything I could from v1 of the patch series [2] [3]
+to drm-misc. This v2 is everyone that is still left. If you'd like me
+to land one of the patches here to drm-misc for you, please say
+so. Otherwise I will assume maintainers will pick patches for their
+particular driver and land them. There are no dependencies.
+
+[1] https://lore.kernel.org/lkml/20230804140605.RFC.4.I930069a32baab6faf46d6b234f89613b5cec0f14@changeid
+[2] https://lore.kernel.org/r/20230901234015.566018-1-dianders@chromium.org
+[3] https://lore.kernel.org/r/20230901234202.566951-1-dianders@chromium.org
+
+Changes in v2:
+- Rebased and resolved conflicts.
+
+Douglas Anderson (12):
+  drm/imx/dcss: Call drm_atomic_helper_shutdown() at shutdown time
+  drm/kmb: Call drm_atomic_helper_shutdown() at shutdown time
+  drm/mediatek: Call drm_atomic_helper_shutdown() at shutdown time
+  drm/nouveau: Call drm_atomic_helper_shutdown() or equiv at shutdown
+    time
+  drm/tegra: Call drm_atomic_helper_shutdown() at shutdown time
+  drm/arcpgu: Call drm_atomic_helper_shutdown() at shutdown time
+  drm/amdgpu: Call drm_atomic_helper_shutdown() at shutdown time
+  drm/sprd: Call drm_atomic_helper_shutdown() at remove time
+  drm/exynos: Call drm_atomic_helper_shutdown() at shutdown/unbind time
+  drm/gma500: Call drm_helper_force_disable_all() at shutdown/remove
+    time
+  drm/radeon: Call drm_helper_force_disable_all() at shutdown/remove
+    time
+  drm/renesas/shmobile: Call drm_helper_force_disable_all() at
+    shutdown/remove time
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h              |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c       | 10 ++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c          |  2 ++
+ drivers/gpu/drm/exynos/exynos_drm_drv.c          | 11 +++++++++++
+ drivers/gpu/drm/gma500/psb_drv.c                 |  8 ++++++++
+ drivers/gpu/drm/imx/dcss/dcss-drv.c              |  8 ++++++++
+ drivers/gpu/drm/imx/dcss/dcss-kms.c              |  7 +++++++
+ drivers/gpu/drm/imx/dcss/dcss-kms.h              |  1 +
+ drivers/gpu/drm/kmb/kmb_drv.c                    |  6 ++++++
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c           |  9 +++++++++
+ drivers/gpu/drm/nouveau/nouveau_display.c        |  9 +++++++++
+ drivers/gpu/drm/nouveau/nouveau_display.h        |  1 +
+ drivers/gpu/drm/nouveau/nouveau_drm.c            | 13 +++++++++++++
+ drivers/gpu/drm/nouveau/nouveau_drv.h            |  1 +
+ drivers/gpu/drm/nouveau/nouveau_platform.c       |  6 ++++++
+ drivers/gpu/drm/radeon/radeon_drv.c              |  7 ++++++-
+ drivers/gpu/drm/renesas/shmobile/shmob_drm_drv.c | 10 ++++++++++
+ drivers/gpu/drm/sprd/sprd_drm.c                  |  4 +++-
+ drivers/gpu/drm/tegra/drm.c                      |  6 ++++++
+ drivers/gpu/drm/tiny/arcpgu.c                    |  6 ++++++
+ 20 files changed, 124 insertions(+), 2 deletions(-)
+
 -- 
-2.34.1
+2.42.0.515.g380fc7ccd1-goog
 
