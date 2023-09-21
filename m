@@ -4,42 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCCDBE7107F
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 14:34:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 736A2E7107F
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 14:34:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 120CB10E5E4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CEEF10E5E5;
 	Thu, 21 Sep 2023 14:34:50 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC50D10E5C6
+X-Greylist: delayed 583 seconds by postgrey-1.36 at gabe;
+ Thu, 21 Sep 2023 14:25:10 UTC
+Received: from galois.linutronix.de (Galois.linutronix.de
+ [IPv6:2a0a:51c0:0:12e:550::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2C2D10E5C9
  for <amd-gfx@lists.freedesktop.org>; Thu, 21 Sep 2023 14:25:10 +0000 (UTC)
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1695305726;
+ s=2020; t=1695305725;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=3QKfJEY1uLi87VIrjkLudvRExB2VG8jcVhhoK+qWqrU=;
- b=zE/czbZ4vhjGgipLwIvYHBCSOwaXOsr2FHzPwUl12r9qkPAilJqqhw04tSHieJiqr+nrjB
- HFV+3rx8nqby67Q8tVSb5ihXER9ip/f9Yn8kp4Pf0/l8r9CWmCESe9y0ebW3Gjwp9lVTNV
- Zq7HP6jFjUvpfI+2bXsGtgFsBu+a3vi5G+LqoxybmlCAe58GPgb6FN2Rh/vhU/ToULLgRX
- 9CSRWlAt8Gj4urqYo75pU0daqpFK5SbyFhXaPZQI7PURhYyZKZWBGDxCiPiKnnzUIMzTjj
- HMrGBErt3D49XlwnZRM/Pl+/mnm9UPBT3CKvGCXMaEj5sz5MYBQFMvXkO55I6g==
+ bh=sVGBlAnrz6UmtRjv0t+ZHRq3KiWMNmFKvIlfE1mXOc0=;
+ b=NBrV6T0NWs4HKzSdAAji57rmWnzTpkb3H4ynAlflPDBpnoJVaYCFOCJR7JAtYs7xCKlw1O
+ aHOiVXEJIRgQlJDHIj9X63fyESExpsAqAphAq8JZBF7fM4dvSNrq9dfj68R3UTg7Pj4gHS
+ dYecNrlPSYLk5WHvLGCKx7+THlfL9SA1jFN1PcCBnBXY/7TD43OPOkNJ27jJhY3uElIOwD
+ sAJZLCMeiX84HlySp39rlzMx+oS3HmNbqAyBKKXD2Cyz5VmVcYjRX5gIQXN24M+LAvFBRx
+ DGPpvETrFskDDAQ/l21MKpZiMXwbkmK6dzoDzKJkND5mqSeiYQu/APfhpIgNcw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1695305726;
+ s=2020e; t=1695305725;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=3QKfJEY1uLi87VIrjkLudvRExB2VG8jcVhhoK+qWqrU=;
- b=DZ/H+yLvkKfU6D2WwvKVS0fxhhgMN7NtQ3+NP/OLmnyTklcdRT0JyqBbvhMrSqxDJY9QEV
- 72CINHkotZEzKEAw==
+ bh=sVGBlAnrz6UmtRjv0t+ZHRq3KiWMNmFKvIlfE1mXOc0=;
+ b=F0m9BVTlImsDc20k/SwfKtjeER2Q8iQ551xbjpO/Bc45kt7ZLyR0obyRHla6Qcv/v8WqR4
+ vhKrQAG6v4348rCA==
 To: dri-devel@lists.freedesktop.org,
 	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 5/5] drm/amd/display: Move the memory allocation out of
- dcn20_validate_bandwidth_fp().
-Date: Thu, 21 Sep 2023 16:15:16 +0200
-Message-Id: <20230921141516.520471-6-bigeasy@linutronix.de>
+Subject: [PATCH 2/5] drm/amd/display: Simplify the per-CPU usage.
+Date: Thu, 21 Sep 2023 16:15:13 +0200
+Message-Id: <20230921141516.520471-3-bigeasy@linutronix.de>
 In-Reply-To: <20230921141516.520471-1-bigeasy@linutronix.de>
 References: <20230921141516.520471-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
@@ -66,147 +68,131 @@ Cc: Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-dcn20_validate_bandwidth_fp() is invoked while FPU access has been
-enabled. FPU access requires disabling preemption even on PREEMPT_RT.
-It is not possible to allocate memory with disabled preemption even with
-GFP_ATOMIC on PREEMPT_RT.
+The fpu_recursion_depth counter is used to ensure that dc_fpu_begin()
+can be invoked multiple times while the FPU-disable function itself is
+only invoked once. Also the counter part (dc_fpu_end()) is ballanced
+properly.
 
-Move the memory allocation before FPU access is enabled.
-To preserve previous "clean" state of "pipes" add a memset() before the
-second invocation of dcn20_validate_bandwidth_internal() where the
-variable is used.
+Instead of using the get_cpu_ptr() dance around the inc it is simpler to
+increment the per-CPU variable directly. Also the per-CPU variable has
+to be incremented and decremented on the same CPU. This is ensured by
+the inner-part which disables preemption. This is kind of not obvious,
+works and the preempt-counter is touched a few times for no reason.
+
+Disable preemption before incrementing fpu_recursion_depth for the first
+time. Keep preemption disabled until dc_fpu_end() where the counter is
+decremented making it obvious that the preemption has to stay disabled
+while the counter is non-zero.
+Use simple inc/dec functions.
+Remove the nested preempt_disable/enable functions which are now not
+needed.
 
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 ---
- .../drm/amd/display/dc/dcn20/dcn20_resource.c    | 10 +++++++++-
- .../gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c | 16 +++++++---------
- .../gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h |  5 ++---
- 3 files changed, 18 insertions(+), 13 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/dc_fpu.c    | 50 ++++++++-----------
+ 1 file changed, 20 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/driver=
-s/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index d587f807dfd7c..5036a3e608324 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -2141,9 +2141,17 @@ bool dcn20_validate_bandwidth(struct dc *dc, struct =
-dc_state *context,
- 		bool fast_validate)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/d=
+rm/amd/display/amdgpu_dm/dc_fpu.c
+index 86f4c0e046548..8bd5926b47e06 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+@@ -60,11 +60,9 @@ static DEFINE_PER_CPU(int, fpu_recursion_depth);
+  */
+ inline void dc_assert_fp_enabled(void)
  {
- 	bool voltage_supported;
-+	display_e2e_pipe_params_st *pipes;
-+
-+	pipes =3D kcalloc(dc->res_pool->pipe_count, sizeof(display_e2e_pipe_param=
-s_st), GFP_KERNEL);
-+	if (!pipes)
-+		return false;
-+
- 	DC_FP_START();
--	voltage_supported =3D dcn20_validate_bandwidth_fp(dc, context, fast_valid=
-ate);
-+	voltage_supported =3D dcn20_validate_bandwidth_fp(dc, context, fast_valid=
-ate, pipes);
- 	DC_FP_END();
-+
-+	kfree(pipes);
- 	return voltage_supported;
- }
+-	int *pcpu, depth =3D 0;
++	int depth;
 =20
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c b/drivers=
-/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
-index 8b2038162a7e1..2ad92497b9bf2 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
-@@ -1923,7 +1923,7 @@ void dcn20_patch_bounding_box(struct dc *dc, struct _=
-vcs_dpi_soc_bounding_box_st
- }
+-	pcpu =3D get_cpu_ptr(&fpu_recursion_depth);
+-	depth =3D *pcpu;
+-	put_cpu_ptr(&fpu_recursion_depth);
++	depth =3D __this_cpu_read(fpu_recursion_depth);
 =20
- static bool dcn20_validate_bandwidth_internal(struct dc *dc, struct dc_sta=
-te *context,
--		bool fast_validate)
-+		bool fast_validate, display_e2e_pipe_params_st *pipes)
+ 	ASSERT(depth >=3D 1);
+ }
+@@ -84,32 +82,27 @@ inline void dc_assert_fp_enabled(void)
+  */
+ void dc_fpu_begin(const char *function_name, const int line)
  {
- 	bool out =3D false;
+-	int *pcpu;
++	int depth;
 =20
-@@ -1932,7 +1932,6 @@ static bool dcn20_validate_bandwidth_internal(struct =
-dc *dc, struct dc_state *co
- 	int vlevel =3D 0;
- 	int pipe_split_from[MAX_PIPES];
- 	int pipe_cnt =3D 0;
--	display_e2e_pipe_params_st *pipes =3D kzalloc(dc->res_pool->pipe_count * =
-sizeof(display_e2e_pipe_params_st), GFP_ATOMIC);
- 	DC_LOGGER_INIT(dc->ctx->logger);
+-	pcpu =3D get_cpu_ptr(&fpu_recursion_depth);
+-	*pcpu +=3D 1;
++	preempt_disable();
++	depth =3D __this_cpu_inc_return(fpu_recursion_depth);
 =20
- 	BW_VAL_TRACE_COUNT();
-@@ -1967,16 +1966,14 @@ static bool dcn20_validate_bandwidth_internal(struc=
-t dc *dc, struct dc_state *co
- 	out =3D false;
-=20
- validate_out:
--	kfree(pipes);
-=20
- 	BW_VAL_TRACE_FINISH();
-=20
- 	return out;
- }
-=20
--bool dcn20_validate_bandwidth_fp(struct dc *dc,
--				 struct dc_state *context,
--				 bool fast_validate)
-+bool dcn20_validate_bandwidth_fp(struct dc *dc, struct dc_state *context,
-+				 bool fast_validate, display_e2e_pipe_params_st *pipes)
- {
- 	bool voltage_supported =3D false;
- 	bool full_pstate_supported =3D false;
-@@ -1995,11 +1992,11 @@ bool dcn20_validate_bandwidth_fp(struct dc *dc,
- 	ASSERT(context !=3D dc->current_state);
-=20
- 	if (fast_validate) {
--		return dcn20_validate_bandwidth_internal(dc, context, true);
-+		return dcn20_validate_bandwidth_internal(dc, context, true, pipes);
+-	if (*pcpu =3D=3D 1) {
++	if (depth =3D=3D 1) {
+ #if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
+ 		kernel_fpu_begin();
+ #elif defined(CONFIG_PPC64)
+-		if (cpu_has_feature(CPU_FTR_VSX_COMP)) {
+-			preempt_disable();
++		if (cpu_has_feature(CPU_FTR_VSX_COMP))
+ 			enable_kernel_vsx();
+-		} else if (cpu_has_feature(CPU_FTR_ALTIVEC_COMP)) {
+-			preempt_disable();
++		else if (cpu_has_feature(CPU_FTR_ALTIVEC_COMP))
+ 			enable_kernel_altivec();
+-		} else if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE)) {
+-			preempt_disable();
++		else if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
+ 			enable_kernel_fp();
+-		}
+ #elif defined(CONFIG_ARM64)
+ 		kernel_neon_begin();
+ #endif
  	}
 =20
- 	// Best case, we support full UCLK switch latency
--	voltage_supported =3D dcn20_validate_bandwidth_internal(dc, context, fals=
-e);
-+	voltage_supported =3D dcn20_validate_bandwidth_internal(dc, context, fals=
-e, pipes);
- 	full_pstate_supported =3D context->bw_ctx.bw.dcn.clk.p_state_change_suppo=
-rt;
+-	TRACE_DCN_FPU(true, function_name, line, *pcpu);
+-	put_cpu_ptr(&fpu_recursion_depth);
++	TRACE_DCN_FPU(true, function_name, line, depth);
+ }
 =20
- 	if (context->bw_ctx.dml.soc.dummy_pstate_latency_us =3D=3D 0 ||
-@@ -2011,7 +2008,8 @@ bool dcn20_validate_bandwidth_fp(struct dc *dc,
- 	// Fallback: Try to only support G6 temperature read latency
- 	context->bw_ctx.dml.soc.dram_clock_change_latency_us =3D context->bw_ctx.=
-dml.soc.dummy_pstate_latency_us;
+ /**
+@@ -124,29 +117,26 @@ void dc_fpu_begin(const char *function_name, const in=
+t line)
+  */
+ void dc_fpu_end(const char *function_name, const int line)
+ {
+-	int *pcpu;
++	int depth;
 =20
--	voltage_supported =3D dcn20_validate_bandwidth_internal(dc, context, fals=
-e);
-+	memset(pipes, 0, dc->res_pool->pipe_count * sizeof(display_e2e_pipe_param=
-s_st));
-+	voltage_supported =3D dcn20_validate_bandwidth_internal(dc, context, fals=
-e, pipes);
- 	dummy_pstate_supported =3D context->bw_ctx.bw.dcn.clk.p_state_change_supp=
-ort;
+-	pcpu =3D get_cpu_ptr(&fpu_recursion_depth);
+-	*pcpu -=3D 1;
+-	if (*pcpu <=3D 0) {
++	depth =3D __this_cpu_dec_return(fpu_recursion_depth);
++	if (depth =3D=3D 0) {
+ #if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
+ 		kernel_fpu_end();
+ #elif defined(CONFIG_PPC64)
+-		if (cpu_has_feature(CPU_FTR_VSX_COMP)) {
++		if (cpu_has_feature(CPU_FTR_VSX_COMP))
+ 			disable_kernel_vsx();
+-			preempt_enable();
+-		} else if (cpu_has_feature(CPU_FTR_ALTIVEC_COMP)) {
++		else if (cpu_has_feature(CPU_FTR_ALTIVEC_COMP))
+ 			disable_kernel_altivec();
+-			preempt_enable();
+-		} else if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE)) {
++		else if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
+ 			disable_kernel_fp();
+-			preempt_enable();
+-		}
+ #elif defined(CONFIG_ARM64)
+ 		kernel_neon_end();
+ #endif
++	} else {
++		WARN_ON_ONCE(depth < 0);
+ 	}
 =20
- 	if (voltage_supported && (dummy_pstate_supported || !(context->stream_cou=
-nt))) {
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h b/drivers=
-/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h
-index a81a0b9e68842..b6c34198ddc86 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h
-@@ -61,9 +61,8 @@ void dcn20_update_bounding_box(struct dc *dc,
- 			       unsigned int num_states);
- void dcn20_patch_bounding_box(struct dc *dc,
- 			      struct _vcs_dpi_soc_bounding_box_st *bb);
--bool dcn20_validate_bandwidth_fp(struct dc *dc,
--				 struct dc_state *context,
--				 bool fast_validate);
-+bool dcn20_validate_bandwidth_fp(struct dc *dc, struct dc_state *context,
-+				 bool fast_validate, display_e2e_pipe_params_st *pipes);
- void dcn20_fpu_set_wm_ranges(int i,
- 			     struct pp_smu_wm_range_sets *ranges,
- 			     struct _vcs_dpi_soc_bounding_box_st *loaded_bb);
+-	TRACE_DCN_FPU(false, function_name, line, *pcpu);
+-	put_cpu_ptr(&fpu_recursion_depth);
++	TRACE_DCN_FPU(false, function_name, line, depth);
++	preempt_enable();
+ }
 --=20
 2.40.1
 
