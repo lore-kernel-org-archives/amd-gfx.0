@@ -4,116 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CD95E6FE3D
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Sep 2023 14:37:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED7B6E6FE3D
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Sep 2023 14:42:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4C7D10E680;
-	Fri, 22 Sep 2023 14:37:12 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20609.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::609])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E5EB10E68A
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Sep 2023 14:37:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 259C910E67F;
+	Fri, 22 Sep 2023 14:42:45 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20630.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eab::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6EE210E67F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Sep 2023 14:42:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UFiuC6op/zkNdPRpvL4SKhoH+buoknTaEEM1OqkjqHgptqdNQp2BKXwvoo7jFl9IHrxuKGFbM4X6hN4INxK1zixz/w9+bKsseLCKu4TRbS4Q6zlYfGTuL/khIlYjuGsSsTvScH3d9H4yJ3EVYFOopz0A5t+Ue1poHWI3YnQIjDCqBVBjjGWClDJfLHyjRc5MCgROKgEdHVoQVjwY99/BjzzDfGQtv5GUj41Ezks3gVOo/AXNxB7SJ1rMXSkTiTz/wblMOWwSdJqTe4JSB0I0We1cPrPJoBOYq1B23WvZd8MYyghLsnABsa1xkbCpKK1WAy4a++D0GHwDW4LVp7fE1g==
+ b=Cq2Lbl3x3dJI9K7spQ7p18RhcPk7RPSZrBRSo5oOvXxKnSTXTztXy3mchzMT/ZwvMLtzySKE/KW0WA0FvxjM+69kdhoj9PLI7jYL/QvsqC+2Xyra8xy3MutN0qeJOrOZc/QJWuuWhyjg5DI0K7bHC7dy1QaFV4zejDSnl8TpBPsdNORliIS9BlOcAis5g8hv7L+LNsuTGFrOEuQKnlAecmzYl3Lk6TZD8dODSacvXHNAsorBk2e61VOwNeYahYmz7hPGYmB/uQBKM2FX9cGRkrFWrldAVxCxCXnpE+pnjI6mdwYWGCIfYWvwkCY6sezp8qSegfmgxW5NYVmPoOr0sg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3+oo0oZorsf2OCEimZ/S4XMCEBWHEQTmS1c7qG7nnU4=;
- b=iv+rYqOe4Vtv8xvM1fRll+zesw1uFlHhKVACcUYCFffHWaDaogMVNy/gzWs1g5BP3YtUqAIPoxOVgTN8i/G/ngURi+o21yTGrXK2hS5Rw/7HeoJ7yQXLBNRuNqUs5jSQbccjMtBuphIxxP3kQMt8t2HufgKqJ3/RCqU7DWLiXPBVENFsjc9HkkwaSu3b3/0pPN7QXvkZBYOTeSNJk5Uh9d4Zgcnik3Ly+cCkz5Rt9UP1UV7jKs1xLf/f3pvbxHyIEhXCn/DxAumpg1BVRmTLwwcSaEzjmHPj/8/dYRyxFIqy/qG2lHsUn86Vk5ErxN2IYiOoDiyKAxvU1s2VmnPMxA==
+ bh=b4k6e43AHz1C7JDdRdnqUkKyNqHVjKUS2ljYAvK+tvU=;
+ b=Oii3KKLLBXs55W/j/s2c+imI+sNUvaVj/Jwwh05dA3DU+XBVXaRuX7xJlTbBitGIPFWUJfcnkeG1ZTGvFIjHZUEJ6ID4ZCl6YDINMWmQFOgEIDe6U10LQUF3p08DSiPp/pxxhTT6S+kpBSxvmhZvV+C+IV/B32V8QzqmUZDuT0Eyo+6phKbPE98IO3mvxiXm0TJx8xVxoq4UEwRhUB0qzrVGbZQV0cJv+pourocKb9fnwXp4lK3o4cw9KQDBhUMDxA8ts2+YH/f/COMKOObnOZclbo5msXn+adKha9jR9SK2CxrzFc33MKFHk7fPfUiicJsYkQbzddd13wrh3UKa5g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3+oo0oZorsf2OCEimZ/S4XMCEBWHEQTmS1c7qG7nnU4=;
- b=XDbim3BJyzMg57AZBCdcB7+cwnpvS5A/Dxk1rrYFUhL9WX2Ft8iBJHbBJIvSWDs6d0lLZVdAWPU1N9HuuxPEWDhAhBhCeNidvmURE4dn55QtBC6o7Dixm3t/lfmz9QCXCbnNC+ZAW6xe6PAiKRqwmfSyeBWyjePy0co3Vp0mndI=
-Received: from DM8PR12MB5399.namprd12.prod.outlook.com (2603:10b6:8:34::5) by
- SN7PR12MB7321.namprd12.prod.outlook.com (2603:10b6:806:298::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.20; Fri, 22 Sep
- 2023 14:37:02 +0000
-Received: from DM8PR12MB5399.namprd12.prod.outlook.com
- ([fe80::6017:888c:bd65:cc08]) by DM8PR12MB5399.namprd12.prod.outlook.com
- ([fe80::6017:888c:bd65:cc08%4]) with mapi id 15.20.6792.026; Fri, 22 Sep 2023
- 14:37:01 +0000
-From: "Liu, Leo" <Leo.Liu@amd.com>
-To: "Wu, David" <David.Wu3@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: not to save bo in the case of RAS
- err_event_athub
-Thread-Topic: [PATCH] drm/amdgpu: not to save bo in the case of RAS
- err_event_athub
-Thread-Index: AQHZ7MBzDAcr/plcqE2MFkht51RBv7Am6tbw
-Date: Fri, 22 Sep 2023 14:37:01 +0000
-Message-ID: <DM8PR12MB5399E5B5DD9EA827EE32AE67E5FFA@DM8PR12MB5399.namprd12.prod.outlook.com>
-References: <20230921191825.528262-1-David.Wu3@amd.com>
-In-Reply-To: <20230921191825.528262-1-David.Wu3@amd.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=ef43b5e5-4e8d-4654-8ddf-c96eb1474fac;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-09-22T14:36:27Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
+ bh=b4k6e43AHz1C7JDdRdnqUkKyNqHVjKUS2ljYAvK+tvU=;
+ b=1CWnTfuMy/n7n/qaoEta/oZ+2hPvfzq0ab1k7JoIfusg8u8DDCtX+3xoMwvme99zNAhXXRZRfaNFlAPyg74clQeswpFRo8XA4fE/LbN5kKkBarN5xhq2ia7KX9g8CvrCZjbiVeLve7vILDbH6xTrG9XITxF0+1/gLAX1+dkZsGY=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM8PR12MB5399:EE_|SN7PR12MB7321:EE_
-x-ms-office365-filtering-correlation-id: 2deb3ba1-da52-47b8-2687-08dbbb796252
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 1oDOer7RpapZqkO1RlzMSsLvY9RDy0fpHwmL2wK5p7aBs/XTqqKBbq0034BvdmeEnEzqi/wzAu57EPh3+m5Ym3lo6LwaDBEWRYVNOa/5l+Vfj7/gaoFXaH6xHQZkYv8r1u/l2PZ0WCf0K+0uI2df13sDxx4+NXt+hmEGDidcqOSmrlNqqw7qDrCsIqY1xKIn2/AXR3d8uygQRkuRRss/HZ3on/1tHZwBHtehurPdV3HcDWpvWhPT9GpMaRYJZwFx1YOP5QAYVkNAAN6kaoNichWd5WXbpRxoyoh6miMIOWJpKxalW371kbvVAs5jT5tF/cj8cYuSUp+Ml75NXXIUYkpnc6RAdTBNZt+hwHNOsEGySJSvSwn2OEmGEGkUT/OokhXJtQyD7WR39FryVpxNdVTcJk+nygYafRtil0VWQGLGsSGJY46AC6T5n5toXNEPbzERLyJTmQ1kEH6FItTbTlZSyIWWvN8ICViumEtXPebq1pTo4SByvrzZh8JOkAMP38tcdqHiSODWkoiTfvePk9fupOd7GG9MgaP/XhJlHZBxJEKU0C4utvgC12gxCnzp1g6+7k4+2+HiiLXrwlGvybHk8iO8vC5ww0Lioh6GWGkDoGOKjCIRP0VkZKiXxvcg
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM8PR12MB5399.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(136003)(376002)(346002)(396003)(366004)(186009)(451199024)(1800799009)(55016003)(478600001)(33656002)(86362001)(41300700001)(5660300002)(110136005)(52536014)(38100700002)(8676002)(38070700005)(2906002)(8936002)(4326008)(76116006)(64756008)(54906003)(66946007)(66556008)(66446008)(316002)(66476007)(71200400001)(122000001)(83380400001)(53546011)(7696005)(26005)(6506007)(9686003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?jK3b4AFxfl6dopZOwEFX7ZOv0bG9xZrGiStsG5TIz5Vy/JZNYq5VwJovEJtI?=
- =?us-ascii?Q?IhMJ8z3gnIpsfqoLfRwkhxMsTnp9rRsZT1DCW4KrpZTxiQlR0/kThuIMSFUe?=
- =?us-ascii?Q?fFoF8/L0xko2VXYAfQlmxMNgbC7yPvPdNaxSPpGxCKMr8IB7VApPzpz/DTwv?=
- =?us-ascii?Q?NErjbaa+gEdJLbzd/xcOsvOZeNlOG2SiAH6GYjFWeXaQNUxABjD1md4Fz8tM?=
- =?us-ascii?Q?bWMVluQlvARh1GYweLLFV+D/USCEqbxTuONSaODLaqSPBewxKBy80ujyAEsa?=
- =?us-ascii?Q?lq5vZsFLD+ZGiXSwOBpFwzlKU+sk07QeDiVKLwaVKtfZLaDSyXpZFFeRJqzM?=
- =?us-ascii?Q?2VP5JX0FXpQrJ4Z4I/qO96/L+0RSh54J9pdKRnFJNyqmtbbiOnV00pM1wCe1?=
- =?us-ascii?Q?hbhxmYvuaUNdxEIQmPkbGIq1pi8dxmmNqlHBp+xdwujWrvZmpxFmTCm8CB61?=
- =?us-ascii?Q?iZs6cT7Gf2XyYZz8M8mkZxFUrRvWOTxzmgpaV4LFRGO2jqy+2SuR/Wh+agA+?=
- =?us-ascii?Q?lH2uocn/1HNq4ZL/Cy3c5RNkfm4FCNF7pUKEj/WJE8gbo1FTe51lQ/RTUKjd?=
- =?us-ascii?Q?h9oy3WipuH7BXTbKId6Vm3xq5OrOn2papH54KmFrujWzOCrdgpGdKjqYktTm?=
- =?us-ascii?Q?PHDmuGrFJnbTMOm3ODHN9yiuvT+O9vaKk3tVkxPviEiOrOBPv6psSsiGcFJU?=
- =?us-ascii?Q?NInRmNdcLteuPPFgjBALMyOFSpWl4b8W8r1hZQwgGd0WbhdIP7Nz55kboW9D?=
- =?us-ascii?Q?PUhstskOyDT9l+B8F6fDq1ZtB2h16RRRKI5j8XzddvxWTmxdQcmpNAXtQsud?=
- =?us-ascii?Q?rtD25SpTSBl+RFw6Pk6Kc/zPyLBA+rr7w7rMzHmLbDQmNSx5uGmEqLZLf9sH?=
- =?us-ascii?Q?PMbNfnRM96Hu3jrX2tG/K/NWzjfa866hlMCHrSJThZoKsIsJ4npsOfloPwBd?=
- =?us-ascii?Q?66PgEE1EcJVGpcGwMZ/zl5OwvxuV6rlLT7lIz3ep2/2hi59mDQl++q9bk5fT?=
- =?us-ascii?Q?ShiEjDvy9g6NY4/c8ln0SIrPHFeFW0vVTBo3jwMoYpmSXCGpslzzpemyuMHH?=
- =?us-ascii?Q?rDZkimAGNQC+5mF81CE0b1ku23Y1/PFvUqLK9rUtS81hYSl+dSW6TXvzZvMi?=
- =?us-ascii?Q?qK6cGvAowwXMl3f5AUskrpePsXsNjwXsyaZXgaYU4RsMi0z9IRIECIh6xfoR?=
- =?us-ascii?Q?PVeF7paXdrDTUxy7f1cT402MHMrfambjW4YqZZKjqggiSNvbNPOghIZzRLw2?=
- =?us-ascii?Q?SAMprE48ZrDbTNasb9CQZSQnzRO1ZJpEGsKWaM7WS066VpT5KFrP7JF6Ph5P?=
- =?us-ascii?Q?dF2RmMSrbeyFGzyN8L3gueUQjP2LDmrhy0s6CgSy9zD6/46KMNaUKPdFz6t0?=
- =?us-ascii?Q?iw+o4k1668Kozo4ULQsf+ZWfnZDnrDXmTCSE9fGwOM6WMtYt9eT4z35NH/pb?=
- =?us-ascii?Q?4ruKcANRYJO3PjphMilhtzqD9/G9Jh/lLFp4f6R2wUhLeKtVCjAP+KP5boRw?=
- =?us-ascii?Q?nwKboZPJQh/39gEA7f3j8RsWWWApUcLwWPkHbQZ78Zb4La+jq0NyPG22904h?=
- =?us-ascii?Q?blUB2aHPQdOAEG/tmDs=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) by
+ DM4PR12MB6328.namprd12.prod.outlook.com (2603:10b6:8:a0::16) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6792.23; Fri, 22 Sep 2023 14:42:38 +0000
+Received: from DM4PR12MB6280.namprd12.prod.outlook.com
+ ([fe80::5aa2:3605:1718:3332]) by DM4PR12MB6280.namprd12.prod.outlook.com
+ ([fe80::5aa2:3605:1718:3332%6]) with mapi id 15.20.6813.018; Fri, 22 Sep 2023
+ 14:42:38 +0000
+Message-ID: <bd351e98-db58-4bc3-8bb7-74b97f8e4783@amd.com>
+Date: Fri, 22 Sep 2023 10:42:34 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: switch DC over to the new DRM logging
+ macros
+To: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20230920193826.414884-1-hamza.mahfooz@amd.com>
+ <0faf4762-f146-4db3-b677-eb93c28a5279@amd.com>
+Content-Language: en-US
+From: Hamza Mahfooz <hamza.mahfooz@amd.com>
+In-Reply-To: <0faf4762-f146-4db3-b677-eb93c28a5279@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR01CA0167.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:7e::23) To DM4PR12MB6280.namprd12.prod.outlook.com
+ (2603:10b6:8:a2::11)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6280:EE_|DM4PR12MB6328:EE_
+X-MS-Office365-Filtering-Correlation-Id: ac671b4f-d07a-49a1-5584-08dbbb7a2a89
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: iG1PyqsOWYnaRhXuHZ37On5Zj6eezjTeHgrSkoyaVLfwkz4VSaKMr1iIcHxeaolgqGD1CckYkat3W9AVntrdPaFGQR/b0ZYqPk32RZ+D2wi+kNHocehhf/liQM510RknHonBj4K+j844CJLxHdJE8ZKNaLmIn0w6c9+62Y6DqTwOCCQi1SxpaqwfGawiIg8sw+89PmOz+c4yeej0f99MFSTUeNZq/pd3UDwgoUZ9XFkO3MVA24KuII+Y/kEOq/eGW8bREyb+Q7Z1CTbYLAg+mcRwG2/YyiQ0wTAV1SAneSZac1ManIUJWkcjBLTg+0I7+dv0F2+AJTdzQDpw4ZsLvB7KowMHyaEY5oqjk25IaQUrZttX0tzKOLSAPCjMpF1rt6A1fB8FmLSae0nK3MS0/B3l0c+LSt9ORRPEMDauxN9MwveriKhqDLs57tLxFPizyJ6Cl9qN/BVZ3f/Ro0A566f6AToq7SkhkvbCCdMPUVy/OQV9SwJ8nQD9mz6RlZ4eC2hdvA8VCsiKiBvyGpPjbnKhLAfNGg25Jy8lC9hVB1UnFHcBkpEYcm6AUhuzKUucWpImZs69fzrEedCE1b7prOVZ+6eJMC3kBGC66CnMZL5L/tA42d04r7nsYunGfd8GOwDR81vAtWI3o9Fyfy3OpQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6280.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(396003)(376002)(136003)(346002)(366004)(451199024)(186009)(1800799009)(478600001)(5660300002)(86362001)(6506007)(53546011)(6486002)(66946007)(6512007)(66556008)(316002)(66476007)(54906003)(41300700001)(44832011)(6666004)(31686004)(38100700002)(8936002)(2616005)(8676002)(26005)(31696002)(2906002)(36756003)(30864003)(4326008)(83380400001)(43740500002)(45980500001)(559001)(579004);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UTZ4ejNYS256bDFPOC9Sb2EyaVNIZEs4VEVLQ1JyNzlHdWNqakJMOXAyVWwz?=
+ =?utf-8?B?ak0vbG1VOWJvZG1iWkV1MDNFOE9ZbG1xeXdoN1owTUtNbnc4dG9DWGltYWdG?=
+ =?utf-8?B?d09ML2NWTUhJYmppS0t1Qko4eHBDUXRHVlJvcTU0S2RWNDMvK1lyTnBwREpX?=
+ =?utf-8?B?dS85dHVTQy9zaDNUZnhibEJwNnhaeVJYZm9xdVA0ZnNndkt0bnFqb0ZQLzNj?=
+ =?utf-8?B?N2tzRjNFNmNHZkRsQWEvZ1JwYkpNVGN5ZUlCc0t5bzYzd3d2UE1PSE9SaGFS?=
+ =?utf-8?B?SXZvZEthNk54MTdEcTdIb3pZeW9ZQTU1N3NWMm1RcHk1TnNMdUVLb3ZSenRs?=
+ =?utf-8?B?T3ZsbEt6SlVraFJCL2ljeDFPRkRJNFhkYnJCY0gyb2NLVGtncU9TemkxdWps?=
+ =?utf-8?B?Nk1YTnJPWEg0di96Q2dVTXRJLzV5clFWNzFJMmM1eUNabmFPK1RySVNKN0lw?=
+ =?utf-8?B?aWFRYUxuek16b2FmOW9oOHduMG9nVCtVbCt4elI5V0RZZ2hySWFNeHEwVG1S?=
+ =?utf-8?B?TlcvUVI2aDk5WGxJV1NXcjRmVzJLN2dEOXBqVlRSQWdSOENXMEdPWDM1RmRy?=
+ =?utf-8?B?RWpUMU50Tk42MktWdE1tNUR4VGZRV0xaYWh5dFRCSnRXUmRqblZNRW9DeC9V?=
+ =?utf-8?B?WjNOWkNMQ1Z4TWI4Sys5MDI0bm5lRjJaQnNQdzMzaHRIdWJKZ25abnQwSnhv?=
+ =?utf-8?B?ZkxyNk9meEQ3cWVrNWh3a2ZwbUtzUDdWQlFPVjVqcFZmVXZEMXJaVW1iOTNq?=
+ =?utf-8?B?TDdsVWFZS0h5TUhOZFF0c2xyVGFNWU1pSEFjRlNSNXFpVXRNTGZTQXFSK0p2?=
+ =?utf-8?B?V1NFSFRCYUtIM1IzdENtdXExM3o1SlNkeWI2a1RCQTJIMnNsQnVkMENtMldj?=
+ =?utf-8?B?VzZJR3hMcGRZOFluWkVGOVovTVozeGdQUDVsMFFBRnRsM1gvbmNtTVRuUklE?=
+ =?utf-8?B?OHQ3UHc4RFdLNldVUTBYYjZwQmtycm9KY2U2aXFWa0RSWmpwNkFKSFlyL1Rt?=
+ =?utf-8?B?UjlqOUtZUksrOEp3cVdhZFdVSUlneXZYdEVHYXczbzRaS3lzK1RyeGEyWVh5?=
+ =?utf-8?B?clh1YVhjZ3lKUGF1YzkzcTdhVXpYaHNtMms3RG4xY3M2c3JpbzZSVlVha1Jp?=
+ =?utf-8?B?V0hVWGY2WnpRdkVhZ1dQd1ZYdmdIUTVRN1A3NlhVdmtaSDRCODllUnV3VGVu?=
+ =?utf-8?B?dzNHdTA2eXRQWWd3WUoxV3owTGlnVXFGR3V4OXZFMU14b0k3N1JCSlZRQVVv?=
+ =?utf-8?B?VU96dXFFNy8wSEFkVXlBTCtTaGxTRGJhVk9KbUN4elFST2hlZG02TW12N1BJ?=
+ =?utf-8?B?S082V3ozcjQ0ZkhUd0Q1NUcvVXM0b2p3QTJIaFVLa3RmcDlvQUJObDN6Q2JK?=
+ =?utf-8?B?TUVlbGFZTzdZNXdTYXRDWjVsdEwzSWx2NDMzeHkxaG5ZZFJwMGU0aFh1dUZq?=
+ =?utf-8?B?SXpTS1dVQUxOL1ZwTkpPOXlWcFpOOGE1K29VSjVESjQwYk5UMmVWM2NDVVZM?=
+ =?utf-8?B?S3duOGdMTG1OTVZQMGQ1bG9mSkZSUVRxS005OGFSUUc2d3VMelEwcE43eU81?=
+ =?utf-8?B?S3h6cUFqbVMycldwd0tWRDYxS0JlOXh2a210RTlJY04wOXNxQXB4bGJsUVV6?=
+ =?utf-8?B?VWNnVDNaa29GaTdkZVErLzc3c2dUd0J0TEtLalJMeHVPb0J3c1c4TGdmYXVa?=
+ =?utf-8?B?ZkMzL0Mza01SWDdyVEVyQW96MzVKeENCUTVvK2N0ckZpL1JlMlFVbjBFcnVJ?=
+ =?utf-8?B?MEkvRHU5MktQOFBTekNzVjRzMzJRNTJUMkUzc1BKUUFEa1hLOEpBSFJiRVNK?=
+ =?utf-8?B?dFE0TG91Mmt6WHl5MW9kc005elBmOHIvY2swN0dVNjlBTC85azlQTDlqN1J1?=
+ =?utf-8?B?eEVwQXl6Q0hjakdtVkFaeXJpeXJtUVM1YmxzaXYzVFc1K3ByU24wRGFBd25L?=
+ =?utf-8?B?VmFhbXJyZktKN1RTQmpXVDFFbjk3Z2tDbk9JREI4Z0dxVjlVSWFOMWh3dlpl?=
+ =?utf-8?B?RWE3TnZ5dVB0TFFieC90OGZ1VnE1SHBWTkU0alB6VTlweG92REdqTzJwWG1N?=
+ =?utf-8?B?YTlJSDNzWWxJQ2pUdEg5bkxRblRCdjNiODFycnBSdmo3ekpzbDdFUUJnc2t5?=
+ =?utf-8?Q?xOX0ZoaJ9z6B3xzRezTOfPQhe?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac671b4f-d07a-49a1-5584-08dbbb7a2a89
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6280.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5399.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2deb3ba1-da52-47b8-2687-08dbbb796252
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2023 14:37:01.7879 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: szRulbHonw80M6ntBbsMjLTRAXKkXYLjeGyZsF6kzmWvq0RgwsG8CA2pz6qH8/h3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7321
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2023 14:42:38.0210 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OyMrX6dG/Mu1bT/rOjBz+FxW4kkFYiQbwbS4sdzDnH39zqG/9SGHGB454cxSKbsHQ186crN1hRW7aA1pLJ6odQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6328
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,54 +126,1365 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+On 9/22/23 10:36, Rodrigo Siqueira Jordao wrote:
+> Hi Hamza,
+> 
+> This is a very nice improvement and overall lgtm. I just one comment and 
+> one question.
+> 
+> For future series like this, I recommend splitting your commit into 
+> minor changes to make it easier to review and revert changes in case of 
+> regressions. Also, with a patchset, you could add a cover letter that 
+> explains the best way to review the series.
+> 
+> See my question as an inline comment.
+> 
+> On 9/20/23 13:38, Hamza Mahfooz wrote:
+>> For multi-GPU systems it is difficult to tell which GPU a particular
+>> message is being printed for and that is undesirable because it
+>> complicates debugging efforts. Also, the new macros allow us to enable
+>> logging for particular parts of the codebase more selectively (since we
+>> no longer need to throw everything at DRM_DEBUG_KMS()). So, for the
+>> reasons outlined above we should switch to the new macros.
+>>
+>> We can accomplish this by using the existing DC_LOGGER code to pass
+>> around the relevant `struct drm_device` which will be fed to the new
+>> macros in logger_types.h. Also, we must get rid of all instances of the
+>> DC_LOG_.*() functions that are currently in amdgpu_dm since we don't use
+>> the DC logger there and we can simply refer to the macros directly
+>> there instead.
+>>
+>> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+>> ---
+>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  66 ++++----
+>>   .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  69 +++++----
+>>   .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  15 +-
+>>   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |   8 +-
+>>   .../gpu/drm/amd/display/dc/bios/bios_parser.c |   3 +
+>>   .../dc/clk_mgr/dcn201/dcn201_clk_mgr.c        |   2 -
+>>   drivers/gpu/drm/amd/display/dc/core/dc.c      |  12 ++
+>>   .../gpu/drm/amd/display/dc/core/dc_debug.c    |   2 +
+>>   .../gpu/drm/amd/display/dc/core/dc_resource.c |   2 +
+>>   drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  26 ++--
+>>   drivers/gpu/drm/amd/display/dc/dc_helper.c    |   3 +
+>>   drivers/gpu/drm/amd/display/dc/dc_types.h     |   1 +
+>>   .../drm/amd/display/dc/dce/dce_clock_source.c |   6 +-
+>>   .../display/dc/dce110/dce110_hw_sequencer.c   |   9 +-
+>>   .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |  18 ++-
+>>   .../gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c |   2 +
+>>   .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |   7 +-
+>>   .../gpu/drm/amd/display/dc/dcn20/dcn20_vmid.c |   3 +
+>>   .../gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c |   2 +
+>>   .../drm/amd/display/dc/dcn30/dcn30_resource.c |   2 +
+>>   .../amd/display/dc/dcn301/dcn301_resource.c   |   2 +
+>>   .../amd/display/dc/dcn302/dcn302_resource.c   |   2 +
+>>   .../amd/display/dc/dcn303/dcn303_resource.c   |   2 +
+>>   .../drm/amd/display/dc/dcn31/dcn31_resource.c |   2 +
+>>   .../drm/amd/display/dc/dcn314/dcn314_hwseq.c  |   2 +-
+>>   .../amd/display/dc/dcn314/dcn314_resource.c   |   2 +
+>>   .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    |   2 +-
+>>   .../drm/amd/display/dc/dcn35/dcn35_hwseq.c    |   7 +-
+>>   .../drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  |   2 +
+>>   .../amd/display/dc/inc/hw/clk_mgr_internal.h  |   2 +-
+>>   .../amd/display/dc/link/hwss/link_hwss_dpia.c |   2 +
+>>   .../drm/amd/display/dc/link/link_detection.c  |   3 +
+>>   .../gpu/drm/amd/display/dc/link/link_dpms.c   |  13 +-
+>>   .../drm/amd/display/dc/link/link_factory.c    |   2 +
+>>   .../amd/display/dc/link/protocols/link_ddc.c  |   2 +
+>>   .../dc/link/protocols/link_dp_irq_handler.c   |   2 +
+>>   .../link/protocols/link_edp_panel_control.c   |   2 +
+>>   drivers/gpu/drm/amd/display/dc/os_types.h     |   1 +
+>>   .../drm/amd/display/include/logger_types.h    | 144 +++---------------
+>>   39 files changed, 232 insertions(+), 222 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c 
+>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index 373884ca38b9..5d6397b41abc 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -413,6 +413,7 @@ static void dm_pflip_high_irq(void *interrupt_params)
+>>       struct amdgpu_crtc *amdgpu_crtc;
+>>       struct common_irq_params *irq_params = interrupt_params;
+>>       struct amdgpu_device *adev = irq_params->adev;
+>> +    struct drm_device *dev = adev_to_drm(adev);
+>>       unsigned long flags;
+>>       struct drm_pending_vblank_event *e;
+>>       u32 vpos, hpos, v_blank_start, v_blank_end;
+>> @@ -423,18 +424,17 @@ static void dm_pflip_high_irq(void 
+>> *interrupt_params)
+>>       /* IRQ could occur when in initial stage */
+>>       /* TODO work and BO cleanup */
+>>       if (amdgpu_crtc == NULL) {
+>> -        DC_LOG_PFLIP("CRTC is null, returning.\n");
+>> +        drm_dbg_state(dev, "CRTC is null, returning.\n");
+>>           return;
+>>       }
+>>       spin_lock_irqsave(&adev_to_drm(adev)->event_lock, flags);
+>>       if (amdgpu_crtc->pflip_status != AMDGPU_FLIP_SUBMITTED) {
+>> -        DC_LOG_PFLIP("amdgpu_crtc->pflip_status = %d 
+>> !=AMDGPU_FLIP_SUBMITTED(%d) on crtc:%d[%p]\n",
+>> -                 amdgpu_crtc->pflip_status,
+>> -                 AMDGPU_FLIP_SUBMITTED,
+>> -                 amdgpu_crtc->crtc_id,
+>> -                 amdgpu_crtc);
+>> +        drm_dbg_state(dev,
+>> +                  "amdgpu_crtc->pflip_status = %d != 
+>> AMDGPU_FLIP_SUBMITTED(%d) on crtc:%d[%p]\n",
+>> +                  amdgpu_crtc->pflip_status, AMDGPU_FLIP_SUBMITTED,
+>> +                  amdgpu_crtc->crtc_id, amdgpu_crtc);
+>>           spin_unlock_irqrestore(&adev_to_drm(adev)->event_lock, flags);
+>>           return;
+>>       }
+>> @@ -500,9 +500,9 @@ static void dm_pflip_high_irq(void *interrupt_params)
+>>       amdgpu_crtc->pflip_status = AMDGPU_FLIP_NONE;
+>>       spin_unlock_irqrestore(&adev_to_drm(adev)->event_lock, flags);
+>> -    DC_LOG_PFLIP("crtc:%d[%p], pflip_stat:AMDGPU_FLIP_NONE, 
+>> vrr[%d]-fp %d\n",
+>> -             amdgpu_crtc->crtc_id, amdgpu_crtc,
+>> -             vrr_active, (int) !e);
+>> +    drm_dbg_state(dev,
+>> +              "crtc:%d[%p], pflip_stat:AMDGPU_FLIP_NONE, vrr[%d]-fp 
+>> %d\n",
+>> +              amdgpu_crtc->crtc_id, amdgpu_crtc, vrr_active, (int)!e);
+>>   }
+>>   static void dm_vupdate_high_irq(void *interrupt_params)
+>> @@ -532,9 +532,9 @@ static void dm_vupdate_high_irq(void 
+>> *interrupt_params)
+>>               atomic64_set(&irq_params->previous_timestamp, 
+>> vblank->time);
+>>           }
+>> -        DC_LOG_VBLANK("crtc:%d, vupdate-vrr:%d\n",
+>> -                  acrtc->crtc_id,
+>> -                  vrr_active);
+>> +        drm_dbg_vbl(drm_dev,
+>> +                "crtc:%d, vupdate-vrr:%d\n", acrtc->crtc_id,
+>> +                vrr_active);
+>>           /* Core vblank handling is done here after end of 
+>> front-porch in
+>>            * vrr mode, as vblank timestamping will give valid results
+>> @@ -585,8 +585,9 @@ static void dm_crtc_high_irq(void *interrupt_params)
+>>       vrr_active = amdgpu_dm_crtc_vrr_active_irq(acrtc);
+>> -    DC_LOG_VBLANK("crtc:%d, vupdate-vrr:%d, planes:%d\n", 
+>> acrtc->crtc_id,
+>> -              vrr_active, acrtc->dm_irq_params.active_planes);
+>> +    drm_dbg_vbl(adev_to_drm(adev),
+>> +            "crtc:%d, vupdate-vrr:%d, planes:%d\n", acrtc->crtc_id,
+>> +            vrr_active, acrtc->dm_irq_params.active_planes);
+>>       /**
+>>        * Core vblank handling at start of front-porch is only possible
+>> @@ -2700,6 +2701,7 @@ static void emulated_link_detect(struct dc_link 
+>> *link)
+>>       struct display_sink_capability sink_caps = { 0 };
+>>       enum dc_edid_status edid_status;
+>>       struct dc_context *dc_ctx = link->ctx;
+>> +    struct drm_device *dev = adev_to_drm(dc_ctx->driver_context);
+>>       struct dc_sink *sink = NULL;
+>>       struct dc_sink *prev_sink = NULL;
+>> @@ -2749,7 +2751,7 @@ static void emulated_link_detect(struct dc_link 
+>> *link)
+>>       }
+>>       default:
+>> -        DC_ERROR("Invalid connector type! signal:%d\n",
+>> +        drm_err(dev, "Invalid connector type! signal:%d\n",
+>>               link->connector_signal);
+>>           return;
+>>       }
+>> @@ -2759,7 +2761,7 @@ static void emulated_link_detect(struct dc_link 
+>> *link)
+>>       sink = dc_sink_create(&sink_init_data);
+>>       if (!sink) {
+>> -        DC_ERROR("Failed to create sink!\n");
+>> +        drm_err(dev, "Failed to create sink!\n");
+>>           return;
+>>       }
+>> @@ -2772,7 +2774,7 @@ static void emulated_link_detect(struct dc_link 
+>> *link)
+>>               sink);
+>>       if (edid_status != EDID_OK)
+>> -        DC_ERROR("Failed to read EDID");
+>> +        drm_err(dev, "Failed to read EDID\n");
+>>   }
+>> @@ -2791,7 +2793,7 @@ static void dm_gpureset_commit_state(struct 
+>> dc_state *dc_state,
+>>       bundle = kzalloc(sizeof(*bundle), GFP_KERNEL);
+>>       if (!bundle) {
+>> -        dm_error("Failed to allocate update bundle\n");
+>> +        drm_err(dm->ddev, "Failed to allocate update bundle\n");
+>>           goto cleanup;
+>>       }
+>> @@ -3243,7 +3245,8 @@ void amdgpu_dm_update_connector_after_detect(
+>>               aconnector->timing_requested =
+>>                   kzalloc(sizeof(struct dc_crtc_timing), GFP_KERNEL);
+>>               if (!aconnector->timing_requested)
+>> -                dm_error("failed to create 
+>> aconnector->requested_timing\n");
+>> +                drm_err(dev,
+>> +                    "failed to create aconnector->requested_timing\n");
+>>           }
+>>           drm_connector_update_edid_property(connector, 
+>> aconnector->edid);
+>> @@ -6163,10 +6166,10 @@ create_stream_for_sink(struct 
+>> amdgpu_dm_connector *aconnector,
+>>               requested_bpc);
+>>       if (aconnector->timing_changed) {
+>> -        DC_LOG_DEBUG("%s: overriding timing for automated test, bpc 
+>> %d, changing to %d\n",
+>> -                __func__,
+>> -                stream->timing.display_color_depth,
+>> -                aconnector->timing_requested->display_color_depth);
+>> +        drm_dbg(aconnector->base.dev,
+>> +            "overriding timing for automated test, bpc %d, changing 
+>> to %d\n",
+>> +            stream->timing.display_color_depth,
+>> +            aconnector->timing_requested->display_color_depth);
+>>           stream->timing = *aconnector->timing_requested;
+>>       }
+>> @@ -7886,8 +7889,9 @@ static void prepare_flip_isr(struct amdgpu_crtc 
+>> *acrtc)
+>>       /* Mark this event as consumed */
+>>       acrtc->base.state->event = NULL;
+>> -    DC_LOG_PFLIP("crtc:%d, pflip_stat:AMDGPU_FLIP_SUBMITTED\n",
+>> -             acrtc->crtc_id);
+>> +    drm_dbg_state(acrtc->base.dev,
+>> +              "crtc:%d, pflip_stat:AMDGPU_FLIP_SUBMITTED\n",
+>> +              acrtc->crtc_id);
+>>   }
+>>   static void update_freesync_state_on_stream(
+>> @@ -8130,7 +8134,7 @@ static void amdgpu_dm_commit_planes(struct 
+>> drm_atomic_state *state,
+>>       bundle = kzalloc(sizeof(*bundle), GFP_KERNEL);
+>>       if (!bundle) {
+>> -        dm_error("Failed to allocate update bundle\n");
+>> +        drm_err(dev, "Failed to allocate update bundle\n");
+>>           goto cleanup;
+>>       }
+>> @@ -8718,7 +8722,9 @@ static void amdgpu_dm_commit_streams(struct 
+>> drm_atomic_state *state,
+>>                   status = dc_stream_get_status_from_state(dc_state,
+>>                                        dm_new_crtc_state->stream);
+>>               if (!status)
+>> -                DC_ERR("got no status for stream %p on acrtc%p\n", 
+>> dm_new_crtc_state->stream, acrtc);
+>> +                drm_err(dev,
+>> +                    "got no status for stream %p on acrtc%p\n",
+>> +                    dm_new_crtc_state->stream, acrtc);
+>>               else
+>>                   acrtc->otg_inst = status->primary_otg_inst;
+>>           }
+>> @@ -10906,7 +10912,8 @@ void dm_write_reg_func(const struct dc_context 
+>> *ctx, uint32_t address,
+>>   {
+>>   #ifdef DM_CHECK_ADDR_0
+>>       if (address == 0) {
+>> -        DC_ERR("invalid register write. address = 0");
+>> +        drm_err(adev_to_drm(ctx->driver_context),
+>> +            "invalid register write. address = 0");
+>>           return;
+>>       }
+>>   #endif
+>> @@ -10920,7 +10927,8 @@ uint32_t dm_read_reg_func(const struct 
+>> dc_context *ctx, uint32_t address,
+>>       u32 value;
+>>   #ifdef DM_CHECK_ADDR_0
+>>       if (address == 0) {
+>> -        DC_ERR("invalid register read; address = 0\n");
+>> +        drm_err(adev_to_drm(ctx->driver_context),
+>> +            "invalid register read; address = 0\n");
+>>           return 0;
+>>       }
+>>   #endif
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c 
+>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+>> index baf7e5254fb3..b15ee51d49a4 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+>> @@ -539,7 +539,8 @@ bool dm_helpers_dp_read_dpcd(
+>>       struct amdgpu_dm_connector *aconnector = link->priv;
+>>       if (!aconnector) {
+>> -        DC_LOG_DC("Failed to find connector for link!\n");
+>> +        drm_dbg(aconnector->base.dev,
+>> +            "Failed to find connector for link!\n");
+>>           return false;
+>>       }
+>> @@ -661,7 +662,7 @@ static bool execute_synaptics_rc_command(struct 
+>> drm_dp_aux *aux,
+>>           drm_dp_dpcd_read(aux, SYNAPTICS_RC_DATA, data, length);
+>>       }
+>> -    DC_LOG_DC("%s: success = %d\n", __func__, success);
+>> +    drm_dbg(aux->drm_dev, "success = %d\n", success);
+>>       return success;
+>>   }
+>> @@ -670,7 +671,7 @@ static void apply_synaptics_fifo_reset_wa(struct 
+>> drm_dp_aux *aux)
+>>   {
+>>       unsigned char data[16] = {0};
+>> -    DC_LOG_DC("Start %s\n", __func__);
+>> +    drm_dbg(aux->drm_dev, "Start\n");
+>>       // Step 2
+>>       data[0] = 'P';
+>> @@ -728,7 +729,7 @@ static void apply_synaptics_fifo_reset_wa(struct 
+>> drm_dp_aux *aux)
+>>       if (!execute_synaptics_rc_command(aux, true, 0x02, 0, 0, NULL))
+>>           return;
+>> -    DC_LOG_DC("Done %s\n", __func__);
+>> +    drm_dbg(aux->drm_dev, "Done\n");
+>>   }
+>>   /* MST Dock */
+>> @@ -741,7 +742,8 @@ static uint8_t 
+>> write_dsc_enable_synaptics_non_virtual_dpcd_mst(
+>>   {
+>>       uint8_t ret = 0;
+>> -    DC_LOG_DC("Configure DSC to non-virtual dpcd synaptics\n");
+>> +    drm_info(aux->drm_dev,
+>> +         "Configure DSC to non-virtual dpcd synaptics\n");
+>>       if (enable) {
+>>           /* When DSC is enabled on previous boot and reboot with the 
+>> hub,
+>> @@ -779,7 +781,9 @@ bool dm_helpers_dp_write_dsc_enable(
+>>       static const uint8_t DSC_DECODING = 0x01;
+>>       static const uint8_t DSC_PASSTHROUGH = 0x02;
+>> -    struct amdgpu_dm_connector *aconnector;
+>> +    struct amdgpu_dm_connector *aconnector =
+>> +        (struct amdgpu_dm_connector *)stream->dm_stream_context;
+>> +    struct drm_device *dev = aconnector->base.dev;
+>>       struct drm_dp_mst_port *port;
+>>       uint8_t enable_dsc = enable ? DSC_DECODING : DSC_DISABLE;
+>>       uint8_t enable_passthrough = enable ? DSC_PASSTHROUGH : 
+>> DSC_DISABLE;
+>> @@ -789,8 +793,6 @@ bool dm_helpers_dp_write_dsc_enable(
+>>           return false;
+>>       if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST) {
+>> -        aconnector = (struct amdgpu_dm_connector 
+>> *)stream->dm_stream_context;
+>> -
+>>           if (!aconnector->dsc_aux)
+>>               return false;
+>> @@ -807,30 +809,34 @@ bool dm_helpers_dp_write_dsc_enable(
+>>                   ret = drm_dp_dpcd_write(port->passthrough_aux,
+>>                               DP_DSC_ENABLE,
+>>                               &enable_passthrough, 1);
+>> -                DC_LOG_DC("Sent DSC pass-through enable to virtual 
+>> dpcd port, ret = %u\n",
+>> -                      ret);
+>> +                drm_dbg(dev,
+>> +                    "Sent DSC pass-through enable to virtual dpcd 
+>> port, ret = %u\n",
+>> +                    ret);
+>>               }
+>>               ret = drm_dp_dpcd_write(aconnector->dsc_aux,
+>>                           DP_DSC_ENABLE, &enable_dsc, 1);
+>> -            DC_LOG_DC("Sent DSC decoding enable to %s port, ret = %u\n",
+>> -                  (port->passthrough_aux) ? "remote RX" :
+>> -                  "virtual dpcd",
+>> -                  ret);
+>> +            drm_dbg(dev,
+>> +                "Sent DSC decoding enable to %s port, ret = %u\n",
+>> +                (port->passthrough_aux) ? "remote RX" :
+>> +                "virtual dpcd",
+>> +                ret);
+>>           } else {
+>>               ret = drm_dp_dpcd_write(aconnector->dsc_aux,
+>>                           DP_DSC_ENABLE, &enable_dsc, 1);
+>> -            DC_LOG_DC("Sent DSC decoding disable to %s port, ret = 
+>> %u\n",
+>> -                  (port->passthrough_aux) ? "remote RX" :
+>> -                  "virtual dpcd",
+>> -                  ret);
+>> +            drm_dbg(dev,
+>> +                "Sent DSC decoding disable to %s port, ret = %u\n",
+>> +                (port->passthrough_aux) ? "remote RX" :
+>> +                "virtual dpcd",
+>> +                ret);
+>>               if (port->passthrough_aux) {
+>>                   ret = drm_dp_dpcd_write(port->passthrough_aux,
+>>                               DP_DSC_ENABLE,
+>>                               &enable_passthrough, 1);
+>> -                DC_LOG_DC("Sent DSC pass-through disable to virtual 
+>> dpcd port, ret = %u\n",
+>> -                      ret);
+>> +                drm_dbg(dev,
+>> +                    "Sent DSC pass-through disable to virtual dpcd 
+>> port, ret = %u\n",
+>> +                    ret);
+>>               }
+>>           }
+>>       }
+>> @@ -838,10 +844,14 @@ bool dm_helpers_dp_write_dsc_enable(
+>>       if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT || stream->signal 
+>> == SIGNAL_TYPE_EDP) {
+>>           if (stream->sink->link->dpcd_caps.dongle_type == 
+>> DISPLAY_DONGLE_NONE) {
+>>               ret = dm_helpers_dp_write_dpcd(ctx, stream->link, 
+>> DP_DSC_ENABLE, &enable_dsc, 1);
+>> -            DC_LOG_DC("Send DSC %s to SST RX\n", enable_dsc ? 
+>> "enable" : "disable");
+>> +            drm_dbg(dev,
+>> +                "Send DSC %s to SST RX\n",
+>> +                enable_dsc ? "enable" : "disable");
+>>           } else if (stream->sink->link->dpcd_caps.dongle_type == 
+>> DISPLAY_DONGLE_DP_HDMI_CONVERTER) {
+>>               ret = dm_helpers_dp_write_dpcd(ctx, stream->link, 
+>> DP_DSC_ENABLE, &enable_dsc, 1);
+>> -            DC_LOG_DC("Send DSC %s to DP-HDMI PCON\n", enable_dsc ? 
+>> "enable" : "disable");
+>> +            drm_dbg(dev,
+>> +                "Send DSC %s to DP-HDMI PCON\n",
+>> +                enable_dsc ? "enable" : "disable");
+>>           }
+>>       }
+>> @@ -1110,6 +1120,7 @@ bool dm_helpers_dp_handle_test_pattern_request(
+>>       struct pipe_ctx *pipes = link->dc->current_state->res_ctx.pipe_ctx;
+>>       struct pipe_ctx *pipe_ctx = NULL;
+>>       struct amdgpu_dm_connector *aconnector = link->priv;
+>> +    struct drm_device *dev = aconnector->base.dev;
+>>       int i;
+>>       for (i = 0; i < MAX_PIPES; i++) {
+>> @@ -1187,12 +1198,12 @@ bool dm_helpers_dp_handle_test_pattern_request(
+>>           && pipe_ctx->stream->timing.display_color_depth != 
+>> requestColorDepth)
+>>           || (requestPixelEncoding != PIXEL_ENCODING_UNDEFINED
+>>           && pipe_ctx->stream->timing.pixel_encoding != 
+>> requestPixelEncoding)) {
+>> -        DC_LOG_DEBUG("%s: original bpc %d pix encoding %d, changing 
+>> to %d  %d\n",
+>> -                __func__,
+>> -                pipe_ctx->stream->timing.display_color_depth,
+>> -                pipe_ctx->stream->timing.pixel_encoding,
+>> -                requestColorDepth,
+>> -                requestPixelEncoding);
+>> +        drm_dbg(dev,
+>> +            "original bpc %d pix encoding %d, changing to %d  %d\n",
+>> +            pipe_ctx->stream->timing.display_color_depth,
+>> +            pipe_ctx->stream->timing.pixel_encoding,
+>> +            requestColorDepth,
+>> +            requestPixelEncoding);
+>>           pipe_ctx->stream->timing.display_color_depth = 
+>> requestColorDepth;
+>>           pipe_ctx->stream->timing.pixel_encoding = requestPixelEncoding;
+>> @@ -1203,7 +1214,7 @@ bool dm_helpers_dp_handle_test_pattern_request(
+>>           if (aconnector->timing_requested)
+>>               *aconnector->timing_requested = pipe_ctx->stream->timing;
+>>           else
+>> -            DC_LOG_ERROR("%s: timing storage failed\n", __func__);
+>> +            drm_err(dev, "timing storage failed\n");
+>>       }
+>> diff --git 
+>> a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c 
+>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+>> index 57230661132b..e4c1b96f7eda 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+>> @@ -173,7 +173,8 @@ amdgpu_dm_mst_connector_early_unregister(struct 
+>> drm_connector *connector)
+>>           if (dc_link->sink_count)
+>>               dc_link_remove_remote_sink(dc_link, dc_sink);
+>> -        DC_LOG_MST("DM_MST: remove remote sink 0x%p, %d remaining\n",
+>> +        drm_dbg(connector->dev,
+>> +            "DM_MST: remove remote sink 0x%p, %d remaining\n",
+>>               dc_sink, dc_link->sink_count);
+>>           dc_sink_release(dc_sink);
+>> @@ -325,8 +326,10 @@ static int dm_dp_mst_get_modes(struct 
+>> drm_connector *connector)
+>>                       return 0;
+>>                   }
+>> -                DC_LOG_MST("DM_MST: add remote sink 0x%p, %d 
+>> remaining\n",
+>> -                    dc_sink, aconnector->dc_link->sink_count);
+>> +                drm_dbg(connector->dev,
+>> +                    "DM_MST: add remote sink 0x%p, %d remaining\n",
+>> +                    dc_sink,
+>> +                    aconnector->dc_link->sink_count);
+>>                   dc_sink->priv = aconnector;
+>>                   aconnector->dc_sink = dc_sink;
+>> @@ -361,7 +364,8 @@ static int dm_dp_mst_get_modes(struct 
+>> drm_connector *connector)
+>>               return 0;
+>>           }
+>> -        DC_LOG_MST("DM_MST: add remote sink 0x%p, %d remaining\n",
+>> +        drm_dbg(connector->dev,
+>> +            "DM_MST: add remote sink 0x%p, %d remaining\n",
+>>               dc_sink, aconnector->dc_link->sink_count);
+>>           dc_sink->priv = aconnector;
+>> @@ -481,7 +485,8 @@ dm_dp_mst_detect(struct drm_connector *connector,
+>>           if (aconnector->dc_link->sink_count)
+>>               dc_link_remove_remote_sink(aconnector->dc_link, 
+>> aconnector->dc_sink);
+>> -        DC_LOG_MST("DM_MST: remove remote sink 0x%p, %d remaining\n",
+>> +        drm_dbg(connector->dev,
+>> +            "DM_MST: remove remote sink 0x%p, %d remaining\n",
+>>               aconnector->dc_link, aconnector->dc_link->sink_count);
+>>           dc_sink_release(aconnector->dc_sink);
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c 
+>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>> index 8038fe3d193e..03df26bd8e83 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>> @@ -1237,11 +1237,9 @@ void 
+>> amdgpu_dm_plane_handle_cursor_update(struct drm_plane *plane,
+>>       if (!plane->state->fb && !old_plane_state->fb)
+>>           return;
+>> -    DC_LOG_CURSOR("%s: crtc_id=%d with size %d to %d\n",
+>> -              __func__,
+>> -              amdgpu_crtc->crtc_id,
+>> -              plane->state->crtc_w,
+>> -              plane->state->crtc_h);
+>> +    drm_dbg_atomic(plane->dev, "crtc_id=%d with size %d to %d\n",
+>> +               amdgpu_crtc->crtc_id, plane->state->crtc_w,
+>> +               plane->state->crtc_h);
+>>       ret = get_cursor_position(plane, crtc, &position);
+>>       if (ret)
+>> diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c 
+>> b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
+>> index 6b3190447581..6450853fea94 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
+>> @@ -2746,6 +2746,7 @@ static enum bp_result bios_get_board_layout_info(
+>>       struct board_layout_info *board_layout_info)
+>>   {
+>>       unsigned int i;
+>> +    struct bios_parser *bp;
+>>       enum bp_result record_result;
+>>       const unsigned int slot_index_to_vbios_id[MAX_BOARD_SLOTS] = {
+>> @@ -2754,6 +2755,8 @@ static enum bp_result bios_get_board_layout_info(
+>>           0, 0
+>>       };
+>> +    bp = BP_FROM_DCB(dcb);
+>> +
+> 
+> I think I missed something here. Could you elaborate on why we need this 
+> change as part of this patch?
 
-Acked-by: Leo Liu <leo.liu@amd.com>
+It's used by DC_LOGGER, since it's defined as the following in this file:
 
------Original Message-----
-From: Wu, David <David.Wu3@amd.com>
-Sent: Thursday, September 21, 2023 3:18 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander <Alexa=
-nder.Deucher@amd.com>; Liu, Leo <Leo.Liu@amd.com>
-Subject: [PATCH] drm/amdgpu: not to save bo in the case of RAS err_event_at=
-hub
+#define DC_LOGGER \
+	bp->base.ctx->logger
 
-err_event_athub will corrupt VCPU buffer and not good to be restored in amd=
-gpu_vcn_resume() and in this case the VCPU buffer needs to be cleared for V=
-CN firmware to work properly.
-
-Signed-off-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_vcn.c
-index c93f3a4c0e31..f4963330c772 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -294,8 +294,15 @@ int amdgpu_vcn_suspend(struct amdgpu_device *adev)
-        void *ptr;
-        int i, idx;
-
-+       bool in_ras_intr =3D amdgpu_ras_intr_triggered();
-+
-        cancel_delayed_work_sync(&adev->vcn.idle_work);
-
-+       /* err_event_athub will corrupt VCPU buffer, so we need to
-+        * restore fw data and clear buffer in amdgpu_vcn_resume() */
-+       if (in_ras_intr)
-+               return 0;
-+
-        for (i =3D 0; i < adev->vcn.num_vcn_inst; ++i) {
-                if (adev->vcn.harvest_config & (1 << i))
-                        continue;
---
-2.34.1
+> 
+> Thanks
+> Siqueira
+> 
+>>       if (board_layout_info == NULL) {
+>>           DC_LOG_DETECTION_EDID_PARSER("Invalid board_layout_info\n");
+>>           return BP_RESULT_BADINPUT;
+>> diff --git 
+>> a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn201/dcn201_clk_mgr.c 
+>> b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn201/dcn201_clk_mgr.c
+>> index 694fe4271b4d..9c90090e7351 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn201/dcn201_clk_mgr.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn201/dcn201_clk_mgr.c
+>> @@ -59,8 +59,6 @@
+>>   #define CTX \
+>>       clk_mgr->base.ctx
+>> -#define DC_LOGGER \
+>> -    clk_mgr->base.ctx->logger
+>>   static const struct clk_mgr_registers clk_mgr_regs = {
+>>           CLK_COMMON_REG_LIST_DCN_201()
+>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c 
+>> b/drivers/gpu/drm/amd/display/dc/core/dc.c
+>> index f91d0f6b0d7d..977f3e9917be 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+>> @@ -24,6 +24,8 @@
+>>   #include "dm_services.h"
+>> +#include "amdgpu.h"
+>> +
+>>   #include "dc.h"
+>>   #include "core_status.h"
+>> @@ -828,6 +830,7 @@ static void dc_destruct(struct dc *dc)
+>>       if (dc->ctx->created_bios)
+>>           dal_bios_parser_destroy(&dc->ctx->dc_bios);
+>> +    kfree(dc->ctx->logger);
+>>       dc_perf_trace_destroy(&dc->ctx->perf_trace);
+>>       kfree(dc->ctx);
+>> @@ -871,6 +874,15 @@ static bool dc_construct_ctx(struct dc *dc,
+>>       dc_ctx->clk_reg_offsets = init_params->clk_reg_offsets;
+>>       /* Create logger */
+>> +    dc_ctx->logger = kmalloc(sizeof(*dc_ctx->logger), GFP_KERNEL);
+>> +
+>> +    if (!dc_ctx->logger) {
+>> +        kfree(dc_ctx);
+>> +        return false;
+>> +    }
+>> +
+>> +    dc_ctx->logger->dev = adev_to_drm(init_params->driver);
+>> +    dc->dml.logger = dc_ctx->logger;
+>>       dc_ctx->dce_version = resource_parse_asic_id(init_params->asic_id);
+>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c 
+>> b/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
+>> index 69f1c2b89a57..801cdbc8117d 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
+>> @@ -36,6 +36,8 @@
+>>   #include "resource.h"
+>> +#define DC_LOGGER \
+>> +    dc->ctx->logger
+>>   #define DC_LOGGER_INIT(logger)
+>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c 
+>> b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+>> index 5810cf78cf29..21fed590f672 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+>> @@ -82,6 +82,8 @@
+>>    */
+>>   #define VISUAL_CONFIRM_DPP_OFFSET_DENO 240
+>> +#define DC_LOGGER \
+>> +    dc->ctx->logger
+>>   #define DC_LOGGER_INIT(logger)
+>>   #define UNABLE_TO_SPLIT -1
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c 
+>> b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+>> index 91b3a4610957..a388f34c6d04 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+>> @@ -80,43 +80,43 @@ void dc_dmub_srv_wait_idle(struct dc_dmub_srv 
+>> *dc_dmub_srv)
+>>       }
+>>   }
+>> -void dc_dmub_srv_clear_inbox0_ack(struct dc_dmub_srv *dmub_srv)
+>> +void dc_dmub_srv_clear_inbox0_ack(struct dc_dmub_srv *dc_dmub_srv)
+>>   {
+>> -    struct dmub_srv *dmub = dmub_srv->dmub;
+>> -    struct dc_context *dc_ctx = dmub_srv->ctx;
+>> +    struct dmub_srv *dmub = dc_dmub_srv->dmub;
+>> +    struct dc_context *dc_ctx = dc_dmub_srv->ctx;
+>>       enum dmub_status status = DMUB_STATUS_OK;
+>>       status = dmub_srv_clear_inbox0_ack(dmub);
+>>       if (status != DMUB_STATUS_OK) {
+>>           DC_ERROR("Error clearing INBOX0 ack: status=%d\n", status);
+>> -        dc_dmub_srv_log_diagnostic_data(dmub_srv);
+>> +        dc_dmub_srv_log_diagnostic_data(dc_dmub_srv);
+>>       }
+>>   }
+>> -void dc_dmub_srv_wait_for_inbox0_ack(struct dc_dmub_srv *dmub_srv)
+>> +void dc_dmub_srv_wait_for_inbox0_ack(struct dc_dmub_srv *dc_dmub_srv)
+>>   {
+>> -    struct dmub_srv *dmub = dmub_srv->dmub;
+>> -    struct dc_context *dc_ctx = dmub_srv->ctx;
+>> +    struct dmub_srv *dmub = dc_dmub_srv->dmub;
+>> +    struct dc_context *dc_ctx = dc_dmub_srv->ctx;
+>>       enum dmub_status status = DMUB_STATUS_OK;
+>>       status = dmub_srv_wait_for_inbox0_ack(dmub, 100000);
+>>       if (status != DMUB_STATUS_OK) {
+>>           DC_ERROR("Error waiting for INBOX0 HW Lock Ack\n");
+>> -        dc_dmub_srv_log_diagnostic_data(dmub_srv);
+>> +        dc_dmub_srv_log_diagnostic_data(dc_dmub_srv);
+>>       }
+>>   }
+>> -void dc_dmub_srv_send_inbox0_cmd(struct dc_dmub_srv *dmub_srv,
+>> -        union dmub_inbox0_data_register data)
+>> +void dc_dmub_srv_send_inbox0_cmd(struct dc_dmub_srv *dc_dmub_srv,
+>> +                 union dmub_inbox0_data_register data)
+>>   {
+>> -    struct dmub_srv *dmub = dmub_srv->dmub;
+>> -    struct dc_context *dc_ctx = dmub_srv->ctx;
+>> +    struct dmub_srv *dmub = dc_dmub_srv->dmub;
+>> +    struct dc_context *dc_ctx = dc_dmub_srv->ctx;
+>>       enum dmub_status status = DMUB_STATUS_OK;
+>>       status = dmub_srv_send_inbox0_cmd(dmub, data);
+>>       if (status != DMUB_STATUS_OK) {
+>>           DC_ERROR("Error sending INBOX0 cmd\n");
+>> -        dc_dmub_srv_log_diagnostic_data(dmub_srv);
+>> +        dc_dmub_srv_log_diagnostic_data(dc_dmub_srv);
+>>       }
+>>   }
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dc_helper.c 
+>> b/drivers/gpu/drm/amd/display/dc/dc_helper.c
+>> index c8505273421b..cb6eaddab720 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dc_helper.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dc_helper.c
+>> @@ -36,6 +36,9 @@
+>>   #include "dc_dmub_srv.h"
+>>   #include "reg_helper.h"
+>> +#define DC_LOGGER \
+>> +    ctx->logger
+>> +
+>>   static inline void submit_dmub_read_modify_write(
+>>       struct dc_reg_helper_state *offload,
+>>       const struct dc_context *ctx)
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h 
+>> b/drivers/gpu/drm/amd/display/dc/dc_types.h
+>> index e531ad3acefc..40dc51853d62 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dc_types.h
+>> +++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
+>> @@ -773,6 +773,7 @@ struct dc_context {
+>>       struct dc *dc;
+>>       void *driver_context; /* e.g. amdgpu_device */
+>> +    struct dal_logger *logger;
+>>       struct dc_perf_trace *perf_trace;
+>>       void *cgs_device;
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c 
+>> b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+>> index 75cf4ab8ae3c..5d3f6fa1011e 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+>> @@ -44,7 +44,10 @@
+>>   #define CTX \
+>>       clk_src->base.ctx
+>> -#define DC_LOGGER_INIT()
+>> +#define DC_LOGGER \
+>> +    calc_pll_cs->ctx->logger
+>> +#define DC_LOGGER_INIT() \
+>> +    struct calc_pll_clock_source *calc_pll_cs = &clk_src->calc_pll
+>>   #undef FN
+>>   #define FN(reg_name, field_name) \
+>> @@ -1255,6 +1258,7 @@ static uint32_t dcn3_get_pix_clk_dividers(
+>>           struct pll_settings *pll_settings)
+>>   {
+>>       unsigned long long actual_pix_clk_100Hz = pix_clk_params ? 
+>> pix_clk_params->requested_pix_clk_100hz : 0;
+>> +    struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
+>>       DC_LOGGER_INIT();
+>> diff --git 
+>> a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c 
+>> b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+>> index baecaaf96968..44e93c20b207 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+>> @@ -82,7 +82,10 @@
+>>   #define CTX \
+>>       hws->ctx
+>> -#define DC_LOGGER_INIT()
+>> +#define DC_LOGGER \
+>> +    ctx->logger
+>> +#define DC_LOGGER_INIT() \
+>> +    struct dc_context *ctx = dc->ctx
+>>   #define REG(reg)\
+>>       hws->regs->reg
+>> @@ -2458,6 +2461,7 @@ static bool wait_for_reset_trigger_to_occur(
+>>       struct dc_context *dc_ctx,
+>>       struct timing_generator *tg)
+>>   {
+>> +    struct dc_context *ctx = dc_ctx;
+>>       bool rc = false;
+>>       /* To avoid endless loop we wait at most
+>> @@ -2501,6 +2505,7 @@ static void dce110_enable_timing_synchronization(
+>>       struct dc_context *dc_ctx = dc->ctx;
+>>       struct dcp_gsl_params gsl_params = { 0 };
+>>       int i;
+>> +    DC_LOGGER_INIT();
+>>       DC_SYNC_INFO("GSL: Setting-up...\n");
+>> @@ -2546,6 +2551,7 @@ static void 
+>> dce110_enable_per_frame_crtc_position_reset(
+>>       struct dc_context *dc_ctx = dc->ctx;
+>>       struct dcp_gsl_params gsl_params = { 0 };
+>>       int i;
+>> +    DC_LOGGER_INIT();
+>>       gsl_params.gsl_group = 0;
+>>       gsl_params.gsl_master = 0;
+>> @@ -2691,7 +2697,6 @@ static void dce110_program_front_end_for_pipe(
+>>       unsigned int i;
+>>       struct dce_hwseq *hws = dc->hwseq;
+>> -    DC_LOGGER_INIT();
+>>       memset(&tbl_entry, 0, sizeof(tbl_entry));
+>>       memset(&adjust, 0, sizeof(adjust));
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c 
+>> b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+>> index 79befa17bb03..817827fa0a0e 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+>> @@ -57,7 +57,10 @@
+>>   #include "dce/dmub_outbox.h"
+>>   #include "link.h"
+>> -#define DC_LOGGER_INIT(logger)
+>> +#define DC_LOGGER \
+>> +    dc_logger
+>> +#define DC_LOGGER_INIT(logger) \
+>> +    struct dal_logger *dc_logger = logger
+>>   #define CTX \
+>>       hws->ctx
+>> @@ -1808,7 +1811,6 @@ static void log_tf(struct dc_context *ctx,
+>>       // DC_LOG_ALL_TF_POINTS logs all channels of the tf
+>>       int i = 0;
+>> -    DC_LOGGER_INIT(ctx->logger);
+>>       DC_LOG_GAMMA("Gamma Correction TF");
+>>       DC_LOG_ALL_GAMMA("Logging all tf points...");
+>>       DC_LOG_ALL_TF_CHANNELS("Logging all channels...");
+>> @@ -1990,6 +1992,8 @@ static bool wait_for_reset_trigger_to_occur(
+>>   {
+>>       bool rc = false;
+>> +    DC_LOGGER_INIT(dc_ctx->logger);
+>> +
+>>       /* To avoid endless loop we wait at most
+>>        * frames_to_wait_on_triggered_reset frames for the reset to 
+>> occur. */
+>>       const uint32_t frames_to_wait_on_triggered_reset = 10;
+>> @@ -2117,6 +2121,8 @@ static int dcn10_align_pixel_clocks(struct dc 
+>> *dc, int group_size,
+>>       uint32_t dp_ref_clk_100hz =
+>>           
+>> dc->res_pool->dp_clock_source->ctx->dc->clk_mgr->dprefclk_khz*10;
+>> +    DC_LOGGER_INIT(dc_ctx->logger);
+>> +
+>>       hw_crtc_timing = kcalloc(MAX_PIPES, sizeof(*hw_crtc_timing), 
+>> GFP_KERNEL);
+>>       if (!hw_crtc_timing)
+>>           return master;
+>> @@ -2200,6 +2206,8 @@ void dcn10_enable_vblanks_synchronization(
+>>       struct timing_generator *tg;
+>>       int i, width, height, master;
+>> +    DC_LOGGER_INIT(dc_ctx->logger);
+>> +
+>>       for (i = 1; i < group_size; i++) {
+>>           opp = grouped_pipes[i]->stream_res.opp;
+>>           tg = grouped_pipes[i]->stream_res.tg;
+>> @@ -2263,6 +2271,8 @@ void dcn10_enable_timing_synchronization(
+>>       struct timing_generator *tg;
+>>       int i, width, height;
+>> +    DC_LOGGER_INIT(dc_ctx->logger);
+>> +
+>>       DC_SYNC_INFO("Setting up OTG reset trigger\n");
+>>       for (i = 1; i < group_size; i++) {
+>> @@ -2340,6 +2350,8 @@ void dcn10_enable_per_frame_crtc_position_reset(
+>>       struct dc_context *dc_ctx = dc->ctx;
+>>       int i;
+>> +    DC_LOGGER_INIT(dc_ctx->logger);
+>> +
+>>       DC_SYNC_INFO("Setting up\n");
+>>       for (i = 0; i < group_size; i++)
+>>           if (grouped_pipes[i]->stream_res.tg->funcs->enable_crtc_reset)
+>> @@ -2994,8 +3006,6 @@ void dcn10_post_unlock_program_front_end(
+>>   {
+>>       int i;
+>> -    DC_LOGGER_INIT(dc->ctx->logger);
+>> -
+>>       for (i = 0; i < dc->res_pool->pipe_count; i++) {
+>>           struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[i];
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c 
+>> b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
+>> index 4566bc7abf17..139cf31d2e45 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
+>> @@ -30,6 +30,8 @@
+>>   #include "reg_helper.h"
+>>   #include "basics/conversion.h"
+>> +#define DC_LOGGER \
+>> +    ctx->logger
+>>   #define DC_LOGGER_INIT(logger)
+>>   #define REG(reg)\
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c 
+>> b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+>> index 19ab08f5122e..2e4f0c2dfb50 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+>> @@ -56,7 +56,10 @@
+>>   #include "link_hwss.h"
+>>   #include "link.h"
+>> -#define DC_LOGGER_INIT(logger)
+>> +#define DC_LOGGER \
+>> +    dc_logger
+>> +#define DC_LOGGER_INIT(logger) \
+>> +    struct dal_logger *dc_logger = logger
+>>   #define CTX \
+>>       hws->ctx
+>> @@ -1947,8 +1950,6 @@ void dcn20_post_unlock_program_front_end(
+>>       unsigned int polling_interval_us = 1;
+>>       struct dce_hwseq *hwseq = dc->hwseq;
+>> -    DC_LOGGER_INIT(dc->ctx->logger);
+>> -
+>>       for (i = 0; i < dc->res_pool->pipe_count; i++)
+>>           if (context->res_ctx.pipe_ctx[i].update_flags.bits.disable)
+>>               dc->hwss.disable_plane(dc, 
+>> &dc->current_state->res_ctx.pipe_ctx[i]);
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_vmid.c 
+>> b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_vmid.c
+>> index 96c263223315..5bc3bc60a2ac 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_vmid.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_vmid.c
+>> @@ -38,6 +38,9 @@
+>>   #define FN(reg_name, field_name) \
+>>       vmid->shifts->field_name, vmid->masks->field_name
+>> +#define DC_LOGGER \
+>> +    CTX->logger
+>> +
+>>   static void dcn20_wait_for_vmid_ready(struct dcn20_vmid *vmid)
+>>   {
+>>       /* According the hardware spec, we need to poll for the lowest
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c 
+>> b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c
+>> index f976fac8dc3f..68cad55c72ab 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c
+>> @@ -31,6 +31,8 @@
+>>   #include "dc_dmub_srv.h"
+>> +#define DC_LOGGER \
+>> +    ctx->logger
+>>   #define DC_LOGGER_INIT(logger)
+>>   #define REG(reg)\
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c 
+>> b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+>> index da56962227fd..9f3c8626c0b2 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+>> @@ -91,6 +91,8 @@
+>>   #include "amdgpu_socbb.h"
+>>   #include "dc_dmub_srv.h"
+>> +#define DC_LOGGER \
+>> +    dc->ctx->logger
+>>   #define DC_LOGGER_INIT(logger)
+>>   enum dcn30_clk_src_array_id {
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c 
+>> b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+>> index c489ad043b87..6d2f99c1fcd5 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+>> @@ -92,6 +92,8 @@
+>>   #define TO_DCN301_RES_POOL(pool)\
+>>       container_of(pool, struct dcn301_resource_pool, base)
+>> +#define DC_LOGGER \
+>> +    dc->ctx->logger
+>>   #define DC_LOGGER_INIT(logger)
+>>   enum dcn301_clk_src_array_id {
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c 
+>> b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
+>> index f5b8b92a84f2..06332bd4e625 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
+>> @@ -74,6 +74,8 @@
+>>   #include "nbio/nbio_7_4_offset.h"
+>>   #include "amdgpu_socbb.h"
+>> +#define DC_LOGGER \
+>> +    dc->ctx->logger
+>>   #define DC_LOGGER_INIT(logger)
+>>   static const struct dc_debug_options debug_defaults_drv = {
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c 
+>> b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
+>> index d59561605c17..0d91291a54a9 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
+>> @@ -56,6 +56,8 @@
+>>   #include "dml/dcn303/dcn303_fpu.h"
+>> +#define DC_LOGGER \
+>> +    dc->ctx->logger
+>>   #define DC_LOGGER_INIT(logger)
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c 
+>> b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+>> index 994289b3d5a3..239d7ce8e533 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+>> @@ -104,6 +104,8 @@
+>>   #include "link_enc_cfg.h"
+>> +#define DC_LOGGER \
+>> +    dc->ctx->logger
+>>   #define DC_LOGGER_INIT(logger)
+>>   enum dcn31_clk_src_array_id {
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.c 
+>> b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.c
+>> index 33a8626bda73..5b197807080e 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.c
+>> @@ -62,7 +62,7 @@
+>>   #define REG(reg)\
+>>       hws->regs->reg
+>>   #define DC_LOGGER \
+>> -        dc->ctx->logger
+>> +    stream->ctx->logger
+>>   #undef FN
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c 
+>> b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
+>> index 4d0052ca742f..c637d8b6095a 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
+>> @@ -118,6 +118,8 @@
+>>   #define regBIF_BX2_BIOS_SCRATCH_6            0x003e
+>>   #define regBIF_BX2_BIOS_SCRATCH_6_BASE_IDX        1
+>> +#define DC_LOGGER \
+>> +    dc->ctx->logger
+>>   #define DC_LOGGER_INIT(logger)
+>>   enum dcn31_clk_src_array_id {
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c 
+>> b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+>> index e8a989a50afa..76fd7a41bdbf 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+>> @@ -58,7 +58,7 @@
+>>   #define REG(reg)\
+>>       hws->regs->reg
+>>   #define DC_LOGGER \
+>> -        dc->ctx->logger
+>> +    stream->ctx->logger
+>>   #undef FN
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_hwseq.c 
+>> b/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_hwseq.c
+>> index 06960fada059..e5a8a341bd0e 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_hwseq.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_hwseq.c
+>> @@ -55,14 +55,15 @@
+>>   #include "dcn31/dcn31_hwseq.h"
+>>   #include "dcn20/dcn20_hwseq.h"
+>> -#define DC_LOGGER_INIT(logger)
+>> +#define DC_LOGGER_INIT(logger) \
+>> +    struct dal_logger *dc_logger = logger
+>>   #define CTX \
+>>       hws->ctx
+>>   #define REG(reg)\
+>>       hws->regs->reg
+>>   #define DC_LOGGER \
+>> -        dc->ctx->logger
+>> +    dc_logger
+>>   #undef FN
+>> @@ -341,6 +342,8 @@ static void update_dsc_on_stream(struct pipe_ctx 
+>> *pipe_ctx, bool enable)
+>>       struct pipe_ctx *odm_pipe;
+>>       int opp_cnt = 1;
+>> +    DC_LOGGER_INIT(stream->ctx->logger);
+>> +
+>>       ASSERT(dsc);
+>>       for (odm_pipe = pipe_ctx->next_odm_pipe; odm_pipe; odm_pipe = 
+>> odm_pipe->next_odm_pipe)
+>>           opp_cnt++;
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c 
+>> b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+>> index a68fb45ed487..abd8169daf30 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+>> @@ -34,6 +34,8 @@
+>>   #include "link.h"
+>>   #include "dcn20_fpu.h"
+>> +#define DC_LOGGER \
+>> +    dc->ctx->logger
+>>   #define DC_LOGGER_INIT(logger)
+>>   #ifndef MAX
+>> diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h 
+>> b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
+>> index 9a595246824d..6f4c97543c14 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
+>> +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
+>> @@ -73,7 +73,7 @@ enum dentist_divider_range {
+>>       clk_mgr->base.ctx
+>>   #define DC_LOGGER \
+>> -    clk_mgr->base.ctx->logger
+>> +    dc->ctx->logger
+>> diff --git a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dpia.c 
+>> b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dpia.c
+>> index 861f3cd5b356..46fb3649bc86 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dpia.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dpia.c
+>> @@ -27,6 +27,8 @@
+>>   #include "link_hwss_dio.h"
+>>   #include "link_enc_cfg.h"
+>> +#define DC_LOGGER \
+>> +    link->ctx->logger
+>>   #define DC_LOGGER_INIT(logger)
+>>   static void update_dpia_stream_allocation_table(struct dc_link *link,
+>> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c 
+>> b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+>> index c9b6676eaf53..aef8ef2f8d88 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+>> @@ -47,6 +47,8 @@
+>>   #include "dm_helpers.h"
+>>   #include "clk_mgr.h"
+>> +#define DC_LOGGER \
+>> +    link->ctx->logger
+>>   #define DC_LOGGER_INIT(logger)
+>>   #define LINK_INFO(...) \
+>> @@ -322,6 +324,7 @@ static void query_dp_dual_mode_adaptor(
+>>       bool is_type2_dongle = false;
+>>       int retry_count = 2;
+>>       struct dp_hdmi_dongle_signature_data *dongle_signature;
+>> +    struct dc_link *link = ddc->link;
+>>       /* Assume we have no valid DP passive dongle connected */
+>>       *dongle = DISPLAY_DONGLE_NONE;
+>> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c 
+>> b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+>> index e5129580369a..4538451945b4 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+>> @@ -55,7 +55,10 @@
+>>   #include "dccg.h"
+>>   #include "clk_mgr.h"
+>>   #include "atomfirmware.h"
+>> -#define DC_LOGGER_INIT(logger)
+>> +#define DC_LOGGER \
+>> +    dc_logger
+>> +#define DC_LOGGER_INIT(logger) \
+>> +    struct dal_logger *dc_logger = logger
+>>   #define LINK_INFO(...) \
+>>       DC_LOG_HW_HOTPLUG(  \
+>> @@ -2264,6 +2267,8 @@ void link_set_dpms_off(struct pipe_ctx *pipe_ctx)
+>>       struct dc_link *link = stream->sink->link;
+>>       struct vpg *vpg = pipe_ctx->stream_res.stream_enc->vpg;
+>> +    DC_LOGGER_INIT(pipe_ctx->stream->ctx->logger);
+>> +
+>>       ASSERT(is_master_pipe_for_link(link, pipe_ctx));
+>>       if (dp_is_128b_132b_signal(pipe_ctx))
+>> @@ -2271,8 +2276,6 @@ void link_set_dpms_off(struct pipe_ctx *pipe_ctx)
+>>       if (dc_is_virtual_signal(pipe_ctx->stream->signal))
+>>           return;
+>> -    DC_LOGGER_INIT(pipe_ctx->stream->ctx->logger);
+>> -
+>>       if (pipe_ctx->stream->sink) {
+>>           if (pipe_ctx->stream->sink->sink_signal != 
+>> SIGNAL_TYPE_VIRTUAL &&
+>>               pipe_ctx->stream->sink->sink_signal != SIGNAL_TYPE_NONE) {
+>> @@ -2376,6 +2379,8 @@ void link_set_dpms_on(
+>>       bool apply_edp_fast_boot_optimization =
+>>           pipe_ctx->stream->apply_edp_fast_boot_optimization;
+>> +    DC_LOGGER_INIT(pipe_ctx->stream->ctx->logger);
+>> +
+>>       ASSERT(is_master_pipe_for_link(link, pipe_ctx));
+>>       if (dp_is_128b_132b_signal(pipe_ctx))
+>> @@ -2383,8 +2388,6 @@ void link_set_dpms_on(
+>>       if (dc_is_virtual_signal(pipe_ctx->stream->signal))
+>>           return;
+>> -    DC_LOGGER_INIT(pipe_ctx->stream->ctx->logger);
+>> -
+>>       if (pipe_ctx->stream->sink) {
+>>           if (pipe_ctx->stream->sink->sink_signal != 
+>> SIGNAL_TYPE_VIRTUAL &&
+>>               pipe_ctx->stream->sink->sink_signal != SIGNAL_TYPE_NONE) {
+>> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_factory.c 
+>> b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
+>> index 754aab662489..7abfc67d10a6 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/link/link_factory.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
+>> @@ -45,6 +45,8 @@
+>>   #include "gpio_service_interface.h"
+>>   #include "atomfirmware.h"
+>> +#define DC_LOGGER \
+>> +    dc_ctx->logger
+>>   #define DC_LOGGER_INIT(logger)
+>>   #define LINK_INFO(...) \
+>> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_ddc.c 
+>> b/drivers/gpu/drm/amd/display/dc/link/protocols/link_ddc.c
+>> index ecfd83299e75..c2d40979203e 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_ddc.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_ddc.c
+>> @@ -38,6 +38,8 @@
+>>   #include "dm_helpers.h"
+>>   #include "atomfirmware.h"
+>> +#define DC_LOGGER \
+>> +    ddc_service->ctx->logger
+>>   #define DC_LOGGER_INIT(logger)
+>>   static const uint8_t DP_VGA_DONGLE_BRANCH_DEV_NAME[] = "DpVga";
+>> diff --git 
+>> a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c 
+>> b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c
+>> index e047bbeaa49a..34bf8a9ef738 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c
+>> @@ -38,6 +38,8 @@
+>>   #include "link/link_dpms.h"
+>>   #include "dm_helpers.h"
+>> +#define DC_LOGGER \
+>> +    link->ctx->logger
+>>   #define DC_LOGGER_INIT(logger)
+>>   bool dp_parse_link_loss_status(
+>> diff --git 
+>> a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+>> index 24b47fa82f93..dad43e6d0a0d 100644
+>> --- 
+>> a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+>> +++ 
+>> b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+>> @@ -38,6 +38,8 @@
+>>   #include "dc/dc_dmub_srv.h"
+>>   #include "dce/dmub_replay.h"
+>>   #include "abm.h"
+>> +#define DC_LOGGER \
+>> +    link->ctx->logger
+>>   #define DC_LOGGER_INIT(logger)
+>>   #define DP_SINK_PR_ENABLE_AND_CONFIGURATION        0x37B
+>> diff --git a/drivers/gpu/drm/amd/display/dc/os_types.h 
+>> b/drivers/gpu/drm/amd/display/dc/os_types.h
+>> index aad8095660c9..6c4578d347af 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/os_types.h
+>> +++ b/drivers/gpu/drm/amd/display/dc/os_types.h
+>> @@ -37,6 +37,7 @@
+>>   #include <asm/byteorder.h>
+>>   #include <drm/display/drm_dp_helper.h>
+>> +#include <drm/drm_device.h>
+>>   #include <drm/drm_print.h>
+>>   #include "cgs_common.h"
+>> diff --git a/drivers/gpu/drm/amd/display/include/logger_types.h 
+>> b/drivers/gpu/drm/amd/display/include/logger_types.h
+>> index fb657f7408a7..f39e2785e618 100644
+>> --- a/drivers/gpu/drm/amd/display/include/logger_types.h
+>> +++ b/drivers/gpu/drm/amd/display/include/logger_types.h
+>> @@ -28,145 +28,51 @@
+>>   #include "os_types.h"
+>> -#define MAX_NAME_LEN 32
+>> -
+>> -#define DC_LOG_ERROR(...) DRM_ERROR(__VA_ARGS__)
+>> -#define DC_LOG_WARNING(...) DRM_WARN(__VA_ARGS__)
+>> -#define DC_LOG_DEBUG(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> -#define DC_LOG_DC(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> -#define DC_LOG_DTN(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> +#define DC_LOG_ERROR(...) drm_err((DC_LOGGER)->dev, __VA_ARGS__)
+>> +#define DC_LOG_WARNING(...) drm_warn((DC_LOGGER)->dev, __VA_ARGS__)
+>> +#define DC_LOG_DEBUG(...) drm_dbg((DC_LOGGER)->dev, __VA_ARGS__)
+>> +#define DC_LOG_DC(...) drm_dbg((DC_LOGGER)->dev, __VA_ARGS__)
+>>   #define DC_LOG_SURFACE(...) pr_debug("[SURFACE]:"__VA_ARGS__)
+>> -#define DC_LOG_CURSOR(...) pr_debug("[CURSOR]:"__VA_ARGS__)
+>> -#define DC_LOG_PFLIP(...) pr_debug("[PFLIP]:"__VA_ARGS__)
+>> -#define DC_LOG_VBLANK(...) pr_debug("[VBLANK]:"__VA_ARGS__)
+>> -#define DC_LOG_HW_HOTPLUG(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> +#define DC_LOG_HW_HOTPLUG(...) drm_dbg((DC_LOGGER)->dev, __VA_ARGS__)
+>>   #define DC_LOG_HW_LINK_TRAINING(...) 
+>> pr_debug("[HW_LINK_TRAINING]:"__VA_ARGS__)
+>> -#define DC_LOG_HW_SET_MODE(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> -#define DC_LOG_HW_RESUME_S3(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> +#define DC_LOG_HW_RESUME_S3(...) drm_dbg((DC_LOGGER)->dev, __VA_ARGS__)
+>>   #define DC_LOG_HW_AUDIO(...) pr_debug("[HW_AUDIO]:"__VA_ARGS__)
+>> -#define DC_LOG_HW_HPD_IRQ(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> -#define DC_LOG_MST(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> +#define DC_LOG_HW_HPD_IRQ(...) drm_dbg_dp((DC_LOGGER)->dev, __VA_ARGS__)
+>> +#define DC_LOG_MST(...) drm_dbg_dp((DC_LOGGER)->dev, __VA_ARGS__)
+>>   #define DC_LOG_SCALER(...) pr_debug("[SCALER]:"__VA_ARGS__)
+>>   #define DC_LOG_BIOS(...) pr_debug("[BIOS]:"__VA_ARGS__)
+>>   #define DC_LOG_BANDWIDTH_CALCS(...) 
+>> pr_debug("[BANDWIDTH_CALCS]:"__VA_ARGS__)
+>> -#define DC_LOG_BANDWIDTH_VALIDATION(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> -#define DC_LOG_I2C_AUX(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> -#define DC_LOG_SYNC(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> -#define DC_LOG_BACKLIGHT(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> -#define DC_LOG_FEATURE_OVERRIDE(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> -#define DC_LOG_DETECTION_EDID_PARSER(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> -#define DC_LOG_DETECTION_DP_CAPS(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> -#define DC_LOG_RESOURCE(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> +#define DC_LOG_BANDWIDTH_VALIDATION(...) drm_dbg((DC_LOGGER)->dev, 
+>> __VA_ARGS__)
+>> +#define DC_LOG_SYNC(...) drm_dbg((DC_LOGGER)->dev, __VA_ARGS__)
+>> +#define DC_LOG_BACKLIGHT(...) drm_dbg_dp((DC_LOGGER)->dev, __VA_ARGS__)
+>> +#define DC_LOG_DETECTION_EDID_PARSER(...) drm_dbg((DC_LOGGER)->dev, 
+>> __VA_ARGS__)
+>> +#define DC_LOG_DETECTION_DP_CAPS(...) drm_dbg_dp((DC_LOGGER)->dev, 
+>> __VA_ARGS__)
+>>   #define DC_LOG_DML(...) pr_debug("[DML]:"__VA_ARGS__)
+>> -#define DC_LOG_EVENT_MODE_SET(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> -#define DC_LOG_EVENT_DETECTION(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> -#define DC_LOG_EVENT_LINK_TRAINING(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> -#define DC_LOG_EVENT_LINK_LOSS(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> -#define DC_LOG_EVENT_UNDERFLOW(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> +#define DC_LOG_EVENT_MODE_SET(...) drm_dbg_kms((DC_LOGGER)->dev, 
+>> __VA_ARGS__)
+>> +#define DC_LOG_EVENT_DETECTION(...) drm_dbg((DC_LOGGER)->dev, 
+>> __VA_ARGS__)
+>> +#define DC_LOG_EVENT_LINK_TRAINING(...) \
+>> +    drm_dbg_dp((DC_LOGGER)->dev, __VA_ARGS__)
+>> +#define DC_LOG_EVENT_LINK_LOSS(...) drm_dbg_dp((DC_LOGGER)->dev, 
+>> __VA_ARGS__)
+>>   #define DC_LOG_IF_TRACE(...) pr_debug("[IF_TRACE]:"__VA_ARGS__)
+>> -#define DC_LOG_PERF_TRACE(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> -#define DC_LOG_RETIMER_REDRIVER(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> +#define DC_LOG_PERF_TRACE(...) drm_dbg((DC_LOGGER)->dev, __VA_ARGS__)
+>> +#define DC_LOG_RETIMER_REDRIVER(...) drm_dbg((DC_LOGGER)->dev, 
+>> __VA_ARGS__)
+>>   #define DC_LOG_GAMMA(...) pr_debug("[GAMMA]:"__VA_ARGS__)
+>>   #define DC_LOG_ALL_GAMMA(...) pr_debug("[GAMMA]:"__VA_ARGS__)
+>>   #define DC_LOG_ALL_TF_CHANNELS(...) pr_debug("[GAMMA]:"__VA_ARGS__)
+>> -#define DC_LOG_DSC(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> +#define DC_LOG_DSC(...) drm_dbg_dp((DC_LOGGER)->dev, __VA_ARGS__)
+>>   #define DC_LOG_SMU(...) pr_debug("[SMU_MSG]:"__VA_ARGS__)
+>> -#define DC_LOG_DWB(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> -#define DC_LOG_DP2(...) DRM_DEBUG_KMS(__VA_ARGS__)
+>> +#define DC_LOG_DWB(...) drm_dbg((DC_LOGGER)->dev, __VA_ARGS__)
+>> +#define DC_LOG_DP2(...) drm_dbg_dp((DC_LOGGER)->dev, __VA_ARGS__)
+>>   #define DC_LOG_AUTO_DPM_TEST(...) pr_debug("[AutoDPMTest]: 
+>> "__VA_ARGS__)
+>> -struct dal_logger;
+>> -
+>>   struct dc_log_buffer_ctx {
+>>       char *buf;
+>>       size_t pos;
+>>       size_t size;
+>>   };
+>> -enum dc_log_type {
+>> -    LOG_ERROR = 0,
+>> -    LOG_WARNING,
+>> -    LOG_DEBUG,
+>> -    LOG_DC,
+>> -    LOG_DTN,
+>> -    LOG_SURFACE,
+>> -    LOG_HW_HOTPLUG,
+>> -    LOG_HW_LINK_TRAINING,
+>> -    LOG_HW_SET_MODE,
+>> -    LOG_HW_RESUME_S3,
+>> -    LOG_HW_AUDIO,
+>> -    LOG_HW_HPD_IRQ,
+>> -    LOG_MST,
+>> -    LOG_SCALER,
+>> -    LOG_BIOS,
+>> -    LOG_BANDWIDTH_CALCS,
+>> -    LOG_BANDWIDTH_VALIDATION,
+>> -    LOG_I2C_AUX,
+>> -    LOG_SYNC,
+>> -    LOG_BACKLIGHT,
+>> -    LOG_FEATURE_OVERRIDE,
+>> -    LOG_DETECTION_EDID_PARSER,
+>> -    LOG_DETECTION_DP_CAPS,
+>> -    LOG_RESOURCE,
+>> -    LOG_DML,
+>> -    LOG_EVENT_MODE_SET,
+>> -    LOG_EVENT_DETECTION,
+>> -    LOG_EVENT_LINK_TRAINING,
+>> -    LOG_EVENT_LINK_LOSS,
+>> -    LOG_EVENT_UNDERFLOW,
+>> -    LOG_IF_TRACE,
+>> -    LOG_PERF_TRACE,
+>> -    LOG_DISPLAYSTATS,
+>> -    LOG_HDMI_RETIMER_REDRIVER,
+>> -    LOG_DSC,
+>> -    LOG_SMU_MSG,
+>> -    LOG_DC2RESERVED4,
+>> -    LOG_DC2RESERVED5,
+>> -    LOG_DWB,
+>> -    LOG_GAMMA_DEBUG,
+>> -    LOG_MAX_HW_POINTS,
+>> -    LOG_ALL_TF_CHANNELS,
+>> -    LOG_SAMPLE_1DLUT,
+>> -    LOG_DP2,
+>> -    LOG_DC2RESERVED12,
+>> -    LOG_AUTO_DPM_TEST,
+>> +struct dal_logger {
+>> +    struct drm_device *dev;
+>>   };
+>> -#define DC_MIN_LOG_MASK ((1 << LOG_ERROR) | \
+>> -        (1 << LOG_DETECTION_EDID_PARSER))
+>> -
+>> -#define DC_DEFAULT_LOG_MASK ((1ULL << LOG_ERROR) | \
+>> -        (1ULL << LOG_WARNING) | \
+>> -        (1ULL << LOG_EVENT_MODE_SET) | \
+>> -        (1ULL << LOG_EVENT_DETECTION) | \
+>> -        (1ULL << LOG_EVENT_LINK_TRAINING) | \
+>> -        (1ULL << LOG_EVENT_LINK_LOSS) | \
+>> -        (1ULL << LOG_EVENT_UNDERFLOW) | \
+>> -        (1ULL << LOG_RESOURCE) | \
+>> -        (1ULL << LOG_FEATURE_OVERRIDE) | \
+>> -        (1ULL << LOG_DETECTION_EDID_PARSER) | \
+>> -        (1ULL << LOG_DC) | \
+>> -        (1ULL << LOG_HW_HOTPLUG) | \
+>> -        (1ULL << LOG_HW_SET_MODE) | \
+>> -        (1ULL << LOG_HW_RESUME_S3) | \
+>> -        (1ULL << LOG_HW_HPD_IRQ) | \
+>> -        (1ULL << LOG_SYNC) | \
+>> -        (1ULL << LOG_BANDWIDTH_VALIDATION) | \
+>> -        (1ULL << LOG_MST) | \
+>> -        (1ULL << LOG_DETECTION_DP_CAPS) | \
+>> -        (1ULL << LOG_BACKLIGHT)) | \
+>> -        (1ULL << LOG_I2C_AUX) | \
+>> -        (1ULL << LOG_IF_TRACE) | \
+>> -        (1ULL << LOG_HDMI_FRL) | \
+>> -        (1ULL << LOG_SCALER) | \
+>> -        (1ULL << LOG_DTN) | \
+>> -        (1ULL << LOG_AUTO_DPM_TEST)/* | \
+>> -        (1ULL << LOG_DEBUG) | \
+>> -        (1ULL << LOG_BIOS) | \
+>> -        (1ULL << LOG_SURFACE) | \
+>> -        (1ULL << LOG_DML) | \
+>> -        (1ULL << LOG_HW_LINK_TRAINING) | \
+>> -        (1ULL << LOG_HW_AUDIO)| \
+>> -        (1ULL << LOG_BANDWIDTH_CALCS)*/
+>> -
+>>   #endif /* __DAL_LOGGER_TYPES_H__ */
+> 
+-- 
+Hamza
 
