@@ -4,59 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCAE8CD4847
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Sep 2023 17:21:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FE79CD4846
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Sep 2023 17:39:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6441F10E6A2;
-	Fri, 22 Sep 2023 17:21:45 +0000 (UTC)
-Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
- [IPv6:2607:f8b0:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E710D10E6A2
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Sep 2023 17:21:42 +0000 (UTC)
-Received: by mail-oi1-x236.google.com with SMTP id
- 5614622812f47-3ab7fb1172cso1356505b6e.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Sep 2023 10:21:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C94AB10E68A;
+	Fri, 22 Sep 2023 17:39:35 +0000 (UTC)
+Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
+ [IPv6:2607:f8b0:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63FFD10E6AF
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Sep 2023 17:32:20 +0000 (UTC)
+Received: by mail-pf1-x42c.google.com with SMTP id
+ d2e1a72fcca58-68fb85afef4so2306398b3a.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Sep 2023 10:32:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1695403302; x=1696008102; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=chromium.org; s=google; t=1695403940; x=1696008740;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=17du8x9KmUfmf5dAtnJX7ZOfa+LHmYI0TiNlgyX+qQM=;
- b=RKYbRv/1z0oHIQWZWRyOVZkPyKttYc6sA0Y+d0LhqnXV/ACxRMWhuaJHtvQmFczUfU
- EJDGClUHu2lhYOvKtZVwawdmJEB/sox+7uT861WJ0okJLcawj/2uCoJ3Y0rd2mMHbARI
- z/hACyiw+sCk7rPX65dGAFjsPH2zNIoxxHnFgKZmd3/d6Uc/P67vE3875PlJb/UdlrLj
- 2Clqo6E7O3sM/popHeI+3QMWB8URKlXZgISomaJv1JAeu7pNGOo2YLc5fdf91srynQWt
- Ra4c9C5Z0OHVzj7BYaJNpoe4w5U//o36o5meCJp7TY+qgqczRoi6wK7ofDQF/M2x6ti4
- 2G6w==
+ bh=Q96X+e6e2GphA8WEKNidppfkY54O3UO5SgYggFHsXis=;
+ b=D2i987MsIealRDRy1XGX6kR0E0RRNshjZbWu+s/CRudwaELuqP6V7doxsc6nqRm5tA
+ 6t9/caaNJKieYCL8EX3zSvsW335/jAnVTQTjLfnuo0vkQNcePqTYH4LK/cw8+q7bXiPb
+ YfJtP/3qjwCPTVDkSckyMgaHfJsP+RgKmoYPY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695403302; x=1696008102;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1695403940; x=1696008740;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=17du8x9KmUfmf5dAtnJX7ZOfa+LHmYI0TiNlgyX+qQM=;
- b=c34yj05EjrCvQuw5SMaOj1OA2Z8stJIZeSHBva4S9USPnFcTu6mEykQLeqPDpImuZ5
- lBgY/Wd2JLAr2LZGoU4Kj5yjuruvyjDnCcmXBHEcCw000zaSqHqA5E3dBdm9LByYcxfG
- E/V14dPUL8kF3BoVazSGiF68T9quElIDfbD4wRHSCaWxakQYG6RvA/SbCyFq1rUzoTqi
- WPMYJI/ylb8mPs/KoR9fPc1zq7uzyT+Jm4pmKtunBId1wfuKvc6KpZNnlG99m7RilRds
- Gl3BZjUsIPrcBBOiDCFcON5FI0LF5BJmi1pQ3Gjwtc08WxRF1o3ELsgS4Q4Ws77J8OxF
- MIXA==
-X-Gm-Message-State: AOJu0Yw1bhfT2cMXMpHfcj0T6KKElFSaS4tBxFQVlEQ/SWulIezLEtE7
- LOvE9gE0hJiE+1X7V3G9haIO/Z2XE+O7hxUiT7I=
-X-Google-Smtp-Source: AGHT+IFt3OVnKC528MBihw58mzplV/GGMkCknMcNVPNvbB9SxoIlui6DyxNzURZzYrRo+9bYrRs8v9DXq0UkoZLAvXA=
-X-Received: by 2002:a05:6870:2314:b0:1d5:a4bd:6028 with SMTP id
- w20-20020a056870231400b001d5a4bd6028mr131925oao.8.1695403301944; Fri, 22 Sep
- 2023 10:21:41 -0700 (PDT)
+ bh=Q96X+e6e2GphA8WEKNidppfkY54O3UO5SgYggFHsXis=;
+ b=qsl/CPiOqkzhx9s0ZyJhesdk23vUgPFHxTyN3K09x8zNgx0aOqKQCAqVR5VfozX0mE
+ uS+gy3o8y8R6WqNkhVNb/dM/iQLJYuP1ST2YGteqSmypa9iz6fvP6K7UAg3Ho8w1IFtI
+ KDrEX58B3NM0UWml9u3OufmL4suvoSzP19lZDj6NIxyt7quKrnSpBn50fYS3Rj94PRBq
+ YUWOK731EE4YATpZ5nda9C7u5QL9r9tSRE5G6clikHSL0vkN5RXRXJz1VjprofOX2ViH
+ FwlO+nfoQQph5G2Abgkf6Rja56xMNprJQFepW5s16AD7fhiriCYAmpJvq4Hn0I7G2Bls
+ LaMQ==
+X-Gm-Message-State: AOJu0YzxY4orhcBAu7rQiS4IMcmokdXyOMNh5Nt8K5UvloHLu0G7o4p8
+ ZGM6KYazi3/dym2RO8kYmpxM6Q==
+X-Google-Smtp-Source: AGHT+IGXr1Sat+m9Td0MGaNcSAWB3dRra4hS8nmW8pMNrVJgFfBDLEWjUeK3DqEHM0m4IjyMLEfwlA==
+X-Received: by 2002:a05:6a20:9756:b0:14d:9bd1:6361 with SMTP id
+ hs22-20020a056a20975600b0014d9bd16361mr200432pzc.11.1695403939966; 
+ Fri, 22 Sep 2023 10:32:19 -0700 (PDT)
+Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
+ [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
+ u74-20020a63794d000000b00565e2ad12e5sm3318350pgc.91.2023.09.22.10.32.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 22 Sep 2023 10:32:19 -0700 (PDT)
+From: Kees Cook <keescook@chromium.org>
+To: David Airlie <airlied@gmail.com>
+Subject: [PATCH 3/9] drm/i915/selftests: Annotate struct perf_series with
+ __counted_by
+Date: Fri, 22 Sep 2023 10:32:08 -0700
+Message-Id: <20230922173216.3823169-3-keescook@chromium.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230922173110.work.084-kees@kernel.org>
+References: <20230922173110.work.084-kees@kernel.org>
 MIME-Version: 1.0
-References: <20230922052753.1922483-1-kevinyang.wang@amd.com>
-In-Reply-To: <20230922052753.1922483-1-kevinyang.wang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 22 Sep 2023 13:21:30 -0400
-Message-ID: <CADnq5_MsiOwF6bgQcvuEsTu=CGY80hJ9PXMsfak6K8t02G95=g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix memory leak in
- amdgpu_fru_get_product_info()
-To: Yang Wang <kevinyang.wang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1705; i=keescook@chromium.org; 
+ h=from:subject;
+ bh=SbNV7tt6Hho3aemFjM+WsFyDqpMFvSNtroJg7EF/6LY=; 
+ b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBlDc+e99M+BFyGmat9Yjgpanw6UekhSMQhhAVfe
+ PzecbdVf2uJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCZQ3PngAKCRCJcvTf3G3A
+ JhPmD/oDoTfSn61jeN+hZ6qtbqMVL0umbxgqdZnXY/WBbLuBKV20tcaMAcUgkDgD7IZTf9vLT7N
+ QvsK/I3NzdeyXN9KRjg9P26c5TGRnuFhT5ow/Mmpjw2ZfwY/adYsynGhgMsY1zCzocr9Klih2M5
+ ONqETCgHopA10PwXUTZcfeylbqK62rRaYAWtkuoi0RcYjB0ba0MiguwtlB6nrG6fwv2owEKE9yZ
+ q2M6NVTsjfrdnESUtkpr+ZQMSdTP4DYj6WZCs8PEing/sqS9G43U/93adZtoUdXHfx6OIvtf4kR
+ QVJDI5f2FtS/OLpfsJPETvUFATNLl9zt+qYEEI6Xo/nwVAIDi10lef4gFjjLtPRlK+1R5w0hwDl
+ vKJUW0WgT4cnNhXnSosMUxrlYOzDiiFUv22K7MRCjwllhPuoEqIvmEu2skXTbfOi++COJZQENGW
+ mjr4E/cj8Pue9+KM7OxnSvfWccW9jLZfobZ+Mt3QO0uwzIKFw3tbN6roSBWKQjPzGVWZBhoB7P/
+ YBx8LyLPlIme4RIAinnRTvKcRBVmPKq0z5qb+ZrfdbS5SyUax0buA8IufSmAFbFNMVWiehiR7kj
+ m3qIzz42RIlit5ahExdpEPXkGeqqxLI86EouMV1p14sfdA6bPnL2FdLAyVYLHh92VJ7BRKvGmB7
+ gVsy2dUkMQ94AOw==
+X-Developer-Key: i=keescook@chromium.org; a=openpgp;
+ fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 22 Sep 2023 17:39:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,79 +89,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Luben Tuikov <luben.tuikov@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>, Emma Anholt <emma@anholt.net>,
+ Tom Rix <trix@redhat.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>, Prike Liang <Prike.Liang@amd.com>,
+ Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Matthew Brost <matthew.brost@intel.com>, Karol Herbst <kherbst@redhat.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, amd-gfx@lists.freedesktop.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Nathan Chancellor <nathan@kernel.org>,
+ VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Andi Shyti <andi.shyti@linux.intel.com>,
+ nouveau@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
+ virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
+ linux-hardening@vger.kernel.org, Lijo Lazar <lijo.lazar@amd.com>,
+ Kees Cook <keescook@chromium.org>, Yifan Zhang <yifan1.zhang@amd.com>,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ Kevin Wang <kevin1.wang@amd.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Melissa Wen <mwen@igalia.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Evan Quan <evan.quan@amd.com>, Sean Paul <sean@poorly.run>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Xiaojian Du <Xiaojian.Du@amd.com>, Le Ma <le.ma@amd.com>,
+ freedreno@lists.freedesktop.org, Bjorn Andersson <andersson@kernel.org>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Zack Rusin <zackr@vmware.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Nirmoy Das <nirmoy.das@intel.com>,
+ Lang Yu <Lang.Yu@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ John Harrison <john.c.harrison@Intel.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 22, 2023 at 2:06=E2=80=AFAM Yang Wang <kevinyang.wang@amd.com> =
-wrote:
->
-> fix a memory leak that occurs when csum is 0,
-> the origin function will return directly and forgets to free 'pia' resour=
-ce.
->
-> Fixes: 0dbf2c562625 ("drm/amdgpu: Interpret IPMI data for product informa=
-tion (v2)")
->
-> CC: Luben Tuikov <luben.tuikov@amd.com>
-> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+Prepare for the coming implementation by GCC and Clang of the __counted_by
+attribute. Flexible array members annotated with __counted_by can have
+their accesses bounds-checked at run-time checking via CONFIG_UBSAN_BOUNDS
+(for array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
+functions).
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+As found with Coccinelle[1], add __counted_by for struct perf_series.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-> index 401651f28ba2..50b6eb447726 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-> @@ -111,7 +111,7 @@ int amdgpu_fru_get_product_info(struct amdgpu_device =
-*adev)
->  {
->         unsigned char buf[8], *pia;
->         u32 addr, fru_addr;
-> -       int size, len;
-> +       int size, len, ret =3D 0;
->         u8 csum;
->
->         if (!is_fru_eeprom_supported(adev, &fru_addr))
-> @@ -171,16 +171,17 @@ int amdgpu_fru_get_product_info(struct amdgpu_devic=
-e *adev)
->         /* Read the whole PIA. */
->         len =3D amdgpu_eeprom_read(adev->pm.fru_eeprom_i2c_bus, addr, pia=
-, size);
->         if (len !=3D size) {
-> -               kfree(pia);
->                 DRM_ERROR("Couldn't read the Product Info Area: %d", len)=
-;
-> -               return len < 0 ? len : -EIO;
-> +               ret =3D len < 0 ? len : -EIO;
-> +               goto Out;
->         }
->
->         for (csum =3D 0; size > 0; size--)
->                 csum +=3D pia[size - 1];
->         if (csum) {
->                 DRM_ERROR("Bad Product Info Area checksum: 0x%02x", csum)=
-;
-> -               return -EIO;
-> +               ret =3D -EIO;
-> +               goto Out;
->         }
->
->         /* Now extract useful information from the PIA.
-> @@ -220,7 +221,7 @@ int amdgpu_fru_get_product_info(struct amdgpu_device =
-*adev)
->         adev->serial[sizeof(adev->serial) - 1] =3D '\0';
->  Out:
->         kfree(pia);
-> -       return 0;
-> +       return ret;
->  }
->
->  /**
-> --
-> 2.34.1
->
+[1] https://github.com/kees/kernel-tools/blob/trunk/coccinelle/examples/counted_by.cocci
+
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: John Harrison <john.c.harrison@Intel.com>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Signed-off-by: Kees Cook <keescook@chromium.org>
+---
+ drivers/gpu/drm/i915/selftests/i915_request.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/selftests/i915_request.c b/drivers/gpu/drm/i915/selftests/i915_request.c
+index a9b79888c193..acae30a04a94 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_request.c
++++ b/drivers/gpu/drm/i915/selftests/i915_request.c
+@@ -1924,7 +1924,7 @@ struct perf_stats {
+ struct perf_series {
+ 	struct drm_i915_private *i915;
+ 	unsigned int nengines;
+-	struct intel_context *ce[];
++	struct intel_context *ce[] __counted_by(nengines);
+ };
+ 
+ static int cmp_u32(const void *A, const void *B)
+-- 
+2.34.1
+
