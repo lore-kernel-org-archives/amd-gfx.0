@@ -4,79 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93F15CD4847
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Sep 2023 17:43:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56F38CD484A
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Sep 2023 17:51:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD16D10E6CA;
-	Fri, 22 Sep 2023 17:43:03 +0000 (UTC)
-Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
- [IPv6:2607:f8b0:4864:20::634])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F68710E6CC
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Sep 2023 17:42:14 +0000 (UTC)
-Received: by mail-pl1-x634.google.com with SMTP id
- d9443c01a7336-1c0ecb9a075so20776415ad.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Sep 2023 10:42:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1695404534; x=1696009334;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gDHDeV42Frwj7XYTpJqGl5ND8N8KbUFLGf1moqK0weE=;
- b=H5rVU7q3a9U9oXDmRl+d4VRrSAcCrDJaXnwoic3MiG7AKklx3GvFvVKfJS4Znw7Jle
- cC5YG31DUO5iRxLKEXjLTeR8U572/gXy2wyZgk0KYjfnD3SrWq1yxNGQrEraQyL8sZ9a
- TDppsBoeyOotkj2xUVrdfONhDK1YgxlrVGGhg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695404534; x=1696009334;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=gDHDeV42Frwj7XYTpJqGl5ND8N8KbUFLGf1moqK0weE=;
- b=Bkg2TpuWl8y5KGIrXjkRMgSZa3FYYYNjdo1c3ABPLnm4AhlvsZfLzlLBf4zxhPWNwh
- DhfgtnPcTkwotob1AuPZugstTuZSliUKPt4R1m5XI4eQDR3Dy8G7RAPKQy7ss2HVr8aL
- 4MXdl4xntkVLcyYT4D5BWZqUxHdzEdUj+z1aWzOBIazEvkw2tJjZH3rThf9zZQJtpoLI
- EOYJ/1xsrACwithnOvJr6BuYoV+E9c9Bj+ObNVshAeSJ5gcVbFT0I4vFnZKqqwMRZbk/
- 9sfgwdoc082qwI1XXXBEu4KHr7wC2YUINmJL3NcVWO6EYyFivL9PmX/yROiQubKMkdqn
- M55Q==
-X-Gm-Message-State: AOJu0YwGa8xtcLvLIkulATTYjvTHtjozVEahrC9nngldMXumRmtToZWM
- iM09QlvZzETJbVOI20e9PmDRRw==
-X-Google-Smtp-Source: AGHT+IGrotoWlyQLkbK6Whf4OiNGUyhA4I63WbY8Ewuxyx3hCVqXIcaVt+Ft6DWt7mPQfxETuKi2Cg==
-X-Received: by 2002:a17:902:f812:b0:1c5:6f3c:94fe with SMTP id
- ix18-20020a170902f81200b001c56f3c94femr128683plb.69.1695404533773; 
- Fri, 22 Sep 2023 10:42:13 -0700 (PDT)
-Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
- [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
- e3-20020a170902b78300b001bdd68b3f4bsm3751544pls.295.2023.09.22.10.42.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Sep 2023 10:42:13 -0700 (PDT)
-From: Kees Cook <keescook@chromium.org>
-To: David Airlie <airlied@gmail.com>
-Subject: [PATCH 9/9] drm/v3d: Annotate struct v3d_perfmon with __counted_by
-Date: Fri, 22 Sep 2023 10:32:14 -0700
-Message-Id: <20230922173216.3823169-9-keescook@chromium.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230922173110.work.084-kees@kernel.org>
-References: <20230922173110.work.084-kees@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD7BA10E6CC;
+	Fri, 22 Sep 2023 17:51:51 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2062e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8D1810E6CC;
+ Fri, 22 Sep 2023 17:51:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fBgNQgcMLJC3s5Iuwv6Qa2TVTZCnLko/hcBQ/jciVMm2D850wU9OYKmHNEBC7aefFNr1/F//nWaW+A6C+hf/j8u9AaFEeDKn3VixBljEvnA+vXMXdWDdj5P9eQtjUoLhlzZ4XKnfFG+3rN61X2wYoAJGUgOBZSg1N0DCZyT20R1XGUiTeQlnQW6k4GTwpzP/5CpHn0Vi98brInYuGrA1VUM4mY4uYZrlMBrpcQHh4H4aF8RVkfQiGMnjasSVSSCIJmhacq1gSE1BWCdaBjV+FlUNcuOKJCfa9bPiPoUel8I6u3fG8zZpmGWcA/0b4BTqXL4LcuK4eaTExpova1Et6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tEHtiywUMFKmVDL5iBP/VYpcJkCDV/3GfneI/Ttnm/E=;
+ b=d9GCLfHmJNwcQ6pC8mFrtq8xKvtJh3oOOmFkiIVugsAYsao1J2S7/xPTdtEFPam27uYpAKkr8E4z7wBLr7lVBwlkGjjiZACigm7s6AOwc0IVAfmDwS/UxeJR2Y+ygKbPNddH3zz9y9JzFPlYD/zQMApAtLFaU0lQtfy+mGvhOKXOAX28/VuIyM4y00qqKexSRsa+FUVrXYZH04n1A6peSa07jlTrrAgVwLPqZsXoNjoesvAMyytFJyBJ5wBCOaUDeoyBG5YtMbHol4DtbrqIT9joTCftoNiznIjGfmL+7WBhpkcr0EwZ2fBASITECfWTj/cR6C1DbBbS12GSYUrizQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tEHtiywUMFKmVDL5iBP/VYpcJkCDV/3GfneI/Ttnm/E=;
+ b=2NlkC6w+wpkmhU1Ks8JHbLHaxVOh5hdC3nl9fxnvr6mwIEhpO27Sf/A0NTi/10SQcnkWBLgnlKRu721dXjuiAkgVNois8DvyuMJE7nlzUPbdanpzoE0CvHoT2Nxsusuh96DadZ23FETcTfOcz9xdwP9aThLvClhr2ICSJU22+VI=
+Received: from MN2PR11CA0001.namprd11.prod.outlook.com (2603:10b6:208:23b::6)
+ by IA1PR12MB6601.namprd12.prod.outlook.com (2603:10b6:208:3a3::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.21; Fri, 22 Sep
+ 2023 17:51:44 +0000
+Received: from BL02EPF0001A102.namprd05.prod.outlook.com
+ (2603:10b6:208:23b:cafe::a1) by MN2PR11CA0001.outlook.office365.com
+ (2603:10b6:208:23b::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.34 via Frontend
+ Transport; Fri, 22 Sep 2023 17:51:44 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0001A102.mail.protection.outlook.com (10.167.241.134) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6792.20 via Frontend Transport; Fri, 22 Sep 2023 17:51:43 +0000
+Received: from jatayu.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 22 Sep
+ 2023 12:51:39 -0500
+From: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+To: <hdegoede@redhat.com>, <markgross@kernel.org>,
+ <basavaraj.natikar@amd.com>, <jikos@kernel.org>,
+ <benjamin.tissoires@redhat.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@gmail.com>,
+ <daniel@ffwll.ch>
+Subject: [PATCH 00/15] Introduce PMF Smart PC Solution Builder Feature
+Date: Fri, 22 Sep 2023 23:20:41 +0530
+Message-ID: <20230922175056.244940-1-Shyam-sundar.S-k@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1250; i=keescook@chromium.org; 
- h=from:subject;
- bh=SnNIrp1FHi4lB0nFNYirvVw5/7/jvEw6i/lP/RJRA6A=; 
- b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBlDc+e3L4G5PZF7SaBMxHwj62ZCFc4FzMHTqhT9
- tfDr8MgF6uJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCZQ3PngAKCRCJcvTf3G3A
- JnkWEACXtjUq16fS873Hx8yyB8djpvoH6XVS+/OuSPCo2t7GIoIpy1zBkPiH2Ei14JMNlHdMGGy
- 8yOKrl1rGoQOP3jjY04cxJWy1h5uFFHAxW6VGYIBsbbFRIqAXuVC4UKEN+qYZ97MTJmwc0eHVdX
- Z441sTRctCLNHoMhSAQn6O3TWU2+/QOV8cz2Ls8cuKVLErRruCIa6OzHgGSnhC5Rq1OWXZyJNiQ
- 1aWVoVn67WL0VqIe3RW1cZvMnlWNTbgZP1DUee1eLb7MmfT7XMLkW6Jz/8rTfAeSUSsLhxKbIcO
- ZpXIWrrfcefYP4Dz3BMU6z9OLUAHdpdLEnnvQyDviUPLmbRyS5mdJpKrC9XT7FTANcayQSTonRu
- M12CaA8ASNf3ak1iu7o4DhTMZeHyb2Wpz2kwj4Nyg6YzYpRNC2gtRkBRdxIJn60r90kd27Yxl7Y
- Hb+w/DnzIvunJlaIiKWIEE9lJfyZWF2fgi9gcXtI26HlMj/Jn9jmdHnLwh96IqxloMmooRdvULL
- NK01ICP7mB/XJ36KSBZv5ss3B5LUV9OwyC4T2xpvqKmG/iSr65/EUsg0AYInGQ5v0STKkN7TYFV
- abYOWvuq0o/pltuNX+Gpbsn9+VvBaxhF2CeSHtOP8ARhgkctRhQJ2+OhqQ35i3SIQBBSkeCOxlL
- 2y59f7fhlJo6LCg==
-X-Developer-Key: i=keescook@chromium.org; a=openpgp;
- fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 22 Sep 2023 17:43:02 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A102:EE_|IA1PR12MB6601:EE_
+X-MS-Office365-Filtering-Correlation-Id: d95d5345-00aa-415b-df30-08dbbb94956c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: zJk0n8fCOjKNFNDXOKi9xeRz3auKJTNv5tpDqvUD7Mc+RDEh+fUc8FOeyt860OXXrU2Veo3T88YvzF447/XN2zVHeXecNqswKxzg4eWKErDgvOMNnZ84yGbyn9BCYAcI/Izk4fftLhqN0mqvo/ouK4o7Gxb2hNh0/wkUeE47DT5lnYOebOOyey7gkE++HMk4V2OXRZEzKk3tW6nSAKpjceSBOQs/SFoXN6wbmG/P5ChN4rjarKW1ZbMNPw1soLC24xN0z8ZqsXppAdHxgvW1rJLNx47dOWBbchOk1n6XsltSVOJ8W/ZDEilhRngwgAO9G86iux0olgXCit5y1tE3ej3jsnZxpr7QMm3qq9/b4L3m/o+ShaBWbr3qA1QJgCAD6LkNbqdHVHl4jsmLxKDu0R9bUoPrcyyxONI7YH48y5kM2CYV0d9yO7EunBXSfetBQxjLAK+1BErjmnAryFVyaG8GU9TmLR515hPrW4mIYgHTbfL5kmg1+AJe9QGJ5mXEk8oV1PJ3jm+NKiSwPStrqVH9yoGv3Ty28skeTmg2+FwUuFrRMX3hJapBErKBmO6RdETdfvKGDOGBwZq9a50+DPKkCcF7j2ZKp77IxCz8GX7n2ded2sAusk3FQpYrOjhi0U0KD80HqpWxuDCvMWLHf9t1SLbgGn1ezvvlYTCZGlCat8cRWzDs0glk1nxTTbOCTLV+mndI+0p7hUIglsLizO01JxhoKJD/GTD7PQjFNBsYvDxJr16JiXt3Rt6yPn9xv63dpPaB8vr8ESNoEeJJYOv1n+Izupx3z9/26xRPGiUr5V9S/6gcv+7gobAvMEHeUMnA/Vgvo8i/RsqbAWxzjg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(346002)(376002)(136003)(396003)(39860400002)(451199024)(1800799009)(186009)(230921699003)(82310400011)(40470700004)(46966006)(36840700001)(83380400001)(7696005)(356005)(82740400003)(40480700001)(5660300002)(4326008)(7416002)(316002)(2906002)(336012)(36756003)(54906003)(8676002)(41300700001)(16526019)(6666004)(478600001)(921005)(426003)(47076005)(110136005)(2616005)(81166007)(70206006)(86362001)(70586007)(40460700003)(8936002)(26005)(1076003)(36860700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2023 17:51:43.9082 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d95d5345-00aa-415b-df30-08dbbb94956c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A102.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6601
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,76 +102,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>, Emma Anholt <emma@anholt.net>,
- Tom Rix <trix@redhat.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>, Prike Liang <Prike.Liang@amd.com>,
- Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Matthew Brost <matthew.brost@intel.com>, Karol Herbst <kherbst@redhat.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, amd-gfx@lists.freedesktop.org,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Nathan Chancellor <nathan@kernel.org>,
- VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
- Ben Skeggs <bskeggs@redhat.com>, Andi Shyti <andi.shyti@linux.intel.com>,
- nouveau@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
- virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
- linux-hardening@vger.kernel.org, Lijo Lazar <lijo.lazar@amd.com>,
- Kees Cook <keescook@chromium.org>, Yifan Zhang <yifan1.zhang@amd.com>,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- Kevin Wang <kevin1.wang@amd.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Melissa Wen <mwen@igalia.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Evan Quan <evan.quan@amd.com>, Sean Paul <sean@poorly.run>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Xiaojian Du <Xiaojian.Du@amd.com>, Le Ma <le.ma@amd.com>,
- freedreno@lists.freedesktop.org, Bjorn Andersson <andersson@kernel.org>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Zack Rusin <zackr@vmware.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Nirmoy Das <nirmoy.das@intel.com>,
- Lang Yu <Lang.Yu@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- John Harrison <john.c.harrison@Intel.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, amd-gfx@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Patil.Reddy@amd.com, linux-input@vger.kernel.org, mario.limonciello@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Prepare for the coming implementation by GCC and Clang of the __counted_by
-attribute. Flexible array members annotated with __counted_by can have
-their accesses bounds-checked at run-time checking via CONFIG_UBSAN_BOUNDS
-(for array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
-functions).
+Smart PC Solutions Builder allows for OEM to define a large number of
+custom system states to dynamically switch to. The system states are
+referred to as policies, and multiple policies can be loaded onto the
+system at any given time, however only one policy can be active at a
+given time.
 
-As found with Coccinelle[1], add __counted_by for struct v3d_perfmon.
+Policy is a combination of PMF input and output capabilities. The inputs
+are the incoming information from the other kernel subsystems like LID
+state, Sensor info, GPU info etc and the actions are the updating the 
+power limits of SMU etc.
 
-[1] https://github.com/kees/kernel-tools/blob/trunk/coccinelle/examples/counted_by.cocci
+The policy binary is signed and encrypted by a special key from AMD. This
+policy binary shall have the inputs and outputs which the OEMs can build
+for the platform customization that can enhance the user experience and
+system behavior.
 
-Cc: Emma Anholt <emma@anholt.net>
-Cc: Melissa Wen <mwen@igalia.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Kees Cook <keescook@chromium.org>
----
- drivers/gpu/drm/v3d/v3d_drv.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This series adds the initial support for Smart PC solution to PMF driver.
 
-diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
-index 7f664a4b2a75..106454f28956 100644
---- a/drivers/gpu/drm/v3d/v3d_drv.h
-+++ b/drivers/gpu/drm/v3d/v3d_drv.h
-@@ -59,7 +59,7 @@ struct v3d_perfmon {
- 	 * values can't be reset, but you can fake a reset by
- 	 * destroying the perfmon and creating a new one.
- 	 */
--	u64 values[];
-+	u64 values[] __counted_by(ncounters);
- };
- 
- struct v3d_dev {
+Note that, on platforms where CnQF and Smart PC is advertised, Smart PC
+shall have higher precedence and same applies for Auto Mode.
+
+Basavaraj Natikar (2):
+  platform/x86/amd/pmf: Add PMF-AMDSFH interface for HPD
+  platform/x86/amd/pmf: Add PMF-AMDSFH interface for ALS
+
+Shyam Sundar S K (13):
+  platform/x86/amd/pmf: Add PMF TEE interface
+  platform/x86/amd/pmf: Add support PMF-TA interaction
+  platform/x86/amd/pmf: Change signature of amd_pmf_set_dram_addr
+  platform/x86/amd/pmf: Add support for PMF Policy Binary
+  platform/x86/amd/pmf: change debugfs init sequence
+  platform/x86/amd/pmf: Add support to get inputs from other subsystems
+  platform/x86/amd/pmf: Add support update p3t limit
+  platform/x86/amd/pmf: Add support to update system state
+  platform/x86/amd/pmf: Add facility to dump TA inputs
+  platform/x86/amd/pmf: Add capability to sideload of policy binary
+  platform/x86/amd/pmf: dump policy binary data
+  platform/x86/amd/pmf: Add PMF-AMDGPU get interface
+  platform/x86/amd/pmf: Add PMF-AMDGPU set interface
+
+ Documentation/admin-guide/pmf.rst             |  24 +
+ drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pmf.c       |  91 ++++
+ drivers/hid/amd-sfh-hid/amd_sfh_common.h      |   6 +
+ drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_desc.c |   2 +-
+ drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_init.c |  17 +
+ .../amd-sfh-hid/sfh1_1/amd_sfh_interface.c    |  48 ++
+ .../amd-sfh-hid/sfh1_1/amd_sfh_interface.h    |   1 +
+ drivers/platform/x86/amd/pmf/Kconfig          |   2 +
+ drivers/platform/x86/amd/pmf/Makefile         |   3 +-
+ drivers/platform/x86/amd/pmf/acpi.c           |  37 ++
+ drivers/platform/x86/amd/pmf/core.c           |  40 +-
+ drivers/platform/x86/amd/pmf/pmf.h            | 199 +++++++
+ drivers/platform/x86/amd/pmf/spc.c            | 194 +++++++
+ drivers/platform/x86/amd/pmf/sps.c            |   2 +-
+ drivers/platform/x86/amd/pmf/tee-if.c         | 492 ++++++++++++++++++
+ include/linux/amd-pmf-io.h                    |  51 ++
+ 18 files changed, 1199 insertions(+), 13 deletions(-)
+ create mode 100644 Documentation/admin-guide/pmf.rst
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_pmf.c
+ create mode 100644 drivers/platform/x86/amd/pmf/spc.c
+ create mode 100644 drivers/platform/x86/amd/pmf/tee-if.c
+ create mode 100644 include/linux/amd-pmf-io.h
+
 -- 
-2.34.1
+2.25.1
 
