@@ -4,119 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60C64CD4853
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Sep 2023 19:06:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25C6CCE7A81
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Sep 2023 20:11:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D523910E708;
-	Fri, 22 Sep 2023 19:06:08 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2042.outbound.protection.outlook.com [40.107.223.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B35310E705;
- Fri, 22 Sep 2023 19:06:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2610410E0EA;
+	Fri, 22 Sep 2023 20:11:45 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2058.outbound.protection.outlook.com [40.107.93.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5A4210E0D5;
+ Fri, 22 Sep 2023 20:11:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jznASR0fQ2X2gnuy1QSBlr/4pXSfPN9hPEP4iJfaxTzkRou6Jl/mjwSrm04eCOuSkRaXnCiRedXTmCg7mY+VvvSil7RG39t2QNuuPi+Q9cS+94cDqStSJi0oTq6ZCKcTyBnZgrM4afWR/XHFTSs8R2sTn73+NwE/Ch6FL4q5/9EcNGIRA6qRlg+Fhb0R2TnVdLHXXkwSeJpIsdGZnrNqP7l2lv1lIJAR+g91Rmzv4YBASYZ7+SIa1Gj12gUWeX6teggy3NPMVvfe/8e6RfVDMeGeX6CV6zRRhoUAAij6e5CExW1TKgM7IuJRCk/dxBCLhKOScRG4j3ULLzmHBCVeTA==
+ b=hAITQzcTyjw37ss/C95+KOePyL1CW+p8t7Gf9rTYfta92BA9M/mCL+ckAlsq869+NUJMVKTo8Rdhi0m02W9XBdvn6YBH3CDrQQeWp/kYTItN9GrBaCfgHyxwgdRtdDCJ8mSXlXnO/ecdiD0Nvja6YePhYuJOe62jRLKODDoqYXuq5l1iwYrXzeETSb0fmyO1OklE0TqUuXSCOrUu4sXLv0HM8/e7iuuE5HN9Lv4o+q5cnj/hR6C5dXdAuBj/DfwYibsCBjJlAmYlGy2Lc/DqaRFf1rFzd1ZJDNqR0eLYd2DHmKaZVIW5f1K/B8/29foa1aDS86JZ5kLXjjMLdY+r3g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6OnhvIwOkWFAVUfMz3HYhFeeqJ8UprW+wsh+xqIWlAg=;
- b=lm8MbCoTlgHftbUo6IZK4MsBgGgUWtjOve5MzglWcfoZrQ6Oy7DYgNwvN8kDeERRnUFN5b4Em6CzwSFne/sYyN57ho3c+8CVG4o2MaG3jc2n4s0T3RE2+agQZAeC5qup329LqwfotW78JqcSANv0cLDAXT4+EHYTaWwFAIEBs+KO6v25om06WfIG6ZO22CmuayJjUqwJRhTORXFkU3/Gg8bU9FBKadedTqqtsbO5CYrT3BfbwDom88abAR2qBq282fuiITFvydl9sPt8PpOmN5aYwAgnFQXnrPIf4bUZdT4jrdgQmoA8CFXtzJX2GV/jJ+A5uCgLicgf3h5R/n3u7Q==
+ bh=S/elC/+E+0FgLD1JPpfrIxu1BwnPlqbzhWp/4Ta0Ow4=;
+ b=k9fVfF8W8SFIpV+tsYXo4jAt+tPJSwkwrJOxqevCmcb5SIQZPqDTCaQkrNTnAEQ08TG9BGPzR5DCYY92fkrSgsu17wibE/AkxPn9gdWMww+5mzpedA/YCuBsfcApBJAaeLHdb8BDDimnygjFleHOKI06oDvTZUJHfJhs14s7jEFeNpohwcv+hjzkwTNK8MV9UDgsl1tmtHJzI6/k+PALf5+Fz8+Y9aES0yy59DHGRiqj/2zdYoOlnq9tNsAVDW7kNOUxDLF4PPWHN6DyP0sOeAKraeBvgbiasU5HyuXqiCXRWhelHF59OGHY5MsEcRD3mzEx/Mu4TYAUdbsiOOepRQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6OnhvIwOkWFAVUfMz3HYhFeeqJ8UprW+wsh+xqIWlAg=;
- b=TtZEOxBWy5hFGPhJYrur/FQGXpFW9mUXyflWBmTwzV32iE0+mfzSIczsptSTz/Lf/rAY+ZmxBQl1E6nBYEc70D0mXgVNopfGNEIfDL30bkZl3A11WJ25/gPTlEZOKVxFe/I2nY93M08EbqSo+JRRpmdIwSSSCsyVNKhl1VoohV0=
+ bh=S/elC/+E+0FgLD1JPpfrIxu1BwnPlqbzhWp/4Ta0Ow4=;
+ b=vBWuPMDtMvWmEAKEInoV59iCmhc4LIVNb5Os9WT5WK91Q7ig7MBtQiKGe1GOG2uiPmtKtAgQmYWdVFFA9KmLLVgpuDzuydoYLd8tJTUWONYmktJUm9MgU6ZuCAZ0CoA+gosDYBNPJ8TxF+s6XyzCEcjAy4uQV9Cs/CySFJhUNEU=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by PH8PR12MB7028.namprd12.prod.outlook.com (2603:10b6:510:1bf::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.20; Fri, 22 Sep
- 2023 19:06:02 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::3e65:d396:58fb:27d4]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::3e65:d396:58fb:27d4%3]) with mapi id 15.20.6813.017; Fri, 22 Sep 2023
- 19:06:01 +0000
-Message-ID: <c317988d-5e64-429d-8e79-f87c33075330@amd.com>
-Date: Fri, 22 Sep 2023 14:06:00 -0500
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by SA3PR12MB7784.namprd12.prod.outlook.com (2603:10b6:806:317::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.21; Fri, 22 Sep
+ 2023 20:11:38 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::121e:5e68:c78a:1f2f]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::121e:5e68:c78a:1f2f%3]) with mapi id 15.20.6813.018; Fri, 22 Sep 2023
+ 20:11:38 +0000
+Message-ID: <110eb797-c17b-4064-97a5-783e5194be05@amd.com>
+Date: Fri, 22 Sep 2023 16:11:33 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 15/15] platform/x86/amd/pmf: Add PMF-AMDSFH interface for
- ALS
+Subject: Re: [PATCH][V3] drm/amd/display: Remove unwanted drm edid references
 Content-Language: en-US
-To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, hdegoede@redhat.com,
- markgross@kernel.org, basavaraj.natikar@amd.com, jikos@kernel.org,
- benjamin.tissoires@redhat.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch
-References: <20230922175056.244940-1-Shyam-sundar.S-k@amd.com>
- <20230922175056.244940-16-Shyam-sundar.S-k@amd.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20230922175056.244940-16-Shyam-sundar.S-k@amd.com>
+To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+References: <20230918130455.2868485-1-alex.hung@amd.com>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20230918130455.2868485-1-alex.hung@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DS7PR05CA0039.namprd05.prod.outlook.com
- (2603:10b6:8:2f::16) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
+X-ClientProxiedBy: YQBPR01CA0165.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:7e::22) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|PH8PR12MB7028:EE_
-X-MS-Office365-Filtering-Correlation-Id: e58f5970-ccfd-4bca-8001-08dbbb9ef676
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|SA3PR12MB7784:EE_
+X-MS-Office365-Filtering-Correlation-Id: c080c032-7e29-406e-b36d-08dbbba820da
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TeyAAesC2j8JIi2oFZkyBXXbmhLsThV0ZPJYtpfNgrik3g6MBqZRmAeN+Y3lDY9EAoR5hklSOYDA3mT5wrqWzyUvLdDbgr/2Tk5orGCi+R11Rp0p9IzvaPPv4qUYnKSDtWf0zvuh80JX9R0iup1uMitM+92NXiwhEsCNcptKxf0BnJXJwHy6i1vmRQp5X6WKsxeyX8GL81R8wBKiDsjCRhfQ9lGwLEFm9e9vaRMZJheSeVJfB5/N+rVWYJ+g5h/S5cbt3ZHR0P5vE3y70GOJhBLvmagKQJf1O90AEC5zZ4HCzsTYskyGhg+JAOM1Me0U9JePfAvDd9u935RbTQcNn6Zi5fbxKD/86RunslwYjzFU7Xc1k1q9utXMReo2V1GtCqQJgdIXI5TvLPOTSz23EgCyvXSFMNCXFUvUxhZ7i98lv+2fU5xGdX222ZPLJYpnIUfOpI/Gen1tUjoCfjJ5AHdbxmv9RdPue3R46OgwiI3KloJvbxc2zwZY1O4LlPdPBjKakSbn7qhtXePXuWYlC1Rg1W9/c6P9XZ1dTNRnQg0m6dIj4mCmknTBAwfZVvXDclMuLoLJS362dAfEBh7XEgGVx4Md1+OplTQ34P+EuVEaIvi57enLgnBDluA54GtQdGbPzEaq3iwtOeVklZzF4Huu0/X7DysUVug2mIOQ2ZQ=
+X-Microsoft-Antispam-Message-Info: kHfv3QnQoTt1oLve7Sl3PeL0wX9tVq3LkbpKkIAcsyukJOHBiGC1SjyfWJgwmVxTTq1BU0rGrYCxS4oIrvXhUOidyBMN2W3yW9oSGwbV7bFiPSgXADqT8UlncKv8jmiKOWHxOr6vDzyWGiMarDujjILPLHHRofNgHVZ1USzY/fLEYMwJb4uN4ephrVnE5BKk+14tbvLiJi3y/NT5rrSfgM/Qrk7QahFRbG991vkArFztlbYfSugzO+vIF/rYWKpIQdlKXSkUMb88qPu3gwK8MjnJ+MV9X+zIlwgGgKoiJg1HlD7p75ZpR437Gnz6TpKkn/IXDGceNMZfL0E3Wb2Op6hGpSel18Hb/O3ixlNarJJFfTrzAk0K0IsPqKpL3z4jgi+FPDKGV4BT0sRo1bIFc0pWoSp6GXkZbUJ87I0X3pmC0bRg77vCBT4V0zfXhY5UFLTT6qnMpqabtgHpo6QzGdCk1gbDIwRQupDsfX4ivcb0YD+uLLHRtzrycEmemg7B7QzOUcVs+dk/0rgplRm9cggeIabFIr3BffoZ3lG5MrJRBkACDsBH+4iGM/IWitfNC6qz2Tprfkttw8u26g68YxHXLf71ytOkpqA2n2AtywQJhbCD02+OyX473aZq6AcfgMmogNFoOOoh6UPsCC9Q76VXkZ6fWPsNbOVHFbapmGQ=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(39860400002)(376002)(366004)(346002)(396003)(1800799009)(451199024)(186009)(53546011)(6486002)(6506007)(41300700001)(83380400001)(8936002)(478600001)(26005)(2616005)(66556008)(316002)(5660300002)(66476007)(44832011)(66946007)(4326008)(8676002)(7416002)(31696002)(921005)(36756003)(38100700002)(2906002)(6512007)(86362001)(31686004)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376002)(39860400002)(136003)(366004)(346002)(396003)(451199024)(186009)(1800799009)(478600001)(66556008)(66946007)(38100700002)(66476007)(316002)(26005)(41300700001)(53546011)(6486002)(6666004)(6512007)(2616005)(6506007)(31696002)(86362001)(8676002)(5660300002)(44832011)(4326008)(8936002)(31686004)(2906002)(83380400001)(36756003)(26123001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a2RlclFoQ3VHZWR6eDNQWGF2KzgyWjdqanNBN2I3WXRkNEVDMFJzMFZPZCtw?=
- =?utf-8?B?ZXV3SXNpejFLL1NRdHVuMVdUbkpRY3kybXFnN3Axbzl0UFRJWTEzK1JJaFQx?=
- =?utf-8?B?VVBTRUVsS0RMNU91OGljMis1T2VmblpzZlNKTXJMNXh0c0xLRFJEeDBnOFE4?=
- =?utf-8?B?YlB0YU82NFV5a0c2UVhCb2RZdjA4ZWZDekdmYVg2ZkhSVkhITkREOGNtMGJM?=
- =?utf-8?B?SEg1OHF5N1FET3M2bVFhVnhtZE1TNStENmkzVXkrMlNNU1JlcFZqMnFJeWVI?=
- =?utf-8?B?cXBVSlJiRVE1VmRSbFZBRHM1NENKdkowQUZDQkp6REZ2Q0V1VWpyNTg4Um93?=
- =?utf-8?B?cVM5NWRaSHhDM1AwUFcwSmtncEdMTlAvMm0vZHE4T2dkaUpqb1B0eU83ZjQ4?=
- =?utf-8?B?Z0RLbms0TTJ4dGxSMnVxaUlaaXRTQ0dtLzJOU05JU2Z0K0tGWmZ5cVZVSlJ4?=
- =?utf-8?B?ck16eW5UVFFGK1habE94dWt2VUpBazNpMWtOeG1oWWRPejVON3VncU51Zmc5?=
- =?utf-8?B?Wk1hTSsrajNhRGhBTFNEVW1aUW5PNGsrS1oxNDRlblpxcVBLNU9zcWlRaXor?=
- =?utf-8?B?cUVwd0RNUmNBb3F6VWVSMXFFdTc1NHM2SU9BdlIrT3BUUnVFZWpCZnEvVEJ4?=
- =?utf-8?B?ZHF5TCtKZmt5Y3A3MVF0NmNZRHUxUWUrcUFidkNSTTJXdTY5SHd2SU51b1Fw?=
- =?utf-8?B?V0JzUTNJQzZtVGNLbHFKa3VGREszMzJQcnJQNEVXSWtGNC9MT1hjdDMrTVYx?=
- =?utf-8?B?dzNndDJ0eWtOdDRkaFIraE5TWUZKNDBuc2wvTXJWckt2dU5PMTFBWEEyYStq?=
- =?utf-8?B?VFhZc1gwODVaR2FMRjJSRTVYUmxBUEJyb1FycEZtbzNNeXc4eFAvbEx6YzJO?=
- =?utf-8?B?L1JmVEhBdThDWG9JbDZxZjROSEhJQXp5VkhFbm00OTNYcnRqR1ZseXpTV2dT?=
- =?utf-8?B?OHhXVDIzQkNCRmQ4NENzSW8xVk5USzc0VjkraHdkdERKNFdKeVpWYzFSbUFs?=
- =?utf-8?B?VGJxZU1yTTRSczNrcUo1NFp3NlIzYnFZcVRSK2JranppM3plbWZ1anF1RFQw?=
- =?utf-8?B?U2Q1VEtrOFNFUUNuTytadUlPK1lzTmkvOTliV2lHdExCWVNlR1dnMDRFQ29F?=
- =?utf-8?B?bHh0QStDWTJ2dHlZTGp4Y1doM29lTFpUQVFzaVhPUFpuVW5RUnArZk5KSC9t?=
- =?utf-8?B?TVJmejZLYW9XK2wyNnp5TldEUEFUV096dmNCTFNjU1hwYklFNElhczB6QmZL?=
- =?utf-8?B?NWJ2QnluczF5WHdrb00wU3hZYzlmekQ3MVBzbHhiR0NRMXBxWEpBaVVEeDlj?=
- =?utf-8?B?bnBML2tPbFAvZS9BR0wvcXFGNnBGbmJGN3d6eDZrc0JuWmYyZVdmcEhRcHpm?=
- =?utf-8?B?c29NZXl1VkhVaUYxWFFIQzNzd21MWHlKZk9jUkp5NXZZQ0Fxckp4eWpPVDgx?=
- =?utf-8?B?cGdsdkZQeFlpUk13TUpHRTQvK0hoakJGN3lXM1BwNThzSWdwc2pSZEtyZjlp?=
- =?utf-8?B?Znhza05pZ2htVkhjYVNhNGV4TVhrem40Nk9tSmhiL3hZRnU1THV3UDB3enZ2?=
- =?utf-8?B?VCswNTArM2VxTDRFVC82SGd0eEhsL3BtaEJoclg5VzRpUjFzMnpGaWRKNngv?=
- =?utf-8?B?UjFvS09Wei9tUjE3eE13dDBDRjZmc0pSRTlDNmR3QTNsSUVRWS84WWFESlZt?=
- =?utf-8?B?TkIyR3dBMVIzZkltYTFWRVNJSS9pWE03OGNPSENmSDIzQUVlMDhmS0xSdTMy?=
- =?utf-8?B?NGV3eG16WHVRWVd2cTJNdmdlRjJjY1F1Mmt3NjE0Zm9CTFhGY2pCM0p1b0tY?=
- =?utf-8?B?YU9tT2lkQzFXMmNlMFJqcFZoRDZJMXhRUTRLTmNtUEdPNmFOSyt6ZWUvSTY3?=
- =?utf-8?B?MXdXQzRkU05BbWYvbGpQVFA3UlZrV3BsZUVMU3dZeG91M0VvVEttTDBLQUNm?=
- =?utf-8?B?SWx0L09aajJTei9qOFhsaytIbENsRVBjM0pFc0JFTUNjN05WMHYvbFFEdmhL?=
- =?utf-8?B?dU41cnBGUFAvL2dTc1lQOTdlUEEwcnlnYnFIUUU0OS84ZExmam5xUXNZUVB2?=
- =?utf-8?B?cFhBWWdHay9VWVhlVUtjNVVlZWlVK29MRHg1NUNRUDB5dmZ4WEFWaE4zV0ov?=
- =?utf-8?Q?+zcGGPKuXQLGmJT+KgHbsKHd2?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M0V0cVRIblZ6UTBRQ2M1N0VCVFlnT056MzRtTXZBcVArak5kZEdBTHMzN281?=
+ =?utf-8?B?dUZPeU5DZm5nNUNNZzMrL001ckF3Y2pIRHNHYWZ4L1Z6Z3JMN1NzaExqU3cy?=
+ =?utf-8?B?UFhockw1QkRHWmNCcTFGNEQ0bjJIWXdPaEdJaGdFemlvaXI4T1crTnM2aWVn?=
+ =?utf-8?B?ZlhqcGtlRjJXT3hpaWttbkxKUjV4dDEvVWN6bDlMcW1sTGNDUW9vTld2dWU0?=
+ =?utf-8?B?YWZiLy9WRmlYcDhpbmNiS2l5N253RTNkVWxkZVhsd1BhRmgyZ0VFZ0Q3MUxT?=
+ =?utf-8?B?RGlWbFVEalpMSVZTUEZZelAwNkl0UFRzV1ZzTGV1SWtEd1dEbW5jSWxmNDN3?=
+ =?utf-8?B?ZTA0c2RQUHh2UUdRSGlrcXdjVXEzK3lvYk12RXJtdUJKTStNaHVpRWZFRG82?=
+ =?utf-8?B?dWVRWGRwaEhxSkwvc25McENoLzl3ZWtqVzh4ZjhTYSt4Q2dZcmQ2eW5YQnN2?=
+ =?utf-8?B?YVdwZUdOQTZoeDRVZ1BvcUN6NkJjUlhVNUtpVVQzdEVlUkV1NHdPS2l4ckpa?=
+ =?utf-8?B?eThQTHRUbkVRZXdkQjBBbGhua2NZSDFiVjhvOEVrZVhKdVBQMUpaUC8wb1A1?=
+ =?utf-8?B?d28zUy9VWll0RUFDSGRzTmdlTGNNejZ5K3FuMkZsUVRDSXoxSmxsOTFFakRO?=
+ =?utf-8?B?ME5DalE5dEVXejFrZ2poMTg1NWd5K3oyT3l5S3FQWGtjMUxPR1gvbVhDYXJh?=
+ =?utf-8?B?Rms1cWowNnpIVWxHUlRBQmFFRkpLWDhxQjJnd3V0V3RjRk1VcHdhdDlPaGYr?=
+ =?utf-8?B?YU9naVhNZG85blY4ZCtkZHdzZ3BCekovQXBPaUVSQnJzRmFsbnFtY0tISHZx?=
+ =?utf-8?B?NndITTlFdkxmSmk3NjNsKy83WjF6a29ZckhBQWJzekpIOEFTZTRsWExsL1Nx?=
+ =?utf-8?B?czBVZCtpRkcwSUNJRlFvejVyejRUL3VJRGw1NlNEYnU3WEozMnpOSUc2OUhp?=
+ =?utf-8?B?ejRsdHM1bVBBejRiTmhhYkJXaUl5T040dkVnbzFGZEJqYTV6Tyt3QnZmRGQ0?=
+ =?utf-8?B?ZTU3aDBhT05TaDhORk05MXE1ajg2Y1VlUjJML3U1VkRtTWpmOVZ2eVEwYmN1?=
+ =?utf-8?B?YjlKU2RwTml2elJid3ZWUUc2b0tkVFM0WHBPS0dONkdiMnZTZE5IeVViNDVv?=
+ =?utf-8?B?UnlrQTlQSWJHc3YzZFpIN2N6bm5WaUF4VE90VmJIWDRLeTl1WG5WVFh6MDNS?=
+ =?utf-8?B?ZDV5T3BEaW43VVdlYmU0cU5ra1lkcFpwd0hpc2VYYkZmcU5iR3c1Y1VHeUIy?=
+ =?utf-8?B?YndKYUtKaUxkbk5waytsalFEcGhqVnEvWHdoVGlKV3FpTTRBcWU5N0ptNG9r?=
+ =?utf-8?B?eGJCZ1Nlb052K1ljOW4zTHRFM1hvNlB5aE5majJiWUxzRWdnQjllQU5VN2hq?=
+ =?utf-8?B?cStQSTczTUZTZ1UyQ2tZcjFmcmY0QktIanZ0d0ROVGJVaGs1RnNaQmF4cnh0?=
+ =?utf-8?B?cVN4b3daQnRURHNRZk8wUWZGeHd6c3BBa3Fla3FtNDA4TUZESG5NeU9Cbzhs?=
+ =?utf-8?B?U2xnZiswa2tsMnowNktld0RabmZSWEh6enhiejNGQks5T2JUdjBoU2tjVnlY?=
+ =?utf-8?B?YndVVlNoM3JjTTA3dGlmaUxLYzBBWFZHaHI2aTFoTVVpTmdJK3JsSjdaMWo5?=
+ =?utf-8?B?cS9jWWVvQjhraGtrVkt5Qy82Um9jaVA0Vyt6LzliZVJKMSs5YnJtOERDQlV1?=
+ =?utf-8?B?eC8vSjFBMG1iVkxrellyMGVvYmZuemlSaS9rVDh2dWhlWjVHRHNKVm9OYjNP?=
+ =?utf-8?B?dlFMT2FTRi8zaXNTVUJLb0p2V0FXYW96Q0dHQ3owQi92NW1PK0tWS2xlRU9t?=
+ =?utf-8?B?aXg5WFAySUJMTmZZNWYyS2dodUphLzFZSnVWYlNOa0ovekdLb2kzRDN3bndQ?=
+ =?utf-8?B?RG40NmxNY0JLaVZKSU9pQ1oyME1YaHhCRlRZclk2YkVrKzhBcXhWMXJDZzll?=
+ =?utf-8?B?OUNJd01uNk1qV3JBbi9OQWdKSHlYZG54TTNlVW5IbmtaaTJvMXRST1I4K2E1?=
+ =?utf-8?B?UTAraUdYYllaWFlBS0k5TFE2elowZ1RtWkRnWnZ5eC9EOUhuTVVKN2NYU3Zj?=
+ =?utf-8?B?c1ZucmsxZEdlVk9YNWxGTHJDMmoxV1V0YnZGdlRlYXpSSzVYL2NPZFlUcld4?=
+ =?utf-8?Q?l9c84HmubNPlEuIt/62d1Y6Nf?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e58f5970-ccfd-4bca-8001-08dbbb9ef676
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c080c032-7e29-406e-b36d-08dbbba820da
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2023 19:06:01.8526 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2023 20:11:38.6698 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lOHhK85fN6PwAIkTWd74OcZJeD6qAIXtMtuQOmm7eNNXoyTowfVwklD6fNFyGdA9sv9dMDBwgMCHoqitD5OwxA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7028
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9rHWCo2NbDxPnYjy8o6GrxRKI19lSdCD9fJG72s0OSzmcTYOHhxPNl6HvI0H3JI4lPSWTahYVUWz2l4ZY7RAhQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7784
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,150 +123,105 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Patil.Reddy@amd.com,
- platform-driver-x86@vger.kernel.org
+Cc: stylon.wang@amd.com, haoping.liu@amd.com, srinivasan.shanmugam@amd.com,
+ jani.nikula@intel.com, Qingqing.Zhuo@amd.com, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, sunpeng.li@amd.com, daniel.wheeler@amd.com,
+ aurabindo.pillai@amd.com, hersenxs.wu@amd.com, hamza.mahfooz@amd.com,
+ daniel@ffwll.ch, wayne.lin@amd.com, alexander.deucher@amd.com,
+ airlied@gmail.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/22/2023 12:50, Shyam Sundar S K wrote:
-> From: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
+On 2023-09-18 09:04, Alex Hung wrote:
+> [WHY]
+> edid_override and drm_edid_override_connector_update, according to drm
+> documentation, should not be referred outside drm_edid.
 > 
-> AMDSFH has information about the Ambient light via the Ambient
-> Light Sensor (ALS) which is part of the AMD sensor fusion hub.
-> Add PMF and AMDSFH interface to get this information.
+> [HOW]
+> Remove and replace them accordingly. This can tested by IGT's
+> kms_hdmi_inject test.
 > 
-> Co-developed-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-> Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-> Signed-off-by: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
+> Signed-off-by: Alex Hung <alex.hung@amd.com>
+
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+
+Harry
+
 > ---
->   drivers/hid/amd-sfh-hid/amd_sfh_common.h      |  1 +
->   drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_init.c |  6 ++++++
->   .../amd-sfh-hid/sfh1_1/amd_sfh_interface.c    | 20 +++++++++++++++++++
->   drivers/platform/x86/amd/pmf/spc.c            |  5 +++++
->   include/linux/amd-pmf-io.h                    |  2 ++
->   5 files changed, 34 insertions(+)
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 42 ++++++++++---------
+>   1 file changed, 23 insertions(+), 19 deletions(-)
 > 
-> diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_common.h b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-> index cd57037bf217..a1950bc6e6ce 100644
-> --- a/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-> +++ b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-> @@ -39,6 +39,7 @@ struct amd_mp2_sensor_info {
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 5efebc06296b..3968dd9cef7f 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -6444,15 +6444,23 @@ amdgpu_dm_connector_late_register(struct drm_connector *connector)
+>   static void amdgpu_dm_connector_funcs_force(struct drm_connector *connector)
+>   {
+>   	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
+> +	struct amdgpu_connector *amdgpu_connector = to_amdgpu_connector(connector);
+>   	struct dc_link *dc_link = aconnector->dc_link;
+>   	struct dc_sink *dc_em_sink = aconnector->dc_em_sink;
+>   	struct edid *edid;
 >   
->   struct sfh_dev_status {
->   	bool is_hpd_present;
-> +	bool is_als_present;
->   };
->   
->   struct amd_mp2_dev {
-> diff --git a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_init.c b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_init.c
-> index 9c623456ee12..d8dad39d68b5 100644
-> --- a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_init.c
-> +++ b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_init.c
-> @@ -77,6 +77,9 @@ static int amd_sfh_hid_client_deinit(struct amd_mp2_dev *privdata)
->   		case HPD_IDX:
->   			privdata->dev_en.is_hpd_present = false;
->   			break;
-> +		case ALS_IDX:
-> +			privdata->dev_en.is_als_present = false;
-> +			break;
->   		}
->   
->   		if (cl_data->sensor_sts[i] == SENSOR_ENABLED) {
-> @@ -188,6 +191,9 @@ static int amd_sfh1_1_hid_client_init(struct amd_mp2_dev *privdata)
->   			case HPD_IDX:
->   			privdata->dev_en.is_hpd_present = true;
->   				break;
-> +			case ALS_IDX:
-> +			privdata->dev_en.is_als_present = true;
-> +				break;
-
-Same missing tab here as previous patch
-
->   			}
->   		}
->   		dev_dbg(dev, "sid 0x%x (%s) status 0x%x\n",
-> diff --git a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.c b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.c
-> index 63a5bbca5a09..2f8200fc3062 100644
-> --- a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.c
-> +++ b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.c
-> @@ -94,12 +94,32 @@ static int amd_sfh_hpd_info(u8 *user_present)
->   	return  -ENODEV;
->   }
->   
-> +static int amd_sfh_als_info(u32 *ambient_light)
-> +{
-> +	if (emp2 && emp2->dev_en.is_als_present) {
-> +		struct sfh_als_data als_data;
-> +		void __iomem *sensoraddr;
-> +
-> +		sensoraddr = emp2->vsbase +
-> +			(ALS_IDX * SENSOR_DATA_MEM_SIZE_DEFAULT) +
-> +			OFFSET_SENSOR_DATA_DEFAULT;
-> +		memcpy_fromio(&als_data, sensoraddr, sizeof(struct sfh_als_data));
-> +		*ambient_light = float_to_int(als_data.lux);
-> +
-> +		return 0;
+> -	if (!connector->edid_override)
+> +	/*
+> +	 * Note: drm_get_edid gets edid in the following order:
+> +	 * 1) override EDID if set via edid_override debugfs,
+> +	 * 2) firmware EDID if set via edid_firmware module parameter
+> +	 * 3) regular DDC read.
+> +	 */
+> +	edid = drm_get_edid(connector, &amdgpu_connector->ddc_bus->aux.ddc);
+> +	if (!edid) {
+> +		DRM_ERROR("No EDID found on connector: %s.\n", connector->name);
+>   		return;
 > +	}
-> +
-> +	return -ENODEV;
-> +}
-> +
->   int amd_get_sfh_info(struct amd_sfh_info *sfh_info, enum sfh_message_type op)
+>   
+> -	drm_edid_override_connector_update(&aconnector->base);
+> -	edid = aconnector->base.edid_blob_ptr->data;
+>   	aconnector->edid = edid;
+>   
+>   	/* Update emulated (virtual) sink's EDID */
+> @@ -6487,30 +6495,26 @@ static int get_modes(struct drm_connector *connector)
+>   
+>   static void create_eml_sink(struct amdgpu_dm_connector *aconnector)
 >   {
->   	if (sfh_info) {
->   		switch (op) {
->   		case MT_HPD:
->   			return amd_sfh_hpd_info(&sfh_info->user_present);
-> +		case MT_ALS:
-> +			return amd_sfh_als_info(&sfh_info->ambient_light);
->   		}
+> +	struct drm_connector *connector = &aconnector->base;
+> +	struct amdgpu_connector *amdgpu_connector = to_amdgpu_connector(&aconnector->base);
+>   	struct dc_sink_init_data init_params = {
+>   			.link = aconnector->dc_link,
+>   			.sink_signal = SIGNAL_TYPE_VIRTUAL
+>   	};
+>   	struct edid *edid;
+>   
+> -	if (!aconnector->base.edid_blob_ptr) {
+> -		/* if connector->edid_override valid, pass
+> -		 * it to edid_override to edid_blob_ptr
+> -		 */
+> -
+> -		drm_edid_override_connector_update(&aconnector->base);
+> -
+> -		if (!aconnector->base.edid_blob_ptr) {
+> -			DRM_ERROR("No EDID firmware found on connector: %s ,forcing to OFF!\n",
+> -					aconnector->base.name);
+> -
+> -			aconnector->base.force = DRM_FORCE_OFF;
+> -			return;
+> -		}
+> +	/*
+> +	 * Note: drm_get_edid gets edid in the following order:
+> +	 * 1) override EDID if set via edid_override debugfs,
+> +	 * 2) firmware EDID if set via edid_firmware module parameter
+> +	 * 3) regular DDC read.
+> +	 */
+> +	edid = drm_get_edid(connector, &amdgpu_connector->ddc_bus->aux.ddc);
+> +	if (!edid) {
+> +		DRM_ERROR("No EDID found on connector: %s.\n", connector->name);
+> +		return;
 >   	}
->   	return -1;
-> diff --git a/drivers/platform/x86/amd/pmf/spc.c b/drivers/platform/x86/amd/pmf/spc.c
-> index 97293ae25cf5..8e19b351e76f 100644
-> --- a/drivers/platform/x86/amd/pmf/spc.c
-> +++ b/drivers/platform/x86/amd/pmf/spc.c
-> @@ -49,6 +49,7 @@ void amd_pmf_dump_ta_inputs(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *
->   			"Connected" : "disconnected/unknown");
->   	dev_dbg(dev->dev, "LID State : %s\n", in->ev_info.lid_state ? "Close" : "Open");
->   	dev_dbg(dev->dev, "User Presence : %s\n", in->ev_info.user_present ? "Present" : "Away");
-> +	dev_dbg(dev->dev, "Ambient Light : %d\n", in->ev_info.ambient_light);
->   	dev_dbg(dev->dev, "==== TA inputs END ====\n");
->   }
->   #else
-> @@ -161,6 +162,10 @@ static void amd_pmf_get_sensor_info(struct amd_pmf_dev *dev, struct ta_pmf_enact
->   {
->   	struct amd_sfh_info sfh_info;
 >   
-> +	/* get ALS data */
-> +	amd_get_sfh_info(&sfh_info, MT_ALS);
-
-Like previous patch, I think you should look at return code here.
-
-> +	in->ev_info.ambient_light = sfh_info.ambient_light;
-> +
->   	/* get HPD data */
->   	amd_get_sfh_info(&sfh_info, MT_HPD);
->   	switch (sfh_info.user_present) {
-> diff --git a/include/linux/amd-pmf-io.h b/include/linux/amd-pmf-io.h
-> index 4f82973f6ad2..dac0af573a16 100644
-> --- a/include/linux/amd-pmf-io.h
-> +++ b/include/linux/amd-pmf-io.h
-> @@ -31,6 +31,7 @@ int amd_pmf_set_gfx_data(struct amd_gpu_pmf_data *pmf);
->   /* amd-sfh */
->   enum sfh_message_type {
->   	MT_HPD,
-> +	MT_ALS,
->   };
+> -	edid = (struct edid *) aconnector->base.edid_blob_ptr->data;
+> -
+>   	aconnector->edid = edid;
 >   
->   enum hpd_info {
-> @@ -40,6 +41,7 @@ enum hpd_info {
->   };
->   
->   struct amd_sfh_info {
-> +	u32 ambient_light;
->   	u8 user_present;
->   	/* add future caps below */
->   };
-
+>   	aconnector->dc_em_sink = dc_link_add_remote_sink(
