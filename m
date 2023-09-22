@@ -4,71 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0E9FE7D0C9
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Sep 2023 05:35:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F973E7D0C9
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Sep 2023 05:46:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EE8F10E1CD;
-	Fri, 22 Sep 2023 05:35:30 +0000 (UTC)
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A40BA10E0DC;
- Fri, 22 Sep 2023 05:35:27 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-503056c8195so2803787e87.1; 
- Thu, 21 Sep 2023 22:35:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1695360926; x=1695965726; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=i42xK5t65z1xprFx6v1CK1qTSluTmpGd73+0+lQ9aw0=;
- b=VP+qzOZ5YNgwkIbNRNiekkuwd5C2wpUq4QCmn/oxJQNoO4RJK7vwu1hWmL7SwLE43c
- OpjFyIHDH+b/IHmcAoEGfNGtaKyhx0ZDfkFclNxY1UPGzBmD7owZQYZ2QxcRdzBAsnBM
- ILXqTXM7Mk62p1pwllsWo+CopCBPB7KPmtZbu6QRobimAtYxLuAwQGBoDzvvsBTBbd2N
- DUB6jaZDqBXCHowoKFrt2IvH95g0A/gydOjWMlzj2Sfc75RPIwyq1ESqC/ygdpG4ckew
- 3FO6YKVzbUvJrQ9f5SagqXUqLVnLJMNEwSPEP7PQ0KjuqwZuNLLnUApJCr1fW9fLOQL4
- 3xTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695360926; x=1695965726;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=i42xK5t65z1xprFx6v1CK1qTSluTmpGd73+0+lQ9aw0=;
- b=FJBuV8PVHvlVpdptuf/OCFYjdib+vcHQSkVy6FLyBDULqVGV6PU6uYC5P/1yynvpjP
- KE0F9YMB+W/SW+ksCSclvVGKgENxJUfr/xWWU7y+QIloYRfIoEApL3YWtVd2cTaWuIdF
- hkEGnh9g9qGCUV305DdFt2lUaavckEZ9PgtdO14GZiNBnaR+MRq615brPItY5pve0Q0a
- 3xDgYkV+aKS3MRXzf0Jxs9IceXfWq9Up+OuWQ1tczvbsyVaVTcv4Ysyt+TOveAvBe9Vb
- qawq5MeIeYsyTDnu7QHAH8CbWImICHWGRCgSYFfuBSHk54aenbu9DKmwc8NHJUNsOErH
- ZrDA==
-X-Gm-Message-State: AOJu0Yzptw97/IYEaHSy5OztClOjZQccHqUH10GFGuiiKkxUgA3xAuhz
- ocqJ9n75vruR0yo8OzaGoNgQ4wrRNS5t5g==
-X-Google-Smtp-Source: AGHT+IHTBooWoo5hRYy8Ssr/YFsYaamY0TW14KjJjgAFotrZ2DQDmblW/Yf2Wgv2L5MHpeF5AKPqtw==
-X-Received: by 2002:a05:6512:32b1:b0:500:b2f6:592 with SMTP id
- q17-20020a05651232b100b00500b2f60592mr6403529lfe.50.1695360925554; 
- Thu, 21 Sep 2023 22:35:25 -0700 (PDT)
-Received: from [192.168.178.25] ([134.19.96.130])
- by smtp.gmail.com with ESMTPSA id
- l14-20020aa7cace000000b0053331f9094dsm1803111edt.52.2023.09.21.22.35.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Sep 2023 22:35:24 -0700 (PDT)
-Message-ID: <6b101d03-57c2-148e-9da8-2a548a4522b6@gmail.com>
-Date: Fri, 22 Sep 2023 07:35:24 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id A533010E288;
+	Fri, 22 Sep 2023 05:46:24 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20629.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5871E10E288
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Sep 2023 05:46:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UhwBy5j5lu75irvC3XURkBs8+/H5z7cPWaqFPlqlgs5t0EnqdA4VPVJz0cgr2OgmT5IBn/BQAOaKtZ8x3/bNerfgUut0xRTzjgenPDQc4i1xAlpGsKvG03XESV+3o/CJq3aib5OtSYRiTM3GtWvVcnq1B5AdwKXTb0Jq9QiKyLP2PtrbtEojZax7yUn/WH4QkX2RvFnHWDEdTxBB5rieu6KmnmtEQuPXgPGZ7sQJHHMfKj1P2HjCAcq1/EqX9CRIXCQgSsLf5kDgFENZIjpkK7clFrjEFuytm4pf89u+8Uk4o0wmC5fE5nEbfnKqTcTeLpEPBkI917AvhSPk10lWEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GvpgxmpH0lSd3jliP8pbByn5+SRE4JkFPkC1GoMyfI8=;
+ b=Rkr4ttoAP7WSPZc8IZ8RNuefJGorYinWinPQ57vAZTLoNFdr1Xl3wXEDjMIEJTAHVfF3DXHynSPLNI57qzl+7NB0+AepYOL6LTW36opLWsPnAXnYQ+Z+8EOr8OYQzCbf2DERKxVztcv8/GZkDBhi6upQRjVglDD7fFFofC3dcxvHXrMH74eHVPTVD8/blqjOjPIIpQAoTanF6yh6Eq7XEcFVCAKZv2z/N9wAvj1tyDdvL25HNw8ggsEVM/cZ4kfsaekN1CTgrHQGnM1RwetsQdiTWPxbGamTri/3Fx+Ez5ixrSbznlJlXoI8M548VQCUYtF7z5nifGkcXPPHpif5Rg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GvpgxmpH0lSd3jliP8pbByn5+SRE4JkFPkC1GoMyfI8=;
+ b=FFp1zidScpAdAlnQxJoLeLycu5wCunfMnYJ9F7SYEWI1bKC+lpQpgZaofmP+g3XgD9aZzf9xQiTPpT7woPs6BW/UnyjJYD9nRAZBPsXwWTpcW9UfWr50KHBhQHs5+bW1qd2csphRIYqWw5FRwuRYlehGXOhVREgm/Jx3wOVgsI0=
+Received: from MN2PR15CA0034.namprd15.prod.outlook.com (2603:10b6:208:1b4::47)
+ by BN9PR12MB5049.namprd12.prod.outlook.com (2603:10b6:408:132::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.20; Fri, 22 Sep
+ 2023 05:46:20 +0000
+Received: from BL02EPF0001A105.namprd05.prod.outlook.com
+ (2603:10b6:208:1b4:cafe::cf) by MN2PR15CA0034.outlook.office365.com
+ (2603:10b6:208:1b4::47) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.27 via Frontend
+ Transport; Fri, 22 Sep 2023 05:46:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0001A105.mail.protection.outlook.com (10.167.241.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6792.19 via Frontend Transport; Fri, 22 Sep 2023 05:46:20 +0000
+Received: from amd-mlse-mangesh.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 22 Sep
+ 2023 00:46:16 -0500
+From: Mangesh Gadre <Mangesh.Gadre@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Hawking.Zhang@amd.com>,
+ <Lijo.Lazar@amd.com>, <Le.Ma@amd.com>, <shiwu.zhang@amd.com>,
+ <ivlipski@amd.com>
+Subject: [PATCH v2] drm/amdgpu:Expose physical id of device in XGMI hive
+Date: Fri, 22 Sep 2023 13:45:55 +0800
+Message-ID: <20230922054555.838605-1-Mangesh.Gadre@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: WARNING in amdgpu_sync_keep_later / dma_fence_is_later should be
- rate limited
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?=
- <zajec5@gmail.com>
-References: <CACna6rxtaHG6QTinuHyNyA7rck_aEBiMHtxSCLktArU1OoqxLg@mail.gmail.com>
- <BL1PR12MB51444F28FD848B91BAEDE88AF7F8A@BL1PR12MB5144.namprd12.prod.outlook.com>
- <8bc269a0-b720-4f7b-a9df-c50d90ea41c3@gmail.com>
- <CADnq5_NDokcoJ_bht+oEEyo+PYHJmTjyH5mGLCpWkL++F_Ok8w@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CADnq5_NDokcoJ_bht+oEEyo+PYHJmTjyH5mGLCpWkL++F_Ok8w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A105:EE_|BN9PR12MB5049:EE_
+X-MS-Office365-Filtering-Correlation-Id: 537c2bc2-99a2-4ce5-0c05-08dbbb2f3f28
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: QPYhLf+X41oAbM7jdMswEGmEDFcaxktJbXej5xJ8Ivdl3hcr6BqrB5oeKa3ZtLEJPV25zlOrfbPQ5+SbvPc26p6+yzEor/hny2H4CdbSupfqq/ct7Ol2ZdU8R/pUwkc7XDoEpMwTs4ZcIxwIS0H1aJlkTJap3IpiUukjdT/15LKrORBUS3vCdHPbcLR4vGPGsVoyHXPugPOrkQvhy73Oz86kt/C5gUPggvTxqFqQ+5/rPl2Kfl6KwZrL8Whv38V0e3broA3gTx/lvx9/jvRRZvWBXI7XnDYyVjv+T3TO9qOyVFTDMEaQXu1bKjxGbwIo8HU5eWeQjbpLTRHiQqQfKkNpI5hpROVsjkCtf4C459f4a5zSgTvf1tmPnRirvCWtVx5UzP1m2vC98fNcaEhaBwBa3FNiZgb0aPZG6e45dwq07+ehxOJxXU+Vvghq1sd3B95LRJEwAq1w/RO8mFtvyP5qGCE4RehgH6xi/CKVa8zT/zktaoKFBOX1v+Dn6MFruBl9WQ3G4HKjihoHSh4fu74mMxpizOSfNH39z3B5AdSt57uNNH6d848JvGDZm4q5PLzbtkjkj2g4jY9Leb+chbvKV9TtxLkAKBctnJDEJUy3NNZ9h3u/AB8sl3ZBtvWaBObG0gXs8Bolg9T7unqqnsNMwgaAc0z8U3QDD8u9oWJReF2oezF5XGxRYU8K5/qpUThOG5wWuNHdX5CJnwZItaZovfmZZsWE0gpZypAvohVilAhhKLb4QKNgFcsRdSVFD78etvEZzyfViHe1y8WnRhEGh3yNyBTyQUgj468gZAzta29l7PyMqMD4WRkvv9+4
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(346002)(136003)(376002)(396003)(39860400002)(230921699003)(451199024)(186009)(82310400011)(1800799009)(40470700004)(46966006)(36840700001)(47076005)(40460700003)(478600001)(86362001)(41300700001)(36860700001)(5660300002)(110136005)(82740400003)(4326008)(8936002)(2906002)(8676002)(54906003)(6636002)(70586007)(70206006)(81166007)(316002)(83380400001)(36756003)(26005)(40480700001)(356005)(336012)(2616005)(1076003)(426003)(16526019)(6666004)(7696005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2023 05:46:20.0034 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 537c2bc2-99a2-4ce5-0c05-08dbbb2f3f28
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A105.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5049
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,50 +100,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Yu, Lang" <Lang.Yu@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Cc: Mangesh Gadre <Mangesh.Gadre@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Asad Kamal <asad.kamal@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 21.09.23 um 23:30 schrieb Alex Deucher:
-> On Thu, Sep 21, 2023 at 4:21 PM Rafał Miłecki <zajec5@gmail.com> wrote:
->> On 21.09.2023 21:52, Deucher, Alexander wrote:
->>>> backporting commit 187916e6ed9d ("drm/amdgpu: install stub fence into
->>>> potential unused fence pointers") to stable kernels resulted in lots of
->>>> WARNINGs on some devices. In my case I was getting 3 WARNINGs per
->>>> second (~150 lines logged every second). Commit ended up being reverted for
->>>> stable but it exposed a potential problem. My messages log size was reaching
->>>> gigabytes and was running my /tmp/ out of space.
->>>>
->>>> Could someone take a look at amdgpu_sync_keep_later / dma_fence_is_later
->>>> and make sure its logging is rate limited to avoid such situations in the future,
->>>> please?
->>>>
->>>> Revert in linux-5.15.x:
->>>> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=li
->>>> nux-5.15.y&id=fae2d591f3cb31f722c7f065acf586830eab8c2a
->>>>
->>>> openSUSE bug report:
->>>> https://bugzilla.opensuse.org/show_bug.cgi?id=1215523
->>> These patches were never intended for stable.  They were picked up by Sasha's stable autoselect tools and automatically applied to stable kernels.
->> Are you saying massive WARNINGs in dma_fence_is_later() can't happen
->> in any other case? I understand it was an incorrect backport action but
->> I thought we may learn from it and still add some rate limit.
-> All of the current places where that function is used check the
-> contexts before calling it so it should be safe as is in the tree.
-> That said, something like this could potentially happen again.  I
-> don't think using WARN_ON_RATELIMIT() would be a problem.
+This identifies the physical ordering of devices in the hive
 
-Yeah, but it also shouldn't be necessary.
+v2: fix compilation issue
 
-When this triggers you have a major driver bug at hand, spamming the 
-logs is then the least of your problems.
+Signed-off-by: Mangesh Gadre <Mangesh.Gadre@amd.com>
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Reviewed-by: Asad Kamal <asad.kamal@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-Christian.
-
->
-> Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index 061534e845a7..02770c632bac 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -325,6 +325,17 @@ static ssize_t amdgpu_xgmi_show_device_id(struct device *dev,
+ 
+ }
+ 
++static ssize_t amdgpu_xgmi_show_physical_id(struct device *dev,
++				     struct device_attribute *attr,
++				     char *buf)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++
++	return sysfs_emit(buf, "%u\n", adev->gmc.xgmi.physical_node_id);
++
++}
++
+ static ssize_t amdgpu_xgmi_show_num_hops(struct device *dev,
+ 					struct device_attribute *attr,
+ 					char *buf)
+@@ -390,6 +401,7 @@ static ssize_t amdgpu_xgmi_show_error(struct device *dev,
+ 
+ 
+ static DEVICE_ATTR(xgmi_device_id, S_IRUGO, amdgpu_xgmi_show_device_id, NULL);
++static DEVICE_ATTR(xgmi_physical_id, 0444, amdgpu_xgmi_show_physical_id, NULL);
+ static DEVICE_ATTR(xgmi_error, S_IRUGO, amdgpu_xgmi_show_error, NULL);
+ static DEVICE_ATTR(xgmi_num_hops, S_IRUGO, amdgpu_xgmi_show_num_hops, NULL);
+ static DEVICE_ATTR(xgmi_num_links, S_IRUGO, amdgpu_xgmi_show_num_links, NULL);
+@@ -407,6 +419,12 @@ static int amdgpu_xgmi_sysfs_add_dev_info(struct amdgpu_device *adev,
+ 		return ret;
+ 	}
+ 
++	ret = device_create_file(adev->dev, &dev_attr_xgmi_physical_id);
++	if (ret) {
++		dev_err(adev->dev, "XGMI: Failed to create device file xgmi_physical_id\n");
++		return ret;
++	}
++
+ 	/* Create xgmi error file */
+ 	ret = device_create_file(adev->dev, &dev_attr_xgmi_error);
+ 	if (ret)
+@@ -448,6 +466,7 @@ static int amdgpu_xgmi_sysfs_add_dev_info(struct amdgpu_device *adev,
+ 
+ remove_file:
+ 	device_remove_file(adev->dev, &dev_attr_xgmi_device_id);
++	device_remove_file(adev->dev, &dev_attr_xgmi_physical_id);
+ 	device_remove_file(adev->dev, &dev_attr_xgmi_error);
+ 	device_remove_file(adev->dev, &dev_attr_xgmi_num_hops);
+ 	device_remove_file(adev->dev, &dev_attr_xgmi_num_links);
+@@ -463,6 +482,7 @@ static void amdgpu_xgmi_sysfs_rem_dev_info(struct amdgpu_device *adev,
+ 	memset(node, 0, sizeof(node));
+ 
+ 	device_remove_file(adev->dev, &dev_attr_xgmi_device_id);
++	device_remove_file(adev->dev, &dev_attr_xgmi_physical_id);
+ 	device_remove_file(adev->dev, &dev_attr_xgmi_error);
+ 	device_remove_file(adev->dev, &dev_attr_xgmi_num_hops);
+ 	device_remove_file(adev->dev, &dev_attr_xgmi_num_links);
+-- 
+2.34.1
 
