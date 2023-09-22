@@ -4,88 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 837B1CD4847
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Sep 2023 17:13:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCAE8CD4847
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Sep 2023 17:21:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0153110E6A8;
-	Fri, 22 Sep 2023 17:13:15 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2052.outbound.protection.outlook.com [40.107.94.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FA9310E6AD
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Sep 2023 17:13:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EyE4++yhXCplz5QvYptKkBir5nrdO6GGFK61RsDKG7+2QBj+BFlAMPsMTpcS9o6AxBUDMMcsiJeXbpiw/0hu+pa4VaOXr7xUr8ViUahS6DK5n0vH6tHbMBwHWa0VhnldtJ4TY6oTjjKm93hlrxrvCdyTSdijzMieAZZ1KWPKpL44R9Df661dqmdSxiTLYxX4JCysioWwxx93av3cJyzJVzwbov91EOengxS4ngXeLOqIqbfKC5fPPKvTVotfE/9PcYTcl1Pk3GSaOoe0GO0P3RPxFycFa1BCxJesCKux6MKJYeAZzEvXYJQ29zqjxAcV5Cv3nP8658dR2z+TPJtsxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gT/doNCHXcIDwNIIxfyr9rIG/zr1xZPwBUsUQL6l0IM=;
- b=NUvZYWUttGeybBtfRFKNckafAkJBOOwpctE9QX0eEEX47zY1ssXiRK0A1I2yqGull1fcds8TH6Ijm8i76r2ATizchWGAW0/kGORTA7FCHh5ZWkMTt3waRmhgyC1p93mvqMiLDISdkVsxtE1HF9ZvX99aVgHEVsh0/Hr6gVu5h88qmPjjgdhkjEYwGP3lFWzFQbAEwjzqP1ImJJnu6nkk7HpUVyA0jbrdbp57ys54eaXmXVQj5ebBddRAyrE5LVNz5MR/b+yJy9aKAH/Guy7Cx12twXC36uidlZnLEjCux38Ld5qH2xjh+CqR5Md82CdFn+iORNoRmAyypnpA51fJvw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gT/doNCHXcIDwNIIxfyr9rIG/zr1xZPwBUsUQL6l0IM=;
- b=u88QaqozKB9z7QHegUNaI47St7ruttluwaK6O8vCdK7PWn5gNgzT+CD9hL0tBvYQc+5wTsr0ZKvzRw9AgaFvlmrEIfsN8908pxhlTuDPL2jd/bzAKZxcygngxiQY0fIXQnjhtsZh8H6G0QUQFBI1m7vg1/D2m4vp1Posz8wiqAM=
-Received: from BL1PR13CA0255.namprd13.prod.outlook.com (2603:10b6:208:2ba::20)
- by BY5PR12MB4292.namprd12.prod.outlook.com (2603:10b6:a03:212::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.23; Fri, 22 Sep
- 2023 17:13:08 +0000
-Received: from MN1PEPF0000ECD8.namprd02.prod.outlook.com
- (2603:10b6:208:2ba:cafe::7) by BL1PR13CA0255.outlook.office365.com
- (2603:10b6:208:2ba::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.12 via Frontend
- Transport; Fri, 22 Sep 2023 17:13:07 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000ECD8.mail.protection.outlook.com (10.167.242.137) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6792.20 via Frontend Transport; Fri, 22 Sep 2023 17:13:07 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 22 Sep
- 2023 12:13:06 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: reduce stack size in kfd_topology_add_device()
-Date: Fri, 22 Sep 2023 13:12:51 -0400
-Message-ID: <20230922171251.934255-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.41.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6441F10E6A2;
+	Fri, 22 Sep 2023 17:21:45 +0000 (UTC)
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E710D10E6A2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Sep 2023 17:21:42 +0000 (UTC)
+Received: by mail-oi1-x236.google.com with SMTP id
+ 5614622812f47-3ab7fb1172cso1356505b6e.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Sep 2023 10:21:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1695403302; x=1696008102; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=17du8x9KmUfmf5dAtnJX7ZOfa+LHmYI0TiNlgyX+qQM=;
+ b=RKYbRv/1z0oHIQWZWRyOVZkPyKttYc6sA0Y+d0LhqnXV/ACxRMWhuaJHtvQmFczUfU
+ EJDGClUHu2lhYOvKtZVwawdmJEB/sox+7uT861WJ0okJLcawj/2uCoJ3Y0rd2mMHbARI
+ z/hACyiw+sCk7rPX65dGAFjsPH2zNIoxxHnFgKZmd3/d6Uc/P67vE3875PlJb/UdlrLj
+ 2Clqo6E7O3sM/popHeI+3QMWB8URKlXZgISomaJv1JAeu7pNGOo2YLc5fdf91srynQWt
+ Ra4c9C5Z0OHVzj7BYaJNpoe4w5U//o36o5meCJp7TY+qgqczRoi6wK7ofDQF/M2x6ti4
+ 2G6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695403302; x=1696008102;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=17du8x9KmUfmf5dAtnJX7ZOfa+LHmYI0TiNlgyX+qQM=;
+ b=c34yj05EjrCvQuw5SMaOj1OA2Z8stJIZeSHBva4S9USPnFcTu6mEykQLeqPDpImuZ5
+ lBgY/Wd2JLAr2LZGoU4Kj5yjuruvyjDnCcmXBHEcCw000zaSqHqA5E3dBdm9LByYcxfG
+ E/V14dPUL8kF3BoVazSGiF68T9quElIDfbD4wRHSCaWxakQYG6RvA/SbCyFq1rUzoTqi
+ WPMYJI/ylb8mPs/KoR9fPc1zq7uzyT+Jm4pmKtunBId1wfuKvc6KpZNnlG99m7RilRds
+ Gl3BZjUsIPrcBBOiDCFcON5FI0LF5BJmi1pQ3Gjwtc08WxRF1o3ELsgS4Q4Ws77J8OxF
+ MIXA==
+X-Gm-Message-State: AOJu0Yw1bhfT2cMXMpHfcj0T6KKElFSaS4tBxFQVlEQ/SWulIezLEtE7
+ LOvE9gE0hJiE+1X7V3G9haIO/Z2XE+O7hxUiT7I=
+X-Google-Smtp-Source: AGHT+IFt3OVnKC528MBihw58mzplV/GGMkCknMcNVPNvbB9SxoIlui6DyxNzURZzYrRo+9bYrRs8v9DXq0UkoZLAvXA=
+X-Received: by 2002:a05:6870:2314:b0:1d5:a4bd:6028 with SMTP id
+ w20-20020a056870231400b001d5a4bd6028mr131925oao.8.1695403301944; Fri, 22 Sep
+ 2023 10:21:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD8:EE_|BY5PR12MB4292:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb53102e-ee1c-4965-eaed-08dbbb8f30bd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CgYvCYRTHEQprDJMCDQBGXLnT1OHF483x6RREVMZYdHEEiDn/Rts+3aQdHPtnDnOucjXTI4182AX68AeLi+L4yZp3sIOASPDByewhIMYQTklUZMWd+cbHbd9p8UJuiS2kfIF2GaHQZ2OQU2NdxqG1lnStnNsZPehg5pz/MePZdT1JuQwm65syqquHVBI5HqI8BHDhXpa6SJat1ZQV8NHJOfMldjokDEewuki9RYc9FhjKURr1N7FZY7kwbHA75ZN1suCwmj1RZ9r2UJh3gd6xYqh3imFAFrSTR2avJxX9wvASTrHtUHC+CMc9fewHfA/LQx4R28M7GAHstEKL+8GaTTS2alaKX5TXYvcLoJ9eGZGnOVQcbV3YR8Y0NwYMdSY1iuyggN61zT9MYXoiHZAXorYuizfYtSkTIDA5AWFLhAO6q6S+o6VCYv+nKIOc3efs2LYmEKuO8Gp0j2JxOppdld2KRG3s2KANpCHwIxIV10IvgETYqNW1Jub8XO/rXghtFBqjyCd329ZqylZbOcqQfkug64It6Ufjxn5eteK6fAc1H6S/7EYKB1BvmaxAxdiml0By8gTM5AVTFXYSZG7svOt2OBHKMdNeYhPEmaYt/YsJsY6rrdKNQmEv3KJU1HoQ+amAYV+tgakIIuAJicvyEKG4e6HukRXBkGGzjY1D5VJLosMB4QALJItNVNLzCjCsl1N9MF4rwt9u4/WZrKFpQWVF5tBZFbPpSOw6hUB6dvSwFAVQHPQ0714VPJ/PTHaA2Fe30mzPfvqsKMin+NT/VRLpLNAES4JcOW1DY/6NK4=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(346002)(136003)(376002)(39860400002)(230921699003)(451199024)(1800799009)(82310400011)(186009)(36840700001)(46966006)(40470700004)(7696005)(40460700003)(36756003)(86362001)(356005)(82740400003)(40480700001)(81166007)(36860700001)(1076003)(16526019)(26005)(2906002)(47076005)(336012)(426003)(478600001)(6666004)(966005)(8936002)(2616005)(83380400001)(5660300002)(8676002)(41300700001)(70586007)(70206006)(4326008)(6916009)(316002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2023 17:13:07.5058 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb53102e-ee1c-4965-eaed-08dbbb8f30bd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD8.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4292
+References: <20230922052753.1922483-1-kevinyang.wang@amd.com>
+In-Reply-To: <20230922052753.1922483-1-kevinyang.wang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 22 Sep 2023 13:21:30 -0400
+Message-ID: <CADnq5_MsiOwF6bgQcvuEsTu=CGY80hJ9PXMsfak6K8t02G95=g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix memory leak in
+ amdgpu_fru_get_product_info()
+To: Yang Wang <kevinyang.wang@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,71 +68,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Luben Tuikov <luben.tuikov@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-kfd_topology.c:2082:1: warning: the frame size of 1440 bytes is larger than 1024 bytes
+On Fri, Sep 22, 2023 at 2:06=E2=80=AFAM Yang Wang <kevinyang.wang@amd.com> =
+wrote:
+>
+> fix a memory leak that occurs when csum is 0,
+> the origin function will return directly and forgets to free 'pia' resour=
+ce.
+>
+> Fixes: 0dbf2c562625 ("drm/amdgpu: Interpret IPMI data for product informa=
+tion (v2)")
+>
+> CC: Luben Tuikov <luben.tuikov@amd.com>
+> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
 
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2866
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index c8c75ff7cea8..3f9f882d3f5c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1918,7 +1918,7 @@ int kfd_topology_add_device(struct kfd_node *gpu)
- {
- 	uint32_t gpu_id;
- 	struct kfd_topology_device *dev;
--	struct kfd_cu_info cu_info;
-+	struct kfd_cu_info *cu_info;
- 	int res = 0;
- 	int i;
- 	const char *asic_name = amdgpu_asic_name[gpu->adev->asic_type];
-@@ -1959,8 +1959,11 @@ int kfd_topology_add_device(struct kfd_node *gpu)
- 	/* Fill-in additional information that is not available in CRAT but
- 	 * needed for the topology
- 	 */
-+	cu_info = kzalloc(sizeof(struct kfd_cu_info), GFP_KERNEL);
-+	if (!cu_info)
-+		return -ENOMEM;
- 
--	amdgpu_amdkfd_get_cu_info(dev->gpu->adev, &cu_info);
-+	amdgpu_amdkfd_get_cu_info(dev->gpu->adev, cu_info);
- 
- 	for (i = 0; i < KFD_TOPOLOGY_PUBLIC_NAME_SIZE-1; i++) {
- 		dev->node_props.name[i] = __tolower(asic_name[i]);
-@@ -1970,7 +1973,7 @@ int kfd_topology_add_device(struct kfd_node *gpu)
- 	dev->node_props.name[i] = '\0';
- 
- 	dev->node_props.simd_arrays_per_engine =
--		cu_info.num_shader_arrays_per_engine;
-+		cu_info->num_shader_arrays_per_engine;
- 
- 	dev->node_props.gfx_target_version =
- 				gpu->kfd->device_info.gfx_target_version;
-@@ -2051,7 +2054,7 @@ int kfd_topology_add_device(struct kfd_node *gpu)
- 	 */
- 	if (dev->gpu->adev->asic_type == CHIP_CARRIZO) {
- 		dev->node_props.simd_count =
--			cu_info.simd_per_cu * cu_info.cu_active_number;
-+			cu_info->simd_per_cu * cu_info->cu_active_number;
- 		dev->node_props.max_waves_per_simd = 10;
- 	}
- 
-@@ -2078,6 +2081,8 @@ int kfd_topology_add_device(struct kfd_node *gpu)
- 
- 	kfd_notify_gpu_change(gpu_id, 1);
- 
-+	kfree(cu_info);
-+
- 	return 0;
- }
- 
--- 
-2.41.0
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c | 11 ++++++-----
+>  1 file changed, 6 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+> index 401651f28ba2..50b6eb447726 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+> @@ -111,7 +111,7 @@ int amdgpu_fru_get_product_info(struct amdgpu_device =
+*adev)
+>  {
+>         unsigned char buf[8], *pia;
+>         u32 addr, fru_addr;
+> -       int size, len;
+> +       int size, len, ret =3D 0;
+>         u8 csum;
+>
+>         if (!is_fru_eeprom_supported(adev, &fru_addr))
+> @@ -171,16 +171,17 @@ int amdgpu_fru_get_product_info(struct amdgpu_devic=
+e *adev)
+>         /* Read the whole PIA. */
+>         len =3D amdgpu_eeprom_read(adev->pm.fru_eeprom_i2c_bus, addr, pia=
+, size);
+>         if (len !=3D size) {
+> -               kfree(pia);
+>                 DRM_ERROR("Couldn't read the Product Info Area: %d", len)=
+;
+> -               return len < 0 ? len : -EIO;
+> +               ret =3D len < 0 ? len : -EIO;
+> +               goto Out;
+>         }
+>
+>         for (csum =3D 0; size > 0; size--)
+>                 csum +=3D pia[size - 1];
+>         if (csum) {
+>                 DRM_ERROR("Bad Product Info Area checksum: 0x%02x", csum)=
+;
+> -               return -EIO;
+> +               ret =3D -EIO;
+> +               goto Out;
+>         }
+>
+>         /* Now extract useful information from the PIA.
+> @@ -220,7 +221,7 @@ int amdgpu_fru_get_product_info(struct amdgpu_device =
+*adev)
+>         adev->serial[sizeof(adev->serial) - 1] =3D '\0';
+>  Out:
+>         kfree(pia);
+> -       return 0;
+> +       return ret;
+>  }
+>
+>  /**
+> --
+> 2.34.1
+>
