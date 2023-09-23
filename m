@@ -4,62 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06BA5CE7A81
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Sep 2023 07:43:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C857CE7A89
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Sep 2023 07:43:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B8C310E1F9;
-	Mon, 25 Sep 2023 07:43:50 +0000 (UTC)
-X-Greylist: delayed 453 seconds by postgrey-1.36 at gabe;
- Fri, 22 Sep 2023 20:29:13 UTC
-Received: from omta036.useast.a.cloudfilter.net
- (omta036.useast.a.cloudfilter.net [44.202.169.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 016AB10E70F;
- Fri, 22 Sep 2023 20:29:13 +0000 (UTC)
-Received: from eig-obgw-5010a.ext.cloudfilter.net ([10.0.29.199])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5873110E202;
+	Mon, 25 Sep 2023 07:43:51 +0000 (UTC)
+Received: from omta38.uswest2.a.cloudfilter.net
+ (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 854D210E067;
+ Sat, 23 Sep 2023 07:01:37 +0000 (UTC)
+Received: from eig-obgw-6004a.ext.cloudfilter.net ([10.0.30.197])
  by cmsmtp with ESMTP
- id jm9xqZ0f2DKaKjmehqEjuC; Fri, 22 Sep 2023 20:21:39 +0000
+ id jq43qIykxQFHRjwe0qu72k; Sat, 23 Sep 2023 07:01:36 +0000
 Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with ESMTPS
- id jmegqraPwIDdmjmegq25ta; Fri, 22 Sep 2023 20:21:39 +0000
-X-Authority-Analysis: v=2.4 cv=HcYH8wI8 c=1 sm=1 tr=0 ts=650df753
+ id jwdzqJVIxQjqnjwdzqMuBt; Sat, 23 Sep 2023 07:01:36 +0000
+X-Authority-Analysis: v=2.4 cv=QeV1A+Xv c=1 sm=1 tr=0 ts=650e8d50
  a=1YbLdUo/zbTtOZ3uB5T3HA==:117 a=P7XfKmiOJ4/qXqHZrN7ymg==:17
  a=OWjo9vPv0XrRhIrVQ50Ab3nP57M=:19 a=dLZJa+xiwSxG16/P+YVxDGlgEgI=:19
  a=IkcTkHD0fZMA:10 a=zNV7Rl7Rt7sA:10 a=wYkD_t78qR0A:10 a=NEAV23lmAAAA:8
- a=QyXUC8HyAAAA:8 a=pGLkceISAAAA:8 a=taGs_qngAAAA:8 a=e5mUnYsNAAAA:8
- a=cm27Pg_UAAAA:8 a=VwQbUJbxAAAA:8 a=HvF037n1xESchLcPDVoA:9 a=QEXdDO2ut3YA:10
- a=DM_PlaNYpjARcMQr2apF:22 a=Vxmtnl_E_bksehYqCbjh:22 a=xmb-EsYY8bH0VWELuYED:22
- a=AjGcO6oz07-iQ99wixmX:22
+ a=zd2uoN0lAAAA:8 a=pGLkceISAAAA:8 a=e5mUnYsNAAAA:8 a=cm27Pg_UAAAA:8
+ a=VwQbUJbxAAAA:8 a=x0o0KnqP09iesl-AZ7EA:9 a=QEXdDO2ut3YA:10
+ a=Vxmtnl_E_bksehYqCbjh:22 a=xmb-EsYY8bH0VWELuYED:22 a=AjGcO6oz07-iQ99wixmX:22
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
  In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
  :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=5CZfeSfhVDdG7js/oL8luePAjmy7SVUuGo6ktj3BCGU=; b=eTuJfvywo6DWZd+lB5E62XGp81
- 52RafMEQrw+IvXaGOipkv/jAwnqlJIjEqGWWSVqnjuJ1oUzn0kui852bg12vld7VilT7KTQCA9+9/
- zr4s099Uyvv/SEYB08E/h1Oq8xy3yM/bkraCwyFAyTdZPYWz27LU6CoPiR+zevWgOS4Ch6ZuLkhTN
- 6OEb6LgtnbgPmMsDYkZ7Jr7Ur5T/k3FkuU+ZRRIQIY6a7D+BSFR7WQLZL0ztkNT6eBRgLFWu1FZIU
- NUmvFgfJb6EN0cvDue5TyJvAzSQCFiHT2shFOYxBedm+35vuFcSoY02lo/bpAUcWe+C4bLS/48Jf+
- ln9JUBGA==;
-Received: from [94.239.20.48] (port=57726 helo=[192.168.1.98])
+ bh=+lNJ9QIpwn6NBb64Sbf9+GObVdf5ljfSsPNJbJ1XN40=; b=GH6MO+NPZFXKEgEjoKkuLB4qxt
+ C6U9dvWCm1vgpmkRG7ycJ7FVD2w1s8IQKc0zf7XOfLqqqF/R0tZLM8V8Z2I3B3zznjabwom7Pk3zK
+ o6NhGiDlY9uwwMlNvXyV935T8dOnlY/F7m5f3bPeMgu2opyFooYi5NHNwFP3enNswt1D8K3AxvOw2
+ T7C+P52PB6SsCr+Jre/Oknm8Wq+JFP1UpAs/jcaLGPLFHn5oK0BCMxyN+tEs1ip54GJQaiSJ1mTfL
+ ZOnXMawgAqlLBCHomReF0mW/iZkrBxRPTp6pCNZZ5vOzd1KI795Euy+8PBIYqkGe+gF1QQz0BRPDf
+ +eV/dRQw==;
+Received: from [94.239.20.48] (port=56836 helo=[192.168.1.98])
  by gator4166.hostgator.com with esmtpsa (TLS1.2) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <gustavo@embeddedor.com>) id 1qjkfA-000Nms-2z;
- Fri, 22 Sep 2023 13:14:01 -0500
-Message-ID: <7ad534fe-3494-9915-1663-a3aafcb41b0e@embeddedor.com>
-Date: Fri, 22 Sep 2023 20:14:52 -0600
+ (envelope-from <gustavo@embeddedor.com>) id 1qjkdm-000M41-04;
+ Fri, 22 Sep 2023 13:12:34 -0500
+Message-ID: <a14f11c8-2355-a311-9a59-0c6e69a6e503@embeddedor.com>
+Date: Fri, 22 Sep 2023 20:13:25 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.1
-Subject: Re: [PATCH 3/9] drm/i915/selftests: Annotate struct perf_series with
- __counted_by
+Subject: Re: [PATCH 1/9] drm/amd/pm: Annotate struct
+ smu10_voltage_dependency_table with __counted_by
 Content-Language: en-US
 To: Kees Cook <keescook@chromium.org>, David Airlie <airlied@gmail.com>
 References: <20230922173110.work.084-kees@kernel.org>
- <20230922173216.3823169-3-keescook@chromium.org>
+ <20230922173216.3823169-1-keescook@chromium.org>
 From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-In-Reply-To: <20230922173216.3823169-3-keescook@chromium.org>
+In-Reply-To: <20230922173216.3823169-1-keescook@chromium.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-AntiAbuse: This header was added to track abuse,
  please include it with any abuse report
 X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
@@ -69,20 +66,20 @@ X-AntiAbuse: Sender Address Domain - embeddedor.com
 X-BWhitelist: no
 X-Source-IP: 94.239.20.48
 X-Source-L: No
-X-Exim-ID: 1qjkfA-000Nms-2z
+X-Exim-ID: 1qjkdm-000M41-04
 X-Source: 
 X-Source-Args: 
 X-Source-Dir: 
-X-Source-Sender: ([192.168.1.98]) [94.239.20.48]:57726
+X-Source-Sender: ([192.168.1.98]) [94.239.20.48]:56836
 X-Source-Auth: gustavo@embeddedor.com
 X-Email-Count: 0
 X-Org: HG=hgshared;ORG=hostgator;
 X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
 X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfAY8rV2me6F2mDt66pQHEuC+vtaVKa3wVbK9rBNbPMa0TznnFiUVIHaNG6O9nEd6j0mneUGz+URBy95vU15OHkcsR6v2DqGXOmKPGFSUWhv91A9Ue6TS
- Ouhgb1MO+0WBgaA+LT+0E5mdw0N86tLkJwArkYETXDhPl979GhQreptXVBZ5GIbbrSoI9snd2w/1ldP+eh9mmtJzs3lbZxrUb6Sj9l5QzHyRF50V13qtR9zG
- mvb85Y5+sFK6FG99FcoJxdCmLoyXZIrlZBvEBQhf2RNm620Y4wFxMur5xrGcbfsdqAKHgsKsqqNUH9bxkBawuXO+ogHoqTz+oFgxJHcU6jrRnnjZkYn3tyIK
- bYEBZdT5m6+KBTKIvVmV9kJZS/DYWwZEOq7JTbifTE+cmd1z6nU=
+X-CMAE-Envelope: MS4xfLp9jPZ86F/PXXa/Ti2lW2JISHbGY29BqXqoIO7JOZyDWptzx0J4jocJJlNXAIO7Y46hjmHqQIktqo+hCF22xzipxlyOhz6Yyvbcgwtg4DdrxlKQoYkJ
+ WGVB9jb5HAGd55rADwxvZ5BtKmIMlzf6qXd4tk0+6+zJaDDMG28oEJpf62f9KMFUIqz6a3z0MsS/tzQRxM82/IBqiElMJ9YpJj4Tw4XlUV5I+lHVM1n/bZuL
+ K1nuhdy/iVE05uPb3zRFHLZNLekRW+0IH/AYOhqhhwwEYd3FhUhub1f+LGO/H9vXG3UYkHg7WLErbUFktE8Zc++Vkbf08GBbWVxO6RBloQAShS6xJ3soqrc2
+ A9ZuvKKcrsqN1kk6K1AL64feYmfHk4+F1fobFVGelVb7bCRxXF8=
 X-Mailman-Approved-At: Mon, 25 Sep 2023 07:43:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -141,21 +138,20 @@ On 9/22/23 11:32, Kees Cook wrote:
 > (for array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
 > functions).
 > 
-> As found with Coccinelle[1], add __counted_by for struct perf_series.
+> As found with Coccinelle[1], add __counted_by for struct smu10_voltage_dependency_table.
 > 
 > [1] https://github.com/kees/kernel-tools/blob/trunk/coccinelle/examples/counted_by.cocci
 > 
-> Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+> Cc: Evan Quan <evan.quan@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: "Christian König" <christian.koenig@amd.com>
+> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
 > Cc: David Airlie <airlied@gmail.com>
 > Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Chris Wilson <chris@chris-wilson.co.uk>
-> Cc: John Harrison <john.c.harrison@Intel.com>
-> Cc: Andi Shyti <andi.shyti@linux.intel.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: intel-gfx@lists.freedesktop.org
+> Cc: Xiaojian Du <Xiaojian.Du@amd.com>
+> Cc: Huang Rui <ray.huang@amd.com>
+> Cc: Kevin Wang <kevin1.wang@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org
 > Cc: dri-devel@lists.freedesktop.org
 > Signed-off-by: Kees Cook <keescook@chromium.org>
 
@@ -165,20 +161,21 @@ Thanks
 -- 
 Gustavo
 
+
 > ---
->   drivers/gpu/drm/i915/selftests/i915_request.c | 2 +-
+>   drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h | 2 +-
 >   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/i915/selftests/i915_request.c b/drivers/gpu/drm/i915/selftests/i915_request.c
-> index a9b79888c193..acae30a04a94 100644
-> --- a/drivers/gpu/drm/i915/selftests/i915_request.c
-> +++ b/drivers/gpu/drm/i915/selftests/i915_request.c
-> @@ -1924,7 +1924,7 @@ struct perf_stats {
->   struct perf_series {
->   	struct drm_i915_private *i915;
->   	unsigned int nengines;
-> -	struct intel_context *ce[];
-> +	struct intel_context *ce[] __counted_by(nengines);
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h
+> index 808e0ecbe1f0..42adc2a3dcbc 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h
+> @@ -192,7 +192,7 @@ struct smu10_clock_voltage_dependency_record {
+>   
+>   struct smu10_voltage_dependency_table {
+>   	uint32_t count;
+> -	struct smu10_clock_voltage_dependency_record entries[];
+> +	struct smu10_clock_voltage_dependency_record entries[] __counted_by(count);
 >   };
 >   
->   static int cmp_u32(const void *A, const void *B)
+>   struct smu10_clock_voltage_information {
