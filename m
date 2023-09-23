@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C857CE7A89
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0DA4CE7A8C
 	for <amd-gfx@archiver.kernel.org>; Mon, 25 Sep 2023 07:43:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5873110E202;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDE0810E207;
 	Mon, 25 Sep 2023 07:43:51 +0000 (UTC)
-Received: from omta38.uswest2.a.cloudfilter.net
- (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 854D210E067;
- Sat, 23 Sep 2023 07:01:37 +0000 (UTC)
-Received: from eig-obgw-6004a.ext.cloudfilter.net ([10.0.30.197])
+Received: from omta034.useast.a.cloudfilter.net
+ (omta034.useast.a.cloudfilter.net [44.202.169.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1FA810E002;
+ Sun, 24 Sep 2023 09:41:46 +0000 (UTC)
+Received: from eig-obgw-5004a.ext.cloudfilter.net ([10.0.29.221])
  by cmsmtp with ESMTP
- id jq43qIykxQFHRjwe0qu72k; Sat, 23 Sep 2023 07:01:36 +0000
+ id kLYfqK36Pez0CkLc8qFdeB; Sun, 24 Sep 2023 09:41:20 +0000
 Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with ESMTPS
- id jwdzqJVIxQjqnjwdzqMuBt; Sat, 23 Sep 2023 07:01:36 +0000
-X-Authority-Analysis: v=2.4 cv=QeV1A+Xv c=1 sm=1 tr=0 ts=650e8d50
+ id kLcVq80vZuHtrkLcWqjL0H; Sun, 24 Sep 2023 09:41:44 +0000
+X-Authority-Analysis: v=2.4 cv=B8eqbchM c=1 sm=1 tr=0 ts=65100458
  a=1YbLdUo/zbTtOZ3uB5T3HA==:117 a=P7XfKmiOJ4/qXqHZrN7ymg==:17
  a=OWjo9vPv0XrRhIrVQ50Ab3nP57M=:19 a=dLZJa+xiwSxG16/P+YVxDGlgEgI=:19
  a=IkcTkHD0fZMA:10 a=zNV7Rl7Rt7sA:10 a=wYkD_t78qR0A:10 a=NEAV23lmAAAA:8
- a=zd2uoN0lAAAA:8 a=pGLkceISAAAA:8 a=e5mUnYsNAAAA:8 a=cm27Pg_UAAAA:8
- a=VwQbUJbxAAAA:8 a=x0o0KnqP09iesl-AZ7EA:9 a=QEXdDO2ut3YA:10
+ a=20KFwNOVAAAA:8 a=pGLkceISAAAA:8 a=e5mUnYsNAAAA:8 a=cm27Pg_UAAAA:8
+ a=VwQbUJbxAAAA:8 a=HvF037n1xESchLcPDVoA:9 a=QEXdDO2ut3YA:10
  a=Vxmtnl_E_bksehYqCbjh:22 a=xmb-EsYY8bH0VWELuYED:22 a=AjGcO6oz07-iQ99wixmX:22
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
@@ -31,32 +31,32 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=+lNJ9QIpwn6NBb64Sbf9+GObVdf5ljfSsPNJbJ1XN40=; b=GH6MO+NPZFXKEgEjoKkuLB4qxt
- C6U9dvWCm1vgpmkRG7ycJ7FVD2w1s8IQKc0zf7XOfLqqqF/R0tZLM8V8Z2I3B3zznjabwom7Pk3zK
- o6NhGiDlY9uwwMlNvXyV935T8dOnlY/F7m5f3bPeMgu2opyFooYi5NHNwFP3enNswt1D8K3AxvOw2
- T7C+P52PB6SsCr+Jre/Oknm8Wq+JFP1UpAs/jcaLGPLFHn5oK0BCMxyN+tEs1ip54GJQaiSJ1mTfL
- ZOnXMawgAqlLBCHomReF0mW/iZkrBxRPTp6pCNZZ5vOzd1KI795Euy+8PBIYqkGe+gF1QQz0BRPDf
- +eV/dRQw==;
-Received: from [94.239.20.48] (port=56836 helo=[192.168.1.98])
+ bh=LJpKFYI8HAurZQUNChdEApljY9SFiaiFueT/5w9ez8A=; b=WyNj3hQ4m7k99wwrLc5UCHs1Jc
+ 69JnjimjP16rPGM6Z286Pdu1EnpdBf8mvn8UjKRtZI4bAMSZGQvQ1d9x7xbbF7jhGmj8i/KfgpVr7
+ c6kMdlOOArSNLIvPI7ALTr7ZlFSq7jOM6qDaQO6AiuyehwfBegbjTZSqAQxzkVDGe842WreDX4kmx
+ XHRRkPtm2Lm/yGKMlAU/xXjqaVY17tUk+7nbeeqd30QAFyaig/PT4oxogP8/FHPvh54Qsp4aKp1TB
+ 3O/2rSe65FJAdRxmlsC+oYSc83Oe5/HxuSX2iIA+whoUWfQqwbJkO09DT4sckq66htTHHi6PRZ1hS
+ 7w0+uMIg==;
+Received: from [94.239.20.48] (port=43422 helo=[192.168.1.98])
  by gator4166.hostgator.com with esmtpsa (TLS1.2) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <gustavo@embeddedor.com>) id 1qjkdm-000M41-04;
- Fri, 22 Sep 2023 13:12:34 -0500
-Message-ID: <a14f11c8-2355-a311-9a59-0c6e69a6e503@embeddedor.com>
-Date: Fri, 22 Sep 2023 20:13:25 -0600
+ (envelope-from <gustavo@embeddedor.com>) id 1qjkgF-000Q0w-1S;
+ Fri, 22 Sep 2023 13:15:07 -0500
+Message-ID: <1916c681-cc7b-c101-de7d-5e9e0746c0c1@embeddedor.com>
+Date: Fri, 22 Sep 2023 20:15:58 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.1
-Subject: Re: [PATCH 1/9] drm/amd/pm: Annotate struct
- smu10_voltage_dependency_table with __counted_by
+Subject: Re: [PATCH 5/9] drm/nouveau/pm: Annotate struct nvkm_perfdom with
+ __counted_by
 Content-Language: en-US
 To: Kees Cook <keescook@chromium.org>, David Airlie <airlied@gmail.com>
 References: <20230922173110.work.084-kees@kernel.org>
- <20230922173216.3823169-1-keescook@chromium.org>
+ <20230922173216.3823169-5-keescook@chromium.org>
 From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-In-Reply-To: <20230922173216.3823169-1-keescook@chromium.org>
+In-Reply-To: <20230922173216.3823169-5-keescook@chromium.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-AntiAbuse: This header was added to track abuse,
  please include it with any abuse report
 X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
@@ -66,20 +66,20 @@ X-AntiAbuse: Sender Address Domain - embeddedor.com
 X-BWhitelist: no
 X-Source-IP: 94.239.20.48
 X-Source-L: No
-X-Exim-ID: 1qjkdm-000M41-04
+X-Exim-ID: 1qjkgF-000Q0w-1S
 X-Source: 
 X-Source-Args: 
 X-Source-Dir: 
-X-Source-Sender: ([192.168.1.98]) [94.239.20.48]:56836
+X-Source-Sender: ([192.168.1.98]) [94.239.20.48]:43422
 X-Source-Auth: gustavo@embeddedor.com
 X-Email-Count: 0
 X-Org: HG=hgshared;ORG=hostgator;
 X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
 X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfLp9jPZ86F/PXXa/Ti2lW2JISHbGY29BqXqoIO7JOZyDWptzx0J4jocJJlNXAIO7Y46hjmHqQIktqo+hCF22xzipxlyOhz6Yyvbcgwtg4DdrxlKQoYkJ
- WGVB9jb5HAGd55rADwxvZ5BtKmIMlzf6qXd4tk0+6+zJaDDMG28oEJpf62f9KMFUIqz6a3z0MsS/tzQRxM82/IBqiElMJ9YpJj4Tw4XlUV5I+lHVM1n/bZuL
- K1nuhdy/iVE05uPb3zRFHLZNLekRW+0IH/AYOhqhhwwEYd3FhUhub1f+LGO/H9vXG3UYkHg7WLErbUFktE8Zc++Vkbf08GBbWVxO6RBloQAShS6xJ3soqrc2
- A9ZuvKKcrsqN1kk6K1AL64feYmfHk4+F1fobFVGelVb7bCRxXF8=
+X-CMAE-Envelope: MS4xfFScdSOUqncYix2lm2KBoRjz6sBbKil7JRBEVEbJzIZUpSgEEVL30b0TeRkfdsC5Io9KHWZ2uskGrffr/jw6ROdztAU62NCzxve4QA2SZs6pdwdvCXsE
+ bK2bFMXZH7SueFPrTIHkU4tbn55mf/ht3Vtvy12YHBzP4QCG1AcshHuny3e1oV3OP787M/Hledz5GJbLUqznaROGwOJhDPPQSuOeRm9233NWYr/7wH+YMkuT
+ yIaMVVb/Jxynj3imcIuwj713tKtTzngdLpa3spSdi0uitCk/YVR8lUviRwwlCADO7iYXLHPaHSNst+GVhkdwR0U9/YBUDKoVYMDh4MbjU4hGc1rsH7aYlWtq
+ qzlE2FVr9EZClFO0pGUwYwx1QZNc3YDA0UCX7zEa66ArpM5INu0=
 X-Mailman-Approved-At: Mon, 25 Sep 2023 07:43:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,18 +93,18 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>, Emma Anholt <emma@anholt.net>,
- Tom Rix <trix@redhat.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>, Prike Liang <Prike.Liang@amd.com>,
- Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
+ nouveau@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, llvm@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ Prike Liang <Prike.Liang@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  Matthew Brost <matthew.brost@intel.com>, Karol Herbst <kherbst@redhat.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, amd-gfx@lists.freedesktop.org,
  Kuogee Hsieh <quic_khsieh@quicinc.com>, Nathan Chancellor <nathan@kernel.org>,
  VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
  Ben Skeggs <bskeggs@redhat.com>, Andi Shyti <andi.shyti@linux.intel.com>,
- nouveau@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
+ Tom Rix <trix@redhat.com>, David Airlie <airlied@redhat.com>,
  virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
  linux-hardening@vger.kernel.org, Lijo Lazar <lijo.lazar@amd.com>,
  Yifan Zhang <yifan1.zhang@amd.com>, linux-arm-msm@vger.kernel.org,
@@ -138,21 +138,17 @@ On 9/22/23 11:32, Kees Cook wrote:
 > (for array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
 > functions).
 > 
-> As found with Coccinelle[1], add __counted_by for struct smu10_voltage_dependency_table.
+> As found with Coccinelle[1], add __counted_by for struct nvkm_perfdom.
 > 
 > [1] https://github.com/kees/kernel-tools/blob/trunk/coccinelle/examples/counted_by.cocci
 > 
-> Cc: Evan Quan <evan.quan@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: "Christian König" <christian.koenig@amd.com>
-> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+> Cc: Ben Skeggs <bskeggs@redhat.com>
+> Cc: Karol Herbst <kherbst@redhat.com>
+> Cc: Lyude Paul <lyude@redhat.com>
 > Cc: David Airlie <airlied@gmail.com>
 > Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Xiaojian Du <Xiaojian.Du@amd.com>
-> Cc: Huang Rui <ray.huang@amd.com>
-> Cc: Kevin Wang <kevin1.wang@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org
 > Cc: dri-devel@lists.freedesktop.org
+> Cc: nouveau@lists.freedesktop.org
 > Signed-off-by: Kees Cook <keescook@chromium.org>
 
 Reviewed-by: Gustavo A. R. Silva <gustavoars@kernel.org>
@@ -161,21 +157,20 @@ Thanks
 -- 
 Gustavo
 
-
 > ---
->   drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h | 2 +-
+>   drivers/gpu/drm/nouveau/nvkm/engine/pm/priv.h | 2 +-
 >   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h
-> index 808e0ecbe1f0..42adc2a3dcbc 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h
-> @@ -192,7 +192,7 @@ struct smu10_clock_voltage_dependency_record {
->   
->   struct smu10_voltage_dependency_table {
->   	uint32_t count;
-> -	struct smu10_clock_voltage_dependency_record entries[];
-> +	struct smu10_clock_voltage_dependency_record entries[] __counted_by(count);
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/pm/priv.h b/drivers/gpu/drm/nouveau/nvkm/engine/pm/priv.h
+> index 6ae25d3e7f45..c011227f7052 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/engine/pm/priv.h
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/pm/priv.h
+> @@ -82,7 +82,7 @@ struct nvkm_perfdom {
+>   	u8  mode;
+>   	u32 clk;
+>   	u16 signal_nr;
+> -	struct nvkm_perfsig signal[];
+> +	struct nvkm_perfsig signal[] __counted_by(signal_nr);
 >   };
 >   
->   struct smu10_clock_voltage_information {
+>   struct nvkm_funcdom {
