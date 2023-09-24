@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6E56CE7A90
-	for <amd-gfx@archiver.kernel.org>; Sun, 24 Sep 2023 13:18:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B75ECE7A8A
+	for <amd-gfx@archiver.kernel.org>; Sun, 24 Sep 2023 13:19:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D83D110E19D;
-	Sun, 24 Sep 2023 13:18:51 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1ED8F10E19E;
- Sun, 24 Sep 2023 13:18:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D4C710E171;
+	Sun, 24 Sep 2023 13:18:54 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 998C910E171;
+ Sun, 24 Sep 2023 13:18:35 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 88FDC60C25;
- Sun, 24 Sep 2023 13:18:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCD20C433CA;
- Sun, 24 Sep 2023 13:18:39 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id C1F66CE0B26;
+ Sun, 24 Sep 2023 13:18:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74645C4339A;
+ Sun, 24 Sep 2023 13:18:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1695561521;
- bh=4zajtfurVG929nucs29LsgCfbnk9FZ1SCoaj8p+RWyk=;
+ s=k20201202; t=1695561513;
+ bh=AFeVCQSAMJ19P9SVd3+4fK3hpmUw46XSFs2rfQTnPTA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=esvtMA71YlRufXMVJLHtgD11ANUounc7L14ulptGcV+8QrAC/LKN/mTonTyXE3bLi
- /qQZhkxj+U57r79dbz8H4PyNWzefAodB5zXv5AHQBFhnbrCIPt+Lhp9b+8Cky9MinD
- t3UEhG7vxVMZxP6Sfr0qEazuT4H+WWxNxjTH8ASqvMnewNmdtkEkEaT1rgSpy/nPVk
- MIbNyP5WDgC/rxwCL6OUR8UgP3cesOw0Ejrm5mCGwcsLCYGOd4Id8ysNNugpAWMZ20
- X3jbn5p2wKZWMQvWfmJZz/JWa1/qjpM9QjLd9T9i7OXKyjOdjy9cpHN5s4hQ5tmNrI
- OodwNreqgamZw==
+ b=rzRIdTcPL+QS8U2rJD17jeT+6PJYCaFILzH2eE2fM5wmQs2biaVgYB/us/fDeDLRk
+ NHSAN5mWnyAeZzGL7dn/2ufJ+CEZeX/4wIX7i1OaZmvSciDgzBxb+ntnFYn7vAfF7b
+ W1Ok0GJIn1Zy0cED3TM+NyOuJ18Isrd4mQ1GWrLPXOQvDIUcXsSgho39xlulBbc6tz
+ SzJySC3lU35eLqTV9L4fkYgktaITHhU29BbO9YsqaG8MnnHU506IMgxTRlpq8nOGCv
+ 4aTC7CHu+4HNxEhogcNcAcvNC86SlKxRRKce6msIActq/RFRT6Nqgos2Rgsfs7M8kB
+ A2kWwJbF8XC6g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 22/28] drm/amdgpu/nbio4.3: set proper
- rmmio_remap.reg_offset for SR-IOV
-Date: Sun, 24 Sep 2023 09:17:39 -0400
-Message-Id: <20230924131745.1275960-22-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 20/28] drm/amd/display: Don't check registers,
+ if using AUX BL control
+Date: Sun, 24 Sep 2023 09:17:37 -0400
+Message-Id: <20230924131745.1275960-20-sashal@kernel.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230924131745.1275960-1-sashal@kernel.org>
 References: <20230924131745.1275960-1-sashal@kernel.org>
@@ -54,41 +54,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, candice.li@amd.com,
- dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, Timmy Tsai <timmtsai@amd.com>, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, Hawking.Zhang@amd.com,
- airlied@gmail.com, christian.koenig@amd.com, mario.limonciello@amd.com
+Cc: aric.cyr@amd.com, Wenjing Liu <wenjing.liu@amd.com>,
+ dri-devel@lists.freedesktop.org, Jun.Lei@amd.com, airlied@gmail.com,
+ Sasha Levin <sashal@kernel.org>, charlene.liu@amd.com, sancchen@amd.com,
+ Rodrigo.Siqueira@amd.com, syed.hassan@amd.com, amd-gfx@lists.freedesktop.org,
+ tony.tascioglu@amd.com, harry.wentland@amd.com,
+ Stylon Wang <stylon.wang@amd.com>, ahmed.ahmed@amd.com, Jingwen.Zhu@amd.com,
+ sunpeng.li@amd.com, Daniel Wheeler <daniel.wheeler@amd.com>,
+ Swapnil Patel <swapnil.patel@amd.com>, Xinhui.Pan@amd.com, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+From: Swapnil Patel <swapnil.patel@amd.com>
 
-[ Upstream commit ab43213e7afd08ac68d4282060bacf309e70fd14 ]
+[ Upstream commit f5b2c10b57615828b531bb0ae56bd6325a41167e ]
 
-Needed for HDP flush to work correctly.
+[Why]
+Currently the driver looks DCN registers to access if BL is on or not.
+This check is not valid if we are using AUX based brightness control.
+This causes driver to not send out "backlight off" command during power off
+sequence as it already thinks it is off.
 
-Reviewed-by: Timmy Tsai <timmtsai@amd.com>
+[How]
+Only check DCN registers if we aren't using AUX based brightness control.
+
+Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
+Acked-by: Stylon Wang <stylon.wang@amd.com>
+Signed-off-by: Swapnil Patel <swapnil.patel@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
-index 09fdcd20cb919..c52a378396af1 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
-@@ -344,6 +344,9 @@ static void nbio_v4_3_init_registers(struct amdgpu_device *adev)
- 		data &= ~RCC_DEV0_EPF2_STRAP2__STRAP_NO_SOFT_RESET_DEV0_F2_MASK;
- 		WREG32_SOC15(NBIO, 0, regRCC_DEV0_EPF2_STRAP2, data);
+diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+index 9378c98d02cfe..508f5fe268484 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+@@ -973,7 +973,9 @@ void dce110_edp_backlight_control(
+ 		return;
  	}
-+	if (amdgpu_sriov_vf(adev))
-+		adev->rmmio_remap.reg_offset = SOC15_REG_OFFSET(NBIO, 0,
-+			regBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
- }
  
- static u32 nbio_v4_3_get_rom_offset(struct amdgpu_device *adev)
+-	if (link->panel_cntl) {
++	if (link->panel_cntl && !(link->dpcd_sink_ext_caps.bits.oled ||
++		link->dpcd_sink_ext_caps.bits.hdr_aux_backlight_control == 1 ||
++		link->dpcd_sink_ext_caps.bits.sdr_aux_backlight_control == 1)) {
+ 		bool is_backlight_on = link->panel_cntl->funcs->is_panel_backlight_on(link->panel_cntl);
+ 
+ 		if ((enable && is_backlight_on) || (!enable && !is_backlight_on)) {
 -- 
 2.40.1
 
