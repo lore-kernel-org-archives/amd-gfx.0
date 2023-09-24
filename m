@@ -4,40 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 987BECE7A8B
-	for <amd-gfx@archiver.kernel.org>; Sun, 24 Sep 2023 13:18:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E9F1CE7A8A
+	for <amd-gfx@archiver.kernel.org>; Sun, 24 Sep 2023 13:18:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1239710E18F;
-	Sun, 24 Sep 2023 13:18:50 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61D5710E198;
- Sun, 24 Sep 2023 13:18:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AB0010E198;
+	Sun, 24 Sep 2023 13:18:51 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CED110E19D;
+ Sun, 24 Sep 2023 13:18:38 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id BC32560C1E;
- Sun, 24 Sep 2023 13:18:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A459CC433C8;
- Sun, 24 Sep 2023 13:18:43 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id A5CB960C38;
+ Sun, 24 Sep 2023 13:18:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AEEDC433C7;
+ Sun, 24 Sep 2023 13:18:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1695561525;
- bh=Tjd0bVMEtDw7ntjpL5FWT9RoOw72J6zcBLNCucYuU4U=;
+ s=k20201202; t=1695561517;
+ bh=m8A5qV2svXzJAoVYad/DEMOjC6iKCTNtquyMarD5SsI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=s8mAg8v6c4wEhM8jOXwU8XtYb0FyuLcLkUvPmbvFQrYb7XtkVTzVAc92zkM5fi+0Y
- iVe9Pq6JzFKq6IEkWdk0Sy3ab5Y08osxknZ99oiv8m4YsXp5BMFRVwiSRAFOK1XodQ
- j8u3aQhP66sD8FgKXmRE4U5sZ1XlOsweh06Obqtygrqlhe/SGyfCjPBWVB75S37i2G
- WLIWijkk3UORIfWQeGUb0kVenSWcG2UWaNxExIVYw7G/PxM1A+xqTZ35qFMfD75TGC
- AZFeYoK3DjfvHl57Tns5BE2w8sP7LX9mUvpDDjOVBOQ10n/qv6t8Hns01SNgELGoGM
- cGX7IoctL425Q==
+ b=LsJz6OxNjgZ6Ges+Wq8rr8x2kklbDti+PSyQ+ZrmtYmUoLeEROxefnboCK3aNYy8M
+ UhRX/S/5jQe+mExvqhkbY+yxkHwYknksTvW+vyXquSv2pz92N1J2pszpmkusdbYbZp
+ 5XaL8uCIEhD/3EPch6JqXasi3YIrGl8AbSnz84rc+xL/94UP+FYWn49o099OM60pqp
+ Carde3CZkkJt1h+44VNFYO8jaSGENA4KKBP5W1DB5H3QE4kgoTDMroR2/YtV2jqe4F
+ RYmaxHdXO/fyrsUFba6kn3xI+mgGoD/eirHkcTUFAdfobuYiddwWmk/HTLJ7gpYEZK
+ u7MXBTPPhN8/A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 23/28] drm/amdgpu: Handle null atom context in
- VBIOS info ioctl
-Date: Sun, 24 Sep 2023 09:17:40 -0400
-Message-Id: <20230924131745.1275960-23-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 21/28] drm/amdgpu/soc21: don't remap HDP registers
+ for SR-IOV
+Date: Sun, 24 Sep 2023 09:17:38 -0400
+Message-Id: <20230924131745.1275960-21-sashal@kernel.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230924131745.1275960-1-sashal@kernel.org>
 References: <20230924131745.1275960-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.1.55
@@ -53,62 +55,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, srinivasan.shanmugam@amd.com,
- guchun.chen@amd.com, Lang.Yu@amd.com, David Francis <David.Francis@amd.com>,
- Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org, marek.olsak@amd.com,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, Felix.Kuehling@amd.com,
- evan.quan@amd.com, airlied@gmail.com, christian.koenig@amd.com,
- Graham.Sider@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, sunran001@208suo.com, Jane.Jian@amd.com,
+ kenneth.feng@amd.com, dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
+ aaron.liu@amd.com, amd-gfx@lists.freedesktop.org, shane.xiao@amd.com,
+ sonny.jiang@amd.com, Timmy Tsai <timmtsai@amd.com>, daniel@ffwll.ch,
+ veerabadhran.gopalakrishnan@amd.com, Alex Deucher <alexander.deucher@amd.com>,
+ Likun.Gao@amd.com, airlied@gmail.com,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Francis <David.Francis@amd.com>
+From: Alex Deucher <alexander.deucher@amd.com>
 
-[ Upstream commit 5e7e82254270c8cf8b107451c5de01cee2f135ae ]
+[ Upstream commit 1832403cd41ca6b19b24e9d64f79cb08d920ca44 ]
 
-On some APU systems, there is no atom context and so the
-atom_context struct is null.
+This matches the behavior for soc15 and nv.
 
-Add a check to the VBIOS_INFO branch of amdgpu_info_ioctl
-to handle this case, returning all zeroes.
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: David Francis <David.Francis@amd.com>
+Acked-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Timmy Tsai <timmtsai@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/soc21.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 9e3313dd956ae..24b4bd6bb2771 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -896,12 +896,17 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 			struct atom_context *atom_context;
- 
- 			atom_context = adev->mode_info.atom_context;
--			memcpy(vbios_info.name, atom_context->name, sizeof(atom_context->name));
--			memcpy(vbios_info.vbios_pn, atom_context->vbios_pn, sizeof(atom_context->vbios_pn));
--			vbios_info.version = atom_context->version;
--			memcpy(vbios_info.vbios_ver_str, atom_context->vbios_ver_str,
--						sizeof(atom_context->vbios_ver_str));
--			memcpy(vbios_info.date, atom_context->date, sizeof(atom_context->date));
-+			if (atom_context) {
-+				memcpy(vbios_info.name, atom_context->name,
-+				       sizeof(atom_context->name));
-+				memcpy(vbios_info.vbios_pn, atom_context->vbios_pn,
-+				       sizeof(atom_context->vbios_pn));
-+				vbios_info.version = atom_context->version;
-+				memcpy(vbios_info.vbios_ver_str, atom_context->vbios_ver_str,
-+				       sizeof(atom_context->vbios_ver_str));
-+				memcpy(vbios_info.date, atom_context->date,
-+				       sizeof(atom_context->date));
-+			}
- 
- 			return copy_to_user(out, &vbios_info,
- 						min((size_t)size, sizeof(vbios_info))) ? -EFAULT : 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+index d150a90daa403..56af7b5abac14 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc21.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+@@ -755,7 +755,7 @@ static int soc21_common_hw_init(void *handle)
+ 	 * for the purpose of expose those registers
+ 	 * to process space
+ 	 */
+-	if (adev->nbio.funcs->remap_hdp_registers)
++	if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(adev))
+ 		adev->nbio.funcs->remap_hdp_registers(adev);
+ 	/* enable the doorbell aperture */
+ 	soc21_enable_doorbell_aperture(adev, true);
 -- 
 2.40.1
 
