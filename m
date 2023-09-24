@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECA26CE7A8A
-	for <amd-gfx@archiver.kernel.org>; Sun, 24 Sep 2023 13:17:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CFFECE7A8D
+	for <amd-gfx@archiver.kernel.org>; Sun, 24 Sep 2023 13:17:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C910110E15E;
-	Sun, 24 Sep 2023 13:17:32 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AE9410E15C;
- Sun, 24 Sep 2023 13:17:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C12810E172;
+	Sun, 24 Sep 2023 13:17:44 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06F3C10E15E;
+ Sun, 24 Sep 2023 13:17:30 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 66217CE0B21;
- Sun, 24 Sep 2023 13:17:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 113A9C433C8;
- Sun, 24 Sep 2023 13:17:20 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 7C69E60C24;
+ Sun, 24 Sep 2023 13:17:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10A27C433C7;
+ Sun, 24 Sep 2023 13:17:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1695561442;
- bh=jCc8bMfwIQKo75O1YD6UF30RTC8JKvoVKARsjlheeGY=;
+ s=k20201202; t=1695561449;
+ bh=lDq3UOUQY7o7x5pbXoiRH92AFPhE0J/Qm0xphQ23lAI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=FUTFMjhWx2RIqKseJe3zSTMWXqeogyjQwe0xSUwudALMAmFcQMiKWbfgCF7OCslu0
- HM8ObEJ7ok5OhlX9QraUONeaBFVrnh767ZMPciMFa5BjaGjOAyn4D2lYKxGszhRBPy
- MTVuYJhBE4ouTN2TSmfLDeo07N63o6Gy7LcOICpM45Rm7ZZ3I30no0q4IcWf3/LPJZ
- 11elpfPcCuYYtwnIA2d2xxGS/cMDWWRE4n3OnEXPeP1MA3W5A1h48DSHjQgYUF6F6r
- uJlHlO7HLNrC7xcxk2C/qjYj0rpX1IA8j6YfCBqOfmvPntXKkSGm4rIC17muMWzC03
- p9+Si9t2PcyAQ==
+ b=jGnDGb/RIH4JhRL5JIVpeS/Q2akPYQ3LsAW8joAsbFsSM6QQKILmCqf9WMGOMa4RA
+ qPoTfks+4TCFXbRaOeIN4ee7XmlWhJtOx7AzU4sycWZfUOXuOFFsmi3F0/YdEudtIg
+ +B6WmJEPwsJqaBua9KWc21qIFWx2hSfCeD2vzsMsGQ2h014Xeewe8QUOb3W1mMHDiv
+ HM7usWlXckM0Hm5KffVIOuOfIQKlM282lHEAThoz7eMypdBdmpKm3EuR4gdbyRQuXt
+ NuC1BZ91eH8PgRA7yBlDaXaGRRAtxMUMArmEy39VxM+25WyjUABeEcEav/NKu7IE/N
+ 29lz6IIFAcYmA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.5 31/41] drm/amdgpu: fallback to old RAS error
- message for aqua_vanjaram
-Date: Sun, 24 Sep 2023 09:15:19 -0400
-Message-Id: <20230924131529.1275335-31-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.5 33/41] drm/amdgpu: Handle null atom context in
+ VBIOS info ioctl
+Date: Sun, 24 Sep 2023 09:15:21 -0400
+Message-Id: <20230924131529.1275335-33-sashal@kernel.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230924131529.1275335-1-sashal@kernel.org>
 References: <20230924131529.1275335-1-sashal@kernel.org>
@@ -54,54 +54,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, tao.zhou1@amd.com,
- Yang Wang <kevinyang.wang@amd.com>, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, YiPeng.Chai@amd.com, Stanley.Yang@amd.com,
+Cc: Sasha Levin <sashal@kernel.org>, evan.quan@amd.com,
+ srinivasan.shanmugam@amd.com, guchun.chen@amd.com, Lang.Yu@amd.com,
+ David Francis <David.Francis@amd.com>, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org, marek.olsak@amd.com,
  dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
- christian.koenig@amd.com, Hawking Zhang <Hawking.Zhang@amd.com>
+ Alex Deucher <alexander.deucher@amd.com>, Felix.Kuehling@amd.com,
+ James.Zhu@amd.com, airlied@gmail.com, christian.koenig@amd.com,
+ Graham.Sider@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Hawking Zhang <Hawking.Zhang@amd.com>
+From: David Francis <David.Francis@amd.com>
 
-[ Upstream commit ffd6bde302061aeee405ab364403af30210f0b99 ]
+[ Upstream commit 5e7e82254270c8cf8b107451c5de01cee2f135ae ]
 
-So driver doesn't generate incorrect message until
-the new format is settled down for aqua_vanjaram
+On some APU systems, there is no atom context and so the
+atom_context struct is null.
 
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+Add a check to the VBIOS_INFO branch of amdgpu_info_ioctl
+to handle this case, returning all zeroes.
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: David Francis <David.Francis@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 8aaa427f8c0f6..7d5019a884024 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1061,7 +1061,8 @@ int amdgpu_ras_query_error_status(struct amdgpu_device *adev,
- 	info->ce_count = obj->err_data.ce_count;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index f678bdd5f353d..b9fc7e2db5e59 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -940,12 +940,17 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 			struct atom_context *atom_context;
  
- 	if (err_data.ce_count) {
--		if (adev->smuio.funcs &&
-+		if (!adev->aid_mask &&
-+		    adev->smuio.funcs &&
- 		    adev->smuio.funcs->get_socket_id &&
- 		    adev->smuio.funcs->get_die_id) {
- 			dev_info(adev->dev, "socket: %d, die: %d "
-@@ -1081,7 +1082,8 @@ int amdgpu_ras_query_error_status(struct amdgpu_device *adev,
- 		}
- 	}
- 	if (err_data.ue_count) {
--		if (adev->smuio.funcs &&
-+		if (!adev->aid_mask &&
-+		    adev->smuio.funcs &&
- 		    adev->smuio.funcs->get_socket_id &&
- 		    adev->smuio.funcs->get_die_id) {
- 			dev_info(adev->dev, "socket: %d, die: %d "
+ 			atom_context = adev->mode_info.atom_context;
+-			memcpy(vbios_info.name, atom_context->name, sizeof(atom_context->name));
+-			memcpy(vbios_info.vbios_pn, atom_context->vbios_pn, sizeof(atom_context->vbios_pn));
+-			vbios_info.version = atom_context->version;
+-			memcpy(vbios_info.vbios_ver_str, atom_context->vbios_ver_str,
+-						sizeof(atom_context->vbios_ver_str));
+-			memcpy(vbios_info.date, atom_context->date, sizeof(atom_context->date));
++			if (atom_context) {
++				memcpy(vbios_info.name, atom_context->name,
++				       sizeof(atom_context->name));
++				memcpy(vbios_info.vbios_pn, atom_context->vbios_pn,
++				       sizeof(atom_context->vbios_pn));
++				vbios_info.version = atom_context->version;
++				memcpy(vbios_info.vbios_ver_str, atom_context->vbios_ver_str,
++				       sizeof(atom_context->vbios_ver_str));
++				memcpy(vbios_info.date, atom_context->date,
++				       sizeof(atom_context->date));
++			}
+ 
+ 			return copy_to_user(out, &vbios_info,
+ 						min((size_t)size, sizeof(vbios_info))) ? -EFAULT : 0;
 -- 
 2.40.1
 
