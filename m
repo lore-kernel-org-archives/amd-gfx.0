@@ -4,82 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F635CE7A81
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Sep 2023 07:43:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7797FCE7A89
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Sep 2023 07:43:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2827610E20C;
-	Mon, 25 Sep 2023 07:43:53 +0000 (UTC)
-Received: from omta36.uswest2.a.cloudfilter.net
- (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B91D10E04B;
- Sat, 23 Sep 2023 15:01:46 +0000 (UTC)
-Received: from eig-obgw-6001a.ext.cloudfilter.net ([10.0.30.140])
- by cmsmtp with ESMTP
- id jkvmqswI9EoVsk48gqIOru; Sat, 23 Sep 2023 15:01:46 +0000
-Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with ESMTPS
- id k48fqVKDKuMYjk48fq4HYB; Sat, 23 Sep 2023 15:01:45 +0000
-X-Authority-Analysis: v=2.4 cv=RtrWkQqK c=1 sm=1 tr=0 ts=650efdd9
- a=1YbLdUo/zbTtOZ3uB5T3HA==:117 a=P7XfKmiOJ4/qXqHZrN7ymg==:17
- a=OWjo9vPv0XrRhIrVQ50Ab3nP57M=:19 a=dLZJa+xiwSxG16/P+YVxDGlgEgI=:19
- a=IkcTkHD0fZMA:10 a=zNV7Rl7Rt7sA:10 a=wYkD_t78qR0A:10 a=NEAV23lmAAAA:8
- a=eh1Yez-EAAAA:8 a=pGLkceISAAAA:8 a=e5mUnYsNAAAA:8 a=cm27Pg_UAAAA:8
- a=VwQbUJbxAAAA:8 a=HvF037n1xESchLcPDVoA:9 a=QEXdDO2ut3YA:10
- a=Vxmtnl_E_bksehYqCbjh:22 a=xmb-EsYY8bH0VWELuYED:22 a=AjGcO6oz07-iQ99wixmX:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=o8E/r0wuMmRjHcbDYiPdXr88j22h/Q9UdmpVBTr3fBw=; b=BLe+r9AA41QKGz9wo55FNBte6i
- H72+radBOWNzTAB6YiP7NELCaOSUh0zphAmfZIqfiso9KD0nTzsR68abI0R7dpkp8YLmdo9rH9W1M
- y/x7o2CfwQI49wqo9+6Arj3JEoAcl6KpVfpycFLpDKudkIwexQ30QLJmtHnMVeeApcR7HtyzJSLzd
- N1Qw5maGcqTTQvoP1cKBzAaqU0SwOha6paZj9rt4HM+HiWmFfsl7/PgdBWS5Y1NWyXIc29RHLGBel
- ssGmkoESQQLyM5+lfD8ksLaw8QMPB6hySoTXQwz5w943dZ/ZjstewVsj/SjhEK2Lq1iGO6RoxYqaB
- oZTNnKkQ==;
-Received: from [94.239.20.48] (port=59176 helo=[192.168.1.98])
- by gator4166.hostgator.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <gustavo@embeddedor.com>) id 1qjl0l-000khc-1m;
- Fri, 22 Sep 2023 13:36:19 -0500
-Message-ID: <9aa42b20-4388-4954-012f-65e3bc99b7f0@embeddedor.com>
-Date: Fri, 22 Sep 2023 20:37:09 -0600
+	by gabe.freedesktop.org (Postfix) with ESMTP id A195510E217;
+	Mon, 25 Sep 2023 07:43:55 +0000 (UTC)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04olkn2014.outbound.protection.outlook.com [40.92.75.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 161E510E144;
+ Sun, 24 Sep 2023 20:02:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CXBWGW/Od8cfuFEuSuoX0I0GjvP345zMNYJsQhVbVuG5//VG//VCn3DB75QU0wQQMDaeXHGc0lLHaNjdUjRmC14b5YyGHmREO3crIUCzQds0Wtd1ds0qYD/MDcitsOtQvXTOv8grbQHF2+ZUhFYE+86dGoXPdrdb+3Fw4maS15GRa0nCLSptnetEsv+v5uENBabkSadEKt45IUgsSg0h0k5fRmSKcZgTh409sict9rRUGbATyflfksfZSrdtFalY5L7ywcFPcJIDgAWGXEQgflySGTF5AdRTY2mNUhlf47kqBo49UHF5PtgiG9lB9BQdxu6CJPhjRBHVu06OFAgcRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4zMmPpm2/LNk1iw1/POJSD0lpPE8/UMTzHPTuSJM3J0=;
+ b=SLIyjiug+7zYcc7XXWjVHG5mrdKZoTFxyBFMd0xaQqj6XjIGanIfY9xFMyIzfk7N7C9Jn3yXvvSGQJVB3pa6ZwK51ZiU1QjhtKp9dscttEMwpHWqMOe8ktQIy4iHgb5P3gQRptAliZR1trutzZ6p99ULc4ZdVEezYVXXNF+YlIdEFpt1fsnbSFVSjxvjg0VmoUkt+lsSca0YN0X0I+VeqKmKTfeJeWV1Zl17C1q8ZBsnC77YXFUYseoVF/zW8JQCzfHeNHAXhsgzFrwJaBzqAe4mTlNcE4zaYb2CawVaNaNAyT2Ig3ZfBCoTbH4Lu/I3vGNTanHNhQI/LYokCfEJ9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4zMmPpm2/LNk1iw1/POJSD0lpPE8/UMTzHPTuSJM3J0=;
+ b=JW4ah0qIq25j6OCaIC/xGji34Yb41PAe0S+3Ywsx3hBgThx2fdigu6g8LAwlJNK1/VgDAUvmiZ0HL4jDH8nD1cikNoHZk42mRcfMkUmuJnu2FXI2X0uQRe7KX/lWncZtE1+70zphUkhQ8O3ih0JxGkVlrfttOhGi87sNtK6Z2v640C9kga1D6AYtXprZY/k0qLmsEDsVd8oEUdl0c/Gp6nXZl64wt6m+5mW/yRxhAZojNLU6dfxbfXmJ7xQz6SFws+xu7fVkmDm/n7dzaos4GJfSaZNqIDUvizl/YTlX37aHDAN8fDZCgYtfdwmOMbs/zNVh9iSZZxMmcVkk5MOHQQ==
+Received: from VI1P193MB0752.EURP193.PROD.OUTLOOK.COM (2603:10a6:800:32::19)
+ by AS8P193MB1366.EURP193.PROD.OUTLOOK.COM (2603:10a6:20b:38f::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.28; Sun, 24 Sep
+ 2023 20:02:05 +0000
+Received: from VI1P193MB0752.EURP193.PROD.OUTLOOK.COM
+ ([fe80::3164:ae5c:78f7:23ad]) by VI1P193MB0752.EURP193.PROD.OUTLOOK.COM
+ ([fe80::3164:ae5c:78f7:23ad%4]) with mapi id 15.20.6813.024; Sun, 24 Sep 2023
+ 20:02:05 +0000
+From: Juntong Deng <juntong.deng@outlook.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, aurabindo.pillai@amd.com,
+ shiwu.zhang@amd.com, Bhawanpreet.Lakha@amd.com, harry.wentland@amd.com
+Subject: [PATCH] drm/amdgpu: Add description for AMD_IP_BLOCK_TYPE_VPE
+Date: Sun, 24 Sep 2023 21:00:26 +0100
+Message-ID: <VI1P193MB07528C2081A3A8BBDFAF2BED99FDA@VI1P193MB0752.EURP193.PROD.OUTLOOK.COM>
+X-Mailer: git-send-email 2.39.2
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-TMN: [loXNGlZAU5T5/pnQdg+ieH53r9I31buu]
+X-ClientProxiedBy: AM0PR04CA0041.eurprd04.prod.outlook.com
+ (2603:10a6:208:1::18) To VI1P193MB0752.EURP193.PROD.OUTLOOK.COM
+ (2603:10a6:800:32::19)
+X-Microsoft-Original-Message-ID: <20230924200026.27339-1-juntong.deng@outlook.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH 8/9] drm/vmwgfx: Annotate struct vmw_surface_dirty with
- __counted_by
-Content-Language: en-US
-To: Kees Cook <keescook@chromium.org>, David Airlie <airlied@gmail.com>
-References: <20230922173110.work.084-kees@kernel.org>
- <20230922173216.3823169-8-keescook@chromium.org>
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-In-Reply-To: <20230922173216.3823169-8-keescook@chromium.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 94.239.20.48
-X-Source-L: No
-X-Exim-ID: 1qjl0l-000khc-1m
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: ([192.168.1.98]) [94.239.20.48]:59176
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 0
-X-Org: HG=hgshared;ORG=hostgator;
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfCcSHkc/3pUTBO7WbmoZXXuoVgzJwG6ADca84RiWnm6VfKv/+3h5K4VTAx42ceUVE3kAww14WwI5HojlaCv0Z4izhGeOCMkMCw1eQ27hCPGQB8rL8C3P
- ri93BtmgltWIFzO87qpu0LJ9yPKkT1d9eT1COOHSuB/hXd+gvj9Wi+RwLwlwX6iM8TdbjyJuNDaeiKzQLdGevv0ZO8ySd7pro8WG8QhWjN1WFdkOAFhVPQ/Z
- XHheDIF+2t0nB7yWxOsh5VxQ+iYK5d5yLqBdhXnmoqtX6ENVxre2yDV8PAnHPcee9RyEsoqIKQT3Z6rrpeMjWqESmsuuq+tCKEAHMOwCxHpkwDn91NHLC5Wi
- CrV5Gdo0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI1P193MB0752:EE_|AS8P193MB1366:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0e9e450b-25b3-414a-6cb7-08dbbd392001
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 5gDLV2k1poijLEDBCV7+ho/mM94DXXeut7MZ3NVNs2bMdpvps4JkyLSwLc96mhiQn+GYAWCow316rXwQ1fqRSZwZ0oHgrZl39NuRrNrOZv5Y7olRJlaRmi/N25QJpLDEuvhb2wFT8/N0j/+TDbZWZkyqGHVyU9Qqro7DsNd5a8YdqLojJFN22SJ/m+F2jjIKHd4kyXsEajMe15IThN5sHG3kbNBUb1NaJOxGvOiqkEdnHBHcMT/uMMwoo1LuG7+wkXRTtz7zXvTUInGPZIPNu7ABz5y8fllMeNoHFAg7AH+3WzGyMIdJNwhD7Me+Bxw/yU7QKJutZL9SchhtfpOIHbAiQWwpVbl65ZRAAtYMWWWUFgSYEhSN9WZsAVZApRsY9vqSSszEurDmoPshkfs9FE5UtLOkSW2JqwG/KZDtINLyZb7ANMTo1PBUPCmdMtHftMb2TYe01lXn2DpHXmR2xfn7aFitwObgaqpVhoUUJo/HoNbPOMo93GJ/4RruYnogPSZYS+q/LMKrZ7g0/HTY5e9VdIj0LDvA/EcpElQu2kSJss3t9sqHzVVKT8cxKg4m
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?WD5QN7OtJ2URoB+U3k/cK2FHRCAXYLGGYf6RfbdpIqRP0AFghlAFmda+JEYM?=
+ =?us-ascii?Q?bvnllo0GMr0UAjkQsEoT1wSzYpc/BkfpULJBE1YY1CQ3bu4hpljtmNAa/vpU?=
+ =?us-ascii?Q?zF89HGIQBKKVTCPBr+Jc4AX9foLDiTz8mr6/NJRg+sibC8kZB+TrwgKVYCEd?=
+ =?us-ascii?Q?3+oL256AxzPa3sLw8XWA2HKq4yx2SEIhyZphB5nSfe1/e1GAagKy9HucWs06?=
+ =?us-ascii?Q?faR/2JE3pS+uRWjEP86mcB9mHHjXlmyxoWwciMt/kbw3J9c/FDd6ndblueQH?=
+ =?us-ascii?Q?IJj5eD3PQaN675w8vshUGmGPJuOk82wHHxyqrMlth/9lf+GDWeuHqUtxV/IN?=
+ =?us-ascii?Q?lVV9wGYg3PlANt5i7ijwhB2fbQhvn2hA8QMWst8ZeQOQDbkkaKAsh6kP6qt0?=
+ =?us-ascii?Q?9ZAzyXrTaUoi95YzXxVoQ2O9ao5hlxgS8YkHKYqeF+GlaLfCVZkOau9X2a99?=
+ =?us-ascii?Q?sW6hrE0hA08bsN2yZCDqrLOLPJiL06qMlHMHzlB/706bSJn57iCNbr2ddzxB?=
+ =?us-ascii?Q?3pXhgLzizpLtBs/MT2YjC6lYITljZTc3ywbCbVk2g8gZap4m/Nf5QQGExZU/?=
+ =?us-ascii?Q?3dZfF71RFY7afR0Icu/n0sY7l5v0T5dVpSrmOO8JpD3rCbmKjCGEUGZxqU9+?=
+ =?us-ascii?Q?CEF1OBQhQU5k3y9LAc2cHiQ/1UDtqpFadSsGm23dFYKWQGsh6Mp78W2FIO//?=
+ =?us-ascii?Q?WOFGXwW9U0/qRRPtwOYDu8FZKn0dYCs8pO+7IGGBVEyG4wyyEb56ddoMznm6?=
+ =?us-ascii?Q?E09ZzvqNbknMA+CHdlpCVwWCoNBABPEB9ktkdS7jzZF0WnZ0eRSqnyM7UXcG?=
+ =?us-ascii?Q?XrKYwku1PSvU3QmHZMmz6N4TevDR8fo9TKFdR678woHzr4riZNm67ySdX2vD?=
+ =?us-ascii?Q?0N9EerHLfYYKplfTXSFMjwAnQbSxntsAGbTco1Aj3RsYGUT8LmYqtstKErGe?=
+ =?us-ascii?Q?W9XKn0iLzA9fxrvZi1v6XBVouXTijGYiNISWLlgaxnngFfAe01Qz+vj/C+KL?=
+ =?us-ascii?Q?8j/9fTSEWeAou0GtA3qEa01fLZD+xcL4f6CWXbe//bS9lutZSyL67fanJmDx?=
+ =?us-ascii?Q?Xy2PL8UG1Rar0MfoPCD4fIVkwi7l/ZRzw+I+6G8sQz2TUTb9FcNBdM0xEROC?=
+ =?us-ascii?Q?r/ijYkICblwbwW4I5W9AMSMQ7QJ2TNJQUr7I3uieifr40Bg7jP+WmrLku/zx?=
+ =?us-ascii?Q?07TXKxdXC1AIY08hCAA2GUixwPoXEWLK6NafYWfs4uLs7buXsYewJMwD4j0?=
+ =?us-ascii?Q?=3D?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e9e450b-25b3-414a-6cb7-08dbbd392001
+X-MS-Exchange-CrossTenant-AuthSource: VI1P193MB0752.EURP193.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2023 20:02:05.3671 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8P193MB1366
 X-Mailman-Approved-At: Mon, 25 Sep 2023 07:43:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,84 +102,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>, Emma Anholt <emma@anholt.net>,
- Tom Rix <trix@redhat.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>, Prike Liang <Prike.Liang@amd.com>,
- Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Matthew Brost <matthew.brost@intel.com>, Karol Herbst <kherbst@redhat.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, amd-gfx@lists.freedesktop.org,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Nathan Chancellor <nathan@kernel.org>,
- VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
- Ben Skeggs <bskeggs@redhat.com>, Andi Shyti <andi.shyti@linux.intel.com>,
- nouveau@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
- virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
- linux-hardening@vger.kernel.org, Lijo Lazar <lijo.lazar@amd.com>,
- Yifan Zhang <yifan1.zhang@amd.com>, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, Kevin Wang <kevin1.wang@amd.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Melissa Wen <mwen@igalia.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Evan Quan <evan.quan@amd.com>, Sean Paul <sean@poorly.run>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Xiaojian Du <Xiaojian.Du@amd.com>, Le Ma <le.ma@amd.com>,
- freedreno@lists.freedesktop.org, Bjorn Andersson <andersson@kernel.org>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Zack Rusin <zackr@vmware.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Nirmoy Das <nirmoy.das@intel.com>,
- Lang Yu <Lang.Yu@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- John Harrison <john.c.harrison@Intel.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: linux-kernel-mentees@lists.linuxfoundation.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+AMD_IP_BLOCK_TYPE_VPE is a new IP BLOCK type for Video Processing Engine,
+but currently lacks description.
 
+Fix the documentation warning:
+warning: Enum value 'AMD_IP_BLOCK_TYPE_VPE' not described in
+enum 'amd_ip_block_type'
 
-On 9/22/23 11:32, Kees Cook wrote:
-> Prepare for the coming implementation by GCC and Clang of the __counted_by
-> attribute. Flexible array members annotated with __counted_by can have
-> their accesses bounds-checked at run-time checking via CONFIG_UBSAN_BOUNDS
-> (for array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
-> functions).
-> 
-> As found with Coccinelle[1], add __counted_by for struct vmw_surface_dirty.
-> 
-> [1] https://github.com/kees/kernel-tools/blob/trunk/coccinelle/examples/counted_by.cocci
-> 
-> Cc: Zack Rusin <zackr@vmware.com>
-> Cc: VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: dri-devel@lists.freedesktop.org
-> Signed-off-by: Kees Cook <keescook@chromium.org>
+Signed-off-by: Juntong Deng <juntong.deng@outlook.com>
+---
+ drivers/gpu/drm/amd/include/amd_shared.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-Reviewed-by: Gustavo A. R. Silva <gustavoars@kernel.org>
-
-Thanks
+diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+index 63e2153c00c4..314fd44ec018 100644
+--- a/drivers/gpu/drm/amd/include/amd_shared.h
++++ b/drivers/gpu/drm/amd/include/amd_shared.h
+@@ -83,6 +83,7 @@ enum amd_apu_flags {
+ * @AMD_IP_BLOCK_TYPE_VCN: Video Core/Codec Next
+ * @AMD_IP_BLOCK_TYPE_MES: Micro-Engine Scheduler
+ * @AMD_IP_BLOCK_TYPE_JPEG: JPEG Engine
++* @AMD_IP_BLOCK_TYPE_VPE: Video Processing Engine
+ * @AMD_IP_BLOCK_TYPE_UMSCH_MM: User Mode Schduler for Multimedia
+ * @AMD_IP_BLOCK_TYPE_NUM: Total number of IP block types
+ */
 -- 
-Gustavo
+2.39.2
 
-
-> ---
->   drivers/gpu/drm/vmwgfx/vmwgfx_surface.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-> index 5db403ee8261..2d1d857f99ae 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-> @@ -77,7 +77,7 @@ struct vmw_surface_offset {
->   struct vmw_surface_dirty {
->   	struct vmw_surface_cache cache;
->   	u32 num_subres;
-> -	SVGA3dBox boxes[];
-> +	SVGA3dBox boxes[] __counted_by(num_subres);
->   };
->   
->   static void vmw_user_surface_free(struct vmw_resource *res);
