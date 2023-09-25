@@ -4,118 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3311FCE7A8C
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Sep 2023 15:57:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49D4FCE7A9A
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Sep 2023 16:03:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93E4210E281;
-	Mon, 25 Sep 2023 15:57:09 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2087.outbound.protection.outlook.com [40.107.93.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1E4C10E047;
- Mon, 25 Sep 2023 15:57:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B887710E292;
+	Mon, 25 Sep 2023 16:03:38 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2078.outbound.protection.outlook.com [40.107.237.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4165A10E284;
+ Mon, 25 Sep 2023 16:03:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ewTiZopkU6t5yEq6hhVmMPihGbKQxedeT5k5rvjz0n6rUH3svKEszIh1OAjAJ65hn9CT2PmMVagTuXmk6SgsLrCZdryfuGwiIaR9e9LnzeCAwy2IzY28iyPky+uLQXUv6kMvC8dYg5SEh4t5q+e4NNmfmyJJyH4BGJq1PwaX1QT4D1CW767HM76t+z7zgl++XOhzWCzzkfbf0cSbUIp8jbQxE8JrFTWDu8giAO/QHZzR/9vBxUwQu6xVt+x0FURysY5HZLxTP6KdoONWWay/4TXzA56MGFUtIDKSQi1R/jTMf1AJh3mgUDv9lJVuXVWOgZg3L8upeFfCEqc4Z4vpQA==
+ b=epz6jQPolGwOPjQaI/SekMcEMJ0juq2KRJsgv06j+eye8z9oL503vsJSpOH4kEsbxOKH5SiM/TIywOWw0/uBqvk3Uix24+0QNoSwwQb8wU8BpUAglGIDV20gjByaGMao0T1d8vFxdyXO4i6CjOAXuDiRa2RybrNFGM5txAqGU+sVaimmzypuEdpeKswd7xUR+MO31/ZvcBhwrnxyfysWZua5eBboEOPh5Qo+pyRDmgPUvF9a1oJqO7fWLyMTgo1jIjoLqL5dXa4VSlBz2G3dnGAYbz413CP8LAOoJ834+u/mUSt8V3Kh1Dp9gy2hAYrOIQL25Lt2rNPD7CU7nCAVNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fKBQbwAA+6W4LWvdGErpZ0JgTH7ad4P8z1yYuNqd2Oc=;
- b=Bhqp5TrPg1OnE8XZrA3+EcC8pE8gbFln+VsJwrVqy3EEPy6S1847hWG1P294xvvXRBPM9Vm212keBRsbuxqDeoLJ1kKrhtlQKABBJZw+9nVM1iZxGp4DwcGDBdsrraAD5p4eEzhWkl1g9CAkpIzPCkKZ8/ZWLF6u2SUu3BO2E55ysCesJTHUFzbToPmVXV32EDI2y0pvM/xu3GO8AfQwxBr5Dcnayruxp6ugA0a2jV6jMmVKbWmJ0mpxu1wsYx3FsVl5b0bHcaGdC1lNSZ4RN7DbmiFdZnTezvuhhaKBlyHQtHvyXst/HCWINT38s9l/RYrMT7WhfQxqh+Y+Evz1Vg==
+ bh=G8hMDnQhaHhH8yMx7GAW53ZOorUk6YZfdkS+h65gNWY=;
+ b=cnI19RMlGvUJvOClqETkoMt0xt+T1zH396vdVuAzqq8OeEk1EGQYe8DXhgIvlqCgAhXPJbvtSMwAHrKXL4PqBiogWbFQNgCuhyteTm4Qu8rTKc7LuhNYneuRTMJI9CaGKxnKl+JImc57K9OOf4kJccOLVlT88hAWwyo5yJF0YXWloFviVq2MkbauOy17t1Nz6lGCKYpwtmt0y5vq4jLsf4kDDbyRfZA5cQ++M8c2sqA0du0dg7ZlLr+Spxybe2XlCNUwOQpmZRmBoNqIrCv+OxuTJpB91YB02hVHwF2mntiI0mmPZlsqYFzgv6zJR+dW9UyGs4Jxf+3YC8kXwZbQJA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fKBQbwAA+6W4LWvdGErpZ0JgTH7ad4P8z1yYuNqd2Oc=;
- b=yDR2Jea6RUA1m+SApHiyvm3lwkRDF3RhFTHCBvaywMJaJ347TKPMKf6ELrmvn4E3NZEocGP1/RpnI2tDjbqNGYEzwz3VjB0Eg5oYJAXYw+J4Jfg65A1FYr1D5otsBVMenmF2w6YlOnuPDzEZHOe6qVgeikFEM1wj3gMdazaIhZc=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by SA3PR12MB7903.namprd12.prod.outlook.com (2603:10b6:806:307::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.28; Mon, 25 Sep
- 2023 15:56:59 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::a2bb:870f:8aaa:1ba2]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::a2bb:870f:8aaa:1ba2%6]) with mapi id 15.20.6813.017; Mon, 25 Sep 2023
- 15:56:59 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: Douglas Anderson <dianders@chromium.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Maxime
- Ripard <mripard@kernel.org>
-Subject: RE: [RFT PATCH v2 07/12] drm/amdgpu: Call
- drm_atomic_helper_shutdown() at shutdown time
-Thread-Topic: [RFT PATCH v2 07/12] drm/amdgpu: Call
- drm_atomic_helper_shutdown() at shutdown time
-Thread-Index: AQHZ7MHT9H814V2OZ0mLzXicKpUENrArticA
-Date: Mon, 25 Sep 2023 15:56:59 +0000
-Message-ID: <BL1PR12MB514407EE7F9B23BC58E40A6CF7FCA@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20230921192749.1542462-1-dianders@chromium.org>
- <20230921122641.RFT.v2.7.I27914059cc822b52db9bf72b4013b525b60e06fd@changeid>
-In-Reply-To: <20230921122641.RFT.v2.7.I27914059cc822b52db9bf72b4013b525b60e06fd@changeid>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=bd244764-e62e-4e49-a944-ca8970c61285;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-09-25T15:49:19Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
+ bh=G8hMDnQhaHhH8yMx7GAW53ZOorUk6YZfdkS+h65gNWY=;
+ b=nbYanjqnqBoRhe00L5tl7piIzFK8eWB+a5ILRoKUozsbBwrcUwD1FBCjbxgid/rvd2B0OlFFhxAJWlZ+NQhlcRxvhH7OeRLcVWXbPeCVCBjgREr+/SSceEahCZuiBxnV2hbr5VYrOItz6q5TJ+s5i7iuFkE9ry8KAQCooCyz7Dg=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|SA3PR12MB7903:EE_
-x-ms-office365-filtering-correlation-id: 9710ea81-f34a-475f-2cc7-08dbbde00cfd
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: An/dInFsVuvD4Rg5x+yyrvbAPXV2YkyOJS3pCEUhCobHT9tdr0TowMagoJZC4QpbwalsGXJRIFRWFLhorsAQbBQE86vw9Ib1kldp6izcLonjQj3YxuVG6BlW9GBp4BHgPNquHExPrlNPVfiDSdvzMz7fLr6DtLB4UlIWG3PzZiewDWXAqL8OQImZNCARyiShztbe9UER4CSh+7s7pSK2b1nZdtzC+Vx9SphOUsygmHDQr0k67gWx5vaxhl8U8GA017hyNacWdmIjLfrGrT0zg0suG2oI8qFEZFq3wdn1TjGNC9KKLDoH9U7YuU7U7B4IO1QH3LFaOmCC41G2JVCwfgrLDw2GdNrTr/1JAOh6XtMGfPRK0WOIfkTfI5a+LC67cCcAgrCpht1lnrk29hzKWGKKDOSQrrAXuZ3iQT+0nN1Ydnwa0DHiIwQ+JgTGL9kqAAahNELylyWzzht0aDRD2jMAViaRDQd55TJTDJaI7/vZfTONm3ShRzpGddEYP8QuQL1dJUpW2VM0BEuMFKK9Q4epspMRWR2NevMauG2frCxgF7MljASN+88lb3aWoYXuX7jWNrbksxYjkn7rf7SnefULVeFtLwGjmFJ8+l0d752h2rZqZGivt8Rgd1SHULhI
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(346002)(136003)(396003)(376002)(366004)(230922051799003)(186009)(1800799009)(451199024)(7696005)(26005)(6506007)(53546011)(9686003)(122000001)(38070700005)(38100700002)(86362001)(33656002)(55016003)(83380400001)(4326008)(8936002)(8676002)(316002)(41300700001)(64756008)(66446008)(66476007)(66556008)(54906003)(66946007)(5660300002)(110136005)(52536014)(76116006)(2906002)(7416002)(71200400001)(478600001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?iwifzCaCGCalX891h71NhdXjsH9/hy4PvPLuoug7K42yxHAKVTDbPnBG7VXB?=
- =?us-ascii?Q?5TfiOme94XOA/7X9DTqS3GZB6ehOa3xnksk7uDLzOH75PVLaf+cBnoD/pqMi?=
- =?us-ascii?Q?50lOdYJcbou1f0DIah8cOK5q2NvW4U5+wmWu/PmBqnCtG/bb5AZdy176aooG?=
- =?us-ascii?Q?PlFVH+8NTA06EXVYKLReOG/hwo2GjEZgw0puNpRum2TPOi0tkwdxg4ncQfBk?=
- =?us-ascii?Q?9u8/MUrMCcqlA/pRPsvZKyAZzzi2ymmhA3Yli/heyhTbzoF6NBtQfU90gFxk?=
- =?us-ascii?Q?wOaXEjochKTdBA7g37Mip3V60ugefZrNYynSO7U/xHSxs44xeo6brmDTP8dw?=
- =?us-ascii?Q?mIUbe0vn9UnNQi9ze8i0alZhLTq6Qiul/4Qg2rhzl33T/Aks9Yr7KX4aJAMj?=
- =?us-ascii?Q?38woRRkhD8agfu6k2zPfx252Jv3bl2rLwEDbiDx3zI1INrC6jt2fUiA+Lxfn?=
- =?us-ascii?Q?FqPssWhQEuI7600ATqSjTtmCvSFTUEtY7DRJK2FbVamILCyd4UNp5dNERhJ1?=
- =?us-ascii?Q?qttnNyRR/QIbQg0w8VF2mgWy/KKJtR7qLoGIQiqBDHbjYw5Mc0Mrxg+b1fYi?=
- =?us-ascii?Q?eJiPId0t3YDJBTmRUzujz/8qoU9i3CgNpxTowLicBeQeE8WeCsJWhRlgyMmA?=
- =?us-ascii?Q?ARVgr45jRjQlPt3JsfA/Qe4xNtdG2/rhH/x46yrHDnYwvIeGnFCzUJ0tNqh8?=
- =?us-ascii?Q?b2UYmnhPyIMdabbTQHLFjn1B85E/SJyTF4L5wAbsSf1GdRbIoMSZvC88kdim?=
- =?us-ascii?Q?dD80W0+ZAGaor5a6EgGtPmHT8lnt7NuF2+K9i6cca/yPS6B3mnOiALWiQE9/?=
- =?us-ascii?Q?n/dIyf6KSHCY602zlwJTuo3/cCLsA7h9udaU9Uq8UcKMNE7BBGZ2Zy0s2oKX?=
- =?us-ascii?Q?MzuIv6aT8EIZEApoIP4IU7ULQ4+VH05kPcOssb/OOMUWCHEaCNqIJ26ME9jy?=
- =?us-ascii?Q?2pn9K/Tj+0KAG6k5m+Ep33DJ9/J+/Twia1N97berSbp1T5W4dWLRv3uHKtav?=
- =?us-ascii?Q?lP7j7GIAWZb0ExC9AiVYO8Uhl946XPmeo/Va1LTw/+4Ki7oxq8VjUGa+9EFh?=
- =?us-ascii?Q?XIGdqhGs8C+KycYyoUU2/WUs51BylFPDYyLo1rIIrOdGm8NCeuYbD4/7J4e8?=
- =?us-ascii?Q?kD46C3M2kEqZm1ITpgcSxYhauEET9Lx/J2bnOlCsyFAh419Lg7ie06TQekNR?=
- =?us-ascii?Q?w5ey8nERvzP0pecHGhrYFA8ZO76bRN2EXgJmAVxD/CkmYdS3YfC7BHz4l4dF?=
- =?us-ascii?Q?NzJweD5KT3YP00khmoZIABHaAi8mxU4g8d0jTNmNd8Gi8FG7k1znj1If8ZFM?=
- =?us-ascii?Q?JhGwzn6Vo5mrUYdqGQLXSo5z20dnTg0FLq11S4pfdfBK+8N0QZMb9v4aysOe?=
- =?us-ascii?Q?Fx0mgPfoXaEw2oET+bg/hqyVD4QwdCuK9XYU6d3HDNKEOwbEegLF3unVUXDN?=
- =?us-ascii?Q?Me5QIadXFytXJ9uOxO0fUpCYVrPoLkFzW9GnXB3zL9pOjUF4s3TLevt7QQo7?=
- =?us-ascii?Q?hUaw+L4DFRTohlQ4YW0tDNdfDLH32G7TutDZh2EK+ffrJS8UstG/UykD+4Hs?=
- =?us-ascii?Q?HmSlYhEbQ5rwMmcCF84=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by SA1PR12MB8743.namprd12.prod.outlook.com (2603:10b6:806:37c::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.28; Mon, 25 Sep
+ 2023 16:03:33 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::121e:5e68:c78a:1f2f]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::121e:5e68:c78a:1f2f%3]) with mapi id 15.20.6813.018; Mon, 25 Sep 2023
+ 16:03:33 +0000
+Message-ID: <c5004296-7f2b-4433-a81c-65d5672403c1@amd.com>
+Date: Mon, 25 Sep 2023 12:03:04 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 3/5] drm/amd/display: create DCN3-specific log for
+ MPC state
+Content-Language: en-US
+To: Melissa Wen <mwen@igalia.com>, Rodrigo Siqueira
+ <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch
+References: <20230913164329.123687-1-mwen@igalia.com>
+ <20230913164329.123687-4-mwen@igalia.com>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20230913164329.123687-4-mwen@igalia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQXPR0101CA0031.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c00:15::44) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|SA1PR12MB8743:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a05c73e-1118-4e86-8c89-08dbbde0f7d7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: tXw+jp8kIUVoHtFXpAjV0atgu+gFP9okEgfQeBB+qCVTQTalm2NyX3lJRwveZzAgDpjYuYY6dGnQe6YmniUpKMx3cqQA5k3LIVATjgeqVhWdyr6wOPkN/Mp/Ib9zaTZOoSohdkGddrBatTQaQNjDa33uNYDxht3fB5qn+Q5f70WV6zK5kMeQhTumdv5uKhKQeS2FV8lB9Eez+5BCEORxojyQOFmAUYvbEdvllz3Dc8S6J8YDHOVjQroBx5TteavVjfGmlJZh9H+N4nCl/dn7UIJRq56TIHJmdRuWOexSqmbd18BQy8lYm+mdcZ+IRlV7LrbnhgycM650riA6byQcizCYN7u+MCtGesfTqMtWvcrAnAl5zKFUc84utnSmiFRwY2/bVAgRbX+DKCndb7RJiyH4Z9iTLSdaRWvBRsdSk9hXRbIAIT7Ptl/iLiszYBtOExaVb265eQRVkykM14npJHhoqkUjGIrvxDq2AK5fLptwBFIy22wjj56nON6OBDjNWwsjqpvGC5pdw6BQzzvUlZkJFQDKhFzYtpWSuCC31UeULA6NWOWCU8L6shlioCR9pGomc+S7NkRkmbSFFHsMxZr/kOeRWVamifsaI/9YyiGhuJYJyuyxFjsh3wTdOig3hD2Ztovy1Sr5K71KcSqFcw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(396003)(366004)(346002)(376002)(39860400002)(230922051799003)(1800799009)(451199024)(186009)(6666004)(26005)(478600001)(2616005)(36756003)(31696002)(86362001)(5660300002)(6486002)(53546011)(83380400001)(38100700002)(6506007)(6512007)(4326008)(2906002)(8936002)(31686004)(41300700001)(54906003)(316002)(8676002)(110136005)(66946007)(66476007)(66556008)(44832011)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bkdVVS9lTmpnTVl0enFpNGN5a2ZMMG1qUnlrTFNnWnk0MkVUbi9aM3FRWGVj?=
+ =?utf-8?B?REEyVEpiMlFvRGQramFma05CTDdpU3NIQ0ViSzRpaTlCSlp5NVVGWTEwWTZS?=
+ =?utf-8?B?cXV3NzRVU0lES1VzU2Z2YjhzOUlhQ2hjOU5PYy93ZkxRaWZHVkIwa2txc2Ni?=
+ =?utf-8?B?MGZ0d0JrblJ4VEpXcWF0T1ZaVWxCdlNuTUhjdmlPZ3lVaEFrYTRKanZ0UDZ3?=
+ =?utf-8?B?QmdFeUtpcWpjNWFXTFFyM1VNb3lBMjgrcEpvSmFaYVM2d3dvWTYwOTNDLzBB?=
+ =?utf-8?B?MFNiV3ZiTUlIeUpQRXBVcW5aMDlyR3FNZkNTSFprQzczV3BObGRvTE9WbHpU?=
+ =?utf-8?B?c3Q1ZjE1Mk1UM3VqNG04SVF6c29hZkkzSk9uZlk2TnRKcGVFSHEvenF1Qys4?=
+ =?utf-8?B?bW56VkZTeGNrRERKU0RUdmtmYk54Rlk5SGtXSEhNaGVLU3JncHFCSFdsMjBC?=
+ =?utf-8?B?VzFobmtSVEZuZUFvbTZmT3A1ZkJsY1lmck9FRkdsRmhNQWZpbEQ4WXJHblVq?=
+ =?utf-8?B?bzJUWTExR1FlZGtnN2VLUTRVR1pSdUdHL2RweUd6bDFYaEIxdm0wZC9YTk1l?=
+ =?utf-8?B?eGlKb1JudUhQcVQ1ckxJQWJURVgvMTFKbHhGNFNIRDFEeHhibG55Z3l5QnF6?=
+ =?utf-8?B?OGRkY2tCTWxLOTRHaGxWOCthdnpkVE4rTUxZS2dROTByRVM4cTcya1VUVklQ?=
+ =?utf-8?B?OC9zTVRrREhBMXNxV3Y4N2pIOWlqaS9STDNpNnovL0hJcW9oMmd5b2tLTElN?=
+ =?utf-8?B?UUxwdWpHOWovbUFnQ3BVcVFMTGhtYXEyS1N2SjNNZ0dOcjBsYmsxUG1Zd0wx?=
+ =?utf-8?B?WVJKVnd1Z3ZjUldVUW1SL1hnYUxFeHcwbG4wb1RDeW8xcEtsMEFFc1ZzRU96?=
+ =?utf-8?B?T2E5N2JBOWRVY0pQaS9WVFpzNFNKcFlVL0kvYmdHWk9GRkk4Ri9iSXRjZ2lD?=
+ =?utf-8?B?ZGlIUTcyQkY1UGhpOFpzSVNmaEJRL2NYaVNBY290MVRyYnRzWm5PNU9VUm5h?=
+ =?utf-8?B?aHRPeWVCbnQwajZ4ZjEvVFFhLzd4UGJ2T2grUjJRMVFIM2JBYWtCU01YQ1pK?=
+ =?utf-8?B?QTZEVGhuOXlnd2VpWTltNUwvbEViSGN6dFI1bC9iaDRhaGh4ZmVlVTZML1Fx?=
+ =?utf-8?B?UEN4NkM1TmxkR3NlWER2TXBLSzgxRFBCbFkwWGxLRTFjRTNxSHpRbVBhTzRx?=
+ =?utf-8?B?S2hUOWdJQkZtenhOOWVFa2NqaUpJSGlhOURxNFluaUd6N0tNaFZ6cW9IZlhL?=
+ =?utf-8?B?aE9YR2Q0aExsck9kZXl0Szl6Ym1JNkxFNThTQmJnZHVsb1pxam42Q1NMemVO?=
+ =?utf-8?B?WitmelNSdkx5RmlHc09VWUJhalphL29WNnMzczBJN2VzOFFEVkdSTDFCNFhv?=
+ =?utf-8?B?VDhYejQ3L2hOdFNodVRnQnBDempGd3JDUGxwemVacVQ3OFdNcUEyeXlGWUp5?=
+ =?utf-8?B?TzNkOWlIRUlkQ29OUjBhaVVLL3FHd0FMRzExNnE5SFgyRnNNeWxiRG1hSWxW?=
+ =?utf-8?B?OG9HQ3EyYVUrcmNmWG02TWdNNWlSZnUyYjNhS2p3dHlOdGZxOUZ1allsc0Z0?=
+ =?utf-8?B?QXN4ZWNNbklURWhPZkpGa1BUdjcrcTFkSUY3WXhNNVB0dlZ3NmFNb3p0djNj?=
+ =?utf-8?B?ajNia3NHekJleE5xRjJqWjEwclI5NzBUaGRNMTlSOVp0UVZTbTF4dTA5b1Bp?=
+ =?utf-8?B?dnpZQUdpcnA1UmJNL0JpQmwyRkhDemwwWDE5TEdEV2g1NGgrZE5zZ0cwTyty?=
+ =?utf-8?B?QjNnemR0Wklka1dNMStkNHE5SHJ4bDhTb0E1eHdjSjl1eEZJelNPN2R6cjdp?=
+ =?utf-8?B?VmdDVlpSSXJmSnJFRndIQ0JMLzM5Uko0VzR1emhtWVB5UVFYZEY1QkEyb0sz?=
+ =?utf-8?B?R0hPR3RQVUhsRyt4UytsNFZXb0xyZkRyWVRlaXZWUXlXVTNZVDM1TDBoNkJM?=
+ =?utf-8?B?Umw1WkVDV09WUVk4c0p4dld4eUNUMkJ3aUFLMDlKd3ZKMWs1b3lNb3draFUy?=
+ =?utf-8?B?eldzdUtmSXNsc3dFZGJTNEFYS1F2cjJtMWVNbUJXMkdqdVhQZ0FyUnR2dWJs?=
+ =?utf-8?B?R3FzZ2xYRnNmWEtKUHRaeVpqeEhxL2RuTVhvNm1MU21pandWaUNaUld2TnU5?=
+ =?utf-8?Q?335ILeZoxoBC3uJFX6ebLuOUH?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a05c73e-1118-4e86-8c89-08dbbde0f7d7
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9710ea81-f34a-475f-2cc7-08dbbde00cfd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Sep 2023 15:56:59.1081 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: pn4YsOZvCseYSsUcqg4rTMFObSDg/KvoWWKIsfHxtHMnolNozjitEl4P4g+I0v9193WeTOQSFx0tRqEuTqv9Mg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7903
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2023 16:03:33.3976 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: z5uaODnWQmtRwA4FUYk/dZgiSc3yhvm0/bY+4xnhx/SSoyh2LDiKrY4S42ec4U/yiFuG3S246RaHdag8hdpCvQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8743
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,142 +127,122 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, "SHANMUGAM,
- SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "jim.cromie@gmail.com" <jim.cromie@gmail.com>, "Zhang,
- Bokun" <Bokun.Zhang@amd.com>, "Kuehling, 
- Felix" <Felix.Kuehling@amd.com>, "Zhao, Victor" <Victor.Zhao@amd.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Lazar,
- Lijo" <Lijo.Lazar@amd.com>, "Ma, Le" <Le.Ma@amd.com>,
- "mdaenzer@redhat.com" <mdaenzer@redhat.com>, "Limonciello,
- Mario" <Mario.Limonciello@amd.com>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "Zhang, Morris" <Shiwu.Zhang@amd.com>, "Zhu, James" <James.Zhu@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>
+Cc: Krunoslav Kovac <krunoslav.kovac@amd.com>,
+ Shashank Sharma <Shashank.Sharma@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, sungjoon.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
 
-> -----Original Message-----
-> From: Douglas Anderson <dianders@chromium.org>
-> Sent: Thursday, September 21, 2023 3:27 PM
-> To: dri-devel@lists.freedesktop.org; Maxime Ripard <mripard@kernel.org>
-> Cc: Douglas Anderson <dianders@chromium.org>; Zhang, Bokun
-> <Bokun.Zhang@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>;
-> Zhu, James <James.Zhu@amd.com>; Zhao, Victor <Victor.Zhao@amd.com>;
-> Pan, Xinhui <Xinhui.Pan@amd.com>; airlied@gmail.com; Deucher, Alexander
-> <Alexander.Deucher@amd.com>; amd-gfx@lists.freedesktop.org; Koenig,
-> Christian <Christian.Koenig@amd.com>; daniel@ffwll.ch; Kuehling, Felix
-> <Felix.Kuehling@amd.com>; jim.cromie@gmail.com; Ma, Le
-> <Le.Ma@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; linux-
-> kernel@vger.kernel.org; maarten.lankhorst@linux.intel.com; Limonciello,
-> Mario <Mario.Limonciello@amd.com>; mdaenzer@redhat.com; Zhang,
-> Morris <Shiwu.Zhang@amd.com>; SHANMUGAM, SRINIVASAN
-> <SRINIVASAN.SHANMUGAM@amd.com>; tzimmermann@suse.de
-> Subject: [RFT PATCH v2 07/12] drm/amdgpu: Call
-> drm_atomic_helper_shutdown() at shutdown time
->
-> Based on grepping through the source code this driver appears to be missi=
-ng a
-> call to drm_atomic_helper_shutdown() at system shutdown time. Among
-> other things, this means that if a panel is in use that it won't be clean=
-ly
-> powered off at system shutdown time.
->
-> The fact that we should call drm_atomic_helper_shutdown() in the case of =
-OS
-> shutdown/restart comes straight out of the kernel doc "driver instance
-> overview" in drm_drv.c.
->
-> Suggested-by: Maxime Ripard <mripard@kernel.org>
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+
+On 2023-09-13 12:43, Melissa Wen wrote:
+> Logging DCN3 MPC state was following DCN1 implementation that doesn't
+> consider new DCN3 MPC color blocks. Create new elements according to
+> DCN3 MPC color caps and a new DCN3-specific function for reading MPC
+> data.
+> 
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
 > ---
-> This commit is only compile-time tested.
->
-> ...and further, I'd say that this patch is more of a plea for help than a=
- patch I
-> think is actually right. I'm _fairly_ certain that drm/amdgpu needs this =
-call at
-> shutdown time but the logic is a bit hard for me to follow. I'd appreciat=
-e if
-> anyone who actually knows what this should look like could illuminate me,=
- or
-> perhaps even just post a patch themselves!
->
-> (no changes since v1)
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 ++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  2 ++
->  3 files changed, 13 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 8f2255b3a38a..cfcff0b37466 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1104,6 +1104,7 @@ static inline struct amdgpu_device
-> *amdgpu_ttm_adev(struct ttm_device *bdev)  int amdgpu_device_init(struct
-> amdgpu_device *adev,
->                      uint32_t flags);
->  void amdgpu_device_fini_hw(struct amdgpu_device *adev);
-> +void amdgpu_device_shutdown_hw(struct amdgpu_device *adev);
->  void amdgpu_device_fini_sw(struct amdgpu_device *adev);
->
->  int amdgpu_gpu_wait_for_idle(struct amdgpu_device *adev); diff --git
-> a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index a2cdde0ca0a7..fa5925c2092d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4247,6 +4247,16 @@ void amdgpu_device_fini_hw(struct
-> amdgpu_device *adev)
->
+>  .../gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c  | 55 ++++++++++++++++++-
+>  drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h   | 13 +++++
+>  2 files changed, 67 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
+> index d1500b223858..d164fbf89212 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
+> @@ -1382,8 +1382,61 @@ static void mpc3_set_mpc_mem_lp_mode(struct mpc *mpc)
+>  	}
 >  }
->
-> +void amdgpu_device_shutdown_hw(struct amdgpu_device *adev) {
+>  
+> +static void mpc3_read_mpcc_state(
+> +		struct mpc *mpc,
+> +		int mpcc_inst,
+> +		struct mpcc_state *s)
+> +{
+> +	struct dcn30_mpc *mpc30 = TO_DCN30_MPC(mpc);
+> +	uint32_t rmu_status = 0xf;
+> +
+> +	REG_GET(MPCC_OPP_ID[mpcc_inst], MPCC_OPP_ID, &s->opp_id);
+> +	REG_GET(MPCC_TOP_SEL[mpcc_inst], MPCC_TOP_SEL, &s->dpp_id);
+> +	REG_GET(MPCC_BOT_SEL[mpcc_inst], MPCC_BOT_SEL, &s->bot_mpcc_id);
+> +	REG_GET_4(MPCC_CONTROL[mpcc_inst], MPCC_MODE, &s->mode,
+> +			MPCC_ALPHA_BLND_MODE, &s->alpha_mode,
+> +			MPCC_ALPHA_MULTIPLIED_MODE, &s->pre_multiplied_alpha,
+> +			MPCC_BLND_ACTIVE_OVERLAP_ONLY, &s->overlap_only);
+> +	REG_GET_2(MPCC_STATUS[mpcc_inst], MPCC_IDLE, &s->idle,
+> +			MPCC_BUSY, &s->busy);
+> +
+> +	/* Color blocks state */
+> +	REG_GET(MPC_RMU_CONTROL, MPC_RMU0_MUX_STATUS, &rmu_status);
+> +	if (rmu_status == mpcc_inst) {
+> +		REG_GET(SHAPER_CONTROL[0],
+> +			MPC_RMU_SHAPER_LUT_MODE_CURRENT, &s->shaper_lut_mode);
+> +		REG_GET(RMU_3DLUT_MODE[0],
+> +			MPC_RMU_3DLUT_MODE_CURRENT,  &s->lut3d_mode);
+> +		REG_GET(RMU_3DLUT_READ_WRITE_CONTROL[0],
+> +			MPC_RMU_3DLUT_30BIT_EN, &s->lut3d_bit_depth);
+> +		REG_GET(RMU_3DLUT_MODE[0],
+> +			MPC_RMU_3DLUT_SIZE, &s->lut3d_size);
+> +	} else {
+> +		REG_GET(SHAPER_CONTROL[1],
+> +			MPC_RMU_SHAPER_LUT_MODE_CURRENT, &s->shaper_lut_mode);
+> +		REG_GET(RMU_3DLUT_MODE[1],
+> +			MPC_RMU_3DLUT_MODE_CURRENT,  &s->lut3d_mode);
+> +		REG_GET(RMU_3DLUT_READ_WRITE_CONTROL[1],
+> +			MPC_RMU_3DLUT_30BIT_EN, &s->lut3d_bit_depth);
+> +		REG_GET(RMU_3DLUT_MODE[1],
+> +			MPC_RMU_3DLUT_SIZE, &s->lut3d_size);
+> +	}
+> +         REG_GET_2(MPCC_OGAM_CONTROL[mpcc_inst],
+> +		   MPCC_OGAM_MODE_CURRENT, &s->rgam_mode,
+> +		   MPCC_OGAM_SELECT_CURRENT, &s->rgam_lut);
+> +	REG_GET(MPCC_GAMUT_REMAP_MODE[mpcc_inst],
+> +		MPCC_GAMUT_REMAP_MODE_CURRENT, &s->gamut_remap_mode);
+> +	if (s->gamut_remap_mode == 1) {
+> +		s->gamut_remap_c11_c12 = REG_READ(MPC_GAMUT_REMAP_C11_C12_A[mpcc_inst]);
+> +		s->gamut_remap_c33_c34 = REG_READ(MPC_GAMUT_REMAP_C33_C34_A[mpcc_inst]);
+> +	} else if (s->gamut_remap_mode == 2) {
+> +		s->gamut_remap_c11_c12 = REG_READ(MPC_GAMUT_REMAP_C11_C12_B[mpcc_inst]);
+> +		s->gamut_remap_c33_c34 = REG_READ(MPC_GAMUT_REMAP_C33_C34_B[mpcc_inst]);
 
-This needs a better name since its only for displays.  Also maybe move it i=
-nto amdgpu_display.c since it's really about turning off the displays.  Tha=
-t said is this really even needed?  The driver already calls its suspend fu=
-nctionality to turn off all of the hardware and put it into a quiescent sta=
-te before shutdown.  Basically shares the same code we use for suspend.
+Any reason we're getting (and printing) only the first and last
+coefficients? Is it to avoid printing lines that are too wide?
 
+Harry
 
-> +     if (adev->mode_info.mode_config_initialized) {
-> +             if (!drm_drv_uses_atomic_modeset(adev_to_drm(adev)))
-> +                     drm_helper_force_disable_all(adev_to_drm(adev));
-> +             else
-> +                     drm_atomic_helper_shutdown(adev_to_drm(adev));
-> +     }
+> +	}
 > +}
 > +
->  void amdgpu_device_fini_sw(struct amdgpu_device *adev)  {
->       int idx;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index e90f730eb715..3a7cbff111d1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2333,6 +2333,8 @@ amdgpu_pci_shutdown(struct pci_dev *pdev)
->       struct drm_device *dev =3D pci_get_drvdata(pdev);
->       struct amdgpu_device *adev =3D drm_to_adev(dev);
->
-> +     amdgpu_device_shutdown_hw(adev);
-
-I would move this after the ras_intr check below.
-
-Alex
-
-> +
->       if (amdgpu_ras_intr_triggered())
->               return;
->
-> --
-> 2.42.0.515.g380fc7ccd1-goog
+>  static const struct mpc_funcs dcn30_mpc_funcs = {
+> -	.read_mpcc_state = mpc1_read_mpcc_state,
+> +	.read_mpcc_state = mpc3_read_mpcc_state,
+>  	.insert_plane = mpc1_insert_plane,
+>  	.remove_mpcc = mpc1_remove_mpcc,
+>  	.mpc_init = mpc1_mpc_init,
+> diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
+> index 8d86159d9de0..e60b3503605b 100644
+> --- a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
+> +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
+> @@ -193,6 +193,19 @@ struct mpcc_state {
+>  	uint32_t overlap_only;
+>  	uint32_t idle;
+>  	uint32_t busy;
+> +	uint32_t shaper_lut_mode;
+> +	uint32_t lut3d_mode;
+> +	uint32_t lut3d_bit_depth;
+> +	uint32_t lut3d_size;
+> +	uint32_t rgam_mode;
+> +	uint32_t rgam_lut;
+> +	uint32_t gamut_remap_mode;
+> +	uint32_t gamut_remap_c11_c12;
+> +	uint32_t gamut_remap_c13_c14;
+> +	uint32_t gamut_remap_c21_c22;
+> +	uint32_t gamut_remap_c23_c24;
+> +	uint32_t gamut_remap_c31_c32;
+> +	uint32_t gamut_remap_c33_c34;
+>  };
+>  
+>  /**
 
