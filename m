@@ -4,119 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11891CE7A8C
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Sep 2023 06:35:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9198ECE7A89
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Sep 2023 06:45:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7696A10E1EC;
-	Mon, 25 Sep 2023 06:35:52 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2074.outbound.protection.outlook.com [40.107.92.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 170A410E0FC;
- Mon, 25 Sep 2023 06:35:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YUDUqNxxyBRa+MHxR6y/mCwl04o7nSP+xb/NF5wbMtEgSqcMi3lKTzB5CuYnH7bYvrM4RQy8lh+eDPLGlu6mPsOgF1FnFqFW42mopCThDd9QjMEPc5jQHZ+P3q+tZ1PsWd1XE2JW9ZbKAE0gndUVCDgq+18SLlJX6eJk493gAmWhP7cAlYPtWP88Ak+9gEQBi9wjUTc2LvAFSZE/TCGGbCiBq+ylEnCMir4cK7agcMNUAXuBDT1ygmfruhMkGIl0bjUyd9GlPH9fFEf/eEm7OVSOUCwtKdStP7ahCBF8Y/PCaVArcK0rbuoIPCTx+/k/Yk9Ql/8r7+ZBEOjPPcjWRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4gCRxrcAdFjNsy6RX6PqLCJtXDEmXoIXpTpedfVBZ4E=;
- b=M1gc8qJvtAvsRC5b+Dwn4bA8erFH7jLDOIQe143upbFv1M7OKbOXIHsNlOXXu2R9wghprft5z7s/UEXyWbFtBCqTyJqt/rB/0tFSZROvfepCYsB/JpQWHbQZUGxhVtKF9ZoRzR7Q62M9C7jBFPylDyK9OjRn2P+HgZEQi8/YbuMm63qDfsqVLOU1mYdC9S0WeQlT2SmGl7fqGXXSkmlb9YQBHNS6V12GAlEB2rKyQtTAfGpxHQ8UwpJZmCibCfBPCyUN8Z84LF3JHehi2E4Ab2j+rpInImLSANgJu2dCKh22aeq3ht85bZT731qKuYjbiAkFoSLV5YmaNtqcKE9nEA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4gCRxrcAdFjNsy6RX6PqLCJtXDEmXoIXpTpedfVBZ4E=;
- b=K+fcI92Qyrs3NRTLTAjqs5gNenkeZ7CRebfDOPxv+dBcdBq7vR1WfR69hV7gz2v6uACkmGzHO+CSMfpBCUzIXSIzITWrLVoIXsSMUK7dHujf+ifDXidnkJNWXd/eldjP98Rue5MnyvOBWuEVAQbDaU4lMsZ2kLQjpl0Ywsl8x+Y=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by PH0PR12MB5401.namprd12.prod.outlook.com (2603:10b6:510:d4::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.28; Mon, 25 Sep
- 2023 06:35:47 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::a7fa:4411:67a3:131d]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::a7fa:4411:67a3:131d%4]) with mapi id 15.20.6813.027; Mon, 25 Sep 2023
- 06:35:47 +0000
-Message-ID: <c3124377-a045-6458-fc10-f0096fa736e4@amd.com>
-Date: Mon, 25 Sep 2023 08:35:40 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24C2E10E203;
+	Mon, 25 Sep 2023 06:45:17 +0000 (UTC)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1299E10E1FE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Sep 2023 06:45:14 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2c12ae20a5cso90064771fa.2
+ for <amd-gfx@lists.freedesktop.org>; Sun, 24 Sep 2023 23:45:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1695624312; x=1696229112; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=+jhdUGiHQ1ao4PI7ygSZK70iMQgnuPd65EQR2K8bWc0=;
+ b=EvmVJWnIWrh1e+RY+6CNARJ6wlC/KO/O8KaQ8oQRdBIn6vflvwJEwWw16iRtQLH2h8
+ cn8I9QcZmqHvDQKRaK3/bktbFvbF2yfyWFUSyobDYoLgA4fwCiGdh4HuyOx/ezIXWJ+z
+ 2hsTyk53OaK3tJguFE24IhhKcxY80S45EaqLLGjoycx9vCfXAQc9KLWsX37w9DsGdNVa
+ P+n/FF5ita0+g+1LfuLoC/xZvDj7Kj2ytWE7zXn9pyJyuVe80BBuNRs80jlsXkfMK7Ib
+ EmjPqZGIUSpjDdjG4YcSRpHv0eZcM8pxUPt5YuPMJKMgNDD3YE9VeganXdLxm6i+SxRT
+ CoCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695624312; x=1696229112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=+jhdUGiHQ1ao4PI7ygSZK70iMQgnuPd65EQR2K8bWc0=;
+ b=OARBgGTj00gOhLi/SEN0wW1h8wrgOzcI8a3mhUsGe4o4K533iBxV3Wix+IS7rREZZS
+ TER9GJXljf9hW9ftiJg3VO8PaTXvDaquPhutqWQC5C1dnaW/9qQemkVoj5fpDwCHcRXz
+ ZVlOiymUGqJIqzNoe0TnvDMDjoEymJaw7kwSQN0K0XZUu+l/8AAp87f+6gVFFo1hY2B2
+ xSAU3iBEF4Wc6M4h+LOE19zO8RWHykDdLVRHNWAVbwjM5HHpZgynMPfkCdc5sxhxiJ1v
+ E2k1xI3oTxqW8o0LRFLNkCUMMiC3nKYfQk8BjUlQmVhF1eNSYeDkbgh7VHVe3JC9Tzhq
+ QsSQ==
+X-Gm-Message-State: AOJu0YylTWXQRWPgqI1PGZxUJ2VyF9OBnOsSE8RoLMR8fVSz6HHwjYIW
+ CsBruWc86Ig+yY1UM+AXp+DEO3ixEFWZLw==
+X-Google-Smtp-Source: AGHT+IFVYtsYZldrIZu53KiSqrDeWk2YoCKHIvKxSoYlR7Kl8vdjIYCi4tBadzuhAbxHAJZImDV9WA==
+X-Received: by 2002:a05:651c:103c:b0:2be:3ca8:bdc9 with SMTP id
+ w28-20020a05651c103c00b002be3ca8bdc9mr4382530ljm.49.1695624311812; 
+ Sun, 24 Sep 2023 23:45:11 -0700 (PDT)
+Received: from [192.168.178.25] ([134.19.20.2])
+ by smtp.gmail.com with ESMTPSA id
+ gq23-20020a170906e25700b009ad75d318ffsm5925969ejb.17.2023.09.24.23.45.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 24 Sep 2023 23:45:10 -0700 (PDT)
+Message-ID: <cd91b76c-6828-a863-37b7-6a3deaf28d82@gmail.com>
+Date: Mon, 25 Sep 2023 08:45:10 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.1
-Subject: Re: [PATCH] drm/amd: Fix the size of a buffer in
- amdgpu_vcn_idle_work_handler()
+Subject: Re: [PATCH] drm/amdgpu: move gfxhub.funcs->init to gmc sw_init
 Content-Language: en-US
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Alex Deucher <alexander.deucher@amd.com>, "Pan, Xinhui"
- <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Lijo Lazar <lijo.lazar@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>
-References: <d8a9cda0c4c391458ddd63d1be88f2a757f6a5d0.1695410820.git.christophe.jaillet@wanadoo.fr>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <d8a9cda0c4c391458ddd63d1be88f2a757f6a5d0.1695410820.git.christophe.jaillet@wanadoo.fr>
+To: Yifan Zhang <yifan1.zhang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230923111651.719593-1-yifan1.zhang@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20230923111651.719593-1-yifan1.zhang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0174.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b7::20) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|PH0PR12MB5401:EE_
-X-MS-Office365-Filtering-Correlation-Id: 155c0234-25c2-48a6-277e-08dbbd91a6c0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CuZ6XQr171wbeN6c8PudiphJECEvkXZTKBsGwFewZEZPnK/PDTfGbPNmjhZKhMHi3+scppXgRtSEgFO0QW7H11YGc7Cjgq2KIdd1arZRnQodMPtXNm52F92LEDlqBX6/fw8LLFepGBMXMwnWntseEDOgHaEoOx17q4tzRDYkAoUKP7hyCNO5SOQ4d3Ar0U8N/hL1r/jUw/MfCqvBVp6p7N4kPEGmxuJLr/bQuyQUXTKHHFyI8p9HzfpJR9cB6Y4kE8CGShPT7p8W7dmTYZiPjXzdI3H1D7QHLya/501/JaGC3v1OHeVF+2JMTpsYBzNEh4JHD+/kexjEV9qafzrOCbcLRr5/XLLuaTazUb1qVjRd3sBf/YlHkZgNBHfJoHnTG+5117FSrIPQKbYApmiOlPSZSsmFSbTh7M+iZvWm+r/WD0RMuOdicb8RG+r6axfn+uHP6y3u5/n9TOg4knOs06v4AS5JTcHOV7059RgLrS+p1faeFzk4TNDUy3XlOlHm9RjvvKixqV52vayMceuwWvqJTf9uxskxlWoR5fJjXUabG2MTVZtOBEKtQXpk88k4si7S3VYYUhjx3GpX94SZiSzrSEgm5U2wP4oN5BnvICIJoWi1VGKYUKtC0LLAk4aImy9SOrIwjZQD0IsOvONomg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(366004)(346002)(376002)(39860400002)(136003)(230922051799003)(451199024)(186009)(1800799009)(316002)(5660300002)(6636002)(4326008)(6666004)(31686004)(66556008)(6506007)(66476007)(6512007)(6486002)(41300700001)(8936002)(8676002)(2906002)(66946007)(110136005)(478600001)(31696002)(86362001)(83380400001)(2616005)(36756003)(38100700002)(26005)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OFFUUWFhSWFmV1hiUXlMQVhuRmNiT2c5QW8rMytySFZveDYzLzVvT29TQk5n?=
- =?utf-8?B?T2lrRE01WklJV2Qzb3BnamlXenhLRFVXM3owbjZHYzBzMVJ1SnZSQk1SMUFm?=
- =?utf-8?B?YzVxWHhTYTZMelJrRVo1UHQxRnR5N3VQL3VYU1paem1kbFdKNDlMQUtxTkJR?=
- =?utf-8?B?c0ZJb3htUDF2TTJ0cDBoU2twQm1Cek5rOTlqWlY2Sk1WZ2oxWUFLWDIxMWYw?=
- =?utf-8?B?VitYeTV3UDJ3bTl1Wjd5TU9sSDJtbll1dmFObElGM0tQa2U4cmRHbk5QSDQv?=
- =?utf-8?B?RGlaVm9zdFZFK0sveStLOEhySHVySkpBeHVYMGNQNWQzZ1dnWGxVYkU1Y0o4?=
- =?utf-8?B?bEJjd0RETnNVMThBTWR4WEhOR3RMQ0U0TFRoV3JIWmZzTlZ4eC9uMzV1VzZZ?=
- =?utf-8?B?cHVtSHhybFF5MzZ6dHN5dkRadEIzWmMxNWNpRVJmUWdSamg2S0xETE4xWmNk?=
- =?utf-8?B?dStaZHY5bVdWQmJDUkVJSklqeGp0TExIbU5BeFJhbU9qTlhObWVmbUVnV2sx?=
- =?utf-8?B?allQWVFjcmZXSmZpWDNLUUVGQkY2RllDeWNuckN2UzJOZlRSTTlsNHgvTi9i?=
- =?utf-8?B?SzVTbGd2RzJVMEtRcFVkRmFWbXo2K3lKVklwSGNxU1pxRGVQMkVXN2IzWnpR?=
- =?utf-8?B?UE4yRjNFZ1JjMEJEVDEva3I0K01jWEx1SVlYakZSaGVBVzNnWDJpVzFQTVNB?=
- =?utf-8?B?NHJpTFMxZ0dwRVFYYW9KczlaMWlKV2xmLzZKSzlWNTlzVit3cnhSZXNrRjRR?=
- =?utf-8?B?dW1oa1hzWXJkWmdwMjV3bWdNUHI5TDJjd1p1SXdpdk5uZ1U1LzZ6N0xMTmtU?=
- =?utf-8?B?M3JvZGppTU5DdXhqUVZ0NTFsMndTTERlUWhTcnBrUWtNY2Z5SW5JTEdLcTdS?=
- =?utf-8?B?ZkM2N2VLLzU1WmVwQjlEczhQdlNORlRTank0MWk4VFFJR3NyTHNZRkdPRjFx?=
- =?utf-8?B?V0VLT0RvT2NMbEhDcWdNbXdOS21CQVBjbzJtVGVBUTdhdnJVb2xkM005VzBR?=
- =?utf-8?B?VTl3LzF4M0k2eWpFV244cmFsZkdtL05LYVZpNlVmTEREeG82WkNVM2VDbEFN?=
- =?utf-8?B?N1FHTzQvMzVPa1o3dUkzcElSYXo3TncreVlmdmpOMkV4K0VRbEs4cG5mSmlh?=
- =?utf-8?B?SE02elordVVYSjBaL1BPMURCaTh1NkZqdHBSamFydExQVWhNNlVZdXV1ZndY?=
- =?utf-8?B?aEs3VmQ3UkNkekZPWWZUN3VCZkFqU3kweXNVdWhtSVNlSkxHSHFYQUhoSGhB?=
- =?utf-8?B?YnZVdkRKd1N5ZE5RMHVNYStTekk5UXRKT05sU09wTGhHQjBsYS91UXhlcGFq?=
- =?utf-8?B?ZTNoL085cE9weEw0dkp6MExNcnRWbzlnbERZT3FVeUptL29sZFN5eDVHT0oy?=
- =?utf-8?B?Y0t1ZjQrTU5pZU5DTUVmdUs1cTVJWnIxR3ZoN3llRjd0TTcvZ045MnUzSTNH?=
- =?utf-8?B?Ny9WaEhHTGpINVUzclVjWjk0VGRId0d4WGYyUnYyeTg1bmRLbzg0cnZIU0pO?=
- =?utf-8?B?RWVaRklvbnNtNi9DL05vRWNtZDdsZ2xzNkJXWVVneEcrWVZWR0g2K09vTVEr?=
- =?utf-8?B?OHZTa0c3ODZGMVV2bHJXei9mdkVNckZmdjRPUm9MZkVSYmFGRlRFNi9TbUlj?=
- =?utf-8?B?d3QwclpNZDEzNVRBeUMrb0J6K1RnejNIZXdMeWw3WnhndGtRNGZuOUJJT3Rn?=
- =?utf-8?B?eXdVeW1FK3VZR2cya3Y5YW9HN1UwRm9QZ09ZeVNzNnlKYnVwbFpGbWxxUVk1?=
- =?utf-8?B?elJZajU5U2JjK3p1bzN0bXBSQXcxVTlETTZmSXdXK2FEOE05SXYrWlFJVElQ?=
- =?utf-8?B?Yk9ud1N6UDRWOXhWZzRJYTNHMUpVemdSaDZ0K2NEMmp4ZFZ6NmxVNERqa3lX?=
- =?utf-8?B?Y1g5Tm1pSHpOUHU4QUdCQXlmRTk1SDFCRWszcENVWWdZRkZlUDZyR3Y0Y0dT?=
- =?utf-8?B?WVl4NEdScmNzUE5QRkhRb0FhajdXMTdVeTFtVXcwVHZyYUJCR3FxalJxUmdF?=
- =?utf-8?B?OEJKSHRtcURIR1pRUzVlMzdKc0l5VVArNk5jRUpQZWFlMlcrSndCZGFUckxr?=
- =?utf-8?B?bXZucDgxVTRwRXZ4MzV2ZEoycWJaMktrMVp3UGwxeFVlOXdYMUk1dE5SN3B2?=
- =?utf-8?Q?Po8Dk1EeLkzAInp6AtrzIX5Od?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 155c0234-25c2-48a6-277e-08dbbd91a6c0
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2023 06:35:46.9524 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qYJXWPV5lozs0ZD/Z5o2Qv24AY9Xsi7Aj1DDhvyRn9kGMj2ZSqf3GPXB0FQA5hnU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5401
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,57 +75,124 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 22.09.23 um 21:27 schrieb Christophe JAILLET:
-> In order to be sure that fw_name is not truncated, this buffer should be
-> at least 41 bytes long.
+Am 23.09.23 um 13:16 schrieb Yifan Zhang:
+> gmc11 hw_init depends on adev->gfxhub.funcs->init now, move
+> it to gmc11 sw_init. This patch fixes below driver load error on
+> GC 11.0.4:
 >
-> Let the compiler compute the correct length by itself.
+> [   43.928149] [drm] amdgpu: 512M of VRAM memory ready
+> [   43.928151] [drm] amdgpu: 7641M of GTT memory ready.
+> [   43.928168] [drm] GART: num cpu pages 131072, num gpu pages 131072
+> [   43.928182] BUG: kernel NULL pointer dereference, address: 0000000000000008
+> [   43.928185] #PF: supervisor read access in kernel mode
+> [   43.928187] #PF: error_code(0x0000) - not-present page
+> [   43.928188] PGD 0 P4D 0
+> [   43.928191] Oops: 0000 [#1] PREEMPT SMP NOPTI
+> [   43.928193] CPU: 7 PID: 1278 Comm: modprobe Tainted: G           OE      6.3.7+ #73
+> [   43.928198] RIP: 0010:gmc_v11_0_flush_gpu_tlb+0x59/0x4d0 [amdgpu]
+> [   43.928406] Code: 8b 4d d4 48 89 4d c8 83 f9 0d 0f 87 7c 04 00 00 48 8b 45 c8 44 89 ee 44 89 e7 48 8d 04 80 48 c1 e0 04 49 8b 84 07 90 eb 00 00 <48> 8b 40 08 ff d0 0f 1f 00 44 8b 45 d4 41 89 c5 45 85 c0 0f 85 c0
+> [   43.928409] RSP: 0018:ffffae24c28277f0 EFLAGS: 00010256
+> [   43.928411] RAX: 0000000000000000 RBX: ffff95bf0ed80000 RCX: 0000000000000000
+> [   43.928413] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+> [   43.928414] RBP: ffffae24c2827848 R08: 0003000000000077 R09: 0000000000000401
+> [   43.928416] R10: 0000000000001000 R11: 0000000000001000 R12: 0000000000000000
+> [   43.928417] R13: 0000000000000000 R14: 0000000000000000 R15: ffff95bf0ed80000
+> [   43.928418] FS:  00007f2703c83000(0000) GS:ffff95c26e7c0000(0000) knlGS:0000000000000000
+> [   43.928421] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [   43.928422] CR2: 0000000000000008 CR3: 000000012c300000 CR4: 0000000000750ee0
+> [   43.928424] PKRU: 55555554
+> [   43.928425] Call Trace:
+> [   43.928426]  <TASK>
+> [   43.928428]  ? show_regs+0x6e/0x80
+> [   43.928434]  ? __die+0x29/0x70
+> [   43.928436]  ? page_fault_oops+0x154/0x4a0
+> [   43.928440]  ? amdgpu_bo_move+0x25b/0x790 [amdgpu]
+> [   43.928612]  ? do_user_addr_fault+0x325/0x710
+> [   43.928615]  ? exc_page_fault+0x7a/0x180
+> [   43.928619]  ? asm_exc_page_fault+0x2b/0x30
+> [   43.928623]  ? gmc_v11_0_flush_gpu_tlb+0x59/0x4d0 [amdgpu]
+> [   43.928797]  ? amdgpu_gart_bind+0x64/0xc0 [amdgpu]
+> [   43.928974]  amdgpu_gmc_flush_gpu_tlb+0x258/0x2e0 [amdgpu]
+> [   43.929159]  amdgpu_gart_invalidate_tlb+0x66/0xa0 [amdgpu]
+> [   43.929332]  amdgpu_gtt_mgr_recover+0x67/0x80 [amdgpu]
+> [   43.929504]  gmc_v11_0_hw_init+0x4c/0x130 [amdgpu]
+> [   43.929690]  amdgpu_device_init+0x1766/0x2d60 [amdgpu]
+> [   43.929858]  ? pci_bus_read_config_word+0x4b/0x80
+> [   43.929862]  ? do_pci_enable_device+0xdb/0x110
+> [   43.929866]  amdgpu_driver_load_kms+0x1e/0x1a0 [amdgpu]
+> [   43.930032]  amdgpu_pci_probe+0x16b/0x4e0 [amdgpu]
+> [   43.930201]  local_pci_probe+0x4c/0xb0
+> [   43.930204]  pci_device_probe+0xcc/0x280
+> [   43.930207]  really_probe+0x1c4/0x430
+> [   43.930210]  __driver_probe_device+0x8a/0x180
+> [   43.930212]  driver_probe_device+0x23/0xc0
+> [   43.930214]  __driver_attach+0xfb/0x200
+> [   43.930215]  ? __pfx___driver_attach+0x10/0x10
+> [   43.930217]  bus_for_each_dev+0x7e/0xd0
+> [   43.930221]  driver_attach+0x22/0x30
+> [   43.930222]  bus_add_driver+0x120/0x230
+> [   43.930224]  driver_register+0x68/0x130
+> [   43.930226]  ? __pfx_init_module+0x10/0x10 [amdgpu]
+> [   43.930394]  __pci_register_driver+0x6c/0x80
+> [   43.930396]  amdgpu_init+0x67/0xff0 [amdgpu]
+> [   43.930549]  do_one_initcall+0x4a/0x240
+> [   43.930554]  ? kmalloc_trace+0x2e/0xa0
+> [   43.930559]  do_init_module+0x52/0x230
+> [   43.930563]  load_module+0x2386/0x2880
+> [   43.930566]  ? security_kernel_post_read_file+0x60/0x70
+> [   43.930571]  __do_sys_finit_module+0xc8/0x140
+> [   43.930573]  ? __do_sys_finit_module+0xc8/0x140
+> [   43.930576]  __x64_sys_finit_module+0x1c/0x30
+> [   43.930578]  do_syscall_64+0x5d/0x90
+> [   43.930581]  ? syscall_exit_to_user_mode+0x2a/0x50
+> [   43.930583]  ? __x64_sys_mmap+0x37/0x50
+> [   43.930586]  ? do_syscall_64+0x6d/0x90
+> [   43.930588]  entry_SYSCALL_64_after_hwframe+0x72/0xdc
 >
-> When building with W=1, this fixes the following warnings:
->
->    drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c: In function ‘amdgpu_vcn_early_init’:
->    drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:95:58: error: ‘snprintf’ output may be truncated before the last format character [-Werror=format-truncation=]
->       95 |         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", ucode_prefix);
->          |                                                          ^
->    drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:95:9: note: ‘snprintf’ output between 12 and 41 bytes into a destination of size 40
->       95 |         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", ucode_prefix);
->          |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->
-> Fixes: 69939009bde7 ("drm/amd: Load VCN microcode during early_init")
-> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> index c93f3a4c0e31..f8cd55a0d1f0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -88,7 +88,7 @@ static void amdgpu_vcn_idle_work_handler(struct work_struct *work);
->   int amdgpu_vcn_early_init(struct amdgpu_device *adev)
->   {
->   	char ucode_prefix[30];
-> -	char fw_name[40];
-> +	char fw_name[sizeof(ucode_prefix) + sizeof("amdgpu/.bin") - 1];
+> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+> Fixes: c6f52f1ffd91 (drm/amdgpu: cleanup gmc_v11_0_flush_gpu_tlb)
 
-When that string constant is used multiple times it should probably be a 
-constant.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-But I think this patch is superfluous to begin with because the 
-ucode_prefix is never fully used.
+Any idea why that was that in the gfx init in the first place? For all 
+other generations and the mmhub it's in the GMC init.
 
-What we should probably rather to is to define some 
-AMDGPU_MAX_UCODE_LENGTH and use that instead.
-
-Regards,
+Thanks,
 Christian.
 
->   	int r;
+> ---
+>   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 2 --
+>   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 2 ++
+>   2 files changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> index 42fc0cc13fdd..9c4562bda8cd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -1329,8 +1329,6 @@ static int gfx_v11_0_sw_init(void *handle)
+>   	struct amdgpu_kiq *kiq;
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 >   
->   	amdgpu_ucode_ip_version_decode(adev, UVD_HWIP, ucode_prefix, sizeof(ucode_prefix));
+> -	adev->gfxhub.funcs->init(adev);
+> -
+>   	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+>   	case IP_VERSION(11, 0, 0):
+>   	case IP_VERSION(11, 0, 2):
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> index 7d61f66625fa..d0e3583a3cac 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> @@ -720,6 +720,8 @@ static int gmc_v11_0_sw_init(void *handle)
+>   
+>   	adev->mmhub.funcs->init(adev);
+>   
+> +	adev->gfxhub.funcs->init(adev);
+> +
+>   	spin_lock_init(&adev->gmc.invalidate_lock);
+>   
+>   	r = amdgpu_atomfirmware_get_vram_info(adev,
 
