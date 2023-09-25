@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDDF5CE79A2
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Sep 2023 19:50:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69A04CD54BE
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Sep 2023 19:50:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F1F610E306;
-	Mon, 25 Sep 2023 19:50:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0D9B10E304;
+	Mon, 25 Sep 2023 19:50:49 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3CC010E2FE;
- Mon, 25 Sep 2023 19:50:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40DE610E304;
+ Mon, 25 Sep 2023 19:50:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,26 +19,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=tEJ4jfSofEU8a3q1SlfZyiARqjfTm0IsDkUGppoL2Ms=; b=sfsDNiRe0tR1KrdXZ4PBLJF0ip
- JkaB43qi7Jndfut+UYtpdhb0Fp7/q8dNTlSANSJwkFekzpc/YMwzMNToFquHXaccWcSlhsoeUOt+n
- 9WjYhx+wf16Le9ItIAeh2c3o+OgtKEtzvawdTJTMv3t5LBGj+fobw2aKpM0hyyJNGZjk1d3TUdFoT
- O4whx1agTTR+axcFvGeDrfisDR5LY7U/fPBHk2SCLYKI0Oy415FQL3wxXYBNfptVoz2DHAESXpJBM
- PzH880vnu71GZnvjpKSubakpkWqScIUNKeeHQYJiu39aUDPrPaT8R8yi6koaAcYLvKcYDPqZ3EPi4
- foW31HAQ==;
+ bh=CP1mEJs8jbYVCzuOEDU4JlHqX9sbzfsTCAPvK8QXEU4=; b=XwlmUJCwEiJeMJ/IZYPpaeusmI
+ VJqqggzjxtvh2aIG+vZAs5/Rf9MeGxHPqPmKyG3CNwb+w+LgDV/7fCLSQzXExTG19CYzG9b9i9ECo
+ 4/uyeyu7AqschtdOoDzUdzMWN0qQIRzL0IRVX1/Z5t3AdirjIRkuJxd5xq4G9Qt6Pj7HMEN9XIbu3
+ t7DaQIgzIC8RkqfGUAeTZfUtCF766LAwG/eGkjf5dpFSu32KXgPoiNGs7uRcW5GD6bsisp5ePoJ0Y
+ x7oiMtsTGZQHGCl0MYPsr90CV1ZZ/zncAqiWLME+3oiTDNsL7wGtNg415w37JR7yq8BXBjSw5kZGO
+ W673M1Mg==;
 Received: from [102.213.205.115] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qkrbM-008GsG-S9; Mon, 25 Sep 2023 21:50:41 +0200
+ id 1qkrbR-008GsG-82; Mon, 25 Sep 2023 21:50:45 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch
-Subject: [PATCH v3 29/32] drm/amd/display: copy 3D LUT settings from crtc
- state to stream_update
-Date: Mon, 25 Sep 2023 18:49:29 -0100
-Message-Id: <20230925194932.1329483-30-mwen@igalia.com>
+Subject: [PATCH v3 31/32] drm/amd/display: add plane CTM support
+Date: Mon, 25 Sep 2023 18:49:31 -0100
+Message-Id: <20230925194932.1329483-32-mwen@igalia.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230925194932.1329483-1-mwen@igalia.com>
 References: <20230925194932.1329483-1-mwen@igalia.com>
@@ -64,34 +63,73 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Joshua Ashton <joshua@froggi.es>
+Map the plane CTM driver-specific property to DC plane, instead of DC
+stream. The remaining steps to program DPP block are already implemented
+on DC shared-code.
 
-When commiting planes, we copy color mgmt resources to the stream state.
-Do the same for shaper and 3D LUTs.
+v3:
+- fix comment about plane and CRTC CTMs priorities (Harry)
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Joshua Ashton <joshua@froggi.es>
-Co-developed-by: Melissa Wen <mwen@igalia.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  1 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 25 +++++++++++++++++++
+ 2 files changed, 26 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index f4049ec7991d..581afa7c5f8c 100644
+index 581afa7c5f8c..e4edd97982a6 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8399,6 +8399,10 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 				&acrtc_state->stream->csc_color_matrix;
- 			bundle->stream_update.out_transfer_func =
- 				acrtc_state->stream->out_transfer_func;
-+			bundle->stream_update.lut3d_func =
-+				(struct dc_3dlut *) acrtc_state->stream->lut3d_func;
-+			bundle->stream_update.func_shaper =
-+				(struct dc_transfer_func *) acrtc_state->stream->func_shaper;
- 		}
+@@ -9714,6 +9714,7 @@ static bool should_reset_plane(struct drm_atomic_state *state,
+ 		if (dm_old_other_state->degamma_tf != dm_new_other_state->degamma_tf ||
+ 		    dm_old_other_state->degamma_lut != dm_new_other_state->degamma_lut ||
+ 		    dm_old_other_state->hdr_mult != dm_new_other_state->hdr_mult ||
++		    dm_old_other_state->ctm != dm_new_other_state->ctm ||
+ 		    dm_old_other_state->shaper_lut != dm_new_other_state->shaper_lut ||
+ 		    dm_old_other_state->shaper_tf != dm_new_other_state->shaper_tf ||
+ 		    dm_old_other_state->lut3d != dm_new_other_state->lut3d ||
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index 26338f565574..944dccd483de 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -1153,6 +1153,8 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+ 				      struct dc_plane_state *dc_plane_state)
+ {
+ 	struct amdgpu_device *adev = drm_to_adev(crtc->base.state->dev);
++	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane_state);
++	struct drm_color_ctm *ctm = NULL;
+ 	struct dc_color_caps *color_caps = NULL;
+ 	bool has_crtc_cm_degamma;
+ 	int ret;
+@@ -1204,5 +1206,28 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+ 			return ret;
+ 	}
  
- 		acrtc_state->stream->abm_level = acrtc_state->abm_level;
++	/* Setup CRTC CTM. */
++	if (dm_plane_state->ctm) {
++		ctm = (struct drm_color_ctm *)dm_plane_state->ctm->data;
++		/* DCN2 and older don't support both pre-blending and
++		 * post-blending gamut remap. For this HW family, if we have
++		 * the plane and CRTC CTMs simultaneously, CRTC CTM takes
++		 * priority, and we discard plane CTM, as implemented in
++		 * dcn10_program_gamut_remap(). However, DCN3+ has DPP
++		 * (pre-blending) and MPC (post-blending) `gamut remap` blocks;
++		 * therefore, we can program plane and CRTC CTMs together by
++		 * mapping CRTC CTM to MPC and keeping plane CTM setup at DPP,
++		 * as it's done by dcn30_program_gamut_remap().
++		 */
++		__drm_ctm_to_dc_matrix(ctm, dc_plane_state->gamut_remap_matrix.matrix);
++
++		dc_plane_state->gamut_remap_matrix.enable_remap = true;
++		dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
++	} else {
++		/* Bypass CTM. */
++		dc_plane_state->gamut_remap_matrix.enable_remap = false;
++		dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
++	}
++
+ 	return amdgpu_dm_plane_set_color_properties(plane_state, dc_plane_state);
+ }
 -- 
 2.40.1
 
