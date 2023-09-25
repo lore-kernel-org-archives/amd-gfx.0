@@ -4,58 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9D3ECE79A1
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Sep 2023 21:36:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBED1CE79A7
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Sep 2023 21:43:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B9F110E08C;
-	Mon, 25 Sep 2023 21:35:59 +0000 (UTC)
-Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
- [IPv6:2001:4860:4864:20::36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8329410E08C
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Sep 2023 21:35:56 +0000 (UTC)
-Received: by mail-oa1-x36.google.com with SMTP id
- 586e51a60fabf-1dcfb21f9d9so2314702fac.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Sep 2023 14:35:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1695677755; x=1696282555; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=psoiBMj3GlJdtmLzqT3TPkRR2EbmCfwuvjP9ypDy26s=;
- b=dj5o0tX7NFk00XL8JdgSghhr1vu5lSBaS+i8SsMK3wIG+iFtRqVy48nc0a/4Cg27gK
- gGPffCqChJHDrtVs7AMryGZyEHbHREidbdPyRTgvTtatWqtWjNcGeBCnA6XuPHBp+ivD
- UgJHTvQsz85fwJLfc5ywIEMievmy5bIJGU9CsXSzyp1SVExvpuvk+jtcbrZ6TLCo11eO
- J8DaxbXq/MHIdJChxTE3/HmG7XLxf+lzfu+485pNkcWMkTMS6KKeiFJfBkJtOT19mv14
- 7Odplhx7ODVRTyMprB5jtjZgqUYYu6vxs/H+hcmmE8CCkRHUmNKuT5lXrZdNzu76hjsJ
- YrdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695677755; x=1696282555;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=psoiBMj3GlJdtmLzqT3TPkRR2EbmCfwuvjP9ypDy26s=;
- b=U8o3Bfba7ZCZ/luNcRpcdV63EZ7Yp5lWcsvSIcT20Fe1DOjTq3IjxQ4RRyeQwoX3Fv
- GL8F0qrYz+rmuNvMGiIjeM6oygQDJEZ5PkZ9k4aFqgUp6Rv9CfSmRsCzD/8VEZWMJq+k
- lqwfY0cZcPBrPJjwhAT143U+MzgtRQXDgyISOtGVSZUwqGYMBvozxYxTX7v1kfV8nY2b
- 9i73phojtcVfyUdVBgz7NIYeytOG7eBDIn8+rsGEsvLicAiJjE4pvKpxpiNvoiivWv7l
- qLAcEAACBCa/HrLXuYwkve82w06/XFGkyKqpSUPN/IMWknaHPEio9c1o1wEzQol7gHVm
- 8WQw==
-X-Gm-Message-State: AOJu0YxCMU5SXRtxYz0rpYTO8sXluYdC/aokf3DMcQ8MXmsBHyCG2lAH
- PxGclDSjKikK5l/INU+S+Mxtk61T2/XpiQ27ooE=
-X-Google-Smtp-Source: AGHT+IHcD+rD56ZRBzyzbDhIetxRxT0xv8TKcw3/eaIABbqgiExg+R8jLOm7EX4JKM3hgGGmj8nXKBjf/MUE7sYAZEE=
-X-Received: by 2002:a05:6870:8452:b0:1d6:564d:cfbd with SMTP id
- n18-20020a056870845200b001d6564dcfbdmr10363113oak.14.1695677755587; Mon, 25
- Sep 2023 14:35:55 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21A9510E32C;
+	Mon, 25 Sep 2023 21:43:00 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B17710E32C;
+ Mon, 25 Sep 2023 21:42:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1695678178; x=1727214178;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=snNq+RshksgPyasRZ5b0PQsm78eS6KzqCuWRL3ih9JA=;
+ b=iVEEgzT5i0uUD4AVyjJh8sYWZaqYFlevFJa/CsJA3okXVJsHNjyNYypw
+ T7/LqLL2cOOq/1EZDserSOf0wevOHrjQ8sYkUb79i32t7kRWD5l0V83wz
+ TreZbjieN+ULHgZFmlRah6o8BgY7EVRPVxBHj0sDMtbbnDzaphQn7paOZ
+ yvg1jkUCaHIocHVIDV5YYnqfyR6YxI/aLZQLus8ncA6hvoo8S+w86O+zs
+ Uc/eEREa0PpH6J4dSCrftzUB/zy9f9IkcXb9uyv6h/jpe78AD1Z5iVSOQ
+ gg6veQiUgr1i4IniVobuKdXMK3ghhnYqFRHsRmI5wAbaVoVwGVdPnry5E Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="380273461"
+X-IronPort-AV: E=Sophos;i="6.03,176,1694761200"; d="scan'208";a="380273461"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2023 14:42:57 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="838725559"
+X-IronPort-AV: E=Sophos;i="6.03,176,1694761200"; d="scan'208";a="838725559"
+Received: from lkp-server02.sh.intel.com (HELO 32c80313467c) ([10.239.97.151])
+ by FMSMGA003.fm.intel.com with ESMTP; 25 Sep 2023 14:42:53 -0700
+Received: from kbuild by 32c80313467c with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qktLv-00022n-1Q;
+ Mon, 25 Sep 2023 21:42:51 +0000
+Date: Tue, 26 Sep 2023 05:42:19 +0800
+From: kernel test robot <lkp@intel.com>
+To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, hdegoede@redhat.com,
+ markgross@kernel.org, basavaraj.natikar@amd.com, jikos@kernel.org,
+ benjamin.tissoires@redhat.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch
+Subject: Re: [PATCH 08/15] platform/x86/amd/pmf: Add support to update system
+ state
+Message-ID: <202309260515.5XbR6N0g-lkp@intel.com>
+References: <20230922175056.244940-9-Shyam-sundar.S-k@amd.com>
 MIME-Version: 1.0
-References: <20230925195207.124850-1-mario.limonciello@amd.com>
-In-Reply-To: <20230925195207.124850-1-mario.limonciello@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 25 Sep 2023 17:35:44 -0400
-Message-ID: <CADnq5_Mk1DYYqgiPPvschG3Z4WTWebn9G6+n48kFhAWR0KOY2Q@mail.gmail.com>
-Subject: Re: [PATCH 0/8] Some cleanups related to missing microcode
-To: Mario Limonciello <mario.limonciello@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230922175056.244940-9-Shyam-sundar.S-k@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,42 +63,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, linux-input@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Patil.Reddy@amd.com,
+ oe-kbuild-all@lists.linux.dev, mario.limonciello@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 25, 2023 at 4:41=E2=80=AFPM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> I recently found a noisier experience than I expected with missing
-> microcode.  As a result I found that some microcode wasn't being loaded
-> in early_init and some messages were unnecessary.
+Hi Shyam,
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+kernel test robot noticed the following build warnings:
 
->
-> Mario Limonciello (8):
->   drm/amd: Drop error message about failing to load DMUB firmware
->   drm/amd: Drop error message about failing to load SDMA firmware
->   drm/amd: Move microcode init from sw_init to early_init for SDMA v5.0
->   drm/amd: Move microcode init from sw_init to early_init for SDMA v6.0
->   drm/amd: Move microcode init from sw_init to early_init for SDMA v5.2
->   drm/amd: Move microcode init from sw_init to early_init for SDMA v3.0
->   drm/amd: Move microcode init from sw_init to early_init for SDMA v2.4
->   drm/amd: Move microcode init from sw_init to early_init for CIK SDMA
->
->  drivers/gpu/drm/amd/amdgpu/cik_sdma.c             | 11 +++++------
->  drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c            | 11 +++++------
->  drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c            | 11 +++++------
->  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c            |  4 +---
->  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c          |  4 +---
->  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c            | 11 +++++------
->  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c            | 11 +++++------
->  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c            | 11 +++++------
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 --
->  9 files changed, 32 insertions(+), 44 deletions(-)
->
-> --
-> 2.34.1
->
+[auto build test WARNING on hid/for-next]
+[also build test WARNING on linus/master v6.6-rc3 next-20230925]
+[cannot apply to drm-misc/drm-misc-next]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Shyam-Sundar-S-K/platform-x86-amd-pmf-Add-PMF-TEE-interface/20230923-015418
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git for-next
+patch link:    https://lore.kernel.org/r/20230922175056.244940-9-Shyam-sundar.S-k%40amd.com
+patch subject: [PATCH 08/15] platform/x86/amd/pmf: Add support to update system state
+reproduce: (https://download.01.org/0day-ci/archive/20230926/202309260515.5XbR6N0g-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202309260515.5XbR6N0g-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> Documentation/admin-guide/pmf.rst:16: WARNING: Unexpected indentation.
+>> Documentation/admin-guide/pmf.rst: WARNING: document isn't included in any toctree
+
+vim +16 Documentation/admin-guide/pmf.rst
+
+    13	
+    14	Please add the following line(s) to
+    15	``/etc/udev/rules.d/99-local.rules``::
+  > 16	        DRIVERS=="amd-pmf", ACTION=="change", ENV{EVENT_ID}=="1", RUN+="/usr/bin/systemctl suspend"
+    17	        DRIVERS=="amd-pmf", ACTION=="change", ENV{EVENT_ID}=="2", RUN+="/usr/bin/systemctl hibernate"
+    18	        DRIVERS=="amd-pmf", ACTION=="change", ENV{EVENT_ID}=="3", RUN+="/bin/loginctl lock-sessions"
+    19	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
