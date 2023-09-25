@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36BFCCE79A1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDDF5CE79A2
 	for <amd-gfx@archiver.kernel.org>; Mon, 25 Sep 2023 19:50:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95B4810E305;
-	Mon, 25 Sep 2023 19:50:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F1F610E306;
+	Mon, 25 Sep 2023 19:50:48 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85D5C10E301;
- Mon, 25 Sep 2023 19:50:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3CC010E2FE;
+ Mon, 25 Sep 2023 19:50:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,25 +19,26 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=uUY7UY3tgJOUDXzvxzSVyx1DT+NSWJ6q/Vk2w6EG5oM=; b=ZeXBig6lkqIUxOkVp3CZItYFGr
- JsLWS7/DRsdL6sTRLPyiRhmxu5r17rjLVBsVxyXtqVVOSEOTDFSLjmjBEE8lb2i97dTS+uwZHKHQn
- Vin57BZ83n7ix263yNEaXcMpGEAI15MIuiWREhzvZwXkiPYnH7YcO1ao8LNszsMGnSSrfLxfq8CIP
- PDcdFjN5YlH+4ZH2HqhQfGbyyU7FLo2kw+lpDorWmvSFIvSXjvy46IHHzpuMj89frSQbCQaDKDQEb
- XEDe8MgmOOq/GqFTpDu2YzcuAn1fewgtlMfOKV0rDmpCLkUrpbVyuU1xKN22TsHRR6yfcFPWBCiRV
- puC8tMnw==;
+ bh=tEJ4jfSofEU8a3q1SlfZyiARqjfTm0IsDkUGppoL2Ms=; b=sfsDNiRe0tR1KrdXZ4PBLJF0ip
+ JkaB43qi7Jndfut+UYtpdhb0Fp7/q8dNTlSANSJwkFekzpc/YMwzMNToFquHXaccWcSlhsoeUOt+n
+ 9WjYhx+wf16Le9ItIAeh2c3o+OgtKEtzvawdTJTMv3t5LBGj+fobw2aKpM0hyyJNGZjk1d3TUdFoT
+ O4whx1agTTR+axcFvGeDrfisDR5LY7U/fPBHk2SCLYKI0Oy415FQL3wxXYBNfptVoz2DHAESXpJBM
+ PzH880vnu71GZnvjpKSubakpkWqScIUNKeeHQYJiu39aUDPrPaT8R8yi6koaAcYLvKcYDPqZ3EPi4
+ foW31HAQ==;
 Received: from [102.213.205.115] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qkrb7-008GsG-Go; Mon, 25 Sep 2023 21:50:25 +0200
+ id 1qkrbM-008GsG-S9; Mon, 25 Sep 2023 21:50:41 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch
-Subject: [PATCH v3 22/32] drm/amd/display: add HDR multiplier support
-Date: Mon, 25 Sep 2023 18:49:22 -0100
-Message-Id: <20230925194932.1329483-23-mwen@igalia.com>
+Subject: [PATCH v3 29/32] drm/amd/display: copy 3D LUT settings from crtc
+ state to stream_update
+Date: Mon, 25 Sep 2023 18:49:29 -0100
+Message-Id: <20230925194932.1329483-30-mwen@igalia.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230925194932.1329483-1-mwen@igalia.com>
 References: <20230925194932.1329483-1-mwen@igalia.com>
@@ -65,50 +66,32 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Joshua Ashton <joshua@froggi.es>
 
-With `dc_fixpt_from_s3132()` translation, we can just use it to set
-hdr_mult.
+When commiting planes, we copy color mgmt resources to the stream state.
+Do the same for shaper and 3D LUTs.
 
 Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Joshua Ashton <joshua@froggi.es>
+Co-developed-by: Melissa Wen <mwen@igalia.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c       | 1 +
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 3 +++
- 2 files changed, 4 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 341cde61bf0b..455b690d6185 100644
+index f4049ec7991d..581afa7c5f8c 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8184,6 +8184,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 			bundle->surface_updates[planes_count].gamma = dc_plane->gamma_correction;
- 			bundle->surface_updates[planes_count].in_transfer_func = dc_plane->in_transfer_func;
- 			bundle->surface_updates[planes_count].gamut_remap_matrix = &dc_plane->gamut_remap_matrix;
-+			bundle->surface_updates[planes_count].hdr_mult = dc_plane->hdr_mult;
+@@ -8399,6 +8399,10 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 				&acrtc_state->stream->csc_color_matrix;
+ 			bundle->stream_update.out_transfer_func =
+ 				acrtc_state->stream->out_transfer_func;
++			bundle->stream_update.lut3d_func =
++				(struct dc_3dlut *) acrtc_state->stream->lut3d_func;
++			bundle->stream_update.func_shaper =
++				(struct dc_transfer_func *) acrtc_state->stream->func_shaper;
  		}
  
- 		amdgpu_dm_plane_fill_dc_scaling_info(dm->adev, new_plane_state,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index c0b3ccd85a9f..577a9dc669a5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -898,6 +898,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
- 				      struct drm_plane_state *plane_state,
- 				      struct dc_plane_state *dc_plane_state)
- {
-+	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane_state);
- 	bool has_crtc_cm_degamma;
- 	int ret;
- 
-@@ -908,6 +909,8 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
- 	/* After, we start to update values according to color props */
- 	has_crtc_cm_degamma = (crtc->cm_has_degamma || crtc->cm_is_degamma_srgb);
- 
-+	dc_plane_state->hdr_mult = dc_fixpt_from_s3132(dm_plane_state->hdr_mult);
-+
- 	ret = __set_dm_plane_degamma(plane_state, dc_plane_state);
- 	if (ret == -ENOMEM)
- 		return ret;
+ 		acrtc_state->stream->abm_level = acrtc_state->abm_level;
 -- 
 2.40.1
 
