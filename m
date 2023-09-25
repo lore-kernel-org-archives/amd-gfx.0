@@ -4,56 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5097CE7A81
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Sep 2023 14:24:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2836CE7A81
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Sep 2023 14:32:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3623E10E264;
-	Mon, 25 Sep 2023 14:24:35 +0000 (UTC)
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [IPv6:2607:f8b0:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D327D10E264
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Sep 2023 14:24:32 +0000 (UTC)
-Received: by mail-ot1-x32f.google.com with SMTP id
- 46e09a7af769-6bf2427b947so3240277a34.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Sep 2023 07:24:32 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B84310E256;
+	Mon, 25 Sep 2023 14:32:47 +0000 (UTC)
+Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
+ [IPv6:2001:4860:4864:20::2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADA4710E256
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Sep 2023 14:32:44 +0000 (UTC)
+Received: by mail-oa1-x2d.google.com with SMTP id
+ 586e51a60fabf-1dcf357deedso2132871fac.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Sep 2023 07:32:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1695651872; x=1696256672; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1695652364; x=1696257164; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4VoebIdzAQqabF1FkK3+kTXtIMJCsUe8LphF77eg6ro=;
- b=milUn0KuOerhYzhNVy+PuSbOGDCl3qCU9tHZhLSgee21Q/2xxtlqwzskzx/fsotiUr
- Qd83Eokkwe0MbRFOeQF/HpaI6O3sPcr8pFx8uyTFTlOoOjZ2Y5o6qV/YE3xlQyuSZJOF
- g1eBkmlHv+C4CBLJQ06ylZpg2ryVmDSGPNToXxZp/9y91tL5yZB4nbKbGf0e0CdocYf8
- ObFJRLbfMZ8IfKg+hrnKf7dfRUcj/WcqBGegaELyTs6nhQecv7S1S9+rswkajWoDG7/n
- RSP1xemu23cv5D1Jcg5/j18PNoE8vbsBqCxf+RqGx5qH+1F8UC/UMubqKFPGAXU3OUIK
- LWQg==
+ bh=b/3HqQ4ox7Fb9siS8AepHIy6hECl4OQ2to8wUI2aLzQ=;
+ b=mxBSzimfBjrh0n/eIOox44ViaQHY6I+zKt41aFjiBbAP/rthh5Dy9+CQ8Nl6O8Lyym
+ K8WFsS7Kn1M+vXeX7X9/wRN7OLQjpLDkh1DoaiWdzyr9S6d9vm8W6N2aOLWfijYTnn7A
+ dVgvi0T0aHS8TXL4Ss0xy2NFOLXDKGxSpc6rGgCB/OTT7NDi3HIMh5elO1qZG6hNYjy3
+ zyTPhWyFskdgdpFJGO084x2y5wfNN2v1RhPdBhIZifQSyhFD0rsjErYHDMJTawtCttyb
+ /qcaHOLwFt4h6GhQZBYc1ixvMvOaeEc70yOaRAP6qk9Tg03sVmIktclEuRPx6SyiFNX/
+ 7Kog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695651872; x=1696256672;
+ d=1e100.net; s=20230601; t=1695652364; x=1696257164;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=4VoebIdzAQqabF1FkK3+kTXtIMJCsUe8LphF77eg6ro=;
- b=d9DyOjdy9iwtCekIPfrpDmUfPEFwmz9C/AJ6Oy91EehPAzLVMjAPGa/X678GDNoFca
- Hba7Yjq23/Je2pE4EvmGg3PxK1AfIFYnVRVux+1T6xheFOnRjs1FLYH0q46a3gSlhjRa
- KOWaCsj4y7MJptdVmT5pYDjAGWj5bHTRWg28xu5MEy5sa613x/1WNdMV1Pwmd/6LxfEO
- bwiDhJEvDTZaxc2UbrPO/C8dVbHF73X9HJfnSZHkz0NFE4EcDh/XFsL8ljayBOSXlT0o
- 6r79xAdWpQbY+B3GYzkBkdqzhj5zwxy6EhZWQ3jMfD3xaIyDERkGXec4teB/vGR3+dXU
- jcFA==
-X-Gm-Message-State: AOJu0YwehpkJIyl9O1aaMGNT1ypghNisyRkkqOB9xv6aJWRKnvUbXcqO
- dXXzX9BUfJBPULq6jyFmbV1l0EjYXh71rxzeU/72PDEq
-X-Google-Smtp-Source: AGHT+IFIx7m5rqwbU2hHJV/hW7QdIbw/eRS63835Be1xvDB63nbjcrjeUA/hySd9yex7C+fGTzaMuujtiJPyHW8BQds=
-X-Received: by 2002:a05:6870:63ac:b0:1d0:dbdd:2792 with SMTP id
- t44-20020a05687063ac00b001d0dbdd2792mr6912102oap.39.1695651871940; Mon, 25
- Sep 2023 07:24:31 -0700 (PDT)
+ bh=b/3HqQ4ox7Fb9siS8AepHIy6hECl4OQ2to8wUI2aLzQ=;
+ b=WdMxPJsBYjbIkC5f9yXIlt3zi6zrjPQzqwZWvVxCu36eP/VJ6XfMcEdur9wjpVD/NE
+ Hrn1DDr+17aUfzoB3F3l2zPbV7ePwsRCdwhqSiXSX69gTsh6eXNmU/PYfClEoeonVtLJ
+ ZWO0lCCmxcteLkXpEdi7WtTtTQkpwzh43XKVT/tpRzD0oB2PUMRLUT7fEDt0FbyT7iPh
+ sGk5AbuISjedU3dMmg0zjJ/NwnjfRhQ8iVsyUUAvseEE+xqtL/eABzUlfPXwLh/WDNl3
+ PTPcetttZ9dCi5YBuLiMeIvSeWhiWNvVNWk3Tzc7LT8ia7QKGuHg2P2dSvFrR7jtqXvj
+ qSgw==
+X-Gm-Message-State: AOJu0YwPu3GIlUziLRqnTDMeAgXF8aMB239+41ISdqrnSK/lfihBKU1M
+ e3LY/nIlEQCBe/2RG+HnrQBMH/BU8E4B2cKDTyDZqa0M
+X-Google-Smtp-Source: AGHT+IFgIlLK8ERG5HVXUXbjRNuy0otlgmwsY0ktqUwnYbb75FkqH2IUbx3ZGMBTGI4BUxSqhLRQoJDAc/PkgYa6xxA=
+X-Received: by 2002:a05:6870:f689:b0:1d5:b9e1:d35e with SMTP id
+ el9-20020a056870f68900b001d5b9e1d35emr9438900oab.41.1695652363939; Mon, 25
+ Sep 2023 07:32:43 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230922213419.51846-1-luben.tuikov@amd.com>
-In-Reply-To: <20230922213419.51846-1-luben.tuikov@amd.com>
+References: <20230922201243.104935-1-mario.limonciello@amd.com>
+In-Reply-To: <20230922201243.104935-1-mario.limonciello@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 25 Sep 2023 10:24:20 -0400
-Message-ID: <CADnq5_NapXB0PH84EszWBfGfWJxXYU4hV3j8fHpHwbaMxKeJEQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix a memory leak
-To: Luben Tuikov <luben.tuikov@amd.com>
+Date: Mon, 25 Sep 2023 10:32:32 -0400
+Message-ID: <CADnq5_NLSz0Ur2NFMadGSx2im3PCUrO577e52ahAs8M+YN8C-A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: Propagate failures in dc_set_power_state()
+To: Mario Limonciello <mario.limonciello@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -67,45 +67,126 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <Alexander.Deucher@amd.com>,
- Yang Wang <kevinyang.wang@amd.com>,
- AMD Graphics <amd-gfx@lists.freedesktop.org>
+Cc: Harry.Wentland@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 22, 2023 at 5:51=E2=80=AFPM Luben Tuikov <luben.tuikov@amd.com>=
- wrote:
+On Fri, Sep 22, 2023 at 4:51=E2=80=AFPM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
 >
-> Fix a memory leak in amdgpu_fru_get_product_info().
+> During the suspend process dc_set_power_state() will use kzalloc
+> to allocate memory, but this potentially fails with memory pressure.
+> If it fails, the suspend should be aborted.
 >
-> Cc: Alex Deucher <Alexander.Deucher@amd.com>
-> Reported-by: Yang Wang <kevinyang.wang@amd.com>
-> Fixes: 0dbf2c56262532 ("drm/amdgpu: Interpret IPMI data for product infor=
-mation (v2)")
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2362
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c | 1 +
->  1 file changed, 1 insertion(+)
+> Cc: Harry.Wentland@amd.com
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 13 ++++++++-----
+>  drivers/gpu/drm/amd/display/dc/core/dc.c          |  8 +++++---
+>  drivers/gpu/drm/amd/display/dc/dc.h               |  2 +-
+>  3 files changed, 14 insertions(+), 9 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-> index 9c66d98af6d86a..7cd0dfaeee206c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-> @@ -170,6 +170,7 @@ int amdgpu_fru_get_product_info(struct amdgpu_device =
-*adev)
->                 csum +=3D pia[size - 1];
->         if (csum) {
->                 DRM_ERROR("Bad Product Info Area checksum: 0x%02x", csum)=
-;
-> +               kfree(pia);
->                 return -EIO;
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 373884ca38b9..2acb555343ae 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -2670,9 +2670,7 @@ static int dm_suspend(void *handle)
+>
+>         hpd_rx_irq_work_suspend(dm);
+>
+> -       dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D3);
+> -
+> -       return 0;
+> +       return dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D3);
+>  }
+>
+>  struct amdgpu_dm_connector *
+> @@ -2865,7 +2863,10 @@ static int dm_resume(void *handle)
+>                 if (r)
+>                         DRM_ERROR("DMUB interface failed to initialize: s=
+tatus=3D%d\n", r);
+>
+> -               dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D0);
+> +               r =3D dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D=
+0);
+> +               if (r)
+> +                       return r;
+> +
+>                 dc_resume(dm->dc);
+>
+>                 amdgpu_dm_irq_resume_early(adev);
+> @@ -2914,7 +2915,9 @@ static int dm_resume(void *handle)
 >         }
 >
+>         /* power on hardware */
+> -       dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D0);
+> +       r =3D dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D0);
+> +       if (r)
+> +               return r;
 >
-> base-commit: 14d13f757d369c9873ebbe34d02d0896f5de565e
+>         /* program HPD filter */
+>         dc_resume(dm->dc);
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/a=
+md/display/dc/core/dc.c
+> index 293489c41086..a1593d550526 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> @@ -4711,7 +4711,7 @@ void dc_power_down_on_boot(struct dc *dc)
+>                 dc->hwss.power_down_on_boot(dc);
+>  }
+>
+> -void dc_set_power_state(
+> +int dc_set_power_state(
+>         struct dc *dc,
+>         enum dc_acpi_cm_power_state power_state)
+>  {
+> @@ -4719,7 +4719,7 @@ void dc_set_power_state(
+>         struct display_mode_lib *dml;
+>
+>         if (!dc->current_state)
+> -               return;
+> +               return 0;
+>
+>         switch (power_state) {
+>         case DC_ACPI_CM_POWER_STATE_D0:
+> @@ -4746,7 +4746,7 @@ void dc_set_power_state(
+>
+>                 ASSERT(dml);
+>                 if (!dml)
+> -                       return;
+> +                       return -ENOMEM;
+>
+>                 /* Preserve refcount */
+>                 refcount =3D dc->current_state->refcount;
+> @@ -4764,6 +4764,8 @@ void dc_set_power_state(
+>
+>                 break;
+>         }
+> +
+> +       return 0;
+>  }
+>
+>  void dc_resume(struct dc *dc)
+> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/di=
+splay/dc/dc.h
+> index faf897ac75d8..82013ebcba91 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dc.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
+> @@ -2329,7 +2329,7 @@ void dc_notify_vsync_int_state(struct dc *dc, struc=
+t dc_stream_state *stream, bo
+>
+>  /* Power Interfaces */
+>
+> -void dc_set_power_state(
+> +int dc_set_power_state(
+>                 struct dc *dc,
+>                 enum dc_acpi_cm_power_state power_state);
+>  void dc_resume(struct dc *dc);
 > --
-> 2.42.0
+> 2.34.1
 >
