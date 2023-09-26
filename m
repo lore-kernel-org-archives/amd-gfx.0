@@ -4,116 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F773E7E622
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 11:16:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9EB8E7E621
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 11:17:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E89810E3AC;
-	Tue, 26 Sep 2023 11:16:40 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2048.outbound.protection.outlook.com [40.107.94.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B25A110E3AC
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Sep 2023 11:16:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EA4510E3A4;
+	Tue, 26 Sep 2023 11:17:55 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2067.outbound.protection.outlook.com [40.107.244.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73A8510E3A4;
+ Tue, 26 Sep 2023 11:17:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NPJNY6rJ29KCud4wsoC9IQfRJ/1KnGNiKg/g3avi+EhDbbJpwnd8PYS2Qj2vJ42ebVk+zvJyQ1zHrlb7kHN8bVfNfe/pzaq7D4PjscArAq6fwoNwV4nODDUiQOPi+4RPH/WqGXSoT/HWEy+CJDYXNthXGeq12BTa7poP6jMX0ZFwAzZEtQcdLeiTX+hoQFeeFftgJGyWbPea2JrhtgTtIdG2t3U+Otn4GqhJhET0g11OI4HnBzyluFQVXxVxXG6dJLUbwQ6jU1j7JPQbYxzcfz0EfVIEpxtSQrffG0f11aq2lUKJZkFw2iVT2HBm8VUDX0yN1A5vHUSOyJFBWyVDbA==
+ b=lToCdLhGU352SkkM7Ne2Uzi5KmG1I3iyRbSj2q+YzDkJDInnC8WPf4FnOHNiHB1TjIk0vEpWhBFyKd2UQPtvRibuyEclife0pbaNI2ckIQBAilFuMxw6bCgXFZOEv9iReHcz5q13bJFQVMqnCRc0XcG/YWCELjtc/g30SaShB7fcHNTFRW25QhGf+oi8PSx8J/YaXz5ndtSezucytkq0MwoAZ9ex20uv8z7JLl2gKSaAhErEI/2XOeV8dPMsJw0qkFV+Jpda226mJ1pQCQCppEB6FoknqsRY2/gX9+gda3z5G4P8tUc7aLOZlpawFgyQjUFAItZpdQx/Rq2ZxajazA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s9oxaedEVRQYLLt9Df/OzMYY8BhE+bZuZRgIdOnVJFc=;
- b=kFqNXxRgN0fIz21AiPaYFodlpZjmTmA3OFyocMYMXtM4XMbOg8BMvnauNR82gv66HrTixUdDei4xrtbULcQU2SMMD3hzJpyH6XzBh4sKfuGYlJoopTJJuLSUYxRcBy72fws/zbI7NBduRyt3upbcUsdRLkFcly8QCPdBLZMie9K+pUIFLGU8Wm0mEZLEQMKUMcvCLAY5Lt3AGOlrG90BYlPqSyppC/oi6tiEQBxHu9FC2GQBiuuY7Y91OZleon59cWGOVhuHFUAZQEYEVFZKXug2LFwemPXCkKxjwjS9VJsoXctM/4qZRYVnYWmtszmdNqzcQk5ntGf+hoedRchi7A==
+ bh=Pz1saDJ58T11s72CH71rGmrESlEO8IdaIoaToKpdj2M=;
+ b=Vki6Q/s+b+LDTGiN1TLvy2Os/74zkh2gal/V5QTXb7LFBk9e/3P1upQ+A7bV6d+6OvhnoZdna7x7hravhBqD5Er+ychqMMcVzq8nCQOp8EW3zszK+do1ydISvxdNBPdgLWZNFXW5ZJOqgssp9mK3DmWx4fspNbL2a8dApOkIBHAu/yjQz5QYmeVQfvfGsWq6sjc5SaY83A6s7rCjnB+O6N/MsxuneOX2b6Bp0Cs7A57bU+6MVuSzChrPKJqk8sCOYqeOXYOT4vuW7oi/nARDh6W6tTN5TFyisApkmew/YTbPdLGI/3pXfNh5owZlAFFza62WyGGeQWo8iFyIv6hXOg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s9oxaedEVRQYLLt9Df/OzMYY8BhE+bZuZRgIdOnVJFc=;
- b=h2mbgPNLhHJBQZYeVA4DNE/mhL5CcqoWPFws/Rk2pyPjGC4PlSM0jSzFfR4ZlSW2hgg2j6ywuv1uXh3nE0hS3JeA8YMk5iA+jp4XEwmrD8s1pfDpb28RdmfxBVtEUmOpGo//vZ03dP9HUYYER9WLfkn/RxQ4uvDLRo60ck/6hGM=
+ bh=Pz1saDJ58T11s72CH71rGmrESlEO8IdaIoaToKpdj2M=;
+ b=Dy752RgshHRhzbAINQQQTPiDply76hfGFH9RTNkDBI3QnG5AWIAP95EbIEyXM1nXcm9W0JgxQkx3ot4mgYaxCfsIFBtQG4oNRGDfY622gBFvP0uqWPKgRV/AFU47oeRYFxCnWfQM61YiFVyhsaZAoc9VJSl5gHI6wWEYUTj8mG8=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
- by SJ0PR12MB7036.namprd12.prod.outlook.com (2603:10b6:a03:483::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.32; Tue, 26 Sep
- 2023 11:16:37 +0000
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::d8f7:4906:d21e:f0ab]) by BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::d8f7:4906:d21e:f0ab%7]) with mapi id 15.20.6813.027; Tue, 26 Sep 2023
- 11:16:37 +0000
-Message-ID: <b09015c1-71ec-5d43-abfa-1a4bc70ab38e@amd.com>
-Date: Tue, 26 Sep 2023 16:46:25 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.1
-Subject: Re: [PATCH 1/1] drm/amd/pm: fix the print_clk_levels issue for SMU
- v13.0.6
+Received: from BL1PR12MB5176.namprd12.prod.outlook.com (2603:10b6:208:311::19)
+ by CY8PR12MB8364.namprd12.prod.outlook.com (2603:10b6:930:7f::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.21; Tue, 26 Sep
+ 2023 11:17:50 +0000
+Received: from BL1PR12MB5176.namprd12.prod.outlook.com
+ ([fe80::19d3:7b27:a6fc:95c5]) by BL1PR12MB5176.namprd12.prod.outlook.com
+ ([fe80::19d3:7b27:a6fc:95c5%4]) with mapi id 15.20.6813.027; Tue, 26 Sep 2023
+ 11:17:50 +0000
+Message-ID: <42b28960-1c9f-4865-afbe-93e1e23825a3@amd.com>
+Date: Tue, 26 Sep 2023 16:47:45 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 13/15] platform/x86/amd/pmf: Add PMF-AMDGPU set interface
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-To: Le Ma <le.ma@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230926110249.5071-1-le.ma@amd.com>
- <4483780b-cb29-5d74-b973-daf45976d124@amd.com>
-In-Reply-To: <4483780b-cb29-5d74-b973-daf45976d124@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "hdegoede@redhat.com" <hdegoede@redhat.com>,
+ "markgross@kernel.org" <markgross@kernel.org>,
+ "Natikar, Basavaraj" <Basavaraj.Natikar@amd.com>,
+ "jikos@kernel.org" <jikos@kernel.org>,
+ "benjamin.tissoires@redhat.com" <benjamin.tissoires@redhat.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, "airlied@gmail.com" <airlied@gmail.com>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>
+References: <20230922175056.244940-1-Shyam-sundar.S-k@amd.com>
+ <20230922175056.244940-14-Shyam-sundar.S-k@amd.com>
+ <BL1PR12MB51442D18C314B1E34B77DE2BF7FCA@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <0ad32609-d47b-4114-8c51-09e96d7737f2@amd.com>
+From: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+In-Reply-To: <0ad32609-d47b-4114-8c51-09e96d7737f2@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN3PR01CA0131.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:bf::18) To BYAPR12MB4614.namprd12.prod.outlook.com
- (2603:10b6:a03:a6::22)
+X-ClientProxiedBy: PN3PR01CA0161.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:c8::17) To BL1PR12MB5176.namprd12.prod.outlook.com
+ (2603:10b6:208:311::19)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR12MB4614:EE_|SJ0PR12MB7036:EE_
-X-MS-Office365-Filtering-Correlation-Id: 80406e72-8fd1-47dc-0e75-08dbbe820c5d
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5176:EE_|CY8PR12MB8364:EE_
+X-MS-Office365-Filtering-Correlation-Id: a3f13515-fb89-4415-4c93-08dbbe82383c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sk8PdlYa/4fc3ckkaZaxb9SrQLnCzJMp6zqNI6iCesXbI3xp/e/ZoKf1nMneoY+yrULF1u1Amqpvn4sDEjGD/CfzfBKPMKgisjd6PGJ7/Jg0dRqagU7mbonpWEieWfY2ewnjHBKJuDC/LbuebCyyKC9WPHh5GQo94YqLlGpcOixv2IQJWZxZBSv5jg2EnZkO6X5wHlZ1AqSCqm8L5+8yOHcgNQKZDvchl3TyMl7iU/9Q98wEng0T4KHmfFrDkCUfzja3SEuknmQcM788/SRy7B4DHaX/uB2mfYmWL7z87Rj7S3ChaJmukdnJHv8HUHZwjwrcEvI9ZrbP4C7aWI3eZ9bocXDcOEvpeccklOCBH8qb9dDCvGd69uhP6WgN6WhO2n0HbzkgGOBi54wO/VJ3HDQq4B02k98i6RdL0hV2usZxp074F6UFaHZQ0t5d+SnA9S+dPr4WVR1fyWQj0MJYs00sJ8fLaW7lUn/IwEi22RXgWXnONnd5XApe1IqR8e95QC6lJVmR0auZInbM/1LCCntw4zlJkG4b5mBnbqa0C0OySJtMyORc7I66s5dBOAs/Rwugx22t4+bgyHwWt/yfrvN9/rnPRPpcsgM0cdbavvdHKCUCQuT8ysblSlpXbYjKa+djH1lcF7j3BBgJARIsyQ==
+X-Microsoft-Antispam-Message-Info: ABT5Y5FWs5xuYuqyA1UkZGnn+Q7iNYB5EM/BIAR2JzuvISE9/tJCzwwr3s64/Z+/+OR951xjCPUW7OBJi+tbYbaAyjT1X5/0mWbwzjibrTBJI1RBCNIyBQiTmrhbeHj1EIT1WHiSShIKu6Ra6K2OFzuvBNfk3gPhq/qy5ObF3OBLR0fLTmz7qyOltAlrrnkTUr7msLvlcNt2Qj8cBCWlo6sY7WgkdxCJ5xNo3U9H3ega9pP7/KA51aUauBrHBwQkMALD2uTOo3STDHwwWbPTz8yqUva82yF9kzZP/D5u11GIzakvH1EvbpQ0oRW44Ah4vQh0fltjVvXuz9p/jHefAobfE0jBOvmpaJcMkd+1eB725VDtj6lGeLHXlODnKNVJoabgT9gaD4Vth5I2KpDb3UaJOjD5Y5l5kvMlYrCPyihjrrRRKvv10Wgop5bjBec/qz/6i8vlXp/WZp0cxQGDR1cqWtqXy282J0UXLRjTAEIo/goN20J8VrOlk5ie39h3gr67yfHclCxuVNGfofP+tKoWQcE6Lvu8h3YhIUNq0SfpWpBtgz+PU6xKrrpx5JZZRle2GN4+RaqGKeEuh/OjQvxf+ygTaRmdo21+/GAH5lJqSC5lNDLnsO1LfIZIkPCa8sEAEkCD/Js1LFs2s3pD+itMcUnJMTL/IUFISun1jxA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(136003)(396003)(376002)(366004)(346002)(230922051799003)(186009)(1800799009)(451199024)(86362001)(31696002)(2906002)(31686004)(4326008)(8676002)(8936002)(5660300002)(41300700001)(38100700002)(478600001)(6666004)(83380400001)(26005)(6486002)(6506007)(316002)(36756003)(66476007)(66556008)(66946007)(53546011)(2616005)(6512007)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5176.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(136003)(346002)(366004)(376002)(396003)(230922051799003)(451199024)(1800799009)(186009)(31686004)(6666004)(53546011)(6506007)(6486002)(478600001)(38100700002)(921005)(86362001)(31696002)(2906002)(7416002)(41300700001)(83380400001)(6512007)(2616005)(26005)(36756003)(54906003)(66556008)(66476007)(110136005)(5660300002)(316002)(66946007)(8676002)(4326008)(8936002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z09acG5EYVpzM1dRTUZFUXVzZUdROTBwSTRENUhBYTk5K2xNL3l1N3JuQzNW?=
- =?utf-8?B?bG9CYWVGQjUxRGZ0ZGxqTE9lbkpIN2w4U1lsT09xR09Nek1jYVhibDVlR2hG?=
- =?utf-8?B?Y0JFV3hhVjFGRXlRYVlyZE9mSUJqTzNQY29KWEovZklubmVyaVdXNkg4T1Zi?=
- =?utf-8?B?Z1RlRGFjamk1QU9ZcjZnb3dSRi9MZTRuTVJlSkw2R05ucVdtLzNnWXVKSTBx?=
- =?utf-8?B?bzRmZHRwQi8yQnRGY0V5SkJrWktMU3FnbWtDM2NkcmlwR1hlb0Zjd0ZnR2xC?=
- =?utf-8?B?Nk9uSEtBRU03emlJVTNHUkMzcEpqYmxnNjlqbCs2aHNPMGVaZEJkVzJya1h0?=
- =?utf-8?B?U2x0dU1aU2NXWVFOdWdEcXc0UXplemFzS3RiT1JWZTNvK0JhZkVjU1NTREZm?=
- =?utf-8?B?RjRwdUJOZE9KUjNLWFlxbjNDZEtlNXBoZGxOQ2ErcmhoTEtmM0JZdkFxRGlt?=
- =?utf-8?B?RE54VmQ4MkFQc0FUR2lBSjhwVXRMdHE1MjBHU09qcjhSWVhjRFB0Q0tmS2NI?=
- =?utf-8?B?S0hhWExud0UvNzVKdmhFdkdrMXhseUFHMTBDNXgrOU9IRENhcE5wSmJhVmdS?=
- =?utf-8?B?eU9YbHZvSjRlNU03QlpyZnNXa3NTdVlSc2NpdmFIUXlyTHhWMU1QazdxK1FR?=
- =?utf-8?B?YzhOZk91YVNRb3JoZlAzMGpBZVp6VUJSamxnaWJDaklxZTB3UXNSWkJjbW9K?=
- =?utf-8?B?QmE2UndHNGhzOGdnU24wZXdIdWlEaGo3S2FkMGZRN3psaEJWd2dLNm9id3Fw?=
- =?utf-8?B?b0JtUnhwSFZpYlo3N3RIWlhPQzJjTTFyQXdXSUI2VmwxQkxIUVNxSUtxSTNL?=
- =?utf-8?B?aW1XcFVRemVadkN6cm1xWjFUUU9wZlZBcXJSN0xZeU5zVjFNaHBnVmJrMDAw?=
- =?utf-8?B?ZWRUTjJqS09CcmlOODZvdjZONEM3bVp0N21BL1ZFYkl6KzNtcERYeVpsZVJu?=
- =?utf-8?B?cG05STAvS0tCWDR5aHdkdFJGMEVHUk9xMlloQWphbEFVSldoNG51bGhJYW9O?=
- =?utf-8?B?QzVrTTBKUHRiYit1T3JoVjF4d2dmT2VRL1NtY09xK2thcUhFbzNnWlRwVkov?=
- =?utf-8?B?SWVJK0JlZDcvYUlsTzY5MzRQdjVxeFlGMlBmQmViMmdoYldUYkpqbzhkRUpK?=
- =?utf-8?B?MFZ0MDJqaXVTNmxjWktpNEU0R0dCSDNxdnJmWlI2bVd0MkJzNGx4ei9URU55?=
- =?utf-8?B?d1V1eCt3YnFneVBYQUNTZ3p2WWJQM0VHbHpFWkFHeWhQOW9JQ2UrTzZlSGpR?=
- =?utf-8?B?QXFZbmh0UXo1dFJsZUdjZTZxZVdNQXRyaUV3UzJIYWVPVUs2ZUQyRFBNbXJJ?=
- =?utf-8?B?T1RuS1VFSmVvZ0F5dzZjcWR1N0JSSlZTODBnS0FXcjVacE1Md0syS2hUWGFP?=
- =?utf-8?B?Tm9yaXl2S0NaZ3FXWlhnT2s2YW56Q3RhTWkwWEwrYnV0NkIwa05pNUp6YkRn?=
- =?utf-8?B?OG5OSHhIOExDbFJZNWFWWGtDYzNvUG9SSGFnZEYxbnVSeG1mZUlOMXRRNkFx?=
- =?utf-8?B?NDhmV2U0ZHhaM2RuL0h4MmF1dXRQVzFLTFJKZ1dHK2lKWndncnVnUHplck96?=
- =?utf-8?B?WFQ0ZjRNWnZXNjZISU42RjZLZWluN0ZHUGhaaGpDSU9wMXp2cEVQQWNhaU80?=
- =?utf-8?B?aWl4ZEpwRnRlV0NaZE40ZnlKZDM2Q1JneVFZdHhnemZsTlNOaHVEUG1YOGRT?=
- =?utf-8?B?VTJjSHVGaHp5Z0Zhd0RBa2RKbUI2ZVFiZnJiQSsxdGhoQW9YVjdoaFdhYXpB?=
- =?utf-8?B?MkxzUm8xZnhZNzA2OFBucEFBbHhBYWMxQiswWXpvcWZiK0tlOWk3VVJUODEz?=
- =?utf-8?B?aDdyN3VuZzhZeUpETkxtbmJjcm41VFNPeHZtZWJsRzVFcG8wYzQ2Y1gyeWF5?=
- =?utf-8?B?V1BaTmlwYkFRaTZFc1hIMjVkTUlvWGJ0MndrZ1pYZGZxaW5TV0pqaWt6TWpI?=
- =?utf-8?B?cW9tclVjcS96N2E5eDA3UUpIY0FTTTJFS3pxS0hzaWdya3dXSy94M2ZrYmR1?=
- =?utf-8?B?K1FETzY3TGN2K1hwQi9BdDlELzlUbmlzR3NxTHB0aXk3SE9aVEVKQ2JZS1pB?=
- =?utf-8?B?VlFuUG1MZ2s3NUc4dmw2NC9vTmZoeXlCQlI2VGtxd2t5cUpRMXdEcXlZS2p2?=
- =?utf-8?Q?m+oQ80+WVYnOEYsHgbjueuZno?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Qk0zVzRSZzlyd0RUZGJvV1FGem8xblFiWmMydFA4dFgrYmZIT1ltbGhsazNF?=
+ =?utf-8?B?NjIzbk9oSUF6dW1CWlNJUWtWeXlJZCtXcUR2UmxzQUozR0J6S1cxVFk5eEZQ?=
+ =?utf-8?B?a0YzeURpU2t3ZW5wWGs3V0tyY0U3ZW5tQkpFQ0wzMXBHWXRQTHUyQkdHY3Uy?=
+ =?utf-8?B?aEZiQlp3amRGSFhGN0F2MUJaT3NGN3BQMlJTbjVOaG5hRzhLUVpNakZKbk10?=
+ =?utf-8?B?MUl1WkZwa3FZTWlVS1ZvZnJvcS81L3FyRmhhNDNBWlJKOHFWM1h5VnBwQ3Zq?=
+ =?utf-8?B?VWNud2FqUFF3TWpiTHl2K0M3NGdxRFVlRXVOUy9hY01tRFcrczNoT0hsaXdJ?=
+ =?utf-8?B?Q3ZGaGxBME04S2xQRWt4eWh0MzVYMnhGY3ZnRzZjbzFWazMxMU9IM2lCWnh2?=
+ =?utf-8?B?QVNMZUFidnJOUkoyOWdleHlScnBqbTU0SFo0b1NJUGJoR2grMmZURlFtbExp?=
+ =?utf-8?B?a2lHcXVNRlg1S3N6NVNxTmxpUGhCRGsvcCswTEZGWE50UHJsUXh1elNhMW9G?=
+ =?utf-8?B?SWphQWYxc29aMFpob0Z6RVBVOW92aldDQWRocWxpb1NGazQrUEpiYldsUEMv?=
+ =?utf-8?B?VUNMa09QSFV3NVJqeU96NS9SaGFiVUZ4aUwxcVQyVjMwaHVjcUt0d3hnTGk0?=
+ =?utf-8?B?Y3JxN2FRb0pDVlBYUWVwK0lnVWo4RUk4b1NIdm5CU0Z4NExadCtaWUNWeEFq?=
+ =?utf-8?B?ME1YTTg4TEphcWQ3bVU4YTRUdDBBTGl1MVdsVGhLQjByNGd1ODZ1cHVoVWN4?=
+ =?utf-8?B?TTFIY3lOU1BZWENNV3ZWaVNyWkQzQUlQNEp0dG5yV1hpYWlMZk14SVdxVG9W?=
+ =?utf-8?B?bGR0RVVIclZvc3kxakZIVk9HbFkxZlNVLzdJU1BTQTVWdG90UWo2elpUTUFG?=
+ =?utf-8?B?Tmw3czNoNTM4UVd1eGN5Mk5pNHFoM3pFdFVScVpwaUJIWE1aY2s5K3QxeUFx?=
+ =?utf-8?B?MEhkekdMYzRBTmFWRWVab2s3bWhxQ0FtMzlLNE9hN2VUdUNIUlhHaEdpUEJZ?=
+ =?utf-8?B?Rk5xUW5SUVgrdllvOHgvUzZBeHgxZVcybFZtV29XQSt5WHBxZ2lzSXVJcExO?=
+ =?utf-8?B?TzNxbS9nc09mYXRXSUxLS0pIUmZReFJCN3JCVnVCbDArQnlhc2xHdjFhSUkw?=
+ =?utf-8?B?WWZPZ0NsbGNtZmFKYTh2dk81VXZFTUcvTUduOGo2RFhUVmc5T3VqTlppRGFx?=
+ =?utf-8?B?aTFNT2FmK1ZNNWhwM0hFYUNNWlNMaUMydzlSUDEwdHZvcWE4N3FOYXkvMGVB?=
+ =?utf-8?B?V3E2ZnhSeHRiRHpZWTRSS3ZCTUdlaURYNjkzQUgwL1hlY05YU2t4NVZESHVi?=
+ =?utf-8?B?MmV2bzN1bFlvemhSRWc4R2dTN09PNkQzWFZ5cWVMSm11TGN4NzZ6N1hOS0ZE?=
+ =?utf-8?B?RE9mYURGVDVHcklQMWIvWkRoMG9SVkpGZUQxWFlBb3hxYzY2MXN4Q0hCZjRp?=
+ =?utf-8?B?TWlvWHFlUENJOUoycW14NHFKZkh6aUNXMzBDMDVyNEs2WStQWjJlcVg4MmNS?=
+ =?utf-8?B?RzRDOU9LV1E4R3RXbE96Zm9XanN1dSt6d29TVmtjdCtKSVZFMHB0VFRxR0Nu?=
+ =?utf-8?B?c09OTGV0WHUvYU94Y1lmalczL2pCUzdIaEM0c25ROXFiK1FWWnJZdjQ1RnZI?=
+ =?utf-8?B?eEFtVG0zRWgwWjJ6blBQM05rWDZERWxTMWFsKzkwZ25NVWxHeTBLbXNZN2sx?=
+ =?utf-8?B?OEppcnBoakVrVlorQVMzaWFVc1lxL1N4SjZWTnBldjJuTTF3Z3pKUE8xUzJI?=
+ =?utf-8?B?SWVUcDE3TW9wTVBoTXV5emZYSUZIMWxJS2FkK2ZyUWhGOEtOTE5lV1dNSExx?=
+ =?utf-8?B?OTVUUWpVQ3lXTzlSSVhHTjNSdDdIWGVvMi9pcE1CTHZmWEwrdytmZmNNaVhh?=
+ =?utf-8?B?N3ZSSGVRSlJIU1FzT2p1U0V3SFFpWGEvVWNjamFlVTlmaUlCMDROaTlPdUhq?=
+ =?utf-8?B?N2g5Zk9iZHZ1d2U2MzdjTEdWalBZSGlKQXdjNjgxUm90MlcxcDhCRUJiK2xx?=
+ =?utf-8?B?TUZ6b25sajJuWlYzTCtlUFV1Qzl4MTB4VWpBTWZpclVTczNVRGJqL3lxUHp2?=
+ =?utf-8?B?T0NtYlhPbEQ4OXU0eXhxWGM0U0FtRzZ0UktHVDI2d0hOUmo5MXFKR2xDeHRz?=
+ =?utf-8?Q?9ys4cnLyGxOmBpCL+ca41vAgQ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80406e72-8fd1-47dc-0e75-08dbbe820c5d
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3f13515-fb89-4415-4c93-08dbbe82383c
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5176.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2023 11:16:36.9076 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2023 11:17:50.4872 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2KIFLid1nkVVGLqyUKA6tfvX+pnLgHWhBIL9aiCU4Ye6Ne0SrxnPoFUfNSmIm31R
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7036
+X-MS-Exchange-CrossTenant-UserPrincipalName: JQu/VfkqCkkvsAfIGlHmTLmCEU15KRi/sNa+eOgIDmyt8UNUe/8kHg9DfBtxiXB6qNLCSi8s52mQjn+7iu1OpA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8364
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,103 +134,190 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Hawking.Zhang@amd.com
+Cc: Patil Rajesh <Patil.Reddy@amd.com>,
+ "linux-input@vger.kernel.org" <linux-input@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 9/26/2023 4:41 PM, Lazar, Lijo wrote:
-> 
-> 
-> On 9/26/2023 4:32 PM, Le Ma wrote:
->> Pass the correct size to smu_v13_0_6_print_clks, otherwise
->> the same place in buf will be re-written.
+On 9/25/2023 10:00 PM, Mario Limonciello wrote:
+> On 9/25/2023 11:27, Deucher, Alexander wrote:
+>> [Public]
+>>
+>>> -----Original Message-----
+>>> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+>>> Shyam Sundar S K
+>>> Sent: Friday, September 22, 2023 1:51 PM
+>>> To: hdegoede@redhat.com; markgross@kernel.org; Natikar, Basavaraj
+>>> <Basavaraj.Natikar@amd.com>; jikos@kernel.org;
+>>> benjamin.tissoires@redhat.com; Deucher, Alexander
+>>> <Alexander.Deucher@amd.com>; Koenig, Christian
+>>> <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>;
+>>> airlied@gmail.com; daniel@ffwll.ch
+>>> Cc: S-k, Shyam-sundar <Shyam-sundar.S-k@amd.com>; amd-
+>>> gfx@lists.freedesktop.org; platform-driver-x86@vger.kernel.org; dri-
+>>> devel@lists.freedesktop.org; Patil Rajesh <Patil.Reddy@amd.com>;
+>>> linux-
+>>> input@vger.kernel.org; Limonciello, Mario <Mario.Limonciello@amd.com>
+>>> Subject: [PATCH 13/15] platform/x86/amd/pmf: Add PMF-AMDGPU set
+>>> interface
+>>>
+>>> For the Smart PC Solution to fully work, it has to enact to the
+>>> actions coming
+>>> from TA. Add the initial code path for set interface to AMDGPU.
+>>
+>> This seems to be limited to backlight at this point.  What does
+>> setting or not setting the backlight level mean for the system when
+>> this framework is in place?  What if a user manually changes the
+>> backlight level?  Additional comments below.
 >>
 > 
-> Where is this getting affected? As far as I see, there are no multiple 
-> emits to the same buffer in this code path.
-> 
+> It's also for the display count.
 
-Never mind, found one for OD_MCLK.
-
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+display count is on the PMF-GPU GET interface. On the SET interface
+its only backlight for today.
 
 Thanks,
-Lijo
+Shyam
 
-> Thanks,
-> Lijo
 > 
->> Change-Id: Ia0e12430d01146a11490204c1bab4b4f06cd17ea
->> Signed-off-by: Le Ma <le.ma@amd.com>
->> ---
->>   .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 24 +++++++++----------
->>   1 file changed, 12 insertions(+), 12 deletions(-)
+>>>
+>>> Co-developed-by: Mario Limonciello <mario.limonciello@amd.com>
+>>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+>>> Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_pmf.c | 21
+>>> +++++++++++++++++++++
+>>>   drivers/platform/x86/amd/pmf/pmf.h      |  2 ++
+>>>   drivers/platform/x86/amd/pmf/tee-if.c   | 19 +++++++++++++++++--
+>>>   include/linux/amd-pmf-io.h              |  1 +
+>>>   4 files changed, 41 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmf.c
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmf.c
+>>> index 232d11833ddc..5c567bff0548 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmf.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmf.c
+>>> @@ -68,3 +68,24 @@ int amd_pmf_get_gfx_data(struct amd_gpu_pmf_data
+>>> *pmf)
+>>>        return 0;
+>>>   }
+>>>   EXPORT_SYMBOL_GPL(amd_pmf_get_gfx_data);
+>>> +
+>>> +int amd_pmf_set_gfx_data(struct amd_gpu_pmf_data *pmf) {
+>>> +     struct drm_device *drm_dev = pci_get_drvdata(pmf->gpu_dev);
+>>> +     struct amdgpu_device *adev = drm_to_adev(drm_dev);
+>>> +     struct backlight_device *bd;
+>>> +
+>>> +     if (!(adev->flags & AMD_IS_APU)) {
+>>> +             DRM_ERROR("PMF-AMDGPU interface not supported\n");
+>>> +             return -ENODEV;
+>>> +     }
+>>> +
+>>> +     bd = backlight_device_get_by_type(BACKLIGHT_RAW);
+>>> +     if (!bd)
+>>> +             return -ENODEV;
+>>> +
+>>> +     backlight_device_set_brightness(bd, pmf->brightness);
+>>> +
+>>> +     return 0;
+>>> +}
+>>> +EXPORT_SYMBOL_GPL(amd_pmf_set_gfx_data);
+>>> diff --git a/drivers/platform/x86/amd/pmf/pmf.h
+>>> b/drivers/platform/x86/amd/pmf/pmf.h
+>>> index 9032df4ba48a..ce89cc0daa5a 100644
+>>> --- a/drivers/platform/x86/amd/pmf/pmf.h
+>>> +++ b/drivers/platform/x86/amd/pmf/pmf.h
+>>> @@ -73,6 +73,7 @@
+>>>   #define PMF_POLICY_STT_SKINTEMP_APU                          7
+>>>   #define PMF_POLICY_STT_SKINTEMP_HS2                          8
+>>>   #define
+>>> PMF_POLICY_SYSTEM_STATE                                      9
+>>> +#define
+>>> PMF_POLICY_DISPLAY_BRIGHTNESS                                12
+>>>   #define
+>>> PMF_POLICY_P3T                                               38
+>>>
+>>>   /* TA macros */
+>>> @@ -480,6 +481,7 @@ enum ta_pmf_error_type {  };
+>>>
+>>>   struct pmf_action_table {
+>>> +     unsigned long display_brightness;
+>>>        enum system_state system_state;
+>>>        unsigned long spl; /* in mW */
+>>>        unsigned long sppt; /* in mW */
+>>> diff --git a/drivers/platform/x86/amd/pmf/tee-if.c
+>>> b/drivers/platform/x86/amd/pmf/tee-if.c
+>>> index 1608996654e8..eefffff83a4c 100644
+>>> --- a/drivers/platform/x86/amd/pmf/tee-if.c
+>>> +++ b/drivers/platform/x86/amd/pmf/tee-if.c
+>>> @@ -79,10 +79,10 @@ static int amd_pmf_update_uevents(struct
+>>> amd_pmf_dev *dev, u16 event)
+>>>        return 0;
+>>>   }
+>>>
+>>> -static void amd_pmf_apply_policies(struct amd_pmf_dev *dev, struct
+>>> ta_pmf_enact_result *out)
+>>> +static int amd_pmf_apply_policies(struct amd_pmf_dev *dev, struct
+>>> +ta_pmf_enact_result *out)
+>>>   {
+>>>        u32 val, event = 0;
+>>> -     int idx;
+>>> +     int idx, ret;
+>>>
+>>>        for (idx = 0; idx < out->actions_count; idx++) {
+>>>                val = out->actions_list[idx].value;
+>>> @@ -160,8 +160,23 @@ static void amd_pmf_apply_policies(struct
+>>> amd_pmf_dev *dev, struct ta_pmf_enact_
+>>>                                dev->prev_data->system_state = 0;
+>>>                        }
+>>>                        break;
+>>> +
+>>> +             case PMF_POLICY_DISPLAY_BRIGHTNESS:
+>>> +                     ret = amd_pmf_get_gfx_data(&dev->gfx_data);
+>>> +                     if (ret)
+>>> +                             return ret;
+>>> +
+>>> +                     dev->prev_data->display_brightness = dev-
+>>>> gfx_data.brightness;
 >>
->> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c 
->> b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
->> index 11a6cd96c601..19c117eb5ebe 100644
->> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
->> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
->> @@ -821,12 +821,12 @@ static int 
->> smu_v13_0_6_get_current_clk_freq_by_table(struct smu_context *smu,
->>       return smu_v13_0_6_get_smu_metrics_data(smu, member_type, value);
->>   }
->> -static int smu_v13_0_6_print_clks(struct smu_context *smu, char *buf,
->> +static int smu_v13_0_6_print_clks(struct smu_context *smu, char *buf, 
->> int size,
->>                     struct smu_13_0_dpm_table *single_dpm_table,
->>                     uint32_t curr_clk, const char *clk_name)
->>   {
->>       struct pp_clock_levels_with_latency clocks;
->> -    int i, ret, size = 0, level = -1;
->> +    int i, ret, level = -1;
->>       uint32_t clk1, clk2;
->>       ret = smu_v13_0_6_get_clk_table(smu, &clocks, single_dpm_table);
->> @@ -947,8 +947,8 @@ static int smu_v13_0_6_print_clk_levels(struct 
->> smu_context *smu,
->>           single_dpm_table = &(dpm_context->dpm_tables.uclk_table);
->> -        return smu_v13_0_6_print_clks(smu, buf, single_dpm_table, now,
->> -                          "mclk");
->> +        return smu_v13_0_6_print_clks(smu, buf, size, single_dpm_table,
->> +                          now, "mclk");
->>       case SMU_SOCCLK:
->>           ret = smu_v13_0_6_get_current_clk_freq_by_table(smu, 
->> SMU_SOCCLK,
->> @@ -961,8 +961,8 @@ static int smu_v13_0_6_print_clk_levels(struct 
->> smu_context *smu,
->>           single_dpm_table = &(dpm_context->dpm_tables.soc_table);
->> -        return smu_v13_0_6_print_clks(smu, buf, single_dpm_table, now,
->> -                          "socclk");
->> +        return smu_v13_0_6_print_clks(smu, buf, size, single_dpm_table,
->> +                          now, "socclk");
->>       case SMU_FCLK:
->>           ret = smu_v13_0_6_get_current_clk_freq_by_table(smu, SMU_FCLK,
->> @@ -975,8 +975,8 @@ static int smu_v13_0_6_print_clk_levels(struct 
->> smu_context *smu,
->>           single_dpm_table = &(dpm_context->dpm_tables.fclk_table);
->> -        return smu_v13_0_6_print_clks(smu, buf, single_dpm_table, now,
->> -                          "fclk");
->> +        return smu_v13_0_6_print_clks(smu, buf, size, single_dpm_table,
->> +                          now, "fclk");
->>       case SMU_VCLK:
->>           ret = smu_v13_0_6_get_current_clk_freq_by_table(smu, SMU_VCLK,
->> @@ -989,8 +989,8 @@ static int smu_v13_0_6_print_clk_levels(struct 
->> smu_context *smu,
->>           single_dpm_table = &(dpm_context->dpm_tables.vclk_table);
->> -        return smu_v13_0_6_print_clks(smu, buf, single_dpm_table, now,
->> -                          "vclk");
->> +        return smu_v13_0_6_print_clks(smu, buf, size, single_dpm_table,
->> +                          now, "vclk");
->>       case SMU_DCLK:
->>           ret = smu_v13_0_6_get_current_clk_freq_by_table(smu, SMU_DCLK,
->> @@ -1003,8 +1003,8 @@ static int smu_v13_0_6_print_clk_levels(struct 
->> smu_context *smu,
->>           single_dpm_table = &(dpm_context->dpm_tables.dclk_table);
->> -        return smu_v13_0_6_print_clks(smu, buf, single_dpm_table, now,
->> -                          "dclk");
->> +        return smu_v13_0_6_print_clks(smu, buf, size, single_dpm_table,
->> +                          now, "dclk");
->>       default:
->>           break;
+>> Are we using standardized units for the brightness?  On the GPU
+>> side, we align with the standard blacklight interface, but
+>> internally, the driver has to convert units depending on the type of
+>> backlight controller used on the platform.  Presumably PMF does
+>> something similar?
+>>
+>> Alex
+>>
+>>> +                     if (dev->prev_data->display_brightness != val) {
+>>> +                             dev->gfx_data.brightness = val;
+>>> +                             amd_pmf_set_gfx_data(&dev->gfx_data);
+>>> +                             dev_dbg(dev->dev, "update
+>>> DISPLAY_BRIGHTNESS : %d\n", val);
+>>> +                     }
+>>> +                     break;
+>>>                }
+>>>        }
+>>> +
+>>> +     return 0;
+>>>   }
+>>>
+>>>   static int amd_pmf_invoke_cmd_enact(struct amd_pmf_dev *dev) diff
+>>> --git
+>>> a/include/linux/amd-pmf-io.h b/include/linux/amd-pmf-io.h index
+>>> a2d4af231362..ecae387ddaa6 100644
+>>> --- a/include/linux/amd-pmf-io.h
+>>> +++ b/include/linux/amd-pmf-io.h
+>>> @@ -25,4 +25,5 @@ struct amd_gpu_pmf_data {  };
+>>>
+>>>   int amd_pmf_get_gfx_data(struct amd_gpu_pmf_data *pmf);
+>>> +int amd_pmf_set_gfx_data(struct amd_gpu_pmf_data *pmf);
+>>>   #endif
+>>> -- 
+>>> 2.25.1
+>>
+> 
