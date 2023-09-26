@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98B29E7E62F
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 12:38:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CE5AE7E62E
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 12:43:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E81ED10E3C2;
-	Tue, 26 Sep 2023 12:38:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4ABCE10E3C8;
+	Tue, 26 Sep 2023 12:43:49 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8717F10E3C2;
- Tue, 26 Sep 2023 12:38:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB3AF10E3C4;
+ Tue, 26 Sep 2023 12:43:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
@@ -19,29 +19,29 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=OYOYgjPeYmq+DBmY0mWHAyiWarbRtpm1hDJfxevpjpg=; b=hccWc1vCqIYDvTcr7sliQK+BoK
- XcBGqzBVMtNPMKl/qEKgMyJnUeEtZQOmj/p6uf9ynWALMneWGSx8EhGtxNrGGjbxr0YsUn7j5Czq8
- OArvpJ6Xxu6OisWE820qj+7NhdAYrlUnifoW/DXR79RlSF4R2HHvZB9C7etnvAlAIaKfTvHpv/5NW
- UnsxJCeB+C/BwrBQGF6JFlbq7UiTe4v2LVOfdmJk3ApEwqkR7SIQKIMbj1VKKjWBBSY0R8ay+JkRV
- iGRuzIrTF45m8AVuzf/ur4m9N720OU8Uaow7foxX9fpS2MxgjzgbZ7AlW7x4L2cmoeTw6VbgCPjYW
- wCg5tBQw==;
+ bh=aZjvoDc64zYePPG5M/5meuIAXgyCszUl8Aqv2Wgmh8w=; b=sFazSm7QSmBYvQE3pqMZNoZfmx
+ yeDunOrxZCa0xzaotvki7DiFSUVr4hmA5sElcwYWqxw/zyzPXbI7ch36nYHovCXz2vc5mI7j4vumV
+ PvSMVAVVU0gSzgNnIJbc6jmiXguRVn4Oc86myl9WvtO2vpzo4GqAAgT6q5W85lNxKF8idIR/kiA3N
+ je/JgIuIogU/d8RlpKjFp/topvk/zj+m94Ilo+tD/omc2EyalSkKt8uAgfmwin45VMnFwVKPpQLPj
+ sLIV0m3MNL742J7wxQglW45I741QvlJ4ePumMJWdjNMjnkJ8BPo0tiV0o8WUdDYzrkkprMH06Yh89
+ F96Do6CA==;
 Received: from [102.213.205.115] (helo=mail.igalia.com)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1ql7KH-008Vrm-Ue; Tue, 26 Sep 2023 14:38:06 +0200
-Date: Tue, 26 Sep 2023 11:38:01 -0100
+ id 1ql7Pi-008Vww-Ka; Tue, 26 Sep 2023 14:43:42 +0200
+Date: Tue, 26 Sep 2023 11:43:38 -0100
 From: Melissa Wen <mwen@igalia.com>
 To: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [RFC PATCH v2 3/5] drm/amd/display: create DCN3-specific log for
- MPC state
-Message-ID: <20230926123729.d4j3rgmxa6bgnddk@mail.igalia.com>
+Subject: Re: [RFC PATCH v2 4/5] drm/amd/display: hook DCN30 color state
+ logging to DTN log
+Message-ID: <20230926124338.po3d2royboqepwjj@mail.igalia.com>
 References: <20230913164329.123687-1-mwen@igalia.com>
- <20230913164329.123687-4-mwen@igalia.com>
- <c5004296-7f2b-4433-a81c-65d5672403c1@amd.com>
+ <20230913164329.123687-5-mwen@igalia.com>
+ <e05bf889-453b-4d9b-b596-4c5263254fb3@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <c5004296-7f2b-4433-a81c-65d5672403c1@amd.com>
+In-Reply-To: <e05bf889-453b-4d9b-b596-4c5263254fb3@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,9 +56,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: Krunoslav Kovac <krunoslav.kovac@amd.com>, kernel-dev@igalia.com,
  Shashank Sharma <Shashank.Sharma@amd.com>, sunpeng.li@amd.com,
  Xinhui.Pan@amd.com, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
  Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
  airlied@gmail.com, christian.koenig@amd.com, sungjoon.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
@@ -67,120 +67,197 @@ On 09/25, Harry Wentland wrote:
 > 
 > 
 > On 2023-09-13 12:43, Melissa Wen wrote:
-> > Logging DCN3 MPC state was following DCN1 implementation that doesn't
-> > consider new DCN3 MPC color blocks. Create new elements according to
-> > DCN3 MPC color caps and a new DCN3-specific function for reading MPC
-> > data.
+> > Color caps changed between HW versions which caused DCN10 color state
+> > sections on DTN log no longer fit DCN3.0 versions. Create a
+> > DCN3.0-specific color state logging and hook it to drivers of DCN3.0
+> > family.
+> > 
+> > rfc-v2:
+> > - detail RAM mode for gamcor and blnd gamma blocks
 > > 
 > > Signed-off-by: Melissa Wen <mwen@igalia.com>
 > > ---
-> >  .../gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c  | 55 ++++++++++++++++++-
-> >  drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h   | 13 +++++
-> >  2 files changed, 67 insertions(+), 1 deletion(-)
+> >  .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |  5 +-
+> >  .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    | 88 +++++++++++++++++++
+> >  .../drm/amd/display/dc/dcn30/dcn30_hwseq.h    |  3 +
+> >  .../gpu/drm/amd/display/dc/dcn30/dcn30_init.c |  1 +
+> >  .../drm/amd/display/dc/dcn301/dcn301_init.c   |  1 +
+> >  .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |  2 +
+> >  6 files changed, 99 insertions(+), 1 deletion(-)
 > > 
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
-> > index d1500b223858..d164fbf89212 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
-> > @@ -1382,8 +1382,61 @@ static void mpc3_set_mpc_mem_lp_mode(struct mpc *mpc)
-> >  	}
-> >  }
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+> > index a0c489ed218c..9255425ef794 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+> > @@ -358,7 +358,10 @@ void dcn10_log_hw_state(struct dc *dc,
 > >  
-> > +static void mpc3_read_mpcc_state(
-> > +		struct mpc *mpc,
-> > +		int mpcc_inst,
-> > +		struct mpcc_state *s)
+> >  	dcn10_log_hubp_states(dc, log_ctx);
+> >  
+> > -	dcn10_log_color_state(dc, log_ctx);
+> > +	if (dc->hwss.log_color_state)
+> > +		dc->hwss.log_color_state(dc, log_ctx);
+> > +	else
+> > +		dcn10_log_color_state(dc, log_ctx);
+> >  
+> >  	DTN_INFO("OTG:  v_bs  v_be  v_ss  v_se  vpol  vmax  vmin  vmax_sel  vmin_sel  h_bs  h_be  h_ss  h_se  hpol  htot  vtot  underflow blank_en\n");
+> >  
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+> > index 255713ec29bb..47119ae80e98 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+> > @@ -69,6 +69,94 @@
+> >  #define FN(reg_name, field_name) \
+> >  	hws->shifts->field_name, hws->masks->field_name
+> >  
+> > +void
+> > +dcn30_log_color_state(struct dc *dc,
+> > +		      struct dc_log_buffer_ctx *log_ctx)
 > > +{
-> > +	struct dcn30_mpc *mpc30 = TO_DCN30_MPC(mpc);
-> > +	uint32_t rmu_status = 0xf;
+> > +	struct dc_context *dc_ctx = dc->ctx;
+> > +	struct resource_pool *pool = dc->res_pool;
+> > +	int i;
 > > +
-> > +	REG_GET(MPCC_OPP_ID[mpcc_inst], MPCC_OPP_ID, &s->opp_id);
-> > +	REG_GET(MPCC_TOP_SEL[mpcc_inst], MPCC_TOP_SEL, &s->dpp_id);
-> > +	REG_GET(MPCC_BOT_SEL[mpcc_inst], MPCC_BOT_SEL, &s->bot_mpcc_id);
-> > +	REG_GET_4(MPCC_CONTROL[mpcc_inst], MPCC_MODE, &s->mode,
-> > +			MPCC_ALPHA_BLND_MODE, &s->alpha_mode,
-> > +			MPCC_ALPHA_MULTIPLIED_MODE, &s->pre_multiplied_alpha,
-> > +			MPCC_BLND_ACTIVE_OVERLAP_ONLY, &s->overlap_only);
-> > +	REG_GET_2(MPCC_STATUS[mpcc_inst], MPCC_IDLE, &s->idle,
-> > +			MPCC_BUSY, &s->busy);
+> > +	DTN_INFO("DPP:  DGAM ROM  DGAM ROM type  DGAM LUT  SHAPER mode"
+> > +		 "  3DLUT mode  3DLUT bit depth  3DLUT size  RGAM mode"
+> > +		 "  GAMUT mode  "
+> > +		 "C11 C12   C13 C14   C21 C22   C23 C24   C31 C32   C33 C34\n");
 > > +
-> > +	/* Color blocks state */
-> > +	REG_GET(MPC_RMU_CONTROL, MPC_RMU0_MUX_STATUS, &rmu_status);
-> > +	if (rmu_status == mpcc_inst) {
-> > +		REG_GET(SHAPER_CONTROL[0],
-> > +			MPC_RMU_SHAPER_LUT_MODE_CURRENT, &s->shaper_lut_mode);
-> > +		REG_GET(RMU_3DLUT_MODE[0],
-> > +			MPC_RMU_3DLUT_MODE_CURRENT,  &s->lut3d_mode);
-> > +		REG_GET(RMU_3DLUT_READ_WRITE_CONTROL[0],
-> > +			MPC_RMU_3DLUT_30BIT_EN, &s->lut3d_bit_depth);
-> > +		REG_GET(RMU_3DLUT_MODE[0],
-> > +			MPC_RMU_3DLUT_SIZE, &s->lut3d_size);
-> > +	} else {
-> > +		REG_GET(SHAPER_CONTROL[1],
-> > +			MPC_RMU_SHAPER_LUT_MODE_CURRENT, &s->shaper_lut_mode);
-> > +		REG_GET(RMU_3DLUT_MODE[1],
-> > +			MPC_RMU_3DLUT_MODE_CURRENT,  &s->lut3d_mode);
-> > +		REG_GET(RMU_3DLUT_READ_WRITE_CONTROL[1],
-> > +			MPC_RMU_3DLUT_30BIT_EN, &s->lut3d_bit_depth);
-> > +		REG_GET(RMU_3DLUT_MODE[1],
-> > +			MPC_RMU_3DLUT_SIZE, &s->lut3d_size);
+> > +	for (i = 0; i < pool->pipe_count; i++) {
+> > +		struct dpp *dpp = pool->dpps[i];
+> > +		struct dcn_dpp_state s = {0};
+> > +
+> > +		dpp->funcs->dpp_read_state(dpp, &s);
+> > +
+> > +		if (!s.is_enabled)
+> > +			continue;
+> > +
+> > +		DTN_INFO("[%2d]:  %7x  %13s  %8s  %11s  %10s  %15s  %10s  %9s"
+> > +			 "  %10x  %08xh %08xh %08xh %08xh %08xh %08xh",
+> > +			dpp->inst,
+> > +			s.pre_dgam_mode,
+> > +			(s.pre_dgam_select == 0) ? "sRGB" :
+> > +			 ((s.pre_dgam_select == 1) ? "Gamma 2.2" :
+> > +			 ((s.pre_dgam_select == 2) ? "Gamma 2.4" :
+> > +			 ((s.pre_dgam_select == 3) ? "Gamma 2.6" :
+> > +			 ((s.pre_dgam_select == 4) ? "BT.709" :
+> > +			 ((s.pre_dgam_select == 5) ? "PQ" :
+> > +			 ((s.pre_dgam_select == 6) ? "HLG" :
+> > +						     "Unknown")))))),
+> > +			(s.gamcor_mode == 0) ? "Bypass" :
+> > +			 ((s.gamcor_mode == 1) ? "RAM A" :
+> > +						 "RAM B"),
+> > +			(s.shaper_lut_mode == 1) ? "RAM A" :
+> > +			 ((s.shaper_lut_mode == 2) ? "RAM B" :
+> > +						     "Bypass"),
+> > +			(s.lut3d_mode == 1) ? "RAM A" :
+> > +			 ((s.lut3d_mode == 2) ? "RAM B" :
+> > +						"Bypass"),
+> > +			(s.lut3d_bit_depth <= 0) ? "12-bit" : "10-bit",
+> > +			(s.lut3d_size == 0) ? "17x17x17" : "9x9x9",
+> > +			(s.rgam_lut_mode == 0) ? "Bypass" :
+> > +			 ((s.rgam_lut_mode == 1) ? "RAM A" :
+> > +						   "RAM B"),
+> > +			s.gamut_remap_mode,
+> > +			s.gamut_remap_c11_c12, s.gamut_remap_c13_c14,
+> > +			s.gamut_remap_c21_c22, s.gamut_remap_c23_c24,
+> > +			s.gamut_remap_c31_c32, s.gamut_remap_c33_c34);
+> > +		DTN_INFO("\n");
 > > +	}
-> > +         REG_GET_2(MPCC_OGAM_CONTROL[mpcc_inst],
-> > +		   MPCC_OGAM_MODE_CURRENT, &s->rgam_mode,
-> > +		   MPCC_OGAM_SELECT_CURRENT, &s->rgam_lut);
-> > +	REG_GET(MPCC_GAMUT_REMAP_MODE[mpcc_inst],
-> > +		MPCC_GAMUT_REMAP_MODE_CURRENT, &s->gamut_remap_mode);
-> > +	if (s->gamut_remap_mode == 1) {
-> > +		s->gamut_remap_c11_c12 = REG_READ(MPC_GAMUT_REMAP_C11_C12_A[mpcc_inst]);
-> > +		s->gamut_remap_c33_c34 = REG_READ(MPC_GAMUT_REMAP_C33_C34_A[mpcc_inst]);
-> > +	} else if (s->gamut_remap_mode == 2) {
-> > +		s->gamut_remap_c11_c12 = REG_READ(MPC_GAMUT_REMAP_C11_C12_B[mpcc_inst]);
-> > +		s->gamut_remap_c33_c34 = REG_READ(MPC_GAMUT_REMAP_C33_C34_B[mpcc_inst]);
+> > +	DTN_INFO("\n");
+> > +
+> > +	DTN_INFO("MPCC:  OPP  DPP  MPCCBOT  MODE  ALPHA_MODE  PREMULT  OVERLAP_ONLY  IDLE"
+> > +		 "  SHAPER mode  3DLUT mode  3DLUT bit-depth  3DLUT size  OGAM mode  OGAM LUT"
+> > +		 "  GAMUT mode  C11 C12   C33 C34\n");
+> > +
+> > +	for (i = 0; i < pool->pipe_count; i++) {
+> > +		struct mpcc_state s = {0};
+> > +
+> > +		pool->mpc->funcs->read_mpcc_state(pool->mpc, i, &s);
+> > +		if (s.opp_id != 0xf)
+> > +			DTN_INFO("[%2d]:  %2xh  %2xh  %6xh  %4d  %10d  %7d  %12d  %4d  %11s %11s %16s %11s %10s %9s"
+> > +				 "  %10x %08xh %08xh\n",
+> > +				i, s.opp_id, s.dpp_id, s.bot_mpcc_id,
+> > +				s.mode, s.alpha_mode, s.pre_multiplied_alpha, s.overlap_only,
+> > +				s.idle,
+> > +				(s.shaper_lut_mode == 1) ? "RAM A" :
+> > +				 ((s.shaper_lut_mode == 2) ? "RAM B" :
+> > +							     "Bypass"),
+> > +				(s.lut3d_mode == 1) ? "RAM A" :
+> > +				 ((s.lut3d_mode == 2) ? "RAM B" :
+> > +							"Bypass"),
+> > +				(s.lut3d_bit_depth <= 0) ? "12-bit" : "10-bit",
+> > +				(s.lut3d_size == 0) ? "17x17x17" : "9x9x9",
+> > +				(s.rgam_mode == 0) ? "Bypass" :
+> > +				 ((s.rgam_mode == 2) ? "RAM" :
+> > +						       "Unknown"),
+> > +				(s.rgam_mode == 1) ? "B" : "A",
+> > +				s.gamut_remap_mode,
+> > +				s.gamut_remap_c11_c12, s.gamut_remap_c33_c34);
+> > +	}
+> > +	DTN_INFO("\n");
+> > +}
+> > +
+> >  bool dcn30_set_blend_lut(
+> >  	struct pipe_ctx *pipe_ctx, const struct dc_plane_state *plane_state)
+> >  {
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h
+> > index ce19c54097f8..cfb3646d6740 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h
+> > @@ -52,6 +52,9 @@ bool dcn30_mmhubbub_warmup(
+> >  	unsigned int num_dwb,
+> >  	struct dc_writeback_info *wb_info);
+> >  
+> > +void dcn30_log_color_state(struct dc *dc,
+> > +			   struct dc_log_buffer_ctx *log_ctx);
+> > +
+> >  bool dcn30_set_blend_lut(struct pipe_ctx *pipe_ctx,
+> >  		const struct dc_plane_state *plane_state);
+> >  
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
+> > index 0de8b2783cf6..58e4d7e1753b 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
+> > @@ -68,6 +68,7 @@ static const struct hw_sequencer_funcs dcn30_funcs = {
+> >  	.setup_stereo = dcn10_setup_stereo,
+> >  	.set_avmute = dcn30_set_avmute,
+> >  	.log_hw_state = dcn10_log_hw_state,
+> > +	.log_color_state = dcn30_log_color_state,
+> >  	.get_hw_state = dcn10_get_hw_state,
+> >  	.clear_status_bits = dcn10_clear_status_bits,
+> >  	.wait_for_mpcc_disconnect = dcn10_wait_for_mpcc_disconnect,
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c
+> > index 61205cdbe2d5..227e611f25b8 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c
+> > @@ -72,6 +72,7 @@ static const struct hw_sequencer_funcs dcn301_funcs = {
+> >  	.setup_stereo = dcn10_setup_stereo,
+> >  	.set_avmute = dcn30_set_avmute,
+> >  	.log_hw_state = dcn10_log_hw_state,
+> > +	.log_color_state = dcn30_log_color_state,
 > 
-> Any reason we're getting (and printing) only the first and last
-> coefficients? Is it to avoid printing lines that are too wide?
+> Can we do this for all dcn3+ versions?
 
-I'm unable to reach the other coefficients through this
-`MPC_GAMUT_REMAP` register prefix. But I'm probably missing something
-since I can see the registers using UMR. I'll try to find the right path
-and update it.
-
-Melissa
+Sure, I'll include in the next version. I want to update the color state
+log for DCN2+ too, since it also has some specific outputs.
 
 > 
 > Harry
 > 
-> > +	}
-> > +}
-> > +
-> >  static const struct mpc_funcs dcn30_mpc_funcs = {
-> > -	.read_mpcc_state = mpc1_read_mpcc_state,
-> > +	.read_mpcc_state = mpc3_read_mpcc_state,
-> >  	.insert_plane = mpc1_insert_plane,
-> >  	.remove_mpcc = mpc1_remove_mpcc,
-> >  	.mpc_init = mpc1_mpc_init,
-> > diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-> > index 8d86159d9de0..e60b3503605b 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-> > +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-> > @@ -193,6 +193,19 @@ struct mpcc_state {
-> >  	uint32_t overlap_only;
-> >  	uint32_t idle;
-> >  	uint32_t busy;
-> > +	uint32_t shaper_lut_mode;
-> > +	uint32_t lut3d_mode;
-> > +	uint32_t lut3d_bit_depth;
-> > +	uint32_t lut3d_size;
-> > +	uint32_t rgam_mode;
-> > +	uint32_t rgam_lut;
-> > +	uint32_t gamut_remap_mode;
-> > +	uint32_t gamut_remap_c11_c12;
-> > +	uint32_t gamut_remap_c13_c14;
-> > +	uint32_t gamut_remap_c21_c22;
-> > +	uint32_t gamut_remap_c23_c24;
-> > +	uint32_t gamut_remap_c31_c32;
-> > +	uint32_t gamut_remap_c33_c34;
-> >  };
+> >  	.get_hw_state = dcn10_get_hw_state,
+> >  	.clear_status_bits = dcn10_clear_status_bits,
+> >  	.wait_for_mpcc_disconnect = dcn10_wait_for_mpcc_disconnect,
+> > diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
+> > index e0dd56182841..a480c1092486 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
+> > +++ b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
+> > @@ -343,6 +343,8 @@ struct hw_sequencer_funcs {
 > >  
-> >  /**
+> >  	/* HW State Logging Related */
+> >  	void (*log_hw_state)(struct dc *dc, struct dc_log_buffer_ctx *log_ctx);
+> > +	void (*log_color_state)(struct dc *dc,
+> > +				struct dc_log_buffer_ctx *log_ctx);
+> >  	void (*get_hw_state)(struct dc *dc, char *pBuf,
+> >  			unsigned int bufSize, unsigned int mask);
+> >  	void (*clear_status_bits)(struct dc *dc, unsigned int mask);
 > 
