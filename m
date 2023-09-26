@@ -4,112 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F812E7E644
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 15:07:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E97F6E7E64B
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 16:39:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 973BF10E0EF;
-	Tue, 26 Sep 2023 15:07:18 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2051.outbound.protection.outlook.com [40.107.95.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A19B10E0EF
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Sep 2023 15:07:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78D2410E012;
+	Tue, 26 Sep 2023 16:39:57 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DA5610E012
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Sep 2023 16:39:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KxJ1r0/RC2V9Apv9a3751GL7KrZF/N54wt6aX4YyHE5y6ZDPMa2DeiMY9Z/xZ9VXpuLziKHS9ELdXBsk0mhucIaehDWB10C9sS20Cq5XjpM4w/K9ReFEuKi+zbhKGOKMDRQNjkyf3EdDdATtigiZvL9sSftStoQzBxmdQWkNW/MKjGI6hrd8TyL0sJwWed8AzQhp+UU+g+74F+KeHccq8Kuh5e2hxI2gXp+6NTDMkbAaoKaATq477okhy+GZt9oJCwD8U7PFX8v7TeDwCtGs5T7DYANxLVwCpULYK1nFbc92vdaqTNQDYDLMQ0MUQ7wld+zUp/+X9q07TdM4E4iTzQ==
+ b=BWQQik1s6kX4ds3cvdMEV6n0ji8zQj56v1exVDJlZx36b6BdCy2uPtUahu+3Iy6oMsP1QLx2XjhrI8N0AQ/8NN26TsKRslNbmj/X2TEpQdASJKJEtbmrsJkOE1qcOJzQt+PY+7MefzRjeCqBkzcfrPIUkVz0kD3e//tcbIyo4yjtcmhalT+WfB/Dw/z10o8nGRZcARNXUkelcJxCdxIoRAPTt/CJmfXxAuNFrIvkiAHZ+VLTjv0x8iHQU57uahRPrd8ZyrzOORSue90Eua5H5sDeOgxUANh5dLcC2M6XwJw3gO7T5rDGAXQZ4eMLAhJQwLlVpgFUzS9/IzazvoMUUQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VONDwuqcKWRHNvUqtC0aM/deRjLD/hp56wvX4ENF3k4=;
- b=T9Yy/iO/AGgHUICae7RUjE6MkDDUJ8a2uKHNaXALSmogPRBPx7L5KjN9AgU2wJfSGeoeJIZajJd6n6MRWm2lfCVU5c0e+lYzD+h82Ff5tCJcbkghwY39XXYzHk78dxUWA+UtZsM4uue+nVFCwp+M5xfizN/iSuU3GnhUFjoka6LNluzHu+5GM4nsLQjnzFN0ff4mnE0XmPetvs1lOaa+bYFdnR97RIyz8eDvesleCSQPT5IoYqBGGgMJI+njaJrj2M0LNNuaeTko09UZhy1ismdLrGebeQGE4aEYzVnVE6jb1dF5ZeRtFHTuREbplJtIIN3L9XH10V6zUG2/qmNK5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=O8s+bfkR4oPX5XnWYTr5Apnwf1wbi5qnMo7UCw91mms=;
+ b=VHLQOTUfIGzW5VCQv+wolnwHphBb/kNy64jm3J8NKybcTCc7p5zowRCRsV6OL7CU7+lf2DuBpoeC658pgCh98W/WIxVre/gzHLuYxNz20EmhBu+rrRIr4ByWX8gEoJt4Nkd5snJ6R+EjgGlfYtenKkioTeOoB5GwZSFaxwSg1v5omwXon3gDbRWFwgy7sCn2dCtCGdJs3ndq1q1GwEH5jmkQu4fy91uVIEXAt/G2vP2/OOpixEEOePy6vXgZjlmnD1vzcRop7LzKRiblLLhpsadTYFg8sjaXcAg4jyhS4gOb/Fj5tcoGLq2cZ0XwECmMeXtkYuWRhBZR1KFRzXGYyw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VONDwuqcKWRHNvUqtC0aM/deRjLD/hp56wvX4ENF3k4=;
- b=0Gm+v73G8kk3DxTzSXFxJ/V0e3zPi3QX4A3U/S2aGkNY257dY03jbo4g4+FDTVamocMYpTB96cY0djRyyN/8+M/nZk2TavhQ1eUZk2/ZZImW/C5DM/IagEzNk3UeGlJWEoUXrtIiby+dJ7uLynkB7UhDP1pHcbYJlHrbuhB3Z/k=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by CH3PR12MB8284.namprd12.prod.outlook.com (2603:10b6:610:12e::21)
+ bh=O8s+bfkR4oPX5XnWYTr5Apnwf1wbi5qnMo7UCw91mms=;
+ b=nPvRtACkiU3YBj7f15HOogj8kwM38wW+yck32f8t4NeqOGta362tTnTAR1t8+JUiBZ1tazxWl6a7wBcYJtCBDWf3G8NK4CnSYogoaObOEijRuiIcg9+5OhZUU7lHvuM73XalTlM6HlBZ/gmabTtsDUXFybO2nvw9tt73Cy31jUc=
+Received: from MN2PR11CA0030.namprd11.prod.outlook.com (2603:10b6:208:23b::35)
+ by CY8PR12MB7316.namprd12.prod.outlook.com (2603:10b6:930:50::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.28; Tue, 26 Sep
- 2023 15:07:14 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::a2bb:870f:8aaa:1ba2]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::a2bb:870f:8aaa:1ba2%6]) with mapi id 15.20.6813.017; Tue, 26 Sep 2023
- 15:07:14 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amd: Limit seamless boot by default to APUs
-Thread-Topic: [PATCH] drm/amd: Limit seamless boot by default to APUs
-Thread-Index: AQHZ8IruzSeYraQOcUywxnjpg/WIabAtNRQl
-Date: Tue, 26 Sep 2023 15:07:14 +0000
-Message-ID: <BL1PR12MB51449B3E684B5F7F38AEF2A3F7C3A@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20230926014413.139961-1-mario.limonciello@amd.com>
-In-Reply-To: <20230926014413.139961-1-mario.limonciello@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-09-26T15:07:13.511Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|CH3PR12MB8284:EE_
-x-ms-office365-filtering-correlation-id: 7de69635-e9c4-42b8-ec37-08dbbea24461
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: OwyR1ysqsucKVb2Ip6NeLfpqK9n4BEpcu4ujBZdM+HExSrHeOreLrNU017J3KwgWXcvjlKlado79ghS8GIXUydqQBhYKVbJkLWAJPvb+CyZnaiDYNlWSR9gQM2fEILiX70xW7jsAqBqQQSVfuWdttOiqxFqDj65OaD+ZSMWBj9igKebMgK9EFRPdZfzHlyOfA27PXZjDjiJ1qTvdWuczjwhSXYxDDH/64y/l1lXeguiMgA4DsUxw6CBAsAlptdd6+DTZh/NWQ0KTsGlTsx1Q/tZKcyCamjQWCeg7YiYC6IP/+2GmDZQAt8NRlhZgMeQvjYjXBIdwuK3EZr4iNu0nFmOq4QQHhrnmnZHX2OAx78haABrBFaPIuJWLV3xfBGP749WgyCGXP7Egd1QtfJMM6qWCLiZo3pZaeSEm3/I+6XwWgviMwuv5xwzthQAsADm38gi9RC1I/MX1bXTYvzp4M0HHjnfVRAurSUwqAZ7T3KCd55RWc5KE5QgYevH45lQUWMQ+sAENUmjhXLWPHODqyV5aXsD2jgDMo9RGKTyVo/6cNLxSD+EjFTT6zZc2reHMbaqzK9FUr3lyQuTWyfbeBu8/81+lph94IlHNOiD18NQ=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(346002)(136003)(376002)(39860400002)(366004)(230922051799003)(451199024)(1800799009)(186009)(316002)(41300700001)(26005)(55016003)(52536014)(2906002)(19627405001)(5660300002)(8676002)(66556008)(66446008)(966005)(110136005)(76116006)(66476007)(8936002)(66946007)(64756008)(478600001)(4326008)(71200400001)(6506007)(7696005)(53546011)(9686003)(83380400001)(33656002)(38100700002)(86362001)(122000001)(38070700005)(166002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?VDkU/w4jT99qzkTkLWtNzgi/I729Amt5ImwXmq+BA62ttC913AnXLW7qwQNY?=
- =?us-ascii?Q?8DBzxHjFWiQPZ7wAidVzAp3eQ79yhadraDAiQ5H1wDfMYAakxF1OdaiElkiP?=
- =?us-ascii?Q?DJWMz61MuMrYsdLgVgsFi8vZd95UOiPX3ECfnfraQmxaFCJu/WU4PmPSVUT4?=
- =?us-ascii?Q?Rt8tZUi3Clc+BJObkKeYPF4yz8/hTc343NLah5zPThPHky20rIY8+MUCJ+hS?=
- =?us-ascii?Q?u0agQDn6aP0STXIAkcB5ajW6dWAovq+2V21ZUl0jOAIc+TnTndVMQG8jD8HZ?=
- =?us-ascii?Q?YaLNdRRYfnMB82OlIvnTg53hOnw5SnY8k/M4t2ZuMzxtaSPZ6aQPr4YZ11Id?=
- =?us-ascii?Q?1q5jJoDTb4KS5RHg8tK8etqx8jqyjnCWOS9VeKLZM5eLt8VqHvYen8BBQI50?=
- =?us-ascii?Q?HJRLTC6SG4+GMaieTvcjvuYaosASbBDCTjKT7McP/LIG4YY1pInP67UHke7d?=
- =?us-ascii?Q?NoEQW+6G3dTHaniHri0mlAwHiGHkYN5TIGJwTgH2kHRWg6t7fyMhQCcVKApu?=
- =?us-ascii?Q?GteJ99UBd+JzLZM8xwHP7hKvcXgX1X89bl6BsfP8Sq2lQcADdE6X23xGECFG?=
- =?us-ascii?Q?NZn27vCUWW3M5nPwW5NgxB84/jxFyfBgnNpJqJ23+jg9X+cLGuXdLJjqD3Rz?=
- =?us-ascii?Q?ZnGrpevpTu8MolTCEAQpGYQ5SIPoMgE1JKXGjZ5PEFuS5dtN38FBHeT4PUDC?=
- =?us-ascii?Q?UbiziMMrNe7A9gEbhDgClWpzPkfsOlZGY+49uKvDITAjZ8HLAV2NdzzGvHK7?=
- =?us-ascii?Q?P5K6YmT2WtiJZbiyDd2OYKuTwXX+2+X1VFfx9CXZUUbpKvoVGfASo7npvowI?=
- =?us-ascii?Q?UpzYL0XS2+tnXWlJYg2yYr8ZFDDXOka0+ciSb3X8q1hBoFzPPREtUcywZJm4?=
- =?us-ascii?Q?i1Tm/+A5riZBEAmJrZ85OxSQgFOeGG4XvfjJb+usVlE5oGHUQg6CMrV6XXDx?=
- =?us-ascii?Q?2EXomHtn7vwZqjE6zOglO4CIu0gkK57MkNJfcPZQ49Yk0tHhCAIEn5OGKuwQ?=
- =?us-ascii?Q?JrFt/gKdz1vRvIiYSRrO57BbrFoLkAixJ+6KAYA1SNPYH6Qh3Ld5L5mwA7UD?=
- =?us-ascii?Q?bQVKej00Z0vwYrBYp+ieCoXpntBIQzA3mK9tp2YERu+OewHkeUHzfmeZu0cK?=
- =?us-ascii?Q?n4pzZ1cAqUGGn6tcjTCTRTQ10htIaF69qgZdlJo3IueN0x8TkynB4WYL3yd6?=
- =?us-ascii?Q?HyIajtTn2ialq8XTrvgDHShexDoRFcrYMRoTUC4ONrT9QgSGQ2NfU8rk3jFZ?=
- =?us-ascii?Q?5mHPrfKf1yTgisP3RIu+FO0aWFE3RbzvZhdinKw6VBQ2hh1ClZ9DR6hB6VuQ?=
- =?us-ascii?Q?+B84t6nTcbdBMoJrLE8qj3XEZpmfDdbgYWjkEBFk4NC2T7SWEjxTQi5Q8A1H?=
- =?us-ascii?Q?GtsAqgk46Cs3bGluRuxQUo9MeBDueK0dEbVOYVfnoRAAUN7S5W7u9uOlFGFP?=
- =?us-ascii?Q?vO/Ktkptj/qstqUsW8GFQ4I6JlZSVi1LxHXximyUOygFJHb0EbIs2TIl8Hyx?=
- =?us-ascii?Q?pnTUhw4Ve8/G0WhSCUD5BflIiWz1lenOxUUrcAGw1wUUmNszRl190CzEsaxD?=
- =?us-ascii?Q?LRqDkNdwzoZ1xN1/lWg=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB51449B3E684B5F7F38AEF2A3F7C3ABL1PR12MB5144namp_"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.21; Tue, 26 Sep
+ 2023 16:39:53 +0000
+Received: from BL6PEPF0001AB74.namprd02.prod.outlook.com
+ (2603:10b6:208:23b:cafe::61) by MN2PR11CA0030.outlook.office365.com
+ (2603:10b6:208:23b::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.35 via Frontend
+ Transport; Tue, 26 Sep 2023 16:39:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0001AB74.mail.protection.outlook.com (10.167.242.167) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6838.14 via Frontend Transport; Tue, 26 Sep 2023 16:39:53 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 26 Sep
+ 2023 11:39:52 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amdkfd: reduce stack size in kfd_topology_add_device()
+Date: Tue, 26 Sep 2023 12:39:37 -0400
+Message-ID: <20230926163938.1013775-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB74:EE_|CY8PR12MB7316:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa827e2c-a351-44c7-d716-08dbbeaf35d9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: XXdj11o1r9Gd27FE7s+ABT72pZDnCKYwMTI/FdMpoIz+0eEdAFZ1hsSuVYS6t6m3BkRHOUge7KRBghkPaE5wwwEJWWmgCObO8mVhebjmFLgkN3rgBPC9/7/8QJOHz1qCuANZS13olynOEDCIjZ5FvHd8kRMnae3ZGvuONoM4U0uTyFxeWlB6c9r+WpkB39wnaWhvdZnjcyh4AE7Tj/XmxYlllmHE25JuYhXnDFA5YL9pC86wrXW5NOfvxdVpjCdj8ITT0bJ+xa133imm/HmOh/9aU5JATgmDISPjtyFi6j/PcFKdRSPmEdG6yH9MpED4mCq86SO2C4uE48gA1eS9esEdPVNQhF0Gz2NKnQ0HuitMTfWUN6GjNU2q7bVMyPNignfsTw+U3smaw4hyj8vJjfVO4upH/G1QpGp06QBwBQE1TOSAK2/c3ZDhUpXbYi+q7lX+rHdj8UIw/V0XTEGlWnnSOfev4pmiyHPeuDmWLuQkLhw6K0CG2dXpHMvjBLCGJdY8OPZqwkL57FqOZ+3puV2oSRihF3h+7ArnefHwEM8xT4i1J7WUsEw14WNQzL9ZBevZg6p/5iLCK0GWkoANJeBbOWrtQTmyBB/QQxBbKnSCEe/FJ7sXIotszK5Q2RiVKYPwcFCHBG03bt9WqxsQADTr8t+qen3L8hMcu8AWTYNUqPo/dOLkmDsY3Bsvdc5RMse5xmz8A30B56e3WiAVCgP0onr/UQmazelNrN1szH2EC3UdwNYRZtf6lW92Hrl3
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(376002)(346002)(396003)(136003)(39860400002)(230922051799003)(82310400011)(186009)(1800799009)(451199024)(46966006)(36840700001)(40470700004)(478600001)(356005)(16526019)(54906003)(2616005)(81166007)(41300700001)(426003)(336012)(26005)(40480700001)(6916009)(316002)(6666004)(966005)(82740400003)(8936002)(7696005)(8676002)(40460700003)(1076003)(36860700001)(4326008)(2906002)(47076005)(86362001)(36756003)(83380400001)(70206006)(5660300002)(70586007)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7de69635-e9c4-42b8-ec37-08dbbea24461
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Sep 2023 15:07:14.4221 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: UwRuBZv0WAuel+NuN9Pqy+1Tpc4j4/5h3/+0U13XW82dC0Jw3Y/JmFQaCNLA88lWaI3ZnxMxJQcvxj6n8FY4uQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8284
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2023 16:39:53.4611 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa827e2c-a351-44c7-d716-08dbbeaf35d9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB74.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7316
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,142 +97,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Xu, Feifei" <Feifei.Xu@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Arnd Bergmann <arnd@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB51449B3E684B5F7F38AEF2A3F7C3ABL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+kfd_topology.c:2082:1: warning: the frame size of 1440 bytes is larger than 1024 bytes
 
-[AMD Official Use Only - General]
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Limonciello, Mario <Mario.Limonciello@amd.com>
-Sent: Monday, September 25, 2023 9:44 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Limonciello, Mario <Mario.Limonciello@amd.com>; Deucher, Alexander <Ale=
-xander.Deucher@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>
-Subject: [PATCH] drm/amd: Limit seamless boot by default to APUs
-
-A hang is reported on DCN 3.2 with seamless boot enabled.
-As the benefits come from an eDP setup, limit it to only enabled
-by default with APUs.
-
-Suggested-by: Alexander.Deucher@amd.com
-Reported-by: feifei.xu@amd.com
-Closes: https://lore.kernel.org/amd-gfx/85b427f6-11ec-4249-bf6f-eadf9c375f8=
-8@amd.com/T/#m2887e919d7c01b2a4860d2261b366d22e070f309
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2866
+Cc: Arnd Bergmann <arnd@kernel.org>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index 22c0e035de81..5436d7a34014 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1380,6 +1380,9 @@ bool amdgpu_device_seamless_boot_supported(struct amd=
-gpu_device *adev)
-                 return false;
-         }
-
-+       if (!(adev->flags & AMD_IS_APU))
-+               return false;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index c8c75ff7cea8..3f9f882d3f5c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -1918,7 +1918,7 @@ int kfd_topology_add_device(struct kfd_node *gpu)
+ {
+ 	uint32_t gpu_id;
+ 	struct kfd_topology_device *dev;
+-	struct kfd_cu_info cu_info;
++	struct kfd_cu_info *cu_info;
+ 	int res = 0;
+ 	int i;
+ 	const char *asic_name = amdgpu_asic_name[gpu->adev->asic_type];
+@@ -1959,8 +1959,11 @@ int kfd_topology_add_device(struct kfd_node *gpu)
+ 	/* Fill-in additional information that is not available in CRAT but
+ 	 * needed for the topology
+ 	 */
++	cu_info = kzalloc(sizeof(struct kfd_cu_info), GFP_KERNEL);
++	if (!cu_info)
++		return -ENOMEM;
+ 
+-	amdgpu_amdkfd_get_cu_info(dev->gpu->adev, &cu_info);
++	amdgpu_amdkfd_get_cu_info(dev->gpu->adev, cu_info);
+ 
+ 	for (i = 0; i < KFD_TOPOLOGY_PUBLIC_NAME_SIZE-1; i++) {
+ 		dev->node_props.name[i] = __tolower(asic_name[i]);
+@@ -1970,7 +1973,7 @@ int kfd_topology_add_device(struct kfd_node *gpu)
+ 	dev->node_props.name[i] = '\0';
+ 
+ 	dev->node_props.simd_arrays_per_engine =
+-		cu_info.num_shader_arrays_per_engine;
++		cu_info->num_shader_arrays_per_engine;
+ 
+ 	dev->node_props.gfx_target_version =
+ 				gpu->kfd->device_info.gfx_target_version;
+@@ -2051,7 +2054,7 @@ int kfd_topology_add_device(struct kfd_node *gpu)
+ 	 */
+ 	if (dev->gpu->adev->asic_type == CHIP_CARRIZO) {
+ 		dev->node_props.simd_count =
+-			cu_info.simd_per_cu * cu_info.cu_active_number;
++			cu_info->simd_per_cu * cu_info->cu_active_number;
+ 		dev->node_props.max_waves_per_simd = 10;
+ 	}
+ 
+@@ -2078,6 +2081,8 @@ int kfd_topology_add_device(struct kfd_node *gpu)
+ 
+ 	kfd_notify_gpu_change(gpu_id, 1);
+ 
++	kfree(cu_info);
 +
-         if (adev->mman.keep_stolen_vga_memory)
-                 return false;
+ 	return 0;
+ }
+ 
+-- 
+2.41.0
 
---
-2.34.1
-
-
---_000_BL1PR12MB51449B3E684B5F7F38AEF2A3F7C3ABL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - General]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Limonciello, Mario &l=
-t;Mario.Limonciello@amd.com&gt;<br>
-<b>Sent:</b> Monday, September 25, 2023 9:44 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Limonciello, Mario &lt;Mario.Limonciello@amd.com&gt;; Deucher, A=
-lexander &lt;Alexander.Deucher@amd.com&gt;; Xu, Feifei &lt;Feifei.Xu@amd.co=
-m&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd: Limit seamless boot by default to APUs</fo=
-nt>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">A hang is reported on DCN 3.2 with seamless boot e=
-nabled.<br>
-As the benefits come from an eDP setup, limit it to only enabled<br>
-by default with APUs.<br>
-<br>
-Suggested-by: Alexander.Deucher@amd.com<br>
-Reported-by: feifei.xu@amd.com<br>
-Closes: <a href=3D"https://lore.kernel.org/amd-gfx/85b427f6-11ec-4249-bf6f-=
-eadf9c375f88@amd.com/T/#m2887e919d7c01b2a4860d2261b366d22e070f309">
-https://lore.kernel.org/amd-gfx/85b427f6-11ec-4249-bf6f-eadf9c375f88@amd.co=
-m/T/#m2887e919d7c01b2a4860d2261b366d22e070f309</a><br>
-Signed-off-by: Mario Limonciello &lt;mario.limonciello@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++<br>
-&nbsp;1 file changed, 3 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index 22c0e035de81..5436d7a34014 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -1380,6 +1380,9 @@ bool amdgpu_device_seamless_boot_supported(struct amd=
-gpu_device *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return false;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(adev-&gt;flags &amp; AMD_IS_APU=
-))<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return false;<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;mman.keep_sto=
-len_vga_memory)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return false;<br>
-&nbsp;<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB51449B3E684B5F7F38AEF2A3F7C3ABL1PR12MB5144namp_--
