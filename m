@@ -4,82 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 336F0E7E634
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 13:03:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FE79E7E632
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 13:07:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C577110E3DF;
-	Tue, 26 Sep 2023 13:03:01 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E68610E3D3
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Sep 2023 12:56:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1695732993;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=UkUBWVUpOckdloB7nvyn6S4lYeiAg6HkW3tcCGhfEaA=;
- b=XFjE5YXHN05yxYvTH+oo/ucBO+4uHoy07u6dexMRAnQnXSMMfEIZzFkGG02sLk/qPLteR5
- mT3tjUtmsM84RmB3mNQS9RFDOGZyUWsqMIhesHPBxUV9EHgjUmRhty5O2dMjJ8VQZHZZQZ
- Qajy5EGlKkWF5YOSsk0uKAi+Ev5/a2U=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-216-CA82Ri75NCOS3EME434f5g-1; Tue, 26 Sep 2023 08:56:32 -0400
-X-MC-Unique: CA82Ri75NCOS3EME434f5g-1
-Received: by mail-ej1-f71.google.com with SMTP id
- a640c23a62f3a-99bebfada8cso729058866b.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Sep 2023 05:56:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695732991; x=1696337791;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=UkUBWVUpOckdloB7nvyn6S4lYeiAg6HkW3tcCGhfEaA=;
- b=vIjpOt342f3Ufubx/fT+TltzOh2VXOK07/4ThASWqIZlO7QSnh6CUPSy2/2NNV3xa7
- UBoGqU1SWE9tj+zoyxYKtv/uPA0P/z/UG9qkTbZACqjBOCp2qo9o0A8jsUviaHiXeFDB
- Flw8CVObWMsBaa8V9OhBVASZuT4IHrUnN2p19upt1Iy3tGhuIywIOs7Ul5vbEAfMdbP8
- F6oFSfWALun+3ZU3tn4sAwjgJMyYExNYx/Y+DQ9vmfblKshc4nWlqq8B860HNSiy+rbr
- r8HIvHr4BfGdo0bJR3clKxJdkzRftoXZpIPV8pL2jfOkDd9KZRxNhuo2rJu2s2u/+D+E
- RvgQ==
-X-Gm-Message-State: AOJu0Yx2OGNZystkzt79J4V5lqRIFipqQQXRr13DV0ubVSNpv56Bejnt
- qbP0SLMsI81zYFEFY6/cc+PJTa+0pb5tLTNFK4XsqMEqPFxhJvWtm2crPb1ScBhPCqqx6rcqu6L
- rt0PGYgtS2DogENufCO370QtwCA==
-X-Received: by 2002:a17:906:5182:b0:9ae:7088:6e5d with SMTP id
- y2-20020a170906518200b009ae70886e5dmr8609861ejk.3.1695732991320; 
- Tue, 26 Sep 2023 05:56:31 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFlKMkjWc/6E/rOck6ptJGST/s1rC6uMsZziOzioVqLhJ/fEha6iiUPqIHhbUDWGuzvICiu2w==
-X-Received: by 2002:a17:906:5182:b0:9ae:7088:6e5d with SMTP id
- y2-20020a170906518200b009ae70886e5dmr8609829ejk.3.1695732990967; 
- Tue, 26 Sep 2023 05:56:30 -0700 (PDT)
-Received: from [192.168.1.217] ([109.36.138.247])
- by smtp.gmail.com with ESMTPSA id
- t2-20020a17090616c200b0099d45ed589csm7672502ejd.125.2023.09.26.05.56.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Sep 2023 05:56:30 -0700 (PDT)
-Message-ID: <6c047e17-66b0-c3ff-1b4e-4478663619a4@redhat.com>
-Date: Tue, 26 Sep 2023 14:56:26 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3640E10E07C;
+	Tue, 26 Sep 2023 13:06:59 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4636310E07C;
+ Tue, 26 Sep 2023 13:06:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=1CPfsOrSgtg1DWgOTN9++AAfO9XupLa7U/drfAwpwJA=; b=nscvE3+9rXVf859gqkI8951eky
+ BFq09hKhOBEyuykzYjz5Z4yzXitQ1cfq+IPcblJxiDoAnYTXW3aiD7QuDt0LOMQr1mJMJh9ku4QGT
+ rQBiTEjBFKrpZcBVnzKvecGBkOuAiazAccA2DR9Esi7W7tCEYI8dhIm0k60glgzgz0UDlkbxxNyoW
+ lx2W8VQFEPQBvkg8DxajpiipupO2eILgivsBk4YdTk2LPX3SyTx3pYekUnaT4tbVJNeAehmoTcqOn
+ haACN9Rt3O+Cq8JRnZ6eOKiyXeUzu/8np7dttwJ6SM1HXhPpvy1fT6KGRujrbZ2oR465bJmSyFt/Z
+ f5xBIlAA==;
+Received: from [102.213.205.115] (helo=mail.igalia.com)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1ql7m7-008WJr-9h; Tue, 26 Sep 2023 15:06:51 +0200
+Date: Tue, 26 Sep 2023 12:06:46 -0100
+From: Melissa Wen <mwen@igalia.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [PATCH] drm/amd/display: set stream gamut remap matrix to MPC
+ for DCN3+
+Message-ID: <20230926130623.xf7oi4rpl5i6i65u@mail.igalia.com>
+References: <20230721132431.692158-1-mwen@igalia.com>
+ <9276b01c-8b52-40ad-8ce5-39a8824d340b@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH 13/15] platform/x86/amd/pmf: Add PMF-AMDGPU set interface
-To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, markgross@kernel.org,
- basavaraj.natikar@amd.com, jikos@kernel.org, benjamin.tissoires@redhat.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch
-References: <20230922175056.244940-1-Shyam-sundar.S-k@amd.com>
- <20230922175056.244940-14-Shyam-sundar.S-k@amd.com>
- <2e201a3b-d75f-916d-5135-b084ad5da23e@redhat.com>
- <437fbd5c-386f-4609-a350-77f61c8aaa0c@amd.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <437fbd5c-386f-4609-a350-77f61c8aaa0c@amd.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 26 Sep 2023 13:02:52 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9276b01c-8b52-40ad-8ce5-39a8824d340b@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,199 +52,201 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Patil.Reddy@amd.com,
- linux-input@vger.kernel.org, mario.limonciello@amd.com
+Cc: Krunoslav Kovac <krunoslav.kovac@amd.com>, kernel-dev@igalia.com,
+ sunpeng.li@amd.com, bhawanpreet.lakha@amd.com, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org,
+ Nicholas.Kazlauskas@amd.com, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
+ airlied@gmail.com, christian.koenig@amd.com, sungjoon.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-
-On 9/26/23 13:24, Shyam Sundar S K wrote:
-> Hi Hans,
+On 09/25, Harry Wentland wrote:
 > 
-> On 9/26/2023 4:05 PM, Hans de Goede wrote:
->> Hi,
->>
->> On 9/22/23 19:50, Shyam Sundar S K wrote:
->>> For the Smart PC Solution to fully work, it has to enact to the actions
->>> coming from TA. Add the initial code path for set interface to AMDGPU.
->>>
->>> Co-developed-by: Mario Limonciello <mario.limonciello@amd.com>
->>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->>> Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
->>> ---
->>>  drivers/gpu/drm/amd/amdgpu/amdgpu_pmf.c | 21 +++++++++++++++++++++
->>>  drivers/platform/x86/amd/pmf/pmf.h      |  2 ++
->>>  drivers/platform/x86/amd/pmf/tee-if.c   | 19 +++++++++++++++++--
->>>  include/linux/amd-pmf-io.h              |  1 +
->>>  4 files changed, 41 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmf.c
->>> index 232d11833ddc..5c567bff0548 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmf.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmf.c
->>> @@ -68,3 +68,24 @@ int amd_pmf_get_gfx_data(struct amd_gpu_pmf_data *pmf)
->>>  	return 0;
->>>  }
->>>  EXPORT_SYMBOL_GPL(amd_pmf_get_gfx_data);
->>> +
->>> +int amd_pmf_set_gfx_data(struct amd_gpu_pmf_data *pmf)
->>> +{
->>> +	struct drm_device *drm_dev = pci_get_drvdata(pmf->gpu_dev);
->>> +	struct amdgpu_device *adev = drm_to_adev(drm_dev);
->>> +	struct backlight_device *bd;
->>> +
->>> +	if (!(adev->flags & AMD_IS_APU)) {
->>> +		DRM_ERROR("PMF-AMDGPU interface not supported\n");
->>> +		return -ENODEV;
->>> +	}
->>> +
->>> +	bd = backlight_device_get_by_type(BACKLIGHT_RAW);
->>> +	if (!bd)
->>> +		return -ENODEV;
->>
->> This assumes that the backlight is always controller by the amdgpu's
->> native backlight driver, but it might e.g. also be handled by
->> eacpi-video or by nvidia_wmi_ec_backlight (when using an AMD APU +
->> nvidia dgpu).
 > 
-> PMF is meant for AMD APUs(atleast for now) and the _HID will only be
-> made visible if its AMD laptop. So using amdgpu's native BACKLIGHT_RAW
-> should be safe, right?
+> On 2023-07-21 09:24, Melissa Wen wrote:
+> > dc->caps.color.mpc.gamut_remap says there is a post-blending color block
+> > for gamut remap matrix for DCN3 HW family and newer versions. However,
+> > those drivers still follow DCN10 programming that remap stream
+> > gamut_remap_matrix to DPP (pre-blending).
+> > 
+> > To enable pre-blending and post-blending gamut_remap matrix supports at
+> > the same time, set stream gamut_remap to MPC and plane gamut_remap to
+> > DPP for DCN families that support both.
+> > 
+> > It was tested using IGT KMS color tests for DRM CRTC CTM property and it
+> > preserves test results.
+> > 
+> > Signed-off-by: Melissa Wen <mwen@igalia.com>
+> > 
+> 
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> 
+> and merged.
+> 
+> I also took the liberty to expand this to the recently merged dcn35
+> code.
 
-Users can pass say acpi_backlight=video and use the acpi_video
-driver for backlight control instead of the native GPU backlight
-control.
+No problem. Thank you!
+
+With this change merged, I also removed the related patch from the
+series of AMD driver-specific color props.
+
+Melissa
 
 > 
->>
->> For now what should be done here is to call acpi_video_get_backlight_type()
->> and then translate the return value from this into a backlight-type:
->>
->>         acpi_backlight_video		-> BACKLIGHT_FIRMWARE
->>         acpi_backlight_vendor,		-> BACKLIGHT_PLATFORM
->>         acpi_backlight_native,		-> BACKLIGHT_RAW
->>         acpi_backlight_nvidia_wmi_ec,	-> BACKLIGHT_FIRMWARE
->>         acpi_backlight_apple_gmux,	-> BACKLIGHT_PLATFORM
->>
+> Harry
 > 
-> I can add this change in the v2, do you insist on this?
-
-Insist is a strong word, but I think that it is a good idea to have
-this. Evenutally it looks like this code will need to either integrate with
-the drm drivers lot more; or the drm core needs to export some special
-hooks for this which the PMF code can then call.
-
-Actually thinking more about this, I think that the right thing to do
-here is make some code register brightness control as a cooling device
-(which I think is already done in some cases) and then have the PMF
-code use the cooling-device APIs for this.
-
-IMHO that would be a much cleaner solution then this hack.
-
-Regards,
-
-Hans
-
-
-
+> > ---
+> > 
+> > Hi,
+> > 
+> > Two relevant things to consider for this change. One is that mapping DRM
+> > CRTC CTM to MPC is a more consistent way since CRTC CTM is a
+> > post-blending transformation. Second, programming stream
+> > gamut_remap_matrix on MPC enables us to provide support for both plane
+> > CTM and CRTC CTM color properties. If we don't make this separation, we
+> > would need to reject an atomic commit that tries to set both properties
+> > at the same time and userspace may also get unexpected results.
+> > 
+> > Thanks in advance for any feeback,
+> > 
+> > Melissa
+> > 
+> >  .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    | 37 +++++++++++++++++++
+> >  .../drm/amd/display/dc/dcn30/dcn30_hwseq.h    |  3 ++
+> >  .../gpu/drm/amd/display/dc/dcn30/dcn30_init.c |  2 +-
+> >  .../drm/amd/display/dc/dcn301/dcn301_init.c   |  2 +-
+> >  .../gpu/drm/amd/display/dc/dcn31/dcn31_init.c |  2 +-
+> >  .../drm/amd/display/dc/dcn314/dcn314_init.c   |  2 +-
+> >  .../gpu/drm/amd/display/dc/dcn32/dcn32_init.c |  2 +-
+> >  7 files changed, 45 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+> > index 4cd4ae07d73d..4fb4e9ec03f1 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+> > @@ -186,6 +186,43 @@ bool dcn30_set_input_transfer_func(struct dc *dc,
+> >  	return result;
+> >  }
+> >  
+> > +void dcn30_program_gamut_remap(struct pipe_ctx *pipe_ctx)
+> > +{
+> > +	int i = 0;
+> > +	struct dpp_grph_csc_adjustment dpp_adjust;
+> > +	struct mpc_grph_gamut_adjustment mpc_adjust;
+> > +	int mpcc_id = pipe_ctx->plane_res.hubp->inst;
+> > +	struct mpc *mpc = pipe_ctx->stream_res.opp->ctx->dc->res_pool->mpc;
+> > +
+> > +	memset(&dpp_adjust, 0, sizeof(dpp_adjust));
+> > +	dpp_adjust.gamut_adjust_type = GRAPHICS_GAMUT_ADJUST_TYPE_BYPASS;
+> > +
+> > +	if (pipe_ctx->plane_state &&
+> > +	    pipe_ctx->plane_state->gamut_remap_matrix.enable_remap == true) {
+> > +		dpp_adjust.gamut_adjust_type = GRAPHICS_GAMUT_ADJUST_TYPE_SW;
+> > +		for (i = 0; i < CSC_TEMPERATURE_MATRIX_SIZE; i++)
+> > +			dpp_adjust.temperature_matrix[i] =
+> > +				pipe_ctx->plane_state->gamut_remap_matrix.matrix[i];
+> > +	}
+> > +
+> > +	pipe_ctx->plane_res.dpp->funcs->dpp_set_gamut_remap(pipe_ctx->plane_res.dpp,
+> > +							    &dpp_adjust);
+> > +
+> > +	memset(&mpc_adjust, 0, sizeof(mpc_adjust));
+> > +	mpc_adjust.gamut_adjust_type = GRAPHICS_GAMUT_ADJUST_TYPE_BYPASS;
+> > +
+> > +	if (pipe_ctx->top_pipe == NULL) {
+> > +		if (pipe_ctx->stream->gamut_remap_matrix.enable_remap == true) {
+> > +			mpc_adjust.gamut_adjust_type = GRAPHICS_GAMUT_ADJUST_TYPE_SW;
+> > +			for (i = 0; i < CSC_TEMPERATURE_MATRIX_SIZE; i++)
+> > +				mpc_adjust.temperature_matrix[i] =
+> > +					pipe_ctx->stream->gamut_remap_matrix.matrix[i];
+> > +		}
+> > +	}
+> > +
+> > +	mpc->funcs->set_gamut_remap(mpc, mpcc_id, &mpc_adjust);
+> > +}
+> > +
+> >  bool dcn30_set_output_transfer_func(struct dc *dc,
+> >  				struct pipe_ctx *pipe_ctx,
+> >  				const struct dc_stream_state *stream)
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h
+> > index a24a8e33a3d2..cb34ca932a5f 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h
+> > @@ -58,6 +58,9 @@ bool dcn30_set_blend_lut(struct pipe_ctx *pipe_ctx,
+> >  bool dcn30_set_input_transfer_func(struct dc *dc,
+> >  				struct pipe_ctx *pipe_ctx,
+> >  				const struct dc_plane_state *plane_state);
+> > +
+> > +void dcn30_program_gamut_remap(struct pipe_ctx *pipe_ctx);
+> > +
+> >  bool dcn30_set_output_transfer_func(struct dc *dc,
+> >  				struct pipe_ctx *pipe_ctx,
+> >  				const struct dc_stream_state *stream);
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
+> > index 3d19acaa12f3..5372eb76fcfc 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
+> > @@ -32,7 +32,7 @@
+> >  #include "dcn30_init.h"
+> >  
+> >  static const struct hw_sequencer_funcs dcn30_funcs = {
+> > -	.program_gamut_remap = dcn10_program_gamut_remap,
+> > +	.program_gamut_remap = dcn30_program_gamut_remap,
+> >  	.init_hw = dcn30_init_hw,
+> >  	.apply_ctx_to_hw = dce110_apply_ctx_to_hw,
+> >  	.apply_ctx_for_surface = NULL,
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c
+> > index 257df8660b4c..81fd50ee97c3 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c
+> > @@ -33,7 +33,7 @@
+> >  #include "dcn301_init.h"
+> >  
+> >  static const struct hw_sequencer_funcs dcn301_funcs = {
+> > -	.program_gamut_remap = dcn10_program_gamut_remap,
+> > +	.program_gamut_remap = dcn30_program_gamut_remap,
+> >  	.init_hw = dcn10_init_hw,
+> >  	.power_down_on_boot = dcn10_power_down_on_boot,
+> >  	.apply_ctx_to_hw = dce110_apply_ctx_to_hw,
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c
+> > index fc25cc300a17..4e724d52a68f 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c
+> > @@ -34,7 +34,7 @@
+> >  #include "dcn31_init.h"
+> >  
+> >  static const struct hw_sequencer_funcs dcn31_funcs = {
+> > -	.program_gamut_remap = dcn10_program_gamut_remap,
+> > +	.program_gamut_remap = dcn30_program_gamut_remap,
+> >  	.init_hw = dcn31_init_hw,
+> >  	.power_down_on_boot = dcn10_power_down_on_boot,
+> >  	.apply_ctx_to_hw = dce110_apply_ctx_to_hw,
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_init.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_init.c
+> > index ca8fe55c33b8..01e03ecf2291 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_init.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_init.c
+> > @@ -36,7 +36,7 @@
+> >  #include "dcn314_init.h"
+> >  
+> >  static const struct hw_sequencer_funcs dcn314_funcs = {
+> > -	.program_gamut_remap = dcn10_program_gamut_remap,
+> > +	.program_gamut_remap = dcn30_program_gamut_remap,
+> >  	.init_hw = dcn31_init_hw,
+> >  	.power_down_on_boot = dcn10_power_down_on_boot,
+> >  	.apply_ctx_to_hw = dce110_apply_ctx_to_hw,
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
+> > index 777b2fac20c4..625008d618fa 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
+> > @@ -33,7 +33,7 @@
+> >  #include "dcn32_init.h"
+> >  
+> >  static const struct hw_sequencer_funcs dcn32_funcs = {
+> > -	.program_gamut_remap = dcn10_program_gamut_remap,
+> > +	.program_gamut_remap = dcn30_program_gamut_remap,
+> >  	.init_hw = dcn32_init_hw,
+> >  	.apply_ctx_to_hw = dce110_apply_ctx_to_hw,
+> >  	.apply_ctx_for_surface = NULL,
 > 
-> Thanks,
-> Shyam
-> 
->> Also I'm worried about probe order here, this code currently assumes
->> that the GPU or other backlight driver has loaded before this runs,
->> which is not necessarily the case.
->>
->> I think that if the backlight_device_get_by_type() fails this
->> should be retried say every 10 seconds from some delayed workqueue
->> for at least a couple of minutes after boot.
->>
->> Regards,
->>
->> Hans
->>
->>
->>
->>
->>> +
->>> +	backlight_device_set_brightness(bd, pmf->brightness);
->>> +
->>> +	return 0;
->>> +}
->>> +EXPORT_SYMBOL_GPL(amd_pmf_set_gfx_data);
->>> diff --git a/drivers/platform/x86/amd/pmf/pmf.h b/drivers/platform/x86/amd/pmf/pmf.h
->>> index 9032df4ba48a..ce89cc0daa5a 100644
->>> --- a/drivers/platform/x86/amd/pmf/pmf.h
->>> +++ b/drivers/platform/x86/amd/pmf/pmf.h
->>> @@ -73,6 +73,7 @@
->>>  #define PMF_POLICY_STT_SKINTEMP_APU				7
->>>  #define PMF_POLICY_STT_SKINTEMP_HS2				8
->>>  #define PMF_POLICY_SYSTEM_STATE					9
->>> +#define PMF_POLICY_DISPLAY_BRIGHTNESS				12
->>>  #define PMF_POLICY_P3T						38
->>>  
->>>  /* TA macros */
->>> @@ -480,6 +481,7 @@ enum ta_pmf_error_type {
->>>  };
->>>  
->>>  struct pmf_action_table {
->>> +	unsigned long display_brightness;
->>>  	enum system_state system_state;
->>>  	unsigned long spl; /* in mW */
->>>  	unsigned long sppt; /* in mW */
->>> diff --git a/drivers/platform/x86/amd/pmf/tee-if.c b/drivers/platform/x86/amd/pmf/tee-if.c
->>> index 1608996654e8..eefffff83a4c 100644
->>> --- a/drivers/platform/x86/amd/pmf/tee-if.c
->>> +++ b/drivers/platform/x86/amd/pmf/tee-if.c
->>> @@ -79,10 +79,10 @@ static int amd_pmf_update_uevents(struct amd_pmf_dev *dev, u16 event)
->>>  	return 0;
->>>  }
->>>  
->>> -static void amd_pmf_apply_policies(struct amd_pmf_dev *dev, struct ta_pmf_enact_result *out)
->>> +static int amd_pmf_apply_policies(struct amd_pmf_dev *dev, struct ta_pmf_enact_result *out)
->>>  {
->>>  	u32 val, event = 0;
->>> -	int idx;
->>> +	int idx, ret;
->>>  
->>>  	for (idx = 0; idx < out->actions_count; idx++) {
->>>  		val = out->actions_list[idx].value;
->>> @@ -160,8 +160,23 @@ static void amd_pmf_apply_policies(struct amd_pmf_dev *dev, struct ta_pmf_enact_
->>>  				dev->prev_data->system_state = 0;
->>>  			}
->>>  			break;
->>> +
->>> +		case PMF_POLICY_DISPLAY_BRIGHTNESS:
->>> +			ret = amd_pmf_get_gfx_data(&dev->gfx_data);
->>> +			if (ret)
->>> +				return ret;
->>> +
->>> +			dev->prev_data->display_brightness = dev->gfx_data.brightness;
->>> +			if (dev->prev_data->display_brightness != val) {
->>> +				dev->gfx_data.brightness = val;
->>> +				amd_pmf_set_gfx_data(&dev->gfx_data);
->>> +				dev_dbg(dev->dev, "update DISPLAY_BRIGHTNESS : %d\n", val);
->>> +			}
->>> +			break;
->>>  		}
->>>  	}
->>> +
->>> +	return 0;
->>>  }
->>>  
->>>  static int amd_pmf_invoke_cmd_enact(struct amd_pmf_dev *dev)
->>> diff --git a/include/linux/amd-pmf-io.h b/include/linux/amd-pmf-io.h
->>> index a2d4af231362..ecae387ddaa6 100644
->>> --- a/include/linux/amd-pmf-io.h
->>> +++ b/include/linux/amd-pmf-io.h
->>> @@ -25,4 +25,5 @@ struct amd_gpu_pmf_data {
->>>  };
->>>  
->>>  int amd_pmf_get_gfx_data(struct amd_gpu_pmf_data *pmf);
->>> +int amd_pmf_set_gfx_data(struct amd_gpu_pmf_data *pmf);
->>>  #endif
->>
-> 
-
