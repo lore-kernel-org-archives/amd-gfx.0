@@ -4,50 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1998E810DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Sep 2023 12:47:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8E6FE7F14F
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Sep 2023 13:13:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65C5310E50A;
-	Wed, 27 Sep 2023 12:47:59 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08DBB10E500;
- Wed, 27 Sep 2023 12:34:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695818042; x=1727354042;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=YPOv5yEn5ZM7AgUWexoeeAPtX+O6NhNqPLncR7gJ7qY=;
- b=mLVl/sCYqtq5egRP/OfDRuE4AEDrrDkJzL6Up2kkLbYclTSW910P/+RA
- 74TroMUnakvrsvH/a9rwoNOuVjRA66pxf+FEa7MJSg8E5arUjaAthshS/
- 3K8p8259R9Nvl8mz+j5B7HrltC1DaI2q66sqb57IPgKPE6Jr4Y5U1Kyh3
- bOWHKUH/I1l0XCxoo3dTpeJalXd3dKpeO98hSBSTomebl3vIXtKu9LYBT
- V+6lASPotjoWQzrK+ZccN8BvRINC6IFU7PFVG34C0KIDOx5Bn5X4zgSdk
- rUnLX0Q6paFmu+G+rAmd1qcU5LSBZmYuMKIBQ9zI6/k7g2V45zqKZOB3v w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10845"; a="385669911"
-X-IronPort-AV: E=Sophos;i="6.03,181,1694761200"; d="scan'208";a="385669911"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2023 05:33:26 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10845"; a="752557478"
-X-IronPort-AV: E=Sophos;i="6.03,181,1694761200"; d="scan'208";a="752557478"
-Received: from clkuhl-mobl.amr.corp.intel.com (HELO
- idecesar-mobl.ger.corp.intel.com) ([10.252.53.225])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2023 05:33:22 -0700
-Date: Wed, 27 Sep 2023 15:33:19 +0300 (EEST)
-From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-Subject: Re: [PATCH 10/15] platform/x86/amd/pmf: Add capability to sideload
- of policy binary
-In-Reply-To: <20230922175056.244940-11-Shyam-sundar.S-k@amd.com>
-Message-ID: <1021e446-d522-4b38-c588-50597a20cb3e@linux.intel.com>
-References: <20230922175056.244940-1-Shyam-sundar.S-k@amd.com>
- <20230922175056.244940-11-Shyam-sundar.S-k@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 738DA10E50D;
+	Wed, 27 Sep 2023 13:13:33 +0000 (UTC)
+Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
+ [IPv6:2001:4860:4864:20::2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CE9F10E50D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Sep 2023 13:13:32 +0000 (UTC)
+Received: by mail-oa1-x2b.google.com with SMTP id
+ 586e51a60fabf-1dd5b98d9aeso2265906fac.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Sep 2023 06:13:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1695820411; x=1696425211; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=nK6CQRh71E3xSN91ct0AbhMnuM48H6fOU5TevpSYH9E=;
+ b=IAgj5IK17FVGW040V3IELBJiFvcdppLmNt5mN77sCcnzXUoVVjJ3AUjcunrvPCKB/p
+ go5vOp4m/15DkFb5HYNkbPWBVIsjVIWp6g7pR3+F25BevYXSK4CwgjMrstGY+DHkrT6J
+ K1VU3PFcEAasCGKdadw46gSDxT94WUxD0O7ATkf1awBUh4BD53WLICrxuNO/pkn10rWW
+ 79bywn7ybLzGNIk/aXl+AQh7oQvkGgpndR+3tiLHWeTpwDxL7hi0icQedxt+dsJwhnwv
+ +mew/Zl4MzMo1hU67Dqb1qxI3tX45DKX17JycUU/h8yVRhs3fchsclsVE/pJK2TkfGJp
+ 8+jQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695820411; x=1696425211;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=nK6CQRh71E3xSN91ct0AbhMnuM48H6fOU5TevpSYH9E=;
+ b=LHJQ4qnGiFpLRX3c6+Xxmi3DQCDkst83HcEMTKbyoMMPDijLtb1V+qd8gKJiqbMeYE
+ HN9DXq1paM+y1YV5zAPkK5kTBsdov8ANCMgMbcBMbjhw6yGbcXw3h494NXlT/lOUgCqS
+ RzKHHLq9ya9dstDhV8iCxJARHjB6eN2ELpw0zgObif0aONxIQ1ZDCvZXRAjgiEWg+cW2
+ 9u8qXWtWcYb3gYJI3qgJtI9VinMVdbfJYWY4744IdA9I4op0ybk7cZtnzdbopR9m5C5o
+ jEfC3ZSDWTDQ8tZ4l1tbULfF2w3mpS7CJtr6eryeBE+uukGF28kgh7JaO8nQz8GW2E57
+ /R0Q==
+X-Gm-Message-State: AOJu0Yy9rQ9534MA79+tnVJrdCoN7nNG18SURN5fsCXqSxao3H9/roFx
+ WeyRwmsagSOoXHcDSTQvyG61Sexza3X3iFgQkTw=
+X-Google-Smtp-Source: AGHT+IE3P2s6tkNPtycwp0NLhx978W9UN7xsmEQ5VyEMP5uo3NRuLdxSwqjQ7sfNdfpsqD1LnLe0ra9BN2cOdqSmyC0=
+X-Received: by 2002:a05:6870:e990:b0:1d6:5f77:5127 with SMTP id
+ r16-20020a056870e99000b001d65f775127mr3686003oao.5.1695820411506; Wed, 27 Sep
+ 2023 06:13:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-X-Mailman-Approved-At: Wed, 27 Sep 2023 12:47:47 +0000
+References: <20230927054143.2169903-1-yifan1.zhang@amd.com>
+ <5a02f9df-a198-600b-f413-79b60d2a2561@amd.com>
+In-Reply-To: <5a02f9df-a198-600b-f413-79b60d2a2561@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 27 Sep 2023 09:13:20 -0400
+Message-ID: <CADnq5_PD3n9Wmuf8ep8g50E3PZDQLsk-OWw=3eoZQn10W=RKGw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: enable S/G display for for recent APUs
+ by default
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,153 +69,116 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, Patil.Reddy@amd.com, basavaraj.natikar@amd.com,
- dri-devel@lists.freedesktop.org, jikos@kernel.org,
- amd-gfx@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- markgross@kernel.org, hdegoede@redhat.com, benjamin.tissoires@redhat.com,
- mario.limonciello@amd.com, daniel@ffwll.ch, linux-input@vger.kernel.org,
- alexander.deucher@amd.com, airlied@gmail.com, christian.koenig@amd.com
+Cc: Alexander.Deucher@amd.com, Yifan Zhang <yifan1.zhang@amd.com>,
+ Harry.Wentland@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 22 Sep 2023, Shyam Sundar S K wrote:
+On Wed, Sep 27, 2023 at 8:26=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> Am 27.09.23 um 07:41 schrieb Yifan Zhang:
+> > With S/G display becomes stable, enable S/G display for recent APUs
+> > by default rather than white list.
+> >
+> > Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+> > ---
+> >   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 43 +++++-------------=
+-
+> >   1 file changed, 10 insertions(+), 33 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/driver=
+s/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index 7e6a693d6369..241fd8defdee 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -1626,41 +1626,18 @@ static int amdgpu_dm_init(struct amdgpu_device =
+*adev)
+> >               break;
+> >       }
+> >
+> > -     switch (adev->asic_type) {
+> > -     case CHIP_CARRIZO:
+> > -     case CHIP_STONEY:
+> > +     if ((adev->asic_type =3D=3D CHIP_CARRIZO ||
+> > +             adev->asic_type =3D=3D CHIP_STONEY ||
+> > +             ((adev->flags & AMD_IS_APU) &&
+> > +             amdgpu_ip_version(adev, DCE_HWIP, 0) >=3D IP_VERSION(1, 0=
+, 0) &&
+> > +             !(adev->apu_flags & AMD_APU_IS_RAVEN))) &&
+> > +             amdgpu_sg_display !=3D 0) {
+>
+> Looks like a good idea to me, but please double check your coding style
+> settings. The second line of an "if (" should be indented so that it
+> starts after the "(" of the previous line.
+>
+> Additional to that this check actually looks quite messy to me and
+> should probably be converted to always using the IP version instead of
+> the asic_type.
 
-> A policy binary is OS agnostic, and the same policies are expected to work
-> across the OSes.  At times it becomes difficult to debug when the policies
-> inside the policy binaries starts to misbehave. Add a way to sideload such
-> policies independently to debug them via a debugfs entry.
-> 
-> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-> Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-> ---
->  drivers/platform/x86/amd/pmf/pmf.h    |  1 +
->  drivers/platform/x86/amd/pmf/tee-if.c | 60 +++++++++++++++++++++++++++
->  2 files changed, 61 insertions(+)
-> 
-> diff --git a/drivers/platform/x86/amd/pmf/pmf.h b/drivers/platform/x86/amd/pmf/pmf.h
-> index 61a0f3225b62..780c442239e3 100644
-> --- a/drivers/platform/x86/amd/pmf/pmf.h
-> +++ b/drivers/platform/x86/amd/pmf/pmf.h
-> @@ -215,6 +215,7 @@ struct amd_pmf_dev {
->  	bool cnqf_supported;
->  	struct notifier_block pwr_src_notifier;
->  	/* Smart PC solution builder */
-> +	struct dentry *esbin;
->  	unsigned char *policy_buf;
->  	u32 policy_sz;
->  	struct tee_context *tee_ctx;
-> diff --git a/drivers/platform/x86/amd/pmf/tee-if.c b/drivers/platform/x86/amd/pmf/tee-if.c
-> index 4844782d93c7..fa37cfab2dc7 100644
-> --- a/drivers/platform/x86/amd/pmf/tee-if.c
-> +++ b/drivers/platform/x86/amd/pmf/tee-if.c
-> @@ -8,6 +8,7 @@
->   * Author: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
->   */
->  
-> +#include <linux/debugfs.h>
->  #include <linux/tee_drv.h>
->  #include <linux/uuid.h>
->  #include "pmf.h"
-> @@ -21,6 +22,13 @@ module_param(pb_actions_ms, int, 0644);
->  MODULE_PARM_DESC(pb_actions_ms, "Policy binary actions sampling frequency (default = 1000ms)");
->  #endif
->  
-> +#ifdef CONFIG_AMD_PMF_DEBUG
-> +/* Sideload policy binaries to debug policy failures */
-> +static bool pb_side_load;
-> +module_param(pb_side_load, bool, 0444);
-> +MODULE_PARM_DESC(pb_side_load, "Sideload policy binaries debug policy failures");
-> +#endif
-> +
->  static const uuid_t amd_pmf_ta_uuid = UUID_INIT(0x6fd93b77, 0x3fb8, 0x524d,
->  						0xb1, 0x2d, 0xc5, 0x29, 0xb1, 0x3d, 0x85, 0x43);
->  
-> @@ -267,6 +275,49 @@ static int amd_pmf_start_policy_engine(struct amd_pmf_dev *dev)
->  	return 0;
->  }
->  
-> +#ifdef CONFIG_AMD_PMF_DEBUG
-> +static ssize_t amd_pmf_get_pb_data(struct file *filp, const char __user *buf,
-> +				   size_t length, loff_t *pos)
-> +{
-> +	struct amd_pmf_dev *dev = filp->private_data;
-> +	int ret;
-> +
-> +	/* policy binary size cannot exceed POLICY_BUF_MAX_SZ */
-> +	if (length > POLICY_BUF_MAX_SZ || length == 0)
-> +		return -EINVAL;
-> +
-> +	dev->policy_sz = length;
-> +	if (copy_from_user(dev->policy_buf, buf, dev->policy_sz))
-> +		return -EFAULT;
-> +
-> +	ret = amd_pmf_start_policy_engine(dev);
-> +	if (ret)
-> +		return -EINVAL;
-> +
-> +	return length;
-> +}
-> +
-> +static const struct file_operations pb_fops = {
-> +	.write = amd_pmf_get_pb_data,
-> +	.open = simple_open,
-> +};
-> +
-> +int amd_pmf_open_pb(struct amd_pmf_dev *dev, struct dentry *debugfs_root)
-> +{
-> +	struct dentry *file = NULL;
-> +
-> +	dev->esbin = debugfs_create_dir("pb", debugfs_root);
-> +	if (IS_ERR(dev->esbin))
-> +		return -EINVAL;
-> +
-> +	file = debugfs_create_file("update_policy", 0644, dev->esbin, dev, &pb_fops);
-> +	if (!file)
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-> +#endif
-> +
->  static int amd_pmf_get_bios_buffer(struct amd_pmf_dev *dev)
->  {
->  	dev->policy_buf = kzalloc(dev->policy_sz, GFP_KERNEL);
-> @@ -279,6 +330,11 @@ static int amd_pmf_get_bios_buffer(struct amd_pmf_dev *dev)
->  
->  	memcpy(dev->policy_buf, dev->policy_base, dev->policy_sz);
->  
-> +#ifdef CONFIG_AMD_PMF_DEBUG
-> +	if (pb_side_load)
+Or just explicitly disable it on the handful or pre-CZ chips that
+don't actually support it.
+E.g.,
 
-Can't this go into amd_pmf_open_pb() as early return?
+switch (asic_type) {
+case CHIP_KAVERI:
+case CHIP_KABINI:
+case CHIP_MULLINS:
+   vm =3D false;
+   break;
+case CHIP_RAVEN:
+   if (apu_flags & AMD_APU_IS_RAVEN)
+       vm =3D false;
+   else
+       vm =3D amdgpu_sg_display !=3D 0;
+   break;
+default:
+   vm =3D (amdgpu_sg_display !=3D 0) && (flags && AMD_IS_APU);
+   break;
 
-> +		amd_pmf_open_pb(dev, dev->dbgfs_dir);
+}
 
-If you provide #else and empty amd_pmf_open_pb() above, you don't need to 
-do ifdefs here.
-
-> +#endif
-> +
->  	return amd_pmf_start_policy_engine(dev);
->  }
->  
-> @@ -381,6 +437,10 @@ int amd_pmf_init_smart_pc(struct amd_pmf_dev *dev)
->  
->  void amd_pmf_deinit_smart_pc(struct amd_pmf_dev *dev)
->  {
-> +#ifdef CONFIG_AMD_PMF_DEBUG
-> +	if (pb_side_load)
-> +		debugfs_remove_recursive(dev->esbin);
-> +#endif
-
-Likewise here, if you add amd_pmf_remove_pb() into the above #ifdef + new 
-#else block with empty body, you can just call it w/o #ifdefs here.
-
->  	kfree(dev->prev_data);
->  	kfree(dev->policy_buf);
->  	cancel_delayed_work_sync(&dev->pb_work);
-> 
-
--- 
- i.
-
+>
+> Regards,
+> Christian.
+>
+> >               init_data.flags.gpu_vm_support =3D true;
+> > -             break;
+> > -     default:
+> > -             switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
+> > -             case IP_VERSION(1, 0, 0):
+> > -             case IP_VERSION(1, 0, 1):
+> > -                     /* enable S/G on PCO and RV2 */
+> > -                     if ((adev->apu_flags & AMD_APU_IS_RAVEN2) ||
+> > -                         (adev->apu_flags & AMD_APU_IS_PICASSO))
+> > -                             init_data.flags.gpu_vm_support =3D true;
+> > -                     break;
+> > -             case IP_VERSION(2, 1, 0):
+> > -             case IP_VERSION(3, 0, 1):
+> > -             case IP_VERSION(3, 1, 2):
+> > -             case IP_VERSION(3, 1, 3):
+> > -             case IP_VERSION(3, 1, 4):
+> > -             case IP_VERSION(3, 1, 5):
+> > -             case IP_VERSION(3, 1, 6):
+> > -             case IP_VERSION(3, 5, 0):
+> > -                     init_data.flags.gpu_vm_support =3D true;
+> > -                     break;
+> > -             default:
+> > -                     break;
+> > -             }
+> > -             break;
+> > -     }
+> > -     if (init_data.flags.gpu_vm_support &&
+> > -         (amdgpu_sg_display =3D=3D 0))
+> > -             init_data.flags.gpu_vm_support =3D false;
+> > -
+> > -     if (init_data.flags.gpu_vm_support)
+> >               adev->mode_info.gpu_vm_support =3D true;
+> > +     } else {
+> > +             init_data.flags.gpu_vm_support =3D false;
+> > +             adev->mode_info.gpu_vm_support =3D false;
+> > +     }
+> >
+> >       if (amdgpu_dc_feature_mask & DC_FBC_MASK)
+> >               init_data.flags.fbc_support =3D true;
+>
