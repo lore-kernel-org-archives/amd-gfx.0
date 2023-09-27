@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF766E810DD
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Sep 2023 12:47:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 597FCE810DE
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Sep 2023 12:47:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CABD110E507;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93CBB10E506;
 	Wed, 27 Sep 2023 12:47:48 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2668410E4FD;
- Wed, 27 Sep 2023 12:26:02 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D53910E063;
+ Wed, 27 Sep 2023 12:22:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695817562; x=1727353562;
+ t=1695817377; x=1727353377;
  h=date:from:to:cc:subject:in-reply-to:message-id:
  references:mime-version;
- bh=w7Z7GAGvbkE0au25RJJjN4TJdomnd2iP3p/t+pD5fTU=;
- b=THU3rD4igytA4t9c8ZOEn8LYvTd3Zm2EH/RQhlkE45o+tnU5bn5ww4fU
- DgWIr33TkIYBlD5+2f6Hlt7ETpgLByc+rsD16BA24zp4fQo15WWctQyTF
- HknaKqcTVf4ZjyGkvGfN7RsCEX3VSMFQHIiLoHkpADq4dGM7MWD3JSrRF
- H8fZgLlqpIe3I+6+pbkhl1TF8mTv2F1wGsBpfDiLYOnBAKqzgqJJzH/nr
- xiZUMleNxfZD3/u0+UgbaAWf6YvAzhMOm7R8TXgx+pnj/+oH8JdaxsXei
- oCQKZl1fMpFjn8VMHnRTDVDuf4FZkwoSBIHgT1W0K6AhniUQqoxvp6P8r g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10845"; a="381712699"
-X-IronPort-AV: E=Sophos;i="6.03,181,1694761200"; d="scan'208";a="381712699"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2023 05:26:01 -0700
+ bh=zEVS6a6AaPOjeuX3gQlt/POpX9rso+ofY3ZQrlQiOBQ=;
+ b=ToV26qeHDARBwsyGI3x5ReuB7ibb6fEPeBNJ6kf4xra34lC6nWnbR7B7
+ +rMsQDLl5uNXuyYFtD3cYb0FyncJXUTrmWHSwODa0iq5XgZOlKu3euvmC
+ YSbIQV7FtRO0rQs0pqW1F0VXignYs9U+G536Up+gKps9qyh4r9yQJCUSd
+ MBbprQAOGuSZJtBZTOsjH7ZKgUCBAepKscNgt96CcKoMGpYImxXnqx9O3
+ O03BaEV8PxYobUQHZJYmc6qHQhL+2LxgcyknBidwyJw9BEz/uQR2+kb0A
+ cB67e0P26WMR/acKtol5uuJbziSf7Zvwtb/D2tmqQ69ksodgq/A4pBDNu g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10845"; a="384599169"
+X-IronPort-AV: E=Sophos;i="6.03,181,1694761200"; d="scan'208";a="384599169"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Sep 2023 05:22:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10845"; a="778523583"
-X-IronPort-AV: E=Sophos;i="6.03,181,1694761200"; d="scan'208";a="778523583"
-Received: from clkuhl-mobl.amr.corp.intel.com (HELO
- idecesar-mobl.ger.corp.intel.com) ([10.252.53.225])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2023 05:25:54 -0700
-Date: Wed, 27 Sep 2023 15:25:47 +0300 (EEST)
+X-IronPort-AV: E=McAfee;i="6600,9927,10845"; a="814855002"
+X-IronPort-AV: E=Sophos;i="6.03,181,1694761200"; d="scan'208";a="814855002"
+Received: from clkuhl-mobl.amr.corp.intel.com ([10.252.53.225])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Sep 2023 05:22:17 -0700
+Date: Wed, 27 Sep 2023 15:22:16 +0300 (EEST)
 From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
 To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-Subject: Re: [PATCH 09/15] platform/x86/amd/pmf: Add facility to dump TA inputs
-In-Reply-To: <20230922175056.244940-10-Shyam-sundar.S-k@amd.com>
-Message-ID: <3c1893f2-cf72-c423-5de8-1423b2113a9e@linux.intel.com>
+Subject: Re: [PATCH 08/15] platform/x86/amd/pmf: Add support to update system
+ state
+In-Reply-To: <20230922175056.244940-9-Shyam-sundar.S-k@amd.com>
+Message-ID: <54eb24f0-c6c9-fd17-ec4b-9072658f644e@linux.intel.com>
 References: <20230922175056.244940-1-Shyam-sundar.S-k@amd.com>
- <20230922175056.244940-10-Shyam-sundar.S-k@amd.com>
+ <20230922175056.244940-9-Shyam-sundar.S-k@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 X-Mailman-Approved-At: Wed, 27 Sep 2023 12:47:47 +0000
@@ -61,124 +61,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: Xinhui.Pan@amd.com, Patil.Reddy@amd.com, basavaraj.natikar@amd.com,
  dri-devel@lists.freedesktop.org, jikos@kernel.org,
  amd-gfx@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- markgross@kernel.org, hdegoede@redhat.com, benjamin.tissoires@redhat.com,
- mario.limonciello@amd.com, daniel@ffwll.ch, linux-input@vger.kernel.org,
- alexander.deucher@amd.com, airlied@gmail.com, christian.koenig@amd.com
+ markgross@kernel.org, Hans de Goede <hdegoede@redhat.com>,
+ benjamin.tissoires@redhat.com, mario.limonciello@amd.com, daniel@ffwll.ch,
+ linux-input@vger.kernel.org, alexander.deucher@amd.com, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Fri, 22 Sep 2023, Shyam Sundar S K wrote:
 
-> PMF driver sends constant inputs to TA which its gets via the other
-> subsystems in the kernel. To debug certain TA issues knowing what inputs
-> being sent to TA becomes critical. Add debug facility to the driver which
-> can isolate Smart PC and TA related issues.
+> PMF driver based on the output actions from the TA can request to update
+> the system states like entering s0i3, lock screen etc. by generating
+> an uevent. Based on the udev rules set in the userspace the event id
+> matching the uevent shall get updated accordingly using the systemctl.
 > 
-> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+> Sample udev rules under Documentation/admin-guide/pmf.rst.
+> 
 > Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
 > ---
->  drivers/platform/x86/amd/pmf/pmf.h    |  3 +++
->  drivers/platform/x86/amd/pmf/spc.c    | 37 +++++++++++++++++++++++++++
->  drivers/platform/x86/amd/pmf/sps.c    |  2 +-
->  drivers/platform/x86/amd/pmf/tee-if.c |  1 +
->  4 files changed, 42 insertions(+), 1 deletion(-)
+>  Documentation/admin-guide/pmf.rst     | 24 ++++++++++++++++
+>  drivers/platform/x86/amd/pmf/pmf.h    |  9 ++++++
+>  drivers/platform/x86/amd/pmf/tee-if.c | 40 ++++++++++++++++++++++++++-
+>  3 files changed, 72 insertions(+), 1 deletion(-)
+>  create mode 100644 Documentation/admin-guide/pmf.rst
 > 
+> diff --git a/Documentation/admin-guide/pmf.rst b/Documentation/admin-guide/pmf.rst
+> new file mode 100644
+> index 000000000000..b60f381410c3
+> --- /dev/null
+> +++ b/Documentation/admin-guide/pmf.rst
+> @@ -0,0 +1,24 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+> +Set udev rules for PMF Smart PC Builder
+> +---------------------------------------
+> +
+> +AMD PMF(Platform Management Framework) Smart PC Solution builder has to set the system states
+> +like S0i3, Screen lock, hibernate etc, based on the output actions provided by the PMF
+> +TA (Trusted Application).
+> +
+> +In order for this to work the PMF driver generates a uevent for userspace to react to. Below are
+> +sample udev rules that can facilitate this experience when a machine has PMF Smart PC solution builder
+> +enabled.
+> +
+> +Please add the following line(s) to
+> +``/etc/udev/rules.d/99-local.rules``::
+> +        DRIVERS=="amd-pmf", ACTION=="change", ENV{EVENT_ID}=="1", RUN+="/usr/bin/systemctl suspend"
+> +        DRIVERS=="amd-pmf", ACTION=="change", ENV{EVENT_ID}=="2", RUN+="/usr/bin/systemctl hibernate"
+> +        DRIVERS=="amd-pmf", ACTION=="change", ENV{EVENT_ID}=="3", RUN+="/bin/loginctl lock-sessions"
+> +
+> +EVENT_ID values:
+> +1= Put the system to S0i3/S2Idle
+> +2= Put the system to hibernate
+> +3= Lock the screen
+> +
 > diff --git a/drivers/platform/x86/amd/pmf/pmf.h b/drivers/platform/x86/amd/pmf/pmf.h
-> index c5334f1177a4..61a0f3225b62 100644
+> index 897f61b75e2f..c5334f1177a4 100644
 > --- a/drivers/platform/x86/amd/pmf/pmf.h
 > +++ b/drivers/platform/x86/amd/pmf/pmf.h
-> @@ -592,6 +592,7 @@ int apmf_get_static_slider_granular(struct amd_pmf_dev *pdev,
->  bool is_pprof_balanced(struct amd_pmf_dev *pmf);
->  int amd_pmf_power_slider_update_event(struct amd_pmf_dev *dev);
+> @@ -70,6 +70,7 @@
+>  #define PMF_POLICY_STT_MIN					6
+>  #define PMF_POLICY_STT_SKINTEMP_APU				7
+>  #define PMF_POLICY_STT_SKINTEMP_HS2				8
+> +#define PMF_POLICY_SYSTEM_STATE					9
+>  #define PMF_POLICY_P3T						38
 >  
-> +const char *source_as_str(unsigned int state);
+>  /* TA macros */
+> @@ -436,6 +437,13 @@ struct apmf_dyn_slider_output {
+>  } __packed;
 >  
->  int apmf_update_fan_idx(struct amd_pmf_dev *pdev, bool manual, u32 idx);
->  int amd_pmf_set_sps_power_limits(struct amd_pmf_dev *pmf);
-> @@ -622,4 +623,6 @@ int apmf_check_smart_pc(struct amd_pmf_dev *pmf_dev);
->  
->  /* Smart PC - TA interfaces */
->  void amd_pmf_populate_ta_inputs(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in);
-> +void amd_pmf_dump_ta_inputs(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in);
+>  /* Smart PC - TA internals */
+> +enum system_state {
+> +	SYSTEM_STATE__S0i3 = 1,
+> +	SYSTEM_STATE__S4,
+> +	SYSTEM_STATE__SCREEN_LOCK,
+> +	SYSTEM_STATE__MAX
+> +};
 > +
->  #endif /* PMF_H */
-> diff --git a/drivers/platform/x86/amd/pmf/spc.c b/drivers/platform/x86/amd/pmf/spc.c
-> index 08159cd5f853..5c6745f56ed1 100644
-> --- a/drivers/platform/x86/amd/pmf/spc.c
-> +++ b/drivers/platform/x86/amd/pmf/spc.c
-> @@ -13,6 +13,43 @@
->  #include <linux/power_supply.h>
->  #include "pmf.h"
+>  enum ta_slider {
+>  	TA_BEST_BATTERY, /* Best Battery */
+>  	TA_BETTER_BATTERY, /* Better Battery */
+> @@ -467,6 +475,7 @@ enum ta_pmf_error_type {
+>  };
 >  
-> +#ifdef CONFIG_AMD_PMF_DEBUG
-> +static const char *ta_slider_as_str(unsigned int state)
+>  struct pmf_action_table {
+> +	enum system_state system_state;
+>  	unsigned long spl; /* in mW */
+>  	unsigned long sppt; /* in mW */
+>  	unsigned long sppt_apuonly; /* in mW */
+> diff --git a/drivers/platform/x86/amd/pmf/tee-if.c b/drivers/platform/x86/amd/pmf/tee-if.c
+> index 883dd143375a..1629856c20b4 100644
+> --- a/drivers/platform/x86/amd/pmf/tee-if.c
+> +++ b/drivers/platform/x86/amd/pmf/tee-if.c
+> @@ -24,6 +24,20 @@ MODULE_PARM_DESC(pb_actions_ms, "Policy binary actions sampling frequency (defau
+>  static const uuid_t amd_pmf_ta_uuid = UUID_INIT(0x6fd93b77, 0x3fb8, 0x524d,
+>  						0xb1, 0x2d, 0xc5, 0x29, 0xb1, 0x3d, 0x85, 0x43);
+>  
+> +static const char *amd_pmf_uevent_as_str(unsigned int state)
 > +{
 > +	switch (state) {
-> +	case TA_BEST_PERFORMANCE:
-> +		return "PERFORMANCE";
-> +	case TA_BETTER_PERFORMANCE:
-> +		return "BALANCED";
-> +	case TA_BEST_BATTERY:
-> +		return "POWER_SAVER";
+> +	case SYSTEM_STATE__S0i3:
+> +		return "S0i3";
+> +	case SYSTEM_STATE__S4:
+> +		return "S4";
+> +	case SYSTEM_STATE__SCREEN_LOCK:
+> +		return "SCREEN_LOCK";
 > +	default:
-> +		return "Unknown TA Slider State";
+> +		return "Unknown Smart PC event";
 > +	}
 > +}
 > +
-> +void amd_pmf_dump_ta_inputs(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in)
-> +{
-> +	dev_dbg(dev->dev, "==== TA inputs START ====\n");
-> +	dev_dbg(dev->dev, "Slider State : %s\n", ta_slider_as_str(in->ev_info.power_slider));
-> +	dev_dbg(dev->dev, "Power Source : %s\n", source_as_str(in->ev_info.power_source));
-> +	dev_dbg(dev->dev, "Battery Percentage : %d\n", in->ev_info.bat_percentage);
-> +	dev_dbg(dev->dev, "Designed Battery Capacity : %d\n", in->ev_info.bat_design);
-> +	dev_dbg(dev->dev, "Fully Charged Capacity : %d\n", in->ev_info.full_charge_capacity);
-> +	dev_dbg(dev->dev, "Drain Rate : %d\n", in->ev_info.drain_rate);
-> +	dev_dbg(dev->dev, "Socket Power : %d\n", in->ev_info.socket_power);
-> +	dev_dbg(dev->dev, "Skin Temperature : %d\n", in->ev_info.skin_temperature);
-> +	dev_dbg(dev->dev, "Avg C0 Residency : %d\n", in->ev_info.avg_c0residency);
-> +	dev_dbg(dev->dev, "Max C0 Residency : %d\n", in->ev_info.max_c0residency);
-> +	dev_dbg(dev->dev, "GFX Busy : %d\n", in->ev_info.gfx_busy);
-> +	dev_dbg(dev->dev, "Connected Display Count : %d\n", in->ev_info.monitor_count);
-> +	dev_dbg(dev->dev, "LID State : %s\n", in->ev_info.lid_state ? "Close" : "Open");
-> +	dev_dbg(dev->dev, "==== TA inputs END ====\n");
-
-Again, the printf format specifiers are wrong, shouldn't the compiler warn 
-about them?
-
-> +}
-> +#else
-> +void amd_pmf_dump_ta_inputs(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in) {}
-> +#endif
-> +
->  static void amd_pmf_get_smu_info(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in)
->  {
->  	u16 max, avg = 0;
-> diff --git a/drivers/platform/x86/amd/pmf/sps.c b/drivers/platform/x86/amd/pmf/sps.c
-> index a70e67749be3..13e36b52dfe8 100644
-> --- a/drivers/platform/x86/amd/pmf/sps.c
-> +++ b/drivers/platform/x86/amd/pmf/sps.c
-> @@ -27,7 +27,7 @@ static const char *slider_as_str(unsigned int state)
->  	}
+>  static void amd_pmf_prepare_args(struct amd_pmf_dev *dev, int cmd,
+>  				 struct tee_ioctl_invoke_arg *arg,
+>  				 struct tee_param *param)
+> @@ -42,9 +56,23 @@ static void amd_pmf_prepare_args(struct amd_pmf_dev *dev, int cmd,
+>  	param[0].u.memref.shm_offs = 0;
 >  }
 >  
-> -static const char *source_as_str(unsigned int state)
-> +const char *source_as_str(unsigned int state)
+> +static int amd_pmf_update_uevents(struct amd_pmf_dev *dev, u16 event)
+> +{
+> +	char *envp[2] = {};
+> +
+> +	envp[0] = kasprintf(GFP_KERNEL, "EVENT_ID=%d", event);
+> +	if (!envp[0])
+> +		return -EINVAL;
+> +
+> +	kobject_uevent_env(&dev->dev->kobj, KOBJ_CHANGE, envp);
+> +
+> +	kfree(envp[0]);
+> +	return 0;
+> +}
+> +
+>  static void amd_pmf_apply_policies(struct amd_pmf_dev *dev, struct ta_pmf_enact_result *out)
 >  {
->  	switch (state) {
->  	case POWER_SOURCE_AC:
-> diff --git a/drivers/platform/x86/amd/pmf/tee-if.c b/drivers/platform/x86/amd/pmf/tee-if.c
-> index 1629856c20b4..4844782d93c7 100644
-> --- a/drivers/platform/x86/amd/pmf/tee-if.c
-> +++ b/drivers/platform/x86/amd/pmf/tee-if.c
-> @@ -186,6 +186,7 @@ static int amd_pmf_invoke_cmd_enact(struct amd_pmf_dev *dev)
->  	}
+> -	u32 val;
+> +	u32 val, event = 0;
+>  	int idx;
 >  
->  	if (ta_sm->pmf_result == TA_PMF_TYPE__SUCCESS && out->actions_count) {
-> +		amd_pmf_dump_ta_inputs(dev, in);
->  		dev_dbg(dev->dev, "action count:%d result:%x\n", out->actions_count,
->  			ta_sm->pmf_result);
->  		amd_pmf_apply_policies(dev, out);
+>  	for (idx = 0; idx < out->actions_count; idx++) {
+> @@ -113,6 +141,16 @@ static void amd_pmf_apply_policies(struct amd_pmf_dev *dev, struct ta_pmf_enact_
+>  				dev->prev_data->p3t_limit = val;
+>  			}
+>  			break;
+> +
+> +		case PMF_POLICY_SYSTEM_STATE:
+> +			event = val + 1;
+> +			if (dev->prev_data->system_state != event) {
+> +				amd_pmf_update_uevents(dev, event);
+> +				dev_dbg(dev->dev, "update SYSTEM_STATE : %s\n",
+> +					amd_pmf_uevent_as_str(event));
+> +				dev->prev_data->system_state = 0;
+
+Is it intentional to assign 0 here? If it is, it makes 
+prev_data->system_state pretty useless?
+
+> +			}
+> +			break;
+>  		}
+>  	}
+>  }
 > 
 
 -- 
