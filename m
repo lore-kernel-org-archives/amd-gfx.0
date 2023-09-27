@@ -4,48 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 597FCE810DE
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Sep 2023 12:47:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E67F6E810DC
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Sep 2023 12:47:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93CBB10E506;
-	Wed, 27 Sep 2023 12:47:48 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D53910E063;
- Wed, 27 Sep 2023 12:22:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695817377; x=1727353377;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=zEVS6a6AaPOjeuX3gQlt/POpX9rso+ofY3ZQrlQiOBQ=;
- b=ToV26qeHDARBwsyGI3x5ReuB7ibb6fEPeBNJ6kf4xra34lC6nWnbR7B7
- +rMsQDLl5uNXuyYFtD3cYb0FyncJXUTrmWHSwODa0iq5XgZOlKu3euvmC
- YSbIQV7FtRO0rQs0pqW1F0VXignYs9U+G536Up+gKps9qyh4r9yQJCUSd
- MBbprQAOGuSZJtBZTOsjH7ZKgUCBAepKscNgt96CcKoMGpYImxXnqx9O3
- O03BaEV8PxYobUQHZJYmc6qHQhL+2LxgcyknBidwyJw9BEz/uQR2+kb0A
- cB67e0P26WMR/acKtol5uuJbziSf7Zvwtb/D2tmqQ69ksodgq/A4pBDNu g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10845"; a="384599169"
-X-IronPort-AV: E=Sophos;i="6.03,181,1694761200"; d="scan'208";a="384599169"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2023 05:22:26 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10845"; a="814855002"
-X-IronPort-AV: E=Sophos;i="6.03,181,1694761200"; d="scan'208";a="814855002"
-Received: from clkuhl-mobl.amr.corp.intel.com ([10.252.53.225])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2023 05:22:17 -0700
-Date: Wed, 27 Sep 2023 15:22:16 +0300 (EEST)
-From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-Subject: Re: [PATCH 08/15] platform/x86/amd/pmf: Add support to update system
- state
-In-Reply-To: <20230922175056.244940-9-Shyam-sundar.S-k@amd.com>
-Message-ID: <54eb24f0-c6c9-fd17-ec4b-9072658f644e@linux.intel.com>
-References: <20230922175056.244940-1-Shyam-sundar.S-k@amd.com>
- <20230922175056.244940-9-Shyam-sundar.S-k@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 364FB10E508;
+	Wed, 27 Sep 2023 12:47:49 +0000 (UTC)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 708D010E4F8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Sep 2023 12:37:56 +0000 (UTC)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-4053cb57f02so98864495e9.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Sep 2023 05:37:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1695818275; x=1696423075; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=8gt0z84tNKlqBU0ORxjwF1YuLnJ3DYpGxnw1e57pMcg=;
+ b=t6BBZwM093Rdy4O7TKxAiF9ToqdvnNLIi6xn+0tHlUPr3E4OMyIgIy5y1R01F8j/Y3
+ sWjcKNClemKvd4tLrBWNqrM4GZOV4RWMnhz7DNSTUOfWU7/07YI5mutPycm/96Kg/cBm
+ qciwhnfOI2NWQ1JGcf6fh01ajrD9DolfKElrl+TdfVNKA8ul0CbYPpr2J2jXPMKH6M8T
+ /Jl3+tHBcGZva3CtV6enhZGrJCmE7vnvm6rW9l6R48dEfwbXxZr+W8IZbaJjGOHIJY4a
+ ILaP2aoEYdu9Q3Ss8U9szAJ8E23crThO6RusPR0TMxjD0XYsTtCBoo9tpZm/XWQlu5vr
+ f9vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695818275; x=1696423075;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=8gt0z84tNKlqBU0ORxjwF1YuLnJ3DYpGxnw1e57pMcg=;
+ b=PkIMppVC0fYDMxQ4v1ltt84EWtaShslh8am4iOzxhMMerGUSpxwdMWBTznqFn6R2Xm
+ jecz3twMws+Ka7BcwtjPqa6yqSFE4l142Ql8Ds4Oun5hJWAZQvwlJ+Jk65+GrqjlU7QD
+ PnEAg8RXm8Ui7emyfWQKX6WjtpJbKryAes9P9IZLrFyxT20SakZ9npPifhIPIFlohnVh
+ CNMO0FT9ZoAZttd9BSQevn9fLGclszocObC1kmCaLHASQ+o7LrJU5iiqkrAOWFcxccsp
+ jFR4Uuhlbr1CmGIn8xpvPKCjXIwQckjCBMnayX9tbawt4bWJj/YID1sbLUVI5xmtJgKV
+ Z0yQ==
+X-Gm-Message-State: AOJu0YwZ7hTC9oljfii8pssEoODq0o6UYxQXkn70dxp9pR3dd9plRW/9
+ hxVWOCQ+B8Ss0+TtJ0Jj0cy6IA==
+X-Google-Smtp-Source: AGHT+IF//SsjAFSKGtGIY4ySU5+yXbv00B5OFBnRt/YiczmsYbnBFnOPNKevQVsLvVlA2FKz/O/b1A==
+X-Received: by 2002:a05:600c:365a:b0:401:b204:3b97 with SMTP id
+ y26-20020a05600c365a00b00401b2043b97mr1810459wmq.4.1695818274882; 
+ Wed, 27 Sep 2023 05:37:54 -0700 (PDT)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ p19-20020a05600c1d9300b0040531f5c51asm17841529wms.5.2023.09.27.05.37.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 Sep 2023 05:37:54 -0700 (PDT)
+Date: Wed, 27 Sep 2023 15:37:51 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Evan Quan <evan.quan@amd.com>, Yang Wang <kevinyang.wang@amd.com>
+Subject: [PATCH] drm/amd/pm: delete dead code
+Message-ID: <b238c665-91d6-4afe-83a8-da2f2d59a75b@moroto.mountain>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
 X-Mailman-Approved-At: Wed, 27 Sep 2023 12:47:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,170 +69,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, Patil.Reddy@amd.com, basavaraj.natikar@amd.com,
- dri-devel@lists.freedesktop.org, jikos@kernel.org,
- amd-gfx@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- markgross@kernel.org, Hans de Goede <hdegoede@redhat.com>,
- benjamin.tissoires@redhat.com, mario.limonciello@amd.com, daniel@ffwll.ch,
- linux-input@vger.kernel.org, alexander.deucher@amd.com, airlied@gmail.com,
- christian.koenig@amd.com
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, Yang Wang <kevinyang.wang@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, kernel-janitors@vger.kernel.org,
+ Asad Kamal <asad.kamal@amd.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 22 Sep 2023, Shyam Sundar S K wrote:
+"ret" was checked earlier inside the loop, so we know it is zero here.
+No need to check a second time.
 
-> PMF driver based on the output actions from the TA can request to update
-> the system states like entering s0i3, lock screen etc. by generating
-> an uevent. Based on the udev rules set in the userspace the event id
-> matching the uevent shall get updated accordingly using the systemctl.
-> 
-> Sample udev rules under Documentation/admin-guide/pmf.rst.
-> 
-> Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-> ---
->  Documentation/admin-guide/pmf.rst     | 24 ++++++++++++++++
->  drivers/platform/x86/amd/pmf/pmf.h    |  9 ++++++
->  drivers/platform/x86/amd/pmf/tee-if.c | 40 ++++++++++++++++++++++++++-
->  3 files changed, 72 insertions(+), 1 deletion(-)
->  create mode 100644 Documentation/admin-guide/pmf.rst
-> 
-> diff --git a/Documentation/admin-guide/pmf.rst b/Documentation/admin-guide/pmf.rst
-> new file mode 100644
-> index 000000000000..b60f381410c3
-> --- /dev/null
-> +++ b/Documentation/admin-guide/pmf.rst
-> @@ -0,0 +1,24 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +
-> +Set udev rules for PMF Smart PC Builder
-> +---------------------------------------
-> +
-> +AMD PMF(Platform Management Framework) Smart PC Solution builder has to set the system states
-> +like S0i3, Screen lock, hibernate etc, based on the output actions provided by the PMF
-> +TA (Trusted Application).
-> +
-> +In order for this to work the PMF driver generates a uevent for userspace to react to. Below are
-> +sample udev rules that can facilitate this experience when a machine has PMF Smart PC solution builder
-> +enabled.
-> +
-> +Please add the following line(s) to
-> +``/etc/udev/rules.d/99-local.rules``::
-> +        DRIVERS=="amd-pmf", ACTION=="change", ENV{EVENT_ID}=="1", RUN+="/usr/bin/systemctl suspend"
-> +        DRIVERS=="amd-pmf", ACTION=="change", ENV{EVENT_ID}=="2", RUN+="/usr/bin/systemctl hibernate"
-> +        DRIVERS=="amd-pmf", ACTION=="change", ENV{EVENT_ID}=="3", RUN+="/bin/loginctl lock-sessions"
-> +
-> +EVENT_ID values:
-> +1= Put the system to S0i3/S2Idle
-> +2= Put the system to hibernate
-> +3= Lock the screen
-> +
-> diff --git a/drivers/platform/x86/amd/pmf/pmf.h b/drivers/platform/x86/amd/pmf/pmf.h
-> index 897f61b75e2f..c5334f1177a4 100644
-> --- a/drivers/platform/x86/amd/pmf/pmf.h
-> +++ b/drivers/platform/x86/amd/pmf/pmf.h
-> @@ -70,6 +70,7 @@
->  #define PMF_POLICY_STT_MIN					6
->  #define PMF_POLICY_STT_SKINTEMP_APU				7
->  #define PMF_POLICY_STT_SKINTEMP_HS2				8
-> +#define PMF_POLICY_SYSTEM_STATE					9
->  #define PMF_POLICY_P3T						38
->  
->  /* TA macros */
-> @@ -436,6 +437,13 @@ struct apmf_dyn_slider_output {
->  } __packed;
->  
->  /* Smart PC - TA internals */
-> +enum system_state {
-> +	SYSTEM_STATE__S0i3 = 1,
-> +	SYSTEM_STATE__S4,
-> +	SYSTEM_STATE__SCREEN_LOCK,
-> +	SYSTEM_STATE__MAX
-> +};
-> +
->  enum ta_slider {
->  	TA_BEST_BATTERY, /* Best Battery */
->  	TA_BETTER_BATTERY, /* Better Battery */
-> @@ -467,6 +475,7 @@ enum ta_pmf_error_type {
->  };
->  
->  struct pmf_action_table {
-> +	enum system_state system_state;
->  	unsigned long spl; /* in mW */
->  	unsigned long sppt; /* in mW */
->  	unsigned long sppt_apuonly; /* in mW */
-> diff --git a/drivers/platform/x86/amd/pmf/tee-if.c b/drivers/platform/x86/amd/pmf/tee-if.c
-> index 883dd143375a..1629856c20b4 100644
-> --- a/drivers/platform/x86/amd/pmf/tee-if.c
-> +++ b/drivers/platform/x86/amd/pmf/tee-if.c
-> @@ -24,6 +24,20 @@ MODULE_PARM_DESC(pb_actions_ms, "Policy binary actions sampling frequency (defau
->  static const uuid_t amd_pmf_ta_uuid = UUID_INIT(0x6fd93b77, 0x3fb8, 0x524d,
->  						0xb1, 0x2d, 0xc5, 0x29, 0xb1, 0x3d, 0x85, 0x43);
->  
-> +static const char *amd_pmf_uevent_as_str(unsigned int state)
-> +{
-> +	switch (state) {
-> +	case SYSTEM_STATE__S0i3:
-> +		return "S0i3";
-> +	case SYSTEM_STATE__S4:
-> +		return "S4";
-> +	case SYSTEM_STATE__SCREEN_LOCK:
-> +		return "SCREEN_LOCK";
-> +	default:
-> +		return "Unknown Smart PC event";
-> +	}
-> +}
-> +
->  static void amd_pmf_prepare_args(struct amd_pmf_dev *dev, int cmd,
->  				 struct tee_ioctl_invoke_arg *arg,
->  				 struct tee_param *param)
-> @@ -42,9 +56,23 @@ static void amd_pmf_prepare_args(struct amd_pmf_dev *dev, int cmd,
->  	param[0].u.memref.shm_offs = 0;
->  }
->  
-> +static int amd_pmf_update_uevents(struct amd_pmf_dev *dev, u16 event)
-> +{
-> +	char *envp[2] = {};
-> +
-> +	envp[0] = kasprintf(GFP_KERNEL, "EVENT_ID=%d", event);
-> +	if (!envp[0])
-> +		return -EINVAL;
-> +
-> +	kobject_uevent_env(&dev->dev->kobj, KOBJ_CHANGE, envp);
-> +
-> +	kfree(envp[0]);
-> +	return 0;
-> +}
-> +
->  static void amd_pmf_apply_policies(struct amd_pmf_dev *dev, struct ta_pmf_enact_result *out)
->  {
-> -	u32 val;
-> +	u32 val, event = 0;
->  	int idx;
->  
->  	for (idx = 0; idx < out->actions_count; idx++) {
-> @@ -113,6 +141,16 @@ static void amd_pmf_apply_policies(struct amd_pmf_dev *dev, struct ta_pmf_enact_
->  				dev->prev_data->p3t_limit = val;
->  			}
->  			break;
-> +
-> +		case PMF_POLICY_SYSTEM_STATE:
-> +			event = val + 1;
-> +			if (dev->prev_data->system_state != event) {
-> +				amd_pmf_update_uevents(dev, event);
-> +				dev_dbg(dev->dev, "update SYSTEM_STATE : %s\n",
-> +					amd_pmf_uevent_as_str(event));
-> +				dev->prev_data->system_state = 0;
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-Is it intentional to assign 0 here? If it is, it makes 
-prev_data->system_state pretty useless?
-
-> +			}
-> +			break;
->  		}
->  	}
->  }
-> 
-
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index 11a6cd96c601..0ffe55e713f3 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -2346,9 +2346,6 @@ static int mca_get_mca_entry(struct amdgpu_device *adev, enum amdgpu_mca_error_t
+ 			return ret;
+ 	}
+ 
+-	if (ret)
+-		return ret;
+-
+ 	entry->idx = idx;
+ 	entry->type = type;
+ 
 -- 
- i.
+2.39.2
 
