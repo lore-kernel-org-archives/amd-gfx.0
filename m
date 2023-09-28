@@ -4,117 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF3CAE732F4
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Sep 2023 16:58:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDACAE732FD
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Sep 2023 18:00:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0327E10E013;
-	Thu, 28 Sep 2023 16:58:24 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2061c.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5b::61c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC24410E013
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Sep 2023 16:58:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dqRKDqfMmKkixB1dlmgEl3Y8/0y934P6s0p3On3xBhlZcYjpqHWwo8i2+O3uuedGr8+MRnERyUr6IeyZdo/VICK9sNrU2DTzlatk/9k0OSf1lBldOt5pDyH0MKjS/Q9jXd+h5RwbZKGjLYhaYZQrwgPbJk/cJLJ13k+LJ7iV9MeaKYA71EsAmLkrp3HfwK0WOATrcaOZa8+XfsLruHLoavLoAB0o5FZq0UazQcTI4R4zBMJFHk2f1eHcstz7wqQT+to3KSnktovGFN9dJlG/H/GhYtPOr+25l9rOZeAnGmolOEdK7+iRD9kH3JtWVEyw1Jpgpv8Pebx2JFzukDXU5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Kh5ZL+lRJvjYlrEVWFtd00QzBg50X16vkYbVpY6yri0=;
- b=gRz9uTog5PFJ4uJXWBBUyPGLvC5UbnG9md+fc5G4JfMRtIh6i17OOKf4U2rW05DUyM29eTb0IJXgCITI4j973bMZxF4reLdEOgIMI7+juTKyoJ1PMj8tD1vNhyLZdY58zDCAGeDIUVwVwJxmZFmW8zWyKQVye8vSFbLMWK6MPwMSRSIQJ98qJV/Yucvn7s0dkb9/0ru0C2dWwkOCvOlCqWQAUoQ+dTvVmesuko9X0OE1cDuVYPJQ9Crg5y+71ZUz3x38/1nC9X8TXs1XfA3DlrV7gJWfJbfHqI7DdUEOrTTmpY0Q1DI6aEQkGNUf1Xe4FitSHiSUivP84LkByL4FyQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kh5ZL+lRJvjYlrEVWFtd00QzBg50X16vkYbVpY6yri0=;
- b=38pwbUFp+1lv1ljvl2clatmmKi23W9nzSxVwxSXhOQTRJZubryEWGwKHhRl+g6J7s3788VxteoiiJ7sWBmuPTnNgbaplTJzZNky4BiYUMhAVpgkv5OImmWWY79R6DnhzYdVAYqNvPtwcNnIiqxLMVWOHV3TMe+sSiIk1hBlLeP0=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by SA3PR12MB7783.namprd12.prod.outlook.com (2603:10b6:806:314::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.21; Thu, 28 Sep
- 2023 16:58:18 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::a2bb:870f:8aaa:1ba2]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::a2bb:870f:8aaa:1ba2%7]) with mapi id 15.20.6838.024; Thu, 28 Sep 2023
- 16:58:17 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, Sebastian
- Reichel <sre@kernel.org>
-Subject: RE: [PATCH 1/3] drm/amd: Fix detection of _PR3 on the PCIe root port
-Thread-Topic: [PATCH 1/3] drm/amd: Fix detection of _PR3 on the PCIe root port
-Thread-Index: AQHZ8inH0rgCz1p9eUSNJTFOxJxMPbAwdXlA
-Date: Thu, 28 Sep 2023 16:58:17 +0000
-Message-ID: <BL1PR12MB5144F0B3B6D1696062A2E313F7C1A@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20230926225955.386553-1-mario.limonciello@amd.com>
- <20230926225955.386553-2-mario.limonciello@amd.com>
-In-Reply-To: <20230926225955.386553-2-mario.limonciello@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=05c3d939-2ce4-41e4-a839-ed60a346c310;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-09-28T16:57:50Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|SA3PR12MB7783:EE_
-x-ms-office365-filtering-correlation-id: d0e60872-da70-4769-22c7-08dbc0441cdf
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 24SLWgf63UNzO5atKgtO7NXZXb/+DOq12BW4qmTzmRTfVcGgZIzPv4NimsSsaHcJPyBIEAWtDk+yrjWBoe3vwrbI5XaGmhK9XXLEVJbuxpHwPqpUCghGF7wFS+TNXy/kM0TjJ9ssxgIzTXawMzY94QF+OcgldmL1mUDbDhKBU9Iny3lyXaTqVCIFzMZGtc11055vQ68Zs3qQdS/BE8OuaerXU7wVRTgAkhVYUvvjpeUv1rNW2wThFIOIisRXibvzRT9ECTfNbkdYFqD3MjRdrfax7wmRcdnLWrU1rbMJZvL8qNY5Sv/jvyBok5kqweMSWYIyRgIWRfzBQLt9RSWMfNoIDuaLXe2k69KBS5GfyIJNv0GJlvuaaOZdNU0B0tCt1MwdSuL3PQ6e6asdpe2yJv/CkJC6bS4E1dH1taQFG0ytz4ELw7nkIinY40AGz86BnjJXc1Gc5VbiGKsXICKUhkbwxva7j9AwgIPhu243OENVMhlKcUuvA/CHFz1IHIWLSuih4TjxGnxM6AVcBcyqT8ecRRPeyax5F2SC4ddRFE01vxPVWOFYjuS1IPiTHvcFPLssMYKJc9B0cw7jzwMcUk4z1zJExhodoQcHyrbC9dOhQNi1QbM8wk1acUSGDJ3L
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(39860400002)(136003)(366004)(346002)(376002)(230922051799003)(186009)(64100799003)(1800799009)(451199024)(6506007)(53546011)(478600001)(38100700002)(71200400001)(7696005)(5660300002)(83380400001)(9686003)(86362001)(316002)(41300700001)(8676002)(33656002)(66556008)(110136005)(52536014)(8936002)(4326008)(76116006)(54906003)(66446008)(66946007)(66476007)(122000001)(38070700005)(26005)(2906002)(64756008)(55016003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?UIt87i8/VAGwImQB0x6m0oXmh2/WKhLdrP/aheGzeT7KnxYVBnGUw+VMnIlN?=
- =?us-ascii?Q?lE51uC9fzu94++EANB2ds0LQV4vVf3nJncUa6lGk2iSEJIiJuJmC3GEhhKS7?=
- =?us-ascii?Q?mi+6+vw51yILAckFENVfoamrGKvxl8q7+DiRz0U+B3T4yQb4wfbPozj3tJmQ?=
- =?us-ascii?Q?FRr7p9QPZqKXvxPgxTLCl+DR0/+Q6iqd4QwI1KF58BJNnvWw0asrZx11VEX4?=
- =?us-ascii?Q?kBhDeZBy1EI6vm8CDuAhyzs408kEVS36o9JAUsBlB1KN/hwh9LLCKWoq4jSQ?=
- =?us-ascii?Q?FKu2KQP5YX7kWWQQDBtHVGIQ/RWeYGPcXIWxEyv0B9E4btSBJsgRH7e3zJ5O?=
- =?us-ascii?Q?BiD+3H5reUQzwJvXA6EG22OTjV+i/7O8XwhuGBb2yN1t+aqWfMEhzzckyokk?=
- =?us-ascii?Q?9jWcIstWWTiFBE+hWUgaAgb1XDMNu72ESgPp7lUiT3j45b4h68wy1APpkiAw?=
- =?us-ascii?Q?q8/ipc9SNhucd3UvsljUBH9Mh2r63zRWJb02WVsdN+1daYGB7ku/lF0NZrEy?=
- =?us-ascii?Q?4J9tMk/FQoxkXDzTj96vN2iqaUAx9WAWebEcZq0DWscviYFyQBkNR9hvn2CQ?=
- =?us-ascii?Q?EHwfXxqwmbkYk7EZc/PRM82SReRQmz/1gVwm337csd6KOqhPyGqqpPlb7ysO?=
- =?us-ascii?Q?GAq7JCogL9ZKYKJSquoCYm1iu/2RS3qpUCRmcwBmlXSGMGm6f90Ln6WMivlF?=
- =?us-ascii?Q?qmqblzTTRLpqyRBZxo0sYoBdtoWBssmO4jYg24x6ToKTRZE7f4PxlYB8Or3j?=
- =?us-ascii?Q?clzfbqral9avoVXrKPsTMPaawj1ZbPqAIL9Ve+ui4ZePHIPfd5DKqwYnxuzA?=
- =?us-ascii?Q?/+hxqLOem/T/EMqOisLSR00c3/wWXskOUpMjUcdT0v5J8NUGV5pqmQYffYn4?=
- =?us-ascii?Q?iTok+l01s5tbVX1cgIRn8C039gSTgRgvmaXqEup8PYYKJqHnHrvmFQYGEdjz?=
- =?us-ascii?Q?miRRmB639mreTDp8yhmAwE6MkyGn0mGFEClrFo+Wjj+9mofD9TBV58BXfl7q?=
- =?us-ascii?Q?V3Wrv08HhkXiQeRbzDI2KUYgRvAWJY7eHUzeM535H7u+Uc9JGrjbr/D4+V8p?=
- =?us-ascii?Q?jdx1MiiiEXAmdqeiCotK1rRXJ8N4+BnxcTeSp8WmF2QrtP25MtHtd3xutD+I?=
- =?us-ascii?Q?SIBYvEJ5DtUuf4ShGYNrDmV3M0t0VgPGrojLrthvNxyKVgVMKHrLSUua2ok2?=
- =?us-ascii?Q?fI4jEwClirKcFkJgRQ+HcVZiv2tKT3YU35y2XnIM/LMJBBfjSxEEr2NzgOfg?=
- =?us-ascii?Q?NhoHDJxgoPgt8cFrFf0sE97njpx0eeHoXH5YCup1JfeEzssI3PRhgO/ZQLd0?=
- =?us-ascii?Q?WuunS48PvEIM8KCZkSJrQKBqXe2VoZbJZK82g5bdQj7muOKz4QNke520O2pq?=
- =?us-ascii?Q?bS80SQXjgBewAgdyEdQEKm7fRMsvDyn7ySQ5qkjBUe4wNQBvoxsc3hvLXHEE?=
- =?us-ascii?Q?RIzjHvuJahT2lmSO6l3dNLZqyDZ0+L+ruUNhT2VxR6vWM7HTcIrEC3EP4c0S?=
- =?us-ascii?Q?2ZxoV9GZdpTfYAqggdTyOjSZ8nQ4b8joq1MCPrmfoi+O2ig3NkBKGdn9Lstu?=
- =?us-ascii?Q?9ocyRijWrzsUJwc3fh4=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46CA610E683;
+	Thu, 28 Sep 2023 18:00:58 +0000 (UTC)
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4607910E683
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Sep 2023 18:00:57 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id
+ 5614622812f47-3af6cd01323so131551b6e.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Sep 2023 11:00:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1695924056; x=1696528856; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=jf7ScwygjQ2jf4AqpxHi4jRt6wSUGgNirGCrHubekSk=;
+ b=Jefvf80AORQOgTZ/YymzyndhVQD6yQSv/+nPM6lmpLto0vNB6W23CfxFvtagGGnxOM
+ KKQKxaKrPPc4uv4pKZIfG4vP5Ed49mT+I0Mr7qVZBZ+RejiIlit/Ggf6QmbAZLz3sxzo
+ UvhwLDiUKZKynoWzeE0bAR65V/vhLNJxAgV0q/ypb1X6MuvI1Q8ANeFzbyaXNkoLPooA
+ dsd8oYGcKNrTJCPzqOcrgp29Tdw0W7J9VC6mJ/Q4DfLp2+/hsyMRWUryJknXFX5kDJsB
+ SXMUvqzWsHZw35sgpSbqFidMlsQa4UTbBPLcBZU5QuhrbSeorTAhIwHsFgmFqB7WEzKD
+ dekg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695924056; x=1696528856;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=jf7ScwygjQ2jf4AqpxHi4jRt6wSUGgNirGCrHubekSk=;
+ b=Y1u/S+Mz477E2CX1NkXfbbhwQ9GFy3L82Qp1/GxnBHbrAx2lHkk/5OVPgu8Yb1xLit
+ IDhr1gVxKM46mukoDUqMYxj/8+84/DvXH+reaBN3YaKlYZHXh/lyhHystcsqMaHrhI2e
+ QucLiWonWhhz9eZoYIQ6sC5SzIW3UPP6Zp2lX2GwVa+zRGCC5SYCCWD6tHvthenvwGTg
+ yTTmas9pNiJ1W8DG8AsaI6Az+p9r+lFetF5RuvP7anl9eQZPK4VWrcleft6CERZrGFKe
+ opdGKqHDOal9S7o2q2j5RRaf+J07cFGS+6jskutjkMbWKlIzAWp83RY5VoT7SX9U1C9n
+ 3wrw==
+X-Gm-Message-State: AOJu0YwxlZIhSPevh6Otg2u2+/0KTpxNiva1YCuo/kA34KBdX/whn9Bq
+ vvBEYyEelpw/Cb5TWstoqN95rgJo19agjGsg4eM=
+X-Google-Smtp-Source: AGHT+IGKXt0xSHlAm601LvV0qT4645pgVZtZMWe+PMCSak1LUkBPD86q1BCqTMAlzzAuU4scAQtW/iNbQ4E95L/JjDg=
+X-Received: by 2002:a05:6808:b28:b0:3a4:225d:82c0 with SMTP id
+ t8-20020a0568080b2800b003a4225d82c0mr1924328oij.31.1695924056416; Thu, 28 Sep
+ 2023 11:00:56 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d0e60872-da70-4769-22c7-08dbc0441cdf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Sep 2023 16:58:17.7668 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: V6OmWklPkR0TZc5SOOa4rRttSVuwhkhEPComi/38RCdOd45ydyUdz0wJoSWrNitlWOoPqGvhqNQ3boMkHPMEog==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7783
+References: <20230926225955.386553-1-mario.limonciello@amd.com>
+In-Reply-To: <20230926225955.386553-1-mario.limonciello@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 28 Sep 2023 14:00:45 -0400
+Message-ID: <CADnq5_NHQhUZ9DzNtOy67Hx1g2_ZeBfKPC6O22YY_bzSJsMiUw@mail.gmail.com>
+Subject: Re: [PATCH 0/3] Fix Navi3x boot and hotplug problems
+To: Mario Limonciello <mario.limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,62 +67,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Ma, Jun" <Jun.Ma2@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>
+Cc: linux-pm@vger.kernel.org, Sebastian Reichel <sre@kernel.org>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Jun.ma2@amd.com,
+ Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+On Thu, Sep 28, 2023 at 12:41=E2=80=AFPM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+> On some OEM systems multiple navi3x dGPUS are triggering RAS errors
+> and BACO errors.
+>
+> These errors come from elements of the OEM system that weren't part of
+> original test environment.  This series addresses those problems.
+>
+> NOTE: Although this series touches two subsystems, I would prefer to
+> take this all through DRM because there is a workaround in linux-next
+> that I would like to be reverted at the same time as picking up the first
+> two patches.
 
-> -----Original Message-----
-> From: Limonciello, Mario <Mario.Limonciello@amd.com>
-> Sent: Tuesday, September 26, 2023 7:00 PM
-> To: amd-gfx@lists.freedesktop.org; Sebastian Reichel <sre@kernel.org>;
-> Deucher, Alexander <Alexander.Deucher@amd.com>
-> Cc: linux-pm@vger.kernel.org; linux-kernel@vger.kernel.org; Ma, Jun
-> <Jun.Ma2@amd.com>; Limonciello, Mario <Mario.Limonciello@amd.com>
-> Subject: [PATCH 1/3] drm/amd: Fix detection of _PR3 on the PCIe root port
->
-> On some systems with Navi3x dGPU will attempt to use BACO for runtime PM
-> but fails to resume properly.  This is because on these systems the root =
-port
-> goes into D3cold which is incompatible with BACO.
->
-> This happens because in this case dGPU is connected to a bridge between r=
-oot
-> port which causes BOCO detection logic to fail.  Fix the intent of the lo=
-gic by
-> looking at root port, not the immediate upstream bridge for _PR3.
->
-> Cc: stable@vger.kernel.org
-> Suggested-by: Jun Ma <Jun.Ma2@amd.com>
-> Tested-by: David Perry <David.Perry@amd.com>
-> Fixes: b10c1c5b3a4e ("drm/amdgpu: add check for ACPI power resources")
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+FWIW, the workaround is not in linux-next yet.  At the time I thought
+it was already fixed by the fixes in ucsi and power supply when we
+first encountered this.
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Alex
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index e4627d92e1d0..bad2b5577e96 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2238,7 +2238,7 @@ static int amdgpu_device_ip_early_init(struct
-> amdgpu_device *adev)
->               adev->flags |=3D AMD_IS_PX;
+> Mario Limonciello (3):
+>   drm/amd: Fix detection of _PR3 on the PCIe root port
+>   power: supply: Don't count 'unknown' scope power supplies
+>   Revert "drm/amd/pm: workaround for the wrong ac power detection on smu
+>     13.0.0"
 >
->       if (!(adev->flags & AMD_IS_APU)) {
-> -             parent =3D pci_upstream_bridge(adev->pdev);
-> +             parent =3D pcie_find_root_port(adev->pdev);
->               adev->has_pr3 =3D parent ? pci_pr3_present(parent) : false;
->       }
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c           | 2 +-
+>  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c       | 3 ++-
+>  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 1 +
+>  drivers/power/supply/power_supply_core.c             | 2 +-
+>  4 files changed, 5 insertions(+), 3 deletions(-)
 >
 > --
 > 2.34.1
-
+>
