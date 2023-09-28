@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AA4DE743C9
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Sep 2023 22:09:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3F10E743C8
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Sep 2023 22:22:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0101810E052;
-	Thu, 28 Sep 2023 22:09:46 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2058.outbound.protection.outlook.com [40.107.244.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7756A10E052
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Sep 2023 22:09:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49BA410E6AA;
+	Thu, 28 Sep 2023 22:22:56 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2061c.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e89::61c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F37B510E6AA
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Sep 2023 22:22:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YECkdIXtkgyun0FTmra6n3rr7HLnCB5WlzXE5OYw94+qT5rUVKIGY0Uz/2lkhHTf3v/Yy3bJrV4pQdhrNQMmSlFeSuUTupkuMusU+THwQbcbBGLLejQ6wMUBH6AfYaHj9UYq70LjdOFkGzKkh34Hlt6CEldvTOsrLMhDjsXkb0nWGRzhWgCzBiygc5IrI8n6hcvDxv5+DAxNACG6HjQYrVLkVgGoQ8XE8/+v1zw9xrFUUK4nzdlEaBQ/Wmh/q9JvOoEPAXhedic6ypovSouMLQ2amQz+SnyriTPyap0GoomXaMXQbTu5r1PhRLb49pyqPb4WyNMBDN9ghUrKCJlnAg==
+ b=iTImoiCYeYzMfx3rGtPIiCclkhoBje+P/ml3bx1k/Yi358KvmTOWd6vsRFwUPs58Xis4oU4bQ5JfSdorNi4G5FvOMd2nFOhLuopqQYsKnd75QQgahh3XLv/R34uGLA142ZE/irKfMLTF9MlNsfA7wTT2FNXdJ20naE0Lw0+jg+uvIacIELm31Szfcs1rjYwXrdX98mRAePKZYb/mS7lkq9Izr3lZJLimZKtTtI4aIg2sqw0sssBiL4UpLgZomSoSp6tsAvFJNSq+VqVyfBCSpp95wnv/504DV34osn/aGRoU6jNoygDb3TnA7bW14QW8fkRGCebZAo7ysLqVflMPgA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QaQfH4d/BMXjGIT242AcWkGsAOfDAlyR2R4szslOWP4=;
- b=Gh1JK3O+5KbwZTBMCRHNBi3sGcLoN+ifatKF7PmeUF1g/T7lWwX2dagX3Svtwm3PZ3w1dqaccT+IdHpUyhfnrviD4oAqLhrB1jKZNp5dECOolaubdTN8wqWv0/bBO/bP5nXbwjDKH/tCZslyBgLWHLsvo0sJNIWkdAVNaqQb1f1N2vg5hpiLgmUPukY73P8WC0zDv2zCLJwIoS9NPVBYhwHnqiUi+mk5ONKgErPF7FiXM4Dxy5esCND25XkyusdmZ3SBRxZJUGPYVscLK4l9lz5RrlYTo3wyylbM9UbpwocM2s8AaADxtRs1OSRWRoBreqkkDFK5qVFcfpOHRdP7uw==
+ bh=Xudn5cHfT8e33ci7JN2hrI0nlqI9D+U4WqV2U9/NRlA=;
+ b=Z/eGwWADUFPuGfIZWey+sKefoysn9wE9E0NmuA7XU3Zlh57btfP0/35Stw1mmHfDwwxW0IbkCiLcbR9yVQYkVtiS1f63TU6moEvSzV3gxJoq6GLxgDZdO+OzWPOaOx7aR4CLFdc1ft40J8g1hdSkr3YTyUmDYdRQbLH/OMek/HXbYzwqqck6DveJhPX710PoB5LWGZaVZcHjYHpGGsj9+tIQPzw1wLM/biiqx+ii6UA2hR7M+QSEx6ixYtqdTVHsnWCtVRBQVzLue4QxO0WI5p7Zx2uR8IyBqRK4FHK940V8SHHjF5wW+WVhkr8F9UkwVjwpoMhmP8+4tw5XpjeUSw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QaQfH4d/BMXjGIT242AcWkGsAOfDAlyR2R4szslOWP4=;
- b=cE3oiC18BA+pV3K6VSdOTCi6j4wyLfxrcC9Kyxdc2UMCaWwRvgrXdmigmUMSFxDMmD0kyR9/YhErKjL9EidrMMEcuV7SOVpwXTLwGw8sC+r0Y1NtHYG496sK3zxpmUjgarQCmUOmC+QVrDRgfuVnbLA6FtJRVPbzEv2ga5N3Icw=
-Received: from SN1PR12CA0050.namprd12.prod.outlook.com (2603:10b6:802:20::21)
- by BL1PR12MB5238.namprd12.prod.outlook.com (2603:10b6:208:31e::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.25; Thu, 28 Sep
- 2023 22:09:41 +0000
-Received: from SN1PEPF0002529E.namprd05.prod.outlook.com
- (2603:10b6:802:20:cafe::16) by SN1PR12CA0050.outlook.office365.com
- (2603:10b6:802:20::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.35 via Frontend
- Transport; Thu, 28 Sep 2023 22:09:41 +0000
+ bh=Xudn5cHfT8e33ci7JN2hrI0nlqI9D+U4WqV2U9/NRlA=;
+ b=QVWszL/1d1MDAeYPVG9mZ79ZE2QggJJUd7VZ14J9W/1P9HEYd6VfKrxoyHgD8DrBTFQdOnuUKMb9vjX/W/L9sekhqc7yQWLiiLA+GTQqgNCUp+U0MvzN8Oqd/hG5wm/UGGY745cD6zsuv/SfLNMIYgP+RGaRaQ1PqG/vhoW4KFE=
+Received: from BL1P221CA0017.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:2c5::35)
+ by DM4PR12MB7719.namprd12.prod.outlook.com (2603:10b6:8:101::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.28; Thu, 28 Sep
+ 2023 22:22:52 +0000
+Received: from BL6PEPF0001AB53.namprd02.prod.outlook.com
+ (2603:10b6:208:2c5:cafe::1d) by BL1P221CA0017.outlook.office365.com
+ (2603:10b6:208:2c5::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.25 via Frontend
+ Transport; Thu, 28 Sep 2023 22:22:52 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,20 +46,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF0002529E.mail.protection.outlook.com (10.167.242.5) with Microsoft
+ BL6PEPF0001AB53.mail.protection.outlook.com (10.167.241.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.21 via Frontend Transport; Thu, 28 Sep 2023 22:09:41 +0000
-Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.6838.14 via Frontend Transport; Thu, 28 Sep 2023 22:22:51 +0000
+Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 28 Sep
- 2023 17:09:40 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
+ 2023 17:22:51 -0500
+From: Philip Yang <Philip.Yang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd: Fix logic error in
- sienna_cichlid_update_pcie_parameters()
-Date: Tue, 26 Sep 2023 21:07:43 -0500
-Message-ID: <20230927020743.387802-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.34.1
+Subject: [PATCH] drm/amdkfd: ratelimited override pte flags messages
+Date: Thu, 28 Sep 2023 18:22:12 -0400
+Message-ID: <20230928222212.17006-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -67,26 +67,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002529E:EE_|BL1PR12MB5238:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2305f7f4-5e3a-48ad-ab4e-08dbc06f9d44
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB53:EE_|DM4PR12MB7719:EE_
+X-MS-Office365-Filtering-Correlation-Id: 78d82d13-588b-4b8a-2ad4-08dbc0717466
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DLs8eJUTMnc1UVHvBvlTcqLWNeTnTtQ8aQnZjAdTo1qbdKzQlaCjYTQTiPJVJyOLc1uyEAiCcGcghyfDb3tKkHfF7R5uKMVmuhY8pT3vT6qcTNB/QeXw4gx3DC+JOvAfZSE07HNMG8WUAJUQB25mtwDD0Pbb+205aEBBX8yf1+lOZOg2GNyvunqxffC5i4TqAjdASDIJVU3XhI4mahJmcjv6XvKIYl8e3yKxdnleC7YpkdR3ggmyKWiNQ2rLGYF381fmJVlenFHWHKYMtLLR19UfiJL+TiB2aJGi37YuOYVGoMItECrArkabSeV6Xzmuw4axXbTdOal4TFySJPgUfnvpujLvgQcl7jFEDxNjKGUPRh2HJupF38xst1zc9yd8mt0v6nbGbsNwY6279xeoUZpobJLln5ilikHYgpiLKO8LjEQBNbtdwZtw+br6ctv3S8pRcJsPhqh3uJeWtWn9Djf4ZNQI9hMk5Ul2r7+oXUNMIpfOjIVdA0lj3Pm41zO0+NmlEq/ESX5JpMZ+FpaU+bfm93Us1guJJODPWF+vp9lIMGZhvNjl+N+02NA10sEvcAdwKWx5PK++25Q/FOhvy4c2zntaY5w5D/FgD7OVI0YaIbrX2E5EbyATogfNbUl7zBBKe0ZB5Opm7N2be3UOWpJW32gNb7ZuzwOnhKzfTpQI611Bdw3uDvrO+1HNbdwgkKOtnZVJq9e+6bIw4Avw63ZHz6pHmp0YlX+SFfDeTTIFb2G14XPeTZTTnI1SD19e
+X-Microsoft-Antispam-Message-Info: yRGzIdYVhQNZj2biAjHfxywMiQ+S0+UNgWjR3LXRfYXc/20cK4OP4vfKH0Bp9a52Ad0O0W0zpzQO0bGfxFT1ee8cE0adkyFdTPQTijeCy+bITqu7ORvHXq0Eh2JBqNh1j1/kfEG9PQ5J08tSejwkzKY2VSxtWCVgnjZGmh4m6Z9PUAOWJIHSuaqcVscPrTq8qENo8xkwWzRSglR9ezE590t0D7W7Oc1b6Gvk3XDY2rQu7pDW2TnVr+VyC80cEFBEIHCzdjbZq+W22POIufaCIrr2lEsy+l8Kz9a85YGhtYSZLr4rM0B2ORhmd9fs88APjCuRPyeWmFTCUOs9lO+b5o93TeYSg1U5lsFHznKvbdcpXLG0RcI/7kbr0fbkpObC6KtbkVl2lmibupCZwrMSh+H1Y1YHYuRadGiez23ffuc/Hi/mmJyM49ylPCFYRiEBw6zXeQK1iHpp/9oPODE4PYto3gn15Ak2+IQjMgFqJyJXIhPRvs7f7H1fJKkqcfP/Essd3zeK61CoFQcocnRFC51isDtiEYXJCvYCrVl+1FHBxMpp3psNo/HazvSxqAXixe5Rd9MZ17W0c78nkE2UwL467rv4wvukPzMuwVDiaPAkEwEczaNmeEjHNTJ+08XwRsra5QFV5T/xitaL7p+SV4tGCTyQAL1P7z5oXAmftFwp2TJg3bl5J01C7jt+iUM0Isj8v98agNa5vocawCLFBKQzpAmWqPc5sS0CDssBNR/y/CyQVjM49p/zEwS0NL6isAWp8DHCp6QqONWZsh0ikg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(39860400002)(376002)(136003)(396003)(230922051799003)(82310400011)(186009)(451199024)(64100799003)(1800799009)(46966006)(36840700001)(40470700004)(44832011)(8676002)(41300700001)(8936002)(40480700001)(26005)(16526019)(2906002)(5660300002)(316002)(70206006)(54906003)(70586007)(4326008)(6916009)(478600001)(966005)(7696005)(40460700003)(1076003)(47076005)(36860700001)(2616005)(336012)(426003)(83380400001)(81166007)(36756003)(86362001)(356005)(82740400003)(36900700001);
+ SFS:(13230031)(4636009)(376002)(136003)(346002)(396003)(39860400002)(230922051799003)(82310400011)(451199024)(1800799009)(64100799003)(186009)(46966006)(36840700001)(40470700004)(70206006)(15650500001)(40460700003)(2906002)(41300700001)(6916009)(316002)(40480700001)(36756003)(54906003)(8936002)(4326008)(5660300002)(7696005)(86362001)(70586007)(2616005)(6666004)(1076003)(8676002)(36860700001)(478600001)(356005)(16526019)(81166007)(426003)(336012)(83380400001)(82740400003)(26005)(47076005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2023 22:09:41.4858 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2305f7f4-5e3a-48ad-ab4e-08dbc06f9d44
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2023 22:22:51.9278 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 78d82d13-588b-4b8a-2ad4-08dbc0717466
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002529E.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB53.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5238
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7719
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,92 +98,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: coelacanth_dream@protonmail.com,
- Mario Limonciello <mario.limonciello@amd.com>
+Cc: Philip Yang <Philip.Yang@amd.com>, Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-While aligning SMU11 with SMU13 implementation an assumption was made that
-`dpm_context->dpm_tables.pcie_table` was populated in dpm table initialization
-like in SMU13 but it isn't.
+Use ratelimited version of dev_dbg to avoid flooding dmesg log. No
+functional change.
 
-So restore some of the original logic and instead just check for
-amdgpu_device_pcie_dynamic_switching_supported() to decide whether to hardcode
-values; erring on the side of performance.
-
-Cc: stable@vger.kernel.org # 6.1+
-Reported-and-tested-by: Umio Yasuno <coelacanth_dream@protonmail.com>
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/1447#note_2101382
-Fixes: e701156ccc6c ("drm/amd: Align SMU11 SMU_MSG_OverridePcieParameters implementation with SMU13")
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 ---
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 41 +++++++++++--------
- 1 file changed, 23 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c     | 16 ++++++++--------
+ 2 files changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index f0800c0c5168..9119b0df2419 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -2081,36 +2081,41 @@ static int sienna_cichlid_display_disable_memory_clock_switch(struct smu_context
- 	return ret;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+index 96d601e209b8..6d2878684287 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+@@ -848,7 +848,7 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
+ 			amdgpu_gmc_override_vm_pte_flags(adev, params->vm,
+ 							 addr, &flags);
+ 		else
+-			dev_dbg(adev->dev,
++			dev_dbg_ratelimited(adev->dev,
+ 				"override_vm_pte_flags skipped: non-contiguous\n");
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 6b15677c0314..ad0d63472e17 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1244,7 +1244,7 @@ static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
+ 	 * the DMA address.
+ 	 */
+ 	if (!adev->ram_is_direct_mapped) {
+-		dev_dbg(adev->dev, "RAM is not direct mapped\n");
++		dev_dbg_ratelimited(adev->dev, "RAM is not direct mapped\n");
+ 		return;
+ 	}
+ 
+@@ -1253,7 +1253,7 @@ static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
+ 	 */
+ 	if ((*flags & AMDGPU_PTE_MTYPE_VG10_MASK) !=
+ 	    AMDGPU_PTE_MTYPE_VG10(MTYPE_NC)) {
+-		dev_dbg(adev->dev, "MTYPE is not NC\n");
++		dev_dbg_ratelimited(adev->dev, "MTYPE is not NC\n");
+ 		return;
+ 	}
+ 
+@@ -1264,7 +1264,7 @@ static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
+ 	if (adev->gmc.is_app_apu && vm->mem_id >= 0) {
+ 		local_node = adev->gmc.mem_partitions[vm->mem_id].numa.node;
+ 	} else {
+-		dev_dbg(adev->dev, "Only native mode APU is supported.\n");
++		dev_dbg_ratelimited(adev->dev, "Only native mode APU is supported.\n");
+ 		return;
+ 	}
+ 
+@@ -1272,12 +1272,12 @@ static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
+ 	 * page or NUMA nodes.
+ 	 */
+ 	if (!page_is_ram(addr >> PAGE_SHIFT)) {
+-		dev_dbg(adev->dev, "Page is not RAM.\n");
++		dev_dbg_ratelimited(adev->dev, "Page is not RAM.\n");
+ 		return;
+ 	}
+ 	nid = pfn_to_nid(addr >> PAGE_SHIFT);
+-	dev_dbg(adev->dev, "vm->mem_id=%d, local_node=%d, nid=%d\n",
+-		vm->mem_id, local_node, nid);
++	dev_dbg_ratelimited(adev->dev, "vm->mem_id=%d, local_node=%d, nid=%d\n",
++			    vm->mem_id, local_node, nid);
+ 	if (nid == local_node) {
+ 		uint64_t old_flags = *flags;
+ 		unsigned int mtype_local = MTYPE_RW;
+@@ -1289,8 +1289,8 @@ static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
+ 
+ 		*flags = (*flags & ~AMDGPU_PTE_MTYPE_VG10_MASK) |
+ 			 AMDGPU_PTE_MTYPE_VG10(mtype_local);
+-		dev_dbg(adev->dev, "flags updated from %llx to %llx\n",
+-			old_flags, *flags);
++		dev_dbg_ratelimited(adev->dev, "flags updated from %llx to %llx\n",
++				    old_flags, *flags);
+ 	}
  }
  
-+#define MAX(a, b)	((a) > (b) ? (a) : (b))
-+
- static int sienna_cichlid_update_pcie_parameters(struct smu_context *smu,
- 					 uint32_t pcie_gen_cap,
- 					 uint32_t pcie_width_cap)
- {
- 	struct smu_11_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
- 	struct smu_11_0_pcie_table *pcie_table = &dpm_context->dpm_tables.pcie_table;
--	u32 smu_pcie_arg;
-+	uint8_t *table_member1, *table_member2;
-+	uint32_t min_gen_speed, max_gen_speed;
-+	uint32_t min_lane_width, max_lane_width;
-+	uint32_t smu_pcie_arg;
- 	int ret, i;
- 
--	/* PCIE gen speed and lane width override */
--	if (!amdgpu_device_pcie_dynamic_switching_supported()) {
--		if (pcie_table->pcie_gen[NUM_LINK_LEVELS - 1] < pcie_gen_cap)
--			pcie_gen_cap = pcie_table->pcie_gen[NUM_LINK_LEVELS - 1];
-+	GET_PPTABLE_MEMBER(PcieGenSpeed, &table_member1);
-+	GET_PPTABLE_MEMBER(PcieLaneCount, &table_member2);
- 
--		if (pcie_table->pcie_lane[NUM_LINK_LEVELS - 1] < pcie_width_cap)
--			pcie_width_cap = pcie_table->pcie_lane[NUM_LINK_LEVELS - 1];
-+	min_gen_speed = MAX(0, table_member1[0]);
-+	max_gen_speed = MIN(pcie_gen_cap, table_member1[1]);
-+	min_gen_speed = min_gen_speed > max_gen_speed ?
-+			max_gen_speed : min_gen_speed;
-+	min_lane_width = MAX(1, table_member2[0]);
-+	max_lane_width = MIN(pcie_width_cap, table_member2[1]);
-+	min_lane_width = min_lane_width > max_lane_width ?
-+			 max_lane_width : min_lane_width;
- 
--		/* Force all levels to use the same settings */
--		for (i = 0; i < NUM_LINK_LEVELS; i++) {
--			pcie_table->pcie_gen[i] = pcie_gen_cap;
--			pcie_table->pcie_lane[i] = pcie_width_cap;
--		}
-+	if (!amdgpu_device_pcie_dynamic_switching_supported()) {
-+		pcie_table->pcie_gen[0] = max_gen_speed;
-+		pcie_table->pcie_lane[0] = max_lane_width;
- 	} else {
--		for (i = 0; i < NUM_LINK_LEVELS; i++) {
--			if (pcie_table->pcie_gen[i] > pcie_gen_cap)
--				pcie_table->pcie_gen[i] = pcie_gen_cap;
--			if (pcie_table->pcie_lane[i] > pcie_width_cap)
--				pcie_table->pcie_lane[i] = pcie_width_cap;
--		}
-+		pcie_table->pcie_gen[0] = min_gen_speed;
-+		pcie_table->pcie_lane[0] = min_lane_width;
- 	}
-+	pcie_table->pcie_gen[1] = max_gen_speed;
-+	pcie_table->pcie_lane[1] = max_lane_width;
- 
- 	for (i = 0; i < NUM_LINK_LEVELS; i++) {
- 		smu_pcie_arg = (i << 16 |
 -- 
-2.34.1
+2.35.1
 
