@@ -4,57 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B09B0E732D1
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Sep 2023 13:23:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB0FDE732D1
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Sep 2023 13:28:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D51310E652;
-	Thu, 28 Sep 2023 13:23:58 +0000 (UTC)
-Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
- [IPv6:2001:4860:4864:20::29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3384C10E652
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Sep 2023 13:23:56 +0000 (UTC)
-Received: by mail-oa1-x29.google.com with SMTP id
- 586e51a60fabf-1dd1714b9b6so4329347fac.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Sep 2023 06:23:56 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E47610E00A;
+	Thu, 28 Sep 2023 13:28:14 +0000 (UTC)
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECF3010E00A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Sep 2023 13:28:11 +0000 (UTC)
+Received: by mail-ot1-x32e.google.com with SMTP id
+ 46e09a7af769-6c620883559so1675473a34.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Sep 2023 06:28:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1695907435; x=1696512235; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1695907691; x=1696512491; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=zQ4F0jP31vcTMAgdhE3K2B86QDBCVJXgxF1LM34XF+k=;
- b=LtDyea/BvKpKPa1FepyyiHJHcVwPKO875YUE8a+Th3qn1F+cFmVyn1XFWnasXcCdqH
- aiMYUqbwgUjAe+W7HGnfyMI3p2/82EjDLtX4oPXEmk3q6sZJcRMgN66F1E/kBx/DrKdw
- A6DkGkQZdfWrc/ZVVt44yjy1TBweaukMzmTGfwZmLBJocHCXrjjszdD5i239/6Gv8VJg
- 2vVyc3xOA8ch5Vp8rwkPUnplpXFmazo+OrgKBfhZ16KqJLkmFTHdKv4YAMlQ3XKU/0XA
- W3XiqstytGND8AuT2jIxDoCREPeZLbLLpiIolbKvzJIgh/vaSvsdHR6IPqjMxkMIXu+/
- ggMw==
+ bh=4AQ6C7E8hY4RO7D1G6rZRe8cFhpBQ3hWTkYI4FKLF6Y=;
+ b=W2itfvNkUTqydWKA1P2XwmuRx7YCPSLwf7oOF3gpQNPUUBOiqryDyllSFLIEAr2AtN
+ oWiyvERa0TyjPVkgjgw/i0jjqlF6W2nOGM7gLeP97G3CUl4xh4UeWCuy6cIQ2vCGvWF9
+ GjOU3O9TBQZX7xtNZXlFdhTGzyJy0MmTlHyfSJyd6syfztOMDGnm1m7vS3qEt/ziUh1z
+ xPqtvcwq3+Y3TeRUJKrQOs6f/Z8yweAH7Cw2Zm9n/CHrjFoGaxw6lPxvScs5I4sEicag
+ oFwZuR364MA/ilYDTQ94QIB65037shN5PbWPPtGAJKqzPPqGhOjdEDqTs03pcAl1jq8B
+ gmwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695907435; x=1696512235;
+ d=1e100.net; s=20230601; t=1695907691; x=1696512491;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=zQ4F0jP31vcTMAgdhE3K2B86QDBCVJXgxF1LM34XF+k=;
- b=KvGDSp5yvP7lbM2q3MsNisYraGjl3lgwz74ruKkMdfPAJO+fvHm40n7b9gL/adbeIG
- N/IBw+oQB58NRjfBHPe4VIbtcgHcdxqzTSB1ClrvzhwLvnQxynEX3cLLQSqJSeExANbm
- 4Q2QsmiUZzZ6Pb7kv1xy2JZDsrIAed4FY008j8Ox8pewwX/m0fQDAogiTPgC2weucADJ
- hmEjvruoOl2Eky3NhgGiCk+rSHxSOgceXAfOUv6DeEBnpvEKW02UxJu1rzce5OeSLzUv
- NDTjMQyyxYXwhlxK4fig5uuIrgsKDS3+r0ZWxEIE9D8SVrmYDKpn4dhqzy7cm7Xo8Xok
- Vufw==
-X-Gm-Message-State: AOJu0Ywajxbm/51t0RygjHweNBMCIDxGpPv5qJiFQe/f5OFbUDawipGl
- JY/eqt19aQYzu1FFsck/rV2LlWbATjee986fl5G8W1TH
-X-Google-Smtp-Source: AGHT+IFrRiDS4OIBkP8qa1Ooyfckok8xwpUM14K9F56UJGDj4kdqX7iUf+LVCa7gHb9qyKTTLafGUioge5LpiPz/Qbc=
-X-Received: by 2002:a05:6870:958b:b0:1bf:df47:7b5e with SMTP id
- k11-20020a056870958b00b001bfdf477b5emr1269698oao.16.1695907435251; Thu, 28
- Sep 2023 06:23:55 -0700 (PDT)
+ bh=4AQ6C7E8hY4RO7D1G6rZRe8cFhpBQ3hWTkYI4FKLF6Y=;
+ b=qoOK2kcR3OTPq1hHLv9EdOs/qspNBfiWxwclCP/XTd3tE35WDr/xls6xl+NHanzuI0
+ 2rSeQemU6H0fkix62Bxuw/0LCudcPM/ATU2LoUX/sJvK6bVLO7i9TLGpIw//i47e6ey6
+ tqLV3Lk6EvgY5ly72IUPbGS3h1IlwgAqsq1fB4VqfBfLbB4FZXwvkaX43VzDfZPKLcp5
+ RQ1fYlzv54KTXxPVtb4fx1enJYbt7vEo1TRiCiXOXeg4El2knv32kiBlDUUrCWqDzb+N
+ upJaqubdNCoYHpK8M1qjLSoulokwQ9iILkpLUxAlp/9zPYvrvkbgcqHPhgNEDpfF0nth
+ bNaw==
+X-Gm-Message-State: AOJu0YzNEo5HfXcjdQ7Rb+AK44MQj85N4lXj9Rd0/2IoSji4m1qUVjAc
+ aD389gjBNSaRiR3ibdPmbhVppLkxOVclB0LquTJHVU75
+X-Google-Smtp-Source: AGHT+IFt6BwJeDqY2vEzWm9V3g/TOyU3R7vPH7eOxg8zFq2KBDWCFKcZCtuiKOCMMSG+WZZqmLpWTL95pX2I2LVfFjk=
+X-Received: by 2002:a05:6870:82aa:b0:1ba:cc77:1d81 with SMTP id
+ q42-20020a05687082aa00b001bacc771d81mr1277221oae.46.1695907690142; Thu, 28
+ Sep 2023 06:28:10 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230927181251.2364633-1-alexander.deucher@amd.com>
-In-Reply-To: <20230927181251.2364633-1-alexander.deucher@amd.com>
+References: <20230908160446.2188-1-shashank.sharma@amd.com>
+ <20230908160446.2188-5-shashank.sharma@amd.com>
+ <6d579492-1555-4dba-68c6-130266c011a1@amd.com>
+ <009e90dd-2cf2-9838-a8c3-f18cbbd29b3d@amd.com>
+ <c097f8eb-9866-d4f8-6b18-383dd9b69400@amd.com>
+In-Reply-To: <c097f8eb-9866-d4f8-6b18-383dd9b69400@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 28 Sep 2023 09:23:44 -0400
-Message-ID: <CADnq5_MMWMoLrKa2GWDcx24-gG=6T6kuftEznvujwjUWxNa9Aw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu/gmc: add a way to force a particular
- placement for GART
-To: Alex Deucher <alexander.deucher@amd.com>
+Date: Thu, 28 Sep 2023 09:27:59 -0400
+Message-ID: <CADnq5_Od2uEzpPMGvUx-R2uDtTeymwPvk67Fvm8VW1GV2VU3nA@mail.gmail.com>
+Subject: Re: [PATCH v6 4/9] drm/amdgpu: create GFX-gen11 usermode queue
+To: Shashank Sharma <shashank.sharma@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,209 +71,264 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, arvind.yadav@amd.com,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping on this series?  Fixes an issue for SR-IOV in stress tests.
+On Thu, Sep 28, 2023 at 9:22=E2=80=AFAM Shashank Sharma <shashank.sharma@am=
+d.com> wrote:
+>
+>
+> On 14/09/2023 10:24, Shashank Sharma wrote:
+> >
+> > On 14/09/2023 09:45, Christian K=C3=B6nig wrote:
+> >> Am 08.09.23 um 18:04 schrieb Shashank Sharma:
+> >>> A Memory queue descriptor (MQD) of a userqueue defines it in
+> >>> the hw's context. As MQD format can vary between different
+> >>> graphics IPs, we need gfx GEN specific handlers to create MQDs.
+> >>>
+> >>> This patch:
+> >>> - Introduces MQD handler functions for the usermode queues.
+> >>> - Adds new functions to create and destroy userqueue MQD for
+> >>>    GFX-GEN-11 IP
+> >>>
+> >>> V1: Worked on review comments from Alex:
+> >>>      - Make MQD functions GEN and IP specific
+> >>>
+> >>> V2: Worked on review comments from Alex:
+> >>>      - Reuse the existing adev->mqd[ip] for MQD creation
+> >>>      - Formatting and arrangement of code
+> >>>
+> >>> V3:
+> >>>      - Integration with doorbell manager
+> >>>
+> >>> V4: Review comments addressed:
+> >>>      - Do not create a new file for userq, reuse gfx_v11_0.c (Alex)
+> >>>      - Align name of structure members (Luben)
+> >>>      - Don't break up the Cc tag list and the Sob tag list in commit
+> >>>        message (Luben)
+> >>> V5:
+> >>>     - No need to reserve the bo for MQD (Christian).
+> >>>     - Some more changes to support IP specific MQD creation.
+> >>>
+> >>> V6:
+> >>>     - Add a comment reminding us to replace the
+> >>> amdgpu_bo_create_kernel()
+> >>>       calls while creating MQD object to amdgpu_bo_create() once
+> >>> eviction
+> >>>       fences are ready (Christian).
+> >>>
+> >>> Cc: Alex Deucher <alexander.deucher@amd.com>
+> >>> Cc: Christian Koenig <christian.koenig@amd.com>
+> >>> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+> >>> Signed-off-by: Arvind Yadav <arvind.yadav@amd.com>
+> >>> ---
+> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 16 ++++
+> >>>   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        | 77
+> >>> +++++++++++++++++++
+> >>>   .../gpu/drm/amd/include/amdgpu_userqueue.h    |  7 ++
+> >>>   3 files changed, 100 insertions(+)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> >>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> >>> index 44769423ba30..03fc8e89eafb 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> >>> @@ -140,12 +140,28 @@ int amdgpu_userq_ioctl(struct drm_device *dev,
+> >>> void *data,
+> >>>       return r;
+> >>>   }
+> >>>   +extern const struct amdgpu_userq_funcs userq_gfx_v11_funcs;
+> >>> +
+> >>> +static void
+> >>> +amdgpu_userqueue_setup_gfx(struct amdgpu_userq_mgr *uq_mgr)
+> >>> +{
+> >>> +    int maj;
+> >>> +    struct amdgpu_device *adev =3D uq_mgr->adev;
+> >>> +    uint32_t version =3D adev->ip_versions[GC_HWIP][0];
+> >>> +
+> >>> +    /* We support usermode queue only for GFX V11 as of now */
+> >>> +    maj =3D IP_VERSION_MAJ(version);
+> >>> +    if (maj =3D=3D 11)
+> >>> +        uq_mgr->userq_funcs[AMDGPU_HW_IP_GFX] =3D &userq_gfx_v11_fun=
+cs;
+> >>> +}
+> >>
+> >> That belongs into gfx_v11.c and not here.
+> >
+> >
+> > Agree,
+>
+> On a second thought, we can't move it to gfx_v11.c, as this is the place
+> where we are setting up the gfx_userqueue functions in fpriv->uq_mgr()
+> for the first time, and we do not have another option but to check the
+> IP and setup the functions here. The only other option to do this will
+> be to move  uq_mgr->userq_funcs to adev->gfx.userq_funcs and setup them
+> with the IP init (as Alex once suggested). Please let me know your
+> thoughts on this.
+
+That seems cleaner to me.  They should be global anyway and could be
+set as part of the individual IP init sequences.  Then the presence of
+a pointer could be used to determine whether or not a particular IP
+type supports user queues.
 
 Alex
 
-On Wed, Sep 27, 2023 at 2:31=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
-.com> wrote:
+
 >
-> We normally place GART based on the location of VRAM and the
-> available address space around that, but provide an option
-> to force a particular location for hardware that needs it.
+> - Shashank
 >
-> v2: Switch to passing the placement via parameter
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 22 +++++++++++++++++-----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  9 ++++++++-
->  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  |  2 +-
->  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  |  2 +-
->  drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c   |  2 +-
->  drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c   |  2 +-
->  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   |  2 +-
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   |  2 +-
->  8 files changed, 31 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gmc.c
-> index 2bfeaacd050c..60c81c3d29d5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -269,7 +269,8 @@ void amdgpu_gmc_sysvm_location(struct amdgpu_device *=
-adev, struct amdgpu_gmc *mc
->   * If GART size is bigger than space left then we ajust GART size.
->   * Thus function will never fails.
->   */
-> -void amdgpu_gmc_gart_location(struct amdgpu_device *adev, struct amdgpu_=
-gmc *mc)
-> +void amdgpu_gmc_gart_location(struct amdgpu_device *adev, struct amdgpu_=
-gmc *mc,
-> +                             enum amdgpu_gart_placement gart_placement)
->  {
->         const uint64_t four_gb =3D 0x100000000ULL;
->         u64 size_af, size_bf;
-> @@ -287,11 +288,22 @@ void amdgpu_gmc_gart_location(struct amdgpu_device =
-*adev, struct amdgpu_gmc *mc)
->                 mc->gart_size =3D max(size_bf, size_af);
->         }
->
-> -       if ((size_bf >=3D mc->gart_size && size_bf < size_af) ||
-> -           (size_af < mc->gart_size))
-> -               mc->gart_start =3D 0;
-> -       else
-> +       switch (gart_placement) {
-> +       case AMDGPU_GART_PLACEMENT_HIGH:
->                 mc->gart_start =3D max_mc_address - mc->gart_size + 1;
-> +               break;
-> +       case AMDGPU_GART_PLACEMENT_LOW:
-> +               mc->gart_start =3D 0;
-> +               break;
-> +       case AMDGPU_GART_PLACEMENT_BEST_FIT:
-> +       default:
-> +               if ((size_bf >=3D mc->gart_size && size_bf < size_af) ||
-> +                   (size_af < mc->gart_size))
-> +                       mc->gart_start =3D 0;
-> +               else
-> +                       mc->gart_start =3D max_mc_address - mc->gart_size=
- + 1;
-> +               break;
-> +       }
->
->         mc->gart_start &=3D ~(four_gb - 1);
->         mc->gart_end =3D mc->gart_start + mc->gart_size - 1;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gmc.h
-> index f593259a66c3..e699d1ca8deb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> @@ -199,6 +199,12 @@ struct amdgpu_mem_partition_info {
->
->  #define INVALID_PFN    -1
->
-> +enum amdgpu_gart_placement {
-> +       AMDGPU_GART_PLACEMENT_BEST_FIT =3D 0,
-> +       AMDGPU_GART_PLACEMENT_HIGH,
-> +       AMDGPU_GART_PLACEMENT_LOW,
-> +};
-> +
->  struct amdgpu_gmc {
->         /* FB's physical address in MMIO space (for CPU to
->          * map FB). This is different compared to the agp/
-> @@ -391,7 +397,8 @@ void amdgpu_gmc_sysvm_location(struct amdgpu_device *=
-adev, struct amdgpu_gmc *mc
->  void amdgpu_gmc_vram_location(struct amdgpu_device *adev, struct amdgpu_=
-gmc *mc,
->                               u64 base);
->  void amdgpu_gmc_gart_location(struct amdgpu_device *adev,
-> -                             struct amdgpu_gmc *mc);
-> +                             struct amdgpu_gmc *mc,
-> +                             enum amdgpu_gart_placement gart_placement);
->  void amdgpu_gmc_agp_location(struct amdgpu_device *adev,
->                              struct amdgpu_gmc *mc);
->  void amdgpu_gmc_set_agp_default(struct amdgpu_device *adev,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gmc_v10_0.c
-> index 70370b412d24..8e6e36279389 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> @@ -670,7 +670,7 @@ static void gmc_v10_0_vram_gtt_location(struct amdgpu=
-_device *adev,
->         base +=3D adev->gmc.xgmi.physical_node_id * adev->gmc.xgmi.node_s=
-egment_size;
->
->         amdgpu_gmc_vram_location(adev, &adev->gmc, base);
-> -       amdgpu_gmc_gart_location(adev, mc);
-> +       amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_BEST_FIT=
-);
->         if (!amdgpu_sriov_vf(adev))
->                 amdgpu_gmc_agp_location(adev, mc);
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gmc_v11_0.c
-> index d0a9ee2f12d3..d611d2efce3b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> @@ -634,7 +634,7 @@ static void gmc_v11_0_vram_gtt_location(struct amdgpu=
-_device *adev,
->         base =3D adev->mmhub.funcs->get_fb_location(adev);
->
->         amdgpu_gmc_vram_location(adev, &adev->gmc, base);
-> -       amdgpu_gmc_gart_location(adev, mc);
-> +       amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_BEST_FIT=
-);
->         if (!amdgpu_sriov_vf(adev) ||
->             (amdgpu_ip_version(adev, GC_HWIP, 0) < IP_VERSION(11, 5, 0)))
->                 amdgpu_gmc_agp_location(adev, mc);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gmc_v6_0.c
-> index 3f31f268e0eb..7f66954fd302 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> @@ -212,7 +212,7 @@ static void gmc_v6_0_vram_gtt_location(struct amdgpu_=
-device *adev,
->         base <<=3D 24;
->
->         amdgpu_gmc_vram_location(adev, mc, base);
-> -       amdgpu_gmc_gart_location(adev, mc);
-> +       amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_BEST_FIT=
-);
->  }
->
->  static void gmc_v6_0_mc_program(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gmc_v7_0.c
-> index a72dc21cf6fc..3869cefab7bd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> @@ -240,7 +240,7 @@ static void gmc_v7_0_vram_gtt_location(struct amdgpu_=
-device *adev,
->         base <<=3D 24;
->
->         amdgpu_gmc_vram_location(adev, mc, base);
-> -       amdgpu_gmc_gart_location(adev, mc);
-> +       amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_BEST_FIT=
-);
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gmc_v8_0.c
-> index 8ce77d074d17..4126172feb7f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> @@ -414,7 +414,7 @@ static void gmc_v8_0_vram_gtt_location(struct amdgpu_=
-device *adev,
->         base <<=3D 24;
->
->         amdgpu_gmc_vram_location(adev, mc, base);
-> -       amdgpu_gmc_gart_location(adev, mc);
-> +       amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_BEST_FIT=
-);
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gmc_v9_0.c
-> index 6b15677c0314..37e96d9d30a3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1611,7 +1611,7 @@ static void gmc_v9_0_vram_gtt_location(struct amdgp=
-u_device *adev,
->                 amdgpu_gmc_sysvm_location(adev, mc);
->         } else {
->                 amdgpu_gmc_vram_location(adev, mc, base);
-> -               amdgpu_gmc_gart_location(adev, mc);
-> +               amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_=
-BEST_FIT);
->                 if (!amdgpu_sriov_vf(adev))
->                         amdgpu_gmc_agp_location(adev, mc);
->         }
-> --
-> 2.41.0
->
+> >
+> >>
+> >>> +
+> >>>   int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr,
+> >>> struct amdgpu_device *adev)
+> >>>   {
+> >>>       mutex_init(&userq_mgr->userq_mutex);
+> >>>       idr_init_base(&userq_mgr->userq_idr, 1);
+> >>>       userq_mgr->adev =3D adev;
+> >>>   +    amdgpu_userqueue_setup_gfx(userq_mgr);
+> >>>       return 0;
+> >>>   }
+> >>>   diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> >>> b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> >>> index 0451533ddde4..6760abda08df 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> >>> @@ -30,6 +30,7 @@
+> >>>   #include "amdgpu_psp.h"
+> >>>   #include "amdgpu_smu.h"
+> >>>   #include "amdgpu_atomfirmware.h"
+> >>> +#include "amdgpu_userqueue.h"
+> >>>   #include "imu_v11_0.h"
+> >>>   #include "soc21.h"
+> >>>   #include "nvd.h"
+> >>> @@ -6422,3 +6423,79 @@ const struct amdgpu_ip_block_version
+> >>> gfx_v11_0_ip_block =3D
+> >>>       .rev =3D 0,
+> >>>       .funcs =3D &gfx_v11_0_ip_funcs,
+> >>>   };
+> >>> +
+> >>> +static int gfx_v11_0_userq_mqd_create(struct amdgpu_userq_mgr *uq_mg=
+r,
+> >>> +                      struct drm_amdgpu_userq_in *args_in,
+> >>> +                      struct amdgpu_usermode_queue *queue)
+> >>> +{
+> >>> +    struct amdgpu_device *adev =3D uq_mgr->adev;
+> >>> +    struct amdgpu_mqd *mqd_gfx_generic =3D
+> >>> &adev->mqds[AMDGPU_HW_IP_GFX];
+> >>> +    struct drm_amdgpu_userq_mqd_gfx_v11_0 mqd_user;
+> >>> +    struct amdgpu_mqd_prop userq_props;
+> >>> +    int r;
+> >>> +
+> >>> +    /* Incoming MQD parameters from userspace to be saved here */
+> >>> +    memset(&mqd_user, 0, sizeof(mqd_user));
+> >>> +
+> >>> +    /* Structure to initialize MQD for userqueue using generic MQD
+> >>> init function */
+> >>> +    memset(&userq_props, 0, sizeof(userq_props));
+> >>> +
+> >>> +    if (args_in->mqd_size !=3D sizeof(struct
+> >>> drm_amdgpu_userq_mqd_gfx_v11_0)) {
+> >>> +        DRM_ERROR("MQD size mismatch\n");
+> >>> +        return -EINVAL;
+> >>> +    }
+> >>> +
+> >>> +    if (copy_from_user(&mqd_user, u64_to_user_ptr(args_in->mqd),
+> >>> args_in->mqd_size)) {
+> >>> +        DRM_ERROR("Failed to get user MQD\n");
+> >>> +        return -EFAULT;
+> >>> +    }
+> >>> +
+> >>> +    /*
+> >>> +     * Create BO for actual Userqueue MQD now
+> >>> +     * Todo: replace the calls to bo_create_kernel() with
+> >>> bo_create() and use
+> >>> +     * implicit pinning for the MQD buffers.
+> >>
+> >> Well not implicit pinning, but rather fencing of the BO.
+> >>
+> > Noted.
+> >
+> > - Shashank
+> >
+> >
+> >> Regards,
+> >> Christian.
+> >>
+> >>> +     */
+> >>> +    r =3D amdgpu_bo_create_kernel(adev, mqd_gfx_generic->mqd_size,
+> >>> PAGE_SIZE,
+> >>> +                    AMDGPU_GEM_DOMAIN_GTT,
+> >>> +                    &queue->mqd.obj,
+> >>> +                    &queue->mqd.gpu_addr,
+> >>> +                    &queue->mqd.cpu_ptr);
+> >>> +    if (r) {
+> >>> +        DRM_ERROR("Failed to allocate BO for userqueue (%d)", r);
+> >>> +        return -ENOMEM;
+> >>> +    }
+> >>> +    memset(queue->mqd.cpu_ptr, 0, mqd_gfx_generic->mqd_size);
+> >>> +
+> >>> +    /* Initialize the MQD BO with user given values */
+> >>> +    userq_props.wptr_gpu_addr =3D mqd_user.wptr_va;
+> >>> +    userq_props.rptr_gpu_addr =3D mqd_user.rptr_va;
+> >>> +    userq_props.queue_size =3D mqd_user.queue_size;
+> >>> +    userq_props.hqd_base_gpu_addr =3D mqd_user.queue_va;
+> >>> +    userq_props.mqd_gpu_addr =3D queue->mqd.gpu_addr;
+> >>> +    userq_props.use_doorbell =3D true;
+> >>> +
+> >>> +    r =3D mqd_gfx_generic->init_mqd(adev, (void *)queue->mqd.cpu_ptr=
+,
+> >>> &userq_props);
+> >>> +    if (r) {
+> >>> +        DRM_ERROR("Failed to initialize MQD for userqueue\n");
+> >>> +        goto free_mqd;
+> >>> +    }
+> >>> +
+> >>> +    return 0;
+> >>> +
+> >>> +free_mqd:
+> >>> +    amdgpu_bo_free_kernel(&queue->mqd.obj, &queue->mqd.gpu_addr,
+> >>> &queue->mqd.cpu_ptr);
+> >>> +    return r;
+> >>> +}
+> >>> +
+> >>> +static void
+> >>> +gfx_v11_0_userq_mqd_destroy(struct amdgpu_userq_mgr *uq_mgr, struct
+> >>> amdgpu_usermode_queue *queue)
+> >>> +{
+> >>> +    struct amdgpu_userq_obj *mqd =3D &queue->mqd;
+> >>> +
+> >>> +    amdgpu_bo_free_kernel(&mqd->obj, &mqd->gpu_addr, &mqd->cpu_ptr);
+> >>> +}
+> >>> +
+> >>> +const struct amdgpu_userq_funcs userq_gfx_v11_funcs =3D {
+> >>> +    .mqd_create =3D gfx_v11_0_userq_mqd_create,
+> >>> +    .mqd_destroy =3D gfx_v11_0_userq_mqd_destroy,
+> >>> +};
+> >>> diff --git a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+> >>> b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+> >>> index 55ed6512a565..240f92796f00 100644
+> >>> --- a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+> >>> +++ b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+> >>> @@ -29,6 +29,12 @@
+> >>>     struct amdgpu_mqd_prop;
+> >>>   +struct amdgpu_userq_obj {
+> >>> +    void         *cpu_ptr;
+> >>> +    uint64_t     gpu_addr;
+> >>> +    struct amdgpu_bo *obj;
+> >>> +};
+> >>> +
+> >>>   struct amdgpu_usermode_queue {
+> >>>       int            queue_type;
+> >>>       uint64_t        doorbell_handle;
+> >>> @@ -37,6 +43,7 @@ struct amdgpu_usermode_queue {
+> >>>       struct amdgpu_mqd_prop    *userq_prop;
+> >>>       struct amdgpu_userq_mgr *userq_mgr;
+> >>>       struct amdgpu_vm    *vm;
+> >>> +    struct amdgpu_userq_obj mqd;
+> >>>   };
+> >>>     struct amdgpu_userq_funcs {
+> >>
