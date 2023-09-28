@@ -4,33 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB28BE80A8A
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Sep 2023 02:09:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6D6AE810D5
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Sep 2023 02:24:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5176810E5D0;
-	Thu, 28 Sep 2023 02:09:12 +0000 (UTC)
-Received: from out30-100.freemail.mail.aliyun.com
- (out30-100.freemail.mail.aliyun.com [115.124.30.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5AEF10E094;
- Thu, 28 Sep 2023 01:13:58 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046051;
- MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=7; SR=0;
- TI=SMTPD_---0Vt.c2tB_1695863632; 
-Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
- fp:SMTPD_---0Vt.c2tB_1695863632) by smtp.aliyun-inc.com;
- Thu, 28 Sep 2023 09:13:53 +0800
-From: Yang Li <yang.lee@linux.alibaba.com>
-To: alexander.deucher@amd.com,
-	airlied@gmail.com,
-	daniel@ffwll.ch
-Subject: [PATCH -next] drm/amd/display: clean up some inconsistent indentings
-Date: Thu, 28 Sep 2023 09:13:51 +0800
-Message-Id: <20230928011351.110093-1-yang.lee@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E74A10E097;
+	Thu, 28 Sep 2023 02:24:55 +0000 (UTC)
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
+ [IPv6:2001:4860:4864:20::2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05E9010E097
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Sep 2023 02:24:53 +0000 (UTC)
+Received: by mail-oa1-x2f.google.com with SMTP id
+ 586e51a60fabf-1dd78b46995so2129954fac.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Sep 2023 19:24:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1695867893; x=1696472693; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=CwbWTzEF26tkvrUDXa8g6EF1V6+cYDPwg5qB0QBbcYQ=;
+ b=NZ2RuJl8A8mhOHU991kddqUsoVDH1o2n0JsxEXd/5BJ8A0e2HqQkDuvjm3ek9tyKV5
+ E4zPnb9vqNpc/nzshT6s08rJaJjNODXQquHrRJzZnqA89gytcvcg/rbgkgafRYbzFK8O
+ ju2RutjFMUJ9JAgbiW89Dys2toOBqeFugOHnmofGgiWZpUB9laCgGIodKQD7pHDkKRWR
+ fbEKipGJjy6BR5MDKo8ffnqUhlouyB0rK1gukJhcyjyZuV1al0YPC9KYCI1yhjIPoe13
+ H2hbAU1+A6uwqM9yTYhTaGsxr0Y49574gEVHBKi5HgpFKKQJqHFn4Nyr0iyWRA1uOmwL
+ F0xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695867893; x=1696472693;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=CwbWTzEF26tkvrUDXa8g6EF1V6+cYDPwg5qB0QBbcYQ=;
+ b=UmDrDKtlAsgSpK2EZlt8ADDh06oDfuHn7maLFEENWnQOLO+87saVb2Lg22casarlAd
+ djf3vMVK8/I72C0zl8cS/6HwLdYumITPvF9y8Io2Xs/VUxf4U6StrkltFUu5rStA4jKA
+ zNq9a1OnrcpearvEoZfCGqkq9AhnsSHkqUdSOZSgnCc9DWMqS2cVA6Gph6colGGYunew
+ yJCNr/W0rkHaHF3OAEK2ehnGsb8ecBsikuXCwV66/Wjm4BCIdIOoGi6VdxYY7AMvclkw
+ AdDC8wMG+ndQ2Ozn14gseb5BwuWoQd8YxwlXDw/5eOiWCG2zUTron/lc3X1u/xKM+cqE
+ w1ug==
+X-Gm-Message-State: AOJu0YyxhIOAmbubKIMCJHd2z0OywIxUoe/xDZXMzrsH0S6EoACyaFLJ
+ QNVQY0ChXEt38jclKgM+G2GkdOQbcx+tObXRNpw=
+X-Google-Smtp-Source: AGHT+IGuDADEcGLkGOl4njVwGCJKz0hXGdgnTNJPAhnZ5Jx73SAIdvOY6IopZJIp4gxu9KBbgCBWj1N3NX38p4Kmdao=
+X-Received: by 2002:a05:6870:64aa:b0:1d5:aab3:ecd3 with SMTP id
+ cz42-20020a05687064aa00b001d5aab3ecd3mr4519249oab.6.1695867893096; Wed, 27
+ Sep 2023 19:24:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 28 Sep 2023 02:09:10 +0000
+References: <b238c665-91d6-4afe-83a8-da2f2d59a75b@moroto.mountain>
+ <PH7PR12MB5997674A218864F1B9C6B16882C2A@PH7PR12MB5997.namprd12.prod.outlook.com>
+In-Reply-To: <PH7PR12MB5997674A218864F1B9C6B16882C2A@PH7PR12MB5997.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 27 Sep 2023 22:24:41 -0400
+Message-ID: <CADnq5_NYB9HLDL60Qj4eQU8XXBVtuN=GqvWDuPtP=Ayq1FkgAw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: delete dead code
+To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,180 +68,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yang Li <yang.lee@linux.alibaba.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>,
+ "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>, "Kamal,
+ Asad" <Asad.Kamal@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
+ David Airlie <airlied@gmail.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>,
+ Dan Carpenter <dan.carpenter@linaro.org>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn35/dcn35_fpu.c:261 dcn35_update_bw_bounding_box_fpu() warn: inconsistent indenting
+Applied.  Thanks!
 
-Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
----
- .../drm/amd/display/dc/dml/dcn35/dcn35_fpu.c  | 144 +++++++++---------
- 1 file changed, 72 insertions(+), 72 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-index 4d5ee2aad9e4..4f284c31de5d 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-@@ -258,85 +258,85 @@ void dcn35_update_bw_bounding_box_fpu(struct dc *dc,
- 
- 	dc_assert_fp_enabled();
- 
--		dcn3_5_ip.max_num_otg =
--			dc->res_pool->res_cap->num_timing_generator;
--		dcn3_5_ip.max_num_dpp = dc->res_pool->pipe_count;
--		dcn3_5_soc.num_chans = bw_params->num_channels;
--
--		ASSERT(clk_table->num_entries);
--
--		/* Prepass to find max clocks independent of voltage level. */
--		for (i = 0; i < clk_table->num_entries; ++i) {
--			if (clk_table->entries[i].dispclk_mhz > max_dispclk_mhz)
--				max_dispclk_mhz = clk_table->entries[i].dispclk_mhz;
--			if (clk_table->entries[i].dppclk_mhz > max_dppclk_mhz)
--				max_dppclk_mhz = clk_table->entries[i].dppclk_mhz;
--		}
-+	dcn3_5_ip.max_num_otg =
-+		dc->res_pool->res_cap->num_timing_generator;
-+	dcn3_5_ip.max_num_dpp = dc->res_pool->pipe_count;
-+	dcn3_5_soc.num_chans = bw_params->num_channels;
-+
-+	ASSERT(clk_table->num_entries);
-+
-+	/* Prepass to find max clocks independent of voltage level. */
-+	for (i = 0; i < clk_table->num_entries; ++i) {
-+		if (clk_table->entries[i].dispclk_mhz > max_dispclk_mhz)
-+			max_dispclk_mhz = clk_table->entries[i].dispclk_mhz;
-+		if (clk_table->entries[i].dppclk_mhz > max_dppclk_mhz)
-+			max_dppclk_mhz = clk_table->entries[i].dppclk_mhz;
-+	}
- 
--		for (i = 0; i < clk_table->num_entries; i++) {
--			/* loop backwards*/
--			for (closest_clk_lvl = 0, j = dcn3_5_soc.num_states - 1;
--			     j >= 0; j--) {
--				if (dcn3_5_soc.clock_limits[j].dcfclk_mhz <=
--				    clk_table->entries[i].dcfclk_mhz) {
--					closest_clk_lvl = j;
--					break;
--				}
--			}
--			if (clk_table->num_entries == 1) {
--				/*smu gives one DPM level, let's take the highest one*/
--				closest_clk_lvl = dcn3_5_soc.num_states - 1;
-+	for (i = 0; i < clk_table->num_entries; i++) {
-+		/* loop backwards*/
-+		for (closest_clk_lvl = 0, j = dcn3_5_soc.num_states - 1;
-+			j >= 0; j--) {
-+			if (dcn3_5_soc.clock_limits[j].dcfclk_mhz <=
-+				clk_table->entries[i].dcfclk_mhz) {
-+				closest_clk_lvl = j;
-+				break;
- 			}
-+		}
-+		if (clk_table->num_entries == 1) {
-+			/*smu gives one DPM level, let's take the highest one*/
-+			closest_clk_lvl = dcn3_5_soc.num_states - 1;
-+		}
- 
--			clock_limits[i].state = i;
--
--			/* Clocks dependent on voltage level. */
--			clock_limits[i].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
--			if (clk_table->num_entries == 1 &&
--			    clock_limits[i].dcfclk_mhz <
--			    dcn3_5_soc.clock_limits[closest_clk_lvl].dcfclk_mhz) {
--				/*SMU fix not released yet*/
--				clock_limits[i].dcfclk_mhz =
--					dcn3_5_soc.clock_limits[closest_clk_lvl].dcfclk_mhz;
--			}
-+		clock_limits[i].state = i;
- 
--			clock_limits[i].fabricclk_mhz =
--				clk_table->entries[i].fclk_mhz;
--			clock_limits[i].socclk_mhz =
--				clk_table->entries[i].socclk_mhz;
--
--			if (clk_table->entries[i].memclk_mhz &&
--			    clk_table->entries[i].wck_ratio)
--				clock_limits[i].dram_speed_mts =
--					clk_table->entries[i].memclk_mhz * 2 *
--					clk_table->entries[i].wck_ratio;
--
--			/* Clocks independent of voltage level. */
--			clock_limits[i].dispclk_mhz = max_dispclk_mhz ?
--				max_dispclk_mhz :
--				dcn3_5_soc.clock_limits[closest_clk_lvl].dispclk_mhz;
--
--			clock_limits[i].dppclk_mhz = max_dppclk_mhz ?
--				max_dppclk_mhz :
--				dcn3_5_soc.clock_limits[closest_clk_lvl].dppclk_mhz;
--
--			clock_limits[i].dram_bw_per_chan_gbps =
--				dcn3_5_soc.clock_limits[closest_clk_lvl].dram_bw_per_chan_gbps;
--			clock_limits[i].dscclk_mhz =
--				dcn3_5_soc.clock_limits[closest_clk_lvl].dscclk_mhz;
--			clock_limits[i].dtbclk_mhz =
--				dcn3_5_soc.clock_limits[closest_clk_lvl].dtbclk_mhz;
--			clock_limits[i].phyclk_d18_mhz =
--				dcn3_5_soc.clock_limits[closest_clk_lvl].phyclk_d18_mhz;
--			clock_limits[i].phyclk_mhz =
--				dcn3_5_soc.clock_limits[closest_clk_lvl].phyclk_mhz;
-+		/* Clocks dependent on voltage level. */
-+		clock_limits[i].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
-+		if (clk_table->num_entries == 1 &&
-+			clock_limits[i].dcfclk_mhz <
-+			dcn3_5_soc.clock_limits[closest_clk_lvl].dcfclk_mhz) {
-+			/*SMU fix not released yet*/
-+			clock_limits[i].dcfclk_mhz =
-+				dcn3_5_soc.clock_limits[closest_clk_lvl].dcfclk_mhz;
- 		}
- 
--		memcpy(dcn3_5_soc.clock_limits, clock_limits,
--		       sizeof(dcn3_5_soc.clock_limits));
-+		clock_limits[i].fabricclk_mhz =
-+			clk_table->entries[i].fclk_mhz;
-+		clock_limits[i].socclk_mhz =
-+			clk_table->entries[i].socclk_mhz;
-+
-+		if (clk_table->entries[i].memclk_mhz &&
-+			clk_table->entries[i].wck_ratio)
-+			clock_limits[i].dram_speed_mts =
-+				clk_table->entries[i].memclk_mhz * 2 *
-+				clk_table->entries[i].wck_ratio;
-+
-+		/* Clocks independent of voltage level. */
-+		clock_limits[i].dispclk_mhz = max_dispclk_mhz ?
-+			max_dispclk_mhz :
-+			dcn3_5_soc.clock_limits[closest_clk_lvl].dispclk_mhz;
-+
-+		clock_limits[i].dppclk_mhz = max_dppclk_mhz ?
-+			max_dppclk_mhz :
-+			dcn3_5_soc.clock_limits[closest_clk_lvl].dppclk_mhz;
-+
-+		clock_limits[i].dram_bw_per_chan_gbps =
-+			dcn3_5_soc.clock_limits[closest_clk_lvl].dram_bw_per_chan_gbps;
-+		clock_limits[i].dscclk_mhz =
-+			dcn3_5_soc.clock_limits[closest_clk_lvl].dscclk_mhz;
-+		clock_limits[i].dtbclk_mhz =
-+			dcn3_5_soc.clock_limits[closest_clk_lvl].dtbclk_mhz;
-+		clock_limits[i].phyclk_d18_mhz =
-+			dcn3_5_soc.clock_limits[closest_clk_lvl].phyclk_d18_mhz;
-+		clock_limits[i].phyclk_mhz =
-+			dcn3_5_soc.clock_limits[closest_clk_lvl].phyclk_mhz;
-+	}
-+
-+	memcpy(dcn3_5_soc.clock_limits, clock_limits,
-+		sizeof(dcn3_5_soc.clock_limits));
- 
--		if (clk_table->num_entries)
--			dcn3_5_soc.num_states = clk_table->num_entries;
-+	if (clk_table->num_entries)
-+		dcn3_5_soc.num_states = clk_table->num_entries;
- 
- 	if (max_dispclk_mhz) {
- 		dcn3_5_soc.dispclk_dppclk_vco_speed_mhz = max_dispclk_mhz * 2;
--- 
-2.20.1.7.g153144c
-
+On Wed, Sep 27, 2023 at 2:57=E2=80=AFPM Wang, Yang(Kevin)
+<KevinYang.Wang@amd.com> wrote:
+>
+> [AMD Official Use Only - General]
+>
+> Thanks.
+>
+> Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+>
+> Best Regards,
+> Kevin
+>
+> -----Original Message-----
+> From: Dan Carpenter <dan.carpenter@linaro.org>
+> Sent: Wednesday, September 27, 2023 8:38 PM
+> To: Evan Quan <evan.quan@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.=
+com>
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Ch=
+ristian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; David Airlie <ai=
+rlied@gmail.com>; Daniel Vetter <daniel@ffwll.ch>; Lazar, Lijo <Lijo.Lazar@=
+amd.com>; Kamal, Asad <Asad.Kamal@amd.com>; Zhang, Hawking <Hawking.Zhang@a=
+md.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; amd-gfx@lists.freedesk=
+top.org; kernel-janitors@vger.kernel.org
+> Subject: [PATCH] drm/amd/pm: delete dead code
+>
+> "ret" was checked earlier inside the loop, so we know it is zero here.
+> No need to check a second time.
+>
+> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 3 ---
+>  1 file changed, 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> index 11a6cd96c601..0ffe55e713f3 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> @@ -2346,9 +2346,6 @@ static int mca_get_mca_entry(struct amdgpu_device *=
+adev, enum amdgpu_mca_error_t
+>                         return ret;
+>         }
+>
+> -       if (ret)
+> -               return ret;
+> -
+>         entry->idx =3D idx;
+>         entry->type =3D type;
+>
+> --
+> 2.39.2
+>
