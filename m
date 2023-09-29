@@ -4,56 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53FD0E784A4
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Oct 2023 07:39:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84222E784B1
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Oct 2023 07:39:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D9DF10E216;
-	Mon,  2 Oct 2023 07:39:54 +0000 (UTC)
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AE3E10E057
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Oct 2023 00:12:22 +0000 (UTC)
-Received: by mail-ot1-x32b.google.com with SMTP id
- 46e09a7af769-6c644a1845cso1735240a34.2
- for <amd-gfx@lists.freedesktop.org>; Sun, 01 Oct 2023 17:12:22 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82F2C10E21B;
+	Mon,  2 Oct 2023 07:39:56 +0000 (UTC)
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [IPv6:2607:f8b0:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8408710E1AA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Sep 2023 19:34:02 +0000 (UTC)
+Received: by mail-pl1-x631.google.com with SMTP id
+ d9443c01a7336-1c60778a3bfso99834935ad.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Sep 2023 12:34:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=lucidpixels.com; s=google; t=1696205541; x=1696810341;
+ d=chromium.org; s=google; t=1696016042; x=1696620842;
  darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=GFCHGpbpyraI/3FGZPNhIjojebHHdCoO8NPiTDHixqM=;
- b=ppClx5yMwaO9lYS0PJCfOSveJ6Dek718GErqYvq1k1cm5iEk+L7eAmFNs3RAXHZbil
- i1th/1W4MBfIBrvmM5JP+hh/16qvl4Ri/Sq+IaywD53rxNhGlhmkIIqHcVONj4+5+B08
- hx4XbehQjE5IYY0RpZ2u0N/UKpSTtA7cPJbC8=
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Ym+ucW6MHQZimVVr4/aWJAbaMhbjuFeNaLImS0cTOp0=;
+ b=TixVQg9xRTeGHwlfS9n7MYmhEjXR+UZBfzh37C5jBHYIYqFoQfwdyK1wK+Tatkhd2E
+ 0h85oIfUEYFLzsfSV9ee8gE63919elODziLyRQ2VU4R6CyT0ZhWmfXgTpT+gha4ejyuS
+ HiFdd1skfdqQsWthB0iAnmt3peidGawHG0cXo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696205541; x=1696810341;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=GFCHGpbpyraI/3FGZPNhIjojebHHdCoO8NPiTDHixqM=;
- b=FYrZuYNvYUwck5jRvD3DAMGI12triQItX8Ur0VkDfevF3d2LZfx+qaINHkOmuLDdj5
- XCM4wDUULf9TTxsjXFJ+1m9fPpirwUUfwvk4VG/W6mWXIMGlTtUTDvWR//MrXtOZHSkG
- HudFsHiuvvKGcW0hfw+xpdBm38Xd0byHE4R5bBjuG1xaweZpqxvO8AkdmQ/KGmc/TKmm
- KoMjiEwPB6XqJzj0/zJ2q1sVuHw5T0QF8POh5WiCx8jfmsMeuSsFT1YOeyQ/KtBFuW0I
- lbkzuJ6q4P3Z0zYDKdaQ9kZajNlnWameVk3zdsaRFEy83ck/cpkxaSYs+95SozH2JD5C
- cLqw==
-X-Gm-Message-State: AOJu0YydM9nHX/VwfI1WTyR3xzsV81A/S6x23Ra/Ftg6ELkimElPjwVp
- qsZIZUNgeAAiScgD2Fqw56XinWLyMxFuJZeofZ5D0Q==
-X-Google-Smtp-Source: AGHT+IHGsZm62WWO4Snv2PQvtIfISUWnk/mWHvXfJC7YDU3eKhOk+Wj3mHp6dQoESefI2pcpUzsTPaPQQhevaW02ogM=
-X-Received: by 2002:a05:6808:1495:b0:3ab:7f46:ecc5 with SMTP id
- e21-20020a056808149500b003ab7f46ecc5mr13517982oiw.35.1696205541085; Sun, 01
- Oct 2023 17:12:21 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1696016042; x=1696620842;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Ym+ucW6MHQZimVVr4/aWJAbaMhbjuFeNaLImS0cTOp0=;
+ b=sGRdziCbZ0DHNKauiZ+Oa94J28y0DWKb37CslAHRw0tOcnqBllRoYx9YnNWr1Nfqg1
+ FV4szye2WpurvYrRd2j6MxdEsep7Vs/fJNsxySZdUwuuhib18O8bjLgKbGwgDmgGyoMH
+ p6Vr/cM5Wg0j/nror3O1EFUZvaz4CIlkbz5aqK/KJI7nQCyFStR/ax3DjQMqVKN0T75E
+ AIBcy8dcT9cuE2yPHzgd+TI8PrC8w5pGWYBhZdiJ6f4N9n6hErhk/UjqruNEDHep6BWh
+ qXN9LwwESZSDfKS+qA1kGFcsivAR7UB/fLCwlnxpvUP4AcLBOiHV7jSqEVxQAuXI7nTs
+ wMiQ==
+X-Gm-Message-State: AOJu0Yz+8VPdCwE+KcnNv/e2R0gBDeN/CoIXAeY+SD61MrDG8+Ojef6S
+ Cpa1J2c3AhFs0mk/eV3AWrvTxA==
+X-Google-Smtp-Source: AGHT+IGQWTdEpdWeBEvd5foAb6HBvD/EqemA8SP9BycZ81OPm2PcYAndv1e0P5bQalrHP7ERsAZdBw==
+X-Received: by 2002:a17:902:720a:b0:1c1:dbd6:9bf6 with SMTP id
+ ba10-20020a170902720a00b001c1dbd69bf6mr4494391plb.41.1696016042045; 
+ Fri, 29 Sep 2023 12:34:02 -0700 (PDT)
+Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
+ [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
+ jg6-20020a17090326c600b001c61df93afdsm10225856plb.59.2023.09.29.12.34.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 29 Sep 2023 12:34:01 -0700 (PDT)
+From: Kees Cook <keescook@chromium.org>
+To: David Airlie <airlied@gmail.com>,
+	Kees Cook <keescook@chromium.org>
+Subject: Re: [PATCH 0/9] drm: Annotate structs with __counted_by
+Date: Fri, 29 Sep 2023 12:33:24 -0700
+Message-Id: <169601600138.3014939.8511343741428844249.b4-ty@chromium.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230922173110.work.084-kees@kernel.org>
+References: <20230922173110.work.084-kees@kernel.org>
 MIME-Version: 1.0
-References: <CAO9zADy4b1XkD_ZaEF+XkDCXePJLD4Lev3g7HAEGYsCHgeM+KQ@mail.gmail.com>
- <ZRoIGhMesKtmNkAM@debian.me>
-In-Reply-To: <ZRoIGhMesKtmNkAM@debian.me>
-From: Justin Piszcz <jpiszcz@lucidpixels.com>
-Date: Sun, 1 Oct 2023 20:12:08 -0400
-Message-ID: <CAO9zADyfaLRWB-0rdojnbFD6SUsqX+zb9JZSZUkgTC7VJN=c1A@mail.gmail.com>
-Subject: Re: 6.5.5: UBSAN: radeon_atombios.c: index 1 is out of range for type
- 'UCHAR [1]'
-To: Bagas Sanjaya <bagasdotme@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 02 Oct 2023 07:39:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,79 +73,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>, Emma Anholt <emma@anholt.net>,
+ Tom Rix <trix@redhat.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>, Prike Liang <Prike.Liang@amd.com>,
+ Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Matthew Brost <matthew.brost@intel.com>, Karol Herbst <kherbst@redhat.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, amd-gfx@lists.freedesktop.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Nathan Chancellor <nathan@kernel.org>,
+ VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Andi Shyti <andi.shyti@linux.intel.com>,
+ nouveau@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
+ virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
+ linux-hardening@vger.kernel.org, Lijo Lazar <lijo.lazar@amd.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, Kevin Wang <kevin1.wang@amd.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Melissa Wen <mwen@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Evan Quan <evan.quan@amd.com>, Sean Paul <sean@poorly.run>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Xiaojian Du <Xiaojian.Du@amd.com>, Le Ma <le.ma@amd.com>,
+ freedreno@lists.freedesktop.org, Bjorn Andersson <andersson@kernel.org>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Zack Rusin <zackr@vmware.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Nirmoy Das <nirmoy.das@intel.com>, Lang Yu <Lang.Yu@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ John Harrison <john.c.harrison@Intel.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> > ================================================================================
-> > [Sun Oct  1 15:59:04 2023] UBSAN: array-index-out-of-bounds in
-> > drivers/gpu/drm/radeon/radeon_atombios.c:2620:43
-> > [Sun Oct  1 15:59:04 2023] index 1 is out of range for type 'UCHAR [1]'
-> > [Sun Oct  1 15:59:04 2023] CPU: 5 PID: 1 Comm: swapper/0 Tainted: G
-> >             T  6.5.5 #13 55df8de52754ef95effc50a55e9206abdea304ac
-> > [Sun Oct  1 15:59:04 2023] Hardware name: Supermicro X9SRL-F/X9SRL-F,
-> > BIOS 3.3 11/13/2018
-> > [Sun Oct  1 15:59:04 2023] Call Trace:
-> > [Sun Oct  1 15:59:04 2023]  <TASK>
-> > [Sun Oct  1 15:59:04 2023]  dump_stack_lvl+0x36/0x50
-> > [Sun Oct  1 15:59:04 2023]  __ubsan_handle_out_of_bounds+0xc7/0x110
-> > [Sun Oct  1 15:59:04 2023]  radeon_atombios_get_power_modes+0x87a/0x8f0
-> > [Sun Oct  1 15:59:04 2023]  radeon_pm_init+0x13a/0x7e0
-> > [Sun Oct  1 15:59:04 2023]  evergreen_init+0x13d/0x3d0
-> > [Sun Oct  1 15:59:04 2023]  radeon_device_init+0x60a/0xbf0
-> > [Sun Oct  1 15:59:04 2023]  radeon_driver_load_kms+0xb1/0x250
-> > [Sun Oct  1 15:59:04 2023]  drm_dev_register+0xfc/0x250
-> > [Sun Oct  1 15:59:04 2023]  radeon_pci_probe+0xd0/0x150
-> > [Sun Oct  1 15:59:04 2023]  pci_device_probe+0x97/0x130
-> > [Sun Oct  1 15:59:04 2023]  really_probe+0xbe/0x2f0
-> > [Sun Oct  1 15:59:04 2023]  ? __pfx___driver_attach+0x10/0x10
-> > [Sun Oct  1 15:59:04 2023]  __driver_probe_device+0x6e/0x120
-> > [Sun Oct  1 15:59:04 2023]  driver_probe_device+0x1a/0x90
-> > [Sun Oct  1 15:59:04 2023]  __driver_attach+0xd4/0x170
-> > [Sun Oct  1 15:59:04 2023]  bus_for_each_dev+0x87/0xe0
-> > [Sun Oct  1 15:59:04 2023]  bus_add_driver+0xf3/0x1f0
-> > [Sun Oct  1 15:59:04 2023]  driver_register+0x58/0x120
-> > [Sun Oct  1 15:59:04 2023]  ? __pfx_radeon_module_init+0x10/0x10
-> > [Sun Oct  1 15:59:04 2023]  do_one_initcall+0x93/0x4a0
-> > [Sun Oct  1 15:59:04 2023]  kernel_init_freeable+0x301/0x580
-> > [Sun Oct  1 15:59:04 2023]  ? __pfx_kernel_init+0x10/0x10
-> > [Sun Oct  1 15:59:04 2023]  kernel_init+0x15/0x1b0
-> > [Sun Oct  1 15:59:04 2023]  ret_from_fork+0x2f/0x50
-> > [Sun Oct  1 15:59:04 2023]  ? __pfx_kernel_init+0x10/0x10
-> > [Sun Oct  1 15:59:04 2023]  ret_from_fork_asm+0x1b/0x30
-> > [Sun Oct  1 15:59:04 2023]  </TASK>
-> > [Sun Oct  1 15:59:04 2023]
-> > ================================================================================
-> > [Sun Oct  1 15:59:04 2023] [drm] radeon: dpm initialized
-> > [Sun Oct  1 15:59:04 2023] [drm] GART: num cpu pages 262144, num gpu
-> > pages 262144
-> > [Sun Oct  1 15:59:04 2023] [drm] enabling PCIE gen 2 link speeds,
-> > disable with radeon.pcie_gen2=0
-> > [Sun Oct  1 15:59:04 2023] [drm] PCIE GART of 1024M enabled (table at
-> > 0x000000000014C000).
-> > [Sun Oct  1 15:59:04 2023] radeon 0000:03:00.0: WB enabled
-> > [Sun Oct  1 15:59:04 2023] radeon 0000:03:00.0: fence driver on ring 0
-> > use gpu addr 0x0000000040000c00
-> > [Sun Oct  1 15:59:04 2023] radeon 0000:03:00.0: fence driver on ring 3
-> > use gpu addr 0x0000000040000c0c
-> > [Sun Oct  1 15:59:04 2023] radeon 0000:03:00.0: fence driver on ring 5
-> > use gpu addr 0x000000000005c418
-> > [Sun Oct  1 15:59:04 2023] radeon 0000:03:00.0: radeon: MSI limited to 32-bit
-> > [Sun Oct  1 15:59:04 2023] radeon 0000:03:00.0: radeon: using MSI.
-> > [Sun Oct  1 15:59:04 2023] [drm] radeon: irq initialized.
-> >
->
-> Please also open an issue on freedesktop tracker [1].
->
-> Thanks.
->
-> [1]: https://gitlab.freedesktop.org/drm/amd/-/issues
+On Fri, 22 Sep 2023 10:32:05 -0700, Kees Cook wrote:
+> This is a batch of patches touching drm for preparing for the coming
+> implementation by GCC and Clang of the __counted_by attribute. Flexible
+> array members annotated with __counted_by can have their accesses
+> bounds-checked at run-time checking via CONFIG_UBSAN_BOUNDS (for array
+> indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family functions).
+> 
+> As found with Coccinelle[1], add __counted_by to structs that would
+> benefit from the annotation.
+> 
+> [...]
 
-Issue opened: https://gitlab.freedesktop.org/drm/amd/-/issues/2894
+Since this got Acks, I figure I should carry it in my tree. Let me know
+if this should go via drm instead.
 
-Regards,
-Justin
+Applied to for-next/hardening, thanks!
+
+[1/9] drm/amd/pm: Annotate struct smu10_voltage_dependency_table with __counted_by
+      https://git.kernel.org/kees/c/a6046ac659d6
+[2/9] drm/amdgpu/discovery: Annotate struct ip_hw_instance with __counted_by
+      https://git.kernel.org/kees/c/4df33089b46f
+[3/9] drm/i915/selftests: Annotate struct perf_series with __counted_by
+      https://git.kernel.org/kees/c/ffd3f823bdf6
+[4/9] drm/msm/dpu: Annotate struct dpu_hw_intr with __counted_by
+      https://git.kernel.org/kees/c/2de35a989b76
+[5/9] drm/nouveau/pm: Annotate struct nvkm_perfdom with __counted_by
+      https://git.kernel.org/kees/c/188aeb08bfaa
+[6/9] drm/vc4: Annotate struct vc4_perfmon with __counted_by
+      https://git.kernel.org/kees/c/59a54dc896c3
+[7/9] drm/virtio: Annotate struct virtio_gpu_object_array with __counted_by
+      https://git.kernel.org/kees/c/5cd476de33af
+[8/9] drm/vmwgfx: Annotate struct vmw_surface_dirty with __counted_by
+      https://git.kernel.org/kees/c/b426f2e5356a
+[9/9] drm/v3d: Annotate struct v3d_perfmon with __counted_by
+      https://git.kernel.org/kees/c/dc662fa1b0e4
+
+Take care,
+
+-- 
+Kees Cook
+
