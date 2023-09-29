@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85312E728D6
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Sep 2023 18:19:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 621C4E728D7
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Sep 2023 18:19:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8859710E1B7;
-	Fri, 29 Sep 2023 18:19:18 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2050.outbound.protection.outlook.com [40.107.243.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15EB510E172
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95E2D10E5EC;
+	Fri, 29 Sep 2023 18:19:19 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2048.outbound.protection.outlook.com [40.107.223.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91D5110E172
  for <amd-gfx@lists.freedesktop.org>; Fri, 29 Sep 2023 18:19:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BiNanOyqP+Hry1K/tgGj2t3v2nIjDzmiP+5/00RsoGvgUtJ46NN2ZJnTAYM4h6xpR/dPpQXyx3KEmyQ2BeXBbzRJlRFNjSNQK6WlgDWwxW2kApifWmO3fqU68Q/b9E9uue0e/ox7BSJLlTY01NNeDVs3EBHOhkNpzKe8BU8q4Kw5JeonAaDEJefgj/43darn7EmotQXNB7O2wwgSBhLbeUITvkc9IedKOoLwfOZt3auRH4PM6wwaJkQ6dNv3/G002lj2Sa7OCYvcf+wsVTGV/hWqPYWrP65J5phQgo9WlYXyUHZZpZWf1zAy/bVq/yqhBHPdtFgrjv4dKKoQiuovNQ==
+ b=Aw+8nXhEjrUr+nxdlQFH73c3olfCEjDocbimrzTx5kGrl+bS+WaiNjeJ/lIUSKH+Bt5s+ksgOq9dPlo6T3qFm0KhRBnmQa9T0LTevPJWOzHf8cIXlbp/sKXKJ1xNrqfUS4JwFkyFKOxicvFcRhmyqpKUbqqKMSPnyN8tDKcuvg1/m4xOlCrQhlVVAjU/yKHSt9EKYK46tFXzWKZzWdWDDcvA7tJ6WOa2yEI2oOKVpxmN4yJ9XnBamPivhmVi7akpa89J320NYDw0c2DGKEQEcJ7Y7mL+JUz/GkgBWXpLuYahFBG5V9q2taAMUs3TxV1+aJKDVQOkOMhzAIfwb3gf9w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JGNAvR/y7Uk9isETnrDUASG5XDJ6t0OTkG7SmtPCyFY=;
- b=b3L7y3RxZiGim/itwGmAEa/qe53IRKsnVlbmn52K4Puvmm4LYwKoTsaulgtg8l2lFZ+3I3VskVoGBfllLiMBFT+iEA5XqC4fXxG0DEIZkxvF5SH3JxeQPyZB0SZoKdHCrqk6zllOzVjEZ0B6ndu6SgY65Ao6wIgqee9fRAsgoY6PFwNw/lVYXiT80njLR/pLf/dlTwwcLWDmxSkpDNv4afSni6047ScpqwcdCn2Lnfovx89tAKOojE5zo2+SDBrBbxNpa+zPk1nhGiJpB+VGCP3EEVXEBuKLYdpW/0ZxUXo8wJHsig1AXYEj+DM4e6PJtV+mNYEwplSxsZdJjFnvgA==
+ bh=PrwLLuVou4EIrthN4KhpAoyTHNqODuAolT1xkOIFDc0=;
+ b=XIZ8Ioi4PP5bsSk2ielFTTG1eziY4XiN8vUhTz9rPqZPS5cnk9G50+K5qZ1c7MFMfGcMxUrJQ3ntuBUcWhBXfXdfDMWaejruK/yDzDRTe3m3WgfDj1qVLml/4RKpk1bSRQ1Z9C3g+4M/6NcEWwdzp/U23HBaulxVnc/Q/V2wbO8rQyLHNKt+CV4R46HhJrMMV4Eu6E6A3RUWGrZNCRdDsIU5VFANFJr86cRB94Qln9NhFTOb4rppqrAkaZCKREOlu/KxpGu9wuDr7uamNDb0ZM+HR/MKLbQ+fcVGHj5QZQpXgigWBIeiDTnAToJMCmricu0pAYuGx7hQFtFvHZ+wbw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JGNAvR/y7Uk9isETnrDUASG5XDJ6t0OTkG7SmtPCyFY=;
- b=npE0a1746MAYCNu6JFVxDqe9q6IxtYImj1iYAF5SXBFxna72kg6r83oOOh2O9pkghdAcKnmETW3roNO5APnJs4gc9U9WauSnhsU5DLIaSyEfx+yQkC2WqxrLTpDxb9NcNVKVdA9RK2Ts1mStJ3RIWoXUv/phR9Q7JzTnK2uvC7Y=
-Received: from MW4PR04CA0067.namprd04.prod.outlook.com (2603:10b6:303:6b::12)
- by DS0PR12MB7656.namprd12.prod.outlook.com (2603:10b6:8:11f::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.21; Fri, 29 Sep
+ bh=PrwLLuVou4EIrthN4KhpAoyTHNqODuAolT1xkOIFDc0=;
+ b=uk9nvMXv3gmfWijX6VqGqMJ13uE2SwP99bhwA9AhIKRHCyll8rMHb/dzjA+0/bI8+7203pSFaOXYFzlAfGeTkBU73vGPDN7httm1qafKSWyLm73Y4T0n4ZeLRGQGyWKmvwMX358WQAzxYnCW27pPViK1WegtpdUiAe+KuBIYKXs=
+Received: from MW4PR04CA0089.namprd04.prod.outlook.com (2603:10b6:303:6b::34)
+ by PH7PR12MB5653.namprd12.prod.outlook.com (2603:10b6:510:132::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.20; Fri, 29 Sep
  2023 18:19:12 +0000
 Received: from MWH0EPF000989E6.namprd02.prod.outlook.com
- (2603:10b6:303:6b:cafe::9) by MW4PR04CA0067.outlook.office365.com
- (2603:10b6:303:6b::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.26 via Frontend
+ (2603:10b6:303:6b:cafe::25) by MW4PR04CA0089.outlook.office365.com
+ (2603:10b6:303:6b::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.25 via Frontend
  Transport; Fri, 29 Sep 2023 18:19:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  MWH0EPF000989E6.mail.protection.outlook.com (10.167.241.133) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.22 via Frontend Transport; Fri, 29 Sep 2023 18:19:11 +0000
+ 15.20.6838.22 via Frontend Transport; Fri, 29 Sep 2023 18:19:12 +0000
 Received: from rajneesh-desk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 29 Sep
- 2023 13:19:10 -0500
+ 2023 13:19:11 -0500
 From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/3] drm/amdgpu: Initialize acpi mem ranges after TTM
-Date: Fri, 29 Sep 2023 14:18:55 -0400
-Message-ID: <20230929181856.2311515-2-rajneesh.bhardwaj@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu: Use ttm_pages_limit to override vram reporting
+Date: Fri, 29 Sep 2023 14:18:56 -0400
+Message-ID: <20230929181856.2311515-3-rajneesh.bhardwaj@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230929181856.2311515-1-rajneesh.bhardwaj@amd.com>
 References: <20230929181856.2311515-1-rajneesh.bhardwaj@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989E6:EE_|DS0PR12MB7656:EE_
-X-MS-Office365-Filtering-Correlation-Id: c56954ff-a231-44e1-7ce4-08dbc11894b1
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989E6:EE_|PH7PR12MB5653:EE_
+X-MS-Office365-Filtering-Correlation-Id: 84bf3ebe-9927-4a4e-b403-08dbc1189509
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uJz0T3c3bmFk+Id+KyWzXlJ32M4yaPX2jMq0EKso6fCu0s6zRm3ccwe70H/10yuCXIxCD0g+3hNHW/OzlPtrDPyUSYuhobbd27LnlkhMwVCBOFJKOgFKnhHKkEQh52ONRkJp+xkXw6vKTkxjRutaQcEcpyTnn3060tEaULFJbsNRWFcyTAAVKvp6Yv0zsbRpmKE0aqqk9xklpBbcjqoeoYMj4XD2ITil2hrPewtGf/3vtjRAqD58WA/96GOrCipauP7EO9VJQRhOG0DYIAEXYKmSEDtTTfMh8vEr4qUwy4DlPI14mYOvK64JeLfvq1o8xflDtZ2tnEKBxAmToiWYy9dbVKBH2PfEY+Mf4fGCB8fEGHvwGMS5GF4gCTE8kzwBm+BBp6RXBGn2cRw+HB2l3iXHQ321NQG2wL+BAqbGUIYotgl6rpYXVXWhGVZVyPb1IxHix1jB92G1fv9P99NP+r4728Mw2CD7XM7oOtqaFw/SEQ7pflUDgjN6fjBmNQ9/YssHRdViwOaminUCF9HnAl2/kIy6LnMYxGAkmUpUmiKdvz//R8zlbx161AFHy6vvVSDfdTVOOL1+ie+Rsm9lm34BbmkLU4oRe7Q7i9Fb7fi5UuX88wh33vMJSCb8Cf45tM/Jt0zDEME/8uUB0oRUb4ta5wRvnA4pP4hwLzYrj0zblEbn70LcNS75fR2Pic7bdqhQalzOdwFQ9IWlMhqTu4Fj8z6SaHIQdIzKTUoNHMDLxTkvFzDVR8FXVc6Jk7f2gD8b1Z7lJWwPh9jTBBZnqg==
+X-Microsoft-Antispam-Message-Info: awrghpbry3ikgsMLwckYLXvTFd62OxRNaWmiNlxo5TLvi1+M5lt43NyFd9sQccbUgqqkwjT1/NkXImFnELOGjTiJwy61MEdKPPtMVFy1jb55rXi+LQR814ZQFiZZGidQkq3dsgCIJ8HH+yBEddjbjKD4++Kekq/k8CyB6P8KvAB9+2VXsAMX17uj9NkBwy7TPF+kUigkeCTx6ByJeSeSfI3YJBU6h9lx2ExVV04sMrKnDzqPFGJepD93lFkQbLXWvt0jxVDBleBsIFmP/0+vWyE1+ORNVxtX/09wilEQJrnLK/IF9glllckvRH95qBTiv8uh2YDuZvDH+0568Wxz2w6kuvAjHPT1LIpS7idAN8fX00hbuXWDnqL67YURzEoO4E7OYigHcsE3WxivFiJ3OOSoDTb29xyKpI+37STRnfhMifpW2qjxEE5Lc6QDNFROibe6kb1TpylU3wb3zrx1UtZ/TGs8In7F6P5napr56oKQbSIbRqf5hWAF6OVyUpdaHbwciS/eMRmB2rH7xGNrJIVDEta5SryqChZ0ihYmdECyHqsCZuAOvfbH42KhlCNPd3T4kLoMy7fvmI5OSQD5eoaKWGkVSlGQ7ptX7JwDpmxR2w3dIHP5Eklb6a0CMqVsu54pd42dICJ8z/eG4fQwT6GhN5QYB5W76vWFRal7VxRoq2yAPVW1bTNSbhvDsTQLOnVXL5bPWZXMXWryQGyI1j+DGdQKrty794jS616QabeEuFNbfrdMN/i9Bv1yeJASYUerVE/DfcqfDBydtDNIXA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(396003)(376002)(136003)(39860400002)(230922051799003)(64100799003)(1800799009)(186009)(451199024)(82310400011)(46966006)(40470700004)(36840700001)(40480700001)(83380400001)(40460700003)(7696005)(2616005)(336012)(82740400003)(356005)(44832011)(16526019)(2906002)(5660300002)(36756003)(8936002)(316002)(41300700001)(6916009)(54906003)(4326008)(47076005)(70586007)(26005)(36860700001)(426003)(70206006)(86362001)(6666004)(8676002)(478600001)(81166007)(1076003)(36900700001);
+ SFS:(13230031)(4636009)(396003)(136003)(346002)(376002)(39860400002)(230922051799003)(64100799003)(1800799009)(451199024)(186009)(82310400011)(36840700001)(46966006)(40470700004)(7696005)(2616005)(6666004)(40460700003)(81166007)(36756003)(86362001)(40480700001)(356005)(82740400003)(36860700001)(336012)(1076003)(26005)(426003)(2906002)(47076005)(478600001)(83380400001)(16526019)(4326008)(8676002)(316002)(8936002)(41300700001)(44832011)(54906003)(5660300002)(6916009)(70586007)(70206006)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2023 18:19:11.9686 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c56954ff-a231-44e1-7ce4-08dbc11894b1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2023 18:19:12.5467 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84bf3ebe-9927-4a4e-b403-08dbc1189509
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E6.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7656
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5653
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,49 +99,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: philip.yang@amd.com, Felix Kuehling <Felix.Kuehling@amd.com>,
- lijo.lazar@amd.com, christian.koenig@amd.com,
- Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+Cc: philip.yang@amd.com, felix.kuehling@amd.com, lijo.lazar@amd.com,
+ christian.koenig@amd.com, Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move ttm init before acpi mem range init so we can use ttm_pages_limit
-to override vram size for GFXIP 9.4.3. The vram size override change
-will be introduced in a future commit.
+On GFXIP9.4.3 APU, allow the memory reporting as per the ttm pages
+limit in NPS1 mode.
 
-Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 268ee533e7c1..005ea719d2fd 100644
+index 005ea719d2fd..fadc4d2ed071 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -2190,17 +2190,17 @@ static int gmc_v9_0_sw_init(void *handle)
+@@ -25,6 +25,7 @@
+ #include <linux/pci.h>
  
- 	amdgpu_gmc_get_vbios_allocations(adev);
+ #include <drm/drm_cache.h>
++#include <drm/ttm/ttm_tt.h>
  
-+	/* Memory manager */
-+	r = amdgpu_bo_init(adev);
-+	if (r)
-+		return r;
-+
- 	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3)) {
- 		r = gmc_v9_0_init_mem_ranges(adev);
- 		if (r)
- 			return r;
- 	}
+ #include "amdgpu.h"
+ #include "gmc_v9_0.h"
+@@ -1896,7 +1897,8 @@ static void
+ gmc_v9_0_init_acpi_mem_ranges(struct amdgpu_device *adev,
+ 			      struct amdgpu_mem_partition_info *mem_ranges)
+ {
+-	int num_ranges = 0, ret, mem_groups;
++	int num_ranges = 0, ret, num_nodes;
++	uint64_t node_size_ttm_override = 0;
+ 	struct amdgpu_numa_info numa_info;
+ 	int node_ids[MAX_MEM_RANGES];
+ 	int num_xcc, xcc_id;
+@@ -1904,7 +1906,8 @@ gmc_v9_0_init_acpi_mem_ranges(struct amdgpu_device *adev,
  
--	/* Memory manager */
--	r = amdgpu_bo_init(adev);
--	if (r)
--		return r;
--
- 	r = gmc_v9_0_gart_init(adev);
- 	if (r)
- 		return r;
+ 	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
+ 	xcc_mask = (1U << num_xcc) - 1;
+-	mem_groups = hweight32(adev->aid_mask);
++	num_nodes = num_online_nodes();
++	node_size_ttm_override = (ttm_tt_pages_limit() << PAGE_SHIFT) / num_nodes;
+ 
+ 	for_each_inst(xcc_id, xcc_mask)	{
+ 		ret = amdgpu_acpi_get_mem_info(adev, xcc_id, &numa_info);
+@@ -1912,7 +1915,6 @@ gmc_v9_0_init_acpi_mem_ranges(struct amdgpu_device *adev,
+ 			continue;
+ 
+ 		if (numa_info.nid == NUMA_NO_NODE) {
+-			mem_ranges[0].size = numa_info.size;
+ 			mem_ranges[0].numa.node = numa_info.nid;
+ 			num_ranges = 1;
+ 			break;
+@@ -1930,11 +1932,16 @@ gmc_v9_0_init_acpi_mem_ranges(struct amdgpu_device *adev,
+ 
+ 	adev->gmc.num_mem_partitions = num_ranges;
+ 
+-	/* If there is only partition, don't use entire size */
+-	if (adev->gmc.num_mem_partitions == 1) {
+-		mem_ranges[0].size = mem_ranges[0].size * (mem_groups - 1);
+-		do_div(mem_ranges[0].size, mem_groups);
+-	}
++	/* In NPS1 mode, we should restrict the vram reporting
++	 * tied to the ttm_pages_limit which is 1/2 of the
++	 * system memory. For other partition modes, the HBM is
++	 * uniformly divided already per numa node reported. If
++	 * user wants to go beyond the default ttm limit and
++	 * maximize the ROCm allocations, they can go up to max
++	 * ttm and sysmem limits.
++	 */
++	if (adev->gmc.num_mem_partitions == 1)
++		mem_ranges[0].size = node_size_ttm_override;
+ }
+ 
+ static void
 -- 
 2.34.1
 
