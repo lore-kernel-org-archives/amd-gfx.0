@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CAAFE7849A
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Oct 2023 07:39:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C4D5E784A4
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Oct 2023 07:40:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42AE710E21C;
-	Mon,  2 Oct 2023 07:39:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3CA910E21E;
+	Mon,  2 Oct 2023 07:40:08 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [IPv6:2607:7c80:54:3::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 538FE10E134;
- Mon,  2 Oct 2023 06:38:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 443A310E14F;
+ Fri, 29 Sep 2023 20:06:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
  Content-Type:In-Reply-To:From:References:To:Subject:MIME-Version:Date:
  Message-ID:Sender:Reply-To:Cc:Content-ID:Content-Description;
- bh=qG2OUo0jkUhRHbJw+LMRYwNS/lqz8RgvctqBHgbaYYA=; b=4MUOLO87rx/lPtDgTJwXQ29UP7
- QG/sxrYlTeKR3HFKw5MNOBTUabL4asBe6nfOtzTeHjr0TMYECd36d9tQssft3KYTfkaGVtC5jkRGa
- 3EWqtcFHmJY8udUB4kPM6H6ze+or3bExDWaghN8RH2cP0L6BjsEbHizb9kc1SN+LJSHfm3s/FAlhm
- /VBceTCWttmhjlvtK60CshxG+HyXqg1pSMzhHVpF5eQ5UDfM6l9nJg6ILVnso6SnBWsGmm35jSYDd
- T/GoypBJi2ABcS8NZkneQxcoGBq1t2xtTckd76Gua491utE7IwM34WM1uQZKvvEWoeRTa/GQJnxXM
- tyi1eLYg==;
+ bh=eC20//QhF98C1kt/J8oEmhBMKIruxNdmNuyRsqobxqI=; b=GIcXsx+P98ZligLGIAGNPJo1HF
+ 3pCu/SJDukgoLmxrJGwCp8nMjDqbo4MzGF4aSYA/iFAGuWcSB1eAeUTw70DN8OrwARBazFPEMt3ES
+ 4ktNO5V8FMa+U0zYBaIOw2l9ULCIcncUKuGAhPX8i79MuLA7cgsFd+KqYP52CPMyoxr1ib69K8WjG
+ 5+rqzvmd8//Si+w3CmJ/NMZnVKmUBgQfuecosdg78IDAZ94ChIs+pR97sdy2hGxvy+YwA620+kR7M
+ las0v7tJ7hAOQk9U0PHCMpLrQpnxndwiyI4Kh1kaiYzaISTB8hqwVjFGIMdPCJdslYiB0b/9iz8m8
+ NCYxZN8A==;
 Received: from [50.53.46.231] (helo=[192.168.254.15])
  by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1qnCZa-00C2GH-09; Mon, 02 Oct 2023 06:38:30 +0000
-Message-ID: <153b7d81-143a-4b82-8ec0-33ba130098a0@infradead.org>
-Date: Sun, 1 Oct 2023 23:38:28 -0700
+ id 1qmJkk-008WRL-35; Fri, 29 Sep 2023 20:06:23 +0000
+Message-ID: <9270c1f3-c8f3-4b3c-91ec-ed17d97ecafd@infradead.org>
+Date: Fri, 29 Sep 2023 13:06:21 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: add kernel docs for dc_dmub_caps
+Subject: Re: [PATCH] add kernel docs for dc_dmub_caps
 Content-Language: en-US
 To: Sagar Vashnav <sagarvashnav72427@gmail.com>,
  Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -40,13 +40,13 @@ To: Sagar Vashnav <sagarvashnav72427@gmail.com>,
  "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
  Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <9270c1f3-c8f3-4b3c-91ec-ed17d97ecafd@infradead.org>
- <20231002044126.70197-1-sagarvashnav72427@gmail.com>
+References: <215ed02d-1dab-480f-84fb-a828b294f716@infradead.org>
+ <20230929100055.17563-1-sagarvashnav72427@gmail.com>
 From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20231002044126.70197-1-sagarvashnav72427@gmail.com>
+In-Reply-To: <20230929100055.17563-1-sagarvashnav72427@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 02 Oct 2023 07:39:50 +0000
+X-Mailman-Approved-At: Mon, 02 Oct 2023 07:39:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,9 +61,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi,
+
+The $Subject could be improved, e.g.:
+
+[PATCH] drm/amd/display: add kernel docs for dc_dmub_caps
 
 
-On 10/1/23 21:41, Sagar Vashnav wrote:
+On 9/29/23 03:00, Sagar Vashnav wrote:
 > Add kernel documentation for the dc_dmub_caps structure.
 > 
 > Signed-off-by: Sagar Vashnav <sagarvashnav72427@gmail.com>
@@ -77,7 +82,7 @@ Thanks.
 >  1 file changed, 10 insertions(+)
 > 
 > diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-> index 81258392d..14b4c503d 100644
+> index 8125839..14b4c50 100644
 > --- a/drivers/gpu/drm/amd/display/dc/dc.h
 > +++ b/drivers/gpu/drm/amd/display/dc/dc.h
 > @@ -208,6 +208,16 @@ struct dc_color_caps {
