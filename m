@@ -4,41 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE8E9CE7B1F
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Sep 2023 09:26:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0E2DCE7B1F
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Sep 2023 09:38:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 506C110E0FB;
-	Fri, 29 Sep 2023 09:26:12 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EF5510E0F8;
- Fri, 29 Sep 2023 09:26:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=DiRCTOZtvlCWvlgEuNLHEHuOpNbm/JSURw45RclGgKo=; b=LdpSgHIVCSSRWEw8qTOlvymnHW
- 69eIfDb43aOFM0OLCMcK6EWqzurrujJLYzKOJ6mYGmGwYPh3f8nkbveT4V1VmBizRfRJLZyORKrEc
- u1Qh8Nt3eGtRhj+f4op6cLo4B54r60DmgLfuQw1oz1XruBiAI8aZYtzfzjE0cfs+SG0rZu5AFyx03
- o7B3klfAXBXbAV7koLwqTO8mV6XpBF6tWfMKMYlXd9so7QoS5WLXbiqCmSLcpavja6yY8Fh0iU+DZ
- KnpqoCN3S8vKp1PqzRIoe65HvkfKTVKse28ng61VI7YOpvgSrLgKBBoRWS54bplynqoMTtWWBP1NI
- Wh9JYCNw==;
-Received: from 176-177-19-228.abo.bbox.fr ([176.177.19.228] helo=X1.lan)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qm9kz-009aY1-1N; Fri, 29 Sep 2023 11:25:57 +0200
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v8] drm/doc: Document DRM device reset expectations
-Date: Fri, 29 Sep 2023 11:25:09 +0200
-Message-ID: <20230929092509.42042-1-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.42.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D37D10E0F5;
+	Fri, 29 Sep 2023 09:38:16 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on20621.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8d::621])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3053510E0F5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Sep 2023 09:38:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jxHrcW34QZJV4jdJykKiGw5DAHLQJXIUwjQgpmScniI0KSagq1lfgbIl3YAXV1oVsyxwaAe7hYo1Il9sPR7LOwFmLHspUJuyAJ+Sxw5miXvr9ZFwL8EYAV7eaIjYngejSADbkXxTwsJJwvLEnV5vYyhuqhib5iWVxrC8bfvPmtRj/plQhlo+0lFKfehnVk58u+UMWCHhMNh6SxV+2E6C8hpQsHKUupyw3z3jpNvB0zUfcwijgseUEsIPxwvyGyNs9Gi6pnmddu6C7WIZWnkPb+75SClE4MUrhB20G8ABkVAu4Lp8aSpi8CWjZC9y0R4SZYJFDy7nORjzSXD2U/38uw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9ncnVPaE7opGEbMPO02zYHp8Mm6Rs7lKezWIg7ZHndM=;
+ b=B+yA6Frb77om1KRDCN9HCTax9L+q/SG20AxqUUWcXUJinVUVeLqSobaYxFTyMUkA54gJaA3ZPugAtYwQXW8OJEB20DRZLaSKmhkgAfgdsGw/kYWm10M7DziHJd2+KptDannpYadNR8pKNELilreSY6OpnHgwPxki3fN83Kj63aXA6Xnfhh81jFCKrpahlvw/ws3VLki1+Tp74PhIZ2QfOE+o8r/Q/on9tMBKKyYzcO6+xylj3CGnKgys17lRBIrMDZshbqBS1MCkH+c9s1kzrE30MfheFoj4PT8iXrpGzCekOC6bNtTFZxN0qAq5KD/a/49SxDQP9DiMXmoGUQoRXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9ncnVPaE7opGEbMPO02zYHp8Mm6Rs7lKezWIg7ZHndM=;
+ b=17PFbHqHewOIjr9tN159IcF07KlmipJtzrPUm5Cce8DgeT03SsFynDS/HVK4VahZu3b8+HeqNgxRSfkQnvbuysAT5epGCNydQfhtJ/5Sr++kWdum6raLOwuXPtg0PoCQMwVpjv/ZNYL4+QJTmRX8zDKkrwEguBvkHmqkXC7mse4=
+Received: from BL1P223CA0010.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:2c4::15)
+ by IA1PR12MB6433.namprd12.prod.outlook.com (2603:10b6:208:3af::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.21; Fri, 29 Sep
+ 2023 09:38:11 +0000
+Received: from BL6PEPF0001AB55.namprd02.prod.outlook.com
+ (2603:10b6:208:2c4:cafe::7d) by BL1P223CA0010.outlook.office365.com
+ (2603:10b6:208:2c4::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.26 via Frontend
+ Transport; Fri, 29 Sep 2023 09:38:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0001AB55.mail.protection.outlook.com (10.167.241.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6838.14 via Frontend Transport; Fri, 29 Sep 2023 09:38:10 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 29 Sep
+ 2023 04:38:09 -0500
+From: Lijo Lazar <lijo.lazar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/5] drm/amdgpu: Move package type enum to amdgpu.h
+Date: Fri, 29 Sep 2023 15:07:43 +0530
+Message-ID: <20230929093747.1456991-1-lijo.lazar@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB55:EE_|IA1PR12MB6433:EE_
+X-MS-Office365-Filtering-Correlation-Id: 25d60c48-b964-495e-2090-08dbc0cfcb86
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: cKC9VZ/FCdnAZSxvQBCVefvb9WBgZPTpiiadenOPDmWVb5WqVRYUZCJJWeObPaAPRJDL7HPeKzLE6a3OKR67gnGzmotu7zMZauDhUhuhkkrEsT46m98PIW/Aw0xvF9kTK9bZpvKhSKIokUEBqPOd355B8ty4CCptLhFkuyTzImtmRqOfvOjS7k+dBYx1VgPaJLo5/AjEM6Ou/S8FCuyVWEGfE3mSCaleRSF6HKJbKe9U+tEr6xV4wk4oV+A66NC073Jp1kH7EXd+zXOECpA20zUM9YQHqnu4kl6s5jrRr61l5ADXttiYlZhGExfGZkXRPz/eHc0Kx8pMhoqils/OtR8OsP8zYCzT2LleZ6qVg2Xmm8Lxql6mKoT04YLRsUE/wqJDYsg7+enWgYlyp4Qt3HpdLOxEU6o1HzYkKfmHBNPtXDnxCfzyzMrkJnTU7AS0Jmn5GEwKtkP5zxPKl2yQLWztrFPDc8KyulDXtkFCUasLpxX2bK6JLxjRT16rOB6oueh98NWLZNmK91eFVdE07xrHw+SF0di1GUnugKj6DNEbrhyditdmo7g9wqm2VpHrwxmqijI+bufBo7yFENm9j4VRiENTvOKPNUm3l2GPnc6gR8P5fIfR328Vkm5SrDruYkjRjwjUOOpzVa7tzzDpv1L3gzKJ3h419rpNxXGVGc3IRr0hefK/XRs2VBYOCLucly7lgtLZPaAeZqm/Izb1HmZrseFdbIpR/5RaDHdYluR+gh+Umx8CXgosLj61+b3gtDi301N8kcBCgwJ1NxItCA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(396003)(346002)(136003)(376002)(39860400002)(230922051799003)(82310400011)(186009)(1800799009)(64100799003)(451199024)(36840700001)(40470700004)(46966006)(7696005)(2616005)(6666004)(478600001)(83380400001)(47076005)(336012)(16526019)(1076003)(26005)(426003)(2906002)(44832011)(5660300002)(70206006)(70586007)(6916009)(54906003)(8676002)(316002)(4326008)(8936002)(41300700001)(40460700003)(36860700001)(36756003)(86362001)(82740400003)(356005)(81166007)(40480700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2023 09:38:10.7916 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25d60c48-b964-495e-2090-08dbc0cfcb86
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB55.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6433
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,143 +98,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- Sebastian Wick <sebastian.wick@redhat.com>,
- Randy Dunlap <rdunlap@infradead.org>,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Simon Ser <contact@emersion.fr>, amaranath.somalapuram@amd.com,
- Pekka Paalanen <ppaalanen@gmail.com>, Daniel Stone <daniel@fooishbar.org>,
- Rob Clark <robdclark@gmail.com>, kernel-dev@igalia.com,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, alexander.deucher@amd.com,
- Pekka Paalanen <pekka.paalanen@collabora.com>, contactshashanksharma@gmail.com,
- Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com
+Cc: Alexander.Deucher@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Create a section that specifies how to deal with DRM device resets for
-kernel and userspace drivers.
+Move definition of package type to amdgpu header and add new package
+types for CEM and OAM.
 
-Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
-Acked-by: Sebastian Wick <sebastian.wick@redhat.com>
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
-v8 changes:
-- Add acked-by tags
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 7 +++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 5 -----
+ 2 files changed, 7 insertions(+), 5 deletions(-)
 
-v7: https://lore.kernel.org/dri-devel/20230818200642.276735-1-andrealmeid@igalia.com/
-
-v7 changes:
- - s/application/graphical API contex/ in the robustness part (Michel)
- - Grammar fixes (Randy)
-
-v6: https://lore.kernel.org/lkml/20230815185710.159779-1-andrealmeid@igalia.com/
-
-v6 changes:
- - Due to substantial changes in the content, dropped Pekka's Acked-by
- - Grammar fixes (Randy)
- - Add paragraph about disabling device resets
- - Add note about integrating reset tracking in drm/sched
- - Add note that KMD should return failure for contexts affected by
-   resets and UMD should check for this
- - Add note about lack of consensus around what to do about non-robust
-   apps
-
-v5: https://lore.kernel.org/dri-devel/20230627132323.115440-1-andrealmeid@igalia.com/
----
- Documentation/gpu/drm-uapi.rst | 77 ++++++++++++++++++++++++++++++++++
- 1 file changed, 77 insertions(+)
-
-diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
-index eef5fd19bc92..632989df3727 100644
---- a/Documentation/gpu/drm-uapi.rst
-+++ b/Documentation/gpu/drm-uapi.rst
-@@ -285,6 +285,83 @@ for GPU1 and GPU2 from different vendors, and a third handler for
- mmapped regular files. Threads cause additional pain with signal
- handling as well.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 73e825d20259..ac048a77e97c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -302,6 +302,13 @@ struct amdgpu_hive_info;
+ struct amdgpu_reset_context;
+ struct amdgpu_reset_control;
  
-+Device reset
-+============
++enum amdgpu_pkg_type {
++	AMDGPU_PKG_TYPE_APU = 2,
++	AMDGPU_PKG_TYPE_CEM = 3,
++	AMDGPU_PKG_TYPE_OAM = 4,
++	AMDGPU_PKG_TYPE_UNKNOWN,
++};
 +
-+The GPU stack is really complex and is prone to errors, from hardware bugs,
-+faulty applications and everything in between the many layers. Some errors
-+require resetting the device in order to make the device usable again. This
-+section describes the expectations for DRM and usermode drivers when a
-+device resets and how to propagate the reset status.
-+
-+Device resets can not be disabled without tainting the kernel, which can lead to
-+hanging the entire kernel through shrinkers/mmu_notifiers. Userspace role in
-+device resets is to propagate the message to the application and apply any
-+special policy for blocking guilty applications, if any. Corollary is that
-+debugging a hung GPU context require hardware support to be able to preempt such
-+a GPU context while it's stopped.
-+
-+Kernel Mode Driver
-+------------------
-+
-+The KMD is responsible for checking if the device needs a reset, and to perform
-+it as needed. Usually a hang is detected when a job gets stuck executing. KMD
-+should keep track of resets, because userspace can query any time about the
-+reset status for a specific context. This is needed to propagate to the rest of
-+the stack that a reset has happened. Currently, this is implemented by each
-+driver separately, with no common DRM interface. Ideally this should be properly
-+integrated at DRM scheduler to provide a common ground for all drivers. After a
-+reset, KMD should reject new command submissions for affected contexts.
-+
-+User Mode Driver
-+----------------
-+
-+After command submission, UMD should check if the submission was accepted or
-+rejected. After a reset, KMD should reject submissions, and UMD can issue an
-+ioctl to the KMD to check the reset status, and this can be checked more often
-+if the UMD requires it. After detecting a reset, UMD will then proceed to report
-+it to the application using the appropriate API error code, as explained in the
-+section below about robustness.
-+
-+Robustness
-+----------
-+
-+The only way to try to keep a graphical API context working after a reset is if
-+it complies with the robustness aspects of the graphical API that it is using.
-+
-+Graphical APIs provide ways to applications to deal with device resets. However,
-+there is no guarantee that the app will use such features correctly, and a
-+userspace that doesn't support robust interfaces (like a non-robust
-+OpenGL context or API without any robustness support like libva) leave the
-+robustness handling entirely to the userspace driver. There is no strong
-+community consensus on what the userspace driver should do in that case,
-+since all reasonable approaches have some clear downsides.
-+
-+OpenGL
-+~~~~~~
-+
-+Apps using OpenGL should use the available robust interfaces, like the
-+extension ``GL_ARB_robustness`` (or ``GL_EXT_robustness`` for OpenGL ES). This
-+interface tells if a reset has happened, and if so, all the context state is
-+considered lost and the app proceeds by creating new ones. There's no consensus
-+on what to do to if robustness is not in use.
-+
-+Vulkan
-+~~~~~~
-+
-+Apps using Vulkan should check for ``VK_ERROR_DEVICE_LOST`` for submissions.
-+This error code means, among other things, that a device reset has happened and
-+it needs to recreate the contexts to keep going.
-+
-+Reporting causes of resets
-+--------------------------
-+
-+Apart from propagating the reset through the stack so apps can recover, it's
-+really useful for driver developers to learn more about what caused the reset in
-+the first place. DRM devices should make use of devcoredump to store relevant
-+information about the reset, so this information can be added to user bug
-+reports.
-+
- .. _drm_driver_ioctl:
+ enum amdgpu_cp_irq {
+ 	AMDGPU_CP_IRQ_GFX_ME0_PIPE0_EOP = 0,
+ 	AMDGPU_CP_IRQ_GFX_ME0_PIPE1_EOP,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index 42ac6d1bf9ca..7088c5015675 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -69,11 +69,6 @@ enum amdgpu_gfx_partition {
  
- IOCTL Support on Device Nodes
+ #define NUM_XCC(x) hweight16(x)
+ 
+-enum amdgpu_pkg_type {
+-	AMDGPU_PKG_TYPE_APU = 2,
+-	AMDGPU_PKG_TYPE_UNKNOWN,
+-};
+-
+ enum amdgpu_gfx_ras_mem_id_type {
+ 	AMDGPU_GFX_CP_MEM = 0,
+ 	AMDGPU_GFX_GCEA_MEM,
 -- 
-2.42.0
+2.25.1
 
