@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA4B6E77351
-	for <amd-gfx@archiver.kernel.org>; Sat, 30 Sep 2023 08:38:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B53FCE77366
+	for <amd-gfx@archiver.kernel.org>; Sat, 30 Sep 2023 08:38:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31A4910E0A0;
-	Sat, 30 Sep 2023 08:38:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B85110E129;
+	Sat, 30 Sep 2023 08:38:29 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2061c.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5b::61c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A674510E0A0;
- Sat, 30 Sep 2023 08:38:21 +0000 (UTC)
+ (mail-bn8nam12on2078.outbound.protection.outlook.com [40.107.237.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7080210E129;
+ Sat, 30 Sep 2023 08:38:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XlL0XyAXfnl5Nim7cWbrnYNLoucsY8zdq8RwVSiD00I4a7vLITc6ZSwnpeTQzlIEKkdsUJuMk5O1LY717otYwcgFWm1NnWBfE/LbOIbc7TANwvXoI87hIWMOiEwoicMBQsXzJTwKbNOJD/gJcuI8neUcvkatoooVlCdU7ScexrMoTefGOO/1GrmqaLM2AUak+8hZkr+IePwkL4sbYjkr4gN3vg20jq/cESdnPbJxaBYG/lRuzyKOI2eh8FQ8YJJCsBRgJbsNq/eACFTn4riLBnU1zMZpFzSVC9fODfv4tIjtC06eOl9QD4ePNNVuJ4vrMax+514SlrxR0QHRiF+OPg==
+ b=LC0IQF45kD2+8gSUvXpx9WSr8J0j8wO9UYEi/vCObsQvKurL+n3XjjCcfjMn56qCoad/w5u2cYLYFn2HJEomB1dyoprrQk4S5brxjfL9KctYhiuEmP+qqE8tQiHDwSR3kcNeHoiyN/MgLg0hpmcYqwSqx5hVUmcwQg+N8jWx0wlbth4C9MYLRKldqhNYYhFIOYxq+Mkhs9LLykCo2cHKFc2W/FBratJZe++8kL517UK2Dks58GDr0O2XVf1N5RqQR81DSTvfDZu8gx+/925Dv4HudOGdbrkNnb4cN0rc+dd9LVJfSwtr2r+L7gFhecWrk8LS1WKKY1vCez3R4ztfqw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xznw8yEABrK66G1ndabmW3NPXz0h1ZdAS56RH8cQQDQ=;
- b=iwI1tN7HW0384owlnNgvskv1oCKIV2dHH7WsXncFQyCDYPNfVAWQJ1tZ8DmGv8y6QRw3aPm/YHm0Q9NbiGVZcwNwmsEp9vaEZOKKIsZ+BMDKhs9M+JJ8qL3/GQelEWiUYNHZQjFskxSAG1wifvFdfCqTVYRNbKjnTPmyp3V/PJqO4ww6WDnnMBkKQjktbzs2sMr1gFp8+CxrG58HDxcSMU5gYBTIr30GKvYtlJOlM+/JKq/Ga/QAD0AaM6RIw6Ys6U518lmh/QofEQezWTOgv+5znLzhYrpg+wGAt6Z+2ADi+H0ZmkmhOkt52f56FATlB248DJrPb6Zce2C32qeWwQ==
+ bh=OXZ9nu8zgiI8fl1PVckWCMbLtSVwz8sApT+QImD2RRw=;
+ b=kTiyt7IfEYgilqdtXkzooJB60JjBrGG6I7jPBptapo0SpQISqyzmwcTCm700YOVQ68cZnfNJstS41hW3swSrTGs4QisGWBU7xG2FUM2K1Lo/ds+sAo4XPm62fAK0QWSqaUzhHJod3deUm/asg0/WSvfNS6B6ZBZdnx0E9RxzJyKrWvMi7iUayDZJ/tWM7bTNKcWClJvoJNQ96UtigTX2Cc0Bc45QcKP0MraN96hw1k/RmTso5bnudHRLW4ZgzUJKX34GoTZAW8JBcL5DNtwDRkzRJvKdaokhIEp7ClKHlRV0gZxd1SuZcsotTCZnkDJegVFfX3kXC2pBper3om5Nuw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xznw8yEABrK66G1ndabmW3NPXz0h1ZdAS56RH8cQQDQ=;
- b=LNyRwOoLYIZHBvODpDWPbWJiEjHBc+dbTlLR/+27febITRfEs0HmcLZZmT0UHD+wDWBzRvwenOQGDgTgX2QZ3KGPpquH421CB9Aul3SiEP4FTLWcHeO1JMRKVivKEVxSh6UllFey6376DbJVCKfbw4BpQUpX/239Sg8z5ERxnT0=
-Received: from BL1PR13CA0063.namprd13.prod.outlook.com (2603:10b6:208:2b8::8)
- by SA1PR12MB7245.namprd12.prod.outlook.com (2603:10b6:806:2bf::18)
+ bh=OXZ9nu8zgiI8fl1PVckWCMbLtSVwz8sApT+QImD2RRw=;
+ b=RHt6F8H9t9yBsntip9OssB3NTHYBK4bl87N3SjJ9Jfw0VbQCobL59FTeYb65Hc2wJQ5lmGtO4bpDpik070uWaptlROhSfZgiiJgUdYGl5QDlwjC2pJt2j9fvtWRZ8/cuiMUVtN7MEU5vwHcPFmW8XdQchWtQ+t/YiXRJuZhr5CE=
+Received: from MN2PR14CA0010.namprd14.prod.outlook.com (2603:10b6:208:23e::15)
+ by CY5PR12MB6058.namprd12.prod.outlook.com (2603:10b6:930:2d::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.28; Sat, 30 Sep
- 2023 08:38:16 +0000
-Received: from BL6PEPF0001AB76.namprd02.prod.outlook.com
- (2603:10b6:208:2b8:cafe::f3) by BL1PR13CA0063.outlook.office365.com
- (2603:10b6:208:2b8::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.17 via Frontend
- Transport; Sat, 30 Sep 2023 08:38:16 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.23; Sat, 30 Sep
+ 2023 08:38:24 +0000
+Received: from BL6PEPF0001AB72.namprd02.prod.outlook.com
+ (2603:10b6:208:23e:cafe::4) by MN2PR14CA0010.outlook.office365.com
+ (2603:10b6:208:23e::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.28 via Frontend
+ Transport; Sat, 30 Sep 2023 08:38:24 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -46,23 +45,25 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB76.mail.protection.outlook.com (10.167.242.169) with Microsoft
+ BL6PEPF0001AB72.mail.protection.outlook.com (10.167.242.165) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.14 via Frontend Transport; Sat, 30 Sep 2023 08:38:15 +0000
+ 15.20.6838.14 via Frontend Transport; Sat, 30 Sep 2023 08:38:24 +0000
 Received: from jatayu.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Sat, 30 Sep
- 2023 03:38:09 -0500
+ 2023 03:38:19 -0500
 From: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
 To: <hdegoede@redhat.com>, <markgross@kernel.org>,
  <ilpo.jarvinen@linux.intel.com>, <basavaraj.natikar@amd.com>,
  <jikos@kernel.org>, <benjamin.tissoires@redhat.com>,
  <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>
-Subject: [PATCH v2 00/16] Introduce PMF Smart PC Solution Builder Feature
-Date: Sat, 30 Sep 2023 14:06:59 +0530
-Message-ID: <20230930083715.2050863-1-Shyam-sundar.S-k@amd.com>
+Subject: [PATCH v2 02/16] platform/x86/amd/pmf: Add support PMF-TA interaction
+Date: Sat, 30 Sep 2023 14:07:01 +0530
+Message-ID: <20230930083715.2050863-3-Shyam-sundar.S-k@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230930083715.2050863-1-Shyam-sundar.S-k@amd.com>
+References: <20230930083715.2050863-1-Shyam-sundar.S-k@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -71,26 +72,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB76:EE_|SA1PR12MB7245:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0b09adbc-1861-4b93-aa09-08dbc19096d4
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB72:EE_|CY5PR12MB6058:EE_
+X-MS-Office365-Filtering-Correlation-Id: eb861e27-769a-4e69-b218-08dbc1909c16
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: j3tkbdPDaPNF2mw71ZEKoZkkYVJ+SthkseTctEbGRg2wp77wp8+0SaQ6hPb0c1xpGKX51oWTcH/GA44tKs2692BIt0QlDNMCSDYmzSMa1+PcbWXgc0Nk+5dpg1McrZjC4fAox6J5EQ6K2ucvWXWjP2/WswVsHi6j7jP7BOaR74traavrbCqH91Fu1MA5BCt6LZOmTAG0CoOxqkIHARlJh1dqW1XjHAvRLKqJIxSbwpY5PXM5QpvdA1Wj48YzAn/5cPUny7eD6/UoeO0iSOM2y9H381bEjesOrZQ7AW7FhrEW3ArHLNZ3C1xUVi8oce3erTAbS1glxMkZOkgsF84ROfqVBw0dCQQ3l1GPQCq5t1iVoSpVY48ewt9BlGqlhRAksndspd18ZAwNNmq44bKZ7TsswWd7htKcYsX9WglRsSCYPYQrh7XsFrNvu+FkV73l8qUxxooIokugv/dLSPr8MYSZXVoV61YTj75hhRo1Vo04PRFrgRJDbh7PRfzBoT5nwyN9xoGuMItWfUd8FcyQ7k4FMWq4Loygn5gGUik9ywUo49eZNfh5+DgZtOxxakcdco99zIQfVsm81wBlAzA5aw9+0pfGOUyFGtOrl3oi+0+Z/mnZd0t+QrgryBhHfiWGyPh5fYJr6rxY2bZixDZWTP4NZokldGyEeNflUDWsLy7UI4US3dRacXp6wL0QyGF07oS7uA9WWdRDRpnSNeMx/MlFCDOy+zEAcsVUyE4wzp4LoDR8O70LsLhNqCNqEw+OUAQulrAzKv8Ej2x/4Hjp1/7SinmQfBt4QSa4JwHc7qQ=
+X-Microsoft-Antispam-Message-Info: C125aaqOmUBFhBqcUF8MLCPiE9Lqe2PvVbc0WUwR9/ZsTDQBI3DEl0yZmUnRLeCppwesl8WpVkAFmyh5xDrIugr7RiNNU2IAzAM1E1ebqLbdXbocSe+j5fB+jDQjVybiZoWRV6kdwR/JPlaAFBKvLrPEbBMPHVUFJ/4N7pNoyD61f6d8tE8h1W4SLeKQuK618M89fKnVMQf50PEo57/An4B/lJj61EAT4yJLrjkfhUMJEzVgkUKksWO6IHzmgrcm5uArdXDYkVEvcMuy94MZtn5hmSAJcGU6bvE1T8J79GSwq5JLorgBhTHEilnOvPt/Yhf+UnNzvahVDBDZMq79di66hd9VaxtWozj3ldAze9o+NDbnJWUq5+G4jW5Kwj8U37X6kvetHIqJUA4MCq7kfg1LbZh0eHDkSVilUqIBEzsNZidWvveUO/j+tG6wnomuL3kXni0oEWnc3q2Hgcsk2KSwiUwN5h9WtY73/DV9Mopzd0Ox9Et61ro6q7Xofsi+kRRyigp2w7XJ+yKzfP/ZDo8TqGzNP1yOxvj7GHXsNigZMzfAkXzAQM0hcFzXTtZQeR0Tqa0+7MQ/t/8z2CG1VDaek6ZJyrQdqIdHwVOCtYp4qJi6bsDPCaCsJcHZSZ9uVbAiyDj1ykks1PBgCmwAFO15FjDdL1YEmciuRmW95RUD/znSTCtNE0A713awkIOgoLYS8SpRTraZEixqCnvpaxlH1fEIyr9kIfQSD7Alod5PIgQK2KECVLn787wYYMx6QCutd89AJOa7e/pYW0znj+heETcrqxbjhIYpequDI40=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(136003)(376002)(396003)(346002)(39860400002)(230922051799003)(64100799003)(82310400011)(451199024)(1800799009)(186009)(40470700004)(46966006)(36840700001)(336012)(426003)(2616005)(1076003)(16526019)(26005)(36860700001)(81166007)(921005)(356005)(82740400003)(86362001)(36756003)(40480700001)(83380400001)(40460700003)(47076005)(316002)(54906003)(4326008)(8676002)(8936002)(5660300002)(41300700001)(70586007)(70206006)(110136005)(2906002)(7416002)(7696005)(6666004)(478600001)(36900700001);
+ SFS:(13230031)(4636009)(346002)(39860400002)(396003)(136003)(376002)(230922051799003)(186009)(82310400011)(64100799003)(451199024)(1800799009)(36840700001)(46966006)(40470700004)(81166007)(86362001)(82740400003)(921005)(356005)(40460700003)(40480700001)(36756003)(478600001)(70206006)(54906003)(2616005)(7696005)(6666004)(7416002)(70586007)(8936002)(5660300002)(316002)(8676002)(4326008)(83380400001)(2906002)(41300700001)(47076005)(110136005)(16526019)(36860700001)(26005)(1076003)(336012)(426003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2023 08:38:15.2559 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b09adbc-1861-4b93-aa09-08dbc19096d4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2023 08:38:24.0772 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: eb861e27-769a-4e69-b218-08dbc1909c16
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB76.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB72.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7245
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6058
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,95 +109,189 @@ Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, amd-gfx@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Smart PC Solutions Builder allows for OEM to define a large number of
-custom system states to dynamically switch to. The system states are
-referred to as policies, and multiple policies can be loaded onto the
-system at any given time, however only one policy can be active at a
-given time.
+PMF TA (Trusted Application) loads via the TEE environment into the
+AMD ASP.
 
-Policy is a combination of PMF input and output capabilities. The inputs
-are the incoming information from the other kernel subsystems like LID
-state, Sensor info, GPU info etc and the actions are the updating the 
-power limits of SMU etc.
+PMF-TA supports two commands:
+1) Init: Initialize the TA with the PMF Smart PC policy binary and
+start the policy engine. A policy is a combination of inputs and
+outputs, where;
+ - the inputs are the changing dynamics of the system like the user
+   behaviour, system heuristics etc.
+ - the outputs, which are the actions to be set on the system which
+   lead to better power management and enhanced user experience.
 
-The policy binary is signed and encrypted by a special key from AMD. This
-policy binary shall have the inputs and outputs which the OEMs can build
-for the platform customization that can enhance the user experience and
-system behavior.
+PMF driver acts as a central manager in this case to supply the
+inputs required to the TA (either by getting the information from
+the other kernel subsystems or from userland)
 
-This series adds the initial support for Smart PC solution to PMF driver.
+2) Enact: Enact the output actions from the TA. The action could be
+applying a new thermal limit to boost/throttle the power limits or
+change system behavior.
 
-Note that, on platforms where CnQF and Smart PC is advertised, Smart PC
-shall have higher precedence and same applies for Auto Mode.
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+---
+ drivers/platform/x86/amd/pmf/pmf.h    | 10 +++
+ drivers/platform/x86/amd/pmf/tee-if.c | 97 ++++++++++++++++++++++++++-
+ 2 files changed, 106 insertions(+), 1 deletion(-)
 
-V1->v2:
----------
-- Remove __func__ macros
-- Remove manual function names inside prints
-- Handle tee_shm_get_va() failure
-- Remove double _
-- Add meaningful prints
-- pass amd_pmf_set_dram_addr() failure errors
-- Add more information to commit messages
-- use right format specifiers
-- use devm_ioremap() instead of ioremap()
-- address unsigned long vs u32 problems
-- Fix lkp reported issues
-- Add amd_pmf_remove_pb() to remove the debugfs files created(if any).
-- Make amd_pmf_open_pb() as static.
-- Add cooling device APIs for controlling amdgpu backlight
-- handle amd_pmf_apply_policies() failures
-- Split v1 14/15 into 2 patches further
-- use linux/units.h for better handling
-- add "depends on" AMD_SFH_HID for interaction with SFH
-- other cosmetic remarks
-
-Basavaraj Natikar (3):
-  HID: amd_sfh: rename float_to_int() to amd_sfh_float_to_int()
-  platform/x86/amd/pmf: Add PMF-AMDSFH interface for HPD
-  platform/x86/amd/pmf: Add PMF-AMDSFH interface for ALS
-
-Shyam Sundar S K (13):
-  platform/x86/amd/pmf: Add PMF TEE interface
-  platform/x86/amd/pmf: Add support PMF-TA interaction
-  platform/x86/amd/pmf: Change return type of amd_pmf_set_dram_addr()
-  platform/x86/amd/pmf: Add support for PMF Policy Binary
-  platform/x86/amd/pmf: change amd_pmf_init_features() call sequence
-  platform/x86/amd/pmf: Add support to get inputs from other subsystems
-  platform/x86/amd/pmf: Add support update p3t limit
-  platform/x86/amd/pmf: Add support to update system state
-  platform/x86/amd/pmf: Add facility to dump TA inputs
-  platform/x86/amd/pmf: Add capability to sideload of policy binary
-  platform/x86/amd/pmf: dump policy binary data
-  platform/x86/amd/pmf: Add PMF-AMDGPU get interface
-  platform/x86/amd/pmf: Add PMF-AMDGPU set interface
-
- Documentation/admin-guide/index.rst           |   1 +
- Documentation/admin-guide/pmf.rst             |  25 +
- drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_pmf.c       | 154 ++++++
- drivers/hid/amd-sfh-hid/amd_sfh_common.h      |   6 +
- drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_desc.c |  22 +-
- drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_init.c |  17 +
- .../amd-sfh-hid/sfh1_1/amd_sfh_interface.c    |  48 ++
- .../amd-sfh-hid/sfh1_1/amd_sfh_interface.h    |   1 +
- drivers/platform/x86/amd/pmf/Kconfig          |   3 +
- drivers/platform/x86/amd/pmf/Makefile         |   3 +-
- drivers/platform/x86/amd/pmf/acpi.c           |  37 ++
- drivers/platform/x86/amd/pmf/core.c           |  52 +-
- drivers/platform/x86/amd/pmf/pmf.h            | 201 +++++++
- drivers/platform/x86/amd/pmf/spc.c            | 197 +++++++
- drivers/platform/x86/amd/pmf/sps.c            |   2 +-
- drivers/platform/x86/amd/pmf/tee-if.c         | 515 ++++++++++++++++++
- include/linux/amd-pmf-io.h                    |  55 ++
- 19 files changed, 1317 insertions(+), 25 deletions(-)
- create mode 100644 Documentation/admin-guide/pmf.rst
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_pmf.c
- create mode 100644 drivers/platform/x86/amd/pmf/spc.c
- create mode 100644 drivers/platform/x86/amd/pmf/tee-if.c
- create mode 100644 include/linux/amd-pmf-io.h
-
+diff --git a/drivers/platform/x86/amd/pmf/pmf.h b/drivers/platform/x86/amd/pmf/pmf.h
+index 02460c2a31ea..e0837799f521 100644
+--- a/drivers/platform/x86/amd/pmf/pmf.h
++++ b/drivers/platform/x86/amd/pmf/pmf.h
+@@ -59,6 +59,9 @@
+ #define ARG_NONE 0
+ #define AVG_SAMPLE_SIZE 3
+ 
++/* TA macros */
++#define PMF_TA_IF_VERSION_MAJOR				1
++
+ /* AMD PMF BIOS interfaces */
+ struct apmf_verify_interface {
+ 	u16 size;
+@@ -184,6 +187,7 @@ struct amd_pmf_dev {
+ 	struct tee_shm *fw_shm_pool;
+ 	u32 session_id;
+ 	void *shbuf;
++	struct delayed_work pb_work;
+ 	bool smart_pc_enabled;
+ };
+ 
+@@ -395,6 +399,12 @@ struct apmf_dyn_slider_output {
+ 	struct apmf_cnqf_power_set ps[APMF_CNQF_MAX];
+ } __packed;
+ 
++/* cmd ids for TA communication */
++enum ta_pmf_command {
++	TA_PMF_COMMAND_POLICY_BUILDER_INITIALIZE,
++	TA_PMF_COMMAND_POLICY_BUILDER_ENACT_POLICIES,
++};
++
+ struct ta_pmf_shared_memory {
+ 	int command_id;
+ 	int resp_id;
+diff --git a/drivers/platform/x86/amd/pmf/tee-if.c b/drivers/platform/x86/amd/pmf/tee-if.c
+index 4db80ca59a11..1b3985cd7c08 100644
+--- a/drivers/platform/x86/amd/pmf/tee-if.c
++++ b/drivers/platform/x86/amd/pmf/tee-if.c
+@@ -13,9 +13,96 @@
+ #include "pmf.h"
+ 
+ #define MAX_TEE_PARAM	4
++
++/* Policy binary actions sampling frequency (in ms) */
++static int pb_actions_ms = 1000;
++#ifdef CONFIG_AMD_PMF_DEBUG
++module_param(pb_actions_ms, int, 0644);
++MODULE_PARM_DESC(pb_actions_ms, "Policy binary actions sampling frequency (default = 1000ms)");
++#endif
++
+ static const uuid_t amd_pmf_ta_uuid = UUID_INIT(0x6fd93b77, 0x3fb8, 0x524d,
+ 						0xb1, 0x2d, 0xc5, 0x29, 0xb1, 0x3d, 0x85, 0x43);
+ 
++static void amd_pmf_prepare_args(struct amd_pmf_dev *dev, int cmd,
++				 struct tee_ioctl_invoke_arg *arg,
++				 struct tee_param *param)
++{
++	memset(arg, 0, sizeof(*arg));
++	memset(param, 0, MAX_TEE_PARAM * sizeof(*param));
++
++	arg->func = cmd;
++	arg->session = dev->session_id;
++	arg->num_params = MAX_TEE_PARAM;
++
++	/* Fill invoke cmd params */
++	param[0].u.memref.size = sizeof(struct ta_pmf_shared_memory);
++	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INOUT;
++	param[0].u.memref.shm = dev->fw_shm_pool;
++	param[0].u.memref.shm_offs = 0;
++}
++
++static int amd_pmf_invoke_cmd_enact(struct amd_pmf_dev *dev)
++{
++	struct ta_pmf_shared_memory *ta_sm = NULL;
++	struct tee_param param[MAX_TEE_PARAM];
++	struct tee_ioctl_invoke_arg arg;
++	int ret = 0;
++
++	if (!dev->tee_ctx)
++		return -ENODEV;
++
++	ta_sm = (struct ta_pmf_shared_memory *)dev->shbuf;
++	memset(ta_sm, 0, sizeof(struct ta_pmf_shared_memory));
++	ta_sm->command_id = TA_PMF_COMMAND_POLICY_BUILDER_ENACT_POLICIES;
++	ta_sm->if_version = PMF_TA_IF_VERSION_MAJOR;
++
++	amd_pmf_prepare_args(dev, TA_PMF_COMMAND_POLICY_BUILDER_ENACT_POLICIES, &arg, param);
++
++	ret = tee_client_invoke_func(dev->tee_ctx, &arg, param);
++	if (ret < 0 || arg.ret != 0) {
++		dev_err(dev->dev, "TEE enact cmd failed. err: %x, ret:%x\n", arg.ret, ret);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int amd_pmf_invoke_cmd_init(struct amd_pmf_dev *dev)
++{
++	struct ta_pmf_shared_memory *ta_sm = NULL;
++	struct tee_param param[MAX_TEE_PARAM];
++	struct tee_ioctl_invoke_arg arg;
++	int ret = 0;
++
++	if (!dev->tee_ctx) {
++		dev_err(dev->dev, "Failed to get TEE context\n");
++		return -ENODEV;
++	}
++
++	ta_sm = (struct ta_pmf_shared_memory *)dev->shbuf;
++	ta_sm->command_id = TA_PMF_COMMAND_POLICY_BUILDER_INITIALIZE;
++	ta_sm->if_version = PMF_TA_IF_VERSION_MAJOR;
++
++	amd_pmf_prepare_args(dev, TA_PMF_COMMAND_POLICY_BUILDER_INITIALIZE, &arg, param);
++
++	ret = tee_client_invoke_func(dev->tee_ctx, &arg, param);
++	if (ret < 0 || arg.ret != 0) {
++		dev_err(dev->dev, "Failed to invoke TEE init cmd. err: %x, ret:%x\n", arg.ret, ret);
++		return -EINVAL;
++	}
++
++	return ta_sm->pmf_result;
++}
++
++static void amd_pmf_invoke_cmd(struct work_struct *work)
++{
++	struct amd_pmf_dev *dev = container_of(work, struct amd_pmf_dev, pb_work.work);
++
++	amd_pmf_invoke_cmd_enact(dev);
++	schedule_delayed_work(&dev->pb_work, msecs_to_jiffies(pb_actions_ms));
++}
++
+ static int amd_pmf_amdtee_ta_match(struct tee_ioctl_version_data *ver, const void *data)
+ {
+ 	return ver->impl_id == TEE_IMPL_ID_AMDTEE;
+@@ -103,10 +190,18 @@ static void amd_pmf_tee_deinit(struct amd_pmf_dev *dev)
+ 
+ int amd_pmf_init_smart_pc(struct amd_pmf_dev *dev)
+ {
+-	return amd_pmf_tee_init(dev);
++	int ret;
++
++	ret = amd_pmf_tee_init(dev);
++	if (ret)
++		return ret;
++
++	INIT_DELAYED_WORK(&dev->pb_work, amd_pmf_invoke_cmd);
++	return 0;
+ }
+ 
+ void amd_pmf_deinit_smart_pc(struct amd_pmf_dev *dev)
+ {
++	cancel_delayed_work_sync(&dev->pb_work);
+ 	amd_pmf_tee_deinit(dev);
+ }
 -- 
 2.25.1
 
