@@ -4,91 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50A69E74911
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Oct 2023 18:49:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8391E7490C
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Oct 2023 18:50:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 987DC10E1A9;
-	Mon,  2 Oct 2023 18:49:42 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2053.outbound.protection.outlook.com [40.107.220.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D23C210E078
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Oct 2023 18:49:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ey2vsOPyWFTdqWxaN0LELqQUILqWDp7kX74H4SA+av0IXyd3X43y5y32Us4doLSlnzGz6lanpee/NPliGioyimhzyS7cdrd5TF1Xx71Z4srd27BQk+djcF6c6deA1eHKFZXrbrwajoNW+qqUh8GWA/pQVAbhatKd0tircAmrEUyiQc+Qcr2qXMsJJLZGtYkFihqKdot410U5fFmoT4gB7X5jP5eZMyCJgBkjSWIwzZK2/H4rUK68+jcEF/BZ/kgzJSeUuzdrB08GsKAD1MBpb7pdOpVZhNatqUsjkA/aQIv2nimpp2b0AK/eQ67ONlkGTalj7SSny2CrfXz39SN5FA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I4hBOCs6J/xTgRpfTwjmBUSUFp3ZhMWfR25aIqpFXAs=;
- b=SRSZOFHoSunD6BBKswZedzM8HI/cmzaAJx2YAVENLSOUV5zcR28qVmSpnI/Sjr70chG59BjPH8Q15KxtMKrIKMP4mScr2nqph+CZvxxva5UVi9ku+KDfJ10SY+WOLITwxBOZYdnmbUyGeiZLkVfySfjP1rfzBRKhfpGZq9KIHIkGc+P++I9zeylgGKzhASVnSVYwaoOvYWlS2+IZ4sn80aBy+ccLRKJH2VoMzEJV2DB4Edx6VPmCpSFxMD0FToclhy98qmiQdDHft3fZBJ5ndfMMfv+P/aKChhNIIUy9Em7DZy/0p22SkWMmtGimiaNy3ZplRCt2DZKWIf8V8v4AOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I4hBOCs6J/xTgRpfTwjmBUSUFp3ZhMWfR25aIqpFXAs=;
- b=5Bwnd4979fg6CwtVQW1iupoMrsmRgMNkKeMPADpQs1rSQzqXmSvBvDpNFCLPcBC1vNkUTqsB4JFO0Pt/9WNYPQ3Kd/6V1nLxvga+GL4CyY+xkzQWQiGH2k0Ob9NLrP/4V3Alx8Bv0pqUCZ3C8N4pB9mHavtlS7/hg6uSeZbIRTU=
-Received: from MN2PR11CA0004.namprd11.prod.outlook.com (2603:10b6:208:23b::9)
- by PH7PR12MB6586.namprd12.prod.outlook.com (2603:10b6:510:212::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.25; Mon, 2 Oct
- 2023 18:49:36 +0000
-Received: from BL02EPF0001A0FB.namprd03.prod.outlook.com
- (2603:10b6:208:23b:cafe::f5) by MN2PR11CA0004.outlook.office365.com
- (2603:10b6:208:23b::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.32 via Frontend
- Transport; Mon, 2 Oct 2023 18:49:35 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A0FB.mail.protection.outlook.com (10.167.242.102) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.14 via Frontend Transport; Mon, 2 Oct 2023 18:49:35 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 2 Oct
- 2023 13:49:34 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/3] drm/amdgpu: fall back to INPUT power for AVG power via
- INFO IOCTL
-Date: Mon, 2 Oct 2023 14:49:18 -0400
-Message-ID: <20231002184919.77753-2-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20231002184919.77753-1-alexander.deucher@amd.com>
-References: <20231002184919.77753-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BBEE10E207;
+	Mon,  2 Oct 2023 18:50:07 +0000 (UTC)
+Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
+ [IPv6:2607:f8b0:4864:20::52e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D92789023
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Oct 2023 18:22:25 +0000 (UTC)
+Received: by mail-pg1-x52e.google.com with SMTP id
+ 41be03b00d2f7-578d791dd91so18621a12.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Oct 2023 11:22:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1696270944; x=1696875744;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=6vMwsjYrlAei3Hxc6ZjjNt+EO9kZEbPnxPSvxjTe6qw=;
+ b=YA5vJ2kOSGxG50joUtzSs/L4e15mwaXH4uM82nG4NZP+zmfW4Nm07LHBb+QkJz6r8E
+ BnDzVDPSszu9zqbF0CcnvWNAdTInvlwrqOdUx59bRd1Qkf6qULtXECxyJOWCJJ1EYRul
+ 6H9u9Dub2377LWy/8ErYzGzEMzcgGoDiBdOco=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1696270944; x=1696875744;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=6vMwsjYrlAei3Hxc6ZjjNt+EO9kZEbPnxPSvxjTe6qw=;
+ b=O1WadDQsHO68uWSNNdp1OXgJroY89OCFv+0z3BWb5bsYVxR9TTvDwiaqhjzKt2oK+t
+ /2aosBh5iT+5dnnr0kkvETNqDwnqWJTRROwj7kNpnIkdkIfWMp/mdhMplrntG+vJ2z7W
+ 24YgAya9R4ZB+7L+1Xc4JtoI7anKDaL9LQoe1x1oCxb/I9hK6TV1v6yOB556s9LWHiHu
+ r79aQ9qSdES5g+XtQOaHJzzyT16FIGwcTQTlkSbM+Khs2kLmfh3z6uUF7MrJ96VuhOES
+ Ef0EzF8tWk15qvSFdwHPNW1KdyspOxo/mjmv0zqkDEex9EX7bBB9eEhXGdu21PUMUD2o
+ u3Qg==
+X-Gm-Message-State: AOJu0Yw/DUwXvQaJWJ5g0TkHR/s+DDCKBI47/nxnRKl59vq2vhZ9c5tA
+ HMA8ajNzc9/B4g6/doIQxI5pMg==
+X-Google-Smtp-Source: AGHT+IFu7XIuUCGOlcsyNLly9unt/oHCJHSK53R4jpfqHFz2qYx70ADEn6oBAlKq5k57qw3fzv2Kwg==
+X-Received: by 2002:a17:90b:4a42:b0:277:3afc:f27 with SMTP id
+ lb2-20020a17090b4a4200b002773afc0f27mr561738pjb.1.1696270944558; 
+ Mon, 02 Oct 2023 11:22:24 -0700 (PDT)
+Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
+ [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
+ d12-20020a17090a498c00b0026b3ed37ddcsm6358499pjh.32.2023.10.02.11.22.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Oct 2023 11:22:23 -0700 (PDT)
+Date: Mon, 2 Oct 2023 11:22:22 -0700
+From: Kees Cook <keescook@chromium.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Subject: Re: [PATCH 0/9] drm: Annotate structs with __counted_by
+Message-ID: <202310021122.B6DA850FB0@keescook>
+References: <20230922173110.work.084-kees@kernel.org>
+ <169601600138.3014939.8511343741428844249.b4-ty@chromium.org>
+ <83cd056c-52ae-01dd-7576-42d41da64c26@gmail.com>
+ <CADnq5_Ma2CrLYggJHKFEObsNmUoqJwb2p1xai5DfL=m43U6zEA@mail.gmail.com>
+ <202310020952.E7DE0948C0@keescook>
+ <10644b5f-b0a7-85ef-0658-2353ee14df0d@gmail.com>
+ <202310021107.9BB46FB8E@keescook>
+ <0be2dfa4-b6c1-f62a-66e1-615da7aa3c76@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FB:EE_|PH7PR12MB6586:EE_
-X-MS-Office365-Filtering-Correlation-Id: e841b8ef-c64c-4688-a0f4-08dbc37852f6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: a4gEO12nfd7abvx0wYyGLfIb8la3oY+Soj5VpyqXmqixN8ABgwlMjnRfF7ZMOxAChMTumcPmK6Kc32YDDGS50HYFjZ70P3zqjLM1/MFEHqfBYqEZcJenoNCLNkLiCrCcx9kqcseCMBAJMWRAVYh8J/di7E979qkHQUQ9YVABMbw4V70ck2MLBGxehZoLuFuGpQkoXO4LWQzL8ON5XeJk14Zmlxkn6EeqBYxz4gaLv4697nobgaSau072mhk4PSFGxvXSsTsMuHygV5bNWuEXUJ6sGPo+cX2pyw1uTvPMTFgP0nbKSvmg0XiZua2L2D/noMK/7Ww3QiWIDnB9gEYk3PsZG8S2j81MBeNV1adCn6hJgHlpZ+XFFz8ubmH4oDEVOWGUlpwfCmNK8ktadM7is/AhlRZsUUXYFRqFaRtmuf46bNL18tosYoZ50LydUwtj8StB9MTtEQcODfsckZzaHqohCqCQrSOou/kHojqMO5dYDgXnraPMS2u2bGbefkwvH42tUifm3QspyjrN15aK6fsXiIYWDjLkAaa8QYj9VlnhI2F5VtS0ltqnHdV7FHFtnl/6wD+SHCiJ/NuT9dSXEcePXfrFBhTiPyZFTxwc0SHMh77fSIZYXLBth053STAnJNvjXteQl6Zl68jisb3vV88FdRLhkd0k/v4lYBivchWzD/p3mGYELVuduCVkKqTHBsu+0LkeiGopV/Lh58VzuPGcf2C/xlPq6ZhCIQvvriz230bpkwXwRqSOPrwGQtGm
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(346002)(39860400002)(136003)(396003)(230922051799003)(186009)(82310400011)(64100799003)(1800799009)(451199024)(36840700001)(40470700004)(46966006)(316002)(8936002)(8676002)(70206006)(4326008)(41300700001)(5660300002)(6916009)(36860700001)(16526019)(6666004)(966005)(478600001)(83380400001)(4744005)(7696005)(26005)(1076003)(70586007)(2616005)(336012)(47076005)(426003)(82740400003)(81166007)(356005)(36756003)(86362001)(40460700003)(40480700001)(2906002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2023 18:49:35.7975 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e841b8ef-c64c-4688-a0f4-08dbc37852f6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FB.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6586
+In-Reply-To: <0be2dfa4-b6c1-f62a-66e1-615da7aa3c76@amd.com>
+X-Mailman-Approved-At: Mon, 02 Oct 2023 18:50:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,37 +79,108 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>, Emma Anholt <emma@anholt.net>,
+ Tom Rix <trix@redhat.com>, linux-arm-msm@vger.kernel.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, llvm@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ Prike Liang <Prike.Liang@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
+ Karol Herbst <kherbst@redhat.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ amd-gfx@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Andi Shyti <andi.shyti@linux.intel.com>,
+ nouveau@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
+ virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
+ linux-hardening@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ intel-gfx@lists.freedesktop.org, Kevin Wang <kevin1.wang@amd.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Evan Quan <evan.quan@amd.com>, Sean Paul <sean@poorly.run>,
+ Yifan Zhang <yifan1.zhang@amd.com>, Xiaojian Du <Xiaojian.Du@amd.com>,
+ Le Ma <le.ma@amd.com>, freedreno@lists.freedesktop.org,
+ Bjorn Andersson <andersson@kernel.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Melissa Wen <mwen@igalia.com>,
+ Zack Rusin <zackr@vmware.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexdeucher@gmail.com>, Nirmoy Das <nirmoy.das@intel.com>,
+ Lang Yu <Lang.Yu@amd.com>, John Harrison <john.c.harrison@intel.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For backwards compatibility with userspace.
+On Mon, Oct 02, 2023 at 08:11:41PM +0200, Christian König wrote:
+> Am 02.10.23 um 20:08 schrieb Kees Cook:
+> > On Mon, Oct 02, 2023 at 08:01:57PM +0200, Christian König wrote:
+> > > Am 02.10.23 um 18:53 schrieb Kees Cook:
+> > > > On Mon, Oct 02, 2023 at 11:06:19AM -0400, Alex Deucher wrote:
+> > > > > On Mon, Oct 2, 2023 at 5:20 AM Christian König
+> > > > > <ckoenig.leichtzumerken@gmail.com> wrote:
+> > > > > > Am 29.09.23 um 21:33 schrieb Kees Cook:
+> > > > > > > On Fri, 22 Sep 2023 10:32:05 -0700, Kees Cook wrote:
+> > > > > > > > This is a batch of patches touching drm for preparing for the coming
+> > > > > > > > implementation by GCC and Clang of the __counted_by attribute. Flexible
+> > > > > > > > array members annotated with __counted_by can have their accesses
+> > > > > > > > bounds-checked at run-time checking via CONFIG_UBSAN_BOUNDS (for array
+> > > > > > > > indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family functions).
+> > > > > > > > 
+> > > > > > > > As found with Coccinelle[1], add __counted_by to structs that would
+> > > > > > > > benefit from the annotation.
+> > > > > > > > 
+> > > > > > > > [...]
+> > > > > > > Since this got Acks, I figure I should carry it in my tree. Let me know
+> > > > > > > if this should go via drm instead.
+> > > > > > > 
+> > > > > > > Applied to for-next/hardening, thanks!
+> > > > > > > 
+> > > > > > > [1/9] drm/amd/pm: Annotate struct smu10_voltage_dependency_table with __counted_by
+> > > > > > >          https://git.kernel.org/kees/c/a6046ac659d6
+> > > > > > STOP! In a follow up discussion Alex and I figured out that this won't work.
+> > > > I'm so confused; from the discussion I saw that Alex said both instances
+> > > > were false positives?
+> > > > 
+> > > > > > The value in the structure is byte swapped based on some firmware
+> > > > > > endianness which not necessary matches the CPU endianness.
+> > > > > SMU10 is APU only so the endianess of the SMU firmware and the CPU
+> > > > > will always match.
+> > > > Which I think is what is being said here?
+> > > > 
+> > > > > > Please revert that one from going upstream if it's already on it's way.
+> > > > > > 
+> > > > > > And because of those reasons I strongly think that patches like this
+> > > > > > should go through the DRM tree :)
+> > > > Sure, that's fine -- please let me know. It was others Acked/etc. Who
+> > > > should carry these patches?
+> > > Probably best if the relevant maintainer pick them up individually.
+> > > 
+> > > Some of those structures are filled in by firmware/hardware and only the
+> > > maintainers can judge if that value actually matches what the compiler
+> > > needs.
+> > > 
+> > > We have cases where individual bits are used as flags or when the size is
+> > > byte swapped etc...
+> > > 
+> > > Even Alex and I didn't immediately say how and where that field is actually
+> > > used and had to dig that up. That's where the confusion came from.
+> > Okay, I've dropped them all from my tree. Several had Acks/Reviews, so
+> > hopefully those can get picked up for the DRM tree?
+> 
+> I will pick those up to go through drm-misc-next.
+> 
+> Going to ping maintainers once more when I'm not sure if stuff is correct or
+> not.
 
-Fixes: 47f1724db4fe ("drm/amd: Introduce `AMDGPU_PP_SENSOR_GPU_INPUT_POWER`")
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2897
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+Sounds great; thanks!
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 081bd28e2443..ce71f853931a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -1077,7 +1077,12 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 			if (amdgpu_dpm_read_sensor(adev,
- 						   AMDGPU_PP_SENSOR_GPU_AVG_POWER,
- 						   (void *)&ui32, &ui32_size)) {
--				return -EINVAL;
-+				/* fall back to input power for backwards compat */
-+				if (amdgpu_dpm_read_sensor(adev,
-+							   AMDGPU_PP_SENSOR_GPU_INPUT_POWER,
-+							   (void *)&ui32, &ui32_size)) {
-+					return -EINVAL;
-+				}
- 			}
- 			ui32 >>= 8;
- 			break;
+-Kees
+
 -- 
-2.41.0
-
+Kees Cook
