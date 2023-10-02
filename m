@@ -4,115 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBD6AE7490C
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Oct 2023 19:09:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C897E7490C
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Oct 2023 19:27:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1C0C10E21F;
-	Mon,  2 Oct 2023 19:09:47 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on20611.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8b::611])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63F8710E21F
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Oct 2023 19:09:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCB8510E1A0;
+	Mon,  2 Oct 2023 19:27:45 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2067.outbound.protection.outlook.com [40.107.101.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57C5110E1A0
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Oct 2023 19:27:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EevCO914ndvu0+Mw9zrCd+2alhjcwXPr2XS8CUQVWA0QL4+CvCe3DxYSKQq3M+zEuTqSMKKq9VFj60xOz/ErYeclbdp2PC1BpH3qNPb7GEU4Z8KCsn9cePp0RAwjt5EMuRGywkNLXGlGUtsgWxOLdqED9CsmOmvb027oUt5wgF90Ztj25ti//BH6NbXn5U1it07EytIfFvowG6XsC0B+5C06H6SUuA4wB9na6pK6vSjPqR9W/qmj8iUqFtK9L6xzNi2R1fPhqibj+S8vPSsVCala0Gx8bJpkxlfTbVl8i8EM1XO5sRldOmVnLhgh56TyF/xAjTP+CnR8Gi95ugQSCA==
+ b=ALs9P7sRLtXAX0kAqQbntZPV2HKD0YJt0bL6dvm1QVPFoHwcpwkpJw5YvTyVYO/h1ulvQeHlW0RyCaTJlDxqPQvdbR1dJPvA0iAPsUK68SsJdqHKVydTJbZyQ4ITgbx13TDO/yi0BEG7PrJ6zm/GqmZJhqHWZfti+FVG/ktubbENDTjxfEk3Vj6QrlOS6+GN2pZ+h44J06nC2aZN1RfsxkBZi4gCQLnPP757chKZiRCkhG5h64i/+XsZ9m20q52tzrgrJAhK9sDbe14yexyQVTH4OaNakX/es1ZyF3tulCDlV2LD4nS1RrQRqf9OHjfdbqBeMf9T2LwyhoZoZD3y9g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=65D6DEqRC62x0IzGNyQSS8sz2RIkhR0zETD0ZMAGjdY=;
- b=GwxHeYjWUn/c4DnXltDAi5snwGQhBB8JlGDjEmnhwTIUNUOdSElWshlh3neNlEuTL7CuyrEhkEyFT6rqzMqffCz7S4etk7PqXl2qNt+3I/4gcWH+4yXEgz5vxImSb8s+dUVQ+Eko5FSrHv7DRaR28NLHmGoS3L7lpEjQdlLCe4VIka/gpW9ozikS0GcsOCejceiEvd53Ap/F7QLk/L/dGY8BtN7k2olhZeteh0gQtuhQ5JKgyJPWaecXDxYxrR0Q2vYwMU17J4H+9AJIfylbDkiTX++iBVi0xWnYGUATCTOgXzVMuFSjNK2R1TZIdMREh8/c/v0zGGf9AKKl4S8LxQ==
+ bh=RWst3jhdyR53Vux7uSCE7hEDp2vBMwm3sCpq2Mm6hUs=;
+ b=ekE1cXeYnX3wyLUCEZqb54Ah9XwjImPymLt8g/CLFI8F5x9hW9ZiSCA5wX+RqZH1Hmtndr3QuGpAG6yUVemLLx5TP+ZGNoUnyfr7x/7s8Xmx+UtzbGcBGdHATPSbAKVDm33IwZ8AKErtNaOWvQjr7uVV9W3OMxJgCre/p/2teqvMshzmvrv+Wx9U8IFrLZ+YMAH4ZAQtDyVcNdmGOKnYrAUmH+XyZAbRksRRMSbFJ4E6KoS17kvMwQ1GkBfpqoLga22zafoqrJ7gFPHZrNdkiPpOgymtsc/Rx8VUTKtIXw0BqC0wOSnJJHdjTI7VpxDCEvGcnguHDJxEImD9Nq0Cyg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=65D6DEqRC62x0IzGNyQSS8sz2RIkhR0zETD0ZMAGjdY=;
- b=VVcWgje/CjI8/N2+XCRuFe1eg4N2qPQQozcRNFXvEqyHGXWk/z/Qz7XM4SxjFfdq8gAsLSA+3SqJpanv++K6gF2d3mOKTsWisczlE3ZVy9H8aeymPAGzEtWASrrUhWaeqjqWrl1lvcM/zrgIfKWbWbCt29r9oeuq+wlc1VRD1mo=
+ bh=RWst3jhdyR53Vux7uSCE7hEDp2vBMwm3sCpq2Mm6hUs=;
+ b=Q+Qwtxgurz/HPFY2DfMSpo7Uqc0Qal9K3JaPQKwNlpLqS36C87gmX0pEb8lwnaZTMI+vTwsDwgGoxeIwxb0UPktXj8WX4miYn9UyQqfyYY7/OCECLivT33hEGnxTJD1ywm4A2/2f2dn4k+FwNHMdf7fScBujg1+NBatfdVxgTbU=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by DM8PR12MB5464.namprd12.prod.outlook.com (2603:10b6:8:3d::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.28; Mon, 2 Oct
- 2023 19:09:42 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::3e65:d396:58fb:27d4]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::3e65:d396:58fb:27d4%3]) with mapi id 15.20.6838.028; Mon, 2 Oct 2023
- 19:09:42 +0000
-Message-ID: <89fd99c4-04fe-4c5f-84c8-6f0eb00eb13c@amd.com>
-Date: Mon, 2 Oct 2023 14:09:39 -0500
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by CH3PR12MB7690.namprd12.prod.outlook.com (2603:10b6:610:14e::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.26; Mon, 2 Oct
+ 2023 19:27:38 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::2e40:ffd7:e752:644f]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::2e40:ffd7:e752:644f%6]) with mapi id 15.20.6838.029; Mon, 2 Oct 2023
+ 19:27:37 +0000
+Content-Type: multipart/alternative;
+ boundary="------------FEqx4sobcUDb70V2gEyGElLG"
+Message-ID: <3c56e437-b901-4d93-a3bb-1b788d1aba18@amd.com>
+Date: Mon, 2 Oct 2023 15:27:34 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [2/3] drm/amdgpu: fall back to INPUT power for AVG power via INFO
- IOCTL
+Subject: Re: [PATCH 2/3] amd/amdkfd: Unmap range from GPUs based on granularity
 Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20231002184919.77753-2-alexander.deucher@amd.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20231002184919.77753-2-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN7PR04CA0118.namprd04.prod.outlook.com
- (2603:10b6:806:122::33) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230929141115.10016-1-Philip.Yang@amd.com>
+ <20230929141115.10016-2-Philip.Yang@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20230929141115.10016-2-Philip.Yang@amd.com>
+X-ClientProxiedBy: YQBPR01CA0159.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:7e::19) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|DM8PR12MB5464:EE_
-X-MS-Office365-Filtering-Correlation-Id: 65ea8e9f-7a16-46ef-1e6e-08dbc37b21f5
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CH3PR12MB7690:EE_
+X-MS-Office365-Filtering-Correlation-Id: f037c045-d896-4652-8c5c-08dbc37da2ed
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PlWFCiNDb6/jkJSEELo4yk9LQQUBU74iGO/UmjxLXJ9+ZoD5FN7Hd7pT/awdpO6GSztvlAIp4YvIqt/tKxHORDGJfjjn8ucJwhnWdjAEuFoPSoVofDIUtFJEy9iVCeVoXyhwf7ur2c3qRC1+WMjx7/U66cvfC3anmYJewdDtzAQa8u9ygj0MgmHpbChjnXm9SaG8QP2eh1cWFCVtjBOVv+FyBs1sw12w4W6hSQJwZXyvtR+IGp3rAoLJDLfda5NxoZLWJkpXjyxDI00M/XEQFcRV9AYB0Gd0VLQJRGmcQ85KJ1iZ+ix1qS06CiSQjKBoQHRiUlrSIKCBqSGIkrgXC9l646CWPerismWqvj68OJLxqL7lniKgXTt/RdvOSyhon/QaUTM8hQHEFpDkIniQYzOh5I7HdnFFIwG/vXF+CMP008Vk7oIo0pz+j95XsbiNhJ0Zj59NFMXJ0nhMMuis1twlJ1LMB8f+A7oAHzZlcMmKTF2Ii6KH3pMaI9QlxfvEGLAmA1v667gpS3WSACLC9LdC853fMqDcO/2O3O/ZcLCCKhFaNd/rnVwt/lQ/8AX3saMrwDdwjKQx46TM3w5m3Re1JJUEZ8s1ebJ+pmXI+WOcZuzOUKHszT4+uXdTQZIx
+X-Microsoft-Antispam-Message-Info: QeALCPfR+Z56pCQtRiDqlwuv2nUiVoFkfDHyQOubGWKqWA9mUIY0CwMP+59gyvuoDKdrLK2wsl6s524c8TU7mkivB8D3EEXtdD2e9cn+lO7hiFkny+l6kkgJO1F0z2NKkOVKOb+boTBX1NoSdYst/k1gAKGi6Y4jxp7FuiafwnB7Ys/yCWVxzSJQavHBPTyrJdBcJddyNF/WYlk2LujA+zSrEZVbQPK2NvWuYNoLrF8ebuRDbfMnA7PPQWSS4SLsPIvOuqNU1stE+VzwPjq3yduj42JJY/r8+33M/WAHHaqlbo/JG7iot1NwbXopzSl3p/XyB44velYGrX5GliZs0TMxSLXk16XVueI4xa8g88PQ/eLUzUbU0TmGWVIYq/WEA2HuP/7IUd2Kd0Axh8jmTrjUUjTgKOHV4v5xbHKJJYA2vVIgJnbip7TXFml4oN2l28rRZ/udGLqXTAzmMZilLAXwpv6a1rsBjX7IopUmd2OQKMebuVh/O+IUPuIGFYAWrFAdfP3EAb5sQ/2jM9e9MO6kBZlmjswj8HaJ88sIK8o1U5eec5d01dM/VtJkdNF8LDWmnmWG7zMRtfNwG5UCrSD0l69CFSHHiUdGMYsQ27Yptj+J+XgbowcNZH4ERMW84X2iSoqW+5xTTSp2EpCmUg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(396003)(39860400002)(366004)(136003)(376002)(230922051799003)(64100799003)(451199024)(186009)(1800799009)(83380400001)(2616005)(26005)(36756003)(38100700002)(86362001)(478600001)(44832011)(6666004)(31696002)(41300700001)(8936002)(31686004)(8676002)(5660300002)(966005)(6486002)(6512007)(316002)(2906002)(53546011)(66476007)(6506007)(66556008)(66946007)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376002)(346002)(39860400002)(366004)(396003)(136003)(230922051799003)(1800799009)(64100799003)(186009)(451199024)(53546011)(6512007)(2616005)(6486002)(6506007)(33964004)(8676002)(6666004)(316002)(66946007)(26005)(5660300002)(44832011)(66556008)(41300700001)(8936002)(66476007)(83380400001)(86362001)(31696002)(2906002)(38100700002)(36756003)(478600001)(31686004)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bU5BR2N4dGhmYkpUWExydGlncW93K1BKZGxTR1c1NjJGQ1lhbEs4Z3k0dEJl?=
- =?utf-8?B?eXQxUnJKUjJzdW5EeDQ4YTdhYkE4bzBaMndoeEZqYncyK0ttczZpN2ZiMGp4?=
- =?utf-8?B?bG5uSWlyVE9NbnpXMFZPZUdPb0ZDb0RLd2xqdURpY00yZEJaRFE3ck5IK3NF?=
- =?utf-8?B?eW55YzJFMk51eEdjeFdSazR1MmhnRXlNaXV6RTR4TVN2ZnU4WHhrY2wyR3R6?=
- =?utf-8?B?YmhoUXV6dzdhenZrbTBHakQwM1lUR0RjeXpWV0VweC91YjVuL3VZcjgyYUUz?=
- =?utf-8?B?UGtMclplNWtzR1ZuR0dKVkZ0a3czZ1JGbDM2RlJwc1Zxa29ySkRWVWx1MEVs?=
- =?utf-8?B?SjBZUzlTekZQK0VVc1hmb3lkWnR0bzBIN05WRnhnQ3JOZ25qL0NDT2FGU1lV?=
- =?utf-8?B?MSt6cTI4TCt0dnA3aFdQd2Q2RzU1YzNJRlJWdjVxUVl4THVhU3NHK2pGZCsr?=
- =?utf-8?B?U2VNSDduWktCYjdlckxmdUpCVmQ2alJYN3E3a1B0bVVaVFh5M2xMcjFuZFEw?=
- =?utf-8?B?R09tZkRteDdFNWdIT0VqQ0lRRysvZnFTMkZnRFJLWmdIS3IvUkpxWUtnb1Zv?=
- =?utf-8?B?VTdlbjhPOWF2dEY3SnRzYVQ5b25RcStOSmFrNTllNmFEaWpXVGZUdTZ2MW1j?=
- =?utf-8?B?cmhla1JmTUNRVHFGU3JzZ0QwWTY4UTh0c1JxcmQzRE1IR3IxYnVxR2o0TDRz?=
- =?utf-8?B?R0RaSThiNXBaYVFFckQyempqQmtXSVpqT3hiTzRERWJIMFhCZEJWbWoyVkpN?=
- =?utf-8?B?TCtRUEZ1azlBNkhvc0dndUJ0d290M1hRY25QekZVOGRpVHBNZjViYXJHbVJl?=
- =?utf-8?B?Z1p0dzR6OU5sVmppSGpWM1h2amNURm5NUkpMeFJRaksxWVZkN3IzWDk0amtB?=
- =?utf-8?B?RmhJWUI5VDJBRHEvVHRwdUhIRjFWeDY5TFZadjZpbVZobU1pbW9DOFVZY1R0?=
- =?utf-8?B?WjRKR0N5Mi9adkxIZDZPV2JEY3R2UzJ5QitPWHU0MmxqYmJzMlB4L1ZUSU5o?=
- =?utf-8?B?aE5NaFlhSytTN2NxOEhLT2h6MmtOdGhtSitvQ0RkT1h4OWFCZzVmM1BVemlZ?=
- =?utf-8?B?WFJYTHo0Q1UxYzUyQytNU0pCOXVZdCtZZWVFMk9xV2piODRVcXBDNEdZNk1J?=
- =?utf-8?B?anhqRjFQbEg4Ky9DVmc2UFdsRFB2bzNwK3pqazVSc25OaWxRS3VZcnJQcjFk?=
- =?utf-8?B?ejZ3aG5TbGx1REd6em40SGV4RVZmRUZxd2oxSDZKMEh2NTRLT0NHeEZSTEd5?=
- =?utf-8?B?WUU5dm5qYmk2b0N2TCsxQ0MxSnV5Ym9vSHI0RjVpT2ZkaHBmbGZrd2ZKalVs?=
- =?utf-8?B?YmRvMTRwZlh4Y2NyWkZSeTlHbnhhbEEzM1RtWnpSajVnZ3NQVDNWYVp1cW1X?=
- =?utf-8?B?RHBZeFdTS3ZRRU1qdklkQlRlTHBPZTg5UjlzcFJNemY1UGt0eEVaOTZJWmxt?=
- =?utf-8?B?clZqNzNqTWRhVWtET3JpeTVoMm10S1pLWU1GQjBmUmlhV1IwYjR3TmgyMGhz?=
- =?utf-8?B?OTNBNGY1RlFXckNvZzdWeE9hNjdYYStwVXF6a2gzQ1cyamV5a2FhZmE1d1pV?=
- =?utf-8?B?ZjdMQ01UKzBMY0x1NmNQbE1PS0Q5cHNsRG55NDFaT3B1NCtRVC90blg5ZXZM?=
- =?utf-8?B?ZnJUKzBRNDNYcjY5VHBMZi9oa1VOMG94TmFaWUZ1UVVTZ2dweC9oWjNsak9o?=
- =?utf-8?B?RnlWYUdKRzdkRU5QZWdtTjY2UU5PcUZiT3VWQ0hhMVBzMEpHS2NPa0pJS1Yr?=
- =?utf-8?B?V1M0ZWlVYUVwODNoMDVBUHJISFVwbWdscU5nT3Qzb1lrS25BY09zcHErNGVp?=
- =?utf-8?B?UnVTZW00VXA5eFo0M1pTRzFCZ2dPRTFFaGF0UmRRcDFhMDR3ZjNHdUFZQmFG?=
- =?utf-8?B?aTBOTjltcHZobFlIVXpDbDY5dnhhVUNtcGNoWFN5dnBhcXU2NFkrU2ZsNDJT?=
- =?utf-8?B?Wi94K1d1dmpkQk5iOVpNaFdCS3VYSHNYY2hLVXZqencreTZGMSs1SlBCdFFu?=
- =?utf-8?B?NFA5Q3Jyd0hYbGE2cVVleWEzaVN2VEtZTWp3K0lzT0ZxQUVZRlkxaElPRzhZ?=
- =?utf-8?B?MUp4cmxzRjBTWWNkZWFUZmxZbUpoWWliYUJpd29xK25mSnM5cG1SOVlibnpP?=
- =?utf-8?Q?e7EkdZzb84r8eW1NAiwQgDLAm?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TFZjblRQVlkwcXZoZ2dxYlZmdWZzcmc4Z2t5b211R2h6c2dQU0ZWZ0VaVG9R?=
+ =?utf-8?B?cTZjc3daZ2ZubjdxalFPc2V3KzlneC9wQTlKRjRWbnZYaXR3ZzBFWjcwM2ZY?=
+ =?utf-8?B?bnQrL21jSmdObXUzcUc0SUhsSXBMOUtiL3RreUUrWDlrQzRlRWVUS2lMQlA1?=
+ =?utf-8?B?SXBGbmhaei83Tzl1TGdFdW5SZG9JczF3RTVkMFd1UGR0T0ovbVAyaEs2bFlU?=
+ =?utf-8?B?TFhKY3k5WUkwV2VDSkVzNm9jNE5QMy9yNVhFQ0FDMHo2VlZwaTFZN0RGRmxq?=
+ =?utf-8?B?L1RaR05XV0hEOC9kMkxDeFh1TGdrS2lqQmhzRVZtcnIzL2RGRmJrWkZ0Nmc0?=
+ =?utf-8?B?WE5WWW1EZUcvbEorRFVCeHdzTUpIWjUrbDJVM3hremdITmNjczNrZWFwSG4x?=
+ =?utf-8?B?QjU4L08xRzd4QTl0RzF2ZUdnd09nLzhTdERmcTV3dWJhZ2VmNHMzQVZQTnRM?=
+ =?utf-8?B?bVRzQ0M0Q1lZV2pqNHpKSSs2N0JLNnV2QTZuazJoaDdLaVBNQVZkOEFQUzI3?=
+ =?utf-8?B?RTJBZGMwUUZlWkRTN3cxelNLNFFnSktqTTBnckxCUUhmcnJNMkYrVUh2aWhh?=
+ =?utf-8?B?ODBhWFFndUFNdmNPcS9ka3FHbTlUcVluUXF0UjR4Z05GaDc3RjRKTnUrK3Bt?=
+ =?utf-8?B?ZGFkWExMSHFBWTRDdVJ2Q05nTXR3UmE0VGV3bzBwS2QxdzdOVmtGKzRlZnM1?=
+ =?utf-8?B?bEgwWStBcFN0aTFHUTlSSHJlRmlNK3pia2V6UEs5N0crN3J4TG5NdmxTR3hl?=
+ =?utf-8?B?L1BMZnBuSThLVXlzczhJNXRYK1dIMDVNN3p6S2hORHVhT0IvQ09QVEZ4N2Rr?=
+ =?utf-8?B?SEE0Z2VVYjlCanpVUWppUjY4T3p4ZXpEbzZTcEhsUGM5UlF5dWx3S2oyOXdy?=
+ =?utf-8?B?Z29pWmdHRlBJb0FlaG9yVFVIYlRieFpsZEY0aUU5UmpwZ09HakpXR3liZlhY?=
+ =?utf-8?B?VmMvYTZVeWxtMGh4RmJhNVhNQU1zQUxUNnhHd1pMejJFZ3ZZemNlaXVVQkd4?=
+ =?utf-8?B?eGEvdFNSbkxmbzh3K1FYYXF4M0ZqNFJMb01Xanl5QTYydWtpUEgxdHlvY1JJ?=
+ =?utf-8?B?UUNxNVJiNTFoc1krMzg0QUM3ZlUyTVlRLzFWTlRVcVV4N2xkRUdOdzhMeDcr?=
+ =?utf-8?B?Rjk5SkUvK1hXNmkycjRwMHozN0MvS2Vsa3FZVGVZZHFsVURnQkhLanh3Ukgw?=
+ =?utf-8?B?TzZ6Tm1mSmtCYURJekFxbjB3Y2RBaVppZklhQUpWcUZFUmVWN3FuT1VXbzhv?=
+ =?utf-8?B?M0pNQ1lwTmFnaklOVlR2RHVzaUlVUVFzVnJHTmpJT1d4bmRKL3luOTBkeHhi?=
+ =?utf-8?B?djZ2a2psNEoyc3JkbVpSS3lDZWRwQXJiYU1ub255U3pVSy9JaVRLcm9IM2x3?=
+ =?utf-8?B?TWVMemRmQU9hbE5reHNHYjVkUUYwWUFpNEVSY0Fsa0RxTE5nUWdiTjZVa094?=
+ =?utf-8?B?TEQ4MXAxbi9IMVc0bWMrRjhjK3RjRXN0Sk95MnozKzBxQU5jSUorbng5a05i?=
+ =?utf-8?B?U2gwREx4MXMyR1RnYkJFWC9CTWVTaUNzSk5ZZ3J3eU8vWm9wU2lJSGl1d2ph?=
+ =?utf-8?B?ZTVmOUtKeXgrZUdVYzZ4d3dYYjFCOHNEZmZFRXhiVlJ1YjgxT0E0OHFheTNC?=
+ =?utf-8?B?L0lqbFRTZHNzbCs4aWUwWnFQaFJnd0NoTGhzeXIwV0NBSGMxeXVhdzRoTUNQ?=
+ =?utf-8?B?TkFBNVBMckNlTmhsSHdzeDFPWHdqMlh5YnJYdUYxZVJDaTBmU2hSTDFXUHpJ?=
+ =?utf-8?B?TWpzd1J1Ky8rR0g4OXVVcEV4SnhEOVZBdTVGSEFvY1ZUMVk2RUR4US9iUEkz?=
+ =?utf-8?B?MTRNdjViOTI3VGR5d3B5MUhteVQrNERPSXJlc21FU2d6WEdsYkRQWnl2SGhJ?=
+ =?utf-8?B?RFphZ1EvSlhlaEhXWEl4WmY2UmQ3UU1NZFlhVkNJVTRCWHgwTnU1dmpEeDQv?=
+ =?utf-8?B?K1g4ekkrMlE1QzBiZ0xHdEFhelVGc2NjZ3FXaXFwaWpBd0dxSEhsTWh0aW5u?=
+ =?utf-8?B?MEZINWhpVm5maE5jN1E0ai84MENPdkVzeDd3OVB1SUc4K0g3OUIyNjI3bDUw?=
+ =?utf-8?B?TjRtOUM2bWNNbmtKNGN1S2RzYlp6RU54T1BQYlZubWF0VkZMTWorREU5ZzEy?=
+ =?utf-8?Q?z14wQtESyie2mrWw91ChPFxRJ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65ea8e9f-7a16-46ef-1e6e-08dbc37b21f5
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f037c045-d896-4652-8c5c-08dbc37da2ed
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2023 19:09:42.3181 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2023 19:27:37.6434 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Pdjr+6OhHogQPMFeHjg+jEFTjde7DApnhrPfxUgY1SussPssyrZHNl+yAJfoRgyLaX43se7U924JLgg5UYQN0g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5464
+X-MS-Exchange-CrossTenant-UserPrincipalName: kX6zNuTSIid5qId6WewFfDmM0xQp6jEVwXdGD4MXwvg0+Q7uMX8NDQ4LcZGpbiExBqdqt0NzcvqTkUlajrqXbQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7690
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,36 +126,215 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 10/2/2023 13:49, Alex Deucher wrote:
-> For backwards compatibility with userspace.
-> 
-> Fixes: 47f1724db4fe ("drm/amd: Introduce `AMDGPU_PP_SENSOR_GPU_INPUT_POWER`")
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2897
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+--------------FEqx4sobcUDb70V2gEyGElLG
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+On 2023-09-29 10:11, Philip Yang wrote:
+> Align unmap range start and last address to granularity boundary.
+> Skip unmap if range is already unmapped from GPUs.
+
+This only handles unmap due to MMU notifiers with XNACK on. What about 
+svm_range_unmap_from_cpu?
+
+Regards,
+   Felix
+
+
+>
+> This also solve the rocgdb CWSR migration related issue.
+>
+> Signed-off-by: Philip Yang<Philip.Yang@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 7 ++++++-
->   1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> index 081bd28e2443..ce71f853931a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -1077,7 +1077,12 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->   			if (amdgpu_dpm_read_sensor(adev,
->   						   AMDGPU_PP_SENSOR_GPU_AVG_POWER,
->   						   (void *)&ui32, &ui32_size)) {
-> -				return -EINVAL;
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 35 ++++++++++++++++++++++++----
+>   1 file changed, 31 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index 626e0dd4ec79..ac65bf25c685 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -2004,6 +2004,26 @@ static void svm_range_restore_work(struct work_struct *work)
+>   	mmput(mm);
+>   }
+>   
+> +static unsigned long
+> +svm_range_align_start(struct svm_range *prange, unsigned long start)
+> +{
+> +	unsigned long start_align;
+> +
+> +	start_align = ALIGN_DOWN(start, 1UL << prange->granularity);
+> +	start_align = max_t(unsigned long, start_align, prange->start);
+> +	return start_align;
+> +}
+> +
+> +static unsigned long
+> +svm_range_align_last(struct svm_range *prange, unsigned long last)
+> +{
+> +	unsigned long last_align;
+> +
+> +	last_align = ALIGN(last, 1UL << prange->granularity) - 1;
 
-In order to encourage userspace software to move to the new dedicated 
-IOCTL, what do you think about having a dev_warn_once() here?
+I think this should be
 
-> +				/* fall back to input power for backwards compat */
-> +				if (amdgpu_dpm_read_sensor(adev,
-> +							   AMDGPU_PP_SENSOR_GPU_INPUT_POWER,
-> +							   (void *)&ui32, &ui32_size)) {
-> +					return -EINVAL;
-> +				}
->   			}
->   			ui32 >>= 8;
->   			break;
+	last_align = ALIGN(last + 1, 1UL << prange->granularity) - 1;
 
+Otherwise you're off by one granule when (last & (1UL << 
+prange->granularity)) == 0.
+
+
+> +	last_align = min_t(unsigned long, last_align, prange->last);
+> +	return last_align;
+> +}
+> +
+>   /**
+>    * svm_range_evict - evict svm range
+>    * @prange: svm range structure
+> @@ -2078,6 +2098,12 @@ svm_range_evict(struct svm_range *prange, struct mm_struct *mm,
+>   		unsigned long s, l;
+>   		uint32_t trigger;
+>   
+> +		if (!svm_range_partial_mapped(prange, start, last)) {
+> +			pr_debug("svms 0x%p [0x%lx 0x%lx] unmapped already\n",
+> +				prange->svms, start, last);
+> +			return 0;
+> +		}
+> +
+>   		if (event == MMU_NOTIFY_MIGRATE)
+>   			trigger = KFD_SVM_UNMAP_TRIGGER_MMU_NOTIFY_MIGRATE;
+>   		else
+> @@ -2085,16 +2111,17 @@ svm_range_evict(struct svm_range *prange, struct mm_struct *mm,
+>   
+>   		pr_debug("invalidate unmap svms 0x%p [0x%lx 0x%lx] from GPUs\n",
+>   			 prange->svms, start, last);
+> +
+>   		list_for_each_entry(pchild, &prange->child_list, child_list) {
+>   			mutex_lock_nested(&pchild->lock, 1);
+> -			s = max(start, pchild->start);
+> -			l = min(last, pchild->last);
+> +			s = svm_range_align_start(pchild, start);
+> +			l = svm_range_align_last(pchild, last);
+>   			if (l >= s)
+>   				svm_range_unmap_from_gpus(pchild, s, l, trigger);
+>   			mutex_unlock(&pchild->lock);
+>   		}
+> -		s = max(start, prange->start);
+> -		l = min(last, prange->last);
+> +		s = svm_range_align_start(prange, start);
+> +		l = svm_range_align_last(prange, last);
+>   		if (l >= s)
+>   			svm_range_unmap_from_gpus(prange, s, l, trigger);
+>   	}
+--------------FEqx4sobcUDb70V2gEyGElLG
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <div class="moz-cite-prefix">On 2023-09-29 10:11, Philip Yang wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20230929141115.10016-2-Philip.Yang@amd.com">
+      <pre class="moz-quote-pre" wrap="">Align unmap range start and last address to granularity boundary.
+Skip unmap if range is already unmapped from GPUs.</pre>
+    </blockquote>
+    <p>This only handles unmap due to MMU notifiers with XNACK on. What
+      about svm_range_unmap_from_cpu?<br>
+    </p>
+    <p>Regards,<br>
+      &nbsp; Felix</p>
+    <p><br>
+    </p>
+    <blockquote type="cite" cite="mid:20230929141115.10016-2-Philip.Yang@amd.com">
+      <pre class="moz-quote-pre" wrap="">
+
+This also solve the rocgdb CWSR migration related issue.
+
+Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 35 ++++++++++++++++++++++++----
+ 1 file changed, 31 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 626e0dd4ec79..ac65bf25c685 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -2004,6 +2004,26 @@ static void svm_range_restore_work(struct work_struct *work)
+ 	mmput(mm);
+ }
+ 
++static unsigned long
++svm_range_align_start(struct svm_range *prange, unsigned long start)
++{
++	unsigned long start_align;
++
++	start_align = ALIGN_DOWN(start, 1UL &lt;&lt; prange-&gt;granularity);
++	start_align = max_t(unsigned long, start_align, prange-&gt;start);
++	return start_align;
++}
++
++static unsigned long
++svm_range_align_last(struct svm_range *prange, unsigned long last)
++{
++	unsigned long last_align;
++
++	last_align = ALIGN(last, 1UL &lt;&lt; prange-&gt;granularity) - 1;</pre>
+    </blockquote>
+    <p>I think this should be</p>
+    <pre>	last_align = ALIGN(last + 1, 1UL &lt;&lt; prange-&gt;granularity) - 1;
+</pre>
+    <p>Otherwise you're off by one granule when (last &amp; (1UL
+      &lt;&lt; prange-&gt;granularity)) == 0.<br>
+    </p>
+    <p><br>
+    </p>
+    <blockquote type="cite" cite="mid:20230929141115.10016-2-Philip.Yang@amd.com">
+      <pre class="moz-quote-pre" wrap="">
++	last_align = min_t(unsigned long, last_align, prange-&gt;last);
++	return last_align;
++}
++
+ /**
+  * svm_range_evict - evict svm range
+  * @prange: svm range structure
+@@ -2078,6 +2098,12 @@ svm_range_evict(struct svm_range *prange, struct mm_struct *mm,
+ 		unsigned long s, l;
+ 		uint32_t trigger;
+ 
++		if (!svm_range_partial_mapped(prange, start, last)) {
++			pr_debug(&quot;svms 0x%p [0x%lx 0x%lx] unmapped already\n&quot;,
++				prange-&gt;svms, start, last);
++			return 0;
++		}
++
+ 		if (event == MMU_NOTIFY_MIGRATE)
+ 			trigger = KFD_SVM_UNMAP_TRIGGER_MMU_NOTIFY_MIGRATE;
+ 		else
+@@ -2085,16 +2111,17 @@ svm_range_evict(struct svm_range *prange, struct mm_struct *mm,
+ 
+ 		pr_debug(&quot;invalidate unmap svms 0x%p [0x%lx 0x%lx] from GPUs\n&quot;,
+ 			 prange-&gt;svms, start, last);
++
+ 		list_for_each_entry(pchild, &amp;prange-&gt;child_list, child_list) {
+ 			mutex_lock_nested(&amp;pchild-&gt;lock, 1);
+-			s = max(start, pchild-&gt;start);
+-			l = min(last, pchild-&gt;last);
++			s = svm_range_align_start(pchild, start);
++			l = svm_range_align_last(pchild, last);
+ 			if (l &gt;= s)
+ 				svm_range_unmap_from_gpus(pchild, s, l, trigger);
+ 			mutex_unlock(&amp;pchild-&gt;lock);
+ 		}
+-		s = max(start, prange-&gt;start);
+-		l = min(last, prange-&gt;last);
++		s = svm_range_align_start(prange, start);
++		l = svm_range_align_last(prange, last);
+ 		if (l &gt;= s)
+ 			svm_range_unmap_from_gpus(prange, s, l, trigger);
+ 	}
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------FEqx4sobcUDb70V2gEyGElLG--
