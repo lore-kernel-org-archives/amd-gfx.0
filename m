@@ -4,115 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 379BAE784BF
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Oct 2023 15:45:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79666E743C3
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Oct 2023 16:01:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABA6B10E2DB;
-	Mon,  2 Oct 2023 15:45:07 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2061.outbound.protection.outlook.com [40.107.243.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF0D110E2DB
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Oct 2023 15:45:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UjNHI1wt0ieuNPrPiZxqsNB4nupD4LN3F6veRwXMKfIYNmH7SYtAIDM6aDsY2EKXafKsuNPIxx6c2YlGbEddM+7pYgDNMJOexY1WAsdhItybxGTS/jAq4UqVh58IJjR/U8e3KHsOvpj5pOtSwkRtjSwL6t7mEPcX/IEGC/okBq8QZQC+xl6QnnX0Ku+pAK+bUQItzKIpdPy0ozt8bxtuDUdz0ENKBQRVYyizPj9yleaEwykBMxt3097XgS+4f6nZcDKY3dWfIsxvxeAMG+x7hnmL5km6yeyz4AzxicigbTTI0hfl3WUB53+xq/1+TvpNbOnNLP0yGF+gias6/gUh2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Hxv/DpptJSOd0M6MzPZkOkfXLv+b0UmBbY/j4M/nFjw=;
- b=LXl0TFobiC/XgCN2dJy6ZG0t7mwEoM7uHD0iaLyK726LIbTU/x/smcFPCVy5thu93wkpEtlJ48Lhumz+WyGmFKgjVqms415n5OwEKWh/fm3x1BhJa9dU5OtnlYtIlw/qgnuTIgRNtRQXItVTl+EsZgdAB8vNI0kslNAG6xty6wQ3pRxRaL7I3wMcU7vR9+BFLF4qLDbrKXn7Lifo3Py0xmSHsBNwXnQv6xa/yFvkwBzvySVBDIfeJqJlusDBBuiNWr/iVRMs68aziGEXpI9lC16tw/1mVZI/JYyyJm96Kz7MNwnmcTUKSbBnG6l13KWVbyXW/f2haFvG8AZmpm4s0Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Hxv/DpptJSOd0M6MzPZkOkfXLv+b0UmBbY/j4M/nFjw=;
- b=wGnqU60D/RqDQat9PTcVAcot2G2vGbcmFDzvMP3SpJxmHoOFEkYcExCSULPBP356JjCiHmf0ycw5XrB0aOzNw086kDbsOIswf2IgOBZUBuaW2uMx0uLho25RfKGDt1fQA4X+xdmGskZSRGjZU9rQwFL4SQlUU1/GTQlZs/uo2FM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS7PR12MB5933.namprd12.prod.outlook.com (2603:10b6:8:7c::14) by
- SJ1PR12MB6148.namprd12.prod.outlook.com (2603:10b6:a03:459::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6838.28; Mon, 2 Oct 2023 15:45:02 +0000
-Received: from DS7PR12MB5933.namprd12.prod.outlook.com
- ([fe80::d192:af9a:25fc:4945]) by DS7PR12MB5933.namprd12.prod.outlook.com
- ([fe80::d192:af9a:25fc:4945%7]) with mapi id 15.20.6838.028; Mon, 2 Oct 2023
- 15:45:02 +0000
-Message-ID: <ce2d3e80-dcc5-2e27-2489-3fa7dc720e82@amd.com>
-Date: Mon, 2 Oct 2023 11:44:59 -0400
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Subject: Re: [PATCH 2/3] drm/amdgpu: Initialize acpi mem ranges after TTM
-To: amd-gfx@lists.freedesktop.org
-References: <20230929181856.2311515-1-rajneesh.bhardwaj@amd.com>
- <20230929181856.2311515-2-rajneesh.bhardwaj@amd.com>
-Content-Language: en-US
-From: "Bhardwaj, Rajneesh" <rajneesh.bhardwaj@amd.com>
-In-Reply-To: <20230929181856.2311515-2-rajneesh.bhardwaj@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0253.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:68::15) To DS7PR12MB5933.namprd12.prod.outlook.com
- (2603:10b6:8:7c::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C711410E2F0;
+	Mon,  2 Oct 2023 16:01:25 +0000 (UTC)
+Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
+ [IPv6:2001:4860:4864:20::36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1961510E2E1
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Oct 2023 16:01:23 +0000 (UTC)
+Received: by mail-oa1-x36.google.com with SMTP id
+ 586e51a60fabf-1dce0f9e222so7652665fac.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Oct 2023 09:01:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1696262482; x=1696867282; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TdGgwwh6aHB2XdpPMIDtNb06d4V5P70EUQKuSIkabZ4=;
+ b=e7Ys7sm+hYwUf0WmqsDPoFSDS+5OHIrZsvaba4TuBXV+vWrTKflEDdZh2Z69eQLFq4
+ jLthlO3P1wYXhQzsgtG+eRWN1O6k6cT4Lc1lpxm5QVXnthTi9Vug7cZ542CzqTOSDF4K
+ pBotSScsTEvgw8hFl1fZV5ecaiTJ3QIcE9Y8a2IyfBE7kEDkdLQFb5290Mxqe35eSaRV
+ ZYepN2qwUyLX2To/M/EXOUtq9cprI54P3RlfQ4qLWS0T4kDLSJcHea4gR5x8DgD5N8wZ
+ 4OqYoytiqGHHZhEAPEg4Dqp4UJQjTvmwp51hRFlFNYYOPEOgdHnD9hyp+bLLxfGc8LL3
+ Ehzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1696262482; x=1696867282;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=TdGgwwh6aHB2XdpPMIDtNb06d4V5P70EUQKuSIkabZ4=;
+ b=St5NraxGcJ7y1xMYoeU6zwqLdxUOii9Tf8gWxtNLQDonOgpSC74c/N90JlqEvHAGBC
+ eV7TWF4XHBhvP3M1Ik4rOju6nd7Q7ViIhQfNNcVQk7dUTX3u0j6Y2XS5W+fe1hO6I18D
+ 47Rh5khkoCSsPdvfEHEouDgGVxNsQMNkX6sFQ5DpsFLXUjFnLZ6+Pd4un8Vooyuk2Frt
+ 8u7K3ZhcvykNprabng55j/C7QrKnZQW2eLuBz6vo41S0qDD34Kd4DdOhWJFndmhv1XV9
+ kTnbYD0wgFMbUI+5ubXKBhz45CsRpUTLZmBV0XlG1OcWZEafHRG+8oo9vhcJX99bp7yi
+ UnUg==
+X-Gm-Message-State: AOJu0YzHaXFroFMcR4MzFjt9s+wS8ZWoMMWCButESnawkoemkSVYpfKf
+ nLfBQvD3S8MJyHCFIadmUMlnJSEe0ThswrnXLudwbC2t
+X-Google-Smtp-Source: AGHT+IEV3hUM6CwbaeKE2M8mYj+CMkXeJ7ypi03ETt7/G9l/nZnacumHA/I+urq34oY2Q1qDGhvlXtXQxrnse3DG1lU=
+X-Received: by 2002:a05:6870:8196:b0:1c4:ee87:d3f6 with SMTP id
+ k22-20020a056870819600b001c4ee87d3f6mr15527317oae.50.1696262480553; Mon, 02
+ Oct 2023 09:01:20 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS7PR12MB5933:EE_|SJ1PR12MB6148:EE_
-X-MS-Office365-Filtering-Correlation-Id: f7735f07-9515-4be4-7abe-08dbc35e8a9a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OJROp1gEKCP6eNhAQDshSD+pGm6zEIoymbo7W+/FQFkTftiFjMYcZUvL24vDukq9BFLmkDVFKEI80flLKSe3g8l3KcPnjMQfxbrxyYflMbp4cy3tl2wHmvVGuDsCckPxjRMczs1sYhWiZypGhvmU/B9QeYRayyng7vYcuB090CUdIIa64XYiIL1Rz8fjyySqBt6R3Br2+MPW99zVqly4Fvp9F3BaC/Ggxn4jYsSQzcPFrI6TEyEnglXJlyAcJ2udATSe9zMU1NEY6ClA4r13bRh+zsmVjnQIRGpACmZbQpDADVj1iLxygj0cTon+3Mb+KpstfAc1o7G1Scuw/HQQ7R/90fe+hc6CumrtsoJCVWqqTJyuYCY6V/t4rJXjInyTbs6sz7uyC7Zjv8qWeaMtrS9fTBnwfMYvQjdyyHFy1PEngGQSRoPBNPfy352WgftJsyE9Kp2ywyo1ulTrfiSf+9reH3eokkFekrFyg8jRMhk8lDCJcFxZSchjMQehCxhXK1xgqaBC92xZBmrsAdxwI4pSqcdCV44zm0M0+13ojhUASAkVjkq6wFh5PMFTTzaL1kjyPBQ7BWZ6r4z0ZTsYV3czmDLpXT1CyukglvHr30PXqb81Yp3k+cWZXOvATp3SaNJAwVkvB15HxFV6kggcoA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB5933.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(366004)(136003)(376002)(396003)(346002)(230922051799003)(64100799003)(186009)(1800799009)(451199024)(2906002)(31686004)(86362001)(5660300002)(83380400001)(8676002)(4326008)(31696002)(8936002)(41300700001)(26005)(36756003)(66476007)(66556008)(66946007)(6512007)(478600001)(6486002)(6506007)(53546011)(6666004)(6916009)(2616005)(316002)(38100700002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R01HU2owY3hRWEdObEZqR1ordXcxa2lKV1RRZG1McHJtUFFWeXlNQmJlU1gr?=
- =?utf-8?B?cU9iNXhnSDkvMFluL3lybFVKZlJoUzRDQ3dRMm9rM3BUY2Z5NDVPaXNPZ1k4?=
- =?utf-8?B?aERHTWxLUTFvd1VHbkJaRHlPcjVHamx2VGtaM0FLcUc2d2JSWDhXUXIzOFVH?=
- =?utf-8?B?ZnFQL1FzcGxYNFc4Q2M4SlFSOWF3SDAxekwrejBrVnVCd1J5NmJhU0JDWldV?=
- =?utf-8?B?UTc1c2IxdWVGMXMzN21kbi9rS2RucG8wU0s1NEhkSDN2RTNPWG5nb1dJQTE2?=
- =?utf-8?B?eVV1L0plQ1NLTE1tSFpVczZMbVhLYkgxZGoyZ2d3Z1BpeXJmZldwN0JkdlUr?=
- =?utf-8?B?RXNOajVqMVBndEV2WkRzMThlamhJQytUY2xVZVRkd2t5WFROdExXV2t3TXp3?=
- =?utf-8?B?bjZ0SlZ5U09kWFF0c3dxc0krRFFMMW5QeHdqNE1TSmlWYUlRcmtxM0N6SXUx?=
- =?utf-8?B?MldBVEZUL2J0VW1OODhwZTd6ZmhteWo4QVQvSzJUbjA3V3M3SEZsK1hUOXRp?=
- =?utf-8?B?RUx5SEd1bWozSGE3dEtSbnJSYXR3ZTFqcEZDd25QNUdadll2VHNJMmluZncz?=
- =?utf-8?B?U1pTYWtjaDVaeDcvS2ZWc24zak5YdFNTTWRzeE02Ym9mOGZNR1ZKOXJyVFAv?=
- =?utf-8?B?UzMzYUtpY0Z3MTRSaFR4TlN6bDZidFpocUJjbVpheU0rQS9qZTZEUG1ocC9r?=
- =?utf-8?B?M3E2QjIvcHZPYVVhMnMyTitrazJvTGFHcFFkYzlydTEzcDJ5cTVnYWFlS29j?=
- =?utf-8?B?NlZ0dFQrYTFoM1RwYWR0ZDBqM2pPU1hEVUFyTjVWL1R2bklJYjhPVDdveGJG?=
- =?utf-8?B?MEJYdjFYMStkbTRQWGpKTEIxMTV1ZS96K3BRekM4M0ZyOC9qMWtlcWMxRVB0?=
- =?utf-8?B?SlRwSWd1ZlFFSWFCa0RSN2R3bktzMmNWNitPejRlSlpGdTFvWHNzelZVUkFF?=
- =?utf-8?B?dEtvYWVZcmJMRUFqUU9yUVVrbE9SS3FKK0tZUSthSVY0bVRnUjVnZWdIb0Js?=
- =?utf-8?B?NXRZZFd6NWFoS01oN3ZnQ1ZjRTM4ampaOUd0cmFNYlpFK1JkbVlhL25jdnJT?=
- =?utf-8?B?WWRiZUZnY2pwU3p5dkpYNzBNQUQ1T0dxREFsdWdLM2I4R2xkUWJlVlMyazAv?=
- =?utf-8?B?RGV4SG9rUkJ1TzEyeWhzeW5iOEFZWG9nSW9EenRyNWRGdi9EUXFRRFREK050?=
- =?utf-8?B?by9sMFphOWlVRlZrT2JJS1U2Y1dwZS9kS05aMUVDRlVqbU5WVnhXUlZ0a0tJ?=
- =?utf-8?B?Unp1MXFDZjlLYURvMi80MXlVeUhjR1cxU3dMNmdMdEtpUG9UTks3M05GWDh4?=
- =?utf-8?B?ZzBCQW1zdHdzVWw4SlBCVVZtNkl3bHl2UFZxNldYOHpFNnA5SUU4cmhlU1Iv?=
- =?utf-8?B?SFh0VlZ3UGtLT0lHMHh3cmJOYWxwQ0VCbUtDc0R5dzNWeVVOWjFhdUUyRWln?=
- =?utf-8?B?ajZ5MWhJUHVOdHBkamJ1cXlDd0l2VzJsMDlac3ZJVE9OdlZ1a1E3ZTRXQmhW?=
- =?utf-8?B?bWtSdHFya05uMzBvZTNBM0dzUGJiWDVyRHFIM3dwZE1SZ3NPT3pwSXM3bzNw?=
- =?utf-8?B?WXdzakMyS3JkcmxBc2syYkNLVWFqbERlU1A5OUhFZ2w5Q0dSTWJ4RjJuOGtp?=
- =?utf-8?B?QWtvYk42TlVmRFMrVmJ5Yzk4eThFQU5UM3hNelVJNmZJekNpM2c1OEdRNG40?=
- =?utf-8?B?TExKS2VSdlE1MkU5NUFCMnBydHU4bU5CWkk4amRxNVlWY2tiVUo0SWJuZDVI?=
- =?utf-8?B?VVRZcXNIbGtGU0lZNmJxd1VwZjRuLy9pWG1WbGpYeGR5ZExpT2g4YmxqUDls?=
- =?utf-8?B?SHpybGNPV1diSzQxbk5YSGRibzk4OWo2OWUyTjVPZG1mZWZFc0dZTk5RazA1?=
- =?utf-8?B?TGdmejQrYThHcmlweWhKNDYyUXFDMzN1NUYxMTdORm5YYWtBRHBUakNPTm96?=
- =?utf-8?B?MGVrU0ZZSmxoVEFYWDBYRnQxaVM1dlRVN0E0YWhmWkk1TktGK1g3Ri9wTHlP?=
- =?utf-8?B?dCt1b2RLM2RYak5tWG1SNkxTN0tLQStvSm8ySzB0ZlJHQVovL0VBQ29rdmpn?=
- =?utf-8?B?SUVtSWtidTBHRFlGVEwwbithTVViRjNleDdDMEV0bWRvekU5S3RBd1F2eFpD?=
- =?utf-8?Q?SNMnEnxykZ5hhwiBDAvimPxqq?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f7735f07-9515-4be4-7abe-08dbc35e8a9a
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB5933.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2023 15:45:02.5031 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2HTz1+Ejk/hzfA8YzehrdOAcP2ISPhm5QKdIWgUHZ9yv13cyw9RJdX0ktRZkDfk+mIyHNlOz6+KXRbByUsFf6Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6148
+References: <20230930032254.580-1-mario.limonciello@amd.com>
+ <20230930032254.580-2-mario.limonciello@amd.com>
+In-Reply-To: <20230930032254.580-2-mario.limonciello@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 2 Oct 2023 12:01:09 -0400
+Message-ID: <CADnq5_MkBBGoTfeqP7NW2X4_J3BmhKJHGzcPVhS2pens=PVfpg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amd: Drop all hand-built MIN and MAX macros in
+ the amdgpu base driver
+To: Mario Limonciello <mario.limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,50 +69,345 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: philip.yang@amd.com, felix.kuehling@amd.com, lijo.lazar@amd.com,
- christian.koenig@amd.com
+Cc: Hamza Mahfooz <Hamza.Mahfooz@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I found an issue with this patch, that leads to performance drop. This 
-leads to incorrectly initialize numa pools on a multi node system. I am 
-working on the fix and will send another change set.
+On Sat, Sep 30, 2023 at 3:01=E2=80=AFAM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+> Several files declare MIN() or MAX() macros that ignore the types of the
+> values being compared.  Drop these macros and switch to min() min_t(),
+> and max() from `linux/minmax.h`.
+>
+> Suggested-by: Hamza Mahfooz <Hamza.Mahfooz@amd.com>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-On 9/29/2023 2:18 PM, Rajneesh Bhardwaj wrote:
-> Move ttm init before acpi mem range init so we can use ttm_pages_limit
-> to override vram size for GFXIP 9.4.3. The vram size override change
-> will be introduced in a future commit.
->
-> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 10 +++++-----
->   1 file changed, 5 insertions(+), 5 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h                    |  2 --
+>  drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c             |  2 +-
+>  drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c  |  4 ++--
+>  .../gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c    |  4 ++--
+>  .../gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.c    |  4 ++--
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c      |  4 ++--
+>  .../gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    | 10 ++++------
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c         |  4 ++--
+>  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c         |  2 +-
+>  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |  7 +++----
+>  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   |  7 +++----
+>  11 files changed, 22 insertions(+), 28 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index 268ee533e7c1..005ea719d2fd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -2190,17 +2190,17 @@ static int gmc_v9_0_sw_init(void *handle)
->   
->   	amdgpu_gmc_get_vbios_allocations(adev);
->   
-> +	/* Memory manager */
-> +	r = amdgpu_bo_init(adev);
-> +	if (r)
-> +		return r;
-> +
->   	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3)) {
->   		r = gmc_v9_0_init_mem_ranges(adev);
->   		if (r)
->   			return r;
->   	}
->   
-> -	/* Memory manager */
-> -	r = amdgpu_bo_init(adev);
-> -	if (r)
-> -		return r;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
+dgpu/amdgpu.h
+> index 73e825d20259..d23fb4b5ad95 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1329,8 +1329,6 @@ int emu_soc_asic_init(struct amdgpu_device *adev);
+>         for (i =3D ffs(inst_mask); i-- !=3D 0; \
+>              i =3D ffs(inst_mask & BIT_MASK_UPPER(i + 1)))
+>
+> -#define MIN(X, Y) ((X) < (Y) ? (X) : (Y))
 > -
->   	r = gmc_v9_0_gart_init(adev);
->   	if (r)
->   		return r;
+>  /* Common functions */
+>  bool amdgpu_device_has_job_running(struct amdgpu_device *adev);
+>  bool amdgpu_device_should_recover_gpu(struct amdgpu_device *adev);
+> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm=
+/amd/pm/legacy-dpm/si_dpm.c
+> index 02e69ccff3ba..fc8e4ac6c8e7 100644
+> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+> @@ -6600,7 +6600,7 @@ static int si_dpm_get_fan_speed_pwm(void *handle,
+>
+>         tmp64 =3D (u64)duty * 255;
+>         do_div(tmp64, duty100);
+> -       *speed =3D MIN((u32)tmp64, 255);
+> +       *speed =3D min_t(u32, tmp64, 255);
+>
+>         return 0;
+>  }
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c b/driv=
+ers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
+> index a6c3610db23e..a8fc0fa44db6 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
+> @@ -72,7 +72,7 @@ int smu7_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hw=
+mgr,
+>
+>         tmp64 =3D (uint64_t)duty * 255;
+>         do_div(tmp64, duty100);
+> -       *speed =3D MIN((uint32_t)tmp64, 255);
+> +       *speed =3D min_t(uint32_t, tmp64, 255);
+>
+>         return 0;
+>  }
+> @@ -210,7 +210,7 @@ int smu7_fan_ctrl_set_fan_speed_pwm(struct pp_hwmgr *=
+hwmgr,
+>         if (hwmgr->thermal_controller.fanInfo.bNoFan)
+>                 return 0;
+>
+> -       speed =3D MIN(speed, 255);
+> +       speed =3D min_t(uint32_t, speed, 255);
+>
+>         if (PP_CAP(PHM_PlatformCaps_MicrocodeFanControl))
+>                 smu7_fan_ctrl_stop_smc_fan_control(hwmgr);
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c b/dr=
+ivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+> index 190af79f3236..379012494da5 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+> @@ -81,7 +81,7 @@ int vega10_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *=
+hwmgr,
+>
+>         tmp64 =3D (uint64_t)duty * 255;
+>         do_div(tmp64, duty100);
+> -       *speed =3D MIN((uint32_t)tmp64, 255);
+> +       *speed =3D min_t(uint32_t, tmp64, 255);
+>
+>         return 0;
+>  }
+> @@ -255,7 +255,7 @@ int vega10_fan_ctrl_set_fan_speed_pwm(struct pp_hwmgr=
+ *hwmgr,
+>         if (hwmgr->thermal_controller.fanInfo.bNoFan)
+>                 return 0;
+>
+> -       speed =3D MIN(speed, 255);
+> +       speed =3D min_t(uint32_t, speed, 255);
+>
+>         if (PP_CAP(PHM_PlatformCaps_MicrocodeFanControl))
+>                 vega10_fan_ctrl_stop_smc_fan_control(hwmgr);
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.c b/dr=
+ivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.c
+> index e9737ca8418a..a3331ffb2daf 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.c
+> @@ -131,7 +131,7 @@ int vega20_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr=
+ *hwmgr,
+>
+>         tmp64 =3D (uint64_t)duty * 255;
+>         do_div(tmp64, duty100);
+> -       *speed =3D MIN((uint32_t)tmp64, 255);
+> +       *speed =3D min_t(uint32_t, tmp64, 255);
+>
+>         return 0;
+>  }
+> @@ -144,7 +144,7 @@ int vega20_fan_ctrl_set_fan_speed_pwm(struct pp_hwmgr=
+ *hwmgr,
+>         uint32_t duty;
+>         uint64_t tmp64;
+>
+> -       speed =3D MIN(speed, 255);
+> +       speed =3D min_t(uint32_t, speed, 255);
+>
+>         if (PP_CAP(PHM_PlatformCaps_MicrocodeFanControl))
+>                 vega20_fan_ctrl_stop_smc_fan_control(hwmgr);
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/=
+gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> index 6e2e665ad383..a2bbc180b160 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> @@ -1203,7 +1203,7 @@ static int arcturus_set_fan_speed_pwm(struct smu_co=
+ntext *smu,
+>         uint32_t duty100, duty;
+>         uint64_t tmp64;
+>
+> -       speed =3D MIN(speed, 255);
+> +       speed =3D min_t(uint32_t, speed, 255);
+>
+>         duty100 =3D REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_FDO_CTRL1_ARC=
+T),
+>                                 CG_FDO_CTRL1, FMAX_DUTY100);
+> @@ -1267,7 +1267,7 @@ static int arcturus_get_fan_speed_pwm(struct smu_co=
+ntext *smu,
+>         if (duty100) {
+>                 tmp64 =3D (uint64_t)duty * 255;
+>                 do_div(tmp64, duty100);
+> -               *speed =3D MIN((uint32_t)tmp64, 255);
+> +               *speed =3D min_t(uint32_t, tmp64, 255);
+>         } else {
+>                 *speed =3D 0;
+>         }
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/dr=
+ivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> index dd07662262e4..ad2884088e69 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> @@ -2089,8 +2089,6 @@ static int sienna_cichlid_display_disable_memory_cl=
+ock_switch(struct smu_context
+>         return ret;
+>  }
+>
+> -#define MAX(a, b)      ((a) > (b) ? (a) : (b))
+> -
+>  static int sienna_cichlid_update_pcie_parameters(struct smu_context *smu=
+,
+>                                                  uint8_t pcie_gen_cap,
+>                                                  uint8_t pcie_width_cap)
+> @@ -2106,12 +2104,12 @@ static int sienna_cichlid_update_pcie_parameters(=
+struct smu_context *smu,
+>         GET_PPTABLE_MEMBER(PcieGenSpeed, &table_member1);
+>         GET_PPTABLE_MEMBER(PcieLaneCount, &table_member2);
+>
+> -       min_gen_speed =3D MAX(0, table_member1[0]);
+> -       max_gen_speed =3D MIN(pcie_gen_cap, table_member1[1]);
+> +       min_gen_speed =3D max_t(uint8_t, 0, table_member1[0]);
+> +       max_gen_speed =3D min(pcie_gen_cap, table_member1[1]);
+>         min_gen_speed =3D min_gen_speed > max_gen_speed ?
+>                         max_gen_speed : min_gen_speed;
+> -       min_lane_width =3D MAX(1, table_member2[0]);
+> -       max_lane_width =3D MIN(pcie_width_cap, table_member2[1]);
+> +       min_lane_width =3D max_t(uint8_t, 1, table_member2[0]);
+> +       max_lane_width =3D min(pcie_width_cap, table_member2[1]);
+>         min_lane_width =3D min_lane_width > max_lane_width ?
+>                          max_lane_width : min_lane_width;
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu=
+/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> index ece43b41141c..5a314d0316c1 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> @@ -1174,7 +1174,7 @@ smu_v11_0_set_fan_speed_pwm(struct smu_context *smu=
+, uint32_t speed)
+>         uint32_t duty100, duty;
+>         uint64_t tmp64;
+>
+> -       speed =3D MIN(speed, 255);
+> +       speed =3D min_t(uint32_t, speed, 255);
+>
+>         duty100 =3D REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_FDO_CTRL1),
+>                                 CG_FDO_CTRL1, FMAX_DUTY100);
+> @@ -1249,7 +1249,7 @@ int smu_v11_0_get_fan_speed_pwm(struct smu_context =
+*smu,
+>
+>         tmp64 =3D (uint64_t)duty * 255;
+>         do_div(tmp64, duty100);
+> -       *speed =3D MIN((uint32_t)tmp64, 255);
+> +       *speed =3D min_t(uint32_t, tmp64, 255);
+>
+>         return 0;
+>  }
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu=
+/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> index 208db8b580eb..8dc683c02a7d 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> @@ -1169,7 +1169,7 @@ int smu_v13_0_set_fan_speed_pwm(struct smu_context =
+*smu,
+>         uint32_t duty100, duty;
+>         uint64_t tmp64;
+>
+> -       speed =3D MIN(speed, 255);
+> +       speed =3D min_t(uint32_t, speed, 255);
+>
+>         if (smu_v13_0_auto_fan_control(smu, 0))
+>                 return -EINVAL;
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> index 1c15fa911176..a52da7bc787b 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> @@ -1998,7 +1998,6 @@ static int smu_v13_0_0_get_thermal_temperature_rang=
+e(struct smu_context *smu,
+>         return 0;
+>  }
+>
+> -#define MAX(a, b)      ((a) > (b) ? (a) : (b))
+>  static ssize_t smu_v13_0_0_get_gpu_metrics(struct smu_context *smu,
+>                                            void **table)
+>  {
+> @@ -2022,12 +2021,12 @@ static ssize_t smu_v13_0_0_get_gpu_metrics(struct=
+ smu_context *smu,
+>         gpu_metrics->temperature_mem =3D metrics->AvgTemperature[TEMP_MEM=
+];
+>         gpu_metrics->temperature_vrgfx =3D metrics->AvgTemperature[TEMP_V=
+R_GFX];
+>         gpu_metrics->temperature_vrsoc =3D metrics->AvgTemperature[TEMP_V=
+R_SOC];
+> -       gpu_metrics->temperature_vrmem =3D MAX(metrics->AvgTemperature[TE=
+MP_VR_MEM0],
+> +       gpu_metrics->temperature_vrmem =3D max(metrics->AvgTemperature[TE=
+MP_VR_MEM0],
+>                                              metrics->AvgTemperature[TEMP=
+_VR_MEM1]);
+>
+>         gpu_metrics->average_gfx_activity =3D metrics->AverageGfxActivity=
+;
+>         gpu_metrics->average_umc_activity =3D metrics->AverageUclkActivit=
+y;
+> -       gpu_metrics->average_mm_activity =3D MAX(metrics->Vcn0ActivityPer=
+centage,
+> +       gpu_metrics->average_mm_activity =3D max(metrics->Vcn0ActivityPer=
+centage,
+>                                                metrics->Vcn1ActivityPerce=
+ntage);
+>
+>         gpu_metrics->average_socket_power =3D metrics->AverageSocketPower=
+;
+> @@ -2286,7 +2285,7 @@ static int smu_v13_0_0_get_fan_speed_pwm(struct smu=
+_context *smu,
+>         }
+>
+>         /* Convert the PMFW output which is in percent to pwm(255) based =
+*/
+> -       *speed =3D MIN(*speed * 255 / 100, 255);
+> +       *speed =3D min(*speed * 255 / 100, (uint32_t)255);
+>
+>         return 0;
+>  }
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> index 430ad1b05ba3..b8a7a1d853df 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> @@ -1946,7 +1946,6 @@ static int smu_v13_0_7_get_thermal_temperature_rang=
+e(struct smu_context *smu,
+>         return 0;
+>  }
+>
+> -#define MAX(a, b)      ((a) > (b) ? (a) : (b))
+>  static ssize_t smu_v13_0_7_get_gpu_metrics(struct smu_context *smu,
+>                                            void **table)
+>  {
+> @@ -1970,12 +1969,12 @@ static ssize_t smu_v13_0_7_get_gpu_metrics(struct=
+ smu_context *smu,
+>         gpu_metrics->temperature_mem =3D metrics->AvgTemperature[TEMP_MEM=
+];
+>         gpu_metrics->temperature_vrgfx =3D metrics->AvgTemperature[TEMP_V=
+R_GFX];
+>         gpu_metrics->temperature_vrsoc =3D metrics->AvgTemperature[TEMP_V=
+R_SOC];
+> -       gpu_metrics->temperature_vrmem =3D MAX(metrics->AvgTemperature[TE=
+MP_VR_MEM0],
+> +       gpu_metrics->temperature_vrmem =3D max(metrics->AvgTemperature[TE=
+MP_VR_MEM0],
+>                                              metrics->AvgTemperature[TEMP=
+_VR_MEM1]);
+>
+>         gpu_metrics->average_gfx_activity =3D metrics->AverageGfxActivity=
+;
+>         gpu_metrics->average_umc_activity =3D metrics->AverageUclkActivit=
+y;
+> -       gpu_metrics->average_mm_activity =3D MAX(metrics->Vcn0ActivityPer=
+centage,
+> +       gpu_metrics->average_mm_activity =3D max(metrics->Vcn0ActivityPer=
+centage,
+>                                                metrics->Vcn1ActivityPerce=
+ntage);
+>
+>         gpu_metrics->average_socket_power =3D metrics->AverageSocketPower=
+;
+> @@ -2210,7 +2209,7 @@ static int smu_v13_0_7_get_fan_speed_pwm(struct smu=
+_context *smu,
+>         }
+>
+>         /* Convert the PMFW output which is in percent to pwm(255) based =
+*/
+> -       *speed =3D MIN(*speed * 255 / 100, 255);
+> +       *speed =3D min(*speed * 255 / 100, (uint32_t)255);
+>
+>         return 0;
+>  }
+> --
+> 2.34.1
+>
