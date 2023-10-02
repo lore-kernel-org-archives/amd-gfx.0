@@ -4,90 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D383E748F6
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Oct 2023 16:29:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 029EDE784AB
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Oct 2023 17:02:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02F6110E2E8;
-	Mon,  2 Oct 2023 16:29:53 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20623.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5b::623])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 234D910E2E8
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Oct 2023 16:29:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DC8410E230;
+	Mon,  2 Oct 2023 17:02:42 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2060e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8c::60e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D98AF10E0BC
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Oct 2023 17:02:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XuNDXb/okB67b1pqCT0ZPt5eVzL0+RS1hqLbE6FHZtxd10IpoN5Rjx9HafrG+I54u2lmFThh7eis6BtBJdJNTidthD/aIEqtYY155Y91GKuk12yooMVRLHjvnC/zopCsGsEQX/HxJneLJQKP9YuPmOIZJ6fQh34zoCHjIosV3TgjdGfVsDgLBoOSbtlh2mjum9xxrJKdTu5M0SjzThLYmmmMt37+lv80YQNoqxMw7uT9HshPt8glbPbB+UBVKk15pql99PCq3Dl7I0hBoC6qsZ3a1iYi80bqzwo1xffgnppgVxDCQiY4hgbvXVArSxafXFhKfJy+CrFI8tXltqrKkg==
+ b=A5nYZgxxccg6MzDeMmB3zBvAidcost7S1+1XI4AcJqLMXwo0Rb4Au3VmGHTIWFAXWyzNM0ZLH0Ng5BiYUFTdYf/1EAiOa/v4WYP2zjSU/C32/cuQNp8wV4uxkwBEXxUTI93ij+iHE3V6s65OnKNCamUGngtE3QH9CVnuEwYM2abWgKy6uGm8QaVl3YgW9QfJqCeMZm3lbtQYvOyBE8nyyq01lq0tBnQs4GLpuXxWlsTcpb9TkRA+2iUeWLAzm49QViHhm8bZA+w1yMEqhpLX/g7A1QbW1wQa/r5M2nRhQefpGvUKBc4xsMMj9fFutP2KaCHqnN2k47+5L5niONqhLA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ryapMWPLlCX7txU3x8pvUzfAW4ZpzNPjdBzhXwr0JPU=;
- b=a8oJZVj6HlnuRsiwYgaVk4dtp7qH55SUxepVFe9OnxvmE7a9aVeATqge+I5WatFgncCdBasLa3DSXJ6DLK2mUDB9DzEtkAfuArlO4xTzsWPkoq3YHEZc+SNIHf3m75m1lEz3q3JLuQ7e+lbR2xO32ZClNmj4afyDKgxRNJjzLk6V1/8fsZc04VcX/31r2wxpVmzkn5akKP7D6mSo7mNOtTQDJt4NcZ6ULoVRrFIB3YommxKfqLOWYCCF0ZJ/wy138XpnQWSMVVt5BRQaj700GVbbLzg34n2OUap3MfBlMpptnkrU7fPt+q/lVQ9jBiqM/cBHKx8d/tWjvYlu63K8UQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=5aW8mOGuFi26TRfghJRz8CgXV/hneeQjCNQ8Lmufu2o=;
+ b=cf6JoSQlNeuybAnlieKH7JOxw65sjk0iriIje8U2yZdzRJYnfLJHVQoUb5usD8QxvcjHh5ikqS2Us3mnEPXoACGcZL61umbtr3aC+X1c5B8W93w2QeX57pjijjvQvxfPNhNkIt/jkLau2ihb2BqxO7Fm7Nw2Szu3icMCpuitRUtNkbOXA/OXtKvc2NRP6ssaco6Jkf86OebLuJHyQqhbRfVswwNK7s/1jarVfTG7FciVuQYCEmxGoadx9Yev6TTc5c5y/ohikLs9XylCI92mSaPpDE0W+RdsslKdEiWpwr6TIiWi32wB6+AIh2ytOLdvpT95jYaOnr1InS5rPs+QtA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ryapMWPLlCX7txU3x8pvUzfAW4ZpzNPjdBzhXwr0JPU=;
- b=hpj/5OprFHNTsoK8b+BOKtM+ZP/xinYBmYO7Py9x2WOPgADy1MWCyEGzTcgCW1BjcOq02CTg79YR53O/0udYDnuJJwnRSETpXO7eMJQpjvtQcOVw34oscO+Py+EL2//dC79z9oRqZBqiLHu69F1udfrx4reXvInfhNCq+KmxESw=
-Received: from BL0PR05CA0025.namprd05.prod.outlook.com (2603:10b6:208:91::35)
- by LV3PR12MB9168.namprd12.prod.outlook.com (2603:10b6:408:19a::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.28; Mon, 2 Oct
- 2023 16:29:48 +0000
-Received: from BL6PEPF0001AB54.namprd02.prod.outlook.com
- (2603:10b6:208:91:cafe::2d) by BL0PR05CA0025.outlook.office365.com
- (2603:10b6:208:91::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.21 via Frontend
- Transport; Mon, 2 Oct 2023 16:29:48 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB54.mail.protection.outlook.com (10.167.241.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.14 via Frontend Transport; Mon, 2 Oct 2023 16:29:48 +0000
-Received: from thonkpad.localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 2 Oct
- 2023 11:29:47 -0500
-From: <ivlipski@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] Revert "drm/amd/display: Enable Replay for static screen use
- cases"
-Date: Mon, 2 Oct 2023 12:29:29 -0400
-Message-ID: <20231002162929.196007-1-ivlipski@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+ bh=5aW8mOGuFi26TRfghJRz8CgXV/hneeQjCNQ8Lmufu2o=;
+ b=xjz7BDHZd1fdKoOWWiHGnUlliMXM2SthvFRd5baPb2veAiA8D68bKfcfpaWWba7AfoJuVlTqht8pg9axUVS2lcYD4tGZOYT08NIU8TThoYqsdN6jNmpPtRal7wngG6wfNZEZexclRnHkIYO1NTsIh3+WDdddrZaX1R7LRcosNpw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB2602.namprd12.prod.outlook.com (2603:10b6:5:4a::11) by
+ BY5PR12MB4935.namprd12.prod.outlook.com (2603:10b6:a03:1d9::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6838.30; Mon, 2 Oct 2023 17:02:37 +0000
+Received: from DM6PR12MB2602.namprd12.prod.outlook.com
+ ([fe80::6c31:d0a6:fd35:a88f]) by DM6PR12MB2602.namprd12.prod.outlook.com
+ ([fe80::6c31:d0a6:fd35:a88f%7]) with mapi id 15.20.6838.016; Mon, 2 Oct 2023
+ 17:02:37 +0000
+Message-ID: <a223b7a5-53f2-efaf-c754-5263cb799b3f@amd.com>
+Date: Mon, 2 Oct 2023 12:02:34 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH 1/3] amd/amdkfd: Add granularity bitmap mapped to gpu flag
+Content-Language: en-US
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230929141115.10016-1-Philip.Yang@amd.com>
+From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
+In-Reply-To: <20230929141115.10016-1-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: SN7PR04CA0229.namprd04.prod.outlook.com
+ (2603:10b6:806:127::24) To DM6PR12MB2602.namprd12.prod.outlook.com
+ (2603:10b6:5:4a::11)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB54:EE_|LV3PR12MB9168:EE_
-X-MS-Office365-Filtering-Correlation-Id: d409eda5-4f10-49f3-847b-08dbc364cba2
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2602:EE_|BY5PR12MB4935:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d6b2cc0-6e4c-4c5a-3a68-08dbc3696116
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Dg95z2+HIZLSzDspNgoYKO7UU88lVoZEtoI9H+H/cBbNjKAWfUfsjBiC5wSKVHTMENA8XyObXl429Y+F60rQVxYn9/rx8fBhesy1+j9W60xSjnwwUIEAhyA8NRwCVYjCe4TYuKIDGprQ+SpggjB8HCaAgCYIZyOY8wq/Op0dZov86HWI8y6YDFVsa+tU+C4R6uEpq6iD4JdTZmf4ruI2lmXw3L3EKvp2aXVlRbNAhfnmKEBgcFQr15gjSBS4C9fJCq8P9aKAPFv3bdwFtWu4cMFVinUG5n3i8eHuAM7zMRbM/AkGMR0lOlT7qjQyE5eqTOam8iay89t3otLiz3VmlXy0Hh6n2ePa/mUHBdK18LUj4kq0p/ycW4bT5TscQOxCcFNZweML5wd0whwMYl5yiC4a3yp7oxYWcMUDgvhNh/lCnX5RhddFaQzfLdc/eybNOZr6nRMGE84I8pi4UxS5WYITwu5NMMyd8hAN4oKnzznLS0WFOHe8AGKnjDa6Khuzhr8Oz2juQrgKJN7KvMei23mkQrpxwbSeOhs8RgWqJkNa073ZQEcsQI61L78+mS4SWv10Dch0YTM1GGQCgIr7ucfSG5pmTGhFDI0EvsUDHmdqrkBiOOBwu4KDWOnZE/Nzw4wV0Hb6UThqwxb4RLu2b+CPVEP7i16GtpdhATF9971QAqjD9PoQls8jYevRidXV/bZBLWE5CAt3SA3eLSMqnbvm3xRU+RUiT21+r8LdwHX7AZ4wkXh4e2kCe/eKPbQBckQ2oNoXUQffGxwp5/TShQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(136003)(396003)(346002)(376002)(39860400002)(230922051799003)(82310400011)(186009)(1800799009)(64100799003)(451199024)(36840700001)(40470700004)(46966006)(40480700001)(40460700003)(4326008)(8676002)(8936002)(70206006)(70586007)(5660300002)(41300700001)(54906003)(6916009)(2876002)(356005)(316002)(83380400001)(82740400003)(81166007)(6666004)(2906002)(336012)(26005)(16526019)(2616005)(1076003)(426003)(36860700001)(47076005)(478600001)(36756003)(36900700001);
+X-Microsoft-Antispam-Message-Info: ta8GM6amRMj4sHVr/6Z00pgpLZubt2BYn35VB+oa/YiX9PH3SnzwaSIajSCEYD2g6YFWFQHYrbtdrk+uau4ERg/mxzEgWsYkgDSiqov4NrSF8t7VUPBoCyhGMwzptTujaVULS+xtNslrJcG4xx9SK5QzwJhZBEUCQnwejyGivLMF1tnhL7ag++9oaOmi8pSuEw5LNILzkgMBB0CvTtev192XDwTb98a8qrUC82xEjPVxkI+4tse+OvTxkrovDNf4KscyLL3s5rjFhRpiiy3d7h/EaSQifce2YPYO8vcDhv+/C5Qhg1RjZYAjDoVXTmEvHupjRRwO4EmMo1ewq/x/2U8NqVEYgw7aWepBMs3pFecrwiZaZxM3ocQp85qTyQRatzmmJhvMZCTF+xZnrzS8JGUU5pSCNiT3H/LtirkxoyZ8VKUt60LnGJ/OiXS51LlVPgRKeKUoit6bVTClUkC4CnocaAn6AFfyIwgM716ulnD59U0n36FNmYLWPOACmQhW/Wq64hLXL+chZh6fxC2WKFar3LIhwL+pZ0TsPbzaQZ54R7TsvC53AUwnP1GjPdOWsWba/vhoGBOzu/U9DNV5dX7s1YkJJRa7KUaRZP7I/MEb/im0nstjJm8M98JGe/m7iRLnAVdGGasvta3QDHIvrw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2602.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366004)(346002)(376002)(396003)(136003)(39860400002)(230922051799003)(451199024)(64100799003)(1800799009)(186009)(31686004)(6506007)(6666004)(53546011)(478600001)(6486002)(38100700002)(86362001)(31696002)(2906002)(30864003)(41300700001)(83380400001)(6512007)(26005)(2616005)(36756003)(316002)(66556008)(8676002)(66946007)(66476007)(8936002)(5660300002)(4326008)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SldRSUp0d3ZMcHN1VG42MWxwVXJQVStza1N2N2U1Ky85bWtIODZaUXNTbzZW?=
+ =?utf-8?B?TDlxWGtCdU9JbFRVa2JlNnFFMUFkOFJTNU1YQkNtTUNPdjFVSStkanI2VXZ6?=
+ =?utf-8?B?bEVmaXJZSjJSYUZ5MGw1VWY3VzU5bkRhNitGT1hoRE53YksvTFFBQVVSZEor?=
+ =?utf-8?B?ZGhrK2FtNjZXRUJaa1FiT2hWTUFYV0Q2UFNhangxRmkrTjVtY0QxcXVoNjcy?=
+ =?utf-8?B?RHFOdWRWNGh2bE9TZHZBZ1dQcEwrN1hTMi9vNzAyeEg5L2RlL1hNVkQ5VnJG?=
+ =?utf-8?B?UnhxYklnelpTaDc0MmVmeXlOVlQ2Z29nUU1mcENieHR3eW04TWlTcE9CODFr?=
+ =?utf-8?B?eU9tMzJaZm5VcHo5TmVMUVhHc05KeVZoTS9DaDBrQlVybWtEOGthNEVTbGNP?=
+ =?utf-8?B?MXRScE9OOUtLcnhVWElxanV3UmxiMDVNa3VRa3M4Rm92NUpIaXFjcUc2TXBi?=
+ =?utf-8?B?aDVtM3hObXh5VnhsUlhaNm5LT3FIMlhEeXFrT1l5YkE1WmZqSS9TalhhVEZm?=
+ =?utf-8?B?eGNOSDRHTnZVS2VOTE9yQlpLaHQ2QkZ1SzZUd2JWanlEQUJkNlhjZmUyY3F4?=
+ =?utf-8?B?QjBzVWFLZEhEejdGbzRxWU5pWWE4SERMWWxVdXQzS0ZNRVo3YkF4dGlCWjJ5?=
+ =?utf-8?B?K2xMWSsyc3JPSkFscFRIMEZVdWlsZlI2MU5pSlJKK2hqaHJxa3ZZb2lnNUZJ?=
+ =?utf-8?B?aFovZS9hcFlsODVlOXNKQ0g2ZDFEOGJZTXlqR0EzSDJjQ3JNOXNKQmcvVUNn?=
+ =?utf-8?B?S3dueDR4UGMrK1BLeXZtTGlQWWNZTUs1ZlBKUmRBcTB5RXQ5a0IxbWhLTnRK?=
+ =?utf-8?B?ZFpOdkQrS3JPbms3T2pZa0hKWVhXak0yZWdFcHllek80NUowUGt0aWJjRHJQ?=
+ =?utf-8?B?QjNUMWRHR1pRM2hBZFFhSTk5TjlCZ2RLNFBFMGtwVE5SaDk1ZENpc2pBMHdC?=
+ =?utf-8?B?OVY1UStaUHU3NSs1SmNVR2taRStRZmNFRzRGRS83RkR2QmJ3OGx2UXlkZVdM?=
+ =?utf-8?B?SUdzSER6V3I4MEtBd0lkSXBBbHgyeUVRYS8rNEt5NU5NcGlWYVVTTW1mSWN3?=
+ =?utf-8?B?NG9WZHlmUGlNNFV1RXhkSm5JZlRXYmFubGtxZ3A5amRwNmVaZ1cxVVY1bWsy?=
+ =?utf-8?B?d1FuL0ZsMG9HamZsSDg2RmhxNEFKTHc1Njl0VHk5NzFyVGtFL1ZibW5PdFdG?=
+ =?utf-8?B?K2s5V045QjU1ZnpvUWYxczIxWnlkemFlZkM1Wm9sZmF4UWdYbEpkVUc2bXRh?=
+ =?utf-8?B?MHZ0UTNKVUNnMTRGd0lJTUtGclZtR0U2dEIrUmtMNk90UkNzcTh4RjZuM3Js?=
+ =?utf-8?B?S2h2YWpVVHNDSlc2REJPTU16cy9icnU0SURzSlRDQVphUjlHUnRJN3I1Qi9s?=
+ =?utf-8?B?S01aL2NydUw3Myt4UzMzWXVBTkMxaDY3OWtScUk1ei9CVFc5NFhhcUhPVTlG?=
+ =?utf-8?B?VzNZT2pNdUFPL3lKY3IvN0JqdloxaitGcC9RQ2pzK0Q1SXVkbGFsZUFMak5P?=
+ =?utf-8?B?RW1WQnNodWpOYlJ4OHhpNk8yQWN1MEMvQXNxckRDRld0Y3ZwVitlcjRaUGl3?=
+ =?utf-8?B?aHA1Tk1hTDBXNEJqQ0xsT2RLWVFUd2ZaOEFpdUJFTWVMN1hyeENxS1hpeHdC?=
+ =?utf-8?B?ODBwS0I0c2dkTUh1Z3BpQ2hXWEpiZlM1cEtwdVAvV3pCYWhtMXVVMFB6MDdh?=
+ =?utf-8?B?bEJVTFN0cVB4eDF2ZWhzRjViQW1sTzJlaXZsOWllaTUwWXBXR0NiYXJlZHJW?=
+ =?utf-8?B?SHFtZ2ZxU3Q0VWNVQnMzNW90T3pCaENlVGI1T2JBbjFuaDN0aU0zTkJaS2FI?=
+ =?utf-8?B?RnozYWVrSHhFZUd6aXNZd3hjMmFyZGlUNzU3ZWZlU29HRUU1RmI1bUVhT3ov?=
+ =?utf-8?B?OUlzL3B6T2JVYTNtSlJCVGVwSVdWUTV1azE1cUFVUTNqWVhxR1lEelJVS2Nz?=
+ =?utf-8?B?UzBIRUFUakdoSURvdTVWZG1sT0pyeFJmdk1iTzNNVEJ4eUNaVUh6TEtubHQv?=
+ =?utf-8?B?N2R1TUVWSllsRFc5OUpMdUF0TjFtaktzQ2FkVUVuVWx6VnF0UjlnZXRZY1dK?=
+ =?utf-8?B?R1B3TG1vR1ZrUGVFZncwYjAySW9QT3Y1aG5XZVRLazBwTmZnZVBtQVRHNWZh?=
+ =?utf-8?Q?J9ds=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2023 16:29:48.3159 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d409eda5-4f10-49f3-847b-08dbc364cba2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d6b2cc0-6e4c-4c5a-3a68-08dbc3696116
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2602.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2023 17:02:37.2649 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB54.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9168
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Y7nn80WdcWb8KMS5hk76MYWy3SykMGMlsZ5bqImX3l743VC8ChHC+XRxdin/0xg9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4935
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,134 +124,435 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ivan Lipski <ivlipski@amd.com>, harry.wentland@amd.com,
- rodrigo.siqueira@amd.com, hamza.mahfooz@amd.com, alexander.deucher@amd.com,
- Bhawanpreet.Lakha@amd.com
+Cc: Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ivan Lipski <ivlipski@amd.com>
 
-This reverts commit a92da5bc33ea99a861f6c422192af6072c145d2d.
+On 9/29/2023 9:11 AM, Philip Yang wrote:
+> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+>
+>
+> Replace prange->mapped_to_gpu with prange->bitmap_mapped[], which is
+> based on prange granularity, updated when map to GPUS or unmap from
+> GPUs, to optimize multiple GPU map, unmap and retry fault recover.
+>
+> svm_range_is_mapped is false only if no parital range mapping on any
+> GPUs.
+>
+> Split the bitmap_mapped when unmap from cpu to split the prange.
+>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 218 ++++++++++++++++++++++-----
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.h |   4 +-
+>   2 files changed, 184 insertions(+), 38 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index 040dc32ad475..626e0dd4ec79 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -292,12 +292,12 @@ static void svm_range_free(struct svm_range *prange, bool do_unmap)
+>                                          KFD_IOC_ALLOC_MEM_FLAGS_USERPTR, 0);
+>          }
+>
+> -       /* free dma_addr array for each gpu */
+> +       /* free dma_addr array, bitmap_mapped for each gpu */
+>          for (gpuidx = 0; gpuidx < MAX_GPU_INSTANCE; gpuidx++) {
+> -               if (prange->dma_addr[gpuidx]) {
+> +               if (prange->dma_addr[gpuidx])
+>                          kvfree(prange->dma_addr[gpuidx]);
+> -                               prange->dma_addr[gpuidx] = NULL;
+> -               }
+> +               if (prange->bitmap_mapped[gpuidx])
+> +                       bitmap_free(prange->bitmap_mapped[gpuidx]);
+>          }
+>
+>          mutex_destroy(&prange->lock);
+> @@ -323,19 +323,38 @@ svm_range *svm_range_new(struct svm_range_list *svms, uint64_t start,
+>          uint64_t size = last - start + 1;
+>          struct svm_range *prange;
+>          struct kfd_process *p;
+> -
+> -       prange = kzalloc(sizeof(*prange), GFP_KERNEL);
+> -       if (!prange)
+> -               return NULL;
+> +       unsigned int nbits;
+> +       uint32_t gpuidx;
+>
+>          p = container_of(svms, struct kfd_process, svms);
+>          if (!p->xnack_enabled && update_mem_usage &&
+>              amdgpu_amdkfd_reserve_mem_limit(NULL, size << PAGE_SHIFT,
+>                                      KFD_IOC_ALLOC_MEM_FLAGS_USERPTR, 0)) {
+>                  pr_info("SVM mapping failed, exceeds resident system memory limit\n");
+> -               kfree(prange);
+>                  return NULL;
+>          }
+> +
+> +       prange = kzalloc(sizeof(*prange), GFP_KERNEL);
+> +       if (!prange)
+> +               return NULL;
+> +
+> +       svm_range_set_default_attributes(&prange->preferred_loc,
+> +                                        &prange->prefetch_loc,
+> +                                        &prange->granularity, &prange->flags);
+> +
+> +       nbits = svm_range_mapped_nbits(size, prange->granularity);
+> +       pr_debug("prange 0x%p [0x%llx 0x%llx] bitmap_mapped nbits %d\n", prange,
+> +                start, last, nbits);
+> +       for_each_set_bit(gpuidx, p->svms.bitmap_supported, p->n_pdds) {
+> +               prange->bitmap_mapped[gpuidx] = bitmap_zalloc(nbits, GFP_KERNEL);
+> +               if (!prange->bitmap_mapped[gpuidx]) {
+> +                       while (gpuidx--)
+> +                               bitmap_free(prange->bitmap_mapped[gpuidx]);
+> +                       kfree(prange);
+> +                       return NULL;
+> +               }
+> +       }
+> +
+>          prange->npages = size;
+>          prange->svms = svms;
+>          prange->start = start;
+> @@ -354,10 +373,6 @@ svm_range *svm_range_new(struct svm_range_list *svms, uint64_t start,
+>                  bitmap_copy(prange->bitmap_access, svms->bitmap_supported,
+>                              MAX_GPU_INSTANCE);
+>
+> -       svm_range_set_default_attributes(&prange->preferred_loc,
+> -                                        &prange->prefetch_loc,
+> -                                        &prange->granularity, &prange->flags);
+> -
+>          pr_debug("svms 0x%p [0x%llx 0x%llx]\n", svms, start, last);
+>
+>          return prange;
+> @@ -972,6 +987,48 @@ svm_range_split_nodes(struct svm_range *new, struct svm_range *old,
+>          return 0;
+>   }
+>
+> +static int
+> +svm_range_split_bitmap_mapped(struct svm_range *new, struct svm_range *old,
+> +                             uint64_t start, uint64_t last)
+> +{
+> +       struct kfd_process *p = container_of(new->svms, struct kfd_process, svms);
+> +       unsigned int nbits, old_nbits, old_nbits2;
+> +       unsigned long *bits;
+> +       uint32_t gpuidx;
+> +
+> +       nbits = svm_range_mapped_nbits(new->npages, new->granularity);
+> +       old_nbits = svm_range_mapped_nbits(old->npages, old->granularity);
+> +       old_nbits2 = svm_range_mapped_nbits(last - start + 1, old->granularity);
+> +
+> +       pr_debug("old 0x%p [0x%lx 0x%lx] => [0x%llx 0x%llx] nbits %d => %d\n",
+> +                old, old->start, old->last, start, last, old_nbits, old_nbits2);
+> +       pr_debug("new 0x%p [0x%lx 0x%lx] nbits %d\n", new, new->start, new->last,
+> +                nbits);
+> +
+> +       for_each_set_bit(gpuidx, p->svms.bitmap_supported, p->n_pdds) {
+> +               bits = bitmap_alloc(old_nbits2, GFP_KERNEL);
+> +               if (!bits)
+> +                       return -ENOMEM;
+> +
+> +               if (start == old->start) {
+> +                       bitmap_shift_right(new->bitmap_mapped[gpuidx],
+> +                                          old->bitmap_mapped[gpuidx],
+> +                                          old_nbits2, old_nbits);
+> +                       bitmap_shift_right(bits, old->bitmap_mapped[gpuidx], 0,
+> +                                          old_nbits2);
+> +               } else {
+> +                       bitmap_copy(new->bitmap_mapped[gpuidx],
+> +                                   old->bitmap_mapped[gpuidx], nbits);
+> +                       bitmap_shift_right(bits, old->bitmap_mapped[gpuidx],
+> +                                          nbits, old_nbits);
+> +               }
+> +               bitmap_free(old->bitmap_mapped[gpuidx]);
+> +               old->bitmap_mapped[gpuidx] = bits;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+>   /**
+>    * svm_range_split_adjust - split range and adjust
+>    *
+> @@ -1012,6 +1069,10 @@ svm_range_split_adjust(struct svm_range *new, struct svm_range *old,
+>                          return r;
+>          }
+>
+> +       r = svm_range_split_bitmap_mapped(new, old, start, last);
+> +       if (r)
+> +               return r;
+> +
+>          old->npages = last - start + 1;
+>          old->start = start;
+>          old->last = last;
+> @@ -1020,7 +1081,6 @@ svm_range_split_adjust(struct svm_range *new, struct svm_range *old,
+>          new->prefetch_loc = old->prefetch_loc;
+>          new->actual_loc = old->actual_loc;
+>          new->granularity = old->granularity;
+> -       new->mapped_to_gpu = old->mapped_to_gpu;
+>          bitmap_copy(new->bitmap_access, old->bitmap_access, MAX_GPU_INSTANCE);
+>          bitmap_copy(new->bitmap_aip, old->bitmap_aip, MAX_GPU_INSTANCE);
+>
+> @@ -1310,6 +1370,84 @@ svm_range_unmap_from_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>                                        fence);
+>   }
+>
+> +/**
+> + * svm_range_partial_mapped_dev - check if prange mapped on the specific gpu
+> + *
+> + * @gpuidx: the gpu to check
+> + * @prange: prange to check
+> + * @start: the start address in pages
+> + * @last: the last address in pages
+> + *
+> + * Return:
+> + * true: if any partial range mapped on gpu based on granularity boundary
+> + * false: if the entire range not mapped
+> + */
+> +static bool
+> +svm_range_partial_mapped_dev(uint32_t gpuidx, struct svm_range *prange,
+> +                            unsigned long start, unsigned long last)
+> +{
+> +       unsigned long index, off;
+> +       bool mapped = false;
+> +
+> +       start = max(start, prange->start);
+> +       last = min(last, prange->last);
+> +       if (last < start)
+> +               goto out;
+> +
+> +       for (off = start; off <= last; off += (1UL << prange->granularity)) {
+> +               index = (off - prange->start) >> prange->granularity;
+> +               if (test_bit(index, prange->bitmap_mapped[gpuidx])) {
+> +                       mapped = true;
+> +                       break;
+> +               }
+> +       }
+> +out:
+> +       pr_debug("prange 0x%p [0x%lx 0x%lx] mapped %d on gpu %d\n", prange,
+> +                start, last, mapped, gpuidx);
+> +       return mapped;
+> +}
+> +
+> +static bool
+> +svm_range_partial_mapped(struct svm_range *prange, unsigned long start,
+> +                        unsigned long last)
+> +{
+> +       struct kfd_process *p = container_of(prange->svms, struct kfd_process, svms);
+> +       struct svm_range *pchild;
+> +       uint32_t gpuidx;
+> +
+> +       for_each_set_bit(gpuidx, p->svms.bitmap_supported, p->n_pdds) {
+> +               list_for_each_entry(pchild, &prange->child_list, child_list) {
+> +                       if (svm_range_partial_mapped_dev(gpuidx, pchild, start, last))
+> +                               return true;
+> +               }
+> +
+> +               if (svm_range_partial_mapped_dev(gpuidx, prange, start, last))
+> +                       return true;
+> +       }
+> +       return false;
+> +}
+> +
+> +static bool svm_range_is_mapped(struct svm_range *prange)
+> +{
+> +       return svm_range_partial_mapped(prange, prange->start, prange->last);
+> +}
+> +
+I think svm_range_is_mapped actually means if there is any 
+prange->granularity range inside prange is mapped to any gpu, not prange 
+got mapped. The name is confusion.
+> +static void
+> +svm_range_update_mapped(uint32_t gpuidx, struct svm_range *prange,
+> +                       unsigned long start, unsigned long last, bool mapped)
+> +{
+> +       unsigned long index, nbits;
+> +
+> +       index = (start - prange->start) >> prange->granularity;
+> +       nbits = svm_range_mapped_nbits(last - start + 1, prange->granularity);
+> +       if (mapped)
+> +               bitmap_set(prange->bitmap_mapped[gpuidx], index, nbits);
+> +       else
+> +               bitmap_clear(prange->bitmap_mapped[gpuidx], index, nbits);
+> +       pr_debug("prange 0x%p [0x%lx 0x%lx] update mapped %d nbits %ld gpu %d\n",
+> +                prange, start, last, mapped, nbits, gpuidx);
+> +}
+> +
+>   static int
+>   svm_range_unmap_from_gpus(struct svm_range *prange, unsigned long start,
+>                            unsigned long last, uint32_t trigger)
+> @@ -1321,29 +1459,28 @@ svm_range_unmap_from_gpus(struct svm_range *prange, unsigned long start,
+>          uint32_t gpuidx;
+>          int r = 0;
+>
+> -       if (!prange->mapped_to_gpu) {
+> -               pr_debug("prange 0x%p [0x%lx 0x%lx] not mapped to GPU\n",
+> -                        prange, prange->start, prange->last);
+> -               return 0;
+> -       }
+> -
+> -       if (prange->start == start && prange->last == last) {
+> -               pr_debug("unmap svms 0x%p prange 0x%p\n", prange->svms, prange);
+> -               prange->mapped_to_gpu = false;
+> -       }
+> -
+>          bitmap_or(bitmap, prange->bitmap_access, prange->bitmap_aip,
+>                    MAX_GPU_INSTANCE);
+>          p = container_of(prange->svms, struct kfd_process, svms);
+>
+>          for_each_set_bit(gpuidx, bitmap, MAX_GPU_INSTANCE) {
+> -               pr_debug("unmap from gpu idx 0x%x\n", gpuidx);
+>                  pdd = kfd_process_device_from_gpuidx(p, gpuidx);
+>                  if (!pdd) {
+>                          pr_debug("failed to find device idx %d\n", gpuidx);
+> -                       return -EINVAL;
+> +                       continue;
+> +               }
+> +
+> +               if (!svm_range_partial_mapped_dev(gpuidx, prange, start, last)) {
+> +                       pr_debug("svms 0x%p prange 0x%p [0x%lx 0x%lx] not mapped on gpu %d\n",
+> +                                prange->svms, prange, start, last, gpuidx);
+> +                       continue;
+>                  }
+>
+> +               svm_range_update_mapped(gpuidx, prange, start, last, false);
+> +
+> +               pr_debug("unmap svms 0x%p prange 0x%p [0x%lx 0x%lx] from gpu %d\n",
+> +                        prange->svms, prange, start, last, gpuidx);
+> +
+>                  kfd_smi_event_unmap_from_gpu(pdd->dev, p->lead_thread->pid,
+>                                               start, last, trigger);
+>
+> @@ -1483,6 +1620,10 @@ svm_range_map_to_gpus(struct svm_range *prange, unsigned long offset,
+>                  if (r)
+>                          break;
+>
+> +               if (!r)
+> +                       svm_range_update_mapped(gpuidx, prange, prange->start + offset,
+> +                                               prange->start + offset + npages - 1, true);
 
-It fixes amd_psr on eDP panel without Replay support
-(<=0x03 Sink support)
+svm_range_update_mapped set the mapping bitmap with prange->granularity, 
+but the gpu mapping is for [prange->start + offset,  prange->start + 
+offset + npages - 1]. The mapping bitmap covered range maybe bigger then 
+the range that got mapped.
 
-Signed-off-by: Ivan Lipski <ivlipski@amd.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 22 -------------------
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  9 +-------
- drivers/gpu/drm/amd/include/amd_shared.h      |  2 --
- 3 files changed, 1 insertion(+), 32 deletions(-)
+In following gpu page fault handler you use 
+svm_range_partial_mapped_dev(gpuidx, prange, addr, addr) to check if 
+addr is mapped. Is there a room left that addr is not mapped, but the 
+mapping bitmap covers it? That would cause the page fault at addr never 
+got handled.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 5372073a7472..b1245b732cc9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -65,7 +65,6 @@
- #include "amdgpu_dm_debugfs.h"
- #endif
- #include "amdgpu_dm_psr.h"
--#include "amdgpu_dm_replay.h"
- 
- #include "ivsrcid/ivsrcid_vislands30.h"
- 
-@@ -4266,7 +4265,6 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
- 	enum dc_connection_type new_connection_type = dc_connection_none;
- 	const struct dc_plane_cap *plane;
- 	bool psr_feature_enabled = false;
--	bool replay_feature_enabled = false;
- 	int max_overlay = dm->dc->caps.max_slave_planes;
- 
- 	dm->display_indexes_num = dm->dc->caps.max_streams;
-@@ -4376,20 +4374,6 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
- 		}
- 	}
- 
--	if (!(amdgpu_dc_debug_mask & DC_DISABLE_REPLAY)) {
--		switch (adev->ip_versions[DCE_HWIP][0]) {
--		case IP_VERSION(3, 1, 4):
--		case IP_VERSION(3, 1, 5):
--		case IP_VERSION(3, 1, 6):
--		case IP_VERSION(3, 2, 0):
--		case IP_VERSION(3, 2, 1):
--			replay_feature_enabled = true;
--			break;
--		default:
--			replay_feature_enabled = amdgpu_dc_feature_mask & DC_REPLAY_MASK;
--			break;
--		}
--	}
- 	/* loops over all connectors on the board */
- 	for (i = 0; i < link_cnt; i++) {
- 		struct dc_link *link = NULL;
-@@ -4438,12 +4422,6 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
- 				amdgpu_dm_update_connector_after_detect(aconnector);
- 				setup_backlight_device(dm, aconnector);
- 
--				/*
--				 * Disable psr if replay can be enabled
--				 */
--				if (replay_feature_enabled && amdgpu_dm_setup_replay(link, aconnector))
--					psr_feature_enabled = false;
--
- 				if (psr_feature_enabled)
- 					amdgpu_dm_set_psr_caps(link);
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index fb51ec4f8d31..440fc0869a34 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -29,7 +29,6 @@
- #include "dc.h"
- #include "amdgpu.h"
- #include "amdgpu_dm_psr.h"
--#include "amdgpu_dm_replay.h"
- #include "amdgpu_dm_crtc.h"
- #include "amdgpu_dm_plane.h"
- #include "amdgpu_dm_trace.h"
-@@ -124,12 +123,7 @@ static void vblank_control_worker(struct work_struct *work)
- 	 * fill_dc_dirty_rects().
- 	 */
- 	if (vblank_work->stream && vblank_work->stream->link) {
--		/*
--		 * Prioritize replay, instead of psr
--		 */
--		if (vblank_work->stream->link->replay_settings.replay_feature_enabled)
--			amdgpu_dm_replay_enable(vblank_work->stream, false);
--		else if (vblank_work->enable) {
-+		if (vblank_work->enable) {
- 			if (vblank_work->stream->link->psr_settings.psr_version < DC_PSR_VERSION_SU_1 &&
- 			    vblank_work->stream->link->psr_settings.psr_allow_active)
- 				amdgpu_dm_psr_disable(vblank_work->stream);
-@@ -138,7 +132,6 @@ static void vblank_control_worker(struct work_struct *work)
- #ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
- 			   !amdgpu_dm_crc_window_is_activated(&vblank_work->acrtc->base) &&
- #endif
--			   vblank_work->stream->link->panel_config.psr.disallow_replay &&
- 			   vblank_work->acrtc->dm_irq_params.allow_psr_entry) {
- 			amdgpu_dm_psr_enable(vblank_work->stream);
- 		}
-diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-index 67d7b7ee8a2a..abe829bbd54a 100644
---- a/drivers/gpu/drm/amd/include/amd_shared.h
-+++ b/drivers/gpu/drm/amd/include/amd_shared.h
-@@ -240,7 +240,6 @@ enum DC_FEATURE_MASK {
- 	DC_DISABLE_LTTPR_DP2_0 = (1 << 6), //0x40, disabled by default
- 	DC_PSR_ALLOW_SMU_OPT = (1 << 7), //0x80, disabled by default
- 	DC_PSR_ALLOW_MULTI_DISP_OPT = (1 << 8), //0x100, disabled by default
--	DC_REPLAY_MASK = (1 << 9), //0x200, disabled by default for dcn < 3.1.4
- };
- 
- enum DC_DEBUG_MASK {
-@@ -251,7 +250,6 @@ enum DC_DEBUG_MASK {
- 	DC_DISABLE_PSR = 0x10,
- 	DC_FORCE_SUBVP_MCLK_SWITCH = 0x20,
- 	DC_DISABLE_MPO = 0x40,
--	DC_DISABLE_REPLAY = 0x50,
- 	DC_ENABLE_DPIA_TRACE = 0x80,
- };
- 
--- 
-2.25.1
+Regard
 
+Xiaogang
+
+> +
+>                  if (fence) {
+>                          r = dma_fence_wait(fence, false);
+>                          dma_fence_put(fence);
+> @@ -1648,7 +1789,7 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
+>
+>          if (bitmap_empty(ctx->bitmap, MAX_GPU_INSTANCE)) {
+>                  bitmap_copy(ctx->bitmap, prange->bitmap_access, MAX_GPU_INSTANCE);
+> -               if (!prange->mapped_to_gpu ||
+> +               if (!svm_range_is_mapped(prange) ||
+>                      bitmap_empty(ctx->bitmap, MAX_GPU_INSTANCE)) {
+>                          r = 0;
+>                          goto free_ctx;
+> @@ -1729,9 +1870,6 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
+>                          r = svm_range_map_to_gpus(prange, offset, npages, readonly,
+>                                                    ctx->bitmap, flush_tlb);
+>
+> -               if (!r && next == end)
+> -                       prange->mapped_to_gpu = true;
+> -
+>                  svm_range_unlock(prange);
+>
+>                  addr = next;
+> @@ -1900,10 +2038,10 @@ svm_range_evict(struct svm_range *prange, struct mm_struct *mm,
+>          if (!p->xnack_enabled ||
+>              (prange->flags & KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED)) {
+>                  int evicted_ranges;
+> -               bool mapped = prange->mapped_to_gpu;
+> +               bool mapped = svm_range_is_mapped(prange);
+>
+>                  list_for_each_entry(pchild, &prange->child_list, child_list) {
+> -                       if (!pchild->mapped_to_gpu)
+> +                       if (!svm_range_is_mapped(pchild))
+>                                  continue;
+>                          mapped = true;
+>                          mutex_lock_nested(&pchild->lock, 1);
+> @@ -1966,7 +2104,9 @@ svm_range_evict(struct svm_range *prange, struct mm_struct *mm,
+>
+>   static struct svm_range *svm_range_clone(struct svm_range *old)
+>   {
+> +       struct kfd_process *p = container_of(old->svms, struct kfd_process, svms);
+>          struct svm_range *new;
+> +       uint32_t gpuidx;
+>
+>          new = svm_range_new(old->svms, old->start, old->last, false);
+>          if (!new)
+> @@ -1988,7 +2128,11 @@ static struct svm_range *svm_range_clone(struct svm_range *old)
+>          new->prefetch_loc = old->prefetch_loc;
+>          new->actual_loc = old->actual_loc;
+>          new->granularity = old->granularity;
+> -       new->mapped_to_gpu = old->mapped_to_gpu;
+> +       for_each_set_bit(gpuidx, p->svms.bitmap_supported, p->n_pdds) {
+> +               bitmap_copy(new->bitmap_mapped[gpuidx], old->bitmap_mapped[gpuidx],
+> +                           svm_range_mapped_nbits(new->last - new->start + 1,
+> +                                                  new->granularity));
+> +       };
+>          bitmap_copy(new->bitmap_access, old->bitmap_access, MAX_GPU_INSTANCE);
+>          bitmap_copy(new->bitmap_aip, old->bitmap_aip, MAX_GPU_INSTANCE);
+>
+> @@ -2107,7 +2251,7 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
+>                  next_start = min(node->last, last) + 1;
+>
+>                  if (svm_range_is_same_attrs(p, prange, nattr, attrs) &&
+> -                   prange->mapped_to_gpu) {
+> +                   svm_range_is_mapped(prange)) {
+>                          /* nothing to do */
+>                  } else if (node->start < start || node->last > last) {
+>                          /* node intersects the update range and its attributes
+> @@ -3587,7 +3731,7 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
+>
+>                  if (migrated && (!p->xnack_enabled ||
+>                      (prange->flags & KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED)) &&
+> -                   prange->mapped_to_gpu) {
+> +                   svm_range_is_mapped(prange)) {
+>                          pr_debug("restore_work will update mappings of GPUs\n");
+>                          mutex_unlock(&prange->migrate_mutex);
+>                          continue;
+> @@ -3598,7 +3742,7 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
+>                          continue;
+>                  }
+>
+> -               flush_tlb = !migrated && update_mapping && prange->mapped_to_gpu;
+> +               flush_tlb = !migrated && update_mapping && svm_range_is_mapped(prange);
+>
+>                  r = svm_range_validate_and_map(mm, prange, MAX_GPU_INSTANCE,
+>                                                 true, flush_tlb);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+> index d2e94d8fb4be..10c92c5e23a7 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+> @@ -132,7 +132,7 @@ struct svm_range {
+>          struct list_head                child_list;
+>          DECLARE_BITMAP(bitmap_access, MAX_GPU_INSTANCE);
+>          DECLARE_BITMAP(bitmap_aip, MAX_GPU_INSTANCE);
+> -       bool                            mapped_to_gpu;
+> +       unsigned long                   *bitmap_mapped[MAX_GPU_INSTANCE];
+>   };
+>
+>   static inline void svm_range_lock(struct svm_range *prange)
+> @@ -163,6 +163,8 @@ static inline struct svm_range_bo *svm_range_bo_ref(struct svm_range_bo *svm_bo)
+>                  return NULL;
+>   }
+>
+> +#define svm_range_mapped_nbits(size, granularity) DIV_ROUND_UP((size), 1UL << (granularity))
+> +
+>   int svm_range_list_init(struct kfd_process *p);
+>   void svm_range_list_fini(struct kfd_process *p);
+>   int svm_ioctl(struct kfd_process *p, enum kfd_ioctl_svm_op op, uint64_t start,
+> --
+> 2.35.1
+>
