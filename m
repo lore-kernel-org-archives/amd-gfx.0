@@ -4,92 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1A08E7849A
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Oct 2023 07:01:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CDFCE7849A
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Oct 2023 07:39:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6070C10E149;
-	Mon,  2 Oct 2023 07:01:02 +0000 (UTC)
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 742DA10E25A
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Oct 2023 07:00:22 +0000 (UTC)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-40675f06f1fso1503725e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 02 Oct 2023 00:00:22 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9DD910E213;
+	Mon,  2 Oct 2023 07:39:53 +0000 (UTC)
+Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
+ [IPv6:2607:f8b0:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3215010E104;
+ Mon,  2 Oct 2023 04:42:15 +0000 (UTC)
+Received: by mail-pl1-x630.google.com with SMTP id
+ d9443c01a7336-1c60a514f3aso112452365ad.3; 
+ Sun, 01 Oct 2023 21:42:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1696230020; x=1696834820; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :references:cc:to:content-language:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=65UjR/BYH4sgNp7jAQsrOIIv1FTbyb0+YEnzQHZ9wXU=;
- b=u2Xun9AXPJ/HOaWdLMWAoIzqzTg+Y8J4+ZvBBziRkX7PZZGNgIOl8a4uVI3K2EirDZ
- DWlNgS/db9bU2yCjJiDRfFUGOy7gFNo4mo5dNaYb/NH1hMVJmTYXycRtxFqZFwpdpff3
- D3VTvtZ0WM2qiFpeETMN/z7ETofsJG2EqX64H0svg/2BPytnlQv5AuPgSoAm0U8pKIFz
- Zh9iNFUy/Bixg43ipg56WBNsuEbF7KgaOMdpSJso28PLlCaEJh6PR9ZKsH1p3b14DT3e
- TgHZus3qDq2y+FuOguZH2wQjevzG0IfcGI2O75IFqhjJ+x4NyfR4EwCc29eRrpyr/nL4
- tNGQ==
+ d=gmail.com; s=20230601; t=1696221734; x=1696826534; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=Apgh5I/AZlw1bZUGVlRw0FcB6BXkBGvFxHpXJVnA298=;
+ b=JaY7FRnu1tAAJqingLClp0rFuNETDjLxx0ZoxZaEuI/vf5Ukn2YjW+bNLusxY/oQM7
+ dSdTBJmHEt3irhggkoPsVnrcb6XyLYqwMc7ObWvn069OST4dF/nH0kvIzmYQ93iMl/PJ
+ wfsf3IcjFAF7ibJIoB86IQZlvmheYyHMPTxWGJTX7B6Cae/FJxXqkyp0MrrOGiCXHu5t
+ 9Y2T1w2UopFXVnwVmJICwCB06J1+Xp2ec8ZuXxo+4DG6eErbaOJiHAYZqWd555Kdp+M+
+ GvQtyXsleHn4/r2cCA/w2fRt3+pT3TxWKRIFfqXXmwHSZm+clj3/rBmPy36JsuGC1ro8
+ +jHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696230020; x=1696834820;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :references:cc:to:content-language:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=65UjR/BYH4sgNp7jAQsrOIIv1FTbyb0+YEnzQHZ9wXU=;
- b=OLY/EMHrBO+yaIN1jGwXsOsPHXHVEbpnl2Ee7ezJ+3YeBPU7hA9I2LzQCq69VjOAPy
- C4EQKPx7U5s4NqTtwM+mJuBqjk/IwV5CzhnJ0Okutfs9sXRnrYxVfdQgaP4KZSL9t7eR
- nEhAYeYXFkhPEoM823cmTuigZJQycs6lCxJrEiueDH5kAyfZavY/fKCJE3u7SjZKQlWq
- JwokgPpBqXuwP96gy1fIbf1tQ9G4VVt2CTR+K7fHDN2byf5E8XyErZ1kF1CqtMF55Y5G
- 1SPN/HYaFOJkb6H/62B6y4XAelyPAQIrBLwMxDwZTRCB4KiZRb0AFP6Nyg6fHN0lGtBY
- YhIA==
-X-Gm-Message-State: AOJu0YyilX9Bbn1JJypU7uOoJ5NCko+trzoWlMDLLKcuQXON1aqPLCsx
- h5u8PQEujyxGl+vDvLC1AftwNA==
-X-Google-Smtp-Source: AGHT+IE2F7pfcHOX2OqOjdf/8yC0R+rXJgV623odj8DkbTqz9V9NQ2wG4qE6yedpKCypg3IborH+mQ==
-X-Received: by 2002:a05:6000:114b:b0:30e:56b3:60fe with SMTP id
- d11-20020a056000114b00b0030e56b360femr8811358wrx.4.1696230020459; 
- Mon, 02 Oct 2023 00:00:20 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:982:cbb0:b653:7e47:ffdd:9340?
- ([2a01:e0a:982:cbb0:b653:7e47:ffdd:9340])
+ d=1e100.net; s=20230601; t=1696221734; x=1696826534;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Apgh5I/AZlw1bZUGVlRw0FcB6BXkBGvFxHpXJVnA298=;
+ b=wRM7VyKok7qz9+ykTh53G3cRCyHf8XCqlkXPoDSuAVT7oNbMy3MS6NElx0ws+0+/IZ
+ HGGBfT3z+MUu5FLVatsKyCSNIQNLmi0E4RGV+qu4rXjaJuKoOWM1B6BNe+NWfRC0ahiA
+ v/SYQJgGb+CGfc0OHLOkESY6LgPtRNkrIgeBxYj9v8eIhzYMiMoy5HS2gRUf3kMxyoKT
+ 4XSemfK3wpLHt4YGuP7mDQd7gntGfz2AZULhA3qSwZH8itduIHogvn7KUQ5ItULFCjCF
+ MKdCaOqrfiuOkOeJI81r9zyrX3kXZeJba842lnZtn/LLXEebmRE0omU69v3GydQ7uvdr
+ kfKA==
+X-Gm-Message-State: AOJu0Yxfz3UtOOqXDQhPkBAVImzhf6HGvRHyba7S/q4mDE5Y/uAkrJwP
+ jHrLRsgaFZYXBBkjd4E5SEg=
+X-Google-Smtp-Source: AGHT+IFFfibQl2jUVEX5S5XbCIBmeSoheGM2nkffMvC6cL/VFt9IIncdmDz+joXJ2xn+KBlnCBFneQ==
+X-Received: by 2002:a17:903:428b:b0:1b8:2c6f:3248 with SMTP id
+ ju11-20020a170903428b00b001b82c6f3248mr10461230plb.39.1696221734619; 
+ Sun, 01 Oct 2023 21:42:14 -0700 (PDT)
+Received: from sagar-virtual-machine.localdomain ([103.157.161.86])
  by smtp.gmail.com with ESMTPSA id
- d11-20020adff84b000000b0031980783d78sm12200252wrq.54.2023.10.02.00.00.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Oct 2023 00:00:19 -0700 (PDT)
-Message-ID: <7d157f25-a25d-41c2-9ff5-624721efcb92@linaro.org>
-Date: Mon, 2 Oct 2023 09:00:18 +0200
+ jj7-20020a170903048700b001c73701bd17sm7397429plb.4.2023.10.01.21.42.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 01 Oct 2023 21:42:14 -0700 (PDT)
+From: Sagar Vashnav <sagarvashnav72427@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Sagar Vashnav <sagarvashnav72427@gmail.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/display: add kernel docs for dc_dmub_caps
+Date: Mon,  2 Oct 2023 00:41:19 -0400
+Message-Id: <20231002044126.70197-1-sagarvashnav72427@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <9270c1f3-c8f3-4b3c-91ec-ed17d97ecafd@infradead.org>
+References: <9270c1f3-c8f3-4b3c-91ec-ed17d97ecafd@infradead.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Subject: Re: [PATCH] MAINTAINERS: drm/ci: add entries for xfail files
-Content-Language: en-US, fr
-To: Helen Koike <helen.koike@collabora.com>, dri-devel@lists.freedesktop.org
-References: <20230919182249.153499-1-helen.koike@collabora.com>
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro Developer Services
-In-Reply-To: <20230919182249.153499-1-helen.koike@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Mon, 02 Oct 2023 07:39:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,90 +79,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
-Cc: mripard@kernel.org, daniel@ffwll.ch, heiko@sntech.de,
- michel.daenzer@mailbox.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- jani.nikula@linux.intel.com, robdclark@gmail.com,
- linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- p.zabel@pengutronix.de, airlied@redhat.com, alexander.deucher@amd.com,
- linux-amlogic@lists.infradead.org, daniel@fooishbar.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 19/09/2023 20:22, Helen Koike wrote:
-> DRM CI keeps track of which tests are failing, flaking or being skipped
-> by the ci in the expectations files. Add entries for those files to the
-> corresponding driver maintainer, so they can be notified when they
-> change.
-> 
-> Signed-off-by: Helen Koike <helen.koike@collabora.com>
-> ---
-> 
-> For reference: https://www.mail-archive.com/dri-devel@lists.freedesktop.org/msg463165.html
-> 
->   MAINTAINERS | 7 +++++++
->   1 file changed, 7 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 90f13281d297..740a2ce2689c 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -6614,6 +6614,7 @@ S:	Maintained
->   B:	https://gitlab.freedesktop.org/drm/msm/-/issues
->   T:	git https://gitlab.freedesktop.org/drm/msm.git
->   F:	Documentation/devicetree/bindings/display/msm/
-> +F:	drivers/gpu/drm/ci/xfails/msm*
->   F:	drivers/gpu/drm/msm/
->   F:	include/uapi/drm/msm_drm.h
->   
-> @@ -6886,6 +6887,7 @@ T:	git git://anongit.freedesktop.org/drm/drm-misc
->   F:	Documentation/devicetree/bindings/display/amlogic,meson-dw-hdmi.yaml
->   F:	Documentation/devicetree/bindings/display/amlogic,meson-vpu.yaml
->   F:	Documentation/gpu/meson.rst
-> +F:	drivers/gpu/drm/ci/xfails/meson*
->   F:	drivers/gpu/drm/meson/
->   
->   DRM DRIVERS FOR ATMEL HLCDC
-> @@ -6994,6 +6996,7 @@ L:	dri-devel@lists.freedesktop.org
->   L:	linux-mediatek@lists.infradead.org (moderated for non-subscribers)
->   S:	Supported
->   F:	Documentation/devicetree/bindings/display/mediatek/
-> +F:	drivers/gpu/drm/ci/xfails/mediatek*
->   F:	drivers/gpu/drm/mediatek/
->   F:	drivers/phy/mediatek/phy-mtk-dp.c
->   F:	drivers/phy/mediatek/phy-mtk-hdmi*
-> @@ -7034,6 +7037,7 @@ L:	dri-devel@lists.freedesktop.org
->   S:	Maintained
->   T:	git git://anongit.freedesktop.org/drm/drm-misc
->   F:	Documentation/devicetree/bindings/display/rockchip/
-> +F:	drivers/gpu/drm/ci/xfails/rockchip*
->   F:	drivers/gpu/drm/rockchip/
->   
->   DRM DRIVERS FOR STI
-> @@ -10476,6 +10480,7 @@ C:	irc://irc.oftc.net/intel-gfx
->   T:	git git://anongit.freedesktop.org/drm-intel
->   F:	Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon
->   F:	Documentation/gpu/i915.rst
-> +F:	drivers/gpu/drm/ci/xfails/i915*
->   F:	drivers/gpu/drm/i915/
->   F:	include/drm/i915*
->   F:	include/uapi/drm/i915_drm.h
-> @@ -17862,6 +17867,7 @@ C:	irc://irc.oftc.net/radeon
->   T:	git https://gitlab.freedesktop.org/agd5f/linux.git
->   F:	Documentation/gpu/amdgpu/
->   F:	drivers/gpu/drm/amd/
-> +F:	drivers/gpu/drm/ci/xfails/amd*
->   F:	drivers/gpu/drm/radeon/
->   F:	include/uapi/drm/amdgpu_drm.h
->   F:	include/uapi/drm/radeon_drm.h
-> @@ -22846,6 +22852,7 @@ L:	dri-devel@lists.freedesktop.org
->   L:	virtualization@lists.linux-foundation.org
->   S:	Maintained
->   T:	git git://anongit.freedesktop.org/drm/drm-misc
-> +F:	drivers/gpu/drm/ci/xfails/virtio*
->   F:	drivers/gpu/drm/virtio/
->   F:	include/uapi/linux/virtio_gpu.h
->   
+Add kernel documentation for the dc_dmub_caps structure.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Sagar Vashnav <sagarvashnav72427@gmail.com>
+---
+ drivers/gpu/drm/amd/display/dc/dc.h | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 81258392d..14b4c503d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -208,6 +208,16 @@ struct dc_color_caps {
+ 	struct mpc_color_caps mpc;
+ };
+ 
++/**
++ * struct dc_dmub_caps - DMUB (Display Microcontroller Unit) capabilities
++ * @psr: support for PSR (Power Saving State Residency)
++ * @mclk_sw: support for MCLK_SW (Memory Clock Switch)
++ * @subvp_psr: support for SUBVP PSR (Sub-Viewport Power Saving State Residency)
++ * @gecc_enable: GECC (Global Error Correcting Code) enablement.
++ *
++ * This structure describes the capabilities of the Display Microcontroller Unit (DMUB).
++ * It specifies whether certain features like PSR and MCLK_SW are supported.
++ */
+ struct dc_dmub_caps {
+ 	bool psr;
+ 	bool mclk_sw;
+-- 
+2.34.1
+
