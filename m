@@ -4,119 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0BEDE7AD6E
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Oct 2023 15:40:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90CCCE7AD77
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Oct 2023 16:18:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F3BC10E011;
-	Tue,  3 Oct 2023 15:40:39 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2071.outbound.protection.outlook.com [40.107.220.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A096110E011
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Oct 2023 15:40:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jNCxRn2CfODDYnR3Pzr8l+dhfsjj3D+e71kpGx9s0z9nd3X0bOPEvQ5p0oTaLSYkAs3X+WmAwSqWajsN9eyBsOMONQZjt+F3+yDqzllcAuBazoXlal6s1qg1jNFDG7zqyWQEK7srcJfI4oSvnozEYDeS2I3kCfqDx2g87e7cYPVzO+YAb9ZOAQyv9hpqlzAkpaR9o/+ZYtcmslIW91K5V15ddHmyWYiUU/j2tLVGuC2MDVGH7tS1azXddchVSiBA48+wnQAwf5fIoq1v4KV4e9tR97jBbo629m/wXTVbcKRmjaIF/v61lUEztAq3lC3GYWCIObUNBtcEunNknXo6zw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=l9XHkVBtMNyKJsk1JbCZkxnIYUBArXOTxDtQ4lrxFEg=;
- b=U/rG9u52/gy7MKM0ZNLFNRVHiyHeHOJIIdg2Cf7fN94+EToLXsiY64yljhI2EbGfYtqRalt7KP6ps4cNEw2s2ZE0yUoJzPJbBjfr9Pt3bOfDP2TB/OvOrnGs7x0Ouepo4EtLpeP1gp97LpzAMsWMmqyVdSR2Hhfqltq1OUxbebs06jabSbMzm+mK0EwsfYXflcBxezrLkNg5V7mS6ZVRgL/r0sVhj911/sK5AvRNXuxkUfJjdGE+S1C1Aoxk+IhTF1JW8SOTNmNL86ZgSByUOxf+QIk48CeyRmkS9+SE8vvVset88pMbQfSOjbLDIcRJhsCor2wh5wZezfEkYiO+yw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l9XHkVBtMNyKJsk1JbCZkxnIYUBArXOTxDtQ4lrxFEg=;
- b=qlWitkUSlwe6wurUgooRegEOH/DglexM8ThLA9lSwvELcbMrNEtX3SxbipsQt1I0qPZ3c2rte7d26szAyMYjsx0Yaz/FOw3d0UXV+zbi+WxmQvDMlTyucGwole8OIMZSOFMlhQQPfsujT8p0EjJxdzhyfhzlYcM/PFaI+HRlWY8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5311.namprd12.prod.outlook.com (2603:10b6:5:39f::7) by
- CH3PR12MB7595.namprd12.prod.outlook.com (2603:10b6:610:14c::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.33; Tue, 3 Oct
- 2023 15:40:32 +0000
-Received: from DM4PR12MB5311.namprd12.prod.outlook.com
- ([fe80::965c:2865:17b9:fc05]) by DM4PR12MB5311.namprd12.prod.outlook.com
- ([fe80::965c:2865:17b9:fc05%7]) with mapi id 15.20.6838.016; Tue, 3 Oct 2023
- 15:40:31 +0000
-Message-ID: <8fc58d31-a882-46b7-8852-c54a997af7fa@amd.com>
-Date: Tue, 3 Oct 2023 11:40:28 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] Revert "drm/amd/display: Enable Replay for static
- screen use cases"
-Content-Language: en-US
-To: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>,
- "LIPSKI, IVAN" <IVAN.LIPSKI@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20231002174754.1596197-1-ivlipski@amd.com>
- <PH8PR12MB7279E1B7634AE630985E4E2EF9C4A@PH8PR12MB7279.namprd12.prod.outlook.com>
- <284d3f39-071c-4451-839e-8840aecfc2a7@amd.com>
- <PH8PR12MB7279526F77BBC201BA660529F9C4A@PH8PR12MB7279.namprd12.prod.outlook.com>
-From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <PH8PR12MB7279526F77BBC201BA660529F9C4A@PH8PR12MB7279.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4P288CA0096.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d0::25) To DM4PR12MB5311.namprd12.prod.outlook.com
- (2603:10b6:5:39f::7)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06B7610E044;
+	Tue,  3 Oct 2023 16:18:09 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FAAA10E044;
+ Tue,  3 Oct 2023 16:18:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=mC5KvqAUUt1HmxrwWBpCZ6+i79R9/zHwAdCBb4tj81Q=; b=j04w112eJ4csoDr1uhW3QWmV1T
+ 0BnUewlQ8jvxF6ZkfQEi1/+GV7RK2auoXXzDx0TmztMJ1g5KXGlxdCN/+zobmZWX/ZwqTma2eUr7X
+ WDD2YFpZhVnSyBtKYhz2TbzSMi0KhhsB35qjsfME1C7YATVNWUqrO/lmIBhpA55mvOelQKQE7rA7i
+ stia7j81yWCoBsofSSRa/ldW7WTlOPBlZ9lBBo1GEFOf/wV+Wz/uZTKxnpw818w3/VLSormUDAnwI
+ 51iDc4N1mbqqSj5V80iVWoRB143/fyhqFMuF9GQrWJwVQXpReC0gVesWcMAQIh88IYcsb19iD14oc
+ Jh/k68Ew==;
+Received: from [102.213.205.115] (helo=mail.igalia.com)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1qni5y-00BKVd-Sz; Tue, 03 Oct 2023 18:18:03 +0200
+Date: Tue, 3 Oct 2023 15:17:40 -0100
+From: Melissa Wen <mwen@igalia.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [PATCH v3 09/32] drm/amd/display: add plane 3D LUT
+ driver-specific properties
+Message-ID: <20231003161725.newwn5dthlk5ycqk@mail.igalia.com>
+References: <20230925194932.1329483-1-mwen@igalia.com>
+ <20230925194932.1329483-10-mwen@igalia.com>
+ <728a979a-7f0a-4a90-a7d5-1c8b1c3ab1d3@amd.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5311:EE_|CH3PR12MB7595:EE_
-X-MS-Office365-Filtering-Correlation-Id: af7db159-5e75-4de5-0af7-08dbc4271337
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fkMQBPLzKKdixcUOZgLRDMMdlWFk7FIfqsP11Xsfdc7htYccgM/UbF3F3b3VxC2YWsOEtRRjH7Su1oChO45q5EOYaP2RN4tKyP5/ClvFUQLIPscAWtFfcfxN6fFtmoximAAQazuRJvCENl9+KpmarD7Ieaw1kHsVH47SKr7k1Xc8qA0WT1dUNIipGiW9OCcPoxX/BtsYH5CqBaR7qxzipeaUzEn6wrKnkYvooHMYVef6+oREcra32RwOd9QdMDD2JzmpdDpDbs29mfKpUw3CPKTua5iDpUuxt7vPIVPStUgFfkYHySyUCCSIGnT4hlMHkeuWnpbBaqfPVFXjwVyVwvILdmFJbinhuh9KDiXkWmwdbmOezBba/sRCdlD9jbrz4Fuwqkl+7lo/ddQGGk4+Bw1ViGQvc9a45rnFSdYKbogJDUcKlsdp3TdBW47dhz4rRZjHKaME2x6Oz+YqFljFg4r/AIYqrRyPVRzJLWET2EPukDOAsdAKICpdYjewpRskCaYsXQK8cJO1XpUNw2Ck31tQpZl8tDpMTrqzdklYKmckBoiKuXDDXwMorsKShUpgCB8PVGxqWVakdU68qdFg69/4DyPmYZwHPQhGiEwn+iy2HBHy/X4tPouJtYbUlAYdHK49EzAeFfzO/CbSde79nw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5311.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366004)(39860400002)(136003)(396003)(346002)(376002)(230922051799003)(451199024)(64100799003)(1800799009)(186009)(31686004)(55236004)(478600001)(53546011)(6666004)(6506007)(6486002)(38100700002)(86362001)(31696002)(2906002)(83380400001)(26005)(6512007)(2616005)(36756003)(66556008)(5660300002)(54906003)(41300700001)(110136005)(316002)(66946007)(66476007)(4326008)(8936002)(8676002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Ny9QVTlqaHBqblh6Qzdic090RnJHMWRXbndjSHlnZk1DaHdxSVVWZm1JdC9F?=
- =?utf-8?B?ZHpEaXFuckM3TUVWSzBzV2ZONjFYdTBHaUpyWGRDVDVud1FVQWpqVlFJNlNW?=
- =?utf-8?B?ZWFZNXA2WEZ0VVJUbzFPZ01Tei94RWZMZ1hUMnIwNlN1SmJJQU13OEtjcU4z?=
- =?utf-8?B?SDRHMXFoT2ZBWlgxT2ZCcXhqQnU3VWxLeG41dTRlYXBRNkxBN1N5eXdBNnYv?=
- =?utf-8?B?VllINGNjNmhyTnJIRTJuaW9JSFp1M0VxVC9MR0FRdVdJWFVMU2hmNmpNOG13?=
- =?utf-8?B?VWlSMkZhZGJQZSs3SFpuaEtWQzg2OStlN2ZBQm1mZWdDOWhacURnamR4Z3pX?=
- =?utf-8?B?OHczWFBJQ0Fhb1JwMzBzcHBLZjdZblpOVTBtQ0MxUjhwczVhWkJ0ZU1SeGU1?=
- =?utf-8?B?NXFNMFhydHQrNG5adjlZbGFlc1pBemExUGM1c0ptYjZhQUV0Wllsc1lBZXEx?=
- =?utf-8?B?MnJrRUVkWkxCcXhHSEdsdXgyK2UraExIWWswNTE0VEx2SEVlTnJ3aW5LTmdE?=
- =?utf-8?B?blpzWmk4cnliVU9aTWFRa2gwSjBJSi9UTEhLSE1PeVdoTzROSE96VVU2bnUr?=
- =?utf-8?B?bU1SSzd5ejlyQzMwUkRnSEVEcWF1Z1pIVElEM0xRTmtjaTJkckVxTE0yQmVR?=
- =?utf-8?B?NUlqejBRQlU1K0FzNGVNWnFYSW9tcVlzYnZiQVczdTRvNFZDR1RzUkxrN2JN?=
- =?utf-8?B?RzdodVcrMnB4ZW13Zlp4WDVlWSt1Sm1uR2Zub2Z5Y084NXhqMUs2UWR2WTlk?=
- =?utf-8?B?bGdvK3czaDBnRHQwUjJ0WW9saTNTU0llMWMzcElucHBHcm5nRW5FTmdISjJS?=
- =?utf-8?B?VFRGVnhNNnRNUXREdUxZZUdzNUJZZ3hsR3VlVFFMSmNnQnR5NHUxeVpacWVG?=
- =?utf-8?B?YVo1RFQ2aExaSUJlcTNLdDkyVmZrU0NRRjZZZ1I5ZklVdnV0K3NSclJpYUJQ?=
- =?utf-8?B?Q2hMVG0zeW1OSjdZNjNXS0J3Ung0cVM1UFFMUjlPU282ZlRHM3JlMHFXcTFN?=
- =?utf-8?B?T2NKbXEreE9mcE5lR1V5UndWakxka2Jja3Fya3JxZ1BqRStkZUhkVHJ2OElC?=
- =?utf-8?B?WjRMVTZGTVFLOXJXNlVmNmFmUDVGdU5kSXpVbFB4Z0ZoMGRkR0FBLzNEN3ZP?=
- =?utf-8?B?c0JVMWQ4Vk1hTTFTbVB0czd1bGdsYiszam5KdGRRZGJkRkZGSnk0dEdYVFU1?=
- =?utf-8?B?YVpSNTF0ZHRrbEpseFM4NlhCOEFGbmpMcktXendGRElScVYwVHJ0YWlLNTll?=
- =?utf-8?B?WjZUOGdlWUxpQUN4eklWUFVwUUxlYzhvaVEwd1dKb2RXRjZPU2RWcHB1cFF2?=
- =?utf-8?B?UGx5M0RvYUJhcW1OYXd2MUhkQktZVTcvYUVFa1RZNi9uSmJmUXBBUWJ1ZUZX?=
- =?utf-8?B?SU1BbnIzRXJJMVBKWEhKT0wyck81T0gzOHJQYnFJeWI0MWZDeGpsQS9vYjlF?=
- =?utf-8?B?S0tSMVpZNjltamxxSTFtaVV6L044RUFtKzUydHBIOXJrYUZPbXV1VldLbzFr?=
- =?utf-8?B?dmdnMGtHRnFUamV3YlRBOWdRYkg0SFNubFNBWkdFTUJiZWloV0RPRCtlVjVn?=
- =?utf-8?B?c05WeEY4eTBOcFJrV2hoeEVrTUV2WGZ4TUpUa1I4L1NZWWVaY3Jsb1diblp1?=
- =?utf-8?B?RGZjQjBhRUNUQ3RlYVFBaFNxUDhHYTIxOXJhbTU2RHpkM0FOTVA5Qm45ZzFu?=
- =?utf-8?B?b2FPb1R0SVdEU2dmZ2toUXMxK0pVcVU5TjZFZFBJVG5Ta2gyaVNwZUI1eUF4?=
- =?utf-8?B?TTAwRTVGWlVJa2hvdU8xcEpINDBCQlk0TjM5ZFhVYWcvbHYrMzhjdnI5WTU1?=
- =?utf-8?B?S0dlSW9QMkc5d3hLRURGN0ducFowTDI2cVp0MzhaUFJ5b3NNMUNRYjVSODR3?=
- =?utf-8?B?Qkhtd1V4STh4eC9rZHFuMTltdzBLOTFOdkFmL0tLeC9PK0FWeHF5VkJBNDQ3?=
- =?utf-8?B?MFA3VG1TOGlrdmgxbThSbGdiNTdPVU5KMktiL0dYSEdjc0FZZHE5MTcvRi9V?=
- =?utf-8?B?L0hjcmxrV0FBSUVvc2FBTFhuNUw3UXdBT0RmNW84QkV2Ukt0UlJrSlIrQlE1?=
- =?utf-8?B?eDdFdWo4Nnl2VGlUcitZdlZpa2lkVmkzbVd3WTl4VUo3TUg4L25rZzk3d0wr?=
- =?utf-8?Q?39h8=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: af7db159-5e75-4de5-0af7-08dbc4271337
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5311.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2023 15:40:30.9641 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TSp+d6uTwFRwEzqLBIpiHFo2RruDQBj0ZKlj0qqyzvA7UrxHrvSzTlv4KiniUen9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7595
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <728a979a-7f0a-4a90-a7d5-1c8b1c3ab1d3@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,221 +53,213 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>, "Mahfooz, Hamza" <Hamza.Mahfooz@amd.com>,
- "Chung, ChiaHsuan \(Tom\)" <ChiaHsuan.Chung@amd.com>
+Cc: Sebastian Wick <sebastian.wick@redhat.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>, kernel-dev@igalia.com,
+ Shashank Sharma <Shashank.Sharma@amd.com>, sunpeng.li@amd.com,
+ Simon Ser <contact@emersion.fr>, Xinhui.Pan@amd.com,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Xaver Hugl <xaver.hugl@gmail.com>,
+ dri-devel@lists.freedesktop.org,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Alex Hung <alex.hung@amd.com>, amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
+ christian.koenig@amd.com, Joshua Ashton <joshua@froggi.es>,
+ sungjoon.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 09/27, Harry Wentland wrote:
+> 
+> 
+> On 2023-09-25 15:49, Melissa Wen wrote:
+> > Add 3D LUT property for plane color transformations using a 3D lookup
+> > table. 3D LUT allows for highly accurate and complex color
+> > transformations and is suitable to adjust the balance between color
+> > channels. It's also more complex to manage and require more
+> > computational resources. Since a 3D LUT has a limited number of entries
+> > in each dimension we want to use them in an optimal fashion. This means
+> > using the 3D LUT in a colorspace that is optimized for human vision,
+> > such as sRGB, PQ, or another non-linear space. Therefore, userpace may
+> > need one 1D LUT (shaper) before it to delinearize content and another 1D
+> > LUT after 3D LUT (blend) to linearize content again for blending. The
+> > next patches add these 1D LUTs to the plane color mgmt pipeline.
+> > 
+> > v3:
+> > - improve commit message about 3D LUT
+> > - describe the 3D LUT entries and size (Harry)
+> > 
+> > Signed-off-by: Melissa Wen <mwen@igalia.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      | 17 ++++++++++++++
+> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  9 ++++++++
+> >  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 14 +++++++++++
+> >  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 23 +++++++++++++++++++
+> >  4 files changed, 63 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> > index 66bae0eed80c..1b5f25989f7f 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> > @@ -363,6 +363,23 @@ struct amdgpu_mode_info {
+> >  	 * @plane_hdr_mult_property:
+> >  	 */
+> >  	struct drm_property *plane_hdr_mult_property;
+> > +	/**
+> > +	 * @plane_lut3d_property: Plane property for color transformation using
+> > +	 * a 3D LUT (pre-blending), a three-dimensional array where each
+> > +	 * element is an RGB triplet. Each dimension has a size of the cubed
+> > +	 * root of lut3d_size. The array contains samples from the approximated
+> > +	 * function. On AMD, values between samples are estimated by
+> > +	 * tetrahedral interpolation. The array is accessed with three indices,
+> > +	 * one for each input dimension (color channel), blue being the
+> > +	 * outermost dimension, red the innermost.
+> > +	 */
+> > +	struct drm_property *plane_lut3d_property;
+> > +	/**
+> > +	 * @plane_degamma_lut_size_property: Plane property to define the max
+> > +	 * size of 3D LUT as supported by the driver (read-only). The max size
+> > +	 * is the max size of one dimension cubed.
+> > +	 */
+> 
+> I've been thinking about this some more and don't particulary
+> like that we're reporting the size as the dimension cubed, e.g.,
+> 4913 (17^3) instead of 17. This works for an AMD private API
+> (and I'm okay with keeping it as-is if changing it is a lot of
+> effort at this point) but in a generic API it would be a source
+> of bugs or undefined behavior if a driver mistakenly reported
+> a size that doesn't have an even cubed root.
+> 
+> Reporting the size of a single dimension (e.g., 17 in the case
+> of the current AMD driver) would be clearer.
+> 
+> Could we still change that?
 
+I understand your points, makes sense. I'll send a version that fits the
+single-dimension size.
 
-On 2023-10-03 11:23, Lakha, Bhawanpreet wrote:
-> [AMD Official Use Only - General]
-> 
-> 
-> Why not just set replay_feature_enabled = true; to false?
+Thanks for the suggestion.
 
-Would that be the right fix? If so, we can send out a patch
-with that instead.
+Melissa
 
-- Leo
-
-> ------------------------------------------------------------------------
-> *From:* Li, Sun peng (Leo) <Sunpeng.Li@amd.com>
-> *Sent:* October 3, 2023 11:20 AM
-> *To:* Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>; LIPSKI, IVAN 
-> <IVAN.LIPSKI@amd.com>; amd-gfx@lists.freedesktop.org 
-> <amd-gfx@lists.freedesktop.org>
-> *Cc:* Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Mahfooz, Hamza 
-> <Hamza.Mahfooz@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; 
-> Deucher, Alexander <Alexander.Deucher@amd.com>; Chung, ChiaHsuan (Tom) 
-> <ChiaHsuan.Chung@amd.com>
-> *Subject:* Re: [PATCH v2] Revert "drm/amd/display: Enable Replay for 
-> static screen use cases"
+> 
+> Harry
 > 
 > 
-> On 2023-10-03 11:13, Lakha, Bhawanpreet wrote:
->> [AMD Official Use Only - General]
->> 
->> 
->> Any reason for reverting this instead of looking into 
->> "amdgpu_dm_setup_replay()" and "replay_feature_enabled" to see why reply 
->> is being enabled?
+> > +	struct drm_property *plane_lut3d_size_property;
+> >  };
+> >  
+> >  #define AMDGPU_MAX_BL_LEVEL 0xFF
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> > index 7ca594c7dfbe..dbd36fc24eca 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> > @@ -773,6 +773,11 @@ struct dm_plane_state {
+> >  	 * S31.32 sign-magnitude.
+> >  	 */
+> >  	__u64 hdr_mult;
+> > +	/**
+> > +	 * @lut3d: 3D lookup table blob. The blob (if not NULL) is an array of
+> > +	 * &struct drm_color_lut.
+> > +	 */
+> > +	struct drm_property_blob *lut3d;
+> >  };
+> >  
+> >  struct dm_crtc_state {
+> > @@ -858,6 +863,10 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+> >  
+> >  void amdgpu_dm_trigger_timing_sync(struct drm_device *dev);
+> >  
+> > +/* 3D LUT max size is 17x17x17 */
+> > +#define MAX_COLOR_3DLUT_ENTRIES 4913
+> > +#define MAX_COLOR_3DLUT_BITDEPTH 12
+> > +/* 1D LUT size */
+> >  #define MAX_COLOR_LUT_ENTRIES 4096
+> >  /* Legacy gamm LUT users such as X doesn't like large LUT sizes */
+> >  #define MAX_COLOR_LEGACY_LUT_ENTRIES 256
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> > index f274909c0c7e..e2f3f2099cac 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> > @@ -207,6 +207,20 @@ amdgpu_dm_create_color_properties(struct amdgpu_device *adev)
+> >  		return -ENOMEM;
+> >  	adev->mode_info.plane_hdr_mult_property = prop;
+> >  
+> > +	prop = drm_property_create(adev_to_drm(adev),
+> > +				   DRM_MODE_PROP_BLOB,
+> > +				   "AMD_PLANE_LUT3D", 0);
+> > +	if (!prop)
+> > +		return -ENOMEM;
+> > +	adev->mode_info.plane_lut3d_property = prop;
+> > +
+> > +	prop = drm_property_create_range(adev_to_drm(adev),
+> > +					 DRM_MODE_PROP_IMMUTABLE,
+> > +					 "AMD_PLANE_LUT3D_SIZE", 0, UINT_MAX);
+> > +	if (!prop)
+> > +		return -ENOMEM;
+> > +	adev->mode_info.plane_lut3d_size_property = prop;
+> > +
+> >  	return 0;
+> >  }
+> >  #endif
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> > index b66da6b76f5c..56f9109ecf60 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> > @@ -1361,6 +1361,8 @@ dm_drm_plane_duplicate_state(struct drm_plane *plane)
+> >  
+> >  	if (dm_plane_state->degamma_lut)
+> >  		drm_property_blob_get(dm_plane_state->degamma_lut);
+> > +	if (dm_plane_state->lut3d)
+> > +		drm_property_blob_get(dm_plane_state->lut3d);
+> >  
+> >  	dm_plane_state->degamma_tf = old_dm_plane_state->degamma_tf;
+> >  	dm_plane_state->hdr_mult = old_dm_plane_state->hdr_mult;
+> > @@ -1434,6 +1436,8 @@ static void dm_drm_plane_destroy_state(struct drm_plane *plane,
+> >  
+> >  	if (dm_plane_state->degamma_lut)
+> >  		drm_property_blob_put(dm_plane_state->degamma_lut);
+> > +	if (dm_plane_state->lut3d)
+> > +		drm_property_blob_put(dm_plane_state->lut3d);
+> >  
+> >  	if (dm_plane_state->dc_state)
+> >  		dc_plane_state_release(dm_plane_state->dc_state);
+> > @@ -1464,6 +1468,14 @@ dm_atomic_plane_attach_color_mgmt_properties(struct amdgpu_display_manager *dm,
+> >  	drm_object_attach_property(&plane->base,
+> >  				   dm->adev->mode_info.plane_hdr_mult_property,
+> >  				   AMDGPU_HDR_MULT_DEFAULT);
+> > +
+> > +	if (dpp_color_caps.hw_3d_lut) {
+> > +		drm_object_attach_property(&plane->base,
+> > +					   mode_info.plane_lut3d_property, 0);
+> > +		drm_object_attach_property(&plane->base,
+> > +					   mode_info.plane_lut3d_size_property,
+> > +					   MAX_COLOR_3DLUT_ENTRIES);
+> > +	}
+> >  }
+> >  
+> >  static int
+> > @@ -1495,6 +1507,14 @@ dm_atomic_plane_set_property(struct drm_plane *plane,
+> >  			dm_plane_state->hdr_mult = val;
+> >  			dm_plane_state->base.color_mgmt_changed = 1;
+> >  		}
+> > +	} else if (property == adev->mode_info.plane_lut3d_property) {
+> > +		ret = drm_property_replace_blob_from_id(plane->dev,
+> > +							&dm_plane_state->lut3d,
+> > +							val, -1,
+> > +							sizeof(struct drm_color_lut),
+> > +							&replaced);
+> > +		dm_plane_state->base.color_mgmt_changed |= replaced;
+> > +		return ret;
+> >  	} else {
+> >  		drm_dbg_atomic(plane->dev,
+> >  			       "[PLANE:%d:%s] unknown property [PROP:%d:%s]]\n",
+> > @@ -1522,6 +1542,9 @@ dm_atomic_plane_get_property(struct drm_plane *plane,
+> >  		*val = dm_plane_state->degamma_tf;
+> >  	} else if (property == adev->mode_info.plane_hdr_mult_property) {
+> >  		*val = dm_plane_state->hdr_mult;
+> > +	} else 	if (property == adev->mode_info.plane_lut3d_property) {
+> > +		*val = (dm_plane_state->lut3d) ?
+> > +			dm_plane_state->lut3d->base.id : 0;
+> >  	} else {
+> >  		return -EINVAL;
+> >  	}
 > 
-> It causes a regression in amd_psr. Unless there's a quick fix, we should
-> revert for now. It sounds like this can break existing support for
-> PSR/PSR SU.
-> 
-> Acked-by: Leo Li <sunpeng.li@amd.com>
-> 
-> - Leo
-> 
->> 
->> Bhawan
->> ------------------------------------------------------------------------
->> *From:* LIPSKI, IVAN <IVAN.LIPSKI@amd.com>
->> *Sent:* October 2, 2023 1:47 PM
->> *To:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
->> *Cc:* Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Mahfooz, Hamza 
->> <Hamza.Mahfooz@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; 
->> Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>; Deucher, Alexander 
->> <Alexander.Deucher@amd.com>; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; 
->> Chung, ChiaHsuan (Tom) <ChiaHsuan.Chung@amd.com>; LIPSKI, IVAN 
->> <IVAN.LIPSKI@amd.com>; LIPSKI, IVAN <IVAN.LIPSKI@amd.com>
->> *Subject:* [PATCH v2] Revert "drm/amd/display: Enable Replay for static 
->> screen use cases"
->> From: Ivan Lipski <ivlipski@amd.com>
->> 
->> This reverts commit a92da5bc33ea99a861f6c422192af6072c145d2d.
->> 
->> V2: Reword commit message
->> 
->> [WHY]
->> This commit caused regression in which eDP's with PSR support,
->> but no Replay support (Sink support <= 0x03), failed enabling PSR
->> and all IGT amd_psr tests.
->> 
->> [HOW]
->> Reverted the patch.
->> 
->> Signed-off-by: Ivan Lipski <ivlipskI@amd.com>
->> ---
->>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 23 -------------------
->>   .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  9 +-------
->>   drivers/gpu/drm/amd/include/amd_shared.h      |  2 --
->>   3 files changed, 1 insertion(+), 33 deletions(-)
->> 
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c 
->> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> index 32156609fbcf..f69b2e9ecd98 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> @@ -66,7 +66,6 @@
->>   #include "amdgpu_dm_debugfs.h"
->>   #endif
->>   #include "amdgpu_dm_psr.h"
->> -#include "amdgpu_dm_replay.h"
->> 
->>   #include "ivsrcid/ivsrcid_vislands30.h"
->> 
->> @@ -4423,7 +4422,6 @@ static int amdgpu_dm_initialize_drm_device(struct 
->> amdgpu_device *adev)
->>           enum dc_connection_type new_connection_type = dc_connection_none;
->>           const struct dc_plane_cap *plane;
->>           bool psr_feature_enabled = false;
->> -       bool replay_feature_enabled = false;
->>           int max_overlay = dm->dc->caps.max_slave_planes;
->> 
->>           dm->display_indexes_num = dm->dc->caps.max_streams;
->> @@ -4535,21 +4533,6 @@ static int amdgpu_dm_initialize_drm_device(struct 
->> amdgpu_device *adev)
->>                   }
->>           }
->> 
->> -       if (!(amdgpu_dc_debug_mask & DC_DISABLE_REPLAY)) {
->> -               switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
->> -               case IP_VERSION(3, 1, 4):
->> -               case IP_VERSION(3, 1, 5):
->> -               case IP_VERSION(3, 1, 6):
->> -               case IP_VERSION(3, 2, 0):
->> -               case IP_VERSION(3, 2, 1):
->> -               case IP_VERSION(3, 5, 0):
->> -                       replay_feature_enabled = true;
->> -                       break;
->> -               default:
->> -                       replay_feature_enabled = amdgpu_dc_feature_mask 
->> & DC_REPLAY_MASK;
->> -                       break;
->> -               }
->> -       }
->>           /* loops over all connectors on the board */
->>           for (i = 0; i < link_cnt; i++) {
->>                   struct dc_link *link = NULL;
->> @@ -4618,12 +4601,6 @@ static int amdgpu_dm_initialize_drm_device(struct 
->> amdgpu_device *adev)
->>                                   
->> amdgpu_dm_update_connector_after_detect(aconnector);
->>                                   setup_backlight_device(dm, aconnector);
->> 
->> -                               /*
->> -                                * Disable psr if replay can be enabled
->> -                                */
->> -                               if (replay_feature_enabled && 
->> amdgpu_dm_setup_replay(link, aconnector))
->> -                                       psr_feature_enabled = false;
->> -
->>                                   if (psr_feature_enabled)
->>                                           amdgpu_dm_set_psr_caps(link);
->> 
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c 
->> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
->> index fb51ec4f8d31..440fc0869a34 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
->> @@ -29,7 +29,6 @@
->>   #include "dc.h"
->>   #include "amdgpu.h"
->>   #include "amdgpu_dm_psr.h"
->> -#include "amdgpu_dm_replay.h"
->>   #include "amdgpu_dm_crtc.h"
->>   #include "amdgpu_dm_plane.h"
->>   #include "amdgpu_dm_trace.h"
->> @@ -124,12 +123,7 @@ static void vblank_control_worker(struct 
->> work_struct *work)
->>            * fill_dc_dirty_rects().
->>            */
->>           if (vblank_work->stream && vblank_work->stream->link) {
->> -               /*
->> -                * Prioritize replay, instead of psr
->> -                */
->> -               if 
->> (vblank_work->stream->link->replay_settings.replay_feature_enabled)
->> -                       amdgpu_dm_replay_enable(vblank_work->stream, false);
->> -               else if (vblank_work->enable) {
->> +               if (vblank_work->enable) {
->>                           if 
->> (vblank_work->stream->link->psr_settings.psr_version < 
->> DC_PSR_VERSION_SU_1 &&
->>                               
->> vblank_work->stream->link->psr_settings.psr_allow_active)
->>                                   
->> amdgpu_dm_psr_disable(vblank_work->stream);
->> @@ -138,7 +132,6 @@ static void vblank_control_worker(struct work_struct 
->> *work)
->>   #ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
->>                              
->> !amdgpu_dm_crc_window_is_activated(&vblank_work->acrtc->base) &&
->>   #endif
->> -                          
->> vblank_work->stream->link->panel_config.psr.disallow_replay &&
->>                              
->> vblank_work->acrtc->dm_irq_params.allow_psr_entry) {
->>                           amdgpu_dm_psr_enable(vblank_work->stream);
->>                   }
->> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h 
->> b/drivers/gpu/drm/amd/include/amd_shared.h
->> index 314fd44ec018..ce75351204bb 100644
->> --- a/drivers/gpu/drm/amd/include/amd_shared.h
->> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
->> @@ -244,7 +244,6 @@ enum DC_FEATURE_MASK {
->>           DC_DISABLE_LTTPR_DP2_0 = (1 << 6), //0x40, disabled by default
->>           DC_PSR_ALLOW_SMU_OPT = (1 << 7), //0x80, disabled by default
->>           DC_PSR_ALLOW_MULTI_DISP_OPT = (1 << 8), //0x100, disabled by 
->> default
->> -       DC_REPLAY_MASK = (1 << 9), //0x200, disabled by default for dcn 
->> < 3.1.4
->>   };
->> 
->>   enum DC_DEBUG_MASK {
->> @@ -255,7 +254,6 @@ enum DC_DEBUG_MASK {
->>           DC_DISABLE_PSR = 0x10,
->>           DC_FORCE_SUBVP_MCLK_SWITCH = 0x20,
->>           DC_DISABLE_MPO = 0x40,
->> -       DC_DISABLE_REPLAY = 0x50,
->>           DC_ENABLE_DPIA_TRACE = 0x80,
->>   };
->> 
->> -- 
->> 2.34.1
->> 
