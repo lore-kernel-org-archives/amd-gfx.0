@@ -4,120 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7627E8FDAF
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Oct 2023 20:11:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF2CFE8FDB3
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Oct 2023 20:38:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC93410E0A6;
-	Tue,  3 Oct 2023 20:11:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FD3F10E07D;
+	Tue,  3 Oct 2023 20:38:41 +0000 (UTC)
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1278610E0A6
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Oct 2023 20:11:38 +0000 (UTC)
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1423510E07D
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Oct 2023 20:38:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZY3wvPrrg1QoCkiC1QN8kFutgc1IT6EqOiSWJ9pSWwWK7NWlLvcc5WTsat562O0F6bQVXRxpaJDOYgjUMT5O0p5xh72dz8zs5FitxVrC2xwgZctARN8f6in0NzR9+CqzqT4JWMJ1UF6I9FZXg/ls+l93I5Y7P4BKmYH6vHidkkIQEKMFgBqAueM3UyxKbz/Fu7M8jsoudP1DY1zFD4HL1w2uGGZJxclC13E4IwYYjCOfetDIuXrOxWbVs69iXkrTXyg5gGu7dRgseaWAAkSfryFvcsIpvmfhxjJh5fm2/OjT0nTN93gUjU+Eb0WpGeLRLgYvP2wU+RgRbdabfS0YWQ==
+ b=juLOCnyZrCMryEEtCo6fLQhZnRp5zQE7/fV5Ve8ITsz1ZO/MXiEOoGS322ONTw82qfB9gyieh0UfTJCbOVpq0DxoUnepVYaDWcv93Gm0l1FoAL+mP0r8gkER9uyQ6UxxiVFOG6PUVBgSJVyl6M4iyA0QU3ydcOawC76h/k+WqAgibpdScYvADX45yDz6SH57uzToiO0V9lJ9p3ou8SM5Jztjrx3F9Bv8A1lzmAMSJExhi1VRqaVlSYCZPM+Ee8+PjPUyR3p00gqdXVA2SCLbJKkaBnF/xkn/YQA1rBWtSqfk+LwAcnc9ksPcPwCbeJFPMQR5nbDU7LlLMtcktixF4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YPrdE6MWxEPkUDGmx/ldhyX5UOvlSRJbfTJqwhT2LXw=;
- b=Mo8fjO4qmT3sXEqeSRuQiAkR+xwEuKEnxX2sxH87/p5EJ8fx8hQVtEaoQHKdH5oAfFwd8Hwv8EQ/FCejfBFEH66Uz4i4VdnEqR+PDgxuLm+2hUrPK3eOGHSl5RFDNLsOAcyEJ/JVXAnKdnIB//SFg0+3WoMj/J+Cw+p1kcbm2NAuaZMxgAKKSJQTWLFPdVED5XVDLte9tcTM42uCBcbso9bsr3CGPfjhXhOHsPHkTKfEQOSjb0iLXFYUC11G8mJ2VBQ88WIFrgm2r6DUDoGcjY1ixq9hjmq11jxptRZKce2ds8l3yfYD92KQub83y2lyuvApeJ0tRY27Y1WBUMJLyw==
+ bh=gbzyqa0jCXNGspmHMwU9Iolozn/RimflHI3kO8kYH50=;
+ b=JI9rZJGkduzp16hDTCQGZ5F7RYM2/hNPUZBlbAeJA42Ka2wSwCfm9zGBcifCEn98fidx1xWjn02YIMLHcNTMfRUGCl0+ecyeOcPYjt2dpSSm3xmE/kyrbyzMcDyJh6Hq4CJUHN/02Ssh1s7AJOHeYr1gLFYY8K0FF9UmGNLRsZZJdWBEu2YY9vtJabocg4iPPFw9tuR4UlMgoEszOi8az/kFyMYq1DtVCkpnL4NaBq+zTYFpb2FHsOBy9U9v+xghfSTaueCJYYAqLibA/tfgVND6NBKZUZ16GcjLZ+7/f+uwjQZCtm7K5LAxGt40WVabLw7zdhiXoYS0tdFZa4assA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YPrdE6MWxEPkUDGmx/ldhyX5UOvlSRJbfTJqwhT2LXw=;
- b=xyRr4tdtzgfywcR7TdYrBDeyEslpkRzvFSy5jKlL/YGO95K6huGYQU5yg2K0tq2UqnvIICplayoQdYpL4fGhT87w1ToPseYyBA1yv03puJdENBaHxBb6ESu7mv8PHfYMPTAqFKjxoomRuVWzoSXPU1t1hUKoA8YhvGhKtrExas0=
-Received: from PH7PR12MB7939.namprd12.prod.outlook.com (2603:10b6:510:278::18)
- by SA3PR12MB8764.namprd12.prod.outlook.com (2603:10b6:806:31f::16)
+ bh=gbzyqa0jCXNGspmHMwU9Iolozn/RimflHI3kO8kYH50=;
+ b=GEz40hP15HWWtvx4I+oHQVwLXCx+26UU07K0ia5RsGVfeRWfatC2vbHe3ahaayLAq4nL4bERHuOm5X4TN7B2+e/6mCnhikFGzqgxt+NS6OcfDqLq8nzM2YiyuQ+jVInDI9b8p1cUFDqnb3laiJT1/lF75J8iiTgKBgpEAN65DI8=
+Received: from PH8PR12MB7279.namprd12.prod.outlook.com (2603:10b6:510:221::10)
+ by IA1PR12MB8221.namprd12.prod.outlook.com (2603:10b6:208:3f0::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.28; Tue, 3 Oct
- 2023 20:11:34 +0000
-Received: from PH7PR12MB7939.namprd12.prod.outlook.com
- ([fe80::59d1:9bdc:4f7b:473a]) by PH7PR12MB7939.namprd12.prod.outlook.com
- ([fe80::59d1:9bdc:4f7b:473a%4]) with mapi id 15.20.6838.030; Tue, 3 Oct 2023
- 20:11:34 +0000
-From: "LIPSKI, IVAN" <IVAN.LIPSKI@amd.com>
-To: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Li, Sun peng (Leo)"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.29; Tue, 3 Oct
+ 2023 20:38:35 +0000
+Received: from PH8PR12MB7279.namprd12.prod.outlook.com
+ ([fe80::4a17:b056:be46:6e58]) by PH8PR12MB7279.namprd12.prod.outlook.com
+ ([fe80::4a17:b056:be46:6e58%4]) with mapi id 15.20.6838.029; Tue, 3 Oct 2023
+ 20:38:35 +0000
+From: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>
+To: "LIPSKI, IVAN" <IVAN.LIPSKI@amd.com>, "Li, Sun peng (Leo)"
  <Sunpeng.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
 Subject: Re: [PATCH v2] Revert "drm/amd/display: Enable Replay for static
  screen use cases"
 Thread-Topic: [PATCH v2] Revert "drm/amd/display: Enable Replay for static
  screen use cases"
-Thread-Index: AQHZ9Vihgd9mNHOA60mLFr9MFgzgpbA4LaYAgAAB6ICAAAD9AIAABKEAgAAXN4CAADP3fQ==
-Date: Tue, 3 Oct 2023 20:11:34 +0000
-Message-ID: <PH7PR12MB79396AAB927744AD01753279E7C4A@PH7PR12MB7939.namprd12.prod.outlook.com>
+Thread-Index: AQHZ9VihCmnTItEhi0W/ARmiJPwWwLA4LUKOgAACTICAAACuqIAABPAAgAAW99CAADTIAIAABzkT
+Date: Tue, 3 Oct 2023 20:38:35 +0000
+Message-ID: <PH8PR12MB72798A6AAD1F9311E7A65CD1F9C4A@PH8PR12MB7279.namprd12.prod.outlook.com>
 References: <20231002174754.1596197-1-ivlipski@amd.com>
  <PH8PR12MB7279E1B7634AE630985E4E2EF9C4A@PH8PR12MB7279.namprd12.prod.outlook.com>
  <284d3f39-071c-4451-839e-8840aecfc2a7@amd.com>
  <PH8PR12MB7279526F77BBC201BA660529F9C4A@PH8PR12MB7279.namprd12.prod.outlook.com>
  <8fc58d31-a882-46b7-8852-c54a997af7fa@amd.com>
  <PH8PR12MB727924F9B244B9526CFC11F4F9C4A@PH8PR12MB7279.namprd12.prod.outlook.com>
-In-Reply-To: <PH8PR12MB727924F9B244B9526CFC11F4F9C4A@PH8PR12MB7279.namprd12.prod.outlook.com>
+ <PH7PR12MB79396AAB927744AD01753279E7C4A@PH7PR12MB7939.namprd12.prod.outlook.com>
+In-Reply-To: <PH7PR12MB79396AAB927744AD01753279E7C4A@PH7PR12MB7939.namprd12.prod.outlook.com>
 Accept-Language: en-CA, en-US
 Content-Language: en-CA
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-10-03T20:11:33.731Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-10-03T20:38:34.895Z;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB7939:EE_|SA3PR12MB8764:EE_
-x-ms-office365-filtering-correlation-id: 46049368-fac6-49c7-05e6-08dbc44cf12e
+x-ms-traffictypediagnostic: PH8PR12MB7279:EE_|IA1PR12MB8221:EE_
+x-ms-office365-filtering-correlation-id: 44270aed-bb1a-474b-89cf-08dbc450b75f
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: TOGtk9Szkl6reqtQAxHSxNvfBa5Q+ixKEdP9/JdSRttW4MB8Mcexu1wb2rBpRDH3Cc+KTJpt+iA2D9gq5ev+MyamZ5BrTwQMLkzL9SxzcACdooVjy5DYvXFgKlqpg+28S1eKoof4hz2MwuRb7BsqhNQD57C+CvlH/VEBBj7vVVR4mnJ6d7p4oYXiHatotY2FY3mKxaF3l2X8+saFuNByqjzByizpDri+nJQKUc+f2PLHxM8lwdJj3cy2MIRTNG6iZfooUhN4dp5K005KKUfKXPPoAiSjphgW8oW08x9gALgfzaznHx92V3+b+bss+e52eoXlzovlFrFxU5ZqZ0iE0iCtirKvVioUX+vYZk3G2nF7bbh+uDewYUW5PGNK1LkXHGSpuDKV630efH6pD6KlgdvFc8YA1jBtpiTp2wXpYSGkfLWM1hRjCE0Q/nnVJk+6aPqHUGzarYhz3ISHGyHEYOEjBq2vMuADUQXfQK4xZqux4u542xYTQohs/Os81rmYPSC3akRyOF8Xi8ZgpbVO0ZhaYAknpMi/tI0TukHGoTT+6t8LNdLvq4tFuH5mZMQwQ2wbxZSnXhMp+10u3VJHPjzKtKa4lq9nH13FSin8BaEcsk7hDLZNG/GN33vy8/le
+x-microsoft-antispam-message-info: dNKIoLkd+zEsQ6/q+KeiYivlikHxfr+OSaRgYFVlC4nZDNnJrN6PXk/GPbEVQYr7GIDq57HYzozMaagLk1QQ04y0YFY84dUvDad0m3CFgp55wkRUmQOEkENwOrjfLn2JvBJq3saLDFZ3fc2DttyN7pFO/IcYyckPnyUFOAEzx8SXOJYjh4PtU3EUiNo+W6AnjofN2tcb5I8EzbqQp+n+ZheAM3eC2iLiM6SshArjrQ7F5aWBhlL7wtPrWdndDdWw2giUtX4PlhEszDIEIrocXQ2zAlexvQ2KIBYfMMqEumV1INriWypexdX3A8OLHb4/4RHYeKowtHYqZUwzmfWuPFjYXXCpkaRZvkzjSfqnlRnxIWUrf7UQ1XH6Mx0TFDC0TqQiS8ki5+IylhWbkxGXwG4CP8alR7ny97ZE9JZNRk/G5A5GgM0hiUQaqe9an6FtIiOFm5aKzmgxJAnZdsKnGhIx+KnRUzRx1qY771R+5LeB3Yeba3VfvtGR+hhj+IL7Vv8ukT1rWgFH7JEMh3lLQPLaRqqH3QAc9AgzkMCjQjWqZLnIq7+oXUYhqo/5pc9azEQhk/vLvxfHtdL7RwOt/ZAYVWEi2adsgDnwFNBBej+Hn2Oh3d3NdpZ5+GbMVqwG
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB7939.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(366004)(376002)(396003)(346002)(136003)(230922051799003)(1800799009)(451199024)(186009)(64100799003)(26005)(110136005)(66946007)(76116006)(91956017)(2906002)(4326008)(8676002)(5660300002)(52536014)(41300700001)(54906003)(64756008)(66476007)(66446008)(8936002)(66556008)(9686003)(478600001)(6506007)(7696005)(19627405001)(71200400001)(53546011)(316002)(83380400001)(122000001)(38100700002)(38070700005)(55016003)(33656002)(86362001);
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB7279.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366004)(136003)(39860400002)(346002)(376002)(396003)(230922051799003)(186009)(1800799009)(64100799003)(451199024)(52536014)(5660300002)(9686003)(6506007)(7696005)(53546011)(86362001)(66476007)(71200400001)(66446008)(110136005)(478600001)(54906003)(91956017)(26005)(66946007)(64756008)(66556008)(76116006)(33656002)(316002)(122000001)(38070700005)(38100700002)(55016003)(83380400001)(41300700001)(4326008)(8676002)(8936002)(19627405001)(2906002);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?yZqHZk1wP41cpMuxH6bwiuKJfnv3hEMNXjgucVxCu3WFMkEioJOxXZYG+9XV?=
- =?us-ascii?Q?awJvsLVMoB8orTcWvW5DrbKrElHLBftbRrJwdJpZ5tz4s0qdV1f02ka0pMOa?=
- =?us-ascii?Q?JwFvstByHu499c7gzuGhk2VChIecaOqLdxTMDctiymZCEASxuahR0KmLw3BB?=
- =?us-ascii?Q?emWmGeqja4Gv6gt36cYo8ioTXQQzYj/679nWCDOGwaHAIC2Q/XZCOiBZeYlz?=
- =?us-ascii?Q?JKIyrwiU4So/CI+S3U4nWkgK7N06cyIGPWh0qIpUtJXYZjZOlgU8gL876obq?=
- =?us-ascii?Q?dS+6WCEbMC6Sg2mPyZKIZ1Dczij13XXnv9OqS02ckjCYc+c2hucM8yb3znM7?=
- =?us-ascii?Q?GoO6Uj0s5y2+kBUbb/sVAP31n+MnxzJSr0vYBYymORTg/aPUHPkW9Tc3dyBr?=
- =?us-ascii?Q?knsredkgUlGcBLiW75wgVggYHDsDX6wJj8ixw4EY8FrPb4/y15gbkRi/argJ?=
- =?us-ascii?Q?j0cAFJ8KghZpNavm4VsNR0HAJzVMJYA3vcWhd+0BcBBV9tYsCBli3osCneKn?=
- =?us-ascii?Q?VTinApwOU/nR5wzx/EcxDgZQvBx2vzFlFZo8FQ+j+rEq8PrtHPjEvw8S01Nf?=
- =?us-ascii?Q?PCrt93GJCM3Oh5GP9koSjYG/Fv+ttjpo4BNrOQ/RD1z81l2t6ku+Wm5SJRRn?=
- =?us-ascii?Q?3t+qFuUoclSVag4/y844eygwbZlfS4yQ9DGheWEZF3SqMY02orsQXZADO575?=
- =?us-ascii?Q?PkwJh+pW3MvCYRRH+vbepT+KJoOFgHp0axy7AG7JAsTSE4q3IvYWN6dVJqgv?=
- =?us-ascii?Q?LeY1PxaSFQsLk8KB5vNSGgTlhNa+0tB/I77KeZmplVOQFBvb5RZqv0kcjRfc?=
- =?us-ascii?Q?jpZPd1VRStUmnA6Tdwhb2b/XvoFzW11/ux/RcUcd8tKHwHKB6GMuRP4ndyNU?=
- =?us-ascii?Q?sK3dR9Hsz9N/c7/1n57GriZWKg7Tq5rzJG9AjVpVcDot6USMW1OhNynjLumy?=
- =?us-ascii?Q?UiHXAetA/pHLs+5iMn6YvYMVnuTp0/mSLc+A219n7fhPubC+yc+SP4qf+UHh?=
- =?us-ascii?Q?TvLEJwo1MkEd4Ke5gIKrtpfn6GpArjYhc06R00VbsE2JlMgRlinAlqan2kSu?=
- =?us-ascii?Q?3XRXDPSPHcGumsTU8aHfNJIhqUXsYm2B/PPzK5wK5rQNvy2wddxL2lpx5bjF?=
- =?us-ascii?Q?FqFchHWP9uQPKAtS5doXiVmGmcXuZ5skkiwXaBfyPd0AzthsY8XUvZnLFBO7?=
- =?us-ascii?Q?LzRl2rQerzcTp7s+ZokjU4L3qZ6gtge18/Gu1Jd5hxPZUO3qVRTNQpQRlsuF?=
- =?us-ascii?Q?gW1LI0JGnWqW7jTGVzg0rALMwpA60Adh93haqHBi6vQ3uE/9qvZXUf8kl/EA?=
- =?us-ascii?Q?NoWngwfjfYS6rmVtSqLw5SiD7j+2PPulh72P2Fn7lbX2ajs0Kes+BhJUFuMB?=
- =?us-ascii?Q?p6vqMp8na6v03NFe0zj18iC8JtEpXWLZM8fCwQC/kdHI7n7VJnsY+o8up3sn?=
- =?us-ascii?Q?n4fxPXH9bpW8GCBBxRxlf8GxCpHhG1VrXX9F4+DuzlfMSOfsgLo4BPaBkoIN?=
- =?us-ascii?Q?8A4JEq/U2z0X9zhZ8oSy6+brekKjlZIyOVjjVE9KWyQ+UT26RxDy3fhg0Tj6?=
- =?us-ascii?Q?gQDpKJswgQE75CoZU74=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?6zSD0R7MLAtHbKZg4ZrEaCyAUqWPpBRpIuAQf/Zh0aQmwE5RSc14xGLyqMa5?=
+ =?us-ascii?Q?eST2sEgaTPyzXP0e5NM9PDpknDQpdosQkqerE+vu+yfdOa9ixq//JXZL3Apz?=
+ =?us-ascii?Q?AlY758psQVIxv0H05AL4jXYwP6Og533Y3Aex/+mszq012rYeQlNuBoh7cSj5?=
+ =?us-ascii?Q?qTYgLIh0lH0pIBkeb/EuMUW/LaqCN5dvsYYsKzCfPObWjvTLSKYgXNLs5mQu?=
+ =?us-ascii?Q?qIthsuyQWmMJCroyB8Zvt6bh605kv5ISYf+QX/rlmgMGlf68zXQr9TrbTCQs?=
+ =?us-ascii?Q?DraQyG2H7QUZUvWJYB9H4LuN2HF+Scp2PBUFyJpFQenhKvF98wWW62kVdoHB?=
+ =?us-ascii?Q?v/arppLw/DmSSaW2JXmnJiMpV8E9R+v5QLK8IDREulZ+5i1rhZgrWgyLsdTj?=
+ =?us-ascii?Q?59J/Sutkg6dMRp0pPpL3uoz75jztwnASbhXXmGHLf7tQfMEZIS8Jst+v28td?=
+ =?us-ascii?Q?gHwSpX2RfYsR4+9DGlZ2TKJ08SX5fS5amOS1GSF7W50Omwfz8fwwmMVazu5k?=
+ =?us-ascii?Q?jTo7CIo+zJj9s9/OUOz6W+0JJCrlPmxdvLwO+UP56FprcqvmEmUcTtyRHaY6?=
+ =?us-ascii?Q?+zBFrVhQ5MAH+8a9Zn1m5Dp964gaNBKwU7Figf8pbIMJrS6OAlVPl93O4e9K?=
+ =?us-ascii?Q?A6unqm8XnNbbL/oSvG3W4TTXNiG2qyLA7mxqg20sac8xBv2PizltefHPj0TL?=
+ =?us-ascii?Q?5h+jbDZGiQcE45wd1iByzc/xZyRZvvSKIFzd8KdBKDSghg5bgb5xGDVYONPQ?=
+ =?us-ascii?Q?nuXDJWahcyamOmL0zcs0GcP/KF0x3rW4bX/ZclPQJ+zUcWhL0Pz9RMKVdl+B?=
+ =?us-ascii?Q?1eytOR1AFIv+XatGCtTPhKckJzMGRaFnf8pN/SsDsc7L+UR9b++TIbc3rsjC?=
+ =?us-ascii?Q?oDm+O/drZ9S2neM9TrivxY6yGaZwPcWZCsmURBFVgxYlME0edu8zPTpl1Obm?=
+ =?us-ascii?Q?WLOiopAFcsAtLzVpvZ+av7xQSFklUY5Y1piHMNrQsOAlHjJgdzTA4AnFqJVn?=
+ =?us-ascii?Q?RrNypAEixmTp+ELDGQQyEfcvvU4ymuLlsKyPL11aQSsmkV0hi8U+79ha/liu?=
+ =?us-ascii?Q?ztwHtocEfmdUQZYc9XBckdZ0hWIEfaEVcIZyGGjkks2kP7UYqEogs1dSv6wD?=
+ =?us-ascii?Q?fkQ8AWpzyjjDjgiQCcyT5g0KwJwhh59qanelissVyOSsU92QNMR+8nbsy3I7?=
+ =?us-ascii?Q?6zNtLseHFPIZgXBzQoeOnpBSLF8icHaHa6oni6V6wOm5t5NgfBXmUGRwb2YZ?=
+ =?us-ascii?Q?cI+lCIew7C807tzTzT6B2mM0EavlnZBRTkWJCuw6MH/RFVKEdgOcejecSKaa?=
+ =?us-ascii?Q?ZVmtr5Qjl0VVLfET2rvhR2qQvsnOFHH05lTvEj/UitiPlOHpLnWjlZYwqJmB?=
+ =?us-ascii?Q?gukbzmxiqu6bM1N6BNlmI+FKBZazq9p4+qlbWyOLvXdcvGGQ3IY9pqkysMFl?=
+ =?us-ascii?Q?Fxcf1tRHrZifoyNVkBhbyGfDKLvGIpUndGlr6jg4P1bZH5Fgf3YPfZ2+vONH?=
+ =?us-ascii?Q?nqFZ8mPlmbZNkvARakCpPqlww1AY8ETj6MSJYVcEOYdHxEXndDCi7lIFS6nJ?=
+ =?us-ascii?Q?3i1UsRomcMoorgfZTg0=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_PH7PR12MB79396AAB927744AD01753279E7C4APH7PR12MB7939namp_"
+ boundary="_000_PH8PR12MB72798A6AAD1F9311E7A65CD1F9C4APH8PR12MB7279namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7939.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 46049368-fac6-49c7-05e6-08dbc44cf12e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Oct 2023 20:11:34.5623 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7279.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 44270aed-bb1a-474b-89cf-08dbc450b75f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Oct 2023 20:38:35.5429 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: iSvUd9BIJrPhTv+0XFjDE9vlF1sVZOjPrsJQVz5UF5IleyEDEtjgpoNehOMSlPBNVxPFz2/1r7wBxad9Du0E/g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8764
+X-MS-Exchange-CrossTenant-userprincipalname: +y48eD8I8IUe0/ogrPljiiynHe23QN3KUFpcMUAVZmhzUy2U2E2uUsnNHf36LYd3
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8221
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,9 +137,27 @@ Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Wentland,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_PH7PR12MB79396AAB927744AD01753279E7C4APH7PR12MB7939namp_
+--_000_PH8PR12MB72798A6AAD1F9311E7A65CD1F9C4APH8PR12MB7279namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - General]
+
+You can revert it for now, but that is a bug as replay_feature_enabled shou=
+ld stop all replay related calls.
+________________________________
+From: LIPSKI, IVAN <IVAN.LIPSKI@amd.com>
+Sent: October 3, 2023 4:11 PM
+To: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>; Li, Sun peng (Leo) <Sun=
+peng.Li@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.=
+org>
+Cc: Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Mahfooz, Hamza <Hamza.Mah=
+fooz@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; Deucher, Alexander=
+ <Alexander.Deucher@amd.com>; Chung, ChiaHsuan (Tom) <ChiaHsuan.Chung@amd.c=
+om>
+Subject: Re: [PATCH v2] Revert "drm/amd/display: Enable Replay for static s=
+creen use cases"
+
 
 [AMD Official Use Only - General]
 
@@ -399,7 +418,7 @@ n
 >> 2.34.1
 >>
 
---_000_PH7PR12MB79396AAB927744AD01753279E7C4APH7PR12MB7939namp_
+--_000_PH8PR12MB72798A6AAD1F9311E7A65CD1F9C4APH8PR12MB7279namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -417,18 +436,54 @@ style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
 </p>
 <br>
 <div>
-<div class=3D"elementToProof" style=3D"font-family: Calibri, Arial, Helveti=
-ca, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof ContentPasted0">
+You can revert it for now, but that is a bug as replay_feature_enabled shou=
+ld stop all replay related calls.<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> LIPSKI, IVAN &lt;IVAN=
+.LIPSKI@amd.com&gt;<br>
+<b>Sent:</b> October 3, 2023 4:11 PM<br>
+<b>To:</b> Lakha, Bhawanpreet &lt;Bhawanpreet.Lakha@amd.com&gt;; Li, Sun pe=
+ng (Leo) &lt;Sunpeng.Li@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-=
+gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Siqueira, Rodrigo &lt;Rodrigo.Siqueira@amd.com&gt;; Mahfooz, Ham=
+za &lt;Hamza.Mahfooz@amd.com&gt;; Wentland, Harry &lt;Harry.Wentland@amd.co=
+m&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Chung, ChiaHsu=
+an (Tom) &lt;ChiaHsuan.Chung@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH v2] Revert &quot;drm/amd/display: Enable Replay =
+for static screen use cases&quot;</font>
+<div>&nbsp;</div>
+</div>
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<p align=3D"Left" style=3D"font-family:Arial; font-size:10pt; color:#0000FF=
+; margin:5pt; font-style:normal; font-weight:normal; text-decoration:none">
+[AMD Official Use Only - General]<br>
+</p>
+<br>
+<div>
+<div class=3D"x_elementToProof" style=3D"font-family:Calibri,Arial,Helvetic=
+a,sans-serif; font-size:12pt; color:rgb(0,0,0)">
 Setting 'replay_feature_enabled' to false did not fix the issue, and PSR co=
 uld not be enabled on an eDP without Replay support (Sink support 0x03 in m=
 y case).<br>
 </div>
 <div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 <br>
 </div>
-<div id=3D"Signature">
+<div id=3D"x_Signature">
 <div>
 <p>Thank you,</p>
 <p>Ivan Lipski</p>
@@ -436,11 +491,11 @@ y case).<br>
 </div>
 </div>
 </div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Lakha, Bhawanpreet &l=
-t;Bhawanpreet.Lakha@amd.com&gt;<br>
+<div id=3D"x_appendonsend"></div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Lakha, Bhawanpreet =
+&lt;Bhawanpreet.Lakha@amd.com&gt;<br>
 <b>Sent:</b> October 3, 2023 1:03 PM<br>
 <b>To:</b> Li, Sun peng (Leo) &lt;Sunpeng.Li@amd.com&gt;; LIPSKI, IVAN &lt;=
 IVAN.LIPSKI@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.fr=
@@ -467,15 +522,15 @@ p
 </p>
 <br>
 <div>
-<div class=3D"x_elementToProof" style=3D"font-family:Calibri,Arial,Helvetic=
-a,sans-serif; font-size:12pt; color:rgb(0,0,0)">
+<div class=3D"x_x_elementToProof" style=3D"font-family:Calibri,Arial,Helvet=
+ica,sans-serif; font-size:12pt; color:rgb(0,0,0)">
 yes, it will disable replay. <br>
 </div>
-<div id=3D"x_appendonsend"></div>
+<div id=3D"x_x_appendonsend"></div>
 <hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Li, Sun peng (Leo) =
-&lt;Sunpeng.Li@amd.com&gt;<br>
+<div id=3D"x_x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif=
+" color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Li, Sun peng (Leo=
+) &lt;Sunpeng.Li@amd.com&gt;<br>
 <b>Sent:</b> October 3, 2023 11:40 AM<br>
 <b>To:</b> Lakha, Bhawanpreet &lt;Bhawanpreet.Lakha@amd.com&gt;; LIPSKI, IV=
 AN &lt;IVAN.LIPSKI@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@l=
@@ -488,9 +543,9 @@ an (Tom) &lt;ChiaHsuan.Chung@amd.com&gt;<br>
 for static screen use cases&quot;</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
-t">
-<div class=3D"x_PlainText"><br>
+<div class=3D"x_x_BodyFragment"><font size=3D"2"><span style=3D"font-size:1=
+1pt">
+<div class=3D"x_x_PlainText"><br>
 <br>
 On 2023-10-03 11:23, Lakha, Bhawanpreet wrote:<br>
 &gt; [AMD Official Use Only - General]<br>
@@ -825,7 +880,9 @@ PIA_TRACE =3D 0x80,<br>
 </div>
 </div>
 </div>
+</div>
+</div>
 </body>
 </html>
 
---_000_PH7PR12MB79396AAB927744AD01753279E7C4APH7PR12MB7939namp_--
+--_000_PH8PR12MB72798A6AAD1F9311E7A65CD1F9C4APH8PR12MB7279namp_--
