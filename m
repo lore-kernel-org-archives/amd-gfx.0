@@ -4,44 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90CCCE7AD77
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Oct 2023 16:18:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13AD0E7AD77
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Oct 2023 16:22:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06B7610E044;
-	Tue,  3 Oct 2023 16:18:09 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FAAA10E044;
- Tue,  3 Oct 2023 16:18:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=mC5KvqAUUt1HmxrwWBpCZ6+i79R9/zHwAdCBb4tj81Q=; b=j04w112eJ4csoDr1uhW3QWmV1T
- 0BnUewlQ8jvxF6ZkfQEi1/+GV7RK2auoXXzDx0TmztMJ1g5KXGlxdCN/+zobmZWX/ZwqTma2eUr7X
- WDD2YFpZhVnSyBtKYhz2TbzSMi0KhhsB35qjsfME1C7YATVNWUqrO/lmIBhpA55mvOelQKQE7rA7i
- stia7j81yWCoBsofSSRa/ldW7WTlOPBlZ9lBBo1GEFOf/wV+Wz/uZTKxnpw818w3/VLSormUDAnwI
- 51iDc4N1mbqqSj5V80iVWoRB143/fyhqFMuF9GQrWJwVQXpReC0gVesWcMAQIh88IYcsb19iD14oc
- Jh/k68Ew==;
-Received: from [102.213.205.115] (helo=mail.igalia.com)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qni5y-00BKVd-Sz; Tue, 03 Oct 2023 18:18:03 +0200
-Date: Tue, 3 Oct 2023 15:17:40 -0100
-From: Melissa Wen <mwen@igalia.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [PATCH v3 09/32] drm/amd/display: add plane 3D LUT
- driver-specific properties
-Message-ID: <20231003161725.newwn5dthlk5ycqk@mail.igalia.com>
-References: <20230925194932.1329483-1-mwen@igalia.com>
- <20230925194932.1329483-10-mwen@igalia.com>
- <728a979a-7f0a-4a90-a7d5-1c8b1c3ab1d3@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D78310E2D3;
+	Tue,  3 Oct 2023 16:22:55 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2050.outbound.protection.outlook.com [40.107.92.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C256310E2D3
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Oct 2023 16:22:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=W5T1ZYeoHlLIOf10Bsa/Kkr9cPR1C8YBnkSso93HRipkuhiAPC0mCesfa1g2Me85OxotFGNDRTumQi6rCw44GHLT5YedKoPC5qVmeLFGTVMGmADCLaBTUP8LV4oFyqRTSQKWJ+Qy4mGWCGjbu54UhbIcq2s/5HwMerqDXBgpgIC6gCHc6NTJOW8hiK94kcJs89is8bCrgY+TElA8+gw/Gbkt1j8VV31WF8JHhwQW5TB7B+3GYbfqByI048dgAzWLGtl4zRvjHQzk5wmDwZUufJ6LXZgX9bZ8BdR7NR5ktl6ctUTbrpOrVQZ2/In2H9XjIsrWN+LlcFuuELL51oNBRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BT/LO7JSjvib3IlX6Tznfl1ksgggO81P/hjvb6vYo+I=;
+ b=JHy2bN/6wxsB6Y8RZeaDRNEdspKUJuje0oM2DHPp5JFS0taAYGmUYLeY37TXs/68+tPu0QLvIL2YFeHsHFhAe13DqcWNWXST01wZDcfqx8k9LF9lptTGSpWgYIvreOgrGatW8Yw1ft6RbgV71dh7+pyWJW1SUeM/bQdQ9pcGBaxrcRN2CNoRmFr3O4cKgAZaDe90eIuz1X0AmH6GahW+HQHXiEdQn8No3Pr+mS2zBgOfnS1jz2Wtl0Tz5LQriaQVseVnlvWwqWf+bZFgoTEUSDb5PRxsZlNitolfLUbDzqkxSQrT8mArrFiUL4Cc1S3RAElLs4TWisBNDaRBY4r9LQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BT/LO7JSjvib3IlX6Tznfl1ksgggO81P/hjvb6vYo+I=;
+ b=npbSN6tbaZ2myQTX9Udkt93BK4NYQxWZvIW+aCDMCeuwPnlbH1HqjGPZHSULWqgE3rMN8fLZV0amIhoy+Lbu0Cqq4PNOR5gSO8VKD3gMhqf8CrrrX/XXIghi002FLmXGpH3mNijoT5jiRcYnC1YUvLouMRSHqJNAPumc49tESHI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6293.namprd12.prod.outlook.com (2603:10b6:208:3c2::22)
+ by BL1PR12MB5238.namprd12.prod.outlook.com (2603:10b6:208:31e::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.33; Tue, 3 Oct
+ 2023 16:22:49 +0000
+Received: from MN0PR12MB6293.namprd12.prod.outlook.com
+ ([fe80::d890:af2f:d92e:9d4b]) by MN0PR12MB6293.namprd12.prod.outlook.com
+ ([fe80::d890:af2f:d92e:9d4b%7]) with mapi id 15.20.6838.030; Tue, 3 Oct 2023
+ 16:22:49 +0000
+Message-ID: <d96ed183-6806-c2a8-7972-fab3944aa02a@amd.com>
+Date: Tue, 3 Oct 2023 21:52:37 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH v2] drm/amdgpu: fix ip count query for xcp partitions
+Content-Language: en-US
+To: amd-gfx@lists.freedesktop.org
+References: <20230921124929.1965750-1-sathishkumar.sundararaju@amd.com>
+ <CADnq5_NTHMU5OAb_Rw1iWyHB0ksgv8v7C2J7A9TnUdgRt-1_Yg@mail.gmail.com>
+From: "Sundararaju, Sathishkumar" <sasundar@amd.com>
+In-Reply-To: <CADnq5_NTHMU5OAb_Rw1iWyHB0ksgv8v7C2J7A9TnUdgRt-1_Yg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA0PR01CA0046.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:81::16) To MN0PR12MB6293.namprd12.prod.outlook.com
+ (2603:10b6:208:3c2::22)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <728a979a-7f0a-4a90-a7d5-1c8b1c3ab1d3@amd.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6293:EE_|BL1PR12MB5238:EE_
+X-MS-Office365-Filtering-Correlation-Id: d7110ed4-e9d6-4b41-ffe0-08dbc42cfc2c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: NJIFRoeGg9o0jvoE8DClTZSAz2Ow4phj+MqDzgMYDJQzDdWsufaglW4vrQ1D3b1Cmvmd6EZsRHi3F61f7IjPBMpWqrup+chWM01Ja0Vs7isi+DzroTp6oRx90eDvH2NpfzIuZjMAtbwSVDT/0+mclczhx1tkZTqzS18AcENqU+VutZ9yd2g7TLHdY7qihAUw7aFRUFsYuXD4b/YE1MpaZBNvaer1uTSmZcnBRhEKkStKIJ+N236bL6Pkp+f/1DPFj44p8ZZB1FQ0GiDrYLW+y+9/BgambtW++DJQX9Ztni1HrqLlXKciReIh+5U6s/jGPOGYU6UHAuqfDuKbG6UzIiaw429Zxnj+4ORKkArvZKn/LlEa+CDd1efPuZTU60oed+QxMiqChaEhj3k0xMZZTG6g3toUyP9ZNzJth/5Q3PErN0k4s1XS1ZeeReTbxl7z4/PFQtvt5+G8PL6L59116E+5tibFvV5uyuahX3kDfJ+Kh0KlA1q9X21pEGGlnywo/V4W+BAv7yrGyFxaXzwk6DKs6occVXe8X9Z0fMl+UXYjMZ4KfffH17z6oCU4evngb3Nz3sF8tWc5z0BrXBWs8o7ErptBeGtrzvlVvQ/mu8/i1yjy1JTps0Zzbi6r0Pggs8aKkfQR3LE+faBOiKZ7RQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6293.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376002)(136003)(366004)(39860400002)(346002)(396003)(230922051799003)(64100799003)(451199024)(186009)(1800799009)(66476007)(66556008)(54906003)(66946007)(6512007)(2616005)(316002)(41300700001)(6916009)(5660300002)(6506007)(53546011)(31696002)(2906002)(6666004)(6486002)(478600001)(83380400001)(4326008)(31686004)(8936002)(8676002)(38100700002)(36756003)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d29qM1BJMW1hUGxsTnpYMDZ3Uk1GSkF1L3FXZVd0bnZ0eUpnV0pKOXRRUHRD?=
+ =?utf-8?B?dk5VOVhSMklyUHducE1QRkNnQktYTTFoWDdDM1RJYS9MRUphN3l4S01mMUNo?=
+ =?utf-8?B?VVN5NXp0Z0lieUJ2U29FOEhaWlVGa0N1SnBNbkN1K1BxZWN6OHlZWmhIYjhU?=
+ =?utf-8?B?TTdjSHNBTDZoTHlGR2ZUSzVaRVNFK01MZ2RDblV5YzdxTy8rZGwvRTVwRkMv?=
+ =?utf-8?B?dG16cmJRYmI5OGN1WVB3Z0xYRSswYjV1a0tFWlgxQ3hPRkR3MVQ1amRNMGFZ?=
+ =?utf-8?B?WGRneU1FZWZFbUduS3BYelZiU1VTUlN4TlJ1SDFudTg4TkxNL1hYV25nUHNz?=
+ =?utf-8?B?WHBzbzdKVDJYNlRSbVBqN3JUSUlaK1A3TVo5TjhxQWhhckhWdCtMOEYzWHlC?=
+ =?utf-8?B?SzZHK3RLZThFZjR3VERrZytqcVJZcXc1cTQramtLUkp4akVKRW8rSVd3dXE5?=
+ =?utf-8?B?TjZ4SGJOeVVFUEVhZEg1U25LYTROMC8rei80M1VUaCtnWUlrU0U2eUM4dUFO?=
+ =?utf-8?B?ZmViWWhzcmdYVDdYazY2WUUwWlIzaE9ZVTB0czI5bmZmNlZjRkFqZlFKQW5W?=
+ =?utf-8?B?aHJ3d0w2Z24yOHFpR3pReTRrVFo4bDd0UFI4cW9YcUhxVXNCUllpMnlzaFlN?=
+ =?utf-8?B?bE8zMmI4M3I3RUMvd3dFeGVvamFqRS9GdUxOclNtaHdoNklITHM1cm1sc21W?=
+ =?utf-8?B?UUcxZkRKT1ZpV3VLZGI3OGduajErNWFEVDllRjBBQmR0UURUT3lTaERySElu?=
+ =?utf-8?B?d2Y0Rm1FbnhpaEx4RGg5Q01uNnVJMGxkQlJXWW92bTRsSlo2eUR0WldEZXd4?=
+ =?utf-8?B?cnBaTVQ3WnNzdExpODNxRXI4cnJBcmJ4TGpmTyt2L050eGFoSFU3TGgwbWc3?=
+ =?utf-8?B?L05kNmhITVZpV1J0aDFyU0c3cWVqU1dnSHN1TmpkejNRemV6dnlSSmJaQmR1?=
+ =?utf-8?B?bXpJT3VQTzl1MEFyNzlnZHFSeWZrVHpKV1dnZGhMd0FKVG9tSVo1OGw4bllI?=
+ =?utf-8?B?R1IxN2s1djJUUlBQd2xDcXhrSTBmQmxua3k3RHFFTUxnb1VNUVZHVHZxOFc0?=
+ =?utf-8?B?ekFXNmhCOVdGOFZYby9CN0NlZEd3WnJ0a3JJYklKRUVOa3JCQUVyTTdWKzlq?=
+ =?utf-8?B?elg0SWVDbzc0ZWc0amYrTjErcGZVbVM4YmpNc24yU0MwY0JVOGhGUkQxTndT?=
+ =?utf-8?B?UGd1c2NMQ0QweUMvQVJQWm4wenhOVWVFK0YvRnZ5Mkt5VWI1TnhObkx2SWlK?=
+ =?utf-8?B?U2xNbCtpTTIyRTA1Rm8zd1ozNnlCOFF4NmZFYUh0ZXhPUnpRaXlRc2tKcEJn?=
+ =?utf-8?B?SDRubEp0YmsrQTBwTnNpOUg4OXlqN1RNeksyQ3BBQXJMNnI0bFE4ZnR5bzJ0?=
+ =?utf-8?B?R3pyeStsd2JXSU5CcDRLTGt5RWJhNEtncnN5ZGdYeitRM0VXeEN3UzFtWGtq?=
+ =?utf-8?B?SjVaYUl6bTVJL211STRDbm1OMkNIQjd6VHdYc2Z2M1VSQ2pjT0p4RVhuMzQ0?=
+ =?utf-8?B?Sy9NbjFqMUUrNDBzWU9VT2tncWEyS3pvRGhhM0RkZXozYnBlRjFXKy9rY20z?=
+ =?utf-8?B?RWZrbFVBOXB5aUFqNnJXUE1QTDJsUGJ0QUpQMzdXeElCQTYxRTlJK0pGQjU2?=
+ =?utf-8?B?RzVyVllhekpVV2UzbmxUK3BOYzRmWUxEbWxHSVQ5bUdVL1d0YXI0R1Ztbktv?=
+ =?utf-8?B?RDNBUVVRUm4zNXlTN3p5eTRHUEVHSnczYUtwMzFKTUJRZEpzSzZkclROVTE5?=
+ =?utf-8?B?dC9OVFNaYzVQblBJZGRGcEtaRHpTOFNxZ2hGNXlvUDFrbEo4SkR1U2NkMkpi?=
+ =?utf-8?B?bk1xSzBzSEU0ZVgxaGNQbzNqOWd5cUxhZ1Y1T1pXY1RqVy9seG1rRHQwSkJQ?=
+ =?utf-8?B?ZEhDdXl1ak5uNnkyVXQ0RzMycTl5K2pxZnFBZ0FIU3MxNmpFRWZHMTdDanMz?=
+ =?utf-8?B?LzNtZHlUem8rNFY5aHZUTzIxZVJDM0hTT2VzV3BpNnFrckRtb2RxREtjbG5T?=
+ =?utf-8?B?NjhDbGZxSGE5VEM2cGswU3lENWRGRXhuZFBJWjZUdWlTUmYrTDQ0dGREb3Fx?=
+ =?utf-8?B?WktvdjlYZFBuSzlYUlpCVjlyUjFWY1RMNG1WbWU4d3FFbnFiN1VrNEJKUUI0?=
+ =?utf-8?B?QXBMajUreDlMVll4QndzZWdUbUh4bVRtZk14RGdwdGVSSkJJWGtpV3dGU2Jw?=
+ =?utf-8?Q?Sc1OcQfJOJ+ZqSVkYTeYRuF8LY7fFHqk4Q69llQ4Serv?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7110ed4-e9d6-4b41-ffe0-08dbc42cfc2c
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6293.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2023 16:22:49.3438 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: n+58IsoXNo6aekwc5p+IhK70OBEmbogY6FToiQclO9J1dTPr7BfbAtBSrX8jSYwBJrAoU9LY97OwgXvUOwVUmQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5238
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,213 +125,130 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>, kernel-dev@igalia.com,
- Shashank Sharma <Shashank.Sharma@amd.com>, sunpeng.li@amd.com,
- Simon Ser <contact@emersion.fr>, Xinhui.Pan@amd.com,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Xaver Hugl <xaver.hugl@gmail.com>,
- dri-devel@lists.freedesktop.org,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Alex Hung <alex.hung@amd.com>, amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
- christian.koenig@amd.com, Joshua Ashton <joshua@froggi.es>,
- sungjoon.kim@amd.com
+Cc: "Sundararaju, Sathishkumar" <Sathishkumar.Sundararaju@amd.com>,
+ Felix.Kuehling@amd.com, Alexander Deucher <Alexander.Deucher@amd.com>,
+ James.Zhu@amd.com, "Liu, Leo" <Leo.Liu@amd.com>,
+ Koenig Christian <Christian.Koenig@amd.com>, Srinath Rao <Srinath.rao@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 09/27, Harry Wentland wrote:
-> 
-> 
-> On 2023-09-25 15:49, Melissa Wen wrote:
-> > Add 3D LUT property for plane color transformations using a 3D lookup
-> > table. 3D LUT allows for highly accurate and complex color
-> > transformations and is suitable to adjust the balance between color
-> > channels. It's also more complex to manage and require more
-> > computational resources. Since a 3D LUT has a limited number of entries
-> > in each dimension we want to use them in an optimal fashion. This means
-> > using the 3D LUT in a colorspace that is optimized for human vision,
-> > such as sRGB, PQ, or another non-linear space. Therefore, userpace may
-> > need one 1D LUT (shaper) before it to delinearize content and another 1D
-> > LUT after 3D LUT (blend) to linearize content again for blending. The
-> > next patches add these 1D LUTs to the plane color mgmt pipeline.
-> > 
-> > v3:
-> > - improve commit message about 3D LUT
-> > - describe the 3D LUT entries and size (Harry)
-> > 
-> > Signed-off-by: Melissa Wen <mwen@igalia.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      | 17 ++++++++++++++
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  9 ++++++++
-> >  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 14 +++++++++++
-> >  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 23 +++++++++++++++++++
-> >  4 files changed, 63 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> > index 66bae0eed80c..1b5f25989f7f 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> > @@ -363,6 +363,23 @@ struct amdgpu_mode_info {
-> >  	 * @plane_hdr_mult_property:
-> >  	 */
-> >  	struct drm_property *plane_hdr_mult_property;
-> > +	/**
-> > +	 * @plane_lut3d_property: Plane property for color transformation using
-> > +	 * a 3D LUT (pre-blending), a three-dimensional array where each
-> > +	 * element is an RGB triplet. Each dimension has a size of the cubed
-> > +	 * root of lut3d_size. The array contains samples from the approximated
-> > +	 * function. On AMD, values between samples are estimated by
-> > +	 * tetrahedral interpolation. The array is accessed with three indices,
-> > +	 * one for each input dimension (color channel), blue being the
-> > +	 * outermost dimension, red the innermost.
-> > +	 */
-> > +	struct drm_property *plane_lut3d_property;
-> > +	/**
-> > +	 * @plane_degamma_lut_size_property: Plane property to define the max
-> > +	 * size of 3D LUT as supported by the driver (read-only). The max size
-> > +	 * is the max size of one dimension cubed.
-> > +	 */
-> 
-> I've been thinking about this some more and don't particulary
-> like that we're reporting the size as the dimension cubed, e.g.,
-> 4913 (17^3) instead of 17. This works for an AMD private API
-> (and I'm okay with keeping it as-is if changing it is a lot of
-> effort at this point) but in a generic API it would be a source
-> of bugs or undefined behavior if a driver mistakenly reported
-> a size that doesn't have an even cubed root.
-> 
-> Reporting the size of a single dimension (e.g., 17 in the case
-> of the current AMD driver) would be clearer.
-> 
-> Could we still change that?
+Hi ,
 
-I understand your points, makes sense. I'll send a version that fits the
-single-dimension size.
+Kind request to help review the change. Thank you.
 
-Thanks for the suggestion.
+Regards,
 
-Melissa
+Sathish
 
-> 
-> Harry
-> 
-> 
-> > +	struct drm_property *plane_lut3d_size_property;
-> >  };
-> >  
-> >  #define AMDGPU_MAX_BL_LEVEL 0xFF
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> > index 7ca594c7dfbe..dbd36fc24eca 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> > @@ -773,6 +773,11 @@ struct dm_plane_state {
-> >  	 * S31.32 sign-magnitude.
-> >  	 */
-> >  	__u64 hdr_mult;
-> > +	/**
-> > +	 * @lut3d: 3D lookup table blob. The blob (if not NULL) is an array of
-> > +	 * &struct drm_color_lut.
-> > +	 */
-> > +	struct drm_property_blob *lut3d;
-> >  };
-> >  
-> >  struct dm_crtc_state {
-> > @@ -858,6 +863,10 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
-> >  
-> >  void amdgpu_dm_trigger_timing_sync(struct drm_device *dev);
-> >  
-> > +/* 3D LUT max size is 17x17x17 */
-> > +#define MAX_COLOR_3DLUT_ENTRIES 4913
-> > +#define MAX_COLOR_3DLUT_BITDEPTH 12
-> > +/* 1D LUT size */
-> >  #define MAX_COLOR_LUT_ENTRIES 4096
-> >  /* Legacy gamm LUT users such as X doesn't like large LUT sizes */
-> >  #define MAX_COLOR_LEGACY_LUT_ENTRIES 256
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > index f274909c0c7e..e2f3f2099cac 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > @@ -207,6 +207,20 @@ amdgpu_dm_create_color_properties(struct amdgpu_device *adev)
-> >  		return -ENOMEM;
-> >  	adev->mode_info.plane_hdr_mult_property = prop;
-> >  
-> > +	prop = drm_property_create(adev_to_drm(adev),
-> > +				   DRM_MODE_PROP_BLOB,
-> > +				   "AMD_PLANE_LUT3D", 0);
-> > +	if (!prop)
-> > +		return -ENOMEM;
-> > +	adev->mode_info.plane_lut3d_property = prop;
-> > +
-> > +	prop = drm_property_create_range(adev_to_drm(adev),
-> > +					 DRM_MODE_PROP_IMMUTABLE,
-> > +					 "AMD_PLANE_LUT3D_SIZE", 0, UINT_MAX);
-> > +	if (!prop)
-> > +		return -ENOMEM;
-> > +	adev->mode_info.plane_lut3d_size_property = prop;
-> > +
-> >  	return 0;
-> >  }
-> >  #endif
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> > index b66da6b76f5c..56f9109ecf60 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> > @@ -1361,6 +1361,8 @@ dm_drm_plane_duplicate_state(struct drm_plane *plane)
-> >  
-> >  	if (dm_plane_state->degamma_lut)
-> >  		drm_property_blob_get(dm_plane_state->degamma_lut);
-> > +	if (dm_plane_state->lut3d)
-> > +		drm_property_blob_get(dm_plane_state->lut3d);
-> >  
-> >  	dm_plane_state->degamma_tf = old_dm_plane_state->degamma_tf;
-> >  	dm_plane_state->hdr_mult = old_dm_plane_state->hdr_mult;
-> > @@ -1434,6 +1436,8 @@ static void dm_drm_plane_destroy_state(struct drm_plane *plane,
-> >  
-> >  	if (dm_plane_state->degamma_lut)
-> >  		drm_property_blob_put(dm_plane_state->degamma_lut);
-> > +	if (dm_plane_state->lut3d)
-> > +		drm_property_blob_put(dm_plane_state->lut3d);
-> >  
-> >  	if (dm_plane_state->dc_state)
-> >  		dc_plane_state_release(dm_plane_state->dc_state);
-> > @@ -1464,6 +1468,14 @@ dm_atomic_plane_attach_color_mgmt_properties(struct amdgpu_display_manager *dm,
-> >  	drm_object_attach_property(&plane->base,
-> >  				   dm->adev->mode_info.plane_hdr_mult_property,
-> >  				   AMDGPU_HDR_MULT_DEFAULT);
-> > +
-> > +	if (dpp_color_caps.hw_3d_lut) {
-> > +		drm_object_attach_property(&plane->base,
-> > +					   mode_info.plane_lut3d_property, 0);
-> > +		drm_object_attach_property(&plane->base,
-> > +					   mode_info.plane_lut3d_size_property,
-> > +					   MAX_COLOR_3DLUT_ENTRIES);
-> > +	}
-> >  }
-> >  
-> >  static int
-> > @@ -1495,6 +1507,14 @@ dm_atomic_plane_set_property(struct drm_plane *plane,
-> >  			dm_plane_state->hdr_mult = val;
-> >  			dm_plane_state->base.color_mgmt_changed = 1;
-> >  		}
-> > +	} else if (property == adev->mode_info.plane_lut3d_property) {
-> > +		ret = drm_property_replace_blob_from_id(plane->dev,
-> > +							&dm_plane_state->lut3d,
-> > +							val, -1,
-> > +							sizeof(struct drm_color_lut),
-> > +							&replaced);
-> > +		dm_plane_state->base.color_mgmt_changed |= replaced;
-> > +		return ret;
-> >  	} else {
-> >  		drm_dbg_atomic(plane->dev,
-> >  			       "[PLANE:%d:%s] unknown property [PROP:%d:%s]]\n",
-> > @@ -1522,6 +1542,9 @@ dm_atomic_plane_get_property(struct drm_plane *plane,
-> >  		*val = dm_plane_state->degamma_tf;
-> >  	} else if (property == adev->mode_info.plane_hdr_mult_property) {
-> >  		*val = dm_plane_state->hdr_mult;
-> > +	} else 	if (property == adev->mode_info.plane_lut3d_property) {
-> > +		*val = (dm_plane_state->lut3d) ?
-> > +			dm_plane_state->lut3d->base.id : 0;
-> >  	} else {
-> >  		return -EINVAL;
-> >  	}
-> 
+On 9/21/2023 8:17 PM, Alex Deucher wrote:
+> On Thu, Sep 21, 2023 at 9:07 AM Sathishkumar S
+> <sathishkumar.sundararaju@amd.com> wrote:
+>> fix wrong ip count INFO on spatial partitions. update the query
+>> to return the instance count corresponding to the partition id.
+>>
+>> v2:
+>>   initialize variables only when required to be (Christian)
+>>   move variable declarations to the beginning of function (Christian)
+>>
+>> Signed-off-by: Sathishkumar S <sathishkumar.sundararaju@amd.com>
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 44 ++++++++++++++++++++-----
+>>   1 file changed, 36 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>> index 081bd28e2443..d4ccbe7c78d6 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>> @@ -595,11 +595,16 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>>          struct drm_amdgpu_info *info = data;
+>>          struct amdgpu_mode_info *minfo = &adev->mode_info;
+>>          void __user *out = (void __user *)(uintptr_t)info->return_pointer;
+>> +       struct amdgpu_fpriv *fpriv;
+>> +       struct amdgpu_ip_block *ip_block;
+>> +       enum amd_ip_block_type type;
+>> +       struct amdgpu_xcp *xcp;
+>> +       uint32_t count, inst_mask;
+>>          uint32_t size = info->return_size;
+>>          struct drm_crtc *crtc;
+>>          uint32_t ui32 = 0;
+>>          uint64_t ui64 = 0;
+>> -       int i, found;
+>> +       int i, found, ret;
+>>          int ui32_size = sizeof(ui32);
+>>
+>>          if (!info->return_size || !info->return_pointer)
+>> @@ -627,7 +632,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>>                  return copy_to_user(out, &ui32, min(size, 4u)) ? -EFAULT : 0;
+>>          case AMDGPU_INFO_HW_IP_INFO: {
+>>                  struct drm_amdgpu_info_hw_ip ip = {};
+>> -               int ret;
+>>
+>>                  ret = amdgpu_hw_ip_info(adev, info, &ip);
+>>                  if (ret)
+>> @@ -637,15 +641,41 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>>                  return ret ? -EFAULT : 0;
+>>          }
+>>          case AMDGPU_INFO_HW_IP_COUNT: {
+>> -               enum amd_ip_block_type type;
+>> -               struct amdgpu_ip_block *ip_block = NULL;
+>> -               uint32_t count = 0;
+>> -
+>> +               fpriv = (struct amdgpu_fpriv *) filp->driver_priv;
+>>                  type = amdgpu_ip_get_block_type(adev, info->query_hw_ip.type);
+>>                  ip_block = amdgpu_device_ip_get_ip_block(adev, type);
+>> +
+>>                  if (!ip_block || !ip_block->status.valid)
+>>                          return -EINVAL;
+>>
+>> +               if (adev->xcp_mgr && adev->xcp_mgr->num_xcps > 0 &&
+>> +                       fpriv->xcp_id >= 0 && fpriv->xcp_id < adev->xcp_mgr->num_xcps) {
+>> +                       xcp = &adev->xcp_mgr->xcp[fpriv->xcp_id];
+>> +                       switch (type) {
+>> +                       case AMD_IP_BLOCK_TYPE_GFX:
+>> +                               ret = amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_GFX, &inst_mask);
+>> +                               count = hweight32(inst_mask);
+>> +                               break;
+>> +                       case AMD_IP_BLOCK_TYPE_SDMA:
+>> +                               ret = amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_SDMA, &inst_mask);
+>> +                               count = hweight32(inst_mask);
+>> +                               break;
+>> +                       case AMD_IP_BLOCK_TYPE_JPEG:
+>> +                               ret = amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_VCN, &inst_mask);
+>> +                               count = hweight32(inst_mask) * adev->jpeg.num_jpeg_rings;
+>> +                               break;
+>> +                       case AMD_IP_BLOCK_TYPE_VCN:
+>> +                               ret = amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_VCN, &inst_mask);
+>> +                               count = hweight32(inst_mask);
+>> +                               break;
+>> +                       default:
+>> +                               return -EINVAL;
+>> +                       }
+>> +                       if (ret)
+>> +                               return ret;
+>> +                       return copy_to_user(out, &count, min(size, 4u)) ? -EFAULT : 0;
+>> +               }
+>> +
+>>                  switch (type) {
+>>                  case AMD_IP_BLOCK_TYPE_GFX:
+>>                  case AMD_IP_BLOCK_TYPE_VCE:
+>> @@ -678,7 +708,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>>                  return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
+>>          case AMDGPU_INFO_FW_VERSION: {
+>>                  struct drm_amdgpu_info_firmware fw_info;
+>> -               int ret;
+>>
+>>                  /* We only support one instance of each IP block right now. */
+>>                  if (info->query_fw.ip_instance != 0)
+>> @@ -823,7 +852,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>>                  struct drm_amdgpu_info_device *dev_info;
+>>                  uint64_t vm_size;
+>>                  uint32_t pcie_gen_mask;
+>> -               int ret;
+>>
+>>                  dev_info = kzalloc(sizeof(*dev_info), GFP_KERNEL);
+>>                  if (!dev_info)
+>> --
+>> 2.25.1
+>>
