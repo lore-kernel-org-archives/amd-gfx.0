@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 018F0E7B60F
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 13:16:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92376E7B614
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 13:16:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7161E10E109;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C37210E36D;
 	Wed,  4 Oct 2023 13:16:12 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FA4010E0FA;
- Wed,  4 Oct 2023 10:57:04 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A11410E0FF;
+ Wed,  4 Oct 2023 12:03:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696417024; x=1727953024;
+ t=1696420986; x=1727956986;
  h=date:from:to:cc:subject:in-reply-to:message-id:
  references:mime-version;
- bh=w1S9SFXYcA6/N0hYlCaGZhlFJFvT8WtGofUIt8qSQyg=;
- b=Oce6aCC+g2dvIXBhkHjNJCEayTCi/ZRwoJwr8uDwW3gZuoYFUjGKdNdE
- 2B3bWuM8gKKNiaV0ixvzcu56dY6X9Vt5uR4fjoUs7/735nd1jPR3KB4iG
- NJIDL5QTz6mi58wbQL+S1GgbflUgvB4ma+RKZq3M0iys5BpNtk3ENaEH0
- i4rnMvxhQpq91whwBHIVviyphE7LB01fpN8ETyg3CAfNC/VXdBu2zcjpd
- SWw88Plf6w6ZyFOlia7Y41k/g9WziyjNGNtrV3KJtSscimWIBLfwGNPhB
- NjnSEg3DWvlDWWHCMNZCqW+OqmkGEjT2vORu3fFzNzhDUM1hxcod911CS g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10852"; a="383036918"
-X-IronPort-AV: E=Sophos;i="6.03,199,1694761200"; d="scan'208";a="383036918"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2023 03:56:53 -0700
+ bh=COkxRDA3NTjhwUlXdXz6fmnuuZh/DzTb7V6k+Dxbo2E=;
+ b=jxKvVY/YyBXpGdqKBgbhT8DoLMH8kER6G+h0aGwaNwUOEn+hVnaB8Ebk
+ JtTukbFgn8DrpVT/y0M9y1zdqMGaCuWmyH9lPsrIJM6YjkTq9OzYG5fhN
+ U0OvBHC3gqKS17fmxvZd6IcT/txS4G6Gj2rrwsXuAMh9RlG1g/c70uNJ1
+ 99ILrcUKJimcretPCmkDVA3CDdHEJ7/8lRkDnlAZ1r1rx+t06qCHB9UWO
+ SEzwWgRN8bFtEzeWQmUo9nkdcxAlTC4Hb9L94k03LEX+GcCxc4PjPlhyj
+ I1wQcSIH4E7v+nNQfFRYacvhcpr1C93MhrUd9rrQirqOTcicxX0Zs4B9l g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10852"; a="382012539"
+X-IronPort-AV: E=Sophos;i="6.03,200,1694761200"; d="scan'208";a="382012539"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2023 05:03:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10852"; a="780728105"
-X-IronPort-AV: E=Sophos;i="6.03,199,1694761200"; d="scan'208";a="780728105"
+X-IronPort-AV: E=McAfee;i="6600,9927,10852"; a="727978775"
+X-IronPort-AV: E=Sophos;i="6.03,200,1694761200"; d="scan'208";a="727978775"
 Received: from cyrillet-mobl.ger.corp.intel.com ([10.252.55.203])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2023 03:56:48 -0700
-Date: Wed, 4 Oct 2023 13:56:46 +0300 (EEST)
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2023 05:03:00 -0700
+Date: Wed, 4 Oct 2023 15:02:58 +0300 (EEST)
 From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
 To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
 Subject: Re: [PATCH v2 02/16] platform/x86/amd/pmf: Add support PMF-TA
  interaction
 In-Reply-To: <20230930083715.2050863-3-Shyam-sundar.S-k@amd.com>
-Message-ID: <a72a3cef-b5a0-bfbb-256d-7881f7496f9@linux.intel.com>
+Message-ID: <454df7c3-b796-952b-a4d3-a79b6d55433@linux.intel.com>
 References: <20230930083715.2050863-1-Shyam-sundar.S-k@amd.com>
  <20230930083715.2050863-3-Shyam-sundar.S-k@amd.com>
 MIME-Version: 1.0
@@ -143,136 +143,13 @@ On Sat, 30 Sep 2023, Shyam Sundar S K wrote:
 > +
 > +/* Policy binary actions sampling frequency (in ms) */
 > +static int pb_actions_ms = 1000;
+
+MSEC_PER_SEC (from #include <linux/time.h>, don't include the vdso one).
+
 > +#ifdef CONFIG_AMD_PMF_DEBUG
 > +module_param(pb_actions_ms, int, 0644);
 > +MODULE_PARM_DESC(pb_actions_ms, "Policy binary actions sampling frequency (default = 1000ms)");
 > +#endif
-> +
->  static const uuid_t amd_pmf_ta_uuid = UUID_INIT(0x6fd93b77, 0x3fb8, 0x524d,
->  						0xb1, 0x2d, 0xc5, 0x29, 0xb1, 0x3d, 0x85, 0x43);
->  
-> +static void amd_pmf_prepare_args(struct amd_pmf_dev *dev, int cmd,
-> +				 struct tee_ioctl_invoke_arg *arg,
-> +				 struct tee_param *param)
-> +{
-> +	memset(arg, 0, sizeof(*arg));
-> +	memset(param, 0, MAX_TEE_PARAM * sizeof(*param));
-> +
-> +	arg->func = cmd;
-> +	arg->session = dev->session_id;
-> +	arg->num_params = MAX_TEE_PARAM;
-> +
-> +	/* Fill invoke cmd params */
-> +	param[0].u.memref.size = sizeof(struct ta_pmf_shared_memory);
-> +	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INOUT;
-> +	param[0].u.memref.shm = dev->fw_shm_pool;
-> +	param[0].u.memref.shm_offs = 0;
-> +}
-> +
-> +static int amd_pmf_invoke_cmd_enact(struct amd_pmf_dev *dev)
-> +{
-> +	struct ta_pmf_shared_memory *ta_sm = NULL;
-> +	struct tee_param param[MAX_TEE_PARAM];
-> +	struct tee_ioctl_invoke_arg arg;
-> +	int ret = 0;
-> +
-> +	if (!dev->tee_ctx)
-> +		return -ENODEV;
-> +
-> +	ta_sm = (struct ta_pmf_shared_memory *)dev->shbuf;
-
-Don't cast from void * to a typed pointer, it's unnecessary as compiler 
-will handle that for you.
-
-> +	memset(ta_sm, 0, sizeof(struct ta_pmf_shared_memory));
-
-sizeof(*ta_sm) to be on the safer side of things.
-
-> +	ta_sm->command_id = TA_PMF_COMMAND_POLICY_BUILDER_ENACT_POLICIES;
-> +	ta_sm->if_version = PMF_TA_IF_VERSION_MAJOR;
-> +
-> +	amd_pmf_prepare_args(dev, TA_PMF_COMMAND_POLICY_BUILDER_ENACT_POLICIES, &arg, param);
-> +
-> +	ret = tee_client_invoke_func(dev->tee_ctx, &arg, param);
-> +	if (ret < 0 || arg.ret != 0) {
-> +		dev_err(dev->dev, "TEE enact cmd failed. err: %x, ret:%x\n", arg.ret, ret);
-
--Exx code should be printed as %x
-
-> +		return -EINVAL;
-
-This overrides the original error code if ret < 0.
-
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int amd_pmf_invoke_cmd_init(struct amd_pmf_dev *dev)
-> +{
-> +	struct ta_pmf_shared_memory *ta_sm = NULL;
-> +	struct tee_param param[MAX_TEE_PARAM];
-> +	struct tee_ioctl_invoke_arg arg;
-> +	int ret = 0;
-> +
-> +	if (!dev->tee_ctx) {
-> +		dev_err(dev->dev, "Failed to get TEE context\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	ta_sm = (struct ta_pmf_shared_memory *)dev->shbuf;
-
-Unnecessary cast from void *.
-
-> +	ta_sm->command_id = TA_PMF_COMMAND_POLICY_BUILDER_INITIALIZE;
-> +	ta_sm->if_version = PMF_TA_IF_VERSION_MAJOR;
-> +
-> +	amd_pmf_prepare_args(dev, TA_PMF_COMMAND_POLICY_BUILDER_INITIALIZE, &arg, param);
-> +
-> +	ret = tee_client_invoke_func(dev->tee_ctx, &arg, param);
-> +	if (ret < 0 || arg.ret != 0) {
-> +		dev_err(dev->dev, "Failed to invoke TEE init cmd. err: %x, ret:%x\n", arg.ret, ret);
-> +		return -EINVAL;
-
-As per earlier comments (x2).
-
-> +	}
-> +
-> +	return ta_sm->pmf_result;
-> +}
-> +
-> +static void amd_pmf_invoke_cmd(struct work_struct *work)
-> +{
-> +	struct amd_pmf_dev *dev = container_of(work, struct amd_pmf_dev, pb_work.work);
-> +
-> +	amd_pmf_invoke_cmd_enact(dev);
-> +	schedule_delayed_work(&dev->pb_work, msecs_to_jiffies(pb_actions_ms));
-> +}
-> +
->  static int amd_pmf_amdtee_ta_match(struct tee_ioctl_version_data *ver, const void *data)
->  {
->  	return ver->impl_id == TEE_IMPL_ID_AMDTEE;
-> @@ -103,10 +190,18 @@ static void amd_pmf_tee_deinit(struct amd_pmf_dev *dev)
->  
->  int amd_pmf_init_smart_pc(struct amd_pmf_dev *dev)
->  {
-> -	return amd_pmf_tee_init(dev);
-> +	int ret;
-> +
-> +	ret = amd_pmf_tee_init(dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	INIT_DELAYED_WORK(&dev->pb_work, amd_pmf_invoke_cmd);
-> +	return 0;
->  }
->  
->  void amd_pmf_deinit_smart_pc(struct amd_pmf_dev *dev)
->  {
-> +	cancel_delayed_work_sync(&dev->pb_work);
->  	amd_pmf_tee_deinit(dev);
->  }
-> 
 
 -- 
  i.
