@@ -4,76 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3021E7B60F
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 13:16:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ADA1E7B617
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 13:16:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 643FD10E379;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0948810E377;
 	Wed,  4 Oct 2023 13:16:14 +0000 (UTC)
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
- [IPv6:2607:f8b0:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAA5F10E323
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Oct 2023 23:29:57 +0000 (UTC)
-Received: by mail-ot1-x330.google.com with SMTP id
- 46e09a7af769-6c4fa1c804bso981660a34.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 03 Oct 2023 16:29:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1696375797; x=1696980597;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=sHOGbVO4yt56UuQA6X7B53h+Y2FMmkpmlA/gBYESKrU=;
- b=Uy/0Z2YIFTTuTnaFubaK7B0r6hY8hmMfGjaW1THZwdVigyNg4xDOpe37rvhpmHw1Ps
- dgl5YHo0Lxt6byt9yND/dgGN1DBbiw7t+Hj/CKYvq7lknMqhiLnbyBcSKL4OMIYB3YDR
- L97ae7IvtMbfbImmjwGtZ7vHFsjcWf6PRpTNs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696375797; x=1696980597;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=sHOGbVO4yt56UuQA6X7B53h+Y2FMmkpmlA/gBYESKrU=;
- b=DpZ6pOhzllWwThRB5mwxC0y7pw7LSUs6J2/1yIws3EVCju3/1xsKyOCiernEV6r4EO
- spzReCLDmu0KpEOGQItEOyMS20qZUeXGfiUSmpBe1LPSKfPv/FZsRAyuu2Mgmr1Tc+c2
- G5vMT6g05LCo8jgxIl60i+deJSrt4vcRpSRDQYYRiR3AHjWWZs7XqWMpBQAeDnOfWroK
- ZRB/K6cn/O/0EQG8Z8OkF7OXX29SiLGRzRmDmzm9zmBeC90wPQ7IqlmjoVdPWZ52IKRe
- +yK25DMuYUq17f5STDziTnYwuO/0aSUqyAZD8JLwOQvoK4GQZFLs6e7lhxPUWFG1g05L
- 0sOQ==
-X-Gm-Message-State: AOJu0YxXbTJSfj07Vyiq8rq4vUkbfzM3Eb4s3Dc2A+XgrvM4UmQa3fYJ
- UkcnXkwtQT1d+JdMS9h7D1vUTw==
-X-Google-Smtp-Source: AGHT+IE5Y1aTeSmZultlmhH08sL/6gXNiFbzPXi0v1PX93a6hQ7va5s5hktVz94Kc3mdmWYw273bWw==
-X-Received: by 2002:a05:6358:3182:b0:143:1063:d1eb with SMTP id
- q2-20020a056358318200b001431063d1ebmr1010070rwd.17.1696375796777; 
- Tue, 03 Oct 2023 16:29:56 -0700 (PDT)
-Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
- [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
- z20-20020a17090a8b9400b0026d54b2abe9sm134489pjn.37.2023.10.03.16.29.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Oct 2023 16:29:56 -0700 (PDT)
-From: Kees Cook <keescook@chromium.org>
-To: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: Annotate struct amdgpu_bo_list with __counted_by
-Date: Tue,  3 Oct 2023 16:29:52 -0700
-Message-Id: <20231003232952.work.158-kees@kernel.org>
-X-Mailer: git-send-email 2.34.1
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2210710E11A;
+ Wed,  4 Oct 2023 12:27:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1696422429; x=1727958429;
+ h=date:from:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=hB9Yjd4NQ30uhK42hDWzL7lVygrB4+lP1EZ4tgefKrU=;
+ b=gD+rp3hThldIQjwEIWM+2lPk1pym8rOCIfZjBxmNmTaascVT2k/L7xH7
+ 0C7F3EqJW/LLo3mJNblXtl2TFDSBZBVhwzrBxORBZveHegl9BaX33wa5q
+ R+F8y3GtFzA5rSPR200V7cdZrmhrwEpernXXuT9jO7zdF4FVzM3Mq8Kic
+ q4awvZHyBKESePbCKirBqLb3kXOJIsd/DA2N/SLUUml2eSCDqoXj52Fdp
+ 1jP3qlWQbQOAfMEybYB0wzuBlw2mvA3NfN5hURrDmNHAcdOI+3ysCmlq0
+ IpECjBAuDmn3tG+5DBTQqxQHpIEK/tRfl/Q/7wwzzxSe19Pj5HhC1+N9y Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10852"; a="368208327"
+X-IronPort-AV: E=Sophos;i="6.03,200,1694761200"; d="scan'208";a="368208327"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2023 05:27:08 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10852"; a="867343413"
+X-IronPort-AV: E=Sophos;i="6.03,200,1694761200"; d="scan'208";a="867343413"
+Received: from cyrillet-mobl.ger.corp.intel.com ([10.252.55.203])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2023 05:27:04 -0700
+Date: Wed, 4 Oct 2023 15:27:01 +0300 (EEST)
+From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+Subject: Re: [PATCH v2 09/16] platform/x86/amd/pmf: Add facility to dump TA
+ inputs
+In-Reply-To: <20230930083715.2050863-10-Shyam-sundar.S-k@amd.com>
+Message-ID: <a81a6c40-7489-292c-b0df-90b851e4ef75@linux.intel.com>
+References: <20230930083715.2050863-1-Shyam-sundar.S-k@amd.com>
+ <20230930083715.2050863-10-Shyam-sundar.S-k@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2647; i=keescook@chromium.org; 
- h=from:subject:message-id;
- bh=1v/oxBN7ZqO28+dM0oWFTdo9vpsVEGznhHHT3hTYF8I=; 
- b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBlHKPwyIdWSWld6J97atG9hIxpNtU0Dh7/kol1x
- NGYcBbZXXGJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCZRyj8AAKCRCJcvTf3G3A
- JgEqEACpA4yYWb2KVzTOCIfwm8hujCVTSJPb/hR3KANtcMNWX25mFUB8inrRxZWNTJKlqnLkDzN
- VGPP1FbsCXD2NkpMv9Mi5rqHxnIYI4dPDjXghdQZo5wwWSmTJ0gDxcvYlhF68WAUuSdvzAYcuRR
- Ua+upzrG0Zxau1z8VFtdASoWxhl6W5HCuBWKVJzL8coLB2q2sxHBtdJC9utqgikQ+n0LXYRG5/V
- aIQWGc1WjEYexxVOe0SI0nqCGbvf/eSyWa7NM5pbGLR1oVDB4ThDda1/F+wHQ/qmoam8kolP2AJ
- oif+XR3OH8/MLa0+Kb/eK+eJEclZP7gav8nxBSgsB0gjyvfBjmVd5mIPJGIteGyclUcZWQVeb0l
- Kv+i+yrEZgNkEfh8Gflfov5ubL79ZXskKLGfkaJmMBAIm9kvZBbvzIrIzGxI9tuD3sRDd+CrqSU
- XlgByjZ5HUL2Uqwbuj+8V4e6ks6sp0HYyeN26gSl+Ta8yOR8L1c+HaJpeBpPhItyuMwXwEN8vV4
- WJCL05UQH36noU9sZ9FxQwYeP7wFkf6e4jOTjhPwjBMg3Lc9cDgUHaU3r+BizH/wpINJF9UCSmF
- ibq3bJCAyYdVnesvLjy+QzmKTpbLov9bkIJeuxtJ/uTrmRoaLQunBZ3qRodYL81VPJ74Nt+blMg
- vM2VNuF fGpQ1XFg==
-X-Developer-Key: i=keescook@chromium.org; a=openpgp;
- fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 X-Mailman-Approved-At: Wed, 04 Oct 2023 13:16:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,83 +58,131 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: llvm@lists.linux.dev, Kees Cook <keescook@chromium.org>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- Tom Rix <trix@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>,
- Luben Tuikov <luben.tuikov@amd.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-hardening@vger.kernel.org
+Cc: Xinhui.Pan@amd.com, Patil.Reddy@amd.com, basavaraj.natikar@amd.com,
+ dri-devel@lists.freedesktop.org, jikos@kernel.org,
+ amd-gfx@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ markgross@kernel.org, Hans de Goede <hdegoede@redhat.com>,
+ benjamin.tissoires@redhat.com, mario.limonciello@amd.com, daniel@ffwll.ch,
+ linux-input@vger.kernel.org, alexander.deucher@amd.com, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Prepare for the coming implementation by GCC and Clang of the __counted_by
-attribute. Flexible array members annotated with __counted_by can have
-their accesses bounds-checked at run-time via CONFIG_UBSAN_BOUNDS (for
-array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
-functions).
+On Sat, 30 Sep 2023, Shyam Sundar S K wrote:
 
-As found with Coccinelle[1], add __counted_by for struct amdgpu_bo_list.
-Additionally, since the element count member must be set before accessing
-the annotated flexible array member, move its initialization earlier.
+> PMF driver sends constant inputs to TA which its gets via the other
+> subsystems in the kernel. To debug certain TA issues knowing what inputs
+> being sent to TA becomes critical. Add debug facility to the driver which
+> can isolate Smart PC and TA related issues.
+> 
+> Also, make source_as_str() as non-static function as this helper is
+> required outside of sps.c file.
+> 
+> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+> Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+> ---
+>  drivers/platform/x86/amd/pmf/pmf.h    |  3 +++
+>  drivers/platform/x86/amd/pmf/spc.c    | 37 +++++++++++++++++++++++++++
+>  drivers/platform/x86/amd/pmf/sps.c    |  2 +-
+>  drivers/platform/x86/amd/pmf/tee-if.c |  1 +
+>  4 files changed, 42 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/platform/x86/amd/pmf/pmf.h b/drivers/platform/x86/amd/pmf/pmf.h
+> index 34778192432e..2ad5ece47601 100644
+> --- a/drivers/platform/x86/amd/pmf/pmf.h
+> +++ b/drivers/platform/x86/amd/pmf/pmf.h
+> @@ -595,6 +595,7 @@ int apmf_get_static_slider_granular(struct amd_pmf_dev *pdev,
+>  bool is_pprof_balanced(struct amd_pmf_dev *pmf);
+>  int amd_pmf_power_slider_update_event(struct amd_pmf_dev *dev);
+>  
+> +const char *source_as_str(unsigned int state);
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: Luben Tuikov <luben.tuikov@amd.com>
-Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-hardening@vger.kernel.org
-Link: https://github.com/kees/kernel-tools/blob/trunk/coccinelle/examples/counted_by.cocci [1]
-Signed-off-by: Kees Cook <keescook@chromium.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Too generic name, add prefix to the name.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-index 6f5b641b631e..781e5c5ce04d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-@@ -84,6 +84,7 @@ int amdgpu_bo_list_create(struct amdgpu_device *adev, struct drm_file *filp,
- 
- 	kref_init(&list->refcount);
- 
-+	list->num_entries = num_entries;
- 	array = list->entries;
- 
- 	for (i = 0; i < num_entries; ++i) {
-@@ -129,7 +130,6 @@ int amdgpu_bo_list_create(struct amdgpu_device *adev, struct drm_file *filp,
- 	}
- 
- 	list->first_userptr = first_userptr;
--	list->num_entries = num_entries;
- 	sort(array, last_entry, sizeof(struct amdgpu_bo_list_entry),
- 	     amdgpu_bo_list_entry_cmp, NULL);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-index 6a703be45d04..555cd6d877c3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-@@ -56,7 +56,7 @@ struct amdgpu_bo_list {
- 	 */
- 	struct mutex bo_list_mutex;
- 
--	struct amdgpu_bo_list_entry entries[];
-+	struct amdgpu_bo_list_entry entries[] __counted_by(num_entries);
- };
- 
- int amdgpu_bo_list_get(struct amdgpu_fpriv *fpriv, int id,
 -- 
-2.34.1
+ i.
+
+>  int apmf_update_fan_idx(struct amd_pmf_dev *pdev, bool manual, u32 idx);
+>  int amd_pmf_set_sps_power_limits(struct amd_pmf_dev *pmf);
+> @@ -625,4 +626,6 @@ int apmf_check_smart_pc(struct amd_pmf_dev *pmf_dev);
+>  
+>  /* Smart PC - TA interfaces */
+>  void amd_pmf_populate_ta_inputs(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in);
+> +void amd_pmf_dump_ta_inputs(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in);
+> +
+>  #endif /* PMF_H */
+> diff --git a/drivers/platform/x86/amd/pmf/spc.c b/drivers/platform/x86/amd/pmf/spc.c
+> index 3113bde051d9..3aee78629cce 100644
+> --- a/drivers/platform/x86/amd/pmf/spc.c
+> +++ b/drivers/platform/x86/amd/pmf/spc.c
+> @@ -14,6 +14,43 @@
+>  #include <linux/units.h>
+>  #include "pmf.h"
+>  
+> +#ifdef CONFIG_AMD_PMF_DEBUG
+> +static const char *ta_slider_as_str(unsigned int state)
+> +{
+> +	switch (state) {
+> +	case TA_BEST_PERFORMANCE:
+> +		return "PERFORMANCE";
+> +	case TA_BETTER_PERFORMANCE:
+> +		return "BALANCED";
+> +	case TA_BEST_BATTERY:
+> +		return "POWER_SAVER";
+> +	default:
+> +		return "Unknown TA Slider State";
+> +	}
+> +}
+> +
+> +void amd_pmf_dump_ta_inputs(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in)
+> +{
+> +	dev_dbg(dev->dev, "==== TA inputs START ====\n");
+> +	dev_dbg(dev->dev, "Slider State : %s\n", ta_slider_as_str(in->ev_info.power_slider));
+> +	dev_dbg(dev->dev, "Power Source : %s\n", source_as_str(in->ev_info.power_source));
+> +	dev_dbg(dev->dev, "Battery Percentage : %u\n", in->ev_info.bat_percentage);
+> +	dev_dbg(dev->dev, "Designed Battery Capacity : %u\n", in->ev_info.bat_design);
+> +	dev_dbg(dev->dev, "Fully Charged Capacity : %u\n", in->ev_info.full_charge_capacity);
+> +	dev_dbg(dev->dev, "Drain Rate : %d\n", in->ev_info.drain_rate);
+> +	dev_dbg(dev->dev, "Socket Power : %u\n", in->ev_info.socket_power);
+> +	dev_dbg(dev->dev, "Skin Temperature : %u\n", in->ev_info.skin_temperature);
+> +	dev_dbg(dev->dev, "Avg C0 Residency : %u\n", in->ev_info.avg_c0residency);
+> +	dev_dbg(dev->dev, "Max C0 Residency : %u\n", in->ev_info.max_c0residency);
+> +	dev_dbg(dev->dev, "GFX Busy : %u\n", in->ev_info.gfx_busy);
+> +	dev_dbg(dev->dev, "Connected Display Count : %u\n", in->ev_info.monitor_count);
+> +	dev_dbg(dev->dev, "LID State : %s\n", in->ev_info.lid_state ? "Close" : "Open");
+> +	dev_dbg(dev->dev, "==== TA inputs END ====\n");
+> +}
+> +#else
+> +void amd_pmf_dump_ta_inputs(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in) {}
+> +#endif
+> +
+>  static void amd_pmf_get_smu_info(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in)
+>  {
+>  	u16 max, avg = 0;
+> diff --git a/drivers/platform/x86/amd/pmf/sps.c b/drivers/platform/x86/amd/pmf/sps.c
+> index a70e67749be3..13e36b52dfe8 100644
+> --- a/drivers/platform/x86/amd/pmf/sps.c
+> +++ b/drivers/platform/x86/amd/pmf/sps.c
+> @@ -27,7 +27,7 @@ static const char *slider_as_str(unsigned int state)
+>  	}
+>  }
+>  
+> -static const char *source_as_str(unsigned int state)
+> +const char *source_as_str(unsigned int state)
+>  {
+>  	switch (state) {
+>  	case POWER_SOURCE_AC:
+> diff --git a/drivers/platform/x86/amd/pmf/tee-if.c b/drivers/platform/x86/amd/pmf/tee-if.c
+> index 961011530c1b..b0711b2f8c8f 100644
+> --- a/drivers/platform/x86/amd/pmf/tee-if.c
+> +++ b/drivers/platform/x86/amd/pmf/tee-if.c
+> @@ -187,6 +187,7 @@ static int amd_pmf_invoke_cmd_enact(struct amd_pmf_dev *dev)
+>  	}
+>  
+>  	if (ta_sm->pmf_result == TA_PMF_TYPE_SUCCESS && out->actions_count) {
+> +		amd_pmf_dump_ta_inputs(dev, in);
+>  		dev_dbg(dev->dev, "action count:%u result:%x\n", out->actions_count,
+>  			ta_sm->pmf_result);
+>  		amd_pmf_apply_policies(dev, out);
+> 
 
