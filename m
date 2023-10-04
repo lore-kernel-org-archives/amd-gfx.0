@@ -4,124 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAE9BE7C4E8
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 17:31:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F2C3E7C4ED
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 18:21:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D32710E3A0;
-	Wed,  4 Oct 2023 17:31:40 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2072.outbound.protection.outlook.com [40.107.92.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F30310E341;
- Wed,  4 Oct 2023 17:31:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B214210E3B0;
+	Wed,  4 Oct 2023 18:21:16 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2A6710E3B0
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Oct 2023 18:21:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iR9j7u0vPpRHmWVZrWMomO25qsGgYEc5fkdHb2QtCJRi0jbgMaJZCkOha7g1+rzyroB6RSsfLr85+EiarHm9KzgyUncZw7/CETRDsBPAa/1onDHHjJtAioOZNY6fr/I8PGQJ18CVWVoI9ql8ZPJvV1jfi+wxBpbIWc+IQbRj6vQBAqtzVAISDO0mlHo0k9KsYxJlKPTJ6Wg/5uLykxrxLGRWH0Psn7oK6e1SNU2b+JqQeOwOu3bFEydsKQcpa11NgGsJL7IaN0PZxuaPgSilcc3IyWYNgvwgJjHcGhbT7nQV+ocmoC7b5Wz+8ahvI/uB3t8s8+gHLnE2Zea1wxY/0A==
+ b=Q25Fa4B+xe0ssY5foP/mJqVK3JOShr2tToWONZVhj67vlz3EiYdBrYElWVIzWRteVH8WlxOX5yqaJEFKwsDYhNHvhUm+etaC3xW5wVikWwNlIy/dDN33IzBj2FfsclrhVyQOamIaruJYQc9MqwSNswd5wM9jGimYXskEdvqBrnSMzVANJGDdJvtHm0CauDKOOO5Xo3a+boR+GxqUtJiTeYIacTYe0qTGQncaGuVw+TCo0DZsdl3AblpImdVA6svS8VJVCqUz4A4I2JKk4TatlzeN2V/fhKIYSgiez3AWfa03IF5Vfe8ZyPQ/gt/UT0j51os74H5mHsALzJgcjn+rRw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IOAGf0M3vNkT1cGJY7nZ81AuTAMJe3+R0WWxn7T5yWg=;
- b=SFDJ4+2pU0Up8Exer97j/Ea57v2Z9sED5sZyENJAKKeMYpvXPuARBKk9stdvz/N7mefyNgSIHu2jt6OH6gMAJw3MOdMT4JVYMGaQnRRq/AJf1KL/GFeEkPUtEWVQSTNKoHunf+2Xn+0+Zy1Hm/DNp9lfGO2BsaVecdQbk0kXThGZ6J6sOx1AMmFt+DYbM6v89Fsn3+sNhLNah01AvtWIFDYI/HTeuF0A+pA9sHIl6+Cd3kJnEWCO789hsEys9V27F+13nWKT7o4FCfhcf4yAjSIo3BwgmUOYtjafalBM63VMhOuPQhfeQOPtjlaFQT85vXco7kji2q0xoNBruukKLg==
+ bh=O9imqPiCMvjbW1V6FoUsTfIm2X7eYUvHNWQqfiRxHYU=;
+ b=fH/otJkoTfViER+FqK218nAf7//xq1+TLw8GVuE4op0u6U2EX2oNkbzy08bNLfXrBwkmAiDxTaowZRBWXY7/oJglufjMzSlZtYutUjxKgNdq+yCaVTSAwaoOWzG2O0Uuh+lxQFo1BVaqvCPZr0qfffs7eVddCT9zwebHYsAeJDMeQp1XHfn37F30bvsNujHmTFrA+qi5bjNP/yv3xqBmIOOihYcUOaH79ZN0CTIjplD62fz837+r/73bAMlB8//U/sJVi0qSrxhTn613xBlXxDHMVFdVSRcvlVaKFUsXZvcunBLNoFgjxEUd2gXvJHqabQBsa2OaafTjg3GmU40/mQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IOAGf0M3vNkT1cGJY7nZ81AuTAMJe3+R0WWxn7T5yWg=;
- b=A3EsjKdpDJVjs7KzFaS3LLTOgXXNZ9e02mn6ugA3+YLjv0a7+Ll9OPQYmByu6Aixg2JyIxoqjfIHjAiDp35xn5sp0BOPU1WqrtNEayUz8SkW2dTfCAg5M57pWwIpyHC43NkyOMGivhBItmTlOOci0scvi0ZipvpOrdiih2zaf0A=
-Authentication-Results: dkim=none (message not signed)
+ bh=O9imqPiCMvjbW1V6FoUsTfIm2X7eYUvHNWQqfiRxHYU=;
+ b=ycOs1prCQIbKKhjVx9Pv5DtdMfs3eM7BPA943xAQEXrsEbll4B/uniAyiotPoUX36i1WLMPy+J7IZPF+0Q+BuIntoiOh9orgyny+sH8EJ4iG+HgzciQ1+LywboWDL61QFyffKDTH5d+vwWFkNzbO2iGIlJ8McNFn5/o102y/icQ=
+Received: from MN2PR12MB2909.namprd12.prod.outlook.com (2603:10b6:208:103::13)
+ by IA0PR12MB7627.namprd12.prod.outlook.com (2603:10b6:208:437::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.33; Wed, 4 Oct
+ 2023 18:21:12 +0000
+Received: from MN2PR12MB2909.namprd12.prod.outlook.com
+ ([fe80::5759:e108:636a:f417]) by MN2PR12MB2909.namprd12.prod.outlook.com
+ ([fe80::5759:e108:636a:f417%4]) with mapi id 15.20.6838.033; Wed, 4 Oct 2023
+ 18:21:11 +0000
+From: "Francis, David" <David.Francis@amd.com>
+To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH v2] drm/amdkfd: Fix EXT_COHERENT memory allocation crash
+Thread-Topic: [PATCH v2] drm/amdkfd: Fix EXT_COHERENT memory allocation crash
+Thread-Index: AQHZ9jtWAJk9uAtN+06ucGdPDVwnILA4lxMAgAEYV4A=
+Date: Wed, 4 Oct 2023 18:21:11 +0000
+Message-ID: <e0052e58-3c17-4015-b6fb-f458cfcaca30@amd.com>
+References: <20231003205029.4764-1-Philip.Yang@amd.com>
+ <995b4966-3902-dbdb-1991-b30e158e991b@amd.com>
+In-Reply-To: <995b4966-3902-dbdb-1991-b30e158e991b@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-10-04T18:21:11.087Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
+x-ms-exchange-imapappendstamp: MN2PR12MB2909.namprd12.prod.outlook.com
+ (15.20.6838.030)
+authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
- DS0PR12MB8319.namprd12.prod.outlook.com (2603:10b6:8:f7::11) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6838.33; Wed, 4 Oct 2023 17:31:35 +0000
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::8a67:3bbe:8309:4f87]) by DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::8a67:3bbe:8309:4f87%3]) with mapi id 15.20.6768.029; Wed, 4 Oct 2023
- 17:31:35 +0000
-Message-ID: <f0f1e7ff-642f-4fe5-8004-4b38c079699a@amd.com>
-Date: Wed, 4 Oct 2023 13:31:31 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:115.0) Gecko/20100101
- Thunderbird/115.3.0
-Subject: Re: [PATCH] drm/amdgpu: Annotate struct amdgpu_bo_list with
- __counted_by
-To: Kees Cook <keescook@chromium.org>, Alex Deucher <alexander.deucher@amd.com>
-References: <20231003232952.work.158-kees@kernel.org>
-Content-Language: en-CA, en-US
-From: Luben Tuikov <luben.tuikov@amd.com>
-Autocrypt: addr=luben.tuikov@amd.com; keydata=
- xjMEY1i6jxYJKwYBBAHaRw8BAQdAhfD+Cc+P5t/fiF08Vw25EMLiwUuxULYRiDQAP6H50MTN
- I0x1YmVuIFR1aWtvdiA8bHViZW4udHVpa292QGFtZC5jb20+wpkEExYKAEEWIQQyyR05VSHw
- x45E/SoppxulNG8HhgUCY1i6jwIbAwUJCWYBgAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIX
- gAAKCRAppxulNG8Hhk53AP4k4UY5xfcje0c5OF1k22pNv8tErxtVpgKKZgvfetA4xwD+OoAh
- vesLIYumBDxP0BoLiLN84udxdT15HwPFUGiDmwDOOARjWLqPEgorBgEEAZdVAQUBAQdAzSxY
- a2EtvvIwd09NckBLSTarSLNDkUthmqPnwolwiDYDAQgHwn4EGBYKACYWIQQyyR05VSHwx45E
- /SoppxulNG8HhgUCY1i6jwIbDAUJCWYBgAAKCRAppxulNG8HhnBLAP4yjSGpK6PE1mapKhrq
- 8bSl9reo+F6EqdhE8X2TTHPycAEAt8EkTEstSiaOpM66gneU7r+xxzOYULo1b1XjXayGvwM=
-In-Reply-To: <20231003232952.work.158-kees@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0216.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:67::27) To DM6PR12MB3370.namprd12.prod.outlook.com
- (2603:10b6:5:38::25)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|DS0PR12MB8319:EE_
-X-MS-Office365-Filtering-Correlation-Id: 49c8666d-a863-4181-91b6-08dbc4ffc1e0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: C52NnohovJaxX8KlS21flhg4nhGZVybfzP1XMIpZjXCguzSxzqlfS1ytrisIjX1mnpQ8xQq24l/Qunv7LC0wIXCjrpOhoWKY1Qi4zG5ZCXxAPinYVe5itCZax2ixlFLBO4Z+xqiCXNhVBMsw/NbTTtzbojNyZqp+y8W4XNXiON8mUtyGlIWYkHrH2AzgngO9MpKuHHTGglQQC2EY9F+PdGutuDwic+n63e6/9/V5WaqT9kHHP4yep40wqj9VKqk7oBRERqgsvzrxB7eJ7q3wO3YErb4MTEYhJvutlFmlTCtQliD7l5iXqrwEhesMkhpBPD6sLjIBtXbdfmaJMRfN1UeKwzQtfrHFThjrU5w7A2mw+g+4vmjxReEtm0VWZ/s7Q4oWQI7dXb4R2Urc7/qF9GKgJ4oKXtInwAmDfMUd/JqNzMgkEZ/P53hV0rGo2Nv71KSX0xmZKVl9ic+0JvXCwy5dVnaanes08OJb00RUBkyfK85GAkpinW40iVvBkedSpMMA4mVVRFKMg9kr4X5rzLxYLiT4Qaao+JKmKy081uHJASMkry4Q7AH8RW824T672mhdVh2lkTJ5o6ZneS5d+BxNKMQUBS8mjiOWk5B5mGYxOZPqKzjtuOKymfhLHLVyeKrq2JKMQsrC/c9tp2MZOg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366004)(39860400002)(346002)(376002)(136003)(396003)(230922051799003)(186009)(1800799009)(64100799003)(451199024)(6506007)(53546011)(6666004)(6486002)(966005)(478600001)(83380400001)(2616005)(6512007)(26005)(110136005)(2906002)(7416002)(41300700001)(8936002)(8676002)(316002)(6636002)(66476007)(54906003)(66556008)(66946007)(5660300002)(4326008)(44832011)(36756003)(38100700002)(86362001)(31696002)(31686004)(45980500001)(43740500002);
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MN2PR12MB2909:EE_|IA0PR12MB7627:EE_
+x-ms-office365-filtering-correlation-id: 84ba0c09-f511-4a52-f965-08dbc506b02e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: neB4iLW7oM+8FlHtYc9pUp903qoLO1MF1WOUnkOaiACCu+N2NJmptBVu0qXmIszfSaoV1SuWZWBbIPdQyVkdY5f+aL+adyICJjrDdSuI5jRol9UqTIi0M3jFYmPWI7m2E48WZ0mJgmN+uoAX7RQG3VRygV5Nmsdh75QoUzAmdJGKj7DHNHjojUk/99lEZtAnBHr5RwLw01CKGfjQFNzRgCr/mhF6Zo3W6YvpW8UAeMUQkUU3pE7/nONTDlS+RGW4S53w/Zwjsj/bnxfKqS3nOfIYtVQ+Wumde2kzz8UOoo/v0BEgryNC+rTHWKoUom4RcbSaqOoSVoYC3aGbaSqNvaoqXvr846JpAI+eARxX98riFKfttuy0ELIdDB9lPUeWz10dbbn0XbFD3miQOvd3pLcVUVc2YTomaAvmVi2DQYEbS4GeSvnEP09kZO0tDS8Eo0JFw3as4Qw7147A4pQRMyY8zGmOtu/jrHzcYyjut1oRvv2wTrcq0OLbhFj4zBr8yAcQqg6KvCx26jIGKcOeYQiy3m+t5wPDAlEnztTP/GSbi6Td6IKKudgKPxI2rX1spfoHitZm8kKbvWVWFKLynHhIGDvA+HrPAkKbx5jAOalNGD4dAcTlFl/IpNa08zk8vfeoD+JpsvFS+8NB5135Ig==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB2909.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(346002)(396003)(376002)(366004)(136003)(230922051799003)(1800799009)(451199024)(64100799003)(186009)(41300700001)(110136005)(6506007)(478600001)(6486002)(2616005)(91956017)(66446008)(53546011)(76116006)(66476007)(316002)(6512007)(66556008)(64756008)(66946007)(8676002)(8936002)(5660300002)(26005)(71200400001)(19627405001)(31686004)(83380400001)(2906002)(38070700005)(36756003)(38100700002)(122000001)(86362001)(31696002)(45980500001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L1V2QjhnbXB0WUJQQStMK3VoZW1PaHBLQ2FNbW1uZU1EbkNjY1B6V3NybSt3?=
- =?utf-8?B?M3RkWGk4bHJ0YmtSeStFV3NXVExoWk5RT1NBME12RmczWHlGZnhKaTZOU3Bj?=
- =?utf-8?B?VjdzVTIxczZMbGkzaWMxb2U1TGx3bzZQVWlIWWJ3c3ZUdUVvVDVBSEprSHp6?=
- =?utf-8?B?NFN1NjQ5cmE2enlIeERCTEJ4Y0hsYXBNWnVoUG10NTJLVzB0bGxZOENnUzlq?=
- =?utf-8?B?eC9zUUhseHJtVEpNS3M0SlFxb291S1FXKzBnTkpPMjZrNmord243T1MxSWNV?=
- =?utf-8?B?dk1NWG9IUFVkaGxmV20xRUZYVEpQRFFFbVFJbU9XZDVzWm9CVDBUS1lzdHdZ?=
- =?utf-8?B?aXZ4WmdLNlF6WDczWjlkREliSStwZ1hCRmJjQW9nN3E0bUxoeXN2MTNrL0ZF?=
- =?utf-8?B?ZVpYM3pXbUhGUGpEdllHM3h0ekFVU1E5VnkrYVpLRHhyTjdkVjBmR0tyRmcz?=
- =?utf-8?B?VTFNT0ZGeXgwOWt0S3pocFJYaDZpOENYRCsyWXFhVjRnR2hmWHVHek9Uckt5?=
- =?utf-8?B?MEkvMmFsb0p2T0RpOGFyU0tGUEpKYmxqeVI4SnkxYW8yb01iN2xLb3dPRnZm?=
- =?utf-8?B?QlI1cE96T0VORHdjUTVpb0FvR0ZpNUJ2NUJVNUg0S1ZBRnB1bktSZVd5akVm?=
- =?utf-8?B?QUJFaTdvTXFuUzdZTUlDd2U5cllLRVQxeFVqNnJzVGU0czVkdVdIR2h5UFdP?=
- =?utf-8?B?Q0NvUnJwVlByN21RWis0NFVGTmxZT2VjSDQxK0d5UjNJcGQyRUNWY2t1ZFlX?=
- =?utf-8?B?bEo5UUJnQ0J5NWFONFV0TlpwU3FNYlhsMkV3c1F6UzVpMkxYaC92dmc4d1Vv?=
- =?utf-8?B?NENFOUlxRlZjS05PL0cwd0xlT3U2VGk4L0ZJYXVkRjJFcU5nOE1hY0F0TlJk?=
- =?utf-8?B?TFJDek83V2tsYitKSm1uT1VjSmlmS2tXTXJRTG5LS3BCMnV5bGVQNy8reDlW?=
- =?utf-8?B?cXdnQ1lpeEVJaTBOcWtGZW1ta3VBR3pjWnhncEZCTkYrbHFDakRmbm5FZ0FD?=
- =?utf-8?B?YnFhK1JUekVuNXlEdVZyM0NVMnhTaUx5VkVqV3hBTjI5dTJTZjIrVzVJOXNX?=
- =?utf-8?B?NlAyUUVGbDB1aGpFRkh3UnhwcU8xU3dnR2ZlaWswZWdZUm1DdGVYdTZmUEh0?=
- =?utf-8?B?Y00wc1l3MEJPNmFGOW9ldmtyeWRrRUNTUE8zK3VuU1lHejdmWWRnam1RL2dl?=
- =?utf-8?B?MGtBU21mZ1lObStQWHNoUXVSSmtZdDJWc3QzMklNNU1teXZmbUFPMDFiKzNy?=
- =?utf-8?B?bDhJc0hIbk5ENWFNQUQ3eGRDNGdsSkFveVJobXdHNXY3TWFwQXFSd25DRGIw?=
- =?utf-8?B?cWRtdGZKSnpkangyUXZQRXZYblZIVmNRNnRTVlZUclNkUkkvcE0yRng3M0hx?=
- =?utf-8?B?ckFYUzRGOFJNb2dLNW1YT1JHOFF5WlZOU0g2bGZ4ZFlPdlBocGN6dnlkckMw?=
- =?utf-8?B?QlpHRjl4U3NDZ0lWUWp1R0pudnlXcTlsYUx4QnNHa0NkSUJlSzkxNGFzUHNk?=
- =?utf-8?B?dnpmbTMzRXpuTDhTZCt1dmhkejhFQ1hFSmpMZGRpZU1NVGtBTmRIbGZIUjBh?=
- =?utf-8?B?TTUwSFRCczBidzFldVZVYTJJZjFTcEZMWGQ0ZHUyS1E5cld4eTlEdTh3Qmw2?=
- =?utf-8?B?UkNVWHZtRC9YVXBqMTVhZnd5RlZBSkZnemhGN0I1TDkwNXI0ZG9lR2VnVGJG?=
- =?utf-8?B?MExaUWFHRCtOQXcrRVJRMk5CWGFlN09XYnhKN0J6UE1WV2hXTkh2UnhkdXNq?=
- =?utf-8?B?a3B3V1dFOG5ncFp5ZEw4MXQybGNvbGM4cjJhRUYwWDlDSE4yQWpYTWdCa2RW?=
- =?utf-8?B?ck1LSk1sdWJJMTZZNXk3cm5WRTg2TkJkNEh1Yi8xZ2F6aGl6aWdXQi8yVUlV?=
- =?utf-8?B?cGJrUHZNWDdvaXRRQk9BL05ldjNwYnVCc2QxZFVINmlWSDdqSkdjU1VXU3VL?=
- =?utf-8?B?U05MeVk1eDJaNm9WdzhrenRLcVNRT3oxcXVuckpWaGhKR0xHM0NNRXZrblE2?=
- =?utf-8?B?dSsvbExJc1BxL3NXcm5MNndieXlaY1Q5eGNOQkNYOFpCS1JVMngzenZUQkx6?=
- =?utf-8?B?ZnFMRk5NN0YxRmE0Ky9CTWxnZmZPUkJRbGsrY2VTVklOL0IybFpQUG1TZ0Mx?=
- =?utf-8?Q?9WD7rT2XNGe6bToZ8VczmnmUg?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?2RBdCwoILpqEUy8OUeocQJKbQEGFkq1RUchFlUo4wXEsx5IBfAt6d/W3ds?=
+ =?iso-8859-1?Q?v2flHc3cYyDC/9waFyE5x4jIXd7LRrMq+P3mKlU+4s4AQlDvXPQ3pXV1PH?=
+ =?iso-8859-1?Q?nzPsaIsK6P2XmIAl9NL4VlD0gEKGuMPJpsW0tlrG7tJK9vNWPSZn/dGnNL?=
+ =?iso-8859-1?Q?UFnXgbzjIYTSQldKSnkEAyq+dbJfgxxmuTVHye0z8aPN3uS9j1PNvjlzW9?=
+ =?iso-8859-1?Q?Ctv5J1ojDD1xKNnwEzVQ9sUJvFT1n8+FhuMCKCZH4P7vFnnTmKb14EnhwG?=
+ =?iso-8859-1?Q?lzTXzcEuTNKHEmecsFeJK0kQumYHwC2r5cUghcUSvQh5o44pJKA1Jfn4nc?=
+ =?iso-8859-1?Q?QkxFewoeFdj+zNTGX/Z6EM4qWeyJTQagwDQj/mBoSFo8HD3EpTfv8CTD4G?=
+ =?iso-8859-1?Q?e1bSJjZW4ERZg5zEcj7C2NQe9lAC+JMspAhJE9QREH+Du56HF5ZujrphAD?=
+ =?iso-8859-1?Q?QySD/vRe9HsL59WiLFq2MHHzpN6hlVrJU8UuYga3FgHf7EjcWvJv50jrw9?=
+ =?iso-8859-1?Q?D/hubzmtJQRwQixyT6YtkdyFaXAcKmQMupWn4hs0IwgG31Z8TkbXxFgEPm?=
+ =?iso-8859-1?Q?pyqO4w0Pf2Edqx7NCi7f8onQvwOD5Px6La/7x6p5NblBuUceBnrnTctQEE?=
+ =?iso-8859-1?Q?b8RXRcM52Qs5SEcWtDQLgSxaJCZYtdMwUTol02BV9VbpI0m5x5raAalwyv?=
+ =?iso-8859-1?Q?uDt0RoSxtFMMuSS/yFbuPAmJTJwzaphH0yZ036TPzMXvZY/HTHPbudQttO?=
+ =?iso-8859-1?Q?0yHSZX37UURvN8/bLTi/Ld0iGxNkUAsDCG4yqJR3KRT3KVVmo5vkqb6i/a?=
+ =?iso-8859-1?Q?DXpBoasqxDrfrn3921DF4V8HQozzpS+mhFb7kXZDS6L513QbC+KGR6lipO?=
+ =?iso-8859-1?Q?i1gZcobBOnkvHkkvdU1A4KJavUrxHET7SqX9YzeFiXYpvHDDvbVU+SeyHY?=
+ =?iso-8859-1?Q?9Nc3I/w1NamU2cr+WeHvswQSIc1UnvrrPMeIECfkjGeobYTCzSQYP2NZrt?=
+ =?iso-8859-1?Q?PmviwV+lKig2R/HthLxnP/pMoBsUWnaIVHwhI+O1vYSYt0cGiCHK2mK9eW?=
+ =?iso-8859-1?Q?ye6X0CVGYxhvinLFXqawUBWHeIc7X4tYOBn3YOvetdwvQhempz3i5Fp0Xz?=
+ =?iso-8859-1?Q?QzhYuvZZeJ6MxnvIm1YEL6odhUmsZoLjKQzKu6u2WnjWymyoSL8+fh0+zW?=
+ =?iso-8859-1?Q?BsZYKSmxyMFrhJzNL3eqcXCJe+EwxH8kK6OnLGZ14IXxItXdKFeHWsPbI0?=
+ =?iso-8859-1?Q?5c768uBIeFdQHvPadiBVSMDqdkAeGK1MpyOx3r+ZFJs3JI1Wd3V4rALKSI?=
+ =?iso-8859-1?Q?0ZdrXA8505r7ULh11X/dP3/3nNNHOUobdZDz4/9rN5jbidWrSL6vl7YnDx?=
+ =?iso-8859-1?Q?Lb1aMI6735xCTsL34DOXx5/j+VWAfFluxiukiiAenqTkmATuOVaWpNkrl7?=
+ =?iso-8859-1?Q?xhVbwqDHMl7LKgQEbMdNXKsjLE+CzNR5Qq76O/wUtIbZYLVpPfXBiGc/13?=
+ =?iso-8859-1?Q?91ZUWeut+kC2bvayNyR6ikP1eGWXxKL22/40ygmC5TzpH0mMapM8xZv+oK?=
+ =?iso-8859-1?Q?NqxcbDNE08lxEsaL3bMYweaMeYFM6wFxSLnTNKH46ylvxmSG73XDQjsXlZ?=
+ =?iso-8859-1?Q?2HvlVPuCQpIJk=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_e0052e583c174015b6fbf458cfcaca30amdcom_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49c8666d-a863-4181-91b6-08dbc4ffc1e0
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2023 17:31:35.3222 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lGSXbusJoDXOCuYzcYlXrdSUgcNmtHbTZgB7hSRC0R6acjVh47ztltPJuyzHxpw1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8319
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2909.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84ba0c09-f511-4a52-f965-08dbc506b02e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Oct 2023 18:21:11.9344 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: IJexB+8INA0cXts5h5D2IQ0JkGcnfn9iTAO5HfPKfsXrPeIMNpMtyZVv3h/YJy9T
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7627
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,87 +125,394 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: llvm@lists.linux.dev,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- Tom Rix <trix@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-hardening@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023-10-03 19:29, Kees Cook wrote:
-> Prepare for the coming implementation by GCC and Clang of the __counted_by
-> attribute. Flexible array members annotated with __counted_by can have
-> their accesses bounds-checked at run-time via CONFIG_UBSAN_BOUNDS (for
-> array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
-> functions).
-> 
-> As found with Coccinelle[1], add __counted_by for struct amdgpu_bo_list.
-> Additionally, since the element count member must be set before accessing
-> the annotated flexible array member, move its initialization earlier.
-> 
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: "Christian König" <christian.koenig@amd.com>
-> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-> Cc: Luben Tuikov <luben.tuikov@amd.com>
-> Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-hardening@vger.kernel.org
-> Link: https://github.com/kees/kernel-tools/blob/trunk/coccinelle/examples/counted_by.cocci [1]
-> Signed-off-by: Kees Cook <keescook@chromium.org>
+--_000_e0052e583c174015b6fbf458cfcaca30amdcom_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
--- 
-Regards,
-Luben
+[AMD Official Use Only - General]
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-> index 6f5b641b631e..781e5c5ce04d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-> @@ -84,6 +84,7 @@ int amdgpu_bo_list_create(struct amdgpu_device *adev, struct drm_file *filp,
->  
->  	kref_init(&list->refcount);
->  
-> +	list->num_entries = num_entries;
->  	array = list->entries;
->  
->  	for (i = 0; i < num_entries; ++i) {
-> @@ -129,7 +130,6 @@ int amdgpu_bo_list_create(struct amdgpu_device *adev, struct drm_file *filp,
->  	}
->  
->  	list->first_userptr = first_userptr;
-> -	list->num_entries = num_entries;
->  	sort(array, last_entry, sizeof(struct amdgpu_bo_list_entry),
->  	     amdgpu_bo_list_entry_cmp, NULL);
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-> index 6a703be45d04..555cd6d877c3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-> @@ -56,7 +56,7 @@ struct amdgpu_bo_list {
->  	 */
->  	struct mutex bo_list_mutex;
->  
-> -	struct amdgpu_bo_list_entry entries[];
-> +	struct amdgpu_bo_list_entry entries[] __counted_by(num_entries);
->  };
->  
->  int amdgpu_bo_list_get(struct amdgpu_fpriv *fpriv, int id,
 
+
+On 2023-10-03 17:37, Felix Kuehling wrote:
+On 2023-10-03 16:50, Philip Yang wrote:
+If there is no VRAM domain, bo_node is NULL and this causes crash.
+Refactor the change, and use the module parameter as higher privilege.
+
+Need another patch to support override PTE flag on APU.
+
+Fixes: 55d7e2001c7e ("drm/amdgpu: Add EXT_COHERENT memory allocation flags"=
+)
+Signed-off-by: Philip Yang <Philip.Yang@amd.com><mailto:Philip.Yang@amd.com=
+>
+---
+  drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 18 +++++++-----------
+  1 file changed, 7 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amd=
+kfd/kfd_svm.c
+index 0d88698ae33f..305b2c54edfa 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1248,26 +1248,22 @@ svm_range_get_pte_flags(struct kfd_node *node,
+              break;
+      case IP_VERSION(9, 4, 3):
+              mtype_local =3D amdgpu_mtype_local =3D=3D 1 ? AMDGPU_VM_MTYPE=
+_NC :
+-                          (amdgpu_mtype_local =3D=3D 2 ? AMDGPU_VM_MTYPE_C=
+C : AMDGPU_VM_MTYPE_RW);
++                           (amdgpu_mtype_local =3D=3D 2 || ext_coherent ?
++                                     AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_=
+RW);
+
+We had some offline discussion where I thought that MTYPE_NC should
+become MTYPE_UC when ext_coherent is enabled to get the desired memory
+semantics. With that idea in mind, this would become a bit more messy,
+but here it goes, as clean as I can make it:
+
+-               mtype_local =3D amdgpu_mtype_local =3D=3D 1 ? AMDGPU_VM_MTY=
+PE_NC :
+-                            (amdgpu_mtype_local =3D=3D 2 ? AMDGPU_VM_MTYPE=
+_CC : AMDGPU_VM_MTYPE_RW);
++               mtype_local =3D amdgpu_mtype_local =3D=3D 1 && !ext_coheren=
+t ? AMDGPU_VM_MTYPE_NC :
++                            (amdgpu_mtype_local =3D=3D 1 &&  ext_coherent =
+? AMDGPU_VM_MTYPE_UC :
++                            (amdgpu_mtype_local =3D=3D 2 ||  ext_coherent =
+? AMDGPU_VM_MTYPE_CC :
++                                                                        AM=
+DGPU_VM_MTYPE_RW));
+
+
+That ternary looks fairly gnarly. I think it would be worth the extra ink t=
+o write
+
+                   mtype_local =3D amdgpu_mtype_local =3D=3D 1 ? AMDGPU_VM_=
+MTYPE_NC :
+                            (amdgpu_mtype_local =3D=3D 2 ? AMDGPU_VM_MTYPE_=
+CC : AMDGPU_VM_MTYPE_RW);
+
+                if (ext_coherent) {
+                    if (amdgpu_mtype_local =3D 1)
+                        mtype_local =3D AMDGPU_VM_MTYPE_UC;
+                    else
+                        mtype_local =3D AMDGPU_VM_MTYPE_CC;
+                }
+
+But maybe that could be fixed up in a follow up patch. Either way, for
+the purpose of fixing the crash, this patch is
+
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com><mailto:Felix.Kuehling@=
+amd.com>
+
+
+              snoop =3D true;
+              if (uncached) {
+                      mapping_flags |=3D AMDGPU_VM_MTYPE_UC;
+-             } else if (ext_coherent) {
+-                     /* local HBM region close to partition */
+-                     if (bo_node->adev =3D=3D node->adev &&
+-                         (!bo_node->xcp || !node->xcp || bo_node->xcp->mem=
+_id =3D=3D node->xcp->mem_id))
+-                             mapping_flags |=3D AMDGPU_VM_MTYPE_CC;
+-                     else
+-                             mapping_flags |=3D AMDGPU_VM_MTYPE_UC;
+              } else if (domain =3D=3D SVM_RANGE_VRAM_DOMAIN) {
+                      /* local HBM region close to partition */
+                      if (bo_node->adev =3D=3D node->adev &&
+                          (!bo_node->xcp || !node->xcp || bo_node->xcp->mem=
+_id =3D=3D node->xcp->mem_id))
+                              mapping_flags |=3D mtype_local;
+-                     /* local HBM region far from partition or remote XGMI=
+ GPU */
+-                     else if (svm_nodes_in_same_hive(bo_node, node))
++                     /* local HBM region far from partition or remote XGMI=
+ GPU
++                      * with regular system scope coherence
++                      */
++                     else if (svm_nodes_in_same_hive(bo_node, node) && !ex=
+t_coherent)
+                              mapping_flags |=3D AMDGPU_VM_MTYPE_NC;
+-                     /* PCIe P2P */
++                     /* PCIe P2P or extended system scope coherence */
+                      else
+                              mapping_flags |=3D AMDGPU_VM_MTYPE_UC;
+
+Would probably clearer if these two branches were swapped so the first was
+
+(!svm_nodes_in_same_hive(bo_node, node) || ext_coherent)
+
+Not a required change, though.
+
+              /* system memory accessed by the APU */
+
+This patch as written causes ext_coherent to no longer affect gfx9.4.3 APU =
+devices, which it should.
+
+The following (or equivalent) needs to be added just below this hunk
+
+            if (num_possible_nodes() <=3D 1)
+                mapping_flags |=3D mtype_local;
+            else
+-                 mapping_flags |=3D AMDGPU_VM_MTYPE_NC;
++                mapping_flags |=3D ext_coherent ? AMDGPU_VM_MTYPE_UC : AMD=
+GPU_VM_MTYPE_NC;
+
+--_000_e0052e583c174015b6fbf458cfcaca30amdcom_
+Content-Type: text/html; charset="iso-8859-1"
+Content-ID: <23BF93A1D22B5B429D077173748FE1C0@amdcloud.onmicrosoft.com>
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
+style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - General]<br>
+</p>
+<br>
+<div>
+<p style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Ca=
+libri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</p>
+<div class=3D"moz-cite-prefix">On 2023-10-03 17:37, Felix Kuehling wrote:<b=
+r>
+</div>
+<blockquote type=3D"cite">On 2023-10-03 16:50, Philip Yang wrote: <br>
+<blockquote type=3D"cite" style=3D"color: rgb(0, 124, 255);">If there is no=
+ VRAM domain, bo_node is NULL and this causes crash.
+<br>
+Refactor the change, and use the module parameter as higher privilege. <br>
+<br>
+Need another patch to support override PTE flag on APU. <br>
+<br>
+Fixes: 55d7e2001c7e (&quot;drm/amdgpu: Add EXT_COHERENT memory allocation f=
+lags&quot;) <br>
+Signed-off-by: Philip Yang <a href=3D"mailto:Philip.Yang@amd.com" class=3D"=
+moz-txt-link-rfc2396E OWAAutoLink" data-loopstyle=3D"linkonly" id=3D"OWA555=
+1543b-0498-5b81-127d-578773d2e4b2">
+&lt;Philip.Yang@amd.com&gt;</a> <br>
+--- <br>
+&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 18 +++++++----------- <br>
+&nbsp; 1 file changed, 7 insertions(+), 11 deletions(-) <br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amd=
+kfd/kfd_svm.c
+<br>
+index 0d88698ae33f..305b2c54edfa 100644 <br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c <br>
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c <br>
+@@ -1248,26 +1248,22 @@ svm_range_get_pte_flags(struct kfd_node *node, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; break; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(9, 4, 3): <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; mtype_local =3D amdgpu_mtype_local =3D=3D 1 ? AMDGPU_VM_MTYPE_NC : <br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; (amdgpu_mtype_local =3D=3D 2 ? AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW);
+<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; (amdgpu_mtype_local =3D=3D 2 || ext_coherent ? <br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_=
+VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW); <br>
+</blockquote>
+<br>
+We had some offline discussion where I thought that MTYPE_NC should <br>
+become MTYPE_UC when ext_coherent is enabled to get the desired memory <br>
+semantics. With that idea in mind, this would become a bit more messy, <br>
+but here it goes, as clean as I can make it: <br>
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; mtype_local =3D amdgpu_mtype_local =3D=3D 1 ? AMDGPU_VM_MTYPE_NC=
+ : <br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; (amdgpu_mtype_local =3D=3D 2 ? AMDGPU_VM_MTYPE_CC : AMDGPU_VM=
+_MTYPE_RW);
+<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; mtype_local =3D amdgpu_mtype_local =3D=3D 1 &amp;&amp; !ext_cohe=
+rent ? AMDGPU_VM_MTYPE_NC :
+<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; (amdgpu_mtype_local =3D=3D 1 &amp;&amp;&nbsp; ext_coherent ? =
+AMDGPU_VM_MTYPE_UC :
+<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; (amdgpu_mtype_local =3D=3D 2 ||&nbsp; ext_coherent ? AMDGPU_V=
+M_MTYPE_CC :
+<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_VM_MTYPE_RW));
+<br>
+<br>
+</blockquote>
+<p>That ternary looks fairly gnarly. I think it would be worth the extra in=
+k to write&nbsp;&nbsp;&nbsp;
+<br>
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; mtype_local =3D amdgpu_mtype_local =3D=3D 1=
+ ? AMDGPU_VM_MTYPE_NC :<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; (amdgpu_mtype_local =3D=3D 2 ? AMDGPU_VM_MTYPE_CC : AMDGPU_VM_=
+MTYPE_RW);<br>
+<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;=
+ if (ext_coherent) {<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;=
+ &nbsp;&nbsp;&nbsp; if (amdgpu_mtype_local =3D 1)<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;=
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; mtype_local =3D AMDGPU_VM_MTYPE_UC;<=
+br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;=
+ &nbsp;&nbsp;&nbsp; else<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;=
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; mtype_local =3D AMDGPU_VM_MTYPE_CC;<=
+br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;=
+ }<br>
+</p>
+<blockquote type=3D"cite">But maybe that could be fixed up in a follow up p=
+atch. Either way, for
+<br>
+the purpose of fixing the crash, this patch is <br>
+<br>
+Reviewed-by: Felix Kuehling <a href=3D"mailto:Felix.Kuehling@amd.com" class=
+=3D"moz-txt-link-rfc2396E OWAAutoLink" data-loopstyle=3D"linkonly" id=3D"OW=
+A0fb4eb3e-e5a8-e7ad-ed11-bf5f07139e99">
+&lt;Felix.Kuehling@amd.com&gt;</a> <br>
+<br>
+<br>
+<blockquote type=3D"cite" style=3D"color: rgb(0, 124, 255);">&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; snoop =3D =
+true;
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (uncached) { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mapping_flags |=3D AMDG=
+PU_VM_MTYPE_UC; <br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }=
+ else if (ext_coherent) { <br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* local HBM region close to=
+ partition */ <br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bo_node-&gt;adev =3D=3D =
+node-&gt;adev &amp;&amp; <br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (!bo=
+_node-&gt;xcp || !node-&gt;xcp || bo_node-&gt;xcp-&gt;mem_id =3D=3D node-&g=
+t;xcp-&gt;mem_id))
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; mapping_flags |=3D AMDGPU_VM_MTYPE_CC; <br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else <br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; mapping_flags |=3D AMDGPU_VM_MTYPE_UC; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; } else if (domain =3D=3D SVM_RANGE_VRAM_DOMAIN) { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* local HBM region clo=
+se to partition */ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bo_node-&gt;adev =
+=3D=3D node-&gt;adev &amp;&amp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ (!bo_node-&gt;xcp || !node-&gt;xcp || bo_node-&gt;xcp-&gt;mem_id =3D=3D no=
+de-&gt;xcp-&gt;mem_id))
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; mapping_flags |=3D mtype_local; <br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* local HBM region far from=
+ partition or remote XGMI GPU */
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (svm_nodes_in_same_h=
+ive(bo_node, node)) <br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* local HBM region far from=
+ partition or remote XGMI GPU <br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * with regular system =
+scope coherence <br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */ <br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (svm_nodes_in_same_h=
+ive(bo_node, node) &amp;&amp; !ext_coherent)
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; mapping_flags |=3D AMDGPU_VM_MTYPE_NC; <br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* PCIe P2P */ <br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* PCIe P2P or extended syst=
+em scope coherence */ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; mapping_flags |=3D AMDGPU_VM_MTYPE_UC; <br>
+</blockquote>
+</blockquote>
+<p>Would probably clearer if these two branches were swapped so the first w=
+as <br>
+</p>
+<p>(!svm_nodes_in_same_hive(bo_node, node) || ext_coherent)</p>
+<p>Not a required change, though.<br>
+</p>
+<blockquote type=3D"cite">
+<blockquote type=3D"cite" style=3D"color: rgb(0, 124, 255);">&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* system =
+memory accessed by the APU */
+</blockquote>
+</blockquote>
+<p>This patch as written causes ext_coherent to no longer affect gfx9.4.3 A=
+PU devices, which it should.</p>
+<p>The following (or equivalent) needs to be added just below this hunk<br>
+</p>
+<p>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; if (num_possibl=
+e_nodes() &lt;=3D 1)<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;=
+ mapping_flags |=3D mtype_local;<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; else<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; mapping_flags |=3D AMDGPU_VM_MTYPE_NC;<br>
++&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp=
+; mapping_flags |=3D ext_coherent ? AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_NC=
+;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+<br>
+</p>
+</div>
+</body>
+</html>
+
+--_000_e0052e583c174015b6fbf458cfcaca30amdcom_--
