@@ -4,93 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65820E7C4E2
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 16:17:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8B90E7C4E2
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 16:54:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 390B410E17B;
-	Wed,  4 Oct 2023 16:17:44 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2060.outbound.protection.outlook.com [40.107.237.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10E6D10E38C;
- Wed,  4 Oct 2023 16:17:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B94210E393;
+	Wed,  4 Oct 2023 16:54:05 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2071.outbound.protection.outlook.com [40.107.96.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 083EF10E393
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Oct 2023 16:54:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JMpHJ1SafZl7LhBMdtWpoRArTTMu0OGHlDQ9PxDR5KBSxd8NFGqtppFqEujQyQbtxrjAlQARJw3uTvb/ccoTKGbsjyMbLZTuQ6uxVQ3nnssrAogjxMYoSGjMn/Gz5i3e1NpX5gFtauNHRH51VxlK0HG/TlDjhhq1x/wx+hYEV1ngbciPaw6rkhAs/hYfTYhkWJXse4eroUEKt1iJzLwB1qZgMbMWnVrx1fy6ydKaTml5HgBvo/e+bg5EtEs+KltzN/xQFTmQV409Mq2+w00oY1pkWclHmdZ8IMxPdrNaTFng33+zIz31SXwsihiGQyxWClLnbSA2lcL8QQ/j+xYQew==
+ b=lQLEbGQ+OhHjLNKNFwns/Un4QJrDRIv7qt+Nzwu2ZKnymBsXuQqdaayrJ0gkyR28IHyEthHINDC55Ejp8qqmGKcc2fkJtR05G0sMiI9xZquwRIHoV0+Lxm2Zzg2VY/tveAqAM9bXEGAsM4dBf2yp4SSZ6w02wYmHnB0WEq1MRLK+8UX1n4enTF/oJ6700RHise/zZ8o3xWq6vjzzPOEzNKwidHqLN7ly9DgDCXhZqMGOFiLat/wPxXFaD3GOYknzlYdMLGBRc/coS9ab/O7+r5vKhLkIeYCh94aF+1PSdK2OYUGi9esCc+5VwXB4tybdu+rspFCEeGW2lZbr4u/FbA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Es0jW7d0Zd06dExpQU3GJUEwE03uYLKyNmoJ9Sv5hnE=;
- b=JXz0j9E96uTQoMtsllK8rLQESQIOQQpAQHH1Vf+XhZQpr/10ZCSXS6NI9bJhfBq5i9+WRt8jWs2ZjlwgvYWWS0lZvZ0ecNdwPAaU/lkCJf3pMV7ZVf6d19IHq8W2uoL+GIfFQ3dQVfB8SC9492YObcQV30pfxU5G49N6MXMdiINEayPgRqBN/v3Xf9U3siIhrD3/Wt0MGeLbKS/966PB3jrzuRz37Lhoz1Wgsvjw0dQWGJuS0KPKE5i/91JPDX9r6aKwLprmFzF+mkX+A7uIj3/fa3EYiWaTfelq0TYhN/aNqEjp53o6qsNBMTqBdyb8VCLFITXygmQEn9QuqwE3hg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
+ bh=o/zUd/j6AFPfWEnSozuUTPpcbEHI/A9868vXcSJ7U44=;
+ b=ksIWewkNp+uzdNAWiH1vkg+AktlARxVsjOb/e3Mx3JSCSr+77DzcWc9AsUsREtwBYoFjW0CRaYJiDJ/ZYSKh5JL1qe1tv4KLqKCnxoJUljB50pdjpg5oFuB3zLnOuYwAjGj8LbYYZbpwuec0QtztBm3vxSy8uz5aIS669vmHhz3mW9S+X0v9+gJ2cPtpdWz1pq8aiNRCeUfqAGN7+L7ggZsacakjbmwy4WGL1+QMHX2wZwp9Xcw75SDOr8Y3vQjqmKqKs8MPI87YP5PCiFtsMBfp9+YrbM+RZunt83PURn3XAlZD72/u2J84rMBxW0VL7gfZQjNYIgd9NcD2wr1ilA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Es0jW7d0Zd06dExpQU3GJUEwE03uYLKyNmoJ9Sv5hnE=;
- b=1BjxBJfZ9MFltMv5MbJRpLtUJ86uLBN1lwlucalESqdEiSInv9msRkJfOS8MxK1eUMHSVkC1V2CqBq7kQZPWPe/t7ZceupF7nrHqHP07rC/G+Y4mOVOKFxYq8IqMZ7gXi+NYwZB3fs8Ac7+t1HTmQ3NmZdq+7Lm1RByr97G/dUI=
-Received: from PA7P264CA0525.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:3db::8)
- by PH0PR12MB7791.namprd12.prod.outlook.com (2603:10b6:510:280::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.30; Wed, 4 Oct
- 2023 16:17:39 +0000
-Received: from SA2PEPF00001509.namprd04.prod.outlook.com
- (2603:10a6:102:3db:cafe::2b) by PA7P264CA0525.outlook.office365.com
- (2603:10a6:102:3db::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.27 via Frontend
- Transport; Wed, 4 Oct 2023 16:17:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF00001509.mail.protection.outlook.com (10.167.242.41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.14 via Frontend Transport; Wed, 4 Oct 2023 16:17:37 +0000
-Received: from rtg-Artic.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 4 Oct
- 2023 11:17:33 -0500
-From: Arvind Yadav <Arvind.Yadav@amd.com>
-To: <Christian.Koenig@amd.com>, <alexander.deucher@amd.com>,
- <shashank.sharma@amd.com>, <Felix.Kuehling@amd.com>, <Mukul.Joshi@amd.com>,
- <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>
-Subject: [PATCH v3 2/2] drm/amdkfd: get doorbell's absolute offset based on
- the db size
-Date: Wed, 4 Oct 2023 21:46:52 +0530
-Message-ID: <20231004161652.3082-3-Arvind.Yadav@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231004161652.3082-1-Arvind.Yadav@amd.com>
-References: <20231004161652.3082-1-Arvind.Yadav@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00001509:EE_|PH0PR12MB7791:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d4908ca-1ee0-4e37-9eb1-08dbc4f56cfc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: rg7DPFDVxPuC0AFbjdO9zFXOctuQup99qJ1Yeii2pXfYK6lbGem8HwpocJ6cXcBu0kKWgJ++T7uuE/ND4lVqdD/oYQNDa3xfuMVNfOnv4o+F6lDQoUsVwsXyJjt6VVAXFYpfeEmRxJbPaPYKvOMPv/qK2jqILTdnql/nbsQeDH8WZ9Y4YLXj4P0PWZ255jxA003TVG1Mx9TSwxkrorTsp+Xw2aI+kx+io0LirMs5bbSStHVKUArg6EXCPEVGRPJMXjsE786IsoUM8t2pWSxvWjKSSxzTmMI9iReIZU45cHway2EC4Rk3jE9+eFdWw6MH5ozWswvH5zAZNByL9cA5UtyApFDon5hWTGCW7u+xCOgShCCG+vMFD0UQr3q2LvMnEzo7eK5HwvGFA26B101amYYxLsLKaWibMECxZiZfZ+HJ1TizOo9snM9hBHIR610B5LRU6kv/L5S2VEKwHt6huDl/rcOig7/5A69tSdOHvJjEQR4rl6fcgg4LHJ8hsf3eMgso1QfOQ/ztayTP6pjV10OzhYd8y6mZd6oC/Zy06UD/JPxsXrkmj1wlEcpdxK5W0NuZgbYF9dE7NDlWVJG9wHz436Pl5dutBUH43y1hq1W5UC5djQwsEgKkZNOqhgvc5PJ+MXpPsOPF3VCR21aNGIInWHrT3c5d3jsYcvhyUkE+LANVQDAek2N3gvfsOEVzGxxjYZrdNSqo2d/vrk8N485A5REdC9kJJNKaMA8zIzEuV8OXlKEDk4Xck0pTeAjlheeqHO4+mRgvy02CRI4ogQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(136003)(396003)(39860400002)(376002)(230922051799003)(451199024)(82310400011)(64100799003)(1800799009)(186009)(46966006)(40470700004)(36840700001)(40460700003)(336012)(426003)(5660300002)(82740400003)(356005)(81166007)(6666004)(7696005)(86362001)(2906002)(1076003)(2616005)(36756003)(478600001)(40480700001)(16526019)(26005)(8676002)(4326008)(36860700001)(47076005)(110136005)(54906003)(8936002)(70586007)(316002)(70206006)(83380400001)(41300700001)(36900700001);
+ bh=o/zUd/j6AFPfWEnSozuUTPpcbEHI/A9868vXcSJ7U44=;
+ b=AxCJ/yeIeia8X+KZy5NBP4keuM+jPo7WyUYpaystQm/4GCBCM8CZ4Ou8fucgFMF8BNL1cWJk1leOAzPUwXqtPoy+o5RH62sBPszbmGz/moCU+83pcCskfQhUddtyNyY55MOjyzaMS6vATgv9+yb417MqUmwAeAEa74aT7IGVUm0=
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by BL1PR12MB5317.namprd12.prod.outlook.com (2603:10b6:208:31f::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.28; Wed, 4 Oct
+ 2023 16:54:01 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::3e65:d396:58fb:27d4]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::3e65:d396:58fb:27d4%3]) with mapi id 15.20.6838.033; Wed, 4 Oct 2023
+ 16:54:01 +0000
+From: "Limonciello, Mario" <Mario.Limonciello@amd.com>
+To: "Chung, ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Xu, Feifei"
+ <Feifei.Xu@amd.com>
+Subject: RE: [PATCH 13/16] drm/amd/display: Don't set dpms_off for seamless
+ boot
+Thread-Topic: [PATCH 13/16] drm/amd/display: Don't set dpms_off for seamless
+ boot
+Thread-Index: AQHZ9qSo5den4/EwcU21xRcNk4zASLA52SoQ
+Date: Wed, 4 Oct 2023 16:54:01 +0000
+Message-ID: <MN0PR12MB61010B2DCB3505A464E7DA2DE2CBA@MN0PR12MB6101.namprd12.prod.outlook.com>
+References: <20231004092301.2371458-1-chiahsuan.chung@amd.com>
+ <20231004092301.2371458-14-chiahsuan.chung@amd.com>
+In-Reply-To: <20231004092301.2371458-14-chiahsuan.chung@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=f46c8e5b-dae1-4f66-99c4-0761641e626b;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-10-04T16:52:57Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MN0PR12MB6101:EE_|BL1PR12MB5317:EE_
+x-ms-office365-filtering-correlation-id: b2f2b9b1-67d8-41ef-c0de-08dbc4fa827e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: efBwcP4j6n1ewe+CpA7XsnoiGvUxGG4vjULap+TnfVKAT2axcsBDu6ctz7tQMZOcUbU3aQallrgaeIRBWYSUIeCe1uVz9f3g+c+joW9w4+daGAVT4nSvQGSGO1jt0kPZuewg2IcUkpTgc0/xZma4MZYOMD9MOwb2XY0TDBkEhlzNoGVpu7h2hAvJBeaYUOQRQdxrCUifuOt9aFqIM8d1pRfPR9UWsEJsunRMpvclzCwAhmTE4PLnT9+p7utkxHrLCxWnlWc0ARnBnmEB2ye2YJO3KpnUwnew449XiAb1oL6WRS413kAm67g/XdejqawLhV9NfYZyW/xe3Pzw8W2G/4XjdTqxQoU/WI+sfaGoyXi5zk4WK0/tdbh4hfzWb3XFr5v/bOSXgpqnV1C6cmfvPNFS+0eIfIoszSGlGKnrg+DPLGvm81wuO5TFKqZCI6IIk51S3qTiOlyoWln/jwWsfH3VUH02kY6rHjsxG+1rm/XPVUPh5SFJSi1fN+qeYhJGrdMZzoiSF6B/oAsKeVKQlldz3lJOyNvuBh2RI6enO/gugSqfvm7jd6S3gB2B4RJAMb/Zdel2TCzSSFVm5kBJt7F3FXKnLY91VHvSeyowkl3yVmcMAw7/muS5PGqXBTu/
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(396003)(39860400002)(346002)(376002)(366004)(230922051799003)(64100799003)(186009)(451199024)(1800799009)(38070700005)(86362001)(33656002)(38100700002)(55016003)(71200400001)(9686003)(5660300002)(478600001)(54906003)(316002)(66476007)(66556008)(66946007)(52536014)(76116006)(6636002)(64756008)(2906002)(110136005)(6506007)(7696005)(66446008)(41300700001)(8936002)(8676002)(4326008)(122000001)(26005);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?InxeBrOAeZlkoRQ6A5pu/6dXRtnAP+hbekXTXZOutDrPiXZlgDeFOP+IWLA+?=
+ =?us-ascii?Q?EJMmY9YILl5ysoE/YX9tPu6YmMd9lUFYKq4mgZ8FXweqFJ6PxKv4N31GdoY9?=
+ =?us-ascii?Q?Zpdyl4+lBa+mKdvpCr0DCip2QtMXagke9kLABBWJvEAN4AMopw51NIQdqnWn?=
+ =?us-ascii?Q?nCGUdCJM7JRrS63AFGEpuH7vkt/Xwdg1hUtSz9UklYSzPeAe2o8ueCz+Gtu/?=
+ =?us-ascii?Q?YEEhRLWpMkTLzQ3Fdy3dAycv3BrMyQA3eTzzRdU+bkbtJKfgpvtxGyrvUBGT?=
+ =?us-ascii?Q?bff+UlZUHNhTqF5QVBIXYhOLHplfX0lSVvBoRksNEunH9lAh3oO84SYXs4BP?=
+ =?us-ascii?Q?gsJAYCg/YxU2eUgUB3eTm7ZzCeUgbGQk1P9TzTQjarsA0Gjb2EP0otTczI/8?=
+ =?us-ascii?Q?Fdjw195JSxf35BFaIimG+brDImolLt0OWH9kFrXtqmwOqrOWMTv8VX7RXGtQ?=
+ =?us-ascii?Q?T6pbBF/KJB6D0ZFVFV2odm2l4KbuVUSzFBa6UiBA28j7aZdzI2MJi2/gV05q?=
+ =?us-ascii?Q?tYWlYqzGUGMCWQng9gSUrQr7pVYDNiQ16k8Q1LtLpI5nrS2whq4ST8qkNZq6?=
+ =?us-ascii?Q?z7yPZZHxeq5/i/7nqxSt6Mck27H4YI8+DrMJwW+DWLJA+HGWMBEoj4wtAe5+?=
+ =?us-ascii?Q?+1uQul7PAZHHL3GzpPyovBzVtk44DuvygQXSfOSg3MEQL5btdHabjPAkF3Pe?=
+ =?us-ascii?Q?I+loMOJ8SMFz4LpfjRn2vNb7AiKL1n/zal5IsYC/ZPezvGEZvYXU1qMNd/ay?=
+ =?us-ascii?Q?cTnN79t5vQUDu6HQtDzxeuruvPq24ANaKsE5SafnxxHBT7w7BnTc7qd7FIEM?=
+ =?us-ascii?Q?gLAAsDL25OGXI7AGUUElgBKSqdndbdXZFBeByQOKTn+2Gf5HhVTbQAyVi+Ve?=
+ =?us-ascii?Q?NDj7YV/ZWx3yYJfLl2DgNr8sUoO199GVzRq1XMjbKTLY2/rowU0Ly22vqBnB?=
+ =?us-ascii?Q?D+Hofk4CNIE23EHoPqx6sEqAi4oe6Qtwtcq1JkW+qML65RAqaGJc302TLQ9y?=
+ =?us-ascii?Q?KYJnlGo5YOobt76Du54COH/d2SlcrhJSmYkXdM+09Wpk3AL0dkTg6CxlOjCH?=
+ =?us-ascii?Q?IKXdoB+TZsfHkGLqIqQa52PnJTcnhF8n4qokFwnJxLmLv0H5h7Jp4DVqq0dt?=
+ =?us-ascii?Q?qzWM/XqQ77QAr8KgTWb3FHUgDGmfHaUR1EVAMiuaWCgesqp69msXWeRFF4e8?=
+ =?us-ascii?Q?gD/UiAWtUbYk+ostMOGujw5jAl0RSVvWWdMJ4oH5dhC8AkQ2zKSrECFnF8If?=
+ =?us-ascii?Q?2872ndpCdR7SNUhu0IVNRaieAiOJTuqMjt15Z8ASNhcMk6rBgtidqOs0qWjP?=
+ =?us-ascii?Q?yVVH36hj/Rf5igkP4Ux8VZuTI2ic/nzRmucFhhpGvZnPAL9y1Ejcm60kVRof?=
+ =?us-ascii?Q?sR/Pq5dHmd4RiR0Qq6nAvCpQDO/uUTX2TeA5MhAh/O0Pt7OblDb7fDtHwaok?=
+ =?us-ascii?Q?u7eSM/oq3tKpIk3l6piqBvsZhQH/UW5V6QGZ9qx8ASb79jh0Ty/j3QyFQM/V?=
+ =?us-ascii?Q?J0L2sW5S1ie2PRVT4gmcHArhPOkBs3fzwCdXNEUsoCQW1aFsLnowvCGNut8E?=
+ =?us-ascii?Q?CFWOWGq4GGFSxbV8OkY=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2023 16:17:37.6802 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d4908ca-1ee0-4e37-9eb1-08dbc4f56cfc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00001509.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7791
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b2f2b9b1-67d8-41ef-c0de-08dbc4fa827e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Oct 2023 16:54:01.2728 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: qhZNq7o9tD9Sc2euvC8Bn0sYZI8o7J5DWxb3rjQb7G+G2euCaLCLb/oJXInBRiHGXnrFVmfQm2ZQDlcSM2ghVg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5317
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,112 +126,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Arvind Yadav <Arvind.Yadav@amd.com>,
- Christian Koenig <christian.koenig@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: "Wang, Chao-kai
+ \(Stylon\)" <Stylon.Wang@amd.com>, "Miess, Daniel" <Daniel.Miess@amd.com>,
+ "Chung, ChiaHsuan \(Tom\)" <ChiaHsuan.Chung@amd.com>, "Liu, 
+ Charlene" <Charlene.Liu@amd.com>, "Li, Sun peng \(Leo\)" <Sunpeng.Li@amd.com>,
+ "Wentland, Harry" <Harry.Wentland@amd.com>, "Zhuo,
+ Lillian" <Qingqing.Zhuo@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>, "Li, 
+ Roman" <Roman.Li@amd.com>, "Chiu, Solomon" <Solomon.Chiu@amd.com>, "Pillai,
+ Aurabindo" <Aurabindo.Pillai@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Lakha,
+ Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Gutierrez,
+ Agustin" <Agustin.Gutierrez@amd.com>, "Kotarac, Pavle" <Pavle.Kotarac@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch is to align the absolute doorbell offset
-based on the doorbell's size. So that doorbell offset
-will be aligned for both 32 bit and 64 bit.
+[AMD Official Use Only - General]
 
-v2:
-- Addressed the review comment from Felix.
-v3:
-- Adding doorbell_size as parameter to get db absolute offset.
+> From: Daniel Miess <daniel.miess@amd.com>
+>
+> [Why]
+> eDPs fail to light up with seamless boot enabled
+>
+> [How]
+> When seamless boot is enabled don't configure dpms_off
+> in disable_vbios_mode_if_required.
+>
+> Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: stable@vger.kernel.org
+> Acked-by: Tom Chung <chiahsuan.chung@amd.com>
+> Signed-off-by: Daniel Miess <daniel.miess@amd.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/core/dc.c | 3 +++
+>  1 file changed, 3 insertions(+)
 
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
-Signed-off-by: Arvind Yadav <Arvind.Yadav@amd.com>
----
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c   |  6 +++++-
- drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c           | 13 +++++++++++--
- .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c  |  4 +++-
- 3 files changed, 19 insertions(+), 4 deletions(-)
+Feifei,
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 0d3d538b64eb..690ff131fe4b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -346,6 +346,7 @@ static int allocate_doorbell(struct qcm_process_device *qpd,
- 			     uint32_t const *restore_id)
- {
- 	struct kfd_node *dev = qpd->dqm->dev;
-+	uint32_t doorbell_size;
- 
- 	if (!KFD_IS_SOC15(dev)) {
- 		/* On pre-SOC15 chips we need to use the queue ID to
-@@ -405,9 +406,12 @@ static int allocate_doorbell(struct qcm_process_device *qpd,
- 		}
- 	}
- 
-+	doorbell_size = dev->kfd->device_info.doorbell_size;
-+
- 	q->properties.doorbell_off = amdgpu_doorbell_index_on_bar(dev->adev,
- 								  qpd->proc_doorbells,
--								  q->doorbell_id);
-+								  q->doorbell_id,
-+								  doorbell_size);
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-index 7b38537c7c99..59dd76c4b138 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-@@ -161,7 +161,10 @@ void __iomem *kfd_get_kernel_doorbell(struct kfd_dev *kfd,
- 	if (inx >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS)
- 		return NULL;
- 
--	*doorbell_off = amdgpu_doorbell_index_on_bar(kfd->adev, kfd->doorbells, inx);
-+	*doorbell_off = amdgpu_doorbell_index_on_bar(kfd->adev,
-+						     kfd->doorbells,
-+						     inx,
-+						     kfd->device_info.doorbell_size);
- 	inx *= 2;
- 
- 	pr_debug("Get kernel queue doorbell\n"
-@@ -233,6 +236,7 @@ phys_addr_t kfd_get_process_doorbells(struct kfd_process_device *pdd)
- {
- 	struct amdgpu_device *adev = pdd->dev->adev;
- 	uint32_t first_db_index;
-+	uint32_t doorbell_size;
- 
- 	if (!pdd->qpd.proc_doorbells) {
- 		if (kfd_alloc_process_doorbells(pdd->dev->kfd, pdd))
-@@ -240,7 +244,12 @@ phys_addr_t kfd_get_process_doorbells(struct kfd_process_device *pdd)
- 			return 0;
- 	}
- 
--	first_db_index = amdgpu_doorbell_index_on_bar(adev, pdd->qpd.proc_doorbells, 0);
-+	doorbell_size = pdd->dev->kfd->device_info.doorbell_size;
-+
-+	first_db_index = amdgpu_doorbell_index_on_bar(adev,
-+						      pdd->qpd.proc_doorbells,
-+						      0,
-+						      doorbell_size);
- 	return adev->doorbell.base + first_db_index * sizeof(uint32_t);
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index adb5e4bdc0b2..010cd8e8e6a1 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -375,9 +375,11 @@ int pqm_create_queue(struct process_queue_manager *pqm,
- 		 * relative doorbell index = Absolute doorbell index -
- 		 * absolute index of first doorbell in the page.
- 		 */
-+		uint32_t doorbell_size = pdd->dev->kfd->device_info.doorbell_size;
- 		uint32_t first_db_index = amdgpu_doorbell_index_on_bar(pdd->dev->adev,
- 								       pdd->qpd.proc_doorbells,
--								       0);
-+								       0,
-+								       doorbell_size);
- 
- 		*p_doorbell_offset_in_process = (q->properties.doorbell_off
- 						- first_db_index) * sizeof(uint32_t);
--- 
-2.34.1
+Can you recheck seamless boot on DCN3.2 after this lands into amd-staging-d=
+rm-next?
+If it works, we may remove the check to only apply it to APUs.
+
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> index bd4834f921c1..88d41bf6d53a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> @@ -1230,6 +1230,9 @@ static void disable_vbios_mode_if_required(
+>               if (stream =3D=3D NULL)
+>                       continue;
+>
+> +             if (stream->apply_seamless_boot_optimization)
+> +                     continue;
+> +
+>               // only looking for first odm pipe
+>               if (pipe->prev_odm_pipe)
+>                       continue;
+> --
+> 2.25.1
 
