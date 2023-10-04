@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B44AE936E7
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 21:22:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F23DE936E8
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 21:22:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B7EE89EAC;
-	Wed,  4 Oct 2023 21:22:17 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2074.outbound.protection.outlook.com [40.107.93.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8868910E1B4
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Oct 2023 21:22:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A758D10E3C4;
+	Wed,  4 Oct 2023 21:22:18 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2084.outbound.protection.outlook.com [40.107.94.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8E2910E3C5
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Oct 2023 21:22:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=G8nk+3g6bTWVm7OE2AGqIQxZb+s1Ng0dXH4ShtmhwoklF4ShXbpmQElwOZ2u3f35gW6FdqOswh31sC0mJk1Sxyz6cApLcBtzVnO6pzC2pedlOOb0J+OTSrp8ugphGHwve2rhq3FiGbFJGHOrKh+IQMUWaN1NjCI377yag5f2dXniIvOIn3SG2AMnBk43GxTs+W/QvZi6Qw3KPR4j0A4NlbDzOgiVWuwnIJS20mCkhqrPUpgQ6i2zGnrz0nghT8/16jflugxGKr/C8YZ+7VCiZQjPBfuH6bwB9BXJy/bj45LzBIyj+xj9ldo8DpxUGjXktsFfVbrpavc2yAIBntYqwQ==
+ b=Za/5UIP7ar/PqBCvypMQApGKkdTFkbrMy49KROmjyU56xrnQNF3MaoLXD8BpbuQUf+/wejwIj1BaEjdl79QWOCumOgDc7X60vfqGJVKYPP31zvuGsRelqvozpZx2hl6m3vfxtFs8wVFxXuCX+to2jNmsSDyaEu3+MqKnOHycI5h6yuHmPllIpcqxue/LsHT4xTvS+apwC62yhWk5reL+s8/+3TWT+OPNSvVkrodHsbKczxNlMDGNVLdNGY+JhHhnkBD+lHclHloF8jrNH2iZEgu95D19SXX1gV43QWVTpmyoyLKDXGpXyRHHWfDfdizEexN9piHxMu3GcWC5+0XOjQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Po81YahRseNtE3aivenftl3xTZuUshhoiABM+23TUS4=;
- b=aJ7aeU0s8+ePhBuPlB7BMMTtabN67RAW/kBHZJIKoPjIQCut8WX9VNYwmqj828G2AKmGC/vh9rbaUTzYYzhQcdSS0HAUbxYHxKmg+MCgrk+cagbFlx3FUT4Xr/Pm3IeNeUnb+yaNTWOJb9wGfA6hDxSMpE5bR4Ww7Z9pAP/0VC492qOQNLa2tWTKMKqdLjJ4YJ/R+VrEhASYnL21WoaPwUegZPKXwXdoiSqmCTHh6LlVkP7FzF6Lc9OTsZtTTc+EAZkO6kBCSTqrEnW/+RaiiYAQ8w/kR1Jholihop6wIPAoZB+PtxG3RYxIEGvqr26DX74BZukqDF8u4ginqI8UnA==
+ bh=Z3VPGbFhk9lDbbp69idNSArC4mJfEnM1nGc02w6+p54=;
+ b=JNkuZA55CG6zJ07knrMgMLe83sbunG/yhiBu8MPl/MfHscaiMP/ERIXmNr3igWKFAGnGUulSsCtYeYHezmLY9Ls+z/5IU+0bSHuiGnqfXhaXLG3mVOmJupg5YqC7P6CUmFzr6LIKPBBhgY0ZDyTu1vj2sMNldinphGyEBDYgxy3f55F/LNHDZ42qC2w0skoZLu3evP6C6KTUgHutPrbnUMUUUmQfFLrduqykvnZkwJnAOqyQZyCGpapr6Dt2ts5/teYJMzXKcLB7pkqh03vdyU1Rplrifbb3RKC2WKeppMgmZ+0fsNHqKVwM8IX/HfOTngpd2jFLsHMFqBmoLXDIsA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Po81YahRseNtE3aivenftl3xTZuUshhoiABM+23TUS4=;
- b=sAyLkacT5ZuLTjxf0LY7KTfPOkSSC2apIXvysqv8E7RwAX27Aav13ZxY7LUfGKwVL6+dr1Ye7Ri1VdhGLHITzvXosK8f9xUXT3Tr5yHgx1B6Nx/+6I+bReISZnuy/PttMTkSaviTtTJ+sQwVMntR6i1/dgnX+OW+DlvFytDgSp4=
-Received: from BL1PR13CA0242.namprd13.prod.outlook.com (2603:10b6:208:2ba::7)
- by SJ2PR12MB8159.namprd12.prod.outlook.com (2603:10b6:a03:4f9::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.25; Wed, 4 Oct
- 2023 21:22:09 +0000
+ bh=Z3VPGbFhk9lDbbp69idNSArC4mJfEnM1nGc02w6+p54=;
+ b=QoE6yCNCbjcKxN9RWoU5M22ifstw+sB+M0E7tu75Ou/IJFBbuKlPz5MPjq/bb13my9cuHGj1KM9GTufYulybCZ9HunhBEyhDvOixYhf7HvOVLYPZneH/AKCG379tJwwyGWSuVhSWPcdCvFq2hN4BNysrZv9D+dWIRcuwnFGyM28=
+Received: from BL1PR13CA0269.namprd13.prod.outlook.com (2603:10b6:208:2ba::34)
+ by CY5PR12MB6082.namprd12.prod.outlook.com (2603:10b6:930:2a::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.34; Wed, 4 Oct
+ 2023 21:22:10 +0000
 Received: from BL02EPF0001A104.namprd05.prod.outlook.com
- (2603:10b6:208:2ba:cafe::f4) by BL1PR13CA0242.outlook.office365.com
- (2603:10b6:208:2ba::7) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:208:2ba:cafe::21) by BL1PR13CA0269.outlook.office365.com
+ (2603:10b6:208:2ba::34) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.25 via Frontend
- Transport; Wed, 4 Oct 2023 21:22:09 +0000
+ Transport; Wed, 4 Oct 2023 21:22:10 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BL02EPF0001A104.mail.protection.outlook.com (10.167.241.135) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.14 via Frontend Transport; Wed, 4 Oct 2023 21:22:09 +0000
+ 15.20.6838.14 via Frontend Transport; Wed, 4 Oct 2023 21:22:10 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 4 Oct
- 2023 16:22:01 -0500
+ 2023 16:22:03 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v3 14/16] drm/amd/display: Modify Pipe Selection for Policy
- for ODM
-Date: Wed, 4 Oct 2023 15:21:08 -0600
-Message-ID: <20231004212110.3753955-15-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH v3 15/16] drm/amd/display: Port replay vblank logic to DML2
+Date: Wed, 4 Oct 2023 15:21:09 -0600
+Message-ID: <20231004212110.3753955-16-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231004212110.3753955-1-Rodrigo.Siqueira@amd.com>
 References: <20231004212110.3753955-1-Rodrigo.Siqueira@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A104:EE_|SJ2PR12MB8159:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6619cb33-e2f5-4519-31c7-08dbc51ff7f3
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A104:EE_|CY5PR12MB6082:EE_
+X-MS-Office365-Filtering-Correlation-Id: 43169aa0-9fd9-4737-2dba-08dbc51ff850
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9cXb8DTAtwIi9OCQ1u8RzGFj799fHDyQCpkQTDESq8Mg09qdcRKTK2kFmIzN2yFqiw000A5vf228b5sNV6+SKTPPw8+ng8Rztx9wd2v9IicnOImrx5s758TI+6qSLX3JJ3SlBUuc+lEwCdgbpcVQ37T9YBAU4+HZHpjwqT7E11vg+wHyLiweypKWO/UxyFOqS33k9GtqRXsXHweWJo5REjNilebGDWjpZsZRvzJ1ws+KWmv2RO6/BeKvNZu+jhz/1wyDVcGu9zPlkq3UAcgf6eSlbDeyXaWut35Xa0mQLsVphuXTdrqVZUURrx+V5i3Yr5wh0jxrdK87OL/Ik82SmdsPyGGTZpkGXAGtzN4Hz0xGEXTpFIE7x5LBXbeKOFA5a9hk98WEXwC7Ri1hbV/2A6YidZl7QsHjzXneaMRPq6tPQrRaEsyAz5YjZ5oOhMrC29pNeBQYqrRqj80dTi8AQTz5tPlguwELmS9cHvl54vBe6fLQHExAwsBl2zFCou8YFQUD6HKWmGVAYPhkP96nLlbTQPdF+jAYSQMxd62fYrHtOSS5W0d6lDb+Uk5NFgSeoL6DIJnZ0xxtl3bsywCz5BrJqfhYxUooRCBzjjeNiKEKNqHpOyMxTeJS5K9lzH5ZFs7HnRtsrz8sP0n5fWPknk3Mk9pPu4TPO6UkyMW24laaSqOYKugl+D7UPjOvAPiwoYOmWSN61eoaXyFtDLDRK7CT4hwOcwWjMEIDRIxaZ9E2Kr92htj8g2HGBVfi/bUIUJEyMhERa2YN/uqi4Nnvyg==
+X-Microsoft-Antispam-Message-Info: GYjZE3GbADD/I/25KTT2wkkT8qEHPimMr8YbOm76m6PC/lI+i508oRSs/D9jm/u+9ZX9qxrCzcQUJ/P23FTQTbZoZzfGQNaP7WEfqBij1aJCnRUjiV2oeG1Zjo1i7LpgpWG7oxVDgU3UXsFn48z78FQ07Q7bVo5tQly+sTdfB2p0EKKs8UE1De1xMIxaU6s+Go+VlFqpQP+GJOLDfH6De+DMwwfxqi8AOmnefvSn2LTDZz2ecvYKqJrPD/83Tq9l12XVqYozNrDtquGePDkct0QRFhr0vOz8i6xZLWYmvTGH2lb2cWlLGCiDUZUsyAsJxR3eXya2gRShNfBy0Jo0ZOOlTDQ6+FxKa4JTatlocJjmm253kt6fUK3bkCPx5qlhxwZrt9atW4/KFuf9twYmU8VKaSwLHucp+dscnNmDtpV2pCVTqduApihC1D96gRBRfQr6olGYaRvFiGrvKC+lzm6tUxfX6mkH+PUY8j2W6xlrV/1dLFWnj0KNQbyVIfpwz5Wgp2rFKDMfgATb8O0MB10Khf7w98QwMudO8ZjUqXZyMab5MsrwA4BvkDe5H/yU1gMGILeylgk0cIexnZdKX5lYjV+5ermt+CDGhx5jxhKuZPtTVqBBVvY7q+yJb+tls0sw6ig9QPsh6i0lNFD2EyHORT3YXL867usTBS5C0LRVDlau3UuGg+Wam7BKuBBx1sjaWDZITQQhqRu0K0GB0G2LiOaAKKr1xwslUlpTKFRqBKppz7iNboYnBJ+Xvelriz+J4+HrSYN+FkBZEHQclA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(136003)(396003)(39860400002)(376002)(346002)(230922051799003)(1800799009)(186009)(451199024)(82310400011)(64100799003)(40470700004)(46966006)(36840700001)(356005)(82740400003)(81166007)(40480700001)(1076003)(2616005)(26005)(16526019)(336012)(426003)(316002)(2906002)(41300700001)(4326008)(70586007)(8936002)(86362001)(5660300002)(6916009)(70206006)(54906003)(36756003)(8676002)(478600001)(47076005)(40460700003)(36860700001)(83380400001)(36900700001);
+ SFS:(13230031)(4636009)(396003)(346002)(39860400002)(376002)(136003)(230922051799003)(1800799009)(82310400011)(186009)(64100799003)(451199024)(40470700004)(36840700001)(46966006)(6916009)(478600001)(82740400003)(426003)(1076003)(81166007)(356005)(36756003)(26005)(70586007)(54906003)(41300700001)(316002)(70206006)(336012)(36860700001)(47076005)(16526019)(2616005)(83380400001)(86362001)(5660300002)(8676002)(8936002)(4326008)(40480700001)(2906002)(40460700003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2023 21:22:09.7156 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6619cb33-e2f5-4519-31c7-08dbc51ff7f3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2023 21:22:10.3250 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 43169aa0-9fd9-4737-2dba-08dbc51ff850
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A104.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8159
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6082
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,249 +99,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>, Sunpeng.Li@amd.com,
- richard.gong@amd.com, Qingqing Zhuo <Qingqing.Zhuo@amd.com>,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, Saaem
- Rizvi <syedsaaem.rizvi@amd.com>, jerry.zuo@amd.com, Aurabindo.Pillai@amd.com,
- hamza.mahfooz@amd.com, wayne.lin@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, Harry.Wentland@amd.com
+Cc: Daniel Miess <daniel.miess@amd.com>, Charlene Liu <charlene.liu@amd.com>,
+ Sunpeng.Li@amd.com, richard.gong@amd.com, Qingqing
+ Zhuo <Qingqing.Zhuo@amd.com>, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ jerry.zuo@amd.com, Aurabindo.Pillai@amd.com, hamza.mahfooz@amd.com,
+ wayne.lin@amd.com, Alex Deucher <alexander.deucher@amd.com>,
+ Harry.Wentland@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Saaem Rizvi <syedsaaem.rizvi@amd.com>
+From: Daniel Miess <daniel.miess@amd.com>
 
-[Why]
-There are certain cases during a transition to ODM that might cause
-corruption on the display. This occurs when we choose certain pipes in a
-particular state.
+Update DML2 with replay vblank logic found in DML1.
 
-[How]
-We now will store the pipe indexes of the any pipes that might be
-problematic to switch to during an ODM transition, and only use them as
-a last resort.
-
-Reviewed-by: Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>
+Reviewed-by: Charlene Liu <charlene.liu@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
+Signed-off-by: Daniel Miess <daniel.miess@amd.com>
 Signed-off-by: Qingqing Zhuo <Qingqing.Zhuo@amd.com>
-Signed-off-by: Saaem Rizvi <syedsaaem.rizvi@amd.com>
 ---
- .../display/dc/dml2/dml2_dc_resource_mgmt.c   | 140 ++++++++++++++++--
- 1 file changed, 126 insertions(+), 14 deletions(-)
+ .../amd/display/dc/dml2/display_mode_core.c   | 25 ++++++++++++++++---
+ 1 file changed, 22 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
-index e22b5106df8f..36baf35bb170 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
-@@ -213,6 +213,82 @@ static bool is_pipe_free(const struct pipe_ctx *pipe)
- 	return false;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
+index 0d446d850313..fddd52f3f601 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
+@@ -6153,6 +6153,13 @@ static void CalculateImmediateFlipBandwithSupport(
+ #endif
  }
  
-+static unsigned int find_preferred_pipe_candidates(const struct dc_state *existing_state,
-+	const int pipe_count,
-+	const unsigned int stream_id,
-+	unsigned int *preferred_pipe_candidates)
++static dml_uint_t MicroSecToVertLines(dml_uint_t num_us, dml_uint_t h_total, dml_float_t pixel_clock)
 +{
-+	unsigned int num_preferred_candidates = 0;
-+	int i;
++	dml_uint_t lines_time_in_ns = 1000.0 * (h_total * 1000.0) / (pixel_clock * 1000.0);
 +
-+	/* There is only one case which we consider for adding a pipe to the preferred
-+	 * pipe candidate array:
-+	 *
-+	 * 1. If the existing stream id of the pipe is equivalent to the stream id
-+	 * of the stream we are trying to achieve MPC/ODM combine for. This allows
-+	 * us to minimize the changes in pipe topology during the transition.
-+	 *
-+	 * However this condition comes with a caveat. We need to ignore pipes that will
-+	 * require a change in OPP but still have the same stream id. For example during
-+	 * an MPC to ODM transiton.
-+	 */
-+	if (existing_state) {
-+		for (i = 0; i < pipe_count; i++) {
-+			if (existing_state->res_ctx.pipe_ctx[i].stream && existing_state->res_ctx.pipe_ctx[i].stream->stream_id == stream_id) {
-+				if (existing_state->res_ctx.pipe_ctx[i].plane_res.hubp &&
-+					existing_state->res_ctx.pipe_ctx[i].plane_res.hubp->opp_id != i)
-+					continue;
-+
-+				preferred_pipe_candidates[num_preferred_candidates++] = i;
-+			}
-+		}
-+	}
-+
-+	return num_preferred_candidates;
++	return dml_ceil(1000.0 * num_us / lines_time_in_ns, 1.0);
 +}
 +
-+static unsigned int find_last_resort_pipe_candidates(const struct dc_state *existing_state,
-+	const int pipe_count,
-+	const unsigned int stream_id,
-+	unsigned int *last_resort_pipe_candidates)
-+{
-+	unsigned int num_last_resort_candidates = 0;
-+	int i;
-+
-+	/* There are two cases where we would like to add a given pipe into the last
-+	 * candidate array:
-+	 *
-+	 * 1. If the pipe requires a change in OPP, for example during an MPC
-+	 * to ODM transiton.
-+	 *
-+	 * 2. If the pipe already has an enabled OTG.
-+	 */
-+	if (existing_state) {
-+		for (i  = 0; i < pipe_count; i++) {
-+			if ((existing_state->res_ctx.pipe_ctx[i].plane_res.hubp &&
-+				existing_state->res_ctx.pipe_ctx[i].plane_res.hubp->opp_id != i) ||
-+				existing_state->res_ctx.pipe_ctx[i].stream_res.tg)
-+				last_resort_pipe_candidates[num_last_resort_candidates++] = i;
-+		}
-+	}
-+
-+	return num_last_resort_candidates;
-+}
-+
-+static bool is_pipe_in_candidate_array(const unsigned int pipe_idx,
-+	const unsigned int *candidate_array,
-+	const unsigned int candidate_array_size)
-+{
-+	int i;
-+
-+	for (i = 0; i < candidate_array_size; i++) {
-+		if (candidate_array[i] == pipe_idx)
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- static bool find_more_pipes_for_stream(struct dml2_context *ctx,
- 	struct dc_state *state, // The state we want to find a free mapping in
- 	unsigned int stream_id, // The stream we want this pipe to drive
-@@ -222,16 +298,18 @@ static bool find_more_pipes_for_stream(struct dml2_context *ctx,
- 	const struct dc_state *existing_state) // The state (optional) that we want to minimize remapping relative to
+ /// @brief Calculate the maximum vstartup for mode support and mode programming consideration
+ ///         Bounded by min of actual vblank and input vblank_nom, dont want vstartup/ready to start too early if actual vbllank is huge
+ static dml_uint_t CalculateMaxVStartup(
+@@ -6164,12 +6171,24 @@ static dml_uint_t CalculateMaxVStartup(
  {
- 	struct pipe_ctx *pipe = NULL;
--	unsigned int preferred_pipe_candidates[MAX_PIPES];
-+	unsigned int preferred_pipe_candidates[MAX_PIPES] = {0};
-+	unsigned int last_resort_pipe_candidates[MAX_PIPES] = {0};
- 	unsigned int num_preferred_candidates = 0;
-+	unsigned int num_last_resort_candidates = 0;
- 	int i;
+ 	dml_uint_t vblank_size = 0;
+ 	dml_uint_t max_vstartup_lines = 0;
++	const dml_uint_t max_allowed_vblank_nom = 1023;
  
- 	if (existing_state) {
--		// To minimize prioritize candidates from existing stream
--		for (i = 0; i < ctx->config.dcn_pipe_count; i++) {
--			if (existing_state->res_ctx.pipe_ctx[i].stream && existing_state->res_ctx.pipe_ctx[i].stream->stream_id == stream_id)
--				preferred_pipe_candidates[num_preferred_candidates++] = existing_state->res_ctx.pipe_ctx[i].pipe_idx;
--		}
-+		num_preferred_candidates =
-+			find_preferred_pipe_candidates(existing_state, ctx->config.dcn_pipe_count, stream_id, preferred_pipe_candidates);
+ 	dml_float_t line_time_us = (dml_float_t) timing->HTotal[plane_idx] / timing->PixelClock[plane_idx];
+ 	dml_uint_t vblank_actual = timing->VTotal[plane_idx] - timing->VActive[plane_idx];
+-	dml_uint_t vblank_nom_default_in_line = (dml_uint_t) dml_floor((dml_float_t) vblank_nom_default_us/line_time_us, 1.0);
+-	dml_uint_t vblank_nom_input = (dml_uint_t) dml_min(timing->VBlankNom[plane_idx], vblank_nom_default_in_line);
+-	dml_uint_t vblank_avail = (vblank_nom_input == 0) ? vblank_nom_default_in_line : vblank_nom_input;
 +
-+		num_last_resort_candidates =
-+			find_last_resort_pipe_candidates(existing_state, ctx->config.dcn_pipe_count, stream_id, last_resort_pipe_candidates);
- 	}
- 
- 	// First see if any of the preferred are unmapped, and choose those instead
-@@ -247,6 +325,11 @@ static bool find_more_pipes_for_stream(struct dml2_context *ctx,
- 
- 	// We like to pair pipes starting from the higher order indicies for combining
- 	for (i = ctx->config.dcn_pipe_count - 1; pipes_needed > 0 && i >= 0; i--) {
-+		// Ignore any pipes that are the preferred or last resort candidate
-+		if (is_pipe_in_candidate_array(i, preferred_pipe_candidates, num_preferred_candidates) ||
-+			is_pipe_in_candidate_array(i, last_resort_pipe_candidates, num_last_resort_candidates))
-+			continue;
++	dml_uint_t vblank_nom_default_in_line = MicroSecToVertLines(vblank_nom_default_us, timing->HTotal[plane_idx],
++			timing->PixelClock[plane_idx]);
++	dml_uint_t vblank_nom_input = (dml_uint_t)dml_min(vblank_actual, vblank_nom_default_in_line);
 +
- 		pipe = &state->res_ctx.pipe_ctx[i];
- 		if (!is_plane_using_pipe(pipe)) {
- 			pipes_needed--;
-@@ -256,6 +339,17 @@ static bool find_more_pipes_for_stream(struct dml2_context *ctx,
- 		}
- 	}
++	// vblank_nom should not be smaller than (VSync (VTotal - VActive - VFrontPorch) + 2)
++	// + 2 is because
++	// 1 -> VStartup_start should be 1 line before VSync
++	// 1 -> always reserve 1 line between start of VBlank to VStartup signal
++	dml_uint_t vblank_nom_vsync_capped = dml_max(vblank_nom_input,
++			timing->VTotal[plane_idx] - timing->VActive[plane_idx] - timing->VFrontPorch[plane_idx] + 2);
++	dml_uint_t vblank_nom_max_allowed_capped = dml_min(vblank_nom_vsync_capped, max_allowed_vblank_nom);
++	dml_uint_t vblank_avail = (vblank_nom_max_allowed_capped == 0) ?
++			vblank_nom_default_in_line : vblank_nom_max_allowed_capped;
  
-+	// Only use the last resort pipe candidates as a last resort
-+	for (i = 0; pipes_needed > 0 && i < num_last_resort_candidates; i++) {
-+		pipe = &state->res_ctx.pipe_ctx[last_resort_pipe_candidates[i]];
-+		if (!is_plane_using_pipe(pipe)) {
-+			pipes_needed--;
-+			// TODO: This doens't make sense really, pipe_idx should always be valid
-+			pipe->pipe_idx = last_resort_pipe_candidates[i];
-+			assigned_pipes[(*assigned_pipe_count)++] = pipe->pipe_idx;
-+		}
-+	}
-+
- 	ASSERT(pipes_needed <= 0); // Validation should prevent us from building a pipe context that exceeds the number of HW resoruces available
- 
- 	return pipes_needed <= 0;
-@@ -270,16 +364,18 @@ static bool find_more_free_pipes(struct dml2_context *ctx,
- 	const struct dc_state *existing_state) // The state (optional) that we want to minimize remapping relative to
- {
- 	struct pipe_ctx *pipe = NULL;
--	unsigned int preferred_pipe_candidates[MAX_PIPES];
-+	unsigned int preferred_pipe_candidates[MAX_PIPES] = {0};
-+	unsigned int last_resort_pipe_candidates[MAX_PIPES] = {0};
- 	unsigned int num_preferred_candidates = 0;
-+	unsigned int num_last_resort_candidates = 0;
- 	int i;
- 
- 	if (existing_state) {
--		// To minimize prioritize candidates from existing stream
--		for (i = 0; i < ctx->config.dcn_pipe_count; i++) {
--			if (existing_state->res_ctx.pipe_ctx[i].stream && existing_state->res_ctx.pipe_ctx[i].stream->stream_id == stream_id)
--				preferred_pipe_candidates[num_preferred_candidates++] = existing_state->res_ctx.pipe_ctx[i].pipe_idx;
--		}
-+		num_preferred_candidates =
-+			find_preferred_pipe_candidates(existing_state, ctx->config.dcn_pipe_count, stream_id, preferred_pipe_candidates);
-+
-+		num_last_resort_candidates =
-+			find_last_resort_pipe_candidates(existing_state, ctx->config.dcn_pipe_count, stream_id, last_resort_pipe_candidates);
- 	}
- 
- 	// First see if any of the preferred are unmapped, and choose those instead
-@@ -295,6 +391,11 @@ static bool find_more_free_pipes(struct dml2_context *ctx,
- 
- 	// We like to pair pipes starting from the higher order indicies for combining
- 	for (i = ctx->config.dcn_pipe_count - 1; pipes_needed > 0 && i >= 0; i--) {
-+		// Ignore any pipes that are the preferred or last resort candidate
-+		if (is_pipe_in_candidate_array(i, preferred_pipe_candidates, num_preferred_candidates) ||
-+			is_pipe_in_candidate_array(i, last_resort_pipe_candidates, num_last_resort_candidates))
-+			continue;
-+
- 		pipe = &state->res_ctx.pipe_ctx[i];
- 		if (is_pipe_free(pipe)) {
- 			pipes_needed--;
-@@ -304,6 +405,17 @@ static bool find_more_free_pipes(struct dml2_context *ctx,
- 		}
- 	}
- 
-+	// Only use the last resort pipe candidates as a last resort
-+	for (i = 0; pipes_needed > 0 && i < num_last_resort_candidates; i++) {
-+		pipe = &state->res_ctx.pipe_ctx[last_resort_pipe_candidates[i]];
-+		if (is_pipe_free(pipe)) {
-+			pipes_needed--;
-+			// TODO: This doens't make sense really, pipe_idx should always be valid
-+			pipe->pipe_idx = last_resort_pipe_candidates[i];
-+			assigned_pipes[(*assigned_pipe_count)++] = pipe->pipe_idx;
-+		}
-+	}
-+
- 	ASSERT(pipes_needed == 0); // Validation should prevent us from building a pipe context that exceeds the number of HW resoruces available
- 
- 	return pipes_needed == 0;
-@@ -465,7 +577,7 @@ static struct pipe_ctx *assign_pipes_to_stream(struct dml2_context *ctx, struct
- 	struct pipe_ctx *master_pipe;
- 	unsigned int pipes_needed;
- 	unsigned int pipes_assigned;
--	unsigned int pipes[MAX_PIPES];
-+	unsigned int pipes[MAX_PIPES] = {0};
- 	unsigned int next_pipe_to_assign;
- 	int odm_slice;
- 
-@@ -502,7 +614,7 @@ static struct pipe_ctx *assign_pipes_to_plane(struct dml2_context *ctx, struct d
- 	unsigned int plane_id;
- 	unsigned int pipes_needed;
- 	unsigned int pipes_assigned;
--	unsigned int pipes[MAX_PIPES];
-+	unsigned int pipes[MAX_PIPES] = {0};
- 	unsigned int next_pipe_to_assign;
- 	int odm_slice, mpc_slice;
+ 	vblank_size = (dml_uint_t) dml_min(vblank_actual, vblank_avail);
  
 -- 
 2.40.1
