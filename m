@@ -4,70 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFDD9E7B61B
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 13:53:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF14DE7B61D
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 14:02:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7847410E37E;
-	Wed,  4 Oct 2023 13:53:59 +0000 (UTC)
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36E7D10E37E
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Oct 2023 13:53:57 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-323168869daso2100706f8f.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 04 Oct 2023 06:53:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1696427635; x=1697032435; darn=lists.freedesktop.org;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rMaRy7w80Z8que5zvwzoZoai8qWHpf6dp2EP5lUm/40=;
- b=IrAah8RmB00JdGn4KIOrngc1B1Yzn43Lh9voyJublozLO2KGg6bki+mR8HdjPTa5yG
- AFNJeH69a21cJRtAO8zlFxIvFWUD3Yr/pjB7LOzgckC96jlAFqC+6ty/wqr1bJdWTj7I
- LcRNKcR9HQ0k4CGTXj6/m7bP4CDr0MDdhcayTtTbOFAcPZYK1uXL7HoKeJXi+2JnYImQ
- p78kp+o/3QwBC/vD+2mae48vQ60y7CCshdkZ1CJpt1mG3JoFLKmpV35gX/qjlQRfe/HB
- WQdp6K2FqWNkP3cs9OiJUh7+7RQ+czsaH5gGAYwEySoffAD/FC8sWpYWIAyriPZMeS46
- xabQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696427635; x=1697032435;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=rMaRy7w80Z8que5zvwzoZoai8qWHpf6dp2EP5lUm/40=;
- b=M+vH9EW6p/lgmWNDnND6oKk90iUsqxShqbX0bFK2xWvgdSRQy6tsWd2lxOCtzcECS5
- Y59J6W7TXHTwIVXAUjriGv5ooZN8gGRgoYoHAH0at9t3J1vOdEqQBFLHCAMKc2TWeZfN
- TBE2aqDAgNeYZkyL+mxRRYmK8UkRheFO81dqbS0IcDi5hjGiqv/fPUPw7gkRxku1uSa4
- bzJqwu/ONqE4PEjgL3n94/OwBb/QDGTlp1nlcgJPHnZpQgzLujYC5r8digPKLzxmjgww
- yDK9HY+1oLU6rumLeFWAhLfzGHNv1WnIMApXoYxYejJyTzL/MI5UH+eTs3CUFkK0GLCB
- 1edg==
-X-Gm-Message-State: AOJu0YxM9uMx2WW7WeVKDNFxmEbIkkLgb8nBRVpc72L6UwM0dHzR2yIu
- xSNAYmCZpG69YXm9y0wjDhGLnMN9ATA03w==
-X-Google-Smtp-Source: AGHT+IFpiYpW/lbcmEsCKfRe/SJXkibyb/Cg9Y4PaKSoXVoX08k68scAkHBWmOqhNMaVzwhXIuZwMg==
-X-Received: by 2002:a5d:6302:0:b0:323:3ab5:990c with SMTP id
- i2-20020a5d6302000000b003233ab5990cmr2099849wru.44.1696427635220; 
- Wed, 04 Oct 2023 06:53:55 -0700 (PDT)
-Received: from [10.254.108.106] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- k6-20020adff286000000b00317e77106dbsm4072695wro.48.2023.10.04.06.53.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Oct 2023 06:53:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5035610E12B;
+	Wed,  4 Oct 2023 14:02:04 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2061b.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::61b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43EEC10E12B
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Oct 2023 14:02:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LjS0nAfm+Eh93kecK4aVxGmJ13vz/yIlrElkSKaHvifsnkp3jVutjM4bgIM7b4ZnTqAY3ENjGhdE6WDclNF/GTaigT5B1lF+KZCHf4Y4gY/ryqVVXQPJ/qZTaMwOvDwtyjwzNc6wRjhsgGZ3Sg46OZ6qTQXW0O3k+kqP3S93nyz2aor2PNCFw1rTzG966btWHEEZ2RPMGSVNeVFV1CuxsZPDlScT4EXWFQqnK36f+1ChK8l/vvpu0SsQMJCnCVpWWGq1hKwQqJeFhyvdaPn5wZvmyXBMHonJlhExg8oBaEa7Azl+GtwXrQKTBSxZsKUdGo1VfFZ6t0gjFizsjCzYAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fr7iLHdXSbkyMqHlXbkfzx/CAFo/D2nyJpZmAB1TeMI=;
+ b=ELGVuDXAq2vNmBnvAhR0BZdc4AlYPmnb9bGjawSp46amZi0a4h1G6Emp0x9iE6xqP9RNGe3VP7k3zIRFgAjFIT5SjarV5/fIWlnqd73+fg+U9jCyP/mHtIqOm9uRFrw+pIRv49fgAZIFNd+TdLmKflk0JfDJfaJLR3rR983RQLfLDaGCpzwWb1QcWncMfk32bRgP0zjNQd9WNfV4xGDmYBL8lBqhRo+0vrGbsFpzY+/NmVPZCRmpvUWbv52l1o5qg0HmI5CKfTBlsQjp+lhWZbPkrVuFoLe2lX0a+lrFh1zJyo+ixMTv5If7JFuKUJP/T1TAKWJvQv7xT3ppsN5RYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fr7iLHdXSbkyMqHlXbkfzx/CAFo/D2nyJpZmAB1TeMI=;
+ b=hfdBaJZs4v0wK8VsJ8xwIkAHwJsuE908tiJnSABABMPMcQGo8t+eRc5jve2wfv1nHFdvc+S7aiZaCe2hOsijLIy9m1Md/jkg1n2gEsaKqJG2wQnRuL6GBti/9hamdY7s+SmauZ5KOAhPYT1HK8EUQ3/5JSxISH9hCOYiSqtD12E=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6293.namprd12.prod.outlook.com (2603:10b6:208:3c2::22)
+ by DS0PR12MB7747.namprd12.prod.outlook.com (2603:10b6:8:138::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.34; Wed, 4 Oct
+ 2023 14:01:58 +0000
+Received: from MN0PR12MB6293.namprd12.prod.outlook.com
+ ([fe80::d890:af2f:d92e:9d4b]) by MN0PR12MB6293.namprd12.prod.outlook.com
+ ([fe80::d890:af2f:d92e:9d4b%7]) with mapi id 15.20.6838.030; Wed, 4 Oct 2023
+ 14:01:58 +0000
 Content-Type: multipart/alternative;
- boundary="------------0Y0GYuNM0qPzuapf6IsHx1oG"
-Message-ID: <41c0b2b7-e1d2-46c4-a368-5f879896d259@gmail.com>
-Date: Wed, 4 Oct 2023 15:53:50 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+ boundary="------------AzTH6O1IjmqyG0g2Xq7WMLwN"
+Message-ID: <6ae1cb47-2ee2-1507-f5a8-46b778d7feea@amd.com>
+Date: Wed, 4 Oct 2023 19:31:41 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
 Subject: Re: [PATCH v2] drm/amdgpu: fix ip count query for xcp partitions
 Content-Language: en-US
-To: "Sundararaju, Sathishkumar" <sasundar@amd.com>,
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
  Alex Deucher <alexdeucher@gmail.com>
 References: <20230921124929.1965750-1-sathishkumar.sundararaju@amd.com>
  <CADnq5_NTHMU5OAb_Rw1iWyHB0ksgv8v7C2J7A9TnUdgRt-1_Yg@mail.gmail.com>
  <d96ed183-6806-c2a8-7972-fab3944aa02a@amd.com>
  <CADnq5_MM-_zR6_nDdfejpoC=m0Xv4eM5ZQkoVZH6qnChfcaWCA@mail.gmail.com>
  <07ffc69b-d1db-8d73-013b-46ad7321f29d@amd.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <07ffc69b-d1db-8d73-013b-46ad7321f29d@amd.com>
+ <41c0b2b7-e1d2-46c4-a368-5f879896d259@gmail.com>
+From: "Sundararaju, Sathishkumar" <sasundar@amd.com>
+In-Reply-To: <41c0b2b7-e1d2-46c4-a368-5f879896d259@gmail.com>
+X-ClientProxiedBy: PN3PR01CA0158.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:c8::11) To MN0PR12MB6293.namprd12.prod.outlook.com
+ (2603:10b6:208:3c2::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6293:EE_|DS0PR12MB7747:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4654daa0-f7ee-4786-2ef0-08dbc4e27965
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: PVn3CuUZt4CtCcK1LWedxCy23TgSF8yaQCWMhXqf7pt3bl3qgWIhStnRQFVH7J4C/baKWbzFW/QZlkXyghR61MePLbhsudagHR/YH9gS1zIV5uJJPAXDejFyhx48RmoO9AwH/nlxWcb/xFYgGJ3kWLqvwHMhkRAVnfbpOdpENsWq8FmzryIZLUXJXyJ7OpOm6W6Qz+OlThFRurt/5NBlmI4T+Qj0nMlxzf7WSvD1JYnoVbn2BPXE5CzrRbRkkTYabL2MUi+HfP5NDwxglpPv6ODjlsroXirrk2nLVtG5FQB0IskdE516FA1nxrKT2zHloZGfYjxWZh7jmHIsuio3XaTW1YvdPkaGpqLFJbK6j5kDO7XEvpeCoFPUUB3VHUYz8CWPqe36aNWrNJTx/hQumDlE9d8rtw37TBVwUfU9Euy2Dzx72TzfvF2nCb59D7mqmIM4b9FNr8BBVmgBGtXAyji/nIzZHvLrUYfhUKMgqo8Sg8/RDBxQ6zd75+I4JLbBgqD2yLWgBshPNvpP4ar8b9zspvdaI6GXoIvprlMnRpnWQ+iOuC1Q1QtpvrMJ1ru4kHSwvDtDfZ6VQo+lxS3hVNPLFv7PCYBcM02IT/CckkArsRUdoYU6KP+f2TTpgC8J74ajp4y8O0IcDbpAxdYWZQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6293.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(39860400002)(346002)(396003)(376002)(366004)(230922051799003)(1800799009)(451199024)(64100799003)(186009)(31686004)(6486002)(36756003)(6512007)(6666004)(31696002)(53546011)(6506007)(33964004)(478600001)(316002)(66556008)(54906003)(66476007)(2616005)(66946007)(41300700001)(38100700002)(26005)(8936002)(4326008)(8676002)(66574015)(5660300002)(83380400001)(110136005)(30864003)(2906002)(45980500001)(43740500002)(559001)(579004);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UXBQM0xKV2hlRHZIa0FZZGtaMzhwUFBXT1NxRTQxcUM4UysvV2svMFI2TEtC?=
+ =?utf-8?B?T2lQV1NzN1dxMm51YzRyVXdhOVlJRGxwQnhZZWdBUUI1NkFUbFRaVzA0U3FC?=
+ =?utf-8?B?R013WEtaTUJldDFtb0VoWXNKQWwvTXRZUmlVbldHTCtqeU5TMGs1Tmhka0Fo?=
+ =?utf-8?B?ODA0b3paVmtPZ2dWeHcvQ2ZHeE5yUG5CUzBaalk3TXE1S0s3eEkrQkJTeTZ3?=
+ =?utf-8?B?RlZwQ2lDbm5idjRtVFgzVEk4RS9EeVZ4M01RZTAyTVkrYWxHaHlXSmNyRnF1?=
+ =?utf-8?B?WDhXWEhIbWlRc2tUNm41Q3pyQzhncys5Sy9nWjRmYmRza0NMNW5uTGZxTTZQ?=
+ =?utf-8?B?cHRQeDViOEdudXQ4a1praUZKaDJSV2IwQVMvK3NKZ0UrbGlxN01UTkgwZGcv?=
+ =?utf-8?B?RFZqN1pmQ1UyNEFoR3Z5cmgvK3Y1Q2VvOEt4d1paK01LQzREMWRJSWpEQVVD?=
+ =?utf-8?B?L1ZObkx6V21VbUtqY1A4MVFoVnZSTDlXWUc1K1hWWTRDZ2R1Sll6L0NTR1Zw?=
+ =?utf-8?B?RmRxbkJOeFNUWUs1alZiSDY5a0RqYzJRR2o3TisrTitSOXp2RzhIMjZjSDdT?=
+ =?utf-8?B?cm03YVFKcy9OaEt5RkVldWRpWTd3aUFuVGQxQnArNVRWdDZ1L3lZcGFTVFVO?=
+ =?utf-8?B?akNEdmhlWUtpZVFHWXVIcHRvajIycHp1L0hNTDJIWUwxT2hnM0lQUSswbUpE?=
+ =?utf-8?B?b1VxSUs4N2dKaDFBQ3diRVVOS3hrSWN4ZUZkS21LRmFQYVlkV05yL1NvRUhH?=
+ =?utf-8?B?ZkN2U0V0c2t6OXJxbVhCNXhiUVpybGZtQkJIT0pIc1lKWFVoeXZZOHdjcUJv?=
+ =?utf-8?B?Sy9SNTZkUVQ1NnUzUU9TWG5jdHYwV0haZU5hZU5EVVdNSVhRVFlxN2o5WExk?=
+ =?utf-8?B?S2M5RkJRVGlyKytJalp1RXIvM1laTUVtNDgwRGUrMGQ1WUcwbmpyTlFmL0xJ?=
+ =?utf-8?B?OVB0azZlRUxyWjcyQzBaVUZhc0sxOVdSdVU5SzN0NmVoS0VTVXZaQUFxVkFI?=
+ =?utf-8?B?V0RaYVNNTlRqWlRxRDFXNTAxcGlIMExMMHMrZ1hVZGdkSUNmVVBzNXZxQ29Y?=
+ =?utf-8?B?bk0rSE5Ea29KZGdUMGJUaFcvQ1FObDIycVh0d3JRTUd6blM1ZHhMazBrTCtN?=
+ =?utf-8?B?UkhDbVVJR1VwQTBxN1Zzd0NzQlZ5MzdmTjNNakZEeElIRUZFZ2pYalB2cDcx?=
+ =?utf-8?B?ZldSblBKTWF1ZUYvckJKOVFEZytXNUdqOElpRHJCMTJnZnpobHNvcEljSW5O?=
+ =?utf-8?B?MW5kRHk5WGp3a3pNY1BMTFlNaFVoY2FPOHZEMm1YR3M3UTA5QjBpdmhmaWM5?=
+ =?utf-8?B?VnI1OWt6em5CUzRWMFduNjlPYlVFRFJWdFVUQTlsUDBwam5xMjVHcnFhNDZH?=
+ =?utf-8?B?SDByUHJkQVlmKzhnUnJ4Q0oyOXYxeFJ0aGFCdDVSdVZDMjhXWGxXNHhHQXdL?=
+ =?utf-8?B?R0tVY3NwbktkODl5LytZQk93dEFuVE5QMmNTYUFKNVpuWlJWenp4YzJ3YTNV?=
+ =?utf-8?B?OHV6SmtPdkdXTlNXMzZKWE92cVJHMHAxaFhEc2VTT1Z5UzJhcHNTSUc0V0cw?=
+ =?utf-8?B?UFIrMmpUN09jWmRGOTY1SXNnTi84aHN0dkpKNE5WemVpczFIWnV4eVVvcHE4?=
+ =?utf-8?B?K3BYbldaRzJxR3pmTDhyV1U0ek1janJTZFZmZlY4ZUxURVNoNXdPT2gyekFX?=
+ =?utf-8?B?bWpBTGdFQ3NzUUpTNlU1SDZoTFhseDZzWjdubFhKZmhOTmFVYmkxc3VtT3h6?=
+ =?utf-8?B?VEpuT0JzTDQ1ZGpRNGI3LzBRbFdhMGtFRE9GeTVqRlNDU1lIL3ZvWC9NcWxi?=
+ =?utf-8?B?Nms1eXZUWnk5c3pHejVzSnh5VEJYTU9xSHprL2xUTk1FWVdpUUljdGJzWHlt?=
+ =?utf-8?B?YWJBa0ZpWE50SVJ5eTUrV1p2ZGRlWDkxK1dKNm5DUWVnSUk1S0pmVStJVy95?=
+ =?utf-8?B?K3JnOEIvcllLbG5nM0tUMmYrUlBrRW9tZDY3WW9HUlJ0bUo0OE9oQkZ6N3g5?=
+ =?utf-8?B?YmV5WDM2UmJxQm9WVlIyMlJTWThsRzR4K1V6TUpzaGVIWk1ZUzJFUUFFeTFs?=
+ =?utf-8?B?K2xvWHRkZ0s4V3htYUx1YXhpK2RMQXFLYU1vcHRYS3JXUGpnRkd6bDhkbW9t?=
+ =?utf-8?Q?7Kb2vm02lAZhFIMKMmXFiKDtb?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4654daa0-f7ee-4786-2ef0-08dbc4e27965
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6293.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2023 14:01:58.5860 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xKce4052r4S1CV9Ay0JkBst2b9Ax1epJlHVc+bKXqYR2v/eLPSZW86wBQypQJqiZ443rPx7gqjObbVC3/m7m0Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7747
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,205 +138,220 @@ Cc: "Sundararaju, Sathishkumar" <Sathishkumar.Sundararaju@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------0Y0GYuNM0qPzuapf6IsHx1oG
+--------------AzTH6O1IjmqyG0g2Xq7WMLwN
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Sathish,
+Hi Christian,
 
-an ack from a maintainer basically means "go ahead, push it to a branch" 
-(in this case to amd-staging-drm-next).
-
-A reviewed-by means "I've verified the technical background and think 
-that this is correct".
-
-A RB is indeed better, but not always necessary.
+Thank you for explaining, I understand it now.
 
 Regards,
-Christian.
 
-Am 03.10.23 um 18:43 schrieb Sundararaju, Sathishkumar:
+Sathish
+
+On 10/4/2023 7:23 PM, Christian König wrote:
+> Hi Sathish,
 >
-> Hi Alex,
+> an ack from a maintainer basically means "go ahead, push it to a 
+> branch" (in this case to amd-staging-drm-next).
 >
-> My apology, I was under the impression that RB is a must. I understand 
-> now that ACK is good, checked with Leo after your response. Thank you.
+> A reviewed-by means "I've verified the technical background and think 
+> that this is correct".
 >
+> A RB is indeed better, but not always necessary.
 >
 > Regards,
+> Christian.
 >
-> Sathish
->
->
-> On 10/3/2023 10:01 PM, Alex Deucher wrote:
->> On Tue, Oct 3, 2023 at 12:22 PM Sundararaju, Sathishkumar
->> <sasundar@amd.com>  wrote:
->>> Hi ,
->>>
->>> Kind request to help review the change. Thank you.
->> I acked this change back when you sent it out, but if it didn't come
->> through for some reason:
->> Acked-by: Alex Deucher<alexander.deucher@amd.com>
+> Am 03.10.23 um 18:43 schrieb Sundararaju, Sathishkumar:
 >>
->>> Regards,
->>>
->>> Sathish
->>>
->>> On 9/21/2023 8:17 PM, Alex Deucher wrote:
->>>> On Thu, Sep 21, 2023 at 9:07 AM Sathishkumar S
->>>> <sathishkumar.sundararaju@amd.com>  wrote:
->>>>> fix wrong ip count INFO on spatial partitions. update the query
->>>>> to return the instance count corresponding to the partition id.
->>>>>
->>>>> v2:
->>>>>    initialize variables only when required to be (Christian)
->>>>>    move variable declarations to the beginning of function (Christian)
->>>>>
->>>>> Signed-off-by: Sathishkumar S<sathishkumar.sundararaju@amd.com>
->>>> Acked-by: Alex Deucher<alexander.deucher@amd.com>
+>> Hi Alex,
+>>
+>> My apology, I was under the impression that RB is a must. I 
+>> understand now that ACK is good, checked with Leo after your 
+>> response. Thank you.
+>>
+>>
+>> Regards,
+>>
+>> Sathish
+>>
+>>
+>> On 10/3/2023 10:01 PM, Alex Deucher wrote:
+>>> On Tue, Oct 3, 2023 at 12:22 PM Sundararaju, Sathishkumar
+>>> <sasundar@amd.com>  wrote:
+>>>> Hi ,
 >>>>
->>>>> ---
->>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 44 ++++++++++++++++++++-----
->>>>>    1 file changed, 36 insertions(+), 8 deletions(-)
+>>>> Kind request to help review the change. Thank you.
+>>> I acked this change back when you sent it out, but if it didn't come
+>>> through for some reason:
+>>> Acked-by: Alex Deucher<alexander.deucher@amd.com>
+>>>
+>>>> Regards,
+>>>>
+>>>> Sathish
+>>>>
+>>>> On 9/21/2023 8:17 PM, Alex Deucher wrote:
+>>>>> On Thu, Sep 21, 2023 at 9:07 AM Sathishkumar S
+>>>>> <sathishkumar.sundararaju@amd.com>  wrote:
+>>>>>> fix wrong ip count INFO on spatial partitions. update the query
+>>>>>> to return the instance count corresponding to the partition id.
+>>>>>>
+>>>>>> v2:
+>>>>>>    initialize variables only when required to be (Christian)
+>>>>>>    move variable declarations to the beginning of function (Christian)
+>>>>>>
+>>>>>> Signed-off-by: Sathishkumar S<sathishkumar.sundararaju@amd.com>
+>>>>> Acked-by: Alex Deucher<alexander.deucher@amd.com>
 >>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->>>>> index 081bd28e2443..d4ccbe7c78d6 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->>>>> @@ -595,11 +595,16 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->>>>>           struct drm_amdgpu_info *info = data;
->>>>>           struct amdgpu_mode_info *minfo = &adev->mode_info;
->>>>>           void __user *out = (void __user *)(uintptr_t)info->return_pointer;
->>>>> +       struct amdgpu_fpriv *fpriv;
->>>>> +       struct amdgpu_ip_block *ip_block;
->>>>> +       enum amd_ip_block_type type;
->>>>> +       struct amdgpu_xcp *xcp;
->>>>> +       uint32_t count, inst_mask;
->>>>>           uint32_t size = info->return_size;
->>>>>           struct drm_crtc *crtc;
->>>>>           uint32_t ui32 = 0;
->>>>>           uint64_t ui64 = 0;
->>>>> -       int i, found;
->>>>> +       int i, found, ret;
->>>>>           int ui32_size = sizeof(ui32);
->>>>>
->>>>>           if (!info->return_size || !info->return_pointer)
->>>>> @@ -627,7 +632,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->>>>>                   return copy_to_user(out, &ui32, min(size, 4u)) ? -EFAULT : 0;
->>>>>           case AMDGPU_INFO_HW_IP_INFO: {
->>>>>                   struct drm_amdgpu_info_hw_ip ip = {};
->>>>> -               int ret;
->>>>>
->>>>>                   ret = amdgpu_hw_ip_info(adev, info, &ip);
->>>>>                   if (ret)
->>>>> @@ -637,15 +641,41 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->>>>>                   return ret ? -EFAULT : 0;
->>>>>           }
->>>>>           case AMDGPU_INFO_HW_IP_COUNT: {
->>>>> -               enum amd_ip_block_type type;
->>>>> -               struct amdgpu_ip_block *ip_block = NULL;
->>>>> -               uint32_t count = 0;
->>>>> -
->>>>> +               fpriv = (struct amdgpu_fpriv *) filp->driver_priv;
->>>>>                   type = amdgpu_ip_get_block_type(adev, info->query_hw_ip.type);
->>>>>                   ip_block = amdgpu_device_ip_get_ip_block(adev, type);
->>>>> +
->>>>>                   if (!ip_block || !ip_block->status.valid)
->>>>>                           return -EINVAL;
->>>>>
->>>>> +               if (adev->xcp_mgr && adev->xcp_mgr->num_xcps > 0 &&
->>>>> +                       fpriv->xcp_id >= 0 && fpriv->xcp_id < adev->xcp_mgr->num_xcps) {
->>>>> +                       xcp = &adev->xcp_mgr->xcp[fpriv->xcp_id];
->>>>> +                       switch (type) {
->>>>> +                       case AMD_IP_BLOCK_TYPE_GFX:
->>>>> +                               ret = amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_GFX, &inst_mask);
->>>>> +                               count = hweight32(inst_mask);
->>>>> +                               break;
->>>>> +                       case AMD_IP_BLOCK_TYPE_SDMA:
->>>>> +                               ret = amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_SDMA, &inst_mask);
->>>>> +                               count = hweight32(inst_mask);
->>>>> +                               break;
->>>>> +                       case AMD_IP_BLOCK_TYPE_JPEG:
->>>>> +                               ret = amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_VCN, &inst_mask);
->>>>> +                               count = hweight32(inst_mask) * adev->jpeg.num_jpeg_rings;
->>>>> +                               break;
->>>>> +                       case AMD_IP_BLOCK_TYPE_VCN:
->>>>> +                               ret = amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_VCN, &inst_mask);
->>>>> +                               count = hweight32(inst_mask);
->>>>> +                               break;
->>>>> +                       default:
->>>>> +                               return -EINVAL;
->>>>> +                       }
->>>>> +                       if (ret)
->>>>> +                               return ret;
->>>>> +                       return copy_to_user(out, &count, min(size, 4u)) ? -EFAULT : 0;
->>>>> +               }
->>>>> +
->>>>>                   switch (type) {
->>>>>                   case AMD_IP_BLOCK_TYPE_GFX:
->>>>>                   case AMD_IP_BLOCK_TYPE_VCE:
->>>>> @@ -678,7 +708,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->>>>>                   return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
->>>>>           case AMDGPU_INFO_FW_VERSION: {
->>>>>                   struct drm_amdgpu_info_firmware fw_info;
->>>>> -               int ret;
->>>>>
->>>>>                   /* We only support one instance of each IP block right now. */
->>>>>                   if (info->query_fw.ip_instance != 0)
->>>>> @@ -823,7 +852,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->>>>>                   struct drm_amdgpu_info_device *dev_info;
->>>>>                   uint64_t vm_size;
->>>>>                   uint32_t pcie_gen_mask;
->>>>> -               int ret;
->>>>>
->>>>>                   dev_info = kzalloc(sizeof(*dev_info), GFP_KERNEL);
->>>>>                   if (!dev_info)
->>>>> --
->>>>> 2.25.1
->>>>>
-
---------------0Y0GYuNM0qPzuapf6IsHx1oG
+>>>>>> ---
+>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 44 ++++++++++++++++++++-----
+>>>>>>    1 file changed, 36 insertions(+), 8 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>>>>>> index 081bd28e2443..d4ccbe7c78d6 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>>>>>> @@ -595,11 +595,16 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>>>>>>           struct drm_amdgpu_info *info = data;
+>>>>>>           struct amdgpu_mode_info *minfo = &adev->mode_info;
+>>>>>>           void __user *out = (void __user *)(uintptr_t)info->return_pointer;
+>>>>>> +       struct amdgpu_fpriv *fpriv;
+>>>>>> +       struct amdgpu_ip_block *ip_block;
+>>>>>> +       enum amd_ip_block_type type;
+>>>>>> +       struct amdgpu_xcp *xcp;
+>>>>>> +       uint32_t count, inst_mask;
+>>>>>>           uint32_t size = info->return_size;
+>>>>>>           struct drm_crtc *crtc;
+>>>>>>           uint32_t ui32 = 0;
+>>>>>>           uint64_t ui64 = 0;
+>>>>>> -       int i, found;
+>>>>>> +       int i, found, ret;
+>>>>>>           int ui32_size = sizeof(ui32);
+>>>>>>
+>>>>>>           if (!info->return_size || !info->return_pointer)
+>>>>>> @@ -627,7 +632,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>>>>>>                   return copy_to_user(out, &ui32, min(size, 4u)) ? -EFAULT : 0;
+>>>>>>           case AMDGPU_INFO_HW_IP_INFO: {
+>>>>>>                   struct drm_amdgpu_info_hw_ip ip = {};
+>>>>>> -               int ret;
+>>>>>>
+>>>>>>                   ret = amdgpu_hw_ip_info(adev, info, &ip);
+>>>>>>                   if (ret)
+>>>>>> @@ -637,15 +641,41 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>>>>>>                   return ret ? -EFAULT : 0;
+>>>>>>           }
+>>>>>>           case AMDGPU_INFO_HW_IP_COUNT: {
+>>>>>> -               enum amd_ip_block_type type;
+>>>>>> -               struct amdgpu_ip_block *ip_block = NULL;
+>>>>>> -               uint32_t count = 0;
+>>>>>> -
+>>>>>> +               fpriv = (struct amdgpu_fpriv *) filp->driver_priv;
+>>>>>>                   type = amdgpu_ip_get_block_type(adev, info->query_hw_ip.type);
+>>>>>>                   ip_block = amdgpu_device_ip_get_ip_block(adev, type);
+>>>>>> +
+>>>>>>                   if (!ip_block || !ip_block->status.valid)
+>>>>>>                           return -EINVAL;
+>>>>>>
+>>>>>> +               if (adev->xcp_mgr && adev->xcp_mgr->num_xcps > 0 &&
+>>>>>> +                       fpriv->xcp_id >= 0 && fpriv->xcp_id < adev->xcp_mgr->num_xcps) {
+>>>>>> +                       xcp = &adev->xcp_mgr->xcp[fpriv->xcp_id];
+>>>>>> +                       switch (type) {
+>>>>>> +                       case AMD_IP_BLOCK_TYPE_GFX:
+>>>>>> +                               ret = amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_GFX, &inst_mask);
+>>>>>> +                               count = hweight32(inst_mask);
+>>>>>> +                               break;
+>>>>>> +                       case AMD_IP_BLOCK_TYPE_SDMA:
+>>>>>> +                               ret = amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_SDMA, &inst_mask);
+>>>>>> +                               count = hweight32(inst_mask);
+>>>>>> +                               break;
+>>>>>> +                       case AMD_IP_BLOCK_TYPE_JPEG:
+>>>>>> +                               ret = amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_VCN, &inst_mask);
+>>>>>> +                               count = hweight32(inst_mask) * adev->jpeg.num_jpeg_rings;
+>>>>>> +                               break;
+>>>>>> +                       case AMD_IP_BLOCK_TYPE_VCN:
+>>>>>> +                               ret = amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_VCN, &inst_mask);
+>>>>>> +                               count = hweight32(inst_mask);
+>>>>>> +                               break;
+>>>>>> +                       default:
+>>>>>> +                               return -EINVAL;
+>>>>>> +                       }
+>>>>>> +                       if (ret)
+>>>>>> +                               return ret;
+>>>>>> +                       return copy_to_user(out, &count, min(size, 4u)) ? -EFAULT : 0;
+>>>>>> +               }
+>>>>>> +
+>>>>>>                   switch (type) {
+>>>>>>                   case AMD_IP_BLOCK_TYPE_GFX:
+>>>>>>                   case AMD_IP_BLOCK_TYPE_VCE:
+>>>>>> @@ -678,7 +708,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>>>>>>                   return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
+>>>>>>           case AMDGPU_INFO_FW_VERSION: {
+>>>>>>                   struct drm_amdgpu_info_firmware fw_info;
+>>>>>> -               int ret;
+>>>>>>
+>>>>>>                   /* We only support one instance of each IP block right now. */
+>>>>>>                   if (info->query_fw.ip_instance != 0)
+>>>>>> @@ -823,7 +852,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>>>>>>                   struct drm_amdgpu_info_device *dev_info;
+>>>>>>                   uint64_t vm_size;
+>>>>>>                   uint32_t pcie_gen_mask;
+>>>>>> -               int ret;
+>>>>>>
+>>>>>>                   dev_info = kzalloc(sizeof(*dev_info), GFP_KERNEL);
+>>>>>>                   if (!dev_info)
+>>>>>> --
+>>>>>> 2.25.1
+>>>>>>
+>
+--------------AzTH6O1IjmqyG0g2Xq7WMLwN
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
   <body>
-    Hi Sathish,<br>
-    <br>
-    an ack from a maintainer basically means "go ahead, push it to a
-    branch" (in this case to amd-staging-drm-next).<br>
-    <br>
-    A reviewed-by means "I've verified the technical background and
-    think that this is correct".<br>
-    <br>
-    A RB is indeed better, but not always necessary.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <div class="moz-cite-prefix">Am 03.10.23 um 18:43 schrieb
-      Sundararaju, Sathishkumar:<br>
+    <p>Hi Christian,</p>
+    <p>Thank you for explaining, I understand it now.</p>
+    <p>Regards,</p>
+    <p>Sathish<br>
+    </p>
+    <div class="moz-cite-prefix">On 10/4/2023 7:23 PM, Christian König
+      wrote:<br>
     </div>
-    <blockquote type="cite"
-      cite="mid:07ffc69b-d1db-8d73-013b-46ad7321f29d@amd.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <p> </p>
-      <p class="MsoPlainText">Hi Alex,</p>
-      <p class="MsoPlainText">My apology, I was under the impression
-        that RB is a must. I understand now that ACK is good, checked
-        with Leo after your response. Thank you.</p>
-      <p class="MsoPlainText"><br>
-      </p>
-      <p class="MsoPlainText">Regards,</p>
-      <p class="MsoPlainText">Sathish</p>
-      <p class="MsoPlainText"><br>
-      </p>
-      <p><!--[if gte mso 9]><xml>
+    <blockquote type="cite" cite="mid:41c0b2b7-e1d2-46c4-a368-5f879896d259@gmail.com">
+      
+      Hi Sathish,<br>
+      <br>
+      an ack from a maintainer basically means &quot;go ahead, push it to a
+      branch&quot; (in this case to amd-staging-drm-next).<br>
+      <br>
+      A reviewed-by means &quot;I've verified the technical background and
+      think that this is correct&quot;.<br>
+      <br>
+      A RB is indeed better, but not always necessary.<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      <div class="moz-cite-prefix">Am 03.10.23 um 18:43 schrieb
+        Sundararaju, Sathishkumar:<br>
+      </div>
+      <blockquote type="cite" cite="mid:07ffc69b-d1db-8d73-013b-46ad7321f29d@amd.com">
+        <p> </p>
+        <p class="MsoPlainText">Hi Alex,</p>
+        <p class="MsoPlainText">My apology, I was under the impression
+          that RB is a must. I understand now that ACK is good, checked
+          with Leo after your response. Thank you.</p>
+        <p class="MsoPlainText"><br>
+        </p>
+        <p class="MsoPlainText">Regards,</p>
+        <p class="MsoPlainText">Sathish</p>
+        <p class="MsoPlainText"><br>
+        </p>
+        <p><!--[if gte mso 9]><xml>
  <o:OfficeDocumentSettings>
   <o:AllowPNG/>
  </o:OfficeDocumentSettings>
@@ -931,61 +997,51 @@ Content-Transfer-Encoding: 8bit
 	mso-bidi-theme-font:minor-bidi;}
 </style>
 <![endif]--></p>
-      <div class="moz-cite-prefix">On 10/3/2023 10:01 PM, Alex Deucher
-        wrote:<br>
-      </div>
-      <blockquote type="cite"
-cite="mid:CADnq5_MM-_zR6_nDdfejpoC=m0Xv4eM5ZQkoVZH6qnChfcaWCA@mail.gmail.com">
-        <pre class="moz-quote-pre" wrap="">On Tue, Oct 3, 2023 at 12:22 PM Sundararaju, Sathishkumar
-<a class="moz-txt-link-rfc2396E" href="mailto:sasundar@amd.com"
-        moz-do-not-send="true">&lt;sasundar@amd.com&gt;</a> wrote:
+        <div class="moz-cite-prefix">On 10/3/2023 10:01 PM, Alex Deucher
+          wrote:<br>
+        </div>
+        <blockquote type="cite" cite="mid:CADnq5_MM-_zR6_nDdfejpoC=m0Xv4eM5ZQkoVZH6qnChfcaWCA@mail.gmail.com">
+          <pre class="moz-quote-pre" wrap="">On Tue, Oct 3, 2023 at 12:22 PM Sundararaju, Sathishkumar
+<a class="moz-txt-link-rfc2396E" href="mailto:sasundar@amd.com" moz-do-not-send="true">&lt;sasundar@amd.com&gt;</a> wrote:
 </pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">Hi ,
+          <blockquote type="cite">
+            <pre class="moz-quote-pre" wrap="">Hi ,
 
 Kind request to help review the change. Thank you.
 </pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">I acked this change back when you sent it out, but if it didn't come
+          </blockquote>
+          <pre class="moz-quote-pre" wrap="">I acked this change back when you sent it out, but if it didn't come
 through for some reason:
-Acked-by: Alex Deucher <a class="moz-txt-link-rfc2396E"
-        href="mailto:alexander.deucher@amd.com" moz-do-not-send="true">&lt;alexander.deucher@amd.com&gt;</a>
+Acked-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com" moz-do-not-send="true">&lt;alexander.deucher@amd.com&gt;</a>
 
 </pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">Regards,
+          <blockquote type="cite">
+            <pre class="moz-quote-pre" wrap="">Regards,
 
 Sathish
 
 On 9/21/2023 8:17 PM, Alex Deucher wrote:
 </pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">On Thu, Sep 21, 2023 at 9:07 AM Sathishkumar S
-<a class="moz-txt-link-rfc2396E"
-            href="mailto:sathishkumar.sundararaju@amd.com"
-            moz-do-not-send="true">&lt;sathishkumar.sundararaju@amd.com&gt;</a> wrote:
-</pre>
             <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">fix wrong ip count INFO on spatial partitions. update the query
+              <pre class="moz-quote-pre" wrap="">On Thu, Sep 21, 2023 at 9:07 AM Sathishkumar S
+<a class="moz-txt-link-rfc2396E" href="mailto:sathishkumar.sundararaju@amd.com" moz-do-not-send="true">&lt;sathishkumar.sundararaju@amd.com&gt;</a> wrote:
+</pre>
+              <blockquote type="cite">
+                <pre class="moz-quote-pre" wrap="">fix wrong ip count INFO on spatial partitions. update the query
 to return the instance count corresponding to the partition id.
 
 v2:
   initialize variables only when required to be (Christian)
   move variable declarations to the beginning of function (Christian)
 
-Signed-off-by: Sathishkumar S <a class="moz-txt-link-rfc2396E"
-              href="mailto:sathishkumar.sundararaju@amd.com"
-              moz-do-not-send="true">&lt;sathishkumar.sundararaju@amd.com&gt;</a>
+Signed-off-by: Sathishkumar S <a class="moz-txt-link-rfc2396E" href="mailto:sathishkumar.sundararaju@amd.com" moz-do-not-send="true">&lt;sathishkumar.sundararaju@amd.com&gt;</a>
 </pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">Acked-by: Alex Deucher <a
-            class="moz-txt-link-rfc2396E"
-            href="mailto:alexander.deucher@amd.com"
-            moz-do-not-send="true">&lt;alexander.deucher@amd.com&gt;</a>
+              </blockquote>
+              <pre class="moz-quote-pre" wrap="">Acked-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com" moz-do-not-send="true">&lt;alexander.deucher@amd.com&gt;</a>
 
 </pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">---
+              <blockquote type="cite">
+                <pre class="moz-quote-pre" wrap="">---
   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 44 ++++++++++++++++++++-----
   1 file changed, 36 insertions(+), 8 deletions(-)
 
@@ -1085,13 +1141,14 @@ index 081bd28e2443..d4ccbe7c78d6 100644
 2.25.1
 
 </pre>
+              </blockquote>
             </blockquote>
           </blockquote>
         </blockquote>
       </blockquote>
+      <br>
     </blockquote>
-    <br>
   </body>
 </html>
 
---------------0Y0GYuNM0qPzuapf6IsHx1oG--
+--------------AzTH6O1IjmqyG0g2Xq7WMLwN--
