@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCA49E7B615
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 13:16:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FEA1E7B611
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 13:16:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1B5A10E376;
-	Wed,  4 Oct 2023 13:16:13 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69AF888C3D;
- Wed,  4 Oct 2023 12:33:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F83010E378;
+	Wed,  4 Oct 2023 13:16:14 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 194D410E0F4;
+ Wed,  4 Oct 2023 11:27:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696422784; x=1727958784;
+ t=1696418842; x=1727954842;
  h=date:from:to:cc:subject:in-reply-to:message-id:
  references:mime-version;
- bh=rqMIzkzF+oU8U8LUCSr0Mr0DAEsLqNHVkwrxAHSfYCs=;
- b=FpFJQ9JJ6alfKhO1TGBbr8JjiQjO5irpZDE6tka5nYWT1uXGKVr6IMSG
- PfZxK+aVgk9qDzX+5x4rwABfnIe1aSaIV/WdmqB7COUatKkRp2wrphO2z
- wcoiw+VyHrxsbhxqW6aeYTe+Rt0GlMXIMKqpsv1sZF2hrPnexgY7K+wmn
- 0db0vjUzVN1Tgx7aqnGA6+EVhwfpZRryG/iyrHPbg2XbuSIRWzS+TrEOj
- 6dcFrtt0/GIHodSPJoJ5AN6LqgB25v9mNULRYT6Lkxuv1i03FLiQG4SB5
- lA5nDwfHXZQuLs/1KrOH4S0t6UTg6nqiM1evXChabIUmGLdERiZqI+xSj Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10852"; a="385977939"
-X-IronPort-AV: E=Sophos;i="6.03,200,1694761200"; d="scan'208";a="385977939"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2023 05:33:03 -0700
+ bh=230HfQm2a9UxErUBnPosyTWv+y7iJw7e5Hn3qf1hWZ4=;
+ b=JGXTjxlg8anPxxtO48WHPdnG638nvX1tkwIXbn0mu0ogMKNLjImnNwfM
+ 4jN2UdE/gvvFU9DJzRdYQeGOyx/9Dz4e2rwQ3yu9ofcxJl8vdgFMsAwk5
+ GA3EQzcIW/WoiEdAHjtQspPfJwy9XXRk0mzufAvWjvrmyMv73B6WilzMq
+ Su+Wv7NIsGEZ3rEvjApc9j8EyNwv4Q7GcFE5vvSrg21vi/8KFjmkgiY04
+ d5xwdjUjTh9ljr2ej9oIv1s8zryqXx2jkcZo/Boapghh+lok15l5lk2Jb
+ xRFFhKZD9yMNWLgwQ9nmEu5HqbVoPWYyrBrvmDPAEcpejxP/mdMpmW9zt Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10852"; a="469410136"
+X-IronPort-AV: E=Sophos;i="6.03,200,1694761200"; d="scan'208";a="469410136"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2023 04:27:21 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10852"; a="780763444"
-X-IronPort-AV: E=Sophos;i="6.03,200,1694761200"; d="scan'208";a="780763444"
+X-IronPort-AV: E=McAfee;i="6600,9927,10852"; a="925092479"
+X-IronPort-AV: E=Sophos;i="6.03,200,1694761200"; d="scan'208";a="925092479"
 Received: from cyrillet-mobl.ger.corp.intel.com ([10.252.55.203])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2023 05:32:58 -0700
-Date: Wed, 4 Oct 2023 15:32:56 +0300 (EEST)
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2023 04:27:16 -0700
+Date: Wed, 4 Oct 2023 14:27:14 +0300 (EEST)
 From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
 To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-Subject: Re: [PATCH v2 11/16] platform/x86/amd/pmf: dump policy binary data
-In-Reply-To: <20230930083715.2050863-12-Shyam-sundar.S-k@amd.com>
-Message-ID: <826ae56e-76c6-aaaf-153-30fa3be96d69@linux.intel.com>
+Subject: Re: [PATCH v2 01/16] platform/x86/amd/pmf: Add PMF TEE interface
+In-Reply-To: <20230930083715.2050863-2-Shyam-sundar.S-k@amd.com>
+Message-ID: <43ccea61-c826-72f7-768-7e6a9fd274e@linux.intel.com>
 References: <20230930083715.2050863-1-Shyam-sundar.S-k@amd.com>
- <20230930083715.2050863-12-Shyam-sundar.S-k@amd.com>
+ <20230930083715.2050863-2-Shyam-sundar.S-k@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 X-Mailman-Approved-At: Wed, 04 Oct 2023 13:16:11 +0000
@@ -69,42 +69,144 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Sat, 30 Sep 2023, Shyam Sundar S K wrote:
 
-> Sometimes policy binary retrieved from the BIOS maybe incorrect that can
-> end up in failing to enable the Smart PC solution feature.
+> AMD PMF driver loads the PMF TA (Trusted Application) into the AMD
+> ASP's (AMD Security Processor) TEE (Trusted Execution Environment).
 > 
-> Use print_hex_dump_debug() to dump the policy binary in hex, so that we
-> debug the issues related to the binary even before sending that to TA.
+> PMF Trusted Application is a secured firmware placed under
+> /lib/firmware/amdtee gets loaded only when the TEE environment is
+> initialized. Add the initial code path to build these pipes.
 > 
+> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
 > Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
 > ---
->  drivers/platform/x86/amd/pmf/tee-if.c | 7 +++++++
->  1 file changed, 7 insertions(+)
+>  drivers/platform/x86/amd/pmf/Makefile |   3 +-
+>  drivers/platform/x86/amd/pmf/core.c   |  11 ++-
+>  drivers/platform/x86/amd/pmf/pmf.h    |  16 ++++
+>  drivers/platform/x86/amd/pmf/tee-if.c | 112 ++++++++++++++++++++++++++
+>  4 files changed, 138 insertions(+), 4 deletions(-)
+>  create mode 100644 drivers/platform/x86/amd/pmf/tee-if.c
 > 
-> diff --git a/drivers/platform/x86/amd/pmf/tee-if.c b/drivers/platform/x86/amd/pmf/tee-if.c
-> index 01f974b55a6a..d16bdecfd43a 100644
-> --- a/drivers/platform/x86/amd/pmf/tee-if.c
-> +++ b/drivers/platform/x86/amd/pmf/tee-if.c
-> @@ -290,6 +290,9 @@ static ssize_t amd_pmf_get_pb_data(struct file *filp, const char __user *buf,
->  	if (copy_from_user(dev->policy_buf, buf, dev->policy_sz))
->  		return -EFAULT;
+> diff --git a/drivers/platform/x86/amd/pmf/Makefile b/drivers/platform/x86/amd/pmf/Makefile
+> index fdededf54392..d2746ee7369f 100644
+> --- a/drivers/platform/x86/amd/pmf/Makefile
+> +++ b/drivers/platform/x86/amd/pmf/Makefile
+> @@ -6,4 +6,5 @@
 >  
-> +	print_hex_dump_debug("(pb):  ", DUMP_PREFIX_OFFSET, 16, 1, dev->policy_buf,
-> +			     dev->policy_sz, false);
+>  obj-$(CONFIG_AMD_PMF) += amd-pmf.o
+>  amd-pmf-objs := core.o acpi.o sps.o \
+> -		auto-mode.o cnqf.o
+> +		auto-mode.o cnqf.o \
+> +		tee-if.o
+> diff --git a/drivers/platform/x86/amd/pmf/core.c b/drivers/platform/x86/amd/pmf/core.c
+> index 78ed3ee22555..68f1389dda3e 100644
+> --- a/drivers/platform/x86/amd/pmf/core.c
+> +++ b/drivers/platform/x86/amd/pmf/core.c
+> @@ -309,8 +309,11 @@ static void amd_pmf_init_features(struct amd_pmf_dev *dev)
+>  		dev_dbg(dev->dev, "SPS enabled and Platform Profiles registered\n");
+>  	}
+>  
+> -	/* Enable Auto Mode */
+> -	if (is_apmf_func_supported(dev, APMF_FUNC_AUTO_MODE)) {
+> +	if (amd_pmf_init_smart_pc(dev)) {
+> +		/* Enable Smart PC Solution builder */
+> +		dev_dbg(dev->dev, "Smart PC Solution Enabled\n");
+> +	} else if (is_apmf_func_supported(dev, APMF_FUNC_AUTO_MODE)) {
+> +		/* Enable Auto Mode */
+>  		amd_pmf_init_auto_mode(dev);
+>  		dev_dbg(dev->dev, "Auto Mode Init done\n");
+>  	} else if (is_apmf_func_supported(dev, APMF_FUNC_DYN_SLIDER_AC) ||
+> @@ -330,7 +333,9 @@ static void amd_pmf_deinit_features(struct amd_pmf_dev *dev)
+>  		amd_pmf_deinit_sps(dev);
+>  	}
+>  
+> -	if (is_apmf_func_supported(dev, APMF_FUNC_AUTO_MODE)) {
+> +	if (dev->smart_pc_enabled) {
+> +		amd_pmf_deinit_smart_pc(dev);
+> +	} else if (is_apmf_func_supported(dev, APMF_FUNC_AUTO_MODE)) {
+>  		amd_pmf_deinit_auto_mode(dev);
+>  	} else if (is_apmf_func_supported(dev, APMF_FUNC_DYN_SLIDER_AC) ||
+>  			  is_apmf_func_supported(dev, APMF_FUNC_DYN_SLIDER_DC)) {
+> diff --git a/drivers/platform/x86/amd/pmf/pmf.h b/drivers/platform/x86/amd/pmf/pmf.h
+> index deba88e6e4c8..02460c2a31ea 100644
+> --- a/drivers/platform/x86/amd/pmf/pmf.h
+> +++ b/drivers/platform/x86/amd/pmf/pmf.h
+> @@ -179,6 +179,12 @@ struct amd_pmf_dev {
+>  	bool cnqf_enabled;
+>  	bool cnqf_supported;
+>  	struct notifier_block pwr_src_notifier;
+> +	/* Smart PC solution builder */
+> +	struct tee_context *tee_ctx;
+> +	struct tee_shm *fw_shm_pool;
+> +	u32 session_id;
+> +	void *shbuf;
+> +	bool smart_pc_enabled;
+>  };
+>  
+>  struct apmf_sps_prop_granular {
+> @@ -389,6 +395,13 @@ struct apmf_dyn_slider_output {
+>  	struct apmf_cnqf_power_set ps[APMF_CNQF_MAX];
+>  } __packed;
+>  
+> +struct ta_pmf_shared_memory {
+> +	int command_id;
+> +	int resp_id;
+> +	u32 pmf_result;
+> +	u32 if_version;
+> +};
 > +
->  	ret = amd_pmf_start_policy_engine(dev);
->  	if (ret)
->  		return -EINVAL;
-> @@ -341,6 +344,10 @@ static int amd_pmf_get_bios_buffer(struct amd_pmf_dev *dev)
->  		return -ENOMEM;
+>  /* Core Layer */
+>  int apmf_acpi_init(struct amd_pmf_dev *pmf_dev);
+>  void apmf_acpi_deinit(struct amd_pmf_dev *pmf_dev);
+> @@ -433,4 +446,7 @@ void amd_pmf_deinit_cnqf(struct amd_pmf_dev *dev);
+>  int amd_pmf_trans_cnqf(struct amd_pmf_dev *dev, int socket_power, ktime_t time_lapsed_ms);
+>  extern const struct attribute_group cnqf_feature_attribute_group;
 >  
->  	memcpy(dev->policy_buf, dev->policy_base, dev->policy_sz);
-> +#ifdef CONFIG_AMD_PMF_DEBUG
-> +	print_hex_dump_debug("(pb):  ", DUMP_PREFIX_OFFSET, 16, 1, dev->policy_buf,
-> +			     dev->policy_sz, false);
-> +#endif
+> +/* Smart PC builder Layer*/
+> +int amd_pmf_init_smart_pc(struct amd_pmf_dev *dev);
+> +void amd_pmf_deinit_smart_pc(struct amd_pmf_dev *dev);
+>  #endif /* PMF_H */
+> diff --git a/drivers/platform/x86/amd/pmf/tee-if.c b/drivers/platform/x86/amd/pmf/tee-if.c
+> new file mode 100644
+> index 000000000000..4db80ca59a11
+> --- /dev/null
+> +++ b/drivers/platform/x86/amd/pmf/tee-if.c
+> @@ -0,0 +1,112 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * AMD Platform Management Framework Driver - TEE Interface
+> + *
+> + * Copyright (c) 2023, Advanced Micro Devices, Inc.
+> + * All Rights Reserved.
+> + *
+> + * Author: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+> + */
+> +
+> +#include <linux/tee_drv.h>
+> +#include <linux/uuid.h>
+> +#include "pmf.h"
+> +
+> +#define MAX_TEE_PARAM	4
+> +static const uuid_t amd_pmf_ta_uuid = UUID_INIT(0x6fd93b77, 0x3fb8, 0x524d,
+> +						0xb1, 0x2d, 0xc5, 0x29, 0xb1, 0x3d, 0x85, 0x43);
+> +
+> +static int amd_pmf_amdtee_ta_match(struct tee_ioctl_version_data *ver, const void *data)
+> +{
+> +	return ver->impl_id == TEE_IMPL_ID_AMDTEE;
+> +}
+> +
+> +static int amd_pmf_ta_open_session(struct tee_context *ctx, u32 *id)
+> +{
+> +	struct tee_ioctl_open_session_arg sess_arg = {};
+> +	int rc;
+> +
+> +	export_uuid(sess_arg.uuid, &amd_pmf_ta_uuid);
+> +	sess_arg.clnt_login = TEE_IOCTL_LOGIN_PUBLIC;
+> +	sess_arg.num_params = 0;
+> +
+> +	rc = tee_client_open_session(ctx, &sess_arg, NULL);
 
-Create a wrapper for print_hex_dump_debug into #ifdef and #else blocks for 
-this too so you don't need the ifdef here.
+This will probably fail build if CONFIG_TEE is not set as nothing 
+is added here to require it?
 
 -- 
  i.
