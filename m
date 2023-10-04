@@ -4,59 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7A4CE936E9
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 21:50:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92941E936EB
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 23:10:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73D2D10E1C1;
-	Wed,  4 Oct 2023 21:50:21 +0000 (UTC)
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
- [IPv6:2001:4860:4864:20::33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BB1010E1C1
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Oct 2023 21:50:19 +0000 (UTC)
-Received: by mail-oa1-x33.google.com with SMTP id
- 586e51a60fabf-1dd5b98d9aeso175505fac.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 04 Oct 2023 14:50:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1696456218; x=1697061018; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ZnCRAcynVDrM4rjo4XrUjVwfKOrn/LejLiv+I6Z5VGc=;
- b=hE12dibcPLCYv0QQGJZERZm0waiN8359Yqf3HejGNCgE804o+QDdsOguSf/111Yg9b
- LMfWI+SuanuhwYau5nFvafKZwCehJVG0jdFSC22gJaBRgF5DmWrkd6hgtQCEx+3GWI7K
- 2VrC3vIvxP/KFPkxF/PVlKnUrkpKS1qJUxXBiblxPggmmsYXRUWS91+Id7cjgl9khnYZ
- MJ0Ku+9usFl0huhYWnj7IARoGN2/23ot0MYugkoJl/SF/j9JSiqEiY6M+tLblT/D6yIa
- 8QZ9VtIGPtOWaXiMx/1qOcvD13lgjq1hsCQxlMFySo8vF31wBuVPxLLxny9qd9+FM+2j
- w26w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696456218; x=1697061018;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ZnCRAcynVDrM4rjo4XrUjVwfKOrn/LejLiv+I6Z5VGc=;
- b=gZ0C/Z1JGnfLxBfJsq85fDlAn8DosB+aMKNbrGi+S+1iCJp0N7g2EAMvapUUp/o1XJ
- RzF1juUaoC6A/1QAm5AI89CWrqYr5/hB/5o/e59nsyOBhOsA7Ovzaxlx2W8AtfXWHakc
- 5z3xkBxc8hQs9Teo0F8MNn91WXlVRIOzF3jCIE3sfq0N9YRs4Y3ewzZKZK5AS8aN5dW9
- oVILTDN9HPDmENaOPAzKDrClMmPctXxJWwpHy5r623U4SNSmTLON0ErV+0SrtxC8FYoC
- 7XRjVnDU8DDQnvpBkW34mD8TEc1c8INSZ4vWfRExuMGrJqhdvGhAJHucSez+2sr/h3bD
- jvnw==
-X-Gm-Message-State: AOJu0YwXMVjgrLS7doNdmQ486dtvXimPHycl5hoZqgdiMhiy0MAjEXKD
- RJkC1xoNLA2dZUJO1D4uCXiOdOoLP+ecGSbdr90J7s2+
-X-Google-Smtp-Source: AGHT+IEh4v2DnSA15P1QSmnpWc7x+un8CcmklSPp9DhjKXVVBKUlPiuuu9njDmAPX7uepr1AeGfZK0BjpggmMICzCv0=
-X-Received: by 2002:a05:6870:7008:b0:1d5:404d:d2c9 with SMTP id
- u8-20020a056870700800b001d5404dd2c9mr512169oae.14.1696456218481; Wed, 04 Oct
- 2023 14:50:18 -0700 (PDT)
-MIME-Version: 1.0
-References: <20231004204644.182618-1-mario.limonciello@amd.com>
-In-Reply-To: <20231004204644.182618-1-mario.limonciello@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 4 Oct 2023 17:50:07 -0400
-Message-ID: <CADnq5_ON-+ZE_Op_16ihsva-EOBtb91GZO+fepox42SS0nT1ZQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Fix UBSAN array-index-out-of-bounds for Polaris
- and Tonga
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD95910E0D7;
+	Wed,  4 Oct 2023 23:10:10 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32F8110E0D7
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Oct 2023 23:10:08 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 21F8E615F3;
+ Wed,  4 Oct 2023 23:10:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A01CEC433C7;
+ Wed,  4 Oct 2023 23:10:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1696461006;
+ bh=sr3ifcYlnQGpK7RnHCI5qP/JfUY4gY6cRzG0hwZktu8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=CIyVh30kCx/E3HkEEl2nSJkUfwb0kjb3KXI8ARak+kw+rvNQCmJglP/CtQEaDBYOP
+ UmJgRx1niIHuZVu4fiOMIgM/xdw8s/DHLyfteoAF9i91+74oPnxgaSVFgPqxVQxweM
+ XYaRLUNX1C6k4R5n9S0lI0bCMK2o5Ck45irETSBscxPno1fsrsFattKipt61D0NwG9
+ x1ocuKJBWNjJjS/B14TN+SU3kAuHDrUgdr1cKqJskBA/uaVMKgNZx0tQ+j1gdrZIhg
+ 9WIc2//ILIuhU4N2mnGJh+bVkeVx82YFrXhrsvuPZPhJllvTE7UZ3YBIekGloVb7sc
+ O/MzMZwgP7sYw==
+Received: by mercury (Postfix, from userid 1000)
+ id B812E106052D; Thu,  5 Oct 2023 01:10:03 +0200 (CEST)
+Date: Thu, 5 Oct 2023 01:10:03 +0200
+From: Sebastian Reichel <sre@kernel.org>
 To: Mario Limonciello <mario.limonciello@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/3] power: supply: Don't count 'unknown' scope power
+ supplies
+Message-ID: <20231004231003.z55btgajmixxadqo@mercury.elektranox.org>
+References: <20230926225955.386553-1-mario.limonciello@amd.com>
+ <20230926225955.386553-3-mario.limonciello@amd.com>
+ <20230930201826.biy27esyw4ttxt4p@mercury.elektranox.org>
+ <8d4e4b74-4477-41e0-a690-8b9f38907a7b@amd.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="mavrvis2xy3vzwff"
+Content-Disposition: inline
+In-Reply-To: <8d4e4b74-4477-41e0-a690-8b9f38907a7b@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,101 +56,142 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, Jun.ma2@amd.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-pm@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 4, 2023 at 5:42=E2=80=AFPM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> For pptable structs that use flexible array sizes, use flexible arrays.
->
-> Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2036742
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+--mavrvis2xy3vzwff
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> ---
-> From this bug report there are more to fix
->  .../gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h    | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h b/driv=
-ers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h
-> index 57bca1e81d3a..9fcad69a9f34 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h
-> @@ -164,7 +164,7 @@ typedef struct _ATOM_Tonga_State {
->  typedef struct _ATOM_Tonga_State_Array {
->         UCHAR ucRevId;
->         UCHAR ucNumEntries;             /* Number of entries. */
-> -       ATOM_Tonga_State entries[1];    /* Dynamically allocate entries. =
-*/
-> +       ATOM_Tonga_State entries[];     /* Dynamically allocate entries. =
-*/
->  } ATOM_Tonga_State_Array;
->
->  typedef struct _ATOM_Tonga_MCLK_Dependency_Record {
-> @@ -210,7 +210,7 @@ typedef struct _ATOM_Polaris_SCLK_Dependency_Record {
->  typedef struct _ATOM_Polaris_SCLK_Dependency_Table {
->         UCHAR ucRevId;
->         UCHAR ucNumEntries;                                              =
-       /* Number of entries. */
-> -       ATOM_Polaris_SCLK_Dependency_Record entries[1];                  =
-        /* Dynamically allocate entries. */
-> +       ATOM_Polaris_SCLK_Dependency_Record entries[];                   =
-        /* Dynamically allocate entries. */
->  } ATOM_Polaris_SCLK_Dependency_Table;
->
->  typedef struct _ATOM_Tonga_PCIE_Record {
-> @@ -222,7 +222,7 @@ typedef struct _ATOM_Tonga_PCIE_Record {
->  typedef struct _ATOM_Tonga_PCIE_Table {
->         UCHAR ucRevId;
->         UCHAR ucNumEntries;                                              =
-                               /* Number of entries. */
-> -       ATOM_Tonga_PCIE_Record entries[1];                               =
-                       /* Dynamically allocate entries. */
-> +       ATOM_Tonga_PCIE_Record entries[];                                =
-                       /* Dynamically allocate entries. */
->  } ATOM_Tonga_PCIE_Table;
->
->  typedef struct _ATOM_Polaris10_PCIE_Record {
-> @@ -235,7 +235,7 @@ typedef struct _ATOM_Polaris10_PCIE_Record {
->  typedef struct _ATOM_Polaris10_PCIE_Table {
->         UCHAR ucRevId;
->         UCHAR ucNumEntries;                                         /* Nu=
-mber of entries. */
-> -       ATOM_Polaris10_PCIE_Record entries[1];                      /* Dy=
-namically allocate entries. */
-> +       ATOM_Polaris10_PCIE_Record entries[];                      /* Dyn=
-amically allocate entries. */
->  } ATOM_Polaris10_PCIE_Table;
->
->
-> @@ -252,7 +252,7 @@ typedef struct _ATOM_Tonga_MM_Dependency_Record {
->  typedef struct _ATOM_Tonga_MM_Dependency_Table {
->         UCHAR ucRevId;
->         UCHAR ucNumEntries;                                              =
-                               /* Number of entries. */
-> -       ATOM_Tonga_MM_Dependency_Record entries[1];                      =
-  /* Dynamically allocate entries. */
-> +       ATOM_Tonga_MM_Dependency_Record entries[];                       =
-  /* Dynamically allocate entries. */
->  } ATOM_Tonga_MM_Dependency_Table;
->
->  typedef struct _ATOM_Tonga_Voltage_Lookup_Record {
-> @@ -265,7 +265,7 @@ typedef struct _ATOM_Tonga_Voltage_Lookup_Record {
->  typedef struct _ATOM_Tonga_Voltage_Lookup_Table {
->         UCHAR ucRevId;
->         UCHAR ucNumEntries;                                              =
-                               /* Number of entries. */
-> -       ATOM_Tonga_Voltage_Lookup_Record entries[1];                     =
-       /* Dynamically allocate entries. */
-> +       ATOM_Tonga_Voltage_Lookup_Record entries[];                      =
-       /* Dynamically allocate entries. */
->  } ATOM_Tonga_Voltage_Lookup_Table;
->
->  typedef struct _ATOM_Tonga_Fan_Table {
-> --
-> 2.34.1
->
+Hi,
+
+On Sun, Oct 01, 2023 at 07:00:11PM -0500, Mario Limonciello wrote:
+> Let me try to add more detail.
+>=20
+> This is an OEM system that has 3 USB type C ports.  It's an Intel system,
+> but this doesn't matter for the issue.
+> * when ucsi_acpi is not loaded there are no power supplies in the system =
+and
+> it reports power_supply_is_system_supplied() as AC.
+> * When ucsi_acpi is loaded 3 power supplies will be registered.
+> power_supply_is_system_supplied() reports as DC.
+>=20
+> Now when you add in a Navi3x AMD dGPU to the system the power supplies do=
+n't
+> change.  This particular dGPU model doesn't contain a USB-C port, so there
+> is no UCSI power supply registered.
+>=20
+> As amdgpu is loaded it looks at device initialization whether the system =
+is
+> powered by AC or DC.  Here is how it looks:
+>=20
+> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/dri=
+vers/gpu/drm/amd/amdgpu/amdgpu_device.c?h=3Dlinux-6.5.y#n3834
+>=20
+> On the OEM system if amdgpu loads before the ucsi_acpi driver (such as in
+> the initramfs) then the right value is returned for
+> power_supply_is_system_supplied() - AC.
+>=20
+> If amdgpu is loaded after the ucsi_acpi driver, the wrong value is return=
+ed
+> for power_supply_is_system_supplied() - DC.
+>=20
+> This value is very important to set up the dGPU properly.  If the wrong
+> value is returned, the wrong value will be notified to the hardware and t=
+he
+> hardware will not behave properly.  On the OEM system this is a "black
+> screen" at bootup along with RAS errors emitted by the dGPU.
+>=20
+> With no changes to a malfunctioning kernel or initramfs binaries I can add
+> modprobe.blacklist=3Ducsi_acpi to kernel command line avoid registering t=
+hose
+> 3 power supplies and the system behaves properly.
+>=20
+> So I think it's inappropriate for "UNKNOWN" scope power supplies to be
+> registered and treated as system supplies, at least as it pertains to
+> power_supply_is_system_supplied().
+
+So the main issue is, that the ucsi_acpi registers a bunch of
+power-supply chargers with unknown scope on a desktop systems
+and that results in the system assumed to be supplied from battery.
+
+The problem with your change is, that many of the charger drivers
+don't set a scope at all (and thus report unknown scope). Those
+obviously should not be skipped. Probably most of these drivers
+could be changed to properly set the scope, but it needs to be
+checked on a case-by-case basis. With your current patch they would
+regress in the oposite direction of your use-case.
+
+Ideally ucsi is changed to properly describe the scope, but I
+suppose this information is not available in ACPI?
+
+Assuming that the above are not solvable easily, my idea would be to
+only count the number of POWER_SUPPLY_TYPE_BATTERY device, which have
+!POWER_SUPPLY_SCOPE_DEVICE and exit early if there are none.
+Basically change __power_supply_is_system_supplied(), so that it
+looks like this:
+
+=2E..
+	if (!psy->desc->get_property(psy, POWER_SUPPLY_PROP_SCOPE, &ret))
+		if (ret.intval =3D=3D POWER_SUPPLY_SCOPE_DEVICE)
+			return 0;
+
+	if (psy->desc->type =3D=3D POWER_SUPPLY_TYPE_BATTERY)
+			(*count)++;
+    else
+		if (!psy->desc->get_property(psy, POWER_SUPPLY_PROP_ONLINE,
+					&ret))
+			return ret.intval;
+=2E..
+
+That should work in both cases.
+
+-- Sebastian
+
+> > >   drivers/power/supply/power_supply_core.c | 2 +-
+> > >   1 file changed, 1 insertion(+), 1 deletion(-)
+> > >=20
+> > > diff --git a/drivers/power/supply/power_supply_core.c b/drivers/power=
+/supply/power_supply_core.c
+> > > index d325e6dbc770..3de6e6d00815 100644
+> > > --- a/drivers/power/supply/power_supply_core.c
+> > > +++ b/drivers/power/supply/power_supply_core.c
+> > > @@ -349,7 +349,7 @@ static int __power_supply_is_system_supplied(stru=
+ct device *dev, void *data)
+> > >   	unsigned int *count =3D data;
+> > >   	if (!psy->desc->get_property(psy, POWER_SUPPLY_PROP_SCOPE, &ret))
+> > > -		if (ret.intval =3D=3D POWER_SUPPLY_SCOPE_DEVICE)
+> > > +		if (ret.intval !=3D POWER_SUPPLY_SCOPE_SYSTEM)
+> > >   			return 0;
+> > >   	(*count)++;
+> > > --=20
+> > > 2.34.1
+> > >=20
+>=20
+
+--mavrvis2xy3vzwff
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmUd8McACgkQ2O7X88g7
++poWjA/9HdkzUe4iv3N7kLQ1MX8LLpg04IlI4kPsSscO2XL8B9FQgQVSaVaH8bSc
+IB0/8clq1dhPvpsC2lZBKGxEnzm1DA3Q97UZ+i+pO2yCeYB2b/I5dnXLYr5m3teZ
+prHUSgoGMNF3lc5QeLO7hc/RT4pKbk7eme3geqCj8Z1JDRUnJLychMMhtzqRch7k
+14ZZWZ3e93vDs6J0Kz5/MT4ws/4m831MzA9sbXK2qRtugV259jeEw/6UtUIdyp8V
+QK2/P9k6ZXfcZjzkm0JVm19lWvyF3YM2WzeoLLeYE8bz6BIBQauw/DyTknKFDmQx
+3ftwFyd6fbnfOfKRgXac2zlrG5W1v1y6Xs8GfMvrWf1KxvXNrpzU8VBCArJk67k3
+CP2s6f7CvFxe9XrMinsge58mraayaqSUmc9QeM/tKuBNpUGglUJo/FFFHMBfITqb
+M1zll2uGFGajOfEpiI9pHIIVWhXzVCoYUdvu3KJsmTciuqSX2qJWY/76P6YdVLXR
+JT1i64+6ca7VklC5PWgG98s2xoGHYowVmGSChtEkYvAD8GpR+CQELBj8R6xcApAu
+njA+xFNG6ZvP8BSLYUd5Qon+EHqHmBA70oj9FkZueKie1+YLSlH4prMn5aQqThkP
+WZodfhxa5KMbzTbnsd62i4yZkfbU1uKFsgYPXDCA/feQeuQLLwE=
+=/PRi
+-----END PGP SIGNATURE-----
+
+--mavrvis2xy3vzwff--
