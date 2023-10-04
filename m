@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9852FE936E8
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 21:21:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81B05E936E6
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 21:21:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 127B010E3BD;
-	Wed,  4 Oct 2023 21:21:45 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2068.outbound.protection.outlook.com [40.107.212.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF19110E3BC
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2644810E3BB;
+	Wed,  4 Oct 2023 21:21:46 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2060.outbound.protection.outlook.com [40.107.237.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AABE10E3BC
  for <amd-gfx@lists.freedesktop.org>; Wed,  4 Oct 2023 21:21:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fMMHIpwoxMFEBYzA4NMw52U2GzjXZ4oOS9wiAIiEg4QJgi8uHk/5peMnJRdTMHHzeN8x/PAa8loMaeUUJmgfMydmxtpDrOANDqDjcbRfSCVK8mU8BJm+KVy3Z8A7Gx7oN8bdzb6n+MuL67WbCV1K7wj1ECZN3vLlHju+w9g/KGmlVz2zKWaFEk2glfF1/pDH0C4jVueD5GgA2IQu2Fy4mNWLpe40fexzxy6aGDiON6LwFQ21y1sACOfWPbL+/pDVI2y4vIUVtjMdYHD0lLMU9/aGiyGvHuOcu1z4s9ryAVKErZ5m/3HilpYy86cUd4YEJyrkFlTmkVBBqp+n2MeuWQ==
+ b=BHO2E3SudC38o/GJA6p2uQccWSD1r+u1Yl5F5aU/9+wGG8AAR6L4cAl5s/B9LQfNCw1p9gPI9bvVcLferkBWyGqaKBegSxw8uR6ZHt/od9IWxY6bMrtd8lP8QxMEN6bGRtmSsgllKWGmX1QrXLbI/rX2KZAWwGqDtgInAskgktvV6lcaw7ElW4ZPSS8fcQLgDl1Cv1Vkpspifn2/qk1X38bdc2F5jhHrOQVhq01jypcFDRti5Oq5Vm5ji6jcKLm2YbZsDu8P99DadZu1PeSJmHk501Y+FZPjWwVPZBbgSGr5mCoJJ34QXpy7CPjDHkkApT5RqygEU5+k9vIpz3zY4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Do0mmjJjrMMlvbOvvYAGdIKHRkibTgQH6m2xiaf+a8s=;
- b=a/QLUL4U802xpC17NZRwy0t1JsSFjNDoS7nj4BWro3aZXofDGZiA/LeJBqsP2GnHVBs3sUyqNBu4a1fq+I+oPUBJB+WPl8A9Y6YloWUZ4vI/L9u9uIXzjZcTLKHDgMuxOcukeD8k0K7gfHC5ZrjDuMjmwwqofHty9rPO41ftaOroL8vnui6L9x9Wk3Frtq9dLcf/Obu87EtkA/9PgwR6WMAL5CgZQNvELVroB4tO8GFaxTxXSkNVDRNU1kTJAeg+v4s8eAX2C39s15nft6S6T8cdrfOdKils2SrGDpM7cBwsojTYXnPR/q86qWOXotPZNP/054r74LoRoyuSiVuIyw==
+ bh=nwD4cfKHkWMAkXMUsdsBfR/hGkJLu5QxS66mL7/AMO8=;
+ b=S4mnd/08wW1Qo7idYk29y3d2gf67O3UCFV2jywOBTkoNGkPXD7xpiwFPy+4ZJDhqWpKyravRqVGF9TBg+lptP+S5qAEcpmA1BBsJCYnF1PI2lq1bCI2wX3LMXeskvYh+adQdamtz7kOu2NAlGEcNHCMOitMhipuyeCFZIvUeuIQR8cAUYke5Rw24XmSpmAmyQLoD+64Ccev5pZfQ+x9PqW3XhcaGQUYPzbTP4941g4rz5AN6z1SAXwqCUMnyMabHSwuDrypqY5pbTaY41OFLeAJiosIj0a4T3Q1OGzxvhObufYGNP4N8k19FtStyWWwdeYtKlr4ZT0RIKMPgS4KZ8Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Do0mmjJjrMMlvbOvvYAGdIKHRkibTgQH6m2xiaf+a8s=;
- b=F0tNnGJEGxLccHyIx1s83l1TQ0bO7fyZh8PJ2gmwGHXvGT6foVVVwRvjqJ4n+ekQ6NzWzBNdx3DK2rLgwuH8KNl6+rwdX2tX7WK3KiPIaBT4eAWbfx3TA98IS0QJ89ovC5+zTTs2vn5QDE4rFwmqDPisgg3ytvb2+6JGlJW6zTQ=
-Received: from MN2PR05CA0038.namprd05.prod.outlook.com (2603:10b6:208:236::7)
- by BN9PR12MB5307.namprd12.prod.outlook.com (2603:10b6:408:104::5)
+ bh=nwD4cfKHkWMAkXMUsdsBfR/hGkJLu5QxS66mL7/AMO8=;
+ b=IVTF/6p/V2tTkuHD0vsmqoAnfStKOFcEuGlgnLNvkEA9ogpkfB8TkuKQouipkQoh8fdFJ11xs4N1LuEJzvyEBaxjmO/NHBm0wCdU1+K3YCgjH4xD4kjHLROXporx04tUp5zq4NqukwIUczS3CuK3kTGZFmIS77oViN7ErBAJlnk=
+Received: from MN2PR11CA0009.namprd11.prod.outlook.com (2603:10b6:208:23b::14)
+ by MW4PR12MB7013.namprd12.prod.outlook.com (2603:10b6:303:218::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.23; Wed, 4 Oct
- 2023 21:21:41 +0000
-Received: from BL02EPF0001A102.namprd05.prod.outlook.com
- (2603:10b6:208:236:cafe::58) by MN2PR05CA0038.outlook.office365.com
- (2603:10b6:208:236::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.21; Wed, 4 Oct
+ 2023 21:21:39 +0000
+Received: from BL02EPF0001A108.namprd05.prod.outlook.com
+ (2603:10b6:208:23b:cafe::70) by MN2PR11CA0009.outlook.office365.com
+ (2603:10b6:208:23b::14) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.25 via Frontend
- Transport; Wed, 4 Oct 2023 21:21:41 +0000
+ Transport; Wed, 4 Oct 2023 21:21:39 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A102.mail.protection.outlook.com (10.167.241.134) with Microsoft
+ BL02EPF0001A108.mail.protection.outlook.com (10.167.241.138) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.14 via Frontend Transport; Wed, 4 Oct 2023 21:21:41 +0000
+ 15.20.6838.14 via Frontend Transport; Wed, 4 Oct 2023 21:21:39 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 4 Oct
- 2023 16:21:39 -0500
+ 2023 16:21:37 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v3 03/16] drm/amd/display: Move bw_fixed outside DML folder
-Date: Wed, 4 Oct 2023 15:20:57 -0600
-Message-ID: <20231004212110.3753955-4-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH v3 02/16] drm/amd/display: Move custom_float outside DML
+Date: Wed, 4 Oct 2023 15:20:56 -0600
+Message-ID: <20231004212110.3753955-3-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231004212110.3753955-1-Rodrigo.Siqueira@amd.com>
 References: <20231004212110.3753955-1-Rodrigo.Siqueira@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A102:EE_|BN9PR12MB5307:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8d28d593-eebe-4151-a031-08dbc51fe6f6
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A108:EE_|MW4PR12MB7013:EE_
+X-MS-Office365-Filtering-Correlation-Id: 221dc5b9-14bf-43c1-749a-08dbc51fe600
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1WKXCl6QXJ6MMevpdVJE5MnrzjNfDWxnrHoMnBnZic3E8uAflMgGzhKVP4eVmssKNmlmL7Xd3741Ust/ZuAjixscx27xvcxnqqcGZG9FxBkoMbhQ9LnMXTwlO8L2Qy+krLE5k+AFMd0+mJk0rycKLwbwSGf5NDw3F+qYlVDp5aMzTTGBM6H22aPPJbz4EpT4d1kgXbTSYPiSCeBVc8/4QKZEi1roTF+5HTtJmqXosSJors6jI8DU/Nd+frgtWT4c/i5/nxgv2hGYxcvGNsDG3rV+2eYaVyzPhyLS7xIeZDeSZw60+rg6p3MKfLje0WAevGtWQ/xB5Xh0qZ1AU5yS9oTEwuj/Y353IJhGkC2wEiNvQDO7B8ppfJifkLwqB6UFAjPLU7LZydLTbDKMjC18ytUwgJd14wDmI0y01x1A5a2FeM0OdubaHS6/cfsIt+Q7EUNKQcdw0UdTjZRecglomY25H1yLSphpwsH4ux2jLL4rhIIflnsnGHL+2cfVn5kPvzDmviKQVEx4DixwJI3DnnWI9Y7PZJlc3dlApbxV/yUkEotJnqtsseC3VH5Kyyk/yubskPR/wmteGd7/lVJLIIVtmgzpOfG9xgn8kO2lAFwJA/4AL0Nim3DFhRWu54ORljii/qc3V6xNSp3qgDoh64C/1CcMvP7yiWbYu540I5ReYh1QU+RlELrAoRVhdq+S6kbn49haNqDi679abX1o8/ymvk/ngimaMdPbS/Ylz/TZkDqmuR3VS6V545/1A4HeWhgnFp/cT8jwCQCYk+xBIg==
+X-Microsoft-Antispam-Message-Info: lBtaOwc5mhv4SsPCu6FDyt+IHhMFCQAU/v+lRLflUTVYict+rAA7e41IDTXm4nFMLuV7EcfB1yHeJ/pe0yitehy2sUC3qg61zpN3SH6vMfAYPLc6P2JSTJuZ6NpVCVa3PV1m/6nXdSaWh+i69mNi+07VI+nmgAAiBXxpye6NI0SSDMprImywR59Q3gZia/GCFyBRRH6FA3hyQE10uDFCRHKnbxeo0Zfbccirls7yHAuhKrMw8ru9UMf1UuK7+6AYqE9j2xQfvfZpoh99sl8BhQM7yGDqt+5PKJz9K6XFXdWZvOGrbiq4OMI2WRBxp7w+P8jIqbMPJiVDxgcZY1Wn1I4ynhCHd5p7rvt7mJ3mIUdNXsXUaaLgU41lbhOWFPmtAqk9PwItBhGOdafmf3dXT9KgXJTh67JH6jBUnlkS5FjrWZOENNJN1Lfs0WTvbQ2ylUKW9X4V3R07o7A3BiG0gU+cHkJT3p6J6UubxtjmPKLaq7x2ZSJzQJgqKZmoYhkKS8fDFXk1Xm30ez/6HCDums+McRgEv0sI7o8Zm2Gal9+hyK5TvItY904QL3CKvecrZn6cKtDNrjahRV0m3kdgVGEgjDGyXJnwdOvnqaQ8XFluQTks7sDx2fbxIblFYizQMjMGzG1Gi8t3W0eiCV+yC4xHDAsT8byUgcvqJhbGMpW72BzNbziM67IJKFRs+2vTgjVf15taSzB7Iqdn7rGFYXFxdaOcCFn3PuuvGfHg6c+zNv/bKLgL9jttU/SMZSkbZkfLbpo6WdK/WQKQ2BC0cA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(346002)(376002)(136003)(396003)(230922051799003)(64100799003)(186009)(451199024)(82310400011)(1800799009)(46966006)(36840700001)(40470700004)(83380400001)(478600001)(6666004)(16526019)(26005)(1076003)(356005)(2616005)(82740400003)(81166007)(36860700001)(426003)(336012)(47076005)(70586007)(70206006)(316002)(54906003)(8936002)(8676002)(4326008)(41300700001)(86362001)(40480700001)(5660300002)(2906002)(36756003)(6916009)(40460700003)(36900700001);
+ SFS:(13230031)(4636009)(346002)(136003)(396003)(376002)(39860400002)(230922051799003)(186009)(82310400011)(451199024)(64100799003)(1800799009)(40470700004)(46966006)(36840700001)(47076005)(6666004)(478600001)(83380400001)(36860700001)(2616005)(16526019)(82740400003)(40460700003)(26005)(336012)(356005)(81166007)(86362001)(40480700001)(426003)(70206006)(316002)(2906002)(1076003)(54906003)(6916009)(5660300002)(36756003)(8936002)(41300700001)(70586007)(4326008)(8676002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2023 21:21:41.2169 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d28d593-eebe-4151-a031-08dbc51fe6f6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2023 21:21:39.5879 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 221dc5b9-14bf-43c1-749a-08dbc51fe600
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A102.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A108.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5307
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7013
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,84 +106,218 @@ Cc: Sunpeng.Li@amd.com, richard.gong@amd.com, qingqing.zhuo@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-bw_fixed does not need any FPU operation, and it is used on DCE and DCN.
-For this reason, this commit moves bw_fixed to the basic folder outside
-DML.
+The custom_float file does not have any FPU operation, so it should be
+inside DML. This commit moves the file to the basic folder.
 
 Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/basics/Makefile      |  3 ++-
- .../amd/display/dc/{dml/calcs => basics}/bw_fixed.c | 13 ++++++-------
- drivers/gpu/drm/amd/display/dc/dml/Makefile         |  2 --
- 3 files changed, 8 insertions(+), 10 deletions(-)
- rename drivers/gpu/drm/amd/display/dc/{dml/calcs => basics}/bw_fixed.c (94%)
+ .../gpu/drm/amd/display/dc/basics/Makefile    |  3 +-
+ .../dc/{dml/calcs => basics}/custom_float.c   | 90 +++++++------------
+ drivers/gpu/drm/amd/display/dc/dml/Makefile   |  2 +-
+ 3 files changed, 36 insertions(+), 59 deletions(-)
+ rename drivers/gpu/drm/amd/display/dc/{dml/calcs => basics}/custom_float.c (66%)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/basics/Makefile b/drivers/gpu/drm/amd/display/dc/basics/Makefile
-index 65d713aff407..aabcebf69049 100644
+index ee611b03dc48..65d713aff407 100644
 --- a/drivers/gpu/drm/amd/display/dc/basics/Makefile
 +++ b/drivers/gpu/drm/amd/display/dc/basics/Makefile
-@@ -30,7 +30,8 @@ BASICS := \
+@@ -29,7 +29,8 @@ BASICS := \
+ 	fixpt31_32.o \
  	vector.o \
  	dc_common.o \
- 	dce_calcs.o \
--	custom_float.o
-+	custom_float.o \
-+	bw_fixed.o
+-	dce_calcs.o
++	dce_calcs.o \
++	custom_float.o
  
  AMD_DAL_BASICS = $(addprefix $(AMDDALPATH)/dc/basics/,$(BASICS))
  
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c b/drivers/gpu/drm/amd/display/dc/basics/bw_fixed.c
-similarity index 94%
-rename from drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c
-rename to drivers/gpu/drm/amd/display/dc/basics/bw_fixed.c
-index 3aa8dd0acd5e..c8cb89e0d4d0 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c
-+++ b/drivers/gpu/drm/amd/display/dc/basics/bw_fixed.c
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/calcs/custom_float.c b/drivers/gpu/drm/amd/display/dc/basics/custom_float.c
+similarity index 66%
+rename from drivers/gpu/drm/amd/display/dc/dml/calcs/custom_float.c
+rename to drivers/gpu/drm/amd/display/dc/basics/custom_float.c
+index 31d167bc548f..ae05ded9a7f3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/calcs/custom_float.c
++++ b/drivers/gpu/drm/amd/display/dc/basics/custom_float.c
 @@ -1,5 +1,6 @@
 +// SPDX-License-Identifier: MIT
  /*
-- * Copyright 2015 Advanced Micro Devices, Inc.
+- * Copyright 2017 Advanced Micro Devices, Inc.
 + * Copyright 2023 Advanced Micro Devices, Inc.
   *
   * Permission is hereby granted, free of charge, to any person obtaining a
   * copy of this software and associated documentation files (the "Software"),
-@@ -106,9 +107,8 @@ struct bw_fixed bw_frc_to_fixed(int64_t numerator, int64_t denominator)
- 	return res;
+@@ -25,52 +26,41 @@
+ #include "dm_services.h"
+ #include "custom_float.h"
+ 
+-
+-static bool build_custom_float(
+-	struct fixed31_32 value,
+-	const struct custom_float_format *format,
+-	bool *negative,
+-	uint32_t *mantissa,
+-	uint32_t *exponenta)
++static bool build_custom_float(struct fixed31_32 value,
++			       const struct custom_float_format *format,
++			       bool *negative,
++			       uint32_t *mantissa,
++			       uint32_t *exponenta)
+ {
+ 	uint32_t exp_offset = (1 << (format->exponenta_bits - 1)) - 1;
+ 
+ 	const struct fixed31_32 mantissa_constant_plus_max_fraction =
+-		dc_fixpt_from_fraction(
+-			(1LL << (format->mantissa_bits + 1)) - 1,
+-			1LL << format->mantissa_bits);
++		dc_fixpt_from_fraction((1LL << (format->mantissa_bits + 1)) - 1,
++				       1LL << format->mantissa_bits);
+ 
+ 	struct fixed31_32 mantiss;
+ 
+-	if (dc_fixpt_eq(
+-		value,
+-		dc_fixpt_zero)) {
++	if (dc_fixpt_eq(value, dc_fixpt_zero)) {
+ 		*negative = false;
+ 		*mantissa = 0;
+ 		*exponenta = 0;
+ 		return true;
+ 	}
+ 
+-	if (dc_fixpt_lt(
+-		value,
+-		dc_fixpt_zero)) {
++	if (dc_fixpt_lt(value, dc_fixpt_zero)) {
+ 		*negative = format->sign;
+ 		value = dc_fixpt_neg(value);
+ 	} else {
+ 		*negative = false;
+ 	}
+ 
+-	if (dc_fixpt_lt(
+-		value,
+-		dc_fixpt_one)) {
++	if (dc_fixpt_lt(value, dc_fixpt_one)) {
+ 		uint32_t i = 1;
+ 
+ 		do {
+ 			value = dc_fixpt_shl(value, 1);
+ 			++i;
+-		} while (dc_fixpt_lt(
+-			value,
+-			dc_fixpt_one));
++		} while (dc_fixpt_lt(value, dc_fixpt_one));
+ 
+ 		--i;
+ 
+@@ -81,54 +71,40 @@ static bool build_custom_float(
+ 		}
+ 
+ 		*exponenta = exp_offset - i;
+-	} else if (dc_fixpt_le(
+-		mantissa_constant_plus_max_fraction,
+-		value)) {
++	} else if (dc_fixpt_le(mantissa_constant_plus_max_fraction, value)) {
+ 		uint32_t i = 1;
+ 
+ 		do {
+ 			value = dc_fixpt_shr(value, 1);
+ 			++i;
+-		} while (dc_fixpt_lt(
+-			mantissa_constant_plus_max_fraction,
+-			value));
++		} while (dc_fixpt_lt(mantissa_constant_plus_max_fraction, value));
+ 
+ 		*exponenta = exp_offset + i - 1;
+ 	} else {
+ 		*exponenta = exp_offset;
+ 	}
+ 
+-	mantiss = dc_fixpt_sub(
+-		value,
+-		dc_fixpt_one);
++	mantiss = dc_fixpt_sub(value, dc_fixpt_one);
+ 
+-	if (dc_fixpt_lt(
+-			mantiss,
+-			dc_fixpt_zero) ||
+-		dc_fixpt_lt(
+-			dc_fixpt_one,
+-			mantiss))
++	if (dc_fixpt_lt(mantiss, dc_fixpt_zero) ||
++	    dc_fixpt_lt(dc_fixpt_one, mantiss))
+ 		mantiss = dc_fixpt_zero;
+ 	else
+-		mantiss = dc_fixpt_shl(
+-			mantiss,
+-			format->mantissa_bits);
++		mantiss = dc_fixpt_shl(mantiss, format->mantissa_bits);
+ 
+ 	*mantissa = dc_fixpt_floor(mantiss);
+ 
+ 	return true;
  }
  
--struct bw_fixed bw_floor2(
--	const struct bw_fixed arg,
--	const struct bw_fixed significance)
-+struct bw_fixed bw_floor2(const struct bw_fixed arg,
-+			  const struct bw_fixed significance)
+-static bool setup_custom_float(
+-	const struct custom_float_format *format,
+-	bool negative,
+-	uint32_t mantissa,
+-	uint32_t exponenta,
+-	uint32_t *result)
++static bool setup_custom_float(const struct custom_float_format *format,
++			       bool negative,
++			       uint32_t mantissa,
++			       uint32_t exponenta,
++			       uint32_t *result)
  {
- 	struct bw_fixed result;
- 	int64_t multiplicand;
-@@ -119,9 +119,8 @@ struct bw_fixed bw_floor2(
- 	return result;
+ 	uint32_t i = 0;
+ 	uint32_t j = 0;
+-
+ 	uint32_t value = 0;
+ 
+ 	/* verification code:
+@@ -179,19 +155,19 @@ static bool setup_custom_float(
+ 	return true;
  }
  
--struct bw_fixed bw_ceil2(
--	const struct bw_fixed arg,
--	const struct bw_fixed significance)
-+struct bw_fixed bw_ceil2(const struct bw_fixed arg,
-+			 const struct bw_fixed significance)
+-bool convert_to_custom_float_format(
+-	struct fixed31_32 value,
+-	const struct custom_float_format *format,
+-	uint32_t *result)
++bool convert_to_custom_float_format(struct fixed31_32 value,
++				    const struct custom_float_format *format,
++				    uint32_t *result)
  {
- 	struct bw_fixed result;
- 	int64_t multiplicand;
+ 	uint32_t mantissa;
+ 	uint32_t exponenta;
+ 	bool negative;
+ 
+-	return build_custom_float(
+-		value, format, &negative, &mantissa, &exponenta) &&
+-	setup_custom_float(
+-		format, negative, mantissa, exponenta, result);
++	return build_custom_float(value, format, &negative, &mantissa, &exponenta) &&
++				  setup_custom_float(format,
++						     negative,
++						     mantissa,
++						     exponenta,
++						     result);
+ }
+ 
+-
 diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-index 2fe8588a070a..ea7d60f9a9b4 100644
+index 8621dfe9a68c..2fe8588a070a 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
 +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-@@ -134,8 +134,6 @@ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/calcs/dcn_calcs.o := $(dml_rcflags)
+@@ -134,7 +134,7 @@ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/calcs/dcn_calcs.o := $(dml_rcflags)
  CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_auto.o := $(dml_rcflags)
  CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_math.o := $(dml_rcflags)
  
--DML = calcs/bw_fixed.o
--
+-DML = calcs/custom_float.o calcs/bw_fixed.o
++DML = calcs/bw_fixed.o
+ 
  ifdef CONFIG_DRM_AMD_DC_FP
  DML += display_mode_lib.o display_rq_dlg_helpers.o dml1_display_rq_dlg_calc.o
- DML += dcn10/dcn10_fpu.o
 -- 
 2.40.1
 
