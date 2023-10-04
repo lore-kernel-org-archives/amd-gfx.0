@@ -4,90 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EDD9E8FDD1
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 07:40:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65E87E8FDD9
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 07:58:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CE8F10E340;
-	Wed,  4 Oct 2023 07:40:12 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2074.outbound.protection.outlook.com [40.107.94.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B085E10E340
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Oct 2023 07:40:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bVfvGcMuGOP3a316rmyecrMROd4HIAu16RxOcqoyUfsYyeh7cWyc6fBiqH2MmKrrss3TqJvwj+YrHmPfLk3xUHKiwsUsJ03yDbRRxVA4hildzSwH+bxAxvzixDvKMm0kKJmUCYeMmYYEmBgbbQVIMh3CeoLjKFrOr1BlFm2aU2BHaI8/iF6Sx3eCKvRi6CtEJLBv5BgDWeDADqQYWl/yokFkJ5W4QtcWOF2fJPzQzonfkpDkJc5kam6rqhSzoTw7Ow/eJ2lS3MeNHfQsPcy9EBTZJEvl5EA/bXfNn8bpDXqbpBFGuFD5LHhhNl+UGcj0l9si3UoY66eNtq0Izw3HwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wJmwWGRCsY7cVCuBK4iTYvTNwsUUTbS6IyPAmX0VgJ0=;
- b=fx8e16p3OmBdAVcGoRh56Fk+HXE5ctvC3harTUci7EDlxLHog3Kmq0HIFn/tsg8i/0/cpxnapPfny9+lrZ73drvQLUegKzHzTCvAPzvuaPfMSTYyw+kY6WBxFVoCTdr2mCSDoPt5uyP+2HTx5st+veDWZoBNANdYQ+w0D8d7SH4h+vLyVz5LGNSXyurYrfG7XJVqRTrRzIdyaw5Uq0Rdqz/ulB45luitv2gXRpbo8oQ4oc/nmjbmLV5T0RCdeuRjGXNrGXLJsySiLLsYz/YJsMLe1XCTtJ9Hm/15yWVgkEiypgX/45jLNmmnzdxkwBEm4AXatNqMkvSmW8aLEn9YMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wJmwWGRCsY7cVCuBK4iTYvTNwsUUTbS6IyPAmX0VgJ0=;
- b=trBuekf2RpkJ2C7hiKqJ9tvv5/u+RYKydSFnlABqDBCT5i8ooxuqOirZ96dZqXvV8+qB9377w/h4Xd8kdY00wI+BJqNhdqPRu+qBS/BJiI+KqxmmnYgW9Pe+h3w2A0bAhE1uhsbkm33LEX/N7u6d6DAS+X2ozhOv+UTXF5LYXOY=
-Received: from DM6PR11CA0010.namprd11.prod.outlook.com (2603:10b6:5:190::23)
- by BL1PR12MB5095.namprd12.prod.outlook.com (2603:10b6:208:31b::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.35; Wed, 4 Oct
- 2023 07:40:07 +0000
-Received: from DS2PEPF0000343A.namprd02.prod.outlook.com
- (2603:10b6:5:190:cafe::ea) by DM6PR11CA0010.outlook.office365.com
- (2603:10b6:5:190::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.26 via Frontend
- Transport; Wed, 4 Oct 2023 07:40:07 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS2PEPF0000343A.mail.protection.outlook.com (10.167.18.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.14 via Frontend Transport; Wed, 4 Oct 2023 07:40:07 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 4 Oct
- 2023 02:40:05 -0500
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 5/5] Documentation/amdgpu: Add board info details
-Date: Wed, 4 Oct 2023 13:09:41 +0530
-Message-ID: <20231004073941.1489693-5-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20231004073941.1489693-1-lijo.lazar@amd.com>
-References: <20231004073941.1489693-1-lijo.lazar@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 014F010E343;
+	Wed,  4 Oct 2023 07:58:59 +0000 (UTC)
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0A5510E343
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Oct 2023 07:58:57 +0000 (UTC)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3231d6504e1so1711033f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 04 Oct 2023 00:58:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1696406336; x=1697011136; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=tVMK00wv6W1RyhxbkVU/Jao+FGYrh0AlR4gcDh0Lz+w=;
+ b=mCOxY6jj59yNAyW5W2uvA1RCKwMO9N+9h1i3c9RJkC77+3ug0PxHemvJyOPPab43u+
+ NOzvWG9O9d7xVarvRVtAKsYidtC4mAFY3EnIUR21q+z3L9+5Ioahbd58cPY3gfOo2Fer
+ OFV8HnQAqlyvs8sI2xoXiXMg3cbKWkEg7D4+SyfI+CyjpY2Mh6UO9+ib/gPfAattowuX
+ 06mR9oC919BoHpaSH/BcXe3EOCaF0TQkkYwih8JtBgsJQ1eZK2smTkFhBCzkdGuBco+J
+ ZQRpY+vCg1gLHneswZYawdj2rmA9SSruw8ylTHxO7Veih99TxMe8njtgcLvVZnuUBeEQ
+ 03ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1696406336; x=1697011136;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=tVMK00wv6W1RyhxbkVU/Jao+FGYrh0AlR4gcDh0Lz+w=;
+ b=ltmtiDTvJmrB9GwGAJOYSiyAJfLu+KX/Nj0vyf0PDTw/Yv3mT0glaNeoiYcWpD5SxI
+ sDMKp1yWN2aa5DRwveyec0ItoijnKUzL0CpuFQz0J6uI6O51xhibF+0UxNUyBxAZ2ueQ
+ lAoYEIpUcZNznL2fBScRltSfHbKKpYzhAjBCLq9/HmoXhqsPCnH/+04tuHKOt9XguD2e
+ /VoDPNzoNZarQbMA3waWr71TUd17C+A0ukX3XUrRYK8UpX1Ph6R/7RClwfUQWG/fMzI+
+ hntZ1hjCdO4SuYbPdqWQcuNa/a9tdae66vjA45Mzxtzt4E/QlIWmfrEyyT4U9PEZ3+6H
+ FrmA==
+X-Gm-Message-State: AOJu0Yx/EFDoXOzUzB4vVcOHt0GG39wMq8kkHH3tiIq6NQq2qD9fqFQt
+ 3J/ekvrN/Rz1qUIdn809n80=
+X-Google-Smtp-Source: AGHT+IF2UvbveQPtYy6lylMVlBi/sPTFWWES5WbzlQz9csANNV/EXXIQE6Yq3iX/sHQi/Fno4+qqsg==
+X-Received: by 2002:a5d:460e:0:b0:31f:f1f4:ca85 with SMTP id
+ t14-20020a5d460e000000b0031ff1f4ca85mr1389317wrq.37.1696406336096; 
+ Wed, 04 Oct 2023 00:58:56 -0700 (PDT)
+Received: from [192.168.178.25] ([185.254.126.15])
+ by smtp.gmail.com with ESMTPSA id
+ r3-20020adff703000000b00326b8a0e817sm3359048wrp.84.2023.10.04.00.58.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 04 Oct 2023 00:58:55 -0700 (PDT)
+Message-ID: <e5e70e75-5030-b000-3f09-86bba06b1c20@gmail.com>
+Date: Wed, 4 Oct 2023 09:58:54 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [Patch v2 1/2] drm/amdgpu: Rework KFD memory max limits
+Content-Language: en-US
+To: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20231002202117.2690645-1-rajneesh.bhardwaj@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20231002202117.2690645-1-rajneesh.bhardwaj@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF0000343A:EE_|BL1PR12MB5095:EE_
-X-MS-Office365-Filtering-Correlation-Id: 322f1aaf-5c32-44b7-00f2-08dbc4ad2174
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ypLws/gyGIsYAiYGuBqYWCIMIkSX7IKGhLwPkweehdiuwdW+IlQegSVA5PsDNawsJibDOYCYyoTdea1VPQeu6MYgyLM/Bz0wpaHLwG/9Si6yXCW3z35aW8OGxbfhnMVOl9W6T4TUBACpD/Rv6mx2COO8fU6UEjOguAOg+DZB2bAYQdzp4ZYQrEIUHYurWZTHHMEk9rZ3vRpX60DNznYcxJHmNFFOUWCUlmMI2+2L+0JTdEclM4IBvoBaiPNHE+iLiukQxUf12hB9uLMTN/dnZGlw+qfX0vx/pbC+RivsyADiD/WvEcxcEFGh45r4f04v06UA2LKw8RxjKEYYp8v36xK+D//tyZ7xjwyeQmjMugTnBEUPdaFPzXr/j27u4Zu2dEGSLu0WxAS0N9mGGfvfMG3cKDvj2Pi705k3YjTHjKupAWdOPbRuwP+TOFR+fp3wucmIMYKergePcoPeAqSn6hAuVfRr0jwX973GzyidfsBe5h5tXJUFc0j97lQjQPH9EBJ2R8bGoPh2NSDjOUba0ToW1mikvzpKXrKurN3P+S7oN11ks5iuhDrOGPHfHnCkCysmvZUiwT0dmSZ4zhUCucITfPkgzYFhggOqRY5RLg31dbxgrhXu9CXFXNZrW06okJxKJuP06UXWM5BcEfTo5S+y14leIW3RXqn8EYbVaFpSxkKWPzE6u/+cW/JVlNoxr6/p6slepZ6TOvQg97a/s0QGrDnb1X6QTnbsncjM41KnXvg2GyOFnERHiH8D9F80h9jdePkyT7ltBSuVulM1uw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(346002)(136003)(376002)(39860400002)(230922051799003)(1800799009)(186009)(82310400011)(451199024)(64100799003)(36840700001)(40470700004)(46966006)(7696005)(2616005)(6666004)(478600001)(2906002)(336012)(426003)(16526019)(26005)(1076003)(70206006)(41300700001)(316002)(70586007)(6916009)(44832011)(5660300002)(8936002)(4326008)(8676002)(36756003)(54906003)(36860700001)(86362001)(47076005)(81166007)(82740400003)(356005)(40480700001)(40460700003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2023 07:40:07.1911 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 322f1aaf-5c32-44b7-00f2-08dbc4ad2174
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343A.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5095
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,63 +76,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Hawking.Zhang@amd.com
+Cc: philip.yang@amd.com, felix.kuehling@amd.com, lijo.lazar@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add documentation for board info sysfs attribute.
+Am 02.10.23 um 22:21 schrieb Rajneesh Bhardwaj:
+> To allow bigger allocations specially on systems such as GFXIP 9.4.3
+> that use GTT memory for VRAM allocations, relax the limits to
+> maximize ROCm allocations.
+>
+> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
----
- Documentation/gpu/amdgpu/driver-misc.rst   |  6 ++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 16 ++++++++++++++++
- 2 files changed, 22 insertions(+)
+Acked-by: Christian König <christian.koenig@amd.com> for the series.
 
-diff --git a/Documentation/gpu/amdgpu/driver-misc.rst b/Documentation/gpu/amdgpu/driver-misc.rst
-index 4321c38fef21..82b47f1818ac 100644
---- a/Documentation/gpu/amdgpu/driver-misc.rst
-+++ b/Documentation/gpu/amdgpu/driver-misc.rst
-@@ -32,6 +32,12 @@ unique_id
- .. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
-    :doc: unique_id
- 
-+board_info
-+----------
-+
-+.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+   :doc: board_info
-+
- Accelerated Processing Units (APU) Info
- ---------------------------------------
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 10f1641aede9..27c95bb02411 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -162,6 +162,22 @@ static ssize_t amdgpu_device_get_pcie_replay_count(struct device *dev,
- static DEVICE_ATTR(pcie_replay_count, 0444,
- 		amdgpu_device_get_pcie_replay_count, NULL);
- 
-+/**
-+ * DOC: board_info
-+ *
-+ * The amdgpu driver provides a sysfs API for giving board related information.
-+ * It provides the form factor information in the format
-+ *
-+ *   type : form factor
-+ *
-+ * Possible form factor values
-+ *
-+ * - "cem"		- PCIE CEM card
-+ * - "oam"		- Open Compute Accelerator Module
-+ * - "unknown"	- Not known
-+ *
-+ */
-+
- static ssize_t amdgpu_device_get_board_info(struct device *dev,
- 					    struct device_attribute *attr,
- 					    char *buf)
--- 
-2.25.1
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 10 ++++++++--
+>   1 file changed, 8 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index b5b940485059..c55907ff7dcf 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -42,6 +42,7 @@
+>    * changes to accumulate
+>    */
+>   #define AMDGPU_USERPTR_RESTORE_DELAY_MS 1
+> +#define AMDGPU_RESERVE_MEM_LIMIT			(3UL << 29)
+>   
+>   /*
+>    * Align VRAM availability to 2MB to avoid fragmentation caused by 4K allocations in the tail 2MB
+> @@ -115,11 +116,16 @@ void amdgpu_amdkfd_gpuvm_init_mem_limits(void)
+>   		return;
+>   
+>   	si_meminfo(&si);
+> -	mem = si.freeram - si.freehigh;
+> +	mem = si.totalram - si.totalhigh;
+>   	mem *= si.mem_unit;
+>   
+>   	spin_lock_init(&kfd_mem_limit.mem_limit_lock);
+> -	kfd_mem_limit.max_system_mem_limit = mem - (mem >> 4);
+> +	kfd_mem_limit.max_system_mem_limit = mem - (mem >> 6);
+> +	if (kfd_mem_limit.max_system_mem_limit < 2 * AMDGPU_RESERVE_MEM_LIMIT)
+> +		kfd_mem_limit.max_system_mem_limit >>= 1;
+> +	else
+> +		kfd_mem_limit.max_system_mem_limit -= AMDGPU_RESERVE_MEM_LIMIT;
+> +
+>   	kfd_mem_limit.max_ttm_mem_limit = ttm_tt_pages_limit() << PAGE_SHIFT;
+>   	pr_debug("Kernel memory limit %lluM, TTM limit %lluM\n",
+>   		(kfd_mem_limit.max_system_mem_limit >> 20),
 
