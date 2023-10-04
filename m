@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A9AEE936EB
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 21:21:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30BD0E936E8
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 21:21:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 307C910E3BE;
-	Wed,  4 Oct 2023 21:21:56 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2050.outbound.protection.outlook.com [40.107.243.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C3EC10E3BE
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Oct 2023 21:21:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FEF710E3C0;
+	Wed,  4 Oct 2023 21:21:53 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2060.outbound.protection.outlook.com [40.107.94.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 570EF10E3C0
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Oct 2023 21:21:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fbkWhMBVcb+wv/CbVz6VqFj+5iGtaAALibiaoZYKjxHJm0aUvau4cJfG0Xa1NY1RjoGqGa7ElS+OJ2IccxzqDnTNOe1YcacD2ZQf6OBz8Nee/aYnRmN+a5h+Bt99MBVkwbtEXGIICERN0g6HmbcWuT5amQcjyrGzWU4HViEAqDjoAjmU7qWHzChbAOs1tPUGdv279vU9dxbA1tAK6fWBMEmaDlE/1QF+ZOFn2po7rBGZWc4+QO3bsCvHGJc4u/TppnqfkqMEr9IiK/h58fBLtR1Pf54wBr9svChuuG/urs4LmcYh2Q6ff16XlByuFLNcsrP2pWdXzdIcZ3t4iY8emQ==
+ b=EydAGWI56HEx/lAacByvqjAjZBI73Mb5IAR+a4R37slPXmKes+WpLgUooVH0YdLN7smA3uHKD2JCCXaXj6sE2LymubvJf48YFD96fgoNrudoFOd+eya9PuBhkrKNta/sZ8s8RApDouEtj1ZRpPd45KVNTCm21dHYRgTVC2MhFqUtWFnzXfpqZYzVfoKY333ZHVtwAG60l+Yq09itrtXMxa7Uv91j/2p1ISVd4wnNF65NGd1kPRkPHK6H0Ids3O4O/+tet6hiZmQcwfA/1SExGTm/EHXhmUZYzctgV2+nP33qcHGnw/Ha2CA7oCu+nvTWOPaUXwfS0ACZlSOOMEW5JA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QwbUw9NdY2z4RbrT7FQboK1FwoxSj3x3g1BfwQsC3i0=;
- b=MvVRKZsGcvy9xaC5VL2/ArYUVaFUBF3iI6uG2D6PsNk0XYStrcEWbqcjQW1c5P+sHAZ0RPkkga4OZzIBfLoPtj/lX1ScTtqntdsuI212O6swnPj5DVn5JNlCVzUlpg8sN7aenQnuHMY+4/zXYwjz69/YbcJ7fKFdpy0HNTuAbCln8bkWhj7erQcSk1c9ZUAIUbIcCnc3JrOInpmOkzOjAA9k5cew1UABwhmrQpC+FYKqzxAcU0iiHjj+GsQ+AEkWUdIlZqNAfRsu1Py0PQQW6q3dGYij6w66fvePpS4iqKc5mww1Y0uH/t4/Wlmxjk6QrmCt/kRUrAPEzaQEwMtLRQ==
+ bh=FHzRojJ7eh2DMcMv+EX1wh3DEuNL1agQFa3xuORIR5Q=;
+ b=es2wDMVCgQqYYE9ezbDuab521OBv2QCTLnZrTsWNfRFCNBPEkMxOv3UYDNa4mvtlwAKhvHMC8WqrC8D4sP532R6XvKie21/fI7G6+PL2BYXX/y8IRlxun8+Qw4UZwKZdXmCCdS+xQESk9RyrAKA9kQqV759d51Y0aTK98ZdqRbHcqepovkYFeUdjOZlf9vYzH1YeDDPhsUcYR/N+LEZ1Lyc7dzmx0zKqDzYW7LuFwf8gCFPsCb0iLFGjqDLM8FmCCw73yDyri8qHX79xYKS8bpJ0Tr42lii/1JVyayDpM3bUL7B6gD0j5MMVJdDg96bhx+asuyXtY2eacXloa26FhA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QwbUw9NdY2z4RbrT7FQboK1FwoxSj3x3g1BfwQsC3i0=;
- b=ooUIjuQwyOWsXRSN/XpQsIZC1PBRTVzCHf3dauKJIr3s0h62tf08FxhK6ReJuELQ+80eUV4cPml/Iyqarq6fF16im1PX/0IeKZs5AEhWgTPju87GOU2n59pfZJXCSvWsY8Hl7MNRrdPJUxF9gUhAV8FbgSxhxijajH1JhY7XODA=
-Received: from BLAPR03CA0016.namprd03.prod.outlook.com (2603:10b6:208:32b::21)
- by LV8PR12MB9261.namprd12.prod.outlook.com (2603:10b6:408:1ed::15)
+ bh=FHzRojJ7eh2DMcMv+EX1wh3DEuNL1agQFa3xuORIR5Q=;
+ b=b1Z1JyUXsR6wXa5ptT2AIU6NVoXVyJJ8X//S2TyrkGcW/w9HArESHexp15wDOdi37fp3R7ZegzOeo6aTm8yNHNzL5wOpox7KXv8PdibygVkWiDdc8qMrBBd7pnx+FplpzAa3HS/z80GOKkAhejEVvJLPHGSaJ7q4Exmofn+P6Wk=
+Received: from MN2PR02CA0031.namprd02.prod.outlook.com (2603:10b6:208:fc::44)
+ by BL1PR12MB5094.namprd12.prod.outlook.com (2603:10b6:208:312::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.29; Wed, 4 Oct
- 2023 21:21:50 +0000
-Received: from BL02EPF0001A107.namprd05.prod.outlook.com
- (2603:10b6:208:32b:cafe::6b) by BLAPR03CA0016.outlook.office365.com
- (2603:10b6:208:32b::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.26 via Frontend
- Transport; Wed, 4 Oct 2023 21:21:50 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.36; Wed, 4 Oct
+ 2023 21:21:49 +0000
+Received: from BL02EPF0001A106.namprd05.prod.outlook.com
+ (2603:10b6:208:fc:cafe::75) by MN2PR02CA0031.outlook.office365.com
+ (2603:10b6:208:fc::44) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.25 via Frontend
+ Transport; Wed, 4 Oct 2023 21:21:49 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A107.mail.protection.outlook.com (10.167.241.136) with Microsoft
+ BL02EPF0001A106.mail.protection.outlook.com (10.167.241.139) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.14 via Frontend Transport; Wed, 4 Oct 2023 21:21:50 +0000
+ 15.20.6838.14 via Frontend Transport; Wed, 4 Oct 2023 21:21:49 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 4 Oct
- 2023 16:21:48 -0500
+ 2023 16:21:46 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v3 07/16] drm/amd/display: Add z8_marks in dml
-Date: Wed, 4 Oct 2023 15:21:01 -0600
-Message-ID: <20231004212110.3753955-8-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH v3 06/16] drm/amd/display: Add DCN35 DML2 support
+Date: Wed, 4 Oct 2023 15:21:00 -0600
+Message-ID: <20231004212110.3753955-7-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231004212110.3753955-1-Rodrigo.Siqueira@amd.com>
 References: <20231004212110.3753955-1-Rodrigo.Siqueira@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A107:EE_|LV8PR12MB9261:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a48e5b6-50e4-40b3-8281-08dbc51fec75
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A106:EE_|BL1PR12MB5094:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2924ff57-3c7a-4e4e-0215-08dbc51febad
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QTIYJzTvTPmsJNjEtFU0Cm0kcefstj8UcsC0cwyT6kgoN0Vmdf5YstOy0YzpYzMhEKShB4JA6V6ImkValqWRdXMeWWDWCKoK+sWL//Vz81qxBsX1852HfOl6NPCifDW+D/0NUNE8jNUhsNqkk3p12KQcPxoW1cTAu0WZtagO+Epeybg0OFJgWtSZM/Ns95GJYpmbKwRO09VNZ++2Q8UxuBVd9r3bPx55SeXgRp5eIGRsJLb80qGnrInnNmAQyw1H4AiM30gd3Imhg45/OeScEG5DPkeOECIdgKGAEkRUf/TIL7bagGxrrtzaDNGWsKDUxOaTbHPHIG/zUsMA5x/5s/IT6/cQAOfMr6+A62al0J1kU1ReF8EyP44FqDoU6cxDlsnoQl17s3npXNDKpoLhfkkbCQ1ZTceAA20Z087reKYJte9Eswmp7+t4dr/NTbTeTxrzRpClc5S4ZpMxkOEuw3y2PSGuSPeBzJzbIN2KbR5oTbyq/cAMQSIKxSO7HJlFEyaAYmWA6L2+O7get1s2Q/DmHBGFEkzockNLhgPmwzB89S6N6jAmfct03lRrWz6TeB3svotmj/I22H+jM3H5+abd/kARJokSQbZLGYx7WW5yam2i+9fXqa1VO6kBjCzN5+4sBhwkL1prmi0iNDEUksX+DUKeotNv/N9NAVZqvrbQZPn2LP/JVUoBGrVVZhZWGjmbPEHvBcs3hd8mnDiPSgaWsP/NHT1PKVfNmPrjB1fdGoN6oKjjDoyshFC0JfbKEIbiywB4GGCofoDO/YEJKA==
+X-Microsoft-Antispam-Message-Info: edRelDtEnHaOXxixEpDy9eqhCyg/szy5nutnHscexFseB3RW5JUFI93R4S8tzVUsxa4VJzForg/releBzLvBICaJ0uxzzhKeguJGNGnVpaTaX2SeDx0jLpcUHJMukP8k4PpoKB/9IrPa94XDPvdHTjntWIlbewV8FnzfIbjVjdfa8OEUz7a7oPbtiDCK28sUyYohjuGJQT7LAfBDTlVm0Wo3/A21CNJwNrQljbAwwISlqEVSTM0yWLYBvFWjZhHUUHwMGEdFIKUbvdD26cuID4KGNV19Yysyp3rS910gVwWlklmRFD0uLeREDw9EuuZ+QQLJNeyVwo2fjbhZ5q8Kum+xFDzbDf82dTFgUB3kbtqX3mJY96rgnmxrPptcRiJclbJSaQilyJXnyJsfpekStJp/0Y0Hc5sd02RlBf6J70IquStBrzuHxmkyF3zn27OwaYIiNl4WGc7t0hnIniaAvvGfrH65CrKbVmvtIqZCJ/87Ks/IWOIISeDEcenFOO1HNhXGIZO6X1pepE75Dr5N6inKvkc+oSqrs41NPb/T/biv598AxSLxCrHTToqkCyJ9agEEc2BFP75725Etp/sor4ygQr2h8DJLAJfUxCqF6OOo56m1CAMir9nF5qQ40J4rGFZcSlS7RQdgVnxn49g3PyUkvOXeZQxVU+SKTvOrYubI51VwMHC/tw5Am3n1eH900S3FskKomDzbOwkDrBQJEI0oVGjH5DT3MF4v8pcYplut8UzfrMcnk91MX/nByHMoItXjzAVCJM6MLkYZok7fyWT6ScGn7OFMmOGdeFdWCDs=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(136003)(376002)(39860400002)(346002)(396003)(230922051799003)(64100799003)(186009)(451199024)(1800799009)(82310400011)(46966006)(36840700001)(40470700004)(6666004)(40460700003)(478600001)(70206006)(36860700001)(70586007)(82740400003)(86362001)(47076005)(1076003)(336012)(83380400001)(2616005)(426003)(16526019)(54906003)(26005)(8936002)(316002)(2906002)(8676002)(5660300002)(36756003)(4326008)(6916009)(41300700001)(40480700001)(81166007)(356005)(36900700001);
+ SFS:(13230031)(4636009)(376002)(396003)(346002)(39860400002)(136003)(230922051799003)(82310400011)(451199024)(1800799009)(186009)(64100799003)(40470700004)(46966006)(36840700001)(41300700001)(40460700003)(2906002)(5660300002)(36756003)(86362001)(81166007)(40480700001)(4326008)(8936002)(82740400003)(8676002)(356005)(47076005)(6916009)(316002)(83380400001)(36860700001)(70586007)(70206006)(54906003)(426003)(336012)(2616005)(26005)(16526019)(1076003)(6666004)(478600001)(36900700001)(44824005);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2023 21:21:50.4370 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a48e5b6-50e4-40b3-8281-08dbc51fec75
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2023 21:21:49.1230 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2924ff57-3c7a-4e4e-0215-08dbc51febad
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A107.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A106.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9261
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5094
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,94 +99,254 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Charlene Liu <charlene.liu@amd.com>, Sunpeng.Li@amd.com,
- richard.gong@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+Cc: Sunpeng.Li@amd.com, richard.gong@amd.com,
+ Qingqing Zhuo <Qingqing.Zhuo@amd.com>, Rodrigo.Siqueira@amd.com,
  roman.li@amd.com, jerry.zuo@amd.com, Aurabindo.Pillai@amd.com,
  hamza.mahfooz@amd.com, wayne.lin@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, Harry.Wentland@amd.com,
- Alvin Lee <alvin.lee2@amd.com>
+ Alex Deucher <alexander.deucher@amd.com>, Harry.Wentland@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Charlene Liu <charlene.liu@amd.com>
+From: Qingqing Zhuo <Qingqing.Zhuo@amd.com>
 
-Add z8 watermarks to struct for later ASIC use.
+Enable DML2 for DCN35.
 
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
-Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Charlene Liu <charlene.liu@amd.com>
+Changes since V1:
+- Remove hard coded values
+
+Acked-by: Harry Wentland <Harry.Wentland@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Roman Li <roman.li@amd.com>
+Signed-off-by: Qingqing Zhuo <Qingqing.Zhuo@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c | 2 ++
- drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.h | 2 ++
- drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c        | 2 ++
- drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c      | 2 ++
- drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.h      | 1 +
- 5 files changed, 9 insertions(+)
+ .../drm/amd/display/dc/dcn35/dcn35_resource.c | 13 +--
+ .../dc/dml2/display_mode_core_structs.h       |  2 +
+ .../gpu/drm/amd/display/dc/dml2/dml2_policy.c |  7 ++
+ .../display/dc/dml2/dml2_translation_helper.c | 89 ++++++++++++++++++-
+ .../drm/amd/display/dc/dml2/dml2_wrapper.c    |  6 ++
+ 5 files changed, 110 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
-index e65e86c84745..0d446d850313 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
-@@ -10169,6 +10169,8 @@ dml_get_var_func(wm_memory_trip, dml_float_t, mode_lib->mp.UrgentLatency);
- dml_get_var_func(wm_fclk_change, dml_float_t, mode_lib->mp.Watermark.FCLKChangeWatermark);
- dml_get_var_func(wm_usr_retraining, dml_float_t, mode_lib->mp.Watermark.USRRetrainingWatermark);
- dml_get_var_func(wm_dram_clock_change, dml_float_t, mode_lib->mp.Watermark.DRAMClockChangeWatermark);
-+dml_get_var_func(wm_z8_stutter_enter_exit, dml_float_t, mode_lib->mp.Watermark.Z8StutterEnterPlusExitWatermark);
-+dml_get_var_func(wm_z8_stutter, dml_float_t, mode_lib->mp.Watermark.Z8StutterExitWatermark);
- dml_get_var_func(fraction_of_urgent_bandwidth, dml_float_t, mode_lib->mp.FractionOfUrgentBandwidth);
- dml_get_var_func(fraction_of_urgent_bandwidth_imm_flip, dml_float_t, mode_lib->mp.FractionOfUrgentBandwidthImmediateFlip);
- dml_get_var_func(urgent_latency, dml_float_t, mode_lib->mp.UrgentLatency);
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.h b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.h
-index 2a0545801f77..8452485684f5 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.h
-@@ -85,6 +85,8 @@ dml_get_var_decl(wm_stutter_exit, dml_float_t);
- dml_get_var_decl(wm_stutter_enter_exit, dml_float_t);
- dml_get_var_decl(wm_memory_trip, dml_float_t);
- dml_get_var_decl(wm_dram_clock_change, dml_float_t);
-+dml_get_var_decl(wm_z8_stutter_enter_exit, dml_float_t);
-+dml_get_var_decl(wm_z8_stutter, dml_float_t);
- dml_get_var_decl(urgent_latency, dml_float_t);
- dml_get_var_decl(clk_dcf_deepsleep, dml_float_t);
- dml_get_var_decl(wm_fclk_change, dml_float_t);
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c
-index 5bd695628ce8..da18c4b8c257 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c
-@@ -369,6 +369,8 @@ void dml2_extract_watermark_set(struct dcn_watermarks *watermark, struct display
- 	watermark->urgent_latency_ns = dml_get_urgent_latency(dml_core_ctx) * 1000;
- 	watermark->cstate_pstate.fclk_pstate_change_ns = dml_get_wm_fclk_change(dml_core_ctx) * 1000;
- 	watermark->usr_retraining_ns = dml_get_wm_usr_retraining(dml_core_ctx) * 1000;
-+	watermark->cstate_pstate.cstate_enter_plus_exit_z8_ns = dml_get_wm_z8_stutter_enter_exit(dml_core_ctx) * 1000;
-+	watermark->cstate_pstate.cstate_exit_z8_ns = dml_get_wm_z8_stutter(dml_core_ctx) * 1000;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c b/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c
+index 693c7ba4b34d..2fa876d9e1f7 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c
+@@ -31,7 +31,7 @@
+ #include "resource.h"
+ #include "include/irq_service_interface.h"
+ #include "dcn35_resource.h"
+-/*#include "dml2/dml2_wrapper.h"*/
++#include "dml2/dml2_wrapper.h"
+ 
+ #include "dcn20/dcn20_resource.h"
+ #include "dcn30/dcn30_resource.h"
+@@ -729,7 +729,7 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 	},
+ 	.seamless_boot_odm_combine = DML_FAIL_SOURCE_PIXEL_FORMAT,
+ 	.enable_z9_disable_interface = true, /* Allow support for the PMFW interface for disable Z9*/
+-	/* .using_dml2 = true, */
++	.using_dml2 = true,
+ 	.support_eDP1_5 = true,
+ 	.enable_hpo_pg_support = false,
+ 	.enable_legacy_fast_update = true,
+@@ -1694,7 +1694,7 @@ static bool dcn35_validate_bandwidth(struct dc *dc,
+ {
+ 	bool out = false;
+ 
+-	/*out = dml2_validate(dc, context, fast_validate);*/
++	out = dml2_validate(dc, context, fast_validate);
+ 
+ 	return out;
+ }
+@@ -2067,18 +2067,19 @@ static bool dcn35_resource_construct(
+ 
+ 
+ 	dc->dcn_ip->max_num_dpp = pool->base.pipe_count;
+-#if 0
++
+ 	dc->dml2_options.dcn_pipe_count = pool->base.pipe_count;
+ 	dc->dml2_options.use_native_pstate_optimization = false;
+ 	dc->dml2_options.use_native_soc_bb_construction = true;
++	if (dc->config.EnableMinDispClkODM)
++		dc->dml2_options.minimize_dispclk_using_odm = true;
+ 
+ 	dc->dml2_options.callbacks.dc = dc;
+ 	dc->dml2_options.callbacks.build_scaling_params = &resource_build_scaling_params;
+ 	dc->dml2_options.callbacks.can_support_mclk_switch_using_fw_based_vblank_stretch = &dcn30_can_support_mclk_switch_using_fw_based_vblank_stretch;
+-	dc->dml2_options.callbacks.acquire_secondary_pipe_for_mpc_odm = &dc_resource_acquire_secondary_pipe_for_mpc_odm;
++	dc->dml2_options.callbacks.acquire_secondary_pipe_for_mpc_odm = &dc_resource_acquire_secondary_pipe_for_mpc_odm_legacy;
+ 	dc->dml2_options.max_segments_per_hubp = 18;
+ 	dc->dml2_options.det_segment_size = DCN3_2_DET_SEG_SIZE;/*todo*/
+-#endif
+ 
+ 	if (dc->config.sdpif_request_limit_words_per_umc == 0)
+ 		dc->config.sdpif_request_limit_words_per_umc = 16;/*todo*/
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core_structs.h b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core_structs.h
+index d2e1510a504f..c2fa28ff57ab 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core_structs.h
++++ b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core_structs.h
+@@ -32,6 +32,8 @@ enum dml_project_id {
+ 	dml_project_default = 1,
+ 	dml_project_dcn32 = dml_project_default,
+ 	dml_project_dcn321 = 2,
++	dml_project_dcn35 = 3,
++	dml_project_dcn351 = 4,
+ };
+ enum dml_prefetch_modes {
+ 	dml_prefetch_support_uclk_fclk_and_stutter_if_possible = 0,
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_policy.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_policy.c
+index 0c71a8aa5587..f8e9aa32ceab 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_policy.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_policy.c
+@@ -298,4 +298,11 @@ void build_unoptimized_policy_settings(enum dml_project_id project, struct dml_m
+ 	policy->SynchronizeDRRDisplaysForUCLKPStateChangeFinal = true;
+ 	policy->AssumeModeSupportAtMaxPwrStateEvenDRAMClockChangeNotSupported = true; // TOREVIEW: What does this mean?
+ 	policy->AssumeModeSupportAtMaxPwrStateEvenFClockChangeNotSupported = true; // TOREVIEW: What does this mean?
++	if (project == dml_project_dcn35 ||
++		project == dml_project_dcn351) {
++		policy->DCCProgrammingAssumesScanDirectionUnknownFinal = false;
++		policy->EnhancedPrefetchScheduleAccelerationFinal = 0;
++		policy->AllowForPStateChangeOrStutterInVBlankFinal = dml_prefetch_support_uclk_fclk_and_stutter_if_possible; /*new*/
++		policy->UseOnlyMaxPrefetchModes = 1;
++	}
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
+index 353f22a6b7f8..de58c7b867e8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
+@@ -103,6 +103,76 @@ void dml2_init_ip_params(struct dml2_context *dml2, const struct dc *in_dc, stru
+ 		out->max_num_dp2p0_streams = 4;
+ 		break;
+ 
++	case dml_project_dcn35:
++	case dml_project_dcn351:
++		out->rob_buffer_size_kbytes = 64;
++		out->config_return_buffer_size_in_kbytes = 1792;
++		out->compressed_buffer_segment_size_in_kbytes = 64;
++		out->meta_fifo_size_in_kentries = 32;
++		out->zero_size_buffer_entries = 512;
++		out->pixel_chunk_size_kbytes = 8;
++		out->alpha_pixel_chunk_size_kbytes = 4;
++		out->min_pixel_chunk_size_bytes = 1024;
++		out->meta_chunk_size_kbytes = 2;
++		out->min_meta_chunk_size_bytes = 256;
++		out->writeback_chunk_size_kbytes = 8;
++		out->dpte_buffer_size_in_pte_reqs_luma = 68;
++		out->dpte_buffer_size_in_pte_reqs_chroma = 36;
++		out->dcc_meta_buffer_size_bytes = 6272;
++		out->gpuvm_enable = 1;
++		out->hostvm_enable = 1;
++		out->gpuvm_max_page_table_levels = 1;
++		out->hostvm_max_page_table_levels = 2;
++		out->num_dsc = 4;
++		out->maximum_dsc_bits_per_component = 12;
++		out->maximum_pixels_per_line_per_dsc_unit = 6016;
++		out->dsc422_native_support = 1;
++		out->line_buffer_size_bits = 986880;
++		out->dcc_supported = 1;
++		out->max_line_buffer_lines = 32;
++		out->writeback_interface_buffer_size_kbytes = 90;
++		out->max_num_dpp = 4;
++		out->max_num_otg = 4;
++		out->max_num_hdmi_frl_outputs = 1;
++		out->max_num_dp2p0_outputs = 2;
++		out->max_num_dp2p0_streams = 4;
++		out->max_num_wb = 1;
++
++		out->max_dchub_pscl_bw_pix_per_clk = 4;
++		out->max_pscl_lb_bw_pix_per_clk = 2;
++		out->max_lb_vscl_bw_pix_per_clk = 4;
++		out->max_vscl_hscl_bw_pix_per_clk = 4;
++		out->max_hscl_ratio = 6;
++		out->max_vscl_ratio = 6;
++		out->max_hscl_taps = 8;
++		out->max_vscl_taps = 8;
++		out->dispclk_ramp_margin_percent = 1.11;
++
++		out->dppclk_delay_subtotal = 47;
++		out->dppclk_delay_scl = 50;
++		out->dppclk_delay_scl_lb_only = 16;
++		out->dppclk_delay_cnvc_formatter = 28;
++		out->dppclk_delay_cnvc_cursor = 6;
++		out->dispclk_delay_subtotal = 125;
++
++		out->dynamic_metadata_vm_enabled = false;
++		out->max_inter_dcn_tile_repeaters = 8;
++		out->cursor_buffer_size = 16; // kBytes
++		out->cursor_chunk_size = 2; // kBytes
++
++		out->writeback_line_buffer_buffer_size = 0;
++		out->writeback_max_hscl_ratio = 1;
++		out->writeback_max_vscl_ratio = 1;
++		out->writeback_min_hscl_ratio = 1;
++		out->writeback_min_vscl_ratio = 1;
++		out->writeback_max_hscl_taps  = 1;
++		out->writeback_max_vscl_taps  = 1;
++		out->ptoi_supported	= 0;
++
++		out->vblank_nom_default_us = 668; /*not in dml, but in programming guide, hard coded in dml2_translate_ip_params*/
++		out->config_return_buffer_segment_size_in_kbytes = 64; /*required, but not exist,, hard coded in dml2_translate_ip_params*/
++		break;
++
+ 	}
  }
  
- void dml2_initialize_det_scratch(struct dml2_context *in_ctx)
+@@ -155,6 +225,17 @@ void dml2_init_socbb_params(struct dml2_context *dml2, const struct dc *in_dc, s
+ 		out->smn_latency_us = 0;
+ 		break;
+ 
++	case dml_project_dcn35:
++		out->num_chans = 4;
++		out->round_trip_ping_latency_dcfclk_cycles = 106;
++		out->smn_latency_us = 2;
++		break;
++
++	case dml_project_dcn351:
++		out->num_chans = 16;
++		out->round_trip_ping_latency_dcfclk_cycles = 1100;
++		out->smn_latency_us = 2;
++		break;
+ 	}
+ 	/* ---Overrides if available--- */
+ 	if (dml2->config.bbox_overrides.dram_num_chan)
+@@ -255,7 +336,6 @@ void dml2_init_soc_states(struct dml2_context *dml2, const struct dc *in_dc,
+ 		p->in_states->state_array[1].dcfclk_mhz = 1434.0;
+ 		p->in_states->state_array[1].dram_speed_mts = 1000 * transactions_per_mem_clock;
+ 		break;
+-
+ 	}
+ 
+ 	/* Override from passed values, mainly for debugging purposes, if available */
+@@ -287,6 +367,13 @@ void dml2_init_soc_states(struct dml2_context *dml2, const struct dc *in_dc,
+ 		p->dcfclk_stas_mhz[2] = 906;
+ 		p->dcfclk_stas_mhz[3] = 1324;
+ 		p->dcfclk_stas_mhz[4] = p->in_states->state_array[1].dcfclk_mhz;
++	} else if (dml2->v20.dml_core_ctx.project != dml_project_dcn35 &&
++			dml2->v20.dml_core_ctx.project != dml_project_dcn351) {
++		p->dcfclk_stas_mhz[0] = 300;
++		p->dcfclk_stas_mhz[1] = 615;
++		p->dcfclk_stas_mhz[2] = 906;
++		p->dcfclk_stas_mhz[3] = 1324;
++		p->dcfclk_stas_mhz[4] = 1500;
+ 	}
+ 	/* Copy clocks tables entries, if available */
+ 	if (dml2->config.bbox_overrides.clks_table.num_states) {
 diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
-index e4f2f3eb9b32..552d5cffce2d 100644
+index aed3e4200254..e4f2f3eb9b32 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
 +++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
-@@ -717,6 +717,8 @@ bool dml2_create(const struct dc *in_dc, const struct dml2_configuration_options
+@@ -694,6 +694,12 @@ bool dml2_create(const struct dc *in_dc, const struct dml2_configuration_options
+ 	(*dml2)->config = *config;
  
- 	initialize_dml2_soc_states(*dml2, in_dc, &(*dml2)->v20.dml_core_ctx.soc, &(*dml2)->v20.dml_core_ctx.states);
- 
-+	/*Initialize DML20 instance which calls dml2_core_create, and core_dcn3_populate_informative*/
-+	//dml2_initialize_instance(&(*dml_ctx)->v20.dml_init);
- 	return true;
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.h b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.h
-index e76726018927..4d0377354bdd 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.h
-@@ -63,6 +63,7 @@ struct dml2_dcn_clocks {
- 	unsigned int ref_dtbclk_khz;
- 	bool p_state_supported;
- 	unsigned int cab_num_ways_required;
-+	unsigned int dcfclk_khz_ds;
- };
- 
- struct dml2_dc_callbacks {
+ 	switch (in_dc->ctx->dce_version) {
++	case DCN_VERSION_3_5:
++		(*dml2)->v20.dml_core_ctx.project = dml_project_dcn35;
++		break;
++	case DCN_VERSION_3_51:
++		(*dml2)->v20.dml_core_ctx.project = dml_project_dcn351;
++		break;
+ 	case DCN_VERSION_3_2:
+ 		(*dml2)->v20.dml_core_ctx.project = dml_project_dcn32;
+ 		break;
 -- 
 2.40.1
 
