@@ -4,48 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A980E7B611
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 13:16:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D96DE7B60F
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 13:16:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7208C10E372;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B003110E373;
 	Wed,  4 Oct 2023 13:16:13 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3FEE10E0F5;
- Wed,  4 Oct 2023 11:03:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696417411; x=1727953411;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=9wFZDTVPfxaaXT4OzZ8Ud4lOXKjaifdovN0viPzCpTM=;
- b=ZRGCo8+O+N9b8lL9rDmpklmH6F2le+xo1McaVkjZEnGxx6m1AxVFPvui
- 5NzMX7wAWOZWN7hfLXiGaSPvHtb9ZhfdQoONagZiYjhNe25mUU66dQ9tN
- ECsaFRYTOldapldL9oTrHWVOZoxkDdFoScwbmqedtU2PoRWY2/omt8nC2
- IndxmTqNDeNHfS0v2UCgrPWYBQUDijmShFdECsW+0VV7ktEOmPeuHAltg
- mTez9Q2rZLb+fVG5A7rfqeJu/1Jgp5kvYDBFshI5TU8WAzzowDcEWmGVN
- Gfh8yYxOMloViAQudSl9KDaeLUMI3OorxZRekEKA0l1Fa4SeSZo0d/bpc Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10852"; a="363399258"
-X-IronPort-AV: E=Sophos;i="6.03,200,1694761200"; d="scan'208";a="363399258"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2023 04:03:31 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10852"; a="998416391"
-X-IronPort-AV: E=Sophos;i="6.03,200,1694761200"; d="scan'208";a="998416391"
-Received: from cyrillet-mobl.ger.corp.intel.com ([10.252.55.203])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2023 04:03:26 -0700
-Date: Wed, 4 Oct 2023 14:03:24 +0300 (EEST)
-From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-Subject: Re: [PATCH v2 03/16] platform/x86/amd/pmf: Change return type of
- amd_pmf_set_dram_addr()
-In-Reply-To: <20230930083715.2050863-4-Shyam-sundar.S-k@amd.com>
-Message-ID: <567055c-d8cc-1f4b-4fc6-758cb52b2c75@linux.intel.com>
-References: <20230930083715.2050863-1-Shyam-sundar.S-k@amd.com>
- <20230930083715.2050863-4-Shyam-sundar.S-k@amd.com>
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 132A310E347;
+ Wed,  4 Oct 2023 08:49:43 +0000 (UTC)
+Date: Wed, 4 Oct 2023 10:49:38 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1696409380;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=3olMcepc++u5sj6w17rdFjD+IEV4ubtfuWg75Zf2PS4=;
+ b=RNaRGl2ojAGIWO1QXBmKprOhlK/7spm5+WnC4rW+IE6/nouwsjG+zbEPQM91Tupud9y7k8
+ zoHvAEb8XfoCKKtlnG+AMIgGvWYkicf23W5j28mcGB1BStPIReVYCBkAa3syfgHLRKeu59
+ GnRF/kQvVw+H0k7MYJYDxJqUL4uA6w/MzSYW+qA1dIhBooPDXCVWePn+2syBMpnsajn8nF
+ aR8+/JbFIX0PlP/N0caxMu0nFcEQgZvLJgSW2XymSPohIShingPGwoKYauPWtnDP10XpJf
+ oGgJ9S0vsh8p5a746/uLbBRiUnysS0G/sbmCO0XL3tVa+DfE+1rBaNf/Ig4y7w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1696409380;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=3olMcepc++u5sj6w17rdFjD+IEV4ubtfuWg75Zf2PS4=;
+ b=29/neHjkRd4EW3K83VJayOS9nL3/jzAE6ANmMADG8Lwzo+qbjMd6hlxXmjCjZpMrRwAlbR
+ 26kb0rqnNJOI+MBg==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [PATCH 0/5] drm/amd/display: Remove migrate-disable and move
+ memory allocation.
+Message-ID: <20231004084938.xP4rwomD@linutronix.de>
+References: <20230921141516.520471-1-bigeasy@linutronix.de>
+ <8be685cb-f44a-1143-60ec-d1073fda8e16@gmail.com>
+ <20231002105813.NrEGqSCY@linutronix.de>
+ <7a3875f6-122f-426e-95c9-06ed8123249b@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <7a3875f6-122f-426e-95c9-06ed8123249b@amd.com>
 X-Mailman-Approved-At: Wed, 04 Oct 2023 13:16:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,118 +60,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, Patil.Reddy@amd.com, basavaraj.natikar@amd.com,
- dri-devel@lists.freedesktop.org, jikos@kernel.org,
- amd-gfx@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- markgross@kernel.org, Hans de Goede <hdegoede@redhat.com>,
- benjamin.tissoires@redhat.com, mario.limonciello@amd.com, daniel@ffwll.ch,
- linux-input@vger.kernel.org, alexander.deucher@amd.com, airlied@gmail.com,
- christian.koenig@amd.com
+Cc: Leo Li <sunpeng.li@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <ckoenig.leichtzumerken@gmail.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ amd-gfx@lists.freedesktop.org, Peter Zijlstra <peterz@infradead.org>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Thomas Gleixner <tglx@linutronix.de>,
+ David Airlie <airlied@gmail.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, 30 Sep 2023, Shyam Sundar S K wrote:
+On 2023-10-03 15:54:58 [-0400], Harry Wentland wrote:
+> On 2023-10-02 06:58, Sebastian Andrzej Siewior wrote:
+> > On 2023-09-22 07:33:26 [+0200], Christian K=C3=B6nig wrote:
+> >> Am 21.09.23 um 16:15 schrieb Sebastian Andrzej Siewior:
+> >>> Hi,
+> >>>
+> >>> I stumbled uppon the amdgpu driver via a bugzilla report. The actual =
+fix
+> >>> is #4 + #5 and the rest was made while looking at the code.
+> >>
+> >> Oh, yes please :)
+> >>
+> >> Rodrigo and I have been trying to sort those things out previously, but
+> >> that's Sisyphean work.
+> >>
+> >> In general the DC team needs to judge, but of hand it looks good to me.
+> >=20
+> > Any way to get this merged? There was no reply from the DC team=E2=80=
+=A6 No
+> > reply from the person breaking it either. The bugzilla reporter stated
+> > that it solves his trouble. He didn't report anything new ;)
+> >=20
+>=20
+> Apologies for the slow progress. We're feeding it through our CI and
+> will let you know the verdict soon.
+>=20
+> Do you happen to have the bugzilla link that this is fixing? It would
+> be helpful to include that as a link in the patches as well, to give
+> them context.
+The bugzilla report is at
+  https://bugzilla.kernel.org/show_bug.cgi?id=3D217928
 
-> In the current code, the metrics table information was required only
-> for auto-mode or CnQF at a given time. Hence keeping the return type
-> of amd_pmf_set_dram_addr() as static made sense.
-> 
-> But with the addition of Smart PC builder feature, the metrics table
-> information has to be shared by the Smart PC also and this feature
-> resides outside of core.c.
-> 
-> To make amd_pmf_set_dram_addr() visible outside of core.c make it
-> as a non-static function and move the allocation of memory for
-> metrics table from amd_pmf_init_metrics_table() to amd_pmf_set_dram_addr()
-> as amd_pmf_set_dram_addr() is the common function to set the DRAM
-> address.
-> 
-> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-> Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-> ---
->  drivers/platform/x86/amd/pmf/core.c | 26 ++++++++++++++++++--------
->  drivers/platform/x86/amd/pmf/pmf.h  |  1 +
->  2 files changed, 19 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/platform/x86/amd/pmf/core.c b/drivers/platform/x86/amd/pmf/core.c
-> index 68f1389dda3e..678dce4fea08 100644
-> --- a/drivers/platform/x86/amd/pmf/core.c
-> +++ b/drivers/platform/x86/amd/pmf/core.c
-> @@ -251,29 +251,35 @@ static const struct pci_device_id pmf_pci_ids[] = {
->  	{ }
->  };
->  
-> -static void amd_pmf_set_dram_addr(struct amd_pmf_dev *dev)
-> +int amd_pmf_set_dram_addr(struct amd_pmf_dev *dev)
->  {
->  	u64 phys_addr;
->  	u32 hi, low;
->  
-> +	/* Get Metrics Table Address */
-> +	dev->buf = kzalloc(sizeof(dev->m_table), GFP_KERNEL);
-> +	if (!dev->buf)
-> +		return -ENOMEM;
-> +
->  	phys_addr = virt_to_phys(dev->buf);
->  	hi = phys_addr >> 32;
->  	low = phys_addr & GENMASK(31, 0);
->  
->  	amd_pmf_send_cmd(dev, SET_DRAM_ADDR_HIGH, 0, hi, NULL);
->  	amd_pmf_send_cmd(dev, SET_DRAM_ADDR_LOW, 0, low, NULL);
-> +
-> +	return 0;
->  }
->  
->  int amd_pmf_init_metrics_table(struct amd_pmf_dev *dev)
->  {
-> -	/* Get Metrics Table Address */
-> -	dev->buf = kzalloc(sizeof(dev->m_table), GFP_KERNEL);
-> -	if (!dev->buf)
-> -		return -ENOMEM;
-> +	int ret;
->  
->  	INIT_DELAYED_WORK(&dev->work_buffer, amd_pmf_get_metrics);
->  
-> -	amd_pmf_set_dram_addr(dev);
-> +	ret = amd_pmf_set_dram_addr(dev);
-> +	if (ret)
-> +		return ret;
->  
->  	/*
->  	 * Start collecting the metrics data after a small delay
-> @@ -287,9 +293,13 @@ int amd_pmf_init_metrics_table(struct amd_pmf_dev *dev)
->  static int amd_pmf_resume_handler(struct device *dev)
->  {
->  	struct amd_pmf_dev *pdev = dev_get_drvdata(dev);
-> +	int ret;
->  
-> -	if (pdev->buf)
-> -		amd_pmf_set_dram_addr(pdev);
-> +	if (pdev->buf) {
-> +		ret = amd_pmf_set_dram_addr(pdev);
+but the patches explain the situation, too. Even more verbose than the
+report=E2=80=A6
 
-Won't this now leak the previous ->buf?
+> Harry
 
-> +		if (ret)
-> +			return ret;
-> +	}
->  
->  	return 0;
->  }
-> diff --git a/drivers/platform/x86/amd/pmf/pmf.h b/drivers/platform/x86/amd/pmf/pmf.h
-> index e0837799f521..3930b8ed8333 100644
-> --- a/drivers/platform/x86/amd/pmf/pmf.h
-> +++ b/drivers/platform/x86/amd/pmf/pmf.h
-> @@ -421,6 +421,7 @@ int amd_pmf_init_metrics_table(struct amd_pmf_dev *dev);
->  int amd_pmf_get_power_source(void);
->  int apmf_install_handler(struct amd_pmf_dev *pmf_dev);
->  int apmf_os_power_slider_update(struct amd_pmf_dev *dev, u8 flag);
-> +int amd_pmf_set_dram_addr(struct amd_pmf_dev *dev);
->  
->  /* SPS Layer */
->  int amd_pmf_get_pprof_modes(struct amd_pmf_dev *pmf);
-> 
-
--- 
- i.
-
+Sebastian
