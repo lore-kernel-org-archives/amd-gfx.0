@@ -4,61 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15F41E7B611
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 13:13:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 018F0E7B60F
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 13:16:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BF91891A3;
-	Wed,  4 Oct 2023 13:13:45 +0000 (UTC)
-Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
- [IPv6:2001:4860:4864:20::36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B9A1891A3
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Oct 2023 13:13:44 +0000 (UTC)
-Received: by mail-oa1-x36.google.com with SMTP id
- 586e51a60fabf-1e1a2e26afcso1397689fac.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 04 Oct 2023 06:13:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1696425223; x=1697030023; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yxcQw8eUKA7ELohgummqMLiBSJJJtm1+W7xwhH9zI/U=;
- b=UpwC1igJ2/56y2xLL1Aa/FJnVzA1n89ei/U4kpVQz4VwH8JU4Dz7f7An/f1Vc6za2E
- X8Q4PLGrqexd1kxdhno4nSYhLaMjBaS0kBgsIhdXgVc9CGL6YuZGlWYY+B9z3buZbQ8+
- jRD0UyaFbN73uXj9IgnV3hrPHAjbW2UkfDrgNzrh8XSJJ1yiWuShX3ruBVvfJhMvuYiN
- YjS4hS+ZOfidBmrhgvyTh7OU95oi8kFMZ0qz+tNw3UXiZ5mffzpC2SZYTCFsT+duLDyz
- E2ghdrUzZP60nSmycBj7EQFkGdWPYyAte/oDTyr8DYaqsON3whxAUxUBwtxo9dSQhPBO
- UZXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696425223; x=1697030023;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=yxcQw8eUKA7ELohgummqMLiBSJJJtm1+W7xwhH9zI/U=;
- b=RqjXwjgXpFQAW97r4btY4RncGKaIUWlJtnL22OFQxmYHHtGXnaakYdRtJScAwuCK9x
- G4UnXov0hTlrfnRLyY+nYMZriMlWroCwlGvFC7QFKYZh0eXdZ5ng3OsaFyulVgL8I3UO
- iQ6RDL06jXs47GT3lpvRF7oGJTx8z8vLsv/50Xmr00FsUkJidZEzOsANpJZNeyBxqjBj
- veiqkPBPED+72FZViv6Dv/9GGLRPBcIB4j4z7rLSY1omPBUZESi+8/cmVIJWV+8tmUj6
- jdFduSqpnBsZx/Gce8Kxzzo/aSAX19RMSAialwFTWTuBX1/vjjUgukMiKHB6tJDg/k29
- 68nQ==
-X-Gm-Message-State: AOJu0Yx3QusEeybqN7TfSXNd56hKMuAXrDnWlJAMPvbg2x8LJ2rC3bAy
- N/U/21vdexVzl4YOjRzrdiwgWpcvIoKQbnyr7TiltBnu
-X-Google-Smtp-Source: AGHT+IEcrz1zRIP0J5Y+LnqALeqayCTeNMBN/Zh5BaK2tECfVqQG4u0VQPr8TyqBC+r5W0nZ3rG8AkckmzG2/kVKg3w=
-X-Received: by 2002:a05:6870:7010:b0:1c0:5f7a:896f with SMTP id
- u16-20020a056870701000b001c05f7a896fmr2668189oae.8.1696425223405; Wed, 04 Oct
- 2023 06:13:43 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7161E10E109;
+	Wed,  4 Oct 2023 13:16:12 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FA4010E0FA;
+ Wed,  4 Oct 2023 10:57:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1696417024; x=1727953024;
+ h=date:from:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=w1S9SFXYcA6/N0hYlCaGZhlFJFvT8WtGofUIt8qSQyg=;
+ b=Oce6aCC+g2dvIXBhkHjNJCEayTCi/ZRwoJwr8uDwW3gZuoYFUjGKdNdE
+ 2B3bWuM8gKKNiaV0ixvzcu56dY6X9Vt5uR4fjoUs7/735nd1jPR3KB4iG
+ NJIDL5QTz6mi58wbQL+S1GgbflUgvB4ma+RKZq3M0iys5BpNtk3ENaEH0
+ i4rnMvxhQpq91whwBHIVviyphE7LB01fpN8ETyg3CAfNC/VXdBu2zcjpd
+ SWw88Plf6w6ZyFOlia7Y41k/g9WziyjNGNtrV3KJtSscimWIBLfwGNPhB
+ NjnSEg3DWvlDWWHCMNZCqW+OqmkGEjT2vORu3fFzNzhDUM1hxcod911CS g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10852"; a="383036918"
+X-IronPort-AV: E=Sophos;i="6.03,199,1694761200"; d="scan'208";a="383036918"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2023 03:56:53 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10852"; a="780728105"
+X-IronPort-AV: E=Sophos;i="6.03,199,1694761200"; d="scan'208";a="780728105"
+Received: from cyrillet-mobl.ger.corp.intel.com ([10.252.55.203])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2023 03:56:48 -0700
+Date: Wed, 4 Oct 2023 13:56:46 +0300 (EEST)
+From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+Subject: Re: [PATCH v2 02/16] platform/x86/amd/pmf: Add support PMF-TA
+ interaction
+In-Reply-To: <20230930083715.2050863-3-Shyam-sundar.S-k@amd.com>
+Message-ID: <a72a3cef-b5a0-bfbb-256d-7881f7496f9@linux.intel.com>
+References: <20230930083715.2050863-1-Shyam-sundar.S-k@amd.com>
+ <20230930083715.2050863-3-Shyam-sundar.S-k@amd.com>
 MIME-Version: 1.0
-References: <20230908160446.2188-1-shashank.sharma@amd.com>
- <20230908160446.2188-6-shashank.sharma@amd.com>
- <CADnq5_MiNtSswTycxUQu0MfbD80LNg1M0=NCJ_1Br2Ek=ir-ig@mail.gmail.com>
- <deb6a51c-3a4b-fcb5-7b5f-ff0eade3d72b@amd.com>
-In-Reply-To: <deb6a51c-3a4b-fcb5-7b5f-ff0eade3d72b@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 4 Oct 2023 09:13:32 -0400
-Message-ID: <CADnq5_MQxu3hy4eBkmVX8Cc0rOVQ4fBnuryKeYEHrBE=pAG03g@mail.gmail.com>
-Subject: Re: [PATCH v6 5/9] drm/amdgpu: create context space for usermode queue
-To: Shashank Sharma <shashank.sharma@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+X-Mailman-Approved-At: Wed, 04 Oct 2023 13:16:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,209 +58,222 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, arvind.yadav@amd.com,
- Christian Koenig <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Xinhui.Pan@amd.com, Patil.Reddy@amd.com, basavaraj.natikar@amd.com,
+ dri-devel@lists.freedesktop.org, jikos@kernel.org,
+ amd-gfx@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ markgross@kernel.org, Hans de Goede <hdegoede@redhat.com>,
+ benjamin.tissoires@redhat.com, mario.limonciello@amd.com, daniel@ffwll.ch,
+ linux-input@vger.kernel.org, alexander.deucher@amd.com, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 29, 2023 at 1:50=E2=80=AFPM Shashank Sharma <shashank.sharma@am=
-d.com> wrote:
->
->
-> On 20/09/2023 17:21, Alex Deucher wrote:
-> > On Fri, Sep 8, 2023 at 12:45=E2=80=AFPM Shashank Sharma <shashank.sharm=
-a@amd.com> wrote:
-> >> The FW expects us to allocate at least one page as context
-> >> space to process gang, process, GDS and FW  related work.
-> >> This patch creates a joint object for the same, and calculates
-> >> GPU space offsets of these spaces.
-> >>
-> >> V1: Addressed review comments on RFC patch:
-> >>      Alex: Make this function IP specific
-> >>
-> >> V2: Addressed review comments from Christian
-> >>      - Allocate only one object for total FW space, and calculate
-> >>        offsets for each of these objects.
-> >>
-> >> V3: Integration with doorbell manager
-> >>
-> >> V4: Review comments:
-> >>      - Remove shadow from FW space list from cover letter (Alex)
-> >>      - Alignment of macro (Luben)
-> >>
-> >> V5: Merged patches 5 and 6 into this single patch
-> >>      Addressed review comments:
-> >>      - Use lower_32_bits instead of mask (Christian)
-> >>      - gfx_v11_0 instead of gfx_v11 in function names (Alex)
-> >>      - Shadow and GDS objects are now coming from userspace (Christian=
-,
-> >>        Alex)
-> >>
-> >> V6:
-> >>      - Add a comment to replace amdgpu_bo_create_kernel() with
-> >>        amdgpu_bo_create() during fw_ctx object creation (Christian).
-> >>      - Move proc_ctx_gpu_addr, gang_ctx_gpu_addr and fw_ctx_gpu_addr o=
-ut
-> >>        of generic queue structure and make it gen11 specific (Alex).
-> >>
-> >> Cc: Alex Deucher <alexander.deucher@amd.com>
-> >> Cc: Christian Koenig <christian.koenig@amd.com>
-> >> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
-> >> Signed-off-by: Arvind Yadav <arvind.yadav@amd.com>
-> >> ---
-> >>   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        | 61 +++++++++++++++++=
-++
-> >>   .../gpu/drm/amd/include/amdgpu_userqueue.h    |  1 +
-> >>   2 files changed, 62 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/=
-amd/amdgpu/gfx_v11_0.c
-> >> index 6760abda08df..8ffb5dee72a9 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> >> @@ -61,6 +61,9 @@
-> >>   #define regCGTT_WD_CLK_CTRL_BASE_IDX   1
-> >>   #define regRLC_RLCS_BOOTLOAD_STATUS_gc_11_0_1  0x4e7e
-> >>   #define regRLC_RLCS_BOOTLOAD_STATUS_gc_11_0_1_BASE_IDX 1
-> >> +#define AMDGPU_USERQ_PROC_CTX_SZ   PAGE_SIZE
-> >> +#define AMDGPU_USERQ_GANG_CTX_SZ   PAGE_SIZE
-> >> +#define AMDGPU_USERQ_FW_CTX_SZ     PAGE_SIZE
-> >>
-> >>   MODULE_FIRMWARE("amdgpu/gc_11_0_0_pfp.bin");
-> >>   MODULE_FIRMWARE("amdgpu/gc_11_0_0_me.bin");
-> >> @@ -6424,6 +6427,56 @@ const struct amdgpu_ip_block_version gfx_v11_0_=
-ip_block =3D
-> >>          .funcs =3D &gfx_v11_0_ip_funcs,
-> >>   };
-> >>
-> >> +static void gfx_v11_0_userq_destroy_ctx_space(struct amdgpu_userq_mgr=
- *uq_mgr,
-> >> +                                             struct amdgpu_usermode_q=
-ueue *queue)
-> >> +{
-> >> +       struct amdgpu_userq_obj *ctx =3D &queue->fw_obj;
-> >> +
-> >> +       amdgpu_bo_free_kernel(&ctx->obj, &ctx->gpu_addr, &ctx->cpu_ptr=
-);
-> >> +}
-> >> +
-> >> +static int gfx_v11_0_userq_create_ctx_space(struct amdgpu_userq_mgr *=
-uq_mgr,
-> >> +                                           struct amdgpu_usermode_que=
-ue *queue,
-> >> +                                           struct drm_amdgpu_userq_mq=
-d_gfx_v11_0 *mqd_user)
-> >> +{
-> >> +       struct amdgpu_device *adev =3D uq_mgr->adev;
-> >> +       struct amdgpu_userq_obj *ctx =3D &queue->fw_obj;
-> >> +       struct v11_gfx_mqd *mqd =3D queue->mqd.cpu_ptr;
-> >> +       uint64_t fw_ctx_gpu_addr;
-> >> +       int r, size;
-> >> +
-> >> +       /*
-> >> +        * The FW expects at least one page space allocated for
-> >> +        * process ctx, gang ctx and fw ctx each. Create an object
-> >> +        * for the same.
-> >> +        */
-> >> +       size =3D AMDGPU_USERQ_PROC_CTX_SZ + AMDGPU_USERQ_FW_CTX_SZ +
-> >> +              AMDGPU_USERQ_GANG_CTX_SZ;
-> >> +       r =3D amdgpu_bo_create_kernel(adev, size, PAGE_SIZE,
-> >> +                                   AMDGPU_GEM_DOMAIN_GTT,
-> >> +                                   &ctx->obj,
-> >> +                                   &ctx->gpu_addr,
-> >> +                                   &ctx->cpu_ptr);
-> >> +       if (r) {
-> >> +               DRM_ERROR("Failed to allocate ctx space bo for userque=
-ue, err:%d\n", r);
-> >> +               return r;
-> >> +       }
-> >> +
-> >> +       fw_ctx_gpu_addr =3D ctx->gpu_addr + AMDGPU_USERQ_PROC_CTX_SZ +
-> >> +                         AMDGPU_USERQ_GANG_CTX_SZ;
-> >> +       mqd->fw_work_area_base_lo =3D lower_32_bits(fw_ctx_gpu_addr);
-> >> +       mqd->fw_work_area_base_lo =3D upper_32_bits(fw_ctx_gpu_addr);
-> >> +
-> >> +       /* Shadow and GDS objects come directly from userspace */
-> >> +       mqd->shadow_base_lo =3D lower_32_bits(mqd_user->shadow_va);
-> >> +       mqd->shadow_base_hi =3D upper_32_bits(mqd_user->shadow_va);
-> >> +
-> >> +       mqd->gds_bkup_base_lo =3D lower_32_bits(mqd_user->gds_va);
-> >> +       mqd->gds_bkup_base_hi =3D upper_32_bits(mqd_user->gds_va);
-> >> +
-> >> +       return 0;
-> >> +}
-> >> +
-> >>   static int gfx_v11_0_userq_mqd_create(struct amdgpu_userq_mgr *uq_mg=
-r,
-> >>                                        struct drm_amdgpu_userq_in *arg=
-s_in,
-> >>                                        struct amdgpu_usermode_queue *q=
-ueue)
-> >> @@ -6480,6 +6533,13 @@ static int gfx_v11_0_userq_mqd_create(struct am=
-dgpu_userq_mgr *uq_mgr,
-> >>                  goto free_mqd;
-> >>          }
-> >>
-> >> +       /* Create BO for FW operations */
-> >> +       r =3D gfx_v11_0_userq_create_ctx_space(uq_mgr, queue, &mqd_use=
-r);
-> >> +       if (r) {
-> >> +               DRM_ERROR("Failed to allocate BO for userqueue (%d)", =
-r);
-> >> +               goto free_mqd;
-> >> +       }
-> >> +
-> >>          return 0;
-> >>
-> >>   free_mqd:
-> >> @@ -6492,6 +6552,7 @@ gfx_v11_0_userq_mqd_destroy(struct amdgpu_userq_=
-mgr *uq_mgr, struct amdgpu_userm
-> >>   {
-> >>          struct amdgpu_userq_obj *mqd =3D &queue->mqd;
-> >>
-> >> +       gfx_v11_0_userq_destroy_ctx_space(uq_mgr, queue);
-> >>          amdgpu_bo_free_kernel(&mqd->obj, &mqd->gpu_addr, &mqd->cpu_pt=
-r);
-> >>   }
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h b/drivers/=
-gpu/drm/amd/include/amdgpu_userqueue.h
-> >> index 240f92796f00..34e20daa06c8 100644
-> >> --- a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-> >> +++ b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-> >> @@ -44,6 +44,7 @@ struct amdgpu_usermode_queue {
-> >>          struct amdgpu_userq_mgr *userq_mgr;
-> >>          struct amdgpu_vm        *vm;
-> >>          struct amdgpu_userq_obj mqd;
-> >> +       struct amdgpu_userq_obj fw_obj;
-> > Since this is gfx 11 specific, I feel like this would be better stored
-> > in some gfx 11 structure rather than the generic user queue structure.
-> > Maybe a driver private pointer here would make more sense, then each
-> > IP can hang whatever structure they want here for IP specific
-> > metadata.
->
->
-> I was thinking more on this, and to me it seems like it's the size of
-> this FW space which is going to be specific to a IP, but some object
-> space probably will always be required, as MES will always need some
-> space to save its process and gang ctx. So if this is not a big concern
-> for you, I would like to keep it here and see how this space requirement
-> evolves over the time.
+On Sat, 30 Sep 2023, Shyam Sundar S K wrote:
 
-Sure.  We can revisit this later.
+> PMF TA (Trusted Application) loads via the TEE environment into the
+> AMD ASP.
+> 
+> PMF-TA supports two commands:
+> 1) Init: Initialize the TA with the PMF Smart PC policy binary and
+> start the policy engine. A policy is a combination of inputs and
+> outputs, where;
+>  - the inputs are the changing dynamics of the system like the user
+>    behaviour, system heuristics etc.
+>  - the outputs, which are the actions to be set on the system which
+>    lead to better power management and enhanced user experience.
+> 
+> PMF driver acts as a central manager in this case to supply the
+> inputs required to the TA (either by getting the information from
+> the other kernel subsystems or from userland)
+> 
+> 2) Enact: Enact the output actions from the TA. The action could be
+> applying a new thermal limit to boost/throttle the power limits or
+> change system behavior.
+> 
+> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+> Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+> ---
+>  drivers/platform/x86/amd/pmf/pmf.h    | 10 +++
+>  drivers/platform/x86/amd/pmf/tee-if.c | 97 ++++++++++++++++++++++++++-
+>  2 files changed, 106 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/platform/x86/amd/pmf/pmf.h b/drivers/platform/x86/amd/pmf/pmf.h
+> index 02460c2a31ea..e0837799f521 100644
+> --- a/drivers/platform/x86/amd/pmf/pmf.h
+> +++ b/drivers/platform/x86/amd/pmf/pmf.h
+> @@ -59,6 +59,9 @@
+>  #define ARG_NONE 0
+>  #define AVG_SAMPLE_SIZE 3
+>  
+> +/* TA macros */
+> +#define PMF_TA_IF_VERSION_MAJOR				1
+> +
+>  /* AMD PMF BIOS interfaces */
+>  struct apmf_verify_interface {
+>  	u16 size;
+> @@ -184,6 +187,7 @@ struct amd_pmf_dev {
+>  	struct tee_shm *fw_shm_pool;
+>  	u32 session_id;
+>  	void *shbuf;
+> +	struct delayed_work pb_work;
+>  	bool smart_pc_enabled;
+>  };
+>  
+> @@ -395,6 +399,12 @@ struct apmf_dyn_slider_output {
+>  	struct apmf_cnqf_power_set ps[APMF_CNQF_MAX];
+>  } __packed;
+>  
+> +/* cmd ids for TA communication */
+> +enum ta_pmf_command {
+> +	TA_PMF_COMMAND_POLICY_BUILDER_INITIALIZE,
+> +	TA_PMF_COMMAND_POLICY_BUILDER_ENACT_POLICIES,
+> +};
+> +
+>  struct ta_pmf_shared_memory {
+>  	int command_id;
+>  	int resp_id;
+> diff --git a/drivers/platform/x86/amd/pmf/tee-if.c b/drivers/platform/x86/amd/pmf/tee-if.c
+> index 4db80ca59a11..1b3985cd7c08 100644
+> --- a/drivers/platform/x86/amd/pmf/tee-if.c
+> +++ b/drivers/platform/x86/amd/pmf/tee-if.c
+> @@ -13,9 +13,96 @@
+>  #include "pmf.h"
+>  
+>  #define MAX_TEE_PARAM	4
+> +
+> +/* Policy binary actions sampling frequency (in ms) */
+> +static int pb_actions_ms = 1000;
+> +#ifdef CONFIG_AMD_PMF_DEBUG
+> +module_param(pb_actions_ms, int, 0644);
+> +MODULE_PARM_DESC(pb_actions_ms, "Policy binary actions sampling frequency (default = 1000ms)");
+> +#endif
+> +
+>  static const uuid_t amd_pmf_ta_uuid = UUID_INIT(0x6fd93b77, 0x3fb8, 0x524d,
+>  						0xb1, 0x2d, 0xc5, 0x29, 0xb1, 0x3d, 0x85, 0x43);
+>  
+> +static void amd_pmf_prepare_args(struct amd_pmf_dev *dev, int cmd,
+> +				 struct tee_ioctl_invoke_arg *arg,
+> +				 struct tee_param *param)
+> +{
+> +	memset(arg, 0, sizeof(*arg));
+> +	memset(param, 0, MAX_TEE_PARAM * sizeof(*param));
+> +
+> +	arg->func = cmd;
+> +	arg->session = dev->session_id;
+> +	arg->num_params = MAX_TEE_PARAM;
+> +
+> +	/* Fill invoke cmd params */
+> +	param[0].u.memref.size = sizeof(struct ta_pmf_shared_memory);
+> +	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INOUT;
+> +	param[0].u.memref.shm = dev->fw_shm_pool;
+> +	param[0].u.memref.shm_offs = 0;
+> +}
+> +
+> +static int amd_pmf_invoke_cmd_enact(struct amd_pmf_dev *dev)
+> +{
+> +	struct ta_pmf_shared_memory *ta_sm = NULL;
+> +	struct tee_param param[MAX_TEE_PARAM];
+> +	struct tee_ioctl_invoke_arg arg;
+> +	int ret = 0;
+> +
+> +	if (!dev->tee_ctx)
+> +		return -ENODEV;
+> +
+> +	ta_sm = (struct ta_pmf_shared_memory *)dev->shbuf;
 
-Alex
+Don't cast from void * to a typed pointer, it's unnecessary as compiler 
+will handle that for you.
 
->
-> - Shashank
->
-> >
-> > Alex
-> >
-> >
-> >>   };
-> >>
-> >>   struct amdgpu_userq_funcs {
-> >> --
-> >> 2.42.0
-> >>
+> +	memset(ta_sm, 0, sizeof(struct ta_pmf_shared_memory));
+
+sizeof(*ta_sm) to be on the safer side of things.
+
+> +	ta_sm->command_id = TA_PMF_COMMAND_POLICY_BUILDER_ENACT_POLICIES;
+> +	ta_sm->if_version = PMF_TA_IF_VERSION_MAJOR;
+> +
+> +	amd_pmf_prepare_args(dev, TA_PMF_COMMAND_POLICY_BUILDER_ENACT_POLICIES, &arg, param);
+> +
+> +	ret = tee_client_invoke_func(dev->tee_ctx, &arg, param);
+> +	if (ret < 0 || arg.ret != 0) {
+> +		dev_err(dev->dev, "TEE enact cmd failed. err: %x, ret:%x\n", arg.ret, ret);
+
+-Exx code should be printed as %x
+
+> +		return -EINVAL;
+
+This overrides the original error code if ret < 0.
+
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int amd_pmf_invoke_cmd_init(struct amd_pmf_dev *dev)
+> +{
+> +	struct ta_pmf_shared_memory *ta_sm = NULL;
+> +	struct tee_param param[MAX_TEE_PARAM];
+> +	struct tee_ioctl_invoke_arg arg;
+> +	int ret = 0;
+> +
+> +	if (!dev->tee_ctx) {
+> +		dev_err(dev->dev, "Failed to get TEE context\n");
+> +		return -ENODEV;
+> +	}
+> +
+> +	ta_sm = (struct ta_pmf_shared_memory *)dev->shbuf;
+
+Unnecessary cast from void *.
+
+> +	ta_sm->command_id = TA_PMF_COMMAND_POLICY_BUILDER_INITIALIZE;
+> +	ta_sm->if_version = PMF_TA_IF_VERSION_MAJOR;
+> +
+> +	amd_pmf_prepare_args(dev, TA_PMF_COMMAND_POLICY_BUILDER_INITIALIZE, &arg, param);
+> +
+> +	ret = tee_client_invoke_func(dev->tee_ctx, &arg, param);
+> +	if (ret < 0 || arg.ret != 0) {
+> +		dev_err(dev->dev, "Failed to invoke TEE init cmd. err: %x, ret:%x\n", arg.ret, ret);
+> +		return -EINVAL;
+
+As per earlier comments (x2).
+
+> +	}
+> +
+> +	return ta_sm->pmf_result;
+> +}
+> +
+> +static void amd_pmf_invoke_cmd(struct work_struct *work)
+> +{
+> +	struct amd_pmf_dev *dev = container_of(work, struct amd_pmf_dev, pb_work.work);
+> +
+> +	amd_pmf_invoke_cmd_enact(dev);
+> +	schedule_delayed_work(&dev->pb_work, msecs_to_jiffies(pb_actions_ms));
+> +}
+> +
+>  static int amd_pmf_amdtee_ta_match(struct tee_ioctl_version_data *ver, const void *data)
+>  {
+>  	return ver->impl_id == TEE_IMPL_ID_AMDTEE;
+> @@ -103,10 +190,18 @@ static void amd_pmf_tee_deinit(struct amd_pmf_dev *dev)
+>  
+>  int amd_pmf_init_smart_pc(struct amd_pmf_dev *dev)
+>  {
+> -	return amd_pmf_tee_init(dev);
+> +	int ret;
+> +
+> +	ret = amd_pmf_tee_init(dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	INIT_DELAYED_WORK(&dev->pb_work, amd_pmf_invoke_cmd);
+> +	return 0;
+>  }
+>  
+>  void amd_pmf_deinit_smart_pc(struct amd_pmf_dev *dev)
+>  {
+> +	cancel_delayed_work_sync(&dev->pb_work);
+>  	amd_pmf_tee_deinit(dev);
+>  }
+> 
+
+-- 
+ i.
+
