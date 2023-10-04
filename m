@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3309FE7B614
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 13:16:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A980E7B611
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 13:16:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48B7210E370;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7208C10E372;
 	Wed,  4 Oct 2023 13:16:13 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FC0010E117;
- Wed,  4 Oct 2023 12:23:25 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3FEE10E0F5;
+ Wed,  4 Oct 2023 11:03:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696422205; x=1727958205;
+ t=1696417411; x=1727953411;
  h=date:from:to:cc:subject:in-reply-to:message-id:
  references:mime-version;
- bh=q510avIETzCzx0UwcTwKxfmx1rOStfQU47IXRifeHpw=;
- b=JJyrmDQ+vEBCZhB/W5fwioOCChDHwZtc5PE47eYaB0wz/EOvLWnjcPT9
- YoTI7sBJZkh+EYAFpvXesLG6N3er3hIqPyk5D0pt9abEoKPh/VILCC1S7
- Ap9yJufGiB2/29kZ33OkcIlOSxrAOmnIY9uUFzv6bLkx+xuG/Li5a08vG
- LXsY6KN1yC7nzIWGJ29jidOGqRPfMIWzBUnI8JtiAd1BpeSQ5Wwz1nK1f
- Y/9Ms9sNXj0TEM2aVDssGJR2jjyy6yZ/NXpikmUjwMAi954B06FU2Cby2
- aMD69jEL54yn9TzbNCNpom4cgSMz6cMDoE0BqCka/VDITWOzjPidP7uVQ g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10852"; a="414067309"
-X-IronPort-AV: E=Sophos;i="6.03,200,1694761200"; d="scan'208";a="414067309"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2023 05:23:24 -0700
+ bh=9wFZDTVPfxaaXT4OzZ8Ud4lOXKjaifdovN0viPzCpTM=;
+ b=ZRGCo8+O+N9b8lL9rDmpklmH6F2le+xo1McaVkjZEnGxx6m1AxVFPvui
+ 5NzMX7wAWOZWN7hfLXiGaSPvHtb9ZhfdQoONagZiYjhNe25mUU66dQ9tN
+ ECsaFRYTOldapldL9oTrHWVOZoxkDdFoScwbmqedtU2PoRWY2/omt8nC2
+ IndxmTqNDeNHfS0v2UCgrPWYBQUDijmShFdECsW+0VV7ktEOmPeuHAltg
+ mTez9Q2rZLb+fVG5A7rfqeJu/1Jgp5kvYDBFshI5TU8WAzzowDcEWmGVN
+ Gfh8yYxOMloViAQudSl9KDaeLUMI3OorxZRekEKA0l1Fa4SeSZo0d/bpc Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10852"; a="363399258"
+X-IronPort-AV: E=Sophos;i="6.03,200,1694761200"; d="scan'208";a="363399258"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2023 04:03:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10852"; a="817066912"
-X-IronPort-AV: E=Sophos;i="6.03,200,1694761200"; d="scan'208";a="817066912"
+X-IronPort-AV: E=McAfee;i="6600,9927,10852"; a="998416391"
+X-IronPort-AV: E=Sophos;i="6.03,200,1694761200"; d="scan'208";a="998416391"
 Received: from cyrillet-mobl.ger.corp.intel.com ([10.252.55.203])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2023 05:23:20 -0700
-Date: Wed, 4 Oct 2023 15:23:17 +0300 (EEST)
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2023 04:03:26 -0700
+Date: Wed, 4 Oct 2023 14:03:24 +0300 (EEST)
 From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
 To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-Subject: Re: [PATCH v2 08/16] platform/x86/amd/pmf: Add support to update
- system state
-In-Reply-To: <20230930083715.2050863-9-Shyam-sundar.S-k@amd.com>
-Message-ID: <b827b663-871-5437-247-1c6c502d596d@linux.intel.com>
+Subject: Re: [PATCH v2 03/16] platform/x86/amd/pmf: Change return type of
+ amd_pmf_set_dram_addr()
+In-Reply-To: <20230930083715.2050863-4-Shyam-sundar.S-k@amd.com>
+Message-ID: <567055c-d8cc-1f4b-4fc6-758cb52b2c75@linux.intel.com>
 References: <20230930083715.2050863-1-Shyam-sundar.S-k@amd.com>
- <20230930083715.2050863-9-Shyam-sundar.S-k@amd.com>
+ <20230930083715.2050863-4-Shyam-sundar.S-k@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 X-Mailman-Approved-At: Wed, 04 Oct 2023 13:16:11 +0000
@@ -64,183 +64,111 @@ Cc: Xinhui.Pan@amd.com, Patil.Reddy@amd.com, basavaraj.natikar@amd.com,
  markgross@kernel.org, Hans de Goede <hdegoede@redhat.com>,
  benjamin.tissoires@redhat.com, mario.limonciello@amd.com, daniel@ffwll.ch,
  linux-input@vger.kernel.org, alexander.deucher@amd.com, airlied@gmail.com,
- christian.koenig@amd.com, kernel test robot <lkp@intel.com>
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Sat, 30 Sep 2023, Shyam Sundar S K wrote:
 
-> PMF driver based on the output actions from the TA can request to update
-> the system states like entering s0i3, lock screen etc. by generating
-> an uevent. Based on the udev rules set in the userspace the event id
-> matching the uevent shall get updated accordingly using the systemctl.
+> In the current code, the metrics table information was required only
+> for auto-mode or CnQF at a given time. Hence keeping the return type
+> of amd_pmf_set_dram_addr() as static made sense.
 > 
-> Sample udev rules under Documentation/admin-guide/pmf.rst.
+> But with the addition of Smart PC builder feature, the metrics table
+> information has to be shared by the Smart PC also and this feature
+> resides outside of core.c.
 > 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202309260515.5XbR6N0g-lkp@intel.com/
-
-Please don't put lkp tags for patches that are still under development 
-(even if the email you get misleadingly instructs you to). Only use them 
-when you fix code that's already in tree based on LKP's report.
-
+> To make amd_pmf_set_dram_addr() visible outside of core.c make it
+> as a non-static function and move the allocation of memory for
+> metrics table from amd_pmf_init_metrics_table() to amd_pmf_set_dram_addr()
+> as amd_pmf_set_dram_addr() is the common function to set the DRAM
+> address.
+> 
+> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
 > Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
 > ---
->  Documentation/admin-guide/index.rst   |  1 +
->  Documentation/admin-guide/pmf.rst     | 25 ++++++++++++++++
->  drivers/platform/x86/amd/pmf/pmf.h    |  9 ++++++
->  drivers/platform/x86/amd/pmf/tee-if.c | 41 ++++++++++++++++++++++++++-
->  4 files changed, 75 insertions(+), 1 deletion(-)
->  create mode 100644 Documentation/admin-guide/pmf.rst
+>  drivers/platform/x86/amd/pmf/core.c | 26 ++++++++++++++++++--------
+>  drivers/platform/x86/amd/pmf/pmf.h  |  1 +
+>  2 files changed, 19 insertions(+), 8 deletions(-)
 > 
-> diff --git a/Documentation/admin-guide/index.rst b/Documentation/admin-guide/index.rst
-> index 43ea35613dfc..fb40a1f6f79e 100644
-> --- a/Documentation/admin-guide/index.rst
-> +++ b/Documentation/admin-guide/index.rst
-> @@ -119,6 +119,7 @@ configure specific aspects of kernel behavior to your liking.
->     parport
->     perf-security
->     pm/index
-> +   pmf
->     pnp
->     rapidio
->     ras
-> diff --git a/Documentation/admin-guide/pmf.rst b/Documentation/admin-guide/pmf.rst
-> new file mode 100644
-> index 000000000000..90072add511e
-> --- /dev/null
-> +++ b/Documentation/admin-guide/pmf.rst
-> @@ -0,0 +1,25 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +
-> +Set udev rules for PMF Smart PC Builder
-> +---------------------------------------
-> +
-> +AMD PMF(Platform Management Framework) Smart PC Solution builder has to set the system states
-> +like S0i3, Screen lock, hibernate etc, based on the output actions provided by the PMF
-> +TA (Trusted Application).
-> +
-> +In order for this to work the PMF driver generates a uevent for userspace to react to. Below are
-> +sample udev rules that can facilitate this experience when a machine has PMF Smart PC solution builder
-> +enabled.
-> +
-> +Please add the following line(s) to
-> +``/etc/udev/rules.d/99-local.rules``::
-> +
-> +        DRIVERS=="amd-pmf", ACTION=="change", ENV{EVENT_ID}=="1", RUN+="/usr/bin/systemctl suspend"
-> +        DRIVERS=="amd-pmf", ACTION=="change", ENV{EVENT_ID}=="2", RUN+="/usr/bin/systemctl hibernate"
-> +        DRIVERS=="amd-pmf", ACTION=="change", ENV{EVENT_ID}=="3", RUN+="/bin/loginctl lock-sessions"
-> +
-> +EVENT_ID values:
-> +1= Put the system to S0i3/S2Idle
-> +2= Put the system to hibernate
-> +3= Lock the screen
-> +
-> diff --git a/drivers/platform/x86/amd/pmf/pmf.h b/drivers/platform/x86/amd/pmf/pmf.h
-> index d5e410c41e81..34778192432e 100644
-> --- a/drivers/platform/x86/amd/pmf/pmf.h
-> +++ b/drivers/platform/x86/amd/pmf/pmf.h
-> @@ -73,6 +73,7 @@
->  #define PMF_POLICY_STT_MIN					6
->  #define PMF_POLICY_STT_SKINTEMP_APU				7
->  #define PMF_POLICY_STT_SKINTEMP_HS2				8
-> +#define PMF_POLICY_SYSTEM_STATE					9
->  #define PMF_POLICY_P3T						38
->  
->  /* TA macros */
-> @@ -439,6 +440,13 @@ struct apmf_dyn_slider_output {
->  } __packed;
->  
->  /* Smart PC - TA internals */
-> +enum system_state {
-> +	SYSTEM_STATE__S0i3 = 1,
-> +	SYSTEM_STATE__S4,
-> +	SYSTEM_STATE__SCREEN_LOCK,
-> +	SYSTEM_STATE__MAX
-> +};
-> +
->  enum ta_slider {
->  	TA_BEST_BATTERY, /* Best Battery */
->  	TA_BETTER_BATTERY, /* Better Battery */
-> @@ -470,6 +478,7 @@ enum ta_pmf_error_type {
+> diff --git a/drivers/platform/x86/amd/pmf/core.c b/drivers/platform/x86/amd/pmf/core.c
+> index 68f1389dda3e..678dce4fea08 100644
+> --- a/drivers/platform/x86/amd/pmf/core.c
+> +++ b/drivers/platform/x86/amd/pmf/core.c
+> @@ -251,29 +251,35 @@ static const struct pci_device_id pmf_pci_ids[] = {
+>  	{ }
 >  };
 >  
->  struct pmf_action_table {
-> +	enum system_state system_state;
->  	unsigned long spl; /* in mW */
->  	unsigned long sppt; /* in mW */
->  	unsigned long sppt_apuonly; /* in mW */
-> diff --git a/drivers/platform/x86/amd/pmf/tee-if.c b/drivers/platform/x86/amd/pmf/tee-if.c
-> index 315e3d2eacdf..961011530c1b 100644
-> --- a/drivers/platform/x86/amd/pmf/tee-if.c
-> +++ b/drivers/platform/x86/amd/pmf/tee-if.c
-> @@ -24,6 +24,20 @@ MODULE_PARM_DESC(pb_actions_ms, "Policy binary actions sampling frequency (defau
->  static const uuid_t amd_pmf_ta_uuid = UUID_INIT(0x6fd93b77, 0x3fb8, 0x524d,
->  						0xb1, 0x2d, 0xc5, 0x29, 0xb1, 0x3d, 0x85, 0x43);
+> -static void amd_pmf_set_dram_addr(struct amd_pmf_dev *dev)
+> +int amd_pmf_set_dram_addr(struct amd_pmf_dev *dev)
+>  {
+>  	u64 phys_addr;
+>  	u32 hi, low;
 >  
-> +static const char *amd_pmf_uevent_as_str(unsigned int state)
-> +{
-> +	switch (state) {
-> +	case SYSTEM_STATE__S0i3:
-> +		return "S0i3";
-> +	case SYSTEM_STATE__S4:
-> +		return "S4";
-> +	case SYSTEM_STATE__SCREEN_LOCK:
-> +		return "SCREEN_LOCK";
-> +	default:
-> +		return "Unknown Smart PC event";
-> +	}
-> +}
+> +	/* Get Metrics Table Address */
+> +	dev->buf = kzalloc(sizeof(dev->m_table), GFP_KERNEL);
+> +	if (!dev->buf)
+> +		return -ENOMEM;
 > +
->  static void amd_pmf_prepare_args(struct amd_pmf_dev *dev, int cmd,
->  				 struct tee_ioctl_invoke_arg *arg,
->  				 struct tee_param *param)
-> @@ -42,9 +56,23 @@ static void amd_pmf_prepare_args(struct amd_pmf_dev *dev, int cmd,
->  	param[0].u.memref.shm_offs = 0;
+>  	phys_addr = virt_to_phys(dev->buf);
+>  	hi = phys_addr >> 32;
+>  	low = phys_addr & GENMASK(31, 0);
+>  
+>  	amd_pmf_send_cmd(dev, SET_DRAM_ADDR_HIGH, 0, hi, NULL);
+>  	amd_pmf_send_cmd(dev, SET_DRAM_ADDR_LOW, 0, low, NULL);
+> +
+> +	return 0;
 >  }
 >  
-> +static int amd_pmf_update_uevents(struct amd_pmf_dev *dev, u16 event)
-> +{
-> +	char *envp[2] = {};
-> +
-> +	envp[0] = kasprintf(GFP_KERNEL, "EVENT_ID=%d", event);
-> +	if (!envp[0])
-> +		return -EINVAL;
-> +
-> +	kobject_uevent_env(&dev->dev->kobj, KOBJ_CHANGE, envp);
-> +
-> +	kfree(envp[0]);
-> +	return 0;
-> +}
-> +
->  static void amd_pmf_apply_policies(struct amd_pmf_dev *dev, struct ta_pmf_enact_result *out)
+>  int amd_pmf_init_metrics_table(struct amd_pmf_dev *dev)
 >  {
-> -	unsigned long val;
-> +	unsigned long val, event = 0;
->  	int idx;
+> -	/* Get Metrics Table Address */
+> -	dev->buf = kzalloc(sizeof(dev->m_table), GFP_KERNEL);
+> -	if (!dev->buf)
+> -		return -ENOMEM;
+> +	int ret;
 >  
->  	for (idx = 0; idx < out->actions_count; idx++) {
-> @@ -113,6 +141,17 @@ static void amd_pmf_apply_policies(struct amd_pmf_dev *dev, struct ta_pmf_enact_
->  				dev->prev_data->p3t_limit = val;
->  			}
->  			break;
-> +
-> +		case PMF_POLICY_SYSTEM_STATE:
-> +			event = val + 1;
-> +			if (dev->prev_data->system_state != event) {
-> +				amd_pmf_update_uevents(dev, event);
-> +				dev_dbg(dev->dev, "update SYSTEM_STATE : %s\n",
-> +					amd_pmf_uevent_as_str(event));
-> +				/* reset the previous recorded state to zero */
-> +				dev->prev_data->system_state = 0;
+>  	INIT_DELAYED_WORK(&dev->work_buffer, amd_pmf_get_metrics);
+>  
+> -	amd_pmf_set_dram_addr(dev);
+> +	ret = amd_pmf_set_dram_addr(dev);
+> +	if (ret)
+> +		return ret;
+>  
+>  	/*
+>  	 * Start collecting the metrics data after a small delay
+> @@ -287,9 +293,13 @@ int amd_pmf_init_metrics_table(struct amd_pmf_dev *dev)
+>  static int amd_pmf_resume_handler(struct device *dev)
+>  {
+>  	struct amd_pmf_dev *pdev = dev_get_drvdata(dev);
+> +	int ret;
+>  
+> -	if (pdev->buf)
+> -		amd_pmf_set_dram_addr(pdev);
+> +	if (pdev->buf) {
+> +		ret = amd_pmf_set_dram_addr(pdev);
 
-No, a comment won't help you here. As is, system_state is constant 0 so 
-it's entirely unnecessary to keep that value at all. In fact, the comment 
-is wrong because there never was "previously recorder state" in 
-->system_state to begin with since it's either initialized to zero on 
-alloc or reset to zero by this line.
+Won't this now leak the previous ->buf?
 
-So what are you trying to achieve here with this ->system_state variable?
+> +		if (ret)
+> +			return ret;
+> +	}
+>  
+>  	return 0;
+>  }
+> diff --git a/drivers/platform/x86/amd/pmf/pmf.h b/drivers/platform/x86/amd/pmf/pmf.h
+> index e0837799f521..3930b8ed8333 100644
+> --- a/drivers/platform/x86/amd/pmf/pmf.h
+> +++ b/drivers/platform/x86/amd/pmf/pmf.h
+> @@ -421,6 +421,7 @@ int amd_pmf_init_metrics_table(struct amd_pmf_dev *dev);
+>  int amd_pmf_get_power_source(void);
+>  int apmf_install_handler(struct amd_pmf_dev *pmf_dev);
+>  int apmf_os_power_slider_update(struct amd_pmf_dev *dev, u8 flag);
+> +int amd_pmf_set_dram_addr(struct amd_pmf_dev *dev);
+>  
+>  /* SPS Layer */
+>  int amd_pmf_get_pprof_modes(struct amd_pmf_dev *pmf);
+> 
 
 -- 
  i.
