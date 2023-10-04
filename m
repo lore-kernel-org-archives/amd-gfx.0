@@ -4,66 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B978E7B5E0
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 09:24:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3B9BE7B5E5
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 09:24:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D09A810E34F;
-	Wed,  4 Oct 2023 09:24:09 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2058.outbound.protection.outlook.com [40.107.101.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 500A310E352
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Oct 2023 09:24:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 360CD10E352;
+	Wed,  4 Oct 2023 09:24:19 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2069.outbound.protection.outlook.com [40.107.100.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE76F10E352
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Oct 2023 09:24:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MgcKrgRvNbzXErz75T75qVMUXXGguCDLZqpn9f2sQyEUcK687iJMSj0R2ngjxTN/VGgSohbbX7RfiL0yU0oVvm9l4tOTbTE2xrIiqwhooZ/OhmuU83c40jTzndTpaEnT1wC/50ScwUyImu6TRSMBQRIdSLPbgHSL5PP7DmDrWkRgr4zQgGUHVqDF/HHh5Ak6LteS+fE81ityUQzo4Z6MvdNqyEPJZ1wYtM6Np6yXb65vGpUnbfZFLBP190zIaYabmR+qb4wamswmf+mSHjJN/ByDaMSIeBDwS3BJLuZs5gRd/ERWrsYqtVqY/ZMXWGuu58niIv0gH9Ahr1f5SuaGSA==
+ b=d0pTJ8S4rjtrtEv/iraJOsDblcZSHkuXn3wcLygctb6Z78ANCGOMp9gtVcCmfac2ncoGKJX3nad3Ries+egJkQMbWp0X7Fcg5cl2vzSuimORADyJLcuI5F7nK2Ik//XIaP0FutA+JnfnPt/aqxalDsKzSQl6jOeR6KchMfXECm0UGidmNXlZJte31UlT+Zzmt4IKKnQv5bGIBpou6Lwh7bLnj3wvg2ogs5zRyBeIPjhZhTkZvAD8xKgQPAcQVIE/Fsua6IdBx8T+Rq84d9NNBgrx9FpoFbyTBpmBGfRbkA6apYbZ7j6hs0vBYZqCaTD4Xts7y5XxGCtvaa4fhDYnQw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kw6lc7GAAdW8xP3df8zXtWjp+WZ9sMxZ6J5GbXN+pqg=;
- b=mAX4jMgScIYJyVSu3gNunp3C1YFw+hpyNyYDY9t9429EFa0fsoy6l5cIOx0s3Q99FBjyQA/QrNFhyZf6xYrUBd+6eI5B8aqZN/Yn28MzWB8SJ+numeDuNdvvJnM5H5124z35hq2Akt+X21w1bBCpIBNcDANNR+nKPevIQlALqArQgGn2022wZXNDU3be3NHfrDan44mTcLhU+vpqMYKPOckNSTWHrDF5BZmtaA/2qrPhfgxOhJ320MQ/KGVKy3Oii8ehXVht54P5bJ0raNMOvIkwpF0YBshYJS4WoOK/cdAAtAdzEzOkeIkv5PyLacnwhYb/8z+Vml6Z4PY0LxjskA==
+ bh=9USjXxvU6MyWJrO9j3Av1Uuq4Y+B1S10ljxjYh24t7I=;
+ b=IrRrbmXhIb2bkjkVOHZXUIxtJUiQRhQEqiwiCQA7a1bhGIuP5bcgKjSpTGRdDiciNR0LsrzE1JH75KBZCFDBksWzqP5/HETcYdNPa/sCeaYifDq9ERg3+btfQk4UHpRpFkWHSIyySYC2uoW6A8rCyqFYNgqKE7nGmz/09xGGeZlEfWkhv85zhGaraTunamja4LGZDWfb8pUv8HfY+8nexRIwolxiweAqvGOvzFV8+mx7AJNn6dtsGp4QmLSEyTkwUj8F7bjJ29mp4o2hcB1uPN0IZyWIewZ663x7a3Gva7bsAaX5gVkf2i0e0T/oN0KwAmOJFEonO1R+Wep7NjaBrg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kw6lc7GAAdW8xP3df8zXtWjp+WZ9sMxZ6J5GbXN+pqg=;
- b=M76Q5zj/py+EJlyGyz8pp1pZRU63OQSg7g4AFLpXXBPXtRT+TpxLRDanIvE6uCd8lr/Tuv3Bgu5bAtRHKcWH2DA85yO2m6aHJm/1v9QvoFZKxUpwuoS5WiUnmQRFLMOTaNt4G94mG4LTbr0/ctGbbhu51Djd+K1IX5dQDpDBzCM=
-Received: from BLAP220CA0006.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:32c::11)
- by DM4PR12MB5166.namprd12.prod.outlook.com (2603:10b6:5:395::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.35; Wed, 4 Oct
- 2023 09:24:04 +0000
-Received: from BL6PEPF0001AB4C.namprd04.prod.outlook.com
- (2603:10b6:208:32c:cafe::ff) by BLAP220CA0006.outlook.office365.com
- (2603:10b6:208:32c::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.36 via Frontend
- Transport; Wed, 4 Oct 2023 09:24:04 +0000
+ bh=9USjXxvU6MyWJrO9j3Av1Uuq4Y+B1S10ljxjYh24t7I=;
+ b=BKB4vgVvHFuGWv8vcNPTt+JybRYSABDh++B3htQq8BscUpKfT7+lpc1OHvtdWJVTiGQYyjoU5UsVudjo13w96K97mtItVms0PcOzWEp/wz/zJhF9HVIJM9WxzvHurM8VG9F1RmLWsaCi5Kj0jy5Gm208wWMsA7giQjDp+lmI+Ew=
+Received: from CY5PR19CA0012.namprd19.prod.outlook.com (2603:10b6:930:15::16)
+ by SJ1PR12MB6291.namprd12.prod.outlook.com (2603:10b6:a03:456::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.33; Wed, 4 Oct
+ 2023 09:24:10 +0000
+Received: from CY4PEPF0000E9D1.namprd03.prod.outlook.com
+ (2603:10b6:930:15:cafe::55) by CY5PR19CA0012.outlook.office365.com
+ (2603:10b6:930:15::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.31 via Frontend
+ Transport; Wed, 4 Oct 2023 09:24:10 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL6PEPF0001AB4C.mail.protection.outlook.com (10.167.242.70) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D1.mail.protection.outlook.com (10.167.241.144) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.14 via Frontend Transport; Wed, 4 Oct 2023 09:24:04 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6838.22 via Frontend Transport; Wed, 4 Oct 2023 09:24:10 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 4 Oct
- 2023 04:24:04 -0500
+ 2023 04:24:09 -0500
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
  (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 4 Oct
- 2023 02:24:03 -0700
+ 2023 02:24:09 -0700
 Received: from tom-HP.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Wed, 4 Oct 2023 04:23:58 -0500
+ Transport; Wed, 4 Oct 2023 04:24:04 -0500
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 07/16] drm/amd/display: Update dml ssb from pmfw clock table
-Date: Wed, 4 Oct 2023 17:22:52 +0800
-Message-ID: <20231004092301.2371458-8-chiahsuan.chung@amd.com>
+Subject: [PATCH 08/16] drm/amd/display: Update cursor limits based on SW
+ cursor fallback limits
+Date: Wed, 4 Oct 2023 17:22:53 +0800
+Message-ID: <20231004092301.2371458-9-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231004092301.2371458-1-chiahsuan.chung@amd.com>
 References: <20231004092301.2371458-1-chiahsuan.chung@amd.com>
@@ -72,26 +73,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4C:EE_|DM4PR12MB5166:EE_
-X-MS-Office365-Filtering-Correlation-Id: bfe9f6d3-ea5a-436f-1363-08dbc4bba724
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D1:EE_|SJ1PR12MB6291:EE_
+X-MS-Office365-Filtering-Correlation-Id: 87c1e06c-1d8b-4a27-48b6-08dbc4bbaab6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hzxeEowIbqjxXvlYeFOsCNmwiuiWYqGjmyl8AISzU4JVrENM8ABhYwpcnew4ncomfX8fJuUOgUdF72QRp/p9WyzuqpnKAil84tHptaepLNd45k5u02+KRfzTr1Da4iZ+hfemap9FscIHysdHp6sbJMGwQ4uHYGfzWPzR+J0zmWp81jCcZVGNGJ5afr89SReRmOJWQVrt3A8bPK6suG/i1lTvChfRot0tHNJ4H4YUsXg/sqHup5qJ6QD3o6RK4STxbzHjsw3Lm0PH0UDz42o0cpETS9QDEBQ6CFui/Ue7NEIUOw16aZiAzpvfw5Ngx7JlHgeRiWjFLpmyXAilcKOzUdTZAMyybYSxNIUSUdmn0OIXHMQpruQn20za8gbhWrEgTRGlc4dOrpqG4JxQRUD6Fg7qiAo4IDbP6HJ2Ut/LI5hRFWC/p4ClZTn/Wez75qryFv0eM+wyRsgd1JEKDcc+baZmp2bwCRHa9izNqEOaM4Jyf5fyWZL3miSJDteakux/gnm5Fc3x6gUVFrxH2ijIdJbyxcfOvErjUu+V0Pmvxdr38Ue7UKyNXcnpCvllZhSOYiwL4gVqFz8ocIGrCZCpXNpxd8Qix6q8yd4cF1dgnImt7kpjYzUnxGyK62yWvcd8c6QrxW1v0MYPflv6fl0rjTJr/R0ntYaQpMVfLk3OfFeIrMKwZeKXFEakefCilYFpkDFis363TjtIUy20WhC+SqwTrT8ZPHEjDUILvVH5STXUCyVxzpvT8a4+gkTC7F7TP4U9kxq9eS2bCXu3+JhZBg==
+X-Microsoft-Antispam-Message-Info: yFWwtg7gIGWKVWPKroMBXKd8+yNdB5NA6WSc5Ja6Ol8/kKw7ESL4wgm0UFNS4mLnt7kIQgr63IX3LbP0F90bCsjgWy/fbTSn7Ye6JZIqf2MiTK1F/ftAUlcii5QmqB6dFnOkvniqHs2xd6tUMOwy5iEYWw+b//2bmdAioP8YiF/zSbDAfvMvUBOYYtDVNlk28YtJrfmPsA4vR1iyEGjF9ArnI4/yoFCdlhrQYB1PxiIZmkmiNod3MDGFMipDiu2lm3l+Px4wzUHJgAjwuo4sNb+mRmjJX5jHzgsX4DTdii1yp0FtWPnJjfiShKsXnxgt5QS6EFz+HwigTHYkt2pCPcqd936lWmCSLZq8sLCPq7BQf/jC46/UFIul5f40gZ9f5roAfy+q7IvOXFkhjdVWSUu9htddhgSyL/oYBuYrnRsPtxsU49ypXeGisZOLCbZLWa47rYZfbZ5PonqoEk81Jj3rCUBTZcNBFgjTSpdE+6zp7oAmg6ltEwC5qOr+72o4Dt5MorIpw5vz4fPoW0xmezn4BHUUPNl08T709t98ay7GkahDX1RL+KY11rBppm7MLMW5Zz9H+5KMfWZKhwleLLh0dsw7f48mEZR3BoajU7g1Pag5zpbyByoHSmsidYp6iZMAoqNPN8rumXUd8/71v36oxNy7yjT0Um3d9QjHj83nqgp5CFt+UgznQY46KA551Aacn32l6MDYDv56hBhdyW9SwDfu7lCkLcizFQnfsVe2W18BocTKLyqlf0gtbEN30uC4ErMfCCMcRtCoSs3dZQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(136003)(396003)(376002)(39860400002)(230922051799003)(64100799003)(186009)(1800799009)(451199024)(82310400011)(40470700004)(46966006)(36840700001)(2906002)(15650500001)(40480700001)(54906003)(70206006)(70586007)(316002)(6916009)(5660300002)(41300700001)(8676002)(8936002)(4326008)(40460700003)(36756003)(86362001)(47076005)(356005)(83380400001)(81166007)(6666004)(7696005)(2616005)(26005)(1076003)(336012)(426003)(478600001)(36860700001)(82740400003)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(136003)(376002)(39860400002)(396003)(346002)(230922051799003)(451199024)(186009)(1800799009)(82310400011)(64100799003)(40470700004)(46966006)(36840700001)(41300700001)(1076003)(2616005)(7696005)(70206006)(316002)(54906003)(6916009)(70586007)(8676002)(4326008)(5660300002)(26005)(8936002)(6666004)(478600001)(336012)(426003)(15650500001)(40460700003)(82740400003)(2906002)(83380400001)(47076005)(36756003)(81166007)(356005)(36860700001)(40480700001)(86362001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2023 09:24:04.4676 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bfe9f6d3-ea5a-436f-1363-08dbc4bba724
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2023 09:24:10.3964 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87c1e06c-1d8b-4a27-48b6-08dbc4bbaab6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB4C.namprd04.prod.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D1.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5166
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6291
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,101 +104,173 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Charlene Liu <charlene.liu@amd.com>,
- Muhammad Ahmed <ahmed.ahmed@amd.com>, chiahsuan.chung@amd.com,
+Cc: stylon.wang@amd.com, Aric Cyr <aric.cyr@amd.com>, chiahsuan.chung@amd.com,
  Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
  Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+ Aurabindo.Pillai@amd.com, Alvin Lee <alvin.lee2@amd.com>, wayne.lin@amd.com,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Muhammad Ahmed <ahmed.ahmed@amd.com>
+From: Alvin Lee <alvin.lee2@amd.com>
 
-[why]
-Need to use real clock table
+[Why&How]
+For determining the cursor size limit, use the same checks that
+are used for determining SW cursor fallback instead of only
+using SubVP
 
-[How]
-Update the clock table
-
-Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Reviewed-by: Aric Cyr <aric.cyr@amd.com>
 Acked-by: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Muhammad Ahmed <ahmed.ahmed@amd.com>
+Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
 ---
- .../drm/amd/display/dc/dcn35/dcn35_resource.c |  3 ++-
- .../drm/amd/display/dc/dml/dcn35/dcn35_fpu.c  | 24 +------------------
- .../drm/amd/display/dc/dml/dcn35/dcn35_fpu.h  |  2 --
- 3 files changed, 3 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  8 ++--
+ .../gpu/drm/amd/display/dc/core/dc_resource.c | 39 +++++++++++++++++++
+ .../gpu/drm/amd/display/dc/core/dc_stream.c   | 34 +---------------
+ drivers/gpu/drm/amd/display/dc/inc/resource.h |  3 ++
+ 4 files changed, 47 insertions(+), 37 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c b/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c
-index 24b455f3ac3c..d3cc8f4a82d1 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c
-@@ -698,7 +698,7 @@ static const struct dc_debug_options debug_defaults_drv = {
- 	.underflow_assert_delay_us = 0xFFFFFFFF,
- 	.dwb_fi_phase = -1, // -1 = disable,
- 	.dmub_command_table = true,
--	.pstate_enabled = false,
-+	.pstate_enabled = true,
- 	.use_max_lb = true,
- 	.enable_mem_low_power = {
- 		.bits = {
-@@ -1841,6 +1841,7 @@ static bool dcn35_resource_construct(
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 825f275ea9eb..623f4ac0bf42 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -5436,15 +5436,15 @@ bool dc_abm_save_restore(
+ void dc_query_current_properties(struct dc *dc, struct dc_current_properties *properties)
+ {
+ 	unsigned int i;
+-	bool subvp_in_use = false;
++	bool subvp_sw_cursor_req = false;
  
- 	/* Use pipe context based otg sync logic */
- 	dc->config.use_pipe_ctx_sync_logic = true;
-+	dc->config.use_default_clock_table = false;
- 	/* read VBIOS LTTPR caps */
- 	{
- 		if (ctx->dc_bios->funcs->get_lttpr_caps) {
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-index 4d5ee2aad9e4..be345f470b25 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-@@ -205,29 +205,7 @@ void dcn35_build_wm_range_table_fpu(struct clk_mgr *clk_mgr)
- 	//TODO
+ 	for (i = 0; i < dc->current_state->stream_count; i++) {
+-		if (dc->current_state->streams[i]->mall_stream_config.type != SUBVP_NONE) {
+-			subvp_in_use = true;
++		if (check_subvp_sw_cursor_fallback_req(dc, dc->current_state->streams[i])) {
++			subvp_sw_cursor_req = true;
+ 			break;
+ 		}
+ 	}
+-	properties->cursor_size_limit = subvp_in_use ? 64 : dc->caps.max_cursor_size;
++	properties->cursor_size_limit = subvp_sw_cursor_req ? 64 : dc->caps.max_cursor_size;
  }
  
--void dcn35_patch_dpm_table(struct clk_bw_params *bw_params)
--{
--	int i;
--	unsigned int max_dcfclk_mhz = 0, max_dispclk_mhz = 0, max_dppclk_mhz = 0,
--			max_phyclk_mhz = 0, max_dtbclk_mhz = 0, max_fclk_mhz = 0, max_uclk_mhz = 0;
--
--	for (i = 0; i < MAX_NUM_DPM_LVL; i++) {
--		if (bw_params->clk_table.entries[i].dcfclk_mhz > max_dcfclk_mhz)
--			max_dcfclk_mhz = bw_params->clk_table.entries[i].dcfclk_mhz;
--		if (bw_params->clk_table.entries[i].fclk_mhz > max_fclk_mhz)
--			max_fclk_mhz = bw_params->clk_table.entries[i].fclk_mhz;
--		if (bw_params->clk_table.entries[i].memclk_mhz > max_uclk_mhz)
--			max_uclk_mhz = bw_params->clk_table.entries[i].memclk_mhz;
--		if (bw_params->clk_table.entries[i].dispclk_mhz > max_dispclk_mhz)
--			max_dispclk_mhz = bw_params->clk_table.entries[i].dispclk_mhz;
--		if (bw_params->clk_table.entries[i].dppclk_mhz > max_dppclk_mhz)
--			max_dppclk_mhz = bw_params->clk_table.entries[i].dppclk_mhz;
--		if (bw_params->clk_table.entries[i].phyclk_mhz > max_phyclk_mhz)
--			max_phyclk_mhz = bw_params->clk_table.entries[i].phyclk_mhz;
--		if (bw_params->clk_table.entries[i].dtbclk_mhz > max_dtbclk_mhz)
--			max_dtbclk_mhz = bw_params->clk_table.entries[i].dtbclk_mhz;
--	}
--}
-+
- /*
-  * dcn35_update_bw_bounding_box
-  *
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.h b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.h
-index b122ffdcc30a..e8d5a170893e 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.h
-@@ -34,8 +34,6 @@ void dcn35_build_wm_range_table_fpu(struct clk_mgr *clk_mgr);
- void dcn35_update_bw_bounding_box_fpu(struct dc *dc,
- 				      struct clk_bw_params *bw_params);
+ /**
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index aa7b5db83644..3549a9b852a2 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -1334,6 +1334,32 @@ static void calculate_inits_and_viewports(struct pipe_ctx *pipe_ctx)
+ 	data->viewport_c.y += src.y / vpc_div;
+ }
  
--void dcn35_patch_dpm_table(struct clk_bw_params *bw_params);
++static bool is_subvp_high_refresh_candidate(struct dc_stream_state *stream)
++{
++	uint32_t refresh_rate;
++	struct dc *dc = stream->ctx->dc;
++
++	refresh_rate = (stream->timing.pix_clk_100hz * (uint64_t)100 +
++		stream->timing.v_total * stream->timing.h_total - (uint64_t)1);
++	refresh_rate = div_u64(refresh_rate, stream->timing.v_total);
++	refresh_rate = div_u64(refresh_rate, stream->timing.h_total);
++
++	/* If there's any stream that fits the SubVP high refresh criteria,
++	 * we must return true. This is because cursor updates are asynchronous
++	 * with full updates, so we could transition into a SubVP config and
++	 * remain in HW cursor mode if there's no cursor update which will
++	 * then cause corruption.
++	 */
++	if ((refresh_rate >= 120 && refresh_rate <= 175 &&
++			stream->timing.v_addressable >= 1080 &&
++			stream->timing.v_addressable <= 2160) &&
++			(dc->current_state->stream_count > 1 ||
++			(dc->current_state->stream_count == 1 && !stream->allow_freesync)))
++		return true;
++
++	return false;
++}
++
+ bool resource_build_scaling_params(struct pipe_ctx *pipe_ctx)
+ {
+ 	const struct dc_plane_state *plane_state = pipe_ctx->plane_state;
+@@ -5101,3 +5127,16 @@ enum dc_status update_dp_encoder_resources_for_test_harness(const struct dc *dc,
+ 	return DC_OK;
+ }
+ 
++bool check_subvp_sw_cursor_fallback_req(const struct dc *dc, struct dc_stream_state *stream)
++{
++	if (!dc->debug.disable_subvp_high_refresh && is_subvp_high_refresh_candidate(stream))
++		return true;
++	if (dc->current_state->stream_count == 1 && stream->timing.v_addressable >= 2880 &&
++			((stream->timing.pix_clk_100hz * 100) / stream->timing.v_total / stream->timing.h_total) < 120)
++		return true;
++	else if (dc->current_state->stream_count > 1 && stream->timing.v_addressable >= 2160 &&
++			((stream->timing.pix_clk_100hz * 100) / stream->timing.v_total / stream->timing.h_total) < 120)
++		return true;
++
++	return false;
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+index ac493dd7fa68..8a6a2881be41 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+@@ -288,32 +288,6 @@ static void program_cursor_attributes(
+ 	}
+ }
+ 
+-static bool is_subvp_high_refresh_candidate(struct dc_stream_state *stream)
+-{
+-	uint32_t refresh_rate;
+-	struct dc *dc = stream->ctx->dc;
 -
- int dcn35_populate_dml_pipes_from_context_fpu(struct dc *dc,
- 					      struct dc_state *context,
- 					      display_e2e_pipe_params_st *pipes,
+-	refresh_rate = (stream->timing.pix_clk_100hz * (uint64_t)100 +
+-		stream->timing.v_total * stream->timing.h_total - (uint64_t)1);
+-	refresh_rate = div_u64(refresh_rate, stream->timing.v_total);
+-	refresh_rate = div_u64(refresh_rate, stream->timing.h_total);
+-
+-	/* If there's any stream that fits the SubVP high refresh criteria,
+-	 * we must return true. This is because cursor updates are asynchronous
+-	 * with full updates, so we could transition into a SubVP config and
+-	 * remain in HW cursor mode if there's no cursor update which will
+-	 * then cause corruption.
+-	 */
+-	if ((refresh_rate >= 120 && refresh_rate <= 175 &&
+-			stream->timing.v_addressable >= 1080 &&
+-			stream->timing.v_addressable <= 2160) &&
+-			(dc->current_state->stream_count > 1 ||
+-			(dc->current_state->stream_count == 1 && !stream->allow_freesync)))
+-		return true;
+-
+-	return false;
+-}
+-
+ /*
+  * dc_stream_set_cursor_attributes() - Update cursor attributes and set cursor surface address
+  */
+@@ -347,13 +321,7 @@ bool dc_stream_set_cursor_attributes(
+ 	 * 3. If not subvp high refresh, for multi display cases, if resolution is >= 4K and refresh rate < 120hz
+ 	 */
+ 	if (dc->debug.allow_sw_cursor_fallback && attributes->height * attributes->width * 4 > 16384) {
+-		if (!dc->debug.disable_subvp_high_refresh && is_subvp_high_refresh_candidate(stream))
+-			return false;
+-		if (dc->current_state->stream_count == 1 && stream->timing.v_addressable >= 2880 &&
+-				((stream->timing.pix_clk_100hz * 100) / stream->timing.v_total / stream->timing.h_total) < 120)
+-			return false;
+-		else if (dc->current_state->stream_count > 1 && stream->timing.v_addressable >= 2160 &&
+-				((stream->timing.pix_clk_100hz * 100) / stream->timing.v_total / stream->timing.h_total) < 120)
++		if (check_subvp_sw_cursor_fallback_req(dc, stream))
+ 			return false;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/resource.h b/drivers/gpu/drm/amd/display/dc/inc/resource.h
+index 00230a7fbe25..67d1ec0f3c68 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/resource.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/resource.h
+@@ -604,4 +604,7 @@ bool dc_resource_acquire_secondary_pipe_for_mpc_odm_legacy(
+ enum dc_status update_dp_encoder_resources_for_test_harness(const struct dc *dc,
+ 		struct dc_state *context,
+ 		struct pipe_ctx *pipe_ctx);
++
++bool check_subvp_sw_cursor_fallback_req(const struct dc *dc, struct dc_stream_state *stream);
++
+ #endif /* DRIVERS_GPU_DRM_AMD_DC_DEV_DC_INC_RESOURCE_H_ */
 -- 
 2.25.1
 
