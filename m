@@ -4,50 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D96DE7B60F
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 13:16:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F21B4E7B614
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 13:16:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B003110E373;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA12010E375;
 	Wed,  4 Oct 2023 13:16:13 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 132A310E347;
- Wed,  4 Oct 2023 08:49:43 +0000 (UTC)
-Date: Wed, 4 Oct 2023 10:49:38 +0200
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEE2D10E348;
+ Wed,  4 Oct 2023 08:53:28 +0000 (UTC)
+Date: Wed, 4 Oct 2023 10:53:25 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1696409380;
+ s=2020; t=1696409607;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=3olMcepc++u5sj6w17rdFjD+IEV4ubtfuWg75Zf2PS4=;
- b=RNaRGl2ojAGIWO1QXBmKprOhlK/7spm5+WnC4rW+IE6/nouwsjG+zbEPQM91Tupud9y7k8
- zoHvAEb8XfoCKKtlnG+AMIgGvWYkicf23W5j28mcGB1BStPIReVYCBkAa3syfgHLRKeu59
- GnRF/kQvVw+H0k7MYJYDxJqUL4uA6w/MzSYW+qA1dIhBooPDXCVWePn+2syBMpnsajn8nF
- aR8+/JbFIX0PlP/N0caxMu0nFcEQgZvLJgSW2XymSPohIShingPGwoKYauPWtnDP10XpJf
- oGgJ9S0vsh8p5a746/uLbBRiUnysS0G/sbmCO0XL3tVa+DfE+1rBaNf/Ig4y7w==
+ bh=rgf8GRivj4qTsOt2d3XGukyfDCF2xbBG1R3w7WzCNvo=;
+ b=hX/rO9iom5L8UkraYSKmVK/Rh2VGAwKpYbh6N8iWKusVg4rlobvQe1FgpsZtS0Qd0F6bWy
+ EjihWD6jajPbtws1i55RhLLMh2SYTQxAM6NYtibIqrruG/z2LSkSDGJpJhYJFskpDIClIU
+ Q1LTks99YbavJru9/G2Detk6ph7ghCt29+FoJBEeftQdVhS6fu77kYAmODhNFejF+7eM2g
+ WBp26546c2t9HkuFz5y7ruJhx7l8bxCF/mcEUAVE4IIo8RXRkAYQ4Qnbh6ZXZ/5Thz2pRH
+ lKsn1kE3AZ66IT++Al2wtMKaMuNMOtXC/mGyFsKYHKtz5e6Eo78lcsWaFPYzYw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1696409380;
+ s=2020e; t=1696409607;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=3olMcepc++u5sj6w17rdFjD+IEV4ubtfuWg75Zf2PS4=;
- b=29/neHjkRd4EW3K83VJayOS9nL3/jzAE6ANmMADG8Lwzo+qbjMd6hlxXmjCjZpMrRwAlbR
- 26kb0rqnNJOI+MBg==
+ bh=rgf8GRivj4qTsOt2d3XGukyfDCF2xbBG1R3w7WzCNvo=;
+ b=VkA+R1ryLwSNaqdBtS0ALyRYsEc9TwdCz3bamM7HFUu0WvYO8CcdLI2rLyuRkeSGhnUbOA
+ NI4/wWCe4ec/nQAg==
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 To: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [PATCH 0/5] drm/amd/display: Remove migrate-disable and move
- memory allocation.
-Message-ID: <20231004084938.xP4rwomD@linutronix.de>
+Subject: Re: [PATCH 1/5] drm/amd/display: Remove migrate_en/dis from
+ dc_fpu_begin().
+Message-ID: <20231004085325.PandDs8m@linutronix.de>
 References: <20230921141516.520471-1-bigeasy@linutronix.de>
- <8be685cb-f44a-1143-60ec-d1073fda8e16@gmail.com>
- <20231002105813.NrEGqSCY@linutronix.de>
- <7a3875f6-122f-426e-95c9-06ed8123249b@amd.com>
+ <20230921141516.520471-2-bigeasy@linutronix.de>
+ <ad5179f7-d2f6-4306-b70e-f0ae5cefcff6@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <7a3875f6-122f-426e-95c9-06ed8123249b@amd.com>
+In-Reply-To: <ad5179f7-d2f6-4306-b70e-f0ae5cefcff6@amd.com>
 X-Mailman-Approved-At: Wed, 04 Oct 2023 13:16:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,51 +56,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <ckoenig.leichtzumerken@gmail.com>, "Pan,
+Cc: Tianci Yin <tianci.yin@amd.com>, Leo Li <sunpeng.li@amd.com>, "Pan,
  Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
  amd-gfx@lists.freedesktop.org, Peter Zijlstra <peterz@infradead.org>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Thomas Gleixner <tglx@linutronix.de>,
- David Airlie <airlied@gmail.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Thomas Gleixner <tglx@linutronix.de>, David Airlie <airlied@gmail.com>,
  Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023-10-03 15:54:58 [-0400], Harry Wentland wrote:
-> On 2023-10-02 06:58, Sebastian Andrzej Siewior wrote:
-> > On 2023-09-22 07:33:26 [+0200], Christian K=C3=B6nig wrote:
-> >> Am 21.09.23 um 16:15 schrieb Sebastian Andrzej Siewior:
-> >>> Hi,
-> >>>
-> >>> I stumbled uppon the amdgpu driver via a bugzilla report. The actual =
-fix
-> >>> is #4 + #5 and the rest was made while looking at the code.
-> >>
-> >> Oh, yes please :)
-> >>
-> >> Rodrigo and I have been trying to sort those things out previously, but
-> >> that's Sisyphean work.
-> >>
-> >> In general the DC team needs to judge, but of hand it looks good to me.
-> >=20
-> > Any way to get this merged? There was no reply from the DC team=E2=80=
-=A6 No
-> > reply from the person breaking it either. The bugzilla reporter stated
-> > that it solves his trouble. He didn't report anything new ;)
-> >=20
->=20
-> Apologies for the slow progress. We're feeding it through our CI and
-> will let you know the verdict soon.
->=20
-> Do you happen to have the bugzilla link that this is fixing? It would
-> be helpful to include that as a link in the patches as well, to give
-> them context.
-The bugzilla report is at
-  https://bugzilla.kernel.org/show_bug.cgi?id=3D217928
+On 2023-10-03 15:53:41 [-0400], Harry Wentland wrote:
+> On 2023-09-21 10:15, Sebastian Andrzej Siewior wrote:
+> > This is a revert of the commit mentioned below while it is not wrong, as
+> > in the kernel will explode, having migrate_disable() here it is
+> > complete waste of resources.
+> > 
+> > Additionally commit message is plain wrong the review tag does not make
+> 
+> Not sure I follow what's unhelpful about the review tag with
+> 0c316556d1249 ("drm/amd/display: Disable migration to ensure consistency of per-CPU variable")
 
-but the patches explain the situation, too. Even more verbose than the
-report=E2=80=A6
+I explained it below with two points what the reviewer should have
+noticed why reading the commit message even if he does not know what
+migrate_disable() itself does.
+
+> I do wish the original patch showed the splat it's attempting
+> to fix. It apparently made a difference for something, whether
+> inadvertently or not. I wish I knew what that "something" was.
+
+As far as I can tell the patch does make a difference.
 
 > Harry
 
