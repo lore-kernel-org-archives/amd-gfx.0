@@ -4,46 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E870E92FC8
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 21:53:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E4B2E92FCE
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 21:57:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BA3A10E413;
-	Thu,  5 Oct 2023 21:53:02 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D826110E169
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Oct 2023 20:35:11 +0000 (UTC)
-Received: from mercury (unknown [185.254.75.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: sre)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 44CD56607336;
- Thu,  5 Oct 2023 21:35:10 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1696538110;
- bh=+Rnv2prRvZyVs11h4b6Mvv3TPCjUToYKmLtK7qDQkIs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=XW0IGpZO3bt6WbxkR9uUpyOT72hklLSv568GU7RwhhTEY/Ud8L76HNM3vDDtInz9y
- 5hSVIYPVh+MPb7Zkk0Vem3TE+cLdIhzjhbcxyUskFo3a6uhSSehvHo6J9wH+zouoZX
- 76x9VhxYm+e9RpMrckoYeJML2WyETUyBSHYYXkJUh3OFdm7WvqOALmBKRqkgsWPBiL
- zgOoopweoFg+P3re35A58hO9BNtDpG/lxBSDqn3NG7G+V8mOGYKwsBv3GL36j7nGhr
- IsYfpY2cjeluRrnxm0FIPEzLDviXotjy2xzUrUDUvxiHLggobgn3QwxErqKr0UqLdz
- j2E/5gTweAO9Q==
-Received: by mercury (Postfix, from userid 1000)
- id 994511060532; Thu,  5 Oct 2023 22:35:06 +0200 (CEST)
-Date: Thu, 5 Oct 2023 22:35:06 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Subject: Re: [PATCH v2 1/2] usb: typec: ucsi: Use GET_CAPABILITY attributes
- data to set power supply scope
-Message-ID: <20231005203506.akgyrzdjnmq3ugd6@mercury.elektranox.org>
-References: <20231005175230.232764-1-mario.limonciello@amd.com>
- <20231005175230.232764-2-mario.limonciello@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F43510E42C;
+	Thu,  5 Oct 2023 21:57:13 +0000 (UTC)
+Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
+ [IPv6:2001:4860:4864:20::34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D2E510E3F1;
+ Thu,  5 Oct 2023 21:57:11 +0000 (UTC)
+Received: by mail-oa1-x34.google.com with SMTP id
+ 586e51a60fabf-1dcfb21f9d9so933407fac.0; 
+ Thu, 05 Oct 2023 14:57:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1696543031; x=1697147831; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=CAYKChfRdgudPucMl+HqonIt/5AX5oN5CCdBSnTYy0c=;
+ b=ZkDj3AgWaCULGl54QKEYHH9hUfc7piUyoQi9vIlt9yT+U4qC9E1rJu13U5rhRLpH4j
+ aDvx2hmkiTdiz1+6w0X/1yyQOJSa2duCE6vCCEAgjD+lF56aMFrWUam9tHIs6h2P0NXd
+ Ec5ZvVWXDGaVDdbYnkIDSfoQwwT08wQjfcmKakYhUuT8SbjtWKaVDFuyC7oJ/GtORRF4
+ 7LJsN1pEY6NA80BMtMc5d8geSOt7mNA5obfIZhlrjmELFx7DMv4s4LkpsNsbyO/92Jd3
+ Xd0hzYdbkiFojg3+tsRVq2kEVjGfGV/qEZoV1oZd4zUihAhK8wNhZhI3hDznJhhxuuS2
+ OZ9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1696543031; x=1697147831;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=CAYKChfRdgudPucMl+HqonIt/5AX5oN5CCdBSnTYy0c=;
+ b=egGAlYKbCKrFYUSBH9XR92gfvl9RspsO30/XBV/4B4EEcQd1VwkB/iTnF9qvSpZbjp
+ zyHK2O4BtSkJRlJ4LfgHXekMkBE88Ef05qDq0K/IqQ0AiT28v6EoMp0i9Tn6TIONBBa8
+ 1M1CZELs6ZEKaFKM13hJA9h4AN2iwHkhrschCD+OBtrnM/swWrugB9OSiOKA/xUK+Ipr
+ ghiMTosNYQo55nqjSKPCBw+KM6gWJjaSm4xXgKBUtCbpGHRt8sZQcV9P0K21X0GxjNMq
+ USHx4EabzteoVKn11gPPBZC7L8pyEfA0DJkJcjOfhHUyuPzIYblUDv2UyW6Kzx1uUIe5
+ RxWA==
+X-Gm-Message-State: AOJu0YyPsRPebwB/4DlLwvfvxHijAF/crEqkyuM/ZFvc4c7pY547rsBu
+ 8fpkVYa0XbSoM5ZRz8n/ssMHsFNCTL8QN6m61ZM=
+X-Google-Smtp-Source: AGHT+IE7Mh8ZxS9AEdUoRo8DfhqsdjKx0m14eBvMkDCkjbKr9ARO/M6kPfpebfea3wIhcrXCtgeKYHTEYOpyT1BJiWU=
+X-Received: by 2002:a05:6870:888b:b0:1bb:8842:7b5c with SMTP id
+ m11-20020a056870888b00b001bb88427b5cmr7517247oam.43.1696543030835; Thu, 05
+ Oct 2023 14:57:10 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="hxwbm6xxxmhg7owu"
-Content-Disposition: inline
-In-Reply-To: <20231005175230.232764-2-mario.limonciello@amd.com>
-X-Mailman-Approved-At: Thu, 05 Oct 2023 21:53:00 +0000
+References: <20231003232952.work.158-kees@kernel.org>
+ <ca2006f4-a038-460d-a9ca-d14dca8e4a8b@gmail.com>
+In-Reply-To: <ca2006f4-a038-460d-a9ca-d14dca8e4a8b@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 5 Oct 2023 17:56:59 -0400
+Message-ID: <CADnq5_MfkVQNU268wg1b6AStnELjvrpgU4Xrf_k-Qa2KsXGcmg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Annotate struct amdgpu_bo_list with
+ __counted_by
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,94 +69,100 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Wolfram Sang <wsa@kernel.org>, Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Richard Gong <Richard.Gong@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Cc: llvm@lists.linux.dev, Kees Cook <keescook@chromium.org>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ Tom Rix <trix@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>,
+ Luben Tuikov <luben.tuikov@amd.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-hardening@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Applied.  Thanks!
 
---hxwbm6xxxmhg7owu
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Alex
 
-Hi,
-
-On Thu, Oct 05, 2023 at 12:52:29PM -0500, Mario Limonciello wrote:
-> On some OEM systems, adding a W7900 dGPU triggers RAS errors and hangs
-> at a black screen on startup.  This issue occurs only if `ucsi_acpi` has
-> loaded before `amdgpu` has loaded.  The reason for this failure is that
-> `amdgpu` uses power_supply_is_system_supplied() to determine if running
-> on AC or DC power at startup. If this value is reported incorrectly the
-> dGPU will also be programmed incorrectly and trigger errors.
->=20
-> power_supply_is_system_supplied() reports the wrong value because UCSI
-> power supplies provided as part of the system don't properly report the
-> scope as "DEVICE" scope (not powering the system).
->=20
-> In order to fix this issue check the capabilities reported from the UCSI
-> power supply to ensure that it supports charging a battery and that it can
-> be powered by AC.  Mark the scope accordingly.
->=20
-> Fixes: a7fbfd44c020 ("usb: typec: ucsi: Mark dGPUs as DEVICE scope")
-> Link: https://www.intel.com/content/www/us/en/products/docs/io/universal-=
-serial-bus/usb-type-c-ucsi-spec.html p28
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
-> Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>
-> Cc: Alex Deucher <Alexander.Deucher@amd.com>>
-> Cc: Richard Gong <Richard.Gong@amd.com>
-> ---
->  drivers/usb/typec/ucsi/psy.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
->=20
-> diff --git a/drivers/usb/typec/ucsi/psy.c b/drivers/usb/typec/ucsi/psy.c
-> index 384b42267f1f..b35c6e07911e 100644
-> --- a/drivers/usb/typec/ucsi/psy.c
-> +++ b/drivers/usb/typec/ucsi/psy.c
-> @@ -37,6 +37,15 @@ static int ucsi_psy_get_scope(struct ucsi_connector *c=
-on,
->  	struct device *dev =3D con->ucsi->dev;
-> =20
->  	device_property_read_u8(dev, "scope", &scope);
-> +	if (scope =3D=3D POWER_SUPPLY_SCOPE_UNKNOWN) {
-> +		u32 mask =3D UCSI_CAP_ATTR_POWER_AC_SUPPLY |
-> +			   UCSI_CAP_ATTR_BATTERY_CHARGING;
-> +
-> +		if (con->ucsi->cap.attributes & mask)
-> +			scope =3D POWER_SUPPLY_SCOPE_SYSTEM;
-> +		else
-> +			scope =3D POWER_SUPPLY_SCOPE_DEVICE;
-> +	}
->  	val->intval =3D scope;
->  	return 0;
->  }
-
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-
--- Sebastian
-
---hxwbm6xxxmhg7owu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmUfHfEACgkQ2O7X88g7
-+pppFQ//fWCSXocN8V9lRZsVm33b3mgWdP2RaiSkwmCaeOsp2meEhzaND+5l2W2R
-u9ESFzFFmC5R29upWz7R5ACgNpGJiyN1kzIlxgfldp6xG8IFjsDetQk8RCdEoYI2
-zrC3ckTJ2qrv+RXyvdoOjoGfjRbllExOWAlMD55XebSoBAI3HDD69uWatWLYucN3
-XwyzzWVHaBdn957IE4IIU8bZQioDXaPECvnR67LIUlCrWDyzWtZ44tX+rEkzOlzW
-MzKg0hZPjmYJ3+abBUFXWHD3YJuyoQrbl+MAju4SH1pVNG3dxg67FmHEETZRFVIZ
-DYLg9SgdfBEINIvH1tNIpvsgp9pJVZ5w8s80sajobht9lNA4vTR9LHoP+NjbuwlT
-UNQlHufAAA/O7zWtqlqgz5X4Ge7klZ7cu4ybYoQOrI4j4L4MRNC77nSlQlpmB1/w
-71046UcX/rHGjQNYeqXR37YsNcemWLwQkBM7+6Hyupjdu5VKhXPpTxFizdl4E5Rw
-obgiOjYwgxti3G8PRp95sKO/56QJTGYO4hgjDu2III24YTT6VmIhDOTNjBk+PpIv
-5K4/GT6VV7csRyHfMCxvvF1cyNlIRoGaIjYYD7HDMgOKdx5qQobPkEwDJpNuvtCK
-ozGkiCfEdRerdMwQtbywbeZ7nqUzd12P2ZI07UeRUfd4JqsNE6c=
-=TKBn
------END PGP SIGNATURE-----
-
---hxwbm6xxxmhg7owu--
+On Thu, Oct 5, 2023 at 10:32=E2=80=AFAM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> Am 04.10.23 um 01:29 schrieb Kees Cook:
+> > Prepare for the coming implementation by GCC and Clang of the __counted=
+_by
+> > attribute. Flexible array members annotated with __counted_by can have
+> > their accesses bounds-checked at run-time via CONFIG_UBSAN_BOUNDS (for
+> > array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
+> > functions).
+> >
+> > As found with Coccinelle[1], add __counted_by for struct amdgpu_bo_list=
+.
+> > Additionally, since the element count member must be set before accessi=
+ng
+> > the annotated flexible array member, move its initialization earlier.
+> >
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
+> > Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+> > Cc: David Airlie <airlied@gmail.com>
+> > Cc: Daniel Vetter <daniel@ffwll.ch>
+> > Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+> > Cc: Luben Tuikov <luben.tuikov@amd.com>
+> > Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+> > Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+> > Cc: amd-gfx@lists.freedesktop.org
+> > Cc: dri-devel@lists.freedesktop.org
+> > Cc: linux-hardening@vger.kernel.org
+> > Link: https://github.com/kees/kernel-tools/blob/trunk/coccinelle/exampl=
+es/counted_by.cocci [1]
+> > Signed-off-by: Kees Cook <keescook@chromium.org>
+>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 2 +-
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h | 2 +-
+> >   2 files changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_bo_list.c
+> > index 6f5b641b631e..781e5c5ce04d 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+> > @@ -84,6 +84,7 @@ int amdgpu_bo_list_create(struct amdgpu_device *adev,=
+ struct drm_file *filp,
+> >
+> >       kref_init(&list->refcount);
+> >
+> > +     list->num_entries =3D num_entries;
+> >       array =3D list->entries;
+> >
+> >       for (i =3D 0; i < num_entries; ++i) {
+> > @@ -129,7 +130,6 @@ int amdgpu_bo_list_create(struct amdgpu_device *ade=
+v, struct drm_file *filp,
+> >       }
+> >
+> >       list->first_userptr =3D first_userptr;
+> > -     list->num_entries =3D num_entries;
+> >       sort(array, last_entry, sizeof(struct amdgpu_bo_list_entry),
+> >            amdgpu_bo_list_entry_cmp, NULL);
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_bo_list.h
+> > index 6a703be45d04..555cd6d877c3 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
+> > @@ -56,7 +56,7 @@ struct amdgpu_bo_list {
+> >        */
+> >       struct mutex bo_list_mutex;
+> >
+> > -     struct amdgpu_bo_list_entry entries[];
+> > +     struct amdgpu_bo_list_entry entries[] __counted_by(num_entries);
+> >   };
+> >
+> >   int amdgpu_bo_list_get(struct amdgpu_fpriv *fpriv, int id,
+>
