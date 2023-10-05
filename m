@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6913BE92719
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 17:16:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74F85E9271B
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 17:16:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCAAB10E437;
-	Thu,  5 Oct 2023 17:15:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 145D610E43B;
+	Thu,  5 Oct 2023 17:15:48 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8D6510E434;
- Thu,  5 Oct 2023 17:15:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B5CC10E438;
+ Thu,  5 Oct 2023 17:15:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,26 +19,26 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=+BoWgXtqQtO0MENWtIs/LHuZy9TmCtB13rAaY9q00pA=; b=eVyC6Guh7fquA8S0XODve+Ao9z
- lSxwt4/WViBNweH44f8QyuJggXxfhSmbokHAFEiV+dmDkLt7sycoK43xIccARbkzKmT6xgBQxhCrw
- AJAX/ZUono4l4u4A/r8gcM09OL3mh1DW9XoiqTvqy3DWhDWhOalozGjGkAbq7AHlcE71o8Cz9nmnz
- 661AjUbQmypYVmJr+oyiH70YCVXm9O/RlFd8sTpv3Hg814XupntlcPuYeqaa8TOeJF0hG3ke7v7u+
- lFxek4ec1+ZfLWFwc/9mO1rOTUq4waW0X2pjfqZKfA0Wz/N5mvOB+C+K3/TFsXKSzhY6X7QKw0rE7
- i5GZvxrw==;
+ bh=ZdkF7kDYUkRdyS5E2ycqr11+RPZh1j9vfXkpUe1Xamg=; b=kcqjfwRcARBlBS/FR+9l1ykbr1
+ 0PSIomaaoMobhc/xAMF9OtQHrnAdGi0aCJM2STrfkYf/B0Skd+tlarFC2OpVY2wa7onqzkpQxW+9x
+ 2q2vSL9BZcmOoXMj5iW6Cl/dr8PT908XQ1N3HevKM3VOP+234Io8noTuThIhkWrgrblYXhLikOnMW
+ r6Bi8zF9zevbWEhFLHcL47ZTnqr6/DfET3Rk28t7HPAXiOtmxCHyzT8rzRjIG6220EKQHOArTzHBh
+ tFUI+FPnQh+sMwqMoLCk8dimt/5ttouh07Rod808t6nd/I/DRNIcKdCI0u9UiU7G4cV1uz8mZNPVZ
+ ShwnODAw==;
 Received: from [102.213.205.115] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qoRwp-00CFJN-Rv; Thu, 05 Oct 2023 19:15:40 +0200
+ id 1qoRwu-00CFJN-28; Thu, 05 Oct 2023 19:15:44 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch
-Subject: [PATCH v4 04/32] drm/amd/display: add driver-specific property for
- plane degamma LUT
-Date: Thu,  5 Oct 2023 16:14:59 -0100
-Message-Id: <20231005171527.203657-5-mwen@igalia.com>
+Subject: [PATCH v4 06/32] drm/amd/display: explicitly define EOTF and inverse
+ EOTF
+Date: Thu,  5 Oct 2023 16:15:01 -0100
+Message-Id: <20231005171527.203657-7-mwen@igalia.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231005171527.203657-1-mwen@igalia.com>
 References: <20231005171527.203657-1-mwen@igalia.com>
@@ -64,256 +64,150 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hook up driver-specific atomic operations for managing AMD color
-properties. Create AMD driver-specific color management properties
-and attach them according to HW capabilities defined by `struct
-dc_color_caps`.
+Instead of relying on color block names to get the transfer function
+intention regarding encoding pixel's luminance, define supported
+Electro-Optical Transfer Functions (EOTFs) and inverse EOTFs, that
+includes pure gamma or standardized transfer functions.
 
-First add plane degamma LUT properties that means user-blob and its
-size. We will add more plane color properties in the next patches. In
-addition, we define AMD_PRIVATE_COLOR to guard these driver-specific
-plane properties.
+v3:
+- squash linear and unity TFs to identity (Pekka)
+- define the right TFs for BT.709 (Pekka and Harry)
+- add comment about AMD TF coefficients
 
-Plane degamma can be used to linearize input space for arithmetical
-operations that are more accurate when applied in linear color.
-
-v2:
-- update degamma LUT prop description
-- move private color operations from amdgpu_display to amdgpu_dm_color
-
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Co-developed-by: Joshua Ashton <joshua@froggi.es>
-Signed-off-by: Joshua Ashton <joshua@froggi.es>
+Suggested-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      | 11 +++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  5 ++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 11 +++
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 24 ++++++
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 81 +++++++++++++++++++
- 5 files changed, 132 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 27 +++++---
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 67 ++++++++++++++-----
+ 2 files changed, 71 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-index d8083972e393..2d00802b3265 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-@@ -343,6 +343,17 @@ struct amdgpu_mode_info {
- 	int			disp_priority;
- 	const struct amdgpu_display_funcs *funcs;
- 	const enum drm_plane_type *plane_type;
-+
-+	/* Driver-private color mgmt props */
-+
-+	/* @plane_degamma_lut_property: Plane property to set a degamma LUT to
-+	 * convert input space before blending.
-+	 */
-+	struct drm_property *plane_degamma_lut_property;
-+	/* @plane_degamma_lut_size_property: Plane property to define the max
-+	 * size of degamma LUT as supported by the driver (read-only).
-+	 */
-+	struct drm_property *plane_degamma_lut_size_property;
- };
- 
- #define AMDGPU_MAX_BL_LEVEL 0xFF
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index a59a11ae42db..7c55b1c0ac5c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4106,6 +4106,11 @@ static int amdgpu_dm_mode_config_init(struct amdgpu_device *adev)
- 		return r;
- 	}
- 
-+#ifdef AMD_PRIVATE_COLOR
-+	if (amdgpu_dm_create_color_properties(adev))
-+		return -ENOMEM;
-+#endif
-+
- 	r = amdgpu_dm_audio_init(adev);
- 	if (r) {
- 		dc_release_state(state->context);
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index b16613082bc3..0f565469b4b5 100644
+index 4c4cdf7fc6be..fc4f188d397e 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -727,6 +727,16 @@ extern const struct amdgpu_ip_block_version dm_ip_block;
- struct dm_plane_state {
- 	struct drm_plane_state base;
- 	struct dc_plane_state *dc_state;
-+
-+	/* Plane color mgmt */
-+	/**
-+	 * @degamma_lut:
-+	 *
-+	 * 1D LUT for mapping framebuffer/plane pixel data before sampling or
-+	 * blending operations. It's usually applied to linearize input space.
-+	 * The blob (if not NULL) is an array of &struct drm_color_lut.
-+	 */
-+	struct drm_property_blob *degamma_lut;
+@@ -724,16 +724,27 @@ struct amdgpu_dm_wb_connector {
+ 
+ extern const struct amdgpu_ip_block_version dm_ip_block;
+ 
++/* enum amdgpu_transfer_function: pre-defined transfer function supported by AMD.
++ *
++ * It includes standardized transfer functions and pure power functions. The
++ * transfer function coefficients are available at modules/color/color_gamma.c
++ */
+ enum amdgpu_transfer_function {
+ 	AMDGPU_TRANSFER_FUNCTION_DEFAULT,
+-	AMDGPU_TRANSFER_FUNCTION_SRGB,
+-	AMDGPU_TRANSFER_FUNCTION_BT709,
+-	AMDGPU_TRANSFER_FUNCTION_PQ,
+-	AMDGPU_TRANSFER_FUNCTION_LINEAR,
+-	AMDGPU_TRANSFER_FUNCTION_UNITY,
+-	AMDGPU_TRANSFER_FUNCTION_GAMMA22,
+-	AMDGPU_TRANSFER_FUNCTION_GAMMA24,
+-	AMDGPU_TRANSFER_FUNCTION_GAMMA26,
++	AMDGPU_TRANSFER_FUNCTION_SRGB_EOTF,
++	AMDGPU_TRANSFER_FUNCTION_BT709_INV_OETF,
++	AMDGPU_TRANSFER_FUNCTION_PQ_EOTF,
++	AMDGPU_TRANSFER_FUNCTION_IDENTITY,
++	AMDGPU_TRANSFER_FUNCTION_GAMMA22_EOTF,
++	AMDGPU_TRANSFER_FUNCTION_GAMMA24_EOTF,
++	AMDGPU_TRANSFER_FUNCTION_GAMMA26_EOTF,
++	AMDGPU_TRANSFER_FUNCTION_SRGB_INV_EOTF,
++	AMDGPU_TRANSFER_FUNCTION_BT709_OETF,
++	AMDGPU_TRANSFER_FUNCTION_PQ_INV_EOTF,
++	AMDGPU_TRANSFER_FUNCTION_GAMMA22_INV_EOTF,
++	AMDGPU_TRANSFER_FUNCTION_GAMMA24_INV_EOTF,
++	AMDGPU_TRANSFER_FUNCTION_GAMMA26_INV_EOTF,
++        AMDGPU_TRANSFER_FUNCTION_COUNT
  };
  
- struct dm_crtc_state {
-@@ -817,6 +827,7 @@ void amdgpu_dm_trigger_timing_sync(struct drm_device *dev);
- #define MAX_COLOR_LEGACY_LUT_ENTRIES 256
- 
- void amdgpu_dm_init_color_mod(void);
-+int amdgpu_dm_create_color_properties(struct amdgpu_device *adev);
- int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state);
- int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc);
- int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+ struct dm_plane_state {
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index a4cb23d059bd..cf175b86ba80 100644
+index 56ce008b9095..d03bdb010e8b 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -84,6 +84,30 @@ void amdgpu_dm_init_color_mod(void)
- 	setup_x_points_distribution();
+@@ -85,18 +85,57 @@ void amdgpu_dm_init_color_mod(void)
  }
  
-+#ifdef AMD_PRIVATE_COLOR
-+int
-+amdgpu_dm_create_color_properties(struct amdgpu_device *adev)
-+{
-+	struct drm_property *prop;
-+
-+	prop = drm_property_create(adev_to_drm(adev),
-+				   DRM_MODE_PROP_BLOB,
-+				   "AMD_PLANE_DEGAMMA_LUT", 0);
-+	if (!prop)
-+		return -ENOMEM;
-+	adev->mode_info.plane_degamma_lut_property = prop;
-+
-+	prop = drm_property_create_range(adev_to_drm(adev),
-+					 DRM_MODE_PROP_IMMUTABLE,
-+					 "AMD_PLANE_DEGAMMA_LUT_SIZE", 0, UINT_MAX);
-+	if (!prop)
-+		return -ENOMEM;
-+	adev->mode_info.plane_degamma_lut_size_property = prop;
-+
-+	return 0;
-+}
-+#endif
-+
- /**
-  * __extract_blob_lut - Extracts the DRM lut and lut size from a blob.
-  * @blob: DRM color mgmt property blob
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 03df26bd8e83..69357a8ae887 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1353,6 +1353,9 @@ dm_drm_plane_duplicate_state(struct drm_plane *plane)
- 		dc_plane_state_retain(dm_plane_state->dc_state);
- 	}
- 
-+	if (dm_plane_state->degamma_lut)
-+		drm_property_blob_get(dm_plane_state->degamma_lut);
-+
- 	return &dm_plane_state->base;
- }
- 
-@@ -1420,12 +1423,83 @@ static void dm_drm_plane_destroy_state(struct drm_plane *plane,
- {
- 	struct dm_plane_state *dm_plane_state = to_dm_plane_state(state);
- 
-+	if (dm_plane_state->degamma_lut)
-+		drm_property_blob_put(dm_plane_state->degamma_lut);
-+
- 	if (dm_plane_state->dc_state)
- 		dc_plane_state_release(dm_plane_state->dc_state);
- 
- 	drm_atomic_helper_plane_destroy_state(plane, state);
- }
- 
-+#ifdef AMD_PRIVATE_COLOR
-+static void
-+dm_atomic_plane_attach_color_mgmt_properties(struct amdgpu_display_manager *dm,
-+					     struct drm_plane *plane)
-+{
-+	struct amdgpu_mode_info mode_info = dm->adev->mode_info;
-+	struct dpp_color_caps dpp_color_caps = dm->dc->caps.color.dpp;
-+
-+	/* Check HW color pipeline capabilities for DPP (pre-blending) before expose*/
-+	if (dpp_color_caps.dgam_ram || dpp_color_caps.gamma_corr) {
-+		drm_object_attach_property(&plane->base,
-+					   mode_info.plane_degamma_lut_property, 0);
-+		drm_object_attach_property(&plane->base,
-+					   mode_info.plane_degamma_lut_size_property,
-+					   MAX_COLOR_LUT_ENTRIES);
-+	}
-+}
-+
-+static int
-+dm_atomic_plane_set_property(struct drm_plane *plane,
-+			     struct drm_plane_state *state,
-+			     struct drm_property *property,
-+			     uint64_t val)
-+{
-+	struct dm_plane_state *dm_plane_state = to_dm_plane_state(state);
-+	struct amdgpu_device *adev = drm_to_adev(plane->dev);
-+	bool replaced = false;
-+	int ret;
-+
-+	if (property == adev->mode_info.plane_degamma_lut_property) {
-+		ret = drm_property_replace_blob_from_id(plane->dev,
-+							&dm_plane_state->degamma_lut,
-+							val,
-+							-1, sizeof(struct drm_color_lut),
-+							&replaced);
-+		dm_plane_state->base.color_mgmt_changed |= replaced;
-+		return ret;
-+	} else {
-+		drm_dbg_atomic(plane->dev,
-+			       "[PLANE:%d:%s] unknown property [PROP:%d:%s]]\n",
-+			       plane->base.id, plane->name,
-+			       property->base.id, property->name);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int
-+dm_atomic_plane_get_property(struct drm_plane *plane,
-+			     const struct drm_plane_state *state,
-+			     struct drm_property *property,
-+			     uint64_t *val)
-+{
-+	struct dm_plane_state *dm_plane_state = to_dm_plane_state(state);
-+	struct amdgpu_device *adev = drm_to_adev(plane->dev);
-+
-+	if (property == adev->mode_info.plane_degamma_lut_property) {
-+		*val = (dm_plane_state->degamma_lut) ?
-+			dm_plane_state->degamma_lut->base.id : 0;
-+	} else {
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+#endif
-+
- static const struct drm_plane_funcs dm_plane_funcs = {
- 	.update_plane	= drm_atomic_helper_update_plane,
- 	.disable_plane	= drm_atomic_helper_disable_plane,
-@@ -1434,6 +1508,10 @@ static const struct drm_plane_funcs dm_plane_funcs = {
- 	.atomic_duplicate_state = dm_drm_plane_duplicate_state,
- 	.atomic_destroy_state = dm_drm_plane_destroy_state,
- 	.format_mod_supported = dm_plane_format_mod_supported,
-+#ifdef AMD_PRIVATE_COLOR
-+	.atomic_set_property = dm_atomic_plane_set_property,
-+	.atomic_get_property = dm_atomic_plane_get_property,
-+#endif
+ #ifdef AMD_PRIVATE_COLOR
+-static const struct drm_prop_enum_list amdgpu_transfer_function_enum_list[] = {
+-	{ AMDGPU_TRANSFER_FUNCTION_DEFAULT, "Default" },
+-	{ AMDGPU_TRANSFER_FUNCTION_SRGB, "sRGB" },
+-	{ AMDGPU_TRANSFER_FUNCTION_BT709, "BT.709" },
+-	{ AMDGPU_TRANSFER_FUNCTION_PQ, "PQ (Perceptual Quantizer)" },
+-	{ AMDGPU_TRANSFER_FUNCTION_LINEAR, "Linear" },
+-	{ AMDGPU_TRANSFER_FUNCTION_UNITY, "Unity" },
+-	{ AMDGPU_TRANSFER_FUNCTION_GAMMA22, "Gamma 2.2" },
+-	{ AMDGPU_TRANSFER_FUNCTION_GAMMA24, "Gamma 2.4" },
+-	{ AMDGPU_TRANSFER_FUNCTION_GAMMA26, "Gamma 2.6" },
++static const char * const
++amdgpu_transfer_function_names[] = {
++	[AMDGPU_TRANSFER_FUNCTION_DEFAULT]		= "Default",
++	[AMDGPU_TRANSFER_FUNCTION_IDENTITY]		= "Identity",
++	[AMDGPU_TRANSFER_FUNCTION_SRGB_EOTF]		= "sRGB EOTF",
++	[AMDGPU_TRANSFER_FUNCTION_BT709_INV_OETF]	= "BT.709 inv_OETF",
++	[AMDGPU_TRANSFER_FUNCTION_PQ_EOTF]		= "PQ EOTF",
++	[AMDGPU_TRANSFER_FUNCTION_GAMMA22_EOTF]		= "Gamma 2.2 EOTF",
++	[AMDGPU_TRANSFER_FUNCTION_GAMMA24_EOTF]		= "Gamma 2.4 EOTF",
++	[AMDGPU_TRANSFER_FUNCTION_GAMMA26_EOTF]		= "Gamma 2.6 EOTF",
++	[AMDGPU_TRANSFER_FUNCTION_SRGB_INV_EOTF]	= "sRGB inv_EOTF",
++	[AMDGPU_TRANSFER_FUNCTION_BT709_OETF]		= "BT.709 OETF",
++	[AMDGPU_TRANSFER_FUNCTION_PQ_INV_EOTF]		= "PQ inv_EOTF",
++	[AMDGPU_TRANSFER_FUNCTION_GAMMA22_INV_EOTF]	= "Gamma 2.2 inv_EOTF",
++	[AMDGPU_TRANSFER_FUNCTION_GAMMA24_INV_EOTF]	= "Gamma 2.4 inv_EOTF",
++	[AMDGPU_TRANSFER_FUNCTION_GAMMA26_INV_EOTF]	= "Gamma 2.6 inv_EOTF",
  };
  
- int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
-@@ -1513,6 +1591,9 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
++static const u32 amdgpu_eotf =
++	BIT(AMDGPU_TRANSFER_FUNCTION_SRGB_EOTF) |
++	BIT(AMDGPU_TRANSFER_FUNCTION_BT709_INV_OETF) |
++	BIT(AMDGPU_TRANSFER_FUNCTION_PQ_EOTF) |
++	BIT(AMDGPU_TRANSFER_FUNCTION_GAMMA22_EOTF) |
++	BIT(AMDGPU_TRANSFER_FUNCTION_GAMMA24_EOTF) |
++	BIT(AMDGPU_TRANSFER_FUNCTION_GAMMA26_EOTF);
++
++static struct drm_property *
++amdgpu_create_tf_property(struct drm_device *dev,
++			  const char *name,
++			  u32 supported_tf)
++{
++	u32 transfer_functions = supported_tf |
++				 BIT(AMDGPU_TRANSFER_FUNCTION_DEFAULT) |
++				 BIT(AMDGPU_TRANSFER_FUNCTION_IDENTITY);
++	struct drm_prop_enum_list enum_list[AMDGPU_TRANSFER_FUNCTION_COUNT];
++	int i, len;
++
++	len = 0;
++	for (i = 0; i < AMDGPU_TRANSFER_FUNCTION_COUNT; i++) {
++		if ((transfer_functions & BIT(i)) == 0)
++			continue;
++
++		enum_list[len].type = i;
++		enum_list[len].name = amdgpu_transfer_function_names[i];
++		len++;
++	}
++
++	return drm_property_create_enum(dev, DRM_MODE_PROP_ENUM,
++					name, enum_list, len);
++}
++
+ int
+ amdgpu_dm_create_color_properties(struct amdgpu_device *adev)
+ {
+@@ -116,11 +155,9 @@ amdgpu_dm_create_color_properties(struct amdgpu_device *adev)
+ 		return -ENOMEM;
+ 	adev->mode_info.plane_degamma_lut_size_property = prop;
  
- 	drm_plane_helper_add(plane, &dm_plane_helper_funcs);
- 
-+#ifdef AMD_PRIVATE_COLOR
-+	dm_atomic_plane_attach_color_mgmt_properties(dm, plane);
-+#endif
- 	/* Create (reset) the plane state */
- 	if (plane->funcs->reset)
- 		plane->funcs->reset(plane);
+-	prop = drm_property_create_enum(adev_to_drm(adev),
+-					DRM_MODE_PROP_ENUM,
+-					"AMD_PLANE_DEGAMMA_TF",
+-					amdgpu_transfer_function_enum_list,
+-					ARRAY_SIZE(amdgpu_transfer_function_enum_list));
++	prop = amdgpu_create_tf_property(adev_to_drm(adev),
++					 "AMD_PLANE_DEGAMMA_TF",
++					 amdgpu_eotf);
+ 	if (!prop)
+ 		return -ENOMEM;
+ 	adev->mode_info.plane_degamma_tf_property = prop;
 -- 
 2.40.1
 
