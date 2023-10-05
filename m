@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06695E92719
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 17:16:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB735E9271B
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 17:16:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADD4A10E438;
-	Thu,  5 Oct 2023 17:15:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 781E710E451;
+	Thu,  5 Oct 2023 17:16:07 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9892810E447;
- Thu,  5 Oct 2023 17:15:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBB4F10E44F;
+ Thu,  5 Oct 2023 17:16:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,26 +19,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=kYG3bAh938sAchyG25VJbDvEBvmX9Jk+19yOoPn7PyY=; b=W5gza/Ln/euIZDFSZypmM/AcZ9
- gyuLc8fKFqU+DPcQG2gBGPpq2Z8L7DeiHdXax7M8EtR6Ozxr5lIlYf6eYua0w5tqBtQTKukYlodyd
- KTeRY0f5iME4Xc9bFA5fAgXXGAx4K7MnPZkD5Xw+ep1NufzkDUaWhJdaBzVUqmtpONNbRRQeAVTnp
- bTyLkDe6Btrw9il/r0rT+QZ0ttRmP9Jaaj4Oc2qexcs97ZokhoEeqzrCvykgGIAphAw6d9YrUdB+q
- BLw0uS23sBuiQ3/QX8fxuMKqtdIJ8rYRm4lI3p9gmfDLbuZ7H0avGO5Xh5q/Chfv9f4HKZiH9lhhI
- e/wyioVA==;
+ bh=PkWg4j+QT2XfxhAfjWAPwq0pPVNF5M1m3hFmk8r0U4k=; b=pp+Y4HmNhC/tw7JaxfzSerTt8v
+ 3Le6ljgZsEIPm2C8pWX+dYedH+LTHjbyRNxshTU3iWgpUnCP1gTUhBnXuaRPxhoWGn3IT1E6OX3/R
+ lSIaIof2a1Oid8Ci5oDDLg7LWvpgzDesjgJ0UN2XigPZaJaqrpjOF/rIHsfJpH2Lg4slX15I3UVJG
+ fuXu37JoCyxy8ghaNvlV2Oqrno7xF582pIjgrSuVj1W0Qs4shv9hjugmaUEkOFTG/0yIbPSXZsk1x
+ gow8TRnRiUHjtIhSHWtOxpXWXk4NiLkuL0Nb2Tjs1cy5od4Vk4MJP8uWrQXZVGCCIrrGSCAhZX20A
+ EsbDkvbw==;
 Received: from [102.213.205.115] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qoRx4-00CFJN-Iq; Thu, 05 Oct 2023 19:15:54 +0200
+ id 1qoRxA-00CFJN-Te; Thu, 05 Oct 2023 19:16:01 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch
-Subject: [PATCH v4 11/32] drm/amd/display: add plane blend LUT and TF
- driver-specific properties
-Date: Thu,  5 Oct 2023 16:15:06 -0100
-Message-Id: <20231005171527.203657-12-mwen@igalia.com>
+Subject: [PATCH v4 14/32] drm/amd/display: encapsulate atomic regamma operation
+Date: Thu,  5 Oct 2023 16:15:09 -0100
+Message-Id: <20231005171527.203657-15-mwen@igalia.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231005171527.203657-1-mwen@igalia.com>
 References: <20231005171527.203657-1-mwen@igalia.com>
@@ -64,205 +63,95 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Joshua Ashton <joshua@froggi.es>
+We will wire up MPC 3D LUT to DM CRTC color pipeline in the next patch,
+but so far, only for atomic interface. By checking
+set_output_transfer_func in DC drivers with MPC 3D LUT support, we can
+verify that regamma is only programmed when 3D LUT programming fails. As
+a groundwork to introduce 3D LUT programming and better understand each
+step, detach atomic regamma programming from the crtc colocr updating
+code.
 
-Blend 1D LUT or a pre-defined transfer function (TF) can be set to
-linearize content before blending, so that it's positioned just before
-blending planes in the AMD color mgmt pipeline, and after 3D LUT
-(non-linear space). Shaper and Blend LUTs are 1D LUTs that sandwich 3D
-LUT. Drivers should advertize blend properties according to HW caps.
-
-There is no blend ROM for pre-defined TF. When setting blend TF (!=
-Identity) and LUT at the same time, the color module will combine the
-pre-defined TF and the custom LUT values into the LUT that's actually
-programmed.
-
-v3:
-- spell out TF+LUT behavior in the commit and comments (Harry)
-
-Signed-off-by: Joshua Ashton <joshua@froggi.es>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      | 22 ++++++++++++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 12 +++++++
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 21 +++++++++++
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 36 +++++++++++++++++++
- 4 files changed, 91 insertions(+)
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 55 ++++++++++++-------
+ 1 file changed, 35 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-index af70db4f6b4b..dee35d208493 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-@@ -402,6 +402,28 @@ struct amdgpu_mode_info {
- 	 * entries for 3D LUT array is the 3D LUT size cubed;
- 	 */
- 	struct drm_property *plane_lut3d_size_property;
-+	/**
-+	 * @plane_blend_lut_property: Plane property for output gamma before
-+	 * blending. Userspace set a blend LUT to convert colors after 3D LUT
-+	 * conversion. It works as a post-3DLUT 1D LUT. With shaper LUT, they
-+	 * are sandwiching 3D LUT with two 1D LUT. If plane_blend_tf_property
-+	 * != Identity TF, AMD color module will combine the user LUT values
-+	 * with pre-defined TF into the LUT parameters to be programmed.
-+	 */
-+	struct drm_property *plane_blend_lut_property;
-+	/**
-+	 * @plane_blend_lut_size_property: Plane property to define the max
-+	 * size of blend LUT as supported by the driver (read-only).
-+	 */
-+	struct drm_property *plane_blend_lut_size_property;
-+	/**
-+	 * @plane_blend_tf_property: Plane property to set a predefined
-+	 * transfer function for pre-blending blend/out_gamma (after applying
-+	 * 3D LUT) with or without LUT. There is no blend ROM, but we can use
-+	 * AMD color modules to program LUT parameters from predefined TF (or
-+	 * from a combination of pre-defined TF and the custom 1D LUT).
-+	 */
-+	struct drm_property *plane_blend_tf_property;
- };
- 
- #define AMDGPU_MAX_BL_LEVEL 0xFF
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 0e2a04a3caf3..1b96c742d747 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -800,6 +800,18 @@ struct dm_plane_state {
- 	 * &struct drm_color_lut.
- 	 */
- 	struct drm_property_blob *lut3d;
-+	/**
-+	 * @blend_lut: blend lut lookup table blob. The blob (if not NULL) is an
-+	 * array of &struct drm_color_lut.
-+	 */
-+	struct drm_property_blob *blend_lut;
-+	/**
-+	 * @blend_tf:
-+	 *
-+	 * Pre-defined transfer function for converting plane pixel data before
-+	 * applying blend LUT.
-+	 */
-+	enum amdgpu_transfer_function blend_tf;
- };
- 
- struct dm_crtc_state {
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index d3c7f9a13a61..82c554662faa 100644
+index 2b2826a1d855..0487fb715945 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -273,6 +273,27 @@ amdgpu_dm_create_color_properties(struct amdgpu_device *adev)
- 		return -ENOMEM;
- 	adev->mode_info.plane_lut3d_size_property = prop;
- 
-+	prop = drm_property_create(adev_to_drm(adev),
-+				   DRM_MODE_PROP_BLOB,
-+				   "AMD_PLANE_BLEND_LUT", 0);
-+	if (!prop)
-+		return -ENOMEM;
-+	adev->mode_info.plane_blend_lut_property = prop;
-+
-+	prop = drm_property_create_range(adev_to_drm(adev),
-+					 DRM_MODE_PROP_IMMUTABLE,
-+					 "AMD_PLANE_BLEND_LUT_SIZE", 0, UINT_MAX);
-+	if (!prop)
-+		return -ENOMEM;
-+	adev->mode_info.plane_blend_lut_size_property = prop;
-+
-+	prop = amdgpu_create_tf_property(adev_to_drm(adev),
-+					 "AMD_PLANE_BLEND_TF",
-+					 amdgpu_eotf);
-+	if (!prop)
-+		return -ENOMEM;
-+	adev->mode_info.plane_blend_tf_property = prop;
-+
- 	return 0;
- }
- #endif
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index a381b3558bd1..f1070ca7076a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1339,6 +1339,7 @@ static void dm_drm_plane_reset(struct drm_plane *plane)
- 	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
- 	amdgpu_state->hdr_mult = AMDGPU_HDR_MULT_DEFAULT;
- 	amdgpu_state->shaper_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
-+	amdgpu_state->blend_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
+@@ -524,6 +524,37 @@ static int __set_output_tf(struct dc_transfer_func *func,
+ 	return res ? 0 : -ENOMEM;
  }
  
- static struct drm_plane_state *
-@@ -1364,10 +1365,13 @@ dm_drm_plane_duplicate_state(struct drm_plane *plane)
- 		drm_property_blob_get(dm_plane_state->shaper_lut);
- 	if (dm_plane_state->lut3d)
- 		drm_property_blob_get(dm_plane_state->lut3d);
-+	if (dm_plane_state->blend_lut)
-+		drm_property_blob_get(dm_plane_state->blend_lut);
- 
- 	dm_plane_state->degamma_tf = old_dm_plane_state->degamma_tf;
- 	dm_plane_state->hdr_mult = old_dm_plane_state->hdr_mult;
- 	dm_plane_state->shaper_tf = old_dm_plane_state->shaper_tf;
-+	dm_plane_state->blend_tf = old_dm_plane_state->blend_tf;
- 
- 	return &dm_plane_state->base;
- }
-@@ -1442,6 +1446,8 @@ static void dm_drm_plane_destroy_state(struct drm_plane *plane,
- 		drm_property_blob_put(dm_plane_state->lut3d);
- 	if (dm_plane_state->shaper_lut)
- 		drm_property_blob_put(dm_plane_state->shaper_lut);
-+	if (dm_plane_state->blend_lut)
-+		drm_property_blob_put(dm_plane_state->blend_lut);
- 
- 	if (dm_plane_state->dc_state)
- 		dc_plane_state_release(dm_plane_state->dc_state);
-@@ -1488,6 +1494,17 @@ dm_atomic_plane_attach_color_mgmt_properties(struct amdgpu_display_manager *dm,
- 					   mode_info.plane_lut3d_size_property,
- 					   MAX_COLOR_3DLUT_SIZE);
- 	}
++static int amdgpu_dm_set_atomic_regamma(struct dc_stream_state *stream,
++					const struct drm_color_lut *regamma_lut,
++					uint32_t regamma_size, bool has_rom)
++{
++	struct dc_transfer_func *out_tf = stream->out_transfer_func;
++	int ret = 0;
 +
-+	if (dpp_color_caps.ogam_ram) {
-+		drm_object_attach_property(&plane->base,
-+					   mode_info.plane_blend_lut_property, 0);
-+		drm_object_attach_property(&plane->base,
-+					   mode_info.plane_blend_lut_size_property,
-+					   MAX_COLOR_LUT_ENTRIES);
-+		drm_object_attach_property(&plane->base,
-+					   mode_info.plane_blend_tf_property,
-+					   AMDGPU_TRANSFER_FUNCTION_DEFAULT);
++	if (regamma_size) {
++		/*
++		 * CRTC RGM goes into RGM LUT.
++		 *
++		 * Note: there is no implicit sRGB regamma here. We are using
++		 * degamma calculation from color module to calculate the curve
++		 * from a linear base.
++		 */
++		out_tf->type = TF_TYPE_DISTRIBUTED_POINTS;
++		out_tf->tf = TRANSFER_FUNCTION_LINEAR;
++
++		ret = __set_output_tf(out_tf, regamma_lut, regamma_size, has_rom);
++	} else {
++		/*
++		 * No CRTC RGM means we can just put the block into bypass
++		 * since we don't have any plane level adjustments using it.
++		 */
++		out_tf->type = TF_TYPE_BYPASS;
++		out_tf->tf = TRANSFER_FUNCTION_LINEAR;
 +	}
- }
- 
- static int
-@@ -1540,6 +1557,19 @@ dm_atomic_plane_set_property(struct drm_plane *plane,
- 							&replaced);
- 		dm_plane_state->base.color_mgmt_changed |= replaced;
- 		return ret;
-+	} else if (property == adev->mode_info.plane_blend_lut_property) {
-+		ret = drm_property_replace_blob_from_id(plane->dev,
-+							&dm_plane_state->blend_lut,
-+							val, -1,
-+							sizeof(struct drm_color_lut),
-+							&replaced);
-+		dm_plane_state->base.color_mgmt_changed |= replaced;
-+		return ret;
-+	} else if (property == adev->mode_info.plane_blend_tf_property) {
-+		if (dm_plane_state->blend_tf != val) {
-+			dm_plane_state->blend_tf = val;
-+			dm_plane_state->base.color_mgmt_changed = 1;
-+		}
- 	} else {
- 		drm_dbg_atomic(plane->dev,
- 			       "[PLANE:%d:%s] unknown property [PROP:%d:%s]]\n",
-@@ -1575,6 +1605,12 @@ dm_atomic_plane_get_property(struct drm_plane *plane,
- 	} else 	if (property == adev->mode_info.plane_lut3d_property) {
- 		*val = (dm_plane_state->lut3d) ?
- 			dm_plane_state->lut3d->base.id : 0;
-+	} else 	if (property == adev->mode_info.plane_blend_lut_property) {
-+		*val = (dm_plane_state->blend_lut) ?
-+			dm_plane_state->blend_lut->base.id : 0;
-+	} else if (property == adev->mode_info.plane_blend_tf_property) {
-+		*val = dm_plane_state->blend_tf;
 +
- 	} else {
- 		return -EINVAL;
++	return ret;
++}
++
+ /**
+  * __set_input_tf - calculates the input transfer function based on expected
+  * input space.
+@@ -671,28 +702,12 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
+ 				    regamma_size, has_rom);
+ 		if (r)
+ 			return r;
+-	} else if (has_regamma) {
+-		/*
+-		 * CRTC RGM goes into RGM LUT.
+-		 *
+-		 * Note: there is no implicit sRGB regamma here. We are using
+-		 * degamma calculation from color module to calculate the curve
+-		 * from a linear base.
+-		 */
+-		stream->out_transfer_func->type = TF_TYPE_DISTRIBUTED_POINTS;
+-		stream->out_transfer_func->tf = TRANSFER_FUNCTION_LINEAR;
+-
+-		r = __set_output_tf(stream->out_transfer_func, regamma_lut,
+-				    regamma_size, has_rom);
++	} else {
++		regamma_size = has_regamma ? regamma_size : 0;
++		r = amdgpu_dm_set_atomic_regamma(stream, regamma_lut,
++						 regamma_size, has_rom);
+ 		if (r)
+ 			return r;
+-	} else {
+-		/*
+-		 * No CRTC RGM means we can just put the block into bypass
+-		 * since we don't have any plane level adjustments using it.
+-		 */
+-		stream->out_transfer_func->type = TF_TYPE_BYPASS;
+-		stream->out_transfer_func->tf = TRANSFER_FUNCTION_LINEAR;
  	}
+ 
+ 	/*
 -- 
 2.40.1
 
