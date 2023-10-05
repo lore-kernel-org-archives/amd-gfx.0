@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4B9CE92702
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 14:14:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 067DFE92705
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 14:27:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4966110E3EC;
-	Thu,  5 Oct 2023 14:14:04 +0000 (UTC)
-Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
- [IPv6:2001:4860:4864:20::36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8529110E3EC
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Oct 2023 14:14:02 +0000 (UTC)
-Received: by mail-oa1-x36.google.com with SMTP id
- 586e51a60fabf-1dceaa7aeffso1117543fac.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 05 Oct 2023 07:14:02 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A049310E3E1;
+	Thu,  5 Oct 2023 14:27:56 +0000 (UTC)
+Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
+ [IPv6:2001:4860:4864:20::2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E43B010E3E0
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Oct 2023 14:27:54 +0000 (UTC)
+Received: by mail-oa1-x2d.google.com with SMTP id
+ 586e51a60fabf-1dcead29b3eso632356fac.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 05 Oct 2023 07:27:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1696515241; x=1697120041; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1696516074; x=1697120874; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=74Q5Vjbk3jIoIZXhuxW3Z463biHzZsIgNkgaSVqqIs4=;
- b=YtKW1K04+TfUnO/ufqO3h87nm9uejAKauAJmppN3lWqJH7RlASzD4ht3qeHYdiCxpr
- Ra0V7miHFeJE2JsOiE18DVqqnpGqwc28J9tEB6C9TJcN9w4IOesokjP/MVkAi2zv2qht
- HRNQT+XcHmCHlhhzXeFsZKZJkeEAFa5fZFZKURuHMNbQ1ET74YL6lcFkKJM/8KqzC6C3
- 8U7ElASGwEJTaZgmkSlNa0lHgJ45IDo9/KddetV7wggcRfE9GPZCKGJ4hXVd9qu1YLBz
- YgV3JahP+Y1qu0JVXr/ef/u7N3WbAJvTLnnCbRQcDCImDK3PrhQ6iJWhUr3w9eX+tXms
- uDug==
+ bh=sf4MPuomKyF3o4nq9CG0rFXGezopddzvy4wnl+9KMTA=;
+ b=ZJR3NKkOrA8zCsZzlBkyHIdoWZIdJZqUFvWplyNXwNlGehFNgv7HB+xOS0+twp16sw
+ ntocnHnyK4UAmPyHjBj65kBMc4E13/n4oLwNS2GLPsoaUmi4c0I3WzmSHBINmmMkQwpV
+ kstPXFtB4/vIzlNcuYXq41nZnkXOWMNP2HT+2cSmlkiWDKq5mAocRjDMl2SnHLEWLMjw
+ OddvGXXRtD9BngfguuAQU1Z6eTqOmgzot/BqCj1/28/3Gok5EBJ3Mglhv3QESDBz7dir
+ 3rRW4lzqlwwp/WmPz5ZuRGlVcfYXqZLtBJ9WnZyicdO0lHPRZC8ARwDAdyy0ILWSbTv4
+ /eJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696515241; x=1697120041;
+ d=1e100.net; s=20230601; t=1696516074; x=1697120874;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=74Q5Vjbk3jIoIZXhuxW3Z463biHzZsIgNkgaSVqqIs4=;
- b=E8gquNf6EgrYOzORv5ecCRAqMrw0XLShOfArbvD3Z12Uq1rYlaffVoOtKPJw3kl3i/
- HrQGQlIC+uezgBjxwI4vaJm/MyhDYvyAgzAzkDq7ennv4ink9hq8WoGRdVO++dFCNyE7
- wtTFKgsjHnhSOv7Vk8ex1xGnrTx7AFnBc7yMH3sqH36iZecsFLe9BuP6EvPgsfTTnI3N
- D8iQxo+MfSFV3nc1rq4/2pGePgmot1852vKZGldzArlapmcsX24U7WzUUSlcBTYK/EwH
- 4a13e16+TtpyMq7joJz0I7UPe352qEGkpnlwQ0AEuhnqRXGL6LfrLZ8wLAFeVrdAwh9l
- Ct8A==
-X-Gm-Message-State: AOJu0Yw159Eo4honKzt3TgYoBZssMM8UvBhDvMK+GjAO9JgFnAKfB2EK
- s6Jw9IzFLOQU2JS3GL9+OZnQa878BrXyxxvJIfw=
-X-Google-Smtp-Source: AGHT+IHBmtjwAPoyDG+54+Lg9TsOXqVUxX3GAndb1frUPhB96JVgct2852ZcNOvywASBz00snEqyDEE7NmXqGUcj3Ow=
-X-Received: by 2002:a05:6870:f110:b0:1d5:946d:72cb with SMTP id
- k16-20020a056870f11000b001d5946d72cbmr1561715oac.23.1696515241635; Thu, 05
- Oct 2023 07:14:01 -0700 (PDT)
+ bh=sf4MPuomKyF3o4nq9CG0rFXGezopddzvy4wnl+9KMTA=;
+ b=WsNSEL/+mUJyKZ9ZaJyus3Hm8ZiBACJ4y+B1NLWUIflFlIpIDhz/lxIsOvnrQNxLvw
+ CIdXiMFRgNspV0nlEDYh6knV21/JYX9xJ0vbb5t1/Jc1VyLHBUL9LgLl/uub6T3Y+aTT
+ qDn9YxSKIw0mlyT2hJfCq7k/6oUB6XW8jaDrOiMUF6eDZqzooAfnmgb+N2dVPTov6lDb
+ +B3lRR2QddOHrqykAI2Frs+gqoWqfyYiI5ARviyMIOpYPDJdGW4I++N79HxUh1jIiEXi
+ kFSogo7l8xwvav1UAKGrokQdhDca/VBa8dSkccTlrMFy2Ym18SnJG1H0I2uQ+KlGbAr3
+ 3gIw==
+X-Gm-Message-State: AOJu0YxoR2KY0zLFS0zpe2SxX+59xmS6j/vJqsne2o3hbmu5OfoOIaJc
+ kg7KytPF8sFRdkUQlMqrLA71O0FK1omn3TRc8b0QeT4OJwU=
+X-Google-Smtp-Source: AGHT+IEt0kP5YlZeVUBVbfxIvX8t/Lng2yhGM+nebqViKUR9lp3ogxZpaBf+NQ/O1WYbyGuHDjk0z51mubv2X53ov4U=
+X-Received: by 2002:a05:6870:71cb:b0:1dc:f539:ad70 with SMTP id
+ p11-20020a05687071cb00b001dcf539ad70mr6014391oag.56.1696516074075; Thu, 05
+ Oct 2023 07:27:54 -0700 (PDT)
 MIME-Version: 1.0
 References: <20231004171838.168215-1-mario.limonciello@amd.com>
- <20231004171838.168215-2-mario.limonciello@amd.com>
-In-Reply-To: <20231004171838.168215-2-mario.limonciello@amd.com>
+ <20231004171838.168215-3-mario.limonciello@amd.com>
+In-Reply-To: <20231004171838.168215-3-mario.limonciello@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 5 Oct 2023 10:13:50 -0400
-Message-ID: <CADnq5_MxDg0wzWmhDGAh6dUzpk_Au9X-SHL7d6EAjXmuerKKhQ@mail.gmail.com>
-Subject: Re: [PATCH v4 1/3] drm/amd: Evict resources during PM ops prepare()
- callback
+Date: Thu, 5 Oct 2023 10:27:43 -0400
+Message-ID: <CADnq5_PU9pzxR4gfVP=-X9YVGYMmqa74qRU-Qm0kxn7BQfivtw@mail.gmail.com>
+Subject: Re: [PATCH v4 2/3] drm/amd/display: Destroy DC context while keeping
+ DML
 To: Mario Limonciello <mario.limonciello@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -76,119 +76,104 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On Wed, Oct 4, 2023 at 1:37=E2=80=AFPM Mario Limonciello
 <mario.limonciello@amd.com> wrote:
 >
-> Linux PM core has a prepare() callback run before suspend.
+> If there is memory pressure at suspend time then dynamically
+> allocating a large structure as part of DC suspend code will
+> fail.
 >
-> If the system is under high memory pressure, the resources may need
-> to be evicted into swap instead.  If the storage backing for swap
-> is offlined during the suspend() step then such a call may fail.
->
-> So duplicate this step into prepare() to move evict majority of
-> resources while leaving all existing steps that put the GPU into a
-> low power state in suspend().
+> Instead re-use the same structure and clear all members except
+> those that should be maintained.
 >
 > Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2362
 > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 26 +++++++++++++++++++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  7 +++---
->  3 files changed, 30 insertions(+), 4 deletions(-)
+>  drivers/gpu/drm/amd/display/dc/core/dc.c      | 25 -------------------
+>  .../gpu/drm/amd/display/dc/core/dc_resource.c | 12 +++++++++
+>  2 files changed, 12 insertions(+), 25 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
-dgpu/amdgpu.h
-> index d23fb4b5ad95..6643d0ed6b1b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1413,6 +1413,7 @@ void amdgpu_driver_postclose_kms(struct drm_device =
-*dev,
->  void amdgpu_driver_release_kms(struct drm_device *dev);
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/a=
+md/display/dc/core/dc.c
+> index 39e291a467e2..cb8c7c5a8807 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> @@ -4728,9 +4728,6 @@ bool dc_set_power_state(
+>         struct dc *dc,
+>         enum dc_acpi_cm_power_state power_state)
+>  {
+> -       struct kref refcount;
+> -       struct display_mode_lib *dml;
+> -
+>         if (!dc->current_state)
+>                 return true;
 >
->  int amdgpu_device_ip_suspend(struct amdgpu_device *adev);
-> +int amdgpu_device_prepare(struct drm_device *dev);
->  int amdgpu_device_suspend(struct drm_device *dev, bool fbcon);
->  int amdgpu_device_resume(struct drm_device *dev, bool fbcon);
->  u32 amdgpu_get_vblank_counter_kms(struct drm_crtc *crtc);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index bad2b5577e96..67acee569c08 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4259,6 +4259,31 @@ static int amdgpu_device_evict_resources(struct am=
-dgpu_device *adev)
->  /*
->   * Suspend & resume.
->   */
-> +/**
-> + * amdgpu_device_prepare - prepare for device suspend
-> + *
-> + * @dev: drm dev pointer
-> + *
-> + * Prepare to put the hw in the suspend state (all asics).
-> + * Returns 0 for success or an error on failure.
-> + * Called at driver suspend.
-> + */
-> +int amdgpu_device_prepare(struct drm_device *dev)
-> +{
-> +       struct amdgpu_device *adev =3D drm_to_adev(dev);
-> +       int r;
-> +
-> +       if (dev->switch_power_state =3D=3D DRM_SWITCH_POWER_OFF)
-> +               return 0;
-> +
-> +       /* Evict the majority of BOs before starting suspend sequence */
-> +       r =3D amdgpu_device_evict_resources(adev);
-> +       if (r)
-> +               return r;
-> +
-> +       return 0;
-> +}
-> +
->  /**
->   * amdgpu_device_suspend - initiate device suspend
->   *
-> @@ -4279,7 +4304,6 @@ int amdgpu_device_suspend(struct drm_device *dev, b=
-ool fbcon)
+> @@ -4750,30 +4747,8 @@ bool dc_set_power_state(
+>                 break;
+>         default:
+>                 ASSERT(dc->current_state->stream_count =3D=3D 0);
+> -               /* Zero out the current context so that on resume we star=
+t with
+> -                * clean state, and dc hw programming optimizations will =
+not
+> -                * cause any trouble.
+> -                */
+> -               dml =3D kzalloc(sizeof(struct display_mode_lib),
+> -                               GFP_KERNEL);
+> -
+> -               ASSERT(dml);
+> -               if (!dml)
+> -                       return false;
+> -
+> -               /* Preserve refcount */
+> -               refcount =3D dc->current_state->refcount;
+> -               /* Preserve display mode lib */
+> -               memcpy(dml, &dc->current_state->bw_ctx.dml, sizeof(struct=
+ display_mode_lib));
 >
->         adev->in_suspend =3D true;
->
-> -       /* Evict the majority of BOs before grabbing the full access */
->         r =3D amdgpu_device_evict_resources(adev);
->         if (r)
->                 return r;
+>                 dc_resource_state_destruct(dc->current_state);
+> -               memset(dc->current_state, 0,
+> -                               sizeof(*dc->current_state));
+> -
+> -               dc->current_state->refcount =3D refcount;
+> -               dc->current_state->bw_ctx.dml =3D *dml;
 
-Might want to add a note that this is likely a noop in the normal
-suspend case and is just here to handle the case where
-amdgpu_device_suspend() is called outside of the normal pmops
-framework.
-Other than that, the patch is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+The dml dance seems a bit weird.  I guess it's here because
+dc_resource_state_destruct() might change it?  Can we safely drop
+this?  If we do need it, we could pre-allocate a dml structure and use
+that.
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index e3471293846f..175167582db0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2425,8 +2425,9 @@ static int amdgpu_pmops_prepare(struct device *dev)
->         /* Return a positive number here so
->          * DPM_FLAG_SMART_SUSPEND works properly
->          */
-> -       if (amdgpu_device_supports_boco(drm_dev))
-> -               return pm_runtime_suspended(dev);
-> +       if (amdgpu_device_supports_boco(drm_dev) &&
-> +           pm_runtime_suspended(dev))
-> +               return 1;
+Alex
+
+> -
+> -               kfree(dml);
 >
->         /* if we will not support s3 or s2i for the device
->          *  then skip suspend
-> @@ -2435,7 +2436,7 @@ static int amdgpu_pmops_prepare(struct device *dev)
->             !amdgpu_acpi_is_s3_active(adev))
->                 return 1;
->
-> -       return 0;
-> +       return amdgpu_device_prepare(drm_dev);
+>                 break;
+>         }
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/=
+gpu/drm/amd/display/dc/core/dc_resource.c
+> index aa7b5db83644..e487c966c118 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> @@ -4350,6 +4350,18 @@ void dc_resource_state_destruct(struct dc_state *c=
+ontext)
+>                 context->streams[i] =3D NULL;
+>         }
+>         context->stream_count =3D 0;
+> +       context->stream_mask =3D 0;
+> +       memset(&context->res_ctx, 0, sizeof(context->res_ctx));
+> +       memset(&context->pp_display_cfg, 0, sizeof(context->pp_display_cf=
+g));
+> +       memset(&context->dcn_bw_vars, 0, sizeof(context->dcn_bw_vars));
+> +       context->clk_mgr =3D NULL;
+> +       memset(&context->bw_ctx.bw, 0, sizeof(context->bw_ctx.bw));
+> +       memset(context->block_sequence, 0, sizeof(context->block_sequence=
+));
+> +       context->block_sequence_steps =3D 0;
+> +       memset(context->dc_dmub_cmd, 0, sizeof(context->dc_dmub_cmd));
+> +       context->dmub_cmd_count =3D 0;
+> +       memset(&context->perf_params, 0, sizeof(context->perf_params));
+> +       memset(&context->scratch, 0, sizeof(context->scratch));
 >  }
 >
->  static void amdgpu_pmops_complete(struct device *dev)
+>  void dc_resource_state_copy_construct(
 > --
 > 2.34.1
 >
