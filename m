@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34484E9271B
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 17:16:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A986E9271E
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 17:16:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F417910E468;
-	Thu,  5 Oct 2023 17:16:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3BD310E467;
+	Thu,  5 Oct 2023 17:16:32 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE98610E460;
- Thu,  5 Oct 2023 17:16:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3609B10E43E;
+ Thu,  5 Oct 2023 17:16:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,25 +19,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=vd6YQ3nPPQXa+WbxnZW0HbbImTSPFk23ffsYgCC8bhE=; b=aBQUsKO/gS75i9xLyhcTe2eUbN
- TxWiQDcWCsqW4bdbzmqNwNqSkCat7BETsWin9VtkDTKrr7PT5sOlm3DQ11Ekt9ZclCx+IUhPBoKB4
- ILc9aSwdsAJ40qdPPMEDeC7Hhg+BJfYaVMg/pmLM4xUkGmVxUL8gURXWxObKF9cnAUUoGSO4LjjG6
- dloYd9+xjzsbjYiXGoeq5fceZZje1hS2tUucZtpCEnkqUHPaDUDKNTOBYGAiQjZQIjQRmmd6T6lgx
- 4NoZ2wQmiacFSKK6VHSeeQRPvjSD3xrKb19oNs4D7xpkpJxFYbidl2zDnMEmyiVWv5iLe3ff6xupJ
- 7I5v8q3A==;
+ bh=L923nKY8szqOvQR0AEtsVRudRcyIwU/ZI25VbAN5gCc=; b=T2lV6n1dw55SxGa9Hee3vu1mjX
+ E/I59VZz6TZWn7EqN1n8QcHelPh60cz8uI+2l/77L7GaMoZx+BnI8nSHVCsdjy9iR8xHfAvS8onbS
+ /hFAjZ/qzjRV+stJSQpyvXwW6QfXSB86w7E6aXmMI7ETgOEDOsz3I+JcoMCeFtYNTDceC/u9smXJt
+ 7hWb0CtY6EIH32PwbRSz0Py1IU8yf+JgyKSEvhUiEJsRmVXTCIGQipRYhHZ/z8b+85FcEBFw55UTE
+ 47/9nMlGfZlbx8xQupQedAEEuyD+LfLei0VLEbXQmKYtfgD2bKABBOL048dq5YoMry+ppWZAbudD8
+ 1YqfiY0g==;
 Received: from [102.213.205.115] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qoRxV-00CFJN-UZ; Thu, 05 Oct 2023 19:16:22 +0200
+ id 1qoRxa-00CFJN-6k; Thu, 05 Oct 2023 19:16:26 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch
-Subject: [PATCH v4 24/32] drm/amd/display: add plane shaper TF support
-Date: Thu,  5 Oct 2023 16:15:19 -0100
-Message-Id: <20231005171527.203657-25-mwen@igalia.com>
+Subject: [PATCH v4 26/32] drm/amd/display: handle empty LUTs in __set_input_tf
+Date: Thu,  5 Oct 2023 16:15:21 -0100
+Message-Id: <20231005171527.203657-27-mwen@igalia.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231005171527.203657-1-mwen@igalia.com>
 References: <20231005171527.203657-1-mwen@igalia.com>
@@ -63,69 +63,54 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable usage of predefined transfer func in addition to shaper 1D LUT.
-That means we can save some complexity by just setting a predefined
-curve, instead of programming a custom curve when preparing color space
-for applying 3D LUT.
+From: Joshua Ashton <joshua@froggi.es>
+
+Unlike degamma, blend gamma doesn't support hardcoded curve
+(predefined/ROM), but we can use AMD color module to fill blend gamma
+parameters when we have non-linear plane gamma TF without plane gamma
+LUT. The regular degamma path doesn't hit this.
 
 Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Joshua Ashton <joshua@froggi.es>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c   | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 20 +++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index 1d18f447f387..0e65bf0a886e 100644
+index 9c38291c42a2..25e9aa147e00 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -623,20 +623,23 @@ amdgpu_tf_to_dc_tf(enum amdgpu_transfer_function tf)
+@@ -577,17 +577,21 @@ static int __set_input_tf(struct dc_transfer_func *func,
+ 	struct dc_gamma *gamma = NULL;
+ 	bool res;
+ 
+-	gamma = dc_create_gamma();
+-	if (!gamma)
+-		return -ENOMEM;
++	if (lut_size) {
++		gamma = dc_create_gamma();
++		if (!gamma)
++			return -ENOMEM;
+ 
+-	gamma->type = GAMMA_CUSTOM;
+-	gamma->num_entries = lut_size;
++		gamma->type = GAMMA_CUSTOM;
++		gamma->num_entries = lut_size;
+ 
+-	__drm_lut_to_dc_gamma(lut, gamma, false);
++		__drm_lut_to_dc_gamma(lut, gamma, false);
++	}
+ 
+-	res = mod_color_calculate_degamma_params(NULL, func, gamma, true);
+-	dc_gamma_release(&gamma);
++	res = mod_color_calculate_degamma_params(NULL, func, gamma, gamma != NULL);
++
++	if (gamma)
++		dc_gamma_release(&gamma);
+ 
+ 	return res ? 0 : -ENOMEM;
  }
- 
- static int amdgpu_dm_atomic_shaper_lut(const struct drm_color_lut *shaper_lut,
-+				       bool has_rom,
-+				       enum dc_transfer_func_predefined tf,
- 				       uint32_t shaper_size,
- 				       struct dc_transfer_func *func_shaper)
- {
- 	int ret = 0;
- 
--	if (shaper_size) {
-+	if (shaper_size || tf != TRANSFER_FUNCTION_LINEAR) {
- 		/*
- 		 * If user shaper LUT is set, we assume a linear color space
- 		 * (linearized by degamma 1D LUT or not).
- 		 */
- 		func_shaper->type = TF_TYPE_DISTRIBUTED_POINTS;
--		func_shaper->tf = TRANSFER_FUNCTION_LINEAR;
-+		func_shaper->tf = tf;
-+		func_shaper->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
- 
--		ret = __set_output_tf(func_shaper, shaper_lut, shaper_size, false);
-+		ret = __set_output_tf(func_shaper, shaper_lut, shaper_size, has_rom);
- 	} else {
- 		func_shaper->type = TF_TYPE_BYPASS;
- 		func_shaper->tf = TRANSFER_FUNCTION_LINEAR;
-@@ -971,6 +974,7 @@ amdgpu_dm_plane_set_color_properties(struct drm_plane_state *plane_state,
- 				     struct dc_plane_state *dc_plane_state)
- {
- 	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane_state);
-+	enum amdgpu_transfer_function shaper_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
- 	const struct drm_color_lut *shaper_lut;
- 	uint32_t shaper_size;
- 	int ret;
-@@ -983,8 +987,11 @@ amdgpu_dm_plane_set_color_properties(struct drm_plane_state *plane_state,
- 
- 	shaper_lut = __extract_blob_lut(dm_plane_state->shaper_lut, &shaper_size);
- 	shaper_size = shaper_lut != NULL ? shaper_size : 0;
-+	shaper_tf = dm_plane_state->shaper_tf;
- 
--	ret = amdgpu_dm_atomic_shaper_lut(shaper_lut, shaper_size,
-+	ret = amdgpu_dm_atomic_shaper_lut(shaper_lut, false,
-+					  amdgpu_tf_to_dc_tf(shaper_tf),
-+					  shaper_size,
- 					  dc_plane_state->in_shaper_func);
- 	if (ret)
- 		drm_dbg_kms(plane_state->plane->dev,
 -- 
 2.40.1
 
