@@ -4,74 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5420DE82CDE
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 09:42:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CABFAE93701
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 10:57:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 950DE10E1E5;
-	Thu,  5 Oct 2023 09:42:49 +0000 (UTC)
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65EF010E1DC;
- Thu,  5 Oct 2023 09:42:46 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-4065f29e933so7125525e9.1; 
- Thu, 05 Oct 2023 02:42:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1696498964; x=1697103764; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=693KH3zKhYevDlo1VF7tZiOPFyQxum49fs5ILYx5v8c=;
- b=mCbRI0BTQFWTcRv5HCPwasg57TA8M4BnNk4LLdgYG/mOI26J+ZhW/S3NfwJGPvRKKW
- 1H/suJ1mAQNYt8cjKaDmmaWj8g14SXdedIJJHU4Z/LbpB/bsn5VK1m0GxHq9/Hf/0ibM
- 1liGoU0J9hKoMH45vXjzQED50pxmbXN9vYipxexL7/zJLeIsH4o4s6G4VdCBAHy598Uj
- rkzVlAbwX2yXwo7irgyCosQcqy739UU+AcN+o1uVfg+n+mXPmLTH412r4eXCgfdY827v
- GlSDfnajRxX06aPoMJERnFmYHUDEKZdDCDAZESy3ZQ2d4Iw8sjRNWYOWA5K8O+/JlOeU
- Udhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696498964; x=1697103764;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=693KH3zKhYevDlo1VF7tZiOPFyQxum49fs5ILYx5v8c=;
- b=uZSaLKdTXx2NA7dFIKJDEW2P6X0rWJzBB7SHKgHPc+0H9kgFjqKF+SJuGU8ALBJtCC
- ALI3En84Wleh+Pccdt8HMzcFWe7KZHvYdUL83/vVP8nfZaxdy4OjCSPNdjFvsHDX8QnW
- dNGq8GFxMRcZ8+26HaPkeJXhlOp6WzzkyZXbyl2OkBauirPigmsHtMYyvGR+mmpTmDFP
- WkFt7DVqZ0dewt4zLL0vOpq6P4OHdQVTYlJpg1QrSpjb53Zln7GwkrVybTPUGtT4koRb
- UKkglULZSje69Hx/wGDpIscd4UzkMW7MKSTEdkuQnV3HSSn73pKY6ofohr9C52H6QAOV
- uY+w==
-X-Gm-Message-State: AOJu0YzMGEgpjo37IM23PilaNtsHRXhmweBiurtZIUc2qT/12CmqBcDF
- QFn6WMBk3LdzJwsTssvKaLw=
-X-Google-Smtp-Source: AGHT+IEqCjtTNseNA7LGC5Lm5Y9+taQvSKRx7vpW4rapsxY7APIyKIIa0O5eElHs85P9+NWErlFwBw==
-X-Received: by 2002:a05:600c:c9:b0:405:3dee:3515 with SMTP id
- u9-20020a05600c00c900b004053dee3515mr4625492wmm.27.1696498964439; 
- Thu, 05 Oct 2023 02:42:44 -0700 (PDT)
-Received: from [10.254.108.106] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- w21-20020a05600c015500b0040535648639sm1103836wmm.36.2023.10.05.02.42.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Oct 2023 02:42:43 -0700 (PDT)
-Message-ID: <d58bbe17-efa7-4548-9c7d-bf0310d31ef5@gmail.com>
-Date: Thu, 5 Oct 2023 11:42:38 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/9] drm: Annotate structs with __counted_by
-To: Kees Cook <keescook@chromium.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-References: <20230922173110.work.084-kees@kernel.org>
- <169601600138.3014939.8511343741428844249.b4-ty@chromium.org>
- <83cd056c-52ae-01dd-7576-42d41da64c26@gmail.com>
- <CADnq5_Ma2CrLYggJHKFEObsNmUoqJwb2p1xai5DfL=m43U6zEA@mail.gmail.com>
- <202310020952.E7DE0948C0@keescook>
- <10644b5f-b0a7-85ef-0658-2353ee14df0d@gmail.com>
- <202310021107.9BB46FB8E@keescook>
- <0be2dfa4-b6c1-f62a-66e1-615da7aa3c76@amd.com>
- <202310021122.B6DA850FB0@keescook>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 461D210E163;
+	Thu,  5 Oct 2023 10:57:47 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2061d.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e83::61d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DDE910E163
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Oct 2023 10:57:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=T7RJhBAd0PGP5hdNVjCtCVaNq2yGQD/HkAE+0UJHJKR1uaT0kS4c+D+fOr69JdycmG0B5glBp/zzySoyqwrBmHBC7Dyq6wgxwpL+oHkEhjr66RBbS5Xhjd8UPTzkqbOpYJ7APqzmeSx26jBDKCX+ZjYzy+Qbcamz9ERr31NoRgirMhK0ncAk8WyzX/qTN3JldM0RmL7pIiLeyIF5TvTHhV1VtkDsHcrQJSnkO47Jnh2NKH/bmYAbWDiSfQOX8Gt69sGdDGizanJE/Y/X87aC4Fv2xTVj3IAtMP+r2mvBWQ4C3LTDTY90Key0XiNCczgPXu8z11+pcBtlWxfE/RCfZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dUj5ZHMlzsM6wSTFWqfkDM/dZ1zG5ZDBknxY8t4lJEY=;
+ b=M6fWy6uP8kUP72m2m/e8AqULEzo60Dxcq3DLnfuOan61bfvWMCAJ6YBKgTDPfbkdWiKOgdjSk9aDZM5IvPrmOzL+o0bj8QldLFi6/SytltXSSDzoPrybXatrSg7aq4daobRF0DXnoCSkgagC3rQ0YgbDyp8RmdppTZ5yv6oTigA1VGv2tbvCilTLa2hk5xZYuqCh23nTFxZq8zVhWpm4XTYvV+ulp4ZLD211apAsenkYeyxQNm0Wg08oLqOfB4zZm4C9POWugmnK1XiR3lCbUbvLNTNorArcKXmOfxTWVwNzjxzwRGrOC6jghwtl1llr9dmmGkEZWbDQ1V40GX0XRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dUj5ZHMlzsM6wSTFWqfkDM/dZ1zG5ZDBknxY8t4lJEY=;
+ b=vJjIlrQ1LivtDXqFCMxmCNiFn6CR8xoWryI+6S0whkJfEl6go6jWVAkkxrCaCGa/hCrN9vHY/6IkLKU3PORDK3vVfWw6t7LIY7b4Lmi5YgCpid8FfIwN7GnF1IrEXcmHejrGt7eLbq8mV3Boe7OpN874UqjdWCcEYkdEsczY7kA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
+ by BL1PR12MB5898.namprd12.prod.outlook.com (2603:10b6:208:396::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.30; Thu, 5 Oct
+ 2023 10:57:41 +0000
+Received: from MW4PR12MB5667.namprd12.prod.outlook.com
+ ([fe80::c65c:9847:210d:2f2d]) by MW4PR12MB5667.namprd12.prod.outlook.com
+ ([fe80::c65c:9847:210d:2f2d%6]) with mapi id 15.20.6838.033; Thu, 5 Oct 2023
+ 10:57:41 +0000
+Message-ID: <073a639e-89ab-f553-434b-149bcbffd6e3@amd.com>
+Date: Thu, 5 Oct 2023 12:57:35 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH v6 7/9] drm/amdgpu: map wptr BO into GART
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <202310021122.B6DA850FB0@keescook>
+To: Felix Kuehling <felix.kuehling@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20230908160446.2188-1-shashank.sharma@amd.com>
+ <20230908160446.2188-8-shashank.sharma@amd.com>
+ <022fbf02-b9f6-1286-bd25-dd150384047e@gmail.com>
+ <816ed7f8-9a22-4b17-ae0e-27701ea51557@amd.com>
+From: Shashank Sharma <shashank.sharma@amd.com>
+In-Reply-To: <816ed7f8-9a22-4b17-ae0e-27701ea51557@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0177.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9f::13) To MW4PR12MB5667.namprd12.prod.outlook.com
+ (2603:10b6:303:18a::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|BL1PR12MB5898:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0eca0544-7bc4-45ba-7739-08dbc591e55f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: tPXhVbl4WyA9zDqY82J2TZDP43ffFl1qekkq4xY9h/b7x6QgKjQ7RyY9WURz1V3PyiNnt6GbBICwvLWNU3yrVrLMgoWCI/cmdXUBBlhSZW1uo1MvRp5wiEk2sA7NnroVIIen+6wKkKML6NCLBlNE6sVMGrOq1ALMVXSbS4N30KF2yJP2SLCjzmJBzMYJ/l3pyXEdfni2p0BPbyQG1pvuj030n2KhsgvPQf9Yh3/kcpdFtGp+IXf4F96NJb1BCKz4t2a4NgsfpxqLnDfmbkPXpIMof5bo6VnKMbJyvJbMTK1nn5K10hXFEyC9l9yIaAO5QN0CZ35qHqHEp26zP5/zBJVx/ACD2F0kYLOu45yooEhfmb0YYKqrL57ofuBPsNYw9B8EpxO7i3cwfQkTMn4JXJ2DRaRieD2Vw3OJYR0ilMMyWb30/zmTPOHhamvsXfiev/9iCehw0BvwUNY6l3aqB5Bms0ohxABmUAa98CnqdEE51y7bbnVSS0s1y6/04hi4+o29yBqLELAFnXL8x5MH/22PvRDAlGVBCpNOnt6b99o8Sr1YKBtqFZJ0509gY1jxhLMr1cEQFDPFAafIJHnUCr65mQcSF/A44h+vc5WCGhk9Es3r2wJD4EZLQovys4youixKTXj4PsxNmWRMDDhBOw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(346002)(136003)(396003)(376002)(366004)(39860400002)(230922051799003)(451199024)(64100799003)(1800799009)(186009)(6666004)(83380400001)(6506007)(2616005)(6512007)(53546011)(6486002)(2906002)(66574015)(8676002)(5660300002)(66556008)(110136005)(44832011)(4326008)(66476007)(66946007)(316002)(41300700001)(26005)(8936002)(478600001)(31696002)(86362001)(36756003)(38100700002)(31686004)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M3oraEtZUXlqSTBKOHh0Ky90cSthL1dUNGVIVllqZEs0NUxubEsvQnNhdjdk?=
+ =?utf-8?B?TWEwallMekhqeE5ubk93ZDNkM1JaZ1JwRjFkVU5pMFA1T1ZGUndUM0JlSGFx?=
+ =?utf-8?B?aU9Kc2lOdW9FK3Q1NVhyYmgxSzA0a3NldTZ1bnU2eU56bzQyTHFBZEowV0Vv?=
+ =?utf-8?B?dDFZVys4OXZkUlZFUTFQMXU5VXAxODV6VXBUa2V2Rm85UFA5U2gvSWg3MDFH?=
+ =?utf-8?B?TzMwLzRyL0lEaXJINTcvRnFPNFdNYjh0UlZJNWNZeElSdzE3OTdIT25OSzk1?=
+ =?utf-8?B?cmhjWEJ0L3pLbzdjSkhHelFvR25RcE1pWVZyN0VweUl3TFpCdFlOZVlBREZW?=
+ =?utf-8?B?Ky9wTG5rZTNuUEZQeU9hSGR4YVVxbnNkQXB0Ukh2RmJldnlBaGI3UWplNmVi?=
+ =?utf-8?B?b3NHRVFGWmMxVy9menYwREdwZm5JRzNNNHBYUmtnaHBpZ1NGWGRDVWNrM3dL?=
+ =?utf-8?B?d0M4WUVnUmduQmQzQmw2a3pHTGh0NGpHWjlwNzlJak50dHZPZTc1ZjMwZzlZ?=
+ =?utf-8?B?NG44akUydmpSUnlXWGRxb1VOM2pjRUgvb3A1bFM4WUFVN1daOTFnNU1KU25R?=
+ =?utf-8?B?S1FZWU5nODlIQ3Z1enZQRGtxT09PRHZKNzZJeEJpZ2lManBoVUZIaEdIUTFp?=
+ =?utf-8?B?Q3FWUnp1ZWQ4UHZVbTVQTThHQWxYcUI4L1Q4MC9ZU2VzbThicTBBZkcrZ2Yw?=
+ =?utf-8?B?ejFFT3dzaFpmcUhwclVlU3VyNlpjdzQ4MFlRay9UU0JhL3JYN29DSmZ6VEE1?=
+ =?utf-8?B?c0dWZ1BDYk5oN1lRVmZkbXIzanRHRXljQ3g0aVZKcnQ1ekNsWDBJcXlmKzNh?=
+ =?utf-8?B?clBQUnJzRDZoOTJ0dmwxcmxWNDBkMlpKWTEyTUZDQUlIRE5xYnlMK29Jd0dM?=
+ =?utf-8?B?NUgxZENHZ2w5emg4am5TZ3UxQkJxNU1BSTNmdVR6MXdqUHM2N2s3bHgrbHcx?=
+ =?utf-8?B?R2hwTjVWbENyRFlleVhyNCtCZmEyUCt0OExBdnZoWmNtcGdyc29qdnJQRjhY?=
+ =?utf-8?B?OXQ1aENYQzBHL0Q2ejlMK0luY3I2Mzc0UUhaaWxXK2w5Y3UrTWZZbE9Iakwr?=
+ =?utf-8?B?WlkrbVJ6UDhHUTJ0RnVCS3hNS2JnQ3p3aldVclFPWmtsMmluM09DODJ6QmlN?=
+ =?utf-8?B?MmEyaWpFNDNnQzJJMVI4d2xZSHl0SitTWWRtd2I3TDFmMkJNMVFOT3FDWVBm?=
+ =?utf-8?B?cjJXcnlPSlMzN0dPd3BLZFdRQnR4cVJCOFhBOFZLQjhyYVRKZXF5SldwRFpJ?=
+ =?utf-8?B?eEg1OE9rMzhRbk4wcEpacWVWN09pMExlZXBMMXU0aXVQSTEvTkRxMFNNdG5k?=
+ =?utf-8?B?YXdla2xSaG41eHRtTlp4YkFrRWpiMWlzWjlsMFVyUXJiaER4c2lkVkNJK3JH?=
+ =?utf-8?B?QmlQajc1RGVlS1crSGdJcEhVMnJuUjJ4YmI1T1lpeGtIbnVHVXIzWEFZdlRB?=
+ =?utf-8?B?bjJQKzcvVkJZQ2lIaFdBTVMyKzljTmVNL1RoZVlKeE4xbmYzTkErMWxHc21q?=
+ =?utf-8?B?UVdGeDA3VjBGdXFlSUVuUFBDQ2laWFZRS1BqWWRKZW1FSG5QZVhBUCtnOFZy?=
+ =?utf-8?B?WGtCQXZPN3psMVk5QnhDZXM4YWM5SEtoQ3dHWExUd01lK1I0YWNHdFpUdklQ?=
+ =?utf-8?B?Q2VQNTVuYUdYNHhXZjRwcmoybzllYW12eGh5VFdXUkVETE1SN3JYZ25yVU5X?=
+ =?utf-8?B?aDFtank5eEhZZTQ1ZEF2UXAyUU1FOWtzU1ZQcVVFdU0rRGF4dWE1bm1zc05C?=
+ =?utf-8?B?dVNSRXN5MmNsbnhXc2Fua01TNDNpUGpwK1dIbjh3U2NqQm4vMGlKUElaU0FP?=
+ =?utf-8?B?c3pCZm1ucFphUXU3NzdYL3F6bzJVMGhiNS8rRFZvQVpkSWZYZ3ZqNWhCQmJs?=
+ =?utf-8?B?ejNMUWlwQ2tEWXFtaVcxVGVGWmNiajhPUlB1REtJOUFVY3VyTzkwLyszRWs0?=
+ =?utf-8?B?RjNMOXNTQnk1cXF0cTFBTFgvSFhhZVNJTDJYU3ppc2NJRHpDSTZwcndERFF4?=
+ =?utf-8?B?dTFnVkFteUd0SHdMdHM1MnRaejl3cHRnV2lWVnlTK0xlZkxqUUtUOUpxNlEx?=
+ =?utf-8?B?RS9yWWhXQzA2aSszTFg1MDh0ZVAwMG1GYzN4d0M2YWJDdU8vZzFaV2hjUGFq?=
+ =?utf-8?Q?Dvys1RzOsZckjVMdaAHpKP7G1?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0eca0544-7bc4-45ba-7739-08dbc591e55f
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2023 10:57:41.5498 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 97J1O4dENRbcVDzna7fqelJQciZu6hdB2mOi9b041rcsMkEqR9QprVhWq4nJkRlMkCsFwqjH6mdm/buoP4bOow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5898
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,116 +129,190 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>, Emma Anholt <emma@anholt.net>,
- Tom Rix <trix@redhat.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>, Prike Liang <Prike.Liang@amd.com>,
- Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
- Karol Herbst <kherbst@redhat.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- amd-gfx@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
- Ben Skeggs <bskeggs@redhat.com>, Andi Shyti <andi.shyti@linux.intel.com>,
- nouveau@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
- virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
- linux-hardening@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, Kevin Wang <kevin1.wang@amd.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Nathan Chancellor <nathan@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Evan Quan <evan.quan@amd.com>, Sean Paul <sean@poorly.run>,
- Yifan Zhang <yifan1.zhang@amd.com>, Xiaojian Du <Xiaojian.Du@amd.com>,
- Le Ma <le.ma@amd.com>, freedreno@lists.freedesktop.org,
- Bjorn Andersson <andersson@kernel.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Melissa Wen <mwen@igalia.com>,
- Zack Rusin <zackr@vmware.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexdeucher@gmail.com>, Nirmoy Das <nirmoy.das@intel.com>,
- Lang Yu <Lang.Yu@amd.com>, John Harrison <john.c.harrison@intel.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, arvind.yadav@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 02.10.23 um 20:22 schrieb Kees Cook:
-> On Mon, Oct 02, 2023 at 08:11:41PM +0200, Christian König wrote:
->> Am 02.10.23 um 20:08 schrieb Kees Cook:
->>> On Mon, Oct 02, 2023 at 08:01:57PM +0200, Christian König wrote:
->>>> Am 02.10.23 um 18:53 schrieb Kees Cook:
->>>>> On Mon, Oct 02, 2023 at 11:06:19AM -0400, Alex Deucher wrote:
->>>>>> On Mon, Oct 2, 2023 at 5:20 AM Christian König
->>>>>> <ckoenig.leichtzumerken@gmail.com> wrote:
->>>>>>> Am 29.09.23 um 21:33 schrieb Kees Cook:
->>>>>>>> On Fri, 22 Sep 2023 10:32:05 -0700, Kees Cook wrote:
->>>>>>>>> This is a batch of patches touching drm for preparing for the coming
->>>>>>>>> implementation by GCC and Clang of the __counted_by attribute. Flexible
->>>>>>>>> array members annotated with __counted_by can have their accesses
->>>>>>>>> bounds-checked at run-time checking via CONFIG_UBSAN_BOUNDS (for array
->>>>>>>>> indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family functions).
->>>>>>>>>
->>>>>>>>> As found with Coccinelle[1], add __counted_by to structs that would
->>>>>>>>> benefit from the annotation.
->>>>>>>>>
->>>>>>>>> [...]
->>>>>>>> Since this got Acks, I figure I should carry it in my tree. Let me know
->>>>>>>> if this should go via drm instead.
->>>>>>>>
->>>>>>>> Applied to for-next/hardening, thanks!
->>>>>>>>
->>>>>>>> [1/9] drm/amd/pm: Annotate struct smu10_voltage_dependency_table with __counted_by
->>>>>>>>           https://git.kernel.org/kees/c/a6046ac659d6
->>>>>>> STOP! In a follow up discussion Alex and I figured out that this won't work.
->>>>> I'm so confused; from the discussion I saw that Alex said both instances
->>>>> were false positives?
->>>>>
->>>>>>> The value in the structure is byte swapped based on some firmware
->>>>>>> endianness which not necessary matches the CPU endianness.
->>>>>> SMU10 is APU only so the endianess of the SMU firmware and the CPU
->>>>>> will always match.
->>>>> Which I think is what is being said here?
->>>>>
->>>>>>> Please revert that one from going upstream if it's already on it's way.
->>>>>>>
->>>>>>> And because of those reasons I strongly think that patches like this
->>>>>>> should go through the DRM tree :)
->>>>> Sure, that's fine -- please let me know. It was others Acked/etc. Who
->>>>> should carry these patches?
->>>> Probably best if the relevant maintainer pick them up individually.
->>>>
->>>> Some of those structures are filled in by firmware/hardware and only the
->>>> maintainers can judge if that value actually matches what the compiler
->>>> needs.
->>>>
->>>> We have cases where individual bits are used as flags or when the size is
->>>> byte swapped etc...
->>>>
->>>> Even Alex and I didn't immediately say how and where that field is actually
->>>> used and had to dig that up. That's where the confusion came from.
->>> Okay, I've dropped them all from my tree. Several had Acks/Reviews, so
->>> hopefully those can get picked up for the DRM tree?
->> I will pick those up to go through drm-misc-next.
+Hey Felix,
+
+On 04/10/2023 23:34, Felix Kuehling wrote:
+>
+> On 2023-09-18 06:32, Christian König wrote:
+>> Am 08.09.23 um 18:04 schrieb Shashank Sharma:
+>>> To support oversubscription, MES FW expects WPTR BOs to
+>>> be mapped into GART, before they are submitted to usermode
+>>> queues. This patch adds a function for the same.
+>>>
+>>> V4: fix the wptr value before mapping lookup (Bas, Christian).
+>>> V5: Addressed review comments from Christian:
+>>>      - Either pin object or allocate from GART, but not both.
+>>>      - All the handling must be done with the VM locks held.
+>>>
+>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>> Cc: Christian Koenig <christian.koenig@amd.com>
+>>> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+>>> Signed-off-by: Arvind Yadav <arvind.yadav@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        | 81 
+>>> +++++++++++++++++++
+>>>   .../gpu/drm/amd/include/amdgpu_userqueue.h    |  1 +
+>>>   2 files changed, 82 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>>> index e266674e0d44..c0eb622dfc37 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>>> @@ -6427,6 +6427,79 @@ const struct amdgpu_ip_block_version 
+>>> gfx_v11_0_ip_block =
+>>>       .funcs = &gfx_v11_0_ip_funcs,
+>>>   };
+>>>   +static int
+>>> +gfx_v11_0_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct 
+>>> amdgpu_bo *bo)
+>>> +{
+>>> +    int ret;
+>>> +
+>>> +    ret = amdgpu_bo_reserve(bo, true);
+>>> +    if (ret) {
+>>> +        DRM_ERROR("Failed to reserve bo. ret %d\n", ret);
+>>> +        goto err_reserve_bo_failed;
+>>> +    }
+>>> +
+>>> +    ret = amdgpu_ttm_alloc_gart(&bo->tbo);
+>>> +    if (ret) {
+>>> +        DRM_ERROR("Failed to bind bo to GART. ret %d\n", ret);
+>>> +        goto err_map_bo_gart_failed;
+>>> +    }
+>>> +
+>>> +    amdgpu_bo_unreserve(bo);
 >>
->> Going to ping maintainers once more when I'm not sure if stuff is correct or
->> not.
-> Sounds great; thanks!
+>> The GART mapping can become invalid as soon as you unlock the BOs.
+>>
+>> You need to attach an eviction fence for this to work correctly.
+>
+> Don't you need an eviction fence on the WPTR BO regardless of the GTT 
+> mapping?
 
-I wasn't 100% sure for the VC4 patch, but pushed the whole set to 
-drm-misc-next anyway.
+Yes, Christian also mentioned this in this iteration, I have implemented 
+the basic eviction fence for [V7], I will publish it soon.
 
-This also means that the patches are now auto merged into the drm-tip 
-integration branch and should any build or unit test go boom we should 
-notice immediately and can revert it pretty easily.
-
-Thanks,
-Christian.
+- Shashank
 
 >
-> -Kees
+> Regards,
+>   Felix
 >
-
+>
+>>
+>>> +    bo = amdgpu_bo_ref(bo);
+>>> +
+>>> +    return 0;
+>>> +
+>>> +err_map_bo_gart_failed:
+>>> +    amdgpu_bo_unreserve(bo);
+>>> +err_reserve_bo_failed:
+>>> +    return ret;
+>>> +}
+>>> +
+>>> +static int
+>>> +gfx_v11_0_create_wptr_mapping(struct amdgpu_device *adev,
+>>> +                  struct amdgpu_usermode_queue *queue,
+>>> +                  uint64_t wptr)
+>>> +{
+>>> +    struct amdgpu_bo_va_mapping *wptr_mapping;
+>>> +    struct amdgpu_vm *wptr_vm;
+>>> +    struct amdgpu_bo *wptr_bo = NULL;
+>>> +    int ret;
+>>> +
+>>> +    mutex_lock(&queue->vm->eviction_lock);
+>>
+>> Never ever touch the eviction lock outside of the VM code! That lock 
+>> is completely unrelated to what you do here.
+>>
+>>> +    wptr_vm = queue->vm;
+>>> +    ret = amdgpu_bo_reserve(wptr_vm->root.bo, false);
+>>> +    if (ret)
+>>> +        goto unlock;
+>>> +
+>>> +    wptr &= AMDGPU_GMC_HOLE_MASK;
+>>> +    wptr_mapping = amdgpu_vm_bo_lookup_mapping(wptr_vm, wptr >> 
+>>> PAGE_SHIFT);
+>>> +    amdgpu_bo_unreserve(wptr_vm->root.bo);
+>>> +    if (!wptr_mapping) {
+>>> +        DRM_ERROR("Failed to lookup wptr bo\n");
+>>> +        ret = -EINVAL;
+>>> +        goto unlock;
+>>> +    }
+>>> +
+>>> +    wptr_bo = wptr_mapping->bo_va->base.bo;
+>>> +    if (wptr_bo->tbo.base.size > PAGE_SIZE) {
+>>> +        DRM_ERROR("Requested GART mapping for wptr bo larger than 
+>>> one page\n");
+>>> +        ret = -EINVAL;
+>>> +        goto unlock;
+>>> +    }
+>>
+>> We probably also want to enforce that this BO is a per VM BO.
+>>
+>>> +
+>>> +    ret = gfx_v11_0_map_gtt_bo_to_gart(adev, wptr_bo);
+>>> +    if (ret) {
+>>> +        DRM_ERROR("Failed to map wptr bo to GART\n");
+>>> +        goto unlock;
+>>> +    }
+>>> +
+>>> +    queue->wptr_mc_addr = wptr_bo->tbo.resource->start << PAGE_SHIFT;
+>>
+>> This needs to be amdgpu_bo_gpu_offset() instead.
+>>
+>> Regards,
+>> Christian.
+>>
+>>> +
+>>> +unlock:
+>>> +    mutex_unlock(&queue->vm->eviction_lock);
+>>> +    return ret;
+>>> +}
+>>> +
+>>>   static void gfx_v11_0_userq_unmap(struct amdgpu_userq_mgr *uq_mgr,
+>>>                     struct amdgpu_usermode_queue *queue)
+>>>   {
+>>> @@ -6475,6 +6548,7 @@ static int gfx_v11_0_userq_map(struct 
+>>> amdgpu_userq_mgr *uq_mgr,
+>>>       queue_input.queue_size = userq_props->queue_size >> 2;
+>>>       queue_input.doorbell_offset = userq_props->doorbell_index;
+>>>       queue_input.page_table_base_addr = 
+>>> amdgpu_gmc_pd_addr(queue->vm->root.bo);
+>>> +    queue_input.wptr_mc_addr = queue->wptr_mc_addr;
+>>>         amdgpu_mes_lock(&adev->mes);
+>>>       r = adev->mes.funcs->add_hw_queue(&adev->mes, &queue_input);
+>>> @@ -6601,6 +6675,13 @@ static int gfx_v11_0_userq_mqd_create(struct 
+>>> amdgpu_userq_mgr *uq_mgr,
+>>>           goto free_mqd;
+>>>       }
+>>>   +    /* FW expects WPTR BOs to be mapped into GART */
+>>> +    r = gfx_v11_0_create_wptr_mapping(adev, queue, 
+>>> userq_props.wptr_gpu_addr);
+>>> +    if (r) {
+>>> +        DRM_ERROR("Failed to create WPTR mapping\n");
+>>> +        goto free_ctx;
+>>> +    }
+>>> +
+>>>       /* Map userqueue into FW using MES */
+>>>       r = gfx_v11_0_userq_map(uq_mgr, queue, &userq_props);
+>>>       if (r) {
+>>> diff --git a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h 
+>>> b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+>>> index 34e20daa06c8..ae155de62560 100644
+>>> --- a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+>>> +++ b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+>>> @@ -39,6 +39,7 @@ struct amdgpu_usermode_queue {
+>>>       int            queue_type;
+>>>       uint64_t        doorbell_handle;
+>>>       uint64_t        doorbell_index;
+>>> +    uint64_t        wptr_mc_addr;
+>>>       uint64_t        flags;
+>>>       struct amdgpu_mqd_prop    *userq_prop;
+>>>       struct amdgpu_userq_mgr *userq_mgr;
+>>
