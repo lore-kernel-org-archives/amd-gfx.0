@@ -4,89 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA600E7C4F6
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 08:04:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5420DE82CDE
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 09:42:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 601BF10E1BB;
-	Thu,  5 Oct 2023 08:04:20 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20625.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e89::625])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B63710E1BB;
- Thu,  5 Oct 2023 08:04:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RE6abqETxOd35oWgX1LX9mlzY/ICtWcad8lcVWAiYcudFvK2j/09/i365U41X9J0U50jZQldUCyofY8Kfycxv+kE7XLJHQt83ykvYAjBAkvfEGul9M6WfjCRZmPLw9x0JGiizq2E8+DVEGDh9PV/Qk5/VJmfqF2jU9jHzTLqI+PkW4sb5lpWeOw4hc2o10arubQDk03PeTA4Y6u/mSi8yue0vbs65Q3s+zbpyc44s1DfozBlfWZnISHiiCFNL7vNGaYQRFQp9TPUwDjul0z6PKcfou9cp2k3ADFLW3QtMsrkE2FItq5JWZ3GZ64OJaBSmmj+WnXMgcgnjPztcB5+Vw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L7maLj3l09Zg46TkyBmTd4Ys1709Q7bkIOu+gaTi18E=;
- b=HV/vgj5jsUGYuLT35D4TSjjWdieavIq2PaaajQsk1ObTpESAh90Uqv2tbpGHBJOOnaay2VH7tF0Ljq6fetBsz93kylt+1ekUWelHWW4Yl1HcBlpAu6/Ockcp3hcL7suwahholijIfp8PE7dcZ6fpYaBTRX28TAs+U0Rn9w2hbRNDGmfeUAk+X/HuHMr4VuNdNTwD8ZJzBAdZiH0es2dSKa++SG6SytNC/uRBYy6uM/ctvd+yLz3I6H/6fcjQflDAxGEkJTe8HRp4uq2qouNGf5q5Sw2NJ9ifmF88AnrZYw5Qz62I180ezqVu6os9WsagGk0fnYJAlxKwOQmmOdWFLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L7maLj3l09Zg46TkyBmTd4Ys1709Q7bkIOu+gaTi18E=;
- b=FOM9ZjaZnrKPH3U4ZO4NCoYSYODkmkWxIlc0sfZ49+wScTbCPHNWhhsSwshXmHXAy7VBmziSQ0SeYpVJ00/J5qA2lKhQ1mFMrkjIarDl4cwfKznh9tH+vDWq0ie9q2ANbZwkUxzzfrocam/zFN923mSWvPeeQOGmB9L4KvG3OiI=
-Received: from MW4PR04CA0249.namprd04.prod.outlook.com (2603:10b6:303:88::14)
- by MW5PR12MB5682.namprd12.prod.outlook.com (2603:10b6:303:19f::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.33; Thu, 5 Oct
- 2023 08:04:17 +0000
-Received: from CO1PEPF000044FA.namprd21.prod.outlook.com
- (2603:10b6:303:88:cafe::59) by MW4PR04CA0249.outlook.office365.com
- (2603:10b6:303:88::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.26 via Frontend
- Transport; Thu, 5 Oct 2023 08:04:17 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000044FA.mail.protection.outlook.com (10.167.241.200) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6863.20 via Frontend Transport; Thu, 5 Oct 2023 08:04:17 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 5 Oct
- 2023 03:04:15 -0500
-Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Thu, 5 Oct 2023 03:04:13 -0500
-From: Wayne Lin <Wayne.Lin@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/display: Fix mst hub unplug warning
-Date: Thu, 5 Oct 2023 16:04:05 +0800
-Message-ID: <20231005080405.169841-1-Wayne.Lin@amd.com>
-X-Mailer: git-send-email 2.37.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id 950DE10E1E5;
+	Thu,  5 Oct 2023 09:42:49 +0000 (UTC)
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65EF010E1DC;
+ Thu,  5 Oct 2023 09:42:46 +0000 (UTC)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-4065f29e933so7125525e9.1; 
+ Thu, 05 Oct 2023 02:42:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1696498964; x=1697103764; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=693KH3zKhYevDlo1VF7tZiOPFyQxum49fs5ILYx5v8c=;
+ b=mCbRI0BTQFWTcRv5HCPwasg57TA8M4BnNk4LLdgYG/mOI26J+ZhW/S3NfwJGPvRKKW
+ 1H/suJ1mAQNYt8cjKaDmmaWj8g14SXdedIJJHU4Z/LbpB/bsn5VK1m0GxHq9/Hf/0ibM
+ 1liGoU0J9hKoMH45vXjzQED50pxmbXN9vYipxexL7/zJLeIsH4o4s6G4VdCBAHy598Uj
+ rkzVlAbwX2yXwo7irgyCosQcqy739UU+AcN+o1uVfg+n+mXPmLTH412r4eXCgfdY827v
+ GlSDfnajRxX06aPoMJERnFmYHUDEKZdDCDAZESy3ZQ2d4Iw8sjRNWYOWA5K8O+/JlOeU
+ Udhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1696498964; x=1697103764;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=693KH3zKhYevDlo1VF7tZiOPFyQxum49fs5ILYx5v8c=;
+ b=uZSaLKdTXx2NA7dFIKJDEW2P6X0rWJzBB7SHKgHPc+0H9kgFjqKF+SJuGU8ALBJtCC
+ ALI3En84Wleh+Pccdt8HMzcFWe7KZHvYdUL83/vVP8nfZaxdy4OjCSPNdjFvsHDX8QnW
+ dNGq8GFxMRcZ8+26HaPkeJXhlOp6WzzkyZXbyl2OkBauirPigmsHtMYyvGR+mmpTmDFP
+ WkFt7DVqZ0dewt4zLL0vOpq6P4OHdQVTYlJpg1QrSpjb53Zln7GwkrVybTPUGtT4koRb
+ UKkglULZSje69Hx/wGDpIscd4UzkMW7MKSTEdkuQnV3HSSn73pKY6ofohr9C52H6QAOV
+ uY+w==
+X-Gm-Message-State: AOJu0YzMGEgpjo37IM23PilaNtsHRXhmweBiurtZIUc2qT/12CmqBcDF
+ QFn6WMBk3LdzJwsTssvKaLw=
+X-Google-Smtp-Source: AGHT+IEqCjtTNseNA7LGC5Lm5Y9+taQvSKRx7vpW4rapsxY7APIyKIIa0O5eElHs85P9+NWErlFwBw==
+X-Received: by 2002:a05:600c:c9:b0:405:3dee:3515 with SMTP id
+ u9-20020a05600c00c900b004053dee3515mr4625492wmm.27.1696498964439; 
+ Thu, 05 Oct 2023 02:42:44 -0700 (PDT)
+Received: from [10.254.108.106] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ w21-20020a05600c015500b0040535648639sm1103836wmm.36.2023.10.05.02.42.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 05 Oct 2023 02:42:43 -0700 (PDT)
+Message-ID: <d58bbe17-efa7-4548-9c7d-bf0310d31ef5@gmail.com>
+Date: Thu, 5 Oct 2023 11:42:38 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/9] drm: Annotate structs with __counted_by
+To: Kees Cook <keescook@chromium.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+References: <20230922173110.work.084-kees@kernel.org>
+ <169601600138.3014939.8511343741428844249.b4-ty@chromium.org>
+ <83cd056c-52ae-01dd-7576-42d41da64c26@gmail.com>
+ <CADnq5_Ma2CrLYggJHKFEObsNmUoqJwb2p1xai5DfL=m43U6zEA@mail.gmail.com>
+ <202310020952.E7DE0948C0@keescook>
+ <10644b5f-b0a7-85ef-0658-2353ee14df0d@gmail.com>
+ <202310021107.9BB46FB8E@keescook>
+ <0be2dfa4-b6c1-f62a-66e1-615da7aa3c76@amd.com>
+ <202310021122.B6DA850FB0@keescook>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <202310021122.B6DA850FB0@keescook>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044FA:EE_|MW5PR12MB5682:EE_
-X-MS-Office365-Filtering-Correlation-Id: 672d20d1-4fc6-4fd7-ada0-08dbc579ac26
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: iouy4sJiajrubAYK/UvXcva9rTPGdkq4JkM/MkG8p9UV09RQjg1ZvoliIRsgmoFsY+0dl9iWKG/P53j4B2n2S5mBifrD36wukNvnBRp03eBefeHOARBdEafjDknaOREnS0LrPK+cvLqn3E+QMagyR+/9aecNwCGtZ6k1lNeQomwyq8qcIVGo9bjOOSH2Za7SgthNBasgMsu2Z5Pt8neq8R+jVRnQcV9PN0rpxWh3XI9sgqrt1daTy+AaK0X+9azEiN2giQlwOc5t3LJP9FzmMFN31u+v971ygG40sYbAotFPA4o2e6wOZg9K5tJ2ZWCw99M588Nw6UHgMMbRn0Jv/tSyefiK+VM7vPdaJwSdTcStXHlOR5SuQmAfiF10mwFhHVoMD3GFg1wALfmv8iC3o02QP6P5wdC1Ab4tTOoVUqdh9sdHoM+iYkhNgMYwXa8yWIXVXG/c0HfiAsCzL3QN0kpSZDz6pPKpyGO6PGEo7Ai471JkO5WGOUpsSYOPOJbt/EKThbnFnJaMfujWbclrkJhQRPjINp8DL8qhdaNRkeSxIfkTPOy55+114fcUIC8TXOXqx2XhWerEV8oqoAM0XtORc/y0Sy2oQYBMg4W+2s5I3EFmCrqWsLmpcqwrtHcRZ6ymD3kw9l7VGTe/+qFWPWaIThdHgESpPmA4Kgry768qdY8MGW5Ugs4xrSx+yBHXhkM/i9Nu2+l8E8Bml+H5wuWLjPprBIwjUS6GJN/rXirrNG6wCUUqrIqQA3+56vzmWw1w5Z/aWLmooEn+PaWEsA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(136003)(39860400002)(396003)(376002)(230922051799003)(186009)(451199024)(82310400011)(1800799009)(64100799003)(46966006)(36840700001)(40470700004)(2906002)(70586007)(36756003)(316002)(70206006)(47076005)(54906003)(86362001)(41300700001)(8676002)(5660300002)(8936002)(6666004)(4326008)(36860700001)(450100002)(83380400001)(110136005)(336012)(426003)(40460700003)(478600001)(26005)(1076003)(2616005)(81166007)(82740400003)(356005)(7696005)(40480700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2023 08:04:17.1425 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 672d20d1-4fc6-4fd7-ada0-08dbc579ac26
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044FA.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5682
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,108 +83,116 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jerry.zuo@amd.com, harry.wentland@amd.com, Wayne Lin <Wayne.Lin@amd.com>
+Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>, Emma Anholt <emma@anholt.net>,
+ Tom Rix <trix@redhat.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>, Prike Liang <Prike.Liang@amd.com>,
+ Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
+ Karol Herbst <kherbst@redhat.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ amd-gfx@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Andi Shyti <andi.shyti@linux.intel.com>,
+ nouveau@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
+ virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
+ linux-hardening@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, Kevin Wang <kevin1.wang@amd.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Evan Quan <evan.quan@amd.com>, Sean Paul <sean@poorly.run>,
+ Yifan Zhang <yifan1.zhang@amd.com>, Xiaojian Du <Xiaojian.Du@amd.com>,
+ Le Ma <le.ma@amd.com>, freedreno@lists.freedesktop.org,
+ Bjorn Andersson <andersson@kernel.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Melissa Wen <mwen@igalia.com>,
+ Zack Rusin <zackr@vmware.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexdeucher@gmail.com>, Nirmoy Das <nirmoy.das@intel.com>,
+ Lang Yu <Lang.Yu@amd.com>, John Harrison <john.c.harrison@intel.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-Unplug mst hub will cause warning. That's because
-dm_helpers_construct_old_payload() is changed to be called after
-payload removement from dc link.
+Am 02.10.23 um 20:22 schrieb Kees Cook:
+> On Mon, Oct 02, 2023 at 08:11:41PM +0200, Christian König wrote:
+>> Am 02.10.23 um 20:08 schrieb Kees Cook:
+>>> On Mon, Oct 02, 2023 at 08:01:57PM +0200, Christian König wrote:
+>>>> Am 02.10.23 um 18:53 schrieb Kees Cook:
+>>>>> On Mon, Oct 02, 2023 at 11:06:19AM -0400, Alex Deucher wrote:
+>>>>>> On Mon, Oct 2, 2023 at 5:20 AM Christian König
+>>>>>> <ckoenig.leichtzumerken@gmail.com> wrote:
+>>>>>>> Am 29.09.23 um 21:33 schrieb Kees Cook:
+>>>>>>>> On Fri, 22 Sep 2023 10:32:05 -0700, Kees Cook wrote:
+>>>>>>>>> This is a batch of patches touching drm for preparing for the coming
+>>>>>>>>> implementation by GCC and Clang of the __counted_by attribute. Flexible
+>>>>>>>>> array members annotated with __counted_by can have their accesses
+>>>>>>>>> bounds-checked at run-time checking via CONFIG_UBSAN_BOUNDS (for array
+>>>>>>>>> indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family functions).
+>>>>>>>>>
+>>>>>>>>> As found with Coccinelle[1], add __counted_by to structs that would
+>>>>>>>>> benefit from the annotation.
+>>>>>>>>>
+>>>>>>>>> [...]
+>>>>>>>> Since this got Acks, I figure I should carry it in my tree. Let me know
+>>>>>>>> if this should go via drm instead.
+>>>>>>>>
+>>>>>>>> Applied to for-next/hardening, thanks!
+>>>>>>>>
+>>>>>>>> [1/9] drm/amd/pm: Annotate struct smu10_voltage_dependency_table with __counted_by
+>>>>>>>>           https://git.kernel.org/kees/c/a6046ac659d6
+>>>>>>> STOP! In a follow up discussion Alex and I figured out that this won't work.
+>>>>> I'm so confused; from the discussion I saw that Alex said both instances
+>>>>> were false positives?
+>>>>>
+>>>>>>> The value in the structure is byte swapped based on some firmware
+>>>>>>> endianness which not necessary matches the CPU endianness.
+>>>>>> SMU10 is APU only so the endianess of the SMU firmware and the CPU
+>>>>>> will always match.
+>>>>> Which I think is what is being said here?
+>>>>>
+>>>>>>> Please revert that one from going upstream if it's already on it's way.
+>>>>>>>
+>>>>>>> And because of those reasons I strongly think that patches like this
+>>>>>>> should go through the DRM tree :)
+>>>>> Sure, that's fine -- please let me know. It was others Acked/etc. Who
+>>>>> should carry these patches?
+>>>> Probably best if the relevant maintainer pick them up individually.
+>>>>
+>>>> Some of those structures are filled in by firmware/hardware and only the
+>>>> maintainers can judge if that value actually matches what the compiler
+>>>> needs.
+>>>>
+>>>> We have cases where individual bits are used as flags or when the size is
+>>>> byte swapped etc...
+>>>>
+>>>> Even Alex and I didn't immediately say how and where that field is actually
+>>>> used and had to dig that up. That's where the confusion came from.
+>>> Okay, I've dropped them all from my tree. Several had Acks/Reviews, so
+>>> hopefully those can get picked up for the DRM tree?
+>> I will pick those up to go through drm-misc-next.
+>>
+>> Going to ping maintainers once more when I'm not sure if stuff is correct or
+>> not.
+> Sounds great; thanks!
 
-In dm_helpers_construct_old_payload(), We refer to the vcpi in
-payload allocation table of dc link to construct the old payload
-and payload is no longer in the table when we call the function
-now.
+I wasn't 100% sure for the VC4 patch, but pushed the whole set to 
+drm-misc-next anyway.
 
-[How]
-Refer to the mst_state to construct the number of time slot for old
-payload now. Note that dm_helpers_construct_old_payload() is just
-a quick workaround before and we are going to abandon it soon.
+This also means that the patches are now auto merged into the drm-tip 
+integration branch and should any build or unit test go boom we should 
+notice immediately and can revert it pretty easily.
 
-Fixes: 5aa1dfcdf0a4 ("drm/mst: Refactor the flow for payload allocation/removement")
-Reviewed-by: Jerry Zuo <jerry.zuo@amd.com>
-Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
----
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 38 +++++++++----------
- 1 file changed, 18 insertions(+), 20 deletions(-)
+Thanks,
+Christian.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index baf7e5254fb3..2f94bcf128c0 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -204,15 +204,16 @@ void dm_helpers_dp_update_branch_info(
- {}
- 
- static void dm_helpers_construct_old_payload(
--			struct dc_link *link,
--			int pbn_per_slot,
-+			struct drm_dp_mst_topology_mgr *mgr,
-+			struct drm_dp_mst_topology_state *mst_state,
- 			struct drm_dp_mst_atomic_payload *new_payload,
- 			struct drm_dp_mst_atomic_payload *old_payload)
- {
--	struct link_mst_stream_allocation_table current_link_table =
--									link->mst_stream_alloc_table;
--	struct link_mst_stream_allocation *dc_alloc;
--	int i;
-+	struct drm_dp_mst_atomic_payload *pos;
-+	int pbn_per_slot = mst_state->pbn_div;
-+	u8 next_payload_vc_start = mgr->next_start_slot;
-+	u8 payload_vc_start = new_payload->vc_start_slot;
-+	u8 allocated_time_slots;
- 
- 	*old_payload = *new_payload;
- 
-@@ -221,20 +222,17 @@ static void dm_helpers_construct_old_payload(
- 	 * struct drm_dp_mst_atomic_payload are don't care fields
- 	 * while calling drm_dp_remove_payload_part2()
- 	 */
--	for (i = 0; i < current_link_table.stream_count; i++) {
--		dc_alloc =
--			&current_link_table.stream_allocations[i];
--
--		if (dc_alloc->vcp_id == new_payload->vcpi) {
--			old_payload->time_slots = dc_alloc->slot_count;
--			old_payload->pbn = dc_alloc->slot_count * pbn_per_slot;
--			break;
--		}
-+	list_for_each_entry(pos, &mst_state->payloads, next) {
-+		if (pos != new_payload &&
-+		    pos->vc_start_slot > payload_vc_start &&
-+		    pos->vc_start_slot < next_payload_vc_start)
-+			next_payload_vc_start = pos->vc_start_slot;
- 	}
- 
--	/* make sure there is an old payload*/
--	ASSERT(i != current_link_table.stream_count);
-+	allocated_time_slots = next_payload_vc_start - payload_vc_start;
- 
-+	old_payload->time_slots = allocated_time_slots;
-+	old_payload->pbn = allocated_time_slots * pbn_per_slot;
- }
- 
- /*
-@@ -272,8 +270,8 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
- 		drm_dp_add_payload_part1(mst_mgr, mst_state, new_payload);
- 	} else {
- 		/* construct old payload by VCPI*/
--		dm_helpers_construct_old_payload(stream->link, mst_state->pbn_div,
--						new_payload, &old_payload);
-+		dm_helpers_construct_old_payload(mst_mgr, mst_state,
-+						 new_payload, &old_payload);
- 		target_payload = &old_payload;
- 
- 		drm_dp_remove_payload_part1(mst_mgr, mst_state, new_payload);
-@@ -366,7 +364,7 @@ bool dm_helpers_dp_mst_send_payload_allocation(
- 	if (enable) {
- 		ret = drm_dp_add_payload_part2(mst_mgr, mst_state->base.state, new_payload);
- 	} else {
--		dm_helpers_construct_old_payload(stream->link, mst_state->pbn_div,
-+		dm_helpers_construct_old_payload(mst_mgr, mst_state,
- 						 new_payload, &old_payload);
- 		drm_dp_remove_payload_part2(mst_mgr, mst_state, &old_payload, new_payload);
- 	}
--- 
-2.37.3
+>
+> -Kees
+>
 
