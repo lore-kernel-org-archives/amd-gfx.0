@@ -4,47 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92941E936EB
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 23:10:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1D40E936F8
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 02:37:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD95910E0D7;
-	Wed,  4 Oct 2023 23:10:10 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32F8110E0D7
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Oct 2023 23:10:08 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 21F8E615F3;
- Wed,  4 Oct 2023 23:10:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A01CEC433C7;
- Wed,  4 Oct 2023 23:10:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1696461006;
- bh=sr3ifcYlnQGpK7RnHCI5qP/JfUY4gY6cRzG0hwZktu8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CIyVh30kCx/E3HkEEl2nSJkUfwb0kjb3KXI8ARak+kw+rvNQCmJglP/CtQEaDBYOP
- UmJgRx1niIHuZVu4fiOMIgM/xdw8s/DHLyfteoAF9i91+74oPnxgaSVFgPqxVQxweM
- XYaRLUNX1C6k4R5n9S0lI0bCMK2o5Ck45irETSBscxPno1fsrsFattKipt61D0NwG9
- x1ocuKJBWNjJjS/B14TN+SU3kAuHDrUgdr1cKqJskBA/uaVMKgNZx0tQ+j1gdrZIhg
- 9WIc2//ILIuhU4N2mnGJh+bVkeVx82YFrXhrsvuPZPhJllvTE7UZ3YBIekGloVb7sc
- O/MzMZwgP7sYw==
-Received: by mercury (Postfix, from userid 1000)
- id B812E106052D; Thu,  5 Oct 2023 01:10:03 +0200 (CEST)
-Date: Thu, 5 Oct 2023 01:10:03 +0200
-From: Sebastian Reichel <sre@kernel.org>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Subject: Re: [PATCH 2/3] power: supply: Don't count 'unknown' scope power
- supplies
-Message-ID: <20231004231003.z55btgajmixxadqo@mercury.elektranox.org>
-References: <20230926225955.386553-1-mario.limonciello@amd.com>
- <20230926225955.386553-3-mario.limonciello@amd.com>
- <20230930201826.biy27esyw4ttxt4p@mercury.elektranox.org>
- <8d4e4b74-4477-41e0-a690-8b9f38907a7b@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9592510E3CF;
+	Thu,  5 Oct 2023 02:37:55 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20602.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e88::602])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5E1E10E165
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Oct 2023 02:37:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nOmIwC18FQiNcen33Dp2xH5FIt7p8zSW6tS22boCur4/CdROOOOD1SPrvxdthtKkWMBBSMB+cFDpploeGZC6u2pVJYk8+4WszyoBeH2xsWL/9SSF/VAMFLW1x598AhV4CXWd8XjZAa3MAfH7ciYZDWfVylI5ZahuSGW6VOMZ0Ietm5ryFlP1EhYT7UI5Alr+HMXuXU0blYawzikB/cN+T+PTtbvQSHdlzr+RmW+utJ9awBZmM9m/pJm/ut9QhMjvPNfJDTE/ExFEV9+BXe+m30vhzoJ8ahwLiz1o7ZSO9hm0Kdh3oolzquEHzL+iAgOQxYDsbM+Ob+FaTPdYvIkj3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RnypPUTyblMHHcgrM4RBsG16x5LY/vJ9p04oWo0J1xM=;
+ b=XpvUS2JF1TdlBV0sXB3xj4EjSy8hxnCZu6aMhYnsEOcBKcLZaeBaO7rz2t0uSa758FhBdr5zU2MF0n5JRE4C6eFUL2M3x9bQPgzfuUEFq1GH+NFHqpgdAIokHVwLn+mledMPPkT2J8ua3LNT6M4XOkVH3SCEqMalEg3KHTQhsSZhenppG0KcY/pjwLnVl1Z/uO4hTxl9o0WNy3nSL/ohJWoXcOaWkrNVd6Iqoaq2/xcodixW+r9U8LuDMNiuwvKustJGpcbitJNaWDf6cJoryVVOLQPkHy+6GV58yBqgGhfbc2FbBogfHeGMtKawFBOIF3kWMdGWYbUCefMjyRhwug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RnypPUTyblMHHcgrM4RBsG16x5LY/vJ9p04oWo0J1xM=;
+ b=M7jcCv+tghJXdEJVPedVdeftobcQ/umzAlLCcFg3E43nEwdWmhLNRJg3e6Yo6vriw40Uw515zbOAPGUrIy1LIxdBpGGTuPwLXWc84pUbhoKLs42v7J/wyiwXHdRSxAyQk5NLt0zHCtEC1ulIYqViSvPSrucbHaCpGo1vLZoZaZE=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by SA0PR12MB4509.namprd12.prod.outlook.com (2603:10b6:806:9e::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.34; Thu, 5 Oct
+ 2023 02:37:50 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::9b99:8d90:81b8:b091]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::9b99:8d90:81b8:b091%7]) with mapi id 15.20.6838.033; Thu, 5 Oct 2023
+ 02:37:50 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH v2 5/5] Documentation/amdgpu: Add board info details
+Thread-Topic: [PATCH v2 5/5] Documentation/amdgpu: Add board info details
+Thread-Index: AQHZ9pYB/a8yj49Hv06o8Zrif9p3F7A6fJEQ
+Date: Thu, 5 Oct 2023 02:37:50 +0000
+Message-ID: <BN9PR12MB525700EFA42306764EC68511FCCAA@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20231004073941.1489693-1-lijo.lazar@amd.com>
+ <20231004073941.1489693-5-lijo.lazar@amd.com>
+In-Reply-To: <20231004073941.1489693-5-lijo.lazar@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=46e9ae94-440d-45dc-b504-98dd3ce1e379;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-10-05T02:37:23Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|SA0PR12MB4509:EE_
+x-ms-office365-filtering-correlation-id: c503e0ed-ee52-48f1-fbfe-08dbc54c1185
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: mHa0kDYXYcgLJirQejR6og+WpNu6/E+fovl/MXnaP7IQ2g0YGwm8iovdz0aipMcATW50yhS7PXazu0MIjnw/AtsXHu8OYspIqqrwqOcyQDlZMKENmii6UVHVDRWUlfixVpTdLqYifQP1VaDPG9pOFkzdTVDtHQS8d6sB+4f4uPt5jJFMpHkP0HA+VcOht1KV1n5s4x5RcLvtLbT89VJR1KhJmGjr+XbxK1vD48aPsSDLH8XJ9kbvU9b07HbMJu/2I0oJRHcJwQYaJ/hADWbPYJ2iabd6z3HY4HE+CP0g/ymCnHFbgzpRg3dDYM8fm3d8LVuAn/WLVLcXb92RdCUEQRC7L5ewJS2/6xMBvxwGF6eQ/tBsLYNL/PV8FX6/g/hypfIXTjV+Onom+l9vv0KWSyhZWqUlvbcvGSpeTyiGiJcIY9/Ijbx7DJ8f+4EjLYT5nL40FT3yygAubTkZvFNcPImTfMC/siwj6dVj050RhkY3lcYg+OOMX8RNu2Rg6RujPqGvVupG0E5kGWo/ZEGg69Vz8K5iL4s6dTorzGM2jFdoqMDIPrSl6hJg8cwXQS/sy2BunxywyItJfeSotkPRyrpGMp++6AFi9WiY8oaxYYM74wNbCC+tmgD7kcFH4mQz501HySZyvT4pegddSEwO8k6n9pPqmQgCgCUC1agOFhw=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(346002)(39860400002)(366004)(396003)(376002)(230922051799003)(451199024)(64100799003)(1800799009)(186009)(41300700001)(33656002)(54906003)(86362001)(64756008)(66556008)(53546011)(316002)(478600001)(66446008)(66476007)(2906002)(76116006)(110136005)(66946007)(71200400001)(83380400001)(4326008)(7696005)(6506007)(8936002)(8676002)(26005)(52536014)(5660300002)(122000001)(9686003)(38100700002)(38070700005)(55016003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?lQxPgHvxd2Uf+6EE+FFnPbHiVoq+QluqssC3R4gjxnbh+yKYhJa7iGmSUWZE?=
+ =?us-ascii?Q?Dk0LRy0Gwtol8r6OaepR4rORf5uNDVQ17ucMUPPHWgjlpU+V45sKgK52T7ah?=
+ =?us-ascii?Q?toRECFh0rLJR23aiV4BdlR/Faw3NAN1hJlyWzlBnqYAwaeSZXnGFh2vXiMLD?=
+ =?us-ascii?Q?zUAGUjq2BwNc2v+b7KX0+qKYJgU+trOtirxEBIH7ib3qyoVuEDwy8lkXK6Te?=
+ =?us-ascii?Q?inlk9BQnXxt0I9eyPg2qyDCeN3HLuHPT50DG6vThtsyFDb+b63rq9pjJBIXH?=
+ =?us-ascii?Q?Ud15rWWtxvSe2eLFED6OfQn7Raom79yI0sNJ9Mun486dZYK0DG92epC7VkTM?=
+ =?us-ascii?Q?wAr4XcYeAQdekSTTqgKgU7P7bIA+PWXRPZhVhCfaWq/wY3awUu3178UEzSh/?=
+ =?us-ascii?Q?r04Jo3K5jDDsqOGmEpQnbBckPJQsDFbexdnMr4+5XOCkHSv9QgJY9tikj4ji?=
+ =?us-ascii?Q?tmEY7FK4x706it9lZe2vlbm6SkoJWpBvC81bEQB5SKy6aBQShZzojjMS7Enp?=
+ =?us-ascii?Q?5I0wYLbl64gdRy4dw0HT/8CNuNtbhCipCHwGzu241is5ADV1krYWFVNc8zeG?=
+ =?us-ascii?Q?P6/vMs5PhfY5AxUyWMnGdAooyJFCuDj+4kH83HF1+LULA4PJaLynfjoFuo8m?=
+ =?us-ascii?Q?arVpJdaBNOnB4yNtGUZ7sZSDsPX5xOF1xvxOL4tJqL+bOH5EZw1eBrR6Yjfu?=
+ =?us-ascii?Q?s/HgP7kTa9rughCItANQ3TFsU7PyHXkjaEPRCBfnvSm5aYelKlmGD9GI3M3+?=
+ =?us-ascii?Q?Rw96XglhyPcD2eOe/4suc0RmpeNNOkbaSVSWF+yKz2/+N3rFCEPq4jRQgxg1?=
+ =?us-ascii?Q?aOM60yJw3MYSfXk0oFGwE1E1sft0EeZf3CcT8TGhUj0PltaFdyruk7FPMHPl?=
+ =?us-ascii?Q?KIWMnyBu/zoTSVvzXflerT+pGoiKtgt8AxrBWQaKUbF4PKativuaO19xuJd7?=
+ =?us-ascii?Q?qa8CMQQ0TE0LVEumj0V8DWu88c3iGezjUdGFAnkcAlobc8xiBX9O4jlu46SV?=
+ =?us-ascii?Q?M8JxafqC/4WFj7rq5r+Xj4g13Wy8F+fAK75Vv5UcndtoUp+9iL48D19uyeai?=
+ =?us-ascii?Q?+LhYfoNkX4/u280wgZhtPa2lc9ebnUQ5mL9b/dbK67kcQPDFVWOqsDoERlZm?=
+ =?us-ascii?Q?H59/H5YaRIrwHpKUHe4ftxXhcByG8SHv55ruelx7j5XZZebVd8d5Cnlbjpwl?=
+ =?us-ascii?Q?OC5ANVRmWJwDH5nldG5kg3GoxZpt6mVNsUbNNMzfG+sAA17dcS0kuT7IHcsx?=
+ =?us-ascii?Q?Bvvo6GNZydHG+e2/YpQJXubUziG9gvtwR1X8pkViP27jZ7IygFFqq4GPupmC?=
+ =?us-ascii?Q?1MK0LNewlCKmezGiS0aw/sV9Y0accb515hQrs4BUgaivurDPs3+V7mLZSfFR?=
+ =?us-ascii?Q?yD+dGq5khvysJBusvKoOCfBenxUngzubasQlNocIQ0tJHTVctJAwA2qkcrS8?=
+ =?us-ascii?Q?23y+GQmWWwSa5TrubcSHAAljd/SPnSZmhpzewVymi7tyPNA5Jap7V+Vbgcel?=
+ =?us-ascii?Q?VjUe0GIS0j4rzTC0/ItvmspfcGZ2xeTf7bDfLbJDJOzI5XZX0M0brEsftuOo?=
+ =?us-ascii?Q?mYQlsbZRApCpj7+ePYs=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="mavrvis2xy3vzwff"
-Content-Disposition: inline
-In-Reply-To: <8d4e4b74-4477-41e0-a690-8b9f38907a7b@amd.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c503e0ed-ee52-48f1-fbfe-08dbc54c1185
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Oct 2023 02:37:50.4938 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: c6+BZmH9KK6spaueo3AocJ4627UFU+hFiHh+YqZF4tMWUSLvNcEd3dMzvxKcB9N2ITddd6E+ZsZ5QfMMo8jPZA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4509
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,142 +124,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Jun.ma2@amd.com,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-pm@vger.kernel.org
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only - General]
 
---mavrvis2xy3vzwff
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Series is
 
-Hi,
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-On Sun, Oct 01, 2023 at 07:00:11PM -0500, Mario Limonciello wrote:
-> Let me try to add more detail.
->=20
-> This is an OEM system that has 3 USB type C ports.  It's an Intel system,
-> but this doesn't matter for the issue.
-> * when ucsi_acpi is not loaded there are no power supplies in the system =
-and
-> it reports power_supply_is_system_supplied() as AC.
-> * When ucsi_acpi is loaded 3 power supplies will be registered.
-> power_supply_is_system_supplied() reports as DC.
->=20
-> Now when you add in a Navi3x AMD dGPU to the system the power supplies do=
-n't
-> change.  This particular dGPU model doesn't contain a USB-C port, so there
-> is no UCSI power supply registered.
->=20
-> As amdgpu is loaded it looks at device initialization whether the system =
-is
-> powered by AC or DC.  Here is how it looks:
->=20
-> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/dri=
-vers/gpu/drm/amd/amdgpu/amdgpu_device.c?h=3Dlinux-6.5.y#n3834
->=20
-> On the OEM system if amdgpu loads before the ucsi_acpi driver (such as in
-> the initramfs) then the right value is returned for
-> power_supply_is_system_supplied() - AC.
->=20
-> If amdgpu is loaded after the ucsi_acpi driver, the wrong value is return=
-ed
-> for power_supply_is_system_supplied() - DC.
->=20
-> This value is very important to set up the dGPU properly.  If the wrong
-> value is returned, the wrong value will be notified to the hardware and t=
-he
-> hardware will not behave properly.  On the OEM system this is a "black
-> screen" at bootup along with RAS errors emitted by the dGPU.
->=20
-> With no changes to a malfunctioning kernel or initramfs binaries I can add
-> modprobe.blacklist=3Ducsi_acpi to kernel command line avoid registering t=
-hose
-> 3 power supplies and the system behaves properly.
->=20
-> So I think it's inappropriate for "UNKNOWN" scope power supplies to be
-> registered and treated as system supplies, at least as it pertains to
-> power_supply_is_system_supplied().
+Regards,
+Hawking
+-----Original Message-----
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Wednesday, October 4, 2023 15:40
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
+eucher@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: [PATCH v2 5/5] Documentation/amdgpu: Add board info details
 
-So the main issue is, that the ucsi_acpi registers a bunch of
-power-supply chargers with unknown scope on a desktop systems
-and that results in the system assumed to be supplied from battery.
+Add documentation for board info sysfs attribute.
 
-The problem with your change is, that many of the charger drivers
-don't set a scope at all (and thus report unknown scope). Those
-obviously should not be skipped. Probably most of these drivers
-could be changed to properly set the scope, but it needs to be
-checked on a case-by-case basis. With your current patch they would
-regress in the oposite direction of your use-case.
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ Documentation/gpu/amdgpu/driver-misc.rst   |  6 ++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 16 ++++++++++++++++
+ 2 files changed, 22 insertions(+)
 
-Ideally ucsi is changed to properly describe the scope, but I
-suppose this information is not available in ACPI?
+diff --git a/Documentation/gpu/amdgpu/driver-misc.rst b/Documentation/gpu/a=
+mdgpu/driver-misc.rst
+index 4321c38fef21..82b47f1818ac 100644
+--- a/Documentation/gpu/amdgpu/driver-misc.rst
++++ b/Documentation/gpu/amdgpu/driver-misc.rst
+@@ -32,6 +32,12 @@ unique_id
+ .. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
+    :doc: unique_id
 
-Assuming that the above are not solvable easily, my idea would be to
-only count the number of POWER_SUPPLY_TYPE_BATTERY device, which have
-!POWER_SUPPLY_SCOPE_DEVICE and exit early if there are none.
-Basically change __power_supply_is_system_supplied(), so that it
-looks like this:
++board_info
++----------
++
++.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++   :doc: board_info
++
+ Accelerated Processing Units (APU) Info
+ ---------------------------------------
 
-=2E..
-	if (!psy->desc->get_property(psy, POWER_SUPPLY_PROP_SCOPE, &ret))
-		if (ret.intval =3D=3D POWER_SUPPLY_SCOPE_DEVICE)
-			return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index 10f1641aede9..27c95bb02411 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -162,6 +162,22 @@ static ssize_t amdgpu_device_get_pcie_replay_count(str=
+uct device *dev,  static DEVICE_ATTR(pcie_replay_count, 0444,
+                amdgpu_device_get_pcie_replay_count, NULL);
 
-	if (psy->desc->type =3D=3D POWER_SUPPLY_TYPE_BATTERY)
-			(*count)++;
-    else
-		if (!psy->desc->get_property(psy, POWER_SUPPLY_PROP_ONLINE,
-					&ret))
-			return ret.intval;
-=2E..
++/**
++ * DOC: board_info
++ *
++ * The amdgpu driver provides a sysfs API for giving board related informa=
+tion.
++ * It provides the form factor information in the format
++ *
++ *   type : form factor
++ *
++ * Possible form factor values
++ *
++ * - "cem"             - PCIE CEM card
++ * - "oam"             - Open Compute Accelerator Module
++ * - "unknown" - Not known
++ *
++ */
++
+ static ssize_t amdgpu_device_get_board_info(struct device *dev,
+                                            struct device_attribute *attr,
+                                            char *buf)
+--
+2.25.1
 
-That should work in both cases.
-
--- Sebastian
-
-> > >   drivers/power/supply/power_supply_core.c | 2 +-
-> > >   1 file changed, 1 insertion(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/drivers/power/supply/power_supply_core.c b/drivers/power=
-/supply/power_supply_core.c
-> > > index d325e6dbc770..3de6e6d00815 100644
-> > > --- a/drivers/power/supply/power_supply_core.c
-> > > +++ b/drivers/power/supply/power_supply_core.c
-> > > @@ -349,7 +349,7 @@ static int __power_supply_is_system_supplied(stru=
-ct device *dev, void *data)
-> > >   	unsigned int *count =3D data;
-> > >   	if (!psy->desc->get_property(psy, POWER_SUPPLY_PROP_SCOPE, &ret))
-> > > -		if (ret.intval =3D=3D POWER_SUPPLY_SCOPE_DEVICE)
-> > > +		if (ret.intval !=3D POWER_SUPPLY_SCOPE_SYSTEM)
-> > >   			return 0;
-> > >   	(*count)++;
-> > > --=20
-> > > 2.34.1
-> > >=20
->=20
-
---mavrvis2xy3vzwff
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmUd8McACgkQ2O7X88g7
-+poWjA/9HdkzUe4iv3N7kLQ1MX8LLpg04IlI4kPsSscO2XL8B9FQgQVSaVaH8bSc
-IB0/8clq1dhPvpsC2lZBKGxEnzm1DA3Q97UZ+i+pO2yCeYB2b/I5dnXLYr5m3teZ
-prHUSgoGMNF3lc5QeLO7hc/RT4pKbk7eme3geqCj8Z1JDRUnJLychMMhtzqRch7k
-14ZZWZ3e93vDs6J0Kz5/MT4ws/4m831MzA9sbXK2qRtugV259jeEw/6UtUIdyp8V
-QK2/P9k6ZXfcZjzkm0JVm19lWvyF3YM2WzeoLLeYE8bz6BIBQauw/DyTknKFDmQx
-3ftwFyd6fbnfOfKRgXac2zlrG5W1v1y6Xs8GfMvrWf1KxvXNrpzU8VBCArJk67k3
-CP2s6f7CvFxe9XrMinsge58mraayaqSUmc9QeM/tKuBNpUGglUJo/FFFHMBfITqb
-M1zll2uGFGajOfEpiI9pHIIVWhXzVCoYUdvu3KJsmTciuqSX2qJWY/76P6YdVLXR
-JT1i64+6ca7VklC5PWgG98s2xoGHYowVmGSChtEkYvAD8GpR+CQELBj8R6xcApAu
-njA+xFNG6ZvP8BSLYUd5Qon+EHqHmBA70oj9FkZueKie1+YLSlH4prMn5aQqThkP
-WZodfhxa5KMbzTbnsd62i4yZkfbU1uKFsgYPXDCA/feQeuQLLwE=
-=/PRi
------END PGP SIGNATURE-----
-
---mavrvis2xy3vzwff--
