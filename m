@@ -4,118 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7195AE92733
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 19:42:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 979A2E92734
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 19:48:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1FA910E48A;
-	Thu,  5 Oct 2023 19:42:44 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2059.outbound.protection.outlook.com [40.107.220.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA27810E48A
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Oct 2023 19:42:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 363A910E490;
+	Thu,  5 Oct 2023 19:48:12 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20617.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::617])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F7D710E490;
+ Thu,  5 Oct 2023 19:48:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MaOucWtCgq/xn21UYheJBk7pblCgRiCfZ38b4gU4qoVh7FldhFr7zZuh8lcs5956gUA01MXzx/emOVDxWn7ac7b2IPVjd3MXFEZCpqey07UqeeZmUO+WhbhmucFwyQ4ndZAoA81p24R+JSc2nuyFg+x/zP6S6q6cMZ8SKYkP4at2s+7J8YEWtz/Ne9ta1F66FeXHqFFESY5iTk+WDhFTEA8Y5ENaFw8MJKiwmJOu6pqT5iNITjAqjR+0h5w0oIQqkbMfnoAxEoyCrcPK/DADpEiFxOkT/9wWFO6D33tgO/p2hIbMxs/3OxL2BQRZcwg02OGzbERDWwL1v+pHqcl9BA==
+ b=Qpf1+WmV+JGF4Y+0ho5iyK/Z6DvzFlJqZ0TtxPTJ/LQpWg6okA4r0lY4v7j7uzqfWnDnAe6XdvtjZJS+UFtAKeoYUZ8FzB8E+XQqDNTBWL8n7yqHnz4laETy/TQIEkmkg7zbjmIboK4rp6sNsQNmcnZNgL9KVX9guYHeRTeNLSw0b7trpWGJFv2cHdyl63dfUpxyZGG2Wsk8qwuxM5Q3bMYWTitirNChgRjAtgojMS79xmDekgtQnioUhN9iHmUI6Uc9V9mVQHv6vxQ7kjVql2c99q94t/KeFvPn2yYeq8Kq0bQxy0YyaeB95b6obop0EpSD8ANetbkj7aWK+W2kOA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mi+enL7m246uvHBhbktuVSlTFAlI1IaeUE9dkr+B8d8=;
- b=kvH2LHBMnvXAOQhoEgtyZwUeMYM5Y3cTu74eLy303HKt9IoQREo0trZfA82lQdLcnXuCScd6LQA2C4+nOQgC5Uvo5yaNN7/RvMBhxns9yptqhC6Q5G9GaDRuxsPfkdz75G6fDm7iEUm7SIxBkfryJC5Y7oAgFD8XkttZcZlGPCYmd5MCd6uesD6lK0hik37WkERtlrnFqurboUFbRLnP8BG7dktuU+/ietPwHi81AqQyAexfdsZs0qS6WTPG2zhB4pyjrfDTvZt9KiYfkUi/kBe6g5Bzf8dT+W0cSfa+wJvSeZ/a53fP9CqgrLVfg1LNtFTUEa/xiq0wTzQ/VSymfA==
+ bh=1kDqyYkG0M5sYUrJ+pD4Sm0sR8pMhzC0qzxsYAfpiyY=;
+ b=b7aLibb2tuhB42rkOiE69PEsUdsJHcsamBl14AcFLD2Gz8sJLeKRiTErWMAMwMd1l4P++mXKB6kacLLD48Wq3qDGC4SuiN+J1PWczorC6LwJSoYuGK426lJRY9MQjAbftFuuAXV0NrsVFv6H50vVhUWCfvZCf2gBbldvY17S8qn9JnxnOVWO/1VC+TYshrm1dD0WOipQNzIENS9Kn3Oy5wT8Uc0Lfq1zMbBiilAZ4NMx+E6MXJBmDFfWsj02a2tmhFIOA2407o/y0hwVBSFFDh2Px69h6F2Vnq1q+rnWlrh43V4KAzVwwZFI7oBNNVQikNJtzJiXBNgOBKJHon/b8w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mi+enL7m246uvHBhbktuVSlTFAlI1IaeUE9dkr+B8d8=;
- b=LbfH4G8gXgnhfYBbHmniLRMY/eHs6q/x9zwi9SuGv185fi7wbxoQYkdZSn5GUxPHElsPsPg2A2I4ARuBnQ3HHGU/zdLn+yzOwHUI6g4FMP4RvreNp64E6024WrhXO1pDWLKPBkmdRFZFmlcJ17cR7HSkMb8eQpZyEQTorwhNwBI=
+ bh=1kDqyYkG0M5sYUrJ+pD4Sm0sR8pMhzC0qzxsYAfpiyY=;
+ b=NZYf2cm5hdc1/2E9Z5fiUMnb7/7PC+iVSdyvh9F+V49Nqa2pjt9aRqKDwtRvD72DHoob069znqXElR0WqrsXajho2dEDdOshD6WBtbiw0343xlpV47n/9N8iDeF/2B7GZ761NfDEeGLngPKyycrL/k65fg16B/rMJL8F+2epQ2A=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by CY5PR12MB6083.namprd12.prod.outlook.com (2603:10b6:930:29::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.34; Thu, 5 Oct
- 2023 19:42:41 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::e166:610f:a86e:d33a]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::e166:610f:a86e:d33a%3]) with mapi id 15.20.6838.033; Thu, 5 Oct 2023
- 19:42:41 +0000
-Message-ID: <844d1ffc-156d-1aff-ac4c-6525d9147470@amd.com>
-Date: Thu, 5 Oct 2023 15:42:38 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 3/3] drm/amdkfd: Check bitmap_mapped flag to skip retry
- fault
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by BL0PR12MB4867.namprd12.prod.outlook.com (2603:10b6:208:17e::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.35; Thu, 5 Oct
+ 2023 19:48:07 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::2e40:ffd7:e752:644f]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::2e40:ffd7:e752:644f%6]) with mapi id 15.20.6838.033; Thu, 5 Oct 2023
+ 19:48:07 +0000
+Message-ID: <a6edf388-3000-404a-a4a1-acab7a9df1d9@amd.com>
+Date: Thu, 5 Oct 2023 15:48:04 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/1] drm/amdkfd: get doorbell's absolute offset based
+ on the db_size
 Content-Language: en-US
-To: "Chen, Xiaogang" <xiaogang.chen@amd.com>,
- Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230929141115.10016-1-Philip.Yang@amd.com>
- <20230929141115.10016-3-Philip.Yang@amd.com>
- <678650fb-8fb1-7f2c-cdb9-6a01d9095a34@amd.com>
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <678650fb-8fb1-7f2c-cdb9-6a01d9095a34@amd.com>
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQXPR0101CA0054.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:14::31) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+To: Arvind Yadav <Arvind.Yadav@amd.com>, Christian.Koenig@amd.com,
+ alexander.deucher@amd.com, shashank.sharma@amd.com, Mukul.Joshi@amd.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch
+References: <20231005172011.9271-1-Arvind.Yadav@amd.com>
+ <20231005172011.9271-2-Arvind.Yadav@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20231005172011.9271-2-Arvind.Yadav@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0147.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:e::20) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|CY5PR12MB6083:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3dc77f59-5555-4b69-dc83-08dbc5db3cda
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|BL0PR12MB4867:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7dad04c4-a388-4571-4a5f-08dbc5dbff40
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ETglTwuMmz9MiqZxwMcJ1jPv1u8nrfPicHzF3wycjyGQtcSBPHW/wZIsuEXAeH6yByUklM5UwHlOc/7mYkdhxLt16xk3en1BYuyfCXePj8cEZJvn/m9mYif0/OT1lwKGflGm8qasMiSoZ4Dw9GF3s1IQRA34xZArkfLn2R3lG3nifPR7zwFwy4TXXiS4KDJrb06a3Hw1Uxq7miEUD2pPLn7Ox5EX5i10J3D8IUOxuCF2hQbcd8cHhK92kpOqDlFy49sTU3ytNoZMRIpdomRiVA48pUxxqTo+3hvE6B9UZ145MXEoJBCHOCbQg77TsRZBnCWz1VgWNpFOnD8uUVakmoO1XuqtlXbAWoODYEOhJIAOwd8V147h1WKM87BD7RdyPEENNgp2NEepx6dxktxVYDLRluk0zlhYrErhBTxaNRoV1YtFK4oymgkTMCQrk2sGM1Qfuf2JDbndTTuBdX18Fg9RCynvyMtaLLVAuOn7j4FoBM7iOhrs5IBQ8ebejlMaI7v7FUxIE1DPM4QNz0ilx7xsehKt4H+wwYsvztcS8ZUKEPUGTuNXV52ys2+F9HOWPxlLYlDXCLK7w/6AAYIrIU6WIapfpiogVVdRaHg46wi2W2sgYKJDI7TqsdZVia/7aDL0HkU1ba2YXSbZ/IkA3Q==
+X-Microsoft-Antispam-Message-Info: 4OlICpsw8CmzW0+WpVJKZvAQ7LYoM7DUU0AvzSvhmK+p2gl9OAvZQlQUOrzHns+LQ/jQTSsMDmonzxaJLKJ2Nr9qt8OmwVh62536GzOws/k44igoQ3XsQCOOsP3Mtil+a7T/IXSD401BcYzoqpv1HfFPUVxNsscvdWSAUl2uBb9IT6Z+2omhSL1ep6muJf7E++tGZFF6TGUui2PArZdwQVvR9fOI6BgoAG7/JdtEM0BjqTXiQvQLd5/jGeslgna6kaBU/OeHnWG55PFL0DNBw7wtKJvqk5RX5jx7uSziPJkddOF96nzdKfSBTSHiwkYFOGeutKhQnyqxo17+qQiBddWPFhyxWgfBFVun0vjloZB3C6IkbAmTH5NjXSQpsxuTJgUz5IEW/3NGbo0+WyC7T/KbC3JYBvsX3oT+YtPEj9WviUJmj+2K00pD7ekLrbv6zAn944WIgfqqO37JHrJ1LqB5c/w33MGe2+kCNjCSlSqszdd5Wlq7TqYzJENptZhQW7KqqvWFY1p0AHUyOnO+eUA7SzvUeMbp9M5S5DGUXkVyuBjdksb3L54bzBRzTiPixcxBKyvJ1NMPQkqgoLE0b5hpNxg7k5S4Ax5W+mfX3FcPijp8/wZtQiSfBNrstwpwyiALjWgqvcq4yG2uL0otWQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(346002)(396003)(136003)(39860400002)(366004)(230922051799003)(1800799009)(186009)(451199024)(64100799003)(6666004)(6506007)(53546011)(6486002)(478600001)(83380400001)(8676002)(6512007)(26005)(2616005)(316002)(2906002)(41300700001)(66476007)(66946007)(66556008)(110136005)(4326008)(8936002)(36756003)(5660300002)(38100700002)(31696002)(31686004)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(396003)(39860400002)(376002)(366004)(136003)(346002)(230922051799003)(451199024)(1800799009)(64100799003)(186009)(53546011)(6512007)(86362001)(31686004)(38100700002)(83380400001)(31696002)(26005)(2616005)(6486002)(478600001)(6506007)(6666004)(36916002)(66476007)(66556008)(66946007)(5660300002)(2906002)(44832011)(36756003)(316002)(41300700001)(8936002)(8676002)(4326008)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eC9BclZTRnJSeG1ZblNKbmdEbHg4OVg2TWx2K3hmWWFiUDA0RnNBb1dJR2tu?=
- =?utf-8?B?VWJ3ZHlNdXpMTlAwVUk3dyt2LzZYdDlleE0wSG5iK0doT3BHVjJOaFdPaHBt?=
- =?utf-8?B?dnhzNE1IbnFJK3NENGNBdmVRMTd0TUZSMXNtbGdnNkVnUHNJblRrQVRYUUc1?=
- =?utf-8?B?dU1qWmtnKzltT3lWc2NPdzFwQ3kwZVNDTWdhb09rYW1wVHVJKy9odG44V05P?=
- =?utf-8?B?RmhScVVkbzIvcCtVZWVPdUEyV1BvUkVidDI0UTVxOCs4aUhsSGFyQ2pYaTMv?=
- =?utf-8?B?d0piVDV1UTJIZjFhQ3VDTlBlaUM1Q1h4ZWF4RVpwTVlib1B2Und3YklqY2JB?=
- =?utf-8?B?TVRZZFh1VW5yMzBzV0hrV3FidlM5TGZqR2NRVUw2OVlITHpIK1psQlhBQzdh?=
- =?utf-8?B?VzJPeVVYWm92T2YzQm1RenB4NHMydktwTGhOVU5RSU14MGYzYXp2QW53ZzdD?=
- =?utf-8?B?MTBpYVdYZGt0NGtzMER2N2pndW92bk5OQ2JnTzBqVk93NFJuV1BRUGMxRGxp?=
- =?utf-8?B?TUg5emNhaUJmOG45c0NLTmtqcy9MT1AyNGorU2JGN0JQL3RhVGFPckRrelZH?=
- =?utf-8?B?TC9ZZjVIaDY1V2hiVkhjT3pUdmZ6UjJCTnYwWjRsNGFIZkd4WHU4cEt5WE1J?=
- =?utf-8?B?SFlmdUJXUmp6VzdyQytxVHJML0ZnUm9DVG9pV21rRzBaSlFVb0czcmgzZTIv?=
- =?utf-8?B?ZmxQOS9sano4TWJ3Qmw5UTNBRWV1S29SR0FreHlMZ0Z1eGZXU0tQd1V0VStY?=
- =?utf-8?B?cXR5V29KVWRJVGloYVpSZ2VvUXUxcXlORDE3eFh1OU0zdUtCZEtUTXFldENF?=
- =?utf-8?B?TnV3QjAvaVhyZjhaNG5YdzNRMmlwTTdWYVdnRWE0MWFacWtwbVRLM2VzUGM2?=
- =?utf-8?B?dmdIQ2xQMjNxY0JUYmZuYURUcjFhSjJ6OHl0dlB0bVZCZDdUNW1nVmo3TEF4?=
- =?utf-8?B?Y2JncU4zRjVrVkg2aWNyOEZFQVpvaWxPYk1jWjJPSTZURVNlMTZCZCtCVG9B?=
- =?utf-8?B?dzJKbTdtb0hrSzBwdkdiQ091eHNkcHdJSUR1bzhudEx2NjAxSXNMTGY5K0dG?=
- =?utf-8?B?WnFXS2ZZM0lXM0RIMmxvRnJrc3BVUzVCcCtHeWQ2bHJMbWxyci9BRStwaXdh?=
- =?utf-8?B?NjVKL2d3NGxzb2FiZFk0SzlRbW1yMk9Ud1Ryb0hWYlRwZkM3ZEVTVE1QdE4z?=
- =?utf-8?B?alJEUzdzTWt3WWl4a25XR0t6M2hTR255YlIzbmc5Vk5QVUY0dDR6bWtsVlFW?=
- =?utf-8?B?c3pFUVFBZmVLRGZrN2RWaHJSZzNQNGV3T01UM2FKTjZuVVQwUFpvakJHdHBD?=
- =?utf-8?B?cUUvTjgwc3Q3Sm5mWk1pNHhrTmp5NVB6Z0xzWDBYM25EZWt3R0ZkWnN0QmJt?=
- =?utf-8?B?MjlqdytnL0pnRXpyTEdvVnFOVUhoZmozdE1oR3B1NDV4UVFpR2dtSHdtdG4v?=
- =?utf-8?B?dld2MGtiMk5iNkh3akZDL2Rua2FSSDRBc2NqWWdlTTJrNGY4QXhEOVk0ak5t?=
- =?utf-8?B?SU1DSUorV1lXMXVvbjJCS2J5NHlNYnUydkJoZ2hhK2ZtQTVCdEd2V1RoZUpu?=
- =?utf-8?B?Q1FvZjJ5SXZmWDlielA0ZEZBaHBZNHJRb0ZSZ2k4WENjb2VPTEEyVUxsY0Fz?=
- =?utf-8?B?bTBDZ3F4bFpMbWw0NEVZdmdERHBheFViWnUyMldqZGZWSGc1dXIvcng2b0Fl?=
- =?utf-8?B?SE81M1k0VkIzdVpuVVNGVytXL2JkTHcyanpFbEdDYjNXQXRuaVhGQzRwSnhR?=
- =?utf-8?B?bUlQQkxHcE03Uk5BOU5HVHRzYytyR2lrTkRsZ2h0WlZsM2J0NzJia05ENEN0?=
- =?utf-8?B?VExWTlRIdklTU2lZTkx0TkRTa3NzZ2FDNEM4Y0txUzlpYzlKSGk0dXUwU25G?=
- =?utf-8?B?SktiTVM0T1g5NEFvT3VxN0R3VWRUdWxPUXJGOTl6NlExOFFId2lLKzEvRFJk?=
- =?utf-8?B?RlF1VFMvclhwSWF1b0pmb0JYVGtnak1uVGtwMDJ2b3hXaS9lVTcrdytnVkpS?=
- =?utf-8?B?NzJ4QnZ3MGIvZ28xVmdob01wSEZFUGZDTDZwL0YxOVR2MmZSYjhzUVBYbldn?=
- =?utf-8?B?UWg0VG9rUndzd1JaQjU3R1Z2YnJhTlNGM0Ryd0FFTU1QNk5WT2JjLzBBemFV?=
- =?utf-8?Q?U14Q=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?czBua255VGtQakQ3ZHd4OE5FUkNMamJoMXZyTEFkYWI0cDhSSGNZY3hRano2?=
+ =?utf-8?B?RlRKcDUzZWt4dTlJZEVWSStaR2FtamxtUFhteG5OOHd5OU4rWkx0T0FQRDRC?=
+ =?utf-8?B?UW5ObVZ6Z1lOWTlhVGRnQ3dEVWNiRjB5dWl1WFBlMUNTdHhVaUl1UjZoM3pL?=
+ =?utf-8?B?SDNIQjY4V3Z1OEtYNHhWYzljMUpxNDJFWWloeDBXcTZWVVcxcGE5WVE2djJ2?=
+ =?utf-8?B?VGtFa3BXVS8xcXE3U2hVR2JtRXNpcjZDRFJ6dzNUOWt4V2Fvd3IvN21BaFBZ?=
+ =?utf-8?B?UnFQak5tNVZ2MWFZdWgwODhFN3pXcWlQUnJuaDM3UWZtM0NPclRIWUFsT0hQ?=
+ =?utf-8?B?dzJPUTgya3hJWWhYYTZtSUZtUUwySTlzeGxEQ1hZajdNUXhNVjJQN05vQnpy?=
+ =?utf-8?B?UmkxVk1lMTd2WHZmM09Mc2g2QnhlM2RoQy9Kcm9iMXFrakpFRXUrRlN4akdE?=
+ =?utf-8?B?NUJxY290NnY3TXVadUFzQ1grVzI2bXBheVpmd0kvbFlQYW5Jc0ZLcEtQd1hL?=
+ =?utf-8?B?MFhwR2tYUmhHVmlWQWlFc0FlaTFLejY0SjBuZlgyVm9YcTM0U3ZyTDM1TkFa?=
+ =?utf-8?B?UkRFdDNGd2FLb1hXRmRPUUxVM1V6Rys2RVYyMEwySXB5cERybEJKQ2kzQzZI?=
+ =?utf-8?B?SGpvMldKeVZqU0Y4WTZXZjFUOFNxRU9kcG5TS2pXS1hoaFNDSjVmOWVyRXY2?=
+ =?utf-8?B?Wk83bEpCbnEwTlovU3ovdU8rYkQyY1ZuS1IzazNsa0J4dUJ3WTNycDRFRzBN?=
+ =?utf-8?B?U1ZqSWlQeVN5bWxzVFF5RjY2c0h6ZU9CZ2x2c21qYzc2V1JiSVpPclcrblNY?=
+ =?utf-8?B?OWducVA4RWJjaFV1LzR4TjQzUDNiNFBtL2xXWEQ1aTBoK3JhZ2k5bmtBVzNM?=
+ =?utf-8?B?SmJVZHUxN1ZpY1poRGFMREdvdEhoZ0xIY254cjN3T0YxV3ZPZTZNcUwzc3hW?=
+ =?utf-8?B?RDE3b1BBMW9IcUlydE9BMnZ5b2xLWmJONUYvSVluRVlORWp6WmVxRmlURzdM?=
+ =?utf-8?B?UWJ1d04yMGY2enZoUnFMRlozUExneU1rVDMwckszQlRQbUhwWXcwc2JEcUFX?=
+ =?utf-8?B?cUJidXFRTktCak1qdlNVVW85Q3NVclNUcjNxUUFmT2dYcDZ4blFYdHk4MlhJ?=
+ =?utf-8?B?WXZxeWgwSWdXQnhXbG5HRGViMkxKWUdGeExLNmpLNFJjOTV4TjZLYzhvdTQ3?=
+ =?utf-8?B?L0s5SHpRTmk1c1QyOXNCL3dYd2JzUHZocVVmUXBLdEhlQnRGK1ZiQVM1RnBP?=
+ =?utf-8?B?UmZIZWF3dkdvYTdCNU05dnRCcGZuVWh1STVVVDh5cm45bkRHU0JqQnhJa3Rj?=
+ =?utf-8?B?YlZPaEhzbisyZWNQVm1Ba0N0bHpUT2R6K0N3QytHMUdDVGlwRjlBdWlTcXNq?=
+ =?utf-8?B?dm5OMW0vWllmR096RFpLTTdYNDB1NnI2bU1xUW9OVkQwc1dQYnRxbnNXWDA5?=
+ =?utf-8?B?R1lIOFR0QXkvQlE1eXhGSkI1d1gvM2tub05tVHdvc3ozeVVmL09mcitzaXo4?=
+ =?utf-8?B?WmVGSEEwR3E4NG9QK2QrUVBHNkVDay9lTTlJR1krRVljayt0c09lc2tlakNG?=
+ =?utf-8?B?MjNoRi85Ylc2dDhMRmVadCs4SjVDK1pabjJWZGdhUFo2THhUMFdEaXI3d2l6?=
+ =?utf-8?B?Y05pOTZFZ3J0OFZJRTlFY0xkQVIrb1B3a2dZQUZET0RVaTEwQlA0ZmNqbTQw?=
+ =?utf-8?B?ZWMvU2VkQWx6VEw0RkRuditwRmdRR0x1SGhVckgxd1RVOElKOXlBU3Zpblda?=
+ =?utf-8?B?M2FNLzYzSzhtM2VxaGswb0lWdU1LR2J0N1lSS3d3SnpIenNhV0lLaTlqcVNT?=
+ =?utf-8?B?bVEzZGdZOWFVdEtvT2paU2MxN2N5L1dhYWtlUE1nbXlqL0dMV1I5b3lMWFNQ?=
+ =?utf-8?B?dG5sYktYYjVUWUtNcHh1aVFlaHRHWW1mSTRWNjRPWVR6VmZiMmU2UFMydGdS?=
+ =?utf-8?B?UnMvSGNMajJUNGtCL2ZLZ2lPMzF5K0NWNCtKeUxUbndGZTBuQk12SGlwUS8r?=
+ =?utf-8?B?RnBzOC8zM3ZGTERQSVM2czJia2lZeXMwUUJNVnZVb3pJVTl3T3JJc1daOFhE?=
+ =?utf-8?B?Y2ZrQUJTT1RWY0tGaWx6aGVpb09DTStYSFdaT2Q4Qit4UXkxS1hKZWxhMjVs?=
+ =?utf-8?Q?mE6WdrXqJ+3NI5jb8zDmrsfbX?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3dc77f59-5555-4b69-dc83-08dbc5db3cda
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7dad04c4-a388-4571-4a5f-08dbc5dbff40
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2023 19:42:41.3884 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2023 19:48:07.6329 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5lJEcuArWQHgzuNYBtV142wWlaSyavyuYB0xx8aVmQvRQObLHUlFPxE0SoiGGVJI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6083
+X-MS-Exchange-CrossTenant-UserPrincipalName: +tAV2J3U9wmHmoV043Lehi/2mA9Q4E9RrCW4Jwv/nInMffZa7kSMN4QV48tbdt32nADDx7KYcVUSds+E5OdazQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4867
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,242 +128,142 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix.Kuehling@amd.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2023-10-02 13:08, Chen, Xiaogang
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:678650fb-8fb1-7f2c-cdb9-6a01d9095a34@amd.com">
-      <br>
-      On 9/29/2023 9:11 AM, Philip Yang wrote:
-      <br>
-      <blockquote type="cite">Caution: This message originated from an
-        External Source. Use proper caution when opening attachments,
-        clicking links, or responding.
-        <br>
-        <br>
-        <br>
-        Use bitmap_mapped flag to check if range already mapped to the
-        specific
-        <br>
-        GPU, to skip the retry fault from different page of the same
-        range.
-        <br>
-        <br>
-        Remove prange validate_timestamp which is not accurate for
-        multiple
-        <br>
-        GPUs.
-        <br>
-        <br>
-        Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
-        <br>
-        ---
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 24
-        ++++++++----------------
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_svm.h |&nbsp; 1 -
-        <br>
-        &nbsp; 2 files changed, 8 insertions(+), 17 deletions(-)
-        <br>
-        <br>
-        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-        b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-        <br>
-        index ac65bf25c685..5e063d902a46 100644
-        <br>
-        --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-        <br>
-        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-        <br>
-        @@ -43,10 +43,6 @@
-        <br>
-        <br>
-        &nbsp; #define AMDGPU_SVM_RANGE_RESTORE_DELAY_MS 1
-        <br>
-        <br>
-        -/* Long enough to ensure no retry fault comes after svm range
-        is restored and
-        <br>
-        - * page table is updated.
-        <br>
-        - */
-        <br>
-        -#define AMDGPU_SVM_RANGE_RETRY_FAULT_PENDING&nbsp;&nbsp; (2UL *
-        NSEC_PER_MSEC)
-        <br>
-        &nbsp; #if IS_ENABLED(CONFIG_DYNAMIC_DEBUG)
-        <br>
-        &nbsp; #define dynamic_svm_range_dump(svms) \
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _dynamic_func_call_no_desc(&quot;svm_range_dump&quot;,
-        svm_range_debug_dump, svms)
-        <br>
-        @@ -365,7 +361,6 @@ svm_range *svm_range_new(struct
-        svm_range_list *svms, uint64_t start,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_LIST_HEAD(&amp;prange-&gt;deferred_list);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_LIST_HEAD(&amp;prange-&gt;child_list);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_set(&amp;prange-&gt;invalid, 0);
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prange-&gt;validate_timestamp = 0;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;prange-&gt;migrate_mutex);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;prange-&gt;lock);
-        <br>
-        <br>
-        @@ -1876,8 +1871,6 @@ static int
-        svm_range_validate_and_map(struct mm_struct *mm,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-        <br>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svm_range_unreserve_bos(ctx);
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!r)
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prange-&gt;validate_timestamp =
-        ktime_get_boottime();
-        <br>
-        <br>
-        &nbsp; free_ctx:
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(ctx);
-        <br>
-        @@ -3162,15 +3155,6 @@ svm_range_restore_pages(struct
-        amdgpu_device *adev, unsigned int pasid,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out_unlock_range;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-        <br>
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* skip duplicate vm fault on different pages of same
-        range */
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ktime_before(timestamp,
-        ktime_add_ns(prange-&gt;validate_timestamp,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        AMDGPU_SVM_RANGE_RETRY_FAULT_PENDING))) {
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;svms 0x%p [0x%lx %lx] already
-        restored\n&quot;,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svms, prange-&gt;start,
-        prange-&gt;last);
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = 0;
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out_unlock_range;
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-        <br>
-        -
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* __do_munmap removed VMA, return success as we are
-        handling stale
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * retry fault.
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */
-        <br>
-        @@ -3196,6 +3180,14 @@ svm_range_restore_pages(struct
-        amdgpu_device *adev, unsigned int pasid,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out_unlock_range;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-        <br>
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* skip duplicate vm fault on different pages of same
-        range */
-        <br>
-      </blockquote>
-      <br>
-      I think the following call means if the prange-&gt;granularity
-      range that the addr is in is mapped on gpuidex already, not
-      different pages of same range.
-      <br>
-    </blockquote>
-    yes, the comment should update to &quot;skip duplicate vm fault on
-    different pages of same granularity range&quot;
-    <blockquote type="cite" cite="mid:678650fb-8fb1-7f2c-cdb9-6a01d9095a34@amd.com">
-      <br>
-      Regards
-      <br>
-      <br>
-      Xiaogang
-      <br>
-      <br>
-      <blockquote type="cite">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
-        (svm_range_partial_mapped_dev(gpuidx, prange, addr, addr)) {
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;svms 0x%p [0x%lx %lx] already restored
-        on gpu %d\n&quot;,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svms, prange-&gt;start,
-        prange-&gt;last, gpuidx);
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = 0;
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out_unlock_range;
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-        <br>
-        +
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;svms %p [0x%lx 0x%lx] best restore 0x%x,
-        actual loc 0x%x\n&quot;,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svms, prange-&gt;start, prange-&gt;last,
-        best_loc,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prange-&gt;actual_loc);
-        <br>
-        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-        b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-        <br>
-        index 10c92c5e23a7..3afc33a3dd30 100644
-        <br>
-        --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-        <br>
-        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-        <br>
-        @@ -125,7 +125,6 @@ struct svm_range {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; actual_loc;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint8_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; granularity;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; invalid;
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ktime_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; validate_timestamp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mmu_interval_notifier&nbsp;&nbsp;&nbsp; notifier;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct svm_work_list_item&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; work_item;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct list_head&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; deferred_list;
-        <br>
-        --
-        <br>
-        2.35.1
-        <br>
-        <br>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
+On 2023-10-05 13:20, Arvind Yadav wrote:
+> Here, Adding db_size in byte to find the doorbell's
+> absolute offset for both 32-bit and 64-bit doorbell sizes.
+> So that doorbell offset will be aligned based on the doorbell
+> size.
+>
+> v2:
+> - Addressed the review comment from Felix.
+> v3:
+> - Adding doorbell_size as parameter to get db absolute offset.
+> v4:
+>    Squash the two patches into one.
+>
+> Cc: Christian Koenig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+> Signed-off-by: Arvind Yadav <Arvind.Yadav@amd.com>
+
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h        |  5 +++--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c    | 13 +++++++++----
+>   .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c   |  3 ++-
+>   drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c           | 10 ++++++++--
+>   .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c  |  3 ++-
+>   5 files changed, 24 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
+> index 09f6727e7c73..4a8b33f55f6b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
+> @@ -357,8 +357,9 @@ int amdgpu_doorbell_init(struct amdgpu_device *adev);
+>   void amdgpu_doorbell_fini(struct amdgpu_device *adev);
+>   int amdgpu_doorbell_create_kernel_doorbells(struct amdgpu_device *adev);
+>   uint32_t amdgpu_doorbell_index_on_bar(struct amdgpu_device *adev,
+> -				       struct amdgpu_bo *db_bo,
+> -				       uint32_t doorbell_index);
+> +				      struct amdgpu_bo *db_bo,
+> +				      uint32_t doorbell_index,
+> +				      uint32_t db_size);
+>   
+>   #define RDOORBELL32(index) amdgpu_mm_rdoorbell(adev, (index))
+>   #define WDOORBELL32(index, v) amdgpu_mm_wdoorbell(adev, (index), (v))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
+> index da4be0bbb446..6690f5a72f4d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
+> @@ -114,19 +114,24 @@ void amdgpu_mm_wdoorbell64(struct amdgpu_device *adev, u32 index, u64 v)
+>    * @adev: amdgpu_device pointer
+>    * @db_bo: doorbell object's bo
+>    * @db_index: doorbell relative index in this doorbell object
+> + * @db_size: doorbell size is in byte
+>    *
+>    * returns doorbell's absolute index in BAR
+>    */
+>   uint32_t amdgpu_doorbell_index_on_bar(struct amdgpu_device *adev,
+> -				       struct amdgpu_bo *db_bo,
+> -				       uint32_t doorbell_index)
+> +				      struct amdgpu_bo *db_bo,
+> +				      uint32_t doorbell_index,
+> +				      uint32_t db_size)
+>   {
+>   	int db_bo_offset;
+>   
+>   	db_bo_offset = amdgpu_bo_gpu_offset_no_check(db_bo);
+>   
+> -	/* doorbell index is 32 bit but doorbell's size is 64-bit, so *2 */
+> -	return db_bo_offset / sizeof(u32) + doorbell_index * 2;
+> +	/* doorbell index is 32 bit but doorbell's size can be 32 bit
+> +	 * or 64 bit, so *db_size(in byte)/4 for alignment.
+> +	 */
+> +	return db_bo_offset / sizeof(u32) + doorbell_index *
+> +	       DIV_ROUND_UP(db_size, 4);
+>   }
+>   
+>   /**
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index 0d3d538b64eb..e07652e72496 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -407,7 +407,8 @@ static int allocate_doorbell(struct qcm_process_device *qpd,
+>   
+>   	q->properties.doorbell_off = amdgpu_doorbell_index_on_bar(dev->adev,
+>   								  qpd->proc_doorbells,
+> -								  q->doorbell_id);
+> +								  q->doorbell_id,
+> +								  dev->kfd->device_info.doorbell_size);
+>   	return 0;
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+> index 7b38537c7c99..05c74887fd6f 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+> @@ -161,7 +161,10 @@ void __iomem *kfd_get_kernel_doorbell(struct kfd_dev *kfd,
+>   	if (inx >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS)
+>   		return NULL;
+>   
+> -	*doorbell_off = amdgpu_doorbell_index_on_bar(kfd->adev, kfd->doorbells, inx);
+> +	*doorbell_off = amdgpu_doorbell_index_on_bar(kfd->adev,
+> +						     kfd->doorbells,
+> +						     inx,
+> +						     kfd->device_info.doorbell_size);
+>   	inx *= 2;
+>   
+>   	pr_debug("Get kernel queue doorbell\n"
+> @@ -240,7 +243,10 @@ phys_addr_t kfd_get_process_doorbells(struct kfd_process_device *pdd)
+>   			return 0;
+>   	}
+>   
+> -	first_db_index = amdgpu_doorbell_index_on_bar(adev, pdd->qpd.proc_doorbells, 0);
+> +	first_db_index = amdgpu_doorbell_index_on_bar(adev,
+> +						      pdd->qpd.proc_doorbells,
+> +						      0,
+> +						      pdd->dev->kfd->device_info.doorbell_size);
+>   	return adev->doorbell.base + first_db_index * sizeof(uint32_t);
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> index adb5e4bdc0b2..77649392e233 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> @@ -377,7 +377,8 @@ int pqm_create_queue(struct process_queue_manager *pqm,
+>   		 */
+>   		uint32_t first_db_index = amdgpu_doorbell_index_on_bar(pdd->dev->adev,
+>   								       pdd->qpd.proc_doorbells,
+> -								       0);
+> +								       0,
+> +								       pdd->dev->kfd->device_info.doorbell_size);
+>   
+>   		*p_doorbell_offset_in_process = (q->properties.doorbell_off
+>   						- first_db_index) * sizeof(uint32_t);
