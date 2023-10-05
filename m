@@ -4,59 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B36FEE92709
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 15:11:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF15FE7AD44
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 16:20:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42AA010E150;
-	Thu,  5 Oct 2023 15:11:51 +0000 (UTC)
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [IPv6:2001:4860:4864:20::2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A45A510E150
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Oct 2023 15:11:49 +0000 (UTC)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-1dceb2b8823so557319fac.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 05 Oct 2023 08:11:49 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6783310E425;
+	Thu,  5 Oct 2023 16:20:56 +0000 (UTC)
+Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
+ [IPv6:2001:4860:4864:20::33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D4F210E425;
+ Thu,  5 Oct 2023 16:20:54 +0000 (UTC)
+Received: by mail-oa1-x33.google.com with SMTP id
+ 586e51a60fabf-1dd8304b980so737292fac.2; 
+ Thu, 05 Oct 2023 09:20:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1696518709; x=1697123509; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1696522853; x=1697127653; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=xZ8HsXgy8+vl8TJGCcf+hnBNndejrxw4pfmGogq0KzM=;
- b=ErHs0IYDEaY/HgmDTQ1p66xqFTSE/Qnbx0gbYPi9jJXo5dqyBiCIkhJz5Q2TybWEVW
- bHW8XLjRVemGgS2a3BOkKzw8zou2YJIAZkByEg4b9aBEN8twngE6mYT60QTOXwohNPh5
- ApnhE0S2RlfAdRnCZcGjpMzNev2H0z5p1yhG7BfbcGcVHGSQZsM7MSWTCKo9O+SJr0qD
- gpVvn9mKC9wUlOBadR+T6z0QRBFd+64AFjGYfT1LZScclti0vrFMvvQCdSyo0U8gtlgX
- xRbPqiT/7EG2dAuZ22t9CkfEBAd4euKjyUp1qz0Udeinixv3cWY4+GBk4YbS0JM6NXpA
- r99w==
+ bh=CHuPA9EDctsR5mPS8VKo5pOonks660/cZg00M82Ff1U=;
+ b=EcPqQXoeCmwh1luX8MvlHm+SmFJLJ52ZGhuZknIrocjS+dzmqeWWAfDcwCp+gfnagp
+ 2juNvDeu/La14JEYb4WKSZmPba08QWID8v1zUR7NT0peSj6X59qftiErdUyDgZdW2yAO
+ eD9U3V1vKhlnCLTMG0968GmeRr9XHMJaO2kGlqnFNhmAqfonmqwjyhNZ5kd4bi1HXSxW
+ cIDG4qhn3hXL2fZkB5gkNUytKQD5ILDtkg1BZGwf/JIcyjcOUGXvr3dHOLS9S11DqPq/
+ FBeSSVFAQvSX2wB5FuwlIhIYZqlYSLMMtwaSWM0vlsH5j+i8NQzzuh9tR7DRTddQu/mc
+ ZoYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696518709; x=1697123509;
+ d=1e100.net; s=20230601; t=1696522853; x=1697127653;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=xZ8HsXgy8+vl8TJGCcf+hnBNndejrxw4pfmGogq0KzM=;
- b=j0Pi8GUyXMkfdWtLzUsJ7fYcUyBYIaPtk8NOt04HCrBsvjFrFLMfYXAmvb05FlxVTg
- wugkqOKcOt8lcPGtoW1YopY6qRia+yscKcmnv4bSr5mt8/jN3Npee99Cir8AwPMjn3Cz
- zIPQ/3IBCxLAr03tZMsqKoN81PP0Oeh4JXCgAFBUUWRniCOZFpId4RT+9FnCKuKM6yzG
- Apf3d9Ph1m6rrfVVDiRVoi592K3PGk5aO8Fyj+DW7MYwt4TN6KQAZx0DwioTJ4h74AP9
- DNI9T1MAjCAfO+xAQMJUbCbFUAfqd/jaPtjaQlzaaI4n1bfRvhsiL3uEi1HSUoKQAeej
- 7n4Q==
-X-Gm-Message-State: AOJu0YwpC2DBCYoPpkK8pCX6LYU9YX6LqPlhaDe8smMNPaQ3vrh2su2K
- 1rDYoT2wMYvG3gKu/gKZ6CK8pVUIqjx3naLg4rLkQnWq
-X-Google-Smtp-Source: AGHT+IHOEaf6z7gNIDHBiIy3PcVubfw0XielmOm2BK1n3AYGDFS+r/x2Rm2bPemWbfxmTlkLFwGpFkB3amxCMqyfUlA=
-X-Received: by 2002:a05:6870:3925:b0:1e1:fd34:3574 with SMTP id
- b37-20020a056870392500b001e1fd343574mr875794oap.9.1696518708824; Thu, 05 Oct
- 2023 08:11:48 -0700 (PDT)
+ bh=CHuPA9EDctsR5mPS8VKo5pOonks660/cZg00M82Ff1U=;
+ b=FKDRduDGFiQ9mO3ZNtpNkUOqT1czW7c2/GWJmOQKp1GAeCgkrGFj8qNDmxVFOeycPF
+ WCwjpHtJd1XlroBAhIakTWNA3ePL+hrXntSBPdHo1hhKcyC/RZXz8FCf4oSDqB3adl69
+ O55RUhyHzCRrns8VWdHReuu4ir560Zj7g0gbtlYEZgvBS2kzZduA9DhIyulhijVNPudB
+ 7g+bFSdVaJsbGuCAHzZeURfq/xQq7dfO1OkS7F7f9jq8IrLBiH6rpwHPMa2cd0+B5Sae
+ 8Et0jdefPYdj1lwbEGeKzfOYmnX/wgGtqLIxFlnNu/Sb37PCT4/GVoJM4BzRCeC6KAk9
+ FhAQ==
+X-Gm-Message-State: AOJu0YyWX1XCG7RJCQlJ1ndp6pVmFhB5Z1cjbyy9u1VHeoSGZohUdljU
+ qKY6oSci9MvOhax+d6QrbqieGZWoysEfRIKt/RY=
+X-Google-Smtp-Source: AGHT+IHAPm2j6xnBpG6CVfnIUdRa+JLuLOkUt0G5jBlBP5px0CCT5yrdIxcva8i6Ap4rte17dG3/fIfBFQxwY2LOGYU=
+X-Received: by 2002:a05:6870:17a3:b0:1d6:5c40:11b6 with SMTP id
+ r35-20020a05687017a300b001d65c4011b6mr6652121oae.14.1696522853250; Thu, 05
+ Oct 2023 09:20:53 -0700 (PDT)
 MIME-Version: 1.0
-References: <20231004153410.895387-1-alexander.deucher@amd.com>
- <BN9PR12MB52571DA4201DF6772AE601C8FCCAA@BN9PR12MB5257.namprd12.prod.outlook.com>
- <BN9PR12MB52576BB64B4AB77BBA32D6A5FCCAA@BN9PR12MB5257.namprd12.prod.outlook.com>
-In-Reply-To: <BN9PR12MB52576BB64B4AB77BBA32D6A5FCCAA@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20231005080405.169841-1-Wayne.Lin@amd.com>
+In-Reply-To: <20231005080405.169841-1-Wayne.Lin@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 5 Oct 2023 11:11:37 -0400
-Message-ID: <CADnq5_OTOuvKFjreAmFxK5rrYGjhVrLqz5va-uNR_Yrokws3SQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Enable SMU 13.0.0 optimizations when ROCm is
- active (v2)
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Date: Thu, 5 Oct 2023 12:20:42 -0400
+Message-ID: <CADnq5_Or472AG=G-Wp8af91tKCqPheWNnpgrsj4m23m4jQH3Xw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix mst hub unplug warning
+To: Wayne Lin <Wayne.Lin@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -70,117 +67,131 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Liu,
- Kun" <Kun.Liu2@amd.com>
+Cc: jerry.zuo@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 4, 2023 at 11:47=E2=80=AFPM Zhang, Hawking <Hawking.Zhang@amd.c=
-om> wrote:
+On Thu, Oct 5, 2023 at 4:04=E2=80=AFAM Wayne Lin <Wayne.Lin@amd.com> wrote:
 >
-> [AMD Official Use Only - General]
+> [Why]
+> Unplug mst hub will cause warning. That's because
+> dm_helpers_construct_old_payload() is changed to be called after
+> payload removement from dc link.
 >
-> Hmm... thinking about it more, will it override the profile mode/workload=
- for 0xC8 or 0xCC SKU as well. In another words, does it mean the pmfw fix =
-is general to all the 13_0_0 SKUs.
+> In dm_helpers_construct_old_payload(), We refer to the vcpi in
+> payload allocation table of dc link to construct the old payload
+> and payload is no longer in the table when we call the function
+> now.
+>
+> [How]
+> Refer to the mst_state to construct the number of time slot for old
+> payload now. Note that dm_helpers_construct_old_payload() is just
+> a quick workaround before and we are going to abandon it soon.
+>
+> Fixes: 5aa1dfcdf0a4 ("drm/mst: Refactor the flow for payload allocation/r=
+emovement")
+> Reviewed-by: Jerry Zuo <jerry.zuo@amd.com>
+> Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
 
-Yes, my understanding is that this should apply to all skus.
+Pushed to drm-misc-next.  Thanks!
 
 Alex
 
->
-> Other than that, the patch looks good to me.
->
-> Regards,
-> Hawking
->
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Zhang,=
- Hawking
-> Sent: Thursday, October 5, 2023 11:32
-> To: Deucher, Alexander <Alexander.Deucher@amd.com>; amd-gfx@lists.freedes=
-ktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liu, Kun <Kun.Liu2@am=
-d.com>
-> Subject: RE: [PATCH] drm/amdgpu: Enable SMU 13.0.0 optimizations when ROC=
-m is active (v2)
->
-> [AMD Official Use Only - General]
->
-> [AMD Official Use Only - General]
->
-> Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
->
-> Regards,
-> Hawking
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex D=
-eucher
-> Sent: Wednesday, October 4, 2023 23:34
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liu, Kun <Kun.Liu2@am=
-d.com>
-> Subject: [PATCH] drm/amdgpu: Enable SMU 13.0.0 optimizations when ROCm is=
- active (v2)
->
-> From: Kun Liu <Kun.Liu2@amd.com>
->
-> When ROCm is active enable additional SMU 13.0.0 optimizations.
-> This reuses the unused powersave profile on PMFW.
->
-> v2: move to the swsmu code since we need both bits active in
->     the workload mask.
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c    | 17 ++++++++++++++++-
->  1 file changed, 16 insertions(+), 1 deletion(-)
+>  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 38 +++++++++----------
+>  1 file changed, 18 insertions(+), 20 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> index 684b4e01fac2..83035fb1839a 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> @@ -2447,6 +2447,7 @@ static int smu_v13_0_0_set_power_profile_mode(struc=
-t smu_context *smu,
->         DpmActivityMonitorCoeffInt_t *activity_monitor =3D
->                 &(activity_monitor_external.DpmActivityMonitorCoeffInt);
->         int workload_type, ret =3D 0;
-> +       u32 workload_mask;
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> index baf7e5254fb3..2f94bcf128c0 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> @@ -204,15 +204,16 @@ void dm_helpers_dp_update_branch_info(
+>  {}
 >
->         smu->power_profile_mode =3D input[size];
+>  static void dm_helpers_construct_old_payload(
+> -                       struct dc_link *link,
+> -                       int pbn_per_slot,
+> +                       struct drm_dp_mst_topology_mgr *mgr,
+> +                       struct drm_dp_mst_topology_state *mst_state,
+>                         struct drm_dp_mst_atomic_payload *new_payload,
+>                         struct drm_dp_mst_atomic_payload *old_payload)
+>  {
+> -       struct link_mst_stream_allocation_table current_link_table =3D
+> -                                                                       l=
+ink->mst_stream_alloc_table;
+> -       struct link_mst_stream_allocation *dc_alloc;
+> -       int i;
+> +       struct drm_dp_mst_atomic_payload *pos;
+> +       int pbn_per_slot =3D mst_state->pbn_div;
+> +       u8 next_payload_vc_start =3D mgr->next_start_slot;
+> +       u8 payload_vc_start =3D new_payload->vc_start_slot;
+> +       u8 allocated_time_slots;
 >
-> @@ -2536,9 +2537,23 @@ static int smu_v13_0_0_set_power_profile_mode(stru=
-ct smu_context *smu,
->         if (workload_type < 0)
->                 return -EINVAL;
+>         *old_payload =3D *new_payload;
 >
-> +       workload_mask =3D 1 << workload_type;
-> +
-> +       /* Add optimizations for SMU13.0.0.  Reuse the power saving profi=
-le */
-> +       if (smu->power_profile_mode =3D=3D PP_SMC_POWER_PROFILE_COMPUTE &=
-&
-> +           (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) =3D=3D IP_VERSION(=
-13, 0, 0)) &&
-> +           ((smu->adev->pm.fw_version =3D=3D 0x004e6601) ||
-> +            (smu->adev->pm.fw_version >=3D 0x004e7300))) {
-> +               workload_type =3D smu_cmn_to_asic_specific_index(smu,
-> +                                                              CMN2ASIC_M=
-APPING_WORKLOAD,
-> +                                                              PP_SMC_POW=
-ER_PROFILE_POWERSAVING);
-> +               if (workload_type >=3D 0)
-> +                       workload_mask |=3D 1 << workload_type;
-> +       }
-> +
->         return smu_cmn_send_smc_msg_with_param(smu,
->                                                SMU_MSG_SetWorkloadMask,
-> -                                              1 << workload_type,
-> +                                              workload_mask,
->                                                NULL);  }
+> @@ -221,20 +222,17 @@ static void dm_helpers_construct_old_payload(
+>          * struct drm_dp_mst_atomic_payload are don't care fields
+>          * while calling drm_dp_remove_payload_part2()
+>          */
+> -       for (i =3D 0; i < current_link_table.stream_count; i++) {
+> -               dc_alloc =3D
+> -                       &current_link_table.stream_allocations[i];
+> -
+> -               if (dc_alloc->vcp_id =3D=3D new_payload->vcpi) {
+> -                       old_payload->time_slots =3D dc_alloc->slot_count;
+> -                       old_payload->pbn =3D dc_alloc->slot_count * pbn_p=
+er_slot;
+> -                       break;
+> -               }
+> +       list_for_each_entry(pos, &mst_state->payloads, next) {
+> +               if (pos !=3D new_payload &&
+> +                   pos->vc_start_slot > payload_vc_start &&
+> +                   pos->vc_start_slot < next_payload_vc_start)
+> +                       next_payload_vc_start =3D pos->vc_start_slot;
+>         }
 >
+> -       /* make sure there is an old payload*/
+> -       ASSERT(i !=3D current_link_table.stream_count);
+> +       allocated_time_slots =3D next_payload_vc_start - payload_vc_start=
+;
+>
+> +       old_payload->time_slots =3D allocated_time_slots;
+> +       old_payload->pbn =3D allocated_time_slots * pbn_per_slot;
+>  }
+>
+>  /*
+> @@ -272,8 +270,8 @@ bool dm_helpers_dp_mst_write_payload_allocation_table=
+(
+>                 drm_dp_add_payload_part1(mst_mgr, mst_state, new_payload)=
+;
+>         } else {
+>                 /* construct old payload by VCPI*/
+> -               dm_helpers_construct_old_payload(stream->link, mst_state-=
+>pbn_div,
+> -                                               new_payload, &old_payload=
+);
+> +               dm_helpers_construct_old_payload(mst_mgr, mst_state,
+> +                                                new_payload, &old_payloa=
+d);
+>                 target_payload =3D &old_payload;
+>
+>                 drm_dp_remove_payload_part1(mst_mgr, mst_state, new_paylo=
+ad);
+> @@ -366,7 +364,7 @@ bool dm_helpers_dp_mst_send_payload_allocation(
+>         if (enable) {
+>                 ret =3D drm_dp_add_payload_part2(mst_mgr, mst_state->base=
+.state, new_payload);
+>         } else {
+> -               dm_helpers_construct_old_payload(stream->link, mst_state-=
+>pbn_div,
+> +               dm_helpers_construct_old_payload(mst_mgr, mst_state,
+>                                                  new_payload, &old_payloa=
+d);
+>                 drm_dp_remove_payload_part2(mst_mgr, mst_state, &old_payl=
+oad, new_payload);
+>         }
 > --
-> 2.41.0
+> 2.37.3
 >
