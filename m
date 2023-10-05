@@ -4,46 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D345E92719
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 17:17:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B77DE92719
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 17:20:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF1C410E474;
-	Thu,  5 Oct 2023 17:16:48 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF2AE10E46D;
- Thu,  5 Oct 2023 17:16:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=8vRTBnxiXm2Mmv5FX1iRb1SQ2SEIA7L7XpcdnKWARmw=; b=HQTjEWFYCE1TuzUMp18AgaLYLV
- UjIdgqmQAxWNSRR6U1a2q8gtrvK6s6m8GZ/Xi+FLqCH7RlktrV2PAnR8oeVBJ3XSMjWFjcEy5iiL7
- QQ1JA0kPQ5eNPQFuWC+CPM9vweMIIax6BPhUr5qGZdCvqBr925DcOWkvncUz8gykr+xIFpdxWZpaG
- Xj0bLw8e7gAVysfjr6gnIFTfKgWYY3uW4rEyxFgppDZ7/usD5MZ3XuFOOr1unKRZW55wtAuwyOk0V
- L18ZDyITmnS+jGjjjwEe1dp87lIcqr3kAcaIgMoOs3ET2kPSc3I/baeeDlHdFisPGGSpCFF8/ukLQ
- 9wbaCVGw==;
-Received: from [102.213.205.115] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qoRxn-00CFJN-32; Thu, 05 Oct 2023 19:16:39 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de
-Subject: [PATCH v4 32/32] drm/amd/display: Add 3x4 CTM support for plane CTM
-Date: Thu,  5 Oct 2023 16:15:27 -0100
-Message-Id: <20231005171527.203657-33-mwen@igalia.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20231005171527.203657-1-mwen@igalia.com>
-References: <20231005171527.203657-1-mwen@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1685510E476;
+	Thu,  5 Oct 2023 17:20:56 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2041.outbound.protection.outlook.com [40.107.100.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF93E10E476;
+ Thu,  5 Oct 2023 17:20:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZcZjjbTmWmemmoN8iOmJbkROjByiLp1qqi4yUL4pnLNCKa4erHTRbr8atIJcdNtAi1EfcR8ck+gHl5CSsi9I3VKHgx2Br+nYnYNqa7hT1gii50DXRmmB8ypuZ6PPoCSB9j1ccApelTkw4YOJwM0OFJ2M/74J2kDXto3XtNXm3RN+4PWL/FnZpG1XQEJC7QA0GEW8PSkS/qgxR4/MsgTZjbIvGYe7XaiEmAyt3b8Q0HTaLEU4+cr3X43mn6hEcllpMRxeJVrZgA2b9++DVacid1vhm8GGsDBo0KmJaTjBbaT9j7tEDvcSpEISZvCfvth1aBXLl2Q/BHQZ3Mqi/IWEWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JzbNQnM3FNHeNbAbr6R4lAyRL4pm65IdEdU17e359YI=;
+ b=OnN26PJCYNY0RCNKOX6rc89KDzFfuSnolrIr+83tYcTttxaGofabO0l3uXCWFhKkXpJj9KxcBSbh8tQmN6bFauCwSErsFwvhTcCxA1cBGoTseWfPRbBqX5XX0BWFxAAQ9BWEu/SezapWknNf+tXIUmSup4pwHgnWJSBRJxqcJejt1Z/wXfEbNP9fC8ElmB1FxMWK9KzusQa9K1Q/ZOgl2yMIlNA83z22h24yd9V015iuBEUrlKye4RpCpizC3cfRNuNwPCQR8bVo4Mfj4jDS+ULsyRV/05KZ+3dnARzswRPOMI5uBXLvnII4Ox+gL0vteJqv8SAcpfTifDVjODTDgA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JzbNQnM3FNHeNbAbr6R4lAyRL4pm65IdEdU17e359YI=;
+ b=cHYkCendGHhYMU2W0k6adB4vzC1GuNjFDL2mxHCWK1Ti9ZhLZxrt8e9px1WGFL2qNQ95jqHGEeWQtaUIJIaIpdTQV0FWtEBwdkVkFp2RLf7f5lG3Fkm8+K6HID8XHkgB3VGF60b0hQhsZPY6u+tzzv8xJmaKLy//Y8xKZyosORc=
+Received: from CY5PR15CA0055.namprd15.prod.outlook.com (2603:10b6:930:1b::18)
+ by IA0PR12MB8205.namprd12.prod.outlook.com (2603:10b6:208:400::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.33; Thu, 5 Oct
+ 2023 17:20:51 +0000
+Received: from CY4PEPF0000EDD7.namprd03.prod.outlook.com
+ (2603:10b6:930:1b:cafe::ee) by CY5PR15CA0055.outlook.office365.com
+ (2603:10b6:930:1b::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.29 via Frontend
+ Transport; Thu, 5 Oct 2023 17:20:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD7.mail.protection.outlook.com (10.167.241.211) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6838.14 via Frontend Transport; Thu, 5 Oct 2023 17:20:50 +0000
+Received: from rtg-Artic.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 5 Oct
+ 2023 12:20:46 -0500
+From: Arvind Yadav <Arvind.Yadav@amd.com>
+To: <Christian.Koenig@amd.com>, <alexander.deucher@amd.com>,
+ <shashank.sharma@amd.com>, <Felix.Kuehling@amd.com>, <Mukul.Joshi@amd.com>,
+ <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>
+Subject: [PATCH v4 0/1] drm/amdkfd: Fix unaligned doorbell absolute offset for
+ gfx8
+Date: Thu, 5 Oct 2023 22:50:10 +0530
+Message-ID: <20231005172011.9271-1-Arvind.Yadav@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD7:EE_|IA0PR12MB8205:EE_
+X-MS-Office365-Filtering-Correlation-Id: 98d92610-58f3-4d83-5799-08dbc5c76c56
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: qIbt1uGW/MAOn6udHb5r9wckp9geCoLxx0gBQ1RRw+up6eET5KjNN8zXwIlX+HaO+vx1DJfaar6DJ77g3StH3a7lHGKhvVucYC3s2Vu+CXv0vNVAJc7U92FAc2zGbINgVP38+DVDY+rUX7gQA6m3GYPSor+78tqa3MQDlRUSqWE8IP5Xy1upXQA9YFVZyRlqrD/EUtXHpI3uVyXqR2Y1H7lPS4n+noV0YComqjWdX4Gw5jaXpvJUu7ek7ymPdzzORDBLyii/oFRgdk3GmbQ0m9CLmlj+aERZjb8i3MMI1FRVdJ7pDSeIDW+dX5rjaCwNd4SLrJlc3E6r4kVwTxEOk/bO5auWb9o651pM+xk7+tfe6lWqXgCDZc+MBaOBoXTF+3GogSwqpD40Wni3gSPiAOyzMYwMNUbw2lBJltgdSNrn2max+IOG9C8rV+IUPUe/ctDInStweZwyYeX3LcpGDtK2Rz6daAnVo8Wpo09BGVku4UPsX6FMQhCKqQ2l2aVnHJtBM0L+YiTCBI6QgTa85xzv3XsncM/qDJ3mhtfixvrkR0mId2V1bXtTv2Yv+uXCjl0P83gaACFrHFiVdqebzB4PIvjLsI7pBzs4oNlFnE1dg7vcqHfJ7D0KlYN8DO2K8cKIooB35jJSWsejydjzJbIFRvqaOiNYra3v3hcT/iVsvm5PZC0EVEECphzfWTkRkE60vylnqvvKt80Rb0ubZBd3eyKsZ/upaPHrfNi8M/qSrJg0Ib6W0tsp8cCYxrVa1vGdpxw24GvPnv4WlErDRA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(39860400002)(136003)(396003)(346002)(376002)(230922051799003)(451199024)(1800799009)(82310400011)(186009)(64100799003)(40470700004)(36840700001)(46966006)(40460700003)(40480700001)(426003)(7696005)(6666004)(478600001)(336012)(356005)(36860700001)(47076005)(86362001)(81166007)(82740400003)(2906002)(8936002)(1076003)(26005)(83380400001)(2616005)(16526019)(4744005)(316002)(36756003)(4326008)(70586007)(54906003)(5660300002)(110136005)(70206006)(41300700001)(8676002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2023 17:20:50.8725 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98d92610-58f3-4d83-5799-08dbc5c76c56
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD7.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8205
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,123 +100,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Shashank Sharma <Shashank.Sharma@amd.com>, Alex Hung <alex.hung@amd.com>,
- Simon Ser <contact@emersion.fr>, Xaver Hugl <xaver.hugl@gmail.com>,
- kernel-dev@igalia.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Joshua Ashton <joshua@froggi.es>, sungjoon.kim@amd.com
+Cc: Arvind Yadav <Arvind.Yadav@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Joshua Ashton <joshua@froggi.es>
+On older chips, the absolute doorbell offset within
+the doorbell page is based on the queue ID.
+KFD is using queue ID and doorbell size to get an
+absolute doorbell offset in userspace.
 
-Create drm_color_ctm_3x4 to support 3x4-dimension plane CTM matrix and
-convert DRM CTM to DC CSC float matrix.
+Here, adding db_size in byte to find the doorbell's
+absolute offset for both 32-bit and 64-bit doorbell sizes.
+So that doorbell offset will be aligned based on the doorbell
+size.
+
+v2:
+- Addressed the review comment from Felix.
 
 v3:
-- rename ctm2 to ctm_3x4 (Harry)
+- Adding doorbell_size as parameter to get db absolute offset.  
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Joshua Ashton <joshua@froggi.es>
----
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 28 +++++++++++++++++--
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  2 +-
- include/uapi/drm/drm_mode.h                   |  8 ++++++
- 3 files changed, 34 insertions(+), 4 deletions(-)
+v4:
+  Squash the two patches into one.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index bc9dd75e8881..655c18c9a2d7 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -433,6 +433,28 @@ static void __drm_ctm_to_dc_matrix(const struct drm_color_ctm *ctm,
- 	}
- }
- 
-+/**
-+ * __drm_ctm_3x4_to_dc_matrix - converts a DRM CTM 3x4 to a DC CSC float matrix
-+ * @ctm: DRM color transformation matrix with 3x4 dimensions
-+ * @matrix: DC CSC float matrix
-+ *
-+ * The matrix needs to be a 3x4 (12 entry) matrix.
-+ */
-+static void __drm_ctm_3x4_to_dc_matrix(const struct drm_color_ctm_3x4 *ctm,
-+				       struct fixed31_32 *matrix)
-+{
-+	int i;
-+
-+	/* The format provided is S31.32, using signed-magnitude representation.
-+	 * Our fixed31_32 is also S31.32, but is using 2's complement. We have
-+	 * to convert from signed-magnitude to 2's complement.
-+	 */
-+	for (i = 0; i < 12; i++) {
-+		/* gamut_remap_matrix[i] = ctm[i - floor(i/4)] */
-+		matrix[i] = dc_fixpt_from_s3132(ctm->matrix[i]);
-+	}
-+}
-+
- /**
-  * __set_legacy_tf - Calculates the legacy transfer function
-  * @func: transfer function
-@@ -1176,7 +1198,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
- {
- 	struct amdgpu_device *adev = drm_to_adev(crtc->base.state->dev);
- 	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane_state);
--	struct drm_color_ctm *ctm = NULL;
-+	struct drm_color_ctm_3x4 *ctm = NULL;
- 	struct dc_color_caps *color_caps = NULL;
- 	bool has_crtc_cm_degamma;
- 	int ret;
-@@ -1231,7 +1253,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
- 
- 	/* Setup CRTC CTM. */
- 	if (dm_plane_state->ctm) {
--		ctm = (struct drm_color_ctm *)dm_plane_state->ctm->data;
-+		ctm = (struct drm_color_ctm_3x4 *)dm_plane_state->ctm->data;
- 		/*
- 		 * DCN2 and older don't support both pre-blending and
- 		 * post-blending gamut remap. For this HW family, if we have
-@@ -1243,7 +1265,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
- 		 * mapping CRTC CTM to MPC and keeping plane CTM setup at DPP,
- 		 * as it's done by dcn30_program_gamut_remap().
- 		 */
--		__drm_ctm_to_dc_matrix(ctm, dc_plane_state->gamut_remap_matrix.matrix);
-+		__drm_ctm_3x4_to_dc_matrix(ctm, dc_plane_state->gamut_remap_matrix.matrix);
- 
- 		dc_plane_state->gamut_remap_matrix.enable_remap = true;
- 		dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index d9537d9bf18c..a3935c56189b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1549,7 +1549,7 @@ dm_atomic_plane_set_property(struct drm_plane *plane,
- 		ret = drm_property_replace_blob_from_id(plane->dev,
- 							&dm_plane_state->ctm,
- 							val,
--							sizeof(struct drm_color_ctm), -1,
-+							sizeof(struct drm_color_ctm_3x4), -1,
- 							&replaced);
- 		dm_plane_state->base.color_mgmt_changed |= replaced;
- 		return ret;
-diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-index 46becedf5b2f..a811d24e8ed5 100644
---- a/include/uapi/drm/drm_mode.h
-+++ b/include/uapi/drm/drm_mode.h
-@@ -838,6 +838,14 @@ struct drm_color_ctm {
- 	__u64 matrix[9];
- };
- 
-+struct drm_color_ctm_3x4 {
-+	/*
-+	 * Conversion matrix with 3x4 dimensions in S31.32 sign-magnitude
-+	 * (not two's complement!) format.
-+	 */
-+	__u64 matrix[12];
-+};
-+
- struct drm_color_lut {
- 	/*
- 	 * Values are mapped linearly to 0.0 - 1.0 range, with 0x0 == 0.0 and
+Arvind Yadav (1):
+  drm/amdkfd: get doorbell's absolute offset based on the db_size
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h        |  5 +++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c    | 13 +++++++++----
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c   |  3 ++-
+ drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c           | 10 ++++++++--
+ .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c  |  3 ++-
+ 5 files changed, 24 insertions(+), 10 deletions(-)
+
 -- 
-2.40.1
+2.34.1
 
