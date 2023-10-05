@@ -4,114 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE099E936F9
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 04:58:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA600E7C4F6
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Oct 2023 08:04:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63C3410E19C;
-	Thu,  5 Oct 2023 04:58:04 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2065.outbound.protection.outlook.com [40.107.220.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 836C310E19C
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Oct 2023 04:58:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 601BF10E1BB;
+	Thu,  5 Oct 2023 08:04:20 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20625.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e89::625])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B63710E1BB;
+ Thu,  5 Oct 2023 08:04:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TvinLMbZhr+iUgLM8Sx+4ycjD7UkrbrQaS8ccC7iZ6YMpc/EGhpKQyC6IhWByEpSJuipqCibpeYM/2yYPqtZ5mEhgRh5wInlzL+u6diCOCwvfGHseredwCkoTcTWbKexciA+MTYf+Z72HJdAFRB7lLjTqG0yJz2QxfVcWz4Fv4oCSsTxbUpySLpPOOAjsceM2nFggNA1bZo64byBlZ4zPTDkptIdJM+efDJfdw4ZU6cJbKowvg7HNgwm4tUsXqprMzolloPG8uJ7RwiHAv1s6ePOfHLPKJWXqj83YoTo8xC60Fu2QTcTzcRAsSlCnOSLULmVxIxtGnUa+mYBad5AuQ==
+ b=RE6abqETxOd35oWgX1LX9mlzY/ICtWcad8lcVWAiYcudFvK2j/09/i365U41X9J0U50jZQldUCyofY8Kfycxv+kE7XLJHQt83ykvYAjBAkvfEGul9M6WfjCRZmPLw9x0JGiizq2E8+DVEGDh9PV/Qk5/VJmfqF2jU9jHzTLqI+PkW4sb5lpWeOw4hc2o10arubQDk03PeTA4Y6u/mSi8yue0vbs65Q3s+zbpyc44s1DfozBlfWZnISHiiCFNL7vNGaYQRFQp9TPUwDjul0z6PKcfou9cp2k3ADFLW3QtMsrkE2FItq5JWZ3GZ64OJaBSmmj+WnXMgcgnjPztcB5+Vw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ij36P6mwC2pzK6C2Vu+LUNiV07X3gJxt46srgueglFA=;
- b=cqMgWycOxuaiuiZHaSSfYJkiplgfFI1L7XX0Vi31bBgwxOxqW1XYe0CqzlREIW8w4dGbQRJZPBoEgeAEeylPz5QkFI4ph5ZkfUDPlBUBYBE0Y+xwe6DPUhO8WjE99YuL9hLG6py42Y+sTQx805lDgKpIb6DJJgLUnHIgruVwul+TWH+Tp3VHEr+HajcUkMFUT9FOY5GqNvQ0FJhd1KizHT2EVd0HHcdz5gH++69f/D/Um2ZknX3/1n1tx/JKmTNqQ0y1iJs0AU7gbYKjCbV6li12xhvGne8tUXEyn2GGBbUzMVKqeevJZEL8Im1HsDzgnSTjf7NRAbUqrpP0JPZ8vQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=L7maLj3l09Zg46TkyBmTd4Ys1709Q7bkIOu+gaTi18E=;
+ b=HV/vgj5jsUGYuLT35D4TSjjWdieavIq2PaaajQsk1ObTpESAh90Uqv2tbpGHBJOOnaay2VH7tF0Ljq6fetBsz93kylt+1ekUWelHWW4Yl1HcBlpAu6/Ockcp3hcL7suwahholijIfp8PE7dcZ6fpYaBTRX28TAs+U0Rn9w2hbRNDGmfeUAk+X/HuHMr4VuNdNTwD8ZJzBAdZiH0es2dSKa++SG6SytNC/uRBYy6uM/ctvd+yLz3I6H/6fcjQflDAxGEkJTe8HRp4uq2qouNGf5q5Sw2NJ9ifmF88AnrZYw5Qz62I180ezqVu6os9WsagGk0fnYJAlxKwOQmmOdWFLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ij36P6mwC2pzK6C2Vu+LUNiV07X3gJxt46srgueglFA=;
- b=EY9EFWTFiCTDb3xjn1NjY3YcheRcXUUB0kFnMvKGsooxe0krMkdx6EdQfs91j3eKVi8nkgnImN2bIZQ+5E0M+My9735DKH20znftsx3et5XPvSdTrvqQLuHZxJBszATgnUZPTZfo2GQO0QULF8bB/Zj6XXHQT+ul8ex2bzJL4wA=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by DM6PR12MB4909.namprd12.prod.outlook.com (2603:10b6:5:1ba::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.37; Thu, 5 Oct
- 2023 04:57:58 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::9b99:8d90:81b8:b091]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::9b99:8d90:81b8:b091%7]) with mapi id 15.20.6838.033; Thu, 5 Oct 2023
- 04:57:58 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 4/4] Documentation/amdgpu: Add FRU attribute details
-Thread-Topic: [PATCH 4/4] Documentation/amdgpu: Add FRU attribute details
-Thread-Index: AQHZ9sWjdKGqMBhBtkyyBejRclQlTLA6o1yQ
-Date: Thu, 5 Oct 2023 04:57:58 +0000
-Message-ID: <BN9PR12MB5257D00E2FEFAEAD8939A999FCCAA@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20231004132039.1506172-1-lijo.lazar@amd.com>
- <20231004132039.1506172-4-lijo.lazar@amd.com>
-In-Reply-To: <20231004132039.1506172-4-lijo.lazar@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=73e764c6-b8af-4542-82d0-3ecad4347473;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-10-05T04:57:33Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|DM6PR12MB4909:EE_
-x-ms-office365-filtering-correlation-id: e44a732c-6058-41df-f51b-08dbc55fa508
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: kmkrkrrJqLBASHo7qP6hxOWR56/feSO+0fyhRZAOMO7TzyaxoeB1Ar1gAhCtNJbJ6KV3nVZMFOPzJedQQAnPWVRu7Q/np7c569DR/bf5zQqMpEhnQx7CzU5N0Ld1qVHtcyk3+bW3TLwwERqgtiTosfLVKi3Ygq3sM6v5RaLlLToAwk9bAekgdM5NIh8OpHK8Jahi/eH5uFvZhlURhR7/XVmtMxbTnrrEjKLZKB0oLbPeidpnI3xV5bILLINrnX/zmHkxnC4SgSujbYh2KXuCQRBbrLrmxq2cREo9Kv8I7rJbppCOtFE7l75Qg3r0iTWVeW5c0w84SHdzyurPGmrWD+UDrrLZyL42LdRSk3JRoRwHLZ0mhmYhQ1GMazTdShAvCeQbPmlfz5GUetwjS/zcplN+YUYCQXokPI2S5pcMTkwAicAqxHIRqwUHSRZFM0VQK+hiRzsx9buetEsZkhct8bZMVsETBLVMoIPptOFIK2ISNVY11SEkLf36XdS2JlqREDw5DMwJaGk8ALwlPfINsuGrt8aoFIeIzxBI86i4ot/0b/fQ1pq1r9PSdfEzaUREYQ4MRWnx4aE8HNtIMWeM3nlKXQ9mNbN/diSr6jch7tH1tZm4gWa+Iu6vFLAxZRaT
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(136003)(39860400002)(396003)(376002)(366004)(230922051799003)(1800799009)(186009)(64100799003)(451199024)(41300700001)(83380400001)(316002)(8676002)(8936002)(53546011)(7696005)(6506007)(478600001)(64756008)(66946007)(66556008)(66476007)(66446008)(76116006)(110136005)(71200400001)(9686003)(26005)(2906002)(33656002)(55016003)(52536014)(86362001)(38100700002)(4326008)(122000001)(38070700005)(5660300002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?m7U4a2FObG4t5KE+OdssyrWluph1ra7pVSYFHKr+UDsuBfbUfUUZcC7k2eXy?=
- =?us-ascii?Q?YNY4Pc9zKBo14RE+nKcqYRnryZTZASviaLKLgMWk4Couwr0cJRegUJeq1Yus?=
- =?us-ascii?Q?mLVkd4fq+lxONGbM60KahFe34L9cMyvjRO9FWkOr+5dN/I/hxNoRKFmddXnI?=
- =?us-ascii?Q?ChuzYjKm+qcxHLwQGst5568DmCYcz2wnx+KgwIYva0+b7ioU9UipsxCdDiZT?=
- =?us-ascii?Q?pbA+zNpd1CCHLKRi6aCIu/x5Tu84SgIyZuEBBio5woQCFDFyaPKo8Inc/eJ+?=
- =?us-ascii?Q?4eIdTKie+ti6cYZOmFGGf75aaGw94UbdBZLmQLVtS1NLEWAcbdtT+P5+WgNW?=
- =?us-ascii?Q?H4UOx9LSt60ilZaGKe8IfZxoIAeIHZM9yT021w2NuRjPDc8lBIl1W3TVasch?=
- =?us-ascii?Q?SykoiWC/aEOZIkvol7twmIMNu7fZoAHZEdom3FDUOTeChPyjRQKquXwScxUk?=
- =?us-ascii?Q?HUTKtKU4z/3zUQe8d/h2M6QyE9TJtvpgJFAQQy+bWCgV/isOaI9iZ2Gs9WD/?=
- =?us-ascii?Q?QX+ZS6ose16sKS8ftNw2XIFU+fWMfvMoEzAdZYt9Mq57tBIyVzwiS6tfGIQF?=
- =?us-ascii?Q?lt2nWGncq7bQ8uscu/+eKL35ZxocD3+5PLkDv7L3zWtwLQqtWcEuM7ECs055?=
- =?us-ascii?Q?tozmKyqSWEBeCKI4uasDTwdHkVrYY8yA8+2Yg27qYMXO5kpXyGPMmm/pm7a2?=
- =?us-ascii?Q?EHM1UI56HgLN3EyuKVzTaxA2XJB922thnxZCjOtpFWQpG5c7VHnPXvCMDB96?=
- =?us-ascii?Q?V6O0SorKSAap9NGKvONLH7etwqfCo5o2sz5a2lg+cFadr1Pzhtd+UOXlq0ZN?=
- =?us-ascii?Q?JZDaVAKS46FQ9iL1wtSLGvkIjuw1OjT4kl6Wpmbzjx/5G3KPzW6QSpZD18gJ?=
- =?us-ascii?Q?TEPfqao+CUcIUEZWB8nxN04y4HQm8Y7SJqn77iYs5ol/DA6NwStO/mOHIdYF?=
- =?us-ascii?Q?OacZoh+D973/29V51ZrL+Lzrnw0ImuO/IM5NYKlOCo9AsHMxzJ73CtzPOgfM?=
- =?us-ascii?Q?E2o520aeN1sAaOZPTlrWIb0oO17jA04GD0EcVBtH1YFsJjQV3qNdw4kmLYph?=
- =?us-ascii?Q?W9sNSA9bpti/Q6FerRYa/7YlW9MHQjowAe+txQTdn+g1PtsRwNidkalaaMM3?=
- =?us-ascii?Q?JUuT3zLBh3XQoSg7T7jaBfS6Xeh3k2rnFSmie0riSrJOxIVo5olP59w4pMMl?=
- =?us-ascii?Q?W9lsT+8QHam80yE1dPikAZdnPy7w+fIToq0oL3Jph6ZxJ02h70E87LciBb6U?=
- =?us-ascii?Q?BjiHuIdjQYwckX23eA2CxTp9jQ/+mLpwW0GFZNWvgen0ApHuRNvaZPTn0HFd?=
- =?us-ascii?Q?HFwcZ0mkGcndIhoSj5Y67h7P76BkceKrpyfv5EBl/s1q5usT85Jabb1qoDLj?=
- =?us-ascii?Q?XXspT0L1JbB5dAnoIaZDvyDnoO3duzxOtjonQiSE/tN5+8uGtlMms/G9gb7S?=
- =?us-ascii?Q?rR42Nv9Q82FkOF+GQMPFZckrsq+P0p9FXlpzUKft6w6iyEKQ4NlqQ6A6jTZZ?=
- =?us-ascii?Q?mbU0d5HXVJhnqhCNKZyGhYsUtHBal9oCo2qdb1t5t0SBYoWc5gp/6W8GiWVo?=
- =?us-ascii?Q?k93/+GYSP9S1ZJYbtDMiG+/pzS4Z9HuRbca007n0?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ bh=L7maLj3l09Zg46TkyBmTd4Ys1709Q7bkIOu+gaTi18E=;
+ b=FOM9ZjaZnrKPH3U4ZO4NCoYSYODkmkWxIlc0sfZ49+wScTbCPHNWhhsSwshXmHXAy7VBmziSQ0SeYpVJ00/J5qA2lKhQ1mFMrkjIarDl4cwfKznh9tH+vDWq0ie9q2ANbZwkUxzzfrocam/zFN923mSWvPeeQOGmB9L4KvG3OiI=
+Received: from MW4PR04CA0249.namprd04.prod.outlook.com (2603:10b6:303:88::14)
+ by MW5PR12MB5682.namprd12.prod.outlook.com (2603:10b6:303:19f::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.33; Thu, 5 Oct
+ 2023 08:04:17 +0000
+Received: from CO1PEPF000044FA.namprd21.prod.outlook.com
+ (2603:10b6:303:88:cafe::59) by MW4PR04CA0249.outlook.office365.com
+ (2603:10b6:303:88::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.26 via Frontend
+ Transport; Thu, 5 Oct 2023 08:04:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000044FA.mail.protection.outlook.com (10.167.241.200) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6863.20 via Frontend Transport; Thu, 5 Oct 2023 08:04:17 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 5 Oct
+ 2023 03:04:15 -0500
+Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
+ Transport; Thu, 5 Oct 2023 03:04:13 -0500
+From: Wayne Lin <Wayne.Lin@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: Fix mst hub unplug warning
+Date: Thu, 5 Oct 2023 16:04:05 +0800
+Message-ID: <20231005080405.169841-1-Wayne.Lin@amd.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044FA:EE_|MW5PR12MB5682:EE_
+X-MS-Office365-Filtering-Correlation-Id: 672d20d1-4fc6-4fd7-ada0-08dbc579ac26
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: iouy4sJiajrubAYK/UvXcva9rTPGdkq4JkM/MkG8p9UV09RQjg1ZvoliIRsgmoFsY+0dl9iWKG/P53j4B2n2S5mBifrD36wukNvnBRp03eBefeHOARBdEafjDknaOREnS0LrPK+cvLqn3E+QMagyR+/9aecNwCGtZ6k1lNeQomwyq8qcIVGo9bjOOSH2Za7SgthNBasgMsu2Z5Pt8neq8R+jVRnQcV9PN0rpxWh3XI9sgqrt1daTy+AaK0X+9azEiN2giQlwOc5t3LJP9FzmMFN31u+v971ygG40sYbAotFPA4o2e6wOZg9K5tJ2ZWCw99M588Nw6UHgMMbRn0Jv/tSyefiK+VM7vPdaJwSdTcStXHlOR5SuQmAfiF10mwFhHVoMD3GFg1wALfmv8iC3o02QP6P5wdC1Ab4tTOoVUqdh9sdHoM+iYkhNgMYwXa8yWIXVXG/c0HfiAsCzL3QN0kpSZDz6pPKpyGO6PGEo7Ai471JkO5WGOUpsSYOPOJbt/EKThbnFnJaMfujWbclrkJhQRPjINp8DL8qhdaNRkeSxIfkTPOy55+114fcUIC8TXOXqx2XhWerEV8oqoAM0XtORc/y0Sy2oQYBMg4W+2s5I3EFmCrqWsLmpcqwrtHcRZ6ymD3kw9l7VGTe/+qFWPWaIThdHgESpPmA4Kgry768qdY8MGW5Ugs4xrSx+yBHXhkM/i9Nu2+l8E8Bml+H5wuWLjPprBIwjUS6GJN/rXirrNG6wCUUqrIqQA3+56vzmWw1w5Z/aWLmooEn+PaWEsA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(346002)(136003)(39860400002)(396003)(376002)(230922051799003)(186009)(451199024)(82310400011)(1800799009)(64100799003)(46966006)(36840700001)(40470700004)(2906002)(70586007)(36756003)(316002)(70206006)(47076005)(54906003)(86362001)(41300700001)(8676002)(5660300002)(8936002)(6666004)(4326008)(36860700001)(450100002)(83380400001)(110136005)(336012)(426003)(40460700003)(478600001)(26005)(1076003)(2616005)(81166007)(82740400003)(356005)(7696005)(40480700001)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e44a732c-6058-41df-f51b-08dbc55fa508
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Oct 2023 04:57:58.4159 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: AFiFksp8KfV+AKn/PQ88JUblD5jD16RvzNh1tzOTMzVEVJ4pJ5N6iWSKaMZE672RovKusUwPJGwp6eynHEQnCg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4909
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2023 08:04:17.1425 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 672d20d1-4fc6-4fd7-ada0-08dbc579ac26
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044FA.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5682
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,99 +98,108 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: jerry.zuo@amd.com, harry.wentland@amd.com, Wayne Lin <Wayne.Lin@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+[Why]
+Unplug mst hub will cause warning. That's because
+dm_helpers_construct_old_payload() is changed to be called after
+payload removement from dc link.
 
-Series is
+In dm_helpers_construct_old_payload(), We refer to the vcpi in
+payload allocation table of dc link to construct the old payload
+and payload is no longer in the table when we call the function
+now.
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+[How]
+Refer to the mst_state to construct the number of time slot for old
+payload now. Note that dm_helpers_construct_old_payload() is just
+a quick workaround before and we are going to abandon it soon.
 
-Regards,
-Hawking
------Original Message-----
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Wednesday, October 4, 2023 21:21
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>
-Subject: [PATCH 4/4] Documentation/amdgpu: Add FRU attribute details
-
-Add documentation for the newly added manufacturer and fru_id attributes in=
- sysfs.
-
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Fixes: 5aa1dfcdf0a4 ("drm/mst: Refactor the flow for payload allocation/removement")
+Reviewed-by: Jerry Zuo <jerry.zuo@amd.com>
+Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
 ---
- Documentation/gpu/amdgpu/driver-misc.rst      | 12 ++++++++++++
- .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c    | 19 +++++++++++++++++++
- 2 files changed, 31 insertions(+)
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 38 +++++++++----------
+ 1 file changed, 18 insertions(+), 20 deletions(-)
 
-diff --git a/Documentation/gpu/amdgpu/driver-misc.rst b/Documentation/gpu/a=
-mdgpu/driver-misc.rst
-index 82b47f1818ac..e40e15f89fd3 100644
---- a/Documentation/gpu/amdgpu/driver-misc.rst
-+++ b/Documentation/gpu/amdgpu/driver-misc.rst
-@@ -26,6 +26,18 @@ serial_number
- .. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-    :doc: serial_number
-
-+fru_id
-+-------------
-+
-+.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-+   :doc: fru_id
-+
-+manufacturer
-+-------------
-+
-+.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-+   :doc: manufacturer
-+
- unique_id
- ---------
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_fru_eeprom.c
-index 5d627d0e19a4..d635e61805ea 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-@@ -321,6 +321,16 @@ static ssize_t amdgpu_fru_serial_number_show(struct de=
-vice *dev,
-
- static DEVICE_ATTR(serial_number, 0444, amdgpu_fru_serial_number_show, NUL=
-L);
-
-+/**
-+ * DOC: fru_id
-+ *
-+ * The amdgpu driver provides a sysfs API for reporting FRU File Id
-+ * for the device.
-+ * The file fru_id is used for this and returns the File Id value
-+ * as returned from the FRU.
-+ * NOTE: This is only available for certain server cards  */
-+
- static ssize_t amdgpu_fru_id_show(struct device *dev,
-                                  struct device_attribute *attr, char *buf)=
-  { @@ -332,6 +342,15 @@ static ssize_t amdgpu_fru_id_show(struct device *d=
-ev,
-
- static DEVICE_ATTR(fru_id, 0444, amdgpu_fru_id_show, NULL);
-
-+/**
-+ * DOC: manufacturer
-+ *
-+ * The amdgpu driver provides a sysfs API for reporting manufacturer
-+name from
-+ * FRU information.
-+ * The file manufacturer returns the value as returned from the FRU.
-+ * NOTE: This is only available for certain server cards  */
-+
- static ssize_t amdgpu_fru_manufacturer_name_show(struct device *dev,
-                                                 struct device_attribute *a=
-ttr,
-                                                 char *buf)
---
-2.25.1
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index baf7e5254fb3..2f94bcf128c0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -204,15 +204,16 @@ void dm_helpers_dp_update_branch_info(
+ {}
+ 
+ static void dm_helpers_construct_old_payload(
+-			struct dc_link *link,
+-			int pbn_per_slot,
++			struct drm_dp_mst_topology_mgr *mgr,
++			struct drm_dp_mst_topology_state *mst_state,
+ 			struct drm_dp_mst_atomic_payload *new_payload,
+ 			struct drm_dp_mst_atomic_payload *old_payload)
+ {
+-	struct link_mst_stream_allocation_table current_link_table =
+-									link->mst_stream_alloc_table;
+-	struct link_mst_stream_allocation *dc_alloc;
+-	int i;
++	struct drm_dp_mst_atomic_payload *pos;
++	int pbn_per_slot = mst_state->pbn_div;
++	u8 next_payload_vc_start = mgr->next_start_slot;
++	u8 payload_vc_start = new_payload->vc_start_slot;
++	u8 allocated_time_slots;
+ 
+ 	*old_payload = *new_payload;
+ 
+@@ -221,20 +222,17 @@ static void dm_helpers_construct_old_payload(
+ 	 * struct drm_dp_mst_atomic_payload are don't care fields
+ 	 * while calling drm_dp_remove_payload_part2()
+ 	 */
+-	for (i = 0; i < current_link_table.stream_count; i++) {
+-		dc_alloc =
+-			&current_link_table.stream_allocations[i];
+-
+-		if (dc_alloc->vcp_id == new_payload->vcpi) {
+-			old_payload->time_slots = dc_alloc->slot_count;
+-			old_payload->pbn = dc_alloc->slot_count * pbn_per_slot;
+-			break;
+-		}
++	list_for_each_entry(pos, &mst_state->payloads, next) {
++		if (pos != new_payload &&
++		    pos->vc_start_slot > payload_vc_start &&
++		    pos->vc_start_slot < next_payload_vc_start)
++			next_payload_vc_start = pos->vc_start_slot;
+ 	}
+ 
+-	/* make sure there is an old payload*/
+-	ASSERT(i != current_link_table.stream_count);
++	allocated_time_slots = next_payload_vc_start - payload_vc_start;
+ 
++	old_payload->time_slots = allocated_time_slots;
++	old_payload->pbn = allocated_time_slots * pbn_per_slot;
+ }
+ 
+ /*
+@@ -272,8 +270,8 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
+ 		drm_dp_add_payload_part1(mst_mgr, mst_state, new_payload);
+ 	} else {
+ 		/* construct old payload by VCPI*/
+-		dm_helpers_construct_old_payload(stream->link, mst_state->pbn_div,
+-						new_payload, &old_payload);
++		dm_helpers_construct_old_payload(mst_mgr, mst_state,
++						 new_payload, &old_payload);
+ 		target_payload = &old_payload;
+ 
+ 		drm_dp_remove_payload_part1(mst_mgr, mst_state, new_payload);
+@@ -366,7 +364,7 @@ bool dm_helpers_dp_mst_send_payload_allocation(
+ 	if (enable) {
+ 		ret = drm_dp_add_payload_part2(mst_mgr, mst_state->base.state, new_payload);
+ 	} else {
+-		dm_helpers_construct_old_payload(stream->link, mst_state->pbn_div,
++		dm_helpers_construct_old_payload(mst_mgr, mst_state,
+ 						 new_payload, &old_payload);
+ 		drm_dp_remove_payload_part2(mst_mgr, mst_state, &old_payload, new_payload);
+ 	}
+-- 
+2.37.3
 
