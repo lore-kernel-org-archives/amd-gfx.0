@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1665CE92FFA
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Oct 2023 09:10:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D823E92FF9
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Oct 2023 09:28:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80E4C10E1E8;
-	Fri,  6 Oct 2023 09:10:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0115810E09C;
+	Fri,  6 Oct 2023 09:28:44 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3859C10E1E8
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Oct 2023 09:09:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 214D710E09C
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Oct 2023 09:28:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1696583398;
+ s=mimecast20190719; t=1696584521;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=cr92X8RrcZBDuxHPt3OLE6tLbx3yBjB901o1qrpUbkA=;
- b=arSuZG4PvR4/zkYYdzPy6RYBwp166PLAmeC+yESQ9Ehv/jfiLM9MOPQYsOrQAR6tN4+IK7
- E4LfVTQs/5GQ6Tb+CYB9vzbM8YARYsDkiyTat6m/dBywQRPTPflO4jjvKkCAIlt8+k2MBG
- F+eDrULxn4rr3chDfGksX0ZiUZkeQ6k=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=iqqrtgRGYVlX1KEa+4E1PTkE/wpFbYecOE/W+JuRQOY=;
+ b=UAnpr7hExqRvcYhTCyzQV5bEJFWQmKnX/Nv+13rmehUDU4RJGQnujEhYdY6tOAZkQY77Qt
+ KU504o2wEXTN0RKKFzdCOzU7y4bdMRnaAouSir1UmWWmroh6ilaCjUqAyngqUfHy0mhtqX
+ WVaeSQH5EsztaAphXVuGZqCb7y3ife8=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-145-0VVIA3ckMEq7BNq4_UXocA-1; Fri, 06 Oct 2023 05:09:52 -0400
-X-MC-Unique: 0VVIA3ckMEq7BNq4_UXocA-1
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-3f5df65f9f4so12456345e9.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 06 Oct 2023 02:09:52 -0700 (PDT)
+ us-mta-33-fTi6hhJ_Ph2Wl_1ndJTnsA-1; Fri, 06 Oct 2023 05:28:29 -0400
+X-MC-Unique: fTi6hhJ_Ph2Wl_1ndJTnsA-1
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-3217fdf913dso1444972f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 06 Oct 2023 02:28:29 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696583391; x=1697188191;
+ d=1e100.net; s=20230601; t=1696584508; x=1697189308;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=cr92X8RrcZBDuxHPt3OLE6tLbx3yBjB901o1qrpUbkA=;
- b=UOWaWO6EFx3tneDd5srD82idDbWWdxb2KfOg86SDCOCNwP9x/QsNhqOybpm16U2tVn
- NrN2UbDyvSZaMi+nQjOyLyPhQk0KObAY2ib2WC9WdNQMKJdqYoL6yfG0uEdkSYOWu1mx
- tp9lEB8VM94u8/S5QauwpDS5aSvdrxZ1gH0KgBDoPE4aIX28egzUAHUa/Lh7ChVkbFDo
- OL9xFBycILi0Iwt5PD+hh6qDekyJO0ZE7/GC7n9sAMcubatExjfqcDhT4Rbtvdh4QgK+
- UVVEjMSQZ19ZJwFVHoFJTFbI6puyy1QmdythbISR78YdekDbF2U4BW8w+fbzJNWykevU
- 2TMw==
-X-Gm-Message-State: AOJu0YybN9NDJ6sdoiox72iFejp+1ZC+tYy26E84tpochmtZ7OmGuhZW
- SlZ+PTvb5W+34f8Wp13HDGbVZHB/8FnKDQ+YJqgGnIuNWCfF60gFR/StVkPrFepQsCt2pj2SOJo
- sxzV0C+6EFF3D9VWqJuNpqgK8oA==
-X-Received: by 2002:a05:600c:22cf:b0:401:4542:5edd with SMTP id
- 15-20020a05600c22cf00b0040145425eddmr7115128wmg.34.1696583391276; 
- Fri, 06 Oct 2023 02:09:51 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHXLY3L3IdQjrjCNjOXebkXEZrmULAEKmDz3vgFG+mYypBOht2L1/CFKwQyIKCOgyjukMYJiQ==
-X-Received: by 2002:a05:600c:22cf:b0:401:4542:5edd with SMTP id
- 15-20020a05600c22cf00b0040145425eddmr7115092wmg.34.1696583390821; 
- Fri, 06 Oct 2023 02:09:50 -0700 (PDT)
+ bh=iqqrtgRGYVlX1KEa+4E1PTkE/wpFbYecOE/W+JuRQOY=;
+ b=D3qH57SHopOTY6GvNgq+2Kfmb2rB5RI+SmNI+ohJNTJh1hEzbVz3harSoEh5Ez4x2t
+ bsj0eV3C0MQ4slupY871sblHNDncaQw4/PJvRlLpo3n9oHFbfgqBHy9UJzoFwBnByB73
+ RmR9UgFo+n1gZ9PDqpVDgLD3s2dwgUahUhIt2vZJAYyob8orQupVO1WmpIJUAzsrluWK
+ xjC98xj4+ozZCP3ZX4eSYVlSapK8O4qOrUO+VYZPLQpZEIlXqmTxdLO9w9jEKPYkK5vE
+ RkIX1GkYzNbjVyNK93pQ0iSt3u5pKGv42Bs8Zqy1J6DHihiGsRSNrhxsNDZlJ0aLfnV1
+ qYoQ==
+X-Gm-Message-State: AOJu0YzI4esY6hri+1yLWY7jjuWikun3qKljeHChCHh64XdGrSKnJfLW
+ I0m1PP4QjSswtGjaiHyNUx7k6sGy4lkX3XgHkjj+LWbfNohYu32PJCNcx3WQtN8gS8Tpt2dcIU5
+ /pjzlAZgmkOHJV0U2fZpLYZrXfQ==
+X-Received: by 2002:a5d:560a:0:b0:31a:e3ad:f30e with SMTP id
+ l10-20020a5d560a000000b0031ae3adf30emr7094099wrv.68.1696584508344; 
+ Fri, 06 Oct 2023 02:28:28 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFMy76tdDBITQIMrlIRqBraXQBUwDmvF+SAE/DAdqnkDwn+/UlJvPLZlX8meMUQq9woUpIqqQ==
+X-Received: by 2002:a5d:560a:0:b0:31a:e3ad:f30e with SMTP id
+ l10-20020a5d560a000000b0031ae3adf30emr7094081wrv.68.1696584507952; 
+ Fri, 06 Oct 2023 02:28:27 -0700 (PDT)
 Received: from toolbox ([2001:9e8:89bc:cf00:7c0e:f203:f32:6eaf])
  by smtp.gmail.com with ESMTPSA id
- l25-20020a1c7919000000b00405c7591b09sm3270792wme.35.2023.10.06.02.09.50
+ w15-20020adfcd0f000000b0030647449730sm1199337wrm.74.2023.10.06.02.28.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Oct 2023 02:09:50 -0700 (PDT)
-Date: Fri, 6 Oct 2023 11:09:48 +0200
+ Fri, 06 Oct 2023 02:28:27 -0700 (PDT)
+Date: Fri, 6 Oct 2023 11:28:25 +0200
 From: Sebastian Wick <sebastian.wick@redhat.com>
-To: Melissa Wen <mwen@igalia.com>
-Subject: Re: [PATCH v4 09/32] drm/amd/display: add plane 3D LUT
- driver-specific properties
-Message-ID: <20231006090948.GA400742@toolbox>
+To: Melissa Wen <mwen@igalia.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [PATCH v4 00/32] drm/amd/display: add AMD driver-specific
+ properties for color mgmt
+Message-ID: <20231006092825.GB400742@toolbox>
 References: <20231005171527.203657-1-mwen@igalia.com>
- <20231005171527.203657-10-mwen@igalia.com>
 MIME-Version: 1.0
-In-Reply-To: <20231005171527.203657-10-mwen@igalia.com>
+In-Reply-To: <20231005171527.203657-1-mwen@igalia.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
@@ -82,195 +82,230 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pekka Paalanen <pekka.paalanen@collabora.com>, kernel-dev@igalia.com,
- Shashank Sharma <Shashank.Sharma@amd.com>, sunpeng.li@amd.com,
- airlied@gmail.com, Xinhui.Pan@amd.com,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Xaver Hugl <xaver.hugl@gmail.com>,
- dri-devel@lists.freedesktop.org,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Alex Hung <alex.hung@amd.com>, amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
- Simon Ser <contact@emersion.fr>, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, christian.koenig@amd.com,
- Joshua Ashton <joshua@froggi.es>, sungjoon.kim@amd.com
+Cc: liviu.dudau@arm.com, dri-devel@lists.freedesktop.org, airlied@gmail.com,
+ brian.starkey@arm.com, Shashank Sharma <Shashank.Sharma@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ kernel-dev@igalia.com, daniel@ffwll.ch, sunpeng.li@amd.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, sungjoon.kim@amd.com,
+ Pekka Paalanen <pekka.paalanen@collabora.com>, Simon Ser <contact@emersion.fr>,
+ Xinhui.Pan@amd.com, Xaver Hugl <xaver.hugl@gmail.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, tzimmermann@suse.de,
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
+ Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 05, 2023 at 04:15:04PM -0100, Melissa Wen wrote:
-> Add 3D LUT property for plane color transformations using a 3D lookup
-> table. 3D LUT allows for highly accurate and complex color
-> transformations and is suitable to adjust the balance between color
-> channels. It's also more complex to manage and require more
-> computational resources.
+On Thu, Oct 05, 2023 at 04:14:55PM -0100, Melissa Wen wrote:
+> Hello,
 > 
-> Since a 3D LUT has a limited number of entries in each dimension we want
-> to use them in an optimal fashion. This means using the 3D LUT in a
-> colorspace that is optimized for human vision, such as sRGB, PQ, or
-> another non-linear space. Therefore, userpace may need one 1D LUT
-> (shaper) before it to delinearize content and another 1D LUT after 3D
-> LUT (blend) to linearize content again for blending. The next patches
-> add these 1D LUTs to the plane color mgmt pipeline.
+> Just another iteration for AMD driver-specific color properties.
+> Basically, addressing comments from the previous version.
 > 
-> v3:
-> - improve commit message about 3D LUT
-> - describe the 3D LUT entries and size (Harry)
-> 
-> v4:
-> - advertise 3D LUT max size as the size of a single-dimension
-> 
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      | 18 +++++++++++++++
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  9 ++++++++
->  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 14 +++++++++++
->  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 23 +++++++++++++++++++
->  4 files changed, 64 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> index 62044d41da75..f7adaa52c23f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> @@ -363,6 +363,24 @@ struct amdgpu_mode_info {
->  	 * @plane_hdr_mult_property:
->  	 */
->  	struct drm_property *plane_hdr_mult_property;
-> +	/**
-> +	 * @plane_lut3d_property: Plane property for color transformation using
-> +	 * a 3D LUT (pre-blending), a three-dimensional array where each
-> +	 * element is an RGB triplet. Each dimension has a size of the cubed
-> +	 * root of lut3d_size. The array contains samples from the approximated
+> Recap: this series extends the current KMS color management API with AMD
+> driver-specific properties to enhance the color management support on
+> AMD Steam Deck. The key additions to the color pipeline include:
 
-This should be "Each dimension has a size of lut3d_size" now.
+Did you talk with the maintainers about this already? The last few times
+driver specific properties, and even kind of generic plane properties
+with a fixed position in the pipeline were proposed they were all
+NAKed. Just putting them behind a define doesn't sound great and I don't
+think there is any precedence for allowing this in. This is basically
+just more burden for upstream without any benefits for upstream.
 
-> +	 * function. On AMD, values between samples are estimated by
-> +	 * tetrahedral interpolation. The array is accessed with three indices,
-> +	 * one for each input dimension (color channel), blue being the
-> +	 * outermost dimension, red the innermost.
-> +	 */
-> +	struct drm_property *plane_lut3d_property;
-> +	/**
-> +	 * @plane_degamma_lut_size_property: Plane property to define the max
-> +	 * size of 3D LUT as supported by the driver (read-only). The max size
-> +	 * is the max size of one dimension and, therefore, the max number of
-> +	 * entries for 3D LUT array is the 3D LUT size cubed;
-> +	 */
-> +	struct drm_property *plane_lut3d_size_property;
->  };
->  
->  #define AMDGPU_MAX_BL_LEVEL 0xFF
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> index bb2ce843369d..7a2350c62cf1 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> @@ -784,6 +784,11 @@ struct dm_plane_state {
->  	 * TF is needed for any subsequent linear-to-non-linear transforms.
->  	 */
->  	__u64 hdr_mult;
-> +	/**
-> +	 * @lut3d: 3D lookup table blob. The blob (if not NULL) is an array of
-> +	 * &struct drm_color_lut.
-> +	 */
-> +	struct drm_property_blob *lut3d;
->  };
->  
->  struct dm_crtc_state {
-> @@ -869,6 +874,10 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
->  
->  void amdgpu_dm_trigger_timing_sync(struct drm_device *dev);
->  
-> +/* 3D LUT max size is 17x17x17 (4913 entries) */
-> +#define MAX_COLOR_3DLUT_SIZE 17
-> +#define MAX_COLOR_3DLUT_BITDEPTH 12
-> +/* 1D LUT size */
->  #define MAX_COLOR_LUT_ENTRIES 4096
->  /* Legacy gamm LUT users such as X doesn't like large LUT sizes */
->  #define MAX_COLOR_LEGACY_LUT_ENTRIES 256
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> index caf49a044ab4..011f2f9ec890 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> @@ -230,6 +230,20 @@ amdgpu_dm_create_color_properties(struct amdgpu_device *adev)
->  		return -ENOMEM;
->  	adev->mode_info.plane_hdr_mult_property = prop;
->  
-> +	prop = drm_property_create(adev_to_drm(adev),
-> +				   DRM_MODE_PROP_BLOB,
-> +				   "AMD_PLANE_LUT3D", 0);
-> +	if (!prop)
-> +		return -ENOMEM;
-> +	adev->mode_info.plane_lut3d_property = prop;
-> +
-> +	prop = drm_property_create_range(adev_to_drm(adev),
-> +					 DRM_MODE_PROP_IMMUTABLE,
-> +					 "AMD_PLANE_LUT3D_SIZE", 0, UINT_MAX);
-> +	if (!prop)
-> +		return -ENOMEM;
-> +	adev->mode_info.plane_lut3d_size_property = prop;
-> +
->  	return 0;
->  }
->  #endif
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index ae64d4b73360..068798ffdd56 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -1359,6 +1359,8 @@ dm_drm_plane_duplicate_state(struct drm_plane *plane)
->  
->  	if (dm_plane_state->degamma_lut)
->  		drm_property_blob_get(dm_plane_state->degamma_lut);
-> +	if (dm_plane_state->lut3d)
-> +		drm_property_blob_get(dm_plane_state->lut3d);
->  
->  	dm_plane_state->degamma_tf = old_dm_plane_state->degamma_tf;
->  	dm_plane_state->hdr_mult = old_dm_plane_state->hdr_mult;
-> @@ -1432,6 +1434,8 @@ static void dm_drm_plane_destroy_state(struct drm_plane *plane,
->  
->  	if (dm_plane_state->degamma_lut)
->  		drm_property_blob_put(dm_plane_state->degamma_lut);
-> +	if (dm_plane_state->lut3d)
-> +		drm_property_blob_put(dm_plane_state->lut3d);
->  
->  	if (dm_plane_state->dc_state)
->  		dc_plane_state_release(dm_plane_state->dc_state);
-> @@ -1462,6 +1466,14 @@ dm_atomic_plane_attach_color_mgmt_properties(struct amdgpu_display_manager *dm,
->  	drm_object_attach_property(&plane->base,
->  				   dm->adev->mode_info.plane_hdr_mult_property,
->  				   AMDGPU_HDR_MULT_DEFAULT);
-> +
-> +	if (dpp_color_caps.hw_3d_lut) {
-> +		drm_object_attach_property(&plane->base,
-> +					   mode_info.plane_lut3d_property, 0);
-> +		drm_object_attach_property(&plane->base,
-> +					   mode_info.plane_lut3d_size_property,
-> +					   MAX_COLOR_3DLUT_SIZE);
-> +	}
->  }
->  
->  static int
-> @@ -1493,6 +1505,14 @@ dm_atomic_plane_set_property(struct drm_plane *plane,
->  			dm_plane_state->hdr_mult = val;
->  			dm_plane_state->base.color_mgmt_changed = 1;
->  		}
-> +	} else if (property == adev->mode_info.plane_lut3d_property) {
-> +		ret = drm_property_replace_blob_from_id(plane->dev,
-> +							&dm_plane_state->lut3d,
-> +							val, -1,
-> +							sizeof(struct drm_color_lut),
-> +							&replaced);
-> +		dm_plane_state->base.color_mgmt_changed |= replaced;
-> +		return ret;
->  	} else {
->  		drm_dbg_atomic(plane->dev,
->  			       "[PLANE:%d:%s] unknown property [PROP:%d:%s]]\n",
-> @@ -1520,6 +1540,9 @@ dm_atomic_plane_get_property(struct drm_plane *plane,
->  		*val = dm_plane_state->degamma_tf;
->  	} else if (property == adev->mode_info.plane_hdr_mult_property) {
->  		*val = dm_plane_state->hdr_mult;
-> +	} else 	if (property == adev->mode_info.plane_lut3d_property) {
-> +		*val = (dm_plane_state->lut3d) ?
-> +			dm_plane_state->lut3d->base.id : 0;
->  	} else {
->  		return -EINVAL;
->  	}
+Maybe you can separate the uAPI changes from the internal improvements
+to land at least parts of this faster.
+
+> - plane degamma LUT and pre-defined TF;
+> - plane HDR multiplier;
+> - plane CTM 3x4;
+> - plane shaper LUT and pre-defined TF;
+> - plane 3D LUT;
+> - plane blend LUT and pre-defined TF;
+> - CRTC gamma pre-defined TF;
+> 
+> You can find the AMD HW color capabilities documented here:
+> https://dri.freedesktop.org/docs/drm/gpu/amdgpu/display/display-manager.html#color-management-properties
+> 
+> The userspace case is Gamescope[1], the compositor for SteamOS.
+> Gamescope has already adopted AMD driver-specific properties to
+> implement comprehensive color management support, including gamut
+> mapping, HDR rendering, SDR on HDR, HDR on SDR. Using these features in
+> the SteamOS 3.5[2] users can expect a significantly enhanced visual
+> experience. 
+> 
+> You can find a brief overview of the Steam Deck color pipeline here:
+> https://github.com/ValveSoftware/gamescope/blob/master/src/docs/Steam%20Deck%20Display%20Pipeline.png
+> 
+> Changes from:
+> 
+> [RFC] https://lore.kernel.org/dri-devel/20230423141051.702990-1-mwen@igalia.com
+> - Remove KConfig and guard properties with `AMD_PRIVATE_COLOR`;
+> - Remove properties for post-blending/CRTC shaper TF+LUT and 3D LUT;
+> - Use color caps to improve the support of pre-defined curve;
+> 
+> [v1] https://lore.kernel.org/dri-devel/20230523221520.3115570-1-mwen@igalia.com
+> - Replace DRM_ by AMDGPU_ prefix for transfer function (TF) enum; 
+> - Explicitly define EOTFs and inverse EOTFs and set props accordingly;
+> - Document pre-defined transfer functions;
+> - Remove HLG transfer function from supported TFs;
+> - Remove misleading comments;
+> - Remove post-blending shaper TF+LUT and 3D LUT support;
+> - Move driver-specific property operations from amdgpu_display.c to
+>   amdgpu_dm_color.c;
+> - Reset planes if any color props change;
+> - Add plane CTM 3x4 support;
+> - Removed two DC fixes already applied upstream;
+> 
+> [v2] https://lore.kernel.org/dri-devel/20230810160314.48225-1-mwen@igalia.com
+> - Many documentation fixes: BT.709 OETF, description of sRGB and pure
+>   power functions, TF+1D LUT behavior;
+> - Rename CTM2 to CTM 3x4 and fix misleading comment about DC gamut remap;
+> - Squash `Linear` and `Unity` TF in `Identity`;
+> - Remove the `MPC gamut remap` patch already applied upstream[3];
+> - Remove outdated delta segmentation fix;
+> - Nits/small fixes;
+> 
+> [v3] https://lore.kernel.org/amd-gfx/20230925194932.1329483-1-mwen@igalia.com
+> - Add table to describe value range in linear and non-linear forms
+> - Comment the PQ TF need after HDR multiplier
+> - Advertise the 3D LUT size as the size of a single-dimension (read-only)
+> - remove function to check expected size from 3DLUT caps
+> - cleanup comments
+> 
+> It's worth noting that driver-specific properties are guarded by
+> `AMD_PRIVATE_COLOR`. So, finally, this is the color management API when
+> driver-specific properties are enabled:
+> 
+> +----------------------+
+> |   PLANE              |
+> |                      |
+> |  +----------------+  |
+> |  | AMD Degamma    |  |
+> |  |                |  |
+> |  | EOTF | 1D LUT  |  |
+> |  +--------+-------+  |
+> |           |          |
+> |  +--------v-------+  |
+> |  |    AMD HDR     |  |
+> |  |    Multiply    |  |
+> |  +--------+-------+  |
+> |           |          |
+> |  +--------v-------+  |
+> |  |  AMD CTM (3x4) |  |
+> |  +--------+-------+  |
+> |           |          |
+> |  +--------v-------+  |
+> |  | AMD Shaper     |  |
+> |  |                |  |
+> |  | inv_EOTF |     |  |
+> |  | Custom 1D LUT  |  |
+> |  +--------+-------+  |
+> |           |          |
+> |  +--------v-------+  |
+> |  |   AMD 3D LUT   |  |
+> |  |   17^3/12-bit  |  |
+> |  +--------+-------+  |
+> |           |          |
+> |  +--------v-------+  |
+> |  | AMD Blend      |  |
+> |  |                |  |
+> |  | EOTF | 1D LUT  |  |
+> |  +--------+-------+  |
+> |           |          |
+> ++----------v---------++
+> ||      Blending      ||
+> ++----------+---------++
+> |    CRTC   |          |
+> |           |          |
+> |   +-------v-------+  |
+> |   | DRM Degamma   |  |
+> |   |               |  |
+> |   | Custom 1D LUT |  |
+> |   +-------+-------+  |
+> |           |          |
+> |   +-------v-------+  |
+> |   | DRM CTM (3x3) |  |
+> |   +-------+-------+  |
+> |           |          |
+> |   +-------v-------+  |
+> |   | DRM Gamma     |  |
+> |   |               |  |
+> |   | Custom 1D LUT |  |
+> |   +---------------+  |
+> |   | *AMD Gamma    |  |
+> |   |   inv_EOTF    |  |
+> |   +---------------+  |
+> |                      |
+> +----------------------+
+> 
+> Please, let us know your thoughts.
+> 
+> Best Regards,
+> 
+> Melissa Wen
+> 
+> [1] https://github.com/ValveSoftware/gamescope
+> [2] https://store.steampowered.com/news/app/1675200/view/3686804163591367815
+> [3] https://lore.kernel.org/dri-devel/20230721132431.692158-1-mwen@igalia.com
+> 
+> Joshua Ashton (14):
+>   drm/amd/display: add plane degamma TF driver-specific property
+>   drm/amd/display: add plane HDR multiplier driver-specific property
+>   drm/amd/display: add plane blend LUT and TF driver-specific properties
+>   drm/amd/display: add CRTC gamma TF support
+>   drm/amd/display: set sdr_ref_white_level to 80 for out_transfer_func
+>   drm/amd/display: mark plane as needing reset if color props change
+>   drm/amd/display: add plane degamma TF and LUT support
+>   drm/amd/display: add dc_fixpt_from_s3132 helper
+>   drm/amd/display: add HDR multiplier support
+>   drm/amd/display: handle empty LUTs in __set_input_tf
+>   drm/amd/display: add plane blend LUT and TF support
+>   drm/amd/display: allow newer DC hardware to use degamma ROM for PQ/HLG
+>   drm/amd/display: copy 3D LUT settings from crtc state to stream_update
+>   drm/amd/display: Add 3x4 CTM support for plane CTM
+> 
+> Melissa Wen (18):
+>   drm/drm_mode_object: increase max objects to accommodate new color
+>     props
+>   drm/drm_property: make replace_property_blob_from_id a DRM helper
+>   drm/drm_plane: track color mgmt changes per plane
+>   drm/amd/display: add driver-specific property for plane degamma LUT
+>   drm/amd/display: explicitly define EOTF and inverse EOTF
+>   drm/amd/display: document AMDGPU pre-defined transfer functions
+>   drm/amd/display: add plane 3D LUT driver-specific properties
+>   drm/amd/display: add plane shaper LUT and TF driver-specific
+>     properties
+>   drm/amd/display: add CRTC gamma TF driver-specific property
+>   drm/amd/display: add comments to describe DM crtc color mgmt behavior
+>   drm/amd/display: encapsulate atomic regamma operation
+>   drm/amd/display: decouple steps for mapping CRTC degamma to DC plane
+>   drm/amd/display: reject atomic commit if setting both plane and CRTC
+>     degamma
+>   drm/amd/display: add plane shaper LUT support
+>   drm/amd/display: add plane shaper TF support
+>   drm/amd/display: add plane 3D LUT support
+>   drm/amd/display: add plane CTM driver-specific property
+>   drm/amd/display: add plane CTM support
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  90 ++
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  34 +-
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 108 +++
+>  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 821 ++++++++++++++++--
+>  .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  72 ++
+>  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 224 ++++-
+>  .../gpu/drm/amd/display/include/fixed31_32.h  |  12 +
+>  drivers/gpu/drm/arm/malidp_crtc.c             |   2 +-
+>  drivers/gpu/drm/drm_atomic.c                  |   1 +
+>  drivers/gpu/drm/drm_atomic_state_helper.c     |   1 +
+>  drivers/gpu/drm/drm_atomic_uapi.c             |  43 +-
+>  drivers/gpu/drm/drm_property.c                |  49 ++
+>  include/drm/drm_mode_object.h                 |   2 +-
+>  include/drm/drm_plane.h                       |   7 +
+>  include/drm/drm_property.h                    |   6 +
+>  include/uapi/drm/drm_mode.h                   |   8 +
+>  16 files changed, 1371 insertions(+), 109 deletions(-)
+> 
 > -- 
 > 2.40.1
 > 
