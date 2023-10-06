@@ -4,91 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0406E81E02
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Oct 2023 14:42:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 282A1E81E10
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Oct 2023 15:46:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5017710E511;
-	Fri,  6 Oct 2023 14:42:41 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2061a.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5a::61a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF81210E50B
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Oct 2023 14:42:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91B7A10E531;
+	Fri,  6 Oct 2023 15:46:39 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2040.outbound.protection.outlook.com [40.107.94.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9B9110E530
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Oct 2023 15:46:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=R4Z8ohpN5X3HekC9mI4dc/XOiKz5+ko3iH56EeWMgkmEwHTrd148oC/4SHBwYUe+b6WYLIMSLxvbCxRlbr2/j7ahGMI2Xr9852+zkH3ZB9Yyf85vzzLUIwRf6Gwqfd0g3jl08morC8ISzEWpgRE6GamA0ztHZDtOcfuHJf1HePvVbEe1WF0f4G4c9xbC++6U5CCQHlAPaivR9eKcLlwx0PZ5VLvE3tNzSzAOgTWA5WgpEbTwJ/I3W59gUijyGDgONYLC296i66aMUvkFjzwgGyyYydtNvsiWoASmaMuMJMEGLuc7Xmws00MGnlETOx3GrSTrZ+QxPHoVK8MUWbyshA==
+ b=NtfBuUY+6RNc3RJ4EuAXQ2DGjyaZBLulNbFf7p8QZNdvc4VVXJg2DJIcSUwFqSK2HviaDMN/SxP1ne9pfWfInNt1YLeuDybV2VKGWbGAWMqnR++cZePMYA5SU+9yvU1QZfeOH6+DFUjssifTlMKxu0wWyWg1N7+FLv7gkkogA4fSL6w0J1ykJh6KZHcsXAmVWQIyW6lkWsZn0c7Zw4oaAeGcOrDU7Mqx7pbH6InrkRqeFImxLELC2KfgDtbeChGzHeyvT7yHUk5qPpOKWADNJh4JODJ+IZ69mSGQorkWOLjnvN7LsE9S/vF+M2Xr15gmigHzjcryxzITRzGnnxk2Og==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+LjSW1mPadkX3qeqWNonrD15eaQmLPpWna+VVhp9Yok=;
- b=UJN4QKH/LDAeju2OQWT0mUpYEBVZV8pSykZLC58mo0+7y1J6Q87L6iTlF1FpS9J36pgT/R4kKZr6t5wSPGqsVQRNxV9QEsU4cz8YFtBuThcKjMCrpXmbr0DsY1SUBLzde5mq+XYF7+ICC5qvXKMXXAjGgROq9jvYzZ77UdmRtXGrzmMK0ve/8LGFfSgVtTYcnwvtC7nd7J3oIKCxIw2K+spiwC8XTXNw+EyX5w1ywBzLej1XgFF7UCbOiN2wthneppFtCx4CkIPtmJPEiFIka63EQ5wDMrMUv5Oyuv/rKfLNzFBZ9vx5sutkYwxzGXRpZ7aiPFDdvn8KHcnW5fT99w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=JsKgA+YXlnqTdeqSHvXjcpf5LDyhHUXcnpkrRrAxtYU=;
+ b=h5IZm9dJDYvjWoPHSwsuu0S2UZtqfrE6aaVaiJKX0njjUww2qn3x85pIYcS0ltC5DdV8IiJ2mPi+uQPLhvSLoAfrVyfvBekEelg8gZTVZL4pwrYbTh55PIFEre7wkt2hxLiVtg7u+oHGmGKHQuCiHeKLGn5fzsq0q0cIVlqkR2qimK/A64haNoeaiNrC5w5QszftDTh8fChRcoaPapaP+2Tt86lKMQgMwrC2kuucCSWSi8NdOya0pWCfv4dNcdEkfbTCK/1Z9AHCLpwh34picXAyBN68mikuyuJkrjE/fmEEIelhj8QZyhiX/ukgmpmd2MQdoMOAsS04KzkbsXah/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+LjSW1mPadkX3qeqWNonrD15eaQmLPpWna+VVhp9Yok=;
- b=aWeZjGEeWnJdKaOH77jD9dFXLlLzjYL1mo9zk6IXsLosPZszQ3DhyBPpl+4s3jOTfD7QoiFnNxUdO/zBUioULnL7ca9GFG6AzZsLG2rqh0TB/9GhXUoGFabafi2nrSu/d4pEDwfVA/ucREEN8Z43uSyp4qGS32fMWIGAeUav9fI=
-Received: from MW4PR04CA0196.namprd04.prod.outlook.com (2603:10b6:303:86::21)
- by BN9PR12MB5289.namprd12.prod.outlook.com (2603:10b6:408:102::18)
+ bh=JsKgA+YXlnqTdeqSHvXjcpf5LDyhHUXcnpkrRrAxtYU=;
+ b=06jpPrxRpjjf3jXJ+w1WQQGABMmaBWI1U9zJE6Yxr2m2woK9iLkVNVX26OLCjjQna6TChbSVKWvZAtLW3zjKPtSpoExripCjSrYZeTXikJAMeS3sQBrsRQsckF9Tb4xpeYmPtPzuBOPzeETxgjIcoTP7JDNPF1Spr9TwpsA3USw=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by BY5PR12MB4147.namprd12.prod.outlook.com (2603:10b6:a03:205::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.33; Fri, 6 Oct
- 2023 14:42:36 +0000
-Received: from CO1PEPF000042A7.namprd03.prod.outlook.com
- (2603:10b6:303:86:cafe::ed) by MW4PR04CA0196.outlook.office365.com
- (2603:10b6:303:86::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.31 via Frontend
- Transport; Fri, 6 Oct 2023 14:42:35 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000042A7.mail.protection.outlook.com (10.167.243.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.14 via Frontend Transport; Fri, 6 Oct 2023 14:42:35 +0000
-Received: from asad-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 6 Oct
- 2023 09:42:33 -0500
-From: Asad Kamal <asad.kamal@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 3/3] drm/amd/pm: Use gpu_metrics_v1_4 for SMUv13.0.6
-Date: Fri, 6 Oct 2023 22:41:40 +0800
-Message-ID: <20231006144140.566546-3-asad.kamal@amd.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231006144140.566546-1-asad.kamal@amd.com>
-References: <20231006144140.566546-1-asad.kamal@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042A7:EE_|BN9PR12MB5289:EE_
-X-MS-Office365-Filtering-Correlation-Id: 65148b65-73fe-4519-3537-08dbc67a7b29
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ACeJO+F7i2iSivTxjFH9kiynKxfN0Jhwz/rrqURwlnKUhdCgHBtqDOaf/Goha1X9Zx/L352a06ot1cGGRHLGtanZxrhQ7EJlye0JHgfEtr+IH5WkDQpcgru3wKr+fkgcUV6dTRDDep7GFKqbKDHzpnfr29/+pA16qR5Ufi6CJRIt1iRo/Fk6PxwQxdMEVrsyXmcpW4/inwJpgn/3TVct3AkSrITn0da+w1xnxjECXGUllN8Ps3M8IrvWmEg5QyoQhAI+LiWeU15va+rEF3Z9qp0sEhrReMx9YtOtVtXYLVFdoR58L9165bKe/swd7yBDvWiyj5CRPA2kXOnv4MGDMvQKE37hBAX0GZvgUAvfIvJGwqOBHwnDkg3yc+HnJ5XZ7xCcfdqsCPbYn1XVNaH+jnCHv8BfTl3BmWck+kCBJwMyTNh82QmpHXDckPmBQ+Zy/pIy+0mc6PpdQRAb1MJtLjYpI7OpsQgsZQxKfGo+DwXIOi1OVHbMx156K9+M9XvitIiS6ABOAov7Uj3yobFZtq/D5fJtz/Pzu71SU/hX18MgNeWREL1IoVRU8YLYY/3KLIVTx/kwC4EloJ9WpQMyiW9LXHhGUq1LIsGSkvFm4ooMIs2JAW2FICfDlHVxYGGnSDwdrWwcQhxIBKWl0AoPFfIfTauFlNPJZGRbnbqCM+69yve5XhcF1HsWuR9cVPQr3f+4kKWfNhVBo2lwwGBo3qWfTIP9mm8ucadMHFEMXbJwB09SGMnV33JDmQIuysiivl2ZH5h9YArMH/h9+c6OtA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(39860400002)(136003)(346002)(376002)(230922051799003)(1800799009)(186009)(82310400011)(64100799003)(451199024)(36840700001)(46966006)(40470700004)(47076005)(2906002)(83380400001)(40460700003)(86362001)(356005)(36756003)(82740400003)(81166007)(40480700001)(36860700001)(54906003)(316002)(70206006)(70586007)(7696005)(336012)(1076003)(2616005)(44832011)(41300700001)(6916009)(478600001)(6666004)(8676002)(4326008)(426003)(8936002)(5660300002)(16526019)(26005)(36900700001);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.37; Fri, 6 Oct
+ 2023 15:46:32 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::a2bb:870f:8aaa:1ba2]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::a2bb:870f:8aaa:1ba2%7]) with mapi id 15.20.6838.033; Fri, 6 Oct 2023
+ 15:46:32 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: Increase IP discovery region size
+Thread-Topic: [PATCH] drm/amdgpu: Increase IP discovery region size
+Thread-Index: AQHZ+BIQ12KpadegWkKP+Sfmiu5Tz7A86Fxa
+Date: Fri, 6 Oct 2023 15:46:32 +0000
+Message-ID: <BL1PR12MB5144924396C427498B2716D0F7C9A@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20231006050004.1556697-1-lijo.lazar@amd.com>
+In-Reply-To: <20231006050004.1556697-1-lijo.lazar@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-10-06T15:46:31.749Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|BY5PR12MB4147:EE_
+x-ms-office365-filtering-correlation-id: bad31685-ae9b-4d7e-233a-08dbc6836a2e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Vj16fOir/UOx1NPwrRG5nUeo+J0SoDXwX2mX4ZW+NkvvB0+RTNGkUisagPrTu2Kl7bw1W/3xk6yf0t45nGAx7HhpDo4FRlXA+8ttygE2XOjeXsLHHT0Itt9UzaTRvQglajje1yRb2+6kjKCxvZUx8k9I6QSIHIR7JNxK4529ep+87mJZYhBjE5DXL7I+1LUCpD5XE0yE5o0Kl20rCvO7BTgpBInqtqcxaCOHHojlfksWlbgzLNfRt4mWvIcbdmjD1GpWJcsPuP1bWCxI0MFEDvX0uGiwhHMFDX/HtpyEFMktBlZFtU6xCT7aKNybrAcBKo0A2LtFmlVUs921BuFxA5ef6fR0up9XEwXokOBT+PXzwzHy2JCszpHtr+RRWu90DqRfRWzCeiyH6XZkmFwPcdk0FmDZBUMY8k0JHZw2lK8s5iuT8HR1LodpfTWL7lI+ELcrmlh4OvWRVrfdFKJo9kQNHsGoSqGVLYr2dYoH2nVJzlEjVXa+q/lX4gRxIAFHTAxHeiQFQBFkANWL/zm975teAOo/46JMEOg8KFnMb2FLbTcw8wWBj7WlPo1ZKCPbswyxvQtOCbVPMndy8pBYmNsw2JNr6UxD+ArbwA+ABJ/mTwUHCfEp1Qzgc0JczgJy
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(376002)(396003)(366004)(136003)(346002)(230922051799003)(186009)(1800799009)(64100799003)(451199024)(478600001)(6506007)(9686003)(7696005)(53546011)(83380400001)(316002)(71200400001)(26005)(2906002)(110136005)(64756008)(66446008)(8936002)(66556008)(66476007)(5660300002)(8676002)(41300700001)(76116006)(66946007)(4326008)(52536014)(86362001)(38100700002)(33656002)(122000001)(38070700005)(19627405001)(55016003);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?+fiUVGdmgDIKJ5nEKSlbm7u0uouz3rCeSwWTgiRU1qjiNARHxLe+BO+WAHV7?=
+ =?us-ascii?Q?860ZJ5PKi7YC9jPF5QP9tBBFHfp+hZhq9gxsAPkxEbmDGzYc/OhYtIDZCa9r?=
+ =?us-ascii?Q?w5P6Rspbyz6/junS/GFm+d5I0B9ZJNO5wR7huCvJ9kDPBlPgycIP+Ls7Srfd?=
+ =?us-ascii?Q?GCqnh8/ExsofKk2A4CRlWYzYLlogVNnW6omOFM8LPRTv2JgBilDmx+PKRh4D?=
+ =?us-ascii?Q?7hssz25ru7889wYECOHPLK6FRAIw7HMTW4k7ZZkYAyJTf4yChzDqNLyeN/LV?=
+ =?us-ascii?Q?/qwQBFxkXSAhGNz6uU50OcZ2t9hGNWV+jrjvQQGZkpCXq2HvEIT4atKeNC3R?=
+ =?us-ascii?Q?F+SHJiir5n3QwOUIAQh4BPtHSs+mQmjwy3G012k4z3muxVORyFDSbaIeT0ze?=
+ =?us-ascii?Q?GmtGgiu4WUGhjado1FOfgQkVrJv6WP0ITRoXhGhhss+HmKxZA0GUxvb1/mtc?=
+ =?us-ascii?Q?n8g8IB4Y6e6WptI7gKaX9kXp5lKE5bNPnrBWhwJMPUr6axxLllnGHtFC+XiH?=
+ =?us-ascii?Q?KOzbVAQbsPgI3bctyY3idz0FGhCrUx6hoNT0j5Zmnbdf6rR+xDUjt79ToqpE?=
+ =?us-ascii?Q?L1Qx+zgJT3Vhwe7DNSS2ucTKfshLwuN5z3gQ0UwgiKwmnZwdO17EYT8nX3Bq?=
+ =?us-ascii?Q?Y4EVT6I5SsUcHLuoT6PaMinI3kBMRxirgsap2AgzBQMI29Z63Z5O6JR3AaEO?=
+ =?us-ascii?Q?QYyAW06sdNf3OjnpShzsGdcm7R6j3z1mQoTCp5UutZsWJHNFOtoixeDux6e2?=
+ =?us-ascii?Q?5Mm8xyYTxsV07OEvaSuUVQcxF3UkHBJcaDLoO82osStRo4WInuDSujnX2GGE?=
+ =?us-ascii?Q?ZB9sBhSwe1TPe/JsAGFVzFyGaD6WgDFgPOmcqynf0tle+bZEtLX92k39fCKj?=
+ =?us-ascii?Q?g3h+ZgL26BjhfrsrP0Y77q1F6ySYLQNKdAtoZ6kVE4fwGOzzxR2efDtp4Mfv?=
+ =?us-ascii?Q?I/H4IGS2ZMrY/f0eXmNWdo7X4xYUHVEFrjhCvQ9ABXBCEXI6tSrJDndf9gZX?=
+ =?us-ascii?Q?ftMfg8SLYAtqaOpb3rHBFfNm4r1IWMZuDgOMNrD5BHglqVfjSF/D8j5eA7RA?=
+ =?us-ascii?Q?5KlOdRQa9sj65mH0rt6XuqhNNsjMbT8rdAYwVtHbntSTISX8r6VZcHrdRh+s?=
+ =?us-ascii?Q?yFnSxdCwnQ0t34HDTI+3FA7G/mD4emnwTCpaW0UtpIEsx44GiyY6jrhRPZ1W?=
+ =?us-ascii?Q?wb8mvcA+scUu8P01q19IuHqefwBjKUQgQB/baiVcPtKfEZTz8RtNtSVV2A6o?=
+ =?us-ascii?Q?s9NjTlHexcORWGCBdM35ArIAG/UjLcvL692vRtmlb48RLIQ9OYas1x6a58O2?=
+ =?us-ascii?Q?e9O199UCgyv0zeAFcK8V0b+OCl638S+1Bw1aEO3w4VgUS/UxwrTH9cIi8+Iy?=
+ =?us-ascii?Q?5UBJbOYxfnyQrDSjTTjVwsJ3Q/cSj7ttF+0aXTQ0IyN4OHiHs4/TMHFPriQ/?=
+ =?us-ascii?Q?toWCva9YVsofDFoCg2OHtdPloC5AKLKa8e1EAQl1W/gvy2Lm+D2zYbXy1mde?=
+ =?us-ascii?Q?Q3yOfvDPU9FMrLQ6GjW0zd1s41IZaRxMUObtzi69uyoM40RxTbUWJCwK8hHC?=
+ =?us-ascii?Q?L/m96fv5m7UYRss5YxI=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB5144924396C427498B2716D0F7C9ABL1PR12MB5144namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2023 14:42:35.6258 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65148b65-73fe-4519-3537-08dbc67a7b29
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042A7.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5289
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bad31685-ae9b-4d7e-233a-08dbc6836a2e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Oct 2023 15:46:32.7078 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: rUZW2/da1/DgE/FLHoF2ljDmKaYqugeLxXwlCDajdHgdKDfx7oCUiAFuQ6N2zPA7mDSiIkJ0anm1WDLQpvB//g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4147
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,148 +121,124 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: le.ma@amd.com, Lijo.Lazar@amd.com, asad.kamal@amd.com, shiwu.zhang@amd.com,
- hawking.zhang@amd.com
+Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use gpu_metrics_v1_4 for SMUv13.0.6 to fill
-gpu metric info
+--_000_BL1PR12MB5144924396C427498B2716D0F7C9ABL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+[AMD Official Use Only - General]
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Lijo Laz=
+ar <lijo.lazar@amd.com>
+Sent: Friday, October 6, 2023 1:00 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
+.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: Increase IP discovery region size
+
+IP discovery region has increased to > 8K on some SOCs.Maximum reserve
+size is upto 12K, but not used. For now increase to 10K.
+
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 67 ++++++++++++-------
- 1 file changed, 43 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index ce971a93d28b..3a07f1c95e45 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -279,7 +279,7 @@ static int smu_v13_0_6_tables_init(struct smu_context *smu)
- 		return -ENOMEM;
- 	smu_table->metrics_time = 0;
- 
--	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v1_3);
-+	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v1_4);
- 	smu_table->gpu_metrics_table =
- 		kzalloc(smu_table->gpu_metrics_table_size, GFP_KERNEL);
- 	if (!smu_table->gpu_metrics_table) {
-@@ -1969,22 +1969,19 @@ static int smu_v13_0_6_get_current_pcie_link_speed(struct smu_context *smu)
- static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table)
- {
- 	struct smu_table_context *smu_table = &smu->smu_table;
--	struct gpu_metrics_v1_3 *gpu_metrics =
--		(struct gpu_metrics_v1_3 *)smu_table->gpu_metrics_table;
-+	struct gpu_metrics_v1_4 *gpu_metrics =
-+		(struct gpu_metrics_v1_4 *)smu_table->gpu_metrics_table;
- 	struct amdgpu_device *adev = smu->adev;
--	int ret = 0, inst0, xcc0;
-+	int ret = 0, xcc_id, inst, i;
- 	MetricsTable_t *metrics;
- 	u16 link_width_level;
- 
--	inst0 = adev->sdma.instance[0].aid_id;
--	xcc0 = GET_INST(GC, 0);
--
- 	metrics = kzalloc(sizeof(MetricsTable_t), GFP_KERNEL);
- 	ret = smu_v13_0_6_get_metrics_table(smu, metrics, true);
- 	if (ret)
- 		return ret;
- 
--	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 3);
-+	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 4);
- 
- 	gpu_metrics->temperature_hotspot =
- 		SMUQ10_ROUND(metrics->MaxSocketTemperature);
-@@ -2000,30 +1997,38 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
- 	gpu_metrics->average_umc_activity =
- 		SMUQ10_ROUND(metrics->DramBandwidthUtilization);
- 
--	gpu_metrics->average_socket_power =
-+	gpu_metrics->curr_socket_power =
- 		SMUQ10_ROUND(metrics->SocketPower);
- 	/* Energy counter reported in 15.259uJ (2^-16) units */
- 	gpu_metrics->energy_accumulator = metrics->SocketEnergyAcc;
- 
--	gpu_metrics->current_gfxclk =
--		SMUQ10_ROUND(metrics->GfxclkFrequency[xcc0]);
--	gpu_metrics->current_socclk =
--		SMUQ10_ROUND(metrics->SocclkFrequency[inst0]);
--	gpu_metrics->current_uclk = SMUQ10_ROUND(metrics->UclkFrequency);
--	gpu_metrics->current_vclk0 =
--		SMUQ10_ROUND(metrics->VclkFrequency[inst0]);
--	gpu_metrics->current_dclk0 =
--		SMUQ10_ROUND(metrics->DclkFrequency[inst0]);
-+	for (i = 0; i < MAX_GFX_CLKS; i++) {
-+		xcc_id = GET_INST(GC, i);
-+		if (xcc_id >= 0)
-+			gpu_metrics->current_gfxclk[i] =
-+				SMUQ10_ROUND(metrics->GfxclkFrequency[xcc_id]);
-+
-+		if (i < MAX_CLKS) {
-+			gpu_metrics->current_socclk[i] =
-+				SMUQ10_ROUND(metrics->SocclkFrequency[i]);
-+			inst = GET_INST(VCN, i);
-+			if (inst >= 0) {
-+				gpu_metrics->current_vclk0[i] =
-+					SMUQ10_ROUND(metrics->VclkFrequency[inst]);
-+				gpu_metrics->current_dclk0[i] =
-+					SMUQ10_ROUND(metrics->DclkFrequency[inst]);
-+			}
-+		}
-+	}
- 
--	gpu_metrics->average_gfxclk_frequency = gpu_metrics->current_gfxclk;
--	gpu_metrics->average_socclk_frequency = gpu_metrics->current_socclk;
--	gpu_metrics->average_uclk_frequency = gpu_metrics->current_uclk;
--	gpu_metrics->average_vclk0_frequency = gpu_metrics->current_vclk0;
--	gpu_metrics->average_dclk0_frequency = gpu_metrics->current_dclk0;
-+	gpu_metrics->current_uclk = SMUQ10_ROUND(metrics->UclkFrequency);
- 
- 	/* Throttle status is not reported through metrics now */
- 	gpu_metrics->throttle_status = 0;
- 
-+	/* Clock Lock Status. Each bit corresponds to each GFXCLK instance */
-+	gpu_metrics->gfxclk_lock_status = metrics->GfxLockXCDMak >> GET_INST(GC, 0);
-+
- 	if (!(adev->flags & AMD_IS_APU)) {
- 		link_width_level = smu_v13_0_6_get_current_pcie_link_width_level(smu);
- 		if (link_width_level > MAX_LINK_WIDTH)
-@@ -2033,6 +2038,10 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
- 			DECODE_LANE_WIDTH(link_width_level);
- 		gpu_metrics->pcie_link_speed =
- 			smu_v13_0_6_get_current_pcie_link_speed(smu);
-+		gpu_metrics->pcie_bandwidth_acc =
-+				SMUQ10_ROUND(metrics->PcieBandwidthAcc[0]);
-+		gpu_metrics->pcie_bandwidth_inst =
-+				SMUQ10_ROUND(metrics->PcieBandwidth[0]);
- 	}
- 
- 	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
-@@ -2042,12 +2051,22 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
- 	gpu_metrics->mem_activity_acc =
- 		SMUQ10_ROUND(metrics->DramBandwidthUtilizationAcc);
- 
-+	for (i = 0; i < NUM_XGMI_LINKS; i++) {
-+		gpu_metrics->xgmi_read_data_acc[i] =
-+			SMUQ10_ROUND(metrics->XgmiReadDataSizeAcc[i]);
-+		gpu_metrics->xgmi_write_data_acc[i] =
-+			SMUQ10_ROUND(metrics->XgmiWriteDataSizeAcc[i]);
-+	}
-+
-+	gpu_metrics->xgmi_link_width = SMUQ10_ROUND(metrics->XgmiWidth);
-+	gpu_metrics->xgmi_link_speed = SMUQ10_ROUND(metrics->XgmiBitrate);
-+
- 	gpu_metrics->firmware_timestamp = metrics->Timestamp;
- 
- 	*table = (void *)gpu_metrics;
- 	kfree(metrics);
- 
--	return sizeof(struct gpu_metrics_v1_3);
-+	return sizeof(*gpu_metrics);
- }
- 
- static int smu_v13_0_6_mode2_reset(struct smu_context *smu)
--- 
-2.42.0
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_discovery.h
+index 3a2f347bd50d..4d03cd5b3410 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h
+@@ -24,7 +24,7 @@
+ #ifndef __AMDGPU_DISCOVERY__
+ #define __AMDGPU_DISCOVERY__
 
+-#define DISCOVERY_TMR_SIZE      (8 << 10)
++#define DISCOVERY_TMR_SIZE      (10 << 10)
+ #define DISCOVERY_TMR_OFFSET    (64 << 10)
+
+ void amdgpu_discovery_fini(struct amdgpu_device *adev);
+--
+2.25.1
+
+
+--_000_BL1PR12MB5144924396C427498B2716D0F7C9ABL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
+style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - General]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Lijo Lazar &lt;lijo.lazar@amd=
+.com&gt;<br>
+<b>Sent:</b> Friday, October 6, 2023 1:00 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhang, Haw=
+king &lt;Hawking.Zhang@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: Increase IP discovery region size</font=
+>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">IP discovery region has increased to &gt; 8K on so=
+me SOCs.Maximum reserve<br>
+size is upto 12K, but not used. For now increase to 10K.<br>
+<br>
+Signed-off-by: Lijo Lazar &lt;lijo.lazar@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h | 2 +-<br>
+&nbsp;1 file changed, 1 insertion(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_discovery.h<br>
+index 3a2f347bd50d..4d03cd5b3410 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h<br>
+@@ -24,7 +24,7 @@<br>
+&nbsp;#ifndef __AMDGPU_DISCOVERY__<br>
+&nbsp;#define __AMDGPU_DISCOVERY__<br>
+&nbsp;<br>
+-#define DISCOVERY_TMR_SIZE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (8 &lt;&lt; 10)<b=
+r>
++#define DISCOVERY_TMR_SIZE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (10 &lt;&lt; 10)<=
+br>
+&nbsp;#define DISCOVERY_TMR_OFFSET&nbsp;&nbsp;&nbsp; (64 &lt;&lt; 10)<br>
+&nbsp;<br>
+&nbsp;void amdgpu_discovery_fini(struct amdgpu_device *adev);<br>
+-- <br>
+2.25.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BL1PR12MB5144924396C427498B2716D0F7C9ABL1PR12MB5144namp_--
