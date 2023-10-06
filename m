@@ -4,88 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8303E92FF8
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Oct 2023 08:51:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1665CE92FFA
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Oct 2023 09:10:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A32210E231;
-	Fri,  6 Oct 2023 08:51:58 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2050.outbound.protection.outlook.com [40.107.243.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C415410E231
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Oct 2023 08:51:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nNIw0/hwis1W/jOJqVoL3xIwfKa1IQm/59ZgZbNp/AWjaCxKQM9abcZ8RMFHPZ4NTjIOEUHIsFDjQpiW94BARrftKrDAWtVZlZcFforFyLiERCh1PDS+9Avf6o35Mr6fMLSI4Uk2CZFjFhV7ZAAJffSHmq2ArA0W+HtVFJJlXy6nmFKPd+K7yVq5X/DtyFKt+haGbspQqxJm2PrvYi9LIpGik2AKHxmTTWpSPaKT0QjTC5Dq7lbY95v3eS4pdvbz7YdIiDFLQMcbrjtRp6ZR1Adhsj5mmteH4dktKrYzwZZbjZ46fCqW30F2qt1GpaDj+zMr479bScF08qXwbV5xvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=03XfYXj1QFcJBSHnK6XQnCDxU24WzjjzvJoLqb461VQ=;
- b=V9qo+MH7VnP/jOhjbRwlo5+F53rpyILvvacE1ugweyEcjD14oqEHLirtQ6BE+9L5LymgUUz7utYP9Y1XakuYrbfMAvkcjfLgT8HoFX7N4uls6FG12DM14S/oM2ug1j8aIGmnnJ1LXwUiN6q35Uvow/8KCgHAnZwWUYNAfIbJPhaDtOfowvEF6ZuRSsao0ag9e3gA15UB8LiZSyJWoZ9kLzGcoMJV0GQI8042fqZoZMXY4jf3w0lmaR7cyaD8ElvVU2qsMY5wdtpR+F/Mvq0UmR4rWS2xEanr8Dr1Nchek6JrS27Yg9qzNTEivwV/hczgK0G4duDX7uzU1akjnGPOBw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=03XfYXj1QFcJBSHnK6XQnCDxU24WzjjzvJoLqb461VQ=;
- b=XvBPK0n1nr5EXWyNc7NR0rM60IriQqktICwC2ZzOhfJ9SXTmYpR93IqgOqJ2wc55m+4jk4vpnJF7PJQRkSUhFd/C7axygciapgLrmUsUst+g4/m6LWUEYeCt0mbdybj3L6tWEgGPBgK5Z5bztx/evMLUib2poYdEBSQ/XKfqYQ4=
-Received: from DM6PR02CA0083.namprd02.prod.outlook.com (2603:10b6:5:1f4::24)
- by DS0PR12MB7828.namprd12.prod.outlook.com (2603:10b6:8:14b::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.35; Fri, 6 Oct
- 2023 08:51:51 +0000
-Received: from CY4PEPF0000EE3E.namprd03.prod.outlook.com
- (2603:10b6:5:1f4:cafe::9f) by DM6PR02CA0083.outlook.office365.com
- (2603:10b6:5:1f4::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.30 via Frontend
- Transport; Fri, 6 Oct 2023 08:51:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE3E.mail.protection.outlook.com (10.167.242.18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.22 via Frontend Transport; Fri, 6 Oct 2023 08:51:50 +0000
-Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 6 Oct
- 2023 03:51:45 -0500
-From: Yifan Zhang <yifan1.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2] drm/amdgpu: add hub->ctx_distance in setup_vmid_config
-Date: Fri, 6 Oct 2023 16:50:59 +0800
-Message-ID: <20231006085059.3269316-1-yifan1.zhang@amd.com>
-X-Mailer: git-send-email 2.37.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80E4C10E1E8;
+	Fri,  6 Oct 2023 09:10:00 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3859C10E1E8
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Oct 2023 09:09:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1696583398;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=cr92X8RrcZBDuxHPt3OLE6tLbx3yBjB901o1qrpUbkA=;
+ b=arSuZG4PvR4/zkYYdzPy6RYBwp166PLAmeC+yESQ9Ehv/jfiLM9MOPQYsOrQAR6tN4+IK7
+ E4LfVTQs/5GQ6Tb+CYB9vzbM8YARYsDkiyTat6m/dBywQRPTPflO4jjvKkCAIlt8+k2MBG
+ F+eDrULxn4rr3chDfGksX0ZiUZkeQ6k=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-145-0VVIA3ckMEq7BNq4_UXocA-1; Fri, 06 Oct 2023 05:09:52 -0400
+X-MC-Unique: 0VVIA3ckMEq7BNq4_UXocA-1
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-3f5df65f9f4so12456345e9.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 06 Oct 2023 02:09:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1696583391; x=1697188191;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cr92X8RrcZBDuxHPt3OLE6tLbx3yBjB901o1qrpUbkA=;
+ b=UOWaWO6EFx3tneDd5srD82idDbWWdxb2KfOg86SDCOCNwP9x/QsNhqOybpm16U2tVn
+ NrN2UbDyvSZaMi+nQjOyLyPhQk0KObAY2ib2WC9WdNQMKJdqYoL6yfG0uEdkSYOWu1mx
+ tp9lEB8VM94u8/S5QauwpDS5aSvdrxZ1gH0KgBDoPE4aIX28egzUAHUa/Lh7ChVkbFDo
+ OL9xFBycILi0Iwt5PD+hh6qDekyJO0ZE7/GC7n9sAMcubatExjfqcDhT4Rbtvdh4QgK+
+ UVVEjMSQZ19ZJwFVHoFJTFbI6puyy1QmdythbISR78YdekDbF2U4BW8w+fbzJNWykevU
+ 2TMw==
+X-Gm-Message-State: AOJu0YybN9NDJ6sdoiox72iFejp+1ZC+tYy26E84tpochmtZ7OmGuhZW
+ SlZ+PTvb5W+34f8Wp13HDGbVZHB/8FnKDQ+YJqgGnIuNWCfF60gFR/StVkPrFepQsCt2pj2SOJo
+ sxzV0C+6EFF3D9VWqJuNpqgK8oA==
+X-Received: by 2002:a05:600c:22cf:b0:401:4542:5edd with SMTP id
+ 15-20020a05600c22cf00b0040145425eddmr7115128wmg.34.1696583391276; 
+ Fri, 06 Oct 2023 02:09:51 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHXLY3L3IdQjrjCNjOXebkXEZrmULAEKmDz3vgFG+mYypBOht2L1/CFKwQyIKCOgyjukMYJiQ==
+X-Received: by 2002:a05:600c:22cf:b0:401:4542:5edd with SMTP id
+ 15-20020a05600c22cf00b0040145425eddmr7115092wmg.34.1696583390821; 
+ Fri, 06 Oct 2023 02:09:50 -0700 (PDT)
+Received: from toolbox ([2001:9e8:89bc:cf00:7c0e:f203:f32:6eaf])
+ by smtp.gmail.com with ESMTPSA id
+ l25-20020a1c7919000000b00405c7591b09sm3270792wme.35.2023.10.06.02.09.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 Oct 2023 02:09:50 -0700 (PDT)
+Date: Fri, 6 Oct 2023 11:09:48 +0200
+From: Sebastian Wick <sebastian.wick@redhat.com>
+To: Melissa Wen <mwen@igalia.com>
+Subject: Re: [PATCH v4 09/32] drm/amd/display: add plane 3D LUT
+ driver-specific properties
+Message-ID: <20231006090948.GA400742@toolbox>
+References: <20231005171527.203657-1-mwen@igalia.com>
+ <20231005171527.203657-10-mwen@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3E:EE_|DS0PR12MB7828:EE_
-X-MS-Office365-Filtering-Correlation-Id: b7ecf20e-dbaa-4010-34a3-08dbc6497b68
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: KMN5WirIcO4kwgRqAkUcEbyhgxR3dPu4e/fXntSdKBBIsNVerqwGXczo6c/DHWGpkE/jwWVqMKU+jYscEsJkF0YlehHxN1wW/JU0AQ4WbdRIzOX4UukzksNK0dnWzVLj1G9cW75gBkRRVaFbrdrxsC/0+6QaFMvLYE9GiWjJ+13cq2IGxlfbQnZT42BoFPLOHLx88x2ZXIQwBgn6dlBy6tvM3apHi5mSLHjAofNembXe+tC/+/tLBVrYzTkJi0PGchPuAzAG0DmLto8TaoIE1U6vjvq9bLpBG6ao6dl4q+h+IO9apeOdb7Ge4PWNgj8w6ivrutjm54HySjEZsksvh5hJeBRaqPPD2sfU+lq72u55SY+4GrwzZr29DAf4zQ8K7k2oo+K1LL+AZR8DwY1M22ncbW6Nh2IHVbYrrN9jSrSkwNsOEnZn+eLHkcCykoV2GNe2HaY3CKDkKR15zJdv0eAthyAMS5RqJX2gsVBj7i9KwZKLvT+VRSF3oys5OJEM7idMtbvjRrPAWdP8+K2fLWwUR0TZafq/J42V3sd1MRs0vPOP44YFrNpfV2jNVbmmVON6Wm7kAKne6SigKvL7B98JKvAHqEhY2635D3hFlYKJgRhLwnI/C6CN7gwCKSfYtcbQzlXRktHyZnkY7zygfab/LWMROFpmy+524hkTKeqHBkkqaH8PKn/S/w9wF1mC18OjE9rFUht3Lz7GoNjnk6EAPIZywXYCU7mP/U5tkO2we1z+RlOdTT0CdRX4q9cYAqEC4/qYe/QYziZAqs4nvw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(136003)(396003)(376002)(346002)(230922051799003)(1800799009)(186009)(82310400011)(451199024)(64100799003)(46966006)(36840700001)(40470700004)(16526019)(6666004)(7696005)(83380400001)(2616005)(478600001)(1076003)(336012)(2906002)(426003)(26005)(5660300002)(41300700001)(70206006)(54906003)(6916009)(70586007)(36756003)(8936002)(316002)(4326008)(8676002)(47076005)(30864003)(81166007)(356005)(82740400003)(86362001)(36860700001)(40480700001)(40460700003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2023 08:51:50.7302 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7ecf20e-dbaa-4010-34a3-08dbc6497b68
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3E.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7828
+In-Reply-To: <20231005171527.203657-10-mwen@igalia.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,260 +82,196 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Yifan Zhang <yifan1.zhang@amd.com>,
- christian.koenig@amd.com
+Cc: Pekka Paalanen <pekka.paalanen@collabora.com>, kernel-dev@igalia.com,
+ Shashank Sharma <Shashank.Sharma@amd.com>, sunpeng.li@amd.com,
+ airlied@gmail.com, Xinhui.Pan@amd.com,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Xaver Hugl <xaver.hugl@gmail.com>,
+ dri-devel@lists.freedesktop.org,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Alex Hung <alex.hung@amd.com>, amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
+ Simon Ser <contact@emersion.fr>, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, christian.koenig@amd.com,
+ Joshua Ashton <joshua@froggi.es>, sungjoon.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-add hub->ctx_distance when read CONTEXT1_CNTL, align w/
-write back operation.
+On Thu, Oct 05, 2023 at 04:15:04PM -0100, Melissa Wen wrote:
+> Add 3D LUT property for plane color transformations using a 3D lookup
+> table. 3D LUT allows for highly accurate and complex color
+> transformations and is suitable to adjust the balance between color
+> channels. It's also more complex to manage and require more
+> computational resources.
+> 
+> Since a 3D LUT has a limited number of entries in each dimension we want
+> to use them in an optimal fashion. This means using the 3D LUT in a
+> colorspace that is optimized for human vision, such as sRGB, PQ, or
+> another non-linear space. Therefore, userpace may need one 1D LUT
+> (shaper) before it to delinearize content and another 1D LUT after 3D
+> LUT (blend) to linearize content again for blending. The next patches
+> add these 1D LUTs to the plane color mgmt pipeline.
+> 
+> v3:
+> - improve commit message about 3D LUT
+> - describe the 3D LUT entries and size (Harry)
+> 
+> v4:
+> - advertise 3D LUT max size as the size of a single-dimension
+> 
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      | 18 +++++++++++++++
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  9 ++++++++
+>  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 14 +++++++++++
+>  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 23 +++++++++++++++++++
+>  4 files changed, 64 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> index 62044d41da75..f7adaa52c23f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> @@ -363,6 +363,24 @@ struct amdgpu_mode_info {
+>  	 * @plane_hdr_mult_property:
+>  	 */
+>  	struct drm_property *plane_hdr_mult_property;
+> +	/**
+> +	 * @plane_lut3d_property: Plane property for color transformation using
+> +	 * a 3D LUT (pre-blending), a three-dimensional array where each
+> +	 * element is an RGB triplet. Each dimension has a size of the cubed
+> +	 * root of lut3d_size. The array contains samples from the approximated
 
-v2: fix coding style errors reported by checkpatch.pl (Christian)
+This should be "Each dimension has a size of lut3d_size" now.
 
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
-Acked-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c    | 2 +-
- drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c    | 3 ++-
- drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c    | 2 +-
- drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c    | 2 +-
- drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c    | 2 +-
- drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c     | 2 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c     | 2 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c     | 2 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c     | 2 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c     | 2 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c     | 2 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c   | 2 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c   | 2 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c     | 2 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c     | 2 +-
- 17 files changed, 18 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c
-index bcb6ba03cead..f9949fedfbb9 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c
-@@ -297,7 +297,7 @@ static void gfxhub_v11_5_0_setup_vmid_config(struct amdgpu_device *adev)
- 	uint32_t tmp;
- 
- 	for (i = 0; i <= 14; i++) {
--		tmp = RREG32_SOC15_OFFSET(GC, 0, regGCVM_CONTEXT1_CNTL, i);
-+		tmp = RREG32_SOC15_OFFSET(GC, 0, regGCVM_CONTEXT1_CNTL, i * hub->ctx_distance);
- 		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL, ENABLE_CONTEXT, 1);
- 		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL, PAGE_TABLE_DEPTH,
- 				    adev->vm_manager.num_level);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-index cdc290a474a9..53a2ba5fcf4b 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-@@ -260,7 +260,7 @@ static void gfxhub_v1_0_setup_vmid_config(struct amdgpu_device *adev)
- 		block_size -= 9;
- 
- 	for (i = 0; i <= 14; i++) {
--		tmp = RREG32_SOC15_OFFSET(GC, 0, mmVM_CONTEXT1_CNTL, i);
-+		tmp = RREG32_SOC15_OFFSET(GC, 0, mmVM_CONTEXT1_CNTL, i * hub->ctx_distance);
- 		tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL, ENABLE_CONTEXT, 1);
- 		tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL, PAGE_TABLE_DEPTH,
- 				    num_level);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-index ff60670b8464..55423ff1bb49 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-@@ -329,7 +329,8 @@ static void gfxhub_v1_2_xcc_setup_vmid_config(struct amdgpu_device *adev,
- 	for_each_inst(j, xcc_mask) {
- 		hub = &adev->vmhub[AMDGPU_GFXHUB(j)];
- 		for (i = 0; i <= 14; i++) {
--			tmp = RREG32_SOC15_OFFSET(GC, GET_INST(GC, j), regVM_CONTEXT1_CNTL, i);
-+			tmp = RREG32_SOC15_OFFSET(GC, GET_INST(GC, j), regVM_CONTEXT1_CNTL,
-+					i * hub->ctx_distance);
- 			tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL, ENABLE_CONTEXT, 1);
- 			tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL, PAGE_TABLE_DEPTH,
- 					    num_level);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-index 8521c45e8f38..793faf62cb07 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-@@ -287,7 +287,7 @@ static void gfxhub_v2_0_setup_vmid_config(struct amdgpu_device *adev)
- 	uint32_t tmp;
- 
- 	for (i = 0; i <= 14; i++) {
--		tmp = RREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_CNTL, i);
-+		tmp = RREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_CNTL, i * hub->ctx_distance);
- 		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL, ENABLE_CONTEXT, 1);
- 		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL, PAGE_TABLE_DEPTH,
- 				    adev->vm_manager.num_level);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-index f829c441640a..cd0e8a321e46 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-@@ -296,7 +296,7 @@ static void gfxhub_v2_1_setup_vmid_config(struct amdgpu_device *adev)
- 	uint32_t tmp;
- 
- 	for (i = 0; i <= 14; i++) {
--		tmp = RREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_CNTL, i);
-+		tmp = RREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_CNTL, i * hub->ctx_distance);
- 		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL, ENABLE_CONTEXT, 1);
- 		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL, PAGE_TABLE_DEPTH,
- 				    adev->vm_manager.num_level);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c
-index 89ff7910cb0f..abe30c8bd2ba 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c
-@@ -294,7 +294,7 @@ static void gfxhub_v3_0_setup_vmid_config(struct amdgpu_device *adev)
- 	uint32_t tmp;
- 
- 	for (i = 0; i <= 14; i++) {
--		tmp = RREG32_SOC15_OFFSET(GC, 0, regGCVM_CONTEXT1_CNTL, i);
-+		tmp = RREG32_SOC15_OFFSET(GC, 0, regGCVM_CONTEXT1_CNTL, i * hub->ctx_distance);
- 		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL, ENABLE_CONTEXT, 1);
- 		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL, PAGE_TABLE_DEPTH,
- 				    adev->vm_manager.num_level);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c
-index be1da5927910..b3ef6e71811f 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c
-@@ -299,7 +299,7 @@ static void gfxhub_v3_0_3_setup_vmid_config(struct amdgpu_device *adev)
- 	uint32_t tmp;
- 
- 	for (i = 0; i <= 14; i++) {
--		tmp = RREG32_SOC15_OFFSET(GC, 0, regGCVM_CONTEXT1_CNTL, i);
-+		tmp = RREG32_SOC15_OFFSET(GC, 0, regGCVM_CONTEXT1_CNTL, i * hub->ctx_distance);
- 		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL, ENABLE_CONTEXT, 1);
- 		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL, PAGE_TABLE_DEPTH,
- 				    adev->vm_manager.num_level);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-index fb91b31056ca..843219a91736 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-@@ -242,7 +242,7 @@ static void mmhub_v1_0_setup_vmid_config(struct amdgpu_device *adev)
- 		block_size -= 9;
- 
- 	for (i = 0; i <= 14; i++) {
--		tmp = RREG32_SOC15_OFFSET(MMHUB, 0, mmVM_CONTEXT1_CNTL, i);
-+		tmp = RREG32_SOC15_OFFSET(MMHUB, 0, mmVM_CONTEXT1_CNTL, i * hub->ctx_distance);
- 		tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL, ENABLE_CONTEXT, 1);
- 		tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL, PAGE_TABLE_DEPTH,
- 				    num_level);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
-index 9086f2fdfaf4..92432cd2c0c7 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
-@@ -274,7 +274,7 @@ static void mmhub_v1_7_setup_vmid_config(struct amdgpu_device *adev)
- 		block_size -= 9;
- 
- 	for (i = 0; i <= 14; i++) {
--		tmp = RREG32_SOC15_OFFSET(MMHUB, 0, regVM_CONTEXT1_CNTL, i);
-+		tmp = RREG32_SOC15_OFFSET(MMHUB, 0, regVM_CONTEXT1_CNTL, i * hub->ctx_distance);
- 		tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL, ENABLE_CONTEXT, 1);
- 		tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL, PAGE_TABLE_DEPTH,
- 				    num_level);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-index 784c4e077470..2c0419faf8d4 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-@@ -344,7 +344,7 @@ static void mmhub_v1_8_setup_vmid_config(struct amdgpu_device *adev)
- 		hub = &adev->vmhub[AMDGPU_MMHUB0(j)];
- 		for (i = 0; i <= 14; i++) {
- 			tmp = RREG32_SOC15_OFFSET(MMHUB, j, regVM_CONTEXT1_CNTL,
--						  i);
-+						  i * hub->ctx_distance);
- 			tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
- 					    ENABLE_CONTEXT, 1);
- 			tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-index 37458f906980..02fd45261399 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-@@ -367,7 +367,7 @@ static void mmhub_v2_0_setup_vmid_config(struct amdgpu_device *adev)
- 	uint32_t tmp;
- 
- 	for (i = 0; i <= 14; i++) {
--		tmp = RREG32_SOC15_OFFSET(MMHUB, 0, mmMMVM_CONTEXT1_CNTL, i);
-+		tmp = RREG32_SOC15_OFFSET(MMHUB, 0, mmMMVM_CONTEXT1_CNTL, i * hub->ctx_distance);
- 		tmp = REG_SET_FIELD(tmp, MMVM_CONTEXT1_CNTL, ENABLE_CONTEXT, 1);
- 		tmp = REG_SET_FIELD(tmp, MMVM_CONTEXT1_CNTL, PAGE_TABLE_DEPTH,
- 				    adev->vm_manager.num_level);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-index 4ddd9448e2bc..5eb8122e2746 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-@@ -285,7 +285,7 @@ static void mmhub_v2_3_setup_vmid_config(struct amdgpu_device *adev)
- 	uint32_t tmp;
- 
- 	for (i = 0; i <= 14; i++) {
--		tmp = RREG32_SOC15_OFFSET(MMHUB, 0, mmMMVM_CONTEXT1_CNTL, i);
-+		tmp = RREG32_SOC15_OFFSET(MMHUB, 0, mmMMVM_CONTEXT1_CNTL, i * hub->ctx_distance);
- 		tmp = REG_SET_FIELD(tmp, MMVM_CONTEXT1_CNTL, ENABLE_CONTEXT, 1);
- 		tmp = REG_SET_FIELD(tmp, MMVM_CONTEXT1_CNTL, PAGE_TABLE_DEPTH,
- 				    adev->vm_manager.num_level);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c
-index 9627df8b194b..7d5242df58a5 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c
-@@ -323,7 +323,7 @@ static void mmhub_v3_0_setup_vmid_config(struct amdgpu_device *adev)
- 	uint32_t tmp;
- 
- 	for (i = 0; i <= 14; i++) {
--		tmp = RREG32_SOC15_OFFSET(MMHUB, 0, regMMVM_CONTEXT1_CNTL, i);
-+		tmp = RREG32_SOC15_OFFSET(MMHUB, 0, regMMVM_CONTEXT1_CNTL, i * hub->ctx_distance);
- 		tmp = REG_SET_FIELD(tmp, MMVM_CONTEXT1_CNTL, ENABLE_CONTEXT, 1);
- 		tmp = REG_SET_FIELD(tmp, MMVM_CONTEXT1_CNTL, PAGE_TABLE_DEPTH,
- 				    adev->vm_manager.num_level);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c
-index 77bff803b452..134c4ec10887 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c
-@@ -310,7 +310,7 @@ static void mmhub_v3_0_1_setup_vmid_config(struct amdgpu_device *adev)
- 	uint32_t tmp;
- 
- 	for (i = 0; i <= 14; i++) {
--		tmp = RREG32_SOC15_OFFSET(MMHUB, 0, regMMVM_CONTEXT1_CNTL, i);
-+		tmp = RREG32_SOC15_OFFSET(MMHUB, 0, regMMVM_CONTEXT1_CNTL, i * hub->ctx_distance);
- 		tmp = REG_SET_FIELD(tmp, MMVM_CONTEXT1_CNTL, ENABLE_CONTEXT, 1);
- 		tmp = REG_SET_FIELD(tmp, MMVM_CONTEXT1_CNTL, PAGE_TABLE_DEPTH,
- 				    adev->vm_manager.num_level);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c
-index d1fc9dce7151..f0f182f033b9 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c
-@@ -315,7 +315,7 @@ static void mmhub_v3_0_2_setup_vmid_config(struct amdgpu_device *adev)
- 	uint32_t tmp;
- 
- 	for (i = 0; i <= 14; i++) {
--		tmp = RREG32_SOC15_OFFSET(MMHUB, 0, regMMVM_CONTEXT1_CNTL, i);
-+		tmp = RREG32_SOC15_OFFSET(MMHUB, 0, regMMVM_CONTEXT1_CNTL, i * hub->ctx_distance);
- 		tmp = REG_SET_FIELD(tmp, MMVM_CONTEXT1_CNTL, ENABLE_CONTEXT, 1);
- 		tmp = REG_SET_FIELD(tmp, MMVM_CONTEXT1_CNTL, PAGE_TABLE_DEPTH,
- 				    adev->vm_manager.num_level);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c
-index 3d80a184ce6b..76b12f015d1d 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c
-@@ -303,7 +303,7 @@ static void mmhub_v3_3_setup_vmid_config(struct amdgpu_device *adev)
- 	uint32_t tmp;
- 
- 	for (i = 0; i <= 14; i++) {
--		tmp = RREG32_SOC15_OFFSET(MMHUB, 0, regMMVM_CONTEXT1_CNTL, i);
-+		tmp = RREG32_SOC15_OFFSET(MMHUB, 0, regMMVM_CONTEXT1_CNTL, i * hub->ctx_distance);
- 		tmp = REG_SET_FIELD(tmp, MMVM_CONTEXT1_CNTL, ENABLE_CONTEXT, 1);
- 		tmp = REG_SET_FIELD(tmp, MMVM_CONTEXT1_CNTL, PAGE_TABLE_DEPTH,
- 				    adev->vm_manager.num_level);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
-index 5718e4d40e66..1b7da4aff2b8 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
-@@ -308,7 +308,7 @@ static void mmhub_v9_4_setup_vmid_config(struct amdgpu_device *adev, int hubid)
- 
- 	for (i = 0; i <= 14; i++) {
- 		tmp = RREG32_SOC15_OFFSET(MMHUB, 0, mmVML2VC0_VM_CONTEXT1_CNTL,
--				hubid * MMHUB_INSTANCE_REGISTER_OFFSET + i);
-+				hubid * MMHUB_INSTANCE_REGISTER_OFFSET + i * hub->ctx_distance);
- 		tmp = REG_SET_FIELD(tmp, VML2VC0_VM_CONTEXT1_CNTL,
- 				    ENABLE_CONTEXT, 1);
- 		tmp = REG_SET_FIELD(tmp, VML2VC0_VM_CONTEXT1_CNTL,
--- 
-2.37.3
+> +	 * function. On AMD, values between samples are estimated by
+> +	 * tetrahedral interpolation. The array is accessed with three indices,
+> +	 * one for each input dimension (color channel), blue being the
+> +	 * outermost dimension, red the innermost.
+> +	 */
+> +	struct drm_property *plane_lut3d_property;
+> +	/**
+> +	 * @plane_degamma_lut_size_property: Plane property to define the max
+> +	 * size of 3D LUT as supported by the driver (read-only). The max size
+> +	 * is the max size of one dimension and, therefore, the max number of
+> +	 * entries for 3D LUT array is the 3D LUT size cubed;
+> +	 */
+> +	struct drm_property *plane_lut3d_size_property;
+>  };
+>  
+>  #define AMDGPU_MAX_BL_LEVEL 0xFF
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> index bb2ce843369d..7a2350c62cf1 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> @@ -784,6 +784,11 @@ struct dm_plane_state {
+>  	 * TF is needed for any subsequent linear-to-non-linear transforms.
+>  	 */
+>  	__u64 hdr_mult;
+> +	/**
+> +	 * @lut3d: 3D lookup table blob. The blob (if not NULL) is an array of
+> +	 * &struct drm_color_lut.
+> +	 */
+> +	struct drm_property_blob *lut3d;
+>  };
+>  
+>  struct dm_crtc_state {
+> @@ -869,6 +874,10 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+>  
+>  void amdgpu_dm_trigger_timing_sync(struct drm_device *dev);
+>  
+> +/* 3D LUT max size is 17x17x17 (4913 entries) */
+> +#define MAX_COLOR_3DLUT_SIZE 17
+> +#define MAX_COLOR_3DLUT_BITDEPTH 12
+> +/* 1D LUT size */
+>  #define MAX_COLOR_LUT_ENTRIES 4096
+>  /* Legacy gamm LUT users such as X doesn't like large LUT sizes */
+>  #define MAX_COLOR_LEGACY_LUT_ENTRIES 256
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> index caf49a044ab4..011f2f9ec890 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> @@ -230,6 +230,20 @@ amdgpu_dm_create_color_properties(struct amdgpu_device *adev)
+>  		return -ENOMEM;
+>  	adev->mode_info.plane_hdr_mult_property = prop;
+>  
+> +	prop = drm_property_create(adev_to_drm(adev),
+> +				   DRM_MODE_PROP_BLOB,
+> +				   "AMD_PLANE_LUT3D", 0);
+> +	if (!prop)
+> +		return -ENOMEM;
+> +	adev->mode_info.plane_lut3d_property = prop;
+> +
+> +	prop = drm_property_create_range(adev_to_drm(adev),
+> +					 DRM_MODE_PROP_IMMUTABLE,
+> +					 "AMD_PLANE_LUT3D_SIZE", 0, UINT_MAX);
+> +	if (!prop)
+> +		return -ENOMEM;
+> +	adev->mode_info.plane_lut3d_size_property = prop;
+> +
+>  	return 0;
+>  }
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> index ae64d4b73360..068798ffdd56 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> @@ -1359,6 +1359,8 @@ dm_drm_plane_duplicate_state(struct drm_plane *plane)
+>  
+>  	if (dm_plane_state->degamma_lut)
+>  		drm_property_blob_get(dm_plane_state->degamma_lut);
+> +	if (dm_plane_state->lut3d)
+> +		drm_property_blob_get(dm_plane_state->lut3d);
+>  
+>  	dm_plane_state->degamma_tf = old_dm_plane_state->degamma_tf;
+>  	dm_plane_state->hdr_mult = old_dm_plane_state->hdr_mult;
+> @@ -1432,6 +1434,8 @@ static void dm_drm_plane_destroy_state(struct drm_plane *plane,
+>  
+>  	if (dm_plane_state->degamma_lut)
+>  		drm_property_blob_put(dm_plane_state->degamma_lut);
+> +	if (dm_plane_state->lut3d)
+> +		drm_property_blob_put(dm_plane_state->lut3d);
+>  
+>  	if (dm_plane_state->dc_state)
+>  		dc_plane_state_release(dm_plane_state->dc_state);
+> @@ -1462,6 +1466,14 @@ dm_atomic_plane_attach_color_mgmt_properties(struct amdgpu_display_manager *dm,
+>  	drm_object_attach_property(&plane->base,
+>  				   dm->adev->mode_info.plane_hdr_mult_property,
+>  				   AMDGPU_HDR_MULT_DEFAULT);
+> +
+> +	if (dpp_color_caps.hw_3d_lut) {
+> +		drm_object_attach_property(&plane->base,
+> +					   mode_info.plane_lut3d_property, 0);
+> +		drm_object_attach_property(&plane->base,
+> +					   mode_info.plane_lut3d_size_property,
+> +					   MAX_COLOR_3DLUT_SIZE);
+> +	}
+>  }
+>  
+>  static int
+> @@ -1493,6 +1505,14 @@ dm_atomic_plane_set_property(struct drm_plane *plane,
+>  			dm_plane_state->hdr_mult = val;
+>  			dm_plane_state->base.color_mgmt_changed = 1;
+>  		}
+> +	} else if (property == adev->mode_info.plane_lut3d_property) {
+> +		ret = drm_property_replace_blob_from_id(plane->dev,
+> +							&dm_plane_state->lut3d,
+> +							val, -1,
+> +							sizeof(struct drm_color_lut),
+> +							&replaced);
+> +		dm_plane_state->base.color_mgmt_changed |= replaced;
+> +		return ret;
+>  	} else {
+>  		drm_dbg_atomic(plane->dev,
+>  			       "[PLANE:%d:%s] unknown property [PROP:%d:%s]]\n",
+> @@ -1520,6 +1540,9 @@ dm_atomic_plane_get_property(struct drm_plane *plane,
+>  		*val = dm_plane_state->degamma_tf;
+>  	} else if (property == adev->mode_info.plane_hdr_mult_property) {
+>  		*val = dm_plane_state->hdr_mult;
+> +	} else 	if (property == adev->mode_info.plane_lut3d_property) {
+> +		*val = (dm_plane_state->lut3d) ?
+> +			dm_plane_state->lut3d->base.id : 0;
+>  	} else {
+>  		return -EINVAL;
+>  	}
+> -- 
+> 2.40.1
+> 
 
