@@ -4,73 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D823E92FF9
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Oct 2023 09:28:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBF3EE92FF9
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Oct 2023 09:34:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0115810E09C;
-	Fri,  6 Oct 2023 09:28:44 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 214D710E09C
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Oct 2023 09:28:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1696584521;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=iqqrtgRGYVlX1KEa+4E1PTkE/wpFbYecOE/W+JuRQOY=;
- b=UAnpr7hExqRvcYhTCyzQV5bEJFWQmKnX/Nv+13rmehUDU4RJGQnujEhYdY6tOAZkQY77Qt
- KU504o2wEXTN0RKKFzdCOzU7y4bdMRnaAouSir1UmWWmroh6ilaCjUqAyngqUfHy0mhtqX
- WVaeSQH5EsztaAphXVuGZqCb7y3ife8=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-33-fTi6hhJ_Ph2Wl_1ndJTnsA-1; Fri, 06 Oct 2023 05:28:29 -0400
-X-MC-Unique: fTi6hhJ_Ph2Wl_1ndJTnsA-1
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-3217fdf913dso1444972f8f.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 06 Oct 2023 02:28:29 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696584508; x=1697189308;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=iqqrtgRGYVlX1KEa+4E1PTkE/wpFbYecOE/W+JuRQOY=;
- b=D3qH57SHopOTY6GvNgq+2Kfmb2rB5RI+SmNI+ohJNTJh1hEzbVz3harSoEh5Ez4x2t
- bsj0eV3C0MQ4slupY871sblHNDncaQw4/PJvRlLpo3n9oHFbfgqBHy9UJzoFwBnByB73
- RmR9UgFo+n1gZ9PDqpVDgLD3s2dwgUahUhIt2vZJAYyob8orQupVO1WmpIJUAzsrluWK
- xjC98xj4+ozZCP3ZX4eSYVlSapK8O4qOrUO+VYZPLQpZEIlXqmTxdLO9w9jEKPYkK5vE
- RkIX1GkYzNbjVyNK93pQ0iSt3u5pKGv42Bs8Zqy1J6DHihiGsRSNrhxsNDZlJ0aLfnV1
- qYoQ==
-X-Gm-Message-State: AOJu0YzI4esY6hri+1yLWY7jjuWikun3qKljeHChCHh64XdGrSKnJfLW
- I0m1PP4QjSswtGjaiHyNUx7k6sGy4lkX3XgHkjj+LWbfNohYu32PJCNcx3WQtN8gS8Tpt2dcIU5
- /pjzlAZgmkOHJV0U2fZpLYZrXfQ==
-X-Received: by 2002:a5d:560a:0:b0:31a:e3ad:f30e with SMTP id
- l10-20020a5d560a000000b0031ae3adf30emr7094099wrv.68.1696584508344; 
- Fri, 06 Oct 2023 02:28:28 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFMy76tdDBITQIMrlIRqBraXQBUwDmvF+SAE/DAdqnkDwn+/UlJvPLZlX8meMUQq9woUpIqqQ==
-X-Received: by 2002:a5d:560a:0:b0:31a:e3ad:f30e with SMTP id
- l10-20020a5d560a000000b0031ae3adf30emr7094081wrv.68.1696584507952; 
- Fri, 06 Oct 2023 02:28:27 -0700 (PDT)
-Received: from toolbox ([2001:9e8:89bc:cf00:7c0e:f203:f32:6eaf])
- by smtp.gmail.com with ESMTPSA id
- w15-20020adfcd0f000000b0030647449730sm1199337wrm.74.2023.10.06.02.28.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Oct 2023 02:28:27 -0700 (PDT)
-Date: Fri, 6 Oct 2023 11:28:25 +0200
-From: Sebastian Wick <sebastian.wick@redhat.com>
-To: Melissa Wen <mwen@igalia.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [PATCH v4 00/32] drm/amd/display: add AMD driver-specific
- properties for color mgmt
-Message-ID: <20231006092825.GB400742@toolbox>
-References: <20231005171527.203657-1-mwen@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 505B610E0A5;
+	Fri,  6 Oct 2023 09:34:30 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2053.outbound.protection.outlook.com [40.107.93.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE70E10E06B
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Oct 2023 09:34:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PrVmTEZXc87IgyfL5gGPB7b7UK1RkAh90OurAD+J6qYnsi4ChOuLwRa/vgVfLS+4XnwPA3ArAkYvqcdXxi/Bax7my9kchgrNRd1+enIjmphMP8npb1j0PajFlscyE09KwWsjBt69MMVxRBBuTZMkGDT2u0xhXeSRfTlkEIjeVrfs1qZZbtt7znR0auQMvhEk3jAHL6GZb8YRarhtrR++BZCd6oVeYOy6MLzCB3wuSzgQNpeI09J0g/+65UZh5WTDRi9AW1FnhjXhBb4jZ0i8rSMadj6I0m5BHCZWEPPUYFhkERXkkjYaavH5AnItHwvmUbzBgsFpBYI6P5ctzNa4pw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ylStLcg+Zo/pncqWJqCszkdteEsBUpFc9MNj65xNqa8=;
+ b=EoNWoDVU2Bitw0zHHGiyQ1dJm4Hd6GkwK0FIvTv2eyJmJM/NflGodEnYMmK3Ru9wRuJf997uA2GFh+ueJISPvLigCEZewc1sh0xWAGY1/dc4GoYNnUCu//jYR7/q7gYjz+xgs2XorApwA8yAzinKl9ZKPQUdsqhJBzRJB52kFSxFE7g98ndNrTmUBst86ALa4T0LQnFHoYWfv6mFDVkFpNgv4+RnX9vWWG83TQw6qn9NlL8HSK5gT6hcjsqK7GFNxRx725W9JaHWUJnMPvZpQvw9qyP8fexooT0w9M9AwLDWN7QWeYxoAfXmceVTKzU0VEselQf+dv/abQiTUf5GOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ylStLcg+Zo/pncqWJqCszkdteEsBUpFc9MNj65xNqa8=;
+ b=laY4qHn+1rHhYMuHsaQI5JjnNihqVPudQVDSa0dY6iAzlIdVq5knnSDYtvRWKP89ntZVGdNX0sVAOHf+2fI7K+IelLEKD0I2m31maL9jSo/LStSEKUjuZWE2554mAVkSoUwnEcMbo4EN8uEpUWjw9VFBcKCn2rHM1Ln2hI8RJCc=
+Received: from MW4PR04CA0075.namprd04.prod.outlook.com (2603:10b6:303:6b::20)
+ by SJ0PR12MB8089.namprd12.prod.outlook.com (2603:10b6:a03:4eb::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.34; Fri, 6 Oct
+ 2023 09:34:22 +0000
+Received: from CO1PEPF000044EE.namprd05.prod.outlook.com
+ (2603:10b6:303:6b:cafe::62) by MW4PR04CA0075.outlook.office365.com
+ (2603:10b6:303:6b::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.34 via Frontend
+ Transport; Fri, 6 Oct 2023 09:34:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000044EE.mail.protection.outlook.com (10.167.241.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6838.14 via Frontend Transport; Fri, 6 Oct 2023 09:34:22 +0000
+Received: from amd-mlse-mangesh.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 6 Oct
+ 2023 04:34:18 -0500
+From: Mangesh Gadre <Mangesh.Gadre@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Hawking.Zhang@amd.com>, <Le.Ma@amd.com>, 
+ <shiwu.zhang@amd.com>, <Asad.Kamal@amd.com>
+Subject: [PATCH] drm/amdgpu:common ta binary handling
+Date: Fri, 6 Oct 2023 17:33:42 +0800
+Message-ID: <20231006093342.3902490-1-Mangesh.Gadre@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-In-Reply-To: <20231005171527.203657-1-mwen@igalia.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044EE:EE_|SJ0PR12MB8089:EE_
+X-MS-Office365-Filtering-Correlation-Id: cd43dd6d-a4d1-4728-90dc-08dbc64f6c2e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: zrhplaekvrU6nmMu5p2lQi8U1hxrR4uF6G/GTCslLc3y+Knv94KXEWm3DaMpIKbNeCxiObfCYH/zHh5diFnEuf/nhisc4Q1mfFX/tDZLhSfWB4tndc4xQ5E4jCBexNTtkWfzopoNye6CrKGmRdvbIjJa5sCt9poyuwMaleTajybD0t+o10N95vO5wn3zVKa63OPRaDFZ5Dbq+Q3lM/ryDDL6ZSs01Qhn7iDlfETmEnTNYxoxauwDAqFHKXUd5mXm3CvFSxAegD+4bOZVF5M1Dw4Bmc/c3CBk5PiXwxc/dGxd2qY3nZNUOU1Q7ZmquB9I4HBhRtNeFW4OscIlmGsGOcvp6/xLqHrlJva8iGAOfghd4+wLhrg0L/tmzO4g/Pxju5Zk4WjTBBAX5KkRvquRQCY4kT/4f0udjMK6d7mgURiIJlczqwLTW3FPWE9LAiUMNPuXDFm9UpH/Kux6hoFGdZi3AXodGfWbtx41fE8o/wOyYU4JXIfkahoSEjwYT4bL6uw/Bo4i2NnDFgUxo0fPjs0Ng7EosURuzdCC9Ks9ONFtloRJJ7AtSBVcdkF6ZJez4QkPcTscVv+q8BsT4/a6j0ETbgLZwG9ESyF03hETb/4evjj5HGM+gnARDYCEfzf4HwF8WHgs2RRE4DVkau+5c0lazKm4ej8hGp9LFld78XcG+RjxVKibqm7A92dgg4sXitGuzjcyODZVY1lZIBPeqI8BeaMnvZJyFnVDriUt3B3gPOgOVKrsroir/60Z6oUERibBH9pv5PpaiHJJKV+luw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(396003)(136003)(39860400002)(346002)(376002)(230922051799003)(64100799003)(186009)(1800799009)(82310400011)(451199024)(40470700004)(46966006)(36840700001)(81166007)(82740400003)(356005)(40480700001)(36756003)(336012)(16526019)(41300700001)(70586007)(26005)(2616005)(426003)(70206006)(1076003)(316002)(110136005)(40460700003)(6636002)(6666004)(478600001)(7696005)(54906003)(5660300002)(36860700001)(47076005)(2906002)(86362001)(8936002)(8676002)(4326008)(83380400001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2023 09:34:22.1201 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cd43dd6d-a4d1-4728-90dc-08dbc64f6c2e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044EE.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8089
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,231 +98,193 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: liviu.dudau@arm.com, dri-devel@lists.freedesktop.org, airlied@gmail.com,
- brian.starkey@arm.com, Shashank Sharma <Shashank.Sharma@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- kernel-dev@igalia.com, daniel@ffwll.ch, sunpeng.li@amd.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, sungjoon.kim@amd.com,
- Pekka Paalanen <pekka.paalanen@collabora.com>, Simon Ser <contact@emersion.fr>,
- Xinhui.Pan@amd.com, Xaver Hugl <xaver.hugl@gmail.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, tzimmermann@suse.de,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
- Joshua Ashton <joshua@froggi.es>
+Cc: Mangesh Gadre <Mangesh.Gadre@amd.com>, Lijo Lazar <lijo.lazar@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 05, 2023 at 04:14:55PM -0100, Melissa Wen wrote:
-> Hello,
-> 
-> Just another iteration for AMD driver-specific color properties.
-> Basically, addressing comments from the previous version.
-> 
-> Recap: this series extends the current KMS color management API with AMD
-> driver-specific properties to enhance the color management support on
-> AMD Steam Deck. The key additions to the color pipeline include:
+Support handling common TA binary for dGPUs and APUs
 
-Did you talk with the maintainers about this already? The last few times
-driver specific properties, and even kind of generic plane properties
-with a fixed position in the pipeline were proposed they were all
-NAKed. Just putting them behind a define doesn't sound great and I don't
-think there is any precedence for allowing this in. This is basically
-just more burden for upstream without any benefits for upstream.
+Signed-off-by: Mangesh Gadre <Mangesh.Gadre@amd.com>
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c   | 85 ++++++++++++++++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h | 16 +++++
+ 2 files changed, 90 insertions(+), 11 deletions(-)
 
-Maybe you can separate the uAPI changes from the internal improvements
-to land at least parts of this faster.
-
-> - plane degamma LUT and pre-defined TF;
-> - plane HDR multiplier;
-> - plane CTM 3x4;
-> - plane shaper LUT and pre-defined TF;
-> - plane 3D LUT;
-> - plane blend LUT and pre-defined TF;
-> - CRTC gamma pre-defined TF;
-> 
-> You can find the AMD HW color capabilities documented here:
-> https://dri.freedesktop.org/docs/drm/gpu/amdgpu/display/display-manager.html#color-management-properties
-> 
-> The userspace case is Gamescope[1], the compositor for SteamOS.
-> Gamescope has already adopted AMD driver-specific properties to
-> implement comprehensive color management support, including gamut
-> mapping, HDR rendering, SDR on HDR, HDR on SDR. Using these features in
-> the SteamOS 3.5[2] users can expect a significantly enhanced visual
-> experience. 
-> 
-> You can find a brief overview of the Steam Deck color pipeline here:
-> https://github.com/ValveSoftware/gamescope/blob/master/src/docs/Steam%20Deck%20Display%20Pipeline.png
-> 
-> Changes from:
-> 
-> [RFC] https://lore.kernel.org/dri-devel/20230423141051.702990-1-mwen@igalia.com
-> - Remove KConfig and guard properties with `AMD_PRIVATE_COLOR`;
-> - Remove properties for post-blending/CRTC shaper TF+LUT and 3D LUT;
-> - Use color caps to improve the support of pre-defined curve;
-> 
-> [v1] https://lore.kernel.org/dri-devel/20230523221520.3115570-1-mwen@igalia.com
-> - Replace DRM_ by AMDGPU_ prefix for transfer function (TF) enum; 
-> - Explicitly define EOTFs and inverse EOTFs and set props accordingly;
-> - Document pre-defined transfer functions;
-> - Remove HLG transfer function from supported TFs;
-> - Remove misleading comments;
-> - Remove post-blending shaper TF+LUT and 3D LUT support;
-> - Move driver-specific property operations from amdgpu_display.c to
->   amdgpu_dm_color.c;
-> - Reset planes if any color props change;
-> - Add plane CTM 3x4 support;
-> - Removed two DC fixes already applied upstream;
-> 
-> [v2] https://lore.kernel.org/dri-devel/20230810160314.48225-1-mwen@igalia.com
-> - Many documentation fixes: BT.709 OETF, description of sRGB and pure
->   power functions, TF+1D LUT behavior;
-> - Rename CTM2 to CTM 3x4 and fix misleading comment about DC gamut remap;
-> - Squash `Linear` and `Unity` TF in `Identity`;
-> - Remove the `MPC gamut remap` patch already applied upstream[3];
-> - Remove outdated delta segmentation fix;
-> - Nits/small fixes;
-> 
-> [v3] https://lore.kernel.org/amd-gfx/20230925194932.1329483-1-mwen@igalia.com
-> - Add table to describe value range in linear and non-linear forms
-> - Comment the PQ TF need after HDR multiplier
-> - Advertise the 3D LUT size as the size of a single-dimension (read-only)
-> - remove function to check expected size from 3DLUT caps
-> - cleanup comments
-> 
-> It's worth noting that driver-specific properties are guarded by
-> `AMD_PRIVATE_COLOR`. So, finally, this is the color management API when
-> driver-specific properties are enabled:
-> 
-> +----------------------+
-> |   PLANE              |
-> |                      |
-> |  +----------------+  |
-> |  | AMD Degamma    |  |
-> |  |                |  |
-> |  | EOTF | 1D LUT  |  |
-> |  +--------+-------+  |
-> |           |          |
-> |  +--------v-------+  |
-> |  |    AMD HDR     |  |
-> |  |    Multiply    |  |
-> |  +--------+-------+  |
-> |           |          |
-> |  +--------v-------+  |
-> |  |  AMD CTM (3x4) |  |
-> |  +--------+-------+  |
-> |           |          |
-> |  +--------v-------+  |
-> |  | AMD Shaper     |  |
-> |  |                |  |
-> |  | inv_EOTF |     |  |
-> |  | Custom 1D LUT  |  |
-> |  +--------+-------+  |
-> |           |          |
-> |  +--------v-------+  |
-> |  |   AMD 3D LUT   |  |
-> |  |   17^3/12-bit  |  |
-> |  +--------+-------+  |
-> |           |          |
-> |  +--------v-------+  |
-> |  | AMD Blend      |  |
-> |  |                |  |
-> |  | EOTF | 1D LUT  |  |
-> |  +--------+-------+  |
-> |           |          |
-> ++----------v---------++
-> ||      Blending      ||
-> ++----------+---------++
-> |    CRTC   |          |
-> |           |          |
-> |   +-------v-------+  |
-> |   | DRM Degamma   |  |
-> |   |               |  |
-> |   | Custom 1D LUT |  |
-> |   +-------+-------+  |
-> |           |          |
-> |   +-------v-------+  |
-> |   | DRM CTM (3x3) |  |
-> |   +-------+-------+  |
-> |           |          |
-> |   +-------v-------+  |
-> |   | DRM Gamma     |  |
-> |   |               |  |
-> |   | Custom 1D LUT |  |
-> |   +---------------+  |
-> |   | *AMD Gamma    |  |
-> |   |   inv_EOTF    |  |
-> |   +---------------+  |
-> |                      |
-> +----------------------+
-> 
-> Please, let us know your thoughts.
-> 
-> Best Regards,
-> 
-> Melissa Wen
-> 
-> [1] https://github.com/ValveSoftware/gamescope
-> [2] https://store.steampowered.com/news/app/1675200/view/3686804163591367815
-> [3] https://lore.kernel.org/dri-devel/20230721132431.692158-1-mwen@igalia.com
-> 
-> Joshua Ashton (14):
->   drm/amd/display: add plane degamma TF driver-specific property
->   drm/amd/display: add plane HDR multiplier driver-specific property
->   drm/amd/display: add plane blend LUT and TF driver-specific properties
->   drm/amd/display: add CRTC gamma TF support
->   drm/amd/display: set sdr_ref_white_level to 80 for out_transfer_func
->   drm/amd/display: mark plane as needing reset if color props change
->   drm/amd/display: add plane degamma TF and LUT support
->   drm/amd/display: add dc_fixpt_from_s3132 helper
->   drm/amd/display: add HDR multiplier support
->   drm/amd/display: handle empty LUTs in __set_input_tf
->   drm/amd/display: add plane blend LUT and TF support
->   drm/amd/display: allow newer DC hardware to use degamma ROM for PQ/HLG
->   drm/amd/display: copy 3D LUT settings from crtc state to stream_update
->   drm/amd/display: Add 3x4 CTM support for plane CTM
-> 
-> Melissa Wen (18):
->   drm/drm_mode_object: increase max objects to accommodate new color
->     props
->   drm/drm_property: make replace_property_blob_from_id a DRM helper
->   drm/drm_plane: track color mgmt changes per plane
->   drm/amd/display: add driver-specific property for plane degamma LUT
->   drm/amd/display: explicitly define EOTF and inverse EOTF
->   drm/amd/display: document AMDGPU pre-defined transfer functions
->   drm/amd/display: add plane 3D LUT driver-specific properties
->   drm/amd/display: add plane shaper LUT and TF driver-specific
->     properties
->   drm/amd/display: add CRTC gamma TF driver-specific property
->   drm/amd/display: add comments to describe DM crtc color mgmt behavior
->   drm/amd/display: encapsulate atomic regamma operation
->   drm/amd/display: decouple steps for mapping CRTC degamma to DC plane
->   drm/amd/display: reject atomic commit if setting both plane and CRTC
->     degamma
->   drm/amd/display: add plane shaper LUT support
->   drm/amd/display: add plane shaper TF support
->   drm/amd/display: add plane 3D LUT support
->   drm/amd/display: add plane CTM driver-specific property
->   drm/amd/display: add plane CTM support
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  90 ++
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  34 +-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 108 +++
->  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 821 ++++++++++++++++--
->  .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  72 ++
->  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 224 ++++-
->  .../gpu/drm/amd/display/include/fixed31_32.h  |  12 +
->  drivers/gpu/drm/arm/malidp_crtc.c             |   2 +-
->  drivers/gpu/drm/drm_atomic.c                  |   1 +
->  drivers/gpu/drm/drm_atomic_state_helper.c     |   1 +
->  drivers/gpu/drm/drm_atomic_uapi.c             |  43 +-
->  drivers/gpu/drm/drm_property.c                |  49 ++
->  include/drm/drm_mode_object.h                 |   2 +-
->  include/drm/drm_plane.h                       |   7 +
->  include/drm/drm_property.h                    |   6 +
->  include/uapi/drm/drm_mode.h                   |   8 +
->  16 files changed, 1371 insertions(+), 109 deletions(-)
-> 
-> -- 
-> 2.40.1
-> 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 72ee66db182c..72796671dd2a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -3279,17 +3279,12 @@ int psp_init_sos_microcode(struct psp_context *psp, const char *chip_name)
+ 
+ static int parse_ta_bin_descriptor(struct psp_context *psp,
+ 				   const struct psp_fw_bin_desc *desc,
+-				   const struct ta_firmware_header_v2_0 *ta_hdr)
++				   uint8_t *ucode_start_addr)
+ {
+-	uint8_t *ucode_start_addr  = NULL;
+ 
+-	if (!psp || !desc || !ta_hdr)
++	if (!psp || !desc || !ucode_start_addr)
+ 		return -EINVAL;
+ 
+-	ucode_start_addr  = (uint8_t *)ta_hdr +
+-			    le32_to_cpu(desc->offset_bytes) +
+-			    le32_to_cpu(ta_hdr->header.ucode_array_offset_bytes);
+-
+ 	switch (desc->fw_type) {
+ 	case TA_FW_TYPE_PSP_ASD:
+ 		psp->asd_context.bin_desc.fw_version        = le32_to_cpu(desc->fw_version);
+@@ -3397,11 +3392,17 @@ static int parse_ta_v2_microcode(struct psp_context *psp)
+ {
+ 	const struct ta_firmware_header_v2_0 *ta_hdr;
+ 	struct amdgpu_device *adev = psp->adev;
++	struct psp_fw_bin_desc *desc = NULL;
+ 	int err = 0;
+ 	int ta_index = 0;
++	uint8_t *ucode_array_start = NULL;
++	uint8_t *ucode_start_addr = NULL;
+ 
+ 	ta_hdr = (const struct ta_firmware_header_v2_0 *)adev->psp.ta_fw->data;
+ 
++	ucode_array_start = (uint8_t *)ta_hdr +
++			   le32_to_cpu(ta_hdr->header.ucode_array_offset_bytes);
++
+ 	if (le16_to_cpu(ta_hdr->header.header_version_major) != 2)
+ 		return -EINVAL;
+ 
+@@ -3411,9 +3412,13 @@ static int parse_ta_v2_microcode(struct psp_context *psp)
+ 	}
+ 
+ 	for (ta_index = 0; ta_index < le32_to_cpu(ta_hdr->ta_fw_bin_count); ta_index++) {
+-		err = parse_ta_bin_descriptor(psp,
+-					      &ta_hdr->ta_fw_bin[ta_index],
+-					      ta_hdr);
++
++		desc = (struct psp_fw_bin_desc *)&ta_hdr->ta_fw_bin[ta_index];
++
++		ucode_start_addr  = ucode_array_start +
++					le32_to_cpu(desc->offset_bytes);
++
++		err = parse_ta_bin_descriptor(psp, desc, ucode_start_addr);
+ 		if (err)
+ 			return err;
+ 	}
+@@ -3421,6 +3426,61 @@ static int parse_ta_v2_microcode(struct psp_context *psp)
+ 	return 0;
+ }
+ 
++#define FW_VALID_DGPU	0x00000002
++#define FW_VALID_APU	0x00000001
++
++static int parse_ta_v2_1_microcode(struct psp_context *psp)
++{
++	const struct ta_firmware_header_v2_1 *ta_hdr;
++	struct amdgpu_device *adev = psp->adev;
++	struct ta_fw_bin_desc_v1_1 *desc = NULL;
++	struct psp_fw_bin_desc psp_fw_bin_descriptor;
++	int err = 0;
++	int ta_index = 0;
++	uint8_t *ucode_array_start = NULL;
++	uint8_t *ucode_start_addr = NULL;
++
++	ta_hdr = (const struct ta_firmware_header_v2_1 *)adev->psp.ta_fw->data;
++
++	ucode_array_start = (uint8_t *)ta_hdr +
++			le32_to_cpu(ta_hdr->header.ucode_array_offset_bytes);
++
++	if ((le16_to_cpu(ta_hdr->header.header_version_major) != 2) &&
++		(le16_to_cpu(ta_hdr->header.header_version_minor) != 1))
++		return -EINVAL;
++
++	if (le32_to_cpu(ta_hdr->ta_fw_bin_count) >= UCODE_MAX_PSP_PACKAGING) {
++		dev_err(adev->dev, "packed TA count exceeds maximum limit\n");
++		return -EINVAL;
++	}
++
++	for (ta_index = 0; ta_index < le32_to_cpu(ta_hdr->ta_fw_bin_count); ta_index++) {
++
++		desc = (struct ta_fw_bin_desc_v1_1 *)&ta_hdr->ta_fw_bin[ta_index];
++
++		if (((adev->flags & AMD_IS_APU) &&
++		     (le32_to_cpu((desc->fw_valid_flags)) & FW_VALID_APU)) ||
++		     (!(adev->flags & AMD_IS_APU) &&
++		     (le32_to_cpu((desc->fw_valid_flags)) & FW_VALID_DGPU))) {
++
++			ucode_start_addr = ucode_array_start +
++					le32_to_cpu(desc->offset_bytes);
++
++			psp_fw_bin_descriptor.fw_type = desc->fw_type;
++			psp_fw_bin_descriptor.fw_version = desc->fw_version;
++			psp_fw_bin_descriptor.offset_bytes = desc->offset_bytes;
++			psp_fw_bin_descriptor.size_bytes = desc->size_bytes;
++
++			err = parse_ta_bin_descriptor(psp,
++							&psp_fw_bin_descriptor,
++							ucode_start_addr);
++			if (err)
++				return err;
++			}
++	}
++	return 0;
++}
++
+ int psp_init_ta_microcode(struct psp_context *psp, const char *chip_name)
+ {
+ 	const struct common_firmware_header *hdr;
+@@ -3439,7 +3499,10 @@ int psp_init_ta_microcode(struct psp_context *psp, const char *chip_name)
+ 		err = parse_ta_v1_microcode(psp);
+ 		break;
+ 	case 2:
+-		err = parse_ta_v2_microcode(psp);
++		if (le16_to_cpu(hdr->header_version_minor) == 1)
++			err = parse_ta_v2_1_microcode(psp);
++		else
++			err = parse_ta_v2_microcode(psp);
+ 		break;
+ 	default:
+ 		dev_err(adev->dev, "unsupported TA header version\n");
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
+index ae5fa61d2890..8c6094ee60c0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
+@@ -157,6 +157,14 @@ enum ta_fw_type {
+ 	TA_FW_TYPE_MAX_INDEX,
+ };
+ 
++struct ta_fw_bin_desc_v1_1 {
++	uint32_t fw_type;
++	uint32_t fw_valid_flags;
++	uint32_t fw_version;
++	uint32_t offset_bytes;
++	uint32_t size_bytes;
++};
++
+ /* version_major=2, version_minor=0 */
+ struct ta_firmware_header_v2_0 {
+ 	struct common_firmware_header header;
+@@ -164,6 +172,13 @@ struct ta_firmware_header_v2_0 {
+ 	struct psp_fw_bin_desc ta_fw_bin[];
+ };
+ 
++/* version_major=2, version_minor=1 */
++struct ta_firmware_header_v2_1 {
++	struct common_firmware_header header;
++	uint32_t ta_fw_bin_count;
++	struct ta_fw_bin_desc_v1_1 ta_fw_bin[];
++};
++
+ /* version_major=1, version_minor=0 */
+ struct gfx_firmware_header_v1_0 {
+ 	struct common_firmware_header header;
+@@ -419,6 +434,7 @@ union amdgpu_firmware_header {
+ 	struct psp_firmware_header_v2_0 psp_v2_0;
+ 	struct ta_firmware_header_v1_0 ta;
+ 	struct ta_firmware_header_v2_0 ta_v2_0;
++	struct ta_firmware_header_v2_1 ta_v2_1;
+ 	struct gfx_firmware_header_v1_0 gfx;
+ 	struct gfx_firmware_header_v2_0 gfx_v2_0;
+ 	struct rlc_firmware_header_v1_0 rlc;
+-- 
+2.34.1
 
