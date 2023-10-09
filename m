@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04B7BE95A91
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Oct 2023 13:23:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EF7EE95A99
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Oct 2023 13:23:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50D6A10E112;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40F7010E103;
 	Mon,  9 Oct 2023 13:23:40 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08C2789226;
- Mon,  9 Oct 2023 11:02:37 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 437EB10E25C;
+ Mon,  9 Oct 2023 10:30:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696849357; x=1728385357;
+ t=1696847407; x=1728383407;
  h=date:from:to:cc:subject:in-reply-to:message-id:
  references:mime-version;
- bh=MmMf258M2aynXUKykT7A9ZJ1flv5Ehw3wMtnyNA2/MI=;
- b=MaiDGI3bslFnMGKYgCxQVzfKGo8/0dHOojPDfBnnFFH2bU/J97vQcuBr
- +eiIg/rEXVtMtApeDGPuh13ZIhlP8R4Jn3aMEXA6GBbTy9qeTf/D5vQwW
- yR+J6upfChUpm9wE5yEA7Cjr3vwUzaVPmRF6i0VBuzBiCTdfJRZQIbfnP
- jgL6fB8u1VkeCc8NoAQIIIytUQwl+2gTRkEU2IrOyswsi5YFtTWsNAjA5
- +RSNXJwYAa/QhnknWujacSbFOtN6Vi3eTJfvypHWgLBUrP80ZqoAUH32g
- loYu1OeL89JfyjLsJSShXVuZ/rC9DSUJcBsNxLIzuF7wUWoPvyRZbSjUP g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10857"; a="382993239"
-X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="382993239"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2023 04:02:36 -0700
+ bh=EvUfiKvTpGuDhmjZNlNMVv9+EPOWDzoJPMiXe5aWZO0=;
+ b=iOGe2R5j6g1w3JwJqHE5Ulb0bXR1nLP6sYkgIDfXpvHLrYNrNE3HFUH7
+ INKMZ4M5UThZS4vDdAngOHdAY8vXO7/j7qjM2IJoszHbb6fuZgLshamII
+ V7IJ1poKYMRcPNT46IZERYASA/jfDRqwfO9EqPicLHdfuj6eZCmo/PV1c
+ TuCOfl+74soX9/SGoCA4BRTrENDxDbTYEAurJg17CGU8djdEZW/aW+trM
+ KC9WlOiQLcVxRo/9v+0iWAfDOrHTu9Yw3LlHV0v9f8Obe8A3rTyizAnGB
+ Fdg/32V1yeo8Zrhkaf7Ey7D05EIcysMt+eBaYPSQi4z1kgFPzxMfl0lPp w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10857"; a="363468128"
+X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="363468128"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2023 03:30:06 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10857"; a="788124493"
-X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="788124493"
+X-IronPort-AV: E=McAfee;i="6600,9927,10857"; a="926718257"
+X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="926718257"
 Received: from lshebash-mobl3.ccr.corp.intel.com ([10.252.57.254])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2023 04:02:31 -0700
-Date: Mon, 9 Oct 2023 14:02:29 +0300 (EEST)
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2023 03:30:02 -0700
+Date: Mon, 9 Oct 2023 13:29:59 +0300 (EEST)
 From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
 To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-Subject: Re: [PATCH v2 12/16] platform/x86/amd/pmf: Add PMF-AMDGPU get
- interface
-In-Reply-To: <c5834d5e-af71-4d96-88ae-c2acd5f6604b@amd.com>
-Message-ID: <38f6ad4d-fbbe-2b43-61e-7c676e3dbac6@linux.intel.com>
+Subject: Re: [PATCH v2 01/16] platform/x86/amd/pmf: Add PMF TEE interface
+In-Reply-To: <01eef1b0-8695-4284-8a4a-973826f2c3cc@amd.com>
+Message-ID: <f19e6ae-9a60-41d1-8f77-3794948f167a@linux.intel.com>
 References: <20230930083715.2050863-1-Shyam-sundar.S-k@amd.com>
- <20230930083715.2050863-13-Shyam-sundar.S-k@amd.com>
- <e7b33961-23bb-cb8-2941-ced3f0cf2620@linux.intel.com>
- <c5834d5e-af71-4d96-88ae-c2acd5f6604b@amd.com>
+ <20230930083715.2050863-2-Shyam-sundar.S-k@amd.com>
+ <584aebd-5c89-d085-275-bb79f93429f@linux.intel.com>
+ <01eef1b0-8695-4284-8a4a-973826f2c3cc@amd.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1989512445-1696849355=:1721"
+Content-Type: multipart/mixed; boundary="8323329-509712714-1696847406=:1721"
 X-Mailman-Approved-At: Mon, 09 Oct 2023 13:23:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,78 +72,172 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-1989512445-1696849355=:1721
+--8323329-509712714-1696847406=:1721
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8BIT
 
 On Mon, 9 Oct 2023, Shyam Sundar S K wrote:
-> On 10/4/2023 6:19 PM, Ilpo Järvinen wrote:
+
+> 
+> 
+> On 10/4/2023 4:20 PM, Ilpo Järvinen wrote:
 > > On Sat, 30 Sep 2023, Shyam Sundar S K wrote:
 > > 
-> >> In order to provide GPU inputs to TA for the Smart PC solution to work, we
-> >> need to have interface between the PMF driver and the AMDGPU driver.
+> >> AMD PMF driver loads the PMF TA (Trusted Application) into the AMD
+> >> ASP's (AMD Security Processor) TEE (Trusted Execution Environment).
 > >>
-> >> Add the initial code path for get interface from AMDGPU.
+> >> PMF Trusted Application is a secured firmware placed under
+> >> /lib/firmware/amdtee gets loaded only when the TEE environment is
+> >> initialized. Add the initial code path to build these pipes.
 > >>
-> >> Co-developed-by: Mario Limonciello <mario.limonciello@amd.com>
-> >> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> >> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
 > >> Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-> > 
-> >> @@ -355,6 +356,21 @@ static int amd_pmf_get_bios_buffer(struct amd_pmf_dev *dev)
-> >>  	return amd_pmf_start_policy_engine(dev);
-> >>  }
+> >> ---
+> >>  drivers/platform/x86/amd/pmf/Makefile |   3 +-
+> >>  drivers/platform/x86/amd/pmf/core.c   |  11 ++-
+> >>  drivers/platform/x86/amd/pmf/pmf.h    |  16 ++++
+> >>  drivers/platform/x86/amd/pmf/tee-if.c | 112 ++++++++++++++++++++++++++
+> >>  4 files changed, 138 insertions(+), 4 deletions(-)
+> >>  create mode 100644 drivers/platform/x86/amd/pmf/tee-if.c
+> >>
+> >> diff --git a/drivers/platform/x86/amd/pmf/Makefile b/drivers/platform/x86/amd/pmf/Makefile
+> >> index fdededf54392..d2746ee7369f 100644
+> >> --- a/drivers/platform/x86/amd/pmf/Makefile
+> >> +++ b/drivers/platform/x86/amd/pmf/Makefile
+> >> @@ -6,4 +6,5 @@
 > >>  
-> >> +static int amd_pmf_get_gpu_handle(struct pci_dev *pdev, void *data)
-> >> +{
-> >> +	struct amd_pmf_dev *dev = data;
+> >>  obj-$(CONFIG_AMD_PMF) += amd-pmf.o
+> >>  amd-pmf-objs := core.o acpi.o sps.o \
+> >> -		auto-mode.o cnqf.o
+> >> +		auto-mode.o cnqf.o \
+> >> +		tee-if.o
+> >> diff --git a/drivers/platform/x86/amd/pmf/core.c b/drivers/platform/x86/amd/pmf/core.c
+> >> index 78ed3ee22555..68f1389dda3e 100644
+> >> --- a/drivers/platform/x86/amd/pmf/core.c
+> >> +++ b/drivers/platform/x86/amd/pmf/core.c
+> >> @@ -309,8 +309,11 @@ static void amd_pmf_init_features(struct amd_pmf_dev *dev)
+> >>  		dev_dbg(dev->dev, "SPS enabled and Platform Profiles registered\n");
+> >>  	}
+> >>  
+> >> -	/* Enable Auto Mode */
+> >> -	if (is_apmf_func_supported(dev, APMF_FUNC_AUTO_MODE)) {
+> >> +	if (amd_pmf_init_smart_pc(dev)) {
+> >> +		/* Enable Smart PC Solution builder */
+> >> +		dev_dbg(dev->dev, "Smart PC Solution Enabled\n");
+> >> +	} else if (is_apmf_func_supported(dev, APMF_FUNC_AUTO_MODE)) {
+> >> +		/* Enable Auto Mode */
+> > 
+> > I'm pretty certain neither of these two comments add any information to 
+> > what's readily visible from the code itself so they can be dropped.
+> > 
+> >>  		amd_pmf_init_auto_mode(dev);
+> >>  		dev_dbg(dev->dev, "Auto Mode Init done\n");
+> >>  	} else if (is_apmf_func_supported(dev, APMF_FUNC_DYN_SLIDER_AC) ||
+> >> @@ -330,7 +333,9 @@ static void amd_pmf_deinit_features(struct amd_pmf_dev *dev)
+> >>  		amd_pmf_deinit_sps(dev);
+> >>  	}
+> >>  
+> >> -	if (is_apmf_func_supported(dev, APMF_FUNC_AUTO_MODE)) {
+> >> +	if (dev->smart_pc_enabled) {
+> >> +		amd_pmf_deinit_smart_pc(dev);
+> >> +	} else if (is_apmf_func_supported(dev, APMF_FUNC_AUTO_MODE)) {
+> >>  		amd_pmf_deinit_auto_mode(dev);
+> >>  	} else if (is_apmf_func_supported(dev, APMF_FUNC_DYN_SLIDER_AC) ||
+> >>  			  is_apmf_func_supported(dev, APMF_FUNC_DYN_SLIDER_DC)) {
+> >> diff --git a/drivers/platform/x86/amd/pmf/pmf.h b/drivers/platform/x86/amd/pmf/pmf.h
+> >> index deba88e6e4c8..02460c2a31ea 100644
+> >> --- a/drivers/platform/x86/amd/pmf/pmf.h
+> >> +++ b/drivers/platform/x86/amd/pmf/pmf.h
+> >> @@ -179,6 +179,12 @@ struct amd_pmf_dev {
+> >>  	bool cnqf_enabled;
+> >>  	bool cnqf_supported;
+> >>  	struct notifier_block pwr_src_notifier;
+> >> +	/* Smart PC solution builder */
+> >> +	struct tee_context *tee_ctx;
+> >> +	struct tee_shm *fw_shm_pool;
+> >> +	u32 session_id;
+> >> +	void *shbuf;
+> >> +	bool smart_pc_enabled;
+> >>  };
+> >>  
+> >>  struct apmf_sps_prop_granular {
+> >> @@ -389,6 +395,13 @@ struct apmf_dyn_slider_output {
+> >>  	struct apmf_cnqf_power_set ps[APMF_CNQF_MAX];
+> >>  } __packed;
+> >>  
+> >> +struct ta_pmf_shared_memory {
+> >> +	int command_id;
+> >> +	int resp_id;
+> >> +	u32 pmf_result;
+> >> +	u32 if_version;
+> >> +};
 > >> +
-> >> +	if (pdev->vendor == PCI_VENDOR_ID_ATI && pdev->devfn == 0) {
-> >> +		/* get the amdgpu handle from the pci root after walking through the pci bus */
+> >>  /* Core Layer */
+> >>  int apmf_acpi_init(struct amd_pmf_dev *pmf_dev);
+> >>  void apmf_acpi_deinit(struct amd_pmf_dev *pmf_dev);
+> >> @@ -433,4 +446,7 @@ void amd_pmf_deinit_cnqf(struct amd_pmf_dev *dev);
+> >>  int amd_pmf_trans_cnqf(struct amd_pmf_dev *dev, int socket_power, ktime_t time_lapsed_ms);
+> >>  extern const struct attribute_group cnqf_feature_attribute_group;
+> >>  
+> >> +/* Smart PC builder Layer*/
 > > 
-> > I can see from the code that you assign to amdgpu handle so this comment 
-> > added no information.
+> > Missing space.
 > > 
-> > It doesn't really answer at all why you're doing this second step. Based 
-> > on the give parameters to pci_get_device(), it looks as if you're asking 
-> > for the same device you already have in pdev to be searched to you.
+> >> +int amd_pmf_init_smart_pc(struct amd_pmf_dev *dev);
+> >> +void amd_pmf_deinit_smart_pc(struct amd_pmf_dev *dev);
+> >>  #endif /* PMF_H */
+> >> diff --git a/drivers/platform/x86/amd/pmf/tee-if.c b/drivers/platform/x86/amd/pmf/tee-if.c
+> >> new file mode 100644
+> >> index 000000000000..4db80ca59a11
+> >> --- /dev/null
+> >> +++ b/drivers/platform/x86/amd/pmf/tee-if.c
+> >> @@ -0,0 +1,112 @@
+> >> +// SPDX-License-Identifier: GPL-2.0
+> >> +/*
+> >> + * AMD Platform Management Framework Driver - TEE Interface
+> >> + *
+> >> + * Copyright (c) 2023, Advanced Micro Devices, Inc.
+> >> + * All Rights Reserved.
+> >> + *
+> >> + * Author: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+> >> + */
+> >> +
+> >> +#include <linux/tee_drv.h>
+> >> +#include <linux/uuid.h>
+> >> +#include "pmf.h"
+> >> +
+> >> +#define MAX_TEE_PARAM	4
+> >> +static const uuid_t amd_pmf_ta_uuid = UUID_INIT(0x6fd93b77, 0x3fb8, 0x524d,
+> >> +						0xb1, 0x2d, 0xc5, 0x29, 0xb1, 0x3d, 0x85, 0x43);
+> >> +
+> >> +static int amd_pmf_amdtee_ta_match(struct tee_ioctl_version_data *ver, const void *data)
+> >> +{
+> >> +	return ver->impl_id == TEE_IMPL_ID_AMDTEE;
+> >> +}
+> >> +
+> >> +static int amd_pmf_ta_open_session(struct tee_context *ctx, u32 *id)
+> >> +{
+> >> +	struct tee_ioctl_open_session_arg sess_arg = {};
+> >> +	int rc;
+> >> +
+> >> +	export_uuid(sess_arg.uuid, &amd_pmf_ta_uuid);
+> >> +	sess_arg.clnt_login = TEE_IOCTL_LOGIN_PUBLIC;
+> >> +	sess_arg.num_params = 0;
+> >> +
+> >> +	rc = tee_client_open_session(ctx, &sess_arg, NULL);
+> >> +	if (rc < 0 || sess_arg.ret != 0) {
+> >> +		pr_err("Failed to open TEE session err:%#x, ret:%#x\n", sess_arg.ret, rc);
+> > 
+> > Print normal -Exx error codes as %d, not %x (rc). I don't know what would 
+> > be best to do with sess_arg.ret, TEEC_ERROR_* look like errnos (negative 
+> > values) manually converted into u32.
 > 
-> Not sure if I understand you remark completely.
-> 
-> amd_pmf_get_gpu_handle() is a callback function for pci_walk_bus
-> (which is done below).
-> 
-> What I am trying to do here is to get the PCI handle for the GPU
-> device by walking the PCI bus.
-> 
-> I think the 'pdev' here refers to the pci root, using that root we
-> walk the entire tree and only stop walking when we find a handle to
-> GPU device.
+> in drivers/tee/amdtee/amdtee_private.h, all the TEEC_* are hex. So
+> sess_arg.ret can remain %x?
 
-Not exactly what happens, in amd_pmf_get_gpu_handle() pdev changes on each 
-call so I don't know why you stated it is refering to the "pci root".
-
-> Do you want me to change the "pdev" parameter to be renamed as "root" ?
-
-No, please don't do that, it would be misleading.
-
-> Am I missing something?
-
-I meant that at some point of the walk through the PCI devices, you have 
-a PCI device pdev with ->vendor PCI_VENDOR_ID_AMD when that if condition 
-above matched. Please explain why you need to do another lookup with 
-pci_get_device() at that point (with the same ->vendor and ->device as 
-shown below)?
-
-> >> +		dev->gfx_data.gpu_dev = pci_get_device(pdev->vendor, pdev->device, NULL);
-> >> +		if (dev->gfx_data.gpu_dev) {
-> >> +			pci_dev_put(pdev);
-> >> +			return 1; /* stop walking */
-> >> +		}
-> >> +	}
-> >> +	return 0; /* continue walking */
-
+Sure, you can leave it to %x.
 
 -- 
  i.
 
---8323329-1989512445-1696849355=:1721--
+--8323329-509712714-1696847406=:1721--
