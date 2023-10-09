@@ -4,50 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EF7EE95A99
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Oct 2023 13:23:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31422E95A8E
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Oct 2023 14:16:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40F7010E103;
-	Mon,  9 Oct 2023 13:23:40 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 437EB10E25C;
- Mon,  9 Oct 2023 10:30:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696847407; x=1728383407;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=EvUfiKvTpGuDhmjZNlNMVv9+EPOWDzoJPMiXe5aWZO0=;
- b=iOGe2R5j6g1w3JwJqHE5Ulb0bXR1nLP6sYkgIDfXpvHLrYNrNE3HFUH7
- INKMZ4M5UThZS4vDdAngOHdAY8vXO7/j7qjM2IJoszHbb6fuZgLshamII
- V7IJ1poKYMRcPNT46IZERYASA/jfDRqwfO9EqPicLHdfuj6eZCmo/PV1c
- TuCOfl+74soX9/SGoCA4BRTrENDxDbTYEAurJg17CGU8djdEZW/aW+trM
- KC9WlOiQLcVxRo/9v+0iWAfDOrHTu9Yw3LlHV0v9f8Obe8A3rTyizAnGB
- Fdg/32V1yeo8Zrhkaf7Ey7D05EIcysMt+eBaYPSQi4z1kgFPzxMfl0lPp w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10857"; a="363468128"
-X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="363468128"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2023 03:30:06 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10857"; a="926718257"
-X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="926718257"
-Received: from lshebash-mobl3.ccr.corp.intel.com ([10.252.57.254])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2023 03:30:02 -0700
-Date: Mon, 9 Oct 2023 13:29:59 +0300 (EEST)
-From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-Subject: Re: [PATCH v2 01/16] platform/x86/amd/pmf: Add PMF TEE interface
-In-Reply-To: <01eef1b0-8695-4284-8a4a-973826f2c3cc@amd.com>
-Message-ID: <f19e6ae-9a60-41d1-8f77-3794948f167a@linux.intel.com>
-References: <20230930083715.2050863-1-Shyam-sundar.S-k@amd.com>
- <20230930083715.2050863-2-Shyam-sundar.S-k@amd.com>
- <584aebd-5c89-d085-275-bb79f93429f@linux.intel.com>
- <01eef1b0-8695-4284-8a4a-973826f2c3cc@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90E6A10E0FE;
+	Mon,  9 Oct 2023 14:16:30 +0000 (UTC)
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [IPv6:2001:4860:4864:20::2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0569210E0FE
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Oct 2023 14:16:28 +0000 (UTC)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-1e58a522e41so1997827fac.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 09 Oct 2023 07:16:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1696860988; x=1697465788; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=e6ByXfcqaW852uGGDoefSjUjRJsbMqoNQbQzTOOk8LU=;
+ b=JXo9pJ95kPBNYTi09G7MSiSVVAwiczM3aYjwlJZgdQf9/7bJ85bCwBAG+aE1DMiW3D
+ WZHHwrwiT1Y409USUrVjxiP3qpm6UGL6TqaHfrW9GvuX5e03bpihVmDw0bPEVzlnnCW8
+ I1nD5HJIYrzyrr02FJa6HhDW4LioJI4XTNpcrKslWllqoIYRG1HIHccT6LtrOKXSvcfj
+ 5vDrajJUVNGDBefi6Af4E7EXMKyXKjEu5kqkIzi/oi4FqTn+G4hbbQjexHDfC+z7Xfz9
+ DdFR6saXiEcOKLL8FhEB+I4tyuN1bfUNsXku2LGRuIibzmYzBEE0hI8BxjzuHvn29Kpn
+ kSng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1696860988; x=1697465788;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=e6ByXfcqaW852uGGDoefSjUjRJsbMqoNQbQzTOOk8LU=;
+ b=kyH+adyIz+F14BXvMXZJmPIHgik2+862VGhcFxkeoVNZLEcemV7/rbASXXhbwcaWS8
+ jh3v1997RK9C7QEQPgOiDAK4TwzhJVPB4966iQpgsEPKE5bm5eaa4azGZOZCGwpXQcoI
+ e22p5DB5/YjgJQ+b4ARsZip6MZ4Swa0XBON8Ye5YOEPlC5CHNvrxUKqOenxf3MJoNsrw
+ 0fW+weqyg4CFYcx260pzInF6IKpVKq8f46ekthhH168wBrwdPI3CPNYDcjveZWNa65Ky
+ oXOmwnqABHT+gd0XlBLdE6whqC0B0Orlr/sldcXqbyLOkfQEyLqB2y+iF/ISAw0SEP4D
+ 1b8A==
+X-Gm-Message-State: AOJu0YxeguuQH+NQm6ABT3kqJgpObtP7JSq3xl4IvjnJr2cQbx3TM/pC
+ m8WIbcLCL0yqexjUYcw28LmCpYmpGx5VBKXaRoI=
+X-Google-Smtp-Source: AGHT+IGfxdyIz+wOdEM6U9wNJc+Asjd3wGJ1d4xdaK3I2zUltRa00RGSfd/+/VJUPql9rj7Z8oiMssnfdVHGoh/4xTI=
+X-Received: by 2002:a05:6870:f141:b0:1d1:425b:8029 with SMTP id
+ l1-20020a056870f14100b001d1425b8029mr19265371oac.13.1696860986731; Mon, 09
+ Oct 2023 07:16:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-509712714-1696847406=:1721"
-X-Mailman-Approved-At: Mon, 09 Oct 2023 13:23:38 +0000
+References: <20231006052149.1566154-1-lijo.lazar@amd.com>
+ <20231006052149.1566154-4-lijo.lazar@amd.com>
+ <007b0fed-4982-4978-95e3-6763d114a97e@gmail.com>
+ <CADnq5_MzHbigYydWy9xkT_rgNEpogU8+y4bodAy1NxD99acnZQ@mail.gmail.com>
+ <11992882-b7ff-4fe5-8777-755f128472e9@gmail.com>
+In-Reply-To: <11992882-b7ff-4fe5-8777-755f128472e9@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 9 Oct 2023 10:16:15 -0400
+Message-ID: <CADnq5_N-_uTpay-Ph1k2iJWJNEcL38c1iZjZoe28n4jVXPMrPQ@mail.gmail.com>
+Subject: Re: [PATCH v2 4/4] drm/amd/pm: Add sysfs attribute to get pm log
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,185 +71,126 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, Patil.Reddy@amd.com, basavaraj.natikar@amd.com,
- dri-devel@lists.freedesktop.org, jikos@kernel.org,
- amd-gfx@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- markgross@kernel.org, Hans de Goede <hdegoede@redhat.com>,
- benjamin.tissoires@redhat.com, mario.limonciello@amd.com, daniel@ffwll.ch,
- linux-input@vger.kernel.org, alexander.deucher@amd.com, airlied@gmail.com,
- christian.koenig@amd.com
+Cc: Alexander.Deucher@amd.com, Lijo Lazar <lijo.lazar@amd.com>,
+ kevinyang.wang@amd.com, amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-509712714-1696847406=:1721
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Mon, 9 Oct 2023, Shyam Sundar S K wrote:
-
-> 
-> 
-> On 10/4/2023 4:20 PM, Ilpo Järvinen wrote:
-> > On Sat, 30 Sep 2023, Shyam Sundar S K wrote:
-> > 
-> >> AMD PMF driver loads the PMF TA (Trusted Application) into the AMD
-> >> ASP's (AMD Security Processor) TEE (Trusted Execution Environment).
+On Mon, Oct 9, 2023 at 4:41=E2=80=AFAM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> Am 06.10.23 um 16:24 schrieb Alex Deucher:
+> > On Fri, Oct 6, 2023 at 4:32=E2=80=AFAM Christian K=C3=B6nig
+> > <ckoenig.leichtzumerken@gmail.com> wrote:
+> >> Am 06.10.23 um 07:21 schrieb Lijo Lazar:
+> >>> Add sysfs attribute to read power management log. A snapshot is
+> >>> captured to the buffer when the attribute is read.
+> >>>
+> >>> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+> >>> ---
+> >>>
+> >>> v2: Pass PAGE_SIZE as the max size of input buffer
+> >>>
+> >>>    drivers/gpu/drm/amd/pm/amdgpu_pm.c | 40 ++++++++++++++++++++++++++=
+++++
+> >>>    1 file changed, 40 insertions(+)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd=
+/pm/amdgpu_pm.c
+> >>> index 4c65a2fac028..5a1d21c52672 100644
+> >>> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> >>> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> >>> @@ -1794,6 +1794,44 @@ static ssize_t amdgpu_set_apu_thermal_cap(stru=
+ct device *dev,
+> >>>        return count;
+> >>>    }
+> >>>
+> >>> +static int amdgpu_pmlog_attr_update(struct amdgpu_device *adev,
+> >>> +                                 struct amdgpu_device_attr *attr,
+> >>> +                                 uint32_t mask,
+> >>> +                                 enum amdgpu_device_attr_states *sta=
+tes)
+> >>> +{
+> >>> +     if (amdgpu_dpm_get_pm_log(adev, NULL, 0) =3D=3D -EOPNOTSUPP)
+> >>> +             *states =3D ATTR_STATE_UNSUPPORTED;
+> >>> +
+> >>> +     return 0;
+> >>> +}
+> >>> +
+> >>> +static ssize_t amdgpu_get_pmlog(struct device *dev,
+> >>> +                             struct device_attribute *attr, char *bu=
+f)
+> >>> +{
+> >>> +     struct drm_device *ddev =3D dev_get_drvdata(dev);
+> >>> +     struct amdgpu_device *adev =3D drm_to_adev(ddev);
+> >>> +     ssize_t size =3D 0;
+> >>> +     int ret;
+> >>> +
+> >>> +     if (amdgpu_in_reset(adev))
+> >>> +             return -EPERM;
+> >> Please stop using amdgpu_in_reset() for stuff like that altogether.
 > >>
-> >> PMF Trusted Application is a secured firmware placed under
-> >> /lib/firmware/amdtee gets loaded only when the TEE environment is
-> >> initialized. Add the initial code path to build these pipes.
+> >> When this is reset critical it should grab the reset rw semaphore. If =
+it
+> >> isn't than that check isn't necessary.
+> > All of the power related sysfs files have this check.  It was
+> > originally added because users have processes running which poll
+> > various hwmon files at regular intervals and since SMU also handles
+> > reset, we don't want to get a metrics table request while a reset is
+> > happening otherwise the SMU gets confused.
+>
+> Then this approach is completely broken. Nothing prevents the reset from
+> starting right after doing the check.
+>
+> If we need exclusive access to the SMU then we should just grab a lock.
+
+Right, but the entire file should be fixed.  It's sort of orthogonal
+to this patch.
+
+Alex
+
+>
+> Christian.
+>
+> >
+> > Alex
+> >
+> >> Regards,
+> >> Christian.
 > >>
-> >> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-> >> Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-> >> ---
-> >>  drivers/platform/x86/amd/pmf/Makefile |   3 +-
-> >>  drivers/platform/x86/amd/pmf/core.c   |  11 ++-
-> >>  drivers/platform/x86/amd/pmf/pmf.h    |  16 ++++
-> >>  drivers/platform/x86/amd/pmf/tee-if.c | 112 ++++++++++++++++++++++++++
-> >>  4 files changed, 138 insertions(+), 4 deletions(-)
-> >>  create mode 100644 drivers/platform/x86/amd/pmf/tee-if.c
-> >>
-> >> diff --git a/drivers/platform/x86/amd/pmf/Makefile b/drivers/platform/x86/amd/pmf/Makefile
-> >> index fdededf54392..d2746ee7369f 100644
-> >> --- a/drivers/platform/x86/amd/pmf/Makefile
-> >> +++ b/drivers/platform/x86/amd/pmf/Makefile
-> >> @@ -6,4 +6,5 @@
-> >>  
-> >>  obj-$(CONFIG_AMD_PMF) += amd-pmf.o
-> >>  amd-pmf-objs := core.o acpi.o sps.o \
-> >> -		auto-mode.o cnqf.o
-> >> +		auto-mode.o cnqf.o \
-> >> +		tee-if.o
-> >> diff --git a/drivers/platform/x86/amd/pmf/core.c b/drivers/platform/x86/amd/pmf/core.c
-> >> index 78ed3ee22555..68f1389dda3e 100644
-> >> --- a/drivers/platform/x86/amd/pmf/core.c
-> >> +++ b/drivers/platform/x86/amd/pmf/core.c
-> >> @@ -309,8 +309,11 @@ static void amd_pmf_init_features(struct amd_pmf_dev *dev)
-> >>  		dev_dbg(dev->dev, "SPS enabled and Platform Profiles registered\n");
-> >>  	}
-> >>  
-> >> -	/* Enable Auto Mode */
-> >> -	if (is_apmf_func_supported(dev, APMF_FUNC_AUTO_MODE)) {
-> >> +	if (amd_pmf_init_smart_pc(dev)) {
-> >> +		/* Enable Smart PC Solution builder */
-> >> +		dev_dbg(dev->dev, "Smart PC Solution Enabled\n");
-> >> +	} else if (is_apmf_func_supported(dev, APMF_FUNC_AUTO_MODE)) {
-> >> +		/* Enable Auto Mode */
-> > 
-> > I'm pretty certain neither of these two comments add any information to 
-> > what's readily visible from the code itself so they can be dropped.
-> > 
-> >>  		amd_pmf_init_auto_mode(dev);
-> >>  		dev_dbg(dev->dev, "Auto Mode Init done\n");
-> >>  	} else if (is_apmf_func_supported(dev, APMF_FUNC_DYN_SLIDER_AC) ||
-> >> @@ -330,7 +333,9 @@ static void amd_pmf_deinit_features(struct amd_pmf_dev *dev)
-> >>  		amd_pmf_deinit_sps(dev);
-> >>  	}
-> >>  
-> >> -	if (is_apmf_func_supported(dev, APMF_FUNC_AUTO_MODE)) {
-> >> +	if (dev->smart_pc_enabled) {
-> >> +		amd_pmf_deinit_smart_pc(dev);
-> >> +	} else if (is_apmf_func_supported(dev, APMF_FUNC_AUTO_MODE)) {
-> >>  		amd_pmf_deinit_auto_mode(dev);
-> >>  	} else if (is_apmf_func_supported(dev, APMF_FUNC_DYN_SLIDER_AC) ||
-> >>  			  is_apmf_func_supported(dev, APMF_FUNC_DYN_SLIDER_DC)) {
-> >> diff --git a/drivers/platform/x86/amd/pmf/pmf.h b/drivers/platform/x86/amd/pmf/pmf.h
-> >> index deba88e6e4c8..02460c2a31ea 100644
-> >> --- a/drivers/platform/x86/amd/pmf/pmf.h
-> >> +++ b/drivers/platform/x86/amd/pmf/pmf.h
-> >> @@ -179,6 +179,12 @@ struct amd_pmf_dev {
-> >>  	bool cnqf_enabled;
-> >>  	bool cnqf_supported;
-> >>  	struct notifier_block pwr_src_notifier;
-> >> +	/* Smart PC solution builder */
-> >> +	struct tee_context *tee_ctx;
-> >> +	struct tee_shm *fw_shm_pool;
-> >> +	u32 session_id;
-> >> +	void *shbuf;
-> >> +	bool smart_pc_enabled;
-> >>  };
-> >>  
-> >>  struct apmf_sps_prop_granular {
-> >> @@ -389,6 +395,13 @@ struct apmf_dyn_slider_output {
-> >>  	struct apmf_cnqf_power_set ps[APMF_CNQF_MAX];
-> >>  } __packed;
-> >>  
-> >> +struct ta_pmf_shared_memory {
-> >> +	int command_id;
-> >> +	int resp_id;
-> >> +	u32 pmf_result;
-> >> +	u32 if_version;
-> >> +};
-> >> +
-> >>  /* Core Layer */
-> >>  int apmf_acpi_init(struct amd_pmf_dev *pmf_dev);
-> >>  void apmf_acpi_deinit(struct amd_pmf_dev *pmf_dev);
-> >> @@ -433,4 +446,7 @@ void amd_pmf_deinit_cnqf(struct amd_pmf_dev *dev);
-> >>  int amd_pmf_trans_cnqf(struct amd_pmf_dev *dev, int socket_power, ktime_t time_lapsed_ms);
-> >>  extern const struct attribute_group cnqf_feature_attribute_group;
-> >>  
-> >> +/* Smart PC builder Layer*/
-> > 
-> > Missing space.
-> > 
-> >> +int amd_pmf_init_smart_pc(struct amd_pmf_dev *dev);
-> >> +void amd_pmf_deinit_smart_pc(struct amd_pmf_dev *dev);
-> >>  #endif /* PMF_H */
-> >> diff --git a/drivers/platform/x86/amd/pmf/tee-if.c b/drivers/platform/x86/amd/pmf/tee-if.c
-> >> new file mode 100644
-> >> index 000000000000..4db80ca59a11
-> >> --- /dev/null
-> >> +++ b/drivers/platform/x86/amd/pmf/tee-if.c
-> >> @@ -0,0 +1,112 @@
-> >> +// SPDX-License-Identifier: GPL-2.0
-> >> +/*
-> >> + * AMD Platform Management Framework Driver - TEE Interface
-> >> + *
-> >> + * Copyright (c) 2023, Advanced Micro Devices, Inc.
-> >> + * All Rights Reserved.
-> >> + *
-> >> + * Author: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-> >> + */
-> >> +
-> >> +#include <linux/tee_drv.h>
-> >> +#include <linux/uuid.h>
-> >> +#include "pmf.h"
-> >> +
-> >> +#define MAX_TEE_PARAM	4
-> >> +static const uuid_t amd_pmf_ta_uuid = UUID_INIT(0x6fd93b77, 0x3fb8, 0x524d,
-> >> +						0xb1, 0x2d, 0xc5, 0x29, 0xb1, 0x3d, 0x85, 0x43);
-> >> +
-> >> +static int amd_pmf_amdtee_ta_match(struct tee_ioctl_version_data *ver, const void *data)
-> >> +{
-> >> +	return ver->impl_id == TEE_IMPL_ID_AMDTEE;
-> >> +}
-> >> +
-> >> +static int amd_pmf_ta_open_session(struct tee_context *ctx, u32 *id)
-> >> +{
-> >> +	struct tee_ioctl_open_session_arg sess_arg = {};
-> >> +	int rc;
-> >> +
-> >> +	export_uuid(sess_arg.uuid, &amd_pmf_ta_uuid);
-> >> +	sess_arg.clnt_login = TEE_IOCTL_LOGIN_PUBLIC;
-> >> +	sess_arg.num_params = 0;
-> >> +
-> >> +	rc = tee_client_open_session(ctx, &sess_arg, NULL);
-> >> +	if (rc < 0 || sess_arg.ret != 0) {
-> >> +		pr_err("Failed to open TEE session err:%#x, ret:%#x\n", sess_arg.ret, rc);
-> > 
-> > Print normal -Exx error codes as %d, not %x (rc). I don't know what would 
-> > be best to do with sess_arg.ret, TEEC_ERROR_* look like errnos (negative 
-> > values) manually converted into u32.
-> 
-> in drivers/tee/amdtee/amdtee_private.h, all the TEEC_* are hex. So
-> sess_arg.ret can remain %x?
-
-Sure, you can leave it to %x.
-
--- 
- i.
-
---8323329-509712714-1696847406=:1721--
+> >>> +     if (adev->in_suspend && !adev->in_runpm)
+> >>> +             return -EPERM;
+> >>> +
+> >>> +     ret =3D pm_runtime_get_sync(ddev->dev);
+> >>> +     if (ret < 0) {
+> >>> +             pm_runtime_put_autosuspend(ddev->dev);
+> >>> +             return ret;
+> >>> +     }
+> >>> +
+> >>> +     size =3D amdgpu_dpm_get_pm_log(adev, buf, PAGE_SIZE);
+> >>> +
+> >>> +     pm_runtime_mark_last_busy(ddev->dev);
+> >>> +     pm_runtime_put_autosuspend(ddev->dev);
+> >>> +
+> >>> +     return size;
+> >>> +}
+> >>> +
+> >>>    /**
+> >>>     * DOC: gpu_metrics
+> >>>     *
+> >>> @@ -2091,6 +2129,8 @@ static struct amdgpu_device_attr amdgpu_device_=
+attrs[] =3D {
+> >>>        AMDGPU_DEVICE_ATTR_RW(smartshift_bias,                        =
+  ATTR_FLAG_BASIC,
+> >>>                              .attr_update =3D ss_bias_attr_update),
+> >>>        AMDGPU_DEVICE_ATTR_RW(xgmi_plpd_policy,                       =
+  ATTR_FLAG_BASIC),
+> >>> +     AMDGPU_DEVICE_ATTR_RO(pmlog,                                   =
+ ATTR_FLAG_BASIC,
+> >>> +                           .attr_update =3D amdgpu_pmlog_attr_update=
+),
+> >>>    };
+> >>>
+> >>>    static int default_attr_update(struct amdgpu_device *adev, struct =
+amdgpu_device_attr *attr,
+>
