@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F098EE95A91
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Oct 2023 08:41:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 212D3E95A91
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Oct 2023 08:44:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 759D310E0E4;
-	Mon,  9 Oct 2023 08:41:45 +0000 (UTC)
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [IPv6:2a00:1450:4864:20::52c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA37F10E230
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Oct 2023 08:41:42 +0000 (UTC)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-533d31a8523so7600957a12.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 09 Oct 2023 01:41:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE70610E22C;
+	Mon,  9 Oct 2023 08:44:52 +0000 (UTC)
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A359C10E22C
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Oct 2023 08:44:49 +0000 (UTC)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5362bcc7026so7506123a12.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 09 Oct 2023 01:44:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1696840901; x=1697445701; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1696841088; x=1697445888; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=ApCrJAyOyFeWefTOoFwImp0y/CPgSMlbofMcbpkts10=;
- b=Wx36VI570z0QQxC09E17T25ay5cIkonB2zShaHXezwXjgW5t6RwySRVhSjbJSw0fSO
- 42qF7UCYpPNBt0BoY2GgIni/oZj/WVrlfaHFmIEP3Vzm2gtVZPSZ/vvETIsmIwL9bCUQ
- A2XSAFXYyXWzOdLNdUG8Bxbo81y7SuccEOVHcpFzeiQYu7P+wHlgdu/BhUobadBKbqHQ
- 4Sid/p/TJmfn/0hf5kIoNYGoiKn/BZn6qCq/SIRHUs3NO71Ax6bb/zOOFgR84QP893iy
- BttsaFKIGfytjVydhrbBjkx3fPsbVL5e8uHhhUTLdShf4g4+D3svnArVlWHY54sTHK3v
- 6ShA==
+ bh=BX/zmXsukG29xnQSR9B0oKJIYsPA/ObsxX/z1vh64KQ=;
+ b=OEGGRvByp6m5Um9sl7cUtvTTvTjBnoqeeJGMNTBAtCWWEyo4sxx7oh0qd9oCKelIiS
+ z+lk2RVej+cHFIIVGYIuqzCbYum5hsoaG+rfVJuG+L8OtpsEhhDpTGEB/AThFfIAJjI9
+ oL94qgKOQoLpuYn0ihZKu6nGP8W+9QkjNk1WHyrcHi1BwcVr31AlGC1o1xjkWNqu9SM9
+ 6VSRooUflPbjpmMoP2lFM3jQ4jHXZPeCQVFpP4sx4XLj1dedhRFo6JtWVy3hp0jhQleU
+ b6jDfpQfpZ+SF1qtCdNi0R/DLyOWapo3BC0zCnEPlcA6BPz1cK95H4sj4ktWGTAZAS6p
+ 49tA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696840901; x=1697445701;
+ d=1e100.net; s=20230601; t=1696841088; x=1697445888;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ApCrJAyOyFeWefTOoFwImp0y/CPgSMlbofMcbpkts10=;
- b=Eb/T4v3Uusj9zPa+eCHo4GjKq+FWMkA/OLUlqPVLSVqbmkb4LqmPjTBKwj1CuoAQ8f
- YrYS1EMGfwvj6BuVMyLAmhSa++KhK4PpXoMXCTY1aECg7AyhrLWUtXh479EcePSPZFSv
- eN5aUaHtClByTNvOoSdRmfGLfFUXWigKiABAiukH6VywG8MO6twIiqcFDmdt2RgSvHPp
- Hh+rZGVX6ZTtvH28/XKvc5m0rqZ9SfP4vpWCuqm4JSC6TDbS4fnW4i51+MWmXP1UJV39
- YhyLexsmukjghDjB0cV8bTR6FbNKoyT8voeMCnjFvpTdtWnVsEMJ17YdJxuskEYuZiEd
- 3Qng==
-X-Gm-Message-State: AOJu0YyM7aPZORclhIkJMwSt8cMPY0iROkl8UN18lFrklnqklp5IaKgu
- mSRJC33F+yOmbNXh6yRZGn8=
-X-Google-Smtp-Source: AGHT+IGndSqLsa/XTSD478OScIkZI1V+VA11c7KVkSj2xCVtFSvh9Qy8fFc/Q9W3WMabYU6uhkyXwQ==
-X-Received: by 2002:aa7:c998:0:b0:530:ccf7:37af with SMTP id
- c24-20020aa7c998000000b00530ccf737afmr12569146edt.12.1696840900781; 
- Mon, 09 Oct 2023 01:41:40 -0700 (PDT)
+ bh=BX/zmXsukG29xnQSR9B0oKJIYsPA/ObsxX/z1vh64KQ=;
+ b=u6+udWwhuHF0FUkKqplJyoBYdO+DK+sL/lpWSfdX2VG1ZutPXVNPOeS35uLqPPX8Kj
+ Ys8PfQDHuQe1zdDkK1+0h3AjR+FQBrqHpdqK2G/tupEVYbF3GcbjpUsH+q5Dboa8cJir
+ gSLYJG/PwnpZvF+ZJwtwH2gHqGyNphTF3YVzC1WMaQxGIxmFpKwgE74jwkp69d2fo0A/
+ vCpTz5waSN2ogtzXvUG9/oxWYmSwuNYo48U9MX+fO/4YccDDjFRhJEkMwfWOHuCrr/zk
+ Mcdy1wR4jq3JU0b03d2aUdboaNodSXqX/w4cQZYGcAJUtgz6jl4b4eF+5MLDAy6Jt+zr
+ k7Iw==
+X-Gm-Message-State: AOJu0YwG99DRL00gZb9yMXbjCFMImsEd694V1iDaLR+wUvHl4/kpDDL2
+ 91GR1wwN6urnzGsHzabLcfk=
+X-Google-Smtp-Source: AGHT+IEqDKb4HRtZxZsDtu5W+2z42SiJNpGdTNUkysmwQtgtPeVtFaQtyIHbvgEelFrHF2SaoSsuVg==
+X-Received: by 2002:a17:906:308b:b0:9b6:550c:71cb with SMTP id
+ 11-20020a170906308b00b009b6550c71cbmr12378269ejv.52.1696841087939; 
+ Mon, 09 Oct 2023 01:44:47 -0700 (PDT)
 Received: from [192.168.178.25] ([134.19.31.182])
  by smtp.gmail.com with ESMTPSA id
- bf14-20020a0564021a4e00b005362bcc089csm5711033edb.67.2023.10.09.01.41.39
+ gr13-20020a170906e2cd00b009ad7fc17b2asm6466512ejb.224.2023.10.09.01.44.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Oct 2023 01:41:40 -0700 (PDT)
-Message-ID: <11992882-b7ff-4fe5-8777-755f128472e9@gmail.com>
-Date: Mon, 9 Oct 2023 10:41:39 +0200
+ Mon, 09 Oct 2023 01:44:47 -0700 (PDT)
+Message-ID: <45c6ae57-85fa-461a-b314-f2c99bf433f1@gmail.com>
+Date: Mon, 9 Oct 2023 10:44:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] drm/amd/pm: Add sysfs attribute to get pm log
+Subject: Re: [PATCH v5 1/7] drm/amd: Evict resources during PM ops prepare()
+ callback
 Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <20231006052149.1566154-1-lijo.lazar@amd.com>
- <20231006052149.1566154-4-lijo.lazar@amd.com>
- <007b0fed-4982-4978-95e3-6763d114a97e@gmail.com>
- <CADnq5_MzHbigYydWy9xkT_rgNEpogU8+y4bodAy1NxD99acnZQ@mail.gmail.com>
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20231006185026.5536-1-mario.limonciello@amd.com>
+ <20231006185026.5536-2-mario.limonciello@amd.com>
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CADnq5_MzHbigYydWy9xkT_rgNEpogU8+y4bodAy1NxD99acnZQ@mail.gmail.com>
+In-Reply-To: <20231006185026.5536-2-mario.limonciello@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -77,105 +77,136 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Lijo Lazar <lijo.lazar@amd.com>,
- kevinyang.wang@amd.com, amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com
+Cc: Harry.Wentland@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 06.10.23 um 16:24 schrieb Alex Deucher:
-> On Fri, Oct 6, 2023 at 4:32 AM Christian König
-> <ckoenig.leichtzumerken@gmail.com> wrote:
->> Am 06.10.23 um 07:21 schrieb Lijo Lazar:
->>> Add sysfs attribute to read power management log. A snapshot is
->>> captured to the buffer when the attribute is read.
->>>
->>> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
->>> ---
->>>
->>> v2: Pass PAGE_SIZE as the max size of input buffer
->>>
->>>    drivers/gpu/drm/amd/pm/amdgpu_pm.c | 40 ++++++++++++++++++++++++++++++
->>>    1 file changed, 40 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->>> index 4c65a2fac028..5a1d21c52672 100644
->>> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->>> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->>> @@ -1794,6 +1794,44 @@ static ssize_t amdgpu_set_apu_thermal_cap(struct device *dev,
->>>        return count;
->>>    }
->>>
->>> +static int amdgpu_pmlog_attr_update(struct amdgpu_device *adev,
->>> +                                 struct amdgpu_device_attr *attr,
->>> +                                 uint32_t mask,
->>> +                                 enum amdgpu_device_attr_states *states)
->>> +{
->>> +     if (amdgpu_dpm_get_pm_log(adev, NULL, 0) == -EOPNOTSUPP)
->>> +             *states = ATTR_STATE_UNSUPPORTED;
->>> +
->>> +     return 0;
->>> +}
->>> +
->>> +static ssize_t amdgpu_get_pmlog(struct device *dev,
->>> +                             struct device_attribute *attr, char *buf)
->>> +{
->>> +     struct drm_device *ddev = dev_get_drvdata(dev);
->>> +     struct amdgpu_device *adev = drm_to_adev(ddev);
->>> +     ssize_t size = 0;
->>> +     int ret;
->>> +
->>> +     if (amdgpu_in_reset(adev))
->>> +             return -EPERM;
->> Please stop using amdgpu_in_reset() for stuff like that altogether.
->>
->> When this is reset critical it should grab the reset rw semaphore. If it
->> isn't than that check isn't necessary.
-> All of the power related sysfs files have this check.  It was
-> originally added because users have processes running which poll
-> various hwmon files at regular intervals and since SMU also handles
-> reset, we don't want to get a metrics table request while a reset is
-> happening otherwise the SMU gets confused.
-
-Then this approach is completely broken. Nothing prevents the reset from 
-starting right after doing the check.
-
-If we need exclusive access to the SMU then we should just grab a lock.
-
-Christian.
-
+Am 06.10.23 um 20:50 schrieb Mario Limonciello:
+> Linux PM core has a prepare() callback run before suspend.
 >
-> Alex
+> If the system is under high memory pressure, the resources may need
+> to be evicted into swap instead.  If the storage backing for swap
+> is offlined during the suspend() step then such a call may fail.
 >
->> Regards,
->> Christian.
->>
->>> +     if (adev->in_suspend && !adev->in_runpm)
->>> +             return -EPERM;
->>> +
->>> +     ret = pm_runtime_get_sync(ddev->dev);
->>> +     if (ret < 0) {
->>> +             pm_runtime_put_autosuspend(ddev->dev);
->>> +             return ret;
->>> +     }
->>> +
->>> +     size = amdgpu_dpm_get_pm_log(adev, buf, PAGE_SIZE);
->>> +
->>> +     pm_runtime_mark_last_busy(ddev->dev);
->>> +     pm_runtime_put_autosuspend(ddev->dev);
->>> +
->>> +     return size;
->>> +}
->>> +
->>>    /**
->>>     * DOC: gpu_metrics
->>>     *
->>> @@ -2091,6 +2129,8 @@ static struct amdgpu_device_attr amdgpu_device_attrs[] = {
->>>        AMDGPU_DEVICE_ATTR_RW(smartshift_bias,                          ATTR_FLAG_BASIC,
->>>                              .attr_update = ss_bias_attr_update),
->>>        AMDGPU_DEVICE_ATTR_RW(xgmi_plpd_policy,                         ATTR_FLAG_BASIC),
->>> +     AMDGPU_DEVICE_ATTR_RO(pmlog,                                    ATTR_FLAG_BASIC,
->>> +                           .attr_update = amdgpu_pmlog_attr_update),
->>>    };
->>>
->>>    static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_attr *attr,
+> So move this step into prepare() to move evict majority of
+> resources and update all non-pmops callers to call the same callback.
+>
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2362
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+
+Reviewed-by: Christian König <christian.koenig@amd.com> for this one.
+
+> ---
+> v4->v5:
+>   * Call amdgpu_device_prepare() from other callers to amdgpu_device_suspend()
+>   * 3x evict calls -> 2x evict calls
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 31 ++++++++++++++++++----
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 10 ++++---
+>   3 files changed, 34 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 4cc78e0e4304..fdb2e9ae13e2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1409,6 +1409,7 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
+>   void amdgpu_driver_release_kms(struct drm_device *dev);
+>   
+>   int amdgpu_device_ip_suspend(struct amdgpu_device *adev);
+> +int amdgpu_device_prepare(struct drm_device *dev);
+>   int amdgpu_device_suspend(struct drm_device *dev, bool fbcon);
+>   int amdgpu_device_resume(struct drm_device *dev, bool fbcon);
+>   u32 amdgpu_get_vblank_counter_kms(struct drm_crtc *crtc);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 0cb702c3046a..cb334dc57c59 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1760,6 +1760,7 @@ static void amdgpu_switcheroo_set_state(struct pci_dev *pdev,
+>   	} else {
+>   		pr_info("switched off\n");
+>   		dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
+> +		amdgpu_device_prepare(dev);
+>   		amdgpu_device_suspend(dev, true);
+>   		amdgpu_device_cache_pci_state(pdev);
+>   		/* Shut down the device */
+> @@ -4335,6 +4336,31 @@ static int amdgpu_device_evict_resources(struct amdgpu_device *adev)
+>   /*
+>    * Suspend & resume.
+>    */
+> +/**
+> + * amdgpu_device_prepare - prepare for device suspend
+> + *
+> + * @dev: drm dev pointer
+> + *
+> + * Prepare to put the hw in the suspend state (all asics).
+> + * Returns 0 for success or an error on failure.
+> + * Called at driver suspend.
+> + */
+> +int amdgpu_device_prepare(struct drm_device *dev)
+> +{
+> +	struct amdgpu_device *adev = drm_to_adev(dev);
+> +	int r;
+> +
+> +	if (dev->switch_power_state == DRM_SWITCH_POWER_OFF)
+> +		return 0;
+> +
+> +	/* Evict the majority of BOs before starting suspend sequence */
+> +	r = amdgpu_device_evict_resources(adev);
+> +	if (r)
+> +		return r;
+> +
+> +	return 0;
+> +}
+> +
+>   /**
+>    * amdgpu_device_suspend - initiate device suspend
+>    *
+> @@ -4355,11 +4381,6 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
+>   
+>   	adev->in_suspend = true;
+>   
+> -	/* Evict the majority of BOs before grabbing the full access */
+> -	r = amdgpu_device_evict_resources(adev);
+> -	if (r)
+> -		return r;
+> -
+>   	if (amdgpu_sriov_vf(adev)) {
+>   		amdgpu_virt_fini_data_exchange(adev);
+>   		r = amdgpu_virt_request_full_gpu(adev, false);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 81affdf7c0c3..420196a17e22 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2427,8 +2427,9 @@ static int amdgpu_pmops_prepare(struct device *dev)
+>   	/* Return a positive number here so
+>   	 * DPM_FLAG_SMART_SUSPEND works properly
+>   	 */
+> -	if (amdgpu_device_supports_boco(drm_dev))
+> -		return pm_runtime_suspended(dev);
+> +	if (amdgpu_device_supports_boco(drm_dev) &&
+> +	    pm_runtime_suspended(dev))
+> +		return 1;
+>   
+>   	/* if we will not support s3 or s2i for the device
+>   	 *  then skip suspend
+> @@ -2437,7 +2438,7 @@ static int amdgpu_pmops_prepare(struct device *dev)
+>   	    !amdgpu_acpi_is_s3_active(adev))
+>   		return 1;
+>   
+> -	return 0;
+> +	return amdgpu_device_prepare(drm_dev);
+>   }
+>   
+>   static void amdgpu_pmops_complete(struct device *dev)
+> @@ -2637,6 +2638,9 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+>   	if (amdgpu_device_supports_boco(drm_dev))
+>   		adev->mp1_state = PP_MP1_STATE_UNLOAD;
+>   
+> +	ret = amdgpu_device_prepare(drm_dev);
+> +	if (ret)
+> +		return ret;
+>   	ret = amdgpu_device_suspend(drm_dev, false);
+>   	if (ret) {
+>   		adev->in_runpm = false;
 
