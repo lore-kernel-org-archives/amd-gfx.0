@@ -4,106 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF854E95A67
-	for <amd-gfx@archiver.kernel.org>; Sun,  8 Oct 2023 13:35:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F20AE95A95
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Oct 2023 00:51:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D55510E107;
-	Sun,  8 Oct 2023 13:35:43 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60BFD10E107
- for <amd-gfx@lists.freedesktop.org>; Sun,  8 Oct 2023 13:35:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VMaPGXxT8yLlQ5fLGvNsks0W34GjeIQpCIilqBhqEhhK8JuSXDdRj1zDfnqEq0/IUu/5H3sz2ncJ2AGNdC+GHXBwPX/WiK7ClRb5Vhpast7WbIbzI2wofWSnDAhLLqG37Z22kuAmN9aqckseltAvKRBt+7ZZX4lhzp/tQr0AQzkZ3y50UuII87SmwCeeYNJFmTVUEKdzRsA11tliR+RAl7s/TxAVG3dLKRwHA/I7H54WUvPMMWuVGDdkroIr2bjj+pg4/FSzr59UWXxToPZ6KH1bJ1pyzCXu8gKL9Z9Sx21xKKdBJyYMT7bJS51J2zNcYTTptOVDpcZojO0hvKja9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Wsen2ovmgIZtM1S57Ryr5roioDoD3xG5mpIqVHQMRV8=;
- b=htbczhcmymL6oPZtBbEONaZ9Ba81GGcBCqvvq5htJnyQY8C3eA5Pt6W5pHqNPfPsBI6/oIEbex7kQ0ab0RClgf0BNdImtMo3QMUVLyLEgqOmecpeaM7bmjWTx9dbLlRL0/pUxVH7gBsI50Vb/8KiMJ3R3bi9bHgj+lzDR9DBpmXU19NOO3lT0bojYdI4W01qgLLHLZxyQmZTX8S0YY3kQBBXdSfFVs9t9bYDsmpQNtOsTIp1eyyylBokyzF2ViI3WKb7m+1br1uB4rZX5aJnVw8aVbFydCMD+vwVDXQ0nAT4ZqO8p+Q090GdZ7kHOMgx2C3TYOgHdjTgODXdXJw3YA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Wsen2ovmgIZtM1S57Ryr5roioDoD3xG5mpIqVHQMRV8=;
- b=WS6KeS3KhSFOjnmFVyyfYYLSG2r3wfsd0V3ubWmhTxLJOIH3QEkGDJmevjc4RzGpECKJVM8lHNbRFreVdw/mXszvd8wff0BP6B332tZt9sLBYS31EzHmfGPw20yDtnhM4tyvrszdG/5zhzGctxiS+F1DgrEEoAMa3CCbY9V1nrw=
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
- by BL1PR12MB5109.namprd12.prod.outlook.com (2603:10b6:208:309::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.36; Sun, 8 Oct
- 2023 13:35:35 +0000
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::734d:d070:e2db:de7a]) by PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::734d:d070:e2db:de7a%7]) with mapi id 15.20.6838.040; Sun, 8 Oct 2023
- 13:35:35 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Xu, Feifei" <Feifei.Xu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu:Check gfx poweron when skip flush_gpu_tlb
-Thread-Topic: [PATCH] drm/amdgpu:Check gfx poweron when skip flush_gpu_tlb
-Thread-Index: AQHZ+c8tCruiUI8Uz0Se1YKWw4O3urA/311A
-Date: Sun, 8 Oct 2023 13:35:35 +0000
-Message-ID: <PH7PR12MB59972CEAF0241F48E6B342CE82CFA@PH7PR12MB5997.namprd12.prod.outlook.com>
-References: <20231008100642.1915677-1-Feifei.Xu@amd.com>
-In-Reply-To: <20231008100642.1915677-1-Feifei.Xu@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|BL1PR12MB5109:EE_
-x-ms-office365-filtering-correlation-id: ebb74b30-72ec-42bb-1eb6-08dbc8037389
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: YJpidCHxHLG7PMQRfiBRhhu5vULSbKl++h+RzsrC1NQ7F/4g5h0a9mHgWcHfhkQILJju3nCD8BGUlN8Cco7G7UO9H17Bg1ue6l673nLtYddXmBjjaojkL7J8m2BmH+v75Xn6QLV3xw8F2AYl1F5zrmcJMee/+/kdqjQwTC+tyvOlXdKqaXeMJn2pNQX+KR9mW86+0xmYG0a8biL10ooFxyNtq1zhrUv/fEW72CWHXx+3OLMbgWOwPNZMZMOqc34AbO1oZWb39qBMM82c8PvAbLXYc2gQBQEYElpF6ZSA/N7zlUyAyqxCteqroXCnrx17XM/SndbjRiCDu43J6Lb60vNKViX0FQ/HvymmwuUzULnrgdfHVyQgP23lah+LtMEQHH4U+PhiNa5sz4BSwfF6ZRy7QuGsaRQWl8i2ZDRJPRVcdlUbO2GSDBQZgBDcGns/GF01607OuSY/BnCJUVJrGQdPZIL5m13sf1WQNGavdBGECGlWLLjgLds7Q5Fgz/VPCxSgdC1fGWRe0oPWkmLvXetPb7O0wfECSvnKGCxSQqKCF25He74T5kVZZ4VGm1ate3AGKib1oqwIh910MwfPAKlCf9ebw6mFFHHQAGFsFnxJ8pg0DvqAZItH3ux8SbFN
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366004)(396003)(376002)(346002)(136003)(39860400002)(230922051799003)(1800799009)(186009)(451199024)(64100799003)(2906002)(7696005)(6506007)(9686003)(53546011)(122000001)(33656002)(86362001)(38100700002)(38070700005)(55016003)(26005)(83380400001)(5660300002)(4326008)(8936002)(8676002)(52536014)(478600001)(316002)(41300700001)(110136005)(66556008)(66476007)(66946007)(66446008)(54906003)(64756008)(76116006)(71200400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?xSV27vLoKUzDBmDlCDUvFE9sz+pCa4/sWGonZLuZ+khqr8x5a9QbFmR+HwLU?=
- =?us-ascii?Q?ybtb3PWEAl1p4PqMf38w7D56RelD9beWE6mgTS7844LPETkX/SqsEuKO9u+s?=
- =?us-ascii?Q?K6KxXaYkhq5SpHSidq80kAY1xiGAP8v8MjkQxSSN0le6+H3Vpm5zCJs2lupb?=
- =?us-ascii?Q?ut7UyvQH1P4D80V8LQcXCZTDvC/QOP8BpqQptQCs/rKszBG7bwaJ6pNR1EuZ?=
- =?us-ascii?Q?bnGWyU0RUXZ/AjbT2L7NeUXfec4U4nPgO3e+2FMZCucdICcKlNAqp2Esy07g?=
- =?us-ascii?Q?5z+GAXZCizuIQZxY/DALMlfT9bzm2rgPv/rIxC9no4NkquZ6Y93Tze7CJKzn?=
- =?us-ascii?Q?H+tmfqR0bRo7bemIW3Eu+6O4ABCmejB5p4AMhVGGymAQFSuRIfCWvkPyL95J?=
- =?us-ascii?Q?1foeV74CbzOWovevwm4qlnVEXSN/FccQlqGbFezcIsI4IUhvV72m9iGpUnYh?=
- =?us-ascii?Q?BTvlgqFd67AcKJZmO/Y16jzRkatc2w3bcrB1GCg3oiBt7htdglW1hkX1lJxq?=
- =?us-ascii?Q?sqXLC1w503sNjaKZ4QqKz/7V54533t90emVrFMPL9skqDMOvxs7SaD9PwfCj?=
- =?us-ascii?Q?rQOKuEIOXSGUlZNXFsAVcQx3jO97f36kh4nOPHvb03XyE7J1jpwq5vw63MhK?=
- =?us-ascii?Q?Qhzyxx2TRrMgfXbvul9PRTMf6kTvQh6ciZYVHUVrROPIbAhTDVW0Ta7aoC44?=
- =?us-ascii?Q?N1RB+ytyuR2fZo93gitv4lkjukyEhOrrkSYv8nCeAMld9T5SR/gAuDEBEOf/?=
- =?us-ascii?Q?68bWRT60vmk5nraFfpCvxLzYKhyoWrmF2HWBl4LTu28PObj7WZtghALVFd1Y?=
- =?us-ascii?Q?HZL625+tE6NiBXK5nB4a6Qtj5QfWo8YgjsT7tIWRhzkS4hjcXVI6aIiEN2ek?=
- =?us-ascii?Q?ccOTmZdWiqxPCayWAi7/qK7r7U7u9AWxq2r3A/C829TCDkm88j9vmWGS54S5?=
- =?us-ascii?Q?GJtcaxTFr8RoMDWnkonjS64uT2Z1ny/gHLDLoO/kAM3Dc6tf4uUDYaU0E1ba?=
- =?us-ascii?Q?fdEepBaOrFZHwJQhs2ERA8V21lEMYZCa4zwdLq8Ah8Lr9GE1+WI+S+qeOmDo?=
- =?us-ascii?Q?/tcKTO43HOa6T7BqTQWTGQpJeWl4av5iv+Thz6USa7fKVFeRa4r/kVetl6/W?=
- =?us-ascii?Q?T0nhmfvT8kFGfM7/xHhSl5hkcu5UBBekJldkgrhXAv6Q4bF37z2NSt5mPCRi?=
- =?us-ascii?Q?1/W9G4r5lUecSv9E4q9Mb5KzJaxJ497P1AAhtW0Y/0xEAhNsfx7bnoGHPPIz?=
- =?us-ascii?Q?rIFzMBBH4rUnXDhU/3POCw7kk+cropeuUokspz+KsPeG2VhbFfZFiuBENHrH?=
- =?us-ascii?Q?zZlnJF7pdzoqsU+QTz+xAJ0V9xeJiFqsSWxkTtLMeefdZjPSb74Uk5MFeYze?=
- =?us-ascii?Q?OAKkwmOOQEj6KpgehST8nPrLl6HbnYmxUPI7QCrLWFblS2ftBoEA53PYpM1X?=
- =?us-ascii?Q?OEjH9AELMOEP8U2QETtvaxfGv429sxoZirDU3EyXyXeQjuWgKa9JIrmViT4i?=
- =?us-ascii?Q?AmZEnt22UYnCl6Zr4d5jD1uzZy0Fu+dH4YbVTac7Y7sHMqUCULBYs8N5kcmJ?=
- =?us-ascii?Q?Y6QOcfzphV/UfCYdnts=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1F1910E203;
+	Mon,  9 Oct 2023 00:51:48 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE26E10E203;
+ Mon,  9 Oct 2023 00:51:45 +0000 (UTC)
+Received: from localhost.localdomain (unknown [179.221.49.143])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: koike)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 64F096607215;
+ Mon,  9 Oct 2023 01:51:31 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1696812704;
+ bh=/xDQKKLDj+kOP0SooGStM0F+3KSnfSoZpF9CHcyMGm4=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=AY1fSzcb4Fjvv+m3FSLTvbWaCWQ/x9WmuE6HXmOnkJRgpM6xg1CuxgfdtTbRSItk/
+ e+Lg93Rg7wPTRv5ZL/fqlj1gkDeOpPOit2gEKbUf2aOCAonH9AWK1kGUK/vwFrPccz
+ 7+XkzqwssBnfiRm6FRKoE5nuUYRaCBiyXAXX4HJx3u1hq7POUPFPH5K2ZO9Rc7A9fE
+ D08NmsHais1JHgtIADSHgCdHfntxIfGCJyGVD2S7gZwTo/ziKa4uaCGWoGfW9ecZkM
+ 7XXPW6L329JYdvYJ6kWB1cJvbPvwsYd7xaHof3Xl8ka1gr+QAHRUv5u81ijkgSBUyb
+ pL7hrhcbMZubA==
+From: Helen Koike <helen.koike@collabora.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Helen Koike <helen.koike@collabora.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>
+Subject: [PATCH 5/9] drm/ci: clean up xfails (specially flakes list)
+Date: Sun,  8 Oct 2023 21:49:50 -0300
+Message-Id: <20231009004953.203576-6-helen.koike@collabora.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20231009004953.203576-1-helen.koike@collabora.com>
+References: <20231009004953.203576-1-helen.koike@collabora.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ebb74b30-72ec-42bb-1eb6-08dbc8037389
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2023 13:35:35.1596 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TVfB4t8jY130KFk+GSy7fFXkx9JsEUeTmHSMIKN4AKaMp4vtZ32IkMMzv01yUlkb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5109
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,60 +72,906 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Xu, Feifei" <Feifei.Xu@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>
+Cc: robdclark@chromium.org, linux-rockchip@lists.infradead.org,
+ vignesh.raman@collabora.com, guilherme.gallo@collabora.com,
+ sergi.blanch.torne@collabora.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ david.heidelberg@collabora.com, linux-mediatek@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Since the script that collected the list of the expectation files was
+bogus and placing test to the flakes list incorrectly, restart the
+expectation files with the correct script.
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Feifei X=
-u
-Sent: Sunday, October 8, 2023 6:07 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Xu, Feifei <Feifei.Xu@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>; Koenig,=
- Christian <Christian.Koenig@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.co=
-m>
-Subject: [PATCH] drm/amdgpu:Check gfx poweron when skip flush_gpu_tlb
+This reduces a lot the number of tests in the flakes list.
 
-To fix the gpu recovery failed on GFX11 with gfxhub pagefault, flush gpu tl=
-b after reset on GFX11.
-Gfxhub tlb flush need check if adev->gfx.is_poweron set.
-
-Fixes: d0c860f33553 ("drm/amdgpu: rework lock handling for flush_tlb v2")
-
-Signed-off-by: Feifei Xu <Feifei.Xu@amd.com>
+Signed-off-by: Helen Koike <helen.koike@collabora.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ .../gpu/drm/ci/xfails/amdgpu-stoney-fails.txt | 13 ++++--
+ .../drm/ci/xfails/amdgpu-stoney-flakes.txt    | 20 ---------
+ drivers/gpu/drm/ci/xfails/i915-amly-fails.txt |  9 ++++
+ .../gpu/drm/ci/xfails/i915-amly-flakes.txt    | 32 ---------------
+ drivers/gpu/drm/ci/xfails/i915-apl-fails.txt  | 11 -----
+ drivers/gpu/drm/ci/xfails/i915-apl-flakes.txt |  1 -
+ drivers/gpu/drm/ci/xfails/i915-cml-fails.txt  | 15 ++++++-
+ drivers/gpu/drm/ci/xfails/i915-cml-flakes.txt | 38 -----------------
+ drivers/gpu/drm/ci/xfails/i915-glk-fails.txt  | 17 ++++++++
+ drivers/gpu/drm/ci/xfails/i915-glk-flakes.txt | 41 -------------------
+ drivers/gpu/drm/ci/xfails/i915-kbl-fails.txt  |  7 ++++
+ drivers/gpu/drm/ci/xfails/i915-kbl-flakes.txt | 26 ------------
+ drivers/gpu/drm/ci/xfails/i915-tgl-fails.txt  |  1 -
+ drivers/gpu/drm/ci/xfails/i915-tgl-flakes.txt |  5 ---
+ drivers/gpu/drm/ci/xfails/i915-whl-flakes.txt |  1 -
+ .../drm/ci/xfails/mediatek-mt8173-flakes.txt  |  0
+ .../drm/ci/xfails/mediatek-mt8183-fails.txt   |  5 ++-
+ .../drm/ci/xfails/mediatek-mt8183-flakes.txt  | 14 -------
+ .../gpu/drm/ci/xfails/meson-g12b-fails.txt    | 14 ++++---
+ .../gpu/drm/ci/xfails/meson-g12b-flakes.txt   |  4 --
+ .../gpu/drm/ci/xfails/msm-apq8016-flakes.txt  |  4 --
+ .../gpu/drm/ci/xfails/msm-apq8096-fails.txt   |  2 +
+ .../gpu/drm/ci/xfails/msm-apq8096-flakes.txt  |  4 --
+ .../gpu/drm/ci/xfails/msm-sc7180-fails.txt    | 15 ++++---
+ .../gpu/drm/ci/xfails/msm-sc7180-flakes.txt   | 24 +++++++----
+ .../gpu/drm/ci/xfails/msm-sc7180-skips.txt    | 18 +-------
+ .../gpu/drm/ci/xfails/msm-sdm845-fails.txt    |  9 +---
+ .../gpu/drm/ci/xfails/msm-sdm845-flakes.txt   | 20 ++++-----
+ .../drm/ci/xfails/rockchip-rk3288-fails.txt   |  6 +++
+ .../drm/ci/xfails/rockchip-rk3288-flakes.txt  |  9 ----
+ .../drm/ci/xfails/rockchip-rk3399-fails.txt   | 40 +++++++++++++++++-
+ .../drm/ci/xfails/rockchip-rk3399-flakes.txt  | 28 +++----------
+ .../drm/ci/xfails/virtio_gpu-none-flakes.txt  |  0
+ 33 files changed, 163 insertions(+), 290 deletions(-)
+ delete mode 100644 drivers/gpu/drm/ci/xfails/i915-amly-flakes.txt
+ delete mode 100644 drivers/gpu/drm/ci/xfails/i915-apl-flakes.txt
+ delete mode 100644 drivers/gpu/drm/ci/xfails/i915-cml-flakes.txt
+ delete mode 100644 drivers/gpu/drm/ci/xfails/i915-glk-flakes.txt
+ delete mode 100644 drivers/gpu/drm/ci/xfails/i915-kbl-flakes.txt
+ delete mode 100644 drivers/gpu/drm/ci/xfails/i915-tgl-flakes.txt
+ delete mode 100644 drivers/gpu/drm/ci/xfails/i915-whl-flakes.txt
+ delete mode 100644 drivers/gpu/drm/ci/xfails/mediatek-mt8173-flakes.txt
+ delete mode 100644 drivers/gpu/drm/ci/xfails/mediatek-mt8183-flakes.txt
+ delete mode 100644 drivers/gpu/drm/ci/xfails/meson-g12b-flakes.txt
+ delete mode 100644 drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt
+ delete mode 100644 drivers/gpu/drm/ci/xfails/msm-apq8096-flakes.txt
+ delete mode 100644 drivers/gpu/drm/ci/xfails/rockchip-rk3288-flakes.txt
+ delete mode 100644 drivers/gpu/drm/ci/xfails/virtio_gpu-none-flakes.txt
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gmc.c
-index 2f9bb86edd71..048d32edee88 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -611,8 +611,9 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *ade=
-v, uint32_t vmid,
- 		/*
- 		 * A GPU reset should flush all TLBs anyway, so no need to do
- 		 * this while one is ongoing.
-+		 * For GFX11, gfxhub flush check if adev->gfx.is_poweron is set.
- 		 */
--		if (!down_read_trylock(&adev->reset_domain->sem))
-+		if (!down_read_trylock(&adev->reset_domain->sem) &&=20
-+!adev->gfx.is_poweron)
- 			return;
-
-[Kevin]:
-Based on your description, the above code should use "||" instead of "&&",
-And after merging code into one line may result in the lock not being relea=
-sed if the lock can be acquired success.
-
-Best Regards,
-Kevin
-=20
- 		if (adev->gmc.flush_tlb_needs_extra_type_2)
---
+diff --git a/drivers/gpu/drm/ci/xfails/amdgpu-stoney-fails.txt b/drivers/gpu/drm/ci/xfails/amdgpu-stoney-fails.txt
+index bd9392536e7c..aa57aaa8869b 100644
+--- a/drivers/gpu/drm/ci/xfails/amdgpu-stoney-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/amdgpu-stoney-fails.txt
+@@ -1,8 +1,14 @@
+ kms_addfb_basic@bad-pitch-65536,Fail
+ kms_addfb_basic@bo-too-small,Fail
++kms_addfb_basic@too-high,Fail
++kms_async_flips@async-flip-with-page-flip-events,Fail
++kms_async_flips@crc,Fail
+ kms_async_flips@invalid-async-flip,Fail
+-kms_atomic@plane-immutable-zpos,Fail
++kms_atomic_transition@plane-all-modeset-transition-internal-panels,Fail
++kms_atomic_transition@plane-all-transition,Fail
++kms_atomic_transition@plane-all-transition-nonblocking,Fail
+ kms_atomic_transition@plane-toggle-modeset-transition,Fail
++kms_atomic_transition@plane-use-after-nonblocking-unbind,Fail
+ kms_bw@linear-tiling-1-displays-2560x1440p,Fail
+ kms_bw@linear-tiling-1-displays-3840x2160p,Fail
+ kms_bw@linear-tiling-2-displays-3840x2160p,Fail
+@@ -11,9 +17,10 @@ kms_color@degamma,Fail
+ kms_cursor_crc@cursor-size-change,Fail
+ kms_cursor_crc@pipe-A-cursor-size-change,Fail
+ kms_cursor_crc@pipe-B-cursor-size-change,Fail
+-kms_cursor_legacy@forked-move,Fail
++kms_flip@flip-vs-modeset-vs-hang,Fail
++kms_flip@flip-vs-panning-vs-hang,Fail
+ kms_hdr@bpc-switch,Fail
+ kms_hdr@bpc-switch-dpms,Fail
++kms_plane@pixel-format,Fail
+ kms_plane_multiple@atomic-pipe-A-tiling-none,Fail
+-kms_rmfb@close-fd,Fail
+ kms_rotation_crc@primary-rotation-180,Fail
+diff --git a/drivers/gpu/drm/ci/xfails/amdgpu-stoney-flakes.txt b/drivers/gpu/drm/ci/xfails/amdgpu-stoney-flakes.txt
+index f8defa0f9e67..6faf75e667d3 100644
+--- a/drivers/gpu/drm/ci/xfails/amdgpu-stoney-flakes.txt
++++ b/drivers/gpu/drm/ci/xfails/amdgpu-stoney-flakes.txt
+@@ -1,21 +1 @@
+-kms_addfb_basic@too-high
+-kms_async_flips@alternate-sync-async-flip
+ kms_async_flips@async-flip-with-page-flip-events
+-kms_async_flips@crc
+-kms_async_flips@test-cursor
+-kms_async_flips@test-time-stamp
+-kms_atomic_transition@plane-all-modeset-transition-internal-panels
+-kms_atomic_transition@plane-all-transition
+-kms_atomic_transition@plane-use-after-nonblocking-unbind
+-kms_bw@linear-tiling-1-displays-1920x1080p
+-kms_bw@linear-tiling-2-displays-1920x1080p
+-kms_bw@linear-tiling-2-displays-2560x1440p
+-kms_bw@linear-tiling-3-displays-2560x1440p
+-kms_bw@linear-tiling-3-displays-3840x2160p
+-kms_cursor_crc@pipe-A-cursor-alpha-opaque
+-kms_cursor_crc@pipe-B-cursor-alpha-opaque
+-kms_plane@pixel-format
+-kms_plane_multiple@atomic-pipe-B-tiling-none
+-kms_plane_scaling@downscale-with-rotation-factor-0-5
+-kms_universal_plane@disable-primary-vs-flip-pipe-A
+-kms_universal_plane@disable-primary-vs-flip-pipe-B
+diff --git a/drivers/gpu/drm/ci/xfails/i915-amly-fails.txt b/drivers/gpu/drm/ci/xfails/i915-amly-fails.txt
+index 5f513c638beb..59438e4df86e 100644
+--- a/drivers/gpu/drm/ci/xfails/i915-amly-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/i915-amly-fails.txt
+@@ -2,6 +2,10 @@ kms_flip_scaled_crc@flip-32bpp-linear-to-64bpp-linear-downscaling,Fail
+ kms_flip_scaled_crc@flip-32bpp-linear-to-64bpp-linear-upscaling,Fail
+ kms_flip_scaled_crc@flip-32bpp-xtile-to-64bpp-xtile-downscaling,Fail
+ kms_flip_scaled_crc@flip-32bpp-xtile-to-64bpp-xtile-upscaling,Fail
++kms_flip_scaled_crc@flip-32bpp-ytile-to-64bpp-ytile-downscaling,Fail
++kms_flip_scaled_crc@flip-32bpp-ytile-to-64bpp-ytile-upscaling,Fail
++kms_flip_scaled_crc@flip-32bpp-ytileccs-to-64bpp-ytile-downscaling,Fail
++kms_flip_scaled_crc@flip-32bpp-ytileccs-to-64bpp-ytile-upscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-linear-to-16bpp-linear-downscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-linear-to-16bpp-linear-upscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-linear-to-32bpp-linear-downscaling,Fail
+@@ -10,7 +14,12 @@ kms_flip_scaled_crc@flip-64bpp-xtile-to-16bpp-xtile-downscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-xtile-to-16bpp-xtile-upscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-xtile-to-32bpp-xtile-downscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-xtile-to-32bpp-xtile-upscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-16bpp-ytile-downscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-16bpp-ytile-upscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytile-downscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytile-upscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilegen12rcccs-upscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilercccs-downscaling,Fail
+ kms_plane_alpha_blend@alpha-basic,Fail
+ kms_plane_alpha_blend@alpha-opaque-fb,Fail
+ kms_plane_alpha_blend@alpha-transparent-fb,Fail
+diff --git a/drivers/gpu/drm/ci/xfails/i915-amly-flakes.txt b/drivers/gpu/drm/ci/xfails/i915-amly-flakes.txt
+deleted file mode 100644
+index d5000515a315..000000000000
+--- a/drivers/gpu/drm/ci/xfails/i915-amly-flakes.txt
++++ /dev/null
+@@ -1,32 +0,0 @@
+-kms_bw@linear-tiling-2-displays-1920x1080p
+-kms_bw@linear-tiling-2-displays-2560x1440p
+-kms_bw@linear-tiling-2-displays-3840x2160p
+-kms_bw@linear-tiling-3-displays-1920x1080p
+-kms_bw@linear-tiling-3-displays-2560x1440p
+-kms_bw@linear-tiling-3-displays-3840x2160p
+-kms_bw@linear-tiling-4-displays-1920x1080p
+-kms_bw@linear-tiling-4-displays-2560x1440p
+-kms_bw@linear-tiling-4-displays-3840x2160p
+-kms_flip_scaled_crc@flip-32bpp-ytile-to-64bpp-ytile-downscaling
+-kms_flip_scaled_crc@flip-32bpp-ytile-to-64bpp-ytile-upscaling
+-kms_flip_scaled_crc@flip-32bpp-ytileccs-to-64bpp-ytile-downscaling
+-kms_flip_scaled_crc@flip-32bpp-ytileccs-to-64bpp-ytile-upscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-16bpp-ytile-downscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-16bpp-ytile-upscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytile-downscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytile-upscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilercccs-downscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilercccs-upscaling
+-kms_plane_alpha_blend@pipe-A-alpha-basic
+-kms_plane_alpha_blend@pipe-A-alpha-opaque-fb
+-kms_plane_alpha_blend@pipe-A-alpha-transparent-fb
+-kms_plane_alpha_blend@pipe-A-constant-alpha-max
+-kms_plane_alpha_blend@pipe-B-alpha-basic
+-kms_plane_alpha_blend@pipe-B-alpha-opaque-fb
+-kms_plane_alpha_blend@pipe-B-alpha-transparent-fb
+-kms_plane_alpha_blend@pipe-B-constant-alpha-max
+-kms_plane_alpha_blend@pipe-C-alpha-basic
+-kms_plane_alpha_blend@pipe-C-alpha-opaque-fb
+-kms_plane_alpha_blend@pipe-C-alpha-transparent-fb
+-kms_plane_alpha_blend@pipe-C-constant-alpha-max
+-kms_sysfs_edid_timing
+diff --git a/drivers/gpu/drm/ci/xfails/i915-apl-fails.txt b/drivers/gpu/drm/ci/xfails/i915-apl-fails.txt
+index 46397ce38d5a..2e3b7c5dac3c 100644
+--- a/drivers/gpu/drm/ci/xfails/i915-apl-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/i915-apl-fails.txt
+@@ -8,13 +8,6 @@ kms_bw@linear-tiling-3-displays-3840x2160p,Fail
+ kms_bw@linear-tiling-4-displays-1920x1080p,Fail
+ kms_bw@linear-tiling-4-displays-2560x1440p,Fail
+ kms_bw@linear-tiling-4-displays-3840x2160p,Fail
+-kms_color@ctm-0-25,Fail
+-kms_color@ctm-0-50,Fail
+-kms_color@ctm-0-75,Fail
+-kms_color@ctm-max,Fail
+-kms_color@ctm-negative,Fail
+-kms_color@ctm-red-to-blue,Fail
+-kms_color@ctm-signed,Fail
+ kms_flip_scaled_crc@flip-32bpp-linear-to-64bpp-linear-downscaling,Fail
+ kms_flip_scaled_crc@flip-32bpp-linear-to-64bpp-linear-upscaling,Fail
+ kms_flip_scaled_crc@flip-32bpp-xtile-to-64bpp-xtile-downscaling,Fail
+@@ -38,8 +31,6 @@ kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytile-upscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilegen12rcccs-upscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilercccs-downscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilercccs-upscaling,Fail
+-kms_hdmi_inject@inject-4k,Timeout
+-kms_plane@plane-position-hole,Timeout
+ kms_plane_alpha_blend@alpha-basic,Fail
+ kms_plane_alpha_blend@alpha-opaque-fb,Fail
+ kms_plane_alpha_blend@alpha-transparent-fb,Fail
+@@ -53,6 +44,4 @@ kms_plane_alpha_blend@pipe-B-constant-alpha-max,Fail
+ kms_plane_alpha_blend@pipe-C-alpha-opaque-fb,Fail
+ kms_plane_alpha_blend@pipe-C-alpha-transparent-fb,Fail
+ kms_plane_alpha_blend@pipe-C-constant-alpha-max,Fail
+-kms_plane_multiple@tiling-y,Timeout
+-kms_pwrite_crc,Timeout
+ kms_sysfs_edid_timing,Fail
+diff --git a/drivers/gpu/drm/ci/xfails/i915-apl-flakes.txt b/drivers/gpu/drm/ci/xfails/i915-apl-flakes.txt
+deleted file mode 100644
+index 331c5841bb41..000000000000
+--- a/drivers/gpu/drm/ci/xfails/i915-apl-flakes.txt
++++ /dev/null
+@@ -1 +0,0 @@
+-kms_frontbuffer_tracking@fbc-tiling-linear
+diff --git a/drivers/gpu/drm/ci/xfails/i915-cml-fails.txt b/drivers/gpu/drm/ci/xfails/i915-cml-fails.txt
+index 6139b410e767..d0922422a597 100644
+--- a/drivers/gpu/drm/ci/xfails/i915-cml-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/i915-cml-fails.txt
+@@ -1,8 +1,12 @@
+-kms_color@ctm-0-25,Fail
++kms_async_flips@crc,Fail
+ kms_flip_scaled_crc@flip-32bpp-linear-to-64bpp-linear-downscaling,Fail
+ kms_flip_scaled_crc@flip-32bpp-linear-to-64bpp-linear-upscaling,Fail
+ kms_flip_scaled_crc@flip-32bpp-xtile-to-64bpp-xtile-downscaling,Fail
+ kms_flip_scaled_crc@flip-32bpp-xtile-to-64bpp-xtile-upscaling,Fail
++kms_flip_scaled_crc@flip-32bpp-ytile-to-64bpp-ytile-downscaling,Fail
++kms_flip_scaled_crc@flip-32bpp-ytile-to-64bpp-ytile-upscaling,Fail
++kms_flip_scaled_crc@flip-32bpp-ytileccs-to-64bpp-ytile-downscaling,Fail
++kms_flip_scaled_crc@flip-32bpp-ytileccs-to-64bpp-ytile-upscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-linear-to-16bpp-linear-downscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-linear-to-16bpp-linear-upscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-linear-to-32bpp-linear-downscaling,Fail
+@@ -11,8 +15,17 @@ kms_flip_scaled_crc@flip-64bpp-xtile-to-16bpp-xtile-downscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-xtile-to-16bpp-xtile-upscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-xtile-to-32bpp-xtile-downscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-xtile-to-32bpp-xtile-upscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-16bpp-ytile-downscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-16bpp-ytile-upscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytile-downscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytile-upscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilegen12rcccs-upscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilercccs-downscaling,Fail
+ kms_plane_alpha_blend@alpha-basic,Fail
+ kms_plane_alpha_blend@alpha-opaque-fb,Fail
+ kms_plane_alpha_blend@alpha-transparent-fb,Fail
+ kms_plane_alpha_blend@constant-alpha-max,Fail
++kms_plane_alpha_blend@constant-alpha-min,Fail
++kms_psr2_su@page_flip-NV12,Fail
++kms_psr2_su@page_flip-P010,Fail
++kms_setmode@basic,Fail
+diff --git a/drivers/gpu/drm/ci/xfails/i915-cml-flakes.txt b/drivers/gpu/drm/ci/xfails/i915-cml-flakes.txt
+deleted file mode 100644
+index 0514a7b3fdb0..000000000000
+--- a/drivers/gpu/drm/ci/xfails/i915-cml-flakes.txt
++++ /dev/null
+@@ -1,38 +0,0 @@
+-kms_bw@linear-tiling-2-displays-1920x1080p
+-kms_bw@linear-tiling-2-displays-2560x1440p
+-kms_bw@linear-tiling-2-displays-3840x2160p
+-kms_bw@linear-tiling-3-displays-1920x1080p
+-kms_bw@linear-tiling-3-displays-2560x1440p
+-kms_bw@linear-tiling-3-displays-3840x2160p
+-kms_bw@linear-tiling-4-displays-1920x1080p
+-kms_bw@linear-tiling-4-displays-2560x1440p
+-kms_bw@linear-tiling-4-displays-3840x2160p
+-kms_draw_crc@draw-method-xrgb8888-render-xtiled
+-kms_flip@flip-vs-suspend
+-kms_flip_scaled_crc@flip-32bpp-ytile-to-64bpp-ytile-downscaling
+-kms_flip_scaled_crc@flip-32bpp-ytile-to-64bpp-ytile-upscaling
+-kms_flip_scaled_crc@flip-32bpp-ytileccs-to-64bpp-ytile-downscaling
+-kms_flip_scaled_crc@flip-32bpp-ytileccs-to-64bpp-ytile-upscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-16bpp-ytile-downscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-16bpp-ytile-upscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytile-downscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytile-upscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilercccs-downscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilercccs-upscaling
+-kms_hdr@bpc-switch-suspend
+-kms_plane_alpha_blend@constant-alpha-min
+-kms_plane_alpha_blend@pipe-A-alpha-basic
+-kms_plane_alpha_blend@pipe-A-alpha-opaque-fb
+-kms_plane_alpha_blend@pipe-A-alpha-transparent-fb
+-kms_plane_alpha_blend@pipe-A-constant-alpha-max
+-kms_plane_alpha_blend@pipe-B-alpha-basic
+-kms_plane_alpha_blend@pipe-B-alpha-opaque-fb
+-kms_plane_alpha_blend@pipe-B-alpha-transparent-fb
+-kms_plane_alpha_blend@pipe-B-constant-alpha-max
+-kms_plane_alpha_blend@pipe-C-alpha-basic
+-kms_plane_alpha_blend@pipe-C-alpha-opaque-fb
+-kms_plane_alpha_blend@pipe-C-alpha-transparent-fb
+-kms_plane_alpha_blend@pipe-C-constant-alpha-max
+-kms_psr2_su@page_flip-NV12
+-kms_psr2_su@page_flip-P010
+-kms_setmode@basic
+diff --git a/drivers/gpu/drm/ci/xfails/i915-glk-fails.txt b/drivers/gpu/drm/ci/xfails/i915-glk-fails.txt
+index 5bd432e78129..4596055d7e5e 100644
+--- a/drivers/gpu/drm/ci/xfails/i915-glk-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/i915-glk-fails.txt
+@@ -1,8 +1,15 @@
+ kms_fbcon_fbt@fbc,Fail
++kms_flip@blocking-wf_vblank,Fail
++kms_flip@wf_vblank-ts-check,Fail
++kms_flip@wf_vblank-ts-check-interruptible,Fail
+ kms_flip_scaled_crc@flip-32bpp-linear-to-64bpp-linear-downscaling,Fail
+ kms_flip_scaled_crc@flip-32bpp-linear-to-64bpp-linear-upscaling,Fail
+ kms_flip_scaled_crc@flip-32bpp-xtile-to-64bpp-xtile-downscaling,Fail
+ kms_flip_scaled_crc@flip-32bpp-xtile-to-64bpp-xtile-upscaling,Fail
++kms_flip_scaled_crc@flip-32bpp-ytile-to-64bpp-ytile-downscaling,Fail
++kms_flip_scaled_crc@flip-32bpp-ytile-to-64bpp-ytile-upscaling,Fail
++kms_flip_scaled_crc@flip-32bpp-ytileccs-to-64bpp-ytile-downscaling,Fail
++kms_flip_scaled_crc@flip-32bpp-ytileccs-to-64bpp-ytile-upscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-linear-to-16bpp-linear-downscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-linear-to-16bpp-linear-upscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-linear-to-32bpp-linear-downscaling,Fail
+@@ -11,9 +18,19 @@ kms_flip_scaled_crc@flip-64bpp-xtile-to-16bpp-xtile-downscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-xtile-to-16bpp-xtile-upscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-xtile-to-32bpp-xtile-downscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-xtile-to-32bpp-xtile-upscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-16bpp-ytile-downscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-16bpp-ytile-upscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytile-downscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytile-upscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilegen12rcccs-upscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilercccs-downscaling,Fail
++kms_frontbuffer_tracking@fbc-tiling-linear,Fail
+ kms_frontbuffer_tracking@fbcdrrs-tiling-linear,Fail
+ kms_plane_alpha_blend@alpha-basic,Fail
+ kms_plane_alpha_blend@alpha-opaque-fb,Fail
+ kms_plane_alpha_blend@alpha-transparent-fb,Fail
+ kms_plane_alpha_blend@constant-alpha-max,Fail
++kms_rotation_crc@multiplane-rotation,Fail
++kms_rotation_crc@multiplane-rotation-cropping-bottom,Fail
++kms_rotation_crc@multiplane-rotation-cropping-top,Fail
++kms_setmode@basic,Fail
+diff --git a/drivers/gpu/drm/ci/xfails/i915-glk-flakes.txt b/drivers/gpu/drm/ci/xfails/i915-glk-flakes.txt
+deleted file mode 100644
+index fc41d13a2d56..000000000000
+--- a/drivers/gpu/drm/ci/xfails/i915-glk-flakes.txt
++++ /dev/null
+@@ -1,41 +0,0 @@
+-kms_bw@linear-tiling-1-displays-3840x2160p
+-kms_bw@linear-tiling-2-displays-1920x1080p
+-kms_bw@linear-tiling-2-displays-2560x1440p
+-kms_bw@linear-tiling-2-displays-3840x2160p
+-kms_bw@linear-tiling-3-displays-1920x1080p
+-kms_bw@linear-tiling-3-displays-2560x1440p
+-kms_bw@linear-tiling-3-displays-3840x2160p
+-kms_bw@linear-tiling-4-displays-1920x1080p
+-kms_bw@linear-tiling-4-displays-2560x1440p
+-kms_bw@linear-tiling-4-displays-3840x2160p
+-kms_flip@blocking-wf_vblank
+-kms_flip@wf_vblank-ts-check
+-kms_flip@wf_vblank-ts-check-interruptible
+-kms_flip_scaled_crc@flip-32bpp-ytile-to-64bpp-ytile-downscaling
+-kms_flip_scaled_crc@flip-32bpp-ytile-to-64bpp-ytile-upscaling
+-kms_flip_scaled_crc@flip-32bpp-ytileccs-to-64bpp-ytile-downscaling
+-kms_flip_scaled_crc@flip-32bpp-ytileccs-to-64bpp-ytile-upscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-16bpp-ytile-downscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-16bpp-ytile-upscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytile-downscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytile-upscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilercccs-downscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilercccs-upscaling
+-kms_frontbuffer_tracking@fbc-tiling-linear
+-kms_plane_alpha_blend@pipe-A-alpha-basic
+-kms_plane_alpha_blend@pipe-A-alpha-opaque-fb
+-kms_plane_alpha_blend@pipe-A-alpha-transparent-fb
+-kms_plane_alpha_blend@pipe-A-constant-alpha-max
+-kms_plane_alpha_blend@pipe-B-alpha-basic
+-kms_plane_alpha_blend@pipe-B-alpha-opaque-fb
+-kms_plane_alpha_blend@pipe-B-alpha-transparent-fb
+-kms_plane_alpha_blend@pipe-B-constant-alpha-max
+-kms_plane_alpha_blend@pipe-C-alpha-basic
+-kms_plane_alpha_blend@pipe-C-alpha-opaque-fb
+-kms_plane_alpha_blend@pipe-C-alpha-transparent-fb
+-kms_plane_alpha_blend@pipe-C-constant-alpha-max
+-kms_prop_blob@invalid-set-prop-any
+-kms_rotation_crc@multiplane-rotation
+-kms_rotation_crc@multiplane-rotation-cropping-bottom
+-kms_rotation_crc@multiplane-rotation-cropping-top
+-kms_setmode@basic
+diff --git a/drivers/gpu/drm/ci/xfails/i915-kbl-fails.txt b/drivers/gpu/drm/ci/xfails/i915-kbl-fails.txt
+index 56ec021a7679..dab202716909 100644
+--- a/drivers/gpu/drm/ci/xfails/i915-kbl-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/i915-kbl-fails.txt
+@@ -4,7 +4,10 @@ kms_flip_scaled_crc@flip-32bpp-linear-to-64bpp-linear-downscaling,Fail
+ kms_flip_scaled_crc@flip-32bpp-linear-to-64bpp-linear-upscaling,Fail
+ kms_flip_scaled_crc@flip-32bpp-xtile-to-64bpp-xtile-downscaling,Fail
+ kms_flip_scaled_crc@flip-32bpp-xtile-to-64bpp-xtile-upscaling,Fail
++kms_flip_scaled_crc@flip-32bpp-ytile-to-64bpp-ytile-downscaling,Fail
+ kms_flip_scaled_crc@flip-32bpp-ytile-to-64bpp-ytile-upscaling,Fail
++kms_flip_scaled_crc@flip-32bpp-ytileccs-to-64bpp-ytile-downscaling,Fail
++kms_flip_scaled_crc@flip-32bpp-ytileccs-to-64bpp-ytile-upscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-linear-to-16bpp-linear-downscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-linear-to-16bpp-linear-upscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-linear-to-32bpp-linear-downscaling,Fail
+@@ -13,8 +16,12 @@ kms_flip_scaled_crc@flip-64bpp-xtile-to-16bpp-xtile-downscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-xtile-to-16bpp-xtile-upscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-xtile-to-32bpp-xtile-downscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-xtile-to-32bpp-xtile-upscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-16bpp-ytile-downscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-16bpp-ytile-upscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytile-downscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytile-upscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilegen12rcccs-upscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilercccs-downscaling,Fail
+ kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilercccs-upscaling,Fail
+ kms_plane_alpha_blend@alpha-basic,Fail
+ kms_plane_alpha_blend@alpha-opaque-fb,Fail
+diff --git a/drivers/gpu/drm/ci/xfails/i915-kbl-flakes.txt b/drivers/gpu/drm/ci/xfails/i915-kbl-flakes.txt
+deleted file mode 100644
+index f3ba1c4c5d46..000000000000
+--- a/drivers/gpu/drm/ci/xfails/i915-kbl-flakes.txt
++++ /dev/null
+@@ -1,26 +0,0 @@
+-kms_async_flips@crc
+-kms_bw@linear-tiling-2-displays-1920x1080p
+-kms_bw@linear-tiling-2-displays-3840x2160p
+-kms_bw@linear-tiling-3-displays-1920x1080p
+-kms_bw@linear-tiling-3-displays-2560x1440p
+-kms_bw@linear-tiling-3-displays-3840x2160p
+-kms_bw@linear-tiling-4-displays-1920x1080p
+-kms_bw@linear-tiling-4-displays-3840x2160p
+-kms_color@ctm-0-25
+-kms_flip_scaled_crc@flip-32bpp-ytile-to-64bpp-ytile-downscaling
+-kms_flip_scaled_crc@flip-32bpp-ytileccs-to-64bpp-ytile-downscaling
+-kms_flip_scaled_crc@flip-32bpp-ytileccs-to-64bpp-ytile-upscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-16bpp-ytile-downscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-16bpp-ytile-upscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytile-upscaling
+-kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilercccs-downscaling
+-kms_plane_alpha_blend@pipe-A-alpha-basic
+-kms_plane_alpha_blend@pipe-A-alpha-opaque-fb
+-kms_plane_alpha_blend@pipe-A-alpha-transparent-fb
+-kms_plane_alpha_blend@pipe-B-alpha-basic
+-kms_plane_alpha_blend@pipe-B-alpha-transparent-fb
+-kms_plane_alpha_blend@pipe-B-constant-alpha-max
+-kms_plane_alpha_blend@pipe-C-alpha-basic
+-kms_plane_alpha_blend@pipe-C-alpha-opaque-fb
+-kms_plane_alpha_blend@pipe-C-alpha-transparent-fb
+-kms_sysfs_edid_timing
+diff --git a/drivers/gpu/drm/ci/xfails/i915-tgl-fails.txt b/drivers/gpu/drm/ci/xfails/i915-tgl-fails.txt
+index a6da5544e198..27bfca1c6f2c 100644
+--- a/drivers/gpu/drm/ci/xfails/i915-tgl-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/i915-tgl-fails.txt
+@@ -8,7 +8,6 @@ kms_bw@linear-tiling-4-displays-3840x2160p,Fail
+ kms_bw@linear-tiling-5-displays-1920x1080p,Fail
+ kms_bw@linear-tiling-5-displays-2560x1440p,Fail
+ kms_bw@linear-tiling-5-displays-3840x2160p,Fail
+-kms_color@ctm-0-25,Fail
+ kms_flip@flip-vs-panning-vs-hang,Timeout
+ kms_flip_scaled_crc@flip-32bpp-linear-to-64bpp-linear-downscaling,Fail
+ kms_flip_scaled_crc@flip-32bpp-linear-to-64bpp-linear-upscaling,Fail
+diff --git a/drivers/gpu/drm/ci/xfails/i915-tgl-flakes.txt b/drivers/gpu/drm/ci/xfails/i915-tgl-flakes.txt
+deleted file mode 100644
+index 1cd910ee06df..000000000000
+--- a/drivers/gpu/drm/ci/xfails/i915-tgl-flakes.txt
++++ /dev/null
+@@ -1,5 +0,0 @@
+-kms_draw_crc@.*
+-kms_flip@blocking-absolute-wf_vblank
+-kms_flip@bo-too-big-interruptible
+-kms_flip@busy-flip
+-kms_flip@flip-vs-rmfb-interruptible
+diff --git a/drivers/gpu/drm/ci/xfails/i915-whl-flakes.txt b/drivers/gpu/drm/ci/xfails/i915-whl-flakes.txt
+deleted file mode 100644
+index c33202e7e2a1..000000000000
+--- a/drivers/gpu/drm/ci/xfails/i915-whl-flakes.txt
++++ /dev/null
+@@ -1 +0,0 @@
+-kms_flip@flip-vs-suspend
+diff --git a/drivers/gpu/drm/ci/xfails/mediatek-mt8173-flakes.txt b/drivers/gpu/drm/ci/xfails/mediatek-mt8173-flakes.txt
+deleted file mode 100644
+index e69de29bb2d1..000000000000
+diff --git a/drivers/gpu/drm/ci/xfails/mediatek-mt8183-fails.txt b/drivers/gpu/drm/ci/xfails/mediatek-mt8183-fails.txt
+index 6ff81d00e84e..67d690fc4037 100644
+--- a/drivers/gpu/drm/ci/xfails/mediatek-mt8183-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/mediatek-mt8183-fails.txt
+@@ -6,5 +6,8 @@ kms_bw@linear-tiling-2-displays-3840x2160p,Fail
+ kms_bw@linear-tiling-3-displays-2560x1440p,Fail
+ kms_bw@linear-tiling-3-displays-3840x2160p,Fail
+ kms_color@pipe-A-invalid-gamma-lut-sizes,Fail
++kms_plane_cursor@overlay,Fail
++kms_plane_cursor@primary,Fail
++kms_plane_cursor@viewport,Fail
+ kms_plane_scaling@upscale-with-rotation-20x20,Fail
+-kms_rmfb@close-fd,Fail
+\ No newline at end of file
++kms_rmfb@close-fd,Fail
+diff --git a/drivers/gpu/drm/ci/xfails/mediatek-mt8183-flakes.txt b/drivers/gpu/drm/ci/xfails/mediatek-mt8183-flakes.txt
+deleted file mode 100644
+index 208890b79eb0..000000000000
+--- a/drivers/gpu/drm/ci/xfails/mediatek-mt8183-flakes.txt
++++ /dev/null
+@@ -1,14 +0,0 @@
+-core_setmaster_vs_auth
+-kms_bw@linear-tiling-1-displays-1920x1080p
+-kms_bw@linear-tiling-1-displays-3840x2160p
+-kms_bw@linear-tiling-3-displays-1920x1080p
+-kms_cursor_legacy@cursor-vs-flip-atomic
+-kms_plane_scaling@invalid-num-scalers
+-kms_plane_scaling@planes-upscale-20x20
+-kms_plane_scaling@planes-upscale-20x20-downscale-factor-0-5
+-kms_plane_scaling@upscale-with-modifier-20x20
+-kms_plane_scaling@upscale-with-pixel-format-20x20
+-kms_prop_blob@invalid-set-prop-any
+-kms_properties@get_properties-sanity-atomic
+-kms_properties@plane-properties-atomic
+-kms_properties@plane-properties-legacy
+\ No newline at end of file
+diff --git a/drivers/gpu/drm/ci/xfails/meson-g12b-fails.txt b/drivers/gpu/drm/ci/xfails/meson-g12b-fails.txt
+index 860e702091e2..56a2ae7047b4 100644
+--- a/drivers/gpu/drm/ci/xfails/meson-g12b-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/meson-g12b-fails.txt
+@@ -1,12 +1,16 @@
+ kms_3d,Fail
+-kms_properties@connector-properties-atomic,Fail
+-kms_properties@get_properties-sanity-atomic,Fail
+-kms_properties@get_properties-sanity-non-atomic,Fail
+-kms_properties@connector-properties-legacy,Fail
+ kms_cursor_legacy@forked-bo,Fail
+ kms_cursor_legacy@forked-move,Fail
+ kms_cursor_legacy@single-bo,Fail
+ kms_cursor_legacy@single-move,Fail
+ kms_cursor_legacy@torture-bo,Fail
+ kms_cursor_legacy@torture-move,Fail
+-kms_hdmi_inject@inject-4k,Fail
+\ No newline at end of file
++kms_force_connector_basic@force-edid,Fail
++kms_hdmi_inject@inject-4k,Fail
++kms_plane_cursor@overlay,Fail
++kms_plane_cursor@primary,Fail
++kms_plane_cursor@viewport,Fail
++kms_properties@connector-properties-atomic,Fail
++kms_properties@connector-properties-legacy,Fail
++kms_properties@get_properties-sanity-atomic,Fail
++kms_properties@get_properties-sanity-non-atomic,Fail
+diff --git a/drivers/gpu/drm/ci/xfails/meson-g12b-flakes.txt b/drivers/gpu/drm/ci/xfails/meson-g12b-flakes.txt
+deleted file mode 100644
+index b63329d06767..000000000000
+--- a/drivers/gpu/drm/ci/xfails/meson-g12b-flakes.txt
++++ /dev/null
+@@ -1,4 +0,0 @@
+-kms_force_connector_basic@force-connector-state
+-kms_force_connector_basic@force-edid
+-kms_force_connector_basic@force-load-detect
+-kms_force_connector_basic@prune-stale-modes
+\ No newline at end of file
+diff --git a/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt b/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt
+deleted file mode 100644
+index 0e3b60d3fade..000000000000
+--- a/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt
++++ /dev/null
+@@ -1,4 +0,0 @@
+-kms_force_connector_basic@force-connector-state
+-kms_force_connector_basic@force-edid
+-kms_force_connector_basic@force-load-detect
+-kms_force_connector_basic@prune-stale-modes
+diff --git a/drivers/gpu/drm/ci/xfails/msm-apq8096-fails.txt b/drivers/gpu/drm/ci/xfails/msm-apq8096-fails.txt
+index 88a1fc0a3b0d..2cd49e8ee47f 100644
+--- a/drivers/gpu/drm/ci/xfails/msm-apq8096-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/msm-apq8096-fails.txt
+@@ -1,2 +1,4 @@
+ kms_3d,Fail
+ kms_addfb_basic@addfb25-bad-modifier,Fail
++kms_force_connector_basic@force-edid,Fail
++kms_hdmi_inject@inject-4k,Fail
+diff --git a/drivers/gpu/drm/ci/xfails/msm-apq8096-flakes.txt b/drivers/gpu/drm/ci/xfails/msm-apq8096-flakes.txt
+deleted file mode 100644
+index 0e3b60d3fade..000000000000
+--- a/drivers/gpu/drm/ci/xfails/msm-apq8096-flakes.txt
++++ /dev/null
+@@ -1,4 +0,0 @@
+-kms_force_connector_basic@force-connector-state
+-kms_force_connector_basic@force-edid
+-kms_force_connector_basic@force-load-detect
+-kms_force_connector_basic@prune-stale-modes
+diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-fails.txt
+index 14adeba3b62d..f71166a57731 100644
+--- a/drivers/gpu/drm/ci/xfails/msm-sc7180-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-fails.txt
+@@ -1,12 +1,17 @@
++kms_color@ctm-0-25,Fail
++kms_color@ctm-0-50,Fail
++kms_color@ctm-0-75,Fail
++kms_color@ctm-blue-to-red,Fail
++kms_color@ctm-green-to-red,Fail
++kms_color@ctm-negative,Fail
++kms_color@ctm-red-to-blue,Fail
++kms_color@ctm-signed,Fail
+ kms_cursor_legacy@cursor-vs-flip-toggle,Fail
+ kms_cursor_legacy@cursor-vs-flip-varying-size,Fail
+ kms_cursor_legacy@cursorA-vs-flipA-atomic-transitions,Crash
++kms_flip@flip-vs-modeset-vs-hang,Fail
++kms_flip@flip-vs-panning-vs-hang,Fail
+ kms_pipe_crc_basic@compare-crc-sanitycheck-nv12,Fail
+-kms_plane@pixel-format,Fail
+-kms_plane@pixel-format-source-clamping,Fail
+-kms_plane@plane-position-covered,Fail
+-kms_plane@plane-position-hole,Fail
+-kms_plane@plane-position-hole-dpms,Fail
+ kms_plane_alpha_blend@alpha-7efc,Fail
+ kms_plane_alpha_blend@coverage-7efc,Fail
+ kms_plane_alpha_blend@coverage-vs-premult-vs-constant,Fail
+diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-flakes.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-flakes.txt
+index 636563d3e59a..04730044ed12 100644
+--- a/drivers/gpu/drm/ci/xfails/msm-sc7180-flakes.txt
++++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-flakes.txt
+@@ -1,7 +1,17 @@
+-
+-# Test ends up reading CRC from frame before cursor update
+-# bug
+-# sometimes.. tbd if this is a kernel CRC bug or a test
+-kms_cursor_crc@.*
+-kms_plane_multiple@atomic-pipe-A-tiling-none
+-kms_atomic_transition@modeset-transition-nonblocking-fencing,Fail
+\ No newline at end of file
++kms_color@ctm-0-25
++kms_color@ctm-0-50
++kms_color@ctm-0-75
++kms_color@ctm-blue-to-red
++kms_color@ctm-green-to-red
++kms_color@ctm-negative
++kms_color@ctm-red-to-blue
++kms_color@ctm-signed
++kms_flip@flip-vs-modeset-vs-hang
++kms_flip@flip-vs-panning-vs-hang
++kms_plane@pixel-format
++kms_plane@pixel-format-source-clamping
++kms_plane@plane-position-covered
++kms_plane@plane-position-hole
++kms_plane@plane-position-hole-dpms
++kms_writeback@writeback-fb-id
++kms_writeback@writeback-invalid-parameters
+diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-skips.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-skips.txt
+index 410e0eeb3161..e59a2fddfde0 100644
+--- a/drivers/gpu/drm/ci/xfails/msm-sc7180-skips.txt
++++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-skips.txt
+@@ -4,20 +4,4 @@
+ # Test incorrectly assumes that CTM support implies gamma/degamma
+ # LUT support.  None of the subtests handle the case of only having
+ # CTM support
+-kms_color.*
+-
+-# 4k@60 is not supported on this hw, but driver doesn't handle it
+-# too gracefully.. https://gitlab.freedesktop.org/drm/msm/-/issues/15
+-kms_bw@linear-tiling-.*-displays-3840x2160p
+-
+-# Until igt fix lands: https://patchwork.freedesktop.org/patch/493175/
+-kms_bw@linear-tiling-2.*
+-kms_bw@linear-tiling-3.*
+-kms_bw@linear-tiling-4.*
+-kms_bw@linear-tiling-5.*
+-kms_bw@linear-tiling-6.*
+-
+-# igt fix posted: https://patchwork.freedesktop.org/patch/499926/
+-# failure mode is flakey due to randomization but fails frequently
+-# enough to be detected as a Crash or occasionally UnexpectedPass.
+-kms_plane_multiple@atomic-pipe-A-tiling-none
++#kms_color.*
+diff --git a/drivers/gpu/drm/ci/xfails/msm-sdm845-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sdm845-fails.txt
+index 09c0c623cd75..c55baa2d18c1 100644
+--- a/drivers/gpu/drm/ci/xfails/msm-sdm845-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/msm-sdm845-fails.txt
+@@ -15,19 +15,16 @@ kms_color@pipe-A-ctm-max,Fail
+ kms_color@pipe-A-ctm-negative,Fail
+ kms_color@pipe-A-ctm-red-to-blue,Fail
+ kms_color@pipe-A-legacy-gamma,Fail
+-kms_cursor_legacy@basic-flip-after-cursor-atomic,Fail
+ kms_cursor_legacy@basic-flip-after-cursor-legacy,Fail
+ kms_cursor_legacy@basic-flip-after-cursor-varying-size,Fail
+ kms_cursor_legacy@basic-flip-before-cursor-atomic,Fail
+ kms_cursor_legacy@basic-flip-before-cursor-legacy,Fail
+-kms_cursor_legacy@basic-flip-before-cursor-varying-size,Fail
+ kms_cursor_legacy@cursor-vs-flip-atomic,Fail
+ kms_cursor_legacy@cursor-vs-flip-atomic-transitions,Fail
+ kms_cursor_legacy@cursor-vs-flip-atomic-transitions-varying-size,Fail
+ kms_cursor_legacy@cursor-vs-flip-legacy,Fail
+ kms_cursor_legacy@cursor-vs-flip-toggle,Fail
+ kms_cursor_legacy@cursor-vs-flip-varying-size,Fail
+-kms_cursor_legacy@cursorA-vs-flipA-toggle,Fail
+ kms_cursor_legacy@flip-vs-cursor-atomic,Fail
+ kms_cursor_legacy@flip-vs-cursor-crc-atomic,Fail
+ kms_cursor_legacy@flip-vs-cursor-crc-legacy,Fail
+@@ -35,11 +32,9 @@ kms_cursor_legacy@flip-vs-cursor-legacy,Fail
+ kms_cursor_legacy@short-flip-after-cursor-atomic-transitions,Fail
+ kms_cursor_legacy@short-flip-after-cursor-atomic-transitions-varying-size,Fail
+ kms_cursor_legacy@short-flip-after-cursor-toggle,Fail
+-kms_cursor_legacy@short-flip-before-cursor-atomic-transitions,Fail
+-kms_cursor_legacy@short-flip-before-cursor-atomic-transitions-varying-size,Fail
++kms_flip@flip-vs-modeset-vs-hang,Fail
++kms_flip@flip-vs-panning-vs-hang,Fail
+ kms_pipe_crc_basic@compare-crc-sanitycheck-nv12,Fail
+-kms_plane@pixel-format,Fail
+-kms_plane@pixel-format-source-clamping,Fail
+ kms_plane_alpha_blend@alpha-7efc,Fail
+ kms_plane_alpha_blend@coverage-7efc,Fail
+ kms_plane_alpha_blend@coverage-vs-premult-vs-constant,Fail
+diff --git a/drivers/gpu/drm/ci/xfails/msm-sdm845-flakes.txt b/drivers/gpu/drm/ci/xfails/msm-sdm845-flakes.txt
+index 5b3aaab7ac3f..a11ee4ea3280 100644
+--- a/drivers/gpu/drm/ci/xfails/msm-sdm845-flakes.txt
++++ b/drivers/gpu/drm/ci/xfails/msm-sdm845-flakes.txt
+@@ -1,11 +1,11 @@
+-
+-
+-# Test ends up reading CRC from frame before cursor update
+-# bug
+-# sometimes.. tbd if this is a kernel CRC bug or a test
+-kms_cursor_crc@.*
+-kms_cursor_legacy@flip-vs-cursor-toggle
+-kms_cursor_legacy@pipe-A-forked-bo
+-kms_cursor_legacy@pipe-A-forked-move
++kms_cursor_legacy@basic-flip-after-cursor-atomic
++kms_cursor_legacy@basic-flip-before-cursor-varying-size
++kms_cursor_legacy@cursorA-vs-flipA-toggle
++kms_cursor_legacy@flip-vs-cursor-atomic-transitions
++kms_cursor_legacy@flip-vs-cursor-varying-size
++kms_cursor_legacy@short-flip-before-cursor-atomic-transitions
+ kms_cursor_legacy@short-flip-before-cursor-toggle
+-kms_flip@dpms-vs-vblank-race-interruptible
++kms_flip@flip-vs-modeset-vs-hang
++kms_flip@flip-vs-panning-vs-hang
++kms_plane@pixel-format
++kms_plane@pixel-format-source-clamping
+diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3288-fails.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3288-fails.txt
+index 2a1baa948e12..90c63f519e9e 100644
+--- a/drivers/gpu/drm/ci/xfails/rockchip-rk3288-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/rockchip-rk3288-fails.txt
+@@ -5,8 +5,13 @@ kms_bw@linear-tiling-2-displays-3840x2160p,Fail
+ kms_bw@linear-tiling-3-displays-1920x1080p,Fail
+ kms_bw@linear-tiling-3-displays-2560x1440p,Fail
+ kms_bw@linear-tiling-3-displays-3840x2160p,Fail
++kms_flip@flip-vs-modeset-vs-hang,Crash
++kms_flip@flip-vs-panning-vs-hang,Crash
+ kms_force_connector_basic@force-load-detect,Fail
+ kms_invalid_mode@int-max-clock,Crash
++kms_pipe_crc_basic@compare-crc-sanitycheck-nv12,Crash
++kms_pipe_crc_basic@nonblocking-crc-frame-sequence,Crash
++kms_pipe_crc_basic@read-crc-frame-sequence,Crash
+ kms_plane@pixel-format,Crash
+ kms_plane@pixel-format-source-clamping,Crash
+ kms_plane@plane-position-hole,Crash
+@@ -45,4 +50,5 @@ kms_properties@connector-properties-atomic,Crash
+ kms_properties@connector-properties-legacy,Crash
+ kms_properties@get_properties-sanity-atomic,Crash
+ kms_properties@get_properties-sanity-non-atomic,Crash
++kms_rmfb@close-fd,Crash
+ kms_setmode@invalid-clone-single-crtc,Crash
+diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3288-flakes.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3288-flakes.txt
+deleted file mode 100644
+index 45c54c75c899..000000000000
+--- a/drivers/gpu/drm/ci/xfails/rockchip-rk3288-flakes.txt
++++ /dev/null
+@@ -1,9 +0,0 @@
+-kms_addfb_basic@addfb25-bad-modifier
+-kms_cursor_crc@.*
+-kms_flip@basic-flip-vs-wf_vblank
+-kms_invalid_mode@int-max-clock,Crash
+-kms_pipe_crc_basic@.*
+-kms_properties@connector-properties-atomic,Crash
+-kms_properties@get_properties-sanity-atomic,Crash
+-kms_properties@get_properties-sanity-non-atomic,Crash
+-kms_rmfb@close-fd
+diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3399-fails.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-fails.txt
+index 6db08ba6b008..d516d9c1d546 100644
+--- a/drivers/gpu/drm/ci/xfails/rockchip-rk3399-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-fails.txt
+@@ -1,15 +1,40 @@
++kms_color@gamma,Fail
+ kms_color@legacy-gamma,Fail
+ kms_color@pipe-A-legacy-gamma,Fail
+ kms_color@pipe-B-legacy-gamma,Fail
++kms_cursor_crc@cursor-alpha-opaque,Fail
++kms_cursor_crc@cursor-alpha-transparent,Fail
++kms_cursor_crc@cursor-dpms,Fail
++kms_cursor_crc@cursor-offscreen-32x10,Fail
++kms_cursor_crc@cursor-offscreen-32x32,Fail
++kms_cursor_crc@cursor-offscreen-64x64,Fail
++kms_cursor_crc@cursor-onscreen-32x10,Fail
++kms_cursor_crc@cursor-onscreen-32x32,Fail
++kms_cursor_crc@cursor-onscreen-64x21,Fail
++kms_cursor_crc@cursor-onscreen-64x64,Fail
++kms_cursor_crc@cursor-random-32x10,Fail
++kms_cursor_crc@cursor-random-32x32,Fail
++kms_cursor_crc@cursor-random-64x21,Fail
++kms_cursor_crc@cursor-random-64x64,Fail
++kms_cursor_crc@cursor-rapid-movement-32x32,Fail
++kms_cursor_crc@cursor-rapid-movement-64x21,Fail
++kms_cursor_crc@cursor-rapid-movement-64x64,Fail
++kms_cursor_crc@cursor-size-change,Fail
++kms_cursor_crc@cursor-sliding-32x10,Fail
++kms_cursor_crc@cursor-sliding-32x32,Fail
++kms_cursor_crc@cursor-sliding-64x21,Fail
++kms_cursor_crc@cursor-sliding-64x64,Fail
+ kms_flip@basic-flip-vs-wf_vblank,Fail
+ kms_flip@blocking-wf_vblank,Fail
+ kms_flip@dpms-vs-vblank-race,Fail
+ kms_flip@flip-vs-absolute-wf_vblank,Fail
+ kms_flip@flip-vs-absolute-wf_vblank-interruptible,Fail
+ kms_flip@flip-vs-blocking-wf-vblank,Fail
++kms_flip@flip-vs-modeset-vs-hang,Fail
+ kms_flip@flip-vs-panning,Fail
+ kms_flip@flip-vs-panning-interruptible,Fail
+-kms_flip@flip-vs-wf_vblank-interruptible,Fail
++kms_flip@flip-vs-panning-vs-hang,Fail
++kms_flip@modeset-vs-vblank-race,Fail
+ kms_flip@plain-flip-fb-recreate,Fail
+ kms_flip@plain-flip-fb-recreate-interruptible,Fail
+ kms_flip@plain-flip-ts-check,Fail
+@@ -17,11 +42,21 @@ kms_flip@plain-flip-ts-check-interruptible,Fail
+ kms_flip@wf_vblank-ts-check,Fail
+ kms_flip@wf_vblank-ts-check-interruptible,Fail
+ kms_invalid_mode@int-max-clock,Fail
++kms_pipe_crc_basic@compare-crc-sanitycheck-nv12,Fail
++kms_pipe_crc_basic@compare-crc-sanitycheck-xr24,Fail
++kms_pipe_crc_basic@disable-crc-after-crtc,Fail
++kms_pipe_crc_basic@nonblocking-crc,Fail
++kms_pipe_crc_basic@nonblocking-crc-frame-sequence,Fail
++kms_pipe_crc_basic@read-crc,Fail
++kms_pipe_crc_basic@read-crc-frame-sequence,Fail
+ kms_plane@pixel-format,Fail
+ kms_plane@pixel-format-source-clamping,Fail
+ kms_plane@plane-panning-bottom-right,Fail
+ kms_plane@plane-panning-top-left,Fail
+ kms_plane@plane-position-covered,Fail
++kms_plane@plane-position-hole,Fail
++kms_plane@plane-position-hole-dpms,Fail
++kms_plane_cursor@overlay,Fail
+ kms_plane_cursor@pipe-B-overlay-size-128,Fail
+ kms_plane_cursor@pipe-B-overlay-size-256,Fail
+ kms_plane_cursor@pipe-B-overlay-size-64,Fail
+@@ -31,7 +66,10 @@ kms_plane_cursor@pipe-B-primary-size-64,Fail
+ kms_plane_cursor@pipe-B-viewport-size-128,Fail
+ kms_plane_cursor@pipe-B-viewport-size-256,Fail
+ kms_plane_cursor@pipe-B-viewport-size-64,Fail
++kms_plane_cursor@primary,Fail
++kms_plane_cursor@viewport,Fail
+ kms_plane_multiple@atomic-pipe-B-tiling-none,Fail
+ kms_plane_multiple@tiling-none,Fail
+ kms_prime@basic-crc,Fail
+ kms_rmfb@close-fd,Fail
++kms_universal_plane@universal-plane-pipe-B-functional,Fail
+diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3399-flakes.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-flakes.txt
+index 4c0539b4beaf..c9fdc623ab91 100644
+--- a/drivers/gpu/drm/ci/xfails/rockchip-rk3399-flakes.txt
++++ b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-flakes.txt
+@@ -1,23 +1,7 @@
+-
+-kms_cursor_crc@.*
++kms_bw@linear-tiling-2-displays-1920x1080p
++kms_cursor_crc@cursor-offscreen-64x21
+ kms_flip@dpms-vs-vblank-race-interruptible
+-kms_flip@flip-vs-expired-vblank
+-kms_flip@modeset-vs-vblank-race-interruptible
+-kms_pipe_crc_basic@.*
+-kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-A
+-kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-B
+-kms_plane@plane-position-hole
+-kms_plane_multiple@atomic-pipe-A-tiling-none
+-kms_plane_multiple@atomic-pipe-B-tiling-none
+-kms_sequence@get-forked
+-kms_sequence@get-forked-busy
+-kms_setmode@basic
+-kms_universal_plane@universal-plane-pipe-B-functional,UnexpectedPass
+-kms_vblank@pipe-A-accuracy-idle
+-kms_vblank@pipe-A-query-busy
+-kms_vblank@pipe-A-query-forked-busy
+-kms_vblank@pipe-A-wait-idle
+-kms_vblank@pipe-B-accuracy-idle
+-kms_vblank@pipe-B-query-busy
+-kms_vblank@pipe-B-query-forked-busy
+-kms_vblank@pipe-B-wait-idle
++kms_flip@flip-vs-wf_vblank-interruptible
++kms_plane_cursor@overlay
++kms_plane_cursor@primary
++kms_plane_cursor@viewport
+diff --git a/drivers/gpu/drm/ci/xfails/virtio_gpu-none-flakes.txt b/drivers/gpu/drm/ci/xfails/virtio_gpu-none-flakes.txt
+deleted file mode 100644
+index e69de29bb2d1..000000000000
+-- 
 2.34.1
 
