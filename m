@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 212D3E95A91
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Oct 2023 08:44:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD544E95A91
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Oct 2023 08:46:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE70610E22C;
-	Mon,  9 Oct 2023 08:44:52 +0000 (UTC)
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A359C10E22C
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Oct 2023 08:44:49 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5362bcc7026so7506123a12.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 09 Oct 2023 01:44:49 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C8C110E230;
+	Mon,  9 Oct 2023 08:46:55 +0000 (UTC)
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18DAE10E230
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Oct 2023 08:46:54 +0000 (UTC)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-52bd9ddb741so7413981a12.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 09 Oct 2023 01:46:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1696841088; x=1697445888; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1696841212; x=1697446012; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=BX/zmXsukG29xnQSR9B0oKJIYsPA/ObsxX/z1vh64KQ=;
- b=OEGGRvByp6m5Um9sl7cUtvTTvTjBnoqeeJGMNTBAtCWWEyo4sxx7oh0qd9oCKelIiS
- z+lk2RVej+cHFIIVGYIuqzCbYum5hsoaG+rfVJuG+L8OtpsEhhDpTGEB/AThFfIAJjI9
- oL94qgKOQoLpuYn0ihZKu6nGP8W+9QkjNk1WHyrcHi1BwcVr31AlGC1o1xjkWNqu9SM9
- 6VSRooUflPbjpmMoP2lFM3jQ4jHXZPeCQVFpP4sx4XLj1dedhRFo6JtWVy3hp0jhQleU
- b6jDfpQfpZ+SF1qtCdNi0R/DLyOWapo3BC0zCnEPlcA6BPz1cK95H4sj4ktWGTAZAS6p
- 49tA==
+ bh=dOgx1CCC4CKxiQ5GCV0QcldKZP/Uk3tnXj4x7wXaha4=;
+ b=k4UbuYVn+vXyFKHkmdwt7S0awetzMFbC/QNxlY6L3f4geUlpMNCKsqGObJhRowur70
+ BtYNkFW7bPQV1P4mIx/RKSJydlULKk4VRKi/fOQriArSyWs9ebjNBgHjWjAbPmzEOtC/
+ N5cnpfQmh8BvadgSyH7nB1rtxZtV/EK3zaVFZ8qQCpvyhfB/N9w1Xl7d/+TPHg8HO85+
+ 9K6MWxAKIARiD/5M8XRKCmmIiBArVRHODXu8fij2A4GYOq/Ma/o+xpTmMVNFDOkkZeDV
+ cXWT4vgtn8Wg0uqIEZhn8GTWD7s3nZqHa0Z29YNP/NYk0soYwaePoXHY8zWqYcYKEi/s
+ v0Tw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696841088; x=1697445888;
+ d=1e100.net; s=20230601; t=1696841212; x=1697446012;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=BX/zmXsukG29xnQSR9B0oKJIYsPA/ObsxX/z1vh64KQ=;
- b=u6+udWwhuHF0FUkKqplJyoBYdO+DK+sL/lpWSfdX2VG1ZutPXVNPOeS35uLqPPX8Kj
- Ys8PfQDHuQe1zdDkK1+0h3AjR+FQBrqHpdqK2G/tupEVYbF3GcbjpUsH+q5Dboa8cJir
- gSLYJG/PwnpZvF+ZJwtwH2gHqGyNphTF3YVzC1WMaQxGIxmFpKwgE74jwkp69d2fo0A/
- vCpTz5waSN2ogtzXvUG9/oxWYmSwuNYo48U9MX+fO/4YccDDjFRhJEkMwfWOHuCrr/zk
- Mcdy1wR4jq3JU0b03d2aUdboaNodSXqX/w4cQZYGcAJUtgz6jl4b4eF+5MLDAy6Jt+zr
- k7Iw==
-X-Gm-Message-State: AOJu0YwG99DRL00gZb9yMXbjCFMImsEd694V1iDaLR+wUvHl4/kpDDL2
- 91GR1wwN6urnzGsHzabLcfk=
-X-Google-Smtp-Source: AGHT+IEqDKb4HRtZxZsDtu5W+2z42SiJNpGdTNUkysmwQtgtPeVtFaQtyIHbvgEelFrHF2SaoSsuVg==
-X-Received: by 2002:a17:906:308b:b0:9b6:550c:71cb with SMTP id
- 11-20020a170906308b00b009b6550c71cbmr12378269ejv.52.1696841087939; 
- Mon, 09 Oct 2023 01:44:47 -0700 (PDT)
+ bh=dOgx1CCC4CKxiQ5GCV0QcldKZP/Uk3tnXj4x7wXaha4=;
+ b=hsJk2br2ZqqnPZn/uZv5NDC5Y0gfQIBvvUtIdnG//Gzi2U4k8N2akx/gj/4HIwI7CX
+ UzMYeJnAALt3aC4IIN4ZcGzZbLbWb5SoX+VwwQiMMyx31u3PkeMLuRD1SDVF3a7K6sBS
+ B5v9ZPWZ3xdLgrFsxPdl6tcElGF+7B5T95gdZoxJqNxboSlDWKK+oF2Q1mSEK3dfFvHy
+ 05VHcKEXvWrdK+jQGSKeXwjj1+f9QvGlLRKx6C180Spu9Y1IUObtKg1qvONp7DR24K/X
+ EsHICYjoN3u27llX90d0Qfe+DJmUpL6Kit20oLqQvKua/1C9vTzdk1O15xWKVoQpy0EC
+ BK4g==
+X-Gm-Message-State: AOJu0YzZYLo6+0gXjyrdoK8qxLKwbg41dkL9/O/luUqheuxulVwpG116
+ FteiDaBqATrUtqWNDlr93Jc=
+X-Google-Smtp-Source: AGHT+IHOm0v0S02aTvx+c8PN18HumEdt2F1dwvcSmifPqbyep7oQWfccU2ex9R17UOKxtsPsZEuxtA==
+X-Received: by 2002:a17:907:7850:b0:9a2:474:4aa0 with SMTP id
+ lb16-20020a170907785000b009a204744aa0mr14048550ejc.48.1696841212046; 
+ Mon, 09 Oct 2023 01:46:52 -0700 (PDT)
 Received: from [192.168.178.25] ([134.19.31.182])
  by smtp.gmail.com with ESMTPSA id
- gr13-20020a170906e2cd00b009ad7fc17b2asm6466512ejb.224.2023.10.09.01.44.46
+ r11-20020a170906364b00b009a1a5a7ebacsm6371558ejb.201.2023.10.09.01.46.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Oct 2023 01:44:47 -0700 (PDT)
-Message-ID: <45c6ae57-85fa-461a-b314-f2c99bf433f1@gmail.com>
-Date: Mon, 9 Oct 2023 10:44:46 +0200
+ Mon, 09 Oct 2023 01:46:51 -0700 (PDT)
+Message-ID: <7cc4e389-7131-4763-9867-c1c8b9b96b2d@gmail.com>
+Date: Mon, 9 Oct 2023 10:46:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/7] drm/amd: Evict resources during PM ops prepare()
- callback
+Subject: Re: [PATCH v5 2/7] drm/amd: Add concept of running prepare() sequence
+ for IP blocks
 Content-Language: en-US
 To: Mario Limonciello <mario.limonciello@amd.com>,
  amd-gfx@lists.freedesktop.org
 References: <20231006185026.5536-1-mario.limonciello@amd.com>
- <20231006185026.5536-2-mario.limonciello@amd.com>
+ <20231006185026.5536-3-mario.limonciello@amd.com>
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20231006185026.5536-2-mario.limonciello@amd.com>
+In-Reply-To: <20231006185026.5536-3-mario.limonciello@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -82,131 +82,70 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Am 06.10.23 um 20:50 schrieb Mario Limonciello:
-> Linux PM core has a prepare() callback run before suspend.
+> If any IP blocks allocate memory during their sw_fini() sequence
+
+hw_fini instead of sw_fini? sw_fini should only be called on driver unload.
+
+> this can cause the suspend to fail under memory pressure.  Introduce
+> a new phase that IP blocks can use to allocate memory before suspend
+> starts so that it can potentially be evicted into swap instead.
 >
-> If the system is under high memory pressure, the resources may need
-> to be evicted into swap instead.  If the storage backing for swap
-> is offlined during the suspend() step then such a call may fail.
->
-> So move this step into prepare() to move evict majority of
-> resources and update all non-pmops callers to call the same callback.
->
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2362
 > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-Reviewed-by: Christian König <christian.koenig@amd.com> for this one.
+Apart from the commit message Reviewed-by: Christian König 
+<christian.koenig@amd.com>.
+
+Regards,
+Christian.
 
 > ---
 > v4->v5:
->   * Call amdgpu_device_prepare() from other callers to amdgpu_device_suspend()
->   * 3x evict calls -> 2x evict calls
+>   * New patch
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 31 ++++++++++++++++++----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 10 ++++---
->   3 files changed, 34 insertions(+), 8 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 +++++++++++-
+>   drivers/gpu/drm/amd/include/amd_shared.h   |  1 +
+>   2 files changed, 12 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 4cc78e0e4304..fdb2e9ae13e2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1409,6 +1409,7 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
->   void amdgpu_driver_release_kms(struct drm_device *dev);
->   
->   int amdgpu_device_ip_suspend(struct amdgpu_device *adev);
-> +int amdgpu_device_prepare(struct drm_device *dev);
->   int amdgpu_device_suspend(struct drm_device *dev, bool fbcon);
->   int amdgpu_device_resume(struct drm_device *dev, bool fbcon);
->   u32 amdgpu_get_vblank_counter_kms(struct drm_crtc *crtc);
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 0cb702c3046a..cb334dc57c59 100644
+> index cb334dc57c59..a362152cd0da 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1760,6 +1760,7 @@ static void amdgpu_switcheroo_set_state(struct pci_dev *pdev,
->   	} else {
->   		pr_info("switched off\n");
->   		dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
-> +		amdgpu_device_prepare(dev);
->   		amdgpu_device_suspend(dev, true);
->   		amdgpu_device_cache_pci_state(pdev);
->   		/* Shut down the device */
-> @@ -4335,6 +4336,31 @@ static int amdgpu_device_evict_resources(struct amdgpu_device *adev)
->   /*
->    * Suspend & resume.
->    */
-> +/**
-> + * amdgpu_device_prepare - prepare for device suspend
-> + *
-> + * @dev: drm dev pointer
-> + *
-> + * Prepare to put the hw in the suspend state (all asics).
-> + * Returns 0 for success or an error on failure.
-> + * Called at driver suspend.
-> + */
-> +int amdgpu_device_prepare(struct drm_device *dev)
-> +{
-> +	struct amdgpu_device *adev = drm_to_adev(dev);
-> +	int r;
-> +
-> +	if (dev->switch_power_state == DRM_SWITCH_POWER_OFF)
-> +		return 0;
-> +
-> +	/* Evict the majority of BOs before starting suspend sequence */
-> +	r = amdgpu_device_evict_resources(adev);
-> +	if (r)
-> +		return r;
-> +
-> +	return 0;
-> +}
-> +
->   /**
->    * amdgpu_device_suspend - initiate device suspend
->    *
-> @@ -4355,11 +4381,6 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
+> @@ -4348,7 +4348,7 @@ static int amdgpu_device_evict_resources(struct amdgpu_device *adev)
+>   int amdgpu_device_prepare(struct drm_device *dev)
+>   {
+>   	struct amdgpu_device *adev = drm_to_adev(dev);
+> -	int r;
+> +	int i, r;
 >   
->   	adev->in_suspend = true;
+>   	if (dev->switch_power_state == DRM_SWITCH_POWER_OFF)
+>   		return 0;
+> @@ -4358,6 +4358,16 @@ int amdgpu_device_prepare(struct drm_device *dev)
+>   	if (r)
+>   		return r;
 >   
-> -	/* Evict the majority of BOs before grabbing the full access */
-> -	r = amdgpu_device_evict_resources(adev);
-> -	if (r)
-> -		return r;
-> -
->   	if (amdgpu_sriov_vf(adev)) {
->   		amdgpu_virt_fini_data_exchange(adev);
->   		r = amdgpu_virt_request_full_gpu(adev, false);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 81affdf7c0c3..420196a17e22 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2427,8 +2427,9 @@ static int amdgpu_pmops_prepare(struct device *dev)
->   	/* Return a positive number here so
->   	 * DPM_FLAG_SMART_SUSPEND works properly
->   	 */
-> -	if (amdgpu_device_supports_boco(drm_dev))
-> -		return pm_runtime_suspended(dev);
-> +	if (amdgpu_device_supports_boco(drm_dev) &&
-> +	    pm_runtime_suspended(dev))
-> +		return 1;
->   
->   	/* if we will not support s3 or s2i for the device
->   	 *  then skip suspend
-> @@ -2437,7 +2438,7 @@ static int amdgpu_pmops_prepare(struct device *dev)
->   	    !amdgpu_acpi_is_s3_active(adev))
->   		return 1;
->   
-> -	return 0;
-> +	return amdgpu_device_prepare(drm_dev);
+> +	for (i = 0; i < adev->num_ip_blocks; i++) {
+> +		if (!adev->ip_blocks[i].status.valid)
+> +			continue;
+> +		if (!adev->ip_blocks[i].version->funcs->prepare)
+> +			continue;
+> +		r = adev->ip_blocks[i].version->funcs->prepare((void *)adev);
+> +		if (r)
+> +			return r;
+> +	}
+> +
+>   	return 0;
 >   }
 >   
->   static void amdgpu_pmops_complete(struct device *dev)
-> @@ -2637,6 +2638,9 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
->   	if (amdgpu_device_supports_boco(drm_dev))
->   		adev->mp1_state = PP_MP1_STATE_UNLOAD;
->   
-> +	ret = amdgpu_device_prepare(drm_dev);
-> +	if (ret)
-> +		return ret;
->   	ret = amdgpu_device_suspend(drm_dev, false);
->   	if (ret) {
->   		adev->in_runpm = false;
+> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+> index ce75351204bb..1f831cb747e0 100644
+> --- a/drivers/gpu/drm/amd/include/amd_shared.h
+> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
+> @@ -299,6 +299,7 @@ struct amd_ip_funcs {
+>   	int (*hw_init)(void *handle);
+>   	int (*hw_fini)(void *handle);
+>   	void (*late_fini)(void *handle);
+> +	int (*prepare)(void *prepare);
+>   	int (*suspend)(void *handle);
+>   	int (*resume)(void *handle);
+>   	bool (*is_idle)(void *handle);
 
