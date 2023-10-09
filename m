@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48B63E95A91
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Oct 2023 14:37:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D09FE95A91
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Oct 2023 14:43:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6F9410E265;
-	Mon,  9 Oct 2023 14:37:21 +0000 (UTC)
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
- [IPv6:2001:4860:4864:20::2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F281710E279
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Oct 2023 14:37:20 +0000 (UTC)
-Received: by mail-oa1-x2c.google.com with SMTP id
- 586e51a60fabf-1dcdfeb7e44so3214128fac.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 09 Oct 2023 07:37:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77DA210E266;
+	Mon,  9 Oct 2023 14:43:41 +0000 (UTC)
+Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
+ [IPv6:2001:4860:4864:20::2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 507F410E14A
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Oct 2023 14:43:39 +0000 (UTC)
+Received: by mail-oa1-x2e.google.com with SMTP id
+ 586e51a60fabf-1dd2e65ed59so2244964fac.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 09 Oct 2023 07:43:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1696862240; x=1697467040; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1696862618; x=1697467418; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=rQSGvADq4J2YDbl/vUPGWDXHHN4Lh3fGLmNS7bmI8cE=;
- b=RCWt5yTiacY1hu8HRlljYIOpTbg0NpLajQhGF1lfgHoVFHy+VYEzA+nKbbpKDqw8Xv
- lredu3iBqWdf1ptpibIZUWau04XkPRhMRLdZ96K5C1PX5sETmlNAL4ZwjQQZwh7BTF3+
- N25Tj2C+C24OeT8p0aQsauRDHymnt3luRm/3tMQq9cp+zLq8+NyuXQJ32kXqhnhNlacn
- JoSmKDMmut6QW7mQ8p7l4O5OcLqMlxQmZCv15XRsohQxiyIAHtsknfrvQBKSN/7/WwAg
- PlxpZUrLJQ6ef8lbzVRhai9CBAmPrYxP3MjuXO0dWf6y0H1lYRnhJG3pElz9MJJzOZcR
- LGSA==
+ bh=fOUmIWqYfHPFKFRacLmM/JD1SEwoH1ZSyndCvvS2Ef0=;
+ b=i1FkQI25+BPIcFQh2eFFV2kIJ7XENVgIU837ytIlvH6uv5sjxmJulWl4ildJ2Y6BF6
+ bHtIktAWGa1IbRuweH09RWY9mdtuzJmVVTWHhp8gF84aWgQQYuhFcJYV3m++04p5h0Hz
+ HcyyEWxzNDKqLFpGqioan1U30Frbc4amF7TswJJa7mFUpjJ9zuJWJ+zVpldo1POqfQ9w
+ SaODiOndCWO8rjtR8++d3cW0I/M27yiewals63VDk2sREbQZW6azXFb/TRT5NjsYTb2F
+ Kk/IaokUB9nQkjpShssxSWgMpghzh6ufW7KX6xP5ZDRyCGkSw55gemSsKnh5XY2YAIJR
+ z4PQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696862240; x=1697467040;
+ d=1e100.net; s=20230601; t=1696862618; x=1697467418;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=rQSGvADq4J2YDbl/vUPGWDXHHN4Lh3fGLmNS7bmI8cE=;
- b=CSNtRpn7lz6pyKDWwMw34cfpFobDqiO9fRMiYIvj2AVhzZSPdS187dVSoIHABKlbMz
- QL+mehiF81SBZ0VG/QitSVauooMwdVhtuuaoBmggjYwlabFxvmLnaRc3QnDwRPiC27+F
- GTq2ceKdj9ZjwpXFqKs2A4WFeqkV8JOZF/EIN1nVjGsu7alI7xLsHWm3Xve0Kw+ggbnx
- RetmbR5qMlXtJf9vmv0yNBkmNO9zbk0ZE+FhlTodgeiaTGCZ5zSqVUyPnvOIUjA6xmdW
- CMbfxjv5oJaelxpSjB5oI/+BMP9tSuCOFgFH5g5J7Gjd3EhkmQsEIsS6Fczf78NiSgdd
- qL3Q==
-X-Gm-Message-State: AOJu0YzTGiU0mh9kXA86kQkMrje+QjldE4zXoh+0I2TbBNIe1aeG8NuP
- fFp43tEo4xvL+senBFE88nXDThAXuZX0VrDW0fQ=
-X-Google-Smtp-Source: AGHT+IFbDvsQVvOoVylFX/vsH03M6IoxijYlzp04j+HS7xn994u+ZUu6rVkfC2g9dCVO1FZSw8PZ5MhDa5qOsnOWhgQ=
-X-Received: by 2002:a05:6870:e390:b0:1d6:567b:79aa with SMTP id
- x16-20020a056870e39000b001d6567b79aamr17756147oad.56.1696862240117; Mon, 09
- Oct 2023 07:37:20 -0700 (PDT)
+ bh=fOUmIWqYfHPFKFRacLmM/JD1SEwoH1ZSyndCvvS2Ef0=;
+ b=rlNLYchbtlnIUVh4t5VjWhVR2HFoCzjVf8IcPcUIfnGPkgUAwIo3XnetUSb3Xku+Ed
+ ZgoaLvPLjQFvfvvWVHvQLweaFgWYFx2cHGL/gIHlyPppL+yKRt0mcftDRogVM2Z2g/iB
+ yPDqRjPPVcyz+fSZIrtU/bhOotdfXSAvjSgG5+Ip5EbtMTTjGVWrI6B6ulSdPnrh1SGR
+ F8vVP7ZVLm8xFj7hL9eVfaxQJWQxPkQNK3C27aOB2A26PEnnomGpCfcuLt6SRuznPPgf
+ Xu8oHQnuIvisYj/1A2xjZFpzrCRhnaAgrsjerPbavb22PjKmadpPAZd504GI9zrX9yJz
+ IkDg==
+X-Gm-Message-State: AOJu0YzeDlv2tYE7eZlPkPlsnS7evRiH+Q9Y1Py6WZM92/Icmx8tKxzo
+ WRuO5tOywHLt+76WWaybqEjWVuF4Y59omtRKk6bbQHQF46A=
+X-Google-Smtp-Source: AGHT+IEzdFnYv//bV9ZA5Eo9aL9JfZw0CGTEaLnGS2uW+JzJFvKUYJr4hmFzvLLINVP/hICNjRUiPB4b/OUnlRztTWk=
+X-Received: by 2002:a05:6870:d695:b0:1d0:f5bd:6e9 with SMTP id
+ z21-20020a056870d69500b001d0f5bd06e9mr14859834oap.22.1696862618331; Mon, 09
+ Oct 2023 07:43:38 -0700 (PDT)
 MIME-Version: 1.0
 References: <20231006185026.5536-1-mario.limonciello@amd.com>
- <20231006185026.5536-2-mario.limonciello@amd.com>
-In-Reply-To: <20231006185026.5536-2-mario.limonciello@amd.com>
+ <20231006185026.5536-4-mario.limonciello@amd.com>
+In-Reply-To: <20231006185026.5536-4-mario.limonciello@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 9 Oct 2023 10:37:09 -0400
-Message-ID: <CADnq5_PjZGbBh+XCSMarxMtpHNGDDL0wSBeoQCDO86qP5GsEfw@mail.gmail.com>
-Subject: Re: [PATCH v5 1/7] drm/amd: Evict resources during PM ops prepare()
- callback
+Date: Mon, 9 Oct 2023 10:43:27 -0400
+Message-ID: <CADnq5_NstquveGiCcJL86GOggPWyYCWU5sn+gBvw5DWMesC-NA@mail.gmail.com>
+Subject: Re: [PATCH v5 3/7] drm/amd: Split up UVD suspend into prepare and
+ suspend steps
 To: Mario Limonciello <mario.limonciello@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -73,145 +73,238 @@ Cc: Harry.Wentland@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 6, 2023 at 3:17=E2=80=AFPM Mario Limonciello
+On Fri, Oct 6, 2023 at 3:07=E2=80=AFPM Mario Limonciello
 <mario.limonciello@amd.com> wrote:
 >
-> Linux PM core has a prepare() callback run before suspend.
+> amdgpu_uvd_suspend() allocates memory and copies objects into that
+> allocated memory.  This fails under memory pressure.  Instead move
+> majority of this code into a prepare step when swap can still be
+> allocated.
 >
-> If the system is under high memory pressure, the resources may need
-> to be evicted into swap instead.  If the storage backing for swap
-> is offlined during the suspend() step then such a call may fail.
->
-> So move this step into prepare() to move evict majority of
-> resources and update all non-pmops callers to call the same callback.
->
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2362
 > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
 > ---
 > v4->v5:
->  * Call amdgpu_device_prepare() from other callers to amdgpu_device_suspe=
-nd()
->  * 3x evict calls -> 2x evict calls
+>  * New patch
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 31 ++++++++++++++++++----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 10 ++++---
->  3 files changed, 34 insertions(+), 8 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 12 ++++++++----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h |  1 +
+>  drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c   |  9 +++++++++
+>  drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c   |  9 +++++++++
+>  drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c   |  9 +++++++++
+>  drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c   |  9 +++++++++
+>  drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c   |  9 +++++++++
+>  7 files changed, 54 insertions(+), 4 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
-dgpu/amdgpu.h
-> index 4cc78e0e4304..fdb2e9ae13e2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1409,6 +1409,7 @@ void amdgpu_driver_postclose_kms(struct drm_device =
-*dev,
->  void amdgpu_driver_release_kms(struct drm_device *dev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_uvd.c
+> index b7441654e6fa..a53c4ba8b3fe 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> @@ -418,12 +418,11 @@ int amdgpu_uvd_entity_init(struct amdgpu_device *ad=
+ev)
+>         return 0;
+>  }
 >
->  int amdgpu_device_ip_suspend(struct amdgpu_device *adev);
-> +int amdgpu_device_prepare(struct drm_device *dev);
->  int amdgpu_device_suspend(struct drm_device *dev, bool fbcon);
->  int amdgpu_device_resume(struct drm_device *dev, bool fbcon);
->  u32 amdgpu_get_vblank_counter_kms(struct drm_crtc *crtc);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index 0cb702c3046a..cb334dc57c59 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1760,6 +1760,7 @@ static void amdgpu_switcheroo_set_state(struct pci_=
-dev *pdev,
->         } else {
->                 pr_info("switched off\n");
->                 dev->switch_power_state =3D DRM_SWITCH_POWER_CHANGING;
-> +               amdgpu_device_prepare(dev);
->                 amdgpu_device_suspend(dev, true);
->                 amdgpu_device_cache_pci_state(pdev);
->                 /* Shut down the device */
-> @@ -4335,6 +4336,31 @@ static int amdgpu_device_evict_resources(struct am=
-dgpu_device *adev)
->  /*
->   * Suspend & resume.
->   */
-> +/**
-> + * amdgpu_device_prepare - prepare for device suspend
-> + *
-> + * @dev: drm dev pointer
-> + *
-> + * Prepare to put the hw in the suspend state (all asics).
-> + * Returns 0 for success or an error on failure.
-> + * Called at driver suspend.
-> + */
-> +int amdgpu_device_prepare(struct drm_device *dev)
-> +{
-> +       struct amdgpu_device *adev =3D drm_to_adev(dev);
-> +       int r;
-> +
-> +       if (dev->switch_power_state =3D=3D DRM_SWITCH_POWER_OFF)
-> +               return 0;
-> +
-> +       /* Evict the majority of BOs before starting suspend sequence */
-> +       r =3D amdgpu_device_evict_resources(adev);
-> +       if (r)
-> +               return r;
-> +
+> -int amdgpu_uvd_suspend(struct amdgpu_device *adev)
+> +int amdgpu_uvd_prepare(struct amdgpu_device *adev)
+
+amdgpu_uvd_prepare_suspend() so it's more obvious what this is for.
+Other than that, looks good to me.
+
+Alex
+
+>  {
+>         unsigned int size;
+>         void *ptr;
+>         int i, j, idx;
+> -       bool in_ras_intr =3D amdgpu_ras_intr_triggered();
+>
+>         cancel_delayed_work_sync(&adev->uvd.idle_work);
+>
+> @@ -452,7 +451,7 @@ int amdgpu_uvd_suspend(struct amdgpu_device *adev)
+>
+>                 if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+>                         /* re-write 0 since err_event_athub will corrupt =
+VCPU buffer */
+> -                       if (in_ras_intr)
+> +                       if (amdgpu_ras_intr_triggered())
+>                                 memset(adev->uvd.inst[j].saved_bo, 0, siz=
+e);
+>                         else
+>                                 memcpy_fromio(adev->uvd.inst[j].saved_bo,=
+ ptr, size);
+> @@ -461,7 +460,12 @@ int amdgpu_uvd_suspend(struct amdgpu_device *adev)
+>                 }
+>         }
+>
+> -       if (in_ras_intr)
 > +       return 0;
 > +}
 > +
->  /**
->   * amdgpu_device_suspend - initiate device suspend
->   *
-> @@ -4355,11 +4381,6 @@ int amdgpu_device_suspend(struct drm_device *dev, =
-bool fbcon)
+> +int amdgpu_uvd_suspend(struct amdgpu_device *adev)
+> +{
+> +       if (amdgpu_ras_intr_triggered())
+>                 DRM_WARN("UVD VCPU state may lost due to RAS ERREVENT_ATH=
+UB_INTERRUPT\n");
 >
->         adev->in_suspend =3D true;
->
-> -       /* Evict the majority of BOs before grabbing the full access */
-> -       r =3D amdgpu_device_evict_resources(adev);
-> -       if (r)
-> -               return r;
-> -
->         if (amdgpu_sriov_vf(adev)) {
->                 amdgpu_virt_fini_data_exchange(adev);
->                 r =3D amdgpu_virt_request_full_gpu(adev, false);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index 81affdf7c0c3..420196a17e22 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2427,8 +2427,9 @@ static int amdgpu_pmops_prepare(struct device *dev)
->         /* Return a positive number here so
->          * DPM_FLAG_SMART_SUSPEND works properly
->          */
-> -       if (amdgpu_device_supports_boco(drm_dev))
-> -               return pm_runtime_suspended(dev);
-> +       if (amdgpu_device_supports_boco(drm_dev) &&
-> +           pm_runtime_suspended(dev))
-> +               return 1;
->
->         /* if we will not support s3 or s2i for the device
->          *  then skip suspend
-> @@ -2437,7 +2438,7 @@ static int amdgpu_pmops_prepare(struct device *dev)
->             !amdgpu_acpi_is_s3_active(adev))
->                 return 1;
->
-> -       return 0;
-> +       return amdgpu_device_prepare(drm_dev);
+>         return 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_uvd.h
+> index 9f89bb7cd60b..72228425e021 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h
+> @@ -74,6 +74,7 @@ struct amdgpu_uvd {
+>  int amdgpu_uvd_sw_init(struct amdgpu_device *adev);
+>  int amdgpu_uvd_sw_fini(struct amdgpu_device *adev);
+>  int amdgpu_uvd_entity_init(struct amdgpu_device *adev);
+> +int amdgpu_uvd_prepare(struct amdgpu_device *adev);
+>  int amdgpu_uvd_suspend(struct amdgpu_device *adev);
+>  int amdgpu_uvd_resume(struct amdgpu_device *adev);
+>  int amdgpu_uvd_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c b/drivers/gpu/drm/amd/=
+amdgpu/uvd_v3_1.c
+> index 5534c769b655..869e9948fa36 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+> @@ -706,6 +706,14 @@ static int uvd_v3_1_hw_fini(void *handle)
+>         return 0;
 >  }
 >
->  static void amdgpu_pmops_complete(struct device *dev)
-> @@ -2637,6 +2638,9 @@ static int amdgpu_pmops_runtime_suspend(struct devi=
-ce *dev)
->         if (amdgpu_device_supports_boco(drm_dev))
->                 adev->mp1_state =3D PP_MP1_STATE_UNLOAD;
+> +static int uvd_v3_1_prepare(void *handle)
+> +{
+> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+> +
+> +       return amdgpu_uvd_prepare(adev);
+> +
+> +}
+> +
+>  static int uvd_v3_1_suspend(void *handle)
+>  {
+>         int r;
+> @@ -806,6 +814,7 @@ static const struct amd_ip_funcs uvd_v3_1_ip_funcs =
+=3D {
+>         .sw_fini =3D uvd_v3_1_sw_fini,
+>         .hw_init =3D uvd_v3_1_hw_init,
+>         .hw_fini =3D uvd_v3_1_hw_fini,
+> +       .prepare =3D uvd_v3_1_prepare,
+>         .suspend =3D uvd_v3_1_suspend,
+>         .resume =3D uvd_v3_1_resume,
+>         .is_idle =3D uvd_v3_1_is_idle,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c b/drivers/gpu/drm/amd/=
+amdgpu/uvd_v4_2.c
+> index c108b8381795..e589c17af371 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
+> @@ -220,6 +220,14 @@ static int uvd_v4_2_hw_fini(void *handle)
+>         return 0;
+>  }
 >
-> +       ret =3D amdgpu_device_prepare(drm_dev);
-> +       if (ret)
-> +               return ret;
->         ret =3D amdgpu_device_suspend(drm_dev, false);
->         if (ret) {
->                 adev->in_runpm =3D false;
+> +static int uvd_v4_2_prepare(void *handle)
+> +{
+> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+> +
+> +       return amdgpu_uvd_prepare(adev);
+> +
+> +}
+> +
+>  static int uvd_v4_2_suspend(void *handle)
+>  {
+>         int r;
+> @@ -756,6 +764,7 @@ static const struct amd_ip_funcs uvd_v4_2_ip_funcs =
+=3D {
+>         .sw_fini =3D uvd_v4_2_sw_fini,
+>         .hw_init =3D uvd_v4_2_hw_init,
+>         .hw_fini =3D uvd_v4_2_hw_fini,
+> +       .prepare =3D uvd_v4_2_prepare,
+>         .suspend =3D uvd_v4_2_suspend,
+>         .resume =3D uvd_v4_2_resume,
+>         .is_idle =3D uvd_v4_2_is_idle,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/amd/=
+amdgpu/uvd_v5_0.c
+> index d7e31e48a2b8..65aa23bc2d91 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
+> @@ -218,6 +218,14 @@ static int uvd_v5_0_hw_fini(void *handle)
+>         return 0;
+>  }
+>
+> +static int uvd_v5_0_prepare(void *handle)
+> +{
+> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+> +
+> +       return amdgpu_uvd_prepare(adev);
+> +
+> +}
+> +
+>  static int uvd_v5_0_suspend(void *handle)
+>  {
+>         int r;
+> @@ -863,6 +871,7 @@ static const struct amd_ip_funcs uvd_v5_0_ip_funcs =
+=3D {
+>         .sw_fini =3D uvd_v5_0_sw_fini,
+>         .hw_init =3D uvd_v5_0_hw_init,
+>         .hw_fini =3D uvd_v5_0_hw_fini,
+> +       .prepare =3D uvd_v5_0_prepare,
+>         .suspend =3D uvd_v5_0_suspend,
+>         .resume =3D uvd_v5_0_resume,
+>         .is_idle =3D uvd_v5_0_is_idle,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/=
+amdgpu/uvd_v6_0.c
+> index 5fe872f4bea7..a4035aeb973b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+> @@ -542,6 +542,14 @@ static int uvd_v6_0_hw_fini(void *handle)
+>         return 0;
+>  }
+>
+> +static int uvd_v6_0_prepare(void *handle)
+> +{
+> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+> +
+> +       return amdgpu_uvd_prepare(adev);
+> +
+> +}
+> +
+>  static int uvd_v6_0_suspend(void *handle)
+>  {
+>         int r;
+> @@ -1528,6 +1536,7 @@ static const struct amd_ip_funcs uvd_v6_0_ip_funcs =
+=3D {
+>         .sw_fini =3D uvd_v6_0_sw_fini,
+>         .hw_init =3D uvd_v6_0_hw_init,
+>         .hw_fini =3D uvd_v6_0_hw_fini,
+> +       .prepare =3D uvd_v6_0_prepare,
+>         .suspend =3D uvd_v6_0_suspend,
+>         .resume =3D uvd_v6_0_resume,
+>         .is_idle =3D uvd_v6_0_is_idle,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/=
+amdgpu/uvd_v7_0.c
+> index 86d1d46e1e5e..3228bf1a379c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+> @@ -612,6 +612,14 @@ static int uvd_v7_0_hw_fini(void *handle)
+>         return 0;
+>  }
+>
+> +static int uvd_v7_0_prepare(void *handle)
+> +{
+> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+> +
+> +       return amdgpu_uvd_prepare(adev);
+> +
+> +}
+> +
+>  static int uvd_v7_0_suspend(void *handle)
+>  {
+>         int r;
+> @@ -1787,6 +1795,7 @@ const struct amd_ip_funcs uvd_v7_0_ip_funcs =3D {
+>         .sw_fini =3D uvd_v7_0_sw_fini,
+>         .hw_init =3D uvd_v7_0_hw_init,
+>         .hw_fini =3D uvd_v7_0_hw_fini,
+> +       .prepare =3D uvd_v7_0_prepare,
+>         .suspend =3D uvd_v7_0_suspend,
+>         .resume =3D uvd_v7_0_resume,
+>         .is_idle =3D NULL /* uvd_v7_0_is_idle */,
 > --
 > 2.34.1
 >
