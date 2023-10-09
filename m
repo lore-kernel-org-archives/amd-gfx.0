@@ -4,60 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28537E95A91
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Oct 2023 14:45:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 775E0E95A8E
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Oct 2023 14:53:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAD5610E14A;
-	Mon,  9 Oct 2023 14:45:31 +0000 (UTC)
-Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
- [IPv6:2001:4860:4864:20::29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2ABCA10E14A
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Oct 2023 14:45:29 +0000 (UTC)
-Received: by mail-oa1-x29.google.com with SMTP id
- 586e51a60fabf-1dd8304b980so3196329fac.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 09 Oct 2023 07:45:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1696862728; x=1697467528; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=m2JjU31DJzgVihPeloJ5bs9pS+jhwwR1NIQy7HWnvFg=;
- b=VeX7Nc7KVYCicyFqzJ4wgc99W7cuHs9zlqyezPdUwFmOb7+fpooIur+Pu8WYpSGN94
- 1F7/WBm2SMT+kdr1XnFVdpJLfVzq+9qf7WT7coV5kw1V471m/DTOjBubSOkHED+el17S
- Bupb0X4a2x2OZ/hqJQ2BrHXnPwPrNddp3p1BnmICkfK7O3YFvN8f7M5w6uN9/c+VWOGK
- U4bAVL0jm1C5s8dj8oGqPNONyMhXr0vNguGkBknw3iDDPky0yaayAVT+2pj18jAlQ7Md
- Lx0+P2Ns2wyOp0xYsu8XAxbqzK2RcNTEv/qNYV43FzKMiCb6ekgFdSFNMkyu4Eqr+Vbd
- HLNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696862728; x=1697467528;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=m2JjU31DJzgVihPeloJ5bs9pS+jhwwR1NIQy7HWnvFg=;
- b=oMIQ7sxzVcjOWquP2yKGiKtSvpFeNjx9gBTP30w8QLj98ezysgyEGb15UqJDtbqjP2
- t+OVb4Ppxfq4B4tq0RyEWUzCCKIgNK+kP4832HsfOZAIqFV9pdsBo4U7Na1tPYe3HU4s
- m+wQz3XughOACa8o1DFKQAvbFBHwGJ8YVk3O9m8Bc1wxtvZtIC0Z2EWvWWem+gGQMJkU
- BYtFwNzAqO7rK/ryixqv6zj8tCvm4fJE9bbqKgwxvJOO9Ad8Q6vzAv7Z3/S5jNrzTaWI
- UvDDS0uU9rM8XVMuSY1Ms3bjkuyr37clcFbPSLD7Cp1vIXgU7JUkIJsNcM4VFHFGRU2a
- HaIw==
-X-Gm-Message-State: AOJu0YwOFRqcvFAygEmav1kxKW9FzQKS9lNeRCagqHhXywYd7RhyE7uJ
- 91tEbyq1+jlwcE2HN4eIUaIWImJ2X55t7dkrudD53+nFBfQ=
-X-Google-Smtp-Source: AGHT+IHuOZ/W/WNozhDsop8QuoayKONV4Us0bkraN6I729PxEEZ9mXy0VhzZRcfm0Are1KbyPcyfKv2jz6PTzkmYR28=
-X-Received: by 2002:a05:6870:9f84:b0:1e5:6286:e50e with SMTP id
- xm4-20020a0568709f8400b001e56286e50emr12544028oab.17.1696862728313; Mon, 09
- Oct 2023 07:45:28 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECC7E10E276;
+	Mon,  9 Oct 2023 14:53:35 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2082.outbound.protection.outlook.com [40.107.223.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF40810E136
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Oct 2023 14:53:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OzCwrp6kKbPrs9ory+4VVRXbKn81V1lETKACBSz442e68rqlNipYQ9lEA4jPiya2Fweenfw06CWyM18qAE5dWFi+xCIDquGDuols9xZmfWpnNWk4ysOVG7C7R+bGdiFw4+R7F0RamfFFrPeO+hq00F8gysAKsP1mqMu+evbnUlqdKUi7JvSqpK0GitXOO+VHj7ngaoU2kIbzJ/pxzd50GQNfROC2LPi3YEfwHWVCTEJ/T/n7bzGOCNo7QpIDRFueOC+IlJW8fVNJ/nUFQRoAZvps9on01lfId6FZoEqA+np8rBoCLrj/yguIgUL/XuDpqVH7n5rUQxVQcnCGHvKSPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gEe6mqbaEReP5rUWhGS5se/gB1Ov/eXswvQt2PichpI=;
+ b=LKDIn3Nfj44Q3zTgCZJbHQYNKQE8dwvEbb6kLT8gS0eT4DZzZAaA/ExC6dYpWBFaYerGQm+8Uxre2fcnP9h0WRAk0cjeMrM83Cv1BWozIA79bMl4TaFc5d5uKveAYB473vUpfYPy/5/0BjeYCaW6JMD6SBr1kuvlox4FcGVKvCPoT+Dau+uOeOq8Ckh5vXCFa1VR//JRWVJeJPHp8eLL0y48t4JapJNQjg7CBa9rDcBTZTEiyKQejBPOwwYuS3OVsDemogoCfkXMJqQdQednwOj2V6PPNoy03ESQZTOcnVY/3Dl3UxMl1QEcc58dsYea4R4+1++7kmuw1abYWyLQsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gEe6mqbaEReP5rUWhGS5se/gB1Ov/eXswvQt2PichpI=;
+ b=VrF7mAQVseSrIyMwArenw4rOavyJgFzxo9HT+0i5wxknxd5uivXEPJ/KW0ae/0+fHhV7wnRwLOKHlWkL+Oelgrjs6jHrG02NG0z84Gx40/gBouYK9nA2XB9Z/IOB2RjWkK+5bpQUpezcbgNeYn9SNktm5OHl2H7NUDtTguc9tB4=
+Received: from BL1PR13CA0405.namprd13.prod.outlook.com (2603:10b6:208:2c2::20)
+ by CH3PR12MB8236.namprd12.prod.outlook.com (2603:10b6:610:121::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.33; Mon, 9 Oct
+ 2023 14:53:31 +0000
+Received: from MN1PEPF0000F0E4.namprd04.prod.outlook.com
+ (2603:10b6:208:2c2:cafe::18) by BL1PR13CA0405.outlook.office365.com
+ (2603:10b6:208:2c2::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.20 via Frontend
+ Transport; Mon, 9 Oct 2023 14:53:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MN1PEPF0000F0E4.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6838.14 via Frontend Transport; Mon, 9 Oct 2023 14:53:30 +0000
+Received: from asad-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 9 Oct
+ 2023 09:53:29 -0500
+From: Asad Kamal <asad.kamal@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v3 1/3] drm/amd/pm: Update metric table for smu v13_0_6
+Date: Mon, 9 Oct 2023 22:53:13 +0800
+Message-ID: <20231009145315.597629-1-asad.kamal@amd.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-References: <20231006185026.5536-1-mario.limonciello@amd.com>
- <20231006185026.5536-7-mario.limonciello@amd.com>
-In-Reply-To: <20231006185026.5536-7-mario.limonciello@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 9 Oct 2023 10:45:17 -0400
-Message-ID: <CADnq5_PktDUsPaRuvFhssunh-emFi0KwJ=Xjg0A3_uK8FHCyTw@mail.gmail.com>
-Subject: Re: [PATCH v5 6/7] drm/amd/display: Destroy DC context while keeping
- DML and DML2
-To: Mario Limonciello <mario.limonciello@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E4:EE_|CH3PR12MB8236:EE_
+X-MS-Office365-Filtering-Correlation-Id: b136b0b0-7e86-4dd3-bd9a-08dbc8d780ef
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: OYGoBBR/qko2eTA0O2+Fza3mRbhjaKQdmU+iQ+yTPgIE9FDsi0UE52RueMVNTyIlHvGdikVQ/QAHnDVBmpPERMvtNK6VfiEfOctbWDfQb5B4NoQl+nG/d/YKXBWvqqyZ4/5PzAlPalqNXn45EIvQk8YJPDRk+g0Y2fX/D1TUQPTgya5WXv35ulgnSOtRLK9PXolbyqdB8IUDkdExxLUxq6E2DvC4GIsuUclUTLw+Wryz9TxMJqJGG6+gxGVgUjKNLMDebSP3h050AQF55+4M/HoBDlWabBhhi60PBFvCFMYMiT3JEhK+qiFjKCKhu0+ZaY3pxGWX9PfMdeI8DhSrWiq8L27RQRaTXfUbIiiEAt5KBUIfuwzzQHPabLT0BYm/0VOjTwZy5DaRZNFd5P4uY+yjaeMRmzIaPh2chBUvzzytLzLrsyhcqsW6uhQ1hbxISCz8wyiIAftpDU0nBn1kp43nwJzPGXmRS1RPwPOHqfZf4YgdeKCiMzXdAEOkqVZJ6XSV8vgeiXW4zwGZglvLhLgwzE3ey04gdkYpht+s+ogYF9a62hS300v5G/TQcKuTM87Z5itq0YxpNhLmeu3rvPk+nWce9Ny5W8XiH9jXJ049wZ1a949K5qx6BLtDmS0QV8C6fns6DphN2JWlyYVHr3J3AFOaAJm2lS3r9Gzm4jDElYof6J98HGQqa/ljT44vwcoEiHMq8zK2xBAH9kIZaXpEFTNNkoZLvPi8g5e6teb/x2OsYmJgsqtl0Fey1MDS5tDnizRKZMOb42q8fUK84w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(346002)(39860400002)(136003)(376002)(396003)(230922051799003)(64100799003)(451199024)(1800799009)(82310400011)(186009)(46966006)(36840700001)(40470700004)(83380400001)(16526019)(1076003)(40460700003)(40480700001)(6666004)(7696005)(478600001)(426003)(47076005)(36860700001)(86362001)(82740400003)(356005)(81166007)(26005)(316002)(336012)(8936002)(2616005)(70586007)(15650500001)(70206006)(6916009)(36756003)(5660300002)(8676002)(4326008)(2906002)(44832011)(54906003)(41300700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2023 14:53:30.9307 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b136b0b0-7e86-4dd3-bd9a-08dbc8d780ef
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E4.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8236
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,122 +97,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Harry.Wentland@amd.com, amd-gfx@lists.freedesktop.org
+Cc: le.ma@amd.com, Lijo.Lazar@amd.com, asad.kamal@amd.com, shiwu.zhang@amd.com,
+ hawking.zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Oct 7, 2023 at 3:47=E2=80=AFAM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> If there is memory pressure at suspend time then dynamically
-> allocating a large structure as part of DC suspend code will
-> fail.
->
-> Instead re-use the same structures and clear all members except
-> those that should be maintained.
->
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2362
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Update pmfw metric table to include xgmi transfer
+data and pci instantaneous bandwidth for smu v13_0_6
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+v2:
+Updated metric table version
 
-> ---
-> v4->v5:
->  * Rebase for DML2
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc.c      | 37 -------------------
->  .../gpu/drm/amd/display/dc/core/dc_resource.c | 12 ++++++
->  2 files changed, 12 insertions(+), 37 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/a=
-md/display/dc/core/dc.c
-> index 2436a293931b..55e7b5a8ec8e 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> @@ -4704,12 +4704,6 @@ bool dc_set_power_state(
->         struct dc *dc,
->         enum dc_acpi_cm_power_state power_state)
->  {
-> -       struct kref refcount;
-> -       struct display_mode_lib *dml;
-> -#ifdef CONFIG_DRM_AMD_DC_FP
-> -       struct dml2_context *dml2 =3D NULL;
-> -#endif
-> -
->         if (!dc->current_state)
->                 return true;
->
-> @@ -4728,40 +4722,9 @@ bool dc_set_power_state(
->
->                 break;
->         default:
-> -#ifdef CONFIG_DRM_AMD_DC_FP
-> -               if (dc->debug.using_dml2)
-> -                       dml2 =3D dc->current_state->bw_ctx.dml2;
-> -#endif
->                 ASSERT(dc->current_state->stream_count =3D=3D 0);
-> -               /* Zero out the current context so that on resume we star=
-t with
-> -                * clean state, and dc hw programming optimizations will =
-not
-> -                * cause any trouble.
-> -                */
-> -               dml =3D kzalloc(sizeof(struct display_mode_lib),
-> -                               GFP_KERNEL);
-> -
-> -               ASSERT(dml);
-> -               if (!dml)
-> -                       return false;
-> -
-> -               /* Preserve refcount */
-> -               refcount =3D dc->current_state->refcount;
-> -               /* Preserve display mode lib */
-> -               memcpy(dml, &dc->current_state->bw_ctx.dml, sizeof(struct=
- display_mode_lib));
->
->                 dc_resource_state_destruct(dc->current_state);
-> -               memset(dc->current_state, 0,
-> -                               sizeof(*dc->current_state));
-> -
-> -               dc->current_state->refcount =3D refcount;
-> -               dc->current_state->bw_ctx.dml =3D *dml;
-> -
-> -               kfree(dml);
-> -
-> -#ifdef CONFIG_DRM_AMD_DC_FP
-> -               if (dc->debug.using_dml2)
-> -                       dc->current_state->bw_ctx.dml2 =3D dml2;
-> -#endif
->
->                 break;
->         }
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/=
-gpu/drm/amd/display/dc/core/dc_resource.c
-> index c1e2f0e10ab2..e2c7acdff301 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> @@ -4357,6 +4357,18 @@ void dc_resource_state_destruct(struct dc_state *c=
-ontext)
->                 context->streams[i] =3D NULL;
->         }
->         context->stream_count =3D 0;
-> +       context->stream_mask =3D 0;
-> +       memset(&context->res_ctx, 0, sizeof(context->res_ctx));
-> +       memset(&context->pp_display_cfg, 0, sizeof(context->pp_display_cf=
-g));
-> +       memset(&context->dcn_bw_vars, 0, sizeof(context->dcn_bw_vars));
-> +       context->clk_mgr =3D NULL;
-> +       memset(&context->bw_ctx.bw, 0, sizeof(context->bw_ctx.bw));
-> +       memset(context->block_sequence, 0, sizeof(context->block_sequence=
-));
-> +       context->block_sequence_steps =3D 0;
-> +       memset(context->dc_dmub_cmd, 0, sizeof(context->dc_dmub_cmd));
-> +       context->dmub_cmd_count =3D 0;
-> +       memset(&context->perf_params, 0, sizeof(context->perf_params));
-> +       memset(&context->scratch, 0, sizeof(context->scratch));
->  }
->
->  void dc_resource_state_copy_construct(
-> --
-> 2.34.1
->
+v3: Removed inst pcie bw with alignment to metrics table
+version 8
+
+Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+---
+ .../gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_pmfw.h    | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_pmfw.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_pmfw.h
+index 9be4051c0865..66edd839c7ec 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_pmfw.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_pmfw.h
+@@ -123,7 +123,7 @@ typedef enum {
+   VOLTAGE_GUARDBAND_COUNT
+ } GFX_GUARDBAND_e;
+ 
+-#define SMU_METRICS_TABLE_VERSION 0x7
++#define SMU_METRICS_TABLE_VERSION 0x8
+ 
+ typedef struct __attribute__((packed, aligned(4))) {
+   uint32_t AccumulationCounter;
+@@ -207,6 +207,11 @@ typedef struct __attribute__((packed, aligned(4))) {
+   uint64_t PublicSerialNumber_AID[4];
+   uint64_t PublicSerialNumber_XCD[8];
+   uint64_t PublicSerialNumber_CCD[12];
++
++  //XGMI Data tranfser size
++  uint64_t XgmiReadDataSizeAcc[8];//in KByte
++  uint64_t XgmiWriteDataSizeAcc[8];//in KByte
++
+ } MetricsTable_t;
+ 
+ #define SMU_VF_METRICS_TABLE_VERSION 0x3
+-- 
+2.42.0
+
