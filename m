@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 801E1E95A91
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Oct 2023 15:54:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDC24E95A9E
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Oct 2023 15:54:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE76310E139;
-	Mon,  9 Oct 2023 15:54:47 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on20604.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8c::604])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E0EC10E106
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Oct 2023 15:54:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2817310E140;
+	Mon,  9 Oct 2023 15:54:49 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2080.outbound.protection.outlook.com [40.107.92.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B757B10E106
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Oct 2023 15:54:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MoJksIa8xoBEbJ9ee56ChJ6d3P1bogO2FtL1XtnnsiTTa4nAamClbrqFpaQffB0naNDHi5cJ+oNK0qFZvwcCxmP6+yGEKEnKupfvGTYkF/T9UzJIm//vMdB+bZd0tro/c0jCAr31Bkxv+/DFAFm0zCgxHJG1fVwD1xQndTpXW/XsH8cSOyt1plKO30FqCLPAMTZB9dVcCZulLlPBbPg7dUYrs5Tij51SowaaSkvcZBFFdmvBOpdNZiQaAmjhcDWgzZz3BAHomfGjrKopb8uD8E6AJQkHtfbWonZdUGqSg7KvOZZkvq4I0Njt+htMU8ieE1xRxC2jiJAxa4HmFopH1Q==
+ b=LJbR24m3Hh5hDijZw30wR5wo5jtXNNKySGE3PPSHi7wk6NaJVbG37DKae0a7ScyVieJSHvfVgx5T+2tdYvJsx88fwijWSyf6umtEbKJgXVbJvbHAV7iHPpL/0sG+tXmXwB71YLLGpe/5JMnrii7MNJSv5n8Dtm2Zw/HIhreHwgEs2BoMQ/S5NjQ8Q8bAgZtQNmr8vY7QWEVb3jh05NOAOk4e8hox+VZlVfxQZu0kl9Uw2iCw0x7WW9E3T6ffLh5jBWW2/7/ApaUOc4LD2Px1rFoGjROYXlrgsEWXfVZEV+eQz495p2mYnDVaSGT0Y3IswV9y4aP/67Y0f9RuNzuk5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Qhc0Ka58hQ0EitFTmnKotGZkLCOgAzYDWqcBhdoOA2o=;
- b=bLgEHoZO3nLUQCiof9q4DKGHCtbdO5MiQ+n9eGe9Dkdl296zFTZmqZZkrxBEPxmPVeBT6XOoLqYzA8JIqqFg2bdA/7ItCcJTK2x6ZLxMLynHH9fYHK3auXcB3/OhDzQr0j1EWsbvGiqsS9iw4dfCIjArrE1BRPtLARRfAIABM9b2jbST4S2+OeXOlruXKbeOfDH0W/cxH9N43+jFLM6tDJjCYl4EH8tQGuwDE/b0RGqeZ2cQQKGtp+BbLoa29bm1ut4sWdBAfZSO+JUmDR5AfEwsWe2N5/GYw7fA1Cyjg6nu+3tlQGbKdD3S0B3CONtZzo3yrpl1TphgPQ3OJbzKSA==
+ bh=N4S/Q/Eb9UR2VOGdoVmiOeLef/ANljnpWTV0EY1L1C8=;
+ b=UUXNEORxUFPtUwdAiteIgCq/bN8i2nCweZJ40+aSM6o4DwLJtkMSSrYqinaRltA176qSVEQRPnLSWhL+d2sp9xaBzV6HV1qtNqVo749E0w4Wd8Vn6R0/XL1xTAY/L1pvj7iaC5WILylyQ6ykrwS5IwnAcjIxlTLEPBm2qEU4wY5sYn0NIirjupJxPeTWWjVY3WMkRwQHJzWCoLK1PMzwJWV28b/2iGR5H0gKJimneTaYtHnJe5K2q/o4RTrGQrafPIYRDIUp31KLZNtK3487erucAorTJTFxXTO2W4zfIC9z4EIsgu2YUNeoU2axT7jsoLx92MS3t5mLvNe0chukDg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Qhc0Ka58hQ0EitFTmnKotGZkLCOgAzYDWqcBhdoOA2o=;
- b=11yN3vMaou6vqtIW1NZdsqQKmtLnmrms0oiKqdSOT7gwMswBb1nvuCxe6+6RljjAZdiWt/8l4LgQOnqQPcDnVJczVn/o7q981zqT5yXmCwjg061mfE1a8Ddp19Bax2f9V3S0aeN3qe8ZSLFLb3cuY5HhYNxqLHryazrHWDKNxuc=
-Received: from BY5PR17CA0014.namprd17.prod.outlook.com (2603:10b6:a03:1b8::27)
- by MW6PR12MB9020.namprd12.prod.outlook.com (2603:10b6:303:240::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.37; Mon, 9 Oct
- 2023 15:54:43 +0000
+ bh=N4S/Q/Eb9UR2VOGdoVmiOeLef/ANljnpWTV0EY1L1C8=;
+ b=pZziUPTNaaT+fR7bEk5TNt6NQgFfihl1vkiAfjFslyJkYclgbCcPzYRjjfPEqrjOELj5+ke1B/0SGBlLBjvc0FaM1yhqN1K+iLR/yCmx6kpjAqcb1+DDOa72XKuannikb1gaNf4BetxlgycTwAF5pHKwBLRuOQB1OPpUhWSjbyE=
+Received: from BY5PR17CA0012.namprd17.prod.outlook.com (2603:10b6:a03:1b8::25)
+ by CY8PR12MB8411.namprd12.prod.outlook.com (2603:10b6:930:6e::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.38; Mon, 9 Oct
+ 2023 15:54:44 +0000
 Received: from MWH0EPF000971E6.namprd02.prod.outlook.com
- (2603:10b6:a03:1b8:cafe::85) by BY5PR17CA0014.outlook.office365.com
- (2603:10b6:a03:1b8::27) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:a03:1b8:cafe::8b) by BY5PR17CA0012.outlook.office365.com
+ (2603:10b6:a03:1b8::25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.37 via Frontend
- Transport; Mon, 9 Oct 2023 15:54:43 +0000
+ Transport; Mon, 9 Oct 2023 15:54:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,17 +47,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  MWH0EPF000971E6.mail.protection.outlook.com (10.167.243.74) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.14 via Frontend Transport; Mon, 9 Oct 2023 15:54:43 +0000
+ 15.20.6838.14 via Frontend Transport; Mon, 9 Oct 2023 15:54:44 +0000
 Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 9 Oct
  2023 10:54:42 -0500
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v6 0/7] Better handle memory pressure at suspend
-Date: Mon, 9 Oct 2023 10:54:19 -0500
-Message-ID: <20231009155426.96232-1-mario.limonciello@amd.com>
+Subject: [PATCH v6 1/7] drm/amd: Evict resources during PM ops prepare()
+ callback
+Date: Mon, 9 Oct 2023 10:54:20 -0500
+Message-ID: <20231009155426.96232-2-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20231009155426.96232-1-mario.limonciello@amd.com>
+References: <20231009155426.96232-1-mario.limonciello@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
@@ -67,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000971E6:EE_|MW6PR12MB9020:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6829bf40-9692-43b7-8884-08dbc8e00de9
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E6:EE_|CY8PR12MB8411:EE_
+X-MS-Office365-Filtering-Correlation-Id: 83469ae0-8ddb-45ba-20d2-08dbc8e00e63
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zWMNHkPz6JrtjHPYXjolQ0v0eW5kde4wAoTJWTAJ6y6Chh3To52U5SNeiYy9bdl4RUI7w6AbnB8157NJGvVdFqlgZZdE7g8YQUOhP0oGEjf2gbCE7wtwttNyZYvWh4QGX4c19VKedgS/iV7jXSbAS8H6roTmHwzhWMpFi0mUeluvB9EpwCuX81lqkC056eByOeSaki1bzTCrRRvJbtaTeb+/i+S/vXZ9/50DSm6krjRhjKlbz4Z8hZIwkdGucZML5kZyFZuSmoo/nYyWa/h24cPeOzXQhE5b3EJbwZiHTwuNfKGTWSLYVS5H59MpoxVtBextQshrwLzyTeoCPmFCKHBjwDvKD1pRBICiXhitggdXGRufGVcWYuzc/oqM5tgUdRHf3cG3uwt2vvk6rDAQihsHGMP7Z9d2c9KWs2tcjUF4aumsvHVz0gZ8ZZToIkJlkqQfBNsMqFG/49zPE4Zo18jP6PMFs/LyXoGHcHwSJPxsIYXw5HcRCAfI6CQU9nMZqpK/NyTOvntcDa4XWXZ+kT5HBNH1FWwA/1qqzW6184n7E/g6izp7xIxRTVLnfBNW4sS1+UdfEhMGkwmwhCi8AWqmjMApwH9KoLz6/fHpfmzIECqrdrhP0UpRx98oT5kparVJ0cG9Mn9TvHal5as5eJvNOn3ZYqinlJoyWJJYXyMvOyqMr5oASgEwbstArze3Fd9gfLE2X5Pa1pXGhEPYPVn6nHpW2ywmBa9XMcqHW02m5roCN8TdwBGIx4E13smE/wBUjfDxhB3WirpoqrNCoW6pGiVx07OdP5JwII4MJB0=
+X-Microsoft-Antispam-Message-Info: SHA+ZsLZP8iQiFyM1K00R2lnOj36ASdkMbXjw0opJDckzRZ0CIWyWlZO2Cg0d/Won2zfMr2mk3taQpCIswqgjOa9opV6UJhj2H/v/zMCae8N6ZE8dDujrMe+7GsFzvtCmlNN3+joR3JYLyFztbuH91fOwy+amUkYgIFCnuWzzAnTqtxIER5FcOQnskfbVJBfkDzBagVHcksYBAC0ew1JvbxoZdWZvCconan3PGRf5K+J+sGNh7YeL33yB+jECysKX18bkLrOW4OXVXLFlEPyMzfVvYzcEmKs6DPGrEFh3fxoakhO0VeiFjRJF1aVTIuEjt5B6ovtO93TOL3/s72ecRUWhTBd7UZeVNWw4uSVw8B3nSvknbZYHrLpoyIk92ECkANbmOyG809GYtfag9YIEVxv8Iq1iiJkP+xrp4ATGPeR4v9I14lnsDtRRREyuLJrSaKkvz+v0/yL2OV3taU8mrsE1I8PqSyi+Ke8gcwWuc4ELNTpRxf03P/1O+68yQWR0j8Z03IUjXuc92qMXGmDtONRuKxttcvfYfFB9JDSeensWN5t5HnhkVtygzaknoKkxEv/00GarAKyebeZxIG4HwGssNbmht+Qv9QSM71qX0ki+mKqLa202JzLi13ufmNelGJCTHexoxNC6Kk3R1eP1raEb38ztgiXmum97wWRhU1Yj5Yrrg0tNiHKt0OwZEgYsMmWdwcj+eAkebKW16DrOTtwy4zo6MfW22w1z5M5U+RLIO1Kv9EcecgCdZdVGBCA
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(346002)(136003)(396003)(376002)(230922051799003)(82310400011)(451199024)(186009)(1800799009)(64100799003)(40470700004)(36840700001)(46966006)(7696005)(1076003)(2616005)(478600001)(41300700001)(966005)(2906002)(15650500001)(336012)(426003)(26005)(44832011)(83380400001)(47076005)(70586007)(5660300002)(6916009)(70206006)(4326008)(316002)(8676002)(16526019)(8936002)(40460700003)(82740400003)(36860700001)(36756003)(356005)(40480700001)(81166007)(86362001)(6666004)(36900700001);
+ SFS:(13230031)(4636009)(136003)(396003)(376002)(346002)(39860400002)(230922051799003)(451199024)(82310400011)(1800799009)(186009)(64100799003)(36840700001)(46966006)(40470700004)(36756003)(86362001)(40480700001)(2616005)(478600001)(5660300002)(2906002)(44832011)(70586007)(70206006)(54906003)(6916009)(41300700001)(316002)(1076003)(7696005)(966005)(6666004)(26005)(336012)(426003)(66574015)(47076005)(16526019)(36860700001)(82740400003)(4326008)(40460700003)(8936002)(8676002)(356005)(83380400001)(81166007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2023 15:54:43.2976 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6829bf40-9692-43b7-8884-08dbc8e00de9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2023 15:54:44.1101 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 83469ae0-8ddb-45ba-20d2-08dbc8e00e63
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E6.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB9020
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8411
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,75 +100,134 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-At suspend time if there is memory pressure then dynamically allocating
-memory will cause failures that don't clean up properly when trying
-suspend a second time.
+Linux PM core has a prepare() callback run before suspend.
 
-Move the bigger memory allocations into Linux PM prepare() callback, drop
-allocations that aren't really needed in DC code and report failures
-in dm_suspend() up.
+If the system is under high memory pressure, the resources may need
+to be evicted into swap instead.  If the storage backing for swap
+is offlined during the suspend() step then such a call may fail.
 
-v1: https://lore.kernel.org/amd-gfx/20230925143359.14932-1-mario.limonciello@amd.com/
-v2: https://lore.kernel.org/amd-gfx/20231002224449.95565-1-mario.limonciello@amd.com/T/#mc800319a05df821cd1875234b09bf212e2e3282b
-v3: https://lore.kernel.org/amd-gfx/20231003205437.123426-1-mario.limonciello@amd.com/T/#m00a49b75cd2638bf8a0ebd549d6a6010bfb7328b
-v4: https://lore.kernel.org/amd-gfx/20231004171838.168215-1-mario.limonciello@amd.com/T/#m0921840868295ec19abbe5ecbaa0aee75356b9e1
-v5: https://lore.kernel.org/amd-gfx/20231006185026.5536-1-mario.limonciello@amd.com/T/#m924d5b955ff2fe933b3c483a61e703724f7014e4
+So move this step into prepare() to move evict majority of
+resources and update all non-pmops callers to call the same callback.
 
-v5->v6:
- * Rename prepare() to prepare_suspend()
- * Remove spurious newlines
- * Add tags
- * Fix up commit messages
-v4->v5:
-  * Call amdgpu_device_prepare() from other callers to amdgpu_device_suspend()
-  * 3x evict calls -> 2x evict calls
-  * Add IP block specific prepare path
-  * Fix issue in UVD
-  * Raise warnings for issues that could happen in amdgpu_switcheroo_set_state()
-  * Catch problem that could happen in dm_suspend()
-  * Rebase on top of DML2 series in amd-staging-drm-next
-v3->v4:
- * Combine patches 1/2
- * Drop adev->in_suspend references
-v2->v3:
- * Handle adev->in_suspend in prepare() and complete()
- * Add missing scratch variable in dc_resource_state_destruct()
- * Revert error code propagation in same series
-v1->v2:
- * Handle DC code too
- * Add prepare callback rather than moving symbol calls
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2362
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 31 ++++++++++++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 10 ++++---
+ 3 files changed, 34 insertions(+), 8 deletions(-)
 
-Mario Limonciello (7):
-  drm/amd: Evict resources during PM ops prepare() callback
-  drm/amd: Add concept of running prepare_suspend() sequence for IP
-    blocks
-  drm/amd: Split up UVD suspend into prepare and suspend steps
-  drm/amd: Capture errors in amdgpu_switcheroo_set_state()
-  drm/amd/display: Catch errors from drm_atomic_helper_suspend()
-  drm/amd/display: Destroy DC context while keeping DML and DML2
-  drm/amd/display: make dc_set_power_state() return type `void` again
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 75 ++++++++++++++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 10 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c       | 12 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h       |  1 +
- drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c         |  8 ++
- drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c         |  8 ++
- drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c         |  8 ++
- drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c         |  8 ++
- drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c         |  8 ++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 19 ++---
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 43 +----------
- .../gpu/drm/amd/display/dc/core/dc_resource.c | 12 +++
- drivers/gpu/drm/amd/display/dc/dc.h           |  2 +-
- drivers/gpu/drm/amd/include/amd_shared.h      |  1 +
- 15 files changed, 144 insertions(+), 72 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 4cc78e0e4304..fdb2e9ae13e2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1409,6 +1409,7 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
+ void amdgpu_driver_release_kms(struct drm_device *dev);
+ 
+ int amdgpu_device_ip_suspend(struct amdgpu_device *adev);
++int amdgpu_device_prepare(struct drm_device *dev);
+ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon);
+ int amdgpu_device_resume(struct drm_device *dev, bool fbcon);
+ u32 amdgpu_get_vblank_counter_kms(struct drm_crtc *crtc);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index d5b81a086e69..0a7cc9107f07 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1760,6 +1760,7 @@ static void amdgpu_switcheroo_set_state(struct pci_dev *pdev,
+ 	} else {
+ 		pr_info("switched off\n");
+ 		dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
++		amdgpu_device_prepare(dev);
+ 		amdgpu_device_suspend(dev, true);
+ 		amdgpu_device_cache_pci_state(pdev);
+ 		/* Shut down the device */
+@@ -4335,6 +4336,31 @@ static int amdgpu_device_evict_resources(struct amdgpu_device *adev)
+ /*
+  * Suspend & resume.
+  */
++/**
++ * amdgpu_device_prepare - prepare for device suspend
++ *
++ * @dev: drm dev pointer
++ *
++ * Prepare to put the hw in the suspend state (all asics).
++ * Returns 0 for success or an error on failure.
++ * Called at driver suspend.
++ */
++int amdgpu_device_prepare(struct drm_device *dev)
++{
++	struct amdgpu_device *adev = drm_to_adev(dev);
++	int r;
++
++	if (dev->switch_power_state == DRM_SWITCH_POWER_OFF)
++		return 0;
++
++	/* Evict the majority of BOs before starting suspend sequence */
++	r = amdgpu_device_evict_resources(adev);
++	if (r)
++		return r;
++
++	return 0;
++}
++
+ /**
+  * amdgpu_device_suspend - initiate device suspend
+  *
+@@ -4355,11 +4381,6 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
+ 
+ 	adev->in_suspend = true;
+ 
+-	/* Evict the majority of BOs before grabbing the full access */
+-	r = amdgpu_device_evict_resources(adev);
+-	if (r)
+-		return r;
+-
+ 	if (amdgpu_sriov_vf(adev)) {
+ 		amdgpu_virt_fini_data_exchange(adev);
+ 		r = amdgpu_virt_request_full_gpu(adev, false);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 81affdf7c0c3..420196a17e22 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2427,8 +2427,9 @@ static int amdgpu_pmops_prepare(struct device *dev)
+ 	/* Return a positive number here so
+ 	 * DPM_FLAG_SMART_SUSPEND works properly
+ 	 */
+-	if (amdgpu_device_supports_boco(drm_dev))
+-		return pm_runtime_suspended(dev);
++	if (amdgpu_device_supports_boco(drm_dev) &&
++	    pm_runtime_suspended(dev))
++		return 1;
+ 
+ 	/* if we will not support s3 or s2i for the device
+ 	 *  then skip suspend
+@@ -2437,7 +2438,7 @@ static int amdgpu_pmops_prepare(struct device *dev)
+ 	    !amdgpu_acpi_is_s3_active(adev))
+ 		return 1;
+ 
+-	return 0;
++	return amdgpu_device_prepare(drm_dev);
+ }
+ 
+ static void amdgpu_pmops_complete(struct device *dev)
+@@ -2637,6 +2638,9 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+ 	if (amdgpu_device_supports_boco(drm_dev))
+ 		adev->mp1_state = PP_MP1_STATE_UNLOAD;
+ 
++	ret = amdgpu_device_prepare(drm_dev);
++	if (ret)
++		return ret;
+ 	ret = amdgpu_device_suspend(drm_dev, false);
+ 	if (ret) {
+ 		adev->in_runpm = false;
 -- 
 2.34.1
 
