@@ -4,60 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1AE9CD6101
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Oct 2023 16:21:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90DC6CD6114
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Oct 2023 18:11:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAF7210E10B;
-	Mon,  9 Oct 2023 16:21:37 +0000 (UTC)
-Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
- [IPv6:2001:4860:4864:20::35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3752810E10B
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Oct 2023 16:21:35 +0000 (UTC)
-Received: by mail-oa1-x35.google.com with SMTP id
- 586e51a60fabf-1dd78b46995so2292018fac.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 09 Oct 2023 09:21:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1696868494; x=1697473294; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=w7bP8phnEYMWqwNBtZ2+L0CHdo6DQQ8YdTxRq88zcYY=;
- b=hfFk20w+OcZ/E61u1YXgxvGYLDr9h4ORT8/Eznybt730C9Xd3aCvSzHcc30g9hORhc
- xR0kUFpmreRVak/fXClCuTLnYlijJhRoEeNM65ulDCXisauMZoB5GsmyuAUwH5pFEDP3
- ZyadjSQLL5yxFRTn87zud5Ufqnaa0sfmkjx/dLShU4px9OrScvMAXeWV/AIUZVVIzGZ8
- DOosm1w2ivxRcN+vwuwsu1k116B3qaVok7RCuv96IZI9sQw37FBAX5AmArxT+GSG8MkK
- 3gReAxs+8PNwr4kRbZoQHQTxU2qUT68lacZ3+EE6UvEQ06BnaGFpn/auwoCoq63wgZLs
- b4lQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696868494; x=1697473294;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=w7bP8phnEYMWqwNBtZ2+L0CHdo6DQQ8YdTxRq88zcYY=;
- b=F1ewIGTwR4O7bApGHCVU6UWKbcwCF9xO8/Nn8Y7jBkIUWSiJAsPf8kQegqic2Qh4Qo
- uoTm/LFvM7DzcoRTxODIGFq99WwB55fyhImtt8HTIc99SFCbGyxVa2ZkmHfMiemt6DF7
- fL0eIlFQPosRDXuq/kJMrrALJxq9WBLPdGu7Ny/QS4ZydceJ3DJ1kXfQoCoILz6VyScc
- +wkr11XbU1exM1XcoyGcBrLviDL2MTlZU8AYATLqUfAI+JPKRMdcQm969/pO2lfWEsAh
- ceKgUfWlmq0teK/8PmwBu3Dy7o12vVOU8Xeh0rzWeokqcwGGXRhYwCT68qdyCcD8k2Pf
- 9gmQ==
-X-Gm-Message-State: AOJu0YwgIKMuy80o0QW1b+CLLTaZNOnOhaxMWjNUbvj1bU+8bU6Ba9nG
- qhHI+/ta2TpaF2eqni+HI0nu2pRHnAed5a+V9FwmWz4mxMA=
-X-Google-Smtp-Source: AGHT+IFE8PE/qtuGz1KOVLIeXipy71+Lj3kFIVxa3jjaPQ+4IgEf2IL2oiMP7LcxbPFlNCi7XSN4Bwsy/XpShgzH09A=
-X-Received: by 2002:a05:6870:d695:b0:1d0:f5bd:6e9 with SMTP id
- z21-20020a056870d69500b001d0f5bd06e9mr15121309oap.22.1696868494274; Mon, 09
- Oct 2023 09:21:34 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3601910E06D;
+	Mon,  9 Oct 2023 18:11:35 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2D2410E149;
+ Mon,  9 Oct 2023 18:09:48 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 1CFF161248;
+ Mon,  9 Oct 2023 18:09:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38AD9C433C7;
+ Mon,  9 Oct 2023 18:09:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1696874987;
+ bh=55mBdPux7Faa+MTMfhzDfhcLUi40zyKZ0NpJ/3a3pcI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=o8H/ukR+KYxcZZzJWnnwdyKPt+JA+nb6tZkMCHtSBtn1jOzDg5vGkrfaX4Jf57lCD
+ zlwvmPnfyJIlA6S0FhT7B+GC4D/QNTajBMCBXPOMvY9w/gCA7qNXP+saLnrbZZPMsW
+ h4IT/msBBFYLiRTvKuBC77JlNLpKEquBREqOVt7E=
+Date: Mon, 9 Oct 2023 20:09:44 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [PATCH AUTOSEL 5.10 13/22] drm/amdgpu: install stub fence into
+ potential unused fence pointers
+Message-ID: <2023100908-chaperone-squishier-4f10@gregkh>
+References: <2023083119-phoney-ascend-d4ec@gregkh>
+ <d32d6919-47cf-4ddc-955a-0759088220ae@gmail.com>
+ <2023100750-unraveled-propeller-3697@gregkh>
+ <0eb8750d-79c5-4508-ac36-7f91bc8cbaf9@gmail.com>
 MIME-Version: 1.0
-References: <20231009145933.164871-1-srinivasan.shanmugam@amd.com>
- <20231009152122.172858-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20231009152122.172858-1-srinivasan.shanmugam@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 9 Oct 2023 12:21:23 -0400
-Message-ID: <CADnq5_PNdiQw5bBFGUA9XbiWexmPLxDeoDN99Xih4U54gZxoHA@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: Address member 'gart_placement' not
- described in 'amdgpu_gmc_gart_location'
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <0eb8750d-79c5-4508-ac36-7f91bc8cbaf9@gmail.com>
+X-Mailman-Approved-At: Mon, 09 Oct 2023 18:11:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,52 +52,29 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: sashal@kernel.org, airlied@linux.ie, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
+ Bryan Jennings <bryjen423@gmail.com>, amd-gfx@lists.freedesktop.org,
+ alexander.deucher@amd.com, stable@vger.kernel.org, Lang.Yu@amd.com,
+ olvaffe@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 9, 2023 at 12:17=E2=80=AFPM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
->
-> Fixes the below:
-> drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c:274: warning: Function parameter =
-or member 'gart_placement' not described in 'amdgpu_gmc_gart_location'
->
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->
-> v2:
->  - s/in/around
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gmc.c
-> index 60c81c3d29d5..47772f233a4d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -264,6 +264,7 @@ void amdgpu_gmc_sysvm_location(struct amdgpu_device *=
-adev, struct amdgpu_gmc *mc
->   *
->   * @adev: amdgpu device structure holding all necessary information
->   * @mc: memory controller structure holding memory information
-> + * @gart_placement: GART placement region around VRAM
+On Mon, Oct 09, 2023 at 02:46:40PM +0200, Christian König wrote:
+> Am 07.10.23 um 11:50 schrieb Greg KH:
+> > On Sun, Sep 10, 2023 at 03:43:01PM -0500, Bryan Jennings wrote:
+> > > This is also causing log spam on 5.15.  It was included in 5.15.128 as
+> > > commit 4921792e04f2125b5eadef9dbe9417a8354c7eff.  I encountered this and
+> > > found https://gitlab.freedesktop.org/drm/amd/-/issues/2820 while researching
+> > > the problem.
+> > Confused, what should we do here?
+> 
+> If this patch was backported to even more older kernels then please revert
+> that immediately!
 
-GART placement policy with respect to VRAM
+It only went to 5.10 and 5.15 and has been reverted from both of them
+now.
 
-WIth that fixed:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+thanks,
 
->   *
->   * Function will place try to place GART before or after VRAM.
->   * If GART size is bigger than space left then we ajust GART size.
-> --
-> 2.34.1
->
+greg k-h
