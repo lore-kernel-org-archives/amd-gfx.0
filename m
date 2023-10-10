@@ -4,46 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E86FCD68F6
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 07:49:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADB4FCD68F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 07:49:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 206FB10E313;
-	Tue, 10 Oct 2023 07:49:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EC0110E1BA;
+	Tue, 10 Oct 2023 07:49:47 +0000 (UTC)
+X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
+ Tue, 10 Oct 2023 02:25:23 UTC
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E358210E1AD;
- Tue, 10 Oct 2023 06:10:55 +0000 (UTC)
-X-UUID: ce3d942ff2a44ad3b728ecdcedaf844a-20231010
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 250E510E30E;
+ Tue, 10 Oct 2023 02:25:22 +0000 (UTC)
+X-UUID: 953745ecea834646b29c342a907ed9a8-20231010
+X-CID-CACHE: Type:Local,Time:202310101010+08,HitQuantity:1
 X-CID-O-RULE: Release_Ham
 X-CID-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.32, REQID:c49a5ea7-1b9b-42fd-a0bb-4dfab2ba0dd4, IP:15,
- URL:0,TC:0,Content:0,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTI
- ON:release,TS:0
-X-CID-INFO: VERSION:1.1.32, REQID:c49a5ea7-1b9b-42fd-a0bb-4dfab2ba0dd4, IP:15,
+X-CID-O-INFO: VERSION:1.1.32, REQID:d1cb4757-7922-4b9a-8eeb-51f980972c7b, IP:15,
+ URL:0,TC:0,Content:0,EDM:-30,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,AC
+ TION:release,TS:-30
+X-CID-INFO: VERSION:1.1.32, REQID:d1cb4757-7922-4b9a-8eeb-51f980972c7b, IP:15,
  UR
- L:0,TC:0,Content:0,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:0
-X-CID-META: VersionHash:5f78ec9, CLOUDID:10d39df0-9a6e-4c39-b73e-f2bc08ca3dc5,
+ L:0,TC:0,Content:0,EDM:-30,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+ ON:release,TS:-30
+X-CID-META: VersionHash:5f78ec9, CLOUDID:24579cf0-9a6e-4c39-b73e-f2bc08ca3dc5,
  B
- ulkID:231010101005VJRJ2L0N,BulkQuantity:2,Recheck:0,SF:24|17|19|44|102,TC:
- nil,Content:0,EDM:-3,IP:-2,URL:0,File:nil,Bulk:40,QS:nil,BEC:nil,COL:0,OSI
- :0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
+ ulkID:nil,BulkQuantity:0,Recheck:0,SF:24|17|19|44|102,TC:nil,Content:0,EDM
+ :2,IP:-2,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES
+ :1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
 X-CID-BVR: 0,NGT
 X-CID-BAS: 0,NGT,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD,TF_CID_SPAM_FSI
-X-UUID: ce3d942ff2a44ad3b728ecdcedaf844a-20231010
+X-CID-FACTOR: TF_CID_SPAM_FAS,TF_CID_SPAM_FSD,TF_CID_SPAM_FSI,TF_CID_SPAM_SNR
+X-UUID: 953745ecea834646b29c342a907ed9a8-20231010
 X-User: chentao@kylinos.cn
 Received: from localhost.localdomain [(116.128.244.169)] by mailgw
  (envelope-from <chentao@kylinos.cn>)
  (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 189130116; Tue, 10 Oct 2023 14:10:43 +0800
+ with ESMTP id 38406539; Tue, 10 Oct 2023 10:20:07 +0800
 From: "Kunwu.Chan" <chentao@kylinos.cn>
-To: kevinyang.wang@amd.com
+To: evan.quan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch, lijo.lazar@amd.com,
+ asad.kamal@amd.com, Hawking.Zhang@amd.com, kevinyang.wang@amd.com,
+ le.ma@amd.com, dan.carpenter@linaro.org
 Subject: [PATCH] drm/amd/pm: Fix a memory leak on an error path
-Date: Tue, 10 Oct 2023 14:10:39 +0800
-Message-Id: <20231010061039.75878-1-chentao@kylinos.cn>
+Date: Tue, 10 Oct 2023 10:19:15 +0800
+Message-Id: <20231010021915.36066-1-chentao@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <PH7PR12MB5997C208CDD4587332346CD782CDA@PH7PR12MB5997.namprd12.prod.outlook.com>
-References: <PH7PR12MB5997C208CDD4587332346CD782CDA@PH7PR12MB5997.namprd12.prod.outlook.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 10 Oct 2023 07:49:45 +0000
@@ -58,18 +62,14 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, chentao@kylinos.cn, kunwu.chan@hotmail.com,
- dri-devel@lists.freedesktop.org, Lijo.Lazar@amd.com,
- linux-kernel@vger.kernel.org, Asad.Kamal@amd.com, Le.Ma@amd.com,
- amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, Alexander.Deucher@amd.com,
- evan.quan@amd.com, airlied@gmail.com, Christian.Koenig@amd.com,
- dan.carpenter@linaro.org, Hawking.Zhang@amd.com
+Cc: "Kunwu.Chan" <chentao@kylinos.cn>, kunwu.chan@hotmail.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Add missing free on an error path.
 
-Fixes: 511a95552ec8 ("drm/amd/pm: Add SMU 13.0.6 support")
 Signed-off-by: Kunwu.Chan <chentao@kylinos.cn>
 ---
  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 4 +++-
