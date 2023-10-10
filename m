@@ -4,48 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64209CD80CA
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 13:09:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EA03CD80CD
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 13:20:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F0B910E364;
-	Tue, 10 Oct 2023 13:09:51 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 071FC10E363;
- Tue, 10 Oct 2023 13:08:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696943311; x=1728479311;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=ySyQf6rgVg5IYZAWGy7uT+d1sPeGVBK59rJjjADPH1U=;
- b=PuVcTCGIAcoMDZPTLrv06Oq822AA18oT/FTf4BW8e6puKWjmxJX752K5
- 5drHobOPaDbMVgWYLP/dX2OJh3Jr18d/kuagV+qZi06xGX3J8P0j36OLD
- LF4nclPGVau/wl/RnJIora6f9m1FNNhyLn0+kNeaZnagWz4qs6hEZ1StA
- QAve4Y+G8ZAJFHYdbB3lFH0FR7fH6j5Y37LqTk3rvnW8yqyRqnyxs+Qi/
- Evf8aM+aM79Ov1UQUYJ0rwursHJTS/UzeiDmUrdal5gkBeLfh3GmK7FAG
- GVR6o4YXFtqxul8xLlwPbG3EjH82H1RJ77XXf65aTdEZmXYIZ3mFlCJFY A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="363737079"
-X-IronPort-AV: E=Sophos;i="6.03,212,1694761200"; d="scan'208";a="363737079"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2023 06:08:30 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="788576409"
-X-IronPort-AV: E=Sophos;i="6.03,212,1694761200"; d="scan'208";a="788576409"
-Received: from jthomasb-mobl1.ger.corp.intel.com ([10.252.42.94])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2023 06:08:25 -0700
-Date: Tue, 10 Oct 2023 16:08:23 +0300 (EEST)
-From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-Subject: Re: [PATCH v3 11/16] platform/x86/amd/pmf: dump policy binary data
-In-Reply-To: <20231010125917.138225-12-Shyam-sundar.S-k@amd.com>
-Message-ID: <1f3e39fc-2c2f-72d5-ce61-16e7e5d257be@linux.intel.com>
-References: <20231010125917.138225-1-Shyam-sundar.S-k@amd.com>
- <20231010125917.138225-12-Shyam-sundar.S-k@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2077110E1E6;
+	Tue, 10 Oct 2023 13:20:27 +0000 (UTC)
+Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
+ [IPv6:2001:4860:4864:20::33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3913110E1E6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Oct 2023 13:20:24 +0000 (UTC)
+Received: by mail-oa1-x33.google.com with SMTP id
+ 586e51a60fabf-1dcfb2a3282so3921751fac.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Oct 2023 06:20:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1696944023; x=1697548823; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Ym5hEOXjDj7NqEIrQc3Q9DxmgDyN+8JowioKzDhzGLQ=;
+ b=RTKwVjjr22smbp7qqIjqwLsoRqHHuxyfiEedT6XmX+Jy+aGuClgNgcUjvDRWMb+jfH
+ dlQFrEOFpnbLbAP/oy8Q7aQLRBZgIEhKBm/l3iC+Kzm8xoIEa8VznmWV9DjrvFKyqYCR
+ JHGJumVMWL4cOWYoKY9eFCrwBvj9OcEuAMkAShGmcSUCFNb98WIfhRleclhomqQg3pz/
+ 18iX0xBnlt/y7CDK4N+bTv5AfvOvU03Dqg00kiaAkQb2xxDLHwIcR0De6KuyGlTNc+It
+ JMF0w3PN6gxQcTzi7MVUj0GMjgd4OSJ+BOnJvANzYAlw5zWw+qoGWiuXefmlRwbtJcZy
+ IZcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1696944023; x=1697548823;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Ym5hEOXjDj7NqEIrQc3Q9DxmgDyN+8JowioKzDhzGLQ=;
+ b=LFq0Zujygbho2I3JdC5QQgZna4bl38oW4UVf9Dl2e2/g8E0FgdFdDyx5QettfCqaMh
+ izl5qAAKgyhC8Q9vQUGLfOZHFxtBtaafFkC64hvVEga5aGGvEAnxd3popnlD8WV0EP76
+ Gx1t6pt+yEMB3H2Ich5RH/pOie5iZz5Mw+kJCtbPRK/0XpNbOdpPWcwyIYdWeFv9Kv4S
+ DIXncJMFxUo0uJevBj7imubtV3H5tc3QfhYcqkRWTpAqiJDHI+zMNioa00ZHAXhxMgUl
+ 70aw+wqoJmZU/SoegyPOzTcRnwReTTRT3JN2KWQRujwYriYD6zKJC2GRMnKRczF98tV2
+ H1iw==
+X-Gm-Message-State: AOJu0Yw3X3PVc0RWlZhDQA29P+TcMmKf7ndnJXKeSS9eiVU824ewUljX
+ 6fCMhHETupyjKeOpkzWWPdFEHf0/m8M6EIk1mUfYt79C
+X-Google-Smtp-Source: AGHT+IFfY+XylU7TtS54mreSQyPx7BUDkU1kh8+7VXf66n2WsyC9o6ufOLlhorxobzXhzX3nFTUaO9agOQuNVrBHKpM=
+X-Received: by 2002:a05:6870:e2cf:b0:1d6:563b:c3a5 with SMTP id
+ w15-20020a056870e2cf00b001d6563bc3a5mr23508214oad.7.1696944023337; Tue, 10
+ Oct 2023 06:20:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-X-Mailman-Approved-At: Tue, 10 Oct 2023 13:09:48 +0000
+References: <20231010100022.1023882-1-Jun.Ma2@amd.com>
+ <20231010100022.1023882-2-Jun.Ma2@amd.com>
+In-Reply-To: <20231010100022.1023882-2-Jun.Ma2@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 10 Oct 2023 09:20:12 -0400
+Message-ID: <CADnq5_NfXi1eQLtgobbFBUtm77Kdf11iDJV8fya_rx8OCS+g+A@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amd/pm: Add reset option for fan_ctrl on smu
+ 13.0.7
+To: Ma Jun <Jun.Ma2@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,76 +69,139 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, Patil.Reddy@amd.com, basavaraj.natikar@amd.com,
- dri-devel@lists.freedesktop.org, jikos@kernel.org,
- amd-gfx@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- markgross@kernel.org, Hans de Goede <hdegoede@redhat.com>,
- benjamin.tissoires@redhat.com, mario.limonciello@amd.com, daniel@ffwll.ch,
- linux-input@vger.kernel.org, alexander.deucher@amd.com, airlied@gmail.com,
- christian.koenig@amd.com
+Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 10 Oct 2023, Shyam Sundar S K wrote:
+On Tue, Oct 10, 2023 at 6:17=E2=80=AFAM Ma Jun <Jun.Ma2@amd.com> wrote:
+>
+> Add reset option for fan_ctrl interfaces on the smu v13.0.7
+> User can use command "echo r > interface_name" to reset the
+> interface to boot value
+>
+> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
 
-> Sometimes policy binary retrieved from the BIOS maybe incorrect that can
-> end up in failing to enable the Smart PC solution feature.
-> 
-> Use print_hex_dump_debug() to dump the policy binary in hex, so that we
-> debug the issues related to the binary even before sending that to TA.
-> 
-> Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+Series is:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/platform/x86/amd/pmf/tee-if.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/drivers/platform/x86/amd/pmf/tee-if.c b/drivers/platform/x86/amd/pmf/tee-if.c
-> index 994daf945795..e4386f503ad0 100644
-> --- a/drivers/platform/x86/amd/pmf/tee-if.c
-> +++ b/drivers/platform/x86/amd/pmf/tee-if.c
-> @@ -275,6 +275,12 @@ static int amd_pmf_start_policy_engine(struct amd_pmf_dev *dev)
+>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 69 +++++++++++++++++--
+>  1 file changed, 64 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> index b8a7a1d853df..3c5526babb14 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> @@ -1497,6 +1497,59 @@ static int smu_v13_0_7_print_clk_levels(struct smu=
+_context *smu,
+>         return size;
 >  }
->  
->  #ifdef CONFIG_AMD_PMF_DEBUG
-> +static void amd_pmf_hex_dump_pb(struct amd_pmf_dev *dev)
+>
+> +static int smu_v13_0_7_od_restore_table_single(struct smu_context *smu, =
+long input)
 > +{
-> +	print_hex_dump_debug("(pb):  ", DUMP_PREFIX_OFFSET, 16, 1, dev->policy_buf,
-> +			     dev->policy_sz, false);
+> +       struct smu_table_context *table_context =3D &smu->smu_table;
+> +       OverDriveTableExternal_t *boot_overdrive_table =3D
+> +               (OverDriveTableExternal_t *)table_context->boot_overdrive=
+_table;
+> +       OverDriveTableExternal_t *od_table =3D
+> +               (OverDriveTableExternal_t *)table_context->overdrive_tabl=
+e;
+> +       struct amdgpu_device *adev =3D smu->adev;
+> +       int i;
+> +
+> +       switch (input) {
+> +       case PP_OD_EDIT_FAN_CURVE:
+> +               for (i =3D 0; i < NUM_OD_FAN_MAX_POINTS; i++) {
+> +                       od_table->OverDriveTable.FanLinearTempPoints[i] =
+=3D
+> +                                       boot_overdrive_table->OverDriveTa=
+ble.FanLinearTempPoints[i];
+> +                       od_table->OverDriveTable.FanLinearPwmPoints[i] =
+=3D
+> +                                       boot_overdrive_table->OverDriveTa=
+ble.FanLinearPwmPoints[i];
+> +               }
+> +               od_table->OverDriveTable.FanMode =3D FAN_MODE_AUTO;
+> +               od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
+EATURE_FAN_CURVE_BIT);
+> +               break;
+> +       case PP_OD_EDIT_ACOUSTIC_LIMIT:
+> +               od_table->OverDriveTable.AcousticLimitRpmThreshold =3D
+> +                                       boot_overdrive_table->OverDriveTa=
+ble.AcousticLimitRpmThreshold;
+> +               od_table->OverDriveTable.FanMode =3D FAN_MODE_AUTO;
+> +               od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
+EATURE_FAN_CURVE_BIT);
+> +               break;
+> +       case PP_OD_EDIT_ACOUSTIC_TARGET:
+> +               od_table->OverDriveTable.AcousticTargetRpmThreshold =3D
+> +                                       boot_overdrive_table->OverDriveTa=
+ble.AcousticTargetRpmThreshold;
+> +               od_table->OverDriveTable.FanMode =3D FAN_MODE_AUTO;
+> +               od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
+EATURE_FAN_CURVE_BIT);
+> +               break;
+> +       case PP_OD_EDIT_FAN_TARGET_TEMPERATURE:
+> +               od_table->OverDriveTable.FanTargetTemperature =3D
+> +                                       boot_overdrive_table->OverDriveTa=
+ble.FanTargetTemperature;
+> +               od_table->OverDriveTable.FanMode =3D FAN_MODE_AUTO;
+> +               od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
+EATURE_FAN_CURVE_BIT);
+> +               break;
+> +       case PP_OD_EDIT_FAN_MINIMUM_PWM:
+> +               od_table->OverDriveTable.FanMinimumPwm =3D
+> +                                       boot_overdrive_table->OverDriveTa=
+ble.FanMinimumPwm;
+> +               od_table->OverDriveTable.FanMode =3D FAN_MODE_AUTO;
+> +               od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
+EATURE_FAN_CURVE_BIT);
+> +               break;
+> +       default:
+> +               dev_info(adev->dev, "Invalid table index: %ld\n", input);
+> +               return -EINVAL;
+> +       }
+> +
+> +       return 0;
 > +}
 > +
-
-You forgot to add the empty version of amd_pmf_hex_dump_pb function into 
-#else part (so the compile fails if CONFIG_AMD_PMF_DEBUG is not set).
-
->  static ssize_t amd_pmf_get_pb_data(struct file *filp, const char __user *buf,
->  				   size_t length, loff_t *pos)
->  {
-> @@ -289,6 +295,7 @@ static ssize_t amd_pmf_get_pb_data(struct file *filp, const char __user *buf,
->  	if (copy_from_user(dev->policy_buf, buf, dev->policy_sz))
->  		return -EFAULT;
->  
-> +	amd_pmf_hex_dump_pb(dev);
->  	ret = amd_pmf_start_policy_engine(dev);
->  	if (ret)
->  		return -EINVAL;
-> @@ -327,6 +334,7 @@ static int amd_pmf_open_pb(struct amd_pmf_dev *dev, struct dentry *debugfs_root)
->  }
->  
->  static void amd_pmf_remove_pb(struct amd_pmf_dev *dev) {}
-> +static void amd_pmf_hex_dump_pb(struct amd_pmf_dev *dev) {}
->  #endif
->  
->  static int amd_pmf_get_bios_buffer(struct amd_pmf_dev *dev)
-> @@ -341,6 +349,7 @@ static int amd_pmf_get_bios_buffer(struct amd_pmf_dev *dev)
->  
->  	memcpy(dev->policy_buf, dev->policy_base, dev->policy_sz);
->  
-> +	amd_pmf_hex_dump_pb(dev);
->  	if (pb_side_load)
->  		amd_pmf_open_pb(dev, dev->dbgfs_dir);
->  
-> 
-
--- 
- i.
-
+>  static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
+>                                          enum PP_OD_DPM_TABLE_COMMAND typ=
+e,
+>                                          long input[],
+> @@ -1783,11 +1836,17 @@ static int smu_v13_0_7_od_edit_dpm_table(struct s=
+mu_context *smu,
+>                 break;
+>
+>         case PP_OD_RESTORE_DEFAULT_TABLE:
+> -               feature_ctrlmask =3D od_table->OverDriveTable.FeatureCtrl=
+Mask;
+> -               memcpy(od_table,
+> -                      table_context->boot_overdrive_table,
+> -                      sizeof(OverDriveTableExternal_t));
+> -               od_table->OverDriveTable.FeatureCtrlMask =3D feature_ctrl=
+mask;
+> +               if (size =3D=3D 1) {
+> +                       ret =3D smu_v13_0_7_od_restore_table_single(smu, =
+input[0]);
+> +                       if (ret)
+> +                               return ret;
+> +               } else {
+> +                       feature_ctrlmask =3D od_table->OverDriveTable.Fea=
+tureCtrlMask;
+> +                       memcpy(od_table,
+> +                                       table_context->boot_overdrive_tab=
+le,
+> +                                       sizeof(OverDriveTableExternal_t))=
+;
+> +                       od_table->OverDriveTable.FeatureCtrlMask =3D feat=
+ure_ctrlmask;
+> +               }
+>                 fallthrough;
+>
+>         case PP_OD_COMMIT_DPM_TABLE:
+> --
+> 2.34.1
+>
