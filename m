@@ -4,116 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AADAACD8CA4
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 15:10:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B80A5CD8CA2
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 16:00:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97F0110E391;
-	Tue, 10 Oct 2023 15:10:23 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2082.outbound.protection.outlook.com [40.107.92.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DAC810E390
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Oct 2023 15:10:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4463110E396;
+	Tue, 10 Oct 2023 15:59:59 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2053.outbound.protection.outlook.com [40.107.95.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA18110E395;
+ Tue, 10 Oct 2023 15:59:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f/3GG5Mv+r3JuxPkVRIBh0zildT6xC/KSKKwuQClBxmpPeXrO1jJsLFIBfAzrHbHOZXtowwe4jsFuNwq/33H7skv/wclq03+M5zH+HwpIWMS4mdRxOI96v/cF0T77qwRMh/Wt2j2YWNxz+OBYolzVVwmN+9I2RdqbwjYC4kBxLRGYbgUXKErNavvQ5StP6OMG3X8Ch27MdgOB7gu+y4UXeGESMJbDzBqHnUjwBordEHN4nrtPgKz9bxpAYeX3VAIHl3OlJpm82JiwudrCyQB/SHkY2AyzDsfH+fZVWVO2wcwxgObOhp3MJ7GllHR6lQg879IntDowj7jSHBrsqK6xg==
+ b=Sy5U8Yf3IW/82zvk5GWIQqZ3jWMCuBo2ndES/XLmRmzJKlGi7NDjOC2ArtuSQkg8VXbTPpJqXOfG5pkOhlPJflsbWy2ab9b4ubOvuIjEw4yAteypz+1UuXfzUh1OCfzSo16ZFVXKyiLgZCgmz9TRSAhxRwQw7jxaEpp0xw0Fw3MNm51R4oaAhx/JtEh2PRqFzv9uMFJzqAN/psqdU/ZjS7NbQ5bHi250/6lm+WFI5bZ3tdh/BIPwtwSwntYObPVOB6EpgE8ihUYeRohvOIMuIpJ4lKTQBM6JDte8iqTlYYBKPgiSkBAwUYiY6lGAxWqS3F4wD9kbiKxelhwJyb17PA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gbELcMuAqchwTRBbGK1shTVXqXtH7OPxhYXh5W6Dias=;
- b=AGrasfmmDpAdFld3ZZPshhj+EwYOwsw1iLVXCg/B6kuUh6xJh7sR/2TinonvQmGEIoQbpBINQguF44ZrxsVu44QCsvbPY0Gzjd9cPQtvGTuwZCjorLOGyp2JPasxmPUzJ+0k4cjI4wDCuT6ZNDS1Tg36N1e/k4fXYk73Fz9VVwyRPdE7pDBJC8TdpXPK5EytWTyag9bmRefA6tbZcgqOhmVnOwliI9vQLESI3asLxN0UCIrHlloF2AAAKjrQM4J+mM5uYWg/zGqDfowOyIjl7og1NbTV3BTFr7/ETGKniyX/c8PIyZ57rzyu0BKvsWF5qRv+gVJuPLheUAtPFLoAPQ==
+ bh=EHYHV9vIa1FlqibHyLqishfOQotCnEcacjOI4xS2iTU=;
+ b=IUw3fJSY2UjRw1opix4WLZ6A6RosYvKdDqQNL+enJfOPUbKTGdCU1Svu/RlgPDMAVnHQ0iiJqUFhyEKN1MuaOJvYy92ocdyQWZwXCl4oe4V+3v3qLURexDOvkmDGmRPFGQ+LjCUMZyEcOasVaOkOiueB6AFps9QTH22MkVx5GZeVCS1ABGZX5txigjXSuKqzlyO8yqCbq5r1OpCto5PiwJ/jW6djTCGb0bnQXPLfyTSqX48vgewYA74IhFfc/bRG9oiVbCh5OOM/VfmWo+JNXDP96tAvM60Mk0K8ZlE050b1pdIqTexIMv1G/5psTdp1xz6xaEBSTt2/AA6Gy7MieQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gbELcMuAqchwTRBbGK1shTVXqXtH7OPxhYXh5W6Dias=;
- b=Urer/DjlJt2Ss2dxAh2cibm625igB6ct3Rs/t5UwFGys7lUXh8+M+asEKwzrksrPAi3yVhd2BFpHS2vdvKEllQ3V53EituYjUPUigjByqf18+7nrWyAebTDTRgWqVIh6zGnarR8KbOqvHI9Ed1AIsmZvdYlHD6hVP6VauMkd/m4=
+ bh=EHYHV9vIa1FlqibHyLqishfOQotCnEcacjOI4xS2iTU=;
+ b=c0egxm3VwJYqcW4RVHO4cJCAGZr9qDqBxqiseCWFeCJaIKgVlmZqzp8cCCcXeXhQCZ6DnWYWEGYFw8L1Uo7/Yc0ayPqvrRFgUiXwiKHeqt5VyFfx1T/FkeMYyBCT7IIdAHbMZy8Gif5fDtnIQRbx3s5sUzzNnVqWwMqJbqcVqSw=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by DM4PR12MB6208.namprd12.prod.outlook.com (2603:10b6:8:a5::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.37; Tue, 10 Oct
- 2023 15:10:18 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::e166:610f:a86e:d33a]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::e166:610f:a86e:d33a%3]) with mapi id 15.20.6863.032; Tue, 10 Oct 2023
- 15:10:17 +0000
-Message-ID: <1df5caa4-0975-7663-fb56-3a1ec525c69f@amd.com>
-Date: Tue, 10 Oct 2023 11:10:05 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/amdkfd: Make EXT_COHERENT parameter affect APU svm
- memory
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by MW3PR12MB4508.namprd12.prod.outlook.com (2603:10b6:303:5b::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.38; Tue, 10 Oct
+ 2023 15:59:53 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::3e65:d396:58fb:27d4]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::3e65:d396:58fb:27d4%3]) with mapi id 15.20.6863.032; Tue, 10 Oct 2023
+ 15:59:53 +0000
+Message-ID: <8f66f473-0f41-41eb-80d9-5004f0582d00@amd.com>
+Date: Tue, 10 Oct 2023 10:59:49 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 16/16] platform/x86/amd/pmf: Add PMF-AMDSFH interface
+ for ALS
 Content-Language: en-US
-To: "Francis, David" <David.Francis@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <MN2PR12MB2909BAAE46A5FAD2E4549FD7EFCDA@MN2PR12MB2909.namprd12.prod.outlook.com>
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <MN2PR12MB2909BAAE46A5FAD2E4549FD7EFCDA@MN2PR12MB2909.namprd12.prod.outlook.com>
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0112.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:5::15) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, hdegoede@redhat.com,
+ markgross@kernel.org, ilpo.jarvinen@linux.intel.com,
+ basavaraj.natikar@amd.com, jikos@kernel.org, benjamin.tissoires@redhat.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch
+References: <20231010125917.138225-1-Shyam-sundar.S-k@amd.com>
+ <20231010125917.138225-17-Shyam-sundar.S-k@amd.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20231010125917.138225-17-Shyam-sundar.S-k@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SA9PR13CA0143.namprd13.prod.outlook.com
+ (2603:10b6:806:27::28) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|DM4PR12MB6208:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6d4a4bf0-0573-485d-c3bb-08dbc9a30365
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|MW3PR12MB4508:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1e3a7c29-3a58-4f89-309b-08dbc9a9f0d3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NFmZiy1+VeYjkmrt430BcTSa6/Rtr+1d0ArIutoGETb0d53LBYam8i4EU3twWMJEqFQD9oqNCAoUi9SRZ6oU8ngJeBxjwFA5PRSV81+u4pOCtLbQ0d8QexcrDjjM3MzTsF13nNqTJEe38Q752/wRqhRyb2yvdK6ulABVdvy+/GgiUbWqvf4RshFnF8Z4cjM58kB6Sys4aTHsFTppCkdY6ZNQ5XSJVt56+7K9mZIIHT+LOBzd1jzNt23TgN/u+xTRb5BzusTn06B8iI1e3SizPday9YPtI4LMr4OgPXNFLovIQKLbFQX/drqYGAcn2S/reZWnwd1kDOWe9qxW9HIwMWHLulEotGCqYy6tJvq/qnouQ+aX7JzMGeRQ/piJzotZuzlP8mhJgEsKBZFiDvD2CuMQmHyCOipM6eb303MIi8DPg5Yz7drQhEcx5al9zI8RjaWE2kFHn4XkUmAQvn/NqkNjYjnkdhZWJFIuTL0ICNtJE6n4qFxxZkjGwbyCNF3lv8xuEVSId9EVxZ1RCJdQKi5LTuiDlw82IJHGNOmh+m6erqeyl5qm3LUyDJ2CHcSZ5IlQdd8IGtgOuF6cEobPVwS8o5Qjax4LPvSMi8tzO8aHEYnAUPxOZ+7uIl447kbWKmGG0KXOsFrF3BwRPsesww==
+X-Microsoft-Antispam-Message-Info: k7CCRvby8tL5aTpUcyVXCuBwktkdIwhk2WGitQvf6e5rNq9qbuBGu1JVaEGD0zkPPlEueLALOqgYtWgKA8IqzdZb9MqhhBzXeYnxksD2nhlPawgjT9CYigcAb1EtMV4GNOaIwS52ozJADLQ7iX53Y5aemJHW+wmlXL4wwd7lpcAUftpgWPqvCoSRv7V12BupbMmmoeIZBEcwz8NghgBkpZ21Ww5z00iyI4mphHOfuH9p+6TT5ReWvv7TpgtZsRR+Thlu/JwMTDpn/rSXcX6QRV/0z8Yatj2gOSU5UuFpaN7LuownmGldYdMpfvwrAuWsMFG++BSF537KuQrm1HCiYxt0HspEEuho8Nzcwnvw9G7GtiMMcLaz1rkPDG9YGY6mtchbRNl/8IcLRJNLGa/HH5PAX0/b5cHxxbS0LYdZ8BzDiIhtBgqdLX90/A4g2s6opyVnTwukHwHhhRXAdky9LoiZnF5BcV25K6a9+4bsTWxVZx1zuCJnfwinOnlAjXxOt+86cjfNHtAT0quFgU5IkUIrzzaQTbSR9wIgiSEtmAMIvLYroaUD2iRmWIoQFwB0QMwl5b0ApKJBT9MM+hurTVqFW5AXvp+ROys1LA7gwNHZQ9SrdwXRBOFepOX9O/3PQ8s9pURF5uRkcjlGj0eFlncnfc4WY1SZnHw18LCfE3Q=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(346002)(376002)(396003)(136003)(366004)(230922051799003)(451199024)(186009)(1800799009)(64100799003)(2906002)(2616005)(83380400001)(26005)(66556008)(66476007)(316002)(110136005)(66946007)(8676002)(53546011)(5660300002)(8936002)(41300700001)(6666004)(6512007)(4001150100001)(6506007)(6486002)(478600001)(36756003)(31696002)(38100700002)(19627405001)(31686004)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376002)(366004)(396003)(39860400002)(346002)(136003)(230922051799003)(186009)(451199024)(1800799009)(64100799003)(2616005)(2906002)(6506007)(6512007)(66899024)(53546011)(921005)(31696002)(86362001)(38100700002)(36756003)(26005)(83380400001)(8676002)(5660300002)(8936002)(44832011)(4326008)(6486002)(478600001)(41300700001)(316002)(31686004)(66556008)(66946007)(6666004)(66476007)(7416002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dG1KN25hQ2RsZUpLOHFhRDdaRC9QcktuVFg4YUg1cVFOSjN4eHNCa0t5UGtp?=
- =?utf-8?B?bDZhYSthRlhDWkRqN25iQ0F6VXhPdnFpS0RNdUtVRXlQK1E1bjJoaGlRZFZm?=
- =?utf-8?B?eUQ0SENvVy9Hb2ZtSG00RnQ2OU5jbmt5cUVSMldOVytTdE12aytJRFkyZnNu?=
- =?utf-8?B?V01tR09DNytMRUJKa29jdHdLZmJ6cHZjRmhWWmREQitBcUJaN3FZT0JBemp5?=
- =?utf-8?B?Z3hGNU5sdnFpcFFLamhBbklhM3cyaHFqcWo2dVZRN0YxU1h3dGx5NFI3eDJ6?=
- =?utf-8?B?Zy95QytpMTdQQU9Sb0JJYmdoakFsQ2hwTDFwQUhsUi95WHpvNHM0VXYycWZ2?=
- =?utf-8?B?dHprS3NIa3R4dEtpbHd2Sm5vanNWNEdxei94MzRkYVdXOVlTQ1YxRGYrdTJW?=
- =?utf-8?B?NzF1UjU3T0FEZGh0WDFLUm9JbmxwdUw3Z0RXWmdwK1EvRk9ieHVjLzNsMEpV?=
- =?utf-8?B?WElOSjZVQlg3Rk5aVkpobWdwaUdua3dnMUx6TDlhdVUveDRjaE9vVElpYmFK?=
- =?utf-8?B?UUYzZTdMeVNWSlcyK2lBcUoyR3hpN2lhM2FOcVJRQy80N0hnamtBN25ySWUy?=
- =?utf-8?B?OFFWK2owaWdBdWVPUXExVzRuS3BBVEcwUGwvQUtCNjZSMG5aOFNrMitCaDI5?=
- =?utf-8?B?SVZRQkt3cVJ3MkE4VXg5SUp2QkNlT0RseUNhaktMQURJeHE1Mkd4VnpYTXFB?=
- =?utf-8?B?empPN20wQ24wbjFjR2dpcHNSZmd2OGpJR0tzOTE0bGZYODQ4bzNKalVrbi9Y?=
- =?utf-8?B?cjNEdjVubWdLSDlIY09Iak5wcXViYzBwWHdKVmp1aWRlM213VjJnQTh6ODVp?=
- =?utf-8?B?WC8rYng0SlV6NUNvMFdBV2NscENLb2tSS1lleE8rYlhTbGdQMkdKc3dqSkNx?=
- =?utf-8?B?Wk5MdVQ1bFpqWVg2RWpRWFlJN3JrWTlpRVFPalh0Q2xlcGtjUldIRFNWSHov?=
- =?utf-8?B?RXBhZUhOaFdLQTRhS0tVSnltbmsyUmpBU29XK2ZGVmgyNThxL3FpOWVlaWgr?=
- =?utf-8?B?dHJVS0dPN2ZodXltYXBJSldPTzVWL0Y4MTdvUXF4aGc0c0tENlIwTzB3SjlC?=
- =?utf-8?B?TTJIdEtaNE01ZHlUT0xpOVBMTG83cEp5K2ZqSEdua0hsbGlRclkvZHBPcHM2?=
- =?utf-8?B?N0tHQW1LY295UVhmekU1czMrNzdZQkQ0RXRQT0krd0xMR1ptakdCVE5OeXlo?=
- =?utf-8?B?RDZtbUdJek5Kd1RUdHVJbW5EeEhWMFQreWEra2FwRm55RUluNC9ReTRXeHBN?=
- =?utf-8?B?WHREa0sxSmt0a3ZkUXhRdmlnTFVOOUZ6TUV6SmNlTU5QWTh6Y0FPUUVUODhO?=
- =?utf-8?B?Q0dqckdSQ2lvODVBMU10b0J6L0MrK3RFYzV5Uks1Zm05U2VDZWhUSGxFemJv?=
- =?utf-8?B?clNxcWRpUkdMYTZYaEc2VFRxS21Mc1VOVmljMzhoZUhOV3dqa3VuOWZEU1Iv?=
- =?utf-8?B?NFlUZHdDSWU4Um1JZkJZWWhOazNJTGJzM2F3anNSQmtkMDJwQkdML0ZEVURn?=
- =?utf-8?B?SkdPdW1DUTNMS045dWJyVHJ6UEJabHFBMUlNd250YkZGdXF0dU11UXUrS0F4?=
- =?utf-8?B?VTJFVWk2MzVUN0FnTzFGd1J0T2J4Y1NFdzJqbisxOWcyZmhuK3dwSnhmUjY5?=
- =?utf-8?B?c1ZSbFFWREZYcktHM3o2alNTMmt0Z01NbG52NHlaM1dIL1poVHo4T3h3VTZt?=
- =?utf-8?B?blBtRlp0TExhMlpPUURnaHAxa2wzUzEwVDFrRW5aMC9LanNNVXZHWU9YdTlS?=
- =?utf-8?B?bjhSNDg5SmVabzdRei9BbDBUeVEzNUVqaDNLL1ZDdTdnT3BaWWlraVlHTzVz?=
- =?utf-8?B?TGFTZlc0NEd2bU8xeXV0bmNaSTE0VmlYOVVyNGpQTm5iVTFWczQ5R21EZCtZ?=
- =?utf-8?B?eGY3V0x5MU5OTU1iRm50cG5KK1VwcUVTbnc2UkFlb1NzakljVkNhcVNidmhU?=
- =?utf-8?B?eU9zTHRZT1JtaDI3MzFEV2hsS3VJV2x2Q1Q2Nk5lWEd3RU90d1lsMkRVWnls?=
- =?utf-8?B?S01iWU1OaVk4NW8ycU96ejI1V3pTaDNFVGl1d2RQd3N5eVA3U2hkaS8yR0F5?=
- =?utf-8?B?bmVSV242ekVoWjlYZGhMei81b1k0ZlMvdzZTWG12cGpZc3NLVGZZRTZYS0xt?=
- =?utf-8?Q?JhZ4=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UzJ3NXdJVHAxV1EySlJOSTRXUDV3WHhVeHB4ZE5xMWhZVFZNRVoyWWozWjk4?=
+ =?utf-8?B?ZTk2M0N1bmRnL2NLT1hTZVBSQk13amRZQ0tJWWRkdmxZZ2NwVFE2bXJsWUQ3?=
+ =?utf-8?B?N3F6cFZpbjhDcStxUjVXWFJ0VmozRStTV0UwT01zYUhEbW12Mkp2Y0VGYVJp?=
+ =?utf-8?B?SW9TbWl2ai9XV082dzJKRkY2UmwxTlJlYzJxU2twT3NzRDM5djRyUXAwUDlJ?=
+ =?utf-8?B?OFNlakJCdEk5WVo0eGkvK1ZabCs4VVduZkN2L2MrK2sram9GdVlVd28vR3Rv?=
+ =?utf-8?B?eWlwdXNGOUVpNjkrNVNTMlN0MEZGWjVJTEV6NWR4YXV1RlBYYU0wNERYV21H?=
+ =?utf-8?B?VmFsam4xek9iZytrV1VYSEtuN2Z0WFRKc0xMaHE2RG5td1NSaStQWXpIZVJs?=
+ =?utf-8?B?aWJLdjZaK1N3dCtqRjBvK2xOZ0pwYnRrZ2RxNm5pV1lWck85RzNhYjltTkFk?=
+ =?utf-8?B?VG9CS28wVkR1SFVJdG9JcWxObUZKN3ZXYmovVzNxUnljb2VadG1vRnZhVUV0?=
+ =?utf-8?B?bk9OSGN1MTRjOFpWNlhJTTQvYkJYZCtEZll0ckJOeEtvYkEwQlU1dnBxdTB0?=
+ =?utf-8?B?cXNBSjQ5eUNFQU5Tdmg1czJ5dmFaT1VuWi94NmJ4UnhjUDk4VUMvLzltVzZi?=
+ =?utf-8?B?dGMvNjJReGg0SkZPdHNiaUw3ZVEzZkI2eWtINk9mN1hGQnZpeVprWWhvcXFH?=
+ =?utf-8?B?aXpLRUVLcWc1OXRVN3BSTS9wUEZVdzBQdGJ5OGRwL2lxdmJLY053K1B0YlIw?=
+ =?utf-8?B?bG1vSVkzWVNBTW1WYmViV0NnNDdGZHlaV0VaKzJZcDJIdlNNaUZrUGZWRFRC?=
+ =?utf-8?B?N2VSTXpNZkdiays5Mlg4TEp1UWRUQld4cllZTUx2aW1vT1FQSzQ1cEJtMnFG?=
+ =?utf-8?B?VGthRm9QNksxYVlQMXJRSnFMMmc3Q3FPQW0wdkhiR3YreHZFbmtCNk1uWlRL?=
+ =?utf-8?B?VTM3cm9BcnloL2xTNU10eUdzdEhsRDlvVjExM004NTRqRDVYcDFyd0pSNmpB?=
+ =?utf-8?B?UmtWc3I3cnJwby9MSCtyY0l0RlcwUEp4Q2ZiTTlMWWtOaHpXbzcydEtLMjlw?=
+ =?utf-8?B?aFc3OTA1Mjg2Y2w1VlJBQ3M0OS9jN0NZVFdscVpCcVVLdWc5RW10WVdxazJU?=
+ =?utf-8?B?ZWU3dEdCRWpNL05TSWtNdG1YZ3Eycml2aGVBQUtnMzRlSlJKTDltcmhwa2F2?=
+ =?utf-8?B?THhVSnhySlNmZ0o5V0c1M2ppbjBpOVE4TTNkU2QyMXQyVmhhRFkyQ3Jsd2kv?=
+ =?utf-8?B?ZFBMYUFiN0R6RmdVYnBoL1lTaDJmVzFWUDBvQzhJaHUzVnpUTmR2eVBGRjNq?=
+ =?utf-8?B?aDJBeXFWZkl2SE5kTlBySjdrY0hrcytRQWl2M3M0WkdaVlBURjI2VGlLQm04?=
+ =?utf-8?B?NExheTVmUEp3bFk5Y1JFS2FOMi9UOE04d0tqUmYrakx5c2ErMEl3ODZVQndh?=
+ =?utf-8?B?MUhNRGVxNWVwbFJqZDNDWDF6Kzh0SDdYSzlVWUVzTXQ0bHl3MGVoRDNPOEgz?=
+ =?utf-8?B?NGtLN25JaUJHNVhUd2dnamU1cExNS0s5K2VxcWIyRlBoRVE2QnA0SXR3Qjdl?=
+ =?utf-8?B?a0VhQUhxQjVRV2FlNWxZQ2ZMNjgyNUJuM0tWbTl6V1o1b2dtNm8xTSsvN1pv?=
+ =?utf-8?B?UVdxdG9qOHZTbU9GUm1aa090endwMEFqa2NXWGtrOGxjaFhaTHBSTWJ2ZXRu?=
+ =?utf-8?B?dWpZcUR5d1JOdEtkUENXWDczTWdOWitaamkwdTEwbnlRYkJEanA3VXhUZyt6?=
+ =?utf-8?B?cU9ZZGIycFNsVGRxR0pqR2lMclJYOElDejRXZUtCWTFFdVFlZ1B1OUFUN1cv?=
+ =?utf-8?B?QmMxdEloVm12T0NUT1hGc05pY1pUenRIVnVLc3EzbVg5TG01cjZPRXp4YllV?=
+ =?utf-8?B?MWthNWJTck0rYnpaVXh4TzdXZ3NYbzRsSDRFRW1tMDdrSStMdE1VSWxRM1JZ?=
+ =?utf-8?B?QnBscFVsWURBdWx3SnVUS0YwNmtLcXZzUUR4ekVHTU92aSswdG9mL1htSDh1?=
+ =?utf-8?B?SEs0eUs5TTljbm1lQlo1TitwVGdNUUh1UFk3dDN5WlhzYVREcHphSGlVVjhU?=
+ =?utf-8?B?VGN1QmdicEM3RXBFaDFlRlBPOC9vQTloR2d5WXRZcmdGVEtUQUdXaFJSTGJl?=
+ =?utf-8?Q?6Q85qNPUzXayrjE7TA1voWekD?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d4a4bf0-0573-485d-c3bb-08dbc9a30365
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e3a7c29-3a58-4f89-309b-08dbc9a9f0d3
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2023 15:10:17.8274 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2023 15:59:53.1696 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eUIzqPDc5buXJwcatCGIn0ZUBmgkzOBXhGcynMaNMkHSWpH/vRBX8NtC1O4849gH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6208
+X-MS-Exchange-CrossTenant-UserPrincipalName: d08IDriBgAzzj3lFiMrtHd52Rol+ThrxgJ8D2OYMuHXGkqMrr/0/zkicf1YFWEk68wEXrFdyJG91F4+oQfN7Uw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4508
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,309 +128,183 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Patil.Reddy@amd.com,
+ platform-driver-x86@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2023-10-10 10:32, Francis, David
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:MN2PR12MB2909BAAE46A5FAD2E4549FD7EFCDA@MN2PR12MB2909.namprd12.prod.outlook.com">
-      
-      <style type="text/css" style="display:none;">P {margin-top:0;margin-bottom:0;}</style>
-      <p style="font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-style:normal;font-weight:normal;text-decoration:none;" align="Left">
-        [AMD Official Use Only - General]<br>
-      </p>
-      <br>
-      <div>
-        <p style="font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-style:normal;font-weight:normal;text-decoration:none;" align="Left">
-          [AMD Official Use Only - General]<br>
-        </p>
-        <br>
-        <div>
-          <div style="font-family: Aptos, Aptos_EmbeddedFont,
-            Aptos_MSFontService, Calibri, Helvetica, sans-serif;
-            font-size: 12pt; color: rgb(0, 0, 0);" class="elementToProof">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">By the
-              intended semantics of the EXT_COHERENT parameter,</span><br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI
-              Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; color:
-              rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">it should
-              cause the driver to use MTYPE_UC instead of</span><br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI
-              Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; color:
-              rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">MTYPE_NC on
-              non-local gfx9.4.3 APU memory.</span><br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI
-              Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; color:
-              rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
-            <br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI
-              Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; color:
-              rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">Signed-off-by:
-              David Francis <a class="moz-txt-link-rfc2396E" href="mailto:David.Francis@amd.com">&lt;David.Francis@amd.com&gt;</a></span><br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI
-              Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; color:
-              rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">---</span><br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI
-              Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; color:
-              rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-              | 2 +-</span><br style="font-family: &quot;Segoe UI&quot;,
-              &quot;Segoe UI Web (West European)&quot;, &quot;Segoe
-              UI&quot;, -apple-system, BlinkMacSystemFont, Roboto,
-              &quot;Helvetica Neue&quot;, sans-serif; font-size:
-              14.6667px; color: rgb(0, 0, 0); background-color: rgb(255,
-              255, 255);" class="ContentPasted0">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">&nbsp;1 file
-              changed, 1 insertion(+), 1 deletion(-)</span><br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI
-              Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; color:
-              rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
-            <br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI
-              Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; color:
-              rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">diff --git
-              a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-              b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c</span><br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI
-              Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; color:
-              rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">index
-              7b81233bc9ae..d9ef937308ed 100644</span><br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI
-              Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; color:
-              rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">---
-              a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c</span><br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI
-              Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; color:
-              rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">+++
-              b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c</span><br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI
-              Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; color:
-              rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">@@ -1286,7
-              +1286,7 @@ svm_range_get_pte_flags(struct kfd_node *node,</span><br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI
-              Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; color:
-              rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              if (num_possible_nodes() &lt;= 1)</span><br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI
-              Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; color:
-              rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              mapping_flags |= mtype_local;</span><br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI
-              Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; color:
-              rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              else</span><br style="font-family: &quot;Segoe UI&quot;,
-              &quot;Segoe UI Web (West European)&quot;, &quot;Segoe
-              UI&quot;, -apple-system, BlinkMacSystemFont, Roboto,
-              &quot;Helvetica Neue&quot;, sans-serif; font-size:
-              14.6667px; color: rgb(0, 0, 0); background-color: rgb(255,
-              255, 255);" class="ContentPasted0">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              mapping_flags |= AMDGPU_VM_MTYPE_NC;</span><br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI
-              Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; color:
-              rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              mapping_flags |= ext_coherent ? AMDGPU_VM_MTYPE_UC :
-              AMDGPU_VM_MTYPE_NC;</span><br style="font-family:
-              &quot;Segoe UI&quot;, &quot;Segoe UI Web (West
-              European)&quot;, &quot;Segoe UI&quot;, -apple-system,
-              BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;,
-              sans-serif; font-size: 14.6667px; color: rgb(0, 0, 0);
-              background-color: rgb(255, 255, 255);" class="ContentPasted0">
-          </div>
-        </div>
-      </div>
-    </blockquote>
-    <p>Thanks for finding this bug, I think on NUMA system with
-      ext_coherent, we should use CC for local and UC for remote memory
-      from another NUMA node.</p>
-    <p>The NUMA locality check is done in
-      amdgpu_gmc_override_vm_pte_flag now, seems we need refactor and
-      move the check here in order to use the prange-&gt;flags.</p>
-    <p><br>
-    </p>
-    <p>Regards,</p>
-    <p>Philip<br>
-    </p>
-    <blockquote type="cite" cite="mid:MN2PR12MB2909BAAE46A5FAD2E4549FD7EFCDA@MN2PR12MB2909.namprd12.prod.outlook.com">
-      <div>
-        <div>
-          <div style="font-family: Aptos, Aptos_EmbeddedFont,
-            Aptos_MSFontService, Calibri, Helvetica, sans-serif;
-            font-size: 12pt; color: rgb(0, 0, 0);" class="elementToProof">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              /* system memory accessed by the dGPU */</span><br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI
-              Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; color:
-              rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              } else {</span><br style="font-family: &quot;Segoe
-              UI&quot;, &quot;Segoe UI Web (West European)&quot;,
-              &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont,
-              Roboto, &quot;Helvetica Neue&quot;, sans-serif; font-size:
-              14.6667px; color: rgb(0, 0, 0); background-color: rgb(255,
-              255, 255);" class="ContentPasted0">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              mapping_flags |= AMDGPU_VM_MTYPE_UC;</span><br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI
-              Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; color:
-              rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">--</span><br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI
-              Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; color:
-              rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
-            <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe
-              UI Web (West European)&quot;, &quot;Segoe UI&quot;,
-              -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica
-              Neue&quot;, sans-serif; font-size: 14.6667px; display:
-              inline !important; color: rgb(0, 0, 0); background-color:
-              rgb(255, 255, 255);" class="ContentPasted0">2.34.1</span><br>
-          </div>
-        </div>
-      </div>
-    </blockquote>
-  </body>
-</html>
+On 10/10/2023 07:59, Shyam Sundar S K wrote:
+> From: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
+> 
+> AMDSFH has information about the Ambient light via the Ambient
+> Light Sensor (ALS) which is part of the AMD sensor fusion hub.
+> Add PMF and AMDSFH interface to get this information.
+> 
+> make amd_sfh_float_to_int() as non-static function so that this can
+> be called outside of the current file.
+> 
+> Co-developed-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+> Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+> Signed-off-by: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
+
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+
+> ---
+>   drivers/hid/amd-sfh-hid/amd_sfh_common.h      |  1 +
+>   drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_desc.c |  2 +-
+>   drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_init.c |  6 ++++++
+>   .../amd-sfh-hid/sfh1_1/amd_sfh_interface.c    | 20 +++++++++++++++++++
+>   .../amd-sfh-hid/sfh1_1/amd_sfh_interface.h    |  1 +
+>   drivers/platform/x86/amd/pmf/spc.c            |  7 +++++++
+>   include/linux/amd-pmf-io.h                    |  2 ++
+>   7 files changed, 38 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_common.h b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
+> index cd57037bf217..a1950bc6e6ce 100644
+> --- a/drivers/hid/amd-sfh-hid/amd_sfh_common.h
+> +++ b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
+> @@ -39,6 +39,7 @@ struct amd_mp2_sensor_info {
+>   
+>   struct sfh_dev_status {
+>   	bool is_hpd_present;
+> +	bool is_als_present;
+>   };
+>   
+>   struct amd_mp2_dev {
+> diff --git a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_desc.c b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_desc.c
+> index 47a87b28e00e..dbc8c6943ca1 100644
+> --- a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_desc.c
+> +++ b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_desc.c
+> @@ -132,7 +132,7 @@ static void get_common_inputs(struct common_input_property *common, int report_i
+>   	common->event_type = HID_USAGE_SENSOR_EVENT_DATA_UPDATED_ENUM;
+>   }
+>   
+> -static int amd_sfh_float_to_int(u32 flt32_val)
+> +int amd_sfh_float_to_int(u32 flt32_val)
+
+This change might roll into patch 14, but I don't think it's that big of 
+a deal.
+
+>   {
+>   	int fraction, shift, mantissa, sign, exp, zeropre;
+>   
+> diff --git a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_init.c b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_init.c
+> index 3dc652d41d7d..f2890d329459 100644
+> --- a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_init.c
+> +++ b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_init.c
+> @@ -77,6 +77,9 @@ static int amd_sfh_hid_client_deinit(struct amd_mp2_dev *privdata)
+>   		case HPD_IDX:
+>   			privdata->dev_en.is_hpd_present = false;
+>   			break;
+> +		case ALS_IDX:
+> +			privdata->dev_en.is_als_present = false;
+> +			break;
+>   		}
+>   
+>   		if (cl_data->sensor_sts[i] == SENSOR_ENABLED) {
+> @@ -188,6 +191,9 @@ static int amd_sfh1_1_hid_client_init(struct amd_mp2_dev *privdata)
+>   			case HPD_IDX:
+>   				privdata->dev_en.is_hpd_present = true;
+>   				break;
+> +			case ALS_IDX:
+> +				privdata->dev_en.is_als_present = true;
+> +				break;
+>   			}
+>   		}
+>   		dev_dbg(dev, "sid 0x%x (%s) status 0x%x\n",
+> diff --git a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.c b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.c
+> index 7637da0dec6f..48a7a450e029 100644
+> --- a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.c
+> +++ b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.c
+> @@ -94,12 +94,32 @@ static int amd_sfh_hpd_info(u8 *user_present)
+>   	return -ENODEV;
+>   }
+>   
+> +static int amd_sfh_als_info(u32 *ambient_light)
+> +{
+> +	if (emp2 && emp2->dev_en.is_als_present) {
+> +		struct sfh_als_data als_data;
+> +		void __iomem *sensoraddr;
+> +
+> +		sensoraddr = emp2->vsbase +
+> +			(ALS_IDX * SENSOR_DATA_MEM_SIZE_DEFAULT) +
+> +			OFFSET_SENSOR_DATA_DEFAULT;
+> +		memcpy_fromio(&als_data, sensoraddr, sizeof(struct sfh_als_data));
+> +		*ambient_light = amd_sfh_float_to_int(als_data.lux);
+> +
+> +		return 0;
+> +	}
+> +
+> +	return -ENODEV;
+> +}
+> +
+>   int amd_get_sfh_info(struct amd_sfh_info *sfh_info, enum sfh_message_type op)
+>   {
+>   	if (sfh_info) {
+>   		switch (op) {
+>   		case MT_HPD:
+>   			return amd_sfh_hpd_info(&sfh_info->user_present);
+> +		case MT_ALS:
+> +			return amd_sfh_als_info(&sfh_info->ambient_light);
+>   		}
+>   	}
+>   	return -EINVAL;
+> diff --git a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.h b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.h
+> index 9d31d5b510eb..7ecddad430e4 100644
+> --- a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.h
+> +++ b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.h
+> @@ -149,6 +149,7 @@ struct hpd_status {
+>   	};
+>   };
+>   
+> +int amd_sfh_float_to_int(u32 flt32_val);
+>   void sfh_interface_init(struct amd_mp2_dev *mp2);
+>   void amd_sfh1_1_set_desc_ops(struct amd_mp2_ops *mp2_ops);
+>   #endif
+> diff --git a/drivers/platform/x86/amd/pmf/spc.c b/drivers/platform/x86/amd/pmf/spc.c
+> index e33bbf8a3de4..b6cf6d7e6ef5 100644
+> --- a/drivers/platform/x86/amd/pmf/spc.c
+> +++ b/drivers/platform/x86/amd/pmf/spc.c
+> @@ -50,6 +50,7 @@ void amd_pmf_dump_ta_inputs(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *
+>   			"Connected" : "disconnected/unknown");
+>   	dev_dbg(dev->dev, "LID State : %s\n", in->ev_info.lid_state ? "Close" : "Open");
+>   	dev_dbg(dev->dev, "User Presence : %s\n", in->ev_info.user_present ? "Present" : "Away");
+> +	dev_dbg(dev->dev, "Ambient Light : %d\n", in->ev_info.ambient_light);
+>   	dev_dbg(dev->dev, "==== TA inputs END ====\n");
+>   }
+>   #else
+> @@ -161,6 +162,12 @@ static void amd_pmf_get_gpu_info(struct amd_pmf_dev *dev, struct ta_pmf_enact_ta
+>   static void amd_pmf_get_sensor_info(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in)
+>   {
+>   	struct amd_sfh_info sfh_info;
+> +	int ret;
+> +
+> +	/* get ALS data */
+> +	ret = amd_get_sfh_info(&sfh_info, MT_ALS);
+> +	if (!ret)
+> +		in->ev_info.ambient_light = sfh_info.ambient_light;
+>   
+>   	/* get HPD data */
+>   	amd_get_sfh_info(&sfh_info, MT_HPD);
+> diff --git a/include/linux/amd-pmf-io.h b/include/linux/amd-pmf-io.h
+> index 76e42552b62c..912d341d5fbe 100644
+> --- a/include/linux/amd-pmf-io.h
+> +++ b/include/linux/amd-pmf-io.h
+> @@ -37,6 +37,7 @@ void amd_pmf_gpu_deinit(struct amd_gpu_pmf_data *pmf);
+>   /* amd-sfh */
+>   enum sfh_message_type {
+>   	MT_HPD,
+> +	MT_ALS,
+>   };
+>   
+>   enum hpd_info {
+> @@ -46,6 +47,7 @@ enum hpd_info {
+>   };
+>   
+>   struct amd_sfh_info {
+> +	u32 ambient_light;
+>   	u8 user_present;
+>   };
+>   
+
