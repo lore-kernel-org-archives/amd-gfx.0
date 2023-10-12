@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB147CDB484
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Oct 2023 17:22:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4C4CCDB482
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Oct 2023 17:22:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C04D10E530;
-	Thu, 12 Oct 2023 17:22:02 +0000 (UTC)
-Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com
- [IPv6:2607:f8b0:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCB5D10E535;
- Thu, 12 Oct 2023 17:21:57 +0000 (UTC)
-Received: by mail-il1-x12e.google.com with SMTP id
- e9e14a558f8ab-35749556444so6043995ab.1; 
- Thu, 12 Oct 2023 10:21:57 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF3A710E4B4;
+	Thu, 12 Oct 2023 17:22:03 +0000 (UTC)
+Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com
+ [IPv6:2607:f8b0:4864:20::d35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3933010E546;
+ Thu, 12 Oct 2023 17:22:00 +0000 (UTC)
+Received: by mail-io1-xd35.google.com with SMTP id
+ ca18e2360f4ac-79fa7e33573so47578639f.0; 
+ Thu, 12 Oct 2023 10:22:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1697131317; x=1697736117; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1697131319; x=1697736119; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=O4Nv87Lg2zXFTsrsMPJe4o1KQfKM5CR/Su7zfjGsbi8=;
- b=GEyP3zvNklamQM5NgivbFkeV+73Q0S7w+iOB/GtcDpay0uGmDww2wSGvRnYzJhnv77
- 401DdPfWdkjXYdRH2pWysh69Y/IQtsIG1mIxbN57uUj0SDvDdOtL65kHuON+60+0ePJ2
- BWd5cNO4ExnjGmWPyR/vwjiVt5Dk3lDgRVxoZKuRrbC2uuOzmKPu0jduzpg5SVFynuo9
- eebiTf2RepvoS/mgGarKaWkPxe/a2fyoBbnmGsMc5J23IkOVYdpuKl88pe4VInBP4SoG
- Rkd7zT4IiQgc1AkvbmLzctWa/l7SGBF8LbkF52IHF4WxaO5CeRItpXEyCVgwcVu1sBhD
- O9QA==
+ bh=mLvXeLnsRUQ3/TUrQnBU04ibB7JIWTVa6JOjlgQ9hVM=;
+ b=eBBQJkU5Kjh5hwWCGhmLFatrk80h2gBgbRNXydkO8qHF7pLsRsiud6CQM8XnMslS+p
+ QAHrRmftWzGzNJ5wCF5I8zktKziBdlo9BEDNBZen17M8bmP3O8jVemkWyseaXf+HudMB
+ /rnS1TNUPGGXWa997ugPYq/HlJNk2fQD0TEw/Pt7jUjGTWMbh+P2nQALjG9RxFFr7EJU
+ QpS2IBDibOKPiOJu5BCkd1cYqcVUT7GTyO8oAskoU12UxcjINhplE1fWWpclh+wGQLz7
+ Fon6sW55def8f/SBWNYDZ7zIrDwgVHSEgk1NrYiqXUwWEnMlTvo7w/0g2N+ABVtkciuh
+ gbgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697131317; x=1697736117;
+ d=1e100.net; s=20230601; t=1697131319; x=1697736119;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=O4Nv87Lg2zXFTsrsMPJe4o1KQfKM5CR/Su7zfjGsbi8=;
- b=J8CuiPcwQN+VVZ4uP3DRy/YpbJV9krPFC4QeeAEQbpdEqqlrwMRxKWSAxcRCykWzC+
- I/j5drfAPwjaxSdpVD2z3dMGoHG5Bbesz00H+SY5ngvQQwE0uvZhUySblS4gyeOzRy1X
- XBJ9ZR8CNnZVr7Z4IXv5jpGGJmOi6RQQSZ0Jndg98CUnaRYH39LdSmr/no2HxugfLqJA
- rX2TRBtX0l3nuke+6UDvvbaq6l4vq6YOCxbnS6+qHNKZNZdcQw8z4EYzeV0L6GNZnYJY
- RMakre/RrLYVEb4QCyZGbRD77jzfrPU6hma+UEjIca4z1n2WyOV6VythzJjtiTBQU0lf
- ha+w==
-X-Gm-Message-State: AOJu0YwPnyYISCtQntWEcMqMcVkPC4+xjLKSdAWhJGhqwrdxUPOU8FlS
- oIwzEJWkfOJdzMXFo8qHNxyPEixv1gk/Cg==
-X-Google-Smtp-Source: AGHT+IFsoCgezLff2unJTvYEIKfSqNXTbNy4RrMEtsjU/boWD6E9+G6s4yHlhMjBwIKnpBjZpcfBbQ==
-X-Received: by 2002:a05:6e02:156f:b0:351:59f1:5277 with SMTP id
- k15-20020a056e02156f00b0035159f15277mr19761543ilu.4.1697131317084; 
- Thu, 12 Oct 2023 10:21:57 -0700 (PDT)
+ bh=mLvXeLnsRUQ3/TUrQnBU04ibB7JIWTVa6JOjlgQ9hVM=;
+ b=ejq/Cd8OTCeg+0TiBhVeKrHt2+CJDC+fW/6D1XZwj9P3aNqTkIc9IqfHnu+7/2zvc7
+ VffARxBRRIdP1btjXAkVcK8pd9bi+9s2SEm8/NoHhMPZ3NE6FFAyshxLWKnI7FJ2qKr8
+ YXsyjPGEoJnvng7Ysxx1CUchzDQrRaNPejt0AT4TPdSj3FzUaJIIr4s4RiU9CfdzYFaT
+ cGtvdpTGgr1oEZ/j5U2Pda2YMFWNoctzxrRFtHjwhIOvkYLs7sw/oHl/OswXTUgnU1Ku
+ doQg0DXHUPWpkf1sXoltTlRhF0eArOWM2FM8eQi19bLK47ZUzgyNpstAqJmzndQ+/o7r
+ kIDg==
+X-Gm-Message-State: AOJu0YwRiSWAJ3Ofv35/D8M9TwYX7HVGXuQbWLiacfKPIipj5jkTfvHG
+ I596HL/WbRTJqW00Y9kijF8=
+X-Google-Smtp-Source: AGHT+IE2tJWSIJx2OKiUKOKA8OGPuZNoC8ZMOC/9GzKy2gHun+n4J8zu0A2UicwUk/2jPgQyNDrSRw==
+X-Received: by 2002:a5e:dd0d:0:b0:786:7100:72de with SMTP id
+ t13-20020a5edd0d000000b00786710072demr25476578iop.16.1697131319452; 
+ Thu, 12 Oct 2023 10:21:59 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- r25-20020a028819000000b0043cef0711c1sm3992211jai.158.2023.10.12.10.21.56
+ r25-20020a028819000000b0043cef0711c1sm3992211jai.158.2023.10.12.10.21.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Oct 2023 10:21:56 -0700 (PDT)
+ Thu, 12 Oct 2023 10:21:59 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH v7 10/25] dyndbg: tighten ddebug_class_name() 1st arg type
-Date: Thu, 12 Oct 2023 11:21:21 -0600
-Message-ID: <20231012172137.3286566-11-jim.cromie@gmail.com>
+Subject: [PATCH v7 12/25] dyndbg: reduce verbose=3 messages in
+ ddebug_add_module
+Date: Thu, 12 Oct 2023 11:21:23 -0600
+Message-ID: <20231012172137.3286566-13-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20231012172137.3286566-1-jim.cromie@gmail.com>
 References: <20231012172137.3286566-1-jim.cromie@gmail.com>
@@ -82,46 +83,35 @@ Cc: groeck@google.com, linux-doc@vger.kernel.org, jani.nikula@intel.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Change function's 1st arg-type, and deref in the caller.
-The fn doesn't need any other fields in the struct.
+The fn currently says "add-module", then "skipping" if the module has
+no prdbgs.  Just check 1st and return quietly.
 
-no functional change.
+no functional change
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ lib/dynamic_debug.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index b07aab422604..8158943b350d 100644
+index 8beb98a831f5..45870a699507 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -1117,12 +1117,12 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
- #define class_in_range(class_id, map)					\
- 	(class_id >= map->base && class_id < map->base + map->length)
- 
--static const char *ddebug_class_name(struct ddebug_iter *iter, struct _ddebug *dp)
-+static const char *ddebug_class_name(struct ddebug_table *dt, struct _ddebug *dp)
+@@ -1242,11 +1242,10 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
  {
--	struct ddebug_class_map *map = iter->table->classes;
--	int i, nc = iter->table->num_classes;
-+	struct ddebug_class_map *map = dt->classes;
-+	int i;
+ 	struct ddebug_table *dt;
  
--	for (i = 0; i < nc; i++, map++)
-+	for (i = 0; i < dt->num_classes; i++, map++)
- 		if (class_in_range(dp->class_id, map))
- 			return map->class_names[dp->class_id - map->base];
+-	v3pr_info("add-module: %s.%d sites\n", modname, di->num_descs);
+-	if (!di->num_descs) {
+-		v3pr_info(" skip %s\n", modname);
++	if (!di->num_descs)
+ 		return 0;
+-	}
++
++	v3pr_info("add-module: %s %d sites\n", modname, di->num_descs);
  
-@@ -1156,7 +1156,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
- 	seq_puts(m, "\"");
- 
- 	if (dp->class_id != _DPRINTK_CLASS_DFLT) {
--		class = ddebug_class_name(iter, dp);
-+		class = ddebug_class_name(iter->table, dp);
- 		if (class)
- 			seq_printf(m, " class:%s", class);
- 		else
+ 	dt = kzalloc(sizeof(*dt), GFP_KERNEL);
+ 	if (dt == NULL) {
 -- 
 2.41.0
 
