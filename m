@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11B06CDB47E
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Oct 2023 17:22:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03B94CDB47E
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Oct 2023 17:22:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 130B810E55C;
-	Thu, 12 Oct 2023 17:22:15 +0000 (UTC)
-Received: from mail-io1-xd2b.google.com (mail-io1-xd2b.google.com
- [IPv6:2607:f8b0:4864:20::d2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6351210E55D;
- Thu, 12 Oct 2023 17:22:09 +0000 (UTC)
-Received: by mail-io1-xd2b.google.com with SMTP id
- ca18e2360f4ac-79f82b26abfso44116339f.1; 
- Thu, 12 Oct 2023 10:22:09 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 167788972C;
+	Thu, 12 Oct 2023 17:22:17 +0000 (UTC)
+Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
+ [IPv6:2607:f8b0:4864:20::d2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B047010E55F;
+ Thu, 12 Oct 2023 17:22:11 +0000 (UTC)
+Received: by mail-io1-xd2f.google.com with SMTP id
+ ca18e2360f4ac-7a26fbfcf8eso46465639f.2; 
+ Thu, 12 Oct 2023 10:22:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1697131328; x=1697736128; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1697131331; x=1697736131; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Up+jtzbTdtnzlWrrE+sdUGzE+nElHLMssOQwxdsM2uU=;
- b=iI6Q906u1/6XeZm1OKEDHCavW0NbnzBj00xhWs3tuylzg1hyggss/jJqdj2gtUfYEe
- hRMLhqv9GRUnclwvaD4efCLBLE9IvIN7hDpW/U+VQwVQ3HBZ21wwoH+WqL6n5o9IR6Ab
- ylZmckyd0aF6JwTJisPADlxCWBtLmRwpYyTcvAW/xOAeX8CQssPVjlN1Fz0TuKtxdeX0
- CMQ3cs5ej9C0z7XWTK46TRigGEH2M7YbQLlvlb5+AIjqxhrkZ5S0ELhfMNtPoSaBhYGh
- Kp3c+7b5s/gl8CpGlsXBBhR+I2HDGxDEKABG6Oxkbbo+E6if5rl/5EJ9x7cbmzc1g3hw
- PKzw==
+ bh=jwbGLv7+qIU1qCKTfLfixrysNO4bjXZnfSqF5055b/A=;
+ b=UbcbsXVzGUIle2T/UOVK10PA02iLosKm3iYjiPPR7OufOkyB/VWpdMDD9RITB3WBn9
+ V+ouhNDwXIGBPTVI4hCNm8BHKBZQuXGwVHOWjDjultCQW5OgiHEIXvgxCt0P5vcdsmCB
+ nsq+lVHlbrpmxig5P14jn+ax3VXA5U/4Pa1sHSmqwE35G9PCAzos5eKyn2BejDbu7Xy3
+ Ivw2ZEH6ROaCBb3hptimxqpJOQlC2HXsnaqOXnhi/YoG8n8eRO1Ehpu/9Oz0x9h/QsVU
+ oPqxusKteSNVLB8I0F8hm77n6LYwHQvTdCOXz5su2H5StjNlPHHMekSjx1dMYO/p2Ika
+ L+dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697131328; x=1697736128;
+ d=1e100.net; s=20230601; t=1697131331; x=1697736131;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Up+jtzbTdtnzlWrrE+sdUGzE+nElHLMssOQwxdsM2uU=;
- b=X6sqjjDCGoV3DYpn/HRQvAzZs/rpSebVHUn2K1gWOTTDvXTuGQRx5QeDjIr6umzCgx
- yQSp9DbsmM1oTsaj6PA1vLlYumWNjntkbsSUc4zpwA/grUK1Mb87SSUTCwZi0X41/t58
- bZyo0eINYd/lEBsOMGPfa8gZSoLBUDJKIBIukepwtcExhfEVsvaABbyZ4fxwuvBvg+u0
- 4N+TUHo/TluPPTwq2z4W4HGl2+hsykkLvfQxiocQxM2AE24pVxrKwIKILS2UwxhkgswA
- yZuJhD6Z2HS4HoQl0eL1k8q5No7ai0uapfRgcXsjYHSOoUoRevOAwYv8oFwXT+2Fl61C
- WhCQ==
-X-Gm-Message-State: AOJu0YwD7s3V7XYgzgsPqkM3Tf8yMvsquieNII64gS4CKLPX+Gy5UgeS
- 2T7ZSMIzTTAegMvHZlSCSdA=
-X-Google-Smtp-Source: AGHT+IFhH10q9YRcd9Uilgk1TM8FglNlaccSNgA5BcstdZvhPCyd+xtyXeDVvKuF+6sCVu3pt1NPsA==
-X-Received: by 2002:a5e:cb03:0:b0:792:792e:6619 with SMTP id
- p3-20020a5ecb03000000b00792792e6619mr28840462iom.2.1697131328646; 
- Thu, 12 Oct 2023 10:22:08 -0700 (PDT)
+ bh=jwbGLv7+qIU1qCKTfLfixrysNO4bjXZnfSqF5055b/A=;
+ b=R8nNLSHKwpIDi1C37Xw2ahF9ObOBpS4F+jR4YpRxXJNdWHKsr0p7JdaDCGXKsLreKu
+ Kba3BiEigSx6pURDKGDH6tHJPtWygQR1c0RoydgwND8P6jgZa94Havn0ZIzsEHRGhCLu
+ lLYcBWse6f05nFcqjBzRmQJOLA2/qJKYWqJVE2HHETRI/GJ1wKKg8YVwLkT1FC3Wiehf
+ YdvIuanLVdnDGJBi/nIClyYPil8PiWUDQkVKSxOLmOZTRQrpBYxuybALYR3YT2YQWiN5
+ KoX+m38/t/k2SPO5eXUAzcZoztNXgGY+Lwcw74aJZWDItHR/hQlYOTMi2A2Jawhxwdgz
+ uYkg==
+X-Gm-Message-State: AOJu0YxFQktabdndLCtxodfrNP+sBX+C4XPhJ/ye+WuxqWKaqDAm8Y01
+ v6YP8G8RnZ9B5zOaAFlsSEo=
+X-Google-Smtp-Source: AGHT+IECtPOLBs2br6sMKT09k7PFb8qWkcW7q5x1QEYhPaTgMqhZEUB2IkNqklsbRaZ6DquL0rs/LQ==
+X-Received: by 2002:a5d:9743:0:b0:79f:96db:f33d with SMTP id
+ c3-20020a5d9743000000b0079f96dbf33dmr27485863ioo.9.1697131330992; 
+ Thu, 12 Oct 2023 10:22:10 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- r25-20020a028819000000b0043cef0711c1sm3992211jai.158.2023.10.12.10.22.07
+ r25-20020a028819000000b0043cef0711c1sm3992211jai.158.2023.10.12.10.22.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Oct 2023 10:22:08 -0700 (PDT)
+ Thu, 12 Oct 2023 10:22:10 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH v7 20/25] dyndbg: add _DPRINTK_FLAGS_INCL_LOOKUP
-Date: Thu, 12 Oct 2023 11:21:31 -0600
-Message-ID: <20231012172137.3286566-21-jim.cromie@gmail.com>
+Subject: [PATCH v7 22/25] dyndbg: improve err report in
+ attach_user_module_classes
+Date: Thu, 12 Oct 2023 11:21:33 -0600
+Message-ID: <20231012172137.3286566-23-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20231012172137.3286566-1-jim.cromie@gmail.com>
 References: <20231012172137.3286566-1-jim.cromie@gmail.com>
@@ -82,67 +83,39 @@ Cc: groeck@google.com, linux-doc@vger.kernel.org, jani.nikula@intel.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-dyndbg's dynamic prefixing (by +tmfsl flags) is needlessly expensive.
+convert a WARN on 3 conditions, into BUG_ON 2 of them (which don't
+happen), and an early return on (!cli->user_mod_name), which *was*
+happening, so should be seen going forward.  Maybe this should be a
+WARN.
 
-When an enabled (with +p) pr_debug is called, _DPRINTK_FLAGS_INCL_ANY
-prefix decorations are sprintf'd into stack-mem for every call.
-
-This string (or part of it) could be cached once its 1st generated,
-and retreived thereafter, as long as its deleted any time the
-callsite's flags are changed afterwards.
-
-So consider the prefix/decoration flags: 'tmfsl', and what should be
-in the cache:
-
--t  thread-id. not part of the "callsite" info, derived from current.
-    doesnt belong in the cache. it would be wrong.
-    can be done in outer: dynamic_emit_prefix()
-
--l  line number
-    this could be part of the prefix, but would bloat the cache
-    can also be done in outer: dynamic_emit_prefix()
-
--mfs  module, function, source-file
-    we cache these, composed into a sub-string.
-    they are "lookups", currently to descriptor fields,
-    could be accessor macros to "compressed" tables.
-    cache saves more access work.
-
-All enabled together, they compose a prefix string like:
-
-  # outer   -----inner----------   outer
-  "[tid] module:function:sourcfile:line: "
-
-So this patch extracts _DPRINTK_FLAGS_INCL_LOOKUP macro out of
-_DPRINTK_FLAGS_INCL_ANY macro, then redefs latter.
-
-Next re-refactor dynamic_emit_prefix inner/outer fns accordingly.
+NB: The underlying problem was a missing __align(8) in the
+DYNDBG_CLASSMAP_USE, which manifested as a corrupt record with a map
+pointer which segv'd.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 8 +++++---
+ lib/dynamic_debug.c | 8 +++++---
  1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 927cb14f24e0..2237d454bc19 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -40,10 +40,12 @@ struct _ddebug {
- #define _DPRINTK_FLAGS_INCL_SOURCENAME	(1<<5)
- #define _DPRINTK_FLAGS_PREFIX_CACHED	(1<<7)
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 974395bf8a83..3dc512fb1d66 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -1284,9 +1284,11 @@ static void ddebug_attach_user_module_classes(struct ddebug_table *dt,
+ 	 */
+ 	for_each_boxed_vector(di, class_users, num_class_users, i, cli) {
  
--#define _DPRINTK_FLAGS_INCL_ANY		\
--	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |\
--	 _DPRINTK_FLAGS_INCL_LINENO  | _DPRINTK_FLAGS_INCL_TID |\
-+#define _DPRINTK_FLAGS_INCL_LOOKUP					\
-+	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |	\
- 	 _DPRINTK_FLAGS_INCL_SOURCENAME)
-+#define _DPRINTK_FLAGS_INCL_ANY						\
-+	(_DPRINTK_FLAGS_INCL_LINENO | _DPRINTK_FLAGS_INCL_TID |		\
-+	 _DPRINTK_FLAGS_INCL_LOOKUP)
+-		if (WARN_ON(!cli || !cli->map || !cli->user_mod_name))
+-			continue;
+-
++		BUG_ON(!cli || !cli->map);
++		if (!cli->user_mod_name) {
++			pr_warn("class_ref[%d] !user-mod-name looking for %s\n", i, dt->mod_name);
++			return;
++		}
+ 		if (!strcmp(cli->user_mod_name, dt->mod_name)) {
  
- #if defined DEBUG
- #define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINT
+ 			vpr_cm_info(cli->map, "class_ref[%d] %s -> %s", i,
 -- 
 2.41.0
 
