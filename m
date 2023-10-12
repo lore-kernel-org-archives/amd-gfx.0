@@ -4,61 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 147C5CDB46E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DF93CDB483
 	for <amd-gfx@archiver.kernel.org>; Thu, 12 Oct 2023 17:22:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AD1010E559;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29F6D10E533;
 	Thu, 12 Oct 2023 17:22:07 +0000 (UTC)
-Received: from mail-io1-xd2a.google.com (mail-io1-xd2a.google.com
- [IPv6:2607:f8b0:4864:20::d2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A046310E53A;
- Thu, 12 Oct 2023 17:22:04 +0000 (UTC)
-Received: by mail-io1-xd2a.google.com with SMTP id
- ca18e2360f4ac-79fa425855cso49325439f.2; 
- Thu, 12 Oct 2023 10:22:04 -0700 (PDT)
+Received: from mail-io1-xd32.google.com (mail-io1-xd32.google.com
+ [IPv6:2607:f8b0:4864:20::d32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8B5510E533;
+ Thu, 12 Oct 2023 17:21:54 +0000 (UTC)
+Received: by mail-io1-xd32.google.com with SMTP id
+ ca18e2360f4ac-7a25040faffso51102739f.1; 
+ Thu, 12 Oct 2023 10:21:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1697131324; x=1697736124; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1697131314; x=1697736114; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=gKUPZJG7I4VMa4iERW/Xn8lzZwDxy57eOqc/z/Cxr40=;
- b=C4vwxeQwBo3qQNWw5fBLfm11DuuEd85aeJvlBbCADE+3Y0YA0W+cB47WKWfrOml9i4
- //JiENUDrhoL2kL+W4PfcB4dfIJRVl/hf9xmsTbIlsLka62i6ohjJf13WMbCHrOZFXo1
- hTIIXPKTi42iJDuZM0k0mSlT8LCyg2ul8GM3T3Lh2A9dqUK97O3I0dwxPIP9iELCG6k0
- Myqj8ES4DkBkVzKIXk28oSfg0fuf/9kL5aXTzG7OqJ7uAwYnaeW33jdL7acxNLCNqEvx
- x4e3GFlOAM1oVH2nBKMQNM/YtM1LMl2wBxbRUXBCVhVKW3OJQ/IqOTESzn9CKRnzkDv5
- jQSQ==
+ bh=fEjUcd2gIGh+rcuXSmEeq7H3LSdL8L2dg7mL1DHpCLA=;
+ b=g2M6dEayscJGZNURO0g/0t3jI6Gl6jLVsDsGRxdMufEwIWa+uMR+Q/XFggC3Ilc6BW
+ T12URoZ8vFRNi1BDo2/XkPlVOVOf2CZtfz2j6gfRNf/J6EDXks3gfv/JPsVWyLDquV51
+ HZA91Us7151lT2PK1a9Z8THRkXdLhjwm4rF7CVqdkuLdD3EccIQhUg+z6WzfrMXUwcqW
+ 0LRrRFErhhDMG6yDUZRWdlOJSCeZ1uH0SguE46OYCg7JgO5ZXlWOsGnvO/R9cHb42RUb
+ jdmieeyviMSHeGtbruewpuyHRKLp/UCuB0LqhSiAHMv6UeUyu/vNa3GDQ8+PqYQ5AhGz
+ 7zOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697131324; x=1697736124;
+ d=1e100.net; s=20230601; t=1697131314; x=1697736114;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=gKUPZJG7I4VMa4iERW/Xn8lzZwDxy57eOqc/z/Cxr40=;
- b=bNtToMiM+bVHk+mw4mEm2bitY8IITbLvx6nLztrbUz5Jae0cc1ehHdnEPdRsW5lU6h
- sCzV/3xaX/1gMkcqqjsyBQmp2/vUMmJbQ83E+45lEZkZqZcScRNtxgzpSnIyE6ulH/l5
- txFTMxV4zMJ778SwZUnprauJbgFpG3tprUNDOt7+T/mbJ339riiBUA0hMEyfMBK6Kclv
- GHMgFNwrTOSPKgHgWGMJzMZxLUeEZziFZ/M4ufmNawSPwbAEqeQ2nlZ/zZe6AFY475K8
- yG+9al0xOdqw1UlZwoFtbmfUS9fpHpwsjqxcFyBwKnrljQ6jKGdTiOh2wY3R12Zk/Np9
- bluA==
-X-Gm-Message-State: AOJu0YwgL5X/FwzsXPk7lGtfUnxBmhwjxHrxlo9yBWcARWoHzKY80yw8
- vqdCKkqc9tOOSrEyU72Puww=
-X-Google-Smtp-Source: AGHT+IHYDPIhtoCH7YcgdpOkaA1wQ5EPaVbHO4XuAb+xnx3rvomq194dWEMTluIEOI+clHZfAWoO2A==
-X-Received: by 2002:a6b:919:0:b0:792:8230:c175 with SMTP id
- t25-20020a6b0919000000b007928230c175mr25871912ioi.6.1697131323872; 
- Thu, 12 Oct 2023 10:22:03 -0700 (PDT)
+ bh=fEjUcd2gIGh+rcuXSmEeq7H3LSdL8L2dg7mL1DHpCLA=;
+ b=wINn6oXMKJMH/5sM+Rr9GT0XWwTO9+7CtlJjGRP4I9u9mHSVuKHZG51czoqpgRLkZQ
+ YjCWOIBdZedNnqL3mQa4ivfQDPs8EgiXu5C/ayB/smDaShHnfftiAQekzBYcQSyn5o7s
+ KCFctT1wPeg4kN0dDHWx8HHk0rUyvHk2CtP20K/oFRtMQIw1P2goA4eYDIkRVIdKMqpl
+ 36JSzpYjLO6ibgtNsRmBGaPJ+wZ9fcUy6xGXJo3ccJSBuektRtT7vZH6hy9G1w6w5F36
+ NOKzigxmMKQRRsfY7/2+49l1G6NkaAVFxbs+UoR5KNWVne5CNto7aEpEksGTNa6sQCsX
+ 0jow==
+X-Gm-Message-State: AOJu0Yy/4f4q7PybTvkBvBMcMjS1QZTG50Yd1bpYE49nvO3LNZ2utMNK
+ +NT/d7I2s4vGPOCHZyxX3eb4qV88GZcxdg==
+X-Google-Smtp-Source: AGHT+IEV/Vrzy7GYGKStkhfIcOPZVQougajUarL/RjBl0TBZoeQlTnUSIKMli3EDdf3vdTIkew3RSg==
+X-Received: by 2002:a6b:6f05:0:b0:795:183b:1e3 with SMTP id
+ k5-20020a6b6f05000000b00795183b01e3mr27077153ioc.6.1697131314198; 
+ Thu, 12 Oct 2023 10:21:54 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- r25-20020a028819000000b0043cef0711c1sm3992211jai.158.2023.10.12.10.22.03
+ r25-20020a028819000000b0043cef0711c1sm3992211jai.158.2023.10.12.10.21.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Oct 2023 10:22:03 -0700 (PDT)
+ Thu, 12 Oct 2023 10:21:53 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH v7 16/25] dyndbg: refactor ddebug_classparam_clamp_input
-Date: Thu, 12 Oct 2023 11:21:27 -0600
-Message-ID: <20231012172137.3286566-17-jim.cromie@gmail.com>
+Subject: [PATCH v7 07/25] dyndbg: drop NUM_TYPE_ARRAY
+Date: Thu, 12 Oct 2023 11:21:18 -0600
+Message-ID: <20231012172137.3286566-8-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20231012172137.3286566-1-jim.cromie@gmail.com>
 References: <20231012172137.3286566-1-jim.cromie@gmail.com>
@@ -82,133 +82,32 @@ Cc: groeck@google.com, linux-doc@vger.kernel.org, jani.nikula@intel.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Extract input validation code, from param_set_dyndbg_module_classes()
-(the sys-node >handler) to new: ddebug_classparam_clamp_input(kp),
-call it from former.  It takes kernel-param arg, so it can complain
-about "foo: bad input".
+ARRAY_SIZE works here, since array decl is complete.
 
-Reuse ddparam_clamp_input(kp) in ddebug_sync_classbits(),
-to validate inputs from parent's params, just like our own.
-To support that reuse, alter ddebug_sync_classbits() and caller to
-pass kp instead of kp->arg.
+no functional change
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 70 ++++++++++++++++++++++++++++++---------------
- 1 file changed, 47 insertions(+), 23 deletions(-)
+ include/linux/dynamic_debug.h | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index c11feca70d6f..17eefb35ac96 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -656,6 +656,30 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
- 
- #define CLASSMAP_BITMASK(width) ((1UL << (width)) - 1)
- 
-+static void ddebug_class_param_clamp_input(unsigned long *inrep, const struct kernel_param *kp)
-+{
-+	const struct ddebug_class_param *dcp = kp->arg;
-+	const struct ddebug_class_map *map = dcp->map;
-+
-+	switch (map->map_type) {
-+	case DD_CLASS_TYPE_DISJOINT_BITS:
-+		/* expect bits. mask and warn if too many */
-+		if (*inrep & ~CLASSMAP_BITMASK(map->length)) {
-+			pr_warn("%s: input: 0x%lx exceeds mask: 0x%lx, masking\n",
-+				KP_NAME(kp), *inrep, CLASSMAP_BITMASK(map->length));
-+			*inrep &= CLASSMAP_BITMASK(map->length);
-+		}
-+		break;
-+	case DD_CLASS_TYPE_LEVEL_NUM:
-+		/* input is bitpos, of highest verbosity to be enabled */
-+		if (*inrep > map->length) {
-+			pr_warn("%s: level:%ld exceeds max:%d, clamping\n",
-+				KP_NAME(kp), *inrep, map->length);
-+			*inrep = map->length;
-+		}
-+		break;
-+	}
-+}
- static int param_set_dyndbg_module_classes(const char *instr,
- 					   const struct kernel_param *kp,
- 					   const char *modnm)
-@@ -674,26 +698,15 @@ static int param_set_dyndbg_module_classes(const char *instr,
- 		pr_err("expecting numeric input, not: %s > %s\n", instr, KP_NAME(kp));
- 		return -EINVAL;
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index b53217e4b711..8116d0a0d33a 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -106,11 +106,9 @@ struct ddebug_class_map {
+ 		.mod_name = KBUILD_MODNAME,				\
+ 		.base = _base,						\
+ 		.map_type = _maptype,					\
+-		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
++		.length = ARRAY_SIZE(_var##_classnames),		\
+ 		.class_names = _var##_classnames,			\
  	}
-+	ddebug_class_param_clamp_input(&inrep, kp);
+-#define NUM_TYPE_ARGS(eltype, ...)				\
+-        (sizeof((eltype[]){__VA_ARGS__}) / sizeof(eltype))
  
- 	switch (map->map_type) {
- 	case DD_CLASS_TYPE_DISJOINT_BITS:
--		/* expect bits. mask and warn if too many */
--		if (inrep & ~CLASSMAP_BITMASK(map->length)) {
--			pr_warn("%s: input: 0x%lx exceeds mask: 0x%lx, masking\n",
--				KP_NAME(kp), inrep, CLASSMAP_BITMASK(map->length));
--			inrep &= CLASSMAP_BITMASK(map->length);
--		}
- 		v2pr_info("bits:0x%lx > %s.%s\n", inrep, modnm ?: "*", KP_NAME(kp));
- 		totct += ddebug_apply_class_bitmap(dcp, &inrep, *dcp->bits, modnm);
- 		*dcp->bits = inrep;
- 		break;
- 	case DD_CLASS_TYPE_LEVEL_NUM:
--		/* input is bitpos, of highest verbosity to be enabled */
--		if (inrep > map->length) {
--			pr_warn("%s: level:%ld exceeds max:%d, clamping\n",
--				KP_NAME(kp), inrep, map->length);
--			inrep = map->length;
--		}
- 		old_bits = CLASSMAP_BITMASK(*dcp->lvl);
- 		new_bits = CLASSMAP_BITMASK(inrep);
- 		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
-@@ -1160,16 +1173,27 @@ static const char * const ddebug_classmap_typenames[] = {
- 		  ddebug_classmap_typenames[_cm->map_type]);		\
- 	})
- 
--static void ddebug_sync_classbits(const struct ddebug_class_param *dcp, const char *modname)
-+static void ddebug_sync_classbits(const struct kernel_param *kp, const char *modname)
- {
--	/* clamp initial bitvec, mask off hi-bits */
--	if (*dcp->bits & ~CLASSMAP_BITMASK(dcp->map->length)) {
--		*dcp->bits &= CLASSMAP_BITMASK(dcp->map->length);
--		v2pr_info("preset classbits: %lx\n", *dcp->bits);
-+	struct ddebug_class_param *dcp = kp->arg;
-+	unsigned long new_bits;
-+
-+	ddebug_class_param_clamp_input(dcp->bits, kp);
-+
-+	switch (dcp->map->map_type) {
-+	case DD_CLASS_TYPE_DISJOINT_BITS:
-+		v2pr_info("  %s: classbits: 0x%lx\n", KP_NAME(kp), *dcp->bits);
-+		ddebug_apply_class_bitmap(dcp, dcp->bits, 0UL, modname);
-+		break;
-+	case DD_CLASS_TYPE_LEVEL_NUM:
-+		new_bits = CLASSMAP_BITMASK(*dcp->lvl);
-+		v2pr_info("  %s: lvl:%ld bits:0x%lx\n", KP_NAME(kp), *dcp->lvl, new_bits);
-+		ddebug_apply_class_bitmap(dcp, &new_bits, 0UL, modname);
-+		break;
-+	default:
-+		pr_err("bad map type %d\n", dcp->map->map_type);
-+		return;
- 	}
--	/* force class'd prdbgs (in USEr module) to match (DEFINEr module) class-param */
--	ddebug_apply_class_bitmap(dcp, dcp->bits, ~0, modname);
--	ddebug_apply_class_bitmap(dcp, dcp->bits, 0, modname);
- }
- 
- static void ddebug_match_apply_kparam(const struct kernel_param *kp,
-@@ -1184,9 +1208,9 @@ static void ddebug_match_apply_kparam(const struct kernel_param *kp,
- 	dcp = (struct ddebug_class_param *)kp->arg;
- 
- 	if (map == dcp->map) {
--		v2pr_info("found kp:%s =0x%lx", kp->name, *dcp->bits);
--		vpr_cm_info(map, "mapped to:");
--		ddebug_sync_classbits(dcp, modnm);
-+		v2pr_info(" found kp:%s =0x%lx", kp->name, *dcp->bits);
-+		vpr_cm_info(map, "  mapped to:");
-+		ddebug_sync_classbits(kp, modnm);
- 	}
- }
- 
+ /* encapsulate linker provided built-in (or module) dyndbg data */
+ struct _ddebug_info {
 -- 
 2.41.0
 
