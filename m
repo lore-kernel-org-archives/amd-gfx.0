@@ -4,113 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D46E4CDB474
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Oct 2023 21:39:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52307CDB474
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Oct 2023 23:09:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0368A10E585;
-	Thu, 12 Oct 2023 21:39:29 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20626.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8d::626])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3D9310E571
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Oct 2023 21:39:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCE4F10E4FC;
+	Thu, 12 Oct 2023 23:09:43 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2044.outbound.protection.outlook.com [40.107.243.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6C6B10E4FC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Oct 2023 23:09:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=N05pCOOIulsUM1dZeL4ONdVHdHC4hvyYvsdUCd1AmxCAMiytAHlr/Uo4/c94rb4ngNR8au/kUj8XqxyQL1aWKGyJ9H4ATL/cuF737aQi3qk6k3J0ybEw/zIEih4/GJayw1llzhi+gsgFkBoGZf/HwOsTHHmP0anE9o3CfeGrZbhTM1UioUNRszezNFBd0dJRsRsQbI9bWULGeTL39vDNvpKliRt9AbW/uJ6LLO59xVYV3t8YCsgtuA6rQhhVOWobjwJNT8fEbBYyWGpG3TZC4ipnOnZbYjjcU/yH3IRLbPJa74icCE+6pkNJFCt08wDxCA+WP1uGgvVyxXCkXFlYvA==
+ b=Z4PKOBQ0Y+X6lSwW8Bb2yVJmIF9TGl4kjJ8Ygv1mwmqLOBJSshFjv29tC80XtTj13R2dCrdFtvXT8skFyZMcmbET3Y7tzFtj6CCJzM2KA2BVNl8ZM1DLj+9E3L7dsl0HiLsK9E+zeOxI6Utq/7O00EOTAjfDkebhcM9FSgnd5a6OhZ4m6SLMtcC8IK4WVg+OLudJLrVRnhSWIyS+cmM9fa7/I1RRulxfhAd0e0plL5Ld5yx2qufuWJsMg3nogVYCLsAJqDb7AEqkmZdZ7fcP5wpqKRSlaTmz4mPiAruQTAU6dx6Z70uH9uXZqku2KXoojtdHWi7vD0wMUj0BPMV7jg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1DxBlN+HohAVi9sXV9CRS9U1IJHuUPtppPkJGXdT2uA=;
- b=XM6mnA8gRUbBkPPEec4Q07/Y45/q4YLa1PislELk3AVD2AZ//iHMguLohiqLyT1F+EnTUNsY4nmWdfRCxWUIQAon8M3rwswiCaxUZtjO437gYRGw9HJHPkJV0WUON+20l4OJxvHYsJxiJIO2y7CPAeBsG8Vo/baqH6SyZqGbdXJfzam7p4iHvlIxmKNfJZCNtNDQmpTrf/QqSQ6RDzB0EG26PS+trhPOat0iVermaDiFP2DNOsiDCra7y6MDFY9HJxXqj/akhRJBSVb8xHGuhgGV5eXpbzEAkwJ9l+HvZvSZ+UeLLBuAVbVndjmdO3356kvOPkkMOiDsOI5zftJszg==
+ bh=g3mZOntNoFWVmbzVAPfggAYBJ2Tkbmnl9fx9s2hMFh8=;
+ b=Z14bRPgNL5uLe1GHCZ2pqTDC7B9NBpb65dqt31YMKJ8B10R63eCgNPZgOQGT1GJ3/bQPWvKgjM3h+v3Qbw8Gj2mVf9iJttOwBuyI36hR7bYbjfH7gUQNfAYUjwBzGkOccT7RvzrnJPFngTZj89KItH4NfwC3EZWCSSUxOc/4t7lxzKgQ7BY7PqKmBIx38QP+CixODPS8+5QApgxDZEHWzFgV6t8zuFdlTqjqU3zC7D4wGIqunoRusfF0rZvxeyCWv7JT+qDtfzC7KLs5TY0oNBgGiZr6Xax+Js92VpvSd/EovMenoDspz6ovxKxOqFMYjlti9jShyvpzX9IE1yWbuQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1DxBlN+HohAVi9sXV9CRS9U1IJHuUPtppPkJGXdT2uA=;
- b=RXdd7VqRBYe8OjxdUA2vAFDRhLx3RX7YQMdEaG0/zT/OcPuKeMKLMWOV4mkloeyM5zxuryqc+bvUezu5U8Bi3CzhhQjIkH/o8C142LBj1xfEqKMahPhfMsrfNz4sOXCjx21acsjDruMpW6t3zAaowe50i5TImCCTqu9b/vduhCk=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BL1PR12MB5827.namprd12.prod.outlook.com (2603:10b6:208:396::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.45; Thu, 12 Oct
- 2023 21:39:22 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::a2bb:870f:8aaa:1ba2]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::a2bb:870f:8aaa:1ba2%7]) with mapi id 15.20.6863.043; Thu, 12 Oct 2023
- 21:39:22 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Yu, Lang" <Lang.Yu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: correct NBIO v7.11 programing
-Thread-Topic: [PATCH 1/2] drm/amdgpu: correct NBIO v7.11 programing
-Thread-Index: AQHZ/N4/qAoK3i5IfkOxal3VobPIFLBGr0aJ
-Date: Thu, 12 Oct 2023 21:39:22 +0000
-Message-ID: <BL1PR12MB5144F9F939D487A4DD01D2C2F7D3A@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20231012073145.1076131-1-Lang.Yu@amd.com>
-In-Reply-To: <20231012073145.1076131-1-Lang.Yu@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-10-12T21:39:21.361Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-authentication-results: dkim=none (message not signed)
+ bh=g3mZOntNoFWVmbzVAPfggAYBJ2Tkbmnl9fx9s2hMFh8=;
+ b=REo9DxdSLzJ9HJm8sEJweWRQMvv3bx/kmqIjYquLTNUb4GK6K/jbncfBFjKWCqg3TFPUm6nDgOZuBx6iHwssZ8t1xZevI3fPvW7o04xmOflXyrnDxhFNftbVwnToXgu/XsaplXn0r81PN2zgEO6acmh0DLRYge6vA56jsp8ByEo=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|BL1PR12MB5827:EE_
-x-ms-office365-filtering-correlation-id: 6f86b8ab-3fb3-485b-81ba-08dbcb6bb292
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: M1TVYbtkrU3qrZa96V+9biSmQMppuj9RKGpo4R6YffbX+7Qad6ENO1MWUngYdSEh1F6r0FTph2xKKXrwAfP6GNYaVMx8fctlCIu5YH8A+X3b1ZZPHnCUQUkDIhlnSqEq+jQinW8E/pXr+EY27dNW2BQ1vj1FZ4cOoJAU99fHzk6knMt9a20BemuWfJhmCApFZNrWSoyvRHVrVALZUqjqTjIM499Yv2e5PR5eHKBPt97DJOStBqSFuBen1nDzeVIh4fLXSBJF8SrUtvys2cO9bGLG3jVtaZEwL69RkXa73LRvWlMHfTPelvqjMuKmHOZ+IWGLeno4oDEZY9Y6/MCBqObDKBDhGZfRYxVG1GVDn4x3C1l384KfwDmWhIQoWASr45VgKN6OlUEiQ4IGX1ord4cC3H0xosvT3FVdoVLAum4KIi1wfajlQNiJy1Qx6YF4xlHunsmj8d4kjGqgt/P6niQDtOZMuLyFASscmlbxvE8SJ/Nlr4/F1sKfhXQBFBQ6ZKnH8LQfeWQFmRKgkuT+gsO5Bp28diVnq4UfTV7ArRwbu+0PT+y+QPBSjpt4ct8qw/F8yDnAiGLMwoDm0D5BPq3a+yuEaqcRpR0cDBOEVdQbgN7BUav/BgCBEwVumad8
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(39860400002)(346002)(136003)(366004)(396003)(230922051799003)(64100799003)(186009)(451199024)(1800799009)(2906002)(86362001)(33656002)(122000001)(55016003)(66556008)(38070700005)(38100700002)(66476007)(66446008)(64756008)(316002)(41300700001)(110136005)(66946007)(76116006)(26005)(19627405001)(9686003)(7696005)(6506007)(478600001)(71200400001)(52536014)(53546011)(83380400001)(5660300002)(8676002)(8936002)(4326008);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?V85UBdIcSZSRhgeu3WhBmeM6gOVWKbqCqhevisJGdpPPf34Q6X7f7VX7FJtY?=
- =?us-ascii?Q?g7TPhw1ETqTxN7cNwrtiZw/hEGoeDCd9h1t/OGC0HOtBsY/c8CfYa8DZy8qk?=
- =?us-ascii?Q?cWAijdSv3e4XfAtjTkygxSukhQP/GCcYMJefN6H/Iw1LoMYMjtTdbNZVJyWT?=
- =?us-ascii?Q?1dZ1Lr5WnkzATtVe5w8/TCuhyhkLdq17YbTBESICMAhrOfaejrKQhtE+0ppd?=
- =?us-ascii?Q?niJu2swcoWZDZYYZA8Zl2PFtzMzwN8MekTfv8O0qcdIuzz/JaG2dCkrvoQ7t?=
- =?us-ascii?Q?VXKG2AzPbi3nMuh3/m8tBJM+UIQ/jRT2Xt028eYM/k7oM3HLT/BglmBCOaAd?=
- =?us-ascii?Q?VIAVoeuOfOvso5pam2JOVms0rpF0YfrwXqQTXzGhiRcCTU2NGB2BMSGv5adB?=
- =?us-ascii?Q?nje/016/C8bkUt6U72zAiPIqQf9P9ciy+/gkMHVAOcEObbPXM9JzLF+FH/Nm?=
- =?us-ascii?Q?HpyzP/XhYBB+TLg/GZnaHuJB7qfp7iXOmY2w6yLmULzpELHZ7qSQzd7QhH7r?=
- =?us-ascii?Q?O2E2iRd7QdDoSNGgaJAXQA6RZozNN6LN2gaovZ6Rx/RmMCmRq8BGHt2SI1fI?=
- =?us-ascii?Q?0bWLLy8evCEDTz1j2UGT2CG0Xj5CoVS5AzLtlIT7enX53kH8TZOu5sMSEPiQ?=
- =?us-ascii?Q?yrYE77KwRdkXY0QjgLGGo3H6DqepAQa6Lc0Wwf2xGtb055c8oA498PbrSbD3?=
- =?us-ascii?Q?3q1hRjb8SJb7IV9bL3Mr0ADRG92eVHus3Ec+HPA54drWopJvfCZ/s7bU2six?=
- =?us-ascii?Q?aKGGtS0pKb9vKKbz4nj/jeF6aVyCOvIU6iUCMOjV8a3e3h0dPFhBYMVQW2oH?=
- =?us-ascii?Q?NY6lKR6yOWOFp+cpDbTkqmZz9aSrC1MQw/BtFIWR8Lgyb7dzTbOxIPFUzECj?=
- =?us-ascii?Q?9vrL+T4Z64gwsIG1bUZEMuZ25B6ZEIbLxedR/MeiCpF6B/roDvXrw1ToIl93?=
- =?us-ascii?Q?mHGIFV7Tm7nEHL9pg+KH8IgUYBCFY35EjY+aUmmOcgGgQjLml2CHmDY9vY4y?=
- =?us-ascii?Q?farxLdg6fAAyMJkWSCB4sejNGrGFxCSP9WC7esAxjp2j9lIbhVigYQLOzU5h?=
- =?us-ascii?Q?DGcFhGffUKGis8U18fOKG9HaoMmWx97wEuNoO84p5OrETpNIVQ/45J9UqiLu?=
- =?us-ascii?Q?c6Io1wdR0uRUhtDzggUfx3jBkz1kkItUBLY8TNWThTSW8Tb/Sjm6iR0zYnCO?=
- =?us-ascii?Q?ZRGie+NbnwVcpmf4uh18C9ni1KiXZufuDqK4zrmFxCwpwvFumH2bn2vSRsi2?=
- =?us-ascii?Q?WiHVpXyEYap2k34U5OeLX8Dfp+wH98LGbqYnsEcUNm9IL3DeFweqWA3nU8SV?=
- =?us-ascii?Q?ars8bnAL2gTLMQBvfRjeLArAHSnyJjPDjE4xPXv4OGo9QCYHzZL+vVd7MXPS?=
- =?us-ascii?Q?4By8Dj2Miu2LB0sR1qe2gQQNO/13ImUlhdStuZKDpQO3SifmMk98EOXedI9w?=
- =?us-ascii?Q?uC/XS2isITa4OVW7S/ogrtBZtfxj1VKFpi79L4YRBiLIAHOPrAeOT/9uo5k6?=
- =?us-ascii?Q?PhVX01YW8I3aBTJU3a1Ko++YC/VDSSHHuV20wtOKqZwcJEmafmYKM4xVXYPy?=
- =?us-ascii?Q?wx21Q72YXXJocgZlltQ=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5144F9F939D487A4DD01D2C2F7D3ABL1PR12MB5144namp_"
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by PH7PR12MB5758.namprd12.prod.outlook.com (2603:10b6:510:1d1::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.45; Thu, 12 Oct
+ 2023 23:09:37 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::e166:610f:a86e:d33a]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::e166:610f:a86e:d33a%3]) with mapi id 15.20.6863.043; Thu, 12 Oct 2023
+ 23:09:37 +0000
+Message-ID: <d2a72646-b3b5-91e9-eebe-73450ca4fc6e@amd.com>
+Date: Thu, 12 Oct 2023 19:09:34 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] drm/amdgpu: Add EXT_COHERENT override for NUMA local nodes
+Content-Language: en-US
+To: David Francis <David.Francis@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20231012163941.553980-1-David.Francis@amd.com>
+From: Philip Yang <yangp@amd.com>
+In-Reply-To: <20231012163941.553980-1-David.Francis@amd.com>
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQZPR01CA0141.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:87::10) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|PH7PR12MB5758:EE_
+X-MS-Office365-Filtering-Correlation-Id: e7b5965e-dd8e-4d56-a78b-08dbcb784e29
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: C+bqJFs6y/EV7poSZrhTKxsOGjm0xyQEsmQ/IXw4dqKXdxREpkBhlS00HBeqPwAtqNZ5ErOvvtXo5KbdUjRMRfuEs0Ajo3dYDjzl+THrFqMtOty+ugZNh5xDJrL7BKGJ4fWTD8nF7wPRBJKjJS7VHHuL/MihwCAHkLu/GA1uQ/lBXui4eRS+x6vTEids+X395Z1XccOc2kXpaEv0rIXJazqqcnm+OwpzKTJrdYPGH49UTju9CwzmaLcxcbdyFwqZSylO9Ne+6gZtmYUmW4HuapzuIu+EY2+AAyZA8lNO0WJzMLVtJxm0WDX66MTrFtukl9gWmhJ+5hn6pD+aEhw19s0KI1yUmF/U5RoANxu67bLO6+V123x0YtQvZMmO3EKpiKiEvVqcyEv7K0Amz1nyknBHRQABkXgQF1HUDH5H0DIliRgFLWnqgNhpgB8XwxXTcmxouckz3YQi7ZjczlFY0lB9C2BkzJcq1sTHCVQXaSOoeC+Ax6tW3ArnUzjwXQwINtHZywBaGLkUYfxgv3XsHS2FQ+IT+UDzw268kkH2dOiiOazAQbJd+ESDRf85ZR94Zi67Ve02M3/pLhqyykAdnKRcfxE9HZMK40tgrUdw0V8yLVIMVx/vPU0Mhd8GzelfcSOYyfYj18NUha96cg8SvQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(396003)(346002)(376002)(366004)(39860400002)(136003)(230922051799003)(186009)(64100799003)(451199024)(1800799009)(4001150100001)(2906002)(36756003)(31696002)(38100700002)(316002)(2616005)(66946007)(66476007)(66556008)(41300700001)(26005)(6666004)(31686004)(6486002)(6512007)(53546011)(6506007)(478600001)(5660300002)(83380400001)(8936002)(8676002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ayttaHlNQjZhNHdwOWF6bldDaDJGMnRnUGNvdFRFWkYzUHNGV1QxbUhMSFR1?=
+ =?utf-8?B?SXM2Tnp6cVdhZ3lQclBGNUZQR3JFV1VpVkltVGRIejRXNElObHp4cU5iaTAv?=
+ =?utf-8?B?RkdONXFLbjkva0RVaVlkL1FPclJMbDJ5Y0V2RG5vckhxckJrWDYybUJXWmZC?=
+ =?utf-8?B?Qk1UM2tsWHhSS0lTeHMyZHNOQXJ5TEFhQXJzYmxMWmZGK2xlUDR4VzBodktM?=
+ =?utf-8?B?cFJDaVErbmZqZWQzRm11ZXJYWDUxODA4ZUovWDlPN3UxMC9YaWFnTnRySElC?=
+ =?utf-8?B?b1pFcXZXa1pOdWtDUHA0bEQxaWcxUnMvV0dRanFaWDZFZVB6VkFBN3h5MU1M?=
+ =?utf-8?B?eWpSSHZhNTU1VVEweFlNQ1JkM0txUHJlbWhCbm5zWEJudjZ6TjdPclYwSTk4?=
+ =?utf-8?B?ekpDaFgwQVF2WklFN0I1L3pGTVhFK3JGdnZpTGtvYm9hcjlTRVpISzRCTGdu?=
+ =?utf-8?B?bmNzSHE3dlF3MWtZbEVmZm1wTXZJekFxeEtLWXliMmMvMnFwblhDTklkSm1V?=
+ =?utf-8?B?RHFzeFc4RkZBaDdaTk4rRTRObjRlK3MrWW16M1ZRc1k3VVRuZUExcmdkVU5H?=
+ =?utf-8?B?Zkk1bTZiNHRZRjN0UEFWak9QcTErQkEzek00THRvUGt5ekl5REJkTm5aWm9H?=
+ =?utf-8?B?ZjVWeUd5SWhIV21nRXNWU1l3K3BrbWdndmRvSEY1cjRvVklOQ3hjMEd0MCs4?=
+ =?utf-8?B?b1pBSzVTNmJRb0FBbVMzYmV3Q1VDSUt5L3BSaFRVSkN0V0lueGpWSDVycEx1?=
+ =?utf-8?B?UHE4L2IvL3hyMVRMU01ScXVWOUJFRlJEZncrdkl1TEtqeDl6dWRBZFZuM0lD?=
+ =?utf-8?B?ZmdqcWJoRjN0QTM0eU1mUG9DN3NzUjdiQmdrQkp6ejh0ZWRydm85RWlTV2h6?=
+ =?utf-8?B?U1h4Q2ZEQ1NOSStzL1A1eDQyaHVRZDRPMXo1eW00bnN6dUhoZjZzMnVYL0Rq?=
+ =?utf-8?B?cTh5ZE1lQWVZRE54Q1U1SnFlbW5kSFc3MzVuRi8vdjdnYXVzTERTdVBGU0JB?=
+ =?utf-8?B?eGdBWEVJMS8zaytaclREUTJNeVNvN0RtVHlxNDlEVDVBTE1sRXUrQkFoT21p?=
+ =?utf-8?B?eWMwdnhwNVc3VXdtMW9oOFpsWXhudzY1dmtZU2tZQjdwM1JoVDVNYmREaGta?=
+ =?utf-8?B?WGViWGM3QnJ3emtzaHo1L1h5dDJIUHB3bnBkME14RzI0akMrYnZhM050Y0J3?=
+ =?utf-8?B?NGhmME9GUVNEUFBneHI4elNEZEtySFRxRkNrZm4vaENNOWlodGt6anRFKzBv?=
+ =?utf-8?B?elc2QXorRzlyMmFGM3kxMCtGcTBBa2dQN2J2eWNjRnpaUFY0R0Y3TTlrbklT?=
+ =?utf-8?B?eXM0dnI3YXgxWGlId0N6dnpJUjZxTENvUkd0VXdlNzIyZ09wMGZFSHo3Y3E5?=
+ =?utf-8?B?eVhsd3pWaW9NcU1FUmZ6RFQzWmgzU2pmYVVwb09rcmowVjdzNDBndEV4SDRF?=
+ =?utf-8?B?T0piR3RtWW14ZHpQQXYxQk1WUVJqRjV1STRxT2xGRmk0SEg3Nm8rbUpXeU1V?=
+ =?utf-8?B?dklrMTRtc3kyU0lGc1lyaFA0Tk8vQThhWlhLUWd0NXBJTnhSSW12WmxDS3Nu?=
+ =?utf-8?B?c2tMZGtOZ0lzcWdnM1JFeFdYNjBUMC9IcC85TFEreTZhckFjdXJBMk9JZzdo?=
+ =?utf-8?B?WkhOVmJuSnIrUGNIbDFZakJkN3diOTdLaHNrTUtiQytXSUdxNFkzcGhKTERV?=
+ =?utf-8?B?YnFBMEtGN1hEODRLL2tQUUxBN2MyUnFFRHMxWmRCc3hUYXhpMXRUeVdDRm1Z?=
+ =?utf-8?B?YkdtV3g3RlF5RjJxNHhYNWtLQ0FvTHhQQ1B4T0IvZExaUkVnS1l1UnM5RHVs?=
+ =?utf-8?B?akdGNkg2bE52Q3poRnQ1Q0xDR0xkbks3TTVaK09kbVpKVlZvTWxiZUJuM0RS?=
+ =?utf-8?B?OXRsY0ZDbktVWU0zdkw5cEQ2WERLV1AyVDhVNnJqTk5Ed2c1WWhMSUEyT0Vr?=
+ =?utf-8?B?NnpCUEx5ODJzNHg4TFhSeVJQeWhhRlNjNU9DSVhLcGg1ZTFnUDdtVmhBQnhl?=
+ =?utf-8?B?eGlQUy9qbEVhOU0zc2dhaWZBRUY5TDhmTEhPRWNJVnpUaXV4dXpZQ2xyVDJI?=
+ =?utf-8?B?REFzYXlQdlh4K1ZWRFNYSXBVbThYQ090REdBZmNRQjRoeWR3czNRT2ZVUVhV?=
+ =?utf-8?Q?sdxM=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7b5965e-dd8e-4d56-a78b-08dbcb784e29
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6f86b8ab-3fb3-485b-81ba-08dbcb6bb292
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2023 21:39:22.0378 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: PRJMDEKa1rxZ235xJJBcth1PMKVaMlYdt8bRHlVQlVuVqrPjAJyqNVw6qaudWrMaUUwIqHIOVrPhAA6IELElKQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5827
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2023 23:09:37.2451 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: btoQcDaDmip00laKEyegzRulyGPoZqLfFBZNMmUSRjOYFQBcOqAZVsIv3StiP1M/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5758
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,668 +123,303 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhang, Yifan" <Yifan1.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5144F9F939D487A4DD01D2C2F7D3ABL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2023-10-12 12:39, David Francis
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20231012163941.553980-1-David.Francis@amd.com">
+      <pre class="moz-quote-pre" wrap="">On NUMA systems, local memory gets the local mtype, set by an
+override callback. If EXT_COHERENT is set, memory will be set as
+MTYPE_UC by default, with local memory MTYPE_CC.
 
-[Public]
+Add an option in the override function for this case, and
+add a check to ensure it is not used on UNCACHED memory.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Yu, Lang <Lang.Yu@amd.com>
-Sent: Thursday, October 12, 2023 3:31 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Yifan <Yifan1.Zh=
-ang@amd.com>; Yu, Lang <Lang.Yu@amd.com>
-Subject: [PATCH 1/2] drm/amdgpu: correct NBIO v7.11 programing
-
-Use v7.7 before, switch to v7.11 now.
-Fix incorrect programing.
-
-Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+Signed-off-by: David Francis <a class="moz-txt-link-rfc2396E" href="mailto:David.Francis@amd.com">&lt;David.Francis@amd.com&gt;</a>
 ---
- drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c       | 56 +++++++++----------
- .../asic_reg/nbio/nbio_7_11_0_offset.h        |  9 ++-
- 2 files changed, 33 insertions(+), 32 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 13 +++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  8 +++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c     | 33 +++++++++++++++--------
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c      |  6 ++---
+ 5 files changed, 41 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c b/drivers/gpu/drm/amd/=
-amdgpu/nbio_v7_11.c
-index 6873eead1e19..3a94f249929e 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
-@@ -66,19 +66,19 @@ static void nbio_v7_11_sdma_doorbell_range(struct amdgp=
-u_device *adev, int insta
-                                           bool use_doorbell, int doorbell_=
-index,
-                                           int doorbell_size)
- {
--       u32 reg =3D SOC15_REG_OFFSET(NBIO, 0, regGDC0_BIF_SDMA0_DOORBELL_RA=
-NGE);
-+       u32 reg =3D SOC15_REG_OFFSET(NBIO, 0, regGDC0_BIF_CSDMA_DOORBELL_RA=
-NGE);
-         u32 doorbell_range =3D RREG32_PCIE_PORT(reg);
-
-         if (use_doorbell) {
-                 doorbell_range =3D REG_SET_FIELD(doorbell_range,
--                                              GDC0_BIF_SDMA0_DOORBELL_RANG=
-E,
-+                                              GDC0_BIF_CSDMA_DOORBELL_RANG=
-E,
-                                                OFFSET, doorbell_index);
-                 doorbell_range =3D REG_SET_FIELD(doorbell_range,
--                                              GDC0_BIF_SDMA0_DOORBELL_RANG=
-E,
-+                                              GDC0_BIF_CSDMA_DOORBELL_RANG=
-E,
-                                                SIZE, doorbell_size);
-         } else {
-                 doorbell_range =3D REG_SET_FIELD(doorbell_range,
--                                              GDC0_BIF_SDMA0_DOORBELL_RANG=
-E,
-+                                              GDC0_BIF_CSDMA_DOORBELL_RANG=
-E,
-                                                SIZE, 0);
-         }
-
-@@ -145,27 +145,25 @@ static void nbio_v7_11_enable_doorbell_aperture(struc=
-t amdgpu_device *adev,
- static void nbio_v7_11_enable_doorbell_selfring_aperture(struct amdgpu_dev=
-ice *adev,
-                                                         bool enable)
- {
--/*     u32 tmp =3D 0;
-+       u32 tmp =3D 0;
-
-         if (enable) {
--               tmp =3D REG_SET_FIELD(tmp, BIF_BX_PF0_DOORBELL_SELFRING_GPA=
-_APER_CNTL,
-+               tmp =3D REG_SET_FIELD(tmp, BIF_BX_PF1_DOORBELL_SELFRING_GPA=
-_APER_CNTL,
-                                 DOORBELL_SELFRING_GPA_APER_EN, 1) |
--                       REG_SET_FIELD(tmp, BIF_BX_PF0_DOORBELL_SELFRING_GPA=
-_APER_CNTL,
-+                     REG_SET_FIELD(tmp, BIF_BX_PF1_DOORBELL_SELFRING_GPA_A=
-PER_CNTL,
-                                 DOORBELL_SELFRING_GPA_APER_MODE, 1) |
--                       REG_SET_FIELD(tmp, BIF_BX_PF0_DOORBELL_SELFRING_GPA=
-_APER_CNTL,
-+                     REG_SET_FIELD(tmp, BIF_BX_PF1_DOORBELL_SELFRING_GPA_A=
-PER_CNTL,
-                                 DOORBELL_SELFRING_GPA_APER_SIZE, 0);
-
-                 WREG32_SOC15(NBIO, 0,
--                       regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_BASE_LOW,
-+                       regBIF_BX_PF1_DOORBELL_SELFRING_GPA_APER_BASE_LOW,
-                         lower_32_bits(adev->doorbell.base));
-                 WREG32_SOC15(NBIO, 0,
--                       regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_BASE_HIGH,
-+                       regBIF_BX_PF1_DOORBELL_SELFRING_GPA_APER_BASE_HIGH,
-                         upper_32_bits(adev->doorbell.base));
-         }
-
--       WREG32_SOC15(NBIO, 0, regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_CNTL=
-,
--               tmp);
--*/
-+       WREG32_SOC15(NBIO, 0, regBIF_BX_PF1_DOORBELL_SELFRING_GPA_APER_CNTL=
-, tmp);
- }
-
-
-@@ -216,12 +214,12 @@ static void nbio_v7_11_ih_control(struct amdgpu_devic=
-e *adev)
-
- static u32 nbio_v7_11_get_hdp_flush_req_offset(struct amdgpu_device *adev)
- {
--       return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF0_GPU_HDP_FLUSH_REQ);
-+       return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF1_GPU_HDP_FLUSH_REQ);
- }
-
- static u32 nbio_v7_11_get_hdp_flush_done_offset(struct amdgpu_device *adev=
-)
- {
--       return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF0_GPU_HDP_FLUSH_DONE);
-+       return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF1_GPU_HDP_FLUSH_DONE);
- }
-
- static u32 nbio_v7_11_get_pcie_index_offset(struct amdgpu_device *adev)
-@@ -236,27 +234,27 @@ static u32 nbio_v7_11_get_pcie_data_offset(struct amd=
-gpu_device *adev)
-
- static u32 nbio_v7_11_get_pcie_port_index_offset(struct amdgpu_device *ade=
-v)
- {
--       return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF0_RSMU_INDEX);
-+       return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF1_RSMU_INDEX);
- }
-
- static u32 nbio_v7_11_get_pcie_port_data_offset(struct amdgpu_device *adev=
-)
- {
--       return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF0_RSMU_DATA);
-+       return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF1_RSMU_DATA);
- }
-
- const struct nbio_hdp_flush_reg nbio_v7_11_hdp_flush_reg =3D {
--       .ref_and_mask_cp0 =3D BIF_BX_PF0_GPU_HDP_FLUSH_DONE__CP0_MASK,
--       .ref_and_mask_cp1 =3D BIF_BX_PF0_GPU_HDP_FLUSH_DONE__CP1_MASK,
--       .ref_and_mask_cp2 =3D BIF_BX_PF0_GPU_HDP_FLUSH_DONE__CP2_MASK,
--       .ref_and_mask_cp3 =3D BIF_BX_PF0_GPU_HDP_FLUSH_DONE__CP3_MASK,
--       .ref_and_mask_cp4 =3D BIF_BX_PF0_GPU_HDP_FLUSH_DONE__CP4_MASK,
--       .ref_and_mask_cp5 =3D BIF_BX_PF0_GPU_HDP_FLUSH_DONE__CP5_MASK,
--       .ref_and_mask_cp6 =3D BIF_BX_PF0_GPU_HDP_FLUSH_DONE__CP6_MASK,
--       .ref_and_mask_cp7 =3D BIF_BX_PF0_GPU_HDP_FLUSH_DONE__CP7_MASK,
--       .ref_and_mask_cp8 =3D BIF_BX_PF0_GPU_HDP_FLUSH_DONE__CP8_MASK,
--       .ref_and_mask_cp9 =3D BIF_BX_PF0_GPU_HDP_FLUSH_DONE__CP9_MASK,
--       .ref_and_mask_sdma0 =3D BIF_BX_PF0_GPU_HDP_FLUSH_DONE__SDMA0_MASK,
--       .ref_and_mask_sdma1 =3D BIF_BX_PF0_GPU_HDP_FLUSH_DONE__SDMA1_MASK,
-+       .ref_and_mask_cp0 =3D BIF_BX_PF1_GPU_HDP_FLUSH_DONE__CP0_MASK,
-+       .ref_and_mask_cp1 =3D BIF_BX_PF1_GPU_HDP_FLUSH_DONE__CP1_MASK,
-+       .ref_and_mask_cp2 =3D BIF_BX_PF1_GPU_HDP_FLUSH_DONE__CP2_MASK,
-+       .ref_and_mask_cp3 =3D BIF_BX_PF1_GPU_HDP_FLUSH_DONE__CP3_MASK,
-+       .ref_and_mask_cp4 =3D BIF_BX_PF1_GPU_HDP_FLUSH_DONE__CP4_MASK,
-+       .ref_and_mask_cp5 =3D BIF_BX_PF1_GPU_HDP_FLUSH_DONE__CP5_MASK,
-+       .ref_and_mask_cp6 =3D BIF_BX_PF1_GPU_HDP_FLUSH_DONE__CP6_MASK,
-+       .ref_and_mask_cp7 =3D BIF_BX_PF1_GPU_HDP_FLUSH_DONE__CP7_MASK,
-+       .ref_and_mask_cp8 =3D BIF_BX_PF1_GPU_HDP_FLUSH_DONE__CP8_MASK,
-+       .ref_and_mask_cp9 =3D BIF_BX_PF1_GPU_HDP_FLUSH_DONE__CP9_MASK,
-+       .ref_and_mask_sdma0 =3D BIF_BX_PF1_GPU_HDP_FLUSH_DONE__SDMA0_MASK,
-+       .ref_and_mask_sdma1 =3D BIF_BX_PF1_GPU_HDP_FLUSH_DONE__SDMA1_MASK,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 46d27c8ffff7..189341944bf1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -761,6 +761,7 @@ static void amdgpu_vm_tlb_seq_cb(struct dma_fence *fence,
+  * @immediate: immediate submission in a page fault
+  * @unlocked: unlocked invalidation during MM callback
+  * @flush_tlb: trigger tlb invalidation after update completed
++ * @allow_override: change MTYPE for local NUMA nodes
+  * @resv: fences we need to sync to
+  * @start: start of mapped range
+  * @last: last mapped entry
+@@ -777,7 +778,7 @@ static void amdgpu_vm_tlb_seq_cb(struct dma_fence *fence,
+  * 0 for success, negative erro code for failure.
+  */
+ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+-			   bool immediate, bool unlocked, bool flush_tlb,
++			   bool immediate, bool unlocked, bool flush_tlb, bool allow_override,
+ 			   struct dma_resv *resv, uint64_t start, uint64_t last,
+ 			   uint64_t flags, uint64_t offset, uint64_t vram_base,
+ 			   struct ttm_resource *res, dma_addr_t *pages_addr,
+@@ -815,6 +816,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	params.immediate = immediate;
+ 	params.pages_addr = pages_addr;
+ 	params.unlocked = unlocked;
++	params.allow_override = allow_override;
+ 
+ 	/* Implicitly sync to command submissions in the same VM before
+ 	 * unmapping. Sync to moving fences before mapping.
+@@ -1062,6 +1064,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+ 		trace_amdgpu_vm_bo_update(mapping);
+ 
+ 		r = amdgpu_vm_update_range(adev, vm, false, false, flush_tlb,
++					   !(bo-&gt;flags &amp; AMDGPU_GEM_CREATE_UNCACHED),
+ 					   resv, mapping-&gt;start, mapping-&gt;last,
+ 					   update_flags, mapping-&gt;offset,
+ 					   vram_base, mem, pages_addr,
+@@ -1257,8 +1260,8 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+ 		    mapping-&gt;start &lt; AMDGPU_GMC_HOLE_START)
+ 			init_pte_value = AMDGPU_PTE_DEFAULT_ATC;
+ 
+-		r = amdgpu_vm_update_range(adev, vm, false, false, true, resv,
+-					   mapping-&gt;start, mapping-&gt;last,
++		r = amdgpu_vm_update_range(adev, vm, false, false, true, false,
++					   resv, mapping-&gt;start, mapping-&gt;last,
+ 					   init_pte_value, 0, 0, NULL, NULL,
+ 					   &amp;f);
+ 		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+@@ -2546,8 +2549,8 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ 		goto error_unlock;
+ 	}
+ 
+-	r = amdgpu_vm_update_range(adev, vm, true, false, false, NULL, addr,
+-				   addr, flags, value, 0, NULL, NULL, NULL);
++	r = amdgpu_vm_update_range(adev, vm, true, false, false, false,
++				   NULL, addr, addr, flags, value, 0, NULL, NULL, NULL);
+ 	if (r)
+ 		goto error_unlock;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index 6e71978db13f..9ea8b5b644e3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -244,6 +244,12 @@ struct amdgpu_vm_update_params {
+ 	 * @table_freed: return true if page table is freed when updating
+ 	 */
+ 	bool table_freed;
++
++	/**
++	 * @allow_override: true for memory that is not uncached: allows MTYPE
++	 * to be overridden for NUMA local memory.
++	 */
++	bool allow_override;
  };
-
- static void nbio_v7_11_init_registers(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset.h=
- b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset.h
-index f446b1760f7c..846a8cf3926a 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset.h
-@@ -8187,9 +8187,9 @@
- #define regBIF_BX0_PCIE_INDEX_BASE_IDX                                    =
-                              5
- #define regBIF_BX0_PCIE_DATA                                              =
-                              0x800d
- #define regBIF_BX0_PCIE_DATA_BASE_IDX                                     =
-                              5
--#define regBIF_BX0_PCIE_INDEX2                                            =
-                              0xe
-+#define regBIF_BX0_PCIE_INDEX2                                            =
-                              0x800e
- #define regBIF_BX0_PCIE_INDEX2_BASE_IDX                                   =
-                              0
--#define regBIF_BX0_PCIE_DATA2                                             =
-                              0xf
-+#define regBIF_BX0_PCIE_DATA2                                             =
-                              0x800f
- #define regBIF_BX0_PCIE_DATA2_BASE_IDX                                    =
-                              0
- #define regBIF_BX0_SBIOS_SCRATCH_0                                        =
-                              0x8048
- #define regBIF_BX0_SBIOS_SCRATCH_0_BASE_IDX                               =
-                              5
-@@ -8678,7 +8678,10 @@
- #define regBIF_BX_PF1_MM_DATA_BASE_IDX                                    =
-                              0
- #define regBIF_BX_PF1_MM_INDEX_HI                                         =
-                              0x0006
- #define regBIF_BX_PF1_MM_INDEX_HI_BASE_IDX                                =
-                              0
--
-+#define regBIF_BX_PF1_RSMU_INDEX                                          =
-                              0x0000
-+#define regBIF_BX_PF1_RSMU_INDEX_BASE_IDX                                 =
-                              1
-+#define regBIF_BX_PF1_RSMU_DATA                                           =
-                              0x0001
-+#define regBIF_BX_PF1_RSMU_DATA_BASE_IDX                                  =
-                              1
-
- // addressBlock: nbio_nbif0_bif_bx_BIFDEC1:1
- // base address: 0x0
---
-2.25.1
-
-
---_000_BL1PR12MB5144F9F939D487A4DD01D2C2F7D3ABL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;font=
--style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Yu, Lang &lt;Lang.Yu@=
-amd.com&gt;<br>
-<b>Sent:</b> Thursday, October 12, 2023 3:31 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhang, Yif=
-an &lt;Yifan1.Zhang@amd.com&gt;; Yu, Lang &lt;Lang.Yu@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 1/2] drm/amdgpu: correct NBIO v7.11 programing</font=
->
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Use v7.7 before, switch to v7.11 now.<br>
-Fix incorrect programing.<br>
-<br>
-Signed-off-by: Lang Yu &lt;Lang.Yu@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; | 56 +++++++++----------<br>
-&nbsp;.../asic_reg/nbio/nbio_7_11_0_offset.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; |&nbsp; 9 ++-<br>
-&nbsp;2 files changed, 33 insertions(+), 32 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c b/drivers/gpu/drm/amd/=
-amdgpu/nbio_v7_11.c<br>
-index 6873eead1e19..3a94f249929e 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c<br>
-@@ -66,19 +66,19 @@ static void nbio_v7_11_sdma_doorbell_range(struct amdgp=
-u_device *adev, int insta<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; bool use_doorbell, int doorbell_index,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; int doorbell_size)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 reg =3D SOC15_REG_OFFSET(NBIO, 0,=
- regGDC0_BIF_SDMA0_DOORBELL_RANGE);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 reg =3D SOC15_REG_OFFSET(NBIO, 0,=
- regGDC0_BIF_CSDMA_DOORBELL_RANGE);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 doorbell_range =3D RRE=
-G32_PCIE_PORT(reg);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (use_doorbell) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; doorbell_range =3D REG_SET_FIELD(doorbell_range,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GDC0_BIF_SDMA0_DOORBELL_RANG=
-E,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GDC0_BIF_CSDMA_DOORBELL_RANG=
-E,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OFFSET, doorbell_=
-index);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; doorbell_range =3D REG_SET_FIELD(doorbell_range,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GDC0_BIF_SDMA0_DOORBELL_RANG=
-E,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GDC0_BIF_CSDMA_DOORBELL_RANG=
-E,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SIZE, doorbell_si=
-ze);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; doorbell_range =3D REG_SET_FIELD(doorbell_range,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GDC0_BIF_SDMA0_DOORBELL_RANG=
-E,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GDC0_BIF_CSDMA_DOORBELL_RANG=
-E,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SIZE, 0);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-@@ -145,27 +145,25 @@ static void nbio_v7_11_enable_doorbell_aperture(struc=
-t amdgpu_device *adev,<br>
-&nbsp;static void nbio_v7_11_enable_doorbell_selfring_aperture(struct amdgp=
-u_device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool enable)<br>
-&nbsp;{<br>
--/*&nbsp;&nbsp;&nbsp;&nbsp; u32 tmp =3D 0;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 tmp =3D 0;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (enable) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, BIF_BX_PF0_DOORBELL_SELFRING_GPA_APER=
-_CNTL,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, BIF_BX_PF1_DOORBELL_SELFRING_GPA_APER=
-_CNTL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DOORBELL_SELFRING_GPA_APER_EN, 1=
-) |<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; REG_SET_FIELD(tm=
-p, BIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_CNTL,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; REG_SET_FIELD(tmp, BIF_BX_PF=
-1_DOORBELL_SELFRING_GPA_APER_CNTL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DOORBELL_SELFRING_GPA_APER_MODE,=
- 1) |<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; REG_SET_FIELD(tm=
-p, BIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_CNTL,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; REG_SET_FIELD(tmp, BIF_BX_PF=
-1_DOORBELL_SELFRING_GPA_APER_CNTL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DOORBELL_SELFRING_GPA_APER_SIZE,=
- 0);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(NBIO, 0,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; regBIF_BX_PF0_DO=
-ORBELL_SELFRING_GPA_APER_BASE_LOW,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; regBIF_BX_PF1_DO=
-ORBELL_SELFRING_GPA_APER_BASE_LOW,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lower=
-_32_bits(adev-&gt;doorbell.base));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(NBIO, 0,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; regBIF_BX_PF0_DO=
-ORBELL_SELFRING_GPA_APER_BASE_HIGH,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; regBIF_BX_PF1_DO=
-ORBELL_SELFRING_GPA_APER_BASE_HIGH,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper=
-_32_bits(adev-&gt;doorbell.base));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(NBIO, 0, regBIF_BX_PF0_D=
-OORBELL_SELFRING_GPA_APER_CNTL,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; tmp);<br>
--*/<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(NBIO, 0, regBIF_BX_PF1_D=
-OORBELL_SELFRING_GPA_APER_CNTL, tmp);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;<br>
-@@ -216,12 +214,12 @@ static void nbio_v7_11_ih_control(struct amdgpu_devic=
-e *adev)<br>
-&nbsp;<br>
-&nbsp;static u32 nbio_v7_11_get_hdp_flush_req_offset(struct amdgpu_device *=
-adev)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return SOC15_REG_OFFSET(NBIO, 0, regB=
-IF_BX_PF0_GPU_HDP_FLUSH_REQ);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return SOC15_REG_OFFSET(NBIO, 0, regB=
-IF_BX_PF1_GPU_HDP_FLUSH_REQ);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static u32 nbio_v7_11_get_hdp_flush_done_offset(struct amdgpu_device =
-*adev)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return SOC15_REG_OFFSET(NBIO, 0, regB=
-IF_BX_PF0_GPU_HDP_FLUSH_DONE);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return SOC15_REG_OFFSET(NBIO, 0, regB=
-IF_BX_PF1_GPU_HDP_FLUSH_DONE);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static u32 nbio_v7_11_get_pcie_index_offset(struct amdgpu_device *ade=
-v)<br>
-@@ -236,27 +234,27 @@ static u32 nbio_v7_11_get_pcie_data_offset(struct amd=
-gpu_device *adev)<br>
-&nbsp;<br>
-&nbsp;static u32 nbio_v7_11_get_pcie_port_index_offset(struct amdgpu_device=
- *adev)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return SOC15_REG_OFFSET(NBIO, 0, regB=
-IF_BX_PF0_RSMU_INDEX);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return SOC15_REG_OFFSET(NBIO, 0, regB=
-IF_BX_PF1_RSMU_INDEX);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static u32 nbio_v7_11_get_pcie_port_data_offset(struct amdgpu_device =
-*adev)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return SOC15_REG_OFFSET(NBIO, 0, regB=
-IF_BX_PF0_RSMU_DATA);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return SOC15_REG_OFFSET(NBIO, 0, regB=
-IF_BX_PF1_RSMU_DATA);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;const struct nbio_hdp_flush_reg nbio_v7_11_hdp_flush_reg =3D {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_cp0 =3D BIF_BX_PF0_GPU_=
-HDP_FLUSH_DONE__CP0_MASK,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_cp1 =3D BIF_BX_PF0_GPU_=
-HDP_FLUSH_DONE__CP1_MASK,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_cp2 =3D BIF_BX_PF0_GPU_=
-HDP_FLUSH_DONE__CP2_MASK,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_cp3 =3D BIF_BX_PF0_GPU_=
-HDP_FLUSH_DONE__CP3_MASK,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_cp4 =3D BIF_BX_PF0_GPU_=
-HDP_FLUSH_DONE__CP4_MASK,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_cp5 =3D BIF_BX_PF0_GPU_=
-HDP_FLUSH_DONE__CP5_MASK,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_cp6 =3D BIF_BX_PF0_GPU_=
-HDP_FLUSH_DONE__CP6_MASK,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_cp7 =3D BIF_BX_PF0_GPU_=
-HDP_FLUSH_DONE__CP7_MASK,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_cp8 =3D BIF_BX_PF0_GPU_=
-HDP_FLUSH_DONE__CP8_MASK,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_cp9 =3D BIF_BX_PF0_GPU_=
-HDP_FLUSH_DONE__CP9_MASK,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_sdma0 =3D BIF_BX_PF0_GP=
-U_HDP_FLUSH_DONE__SDMA0_MASK,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_sdma1 =3D BIF_BX_PF0_GP=
-U_HDP_FLUSH_DONE__SDMA1_MASK,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_cp0 =3D BIF_BX_PF1_GPU_=
-HDP_FLUSH_DONE__CP0_MASK,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_cp1 =3D BIF_BX_PF1_GPU_=
-HDP_FLUSH_DONE__CP1_MASK,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_cp2 =3D BIF_BX_PF1_GPU_=
-HDP_FLUSH_DONE__CP2_MASK,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_cp3 =3D BIF_BX_PF1_GPU_=
-HDP_FLUSH_DONE__CP3_MASK,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_cp4 =3D BIF_BX_PF1_GPU_=
-HDP_FLUSH_DONE__CP4_MASK,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_cp5 =3D BIF_BX_PF1_GPU_=
-HDP_FLUSH_DONE__CP5_MASK,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_cp6 =3D BIF_BX_PF1_GPU_=
-HDP_FLUSH_DONE__CP6_MASK,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_cp7 =3D BIF_BX_PF1_GPU_=
-HDP_FLUSH_DONE__CP7_MASK,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_cp8 =3D BIF_BX_PF1_GPU_=
-HDP_FLUSH_DONE__CP8_MASK,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_cp9 =3D BIF_BX_PF1_GPU_=
-HDP_FLUSH_DONE__CP9_MASK,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_sdma0 =3D BIF_BX_PF1_GP=
-U_HDP_FLUSH_DONE__SDMA0_MASK,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ref_and_mask_sdma1 =3D BIF_BX_PF1_GP=
-U_HDP_FLUSH_DONE__SDMA1_MASK,<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;static void nbio_v7_11_init_registers(struct amdgpu_device *adev)<br>
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset.h=
- b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset.h<br>
-index f446b1760f7c..846a8cf3926a 100644<br>
---- a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset.h<br>
-+++ b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset.h<br>
-@@ -8187,9 +8187,9 @@<br>
-&nbsp;#define regBIF_BX0_PCIE_INDEX_BASE_IDX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5<br>
-&nbsp;#define regBIF_BX0_PCIE_DATA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x800d<br>
-&nbsp;#define regBIF_BX0_PCIE_DATA_BASE_IDX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5<br>
--#define regBIF_BX0_PCIE_INDEX2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; 0xe<br>
-+#define regBIF_BX0_PCIE_INDEX2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; 0x800e<br>
-&nbsp;#define regBIF_BX0_PCIE_INDEX2_BASE_IDX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0<br>
--#define regBIF_BX0_PCIE_DATA2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; 0xf<br>
-+#define regBIF_BX0_PCIE_DATA2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; 0x800f<br>
-&nbsp;#define regBIF_BX0_PCIE_DATA2_BASE_IDX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0<br>
-&nbsp;#define regBIF_BX0_SBIOS_SCRATCH_0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; 0x8048<br>
-&nbsp;#define regBIF_BX0_SBIOS_SCRATCH_0_BASE_IDX&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5<br>
-@@ -8678,7 +8678,10 @@<br>
-&nbsp;#define regBIF_BX_PF1_MM_DATA_BASE_IDX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0<br>
-&nbsp;#define regBIF_BX_PF1_MM_INDEX_HI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; 0x0006<br>
-&nbsp;#define regBIF_BX_PF1_MM_INDEX_HI_BASE_IDX&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0<br>
--<br>
-+#define regBIF_BX_PF1_RSMU_INDEX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; 0x0000<br>
-+#define regBIF_BX_PF1_RSMU_INDEX_BASE_IDX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1<br>
-+#define regBIF_BX_PF1_RSMU_DATA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; 0x0001<br>
-+#define regBIF_BX_PF1_RSMU_DATA_BASE_IDX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1<br>
-&nbsp;<br>
-&nbsp;// addressBlock: nbio_nbif0_bif_bx_BIFDEC1:1<br>
-&nbsp;// base address: 0x0<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
+ 
+ struct amdgpu_vm_update_funcs {
+@@ -436,7 +442,7 @@ int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
+ void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
+ 			    struct amdgpu_vm *vm, struct amdgpu_bo *bo);
+ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+-			   bool immediate, bool unlocked, bool flush_tlb,
++			   bool immediate, bool unlocked, bool flush_tlb, bool allow_override,
+ 			   struct dma_resv *resv, uint64_t start, uint64_t last,
+ 			   uint64_t flags, uint64_t offset, uint64_t vram_base,
+ 			   struct ttm_resource *res, dma_addr_t *pages_addr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+index 9b025fd17b84..80273809c93f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+@@ -842,7 +842,7 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
+ 	 * to be on the same NUMA node.
+ 	 */
+ 	if ((flags &amp; AMDGPU_PTE_SYSTEM) &amp;&amp; (adev-&gt;flags &amp; AMD_IS_APU) &amp;&amp;
+-	    adev-&gt;gmc.gmc_funcs-&gt;override_vm_pte_flags &amp;&amp;
++	    params-&gt;allow_override &amp;&amp; adev-&gt;gmc.gmc_funcs-&gt;override_vm_pte_flags &amp;&amp;
+ 	    num_possible_nodes() &gt; 1 &amp;&amp; !params-&gt;pages_addr)
+ 		amdgpu_gmc_override_vm_pte_flags(adev, params-&gt;vm, addr, &amp;flags);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 3a1050344b59..1456f76b7fb2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1251,12 +1251,15 @@ static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
+ 		return;
+ 	}
+ 
+-	/* Only override mappings with MTYPE_NC, which is the safe default for
+-	 * cacheable memory.
++	/* MTYPE_NC is the same default and can be overridden.
++	 * MTYPE_UC will be present if the memory is external-coherent
++	 * and can also be overridden.
+ 	 */
+ 	if ((*flags &amp; AMDGPU_PTE_MTYPE_VG10_MASK) !=
+-	    AMDGPU_PTE_MTYPE_VG10(MTYPE_NC)) {
+-		dev_dbg_ratelimited(adev-&gt;dev, &quot;MTYPE is not NC\n&quot;);
++	    AMDGPU_PTE_MTYPE_VG10(MTYPE_NC) &amp;&amp;
++	    (*flags &amp; AMDGPU_PTE_MTYPE_VG10_MASK) !=
++	    AMDGPU_PTE_MTYPE_VG10(MTYPE_UC)) {
++		dev_dbg_ratelimited(adev-&gt;dev, &quot;MTYPE is not NC or UC\n&quot;);
+ 		return;
+ 	}
+ 
+@@ -1283,15 +1286,23 @@ static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
+ 			    vm-&gt;mem_id, local_node, nid);
+ 	if (nid == local_node) {
+ 		uint64_t old_flags = *flags;
+-		unsigned int mtype_local = MTYPE_RW;
++		if ((*flags &amp; AMDGPU_PTE_MTYPE_VG10_MASK) ==
++			AMDGPU_PTE_MTYPE_VG10(MTYPE_NC)) {
++			unsigned int mtype_local = MTYPE_RW;
+ 
+-		if (amdgpu_mtype_local == 1)
+-			mtype_local = MTYPE_NC;
+-		else if (amdgpu_mtype_local == 2)
+-			mtype_local = MTYPE_CC;
++			if (amdgpu_mtype_local == 1)
++				mtype_local = MTYPE_NC;
++			else if (amdgpu_mtype_local == 2)
++				mtype_local = MTYPE_CC;
++
++			*flags = (*flags &amp; ~AMDGPU_PTE_MTYPE_VG10_MASK) |
++				 AMDGPU_PTE_MTYPE_VG10(mtype_local);
++		} else {
++			/* MTYPE_UC case */
++			*flags = (*flags &amp; ~AMDGPU_PTE_MTYPE_VG10_MASK) |
++				 AMDGPU_PTE_MTYPE_VG10(MTYPE_CC);
++		}
+ 
+-		*flags = (*flags &amp; ~AMDGPU_PTE_MTYPE_VG10_MASK) |
+-			 AMDGPU_PTE_MTYPE_VG10(mtype_local);
+ 		dev_dbg_ratelimited(adev-&gt;dev, &quot;flags updated from %llx to %llx\n&quot;,
+ 				    old_flags, *flags);
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 7b81233bc9ae..bbaec633a806 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1321,7 +1321,7 @@ svm_range_unmap_from_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 
+ 	pr_debug(&quot;[0x%llx 0x%llx]\n&quot;, start, last);
+ 
+-	return amdgpu_vm_update_range(adev, vm, false, true, true, NULL, start,
++	return amdgpu_vm_update_range(adev, vm, false, true, true, false, NULL, start,
+ 				      last, init_pte_value, 0, 0, NULL, NULL,
+ 				      fence);
+ }</pre>
+    </blockquote>
+    <p>This change from the last version is still needed, right?<br>
+    </p>
+    <p><span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI
+        Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system,
+        BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;,
+        sans-serif; font-size: 14.6667px; display: inline !important;
+        color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">@@ -1286,7 +1286,7 @@
+        svm_range_get_pte_flags(struct kfd_node *node,</span><br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web
+        (West European)&quot;, &quot;Segoe UI&quot;, -apple-system,
+        BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;,
+        sans-serif; font-size: 14.6667px; color: rgb(0, 0, 0);
+        background-color: rgb(255, 255, 255);" class="ContentPasted0">
+      <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web
+        (West European)&quot;, &quot;Segoe UI&quot;, -apple-system,
+        BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;,
+        sans-serif; font-size: 14.6667px; display: inline !important;
+        color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
+        (num_possible_nodes() &lt;= 1)</span><br style="font-family:
+        &quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&quot;,
+        &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto,
+        &quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px;
+        color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
+      <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web
+        (West European)&quot;, &quot;Segoe UI&quot;, -apple-system,
+        BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;,
+        sans-serif; font-size: 14.6667px; display: inline !important;
+        color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        mapping_flags |= mtype_local;</span><br style="font-family:
+        &quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&quot;,
+        &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto,
+        &quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px;
+        color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
+      <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web
+        (West European)&quot;, &quot;Segoe UI&quot;, -apple-system,
+        BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;,
+        sans-serif; font-size: 14.6667px; display: inline !important;
+        color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else</span><br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web
+        (West European)&quot;, &quot;Segoe UI&quot;, -apple-system,
+        BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;,
+        sans-serif; font-size: 14.6667px; color: rgb(0, 0, 0);
+        background-color: rgb(255, 255, 255);" class="ContentPasted0">
+      <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web
+        (West European)&quot;, &quot;Segoe UI&quot;, -apple-system,
+        BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;,
+        sans-serif; font-size: 14.6667px; display: inline !important;
+        color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        mapping_flags |= AMDGPU_VM_MTYPE_NC;</span><br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web
+        (West European)&quot;, &quot;Segoe UI&quot;, -apple-system,
+        BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;,
+        sans-serif; font-size: 14.6667px; color: rgb(0, 0, 0);
+        background-color: rgb(255, 255, 255);" class="ContentPasted0">
+      <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web
+        (West European)&quot;, &quot;Segoe UI&quot;, -apple-system,
+        BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;,
+        sans-serif; font-size: 14.6667px; display: inline !important;
+        color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        mapping_flags |= ext_coherent ? AMDGPU_VM_MTYPE_UC :
+        AMDGPU_VM_MTYPE_NC;</span><br style="font-family: &quot;Segoe
+        UI&quot;, &quot;Segoe UI Web (West European)&quot;, &quot;Segoe
+        UI&quot;, -apple-system, BlinkMacSystemFont, Roboto,
+        &quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px;
+        color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
+      <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web
+        (West European)&quot;, &quot;Segoe UI&quot;, -apple-system,
+        BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;,
+        sans-serif; font-size: 14.6667px; display: inline !important;
+        color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* system memory
+        accessed by the dGPU */</span><br style="font-family:
+        &quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&quot;,
+        &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto,
+        &quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px;
+        color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">
+      <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web
+        (West European)&quot;, &quot;Segoe UI&quot;, -apple-system,
+        BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;,
+        sans-serif; font-size: 14.6667px; display: inline !important;
+        color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {</span><br style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web
+        (West European)&quot;, &quot;Segoe UI&quot;, -apple-system,
+        BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;,
+        sans-serif; font-size: 14.6667px; color: rgb(0, 0, 0);
+        background-color: rgb(255, 255, 255);" class="ContentPasted0">
+      <span style="font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web
+        (West European)&quot;, &quot;Segoe UI&quot;, -apple-system,
+        BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;,
+        sans-serif; font-size: 14.6667px; display: inline !important;
+        color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class="ContentPasted0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mapping_flags |=
+        AMDGPU_VM_MTYPE_UC;</span></p>
+    <blockquote type="cite" cite="mid:20231012163941.553980-1-David.Francis@amd.com">
+      <pre class="moz-quote-pre" wrap="">
+@@ -1428,8 +1428,8 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
+ 		 * different memory partition based on fpfn/lpfn, we should use
+ 		 * same vm_manager.vram_base_offset regardless memory partition.
+ 		 */
+-		r = amdgpu_vm_update_range(adev, vm, false, false, flush_tlb, NULL,
+-					   last_start, prange-&gt;start + i,
++		r = amdgpu_vm_update_range(adev, vm, false, false, flush_tlb, true,
++					   NULL, last_start, prange-&gt;start + i,
+ 					   pte_flags,
+ 					   (last_start - prange-&gt;start) &lt;&lt; PAGE_SHIFT,
+ 					   bo_adev ? bo_adev-&gt;vm_manager.vram_base_offset : 0,
+</pre>
+    </blockquote>
+  </body>
 </html>
-
---_000_BL1PR12MB5144F9F939D487A4DD01D2C2F7D3ABL1PR12MB5144namp_--
