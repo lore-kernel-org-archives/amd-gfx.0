@@ -4,62 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4C4CCDB482
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Oct 2023 17:22:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC2ECCDB46E
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Oct 2023 17:22:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF3A710E4B4;
-	Thu, 12 Oct 2023 17:22:03 +0000 (UTC)
-Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com
- [IPv6:2607:f8b0:4864:20::d35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3933010E546;
- Thu, 12 Oct 2023 17:22:00 +0000 (UTC)
-Received: by mail-io1-xd35.google.com with SMTP id
- ca18e2360f4ac-79fa7e33573so47578639f.0; 
- Thu, 12 Oct 2023 10:22:00 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B09510E53F;
+	Thu, 12 Oct 2023 17:22:05 +0000 (UTC)
+Received: from mail-io1-xd33.google.com (mail-io1-xd33.google.com
+ [IPv6:2607:f8b0:4864:20::d33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D658710E535;
+ Thu, 12 Oct 2023 17:21:56 +0000 (UTC)
+Received: by mail-io1-xd33.google.com with SMTP id
+ ca18e2360f4ac-79fa7e33573so47576839f.0; 
+ Thu, 12 Oct 2023 10:21:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1697131319; x=1697736119; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1697131316; x=1697736116; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=mLvXeLnsRUQ3/TUrQnBU04ibB7JIWTVa6JOjlgQ9hVM=;
- b=eBBQJkU5Kjh5hwWCGhmLFatrk80h2gBgbRNXydkO8qHF7pLsRsiud6CQM8XnMslS+p
- QAHrRmftWzGzNJ5wCF5I8zktKziBdlo9BEDNBZen17M8bmP3O8jVemkWyseaXf+HudMB
- /rnS1TNUPGGXWa997ugPYq/HlJNk2fQD0TEw/Pt7jUjGTWMbh+P2nQALjG9RxFFr7EJU
- QpS2IBDibOKPiOJu5BCkd1cYqcVUT7GTyO8oAskoU12UxcjINhplE1fWWpclh+wGQLz7
- Fon6sW55def8f/SBWNYDZ7zIrDwgVHSEgk1NrYiqXUwWEnMlTvo7w/0g2N+ABVtkciuh
- gbgQ==
+ bh=/hQ8DAFT4FsmbzhSx1IDeWkXEPOHVXkBPwwDIEI4NyY=;
+ b=dKuqbtGu5UuDNmzbDLSqLA1reYBS49nc+Z83nsdWsE1PWTmVIY1im4cJxde8Fs2sf8
+ JGw/aTO9sS/oMgmo2zb7qey8PgbTc85/p4nID3Pf2t6q00sSqpjqoPeC2TyjteLT1N8A
+ Rnkth+htnfXpriT5Pu5vXzYihO2szIb1el9HZ1xgAUdiqglSz8a8ob96dsu5D22MGdK3
+ 1+JFmn59/jeKWjIMQIjn0zqINB8soK5rkbWRxpukiVbrNKW7BMdTkQEnqzWmOVfNEpzB
+ VHDEkcxSW6akRkD8mU8kbeJtJqaitHICuQmsj7yB7pSDF6KqX0faJU0lrasiSSe9ThR1
+ iTHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697131319; x=1697736119;
+ d=1e100.net; s=20230601; t=1697131316; x=1697736116;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=mLvXeLnsRUQ3/TUrQnBU04ibB7JIWTVa6JOjlgQ9hVM=;
- b=ejq/Cd8OTCeg+0TiBhVeKrHt2+CJDC+fW/6D1XZwj9P3aNqTkIc9IqfHnu+7/2zvc7
- VffARxBRRIdP1btjXAkVcK8pd9bi+9s2SEm8/NoHhMPZ3NE6FFAyshxLWKnI7FJ2qKr8
- YXsyjPGEoJnvng7Ysxx1CUchzDQrRaNPejt0AT4TPdSj3FzUaJIIr4s4RiU9CfdzYFaT
- cGtvdpTGgr1oEZ/j5U2Pda2YMFWNoctzxrRFtHjwhIOvkYLs7sw/oHl/OswXTUgnU1Ku
- doQg0DXHUPWpkf1sXoltTlRhF0eArOWM2FM8eQi19bLK47ZUzgyNpstAqJmzndQ+/o7r
- kIDg==
-X-Gm-Message-State: AOJu0YwRiSWAJ3Ofv35/D8M9TwYX7HVGXuQbWLiacfKPIipj5jkTfvHG
- I596HL/WbRTJqW00Y9kijF8=
-X-Google-Smtp-Source: AGHT+IE2tJWSIJx2OKiUKOKA8OGPuZNoC8ZMOC/9GzKy2gHun+n4J8zu0A2UicwUk/2jPgQyNDrSRw==
-X-Received: by 2002:a5e:dd0d:0:b0:786:7100:72de with SMTP id
- t13-20020a5edd0d000000b00786710072demr25476578iop.16.1697131319452; 
- Thu, 12 Oct 2023 10:21:59 -0700 (PDT)
+ bh=/hQ8DAFT4FsmbzhSx1IDeWkXEPOHVXkBPwwDIEI4NyY=;
+ b=RQCxO04OFdeSLL6Xv/ZuvopcJa+pzA2bAyhtge66X/aX1TvoZJNI/8f0wPJjU0s/Ve
+ zCjVsTbGxq6MBYZDx8xxjBbGBjwHqhZ2sIQ1otQ6VlilUH0uMMwiVfEfmrYYoewbOqaa
+ L8IUf6vIUky/aOAW2TtjFz/wIClmY4lDeEj1dI0oQWWnmh28OJn7i0iOOodVwIOzr85l
+ YwvyFDVXKw98PJXFkPKBcHWDaTW5uYHA7ReAqE1FoyNlmZ2wyz619RP+mM0PmSQFqVET
+ abXIN2PNb1bbjrvk/8d8cDzZyOxaKF+5dNevp0YHAnTraqvttg/zqrWs0kF3d7jZ5Wjc
+ WA7g==
+X-Gm-Message-State: AOJu0Yxya+9LSw4UBp9jeRYWGZNHZYBkxfe1i2oeuw+ffL93mDo3de8e
+ SwU0f6V2U+jPia71c12ciIk=
+X-Google-Smtp-Source: AGHT+IEo1g2HTIBCaLMDhfsFFJ7LRrzynbNpLzKaWyP6ru97x2P+o/io0ObzBpjOhWBtJ4x5Hvl3VA==
+X-Received: by 2002:a5e:8810:0:b0:799:2163:418a with SMTP id
+ l16-20020a5e8810000000b007992163418amr27533828ioj.13.1697131316146; 
+ Thu, 12 Oct 2023 10:21:56 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- r25-20020a028819000000b0043cef0711c1sm3992211jai.158.2023.10.12.10.21.58
+ r25-20020a028819000000b0043cef0711c1sm3992211jai.158.2023.10.12.10.21.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Oct 2023 10:21:59 -0700 (PDT)
+ Thu, 12 Oct 2023 10:21:55 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH v7 12/25] dyndbg: reduce verbose=3 messages in
- ddebug_add_module
-Date: Thu, 12 Oct 2023 11:21:23 -0600
-Message-ID: <20231012172137.3286566-13-jim.cromie@gmail.com>
+Subject: [PATCH v7 09/25] dyndbg: silence debugs with no-change updates
+Date: Thu, 12 Oct 2023 11:21:20 -0600
+Message-ID: <20231012172137.3286566-10-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20231012172137.3286566-1-jim.cromie@gmail.com>
 References: <20231012172137.3286566-1-jim.cromie@gmail.com>
@@ -83,35 +82,50 @@ Cc: groeck@google.com, linux-doc@vger.kernel.org, jani.nikula@intel.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The fn currently says "add-module", then "skipping" if the module has
-no prdbgs.  Just check 1st and return quietly.
-
-no functional change
+check for actual changes before announcing them, declutter logs.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ lib/dynamic_debug.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 8beb98a831f5..45870a699507 100644
+index b0e11f6bfaa2..b07aab422604 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -1242,11 +1242,10 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- {
- 	struct ddebug_table *dt;
+@@ -591,7 +591,7 @@ static int ddebug_exec_queries(char *query, const char *modname)
+ 	return nfound;
+ }
  
--	v3pr_info("add-module: %s.%d sites\n", modname, di->num_descs);
--	if (!di->num_descs) {
--		v3pr_info(" skip %s\n", modname);
-+	if (!di->num_descs)
- 		return 0;
--	}
-+
-+	v3pr_info("add-module: %s %d sites\n", modname, di->num_descs);
+-/* apply a new bitmap to the sys-knob's current bit-state */
++/* apply a new class-param setting */
+ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 				     unsigned long *new_bits, unsigned long *old_bits,
+ 				     const char *query_modname)
+@@ -602,8 +602,9 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 	int matches = 0;
+ 	int bi, ct;
  
- 	dt = kzalloc(sizeof(*dt), GFP_KERNEL);
- 	if (dt == NULL) {
+-	v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits, *old_bits,
+-		  query_modname ?: "");
++	if (*new_bits != *old_bits)
++		v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
++			  *old_bits, query_modname ?: "'*'");
+ 
+ 	for (bi = 0; bi < map->length; bi++) {
+ 		if (test_bit(bi, new_bits) == test_bit(bi, old_bits))
+@@ -618,8 +619,9 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 		v2pr_info("bit_%d: %d matches on class: %s -> 0x%lx\n", bi,
+ 			  ct, map->class_names[bi], *new_bits);
+ 	}
+-	v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits, *old_bits,
+-		  query_modname ?: "");
++	if (*new_bits != *old_bits)
++		v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
++			  *old_bits, query_modname ?: "'*'");
+ 
+ 	return matches;
+ }
 -- 
 2.41.0
 
