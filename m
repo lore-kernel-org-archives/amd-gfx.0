@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFA54CDB46E
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Oct 2023 09:01:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC272CDB482
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Oct 2023 09:01:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EA8E10E46B;
-	Thu, 12 Oct 2023 09:01:15 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CA6A10E46B
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0711910E46D;
+	Thu, 12 Oct 2023 09:01:16 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2045.outbound.protection.outlook.com [40.107.244.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C4C610E46D
  for <amd-gfx@lists.freedesktop.org>; Thu, 12 Oct 2023 09:01:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Gxhout+uzdAhDShPtCRVRexcaVpl+bhMUO49PlUk8LIdFqlVpaf0iKdTmY++h0f+YJZPWmDyvgcRsjcbxbRkPQH2ch6AjVOYnLUSZefceUeo+lzT++3qzw4pwh1UgBgkvcms4Nht2Mvtcd9CYVB0/agmRpwsqbWBegmph2PFNc4iUlx/oU32t4gCbXc3FUy5i0oMrybuSfhwjA62Twl4FY7LRL4xWusBuFyMFbe092y9sOnoOJ6TmvutgW+MP5vAayigXzeLPmJTB746K2/uL6tFg3G6GEDDcijW84VkpZvyhpa4mCi6kk7+I5IqcTM6X54+9d0xA5pXogKuLBJpyg==
+ b=eHoEkM3yTLQKIBXvhPLg7IWUgGSx0J5JbREd2gBlC6yFDA8xhlOSw6yN14JcKXMXq+1ThqvbkA6g3nhP0cZB0v/0eHBV72HKH3jKayjMhdCUsRc4gVg5qa7TiJ42ywCOnl3kfNhIJg9UViICzEVV2gm7CdySCI7ygbfrq5ySn2ltYqBytlTsrTv85N5I2yKbipDOuUMG79g4J+L9W8o8Q1+cXoO9X1SO6JRWN7mKkzXR7iOnvIPAJQpliDzGDDJexZQEJ4OzDPZkPyjDbaGNZ5DwGoNdbobTOgG7o4mJay0CfgJVn/eWIPaJKFuB4Ul+cAT0RhzQNhjP5Rk92BqXkA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m++EewdcgmhaZhG3Y3n021RYgefZ7QnSa0NEbflDPi8=;
- b=b9Acp/RNR/Nr5v+LGyuHlERAK5CAwBss/0kcNGr3Hf0PJjH4IZvfgkKEfH5erYHsB5qTVvuCTUPAHAJLRrPVi5dIX53hiiqnOXktT8Yx22euxvIf8Y3aF2ogvU7AUcn9/+PXyOSfldu/xeNzHvsiIg2pggBjUVXoykmWSnmGC0oTvbpaLypXMMbINVRkrDJw3+zGhy/A78lccL0K9a8F1h1wZ09ofoZHxCXBhjFdERi637nRg8Va7Uf9onV4a8tD/NUI+pLesHFWtzg281XxzCxuuM/lSJV9Iu5R+84RyFTcXEg4C/6xQFU6GeE46Z4OI7RSwL3VG3QF9SSXL1hwkw==
+ bh=CghFq87ff/XSdYZ4bugqp2nCa39Lo8HNKo+n8nz7sAI=;
+ b=dUDP3+oELnB8YvDOqUfnsAG+xvzhoT/T70TSaMU4qFUEaKSnukFdZh5/sU6IYtmR8JD+qb1QUXTl5nuOIXvYCFItoPHGzVVzJucNrcphfFKUl2ZYmSUiMujENtf8cv4PhBuU52TGANfK4aG9ufaUooteiGrP6kc+1VWV/2dneUayWZZSzQG0YzTP1P8eN+xpjb5VeYUeM3Q52MrOKxCFON1HtckzfrBCd7Q1HtPrILjJFiwS8dRJsGvB2Ps/JHDD1Se31Hp+Y/ri0ZbEPgRuK5jGyEwI6V8lNEIEjPHoNWy7oKdvp2aj2BOCF/NXuu6+xl6E1WAGKFCDZ9S/lC+hCA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m++EewdcgmhaZhG3Y3n021RYgefZ7QnSa0NEbflDPi8=;
- b=IG6wSxFRpKa7hMO8DftX9p3R4sRyUh4kpHETXk2won4+z7f1koC2p1J+hVurg55CNVL9W9wqP+YTxuO/8Kzs7t0a51TpK2RC+lbiR0jNnU4PoaiW+6bBkEynrXLTa3iqc9hX5WODkJH1hlR+87gJLjO9BAgultd7MeM7jLbg18k=
-Received: from CY5PR13CA0065.namprd13.prod.outlook.com (2603:10b6:930:a::18)
- by MW4PR12MB8609.namprd12.prod.outlook.com (2603:10b6:303:1e2::22) with
+ bh=CghFq87ff/XSdYZ4bugqp2nCa39Lo8HNKo+n8nz7sAI=;
+ b=HosVw+DfjQM2x4Y4x7zhOapaztANJN6qJA3vN+6RvE62UKYSmGF27nAmCGugK6d4xH+67r38rZ8iyluuYTUhvnQXANMw+kkmhricdsiaRUomCOzVGrOk0uRbbtUqh1VoLjjDOUmoUvsdYhRAIqo0HKhLd1WfT6Hg5FTv0M2HloA=
+Received: from CY5PR13CA0067.namprd13.prod.outlook.com (2603:10b6:930:a::25)
+ by CH2PR12MB4232.namprd12.prod.outlook.com (2603:10b6:610:a4::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.38; Thu, 12 Oct
- 2023 09:01:10 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.37; Thu, 12 Oct
+ 2023 09:01:11 +0000
 Received: from CY4PEPF0000E9DC.namprd05.prod.outlook.com
- (2603:10b6:930:a:cafe::4e) by CY5PR13CA0065.outlook.office365.com
- (2603:10b6:930:a::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.30 via Frontend
- Transport; Thu, 12 Oct 2023 09:01:09 +0000
+ (2603:10b6:930:a:cafe::c5) by CY5PR13CA0067.outlook.office365.com
+ (2603:10b6:930:a::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.27 via Frontend
+ Transport; Thu, 12 Oct 2023 09:01:11 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,18 +47,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CY4PEPF0000E9DC.mail.protection.outlook.com (10.167.241.82) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.22 via Frontend Transport; Thu, 12 Oct 2023 09:01:08 +0000
+ 15.20.6838.22 via Frontend Transport; Thu, 12 Oct 2023 09:01:10 +0000
 Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 12 Oct
- 2023 04:01:06 -0500
+ 2023 04:01:08 -0500
 From: Tao Zhou <tao.zhou1@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <stanley.yang@amd.com>,
  <hawking.zhang@amd.com>, <candice.li@amd.com>, <yipeng.chai@amd.com>,
  <kevinyang.wang@amd.com>
-Subject: [PATCH 2/5] drm/amdgpu: add set/get mca debug mode operations
-Date: Thu, 12 Oct 2023 17:00:31 +0800
-Message-ID: <20231012090034.31055-2-tao.zhou1@amd.com>
+Subject: [PATCH 3/5] drm/amd/pm: record mca debug mode in RAS
+Date: Thu, 12 Oct 2023 17:00:32 +0800
+Message-ID: <20231012090034.31055-3-tao.zhou1@amd.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20231012090034.31055-1-tao.zhou1@amd.com>
 References: <20231012090034.31055-1-tao.zhou1@amd.com>
@@ -70,26 +70,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9DC:EE_|MW4PR12MB8609:EE_
-X-MS-Office365-Filtering-Correlation-Id: ed0d6ba8-5183-4b70-bb36-08dbcb01c6a0
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9DC:EE_|CH2PR12MB4232:EE_
+X-MS-Office365-Filtering-Correlation-Id: 52aec401-394c-463d-e8af-08dbcb01c7d1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: rUCUYGT4arywZlZShlykNbATgaxMVH6O7JapHYvznuN8Pj5PBYvOz0QLA70m4Hbbv+u1b21rMFrrwx8hgRSuHs4RbZR0/rP0WUvfNAE3b1Jiwl8QlTm+Nv3jRsoE5nJWB9dkou+/E9xcpLlIUciPYUIJurEwC7e5WzrBjfRDYJO4R3UdhmXRcE4bvVy35oxjFJbeYdxqmXHeC77MRZuaf2Ktw7rZqoSNQKHhr7e1gOeXBtSxbyuB4OHHRRKvWBxOa8GCIQU6+wBxb/qjWIHO94hCCWi9pQMjsW4age44IGlQu8RjjuWWH/YcoybaS05DjWX9/M1ygIZjjh9CLA3EVy14QqEon6uGdz7jpQbXT8TTqmDy6ki+C7zpt5MKFjRdOlSdAcaWIrkMsP7RCiklwEVHHUjzkWnEYCWWW5XaXIh6yHxThYhdcLWXDTlvGkanl66Mvff8ORbaaUBsNy4YmlzMXwB3LI8verNnrMUiYf/gHR/M6bwybSbNamBJme4gGvz12OqXa4xKAclHcqY4MUPlDyU8G9oju3XZFP3DnyqF+uqhXRVPm3NdkwFJ0wLzyALtt2NUz5RZizUryWY7+ZcE9fsG4H0hlvrIrLlczyuPpYarbyJjPSWZwa3lxkUw6q1htygf4Hh0F0oOId1t4suC69i9g4j448/z+XpHZxxTXD7g8UfOjjwIzHXZb3N0hcs2F0Ym5uLycuNYZ52YqvXAsV0hcVrb/pS51zSI3/Rs5h0FRWILcRAfpRreZLaz9sdibNlNub9GLnmUKbyI/g==
+X-Microsoft-Antispam-Message-Info: ZrZIy3aFx5Mlkvg1ho4+XYAny4dTL+UQzKVk7oCrmlSPzytWRdu4vfDbde7zfzUgyopECUETnq8RMxI2ik11UmGOwZ4C3AC0WGNN77ZYxprMbg/Tvvt+1qx8KXZ+HKoxjTMfB8sQTR4SJomaq6v43k8sy/1CTFDBxGuyImyp4WouInjI/URHhi+SUFCV6TXER244wApgLPIqY/EZmtrOwira0AzaP/szZr9cZqZonuRdowVe99W3wIjOdxUDjETWqHWeQQlG2WXst8s1yueDAxZJPBVbHqxd7WFknXAUfk4KpQWRdw8iequ6e8vULBKG3GhCFWv8O/+R1goow7rSCZPPrHHb3Gj2heeuakIxR6dwsu+H25d/M7VS7X4NWhsfkBIASA5JZ8rWU8+ALTO8mVuIPbKpb3R1FCEbMnVLXjfQ3X2FHQtazEG6S2vhqVRZVhqYSGX+XVhTFTD5fnAPY7MnOP6epr0KLtvDqbst5KvIzPDFFeBzQhRujHGLzGdxHByed5dP702DtMuTQ10qLC64vV/cbGDrVNLD12iKuthdeIFONuG0fvBMtBAoqlLyiszC3da7AedbFMFg4FfLzunx5IP08/anpxJPtHvjl+tUo+AhuYHdgvBMgRWGsygpr8+o49rAzNyiWQ6DzgCfAVywOy5C8KQdu9K/3GCBteByo2xk51QsRzUbxTpRmkRdB/HKtDzzBvdXYiE/ZU7fpCQdiwicIx0axrpzj0RKY2U69WDrrgrz2sjkVuTKwMpTiAxGhnVK0Mwbf28rwzrIFg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(346002)(396003)(376002)(136003)(230922051799003)(1800799009)(64100799003)(82310400011)(451199024)(186009)(40470700004)(36840700001)(46966006)(1076003)(40460700003)(478600001)(86362001)(82740400003)(40480700001)(356005)(81166007)(36756003)(36860700001)(2906002)(83380400001)(26005)(6666004)(16526019)(7696005)(2616005)(47076005)(8936002)(4326008)(426003)(316002)(41300700001)(6636002)(70206006)(110136005)(8676002)(5660300002)(70586007)(336012)(36900700001);
+ SFS:(13230031)(4636009)(376002)(396003)(136003)(346002)(39860400002)(230922051799003)(82310400011)(1800799009)(451199024)(64100799003)(186009)(40470700004)(36840700001)(46966006)(1076003)(40460700003)(7696005)(81166007)(356005)(36756003)(86362001)(40480700001)(336012)(82740400003)(36860700001)(426003)(26005)(47076005)(4744005)(4326008)(2906002)(8936002)(2616005)(16526019)(478600001)(6666004)(110136005)(8676002)(316002)(41300700001)(6636002)(70586007)(70206006)(5660300002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2023 09:01:08.9791 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed0d6ba8-5183-4b70-bb36-08dbcb01c6a0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2023 09:01:10.9791 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52aec401-394c-463d-e8af-08dbcb01c7d1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9DC.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB8609
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4232
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,69 +105,26 @@ Cc: Tao Zhou <tao.zhou1@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Record the debug mode status in RAS.
+Call amdgpu_ras_set_mca_debug_mode when we set mca debug mode in smu
+v13_0_6.
 
 Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 21 +++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  5 +++++
- 2 files changed, 26 insertions(+)
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 82ee6f3d12da..91ed4fd96ee1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -3250,6 +3250,27 @@ int amdgpu_ras_reset_gpu(struct amdgpu_device *adev)
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index 8220bdcbd927..55b0846337a7 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -1414,6 +1414,7 @@ static int smu_v13_0_6_mca_set_debug_mode(struct smu_context *smu, bool enable)
+ 	if (smu_version < 0x554800)
+ 		return 0;
  
-+void amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool enable)
-+{
-+	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
-+
-+	if (con)
-+		con->is_mca_debug_mode = enable;
-+}
-+
-+bool amdgpu_ras_get_mca_debug_mode(struct amdgpu_device *adev)
-+{
-+	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
-+	const struct amdgpu_mca_smu_funcs *mca_funcs = adev->mca.mca_funcs;
-+
-+	if (!con)
-+		return false;
-+
-+	if (mca_funcs && mca_funcs->mca_set_debug_mode)
-+		return con->is_mca_debug_mode;
-+	else
-+		return true;
-+}
- 
- /* Register each ip ras block into amdgpu ras */
- int amdgpu_ras_register_ras_block(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index deea10b6c184..c60688dc73ea 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -433,6 +433,8 @@ struct amdgpu_ras {
- 
- 	/* Indicates smu whether need update bad channel info */
- 	bool update_channel_flag;
-+	/* Record status of smu mca debug mode */
-+	bool is_mca_debug_mode;
- 
- 	/* Record special requirements of gpu reset caller */
- 	uint32_t  gpu_reset_flags;
-@@ -748,6 +750,9 @@ struct amdgpu_ras* amdgpu_ras_get_context(struct amdgpu_device *adev);
- 
- int amdgpu_ras_set_context(struct amdgpu_device *adev, struct amdgpu_ras *ras_con);
- 
-+void amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool enable);
-+bool amdgpu_ras_get_mca_debug_mode(struct amdgpu_device *adev);
-+
- int amdgpu_ras_register_ras_block(struct amdgpu_device *adev,
- 				struct amdgpu_ras_block_object *ras_block_obj);
- void amdgpu_ras_interrupt_fatal_error_handler(struct amdgpu_device *adev);
++	amdgpu_ras_set_mca_debug_mode(smu->adev, enable);
+ 	return smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_ClearMcaOnRead,
+ 					       enable ? 0 : ClearMcaOnRead_UE_FLAG_MASK | ClearMcaOnRead_CE_POLL_MASK,
+ 					       NULL);
 -- 
 2.35.1
 
