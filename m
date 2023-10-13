@@ -4,114 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAA0ACDB47E
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Oct 2023 11:37:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 933D7CDB47E
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Oct 2023 13:31:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8D0510E039;
-	Fri, 13 Oct 2023 11:37:17 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2060.outbound.protection.outlook.com [40.107.93.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC3C810E067;
- Fri, 13 Oct 2023 11:37:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KlcKPQeuXJlZu/MjZvzKH7cNWUoJsdqDBmj+pY+E3/6M2eLFnC86vwqfJhBGp0O4pChrdKRXdsLWDWnfdUqZVaKLtEY8wDUtwcrjkFSBdGDydHJNz5Zdgucu23XoWxYskZ2d+IVxg/zVatnqtNR8IKFvnK+CkTRsW9Sb0Y91Y8XcfyJk1Tx15rbFORWqDnhzo3RORfjBoYVe5SqnneeNNtUA6MMW1YTX8ChOrpriyr5paFgI81MNd8S5Z9lCRvQV3JMtzunw4wnCSd3BAzRDDjmbHIE0rJiS2BqEwwl4pH11v0zvFFeR8vGN3mYfGu2TMOz9rURT8nWTvk6aISvvZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8ZYM5GY2zTSu6VwKLieOUUPjaU67nd29Z4DDwhv0LCA=;
- b=GK++yO+JYwKUu/s8RFSMjzTWlok+jabyviVklIFQaPCvXVWuYf9wCise/QRFhYEEwfdl34poyTOE88vvmFrbcz34QAcsKDiQtXicXdmm1ScBx78u2r1FQJoibGgbYGPuF6YGhCCPWfds3LqGFn1W1xE1RY12HqI41cQ4B3MSoSoaXf859iRSJaIP50GbArYOJUXvbf97NTMZJri/FLQFtK/7QjUUF7B1JBhQqYfMpywIWFLDy53CtBrUBqhUbIV/Y8krCAxjx2lCjwr95vKXrRA/9wXy4qwKYPE22xct+Ou9aMVTpPXlgtwqSNshjH4Lx0fS4xctP/4DlqXtUvsGsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8ZYM5GY2zTSu6VwKLieOUUPjaU67nd29Z4DDwhv0LCA=;
- b=bRjRNLoBhdNq/TGRugdf+Se0ViTRekXJ80RshINeMi8TnTagaIAX51OLJySjUmkQafRIHzrUm/K6SlHF3MBlzw7zozKuicED5GX+lHutK4uM/igUPm0X6saHCm5Sq9Skb/i9+8l59CXm3/ytLthzdMMF9V0lydpyEDzKDVdKNug=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) by
- CH3PR12MB8534.namprd12.prod.outlook.com (2603:10b6:610:15a::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.41; Fri, 13 Oct
- 2023 11:37:10 +0000
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::5aa2:3605:1718:3332]) by DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::5aa2:3605:1718:3332%7]) with mapi id 15.20.6863.043; Fri, 13 Oct 2023
- 11:37:10 +0000
-Message-ID: <9d371f71-b7f9-4c4e-b42b-20cabaa42567@amd.com>
-Date: Fri, 13 Oct 2023 07:37:06 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/edid: add 8 bpc quirk to the BenQ GW2765
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-References: <20231012184927.133137-1-hamza.mahfooz@amd.com>
- <ZSkcX1nJ4Ipf2ICd@intel.com>
-Content-Language: en-US
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-In-Reply-To: <ZSkcX1nJ4Ipf2ICd@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0145.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:8c::11) To DM4PR12MB6280.namprd12.prod.outlook.com
- (2603:10b6:8:a2::11)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F40DF10E0AA;
+	Fri, 13 Oct 2023 13:31:36 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDC0B10E5EF;
+ Fri, 13 Oct 2023 12:08:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1697198906; x=1728734906;
+ h=date:from:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=OSw6l43ir41hu+uAu44wskdYdJS8SB0MXqT78SOJiMM=;
+ b=lFzTNPDTpmBOjPUKgiXmiNfEyLFy6DusivzO5AX4Cbu6shaIWkhlldc3
+ TQlUMY1rGwidq6va99BfmgXhlsEsYFzd1gr919bp38X55a52J9V5ELQyR
+ KzbiRyof3F4D+aGdIPSnIK2U8WEPumfMRt4k8f8K9UrR5whwepoB/ovML
+ /nrlYvTxFBgWz+FMb6EMIkZ5cA1o+6cbxAQBQ8rO82SltvKh4J5pd6hQM
+ byZMPcCYzW560jXVBfDc3jmhRlsMHZYpRpSsqWP1BlmWNETwmS6xFKmh6
+ QUGC/lz3oH9JX7sHkyt0opvsKo8vGKqbXVeA2C5kJV6zKWn8p6N4tKCYX Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10861"; a="449358150"
+X-IronPort-AV: E=Sophos;i="6.03,222,1694761200"; d="scan'208";a="449358150"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2023 05:08:26 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10861"; a="784133205"
+X-IronPort-AV: E=Sophos;i="6.03,222,1694761200"; d="scan'208";a="784133205"
+Received: from ttmerile-mobl1.ger.corp.intel.com ([10.249.37.202])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2023 05:08:22 -0700
+Date: Fri, 13 Oct 2023 15:08:19 +0300 (EEST)
+From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+Subject: Re: [PATCH v3 06/16] platform/x86/amd/pmf: Add support to get inputs
+ from other subsystems
+In-Reply-To: <20231010125917.138225-7-Shyam-sundar.S-k@amd.com>
+Message-ID: <6bb2eab3-f683-f7cf-1c49-391e20c6e1ca@linux.intel.com>
+References: <20231010125917.138225-1-Shyam-sundar.S-k@amd.com>
+ <20231010125917.138225-7-Shyam-sundar.S-k@amd.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6280:EE_|CH3PR12MB8534:EE_
-X-MS-Office365-Filtering-Correlation-Id: a29d453e-c095-4d8d-409b-08dbcbe0bc8f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IBsXEKx1LVCnXXYODDW9qhJh3N0h/MVInMrRIfehog6V+1BeZG9dDKcWx7b8bDt9pDFucTBs60k0X++OWfhmEqLejXi1SRLzh4lmlEwD2Yy0kwxSekrRlctIAZOkiBbpRKgw0uBjJf1ojq61rEmyTP4N51pyUON0D4n4RUPqoJwIIl5L/+Wdyg/8btaW4zzscdiOk/OWUSWsSATH8J7/R49CmJuVqDd7E+Hj+lvEzskr2zJUi0I755rBqV1RUUE9+x3nozG29ZZXhy0HMqWpIKC61fId80k4BtNjTcgicJkC95DGdwQTe9HFTJ9d8KvcEO1l7erEOEZDb/e00mphwemr/lSBvOul1fPrT8HIsP4Z8ksLdMkqOiT377hj3J9HewIGUmA0BpAC3JjMYwtV7khyWpPuJevZR3YbWgp1BoZ7aAzXF85bLbr7kVkuH2FI9PG9gu51QEtLyD+yvK6zbOwtn3RtHzONYtx0cpehorvLHgqn+Z3DqA34QuhliHyiwrqsLwgz4JSzpCajPT/50ekJHw3LWSWcb2gqPxPWyheKLJvJp142RqbIQqvBkIbnuhQqCItvNFazdoESQo+tMmPOm2AjavYusL/kqvp5EFDe37d3wpfoOEObFNSvAH49
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6280.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(136003)(39860400002)(376002)(346002)(366004)(230922051799003)(451199024)(186009)(1800799009)(64100799003)(54906003)(66574015)(2616005)(316002)(66556008)(6916009)(6512007)(66476007)(66946007)(6506007)(53546011)(38100700002)(6486002)(26005)(966005)(478600001)(83380400001)(6666004)(44832011)(31696002)(86362001)(2906002)(8936002)(8676002)(41300700001)(5660300002)(4326008)(36756003)(31686004)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Rmp6OHRwcU9BTnNONGlHY3N0UmoyK2E5VWZiMGhMZk1rVzlCRGh3eGd5Q0Vw?=
- =?utf-8?B?eGJHcnBPMFF1Y2MzaWZ3YWZ0ZmVyZzg5SWk5Mno1Wi9BdGpUNldYS0hqWE9P?=
- =?utf-8?B?UGdaS0RiZVZRMFk2ZTJqLzNjZVBwcjlXVzNpVUw1Y2lCSGIxU0Y1TWZhTTdC?=
- =?utf-8?B?dU9Eczh2NlRmU2I3cC9xUjlUVUpNMTV0RklsVkZXWkdyOHBDdW1jL1RlSEhl?=
- =?utf-8?B?eEtXRDFDQWJzVkdlT0cyRHF1T0JyZzlla3IxUGNBTHFsVlJSc2p1QVlGbnNG?=
- =?utf-8?B?ZE5WOWwvTTFnVmRWTWZmMWhyaHF6SVk0bE5YNCtrUmNZMXMrb1FwYjNxcG5r?=
- =?utf-8?B?LzFyT2F5ejVHdWI3eEZlZjhZTmdsalFRMm5iUDNIR3BneHJzL2xMd2Vpb2JN?=
- =?utf-8?B?UkNCYTZBRHZyOUxRUWRUd1U1VURpd1o2a0JONXBxWXUwY3BqN2VEVkl2c3dn?=
- =?utf-8?B?MHNzRnBhVEJXUFdVcGVXREdvdmZLOWRtV3ZuK2h0YVRZekFlNjA4ZXFpZlQ5?=
- =?utf-8?B?Qi9SdEN1bzlncDFURUZ1NWkxMk9uWWptdldLRzdOUThPN2YrVVhPbit3VHU5?=
- =?utf-8?B?NnV1NTd6bkpaUjNEWGQ0bGxOYm5sTEZKYk54V084ZkNONkFCNjIzSXhBMXlW?=
- =?utf-8?B?Q2lrWDAvbDJmOXR4QlE2TmpNSXphM3RQQnozQ0QzaHd0cnk0K25BZm84M29I?=
- =?utf-8?B?bjcxZXBibnhqdThoeEhhdEJLaFpYd01ZYTk0aDgvZFo5a0luT0g5amxrYkdE?=
- =?utf-8?B?UGQwYWRhZUF2YjAzUmxwbytvNHVjc3N0aUtpQktLb2ZGRFNMU3JwNjhTVzBJ?=
- =?utf-8?B?bDVQWGZ3ZDFrb2NSNDJvU0NBMjhDNXN6b0FwdEMvbVRMYUxsc0czTHRoQkR0?=
- =?utf-8?B?OFRZUkJFYTJvZW1DMHZPcHlDeXNxcms5UEJJaGpjdnFDcHNZeFI4NWZhR09E?=
- =?utf-8?B?aEtCK0xhRXU1VzY2eVVvMkptdXhucjdyc2ZKM1ljNFVLd2h1SUJ2R3daSVhn?=
- =?utf-8?B?a2x2elR4aXZNUXFYS3J2TlFrdkQ4UEFpN0tucEFHSUVWaUtLRER2NjJsRlBH?=
- =?utf-8?B?bDFNY3pFNG40TkpmMXEzZkZZYXNvalZwbVFiWHF6NHBGdVZyWmttdTVJMHZX?=
- =?utf-8?B?cmdpaFgvTDcwWVlHV0sxdmp4b1hGc2R2NlIwWGdETEdTZklpbU1VL1BPWHZs?=
- =?utf-8?B?dXc0RURRLzFpMEFxdGF5SWI3MnJMNlppY0ZTdDJFTW5kbmZwbzA0RFJkR1gx?=
- =?utf-8?B?NCtpdG0wWnd4T2ZzVzF0T1J5T1E4TE43OU5iUk5mU2xDTURMelhXTWpoVU51?=
- =?utf-8?B?NldNMnJ2SU5lT2Y5dGYwM0JVakFYV2ZxbTFscVdJa2Z6UEVodlhheDdjZ21H?=
- =?utf-8?B?V0hMR2t2TmNuT01nNy82ZWlCeUtzTGZWc3JwdndCUHVSZDNrZm51SU85N2g0?=
- =?utf-8?B?aFd4K09lMVFsRlhLbE1la3orcERIR2cxeERFeURBQkFTMUhuMkJhMmQ2Z2g3?=
- =?utf-8?B?dGt1WjdMUExGMXBZdFJNaE9jQTVjcGdZbTJBVyt5Qng0Szg0UlZuaGV0WHpj?=
- =?utf-8?B?MEEvZHhpSVo4YTMrTk5MMDhZdnMxd3lkYTJhV0dSTzY0ZkpkN0d4ZCtDVTk1?=
- =?utf-8?B?OWtjd1d2cVl6cWsyOUFITnAxVTJDUGt2SHJnR1JxbEkvWlFWYnYvL1gyZ0Jo?=
- =?utf-8?B?aHY3dkw2RFlaTExIQXJzRWpvOXJIcXdUUFBhcWQxampCY3E0WlFkRmJtZzNV?=
- =?utf-8?B?TnhpZHVUNUdiRGx6djhLdEcrSFZieGo2Q0U4aTRlSWxwMVJmSm82ay9kOUZu?=
- =?utf-8?B?NkpJNGtnY2F0b2lZTmwzUmRCTTh2MWlYY1pmdjl3eURXQmNwUXJRQ3FzRlN5?=
- =?utf-8?B?anZVVks4T0EzbHp6d0VGcW1RYkJuMmFCTThacTNSZ3B2MnVlTmNsSUdlZ2ZO?=
- =?utf-8?B?NGdqV3ljcVlGMTd3am1JN0t1YkM1WlZITjJiV204c0tMMkRRKzhpSVQwQ0ZI?=
- =?utf-8?B?RFR6SGFhTkErUHl1UmIxY2NzbTZaOUduQldYOUh2N2xIbEVLRlJUdmNsK0c0?=
- =?utf-8?B?ZlQ0cG9JTExhYjc2WWdCUmR6a0VFQlB4aHl2Z0JtcVRQTS80bWp1VFU0L091?=
- =?utf-8?Q?t1Tx/u7EIqNyZ0hdC4k6GyCAV?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a29d453e-c095-4d8d-409b-08dbcbe0bc8f
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6280.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2023 11:37:10.1446 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1Jn0B3zQGmHEosataAYoPBF5GRaomaTAHJcEnCdrrA8x+ISH3xSgoP9x2bMznAM9Q5HCFOujdoRlMGFLDp8OGQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8534
+Content-Type: text/plain; charset=US-ASCII
+X-Mailman-Approved-At: Fri, 13 Oct 2023 13:31:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,50 +58,245 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>
+Cc: Xinhui.Pan@amd.com, Patil.Reddy@amd.com, basavaraj.natikar@amd.com,
+ dri-devel@lists.freedesktop.org, jikos@kernel.org,
+ amd-gfx@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ markgross@kernel.org, Hans de Goede <hdegoede@redhat.com>,
+ benjamin.tissoires@redhat.com, mario.limonciello@amd.com, daniel@ffwll.ch,
+ linux-input@vger.kernel.org, alexander.deucher@amd.com, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 10/13/23 06:30, Ville Syrjälä wrote:
-> On Thu, Oct 12, 2023 at 02:49:27PM -0400, Hamza Mahfooz wrote:
->> The BenQ GW2765 reports that it supports higher (> 8) bpc modes, but
->> when trying to set them we end up with a black screen. So, limit it to 8
->> bpc modes.
-> 
-> Bad cable/etc was ruled out as the cause?
+On Tue, 10 Oct 2023, Shyam Sundar S K wrote:
 
-Yup, the issue was also reproduced by two different people with same
-aforementioned monitor.
+> PMF driver sends changing inputs from each subystem to TA for evaluating
+> the conditions in the policy binary.
+> 
+> Add initial support of plumbing in the PMF driver for Smart PC to get
+> information from other subsystems in the kernel.
+> 
+> Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+> ---
+>  drivers/platform/x86/amd/pmf/Makefile |   2 +-
+>  drivers/platform/x86/amd/pmf/pmf.h    |  18 ++++
+>  drivers/platform/x86/amd/pmf/spc.c    | 119 ++++++++++++++++++++++++++
+>  drivers/platform/x86/amd/pmf/tee-if.c |   3 +
+>  4 files changed, 141 insertions(+), 1 deletion(-)
+>  create mode 100644 drivers/platform/x86/amd/pmf/spc.c
+> 
+> diff --git a/drivers/platform/x86/amd/pmf/Makefile b/drivers/platform/x86/amd/pmf/Makefile
+> index d2746ee7369f..6b26e48ce8ad 100644
+> --- a/drivers/platform/x86/amd/pmf/Makefile
+> +++ b/drivers/platform/x86/amd/pmf/Makefile
+> @@ -7,4 +7,4 @@
+>  obj-$(CONFIG_AMD_PMF) += amd-pmf.o
+>  amd-pmf-objs := core.o acpi.o sps.o \
+>  		auto-mode.o cnqf.o \
+> -		tee-if.o
+> +		tee-if.o spc.o
+> diff --git a/drivers/platform/x86/amd/pmf/pmf.h b/drivers/platform/x86/amd/pmf/pmf.h
+> index 51c0e17f7720..88ee3c705913 100644
+> --- a/drivers/platform/x86/amd/pmf/pmf.h
+> +++ b/drivers/platform/x86/amd/pmf/pmf.h
+> @@ -150,6 +150,21 @@ struct smu_pmf_metrics {
+>  	u16 infra_gfx_maxfreq; /* in MHz */
+>  	u16 skin_temp; /* in centi-Celsius */
+>  	u16 device_state;
+> +	u16 curtemp; /* in centi-Celsius */
+> +	u16 filter_alpha_value;
+> +	u16 avg_gfx_clkfrequency;
+> +	u16 avg_fclk_frequency;
+> +	u16 avg_gfx_activity;
+> +	u16 avg_socclk_frequency;
+> +	u16 avg_vclk_frequency;
+> +	u16 avg_vcn_activity;
+> +	u16 avg_dram_reads;
+> +	u16 avg_dram_writes;
+> +	u16 avg_socket_power;
+> +	u16 avg_core_power[2];
+> +	u16 avg_core_c0residency[16];
+> +	u16 spare1;
+> +	u32 metrics_counter;
+>  } __packed;
+>  
+>  enum amd_stt_skin_temp {
+> @@ -596,4 +611,7 @@ extern const struct attribute_group cnqf_feature_attribute_group;
+>  int amd_pmf_init_smart_pc(struct amd_pmf_dev *dev);
+>  void amd_pmf_deinit_smart_pc(struct amd_pmf_dev *dev);
+>  int apmf_check_smart_pc(struct amd_pmf_dev *pmf_dev);
+> +
+> +/* Smart PC - TA interfaces */
+> +void amd_pmf_populate_ta_inputs(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in);
+>  #endif /* PMF_H */
+> diff --git a/drivers/platform/x86/amd/pmf/spc.c b/drivers/platform/x86/amd/pmf/spc.c
+> new file mode 100644
+> index 000000000000..91a7f1da911c
+> --- /dev/null
+> +++ b/drivers/platform/x86/amd/pmf/spc.c
+> @@ -0,0 +1,119 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * AMD Platform Management Framework Driver - Smart PC Capabilities
+> + *
+> + * Copyright (c) 2023, Advanced Micro Devices, Inc.
+> + * All Rights Reserved.
+> + *
+> + * Authors: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+> + *          Patil Rajesh Reddy <Patil.Reddy@amd.com>
+> + */
+> +
+> +#include <acpi/button.h>
+> +#include <linux/power_supply.h>
+> +#include <linux/units.h>
+> +#include "pmf.h"
+> +
+> +static void amd_pmf_get_smu_info(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in)
+> +{
+> +	u16 max, avg = 0;
+> +	int i;
+> +
+> +	memset(dev->buf, 0, sizeof(dev->m_table));
+> +	amd_pmf_send_cmd(dev, SET_TRANSFER_TABLE, 0, 7, NULL);
+> +	memcpy(&dev->m_table, dev->buf, sizeof(dev->m_table));
+> +
+> +	in->ev_info.socket_power = dev->m_table.apu_power + dev->m_table.dgpu_power;
+> +	in->ev_info.skin_temperature = dev->m_table.skin_temp;
+> +
+> +	/* Get the avg and max C0 residency of all the cores */
+> +	max = dev->m_table.avg_core_c0residency[0];
+> +	for (i = 0; i < ARRAY_SIZE(dev->m_table.avg_core_c0residency); i++) {
+> +		avg += dev->m_table.avg_core_c0residency[i];
+> +		if (dev->m_table.avg_core_c0residency[i] > max)
+> +			max = dev->m_table.avg_core_c0residency[i];
+> +	}
+> +
+> +	in->ev_info.avg_c0residency = avg / ARRAY_SIZE(dev->m_table.avg_core_c0residency);
 
-> 
->>
->> Cc: stable@vger.kernel.org # 6.5+
->> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2610
->> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
->> ---
->>   drivers/gpu/drm/drm_edid.c | 3 +++
->>   1 file changed, 3 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
->> index 0454da505687..bca2af4fe1fc 100644
->> --- a/drivers/gpu/drm/drm_edid.c
->> +++ b/drivers/gpu/drm/drm_edid.c
->> @@ -123,6 +123,9 @@ static const struct edid_quirk {
->>   	/* AEO model 0 reports 8 bpc, but is a 6 bpc panel */
->>   	EDID_QUIRK('A', 'E', 'O', 0, EDID_QUIRK_FORCE_6BPC),
->>   
->> +	/* BenQ GW2765 */
->> +	EDID_QUIRK('B', 'N', 'Q', 0x78d6, EDID_QUIRK_FORCE_8BPC),
->> +
->>   	/* BOE model on HP Pavilion 15-n233sl reports 8 bpc, but is a 6 bpc panel */
->>   	EDID_QUIRK('B', 'O', 'E', 0x78b, EDID_QUIRK_FORCE_6BPC),
->>   
->> -- 
->> 2.42.0
-> 
+Not saying the current is wrong and the difference might be 
+insignificantly small... But you might want to consider using 
+DIV_ROUND_CLOSEST() instead of the truncating divide (I'm not sure which 
+is the best here so I leave it up to you).
+
+> +	in->ev_info.max_c0residency = max;
+> +	in->ev_info.gfx_busy = dev->m_table.avg_gfx_activity;
+> +}
+> +
+> +static const char * const pmf_battery_supply_name[] = {
+> +	"BATT",
+> +	"BAT0",
+> +};
+> +
+> +static int amd_pmf_get_battery_prop(enum power_supply_property prop)
+> +{
+> +	union power_supply_propval value;
+> +	struct power_supply *psy;
+> +	int i, ret = -EINVAL;
+
+Unnecessary to initialize ret here.
+
+> +	for (i = 0; i < ARRAY_SIZE(pmf_battery_supply_name); i++) {
+> +		psy = power_supply_get_by_name(pmf_battery_supply_name[i]);
+> +		if (!psy)
+> +			continue;
+> +
+> +		ret = power_supply_get_property(psy, prop, &value);
+> +		if (ret) {
+> +			power_supply_put(psy);
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	return value.intval;
+> +}
+> +
+> +static int amd_pmf_get_battery_info(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in)
+> +{
+> +	int val;
+> +
+> +	val = amd_pmf_get_battery_prop(POWER_SUPPLY_PROP_PRESENT);
+> +	if (val != 1)
+> +		return -EINVAL;
+
+If amd_pmf_get_battery_prop() returns an error code, it would be better to 
+pass that on instead of inventing another code. It's probably better to 
+split the if into two checks to cover both cases.
+
+For val >= 0 but not 1, -ENODEV might be better justified than -EINVAL 
+because it doesn't look like input parameters are invalid here.
+
 -- 
-Hamza
+ i.
 
+
+> +	in->ev_info.bat_percentage = amd_pmf_get_battery_prop(POWER_SUPPLY_PROP_CAPACITY);
+> +	/* all values in mWh metrics */
+> +	in->ev_info.bat_design = amd_pmf_get_battery_prop(POWER_SUPPLY_PROP_ENERGY_FULL_DESIGN) /
+> +		MILLIWATT_PER_WATT;
+> +	in->ev_info.full_charge_capacity = amd_pmf_get_battery_prop(POWER_SUPPLY_PROP_ENERGY_FULL) /
+> +		MILLIWATT_PER_WATT;
+> +	in->ev_info.drain_rate = amd_pmf_get_battery_prop(POWER_SUPPLY_PROP_POWER_NOW) /
+> +		MILLIWATT_PER_WATT;
+> +
+> +	return 0;
+> +}
+> +
+> +static int amd_pmf_get_slider_info(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in)
+> +{
+> +	int val;
+> +
+> +	switch (dev->current_profile) {
+> +	case PLATFORM_PROFILE_PERFORMANCE:
+> +		val = TA_BEST_PERFORMANCE;
+> +		break;
+> +	case PLATFORM_PROFILE_BALANCED:
+> +		val = TA_BETTER_PERFORMANCE;
+> +		break;
+> +	case PLATFORM_PROFILE_LOW_POWER:
+> +		val = TA_BEST_BATTERY;
+> +		break;
+> +	default:
+> +		dev_err(dev->dev, "Unknown Platform Profile.\n");
+> +		return -EOPNOTSUPP;
+> +	}
+> +	in->ev_info.power_slider = val;
+> +
+> +	return 0;
+> +}
+> +
+> +void amd_pmf_populate_ta_inputs(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in)
+> +{
+> +	/* TA side lid open is 1 and close is 0, hence the ! here */
+> +	in->ev_info.lid_state = !acpi_lid_open();
+> +	in->ev_info.power_source = amd_pmf_get_power_source();
+> +	amd_pmf_get_smu_info(dev, in);
+> +	amd_pmf_get_battery_info(dev, in);
+> +	amd_pmf_get_slider_info(dev, in);
+> +}
+> diff --git a/drivers/platform/x86/amd/pmf/tee-if.c b/drivers/platform/x86/amd/pmf/tee-if.c
+> index 38f02676261d..277103e4346d 100644
+> --- a/drivers/platform/x86/amd/pmf/tee-if.c
+> +++ b/drivers/platform/x86/amd/pmf/tee-if.c
+> @@ -113,6 +113,7 @@ static int amd_pmf_invoke_cmd_enact(struct amd_pmf_dev *dev)
+>  {
+>  	struct ta_pmf_shared_memory *ta_sm = NULL;
+>  	struct ta_pmf_enact_result *out = NULL;
+> +	struct ta_pmf_enact_table *in = NULL;
+>  	struct tee_param param[MAX_TEE_PARAM];
+>  	struct tee_ioctl_invoke_arg arg;
+>  	int ret = 0;
+> @@ -123,11 +124,13 @@ static int amd_pmf_invoke_cmd_enact(struct amd_pmf_dev *dev)
+>  	memset(dev->shbuf, 0, dev->policy_sz);
+>  	ta_sm = dev->shbuf;
+>  	out = &ta_sm->pmf_output.policy_apply_table;
+> +	in = &ta_sm->pmf_input.enact_table;
+>  
+>  	memset(ta_sm, 0, sizeof(*ta_sm));
+>  	ta_sm->command_id = TA_PMF_COMMAND_POLICY_BUILDER_ENACT_POLICIES;
+>  	ta_sm->if_version = PMF_TA_IF_VERSION_MAJOR;
+>  
+> +	amd_pmf_populate_ta_inputs(dev, in);
+>  	amd_pmf_prepare_args(dev, TA_PMF_COMMAND_POLICY_BUILDER_ENACT_POLICIES, &arg, param);
+>  
+>  	ret = tee_client_invoke_func(dev->tee_ctx, &arg, param);
+> 
