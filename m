@@ -4,45 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6827ECDB484
-	for <amd-gfx@archiver.kernel.org>; Sat, 14 Oct 2023 07:36:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57334CDB465
+	for <amd-gfx@archiver.kernel.org>; Sat, 14 Oct 2023 22:54:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29FF210E0B8;
-	Sat, 14 Oct 2023 07:36:16 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 140B510E093;
- Sat, 14 Oct 2023 07:36:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1697268975; x=1728804975;
- h=date:from:to:cc:subject:message-id;
- bh=LcwfZEcYEf/f4tUcGzyWriVFV01q/faDVa9sxT4TF3Q=;
- b=JlJGETvkBt+fHovjzi0SwqXLkQ+fWulvsiq0Q7Vb6c6zQn5BXOF3qYQY
- rDQ/0COIg50rDIqW8yXq8HWLGUGXY1EUleS5Exi4qDES54Z/kbzuIDv11
- PaUloJhnkS3L/l7Dd10mA8tPrTnJVl8i6ppAFrmI6tOOaSe7KprVlUIYc
- kpjDCGnrLGSFwcsIo4Jie78gErm5OCmoz/0qakPT20LxlumC83hysezvP
- n0qaZONL8AzlSiSXQpWJb6GnU4EEihJYg//pUy2V7wjBrDaQP751lhpcV
- 7dEE6XJD9evIrT/lj4lg3WXWxyRNX9kVlZsvLH3ifAYJMKpR/QNmLS2e1 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10862"; a="471540303"
-X-IronPort-AV: E=Sophos;i="6.03,224,1694761200"; d="scan'208";a="471540303"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2023 00:36:14 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10862"; a="748618440"
-X-IronPort-AV: E=Sophos;i="6.03,224,1694761200"; d="scan'208";a="748618440"
-Received: from lkp-server02.sh.intel.com (HELO f64821696465) ([10.239.97.151])
- by orsmga007.jf.intel.com with ESMTP; 14 Oct 2023 00:36:10 -0700
-Received: from kbuild by f64821696465 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qrZBv-0005pD-1M;
- Sat, 14 Oct 2023 07:36:07 +0000
-Date: Sat, 14 Oct 2023 15:35:44 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- e3b18f7200f45d66f7141136c25554ac1e82009b
-Message-ID: <202310141529.B09neLqf-lkp@intel.com>
-User-Agent: s-nail v14.9.24
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CCF810E068;
+	Sat, 14 Oct 2023 22:54:37 +0000 (UTC)
+Received: from mail-vk1-xa2d.google.com (mail-vk1-xa2d.google.com
+ [IPv6:2607:f8b0:4864:20::a2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 200B810E00F;
+ Sat, 14 Oct 2023 22:54:36 +0000 (UTC)
+Received: by mail-vk1-xa2d.google.com with SMTP id
+ 71dfb90a1353d-49d55b90a5aso2214865e0c.0; 
+ Sat, 14 Oct 2023 15:54:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1697324075; x=1697928875; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=E3dgwAPbWgceK8XnpO8ceX742rck1tlUzuW6UkEbMaQ=;
+ b=ePrDhLbtJ4Exoer2Js7/+nfAlFKJ5MDzZ/EQ5O/p7q078RZeftkitF8aF37pBXYGDf
+ NfVnvtfj8Wc2UhIAUgtK2/0rp5I0hcC0BlONIFHL4qTNedSuQUpgn/bDL5ku8IFiWfJn
+ kAMGZ4lA6HwjcrDOYsdqC3ysXrdJFB2HFRiwJqpU9ecNEJib3UygXPfwLcYsjBwT//EV
+ SzUVOO8J/QN/5a8qXj2fNrjs/3/jezC63EYmPD8piYQa0x9XBh6/aAegr/SibwmMFHGN
+ GtcvS1B7jdydrgD2YB6UibUhEvnaFWXU7Uu2koItKYgIGUzKFOw+V8mp6711u9wy9245
+ tx3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1697324075; x=1697928875;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=E3dgwAPbWgceK8XnpO8ceX742rck1tlUzuW6UkEbMaQ=;
+ b=m1JD1ak5G5nZq2Z5MUeoW+pKB7HEtIdAiJlCMxAkzg180FqxKB+5iqBtIKC3+6WaZP
+ rt5NAa2uzRzzEIXH0L6poMWjybQNOB+Tk6LfURBRa9KTvBv6uqvq9ciRWMB2QHpmT+Kt
+ w8qJPb4RFFNU3PvDakNoqubt/HeqVjAyE7YT481HwEjdXxLUn1MjkJdpB5XRWx3BemLN
+ HvxbfWniGkFsfWFANdozNVlFm20iXpDv7uiF/hFsZssOLzuuz4chemW9EgCAIBsDLSeM
+ PULzHrnDqeCl9K3tno2fWe5SNFUwVVW3vvzDQfmRmAQ1hXUTxzNHNFadAxag2k8aPx6d
+ mbpg==
+X-Gm-Message-State: AOJu0YxNkJb1E0rvbn+/2HF5Qp64vvs4d+FF6Zb+JDpMckEaQhq5RkRg
+ teHmdbJNRfCIC7yIHDoPBW0fLEYpRbktjtVU/w8SgrVoSsfwDQ==
+X-Google-Smtp-Source: AGHT+IFfT3nqs45wSlTdh49Mfqnd7iS4fm3NazMXcrcNd0WEk8mfYCYz456yTKkBrC2Rm6aiZ0xPlI+0DL8Ucy3wF44=
+X-Received: by 2002:a05:6122:1681:b0:49a:b587:ab79 with SMTP id
+ 1-20020a056122168100b0049ab587ab79mr2277741vkl.8.1697324075009; Sat, 14 Oct
+ 2023 15:54:35 -0700 (PDT)
+MIME-Version: 1.0
+References: <20231013224818.3456409-1-jim.cromie@gmail.com>
+In-Reply-To: <20231013224818.3456409-1-jim.cromie@gmail.com>
+From: jim.cromie@gmail.com
+Date: Sat, 14 Oct 2023 16:54:08 -0600
+Message-ID: <CAJfuBxxc1HxYNbp1vdkh8yTOTHV-5ohskCA-twx5Uf2SmWTffg@mail.gmail.com>
+Subject: Re: [PATCH v7b 00/25] fix DRM_USE_DYNAMIC_DEBUG=y regression
+To: linux-kernel@vger.kernel.org, jbaron@akamai.com, 
+ gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,296 +70,186 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fpga@vger.kernel.org, linux-staging@lists.linux.dev,
- amd-gfx@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- linux-crypto@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- bpf@vger.kernel.org, ntfs3@lists.linux.dev, intel-gfx@lists.freedesktop.org
+Cc: lb@semihalf.com, groeck@google.com, linux-doc@vger.kernel.org,
+ jani.nikula@intel.com, daniel.vetter@ffwll.ch, linux@rasmusvillemoes.dk,
+ robdclark@gmail.com, mcgrof@kernel.org, seanpaul@chromium.org, joe@perches.com,
+ bleung@google.com, yanivt@google.com, ville.syrjala@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: e3b18f7200f45d66f7141136c25554ac1e82009b  Add linux-next specific files for 20231013
+On Fri, Oct 13, 2023 at 4:48=E2=80=AFPM Jim Cromie <jim.cromie@gmail.com> w=
+rote:
+>
+> hi Jason, DRM-folk
+>
+> (now with checkpatch fixes)
 
-Error/Warning reports:
+I missed fixing boxed-vector, am just dropping it.
 
-https://lore.kernel.org/oe-kbuild-all/202309212121.cul1pTRa-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202309212339.hxhBu2F1-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202310051547.40nm4Sif-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202310052201.AnVbpgPr-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202310100409.LrBAYpmk-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202310132104.O9S9Fdpn-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202310132128.grw00tS2-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202310140301.H2JW530r-lkp@intel.com
+>
+> This patchest fixes the chicken-egg initialization problem in the 1st
+> version of ddebug-class-maps, that DRM-CI uncovered.
+>
+> The root-problem was DECLARE_DYNDBG_CLASSMAP, which broke the K&R rule:
+> "define once, refer many".  In patch 14 it is replaced by:
+>
+>  DYNDBG_CLASSMAP_DEFINE - define and export a struct ddebug_class_map
+>  DYNDBG_CLASSMAP_USE - ref the exported struct
+>
+> test-dynamic-debug is also extended with a -submod.ko, in order to
+> recapitulate the drm & drivers initialization scenario.
+>
+> They're on v6.6-rc5 now, and apply cleanly to drm-tip/drm-tip.
+>
+> Ive been running recent revs on rc3+, on my desktop and laptop.
+>
+> The final blocker was a missing __align(8) on the ddebug_class_user
+> record inserted by DYNDBG_CLASSMAP_USE.  This caused DRM=3Dy (builtin
+> only) to have a corrupt record for drm_kms_helper (builtin dependent).
+> Curiously, a clang build did not exhibit this problem.
+>
 
-Error/Warning: (recently discovered and may have been fixed)
+>
+> Widespread testing is appreciated.
+> I have scripts if anyone wants them.
+>
+> I'll forward lkp-robot reports here when I get them.
+> Patches also at https://github.com/jimc/linux (dd-fix-7b)
+>
 
-drivers/fpga/altera-ps-spi.c:74:34: warning: unused variable 'of_ef_match' [-Wunused-const-variable]
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn35/dcn35_hwseq.c:159 dcn35_init_hw() warn: variable dereferenced before check 'res_pool->dccg' (see line 150)
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn35/dcn35_hwseq.c:206 dcn35_init_hw() error: we previously assumed 'res_pool->hubbub' could be null (see line 159)
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn35/dcn35_hwseq.c:285 dcn35_init_hw() error: we previously assumed 'dc->clk_mgr' could be null (see line 136)
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn35/dcn35_hwseq.c:977 dcn35_calc_blocks_to_gate() error: we previously assumed 'pipe_ctx->plane_res.hubp' could be null (see line 973)
-drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c:274: warning: Function parameter or member 'gart_placement' not described in 'amdgpu_gmc_gart_location'
-fs/bcachefs/extents.h:603:17: warning: writing 8 bytes into a region of size 0 [-Wstringop-overflow=]
-kernel/bpf/helpers.c:1909:19: warning: no previous declaration for 'bpf_percpu_obj_new_impl' [-Wmissing-declarations]
-kernel/bpf/helpers.c:1945:18: warning: no previous declaration for 'bpf_percpu_obj_drop_impl' [-Wmissing-declarations]
-kernel/bpf/helpers.c:2480:18: warning: no previous declaration for 'bpf_throw' [-Wmissing-declarations]
+Date: Sat, 14 Oct 2023 18:22:28 +0800
+From: kernel test robot <lkp@intel.com>
+To: Jim Cromie <jim.cromie@gmail.com>
+Subject: [jimc:dd-fix-7a] BUILD SUCCESS 8e96f63f570a462b859876601a5f795a159=
+99f6b
+Message-ID: <202310141826.AN7MAD40-lkp@intel.com>
+User-Agent: s-nail v14.9.24
 
-Unverified Error/Warning (likely false positive, please contact us if interested):
+tree/branch: https://github.com/jimc/linux.git dd-fix-7a
+branch HEAD: 8e96f63f570a462b859876601a5f795a15999f6b  drm: restore
+CONFIG_DRM_USE_DYNAMIC_DEBUG un-BROKEN
 
-crypto/lskcipher.c:639 lskcipher_alloc_instance_simple() warn: passing zero to 'ERR_PTR'
-drivers/staging/octeon/ethernet.c:204:37: error: storage size of 'rx_status' isn't known
-drivers/staging/octeon/ethernet.c:205:37: error: storage size of 'tx_status' isn't known
-drivers/staging/octeon/ethernet.c:801:49: error: storage size of 'imode' isn't known
-drivers/staging/octeon/ethernet.c:802:21: error: variable 'imode' has initializer but incomplete type
-fs/ntfs3/bitmap.c:663 wnd_init() warn: Please consider using kvcalloc instead of kvmalloc_array
+elapsed time: 3187m
 
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- arc-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- arc-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- arc-randconfig-002-20231013
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- arm-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- arm-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- arm64-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- arm64-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- arm64-randconfig-004-20231013
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- csky-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- csky-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- i386-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- i386-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- i386-randconfig-003-20231013
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- i386-randconfig-141-20230905
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn35-dcn35_hwseq.c-dcn35_calc_blocks_to_gate()-error:we-previously-assumed-pipe_ctx-plane_res.hubp-could-be-null-(see-line-)
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn35-dcn35_hwseq.c-dcn35_calc_blocks_to_gate()-warn:always-true-condition-(pipe_ctx-plane_res.mpcc_inst-)-(-)
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn35-dcn35_hwseq.c-dcn35_init_hw()-error:we-previously-assumed-dc-clk_mgr-could-be-null-(see-line-)
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn35-dcn35_hwseq.c-dcn35_init_hw()-error:we-previously-assumed-res_pool-hubbub-could-be-null-(see-line-)
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn35-dcn35_hwseq.c-dcn35_init_hw()-warn:inconsistent-indenting
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn35-dcn35_hwseq.c-dcn35_init_hw()-warn:variable-dereferenced-before-check-res_pool-dccg-(see-line-)
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn35-dcn35_resource.c-dcn35_resource_construct()-warn:inconsistent-indenting
-|-- loongarch-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- loongarch-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- loongarch-defconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- loongarch-loongson3_defconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- loongarch-randconfig-001-20231013
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- loongarch-randconfig-002-20231013
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- microblaze-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- microblaze-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- mips-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- mips-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- mips-cavium_octeon_defconfig
-|   |-- drivers-staging-octeon-ethernet.c:error:storage-size-of-imode-isn-t-known
-|   |-- drivers-staging-octeon-ethernet.c:error:storage-size-of-rx_status-isn-t-known
-|   |-- drivers-staging-octeon-ethernet.c:error:storage-size-of-tx_status-isn-t-known
-|   `-- drivers-staging-octeon-ethernet.c:error:variable-imode-has-initializer-but-incomplete-type
-|-- openrisc-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- openrisc-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- parisc-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- parisc-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- powerpc-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- powerpc-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- powerpc-randconfig-001-20231013
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- powerpc-randconfig-002-20231013
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- powerpc64-randconfig-001-20231013
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- powerpc64-randconfig-001-20231014
-|   `-- fs-bcachefs-extents.h:warning:writing-bytes-into-a-region-of-size
-|-- powerpc64-randconfig-002-20231013
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- powerpc64-randconfig-003-20231013
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- riscv-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- s390-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- s390-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- s390-randconfig-002-20231013
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- sparc-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- sparc-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- sparc64-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- sparc64-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- x86_64-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-|-- x86_64-randconfig-001-20231013
-|   |-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_percpu_obj_drop_impl
-|   |-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_percpu_obj_new_impl
-|   `-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_throw
-|-- x86_64-randconfig-161-20231013
-|   |-- crypto-lskcipher.c-lskcipher_alloc_instance_simple()-warn:passing-zero-to-ERR_PTR
-|   |-- drivers-gpu-drm-i915-display-intel_dsb.c-_intel_dsb_commit()-warn:always-true-condition-(dewake_scanline-)-(-u32max-)
-|   |-- fs-ntfs3-bitmap.c-wnd_init()-warn:Please-consider-using-kvcalloc-instead-of-kvmalloc_array
-|   `-- mm-gup.c-pin_user_pages_fd()-warn:unsigned-start-is-never-less-than-zero.
-`-- xtensa-randconfig-001-20231013
-    `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
-clang_recent_errors
-`-- hexagon-randconfig-r011-20211004
-    `-- drivers-fpga-altera-ps-spi.c:warning:unused-variable-of_ef_match
-
-elapsed time: 1460m
-
-configs tested: 118
+configs tested: 103
 configs skipped: 2
 
+The following configs have been built successfully.
+More configs may be tested in the coming days.
+
 tested configs:
-alpha                             allnoconfig   gcc  
-alpha                            allyesconfig   gcc  
-alpha                               defconfig   gcc  
-arc                              allmodconfig   gcc  
-arc                               allnoconfig   gcc  
-arc                              allyesconfig   gcc  
-arc                                 defconfig   gcc  
-arc                   randconfig-001-20231013   gcc  
-arm                              allmodconfig   gcc  
-arm                               allnoconfig   gcc  
-arm                              allyesconfig   gcc  
-arm                                 defconfig   gcc  
-arm                          gemini_defconfig   gcc  
-arm                         nhk8815_defconfig   gcc  
-arm                   randconfig-001-20231013   gcc  
-arm                         vf610m4_defconfig   gcc  
-arm64                            allmodconfig   gcc  
-arm64                             allnoconfig   gcc  
-arm64                            allyesconfig   gcc  
-arm64                               defconfig   gcc  
-csky                             allmodconfig   gcc  
-csky                              allnoconfig   gcc  
-csky                             allyesconfig   gcc  
-csky                                defconfig   gcc  
-i386                             allmodconfig   gcc  
-i386                              allnoconfig   gcc  
-i386                             allyesconfig   gcc  
-i386                              debian-10.3   gcc  
-i386                                defconfig   gcc  
-i386                  randconfig-001-20231013   gcc  
-i386                  randconfig-002-20231013   gcc  
-i386                  randconfig-003-20231013   gcc  
-i386                  randconfig-004-20231013   gcc  
-i386                  randconfig-005-20231013   gcc  
-i386                  randconfig-006-20231013   gcc  
-loongarch                        alldefconfig   gcc  
-loongarch                        allmodconfig   gcc  
-loongarch                         allnoconfig   gcc  
-loongarch                        allyesconfig   gcc  
-loongarch                           defconfig   gcc  
-loongarch                 loongson3_defconfig   gcc  
-loongarch             randconfig-001-20231013   gcc  
-m68k                             allmodconfig   gcc  
-m68k                              allnoconfig   gcc  
-m68k                             allyesconfig   gcc  
-m68k                                defconfig   gcc  
-m68k                            q40_defconfig   gcc  
-m68k                          sun3x_defconfig   gcc  
-microblaze                       allmodconfig   gcc  
-microblaze                        allnoconfig   gcc  
-microblaze                       allyesconfig   gcc  
-microblaze                          defconfig   gcc  
-mips                             allmodconfig   gcc  
-mips                              allnoconfig   gcc  
-mips                             allyesconfig   gcc  
-mips                           ip22_defconfig   clang
-mips                      pic32mzda_defconfig   clang
-nios2                            allmodconfig   gcc  
-nios2                             allnoconfig   gcc  
-nios2                            allyesconfig   gcc  
-nios2                               defconfig   gcc  
-openrisc                         allmodconfig   gcc  
-openrisc                          allnoconfig   gcc  
-openrisc                         allyesconfig   gcc  
-openrisc                            defconfig   gcc  
-parisc                           allmodconfig   gcc  
-parisc                            allnoconfig   gcc  
-parisc                           allyesconfig   gcc  
-parisc                              defconfig   gcc  
-parisc64                            defconfig   gcc  
-powerpc                          allmodconfig   gcc  
-powerpc                           allnoconfig   gcc  
-powerpc                          allyesconfig   gcc  
-powerpc                  mpc885_ads_defconfig   clang
-powerpc                      ppc64e_defconfig   clang
-powerpc                     tqm8548_defconfig   gcc  
-powerpc                     tqm8560_defconfig   clang
-riscv                             allnoconfig   gcc  
-riscv                            allyesconfig   gcc  
-riscv                               defconfig   gcc  
-riscv                 randconfig-001-20231013   gcc  
-riscv                          rv32_defconfig   gcc  
-s390                             allmodconfig   gcc  
-s390                              allnoconfig   gcc  
-s390                             allyesconfig   gcc  
-s390                                defconfig   gcc  
-s390                  randconfig-001-20231013   gcc  
-sh                               allmodconfig   gcc  
-sh                                allnoconfig   gcc  
-sh                               allyesconfig   gcc  
-sh                                  defconfig   gcc  
-sh                           se7750_defconfig   gcc  
-sh                        sh7785lcr_defconfig   gcc  
-sparc                            allmodconfig   gcc  
-sparc                             allnoconfig   gcc  
-sparc                            allyesconfig   gcc  
-sparc                               defconfig   gcc  
-sparc                 randconfig-001-20231013   gcc  
-sparc64                          allmodconfig   gcc  
-sparc64                          allyesconfig   gcc  
-sparc64                             defconfig   gcc  
+alpha                             allnoconfig   gcc
+alpha                            allyesconfig   gcc
+alpha                               defconfig   gcc
+arc                              allmodconfig   gcc
+arc                               allnoconfig   gcc
+arc                              allyesconfig   gcc
+arc                                 defconfig   gcc
+arc                   randconfig-001-20231012   gcc
+arm                              allmodconfig   gcc
+arm                               allnoconfig   gcc
+arm                              allyesconfig   gcc
+arm                                 defconfig   gcc
+arm                   randconfig-001-20231013   gcc
+arm64                            allmodconfig   gcc
+arm64                             allnoconfig   gcc
+arm64                            allyesconfig   gcc
+arm64                               defconfig   gcc
+csky                             allmodconfig   gcc
+csky                              allnoconfig   gcc
+csky                             allyesconfig   gcc
+csky                                defconfig   gcc
+i386                             allmodconfig   gcc
+i386                              allnoconfig   gcc
+i386                             allyesconfig   gcc
+i386                              debian-10.3   gcc
+i386                                defconfig   gcc
+i386                  randconfig-001-20231013   gcc
+i386                  randconfig-002-20231013   gcc
+i386                  randconfig-003-20231013   gcc
+i386                  randconfig-004-20231013   gcc
+i386                  randconfig-005-20231013   gcc
+i386                  randconfig-006-20231013   gcc
+loongarch                        allmodconfig   gcc
+loongarch                         allnoconfig   gcc
+loongarch                        allyesconfig   gcc
+loongarch                           defconfig   gcc
+loongarch             randconfig-001-20231012   gcc
+m68k                             allmodconfig   gcc
+m68k                              allnoconfig   gcc
+m68k                             allyesconfig   gcc
+m68k                                defconfig   gcc
+microblaze                       allmodconfig   gcc
+microblaze                        allnoconfig   gcc
+microblaze                       allyesconfig   gcc
+microblaze                          defconfig   gcc
+mips                             allmodconfig   gcc
+mips                              allnoconfig   gcc
+mips                             allyesconfig   gcc
+nios2                            allmodconfig   gcc
+nios2                             allnoconfig   gcc
+nios2                            allyesconfig   gcc
+nios2                               defconfig   gcc
+openrisc                         allmodconfig   gcc
+openrisc                          allnoconfig   gcc
+openrisc                         allyesconfig   gcc
+openrisc                            defconfig   gcc
+parisc                           allmodconfig   gcc
+parisc                            allnoconfig   gcc
+parisc                           allyesconfig   gcc
+parisc                              defconfig   gcc
+parisc64                            defconfig   gcc
+powerpc                           allnoconfig   gcc
+powerpc                          allyesconfig   gcc
+riscv                            allmodconfig   gcc
+riscv                             allnoconfig   gcc
+riscv                            allyesconfig   gcc
+riscv                               defconfig   gcc
+riscv                 randconfig-001-20231012   gcc
+riscv                          rv32_defconfig   gcc
+s390                             allmodconfig   gcc
+s390                              allnoconfig   gcc
+s390                             allyesconfig   gcc
+s390                                defconfig   gcc
+s390                  randconfig-001-20231012   gcc
+sh                               allmodconfig   gcc
+sh                                allnoconfig   gcc
+sh                               allyesconfig   gcc
+sh                                  defconfig   gcc
+sparc                            allmodconfig   gcc
+sparc                             allnoconfig   gcc
+sparc                            allyesconfig   gcc
+sparc                               defconfig   gcc
+sparc                 randconfig-001-20231013   gcc
+sparc64                          allmodconfig   gcc
+sparc64                          allyesconfig   gcc
+sparc64                             defconfig   gcc
 um                               allmodconfig   clang
 um                                allnoconfig   clang
 um                               allyesconfig   clang
-um                                  defconfig   gcc  
-um                             i386_defconfig   gcc  
-um                           x86_64_defconfig   gcc  
-x86_64                            allnoconfig   gcc  
-x86_64                           allyesconfig   gcc  
-x86_64                              defconfig   gcc  
-x86_64                randconfig-001-20231013   gcc  
-x86_64                randconfig-002-20231013   gcc  
-x86_64                randconfig-003-20231013   gcc  
-x86_64                randconfig-004-20231013   gcc  
-x86_64                randconfig-005-20231013   gcc  
-x86_64                randconfig-006-20231013   gcc  
+um                                  defconfig   gcc
+um                             i386_defconfig   gcc
+um                           x86_64_defconfig   gcc
+x86_64                            allnoconfig   gcc
+x86_64                           allyesconfig   gcc
+x86_64                              defconfig   gcc
+x86_64                randconfig-001-20231013   gcc
+x86_64                randconfig-002-20231013   gcc
+x86_64                randconfig-003-20231013   gcc
+x86_64                randconfig-004-20231013   gcc
+x86_64                randconfig-005-20231013   gcc
+x86_64                randconfig-006-20231013   gcc
 x86_64                          rhel-8.3-rust   clang
-x86_64                               rhel-8.3   gcc  
+x86_64                               rhel-8.3   gcc
 
--- 
+--=20
 0-DAY CI Kernel Test Service
 https://github.com/intel/lkp-tests/wiki
+
+
+> Jim Cromie (25):
+
+>   dyndbg: add for_each_boxed_vector
+
+Im dropping this one, more trouble than its worth.
+hopefully one falls out of flex-array work.
