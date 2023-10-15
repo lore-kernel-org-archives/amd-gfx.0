@@ -4,61 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57334CDB465
-	for <amd-gfx@archiver.kernel.org>; Sat, 14 Oct 2023 22:54:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C60B8CDB47E
+	for <amd-gfx@archiver.kernel.org>; Sun, 15 Oct 2023 10:06:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CCF810E068;
-	Sat, 14 Oct 2023 22:54:37 +0000 (UTC)
-Received: from mail-vk1-xa2d.google.com (mail-vk1-xa2d.google.com
- [IPv6:2607:f8b0:4864:20::a2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 200B810E00F;
- Sat, 14 Oct 2023 22:54:36 +0000 (UTC)
-Received: by mail-vk1-xa2d.google.com with SMTP id
- 71dfb90a1353d-49d55b90a5aso2214865e0c.0; 
- Sat, 14 Oct 2023 15:54:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1697324075; x=1697928875; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=E3dgwAPbWgceK8XnpO8ceX742rck1tlUzuW6UkEbMaQ=;
- b=ePrDhLbtJ4Exoer2Js7/+nfAlFKJ5MDzZ/EQ5O/p7q078RZeftkitF8aF37pBXYGDf
- NfVnvtfj8Wc2UhIAUgtK2/0rp5I0hcC0BlONIFHL4qTNedSuQUpgn/bDL5ku8IFiWfJn
- kAMGZ4lA6HwjcrDOYsdqC3ysXrdJFB2HFRiwJqpU9ecNEJib3UygXPfwLcYsjBwT//EV
- SzUVOO8J/QN/5a8qXj2fNrjs/3/jezC63EYmPD8piYQa0x9XBh6/aAegr/SibwmMFHGN
- GtcvS1B7jdydrgD2YB6UibUhEvnaFWXU7Uu2koItKYgIGUzKFOw+V8mp6711u9wy9245
- tx3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697324075; x=1697928875;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=E3dgwAPbWgceK8XnpO8ceX742rck1tlUzuW6UkEbMaQ=;
- b=m1JD1ak5G5nZq2Z5MUeoW+pKB7HEtIdAiJlCMxAkzg180FqxKB+5iqBtIKC3+6WaZP
- rt5NAa2uzRzzEIXH0L6poMWjybQNOB+Tk6LfURBRa9KTvBv6uqvq9ciRWMB2QHpmT+Kt
- w8qJPb4RFFNU3PvDakNoqubt/HeqVjAyE7YT481HwEjdXxLUn1MjkJdpB5XRWx3BemLN
- HvxbfWniGkFsfWFANdozNVlFm20iXpDv7uiF/hFsZssOLzuuz4chemW9EgCAIBsDLSeM
- PULzHrnDqeCl9K3tno2fWe5SNFUwVVW3vvzDQfmRmAQ1hXUTxzNHNFadAxag2k8aPx6d
- mbpg==
-X-Gm-Message-State: AOJu0YxNkJb1E0rvbn+/2HF5Qp64vvs4d+FF6Zb+JDpMckEaQhq5RkRg
- teHmdbJNRfCIC7yIHDoPBW0fLEYpRbktjtVU/w8SgrVoSsfwDQ==
-X-Google-Smtp-Source: AGHT+IFfT3nqs45wSlTdh49Mfqnd7iS4fm3NazMXcrcNd0WEk8mfYCYz456yTKkBrC2Rm6aiZ0xPlI+0DL8Ucy3wF44=
-X-Received: by 2002:a05:6122:1681:b0:49a:b587:ab79 with SMTP id
- 1-20020a056122168100b0049ab587ab79mr2277741vkl.8.1697324075009; Sat, 14 Oct
- 2023 15:54:35 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CB4410E0BE;
+	Sun, 15 Oct 2023 10:06:21 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C08DF10E07E;
+ Sun, 15 Oct 2023 10:06:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1697364378; x=1728900378;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=7UOJ3TZyf1lJoRWCpFGUSBPXBrcL5yCoPC+XN8DoJBw=;
+ b=aD6kN7VzBMHDWXJ0smzqOuys1gDzOiQ2Q8EUC+zC5nQtMNY4XkH6guJz
+ hGbZaOWQue2Ci8owyTDqiZfT+TVYn9tz5/rNcYgJYhOUNQ9Bt1T1+6vBW
+ TLZHkYcjsBI9pG487HSKrAOvKdRB+GF6FfDuGb8x6udIn2mBxdy5nWOy4
+ CCyyOG1XSnOr3ibrcwCZR+35IOdfO7p38+HKoBM1hZ0HTjr1FcONmx3OI
+ /K8q1Pz8UwjU4iRazM3y478GMFalQBzIS4IYHnaybGeT283V1/jHDCXCE
+ hx1ly7CACpoV7wpm3gSpQLovH+V1a76Y7EW1DSoIKds8fjxL1hNbN8oMe Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10863"; a="449571881"
+X-IronPort-AV: E=Sophos;i="6.03,226,1694761200"; d="scan'208";a="449571881"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Oct 2023 03:06:18 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10863"; a="821228975"
+X-IronPort-AV: E=Sophos;i="6.03,226,1694761200"; d="scan'208";a="821228975"
+Received: from lkp-server02.sh.intel.com (HELO f64821696465) ([10.239.97.151])
+ by fmsmga008.fm.intel.com with ESMTP; 15 Oct 2023 03:06:13 -0700
+Received: from kbuild by f64821696465 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qry0h-0007J1-0x;
+ Sun, 15 Oct 2023 10:06:11 +0000
+Date: Sun, 15 Oct 2023 18:05:54 +0800
+From: kernel test robot <lkp@intel.com>
+To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, hdegoede@redhat.com,
+ markgross@kernel.org, ilpo.jarvinen@linux.intel.com,
+ basavaraj.natikar@amd.com, jikos@kernel.org,
+ benjamin.tissoires@redhat.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch
+Subject: Re: [PATCH v3 09/16] platform/x86/amd/pmf: Add facility to dump TA
+ inputs
+Message-ID: <202310151704.ofb4HSxK-lkp@intel.com>
+References: <20231010125917.138225-10-Shyam-sundar.S-k@amd.com>
 MIME-Version: 1.0
-References: <20231013224818.3456409-1-jim.cromie@gmail.com>
-In-Reply-To: <20231013224818.3456409-1-jim.cromie@gmail.com>
-From: jim.cromie@gmail.com
-Date: Sat, 14 Oct 2023 16:54:08 -0600
-Message-ID: <CAJfuBxxc1HxYNbp1vdkh8yTOTHV-5ohskCA-twx5Uf2SmWTffg@mail.gmail.com>
-Subject: Re: [PATCH v7b 00/25] fix DRM_USE_DYNAMIC_DEBUG=y regression
-To: linux-kernel@vger.kernel.org, jbaron@akamai.com, 
- gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231010125917.138225-10-Shyam-sundar.S-k@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,186 +64,131 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: lb@semihalf.com, groeck@google.com, linux-doc@vger.kernel.org,
- jani.nikula@intel.com, daniel.vetter@ffwll.ch, linux@rasmusvillemoes.dk,
- robdclark@gmail.com, mcgrof@kernel.org, seanpaul@chromium.org, joe@perches.com,
- bleung@google.com, yanivt@google.com, ville.syrjala@linux.intel.com
+Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, linux-input@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Patil.Reddy@amd.com,
+ oe-kbuild-all@lists.linux.dev, mario.limonciello@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 13, 2023 at 4:48=E2=80=AFPM Jim Cromie <jim.cromie@gmail.com> w=
-rote:
->
-> hi Jason, DRM-folk
->
-> (now with checkpatch fixes)
+Hi Shyam,
 
-I missed fixing boxed-vector, am just dropping it.
+kernel test robot noticed the following build errors:
 
->
-> This patchest fixes the chicken-egg initialization problem in the 1st
-> version of ddebug-class-maps, that DRM-CI uncovered.
->
-> The root-problem was DECLARE_DYNDBG_CLASSMAP, which broke the K&R rule:
-> "define once, refer many".  In patch 14 it is replaced by:
->
->  DYNDBG_CLASSMAP_DEFINE - define and export a struct ddebug_class_map
->  DYNDBG_CLASSMAP_USE - ref the exported struct
->
-> test-dynamic-debug is also extended with a -submod.ko, in order to
-> recapitulate the drm & drivers initialization scenario.
->
-> They're on v6.6-rc5 now, and apply cleanly to drm-tip/drm-tip.
->
-> Ive been running recent revs on rc3+, on my desktop and laptop.
->
-> The final blocker was a missing __align(8) on the ddebug_class_user
-> record inserted by DYNDBG_CLASSMAP_USE.  This caused DRM=3Dy (builtin
-> only) to have a corrupt record for drm_kms_helper (builtin dependent).
-> Curiously, a clang build did not exhibit this problem.
->
+[auto build test ERROR on hid/for-next]
+[also build test ERROR on drm-misc/drm-misc-next linus/master v6.6-rc5 next-20231013]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
->
-> Widespread testing is appreciated.
-> I have scripts if anyone wants them.
->
-> I'll forward lkp-robot reports here when I get them.
-> Patches also at https://github.com/jimc/linux (dd-fix-7b)
->
+url:    https://github.com/intel-lab-lkp/linux/commits/Shyam-Sundar-S-K/platform-x86-amd-pmf-Add-PMF-TEE-interface/20231010-210347
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git for-next
+patch link:    https://lore.kernel.org/r/20231010125917.138225-10-Shyam-sundar.S-k%40amd.com
+patch subject: [PATCH v3 09/16] platform/x86/amd/pmf: Add facility to dump TA inputs
+config: x86_64-allyesconfig (https://download.01.org/0day-ci/archive/20231015/202310151704.ofb4HSxK-lkp@intel.com/config)
+compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231015/202310151704.ofb4HSxK-lkp@intel.com/reproduce)
 
-Date: Sat, 14 Oct 2023 18:22:28 +0800
-From: kernel test robot <lkp@intel.com>
-To: Jim Cromie <jim.cromie@gmail.com>
-Subject: [jimc:dd-fix-7a] BUILD SUCCESS 8e96f63f570a462b859876601a5f795a159=
-99f6b
-Message-ID: <202310141826.AN7MAD40-lkp@intel.com>
-User-Agent: s-nail v14.9.24
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202310151704.ofb4HSxK-lkp@intel.com/
 
-tree/branch: https://github.com/jimc/linux.git dd-fix-7a
-branch HEAD: 8e96f63f570a462b859876601a5f795a15999f6b  drm: restore
-CONFIG_DRM_USE_DYNAMIC_DEBUG un-BROKEN
+All errors (new ones prefixed by >>):
 
-elapsed time: 3187m
+   In file included from include/linux/printk.h:564,
+                    from include/linux/kernel.h:30,
+                    from arch/x86/include/asm/percpu.h:27,
+                    from arch/x86/include/asm/preempt.h:6,
+                    from include/linux/preempt.h:79,
+                    from include/linux/spinlock.h:56,
+                    from include/linux/mmzone.h:8,
+                    from include/linux/gfp.h:7,
+                    from include/linux/slab.h:16,
+                    from include/linux/resource_ext.h:11,
+                    from include/linux/acpi.h:13,
+                    from drivers/platform/x86/amd/pmf/pmf.h:14,
+                    from drivers/platform/x86/amd/pmf/sps.c:11:
+   drivers/platform/x86/amd/pmf/sps.c: In function 'amd_pmf_dump_sps_defaults':
+>> drivers/platform/x86/amd/pmf/sps.c:50:65: error: implicit declaration of function 'source_as_str' [-Werror=implicit-function-declaration]
+      50 |                         pr_debug("--- Source:%s Mode:%s ---\n", source_as_str(i), slider_as_str(j));
+         |                                                                 ^~~~~~~~~~~~~
+   include/linux/dynamic_debug.h:224:29: note: in definition of macro '__dynamic_func_call_cls'
+     224 |                 func(&id, ##__VA_ARGS__);                       \
+         |                             ^~~~~~~~~~~
+   include/linux/dynamic_debug.h:250:9: note: in expansion of macro '_dynamic_func_call_cls'
+     250 |         _dynamic_func_call_cls(_DPRINTK_CLASS_DFLT, fmt, func, ##__VA_ARGS__)
+         |         ^~~~~~~~~~~~~~~~~~~~~~
+   include/linux/dynamic_debug.h:269:9: note: in expansion of macro '_dynamic_func_call'
+     269 |         _dynamic_func_call(fmt, __dynamic_pr_debug,             \
+         |         ^~~~~~~~~~~~~~~~~~
+   include/linux/printk.h:579:9: note: in expansion of macro 'dynamic_pr_debug'
+     579 |         dynamic_pr_debug(fmt, ##__VA_ARGS__)
+         |         ^~~~~~~~~~~~~~~~
+   drivers/platform/x86/amd/pmf/sps.c:50:25: note: in expansion of macro 'pr_debug'
+      50 |                         pr_debug("--- Source:%s Mode:%s ---\n", source_as_str(i), slider_as_str(j));
+         |                         ^~~~~~~~
+   drivers/platform/x86/amd/pmf/sps.c:50:34: warning: format '%s' expects argument of type 'char *', but argument 3 has type 'int' [-Wformat=]
+      50 |                         pr_debug("--- Source:%s Mode:%s ---\n", source_as_str(i), slider_as_str(j));
+         |                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/printk.h:345:21: note: in definition of macro 'pr_fmt'
+     345 | #define pr_fmt(fmt) fmt
+         |                     ^~~
+   include/linux/dynamic_debug.h:248:9: note: in expansion of macro '__dynamic_func_call_cls'
+     248 |         __dynamic_func_call_cls(__UNIQUE_ID(ddebug), cls, fmt, func, ##__VA_ARGS__)
+         |         ^~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/dynamic_debug.h:250:9: note: in expansion of macro '_dynamic_func_call_cls'
+     250 |         _dynamic_func_call_cls(_DPRINTK_CLASS_DFLT, fmt, func, ##__VA_ARGS__)
+         |         ^~~~~~~~~~~~~~~~~~~~~~
+   include/linux/dynamic_debug.h:269:9: note: in expansion of macro '_dynamic_func_call'
+     269 |         _dynamic_func_call(fmt, __dynamic_pr_debug,             \
+         |         ^~~~~~~~~~~~~~~~~~
+   include/linux/printk.h:579:9: note: in expansion of macro 'dynamic_pr_debug'
+     579 |         dynamic_pr_debug(fmt, ##__VA_ARGS__)
+         |         ^~~~~~~~~~~~~~~~
+   drivers/platform/x86/amd/pmf/sps.c:50:25: note: in expansion of macro 'pr_debug'
+      50 |                         pr_debug("--- Source:%s Mode:%s ---\n", source_as_str(i), slider_as_str(j));
+         |                         ^~~~~~~~
+   drivers/platform/x86/amd/pmf/sps.c:50:47: note: format string is defined here
+      50 |                         pr_debug("--- Source:%s Mode:%s ---\n", source_as_str(i), slider_as_str(j));
+         |                                              ~^
+         |                                               |
+         |                                               char *
+         |                                              %d
+   cc1: some warnings being treated as errors
 
-configs tested: 103
-configs skipped: 2
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
+vim +/source_as_str +50 drivers/platform/x86/amd/pmf/sps.c
 
-tested configs:
-alpha                             allnoconfig   gcc
-alpha                            allyesconfig   gcc
-alpha                               defconfig   gcc
-arc                              allmodconfig   gcc
-arc                               allnoconfig   gcc
-arc                              allyesconfig   gcc
-arc                                 defconfig   gcc
-arc                   randconfig-001-20231012   gcc
-arm                              allmodconfig   gcc
-arm                               allnoconfig   gcc
-arm                              allyesconfig   gcc
-arm                                 defconfig   gcc
-arm                   randconfig-001-20231013   gcc
-arm64                            allmodconfig   gcc
-arm64                             allnoconfig   gcc
-arm64                            allyesconfig   gcc
-arm64                               defconfig   gcc
-csky                             allmodconfig   gcc
-csky                              allnoconfig   gcc
-csky                             allyesconfig   gcc
-csky                                defconfig   gcc
-i386                             allmodconfig   gcc
-i386                              allnoconfig   gcc
-i386                             allyesconfig   gcc
-i386                              debian-10.3   gcc
-i386                                defconfig   gcc
-i386                  randconfig-001-20231013   gcc
-i386                  randconfig-002-20231013   gcc
-i386                  randconfig-003-20231013   gcc
-i386                  randconfig-004-20231013   gcc
-i386                  randconfig-005-20231013   gcc
-i386                  randconfig-006-20231013   gcc
-loongarch                        allmodconfig   gcc
-loongarch                         allnoconfig   gcc
-loongarch                        allyesconfig   gcc
-loongarch                           defconfig   gcc
-loongarch             randconfig-001-20231012   gcc
-m68k                             allmodconfig   gcc
-m68k                              allnoconfig   gcc
-m68k                             allyesconfig   gcc
-m68k                                defconfig   gcc
-microblaze                       allmodconfig   gcc
-microblaze                        allnoconfig   gcc
-microblaze                       allyesconfig   gcc
-microblaze                          defconfig   gcc
-mips                             allmodconfig   gcc
-mips                              allnoconfig   gcc
-mips                             allyesconfig   gcc
-nios2                            allmodconfig   gcc
-nios2                             allnoconfig   gcc
-nios2                            allyesconfig   gcc
-nios2                               defconfig   gcc
-openrisc                         allmodconfig   gcc
-openrisc                          allnoconfig   gcc
-openrisc                         allyesconfig   gcc
-openrisc                            defconfig   gcc
-parisc                           allmodconfig   gcc
-parisc                            allnoconfig   gcc
-parisc                           allyesconfig   gcc
-parisc                              defconfig   gcc
-parisc64                            defconfig   gcc
-powerpc                           allnoconfig   gcc
-powerpc                          allyesconfig   gcc
-riscv                            allmodconfig   gcc
-riscv                             allnoconfig   gcc
-riscv                            allyesconfig   gcc
-riscv                               defconfig   gcc
-riscv                 randconfig-001-20231012   gcc
-riscv                          rv32_defconfig   gcc
-s390                             allmodconfig   gcc
-s390                              allnoconfig   gcc
-s390                             allyesconfig   gcc
-s390                                defconfig   gcc
-s390                  randconfig-001-20231012   gcc
-sh                               allmodconfig   gcc
-sh                                allnoconfig   gcc
-sh                               allyesconfig   gcc
-sh                                  defconfig   gcc
-sparc                            allmodconfig   gcc
-sparc                             allnoconfig   gcc
-sparc                            allyesconfig   gcc
-sparc                               defconfig   gcc
-sparc                 randconfig-001-20231013   gcc
-sparc64                          allmodconfig   gcc
-sparc64                          allyesconfig   gcc
-sparc64                             defconfig   gcc
-um                               allmodconfig   clang
-um                                allnoconfig   clang
-um                               allyesconfig   clang
-um                                  defconfig   gcc
-um                             i386_defconfig   gcc
-um                           x86_64_defconfig   gcc
-x86_64                            allnoconfig   gcc
-x86_64                           allyesconfig   gcc
-x86_64                              defconfig   gcc
-x86_64                randconfig-001-20231013   gcc
-x86_64                randconfig-002-20231013   gcc
-x86_64                randconfig-003-20231013   gcc
-x86_64                randconfig-004-20231013   gcc
-x86_64                randconfig-005-20231013   gcc
-x86_64                randconfig-006-20231013   gcc
-x86_64                          rhel-8.3-rust   clang
-x86_64                               rhel-8.3   gcc
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  41  
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  42  static void amd_pmf_dump_sps_defaults(struct amd_pmf_static_slider_granular *data)
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  43  {
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  44  	int i, j;
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  45  
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  46  	pr_debug("Static Slider Data - BEGIN\n");
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  47  
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  48  	for (i = 0; i < POWER_SOURCE_MAX; i++) {
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  49  		for (j = 0; j < POWER_MODE_MAX; j++) {
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10 @50  			pr_debug("--- Source:%s Mode:%s ---\n", source_as_str(i), slider_as_str(j));
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  51  			pr_debug("SPL: %u mW\n", data->prop[i][j].spl);
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  52  			pr_debug("SPPT: %u mW\n", data->prop[i][j].sppt);
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  53  			pr_debug("SPPT_ApuOnly: %u mW\n", data->prop[i][j].sppt_apu_only);
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  54  			pr_debug("FPPT: %u mW\n", data->prop[i][j].fppt);
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  55  			pr_debug("STTMinLimit: %u mW\n", data->prop[i][j].stt_min);
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  56  			pr_debug("STT_SkinTempLimit_APU: %u C\n",
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  57  				 data->prop[i][j].stt_skin_temp[STT_TEMP_APU]);
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  58  			pr_debug("STT_SkinTempLimit_HS2: %u C\n",
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  59  				 data->prop[i][j].stt_skin_temp[STT_TEMP_HS2]);
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  60  		}
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  61  	}
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  62  
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  63  	pr_debug("Static Slider Data - END\n");
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  64  }
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  65  #else
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  66  static void amd_pmf_dump_sps_defaults(struct amd_pmf_static_slider_granular *data) {}
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  67  #endif
+a82ebb3d800d7b Shyam Sundar S K 2023-05-10  68  
 
---=20
+-- 
 0-DAY CI Kernel Test Service
 https://github.com/intel/lkp-tests/wiki
-
-
-> Jim Cromie (25):
-
->   dyndbg: add for_each_boxed_vector
-
-Im dropping this one, more trouble than its worth.
-hopefully one falls out of flex-array work.
