@@ -4,90 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D82ECDB482
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Oct 2023 14:49:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83B90CDB482
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Oct 2023 14:52:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F1E110E1FB;
-	Mon, 16 Oct 2023 14:49:56 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BC7610E1F5
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Oct 2023 14:49:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GEqKBI8lK36WybgSADLrDD9fL5elvBx5p0MWXxUHtOsvb1WmxXnmatt8gpCe3wRVkVKWaX+koQzkN6BEGrwRLf3W13LqzVMYRRpqDiigQH60he467WnIGSO+piKHTHOrrfQD/E1wjhb3hBrIxgXmfsxou9Kut4/FHMvwZzHP/itLuNMZta4yCVIE1ac2KfCBcpZc9Mqh84VMcGzG77+M+g6evMqLGhs+CB62WOLdSxp23f1LtVqBuB/zyF4oAIKj4HtaW+amDjuUEDWCKQlgMQai0D0STiOTDFENpVJhFKiLucUcpdVBKAQGzRi0aK7J4mofDp0QgvjKxWKjBaymuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ORiUfzyXGlBjWcXBLTzdYbgcHeiZl5TtyFCQfK1FbFk=;
- b=CGOesSZR5Wq9gxjZV8yth2HZK+laksfUfIhiIujCHOe1Ljt7xRN1cwPUaYLUkGv9jyGNH3kOoJyg9v6vi4+WXPlP1tj/nzWVtvX3Klmu1KJ9h3LQlr0CgWcDmYbd9HANoCTwARBZ3Us15fzTnrGA1aIFEiGeKRPoI1qAVBKvHZxC8Ml8cFVpOi+1X0E6kl+v1Hl9C2OCKGQfi+9siCRyS2dE/1zoWW/pOLyN7hGrX2UGroGEFOkW17ij0/HMyKjBjBwFudz88gg/lO+sR5vH4eLZMfXN0C1WQmGuj6GMN8wfWe2Yhq6lzFhRb33xXDI4pG4wub+oxF/e84lp9T77qA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ORiUfzyXGlBjWcXBLTzdYbgcHeiZl5TtyFCQfK1FbFk=;
- b=ZEE/DhIfn2SYovP0Y8aMOIOou+8NinBzO54Ea6ssuvtTGt6jXi8Ej3mSEa35w94OU5iKOAf4LH1vQowOqpFZzLQjUDMiOl9XAoX/LLN496UXUqXzkZmKj5l0pGtxYON4PcHJ0iAdHMPHoekny56LmRbQPs0hAGrFkkBy0wXhHYA=
-Received: from CY5PR15CA0099.namprd15.prod.outlook.com (2603:10b6:930:7::9) by
- BY5PR12MB4243.namprd12.prod.outlook.com (2603:10b6:a03:20f::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.36; Mon, 16 Oct
- 2023 14:49:49 +0000
-Received: from CY4PEPF0000EE37.namprd05.prod.outlook.com
- (2603:10b6:930:7:cafe::6f) by CY5PR15CA0099.outlook.office365.com
- (2603:10b6:930:7::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.35 via Frontend
- Transport; Mon, 16 Oct 2023 14:49:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE37.mail.protection.outlook.com (10.167.242.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.22 via Frontend Transport; Mon, 16 Oct 2023 14:49:48 +0000
-Received: from fdavid-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 16 Oct
- 2023 09:49:46 -0500
-From: David Francis <David.Francis@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V2 2/2] drm/amdgpu: Permit PCIe transfer over links with XGMI
-Date: Mon, 16 Oct 2023 10:49:29 -0400
-Message-ID: <20231016144929.807268-2-David.Francis@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231016144929.807268-1-David.Francis@amd.com>
-References: <20231016144929.807268-1-David.Francis@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AACB10E200;
+	Mon, 16 Oct 2023 14:52:43 +0000 (UTC)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BC6610E1F9;
+ Mon, 16 Oct 2023 14:52:40 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-504427aae4fso6766731e87.1; 
+ Mon, 16 Oct 2023 07:52:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1697467959; x=1698072759; darn=lists.freedesktop.org;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=mfaMwAxMjRfwOpinKHvcClwhMqvNGEGJeqo+8rgwK64=;
+ b=A50qSmrRHXZf70oGUB70W3YZzhksY01eoCokiQXiRZW13yr9LrikDylPdPLiX/L6Ko
+ vYKj0X/DPmYEDrkcviHVCLVKZ6we+gRiGiSSsQkoTHBEZcQGP4KHRk1b8xOwt7IeTeaQ
+ hmMDrQheMREpvsUcm/2BNVkQkm1k3Kqs1dYlLFsY6MPQAOF1Dh6M5ho852mheQfQYVIU
+ MGYqoI8tIjXW1g6/qO721HseONsskRX4cLLy8077IjVBj9l0WcXVFd5KR3Me5wZRUWRB
+ Uo9T7dH5IHiqhsboPxKPL8MpGPrDIxGyiDdnp00Mt3wh0egFObs8lHmQz1Jyz+C7u6/5
+ /thg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1697467959; x=1698072759;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=mfaMwAxMjRfwOpinKHvcClwhMqvNGEGJeqo+8rgwK64=;
+ b=MpkBxrswygvMyx13kR/iZ2SLkwryGOqbqc0bR9Y4y8uOAuB/s3s6MHY4m6LEsFMvyw
+ gGxJJfitD4y1TSEWBvJi6oTliwlpK0vYUDLYjHSMzQ+6iChvsWPJy4uGjwpmSzNGK0BR
+ T8Rg42b6Hj5k14sQOXzaMZJIQKFG1hHrrhCNQtMjkTTKP6xXbAGkDxlYUpB+YgQANLKV
+ FkFawmkMtYCo5u6wnyp7Wm1c3ps1Q8L4FjOukrIk2OQJaZvZi/9yK5xdoOTLcY/6ThOo
+ hTfMECSe2S7HsL1Y0IE6pQPIBLFFiW2Oz52zvji1Srjykj+OZbTPtpDIkWZ7V5l6BJG7
+ 8aFQ==
+X-Gm-Message-State: AOJu0YzqhQlNylywTFnFrZg6I5cCwc0xtESeIBbMcl243T79oQnuwUwr
+ 19OAQs8GNpSPiDwUywvMU+s=
+X-Google-Smtp-Source: AGHT+IHPXRreqpJIfRixdtagW7epVNulxi7pgxOISUFw6x+ARuUNOEchm+6itcoT3ESNmcoYtuyp5Q==
+X-Received: by 2002:a05:6512:3ca0:b0:507:a8f9:d67f with SMTP id
+ h32-20020a0565123ca000b00507a8f9d67fmr3388315lfv.24.1697467958208; 
+ Mon, 16 Oct 2023 07:52:38 -0700 (PDT)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ i14-20020ac25d2e000000b0050422588213sm4571218lfb.209.2023.10.16.07.52.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 Oct 2023 07:52:37 -0700 (PDT)
+Date: Mon, 16 Oct 2023 17:52:22 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: =?UTF-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
+Subject: Re: [PATCH v6 6/6] drm/doc: Define KMS atomic state set
+Message-ID: <20231016175222.7a89e6ab@eldfell>
+In-Reply-To: <aa424bf8-5652-4a44-9b93-bdc0a31d835a@igalia.com>
+References: <20230815185710.159779-1-andrealmeid@igalia.com>
+ <20230815185710.159779-7-andrealmeid@igalia.com>
+ <1b23576d-1649-ff5c-6273-b54729ea46d8@mailbox.org>
+ <b48bd1fc-fcb0-481b-8413-9210d44d709b@igalia.com>
+ <20231016151856.74af9305@eldfell>
+ <aa424bf8-5652-4a44-9b93-bdc0a31d835a@igalia.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE37:EE_|BY5PR12MB4243:EE_
-X-MS-Office365-Filtering-Correlation-Id: fb961e6b-266b-4287-a3ff-08dbce572592
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jr77I+drLOCGMX8R59dYQS/4uk8JAu6kpfNe2SdQ4t5n5qIoPtlu5+QdE/iYTGGdn9EFLffizQdfXKpqjK47Pdzof37iFzFDsELLeApzzESCkf6mSXtyymRrMspeRHiXrrfpd2eOq8N3tES8OsIn8qOmg5jcn/SKD5+UAymqhZZ8/MKKX2bA7tudEwE169OcZ5U0Lg2E7d80L7+Xfa43vePCpTFTSjZy/9gTymlAEMPIFEczm6MsG0p9Jq8tN2rRypyCi2zXBZVEXaSOAsAqbCA4ADm/RcNhmyn0MRi/U5EhgbjpRHZzlMfFtiXkN2IaSrUVf41VKxnzqDx38wJm8veYXfLhB0pq09bbVIlAtG4aRqUvjHjdrelxUccXYGZGq2bjUDeZZLYeTEhQ6NU6UA54wr4r1zyX/FhbgKF9kECZ2U2XflZX7+oKGx45cggyA/JVk8ITrePdNHGKWUOxtzCx1FGuxKDGWfqGPRB3SqVLgmGz9AMJSzgaksl5mtw/MAtQ+oe9Al96c79j7V6vBmUt7JdmaGgKZfZ2+64rmqyQ3VFruZEr4HtExWrrC6aycbpVYINz5bYBCXlpteh15fiKNGabAW8psmF3pUEsg3MtWWVwaerA040c+y41K+dYux0nsJx0vxbgNK0a/qeVSjlT4uvsbt1Hw9TDho9voz5c9dJhWjoLGk/bI2zUV268K5ocdEL3pCK0Jq8Gf38/xFSeVGtiGEQxPS+rCobAbrf3PZBsIF/cT2r9JQRJJbWPc0ZVGum/FoH9NoR44EXjTw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(346002)(376002)(136003)(39860400002)(230922051799003)(82310400011)(451199024)(1800799009)(64100799003)(186009)(36840700001)(46966006)(40470700004)(8676002)(40460700003)(2616005)(26005)(1076003)(16526019)(426003)(336012)(5660300002)(6666004)(47076005)(8936002)(478600001)(83380400001)(4326008)(2906002)(70586007)(6916009)(70206006)(316002)(41300700001)(36756003)(82740400003)(86362001)(40480700001)(81166007)(356005)(7696005)(36860700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2023 14:49:48.9494 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb961e6b-266b-4287-a3ff-08dbce572592
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE37.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4243
+Content-Type: multipart/signed; boundary="Sig_/Bz+Yx.C6psyZpVX2eLu8wAL";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,60 +75,127 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Francis <David.Francis@amd.com>
+Cc: pierre-eric.pelloux-prayer@amd.com, kernel-dev@igalia.com,
+ 'Marek =?UTF-8?B?T2zFocOhayc=?= <maraeo@gmail.com>,
+ Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>,
+ Dave Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
+ Randy Dunlap <rdunlap@infradead.org>, xaver.hugl@gmail.com,
+ Daniel Stone <daniel@fooishbar.org>, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, alexander.deucher@amd.com, joshua@froggi.es,
+ wayland-devel@lists.freedesktop.org, hwentlan@amd.com,
+ christian.koenig@amd.com, ville.syrjala@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When the CPU is XGMI connected, the PCIe links should
-not be enumerated for topology purposes. However, PCIe
-transfer should still be a valid option for remote
-doorbells and MMIO mappings.
+--Sig_/Bz+Yx.C6psyZpVX2eLu8wAL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Move the XGMI connection check out of the shared helper
-function amdgpu_device_is_peer_accessible and into the
-topology path.
+On Mon, 16 Oct 2023 15:42:16 +0200
+Andr=C3=A9 Almeida <andrealmeid@igalia.com> wrote:
 
-Signed-off-by: David Francis <David.Francis@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 +---
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c  | 6 ++++--
- 2 files changed, 5 insertions(+), 5 deletions(-)
+> Hi Pekka,
+>=20
+> On 10/16/23 14:18, Pekka Paalanen wrote:
+> > On Mon, 16 Oct 2023 12:52:32 +0200
+> > Andr=C3=A9 Almeida <andrealmeid@igalia.com> wrote:
+> > =20
+> >> Hi Michel,
+> >>
+> >> On 8/17/23 12:37, Michel D=C3=A4nzer wrote: =20
+> >>> On 8/15/23 20:57, Andr=C3=A9 Almeida wrote: =20
+> >>>> From: Pekka Paalanen <pekka.paalanen@collabora.com>
+> >>>>
+> >>>> Specify how the atomic state is maintained between userspace and
+> >>>> kernel, plus the special case for async flips.
+> >>>>
+> >>>> Signed-off-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+> >>>> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com> =20
+> >>> [...]
+> >>>    =20
+> >>>> +An atomic commit with the flag DRM_MODE_PAGE_FLIP_ASYNC is allowed =
+to
+> >>>> +effectively change only the FB_ID property on any planes. No-operat=
+ion changes
+> >>>> +are ignored as always. [...] =20
+> >>> During the hackfest in Brno, it was mentioned that a commit which re-=
+sets the same FB_ID could actually have an effect with VRR: It could trigge=
+r scanout of the next frame before vertical blank has reached its maximum d=
+uration. Some kind of mechanism is required for this in order to allow user=
+ space to perform low frame rate compensation.
+> >>>    =20
+> >> Xaver tested this hypothesis in a flipping the same fb in a VRR monitor
+> >> and it worked as expected, so this shouldn't be a concern. =20
+> > Right, so it must have some effect. It cannot be simply ignored like in
+> > the proposed doc wording. Do we special-case re-setting the same FB_ID
+> > as "not a no-op" or "not ignored" or some other way? =20
+> There's an effect in the refresh rate, the image won't change but it=20
+> will report that a flip had happened asynchronously so the reported=20
+> framerate will be increased. Maybe an additional wording could be like:
+>=20
+> Flipping to the same FB_ID will result in a immediate flip as if it was=20
+> changing to a different one, with no effect on the image but effecting=20
+> the reported frame rate.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index bad2b5577e96..b47cb7f8cfbd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5753,9 +5753,7 @@ bool amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
- 		~*peer_adev->dev->dma_mask : ~((1ULL << 32) - 1);
- 	resource_size_t aper_limit =
- 		adev->gmc.aper_base + adev->gmc.aper_size - 1;
--	bool p2p_access =
--		!adev->gmc.xgmi.connected_to_cpu &&
--		!(pci_p2pdma_distance(adev->pdev, peer_adev->dev, false) < 0);
-+	bool p2p_access = !(pci_p2pdma_distance(adev->pdev, peer_adev->dev, false) < 0);
- 
- 	return pcie_p2p && p2p_access && (adev->gmc.visible_vram_size &&
- 		adev->gmc.real_vram_size == adev->gmc.visible_vram_size &&
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index 4e530791507e..cb64c19482f3 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1514,11 +1514,13 @@ static int kfd_dev_create_p2p_links(void)
- 			goto next;
- 
- 		/* check if node(s) is/are peer accessible in one direction or bi-direction */
--		ret = kfd_add_peer_prop(new_dev, dev, i, k);
-+		if (!new_dev->gpu->adev->gmc.xgmi.connected_to_cpu)
-+			ret = kfd_add_peer_prop(new_dev, dev, i, k);
- 		if (ret < 0)
- 			goto out;
- 
--		ret = kfd_add_peer_prop(dev, new_dev, k, i);
-+		if (!dev->gpu->adev->gmc.xgmi.connected_to_cpu)
-+			ret = kfd_add_peer_prop(dev, new_dev, k, i);
- 		if (ret < 0)
- 			goto out;
- next:
--- 
-2.34.1
+Re-setting FB_ID to its current value is a special case regardless of
+PAGE_FLIP_ASYNC, is it not?
 
+So it should be called out somewhere that applies regardless of
+PAGE_FLIP_ASYNC. Maybe to the end of the earlier paragraph:
+
+> +The changes recorded in an atomic commit apply on top the current KMS st=
+ate in
+> +the kernel. Hence, the complete new KMS state is the complete old KMS st=
+ate with
+> +the committed property settings done on top. The kernel will try to avoid
+> +no-operation changes, so it is safe for userspace to send redundant prop=
+erty
+> +settings.  However, not every situation allows for no-op changes, due to=
+ the
+> +need to acquire locks for some attributes. Userspace needs to be aware t=
+hat some
+> +redundant information might result in oversynchronization issues.  No-op=
+eration
+> +changes do not count towards actually needed changes, e.g.  setting MODE=
+_ID to a
+> +different blob with identical contents as the current KMS state shall no=
+t be a
+> +modeset on its own.
+
++As a special exception for VRR needs, explicitly setting FB_ID to its
++current value is not a no-op.
+
+Would that work?
+
+I'd like to try to avoid being more specific about what it does
+exactly, because that's not the topic here. Such things can be
+documented with the property itself. This is a summary of what is or is
+not a no-op or a modeset.
+
+
+Thanks,
+pq
+
+--Sig_/Bz+Yx.C6psyZpVX2eLu8wAL
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmUtTiYACgkQI1/ltBGq
+qqcogA/5AUHpaJpLiNY5OmjFAMgtNyE0I2iqQTMRxdD7HxoY+S8MIHB6jq/Ac2cD
+bgbV2k2AHbm+toVzZeTOgDK4PZqQe+2Mfi53Fe+MhJz364YkFvhUJ1+wvk0rzs6f
+SQ+HKfVVsUfXGz5lLjAcG5xSxRHdTBNiS3GtfTBSDZewdvBfrntZwA5B22MxiSua
+/iEdu8aYjO1WAvdz0/SzV2pNfcyfo71gHKCY1aHBD1Hkf6aqJMLHsbgQng8tkKir
+MVmARPURGZCXgJpYsNMJYU/0p4ByN/jXrsbDAXu37IAEECqLxwIWeIQgoahTGIXu
+dVIuxgRyuEOdnxB6rkt8u5iTkLY4jJAx26nx3Zi8MkbimPvWHjQt1cyfrS3Q4ZyG
+7kj028Q2ekwvbsPRqlD+Msqg/1v2WQgYm5HIHicSGP0tKkg4IXZj+z84T8Bcl8Gw
+7xZTHqLgLrFdXq1HTG0Co5r1pRCFD1EgaGJqrMI/AN/RzZ6TjGZ/kVeM3roZw0zK
+tUbhu9Ndh4AfYmrTPx74IVHTNqsYl8OCrjaYvFkCkAHy3gzLrlmjQwMuof9Q/l+1
+FxcDrPC3v0xKnGsrAW2Doyi3idzOdtyquUzJgN4pqlnAn1zV1hXMQZt8LxVUBXuK
+UDk+hGMxCYb0Z2L1t/Sg6HaLlMxFH5br5OtJhUl1K0cYLavNrjE=
+=Lyhk
+-----END PGP SIGNATURE-----
+
+--Sig_/Bz+Yx.C6psyZpVX2eLu8wAL--
