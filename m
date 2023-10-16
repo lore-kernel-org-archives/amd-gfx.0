@@ -4,115 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98806CDB465
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Oct 2023 23:20:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2164CDB465
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Oct 2023 23:21:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 036E810E1C2;
-	Mon, 16 Oct 2023 23:20:58 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20606.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e88::606])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 353F510E1C2
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Oct 2023 23:20:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ki9e6KdPvU32h55VZ6lC0Palc48hg7KdrcvtzbyMy4st3e86lR7fDf3TIR/cvd4XrQiKAKvQog2BJpIwyiVpOXcder53kbkHe43YJBpAmv4FlWB+ukxUzm3Xnv3oeuC9n/krW7jqzYKZ9Ix3IPk9M1kBQDppBcEtff8KwCm1MArT52a3ugT2ihHlq1Q1j3Y/d1kKJbfxL5UMa5ta7MBhG1LLyjbijrX0OwWwgjJe1uEkkgGLBkx9m+9UFum9aZMxXvAKZRUd4hfbjBpyaSGTw5O5dczW+ujl3Oj+j9ZTXOKSPMS+UdcUCqZQqZSvgJnt+fhMZuQwC//Ccx5kzkZCog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0p52U8C54CXWVxKuk7vBp842rDn+KJDZc+CjjB91Ut4=;
- b=RoctNe9Q967PQhGi2Z0LcmoDmxkvzg36kSOo7rKpL4/uW/e/UYO7Szx/CyKIgj69GpUb4/GS2e2+pDBusIkScTrdObgA+EGEUAHJ60y9b9OZwzPGMaymyQrtVEsKQNGfE2jfB4hSftGgcH7nkedkmAyMJnSmg6mVD8t4dBC5prrnxzmcyxbmO7RZvoy2TjKc4JVlPXnbo7y1PD0dKDheljXo1UndGZA+iE97czELUj5igRzBsAfGntINxF86DPf4yMcyCkYAnXf1/g6BNT6w4Q1rsy32PCajAj2sLjvTUk9bbeyiqg2LmoRWemrpW8WT3jXEKG8ryjFhV6hOL4UrEQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0p52U8C54CXWVxKuk7vBp842rDn+KJDZc+CjjB91Ut4=;
- b=QiWT6EQus+iyeGhZf536eeeONJYB/GxvSknA7CBI+z9Fe6mf5Rh9m27y958IJm4dZuzgGBEuOy2MPqGz/+6GF41BFIWPje68j0lyYFGx0FVO1r4tBZgh8H4XH19OZmMcsOxMap+8G4SoJuyx52XKEEZDsuWVvjQ6pFON1Wdb764=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM8PR12MB5399.namprd12.prod.outlook.com (2603:10b6:8:34::5) by
- CH2PR12MB4875.namprd12.prod.outlook.com (2603:10b6:610:35::24) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6886.36; Mon, 16 Oct 2023 23:20:53 +0000
-Received: from DM8PR12MB5399.namprd12.prod.outlook.com
- ([fe80::ee90:6ffc:283d:8130]) by DM8PR12MB5399.namprd12.prod.outlook.com
- ([fe80::ee90:6ffc:283d:8130%4]) with mapi id 15.20.6886.034; Mon, 16 Oct 2023
- 23:20:53 +0000
-Message-ID: <4ad48c16-d023-4be2-8d43-a0428ca00eaf@amd.com>
-Date: Mon, 16 Oct 2023 19:20:50 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/4] drm/amd/amdgpu/vcn: Add RB decouple feature under
- SRIOV - P4
-To: Bokun Zhang <bokun.zhang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20231016165437.2865-1-bokun.zhang@amd.com>
-Content-Language: en-US
-From: Leo Liu <leo.liu@amd.com>
-In-Reply-To: <20231016165437.2865-1-bokun.zhang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0125.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:d5::27) To DM8PR12MB5399.namprd12.prod.outlook.com
- (2603:10b6:8:34::5)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM8PR12MB5399:EE_|CH2PR12MB4875:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7790bf5c-86e6-4202-1506-08dbce9e8aaa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LEnurmcI9B9rY9xqKktCWkD9dijGJ8MIYkuHQQ2Q+M1K8mTrKnFFtOsHFdZKqQ2SpXLLBqbEZf5M14MhooX6E8suTMpbmCc7mT6rzBokajL8bjZUG2BBJbtSP7zIKByTNTlZaS+7eTOQ5f2MjbHlPa+xF5iVikWxJ/kN/cTIx+7gGhe5+iLKFRu7ZMzLMzOHA9zz6xfi40LjJSLI0DWpn18x+jKELv7fmIvj8woEpX+ZFT0aD2GlnZCD5GcbTS4mGC7hI5NQHBpyFCPCxjcdOu2dn19aBvMlAPi0LyfPewSV/6RPcQpUioSC1oV+OUpmjRwfqilzixaQdJD4rv+NycazzWQPtcAKPw1nHZFte07t0hYwwNTaxWWJVlEQ7uStR1F0s4jD/jUcO0RlX2y0clWQbFZERGsvL1zC7r/Y05BfgU7VuH8Ah05EkZO8xOhlwrobSBMHCUqEC9TV5QVPYu455ENwaAOzoU5bg6uidpe9J3FewZ7j50WkOZJhSGOo68LM9Rn0sr4v2Uix/SMBH8eRHdB9Pyp3OtP1xfdtEqKjxVHbmNgXNq+78MJ7WMqC9b4cq7QFJDNpPjS/enlMNNfmxu2ZOhGxeP2Dfh9mC/WW1FG4LWceTpM4+z3gu1N5fk4eIsW+7kY+q2T1k1aK1w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM8PR12MB5399.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(396003)(346002)(136003)(366004)(376002)(230922051799003)(186009)(1800799009)(64100799003)(451199024)(316002)(478600001)(66476007)(6486002)(66556008)(66946007)(2616005)(53546011)(6506007)(26005)(6512007)(8936002)(8676002)(2906002)(4001150100001)(41300700001)(5660300002)(44832011)(36756003)(86362001)(31696002)(83380400001)(38100700002)(31686004)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YUp6N1RMbUJIdXdUcGJsOG1kd1VBdm9qNm8yUGttWFJmNTBVRkI0b3ZlcGFT?=
- =?utf-8?B?SHZFUllJcHg3SHlwelArZTlDMWVtb0NCUXhXanAzcEVUckFTdGp1UERBdVR1?=
- =?utf-8?B?UjVIck9lNlgrWXR3YVlxMXJHQjBBUGNRV1ZabUdMbmxjRy83RkJNM3BiTzhE?=
- =?utf-8?B?a05lV0VodjZ3eitQckgzM0JDQnJuVUlHUzFWQndDOHJXS3I1U28zaVRMa3hM?=
- =?utf-8?B?L28ra3RBUWJnWmFzRTl4MFNkdVljTGU2Y0pWTGxsVFdISS9TRFZQY3pFbjhL?=
- =?utf-8?B?Q1YxTHB6MzJtY2ZGT3NDOFFYUmVUV3FqQzRQUmpwQVdUaGFuYWh2dnpEbUc3?=
- =?utf-8?B?UTFkYmoxQjdHbm1tdzIwS0hjQWhOL3BWQ2ZPc3prSlltK0dTVDFnS1kyTFNi?=
- =?utf-8?B?QmxBN1ZRLzNJOUFQM1phUFRXVVZva2tqMlNNWjVmVHNHdnBXSTAreUk1NWN2?=
- =?utf-8?B?NGJCSVFUL2VzK0d4SFZkRFZoa1NDSjNwVEUwVE5RamRRZStrS3VkUC9yYWdt?=
- =?utf-8?B?b09FSWNTREpGTVR2emwwVHdXZ29xbWoxSlRxSmhrU1IwRjRLSFdCRkRJa0Rv?=
- =?utf-8?B?MTM3WFdMRGs3T29MMWZsNHVSY3cvMjBieWhOaG1DT2dpTFhHcEdrdFVuYytE?=
- =?utf-8?B?VnduQlpGTXBjZU0xMDgzcXAzN1cyaG1VaktvbkdYN21UdFdGVkxXc3BzU3JO?=
- =?utf-8?B?a3pWdU9GbEwyNG0xcVpLbjRMNlMyQkhLcjBHeGpjUUh2dlgrcndxUXNnRjhl?=
- =?utf-8?B?aGNMNjhDUTV2NmNmY3lsUUdYUFdzOHRQQWNUMHpZSHZSa2V4U1ZEMm9KMDJ2?=
- =?utf-8?B?NEUrbEh4V0lDeFIxaCtJRm9uQWx5RUZ3Y0xoQ1ExVXJVcW56MTI3WXpkNzlI?=
- =?utf-8?B?WnVLREkrTEVUK1dlRWV0K0F0WVFJTGRQMVNmRGhTR2RJSVZxRmovZEgzc1dV?=
- =?utf-8?B?bk50RHE3V0RaUXJwbVBXTUFEWlBCS0gxTjBQckkrNmM3dkdxaWRNU3dkbzJq?=
- =?utf-8?B?NUc3Q0IyeVRpVXpncW1ld0Q5TmJqYy93dWgwcWZaSitkMWlwRXdBNU1uMlg0?=
- =?utf-8?B?MEQvRC96K3RnaDl4Unc5QzVaVDhiQzJvbUtEa0lKMXMrcml6c2pVOGgxdmxj?=
- =?utf-8?B?ajZwK0ZvanY0M3ZuYzEwcjd1ZUdYejRkUitrSWpwbnFhNUxkVU1VSHFqVkdz?=
- =?utf-8?B?Ly91U01MS015dy9MWVlscllDcnE1aGVESUFDVWVjcmQ4WWFmTkt0WkNGTlRn?=
- =?utf-8?B?UVQ0SVhVNFhPZyt1VTExWHdvMmwxeWV1aGRuckpKaTBORllzSm9oSlBxMzk1?=
- =?utf-8?B?SjFKL3lYTTl2MmNhMWJwUUdkYmtGN1BOR1JOVnhGNFJqUzJxWG9hWkg3dE42?=
- =?utf-8?B?VkJCYnNoUnpjUHpuTlRINDMwT1gyK0dCdnJaaFVrR3BxS1AxN01MdlJxdS9o?=
- =?utf-8?B?bjRTTU43RzFRYU1BZ2xCUHF3aFBUZkpUVWNoZGFKWkQxOGRRa2FkTnFWRFEx?=
- =?utf-8?B?YVpBZjNzZ252dEJMV3N3ZGF1QWViNTUwb3NBaHN0dEVhK2JwZWd4TzQ0dmdn?=
- =?utf-8?B?Zi9jN0t5aTUvUnZyaTBNNzlsMzFCMzBFbWhPZFhpWUJUd04raVUxUFQwRGxT?=
- =?utf-8?B?NTcrSHloUE41UmsyaklPMmZGbktnbUtWUmk4YndEOHdXSjZXdHY2bFdqVXU1?=
- =?utf-8?B?djZpSGJZUitveEIyRVUzTmN0UVdqcXFlTUFBa0xFcVNrU21RemFqenlrWk1u?=
- =?utf-8?B?bU8zSXloU2M1MmVodVJzOXJhRzRZL0RycHFwZGdkV2NaNTNkT0prLzIrd3FS?=
- =?utf-8?B?VjlvY2RqbzFOc3dhOFNPbURhVWo1eGxKRnAwTlRWSDVVTmFMK0VUY3BlL1Rn?=
- =?utf-8?B?bXJhQ1A5MEhOQWdIalFBampDcDBFTVZ5THpOcjgvK1ZnNjlOQVBaMGZDK3NB?=
- =?utf-8?B?LzBzU0hMY2huVER0bWVqU0ZDVXQxUnhoRTVhTVFlNlN3QlBQVWdoRUpkZ0hk?=
- =?utf-8?B?SkRDYU8zL0V1dEVEdTNLOWltT3hsVUlXZlMzWmh3N1J0cEtoM0t2eXdEQ25C?=
- =?utf-8?B?bkZKUkxCK0pmUDNEMEMxaUN3c05XSkxjNE9GRUpIQVgrcDRkVFQ1QStDTTNo?=
- =?utf-8?Q?EuwHTI6DlJ/FHn+UL/F4R/UTT?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7790bf5c-86e6-4202-1506-08dbce9e8aaa
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5399.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2023 23:20:53.1537 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PPtrZ9SEZZ2Es2Rg3XcPLNfArUrF1FwcBMWP3Zx+qO42m5JeQX+BZVlaHJVazdYr
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4875
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82F3B10E22E;
+	Mon, 16 Oct 2023 23:21:59 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1453F10E22E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Oct 2023 23:21:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1697498517; x=1729034517;
+ h=date:from:to:cc:subject:message-id;
+ bh=OtQxmjoALgHa+s4AdJcPcEmcaL6nwt6LfGkkUOQIHZU=;
+ b=Cug51PQT73dntk+mhaahLr6uCZo5VQnnJQbO2a6RAZJwR9aojWH8bSsE
+ cLfD+I0G6TGkpxk7uN/9bOp5zFuCIFkKEiAr+O06owyYMGQUDx4wIKwcE
+ /g30Z5zxNiA4jAXXyzHYy31opQxGyTSUUy3eVo/GEbOb4f/r5fwtJUiMy
+ SqtYgTSDSaOsyOFsnIWce1h/qm31UL9Yh/p8wQFmsjZC/2BZ/VxZudCnj
+ +iUXcazVkLRkdQ2Nsfdyog2aAbLlSCZ8LoKgB3sPDWFYzdtUgplBXpWPF
+ rSXYn5J2xgpLvIoCnRYb3b7rMS3j6gZGTD7viyyXvMt2YGPyNdmCdR2Tp Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10865"; a="452139632"
+X-IronPort-AV: E=Sophos;i="6.03,230,1694761200"; d="scan'208";a="452139632"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Oct 2023 16:21:56 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10865"; a="705779117"
+X-IronPort-AV: E=Sophos;i="6.03,230,1694761200"; d="scan'208";a="705779117"
+Received: from lkp-server02.sh.intel.com (HELO f64821696465) ([10.239.97.151])
+ by orsmga003.jf.intel.com with ESMTP; 16 Oct 2023 16:21:54 -0700
+Received: from kbuild by f64821696465 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qsWuF-0008kY-1v;
+ Mon, 16 Oct 2023 23:21:51 +0000
+Date: Tue, 17 Oct 2023 07:21:20 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 4d0515b235dec789578d135a5db586b25c5870cb
+Message-ID: <202310170705.YN3XVbWR-lkp@intel.com>
+User-Agent: s-nail v14.9.24
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,130 +54,264 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Linux Memory Management List <linux-mm@kvack.org>, bpf@vger.kernel.org,
+ netdev@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The set looks good to me. The series is:
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 4d0515b235dec789578d135a5db586b25c5870cb  Add linux-next specific files for 20231016
 
-Reviewed-by: Leo Liu <leo.liu@amd.com>
+Error/Warning reports:
 
-On 2023-10-16 12:54, Bokun Zhang wrote:
-> - In VCN 4 SRIOV code path, add code to enable RB decouple feature
->
-> Signed-off-by: Bokun Zhang <bokun.zhang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 71 +++++++++++++++++++++------
->   1 file changed, 55 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> index 88e17f5e20b2..bf07aa200030 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> @@ -176,9 +176,6 @@ static int vcn_v4_0_sw_init(void *handle)
->   				AMDGPU_DRM_KEY_INJECT_WORKAROUND_VCNFW_ASD_HANDSHAKING;
->   		}
->   
-> -		if (amdgpu_sriov_vf(adev))
-> -			fw_shared->present_flag_0 |= cpu_to_le32(AMDGPU_VCN_VF_RB_SETUP_FLAG);
-> -
->   		if (amdgpu_vcnfw_log)
->   			amdgpu_vcn_fwlog_init(&adev->vcn.inst[i]);
->   	}
-> @@ -1209,6 +1206,24 @@ static int vcn_v4_0_start(struct amdgpu_device *adev)
->   	return 0;
->   }
->   
-> +static int vcn_v4_0_init_ring_metadata(struct amdgpu_device *adev, uint32_t vcn_inst, struct amdgpu_ring *ring_enc)
-> +{
-> +	struct amdgpu_vcn_rb_metadata *rb_metadata = NULL;
-> +	uint8_t *rb_ptr = (uint8_t *)ring_enc->ring;
-> +
-> +	rb_ptr += ring_enc->ring_size;
-> +	rb_metadata = (struct amdgpu_vcn_rb_metadata *)rb_ptr;
-> +
-> +	memset(rb_metadata, 0, sizeof(struct amdgpu_vcn_rb_metadata));
-> +	rb_metadata->size = sizeof(struct amdgpu_vcn_rb_metadata);
-> +	rb_metadata->present_flag_0 |= cpu_to_le32(AMDGPU_VCN_VF_RB_SETUP_FLAG);
-> +	rb_metadata->present_flag_0 |= cpu_to_le32(AMDGPU_VCN_VF_RB_DECOUPLE_FLAG);
-> +	rb_metadata->version = 1;
-> +	rb_metadata->ring_id = vcn_inst & 0xFF;
-> +
-> +	return 0;
-> +}
-> +
->   static int vcn_v4_0_start_sriov(struct amdgpu_device *adev)
->   {
->   	int i;
-> @@ -1334,11 +1349,30 @@ static int vcn_v4_0_start_sriov(struct amdgpu_device *adev)
->   		rb_enc_addr = ring_enc->gpu_addr;
->   
->   		rb_setup->is_rb_enabled_flags |= RB_ENABLED;
-> -		rb_setup->rb_addr_lo = lower_32_bits(rb_enc_addr);
-> -		rb_setup->rb_addr_hi = upper_32_bits(rb_enc_addr);
-> -		rb_setup->rb_size = ring_enc->ring_size / 4;
->   		fw_shared->present_flag_0 |= cpu_to_le32(AMDGPU_VCN_VF_RB_SETUP_FLAG);
->   
-> +		if (amdgpu_sriov_is_vcn_rb_decouple(adev)) {
-> +			vcn_v4_0_init_ring_metadata(adev, i, ring_enc);
-> +
-> +			memset((void *)&rb_setup->rb_info, 0, sizeof(struct amdgpu_vcn_rb_setup_info) * MAX_NUM_VCN_RB_SETUP);
-> +			if (!(adev->vcn.harvest_config & (1 << 0))) {
-> +				rb_setup->rb_info[0].rb_addr_lo = lower_32_bits(adev->vcn.inst[0].ring_enc[0].gpu_addr);
-> +				rb_setup->rb_info[0].rb_addr_hi = upper_32_bits(adev->vcn.inst[0].ring_enc[0].gpu_addr);
-> +				rb_setup->rb_info[0].rb_size = adev->vcn.inst[0].ring_enc[0].ring_size / 4;
-> +			}
-> +			if (!(adev->vcn.harvest_config & (1 << 1))) {
-> +				rb_setup->rb_info[2].rb_addr_lo = lower_32_bits(adev->vcn.inst[1].ring_enc[0].gpu_addr);
-> +				rb_setup->rb_info[2].rb_addr_hi = upper_32_bits(adev->vcn.inst[1].ring_enc[0].gpu_addr);
-> +				rb_setup->rb_info[2].rb_size = adev->vcn.inst[1].ring_enc[0].ring_size / 4;
-> +			}
-> +			fw_shared->decouple.is_enabled = 1;
-> +			fw_shared->present_flag_0 |= cpu_to_le32(AMDGPU_VCN_VF_RB_DECOUPLE_FLAG);
-> +		} else {
-> +			rb_setup->rb_addr_lo = lower_32_bits(rb_enc_addr);
-> +			rb_setup->rb_addr_hi = upper_32_bits(rb_enc_addr);
-> +			rb_setup->rb_size = ring_enc->ring_size / 4;
-> +		}
-> +
->   		MMSCH_V4_0_INSERT_DIRECT_WT(SOC15_REG_OFFSET(VCN, i,
->   			regUVD_LMI_VCPU_NC0_64BIT_BAR_LOW),
->   			lower_32_bits(adev->vcn.inst[i].fw_shared.gpu_addr));
-> @@ -1810,6 +1844,7 @@ static struct amdgpu_ring_funcs vcn_v4_0_unified_ring_vm_funcs = {
->   	.type = AMDGPU_RING_TYPE_VCN_ENC,
->   	.align_mask = 0x3f,
->   	.nop = VCN_ENC_CMD_NO_OP,
-> +	.extra_dw = sizeof(struct amdgpu_vcn_rb_metadata),
->   	.get_rptr = vcn_v4_0_unified_ring_get_rptr,
->   	.get_wptr = vcn_v4_0_unified_ring_get_wptr,
->   	.set_wptr = vcn_v4_0_unified_ring_set_wptr,
-> @@ -2023,16 +2058,20 @@ static int vcn_v4_0_process_interrupt(struct amdgpu_device *adev, struct amdgpu_
->   {
->   	uint32_t ip_instance;
->   
-> -	switch (entry->client_id) {
-> -	case SOC15_IH_CLIENTID_VCN:
-> -		ip_instance = 0;
-> -		break;
-> -	case SOC15_IH_CLIENTID_VCN1:
-> -		ip_instance = 1;
-> -		break;
-> -	default:
-> -		DRM_ERROR("Unhandled client id: %d\n", entry->client_id);
-> -		return 0;
-> +	if (amdgpu_sriov_is_vcn_rb_decouple(adev)) {
-> +		ip_instance = entry->ring_id;
-> +	} else {
-> +		switch (entry->client_id) {
-> +		case SOC15_IH_CLIENTID_VCN:
-> +			ip_instance = 0;
-> +			break;
-> +		case SOC15_IH_CLIENTID_VCN1:
-> +			ip_instance = 1;
-> +			break;
-> +		default:
-> +			DRM_ERROR("Unhandled client id: %d\n", entry->client_id);
-> +			return 0;
-> +		}
->   	}
->   
->   	DRM_DEBUG("IH: VCN TRAP\n");
+https://lore.kernel.org/oe-kbuild-all/202309212121.cul1pTRa-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202309212339.hxhBu2F1-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202310051547.40nm4Sif-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202310160401.RIcVn63P-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202310161945.VDy8ESWa-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202310170132.IrOpHglA-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202310170340.tkkfdZYn-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202310170627.2Kvf6ZHY-lkp@intel.com
+
+Error/Warning: (recently discovered and may have been fixed)
+
+(.text+0x11c): undefined reference to `devm_hwrng_register'
+drivers/crypto/qcom-rng.c:213:(.text+0x16c): undefined reference to `devm_hwrng_register'
+drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c:274: warning: Function parameter or member 'gart_placement' not described in 'amdgpu_gmc_gart_location'
+drivers/net/ethernet/apm/xgene/xgene_enet_main.c:2004:34: warning: unused variable 'xgene_enet_of_match' [-Wunused-const-variable]
+idpf_txrx.c:(.text+0x2dbc): undefined reference to `tcp_gro_complete'
+include/linux/bitmap.h:527:25: error: 'EBUSY' undeclared (first use in this function)
+include/linux/bitmap.h:554:17: error: 'ENOMEM' undeclared (first use in this function)
+kernel/bpf/helpers.c:1909:19: warning: no previous declaration for 'bpf_percpu_obj_new_impl' [-Wmissing-declarations]
+kernel/bpf/helpers.c:1945:18: warning: no previous declaration for 'bpf_percpu_obj_drop_impl' [-Wmissing-declarations]
+kernel/bpf/helpers.c:2480:18: warning: no previous declaration for 'bpf_throw' [-Wmissing-declarations]
+qcom-rng.c:(.text+0x224): undefined reference to `devm_hwrng_register'
+
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+Documentation/devicetree/bindings/mfd/qcom-pm8xxx.yaml:
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- arc-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- arc-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- arm-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- arm-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- arm-buildonly-randconfig-r006-20220608
+|   `-- drivers-crypto-qcom-rng.c:(.text):undefined-reference-to-devm_hwrng_register
+|-- arm-randconfig-s032-20220424
+|   |-- include-linux-bitmap.h:error:EBUSY-undeclared-(first-use-in-this-function)
+|   `-- include-linux-bitmap.h:error:ENOMEM-undeclared-(first-use-in-this-function)
+|-- arm64-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- arm64-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- arm64-randconfig-001-20231016
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|   `-- idpf_txrx.c:(.text):undefined-reference-to-tcp_gro_complete
+|-- arm64-randconfig-002-20231016
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- arm64-randconfig-r015-20220507
+|   `-- qcom-rng.c:(.text):undefined-reference-to-devm_hwrng_register
+|-- csky-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- csky-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- i386-randconfig-005-20231016
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- i386-randconfig-006-20231016
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|   |-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_percpu_obj_drop_impl
+|   |-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_percpu_obj_new_impl
+|   `-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_throw
+|-- loongarch-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- loongarch-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- loongarch-defconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- loongarch-randconfig-001-20231016
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- loongarch-randconfig-001-20231017
+|   `-- Documentation-devicetree-bindings-mfd-qcom-pm8xxx.yaml:
+|-- loongarch-randconfig-002-20231016
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- microblaze-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- microblaze-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- mips-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- mips-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- openrisc-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- openrisc-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- parisc-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- parisc-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- parisc-randconfig-001-20231016
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- parisc-randconfig-r001-20221214
+|   `-- (.text):undefined-reference-to-devm_hwrng_register
+|-- powerpc-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- powerpc-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- powerpc-randconfig-001-20231016
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- powerpc64-randconfig-002-20231016
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- powerpc64-randconfig-003-20231016
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- riscv-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- riscv-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- riscv-randconfig-002-20231016
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- s390-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- s390-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- s390-randconfig-002-20231016
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- sparc-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- sparc-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- sparc64-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+|-- sparc64-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+`-- x86_64-allyesconfig
+    `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gmc.c:warning:Function-parameter-or-member-gart_placement-not-described-in-amdgpu_gmc_gart_location
+clang_recent_errors
+`-- hexagon-randconfig-r005-20221019
+    `-- drivers-net-ethernet-apm-xgene-xgene_enet_main.c:warning:unused-variable-xgene_enet_of_match
+
+elapsed time: 1065m
+
+configs tested: 105
+configs skipped: 2
+
+tested configs:
+alpha                             allnoconfig   gcc  
+alpha                            allyesconfig   gcc  
+alpha                               defconfig   gcc  
+arc                              allmodconfig   gcc  
+arc                               allnoconfig   gcc  
+arc                              allyesconfig   gcc  
+arc                                 defconfig   gcc  
+arc                   randconfig-001-20231016   gcc  
+arm                              allmodconfig   gcc  
+arm                               allnoconfig   gcc  
+arm                              allyesconfig   gcc  
+arm                                 defconfig   gcc  
+arm                   randconfig-001-20231016   gcc  
+arm64                            allmodconfig   gcc  
+arm64                             allnoconfig   gcc  
+arm64                            allyesconfig   gcc  
+arm64                               defconfig   gcc  
+csky                             allmodconfig   gcc  
+csky                              allnoconfig   gcc  
+csky                             allyesconfig   gcc  
+csky                                defconfig   gcc  
+i386                             allmodconfig   gcc  
+i386                              allnoconfig   gcc  
+i386                             allyesconfig   gcc  
+i386                              debian-10.3   gcc  
+i386                                defconfig   gcc  
+i386                  randconfig-001-20231016   gcc  
+i386                  randconfig-002-20231016   gcc  
+i386                  randconfig-003-20231016   gcc  
+i386                  randconfig-004-20231016   gcc  
+i386                  randconfig-005-20231016   gcc  
+i386                  randconfig-006-20231016   gcc  
+loongarch                        allmodconfig   gcc  
+loongarch                         allnoconfig   gcc  
+loongarch                        allyesconfig   gcc  
+loongarch                           defconfig   gcc  
+loongarch             randconfig-001-20231016   gcc  
+loongarch             randconfig-001-20231017   gcc  
+m68k                             allmodconfig   gcc  
+m68k                              allnoconfig   gcc  
+m68k                             allyesconfig   gcc  
+m68k                                defconfig   gcc  
+microblaze                       allmodconfig   gcc  
+microblaze                        allnoconfig   gcc  
+microblaze                       allyesconfig   gcc  
+microblaze                          defconfig   gcc  
+mips                             allmodconfig   gcc  
+mips                              allnoconfig   gcc  
+mips                             allyesconfig   gcc  
+nios2                            allmodconfig   gcc  
+nios2                             allnoconfig   gcc  
+nios2                            allyesconfig   gcc  
+nios2                               defconfig   gcc  
+openrisc                         allmodconfig   gcc  
+openrisc                          allnoconfig   gcc  
+openrisc                         allyesconfig   gcc  
+openrisc                            defconfig   gcc  
+parisc                           allmodconfig   gcc  
+parisc                            allnoconfig   gcc  
+parisc                           allyesconfig   gcc  
+parisc                              defconfig   gcc  
+parisc64                            defconfig   gcc  
+powerpc                          allmodconfig   gcc  
+powerpc                           allnoconfig   gcc  
+powerpc                          allyesconfig   gcc  
+riscv                            allmodconfig   gcc  
+riscv                             allnoconfig   gcc  
+riscv                            allyesconfig   gcc  
+riscv                               defconfig   gcc  
+riscv                 randconfig-001-20231016   gcc  
+riscv                          rv32_defconfig   gcc  
+s390                             allmodconfig   gcc  
+s390                              allnoconfig   gcc  
+s390                             allyesconfig   gcc  
+s390                                defconfig   gcc  
+s390                  randconfig-001-20231016   gcc  
+sh                               allmodconfig   gcc  
+sh                                allnoconfig   gcc  
+sh                               allyesconfig   gcc  
+sh                                  defconfig   gcc  
+sparc                            allmodconfig   gcc  
+sparc                             allnoconfig   gcc  
+sparc                            allyesconfig   gcc  
+sparc                               defconfig   gcc  
+sparc                 randconfig-001-20231016   gcc  
+sparc64                          allmodconfig   gcc  
+sparc64                          allyesconfig   gcc  
+sparc64                             defconfig   gcc  
+um                               allmodconfig   clang
+um                                allnoconfig   clang
+um                               allyesconfig   clang
+um                                  defconfig   gcc  
+um                             i386_defconfig   gcc  
+um                           x86_64_defconfig   gcc  
+x86_64                            allnoconfig   gcc  
+x86_64                           allyesconfig   gcc  
+x86_64                              defconfig   gcc  
+x86_64                randconfig-001-20231016   gcc  
+x86_64                randconfig-002-20231016   gcc  
+x86_64                randconfig-003-20231016   gcc  
+x86_64                randconfig-004-20231016   gcc  
+x86_64                randconfig-005-20231016   gcc  
+x86_64                randconfig-006-20231016   gcc  
+x86_64                          rhel-8.3-rust   clang
+x86_64                               rhel-8.3   gcc  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
