@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0B10CDB474
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 21:14:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 238E6CDB484
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 21:14:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5880010E341;
-	Tue, 17 Oct 2023 21:14:38 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2076.outbound.protection.outlook.com [40.107.102.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F7BE10E356;
- Tue, 17 Oct 2023 21:14:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D19210E342;
+	Tue, 17 Oct 2023 21:14:40 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2071.outbound.protection.outlook.com [40.107.95.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BFE610E356;
+ Tue, 17 Oct 2023 21:14:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lmYgYR6O/eAuAI97dddKpe+WESrHXNrJbzA40ZirWY0VKY4vGHQNcAQe31flP9pVNp6Ez+KF/uMjWGxdzYDrF1MmntaE+BEAkA+i3877QiMkTv+nWRdHqD/UFMW7UzGy/cc9SCiUg04gsf6bahCW4OUeUiacEwOh0awEedzw1QPDdb0guqfag0Hf4c2fsqbC54Tvlp/BzTcDqoWBxKSu/jfEbGiGqZ5nHc4pFUIcc0VLF2TxfQL4SFGu53h4xKztsq2P5BfilzznURMQ2pi/1LNNTGQ76qfunfKxzmRICF6CAD3Z1BtITNyp/vdNZ0W2GeperWku4PdIUerhso1t4w==
+ b=lhxnQab07CPLx0MWd1IeUxJHHeBMf/6uCMfQaaW66pbd2/atB8cfI67QdqnvMPkaNtzrwvMr5VtjX3s64lnBulMLXkQEvD8/E0Px6QamUV7OSwxIB21HgL+aGFFbxPCzh2wSQhfDiIpMfM6imvQOVn/uJovOY8kXc+pFZZ+LWaHJBpcsoLAkF/aw4U72VJd88DnmisGg0RZDq/3DZgBftR7KvuuuyLowHO8E1IRaAhDjFzN7bcITdtKk0Z8ZOqCJJHJnR6mwixhm05emUxRTg1EehhqFOYO+TFKyLfe36tQ9YW1OOxOqmILpRSYswk174BZjdlXiLlw/TuP32ryGeg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VYHATuho7LcB17bwU2rZ0BhICtqsy2qiH73WbiWrZDY=;
- b=N0NDDA+b/+gwWB45HNJBR6x/pFpbXatxrHkfm1Q551sqsvivF9iAQhmy6oJ9M/pBruUMEGa1Rzp6rd107RTZMn/DfPdqi5tOwFI4qCyBdwyM7iMNJERfhd/T000S8aj06Qrt2yT9xu3SqwZTQXaaxy+tvlrU921SpQZMbLnj4YQhrqYINKkXhff8rmtnOVdlXFQSPxb64G+1JlqK72x/F4+i/0xm1pmSuzxPHnqiWra/4Ni+/jy2CQto9R5f26CseoDFSxA/Feuu0QJ9cXygSTOun3Jo6OTNPymRMzmX5Ab0vv37szdorMvwwHbLqg4l6ZDfEyuptwIVeoyBQXpxiw==
+ bh=dom0y6XUtYM7kJpD3mXnBYOs7Zy+QpGkNG6z8LLSnQQ=;
+ b=IF2NDcmL2nEZYHQobIgso2kCZ9uw3qgzl/JL1EDlT+n4nTYQgVUgJQlHpwEwUhgMNhYTqqO453FqbTw3PHhBfxVbs0w2mNhz4X4FEZcNx+1OMNCjWkBo5RaOVGJJdwfPyoAveqJT3rsfh9JsaUUSJiuIUuiNq3/NdFh3pfr3h9LsyyCJD+5OTvytVdgzH5GgUUEt75cp4faaJlcDkztxOFqFFICCGn+vK3VoduhRTTQWGvuuHjX8/URqM6u8lbAfYOg4T3qaDDKR4jOov9Uce9EGd85U+HGc3lggqI6jyZcMEilPilvI7D28OxHk98MRSUd9LSqQL/ceJyYx+QKVHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VYHATuho7LcB17bwU2rZ0BhICtqsy2qiH73WbiWrZDY=;
- b=vq2N4VyZ7R0WlWRXkM8QNB9ZBkiFukBiYCVXGJFOSxSdQ9VVRdzBv/6IuE5Dn6kSSM9gzIG3XU6TR+BjW7eOb5emSW7FQOeUAo/80DLxQdHJZy28W0WCSG+hQzNBUYZTmk628LWOX3uJ/WUtk8iT/NSaOEgqQL7FDU+d6hcGxws=
-Received: from BL0PR02CA0026.namprd02.prod.outlook.com (2603:10b6:207:3c::39)
- by MN0PR12MB6198.namprd12.prod.outlook.com (2603:10b6:208:3c5::18)
+ bh=dom0y6XUtYM7kJpD3mXnBYOs7Zy+QpGkNG6z8LLSnQQ=;
+ b=SkivtWvG/fTxakxYTG93pjwlEksTmowOOQkAEEIzF8ekb7mOm9TDdExnC7bV5ktjo+RoYxVcX4agRHjjjFS0fAN3mSf7x9Hfy7TrnQ3Wp1N0easQ7/gWV5+l88o9uxwFp9NrL5/oBvjobEZRNRSHV2z6pphD95EACBiMpeNTW+Y=
+Received: from BL0PR02CA0030.namprd02.prod.outlook.com (2603:10b6:207:3c::43)
+ by PH7PR12MB8425.namprd12.prod.outlook.com (2603:10b6:510:240::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.21; Tue, 17 Oct
- 2023 21:14:25 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.35; Tue, 17 Oct
+ 2023 21:14:28 +0000
 Received: from MN1PEPF0000ECD9.namprd02.prod.outlook.com
- (2603:10b6:207:3c:cafe::46) by BL0PR02CA0026.outlook.office365.com
- (2603:10b6:207:3c::39) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.21 via Frontend
- Transport; Tue, 17 Oct 2023 21:14:25 +0000
+ (2603:10b6:207:3c:cafe::65) by BL0PR02CA0030.outlook.office365.com
+ (2603:10b6:207:3c::43) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.35 via Frontend
+ Transport; Tue, 17 Oct 2023 21:14:27 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,47 +47,47 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  MN1PEPF0000ECD9.mail.protection.outlook.com (10.167.242.138) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.22 via Frontend Transport; Tue, 17 Oct 2023 21:14:25 +0000
+ 15.20.6838.22 via Frontend Transport; Tue, 17 Oct 2023 21:14:27 +0000
 Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 17 Oct
- 2023 16:14:23 -0500
+ 2023 16:14:25 -0500
 From: Felix Kuehling <Felix.Kuehling@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 06/11] drm/amdkfd: Move TLB flushing logic into amdgpu
-Date: Tue, 17 Oct 2023 17:13:32 -0400
-Message-ID: <20231017211337.1593869-7-Felix.Kuehling@amd.com>
+Subject: [PATCH 09/11] drm/amdkfd: Export DMABufs from KFD using GEM handles
+Date: Tue, 17 Oct 2023 17:13:35 -0400
+Message-ID: <20231017211337.1593869-10-Felix.Kuehling@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231017211337.1593869-1-Felix.Kuehling@amd.com>
 References: <20231017211337.1593869-1-Felix.Kuehling@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD9:EE_|MN0PR12MB6198:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9c696bf0-c21c-4414-0d2c-08dbcf560a7f
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD9:EE_|PH7PR12MB8425:EE_
+X-MS-Office365-Filtering-Correlation-Id: d38e1a10-cdde-4744-c031-08dbcf560c16
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9PeK7AuwLT7rr+DmA7UD1eW782axb+rtDToNpzegFgWMG/LuYGwDMeM0gZuHBr7OUWGBuSA6RBFjLVCsEjDPa8uPmLYcLG5laZhgAU4f6aR7qvYW82/hfeetDp8mjH8zNrvps3nxOHvuhYFxa2Jh7K7iqrl/WHJN36Jfk7CfPbynud8GeeHuhSYwhx90y7449DqSzxjOpTCBqTi4/M4hzrL+NndITCnQ42d5QpXxrLlRQdi28j0ezthTx0l77feYgbUikGbemkJKhgK2icOTq1psICVjwQQYsKVeY7HC39sciIO7g2WgIWUSqojcbZGj2makhn4IRVBhnwCcI7H4S6gKRjkaY+WE0u885bUtSVntP6Z2+Z/sn7JjR4Bf/D68ainCM6cwC+zggQS4/32iIElynu98TISIIO22k3LYBDeaZ7sTIO8kGdVeycvW971VRSi1kkv/pJOsDrNNzEgY0/4kt2lVi35iqVoQMjy3lkGm8Pd/PeCR/llRUvRIoxf21fu0ksc2SSXGq8cqDjsPO8XeYj3stgK/mwjsDGc6in6+fL3ZDKrMoh/MZkbQKYHqWbz8feqeiGGx9X11iivDw4BUfmDPTRxXY2VLzE/36fWBJ1ovxCO69gs21j2+c0wEVlLhmGWvNV/urgNwm4yaDz+Akpv7/f3oR18I0dK9SKhOemWj16w9JwROvasrwForn0Tb+6aV/rKGDKTCnpfNztBWmJdqt8WLGlkkdtZR/Iauv6rtSt26Pe9+lYh9El9dkXYW5GxUSWhR67mgM6yipw==
+X-Microsoft-Antispam-Message-Info: 3H1/pQUVeG8BCmPCYrSZ3/P3aNL84c461TOIwJT47TTkWbRD8vmm2th3alfw21QwpuESgnOnZMawt9vKj5JMKG2i4tO4bUrEkpn4hEvyfyaxf13PJJTEI9c2QGKODSKprUDHNFamO0FO+eyWzIzHTHMn3Zjt/gVHgvka30DhTD0q7Ty9Kar+FdgnIoKzbz8TynJiSPhPapZQj1up1DV586sBqZXXshkPptIaToAUZiNgl/dMi0AsJDHUKIVUzcBacAVx+MzjGVYqMC2kTQrQc2krdiMcucO6M7hDJB4KH+ZYIzBLTL/1YYurB1q+p2LSZWpFlZi6zvN+66QdxObLBW7bMrfKdpoXOG/gYqTuhpoS2FyKPX2GmxrZnlvXKEjCOL9TsYqE1OOwEo+RzKZFnzhRz4i4gLOZ0dEOmREqrNfyNk9UbP5r7Ic98wCKA0084YETibjEK8+LV2hqVYIhxDebAlnPHGlfPIjibad1j+fe4WrSHJjKQzVu83iL2WfNP8ZS7IZjZ1/EfcENbaspeul+a9LWLxQvki4yZ62OY5Sa+xDcgLFwQ4zKYcxgYNqjNE0ho2j2Di3gJD6AdsuUz4+zI+fVn2X9gZLWHGcoFOw7GNO/amTu5caoxuy7aCPfXr2+anELEEOfAN4qxV7ZU4hrRnvVoPS6klbiNKFB3sQd5c8euxOZUm3f2D1YeKBbqj7VWI7DBhMIhN2MPXGFokwb7LEPlkxsCEh+grO6C0X6EVNwa7njBwCXaSejCdxcamoTQXJQdzTLs3DzKjEBIQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(136003)(376002)(39860400002)(346002)(396003)(230922051799003)(451199024)(64100799003)(82310400011)(186009)(1800799009)(40470700004)(46966006)(36840700001)(40460700003)(26005)(2616005)(1076003)(66574015)(7696005)(6666004)(16526019)(426003)(8936002)(316002)(36860700001)(336012)(83380400001)(5660300002)(4326008)(41300700001)(8676002)(2906002)(47076005)(478600001)(70586007)(70206006)(450100002)(54906003)(110136005)(82740400003)(356005)(81166007)(86362001)(40480700001)(36756003)(36900700001);
+ SFS:(13230031)(4636009)(39860400002)(346002)(396003)(136003)(376002)(230922051799003)(64100799003)(1800799009)(186009)(82310400011)(451199024)(46966006)(40470700004)(36840700001)(54906003)(478600001)(110136005)(47076005)(70586007)(70206006)(6666004)(26005)(16526019)(41300700001)(1076003)(336012)(316002)(426003)(7696005)(8936002)(4326008)(2906002)(8676002)(450100002)(5660300002)(36756003)(81166007)(86362001)(83380400001)(36860700001)(356005)(82740400003)(2616005)(40480700001)(40460700003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 21:14:25.2824 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c696bf0-c21c-4414-0d2c-08dbcf560a7f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 21:14:27.9543 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d38e1a10-cdde-4744-c031-08dbcf560c16
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD9.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6198
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8425
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,241 +99,177 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xiaogang.Chen@amd.com, Ramesh.Errabolu@amd.com,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Xiaogang.Chen@amd.com, Ramesh.Errabolu@amd.com, Christian.Koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This will make it possible for amdgpu GEM ioctls to flush TLBs on compute
-VMs.
-
-This removes VMID-based TLB flushing and always uses PASID-based
-flushing. This still works because it scans the VMID-PASID mapping
-registers to find the right VMID. It's only slightly less efficient. This
-is not a production use case.
+Create GEM handles for exporting DMABufs using GEM-Prime APIs. The GEM
+handles are created in a drm_client_dev context to avoid exposing them
+in user mode contexts through a DMABuf import.
 
 Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 29 --------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  5 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     | 44 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h     |  5 +++
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h      | 10 ++++-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c   | 31 ---------------
- 6 files changed, 57 insertions(+), 67 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    | 11 +++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  5 +++
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 33 +++++++++++++++----
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  4 +--
+ 4 files changed, 44 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index b8412202a1b0..6ab17330a6ed 100644
+index 6ab17330a6ed..b0a67f16540a 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -710,35 +710,6 @@ bool amdgpu_amdkfd_is_kfd_vmid(struct amdgpu_device *adev, u32 vmid)
- 	return false;
- }
- 
--int amdgpu_amdkfd_flush_gpu_tlb_vmid(struct amdgpu_device *adev,
--				     uint16_t vmid)
--{
--	if (adev->family == AMDGPU_FAMILY_AI) {
--		int i;
--
--		for_each_set_bit(i, adev->vmhubs_mask, AMDGPU_MAX_VMHUBS)
--			amdgpu_gmc_flush_gpu_tlb(adev, vmid, i, 0);
--	} else {
--		amdgpu_gmc_flush_gpu_tlb(adev, vmid, AMDGPU_GFXHUB(0), 0);
--	}
--
--	return 0;
--}
--
--int amdgpu_amdkfd_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
--				      uint16_t pasid,
--				      enum TLB_FLUSH_TYPE flush_type,
--				      uint32_t inst)
--{
--	bool all_hub = false;
--
--	if (adev->family == AMDGPU_FAMILY_AI ||
--	    adev->family == AMDGPU_FAMILY_RV)
--		all_hub = true;
--
--	return amdgpu_gmc_flush_gpu_tlb_pasid(adev, pasid, flush_type, all_hub, inst);
--}
--
- bool amdgpu_amdkfd_have_atomics_support(struct amdgpu_device *adev)
+@@ -142,6 +142,7 @@ void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
  {
- 	return adev->have_atomics_support;
+ 	int i;
+ 	int last_valid_bit;
++	int ret;
+ 
+ 	amdgpu_amdkfd_gpuvm_init_mem_limits();
+ 
+@@ -160,6 +161,12 @@ void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
+ 			.enable_mes = adev->enable_mes,
+ 		};
+ 
++		ret = drm_client_init(&adev->ddev, &adev->kfd.client, "kfd", NULL);
++		if (ret) {
++			dev_err(adev->dev, "Failed to init DRM client: %d\n", ret);
++			return;
++		}
++
+ 		/* this is going to have a few of the MSBs set that we need to
+ 		 * clear
+ 		 */
+@@ -198,6 +205,10 @@ void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
+ 
+ 		adev->kfd.init_complete = kgd2kfd_device_init(adev->kfd.dev,
+ 							&gpu_resources);
++		if (adev->kfd.init_complete)
++			drm_client_register(&adev->kfd.client);
++		else
++			drm_client_release(&adev->kfd.client);
+ 
+ 		amdgpu_amdkfd_total_mem_size += adev->gmc.real_vram_size;
+ 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 3ad8dc523b42..fcf8a98ad15e 100644
+index 68d534a89942..4caf8cece028 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -163,11 +163,6 @@ int amdgpu_amdkfd_submit_ib(struct amdgpu_device *adev,
- 				uint32_t *ib_cmd, uint32_t ib_len);
- void amdgpu_amdkfd_set_compute_idle(struct amdgpu_device *adev, bool idle);
- bool amdgpu_amdkfd_have_atomics_support(struct amdgpu_device *adev);
--int amdgpu_amdkfd_flush_gpu_tlb_vmid(struct amdgpu_device *adev,
--				uint16_t vmid);
--int amdgpu_amdkfd_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
--				uint16_t pasid, enum TLB_FLUSH_TYPE flush_type,
--				uint32_t inst);
+@@ -32,6 +32,7 @@
+ #include <linux/mmu_notifier.h>
+ #include <linux/memremap.h>
+ #include <kgd_kfd_interface.h>
++#include <drm/drm_client.h>
+ #include <drm/ttm/ttm_execbuf_util.h>
+ #include "amdgpu_sync.h"
+ #include "amdgpu_vm.h"
+@@ -84,6 +85,7 @@ struct kgd_mem {
  
- bool amdgpu_amdkfd_is_kfd_vmid(struct amdgpu_device *adev, u32 vmid);
+ 	struct amdgpu_sync sync;
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index c586d0e93d75..3307c5765787 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1349,6 +1349,50 @@ int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
- 	return 0;
- }
++	uint32_t gem_handle;
+ 	bool aql_queue;
+ 	bool is_imported;
+ };
+@@ -106,6 +108,9 @@ struct amdgpu_kfd_dev {
  
-+/**
-+ * amdgpu_vm_flush_compute_tlb - Flush TLB on compute VM
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @vm: requested vm
-+ * @flush_type: flush type
-+ *
-+ * Flush TLB if needed for a compute VM.
-+ *
-+ * Returns:
-+ * 0 for success.
-+ */
-+int amdgpu_vm_flush_compute_tlb(struct amdgpu_device *adev,
-+				struct amdgpu_vm *vm,
-+				uint32_t flush_type,
-+				uint32_t xcc_mask)
-+{
-+	uint64_t tlb_seq = amdgpu_vm_tlb_seq(vm);
-+	bool all_hub = false;
-+	int xcc = 0, r = 0;
+ 	/* HMM page migration MEMORY_DEVICE_PRIVATE mapping */
+ 	struct dev_pagemap pgmap;
 +
-+	WARN_ON_ONCE(!vm->is_compute_context);
++	/* Client for KFD BO GEM handle allocations */
++	struct drm_client_dev client;
+ };
+ 
+ enum kgd_engine_type {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 0c1cb6048259..4bb8b5fd7598 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -25,6 +25,7 @@
+ #include <linux/pagemap.h>
+ #include <linux/sched/mm.h>
+ #include <linux/sched/task.h>
++#include <linux/fdtable.h>
+ #include <drm/ttm/ttm_tt.h>
+ 
+ #include "amdgpu_object.h"
+@@ -804,13 +805,22 @@ kfd_mem_dmaunmap_attachment(struct kgd_mem *mem,
+ static int kfd_mem_export_dmabuf(struct kgd_mem *mem)
+ {
+ 	if (!mem->dmabuf) {
+-		struct dma_buf *ret = amdgpu_gem_prime_export(
+-			&mem->bo->tbo.base,
++		struct amdgpu_device *bo_adev;
++		struct dma_buf *dmabuf;
++		int r, fd;
 +
-+	/*
-+	 * It can be that we race and lose here, but that is extremely unlikely
-+	 * and the worst thing which could happen is that we flush the changes
-+	 * into the TLB once more which is harmless.
-+	 */
-+	if (atomic64_xchg(&vm->kfd_last_flushed_seq, tlb_seq) == tlb_seq)
-+		return 0;
-+
-+	if (adev->family == AMDGPU_FAMILY_AI ||
-+	    adev->family == AMDGPU_FAMILY_RV)
-+		all_hub = true;
-+
-+	for_each_inst(xcc, xcc_mask) {
-+		r = amdgpu_gmc_flush_gpu_tlb_pasid(adev, vm->pasid, flush_type,
-+						   all_hub, xcc);
++		bo_adev = amdgpu_ttm_adev(mem->bo->tbo.bdev);
++		r = drm_gem_prime_handle_to_fd(&bo_adev->ddev, bo_adev->kfd.client.file,
++					       mem->gem_handle,
+ 			mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE ?
+-				DRM_RDWR : 0);
+-		if (IS_ERR(ret))
+-			return PTR_ERR(ret);
+-		mem->dmabuf = ret;
++					       DRM_RDWR : 0, &fd);
 +		if (r)
-+			break;
-+	}
-+	return r;
-+}
-+
- /**
-  * amdgpu_vm_bo_add - add a bo to a specific vm
-  *
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index ebcc75132b74..577cdb6d1649 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -316,6 +316,7 @@ struct amdgpu_vm {
- 	/* Last finished delayed update */
- 	atomic64_t		tlb_seq;
- 	struct dma_fence	*last_tlb_flush;
-+	atomic64_t		kfd_last_flushed_seq;
- 
- 	/* Last unlocked submission to the scheduler entities */
- 	struct dma_fence	*last_unlocked;
-@@ -434,6 +435,10 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
- int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
- 			   struct amdgpu_vm *vm,
- 			   struct ww_acquire_ctx *ticket);
-+int amdgpu_vm_flush_compute_tlb(struct amdgpu_device *adev,
-+				struct amdgpu_vm *vm,
-+				uint32_t flush_type,
-+				uint32_t xcc_mask);
- void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
- 			    struct amdgpu_vm *vm, struct amdgpu_bo *bo);
- int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 9cc32f577e38..a40f8cfc6aa5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -748,7 +748,6 @@ struct kfd_process_device {
- 	/* VM context for GPUVM allocations */
- 	struct file *drm_file;
- 	void *drm_priv;
--	atomic64_t tlb_seq;
- 
- 	/* GPUVM allocations storage */
- 	struct idr alloc_idr;
-@@ -1462,7 +1461,14 @@ void kfd_signal_reset_event(struct kfd_node *dev);
- 
- void kfd_signal_poison_consumed_event(struct kfd_node *dev, u32 pasid);
- 
--void kfd_flush_tlb(struct kfd_process_device *pdd, enum TLB_FLUSH_TYPE type);
-+static inline void kfd_flush_tlb(struct kfd_process_device *pdd,
-+				 enum TLB_FLUSH_TYPE type)
-+{
-+	struct amdgpu_device *adev = pdd->dev->adev;
-+	struct amdgpu_vm *vm = drm_priv_to_vm(pdd->drm_priv);
-+
-+	amdgpu_vm_flush_compute_tlb(adev, vm, type, pdd->dev->xcc_mask);
-+}
- 
- static inline bool kfd_flush_tlb_after_unmap(struct kfd_dev *dev)
- {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index fbf053001af9..cc3c2d024618 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1662,7 +1662,6 @@ int kfd_process_device_init_vm(struct kfd_process_device *pdd,
- 		return ret;
++			return r;
++		dmabuf = dma_buf_get(fd);
++		close_fd(fd);
++		if (WARN_ON_ONCE(IS_ERR(dmabuf)))
++			return PTR_ERR(dmabuf);
++		mem->dmabuf = dmabuf;
  	}
- 	pdd->drm_priv = drm_file->private_data;
--	atomic64_set(&pdd->tlb_seq, 0);
  
- 	ret = kfd_process_device_reserve_ib_mem(pdd);
- 	if (ret)
-@@ -2054,36 +2053,6 @@ int kfd_reserved_mem_mmap(struct kfd_node *dev, struct kfd_process *process,
- 			       KFD_CWSR_TBA_TMA_SIZE, vma->vm_page_prot);
+ 	return 0;
+@@ -1826,6 +1836,9 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 		pr_debug("Failed to allow vma node access. ret %d\n", ret);
+ 		goto err_node_allow;
+ 	}
++	ret = drm_gem_handle_create(adev->kfd.client.file, gobj, &(*mem)->gem_handle);
++	if (ret)
++		goto err_gem_handle_create;
+ 	bo = gem_to_amdgpu_bo(gobj);
+ 	if (bo_type == ttm_bo_type_sg) {
+ 		bo->tbo.sg = sg;
+@@ -1877,6 +1890,8 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ err_pin_bo:
+ err_validate_bo:
+ 	remove_kgd_mem_from_kfd_bo_list(*mem, avm->process_info);
++	drm_gem_handle_delete(adev->kfd.client.file, (*mem)->gem_handle);
++err_gem_handle_create:
+ 	drm_vma_node_revoke(&gobj->vma_node, drm_priv);
+ err_node_allow:
+ 	/* Don't unreserve system mem limit twice */
+@@ -1991,8 +2006,12 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
+ 
+ 	/* Free the BO*/
+ 	drm_vma_node_revoke(&mem->bo->tbo.base.vma_node, drm_priv);
+-	if (mem->dmabuf)
++	if (!mem->is_imported)
++		drm_gem_handle_delete(adev->kfd.client.file, mem->gem_handle);
++	if (mem->dmabuf) {
+ 		dma_buf_put(mem->dmabuf);
++		mem->dmabuf = NULL;
++	}
+ 	mutex_destroy(&mem->lock);
+ 
+ 	/* If this releases the last reference, it will end up calling
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 06988cf1db51..4417a9863cd0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1855,8 +1855,8 @@ static uint32_t get_process_num_bos(struct kfd_process *p)
+ 	return num_of_bos;
  }
  
--void kfd_flush_tlb(struct kfd_process_device *pdd, enum TLB_FLUSH_TYPE type)
--{
--	struct amdgpu_vm *vm = drm_priv_to_vm(pdd->drm_priv);
--	uint64_t tlb_seq = amdgpu_vm_tlb_seq(vm);
--	struct kfd_node *dev = pdd->dev;
--	uint32_t xcc_mask = dev->xcc_mask;
--	int xcc = 0;
--
--	/*
--	 * It can be that we race and lose here, but that is extremely unlikely
--	 * and the worst thing which could happen is that we flush the changes
--	 * into the TLB once more which is harmless.
--	 */
--	if (atomic64_xchg(&pdd->tlb_seq, tlb_seq) == tlb_seq)
--		return;
--
--	if (dev->dqm->sched_policy == KFD_SCHED_POLICY_NO_HWS) {
--		/* Nothing to flush until a VMID is assigned, which
--		 * only happens when the first queue is created.
--		 */
--		if (pdd->qpd.vmid)
--			amdgpu_amdkfd_flush_gpu_tlb_vmid(dev->adev,
--							pdd->qpd.vmid);
--	} else {
--		for_each_inst(xcc, xcc_mask)
--			amdgpu_amdkfd_flush_gpu_tlb_pasid(
--				dev->adev, pdd->process->pasid, type, xcc);
--	}
--}
--
- /* assumes caller holds process lock. */
- int kfd_process_drain_interrupts(struct kfd_process_device *pdd)
+-static int criu_get_prime_handle(struct kgd_mem *mem, int flags,
+-				      u32 *shared_fd)
++static int criu_get_prime_handle(struct kgd_mem *mem,
++				 int flags, u32 *shared_fd)
  {
+ 	struct dma_buf *dmabuf;
+ 	int ret;
 -- 
 2.34.1
 
