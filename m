@@ -4,114 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43FB3CDB474
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 17:45:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1495CDB482
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 17:54:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA0A310E219;
-	Tue, 17 Oct 2023 17:45:50 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2081.outbound.protection.outlook.com [40.107.94.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B48310E189
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Oct 2023 17:45:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1437910E194;
+	Tue, 17 Oct 2023 17:54:34 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2075.outbound.protection.outlook.com [40.107.93.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA5B910E189;
+ Tue, 17 Oct 2023 17:54:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WytGEZW/s6LAQlBK5KgO/NY3OicgPs1bdW+XJtwfNDtoK7I5zgXG384D3lpZHtrqMExSuuG6/ywAoYcT14P1VXSx5J1QYrJjGWOyycv/OlTftq0Gu8CK0Y3id8sOA9SUVJ4ixdP1zjvrPR4U42RqWO5wZhI85nlVV2SPI6HoAcosAi/snX+Bkca7coBoIYVw0fGXodPnamvZ4PAOm6l104J5v+lXIm8yHTjxawUtm78Jdaargbwcb3zpUN5L8ltkmzn63MAnz08fG68rmZh65OsokWUR9nzGmaon9k0ZIpcqCVS39YgT1GWUrZLE9Zyif9Zcym4E9uVfktLNengoUw==
+ b=RKfFWVFvZ3ryT7MvJrmCiTttbB9Gmm/0yqwrcb5uJpSU+Q1fS/2pQHLEv2YmyMdIp7Y+uAA/riVSh4BQQBRqQ/miRV6/5LVEWlnL18izsTBHaVNSOCfddWy38dInqG4bWJXi05Cy77VvOmldQ7jNJcrVjlfjFQ3y/zy1C02vWB6DDXs68qkTn0WeFQtfKjDGLJMboJoZL3xd5qJ8F6BaPa+XmQW2cz4ASmdtjprosIvR+tMCZAztPyfnGqlYlXR3p/YvUIMSJHSCV83VfGnrD8k4Nc/bt+YTQiG4K0uSz8jWaIF/yv6CA1M0qZ1Jh0gxYHU1w9WirxB+IiM+NKpUBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XH8YuQi0k7G73lI//SG+73G3nfy6jtFifvSl3aIcbYw=;
- b=nKsEVTGtOBC2wfGNC1ddRNgbKicN9Fhy7SEKt3uNmoZG+euwGdqLs5pA9Yah836GRw3PsEIiN1KgVKETsm7XgMtyhpD8frc2lveiqW7l00+2R6HpmpVzWAfZ8W2J1PAoEcMR9CpD1SHHd6iYqtR+doVtsr0TRmxDRXjQafbsyAeko+JyYCgMJE2Svps3o461bfPXWMI1sZg/McKmJ66Ov5fwahHZaWH7NQWKHTIKQqG1ULPPiYB4lxEQSE3JqaCqzzakGJ208zgv8CZjFt1j7nx1/1M6LJ1sBwRHGwGEcJg9mXCZIunyXbxwzN8kkkJunAUYXOjuchovLGt3mhjmCA==
+ bh=dd36NJmPeJdJ+oQn7SaPNX+NhfRrJ3Z5xnAAtkAB9ps=;
+ b=GoDOCU9fd52h4jBOEEOldqu2o++5wYA/3RgS9T7RBZESu7QOGbxDjX0pjv25u0IfRq/LBKk1Q0xtpyz1N0g065CFz96tLybglLoBcDvKQ3tI8U2EzqoQNtwV2dzKQMSG8ccHfzksOX5V/MJlO6M5XI5EUE/i2Ee4bNkCdFfVTlBddjMFTdev8xaclgKAid5mWJwil/z6e03ikHslG4JlHp1TOhOihV6+dnGEBb59nckkth2Lsmm42AXucOoJqb/B9Zkq2gJWmlvvKXYBo9vlpU+M04kKUYUjZK4jD3i+ZdwsPfl5noHPvNcd42jRUk3IMxB2Tnje+nNXIDgMCHmjVA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XH8YuQi0k7G73lI//SG+73G3nfy6jtFifvSl3aIcbYw=;
- b=dDslYbhADPG/caF1nnD2SNFa/jOTfDClWlP7HA6wpwAehbfXFT5VKeOfZuwx7JeNBkddRPWLyDXtAZ1o5fFQ21hnv0gT/ck+4/SxwCjSwR4kcchsxlLSHDKpkSNPRJtBW0L4mvnS3OH+eZBx8qPhx4wdOwGs42VimP7hTGWl+BM=
+ bh=dd36NJmPeJdJ+oQn7SaPNX+NhfRrJ3Z5xnAAtkAB9ps=;
+ b=AqUqptoyABM86kXTS3J05/eZlMY7DYInNZPPRU17MANbTDaaQGUOr6oYdEs56xKBUAo0V8HGoIFev3UFO9KGMtpISVrn6rMTMx4ePUljAi/iLpfDRkbOYN4KqnxlQec6lacuAs8acT1FPTJEfvv3faRAz4Gi/wPI+tkmoapwWmA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB2941.namprd12.prod.outlook.com (2603:10b6:208:a9::12)
- by PH8PR12MB7304.namprd12.prod.outlook.com (2603:10b6:510:217::20)
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by IA1PR12MB8466.namprd12.prod.outlook.com (2603:10b6:208:44b::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.35; Tue, 17 Oct
- 2023 17:45:47 +0000
-Received: from MN2PR12MB2941.namprd12.prod.outlook.com
- ([fe80::9620:780c:562e:33a1]) by MN2PR12MB2941.namprd12.prod.outlook.com
- ([fe80::9620:780c:562e:33a1%4]) with mapi id 15.20.6886.034; Tue, 17 Oct 2023
- 17:45:46 +0000
-Message-ID: <af5900a6-e3ae-4cf1-9a29-89484f411a1c@amd.com>
-Date: Tue, 17 Oct 2023 11:45:42 -0600
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.47; Tue, 17 Oct
+ 2023 17:54:28 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::2e40:ffd7:e752:644f]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::2e40:ffd7:e752:644f%6]) with mapi id 15.20.6907.021; Tue, 17 Oct 2023
+ 17:54:28 +0000
+Message-ID: <54dfc01b-bd6b-4cf1-887a-749b45ede088@amd.com>
+Date: Tue, 17 Oct 2023 13:54:25 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] Reduce stack size for DML2
+Subject: Re: [PATCH] drm/amdkfd: clean up some inconsistent indenting
 Content-Language: en-US
-To: Nathan Chancellor <nathan@kernel.org>
-References: <20231016142031.241912-1-Rodrigo.Siqueira@amd.com>
- <20231017172231.GA2348194@dev-arch.thelio-3990X>
-From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20231017172231.GA2348194@dev-arch.thelio-3990X>
+To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, alexander.deucher@amd.com
+References: <20231013032129.55504-1-jiapeng.chong@linux.alibaba.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20231013032129.55504-1-jiapeng.chong@linux.alibaba.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN8PR15CA0067.namprd15.prod.outlook.com
- (2603:10b6:408:80::44) To MN2PR12MB2941.namprd12.prod.outlook.com
- (2603:10b6:208:a9::12)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR01CA0144.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:1::44) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB2941:EE_|PH8PR12MB7304:EE_
-X-MS-Office365-Filtering-Correlation-Id: f7f116a6-9456-4380-617e-08dbcf38e495
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|IA1PR12MB8466:EE_
+X-MS-Office365-Filtering-Correlation-Id: 25ba13f6-093a-49ac-8ca1-08dbcf3a1bc5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uqXCt5fcwYI8CIIzIe91y6zz7TZ3AoPW4NjeyTJV6LgGZL9a0rCvZTFeeNkSPLgkuwe/R3xhLBpXtW7xCEBI6YmNaNDICOyDAIwFMlyXi34qg8cVZFFJaYsDqb1T9B/8iUQGfvFomCBc26aE0vDLSVBjFFg2TrntHzuRfv1FCVc68eLtnfOgd06aZcsSaPEVLq7S7R2q1Bi1BkXRCixdHsHJIv6gE4hhCZGvm08GkHeia6SOlyKoATVsTOtYZZ2h8Aw+wakp+VmyTe9g6LzDrR9D/eNmA/SgGTxPH682DoFXNjxjirx4Qv8ATIDjkuHFwlR+DhZBAYsAgi+2cqynl8jQTj417cJlfd+BVUWDH84A2NwzphC48SH2AHZ7ZTKV0+arUmcxp5L1qBcq2EsyhSxsYdIOlVxkl8LtaNoF5Esivhh4UDUYohxId6U21wtJANCu6z7/2Hl+cgC4IWZLPg2/Seqht+PjLks2zEhrVAq5+jpTUrmKUQIvVAZbORbNkFyPvnl6RHBfAW+fdQGchwJUgmV8FuuXZE4vvHUxw11ItO5MdTIfuJeq+TbnmfqZ3yfiM09dqzin5LE57Ia9dgBLI8j4EoO6kD0F7R1O04RMXW1SQGNHNv7q5N3bVkLo5YaaQsvWxoHvZcS1sMJQvlwedfkyMPgW+3Y2sktL8Ys=
+X-Microsoft-Antispam-Message-Info: o07t05xZuspgsHAWziIgihCQeFdh088e13Jbhsk34GeFEqqUt5KOdXxt2SARmv4oj0Zc8SqFXbsrbcg/yaL8AyB+xQ0BPJ8A1CUiEXPGSgiNhkssuGnLRqwoyRpWUZjsutVx97cn+unD54MoCk0rbKJI+sr8xU7byLwrojXk4UkbVIYUx/BJdyzJbsMK3kDH2cYk2oUtDyuKI4tcW2eh+Wk+GpRUQzl9mJz3nhlpjVL7Gt8jWg8MQVkJKRUNJ8vH2Xn8EJ1LGqmLlS3RODqtQVJpGWporwkxj0KFbLkg8JUvTVjgKZ6vANjdst5Izn90vSPxwAsmtXnQTUvDGO4Zy4WUZJGuyl253HoT2Ly4v4DJLamXCAW6V1NWuCQ4UGktod6HNmSJtqc1C+y/PtGoim34yqJo1klUA5dC0D9aYAmvysOMHkJKsdjYBuwC7XyumrIEVO0Ugq7mz6zI3Ke7aBBW/KNd1tes1uDoO7UCzNi7WYoB3fxd2+m8t83qzzsl6PVMoSfyeKkJs+aGv28snbQjMx2qEPbWQh3fDUijStlmAbMpnAxldDSQNNVuY9BR6efk21JdOweVfoGm9fOqwbi9N0fb2Lrw2ZyUPNnaiLlfG3n8xUnlfkT112l/3RySUJoTl2fLsSi9xGg9UJPzzQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB2941.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(136003)(346002)(376002)(366004)(39860400002)(230922051799003)(451199024)(64100799003)(186009)(1800799009)(53546011)(31686004)(478600001)(66476007)(54906003)(66556008)(6486002)(6916009)(6666004)(966005)(66946007)(83380400001)(31696002)(86362001)(38100700002)(41300700001)(316002)(2616005)(26005)(6506007)(6512007)(4326008)(36756003)(2906002)(8676002)(5660300002)(8936002)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(376002)(136003)(396003)(366004)(346002)(230922051799003)(1800799009)(451199024)(64100799003)(186009)(4326008)(8676002)(8936002)(38100700002)(4001150100001)(41300700001)(44832011)(5660300002)(86362001)(31696002)(2906002)(6506007)(36916002)(53546011)(6512007)(478600001)(6486002)(966005)(6666004)(36756003)(31686004)(83380400001)(26005)(66556008)(316002)(6636002)(66946007)(66476007)(2616005)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NnBEREZkeDVGUm9tS3U5RGlyQkNGT2E5eDh5TDRQeTdaaXp3aEdnUFByRTNF?=
- =?utf-8?B?NlpFT09ncE5pU2xoTEJ5OTRObVNZUXRBYno0TlFVbDQ3NE9LRC93QlIycFNp?=
- =?utf-8?B?YzNycWRBdVAzWmZNa0ZZSE43ZHRSa1JxVUpTM0g0RW1NZm9vVk1NenZ2QXND?=
- =?utf-8?B?N1FKTk5aZG82N3lMT1JrUk9IQ2g3WG5uT0NPWnh3MmpUeThyMGlQU1lVK1NJ?=
- =?utf-8?B?cUxiZkxLWkZCSVByODhDUERHMU5zVWk5ckxPYi8zS1kwNGJyckJqMjNicGxM?=
- =?utf-8?B?Ym1JaXFUWk15Njd2TGVWL20zaW0reStERTR1clMyb3VQbzU1TUxNamtWM1Zx?=
- =?utf-8?B?SVFCS3RWd3owa1VJaXRDcmZJR1d3NkpDb0xFaEZyY2R1ZjNSamRXWGdRM2c0?=
- =?utf-8?B?Vi9BVzQxL00wdXQ4ZnA2bXZyQVcrMlQzdGYzc1BzTDJhYTRhT3JvNmxoLzZk?=
- =?utf-8?B?TE9VSGVabEVWcG41eWpoZDExUkN2MmtISElKMllyY0psb2FINjBiMzhIQndO?=
- =?utf-8?B?WEk0QWhWQmd3N3VEdklnSTQzTVgvcFIrM1Zpbll5Ukp1V3pnRFFsaEp6Z3RQ?=
- =?utf-8?B?TzViRHdGSWhjNEROZ1dtVnp3RHFNOXgzN2REa2tqMkcxZEpFYTd5MXZqNndy?=
- =?utf-8?B?VklTOEpzUnNpKzBqWk4rcE5iQThnbW85aGVPdnovUjZVZFprd2wra1lkeUtu?=
- =?utf-8?B?bWJBTEtVTThWMythR0orYUtVWE9adnI0aXlrOUdzYVNYUGo0UFVpK0lOY1li?=
- =?utf-8?B?Tnc3MzB3eGdaQ0NudDMrbmJua21PcitxUHBZN0pyZi9rbEtxa1hGdkxDR00w?=
- =?utf-8?B?VFhFckxTbmdwUENRcEhvZjdScUpOR2dncC9Fa1JhQ0VGMlFqQklhYkJWZEFH?=
- =?utf-8?B?ODZWeDhmUzZ2SzZPQy9MaVEwdi9vYm1iSnlMSHZoaDVJMmh2dU9tU1dQRU8v?=
- =?utf-8?B?OXNkVUx5UDVna3NhUnh4eUlEVDQrT0xLaTR5YUJaVU16Y09zQVlGMHcrWjQ5?=
- =?utf-8?B?bmFWTnhrUnJNWnBaS0EwLzVQN0gzaVRWZHNJbS9wNzJ5dHJuUHI1MkVpdFli?=
- =?utf-8?B?Mnl0SVZFdlhpenN0TWJzWlZDejUzd1M4aTBEY1pwQXhQVHQwalkvbVkwVm9H?=
- =?utf-8?B?Qlh4TVJpUnNsVHFnY3MwdmtrOWt3YUFpdmtTSElDQ0N5VW40eERhME1zY3B1?=
- =?utf-8?B?cVZHV01BcXhvSmdIRDhSL0FPZHFKWmZySmVnbTNJVWFmdXByeW5TQzd3b1JL?=
- =?utf-8?B?aHg5UVVrOXAyb05Sdkc4bHpyTXBCNUxiT1JhVzdpVkJCd2xpOWZYZDkwNzEw?=
- =?utf-8?B?U3ltd1lhREdCVEpVd3V1VGM3ZktmTjdCSEU2YWd3ckZzajVydmlNeDhGaW5Q?=
- =?utf-8?B?RTcyTnB2TFVEeDlic2RKa3l1VkF3NkdmaC9kQWVzSEIxNXV0NGNuSVpPQUNR?=
- =?utf-8?B?ZEdvYllJTEpJUU80NXdVS1RzZzZ0ZzNCSzRKWEgxOW5tSUsrZFREVUNGUVJm?=
- =?utf-8?B?a1F3L3lObGlvNmVVMUxQR2VZYUZ2emVtbGR1ZWhmcElGRHlORmttaWRJTWhG?=
- =?utf-8?B?Q3N6aThlQWNsa09jeEtXckp6dklYWGZMeDBRUk1tZGh6QjIrcVBXWmg1dW1m?=
- =?utf-8?B?U1pGQy81eTQrczc1YTNkSjRyQ1JDODZYVThOQjNzU0pveERJa3dUZjZRYW0z?=
- =?utf-8?B?blJQMHkrWURUWlNkWkxRMTdOWXhEU2s3MGlPK0hVZFlnVzVIVFc4TkllOTkw?=
- =?utf-8?B?WEVGNEhDdXNNU3BuYVc2TElCSWd0TFN5OUZ2VjhhWDRKeUFwbGZSdFZvQlll?=
- =?utf-8?B?cmh5YndQTlExcXQxOFBac1I5eHd4S1lzTkNuSkpzUGxDenc3VGZYSm1SUHp1?=
- =?utf-8?B?UmlYMWd2UUlKUGtLdmZNeU5RL0N2MktCZFBIS014anJ3WCt0ZDN1NE9ZYnRR?=
- =?utf-8?B?dmQxTURDZUpFVlcrOStuUnNYVUFBTkdBQTNuSFk3aHRRT3loR0kxWHZZRG5t?=
- =?utf-8?B?K0lLYjdyTmJHSnBKcmU5Zmh6YlY1Q0JxWWxYTkhHY1o1TzJCVTZ5QSt2SGgy?=
- =?utf-8?B?NXJQaUc5UzNFL3d6STAya1BwZmhpQTZJb2hMdkZOTDZ0SWc2S25DVWRydEx1?=
- =?utf-8?Q?q0BK6zu+sAbLAJoMgh0dv4O7B?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eDhSdXNhem93LzlCZXBxeE1BanNpaGs5eE93cFpxbC8xZ0Nrb2UrOXNQVHc3?=
+ =?utf-8?B?dUU0MGg4ekxTZ1Jjblkrc2hnOWFQTnRUSHVteTJ4SDJQU1phYjJib2JYd2ha?=
+ =?utf-8?B?WnEzRndxeW1lSHlVTHQ0UlAwQWg5d1QzQ2dMOW1oR0JtYUtabERNc2NhanN5?=
+ =?utf-8?B?WXU4dDBzVlJnbmp0cEJRZmdpSFcybndmeXdiY3U1WCtYSWhIM1V2R0F5cHZK?=
+ =?utf-8?B?QTNtLzlUY1VYU1l4a1VyVCs3enBnREVEUkNaQ2NodWM0aGJFZ0dNVzFHMXVz?=
+ =?utf-8?B?UEE5ZG5ka1JIRnhvYk1EdWhxN3BZTGE0M2tLSjV5VFB4V0dscGNVOE45c3Vt?=
+ =?utf-8?B?VG5jSUZWcG1mbTVjMHVtVndxclpDbVpBMldrZkVudzY1dG5Ca3NNM3MwMU0w?=
+ =?utf-8?B?c2ZZakhqUDZHQXQxNEVaMUpPWVlhRmYyYWl0MWpsT3NCU0RmRlppWTV0ZVZT?=
+ =?utf-8?B?OGUyZmVkYm9lVThidUpiMXlTa2ZGQldlZG55dVlYQ242YnNsbG9aY2J1RTJE?=
+ =?utf-8?B?aUZkTVJqZlNtRHFQTnNmM0RSNit1ZzB2UkxGbWNzVEk4c2VXL3FiVC8xdzNI?=
+ =?utf-8?B?Z3gvdWJNNVplK2ZzQThOeHZjdmo1ZjEwV0Mrb0g3UVBMMlpZWlYwVHRSa3Fu?=
+ =?utf-8?B?dXkySEJKWkFVcUd1cWpzMDVXd3VZdGljNThNSyt4dTlEdXJKZFJlL0E0S1pR?=
+ =?utf-8?B?TWV6L25mZENuRDJxWndwQjZnN3RNaUpHUURtQk9QZkszUzhhYkRnLy9TNC9R?=
+ =?utf-8?B?ZXFuWVlPa2xjb2k1eWYvWGhqNTJMeWVCa1poS2QyczdTdFhES2NqTmtZczE3?=
+ =?utf-8?B?T2YzMTQwVDNsY01HdW5rSngzdDBpTHFQN2xOaWkwS2crOVYyMzhjeXM3Q216?=
+ =?utf-8?B?TGx5UHBUQXMvZjBDSjVUNHdPWnBFblZFdXNTZ0MxSzE0TjkrS3k3ZVY4dm0y?=
+ =?utf-8?B?OGZ0L2tvaGJwTzJwT3Z3VjFCK2h0c2EzZUtsT01HbEpSN1FkY0FONEtEZUZX?=
+ =?utf-8?B?VWd2Zkx6ZmtxaWVjYTEvRXo0a212SUJJOXBiemNndUQ3SnRxZDE1RGp2d0lq?=
+ =?utf-8?B?SDE3ZGw1ckh5amh0bjQ2b2JuamI5RytNWHRIc2Nsc09UZmorK3ZMVXNieUlU?=
+ =?utf-8?B?WHFsS0VmVlRTMmJKSVhMNXNPWjVua0xUWXd4KzNRYS9nUUxId1gramwvTDlC?=
+ =?utf-8?B?UVZyUUo5b3VNL09PVzlnakFORlBBZkJuWWk4Y3JDQVJVVW53eXBCckg2aWxs?=
+ =?utf-8?B?NGVJQWRZOFpnRVNXNTJOSFlMRlh6KzJnQ1dJMm5oZFA1M2lXKzJDcjdyVHcv?=
+ =?utf-8?B?Ly85T2ZLL0ZGYjk1bWh1NWFONGF0MDJ2bmkrTHlmQ3VOckZyNjgvRmZMQ0Vj?=
+ =?utf-8?B?RFFCazFyYnlWbkY1UFZyNjVtM0RuVjlGekhnNkpkVWxPcE0yd1hEdkcwMm8x?=
+ =?utf-8?B?Y2wwbzl1Ti9JNHBQNUJxQjYyVUlYRmZQYnNoVjhGNFliRy9COUhReGgxSUt6?=
+ =?utf-8?B?RXBDYzdDL1J0S3pqZDRVKzRnYzI1YkRjQnI4am9BZ3NGWTJ0NDB2dlFRREps?=
+ =?utf-8?B?ZWU0R0I4aDN1L3RGSGpaZFhaTzRiRU1sQUQ0VTRBTExteU9OYW5CYVN1ZUZM?=
+ =?utf-8?B?SUF4UmpoczVDaDRCZG1DTy8vbmp5ZG8xWlNvT05SSkU1UzlMcVRiSE9kNk1r?=
+ =?utf-8?B?VVhtWDFqYldtdm9va1BtOUtsK2NNNnNZSnNqeU51OHpML3NNNXZpRWxPS056?=
+ =?utf-8?B?dVFldHAwTGRzRDhycTJtbDgxdG5FZGV5eDU0azZQcFVHOEdyTSt2UTJySk9Z?=
+ =?utf-8?B?UXdyZGdFZDFqcjRQck1leXpyUVAwL2VtQnZ2WC95b0ZUZys5YmREc2xxYmk1?=
+ =?utf-8?B?YTM5ZmRLeWF6Z3JHUkh3MFloTlA3OWZMaWxwZUtGSkVhZlJsZ04xOGpvU0ph?=
+ =?utf-8?B?R3RuNDRsWUVESGlkcG1aTTFLNU5LeDU5VGo1RkZBa1BsZ1VTVDBJSVU5dE5p?=
+ =?utf-8?B?eDdVN0ZwV0UvUkw5ZytieUdUa0VVZXJmdDNtZ3VYeVRibldzTklsNXArQVRn?=
+ =?utf-8?B?QXF5Y3RrUER5VWNYdFBuWmdjQ3JaMy9OUVdCR0U5aDVzeU8xSm9GSGJjUHVV?=
+ =?utf-8?Q?0KePIYfG7KnOI241j8pBvR7ZM?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f7f116a6-9456-4380-617e-08dbcf38e495
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2941.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25ba13f6-093a-49ac-8ca1-08dbcf3a1bc5
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 17:45:46.4481 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 17:54:28.5426 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3GmSdk24bmCOma6jRIcXhkbvBUoe/fwoLQpzB5l4Vh9W3hz2JWC7zSvHIyrEJEzQBEjk6y2Ug6CdoWHisc1GwQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7304
+X-MS-Exchange-CrossTenant-UserPrincipalName: 28sAib4cUdduX6/kD6tu4K0UmAFiHNqMTe3My+sd2RlbtzWReiNLBlAGiI8pAT3URAxbVaXCbuPshU8GGSiYgA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8466
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,125 +123,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>, llvm@lists.linux.dev,
- Roman Li <roman.li@amd.com>, amd-gfx@lists.freedesktop.org,
- linux-next@vger.kernel.org, "Mahfooz, Hamza" <hamza.mahfooz@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Chaitanya Dhere <chaitanya.dhere@amd.com>
+Cc: Xinhui.Pan@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Nathan,
-(+Hamza)
 
-First of all, thanks a lot for your feedback. You can see my comments 
-inline.
+On 2023-10-12 23:21, Jiapeng Chong wrote:
+> No functional modification involved.
+>
+> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_svm.c:305 svm_range_free() warn: inconsistent indenting.
+>
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=6804
+> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 
-On 10/17/23 11:22, Nathan Chancellor wrote:
-> Hi Rodrigo,
-> 
-> On Mon, Oct 16, 2023 at 08:19:16AM -0600, Rodrigo Siqueira wrote:
->> Stephen discovers a stack size issue when compiling the latest amdgpu
->> code with allmodconfig. This patchset addresses that issue by splitting
->> a large function into two smaller parts.
->>
->> Thanks
->> Siqueira
->>
->> Rodrigo Siqueira (2):
->>    drm/amd/display: Reduce stack size by splitting function
->>    drm/amd/display: Fix stack size issue on DML2
->>
->>   .../amd/display/dc/dml2/display_mode_core.c   | 3289 +++++++++--------
->>   1 file changed, 1653 insertions(+), 1636 deletions(-)
->>
->> -- 
->> 2.42.0
->>
-> 
-> This series appears in -next as commit c587ee30f376 ("drm/amd/display:
-> Reduce stack size by splitting function"); while it may help stack usage
-> for GCC, clang still suffers. All clang versions that the kernel
-> supports show a warning for dml_prefetch_check(), the following is with
-> LLVM 17.0.2 from kernel.org [1].
-> 
->    drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c:6263:13: error: stack frame size (2520) exceeds limit (2048) in 'dml_prefetch_check' [-Werror,-Wframe-larger-than]
->     6263 | static void dml_prefetch_check(struct display_mode_lib_st *mode_lib)
->          |             ^
-> 
-> With clang 18.0.0 (tip of tree) and 15.0.7, I see:
-> 
->    drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c:8277:6: error: stack frame size (2056) exceeds limit (2048) in 'dml_core_mode_programming' [-Werror,-Wframe-larger-than]
->     8277 | void dml_core_mode_programming(struct display_mode_lib_st *mode_lib, const struct dml_clk_cfg_st *clk_cfg)
->          |      ^
-> 
-> For what it's worth, building with GCC 13.2.0 with a slighly lower
-> -Wframe-larger-than value reveals that dml_prefetch_check() is right at
-> the current limit and the stack usage of dml_core_mode_programming()
-> when built with GCC is not too far of clang's, so it seems like there
-> should be a more robust set of fixes, such as the ones that I have
-> already done for older generations of this code.
-> 
->    drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c: In function 'dml_prefetch_check':
->    drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c:6705:1: error: the frame size of 2048 bytes is larger than 1800 bytes [-Werror=frame-larger-than=]
->     6705 | }
->          | ^
-> 
->    drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c: In function 'dml_core_mode_programming':
->    drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c:9893:1: error: the frame size of 1880 bytes is larger than 1800 bytes [-Werror=frame-larger-than=]
->     9893 | } // dml_core_mode_programming
->          | ^
-> 
-> 41012d715d5d drm/amd/display: Mark dml30's UseMinimumDCFCLK() as noinline for stack usage
-> 21485d3da659 drm/amd/display: Reduce number of arguments of dml31's CalculateFlipSchedule()
-> 37934d4118e2 drm/amd/display: Reduce number of arguments of dml31's CalculateWatermarksAndDRAMSpeedChangeSupport()
-> a3fef74b1d48 drm/amd/display: Reduce number of arguments of dml32_CalculatePrefetchSchedule()
-> c4be0ac987f2 drm/amd/display: Reduce number of arguments of dml32_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport()
-> 25ea501ed85d drm/amd/display: Reduce number of arguments of dml314's CalculateFlipSchedule()
-> ca07f4f5a98b drm/amd/display: Reduce number of arguments of dml314's CalculateWatermarksAndDRAMSpeedChangeSupport()
-> 
-> It would be really nice if these would somehow make it back to the
-> original sources so that we stop going through this every time a new
-> version of this code shows up.
+The patch is
 
-I'm familiar with that approach of reducing the stack size. Correct me 
-if I'm wrong, but the idea can be summarized as:
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
-1. Move the local variable to a new struct.
-2. Add the new struct as a reference to the main struct.
-3. Update the function to use the elements in those structs.
+Applied to amd-staging-drm-next.
 
-I used this approach a lot in the past to reduce the stack size. 
-However, I think this case is a little bit different. The target 
-function is display_mode_core, which does not have a lot of local 
-variables, as you can see in the below link:
+Thanks,
+   Felix
 
-https://gitlab.freedesktop.org/agd5f/linux/-/blob/amd-staging-drm-next/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c#L6212
 
-> I thought that AMD has started testing
-> with clang, how were these warnings not caught before the code was
-> merged? If you are unable to look into these warnings, I can try to
-> double back to this once I look into the other fires in -next...
-
-Yeah, our CI uses GCC and Clang, but the version provided by the distro. 
-Additionally, we do not use allmodconfig per patch; we use a custom 
-config file to keep the build time under control.
-Anyway, we tried to understand why this issue only showed up with the 
-allmodconfig, and Hamza figured out that enabling the KCSAN option in 
-our config file exposes those stack issues. I don't know the details 
-behind KCSAN, but it looks like it will expand the stack size in the 
-functions.
-
-Maybe can you check in your side if disable KCSAN also fix the issues on 
-clang? Do you have any other suggestion on how I can try to reduce the 
-stack size in this particular case?
-
-Thanks
-Siqueira
-
-> 
-> [1]: https://mirrors.edge.kernel.org/pub/tools/llvm/
-> 
-> Cheers,
-> Nathan
-
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index f4038b33c404..eef76190800c 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -302,7 +302,7 @@ static void svm_range_free(struct svm_range *prange, bool do_unmap)
+>   	for (gpuidx = 0; gpuidx < MAX_GPU_INSTANCE; gpuidx++) {
+>   		if (prange->dma_addr[gpuidx]) {
+>   			kvfree(prange->dma_addr[gpuidx]);
+> -				prange->dma_addr[gpuidx] = NULL;
+> +			prange->dma_addr[gpuidx] = NULL;
+>   		}
+>   	}
+>   
