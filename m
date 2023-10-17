@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9E76CDB482
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 21:14:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AE91CDB474
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 21:14:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E001610E339;
-	Tue, 17 Oct 2023 21:14:26 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2041.outbound.protection.outlook.com [40.107.244.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 326D210E32E;
- Tue, 17 Oct 2023 21:14:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5724C10E35C;
+	Tue, 17 Oct 2023 21:14:30 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2049.outbound.protection.outlook.com [40.107.212.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 238DE10E32B;
+ Tue, 17 Oct 2023 21:14:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bf4OxQw9uuCvMHx0/BxAN4i5tekn0DzT4hV4N8O1+fBqRD0sRITkMnGDe1qIi7lAG+B+qdfBdLWsmZ5FhHokW+YWSln/QzJcOyXCceZ4GMgWMiW86zZF+UF4CyQbbZRY9rN5URmFAl74iuPd0pT+xLKoiS09ZxoNnvIvUQinmwNTDYlVAWe8+Wh1OGIdZqAsuA4xWdV4HaJ+2ccpVzRIDkDMUrM2EiHi9qv+F9Ey7RpHIcFyz5N/5EjyLWrrQgDRxlvSrHRBwjGv70A6BuGZC+fIMHghHsgfizrj7ZnWl/hlEbQCNpnqO5+IeAg2G0iOlMgMztRtdpN+QvQkjfcHqA==
+ b=MdWRCKg9G5/6Dgz2cg6H/sIzxjaEwgI9vLOKEFi/dN57gUdajFdWEhGABFpEVyuwwcCs7RwMUDebFP186DuK0RVelUxZgXz4cFUAZn03clFfdIt/rm+xyP5ikbmcfSrECxIPczaFb/R+bfJJdf0vPWFSTzsRNdqF3r9rVkUqmRl14POf3VL66tF6U3sve+NJkqhNkQt31bnAaOp2PHr149rCnf3foRnPIBPEzlVWqzVn/3r7thQXFjbgFt0cFoNjTbVGc34HOstakQjFW59VvMH/Handrir8cH7s6kRs1sh+/b3AeGnqk/ScCnQ2mIONql15KU7z7C+K5LB8knAOVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dDi/X+AMMDMHm0D4yN8wjlygvip4mrBlHLWE51+EoRY=;
- b=gSlEelMEx4vqYmGV30SvlTxOoQysYmlAw81iAo6+jJckFSVOm8Hk+ebrKzXEkZYQ5Eega7S7lZjcBF5YsPzYQ8L2I0GpHY3VeqR/lnDrmuz22qHvjTs6tcdy93JkjW2tQp6ya/qQEdygDyASgEWBYjm9sp6bmJd4vDjGvFm4KU3CX53OMtj5kasFAgnf3ixaXi+VZ8U5uxYMOWVCsVJjn2J0exSVwJZzO7zjnf5am4OGZ4nmETGEjGO9PK6ibTpa2yB7jNXNBOp4kt4dhf3vn76dBuHw81n7xGfCIjIxjrOOiQM24jcd+kWmhMgP1QkmQa41uAH8Qp50UEwY2kxgQg==
+ bh=VJVTvrynJqwestsLwPiHCPDP9UZP765r1KhbIPPWoA4=;
+ b=Sp3e1CWQTmKkS0Sz+HiU3HLf1eTB3zXIhn0JT/lsDbk/0YppgVYmkLAAV7JuKyy2Sntj1ptL/+3NSmPigGrqETrgJznGs3y8EEEJYZ70JAEZajhUthBoCzqcnqlvQrwqFtYDDaegbw3nvtQZbvXTYsu79dzTVjvcBzNQs9ENfT4pnLYXfCW+ddJKgLEnpbLWNXO0x+mOP8gN1vQl/OwnVTiUCz8kVwJl1ALG8r8m5C+3qRtFxNsTt8t6kRcjioSKpJQff0Gd3ej8IiMo6toalygqdDD+8BAj/q+eH68RuMls+I/P4HuI2LrsoQQIUYi6R8q/Z9R6HcHcPUFd2XygQQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dDi/X+AMMDMHm0D4yN8wjlygvip4mrBlHLWE51+EoRY=;
- b=ZGiHw1WF+SQv1IL43j8n6Urm88faSho+nJM6ydj2z4X/aWCIyc7E4bhSFlNRN5BOZv4q8Ttub7ypSD0qonNyiTjQaRHy37qiEwXb+Kbef3S0StWEHcaPPoJVKBpf+Rt7RJ9ECjdyHYGym0y9NpokVxJK7EGXYw7NM/EWVvNPY2A=
-Received: from BL0PR02CA0006.namprd02.prod.outlook.com (2603:10b6:207:3c::19)
- by CY8PR12MB7585.namprd12.prod.outlook.com (2603:10b6:930:98::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.36; Tue, 17 Oct
- 2023 21:14:21 +0000
+ bh=VJVTvrynJqwestsLwPiHCPDP9UZP765r1KhbIPPWoA4=;
+ b=LevfPT4P/5jmyQbOLAPCncjxLTmek9jkvVCSUnuMPrIft67NRLLd/WBcYzg3isr/VD+wiihxGDjyEZwcxAJXhNnXQRnE/T2+kxeisGEsEc9wOPtG2YNoa5oS8F3SMvv0BiYqcG1kHoUXUaRi0WzqADxwtxxg2R+HXbFRSPSiD1M=
+Received: from BL0PR02CA0028.namprd02.prod.outlook.com (2603:10b6:207:3c::41)
+ by PH0PR12MB8174.namprd12.prod.outlook.com (2603:10b6:510:298::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.34; Tue, 17 Oct
+ 2023 21:14:22 +0000
 Received: from MN1PEPF0000ECD9.namprd02.prod.outlook.com
- (2603:10b6:207:3c:cafe::32) by BL0PR02CA0006.outlook.office365.com
- (2603:10b6:207:3c::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.35 via Frontend
- Transport; Tue, 17 Oct 2023 21:14:21 +0000
+ (2603:10b6:207:3c:cafe::15) by BL0PR02CA0028.outlook.office365.com
+ (2603:10b6:207:3c::41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.21 via Frontend
+ Transport; Tue, 17 Oct 2023 21:14:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  MN1PEPF0000ECD9.mail.protection.outlook.com (10.167.242.138) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.22 via Frontend Transport; Tue, 17 Oct 2023 21:14:20 +0000
+ 15.20.6838.22 via Frontend Transport; Tue, 17 Oct 2023 21:14:22 +0000
 Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 17 Oct
- 2023 16:14:19 -0500
+ 2023 16:14:20 -0500
 From: Felix Kuehling <Felix.Kuehling@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 00/11] Enable integration of KFD with DRM GEM_VA ioctl
-Date: Tue, 17 Oct 2023 17:13:26 -0400
-Message-ID: <20231017211337.1593869-1-Felix.Kuehling@amd.com>
+Subject: [PATCH 02/11] drm/amdgpu: Reserve fences for VM update
+Date: Tue, 17 Oct 2023 17:13:28 -0400
+Message-ID: <20231017211337.1593869-3-Felix.Kuehling@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20231017211337.1593869-1-Felix.Kuehling@amd.com>
+References: <20231017211337.1593869-1-Felix.Kuehling@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
@@ -66,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD9:EE_|CY8PR12MB7585:EE_
-X-MS-Office365-Filtering-Correlation-Id: d2a4c182-a312-45a3-b49f-08dbcf5607de
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD9:EE_|PH0PR12MB8174:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1df954c5-9204-48c2-7101-08dbcf56089d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TIop8iLTLIXtuFAkLm5OAV1WgIFGtHjLDDO4cmoOgabWeIoSvXIwTB6cVKvZjHwkttlcEsXv4Ca+E4WNOzQ0wHXi0N48Y+ub8HEz2V5aHx/CAR033Wq1LJRHRFcTaUQqXNeSBfMfYvN7vNitoVux0mvcSaBhIk3K+6BfelxvApebKbiJS61ZHli7QLEr27u8vAiR6lVt7VFyk9r/5aAK7IfrxJdLRMvBh1Ylhjd2SZ1QqOrFCVD2upVHaR6V46KqDjVv5SQyRJ6I1ouOQ2/eDIR3Da8/cz5koE47LHNj8F6i4LYZSxsPP8xOdMVoTlwXTKE1SmYny3njC1G11dmVeHz4v5td1rQAAFivff7zU+v329R1bU/+CdUokgvSd1ZAY6G89d0maihusBdLDw7f2xiZ+hoPBlULJqLM823bFhyPDF+RajcLukS7I05sqmBC7sVCW1F/h33V+ccZp4iiVrv6m++anJQB9c+q3kEmAhGIy8VMKqBn9vpo8XZIrXmRlBzjeG9k/ROu+uoh0Hu/4Z+395lS1dQdtrM9JZZMYkPNAf7O7kkpnCEy2H6AcY+g0ND1qQloMZQTgBOaHCyilLEALq+WHefjpPPj4aig9nb48aug1gxiby6jwJdfgJk1ajgVRNeXb1BRD27wXZCI/eaHATaDyGo7VfZTLxdcqo7WU/rC5bqnA/w3FbYSFsN5NOTJiGXk2UYbMvFe6Czw8DbXx5shUzgj6LTClanLP/0dwUMdcAxGSJT3YevA/Ytp/rcJBRPFYiXKi04msEDPWw==
+X-Microsoft-Antispam-Message-Info: Pyxn5jg72cXIlmSNX5OEAj20vRQjuNMKCUUmxm4OFtZgz+yxtS2lJRWF0IZEVait2L6UwT4Mhzrgfl9mdgtsCv6wt5pqrKx2rsHiYoD1pS80SpPr3O6YhENL/SaQ1lKgUFkM607zgE/1SVcOz5T5i2c0EoHAzrRNw3SPZzNQ2DYZAVlSb9WmpewKZRxt11WeRt4VjRd+OofEnotVxuK3A2NSb4ptApy/eClHy++j6UCNrNIIEn6LVg6j1v0ij94gonDvhjN4AJGB9qIhBuOaGDRlPnHL/67L8mK3nnpyVAujhLHw8EM2lfhAG94eZ/omCtM7CW1jgYjrR7bkoFs0wu2d3dbm7HD8bXh0H9hP9eY+lpbbgzT0gp9SmzBwVz9HEZxMLqG5vUl7dvcmhVDLyBCWQ9U6nL7z1ZFXIOo0y3Y4bwbgX7TKSx+wlaOgv1iC9BGqD8ITG1x2PhzY1HoNKEq6ENkvkwxE9c3HttWvELhVF/146vtsopfeRPKrMFKp3Pb6Ne9icTxpmzyq8yJ14uROggPJi1wxNrqIqq1L455X4Tcq12g/+2ETRRbpV6PZxbVbU3pn9VStjE7imjVJ2lx4KeIYoxAnAkEl3VFt6/xg3XnTZLDQpUOCN3UTyALdrZ1tAz++nJKfqRE8Dh1yQp2h+5S7VmRBhjCr7nObZvs7BhSyCJZGfqHOcz5ih+/Ayv8EHTHW+C0GL3NVcznZNska3McBMlExUiOa5MzWNIn7clNAXcGXV223lk+2Zq/vu9FKfuRTP6usd4GwLzuyIw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(136003)(396003)(39860400002)(346002)(376002)(230922051799003)(64100799003)(186009)(451199024)(1800799009)(82310400011)(36840700001)(46966006)(40470700004)(16526019)(336012)(426003)(6666004)(7696005)(478600001)(47076005)(36860700001)(110136005)(70586007)(70206006)(316002)(2616005)(36756003)(1076003)(83380400001)(26005)(54906003)(450100002)(41300700001)(5660300002)(82740400003)(356005)(81166007)(40460700003)(4326008)(8936002)(8676002)(2906002)(40480700001)(86362001)(36900700001);
+ SFS:(13230031)(4636009)(39860400002)(376002)(346002)(136003)(396003)(230922051799003)(451199024)(64100799003)(82310400011)(1800799009)(186009)(36840700001)(40470700004)(46966006)(40460700003)(36860700001)(70586007)(70206006)(316002)(110136005)(54906003)(2616005)(1076003)(16526019)(478600001)(26005)(82740400003)(81166007)(8936002)(47076005)(8676002)(356005)(66574015)(7696005)(426003)(4326008)(83380400001)(336012)(450100002)(15650500001)(40480700001)(86362001)(5660300002)(2906002)(36756003)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 21:14:20.8761 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2a4c182-a312-45a3-b49f-08dbcf5607de
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 21:14:22.1261 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1df954c5-9204-48c2-7101-08dbcf56089d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD9.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7585
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8174
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,46 +99,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xiaogang.Chen@amd.com, Ramesh.Errabolu@amd.com, Christian.Koenig@amd.com
+Cc: Xiaogang.Chen@amd.com, Ramesh.Errabolu@amd.com,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch series enables better integration of KFD memory management with
-the DRM GEM ioctl API. It allow managing virtual address mappings in
-compute VMs with the GEM_VA ioctl after importing DMABufs exported from
-KFD into libdrm.
+In amdgpu_dma_buf_move_notify reserve fences for the page table updates
+in amdgpu_vm_clear_freed and amdgpu_vm_handle_moved. This fixes a BUG_ON
+in dma_resv_add_fence when using SDMA for page table updates.
 
-This will enable more flexible virtual address management for ROCm user
-mode, better interoperability between compute and graphics, as well as
-sharing of memory between processes using DMABufs.
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Felix Kuehling (11):
-  drm/amdgpu: Fix possible null pointer dereference
-  drm/amdgpu: Reserve fences for VM update
-  drm/amdkfd: Improve amdgpu_vm_handle_moved
-  drm/amdgpu: Attach eviction fence on alloc
-  drm/amdgpu: update mappings not managed by KFD
-  drm/amdkfd: Move TLB flushing logic into amdgpu
-  drm/amdgpu: New VM state for evicted user BOs
-  drm/amdgpu: Auto-validate DMABuf imports in compute VMs
-  drm/amdkfd: Export DMABufs from KFD using GEM handles
-  drm/amdkfd: Import DMABufs for interop through DRM
-  drm/amdkfd: Bump KFD ioctl version
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |  40 +---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  22 +-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 207 ++++++++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |  22 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c   |  11 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |  26 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 198 ++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |  17 +-
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  19 +-
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  10 +-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  31 ---
- include/uapi/linux/kfd_ioctl.h                |   3 +-
- 12 files changed, 424 insertions(+), 182 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index 76b618735dc0..b5e28fa3f414 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -404,7 +404,10 @@ amdgpu_dma_buf_move_notify(struct dma_buf_attachment *attach)
+ 				continue;
+ 		}
+ 
+-		r = amdgpu_vm_clear_freed(adev, vm, NULL);
++		/* Reserve fences for two SDMA page table updates */
++		r = dma_resv_reserve_fences(resv, 2);
++		if (!r)
++			r = amdgpu_vm_clear_freed(adev, vm, NULL);
+ 		if (!r)
+ 			r = amdgpu_vm_handle_moved(adev, vm);
+ 
 -- 
 2.34.1
 
