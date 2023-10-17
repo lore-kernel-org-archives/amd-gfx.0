@@ -4,113 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27B9BCDB474
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 09:04:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1C60CDB474
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 09:15:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 698E310E009;
-	Tue, 17 Oct 2023 09:04:36 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2067.outbound.protection.outlook.com [40.107.237.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BE4410E009
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Oct 2023 09:04:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40C1B10E299;
+	Tue, 17 Oct 2023 09:15:04 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2078.outbound.protection.outlook.com [40.107.101.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CFE310E2A7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Oct 2023 09:15:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Hxsx2NWQ6m4EfOVGuZ81kiLzjGDzAaO5vP/kU7HgJeIEy8i1RVtpjo591mOf84aeYPQ/6BTRAJdzgC0FS6o/I1pq8LlMBKy8Cyhob4tFix2ZL6rwCsGLBhExnwWlIcuBDorELChTExfY/nF9aQ7DlKYuM42q0PZfA0TAC7kTBNOjKbtX5ZBR8CAUuApdptiJMSkNU3Q8zI8xjc3KiEnoQbXTq05/e4ltRe2N+w1u7CVRWkev7JPARKA0a/vkabYcX5a6ULm969LjG56uunqEdA6VFwmK30n9hrfz3Df7CH5xJOm73Qg6ZZKKUYd0N7O28CAg3vij8ufJey7YXeeAAg==
+ b=Nz/kzic5m/IMGvT2Ao2UuNiVEof45JczJiQC3FtL3lJLExdNNOh2cD341/khh9CVE7Zof+SSb+f/Rrcd+WDXWZbyZIJBLW5EIVDCnMm3mL4gBXj9HbqFYHBW2/vbORgLAjZ24hkmorvFjuSuSQxM7rz4MGnRwCJOTmLWhWhElpoageHXEnqhqyUvqiL9u8nH9MHKJ6xgF2fl7TWpYpTlw4+LUGsS9m7VV8+Bkry/qM3ukQQBwV1A68vrKQEorcH3HKMZVe6kaApmwLBtITwpVhfGwndnG9OAOZakVjlICFUINA0KMLcz05//O0j7i35K/RbcW4p0cAK8Q8DkETDvaA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cFk/eW5Kf8e/sM7oNzZ6BOEgDYYgXpxYtr2WmEb54sI=;
- b=KcIVE1/5vfx7+OfA90amZ8vTN9gAzBGJJ+Z4qxwgElLi9/Zfh6NslG7/okniQp8o8VZ8h7m2KBPHgC+xQq7o204rJ5k9nzPEIMy8PYmFDh3FvVYcw4Rx1j/S9KmH63KcZbH/2Bs4RhMdap/CcKUcn2EzbVK+ultbwvTKos7oyG1vnXL1qcsxA+EabMbwRtSVfLlwbMrlplgCemsBsNmbdUkxOXUWJUxG6WkG23qzsJcU8Jq7Hg2aZS6YEKXDijeV6z6mlJRuqMnBITFh7UdOiNQlpbhgK5jvsbikE4NcWOM/2+J6rQzsbXcl2VWBo3wQQUKGGlTc9RSsqJBw7Bv3ng==
+ bh=EjHpBM7J2XC3TGWp+2dPJUtORVaVU7kY9U+++vA80Eo=;
+ b=aJoSEm6tRDLDQWi8dUiPcUg2AS8oVoClkQGz9DB1cRTFgsZ0NMyHNEBqR8dzWUF4apn4WhNofiIlsnpG7ZKcqfS97eZ4dMunIIIUpWZCk3/7XQIQEN6hj0N3lOwK3FQll8f/GwX5HxeMRCooD2YuqaVPtjFBQO6ffEV78aNVhP0QxMVEKZwRm8QfwceQgqu9YoOCypuR4aaKZonQWuTcR2KR3ecV/rLkLERSUCs+pg6ZXDc5gpLyVSleVwUVqeLZB3DDTRPM2Zq0XnnLsjO0H0+g8O5hPplNts0F9FV/u5k8FdFDIPe4I4t/jPADDR10n1VtGxeQ38qhnxpvoSIPug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cFk/eW5Kf8e/sM7oNzZ6BOEgDYYgXpxYtr2WmEb54sI=;
- b=RdWm3DHb87ScfGAeMI5TqisO2cxeSQWLwG0kxczXUnVFeKzPc6EHLO07AyeUxGUuvR2d0OsoQcMkPubPbvYZjugjSFtlyo3kes4O8mvcskaIsLQbknSA6HgzeGMau8f/670zxYv1M8fp2ax+cy4pKns4dKw6N2jKkmyEInftwAU=
-Received: from CY5PR12MB6369.namprd12.prod.outlook.com (2603:10b6:930:21::10)
- by SJ0PR12MB7006.namprd12.prod.outlook.com (2603:10b6:a03:486::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.34; Tue, 17 Oct
- 2023 09:04:30 +0000
-Received: from CY5PR12MB6369.namprd12.prod.outlook.com
- ([fe80::901b:d130:b9df:f9cd]) by CY5PR12MB6369.namprd12.prod.outlook.com
- ([fe80::901b:d130:b9df:f9cd%5]) with mapi id 15.20.6886.034; Tue, 17 Oct 2023
- 09:04:30 +0000
-From: "Zhang, Yifan" <Yifan1.Zhang@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: update to the latest GC 11.5 headers
-Thread-Topic: [PATCH] drm/amdgpu: update to the latest GC 11.5 headers
-Thread-Index: AQHaAFw6X27fL/yfoEW9xW0//S5CbrBNsNcA
-Date: Tue, 17 Oct 2023 09:04:30 +0000
-Message-ID: <CY5PR12MB63697B34E45B21F02E1FAF36C1D6A@CY5PR12MB6369.namprd12.prod.outlook.com>
-References: <20231016181124.2235387-1-alexander.deucher@amd.com>
-In-Reply-To: <20231016181124.2235387-1-alexander.deucher@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=b01a5076-128b-4876-a655-6eaf299e6c76;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-10-17T09:03:23Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
+ bh=EjHpBM7J2XC3TGWp+2dPJUtORVaVU7kY9U+++vA80Eo=;
+ b=UKPWgFarRt0MyNEk83FFSXFrG9PAuDLQFG5T7FfIwdVzc5prktrnGkyxnCcEyLM2TxkajW+lzkDh+vcSS0TdVkDCPVJ9MRtK9iOQmIGffsv+hQpGScyyM5BWHbKPKwm6MH0O/W+cSj1+0l/iZGTku8Yua0gNzL08QguCmhpWniA=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY5PR12MB6369:EE_|SJ0PR12MB7006:EE_
-x-ms-office365-filtering-correlation-id: 631f754e-0926-4bfa-95e9-08dbcef01282
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: YFA7in1JjLcHurgj/8ZfwKjGKKVKgvUqgPYJaxJyzPfkZRm+rLVLEBOqQ3QDAXll1V4NxuVnpSoTcMSr0s+6VrOmU8l6AFeY0bNDGcpY6BkE6Uqd4DzbEnb4k3kVPg8wMemOwrvkcL7zM73iWWBPHHw+fPStJROyp/VZfwnrnSK7pbh7JC5wQGTGczIPZxikj+i7C69GHZtYgMFXVcCnYURyng7BRPVoMJuaQJ7VzDZtdxKQNrqK0f8pBCyC50qzMsU10o/PF6E4UqbVBHDEwWHKW/ZAH8sMAlKEaHWMrIEdBODr4mtPhOAimxilUlbXYetP/7F0GnDX1uYKmYffJ0Vlu2xtsx9JnnhMsQ7CfxnbXbCbSEQr3UcblarP5vs01WjP+VTanA8cI7No/3juQll7IziuGjuaw9OJCTfpgpIsAr1m/goeA7n8XlkeMGBvaFcbIJ4TDsqBi9VkcmwZ0oeOQOBd9hIoj/rJs/txhYVlm3Oqsjl++FJQwrdE2w7ATPbCA5W0XGlItRiGDjpLp6OufvMl2QYRvi1GG9meWjRmVrNCJc73MFW2FOYze2vnQwk9A8PF+dgy7wANpLBFFgoVzJUkj7EuhBv0mF6HdW2pFLoNxC1p38BdMZBBs6I4
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR12MB6369.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(366004)(136003)(346002)(39860400002)(396003)(230922051799003)(186009)(1800799009)(451199024)(64100799003)(55016003)(478600001)(110136005)(64756008)(76116006)(66556008)(66946007)(66446008)(71200400001)(66476007)(83380400001)(86362001)(38100700002)(9686003)(316002)(6506007)(53546011)(26005)(7696005)(5660300002)(38070700005)(41300700001)(8936002)(122000001)(30864003)(52536014)(33656002)(15650500001)(2906002)(4326008)(8676002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?a9Xs6sbiPn7xNxvUYWEx/zNkqlQOjGMgwtT6Cw/kD8Yu7G2OFIfuGLHvbVhA?=
- =?us-ascii?Q?iuL2DjWa5My77I+0t21WQ63Au5H7FMLsl9kpGx/XrgNPpWpxYNpWr0CVZ2Pj?=
- =?us-ascii?Q?lGMqk7RVNLCLMphdKNvKhIAv/EFhL+rmK6J/nJ5Yup+eYxBL2vN8NtnOz+7H?=
- =?us-ascii?Q?UZFszFS0+TPTXfZ6WTikwuYQQ3EixUVweKIJa8diC5DBoSOSbikWX/ERR/Tz?=
- =?us-ascii?Q?wJJNTIX9PDYV248IGkEpBwJ4GFnoDxnoNFFEqOqxO8qhWwYYkIM8N9sO5rtJ?=
- =?us-ascii?Q?+ilmgl3hySZD50QdyJXSmqk4M4+GS9AlQ4RU1HNvuV5nZCQfW9Y13bekrM42?=
- =?us-ascii?Q?9C2cTaTcZoraAsUdhb7zJxolA8qwQaU4bV1t7z/zwtYWPwQyCB5oQ84skuIf?=
- =?us-ascii?Q?20KnNnJBaOxpwLPBEPhTOmZSLEwbs+YcdEdCjPSN+kLR6WTQpgk+BFvsRntb?=
- =?us-ascii?Q?ISMt4meYv/ooYqj6wQ1OSfGu3OeBjK/snsltWg35sF0pNF4sTIFKnAqtBfMC?=
- =?us-ascii?Q?hXESn/g5k+NZVr9Vwl8YOjcqoBfb+h/nnDSY4/qCk8LP6TO7mQcBz/PeZw1s?=
- =?us-ascii?Q?cTQS8ZbC9657tLgdPOKeZIlByALY7sCk6CsipelosTG1qChAzA2XiCFMbw+I?=
- =?us-ascii?Q?rG0kb7iXFIyYqdrBL5Iho8aaYFw6Y0E6R7cL5S/BaxICYzv7AI21XhjlQQ+M?=
- =?us-ascii?Q?3ZdFQ8cv/tlwkuaRbzBD/h8XKRT2moedRR+3ZekYwV+Oy910NRy6VwMH75Ii?=
- =?us-ascii?Q?sFvcxHv4TdLG9scSBk/Ap8V+DYgCDNZ8uAboW+Gp4ate+kMtPw9UIBauIUU9?=
- =?us-ascii?Q?WHgLW3HdkrWJyF689R6x/7cUK36KfoqnP7nxhYiWbQ8b1Ry+V5FdFgOqjVqp?=
- =?us-ascii?Q?OLz/zhSPTI9opdr0otDzNpOBPDlz1VMjUwtAe8rAwiqj4YAJpvZZR1U2bvch?=
- =?us-ascii?Q?XvGw7XJhDJ85fGaHG2QLjyjYKddHBVnSjcJGvi32K6AIBAO5YvXLdvufjZWz?=
- =?us-ascii?Q?dzNX68Hvhlw1+EecFWFzu2suK8cEB6yAN9AIk1JosIZxRsCwNMdzQpr0GVzI?=
- =?us-ascii?Q?CHLCWUxHp4x9wDjeT44/YWqOg9eiiQu5Bc5GWrFh33UDXhHafRGlIQ5WXotS?=
- =?us-ascii?Q?BQujWEiWARDdLkO+cWuAP0jxOYxmhg0LGwUvtqEUlVg1615aRk94HQXMn5l6?=
- =?us-ascii?Q?8thFNc/7yUq65yCmnghOYCqs50Z1YsgwtTH7fdwA5MtwUVKHJaHmqOjUBS3a?=
- =?us-ascii?Q?1bM16nSv9UNKteVqSMxqzxDQopep2MaXaq3nn4J0dNR9Ec7NWAvwUjMAaZug?=
- =?us-ascii?Q?E8YbuGVXD/tSB1DgF1ixkFNL76jXePtxpbpJBp0bTqS26YIZJQd95mcUamfr?=
- =?us-ascii?Q?pyzsEHA+roG43KZ4VTSYXW2BBaLiLWrJP82uDxJxe1If/SDScdvAI5EhJT0X?=
- =?us-ascii?Q?YUnGN6G2vvXT4jwWnewpZUQRIi0dHkZ3LH4xeVEw5mIvh+qrl77bcmQJ1fa8?=
- =?us-ascii?Q?OaRUbnNQn3QqSS56bn+Y+5ctPh66CpYvtqp3kO6T4nxyKGNUXvbJsWW/sGOo?=
- =?us-ascii?Q?l/0Ef91+Wtx/G7nFuMg=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
+ by CH0PR12MB8580.namprd12.prod.outlook.com (2603:10b6:610:192::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.36; Tue, 17 Oct
+ 2023 09:14:58 +0000
+Received: from MW4PR12MB5667.namprd12.prod.outlook.com
+ ([fe80::c65c:9847:210d:2f2d]) by MW4PR12MB5667.namprd12.prod.outlook.com
+ ([fe80::c65c:9847:210d:2f2d%7]) with mapi id 15.20.6863.046; Tue, 17 Oct 2023
+ 09:14:58 +0000
+Message-ID: <0ca80817-0529-92b6-6463-9302dc533b99@amd.com>
+Date: Tue, 17 Oct 2023 11:14:49 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH] drm/amdgpu: move task_info to amdgpu_fpriv
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20231016170820.979-1-shashank.sharma@amd.com>
+ <b6709537-e2a4-4694-b5a6-862212ed0cbf@amd.com>
+ <b096e8d1-e8ed-4e72-8282-c8cc5d32616b@amd.com>
+ <3c1b3f96-1456-506e-0914-504e64d247f7@amd.com>
+ <df1a3bea-3e39-444f-a69f-4babfeb1b74a@amd.com>
+From: Shashank Sharma <shashank.sharma@amd.com>
+In-Reply-To: <df1a3bea-3e39-444f-a69f-4babfeb1b74a@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BE0P281CA0007.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:a::17) To MW4PR12MB5667.namprd12.prod.outlook.com
+ (2603:10b6:303:18a::10)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|CH0PR12MB8580:EE_
+X-MS-Office365-Filtering-Correlation-Id: ad75fd5a-a982-4792-0fae-08dbcef1889a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: UjpGgt8+nk8Fx3OoNazuwU+hs6eB+QFOXwW7PVV7TpAc+OV8wpjI88szn+TkrWTSAq7e0JE1/3kTv5SwhRo2bB5KuwX+FQzM3WN6nL0bT/i8JHFxBI2Bx1p8gHaJAzhxsXEjxh99fmsdFPPNl5EJardJxk/N721jwVk7tKi1hxB9XnZHAP2AOinFO10ts4i/TT1zchOO8/Cy5w4dv14eUyzCPdurNucKTIebExCW5bx1/EUh+X3Zy/7uFsUIiHagmUd6zJ51+pfTI07kmEgI5Hwak2uZVAccsfHjJG9v7F/Ldn5fXODKe1ybbNYwGlH3ejkPNSZKJJ0pS+RSASjIu8SsQxakQrXU8JV99sj+GgCEJn0Nbt4hMdp1/Lez2e25jcRvRU7mr9fAvgwo3ClEaxrNJ1tQlUusR20qI/PzyQ6YyKQW0F4qc/qQkcf/jfhFJzvaLItqNTnTMu31Uvr0EIxgtMjOC85RRp2go62cpR+SrOcx07vSRg/gedlY+nMD41+PXQzT36VIYySpdSLOjj4pmV3TUW2g16J1UAv5CdrlrXUqmweb5VW4jhlRQ5IIC+U5WUvr8yVXbwAnBSmd+GR/Yn+2RmWTMJRCdlRWbhIfcalvwONKZY4SvF0cJHPfKoIvMZfZLPe71z7D0riFKg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(39860400002)(366004)(396003)(346002)(376002)(230922051799003)(1800799009)(186009)(451199024)(64100799003)(66574015)(66476007)(2616005)(26005)(30864003)(6512007)(8936002)(66946007)(66556008)(110136005)(8676002)(4326008)(316002)(83380400001)(41300700001)(53546011)(6506007)(6666004)(2906002)(44832011)(478600001)(6486002)(5660300002)(38100700002)(4001150100001)(36756003)(31696002)(86362001)(31686004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L1RTbTQ2Y1V2R2ZvbklvNXFUbjluR0dvd09mTnkrUFlKd05pWVl5TTdrdXRq?=
+ =?utf-8?B?RnlWdTQ0NWxoZmRxcTJnWks0TUN2bHYvR2FOekFwUWN4bWg1QkZoVm90ZXBB?=
+ =?utf-8?B?aVNtQmpZM2psYm5BcTA2KzlQOWpUNUZqVEtPM0FENlhMb1RPR1haWklrNXBx?=
+ =?utf-8?B?bTJKZEdGdXZLUWVtMFBqVGRlSEJNUGpFM3pmY1pKRjduS1lLYmk1aTRXNEI1?=
+ =?utf-8?B?aGllY2dwcFJUcnpISXgvZkZjaENPbnd4ZVc0RWJCT2lYWnNJY2hkMmh4VnA1?=
+ =?utf-8?B?bFJwR1hFVlA3YTcyN3lXYzZxNmFmYWpHbFhKbEdxY2Yxbld5VGNSRTg3OXFl?=
+ =?utf-8?B?ZThGa2ZJcHpqNUYxRUJ3dkhraDloUXRjN2lEbTFjNnlqblVqWWxzbDh6NjR4?=
+ =?utf-8?B?aGJFRU1NcTdOVU55c0R5bU1ZTjNEdFV2QmtEdVk1OGlFTTdpdjN0OEdycVor?=
+ =?utf-8?B?WVlDbjNGTTR4WmtPYm53NHVZMkN1UENwc2FmQ3NYc0ZqVlVxY0NRVnBmYitC?=
+ =?utf-8?B?dDRwT2VVVmtMUmhxMUJpeHpJcXVtSjE0aHIwWE5QMXN5RmJ1NGUvc3F6aHlS?=
+ =?utf-8?B?V2dycFNHd1hvT2dndHYrVXBlZ3NPVEwxcmFUUDlLcEx0Z0E5S0UvUkkrRXRi?=
+ =?utf-8?B?ZWJaK1JiejhxOUVFQXFIblhld1JIdkhZbmhjRWloUmluOXY4T0tUVWMrRmtw?=
+ =?utf-8?B?R281NEh1NXBVYzB5a2RnbkEzYlloQVNFcWkrK1ZRTzRFRmZ0ai9ZSHhkb1pX?=
+ =?utf-8?B?blNyOWxxZnNQaC9MbDhlK2k2L2ZsZUhHS1UxTDZ5TW91aTQ4K1hOTFZLKzlo?=
+ =?utf-8?B?eVlodWxrWnlUV2Jrb1IyS3ozRVJ5WVlNbkExaTFXaStBREpYaGc4S3NFWERL?=
+ =?utf-8?B?ZnZjYlVYKzNodFlsNlcrM1pISjZlbHlNdHA1eklFY1hTN0FOeVhsUC9PbWVa?=
+ =?utf-8?B?Uk16cm9VRkUwY2xFQjZyd2g4cGlGNnkydzRTSHYvbVdqdlZoK0xmdi8yd1J3?=
+ =?utf-8?B?aHhTUy9ZMmZhRmc1SXFSTUVHQWsxWUVoL1JCekVFMjBOTGh4OGtVWjY4N2Ro?=
+ =?utf-8?B?Ry9PV3hnODEya1ZVZ2ZUQ0YrVEdkb1h5RVM5c2Vuc2xiWTVKeCswQjdBZ0ZF?=
+ =?utf-8?B?Z1VBUWZMaThTMElpalNidGdFVmRwYmV5dHFSdFR3NUJoMmsvZkdpYkFqS1pK?=
+ =?utf-8?B?eEtDZFlCeStwSk95L3ZSWmRrVmlJSmcvclVOZkxpeVgvM3ZRaGVGM01LTjB6?=
+ =?utf-8?B?bEp4MnRodkI1aktXdkROQ2thS01hL3FVYUtoUmF3dWc0eTg0d2RIeVgxSFZt?=
+ =?utf-8?B?VXY1ZzU0ZkNPc0N0USszR0d1TmpUTGtXSlFzQ0NLb3R0SGVtL1NrTitwV3lN?=
+ =?utf-8?B?L3k5MzB5Y2JVL3c1aTUyNmlaT2oyVFhkOWJOUDg4b0NhdXJIQVdxSk93Tklr?=
+ =?utf-8?B?K1pWMWNVKzFhMTJQWDVpVTgyUXl4YmMrSGNGVkExSXRmUzE4aFMrUW9la2s4?=
+ =?utf-8?B?WlkvaFJJK0xQR1hiOGhldWlVOVRsMDJ1VXRlbno3SGM0K25tZXI1VkhzZkxa?=
+ =?utf-8?B?Mm5nQS9ETlM1RWROc0xqSEZNZ09WRlp0QlgraHlNeGxEMXZ3c1V5V2JOaXcr?=
+ =?utf-8?B?TXV2YjdQYm9zT3RGQVMxYjM2RUNiRTFLOFFDNVZzTDF6a3pYMkNIRjd4YzZ1?=
+ =?utf-8?B?SUhTcDZQQWd5MlhZRVV3VHJqWnc4S1dKRzdVNFJIUFk1NHJ1NHRwNDA1emNn?=
+ =?utf-8?B?WVA5c0tXK2doWnZTQVJ3RXBjcXZ1RU5Jam1nZnQzdFg1b3U4VG9TV0pCR3FG?=
+ =?utf-8?B?MWhEWlZJQXJrazVNY01KNmxBd2JHcU44NlAwMDlGczlQZVRvd0FZVVUzbzlz?=
+ =?utf-8?B?ZGRtZGwrUWxxOGVxdU0zMmQzdjI4REFSdFY5SWVMS053MnJvNEx5dWZJVFM2?=
+ =?utf-8?B?ZkFOZU5WdVMxRjVNQVFkYmkyeDRQYUphUVZiYTRoekFLZVpYR09DeVRRZWRw?=
+ =?utf-8?B?WEdPNmtTSW9UeG50VVg4TUQ1bGNoQ2UrQk1IQVB3NkcxZWRxSDRMY0t2Y0k4?=
+ =?utf-8?B?Rys4VXBpdThKUDZkbFAxUm1FS0hGdTRLWUsxK0U0dVk4T2pqZTJoVWdFR2tQ?=
+ =?utf-8?Q?SREkvVdRBjZ6iptRyX4sF5PIj?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ad75fd5a-a982-4792-0fae-08dbcef1889a
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6369.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 631f754e-0926-4bfa-95e9-08dbcef01282
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Oct 2023 09:04:30.0947 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 252vf+7GVMJ6JLdw/ELYSB6QgfOiE8PhzSnhZA8YEyKiZGwV2/xrvaWzOn4aYpIf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7006
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 09:14:58.0253 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qLhX4OKX4au5Co33bWp2xOU9qHyFM+/Zsbt7C8kXvaUghvCGKRUdeBPK/qx7+gM0glZTvbDtJCTK2BG7ZPtJBg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8580
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,332 +128,697 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, arvind.yadav@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
 
-This patch is:
+On 17/10/2023 09:34, Christian König wrote:
+> Am 17.10.23 um 09:25 schrieb Shashank Sharma:
+>> Hello Christian, Felix,
+>>
+>> Thanks for your comments, mine inline.
+>>
+>> On 17/10/2023 07:55, Christian König wrote:
+>>> Am 17.10.23 um 00:15 schrieb Felix Kuehling:
+>>>> On 2023-10-16 13:08, Shashank Sharma wrote:
+>>>>> This patch does the following:
+>>>>> - moves vm->task_info struct to fpriv->task_info.
+>>>>> - makes task_info allocation dynamic.
+>>>>> - adds reference counting support for task_info structure.
+>>>>> - adds some new helper functions to find and put task_info.
+>>>>> - adds respective supporting changes for existing get_task_info 
+>>>>> consumers.
+>>>>>
+>>>>> Cc: Christian Koenig <christian.koenig@amd.com>
+>>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>>>> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+>>>>> ---
+>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h         |  2 +
+>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  4 +-
+>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  | 28 +++++--
+>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c     | 16 ++--
+>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      | 87 
+>>>>> ++++++++++++++++-----
+>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      |  9 +--
+>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c   |  5 +-
+>>>>>   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c      | 19 +++--
+>>>>>   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c      | 18 +++--
+>>>>>   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c       | 17 ++--
+>>>>>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c       | 19 +++--
+>>>>>   drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c      | 19 ++---
+>>>>>   drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c    | 20 ++---
+>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 14 ++--
+>>>>>   14 files changed, 186 insertions(+), 91 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>> index dc2d53081e80..a90780d38725 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>> @@ -469,6 +469,8 @@ struct amdgpu_fpriv {
+>>>>>       struct mutex        bo_list_lock;
+>>>>>       struct idr        bo_list_handles;
+>>>>>       struct amdgpu_ctx_mgr    ctx_mgr;
+>>>>> +    struct amdgpu_task_info *task_info;
+>>>>> +
+>>>>>       /** GPU partition selection */
+>>>>>       uint32_t        xcp_id;
+>>>>>   };
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>>>> index a4faea4fa0b5..6e9dcd13ee34 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>>>> @@ -1763,9 +1763,11 @@ static int 
+>>>>> amdgpu_debugfs_vm_info_show(struct seq_file *m, void *unused)
+>>>>>       list_for_each_entry(file, &dev->filelist, lhead) {
+>>>>>           struct amdgpu_fpriv *fpriv = file->driver_priv;
+>>>>>           struct amdgpu_vm *vm = &fpriv->vm;
+>>>>> +        struct amdgpu_task_info *task_info = fpriv->task_info;
+>>>>>             seq_printf(m, "pid:%d\tProcess:%s ----------\n",
+>>>>> -                vm->task_info.pid, vm->task_info.process_name);
+>>>>> +                task_info ? task_info->pid : 0,
+>>>>> +                task_info ? task_info->process_name : "");
+>>>>>           r = amdgpu_bo_reserve(vm->root.bo, true);
+>>>>>           if (r)
+>>>>>               break;
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>> index 3f001a50b34a..b372a87b9b77 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>> @@ -4872,6 +4872,27 @@ static void 
+>>>>> amdgpu_reset_capture_coredumpm(struct amdgpu_device *adev)
+>>>>>       dev_coredumpm(dev->dev, THIS_MODULE, adev, 0, GFP_NOWAIT,
+>>>>>                 amdgpu_devcoredump_read, amdgpu_devcoredump_free);
+>>>>>   }
+>>>>> +
+>>>>> +static void
+>>>>> +amdgpu_reset_dev_coredump(struct amdgpu_device *adev, struct 
+>>>>> amdgpu_reset_context *reset_context)
+>>>>> +{
+>>>>> +    struct amdgpu_task_info *ti;
+>>>>> +    struct amdgpu_vm *vm;
+>>>>> +
+>>>>> +    if (!reset_context->job || !reset_context->job->vm)
+>>>>> +        return;
+>>>>> +
+>>>>> +    vm = reset_context->job->vm;
+>>>>> +
+>>>>> +    /* Get reset task info and save a copy of data to be consumed 
+>>>>> later */
+>>>>> +    ti = amdgpu_vm_get_task_info(adev, vm->pasid);
+>>>>> +    if (ti) {
+>>>>> +        adev->reset_task_info = *ti;
+>>>>> +        amdgpu_reset_capture_coredumpm(adev);
+>>>>> +    }
+>>>>> +
+>>>>> +    amdgpu_vm_put_task_info(adev, vm->pasid);
+>>>>> +}
+>>>>>   #endif
+>>>>>     int amdgpu_do_asic_reset(struct list_head *device_list_handle,
+>>>>> @@ -4976,12 +4997,7 @@ int amdgpu_do_asic_reset(struct list_head 
+>>>>> *device_list_handle,
+>>>>>                   vram_lost = 
+>>>>> amdgpu_device_check_vram_lost(tmp_adev);
+>>>>>   #ifdef CONFIG_DEV_COREDUMP
+>>>>>                   tmp_adev->reset_vram_lost = vram_lost;
+>>>>> -                memset(&tmp_adev->reset_task_info, 0,
+>>>>> - sizeof(tmp_adev->reset_task_info));
+>>>>> -                if (reset_context->job && reset_context->job->vm)
+>>>>> -                    tmp_adev->reset_task_info =
+>>>>> - reset_context->job->vm->task_info;
+>>>>> -                amdgpu_reset_capture_coredumpm(tmp_adev);
+>>>>> +                amdgpu_reset_dev_coredump(tmp_adev, reset_context);
+>>>>>   #endif
+>>>>>                   if (vram_lost) {
+>>>>>                       DRM_INFO("VRAM is lost due to GPU reset!\n");
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>>>>> index 78476bc75b4e..99cf30c0bce6 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>>>>> @@ -35,7 +35,7 @@ static enum drm_gpu_sched_stat 
+>>>>> amdgpu_job_timedout(struct drm_sched_job *s_job)
+>>>>>   {
+>>>>>       struct amdgpu_ring *ring = to_amdgpu_ring(s_job->sched);
+>>>>>       struct amdgpu_job *job = to_amdgpu_job(s_job);
+>>>>> -    struct amdgpu_task_info ti;
+>>>>> +    struct amdgpu_task_info *ti;
+>>>>>       struct amdgpu_device *adev = ring->adev;
+>>>>>       int idx;
+>>>>>       int r;
+>>>>> @@ -48,7 +48,6 @@ static enum drm_gpu_sched_stat 
+>>>>> amdgpu_job_timedout(struct drm_sched_job *s_job)
+>>>>>           return DRM_GPU_SCHED_STAT_ENODEV;
+>>>>>       }
+>>>>>   -    memset(&ti, 0, sizeof(struct amdgpu_task_info));
+>>>>>       adev->job_hang = true;
+>>>>>         if (amdgpu_gpu_recovery &&
+>>>>> @@ -58,12 +57,15 @@ static enum drm_gpu_sched_stat 
+>>>>> amdgpu_job_timedout(struct drm_sched_job *s_job)
+>>>>>           goto exit;
+>>>>>       }
+>>>>>   -    amdgpu_vm_get_task_info(ring->adev, job->pasid, &ti);
+>>>>>       DRM_ERROR("ring %s timeout, signaled seq=%u, emitted seq=%u\n",
+>>>>> -          job->base.sched->name, 
+>>>>> atomic_read(&ring->fence_drv.last_seq),
+>>>>> -          ring->fence_drv.sync_seq);
+>>>>> -    DRM_ERROR("Process information: process %s pid %d thread %s 
+>>>>> pid %d\n",
+>>>>> -          ti.process_name, ti.tgid, ti.task_name, ti.pid);
+>>>>> +           job->base.sched->name, 
+>>>>> atomic_read(&ring->fence_drv.last_seq),
+>>>>> +           ring->fence_drv.sync_seq);
+>>>>> +
+>>>>> +    ti = amdgpu_vm_get_task_info(ring->adev, job->pasid);
+>>>>> +    if (ti)
+>>>>> +        DRM_ERROR("Process information: process %s pid %d thread 
+>>>>> %s pid %d\n",
+>>>>> +               ti->process_name, ti->tgid, ti->task_name, ti->pid);
+>>>>> +    amdgpu_vm_put_task_info(ring->adev, job->pasid);
+>>>>> dma_fence_set_error(&s_job->s_fence->finished, -ETIME);
+>>>>>   diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>> index f5daadcec865..aabfbb8edb2b 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>> @@ -2335,6 +2335,7 @@ void amdgpu_vm_fini(struct amdgpu_device 
+>>>>> *adev, struct amdgpu_vm *vm)
+>>>>>         root = amdgpu_bo_ref(vm->root.bo);
+>>>>>       amdgpu_bo_reserve(root, true);
+>>>>> +    amdgpu_vm_put_task_info(adev, vm->pasid);
+>>>>>       amdgpu_vm_set_pasid(adev, vm, 0);
+>>>>>       dma_fence_wait(vm->last_unlocked, false);
+>>>>>       dma_fence_put(vm->last_unlocked);
+>>>>> @@ -2491,26 +2492,44 @@ int amdgpu_vm_ioctl(struct drm_device 
+>>>>> *dev, void *data, struct drm_file *filp)
+>>>>>       return 0;
+>>>>>   }
+>>>>>   +static struct
+>>>>> +amdgpu_task_info *amdgpu_vm_find_task_info(struct amdgpu_device 
+>>>>> *adev, u32 pasid)
+>>>>> +{
+>>>>> +    unsigned long flags;
+>>>>> +    struct amdgpu_vm *vm;
+>>>>> +    struct amdgpu_fpriv *fpriv;
+>>>>> +    struct amdgpu_task_info *task_info = NULL;
+>>>>> +
+>>>>> +    xa_lock_irqsave(&adev->vm_manager.pasids, flags);
+>>>>> +
+>>>>> +    vm = xa_load(&adev->vm_manager.pasids, pasid);
+>>>>> +    if (vm) {
+>>>>> +        fpriv = container_of(vm, struct amdgpu_fpriv, vm);
+>>>>> +        task_info = fpriv->task_info;
+>>>>> +    }
+>>>>> +
+>>>>> +    xa_unlock_irqrestore(&adev->vm_manager.pasids, flags);
+>>>>> +    return task_info;
+>>>>> +}
+>>>>> +
+>>>>>   /**
+>>>>>    * amdgpu_vm_get_task_info - Extracts task info for a PASID.
+>>>>>    *
+>>>>>    * @adev: drm device pointer
+>>>>>    * @pasid: PASID identifier for VM
+>>>>> - * @task_info: task_info to fill.
+>>>>> + *
+>>>>> + * returns the task_info* (refrence counted) set under the vm_pasid
+>>>>> + * user must call amdgpu_vm_put_task_info when done with the 
+>>>>> task_info ptr
+>>>>>    */
+>>>>> -void amdgpu_vm_get_task_info(struct amdgpu_device *adev, u32 pasid,
+>>>>> -             struct amdgpu_task_info *task_info)
+>>>>> +struct amdgpu_task_info *amdgpu_vm_get_task_info(struct 
+>>>>> amdgpu_device *adev, u32 pasid)
+>>>>>   {
+>>>>> -    struct amdgpu_vm *vm;
+>>>>> -    unsigned long flags;
+>>>>> -
+>>>>> -    xa_lock_irqsave(&adev->vm_manager.pasids, flags);
+>>>>> +    struct amdgpu_task_info *ti;
+>>>>>   -    vm = xa_load(&adev->vm_manager.pasids, pasid);
+>>>>> -    if (vm)
+>>>>> -        *task_info = vm->task_info;
+>>>>> +    ti = amdgpu_vm_find_task_info(adev, pasid);
+>>>>> +    if (ti)
+>>>>> +        kref_get(&ti->refcount);
+>>>>>   - xa_unlock_irqrestore(&adev->vm_manager.pasids, flags);
+>>>>> +    return ti;
+>>>>>   }
+>>>>>     /**
+>>>>> @@ -2520,17 +2539,49 @@ void amdgpu_vm_get_task_info(struct 
+>>>>> amdgpu_device *adev, u32 pasid,
+>>>>>    */
+>>>>>   void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
+>>>>>   {
+>>>>> -    if (vm->task_info.pid)
+>>>>> -        return;
+>>>>> +    struct amdgpu_fpriv *fpriv = container_of(vm, struct 
+>>>>> amdgpu_fpriv, vm);
+>>>
+>>> Big NAK to that, no idea why everybody wants to upcast the VM 
+>>> structure to fpriv.
+>>>
+>>> Instead move this into the the fpriv handling in amdgpu_kms.c
+>> If you see the existing consumers of amdgpu_vm_get_task_info(), in 
+>> most of the cases they either have only the vm or the pasid available 
+>> (Please see gmc_v*_0_process_interrupts, sdma_v4_*_print_iv_entry or 
+>> kfd_smi_event_update_vmfault). Now if we want to move the task_info 
+>> from vm to fpriv, the only way to do it without breaking these 
+>> existing consumers, is to get fpriv from VM. If we move this handling 
+>> into amdgpu_kms.c , then how to handle these consumers who do not 
+>> have fpriv available with them ?
+>
+> Well the primary task is to make task_info a stand alone object, if 
+> that means that it moves to fpriv is only optional.
+>
+> When we have a lot of use cases which go to the VM with the pasid and 
+> want the task_info then we should probably keep that pointer there.
+>
+> But that is then just a helper function something like 
+> amdgpu_vm_get_task_info_by_pasid() which then also returns a new 
+> task_info reference which the caller has to drop.
 
-Reviewed-by: Yifan Zhang <yifan1.zhang@amd.com>
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deu=
-cher
-Sent: Tuesday, October 17, 2023 2:11 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: update to the latest GC 11.5 headers
+Understood, I will rework this accordingly.
 
-Add some additional bitfields.
+- Shashank
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- .../include/asic_reg/gc/gc_11_5_0_sh_mask.h   | 48 +++++++++++++++++++
- 1 file changed, 48 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_5_0_sh_mask.h b/=
-drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_5_0_sh_mask.h
-index 3404bf10428d..f10e5d1f592b 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_5_0_sh_mask.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_5_0_sh_mask.h
-@@ -19227,6 +19227,9 @@
- #define CB_COLOR0_FDCC_CONTROL__FDCC_ENABLE__SHIFT                        =
-                                    0x16
- #define CB_COLOR0_FDCC_CONTROL__DCC_COMPRESS_DISABLE__SHIFT               =
-                                    0x17
- #define CB_COLOR0_FDCC_CONTROL__FRAGMENT_COMPRESS_DISABLE__SHIFT          =
-                                    0x18
-+#define CB_COLOR0_FDCC_CONTROL__DISABLE_OVERRIDE_INCONSISTENT_KEYS__SHIFT =
-                                    0x19
-+#define CB_COLOR0_FDCC_CONTROL__ENABLE_MAX_COMP_FRAG_OVERRIDE__SHIFT      =
-                                    0x1a
-+#define CB_COLOR0_FDCC_CONTROL__MAX_COMP_FRAGS__SHIFT                     =
-                                    0x1b
- #define CB_COLOR0_FDCC_CONTROL__SAMPLE_MASK_TRACKER_DISABLE_MASK          =
-                                    0x00000001L
- #define CB_COLOR0_FDCC_CONTROL__SAMPLE_MASK_TRACKER_FEA_FORCE_MASK        =
-                                    0x00000002L
- #define CB_COLOR0_FDCC_CONTROL__MAX_UNCOMPRESSED_BLOCK_SIZE_MASK          =
-                                    0x0000000CL
-@@ -19241,6 +19244,9 @@
- #define CB_COLOR0_FDCC_CONTROL__FDCC_ENABLE_MASK                          =
-                                    0x00400000L
- #define CB_COLOR0_FDCC_CONTROL__DCC_COMPRESS_DISABLE_MASK                 =
-                                    0x00800000L
- #define CB_COLOR0_FDCC_CONTROL__FRAGMENT_COMPRESS_DISABLE_MASK            =
-                                    0x01000000L
-+#define CB_COLOR0_FDCC_CONTROL__DISABLE_OVERRIDE_INCONSISTENT_KEYS_MASK   =
-                                    0x02000000L
-+#define CB_COLOR0_FDCC_CONTROL__ENABLE_MAX_COMP_FRAG_OVERRIDE_MASK        =
-                                    0x04000000L
-+#define CB_COLOR0_FDCC_CONTROL__MAX_COMP_FRAGS_MASK                       =
-                                    0x38000000L
- //CB_COLOR0_DCC_BASE
- #define CB_COLOR0_DCC_BASE__BASE_256B__SHIFT                              =
-                                    0x0
- #define CB_COLOR0_DCC_BASE__BASE_256B_MASK                                =
-                                    0xFFFFFFFFL
-@@ -19301,6 +19307,9 @@
- #define CB_COLOR1_FDCC_CONTROL__FDCC_ENABLE__SHIFT                        =
-                                    0x16
- #define CB_COLOR1_FDCC_CONTROL__DCC_COMPRESS_DISABLE__SHIFT               =
-                                    0x17
- #define CB_COLOR1_FDCC_CONTROL__FRAGMENT_COMPRESS_DISABLE__SHIFT          =
-                                    0x18
-+#define CB_COLOR1_FDCC_CONTROL__DISABLE_OVERRIDE_INCONSISTENT_KEYS__SHIFT =
-                                    0x19
-+#define CB_COLOR1_FDCC_CONTROL__ENABLE_MAX_COMP_FRAG_OVERRIDE__SHIFT      =
-                                    0x1a
-+#define CB_COLOR1_FDCC_CONTROL__MAX_COMP_FRAGS__SHIFT                     =
-                                    0x1b
- #define CB_COLOR1_FDCC_CONTROL__SAMPLE_MASK_TRACKER_DISABLE_MASK          =
-                                    0x00000001L
- #define CB_COLOR1_FDCC_CONTROL__SAMPLE_MASK_TRACKER_FEA_FORCE_MASK        =
-                                    0x00000002L
- #define CB_COLOR1_FDCC_CONTROL__MAX_UNCOMPRESSED_BLOCK_SIZE_MASK          =
-                                    0x0000000CL
-@@ -19315,6 +19324,9 @@
- #define CB_COLOR1_FDCC_CONTROL__FDCC_ENABLE_MASK                          =
-                                    0x00400000L
- #define CB_COLOR1_FDCC_CONTROL__DCC_COMPRESS_DISABLE_MASK                 =
-                                    0x00800000L
- #define CB_COLOR1_FDCC_CONTROL__FRAGMENT_COMPRESS_DISABLE_MASK            =
-                                    0x01000000L
-+#define CB_COLOR1_FDCC_CONTROL__DISABLE_OVERRIDE_INCONSISTENT_KEYS_MASK   =
-                                    0x02000000L
-+#define CB_COLOR1_FDCC_CONTROL__ENABLE_MAX_COMP_FRAG_OVERRIDE_MASK        =
-                                    0x04000000L
-+#define CB_COLOR1_FDCC_CONTROL__MAX_COMP_FRAGS_MASK                       =
-                                    0x38000000L
- //CB_COLOR1_DCC_BASE
- #define CB_COLOR1_DCC_BASE__BASE_256B__SHIFT                              =
-                                    0x0
- #define CB_COLOR1_DCC_BASE__BASE_256B_MASK                                =
-                                    0xFFFFFFFFL
-@@ -19375,6 +19387,9 @@
- #define CB_COLOR2_FDCC_CONTROL__FDCC_ENABLE__SHIFT                        =
-                                    0x16
- #define CB_COLOR2_FDCC_CONTROL__DCC_COMPRESS_DISABLE__SHIFT               =
-                                    0x17
- #define CB_COLOR2_FDCC_CONTROL__FRAGMENT_COMPRESS_DISABLE__SHIFT          =
-                                    0x18
-+#define CB_COLOR2_FDCC_CONTROL__DISABLE_OVERRIDE_INCONSISTENT_KEYS__SHIFT =
-                                    0x19
-+#define CB_COLOR2_FDCC_CONTROL__ENABLE_MAX_COMP_FRAG_OVERRIDE__SHIFT      =
-                                    0x1a
-+#define CB_COLOR2_FDCC_CONTROL__MAX_COMP_FRAGS__SHIFT                     =
-                                    0x1b
- #define CB_COLOR2_FDCC_CONTROL__SAMPLE_MASK_TRACKER_DISABLE_MASK          =
-                                    0x00000001L
- #define CB_COLOR2_FDCC_CONTROL__SAMPLE_MASK_TRACKER_FEA_FORCE_MASK        =
-                                    0x00000002L
- #define CB_COLOR2_FDCC_CONTROL__MAX_UNCOMPRESSED_BLOCK_SIZE_MASK          =
-                                    0x0000000CL
-@@ -19389,6 +19404,9 @@
- #define CB_COLOR2_FDCC_CONTROL__FDCC_ENABLE_MASK                          =
-                                    0x00400000L
- #define CB_COLOR2_FDCC_CONTROL__DCC_COMPRESS_DISABLE_MASK                 =
-                                    0x00800000L
- #define CB_COLOR2_FDCC_CONTROL__FRAGMENT_COMPRESS_DISABLE_MASK            =
-                                    0x01000000L
-+#define CB_COLOR2_FDCC_CONTROL__DISABLE_OVERRIDE_INCONSISTENT_KEYS_MASK   =
-                                    0x02000000L
-+#define CB_COLOR2_FDCC_CONTROL__ENABLE_MAX_COMP_FRAG_OVERRIDE_MASK        =
-                                    0x04000000L
-+#define CB_COLOR2_FDCC_CONTROL__MAX_COMP_FRAGS_MASK                       =
-                                    0x38000000L
- //CB_COLOR2_DCC_BASE
- #define CB_COLOR2_DCC_BASE__BASE_256B__SHIFT                              =
-                                    0x0
- #define CB_COLOR2_DCC_BASE__BASE_256B_MASK                                =
-                                    0xFFFFFFFFL
-@@ -19449,6 +19467,9 @@
- #define CB_COLOR3_FDCC_CONTROL__FDCC_ENABLE__SHIFT                        =
-                                    0x16
- #define CB_COLOR3_FDCC_CONTROL__DCC_COMPRESS_DISABLE__SHIFT               =
-                                    0x17
- #define CB_COLOR3_FDCC_CONTROL__FRAGMENT_COMPRESS_DISABLE__SHIFT          =
-                                    0x18
-+#define CB_COLOR3_FDCC_CONTROL__DISABLE_OVERRIDE_INCONSISTENT_KEYS__SHIFT =
-                                    0x19
-+#define CB_COLOR3_FDCC_CONTROL__ENABLE_MAX_COMP_FRAG_OVERRIDE__SHIFT      =
-                                    0x1a
-+#define CB_COLOR3_FDCC_CONTROL__MAX_COMP_FRAGS__SHIFT                     =
-                                    0x1b
- #define CB_COLOR3_FDCC_CONTROL__SAMPLE_MASK_TRACKER_DISABLE_MASK          =
-                                    0x00000001L
- #define CB_COLOR3_FDCC_CONTROL__SAMPLE_MASK_TRACKER_FEA_FORCE_MASK        =
-                                    0x00000002L
- #define CB_COLOR3_FDCC_CONTROL__MAX_UNCOMPRESSED_BLOCK_SIZE_MASK          =
-                                    0x0000000CL
-@@ -19463,6 +19484,9 @@
- #define CB_COLOR3_FDCC_CONTROL__FDCC_ENABLE_MASK                          =
-                                    0x00400000L
- #define CB_COLOR3_FDCC_CONTROL__DCC_COMPRESS_DISABLE_MASK                 =
-                                    0x00800000L
- #define CB_COLOR3_FDCC_CONTROL__FRAGMENT_COMPRESS_DISABLE_MASK            =
-                                    0x01000000L
-+#define CB_COLOR3_FDCC_CONTROL__DISABLE_OVERRIDE_INCONSISTENT_KEYS_MASK   =
-                                    0x02000000L
-+#define CB_COLOR3_FDCC_CONTROL__ENABLE_MAX_COMP_FRAG_OVERRIDE_MASK        =
-                                    0x04000000L
-+#define CB_COLOR3_FDCC_CONTROL__MAX_COMP_FRAGS_MASK                       =
-                                    0x38000000L
- //CB_COLOR3_DCC_BASE
- #define CB_COLOR3_DCC_BASE__BASE_256B__SHIFT                              =
-                                    0x0
- #define CB_COLOR3_DCC_BASE__BASE_256B_MASK                                =
-                                    0xFFFFFFFFL
-@@ -19523,6 +19547,9 @@
- #define CB_COLOR4_FDCC_CONTROL__FDCC_ENABLE__SHIFT                        =
-                                    0x16
- #define CB_COLOR4_FDCC_CONTROL__DCC_COMPRESS_DISABLE__SHIFT               =
-                                    0x17
- #define CB_COLOR4_FDCC_CONTROL__FRAGMENT_COMPRESS_DISABLE__SHIFT          =
-                                    0x18
-+#define CB_COLOR4_FDCC_CONTROL__DISABLE_OVERRIDE_INCONSISTENT_KEYS__SHIFT =
-                                    0x19
-+#define CB_COLOR4_FDCC_CONTROL__ENABLE_MAX_COMP_FRAG_OVERRIDE__SHIFT      =
-                                    0x1a
-+#define CB_COLOR4_FDCC_CONTROL__MAX_COMP_FRAGS__SHIFT                     =
-                                    0x1b
- #define CB_COLOR4_FDCC_CONTROL__SAMPLE_MASK_TRACKER_DISABLE_MASK          =
-                                    0x00000001L
- #define CB_COLOR4_FDCC_CONTROL__SAMPLE_MASK_TRACKER_FEA_FORCE_MASK        =
-                                    0x00000002L
- #define CB_COLOR4_FDCC_CONTROL__MAX_UNCOMPRESSED_BLOCK_SIZE_MASK          =
-                                    0x0000000CL
-@@ -19537,6 +19564,9 @@
- #define CB_COLOR4_FDCC_CONTROL__FDCC_ENABLE_MASK                          =
-                                    0x00400000L
- #define CB_COLOR4_FDCC_CONTROL__DCC_COMPRESS_DISABLE_MASK                 =
-                                    0x00800000L
- #define CB_COLOR4_FDCC_CONTROL__FRAGMENT_COMPRESS_DISABLE_MASK            =
-                                    0x01000000L
-+#define CB_COLOR4_FDCC_CONTROL__DISABLE_OVERRIDE_INCONSISTENT_KEYS_MASK   =
-                                    0x02000000L
-+#define CB_COLOR4_FDCC_CONTROL__ENABLE_MAX_COMP_FRAG_OVERRIDE_MASK        =
-                                    0x04000000L
-+#define CB_COLOR4_FDCC_CONTROL__MAX_COMP_FRAGS_MASK                       =
-                                    0x38000000L
- //CB_COLOR4_DCC_BASE
- #define CB_COLOR4_DCC_BASE__BASE_256B__SHIFT                              =
-                                    0x0
- #define CB_COLOR4_DCC_BASE__BASE_256B_MASK                                =
-                                    0xFFFFFFFFL
-@@ -19597,6 +19627,9 @@
- #define CB_COLOR5_FDCC_CONTROL__FDCC_ENABLE__SHIFT                        =
-                                    0x16
- #define CB_COLOR5_FDCC_CONTROL__DCC_COMPRESS_DISABLE__SHIFT               =
-                                    0x17
- #define CB_COLOR5_FDCC_CONTROL__FRAGMENT_COMPRESS_DISABLE__SHIFT          =
-                                    0x18
-+#define CB_COLOR5_FDCC_CONTROL__DISABLE_OVERRIDE_INCONSISTENT_KEYS__SHIFT =
-                                    0x19
-+#define CB_COLOR5_FDCC_CONTROL__ENABLE_MAX_COMP_FRAG_OVERRIDE__SHIFT      =
-                                    0x1a
-+#define CB_COLOR5_FDCC_CONTROL__MAX_COMP_FRAGS__SHIFT                     =
-                                    0x1b
- #define CB_COLOR5_FDCC_CONTROL__SAMPLE_MASK_TRACKER_DISABLE_MASK          =
-                                    0x00000001L
- #define CB_COLOR5_FDCC_CONTROL__SAMPLE_MASK_TRACKER_FEA_FORCE_MASK        =
-                                    0x00000002L
- #define CB_COLOR5_FDCC_CONTROL__MAX_UNCOMPRESSED_BLOCK_SIZE_MASK          =
-                                    0x0000000CL
-@@ -19611,6 +19644,9 @@
- #define CB_COLOR5_FDCC_CONTROL__FDCC_ENABLE_MASK                          =
-                                    0x00400000L
- #define CB_COLOR5_FDCC_CONTROL__DCC_COMPRESS_DISABLE_MASK                 =
-                                    0x00800000L
- #define CB_COLOR5_FDCC_CONTROL__FRAGMENT_COMPRESS_DISABLE_MASK            =
-                                    0x01000000L
-+#define CB_COLOR5_FDCC_CONTROL__DISABLE_OVERRIDE_INCONSISTENT_KEYS_MASK   =
-                                    0x02000000L
-+#define CB_COLOR5_FDCC_CONTROL__ENABLE_MAX_COMP_FRAG_OVERRIDE_MASK        =
-                                    0x04000000L
-+#define CB_COLOR5_FDCC_CONTROL__MAX_COMP_FRAGS_MASK                       =
-                                    0x38000000L
- //CB_COLOR5_DCC_BASE
- #define CB_COLOR5_DCC_BASE__BASE_256B__SHIFT                              =
-                                    0x0
- #define CB_COLOR5_DCC_BASE__BASE_256B_MASK                                =
-                                    0xFFFFFFFFL
-@@ -19671,6 +19707,9 @@
- #define CB_COLOR6_FDCC_CONTROL__FDCC_ENABLE__SHIFT                        =
-                                    0x16
- #define CB_COLOR6_FDCC_CONTROL__DCC_COMPRESS_DISABLE__SHIFT               =
-                                    0x17
- #define CB_COLOR6_FDCC_CONTROL__FRAGMENT_COMPRESS_DISABLE__SHIFT          =
-                                    0x18
-+#define CB_COLOR6_FDCC_CONTROL__DISABLE_OVERRIDE_INCONSISTENT_KEYS__SHIFT =
-                                    0x19
-+#define CB_COLOR6_FDCC_CONTROL__ENABLE_MAX_COMP_FRAG_OVERRIDE__SHIFT      =
-                                    0x1a
-+#define CB_COLOR6_FDCC_CONTROL__MAX_COMP_FRAGS__SHIFT                     =
-                                    0x1b
- #define CB_COLOR6_FDCC_CONTROL__SAMPLE_MASK_TRACKER_DISABLE_MASK          =
-                                    0x00000001L
- #define CB_COLOR6_FDCC_CONTROL__SAMPLE_MASK_TRACKER_FEA_FORCE_MASK        =
-                                    0x00000002L
- #define CB_COLOR6_FDCC_CONTROL__MAX_UNCOMPRESSED_BLOCK_SIZE_MASK          =
-                                    0x0000000CL
-@@ -19685,6 +19724,9 @@
- #define CB_COLOR6_FDCC_CONTROL__FDCC_ENABLE_MASK                          =
-                                    0x00400000L
- #define CB_COLOR6_FDCC_CONTROL__DCC_COMPRESS_DISABLE_MASK                 =
-                                    0x00800000L
- #define CB_COLOR6_FDCC_CONTROL__FRAGMENT_COMPRESS_DISABLE_MASK            =
-                                    0x01000000L
-+#define CB_COLOR6_FDCC_CONTROL__DISABLE_OVERRIDE_INCONSISTENT_KEYS_MASK   =
-                                    0x02000000L
-+#define CB_COLOR6_FDCC_CONTROL__ENABLE_MAX_COMP_FRAG_OVERRIDE_MASK        =
-                                    0x04000000L
-+#define CB_COLOR6_FDCC_CONTROL__MAX_COMP_FRAGS_MASK                       =
-                                    0x38000000L
- //CB_COLOR6_DCC_BASE
- #define CB_COLOR6_DCC_BASE__BASE_256B__SHIFT                              =
-                                    0x0
- #define CB_COLOR6_DCC_BASE__BASE_256B_MASK                                =
-                                    0xFFFFFFFFL
-@@ -19745,6 +19787,9 @@
- #define CB_COLOR7_FDCC_CONTROL__FDCC_ENABLE__SHIFT                        =
-                                    0x16
- #define CB_COLOR7_FDCC_CONTROL__DCC_COMPRESS_DISABLE__SHIFT               =
-                                    0x17
- #define CB_COLOR7_FDCC_CONTROL__FRAGMENT_COMPRESS_DISABLE__SHIFT          =
-                                    0x18
-+#define CB_COLOR7_FDCC_CONTROL__DISABLE_OVERRIDE_INCONSISTENT_KEYS__SHIFT =
-                                    0x19
-+#define CB_COLOR7_FDCC_CONTROL__ENABLE_MAX_COMP_FRAG_OVERRIDE__SHIFT      =
-                                    0x1a
-+#define CB_COLOR7_FDCC_CONTROL__MAX_COMP_FRAGS__SHIFT                     =
-                                    0x1b
- #define CB_COLOR7_FDCC_CONTROL__SAMPLE_MASK_TRACKER_DISABLE_MASK          =
-                                    0x00000001L
- #define CB_COLOR7_FDCC_CONTROL__SAMPLE_MASK_TRACKER_FEA_FORCE_MASK        =
-                                    0x00000002L
- #define CB_COLOR7_FDCC_CONTROL__MAX_UNCOMPRESSED_BLOCK_SIZE_MASK          =
-                                    0x0000000CL
-@@ -19759,6 +19804,9 @@
- #define CB_COLOR7_FDCC_CONTROL__FDCC_ENABLE_MASK                          =
-                                    0x00400000L
- #define CB_COLOR7_FDCC_CONTROL__DCC_COMPRESS_DISABLE_MASK                 =
-                                    0x00800000L
- #define CB_COLOR7_FDCC_CONTROL__FRAGMENT_COMPRESS_DISABLE_MASK            =
-                                    0x01000000L
-+#define CB_COLOR7_FDCC_CONTROL__DISABLE_OVERRIDE_INCONSISTENT_KEYS_MASK   =
-                                    0x02000000L
-+#define CB_COLOR7_FDCC_CONTROL__ENABLE_MAX_COMP_FRAG_OVERRIDE_MASK        =
-                                    0x04000000L
-+#define CB_COLOR7_FDCC_CONTROL__MAX_COMP_FRAGS_MASK                       =
-                                    0x38000000L
- //CB_COLOR7_DCC_BASE
- #define CB_COLOR7_DCC_BASE__BASE_256B__SHIFT                              =
-                                    0x0
- #define CB_COLOR7_DCC_BASE__BASE_256B_MASK                                =
-                                    0xFFFFFFFFL
---
-2.41.0
-
+>
+> Regards,
+> Christian.
+>
+>>>
+>>>>> +    struct amdgpu_task_info *task_info;
+>>>>>   -    vm->task_info.pid = current->pid;
+>>>>> -    get_task_comm(vm->task_info.task_name, current);
+>>>>> +    if (fpriv->task_info)
+>>>>> +        return;
+>>>>>   -    if (current->group_leader->mm != current->mm)
+>>>>> +    task_info = kzalloc(sizeof(*task_info), GFP_KERNEL);
+>>>>> +    if (!task_info) {
+>>>>> +        DRM_ERROR("OOM while task_info creation\n");
+>>>>>           return;
+>>>>> +    }
+>>>>> +
+>>>>> +    kref_init(&task_info->refcount);
+>>>>> +    task_info->pid = current->pid;
+>>>>> +    get_task_comm(task_info->task_name, current);
+>>>>> +
+>>>>> +    if (current->group_leader->mm != current->mm) {
+>>>>> +        task_info->tgid = current->group_leader->pid;
+>>>>> +        get_task_comm(task_info->process_name, 
+>>>>> current->group_leader);
+>>>>> +    }
+>>>>> +
+>>>>> +    kref_get(&task_info->refcount);
+>>>>> +    fpriv->task_info = task_info;
+>>>>> +}
+>>>>> +
+>>>>> +static void amdgpu_vm_free_task_info(struct kref *kref)
+>>>>> +{
+>>>>> +    kfree(container_of(kref, struct amdgpu_task_info, refcount));
+>>>>> +}
+>>>>> +
+>>>>> +/**
+>>>>> + * amdgpu_vm_put_task_info - reference down the task_info ptr.
+>>>>> + *
+>>>>> + * @adev: drm device pointer
+>>>>> + * @pasid: PASID identifier for VM
+>>>>> + */
+>>>>> +void amdgpu_vm_put_task_info(struct amdgpu_device *adev, u32 pasid)
+>>>>> +{
+>>>>> +    struct amdgpu_task_info *ti;
+>>>>>   -    vm->task_info.tgid = current->group_leader->pid;
+>>>>> -    get_task_comm(vm->task_info.process_name, 
+>>>>> current->group_leader);
+>>>>> +    ti = amdgpu_vm_find_task_info(adev, pasid);
+>>>> This doesn't make sense. Anyone trying to drop a reference should 
+>>>> already have a ti * from a previous amdgpu_vm_get_task_info call. 
+>>>> You don't need to find it again. Just pass the ti * from the caller 
+>>>> to this function.
+>> Agree, I will modify it.
+>>>
+>>> Yeah, agree completely. Additional to that one goal here was to 
+>>> decouple the VM from the task_info.
+>>>
+>>> Probably best if you put the task_info structure into amdgpu_reset.h 
+>>> and the related handling into amdgpu_kms.c or amdgpu_reset.c instead.
+>>>
+>> Same question as above.
+>>
+>> - Shashank
+>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>>
+>>>> Regards,
+>>>>   Felix
+>>>>
+>>>>
+>>>>> +    if (ti)
+>>>>> +        kref_put(&ti->refcount, amdgpu_vm_free_task_info);
+>>>>>   }
+>>>>>     /**
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>>>> index 204ab13184ed..40a8c532a5ed 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>>>> @@ -187,6 +187,7 @@ struct amdgpu_task_info {
+>>>>>       char    task_name[TASK_COMM_LEN];
+>>>>>       pid_t    pid;
+>>>>>       pid_t    tgid;
+>>>>> +    struct kref refcount;
+>>>>>   };
+>>>>>     /**
+>>>>> @@ -333,9 +334,6 @@ struct amdgpu_vm {
+>>>>>       /* Valid while the PD is reserved or fenced */
+>>>>>       uint64_t        pd_phys_addr;
+>>>>>   -    /* Some basic info about the task */
+>>>>> -    struct amdgpu_task_info task_info;
+>>>>> -
+>>>>>       /* Store positions of group of BOs */
+>>>>>       struct ttm_lru_bulk_move lru_bulk_move;
+>>>>>       /* Flag to indicate if VM is used for compute */
+>>>>> @@ -466,8 +464,9 @@ bool amdgpu_vm_need_pipeline_sync(struct 
+>>>>> amdgpu_ring *ring,
+>>>>>                     struct amdgpu_job *job);
+>>>>>   void amdgpu_vm_check_compute_bug(struct amdgpu_device *adev);
+>>>>>   -void amdgpu_vm_get_task_info(struct amdgpu_device *adev, u32 
+>>>>> pasid,
+>>>>> -                 struct amdgpu_task_info *task_info);
+>>>>> +struct amdgpu_task_info *
+>>>>> +amdgpu_vm_get_task_info(struct amdgpu_device *adev, u32 pasid);
+>>>>> +void amdgpu_vm_put_task_info(struct amdgpu_device *adev, u32 pasid);
+>>>>>   bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+>>>>>                   u32 vmid, u32 node_id, uint64_t addr,
+>>>>>                   bool write_fault);
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+>>>>> index 96d601e209b8..3d7a9ad963a8 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+>>>>> @@ -1023,21 +1023,24 @@ int amdgpu_vm_ptes_update(struct 
+>>>>> amdgpu_vm_update_params *params,
+>>>>>               uint64_t upd_end = min(entry_end, frag_end);
+>>>>>               unsigned int nptes = (upd_end - frag_start) >> shift;
+>>>>>               uint64_t upd_flags = flags | AMDGPU_PTE_FRAG(frag);
+>>>>> +            struct amdgpu_task_info *task_info;
+>>>>>                 /* This can happen when we set higher level PDs to
+>>>>>                * silent to stop fault floods.
+>>>>>                */
+>>>>>               nptes = max(nptes, 1u);
+>>>>>   +            task_info = amdgpu_vm_get_task_info(adev, vm->pasid);
+>>>>>               trace_amdgpu_vm_update_ptes(params, frag_start, 
+>>>>> upd_end,
+>>>>>                               min(nptes, 32u), dst, incr,
+>>>>>                               upd_flags,
+>>>>> -                            vm->task_info.tgid,
+>>>>> +                            task_info ? task_info->tgid : 0,
+>>>>> vm->immediate.fence_context);
+>>>>>               amdgpu_vm_pte_update_flags(params, to_amdgpu_bo_vm(pt),
+>>>>>                              cursor.level, pe_start, dst,
+>>>>>                              nptes, incr, upd_flags);
+>>>>>   +            amdgpu_vm_put_task_info(adev, vm->pasid);
+>>>>>               pe_start += nptes * 8;
+>>>>>               dst += nptes * incr;
+>>>>>   diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+>>>>> index fa87a85e1017..14ded13c8b09 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+>>>>> @@ -107,7 +107,7 @@ static int gmc_v10_0_process_interrupt(struct 
+>>>>> amdgpu_device *adev,
+>>>>>       struct amdgpu_vmhub *hub = &adev->vmhub[vmhub_index];
+>>>>>       bool retry_fault = !!(entry->src_data[1] & 0x80);
+>>>>>       bool write_fault = !!(entry->src_data[1] & 0x20);
+>>>>> -    struct amdgpu_task_info task_info;
+>>>>> +    struct amdgpu_task_info *task_info;
+>>>>>       uint32_t status = 0;
+>>>>>       u64 addr;
+>>>>>   @@ -155,15 +155,18 @@ static int 
+>>>>> gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
+>>>>>       if (!printk_ratelimit())
+>>>>>           return 0;
+>>>>>   -    memset(&task_info, 0, sizeof(struct amdgpu_task_info));
+>>>>> -    amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
+>>>>> -
+>>>>> -    dev_err(adev->dev,
+>>>>> -        "[%s] page fault (src_id:%u ring:%u vmid:%u pasid:%u, for 
+>>>>> process %s pid %d thread %s pid %d)\n",
+>>>>> +    dev_err(adev->dev, "[%s] page fault (src_id:%u ring:%u 
+>>>>> vmid:%u pasid:%u)\n",
+>>>>>           entry->vmid_src ? "mmhub" : "gfxhub",
+>>>>>           entry->src_id, entry->ring_id, entry->vmid,
+>>>>> -        entry->pasid, task_info.process_name, task_info.tgid,
+>>>>> -        task_info.task_name, task_info.pid);
+>>>>> +        entry->pasid);
+>>>>> +
+>>>>> +    task_info = amdgpu_vm_get_task_info(adev, entry->pasid);
+>>>>> +    if (task_info)
+>>>>> +        dev_err(adev->dev, "for process %s pid %d thread %s pid 
+>>>>> %d\n",
+>>>>> +                   task_info->process_name, task_info->tgid,
+>>>>> +                   task_info->task_name, task_info->pid);
+>>>>> +    amdgpu_vm_put_task_info(adev, entry->pasid);
+>>>>> +
+>>>>>       dev_err(adev->dev, "  in page starting at address 0x%016llx 
+>>>>> from client 0x%x (%s)\n",
+>>>>>           addr, entry->client_id,
+>>>>>           soc15_ih_clientid_name[entry->client_id]);
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+>>>>> index e3b76fd28d15..2d96567171bc 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+>>>>> @@ -120,17 +120,21 @@ static int 
+>>>>> gmc_v11_0_process_interrupt(struct amdgpu_device *adev,
+>>>>>       }
+>>>>>         if (printk_ratelimit()) {
+>>>>> -        struct amdgpu_task_info task_info;
+>>>>> -
+>>>>> -        memset(&task_info, 0, sizeof(struct amdgpu_task_info));
+>>>>> -        amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
+>>>>> +        struct amdgpu_task_info *task_info;
+>>>>>             dev_err(adev->dev,
+>>>>> -            "[%s] page fault (src_id:%u ring:%u vmid:%u pasid:%u, 
+>>>>> for process %s pid %d thread %s pid %d)\n",
+>>>>> +            "[%s] page fault (src_id:%u ring:%u vmid:%u 
+>>>>> pasid:%u)\n",
+>>>>>               entry->vmid_src ? "mmhub" : "gfxhub",
+>>>>>               entry->src_id, entry->ring_id, entry->vmid,
+>>>>> -            entry->pasid, task_info.process_name, task_info.tgid,
+>>>>> -            task_info.task_name, task_info.pid);
+>>>>> +            entry->pasid);
+>>>>> +
+>>>>> +        task_info = amdgpu_vm_get_task_info(adev, entry->pasid);
+>>>>> +        if (task_info)
+>>>>> +            dev_err(adev->dev, " for process %s pid %d thread %s 
+>>>>> pid %d\n",
+>>>>> +                task_info->process_name, task_info->tgid,
+>>>>> +                task_info->task_name, task_info->pid);
+>>>>> +        amdgpu_vm_put_task_info(adev, entry->pasid);
+>>>>> +
+>>>>>           dev_err(adev->dev, "  in page starting at address 
+>>>>> 0x%016llx from client %d\n",
+>>>>>               addr, entry->client_id);
+>>>>>           if (!amdgpu_sriov_vf(adev))
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+>>>>> index 5af235202513..8759ef1c5ea5 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+>>>>> @@ -1446,14 +1446,19 @@ static int 
+>>>>> gmc_v8_0_process_interrupt(struct amdgpu_device *adev,
+>>>>>           gmc_v8_0_set_fault_enable_default(adev, false);
+>>>>>         if (printk_ratelimit()) {
+>>>>> -        struct amdgpu_task_info task_info;
+>>>>> +        struct amdgpu_task_info *task_info;
+>>>>>   -        memset(&task_info, 0, sizeof(struct amdgpu_task_info));
+>>>>> -        amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
+>>>>> +        dev_err(adev->dev, "GPU fault detected: %d 0x%08x\n",
+>>>>> +            entry->src_id, entry->src_data[0]);
+>>>>> +
+>>>>> +        task_info = amdgpu_vm_get_task_info(adev, entry->pasid);
+>>>>> +        if (task_info) {
+>>>>> +            dev_err(adev->dev, "for process %s pid %d thread %s 
+>>>>> pid %d\n\n",
+>>>>> +                task_info->process_name, task_info->tgid,
+>>>>> +                task_info->task_name, task_info->pid);
+>>>>> +        }
+>>>>> +        amdgpu_vm_put_task_info(adev, entry->pasid);
+>>>>>   -        dev_err(adev->dev, "GPU fault detected: %d 0x%08x for 
+>>>>> process %s pid %d thread %s pid %d\n",
+>>>>> -            entry->src_id, entry->src_data[0], 
+>>>>> task_info.process_name,
+>>>>> -            task_info.tgid, task_info.task_name, task_info.pid);
+>>>>>           dev_err(adev->dev, " VM_CONTEXT1_PROTECTION_FAULT_ADDR   
+>>>>> 0x%08X\n",
+>>>>>               addr);
+>>>>>           dev_err(adev->dev, " VM_CONTEXT1_PROTECTION_FAULT_STATUS 
+>>>>> 0x%08X\n",
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>>>>> index f9a5a2c0573e..75b849d69875 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>>>>> @@ -550,7 +550,7 @@ static int gmc_v9_0_process_interrupt(struct 
+>>>>> amdgpu_device *adev,
+>>>>>       bool retry_fault = !!(entry->src_data[1] & 0x80);
+>>>>>       bool write_fault = !!(entry->src_data[1] & 0x20);
+>>>>>       uint32_t status = 0, cid = 0, rw = 0;
+>>>>> -    struct amdgpu_task_info task_info;
+>>>>> +    struct amdgpu_task_info *task_info;
+>>>>>       struct amdgpu_vmhub *hub;
+>>>>>       const char *mmhub_cid;
+>>>>>       const char *hub_name;
+>>>>> @@ -625,16 +625,19 @@ static int gmc_v9_0_process_interrupt(struct 
+>>>>> amdgpu_device *adev,
+>>>>>       if (!printk_ratelimit())
+>>>>>           return 0;
+>>>>>   -
+>>>>> -    memset(&task_info, 0, sizeof(struct amdgpu_task_info));
+>>>>> -    amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
+>>>>> -
+>>>>>       dev_err(adev->dev,
+>>>>> -        "[%s] %s page fault (src_id:%u ring:%u vmid:%u pasid:%u, 
+>>>>> for process %s pid %d thread %s pid %d)\n",
+>>>>> +        "[%s] %s page fault (src_id:%u ring:%u vmid:%u pasid:%u)\n",
+>>>>>           hub_name, retry_fault ? "retry" : "no-retry",
+>>>>>           entry->src_id, entry->ring_id, entry->vmid,
+>>>>> -        entry->pasid, task_info.process_name, task_info.tgid,
+>>>>> -        task_info.task_name, task_info.pid);
+>>>>> +        entry->pasid);
+>>>>> +
+>>>>> +    task_info = amdgpu_vm_get_task_info(adev, entry->pasid);
+>>>>> +    if (task_info)
+>>>>> +        dev_err(adev->dev, " process %s pid %d thread %s pid %d\n",
+>>>>> +            task_info->process_name, task_info->tgid,
+>>>>> +            task_info->task_name, task_info->pid);
+>>>>> +    amdgpu_vm_put_task_info(adev, entry->pasid);
+>>>>> +
+>>>>>       dev_err(adev->dev, "  in page starting at address 0x%016llx 
+>>>>> from IH client 0x%x (%s)\n",
+>>>>>           addr, entry->client_id,
+>>>>>           soc15_ih_clientid_name[entry->client_id]);
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+>>>>> index cd37f45e01a1..d3b9fe74332a 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+>>>>> @@ -2112,7 +2112,7 @@ static int sdma_v4_0_print_iv_entry(struct 
+>>>>> amdgpu_device *adev,
+>>>>>                             struct amdgpu_iv_entry *entry)
+>>>>>   {
+>>>>>       int instance;
+>>>>> -    struct amdgpu_task_info task_info;
+>>>>> +    struct amdgpu_task_info *task_info;
+>>>>>       u64 addr;
+>>>>>         instance = sdma_v4_0_irq_id_to_seq(entry->client_id);
+>>>>> @@ -2124,15 +2124,16 @@ static int sdma_v4_0_print_iv_entry(struct 
+>>>>> amdgpu_device *adev,
+>>>>>       addr = (u64)entry->src_data[0] << 12;
+>>>>>       addr |= ((u64)entry->src_data[1] & 0xf) << 44;
+>>>>>   -    memset(&task_info, 0, sizeof(struct amdgpu_task_info));
+>>>>> -    amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
+>>>>> -
+>>>>>       dev_dbg_ratelimited(adev->dev,
+>>>>> -           "[sdma%d] address:0x%016llx src_id:%u ring:%u vmid:%u "
+>>>>> -           "pasid:%u, for process %s pid %d thread %s pid %d\n",
+>>>>> -           instance, addr, entry->src_id, entry->ring_id, 
+>>>>> entry->vmid,
+>>>>> -           entry->pasid, task_info.process_name, task_info.tgid,
+>>>>> -           task_info.task_name, task_info.pid);
+>>>>> +           "[sdma%d] address:0x%016llx src_id:%u ring:%u vmid:%u 
+>>>>> pasid:%u\n",
+>>>>> +           instance, addr, entry->src_id, entry->ring_id, 
+>>>>> entry->vmid, entry->pasid);
+>>>>> +
+>>>>> +    task_info = amdgpu_vm_get_task_info(adev, entry->pasid);
+>>>>> +    if (task_info)
+>>>>> +        dev_dbg_ratelimited(adev->dev, "for process %s pid %d 
+>>>>> thread %s pid %d\n",
+>>>>> +                    task_info->process_name, task_info->tgid,
+>>>>> +                    task_info->task_name, task_info->pid);
+>>>>> +    amdgpu_vm_put_task_info(adev, entry->pasid);
+>>>>>       return 0;
+>>>>>   }
+>>>>>   diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+>>>>> index f413898dda37..56c2f744d64e 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+>>>>> @@ -1633,7 +1633,7 @@ static int sdma_v4_4_2_print_iv_entry(struct 
+>>>>> amdgpu_device *adev,
+>>>>>                             struct amdgpu_iv_entry *entry)
+>>>>>   {
+>>>>>       int instance;
+>>>>> -    struct amdgpu_task_info task_info;
+>>>>> +    struct amdgpu_task_info *task_info;
+>>>>>       u64 addr;
+>>>>>         instance = sdma_v4_4_2_irq_id_to_seq(entry->client_id);
+>>>>> @@ -1645,15 +1645,17 @@ static int 
+>>>>> sdma_v4_4_2_print_iv_entry(struct amdgpu_device *adev,
+>>>>>       addr = (u64)entry->src_data[0] << 12;
+>>>>>       addr |= ((u64)entry->src_data[1] & 0xf) << 44;
+>>>>>   -    memset(&task_info, 0, sizeof(struct amdgpu_task_info));
+>>>>> -    amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
+>>>>> -
+>>>>>       dev_dbg_ratelimited(adev->dev,
+>>>>> -           "[sdma%d] address:0x%016llx src_id:%u ring:%u vmid:%u "
+>>>>> -           "pasid:%u, for process %s pid %d thread %s pid %d\n",
+>>>>> -           instance, addr, entry->src_id, entry->ring_id, 
+>>>>> entry->vmid,
+>>>>> -           entry->pasid, task_info.process_name, task_info.tgid,
+>>>>> -           task_info.task_name, task_info.pid);
+>>>>> +           "[sdma%d] address:0x%016llx src_id:%u ring:%u vmid:%u 
+>>>>> pasid:%u\n",
+>>>>> +           instance, addr, entry->src_id, entry->ring_id, 
+>>>>> entry->vmid, entry->pasid);
+>>>>> +
+>>>>> +    task_info = amdgpu_vm_get_task_info(adev, entry->pasid);
+>>>>> +    if (task_info)
+>>>>> +        dev_dbg_ratelimited(adev->dev, "for process %s pid %d 
+>>>>> thread %s pid %d\n",
+>>>>> +                    task_info->process_name, task_info->tgid,
+>>>>> +                    task_info->task_name, task_info->pid);
+>>>>> +    amdgpu_vm_put_task_info(adev, entry->pasid);
+>>>>> +
+>>>>>       return 0;
+>>>>>   }
+>>>>>   diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c 
+>>>>> b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+>>>>> index d9953c2b2661..6b51262811f6 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+>>>>> @@ -238,16 +238,18 @@ void 
+>>>>> kfd_smi_event_update_thermal_throttling(struct kfd_node *dev,
+>>>>>     void kfd_smi_event_update_vmfault(struct kfd_node *dev, 
+>>>>> uint16_t pasid)
+>>>>>   {
+>>>>> -    struct amdgpu_task_info task_info;
+>>>>> +    struct amdgpu_task_info *task_info;
+>>>>>   -    memset(&task_info, 0, sizeof(struct amdgpu_task_info));
+>>>>> -    amdgpu_vm_get_task_info(dev->adev, pasid, &task_info);
+>>>>>       /* Report VM faults from user applications, not retry from 
+>>>>> kernel */
+>>>>> -    if (!task_info.pid)
+>>>>> -        return;
+>>>>> +    task_info = amdgpu_vm_get_task_info(dev->adev, pasid);
+>>>>> +    if (!task_info || !task_info->pid)
+>>>>> +        goto unref;
+>>>>>         kfd_smi_event_add(0, dev, KFD_SMI_EVENT_VMFAULT, "%x:%s\n",
+>>>>> -              task_info.pid, task_info.task_name);
+>>>>> +              task_info->pid, task_info->task_name);
+>>>>> +
+>>>>> +unref:
+>>>>> +    amdgpu_vm_put_task_info(dev->adev, pasid);
+>>>>>   }
+>>>>>     void kfd_smi_event_page_fault_start(struct kfd_node *node, 
+>>>>> pid_t pid,
+>>>
+>
