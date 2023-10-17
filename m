@@ -4,69 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DE8ACDB482
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 13:18:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B20E3CDB484
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 13:18:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A345510E2F8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E1C710E2F7;
 	Tue, 17 Oct 2023 13:18:47 +0000 (UTC)
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A44D910E280;
- Tue, 17 Oct 2023 08:06:20 +0000 (UTC)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-32d81864e3fso4375360f8f.2; 
- Tue, 17 Oct 2023 01:06:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1697529979; x=1698134779; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=StdO7xGyH3UvCyXhFtXv4psWFKvp1DucCdvwZVAgPBA=;
- b=ey2+QUOd7vmwnTTlqXS7t2w+/qxfDpJE1WTNYOZyq7Q27+nmDkGVn+xKkBMzEfawA3
- 3aCLkJPluft0Ew7NNchbKZDylxtF8yvL+ZB2qqEPoC0IjGlQyKorEiwHFK80zfL+2Sdd
- 57o+QW4+bsXR6A+I41y+W1wUkJgj6Mn8e9XbG+5vbFpZZ6UX5mp+Kx3fusqrMJmso9jp
- c5kQhLez7SoH+J2Gmi9v4ESuSx0u96oXU/1Zr1spDmcFz3T4Pf3xMJqfmqauPUOIM6Ci
- dWatm+hWyko2CEJCUcFMvu3darL1Dz0ON14fPytgRviEGhKAAe2YX9S8VHaLgBfBqu2I
- +foA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697529979; x=1698134779;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=StdO7xGyH3UvCyXhFtXv4psWFKvp1DucCdvwZVAgPBA=;
- b=uk9AwwGycNiAvMZRuj8j/omvLakxCKENnGtGJqOvsjadcP5fRrXIIlMxXGrCVWtros
- d3LrbmqaiiqBV4Gu6GMJeJ9W/v7aU8VyHs8Zr12BMZe62h8zjmYfqFFOCoBD5vTUheeU
- hJqe76Y6VLZqzcLJn+gUWvIZ7ICeQHPgo2c7w5ZK0XoSkh2A0ctm83eROcvwVQy5Z8WH
- eI3dYgpuNH6nBSje5Loz50rDkVTzrv5SSduk7D4uBfhvmojLpb/clrErLKIRUoxWgju/
- 7dMmugnHPNIr6gbbD0ja72Vn/18kY6g8Y3S/jdjxsbpQ1k4OndYD+doKDPPMGoVKvemt
- PeJw==
-X-Gm-Message-State: AOJu0Yy2LGHVgCnm4hVBQb7gLAW2/fKGqWTODAdga5NCmHXcCYvP0/oq
- v4rS7JA+h9D2sydhNbn60tahBtVknmDJyw==
-X-Google-Smtp-Source: AGHT+IFR4L3IZmU8EMr8i/pPBeWSbK4wVJmXm3XWNz2lDoOIdQiZh9xearr+dexY2Zc4QIiTdnjeqA==
-X-Received: by 2002:a05:6000:1104:b0:32d:96e0:8048 with SMTP id
- z4-20020a056000110400b0032d96e08048mr1417525wrw.9.1697529978826; 
- Tue, 17 Oct 2023 01:06:18 -0700 (PDT)
-Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
- [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
- i5-20020adffc05000000b0032dab20e773sm1072053wrr.69.2023.10.17.01.06.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Oct 2023 01:06:17 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui.Pan@amd.com, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Qingqing Zhuo <Qingqing.Zhuo@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH][next] drm/amd/display: Fix a handful of spelling mistakes in
- dml_print output
-Date: Tue, 17 Oct 2023 09:06:16 +0100
-Message-Id: <20231017080616.18970-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.39.2
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBA7710E297
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Oct 2023 09:11:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1697533909; x=1729069909;
+ h=date:from:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=sACA/TZ3E1bc6D+vqMw81MOu76YAYJwnOpJImhsrA84=;
+ b=CfuSZC8cGosBH9VwXOHZyYwsff9d9ARDKl47EmE1LZFtE/cJykjbxS4e
+ FByyyiqJ5TqGQHiqmD8FrglIvG+w4VkAzLWOL5dcGT3zNSQ46UCy7G1or
+ xuOVC6zYkq2QESjRIzqACnjOJjZtdj72eHlpjM+5tboj4Hmqvziz+02AD
+ d7mdWUHgtlpx7qtn0jj0pU9O2EioSrLL2ouXFnE9sFTuhSrF/YAsFZRCt
+ xWKPmjKaaAEFYLdQOkks3IjpqHGUMCYgBPEHr7q4mfRRZS7b2IxqLJz7p
+ k351UOQrVZUSP0cSdQT/J/Qn631ReBvZ0Bqc7TqIvABBmC5j5e7807tcr Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10865"; a="452215135"
+X-IronPort-AV: E=Sophos;i="6.03,231,1694761200"; d="scan'208";a="452215135"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Oct 2023 02:11:49 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10865"; a="872481558"
+X-IronPort-AV: E=Sophos;i="6.03,231,1694761200"; d="scan'208";a="872481558"
+Received: from spandruv-mobl.amr.corp.intel.com ([10.252.44.24])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Oct 2023 02:11:44 -0700
+Date: Tue, 17 Oct 2023 12:11:42 +0300 (EEST)
+From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Ma Jun <Jun.Ma2@amd.com>
+Subject: Re: [PATCH v12 4/9] wifi: mac80211: Add support for WBRF features
+In-Reply-To: <20231017025358.1773598-5-Jun.Ma2@amd.com>
+Message-ID: <e83985cc-5a82-7ece-366-7a3b1997ed90@linux.intel.com>
+References: <20231017025358.1773598-1-Jun.Ma2@amd.com>
+ <20231017025358.1773598-5-Jun.Ma2@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 17 Oct 2023 13:18:29 +0000
+Content-Type: text/plain; charset=US-ASCII
+X-Mailman-Approved-At: Tue, 17 Oct 2023 13:18:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,49 +57,283 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: linux-doc@vger.kernel.org, netdev@vger.kernel.org, Lijo.Lazar@amd.com,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ edumazet@google.com, mario.limonciello@amd.com,
+ Evan Quan <quanliangl@hotmail.com>, alexander.deucher@amd.com, kuba@kernel.org,
+ johannes@sipsolutions.net, pabeni@redhat.com, davem@davemloft.net,
+ lenb@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There are a few spelling mistakes and an minor grammatical issue in
-some dml_print messages. Fix these.
+On Tue, 17 Oct 2023, Ma Jun wrote:
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+> From: Evan Quan <quanliangl@hotmail.com>
+> 
+> To support the WBRF mechanism, Wifi adapters utilized in the system must
+> register the frequencies in use(or unregister those frequencies no longer
+> used) via the dedicated calls. So that, other drivers responding to the
+> frequencies can take proper actions to mitigate possible interference.
+> 
+> Co-developed-by: Mario Limonciello <mario.limonciello@amd.com>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> Co-developed-by: Evan Quan <quanliangl@hotmail.com>
+> Signed-off-by: Evan Quan <quanliangl@hotmail.com>
+> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+> --
+> v1->v2:
+>   - place the new added member(`wbrf_supported`) in
+>     ieee80211_local(Johannes)
+>   - handle chandefs change scenario properly(Johannes)
+>   - some minor fixes around code sharing and possible invalid input
+>     checks(Johannes)
+> v2->v3:
+>   - drop unnecessary input checks and intermediate APIs(Mario)
+>   - Separate some mac80211 common code(Mario, Johannes)
+> v3->v4:
+>   - some minor fixes around return values(Johannes)
+> v9->v10:
+>   - get ranges_in->num_of_ranges set and passed in(Johannes)
+> v12:
+>   - use acpi_amd_wbrf_add_remove to replace the acpi_amd_wbrf_add_exclusion
+>     acpi_amd_wbrf_remove_exclusion
+> ---
+>  include/linux/ieee80211.h  |   1 +
+>  net/mac80211/Makefile      |   2 +
+>  net/mac80211/chan.c        |   9 ++++
+>  net/mac80211/ieee80211_i.h |   9 ++++
+>  net/mac80211/main.c        |   2 +
+>  net/mac80211/wbrf.c        | 105 +++++++++++++++++++++++++++++++++++++
+>  6 files changed, 128 insertions(+)
+>  create mode 100644 net/mac80211/wbrf.c
+> 
+> diff --git a/include/linux/ieee80211.h b/include/linux/ieee80211.h
+> index 4b998090898e..f995d06da87f 100644
+> --- a/include/linux/ieee80211.h
+> +++ b/include/linux/ieee80211.h
+> @@ -4335,6 +4335,7 @@ static inline int ieee80211_get_tdls_action(struct sk_buff *skb, u32 hdr_size)
+>  /* convert frequencies */
+>  #define MHZ_TO_KHZ(freq) ((freq) * 1000)
+>  #define KHZ_TO_MHZ(freq) ((freq) / 1000)
+> +#define KHZ_TO_HZ(freq)  ((freq) * 1000)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
-index 851db026f251..218c355a97a4 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
-@@ -1507,7 +1507,7 @@ static dml_bool_t CalculatePrefetchSchedule(struct display_mode_lib_scratch_st *
- 		dml_print("DML: Tvm: %fus - time to fetch page tables for meta surface\n", s->TimeForFetchingMetaPTE);
- 		dml_print("DML: Tr0: %fus - time to fetch first row of data pagetables and first row of meta data (done in parallel)\n", s->TimeForFetchingRowInVBlank);
- 		dml_print("DML: Tsw: %fus = time to fetch enough pixel data and cursor data to feed the scalers init position and detile\n", (dml_float_t)s->LinesToRequestPrefetchPixelData * s->LineTime);
--		dml_print("DML: To: %fus - time for propogation from scaler to optc\n", (*p->DSTYAfterScaler + ((dml_float_t) (*p->DSTXAfterScaler) / (dml_float_t)p->myPipe->HTotal)) * s->LineTime);
-+		dml_print("DML: To: %fus - time for propagation from scaler to optc\n", (*p->DSTYAfterScaler + ((dml_float_t) (*p->DSTXAfterScaler) / (dml_float_t)p->myPipe->HTotal)) * s->LineTime);
- 		dml_print("DML: Tvstartup - TSetup - Tcalc - Twait - Tpre - To > 0\n");
- 		dml_print("DML: Tslack(pre): %fus - time left over in schedule\n", p->VStartup * s->LineTime - s->TimeForFetchingMetaPTE - 2 * s->TimeForFetchingRowInVBlank - (*p->DSTYAfterScaler + ((dml_float_t) (*p->DSTXAfterScaler) / (dml_float_t)p->myPipe->HTotal)) * s->LineTime - p->TWait - p->TCalc - *p->TSetup);
- 		dml_print("DML: row_bytes = dpte_row_bytes (per_pipe) = PixelPTEBytesPerRow = : %u\n", p->PixelPTEBytesPerRow);
-@@ -9323,7 +9323,7 @@ void dml_core_mode_programming(struct display_mode_lib_st *mode_lib, const struc
- 				if (mode_lib->ms.policy.ImmediateFlipRequirement[k] != dml_immediate_flip_not_required && locals->ImmediateFlipSupportedForPipe[k] == false) {
- 					locals->ImmediateFlipSupported = false;
- #ifdef __DML_VBA_DEBUG__
--					dml_print("DML::%s: Pipe %0d not supporing iflip\n", __func__, k);
-+					dml_print("DML::%s: Pipe %0d not supporting iflip\n", __func__, k);
- #endif
- 				}
- 			}
-@@ -9376,7 +9376,7 @@ void dml_core_mode_programming(struct display_mode_lib_st *mode_lib, const struc
- 	if (locals->PrefetchAndImmediateFlipSupported) {
- 		dml_print("DML::%s: Good, Prefetch and flip scheduling solution found at VStartupLines=%u (MaxVStartupAllPlanes=%u)\n", __func__, s->VStartupLines-1, s->MaxVStartupAllPlanes);
- 	} else {
--		dml_print("DML::%s: Bad, Prefetch and flip scheduling soluation NOT found solution! (MaxVStartupAllPlanes=%u)\n", __func__, s->MaxVStartupAllPlanes);
-+		dml_print("DML::%s: Bad, Prefetch and flip scheduling solution did NOT find solution! (MaxVStartupAllPlanes=%u)\n", __func__, s->MaxVStartupAllPlanes);
- 	}
- 
- 	//Watermarks and NB P-State/DRAM Clock Change Support
+It would be better to not add more of these per subsystem but use the 
+generic include/linux/units.h constants instead.
+
+>  #define PR_KHZ(f) KHZ_TO_MHZ(f), f % 1000
+>  #define KHZ_F "%d.%03d"
+>  
+> diff --git a/net/mac80211/Makefile b/net/mac80211/Makefile
+> index b8de44da1fb8..d46c36f55fd3 100644
+> --- a/net/mac80211/Makefile
+> +++ b/net/mac80211/Makefile
+> @@ -65,4 +65,6 @@ rc80211_minstrel-$(CONFIG_MAC80211_DEBUGFS) += \
+>  
+>  mac80211-$(CONFIG_MAC80211_RC_MINSTREL) += $(rc80211_minstrel-y)
+>  
+> +mac80211-y += wbrf.o
+> +
+>  ccflags-y += -DDEBUG
+> diff --git a/net/mac80211/chan.c b/net/mac80211/chan.c
+> index 68952752b599..458469c224ae 100644
+> --- a/net/mac80211/chan.c
+> +++ b/net/mac80211/chan.c
+> @@ -506,11 +506,16 @@ static void _ieee80211_change_chanctx(struct ieee80211_local *local,
+>  
+>  	WARN_ON(!cfg80211_chandef_compatible(&ctx->conf.def, chandef));
+>  
+> +	ieee80211_remove_wbrf(local, &ctx->conf.def);
+> +
+>  	ctx->conf.def = *chandef;
+>  
+>  	/* check if min chanctx also changed */
+>  	changed = IEEE80211_CHANCTX_CHANGE_WIDTH |
+>  		  _ieee80211_recalc_chanctx_min_def(local, ctx, rsvd_for);
+> +
+> +	ieee80211_add_wbrf(local, &ctx->conf.def);
+> +
+>  	drv_change_chanctx(local, ctx, changed);
+>  
+>  	if (!local->use_chanctx) {
+> @@ -668,6 +673,8 @@ static int ieee80211_add_chanctx(struct ieee80211_local *local,
+>  	lockdep_assert_held(&local->mtx);
+>  	lockdep_assert_held(&local->chanctx_mtx);
+>  
+> +	ieee80211_add_wbrf(local, &ctx->conf.def);
+> +
+>  	if (!local->use_chanctx)
+>  		local->hw.conf.radar_enabled = ctx->conf.radar_enabled;
+>  
+> @@ -748,6 +755,8 @@ static void ieee80211_del_chanctx(struct ieee80211_local *local,
+>  	}
+>  
+>  	ieee80211_recalc_idle(local);
+> +
+> +	ieee80211_remove_wbrf(local, &ctx->conf.def);
+>  }
+>  
+>  static void ieee80211_free_chanctx(struct ieee80211_local *local,
+> diff --git a/net/mac80211/ieee80211_i.h b/net/mac80211/ieee80211_i.h
+> index 91633a0b723e..719f2c892132 100644
+> --- a/net/mac80211/ieee80211_i.h
+> +++ b/net/mac80211/ieee80211_i.h
+> @@ -1600,6 +1600,8 @@ struct ieee80211_local {
+>  
+>  	/* extended capabilities provided by mac80211 */
+>  	u8 ext_capa[8];
+> +
+> +	bool wbrf_supported;
+>  };
+>  
+>  static inline struct ieee80211_sub_if_data *
+> @@ -2638,4 +2640,11 @@ ieee80211_eht_cap_ie_to_sta_eht_cap(struct ieee80211_sub_if_data *sdata,
+>  				    const struct ieee80211_eht_cap_elem *eht_cap_ie_elem,
+>  				    u8 eht_cap_len,
+>  				    struct link_sta_info *link_sta);
+> +
+> +void ieee80211_check_wbrf_support(struct ieee80211_local *local);
+> +void ieee80211_add_wbrf(struct ieee80211_local *local,
+> +			struct cfg80211_chan_def *chandef);
+> +void ieee80211_remove_wbrf(struct ieee80211_local *local,
+> +			   struct cfg80211_chan_def *chandef);
+> +
+>  #endif /* IEEE80211_I_H */
+> diff --git a/net/mac80211/main.c b/net/mac80211/main.c
+> index 24315d7b3126..b20bdaac84db 100644
+> --- a/net/mac80211/main.c
+> +++ b/net/mac80211/main.c
+> @@ -1396,6 +1396,8 @@ int ieee80211_register_hw(struct ieee80211_hw *hw)
+>  	debugfs_hw_add(local);
+>  	rate_control_add_debugfs(local);
+>  
+> +	ieee80211_check_wbrf_support(local);
+> +
+>  	rtnl_lock();
+>  	wiphy_lock(hw->wiphy);
+>  
+> diff --git a/net/mac80211/wbrf.c b/net/mac80211/wbrf.c
+> new file mode 100644
+> index 000000000000..7329f554c7af
+> --- /dev/null
+> +++ b/net/mac80211/wbrf.c
+> @@ -0,0 +1,105 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Wifi Band Exclusion Interface for WLAN
+> + * Copyright (C) 2023 Advanced Micro Devices
+> + *
+> + */
+> +
+> +#include <linux/acpi_amd_wbrf.h>
+> +#include <net/cfg80211.h>
+> +#include "ieee80211_i.h"
+> +
+> +void ieee80211_check_wbrf_support(struct ieee80211_local *local)
+> +{
+> +	struct wiphy *wiphy = local->hw.wiphy;
+> +	struct device *dev;
+> +
+> +	if (!wiphy)
+> +		return;
+> +
+> +	dev = wiphy->dev.parent;
+> +	if (!dev)
+> +		return;
+> +
+> +	local->wbrf_supported = acpi_amd_wbrf_supported_producer(dev);
+> +	dev_dbg(dev, "WBRF is %s supported\n",
+> +		local->wbrf_supported ? "" : "not");
+
+Add a new static inline into include/linux/string_choices.h for 
+"supported" / "not supported" and use it here.
+
+> +}
+> +
+> +static void get_chan_freq_boundary(u32 center_freq,
+> +				   u32 bandwidth,
+> +				   u64 *start,
+> +				   u64 *end)
+
+Use less lines.
+
+> +{
+> +	bandwidth = MHZ_TO_KHZ(bandwidth);
+> +	center_freq = MHZ_TO_KHZ(center_freq);
+> +
+> +	*start = center_freq - bandwidth / 2;
+> +	*end = center_freq + bandwidth / 2;
+> +
+> +	/* Frequency in HZ is expected */
+
+No, it's not in HZ but Hz. HZ has a special meaning in kernel.
+
 -- 
-2.39.2
+ i.
 
+> +	*start = KHZ_TO_HZ(*start);
+> +	*end = KHZ_TO_HZ(*end);
+> +}
+> +
+> +static void get_ranges_from_chandef(struct cfg80211_chan_def *chandef,
+> +				    struct wbrf_ranges_in_out *ranges_in)
+> +{
+> +	u64 start_freq1, end_freq1;
+> +	u64 start_freq2, end_freq2;
+> +	int bandwidth;
+> +
+> +	bandwidth = nl80211_chan_width_to_mhz(chandef->width);
+> +
+> +	get_chan_freq_boundary(chandef->center_freq1,
+> +			       bandwidth,
+> +			       &start_freq1,
+> +			       &end_freq1);
+> +
+> +	ranges_in->band_list[0].start = start_freq1;
+> +	ranges_in->band_list[0].end = end_freq1;
+> +	ranges_in->num_of_ranges = 1;
+> +
+> +	if (chandef->width == NL80211_CHAN_WIDTH_80P80) {
+> +		get_chan_freq_boundary(chandef->center_freq2,
+> +				       bandwidth,
+> +				       &start_freq2,
+> +				       &end_freq2);
+> +
+> +		ranges_in->band_list[1].start = start_freq2;
+> +		ranges_in->band_list[1].end = end_freq2;
+> +		ranges_in->num_of_ranges++;
+> +	}
+> +}
+> +
+> +void ieee80211_add_wbrf(struct ieee80211_local *local,
+> +			struct cfg80211_chan_def *chandef)
+> +{
+> +	struct wbrf_ranges_in_out ranges_in = {0};
+> +	struct device *dev;
+> +
+> +	if (!local->wbrf_supported)
+> +		return;
+> +
+> +	dev = local->hw.wiphy->dev.parent;
+> +
+> +	get_ranges_from_chandef(chandef, &ranges_in);
+> +
+> +	acpi_amd_wbrf_add_remove(dev, WBRF_RECORD_ADD, &ranges_in);
+> +}
+> +
+> +void ieee80211_remove_wbrf(struct ieee80211_local *local,
+> +			   struct cfg80211_chan_def *chandef)
+> +{
+> +	struct wbrf_ranges_in_out ranges_in = {0};
+> +	struct device *dev;
+> +
+> +	if (!local->wbrf_supported)
+> +		return;
+> +
+> +	dev = local->hw.wiphy->dev.parent;
+> +
+> +	get_ranges_from_chandef(chandef, &ranges_in);
+> +
+> +	acpi_amd_wbrf_add_remove(dev, WBRF_RECORD_REMOVE, &ranges_in);
+> +}
+> 
