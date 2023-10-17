@@ -4,41 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0477CDB482
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 09:29:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95F9DCDB474
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 10:09:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29B3810E2A3;
-	Tue, 17 Oct 2023 09:28:59 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01D3F10E29D;
- Tue, 17 Oct 2023 09:28:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=pGPjSKr2a9z7nzL6c7jF87Bvkljw/AE2v5i+DT9TSmg=; b=FxWDDSb7qxfhnVPWa412vPWnzv
- o1ACT8VbTXEn/L6aD13DJR4hlAvJvky7i0NK8H5c3/Se3T4zzlIw+wcvPykLH5ELXzg9KHRVUgqFD
- ktozi8vwbGAPu2dNPiTS9VO6kY6AbSnNaFKmBBS8RrwNf2K1r0T8fqswQkNT2X/JPJSLBDSPv95wZ
- 0BWVnDpOVnXAYmidKRJkqPl3gMilgTrpnMeVTv7sDdiuLdR9Lfo6T4pco9jlmSKvPWTHiRm5rDOiG
- tg8XN0LQHhJRdgwvUUYRvr3u+m9xRkyjXkn1wPEsrvla+jTcxzcBPy/fn1/PVoG0lQL9FSGEY9JC1
- HC9KCwwA==;
-Received: from 167.red-81-39-185.dynamicip.rima-tde.net ([81.39.185.167]
- helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qsgNb-001ODF-AA; Tue, 17 Oct 2023 11:28:47 +0200
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v7 0/6] drm: Add support for atomic async page-flip
-Date: Tue, 17 Oct 2023 11:28:31 +0200
-Message-ID: <20231017092837.32428-1-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.42.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 317F210E2B8;
+	Tue, 17 Oct 2023 10:09:14 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2042.outbound.protection.outlook.com [40.107.94.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E36DD10E2B8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Oct 2023 10:09:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dMu/N90vcy8ly54VreR6uynQsHl8JgAtQNc1nn8ScQEtesngwXscN71jHVQaKTcDpYP+BOK0VnCVRAR29uMr7o5FpIwosRcxdnHpIX8+xRpUGWZcQY/1cgwhr7spfpNX2uX93Sj1W00l7h4+XGPIc1iZYb4OT/jY+gxeNGn92QE47x6IaZ25fHRT6ZSPsrXwMeGRsC4TFW+G4FDdTM0xTA9gsIe9gMcHAtF2lOJ5+SXkuxk4YZiJL+zsk/jmydWHPAOr1FqeqiUjZN1fFjStuU21xtVHgmAnh/RZ/oITwA5FPTDyTbwKEmE1EbMRREb6cA2IUMF4F8nfbRdm+5XCtg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7gYEHlVv6FhVSMuv9BHUNuWO1OGllVzkJVB5E6A71z4=;
+ b=Ytw87OJ1SRbPiqU3RmTzRHyTptq2jKGtkMDRaPzGhFrVlF9os38k0X0Ipjerwt9+pUWH27EYzf+m5Y3QCCeCl6wAJvQHCFvD4QuusZBg+i6nfXUCwXtrCIVJlVwRJw6MxsBblzRWhfaTNwhrfn9YsF4V9hKdAqy3QoQDgyjhfgsfUHtlIVdErawhxfMg9TMzEC2ZboyK9ARJut5B0NcWUE/+alEPbcaV7rVgeHrjNSDzclEsKkUA3rvARW8hyLvKE+mE5lKbLazZ+kljFmFgYoBV82FWp2OdvFgkQc9GbFhsA71sSvj535ctTrWFsbtku1gOOLqq7WKGNu1v1R1OYg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7gYEHlVv6FhVSMuv9BHUNuWO1OGllVzkJVB5E6A71z4=;
+ b=atiCtdxUj0HLVrRynYifX1ktyISnEOUCeLYVmD0nKebVvwDrRXRQcFbgiKgjqZW/C0AFxwORr7FDZABuZoSUGrJN4pYXec0gJ/AmgslQt+nBjfHGiPVhMDcnWp6BdvsDzYzvbu+G/wxDVMrgDoUoy3uSYZqwuwDGVo46TrmyArs=
+Received: from PH0P220CA0010.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:d3::20)
+ by SJ2PR12MB8064.namprd12.prod.outlook.com (2603:10b6:a03:4cc::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.35; Tue, 17 Oct
+ 2023 10:09:10 +0000
+Received: from SN1PEPF0002529D.namprd05.prod.outlook.com
+ (2603:10b6:510:d3:cafe::a3) by PH0P220CA0010.outlook.office365.com
+ (2603:10b6:510:d3::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.36 via Frontend
+ Transport; Tue, 17 Oct 2023 10:09:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF0002529D.mail.protection.outlook.com (10.167.242.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6907.20 via Frontend Transport; Tue, 17 Oct 2023 10:09:09 +0000
+Received: from jenkins-mali-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 17 Oct
+ 2023 05:09:06 -0500
+From: Li Ma <li.ma@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: add clockgating support for NBIO v7.7.1
+Date: Tue, 17 Oct 2023 18:08:57 +0800
+Message-ID: <20231017100857.2419826-1-li.ma@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002529D:EE_|SJ2PR12MB8064:EE_
+X-MS-Office365-Filtering-Correlation-Id: eda2f26e-e5df-496e-1dd3-08dbcef91afb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 9ilRcjzkEOQFN+yWjEcbY4nJp6LzZo+/rbC/0WSFv4KCbsC19sVxcuVMXyrf0dvPt1g+os34hueYC4FETQ9m4fosrpgZhNFES+qXcwbHuuPCyEtwj8elw7mwUlGnfe2zpskkJdViXOPQ3Y6cZthvpjWmdlGYe+K01w2fDwK4e2vrulPiN6jNBkOJcaRzMEawZOy48JX44ecK6XMvkeW2oVgqjgMNA35In6YQMHzhOW04mTDrQZe/Gq1YzY1Mv+ZXvPOWiDdhKbBQiam0uF6gB9iKe1rkq9e2NieMORbirJiyrwz0oT9b80/uLmN3e7uY1h7U0zM8IWyT8ekGgx8hhOTHVlMxhYmG90rHUgEnV5ggq0CzJIoUbkQkcf5XYEwbc00eWhLZgD3VbGKvaFGjKKLIME9+ypYUgUdrNMJl8tY+3RmhPpkaJfshNvIZugQCDemNLslCxO2cOWgZ1XmMFyefEyDezOtadexUaqeIVx5PIY0z8dTkr/7VGS/00Dg8pxMO4RWT916QokB4Y9QxKx1ahlLm4PcuR0yJjQ+2zmCl2XLW/L/If8TYVCqS1L1j//9fmxQoAlk9GDVgiEFh39ZXhYwZ4JWL+xJctQIkCDPzouVEM4LoYA5hVPt2tybQqht5+EEJOYW9UabBzCWscAdQYMGea9NPFQp+15IZEggayrbeTpjFSIKU9dPG38fch9ORw8XY8Rl+hAkvsi4TbKsFMThdTwGZnDAPyv6r9Cp7ebcTsivIYp4EeNdWeWowPrUXJtB2TGExduaMWe+tlg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(376002)(396003)(136003)(346002)(39860400002)(230922051799003)(1800799009)(186009)(82310400011)(451199024)(64100799003)(36840700001)(40470700004)(46966006)(40480700001)(40460700003)(478600001)(54906003)(70586007)(70206006)(6916009)(6666004)(47076005)(36860700001)(83380400001)(86362001)(82740400003)(356005)(1076003)(16526019)(336012)(26005)(41300700001)(7696005)(2616005)(426003)(5660300002)(4326008)(44832011)(81166007)(316002)(36756003)(8676002)(2906002)(8936002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 10:09:09.7275 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: eda2f26e-e5df-496e-1dd3-08dbcef91afb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002529D.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8064
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,82 +97,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- =?UTF-8?q?=27Marek=20Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Simon Ser <contact@emersion.fr>, Randy Dunlap <rdunlap@infradead.org>,
- Pekka Paalanen <ppaalanen@gmail.com>, kernel-dev@igalia.com,
- alexander.deucher@amd.com, hwentlan@amd.com, christian.koenig@amd.com,
- joshua@froggi.es
+Cc: yifan1.zhang@amd.com, Li Ma <li.ma@amd.com>, tim.huang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+add clockgating support for NBIO ip 7.7.1 and modify if condition.
 
-This work from me and Simon adds support for DRM_MODE_PAGE_FLIP_ASYNC through
-the atomic API. This feature is already available via the legacy API. The use
-case is to be able to present a new frame immediately (or as soon as
-possible), even if after missing a vblank. This might result in tearing, but
-it's useful when a high framerate is desired, such as for gaming.
+Signed-off-by: Li Ma <li.ma@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/soc21.c     | 1 +
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-Differently from earlier versions, this one refuses to flip if any prop changes
-for async flips. The idea is that the fast path of immediate page flips doesn't
-play well with modeset changes, so only the fb_id can be changed.
-Thanks,
-	André
-
-- User-space patch: https://github.com/Plagman/gamescope/pull/595
-- IGT tests: https://gitlab.freedesktop.org/andrealmeid/igt-gpu-tools/-/tree/atomic_async_page_flip
-
-Changes from v6:
-- Dropped the exception to allow MODE_ID changes (Simon)
-- Clarify what happens when flipping with the same FB_ID (Pekka)
-
-v6: https://lore.kernel.org/dri-devel/20230815185710.159779-1-andrealmeid@igalia.com/
-
-Changes from v5:
-- Add note in the docs that not every redundant attribute will result in no-op,
-  some might cause oversynchronization issues.
-
-v5: https://lore.kernel.org/dri-devel/20230707224059.305474-1-andrealmeid@igalia.com/
-
-Changes from v4:
- - Documentation rewrote by Pekka Paalanen
-
-v4: https://lore.kernel.org/dri-devel/20230701020917.143394-1-andrealmeid@igalia.com/
-
-Changes from v3:
- - Add new patch to reject prop changes
- - Add a documentation clarifying the KMS atomic state set
-
-v3: https://lore.kernel.org/dri-devel/20220929184307.258331-1-contact@emersion.fr/
-
-André Almeida (1):
-  drm: Refuse to async flip with atomic prop changes
-
-Pekka Paalanen (1):
-  drm/doc: Define KMS atomic state set
-
-Simon Ser (4):
-  drm: allow DRM_MODE_PAGE_FLIP_ASYNC for atomic commits
-  drm: introduce DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP
-  drm: introduce drm_mode_config.atomic_async_page_flip_not_supported
-  amd/display: indicate support for atomic async page-flips on DC
-
- Documentation/gpu/drm-uapi.rst                | 47 ++++++++++++
- drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c  |  1 +
- drivers/gpu/drm/drm_atomic_uapi.c             | 75 +++++++++++++++++--
- drivers/gpu/drm/drm_crtc_internal.h           |  2 +-
- drivers/gpu/drm/drm_ioctl.c                   |  5 ++
- drivers/gpu/drm/drm_mode_object.c             |  2 +-
- .../drm/i915/display/intel_display_driver.c   |  1 +
- drivers/gpu/drm/nouveau/nouveau_display.c     |  1 +
- include/drm/drm_mode_config.h                 | 11 +++
- include/uapi/drm/drm.h                        | 10 ++-
- include/uapi/drm/drm_mode.h                   |  9 +++
- 11 files changed, 155 insertions(+), 9 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c
+index def89379b51a..4df1055e640a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c
+@@ -254,7 +254,7 @@ static void nbio_v7_7_update_medium_grain_clock_gating(struct amdgpu_device *ade
+ {
+ 	uint32_t def, data;
+ 
+-	if (enable && !(adev->cg_flags & AMD_CG_SUPPORT_BIF_MGCG))
++	if (!(adev->cg_flags & AMD_CG_SUPPORT_BIF_MGCG))
+ 		return;
+ 
+ 	def = data = RREG32_SOC15(NBIO, 0, regBIF0_CPM_CONTROL);
+@@ -283,7 +283,7 @@ static void nbio_v7_7_update_medium_grain_light_sleep(struct amdgpu_device *adev
+ {
+ 	uint32_t def, data;
+ 
+-	if (enable && !(adev->cg_flags & AMD_CG_SUPPORT_BIF_LS))
++	if (!(adev->cg_flags & AMD_CG_SUPPORT_BIF_LS))
+ 		return;
+ 
+ 	def = data = RREG32_SOC15(NBIO, 0, regBIF0_PCIE_CNTL2);
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+index df7462cec6ab..3ab188067d84 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc21.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+@@ -863,6 +863,7 @@ static int soc21_common_set_clockgating_state(void *handle,
+ 	case IP_VERSION(4, 3, 0):
+ 	case IP_VERSION(4, 3, 1):
+ 	case IP_VERSION(7, 7, 0):
++	case IP_VERSION(7, 7, 1):
+ 		adev->nbio.funcs->update_medium_grain_clock_gating(adev,
+ 				state == AMD_CG_STATE_GATE);
+ 		adev->nbio.funcs->update_medium_grain_light_sleep(adev,
 -- 
-2.42.0
+2.25.1
 
