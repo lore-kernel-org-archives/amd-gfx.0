@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14911CDB465
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 02:56:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7C4CCDB474
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 03:57:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A938610E25D;
-	Tue, 17 Oct 2023 02:56:01 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2077.outbound.protection.outlook.com [40.107.102.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5329110E25A
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Oct 2023 02:55:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E68DD10E028;
+	Tue, 17 Oct 2023 03:57:18 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2072.outbound.protection.outlook.com [40.107.92.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6654910E265;
+ Tue, 17 Oct 2023 03:57:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gtpw6c0ygifg8OTq6P0KW2Le2B6S549wSjubrY8jKJxFR9vnnzAhCwFv2U8TFko1uZdkr600BwGae26fEWTazS0nC4V09lAUBwmU2dv9FLg+4MJi7utoBrTjZ4CftftfS+5LKvmnIZ0vrw4TNj0lkbCbrX2PUCT/Evo/Fg6Om0YytObvM0ENYfmvfqEz29je+4lUwOztwOU2FA4Jcm1FiCN937xBgpwewSGfBcSUUKK8pyqpFpJIeF1U+AhmtgYNKVPiyCdTtRfZbsnRxPtsIDlLI64R9ZBAtaSRHFVIU7tMwQVEzvVUyYXVeCQg4ZZ8Qy4rW2qpK7UytaYNDDlEnA==
+ b=Oj+RajsKRCKSVk081t0j8B57oNcFxIlwL4E7DAqrWzrURRwRbjlFUdgCvi0CgjKv7PUtHABopfBbHhr4btGf8Qu29mknCBCIyYO6X2XATsskDniAEp1uyyM8ehmDwfpP/ifc+/Y6uvc9uDpkucr3H1upAMCgegQqGVADCvoEdap1IXxJz9iy9Ug9fq6oWtQs8+EYFuCcmrVtkodJI+U7hRvfMDb9vw+ReK+HQI1XqOhOy0dhG2eTeTm6oEmJxZoHNm6VQeZXvAuCzlAZ07pAl2ygCNf0MxNToAl5+xgC83xh3k8sCCYHqSFkHcJNx9ilxOkjwXiIpzzHviSR3WkoWw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ymyfopRpnD+SjDQpDk720xaQkDvgTOsMoJ9/AJaDsd0=;
- b=F+UNwYOtMcD3wbMPsb372zdumNMnyJ9rQ4c57E933KGQNF0yET7OojVyWl1QThqIPNKm3NmBfdG7tSe+Kz8mqE+hmOSE/NJjTMIoXx6JlKFHc1QdnjYtRSyjiMEhg06EuHnonvPCLwvOOvPSfHXFINLvFY4i8v3+Ue+m03dQAHWLEyvgI4/Qr6qJhqFelkbTRB7dKgPqDQt8+zZEz4KGKZLGYqFPK+PM22WO5/jAkmyAZlHdR38fQjW5c/bdfvTokegNCXmotRaCb/d2MXAoykTRFnYWsHQHrd0KTt4+NlvONHJHZQ9SrM8DKmCZAsE+rPvFcL2dnlI3ybOf1oalxw==
+ bh=/gluqtO/ZlGROqT+k2TEjtDkLeQcdjnACzIGnc9aq5c=;
+ b=gU+q2DFqHZpEyg6PsjhPM/FAWDkA7vSdCcZwTsjiD0IO9iQene7EZNjX8XxEaHKZ7kHTic98kqI9JExdupedJJ9Jlpz8b2S+Lk224tmecXpfCuCcPunVI0rJC6pe1dmrdBnEJBkl6itexs2xSLUZYxt4Z1UD/625a5y8rXv4K8FUx3ev8nis3e9BK86OzWtAHwvKUALOj/qxE9Tx6kW5JYBc3rUjKVc13PugHm4uIZjOLBZhmZNwFnSit3PPWk5Q1JwB1TBqXM6sMN51XxPU/CR6RwX7/jTAEph6QN4SdJqcjmkskp5/pfhwWFrVqQe/dxQSZLOOVHBZTvik4j7sHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ymyfopRpnD+SjDQpDk720xaQkDvgTOsMoJ9/AJaDsd0=;
- b=am9YBnPbFNlwi/reuu1+rDgleZjLx1R7nsbI+OvQ3cX9dwaK0WJpuGBUoRXAGmE7W4ZD9bw85SjvdQxijuXJXnSQJ110lxj0uB2ye1XhqphHqhTeY26gP33JGOycpLqp0P1FrxJnJToSdEEz6C+06hED+OIAyLrcS+DlSSdD4iw=
-Received: from MW4P221CA0009.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::14)
- by CY5PR12MB6179.namprd12.prod.outlook.com (2603:10b6:930:24::22) with
+ bh=/gluqtO/ZlGROqT+k2TEjtDkLeQcdjnACzIGnc9aq5c=;
+ b=KkdFtR6PwwuxZe3s3fyk0v930YuGqxHPv7lcsbZwHPgUdRB7LrLpHLSrIuaYHCv4ofzQElHjAEGG9NfIr3ZvGARjDdLn1nof+OOTxbMfQGmVtodu3jbXy+YV+kjhZDU6Y7GvZYPj6qdLffuLX1iRbrtPR80hZW+FtVLl/CNTy78=
+Received: from CYZPR17CA0014.namprd17.prod.outlook.com (2603:10b6:930:8c::10)
+ by DS0PR12MB6560.namprd12.prod.outlook.com (2603:10b6:8:d0::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.36; Tue, 17 Oct
- 2023 02:55:55 +0000
-Received: from MWH0EPF000989E6.namprd02.prod.outlook.com
- (2603:10b6:303:8b:cafe::3e) by MW4P221CA0009.outlook.office365.com
- (2603:10b6:303:8b::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.35; Tue, 17 Oct
+ 2023 03:57:10 +0000
+Received: from CY4PEPF0000EDD5.namprd03.prod.outlook.com
+ (2603:10b6:930:8c:cafe::54) by CYZPR17CA0014.outlook.office365.com
+ (2603:10b6:930:8c::10) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.36 via Frontend
- Transport; Tue, 17 Oct 2023 02:55:54 +0000
+ Transport; Tue, 17 Oct 2023 03:57:10 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,53 +45,49 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000989E6.mail.protection.outlook.com (10.167.241.133) with Microsoft
+ CY4PEPF0000EDD5.mail.protection.outlook.com (10.167.241.209) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.22 via Frontend Transport; Tue, 17 Oct 2023 02:55:54 +0000
-Received: from compile-server.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.6838.22 via Frontend Transport; Tue, 17 Oct 2023 03:57:10 +0000
+Received: from fedora.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 16 Oct
- 2023 21:55:49 -0500
-From: Ma Jun <Jun.Ma2@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <lenb@kernel.org>,
- <johannes@sipsolutions.net>, <davem@davemloft.net>, <edumazet@google.com>,
- <kuba@kernel.org>, <pabeni@redhat.com>, <alexander.deucher@amd.com>,
- <Lijo.Lazar@amd.com>, <mario.limonciello@amd.com>
-Subject: [PATCH v12 9/9] drm/amd/pm: enable Wifi RFI mitigation feature
- support for SMU13.0.7
-Date: Tue, 17 Oct 2023 10:53:58 +0800
-Message-ID: <20231017025358.1773598-10-Jun.Ma2@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231017025358.1773598-1-Jun.Ma2@amd.com>
-References: <20231017025358.1773598-1-Jun.Ma2@amd.com>
+ 2023 22:57:07 -0500
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: AMD Graphics <amd-gfx@lists.freedesktop.org>, "Direct Rendering
+ Infrastructure - Development" <dri-devel@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amdgpu: Unset context priority is now invalid
+Date: Mon, 16 Oct 2023 23:56:55 -0400
+Message-ID: <20231017035656.8211-1-luben.tuikov@amd.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+X-check-string-leak: v1.1
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989E6:EE_|CY5PR12MB6179:EE_
-X-MS-Office365-Filtering-Correlation-Id: 47227f90-3328-4214-79fd-08dbcebc94e0
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD5:EE_|DS0PR12MB6560:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2319f099-b99f-4f1c-d6ce-08dbcec52394
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jqnUF3YrEf2ZQqoOaeCPBkQoif1jpQjljuyzWRqDvxQBZTLBd1ry7YxPLONosCTTHOMnPD1D5udvPJ9Vd2M2ovmZPXe2SzpFobk6Kee3empLO6+pI8yLBiik+B81A89ZIi0chzZvHm5VxDXC+299QkoHXciHvwKgGSKT/U0k77xSvLeRdWjLYo/XzVoWYDv8tvMLVUWtfBJl2zFcsUYGJYaQvff4lNvZGxWjULBiU7hxrHeWagkln55SYR2EjpiKupMq4uoS3w4gxW6DleGMudTGngXskmSaq8h+o2CdVU967znCJ9P1aIUAUHEbmIcPQ3CXMDlKlS51sz5LtrCN6lw6jqdt8NX+ldwx3bGOViaCDDWr8t8Wra5sxoTTp4iYHInWXCPOgwIIxmd3RtyF+ebuC3wqO3wy6qs5LisiDAiJeAOmFMUJODLWt6zkRTWWKPdVSzqyBP6VCHasT5AW+Qwo5U0dWayvzViINUwCpkwrgSlBDHB/KnImedfjhJ9LiZMHTSUWl1LB3q4R6RyvFqve+vGaxiF6ksjgtdgJbR7pf2iDs7+Dd1+pjppeJJ2SJUOFcPcPuaRZMEhrXwUWzkeZn0WCH1SHzGpcY4V0h1H6T5YhZ81OpmZ10gZlN4oFcHu+9fA53Cnq5PFdXjyQEN530opREFJO+eDTw0A+Jw1yu9K5hUVkyEwki5cOSuhd1h1OBVsKnghmU3wD3460a65hnyiIdSn93u4eb/ZwkrMN5Z4hyD5yctuZIp3yF+OTkscy6jBtTWYF59UqIMKpL5dR8u7QiAKDUHCVLn5Gx90=
+X-Microsoft-Antispam-Message-Info: g8AAC2X19NqiesQr8H+5PQ7Tb1aK7XXH5Do19ZpG+GGcoE3gshBSuXzW3efI9cLlX6tCJQgJJO7mmRRAMFPxJlYyhteMZ/IVhDrzLnC4/O7DZkUFdz6mGF1duNrbtI0b1Q2m2SX5VHdi5n36PNAMuX7TFGo4aI8hESxlNhxb456E5BUppbBKlq56r4rSM8ImnCcrDly8+NkbUHWH2xo3tf7RpEy4GxPSBi4stoTf/nIjA0Yxuip2pa4U50QJmfQLW+FkyS7qdEoPc/vQACH41mMUke4pcZC0JDYQfjjSflsM6qN3In1KhgReUqTLnaju2MJhz3ETzbJcGqIi3etUHFgJtcPxKyNEy3i2l9cbHsIfLm5PZiBnr4PqSknxv9ZQZjtcqTryAiZjtA7WIzDWO6lMMCvljsxLjGyW4YwuVk4Owe+d7BrFoSJ4HIyCV+LdVoBVaC/fP4ASApnoC7w+KHP6MFsp0RgENvTBCbSah5/2ZKoY5xIfMI9lraj2yLbDgquXogs1MfC7BSzFtrFiW/XvFTUhj59p76QUSSQMeSnNjUaQ1K9DKJZAUgzOB2oq7lxprMF1sFxKM11ViM3DGwe0HD4Nfq2p2q176mDjR6yarbxY1DUicHN9yOH51Y8vD/cIchbLJ4weV6Tq9H+9+X1Fi/nfsCgDGfe4X5YkAZKX+sjVEBs825UZJGo3ZfXB+431GsvSFk62kC9ohKlawwPmbv3YVpJQiUm5+ejRlAKVdk/27N/30ZEmpbiDRE89J2T+F60+FxdX7seA+1HwVQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(346002)(376002)(39860400002)(136003)(230922051799003)(82310400011)(64100799003)(451199024)(186009)(1800799009)(40470700004)(36840700001)(110136005)(478600001)(45080400002)(7696005)(6666004)(86362001)(81166007)(36756003)(356005)(921005)(82740400003)(40460700003)(16526019)(26005)(2616005)(426003)(1076003)(83380400001)(6636002)(316002)(54906003)(70586007)(70206006)(41300700001)(5660300002)(8936002)(4326008)(8676002)(2906002)(7416002)(336012)(32650700002)(40480700001)(36860700001)(36900700001);
+ SFS:(13230031)(4636009)(376002)(39860400002)(136003)(346002)(396003)(230922051799003)(64100799003)(82310400011)(186009)(1800799009)(451199024)(40470700004)(46966006)(36840700001)(70206006)(478600001)(70586007)(2616005)(54906003)(316002)(1076003)(110136005)(426003)(336012)(66574015)(26005)(7696005)(16526019)(2906002)(8936002)(5660300002)(8676002)(4326008)(450100002)(44832011)(41300700001)(86362001)(36756003)(82740400003)(47076005)(83380400001)(6666004)(36860700001)(356005)(81166007)(40460700003)(40480700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 02:55:54.8251 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47227f90-3328-4214-79fd-08dbcebc94e0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 03:57:10.2799 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2319f099-b99f-4f1c-d6ce-08dbcec52394
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E6.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD5.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6179
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6560
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,125 +99,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Evan Quan <quanliangl@hotmail.com>, linux-doc@vger.kernel.org,
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- Ma Jun <Jun.Ma2@amd.com>
+Cc: Alex Deucher <Alexander.Deucher@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Evan Quan <quanliangl@hotmail.com>
+A context priority value of AMD_CTX_PRIORITY_UNSET is now invalid--instead of
+carrying it around and passing it to the Direct Rendering Manager--and it
+becomes AMD_CTX_PRIORITY_NORMAL in amdgpu_ctx_ioctl(), the gateway to context
+creation.
 
-Fulfill the SMU13.0.7 support for Wifi RFI mitigation feature.
-
-Signed-off-by: Evan Quan <quanliangl@hotmail.com>
-Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
---
-v10->v11:
-  - downgrade the prompt level on message failure(Lijo)
+Cc: Alex Deucher <Alexander.Deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
 ---
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 59 +++++++++++++++++++
- 1 file changed, 59 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index 62f2886ab4df..c5736fb3cf6d 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -126,6 +126,7 @@ static struct cmn2asic_msg_mapping smu_v13_0_7_message_map[SMU_MSG_MAX_COUNT] =
- 	MSG_MAP(AllowGpo,			PPSMC_MSG_SetGpoAllow,           0),
- 	MSG_MAP(GetPptLimit,			PPSMC_MSG_GetPptLimit,                 0),
- 	MSG_MAP(NotifyPowerSource,		PPSMC_MSG_NotifyPowerSource,           0),
-+	MSG_MAP(EnableUCLKShadow,		PPSMC_MSG_EnableUCLKShadow,            0),
- };
- 
- static struct cmn2asic_mapping smu_v13_0_7_clk_map[SMU_CLK_COUNT] = {
-@@ -207,6 +208,7 @@ static struct cmn2asic_mapping smu_v13_0_7_table_map[SMU_TABLE_COUNT] = {
- 	TAB_MAP(ACTIVITY_MONITOR_COEFF),
- 	[SMU_TABLE_COMBO_PPTABLE] = {1, TABLE_COMBO_PPTABLE},
- 	TAB_MAP(OVERDRIVE),
-+	TAB_MAP(WIFIBAND),
- };
- 
- static struct cmn2asic_mapping smu_v13_0_7_pwr_src_map[SMU_POWER_SOURCE_COUNT] = {
-@@ -503,6 +505,9 @@ static int smu_v13_0_7_tables_init(struct smu_context *smu)
- 	               AMDGPU_GEM_DOMAIN_VRAM);
- 	SMU_TABLE_INIT(tables, SMU_TABLE_COMBO_PPTABLE, MP0_MP1_DATA_REGION_SIZE_COMBOPPTABLE,
- 			PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
-+	SMU_TABLE_INIT(tables, SMU_TABLE_WIFIBAND,
-+		       sizeof(WifiBandEntryTable_t), PAGE_SIZE,
-+		       AMDGPU_GEM_DOMAIN_VRAM);
- 
- 	smu_table->metrics_table = kzalloc(sizeof(SmuMetricsExternal_t), GFP_KERNEL);
- 	if (!smu_table->metrics_table)
-@@ -2179,6 +2184,57 @@ static int smu_v13_0_7_set_df_cstate(struct smu_context *smu,
- 					       NULL);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index 0dc9c655c4fbdb..092962b93064fc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -47,7 +47,6 @@ const unsigned int amdgpu_ctx_num_entities[AMDGPU_HW_IP_NUM] = {
+ bool amdgpu_ctx_priority_is_valid(int32_t ctx_prio)
+ {
+ 	switch (ctx_prio) {
+-	case AMDGPU_CTX_PRIORITY_UNSET:
+ 	case AMDGPU_CTX_PRIORITY_VERY_LOW:
+ 	case AMDGPU_CTX_PRIORITY_LOW:
+ 	case AMDGPU_CTX_PRIORITY_NORMAL:
+@@ -55,6 +54,7 @@ bool amdgpu_ctx_priority_is_valid(int32_t ctx_prio)
+ 	case AMDGPU_CTX_PRIORITY_VERY_HIGH:
+ 		return true;
+ 	default:
++	case AMDGPU_CTX_PRIORITY_UNSET:
+ 		return false;
+ 	}
  }
- 
-+static bool smu_v13_0_7_wbrf_support_check(struct smu_context *smu)
-+{
-+	return smu->smc_fw_version > 0x00524600;
-+}
-+
-+static int smu_v13_0_7_set_wbrf_exclusion_ranges(struct smu_context *smu,
-+						 struct freq_band_range *exclusion_ranges)
-+{
-+	WifiBandEntryTable_t wifi_bands;
-+	int valid_entries = 0;
-+	int ret, i;
-+
-+	memset(&wifi_bands, 0, sizeof(wifi_bands));
-+	for (i = 0; i < ARRAY_SIZE(wifi_bands.WifiBandEntry); i++) {
-+		if (!exclusion_ranges[i].start &&
-+		    !exclusion_ranges[i].end)
-+			break;
-+
-+		/* PMFW expects the inputs to be in Mhz unit */
-+		wifi_bands.WifiBandEntry[valid_entries].LowFreq =
-+			DIV_ROUND_DOWN_ULL(exclusion_ranges[i].start, HZ_IN_MHZ);
-+		wifi_bands.WifiBandEntry[valid_entries++].HighFreq =
-+			DIV_ROUND_UP_ULL(exclusion_ranges[i].end, HZ_IN_MHZ);
-+	}
-+	wifi_bands.WifiBandEntryNum = valid_entries;
-+
-+	/*
-+	 * Per confirm with PMFW team, WifiBandEntryNum = 0 is a valid setting.
-+	 * Considering the scenarios below:
-+	 * - At first the wifi device adds an exclusion range e.g. (2400,2500) to
-+	 *   BIOS and our driver gets notified. We will set WifiBandEntryNum = 1
-+	 *   and pass the WifiBandEntry (2400, 2500) to PMFW.
-+	 *
-+	 * - Later the wifi device removes the wifiband list added above and
-+	 *   our driver gets notified again. At this time, driver will set
-+	 *   WifiBandEntryNum = 0 and pass an empty WifiBandEntry list to PMFW.
-+	 *   - PMFW may still need to do some uclk shadow update(e.g. switching
-+	 *     from shadow clock back to primary clock) on receiving this.
-+	 */
-+
-+	ret = smu_cmn_update_table(smu,
-+				   SMU_TABLE_WIFIBAND,
-+				   0,
-+				   (void *)(&wifi_bands),
-+				   true);
-+	if (ret)
-+		dev_warn(smu->adev->dev, "Failed to set wifiband!");
-+
-+	return ret;
-+}
-+
- static const struct pptable_funcs smu_v13_0_7_ppt_funcs = {
- 	.get_allowed_feature_mask = smu_v13_0_7_get_allowed_feature_mask,
- 	.set_default_dpm_table = smu_v13_0_7_set_default_dpm_table,
-@@ -2247,6 +2303,9 @@ static const struct pptable_funcs smu_v13_0_7_ppt_funcs = {
- 	.set_mp1_state = smu_v13_0_7_set_mp1_state,
- 	.set_df_cstate = smu_v13_0_7_set_df_cstate,
- 	.gpo_control = smu_v13_0_gpo_control,
-+	.is_asic_wbrf_supported = smu_v13_0_7_wbrf_support_check,
-+	.enable_uclk_shadow = smu_v13_0_enable_uclk_shadow,
-+	.set_wbrf_exclusion_ranges = smu_v13_0_7_set_wbrf_exclusion_ranges,
- };
- 
- void smu_v13_0_7_set_ppt_funcs(struct smu_context *smu)
+
+base-commit: dc9b2e683bcba017588b9aaad80f442ad004a48f
 -- 
-2.34.1
+2.42.0
 
