@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C03ECDB482
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 12:46:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50DE9CDB482
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 12:46:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 013F310E2E9;
-	Tue, 17 Oct 2023 12:46:22 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2062e.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8a::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08AAB10E2E2
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Oct 2023 12:46:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0087E10E2E2;
+	Tue, 17 Oct 2023 12:46:25 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2045.outbound.protection.outlook.com [40.107.244.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D5A810E2E6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Oct 2023 12:46:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=brzMkFw7YdXoVABP3otsv+4Ao5yDzytag/LT5vFu34klXKj17jhEhZPDkfFWVd2s3Ws8PST5L4Sv5D1sk0gnyKSzT619OYMLzPk/QxvowRsWVB8e3ncOPqV/ONNq0qygzl36WyBtO4ZGE9xr1QnOO7Fo2zYeAnpXDL2RSsLaejvzCDqwusTbKuUwzeT9HiDrrRP3jMX49Kng4Vt0hfhPEnNBC6hwW3/kw4qa2QS62/6jw4X0H6gxqqzEjuoL4Np7gkDE5KHXemvkcIN5sNGNsc/oYJysA/YPwpEkGmpGCvdkCrp9pQMRf/EDZvgkRUxvW0mtT5CWTVoFK2qEYIgGiA==
+ b=ZLCUEsfdJn4CXWqbPakNo6UMcD0SYFPJfAZdqkAh5ZcjuwmmO1B0XVWh/BQgP3o5r3Y3533maVK4xnxZoSHHd9D4WnYvcI/WHUB+Hcm7hNhERyLRHlhhZSRb+jQPhq5x9NaqB/6Z5LOmOiIUD4bse0ZS3hqZs5MX57adfo+Kdfz/lA/cRRXz04y4MZYOLpno3JXpwJIAmmTHNwxmViXkxRRV/54nzsBzi4ifJFzbrqoNoSF5OVIH/0WNd9IvKdr1K0cGzxjp8HRyS0qGULnutq5Ri9KjvFe2l9i+Se5Yu1j3JooCga21+1HBHEeM/UTqmgMDLm2QchguxN89nZKINA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JwMLEtVWZ9sPC3BsUucCo+7RTNZxP3wfp044cnGYAeI=;
- b=PSgME0W3iOz0B2ALJbNgdy9r8jzP8h4dTI/58LDrLEdIK3yUIs16+sou/Y0wFQZl4RIeqWSf+6XijzBqYD9I0t6Df4N72xtVsv5t5ReTAbCOVqW7/BzMe46mKhx58uMOyzDreoUwkCevVhc8wy9HM1IH34wKFDt4F2qox6giDUvDgihAtTEg2kxQcnVppusiY7q/w++zqv+LuxBGS6VGE9+TBhypCFVEkKNuYUSxXMwsFIm/qVZSxFc/qdcSwebQV7UcOcdf3MkInlCF441Umfwq/Xhx9FFgtt121BfCbwdqBIJ6xxxCPPEI797x56OeV21gpENWBoifAkD+vQH1hw==
+ bh=n3GgUN5uGOf6QozgnFL0b1i5eAcD2vEQl7Q4pyh1e8A=;
+ b=iNQOOWmhXG7keMGFfYTPscacj3FCFg2AKKROYQqflbRE1DbzP33Sj5l6M+HzhzsOUkc40g+1g5yKT+PtAmfQI7s59Ym6Aq8tNP44YguykqRoL7aoGX2p/UPy0VTyuXTQQ9a2aR+P2ngH16qC/edkU5f4i/w6AFVWBXprXjx7umRW9twQSy8fPmpRs8BSCJM2opl/zZNLmQ87G5m1Gft8aCEvW5VycvsYtO5kzIij7Q4ouAxpkgSNWvd239Nn7tDx4PDt5sWHMcbgyF3deWRe2rzh8i1Nujo+5awDKgczZLc4KwbxYvJ4yDKzpm6Zjtm96XxS7bYhVY4j/le2jwDPVg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JwMLEtVWZ9sPC3BsUucCo+7RTNZxP3wfp044cnGYAeI=;
- b=Y1N+W/OYxeeMcNVsKmpbbxhrziNNH/iU+okrCprNz6Vn/GhIhGu7TBH97sr83NLG5ZfqDKrbkbFLcZllHCKK94cc/lkvPaohmfiHx1fu/dk4/NL3W/w9HxDOsDach544pPsCDP6cbmsn7RC6nD8s4lz2HeFlNCvKk/ZfTPOoY6k=
-Received: from CH2PR18CA0046.namprd18.prod.outlook.com (2603:10b6:610:55::26)
- by DS0PR12MB9423.namprd12.prod.outlook.com (2603:10b6:8:192::11) with
+ bh=n3GgUN5uGOf6QozgnFL0b1i5eAcD2vEQl7Q4pyh1e8A=;
+ b=iSvEyCnUgGaBpm86MvaWCUhw95OX/anKPjGq6VkUlpWt7oTq4ntpA+FVlGIGXIz24H8KY2tkTO8tQy1WgJrkoFwwq0CSfOr2ZXImX+aRWnUsysGYDLdYYiRVgSDqakRa3zvNWEZHrr4xCrGryfQu+yYZPTFEUJuKdGD1fscJKU8=
+Received: from CH2PR18CA0053.namprd18.prod.outlook.com (2603:10b6:610:55::33)
+ by DS0PR12MB8525.namprd12.prod.outlook.com (2603:10b6:8:159::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.21; Tue, 17 Oct
- 2023 12:46:17 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.35; Tue, 17 Oct
+ 2023 12:46:19 +0000
 Received: from CO1PEPF000044F6.namprd21.prod.outlook.com
- (2603:10b6:610:55:cafe::20) by CH2PR18CA0046.outlook.office365.com
- (2603:10b6:610:55::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.21 via Frontend
- Transport; Tue, 17 Oct 2023 12:46:17 +0000
+ (2603:10b6:610:55:cafe::fb) by CH2PR18CA0053.outlook.office365.com
+ (2603:10b6:610:55::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.35 via Frontend
+ Transport; Tue, 17 Oct 2023 12:46:19 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,18 +47,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1PEPF000044F6.mail.protection.outlook.com (10.167.241.196) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6933.5 via Frontend Transport; Tue, 17 Oct 2023 12:46:16 +0000
+ 15.20.6933.5 via Frontend Transport; Tue, 17 Oct 2023 12:46:18 +0000
 Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 17 Oct
- 2023 07:46:13 -0500
+ 2023 07:46:16 -0500
 From: Tao Zhou <tao.zhou1@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <hawking.zhang@amd.com>,
  <stanley.yang@amd.com>, <Candice.Li@amd.com>, <yipeng.chai@amd.com>,
  <lijo.lazar@amd.com>, <kevinyang.wang@amd.com>
-Subject: [PATCH 5/6] drm/amdgpu: reuse amdgpu_ras_reset_error_count code
-Date: Tue, 17 Oct 2023 20:45:51 +0800
-Message-ID: <20231017124552.27509-5-tao.zhou1@amd.com>
+Subject: [PATCH 6/6] drm/amdgpu: drop status reset for GCEA 9.4.3 and MMEA 1.8
+Date: Tue, 17 Oct 2023 20:45:52 +0800
+Message-ID: <20231017124552.27509-6-tao.zhou1@amd.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20231017124552.27509-1-tao.zhou1@amd.com>
 References: <20231017124552.27509-1-tao.zhou1@amd.com>
@@ -71,26 +70,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F6:EE_|DS0PR12MB9423:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6ca403ef-42f4-4480-5fb7-08dbcf0f0e0f
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F6:EE_|DS0PR12MB8525:EE_
+X-MS-Office365-Filtering-Correlation-Id: a9d32552-38e4-44bd-5123-08dbcf0f0f45
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +eUqm9++DLbN8nGcFvDCZ7z/lIFQ13Pr+9V0TRvmipbw0YmsnAPAwRHSjEZGsdPjDC4qmwaNK5axXojZqyBS78A/WsLU9l9+nAIV7fCiS1d/CkkaXWBKnk5tFG85F31bbO4JspPMyDaFe5bmVqG9XoA/s60J9JpKZX+z54rlvgtOhA3ayGXclS0ay0AzjuwzTw65A79OF0/ZTBp04RLvlFK8sxCTAI7JpvWI8a77scwTBLSjykeSiEOnU3pyLxiTXFVWG0ZtHNFzzWo1jslwBuyZKPTDrLNkME/0B73RUZB7URpq3c7OUiVh4Q/FhHDjKVkYR/3ukyNqsZquG6bT5RMsNET9tDvzqwFMd2Po1jqwzEAUjMULTSUsOT1VbN7qOwMEZbksbWuHIpuRaUPbKKDQx4fIYk4XchDU5sB1jjGf7NuxUlxdt0RLSdxp8aU5nw49kYqPs+Ej3AoYVNQRV7W5L2ZGNyEO9I97KStOwL8ehI1TJepcavddoih/+flKRDd8d1V3UID7d80a7G5BhElMGvvU5/kQksQeDwP7LE7LpMXJa4hZkExKDcbJYlQe7GucRq8qRdHjCEdXN5bN0/0jtxdiqVTdiZ2QgFVhES3zO6pg++aZAP6OQ8P/iyita+bRhi6myG9+GInvgUjr5n/RbM1OErOiRiR+DFH8cI5DO9L0qsNyFRg0KP5mWQGnTAnRzKHkdG1TtgBBtgyzDgeMDyWjyfW2bVQ4RnUf67Y=
+X-Microsoft-Antispam-Message-Info: VjJ5mtJ7KXgU7Sgg+rMpJ5318QFVhFGnvFAMrqxCcFTiDPPH/Z1ayW2JOQlKRd1/u8177bp9jnZBSWmU5Fid0F7i4xWN4b+kZ4c+jZQSZGqKbUVkus/f9RSc5gqdpjqTpqhe6gwns/mESLY67y0pDfKuHsM5RE/9OoItq/CEJ5nOYBdTuwM87JngC+pGOSmZHH9bvlaWkxRl17AKdz945y1zsTZGQdD2PCV1qhPX8RUzVAh+yxHzklaxggpacJKjFFH8WK3oIu55abc6zH7f79vaTSVX+eoFz5pxqO/39qo4ChQ8DgKED+pqDH0mvInQEQ00Y6nF8MH2Tbkp26ZYQ2BmSee2rTq1ZKMVM6tuD5RmE+ihoXKYK8Socqql6rYmXCVypogx6lElhu9eok4K36OBMRLJQ3cPm4LZGvb46BW6jZfUiz7Gdr3fNErgBTAoP38QNBxFX0awOFIXkhnnDqLa3qsXg1oycifty754Z+j57hsuW1O/nkUxm3NYsreVSwoAUQYwgWmgEJqmsPdXsp4M0VZmaPS2gmXp3v7Es75hrV8xnFfWxnxHJlA5j5LAPJBColQDVTStGQmiRyC8bDd2oMGfeN0W6pBBwjbXzboKzNh7+JksgGedigL90F2xDGIANNIDYTR84szpxxR7zonW2iX4WQIlm0bKwCZ34TYdkUHT6uSQSjj09GVSSAnyCVsWNLR715p9yZ5nEyWehovSBKCidDZiwkqH8b/2JSk=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(346002)(396003)(136003)(39860400002)(230922051799003)(1800799009)(82310400011)(186009)(451199024)(64100799003)(40470700004)(36840700001)(46966006)(6666004)(7696005)(2906002)(5660300002)(4326008)(8676002)(8936002)(41300700001)(70206006)(70586007)(110136005)(6636002)(316002)(40460700003)(478600001)(336012)(426003)(1076003)(2616005)(26005)(16526019)(83380400001)(40480700001)(47076005)(36756003)(36860700001)(82740400003)(356005)(81166007)(86362001)(36900700001);
+ SFS:(13230031)(4636009)(376002)(396003)(39860400002)(136003)(346002)(230922051799003)(1800799009)(186009)(64100799003)(82310400011)(451199024)(46966006)(40470700004)(36840700001)(1076003)(478600001)(41300700001)(4326008)(8936002)(110136005)(70206006)(70586007)(316002)(6636002)(8676002)(5660300002)(7696005)(40480700001)(47076005)(81166007)(86362001)(82740400003)(356005)(2616005)(426003)(36860700001)(26005)(36756003)(336012)(16526019)(83380400001)(6666004)(40460700003)(2906002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 12:46:16.8842 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ca403ef-42f4-4480-5fb7-08dbcf0f0e0f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 12:46:18.9154 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9d32552-38e4-44bd-5123-08dbcf0f0f45
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F6.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9423
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8525
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,72 +105,155 @@ Cc: Tao Zhou <tao.zhou1@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-To simplify the code of amdgpu_ras_reset_error_status without logical
-change.
+PMFW will be responsible for it.
 
 Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 30 +++++++------------------
- 1 file changed, 8 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 22 -------
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c | 86 -------------------------
+ 2 files changed, 108 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 806c6d4deb63..b4e8d0c629cc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1181,17 +1181,20 @@ int amdgpu_ras_reset_error_count(struct amdgpu_device *adev,
- 	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
- 	const struct amdgpu_mca_smu_funcs *mca_funcs = adev->mca.mca_funcs;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index a1c2c952d882..65da72735e52 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -3996,27 +3996,6 @@ static void gfx_v9_4_3_inst_reset_utc_err_status(struct amdgpu_device *adev,
+ 	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regVML2_WALKER_MEM_ECC_STATUS, 0x3);
+ }
  
--	if (!block_obj || !block_obj->hw_ops)
--		return 0;
-+	if (!block_obj || !block_obj->hw_ops) {
-+		dev_dbg_once(adev->dev, "%s doesn't config RAS function\n",
-+				ras_block_str(block));
-+		return -EOPNOTSUPP;
-+	}
- 
- 	/* skip ras error reset in gpu reset */
- 	if (amdgpu_in_reset(adev) && atomic_read(&ras->in_recovery) &&
- 	    mca_funcs && mca_funcs->mca_set_debug_mode)
--		return 0;
-+		return -EOPNOTSUPP;
- 
- 	if (!amdgpu_ras_is_supported(adev, block) ||
- 	    !amdgpu_ras_get_mca_debug_mode(adev))
--		return 0;
-+		return -EOPNOTSUPP;
- 
- 	if (block_obj->hw_ops->reset_ras_error_count)
- 		block_obj->hw_ops->reset_ras_error_count(adev);
-@@ -1203,27 +1206,10 @@ int amdgpu_ras_reset_error_status(struct amdgpu_device *adev,
- 		enum amdgpu_ras_block block)
- {
- 	struct amdgpu_ras_block_object *block_obj = amdgpu_ras_get_ras_block(adev, block, 0);
--	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
--	const struct amdgpu_mca_smu_funcs *mca_funcs = adev->mca.mca_funcs;
+-static void gfx_v9_4_3_inst_reset_ea_err_status(struct amdgpu_device *adev,
+-					int xcc_id)
+-{
+-	uint32_t i, j;
+-	uint32_t value;
 -
--	if (!block_obj || !block_obj->hw_ops) {
--		dev_dbg_once(adev->dev, "%s doesn't config RAS function\n",
--			     ras_block_str(block));
--		return 0;
+-	mutex_lock(&adev->grbm_idx_mutex);
+-	for (i = 0; i < gfx_v9_4_3_ea_err_status_regs.se_num; i++) {
+-		for (j = 0; j < gfx_v9_4_3_ea_err_status_regs.instance; j++) {
+-			gfx_v9_4_3_xcc_select_se_sh(adev, i, 0, j, xcc_id);
+-			value = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regGCEA_ERR_STATUS);
+-			value = REG_SET_FIELD(value, GCEA_ERR_STATUS,
+-						CLEAR_ERROR_STATUS, 0x1);
+-			WREG32_SOC15(GC, GET_INST(GC, xcc_id), regGCEA_ERR_STATUS, value);
+-		}
 -	}
- 
--	/* skip ras error reset in gpu reset */
--	if (amdgpu_in_reset(adev) && atomic_read(&ras->in_recovery) &&
--	    mca_funcs && mca_funcs->mca_set_debug_mode)
-+	if (amdgpu_ras_reset_error_count(adev, block) == -EOPNOTSUPP)
- 		return 0;
- 
--	if (!amdgpu_ras_is_supported(adev, block) ||
--	    !amdgpu_ras_get_mca_debug_mode(adev))
--		return 0;
+-	gfx_v9_4_3_xcc_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff,
+-			xcc_id);
+-	mutex_unlock(&adev->grbm_idx_mutex);
+-}
 -
--	if (block_obj->hw_ops->reset_ras_error_count)
--		block_obj->hw_ops->reset_ras_error_count(adev);
+ static void gfx_v9_4_3_inst_reset_sq_timeout_status(struct amdgpu_device *adev,
+ 					int xcc_id)
+ {
+@@ -4042,7 +4021,6 @@ static void gfx_v9_4_3_inst_reset_ras_err_status(struct amdgpu_device *adev,
+ 					void *ras_error_status, int xcc_id)
+ {
+ 	gfx_v9_4_3_inst_reset_utc_err_status(adev, xcc_id);
+-	gfx_v9_4_3_inst_reset_ea_err_status(adev, xcc_id);
+ 	gfx_v9_4_3_inst_reset_sq_timeout_status(adev, xcc_id);
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
+index aa00483e7b37..616d75add087 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
+@@ -756,96 +756,10 @@ static void mmhub_v1_8_query_ras_error_status(struct amdgpu_device *adev)
+ 		mmhub_v1_8_inst_query_ras_err_status(adev, i);
+ }
+ 
+-static void mmhub_v1_8_inst_reset_ras_err_status(struct amdgpu_device *adev,
+-						 uint32_t mmhub_inst)
+-{
+-	uint32_t mmea_cgtt_clk_cntl_addr_dist;
+-	uint32_t mmea_err_status_addr_dist;
+-	uint32_t reg_value;
+-	uint32_t i;
 -
- 	if ((block == AMDGPU_RAS_BLOCK__GFX) ||
- 	    (block == AMDGPU_RAS_BLOCK__MMHUB)) {
- 		if (block_obj->hw_ops->reset_ras_error_status)
+-	/* reset mmea ras err status */
+-	mmea_cgtt_clk_cntl_addr_dist = regMMEA1_CGTT_CLK_CTRL - regMMEA0_CGTT_CLK_CTRL;
+-	mmea_err_status_addr_dist = regMMEA1_ERR_STATUS - regMMEA0_ERR_STATUS;
+-	for (i = 0; i < ARRAY_SIZE(mmhub_v1_8_mmea_err_status_reg); i++) {
+-		/* force clk branch on for response path
+-		 * set MMEA0_CGTT_CLK_CTRL.SOFT_OVERRIDE_RETURN = 1
+-		 */
+-		reg_value = RREG32_SOC15_OFFSET(MMHUB, mmhub_inst,
+-						regMMEA0_CGTT_CLK_CTRL,
+-						i * mmea_cgtt_clk_cntl_addr_dist);
+-		reg_value = REG_SET_FIELD(reg_value, MMEA0_CGTT_CLK_CTRL,
+-					  SOFT_OVERRIDE_RETURN, 1);
+-		WREG32_SOC15_OFFSET(MMHUB, mmhub_inst,
+-				    regMMEA0_CGTT_CLK_CTRL,
+-				    i * mmea_cgtt_clk_cntl_addr_dist,
+-				    reg_value);
+-
+-		/* set MMEA0_ERR_STATUS.CLEAR_ERROR_STATUS = 1 */
+-		reg_value = RREG32_SOC15_OFFSET(MMHUB, mmhub_inst,
+-						regMMEA0_ERR_STATUS,
+-						i * mmea_err_status_addr_dist);
+-		reg_value = REG_SET_FIELD(reg_value, MMEA0_ERR_STATUS,
+-					  CLEAR_ERROR_STATUS, 1);
+-		WREG32_SOC15_OFFSET(MMHUB, mmhub_inst,
+-				    regMMEA0_ERR_STATUS,
+-				    i * mmea_err_status_addr_dist,
+-				    reg_value);
+-
+-		/* set MMEA0_CGTT_CLK_CTRL.SOFT_OVERRIDE_RETURN = 0 */
+-		reg_value = RREG32_SOC15_OFFSET(MMHUB, mmhub_inst,
+-						regMMEA0_CGTT_CLK_CTRL,
+-						i * mmea_cgtt_clk_cntl_addr_dist);
+-		reg_value = REG_SET_FIELD(reg_value, MMEA0_CGTT_CLK_CTRL,
+-					  SOFT_OVERRIDE_RETURN, 0);
+-		WREG32_SOC15_OFFSET(MMHUB, mmhub_inst,
+-				    regMMEA0_CGTT_CLK_CTRL,
+-				    i * mmea_cgtt_clk_cntl_addr_dist,
+-				    reg_value);
+-	}
+-
+-	/* reset mm_cane ras err status
+-	 * force clk branch on for response path
+-	 * set MM_CANE_ICG_CTRL.SOFT_OVERRIDE_ATRET = 1
+-	 */
+-	reg_value = RREG32_SOC15(MMHUB, mmhub_inst, regMM_CANE_ICG_CTRL);
+-	reg_value = REG_SET_FIELD(reg_value, MM_CANE_ICG_CTRL,
+-				  SOFT_OVERRIDE_ATRET, 1);
+-	WREG32_SOC15(MMHUB, mmhub_inst, regMM_CANE_ICG_CTRL, reg_value);
+-
+-	/* set MM_CANE_ERR_STATUS.CLEAR_ERROR_STATUS = 1 */
+-	reg_value = RREG32_SOC15(MMHUB, mmhub_inst, regMM_CANE_ERR_STATUS);
+-	reg_value = REG_SET_FIELD(reg_value, MM_CANE_ERR_STATUS,
+-				  CLEAR_ERROR_STATUS, 1);
+-	WREG32_SOC15(MMHUB, mmhub_inst, regMM_CANE_ERR_STATUS, reg_value);
+-
+-	/* set MM_CANE_ICG_CTRL.SOFT_OVERRIDE_ATRET = 0 */
+-	reg_value = RREG32_SOC15(MMHUB, mmhub_inst, regMM_CANE_ICG_CTRL);
+-	reg_value = REG_SET_FIELD(reg_value, MM_CANE_ICG_CTRL,
+-				  SOFT_OVERRIDE_ATRET, 0);
+-	WREG32_SOC15(MMHUB, mmhub_inst, regMM_CANE_ICG_CTRL, reg_value);
+-}
+-
+-static void mmhub_v1_8_reset_ras_error_status(struct amdgpu_device *adev)
+-{
+-	uint32_t inst_mask;
+-	uint32_t i;
+-
+-	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__MMHUB)) {
+-		dev_warn(adev->dev, "MMHUB RAS is not supported\n");
+-		return;
+-	}
+-
+-	inst_mask = adev->aid_mask;
+-	for_each_inst(i, inst_mask)
+-		mmhub_v1_8_inst_reset_ras_err_status(adev, i);
+-}
+-
+ static const struct amdgpu_ras_block_hw_ops mmhub_v1_8_ras_hw_ops = {
+ 	.query_ras_error_count = mmhub_v1_8_query_ras_error_count,
+ 	.reset_ras_error_count = mmhub_v1_8_reset_ras_error_count,
+ 	.query_ras_error_status = mmhub_v1_8_query_ras_error_status,
+-	.reset_ras_error_status = mmhub_v1_8_reset_ras_error_status,
+ };
+ 
+ struct amdgpu_mmhub_ras mmhub_v1_8_ras = {
 -- 
 2.35.1
 
