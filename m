@@ -4,59 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62E15C46CA1
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 21:17:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42E31CDB483
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 21:19:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AD7010E32D;
-	Tue, 17 Oct 2023 21:17:02 +0000 (UTC)
-Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
- [IPv6:2001:4860:4864:20::32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC6AD10E32C;
- Tue, 17 Oct 2023 21:16:57 +0000 (UTC)
-Received: by mail-oa1-x32.google.com with SMTP id
- 586e51a60fabf-1e12f41e496so3800325fac.3; 
- Tue, 17 Oct 2023 14:16:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1697577417; x=1698182217; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DQG8MtBQiSnRV8n69T7HmV5t8yhCaq2M9pMbaLDDzpc=;
- b=bUXETrsE76QhWjOIC16GbnaLLSOOiSpMr3PJ3jiNCVgesuLruDaQG/F2Jum4MCEF78
- xpcTgx6uUOPxjZcAE8fPxbqPDFvlD7T1oIKRC2KGrUSvZs1/2KtNKoQEMaho8/d7RwEZ
- nKqO6/R0AzO32DbNeCZ0lAShdlY8cefUNgZkXxw052G/iXX2TiOQrXMKVmy6Zwj9Oy1g
- ihdwB8Qo/H8MYqGz1jYMCczoW9be8sPPXjvS/w+reCHkoY0aWlVUrPoDRiE65p4S7HrT
- 5TcUjjFtyamDkBNxrwaiq//uZn5ZMejOc5AqeoXlEvlOXkdQnVTUnRj7Uuu/7Rscn0PL
- 6iIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697577417; x=1698182217;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=DQG8MtBQiSnRV8n69T7HmV5t8yhCaq2M9pMbaLDDzpc=;
- b=ahUCvusxopXKekqdnD5APZEMXPee3Jp1HNxxyszRd3wp6z979NZBxY5cEPmeqWgaZW
- 1sOzzOo9DPtrAjMN2dk9I16tEXEaYhEqTpWbbzxkMRkAccwO7/qeDqLKmAqGkQQJ/rYy
- taqXLkeebAA3vL42X1e8Dvazt4Zq6d5C0MwhRuYP8bnrDxITe/GATR8xuwGtULikD3ys
- TQVDVr2WdGjVNEmoihwouXQlY4XxPkDRIE1HnsClStYwIsiLA3d8zpkXoBnZUION/Riv
- FqbKT6xktWncLSK3XU+TCquSuMBO7SMxNEa1EIZlyXwVF2WjGcflG6g4SVQhKOqXiPcD
- GlSQ==
-X-Gm-Message-State: AOJu0YyPNXSvaUDOip7y8g66Ba9fN4qcc1HylVcrl9p1aUFHZnndtHI3
- I2vhH1n/v7pEW0meYHwpTzDsxvQy1JZK76dysB8=
-X-Google-Smtp-Source: AGHT+IFIdnup1Pui0Ph3Sx3b6dyIUwP7KU7y+C7Voyy0lzypj5Ks7q5EsuqaHmjprmGcgrekVDP+pKHvrpPbrGFNJuA=
-X-Received: by 2002:a05:6870:1314:b0:1e9:9f9b:eb80 with SMTP id
- 20-20020a056870131400b001e99f9beb80mr3731834oab.46.1697577417041; Tue, 17 Oct
- 2023 14:16:57 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E793110E32C;
+	Tue, 17 Oct 2023 21:19:54 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D091410E32C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Oct 2023 21:19:52 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 1698C615CB;
+ Tue, 17 Oct 2023 21:19:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F627C433C7;
+ Tue, 17 Oct 2023 21:19:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1697577591;
+ bh=vRZpg6PdpL3MhE26E/oC79Qb79senuuvZ43lnvsq0nQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=N90iWyBrofTafsz5IKzp3zu0oZh0l/5hfUL6JLJT+VcUAJjm8RyYqFeCY9i5oR5BS
+ LYXQl50He5hlt8Duo6+20IfNNieFjn0XGI9LetezJzpAefOlqvMvwTAgTjvTtm1l1T
+ ShECQmXtBGaKoF0rt+aJbjm8vH8XsKqpiyZu1M/yDIEaJqryjEWoSChe40mbbRPVPI
+ VmyruZKlKAZ1tsrc3trQo3ecmeyybmI6690EYrdrQTtWyg98gPWFrT5RGBIbimBl4W
+ H+G7SdTr9VY5wrI2IGGdjDhcatHxpRFlBWRqkVPhWokYFyZmJhscO9Ww38a5cKjIEq
+ SEibGCVx0D2eA==
+Date: Tue, 17 Oct 2023 14:19:49 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
+Subject: Re: [PATCH 0/2] Reduce stack size for DML2
+Message-ID: <20231017211949.GA2311196@dev-arch.thelio-3990X>
+References: <20231016142031.241912-1-Rodrigo.Siqueira@amd.com>
+ <20231017172231.GA2348194@dev-arch.thelio-3990X>
+ <af5900a6-e3ae-4cf1-9a29-89484f411a1c@amd.com>
 MIME-Version: 1.0
-References: <20231017080616.18970-1-colin.i.king@gmail.com>
-In-Reply-To: <20231017080616.18970-1-colin.i.king@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 17 Oct 2023 17:16:46 -0400
-Message-ID: <CADnq5_PemQtG4CeeDm4QvNMWF_O69AXD5k66R2C3OhWe8L6sdA@mail.gmail.com>
-Subject: Re: [PATCH][next] drm/amd/display: Fix a handful of spelling mistakes
- in dml_print output
-To: Colin Ian King <colin.i.king@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <af5900a6-e3ae-4cf1-9a29-89484f411a1c@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,91 +50,152 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel-janitors@vger.kernel.org, Leo Li <sunpeng.li@amd.com>,
- David Airlie <airlied@gmail.com>, Qingqing Zhuo <Qingqing.Zhuo@amd.com>,
- Xinhui.Pan@amd.com, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>, llvm@lists.linux.dev,
+ Roman Li <roman.li@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-next@vger.kernel.org, "Mahfooz, Hamza" <hamza.mahfooz@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+ Chaitanya Dhere <chaitanya.dhere@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Tue, Oct 17, 2023 at 11:45:42AM -0600, Rodrigo Siqueira Jordao wrote:
+> Hi Nathan,
+> (+Hamza)
+> 
+> First of all, thanks a lot for your feedback. You can see my comments
+> inline.
+> 
+> On 10/17/23 11:22, Nathan Chancellor wrote:
+> > Hi Rodrigo,
+> > 
+> > On Mon, Oct 16, 2023 at 08:19:16AM -0600, Rodrigo Siqueira wrote:
+> > > Stephen discovers a stack size issue when compiling the latest amdgpu
+> > > code with allmodconfig. This patchset addresses that issue by splitting
+> > > a large function into two smaller parts.
+> > > 
+> > > Thanks
+> > > Siqueira
+> > > 
+> > > Rodrigo Siqueira (2):
+> > >    drm/amd/display: Reduce stack size by splitting function
+> > >    drm/amd/display: Fix stack size issue on DML2
+> > > 
+> > >   .../amd/display/dc/dml2/display_mode_core.c   | 3289 +++++++++--------
+> > >   1 file changed, 1653 insertions(+), 1636 deletions(-)
+> > > 
+> > > -- 
+> > > 2.42.0
+> > > 
+> > 
+> > This series appears in -next as commit c587ee30f376 ("drm/amd/display:
+> > Reduce stack size by splitting function"); while it may help stack usage
+> > for GCC, clang still suffers. All clang versions that the kernel
+> > supports show a warning for dml_prefetch_check(), the following is with
+> > LLVM 17.0.2 from kernel.org [1].
+> > 
+> >    drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c:6263:13: error: stack frame size (2520) exceeds limit (2048) in 'dml_prefetch_check' [-Werror,-Wframe-larger-than]
+> >     6263 | static void dml_prefetch_check(struct display_mode_lib_st *mode_lib)
+> >          |             ^
+> > 
+> > With clang 18.0.0 (tip of tree) and 15.0.7, I see:
+> > 
+> >    drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c:8277:6: error: stack frame size (2056) exceeds limit (2048) in 'dml_core_mode_programming' [-Werror,-Wframe-larger-than]
+> >     8277 | void dml_core_mode_programming(struct display_mode_lib_st *mode_lib, const struct dml_clk_cfg_st *clk_cfg)
+> >          |      ^
+> > 
+> > For what it's worth, building with GCC 13.2.0 with a slighly lower
+> > -Wframe-larger-than value reveals that dml_prefetch_check() is right at
+> > the current limit and the stack usage of dml_core_mode_programming()
+> > when built with GCC is not too far of clang's, so it seems like there
+> > should be a more robust set of fixes, such as the ones that I have
+> > already done for older generations of this code.
+> > 
+> >    drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c: In function 'dml_prefetch_check':
+> >    drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c:6705:1: error: the frame size of 2048 bytes is larger than 1800 bytes [-Werror=frame-larger-than=]
+> >     6705 | }
+> >          | ^
+> > 
+> >    drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c: In function 'dml_core_mode_programming':
+> >    drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c:9893:1: error: the frame size of 1880 bytes is larger than 1800 bytes [-Werror=frame-larger-than=]
+> >     9893 | } // dml_core_mode_programming
+> >          | ^
+> > 
+> > 41012d715d5d drm/amd/display: Mark dml30's UseMinimumDCFCLK() as noinline for stack usage
+> > 21485d3da659 drm/amd/display: Reduce number of arguments of dml31's CalculateFlipSchedule()
+> > 37934d4118e2 drm/amd/display: Reduce number of arguments of dml31's CalculateWatermarksAndDRAMSpeedChangeSupport()
+> > a3fef74b1d48 drm/amd/display: Reduce number of arguments of dml32_CalculatePrefetchSchedule()
+> > c4be0ac987f2 drm/amd/display: Reduce number of arguments of dml32_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport()
+> > 25ea501ed85d drm/amd/display: Reduce number of arguments of dml314's CalculateFlipSchedule()
+> > ca07f4f5a98b drm/amd/display: Reduce number of arguments of dml314's CalculateWatermarksAndDRAMSpeedChangeSupport()
+> > 
+> > It would be really nice if these would somehow make it back to the
+> > original sources so that we stop going through this every time a new
+> > version of this code shows up.
+> 
+> I'm familiar with that approach of reducing the stack size. Correct me if
+> I'm wrong, but the idea can be summarized as:
+> 
+> 1. Move the local variable to a new struct.
+> 2. Add the new struct as a reference to the main struct.
+> 3. Update the function to use the elements in those structs.
+> 
+> I used this approach a lot in the past to reduce the stack size. However, I
+> think this case is a little bit different. The target function is
 
-On Tue, Oct 17, 2023 at 4:22=E2=80=AFAM Colin Ian King <colin.i.king@gmail.=
-com> wrote:
->
-> There are a few spelling mistakes and an minor grammatical issue in
-> some dml_print messages. Fix these.
->
-> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c b/dr=
-ivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
-> index 851db026f251..218c355a97a4 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
-> @@ -1507,7 +1507,7 @@ static dml_bool_t CalculatePrefetchSchedule(struct =
-display_mode_lib_scratch_st *
->                 dml_print("DML: Tvm: %fus - time to fetch page tables for=
- meta surface\n", s->TimeForFetchingMetaPTE);
->                 dml_print("DML: Tr0: %fus - time to fetch first row of da=
-ta pagetables and first row of meta data (done in parallel)\n", s->TimeForF=
-etchingRowInVBlank);
->                 dml_print("DML: Tsw: %fus =3D time to fetch enough pixel =
-data and cursor data to feed the scalers init position and detile\n", (dml_=
-float_t)s->LinesToRequestPrefetchPixelData * s->LineTime);
-> -               dml_print("DML: To: %fus - time for propogation from scal=
-er to optc\n", (*p->DSTYAfterScaler + ((dml_float_t) (*p->DSTXAfterScaler) =
-/ (dml_float_t)p->myPipe->HTotal)) * s->LineTime);
-> +               dml_print("DML: To: %fus - time for propagation from scal=
-er to optc\n", (*p->DSTYAfterScaler + ((dml_float_t) (*p->DSTXAfterScaler) =
-/ (dml_float_t)p->myPipe->HTotal)) * s->LineTime);
->                 dml_print("DML: Tvstartup - TSetup - Tcalc - Twait - Tpre=
- - To > 0\n");
->                 dml_print("DML: Tslack(pre): %fus - time left over in sch=
-edule\n", p->VStartup * s->LineTime - s->TimeForFetchingMetaPTE - 2 * s->Ti=
-meForFetchingRowInVBlank - (*p->DSTYAfterScaler + ((dml_float_t) (*p->DSTXA=
-fterScaler) / (dml_float_t)p->myPipe->HTotal)) * s->LineTime - p->TWait - p=
-->TCalc - *p->TSetup);
->                 dml_print("DML: row_bytes =3D dpte_row_bytes (per_pipe) =
-=3D PixelPTEBytesPerRow =3D : %u\n", p->PixelPTEBytesPerRow);
-> @@ -9323,7 +9323,7 @@ void dml_core_mode_programming(struct display_mode_=
-lib_st *mode_lib, const struc
->                                 if (mode_lib->ms.policy.ImmediateFlipRequ=
-irement[k] !=3D dml_immediate_flip_not_required && locals->ImmediateFlipSup=
-portedForPipe[k] =3D=3D false) {
->                                         locals->ImmediateFlipSupported =
-=3D false;
->  #ifdef __DML_VBA_DEBUG__
-> -                                       dml_print("DML::%s: Pipe %0d not =
-supporing iflip\n", __func__, k);
-> +                                       dml_print("DML::%s: Pipe %0d not =
-supporting iflip\n", __func__, k);
->  #endif
->                                 }
->                         }
-> @@ -9376,7 +9376,7 @@ void dml_core_mode_programming(struct display_mode_=
-lib_st *mode_lib, const struc
->         if (locals->PrefetchAndImmediateFlipSupported) {
->                 dml_print("DML::%s: Good, Prefetch and flip scheduling so=
-lution found at VStartupLines=3D%u (MaxVStartupAllPlanes=3D%u)\n", __func__=
-, s->VStartupLines-1, s->MaxVStartupAllPlanes);
->         } else {
-> -               dml_print("DML::%s: Bad, Prefetch and flip scheduling sol=
-uation NOT found solution! (MaxVStartupAllPlanes=3D%u)\n", __func__, s->Max=
-VStartupAllPlanes);
-> +               dml_print("DML::%s: Bad, Prefetch and flip scheduling sol=
-ution did NOT find solution! (MaxVStartupAllPlanes=3D%u)\n", __func__, s->M=
-axVStartupAllPlanes);
->         }
->
->         //Watermarks and NB P-State/DRAM Clock Change Support
-> --
-> 2.39.2
->
+Right, I would agree with this assessment.
+
+> display_mode_core, which does not have a lot of local variables, as you can
+> see in the below link:
+> 
+> https://gitlab.freedesktop.org/agd5f/linux/-/blob/amd-staging-drm-next/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c#L6212
+
+Based on my experience in the past and my limited knowledge of LLVM
+internals, I think this is likely caused by excessive inlining combined
+with several functions that take a high number of parameters, which
+means the compiler has to spill passing parameters to the stack when it
+runs out of registers. The majority of the commits I mentioned above
+were focused on reducing the number of parameters to various functions,
+which showed the largest stack usage wins.
+
+> > I thought that AMD has started testing
+> > with clang, how were these warnings not caught before the code was
+> > merged? If you are unable to look into these warnings, I can try to
+> > double back to this once I look into the other fires in -next...
+> 
+> Yeah, our CI uses GCC and Clang, but the version provided by the distro.
+> Additionally, we do not use allmodconfig per patch; we use a custom config
+> file to keep the build time under control.
+
+That is understandable. I am not sure how much control over the build
+command you have with your target or how much spare capacity you are
+working with but it would be nice if you could run allmodconfig and just
+the AMDGPU folder target, which would catch a majority of problems. For
+example, this problem reproduces for me with just:
+
+  $ make -skj"$(nproc)" ARCH=x86_64 LLVM=1 allmodconfig drivers/gpu/drm/amd/amdgpu/
+
+which should not take that long, even on a relatively slow machine. One
+of my test machines has a Ryzen 3 4300G (4C/8T), which did that command
+in around 3 minutes, and I assume you have access to better machines
+than that.
+
+> Anyway, we tried to understand why this issue only showed up with the
+> allmodconfig, and Hamza figured out that enabling the KCSAN option in our
+> config file exposes those stack issues. I don't know the details behind
+> KCSAN, but it looks like it will expand the stack size in the functions.
+> 
+> Maybe can you check in your side if disable KCSAN also fix the issues on
+> clang? Do you have any other suggestion on how I can try to reduce the stack
+> size in this particular case?
+
+If CONFIG_KASAN, CONFIG_KCSAN, and CONFIG_KMSAN are disabled, I see no
+-Wframe-larger-than warnings (I tested with KCONFIG_ALLCONFIG). While I
+would personally like to see these disabled with allmodconfig, that is
+not the current reality. We are also looking into reducing stack usage
+in clang but that will only help newer releases. I think looking into
+reducing the number of parameters of various functions called throughout
+dml_prefetch_check() and dml_core_mode_programming() is likely the right
+way to solve this, or at least the most reliable methods.
+
+Cheers,
+Nathan
