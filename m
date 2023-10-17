@@ -4,58 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60598CDB474
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 21:26:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3167DC41513
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 22:31:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D614F10E02F;
-	Tue, 17 Oct 2023 21:26:43 +0000 (UTC)
-Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
- [IPv6:2001:4860:4864:20::29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0F5210E02F
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Oct 2023 21:26:42 +0000 (UTC)
-Received: by mail-oa1-x29.google.com with SMTP id
- 586e51a60fabf-1dcdfeb7e44so3922048fac.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Oct 2023 14:26:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1697578002; x=1698182802; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=/7oRudJTZNQ63tfH/j3jOwQZOr/oDmGpk2QUzgSFYa8=;
- b=TGD7vYmuFu/C6zTYbSpGb61zlN0zW2EQdzIYFOvR9vFYEi1Pjd9m35YzEKjZTi9llM
- Bem4fOUnObja7OWCuIAu4NrEDbzqmUtXHZg6zf/qT9TNBwfa2QvyK0L7zkRhKFTu6qQq
- XiWIfOpCoMhP76159KKXkG6E/3B3Qj5bTbQ7N+/TVY8C1iQhfB0ilasEVyRfBHzxZWwj
- YZPPbVo6vTY3iLXCzmYLKtQ5BW/oytJvJhsxx4qdZQuI35NHMXvIb3YP/iUaqZ918nZe
- ln6mTXez8sSGtZCArYsNeVoUP5R9uqMvbQXraarVjFLXJhbqte0R0xiACMcPHo6wN1d7
- OD8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697578002; x=1698182802;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=/7oRudJTZNQ63tfH/j3jOwQZOr/oDmGpk2QUzgSFYa8=;
- b=T0IdRBrdPQbIvL0NNv0wfUIN2Jp5AJH8irCeWpgeaF9yXImhqj98oo+cT3167JqHNR
- Sam/T+42PvE16htbuBheCu1aMJSFMc0jTuaTcGIISa5AoDQOp+ZwqgbSSAdPexPZjaPu
- 8S+y4bERZNhHl13HhitoOB9fe1esJacnJ8k1bhKjfbSN5hrCpyqjNb/FT8dMFQYBXFHi
- yQMtLhHtoT23ChMFvrpgtz2FL7jTwHNR8wqzmsoLwkgafVmwKI6WdLYtY7O8JsV1RGbE
- laTAi0h9pkNbgILZyL2OULe5UQI9pSjGq/XTxhpi/aGNj3kQ7q4e5RkHCJIQOEhIdW+8
- +3XA==
-X-Gm-Message-State: AOJu0YzpqgxZaDJ9KlwtWQG5DTY2jgFGNfBGHLyoGKyI7oVuNA727ElY
- /39JTTAAwxJ+u5cfnflSFMRMs9j+XA35Pw3bd0o=
-X-Google-Smtp-Source: AGHT+IFHP3DC+vFE1ZAYUASSi1nwdTzgbABfTYwexiMCgpOeTNU5eenzTLo8MmvJE5ZGboVQ1DHYQ9vTtJLksnkDmLE=
-X-Received: by 2002:a05:6870:212:b0:1e9:a770:61eb with SMTP id
- j18-20020a056870021200b001e9a77061ebmr4182248oad.29.1697578001683; Tue, 17
- Oct 2023 14:26:41 -0700 (PDT)
-MIME-Version: 1.0
-References: <20231017140135.1122153-1-bas@basnieuwenhuizen.nl>
-In-Reply-To: <20231017140135.1122153-1-bas@basnieuwenhuizen.nl>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 17 Oct 2023 17:26:30 -0400
-Message-ID: <CADnq5_Mcrd3czO4jxqUCryn-gNCCM_1+8J5vwT=CTJLJys9B6Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: Handle non-terminated overdrive commands.
-To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4C8210E05A;
+	Tue, 17 Oct 2023 22:31:49 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BA2410E05A;
+ Tue, 17 Oct 2023 22:31:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1697581908; x=1729117908;
+ h=date:from:to:cc:subject:message-id;
+ bh=+PZzgswT11tTCY1wW5RYTAzOwYzHytdZcwrWclS/1Lw=;
+ b=RX1xwzxHHVS1Xqa2ZB8M59a/5KlE7AHXttUf18CmqCTmyk+znWkRsJOd
+ o2oIWpd1sqKovnh+W5RGy7vrsbGBBqn1YUiDyi2m6UXNbZN9Z20qcCw+f
+ lajK/uR3AFAVg+r/ZS9wRjj863HU8VvL/DqiWzMuqifIz8dU7y2E5Y2oF
+ d1Z/TneK4MK1cCf06oxFW06ecD1BpDfqbkSQCnix6xZG95IKn7PggKrv3
+ ZLya+3bVVeLExoolwrWvJswco1uC1IRQH3jb3315UzAoQqCsn4erx1I+q
+ jzMLWhVm42rH8T9ZGgTDSgXV3Rj2+ePxaSCEvXUOFEKDls9v7fLVlLzOq A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="376260808"
+X-IronPort-AV: E=Sophos;i="6.03,233,1694761200"; d="scan'208";a="376260808"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Oct 2023 15:31:47 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="759988573"
+X-IronPort-AV: E=Sophos;i="6.03,233,1694761200"; d="scan'208";a="759988573"
+Received: from lkp-server02.sh.intel.com (HELO f64821696465) ([10.239.97.151])
+ by fmsmga007.fm.intel.com with ESMTP; 17 Oct 2023 15:31:45 -0700
+Received: from kbuild by f64821696465 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qssbF-000ABQ-0H;
+ Tue, 17 Oct 2023 22:31:42 +0000
+Date: Wed, 18 Oct 2023 06:30:37 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 4d5ab2376ec576af173e5eac3887ed0b51bd8566
+Message-ID: <202310180627.U2wgFLJO-lkp@intel.com>
+User-Agent: s-nail v14.9.24
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,67 +54,231 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, Rex.Zhu@amd.com, stable@vger.kernel.org,
- amd-gfx@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ linux-security-module@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ bpf@vger.kernel.org, freedreno@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 4d5ab2376ec576af173e5eac3887ed0b51bd8566  Add linux-next specific files for 20231017
 
-On Tue, Oct 17, 2023 at 10:01=E2=80=AFAM Bas Nieuwenhuizen
-<bas@basnieuwenhuizen.nl> wrote:
->
-> The incoming strings might not be terminated by a newline
-> or a 0.
->
-> (found while testing a program that just wrote the string
->  itself, causing a crash)
->
-> Cc: stable@vger.kernel.org
-> Fixes: e3933f26b657 ("drm/amd/pp: Add edit/commit/show OD clock/voltage s=
-upport in sysfs")
-> Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-> ---
->  drivers/gpu/drm/amd/pm/amdgpu_pm.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/=
-amdgpu_pm.c
-> index da0da03569e8..f9c9eba1a815 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> @@ -760,7 +760,7 @@ static ssize_t amdgpu_set_pp_od_clk_voltage(struct de=
-vice *dev,
->         if (adev->in_suspend && !adev->in_runpm)
->                 return -EPERM;
->
-> -       if (count > 127)
-> +       if (count > 127 || count =3D=3D 0)
->                 return -EINVAL;
->
->         if (*buf =3D=3D 's')
-> @@ -780,7 +780,8 @@ static ssize_t amdgpu_set_pp_od_clk_voltage(struct de=
-vice *dev,
->         else
->                 return -EINVAL;
->
-> -       memcpy(buf_cpy, buf, count+1);
-> +       memcpy(buf_cpy, buf, count);
-> +       buf_cpy[count] =3D 0;
->
->         tmp_str =3D buf_cpy;
->
-> @@ -797,6 +798,9 @@ static ssize_t amdgpu_set_pp_od_clk_voltage(struct de=
-vice *dev,
->                         return -EINVAL;
->                 parameter_size++;
->
-> +               if (!tmp_str)
-> +                       break;
-> +
->                 while (isspace(*tmp_str))
->                         tmp_str++;
->         }
-> --
-> 2.42.0
->
+Error/Warning reports:
+
+https://lore.kernel.org/oe-kbuild-all/202309212121.cul1pTRa-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202309212339.hxhBu2F1-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202310171612.nWyFirmz-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202310171657.KGpaQG47-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202310171905.azfrKoID-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202310172007.cCfBVBuG-lkp@intel.com
+
+Error/Warning: (recently discovered and may have been fixed)
+
+drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:286:52: warning: '%s' directive output may be truncated writing up to 29 bytes into a region of size 23 [-Wformat-truncation=]
+drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu14/smu_v14_0.c:72:52: warning: '%s' directive output may be truncated writing up to 29 bytes into a region of size 23 [-Wformat-truncation=]
+drivers/gpu/drm/msm/adreno/a6xx_gmu.c:1752:(.text+0x455c): undefined reference to `qmp_get'
+drivers/gpu/drm/msm/adreno/a6xx_gmu.c:994:(.text+0x369c): undefined reference to `qmp_send'
+kernel/bpf/helpers.c:1909:19: warning: no previous declaration for 'bpf_percpu_obj_new_impl' [-Wmissing-declarations]
+kernel/bpf/helpers.c:1945:18: warning: no previous declaration for 'bpf_percpu_obj_drop_impl' [-Wmissing-declarations]
+kernel/bpf/helpers.c:2480:18: warning: no previous declaration for 'bpf_throw' [-Wmissing-declarations]
+security/landlock/net.h:26:1: warning: 'landlock_append_net_rule' declared 'static' but never defined [-Wunused-function]
+security/landlock/net.h:26:1: warning: 'landlock_append_net_rule' used but never defined
+security/landlock/net.h:28:1: error: expected identifier or '('
+security/landlock/net.h:28:1: error: expected identifier or '(' before '{' token
+
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml:
+Documentation/devicetree/bindings/mfd/qcom-pm8xxx.yaml:
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- arm-buildonly-randconfig-r006-20230322
+|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
+|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
+|-- arm64-randconfig-r003-20220728
+|   |-- drivers-gpu-drm-msm-adreno-a6xx_gmu.c:(.text):undefined-reference-to-qmp_get
+|   `-- drivers-gpu-drm-msm-adreno-a6xx_gmu.c:(.text):undefined-reference-to-qmp_send
+|-- i386-buildonly-randconfig-004-20231017
+|   |-- security-landlock-net.h:error:expected-identifier-or-(-before-token
+|   |-- security-landlock-net.h:warning:landlock_append_net_rule-declared-static-but-never-defined
+|   `-- security-landlock-net.h:warning:landlock_append_net_rule-used-but-never-defined
+|-- loongarch-randconfig-001-20231017
+|   |-- Documentation-devicetree-bindings-mfd-qcom-pm8xxx.yaml:
+|   `-- Documentation-devicetree-bindings-mfd-qcom-tcsr.yaml:
+|-- microblaze-randconfig-r004-20230514
+|   |-- security-landlock-net.h:error:expected-identifier-or-(-before-token
+|   |-- security-landlock-net.h:warning:landlock_append_net_rule-declared-static-but-never-defined
+|   `-- security-landlock-net.h:warning:landlock_append_net_rule-used-but-never-defined
+|-- openrisc-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
+|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
+|-- openrisc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
+|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
+|-- powerpc-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
+|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
+|-- powerpc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
+|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
+|-- riscv-randconfig-001-20231017
+|   |-- security-landlock-net.h:warning:landlock_append_net_rule-declared-static-but-never-defined
+|   `-- security-landlock-net.h:warning:landlock_append_net_rule-used-but-never-defined
+|-- riscv-randconfig-002-20231017
+|   |-- security-landlock-net.h:warning:landlock_append_net_rule-declared-static-but-never-defined
+|   `-- security-landlock-net.h:warning:landlock_append_net_rule-used-but-never-defined
+|-- x86_64-buildonly-randconfig-004-20231017
+|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
+|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
+|-- x86_64-randconfig-001-20231017
+|   |-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_percpu_obj_drop_impl
+|   |-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_percpu_obj_new_impl
+|   `-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_throw
+`-- x86_64-randconfig-015-20231017
+    |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
+    `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
+clang_recent_errors
+`-- hexagon-buildonly-randconfig-r005-20211202
+    `-- security-landlock-net.h:error:expected-identifier-or-(
+
+elapsed time: 1053m
+
+configs tested: 128
+configs skipped: 2
+
+tested configs:
+alpha                             allnoconfig   gcc  
+alpha                            allyesconfig   gcc  
+alpha                               defconfig   gcc  
+arc                              allmodconfig   gcc  
+arc                               allnoconfig   gcc  
+arc                              allyesconfig   gcc  
+arc                                 defconfig   gcc  
+arc                   randconfig-001-20231017   gcc  
+arm                              allmodconfig   gcc  
+arm                               allnoconfig   gcc  
+arm                              allyesconfig   gcc  
+arm                                 defconfig   gcc  
+arm                   randconfig-001-20231017   gcc  
+arm64                            allmodconfig   gcc  
+arm64                             allnoconfig   gcc  
+arm64                            allyesconfig   gcc  
+arm64                               defconfig   gcc  
+csky                             allmodconfig   gcc  
+csky                              allnoconfig   gcc  
+csky                             allyesconfig   gcc  
+csky                                defconfig   gcc  
+i386                             allmodconfig   gcc  
+i386                              allnoconfig   gcc  
+i386                             allyesconfig   gcc  
+i386         buildonly-randconfig-001-20231017   gcc  
+i386         buildonly-randconfig-002-20231017   gcc  
+i386         buildonly-randconfig-003-20231017   gcc  
+i386         buildonly-randconfig-004-20231017   gcc  
+i386         buildonly-randconfig-005-20231017   gcc  
+i386         buildonly-randconfig-006-20231017   gcc  
+i386                              debian-10.3   gcc  
+i386                                defconfig   gcc  
+i386                  randconfig-001-20231017   gcc  
+i386                  randconfig-002-20231017   gcc  
+i386                  randconfig-003-20231017   gcc  
+i386                  randconfig-004-20231017   gcc  
+i386                  randconfig-005-20231017   gcc  
+i386                  randconfig-006-20231017   gcc  
+i386                  randconfig-011-20231017   gcc  
+i386                  randconfig-012-20231017   gcc  
+i386                  randconfig-013-20231017   gcc  
+i386                  randconfig-014-20231017   gcc  
+i386                  randconfig-015-20231017   gcc  
+i386                  randconfig-016-20231017   gcc  
+loongarch                        allmodconfig   gcc  
+loongarch                         allnoconfig   gcc  
+loongarch                        allyesconfig   gcc  
+loongarch                           defconfig   gcc  
+loongarch             randconfig-001-20231017   gcc  
+m68k                             allmodconfig   gcc  
+m68k                              allnoconfig   gcc  
+m68k                             allyesconfig   gcc  
+m68k                                defconfig   gcc  
+microblaze                       allmodconfig   gcc  
+microblaze                        allnoconfig   gcc  
+microblaze                       allyesconfig   gcc  
+microblaze                          defconfig   gcc  
+mips                             allmodconfig   gcc  
+mips                              allnoconfig   gcc  
+mips                             allyesconfig   gcc  
+nios2                            allmodconfig   gcc  
+nios2                             allnoconfig   gcc  
+nios2                            allyesconfig   gcc  
+nios2                               defconfig   gcc  
+openrisc                         allmodconfig   gcc  
+openrisc                          allnoconfig   gcc  
+openrisc                         allyesconfig   gcc  
+openrisc                            defconfig   gcc  
+parisc                           allmodconfig   gcc  
+parisc                            allnoconfig   gcc  
+parisc                           allyesconfig   gcc  
+parisc                              defconfig   gcc  
+parisc64                            defconfig   gcc  
+powerpc                          allmodconfig   gcc  
+powerpc                           allnoconfig   gcc  
+powerpc                          allyesconfig   gcc  
+riscv                            allmodconfig   gcc  
+riscv                             allnoconfig   gcc  
+riscv                            allyesconfig   gcc  
+riscv                               defconfig   gcc  
+riscv                 randconfig-001-20231017   gcc  
+riscv                          rv32_defconfig   gcc  
+s390                             allmodconfig   gcc  
+s390                              allnoconfig   gcc  
+s390                             allyesconfig   gcc  
+s390                                defconfig   gcc  
+s390                  randconfig-001-20231017   gcc  
+sh                               allmodconfig   gcc  
+sh                                allnoconfig   gcc  
+sh                               allyesconfig   gcc  
+sh                                  defconfig   gcc  
+sparc                            allmodconfig   gcc  
+sparc                             allnoconfig   gcc  
+sparc                            allyesconfig   gcc  
+sparc                               defconfig   gcc  
+sparc                 randconfig-001-20231017   gcc  
+sparc64                          allmodconfig   gcc  
+sparc64                          allyesconfig   gcc  
+sparc64                             defconfig   gcc  
+um                               allmodconfig   clang
+um                                allnoconfig   clang
+um                               allyesconfig   clang
+um                                  defconfig   gcc  
+um                             i386_defconfig   gcc  
+um                           x86_64_defconfig   gcc  
+x86_64                            allnoconfig   gcc  
+x86_64                           allyesconfig   gcc  
+x86_64       buildonly-randconfig-001-20231017   gcc  
+x86_64       buildonly-randconfig-002-20231017   gcc  
+x86_64       buildonly-randconfig-003-20231017   gcc  
+x86_64       buildonly-randconfig-004-20231017   gcc  
+x86_64       buildonly-randconfig-005-20231017   gcc  
+x86_64       buildonly-randconfig-006-20231017   gcc  
+x86_64                              defconfig   gcc  
+x86_64                randconfig-001-20231017   gcc  
+x86_64                randconfig-002-20231017   gcc  
+x86_64                randconfig-003-20231017   gcc  
+x86_64                randconfig-004-20231017   gcc  
+x86_64                randconfig-005-20231017   gcc  
+x86_64                randconfig-006-20231017   gcc  
+x86_64                randconfig-011-20231017   gcc  
+x86_64                randconfig-012-20231017   gcc  
+x86_64                randconfig-013-20231017   gcc  
+x86_64                randconfig-014-20231017   gcc  
+x86_64                randconfig-015-20231017   gcc  
+x86_64                randconfig-016-20231017   gcc  
+x86_64                          rhel-8.3-rust   clang
+x86_64                               rhel-8.3   gcc  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
