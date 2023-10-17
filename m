@@ -4,13 +4,13 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E984ACDB482
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 09:29:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2B24CDB483
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 09:29:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9C4A10E29F;
-	Tue, 17 Oct 2023 09:28:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AEFB10E2A0;
+	Tue, 17 Oct 2023 09:28:56 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F37E010E297;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0126A10E29B;
  Tue, 17 Oct 2023 09:28:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
@@ -19,22 +19,22 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=dQbTPqJByKTPRLvnAel3VnOmQ8OJEdk4CamVdOalghI=; b=Jo4AZzxOJkvJwxXWTfsE4Zgt2X
- tna5CGyRFMLVrCxn47Sl65mR1FIEwyISddy7xwMy+fEIaxagAf/9OEpbAAuWxuLd468gHLC0EH578
- zbq7wjpIoZ/fh3JIiKiN5rjJT83EJXAd8H/UzP9epr04TMXr5veA4Ozr5oJMuQlKDK9kXqiWt6OOh
- sV9Dof/7cYavl/94toW4W0aSA8cambcnrPddNU+VqDMcfLEwwapJ+j5+OvbHsoKjFwqbA/x+Pibzx
- eArWy4+R/cjXY3f1J3Kue+p0/m1CtarjEulzASj4Wv1Q+711DmyWnZCzBPCfwf7LyuV15ohSf0ljZ
- X3359AqA==;
+ bh=vm+ljfEhFhjrjIw4zm0LotRIHN51OK9AcAjrUqL/uug=; b=LDEAw1TBBCX+xvLXxECpeYVXvO
+ SrGFT5XvOtDhJRdHco1B60fsDabwWh9krImXucmkHRzpg2nUV/U00IReax3zGWwr9qK3FlnfuwD5q
+ Lr8L0KKDbZT5Hx8JcjIkR7PUnhsG4BbbJAi2rlqWRP+fK5kWfaz+plJmWMQFD1m4a9NkIR5ggSG1A
+ ZQTCbMxDY4P3QGpaD/MlnC0l6a+whSpsqCQTeosow20m6Jrps7Fth+w4AAGjHMFOyHJ7PezaUdhXM
+ pQpoB3YgFU6tCQImZceRRDDzjFnRd4e/3NbBz5CL1AU0GVvbg6LvrXXS5wneGJwRvVMAN9fdwWSQN
+ qgQ0Qo4A==;
 Received: from 167.red-81-39-185.dynamicip.rima-tde.net ([81.39.185.167]
  helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qsgNc-001ODF-T9; Tue, 17 Oct 2023 11:28:48 +0200
+ id 1qsgNd-001ODF-TD; Tue, 17 Oct 2023 11:28:49 +0200
 From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v7 2/6] drm: introduce DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP
-Date: Tue, 17 Oct 2023 11:28:33 +0200
-Message-ID: <20231017092837.32428-3-andrealmeid@igalia.com>
+Subject: [PATCH v7 4/6] drm: Refuse to async flip with atomic prop changes
+Date: Tue, 17 Oct 2023 11:28:35 +0200
+Message-ID: <20231017092837.32428-5-andrealmeid@igalia.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231017092837.32428-1-andrealmeid@igalia.com>
 References: <20231017092837.32428-1-andrealmeid@igalia.com>
@@ -63,67 +63,166 @@ Cc: pierre-eric.pelloux-prayer@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Simon Ser <contact@emersion.fr>
+Given that prop changes may lead to modesetting, which would defeat the
+fast path of the async flip, refuse any atomic prop change for async
+flips in atomic API. The only exceptions are the framebuffer ID to flip
+to and the mode ID, that could be referring to an identical mode.
 
-This new kernel capability indicates whether async page-flips are
-supported via the atomic uAPI. DRM clients can use it to check
-for support before feeding DRM_MODE_PAGE_FLIP_ASYNC to the kernel.
-
-Make it clear that DRM_CAP_ASYNC_PAGE_FLIP is for legacy uAPI only.
-
-Signed-off-by: Simon Ser <contact@emersion.fr>
-Reviewed-by: André Almeida <andrealmeid@igalia.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: André Almeida <andrealmeid@igalia.com>
 ---
- drivers/gpu/drm/drm_ioctl.c |  5 +++++
- include/uapi/drm/drm.h      | 10 +++++++++-
- 2 files changed, 14 insertions(+), 1 deletion(-)
+v7: drop the mode_id exception for prop changes
+---
+ drivers/gpu/drm/drm_atomic_uapi.c   | 47 +++++++++++++++++++++++++++--
+ drivers/gpu/drm/drm_crtc_internal.h |  2 +-
+ drivers/gpu/drm/drm_mode_object.c   |  2 +-
+ 3 files changed, 46 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index 77590b0f38fa..a96e7acb9071 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -301,6 +301,11 @@ static int drm_getcap(struct drm_device *dev, void *data, struct drm_file *file_
- 	case DRM_CAP_CRTC_IN_VBLANK_EVENT:
- 		req->value = 1;
- 		break;
-+	case DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP:
-+		req->value = drm_core_check_feature(dev, DRIVER_ATOMIC) &&
-+			     dev->mode_config.async_page_flip &&
-+			     !dev->mode_config.atomic_async_page_flip_not_supported;
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
-index 794c1d857677..58baefe32c23 100644
---- a/include/uapi/drm/drm.h
-+++ b/include/uapi/drm/drm.h
-@@ -713,7 +713,8 @@ struct drm_gem_open {
- /**
-  * DRM_CAP_ASYNC_PAGE_FLIP
-  *
-- * If set to 1, the driver supports &DRM_MODE_PAGE_FLIP_ASYNC.
-+ * If set to 1, the driver supports &DRM_MODE_PAGE_FLIP_ASYNC for legacy
-+ * page-flips.
-  */
- #define DRM_CAP_ASYNC_PAGE_FLIP		0x7
- /**
-@@ -773,6 +774,13 @@ struct drm_gem_open {
-  * :ref:`drm_sync_objects`.
-  */
- #define DRM_CAP_SYNCOBJ_TIMELINE	0x14
-+/**
-+ * DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP
-+ *
-+ * If set to 1, the driver supports &DRM_MODE_PAGE_FLIP_ASYNC for atomic
-+ * commits.
-+ */
-+#define DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP	0x15
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index a15121e75a0a..b358de1bf4e7 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -1006,13 +1006,28 @@ int drm_atomic_connector_commit_dpms(struct drm_atomic_state *state,
+ 	return ret;
+ }
  
- /* DRM_IOCTL_GET_CAP ioctl argument type */
- struct drm_get_cap {
++static int drm_atomic_check_prop_changes(int ret, uint64_t old_val, uint64_t prop_value,
++					 struct drm_property *prop)
++{
++	if (ret != 0 || old_val != prop_value) {
++		drm_dbg_atomic(prop->dev,
++			       "[PROP:%d:%s] No prop can be changed during async flip\n",
++			       prop->base.id, prop->name);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
+ int drm_atomic_set_property(struct drm_atomic_state *state,
+ 			    struct drm_file *file_priv,
+ 			    struct drm_mode_object *obj,
+ 			    struct drm_property *prop,
+-			    uint64_t prop_value)
++			    uint64_t prop_value,
++			    bool async_flip)
+ {
+ 	struct drm_mode_object *ref;
++	uint64_t old_val;
+ 	int ret;
+ 
+ 	if (!drm_property_change_valid_get(prop, prop_value, &ref))
+@@ -1029,6 +1044,13 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+ 			break;
+ 		}
+ 
++		if (async_flip) {
++			ret = drm_atomic_connector_get_property(connector, connector_state,
++								prop, &old_val);
++			ret = drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
++			break;
++		}
++
+ 		ret = drm_atomic_connector_set_property(connector,
+ 				connector_state, file_priv,
+ 				prop, prop_value);
+@@ -1037,6 +1059,7 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+ 	case DRM_MODE_OBJECT_CRTC: {
+ 		struct drm_crtc *crtc = obj_to_crtc(obj);
+ 		struct drm_crtc_state *crtc_state;
++		struct drm_mode_config *config = &crtc->dev->mode_config;
+ 
+ 		crtc_state = drm_atomic_get_crtc_state(state, crtc);
+ 		if (IS_ERR(crtc_state)) {
+@@ -1044,6 +1067,13 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+ 			break;
+ 		}
+ 
++		if (async_flip) {
++			ret = drm_atomic_crtc_get_property(crtc, crtc_state,
++							   prop, &old_val);
++			ret = drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
++			break;
++		}
++
+ 		ret = drm_atomic_crtc_set_property(crtc,
+ 				crtc_state, prop, prop_value);
+ 		break;
+@@ -1051,6 +1081,7 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+ 	case DRM_MODE_OBJECT_PLANE: {
+ 		struct drm_plane *plane = obj_to_plane(obj);
+ 		struct drm_plane_state *plane_state;
++		struct drm_mode_config *config = &plane->dev->mode_config;
+ 
+ 		plane_state = drm_atomic_get_plane_state(state, plane);
+ 		if (IS_ERR(plane_state)) {
+@@ -1058,6 +1089,13 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+ 			break;
+ 		}
+ 
++		if (async_flip && prop != config->prop_fb_id) {
++			ret = drm_atomic_plane_get_property(plane, plane_state,
++							    prop, &old_val);
++			ret = drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
++			break;
++		}
++
+ 		ret = drm_atomic_plane_set_property(plane,
+ 				plane_state, file_priv,
+ 				prop, prop_value);
+@@ -1349,6 +1387,7 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+ 	struct drm_out_fence_state *fence_state;
+ 	int ret = 0;
+ 	unsigned int i, j, num_fences;
++	bool async_flip = false;
+ 
+ 	/* disallow for drivers not supporting atomic: */
+ 	if (!drm_core_check_feature(dev, DRIVER_ATOMIC))
+@@ -1385,6 +1424,8 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+ 				       "commit failed: DRM_MODE_PAGE_FLIP_ASYNC not supported with atomic\n");
+ 			return -EINVAL;
+ 		}
++
++		async_flip = true;
+ 	}
+ 
+ 	/* can't test and expect an event at the same time. */
+@@ -1469,8 +1510,8 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+ 				goto out;
+ 			}
+ 
+-			ret = drm_atomic_set_property(state, file_priv,
+-						      obj, prop, prop_value);
++			ret = drm_atomic_set_property(state, file_priv, obj,
++						      prop, prop_value, async_flip);
+ 			if (ret) {
+ 				drm_mode_object_put(obj);
+ 				goto out;
+diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
+index 8556c3b3ff88..a4c2ea33b1ef 100644
+--- a/drivers/gpu/drm/drm_crtc_internal.h
++++ b/drivers/gpu/drm/drm_crtc_internal.h
+@@ -251,7 +251,7 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+ 			    struct drm_file *file_priv,
+ 			    struct drm_mode_object *obj,
+ 			    struct drm_property *prop,
+-			    uint64_t prop_value);
++			    uint64_t prop_value, bool async_flip);
+ int drm_atomic_get_property(struct drm_mode_object *obj,
+ 			    struct drm_property *property, uint64_t *val);
+ 
+diff --git a/drivers/gpu/drm/drm_mode_object.c b/drivers/gpu/drm/drm_mode_object.c
+index ac0d2ce3f870..0e8355063eee 100644
+--- a/drivers/gpu/drm/drm_mode_object.c
++++ b/drivers/gpu/drm/drm_mode_object.c
+@@ -538,7 +538,7 @@ static int set_property_atomic(struct drm_mode_object *obj,
+ 						       obj_to_connector(obj),
+ 						       prop_value);
+ 	} else {
+-		ret = drm_atomic_set_property(state, file_priv, obj, prop, prop_value);
++		ret = drm_atomic_set_property(state, file_priv, obj, prop, prop_value, false);
+ 		if (ret)
+ 			goto out;
+ 		ret = drm_atomic_commit(state);
 -- 
 2.42.0
 
