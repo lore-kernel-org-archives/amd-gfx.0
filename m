@@ -4,52 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A72BCDB474
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 15:55:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1A23CDB474
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 16:59:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8189010E306;
-	Tue, 17 Oct 2023 15:55:50 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FE0410E305;
- Tue, 17 Oct 2023 15:55:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1697558147; x=1729094147;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=PdRQtW1RsEyKvVD1SIpdj+V1KGBuViZmfbhU4YbcJbg=;
- b=LjVLHf+Y+/yami/RBm3DV3Iiw1vFME05GWak7kNDe+g9YKHYLyt/yRB2
- L+Evo70iZ/NaIURVW0aEQ4RVumgupy6fQGudWsgBcRPH/d2gHfljRvClv
- zEWzh724WIVPxQuZ4G1aOOwPjhzpPOZOu4R4tCWZw1clRQ7750zFl/lRc
- M/BO/Iad3bhBWi8RW8dZYyVSpZizgfHptgWW7pLG0DgiyLUC9fFjoZoWa
- 7um6lflLkOJUHuWyHMVTXpUO1MsbHndyDIvON+Yh2ve8Jia2dtEVWVDqU
- vUmwvEH4IHRTDRzX3Gqf8IthKCM734wofIL18Sr+C5SJ+dKOcR9yEddnf A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="385651948"
-X-IronPort-AV: E=Sophos;i="6.03,232,1694761200"; d="scan'208";a="385651948"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Oct 2023 08:55:45 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="791271126"
-X-IronPort-AV: E=Sophos;i="6.03,232,1694761200"; d="scan'208";a="791271126"
-Received: from lkp-server02.sh.intel.com (HELO f64821696465) ([10.239.97.151])
- by orsmga001.jf.intel.com with ESMTP; 17 Oct 2023 08:55:40 -0700
-Received: from kbuild by f64821696465 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qsmPx-0009ln-2N;
- Tue, 17 Oct 2023 15:55:37 +0000
-Date: Tue, 17 Oct 2023 23:55:13 +0800
-From: kernel test robot <lkp@intel.com>
-To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 4/6] drm: Refuse to async flip with atomic prop changes
-Message-ID: <202310172311.kgvIGcqy-lkp@intel.com>
-References: <20231017092837.32428-5-andrealmeid@igalia.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28AEF10E178;
+	Tue, 17 Oct 2023 16:59:37 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2062.outbound.protection.outlook.com [40.107.220.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 226FB10E178
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Oct 2023 16:59:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MnYFN/DdXH5nYK+a5npNyRiZKjJzO6hxhFmNOfWeRGtsww7EjJ/sttnXNmuDcfr+I5qvbM2bojTcyls+KHVH2uRrm1H5YfdGXZmekzfanwTWEPuVw91o8ldzHvxwn8MFmTSoE0l5y6A4k6QxdJ010Y+/AYczYHreIDN3MlNm9bQmxa+mbnCitvNzVhMbkvSNdLQydKtaEkB0q2RHs8fPLgjp1i+CUKX+DBwNse2PMA/udW25ztHGCZ8q4jBelf/hj1PsVqk8pvku5zfO6kv44/DPPMa6iA/4gkAOE4FlPpEJPgzqeuArcy3mzlFFXpTkYipUkL3F8bWPhZ8jcr9gzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ehOBcW4nIzFtLXlnMHNhGMoCnNaw6X+f4wWje3s1gjU=;
+ b=dzTdXhr6tRpYKrw0CoBcs9/jrXq3hJ+dEDJkrWzEl/uKPgh1WbibqrnH5U1e1eVdUlyy973eII/NXmJsmaAzKJ+BK3Nk4yhloSBB4UGGtNAwHBwOSx4wEgeWhuF+UGwOnjh0i9rVZFKd3Frd0ak0JHnZG9W4C/FwuGKO2TrYGeAKjEGmSl8yx2f+nT3EIvZV2fJKMgdbmywqjelEZmzcCyFVChJV7XqrQ/+IMJN+0cBSw7znRmLfY93mpok0OVjPJhHRXKE+rKd4KYYxQq5BJ0Oy/pdlrt0aFIBWop63DCgBOGaqGeLGeNNKn42J6HKRRS95eYWJ53KNiMU8Rb+DJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ehOBcW4nIzFtLXlnMHNhGMoCnNaw6X+f4wWje3s1gjU=;
+ b=BvvnJzNgz04NPv7N210UsFGVRausQvDFLieg9crEhLqljkS+1/d1Zgu7XxSnD6M/2yjvJ4K6WQSnJK4uOQG1mxhKTsphjP3Wd4eaw40woS1SbZ6Mes+1ysT/+XTyfaW5MtGvRAIaIhh/A06nnzIxio5gd7xbeeSMSGA/4BJAjRU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by PH8PR12MB7112.namprd12.prod.outlook.com (2603:10b6:510:22c::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.36; Tue, 17 Oct
+ 2023 16:59:32 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::a7fa:4411:67a3:131d]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::a7fa:4411:67a3:131d%4]) with mapi id 15.20.6907.021; Tue, 17 Oct 2023
+ 16:59:32 +0000
+Message-ID: <dbf0e676-1614-4426-bd7b-05952cd4bb4a@amd.com>
+Date: Tue, 17 Oct 2023 18:59:26 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: ignore duplicate BOs again
+Content-Language: en-US
+To: Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
+References: <20231017121015.1336786-1-christian.koenig@amd.com>
+ <f7e00a0a-fa67-4391-93fc-402dae14a6ef@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <f7e00a0a-fa67-4391-93fc-402dae14a6ef@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20231017092837.32428-5-andrealmeid@igalia.com>
+X-ClientProxiedBy: FR3P281CA0142.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:95::16) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|PH8PR12MB7112:EE_
+X-MS-Office365-Filtering-Correlation-Id: 579c5f8d-4953-4824-291b-08dbcf326f19
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Q6aghow+eTEPaOR9QidziyboTzJtVNLRsb3KpxFYwu8/f5pcW6ZDGDrzsus4v/g9sAArAnj2wKx3hcOynUd3T+Tc1dCEYnaKumzMQDNEiQJHP/y+QMr8OQ54Uryh//ZsobuV/gVTrSNLYFns1lCvLxftzK7y3j248E1zN1xgDEA9OSGh4iAztmEp6tn3QCCr1GeDpKDiNO4H5ZbijY1biapK7a4pwvd7+YR7HphEccfNQzNGUItBuH3mGBPyqbOO6DVoG8BOWRulY5vifT9ZzHN5/6r3514Wqt/wg9B2ufNduT40h14gr/ER30MslNcAZy4HEw16xCR7/p7al39BIFJtIei5eLolCO4prLQ7QPELTqP60Kfn0seziwDF9M5DGKqqaLgTK8vJVIXXQ/OX8x5GcUrZjenMdaFh2MyaMv4+gxOxlGABCafsmA7VTnD+TxVNAdXNDuTW0cNqCmtl+gmieKyyfDN6eMgu/mNASC6udz9WVRvV096vNp5UwhV+voZ+XQzEjspQWptVtk6NQBKQN9v7MvgOi8WVTF01F1aD8TdxoyTyE6a3+j7lj3+XaP5lbhfVCbYofZGzmMd9l0Ek0UelADi7WElHRuba0iJFmnI5crdmnu7SoMqgtXyO
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(396003)(366004)(136003)(376002)(39860400002)(346002)(230922051799003)(1800799009)(64100799003)(186009)(451199024)(66574015)(83380400001)(6666004)(38100700002)(6506007)(53546011)(6512007)(26005)(2616005)(966005)(478600001)(31686004)(66476007)(8936002)(6636002)(316002)(110136005)(41300700001)(66946007)(8676002)(6486002)(31696002)(2906002)(86362001)(66556008)(5660300002)(36756003)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aXdUNC9HazZXZFBlVjFGRlhjQ3FRQmYvYTZLb24weStDWTIvcHcrV3VYN2Jv?=
+ =?utf-8?B?RktjZ2NEUFpRMDNCVWxqMzlvUE12SGp2VE56bWR4emhWSEg0bXRtSCt1eXJU?=
+ =?utf-8?B?UGk4TDVUbXlkLysxMVFPRjVzOEExL1lJRzc1VmhTQjZEcGh3QlFlU01JVjhU?=
+ =?utf-8?B?WU42UXVvL0x2d1FmRkw2SHRjYlJoekdxTzBGRW9XSUdyYVNRU2liUnFoaW5U?=
+ =?utf-8?B?RTFxa2o5YytWV2JDQnZnUWVHR0NzODgyVURTZkdmYWtKR3dsUXBFc096U1BV?=
+ =?utf-8?B?Z2hTZVBPL1BGYWJFc3ZZS3V3c0c3L3RmODk0VzlyR2g0aW85d2lZNVAxb3Zu?=
+ =?utf-8?B?Rng2V3pZTDkvWHpnSEpFQ2hYZkNPMEcwd0tUcjZvMHNDWFhqZVFDei96VUZL?=
+ =?utf-8?B?dndRQk52UjIvSkhHWTZzTlIveVNTb0JPY2VFT2NxVjJYWWZ0MnkzKzRJWURm?=
+ =?utf-8?B?TjJUcGxQTlZsaWVncmxuWHNucndIMmtQRkRnRkJuYS9uYlRWVm5kU2hOSFJo?=
+ =?utf-8?B?QUQyWWUweU93WjZrZDVwK2pGSzFZN1A5ZmZYaDlGSWN3UXN1eFA3SmVoQU5z?=
+ =?utf-8?B?K0Zzc2NFcCtsWGRFQUg5VEIrMEpuKzNHTXN5dXFyTkFOSUloYXFWWXcvYkow?=
+ =?utf-8?B?YUJnUU5hYVFwU1ZaOEpxcCtTZStBVzMvMW9ZY3ZOQnNFNyt6QjBXWmgrRFZD?=
+ =?utf-8?B?elNiNU9zYkZkOEZSNXMwc2JqRjU1Rll6YXVOSTlkUFN5SFdVRHdIU0JXbVRt?=
+ =?utf-8?B?ZGp0YXBqV2duSVd2U3FWZXFkeGtjSTVoRWQvaUovenJtMnZGV3hNWkdxcFVi?=
+ =?utf-8?B?Z0RxRjBYdlovdFVuTUY3M0hmOU00NU9NdGlUcVNxZE5nQ251WWhzUGxXNDRo?=
+ =?utf-8?B?QkxUQTJRTEhCYWRjR1ErSkxxZ0NOK2U4SERkZy8rOTJCZThmZXlhcnVmTGI3?=
+ =?utf-8?B?eEpBVjR4SUFFWlN6eWlNaFB4cE5HMEd6Qmd5VDZrQUVzRzhoM1Z2MGROR3Q4?=
+ =?utf-8?B?UGprUTdqOTBBQTNDcE42RDBwTG1LbzlKb2lFaWM4NDlxVnFMdUR5YTVRWk1D?=
+ =?utf-8?B?YVluYzFnYnRzVnVMaXlad1ZkM3Nja3ZYVFUrcjFpcEpuTTB1blZlQTZhSlRB?=
+ =?utf-8?B?ZTlpZWpzUHBQZ0RrdGVJLy9YRjdHb2FQb0JNZi9BVW92dHcwM0pWQ0UrWFRm?=
+ =?utf-8?B?VFBTQ0xFMEx1TWhrRFNsTmR4WU9wYlFob0FyN1hzRU96UUJUb0dLeno1QVVB?=
+ =?utf-8?B?WCsrYnVMS3FMMlRhMlpZTTdxb0tIei9DTVRWYjdYOFRnQXEzVzRLVFRqQlh4?=
+ =?utf-8?B?OXJGbzdZOUxNMVd2bVA1Z1VRU1djR1FjOHBvUENVYlp3RTdXYmhGY0RYK0FW?=
+ =?utf-8?B?eHhpbWxVb09SejFIM0x5WDlEZW9YdERpVzlTYXQ1b3pRRGNyTUw5Tk14aWta?=
+ =?utf-8?B?QkVpRlpQZGFTVHZ1Y1BBVWNBa005VjBTRGFweEtsajM4MXljdWRMZWRNNnlB?=
+ =?utf-8?B?ZmFpVUNXaElzcDk4UUE1eGVUUEJ0cGNkTC9pRmY0VGU5dEdCWE94UFhuMU12?=
+ =?utf-8?B?cEhNTlltR2ZqSGV3Q3Q4bjFPMklHTk54TUFkZlhNb1BSNnJHRFZiM2Y1T0Ft?=
+ =?utf-8?B?Z0NFclNSYWNmQ2tpcEFFOWNBM0tQdWRtdW9GS2p2UXducUp1SVBTWXA2ZkpT?=
+ =?utf-8?B?VEh6NXBwSzRybzQwWTZUYzJWc1J4VWQvbzhGYlcvOEFRTmhldk5rV0xpYTlk?=
+ =?utf-8?B?OGFiQyt2MFhETVNaazlUVThZQjB5NnhXM3F6OUhWQjdMeGhOVUl5cVhsNU1X?=
+ =?utf-8?B?aC8xdmREOU9qOUJvYWVNalFxWjYxZE9pblJmQUNoR3EwRkFkaGZSM0sxVGdT?=
+ =?utf-8?B?WWZKSjUrRmFhSlljNCtXclArNEdEY2J5MHRRNDF1MlM5YU5ITVJHclNON0h5?=
+ =?utf-8?B?WDZUTmk5YWxueDlwZW52ZTFRclgvVGlxRkJoYnQzTzFmY0pPaHkzK1gwUFJi?=
+ =?utf-8?B?cU5SWElCTktnQWZxSVptd0pGZDZGcXBzdUlBRFZGSTVkTEE2YTZjdTd4dHlD?=
+ =?utf-8?B?V1RoTkFjb25mNG9lUmhkMnFZajVrNzU5Z3BodG91NU1IcC9uZVUzU21yREV4?=
+ =?utf-8?Q?XtSMXwlTHZZpFEvT25xfirW5+?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 579c5f8d-4953-4824-291b-08dbcf326f19
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 16:59:32.6578 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0wAk4EBllt7snNbAM3myK+JOTobWbrZwM92s1gHvYmkbaBjYGKFQWrCZJ6PFatgY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7112
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,144 +125,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
- 'Marek =?utf-8?B?T2zFocOhayc=?= <maraeo@gmail.com>,
- Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>,
- Randy Dunlap <rdunlap@infradead.org>, Pekka Paalanen <ppaalanen@gmail.com>,
- kernel-dev@igalia.com, oe-kbuild-all@lists.linux.dev,
- alexander.deucher@amd.com, hwentlan@amd.com, christian.koenig@amd.com,
- joshua@froggi.es
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Andr�,
+Am 17.10.23 um 14:42 schrieb Hamza Mahfooz:
+> On 10/17/23 08:10, Christian König wrote:
+>> Looks like RADV is actually hitting this.
+>>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>> Fixes: ca6c1e210aa7 ("drm/amdgpu: use the new drm_exec object for CS 
+>> v3")
+>
+> Do you think this will fix the following issue?:
+> https://gitlab.freedesktop.org/drm/amd/-/issues/2893
 
-kernel test robot noticed the following build warnings:
+No, that's completely unrelated.
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm/drm-next linus/master v6.6-rc6 next-20231017]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Regards,
+Christian.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Andr-Almeida/drm-allow-DRM_MODE_PAGE_FLIP_ASYNC-for-atomic-commits/20231017-173047
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20231017092837.32428-5-andrealmeid%40igalia.com
-patch subject: [PATCH v7 4/6] drm: Refuse to async flip with atomic prop changes
-config: m68k-allyesconfig (https://download.01.org/0day-ci/archive/20231017/202310172311.kgvIGcqy-lkp@intel.com/config)
-compiler: m68k-linux-gcc (GCC) 13.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231017/202310172311.kgvIGcqy-lkp@intel.com/reproduce)
+>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>> index efdb1c48f431..d93a8961274c 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>> @@ -65,7 +65,8 @@ static int amdgpu_cs_parser_init(struct 
+>> amdgpu_cs_parser *p,
+>>       }
+>>         amdgpu_sync_create(&p->sync);
+>> -    drm_exec_init(&p->exec, DRM_EXEC_INTERRUPTIBLE_WAIT);
+>> +    drm_exec_init(&p->exec, DRM_EXEC_INTERRUPTIBLE_WAIT |
+>> +              DRM_EXEC_IGNORE_DUPLICATES);
+>>       return 0;
+>>   }
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202310172311.kgvIGcqy-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   drivers/gpu/drm/drm_atomic_uapi.c: In function 'drm_atomic_set_property':
->> drivers/gpu/drm/drm_atomic_uapi.c:1062:41: warning: unused variable 'config' [-Wunused-variable]
-    1062 |                 struct drm_mode_config *config = &crtc->dev->mode_config;
-         |                                         ^~~~~~
-
-
-vim +/config +1062 drivers/gpu/drm/drm_atomic_uapi.c
-
-  1021	
-  1022	int drm_atomic_set_property(struct drm_atomic_state *state,
-  1023				    struct drm_file *file_priv,
-  1024				    struct drm_mode_object *obj,
-  1025				    struct drm_property *prop,
-  1026				    uint64_t prop_value,
-  1027				    bool async_flip)
-  1028	{
-  1029		struct drm_mode_object *ref;
-  1030		uint64_t old_val;
-  1031		int ret;
-  1032	
-  1033		if (!drm_property_change_valid_get(prop, prop_value, &ref))
-  1034			return -EINVAL;
-  1035	
-  1036		switch (obj->type) {
-  1037		case DRM_MODE_OBJECT_CONNECTOR: {
-  1038			struct drm_connector *connector = obj_to_connector(obj);
-  1039			struct drm_connector_state *connector_state;
-  1040	
-  1041			connector_state = drm_atomic_get_connector_state(state, connector);
-  1042			if (IS_ERR(connector_state)) {
-  1043				ret = PTR_ERR(connector_state);
-  1044				break;
-  1045			}
-  1046	
-  1047			if (async_flip) {
-  1048				ret = drm_atomic_connector_get_property(connector, connector_state,
-  1049									prop, &old_val);
-  1050				ret = drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
-  1051				break;
-  1052			}
-  1053	
-  1054			ret = drm_atomic_connector_set_property(connector,
-  1055					connector_state, file_priv,
-  1056					prop, prop_value);
-  1057			break;
-  1058		}
-  1059		case DRM_MODE_OBJECT_CRTC: {
-  1060			struct drm_crtc *crtc = obj_to_crtc(obj);
-  1061			struct drm_crtc_state *crtc_state;
-> 1062			struct drm_mode_config *config = &crtc->dev->mode_config;
-  1063	
-  1064			crtc_state = drm_atomic_get_crtc_state(state, crtc);
-  1065			if (IS_ERR(crtc_state)) {
-  1066				ret = PTR_ERR(crtc_state);
-  1067				break;
-  1068			}
-  1069	
-  1070			if (async_flip) {
-  1071				ret = drm_atomic_crtc_get_property(crtc, crtc_state,
-  1072								   prop, &old_val);
-  1073				ret = drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
-  1074				break;
-  1075			}
-  1076	
-  1077			ret = drm_atomic_crtc_set_property(crtc,
-  1078					crtc_state, prop, prop_value);
-  1079			break;
-  1080		}
-  1081		case DRM_MODE_OBJECT_PLANE: {
-  1082			struct drm_plane *plane = obj_to_plane(obj);
-  1083			struct drm_plane_state *plane_state;
-  1084			struct drm_mode_config *config = &plane->dev->mode_config;
-  1085	
-  1086			plane_state = drm_atomic_get_plane_state(state, plane);
-  1087			if (IS_ERR(plane_state)) {
-  1088				ret = PTR_ERR(plane_state);
-  1089				break;
-  1090			}
-  1091	
-  1092			if (async_flip && prop != config->prop_fb_id) {
-  1093				ret = drm_atomic_plane_get_property(plane, plane_state,
-  1094								    prop, &old_val);
-  1095				ret = drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
-  1096				break;
-  1097			}
-  1098	
-  1099			ret = drm_atomic_plane_set_property(plane,
-  1100					plane_state, file_priv,
-  1101					prop, prop_value);
-  1102			break;
-  1103		}
-  1104		default:
-  1105			drm_dbg_atomic(prop->dev, "[OBJECT:%d] has no properties\n", obj->id);
-  1106			ret = -EINVAL;
-  1107			break;
-  1108		}
-  1109	
-  1110		drm_property_change_valid_put(prop, ref);
-  1111		return ret;
-  1112	}
-  1113	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
