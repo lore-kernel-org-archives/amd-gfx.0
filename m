@@ -4,90 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F2A4CDB474
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 21:15:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62E15C46CA1
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Oct 2023 21:17:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3563110E343;
-	Tue, 17 Oct 2023 21:14:55 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2056.outbound.protection.outlook.com [40.107.93.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C8BE10E33F;
- Tue, 17 Oct 2023 21:14:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Hiqw2mt89bKBp8tz7qBgT19dm0DGMrZdy8eUMnQK6zvmLrfNyPMxXUW9A4XUDbGM+0QkiTzbuME1PU6pLOpHukMQGVwmCNdaRmS6N7KH0q035pqb4Eaqzxlhwbdc4t/7F8ImEOyzZerTIGAO1NgHJfITO6EpNrPTNnTAbn6UBpBgLxnDggjp8gPMIq1vfFxaPbHUoqvGaCbNOKced/FnqzOTpr/nasV0sw77DDsleIU/ukPzoIKYRhqUpRGMlsU3iITOPuvapQL5yMNAcEGHfMctFKCDUtWf0vCEmWf0DkEgn/o4mezlsi9au9DvqPNdyAR1TArQkEWXuJ91/RVhGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y+2oznMHIhZfSt00MUMFTkxyobaIGeG/XJ9ZqRMEJPA=;
- b=lxjFkGLhmLJHBhK/klHV22LKoItlvDmcN5yKjT2ncBQqPo4c6Xn/PWqp2HYtAE60hgK3fnl9UVpLY2xgiYpFfHV105WRKh9J1WDoBLW7dqbYMoViuBmNrwR2Z5aEJ3e8Wfg4XUsJpuTxjSak1txCQgVIL4XsOWGjBscen93ciCUblzv9Dx8tmP/qi/P7OUvIkPBOAaY0vlTkGR0J5MKSXqj2MSU37frSzxi4uWKpHHLBmL0wRCB2urApMBDCtgsRKjIc2XxYaUOitsm3kSj2yyS8rRQMLXxcaBDx/+hCusLkThCZXjh04/kj3WuoY4sjIMPpFE76rxnvl2kOV3DZJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y+2oznMHIhZfSt00MUMFTkxyobaIGeG/XJ9ZqRMEJPA=;
- b=fF+Uno89JTI38RUth0hfmhwjVkOp5MSmSblUdkHGYGT7q7qbb252a4lCt7Z9qDjYIOm0H64357oOSpqBH1iaA8LPgmLWLIA6dzi1VJrs1PkSG8+NFSDTGXPmOva6GhIK3z1od6dq0nnODkuAZJmSWEhXGdrP2K98X2O9Qytd1Zo=
-Received: from BL0PR02CA0002.namprd02.prod.outlook.com (2603:10b6:207:3c::15)
- by SA1PR12MB6798.namprd12.prod.outlook.com (2603:10b6:806:25a::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.35; Tue, 17 Oct
- 2023 21:14:28 +0000
-Received: from MN1PEPF0000ECD9.namprd02.prod.outlook.com
- (2603:10b6:207:3c:cafe::ad) by BL0PR02CA0002.outlook.office365.com
- (2603:10b6:207:3c::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.36 via Frontend
- Transport; Tue, 17 Oct 2023 21:14:27 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000ECD9.mail.protection.outlook.com (10.167.242.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.22 via Frontend Transport; Tue, 17 Oct 2023 21:14:27 +0000
-Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 17 Oct
- 2023 16:14:25 -0500
-From: Felix Kuehling <Felix.Kuehling@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 10/11] drm/amdkfd: Import DMABufs for interop through DRM
-Date: Tue, 17 Oct 2023 17:13:36 -0400
-Message-ID: <20231017211337.1593869-11-Felix.Kuehling@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231017211337.1593869-1-Felix.Kuehling@amd.com>
-References: <20231017211337.1593869-1-Felix.Kuehling@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AD7010E32D;
+	Tue, 17 Oct 2023 21:17:02 +0000 (UTC)
+Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
+ [IPv6:2001:4860:4864:20::32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC6AD10E32C;
+ Tue, 17 Oct 2023 21:16:57 +0000 (UTC)
+Received: by mail-oa1-x32.google.com with SMTP id
+ 586e51a60fabf-1e12f41e496so3800325fac.3; 
+ Tue, 17 Oct 2023 14:16:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1697577417; x=1698182217; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=DQG8MtBQiSnRV8n69T7HmV5t8yhCaq2M9pMbaLDDzpc=;
+ b=bUXETrsE76QhWjOIC16GbnaLLSOOiSpMr3PJ3jiNCVgesuLruDaQG/F2Jum4MCEF78
+ xpcTgx6uUOPxjZcAE8fPxbqPDFvlD7T1oIKRC2KGrUSvZs1/2KtNKoQEMaho8/d7RwEZ
+ nKqO6/R0AzO32DbNeCZ0lAShdlY8cefUNgZkXxw052G/iXX2TiOQrXMKVmy6Zwj9Oy1g
+ ihdwB8Qo/H8MYqGz1jYMCczoW9be8sPPXjvS/w+reCHkoY0aWlVUrPoDRiE65p4S7HrT
+ 5TcUjjFtyamDkBNxrwaiq//uZn5ZMejOc5AqeoXlEvlOXkdQnVTUnRj7Uuu/7Rscn0PL
+ 6iIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1697577417; x=1698182217;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=DQG8MtBQiSnRV8n69T7HmV5t8yhCaq2M9pMbaLDDzpc=;
+ b=ahUCvusxopXKekqdnD5APZEMXPee3Jp1HNxxyszRd3wp6z979NZBxY5cEPmeqWgaZW
+ 1sOzzOo9DPtrAjMN2dk9I16tEXEaYhEqTpWbbzxkMRkAccwO7/qeDqLKmAqGkQQJ/rYy
+ taqXLkeebAA3vL42X1e8Dvazt4Zq6d5C0MwhRuYP8bnrDxITe/GATR8xuwGtULikD3ys
+ TQVDVr2WdGjVNEmoihwouXQlY4XxPkDRIE1HnsClStYwIsiLA3d8zpkXoBnZUION/Riv
+ FqbKT6xktWncLSK3XU+TCquSuMBO7SMxNEa1EIZlyXwVF2WjGcflG6g4SVQhKOqXiPcD
+ GlSQ==
+X-Gm-Message-State: AOJu0YyPNXSvaUDOip7y8g66Ba9fN4qcc1HylVcrl9p1aUFHZnndtHI3
+ I2vhH1n/v7pEW0meYHwpTzDsxvQy1JZK76dysB8=
+X-Google-Smtp-Source: AGHT+IFIdnup1Pui0Ph3Sx3b6dyIUwP7KU7y+C7Voyy0lzypj5Ks7q5EsuqaHmjprmGcgrekVDP+pKHvrpPbrGFNJuA=
+X-Received: by 2002:a05:6870:1314:b0:1e9:9f9b:eb80 with SMTP id
+ 20-20020a056870131400b001e99f9beb80mr3731834oab.46.1697577417041; Tue, 17 Oct
+ 2023 14:16:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD9:EE_|SA1PR12MB6798:EE_
-X-MS-Office365-Filtering-Correlation-Id: 691ea4a5-b107-4617-c1b3-08dbcf560bf7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QIiDDYGGBCIPQe/cE0y7Pl+vHpPQbdL5+QS78dpmScLvvMR94401vTQnFoY2xlalrS9qcRWB8Vd1lr0rND2UfSOG1Z2i2fshwQ6b/NlfcytLXyZTbp9HIKUz4vDXIkXHK7HsKR7gvevzZGzRrH4AvS6yMo7J2gG4Bb2IbzNaTozX1ETJvjlQjW6QaDI15sTuU5fTbhmYDTsTPPueMXSVQErnHE/JuNNLOkSdSnw32c/KPQ3yjUDpYS06ROQLsYd4/7IBODXSFOenwMsVLjO8fio2MMS+uzsMuyRjJYXhJbMtzuN0xd7NCwCWa/uaXbHIlAb5kCXhNGWeSmSbmWaHe/M2jUHlhKtmAgnU3a+OXDnXA7ttQMGtdvzKCjPvB/r0OfvPHenB5LHISDXDknksVJ7wPUlkkq0olCPVAlIwFFSvDqOj1EUITEey/NR5fBkIZ0Nfqr0QLXQIDYBJ92zWtk6PH247wcbZDw4Tgfmk6JM6MRo3IgIq/V3HEewYJZngtCznDahg+6fNjXt5GHcd4AVZTAM7IywT8QPkYXYtl8vTixzZvn9qzpXctpZDDpIhg93DNtGOb3X4CxUUHpJ+9+u7JDwe+3lSsQyYcmk3Nt7EfcikFNHLwT5k4LQeyRnDkr0+cK/BuhoydgNp4NhiB/3bf2gDViHEBTqJCt3DS+Mt4Wyx/z/4saGhXV0ifd84kuQ/juPoy0a0viSRWt+aYRJkZ97H9OejRooAX8EmR85JxemNpULtEMD9tn+hyzlO
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(230922051799003)(1800799009)(186009)(82310400011)(451199024)(46966006)(40470700004)(36840700001)(54906003)(110136005)(47076005)(70586007)(70206006)(508600001)(6666004)(26005)(16526019)(1076003)(336012)(316002)(426003)(7696005)(8936002)(4326008)(2906002)(8676002)(450100002)(5660300002)(36756003)(81166007)(86362001)(83380400001)(36860700001)(356005)(2616005)(40460700003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 21:14:27.7511 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 691ea4a5-b107-4617-c1b3-08dbcf560bf7
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD9.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6798
+References: <20231017080616.18970-1-colin.i.king@gmail.com>
+In-Reply-To: <20231017080616.18970-1-colin.i.king@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 17 Oct 2023 17:16:46 -0400
+Message-ID: <CADnq5_PemQtG4CeeDm4QvNMWF_O69AXD5k66R2C3OhWe8L6sdA@mail.gmail.com>
+Subject: Re: [PATCH][next] drm/amd/display: Fix a handful of spelling mistakes
+ in dml_print output
+To: Colin Ian King <colin.i.king@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,194 +68,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xiaogang.Chen@amd.com, Ramesh.Errabolu@amd.com, Christian.Koenig@amd.com
+Cc: kernel-janitors@vger.kernel.org, Leo Li <sunpeng.li@amd.com>,
+ David Airlie <airlied@gmail.com>, Qingqing Zhuo <Qingqing.Zhuo@amd.com>,
+ Xinhui.Pan@amd.com, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use drm_gem_prime_fd_to_handle to import DMABufs for interop. This
-ensures that a GEM handle is created on import and that obj->dma_buf
-will be set and remain set as long as the object is imported into KFD.
+Applied.  Thanks!
 
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  9 ++-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 64 +++++++++++++------
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 15 ++---
- 3 files changed, 52 insertions(+), 36 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 4caf8cece028..88a0e0734270 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -318,11 +318,10 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *process_info,
- 					    struct dma_fence **ef);
- int amdgpu_amdkfd_gpuvm_get_vm_fault_info(struct amdgpu_device *adev,
- 					      struct kfd_vm_fault_info *info);
--int amdgpu_amdkfd_gpuvm_import_dmabuf(struct amdgpu_device *adev,
--				      struct dma_buf *dmabuf,
--				      uint64_t va, void *drm_priv,
--				      struct kgd_mem **mem, uint64_t *size,
--				      uint64_t *mmap_offset);
-+int amdgpu_amdkfd_gpuvm_import_dmabuf_fd(struct amdgpu_device *adev, int fd,
-+					 uint64_t va, void *drm_priv,
-+					 struct kgd_mem **mem, uint64_t *size,
-+					 uint64_t *mmap_offset);
- int amdgpu_amdkfd_gpuvm_export_dmabuf(struct kgd_mem *mem,
- 				      struct dma_buf **dmabuf);
- void amdgpu_amdkfd_debug_mem_fence(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 4bb8b5fd7598..1077de8bced2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -2006,8 +2006,7 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
- 
- 	/* Free the BO*/
- 	drm_vma_node_revoke(&mem->bo->tbo.base.vma_node, drm_priv);
--	if (!mem->is_imported)
--		drm_gem_handle_delete(adev->kfd.client.file, mem->gem_handle);
-+	drm_gem_handle_delete(adev->kfd.client.file, mem->gem_handle);
- 	if (mem->dmabuf) {
- 		dma_buf_put(mem->dmabuf);
- 		mem->dmabuf = NULL;
-@@ -2363,34 +2362,26 @@ int amdgpu_amdkfd_gpuvm_get_vm_fault_info(struct amdgpu_device *adev,
- 	return 0;
- }
- 
--int amdgpu_amdkfd_gpuvm_import_dmabuf(struct amdgpu_device *adev,
--				      struct dma_buf *dma_buf,
--				      uint64_t va, void *drm_priv,
--				      struct kgd_mem **mem, uint64_t *size,
--				      uint64_t *mmap_offset)
-+static int import_obj_create(struct amdgpu_device *adev,
-+			     struct dma_buf *dma_buf,
-+			     struct drm_gem_object *obj,
-+			     uint64_t va, void *drm_priv,
-+			     struct kgd_mem **mem, uint64_t *size,
-+			     uint64_t *mmap_offset)
- {
- 	struct amdgpu_vm *avm = drm_priv_to_vm(drm_priv);
--	struct drm_gem_object *obj;
- 	struct amdgpu_bo *bo;
- 	int ret;
- 
--	obj = amdgpu_gem_prime_import(adev_to_drm(adev), dma_buf);
--	if (IS_ERR(obj))
--		return PTR_ERR(obj);
--
- 	bo = gem_to_amdgpu_bo(obj);
- 	if (!(bo->preferred_domains & (AMDGPU_GEM_DOMAIN_VRAM |
--				    AMDGPU_GEM_DOMAIN_GTT))) {
-+				    AMDGPU_GEM_DOMAIN_GTT)))
- 		/* Only VRAM and GTT BOs are supported */
--		ret = -EINVAL;
--		goto err_put_obj;
--	}
-+		return -EINVAL;
- 
- 	*mem = kzalloc(sizeof(struct kgd_mem), GFP_KERNEL);
--	if (!*mem) {
--		ret = -ENOMEM;
--		goto err_put_obj;
--	}
-+	if (!*mem)
-+		return -ENOMEM;
- 
- 	ret = drm_vma_node_allow(&obj->vma_node, drm_priv);
- 	if (ret)
-@@ -2440,8 +2431,41 @@ int amdgpu_amdkfd_gpuvm_import_dmabuf(struct amdgpu_device *adev,
- 	drm_vma_node_revoke(&obj->vma_node, drm_priv);
- err_free_mem:
- 	kfree(*mem);
-+	return ret;
-+}
-+
-+int amdgpu_amdkfd_gpuvm_import_dmabuf_fd(struct amdgpu_device *adev, int fd,
-+					 uint64_t va, void *drm_priv,
-+					 struct kgd_mem **mem, uint64_t *size,
-+					 uint64_t *mmap_offset)
-+{
-+	struct drm_gem_object *obj;
-+	uint32_t handle;
-+	int ret;
-+
-+	ret = drm_gem_prime_fd_to_handle(&adev->ddev, adev->kfd.client.file, fd,
-+					 &handle);
-+	if (ret)
-+		return ret;
-+	obj = drm_gem_object_lookup(adev->kfd.client.file, handle);
-+	if (!obj) {
-+		ret = -EINVAL;
-+		goto err_release_handle;
-+	}
-+
-+	ret = import_obj_create(adev, obj->dma_buf, obj, va, drm_priv, mem, size,
-+				mmap_offset);
-+	if (ret)
-+		goto err_put_obj;
-+
-+	(*mem)->gem_handle = handle;
-+
-+	return 0;
-+
- err_put_obj:
- 	drm_gem_object_put(obj);
-+err_release_handle:
-+	drm_gem_handle_delete(adev->kfd.client.file, handle);
- 	return ret;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 4417a9863cd0..1a2e9f564b7f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1564,16 +1564,11 @@ static int kfd_ioctl_import_dmabuf(struct file *filep,
- {
- 	struct kfd_ioctl_import_dmabuf_args *args = data;
- 	struct kfd_process_device *pdd;
--	struct dma_buf *dmabuf;
- 	int idr_handle;
- 	uint64_t size;
- 	void *mem;
- 	int r;
- 
--	dmabuf = dma_buf_get(args->dmabuf_fd);
--	if (IS_ERR(dmabuf))
--		return PTR_ERR(dmabuf);
--
- 	mutex_lock(&p->mutex);
- 	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
- 	if (!pdd) {
-@@ -1587,10 +1582,10 @@ static int kfd_ioctl_import_dmabuf(struct file *filep,
- 		goto err_unlock;
- 	}
- 
--	r = amdgpu_amdkfd_gpuvm_import_dmabuf(pdd->dev->adev, dmabuf,
--					      args->va_addr, pdd->drm_priv,
--					      (struct kgd_mem **)&mem, &size,
--					      NULL);
-+	r = amdgpu_amdkfd_gpuvm_import_dmabuf_fd(pdd->dev->adev, args->dmabuf_fd,
-+						 args->va_addr, pdd->drm_priv,
-+						 (struct kgd_mem **)&mem, &size,
-+						 NULL);
- 	if (r)
- 		goto err_unlock;
- 
-@@ -1601,7 +1596,6 @@ static int kfd_ioctl_import_dmabuf(struct file *filep,
- 	}
- 
- 	mutex_unlock(&p->mutex);
--	dma_buf_put(dmabuf);
- 
- 	args->handle = MAKE_HANDLE(args->gpu_id, idr_handle);
- 
-@@ -1612,7 +1606,6 @@ static int kfd_ioctl_import_dmabuf(struct file *filep,
- 					       pdd->drm_priv, NULL);
- err_unlock:
- 	mutex_unlock(&p->mutex);
--	dma_buf_put(dmabuf);
- 	return r;
- }
- 
--- 
-2.34.1
-
+On Tue, Oct 17, 2023 at 4:22=E2=80=AFAM Colin Ian King <colin.i.king@gmail.=
+com> wrote:
+>
+> There are a few spelling mistakes and an minor grammatical issue in
+> some dml_print messages. Fix these.
+>
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c b/dr=
+ivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
+> index 851db026f251..218c355a97a4 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
+> @@ -1507,7 +1507,7 @@ static dml_bool_t CalculatePrefetchSchedule(struct =
+display_mode_lib_scratch_st *
+>                 dml_print("DML: Tvm: %fus - time to fetch page tables for=
+ meta surface\n", s->TimeForFetchingMetaPTE);
+>                 dml_print("DML: Tr0: %fus - time to fetch first row of da=
+ta pagetables and first row of meta data (done in parallel)\n", s->TimeForF=
+etchingRowInVBlank);
+>                 dml_print("DML: Tsw: %fus =3D time to fetch enough pixel =
+data and cursor data to feed the scalers init position and detile\n", (dml_=
+float_t)s->LinesToRequestPrefetchPixelData * s->LineTime);
+> -               dml_print("DML: To: %fus - time for propogation from scal=
+er to optc\n", (*p->DSTYAfterScaler + ((dml_float_t) (*p->DSTXAfterScaler) =
+/ (dml_float_t)p->myPipe->HTotal)) * s->LineTime);
+> +               dml_print("DML: To: %fus - time for propagation from scal=
+er to optc\n", (*p->DSTYAfterScaler + ((dml_float_t) (*p->DSTXAfterScaler) =
+/ (dml_float_t)p->myPipe->HTotal)) * s->LineTime);
+>                 dml_print("DML: Tvstartup - TSetup - Tcalc - Twait - Tpre=
+ - To > 0\n");
+>                 dml_print("DML: Tslack(pre): %fus - time left over in sch=
+edule\n", p->VStartup * s->LineTime - s->TimeForFetchingMetaPTE - 2 * s->Ti=
+meForFetchingRowInVBlank - (*p->DSTYAfterScaler + ((dml_float_t) (*p->DSTXA=
+fterScaler) / (dml_float_t)p->myPipe->HTotal)) * s->LineTime - p->TWait - p=
+->TCalc - *p->TSetup);
+>                 dml_print("DML: row_bytes =3D dpte_row_bytes (per_pipe) =
+=3D PixelPTEBytesPerRow =3D : %u\n", p->PixelPTEBytesPerRow);
+> @@ -9323,7 +9323,7 @@ void dml_core_mode_programming(struct display_mode_=
+lib_st *mode_lib, const struc
+>                                 if (mode_lib->ms.policy.ImmediateFlipRequ=
+irement[k] !=3D dml_immediate_flip_not_required && locals->ImmediateFlipSup=
+portedForPipe[k] =3D=3D false) {
+>                                         locals->ImmediateFlipSupported =
+=3D false;
+>  #ifdef __DML_VBA_DEBUG__
+> -                                       dml_print("DML::%s: Pipe %0d not =
+supporing iflip\n", __func__, k);
+> +                                       dml_print("DML::%s: Pipe %0d not =
+supporting iflip\n", __func__, k);
+>  #endif
+>                                 }
+>                         }
+> @@ -9376,7 +9376,7 @@ void dml_core_mode_programming(struct display_mode_=
+lib_st *mode_lib, const struc
+>         if (locals->PrefetchAndImmediateFlipSupported) {
+>                 dml_print("DML::%s: Good, Prefetch and flip scheduling so=
+lution found at VStartupLines=3D%u (MaxVStartupAllPlanes=3D%u)\n", __func__=
+, s->VStartupLines-1, s->MaxVStartupAllPlanes);
+>         } else {
+> -               dml_print("DML::%s: Bad, Prefetch and flip scheduling sol=
+uation NOT found solution! (MaxVStartupAllPlanes=3D%u)\n", __func__, s->Max=
+VStartupAllPlanes);
+> +               dml_print("DML::%s: Bad, Prefetch and flip scheduling sol=
+ution did NOT find solution! (MaxVStartupAllPlanes=3D%u)\n", __func__, s->M=
+axVStartupAllPlanes);
+>         }
+>
+>         //Watermarks and NB P-State/DRAM Clock Change Support
+> --
+> 2.39.2
+>
