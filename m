@@ -4,65 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA983CDB47E
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Oct 2023 06:00:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E88DCDB47E
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Oct 2023 06:00:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72B5010E380;
-	Wed, 18 Oct 2023 06:00:16 +0000 (UTC)
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37C8410E380
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Oct 2023 06:00:14 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-40572aeb673so60433225e9.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Oct 2023 23:00:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1697608812; x=1698213612; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=0nXxpNC+hidsNPRgxFWG8u7vCk0zPnT+0lOswQPOBNA=;
- b=ly7aADbdcr7liX/+FbWR/b037ML7fLyMMfB+KlPj10yo6RFalnr2kL5eVAke93XvGX
- 7o7lpvtG7I3niDp8m4VI221Y2YofHHYnf18gBAGqgZFVkWsWNCQ4gN9ISqm+jTFjsdpw
- w8h9o+zTCG+3/UsuqGtmrrFF6GLt0jyFAwIgvlz9nQlsE6anXRHhVHdx55uDHbPwFZyQ
- QEt3wiDoGdHo8cmceO3hsPGAmKcOqj6sgkfwQ51OG6kzDY9ogZWkcn02docntycxPtAt
- n1wujBhg/pT1LhrTfxY3LIxM7YEnuBPXURFcV/o2A+edHg+enjD2j8AgWJpogY9dGuS9
- lg6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697608812; x=1698213612;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=0nXxpNC+hidsNPRgxFWG8u7vCk0zPnT+0lOswQPOBNA=;
- b=sQ17zynopuL/cQ+PbCgzFzK/eLD8a0Z/7eZ+U16fJUpK+DUHFbV2Xq7VNdtckiZqou
- 2eO+T/ow0deC8d0+Dw8LzuJvCW7puIred04jhFnzufnQ+a6Z8Q+rw4AQyfG8Zgtfoz+9
- rQbTqbaHguLqhq99bdz9Wg6P3I6o9fo7qMloGjodjYn7dQqAuOKm1dXrxL7ajrfFEz7J
- AU8Kq8G0L0BWeuNKP7eAznwNpucueQfh3k+5sMIEf2k6kIQX5NpZ6FjW+KPST6JWsJic
- /L4SpI71sau+oGBDelPP/FbD1Jt9/aJZpQTdJ+5aRY3sU8xOBY5w19q4XaU8D8DfT7Ar
- c+/Q==
-X-Gm-Message-State: AOJu0YxOQOm0vwHbXoI8ve9a0BWf8nl1s7S11AAdqo9WfoEBef/66Si2
- s+hFYPwls35cw63n4LLWFhw=
-X-Google-Smtp-Source: AGHT+IFePBMQ9NFKLOS14nW4BF9BZ0dAeKbupEZ2Auu4Ciy4rTlf8dDkq8M4JGqiArU5E3kzhyTHsA==
-X-Received: by 2002:a5d:6047:0:b0:316:f24b:597a with SMTP id
- j7-20020a5d6047000000b00316f24b597amr3698539wrt.46.1697608812192; 
- Tue, 17 Oct 2023 23:00:12 -0700 (PDT)
-Received: from [10.254.108.106] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- j6-20020adff006000000b003198a9d758dsm1267925wro.78.2023.10.17.23.00.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Oct 2023 23:00:11 -0700 (PDT)
-Message-ID: <f0189dfe-4275-4e5d-ad57-67e9facbdc5c@gmail.com>
-Date: Wed, 18 Oct 2023 08:00:08 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu remove restriction of sriov max_pfn on Vega10
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7874A10E385;
+	Wed, 18 Oct 2023 06:00:47 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2060.outbound.protection.outlook.com [40.107.102.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCDD410E385
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Oct 2023 06:00:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mwygOXvnrx/VF8BxVvKDCsLHpBUC/TPbHvBlXUGeYrI895x1n9fqRoK9EoLI39rz+7TPFRZkIGFwsvN0Nw2fGOXuCqYWbOS76rCBrY7WPO21mlJHkuZfcYbGT4J3yA4zckuSh0zfn7GSIZfUxVfrSq3XLqI1svM1JZaQ0x4G8bRg9L95MeR13oIqoT0RmdtJg3C2WsCSmLzVFFe2Uik0NiofVkuRCkTAfpkiXkGKjfZFmtcjJB43qmsTY0237V2ycgRaMCPjDUDlEvjp84HQqJTx/N9C1huJiVrgfEoPdSQhRHjUVhRvQyupx59Y+V5jEkZjuln18FrIE+9+L4D+8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4/pCh8BLN7aAnrtARpjYW3Z+Du6DhSL7wUMHUHp1Qz4=;
+ b=KwLxBqH4xOGVY0DPMhy4hVXeSeVNd2aYVjOMqionfLsNn+De/ryUCMKWS/b7m0qqws6bam7TjoKcGL8XxI2zOIkC9HjlFPmTUnnni9hVnb4KsancTDBWPtrxioNYF0sH61iyQkvhJ0rYWjnBvzJnnkoczV47iffuxvwrBwtPG8LFp3wBa9LwnrUyP4Ybbw/GXVa2axZBpSlAkX5OMVHdx2tFrFb9iMWrRhazICOU6wjfeg2gk/OxGIqxiI3rgQ6NAodzVWcjLEQNWqGx4Tp8IO9B36YX/xACpNVi1nKNGD4aK2WjQW1yjjgy81SPp6nqN9F13yKOTXT03Dzf2xvEDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4/pCh8BLN7aAnrtARpjYW3Z+Du6DhSL7wUMHUHp1Qz4=;
+ b=FS1r71JxpN51lzH1tom8e1xQ0VuWihb1JBrlEpU95Nm1Yfx7KNMJrJfYsIFUxEIxeQY/ah07rbVI/sYPYIiLWdOLfZ6Y/1UM2zwsyfpNcuukh6gJMz46r6WMny2vnOxSg5CYyoSCqR5rdd63nuBoo7+XPANskhYFSlJVxBkTPmw=
+Received: from PH7PR12MB7988.namprd12.prod.outlook.com (2603:10b6:510:26a::22)
+ by CY8PR12MB9035.namprd12.prod.outlook.com (2603:10b6:930:77::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.24; Wed, 18 Oct
+ 2023 06:00:42 +0000
+Received: from PH7PR12MB7988.namprd12.prod.outlook.com
+ ([fe80::d59b:2efd:b690:583f]) by PH7PR12MB7988.namprd12.prod.outlook.com
+ ([fe80::d59b:2efd:b690:583f%7]) with mapi id 15.20.6907.021; Wed, 18 Oct 2023
+ 06:00:42 +0000
+From: "Yang, Stanley" <Stanley.Yang@amd.com>
+To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH Review 1/1] drm/amdgpu: Workaround to skip kiq ring test
+ during ras gpu recovery
+Thread-Topic: [PATCH Review 1/1] drm/amdgpu: Workaround to skip kiq ring test
+ during ras gpu recovery
+Thread-Index: AQHaAQdZG+uF94IAa0S8RuGsakVc/7BO3G+AgAAyR1A=
+Date: Wed, 18 Oct 2023 06:00:41 +0000
+Message-ID: <PH7PR12MB79881AF2C9D77C676185AB919AD5A@PH7PR12MB7988.namprd12.prod.outlook.com>
+References: <20231017143638.3203961-1-Stanley.Yang@amd.com>
+ <PH7PR12MB87962D8997F0A360450D5F0EB0D5A@PH7PR12MB8796.namprd12.prod.outlook.com>
+In-Reply-To: <PH7PR12MB87962D8997F0A360450D5F0EB0D5A@PH7PR12MB8796.namprd12.prod.outlook.com>
+Accept-Language: zh-CN, en-US
 Content-Language: en-US
-To: "Lin.Cao" <lincao12@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20231018023927.56093-1-lincao12@amd.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20231018023927.56093-1-lincao12@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=7bb9da4f-da0e-4530-93b9-558752e1d879;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-10-18T02:56:13Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR12MB7988:EE_|CY8PR12MB9035:EE_
+x-ms-office365-filtering-correlation-id: cdd09625-1d25-4490-dfff-08dbcf9f8f8c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: r0KbuB4SqEZGi9WvVg+pQiCrJ1wHU5dERNSVQiz2J9nGyQDWGulKxBkb/3kYv1IXbN34D/C8nlhrNJ19Edmix3CV3lrvg0fhV/Ypp/fcBDIX9/M3cz+/dZche0fsEjgTLYh9ljNO2zjoMSngAKPWLOgoEQRKgx0wuTbd1LgxBmGuB3lisVZSnxwr4BgYG2TyOC6AbEofPTTcAmE7p7Kt5SYlcnKwcYNxlbezL5s/lRHH31i12FuXHKFRbmNiaSbMWjNiyHaOlz8PQIi80oB0A71ohuFs79nHXyfvoIUppZ3q7ZsRA9EFjT5NQuVaMzNicq3VB57ouqkTNaMFgIbiJMdh1wBloM8FhLOeYJIP/kbVhmnxAk6zf3dbuopCs1zHCKawY37v4qEvimtj88WzHzy/6yJ/K9bHjSPPsceKo1U+iPGI4DLZYPkyfGvbaRPWPB9vX/j7hbZAijn1HJXAvEA+LgM+6dn25E1eAayIr3bHJYBJfrobdlnZHy8dfwDpMO7QQr6AFwSRKJUTGxv95aL7U21ZgearkSgEgSMoovgLIkQXmvlCAZ560o+C8N7QPp5AM38yEXt96lZu7cEOrEYS4w7/CiDrk3dyDSr8itc65GtQfpHgCOVKUpbjpI7y
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB7988.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376002)(136003)(39860400002)(366004)(396003)(346002)(230922051799003)(451199024)(64100799003)(1800799009)(186009)(83380400001)(38100700002)(55016003)(9686003)(38070700005)(122000001)(2906002)(86362001)(316002)(110136005)(64756008)(66446008)(66476007)(66556008)(66946007)(76116006)(41300700001)(5660300002)(52536014)(8676002)(8936002)(478600001)(6506007)(7696005)(53546011)(71200400001)(33656002)(26005);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?k7qqlJ/ZjBHgLRY8mR9QL30ewUhlmRqf2Hl7ycEl4UMeyd0UMu6Z6mm/0b/k?=
+ =?us-ascii?Q?ynhYMkOatNQdTij1U5vAdWYqv4PO549KvYNO56VLfKnYNIfz1HF0fDdjhGtF?=
+ =?us-ascii?Q?u/uuMJlLJXFZYqgqv7CgI7JVMvVNvA9lnjZreQt538maSMG+4IjKki2D3Nmk?=
+ =?us-ascii?Q?gfZ0Ek+eXWfUmVK5rGhN50h4GqnYIer0rPcvdvETewuRrZkQ7Z4qraaAp/r0?=
+ =?us-ascii?Q?ewPousywurs/tgoa+z8bW9fPgZSpSvWPfPzC30lYJht3l/LR0NSosEelGDXO?=
+ =?us-ascii?Q?pQe5j8IdyEzlHH337dDrGKg6+w+f6jwsJ/ssVhU9ZMFfGtIgtPd4Wc5iWrHq?=
+ =?us-ascii?Q?6eZtAQGWL1Yk+e9AEzzUr8v9vst26+V6nVJWH7PtcbAT2ttFaCOT3eZFNDGT?=
+ =?us-ascii?Q?zb0YDeNf6lxA+iNcAG3ltwB9eJzwDvKAOTwMkRzgM4wknSKUG2bo8mySf0mb?=
+ =?us-ascii?Q?GhDZVqSZYQOWWjZMOsFgD5NzzLxRsUK44Ihv5kkJl0vANwk8Eeh6ZR76tXLt?=
+ =?us-ascii?Q?aI8/WoMY5wOY/R4HDF92w3zjBFBBZTlqYP//146w1S4CWf8nYQlx0uSGV7BE?=
+ =?us-ascii?Q?rP7uFyxWbSAHd1eY6+3VefX6ZMK5oSqt7J43Wh9KiF0oKHxxddDCAIFDEaQN?=
+ =?us-ascii?Q?AwLk2xYG+hm8G9vmv0N4l1ANHqRGLC+sx9vqt/zC0cyiXRRXz+ul+PhNkbNa?=
+ =?us-ascii?Q?6S3gpV6kACYhZ/hrkMuN1gEo/GpLTg3kAzf6MH+h9YvMzaJw5ftJtuATpgqL?=
+ =?us-ascii?Q?ushr+nCVW0foD+uRt7sgSNyB4G1K7DTpS9STla2CYcjWEF89sNJICcaRlNHj?=
+ =?us-ascii?Q?W86hXYLD43tOSiGVNesOwfqKgBe0J/g1vqd9Z5/P27YQ0j+rIzPfBo+Q3md0?=
+ =?us-ascii?Q?FGXzjShHp87wiQLjnzJ4s5YDSCI2eiGa8xlk6/83HqdZ/3ckTl9JPmkyt6cm?=
+ =?us-ascii?Q?k5enfONR9kaHMu38LXWEyYQb98Er/BJCHq3ElVi1kFwHLrFXkjOyfOe9STpY?=
+ =?us-ascii?Q?1fJtQuxlT/qP1Z+cRNagA7Aqg0ijezlTxS66hJ6AbOQkNLvnqTKA5QsAj4ms?=
+ =?us-ascii?Q?PflAjujrZ/YrbduUgvyRFzYMYY8LASuAel4l2S2A1ELNa5WeIexxcZneanUe?=
+ =?us-ascii?Q?CFYo+BAy7EnojW9LOH6VhmdoF5B7ap+5NiMU314C2v0bY/ZO/FkX+p70Ofux?=
+ =?us-ascii?Q?sWpSSI/VNGT+9y/DG5WDF59MDtxcPh4tXDHpNIMoO6rR+xC1UOBslX3BeIN2?=
+ =?us-ascii?Q?nMIiKxMS3xDt8acwNoBG2k5VgSE/cXeLVd9XZD+ke1zRrjzkkhysEV9LZtSB?=
+ =?us-ascii?Q?7dJiXCVJ6Fj0Yu/n0sgeodja2dyNGiyXBQwnFx3ejaGFfZA1nCXIYut2azpQ?=
+ =?us-ascii?Q?xKoRh+sFU+IYajRhPLxRKvhjX07P5ozX8MUn/0OUdm1P/L+ab2SpiuHmVfC1?=
+ =?us-ascii?Q?w8B99QFo9d8omDEYbKxqluBq/U/OG96byXGzzZgXMsjtT/vD6h3ufP5K2DWp?=
+ =?us-ascii?Q?T5zkLKcHnF2Ymh99IsXCj6AK1rL6TxMK9jy4JFxg5nBpkkfkswtVa5pLcVWi?=
+ =?us-ascii?Q?iX3HtGyi3tYtK8osOPo=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7988.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cdd09625-1d25-4490-dfff-08dbcf9f8f8c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Oct 2023 06:00:41.7685 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dSQAd7mHaXbHzT2xWEgqTyUjGnGss29BjzgQCDBAPJT2G3Vz5GQKo5RGLLDoT/piSWJhBJAxe57wE6M0Wef2lw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB9035
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,44 +125,102 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: zhenguo.yin@amd.com, horace.chen@amd.com, haijun.chang@amd.com,
- jingwen.chen2@amd.com,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, monk.liu@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 18.10.23 um 04:39 schrieb Lin.Cao:
-> Remove restriction of sriov max_pfn so that TBA and TMA can move to high
-> 47 bits address.
->
-> Regression test: change range alloc flag of libdrm as
-> AMDGPU_VA_RANGE_HIGH and there is no flr occur when testing amdgpu_test
-> of drm.
->
-> Signed-off-by: Lin.Cao <lincao12@amd.com>
+[AMD Official Use Only - General]
 
-Acked-by: Christian König <christian.koenig@amd.com>
+Thanks, will update.
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 7 ++-----
->   1 file changed, 2 insertions(+), 5 deletions(-)
+Regards,
+Stanley
+> -----Original Message-----
+> From: Zhou1, Tao <Tao.Zhou1@amd.com>
+> Sent: Wednesday, October 18, 2023 11:00 AM
+> To: Yang, Stanley <Stanley.Yang@amd.com>; amd-gfx@lists.freedesktop.org
+> Cc: Yang, Stanley <Stanley.Yang@amd.com>
+> Subject: RE: [PATCH Review 1/1] drm/amdgpu: Workaround to skip kiq ring
+> test during ras gpu recovery
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index 3a1050344b59..b1eb81ca64bc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -2023,11 +2023,8 @@ static int gmc_v9_0_sw_init(void *handle)
->   		 * vm size is 256TB (48bit), maximum size of Vega10,
->   		 * block size 512 (9bit)
->   		 */
-> -		/* sriov restrict max_pfn below AMDGPU_GMC_HOLE */
-> -		if (amdgpu_sriov_vf(adev))
-> -			amdgpu_vm_adjust_size(adev, 256 * 1024, 9, 3, 47);
-> -		else
-> -			amdgpu_vm_adjust_size(adev, 256 * 1024, 9, 3, 48);
-> +
-> +		amdgpu_vm_adjust_size(adev, 256 * 1024, 9, 3, 48);
->   		if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 2))
->   			adev->gmc.translate_further = adev->vm_manager.num_level > 1;
->   		break;
+> [AMD Official Use Only - General]
+>
+> > -----Original Message-----
+> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> > Stanley.Yang
+> > Sent: Tuesday, October 17, 2023 10:37 PM
+> > To: amd-gfx@lists.freedesktop.org
+> > Cc: Yang, Stanley <Stanley.Yang@amd.com>
+> > Subject: [PATCH Review 1/1] drm/amdgpu: Workaround to skip kiq ring
+> > test during ras gpu recovery
+> >
+> > This is workaround, kiq ring test failed in suspend stage when do ras
+> > recovery for gfx v9_4_3.
+> >
+> > Change-Id: I8de9900aa76706f59bc029d4e9e8438c6e1db8e0
+> > Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 21
+> +++++++++++++++++++++
+> >  1 file changed, 21 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > index 9a158018ae16..902e60203809 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > @@ -29,6 +29,7 @@
+> >  #include "amdgpu_rlc.h"
+> >  #include "amdgpu_ras.h"
+> >  #include "amdgpu_xcp.h"
+> > +#include "amdgpu_xgmi.h"
+> >
+> >  /* delay 0.1 second to enable gfx off feature */
+> >  #define GFX_OFF_DELAY_ENABLE         msecs_to_jiffies(100)
+> > @@ -501,6 +502,9 @@ int amdgpu_gfx_disable_kcq(struct amdgpu_device
+> > *adev, int xcc_id)  {
+> >       struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[xcc_id];
+> >       struct amdgpu_ring *kiq_ring =3D &kiq->ring;
+> > +     struct amdgpu_hive_info *hive;
+> > +     struct amdgpu_ras *ras;
+> > +     int hive_ras_recovery;
+> >       int i, r =3D 0;
+> >       int j;
+> >
+> > @@ -521,6 +525,23 @@ int amdgpu_gfx_disable_kcq(struct
+> amdgpu_device
+> > *adev, int xcc_id)
+> >                                          RESET_QUEUES, 0, 0);
+> >       }
+> >
+> > +     /**
+> > +      * This is workaround: only skip kiq_ring test
+> > +      * during ras recovery in suspend stage for gfx v9_4_3
+> > +      */
+> > +     hive =3D amdgpu_get_xgmi_hive(adev);
+> > +     if (hive) {
+> [Tao] the hive_ras_recovery should has default value if !hive.
+> With that fixed, the patch is:
+>
+> Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+>
+> > +             hive_ras_recovery =3D atomic_read(&hive->ras_recovery);
+> > +             amdgpu_put_xgmi_hive(hive);
+> > +     }
+> > +
+> > +     ras =3D amdgpu_ras_get_context(adev);
+> > +     if ((amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION(9, 4, =
+3)) &&
+> > +             ras && (atomic_read(&ras->in_recovery) ||
+> > + hive_ras_recovery))
+> > {
+> > +             spin_unlock(&kiq->ring_lock);
+> > +             return 0;
+> > +     }
+> > +
+> >       if (kiq_ring->sched.ready && !adev->job_hang)
+> >               r =3D amdgpu_ring_test_helper(kiq_ring);
+> >       spin_unlock(&kiq->ring_lock);
+> > --
+> > 2.25.1
+>
 
