@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC292CDB483
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Oct 2023 13:06:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 308BFCDB47E
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Oct 2023 13:06:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72FBC10E3E3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82D2610E3E5;
 	Wed, 18 Oct 2023 13:06:20 +0000 (UTC)
-Received: from out30-113.freemail.mail.aliyun.com
- (out30-113.freemail.mail.aliyun.com [115.124.30.113])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3067410E353;
- Wed, 18 Oct 2023 01:22:38 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R131e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045192;
+Received: from out30-111.freemail.mail.aliyun.com
+ (out30-111.freemail.mail.aliyun.com [115.124.30.111])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B773D10E352;
+ Wed, 18 Oct 2023 01:16:20 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R681e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046050;
  MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=9; SR=0;
- TI=SMTPD_---0VuOwjAo_1697592153; 
+ TI=SMTPD_---0VuOlVXl_1697591775; 
 Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
- fp:SMTPD_---0VuOwjAo_1697592153) by smtp.aliyun-inc.com;
- Wed, 18 Oct 2023 09:22:34 +0800
+ fp:SMTPD_---0VuOlVXl_1697591775) by smtp.aliyun-inc.com;
+ Wed, 18 Oct 2023 09:16:16 +0800
 From: Yang Li <yang.lee@linux.alibaba.com>
 To: alexander.deucher@amd.com, harry.wentland@amd.com, airlied@gmail.com,
  daniel@ffwll.ch
-Subject: [PATCH -next] drm/amd/display: Simplify bool conversion
-Date: Wed, 18 Oct 2023 09:22:32 +0800
-Message-Id: <20231018012232.23995-1-yang.lee@linux.alibaba.com>
+Subject: [PATCH -next] drm/amd/display: Remove unneeded semicolon
+Date: Wed, 18 Oct 2023 09:16:14 +0800
+Message-Id: <20231018011614.10883-1-yang.lee@linux.alibaba.com>
 X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -47,28 +47,28 @@ Cc: Abaci Robot <abaci@linux.alibaba.com>, Yang Li <yang.lee@linux.alibaba.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-./drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c:4802:84-89: WARNING: conversion to bool not needed here
+./drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c:464:3-4: Unneeded semicolon
 
 Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=6901
+Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=6900
 Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
 ---
- drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c | 2 +-
+ drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
-index 851db026f251..3296c078ff3e 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
-@@ -4799,7 +4799,7 @@ static void CalculateSurfaceSizeInMall(
- 		if (UseMALLForStaticScreen[k] == dml_use_mall_static_screen_enable)
- 			TotalSurfaceSizeInMALL = TotalSurfaceSizeInMALL + SurfaceSizeInMALL[k];
- 	}
--	*ExceededMALLSize = (TotalSurfaceSizeInMALL <= MALLAllocatedForDCN * 1024 * 1024 ? false : true);
-+	*ExceededMALLSize = (TotalSurfaceSizeInMALL > MALLAllocatedForDCN * 1024 * 1024);
- } // CalculateSurfaceSizeInMall
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
+index 36baf35bb170..f45fbe820445 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
+@@ -461,7 +461,7 @@ static void sort_pipes_for_splitting(struct dc_plane_pipe_pool *pipes)
+ 				swapped = false;
+ 			}
  
- static void CalculateDETBufferSize(
+-		};
++		}
+ 	}
+ }
+ 
 -- 
 2.20.1.7.g153144c
 
