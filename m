@@ -4,96 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3CB4CDB483
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Oct 2023 12:39:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EAC3CDB483
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Oct 2023 13:06:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B98E10E3E4;
-	Wed, 18 Oct 2023 12:39:23 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on20616.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e83::616])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB84610E3E7
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Oct 2023 12:39:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CZqpOqVIq6ox1eJ+xAc4/MAMFuj5APll8oNIpw+TrVHfbNG9/lt+eNHpQbNnuThGk35rwMP7J8K6bLteIto0WIyt9DyzPBOJRfxEWiUQyYh107HI8wIMysP1WOPW/jJtvC/wcGUJLik2MpCU/HkaRZ90LrMlKSRphIcOoPFY2Zivu0GnflsddPph2l+oZ6QbYUxl5iIektlHC0Lhtzf35hIC+rklPlD6KyBdyxsRKGP8YubN2he/ef+hBOaSeZKSGhm4PInWE4B1ZgSDyhfWx+VicyXt6Tr/WovVRIg3TFFE9cDDFfDCPWSOKPECjaaFsHEo/C1DgzfukoAegkywFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TIsySk/JuqttNa/yPRimTsgvhJHELcC1nXYIA6BoFjo=;
- b=H64bTipOU/M7TnMZu5NgZZpTJX9k10eahviCcT2bcDxYUJSTW/jQFgsX0KH9ZAG4aQFDIETaruPnxkWEj5f7N4kNOgc++KtYciHCRJ1gTZ0Ypd0xnwGNy0VzEB8JQmGgHGgmU5sF+j6bYRqchWKgO3JQa8s2PseojfZl3DK443pbocc6NBSLM4K/xlx8fOYJAEPy5rFncipEzcJMI8hgc3IrwBeR31AFdpQG5542lg4sEd9bWDGvCx5LIigvL2KZbMC6or8UiguEToObxUSCX/25EmCp0unmSWKDwDIkp2AJOXm9dyBPjTH8nrZsv5kLDiXd4Pb6OaJNOsIJ5DEeeg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TIsySk/JuqttNa/yPRimTsgvhJHELcC1nXYIA6BoFjo=;
- b=tHF1w0KA+gyEPgP7p5MbSoQ+tNKNyrKLRwKlyxUbmKx5UBq81AqxM3A9WqM7PVNZN92a+gRNXKF3VsOGmjEwypWZcdmRxEKQ2PBdBAjaxlSriRqribvS1naw1OKIVxDsOq95wCqoGCeYyFHw7XE5kK7FNXr0Rg8Qre2N9LBeCs8=
-Received: from SN7PR04CA0157.namprd04.prod.outlook.com (2603:10b6:806:125::12)
- by SN7PR12MB7346.namprd12.prod.outlook.com (2603:10b6:806:299::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.21; Wed, 18 Oct
- 2023 12:39:18 +0000
-Received: from SN1PEPF0002636D.namprd02.prod.outlook.com
- (2603:10b6:806:125:cafe::c3) by SN7PR04CA0157.outlook.office365.com
- (2603:10b6:806:125::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.23 via Frontend
- Transport; Wed, 18 Oct 2023 12:39:18 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SN1PEPF0002636D.mail.protection.outlook.com (10.167.241.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6907.20 via Frontend Transport; Wed, 18 Oct 2023 12:39:18 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 18 Oct
- 2023 07:39:17 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 18 Oct
- 2023 07:39:17 -0500
-Received: from hawzhang-System-Product-Next-Generation.amd.com
- (10.180.168.240) by SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP
- Server id 15.1.2507.27 via Frontend Transport; Wed, 18 Oct 2023 07:39:16
- -0500
-From: Hawking Zhang <Hawking.Zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, Stanley Yang <Stanley.Yang@amd.com>, "Tao
- Zhou" <tao.zhou1@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: Add UVD_VCPU_INT_EN2 to dpg sram
-Date: Wed, 18 Oct 2023 20:39:07 +0800
-Message-ID: <20231018123907.14772-2-Hawking.Zhang@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20231018123907.14772-1-Hawking.Zhang@amd.com>
-References: <20231018123907.14772-1-Hawking.Zhang@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D732D10E3DC;
+	Wed, 18 Oct 2023 13:06:19 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87B7410E094;
+ Wed, 18 Oct 2023 09:37:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1697621870; x=1729157870;
+ h=date:from:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=jCXWBlD84BTyNglloktAZAcTQMc203q6u0L9+NHbmMM=;
+ b=W/3pAlp8dWmSWxr36/icevySCTEQUZvwTSj+luQMulmgQGymXS43OD6Z
+ Tb3Xqxhda6yL2oQNWc2U178BXY9g1GUnny5R5eJYRRfz0+eD/0FOwbxu9
+ YUpGwjwBiRTISF0/KzQPu8H+V/hFPnjJXMi3UADdWyD913id7re/itTv7
+ e/21dG64KmWv7q0MKF2YPGclHIVErQT+aqWuxM8ctH3AZykALiBWdcngG
+ lKxslbwUpY2fJAQ1HUd7F/9rN6zBqslyd5GmZ2b0CVqBz8iFVQs1ml7sW
+ 01WOaLGAbSWKUewFfZ0dvKjZj6/Eogt8SD7rDUJ6Y0CqpEuNcSbADRwVA g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="389852822"
+X-IronPort-AV: E=Sophos;i="6.03,234,1694761200"; d="scan'208";a="389852822"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2023 02:37:22 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="900273405"
+X-IronPort-AV: E=Sophos;i="6.03,234,1694761200"; d="scan'208";a="900273405"
+Received: from gruberda-mobl1.ger.corp.intel.com ([10.252.62.52])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2023 02:35:13 -0700
+Date: Wed, 18 Oct 2023 12:37:15 +0300 (EEST)
+From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+Subject: Re: [PATCH v4 13/17] platform/x86/amd/pmf: Add PMF-AMDGPU get
+ interface
+In-Reply-To: <84af64f2-42bd-4e09-a1c9-bde2a935c8f2@amd.com>
+Message-ID: <8cc0248e-2dd-1169-6333-10496b373bf@linux.intel.com>
+References: <20231018070241.2041529-1-Shyam-sundar.S-k@amd.com>
+ <20231018070241.2041529-14-Shyam-sundar.S-k@amd.com>
+ <9e6c4a42-fbce-c5ea-15ce-5eb22fc3767a@linux.intel.com>
+ <84af64f2-42bd-4e09-a1c9-bde2a935c8f2@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002636D:EE_|SN7PR12MB7346:EE_
-X-MS-Office365-Filtering-Correlation-Id: c775664b-3962-4439-c1d7-08dbcfd73edd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 25py1tE6JZsvirNtjzeiyacTymStYKOdcKVR0QLTCVjib13kGNXiOhATCt6SFqqzpVB1VnXewW0D+8aHSGLifZ2abBOw5/zqqzCmcdVMwdpUVw9Qmn27ar0CR4BjrX3xQcZCv9pM2QK7iFkLGvlzY6uvHRz9bMr/EQyHVTm6MPLm1Jjgc6dM1PadvWc972bAMwe05aRrhF+L/JBoEkZppBkzNdOwrMHDyVXsJLYo1K0KAcInZ2ookeq8knSIpPlKZKF/B9sWhq3LJ9zq/TnuF5ckJoywifWbn49UU+iF+t1mc0ZW4NroifCpTj+7wUPB/A30b5AWDR5EoBQwmQ1SMspdIjnBTccNDMzwQPhOxA+ScujdH3wB7wNhvj2SVw/PSKSpPGL679Q7BRvBTz9/Sk1Cm96IZ7mFDy656bqKUwEzd34P3AAAd98EYg/4Ps/KODBmJ0npFH30sNgLl8pEKNNKyZHhqZbx4/ZamCWb7M/hxgVMghIScAoapVmWinMsycH1EcbVtbz6urd9J7mXVfga9Rxy1C2lDxJd/ooHBwL6DMUXadmEkoKNbcm5OUwwBMfa5zuOxZf/BJJK/TZxo+57dtyJj18rC7gS+2mqx7TKIVoJFcTzWb8kWE46SGl9r5HpWR2fHOTujZgfN5qYzWQg7BbOUAUQ/oOsg0z8fEq/KprhZzZVfdBzNpOz1F1zA7GVy2CEj/RLbms7oajI2yrsQRSwWkLNTLRqPXyaHW+ltuaKCdiFVARryCMRsdDuH3UiHHiHSD0gE/Vxnh3niA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(39860400002)(136003)(396003)(376002)(230922051799003)(1800799009)(64100799003)(82310400011)(451199024)(186009)(46966006)(40470700004)(36840700001)(4744005)(2906002)(86362001)(40480700001)(4326008)(8676002)(110136005)(316002)(8936002)(70586007)(70206006)(41300700001)(40460700003)(5660300002)(36756003)(2616005)(81166007)(356005)(1076003)(26005)(82740400003)(336012)(426003)(6666004)(7696005)(36860700001)(6636002)(47076005)(478600001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2023 12:39:18.2070 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c775664b-3962-4439-c1d7-08dbcfd73edd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002636D.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7346
+Content-Type: multipart/mixed; boundary="8323329-365477675-1697621841=:2178"
+X-Mailman-Approved-At: Wed, 18 Oct 2023 13:06:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,34 +60,128 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Xinhui.Pan@amd.com, Patil.Reddy@amd.com, basavaraj.natikar@amd.com,
+ dri-devel@lists.freedesktop.org, jikos@kernel.org,
+ amd-gfx@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ markgross@kernel.org, Hans de Goede <hdegoede@redhat.com>,
+ benjamin.tissoires@redhat.com, mario.limonciello@amd.com, daniel@ffwll.ch,
+ linux-input@vger.kernel.org, alexander.deucher@amd.com, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add RAS sepcifc programming to dpg sram.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 5 +++++
- 1 file changed, 5 insertions(+)
+--8323329-365477675-1697621841=:2178
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-index f85d18cd74ec..810bbfccd6f2 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-@@ -1760,6 +1760,11 @@ static void vcn_v4_0_3_enable_ras(struct amdgpu_device *adev,
- 			      SOC15_DPG_MODE_OFFSET(VCN, 0, regVCN_RAS_CNTL),
- 			      tmp, 0, indirect);
- 
-+	tmp = UVD_VCPU_INT_EN2__RASCNTL_VCPU_VCODEC_EN_MASK;
-+	WREG32_SOC15_DPG_MODE(inst_idx,
-+			      SOC15_DPG_MODE_OFFSET(VCN, 0, regUVD_VCPU_INT_EN2),
-+			      tmp, 0, indirect);
-+
- 	tmp = UVD_SYS_INT_EN__RASCNTL_VCPU_VCODEC_EN_MASK;
- 	WREG32_SOC15_DPG_MODE(inst_idx,
- 			      SOC15_DPG_MODE_OFFSET(VCN, 0, regUVD_SYS_INT_EN),
+On Wed, 18 Oct 2023, Shyam Sundar S K wrote:
+> On 10/18/2023 2:50 PM, Ilpo Järvinen wrote:
+> > On Wed, 18 Oct 2023, Shyam Sundar S K wrote:
+> > 
+> >> In order to provide GPU inputs to TA for the Smart PC solution to work, we
+> >> need to have interface between the PMF driver and the AMDGPU driver.
+> >>
+> >> Add the initial code path for get interface from AMDGPU.
+> >>
+> >> Co-developed-by: Mario Limonciello <mario.limonciello@amd.com>
+> >> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> >> Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+> >> ---
+> >>  drivers/gpu/drm/amd/amdgpu/Makefile     |   2 +
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu.h     |   1 +
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_pmf.c | 138 ++++++++++++++++++++++++
+> >>  drivers/platform/x86/amd/pmf/Kconfig    |   1 +
+> >>  drivers/platform/x86/amd/pmf/core.c     |   1 +
+> >>  drivers/platform/x86/amd/pmf/pmf.h      |   3 +
+> >>  drivers/platform/x86/amd/pmf/spc.c      |  13 +++
+> >>  drivers/platform/x86/amd/pmf/tee-if.c   |  26 +++++
+> >>  include/linux/amd-pmf-io.h              |  35 ++++++
+> >>  9 files changed, 220 insertions(+)
+> >>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_pmf.c
+> >>  create mode 100644 include/linux/amd-pmf-io.h
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+> >> index 384b798a9bad..7fafccefbd7a 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> >> @@ -86,6 +86,8 @@ amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
+> >>  
+> >>  amdgpu-$(CONFIG_PERF_EVENTS) += amdgpu_pmu.o
+> >>  
+> >> +amdgpu-$(CONFIG_AMD_PMF) += amdgpu_pmf.o
+> >> +
+> >>  # add asic specific block
+> >>  amdgpu-$(CONFIG_DRM_AMDGPU_CIK)+= cik.o cik_ih.o \
+> >>  	dce_v8_0.o gfx_v7_0.o cik_sdma.o uvd_v4_2.o vce_v2_0.o
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> >> index a79d53bdbe13..26ffa1b4fe57 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> >> @@ -50,6 +50,7 @@
+> >>  #include <linux/hashtable.h>
+> >>  #include <linux/dma-fence.h>
+> >>  #include <linux/pci.h>
+> >> +#include <linux/amd-pmf-io.h>
+> >>  
+> >>  #include <drm/ttm/ttm_bo.h>
+> >>  #include <drm/ttm/ttm_placement.h>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmf.c
+> >> new file mode 100644
+> >> index 000000000000..ac981848df50
+> >> --- /dev/null
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmf.c
+> >> @@ -0,0 +1,138 @@
+> >> +/*
+> >> + * Copyright 2023 Advanced Micro Devices, Inc.
+> >> + *
+> >> + * Permission is hereby granted, free of charge, to any person obtaining a
+> >> + * copy of this software and associated documentation files (the "Software"),
+> >> + * to deal in the Software without restriction, including without limitation
+> >> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> >> + * and/or sell copies of the Software, and to permit persons to whom the
+> >> + * Software is furnished to do so, subject to the following conditions:
+> >> + *
+> >> + * The above copyright notice and this permission notice shall be included in
+> >> + * all copies or substantial portions of the Software.
+> >> + *
+> >> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> >> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> >> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> >> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> >> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> >> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> >> + * OTHER DEALINGS IN THE SOFTWARE.
+> > 
+> > This is MIT, right? Add the required SPDX-License-Identifier line for it
+> > at the top of the file, thank you.
+> > 
+> 
+> all the files in drivers/gpu/drm/amd/amdgpu/* carry the same license
+> text. So, have retained it to maintain uniformity.
+
+What does adding SPDX identifier line at the top of the file take away 
+from that? I'd be fine if you want to add the identifier line to all of 
+them too to keep them identical.
+
+> >> + *
+> >> + * Author: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+> >> + *
+> >> + */
+> > 
+> > Remove the extra empty line at the end of the comment.
+> > 
+> 
+> I just took the standard template for all the gpu files. Is that OK to
+> retain the blank line?
+> 
+> If not, I can remove it in the next version.
+
+I don't want to fight over a blank line when you insist on keeping it :-).
+
 -- 
-2.17.1
+ i.
 
+--8323329-365477675-1697621841=:2178--
