@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AF8CCDB482
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Oct 2023 13:06:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CA95CDB484
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Oct 2023 13:06:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D78B410E3E7;
-	Wed, 18 Oct 2023 13:06:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8062010E3EB;
+	Wed, 18 Oct 2023 13:06:21 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9AB710E09D;
- Wed, 18 Oct 2023 10:10:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D1A110E08E;
+ Wed, 18 Oct 2023 09:00:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1697623801; x=1729159801;
+ t=1697619653; x=1729155653;
  h=date:from:to:cc:subject:in-reply-to:message-id:
  references:mime-version;
- bh=MIk391YTICwKskRb9aQYU/qCcXnfbhpP9VefB1ycOx0=;
- b=QKV4PezqqaBhJW8IfWaH3RjimELT5HdWGSz+ayep5N6XHnCF0jPoT3y8
- rj1ftwtQJLQwr1BUKBn8oXcZwDu+rC0fl+/pLig2n7IyDnQ0tZVbeyvDZ
- Q3IrL6HPIF7tyIqHqchWbkuOSTsZGlll5dH4a6jH2w9UvlZv0KGKPLTXS
- Jd75foCOE1TAX8UMf3DFIFlVkIOxLXgNS5k55CFO/6kVHvilwHhQrb7Lb
- LzDDmQb/Z1pj8cBTNXtHzh3qclV0ZNFhtyR0nupz/VYYsHX88/+swfzDj
- 09opeSoAfPcs2ZKxexUHJjKZFZdKKeU5DxUkry+XFKtroyajBlHbJs/IQ g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="384863653"
-X-IronPort-AV: E=Sophos;i="6.03,234,1694761200"; d="scan'208";a="384863653"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ bh=Bz4RQKoB2bOF4jPSwqa+tusF8wmGmJ55+wiIyaWo9o4=;
+ b=O8uyFyH3chwvrJ5molauAbx95kDgiUoBYBMlhrrMywnQTTOnzYRl+Cxx
+ TkTvuzgtWmA5OMUQhHh2R6gfD5ohDHthawO59VqKE3a6YLF3nf1nb36Av
+ AJYDIZIp4XKX69Ro44WmzZULVkCoiajXD/ypvwF3iejRzpCQGvpqu+AR9
+ b3pyp3xCb1uaaNXIyyFNKHe6EahK9QtKiKc/7vIbRbse51gvifGr08gtX
+ hYs4uRSj9D9vDGp27bZZLwStDcxgJxJLOn2yOKgSejN/oemi1f8r4Y+s6
+ PH2Quv7TqwWEEpWkGIdxh8iRDTwCLOfycSOeVR8JbIsTmW2g0w9Sw3hk/ Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="384852898"
+X-IronPort-AV: E=Sophos;i="6.03,234,1694761200"; d="scan'208";a="384852898"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2023 03:09:59 -0700
+ 18 Oct 2023 02:00:51 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="756533694"
-X-IronPort-AV: E=Sophos;i="6.03,234,1694761200"; d="scan'208";a="756533694"
+X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="760147861"
+X-IronPort-AV: E=Sophos;i="6.03,234,1694761200"; d="scan'208";a="760147861"
 Received: from gruberda-mobl1.ger.corp.intel.com ([10.252.62.52])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2023 03:09:54 -0700
-Date: Wed, 18 Oct 2023 13:09:52 +0300 (EEST)
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2023 02:00:46 -0700
+Date: Wed, 18 Oct 2023 12:00:44 +0300 (EEST)
 From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
 To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-Subject: Re: [PATCH v4 12/17] platform/x86/amd/pmf: dump policy binary data
-In-Reply-To: <20231018070241.2041529-13-Shyam-sundar.S-k@amd.com>
-Message-ID: <babc47ee-338a-8b4a-83f2-15a093753ac8@linux.intel.com>
+Subject: Re: [PATCH v4 10/17] platform/x86/amd/pmf: Add facility to dump TA
+ inputs
+In-Reply-To: <20231018070241.2041529-11-Shyam-sundar.S-k@amd.com>
+Message-ID: <ef47873-9c61-65c4-4b4f-deef1959de71@linux.intel.com>
 References: <20231018070241.2041529-1-Shyam-sundar.S-k@amd.com>
- <20231018070241.2041529-13-Shyam-sundar.S-k@amd.com>
+ <20231018070241.2041529-11-Shyam-sundar.S-k@amd.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1969835922-1697623799=:2178"
+Content-Type: text/plain; charset=US-ASCII
 X-Mailman-Approved-At: Wed, 18 Oct 2023 13:06:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,71 +68,112 @@ Cc: Xinhui.Pan@amd.com, Patil.Reddy@amd.com, basavaraj.natikar@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1969835922-1697623799=:2178
-Content-Type: text/plain; charset=ISO-8859-15
-Content-Transfer-Encoding: 8BIT
-
 On Wed, 18 Oct 2023, Shyam Sundar S K wrote:
 
-> Sometimes policy binary retrieved from the BIOS maybe incorrect that can
-> end up in failing to enable the Smart PC solution feature.
+> PMF driver sends constant inputs to TA which its gets via the other
+> subsystems in the kernel. To debug certain TA issues knowing what inputs
+> being sent to TA becomes critical. Add debug facility to the driver which
+> can isolate Smart PC and TA related issues.
 > 
-> Use print_hex_dump_debug() to dump the policy binary in hex, so that we
-> debug the issues related to the binary even before sending that to TA.
+> Also, make source_as_str() as non-static function as this helper is
+> required outside of sps.c file.
 > 
 > Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
 > Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
 > ---
->  drivers/platform/x86/amd/pmf/tee-if.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
+>  drivers/platform/x86/amd/pmf/pmf.h    |  3 +++
+>  drivers/platform/x86/amd/pmf/spc.c    | 37 +++++++++++++++++++++++++++
+>  drivers/platform/x86/amd/pmf/tee-if.c |  1 +
+>  3 files changed, 41 insertions(+)
 > 
-> diff --git a/drivers/platform/x86/amd/pmf/tee-if.c b/drivers/platform/x86/amd/pmf/tee-if.c
-> index 6c4ce22ba518..2f5fb8623c20 100644
-> --- a/drivers/platform/x86/amd/pmf/tee-if.c
-> +++ b/drivers/platform/x86/amd/pmf/tee-if.c
-> @@ -276,6 +276,12 @@ static int amd_pmf_start_policy_engine(struct amd_pmf_dev *dev)
->  }
+> diff --git a/drivers/platform/x86/amd/pmf/pmf.h b/drivers/platform/x86/amd/pmf/pmf.h
+> index 216a9f795436..593930519039 100644
+> --- a/drivers/platform/x86/amd/pmf/pmf.h
+> +++ b/drivers/platform/x86/amd/pmf/pmf.h
+> @@ -602,6 +602,7 @@ bool is_pprof_balanced(struct amd_pmf_dev *pmf);
+>  int amd_pmf_power_slider_update_event(struct amd_pmf_dev *dev);
+>  const char *amd_pmf_source_as_str(unsigned int state);
 >  
->  #ifdef CONFIG_AMD_PMF_DEBUG
-> +static void amd_pmf_hex_dump_pb(struct amd_pmf_dev *dev)
+> +const char *amd_pmf_source_as_str(unsigned int state);
+>  
+>  int apmf_update_fan_idx(struct amd_pmf_dev *pdev, bool manual, u32 idx);
+>  int amd_pmf_set_sps_power_limits(struct amd_pmf_dev *pmf);
+> @@ -632,4 +633,6 @@ int apmf_check_smart_pc(struct amd_pmf_dev *pmf_dev);
+>  
+>  /* Smart PC - TA interfaces */
+>  void amd_pmf_populate_ta_inputs(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in);
+> +void amd_pmf_dump_ta_inputs(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in);
+> +
+>  #endif /* PMF_H */
+> diff --git a/drivers/platform/x86/amd/pmf/spc.c b/drivers/platform/x86/amd/pmf/spc.c
+> index bd5061fdfdbe..512e0c66efdc 100644
+> --- a/drivers/platform/x86/amd/pmf/spc.c
+> +++ b/drivers/platform/x86/amd/pmf/spc.c
+> @@ -14,6 +14,43 @@
+>  #include <linux/units.h>
+>  #include "pmf.h"
+>  
+> +#ifdef CONFIG_AMD_PMF_DEBUG
+> +static const char *ta_slider_as_str(unsigned int state)
 > +{
-> +	print_hex_dump_debug("(pb):  ", DUMP_PREFIX_OFFSET, 16, 1, dev->policy_buf,
-> +			     dev->policy_sz, false);
+> +	switch (state) {
+> +	case TA_BEST_PERFORMANCE:
+> +		return "PERFORMANCE";
+> +	case TA_BETTER_PERFORMANCE:
+> +		return "BALANCED";
+> +	case TA_BEST_BATTERY:
+> +		return "POWER_SAVER";
+> +	default:
+> +		return "Unknown TA Slider State";
+> +	}
 > +}
 > +
->  static ssize_t amd_pmf_get_pb_data(struct file *filp, const char __user *buf,
->  				   size_t length, loff_t *pos)
->  {
-> @@ -290,6 +296,7 @@ static ssize_t amd_pmf_get_pb_data(struct file *filp, const char __user *buf,
->  	if (copy_from_user(dev->policy_buf, buf, dev->policy_sz))
->  		return -EFAULT;
->  
-> +	amd_pmf_hex_dump_pb(dev);
->  	ret = amd_pmf_start_policy_engine(dev);
->  	if (ret)
->  		return -EINVAL;
-> @@ -328,6 +335,7 @@ static int amd_pmf_open_pb(struct amd_pmf_dev *dev, struct dentry *debugfs_root)
->  }
->  
->  static void amd_pmf_remove_pb(struct amd_pmf_dev *dev) {}
-> +static void amd_pmf_hex_dump_pb(struct amd_pmf_dev *dev) {}
->  #endif
->  
->  static int amd_pmf_get_bios_buffer(struct amd_pmf_dev *dev)
-> @@ -342,6 +350,7 @@ static int amd_pmf_get_bios_buffer(struct amd_pmf_dev *dev)
->  
->  	memcpy(dev->policy_buf, dev->policy_base, dev->policy_sz);
->  
-> +	amd_pmf_hex_dump_pb(dev);
->  	if (pb_side_load)
->  		amd_pmf_open_pb(dev, dev->dbgfs_dir);
+> +void amd_pmf_dump_ta_inputs(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in)
+> +{
+> +	dev_dbg(dev->dev, "==== TA inputs START ====\n");
+> +	dev_dbg(dev->dev, "Slider State : %s\n", ta_slider_as_str(in->ev_info.power_slider));
+> +	dev_dbg(dev->dev, "Power Source : %s\n", amd_pmf_source_as_str(in->ev_info.power_source));
+> +	dev_dbg(dev->dev, "Battery Percentage : %u\n", in->ev_info.bat_percentage);
+> +	dev_dbg(dev->dev, "Designed Battery Capacity : %u\n", in->ev_info.bat_design);
+> +	dev_dbg(dev->dev, "Fully Charged Capacity : %u\n", in->ev_info.full_charge_capacity);
+> +	dev_dbg(dev->dev, "Drain Rate : %d\n", in->ev_info.drain_rate);
+> +	dev_dbg(dev->dev, "Socket Power : %u\n", in->ev_info.socket_power);
+> +	dev_dbg(dev->dev, "Skin Temperature : %u\n", in->ev_info.skin_temperature);
+> +	dev_dbg(dev->dev, "Avg C0 Residency : %u\n", in->ev_info.avg_c0residency);
+> +	dev_dbg(dev->dev, "Max C0 Residency : %u\n", in->ev_info.max_c0residency);
+> +	dev_dbg(dev->dev, "GFX Busy : %u\n", in->ev_info.gfx_busy);
+> +	dev_dbg(dev->dev, "Connected Display Count : %u\n", in->ev_info.monitor_count);
+> +	dev_dbg(dev->dev, "LID State : %s\n", in->ev_info.lid_state ? "Close" : "Open");
 
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+"open" / "closed" is generic enough that I think it would warrant adding
+include/linux/string_choices.h helper for it (it should be lowercase 
+there but that difference probably is not an issue for these debug 
+prints).
+
+I'd also remove that extra space before :.
 
 -- 
  i.
 
---8323329-1969835922-1697623799=:2178--
+> +	dev_dbg(dev->dev, "==== TA inputs END ====\n");
+> +}
+> +#else
+> +void amd_pmf_dump_ta_inputs(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in) {}
+> +#endif
+> +
+>  static void amd_pmf_get_smu_info(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in)
+>  {
+>  	u16 max, avg = 0;
+> diff --git a/drivers/platform/x86/amd/pmf/tee-if.c b/drivers/platform/x86/amd/pmf/tee-if.c
+> index d48f980fb1db..0eba258f4040 100644
+> --- a/drivers/platform/x86/amd/pmf/tee-if.c
+> +++ b/drivers/platform/x86/amd/pmf/tee-if.c
+> @@ -182,6 +182,7 @@ static int amd_pmf_invoke_cmd_enact(struct amd_pmf_dev *dev)
+>  	}
+>  
+>  	if (ta_sm->pmf_result == TA_PMF_TYPE_SUCCESS && out->actions_count) {
+> +		amd_pmf_dump_ta_inputs(dev, in);
+>  		dev_dbg(dev->dev, "action count:%u result:%x\n", out->actions_count,
+>  			ta_sm->pmf_result);
+>  		amd_pmf_apply_policies(dev, out);
+> 
