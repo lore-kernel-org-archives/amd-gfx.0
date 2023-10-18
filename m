@@ -4,117 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A5ACCDB47E
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Oct 2023 14:53:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D6CDCDB47E
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Oct 2023 15:42:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 894F810E08F;
-	Wed, 18 Oct 2023 14:53:26 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2072.outbound.protection.outlook.com [40.107.223.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 151BE10E08F
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Oct 2023 14:53:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LmUosH+1EiqgQaYZuqCemyVWMML740lzsV3Pb8iKcc9mnhk9XYBnsLUzikYmESi/qgUrUmfleznkeko4zAXtm9HJUzikPjVI2t1AmLkKqxm8cvgQOW5t1+6ReYnOAC5YIHgGMhnV2RUEppYY7/8wgIEkJRV10JQTFQKydr1MKun0LSwDJC3c83+YnmTXtDEcLzXyw0WDKQ5YAbhSyeMYx0ryYv14UZsZrnYHIaGWbkxUuKm5hOR5Ix34d7sNUTgMDasxIEyLAwvjCQ9GQlfcknFodBa6RwnlGmlSByQpSPdVAfxghQZtqdeNuxdrqJsEs8FqbbpHetRl58I36sMCHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G2lpx7iyKS4aW2Iex60xb8e7KdME8tJTk9qakB/aE8U=;
- b=Osm8EUhOL3P29q+wILsGZMe6JbpbHn4LpQb4b9rEvyX218E10Ch830uMhrwsTY5zGLG+OrpAMYoYxmjDeK+MwFUUAYeWheUb7dzCWxcGbSVpbyxDHBTAm1veEdPP7Iz5QOKMkxv4TwrWV2bPeKbL3Rsm+qCRB8LlvblZvqwGmkOP+JGCBBhF8TniDPcXrooTh3DYKF8aMRJDGiK/ulVQUbQlJ/p7tnzgNGzYnJgqtO44iO1IWIlx3lcAf3IQikBHZeVxqNLbyg9hJRvG8rs3ARpITPvoC/mfnGg/mPNqZ7ap8pEBDiabN4z4U2piBnR9YZAbv0qMaTsXlkHdz50KoQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G2lpx7iyKS4aW2Iex60xb8e7KdME8tJTk9qakB/aE8U=;
- b=Q12zX3O0BUBjitWr5QKHY4uP+c1v0jeHiiCJoKuaSceRZFD3b5DSaUTsv2CB5rAQEU11GPdjRA9EH7iFCA2fgBTpG3YM6EQlOR5SoSVZtOu+wYEIRIFpqvT1X9RudxFjyvfVZ2trNbEOuWs7m8lAIDkhgrzgmOn6BLScBuuI5tY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by PH8PR12MB7025.namprd12.prod.outlook.com (2603:10b6:510:1bc::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.34; Wed, 18 Oct
- 2023 14:53:21 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::e166:610f:a86e:d33a]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::e166:610f:a86e:d33a%3]) with mapi id 15.20.6886.034; Wed, 18 Oct 2023
- 14:53:21 +0000
-Message-ID: <ae14eee8-1cbc-8100-8390-1a9616a95a67@amd.com>
-Date: Wed, 18 Oct 2023 10:53:18 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/amdkfd: Fix shift out-of-bounds issue
-Content-Language: en-US
-To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>,
- "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20231018074931.139904-1-jesse.zhang@amd.com>
- <CY5PR12MB6369F24E1CC12D5682BAB3E3C1D5A@CY5PR12MB6369.namprd12.prod.outlook.com>
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <CY5PR12MB6369F24E1CC12D5682BAB3E3C1D5A@CY5PR12MB6369.namprd12.prod.outlook.com>
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0147.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:8c::7) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCA1B10E0BF;
+	Wed, 18 Oct 2023 15:42:32 +0000 (UTC)
+Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
+ [IPv6:2607:f8b0:4864:20::c36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9516D10E0BF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Oct 2023 15:42:29 +0000 (UTC)
+Received: by mail-oo1-xc36.google.com with SMTP id
+ 006d021491bc7-57b9193b1aeso4100060eaf.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Oct 2023 08:42:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1697643748; x=1698248548; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=GF9Ilh/6A5ZkIJ74wMlxlnGBvTgiF5BlQui0uRQmiaM=;
+ b=mj9NM+9VLlSd2hIpvCxMllFpck+c6eJTSyM0zSw7//B83v0Uf+371XRDsvx3vzE684
+ T9Ey+TWyEPVSAJKVqOFax/11CrXil3aOYiIOyCy7rHdcVE5i2BNAjj4AA1ff7xAv5vma
+ tNbOux392yVNOseE/R0aZG1ZN5zozBxoLOtND7fBgjRV/SodJzVczelwYzEYwXkUySOM
+ 9UHnGSsO57WjXe0wSV46/ueaoFeVpG+rtk7TmN9oXDKy1jyZULULC9YBoSSS5+9uQ8Ip
+ OR7c8h5uSwz6gZZBRapike3WjAVd3Bg4IvuJeRqkm31Ghyeiee7WlRDLNawNq6LnHUjk
+ KDDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1697643748; x=1698248548;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=GF9Ilh/6A5ZkIJ74wMlxlnGBvTgiF5BlQui0uRQmiaM=;
+ b=ZLcosWc/yWEPAhZaDt9C3eEV4+p8FcXtKKIU71FtHp+6TeSzKHqYcEtWUeDW27mZkM
+ W+OShEI5rfV4tiLuwjFF1Gs3cjp7NcKUSt+1PzIfsCHZ9DfNRSrM2jt9D89JukHET+YA
+ ttBDaIDztvKdXx6tyvqGyh0riMa/rqSnd0R1jttdHZ1ipDUtEspYhUTkitbIPep7Fzj9
+ w1BlvpynbLwDQsAmxZ+hUeeIsn5btsoIlPvLBz1c8elW/CZTHc5C/Mp0lABUHA3ktZoD
+ GYIfeIxwQsq46aMnUYzpPFwp2JyW3yz3xalIs18Bcxd2fdSko9eEu08QXO8+1cftO/G/
+ 07Vw==
+X-Gm-Message-State: AOJu0Ywnsz8mNcSw+UFJrruEdlm3PjFZurfC5+ZhMBzzIOSQwJpKADE7
+ eO4Xhbzi3lHhQM2PDrrJVpCR1WOXvkcRCeWZwxw=
+X-Google-Smtp-Source: AGHT+IG7LAeIIdMoNaOt+dTW8vUiTxxcqIA7EoldtOyrYd6hxTKUvDBVn79NmjT50rCt7+HPE3rv5bR+ztMZrjolqyM=
+X-Received: by 2002:a05:6870:f115:b0:1e1:8aa8:4561 with SMTP id
+ k21-20020a056870f11500b001e18aa84561mr2927459oac.16.1697643748547; Wed, 18
+ Oct 2023 08:42:28 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|PH8PR12MB7025:EE_
-X-MS-Office365-Filtering-Correlation-Id: d8b18759-414e-49f1-9bdf-08dbcfe9f922
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lmvHC8Iou/TDTQwRzWL5qBkeCDBFVk2Y9UM8M1xXMOL3wcJMIJFjV04B5sY2HR/fjreV0QFJKZ2N5RStRd6+LbfnEljOft75rD8XyN7aU24+S6sBNgIj3Vtju/hr/YlXWHEk2j9k1IeeSltBHcBQuxthRy4LTG1Xt69aohE3JF2/oJSbnYZanO35QOHiFdPNiAtPtsG96aKF32cDOvecSFDeF4m4s1E2U9fHf/R5m9/JWMfzzqgcde/ULYQPsiTY70bK6FkdM8IUmjfBcd4eNeWP7kZsxCju+bpDopy9UwCqpnCAT/cp8bcarwoKNkTZJJ9LcrjX3gzGFRUOekd3DZLyscRmAf6amOQfQ5PR/HVuuszBOQ6ZaDaBryJUUB3Jfz31YB/ixab8JcL6+eVtLGkhKjvXoT4rm8LU0+RUHnwZje3YRTsQwDYz2QMQhhA/Lomr34+hzHveTpWZpJpzaX+2tQfYYDyc1vIHNZNjCtkItFTJuIEoPrQAMaax+M7iII5J5w0Ci5z4NIEo+GDTpeoPTQIpDqcJrXufgWl3lelmZmGZZ2jr/j+QLSTRrdcjckTM3I5zcTvu6lc3UUwNFWkYbC/wUAGwrWDmeqWjdw/W4hm5q6QCFCa5h626k3tCrVnxSPnKWj7XZZxWSmaCyg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366004)(376002)(136003)(346002)(39860400002)(396003)(230922051799003)(64100799003)(451199024)(1800799009)(186009)(110136005)(8676002)(2906002)(5660300002)(8936002)(4326008)(31696002)(41300700001)(4001150100001)(36756003)(26005)(38100700002)(6506007)(2616005)(478600001)(83380400001)(6512007)(6666004)(53546011)(31686004)(54906003)(66946007)(66556008)(6486002)(66476007)(316002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RFRqaHB3VWFjTXZpam9pT05LalcxaDVyNVlzaUY1ZWwwMWtLSloySjRRUmR4?=
- =?utf-8?B?VzdwNVpiVkNaRU5IU0xWcE0xVS9zaHROMGlWQjVwWXZRc0VHTGJ2SHNUb2N0?=
- =?utf-8?B?L3U0T2p3NkI5clhJdWRuOU1wUGZSVjkvUy9DUkgwQ3RBWGtXYWsxQ3h4YkNy?=
- =?utf-8?B?ay9FblJHWStsbS9xRHpZYVNQVCs5dzM5NnVtOTEwRFNSNzJkVVUwV1g3d1d6?=
- =?utf-8?B?c1AxRnFNa24zU1V5NGFnRW5JVU95T1lQZnQ2cVNKM200cXFkTjBHQ3JBMEpq?=
- =?utf-8?B?eTJ6NHJPdjU4OWt5QnRGcE1wTFJkMG1WeWxRQkdmbHhyNWtwL0NxOWJ1OU10?=
- =?utf-8?B?YlEwOHdlNXRXTmduZHcvSjR1dDJLUEJvK1p2b0JlYWFINnZMV1RSWk4yL3pJ?=
- =?utf-8?B?bEJSRHBENk1SVEU2WjZxbzYvVmJmcDl6K3Q4aldXb1AraHNpWDB2bkd4NkVW?=
- =?utf-8?B?eGNGT3FCd0JDMDFWREZHeVFsNERBd0NEV1ZvamxlQlRQYjR5Y0tQS2RFRlVW?=
- =?utf-8?B?ZmdnTmtxSEkxS2htRUNvdEVWZ0RQaE9UUFBWcVE4ZkllRUN5a0lMcmd0MzA4?=
- =?utf-8?B?MkwxUjgxWUFTVGU4ODI2ejNDbitBVDV3WUYyQis5dENDeFY0WTBhUGwvN25E?=
- =?utf-8?B?WmVDRDFGNmp4blk0MGh3b2d4cmYxM0tiTVpERjFPSGFiN3htQWRHSnEwREtL?=
- =?utf-8?B?SDNmY2NXWnBCWUMyOUdDazFaSjgzeWhTcE9hMGN3VTU5akMvdUQ4WnhMRWpT?=
- =?utf-8?B?V08xMjQ1WHh1Z0xyZXBpR1JqOWx6MWhNSEJnUUhlT2U4czBtK0RUVWRTSzZI?=
- =?utf-8?B?QXYxV01EOWdrbi90eE1xZ3phelVlVVplSG14MFkzU1VSWHUydHZHdnQ3alJS?=
- =?utf-8?B?UUZjMG84Zzl4SldpREU3cnh4VjdQNVNxSHpKZUJZblhlWXE1dDNpVTl2RU1a?=
- =?utf-8?B?L29aMnBNOHZjbHJrUk0wM004R0FXS0g3amFqSUlMeEdoWlM2M0piMGdidTJS?=
- =?utf-8?B?cnlVeWhIcUhJR2hrbFVGMVhBMTJCVnZObk1PUjU4QUpxUlVlWkY1bThuL2cx?=
- =?utf-8?B?NkZrWTIremczT1FTd3ppeGVYeS9ObCsxSHlBZWhNYW5PcjJqQWNvd3J0Nm1a?=
- =?utf-8?B?SHlTaWVya1RXSE05T0FzaWE1UjBsWE44S1gzMDMvdmtOdnFmN1ZXaGNja25j?=
- =?utf-8?B?N1JiM0paV29DOWs0M1Qzd25KR3FMTURTSFFaQy81bGJpYmtFWnQ5MmcxbFZs?=
- =?utf-8?B?cStTQnVKOTFUV0dpa0w4VjBCN01OdXN6eGNrRktTVUNERWNLQllRODd2ZDZM?=
- =?utf-8?B?blJBM202WkpLL2FNaGkrNStVNUk1S1JJdDNBM3ZBRzFFQTk0R2RFZUhtSDJz?=
- =?utf-8?B?Zng3cFI0YTN1dVJkQUREbEhDWjlVcTFGV2x5TlVYd1hJMWpyVnV4bUZYYVMx?=
- =?utf-8?B?SExGVmd3S3VpT0w0bktsMTNBS1hCMWFpaUtCQ0piSGN5QlRoenZ1OUd5R0NC?=
- =?utf-8?B?NDVCZGR3bHl5VmpncTA2UmcyTDZCT0grbmdrMVdvSXRtbGFqZnpEVGh1MUE2?=
- =?utf-8?B?VVlQd3BOZFdwdGNZODFBaG11YXZvaGczRS9kVDh2OXVlRWtaYzZLQitrTFM2?=
- =?utf-8?B?ck9IT1JIWXJYNW10aWJySy9VRzU4Z25WSVpMSURKZ1R1VXRuQzI3VkZlcHJH?=
- =?utf-8?B?WGhudGRiRDhySnZjNUptN2xqWWI5eDlXZTJwalYwOHFDNnMzQ3lEd2ZoVVBZ?=
- =?utf-8?B?OW1SRk5WTHozSlpsOWFLRm1Pa2h5U1RwZXNRWjFMMFhtNGVxRmQ3emlJdWYr?=
- =?utf-8?B?UzJGdVFMNk1CdXdOVnF4WnhGYTdRV3Bsa29GanRDekZtOGVXblJDdW5wR1Zr?=
- =?utf-8?B?MHVPMmM1b3RObW1adG5qK1ZoS3RPT1JBc0tHNDJWZ0pTS28yZGtLaDlWUnli?=
- =?utf-8?B?NzljaURkS0VYTHNkMkRZT21ObmJkU3FvMHBCU05TclVqUTM1NDc3dGRMRFVC?=
- =?utf-8?B?aHUzckNMclAwMFFrRm1rbkUzNDBnM0NvUmtQbWsvU1kvK1FUN1Btc3FmTmc0?=
- =?utf-8?B?VXMzWkJwNHNQd1JjWVZ1QndpNGE2RURBWnZRNDhYdFJ2UGlwN2tZVVgzYUls?=
- =?utf-8?Q?u7bKQ3361K6IOCBQn0aIcSUX9?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8b18759-414e-49f1-9bdf-08dbcfe9f922
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2023 14:53:21.8547 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: djQDuNzCKIG0yuZkykbNNJF2uYzPu6DTQV35lpc9U8lm8c+IKf7sOrM8+wFwe8S3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7025
+References: <20231018052650.2553161-1-li.ma@amd.com>
+In-Reply-To: <20231018052650.2553161-1-li.ma@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 18 Oct 2023 11:42:17 -0400
+Message-ID: <CADnq5_N=+JHxDebu613sVdbyWKQE4Hsfk9cyt-S-qVX+2vCkcQ@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: fix missing stuff in NBIO v7.11
+To: Li Ma <li.ma@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,80 +67,243 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Yang,
- Philip" <Philip.Yang@amd.com>, "Kuehling, Felix" <Felix.Kuehling@amd.com>
+Cc: alexander.deucher@amd.com, yifan1.zhang@amd.com, ben.li@amd.com,
+ lang.yu@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p>The 255 granularity is from recent Thunk change to increase CWSR
-      area granularity.</p>
-    <p>Thanks for catching this with kernel debug option
-      CC_HAS_UBSAN_ARRAY_BOUNDS enabled. Because
-      1&lt;&lt;prange-&gt;granularity is used in many places, I think
-      the proper fix should be in function svm_range_apply_attrs</p>
-    <p>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; case KFD_IOCTL_SVM_ATTR_GRANULARITY:<br>
-      -&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; prange-&gt;granlarity = attrs[i].value;</p>
-    <p>+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; prange-&gt;granlarity = attrs[i].value &amp; 0x3F;</p>
-    <p>BTW, function svm_range_split_by_granularity() is not used
-      anymore, forgot the remove it, maybe you are testing on older
-      source code?</p>
-    <p>Regards,</p>
-    <p>Philip<br>
-    </p>
-    <div class="moz-cite-prefix">On 2023-10-18 09:36, Zhang, Yifan
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:CY5PR12MB6369F24E1CC12D5682BAB3E3C1D5A@CY5PR12MB6369.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">[AMD Official Use Only - General]
+On Wed, Oct 18, 2023 at 6:17=E2=80=AFAM Li Ma <li.ma@amd.com> wrote:
+>
+> add get_clockgating_state, update_medium_grain_light_sleep and
+> update_medium_grain_clock_gating in nbio_v7_11_funcs
+> v1:
+> add missing funcs in nbio_v7_11.c
+> v2:
+> modify the if condition and add spport for nbio v7.11 clockgating.
+>
+> Signed-off-by: Li Ma <li.ma@amd.com>
+> Reviewed-by: Yifan Zhang <yifan1.zhang@amd.com>
 
-Hi Jesse,
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-This patch is only a WA for the error log. How is this issue reproduced ? 255 looks like an invalid value for a prange-&gt;granularity, it is better to root cause who set it in the first place.
-
-BRs,
-Yifan
-
------Original Message-----
-From: Jesse Zhang <a class="moz-txt-link-rfc2396E" href="mailto:jesse.zhang@amd.com">&lt;jesse.zhang@amd.com&gt;</a>
-Sent: Wednesday, October 18, 2023 3:50 PM
-To: <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-Cc: Deucher, Alexander <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>; Kuehling, Felix <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>; Yang, Philip <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>; Zhang, Yifan <a class="moz-txt-link-rfc2396E" href="mailto:Yifan1.Zhang@amd.com">&lt;Yifan1.Zhang@amd.com&gt;</a>; Zhang, Jesse(Jie) <a class="moz-txt-link-rfc2396E" href="mailto:Jesse.Zhang@amd.com">&lt;Jesse.Zhang@amd.com&gt;</a>; Zhang, Jesse(Jie) <a class="moz-txt-link-rfc2396E" href="mailto:Jesse.Zhang@amd.com">&lt;Jesse.Zhang@amd.com&gt;</a>
-Subject: [PATCH] drm/amdkfd: Fix shift out-of-bounds issue
-
-[  567.613292] shift exponent 255 is too large for 64-bit type 'long unsigned int'
-[  567.614498] CPU: 5 PID: 238 Comm: kworker/5:1 Tainted: G           OE      6.2.0-34-generic #34~22.04.1-Ubuntu
-[  567.614502] Hardware name: AMD Splinter/Splinter-RPL, BIOS WS43927N_871 09/25/2023 [  567.614504] Workqueue: events send_exception_work_handler [amdgpu] [  567.614748] Call Trace:
-[  567.614750]  &lt;TASK&gt;
-[  567.614753]  dump_stack_lvl+0x48/0x70 [  567.614761]  dump_stack+0x10/0x20 [  567.614763]  __ubsan_handle_shift_out_of_bounds+0x156/0x310
-[  567.614769]  ? srso_alias_return_thunk+0x5/0x7f [  567.614773]  ? update_sd_lb_stats.constprop.0+0xf2/0x3c0
-[  567.614780]  svm_range_split_by_granularity.cold+0x2b/0x34 [amdgpu] [  567.615047]  ? srso_alias_return_thunk+0x5/0x7f [  567.615052]  svm_migrate_to_ram+0x185/0x4d0 [amdgpu] [  567.615286]  do_swap_page+0x7b6/0xa30 [  567.615291]  ? srso_alias_return_thunk+0x5/0x7f [  567.615294]  ? __free_pages+0x119/0x130 [  567.615299]  handle_pte_fault+0x227/0x280 [  567.615303]  __handle_mm_fault+0x3c0/0x720 [  567.615311]  handle_mm_fault+0x119/0x330 [  567.615314]  ? lock_mm_and_find_vma+0x44/0x250 [  567.615318]  do_user_addr_fault+0x1a9/0x640 [  567.615323]  exc_page_fault+0x81/0x1b0 [  567.615328]  asm_exc_page_fault+0x27/0x30 [  567.615332] RIP: 0010:__get_user_8+0x1c/0x30
-
-Signed-off-by: Jesse Zhang <a class="moz-txt-link-rfc2396E" href="mailto:Jesse.Zhang@amd.com">&lt;Jesse.Zhang@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 7b81233bc9ae..f5e0bccc6d71 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1169,7 +1169,7 @@ svm_range_split_by_granularity(struct kfd_process *p, struct mm_struct *mm,
-         * PTE will be used for whole range, this reduces the number of PTE
-         * updated and the L1 TLB space used for translation.
-         */
--       size = 1UL &lt;&lt; prange-&gt;granularity;
-+       size = 1UL &lt;&lt; (prange-&gt;granularity &amp; 0x3f);
-        start = ALIGN_DOWN(addr, size);
-        last = ALIGN(addr + 1, size) - 1;
-
---
-2.25.1
-
-</pre>
-    </blockquote>
-  </body>
-</html>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c       | 78 +++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/soc21.c            |  1 +
+>  .../asic_reg/nbio/nbio_7_11_0_offset.h        |  6 ++
+>  .../asic_reg/nbio/nbio_7_11_0_sh_mask.h       | 13 +++-
+>  4 files changed, 97 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c b/drivers/gpu/drm/am=
+d/amdgpu/nbio_v7_11.c
+> index 3a94f249929e..676ab1d20d2f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
+> @@ -272,6 +272,81 @@ static void nbio_v7_11_init_registers(struct amdgpu_=
+device *adev)
+>  */
+>  }
+>
+> +static void nbio_v7_11_update_medium_grain_clock_gating(struct amdgpu_de=
+vice *adev,
+> +                                                      bool enable)
+> +{
+> +       uint32_t def, data;
+> +
+> +       if (!(adev->cg_flags & AMD_CG_SUPPORT_BIF_MGCG))
+> +               return;
+> +
+> +       def =3D data =3D RREG32_SOC15(NBIO, 0, regBIF_BIF256_CI256_RC3X4_=
+USB4_CPM_CONTROL);
+> +       if (enable) {
+> +               data |=3D (BIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL__LCLK_=
+DYN_GATE_ENABLE_MASK |
+> +                        BIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL__TXCLK_D=
+YN_GATE_ENABLE_MASK |
+> +                        BIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL__TXCLK_L=
+CNT_GATE_ENABLE_MASK |
+> +                        BIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL__TXCLK_R=
+EGS_GATE_ENABLE_MASK |
+> +                        BIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL__TXCLK_P=
+RBS_GATE_ENABLE_MASK |
+> +                        BIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL__REFCLK_=
+REGS_GATE_ENABLE_MASK);
+> +       } else {
+> +               data &=3D ~(BIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL__LCLK=
+_DYN_GATE_ENABLE_MASK |
+> +                         BIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL__TXCLK_=
+DYN_GATE_ENABLE_MASK |
+> +                         BIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL__TXCLK_=
+LCNT_GATE_ENABLE_MASK |
+> +                         BIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL__TXCLK_=
+REGS_GATE_ENABLE_MASK |
+> +                         BIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL__TXCLK_=
+PRBS_GATE_ENABLE_MASK |
+> +                         BIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL__REFCLK=
+_REGS_GATE_ENABLE_MASK);
+> +       }
+> +
+> +       if (def !=3D data)
+> +               WREG32_SOC15(NBIO, 0, regBIF_BIF256_CI256_RC3X4_USB4_CPM_=
+CONTROL, data);
+> +}
+> +
+> +static void nbio_v7_11_update_medium_grain_light_sleep(struct amdgpu_dev=
+ice *adev,
+> +                                                     bool enable)
+> +{
+> +       uint32_t def, data;
+> +
+> +       if (!(adev->cg_flags & AMD_CG_SUPPORT_BIF_LS))
+> +               return;
+> +
+> +       def =3D data =3D RREG32_SOC15(NBIO, 0, regBIF_BIF256_CI256_RC3X4_=
+USB4_PCIE_CNTL2);
+> +       if (enable)
+> +               data |=3D BIF_BIF256_CI256_RC3X4_USB4_PCIE_CNTL2__SLV_MEM=
+_LS_EN_MASK;
+> +       else
+> +               data &=3D ~BIF_BIF256_CI256_RC3X4_USB4_PCIE_CNTL2__SLV_ME=
+M_LS_EN_MASK;
+> +
+> +       if (def !=3D data)
+> +               WREG32_SOC15(NBIO, 0, regBIF_BIF256_CI256_RC3X4_USB4_PCIE=
+_CNTL2, data);
+> +
+> +       def =3D data =3D RREG32_SOC15(NBIO, 0, regBIF_BIF256_CI256_RC3X4_=
+USB4_PCIE_TX_POWER_CTRL_1);
+> +       if (enable) {
+> +               data |=3D (BIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL=
+_1__MST_MEM_LS_EN_MASK |
+> +                       BIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1_=
+_REPLAY_MEM_LS_EN_MASK);
+> +       } else {
+> +               data &=3D ~(BIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTR=
+L_1__MST_MEM_LS_EN_MASK |
+> +                       BIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1_=
+_REPLAY_MEM_LS_EN_MASK);
+> +       }
+> +
+> +       if (def !=3D data)
+> +               WREG32_SOC15(NBIO, 0, regBIF_BIF256_CI256_RC3X4_USB4_PCIE=
+_TX_POWER_CTRL_1, data);
+> +}
+> +
+> +static void nbio_v7_11_get_clockgating_state(struct amdgpu_device *adev,
+> +                                           u64 *flags)
+> +{
+> +       uint32_t data;
+> +
+> +       /* AMD_CG_SUPPORT_BIF_MGCG */
+> +       data =3D RREG32_SOC15(NBIO, 0, regBIF_BIF256_CI256_RC3X4_USB4_CPM=
+_CONTROL);
+> +       if (data & BIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL__LCLK_DYN_GATE=
+_ENABLE_MASK)
+> +               *flags |=3D AMD_CG_SUPPORT_BIF_MGCG;
+> +
+> +       /* AMD_CG_SUPPORT_BIF_LS */
+> +       data =3D RREG32_SOC15(NBIO, 0, regBIF_BIF256_CI256_RC3X4_USB4_PCI=
+E_CNTL2);
+> +       if (data & BIF_BIF256_CI256_RC3X4_USB4_PCIE_CNTL2__SLV_MEM_LS_EN_=
+MASK)
+> +               *flags |=3D AMD_CG_SUPPORT_BIF_LS;
+> +}
+> +
+>  const struct amdgpu_nbio_funcs nbio_v7_11_funcs =3D {
+>         .get_hdp_flush_req_offset =3D nbio_v7_11_get_hdp_flush_req_offset=
+,
+>         .get_hdp_flush_done_offset =3D nbio_v7_11_get_hdp_flush_done_offs=
+et,
+> @@ -288,6 +363,9 @@ const struct amdgpu_nbio_funcs nbio_v7_11_funcs =3D {
+>         .enable_doorbell_aperture =3D nbio_v7_11_enable_doorbell_aperture=
+,
+>         .enable_doorbell_selfring_aperture =3D nbio_v7_11_enable_doorbell=
+_selfring_aperture,
+>         .ih_doorbell_range =3D nbio_v7_11_ih_doorbell_range,
+> +       .update_medium_grain_clock_gating =3D nbio_v7_11_update_medium_gr=
+ain_clock_gating,
+> +       .update_medium_grain_light_sleep =3D nbio_v7_11_update_medium_gra=
+in_light_sleep,
+> +       .get_clockgating_state =3D nbio_v7_11_get_clockgating_state,
+>         .ih_control =3D nbio_v7_11_ih_control,
+>         .init_registers =3D nbio_v7_11_init_registers,
+>         .remap_hdp_registers =3D nbio_v7_11_remap_hdp_registers,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amd=
+gpu/soc21.c
+> index df7462cec6ab..7fe199560264 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> @@ -863,6 +863,7 @@ static int soc21_common_set_clockgating_state(void *h=
+andle,
+>         case IP_VERSION(4, 3, 0):
+>         case IP_VERSION(4, 3, 1):
+>         case IP_VERSION(7, 7, 0):
+> +       case IP_VERSION(7, 11, 0):
+>                 adev->nbio.funcs->update_medium_grain_clock_gating(adev,
+>                                 state =3D=3D AMD_CG_STATE_GATE);
+>                 adev->nbio.funcs->update_medium_grain_light_sleep(adev,
+> diff --git a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset=
+.h b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset.h
+> index 846a8cf3926a..ff30f04be591 100644
+> --- a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset.h
+> +++ b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset.h
+> @@ -775,6 +775,12 @@
+>  #define regPCIE_USB4_ERR_CNTL5_BASE_IDX                                 =
+                                5
+>  #define regPCIE_USB4_LC_CNTL1                                           =
+                                0x420179
+>  #define regPCIE_USB4_LC_CNTL1_BASE_IDX                                  =
+                                5
+> +#define regBIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL                      =
+                                0x420118
+> +#define regBIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL_BASE_IDX             =
+                                5
+> +#define regBIF_BIF256_CI256_RC3X4_USB4_PCIE_CNTL2                       =
+                                0x42001c
+> +#define regBIF_BIF256_CI256_RC3X4_USB4_PCIE_CNTL2_BASE_IDX              =
+                                5
+> +#define regBIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1             =
+                                0x420187
+> +#define regBIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1_BASE_IDX    =
+                                5
+>
+>
+>  // addressBlock: nbio_nbif0_bif_cfg_dev0_rc_bifcfgdecp
+> diff --git a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_sh_mas=
+k.h b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_sh_mask.h
+> index 84242240f611..7f131999a263 100644
+> --- a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_sh_mask.h
+> +++ b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_sh_mask.h
+> @@ -24634,7 +24634,18 @@
+>  //PCIE_USB4_LC_CNTL1
+>  #define PCIE_USB4_LC_CNTL1__PCIE_USB_ROUTER_CLEAR_PATH_MODE__SHIFT      =
+                                      0x0
+>  #define PCIE_USB4_LC_CNTL1__PCIE_USB_ROUTER_CLEAR_PATH_MODE_MASK        =
+                                      0x00000001L
+> -
+> +//BIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL
+> +#define BIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL__LCLK_DYN_GATE_ENABLE_MA=
+SK                                    0x00000001L
+> +#define BIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL__TXCLK_DYN_GATE_ENABLE_M=
+ASK                                   0x00000002L
+> +#define BIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL__TXCLK_LCNT_GATE_ENABLE_=
+MASK                                  0x00000020L
+> +#define BIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL__TXCLK_REGS_GATE_ENABLE_=
+MASK                                  0x00000040L
+> +#define BIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL__TXCLK_PRBS_GATE_ENABLE_=
+MASK                                  0x00000080L
+> +#define BIF_BIF256_CI256_RC3X4_USB4_CPM_CONTROL__REFCLK_REGS_GATE_ENABLE=
+_MASK                                 0x00000100L
+> +//BIF_BIF256_CI256_RC3X4_USB4_PCIE_CNTL2
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_CNTL2__SLV_MEM_LS_EN_MASK      =
+                                      0x00010000L
+> +//BIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1__MST_MEM_LS_EN_=
+MASK                                  0x00000001L
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1__REPLAY_MEM_LS_=
+EN_MASK                               0x00000008L
+>
+>  // addressBlock: nbio_nbif0_bif_cfg_dev0_rc_bifcfgdecp
+>  //BIF_CFG_DEV0_RC0_VENDOR_ID
+> --
+> 2.25.1
+>
