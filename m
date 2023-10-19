@@ -4,66 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E558ACDB483
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Oct 2023 11:22:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3408ECDB465
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Oct 2023 12:51:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6415A10E4C8;
-	Thu, 19 Oct 2023 11:22:02 +0000 (UTC)
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD82A10E4C8
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Oct 2023 11:22:00 +0000 (UTC)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-40837ebba42so18056345e9.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Oct 2023 04:22:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1697714519; x=1698319319; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=WGPRkDvzalo2oqt+qob7yujk9E/FXRYX/PiJDv6BgtE=;
- b=gtWWcskeU4i7k+VBrqLRcE3c/9qiD8cgCkAqjiWiuCzvq/ZI62C4IOLPIC9J0SEEYk
- UVUn40CvaRTDiMhrga8Ojzv0uwtFEpT0UlTIED4VCOzJcyaq85wyWLM/g+5w9XWQdtM8
- Qy/ZRzMxK0jMvwq4s4xqX4vb90MEly88pxYWQVTqQeHiYWiWaKoyW6be+YPip3Qjq/Uk
- CvG9O08fs78diCkyBIY6i2Px6MoDyI6votX5XkqmlKJOlGiGbSCr2tbZ6Av+0c4c7rBe
- LuN8B6QIeORi9nP4zy3Lq+nYaAQQo2VYUW7V9MJWU3d18bzmAgUrXwl9ZcXWJUdcQkW/
- UqrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697714519; x=1698319319;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=WGPRkDvzalo2oqt+qob7yujk9E/FXRYX/PiJDv6BgtE=;
- b=ogwIXXzC7EIUfDFOEb0Pydjieay3v7ntD3cK2eAtPOqM404eq667Cq2XVAhJhkChfZ
- Zip8U9sGhi+k/RD+Dz+rK0FJ/a1NH6KmrtVF6RHsSyLbTm4Tj7eDCXAGfq49K/4DOOfi
- /zJDQ6rESKXI1q9UQ0DiYXYzqeaF2b3AY2HyUh3ULarI8opjv1R+RG6ayXEeq7PTU5n7
- wTY8Hvlpri8xlSpuJNHh1UXM+/vT7Rv1s7NV7r7o+0MvifOBQEdJNgeTMB923ZvTaV05
- hlULOTA7OnNCsou2izfJ/ahuYokB9hyrbDe3iLoCD5x82s9PrRUMojbQWu3aO6IQkiuF
- DC7w==
-X-Gm-Message-State: AOJu0YyDrt5MBB90Ybd/8tT06cyKhUTLCBquOLKPl0/rT7+pA7EkkuU9
- NgW3Tz8FYbk7BeUSp3hOsjI=
-X-Google-Smtp-Source: AGHT+IG2EQXFM3icrPnsdySPYdhb1clkuYaNQd9CE4sH7soRwzhRzKj+SOaQPO3xEeq3PCGrUD7Zqw==
-X-Received: by 2002:a05:600c:3b19:b0:401:73b2:f043 with SMTP id
- m25-20020a05600c3b1900b0040173b2f043mr1693107wms.1.1697714519094; 
- Thu, 19 Oct 2023 04:21:59 -0700 (PDT)
-Received: from [10.254.108.106] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- fc8-20020a05600c524800b0040535648639sm4237224wmb.36.2023.10.19.04.21.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Oct 2023 04:21:58 -0700 (PDT)
-Message-ID: <1aecc871-de53-48a9-bc25-657383de78bf@gmail.com>
-Date: Thu, 19 Oct 2023 13:21:54 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CBD910E4D1;
+	Thu, 19 Oct 2023 12:51:42 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on20623.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8d::623])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E35110E4D1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Oct 2023 12:51:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KUbk7F6IhlV8x21rxmxsKl7nfy7833120ZJc5vCOFbvK5X2nyPzqv8Wrlk7m/Ay4cxgaZRiDiVRqhPnSNzM3g93w2QJ+LCsHirqJ5g+PHI9qoKvMdUsld1HAKFdnwSqihhRbLU2w7x2+ojiwrGSbdZT2sdzTFVPfYv1JYbUwUqDCrZjzNbScazCN85iYZOVH4ua4yEA20ECVTltXHErN0kYYbxIx8tziMlZdlHBPFnZjT6FMjkzLFf9byY+Aq35ocQcUkk9uD1RcxcJvGbl0fen5x/nBiM6qUR3jyMgmqWSFh4BJs3gxHrtqNitAR9WApzcD8ifRelv/Rau4w4uPVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9ZtGE1VFfnRP2FtQWz4ZCLeZJXZrkyBeI9h+/1pQs/E=;
+ b=firzSM3fn68ZaefIW2ZmEQidZDPIgE9dblskYqrsluByDUszgiZ/5UQiE2v2s++rxBVgDOHWpQ8Azezb8jP2JC7BNWzLlfrETl9JMYMIro70YL3uppumty0Ye0wyU/vsOWZG4hOL0tLCEXnmBj1HyN3VBJmCXHkxeUo4o/7mKnBNMi3udthXtS6Lhds7Kmaya8mz4gp4McfvVXS7v+SylJr+/mTEpFqvXFk7HZGrfFWMvHLaJo4wku81jBJx0Hi348EVGyM0RGM/b95HbFnu7vpUUN9HQxAUDXx193fUYu+sw5xq5iH3ZKBGE9r+8vKIrHwUrLRnNQaRM5C4Q22i5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9ZtGE1VFfnRP2FtQWz4ZCLeZJXZrkyBeI9h+/1pQs/E=;
+ b=BhEToPScg/8T4cckoDc772uPTU06+rIlsUrsLhHdxs0S6NdsadeUApvTyp5UERSMuDuglRuuIT38X/3zd63+WIxizaQoSSMGSMe3KQo0jqNaRjTvS/sWpu7BkJAHuszAl7FPrqjwFfpMqVhjvkJZwgmxZ4kJ9V2kY3nUHNV3mwQ=
+Received: from MW4PR03CA0027.namprd03.prod.outlook.com (2603:10b6:303:8f::32)
+ by PH0PR12MB8774.namprd12.prod.outlook.com (2603:10b6:510:28e::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.21; Thu, 19 Oct
+ 2023 12:51:36 +0000
+Received: from CO1PEPF000042AC.namprd03.prod.outlook.com
+ (2603:10b6:303:8f:cafe::2d) by MW4PR03CA0027.outlook.office365.com
+ (2603:10b6:303:8f::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.21 via Frontend
+ Transport; Thu, 19 Oct 2023 12:51:36 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000042AC.mail.protection.outlook.com (10.167.243.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6907.23 via Frontend Transport; Thu, 19 Oct 2023 12:51:36 +0000
+Received: from kevin-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 19 Oct
+ 2023 07:51:34 -0500
+From: Yang Wang <kevinyang.wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: refine ras error kernel log print
+Date: Thu, 19 Oct 2023 20:51:15 +0800
+Message-ID: <20231019125115.1110473-1-kevinyang.wang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: ignore duplicate BOs again
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <20231017121015.1336786-1-christian.koenig@amd.com>
- <CADnq5_PY7RRL7Xp7Ju14yqBRBdBcxWuR0+H-ysDtZCZzdUrkXg@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CADnq5_PY7RRL7Xp7Ju14yqBRBdBcxWuR0+H-ysDtZCZzdUrkXg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042AC:EE_|PH0PR12MB8774:EE_
+X-MS-Office365-Filtering-Correlation-Id: d6e09e29-aac7-4825-2833-08dbd0a2214f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: egiFFGjYA8KAh3iDoRkb6e2GmFuRbUghTRdsPRGd5XyVeiolkoHPPWSIvHXNr9qRvNmFwVg0VMie2kA5VqrxZLoZIf4sBdVIaeXozCkSdDpl7tBuU11XIu6Ux73DiOhb59UxyB51bBaWM+tf8M1Y7OXEE9pYR4UCgzopvj/TpyR02GL1BHmBLDAf9XKveGHcWPxrBvwd0cu4/jt0lR/m5I0U5V6O07EO4PkcE5JD+IFxp+edEe/w6+ty4243cNGSASVVTpAzxh35KxwmoC0mZk7oqFPcbtPKFta+r+dMjIgANpiEsp3/uIWAtBo0RQ3QhuBsJJ00gAj7fX31wFQU3YirhWZwJ1lZtD3XWQmRM8U+SEdbndlSPTEfS9fqkh12EcFxoIWz7a/C76gO26KOSIQF6WbCjBlAEKGRIlqseEraNQQYDZ66+FMLkVCV+sVi4b+Qwmc7ttskhxow2FxN5EovxMyfrjNGlzIu36J1Ju2o97as4ZZPBRdDFRDaz9sC6Kpb/XC2CsLMo+ZOE10AwLD1OlkGPxtf8z18Yd4yoYETEHEDNFebzYBC3QfEo8ztOtVGhsFh0SWxNH0XyCQrvaCDm6G6I2asbmqW9D+EnO1me3x1dP6UdpZq7x6eZBdf4uS/JxxUbvT1pEsYGVWwDyZjIvPJpGThGfIPuy3H/NFVu3SmI/rgRzs92ecZcp/q4CTTiqkG1AucDaDV746t79RsVsU3TKKwtBC2j11CXt+EBMqv6noHaq37SftXNpjaSZRmXf4nD8frHSTrQiRejg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(396003)(346002)(136003)(39860400002)(376002)(230922051799003)(82310400011)(64100799003)(1800799009)(186009)(451199024)(46966006)(36840700001)(40470700004)(40480700001)(36756003)(40460700003)(16526019)(54906003)(2616005)(6916009)(86362001)(81166007)(26005)(82740400003)(356005)(426003)(316002)(336012)(83380400001)(1076003)(8936002)(6666004)(7696005)(478600001)(5660300002)(70586007)(2906002)(47076005)(8676002)(70206006)(41300700001)(36860700001)(4326008)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2023 12:51:36.3609 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6e09e29-aac7-4825-2833-08dbd0a2214f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042AC.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8774
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,47 +98,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: yipeng.chai@amd.com, tao.zhou1@amd.com, Yang
+ Wang <kevinyang.wang@amd.com>, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 17.10.23 um 15:04 schrieb Alex Deucher:
-> On Tue, Oct 17, 2023 at 8:22 AM Christian König
-> <ckoenig.leichtzumerken@gmail.com> wrote:
->> Looks like RADV is actually hitting this.
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> Fixes: ca6c1e210aa7 ("drm/amdgpu: use the new drm_exec object for CS v3")
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+refine ras error kernel log to avoid user-ridden ambiguity.
 
-Pushed to drm-misc-fixes since the original patch causing the problems 
-isn't even merged into amd-staging-drm-next yet.
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-Regards,
-Christian.
-
->
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> index efdb1c48f431..d93a8961274c 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> @@ -65,7 +65,8 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p,
->>          }
->>
->>          amdgpu_sync_create(&p->sync);
->> -       drm_exec_init(&p->exec, DRM_EXEC_INTERRUPTIBLE_WAIT);
->> +       drm_exec_init(&p->exec, DRM_EXEC_INTERRUPTIBLE_WAIT |
->> +                     DRM_EXEC_IGNORE_DUPLICATES);
->>          return 0;
->>   }
->>
->> --
->> 2.34.1
->>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 5b831ba0ebb3..cebc19d810e9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -1034,10 +1034,11 @@ static void amdgpu_ras_error_print_error_data(struct amdgpu_device *adev,
+ 	struct ras_err_info *err_info;
+ 
+ 	if (is_ue)
+-		dev_info(adev->dev, "%ld uncorrectable hardware errors detected in %s block\n",
++		dev_info(adev->dev, "%ld uncorrectable hardware errors detected in total in %s block\n",
+ 			 ras_mgr->err_data.ue_count, blk_name);
+ 	else
+-		dev_info(adev->dev, "%ld correctable hardware errors detected in %s block\n",
++		dev_info(adev->dev, "%ld correctable hardware errors detected in total in %s block, "
++			 "no user action is needed.\n",
+ 			 ras_mgr->err_data.ce_count, blk_name);
+ 
+ 	for_each_ras_error(err_node, err_data) {
+@@ -1045,14 +1046,15 @@ static void amdgpu_ras_error_print_error_data(struct amdgpu_device *adev,
+ 		mcm_info = &err_info->mcm_info;
+ 		if (is_ue && err_info->ue_count) {
+ 			dev_info(adev->dev, "socket: %d, die: %d "
+-				 "%lld uncorrectable hardware errors detected in %s block\n",
++				 "new %lld uncorrectable hardware errors detected in %s block\n",
+ 				 mcm_info->socket_id,
+ 				 mcm_info->die_id,
+ 				 err_info->ue_count,
+ 				 blk_name);
+ 		} else if (!is_ue && err_info->ce_count) {
+ 			dev_info(adev->dev, "socket: %d, die: %d "
+-				 "%lld correctable hardware errors detected in %s block\n",
++				 "new %lld correctable hardware errors detected in %s block, "
++				 "no user action is needed.\n",
+ 				 mcm_info->socket_id,
+ 				 mcm_info->die_id,
+ 				 err_info->ce_count,
+-- 
+2.34.1
 
