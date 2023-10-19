@@ -4,115 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8154BCDB465
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Oct 2023 15:55:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E687CDB482
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Oct 2023 16:05:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19F8E10E522;
-	Thu, 19 Oct 2023 15:55:20 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2073.outbound.protection.outlook.com [40.107.237.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C8C310E522
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Oct 2023 15:55:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7A5B10E526;
+	Thu, 19 Oct 2023 16:05:33 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5333C10E526
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Oct 2023 16:05:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gmkM6TXLFhVsrX4hz6wzDcG/+YRCY4u3dXM1EMyKtqHSr5aWBHNzj97uGQWyrNEhdBAdWk0iDBmH2161DDhBraoTILKI/Oa12krTGG7oqUKb9e4Db0rb6k3AQUJLGO5WnAzbfKGyxVNcRZd6IuzCyA2q2jEb4R1Ahm8nNPI37djSTo5YmP4Egyru/BfTwSIg5gQG604T3TmAIK0dhshvxu/+2KeU2u1h2lBOSn2BIRuppXPA9hPqfLxTBAmXIK5QGrXmPg+V2EOOgJRMM/yG2cnctkIWqvWRjKHolfDdHtjKscx5eoO4+Ifrz/6nFqQ1gzN28junXY5K+qK7sY91Gw==
+ b=Mzht/fsrer1FxXFOBfypBVYz6i9efR2PKJuejHJk0I2ZRaKQWD1Iam/Se/VC3GRPhWYkzmgXbpS28MqU43xIBPJ/ba/ownxJpccVFw6Y3bY2QCruQaqTN0Q3TSGn9T2j+DuLsydL2r4KuxyeSK0FLKLL+KFjgBgvyhXmdgZiigzY4vbfNWInQRt8kWVDZAmKLXVRaF38xM9RfUW2KwI3Z4p4SxgUG9eEPYuM+YtVrMeMtvDQLXYsDnb45dDSFJnPZ9Jp86RFPrC/QCBzb809GCtpfYFc87yXWiobmpotLLkWYj9CSYERJ20LlslAW3OECakiRWSBA3yb9LjO9AMAoA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jyG9DHeXO5+6Kr9xNWhGSkhV0XXZtqwO0NU9bam+GnM=;
- b=BSGPYosYjr8v2rZG7PZPop3KzHCKWxty0Wzs6cGBzGrFJlWqLCGghM6l1z4vCY28Ew3K3UnFeLw1x58sIj66MdFMLgP34p0tWioPsEy0s0TsMqvtsfZzTV+jRM25rSNtgkBtcwMhimqqXfnYZ5z4Uu5JPOnK0OeJJ0l1hkDsq550hLPfMMXeb2YuasDitpoCqHv5lur2s8tL2LN2voUBTCCJM3v1ZjOCrcE4dRMA2gN+H3KqdMyDyFM4zD4hP++YkftQp09bsRNTwNcSAKXAL5S3WNpd4HBgxJ90NaHw/pgCPHlMBjL1afzPcN1+5szAEBBFd78kam0p58/I04q6gw==
+ bh=mCPMYdMHHlzgJW+KzMJVTquB1VJ4ELWjr45mHWKJatI=;
+ b=PVVQ3agiMs32Csl/mOBw8nSekOiaZnVXHvpjhdk5q8jtOIwoN5cXsmPoVUOoRiR7yKsrRjrDuOcdi0KDCRoVwib0R81qptlg/Redd202tF+aI3DyATq4StbGgTMq709lLwZkyxsAvr6m3FM+BLNBSV015Qa6nIusIlPs6xImZqurzGOXt4LkVEKR0exoL6cc7tmO3/l19s1U4tAfndYwA6bg9mF1ly1n/RqfgVu99a6KGCxjF+ere0RTlxfelI0YPnlezDR1FVBmQQLqM4Are9V+YZYq8Sm2GF2+aLdbcoyizhg8drDxU0OwpHMJykn7i8U5SHp4zIFsGDVQt2bPVg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jyG9DHeXO5+6Kr9xNWhGSkhV0XXZtqwO0NU9bam+GnM=;
- b=OXtqEyOcWj7MxGyDuErtooidqxCutgZJpWVgSplenxCu5L+IbsSflYCEd1T/UD6Q4tMH72xTs5onx/NbgkgMyoiftIFr0xTHz9tJzflYqq7hgjcWXyBY0tInMmDCh+CmB3X/29jEnW5i35mRCKeCw6pcC2/CffN0pck41hT8vuc=
+ bh=mCPMYdMHHlzgJW+KzMJVTquB1VJ4ELWjr45mHWKJatI=;
+ b=epQJ5MZdws2xCk6ucGahjHZ1QqOBL4kYCG2cqXiEzaqothNpqjDp4DMcfZtfshCVv12U/gAh77XOj1Pi5asWSun1ZzuGg3IwVoguRrKmT3STRVbuwhR4B7MgkArpBwO+eltPdGJdoBHMjiwiTFXqARds4ky/OVMoYbkz8Jh0Up8=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by MW4PR12MB7432.namprd12.prod.outlook.com (2603:10b6:303:22d::9)
+ by PH7PR12MB9073.namprd12.prod.outlook.com (2603:10b6:510:2eb::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.24; Thu, 19 Oct
- 2023 15:55:14 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.23; Thu, 19 Oct
+ 2023 16:05:28 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::2e40:ffd7:e752:644f]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::2e40:ffd7:e752:644f%6]) with mapi id 15.20.6907.025; Thu, 19 Oct 2023
- 15:55:14 +0000
-Message-ID: <cec6b37b-3817-449e-9299-fe18448599df@amd.com>
-Date: Thu, 19 Oct 2023 11:55:11 -0400
+ 16:05:28 +0000
+Message-ID: <260b5793-68bf-4a65-b4db-594184572c1a@amd.com>
+Date: Thu, 19 Oct 2023 12:05:26 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: Add EXT_COHERENT support for APU and NUMA
- systems
-To: David Francis <David.Francis@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20231019133249.598193-1-David.Francis@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Add timeout for sync wait
 Content-Language: en-US
+To: Emily Deng <Emily.Deng@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20231019093103.100939-1-Emily.Deng@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <20231019133249.598193-1-David.Francis@amd.com>
+In-Reply-To: <20231019093103.100939-1-Emily.Deng@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0248.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:66::30) To BN9PR12MB5115.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0450.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10d::29) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MW4PR12MB7432:EE_
-X-MS-Office365-Filtering-Correlation-Id: c760b166-f013-4c48-a203-08dbd0bbc86c
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|PH7PR12MB9073:EE_
+X-MS-Office365-Filtering-Correlation-Id: 94be2088-0547-4cab-e889-08dbd0bd3679
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /8lWNSl+Tee0P8/3c9d91ia54qlwCAQ+1ijI98QDNX1u39VECEHBjcqtzblXBw/P4qK6TNHqcKKXSBYxrTQpz/F7yQD/FQK088QgjgQJvzuYTQyKQc5RLOp3P11yu2B4tm+aiun2xxiwOtHpqe7D+gUo1WjOy82C0iwo0WDYUQ2Cuvy9LcGxu/EssFBBaKeanjigdxQfzzbEZKMof75/DKK2rZWN1vHNipObMLvP5UzaH1C9nuXmzjQNnYfK8I/WJFmDibXO5kg4f0ujj3FkJfGBzbxyzfBQ7FFy9pyUrbmfsJ3e18W0I+aYB/AW3VJloxscHqyOV8+ytXpWW43ETK2LK0zXGaErjv7wlMl/3NQjPCOesu6930BrkXc1ZxzJfu46E642bR6MJ/qOoh7Jv8bmnK9VLOQ1E0+UmosqvBLndtpeOMIxFe3asOBQ5e4l/emU6mcaR2kiFyKhXyxrj2UCk33sMCqnHLTXckZ7/pt2gMTlHmgOZiQXVrSnkYcEPuEEfIErWJghkBDimYUwYudWEQgMcwhhXnrKT75no0v50BJ3U9xxgCv/mIU1GW8BYYPJ65DmMywGMotQYA+pjfj7I3NmdJsC6BDEQE9Kf159vTYkAkqN2QRV1C6a/5zOLM4aLshn5S953Q36dKKmIQ==
+X-Microsoft-Antispam-Message-Info: dlnejCcj7UR/+iFeS+g6sMIF3Xe/ifTOoP8OcL2BZn4h00KmZjc6GzOpQ39re0ODhWM535gTJND+fcE+IOp8UBF7yhsWHCVHg7RI2eeadZTyDD8Nvsv+4c9uw9vYULvf2fHFLSKwuN3DXXDxmTY4RgQ61J6eyA/HRZjZ7pGi0H5DvoQwKz0eNh5wzOB65WNFfzE/UlmFbwdK+kTl4CbgZbcvsjxjj9DI+mS6ioPHKLb1arcvCYo4ZIBbk+H0iaWwIN7RdPu6UonWYcva1BEeQwQLhNeXf+KVUytImNqlNKDVPVQQllQcM7eG3uLoufT4wThCt4jQtWNP1iD9vITK3kkkd9eXZG5zMvhJByoyTsSez+jm3Avxt0wbFuzkOg62T+MG+UaKG8nsSB9/yMsc64RgmzaDDiuIbnV279NfWd17diO1HzfE5gpxeAg5wLDaf3i75kgeZJ5ZVWdGCOCQFmcxZnmfxeV+IkRZayrJdG3Dr3SbC0ca2eP12FWLoCAISt4Bi0yCX0NX+pwK7eFWiv+8CvPy7drDQZR0FKa+ZLX08dCd/RWg2Kx7/gJNfMIXNaKraj9WUrR5xAg506svuLOduWgJNxbOkqu56Xi19DoC8hrIZd4Hk1edbUvSlU94Dq9sAffN9mQ/JvODHOukrA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(136003)(396003)(376002)(366004)(39860400002)(230922051799003)(186009)(1800799009)(64100799003)(451199024)(26005)(31686004)(38100700002)(83380400001)(41300700001)(44832011)(5660300002)(478600001)(8676002)(8936002)(66946007)(66556008)(2906002)(4001150100001)(86362001)(66476007)(316002)(6486002)(6506007)(53546011)(6666004)(36916002)(31696002)(6512007)(2616005)(36756003)(45980500001)(43740500002);
+ SFS:(13230031)(346002)(39860400002)(396003)(136003)(366004)(376002)(230922051799003)(1800799009)(451199024)(64100799003)(186009)(83380400001)(66476007)(38100700002)(31696002)(36756003)(2616005)(6512007)(2906002)(4001150100001)(86362001)(66556008)(316002)(8676002)(41300700001)(8936002)(66946007)(5660300002)(44832011)(478600001)(6506007)(53546011)(36916002)(6486002)(26005)(31686004)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z2VQV2piZEdEQXhrZWZzbGZJTFJyL2E1ZlZDUnZtVVhuMml4VnhkSGlyY3Bp?=
- =?utf-8?B?aVR4S1hiUHoxQWQ2cmRkNUtjd0pPSmNzcGdkSkJ2RlRUWHhsOFJtd3Biekw3?=
- =?utf-8?B?dFpEb250YmQ4SG9vSXlhK2ZaTHk2dE9wazFvSUJGOWVoWlQwQkV5VG1uaUcw?=
- =?utf-8?B?V05DQitwUnlzYU5vWFY5S05GMnc2VFU4M1hCaFcwTEVXRWtDSnRnVk92RFQ5?=
- =?utf-8?B?OWFGYjNtRVhqWVQyVlBGU3ptNVpNZWlmeFhOa3ErYS9maXB0Ty9CYXQya0tR?=
- =?utf-8?B?dDRRUDFyQzBDYjVBbUQ3bnA0azJPSE95bHJjQnRyelk3RGFvQlh1SjYwQWJC?=
- =?utf-8?B?clhOYjZZV2NvWUl3ZFhSbkpPZXRjM1oxZm43STBKTGNxWityZ0ZJWHh3Uk5P?=
- =?utf-8?B?bDAwUU1VZWtmcks1YnAxUlNpSTZnVnMxMmc4UHdkbk9ENTZ5bG4zNG51bmg3?=
- =?utf-8?B?am1FS1FiVkZENTRHWEVmV25ndE1MYWdnaE5lSmhkclhnK081VWFyVU1KT1Bh?=
- =?utf-8?B?d01CMHpOZXBNbW5tKy9qZnhoR0NzSDJSR0RKTjZRL3NUWlNPYlJCTDNieEJi?=
- =?utf-8?B?aVJhNkxuT3dGd3c3NHM0bHY3RE44YXdYNTNpR2JmVTJNU1pTbGJjSURhWHFa?=
- =?utf-8?B?THdMS1hCRmhzMEdUSm5YUnlLczJZdXZKMHRqK0RnQkoyYkhZMmZEKzVnbE4w?=
- =?utf-8?B?V1Bxelg2ZlJYU05CUkdxSW1mdmtXSURzbTN1SStFZGNkMGRUWEhVN25lK3U2?=
- =?utf-8?B?S2NYWWE1SnJ4cWt5TVBOSzNSUURLdVhXU0FuZmY4UWplNG9HaFlpeWhPQVFT?=
- =?utf-8?B?ZlFJazNZYm9nb2lMV3c5bHQ0c3FldFJNd0U3S1VRRURDc0xWM2dHejhkSm1h?=
- =?utf-8?B?U3phMXdncW1RdloyZ2RzQjkzc2J3U2RvUGlETVhQOFd4ZnZ3QTVDV3BORWti?=
- =?utf-8?B?cTBzeGszN2N5bHE5b25UVHRZTm9vVTdhNHZXTHdDWmVhNTN6SDQ5Z0hnYnlH?=
- =?utf-8?B?Z3NSdXh5REI3MEVhVG9BbUwwMkZjanBOT3BKczRlR3MyNlVDdDJzNFZFUXlq?=
- =?utf-8?B?NStzOWZ6blpPQ2NJNjk1NzhXbi8reHZzdjBLNGRwZVQ1ayt0VGovS01OQk1m?=
- =?utf-8?B?M2xTUEdIUjFnMzV0L2FqdldsK0ZIbndoTEdqVG9vRXdYcFhDQTUxRDdaNTNY?=
- =?utf-8?B?cFFFbmNodGw5QTlKVEJBTlRLN2VvYVRDdmh6QUwyYUxHV1l5MHgvNHJIYWZx?=
- =?utf-8?B?KzR1SWViRmZMQ2V2dUd0aG5TV0cxYTFCTGhhR0NFU3FmTzdVVFBWYUZHMGQx?=
- =?utf-8?B?M0d4NnB6NXB3YVgyZlZoV3dKZFhFNGJYNXN4eFlLc3E3a0RLOWJFR1laOUI2?=
- =?utf-8?B?T0xpbVhnWWxCTDFPUE9yUk4xNVY2Mzc5SEd0VlQyMjZHV25sVmlXUVo3eE1K?=
- =?utf-8?B?dGw0d2N4YUxLZE9TallCeXlUOXNnaGFnM2l3M05Vakw0VmJqNWwwbnVqOGFj?=
- =?utf-8?B?UE9LeE85ZjhmaHEzeGdlUWhrR0J2WHBZVG8zb0Jrak5qY0hKSStTODRyZnl4?=
- =?utf-8?B?QjJqaXA4cFFvV29vRnVtRHJHUi9XZklMV1BHNk4xV1RSSllUTElOT3UyUzR3?=
- =?utf-8?B?eFJmbXVQaEdLRGFWdTdyRXZ0QXlybGdjMkdlNDJTUTdYNm1SZWg2c0Z1aEh0?=
- =?utf-8?B?TmRJbDZ6YjJCSUdKNlZ6SFozSUN0NWxnR2lUWjBpZWxHUmFpdGVBNTdLMUF2?=
- =?utf-8?B?UHpYRXlNTkRjaWVzRUtpSWtNdUdWeXQ0emVJZ0FxS0QvaTdqSUVWNUZGWFgx?=
- =?utf-8?B?SHl1blhocFloM0xIRnZjME5jeHFPMlFQYkEwMDBGaWw2bXdZcmdGOHlCTFE5?=
- =?utf-8?B?aW40alBvSk1Geis3RmN2b1Z4dVJYTUx2bnpCaG1zTGxiQWZCVGp2Y05JbVpR?=
- =?utf-8?B?bVo2bjZyRkhINXdmMnhnNlYvSHZCWmFvMVJndUE3akw0VzB6ampSUjM0M2pl?=
- =?utf-8?B?c1dPQXZ3cWw1dm9VNnl1YkJrQU9YcWVlVklXUFUrU2w4N2ppaEk2ekxHU21v?=
- =?utf-8?B?TjQ1d1lVZlBzYmUzeXU4dC9tWnJaa3MwYi9PZXVTdUcrSUZLWnB6OURFemtP?=
- =?utf-8?Q?NlayUS2aTqkDSnHAeOv4qW1Yz?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QzhKM0cvTitONGhMbnRUNGcyeDRiTW5XZTZqb0Z2V2UvcEorVDBPYlZIZ05z?=
+ =?utf-8?B?d0lFZTZEY3Q3cGR6dWV6Rzc1MFdIanBUT2N2YkljYVdhUEdBMU81WldZbVg4?=
+ =?utf-8?B?a3RGUGg0QmFManFDNTBBZkY0YnFrWi8zRXA5NERHS1Y2am82UHNtaU1lQ21I?=
+ =?utf-8?B?cUl6ZU1pajBkdFBJaEVvTnlNY2RKRWlyeDdNdk1vWWFWUFJKblFhSGxuZUlH?=
+ =?utf-8?B?ajRDRjNhM1RUa1Foa0pBUCtXbGlyUktRS1ludVBObERlQW11aGdZakxhejRI?=
+ =?utf-8?B?MGdCSCtBUGJnUmNQaVkrQ0dMMTlOcFNtdm9Xai83cjhScDZ4M0h6WFJLSVZj?=
+ =?utf-8?B?MW5rdkNlQWhDNE53dUlFTFZFbEc5dTV5WlZGRmdJSWtvckJhcHBRNGQ3Yno3?=
+ =?utf-8?B?VzMzQzNjekowMnloYlE1Sjd2Q1Ric0FDNDZydGxrMGJmM3M3RngrcWIyNG1x?=
+ =?utf-8?B?SFp0RVQxVEVmQ1p0bGpwdmNvYXhha1dFRGIreit2clBhd21uMGJEUWZDaEo4?=
+ =?utf-8?B?czdWUlg0NGpNeG9SREpYb1JqalpuN2RMc25JY2kvSXV3VStmdWtrTTJpVk5C?=
+ =?utf-8?B?Y1ZZZGFWMXlBK3JzYkZycExMRC8yUWNsUDdmbytXaG92QjBoOHl6c2JkM2F3?=
+ =?utf-8?B?MW1SQ0kzWm54S0tKUFRlNld2L1licWh1L2hCZmtrYnMrdFpLbG8ydU1ld0pz?=
+ =?utf-8?B?NHErcEwzK01JMVRLTDQ1cU9WTmw3M2tJMk92cWtPY09KSzJaaEdFelFtL0Fl?=
+ =?utf-8?B?RDFWRlM4RGFsUk0yS0lLTFN0bU5DL0toaXJDRGtyVXFOZzBJMDgwUDlYOFVh?=
+ =?utf-8?B?bkdNNEppVXQ5dE14MHFaVUtiTWU0T25JWUJ4SW5xTTRkV2pId2Fobmw1ZG8w?=
+ =?utf-8?B?S2gyTmNCRUR0djlLTGdaS3dLK3NmWDN2UlZ0Q1ZTbjROY25aT3BLaGRpOFhS?=
+ =?utf-8?B?bUxzOHhXb1BHeVEvcDU3VThGU1ArZklza2JjY3RwbXJQbTlFVUlSNHlXeVhO?=
+ =?utf-8?B?QkFEWS9xUHI1VmJQMHV5dDU0TVg1UU1na1REVWRTb2lTVDJ4ZnlkWEduZ2hz?=
+ =?utf-8?B?VG13dTFWZVlNMW4zUzk1OXdna3JiZlhqZFRoMnpoNDdjajYrZFVNeEFZNUx1?=
+ =?utf-8?B?SGNpZVR6K21rVm15cFM5cU16c2ZBY3AyWUlwZ1puV3JWWkhNZUlZYjVSbkJP?=
+ =?utf-8?B?Y005alhubjhuVDdoWG1IYzFqRGR1eFVwejZYY01qSHZKK0ZjOUlmVXBkUG5G?=
+ =?utf-8?B?eDBGd0g2Y29DUnNqdkRVL0ZvbC9ZS3N3TFYrdktURHBZdWNlQ1hNVS9lSU9G?=
+ =?utf-8?B?UDlnaDhRbkxYVnAwb1IrT3hocnJhZGFFb2x6dDhVRVh4YTArVkIxV0l0cjh3?=
+ =?utf-8?B?OFFoaTZjRjhpU0tGaGpNUlNVbjFCMm4rTG5kUVlCd3ZhdmVpaU1KeG04VlBD?=
+ =?utf-8?B?MXI5L1hrQlZLamJLYkEraFExM0tVSzY4T2E1WndOSXI2NVVoVUxSb0hNaTFD?=
+ =?utf-8?B?OUFXVU5FdTBDaHRDMEQyRUQrWnljSHhtMHZHckRpQ1JLdk1SUi9sUWJyblB3?=
+ =?utf-8?B?MUxLL3l4V3R5YXlLdG84VlFJc2d3YWVXL0tzcGhyVHRZbzdZNmI0Q2NTOW5k?=
+ =?utf-8?B?M1pzb3czbjJvTEVIK2xjc1IzMDlJa0syM1Y5Wmd1R21kbDNvOGc1Ym44alM1?=
+ =?utf-8?B?bXAwN05EVzFNQ3FIUXdRMi9aekUzNGZMK1lDakgrUUdkUENhNFBCSWN0NEtW?=
+ =?utf-8?B?Y1V5UlhCTlg1dXNYUHJQdFJWNDVjODJJSEk2OUlaazFoU0NXQzlETnZkcDJP?=
+ =?utf-8?B?dUZiT3JGNGEzRThKY2E2bkRHaWJzYnhvN1hwbU91dHpUa1AvUXlCTjN4OXl5?=
+ =?utf-8?B?ekpyYUkwU0k5Zy9FY2w0SVZSYTd2WFBqOVI1Umw2Vi9zVlJzMlVtWGh3aUg0?=
+ =?utf-8?B?UDFnd05OQk52bURnbU1MTjR0SFdJeGgxYytTeEZpTUdiOXZGeFZFRE5ZY1VZ?=
+ =?utf-8?B?Z0JxWDErWVg3ZkRBRDM4U1RQQ0IyTVUxMW9hbnVJR0ZsMUVFUTdNMnluY3ZD?=
+ =?utf-8?B?SUZHRHBIWHAwVHpMMTFSNWxZc3VEVzRzWlArTGFqaVkvQWpLMEFzek11TDNH?=
+ =?utf-8?Q?NpUE0D7YG429E0DCIeLCIln/G?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c760b166-f013-4c48-a203-08dbd0bbc86c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94be2088-0547-4cab-e889-08dbd0bd3679
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2023 15:55:14.4573 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2023 16:05:28.5698 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5G0LtOk0Ziqf/U+V72dC4fMO9tHikYwF+jsEol5PeUT936GovHW4Ma+VrheehvHu2b5pUVyhLgniaFpWE/8jGQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7432
+X-MS-Exchange-CrossTenant-UserPrincipalName: NlrWPBGg7rvQkzf3HzbsCk76Qh7+2C7eKgG8CfOEIrIfdLvayWwrKZzaFOmHalKzEye5H0h3BDfN74df1MGXJQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9073
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,217 +126,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 2023-10-19 05:31, Emily Deng wrote:
+> Issue: Dead heappen during gpu recover
+>
+> [56433.829492] amdgpu 0000:04:00.0: amdgpu: GPU reset begin!
+> [56550.499625] INFO: task kworker/u80:0:10 blocked for more than 120 seconds.
+> [56550.520215]       Tainted: G           OE      6.2.0-34-generic #34~22.04.1-Ubuntu
+> [56550.542883] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+> [56550.566313] task:kworker/u80:0   state:D stack:0     pid:10    ppid:2      flags:0x00004000
+> [56550.591318] Workqueue: kfd_restore_wq restore_process_worker [amdgpu]
+> [56550.611391] Call Trace:
+> [56550.618698]  <TASK>
+> [56550.624968]  __schedule+0x2b7/0x5f0
+> [56550.635416]  schedule+0x68/0x110
+> [56550.645090]  schedule_timeout+0x151/0x160
+> [56550.657096]  ? amdgpu_vm_bo_update+0x46e/0x660 [amdgpu]
+> [56550.673245]  dma_fence_default_wait+0x1a2/0x1e0
+> [56550.686818]  ? __pfx_dma_fence_default_wait_cb+0x10/0x10
+> [56550.702728]  dma_fence_wait_timeout+0x117/0x140
+> [56550.716301]  amdgpu_sync_wait+0x62/0xa0 [amdgpu]
+> [56550.730654]  amdgpu_amdkfd_gpuvm_restore_process_bos+0x59e/0x770 [amdgpu]
+> [56550.751668]  ? newidle_balance+0x298/0x490
+> [56550.763936]  restore_process_worker+0x42/0x270 [amdgpu]
+> [56550.780183]  process_one_work+0x21f/0x440
+> [56550.792193]  worker_thread+0x50/0x3f0
+> [56550.803165]  ? __pfx_worker_thread+0x10/0x10
+> [56550.815934]  kthread+0xee/0x120
+> [56550.825342]  ? __pfx_kthread+0x10/0x10
+> [56550.836548]  ret_from_fork+0x2c/0x50
+> [56550.847262]  </TASK>
+> [ 1935.215502] Call Trace:
+> [ 1935.222827]  <TASK>
+> [ 1935.229121]  __schedule+0x23d/0x5a0
+> [ 1935.239583]  schedule+0x4e/0xc0
+> [ 1935.248983]  schedule_timeout+0x103/0x140
+> [ 1935.261002]  __wait_for_common+0xae/0x150
+> [ 1935.273008]  ? usleep_range_state+0x90/0x90
+> [ 1935.285546]  wait_for_completion+0x24/0x30
+> [ 1935.297813]  __flush_work.isra.0+0x175/0x280
+> [ 1935.310611]  ? worker_detach_from_pool+0xc0/0xc0
+> [ 1935.324436]  flush_delayed_work+0x31/0x50
+> [ 1935.336455]  kfd_suspend_all_processes+0x96/0x150 [amdgpu]
+> [ 1935.353429]  kgd2kfd_suspend+0xb8/0xe0 [amdgpu]
+> [ 1935.367469]  kgd2kfd_pre_reset+0x81/0xf0 [amdgpu]
+> [ 1935.382036]  amdgpu_amdkfd_pre_reset+0x1a/0x30 [amdgpu]
+> [ 1935.398156]  amdgpu_device_gpu_recover.cold+0x210/0xcf2 [amdgpu]
+> [ 1935.416722]  amdgpu_job_timedout+0x19f/0x1e0 [amdgpu]
+> [ 1935.432367]  drm_sched_job_timedout+0x6f/0x120 [amd_sched]
+> [ 1935.448792]  process_one_work+0x22b/0x3d0
+> [ 1935.460806]  worker_thread+0x53/0x420
+> [ 1935.471777]  ? process_one_work+0x3d0/0x3d0
+> [ 1935.484307]  kthread+0x12a/0x150
+> [ 1935.493993]  ? set_kthread_struct+0x50/0x50
+> [ 1935.506513]  ret_from_fork+0x22/0x30
 
-On 2023-10-19 09:32, David Francis wrote:
-> On gfx943 APU, EXT_COHERENT should give MTYPE_CC for local and
-> MTYPE_UC for nonlocal memory.
+Looking at the time stamps, this seems to be a mash-up of two different 
+logs. I think you're trying to show how a restore_processes worker is 
+stuck on a fence, and that's causing kgd2kfd_pre_reset to hang when it 
+tries to flush the work.
+
+The fence it's hanging on is probably something related to a page table 
+update that got caught up in the GPU hang. Adding a timeout here seems 
+reasonable. There may be another problem, because 
+amdgpu_amdkfd_gpuvm_restore_process_bos ignores the return value of 
+amdgpu_sync_wait. We shouldi probably handle the timeout gracefully with 
+a "goto validate_map_fail".
+
+Regards,
+   Felix
+
+
 >
-> On NUMA systems, local memory gets the local mtype, set by an
-> override callback. If EXT_COHERENT is set, memory will be set as
-> MTYPE_UC by default, with local memory MTYPE_CC.
+> It is because the amdgpu_sync_wait is waiting for the bad job's fence, and
+> never return, so the recover couldn't continue.
 >
-> Add an option in the override function for this case, and
-> add a check to ensure it is not used on UNCACHED memory.
 >
-> Signed-off-by: David Francis <David.Francis@amd.com>
+> Signed-off-by: Emily Deng <Emily.Deng@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 13 +++++----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  8 +++++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c |  2 +-
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c     | 33 +++++++++++++++--------
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c      |  8 +++---
->   5 files changed, 42 insertions(+), 22 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 16 +++++++++++++---
+>   1 file changed, 13 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 46d27c8ffff7..189341944bf1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -761,6 +761,7 @@ static void amdgpu_vm_tlb_seq_cb(struct dma_fence *fence,
->    * @immediate: immediate submission in a page fault
->    * @unlocked: unlocked invalidation during MM callback
->    * @flush_tlb: trigger tlb invalidation after update completed
-> + * @allow_override: change MTYPE for local NUMA nodes
->    * @resv: fences we need to sync to
->    * @start: start of mapped range
->    * @last: last mapped entry
-> @@ -777,7 +778,7 @@ static void amdgpu_vm_tlb_seq_cb(struct dma_fence *fence,
->    * 0 for success, negative erro code for failure.
->    */
->   int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-> -			   bool immediate, bool unlocked, bool flush_tlb,
-> +			   bool immediate, bool unlocked, bool flush_tlb, bool allow_override,
->   			   struct dma_resv *resv, uint64_t start, uint64_t last,
->   			   uint64_t flags, uint64_t offset, uint64_t vram_base,
->   			   struct ttm_resource *res, dma_addr_t *pages_addr,
-> @@ -815,6 +816,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   	params.immediate = immediate;
->   	params.pages_addr = pages_addr;
->   	params.unlocked = unlocked;
-> +	params.allow_override = allow_override;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+> index dcd8c066bc1f..c922867c5675 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+> @@ -406,9 +406,19 @@ int amdgpu_sync_wait(struct amdgpu_sync *sync, bool intr)
+>   	int i, r;
 >   
->   	/* Implicitly sync to command submissions in the same VM before
->   	 * unmapping. Sync to moving fences before mapping.
-> @@ -1062,6 +1064,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
->   		trace_amdgpu_vm_bo_update(mapping);
->   
->   		r = amdgpu_vm_update_range(adev, vm, false, false, flush_tlb,
-> +					   !(bo->flags & AMDGPU_GEM_CREATE_UNCACHED),
->   					   resv, mapping->start, mapping->last,
->   					   update_flags, mapping->offset,
->   					   vram_base, mem, pages_addr,
-> @@ -1257,8 +1260,8 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
->   		    mapping->start < AMDGPU_GMC_HOLE_START)
->   			init_pte_value = AMDGPU_PTE_DEFAULT_ATC;
->   
-> -		r = amdgpu_vm_update_range(adev, vm, false, false, true, resv,
-> -					   mapping->start, mapping->last,
-> +		r = amdgpu_vm_update_range(adev, vm, false, false, true, false,
-> +					   resv, mapping->start, mapping->last,
->   					   init_pte_value, 0, 0, NULL, NULL,
->   					   &f);
->   		amdgpu_vm_free_mapping(adev, vm, mapping, f);
-> @@ -2546,8 +2549,8 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
->   		goto error_unlock;
->   	}
->   
-> -	r = amdgpu_vm_update_range(adev, vm, true, false, false, NULL, addr,
-> -				   addr, flags, value, 0, NULL, NULL, NULL);
-> +	r = amdgpu_vm_update_range(adev, vm, true, false, false, false,
-> +				   NULL, addr, addr, flags, value, 0, NULL, NULL, NULL);
->   	if (r)
->   		goto error_unlock;
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index 6e71978db13f..9ea8b5b644e3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -244,6 +244,12 @@ struct amdgpu_vm_update_params {
->   	 * @table_freed: return true if page table is freed when updating
->   	 */
->   	bool table_freed;
+>   	hash_for_each_safe(sync->fences, i, tmp, e, node) {
+> -		r = dma_fence_wait(e->fence, intr);
+> -		if (r)
+> -			return r;
+> +		struct drm_sched_fence *s_fence = to_drm_sched_fence(e->fence);
 > +
-> +	/**
-> +	 * @allow_override: true for memory that is not uncached: allows MTYPE
-> +	 * to be overridden for NUMA local memory.
-> +	 */
-> +	bool allow_override;
->   };
->   
->   struct amdgpu_vm_update_funcs {
-> @@ -436,7 +442,7 @@ int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
->   void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
->   			    struct amdgpu_vm *vm, struct amdgpu_bo *bo);
->   int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-> -			   bool immediate, bool unlocked, bool flush_tlb,
-> +			   bool immediate, bool unlocked, bool flush_tlb, bool allow_override,
->   			   struct dma_resv *resv, uint64_t start, uint64_t last,
->   			   uint64_t flags, uint64_t offset, uint64_t vram_base,
->   			   struct ttm_resource *res, dma_addr_t *pages_addr,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> index 9b025fd17b84..80273809c93f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> @@ -842,7 +842,7 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
->   	 * to be on the same NUMA node.
->   	 */
->   	if ((flags & AMDGPU_PTE_SYSTEM) && (adev->flags & AMD_IS_APU) &&
-> -	    adev->gmc.gmc_funcs->override_vm_pte_flags &&
-> +	    params->allow_override && adev->gmc.gmc_funcs->override_vm_pte_flags &&
->   	    num_possible_nodes() > 1 && !params->pages_addr)
->   		amdgpu_gmc_override_vm_pte_flags(adev, params->vm, addr, &flags);
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index 3a1050344b59..1456f76b7fb2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1251,12 +1251,15 @@ static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
->   		return;
->   	}
->   
-> -	/* Only override mappings with MTYPE_NC, which is the safe default for
-> -	 * cacheable memory.
-> +	/* MTYPE_NC is the same default and can be overridden.
-> +	 * MTYPE_UC will be present if the memory is external-coherent
-
-ext_coherent stands for "extended coherent", not "external". With that 
-fixed, the patch is
-
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-
-
-> +	 * and can also be overridden.
->   	 */
->   	if ((*flags & AMDGPU_PTE_MTYPE_VG10_MASK) !=
-> -	    AMDGPU_PTE_MTYPE_VG10(MTYPE_NC)) {
-> -		dev_dbg_ratelimited(adev->dev, "MTYPE is not NC\n");
-> +	    AMDGPU_PTE_MTYPE_VG10(MTYPE_NC) &&
-> +	    (*flags & AMDGPU_PTE_MTYPE_VG10_MASK) !=
-> +	    AMDGPU_PTE_MTYPE_VG10(MTYPE_UC)) {
-> +		dev_dbg_ratelimited(adev->dev, "MTYPE is not NC or UC\n");
->   		return;
->   	}
->   
-> @@ -1283,15 +1286,23 @@ static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
->   			    vm->mem_id, local_node, nid);
->   	if (nid == local_node) {
->   		uint64_t old_flags = *flags;
-> -		unsigned int mtype_local = MTYPE_RW;
-> +		if ((*flags & AMDGPU_PTE_MTYPE_VG10_MASK) ==
-> +			AMDGPU_PTE_MTYPE_VG10(MTYPE_NC)) {
-> +			unsigned int mtype_local = MTYPE_RW;
->   
-> -		if (amdgpu_mtype_local == 1)
-> -			mtype_local = MTYPE_NC;
-> -		else if (amdgpu_mtype_local == 2)
-> -			mtype_local = MTYPE_CC;
-> +			if (amdgpu_mtype_local == 1)
-> +				mtype_local = MTYPE_NC;
-> +			else if (amdgpu_mtype_local == 2)
-> +				mtype_local = MTYPE_CC;
-> +
-> +			*flags = (*flags & ~AMDGPU_PTE_MTYPE_VG10_MASK) |
-> +				 AMDGPU_PTE_MTYPE_VG10(mtype_local);
+> +		if (s_fence) {
+> +			r = dma_fence_wait_timeout(e->fence, intr, s_fence->sched->timeout);
+> +			if (r == 0)
+> +				r = -ETIMEDOUT;
+> +			if (r < 0)
+> +				return r;
 > +		} else {
-> +			/* MTYPE_UC case */
-> +			*flags = (*flags & ~AMDGPU_PTE_MTYPE_VG10_MASK) |
-> +				 AMDGPU_PTE_MTYPE_VG10(MTYPE_CC);
+> +			r = dma_fence_wait(e->fence, intr);
+> +			if (r)
+> +				return r;
 > +		}
 >   
-> -		*flags = (*flags & ~AMDGPU_PTE_MTYPE_VG10_MASK) |
-> -			 AMDGPU_PTE_MTYPE_VG10(mtype_local);
->   		dev_dbg_ratelimited(adev->dev, "flags updated from %llx to %llx\n",
->   				    old_flags, *flags);
+>   		amdgpu_sync_entry_free(e);
 >   	}
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 7b81233bc9ae..87cd1ad14a72 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1286,7 +1286,7 @@ svm_range_get_pte_flags(struct kfd_node *node,
->   			if (num_possible_nodes() <= 1)
->   				mapping_flags |= mtype_local;
->   			else
-> -				mapping_flags |= AMDGPU_VM_MTYPE_NC;
-> +				mapping_flags |= ext_coherent ? AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_NC;
->   		/* system memory accessed by the dGPU */
->   		} else {
->   			mapping_flags |= AMDGPU_VM_MTYPE_UC;
-> @@ -1321,7 +1321,7 @@ svm_range_unmap_from_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   
->   	pr_debug("[0x%llx 0x%llx]\n", start, last);
->   
-> -	return amdgpu_vm_update_range(adev, vm, false, true, true, NULL, start,
-> +	return amdgpu_vm_update_range(adev, vm, false, true, true, false, NULL, start,
->   				      last, init_pte_value, 0, 0, NULL, NULL,
->   				      fence);
->   }
-> @@ -1428,8 +1428,8 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
->   		 * different memory partition based on fpfn/lpfn, we should use
->   		 * same vm_manager.vram_base_offset regardless memory partition.
->   		 */
-> -		r = amdgpu_vm_update_range(adev, vm, false, false, flush_tlb, NULL,
-> -					   last_start, prange->start + i,
-> +		r = amdgpu_vm_update_range(adev, vm, false, false, flush_tlb, true,
-> +					   NULL, last_start, prange->start + i,
->   					   pte_flags,
->   					   (last_start - prange->start) << PAGE_SHIFT,
->   					   bo_adev ? bo_adev->vm_manager.vram_base_offset : 0,
