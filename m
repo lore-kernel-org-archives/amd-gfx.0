@@ -4,92 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1790CDB465
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Oct 2023 14:51:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A777CDB465
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Oct 2023 14:57:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5458E10E502;
-	Thu, 19 Oct 2023 14:51:39 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2048.outbound.protection.outlook.com [40.107.237.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77DF410E504
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Oct 2023 14:51:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBCFE10E0D9;
+	Thu, 19 Oct 2023 14:57:01 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2087.outbound.protection.outlook.com [40.107.220.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ECD910E0D9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Oct 2023 14:57:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gdL4/C6NMZSODC/4QQB7wHI3561Rhw/2+dM4ik6V8fPHZcbd7/KDiEIH4csvAi+aS1EX2igHZmJr062aSWb7lzrC7euaxkL1UkA7cchQP6TyxksxVT5Vww1SUDsLY0q9/vIC4XGlvrl3I54M9oRXF7LVRgO4GyZbf2D2tS+ujW3jUcFywI+oUU52+euNsnYIkR9EFKTvUOOBVzafb1t5egZ3HG3xzSK7Jz6W8ieO6E/0/kaeayiqVcNhhO5rxQ4ZsFTPUsp5HwryrcIABWhVUps/ZgI8B7HypIulq6lbyCBDMo4uoXGGuCpB+SmTzCECtC5a8CZinm49N/NYpaCfjA==
+ b=RHFhB4UJzb7hPeIKv2Zl4Pud80AU3vg8ii/wBPdpuyRHr/8mz5S51Ewn+XbHDsYuA51ddCxTIOEyMoVgERBqFnTy4A1UxlYgnVUzDlPy08vhPXpTXaQl+L/dKfnUi0Nlmh/y79kfJA/swihkX8DQsAJw1yrjQy6VZu+OvoJL0FrI9aPjSK4aUQNn0ZyPECWbL+hdYCEvZWy/fTLOAxI09nl9ZHCWnfYnMwunEM+ao3Txl7KHk2f9RzcX6nIy4DrWQLApOq8SdBPWAD64m3Qf5n4zJvZW2DPL/Kxa0XNj+3NncZlJ8axHsh8OC7299V6JmZxal8ME4/KIUSApYq1Hhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jJVezJ77ydBJ4TkItLqKeq0MkSSzhZw6wan7ur+Anik=;
- b=jsa2Gt4oGl1rolKUxxE2VWuVA2I/XNfppE0ylywBVHcHAJu0BKjUxUm8nrFaUjFCceygQZnEGooJuM3eFa2hiaJto8VH6pq6rncBrs2FgaHylMVSh4MoUlYPVLl8u5CVOlsrFlTZy2gM0H+Pc25EXEJElNBspRM37t8W5f5ZAccB6g4bJul+162dbgZD68iOb1oe0GyJzyPEfX5qDcfy8wOwRbpXdAYWgO3c3cprWyb/BV6KI8MuPjIifivzBui5OP2bsiQjeLvhWXiXnber7f2KSiJyuOXTU4y50V8yzUNluBNZm5wgmlemljyxPi9a5iUpzVU9ayfd+AndXR4h9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=s56YTlRmGbEJ+r7ZN2xQhB3TuIa/DuB/g8tSrWnIDNM=;
+ b=jlMm4ow5EzVk8HWI833Zt77VXhMrUYP2cJ4Kj+FL4ty08Bdgl0X1lF/aaK+5mjt6eaX6+/L20kSD2qwv1tPC0rrwDsbKzi5v/XCNK0ZtrFmOuLQ9p9vI4CcaNrd8LNLlwVhrzlg7Z3DvWRDh3GOT9GcCWXI2Puypi/qOiAZ+989v83G1jYhYAadTf68Nedcljuc1ThFpShZqAZkgzA9sCE8OeJgQNMN64l9rfwbIrom5GylU9iSBxAu2NrS3BdFpwU8vu9CtZxeM2yGJBAG4Au5jgutjuZk0V5H+Rxt7ssTaU7lyeVSEjHKaxsenMNv/ubisHPtpr5mOSheF+eupFA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jJVezJ77ydBJ4TkItLqKeq0MkSSzhZw6wan7ur+Anik=;
- b=NQNKhlMrkr0JZUbUtx2jnuh4l54mo4ULroKvG1vVETBOFiE0/K7D6OkXindwc62M8MX7/N0F+uWx1UwBhP0OkdJC+NbgrMUIiKAgzQv7aUNxvsIRsFo2CtNN7TW3UrKYdVBzng8Yc1TgwlFgNXG+PwG37FTzkGGVtkEATKKCMFg=
-Received: from BLAPR03CA0056.namprd03.prod.outlook.com (2603:10b6:208:32d::31)
- by CY8PR12MB7681.namprd12.prod.outlook.com (2603:10b6:930:84::19)
+ bh=s56YTlRmGbEJ+r7ZN2xQhB3TuIa/DuB/g8tSrWnIDNM=;
+ b=fP5hcjyov1MQH9OYjMoogX60h3l7PeSFVAlcH3kFzlW9am+6Kjw6QKlKus3gnQbGjlj3hNtAGUyPIggxeA7GymqICwKFvXHHoIMuHSV2v1bdr2jn7XM1pHZj/UYMpq7Plz568XLY6c3b0lOYH5foGXYUMFMEeqSn9BS3r2bYS2I=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by BL1PR12MB5238.namprd12.prod.outlook.com (2603:10b6:208:31e::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.24; Thu, 19 Oct
- 2023 14:51:34 +0000
-Received: from BL6PEPF0001AB50.namprd04.prod.outlook.com
- (2603:10b6:208:32d:cafe::84) by BLAPR03CA0056.outlook.office365.com
- (2603:10b6:208:32d::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.21 via Frontend
- Transport; Thu, 19 Oct 2023 14:51:33 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL6PEPF0001AB50.mail.protection.outlook.com (10.167.242.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.22 via Frontend Transport; Thu, 19 Oct 2023 14:51:33 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 19 Oct
- 2023 09:51:33 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 19 Oct
- 2023 07:51:33 -0700
-Received: from stanley-test.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Thu, 19 Oct 2023 09:51:32 -0500
-From: Stanley.Yang <Stanley.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH Review 1/1] drm/amdgpu: Enable RAS feature by default for APU
-Date: Thu, 19 Oct 2023 22:51:30 +0800
-Message-ID: <20231019145130.3314590-1-Stanley.Yang@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB50:EE_|CY8PR12MB7681:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6817306c-0d8f-4255-78ab-08dbd0b2e333
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vaLWcXgQGfL00M2w2wIxKE+38qBgxRYwjGU2UF3FBzrjatsoF4IhzfoNl8su3Gtb6Iv8f/J39pwE8A6cKK54qZCoyfXEz1LvW8raUpUhAq2MzoqGhfJpIDo2Mz8dYhuuQSN3YdwJg2iE9c4JNA9VapBkr5f0RNYQedQcakpoPY0iqRtqn1snRvHpJu3nYPO1WNStbMiYZcHxoAXWld3uF6OAUmetWceCGXGC1JHrn2MZvvnmRdRuuIBZZEA5R7BjUDZDUshW+shpd+6DVmhWfGvAjta3+osNH2ZeZs+SsCBlyWXKSgVZa4XAa/4m6g9BWepUUMc0Wt4jkRk/iUsdkkqlHaLtnhxSPTh4IqvDrFOXv9ilmyNqXDRVi48rIl3WySjDUShfQTZ9OjCH4Dxfk7CCp3KPJiE/xPqp/urueZaCXb5nRYe5RfHIiTnlRLDa7FwD/rnQgMPgvKwgFKgurVS17fLBormanagtcdNnP6qqsNsXCT3dCubYZRwtaEJZ7kJWhwEWatIta4ITRopok4XRTsfXaevWVzg6THb8mJcX/LSVa582jaDxFfKnhQanPHPzsAih4NQNPOq5jq2G+0mEccEGgEMgWTHf++I25IHIEgZR/iFD71jQruB7uKm7CtBrM4h9UuwJhRqp/EX5G5xJqeH1XhxPsm/q4FK/IuXPC7gTE4PF3AdEo3SBhf8ztr7pxLrNRsi+CGyqTRNk/tvCM3mgqB2rWug0ekXFHf5/et81LMvegt7zgwkbqKvl8DGbbKWEpbcO+RXtgmNb1Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(39860400002)(136003)(346002)(396003)(230922051799003)(82310400011)(64100799003)(1800799009)(186009)(451199024)(36840700001)(40470700004)(46966006)(40480700001)(8936002)(82740400003)(356005)(40460700003)(26005)(336012)(426003)(1076003)(2616005)(81166007)(478600001)(5660300002)(41300700001)(8676002)(86362001)(4326008)(2906002)(70206006)(316002)(6916009)(36756003)(70586007)(7696005)(36860700001)(47076005)(83380400001)(36900700001);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.23; Thu, 19 Oct
+ 2023 14:56:58 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::9b99:8d90:81b8:b091]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::9b99:8d90:81b8:b091%7]) with mapi id 15.20.6907.022; Thu, 19 Oct 2023
+ 14:56:58 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Yang, Stanley" <Stanley.Yang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH Review 1/1] drm/amdgpu: Enable RAS feature by default for
+ APU
+Thread-Topic: [PATCH Review 1/1] drm/amdgpu: Enable RAS feature by default for
+ APU
+Thread-Index: AQHaApvHd1uIDZWQ1UiZM4SKZyJF97BRM65g
+Date: Thu, 19 Oct 2023 14:56:58 +0000
+Message-ID: <BN9PR12MB5257366A46B2F2B5A8AAAE87FCD4A@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20231019145130.3314590-1-Stanley.Yang@amd.com>
+In-Reply-To: <20231019145130.3314590-1-Stanley.Yang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=ced2f7e4-2d3c-434d-9afb-61a97a6b3031;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-10-19T14:56:32Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|BL1PR12MB5238:EE_
+x-ms-office365-filtering-correlation-id: 3d931117-70c7-43a0-0e14-08dbd0b3a4a0
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: HCC/BbgcezgBxW9SxX1Ub9nM3ELE/0kkiH7SPWWTsKtmLb+7DM78oUQYjCrQLASWgWmCDV4nyK39RKKon6Rei/OkjdSAlijG1N/YvUsSR7+4VB7yQ+wofY8bTfE9ywwbC43wZYj15OGye9+f4EzIRXtmSfa/OrC+WjSoF11e3nHM5tfEs7IPS04PUfmneYrHbjV5I299Noo6vsDw9vPHj6f4YY0pDLIUhfpXgoGgNOyrlzeG8hqm71Limq1PWi7KxIduLbIQANhTBX5O9ZuJpDSfnhCRuqM/fCzewd5/1S/i7QO+CrhQ3N62Gyf6xOTqltA9mMegmJkHiexmhPQI9SDORux5U9YoUra/30KajwQy5znlgXV2gKLv3FRm6bi/vXJMgnQL0CBw40xRANF9wqOjalKfxRYwhqJAcQ6ARPLpDmsJvFbkA0tP4lQ4VovcQYsVh1dvhU1UixrJeF6wsfQrpYGJibinS5uGA26nu3n2e5PSRlJEaTdgdRpGq5Q9L7d6cL830Wca8wlZ0xyDc1U/TTaboMq9B4WtjzSduZoDSeNMb1wvYpIz1uvltroUixEiHIwJaxcKCowS09o3X7yN61Ib1Wg/vEp+4mHXnCfxNW+oLNsbQX032h+hfTC9
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(376002)(396003)(39860400002)(346002)(366004)(230922051799003)(1800799009)(186009)(64100799003)(451199024)(71200400001)(53546011)(6506007)(76116006)(41300700001)(110136005)(8676002)(66556008)(66476007)(66446008)(64756008)(316002)(8936002)(4326008)(66946007)(478600001)(38070700005)(7696005)(38100700002)(9686003)(122000001)(26005)(83380400001)(33656002)(52536014)(5660300002)(55016003)(2906002)(86362001);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?WuBGhzsLMATh1O0M6fn52r97a/Zo6+EU2F6L9mz0gTnCxLxyIHt+0rgcLcaS?=
+ =?us-ascii?Q?dllnxqBRskrAOiIvAKj50y7q0OAeN9zj9Z7Ee9rbWy4Uz8LEJgeB1f7Qjsv/?=
+ =?us-ascii?Q?BjMgugvu/r29Vmtcfc0E6Yvxm41zN65apI7g8HdQwskgC2ZlskBEIA+HE3if?=
+ =?us-ascii?Q?6jn3d2LrHTF0eGSG9SC/YPASwnnQIKrrFoRilTXQIlLCrgSwi7K5dMOqfnQj?=
+ =?us-ascii?Q?it3nSYeR4L4iR7f+R1/j38tI957jDvvXGRSZd5KwehpevBvl3MXWXzKAaYPV?=
+ =?us-ascii?Q?u1d8TppoedsNV+DXUgBZWcmyTt9lDWTd559olwRYH1uHKQ98FniUMxnsE0wM?=
+ =?us-ascii?Q?7NOHHL/m6TdrjV/V95O2GeSgR+hatbJOoF27h5ou/t2ecsjWu2h3vPklqNjP?=
+ =?us-ascii?Q?b+ZzbwU+CkjJdu0TnM7ODIX/jHC1L9Y3DnvLGpO8kRnfHgXXZuQYlmh5CffH?=
+ =?us-ascii?Q?4siRRSIouf0V46PZSePhuXOtE9ZO32qjDm1GmR6CYgk3Nb7caIm41WgUnsQi?=
+ =?us-ascii?Q?C1li7pS/M24PNTbyUOYAgbsxOhv8oUVux/b5bAHYoXGXgJOs7FKmu8fM9ghA?=
+ =?us-ascii?Q?k5LLLhJpR+EmKZL3Xxndeo9nwi9x88ZCYP9Ywo4xu68c9BcP5hH2Qyk0tic4?=
+ =?us-ascii?Q?fmkthNbF3gd7twTZlOqSV8u3W+/cGrtfmZ7wnjpneep2g/0Gu+cGfB9J7a1Z?=
+ =?us-ascii?Q?XmUn2BqHBFmmGs0StVXx3euZ6PhI8ZUkZxTrwDBe6qBu1CppoOBcymof0PQk?=
+ =?us-ascii?Q?LoAlOns0YGamwaWPX6iYfoVXS7qroYjFlpXmnW1tff45Rhr1boNVQF4FB7AV?=
+ =?us-ascii?Q?ZDAsVuMLeAnihKMeE/UqS1XWCm4K+kD+8jA1UvrxE9KN+wYVCqhicGQ4G/j/?=
+ =?us-ascii?Q?hvALHO/kQQgLT0kgbkySZNmiVthK3Lb5CSczJSohVO6gj8TtlhLLA3kPwOVX?=
+ =?us-ascii?Q?pbOytktml3vkOZXkESW45Fx1sqbtZZdwpuloVdasMfeKuXNx/B24Ea3Hg3Vm?=
+ =?us-ascii?Q?xfcz3wzgyCT73dMM6yjpDnK9VA38S5sI+/8hOp9tPmOjZZRDIpw+O5LqMNAK?=
+ =?us-ascii?Q?b+2N/tp3sXVwiY3vm8RoPlq3eRJqea+Pl9psqVQSKfqtEy6Y3bgQKhXFgvKv?=
+ =?us-ascii?Q?ouKvF1p95lM61rCEVRlZ/YLx44ph52VHhiKp/gw9t/qUD2dUlotKSQ4ahg05?=
+ =?us-ascii?Q?XNUkMN09jKSVuu4wMmEvH3hKEdN9kgaHDbXRQAd2c/EpTtPo5F8nRqT1lhgE?=
+ =?us-ascii?Q?AF1gVf9SSM+YrN+46qjdJCb3+qtdyW9krQignWHVacDmByI23CRYeahEAU+W?=
+ =?us-ascii?Q?qQgBAxK570iYdJSyj7t3E580KQyClwAmYnrcT0E1fVrPDgzlxTc7wL05wXAY?=
+ =?us-ascii?Q?wyDWyoYI7WG4KDmcIwf7Noz7J1zVf3FivS+rMhovMq3zHT6IS9q8z9GaIGz9?=
+ =?us-ascii?Q?lRhLVFMz2Kle7IS55yKlWKFMPT2P4fztxam+t3nDbJ8R/AmQ4g9drzcMkboP?=
+ =?us-ascii?Q?EUbCCSSAZ4pydqSP2f5QYJ0WosEyHjkMyEHvP/PL0cw/OwkTQ7SSdlmWVG/u?=
+ =?us-ascii?Q?JwYp/tXG/IM4XmBZ6iU73U8A8IXq21RfOIjxpKf8?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2023 14:51:33.7145 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6817306c-0d8f-4255-78ab-08dbd0b2e333
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB50.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7681
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d931117-70c7-43a0-0e14-08dbd0b3a4a0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Oct 2023 14:56:58.2639 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8PvAVUbeqvRwmsXbknIg1zSvTqaDYeFHgilT+ZRfrrgukxPmgH9pQcoKTYl3Y3lRxczgc6DNNf0R2VJ0NDr6wA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5238
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,12 +124,26 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Stanley.Yang" <Stanley.Yang@amd.com>
+Cc: "Yang, Stanley" <Stanley.Yang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable RAS feature by default for aqua vanjaram on apu
-platform.
+[AMD Official Use Only - General]
+
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+
+Regards,
+Hawking
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Stanley.=
+Yang
+Sent: Thursday, October 19, 2023 22:52
+To: amd-gfx@lists.freedesktop.org
+Cc: Yang, Stanley <Stanley.Yang@amd.com>
+Subject: [PATCH Review 1/1] drm/amdgpu: Enable RAS feature by default for A=
+PU
+
+Enable RAS feature by default for aqua vanjaram on apu platform.
 
 Change-Id: I02105d07d169d1356251c994249a134ca5dd2a7a
 Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
@@ -114,31 +151,34 @@ Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 14 ++------------
  1 file changed, 2 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
 index 01c2e8e8fb69..3dc82a213e96 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2640,18 +2640,8 @@ static void amdgpu_ras_check_supported(struct amdgpu_device *adev)
- 	/* hw_supported needs to be aligned with RAS block mask. */
- 	adev->ras_hw_enabled &= AMDGPU_RAS_BLOCK_MASK;
- 
+@@ -2640,18 +2640,8 @@ static void amdgpu_ras_check_supported(struct amdgpu=
+_device *adev)
+        /* hw_supported needs to be aligned with RAS block mask. */
+        adev->ras_hw_enabled &=3D AMDGPU_RAS_BLOCK_MASK;
+
 -
--	/*
--	 * Disable ras feature for aqua vanjaram
--	 * by default on apu platform.
--	 */
--	if (amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 6) &&
--	    adev->gmc.is_app_apu)
--		adev->ras_enabled = amdgpu_ras_enable != 1 ? 0 :
--			adev->ras_hw_enabled & amdgpu_ras_mask;
--	else
--		adev->ras_enabled = amdgpu_ras_enable == 0 ? 0 :
--			adev->ras_hw_enabled & amdgpu_ras_mask;
-+	adev->ras_enabled = amdgpu_ras_enable == 0 ? 0 :
-+		adev->ras_hw_enabled & amdgpu_ras_mask;
+-       /*
+-        * Disable ras feature for aqua vanjaram
+-        * by default on apu platform.
+-        */
+-       if (amdgpu_ip_version(adev, MP0_HWIP, 0) =3D=3D IP_VERSION(13, 0, 6=
+) &&
+-           adev->gmc.is_app_apu)
+-               adev->ras_enabled =3D amdgpu_ras_enable !=3D 1 ? 0 :
+-                       adev->ras_hw_enabled & amdgpu_ras_mask;
+-       else
+-               adev->ras_enabled =3D amdgpu_ras_enable =3D=3D 0 ? 0 :
+-                       adev->ras_hw_enabled & amdgpu_ras_mask;
++       adev->ras_enabled =3D amdgpu_ras_enable =3D=3D 0 ? 0 :
++               adev->ras_hw_enabled & amdgpu_ras_mask;
  }
- 
+
  static void amdgpu_ras_counte_dw(struct work_struct *work)
--- 
+--
 2.25.1
 
