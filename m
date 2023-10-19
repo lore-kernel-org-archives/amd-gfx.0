@@ -4,28 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 926D7CDB484
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18433CDB482
 	for <amd-gfx@archiver.kernel.org>; Thu, 19 Oct 2023 08:36:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7CB110E49E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B2F810E49D;
 	Thu, 19 Oct 2023 08:36:40 +0000 (UTC)
-Received: from out30-110.freemail.mail.aliyun.com
- (out30-110.freemail.mail.aliyun.com [115.124.30.110])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE7C910E461;
- Thu, 19 Oct 2023 01:03:39 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R221e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045192;
- MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=9; SR=0;
- TI=SMTPD_---0VuS3rO6_1697677413; 
-Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
- fp:SMTPD_---0VuS3rO6_1697677413) by smtp.aliyun-inc.com;
- Thu, 19 Oct 2023 09:03:34 +0800
-From: Yang Li <yang.lee@linux.alibaba.com>
-To: alexander.deucher@amd.com, harry.wentland@amd.com, airlied@gmail.com,
- daniel@ffwll.ch
-Subject: [PATCH -next 1/2] drm/amd/display: clean up one inconsistent indenting
-Date: Thu, 19 Oct 2023 09:03:31 +0800
-Message-Id: <20231019010332.25878-1-yang.lee@linux.alibaba.com>
+Received: from out30-101.freemail.mail.aliyun.com
+ (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D26810E064;
+ Thu, 19 Oct 2023 03:38:37 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R631e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046056;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
+ TI=SMTPD_---0VuSdbXV_1697686707; 
+Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0VuSdbXV_1697686707) by smtp.aliyun-inc.com;
+ Thu, 19 Oct 2023 11:38:33 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: harry.wentland@amd.com
+Subject: [PATCH] drm/amd/display: clean up some inconsistent indenting
+Date: Thu, 19 Oct 2023 11:38:26 +0800
+Message-Id: <20231019033826.127396-1-jiapeng.chong@linux.alibaba.com>
 X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -41,34 +40,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Abaci Robot <abaci@linux.alibaba.com>, Yang Li <yang.lee@linux.alibaba.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, sunpeng.li@amd.com,
+ Abaci Robot <abaci@linux.alibaba.com>, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, alexander.deucher@amd.com, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_util.c:150 dml_max() warn: inconsistent indenting
+No functional modification involved.
+
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:2902 dm_resume() warn: inconsistent indenting.
 
 Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=6933
-Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=6940
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 ---
- drivers/gpu/drm/amd/display/dc/dml2/display_mode_util.c | 2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_util.c b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_util.c
-index 7dd1f8a12582..3a70838abfba 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_util.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_util.c
-@@ -147,7 +147,7 @@ dml_float_t dml_max(dml_float_t x, dml_float_t y)
- 		return y;
- 	if (y != y)
- 		return x;
--if (x > y)
-+	if (x > y)
- 		return x;
- 	else
- 		return y;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 801f87a12ccf..0e1f8c5d7f9b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2899,7 +2899,7 @@ static int dm_resume(void *handle)
+ 	}
+ 
+ 	/* power on hardware */
+-	 dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D0);
++	dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D0);
+ 
+ 	/* program HPD filter */
+ 	dc_resume(dm->dc);
 -- 
 2.20.1.7.g153144c
 
