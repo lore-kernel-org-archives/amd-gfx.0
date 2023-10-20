@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28081C001DF
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Oct 2023 13:58:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAC8DCDB474
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Oct 2023 13:58:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEF1A10E5B7;
-	Fri, 20 Oct 2023 13:58:42 +0000 (UTC)
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [IPv6:2001:4860:4864:20::2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B72510E5B7
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Oct 2023 13:58:41 +0000 (UTC)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-1dc9c2b2b79so532659fac.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Oct 2023 06:58:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45B5E10E5B9;
+	Fri, 20 Oct 2023 13:58:57 +0000 (UTC)
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7B3B10E0E4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Oct 2023 13:54:10 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-32d9d8284abso605308f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Oct 2023 06:54:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1697810320; x=1698415120; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Ri7xTIQdzEfo9Kbb5rIxOB+1V3JXqZQJavnU0h+049g=;
- b=cEkh5euTpE+voNTZfSrbp0ICTaEx8ZUgBvmhr55SXShzImnVTGJKbuw/t0cCn+o4mO
- 99iohVIchsJor2+prUlkWqe/6vm6GEDpaye4dwSRW6Mw5uk1ZrgNvBSGNtjoDUlNV5RY
- sBFxvIPBEgD3W72gkycEAr0YwiO3XubUsSfkDWJ5g63dd39gHd32Cyd+61Tovgr93zT4
- 6GeeLX2z0Go+a+KBv84R4RTYck+w+WRuaWhGV/3VSD3KAOcuH95cukE3embw40bHAqE+
- 23jjZNROGisdfEu31vtQRp0gQ5CNl9UqK3NV9cuaMi0CwonRqxlTikO5kXlmjnbaVB3d
- g7HQ==
+ d=linaro.org; s=google; t=1697810049; x=1698414849; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=vaxQKyBIIqPqw4ZLaGsJttia3ebEsf2c6Qv9i1pJuD4=;
+ b=puXnLFJC1Whgct3fQKFLo4q613NeLGKm3AuNr0BnDy8zWmExp3VgQqdK1mOkNUVpkb
+ +FA0ohW2pvZVrNzz3+TH4QcxtRIa0mCKE9fDCzQt5TvK0BiCtd9x3EgdH36sLkZwvotO
+ v7CWlJr9nR/oRlFGUvezrTyNk6HwEVL3K0zswrJjxhOyY8Ki7Ijg38CVPrT7dHcp6W7s
+ QpDtZLisiOid69Xc1e+kTx2s9LU36r7CDIHIpynkjcedrBl2LpOgAMJUhGRV5aUkbjIs
+ dHRpisE2eMRBcfwp5K7LNNdd0F4hLJIkUdAT0ee7xIq5pgFO2EkuTbIW2GDMG8pt6+D8
+ KJfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697810320; x=1698415120;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Ri7xTIQdzEfo9Kbb5rIxOB+1V3JXqZQJavnU0h+049g=;
- b=OHLkhI+1Pn+A7U8C1pypDZrPljBsd93sZnaoW/WWbbT7VDNB5CLbCiZOWY8VlkvW2J
- JSC696atYOsm92Sj/wchH3FK+iwNs9Gxgs9kS26YwoJ5og1JntwmZFrB5py8rBW5a+43
- 0Zkb1GtIp0fJYRkPoCWVu1LxJpbCnjpvNQEYoTDqxX38MS2b1HVb2K8ivpNXssC8SQQR
- Caq7pIlGj8pZh9ThoYLjEWaAjwOtKPP2JRsh6fb+hoq63t8a1HR0p2hmp1PCB99uK+oe
- MwtWZFuaZUpH7LvhkOcasiEEbUtk1+8paHiDoNV8tKctgQ/ck1EjgBpwrWvA3XlOi+sY
- DbnQ==
-X-Gm-Message-State: AOJu0YxS/4sQA3nSd/37/YvpZdMdDcLDcrDelRytATV7YeHAVrZmxjbN
- BUDow/LGUPA/yYmYQB+kdPdrmSAViHw0KYTIL1q7LcNepxM=
-X-Google-Smtp-Source: AGHT+IGfXprCj97DQaasSdILzzSwiw06vi37f86Xu3t+LdvN5oO1bMYBtR7cH8n1Xfk2n/e++unb0JyW3qIzjWrAl6g=
-X-Received: by 2002:a05:6870:568a:b0:1d0:f5bd:6e9 with SMTP id
- p10-20020a056870568a00b001d0f5bd06e9mr1985763oao.22.1697810320233; Fri, 20
- Oct 2023 06:58:40 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1697810049; x=1698414849;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=vaxQKyBIIqPqw4ZLaGsJttia3ebEsf2c6Qv9i1pJuD4=;
+ b=nqDrBiaAlEOuLY5W9liAo4UESf51ZGvyMIa5kAXqWgIJVVf9xnICCRAEkx0xqHNsw2
+ buiqQ7Ppvr0Jwen/vC3yX9bdJgRUFY8RIuIoVW5exnNHVHzc2jNd2kmrzeROlUgaSrc9
+ Gq/IeopVtnPAmuIC1vG98k9zUgbNhgZSIKF0cSFcicf0k6AL691J7GTtmhTgnz2aNoKI
+ VHDCa9Oxy2oUi0A80c8GESgeGv27OROylvhd9plDqy8ACNGZv9UessJAkAGj0kVuVP6/
+ lS+xssCuZ+jlgF2qm53tIxyMeE4ksiPV/tXmMK+62fJB3Xg/AP93KfvGioF5sE/vzwNw
+ sZVw==
+X-Gm-Message-State: AOJu0Yy85pvQWo+HXle4QShOfmEj9XAqAsZAYDYOauICQjySQwfBrpHw
+ oyCuqnUD/rZkg0RbwRYC+BYxhSmXr3BYATNIC9Q=
+X-Google-Smtp-Source: AGHT+IEEtOZBrzqw15i/Fk3l2uBP2Xef23poD55mjgCPdAfykh4YBFKECujRA7trBMnZDwLsAipMEQ==
+X-Received: by 2002:adf:f091:0:b0:32d:aabf:1db3 with SMTP id
+ n17-20020adff091000000b0032daabf1db3mr1794189wro.24.1697810049346; 
+ Fri, 20 Oct 2023 06:54:09 -0700 (PDT)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ p17-20020a5d68d1000000b0032d687fd9d0sm1755769wrw.19.2023.10.20.06.54.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 20 Oct 2023 06:54:08 -0700 (PDT)
+Date: Fri, 20 Oct 2023 16:54:04 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Qingqing.Zhuo@amd.com
+Subject: [bug report] drm/amd/display: Introduce DML2
+Message-ID: <cd6292d4-ae5c-4c30-b253-0fdae835269b@moroto.mountain>
 MIME-Version: 1.0
-References: <20231020081558.739636-1-kenneth.feng@amd.com>
-In-Reply-To: <20231020081558.739636-1-kenneth.feng@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 20 Oct 2023 09:58:29 -0400
-Message-ID: <CADnq5_P6092B8sJQf0-_gdLOSr0Q68STNhSRfAE41xy-YE8n4w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: fix the high voltage and temperature issue on
- smu 13
-To: Kenneth Feng <kenneth.feng@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailman-Approved-At: Fri, 20 Oct 2023 13:58:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,298 +68,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kevinyang.wang@amd.com, amd-gfx@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 20, 2023 at 4:32=E2=80=AFAM Kenneth Feng <kenneth.feng@amd.com>=
- wrote:
->
-> fix the high voltage and temperature issue after the driver is unloaded o=
-n smu 13.0.0,
-> smu 13.0.7 and smu 13.0.10
->
-> Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 36 +++++++++++++++----
->  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |  4 +--
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 27 ++++++++++++--
->  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  1 +
->  drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h  |  2 ++
->  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    | 13 +++++++
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |  8 ++++-
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  |  8 ++++-
->  8 files changed, 86 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index 31f8c3ead161..c5c892a8b3f9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3986,13 +3986,23 @@ int amdgpu_device_init(struct amdgpu_device *adev=
-,
->                                 }
->                         }
->                 } else {
-> -                       tmp =3D amdgpu_reset_method;
-> -                       /* It should do a default reset when loading or r=
-eloading the driver,
-> -                        * regardless of the module parameter reset_metho=
-d.
-> -                        */
-> -                       amdgpu_reset_method =3D AMD_RESET_METHOD_NONE;
-> -                       r =3D amdgpu_asic_reset(adev);
-> -                       amdgpu_reset_method =3D tmp;
-> +                       switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
-> +                       case IP_VERSION(13, 0, 0):
-> +                       case IP_VERSION(13, 0, 7):
-> +                       case IP_VERSION(13, 0, 10):
-> +                               r =3D psp_gpu_reset(adev);
-> +                               break;
-> +                       default:
-> +                               tmp =3D amdgpu_reset_method;
-> +                               /* It should do a default reset when load=
-ing or reloading the driver,
-> +                                * regardless of the module parameter res=
-et_method.
-> +                                */
-> +                               amdgpu_reset_method =3D AMD_RESET_METHOD_=
-NONE;
-> +                               r =3D amdgpu_asic_reset(adev);
-> +                               amdgpu_reset_method =3D tmp;
-> +                               break;
-> +                       }
-> +
->                         if (r) {
->                                 dev_err(adev->dev, "asic reset on init fa=
-iled\n");
->                                 goto failed;
-> @@ -5945,6 +5955,18 @@ int amdgpu_device_baco_exit(struct drm_device *dev=
-)
->                 return -ENOTSUPP;
->
->         ret =3D amdgpu_dpm_baco_exit(adev);
-> +
-> +       if (!ret)
-> +               switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
-> +               case IP_VERSION(13, 0, 0):
-> +               case IP_VERSION(13, 0, 7):
-> +               case IP_VERSION(13, 0, 10):
-> +                       adev->gfx.is_poweron =3D false;
-> +                       break;
-> +               default:
-> +                       break;
-> +               }
+Hello Qingqing Zhuo,
 
-Maybe better to move this into smu_v13_0_0_baco_exit() so we keep the
-asic specific details out of the common files?
+The patch 7966f319c66d: "drm/amd/display: Introduce DML2" from Jul
+28, 2023 (linux-next), leads to the following Smatch static checker
+warning:
 
-> +
->         if (ret)
->                 return ret;
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gmc_v11_0.c
-> index 80ca2c05b0b8..3ad38e42773b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> @@ -73,7 +73,7 @@ gmc_v11_0_vm_fault_interrupt_state(struct amdgpu_device=
- *adev,
->                  * fini/suspend, so the overall state doesn't
->                  * change over the course of suspend/resume.
->                  */
-> -               if (!adev->in_s0ix)
-> +               if (!adev->in_s0ix && adev->gfx.is_poweron)
->                         amdgpu_gmc_set_vm_fault_masks(adev, AMDGPU_GFXHUB=
-(0), false);
->                 break;
->         case AMDGPU_IRQ_STATE_ENABLE:
-> @@ -85,7 +85,7 @@ gmc_v11_0_vm_fault_interrupt_state(struct amdgpu_device=
- *adev,
->                  * fini/suspend, so the overall state doesn't
->                  * change over the course of suspend/resume.
->                  */
-> -               if (!adev->in_s0ix)
-> +               if (!adev->in_s0ix && adev->gfx.is_poweron)
->                         amdgpu_gmc_set_vm_fault_masks(adev, AMDGPU_GFXHUB=
-(0), true);
->                 break;
->         default:
+drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml2_wrapper.c:77 map_hw_resources()
+error: buffer overflow 'dml2->v20.scratch.dml_to_dc_pipe_mapping.disp_cfg_to_stream_id' 6 <= 7
 
+drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml2_wrapper.c:79 map_hw_resources()
+error: buffer overflow 'dml2->v20.scratch.dml_to_dc_pipe_mapping.disp_cfg_to_plane_id' 6 <= 7
 
-These changes are probably a valid bug fix on their own.
+drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml2_wrapper.c
+    59 static void map_hw_resources(struct dml2_context *dml2,
+    60                 struct dml_display_cfg_st *in_out_display_cfg, struct dml_mode_support_info_st *mode_support_info)
+    61 {
+    62         unsigned int num_pipes = 0;
+    63         int i, j;
+    64 
+    65         for (i = 0; i < __DML_NUM_PLANES__; i++) {
+                               ^^^^^^^^^^^^^^^^^^
 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/=
-amd/pm/swsmu/amdgpu_smu.c
-> index 7c3356d6da5e..30e5f7161737 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -733,7 +733,7 @@ static int smu_early_init(void *handle)
->         smu->adev =3D adev;
->         smu->pm_enabled =3D !!amdgpu_dpm;
->         smu->is_apu =3D false;
-> -       smu->smu_baco.state =3D SMU_BACO_STATE_EXIT;
-> +       smu->smu_baco.state =3D SMU_BACO_STATE_NONE;
+__DML_NUM_PLANES__ is 8.  This loops 0-7.
 
+    66                 in_out_display_cfg->hw.ODMMode[i] = mode_support_info->ODMMode[i];
+    67                 in_out_display_cfg->hw.DPPPerSurface[i] = mode_support_info->DPPPerSurface[i];
+    68                 in_out_display_cfg->hw.DSCEnabled[i] = mode_support_info->DSCEnabled[i];
+    69                 in_out_display_cfg->hw.NumberOfDSCSlices[i] = mode_support_info->NumberOfDSCSlices[i];
+    70                 in_out_display_cfg->hw.DLGRefClkFreqMHz = 24;
+    71                 if (dml2->v20.dml_core_ctx.project != dml_project_dcn35 &&
+    72                         dml2->v20.dml_core_ctx.project != dml_project_dcn351) {
+    73                         /*dGPU default as 50Mhz*/
+    74                         in_out_display_cfg->hw.DLGRefClkFreqMHz = 50;
+    75                 }
+    76                 for (j = 0; j < mode_support_info->DPPPerSurface[i]; j++) {
+--> 77                         dml2->v20.scratch.dml_to_dc_pipe_mapping.dml_pipe_idx_to_stream_id[num_pipes] = dml2->v20.scratch.dml_to_dc_pipe_mapping.disp_cfg_to_stream_id[i];
 
-I'm not sure I understand this change.  Is this just to set the
-default BACO state?  Maybe this would be better as a separate patch.
+Both of these arrays have 6 elements.
 
->         smu->smu_baco.platform_support =3D false;
->         smu->user_dpm_profile.fan_mode =3D -1;
->
-> @@ -1740,10 +1740,25 @@ static int smu_smc_hw_cleanup(struct smu_context =
-*smu)
->         return 0;
->  }
->
-> +static int smu_reset_mp1_state(struct smu_context *smu)
-> +{
-> +       struct amdgpu_device *adev =3D smu->adev;
-> +
-> +       switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
-> +       case IP_VERSION(13, 0, 0):
-> +       case IP_VERSION(13, 0, 7):
-> +       case IP_VERSION(13, 0, 10):
-> +               return smu_set_mp1_state(smu, PP_MP1_STATE_UNLOAD);
-> +       default:
-> +               return 0;
-> +       }
-> +}
-> +
->  static int smu_hw_fini(void *handle)
->  {
->         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
->         struct smu_context *smu =3D adev->powerplay.pp_handle;
-> +       int ret;
->
->         if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
->                 return 0;
-> @@ -1761,7 +1776,15 @@ static int smu_hw_fini(void *handle)
->
->         adev->pm.dpm_enabled =3D false;
->
-> -       return smu_smc_hw_cleanup(smu);
-> +       ret =3D smu_smc_hw_cleanup(smu);
-> +       if (ret)
-> +               return ret;
-> +
-> +       ret =3D smu_reset_mp1_state(smu);
-> +       if (ret)
-> +               return ret;
-> +
-> +       return 0;
->  }
->
->  static void smu_late_fini(void *handle)
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/=
-drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> index 1454eed76604..9f2dbc90b606 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> @@ -419,6 +419,7 @@ enum smu_reset_mode {
->  enum smu_baco_state {
->         SMU_BACO_STATE_ENTER =3D 0,
->         SMU_BACO_STATE_EXIT,
-> +       SMU_BACO_STATE_NONE,
->  };
->
->  struct smu_baco_context {
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h b/drivers/gpu/d=
-rm/amd/pm/swsmu/inc/smu_v13_0.h
-> index cc02f979e9e9..43c7ba68eb50 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-> @@ -299,5 +299,7 @@ int smu_v13_0_update_pcie_parameters(struct smu_conte=
-xt *smu,
->                                      uint8_t pcie_gen_cap,
->                                      uint8_t pcie_width_cap);
->
-> +int smu_v13_0_disable_pmfw_state(struct smu_context* smu);
-> +
->  #endif
->  #endif
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu=
-/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> index bcb7ab9d2221..0724441e53ef 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> @@ -2473,3 +2473,16 @@ int smu_v13_0_update_pcie_parameters(struct smu_co=
-ntext *smu,
->
->         return 0;
->  }
-> +
-> +int smu_v13_0_disable_pmfw_state(struct smu_context* smu)
-> +{
-> +       int ret;
-> +       struct amdgpu_device *adev =3D smu->adev;
-> +
-> +       WREG32_PCIE(MP1_Public | (smnMP1_FIRMWARE_FLAGS & 0xffffffff), 0)=
-;
-> +
-> +       ret =3D RREG32_PCIE(MP1_Public |
-> +                                          (smnMP1_FIRMWARE_FLAGS & 0xfff=
-fffff));
-> +
-> +       return ret =3D=3D 0 ? 0 : -EINVAL;
-> +}
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> index 47d008cbc186..0a167f70f4bc 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> @@ -2758,7 +2758,13 @@ static int smu_v13_0_0_set_mp1_state(struct smu_co=
-ntext *smu,
->
->         switch (mp1_state) {
->         case PP_MP1_STATE_UNLOAD:
-> -               ret =3D smu_cmn_set_mp1_state(smu, mp1_state);
-> +               ret =3D smu_cmn_send_smc_msg_with_param(smu,
-> +                                                               SMU_MSG_P=
-repareMp1ForUnload,
-> +                                                               0x55, NUL=
-L);
-> +
-> +               if(!ret && smu->smu_baco.state =3D=3D SMU_BACO_STATE_EXIT=
-)
+    78                         dml2->v20.scratch.dml_to_dc_pipe_mapping.dml_pipe_idx_to_stream_id_valid[num_pipes] = true;
+    79                         dml2->v20.scratch.dml_to_dc_pipe_mapping.dml_pipe_idx_to_plane_id[num_pipes] = dml2->v20.scratch.dml_to_dc_pipe_mapping.disp_cfg_to_plane_id[i];
+    80                         dml2->v20.scratch.dml_to_dc_pipe_mapping.dml_pipe_idx_to_plane_id_valid[num_pipes] = true;
+    81                         num_pipes++;
+    82                 }
+    83         }
+    84 }
 
-space between if and (
-
-> +                       ret =3D smu_v13_0_disable_pmfw_state(smu);
-> +
->                 break;
->         default:
->                 /* Ignore others */
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> index b8a7a1d853df..d7a4a03b1e31 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> @@ -2429,7 +2429,13 @@ static int smu_v13_0_7_set_mp1_state(struct smu_co=
-ntext *smu,
->
->         switch (mp1_state) {
->         case PP_MP1_STATE_UNLOAD:
-> -               ret =3D smu_cmn_set_mp1_state(smu, mp1_state);
-> +               ret =3D smu_cmn_send_smc_msg_with_param(smu,
-> +                                                               SMU_MSG_P=
-repareMp1ForUnload,
-> +                                                               0x55, NUL=
-L);
-> +
-> +               if(!ret && smu->smu_baco.state =3D=3D SMU_BACO_STATE_EXIT=
-)
-
-Same here.
-
-Alex
-
-> +                       ret =3D smu_v13_0_disable_pmfw_state(smu);
-> +
->                 break;
->         default:
->                 /* Ignore others */
-> --
-> 2.34.1
->
+regards,
+dan carpenter
