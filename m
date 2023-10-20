@@ -4,120 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E220C001DF
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Oct 2023 19:47:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B57FEC001DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Oct 2023 19:51:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9794F10E5DF;
-	Fri, 20 Oct 2023 19:47:14 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2062c.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eab::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 666B210E5DF
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Oct 2023 19:47:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D42F10E5E0;
+	Fri, 20 Oct 2023 19:51:04 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2058.outbound.protection.outlook.com [40.107.92.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3107A10E5E0;
+ Fri, 20 Oct 2023 19:51:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=j2iCLv+nhfLfN+5W8ukcZqRRnHWq1ZEjMQ4B5hHUjA3mFinHL16Z6oj95dXBxMGWUYqHsxzDgj6laLWTI94iMd6wY73ZF4z1f5bH6ETXUzrXONuc90yES7I1LKQVpVxYZUyoeGM/UcUAvw//vTfvom5ddRIFWuWcqz1KANnFe5xSMVjQXUZZgqImt9xw6mEijByX22l9BPA1Rw6ubX/1dF+3RuF09WpPYjiF9bIh0RYzzrB0ETGrxHEqB5K0CjrnakeR7D03+c6Fe7zIKhOXALOf2gxdy84qgCG3KbNPvARUXONuwd+0rJjZxeS33aGBLAz7YCFHrzIJY79NQlesuA==
+ b=HD+n+1GHGFtkeexWLrgxjyTGn+A05w+6Zvzt8VPvze4lHi0frjW1/xEyL+sL/RhrWwjuoQWbtOdzJzaJ7SgVzcdQlpQJXvjCVO88iFAwQfboJkPYv5LeXVU9Mihtp588QIz/fGB+T6MC+cCrNPBXZaUmzU7Z1BCvP21xKb+CU7BIf0SG7Jg6hGJY4lZIBgCKMI4eAvv3XgxxJ67R31UyEdW4HAc9CJ6hUNO6vQ0Uev6RUiLGV4IqMzb5r7jSzbQa+W3hg2BKzpnkAwpQNVnP200WwV1SU/Tqngxy3BrfJ9YM2byr3Wf0UYIq0Mx/dkbnpB0oPSbPjAXSI+/RIHTojg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7oN7heRjvEQ84HxVv9XcccZsoFczl72+FBmEyxXTa2w=;
- b=jwzGiSJazecqAn9anjnUfwOOpO0B69upqQ+6frZFMH12YrnITNmHdgVD9woMCxNt478B+PN0G5F6mcZdCYJCPvZJx3IcgBN8laHclNv+XbQJrn26lP5oM9YKSgRFoQqnuWTDkVTpTyFcCzV0JpWNm/vYXMhmZfuDR6ugoExNlO0mOoUFyRkvqF7/mE+1maG8NGkca2ZPSMiNUA9LZ+ekolLkE4XPWIqeviQ7NtzVnHaPouZt+FmgYqSreyiHGumAnDRkGiM/FBwk0Eoo54+UWa0+eSSVjfTb6PfFF4h1wBQfA89mkYdDkzsqEcnRCE1Vpax84IXAd5aczKXTIqRKkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=eKAf9j/w9jFu9Kmp5wtow6pkBgdKbtRdvBnRf66tAh8=;
+ b=J5kNENkAnlMjBBV+X1GFgPiS+hYZRDPPjgXB6iKz7DSaVkmgvDg0QZqZN4BKzUwHhgjFjqRAyXkQ2EUDaovYK2kwFkMlElpPokfxZ+skGOiVsnrZ/Xz4doMDvhF6dvm472522MJMVn+84H7iV0AC8H20IYxFY+LYN+5aRCH6oRM4Me+gX49lfHeWAB0z77pqXBO+TssoPVZjN2hXDkecnhAe5RGWm6EiNMaCG1QNynU+bjKZ0m0lxnW2bv8nEyXSeTVRkHz/ZvLXrbPQ0Bv9FqaArxFQgXqz3o8Yy/SuwiK8tFHR45yP6h6wIdQg2WpSWFRN+6apybO/kghXvYu6/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7oN7heRjvEQ84HxVv9XcccZsoFczl72+FBmEyxXTa2w=;
- b=zgx7MCtQz5Mxn/P5nrUjphQs++Ywr84f5IMI3NvEt2RnOqinloCt2zhKU5p4Ko5AOi/4b7sclljY/rmDgpD3LHxNaQ6mvpWkUzw2OTAaqi3KdMmVwPZitdF2IFE2N+T/T/ACItImi6gzeS5BjmyptHXPWw+qD0UObyhVQeOuwo4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by CY5PR12MB6251.namprd12.prod.outlook.com (2603:10b6:930:21::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.24; Fri, 20 Oct
- 2023 19:47:10 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::2e40:ffd7:e752:644f]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::2e40:ffd7:e752:644f%6]) with mapi id 15.20.6907.025; Fri, 20 Oct 2023
- 19:47:09 +0000
-Message-ID: <21f7ca52-2060-48ce-8b1c-119fb0717d00@amd.com>
-Date: Fri, 20 Oct 2023 15:47:07 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdgpu: Add timeout for sync wait
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- "Deng, Emily" <Emily.Deng@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20231020061307.588900-1-Emily.Deng@amd.com>
- <fbf6e76a-547d-423d-987b-9d1260437322@gmail.com>
- <PH0PR12MB5417863B213789488F00ADC98FDBA@PH0PR12MB5417.namprd12.prod.outlook.com>
- <f833c27f-eb11-4191-a3c0-dd81c34fcecf@gmail.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <f833c27f-eb11-4191-a3c0-dd81c34fcecf@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0032.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:86::12) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ bh=eKAf9j/w9jFu9Kmp5wtow6pkBgdKbtRdvBnRf66tAh8=;
+ b=X0Q3YMXkw1/SGe/tkHPWE79aZJs/eTvyFnRJdcXlOjtLKmeW+1Ny+7KZ22P6QG4xOhJ3EQHDNArxQ5XphYkoqQLB6TkgbckuSCI2QrN01Xh+zlFkZMocCjfOym0XTl+TFocRGXWDKOtVDvKFrc9msLE8u7sVsQqaqaZbk8jXJU0=
+Received: from BL1PR13CA0030.namprd13.prod.outlook.com (2603:10b6:208:256::35)
+ by SA3PR12MB7831.namprd12.prod.outlook.com (2603:10b6:806:311::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.26; Fri, 20 Oct
+ 2023 19:50:58 +0000
+Received: from BL6PEPF0001AB4D.namprd04.prod.outlook.com
+ (2603:10b6:208:256:cafe::41) by BL1PR13CA0030.outlook.office365.com
+ (2603:10b6:208:256::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.8 via Frontend
+ Transport; Fri, 20 Oct 2023 19:50:57 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0001AB4D.mail.protection.outlook.com (10.167.242.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6838.22 via Frontend Transport; Fri, 20 Oct 2023 19:50:57 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 20 Oct
+ 2023 14:50:56 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+Subject: [pull] amdgpu, amdkfd drm-next-6.7
+Date: Fri, 20 Oct 2023 15:50:42 -0400
+Message-ID: <20231020195043.4937-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CY5PR12MB6251:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f40bd70-b6a0-4c5b-9268-08dbd1a55918
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4D:EE_|SA3PR12MB7831:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5949075d-e9fa-4e46-77af-08dbd1a5e0d8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: k+K0+E8uSSZfwQPmW6OF5y5uVP1vcF174SsYNWLxSUgqW2ezuYijwKeGw0O9S7yQSJaPRu++DGXf/Z/QWgQhciJ6LrvtwCUk/Uj8x2GvGpYeTu8SQqRb5ZxJnBeSXo5rQoxfG8YLNGdH9knyCJ9Ym3eTwu0by9PbwWz4/Py3CXOm+LCm9TEY36cx3eOxbDJ8sAix/zjiDTEYe5nsplbT7zlJjqvpAwIq03OHq9eskT2OhMQYWLMDMr3NgZeKW1txrXNm/5l8si1jUhNEbKD84eAv5v/Fdeg4p/lE5LsEu4pqzm4Enc9mAA0RrN/Gppcq7xGbQQnEHRBPqAbliRj9/EoW1EXHVcJBYZjmJCa9FBQL2nSamRWX5A8jY6TpxkwBnzvdosRrq7Q3jRL7BAezIPvkHzBXXo+n2VWa1dB+HR2rfzI2nfUJrBOWj1bZRc2QIWp/njNFcoxM4qb7yAbwdM1bZOmB7w1B+fVP18nzSGyGH6iG65CbhfRvmsljxqr/vPURTk9zhB5m6ePMQAb4L01ta3HmXytMFF43hpbmZiPjh1cTM10yl6jrmQxFty6V0Ao3lWN255WBRAgEawC2HzxGl2jOIVJKApz9xApAoEDFqUMfutxBzOUGFWF2CLIGt/py5Z3sbbjd3OY9yuZk6Q==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(366004)(346002)(396003)(39860400002)(376002)(230922051799003)(451199024)(186009)(64100799003)(1800799009)(6486002)(2616005)(66574015)(478600001)(66556008)(38100700002)(66476007)(66946007)(36916002)(53546011)(26005)(316002)(110136005)(83380400001)(31686004)(6512007)(6506007)(31696002)(8676002)(44832011)(2906002)(4001150100001)(5660300002)(86362001)(8936002)(41300700001)(36756003)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: NFhK6Gp9wNJMaJPs2ttcWmFqFrm0JNLtpeTZ1QOTTfNtOPDmMCBpJZGgz2f9d1wmbXkfPEtoqRGaCD+Sv0ozWcd0Er/hJUI65HlRqTLQRC+nHuKdwkqAF248ghP75ePTJwokuzxLsKFzXxiMoYLwMZafs9sdRcaOjApC0RZvgC+w845slAlfkBF+xypJPHwnHtbnZ5d1dCvSEZSWPkfyI9Yw5tykPfojdi7vjr8qt1coJicAvr6G1UHeHvBnI+adauQF2TqHu5Vb0DuausqwU+sZaYXFiZE9GFzzMVNOpXNk9ZPLFsTDExa/ikEVcwtnvsNv2afM7NoNd618DENROeAYW5wxDYNwdC84MBH5YYk6AQdHgYeDaxD5mduSlvWztCJkwN3wQtXVG1mjlN/68YOJAXLW7RyX8PclultpIl4piwH4vYLK3LcCA5y+mD4NkNV2mNy3z8/mRySlP1v2FwdSwKNWv9FAAkKX2ri8dApf3eKqscLpoursKsWAlIsdg76kpDt/IfrCQEe6IOiuc2GcqoXetEW+w9ffPOHRyal0fmhJchnyLdX6v9B6DWp3Nxl0USGA+PU6TzSRQAdVoWbeYtrB63G2ucVI1uNFfqqJwYgcs1bIck9WbZwERYdqU3/wpLk3StYfQcsJiTYLaYYVfVWD1fs+K+12Onv2/WetwqRDc2KNlAdUTEgo8y7GvJwa0Q3drvsYDBRUVtJsFommagSqEIiitJhhdpCP34cVD5mgkS59AGVnhB8aYv9mTnAJT7xybOKAzkG6wTmEJR8mBEiIwwh9RA5ZWzUioCM=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(346002)(136003)(396003)(376002)(39860400002)(230922051799003)(82310400011)(1800799009)(186009)(64100799003)(451199024)(46966006)(40470700004)(36840700001)(70206006)(478600001)(110136005)(70586007)(966005)(6666004)(7696005)(316002)(5660300002)(40480700001)(36860700001)(47076005)(83380400001)(356005)(82740400003)(81166007)(2616005)(4001150100001)(1076003)(2906002)(40460700003)(36756003)(41300700001)(26005)(426003)(336012)(4326008)(8936002)(86362001)(8676002)(16526019)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bHV6SXl1L3RiRkliMnJ1WXp2M3M4dEZYQzNrSGhKRzJ6OCtXc0hKZkFZQ05T?=
- =?utf-8?B?eWo5WVcwVVVNYzlIYjhmNUNFcFNSVFZvaVg0YmJJZmt5cG1kbjFZM3krVTJC?=
- =?utf-8?B?ZGxpM3ZrK1BXT09ROGYvNTlRTjB2OGZweTR5UkZBbkZLV1BadXRGenEwS2RH?=
- =?utf-8?B?dnkwWndDQyswSE5NRy9OeTFDNlBCeFMxUnhvVGRNYll1QjdENTNGYW5GeVMv?=
- =?utf-8?B?RVNDZzZCQS80cmpTQ24xb3cwNHhFTlBiYXFieEdvQzJDN3dWVGtjRzMzc0lh?=
- =?utf-8?B?VGNOR1hZaGtEa0FncnhLLzlVcDFHWGszbjBkaGU3NGx2aTRSeWhhZEJaMFJj?=
- =?utf-8?B?QXN3bFhlRWNPcUZXNUJIcE9BV2luK3A4eU5pV25HMVdmN1lqdHNMYVVGMDhS?=
- =?utf-8?B?UDJYS2ZLZUdmYW94Qi9hcURFVlkyUzJEZENkcFJMa1dQTE9PZnRjZloxZzJH?=
- =?utf-8?B?L0c0NUpWL2VraG1QR3F5alVQTU9CSEJkMm1QTTVXRUlXcytQRENWRlA4bFFN?=
- =?utf-8?B?MFhDVHdwVFhoNzR0TVFleVZoMndLQVJBcERQWHorZ2VERVJybExSSnl4cm5z?=
- =?utf-8?B?RDVmc0xEMVA2R01JS1JYb05yblFUTHprdVBaamRrRFh3ZHZxT3JjaVRlNzhM?=
- =?utf-8?B?NTh0T3BROVlNSTczL3U4bEE3ZUt3TFRYbW5WVEpzNmJiMHZTWmNwc2tzU0Zu?=
- =?utf-8?B?Q1FzUkJ2S05EMVI3OSt4NTNmSkZPVTBMb21NbGxEV3F0alpJbXNjYU0wSGR2?=
- =?utf-8?B?NEZuWW1JM05pZnhuU0RrSDdGV1pXSW5CMVErSC9VWTBkNmZSZDBrYWFTSUN3?=
- =?utf-8?B?RnVWUXpaR2VDQ2R1QVlCYTJxYVNHRzB2OHkrWXVOUVVNRXZjdTVjS01VY2FE?=
- =?utf-8?B?L2F2SnV6TGJaWDdCWHU0djU4eFNOQVBLYUVuMUxMY01UbGVPcUFlbDVYSHZO?=
- =?utf-8?B?cVlmY1U0Z0RWa3hoUnNVb2tXZzlvU0FmclBDdHV0d3dWVFlrY2VKR1hQSXNZ?=
- =?utf-8?B?UGFjcFdZZXFXejVkSDd2b1Nvcnl0VXBQUWNPbmpTN1lPZ3ZvTWxwWFFUMi9G?=
- =?utf-8?B?RCtIVGdxb1U2YW4ydWVYUE15S2dHR0ZYVjUzWGt6N0ZJbEwrSXJSVGswbnBq?=
- =?utf-8?B?R3hwUFA2Mm8yZDZtYnMzaDdPOGk1KzNUTGpPTUY2Q2l4M3lvSkRRSmlwMVRO?=
- =?utf-8?B?SnIvY0xMUFpxeEs3UUo4UktoV01VTVVENHhrZE5VVFlIN3dGZ3VDRUk0MHZ4?=
- =?utf-8?B?NTFaSEpiOUw5Tmp6SmpJQUVQVjNoKzJwemxJTkFIMnovUDlhVW1RMWlBZVlF?=
- =?utf-8?B?elkyZy9ZSlFKTVcxUE1NNmx6Rm0yejREeXc5WUdTYnVFNW8vYmtyd1dvc2Jn?=
- =?utf-8?B?bGtLZTFZSTlFR1J6YmJLbEhTeHdhUXp5Y2lCOXkvbERIL01rTkxWK0xHOTFU?=
- =?utf-8?B?a0FGUTQ1UHJGcFdJZm1qdzlZSnFiUlhRMjlSZFE3NVdUN0grYzhnUzB2anhJ?=
- =?utf-8?B?dnhyZEpscjY1ZkFVMTZ4VUQ3UFZzbUxpTUZFYTdXUnMzM0RveUdGZkFicTdF?=
- =?utf-8?B?TlV5RFkzUWFIcFdFWlNuK1FmWHNMVDhXSXlRZkVLQ3E1Z09vRThYSWFkN3BF?=
- =?utf-8?B?alVMN3kwc2JGNENLM1ZMU1NGM0RjTWRKMkxnVEJmbzk3NERwOFBRdmhWSVJX?=
- =?utf-8?B?MFlLNzQ5NFJFUkZXUUJvby9nakZrZFE2TFYvczhQMTRRQVU1bDRZMjc3cWF3?=
- =?utf-8?B?NTVlM3UybkU4Wm53VWJ0VEJuQXFVQlZpNTZkbzh2Vyttb1AwVE9lVnZNVGxE?=
- =?utf-8?B?a1hYaDE4RnBrY0VUcXhkM1kzOEdCTkZycnFhL1hudUJQTnFuQXdEdmo4dXVB?=
- =?utf-8?B?cjVhbHpNczVONUx4TkxRbVlCd3gyRzVEK054dkNmb3JpbkJYbnlERmZNektx?=
- =?utf-8?B?R1hDRFRBQlR5NHYrVXZmYTdMUkhvd0wxZ0dXc0VsSHNqMTM0ZTNqV2QxanBY?=
- =?utf-8?B?NU5KYWJQRERJcmxiSnRXOEtkNGszNUU5ZFZDbFNLRFhTNTVmQS8vajIxZ1ZM?=
- =?utf-8?B?NnhwcjY2WEQ3RDFVbDVSWCs1WEplUEpjRkl6RVZHandjWWZQVzVzeXg1eFNl?=
- =?utf-8?Q?V3bCrWhXVadYxgnlGSQk5gzUn?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f40bd70-b6a0-4c5b-9268-08dbd1a55918
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2023 19:47:09.9037 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2023 19:50:57.3742 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5949075d-e9fa-4e46-77af-08dbd1a5e0d8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2hZ3QoOtzfyrsBX0B2gjIOn8CGs9UzHzxgMmarAZumViyBdfXtBRFlJqc5eAHZDZojAW6riIzO0UQElK7jqXJQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6251
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB4D.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7831
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,110 +98,219 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Dave, Sima,
 
-On 2023-10-20 09:10, Christian König wrote:
-> No, the wait forever is what is expected and perfectly valid user 
-> experience.
->
-> Waiting with a timeout on the other hand sounds like a really bad idea 
-> to me.
->
-> Every wait with a timeout needs a justification, e.g. for example that 
-> userspace explicitly specified it. And I absolutely don't see that here.
-In this case the wait is in a kernel worker thread, and the wait is not 
-interruptible. Not having a timeout means, you can have a kernel worker 
-stuck forever. The restore worker also has retry logic already, so it 
-can handle a timeout perfectly well. But maybe this shouldn't be done 
-automatically for all callers of amdgpu_sync_wait, but only for this 
-particular caller in the restore_process_worker. So we'd need to add a 
-timeout parameter to amdgpu_sync_wait.
+More updates for 6.7.  Mostly bug fixes.
 
-Regards,
-   Felix
+The following changes since commit 27442758e9b4e083bef3f164a1739475c01f3202:
 
+  Merge tag 'amd-drm-next-6.7-2023-10-13' of https://gitlab.freedesktop.org/agd5f/linux into drm-next (2023-10-18 16:08:07 +1000)
 
->
-> Regards,
-> Christian.
->
-> Am 20.10.23 um 10:52 schrieb Deng, Emily:
->> [AMD Official Use Only - General]
->>
->> Hi Christian,
->>       The issue is running a compute hang with a quark and trigger a 
->> compute job timeout. For compute, the timeout setting is 60s, but for 
->> gfx and sdma, it is 10s.
->> So, get the timeout from the sched is reasonable for different sched.
->>      And if wait timeout, it will print error, so won't hint real 
->> issues. And even it has real issue, the wait forever is bad user 
->> experience, and driver couldn't work anymore.
->>
->> Emily Deng
->> Best Wishes
->>
->>
->>
->>> -----Original Message-----
->>> From: Christian König <ckoenig.leichtzumerken@gmail.com>
->>> Sent: Friday, October 20, 2023 3:29 PM
->>> To: Deng, Emily <Emily.Deng@amd.com>; amd-gfx@lists.freedesktop.org
->>> Subject: Re: [PATCH 1/2] drm/amdgpu: Add timeout for sync wait
->>>
->>> Am 20.10.23 um 08:13 schrieb Emily Deng:
->>>> Issue: Dead heappen during gpu recover, the call sequence as below:
->>>>
->>>> amdgpu_device_gpu_recover->amdgpu_amdkfd_pre_reset-
->>>> flush_delayed_work
->>>> -> amdgpu_amdkfd_gpuvm_restore_process_bos->amdgpu_sync_wait
->>>>
->>>> It is because the amdgpu_sync_wait is waiting for the bad job's fence,
->>>> and never return, so the recover couldn't continue.
->>>>
->>>>
->>>> Signed-off-by: Emily Deng <Emily.Deng@amd.com>
->>>> ---
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 11 +++++++++--
->>>>    1 file changed, 9 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
->>>> index dcd8c066bc1f..6253d6aab7f8 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
->>>> @@ -406,8 +406,15 @@ int amdgpu_sync_wait(struct amdgpu_sync *sync,
->>> bool intr)
->>>>       int i, r;
->>>>
->>>>       hash_for_each_safe(sync->fences, i, tmp, e, node) {
->>>> -            r = dma_fence_wait(e->fence, intr);
->>>> -            if (r)
->>>> +            struct drm_sched_fence *s_fence = to_drm_sched_fence(e-
->>>> fence);
->>>> +            long timeout = msecs_to_jiffies(10000);
->>> That handling doesn't make much sense. If you need a timeout then 
->>> you need
->>> a timeout for the whole function.
->>>
->>> Additional to that timeouts often just hide real problems which 
->>> needs fixing.
->>>
->>> So this here needs a much better justification otherwise it's a 
->>> pretty clear NAK.
->>>
->>> Regards,
->>> Christian.
->>>
->>>> +
->>>> +            if (s_fence)
->>>> +                    timeout = s_fence->sched->timeout;
->>>> +
->>>> +            if (r == 0)
->>>> +                    r = -ETIMEDOUT;
->>>> +            if (r < 0)
->>>>                       return r;
->>>>
->>>>               amdgpu_sync_entry_free(e);
->
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-6.7-2023-10-20
+
+for you to fetch changes up to 5b2c54e0d0ea09f7a3b500510731878326e1117e:
+
+  drm/amd/display: Fix stack size issue on DML2 (2023-10-20 15:11:29 -0400)
+
+----------------------------------------------------------------
+amd-drm-next-6.7-2023-10-20:
+
+amdgpu:
+- SMU 13 updates
+- UMSCH updates
+- DC MPO fixes
+- RAS updates
+- MES 11 fixes
+- Fix possible memory leaks in error pathes
+- GC 11.5 fixes
+- Kernel doc updates
+- PSP updates
+- APU IMU fixes
+- Misc code cleanups
+- SMU 11 fixes
+- OD fix
+- Frame size warning fixes
+- SR-IOV fixes
+- NBIO 7.11 updates
+- NBIO 7.7 updates
+- XGMI fixes
+- devcoredump updates
+
+amdkfd:
+- Misc code cleanups
+- SVM fixes
+
+----------------------------------------------------------------
+Alex Deucher (3):
+      drm/amdgpu/pm: update SMU 13.0.0 PMFW version check
+      drm/amdgpu/mes11: remove aggregated doorbell code
+      drm/amdgpu: update to the latest GC 11.5 headers
+
+Alex Sierra (1):
+      drm/amdkfd: remap unaligned svm ranges that have split
+
+André Almeida (3):
+      drm/amdgpu: Encapsulate all device reset info
+      drm/amdgpu: Move coredump code to amdgpu_reset file
+      drm/amdgpu: Create version number for coredumps
+
+Asad Kamal (2):
+      drm/amdgpu : Add hive ras recovery check
+      drm/amdgpu: update retry times for psp BL wait
+
+Bas Nieuwenhuizen (1):
+      drm/amd/pm: Handle non-terminated overdrive commands.
+
+Bokun Zhang (4):
+      drm/amd/amdgpu/vcn: Add RB decouple feature under SRIOV - P1
+      drm/amd/amdgpu/vcn: Add RB decouple feature under SRIOV - P2
+      drm/amd/amdgpu/vcn: Add RB decouple feature under SRIOV - P3
+      drm/amd/amdgpu/vcn: Add RB decouple feature under SRIOV - P4
+
+Candice Li (1):
+      drm/amdgpu: Log UE corrected by replay as correctable error
+
+Colin Ian King (1):
+      drm/amd/display: Fix a handful of spelling mistakes in dml_print output
+
+Felix Kuehling (2):
+      drm/amdgpu: Fix possible null pointer dereference
+      drm/amdgpu: Reserve fences for VM update
+
+Hawking Zhang (2):
+      drm/amdgpu: Enable software RAS in vcn v4_0_3
+      drm/amdgpu: Add UVD_VCPU_INT_EN2 to dpg sram
+
+Jesse Zhang (1):
+      drm/amdkfd:remove unused code
+
+Jiapeng Chong (2):
+      drm/amdkfd: clean up some inconsistent indenting
+      drm/amd/display: clean up some inconsistent indenting
+
+Kunwu.Chan (1):
+      drm/amd/pm: Fix a memory leak on an error path
+
+Lang Yu (1):
+      drm/amdgpu/umsch: add suspend and resume callback
+
+Li Ma (2):
+      drm/amdgpu: fix missing stuff in NBIO v7.11
+      drm/amdgpu: add clockgating support for NBIO v7.7.1
+
+Ma Jun (1):
+      drm/amd/pm: Support for getting power1_cap_min value
+
+Mangesh Gadre (1):
+      Revert "drm/amdgpu: Program xcp_ctl registers as needed"
+
+Mario Limonciello (4):
+      drm/amd: Add missing kernel doc for prepare_suspend()
+      drm/amd: Move microcode init step to early_init()
+      drm/amd: Don't parse IMU ucode version if it won't be loaded
+      drm/amd: Read IMU FW version from scratch register during hw_init
+
+Nathan Chancellor (1):
+      drm/amd/display: Respect CONFIG_FRAME_WARN=0 in DML2
+
+Rodrigo Siqueira (2):
+      drm/amd/display: Reduce stack size by splitting function
+      drm/amd/display: Fix stack size issue on DML2
+
+Shiwu Zhang (3):
+      drm/amdgpu: update the xgmi ta interface header
+      drm/amdgpu: prepare the output buffer for GET_PEER_LINKS command
+      drm/amdgpu: support the port num info based on the capability flag
+
+Stanley.Yang (4):
+      drm/amdgpu: Workaround to skip kiq ring test during ras gpu recovery
+      drm/amdgpu: Enable mca debug mode mode when ras enabled
+      drm/amdgpu: Fix delete nodes that have been relesed
+      drm/amdgpu: Enable RAS feature by default for APU
+
+Stylon Wang (2):
+      drm/amd/display: Add missing lines of code in dc.c
+      drm/amd/display: Remove brackets in macro to conform to coding style
+
+Tao Zhou (4):
+      drm/amdgpu: define ras_reset_error_count function
+      drm/amdgpu: replace reset_error_count with amdgpu_ras_reset_error_count
+      drm/amdgpu: add set/get mca debug mode operations
+      drm/amdgpu: drop status query/reset for GCEA 9.4.3 and MMEA 1.8
+
+Yang Li (4):
+      drm/amd/display: clean up some inconsistent indentings
+      drm/amd/display: Remove duplicated include in dce110_hwseq.c
+      drm/amd/display: Remove unneeded semicolon
+      drm/amd/display: Simplify bool conversion
+
+Yang Wang (1):
+      drm/amdgpu: fix typo for amdgpu ras error data print
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                |   25 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c        |   10 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   96 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c        |    5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |   21 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |   49 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h            |    1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |   75 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h            |    7 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c          |   80 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h          |   14 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c       |   16 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h            |   48 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h           |    4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |    3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c           |    4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h           |    1 +
+ drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h        |    5 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             |  106 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c            |   83 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              |    9 +-
+ drivers/gpu/drm/amd/amdgpu/imu_v11_0.c             |    4 +-
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c             |   56 -
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c            |  143 -
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c            |   78 +
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0.c             |    2 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c             |    7 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c           |    7 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c             |   83 +-
+ drivers/gpu/drm/amd/amdgpu/soc21.c                 |    2 +
+ drivers/gpu/drm/amd/amdgpu/ta_xgmi_if.h            |   62 +-
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.c             |    7 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c              |   71 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c            |    5 +
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |  103 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h               |    3 -
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |    2 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c           |    5 +-
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_resource.h  |  154 +-
+ .../gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c   |  144 +-
+ drivers/gpu/drm/amd/display/dc/dml2/Makefile       |    2 +-
+ .../drm/amd/display/dc/dml2/display_mode_core.c    | 3297 ++++++++++----------
+ .../amd/display/dc/dml2/dml2_dc_resource_mgmt.c    |    2 +-
+ .../drm/amd/display/dc/hwss/dce110/dce110_hwseq.c  |    2 -
+ drivers/gpu/drm/amd/include/amd_shared.h           |    2 +
+ .../amd/include/asic_reg/gc/gc_11_5_0_sh_mask.h    |   48 +
+ .../amd/include/asic_reg/nbio/nbio_7_11_0_offset.h |    6 +
+ .../include/asic_reg/nbio/nbio_7_11_0_sh_mask.h    |   13 +-
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c                 |   22 +-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |   17 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      |    8 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c  |   33 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c    |   33 +-
+ .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    |   34 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c   |    5 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c |   13 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |   36 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   |   25 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   |   34 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu_internal.h        |    2 +-
+ 60 files changed, 2613 insertions(+), 2621 deletions(-)
