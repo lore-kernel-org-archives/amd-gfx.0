@@ -5,58 +5,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
 	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2119BCDB474
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Oct 2023 16:43:10 +0000 (UTC)
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Oct 2023 18:06:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72AA310E0EC;
-	Fri, 20 Oct 2023 16:43:10 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2064.outbound.protection.outlook.com [40.107.220.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8662E10E0EC
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Oct 2023 16:43:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A661B10E045;
+	Fri, 20 Oct 2023 18:06:19 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2058.outbound.protection.outlook.com [40.107.244.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B46A710E045
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Oct 2023 18:06:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h5pocpQFJrB90lmHRVUmxlbUi6ZWWmhk3xS6h6t9nTbnuaeGcror6OTr/TO0uCoxqyrbKfC4azLHHoa88hS1qNN04eraPXgvJHwmNLRFKXNrwWXQY2fsmi0YYvvinWPH3A7U7w3nRlwpStQPUS5z0hP5cSxmpNUdUgdjvAnvqAKY711YfEQgjEVcu6YwjcNCJw+qsdRDduJvCnYtWttvBNDPVplpy/vAPtFyjsZQ6VmU6xMFTBJ8gegjOkl5Rs6J9aq6apq4Hi/j/ve00g9W9ENcdeYNIisQj+N2VuAEnxwyg0HWos3iEB633rfERWosz508hpmPi67cux5hg8FbBA==
+ b=NsNMdM5N/ElsUxmtew5TjW+t3IYzVDCKIfupljrXq3Y8Pu0uI//55plb9l1Cck5IY0AW5vCfk/A8fq01Sc0IxWhVr7gxqYgEzf80TXXeTRAKPT8lQ/PCzwtyBr3BQUzH/mdbjEyDfOkInUMeZTTiwlz6SgSopIbdJ26YC+9Ki1hUGgG12/H1EunQ4QR/00iEwnlGsbUvH4s5IIhi1Ng82inb63hGliBuC8G1tyyo0knQ1zfNECaibEGWJ1Kf0vXe/kyeErdIbQh0e+48UhogsMcP2CasJBYx18taSGpNvCWhi4GYOddjAGE/lsncUp4DIv8vivc7flvqSOyxzRX6EA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hc1ZzD+prJK5Dw8WdXR1cpd7uW1zsf/jJyyEIM2dM60=;
- b=XKrp9d1AzfSHZUOvfs8GS83ex7pSkGDib+rRRX74tEZMeJLTl+RaMQYIZL+uCO2yQ5uU2YTSSVB2MO8OXmT2ZsMrJAsh06xBDWNfuFXUSG/Mw8yl3hKZk+lOTdCk5pJ+dPF7dvKQQEiHG7rJ2DtEtvizlufuxVxPGHUbQ7Ykt86bhd3lgH6QqzGVAIuD96ZbDO9YIhVIgF1IFQ0l22Q1uioFxmtbFcO/Z2cLpAh7slrskXa47VAOODqZaSBpV7RfNG1PFDNEzQJj6CBcXPd/9DZPlAn20811q3JHBPMZyffG6wAKgWhcFyl33fqjVyb0FuZm5Yl/JLcuu+rCjSMZJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=YtuDTs1K4IRLJd0M8HsAR3aqP6LtVDEPLeKLE1DNhZQ=;
+ b=LGpv331T4cJtPx4H9c4E4fYLqMzlp9PobYLxOhx0XC8MbrrfwuJpQJcBcDcPueStgnRREAi5DpVkMeu8aASCJp1RIf4ROy7XG80X/qijUxvK6T22umayx28ksfO9WgbNhbR4hGhYsIHXHnuijA4jNsbgWZbdCWFSUM/Oy4KmSDat3Mha53wCf3fZbDALfOYmKaOljI7AEDw1QUqs+kn8J6CmdHUlm206dzQisLw941NwB+Zhl2xmf38wq8/IrWykCMBbPOL5bYf7/7fqKj/twBp7sqXe2hRik3gXKRn8obYJg2DKgvjPpFuPsu+lQIbH3eaDU2Ph7/NAE1nwNbY+sg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
+ is 165.204.84.17)
+ smtp.rcpttodomain=lists.freedesktop.org
+ smtp.mailfrom=amd.com; dmarc=temperror action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hc1ZzD+prJK5Dw8WdXR1cpd7uW1zsf/jJyyEIM2dM60=;
- b=mT/PFhVJZIEEmxqRCis2WTJoi+TIhLW2IbMdwuOVz0MX/ORAyLWa7Nt3YbZMskXsniyBquB0eq/MkCcAULnwHXJmcIvGCqS6cbjsdymeIwWjzsO11O8UMdgzHLu/AhGYvuKC6csROTGv8PVb7Nz1ZdViw0JDJ1seQzYuUcLL844=
-Received: from CY8P220CA0010.NAMP220.PROD.OUTLOOK.COM (2603:10b6:930:46::22)
- by DS7PR12MB5766.namprd12.prod.outlook.com (2603:10b6:8:75::12) with
+ bh=YtuDTs1K4IRLJd0M8HsAR3aqP6LtVDEPLeKLE1DNhZQ=;
+ b=B+gziXOVsAmkqubcV+s8aAjthIh7szm9cmGM80Hu2N8r+bgzycUvvXuv7wkocdZ4w91mXbyVdxHc50CHHTYQbHT9Klvo+YqTDFhzV+zs9XpnYvZBrwAStSVaO8xNRN5mRlLIRraZasA69ebL6PuZrf9WxkANkeWqHh0iisXCmCc=
+Received: from DM6PR11CA0011.namprd11.prod.outlook.com (2603:10b6:5:190::24)
+ by PH7PR12MB7871.namprd12.prod.outlook.com (2603:10b6:510:27d::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.25; Fri, 20 Oct
- 2023 16:43:03 +0000
-Received: from CY4PEPF0000EE3F.namprd03.prod.outlook.com
- (2603:10b6:930:46:cafe::5e) by CY8P220CA0010.outlook.office365.com
- (2603:10b6:930:46::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.26 via Frontend
- Transport; Fri, 20 Oct 2023 16:43:03 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.21; Fri, 20 Oct
+ 2023 18:06:16 +0000
+Received: from DS2PEPF0000343C.namprd02.prod.outlook.com
+ (2603:10b6:5:190:cafe::38) by DM6PR11CA0011.outlook.office365.com
+ (2603:10b6:5:190::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.25 via Frontend
+ Transport; Fri, 20 Oct 2023 18:06:16 +0000
+X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
+ 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=temperror action=none header.from=amd.com;
+Received-SPF: TempError (protection.outlook.com: error in processing during
+ lookup of amd.com: DNS Timeout)
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE3F.mail.protection.outlook.com (10.167.242.19) with Microsoft
+ DS2PEPF0000343C.mail.protection.outlook.com (10.167.18.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.22 via Frontend Transport; Fri, 20 Oct 2023 16:43:03 +0000
-Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.6907.21 via Frontend Transport; Fri, 20 Oct 2023 18:06:14 +0000
+Received: from stylon-EliteDesk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 20 Oct
- 2023 11:43:01 -0500
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+ 2023 13:06:11 -0500
+From: Stylon Wang <stylon.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/display: Fix DMUB errors introduced by DML2
-Date: Fri, 20 Oct 2023 10:42:04 -0600
-Message-ID: <20231020164241.463789-1-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 0/3]Reduce code delta with copyright notice
+Date: Sat, 21 Oct 2023 02:06:21 +0800
+Message-ID: <20231020180734.559121-1-stylon.wang@amd.com>
 X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -66,26 +66,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3F:EE_|DS7PR12MB5766:EE_
-X-MS-Office365-Filtering-Correlation-Id: bc2ca818-3509-40de-473d-08dbd18ba103
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343C:EE_|PH7PR12MB7871:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2af69e95-cec8-4a28-3068-08dbd1974035
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: mWrzJEMh8Pc9qaYwaLwLsqtSGrsfvB+wH7GnzESDPJYHeU3BklxSiWB3wCdoCar3fZ/lsmsZ9fkZYzPuW/5jjbLja6Nj77nNgPuMcg2YuutfML28rPxRc3E9GZVGEgBpCnY3eGpUP3Jd4XCex66uatm88UIp/4N1qEF3Uttv9XGtg/JajghqZIzXOrmyF/1eT+qNwpHF97Fjfh0sb5hXm91jrp3kYAHgeYBUBOLYsPkFp5LpvEyVI5eHbs8OS/7OsLPH48a5Z3nTPzSEKHE+g2sMZPBKwlb7T31sCDp43pwhBrpuwp7ztaq0cpjPq+xEHz10mC1CnTpLwNgCv+eZ+nPDSVyUwxkeTpTKt6yRJLLpVsPZbUbtJPL+kXvBcFjeTqT0wgyG1FoEiBFLPxpSlXVpnGPDXjjgxK6ZhHXIOANYYF7XKbcK+HjfHcPw7v6va7yMBPs93wqQ5XUlscn35fSzjWPMrUhB5ax5w6jzj6FBPfSDz3LeryY2XGiWjVqFzJcFfWmuJfmnT3VLSoyjKWXo9EEJOP34tIlHXF6McIT+LuliXvE8JPXpRjX5ISec3PngxalQOgyEsvV7fzFJkY/O4ZdP1h7DBkGppjS2uiWa+dykFbvlmFLvotl5FyOLvyiB77+MyBKAytyvyZZ7KXfcNMYWhFCxmh5o8ZQVgLe3L53s0HCru+IHkeXdorVx5x6upf2I2OZ/CCLjbZpVb1mQOjpv20Ft5un9jLuSrJIFEoT6QwyPAotT+erggdE68IMvFYbUgHLS4z0aQNbN0Q==
+X-Microsoft-Antispam-Message-Info: 7TKyE3P/jMLkoVP+JwZjYsO0hJQ2EZQOa2fuKCXTXMCYLU9VOZ3Cm2VtXW6/7QkFGiy8fvIqWdwZLIaWHz4Tzb9c63vKJZWNXQwQjBxhNrUX3FGQLbWDzU2BJCuJrMQBKVWNwMx42Vwyg4rPUzmJf+xm/RF9vkOyJnV1NQMT651whHs5cz4oU30FkCwT/cJVBoeaRilGi4/MUvlfZsLrhlQMwV1je6IKVmvijGOJn0PS/7KBgGrjwD+1/BX137bkjhXOfnL2DEeos7/kblY5oUPuRSBOSjFUfNMfQYKlH2sRoltcOZJWw1KIfqFAc8o/kdIe1No3llAQs47VlM84Y9CllVHkrhjrqftDuQl2rACCrBR5Oq2J2tpeSiO5tjdVXkkfGmWbkNU4d+fPAM2UqDqMIzsuBC4PH9ALOzkMAgPlD1RIRtWj9bug9MeKzsXyiMMipwA4DsIdTNCIi9q7k53L0xatgdzZVHR+SWECZ8jRZZGbp5p7H8aA4cTfls/m10JYuQ3+F0m+zRmoJnmLDM+A217U8z5orizguKUiEZ/2s9CCJjJPdSKPXuwMmgwb1K595L+WzLAz0XpJ5DynPavE526vAHKwi7Y6UtlcbExv4ix1BhQhTrYYFv32ZxnCo89LCM3prNO2Gpuw76l9lQIN3kwqfAYDYjMcgcmQkvCeAfEMZOvwwVyf9txjEZKDEtojHR3uy2ZpRmHYO0Fmy0ZiyLp1UBFm18DGYyUF+wxd/FnPbpOrmqs0naG4eGaevNOwLVO1LniIJG0dTAvBYg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(346002)(39860400002)(136003)(396003)(230922051799003)(451199024)(64100799003)(82310400011)(1800799009)(186009)(40470700004)(46966006)(36840700001)(40460700003)(40480700001)(36756003)(8936002)(6916009)(70206006)(70586007)(54906003)(478600001)(316002)(4326008)(41300700001)(5660300002)(2906002)(86362001)(47076005)(36860700001)(8676002)(2616005)(83380400001)(1076003)(81166007)(16526019)(26005)(426003)(356005)(336012)(82740400003)(36900700001);
+ SFS:(13230031)(4636009)(376002)(396003)(136003)(39860400002)(346002)(230922051799003)(64100799003)(186009)(451199024)(1800799009)(82310400011)(46966006)(36840700001)(40470700004)(6916009)(63370400001)(63350400001)(6666004)(426003)(336012)(16526019)(7696005)(47076005)(478600001)(36860700001)(70586007)(70206006)(316002)(26005)(83380400001)(36756003)(1076003)(2616005)(54906003)(41300700001)(44832011)(5660300002)(82740400003)(356005)(81166007)(40460700003)(15650500001)(8676002)(8936002)(4326008)(2906002)(40480700001)(86362001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2023 16:43:03.4125 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc2ca818-3509-40de-473d-08dbd18ba103
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2023 18:06:14.9770 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2af69e95-cec8-4a28-3068-08dbd1974035
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343C.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5766
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7871
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,48 +97,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Qingqing Zhuo <Qingqing.Zhuo@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Roman Li <roman.li@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>, Vitaly Prosyak <vprosyak@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
+Cc: stylon.wang@amd.com, chiahsuan.chung@amd.com, Sunpeng.Li@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, jerry.zuo@amd.com,
+ Aurabindo.Pillai@amd.com, hersenxs.wu@amd.com, wayne.lin@amd.com,
+ Harry.Wentland@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When DML 2 was introduced, it changed part of the generic sequence of
-DC, which caused issues on previous DCNs with DMUB support. This commit
-ensures the new sequence only works for new DCNs from 3.5 and above.
+Many of the DC files have either incomplete or incorrect copyright
+notice. This patchset aims to address this and also make lives
+less difficult for those doing backport/upstream activities.
 
-Cc: Vitaly Prosyak <vprosyak@amd.com>
-Cc: Roman Li <roman.li@amd.com>
-Cc: Qingqing Zhuo <Qingqing.Zhuo@amd.com>
-Cc: Daniel Wheeler <daniel.wheeler@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Fixes: 7966f319c66d ("drm/amd/display: Introduce DML2")
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+Stylon Wang (3):
+  drm/amd/display: Add missing copyright notice in DMUB
+  drm/amd/display: Fix copyright notice in DML2 code
+  drm/amd/display: Fix copyright notice in DC code
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index 97f402123fbb..73cc6e1b0e65 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -321,10 +321,11 @@ struct resource_pool *dc_create_resource_pool(struct dc  *dc,
- 				res_pool->ref_clocks.xtalin_clock_inKhz;
- 			res_pool->ref_clocks.dchub_ref_clock_inKhz =
- 				res_pool->ref_clocks.xtalin_clock_inKhz;
--			if (res_pool->hubbub && res_pool->hubbub->funcs->get_dchub_ref_freq)
--				res_pool->hubbub->funcs->get_dchub_ref_freq(res_pool->hubbub,
--					res_pool->ref_clocks.dccg_ref_clock_inKhz,
--					&res_pool->ref_clocks.dchub_ref_clock_inKhz);
-+			if (dc_version >= DCN_VERSION_3_5)
-+				if (res_pool->hubbub && res_pool->hubbub->funcs->get_dchub_ref_freq)
-+					res_pool->hubbub->funcs->get_dchub_ref_freq(res_pool->hubbub,
-+										    res_pool->ref_clocks.dccg_ref_clock_inKhz,
-+										    &res_pool->ref_clocks.dchub_ref_clock_inKhz);
- 		} else
- 			ASSERT_CRITICAL(false);
- 	}
+ .../drm/amd/display/dc/dcn303/dcn303_dccg.h   | 18 ++++++++++++++++++
+ .../drm/amd/display/dc/dcn303/dcn303_init.c   | 18 ++++++++++++++++++
+ .../drm/amd/display/dc/dcn303/dcn303_init.h   | 18 ++++++++++++++++++
+ .../amd/display/dc/dcn303/dcn303_resource.c   | 18 ++++++++++++++++++
+ .../amd/display/dc/dcn303/dcn303_resource.h   | 18 ++++++++++++++++++
+ drivers/gpu/drm/amd/display/dc/dcn31/Makefile |  2 +-
+ .../gpu/drm/amd/display/dc/dcn35/dcn35_dpp.c  |  2 ++
+ .../gpu/drm/amd/display/dc/dcn35/dcn35_dpp.h  |  2 ++
+ .../gpu/drm/amd/display/dc/dcn35/dcn35_dsc.c  |  2 ++
+ .../gpu/drm/amd/display/dc/dcn35/dcn35_dsc.h  |  2 ++
+ .../gpu/drm/amd/display/dc/dcn35/dcn35_dwb.h  |  2 ++
+ .../drm/amd/display/dc/dcn35/dcn35_hubbub.c   |  2 ++
+ .../drm/amd/display/dc/dcn35/dcn35_hubbub.h   |  2 ++
+ .../gpu/drm/amd/display/dc/dcn35/dcn35_hubp.c |  2 ++
+ .../gpu/drm/amd/display/dc/dcn35/dcn35_hubp.h |  2 ++
+ .../gpu/drm/amd/display/dc/dcn35/dcn35_init.c |  2 ++
+ .../gpu/drm/amd/display/dc/dcn35/dcn35_init.h |  2 ++
+ .../drm/amd/display/dc/dcn35/dcn35_mmhubbub.c |  2 ++
+ .../drm/amd/display/dc/dcn35/dcn35_mmhubbub.h |  2 ++
+ .../gpu/drm/amd/display/dc/dcn35/dcn35_opp.c  |  2 ++
+ .../gpu/drm/amd/display/dc/dcn35/dcn35_opp.h  |  2 ++
+ .../gpu/drm/amd/display/dc/dcn35/dcn35_optc.c |  2 ++
+ .../gpu/drm/amd/display/dc/dcn35/dcn35_optc.h |  2 ++
+ .../drm/amd/display/dc/dcn35/dcn35_pg_cntl.c  |  2 ++
+ .../drm/amd/display/dc/dcn35/dcn35_pg_cntl.h  |  2 ++
+ .../drm/amd/display/dc/dcn35/dcn35_resource.c |  2 ++
+ .../drm/amd/display/dc/dcn35/dcn35_resource.h |  2 ++
+ drivers/gpu/drm/amd/display/dc/dml2/Makefile  |  4 +++-
+ .../gpu/drm/amd/display/dc/dml2/cmntypes.h    |  2 ++
+ .../amd/display/dc/dml2/display_mode_core.c   |  2 ++
+ .../dc/dml2/display_mode_core_structs.h       |  2 ++
+ .../dc/dml2/display_mode_lib_defines.h        |  2 ++
+ .../amd/display/dc/dml2/display_mode_util.c   |  2 ++
+ .../amd/display/dc/dml2/display_mode_util.h   |  2 ++
+ .../display/dc/dml2/dml2_dc_resource_mgmt.c   |  2 ++
+ .../display/dc/dml2/dml2_dc_resource_mgmt.h   |  2 ++
+ .../drm/amd/display/dc/dml2/dml2_dc_types.h   |  2 ++
+ .../amd/display/dc/dml2/dml2_internal_types.h |  2 ++
+ .../amd/display/dc/dml2/dml2_mall_phantom.c   |  2 ++
+ .../amd/display/dc/dml2/dml2_mall_phantom.h   |  2 ++
+ .../gpu/drm/amd/display/dc/dml2/dml2_policy.c |  2 ++
+ .../display/dc/dml2/dml2_translation_helper.c |  2 ++
+ .../display/dc/dml2/dml2_translation_helper.h |  2 ++
+ .../gpu/drm/amd/display/dc/dml2/dml2_utils.c  |  2 ++
+ .../drm/amd/display/dc/dml2/dml2_wrapper.c    |  2 ++
+ .../drm/amd/display/dc/dml2/dml2_wrapper.h    |  2 ++
+ .../gpu/drm/amd/display/dc/dml2/dml_assert.h  |  2 ++
+ .../drm/amd/display/dc/dml2/dml_depedencies.h |  2 ++
+ .../gpu/drm/amd/display/dc/dml2/dml_logging.h |  2 ++
+ drivers/gpu/drm/amd/display/dc/hdcp/Makefile  |  2 +-
+ .../amd/display/dc/hwss/dcn303/dcn303_hwseq.c | 19 +++++++++++++++++++
+ .../amd/display/dc/hwss/dcn303/dcn303_hwseq.h | 19 +++++++++++++++++++
+ .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   |  2 ++
+ .../amd/display/dc/hwss/dcn35/dcn35_hwseq.h   |  2 ++
+ .../dc/irq/dcn201/irq_service_dcn201.c        |  2 +-
+ .../dc/irq/dcn303/irq_service_dcn303.c        | 19 +++++++++++++++++++
+ .../dc/irq/dcn303/irq_service_dcn303.h        | 19 +++++++++++++++++++
+ .../drm/amd/display/dmub/src/dmub_dcn303.c    | 19 +++++++++++++++++++
+ .../drm/amd/display/dmub/src/dmub_dcn303.h    | 19 +++++++++++++++++++
+ 59 files changed, 298 insertions(+), 4 deletions(-)
+
 -- 
 2.42.0
 
