@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01A8CC25B41
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Oct 2023 22:06:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89804C25B42
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Oct 2023 22:06:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7BDB10E600;
-	Fri, 20 Oct 2023 22:06:41 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2085.outbound.protection.outlook.com [40.107.93.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D8CA10E600
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Oct 2023 22:06:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 958AB10E5FF;
+	Fri, 20 Oct 2023 22:06:42 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2058.outbound.protection.outlook.com [40.107.102.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B237410E5FE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Oct 2023 22:06:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bMqt5wnP1PHRsxseX2Bd48W7FA5xS+aRmebcOa03AR/I//kD1n/yuXzB3qb9Rdt9qB+sAm+h/uWnsG05Mz7IJmnijcDY9bvK3yr/8e8QnWnhoTmNaFwxDLipb7vznzhOMEam5WSrq+nu12Nr7Yo91ZBnSDx7IKr94cebVbJpQ6W2tpMXCMeKUHzXLMG6j+DzbuCVH3g3HvxUaP0Dqq0yR03DVzMVtxZIR8e1GWQaBs6b5dVKLlG4/bjmbcxiIZCPIgVPXqZG6CJBOMisWqrAyig7PFuzV8X6/9EQKACY3LMz+d7f8Ps+QRTw6vI6jugnDpFS5xBBqww8/C7Njx/GVg==
+ b=IV9d7bQjRnzp1PBb21Yt3cQLoqNUu2c80D3rmjG9Mc+OmL27uUdP1BlR2hPiTPkLjRZmNMkimRn+cz1HCUjEsdRMQJC67OaZnxkdIfFyOyXe89nq0s9FMy3fpRhfRp1tHUDrZC7ACqiBwEeKpDTXyRZx2S2XmblXt0PqOwYfoK0WOxDyvA6sZVm7YCOjH4/u/2vxl6r/SsjWYE1Bvk8wEq0jkuOk/jMA/3inv3hw06r1AaiEF7E3CNVXvH/PARKGXZ+1D2HjuysVzZ4pA+QEypVJFZY4XdJLBmZRI+VhxV2sE+xWSXicrVpLblEdhWVl+P5VDEfXgEzbMH+nNUkvOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Mgb0A1iKUlpvT6CYW3a1fCouRt7A6GYkjFTMCfRBhS8=;
- b=DpSKgp9JxJAH/VTvtVe+9jkHhcAwi1PcYLXEbztvwAFrYYJ6Q/tqvhx8rIivC7SxpeFsE3npLpbL+U70Q/asozUhOSoKWA4DyIsecCh5so6fHwJ4R9bupHs+snPVU3Xc8tVI1pT2R1+FFR6MUQxkZ6MaubD6iJ9AtUl/PMZUF8wIllBuES8Y+hnxIw7sb9wyFt2QAE1vQb4BFNoK8vywHJdLzLDiMCl1zpqm+3di4uQ0KwrlcsgWG+NWySmULZR6ZurNSUl3fv101HMJUiHHoCZLwsoLbB0gIcwvhbGx4W8KQ4uUBYnUWBsDTHIDcoIk50/GcKdWdXQgrkjxhPkqSA==
+ bh=gBD1c6I/erM9D3IH7x76igDjzHH967Z6yrmpUW5gv/I=;
+ b=WodiJfUSo88vVlu4NWIL8kWzXcMtB9dHcx90yTBH5tc0W9Pu5C3U/ZR9tDshPEQEsNkXhv1H1pb00PNVg9OvwA0utfgAe0uUXRh3vHvDiOOibYiUOXFja8UllbQC3NnX0lJNq8hznLXKIK7RVkkXQedrc4LFEHvXgCMxk0mJbQJXNfbautJp9qwZeOLbhiRkD5DoYFx85PSB+y4bvZPLSTfmeVyxE4Igg9a9vFma7Knmp2uAbkvqK3mUjr87GjUEAE4XnpfieekiHwRujwe+2Z1lJnCN1LEJsFXgk8fjv2dJyp+nU4dAqMp1BByolL5CrJfDQ2nLvGwHkHX/MmTZcA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Mgb0A1iKUlpvT6CYW3a1fCouRt7A6GYkjFTMCfRBhS8=;
- b=XWR3m0kQCS3XZQpDrBdx0bBVMLgCsWhktSC6XswcrDBTFbvavFOPiqK+5b/JDSjPKsbDrhlmxNhIwr4BLUGZf0tSGvVtDyTj30xVM1mPASLVLgkWiRsNm/oGXjF1/InfwO99GWjd57BEfA10tOPH6zFK+UAvxpCTIouq1vBIOe8=
-Received: from MN2PR18CA0003.namprd18.prod.outlook.com (2603:10b6:208:23c::8)
- by LV3PR12MB9166.namprd12.prod.outlook.com (2603:10b6:408:19c::13)
+ bh=gBD1c6I/erM9D3IH7x76igDjzHH967Z6yrmpUW5gv/I=;
+ b=xekg0Sf1C3q3fGaHwh1F+v6imuvzIhgOcYygpnRJquqaInnYbn1fHnIIABT304W7GQb5/2hfKHgSKb+2rLhemYtPWgRHjC3oZK/U20NakoUl9lk8BlrVauTTArTwrthyki1dPN0KTJIYhnp1teEKsyJzBRsZ7F8P4SP3NwzNw08=
+Received: from MN2PR17CA0031.namprd17.prod.outlook.com (2603:10b6:208:15e::44)
+ by CY5PR12MB6057.namprd12.prod.outlook.com (2603:10b6:930:2e::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.46; Fri, 20 Oct
- 2023 22:06:36 +0000
-Received: from BL6PEPF0001AB55.namprd02.prod.outlook.com
- (2603:10b6:208:23c:cafe::1b) by MN2PR18CA0003.outlook.office365.com
- (2603:10b6:208:23c::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.26; Fri, 20 Oct
+ 2023 22:06:34 +0000
+Received: from BL6PEPF0001AB52.namprd02.prod.outlook.com
+ (2603:10b6:208:15e:cafe::65) by MN2PR17CA0031.outlook.office365.com
+ (2603:10b6:208:15e::44) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.26 via Frontend
- Transport; Fri, 20 Oct 2023 22:06:36 +0000
+ Transport; Fri, 20 Oct 2023 22:06:34 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB55.mail.protection.outlook.com (10.167.241.7) with Microsoft
+ BL6PEPF0001AB52.mail.protection.outlook.com (10.167.241.4) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.22 via Frontend Transport; Fri, 20 Oct 2023 22:06:35 +0000
+ 15.20.6838.22 via Frontend Transport; Fri, 20 Oct 2023 22:06:34 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 20 Oct
- 2023 17:06:34 -0500
+ 2023 17:06:33 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <linux-doc@vger.kernel.org>
-Subject: [PATCH 8/8] Documentation/gpu: Introduce a simple contribution list
- for display code
-Date: Fri, 20 Oct 2023 16:05:21 -0600
-Message-ID: <20231020220549.493808-9-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 7/8] Documentation/gpu: Add an explanation about the DC weekly
+ patches
+Date: Fri, 20 Oct 2023 16:05:20 -0600
+Message-ID: <20231020220549.493808-8-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231020220549.493808-1-Rodrigo.Siqueira@amd.com>
 References: <20231020220549.493808-1-Rodrigo.Siqueira@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB55:EE_|LV3PR12MB9166:EE_
-X-MS-Office365-Filtering-Correlation-Id: 555ffef3-b296-48a3-06f0-08dbd1b8d3b8
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB52:EE_|CY5PR12MB6057:EE_
+X-MS-Office365-Filtering-Correlation-Id: bd24bf19-645e-47fa-c258-08dbd1b8d30a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: omO3YVQLB6ca3NDYYpgPK21+ak8ROV49Tj2YGgLoAoHS+ggVO9K+7VKtlR4Cm2REL0rKL4TsGBYnb3RUI6Kk8MJY88satu19bdyYGgC7636ESphMJoNhEkP24QwJHO51MdBgFFF0zY/UaXXRAJ92saDj0XoxJjY7hhIGKuGA7Ua5rmR+Jn8CZWlWDI1U/Vm7+ZiaCRNMPjvz6E1LczbL6pyvF12R8RpSYvx9Jyt5pqNuJ0icPayMH60SN7J8GTCmRgcKXp9GGIxrZuMQJjuRY1VBRlxA6XUy//+TxCfXPRz+K7ZOWJF1aFrpdeSh/2aQC8MyYFZ4S5UPGnXowrqD4cfxddE5DlYcUCX955z2N3Y4EoqS6JdvO9WpA1aDBVKQPSkdm1pMfnRb2tPj2DsqffODMgswe2Kw6ZFijS2xpZy6HEoMqaG8fsYXQ+6wftYV+Ws9dT4Oaia6B8sNHbUgXFh2fJnuI+V2N7QqNJ8qgWPREJeSX3auNQc5BYlUbJLMaKd58yhuhpNOO1ST31KhG4Ifkp5hJ5e+1ZM+kcthcwKr1kCB9VSMH5DkkBcNgotMjLjWYrn0NZyNmadCrlY14dc8EVakDmWipXYmdDnsNdckIMiD32ptRhI2vcG/qm5jlItzLbaQxPJpmPhY7zzGVRgxUWXeZF+IbzP6CqwyKsyJAVolWqR7WPGt9HGaoUBRASYvHB8WG7GSG4cLu3Wz09cMVcAd6qc3oFr2NOsiTfdr8BOofaJgFxeBlVo5K6RHNfeQBlXw6AmJ3EsyoQ+4iyujKXJiuodVjpRGktW8Eos=
+X-Microsoft-Antispam-Message-Info: 9H+Isnp2Ux1pxF1A7lYaD3WfPI14S1mYWOwKmadAldxKNaXueYXBAvifWyVlyIuehJXOuoIxi0qrxRpQQ/+0aT/XX0s4ohWEFjQK87NQrPCtmhd7tDfEVO5P38Mjkif/to/bFnHXLWYKINPO8MyhkAkQmEMdOEDh9mvfjZJVCgJc108qgA5gpM2cITVHWv40+JN3qlYFByoZKgAvgoVEQlAiMyz0uCzrBpB4P7y2LuHp+JywcJ2uQ/r/EYurGGE833wj/IzBqExiZizJ0WVuiFpuQ1PZ40m0sPGaBNzwKiDIrS/Jv1bdzwfg6wBqo6zJoR2OHLsjIzEc6usN3wX3vJ9mhrkvSwPtwEmR9k7YqEd5hSRz+ZuvFx9fnx+KzHTF9Pr0nZbvV/FouyqtCMT6AcaQ+XmuIGw7Gzne9cgQnd4D9DtDt0MZtB+kDo3bhp7/lgqJfL5OSGhHkz0FODRsxO1g5CJQnR0SUxrC33ayvf3NWmsZOCUSLGeZuKOSVQV29IuwuzsCk1x2g7FN9wrru8AfhiV3yLA68054C1n3JcaFpbXRm01Z4wPt7qymeGPRTg8ny62y/mac4Ja4N2PdEsuxt3r8g0WqDJjnzjZ3HMu8382nUzLmGsphv5u8CopzeVdlansoFLdog7dNaqmuaXJijpFuz1Ax7Qvi76lNC2PepiUwl1Z0YT6Ilh6lBUx/sG7LfZBwfDnWi5QmgWaUZscMcO7t/8zfaKHhHfGPAaI9mHATJa9EUidFKCPYJA7GxgtyEDK3hD4yjgY++RPjnA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(396003)(136003)(376002)(39860400002)(230922051799003)(64100799003)(186009)(451199024)(1800799009)(82310400011)(40470700004)(46966006)(36840700001)(478600001)(6666004)(2616005)(1076003)(26005)(336012)(426003)(16526019)(83380400001)(966005)(356005)(110136005)(82740400003)(81166007)(36860700001)(47076005)(5660300002)(30864003)(40460700003)(36756003)(8676002)(4326008)(40480700001)(2906002)(316002)(41300700001)(8936002)(70206006)(70586007)(54906003)(86362001)(36900700001);
+ SFS:(13230031)(4636009)(376002)(396003)(39860400002)(136003)(346002)(230922051799003)(451199024)(186009)(82310400011)(1800799009)(64100799003)(46966006)(40470700004)(36840700001)(26005)(40460700003)(40480700001)(66899024)(2906002)(316002)(70586007)(70206006)(110136005)(54906003)(8676002)(8936002)(6666004)(478600001)(36756003)(4326008)(86362001)(5660300002)(336012)(41300700001)(47076005)(2616005)(1076003)(36860700001)(82740400003)(16526019)(83380400001)(426003)(81166007)(356005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2023 22:06:35.8829 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 555ffef3-b296-48a3-06f0-08dbd1b8d3b8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2023 22:06:34.7472 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd24bf19-645e-47fa-c258-08dbd1b8d30a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB55.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB52.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9166
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6057
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,9 +107,9 @@ Cc: Alex Deucher <alexander.deucher@amd.com>, Harry
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This commit adds a contribution list for display under the kernel
-documentation with some first suggestions. It also drops an old TODO
-list from the display folder.
+Sharing code with other OSes is confusing and raises some questions.
+This patch introduces some explanation about our upstream process with
+the shared code.
 
 Cc: Mario Limonciello <mario.limonciello@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
@@ -117,251 +117,139 @@ Cc: Harry Wentland <Harry.Wentland@amd.com>
 Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
 Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- .../amdgpu/display/display-contributing.rst   |  88 ++++++++++++++
- Documentation/gpu/amdgpu/display/index.rst    |  12 +-
- drivers/gpu/drm/amd/display/TODO              | 110 ------------------
- 3 files changed, 95 insertions(+), 115 deletions(-)
- create mode 100644 Documentation/gpu/amdgpu/display/display-contributing.rst
- delete mode 100644 drivers/gpu/drm/amd/display/TODO
+ Documentation/gpu/amdgpu/display/index.rst | 111 ++++++++++++++++++++-
+ 1 file changed, 109 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/gpu/amdgpu/display/display-contributing.rst b/Documentation/gpu/amdgpu/display/display-contributing.rst
-new file mode 100644
-index 000000000000..0247e0579fd4
---- /dev/null
-+++ b/Documentation/gpu/amdgpu/display/display-contributing.rst
-@@ -0,0 +1,88 @@
-+.. _display_todos:
-+
-+==============================
-+AMDGPU - Display Contributions
-+==============================
-+
-+First of all, if you are here, you probably want to give some technical
-+contribution to the display code, and for that, we say thank you :)
-+
-+This page summarizes some of the issues you can help with. This page follows
-+the DRM way of creating a TODO list; for more information, check
-+'Documentation/gpu/todo.rst'.
-+
-+Gitlab issues
-+=============
-+
-+Users can report issues associated with AMD GPUs at:
-+
-+- https://gitlab.freedesktop.org/drm/amd
-+
-+Usually, we try to add a proper label to all new tickets to make it easy to
-+filter issues. If you can reproduce any problem, you could help by adding more
-+information or fixing the issue.
-+
-+Level: diverse
-+
-+IGT
-+===
-+
-+`IGT`_ provides many integration tests that can be run on your GPU. We always
-+want to pass a large set of tests to increase the test coverage in our CI. If
-+you wish to contribute to the display code but are unsure where a good place
-+is, we recommend you run all IGT tests and try to fix any failure you see in
-+your hardware. Keep in mind that this failure can be an IGT problem or a kernel
-+issue; it is necessary to analyze case-by-case.
-+
-+Level: diverse
-+
-+.. _IGT: https://gitlab.freedesktop.org/drm/igt-gpu-tools
-+
-+Compilation
-+===========
-+
-+Fix compilation warnings
-+------------------------
-+
-+Enable the W1 or W2 warning level in the kernel compilation and try to fix the
-+issues on the display side.
-+
-+Level: Starter
-+
-+Code Refactor
-+=============
-+
-+Add prefix to DC functions to improve the debug with ftrace
-+-----------------------------------------------------------
-+
-+The Ftrace debug feature (check 'Documentation/trace/ftrace.rst') is a
-+fantastic way to check the code path when developers are trying to make sense
-+of a bug. Ftrace provide a filter mechanism that can be useful when the
-+developer has some hunch of which part of the code can cause the issue; for
-+this reason, if a set of function has a proper prefix, it becomes easy to
-+create a good filter. The DC code does not follow some prefix rules, which
-+makes the Ftrace filter more complicated. If you want something simple to start
-+contributing to the display, you can make patches for adding prefixes to DC
-+functions. To create those prefixes, use part of the file name as a prefix for
-+all functions in the target file. Check the 'amdgpu_dm_crtc.c` and
-+`amdgpu_dm_plane.c` for some references.
-+
-+Level: Starter
-+
-+
-+Try to move some of the sink handling code to DRM
-+-------------------------------------------------
-+
-+When amdgpu was upstream for the first time, developers discussed how AMD
-+display handles sink. From the conversation, developers concluded that we
-+should move some of those codes to the DRM helpers/core in the long term.
-+
-+Level: Advanced
-+
-+Simplify DDC
-+------------
-+
-+We can probably remove vector.c from dc/basics. It's used in DDC code which can
-+probably be simplified enough to no longer need a vector implementation.
-+
-+Level: Advanced
 diff --git a/Documentation/gpu/amdgpu/display/index.rst b/Documentation/gpu/amdgpu/display/index.rst
-index 9d53a42c5339..25445a50121e 100644
+index b09d1434754d..9d53a42c5339 100644
 --- a/Documentation/gpu/amdgpu/display/index.rst
 +++ b/Documentation/gpu/amdgpu/display/index.rst
-@@ -109,11 +109,12 @@ if possible.
- DC Workflow for a new feature
- -----------------------------
+@@ -10,7 +10,114 @@ reason, our Display Core Driver is divided into two pieces:
+ 1. **Display Core (DC)** contains the OS-agnostic components. Things like
+    hardware programming and resource management are handled here.
+ 2. **Display Manager (DM)** contains the OS-dependent components. Hooks to the
+-   amdgpu base driver and DRM are implemented here.
++   amdgpu base driver and DRM are implemented here. For example, you can check
++   display/amdgpu_dm/ folder.
++
++--------------------
++How AMD shares code?
++--------------------
++
++Maintaining the same code-base across multiple OSes requires a lot of
++synchronization effort between repositories. In the DC case, we maintain a
++central repository where everyone who works from other OSes can put their
++change in this centralized repository. In a simple way, this shared repository
++is identical to all code that you can see in the display folder. The shared
++repo has integration tests with our Linux CI farm, and we run an exhaustive set
++of IGT tests in various AMD GPUs/APUs. Our CI also checks ARM64/32, PPC64/32,
++and x86_64/32 compilation with DCN enabled and disabled. After all tests pass
++and the developer gets reviewed by someone else, the change gets merged into
++the shared repository.
++
++To maintain this shared code working properly, we run two activities every
++week:
++
++1. **Weekly backport**: We bring changes from Linux to the other shared
++   repositories. This work gets massive support from our CI tools, which can
++   detect new changes and send them to internal maintainers.
++2. **Weekly promotion**: Every week, we get changes from other teams in the
++   shared repo that have yet to be made public. For this reason, at the
++   beginning of each week, a developer will review that internal repo and
++   prepare a series of patches that can be sent to the public upstream
++   (promotion).
++
++For the context of this documentation, promotion is the essential part that
++deserves a good elaboration here.
++
++Weekly promotion
++----------------
++
++As described in the previous sections, the display folder has its equivalent as
++an internal repository shared with multiple teams. The promotion activity is
++the task of 'promoting' those internal changes to the upstream; this is
++possible thanks to numerous tools that help us manage the code-sharing
++challenges. The weekly promotion usually takes one week, sliced like this:
++
++1. Extract all merged patches from the previous week that can be sent to the
++   upstream. In other words, we check the week's time frame.
++2. Evaluate if any potential new patches make sense to the upstream.
++3. Create a branch candidate with the latest amd-staging-drm-next code together
++   with the new patches. At this step, we must ensure that every patch compiles
++   and the entire series pass our set of IGT test in different hardware (i.e.,
++   it has to pass to our CI).
++4. Send the new candidate branch for an internal quality test and extra CI
++   validation.
++5. Send patches to amd-gfx for reviews. We wait a few days for community
++   feedback after sending a series to the public mailing list.  6. If there is
++   an error, we debug as fast as possible; usually, a simple bisect in the
++   weekly promotion patches points to a bad change, and we can take two
++   possible actions: fix the issue or drop the patch. If we cannot identify the
++   problem in the week interval, we drop the promotion and start over the
++   following week; in this case, the following promotion will have the previous
++   patches plus the new ones.
++
++We usually rotate the above process with many display developers to keep the
++workload manageable for everybody. It is good to highlight that the test phase
++is something that we take extremely seriously, and we never merge anything that
++fails our validation. Just to give an overview:
++
++1. Manual test
++ - Multiple Hotplugs with DP and HDMI.
++ - Stress test with multiple display configuration changes via the user
++   interface.
++ - Validate VRR behaviour.
++ - Check PSR.
++ - Validate MPO when playing video.
++ - Test more than two displays connected at the same time.
++ - Check suspend/resume.
++2. Automated test
++ - IGT tests in a farm with GPUs and APUs that support DCN and DCE.
++ - Compilation validation with the latest GCC and Clang from LTS distro.
++ - Cross-compilation for PowerPC 64/32, ARM 64/32, and x86 32.
++
++Notice that all of the above tests happen in various AMD devices.
++
++Contributions to the weekly promotion
++-------------------------------------
++
++If you have a patch and are unsure if it can cause regressions in other ASICs
++and want some validation, you can ask us to include your patches in the weekly
++promotion for validation. Just keep in mind that your patch will be included in
++the next promotion cycle and re-submitted on your behalf (without changing your
++authorship) by some of the display developers.
++
++The weekly promotion process is a very organic initiative that has changed
++significantly over the years, thanks to numerous feedbacks. We are all ears if
++you have any suggestions on how we can improve this process; just keep in mind
++that this is a very challenging task, and implementing some ideas can take time
++if possible.
++
++DC Workflow for a new feature
++-----------------------------
++
++When we enable a new feature in the DC, the entire development workflow happens
++on the amd-gfx mailing list. For example, when we enabled the PSR or the Replay
++feature, all the development happened on amd-gfx. When enabling a new feature,
++we just use promotion for extra validation in the latest patches by asking the
++quality team to test the current promotion together with the new patches.
++
++--------------
++DC Information
++--------------
  
--When we enable a new feature in the DC, the entire development workflow happens
--on the amd-gfx mailing list. For example, when we enabled the PSR or the Replay
--feature, all the development happened on amd-gfx. When enabling a new feature,
--we just use promotion for extra validation in the latest patches by asking the
--quality team to test the current promotion together with the new patches.
-+When an AMD developer enables a new feature in the DC, the entire development
-+workflow happens on the amd-gfx mailing list. For example, when we enabled the
-+PSR or the Replay feature, all the development happened on amd-gfx. When
-+enabling a new feature, we just use promotion for extra validation in the
-+latest patches by asking the quality team to test the current promotion
-+together with the new patches.
+ The display pipe is responsible for "scanning out" a rendered frame from the
+ GPU memory (also called VRAM, FrameBuffer, etc.) to a display. In other words,
+@@ -26,8 +133,8 @@ table of content:
+ .. toctree::
  
- --------------
- DC Information
-@@ -137,4 +138,5 @@ table of content:
+    display-manager.rst
+-   dc-debug.rst
+    dcn-overview.rst
     dcn-blocks.rst
     mpo-overview.rst
-    dc-debug.rst
-+   display-contributing.rst
++   dc-debug.rst
     dc-glossary.rst
-diff --git a/drivers/gpu/drm/amd/display/TODO b/drivers/gpu/drm/amd/display/TODO
-deleted file mode 100644
-index a8a6c106e8c7..000000000000
---- a/drivers/gpu/drm/amd/display/TODO
-+++ /dev/null
-@@ -1,110 +0,0 @@
--===============================================================================
--TODOs
--===============================================================================
--
--1. Base this on drm-next - WIP
--
--
--2. Cleanup commit history
--
--
--3. WIP - Drop page flip helper and use DRM's version
--
--
--4. DONE - Flatten all DC objects
--    * dc_stream/core_stream/stream should just be dc_stream
--    * Same for other DC objects
--
--    "Is there any major reason to keep all those abstractions?
--
--    Could you collapse everything into struct dc_stream?
--
--    I haven't looked recently but I didn't get the impression there was a
--    lot of design around what was public/protected, more whatever needed
--    to be used by someone else was in public."
--    ~ Dave Airlie
--
--
--5. DONE - Rename DC objects to align more with DRM
--    * dc_surface -> dc_plane_state
--    * dc_stream -> dc_stream_state
--
--
--6. DONE - Per-plane and per-stream validation
--
--
--7. WIP - Per-plane and per-stream commit
--
--
--8. WIP - Split pipe_ctx into plane and stream resource structs
--
--
--9. Attach plane and stream reources to state object instead of validate_context
--
--
--10. Remove dc_edid_caps and drm_helpers_parse_edid_caps
--    * Use drm_display_info instead
--    * Remove DC's edid quirks and rely on DRM's quirks (add quirks if needed)
--
--    "Making sure you use the sink-specific helper libraries and kernel
--    subsystems, since there's really no good reason to have 2nd
--    implementation of those in the kernel. Looks likes that's done for mst
--    and edid parsing. There's still a bit a midlayer feeling to the edid
--    parsing side (e.g. dc_edid_caps and dm_helpers_parse_edid_caps, I
--    think it'd be much better if you convert that over to reading stuff
--    from drm_display_info and if needed, push stuff into the core). Also,
--    I can't come up with a good reason why DC needs all this (except to
--    reimplement half of our edid quirk table, which really isn't a good
--    idea). Might be good if you put this onto the list of things to fix
--    long-term, but imo not a blocker. Definitely make sure new stuff
--    doesn't slip in (i.e. if you start adding edid quirks to DC instead of
--    the drm core, refactoring to use the core edid stuff was pointless)."
--    ~ Daniel Vetter
--
--
--11. Remove dc/i2caux. This folder can be somewhat misleading. It's basically an
--overy complicated HW programming function for sendind and receiving i2c/aux
--commands. We can greatly simplify that and move it into dc/dceXYZ like other
--HW blocks.
--
--12. drm_modeset_lock in MST should no longer be needed in recent kernels
--    * Adopt appropriate locking scheme
--
--13. get_modes and best_encoder callbacks look a bit funny. Can probably rip out
--a few indirections, and consider removing entirely and using the
--drm_atomic_helper_best_encoder default behaviour.
--
--14. core/dc_debug.c, consider switching to the atomic state debug helpers and
--moving all your driver state printing into the various atomic_print_state
--callbacks. There's also plans to expose this stuff in a standard way across all
--drivers, to make debugging userspace compositors easier across different hw.
--
--15. Move DP/HDMI dual mode adaptors to drm_dp_dual_mode_helper.c. See
--dal_ddc_service_i2c_query_dp_dual_mode_adaptor.
--
--16. Move to core SCDC helpers (I think those are new since initial DC review).
--
--17. There's still a pretty massive layer cake around dp aux and DPCD handling,
--with like 3 levels of abstraction and using your own structures instead of the
--stuff in drm_dp_helper.h. drm_dp_helper.h isn't really great and already has 2
--incompatible styles, just means more reasons not to add a third (or well third
--one gets to do the cleanup refactor).
--
--18. There's a pile of sink handling code, both for DP and HDMI where I didn't
--immediately recognize the standard. I think long term it'd be best for the drm
--subsystem if we try to move as much of that into helpers/core as possible, and
--share it with drivers. But that's a very long term goal, and by far not just an
--issue with DC - other drivers, especially around DP sink handling, are equally
--guilty.
--
--19. DONE - The DC logger is still a rather sore thing, but I know that the
--DRM_DEBUG stuff just isn't up to the challenges either. We need to figure out
--something that integrates better with DRM and linux debug printing, while not
--being useless with filtering output. dynamic debug printing might be an option.
--
--20. Use kernel i2c device to program HDMI retimer. Some boards have an HDMI
--retimer that we need to program to pass PHY compliance. Currently that's
--bypassing the i2c device and goes directly to HW. This should be changed.
--
--21. Remove vector.c from dc/basics. It's used in DDC code which can probably
--be simplified enough to no longer need a vector implementation.
 -- 
 2.42.0
 
