@@ -4,45 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22115C001DF
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Oct 2023 19:39:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E220C001DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Oct 2023 19:47:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 958D110E103;
-	Fri, 20 Oct 2023 19:39:03 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E808610E103
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Oct 2023 19:39:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1697830741; x=1729366741;
- h=date:from:to:cc:subject:message-id;
- bh=51awEq1Hbqhwjn9m1iLRBIe0V1YVBVyuvLIMs47nU8U=;
- b=ZDX5AwBkL+l8WwMJ7SwJX30gaY9cPqjhhUV/cGkz6eilpSexa3xFChFD
- 5S4WiLlQXi1CkgYAixIgkVcNtthcJPgcLAqO6ZMO5yVi4Hcpf5f4Dcbun
- wxBdKdSOqNJ2Z7IcEzcXQpErjPyKfHDRtguBi19Zi7xipgzPbds0CNakG
- ndkUXt7t3umFn5jt50qjfW/qQNScQI6Q9Yf9FeGmHJuVdZcDHDbV2IX2y
- bUbhoiwziFOVQQju5CmUyqPTyZr7yhO4ByJKarAkpkU46DBvg0weOybNb
- B6R1WO3XOfvfF8A82zFTski3XED/searFs6AwQstNFwjayadEDYs59Lq0 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10869"; a="389417488"
-X-IronPort-AV: E=Sophos;i="6.03,239,1694761200"; d="scan'208";a="389417488"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2023 12:38:30 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10869"; a="707309433"
-X-IronPort-AV: E=Sophos;i="6.03,239,1694761200"; d="scan'208";a="707309433"
-Received: from lkp-server01.sh.intel.com (HELO 8917679a5d3e) ([10.239.97.150])
- by orsmga003.jf.intel.com with ESMTP; 20 Oct 2023 12:38:27 -0700
-Received: from kbuild by 8917679a5d3e with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qtvKD-0003v6-1T;
- Fri, 20 Oct 2023 19:38:25 +0000
-Date: Sat, 21 Oct 2023 03:38:07 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 2030579113a1b1b5bfd7ff24c0852847836d8fd1
-Message-ID: <202310210349.MDQa2TXy-lkp@intel.com>
-User-Agent: s-nail v14.9.24
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9794F10E5DF;
+	Fri, 20 Oct 2023 19:47:14 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2062c.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eab::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 666B210E5DF
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Oct 2023 19:47:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=j2iCLv+nhfLfN+5W8ukcZqRRnHWq1ZEjMQ4B5hHUjA3mFinHL16Z6oj95dXBxMGWUYqHsxzDgj6laLWTI94iMd6wY73ZF4z1f5bH6ETXUzrXONuc90yES7I1LKQVpVxYZUyoeGM/UcUAvw//vTfvom5ddRIFWuWcqz1KANnFe5xSMVjQXUZZgqImt9xw6mEijByX22l9BPA1Rw6ubX/1dF+3RuF09WpPYjiF9bIh0RYzzrB0ETGrxHEqB5K0CjrnakeR7D03+c6Fe7zIKhOXALOf2gxdy84qgCG3KbNPvARUXONuwd+0rJjZxeS33aGBLAz7YCFHrzIJY79NQlesuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7oN7heRjvEQ84HxVv9XcccZsoFczl72+FBmEyxXTa2w=;
+ b=jwzGiSJazecqAn9anjnUfwOOpO0B69upqQ+6frZFMH12YrnITNmHdgVD9woMCxNt478B+PN0G5F6mcZdCYJCPvZJx3IcgBN8laHclNv+XbQJrn26lP5oM9YKSgRFoQqnuWTDkVTpTyFcCzV0JpWNm/vYXMhmZfuDR6ugoExNlO0mOoUFyRkvqF7/mE+1maG8NGkca2ZPSMiNUA9LZ+ekolLkE4XPWIqeviQ7NtzVnHaPouZt+FmgYqSreyiHGumAnDRkGiM/FBwk0Eoo54+UWa0+eSSVjfTb6PfFF4h1wBQfA89mkYdDkzsqEcnRCE1Vpax84IXAd5aczKXTIqRKkQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7oN7heRjvEQ84HxVv9XcccZsoFczl72+FBmEyxXTa2w=;
+ b=zgx7MCtQz5Mxn/P5nrUjphQs++Ywr84f5IMI3NvEt2RnOqinloCt2zhKU5p4Ko5AOi/4b7sclljY/rmDgpD3LHxNaQ6mvpWkUzw2OTAaqi3KdMmVwPZitdF2IFE2N+T/T/ACItImi6gzeS5BjmyptHXPWw+qD0UObyhVQeOuwo4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by CY5PR12MB6251.namprd12.prod.outlook.com (2603:10b6:930:21::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.24; Fri, 20 Oct
+ 2023 19:47:10 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::2e40:ffd7:e752:644f]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::2e40:ffd7:e752:644f%6]) with mapi id 15.20.6907.025; Fri, 20 Oct 2023
+ 19:47:09 +0000
+Message-ID: <21f7ca52-2060-48ce-8b1c-119fb0717d00@amd.com>
+Date: Fri, 20 Oct 2023 15:47:07 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/amdgpu: Add timeout for sync wait
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ "Deng, Emily" <Emily.Deng@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20231020061307.588900-1-Emily.Deng@amd.com>
+ <fbf6e76a-547d-423d-987b-9d1260437322@gmail.com>
+ <PH0PR12MB5417863B213789488F00ADC98FDBA@PH0PR12MB5417.namprd12.prod.outlook.com>
+ <f833c27f-eb11-4191-a3c0-dd81c34fcecf@gmail.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <f833c27f-eb11-4191-a3c0-dd81c34fcecf@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQZPR01CA0032.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:86::12) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CY5PR12MB6251:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f40bd70-b6a0-4c5b-9268-08dbd1a55918
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: k+K0+E8uSSZfwQPmW6OF5y5uVP1vcF174SsYNWLxSUgqW2ezuYijwKeGw0O9S7yQSJaPRu++DGXf/Z/QWgQhciJ6LrvtwCUk/Uj8x2GvGpYeTu8SQqRb5ZxJnBeSXo5rQoxfG8YLNGdH9knyCJ9Ym3eTwu0by9PbwWz4/Py3CXOm+LCm9TEY36cx3eOxbDJ8sAix/zjiDTEYe5nsplbT7zlJjqvpAwIq03OHq9eskT2OhMQYWLMDMr3NgZeKW1txrXNm/5l8si1jUhNEbKD84eAv5v/Fdeg4p/lE5LsEu4pqzm4Enc9mAA0RrN/Gppcq7xGbQQnEHRBPqAbliRj9/EoW1EXHVcJBYZjmJCa9FBQL2nSamRWX5A8jY6TpxkwBnzvdosRrq7Q3jRL7BAezIPvkHzBXXo+n2VWa1dB+HR2rfzI2nfUJrBOWj1bZRc2QIWp/njNFcoxM4qb7yAbwdM1bZOmB7w1B+fVP18nzSGyGH6iG65CbhfRvmsljxqr/vPURTk9zhB5m6ePMQAb4L01ta3HmXytMFF43hpbmZiPjh1cTM10yl6jrmQxFty6V0Ao3lWN255WBRAgEawC2HzxGl2jOIVJKApz9xApAoEDFqUMfutxBzOUGFWF2CLIGt/py5Z3sbbjd3OY9yuZk6Q==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(366004)(346002)(396003)(39860400002)(376002)(230922051799003)(451199024)(186009)(64100799003)(1800799009)(6486002)(2616005)(66574015)(478600001)(66556008)(38100700002)(66476007)(66946007)(36916002)(53546011)(26005)(316002)(110136005)(83380400001)(31686004)(6512007)(6506007)(31696002)(8676002)(44832011)(2906002)(4001150100001)(5660300002)(86362001)(8936002)(41300700001)(36756003)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bHV6SXl1L3RiRkliMnJ1WXp2M3M4dEZYQzNrSGhKRzJ6OCtXc0hKZkFZQ05T?=
+ =?utf-8?B?eWo5WVcwVVVNYzlIYjhmNUNFcFNSVFZvaVg0YmJJZmt5cG1kbjFZM3krVTJC?=
+ =?utf-8?B?ZGxpM3ZrK1BXT09ROGYvNTlRTjB2OGZweTR5UkZBbkZLV1BadXRGenEwS2RH?=
+ =?utf-8?B?dnkwWndDQyswSE5NRy9OeTFDNlBCeFMxUnhvVGRNYll1QjdENTNGYW5GeVMv?=
+ =?utf-8?B?RVNDZzZCQS80cmpTQ24xb3cwNHhFTlBiYXFieEdvQzJDN3dWVGtjRzMzc0lh?=
+ =?utf-8?B?VGNOR1hZaGtEa0FncnhLLzlVcDFHWGszbjBkaGU3NGx2aTRSeWhhZEJaMFJj?=
+ =?utf-8?B?QXN3bFhlRWNPcUZXNUJIcE9BV2luK3A4eU5pV25HMVdmN1lqdHNMYVVGMDhS?=
+ =?utf-8?B?UDJYS2ZLZUdmYW94Qi9hcURFVlkyUzJEZENkcFJMa1dQTE9PZnRjZloxZzJH?=
+ =?utf-8?B?L0c0NUpWL2VraG1QR3F5alVQTU9CSEJkMm1QTTVXRUlXcytQRENWRlA4bFFN?=
+ =?utf-8?B?MFhDVHdwVFhoNzR0TVFleVZoMndLQVJBcERQWHorZ2VERVJybExSSnl4cm5z?=
+ =?utf-8?B?RDVmc0xEMVA2R01JS1JYb05yblFUTHprdVBaamRrRFh3ZHZxT3JjaVRlNzhM?=
+ =?utf-8?B?NTh0T3BROVlNSTczL3U4bEE3ZUt3TFRYbW5WVEpzNmJiMHZTWmNwc2tzU0Zu?=
+ =?utf-8?B?Q1FzUkJ2S05EMVI3OSt4NTNmSkZPVTBMb21NbGxEV3F0alpJbXNjYU0wSGR2?=
+ =?utf-8?B?NEZuWW1JM05pZnhuU0RrSDdGV1pXSW5CMVErSC9VWTBkNmZSZDBrYWFTSUN3?=
+ =?utf-8?B?RnVWUXpaR2VDQ2R1QVlCYTJxYVNHRzB2OHkrWXVOUVVNRXZjdTVjS01VY2FE?=
+ =?utf-8?B?L2F2SnV6TGJaWDdCWHU0djU4eFNOQVBLYUVuMUxMY01UbGVPcUFlbDVYSHZO?=
+ =?utf-8?B?cVlmY1U0Z0RWa3hoUnNVb2tXZzlvU0FmclBDdHV0d3dWVFlrY2VKR1hQSXNZ?=
+ =?utf-8?B?UGFjcFdZZXFXejVkSDd2b1Nvcnl0VXBQUWNPbmpTN1lPZ3ZvTWxwWFFUMi9G?=
+ =?utf-8?B?RCtIVGdxb1U2YW4ydWVYUE15S2dHR0ZYVjUzWGt6N0ZJbEwrSXJSVGswbnBq?=
+ =?utf-8?B?R3hwUFA2Mm8yZDZtYnMzaDdPOGk1KzNUTGpPTUY2Q2l4M3lvSkRRSmlwMVRO?=
+ =?utf-8?B?SnIvY0xMUFpxeEs3UUo4UktoV01VTVVENHhrZE5VVFlIN3dGZ3VDRUk0MHZ4?=
+ =?utf-8?B?NTFaSEpiOUw5Tmp6SmpJQUVQVjNoKzJwemxJTkFIMnovUDlhVW1RMWlBZVlF?=
+ =?utf-8?B?elkyZy9ZSlFKTVcxUE1NNmx6Rm0yejREeXc5WUdTYnVFNW8vYmtyd1dvc2Jn?=
+ =?utf-8?B?bGtLZTFZSTlFR1J6YmJLbEhTeHdhUXp5Y2lCOXkvbERIL01rTkxWK0xHOTFU?=
+ =?utf-8?B?a0FGUTQ1UHJGcFdJZm1qdzlZSnFiUlhRMjlSZFE3NVdUN0grYzhnUzB2anhJ?=
+ =?utf-8?B?dnhyZEpscjY1ZkFVMTZ4VUQ3UFZzbUxpTUZFYTdXUnMzM0RveUdGZkFicTdF?=
+ =?utf-8?B?TlV5RFkzUWFIcFdFWlNuK1FmWHNMVDhXSXlRZkVLQ3E1Z09vRThYSWFkN3BF?=
+ =?utf-8?B?alVMN3kwc2JGNENLM1ZMU1NGM0RjTWRKMkxnVEJmbzk3NERwOFBRdmhWSVJX?=
+ =?utf-8?B?MFlLNzQ5NFJFUkZXUUJvby9nakZrZFE2TFYvczhQMTRRQVU1bDRZMjc3cWF3?=
+ =?utf-8?B?NTVlM3UybkU4Wm53VWJ0VEJuQXFVQlZpNTZkbzh2Vyttb1AwVE9lVnZNVGxE?=
+ =?utf-8?B?a1hYaDE4RnBrY0VUcXhkM1kzOEdCTkZycnFhL1hudUJQTnFuQXdEdmo4dXVB?=
+ =?utf-8?B?cjVhbHpNczVONUx4TkxRbVlCd3gyRzVEK054dkNmb3JpbkJYbnlERmZNektx?=
+ =?utf-8?B?R1hDRFRBQlR5NHYrVXZmYTdMUkhvd0wxZ0dXc0VsSHNqMTM0ZTNqV2QxanBY?=
+ =?utf-8?B?NU5KYWJQRERJcmxiSnRXOEtkNGszNUU5ZFZDbFNLRFhTNTVmQS8vajIxZ1ZM?=
+ =?utf-8?B?NnhwcjY2WEQ3RDFVbDVSWCs1WEplUEpjRkl6RVZHandjWWZQVzVzeXg1eFNl?=
+ =?utf-8?Q?V3bCrWhXVadYxgnlGSQk5gzUn?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f40bd70-b6a0-4c5b-9268-08dbd1a55918
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2023 19:47:09.9037 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2hZ3QoOtzfyrsBX0B2gjIOn8CGs9UzHzxgMmarAZumViyBdfXtBRFlJqc5eAHZDZojAW6riIzO0UQElK7jqXJQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6251
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,326 +129,110 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, linux-staging@lists.linux.dev,
- apparmor@lists.ubuntu.com, amd-gfx@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>, bpf@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 2030579113a1b1b5bfd7ff24c0852847836d8fd1  Add linux-next specific files for 20231020
 
-Error/Warning reports:
+On 2023-10-20 09:10, Christian König wrote:
+> No, the wait forever is what is expected and perfectly valid user 
+> experience.
+>
+> Waiting with a timeout on the other hand sounds like a really bad idea 
+> to me.
+>
+> Every wait with a timeout needs a justification, e.g. for example that 
+> userspace explicitly specified it. And I absolutely don't see that here.
+In this case the wait is in a kernel worker thread, and the wait is not 
+interruptible. Not having a timeout means, you can have a kernel worker 
+stuck forever. The restore worker also has retry logic already, so it 
+can handle a timeout perfectly well. But maybe this shouldn't be done 
+automatically for all callers of amdgpu_sync_wait, but only for this 
+particular caller in the restore_process_worker. So we'd need to add a 
+timeout parameter to amdgpu_sync_wait.
 
-https://lore.kernel.org/oe-kbuild-all/202309212121.cul1pTRa-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202309212339.hxhBu2F1-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202310171905.azfrKoID-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202310201911.QT2YAa39-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202310210234.ArlqNeKe-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202310210303.l1aGutr9-lkp@intel.com
+Regards,
+   Felix
 
-Error/Warning: (recently discovered and may have been fixed)
 
-aarch64-linux-ld: s4-pll.c:(.text+0x168): undefined reference to `meson_clk_hw_get'
-arch/x86/include/asm/string_32.h:150:25: warning: '__builtin_memcpy' writing 3 bytes into a region of size 0 overflows the destination [-Wstringop-overflow=]
-drivers/firmware/qcom_scm.c:1621:34: warning: 'qcom_scm_qseecom_allowlist' defined but not used [-Wunused-const-variable=]
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:286:52: warning: '%s' directive output may be truncated writing up to 29 bytes into a region of size 23 [-Wformat-truncation=]
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu14/smu_v14_0.c:72:52: warning: '%s' directive output may be truncated writing up to 29 bytes into a region of size 23 [-Wformat-truncation=]
-kernel/bpf/helpers.c:1909:19: warning: no previous declaration for 'bpf_percpu_obj_new_impl' [-Wmissing-declarations]
-kernel/bpf/helpers.c:1945:18: warning: no previous declaration for 'bpf_percpu_obj_drop_impl' [-Wmissing-declarations]
-kernel/bpf/helpers.c:2485:18: warning: no previous declaration for 'bpf_throw' [-Wmissing-declarations]
-s4-pll.c:(.text+0x164): undefined reference to `meson_clk_hw_get'
-security/apparmor/lsm.c:651:5: warning: no previous declaration for 'apparmor_uring_override_creds' [-Wmissing-declarations]
-security/apparmor/lsm.c:675:5: warning: no previous declaration for 'apparmor_uring_sqpoll' [-Wmissing-declarations]
-
-Unverified Error/Warning (likely false positive, please contact us if interested):
-
-Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml:
-Documentation/devicetree/bindings/mfd/qcom-pm8xxx.yaml:
-drivers/staging/octeon/ethernet.c:204:37: error: storage size of 'rx_status' isn't known
-drivers/staging/octeon/ethernet.c:205:37: error: storage size of 'tx_status' isn't known
-drivers/staging/octeon/ethernet.c:801:49: error: storage size of 'imode' isn't known
-drivers/staging/octeon/ethernet.c:802:21: error: variable 'imode' has initializer but incomplete type
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- arm-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- arm-randconfig-004-20231020
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- arm64-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- arm64-buildonly-randconfig-r005-20211115
-|   |-- aarch64-linux-ld:s4-pll.c:(.text):undefined-reference-to-meson_clk_hw_get
-|   `-- s4-pll.c:(.text):undefined-reference-to-meson_clk_hw_get
-|-- csky-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- csky-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- csky-randconfig-001-20231020
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- i386-buildonly-randconfig-001-20231021
-|   `-- drivers-firmware-qcom_scm.c:warning:qcom_scm_qseecom_allowlist-defined-but-not-used
-|-- i386-buildonly-randconfig-006-20231020
-|   `-- arch-x86-include-asm-string_32.h:warning:__builtin_memcpy-writing-bytes-into-a-region-of-size-overflows-the-destination
-|-- i386-randconfig-002-20231020
-|   |-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_percpu_obj_drop_impl
-|   |-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_percpu_obj_new_impl
-|   `-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_throw
-|-- i386-randconfig-004-20231020
-|   |-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_percpu_obj_drop_impl
-|   |-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_percpu_obj_new_impl
-|   `-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_throw
-|-- loongarch-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- loongarch-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- loongarch-defconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- loongarch-randconfig-001-20231020
-|   |-- Documentation-devicetree-bindings-mfd-qcom-pm8xxx.yaml:
-|   |-- Documentation-devicetree-bindings-mfd-qcom-tcsr.yaml:
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- microblaze-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- microblaze-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- mips-cavium_octeon_defconfig
-|   |-- drivers-staging-octeon-ethernet.c:error:storage-size-of-imode-isn-t-known
-|   |-- drivers-staging-octeon-ethernet.c:error:storage-size-of-rx_status-isn-t-known
-|   |-- drivers-staging-octeon-ethernet.c:error:storage-size-of-tx_status-isn-t-known
-|   `-- drivers-staging-octeon-ethernet.c:error:variable-imode-has-initializer-but-incomplete-type
-|-- openrisc-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- openrisc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- parisc-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- parisc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- powerpc-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- powerpc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- powerpc64-randconfig-003-20231020
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- riscv-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- riscv-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- s390-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- s390-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- sparc-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- sparc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- sparc64-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- sparc64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- sparc64-randconfig-001-20231020
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- x86_64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- x86_64-randconfig-006-20231020
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- x86_64-randconfig-013-20231020
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu14-smu_v14_0.c:warning:s-directive-output-may-be-truncated-writing-up-to-bytes-into-a-region-of-size
-|-- x86_64-randconfig-016-20231020
-|   |-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_percpu_obj_drop_impl
-|   |-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_percpu_obj_new_impl
-|   `-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_throw
-`-- x86_64-randconfig-072-20231020
-    |-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_percpu_obj_drop_impl
-    |-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_percpu_obj_new_impl
-    |-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_throw
-    |-- security-apparmor-lsm.c:warning:no-previous-declaration-for-apparmor_uring_override_creds
-    `-- security-apparmor-lsm.c:warning:no-previous-declaration-for-apparmor_uring_sqpoll
-
-elapsed time: 740m
-
-configs tested: 134
-configs skipped: 2
-
-tested configs:
-alpha                             allnoconfig   gcc  
-alpha                            allyesconfig   gcc  
-alpha                               defconfig   gcc  
-arc                              allmodconfig   gcc  
-arc                               allnoconfig   gcc  
-arc                              allyesconfig   gcc  
-arc                                 defconfig   gcc  
-arc                   randconfig-001-20231020   gcc  
-arm                              allmodconfig   gcc  
-arm                               allnoconfig   gcc  
-arm                              allyesconfig   gcc  
-arm                                 defconfig   gcc  
-arm                   randconfig-001-20231020   gcc  
-arm64                            allmodconfig   gcc  
-arm64                             allnoconfig   gcc  
-arm64                            allyesconfig   gcc  
-arm64                               defconfig   gcc  
-csky                             allmodconfig   gcc  
-csky                              allnoconfig   gcc  
-csky                             allyesconfig   gcc  
-csky                                defconfig   gcc  
-i386                             allmodconfig   gcc  
-i386                              allnoconfig   gcc  
-i386                             allyesconfig   gcc  
-i386         buildonly-randconfig-001-20231020   gcc  
-i386         buildonly-randconfig-002-20231020   gcc  
-i386         buildonly-randconfig-003-20231020   gcc  
-i386         buildonly-randconfig-004-20231020   gcc  
-i386         buildonly-randconfig-005-20231020   gcc  
-i386         buildonly-randconfig-006-20231020   gcc  
-i386                              debian-10.3   gcc  
-i386                                defconfig   gcc  
-i386                  randconfig-001-20231020   gcc  
-i386                  randconfig-002-20231020   gcc  
-i386                  randconfig-003-20231020   gcc  
-i386                  randconfig-004-20231020   gcc  
-i386                  randconfig-005-20231020   gcc  
-i386                  randconfig-006-20231020   gcc  
-i386                  randconfig-011-20231020   gcc  
-i386                  randconfig-012-20231020   gcc  
-i386                  randconfig-013-20231020   gcc  
-i386                  randconfig-014-20231020   gcc  
-i386                  randconfig-015-20231020   gcc  
-i386                  randconfig-016-20231020   gcc  
-loongarch                        allmodconfig   gcc  
-loongarch                         allnoconfig   gcc  
-loongarch                        allyesconfig   gcc  
-loongarch                           defconfig   gcc  
-loongarch             randconfig-001-20231020   gcc  
-m68k                             allmodconfig   gcc  
-m68k                              allnoconfig   gcc  
-m68k                             allyesconfig   gcc  
-m68k                                defconfig   gcc  
-microblaze                       allmodconfig   gcc  
-microblaze                        allnoconfig   gcc  
-microblaze                       allyesconfig   gcc  
-microblaze                          defconfig   gcc  
-mips                             allmodconfig   gcc  
-mips                              allnoconfig   gcc  
-mips                             allyesconfig   gcc  
-nios2                            allmodconfig   gcc  
-nios2                             allnoconfig   gcc  
-nios2                            allyesconfig   gcc  
-nios2                               defconfig   gcc  
-openrisc                         allmodconfig   gcc  
-openrisc                          allnoconfig   gcc  
-openrisc                         allyesconfig   gcc  
-openrisc                            defconfig   gcc  
-parisc                           allmodconfig   gcc  
-parisc                            allnoconfig   gcc  
-parisc                           allyesconfig   gcc  
-parisc                              defconfig   gcc  
-parisc64                            defconfig   gcc  
-powerpc                          allmodconfig   gcc  
-powerpc                           allnoconfig   gcc  
-powerpc                          allyesconfig   gcc  
-riscv                            allmodconfig   gcc  
-riscv                             allnoconfig   gcc  
-riscv                            allyesconfig   gcc  
-riscv                               defconfig   gcc  
-riscv                 randconfig-001-20231020   gcc  
-riscv                          rv32_defconfig   gcc  
-s390                             allmodconfig   gcc  
-s390                              allnoconfig   gcc  
-s390                             allyesconfig   gcc  
-s390                                defconfig   gcc  
-s390                  randconfig-001-20231020   gcc  
-sh                               allmodconfig   gcc  
-sh                                allnoconfig   gcc  
-sh                               allyesconfig   gcc  
-sh                                  defconfig   gcc  
-sparc                            allmodconfig   gcc  
-sparc                             allnoconfig   gcc  
-sparc                            allyesconfig   gcc  
-sparc                               defconfig   gcc  
-sparc                 randconfig-001-20231020   gcc  
-sparc64                          allmodconfig   gcc  
-sparc64                          allyesconfig   gcc  
-sparc64                             defconfig   gcc  
-um                               allmodconfig   clang
-um                                allnoconfig   clang
-um                               allyesconfig   clang
-um                                  defconfig   gcc  
-um                             i386_defconfig   gcc  
-um                           x86_64_defconfig   gcc  
-x86_64                            allnoconfig   gcc  
-x86_64                           allyesconfig   gcc  
-x86_64       buildonly-randconfig-001-20231020   gcc  
-x86_64       buildonly-randconfig-002-20231020   gcc  
-x86_64       buildonly-randconfig-003-20231020   gcc  
-x86_64       buildonly-randconfig-004-20231020   gcc  
-x86_64       buildonly-randconfig-005-20231020   gcc  
-x86_64       buildonly-randconfig-006-20231020   gcc  
-x86_64                              defconfig   gcc  
-x86_64                randconfig-001-20231020   gcc  
-x86_64                randconfig-002-20231020   gcc  
-x86_64                randconfig-003-20231020   gcc  
-x86_64                randconfig-004-20231020   gcc  
-x86_64                randconfig-005-20231020   gcc  
-x86_64                randconfig-006-20231020   gcc  
-x86_64                randconfig-011-20231020   gcc  
-x86_64                randconfig-012-20231020   gcc  
-x86_64                randconfig-013-20231020   gcc  
-x86_64                randconfig-014-20231020   gcc  
-x86_64                randconfig-015-20231020   gcc  
-x86_64                randconfig-016-20231020   gcc  
-x86_64                randconfig-071-20231020   gcc  
-x86_64                randconfig-072-20231020   gcc  
-x86_64                randconfig-073-20231020   gcc  
-x86_64                randconfig-074-20231020   gcc  
-x86_64                randconfig-075-20231020   gcc  
-x86_64                randconfig-076-20231020   gcc  
-x86_64                          rhel-8.3-rust   clang
-x86_64                               rhel-8.3   gcc  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+>
+> Regards,
+> Christian.
+>
+> Am 20.10.23 um 10:52 schrieb Deng, Emily:
+>> [AMD Official Use Only - General]
+>>
+>> Hi Christian,
+>>       The issue is running a compute hang with a quark and trigger a 
+>> compute job timeout. For compute, the timeout setting is 60s, but for 
+>> gfx and sdma, it is 10s.
+>> So, get the timeout from the sched is reasonable for different sched.
+>>      And if wait timeout, it will print error, so won't hint real 
+>> issues. And even it has real issue, the wait forever is bad user 
+>> experience, and driver couldn't work anymore.
+>>
+>> Emily Deng
+>> Best Wishes
+>>
+>>
+>>
+>>> -----Original Message-----
+>>> From: Christian König <ckoenig.leichtzumerken@gmail.com>
+>>> Sent: Friday, October 20, 2023 3:29 PM
+>>> To: Deng, Emily <Emily.Deng@amd.com>; amd-gfx@lists.freedesktop.org
+>>> Subject: Re: [PATCH 1/2] drm/amdgpu: Add timeout for sync wait
+>>>
+>>> Am 20.10.23 um 08:13 schrieb Emily Deng:
+>>>> Issue: Dead heappen during gpu recover, the call sequence as below:
+>>>>
+>>>> amdgpu_device_gpu_recover->amdgpu_amdkfd_pre_reset-
+>>>> flush_delayed_work
+>>>> -> amdgpu_amdkfd_gpuvm_restore_process_bos->amdgpu_sync_wait
+>>>>
+>>>> It is because the amdgpu_sync_wait is waiting for the bad job's fence,
+>>>> and never return, so the recover couldn't continue.
+>>>>
+>>>>
+>>>> Signed-off-by: Emily Deng <Emily.Deng@amd.com>
+>>>> ---
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 11 +++++++++--
+>>>>    1 file changed, 9 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+>>>> index dcd8c066bc1f..6253d6aab7f8 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+>>>> @@ -406,8 +406,15 @@ int amdgpu_sync_wait(struct amdgpu_sync *sync,
+>>> bool intr)
+>>>>       int i, r;
+>>>>
+>>>>       hash_for_each_safe(sync->fences, i, tmp, e, node) {
+>>>> -            r = dma_fence_wait(e->fence, intr);
+>>>> -            if (r)
+>>>> +            struct drm_sched_fence *s_fence = to_drm_sched_fence(e-
+>>>> fence);
+>>>> +            long timeout = msecs_to_jiffies(10000);
+>>> That handling doesn't make much sense. If you need a timeout then 
+>>> you need
+>>> a timeout for the whole function.
+>>>
+>>> Additional to that timeouts often just hide real problems which 
+>>> needs fixing.
+>>>
+>>> So this here needs a much better justification otherwise it's a 
+>>> pretty clear NAK.
+>>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>> +
+>>>> +            if (s_fence)
+>>>> +                    timeout = s_fence->sched->timeout;
+>>>> +
+>>>> +            if (r == 0)
+>>>> +                    r = -ETIMEDOUT;
+>>>> +            if (r < 0)
+>>>>                       return r;
+>>>>
+>>>>               amdgpu_sync_entry_free(e);
+>
