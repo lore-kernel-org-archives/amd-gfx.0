@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46D98CDB474
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Oct 2023 06:13:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3326CC001DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Oct 2023 06:13:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCE5010E582;
-	Fri, 20 Oct 2023 06:13:27 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on20612.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eb2::612])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C575210E582
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Oct 2023 06:13:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE3FE10E584;
+	Fri, 20 Oct 2023 06:13:28 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFC4410E582
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Oct 2023 06:13:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=b4vPU9Fg6MV/51Nxm/4TJzz78bkiGzUd/wvYP6W5ZsfQk8PDaVkvqERi7qpi5ENH9pJhupV/lQYG/akhLsARVuOItyqAF671mkuz2ANHQpbg1TDsHvson30YOesd/S6cdsmCPtd7exoCYvVrSoZcIVkvnYSpbdzs1xU8NcYFvkSV6wHS/sXChXRIPvxh6amYTQlzJzWZLoBfOCB+ASQ75nWn8pIHIEfVQP5MDFPJf5nK/rnDpjBx57YuWs4TC7h0Obw+ydQn6wgzQHU3/mbnC9tGupVcMb6QYr/J0mJg7kBXrY7Gp1FhcyKX71fuVJBynQeONMEiphg7u02U+KL4MQ==
+ b=iJEg7xnXk3wwt1KCCBtB5UhQaDEzjAxk/OunOHunr2pl4dIfsCwpRNCnfeGfslgKpO5kCZ4//K4nwFpVkfNPOH+iO565Q4rgWBoaJtrJJIpwRQO0g3L4IQ6axNN48gqoOVxy73/9SHyWwVfxOeJUdABAMYChaKHyeL/Js4gfUOqgayQt2CoP5bSwOy/j0i6tjeC0v6MHH6OcmUq7WScN7g0Mr3n+YCsLIQ3PPQUPeaiEsJ5jiaa4X43ke2YeE/M7H2LPa5ew7suucRk4+CTqyfOXzVOw/38vL5dgRemD9gCKv/1yC2xb0sIR1tNWoGScDYdceTKn+2Wlvv/cx4HcpQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GaW1To/6ppvr7+m8MTpsDWhPPUCGVcRF5aRMhNa5Dlc=;
- b=f+2RYCt4q8onBNsJP4i469eDQ2uBXWy8Y2Qgd+oQqUYA8++TJ7EXy1orfb2Q/GNLhYW4vy+1/cZIbVsGpLrMI60iR0lPKQyrU84pzQMM50XaWRzyc8JlqkOosCUprRIoV9w0VVc2EDBfmJubSFzM+Q5tTaGeNSYB71/3OR/HKzlD2A7GYXMY2heMUbxffLcijh++Z23LmoQMLI39NlgnKA0blo4bRK9jagjlvgD7IGrYPNYrrlpC3oAuSr5QTXOoCJPHDJMkcG0JkBNDXNiMj4miqBv6OAB9Qy4WUrVuTCmoXrlGJCnYfZhSVzb8k1+RS+UGCVizhqNmxe0LVdlHWg==
+ bh=biLiRby1ia8SdZy3z5Jn92D47N4bHgUWQv/UzlksHt0=;
+ b=GAh3x5mylFjKof+9IN5K2cQEmdILdoQvc+anb/kiEpIUDyyBC/E4D8lLO8ZzrX08oXIo78DflpFrcdDc5/CclIH+UryQCrF7LaJJkd4HK5NIVNHSgsKJx1D1el4xTD0cU270hhiiTemLBSqMQ2nztEhOzEfvtUwJ4GVRZ2d72+0QLjfjCVYeSpicXvMYHcWlx3g1tV0Q08WM4z1vIJAxr8UDKZMARjJ/Y2Xe2FDeTskBwukRAWVYknAA90roLAUDreMui0FwZf0bISjr+ejwvF/G5I+vJ/otMp8iCPdglyV1o9GNKjJnQCnqm208uHVy0MKvmcP7CievWiu/tS7inw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GaW1To/6ppvr7+m8MTpsDWhPPUCGVcRF5aRMhNa5Dlc=;
- b=xryQVN7Kve/FY0pjRv+59b6mwvD70KXlPm5/IHTMMW9RhYGTES/dzxEUx3NDOZHJipfeUO1TcKkMHtRM3SafP641RGBBXydTDYlPRvAOQoVPw+FGIo/np2VG4AuCSn8rXYvW31An2sH66MkFHWC2YPM3sqEu1TutmSo9Z2yWNHo=
-Received: from BLAPR05CA0003.namprd05.prod.outlook.com (2603:10b6:208:36e::10)
- by CH0PR12MB5297.namprd12.prod.outlook.com (2603:10b6:610:d4::24)
+ bh=biLiRby1ia8SdZy3z5Jn92D47N4bHgUWQv/UzlksHt0=;
+ b=M5DVpNt8r5yvtzUyb5F9W/bNhLBWqFy2CamRQMEWsxhKJd5blp2jA1SmOpWS6s5aTJOmvBI39NS7knDisDZqRrBllUa69ry9+2DQVC6FDgNcmV+Ba497hdGnPrbbQQDTbKyJskYljpJ2yEPfKdk33Is/BGk707Dp2SffUMtm0sE=
+Received: from BLAPR05CA0024.namprd05.prod.outlook.com (2603:10b6:208:36e::20)
+ by CH3PR12MB8972.namprd12.prod.outlook.com (2603:10b6:610:169::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.26; Fri, 20 Oct
- 2023 06:13:23 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.21; Fri, 20 Oct
+ 2023 06:13:24 +0000
 Received: from BL6PEPF0001AB75.namprd02.prod.outlook.com
- (2603:10b6:208:36e:cafe::3) by BLAPR05CA0003.outlook.office365.com
- (2603:10b6:208:36e::10) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:208:36e:cafe::70) by BLAPR05CA0024.outlook.office365.com
+ (2603:10b6:208:36e::20) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.8 via Frontend
  Transport; Fri, 20 Oct 2023 06:13:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
@@ -49,48 +48,46 @@ Received: from SATLEXMB03.amd.com (165.204.84.17) by
  BL6PEPF0001AB75.mail.protection.outlook.com (10.167.242.168) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
  15.20.6907.21 via Frontend Transport; Fri, 20 Oct 2023 06:13:23 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 20 Oct
  2023 01:13:22 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 19 Oct
- 2023 23:13:11 -0700
 Received: from emily-Z10PA-U8-Series.amd.com (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27
- via Frontend Transport; Fri, 20 Oct 2023 01:13:10 -0500
+ via Frontend Transport; Fri, 20 Oct 2023 01:13:14 -0500
 From: Emily Deng <Emily.Deng@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/2] drm/amdgpu: Add timeout for sync wait
-Date: Fri, 20 Oct 2023 14:13:06 +0800
-Message-ID: <20231020061307.588900-1-Emily.Deng@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: handle the return for sync wait
+Date: Fri, 20 Oct 2023 14:13:07 +0800
+Message-ID: <20231020061307.588900-2-Emily.Deng@amd.com>
 X-Mailer: git-send-email 2.36.1
+In-Reply-To: <20231020061307.588900-1-Emily.Deng@amd.com>
+References: <20231020061307.588900-1-Emily.Deng@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB75:EE_|CH0PR12MB5297:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7e31b54f-271f-4e07-633b-08dbd133aa41
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB75:EE_|CH3PR12MB8972:EE_
+X-MS-Office365-Filtering-Correlation-Id: ce862dfe-5047-4d2b-fc71-08dbd133aa9b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sZwVUwlzVdhfOavxVCGswgbUCfsdFfNluir85KI72s18fItlm4dZEebQ6Wg46yhO6Z1Jjrgqjq/ecxOLsp1NEzrIA7I3xmjM1UjMre7DTwyX70sE9KSM77kXqNbM22nbe/NJNjtCbfITT1Ykg8vi86xQzYuuE3nQgEwRzSYoDQIdWTyx0yyhp035bd51uZf/tEEgqud/O+Faq2s94NJYBh54lgrlVnov3LjnlBKNi0nFkBfGqxytYt6p9wJ9k9VSds5dnlWo3cHtPjLOh2Wa9FSg1h+TD5q4ZTiepqkUX6MryvKAzzABJJm/VlHN5DLFyUZ+w2jH+mRYI4Y4w/3Ev5gDWhswj3FC8uGzc9dkcvO8KlCZRdN+WGgkcF+Z5oVOd0kh46MzpaOI72BXMr//+IGdV+bfgR3m/jYrIW+U9OIfbh7BS9wQ7l/gxFDbzmKWcux0e1PvljkKoRwR/+zuD6Oj9uYttYUBCXWgAoikRvrETSA5DQ11t3IExQO7N1gEwp+jTkipDAmPPjhgvdghXIGAmDPTNbzV7Sr82gJApJB6aFqZG7gv2GyodjdFlflbapkd+AnkrMRVYfUuLxvOXKc4acRcz13guwB6F4XiH/X75A6Ks0JN+NyU3vvQIy8oNkQZ7y2MtRI8KJWEGi5DEHbwQzGvpAOE9JoQiMxy9kw5hDVdDoX2k3j3OAU/EAe+HYrabRmpfGUqUnTTmlhcspnJ2Ruu5Ib58yOzlYuoTs2OCfmmMKFlig+oeyxPm5KktBoh+9srcBbO7DcIGgy0Rg==
+X-Microsoft-Antispam-Message-Info: Vg0oSNmuc62tt7wk1OZSL/wJnjB840m7zNbpn0OLN2AHfYEc+qXqT+LGT3CiZYpPKe32WmGsD1dT03R5+DdHcqPr8ejXsC2RVF9x7qX4kFg1N308SmwOcuuMi65oYTebWnBSaPqcJcsUo7GoNYeVPhflL0UodJMIneji9HVKTPm201ete+vEfIoYvXC+jD6wH30Ygs8JAuDwRdwbnttUlg7TkTPCWQFFXQavb5hlr/Wvaml3eDg2tFyNkOSLriw2tx+8HjL+O73tTaqsxjy11sgaEvhIBeTTs5Qg5DBkQ6nF2oMRM2sA6QhIsGC8uWDDAKCcWuiILA50ZDAP51tcNzmLKmNhADov5+R4NT4a7bMhCSj/YUo2osUUtorsfHDYjyFzl3///TH/AzbS84Ae3tfiTv9QFVZ4RQd5dquQZJiZhqvY6nf4tS8THP3gzX82ghWJApiDV1VFDx5aEjdpR/pyQaNei7xIBH3nagt5FX5FLAZgY7Ujm07eKPk8WtvC4Tf6IukaSQmg0xqP/3P7V3TJw0HEYvhH8dQ5P7rY7RTEs5zpwo20UC+6n2IsGThgONettrQUIoi78Grk9TkHKKlbqv4RjxuK3ZrrZI4QW3VsNlCGyrP3g4QRnwvYQ0rXSFEdQugr3kfe5IXW3ZjcheojaT/OrId5r5jUb1nBRtCRjqTP7K0Za+YLxxqh+oMGDCh4npgXqRAe7G703Fl7WJsWu/GG2o6bIU5CvFDeo/SrNRCqsuKhRiRgVFA3U+m7xL1+cFi1NBAzolz2ADjysA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(39860400002)(376002)(136003)(396003)(230922051799003)(186009)(82310400011)(1800799009)(64100799003)(451199024)(46966006)(40470700004)(36840700001)(40460700003)(83380400001)(336012)(356005)(36860700001)(426003)(47076005)(2906002)(26005)(1076003)(7696005)(478600001)(5660300002)(2616005)(6666004)(81166007)(4326008)(40480700001)(86362001)(36756003)(41300700001)(8936002)(70206006)(70586007)(82740400003)(8676002)(316002)(6916009)(36900700001);
+ SFS:(13230031)(4636009)(376002)(136003)(346002)(39860400002)(396003)(230922051799003)(64100799003)(1800799009)(82310400011)(186009)(451199024)(46966006)(36840700001)(40470700004)(316002)(40460700003)(70586007)(70206006)(6916009)(26005)(1076003)(83380400001)(2616005)(426003)(40480700001)(36756003)(82740400003)(336012)(356005)(86362001)(36860700001)(478600001)(81166007)(47076005)(2906002)(5660300002)(7696005)(41300700001)(6666004)(8676002)(8936002)(4326008)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2023 06:13:23.2537 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e31b54f-271f-4e07-633b-08dbd133aa41
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2023 06:13:23.8475 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce862dfe-5047-4d2b-fc71-08dbd133aa9b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB75.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5297
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8972
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,42 +103,56 @@ Cc: Emily Deng <Emily.Deng@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Issue: Dead heappen during gpu recover, the call sequence as below:
-
-amdgpu_device_gpu_recover->amdgpu_amdkfd_pre_reset->flush_delayed_work->
-amdgpu_amdkfd_gpuvm_restore_process_bos->amdgpu_sync_wait
-
-It is because the amdgpu_sync_wait is waiting for the bad job's fence, and
-never return, so the recover couldn't continue.
-
-
 Signed-off-by: Emily Deng <Emily.Deng@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 9 ++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c          | 6 +++++-
+ 2 files changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-index dcd8c066bc1f..6253d6aab7f8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-@@ -406,8 +406,15 @@ int amdgpu_sync_wait(struct amdgpu_sync *sync, bool intr)
- 	int i, r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 54f31a420229..3011c191d7dd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -2668,7 +2668,7 @@ static int validate_invalid_user_pages(struct amdkfd_process_info *process_info)
  
- 	hash_for_each_safe(sync->fences, i, tmp, e, node) {
--		r = dma_fence_wait(e->fence, intr);
--		if (r)
-+		struct drm_sched_fence *s_fence = to_drm_sched_fence(e->fence);
-+		long timeout = msecs_to_jiffies(10000);
-+
-+		if (s_fence)
-+			timeout = s_fence->sched->timeout;
-+
-+		if (r == 0)
-+			r = -ETIMEDOUT;
-+		if (r < 0)
- 			return r;
+ unreserve_out:
+ 	ttm_eu_backoff_reservation(&ticket, &resv_list);
+-	amdgpu_sync_wait(&sync, false);
++	ret = amdgpu_sync_wait(&sync, false);
+ 	amdgpu_sync_free(&sync);
+ out_free:
+ 	kfree(pd_bo_list_entries);
+@@ -2939,8 +2939,11 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence **ef)
+ 	}
  
- 		amdgpu_sync_entry_free(e);
+ 	/* Wait for validate and PT updates to finish */
+-	amdgpu_sync_wait(&sync_obj, false);
+-
++	ret = amdgpu_sync_wait(&sync_obj, false);
++	if (ret) {
++		pr_err("Failed to wait for validate and PT updates to finish\n");
++		goto validate_map_fail;
++	}
+ 	/* Release old eviction fence and create new one, because fence only
+ 	 * goes from unsignaled to signaled, fence cannot be reused.
+ 	 * Use context and mm from the old fence.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+index 70fe3b39c004..a63139277583 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+@@ -1153,7 +1153,11 @@ int amdgpu_mes_ctx_map_meta_data(struct amdgpu_device *adev,
+ 	}
+ 	amdgpu_sync_fence(&sync, vm->last_update);
+ 
+-	amdgpu_sync_wait(&sync, false);
++	r = amdgpu_sync_wait(&sync, false);
++	if (r) {
++		DRM_ERROR("failed to wait sync\n");
++		goto error;
++	}
+ 	ttm_eu_backoff_reservation(&ticket, &list);
+ 
+ 	amdgpu_sync_free(&sync);
 -- 
 2.36.1
 
