@@ -4,116 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E400CCDB474
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Oct 2023 14:26:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5ED3C001E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Oct 2023 14:56:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C6CD10E1F8;
-	Mon, 23 Oct 2023 14:26:21 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2062a.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8b::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30F6B10E1DC
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Oct 2023 14:26:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JSGV3scaP/bl5ytiaROVm+LrE6XGpPYwpq43YFbVX2VF/gHOVt0FD78LZSKVTdf7PlQGFNv6VlrkDgufEOoffnsBhZLyVj/mEu/lgOsdIwM2Si0CvPaMrVWRwF3iKkdjD2azBpMaqEOGG/8jM8zSqRoRdgcxVnteMGOIkJ86qKyVXvHPvSgRzZrwhS2Mp7SZQkjSSoUpDVWVy6+nOUIr420jm0qCBf28xrABplRJpS4Dd8ISnMwZ7y0Uq23eW171v+b7k5mxeY0NKEeY1BtJBYR9TI7U/mywx/M3vwkaBjhY2Q75ZSU4PYy3RvvNifTZNpFmbnckJzj/lKlOdbhkKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KNBZnwJqYD0EgoSY2kRszW6ofrZHrr9Oml62yGHYHfg=;
- b=eYmfU/ZcoENqINI8gz5Hfr62/fSiMSCOvaVh4fmFXdAWakbgwCXTKfcuB802BWG1cW+q+b1ebe4eSbyb9IuDjBZXhbGvyj7h3ARM0FbO/B7KGEx+LZ0xZLrwfzM1ZXznP+6KUBs+lSBMW6L2ZcKpG0XeFRyKVRuFIR5KZ7VNQp4ZxPUtj9KKITpbCfjIOAp7i1Zf3Mnp/OXxslqeQ9gY8vADm2UdEvJDIDjg1ZldTaPjld/bNexl5c99e99oOjsjvsC3ChNymTnMPtn1vNfAxr5RcOeQCxCGH5Sub7vV+T8PkJ7PiPCwZxwy0G7Dz3WcXQaNPbxcj7GoAchUBfgxXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KNBZnwJqYD0EgoSY2kRszW6ofrZHrr9Oml62yGHYHfg=;
- b=d6GkC5zrQx5Kp1emHM/kiuWe44gpdnTeXhLMAGJ3DneBZzjdudi4M+mHXhDbGUKmMz+tYMn/PYsGr7omOiHWYWr2CM1n1p5v4anhMtrtEeZyw5oP1xCvZPm0hR3oW6nSBLONYhVtvZGxTY1YXaioGgBe9S7XrrD59gk2uJbPMUs=
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by BY5PR12MB4177.namprd12.prod.outlook.com (2603:10b6:a03:201::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.26; Mon, 23 Oct
- 2023 14:26:10 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::83d7:9c4f:4d9b:1f2a]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::83d7:9c4f:4d9b:1f2a%4]) with mapi id 15.20.6907.022; Mon, 23 Oct 2023
- 14:26:09 +0000
-From: "Limonciello, Mario" <Mario.Limonciello@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd: Disable ASPM for VI w/ all Intel systems
-Thread-Topic: [PATCH] drm/amd: Disable ASPM for VI w/ all Intel systems
-Thread-Index: AQHaBbdkSt8gL7QWBEmDtccGWnu5qrBXbQiAgAABEEA=
-Date: Mon, 23 Oct 2023 14:26:09 +0000
-Message-ID: <MN0PR12MB6101B7321A2413A69C7305E4E2D8A@MN0PR12MB6101.namprd12.prod.outlook.com>
-References: <20231023134514.144863-1-mario.limonciello@amd.com>
- <BL1PR12MB5144924B8B61F0EF0891C344F7D8A@BL1PR12MB5144.namprd12.prod.outlook.com>
-In-Reply-To: <BL1PR12MB5144924B8B61F0EF0891C344F7D8A@BL1PR12MB5144.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=444c7aa3-b335-4eaa-8924-b44bad3e3880;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-10-23T14:15:53Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MN0PR12MB6101:EE_|BY5PR12MB4177:EE_
-x-ms-office365-filtering-correlation-id: f2c6c777-f013-447b-b783-08dbd3d4008e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: KCwAcVPQyYjOA/EbQqiW5zuiCCyW8x+jFslWDysZmeGiZ+4hSV4yC7hDT2CPHlyJ8AsyxbmnJpwYiVdfgCCkrxpKPYLBTKyKx006v/JNEm3et7YBMDKhi2ANLfvTDjpjpoYKWml7+cUy6eAP7+OXp3VBaSXDQ8pEETL1C+u27D/NiG0b5GbiiunApnBXABnXDpaWUtmuGzfJ7BoFeqi54n9e/fEHhukAp3xbMne5RqJPL1uswpBr8fLF2kQSNhJekDikB+c0FfJvM0ySR/+EF9QKIfzg539ZGQ+byGGGg8MOa+Dx8RawKeMNrGJK1ioMdu5cQAI+nuFJEhYbe2hgf/r1GCIi2VYQaXkpohZ+QT1SaSnVuqQNSRr1p2M7pgL+4uphtK2hmfJfDc8Fv+TLgEJokHIp/pJPeB0JnhU8Gk1Luzl37Q0F/80cYSsNrsuJgA+aQK2Oeawp08tVVNiGcxG0WCm1TEZOiGAvL1CzKClLUeXlagx9qPvvP6l3rKnjYt96SpSihwrwMd9Ebw0GLClJJvGXOWl57LH8XW1Vh2Jqin0FOLbM7GHN1wB19cf7SIpS+6WKTT3UOU8vzI16a/JW1WcFj3thp8t0RNtFzS4=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(346002)(396003)(366004)(136003)(376002)(230922051799003)(1800799009)(186009)(64100799003)(451199024)(38070700009)(2906002)(9686003)(7696005)(6506007)(53546011)(55016003)(38100700002)(122000001)(86362001)(33656002)(26005)(41300700001)(478600001)(71200400001)(966005)(83380400001)(8936002)(8676002)(52536014)(4326008)(5660300002)(316002)(76116006)(66476007)(110136005)(64756008)(66556008)(66946007)(66446008);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Kghppwy3C6E3ZZbkSTTuU2hQ4ottANajBZXAxw2ybU5cjkLkn6qxL/eNCE85?=
- =?us-ascii?Q?Mbh0Y2x3yxrPV2EG4Itr4S7ykXnOGot1Te2654MiSt3FdGAzuKpXCo1mdoIe?=
- =?us-ascii?Q?ojHvwHd+milEr0PCh8EEjBYOPyDwquQHYp/K4kOOqYbUp5nr/FgTY2yeKjoX?=
- =?us-ascii?Q?GeMrvHF4QUAkzYbldA4Tnu+9nTfGaYkD+yYVzj2OxxuMyq0yc8gyWueS5Lh7?=
- =?us-ascii?Q?kllWksoYrJ8GFgc1mk+YbeLF3dePe+WETtAgopGG6V5sJw655bQJa9Ae65tU?=
- =?us-ascii?Q?HN6kbsposv95oE0erpgFtaaexFWpckj5KogdVc7fNynvYs7PKz1bA9KPoUIA?=
- =?us-ascii?Q?M92ayc6CBkBsTTuXYLSBI3QEwQZiC+9cLe1+bzLaJjXGHWHjCDxyvAY1qBL+?=
- =?us-ascii?Q?yAxDpu0rXP6y5oqeffSGDXqH/cVAxoug6sVbbrhbej5iijvJOn00JjkdmN4Y?=
- =?us-ascii?Q?s8OWjJR8S5+SnsvObHF+duHnk9eMnLsOweo3qG4mU8DYy13pP3t3RjvxDN/o?=
- =?us-ascii?Q?FJ6xojepqtX/poXASWa6+R64RpXI/XwoEZSjDkZUX4aOkhXKpPjvV1YjC8KZ?=
- =?us-ascii?Q?jyilmvdEKRoIKHQm93lQ+XTyZAtmsmvj04+k7wazWSi8r2K8FZfTJQSCXPTl?=
- =?us-ascii?Q?U/hEv5fuu/t0e7xPBlH9XcCbZx69kLnARKZJGuyWMxoqyqrB5fjXP0wnXB7c?=
- =?us-ascii?Q?1yue6t5AUEN2sj5fIXDdwmfxttbF4IsDTzs74sM17jqRFVhxkI8reC6cNIch?=
- =?us-ascii?Q?SYD/D2rgaj+2DrmwIj05CoRtJl5fBNuUM4/6TSqVNQwGQQTiDeKZR7iNhxn9?=
- =?us-ascii?Q?+zhR695w32hfTM/sEpeKQbMum8DHmm4ab04OeXRDwDnedIBVltIv5QtSrayn?=
- =?us-ascii?Q?0JJS6w4jrKeRbmE3nbMCdUq4vBQsPeu+1mjogZB0hwHNhb04rJiFP8srvuxQ?=
- =?us-ascii?Q?pPK6QJ1UzXQSvsoCt4XXYYN5PBo5cH1WMlbqClvrEIr0LiRSWs5ZOqgIPe8e?=
- =?us-ascii?Q?VnvNnOndLVyfv1B3pOusPgWcqqfx9sniCrsorLeoXXJd2U4N9CMqIzuyhAlp?=
- =?us-ascii?Q?sutosxtukMAtrRSb6UCvO4FUb3CGVNE4rBcpDpYeTbcG//2K4ML5p0vViiXk?=
- =?us-ascii?Q?ecUgY1khcQWLyy/lHdhVAqoZWwiDYNzA115+lBO5ILM2GqU9FFhv0OwS2y9u?=
- =?us-ascii?Q?KGt6G0HLtxSIFPrNUaVr0sB1IJnBhVHwCapH6aVMpp83jNrjA1//uzu/GUI8?=
- =?us-ascii?Q?abyybDygjx1AO1cWUcqKp0nbREf9HYy4MEVrbeOC82eQ+o9eRksv/t3jRotu?=
- =?us-ascii?Q?1aF9HmUSfHh6wXvQzKQvxSKLX+AoyYINwNU79iNeyqkF6M6th4uU762PKQH/?=
- =?us-ascii?Q?XeiRuFYQih3c6cNUo+9JlY7hSPfpqjF1WppKB21IQVrAuSVCCzg8UMFq7Kut?=
- =?us-ascii?Q?BcZQzqLhUYkrW38fiPmlW0INuGt3HOyXjaETl25DUJ7TI1PJi4vbwxY8e9nv?=
- =?us-ascii?Q?ENyQjjsMICw74cz2p9cBjxSPJpXYuarue9JwYyc6xTIpkpYFiI/xb9PfiLEp?=
- =?us-ascii?Q?Zx5SNx3g9MdZmFPmYAE=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4289B10E20A;
+	Mon, 23 Oct 2023 14:56:48 +0000 (UTC)
+Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
+ [IPv6:2001:4860:4864:20::2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD11C10E20A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Oct 2023 14:56:43 +0000 (UTC)
+Received: by mail-oa1-x2c.google.com with SMTP id
+ 586e51a60fabf-1e9bb3a0bfeso2723078fac.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Oct 2023 07:56:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1698073003; x=1698677803; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5oOFnXrIhJ0PgMaZYzi8GJRtKeKsYGjqGroiBj5448M=;
+ b=g0xhnrZhRWUhPHzdaGOQyHQTqGoz8AG/EkOP7lWUCOJwrRYgLK3oR6+mT1GKrtZv/1
+ esoKjII0oPk5bxm1iHAiekPlDOEERzrARjuBBhTueqv6z993aSDOcEXnmoQx6QVg6U5U
+ DnAtm4dLIYef3tjHO6jzHUu2ULZ8SnUKa4pDnKPiAD8uciq+4frhkbnVCsyoQT3LxEzO
+ N5NDlEs4xcdfq+kuLsVCbslbAIL1tEpxuCfbSQvJauazmppNuPE6cNsYiDiQ1sdRMzgm
+ Lc9lDvWmgGwpm2Ft8XgOEle1FNCIbu61hV7RScbZGtOXuIg2TnJt0FuJb+79b7OF6H99
+ WeGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1698073003; x=1698677803;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=5oOFnXrIhJ0PgMaZYzi8GJRtKeKsYGjqGroiBj5448M=;
+ b=redJIJeQljfUmpm5/O0EyCH4O38kMS0J3zY4IAvvnAI68l2nVrv1T7mBK8/M+w4Jfm
+ EqkdUtEyBpAOwRrm1ZpRMwGpCCJkVfSWipSJn13CvWOtOn3AReF3cNKwApmzcU2IgYIE
+ xlqBv+jDsFk39q6XCrF784GZAiu38f8ZxujOzK78j1nK+4ehOw+/lxd8IevKPe8YGNah
+ nwPeHV2Y1CSlgS+1ygjyh4oVYXHVR2hx5ilXiMenvM7uELA0ahrXxYxB5QKxVHQ51fUa
+ nJOGRCJqJ/hSKakx0I7UkTIPJuQpgBH/wd0d7pf8anme69Y0mufp6D/IzoKT6ROFR22Y
+ toJQ==
+X-Gm-Message-State: AOJu0YwTSIvERxT5kpdm6Q+n/XMgdPuHrTBhoLbLVtMtl3Gv4lFiRlvr
+ zbI8ja8pK6JvPUnVylXjm95CkKRbS+M05fq7qnu+pkoq
+X-Google-Smtp-Source: AGHT+IHrmD+r42ev5bLrCqF22X9VAlxUiFhVFbLF/+LYcWbNBgtSMLwAzE6qXOOvMm6MWEpGcyAXwBMNqCnvhzFRG4g=
+X-Received: by 2002:a05:6870:120b:b0:1d5:91d6:65f3 with SMTP id
+ 11-20020a056870120b00b001d591d665f3mr9627420oan.7.1698073002809; Mon, 23 Oct
+ 2023 07:56:42 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2c6c777-f013-447b-b783-08dbd3d4008e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Oct 2023 14:26:09.8564 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qC8xDmkBS5hqDzz7lum1xqLomenoOvOQ+2H6Y0O7n+5mClq5u2A26eqWNINfRQiW4LVaMMD4MIoskmf7CcI1Aw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4177
+References: <20231020081558.739636-1-kenneth.feng@amd.com>
+ <CADnq5_P6092B8sJQf0-_gdLOSr0Q68STNhSRfAE41xy-YE8n4w@mail.gmail.com>
+ <DM4PR12MB5165ACD77658867A878DE6048ED8A@DM4PR12MB5165.namprd12.prod.outlook.com>
+In-Reply-To: <DM4PR12MB5165ACD77658867A878DE6048ED8A@DM4PR12MB5165.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 23 Oct 2023 10:56:31 -0400
+Message-ID: <CADnq5_MVNEhQ6suWvvhu_F+MVQ-OX=-uR0n1qdzqtJihRm7kSA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: fix the high voltage and temperature issue on
+ smu 13
+To: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,82 +70,334 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "paolo.gentili@canonical.com" <paolo.gentili@canonical.com>
+Cc: "Wang, Yang\(Kevin\)" <KevinYang.Wang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
-
+On Sun, Oct 22, 2023 at 9:05=E2=80=AFPM Feng, Kenneth <Kenneth.Feng@amd.com=
+> wrote:
+>
+> [AMD Official Use Only - General]
+>
+> Thanks Alex, I will make another patch.
+> And please refer to the comments inline below.
+>
+>
 > -----Original Message-----
-> From: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Sent: Monday, October 23, 2023 09:22
-> To: Limonciello, Mario <Mario.Limonciello@amd.com>; amd-
-> gfx@lists.freedesktop.org
-> Cc: Limonciello, Mario <Mario.Limonciello@amd.com>;
-> paolo.gentili@canonical.com
-> Subject: RE: [PATCH] drm/amd: Disable ASPM for VI w/ all Intel systems
+> From: Alex Deucher <alexdeucher@gmail.com>
+> Sent: Friday, October 20, 2023 9:58 PM
+> To: Feng, Kenneth <Kenneth.Feng@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org; Wang, Yang(Kevin) <KevinYang.Wang@amd.=
+com>
+> Subject: Re: [PATCH] drm/amd/pm: fix the high voltage and temperature iss=
+ue on smu 13
 >
-> [Public]
+> Caution: This message originated from an External Source. Use proper caut=
+ion when opening attachments, clicking links, or responding.
 >
-> > -----Original Message-----
-> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> Mario
-> > Limonciello
-> > Sent: Monday, October 23, 2023 9:45 AM
-> > To: amd-gfx@lists.freedesktop.org
-> > Cc: Limonciello, Mario <Mario.Limonciello@amd.com>;
-> > paolo.gentili@canonical.com
-> > Subject: [PATCH] drm/amd: Disable ASPM for VI w/ all Intel systems
+>
+> On Fri, Oct 20, 2023 at 4:32=E2=80=AFAM Kenneth Feng <kenneth.feng@amd.co=
+m> wrote:
 > >
-> > Originally we were quirking ASPM disabled specifically for VI when used=
- with
-> > Alder Lake, but it appears to have problems with Rocket Lake as well.
+> > fix the high voltage and temperature issue after the driver is
+> > unloaded on smu 13.0.0, smu 13.0.7 and smu 13.0.10
 > >
-> > Like we've done in the case of dpm for newer platforms, disable ASPM fo=
-r all
-> > Intel systems.
+> > Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 36 +++++++++++++++----
+> >  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |  4 +--
+> >  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 27 ++++++++++++--
+> >  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  1 +
+> > drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h  |  2 ++
+> >  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    | 13 +++++++
+> >  .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |  8 ++++-
+> > .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  |  8 ++++-
+> >  8 files changed, 86 insertions(+), 13 deletions(-)
 > >
-> > Cc: stable@vger.kernel.org # 5.15+
-> > Fixes: 0064b0ce85bb ("drm/amd/pm: enable ASPM by default")
-> > Reported-and-tested-by: Paolo Gentili <paolo.gentili@canonical.com>
-> > Closes: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2036742
-> > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > index 31f8c3ead161..c5c892a8b3f9 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -3986,13 +3986,23 @@ int amdgpu_device_init(struct amdgpu_device *ad=
+ev,
+> >                                 }
+> >                         }
+> >                 } else {
+> > -                       tmp =3D amdgpu_reset_method;
+> > -                       /* It should do a default reset when loading or=
+ reloading the driver,
+> > -                        * regardless of the module parameter reset_met=
+hod.
+> > -                        */
+> > -                       amdgpu_reset_method =3D AMD_RESET_METHOD_NONE;
+> > -                       r =3D amdgpu_asic_reset(adev);
+> > -                       amdgpu_reset_method =3D tmp;
+> > +                       switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
+> > +                       case IP_VERSION(13, 0, 0):
+> > +                       case IP_VERSION(13, 0, 7):
+> > +                       case IP_VERSION(13, 0, 10):
+> > +                               r =3D psp_gpu_reset(adev);
+> > +                               break;
+> > +                       default:
+> > +                               tmp =3D amdgpu_reset_method;
+> > +                               /* It should do a default reset when lo=
+ading or reloading the driver,
+> > +                                * regardless of the module parameter r=
+eset_method.
+> > +                                */
+> > +                               amdgpu_reset_method =3D AMD_RESET_METHO=
+D_NONE;
+> > +                               r =3D amdgpu_asic_reset(adev);
+> > +                               amdgpu_reset_method =3D tmp;
+> > +                               break;
+> > +                       }
+> > +
+> >                         if (r) {
+> >                                 dev_err(adev->dev, "asic reset on init =
+failed\n");
+> >                                 goto failed; @@ -5945,6 +5955,18 @@
+> > int amdgpu_device_baco_exit(struct drm_device *dev)
+> >                 return -ENOTSUPP;
+> >
+> >         ret =3D amdgpu_dpm_baco_exit(adev);
+> > +
+> > +       if (!ret)
+> > +               switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
+> > +               case IP_VERSION(13, 0, 0):
+> > +               case IP_VERSION(13, 0, 7):
+> > +               case IP_VERSION(13, 0, 10):
+> > +                       adev->gfx.is_poweron =3D false;
+> > +                       break;
+> > +               default:
+> > +                       break;
+> > +               }
 >
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> Maybe better to move this into smu_v13_0_0_baco_exit() so we keep the asi=
+c specific details out of the common files?
 >
-> As a follow on, we probably want to apply this to all of the program_aspm=
-()
-> functions for each asic family.
+> > +
+> >         if (ret)
+> >                 return ret;
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> > b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> > index 80ca2c05b0b8..3ad38e42773b 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> > @@ -73,7 +73,7 @@ gmc_v11_0_vm_fault_interrupt_state(struct amdgpu_devi=
+ce *adev,
+> >                  * fini/suspend, so the overall state doesn't
+> >                  * change over the course of suspend/resume.
+> >                  */
+> > -               if (!adev->in_s0ix)
+> > +               if (!adev->in_s0ix && adev->gfx.is_poweron)
+> >                         amdgpu_gmc_set_vm_fault_masks(adev, AMDGPU_GFXH=
+UB(0), false);
+> >                 break;
+> >         case AMDGPU_IRQ_STATE_ENABLE:
+> > @@ -85,7 +85,7 @@ gmc_v11_0_vm_fault_interrupt_state(struct amdgpu_devi=
+ce *adev,
+> >                  * fini/suspend, so the overall state doesn't
+> >                  * change over the course of suspend/resume.
+> >                  */
+> > -               if (!adev->in_s0ix)
+> > +               if (!adev->in_s0ix && adev->gfx.is_poweron)
+> >                         amdgpu_gmc_set_vm_fault_masks(adev, AMDGPU_GFXH=
+UB(0), true);
+> >                 break;
+> >         default:
 >
+>
+> These changes are probably a valid bug fix on their own.
+> [Kenneth] -  When driver is unloaded, gfx core is powered off first. Then=
+ in gmc_hw_fini, the gfxhub interruption operation needs to be skipped. Do =
+we need a separate patch for this?
 
-Yeah; I had that thought too but wanted to have a narrow patch for fixes an=
-d stable first.
-I will merge and send a follow up for that.
+Would this trigger in any other cases?  E.g., suspend/resume?  If so,
+I think it makes sense as a standalone bug fix.  If not, it's fine to
+include it in this patch.
 
+>
+> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> > b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> > index 7c3356d6da5e..30e5f7161737 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> > @@ -733,7 +733,7 @@ static int smu_early_init(void *handle)
+> >         smu->adev =3D adev;
+> >         smu->pm_enabled =3D !!amdgpu_dpm;
+> >         smu->is_apu =3D false;
+> > -       smu->smu_baco.state =3D SMU_BACO_STATE_EXIT;
+> > +       smu->smu_baco.state =3D SMU_BACO_STATE_NONE;
+>
+>
+> I'm not sure I understand this change.  Is this just to set the default B=
+ACO state?  Maybe this would be better as a separate patch.
+> [Kenneth] - smu->smu_baco.state is needed when driver is unloaded, if it'=
+s baco exited, then need to reset MP1_FIRMWARE_FLAG =3D 0, otherwise MP1_FI=
+RMWARE_FLAG doesn't need to be reset.
+> Currently by default  smu->smu_baco.state is baco exited status, we can't=
+ recognize if it's really a hardware baco exited status. Do you think we st=
+ill need a separate patch for it?
+
+No, this makes sense.  I just want to verify the reason for the
+change.  It would be nice to include this detail in the commit
+message.
+
+>
+> >         smu->smu_baco.platform_support =3D false;
+> >         smu->user_dpm_profile.fan_mode =3D -1;
+> >
+> > @@ -1740,10 +1740,25 @@ static int smu_smc_hw_cleanup(struct smu_contex=
+t *smu)
+> >         return 0;
+> >  }
+> >
+> > +static int smu_reset_mp1_state(struct smu_context *smu) {
+> > +       struct amdgpu_device *adev =3D smu->adev;
+> > +
+> > +       switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
+> > +       case IP_VERSION(13, 0, 0):
+> > +       case IP_VERSION(13, 0, 7):
+> > +       case IP_VERSION(13, 0, 10):
+> > +               return smu_set_mp1_state(smu, PP_MP1_STATE_UNLOAD);
+> > +       default:
+> > +               return 0;
+> > +       }
+> > +}
+> > +
+> >  static int smu_hw_fini(void *handle)
+> >  {
+> >         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+> >         struct smu_context *smu =3D adev->powerplay.pp_handle;
+> > +       int ret;
+> >
+> >         if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
+> >                 return 0;
+> > @@ -1761,7 +1776,15 @@ static int smu_hw_fini(void *handle)
+> >
+> >         adev->pm.dpm_enabled =3D false;
+> >
+> > -       return smu_smc_hw_cleanup(smu);
+> > +       ret =3D smu_smc_hw_cleanup(smu);
+> > +       if (ret)
+> > +               return ret;
+> > +
+> > +       ret =3D smu_reset_mp1_state(smu);
+> > +       if (ret)
+> > +               return ret;
+> > +
+> > +       return 0;
+> >  }
+> >
+> >  static void smu_late_fini(void *handle) diff --git
+> > a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> > b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> > index 1454eed76604..9f2dbc90b606 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> > @@ -419,6 +419,7 @@ enum smu_reset_mode {  enum smu_baco_state {
+> >         SMU_BACO_STATE_ENTER =3D 0,
+> >         SMU_BACO_STATE_EXIT,
+> > +       SMU_BACO_STATE_NONE,
+> >  };
+> >
+> >  struct smu_baco_context {
+> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+> > b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+> > index cc02f979e9e9..43c7ba68eb50 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+> > @@ -299,5 +299,7 @@ int smu_v13_0_update_pcie_parameters(struct smu_con=
+text *smu,
+> >                                      uint8_t pcie_gen_cap,
+> >                                      uint8_t pcie_width_cap);
+> >
+> > +int smu_v13_0_disable_pmfw_state(struct smu_context* smu);
+> > +
+> >  #endif
+> >  #endif
+> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> > b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> > index bcb7ab9d2221..0724441e53ef 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> > @@ -2473,3 +2473,16 @@ int smu_v13_0_update_pcie_parameters(struct
+> > smu_context *smu,
+> >
+> >         return 0;
+> >  }
+> > +
+> > +int smu_v13_0_disable_pmfw_state(struct smu_context* smu) {
+> > +       int ret;
+> > +       struct amdgpu_device *adev =3D smu->adev;
+> > +
+> > +       WREG32_PCIE(MP1_Public | (smnMP1_FIRMWARE_FLAGS & 0xffffffff),
+> > + 0);
+> > +
+> > +       ret =3D RREG32_PCIE(MP1_Public |
+> > +                                          (smnMP1_FIRMWARE_FLAGS &
+> > + 0xffffffff));
+> > +
+> > +       return ret =3D=3D 0 ? 0 : -EINVAL; }
+> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> > b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> > index 47d008cbc186..0a167f70f4bc 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> > @@ -2758,7 +2758,13 @@ static int smu_v13_0_0_set_mp1_state(struct
+> > smu_context *smu,
+> >
+> >         switch (mp1_state) {
+> >         case PP_MP1_STATE_UNLOAD:
+> > -               ret =3D smu_cmn_set_mp1_state(smu, mp1_state);
+> > +               ret =3D smu_cmn_send_smc_msg_with_param(smu,
+> > +                                                               SMU_MSG=
+_PrepareMp1ForUnload,
+> > +                                                               0x55,
+> > + NULL);
+> > +
+> > +               if(!ret && smu->smu_baco.state =3D=3D SMU_BACO_STATE_EX=
+IT)
+>
+> space between if and (
+>
+> > +                       ret =3D smu_v13_0_disable_pmfw_state(smu);
+> > +
+> >                 break;
+> >         default:
+> >                 /* Ignore others */
+> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > index b8a7a1d853df..d7a4a03b1e31 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > @@ -2429,7 +2429,13 @@ static int smu_v13_0_7_set_mp1_state(struct
+> > smu_context *smu,
+> >
+> >         switch (mp1_state) {
+> >         case PP_MP1_STATE_UNLOAD:
+> > -               ret =3D smu_cmn_set_mp1_state(smu, mp1_state);
+> > +               ret =3D smu_cmn_send_smc_msg_with_param(smu,
+> > +                                                               SMU_MSG=
+_PrepareMp1ForUnload,
+> > +                                                               0x55,
+> > + NULL);
+> > +
+> > +               if(!ret && smu->smu_baco.state =3D=3D SMU_BACO_STATE_EX=
+IT)
+>
+> Same here.
+>
 > Alex
 >
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/vi.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c
-> > b/drivers/gpu/drm/amd/amdgpu/vi.c index 6a8494f98d3e..fe8ba9e9837b
-> > 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/vi.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-> > @@ -1124,7 +1124,7 @@ static void vi_program_aspm(struct
-> > amdgpu_device *adev)
-> >       bool bL1SS =3D false;
-> >       bool bClkReqSupport =3D true;
-> >
-> > -     if (!amdgpu_device_should_use_aspm(adev) ||
-> > !amdgpu_device_aspm_support_quirk())
-> > +     if (!amdgpu_device_should_use_aspm(adev) ||
-> > +!amdgpu_device_pcie_dynamic_switching_supported())
-> >               return;
-> >
-> >       if (adev->flags & AMD_IS_APU ||
+> > +                       ret =3D smu_v13_0_disable_pmfw_state(smu);
+> > +
+> >                 break;
+> >         default:
+> >                 /* Ignore others */
 > > --
 > > 2.34.1
->
-
+> >
