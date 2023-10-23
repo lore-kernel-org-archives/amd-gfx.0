@@ -4,40 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7EB2C001E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Oct 2023 13:10:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AB47CDB474
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Oct 2023 13:10:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75C1C10E210;
-	Mon, 23 Oct 2023 13:10:37 +0000 (UTC)
-X-Greylist: delayed 587 seconds by postgrey-1.36 at gabe;
- Mon, 23 Oct 2023 13:06:31 UTC
-Received: from out-205.mta1.migadu.com (out-205.mta1.migadu.com
- [95.215.58.205])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFFB410E0BD
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Oct 2023 13:06:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8898610E1DA;
+	Mon, 23 Oct 2023 13:10:39 +0000 (UTC)
+Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com
+ [IPv6:2607:f8b0:4864:20::736])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8FBF10E102
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Oct 2023 13:06:38 +0000 (UTC)
+Received: by mail-qk1-x736.google.com with SMTP id
+ af79cd13be357-777754138bdso221846085a.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Oct 2023 06:06:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1698066397; x=1698671197; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Uotvsa1EjZ2ndNuA93mYTR/FesXr2b/ZGkkiiDPj7Bc=;
+ b=IPVAgAtayj+3x0aFFR1k6iWZc6ovMjEf1Avop8o/Hnln4+JDCsFMOY1SKq+iX3kBbd
+ 11RzJnXJjIICu9DdojjPb38GmMgkIbJf27uKy1L3PrJc7U+quNLCEi2CUoMEFHNNd17E
+ 2rxW+CZsYJ9xrTuOvGDT0gwmO3svD15si0MFgMEF26gTH7pnwPnxqKe12LTwRA5C8lD0
+ zzwebi4jWOay34h7p5J6zbDzavEg2Ypa83JtAgG/mMdfRegrCPDI7wMU1K/I86sn2s99
+ pP0dY5wlH/bUD0a2ZUsVawZC3QI7u6uU3BwUHZ/FciQw8/8TztWWkrj3CtI4b6mzpu7a
+ 7Wjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1698066397; x=1698671197;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Uotvsa1EjZ2ndNuA93mYTR/FesXr2b/ZGkkiiDPj7Bc=;
+ b=VrI3kPb8bteMDL9aDEfvVKSkZzNTFcCNMCx0PWdHHh8T3/TdNrBsL+BlzbJ7qMIpuQ
+ MXJN3XsKn65qNvZQhV6cirlKwT6mvWosLOFgcXYLCylO00YPgEJIszgOeVSxWSBE7jQv
+ IoXwuYDAwkqfd6d7WyXXk7qaRlEvoQaVgQsia1TXw5TLikl/fkRyP0rxIztm5iP4cEAy
+ nkBkPrFkK5ongVevcJQ3vuJ6Ps6QKB2/t3V1VzrvOgnREPd7cdwlSKlqD/c3HrUTRzFq
+ HAfwXmarn81/3/5uCBIhFYZ/IvnyapAW5i/0W9X87nvNHxymVbWiwsAOEd/esm15Vlcp
+ wFJg==
+X-Gm-Message-State: AOJu0YxU4m/jVIPKitOwhuwJx6p6Mc/XPOYHaIbUbJ0Y6RqSEaslfr34
+ Kb5ouc4UJwHRrqsFTgs8oonSHEMUTzfUA//x
+X-Google-Smtp-Source: AGHT+IF87FfpZ9Z/GbH5/09ZExmd1tqBfvP/KOWolhHd9mEsPm9DbAeicvlDX8SJhYdyIsXIV6mBmw==
+X-Received: by 2002:a05:620a:458d:b0:778:9824:4b6c with SMTP id
+ bp13-20020a05620a458d00b0077898244b6cmr10227295qkb.16.1698066397173; 
+ Mon, 23 Oct 2023 06:06:37 -0700 (PDT)
+Received: from daniel-desktop2.localnet ([174.95.207.100])
+ by smtp.gmail.com with ESMTPSA id
+ o10-20020a05620a22ca00b0076cc4610d0asm2704410qki.85.2023.10.23.06.06.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Oct 2023 06:06:36 -0700 (PDT)
+From: Daniel Tang <danielzgtg.opensource@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] Revert "drm/amdgpu: remove vm sanity check from
+ amdgpu_vm_make_compute"
+Date: Mon, 23 Oct 2023 09:06:34 -0400
+Message-ID: <5984374.lOV4Wx5bFT@daniel-desktop2>
 MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1698065801;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=DibBT+Cxaspvrrd75l4t/nEOTmiyvO/k87QOeRksta4=;
- b=AWLfGLB5z/RmfcU++nipn2//MwZtuA2DZ+LXveRszl6H821gYpKH5MhhNkZnmAw10f8hoU
- 3MYFhD4F8XkMNkGISplDeOtwCWkSggvPeRdXrttSRhNbwwhzyiTZoxCImv9nTTo02uGATB
- bK3lODWOHRh2gkcX66EjTciY4fpzO7I=
-Date: Mon, 23 Oct 2023 12:56:37 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: qu.huang@linux.dev
-Message-ID: <4a687c592b0f1b04f4bbf684129f5ce02b2b6f7b@linux.dev>
-TLS-Required: No
-Subject: [PATCH] drm/amdgpu: Fix a null pointer access when the smc_rreg 
- pointer is NULL
-To: alexander.deucher@amd.com
-X-Migadu-Flow: FLOW_OUT
-X-Mailman-Approved-At: Mon, 23 Oct 2023 13:10:15 +0000
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+X-Mailman-Approved-At: Mon, 23 Oct 2023 13:10:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,148 +71,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: tom.stdenis@amd.com, Praful.Swarnakar@amd.com, srinivasan.shanmugam@amd.com,
- suhui@nfschina.com, qu.huang@linux.dev, Xinhui.Pan@amd.com,
- Harish.Kasiviswanathan@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, sumit.semwal@linaro.org,
- linaro-mm-sig@lists.linaro.org, le.ma@amd.com, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, victorchengchi.lu@amd.com,
- airlied@gmail.com, christian.koenig@amd.com, dan.carpenter@linaro.org,
- Hawking.Zhang@amd.com
+Cc: Xiaogang Chen <xiaogang.chen@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In certain types of chips, such as VEGA20, reading the amdgpu_regs_smc fi=
-le could result in an abnormal null pointer access when the smc_rreg poin=
-ter is NULL. Below are the steps to reproduce this issue and the correspo=
-nding exception log:
+That commit causes the screen to freeze a few moments after running
+clinfo on v6.6-rc7 and ROCm 5.6. Sometimes the rest of the computer
+including ssh also freezes. On v6.5-rc1, it only results in a NULL pointer
+deference message in dmesg and the process to become a zombie whose
+unkillableness prevents shutdown without REISUB. Although llama.cpp and
+hashcat were working in v6.2 and ROCm 5.6, broke, and are not fixed by
+this revert, pytorch-rocm is now working with stability and without
+whole-computer freezes caused by any accidental running of clinfo.
 
-1. Navigate to the directory: /sys/kernel/debug/dri/0
-2. Execute command: cat amdgpu_regs_smc
-3. Exception Log::
-[4005007.702554] BUG: kernel NULL pointer dereference, address: 000000000=
-0000000
-[4005007.702562] #PF: supervisor instruction fetch in kernel mode
-[4005007.702567] #PF: error_code(0x0010) - not-present page
-[4005007.702570] PGD 0 P4D 0
-[4005007.702576] Oops: 0010 [#1] SMP NOPTI
-[4005007.702581] CPU: 4 PID: 62563 Comm: cat Tainted: G           OE     =
-5.15.0-43-generic #46-Ubunt       u
-[4005007.702590] RIP: 0010:0x0
-[4005007.702598] Code: Unable to access opcode bytes at RIP 0xfffffffffff=
-fffd6.
-[4005007.702600] RSP: 0018:ffffa82b46d27da0 EFLAGS: 00010206
-[4005007.702605] RAX: 0000000000000000 RBX: 0000000000000000 RCX: ffffa82=
-b46d27e68
-[4005007.702609] RDX: 0000000000000001 RSI: 0000000000000000 RDI: ffff994=
-0656e0000
-[4005007.702612] RBP: ffffa82b46d27dd8 R08: 0000000000000000 R09: ffff994=
-060c07980
-[4005007.702615] R10: 0000000000020000 R11: 0000000000000000 R12: 00007f5=
-e06753000
-[4005007.702618] R13: ffff9940656e0000 R14: ffffa82b46d27e68 R15: 00007f5=
-e06753000
-[4005007.702622] FS:  00007f5e0755b740(0000) GS:ffff99479d300000(0000) kn=
-lGS:0000000000000000
-[4005007.702626] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[4005007.702629] CR2: ffffffffffffffd6 CR3: 00000003253fc000 CR4: 0000000=
-0003506e0
-[4005007.702633] Call Trace:
-[4005007.702636]  <TASK>
-[4005007.702640]  amdgpu_debugfs_regs_smc_read+0xb0/0x120 [amdgpu]
-[4005007.703002]  full_proxy_read+0x5c/0x80
-[4005007.703011]  vfs_read+0x9f/0x1a0
-[4005007.703019]  ksys_read+0x67/0xe0
-[4005007.703023]  __x64_sys_read+0x19/0x20
-[4005007.703028]  do_syscall_64+0x5c/0xc0
-[4005007.703034]  ? do_user_addr_fault+0x1e3/0x670
-[4005007.703040]  ? exit_to_user_mode_prepare+0x37/0xb0
-[4005007.703047]  ? irqentry_exit_to_user_mode+0x9/0x20
-[4005007.703052]  ? irqentry_exit+0x19/0x30
-[4005007.703057]  ? exc_page_fault+0x89/0x160
-[4005007.703062]  ? asm_exc_page_fault+0x8/0x30
-[4005007.703068]  entry_SYSCALL_64_after_hwframe+0x44/0xae
-[4005007.703075] RIP: 0033:0x7f5e07672992
-[4005007.703079] Code: c0 e9 b2 fe ff ff 50 48 8d 3d fa b2 0c 00 e8 c5 1d=
- 02 00 0f 1f 44 00 00 f3 0f        1e fa 64 8b 04 25 18 00 00 00 85 c0 75=
- 10 0f 05 <48> 3d 00 f0 ff ff 77 56 c3 0f 1f 44 00 00 48 83 e       c 28 =
-48 89 54 24
-[4005007.703083] RSP: 002b:00007ffe03097898 EFLAGS: 00000246 ORIG_RAX: 00=
-00000000000000
-[4005007.703088] RAX: ffffffffffffffda RBX: 0000000000020000 RCX: 00007f5=
-e07672992
-[4005007.703091] RDX: 0000000000020000 RSI: 00007f5e06753000 RDI: 0000000=
-000000003
-[4005007.703094] RBP: 00007f5e06753000 R08: 00007f5e06752010 R09: 00007f5=
-e06752010
-[4005007.703096] R10: 0000000000000022 R11: 0000000000000246 R12: 0000000=
-000022000
-[4005007.703099] R13: 0000000000000003 R14: 0000000000020000 R15: 0000000=
-000020000
-[4005007.703105]  </TASK>
-[4005007.703107] Modules linked in: nf_tables libcrc32c nfnetlink algif_h=
-ash af_alg binfmt_misc nls_       iso8859_1 ipmi_ssif ast intel_rapl_msr =
-intel_rapl_common drm_vram_helper drm_ttm_helper amd64_edac t       tm ed=
-ac_mce_amd kvm_amd ccp mac_hid k10temp kvm acpi_ipmi ipmi_si rapl sch_fq_=
-codel ipmi_devintf ipm       i_msghandler msr parport_pc ppdev lp parport=
- mtd pstore_blk efi_pstore ramoops pstore_zone reed_solo       mon ip_tab=
-les x_tables autofs4 ib_uverbs ib_core amdgpu(OE) amddrm_ttm_helper(OE) a=
-mdttm(OE) iommu_v       2 amd_sched(OE) amdkcl(OE) drm_kms_helper syscopy=
-area sysfillrect sysimgblt fb_sys_fops cec rc_core        drm igb ahci xh=
-ci_pci libahci i2c_piix4 i2c_algo_bit xhci_pci_renesas dca
-[4005007.703184] CR2: 0000000000000000
-[4005007.703188] ---[ end trace ac65a538d240da39 ]---
-[4005007.800865] RIP: 0010:0x0
-[4005007.800871] Code: Unable to access opcode bytes at RIP 0xfffffffffff=
-fffd6.
-[4005007.800874] RSP: 0018:ffffa82b46d27da0 EFLAGS: 00010206
-[4005007.800878] RAX: 0000000000000000 RBX: 0000000000000000 RCX: ffffa82=
-b46d27e68
-[4005007.800881] RDX: 0000000000000001 RSI: 0000000000000000 RDI: ffff994=
-0656e0000
-[4005007.800883] RBP: ffffa82b46d27dd8 R08: 0000000000000000 R09: ffff994=
-060c07980
-[4005007.800886] R10: 0000000000020000 R11: 0000000000000000 R12: 00007f5=
-e06753000
-[4005007.800888] R13: ffff9940656e0000 R14: ffffa82b46d27e68 R15: 00007f5=
-e06753000
-[4005007.800891] FS:  00007f5e0755b740(0000) GS:ffff99479d300000(0000) kn=
-lGS:0000000000000000
-[4005007.800895] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[4005007.800898] CR2: ffffffffffffffd6 CR3: 00000003253fc000 CR4: 0000000=
-0003506e0
+This reverts commit 1d7776cc148b9f2f3ebaf1181662ba695a29f639.
 
-Signed-off-by: Qu Huang <qu.huang@linux.dev>
+Closes: https://github.com/RadeonOpenCompute/ROCm/issues/2596
+Signed-off-by: Daniel Tang <danielzgtg.opensource@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_debugfs.c
-index a4faea4..05405da 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -748,6 +748,9 @@ static ssize_t amdgpu_debugfs_regs_smc_read(struct fi=
-le *f, char __user *buf,
- 	ssize_t result =3D 0;
- 	int r;
-
-+	if (!adev->smc_rreg)
-+		return -EPERM;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 82f25996ff5e..602f311ab766 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2243,16 +2243,16 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ 	if (r)
+ 		return r;
+ 
++	/* Sanity checks */
++	if (!amdgpu_vm_pt_is_root_clean(adev, vm)) {
++		r = -EINVAL;
++		goto unreserve_bo;
++	}
 +
- 	if (size & 0x3 || *pos & 0x3)
- 		return -EINVAL;
-
-@@ -804,6 +807,9 @@ static ssize_t amdgpu_debugfs_regs_smc_write(struct f=
-ile *f, const char __user *
- 	ssize_t result =3D 0;
- 	int r;
-
-+	if (!adev->smc_wreg)
-+		return -EPERM;
-+
- 	if (size & 0x3 || *pos & 0x3)
- 		return -EINVAL;
-
+ 	/* Check if PD needs to be reinitialized and do it before
+ 	 * changing any other state, in case it fails.
+ 	 */
+ 	if (pte_support_ats != vm->pte_support_ats) {
+-		/* Sanity checks */
+-		if (!amdgpu_vm_pt_is_root_clean(adev, vm)) {
+-			r = -EINVAL;
+-			goto unreserve_bo;
+-		}
+-
+ 		vm->pte_support_ats = pte_support_ats;
+ 		r = amdgpu_vm_pt_clear(adev, vm, to_amdgpu_bo_vm(vm->root.bo),
+ 				       false);
 --
-1.8.3.1
+2.40.1
+
+
+
