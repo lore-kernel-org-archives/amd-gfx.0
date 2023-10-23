@@ -4,41 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 416BACDB474
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Oct 2023 08:27:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0656BC001E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Oct 2023 08:42:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A34E310E17F;
-	Mon, 23 Oct 2023 08:27:29 +0000 (UTC)
-Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB9C410E17F
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Oct 2023 08:27:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1698049641; x=1698308841;
- bh=E286vjDkg1qT5X7T/0laoU76NAczw6eMVxOaqO74GTQ=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=HHqC6H6jpKuOnCR6UjEuqgPw8HVmDomNFEobNYu+lQdncQxP4VLHQAjmGEA+bP3JN
- /alAi8MHa8bY53QoR2e1GKCaid6zWfgJQ+vyuOgmcxYKvZBnb0wo70x4GpchHpV5WF
- gLLiDhMjvtrCAOOB8njQEhf9Cognaxrh1MnAaFtfbIaV4fB1Id/cFu9LlgpKeMrXmv
- /vfcR4UpV07Th843zJRGjOhiUU/l3bvr9zYY4eHu0pWKfFwwwsR3OkFhP4pYHIKLIX
- hGvoVr+bUNkIN/P7QJUSDgMBtmziBgP1BPc5+EAJEfL0gL6kDqk49KB60pc3pObzf3
- q0IQlLjyA2w/g==
-Date: Mon, 23 Oct 2023 08:27:17 +0000
-To: =?utf-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-From: Simon Ser <contact@emersion.fr>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5501710E18D;
+	Mon, 23 Oct 2023 08:42:55 +0000 (UTC)
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org
+ [IPv6:2001:67c:2050:0:465::102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FA3210E189;
+ Mon, 23 Oct 2023 08:42:53 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4SDTGd4JwDz9sTb;
+ Mon, 23 Oct 2023 10:42:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1698050569;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=YYr2H+MAjRLIImn6u5izyM0A6DQVXuI2FZoqu1Z6Zbo=;
+ b=jdaPcrNcB0xPtWIjsdigdQ70FAWRJl6niRDY5quiNqwNwysBi+0kCJRpbvjn3YMhihAwO7
+ HN/9HBOcph42sMLVmWNH5QGfZsUjlc2qCTmgsfmmRdcmG/qJvJMwhn9AeFcNzvvEsNIrXt
+ LGIAtefpIutewUUSbk5o4NvQy/SYmxCMTgkrRHXpJVS2E8ftQNfUNq5gjh3/a+UzM9Dy9j
+ ZBMrAzibEJh7QWT/OVTeTq18o/lHBd+VDuAHcbFTB8fZoVw6qLZH8SUeFp5rG77ntcV0wZ
+ obfKOzZW3aTFipizNpD1UgzRmabU/SZvV9gY/kMWD8ZY29hPBkEd6zCRdwZagw==
+Message-ID: <745e35ee-d617-9ce0-8b4e-795c84a5af48@mailbox.org>
+Date: Mon, 23 Oct 2023 10:42:45 +0200
+MIME-Version: 1.0
 Subject: Re: [PATCH v7 4/6] drm: Refuse to async flip with atomic prop changes
-Message-ID: <Bi9El_nuZXA997YlVyCzD5s7KfP820IVUuYiB69mgXnjQbfCgOucCBe6aKvSFrMzB_9DwxO2lli_MqLzMuGZ-rmrRp57vePsTwUarEweLJs=@emersion.fr>
-In-Reply-To: <8c1641e4-a7e2-ecb2-ab7a-c6e2bb3e951b@mailbox.org>
+Content-Language: de-CH-frami, en-CA
+To: Simon Ser <contact@emersion.fr>
 References: <20231017092837.32428-1-andrealmeid@igalia.com>
  <20231017092837.32428-5-andrealmeid@igalia.com>
  <CzEtDALWvF3EU4DDLLEmH3ms0B25PbsEHRU9b_IqwfyhzdG4zC-XXAU6fm2PnMcngAYmntH7s4iuew0vocN6cO8zUit8kgi-Sb1hBQXNYiw=@emersion.fr>
  <3r5-_03WC5dK3LaRt1Is78zD_bmT2aaGc5h9jpUGzo2o5GCtGP1zpQNzUxglsieewFklY7xwTrOS9jtI18YlNnnzHNx2Ccw9yM2NuJpDQZU=@emersion.fr>
  <8c1641e4-a7e2-ecb2-ab7a-c6e2bb3e951b@mailbox.org>
-Feedback-ID: 1358184:user:proton
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+ <Bi9El_nuZXA997YlVyCzD5s7KfP820IVUuYiB69mgXnjQbfCgOucCBe6aKvSFrMzB_9DwxO2lli_MqLzMuGZ-rmrRp57vePsTwUarEweLJs=@emersion.fr>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <Bi9El_nuZXA997YlVyCzD5s7KfP820IVUuYiB69mgXnjQbfCgOucCBe6aKvSFrMzB_9DwxO2lli_MqLzMuGZ-rmrRp57vePsTwUarEweLJs=@emersion.fr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 5f900b922b850b866e6
+X-MBO-RS-META: wpapn7uy8zys441xyzy5gwxubqa7ewo4
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,8 +61,8 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: pierre-eric.pelloux-prayer@amd.com,
- =?utf-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- =?utf-8?Q?=27Marek_Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
+ =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
+ =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
  Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, Pekka Paalanen <ppaalanen@gmail.com>,
  dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
@@ -61,18 +71,26 @@ Cc: pierre-eric.pelloux-prayer@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sunday, October 22nd, 2023 at 12:12, Michel D=C3=A4nzer <michel.daenzer@=
-mailbox.org> wrote:
+On 10/23/23 10:27, Simon Ser wrote:
+> On Sunday, October 22nd, 2023 at 12:12, Michel Dänzer <michel.daenzer@mailbox.org> wrote:
+>> On 10/17/23 14:16, Simon Ser wrote:
+>>
+>>> After discussing with André it seems like we missed a plane type check
+>>> here. We need to make sure FB_ID changes are only allowed on primary
+>>> planes.
+>>
+>> Can you elaborate why that's needed?
+> 
+> Current drivers are in general not prepared to perform async page-flips
+> on planes other than primary. For instance I don't think i915 has logic
+> to perform async page-flip on an overlay plane FB_ID change.
 
-> On 10/17/23 14:16, Simon Ser wrote:
->=20
-> > After discussing with Andr=C3=A9 it seems like we missed a plane type c=
-heck
-> > here. We need to make sure FB_ID changes are only allowed on primary
-> > planes.
->=20
-> Can you elaborate why that's needed?
+That should be handled in the driver's atomic_check then?
 
-Current drivers are in general not prepared to perform async page-flips
-on planes other than primary. For instance I don't think i915 has logic
-to perform async page-flip on an overlay plane FB_ID change.
+Async flips of overlay planes would be useful e.g. for presenting a windowed application with tearing, while the rest of the desktop is tear-free.
+
+
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
+
