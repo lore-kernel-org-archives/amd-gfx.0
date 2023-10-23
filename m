@@ -4,113 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 278D7CDB474
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Oct 2023 09:31:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5ACF5C001E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Oct 2023 11:17:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA17E10E1A6;
-	Mon, 23 Oct 2023 09:31:45 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2041.outbound.protection.outlook.com [40.107.94.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C0FC10E1A6
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Oct 2023 09:31:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IaI92l6Pzql5ZrkIb892SNTH0c0EpyBSYUntwVgrXoz09nHnE1wooCYZ6xw1Xlmo5JYwxkdHOGcDx66r5cOi3YrUCVDDjDtLUEUWMFqEdGj8vJg6uVuuuogTKaTcuY/Vbr1j/MTr7eUv24zkVLYvkFDDlv6qZs/5MEOI4ztVafCx5OWfOn9DBdYSxnoYEtw4uynAUW/Wy7/9SzGNqAbN6C0L6uiTkOhLL+E6gO/a29SxZ/YxGhdLF/07RWHKhNWUt2mTwm4Dy5OkDwhByoClruAttLwdI5olEQk+uNoAZls1RmEfEGxsbkhhqYgp1NG3YEUljCljpa2EuY1/aJLLvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GstuGIE59avu6LJrVAxEhxXO2IoK2E9C0W3o0QwagW0=;
- b=UL6CyHn2d5VC7pi0VzPhKxXlSsqGyRpXvtoSbkxNwx773cXR4YROaFUYxShKXdSzGyymLCZCUlVdXNriO62GsI6Kq3L/8mZ5/Zu21KRkDkDOxIxNUCR/a4SWh4lSmqX/7ILUOJUAr4bMDQXqlEtcsgSbZvB1wwSkTJZoUrh7UTaB/p9NJM9FgPiOdZsoEl0DvhwfjYecRwcX4vpIHoRomBeUp2Lz/F7JO+CJMEjSWQ8g4PZn0QJjErXdjlIqrpixhKjWOcSJGn/XwEnGgzQwhv2pVWNtzOvhJ+uiVOXdBBvYIIwplxjouDqryyaSnlVGmSEAI8cM8xsyFBPXy40wiw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GstuGIE59avu6LJrVAxEhxXO2IoK2E9C0W3o0QwagW0=;
- b=Pj8S9b+1L1Y8NmY28LCCbwCD5eQ5D1YpKvB+0042xwAtuLWOyE3sfif0qAtj0QyUGd7mDiz1GQjtDWZMGV+oJbq4I184sLcCOzp2N9aFLjoUmS6CfqMrMHISvPTpH2eqrVcK4U8SVe481s0d5XmyAqKiIp8HFY9rUG89R2Dt8aI=
-Received: from CY5PR12MB6369.namprd12.prod.outlook.com (2603:10b6:930:21::10)
- by PH0PR12MB7078.namprd12.prod.outlook.com (2603:10b6:510:21d::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.31; Mon, 23 Oct
- 2023 09:31:42 +0000
-Received: from CY5PR12MB6369.namprd12.prod.outlook.com
- ([fe80::9b2f:2ac9:bfd0:589b]) by CY5PR12MB6369.namprd12.prod.outlook.com
- ([fe80::9b2f:2ac9:bfd0:589b%3]) with mapi id 15.20.6907.030; Mon, 23 Oct 2023
- 09:31:42 +0000
-From: "Zhang, Yifan" <Yifan1.Zhang@amd.com>
-To: "Yu, Lang" <Lang.Yu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu/vpe: correct queue stop programing
-Thread-Topic: [PATCH] drm/amdgpu/vpe: correct queue stop programing
-Thread-Index: AQHaBZLQqV/y+OB/5kW+00r/cinAFLBXHDJQ
-Date: Mon, 23 Oct 2023 09:31:42 +0000
-Message-ID: <CY5PR12MB63694D2499A81E1A970B98DAC1D8A@CY5PR12MB6369.namprd12.prod.outlook.com>
-References: <20231023092452.616747-1-Lang.Yu@amd.com>
-In-Reply-To: <20231023092452.616747-1-Lang.Yu@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=66c06559-2b3d-4849-962e-01840639f080;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-10-23T09:31:16Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY5PR12MB6369:EE_|PH0PR12MB7078:EE_
-x-ms-office365-filtering-correlation-id: b6fc9ab2-ebd8-41da-5674-08dbd3aaddf4
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Q1660t5SIDkLP0xq6Vyh34W+GTVyfVvdQxGo3ci0VNsXCK2XuwwVBdbrbAnQChtgur9o5jYSH+Z8XnQ0mRarnqMk0Rb9/rPzQeE9oU0AfLI7Ex7UQGP9urzbFGfyZo4bfAv3BTtuzAqgLDv9EnX4aeNlPACYjnSuaLmEba8KQnX5xCC9wS+d3sp9VzUJXTaU+8qefYTn5Ug/5KfXpmhw9+ZkW27a+vf+t8GtxowRqqrd+NseMbJw7INI5dGKI/DB2H1x+rYY4AEaZhYmGEXj9a743p3HJFmvyDYsJgEPO+ySL1xBRp6hdvCONBslVu97r66XeLDIxG8y6x9jM+b/Uhreh/XAX2n4x4v49EHXVeoLyoi1ICbBSsa1092GxK33l4Z2U4clE8WFC2j88Ly6I55Vl5lY9Qswx3w05Ezy6zxa4v9l7s6zcYr5axVzdSllrYpazSctsFJJqqz32ADT5yXv12jCix+R8iicuEK7kHSlrKOHlnXIDTpxtkgCUJH8goONeOy3fucVqN3M0qqGnra/BwELewPeoaH/UmCyT6SfZmwKEYO2JJLMouzqgoNp+WDziS0SP933arKqUTZBM+xOIwZBQcXM7Q96u8tdTrfa6iyE0XaMkUIk4/tWhZox
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR12MB6369.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(376002)(39860400002)(346002)(366004)(396003)(230922051799003)(186009)(1800799009)(451199024)(64100799003)(26005)(38070700009)(38100700002)(2906002)(55016003)(41300700001)(86362001)(52536014)(5660300002)(8676002)(8936002)(33656002)(4326008)(7696005)(6506007)(478600001)(71200400001)(110136005)(66476007)(54906003)(122000001)(316002)(76116006)(66946007)(66446008)(66556008)(64756008)(83380400001)(9686003)(53546011);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?bkHXRDhqmxiIFieSGYYKpNEcTY2dKZ05i1htvJ/zVzDraD4/ggF98DKug05a?=
- =?us-ascii?Q?JkNs63S40MqRbpe2fgXp3vJ0ydiRdzGpI8KhSGHMt5l5ghJNE2kAn/HJWL4a?=
- =?us-ascii?Q?4ZIDnkszbsWkE35P1e96KNzQq3ta7XnazJmcdiIL8AoNdouPAZCrz3Z/uU9y?=
- =?us-ascii?Q?KdGDTTnlJ8gDKXTH4GCwcXOlAdaZfmW3wMaaxO0PiFOe4SI2iUmEsOZnY/33?=
- =?us-ascii?Q?SiXmetj1vBLCI9Y6cfr8FS5LjWKa97Ko+2tNcDzEMCC1RZv7/+oaW5hlV/EX?=
- =?us-ascii?Q?ZllBe9xhuhEnryL5YNj0yfJaWb3tXEIDAnpLHIDUO/UfUaoAxhAeAHppPgNp?=
- =?us-ascii?Q?fDCpZv3/IQ4RW+DoafVAIYxxBcJn4vgDDUHzjwo3iVowTxCivC6q4k3kmTN9?=
- =?us-ascii?Q?l9HsPoSKpbMnxyBS/oa+x8z6v8xpZstpMpQwqchWVz/5mnCGLeg+vDDycXFH?=
- =?us-ascii?Q?jzG0MTikXg0nfgMUpio+PcSKTrJyPhIkM8mGw6v5mscWXontOVaiv11y9w4o?=
- =?us-ascii?Q?lMAC3Mhtx97qn9BRa4bjFkbQnU9H2HbEAjuCodkTczE6W2YPP9Don2gCrHL/?=
- =?us-ascii?Q?m0qtCfhHIBmSXx8XMls9N0z8CbS88B03dG+A5T0tBFG/fEuJ5e0InHP2zGok?=
- =?us-ascii?Q?oX9R0dw+jnWqhm2WwbubTIF+WulfNCa0wqx0WJk5vf7mwWbTKJ3WWCFmb9xM?=
- =?us-ascii?Q?EOUz5uAfwci1CQavWnG0Sj61OaVdFV+a3Ddc++LcS5FPlT+a7CyuHRQFOp41?=
- =?us-ascii?Q?6J7vY+tnWl5rlDxEt1GnW4L/Pw+YmfdL8HvaTw9388HSyvfwiUPpDqTaMwgM?=
- =?us-ascii?Q?6BsOlbODN0XAD7ffs01xRdl0gLXhmRlMEjI+BRumP4cFcNSyHO55agSu0/83?=
- =?us-ascii?Q?/4fi4yNW2bG+cBKNM+H9cDX8en+jMy9sC2EiICJCnF3SvvIpneqC5JHznz+5?=
- =?us-ascii?Q?UTkuyoYBfMv9q047VBxHiprwjyyTVYX9Zi3MHJyeVeHZrI/M1RygOsWHSDCy?=
- =?us-ascii?Q?NOihK77JgyxvTzuz4lRtBK9bvHO3p1onAv13fRop9R4PSenoNRlqCL7kpT2l?=
- =?us-ascii?Q?9bNyXPd9f+eDi7HwHPMqXEE58bx85H6Y7fbgnUCtoXHbablTuJX0FUIrU6Uq?=
- =?us-ascii?Q?A8NO658QDA5YR7BuTQZltqEFDhFK4iQIE4rvBVE7DSsToNqrOfN4ROvc1d9k?=
- =?us-ascii?Q?trDq+042rf/URc+7Ns6tAcZIm/YdJTLicRyk1nXDb7uUDwPCnl0Uc7+DbVP6?=
- =?us-ascii?Q?d2UoQBdOeSjYRmaTKodt2Ze7QCL/UbjUHebcuivQPdZXluiyp83vm++qsGUD?=
- =?us-ascii?Q?j904dtVqdm7MI4TNrwAzSROmtojyoVGYT+kX+9+pVr1g34YnB12Xo5c6xDwr?=
- =?us-ascii?Q?crZAxhMUytbQL7L3w6LyzsDcQ7NO4X7A1mHZHIvUMgMzHtqo8KAVMG1W2TWX?=
- =?us-ascii?Q?h1Xw7YNyxla0a6vgPcLfKP5KadZZ2mhtRVOIQzIrytI6k670gDvkdZJ/g77k?=
- =?us-ascii?Q?YkE9SO1ht8cP2e+MR+FtU3HyNOHERooeCyVXNjZ5WtbveV0WkdcbgibIHJ6I?=
- =?us-ascii?Q?D2qHA9Ir9x47s2FKlTE=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id D67FE10E09D;
+	Mon, 23 Oct 2023 11:17:57 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EBAC10E1B1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Oct 2023 11:17:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1698059866; x=1729595866;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=1U99uZizFQq0y6AZOje8KbYsNPhSka//Vk2YyWMQCoY=;
+ b=c+3vxQN1NK0sw2mxtP57OhE3ReA4Zs6XNdr2oFdWlJy41zIyYUvChQIU
+ WQymekv3w8/2orx3KvDQbKvmpQ/U6rRzvvxdVJ5TUp+Zjwg56DvTNBVpo
+ 2zjKQnd+lXBnDDIpJoTqqTELbrHJfSJCpEr5hNU/CWld+yLh/8aPbjvc/
+ 8QtlwhRwiOYsozi9lc2hZspzp45ShnKg/w5hUG1p9z/CeljbagHjzUtIE
+ dcDlaJwicMAMBHYvIxI/G00u40U2mx3T9Q6AePEWBjrx1rZ0DhNw7rxF5
+ xOlJQV75kSKxaBD53hX4mTC8oGvo7tgc/UtzR6szYW5vPs7Y3zX7fdF5Y g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10871"; a="384015847"
+X-IronPort-AV: E=Sophos;i="6.03,244,1694761200"; d="scan'208";a="384015847"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2023 04:17:42 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10871"; a="848765565"
+X-IronPort-AV: E=Sophos;i="6.03,244,1694761200"; d="scan'208";a="848765565"
+Received: from evlad-mobl.ger.corp.intel.com (HELO localhost) ([10.252.47.180])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2023 04:17:39 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ amd-gfx@lists.freedesktop.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH 7/8] Documentation/gpu: Add an explanation about the DC
+ weekly patches
+In-Reply-To: <20231020220549.493808-8-Rodrigo.Siqueira@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20231020220549.493808-1-Rodrigo.Siqueira@amd.com>
+ <20231020220549.493808-8-Rodrigo.Siqueira@amd.com>
+Date: Mon, 23 Oct 2023 14:17:33 +0300
+Message-ID: <87v8axbnaq.fsf@intel.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6369.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b6fc9ab2-ebd8-41da-5674-08dbd3aaddf4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Oct 2023 09:31:42.4179 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: MwvdU8YPjABpScOnLp7qIsoWmaNUqnDrQHjU8rUPi3mCSuirHvsriZY1r6hhmPiq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7078
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,79 +59,184 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Chiu,
- Solomon" <Solomon.Chiu@amd.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>,
+ Harry Wentland <Harry.Wentland@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+On Fri, 20 Oct 2023, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com> wrote:
+> Sharing code with other OSes is confusing and raises some questions.
+> This patch introduces some explanation about our upstream process with
+> the shared code.
 
-This patch is:
+Thanks for writing this! It does help with the transparency.
 
-Reviewed-by: Yifan Zhang <yifan1.zhang@amd.com>
+Please find a comment inline.
 
-Best Regards,
-Yifan
+>
+> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Harry Wentland <Harry.Wentland@amd.com>
+> Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
+> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> ---
+>  Documentation/gpu/amdgpu/display/index.rst | 111 ++++++++++++++++++++-
+>  1 file changed, 109 insertions(+), 2 deletions(-)
+>
+> diff --git a/Documentation/gpu/amdgpu/display/index.rst b/Documentation/gpu/amdgpu/display/index.rst
+> index b09d1434754d..9d53a42c5339 100644
+> --- a/Documentation/gpu/amdgpu/display/index.rst
+> +++ b/Documentation/gpu/amdgpu/display/index.rst
+> @@ -10,7 +10,114 @@ reason, our Display Core Driver is divided into two pieces:
+>  1. **Display Core (DC)** contains the OS-agnostic components. Things like
+>     hardware programming and resource management are handled here.
+>  2. **Display Manager (DM)** contains the OS-dependent components. Hooks to the
+> -   amdgpu base driver and DRM are implemented here.
+> +   amdgpu base driver and DRM are implemented here. For example, you can check
+> +   display/amdgpu_dm/ folder.
+> +
+> +--------------------
+> +How AMD shares code?
+> +--------------------
+> +
+> +Maintaining the same code-base across multiple OSes requires a lot of
+> +synchronization effort between repositories. In the DC case, we maintain a
+> +central repository where everyone who works from other OSes can put their
+> +change in this centralized repository. In a simple way, this shared repository
+> +is identical to all code that you can see in the display folder. The shared
+> +repo has integration tests with our Linux CI farm, and we run an exhaustive set
+> +of IGT tests in various AMD GPUs/APUs. Our CI also checks ARM64/32, PPC64/32,
+> +and x86_64/32 compilation with DCN enabled and disabled. After all tests pass
+> +and the developer gets reviewed by someone else, the change gets merged into
+> +the shared repository.
+> +
+> +To maintain this shared code working properly, we run two activities every
+> +week:
+> +
+> +1. **Weekly backport**: We bring changes from Linux to the other shared
+> +   repositories. This work gets massive support from our CI tools, which can
+> +   detect new changes and send them to internal maintainers.
+> +2. **Weekly promotion**: Every week, we get changes from other teams in the
+> +   shared repo that have yet to be made public. For this reason, at the
+> +   beginning of each week, a developer will review that internal repo and
+> +   prepare a series of patches that can be sent to the public upstream
+> +   (promotion).
+> +
+> +For the context of this documentation, promotion is the essential part that
+> +deserves a good elaboration here.
+> +
+> +Weekly promotion
+> +----------------
+> +
+> +As described in the previous sections, the display folder has its equivalent as
+> +an internal repository shared with multiple teams. The promotion activity is
+> +the task of 'promoting' those internal changes to the upstream; this is
+> +possible thanks to numerous tools that help us manage the code-sharing
+> +challenges. The weekly promotion usually takes one week, sliced like this:
+> +
+> +1. Extract all merged patches from the previous week that can be sent to the
+> +   upstream. In other words, we check the week's time frame.
+> +2. Evaluate if any potential new patches make sense to the upstream.
+> +3. Create a branch candidate with the latest amd-staging-drm-next code together
+> +   with the new patches. At this step, we must ensure that every patch compiles
+> +   and the entire series pass our set of IGT test in different hardware (i.e.,
+> +   it has to pass to our CI).
+> +4. Send the new candidate branch for an internal quality test and extra CI
+> +   validation.
+> +5. Send patches to amd-gfx for reviews. We wait a few days for community
+> +   feedback after sending a series to the public mailing list.
 
------Original Message-----
-From: Yu, Lang <Lang.Yu@amd.com>
-Sent: Monday, October 23, 2023 5:25 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Yifan <Yifan1.Zh=
-ang@amd.com>; Chiu, Solomon <Solomon.Chiu@amd.com>; Yu, Lang <Lang.Yu@amd.c=
-om>
-Subject: [PATCH] drm/amdgpu/vpe: correct queue stop programing
+So we've debated this one before. :)
 
-IB test would fail if not stop queue correctly.
+Again, I applaud the transparency in writing the document, but I can't
+help feeling the weekly promotions are code drops that will generally be
+merged unchanged, with no comments. They have all been reviewed
+internally, get posted with Reviewed-by tags pre-filled, we have no
+visibility to the review. Since the code has already been merged
+internally and the batch has passed CI, feels like the bar for changing
+anything at this point is pretty high.
 
-Signed-off-by: Lang Yu <Lang.Yu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/vpe_v6_1.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+Just my two cents.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vpe_v6_1.c b/drivers/gpu/drm/amd/am=
-dgpu/vpe_v6_1.c
-index 756f39348dd9..174f13eff575 100644
---- a/drivers/gpu/drm/amd/amdgpu/vpe_v6_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vpe_v6_1.c
-@@ -205,19 +205,21 @@ static int vpe_v6_1_ring_start(struct amdgpu_vpe *vpe=
-)  static int vpe_v_6_1_ring_stop(struct amdgpu_vpe *vpe)  {
-        struct amdgpu_device *adev =3D vpe->ring.adev;
--       uint32_t rb_cntl, ib_cntl;
-+       uint32_t queue_reset;
-+       int ret;
 
--       rb_cntl =3D RREG32(vpe_get_reg_offset(vpe, 0, regVPEC_QUEUE0_RB_CNT=
-L));
--       rb_cntl =3D REG_SET_FIELD(rb_cntl, VPEC_QUEUE0_RB_CNTL, RB_ENABLE, =
-0);
--       WREG32(vpe_get_reg_offset(vpe, 0, regVPEC_QUEUE0_RB_CNTL), rb_cntl)=
-;
-+       queue_reset =3D RREG32(vpe_get_reg_offset(vpe, 0, regVPEC_QUEUE_RES=
-ET_REQ));
-+       queue_reset =3D REG_SET_FIELD(queue_reset, VPEC_QUEUE_RESET_REQ, QU=
-EUE0_RESET, 1);
-+       WREG32(vpe_get_reg_offset(vpe, 0, regVPEC_QUEUE_RESET_REQ),
-+queue_reset);
+BR,
+Jani.
 
--       ib_cntl =3D RREG32(vpe_get_reg_offset(vpe, 0, regVPEC_QUEUE0_IB_CNT=
-L));
--       ib_cntl =3D REG_SET_FIELD(ib_cntl, VPEC_QUEUE0_IB_CNTL, IB_ENABLE, =
-0);
--       WREG32(vpe_get_reg_offset(vpe, 0, regVPEC_QUEUE0_IB_CNTL), ib_cntl)=
-;
-+       ret =3D SOC15_WAIT_ON_RREG(VPE, 0, regVPEC_QUEUE_RESET_REQ, 0,
-+                                VPEC_QUEUE_RESET_REQ__QUEUE0_RESET_MASK);
-+       if (ret)
-+               dev_err(adev->dev, "VPE queue reset failed\n");
 
-        vpe->ring.sched.ready =3D false;
+(Side note, there should be a \n before 6.)
 
--       return 0;
-+       return ret;
- }
+6. If there is
+> +   an error, we debug as fast as possible; usually, a simple bisect in the
+> +   weekly promotion patches points to a bad change, and we can take two
+> +   possible actions: fix the issue or drop the patch. If we cannot identify the
+> +   problem in the week interval, we drop the promotion and start over the
+> +   following week; in this case, the following promotion will have the previous
+> +   patches plus the new ones.
+> +
+> +We usually rotate the above process with many display developers to keep the
+> +workload manageable for everybody. It is good to highlight that the test phase
+> +is something that we take extremely seriously, and we never merge anything that
+> +fails our validation. Just to give an overview:
+> +
+> +1. Manual test
+> + - Multiple Hotplugs with DP and HDMI.
+> + - Stress test with multiple display configuration changes via the user
+> +   interface.
+> + - Validate VRR behaviour.
+> + - Check PSR.
+> + - Validate MPO when playing video.
+> + - Test more than two displays connected at the same time.
+> + - Check suspend/resume.
+> +2. Automated test
+> + - IGT tests in a farm with GPUs and APUs that support DCN and DCE.
+> + - Compilation validation with the latest GCC and Clang from LTS distro.
+> + - Cross-compilation for PowerPC 64/32, ARM 64/32, and x86 32.
+> +
+> +Notice that all of the above tests happen in various AMD devices.
+> +
+> +Contributions to the weekly promotion
+> +-------------------------------------
+> +
+> +If you have a patch and are unsure if it can cause regressions in other ASICs
+> +and want some validation, you can ask us to include your patches in the weekly
+> +promotion for validation. Just keep in mind that your patch will be included in
+> +the next promotion cycle and re-submitted on your behalf (without changing your
+> +authorship) by some of the display developers.
+> +
+> +The weekly promotion process is a very organic initiative that has changed
+> +significantly over the years, thanks to numerous feedbacks. We are all ears if
+> +you have any suggestions on how we can improve this process; just keep in mind
+> +that this is a very challenging task, and implementing some ideas can take time
+> +if possible.
+> +
+> +DC Workflow for a new feature
+> +-----------------------------
+> +
+> +When we enable a new feature in the DC, the entire development workflow happens
+> +on the amd-gfx mailing list. For example, when we enabled the PSR or the Replay
+> +feature, all the development happened on amd-gfx. When enabling a new feature,
+> +we just use promotion for extra validation in the latest patches by asking the
+> +quality team to test the current promotion together with the new patches.
+> +
+> +--------------
+> +DC Information
+> +--------------
+>  
+>  The display pipe is responsible for "scanning out" a rendered frame from the
+>  GPU memory (also called VRAM, FrameBuffer, etc.) to a display. In other words,
+> @@ -26,8 +133,8 @@ table of content:
+>  .. toctree::
+>  
+>     display-manager.rst
+> -   dc-debug.rst
+>     dcn-overview.rst
+>     dcn-blocks.rst
+>     mpo-overview.rst
+> +   dc-debug.rst
+>     dc-glossary.rst
 
- static int vpe_v6_1_set_trap_irq_state(struct amdgpu_device *adev,
---
-2.25.1
-
+-- 
+Jani Nikula, Intel
