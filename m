@@ -4,112 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75786C25B46
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Oct 2023 20:07:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73C62C25B47
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Oct 2023 20:27:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90F8310E004;
-	Mon, 23 Oct 2023 20:07:15 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2060.outbound.protection.outlook.com [40.107.243.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D94F10E004
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Oct 2023 20:07:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AYzsUCQep+n4nIjaxmLeJDSbw8xef4+Jdr61pzRKQIFlOSrdOc6bT6eL04UvMPB30uzQTr5Wor8osk1ITHhREnYTNQCWQMGGmOPU80veivqqXLKPnkEqGTYQp6daxCQgTQOcLC1OGAm4Bysc0vU5it3X7Z42CrG+aR9opbbtGg5QrUelMuENvos1kYuwEfAqwoIt4c5EgKwlIRymdvDicaCPYymAXVKYSqe2CK8IAI9Tqy13gSaZEP7yVL9Da37lxbWvCuUbhIvNKdGpQt3jk/aejuDsGHI2SQaAC1KKHIXVwFFtxPk9QGJiKYFE4TKlvNvlrBVzO+4RgefNUmPRYQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UyhaLaN1eUT3/is2E39y73hlYHfQpdCiRV5+MakAjrM=;
- b=jmSVEpfu6hkQjkbSPP/AKsCSnXxUR4jalyaUWa7IsdWUCTsjgpPe+n7UTN5CbdPXDiMKs4pOekLtAtj0Nzf+M1ZHbf9OuNX4ZhJxGWD6f3sekD1V9qCbwSDqZ3JVbe+e+dkC4g7+EIbBwlsGEBX2eKkKCeL0Mv7NHI43fITIIdPpdqfR+ecTQEC2W6wAbU+Ldx3F3lRxR7bt8Wd68se6i+5usBS9BKxAvGVRyhXXNPrQ//tpJSm2rp8Vw3HPnIRg/9pSgQlGU/2U7CZWuwo2UNp6gl1HbSXtqu7+AcaqX5MTm177bBhgJ7JhmKfMYBD0ed4dEGXEyCpetuLQ9zWrVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UyhaLaN1eUT3/is2E39y73hlYHfQpdCiRV5+MakAjrM=;
- b=r+9uQIH7ypnZ/mz0ANXeJb4O7MEJxC3tFn9Lt32nko04M4+0tIOWuFxb25Vn04LTZOxbPLl87M/H2GF3o1yvZpEj5Mz61/MKe8dPjLGQFl9MLtKj1Wv/3rYspeN3qMulx2RPHeXz5DrlCsawnZs4sNLhL1UKWtKqNTJWmdGQisU=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by DS0PR12MB6583.namprd12.prod.outlook.com (2603:10b6:8:d1::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.26; Mon, 23 Oct
- 2023 20:07:10 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::a990:2836:75d1:148]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::a990:2836:75d1:148%3]) with mapi id 15.20.6907.032; Mon, 23 Oct 2023
- 20:07:10 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Zhu, James" <James.Zhu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdxcp: fix amdxcp unloads incompletely
-Thread-Topic: [PATCH] drm/amdxcp: fix amdxcp unloads incompletely
-Thread-Index: AQHZ4ZlgpCTnsLb2a0O61nK2uF1hmLBYFaX9
-Date: Mon, 23 Oct 2023 20:07:10 +0000
-Message-ID: <BL1PR12MB51447085D8C6B60C41C276D9F7D8A@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20230907144100.81325-1-James.Zhu@amd.com>
-In-Reply-To: <20230907144100.81325-1-James.Zhu@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-10-23T20:07:09.820Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|DS0PR12MB6583:EE_
-x-ms-office365-filtering-correlation-id: 2bdd099d-f568-4d85-c10b-08dbd403a412
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: NWeGufPiW5qmYkcBtteTdrBi+Xc7Ybu9/LvWC1dnntf47GGH9bZLsXF1HtJG0eArq1QbAgwSfEeiKPywk8hCmoJeac77BEa8sPukkEPmFUtborxvzFT0U05Zx7pj1oDvBN1ZMll33KXnUmUgkWxd59yzkMdGP+hiC9h1ojPsAiCWCYhQLal3QCdLg3HZfy73zuZDTiDfmd/0YWkNXGxBTZ7WrX4XtK7jbnnV2ubl4Gtc4JNxO678TFZ9Pryf9id8MA3h5bWxcfCwZ5QuoyDdOmvOxoqpQDyyk3z+lf6uXrTFQOqLGSFJGndzn23/tRgCe0p4PU6wK3CkEGxqxojawe9JL2FxOSpef7AO4GbsW1Ci/ePDdjfQAVeqBjhIPt3dcyUhYG3ORXV1K/IqLZCUduAdefDQPuVVY4hNMXdoNn271ZDtmixOElyjNdaYF8EwP+i0f8bdXhTbcgTXz+Wy6NYw/ZbPId/RUmEFysg61aY/F6Pcao27fxM5n7J6gkoVPSQZZayV5U3DfiOQ9Teq6WCni7wyTqS1y+i3rIQbyQMirdK5nWQLjRA2DGJVefAAPZLfRSopKB1Z1D4Oxjgt1cKuRFEOy17/QgYXh4Vei49cy5884WDTX3AalR9nnnlb
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(136003)(396003)(366004)(346002)(39860400002)(230922051799003)(64100799003)(451199024)(1800799009)(186009)(55016003)(2906002)(38100700002)(54906003)(64756008)(76116006)(66446008)(316002)(66946007)(122000001)(66476007)(66556008)(71200400001)(110136005)(6506007)(478600001)(7696005)(53546011)(9686003)(83380400001)(52536014)(5660300002)(41300700001)(86362001)(4326008)(33656002)(8936002)(8676002)(26005)(38070700009)(19627405001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?QSH59jcdIj9uBfn0vLEWI9IEDX+GRj4+joPlcz/yXS5Wyn41CIs+cN03tO9B?=
- =?us-ascii?Q?pP2+CdzLH7P8iL2+ZTHDktx36MOxlH4TKKYe/xZNgds/ll3NW48MzFqV/2C3?=
- =?us-ascii?Q?734fnYyPUBlNrWZWtFdJc9oUMuEJOslYVNN2+TyQuGB2Q6vHWVhpKx+P7ZkA?=
- =?us-ascii?Q?LnRj098j9JfWHy89Hv+INYsOZfC9m1vxRP9SJsjUBhTjHg5A+kwx9bGLtMSG?=
- =?us-ascii?Q?Q3vrIRLbCSPyQjuEzKIF3zgfTrbjawSu7d0Sx1UFtlM1YfeyjvqPNsuBqHz0?=
- =?us-ascii?Q?CZDuPRtA6mMdX0EA8FqmX+YNFVViGNd1EtHfMlbbckkbbxUwH1/X4RUR8nSe?=
- =?us-ascii?Q?fspoYZ4Qsga6jLmvKSfMtBTrDghnHfkrEvo7qmEcIr2BlTWQjkw3wx6SOurg?=
- =?us-ascii?Q?sUyQp4ST+NCZZessqT/A5VUhvLF2+wZz9KFtirR42TvkFJUjY97s3Xetp9B3?=
- =?us-ascii?Q?n1yoPFJaycu+/iqZpeVqB+TBxVEuasI8GoNNCDdG9O9XjHyc3DxXnvRqSUpo?=
- =?us-ascii?Q?ILo8eNbllaYffOPn8NviyAIZ2/lVSe/3ddIZWw88rQyW6fXwwWz8K0a9Afcl?=
- =?us-ascii?Q?bYJqOCqh9G1uCJkkST/oFy9e/pEpUyt2nJS17YJ7TlBDMgFvlcCsZzxYLPLj?=
- =?us-ascii?Q?6DBaZ/rPtEe9rabtmtoNr5imJes5OuPT3BgP+VOB+1TSFrgVQxd2VVSQecZh?=
- =?us-ascii?Q?+rp4G03QUC067pfg6bpk4F36p0X+xigL/lotJf2XvRSiMVwQbcUqzGPUuNgH?=
- =?us-ascii?Q?VIkE51oRAXPXyZmlFMY1DhcDD7SSFpZQgYJEyfRIyqXZYBrHMJjDV5ljihFD?=
- =?us-ascii?Q?CyHIAWCWLPydF/nEcsazYF8+Qj18SBw4/gZiZ25QTpYAaIGK8UckikDECjqh?=
- =?us-ascii?Q?UO7vT1GMG1ZkvCY/V3xafZy8mVTToQ9rjBTqG3vOrgN8n4bjVbIkLBxlsj2i?=
- =?us-ascii?Q?zoEVjDHGn9mU72KBJLQatbjqjXJFSfkMAGRk/1tdxHMsjERqAMQCH1XPMz++?=
- =?us-ascii?Q?jvZbcIP/EUsgydg0CFmZ4YpkRF0QzGguoYyfPBB9IU0LpT65ItDNVhxLEruj?=
- =?us-ascii?Q?YN5bUkbjyGYRmD6l2Utf632PGKsTsA1kXCVgI3i28YthIMVg0ZGupRWP+ET2?=
- =?us-ascii?Q?UVboYn3O7jP4mbpNUqUY96vEJ+pys5dIUhQCKtjcBBXiSensx6+kv/BgSJuc?=
- =?us-ascii?Q?JGuh502T6qvvIL9JxJy95dZ/wHuT5LUdELbQuyzClxHzGt0k7OsvxAEIsoyS?=
- =?us-ascii?Q?tqGuxXQMeC4XTXpp1WxH3sRnUeHS7ryd3kZbcTEXR+z/LaqgItUbu+Fp5s5k?=
- =?us-ascii?Q?nlzpAjs9A07ggGYoC9BOQp3MB+EOKH+YhyrKNScfDILGYZcjMYy0dTXUsX1Y?=
- =?us-ascii?Q?NolANpctVDPlihOk/0Gv6kbWts5Ama7daIvBZLTaedUkAsZPnALfoD9WmCkz?=
- =?us-ascii?Q?8tjL4E8w2ZHriRPRCvi7f2t+nq6ST1vL3hhCB9MKvWMxyAw262NYS96h2v/n?=
- =?us-ascii?Q?gL9ktkeDoIprJXr899vWO39i6IrSkRKTRpxOvBI95vCQ2t0GX19vniYoVKtu?=
- =?us-ascii?Q?pdA8/O9Ak/cnK+3FRo4=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB51447085D8C6B60C41C276D9F7D8ABL1PR12MB5144namp_"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BE0010E24E;
+	Mon, 23 Oct 2023 20:27:48 +0000 (UTC)
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
+ [IPv6:2607:f8b0:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 123A910E013;
+ Mon, 23 Oct 2023 20:27:46 +0000 (UTC)
+Received: by mail-ot1-x32c.google.com with SMTP id
+ 46e09a7af769-6ce2eaf7c2bso2549432a34.0; 
+ Mon, 23 Oct 2023 13:27:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1698092865; x=1698697665; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=FzLS/WAJVc8r/bI0YL02DSWgXAnqpt9XXdg9/gyyxpE=;
+ b=YT7WflQmi3OmrqUxLl765Q/e0bEmGfOyp6QNnUdGAY3sEo9KEQYTY2FogqN6y08mcK
+ m7OxiRqAxUS4Qink3VAqVyJQOSnRmaAliOdBffc7gsMP0EwlsfhPRkZD74FlOvTe5Z08
+ UnY8gqYt/XcYPOEwEpZM9fx4aOVKZiaEeDjZH2P4q0vyWG3FK5zTZ5RNuJt2HP3yvmyl
+ xfXYRGeQ2fBeBeiPC9bw5WbNIiHrcczwg3G6dWSTMXvxlkzxkiKQUw3UDcTQpDo3tk0o
+ 0fG4X9PMEdhsIrUvwIuM2ILcNGVVwl3Ko0DCfaV7qWW7tBm+YxWhbG55NRuW1lGATm9i
+ FVNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1698092865; x=1698697665;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=FzLS/WAJVc8r/bI0YL02DSWgXAnqpt9XXdg9/gyyxpE=;
+ b=P2kscoRi/D1nKPOnsry416jkRJCsFPVvptMrqp+Hm35TdtRTbjWpzSaFga/7aTW0Jr
+ 2EREHe5SyE8MgEEPVbw9ADO2Fevl5kGvCwcfXLK9HaNuqvYgzQU+AVyWaBB9ptKMN5ws
+ wRCG1RH1f0+xDyvPkxViGFITIrbqoTMBo4PzUzhvcTHnJReM/mnKV1ncd05Q0FeqUD1m
+ TZeDuwNfg2BlwG4ROEI93yypXEa4uF10HJGuhjsmNEXq1yYiiMh2qY8q8WbWR4DlxxaF
+ 0dYa990klvZydpfKIh3bmqtaadFFUg/hewqYFjKmo/RqLSNgQhhW7mY61bd41nw+BHmo
+ 0CVQ==
+X-Gm-Message-State: AOJu0Yy9FbOmS5Wl383b1wrUdwze4/Cd5CaJCgMtaWTxdhNfm8Vdnskf
+ zJB0AdGHHk16CfrX1IQ9IFtCePBCyzUUHca11sw=
+X-Google-Smtp-Source: AGHT+IHiaH512GTb6BpPWBQh3ebnUVcsivT+MJIbGiUzbB0k13wDweg69MJc8eOVh+sM7y5tJsWCcpB2ViIaj0UUY9s=
+X-Received: by 2002:a05:6870:13c5:b0:1dc:d8c6:39f with SMTP id
+ 5-20020a05687013c500b001dcd8c6039fmr10996105oat.14.1698092865253; Mon, 23 Oct
+ 2023 13:27:45 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2bdd099d-f568-4d85-c10b-08dbd403a412
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Oct 2023 20:07:10.5518 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: v2EyaZyQ6ogoZHkCTh88iRNzE/1OfN8QS3PPoCDkjgjXgB7RiDDMm6YJEq2XUCbZNe6/zzT2GEVzp2vtucLuJg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6583
+References: <4a687c592b0f1b04f4bbf684129f5ce02b2b6f7b@linux.dev>
+In-Reply-To: <4a687c592b0f1b04f4bbf684129f5ce02b2b6f7b@linux.dev>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 23 Oct 2023 16:27:34 -0400
+Message-ID: <CADnq5_P-fxbkGbzDAys+pob-mdDJOX0QZYVsVvS=7FyGZukjOQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix a null pointer access when the smc_rreg
+ pointer is NULL
+To: qu.huang@linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,149 +68,153 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Lin, Amber" <Amber.Lin@amd.com>, "Kamal, Asad" <Asad.Kamal@amd.com>
+Cc: tom.stdenis@amd.com, Praful.Swarnakar@amd.com, srinivasan.shanmugam@amd.com,
+ suhui@nfschina.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ Harish.Kasiviswanathan@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, victorchengchi.lu@amd.com,
+ linaro-mm-sig@lists.linaro.org, le.ma@amd.com, dri-devel@lists.freedesktop.org,
+ alexander.deucher@amd.com, Hawking.Zhang@amd.com, sumit.semwal@linaro.org,
+ dan.carpenter@linaro.org, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB51447085D8C6B60C41C276D9F7D8ABL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Applied.  Thanks!
 
-[Public]
+Alex
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of James Zh=
-u <James.Zhu@amd.com>
-Sent: Thursday, September 7, 2023 10:41 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Lin, Amber <Amber.Lin@amd.com>; Zhu, James <James.Zhu@amd.com>; Kamal, =
-Asad <Asad.Kamal@amd.com>
-Subject: [PATCH] drm/amdxcp: fix amdxcp unloads incompletely
-
-amdxcp unloads incompletely, and below error will be seen during load/unloa=
-d,
-sysfs: cannot create duplicate filename '/devices/platform/amdgpu_xcp.0'
-
-devres_release_group will free xcp device at first, platform device will be
-unregistered later in platform_device_unregister.
-
-Signed-off-by: James Zhu <James.Zhu@amd.com>
----
- drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c b/drivers/gpu/drm/=
-amd/amdxcp/amdgpu_xcp_drv.c
-index 353597fc908d..90ddd8371176 100644
---- a/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c
-+++ b/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c
-@@ -89,9 +89,10 @@ EXPORT_SYMBOL(amdgpu_xcp_drm_dev_alloc);
- void amdgpu_xcp_drv_release(void)
- {
-         for (--pdev_num; pdev_num >=3D 0; --pdev_num) {
--               devres_release_group(&xcp_dev[pdev_num]->pdev->dev, NULL);
--               platform_device_unregister(xcp_dev[pdev_num]->pdev);
--               xcp_dev[pdev_num]->pdev =3D NULL;
-+               struct platform_device *pdev =3D xcp_dev[pdev_num]->pdev;
-+
-+               devres_release_group(&pdev->dev, NULL);
-+               platform_device_unregister(pdev);
-                 xcp_dev[pdev_num] =3D NULL;
-         }
-         pdev_num =3D 0;
---
-2.34.1
-
-
---_000_BL1PR12MB51447085D8C6B60C41C276D9F7D8ABL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On Mon, Oct 23, 2023 at 9:06=E2=80=AFAM <qu.huang@linux.dev> wrote:
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;font=
--style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of James Zhu &lt;James.Zhu@amd.c=
-om&gt;<br>
-<b>Sent:</b> Thursday, September 7, 2023 10:41 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Lin, Amber &lt;Amber.Lin@amd.com&gt;; Zhu, James &lt;James.Zhu@a=
-md.com&gt;; Kamal, Asad &lt;Asad.Kamal@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdxcp: fix amdxcp unloads incompletely</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">amdxcp unloads incompletely, and below error will =
-be seen during load/unload,<br>
-sysfs: cannot create duplicate filename '/devices/platform/amdgpu_xcp.0'<br=
+> In certain types of chips, such as VEGA20, reading the amdgpu_regs_smc fi=
+le could result in an abnormal null pointer access when the smc_rreg pointe=
+r is NULL. Below are the steps to reproduce this issue and the correspondin=
+g exception log:
 >
-<br>
-devres_release_group will free xcp device at first, platform device will be=
-<br>
-unregistered later in platform_device_unregister.<br>
-<br>
-Signed-off-by: James Zhu &lt;James.Zhu@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c | 7 ++++---<br>
-&nbsp;1 file changed, 4 insertions(+), 3 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c b/drivers/gpu/drm/=
-amd/amdxcp/amdgpu_xcp_drv.c<br>
-index 353597fc908d..90ddd8371176 100644<br>
---- a/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c<br>
-+++ b/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c<br>
-@@ -89,9 +89,10 @@ EXPORT_SYMBOL(amdgpu_xcp_drm_dev_alloc);<br>
-&nbsp;void amdgpu_xcp_drv_release(void)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (--pdev_num; pdev_num =
-&gt;=3D 0; --pdev_num) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; devres_release_group(&amp;xcp_dev[pdev_num]-&gt;pdev-&gt;dev, NU=
-LL);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; platform_device_unregister(xcp_dev[pdev_num]-&gt;pdev);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; xcp_dev[pdev_num]-&gt;pdev =3D NULL;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; struct platform_device *pdev =3D xcp_dev[pdev_num]-&gt;pdev;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; devres_release_group(&amp;pdev-&gt;dev, NULL);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; platform_device_unregister(pdev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; xcp_dev[pdev_num] =3D NULL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pdev_num =3D 0;<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB51447085D8C6B60C41C276D9F7D8ABL1PR12MB5144namp_--
+> 1. Navigate to the directory: /sys/kernel/debug/dri/0
+> 2. Execute command: cat amdgpu_regs_smc
+> 3. Exception Log::
+> [4005007.702554] BUG: kernel NULL pointer dereference, address: 000000000=
+0000000
+> [4005007.702562] #PF: supervisor instruction fetch in kernel mode
+> [4005007.702567] #PF: error_code(0x0010) - not-present page
+> [4005007.702570] PGD 0 P4D 0
+> [4005007.702576] Oops: 0010 [#1] SMP NOPTI
+> [4005007.702581] CPU: 4 PID: 62563 Comm: cat Tainted: G           OE     =
+5.15.0-43-generic #46-Ubunt       u
+> [4005007.702590] RIP: 0010:0x0
+> [4005007.702598] Code: Unable to access opcode bytes at RIP 0xfffffffffff=
+fffd6.
+> [4005007.702600] RSP: 0018:ffffa82b46d27da0 EFLAGS: 00010206
+> [4005007.702605] RAX: 0000000000000000 RBX: 0000000000000000 RCX: ffffa82=
+b46d27e68
+> [4005007.702609] RDX: 0000000000000001 RSI: 0000000000000000 RDI: ffff994=
+0656e0000
+> [4005007.702612] RBP: ffffa82b46d27dd8 R08: 0000000000000000 R09: ffff994=
+060c07980
+> [4005007.702615] R10: 0000000000020000 R11: 0000000000000000 R12: 00007f5=
+e06753000
+> [4005007.702618] R13: ffff9940656e0000 R14: ffffa82b46d27e68 R15: 00007f5=
+e06753000
+> [4005007.702622] FS:  00007f5e0755b740(0000) GS:ffff99479d300000(0000) kn=
+lGS:0000000000000000
+> [4005007.702626] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [4005007.702629] CR2: ffffffffffffffd6 CR3: 00000003253fc000 CR4: 0000000=
+0003506e0
+> [4005007.702633] Call Trace:
+> [4005007.702636]  <TASK>
+> [4005007.702640]  amdgpu_debugfs_regs_smc_read+0xb0/0x120 [amdgpu]
+> [4005007.703002]  full_proxy_read+0x5c/0x80
+> [4005007.703011]  vfs_read+0x9f/0x1a0
+> [4005007.703019]  ksys_read+0x67/0xe0
+> [4005007.703023]  __x64_sys_read+0x19/0x20
+> [4005007.703028]  do_syscall_64+0x5c/0xc0
+> [4005007.703034]  ? do_user_addr_fault+0x1e3/0x670
+> [4005007.703040]  ? exit_to_user_mode_prepare+0x37/0xb0
+> [4005007.703047]  ? irqentry_exit_to_user_mode+0x9/0x20
+> [4005007.703052]  ? irqentry_exit+0x19/0x30
+> [4005007.703057]  ? exc_page_fault+0x89/0x160
+> [4005007.703062]  ? asm_exc_page_fault+0x8/0x30
+> [4005007.703068]  entry_SYSCALL_64_after_hwframe+0x44/0xae
+> [4005007.703075] RIP: 0033:0x7f5e07672992
+> [4005007.703079] Code: c0 e9 b2 fe ff ff 50 48 8d 3d fa b2 0c 00 e8 c5 1d=
+ 02 00 0f 1f 44 00 00 f3 0f        1e fa 64 8b 04 25 18 00 00 00 85 c0 75 1=
+0 0f 05 <48> 3d 00 f0 ff ff 77 56 c3 0f 1f 44 00 00 48 83 e       c 28 48 8=
+9 54 24
+> [4005007.703083] RSP: 002b:00007ffe03097898 EFLAGS: 00000246 ORIG_RAX: 00=
+00000000000000
+> [4005007.703088] RAX: ffffffffffffffda RBX: 0000000000020000 RCX: 00007f5=
+e07672992
+> [4005007.703091] RDX: 0000000000020000 RSI: 00007f5e06753000 RDI: 0000000=
+000000003
+> [4005007.703094] RBP: 00007f5e06753000 R08: 00007f5e06752010 R09: 00007f5=
+e06752010
+> [4005007.703096] R10: 0000000000000022 R11: 0000000000000246 R12: 0000000=
+000022000
+> [4005007.703099] R13: 0000000000000003 R14: 0000000000020000 R15: 0000000=
+000020000
+> [4005007.703105]  </TASK>
+> [4005007.703107] Modules linked in: nf_tables libcrc32c nfnetlink algif_h=
+ash af_alg binfmt_misc nls_       iso8859_1 ipmi_ssif ast intel_rapl_msr in=
+tel_rapl_common drm_vram_helper drm_ttm_helper amd64_edac t       tm edac_m=
+ce_amd kvm_amd ccp mac_hid k10temp kvm acpi_ipmi ipmi_si rapl sch_fq_codel =
+ipmi_devintf ipm       i_msghandler msr parport_pc ppdev lp parport mtd pst=
+ore_blk efi_pstore ramoops pstore_zone reed_solo       mon ip_tables x_tabl=
+es autofs4 ib_uverbs ib_core amdgpu(OE) amddrm_ttm_helper(OE) amdttm(OE) io=
+mmu_v       2 amd_sched(OE) amdkcl(OE) drm_kms_helper syscopyarea sysfillre=
+ct sysimgblt fb_sys_fops cec rc_core        drm igb ahci xhci_pci libahci i=
+2c_piix4 i2c_algo_bit xhci_pci_renesas dca
+> [4005007.703184] CR2: 0000000000000000
+> [4005007.703188] ---[ end trace ac65a538d240da39 ]---
+> [4005007.800865] RIP: 0010:0x0
+> [4005007.800871] Code: Unable to access opcode bytes at RIP 0xfffffffffff=
+fffd6.
+> [4005007.800874] RSP: 0018:ffffa82b46d27da0 EFLAGS: 00010206
+> [4005007.800878] RAX: 0000000000000000 RBX: 0000000000000000 RCX: ffffa82=
+b46d27e68
+> [4005007.800881] RDX: 0000000000000001 RSI: 0000000000000000 RDI: ffff994=
+0656e0000
+> [4005007.800883] RBP: ffffa82b46d27dd8 R08: 0000000000000000 R09: ffff994=
+060c07980
+> [4005007.800886] R10: 0000000000020000 R11: 0000000000000000 R12: 00007f5=
+e06753000
+> [4005007.800888] R13: ffff9940656e0000 R14: ffffa82b46d27e68 R15: 00007f5=
+e06753000
+> [4005007.800891] FS:  00007f5e0755b740(0000) GS:ffff99479d300000(0000) kn=
+lGS:0000000000000000
+> [4005007.800895] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [4005007.800898] CR2: ffffffffffffffd6 CR3: 00000003253fc000 CR4: 0000000=
+0003506e0
+>
+> Signed-off-by: Qu Huang <qu.huang@linux.dev>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_debugfs.c
+> index a4faea4..05405da 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> @@ -748,6 +748,9 @@ static ssize_t amdgpu_debugfs_regs_smc_read(struct fi=
+le *f, char __user *buf,
+>         ssize_t result =3D 0;
+>         int r;
+>
+> +       if (!adev->smc_rreg)
+> +               return -EPERM;
+> +
+>         if (size & 0x3 || *pos & 0x3)
+>                 return -EINVAL;
+>
+> @@ -804,6 +807,9 @@ static ssize_t amdgpu_debugfs_regs_smc_write(struct f=
+ile *f, const char __user *
+>         ssize_t result =3D 0;
+>         int r;
+>
+> +       if (!adev->smc_wreg)
+> +               return -EPERM;
+> +
+>         if (size & 0x3 || *pos & 0x3)
+>                 return -EINVAL;
+>
+> --
+> 1.8.3.1
