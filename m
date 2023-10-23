@@ -4,66 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2968C001E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Oct 2023 05:49:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83CB9C25B41
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Oct 2023 08:25:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12F1A10E14A;
-	Mon, 23 Oct 2023 05:49:11 +0000 (UTC)
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0441710E14A
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Oct 2023 05:49:09 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-54041e33845so1232549a12.3
- for <amd-gfx@lists.freedesktop.org>; Sun, 22 Oct 2023 22:49:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698040148; x=1698644948; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=5t1K8+dMvUwfCsKxXVlwUR+QRFsjIal4tN9rpoN8kCM=;
- b=RErhtcY/lRcBJolKBimDLBRb8P6i4Z0rvM8ksMuVJZFg4zRPoWLmPxB9eWveph4bH1
- 5uT3RleuOp0HH7cvsEmD6GQ5zWhdr2cNyu66N0f0Cjj4nBmsLK5Vz7jbJRXgwmpooT1P
- rS6MHz35R4IqSISXSTTxn3MaJt9oDjSKtY7BNHCOgKorCziOemczxHYrVmGqcg7T8DTn
- N2JQLGafNZLNeeOzJ2bC0K7o4PS3gGhmp6sQ2nkXKIF7Ygo7TbO2KFfeQMRQxPIw0CVG
- 19/1g1kEp2pYUAuUZaScC7iBbjfd587I37SVviluKjhMw2fSaZmxKErXM4gZrGS1ZdxD
- 8iWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698040148; x=1698644948;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=5t1K8+dMvUwfCsKxXVlwUR+QRFsjIal4tN9rpoN8kCM=;
- b=mHfUBaWT2cDurj9HmK5Bo7HRwJd4vZGFhGrkxxVyJe/lVXkYVy1qTrmjifs/UC17kv
- EgsugnTxb5Tun0CFLg3/GeaQb516KRVDuuo7ZyLrvr/HmV9tnZCL0P8Nrxk13B0O/U2c
- 45/gf//ONXlwFrrIqNKD4dQH07T4zHPN/g5QlQPdjLArvaHmr8fAOly9hLFlgMuEwu+7
- JHujnual1zlUcx8lBN2HsyMWaDmlgnm2cdBWVzbthrCz4HJTDbhOn/R3xW3+hamsk3Es
- y1oJec2qO3VvYVL5OnRqhU/VQ+YMHDuP5rA7yDltIOgf85DYVchsY+LO0XKJPE8g5lX8
- GUrA==
-X-Gm-Message-State: AOJu0YzAjxqxgJSnsaHtN9KswCBoDmiB7IEGyzDwQrUBI4nwsbSUnwhW
- q7sRnYHsCV69LFpaUzwuIz8=
-X-Google-Smtp-Source: AGHT+IEyfH1cmk+ZHMLL2vOU/iz9B0EA4wUewFPy1L2AilgTbZlzxWTyHnlDZA7lPUSPFaAn2p+kTQ==
-X-Received: by 2002:a05:6402:26cd:b0:53d:d913:d3cb with SMTP id
- x13-20020a05640226cd00b0053dd913d3cbmr6054400edd.28.1698040147997; 
- Sun, 22 Oct 2023 22:49:07 -0700 (PDT)
-Received: from [192.168.178.25] ([185.254.126.195])
- by smtp.gmail.com with ESMTPSA id
- p20-20020a50cd94000000b005346925a474sm5884408edi.43.2023.10.22.22.49.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 22 Oct 2023 22:49:07 -0700 (PDT)
-Message-ID: <402f475c-bb67-4061-9521-2f811eca7657@gmail.com>
-Date: Mon, 23 Oct 2023 07:49:06 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9EF010E17C;
+	Mon, 23 Oct 2023 08:25:26 +0000 (UTC)
+Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB93410E17B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Oct 2023 08:25:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail2; t=1698049518; x=1698308718;
+ bh=5C4xzomIPUB3F6LUpYDB1uyVy2mFW1+PY+09w03fokY=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=GHB1SwM5EhGM8CJxyKNGL1lpj5lfH8j7sZzuu52vV7+yc2Ixfg81Btjjf0jnzlPgU
+ B0V7f8lDGgGTHw2jkNpoOCg1yDdxHwYGfPLyc93v4zY2Dc6ImmRzdRzWnpqk15uIfO
+ WPhdYo8/iRmUXaJMxrUsdsATO1TksGPnYpCAZmmFJAGokSohAF0lR6fA/A4pQvkFvu
+ hkVOIWszievGk2goEHlmNGK4JhpQuDNgw/GM9OBcbO0/PeHJ90I65pmI0h8QnTa+Zy
+ kpD6qEWOfOhKEUZTT+crGtL4WjB4wgWCjVcaJoNJ3AkroHi1WdEI7Vo+Jxo45wu+AN
+ oePdIKMiNqvpA==
+Date: Mon, 23 Oct 2023 08:25:14 +0000
+To: =?utf-8?Q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+From: Simon Ser <contact@emersion.fr>
+Subject: Re: [PATCH v6 6/6] drm/doc: Define KMS atomic state set
+Message-ID: <mawSNnD1hQ6vCVrNVMAvuQESnTToKPXrtiHIXXdqC-mq_LkxWOizPCcXx_KiEASVX-Mbm0LgjfTYkMNOjSAKCldpkXHAd9MmRzbC8ECPsTs=@emersion.fr>
+In-Reply-To: <ZS55mXTSxpXKYbsd@intel.com>
+References: <20230815185710.159779-1-andrealmeid@igalia.com>
+ <20230815185710.159779-7-andrealmeid@igalia.com>
+ <1b23576d-1649-ff5c-6273-b54729ea46d8@mailbox.org>
+ <b48bd1fc-fcb0-481b-8413-9210d44d709b@igalia.com>
+ <20231016151856.74af9305@eldfell>
+ <aa424bf8-5652-4a44-9b93-bdc0a31d835a@igalia.com>
+ <20231016175222.7a89e6ab@eldfell> <ZS1ST6XAUHilBg3d@intel.com>
+ <8NqDNz1Y8H5I_WhNhOj0ERarBH7nJhGQAsDHbmSnwzoOFtXPBPILwxLlF8-vDPKR06Uknp1BDSt7-6gTmHls62k79ETajXDfPRsmIP-cZN0=@emersion.fr>
+ <ZS55mXTSxpXKYbsd@intel.com>
+Feedback-ID: 1358184:user:proton
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Initialize schedulers before using them
-To: Luben Tuikov <luben.tuikov@amd.com>,
- AMD Graphics <amd-gfx@lists.freedesktop.org>
-References: <20231023032344.164925-1-luben.tuikov@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20231023032344.164925-1-luben.tuikov@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,96 +54,110 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <Alexander.Deucher@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ =?utf-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ =?utf-8?Q?=27Marek_Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
+ =?utf-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Randy Dunlap <rdunlap@infradead.org>, xaver.hugl@gmail.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Pekka Paalanen <ppaalanen@gmail.com>, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com, alexander.deucher@amd.com,
+ wayland-devel@lists.freedesktop.org, hwentlan@amd.com,
+ christian.koenig@amd.com, joshua@froggi.es
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Tuesday, October 17th, 2023 at 14:10, Ville Syrj=C3=A4l=C3=A4 <ville.syr=
+jala@linux.intel.com> wrote:
 
+> On Mon, Oct 16, 2023 at 10:00:51PM +0000, Simon Ser wrote:
+>=20
+> > On Monday, October 16th, 2023 at 17:10, Ville Syrj=C3=A4l=C3=A4 ville.s=
+yrjala@linux.intel.com wrote:
+> >=20
+> > > On Mon, Oct 16, 2023 at 05:52:22PM +0300, Pekka Paalanen wrote:
+> > >=20
+> > > > On Mon, 16 Oct 2023 15:42:16 +0200
+> > > > Andr=C3=A9 Almeida andrealmeid@igalia.com wrote:
+> > > >=20
+> > > > > Hi Pekka,
+> > > > >=20
+> > > > > On 10/16/23 14:18, Pekka Paalanen wrote:
+> > > > >=20
+> > > > > > On Mon, 16 Oct 2023 12:52:32 +0200
+> > > > > > Andr=C3=A9 Almeida andrealmeid@igalia.com wrote:
+> > > > > >=20
+> > > > > > > Hi Michel,
+> > > > > > >=20
+> > > > > > > On 8/17/23 12:37, Michel D=C3=A4nzer wrote:
+> > > > > > >=20
+> > > > > > > > On 8/15/23 20:57, Andr=C3=A9 Almeida wrote:
+> > > > > > > >=20
+> > > > > > > > > From: Pekka Paalanen pekka.paalanen@collabora.com
+> > > > > > > > >=20
+> > > > > > > > > Specify how the atomic state is maintained between usersp=
+ace and
+> > > > > > > > > kernel, plus the special case for async flips.
+> > > > > > > > >=20
+> > > > > > > > > Signed-off-by: Pekka Paalanen pekka.paalanen@collabora.co=
+m
+> > > > > > > > > Signed-off-by: Andr=C3=A9 Almeida andrealmeid@igalia.com
+> > > > > > > > > [...]
+> > > > > > > >=20
+> > > > > > > > > +An atomic commit with the flag DRM_MODE_PAGE_FLIP_ASYNC =
+is allowed to
+> > > > > > > > > +effectively change only the FB_ID property on any planes=
+. No-operation changes
+> > > > > > > > > +are ignored as always. [...]
+> > > > > > > > > During the hackfest in Brno, it was mentioned that a comm=
+it which re-sets the same FB_ID could actually have an effect with VRR: It =
+could trigger scanout of the next frame before vertical blank has reached i=
+ts maximum duration. Some kind of mechanism is required for this in order t=
+o allow user space to perform low frame rate compensation.
+> > > > > > >=20
+> > > > > > > Xaver tested this hypothesis in a flipping the same fb in a V=
+RR monitor
+> > > > > > > and it worked as expected, so this shouldn't be a concern.
+> > > > > > > Right, so it must have some effect. It cannot be simply ignor=
+ed like in
+> > > > > > > the proposed doc wording. Do we special-case re-setting the s=
+ame FB_ID
+> > > > > > > as "not a no-op" or "not ignored" or some other way?
+> > > > > > > There's an effect in the refresh rate, the image won't change=
+ but it
+> > > > > > > will report that a flip had happened asynchronously so the re=
+ported
+> > > > > > > framerate will be increased. Maybe an additional wording coul=
+d be like:
+> > > > >=20
+> > > > > Flipping to the same FB_ID will result in a immediate flip as if =
+it was
+> > > > > changing to a different one, with no effect on the image but effe=
+cting
+> > > > > the reported frame rate.
+> > > >=20
+> > > > Re-setting FB_ID to its current value is a special case regardless =
+of
+> > > > PAGE_FLIP_ASYNC, is it not?
+> > >=20
+> > > No. The rule has so far been that all side effects are observed
+> > > even if you flip to the same fb. And that is one of my annoyances
+> > > with this proposal. The rules will now be different for async flips
+> > > vs. everything else.
+> >=20
+> > Well with the patches the async page-flip case is exactly the same as
+> > the non-async page-flip case. In both cases, if a FB_ID is included in
+> > an atomic commit then the side effects are triggered even if the proper=
+ty
+> > value didn't change. The rules are the same for everything.
+>=20
+> I see it only checking if FB_ID changes or not. If it doesn't
+> change then the implication is that the side effects will in
+> fact be skipped as not all planes may even support async flips.
 
-Am 23.10.23 um 05:23 schrieb Luben Tuikov:
-> Initialize ring schedulers before using them, very early in the amdgpu boot,
-> at PCI probe time, specifically at frame-buffer dumb-create at fill-buffer.
->
-> This was discovered by using dynamic scheduler run-queues, which showed that
-> amdgpu was using a scheduler before calling drm_sched_init(), and the only
-> reason it was working was because sched_rq[] was statically allocated in the
-> scheduler structure. However, the scheduler structure had _not_ been
-> initialized.
->
-> When switching to dynamically allocated run-queues, this lack of
-> initialization was causing an oops and a blank screen at boot up. This patch
-> fixes this amdgpu bug.
->
-> This patch depends on the "drm/sched: Convert the GPU scheduler to variable
-> number of run-queues" patch, as that patch prevents subsequent scheduler
-> initialization if a scheduler has already been initialized.
->
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Alex Deucher <Alexander.Deucher@amd.com>
-> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-> Cc: AMD Graphics <amd-gfx@lists.freedesktop.org>
-> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 14 ++++++++++++++
->   1 file changed, 14 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 4e51dce3aab5d6..575ef7e1e30fd4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -60,6 +60,7 @@
->   #include "amdgpu_atomfirmware.h"
->   #include "amdgpu_res_cursor.h"
->   #include "bif/bif_4_1_d.h"
-> +#include "amdgpu_reset.h"
->   
->   MODULE_IMPORT_NS(DMA_BUF);
->   
-> @@ -2059,6 +2060,19 @@ void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
->   
->   		ring = adev->mman.buffer_funcs_ring;
->   		sched = &ring->sched;
-> +
-> +		r = drm_sched_init(sched, &amdgpu_sched_ops,
-> +				   DRM_SCHED_PRIORITY_COUNT,
-> +				   ring->num_hw_submission, 0,
-> +				   adev->sdma_timeout, adev->reset_domain->wq,
-> +				   ring->sched_score, ring->name,
-> +				   adev->dev);
-> +		if (r) {
-> +			drm_err(adev, "%s: couldn't initialize ring:%s error:%d\n",
-> +				__func__, ring->name, r);
-> +			return;
-> +		}
+Hm right. So the problem is that setting any prop =3D same value as
+previous one will result in a new page-flip for asynchronous page-flips,
+but will not result in any side-effect for asynchronous page-flips.
 
-That doesn't look correct either.
-
-amdgpu_ttm_set_buffer_funcs_status() should only be called with 
-enable=true as argument *after* the copy ring is initialized and valid 
-to use. One part of this ring initialization is to setup the scheduler.
-
-
-> +
->   		r = drm_sched_entity_init(&adev->mman.high_pr,
->   					  DRM_SCHED_PRIORITY_KERNEL, &sched,
->   					  1, NULL);
-
-That here looks totally incorrect and misplaced to me. 
-amdgpu_ttm_set_buffer_funcs_status() should only enabled/disable using 
-the copy functions and not really initialize the entity.
-
-So the entity should only be created when enable=true and it should 
-especially *not* re-created all the time without properly destroying it.
-
-Can you look at the history of the code? I'm pretty sure that this was 
-at some time correctly implemented.
-
-Thanks,
-Christian.
-
->
-> base-commit: 05d3ef8bba77c1b5f98d941d8b2d4aeab8118ef1
-> prerequisite-patch-id: c52673df9b6fc9ee001d6261c7ac107b618912a0
-
+Does it actually matter though? For async page-flips, I don't think this
+would result in any actual difference in behavior?
