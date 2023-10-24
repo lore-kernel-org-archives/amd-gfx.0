@@ -4,116 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB950C07545
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Oct 2023 21:03:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 754D3C25B47
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Oct 2023 21:08:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5956C10E4DD;
-	Tue, 24 Oct 2023 21:03:53 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2074.outbound.protection.outlook.com [40.107.244.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A20EA10E4DD
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Oct 2023 21:03:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9ED610E4E0;
+	Tue, 24 Oct 2023 21:08:07 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2052.outbound.protection.outlook.com [40.107.243.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1B1610E4E0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Oct 2023 21:08:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=in8zmz3WwmhZh37QoV3FwHFBmrHgCcq1rSDnH8zMUXJq7eKe3I+TbpORcsWdehVdAwidhV4LEjbVy7TEDtBXPqss8QqtCzTsnU9E0+hR5rNEGQB7/EkzDmjnkI/eA8Vuh4E3GOpt/Y1YYHMwQjUHIFyUYZixfEzIgi5IEDSXlQet3/xCoVzd+daUn1XNBPLS5RcxGyptoOWrfNM01SfUZIRLBX4x43efwWrP/J0GqGdpOMr5nvY+Paaaw0k1l9aE6fQTLzvcqTmm4ER3Jc0w0hTO9VS8CE+ioX8BqCj0kUbUfNnZ4BFC6vu3uNqk3642Yn6rct8Szq+VFlz5ov2g8g==
+ b=FZabTFXBDiXWyr6XT7hvh2JIw3po2FpA86vYrSqhMKVTHRE00dI99SkW50J6hu96D+4hWoJIEk5cbNa0WaPXRQrX6xpjcqYQRYl6GrjXNZn46CLYj4ivyGs+37C73PvFD8ef2DUzdYekGz7KHSazliYq4f9Yhr3AZCH240dmRN7vwoYVOWUhU8hcN/VDasbec04ff3a1AHrTRaMiNlVUsIzQ63DGrre0H7xnVJcsHKcJq2AGgIvJGhKRwFFt4KAqCzTfYxXjDpPNdUmQy5y9g5jOMLIpCBM1mpO2olff+Ehq6cdmB9lq2aArvb3G36moipMNZALg3COGsuYz9QoxVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ErIzwnWnrBJVe6vZkebHG/6jSw7952b1wZgnB/yq86U=;
- b=obgcypw/+mb/7MFMRkNnqzHKf34QJ8ds53OXtwnB6vVaROh0sqBZTWRHJs7s+dgj6QWGbPPNG6+/464EFWMUoi/2WGfsfow0mTM9MR25wsJwA1qiRkn5oSdx64Ue0bj6JYCIow4pdZ4tjgSiX8Q98zb32Ou9VHC+o8kKgd/4CZ3SlgOgPCkpZChLrTJFDimhOuz5zOHJsTgY0RII4/DLXbqccPFdNBHfzc76Y05uPC4CqFnfT7HjJljPnYd4lFFh2CrnzWpryI9kmqsCM5BQw6j2L0tWHzY4eQgP4M2oD7Ou8RrWmwteqT0TKXgsmhXBmP19oooqEQJ9uVMIYhzD0w==
+ bh=V4/BoXktT776KuXoyejprmQt7l5v17DCJiF0yPwbXVg=;
+ b=X0puU0YRvTrsYdTkmfBXwoRlfBslYLJzQE5oViqztaXRHy1urRoRN0HhQTNKf21vI/dtQdh1WNtKt+Ze50BJtQYzzg8vmy3WkVh7wG/SIgOphKucHJY3ZiiEqqDLLu6VZ1tNFDo3iP9lozY8hB7YMTYJgktcCsl7Da77yxu6GxRDtAsZpz0j4bOK+5k4sX+cyabEDs++v6ehDRDgYQzQU6/PtSmQMhEP86It7+01ey2Z/FbYwa+W9NkXaVGzO+/yWYdY+2/DAPwwCd0N/FczMb5YhxiprsGMAEgjQy54Cr1NYzcZBWZ/313Lhv7pPH+KbaTLJ6DQcW695MXiUmAo+g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ErIzwnWnrBJVe6vZkebHG/6jSw7952b1wZgnB/yq86U=;
- b=QpYIIxXXGntFL3atofJHjY13l6/Nsmp9WEIdAqnFhluCv0WTlfpLBNfbudmIYz4CXLC5QjBRY4UypnQXR7f3L40WHBYzhQKC4jj0gCF63+zE8eE3S2clcR6DBDPQAzkxHIvsEeRcpD7aGwzDY+G73pIw360wQ9vupeONU5KX/ro=
+ bh=V4/BoXktT776KuXoyejprmQt7l5v17DCJiF0yPwbXVg=;
+ b=tYufgcbqQ+kLnnSbotWKribcfdes5BWpT6Ih4JXtC+UQAefxrQphOxSz34Y3nrkfHe0uGeWlavxDoZf7mcSXRrKn5KEamiRIhbJrVj8Sps9U7c++a7GfiU6FAP3eoRbPxAPBU5ICBwooyhrDIMYeCf3GoHdHmxof7UJcylMGro0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by IA1PR12MB6019.namprd12.prod.outlook.com (2603:10b6:208:3d5::16)
+ by MW4PR12MB7312.namprd12.prod.outlook.com (2603:10b6:303:21a::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.33; Tue, 24 Oct
- 2023 21:03:48 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.31; Tue, 24 Oct
+ 2023 21:08:04 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::2c3:911a:bd2c:ac31]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::2c3:911a:bd2c:ac31%4]) with mapi id 15.20.6907.032; Tue, 24 Oct 2023
- 21:03:48 +0000
-Message-ID: <21298fa3-6f64-4b4f-85dc-e13c68acc809@amd.com>
-Date: Tue, 24 Oct 2023 17:03:48 -0400
+ 21:08:03 +0000
+Message-ID: <9ec590bb-2b9a-4700-80a1-83f1b19c787d@amd.com>
+Date: Tue, 24 Oct 2023 17:08:01 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] drm/amdgpu: Permit PCIe transfer over links with
- XGMI
+Subject: Re: [PATCH v3] drm/amdgpu: Add EXT_COHERENT support for APU and NUMA
+ systems
 Content-Language: en-US
 To: David Francis <David.Francis@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20231024192043.400319-1-David.Francis@amd.com>
- <20231024192043.400319-2-David.Francis@amd.com>
+References: <20231024190816.312852-1-David.Francis@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <20231024192043.400319-2-David.Francis@amd.com>
+In-Reply-To: <20231024190816.312852-1-David.Francis@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR01CA0151.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:7e::9) To BN9PR12MB5115.namprd12.prod.outlook.com
+X-ClientProxiedBy: YQBPR0101CA0100.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:4::33) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|IA1PR12MB6019:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f6fc4f0-cfad-47ea-c87e-08dbd4d4b7c7
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MW4PR12MB7312:EE_
+X-MS-Office365-Filtering-Correlation-Id: 50449968-7332-424b-f9ed-08dbd4d54fa6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UpXv9byJjOfNRb++zIudiYsf9Ju/6+YmdRg7QGEJ5BVnahW/OLZmmvy/sG4i/OWGEh2OsaQ/RA75j1fOEDU0hJ9uUAXxW57rzKK9oFPNhxIh9BBngnB7F4YPVJdHGMoRWSkqT59kqCwRHqGMy4lCPhl+EW9SzXYsUpjSoO7nZKQRo13fJZnnrxCNb1EaFxBbWbZdWIALDwwd4S91CXc4zro4c1FX00LYjnrn03Vpt2RpxSwr3f63vsXpUZjR2cMDy0rf8nhN1I/YXkmUjXSvlV9ASgc9BdQs45wYyinYNcbRYHjlHu/9HSoA/Kh3P9wgK4y7W/R/sfgbZp8gKHtr+OmvQCI8Se5ltAvelp+UYdBuKxqM3fRc1JUAkhw7KWrRqKzLqJV0delVOU3Z9vn25fWI/uzmQStf+3aF2OuxZzTRaKLsChBQYwc5rJbIzEmPbWkBk9QyDZv/p5n6NozvupzmvoHs2Ih6FGifjt5u6mZl+hU3THOQVNMXC/UxWo51dNDUGFcLt4XLK4uQPXsC5arpTyDhQYh/dkcwo5/QUP6k9L4fXDD0GocuXeRj32zuWcz0L0arT3gtB4d7/Eju6cR2JDKt5dqKL6iVc8xWYe5zK3pcwvulGTO/UUyAAPtvuCKmkFuxZonH6Beu6Wg4Kw==
+X-Microsoft-Antispam-Message-Info: KTKDXKjBbNlnBsyQNWh2idLdPhWsw0/i60TL5aru1jx8uW8uGEwW62YQAvdQjhgHgMlVtNG+JpRfWhBzXW+8ed9htabz5OKudOlpS7VOSCjMAnViEC3dETpI8cNFW9i1IwgnUYMLtpIT6G4twfk6wslgVhs3TYcDtTYQEFZc8AMDLKddHhpRZKjKVcrtpG9f5UOHCvF+oOAMVAok/6Cj4ewqd6r6fH2njXkGS5EuI7TO1fr7d2pcUxMBGXwxGiCjvEoL5dl3ezH5gaLz6fPdxxblXdtFZLQq9mLgFXxWI4MSfaLoD7OAjz78/mEw9CwnylF+kX84Le5szDl+a1ZfP/wrxKlzln1CE96VZ+yJHiUlDVfMYE4YQUew7xn94gj7OdSCk3n2mKa0VcntP9UPf5tuxidRt+xjHWISCodBWvkTKZ6suD/spZg19RCoJCghHo+yGX1m/JvgIaMeZSyBDt1sli/TqV0X5oh3IPUFTEBCwmKlIxgOJ9FWuEdHSkESeaNnQ7kKtYupvvcW0ugnFwXV66bbqkSTe4cnHOzLreqLRNlXTLeJUyTh2+SXy7d3vEhMxnZ8Yr91ZIPFEhEHrlqFH+o+dyjgKsm8ReDDKwH/fFGAtO021f7Da2N/vNvjbfMQLU0D+qeDeaJ8QOFj/g==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(396003)(346002)(366004)(376002)(39860400002)(230922051799003)(64100799003)(451199024)(186009)(1800799009)(4001150100001)(5660300002)(66476007)(66946007)(86362001)(41300700001)(66556008)(6506007)(31696002)(316002)(36916002)(6486002)(478600001)(6512007)(44832011)(36756003)(8676002)(2906002)(38100700002)(2616005)(8936002)(26005)(53546011)(83380400001)(31686004)(45980500001)(43740500002);
+ SFS:(13230031)(366004)(396003)(39860400002)(136003)(376002)(346002)(230922051799003)(186009)(64100799003)(1800799009)(451199024)(2906002)(41300700001)(38100700002)(66476007)(66946007)(66556008)(6506007)(2616005)(36916002)(478600001)(316002)(6512007)(53546011)(6486002)(83380400001)(86362001)(31696002)(36756003)(5660300002)(8676002)(44832011)(8936002)(26005)(31686004)(4001150100001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SHFnY01xK044NVZ3b1p4YW8weVFlK0g4ZUFXTzVZUTdHSExiR252akVRNzR1?=
- =?utf-8?B?Mmdjam1vQkxJdmRqeVNNNXJ2ZHF6Z0NIOU9XZFp1VTJWYy9hdGNUZ1dNRkpT?=
- =?utf-8?B?MnlYS0xXeW9CTElLbE1jSkVIVklDRmJ5enh5MWw4VUdLTndmQVlNKzBTRCt4?=
- =?utf-8?B?UmdLS2xmV0dSMWJrQ2xjRTdST0pTVXphV0kvVFE5Q1lTWnBYRm1qdkd3cWVz?=
- =?utf-8?B?NTRaelVVNllTYlFNOWplZU5VNU50bDd1bjBWVzFqaDVwb0RLVElLZkZvbyt1?=
- =?utf-8?B?Y0c1WXRWRXdTakNaL1FQcU5QVHZwbWQyYnhVclc4QlBIM051MDRZMmlGRzFv?=
- =?utf-8?B?SFg1UGxXR3dNUXN2OGRna1BYZGxtSlc2ZnVXR2g1YmxuaVU4WVFyNWY2TVdK?=
- =?utf-8?B?cDFoRGpFR0pDNXh2S2NTeUcwMWFQaVpzVitEaDJDMlVJZ0hWNDYyY25RV3ZV?=
- =?utf-8?B?b0M5RlRxUURCVE9Da01VeHVzbk9XVU1vM3k3WGE0QXRycGJlZ0JiNFVBK0ts?=
- =?utf-8?B?bHBBQXVnWVpZc3FqUjRiMVErL0lWb3RLR0M4V2FmVXFNMDVRUXlWUi9Ed0tF?=
- =?utf-8?B?R2trN3U2WXVpT1oyRU10ZnZXTmVxemhkVnB1Rk0vZFNKSWcyK0Z5NU44YnIz?=
- =?utf-8?B?TTc4RWRQY3h4UXEvR3MvU3J3Nlo1clJxa3JGendKVEFLUW1XTFIwajFEYzhn?=
- =?utf-8?B?ZXF1bm5hVHVDZW9NaEhDMUJiamlPaDVzckpJZDZ5MThKYTRDVTJCRTA3MjJ1?=
- =?utf-8?B?ZC9pK2xxY1NXczBDK2JmVURLaFVQS2Z2U29YUzAxTncvL0xyZXlCeG5Wdy95?=
- =?utf-8?B?ZVJHVndubWNRVG5rcXpXU29xRDNlRGZCaU9HVkdDbXV2YlR6VGFtcmw0M1Z6?=
- =?utf-8?B?UHBMdDlWYXJTUzdHZlJMblVYVC9NR3Y0aXRGUlFxZWFhaXY1eXJQZGErMXdO?=
- =?utf-8?B?ZU8yVTN0eVlUUjYrTEJHQUt1R2t4aXVEWUljUTEzeC9EcWhJNGJHWUlQS29E?=
- =?utf-8?B?T0xoWGxiUUNHTDRCY25Rb3lwQWdHR2ZxY3pHbzR1Q3J4Tmc2TXY3Q0hBOG5B?=
- =?utf-8?B?ZWcwVG5KRjJIaWoxOTIrRTQrYVF0bVhxSXphQWhVWGJON0FpQmJhclV3MGI1?=
- =?utf-8?B?TzQzZDJQU3FzaWNkT0F5S01qbm5hdVRDV2RwOE5vRDB0enRFQ2Q3cmk3S3hn?=
- =?utf-8?B?UVEvN1g2M2V2SG8yOWhHQzkyeGhwUXcrVTV2U29kempmdXNha2VndWdLc3J6?=
- =?utf-8?B?T3ZoUGpkdHk0VkxMTHNXZktLcmZraXJYRk5GRlJaZERLS2dZUjlaU1ZlVVhZ?=
- =?utf-8?B?U3V4QjRaZ2ROS0xISjBpSkZKcG1oOEJPYXhTKzVKNjFvZVhmMnMzcCtWMHlW?=
- =?utf-8?B?MHB2WmlwQkJxaVhhTkZydncvRTAvNll0V2EzaVBkeGdzZjYxQVFneDl3NzdN?=
- =?utf-8?B?TThpNjQydkNHU1UrVjhGL3UyYnVZdG1ycDlSSUhRVFVvckNsb1htWTNoa1N2?=
- =?utf-8?B?ZGY4eWt3enBTNWZXaGZwTGQvNDhKUS82SHRZRmpiRlpOUXNna1dGOWlPd3pO?=
- =?utf-8?B?TGhyTWJQTEV3WjQ0MCtYZFMydi9kVGE1emsvRFNUSjZwNmFzQ0pTYnNYWHJS?=
- =?utf-8?B?ZmRKVTNLWnNmM0tEaitIdXg4STFweFRjc3M2dG1ubCtPWEZjUURVSU9SNmZK?=
- =?utf-8?B?b2E1VzB1bkNCZmxJMXg1a3h6NzVoRUF5eWtwUHV2RFptK2RjbDE1WXBkM0lU?=
- =?utf-8?B?SFVNVUlEQ0tZaGFSQmdjbkc1UFIxdDhmaHBxekozZFZQOWR6QWlSSFFrNU1K?=
- =?utf-8?B?d29xRG51WFNBM3lCQVdsUk9NY0Rud0IwTjFSV0UyMXZhbDltZ005TkRWQTU2?=
- =?utf-8?B?V3hxLzR0UXBSNjVLdTMvUXA2QnZiMXhFSCtRM3ljREYxUTJjM0g3ZU5HZUNy?=
- =?utf-8?B?Z0ZVZEkyckNJZmoxRjZCc0JtUmpwMGhFM2dUaWpOdnNQL0Z6cm9YVWwvV2Fn?=
- =?utf-8?B?VHE4WDBlM21McEtFZm03ME9FOG9jTmhVWExZcGtDeUJIbnJ4QTAzRHhxcDky?=
- =?utf-8?B?eVVCQi8xUllzZ09UT1RIZEpFemJ4MzdHNHB4ajBuTmVzdkt6TnVMSDJVOU1i?=
- =?utf-8?Q?blok9V43ZZfzQ6paMv8yx6TBi?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VDZOK25tV1Y5a2s3UUN6OVdHaWE3R093WGx5U1ZoL3VTYzQzajdTRWJ5UVJk?=
+ =?utf-8?B?RU9IU2M4UnlZS3NBM01NR1dKNjdRcVZuckJzQVY4Y0l5M0VYT1RWNDdCS2Jx?=
+ =?utf-8?B?Q1d4bWtJUFpySjh6K1dYNjFSdjdzM2ZXM2R3NXVNaG9pd3REeUxqUVNFNkQ0?=
+ =?utf-8?B?UGQraDJnOGJTYUEyOUlCbUUrd3RmczR0djIxODNyMVNCVXN5S0x0QlYzVzly?=
+ =?utf-8?B?ODFuSTc3a3hqTzJWOTR4N3VpZ0pqSjVsTnlRODBhM0xXZmcybDdNelVtNEpN?=
+ =?utf-8?B?VGwvQnp3N0o0WUg5Y05XUFVDOXRoSU9KZ00yZmFDUEorbjFhNG94YUx6UFEx?=
+ =?utf-8?B?TWJFNWp3bHl4eTNQK2t4aWdDT0l6SE9ITEM2N0dEZlRMbE5FUTYxUy9mMEp3?=
+ =?utf-8?B?MWdqaDZEVTZTV3cvVEhVZUlXVldhanovd0syRlRWNmNmd1Nuck9IQVBOYy9N?=
+ =?utf-8?B?S2FMUkpYR1BrQS9oTC9PbVNWUzJlZkRoVW5BeWwyTG1VTDZzRGtxTWZrWWoy?=
+ =?utf-8?B?OWorWGE2ekNveloxV2hkV1NFRksxMjRBL2t6TktOcXNVZnY4NGJBQk1zM1d6?=
+ =?utf-8?B?NkxkTjZuUUs5N1pCdllOc0JFdFlUdDhiNVhIcGF0dXFTQnZZQ0FlYVBPTmht?=
+ =?utf-8?B?OVJBakFIemJTRHpySmN2MFZsTUErMEVLcFRadExtekhaaXY1cmcvTTB5TitB?=
+ =?utf-8?B?UUZraDNrVDZPYUZWNmdlT1JCa0JqYXk1cHJ4Q2F4cFEra3dyaUZRem9PQyt4?=
+ =?utf-8?B?eFc4cktPendrY3NCWnRvREl0amtNVEFoQ05FV2VXbE8wUlJydEk5Q0lNc1JL?=
+ =?utf-8?B?Q2Vtb0M5cmxrQWJuaGN6Q1RvdjZJR0FJcVZNQzA5aVZRaFJnNEcxVVlRbHgz?=
+ =?utf-8?B?dWpnUEhZWkVCaW1SUTVQYzFaZFRGL1U2Q2ZJYXR0TWU4d2wxa0lVT0Z2ejZj?=
+ =?utf-8?B?TFZFTUtRRjRwUzRZb1VTak8zZGJwVS94SXV1SEVlV05NUWprb2lXaEJwQXFt?=
+ =?utf-8?B?bmpqVW9sNHVDTjlKUGRTK05WL05La0lDRklwZ2MrTk9Hb3FHZjdndytzZlpt?=
+ =?utf-8?B?RjJvbytWeUNhNjNmb3lFOEpveHZheHowT3NnYlBKRENkeG1WNnZpMGo2NEE2?=
+ =?utf-8?B?LzFlMHI3VCtiMk5TNWNxNmRXbGJXSTRiSUpmTkU5eThDeExMZVREWHBKckV5?=
+ =?utf-8?B?UHlwQ1VZbUdwV3JHQXVGbkptYkx2UjJVc2xYN0pWK3A4ZFF1ZDk2Ynp3bEYx?=
+ =?utf-8?B?a0pIM25jOXRlcHpJYkp0eVNybG9WTUxxdUx6ZkpHWkkydWNSeTBrckJQSGYv?=
+ =?utf-8?B?WDhVMHY2SHRIeDJLVHFMYThNMGhIVGQ3YWxiUUZWbHk4emxwUWQvcFNGNGN2?=
+ =?utf-8?B?VTJLY0hxMWMrc3RpQ1h1dG5sUkUxbEpZeXdBYlF1c1V5QkZoT3pyUTlKSDhK?=
+ =?utf-8?B?Vll3elZXalZYK2FxR2phUjZTNmJVZy9QNUoyV2gycWVMZE5TUW9MNHN1S2Zx?=
+ =?utf-8?B?SXhRMzhvUzQ4MUEyRmVzUUZTemJURUl4U2tqNTE4RllPUDhXL1FaT2RWeFp4?=
+ =?utf-8?B?bWtxc3cvMHFsQ0RvRjNSYUg4alJmdlhBVExLZmdVV3k1djFvcU1UYWVvZzVO?=
+ =?utf-8?B?YktOZ2dLS0FZSUdpbjVsd0YyR1UyYVV1akgvak5wTlU1REdLK050dHExMm5S?=
+ =?utf-8?B?T3ZLN3ZPSmIxQ0EzRVFMb2NaOUNvZmtQNVI5V1dON0tidkFDRVdVY1A5Mktk?=
+ =?utf-8?B?bWtjdmwzdWgzNnJtQUZLdzNHRysrdmVZeGYrMktFZWlkUFZ0SHVubVc2NlVZ?=
+ =?utf-8?B?TG0zUnE4ZHg1VmoyY0VDSzJSRy9zcHN4ZVRNYkdGd2o1Qnh6OHJhbnRaeU9T?=
+ =?utf-8?B?VmRVRHJ2TFhJRGNIdDd5RHI3S0hDbUpkMGl5MDBSVTFZZlJTRkJBZUIxZGJo?=
+ =?utf-8?B?QnRHdjcwV3BQTFRPdUpFdklMU2NNQUh1UFozcVZPQ2lCL1R2U1dMR2dqZm5Y?=
+ =?utf-8?B?cHBlaTFkMVF2RG0yR1Q5cUplbkJRNTVhYnRScmJpSllIRDFwVUdnWjloTy9Q?=
+ =?utf-8?B?QTYyWUc2bHd5dG9MSjRSY2JjMDBuNEgvRThhcDVYb0hIcEkyeit4SkRKSUpX?=
+ =?utf-8?Q?IbcKs07MpPjVwgw66Y9yjv94Z?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f6fc4f0-cfad-47ea-c87e-08dbd4d4b7c7
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50449968-7332-424b-f9ed-08dbd4d54fa6
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2023 21:03:48.5979 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2023 21:08:03.3988 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oAjyeBVdEkZ9i3kphC7M6KE2qvmC2geY6eUPW3usUCSGRnNuH/6/o8MjZUNj06CNP5WHWKfWRlC44MZn5k3I1g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6019
+X-MS-Exchange-CrossTenant-UserPrincipalName: GFF0Hmu5iuELIN2qj5iyF1fsZs/g0nzzWWDhC6/CrL8SbJ19uxv6mmrcFHzos5l2i1wGN9pNK0ihUDOU6xGZRw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7312
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,60 +128,237 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 2023-10-24 15:20, David Francis wrote:
-> When the CPU is XGMI connected, the PCIe links should
-> not be enumerated for topology purposes. However, PCIe
-> transfer should still be a valid option for remote
-> doorbells and MMIO mappings.
+On 2023-10-24 15:08, David Francis wrote:
+> On gfx943 APU, EXT_COHERENT should give MTYPE_CC for local and
+> MTYPE_UC for nonlocal memory.
 >
-> Move the XGMI connection check out of the shared helper
-> function amdgpu_device_is_peer_accessible and into the
-> topology path.
+> On NUMA systems, local memory gets the local mtype, set by an
+> override callback. If EXT_COHERENT is set, memory will be set as
+> MTYPE_UC by default, with local memory MTYPE_CC.
+>
+> Add an option in the override function for this case, and
+> add a check to ensure it is not used on UNCACHED memory.
+>
+> V2: Combined APU and NUMA code into one patch
+> V3: Fixed a potential nullptr in amdgpu_vm_bo_update
 >
 > Signed-off-by: David Francis <David.Francis@amd.com>
-
-This patch is
 
 Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
 
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 +---
->   drivers/gpu/drm/amd/amdkfd/kfd_topology.c  | 6 ++++--
->   2 files changed, 5 insertions(+), 5 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 17 +++++++-----
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  8 +++++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c     | 33 +++++++++++++++--------
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c      |  8 +++---
+>   5 files changed, 45 insertions(+), 23 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 7ec32b44df05..a5c054f8a427 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -5783,9 +5783,7 @@ bool amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
->   		~*peer_adev->dev->dma_mask : ~((1ULL << 32) - 1);
->   	resource_size_t aper_limit =
->   		adev->gmc.aper_base + adev->gmc.aper_size - 1;
-> -	bool p2p_access =
-> -		!adev->gmc.xgmi.connected_to_cpu &&
-> -		!(pci_p2pdma_distance(adev->pdev, peer_adev->dev, false) < 0);
-> +	bool p2p_access = !(pci_p2pdma_distance(adev->pdev, peer_adev->dev, false) < 0);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index d72daf15662f..155c04589753 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -761,6 +761,7 @@ static void amdgpu_vm_tlb_seq_cb(struct dma_fence *fence,
+>    * @immediate: immediate submission in a page fault
+>    * @unlocked: unlocked invalidation during MM callback
+>    * @flush_tlb: trigger tlb invalidation after update completed
+> + * @allow_override: change MTYPE for local NUMA nodes
+>    * @resv: fences we need to sync to
+>    * @start: start of mapped range
+>    * @last: last mapped entry
+> @@ -777,7 +778,7 @@ static void amdgpu_vm_tlb_seq_cb(struct dma_fence *fence,
+>    * 0 for success, negative erro code for failure.
+>    */
+>   int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+> -			   bool immediate, bool unlocked, bool flush_tlb,
+> +			   bool immediate, bool unlocked, bool flush_tlb, bool allow_override,
+>   			   struct dma_resv *resv, uint64_t start, uint64_t last,
+>   			   uint64_t flags, uint64_t offset, uint64_t vram_base,
+>   			   struct ttm_resource *res, dma_addr_t *pages_addr,
+> @@ -815,6 +816,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   	params.immediate = immediate;
+>   	params.pages_addr = pages_addr;
+>   	params.unlocked = unlocked;
+> +	params.allow_override = allow_override;
 >   
->   	return pcie_p2p && p2p_access && (adev->gmc.visible_vram_size &&
->   		adev->gmc.real_vram_size == adev->gmc.visible_vram_size &&
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> index 4e530791507e..cb64c19482f3 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> @@ -1514,11 +1514,13 @@ static int kfd_dev_create_p2p_links(void)
->   			goto next;
+>   	/* Implicitly sync to command submissions in the same VM before
+>   	 * unmapping. Sync to moving fences before mapping.
+> @@ -990,6 +992,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+>   	struct ttm_resource *mem;
+>   	struct dma_fence **last_update;
+>   	bool flush_tlb = clear;
+> +	bool uncached;
+>   	struct dma_resv *resv;
+>   	uint64_t vram_base;
+>   	uint64_t flags;
+> @@ -1027,9 +1030,11 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
 >   
->   		/* check if node(s) is/are peer accessible in one direction or bi-direction */
-> -		ret = kfd_add_peer_prop(new_dev, dev, i, k);
-> +		if (!new_dev->gpu->adev->gmc.xgmi.connected_to_cpu)
-> +			ret = kfd_add_peer_prop(new_dev, dev, i, k);
->   		if (ret < 0)
->   			goto out;
+>   		bo_adev = amdgpu_ttm_adev(bo->tbo.bdev);
+>   		vram_base = bo_adev->vm_manager.vram_base_offset;
+> +		uncached = (bo->flags & AMDGPU_GEM_CREATE_UNCACHED) != 0;
+>   	} else {
+>   		flags = 0x0;
+>   		vram_base = 0;
+> +		uncached = false;
+>   	}
 >   
-> -		ret = kfd_add_peer_prop(dev, new_dev, k, i);
-> +		if (!dev->gpu->adev->gmc.xgmi.connected_to_cpu)
-> +			ret = kfd_add_peer_prop(dev, new_dev, k, i);
->   		if (ret < 0)
->   			goto out;
->   next:
+>   	if (clear || (bo && bo->tbo.base.resv ==
+> @@ -1063,7 +1068,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+>   		trace_amdgpu_vm_bo_update(mapping);
+>   
+>   		r = amdgpu_vm_update_range(adev, vm, false, false, flush_tlb,
+> -					   resv, mapping->start, mapping->last,
+> +					   !uncached, resv, mapping->start, mapping->last,
+>   					   update_flags, mapping->offset,
+>   					   vram_base, mem, pages_addr,
+>   					   last_update);
+> @@ -1258,8 +1263,8 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+>   		    mapping->start < AMDGPU_GMC_HOLE_START)
+>   			init_pte_value = AMDGPU_PTE_DEFAULT_ATC;
+>   
+> -		r = amdgpu_vm_update_range(adev, vm, false, false, true, resv,
+> -					   mapping->start, mapping->last,
+> +		r = amdgpu_vm_update_range(adev, vm, false, false, true, false,
+> +					   resv, mapping->start, mapping->last,
+>   					   init_pte_value, 0, 0, NULL, NULL,
+>   					   &f);
+>   		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+> @@ -2547,8 +2552,8 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+>   		goto error_unlock;
+>   	}
+>   
+> -	r = amdgpu_vm_update_range(adev, vm, true, false, false, NULL, addr,
+> -				   addr, flags, value, 0, NULL, NULL, NULL);
+> +	r = amdgpu_vm_update_range(adev, vm, true, false, false, false,
+> +				   NULL, addr, addr, flags, value, 0, NULL, NULL, NULL);
+>   	if (r)
+>   		goto error_unlock;
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index 6e71978db13f..9ea8b5b644e3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -244,6 +244,12 @@ struct amdgpu_vm_update_params {
+>   	 * @table_freed: return true if page table is freed when updating
+>   	 */
+>   	bool table_freed;
+> +
+> +	/**
+> +	 * @allow_override: true for memory that is not uncached: allows MTYPE
+> +	 * to be overridden for NUMA local memory.
+> +	 */
+> +	bool allow_override;
+>   };
+>   
+>   struct amdgpu_vm_update_funcs {
+> @@ -436,7 +442,7 @@ int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
+>   void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
+>   			    struct amdgpu_vm *vm, struct amdgpu_bo *bo);
+>   int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+> -			   bool immediate, bool unlocked, bool flush_tlb,
+> +			   bool immediate, bool unlocked, bool flush_tlb, bool allow_override,
+>   			   struct dma_resv *resv, uint64_t start, uint64_t last,
+>   			   uint64_t flags, uint64_t offset, uint64_t vram_base,
+>   			   struct ttm_resource *res, dma_addr_t *pages_addr,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> index 9b025fd17b84..a2287bb25223 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> @@ -843,7 +843,7 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
+>   	 */
+>   	if ((flags & AMDGPU_PTE_SYSTEM) && (adev->flags & AMD_IS_APU) &&
+>   	    adev->gmc.gmc_funcs->override_vm_pte_flags &&
+> -	    num_possible_nodes() > 1 && !params->pages_addr)
+> +	    num_possible_nodes() > 1 && !params->pages_addr && params->allow_override)
+>   		amdgpu_gmc_override_vm_pte_flags(adev, params->vm, addr, &flags);
+>   
+>   	params->vm->update_funcs->update(params, pt, pe, addr, count, incr,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index fee3141bb607..b66c5f7e1c56 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -1251,12 +1251,15 @@ static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
+>   		return;
+>   	}
+>   
+> -	/* Only override mappings with MTYPE_NC, which is the safe default for
+> -	 * cacheable memory.
+> +	/* MTYPE_NC is the same default and can be overridden.
+> +	 * MTYPE_UC will be present if the memory is extended-coherent
+> +	 * and can also be overridden.
+>   	 */
+>   	if ((*flags & AMDGPU_PTE_MTYPE_VG10_MASK) !=
+> -	    AMDGPU_PTE_MTYPE_VG10(MTYPE_NC)) {
+> -		dev_dbg_ratelimited(adev->dev, "MTYPE is not NC\n");
+> +	    AMDGPU_PTE_MTYPE_VG10(MTYPE_NC) &&
+> +	    (*flags & AMDGPU_PTE_MTYPE_VG10_MASK) !=
+> +	    AMDGPU_PTE_MTYPE_VG10(MTYPE_UC)) {
+> +		dev_dbg_ratelimited(adev->dev, "MTYPE is not NC or UC\n");
+>   		return;
+>   	}
+>   
+> @@ -1283,15 +1286,23 @@ static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
+>   			    vm->mem_id, local_node, nid);
+>   	if (nid == local_node) {
+>   		uint64_t old_flags = *flags;
+> -		unsigned int mtype_local = MTYPE_RW;
+> +		if ((*flags & AMDGPU_PTE_MTYPE_VG10_MASK) ==
+> +			AMDGPU_PTE_MTYPE_VG10(MTYPE_NC)) {
+> +			unsigned int mtype_local = MTYPE_RW;
+>   
+> -		if (amdgpu_mtype_local == 1)
+> -			mtype_local = MTYPE_NC;
+> -		else if (amdgpu_mtype_local == 2)
+> -			mtype_local = MTYPE_CC;
+> +			if (amdgpu_mtype_local == 1)
+> +				mtype_local = MTYPE_NC;
+> +			else if (amdgpu_mtype_local == 2)
+> +				mtype_local = MTYPE_CC;
+> +
+> +			*flags = (*flags & ~AMDGPU_PTE_MTYPE_VG10_MASK) |
+> +				 AMDGPU_PTE_MTYPE_VG10(mtype_local);
+> +		} else {
+> +			/* MTYPE_UC case */
+> +			*flags = (*flags & ~AMDGPU_PTE_MTYPE_VG10_MASK) |
+> +				 AMDGPU_PTE_MTYPE_VG10(MTYPE_CC);
+> +		}
+>   
+> -		*flags = (*flags & ~AMDGPU_PTE_MTYPE_VG10_MASK) |
+> -			 AMDGPU_PTE_MTYPE_VG10(mtype_local);
+>   		dev_dbg_ratelimited(adev->dev, "flags updated from %llx to %llx\n",
+>   				    old_flags, *flags);
+>   	}
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index 640ada95e2c3..fe937670c927 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -1280,7 +1280,7 @@ svm_range_get_pte_flags(struct kfd_node *node,
+>   			if (num_possible_nodes() <= 1)
+>   				mapping_flags |= mtype_local;
+>   			else
+> -				mapping_flags |= AMDGPU_VM_MTYPE_NC;
+> +				mapping_flags |= ext_coherent ? AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_NC;
+>   		/* system memory accessed by the dGPU */
+>   		} else {
+>   			mapping_flags |= AMDGPU_VM_MTYPE_UC;
+> @@ -1315,7 +1315,7 @@ svm_range_unmap_from_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   
+>   	pr_debug("[0x%llx 0x%llx]\n", start, last);
+>   
+> -	return amdgpu_vm_update_range(adev, vm, false, true, true, NULL, start,
+> +	return amdgpu_vm_update_range(adev, vm, false, true, true, false, NULL, start,
+>   				      last, init_pte_value, 0, 0, NULL, NULL,
+>   				      fence);
+>   }
+> @@ -1422,8 +1422,8 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
+>   		 * different memory partition based on fpfn/lpfn, we should use
+>   		 * same vm_manager.vram_base_offset regardless memory partition.
+>   		 */
+> -		r = amdgpu_vm_update_range(adev, vm, false, false, flush_tlb, NULL,
+> -					   last_start, prange->start + i,
+> +		r = amdgpu_vm_update_range(adev, vm, false, false, flush_tlb, true,
+> +					   NULL, last_start, prange->start + i,
+>   					   pte_flags,
+>   					   (last_start - prange->start) << PAGE_SHIFT,
+>   					   bo_adev ? bo_adev->vm_manager.vram_base_offset : 0,
