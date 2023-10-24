@@ -4,117 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F490C00A8F
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Oct 2023 05:24:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42C5EC07545
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Oct 2023 06:01:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7370410E2DE;
-	Tue, 24 Oct 2023 05:24:00 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2074.outbound.protection.outlook.com [40.107.243.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2226610E2DD
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Oct 2023 05:23:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=W5PsOUFlaNGmxTUu6hUydJINVrWHRQArknV91pXcq1lyJX7oRk3MKNN45ee6q9rbxwF2+kRsPYTMtQs5bE/My+hScV9jkY5bbnPG/kq5fD50Rn4yZC9qWN7bzeHfuX9cic7goRinKpLeemIstGhGK2Ix8dMGnB4p9X5UGyR/yzMzZtMRZPGDdKknWz21br2LDWJwcn5kmGuXOEH//0Ydp5zqNpY6186Xmf+ZlGnrMLU8bMmvbcntn31DxZQ5HYYBJZ7W4Zr/Gy/sCKRXdgrixcamEIPaVFikHC4NwUAsSvyWpkFfgO/nY9lNuVMPJB8YzIG0V7jM0yxHwBeSWKIfig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rLDjAjklUA7OGm359tASDG3TGh1J+KBBKoZPppa941Q=;
- b=U5j0knjl5bkPV71XNvG3gBr+i7O1e7C/kwdpOK52IMJ7kXo4sWQfaGGjZW5PXlSpTdG6EKm3gSf7hh1g4PCLkjW4C+XibUQWxEumI2p+9S0bGjYsRpQONFPm6IUMeMHSJ5h8YAY87wz/BEQB1Tj5i1ugX3HRS+or8NpZXukhIyzH6vo1VthjE+KJD/CnJQc5gbeAhvh/G6ZOtELhG1AP0/PEJhrz0dvbi1jFwaV6VQSOGKhRCI9glKYx655IQRIR8t9Q3qGF05rrWRaM+KpdmXHOhVb37uJh4UL+4X1hDZUi0fQVMLcN/6w1JoPl0yw9e6Ul8Zeb+raXJNbBiEz/RQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rLDjAjklUA7OGm359tASDG3TGh1J+KBBKoZPppa941Q=;
- b=u/vb4sECu3RSzCToqyaLcOjrOJPu0AxkWefLkhLG4NbjMX3DbG0yhtQI4SeMLKrdfESg3jq8z1t5wZUntxmv+E9e+ZsIqse1zrKFV9PgDpVNb3Ryg9W0RBr3wzPjhinfaCcsAlZebyb4tiGvvd9l9kpxCbvSnG8dBpFE3qw7GhU=
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
- by CH3PR12MB7521.namprd12.prod.outlook.com (2603:10b6:610:143::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.33; Tue, 24 Oct
- 2023 05:23:55 +0000
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::734d:d070:e2db:de7a]) by PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::734d:d070:e2db:de7a%7]) with mapi id 15.20.6907.025; Tue, 24 Oct 2023
- 05:23:55 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Yuan, Perry" <Perry.Yuan@amd.com>, "Zhang, Yifan" <Yifan1.Zhang@amd.com>, 
- "Feng, Kenneth" <Kenneth.Feng@amd.com>, "Limonciello, Mario"
- <Mario.Limonciello@amd.com>
-Subject: RE: [PATCH 2/3] drm/amdgpu: avoid sending csib command when system
- resumes from S3
-Thread-Topic: [PATCH 2/3] drm/amdgpu: avoid sending csib command when system
- resumes from S3
-Thread-Index: AQHaBiJ+nPkpbXA3w0WN9Po6/PaxVrBYZ0wA
-Date: Tue, 24 Oct 2023 05:23:55 +0000
-Message-ID: <PH7PR12MB599773B103A677179EEBC4F182DFA@PH7PR12MB5997.namprd12.prod.outlook.com>
-References: <9d71cec3a900bedfc4a9f2409a606405deb60985.1698114574.git.perry.yuan@amd.com>
- <c8aab746fe07c1385caa25afac8e69bfad2e693d.1698114574.git.perry.yuan@amd.com>
-In-Reply-To: <c8aab746fe07c1385caa25afac8e69bfad2e693d.1698114574.git.perry.yuan@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=fd716a7a-cabe-4bd2-8d85-ae865572e708;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-10-24T05:20:21Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|CH3PR12MB7521:EE_
-x-ms-office365-filtering-correlation-id: 4621fb11-c3a4-4844-4d0c-08dbd4516b00
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: bNKiA2uK4cRQzhefQV9jsZDfeOk3XQfzAgT5zinMTPutUeAkYbpEqCLi9w+UFg4DgR5lS3IZwLTPPwRVsAabcTEohJAmjiwyI6tSDiVIzt9LaNwuApB7nP8HC/x+MkvA7In0Kuf60oalDVvn+7Aj/I5yO+l5U0iHz0TmtbCbN0Um4XAtBeJTB0AG2dTs1N4hL4iJm0VrjoUWLeJRAGxjxP0pdIgEoI2+tOL9S0Cvwb8NJHbp4CluK4ORPNn+DNceZ1taOYYL1/MfF4E0u8bA6wQPKZh8L5UAwEhu5yP2kQ2L/59V7TLy1a9SV5/5J9JwAwW6YC3hTlP66yToHEQkdpGHkvculuKQdps48GkSiAAEPIkESITuJm9mEbX0AABPp0K9IAroU1XBiJDnFHR/RBSjaBJnbzCMuXQJZOCpnte2/Adt+9rdvMTyQqmuTxRsxRWyPezGnIN9r3IRob40GB6SZG2kAWZiDG3nyWcUorwSlbAkaSzWQj81645bb86iPOFEzlT00TmbAlclSItKd7HWzpskVe+iclCIXG2yxQxeAKHKgv1wRxWux4hQZ4EaADv/89Yx3QMLYw1d/cLw4icleA9U6n2sFDbkpFfOFghpmM/VMNML3aA755QfelFq
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366004)(39860400002)(376002)(136003)(346002)(396003)(230922051799003)(64100799003)(451199024)(1800799009)(186009)(55016003)(2906002)(38100700002)(66476007)(110136005)(64756008)(66946007)(66556008)(76116006)(122000001)(6636002)(71200400001)(6506007)(478600001)(316002)(66446008)(7696005)(53546011)(9686003)(83380400001)(54906003)(41300700001)(4326008)(5660300002)(52536014)(86362001)(33656002)(8676002)(8936002)(38070700009)(26005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?hDtRO1YiSYNvSZnouPnau0Eg7FdTLqkZYx2zOx/Xpttrr7Bg2JudvtA7xRfQ?=
- =?us-ascii?Q?Ua7WufBLnFWkrI1xCoZZVR1wuH9588Ok9uRI/MCGll+HOVF/RNZVMUrB3Oqa?=
- =?us-ascii?Q?niL4hVO+YxO3OBEsQDDUn3M96Cne3kYa6imP7rhqCxj/YJJqyy03C5cWNbve?=
- =?us-ascii?Q?3V/VAz3MJoMX9e3xW9rUsOd+Szb8yKIAnY2OYTVieItNOXboMNdINUAo1Rxf?=
- =?us-ascii?Q?sT5rgsMSfWppdtaRJonsbMmEVeOkwTKKX10PccOkVX8du+6c1qvQjMmHn6+f?=
- =?us-ascii?Q?aensQoD1Gz3cVPP7IUTWmBIXpOLUim0uYdUAakez9KDnbMj4MkJQmHvZ+AOE?=
- =?us-ascii?Q?GF2ItV2Ses/Y5sVN0ghM2tDdlobpnjabCKIN+GNv2whkJ2+2Q2MjZYqoHILy?=
- =?us-ascii?Q?dS6YMA0Nl0OeoOgfXb7do/AdXHedT/n5UrFtS6yDvNVQpD06ZlrJlsIBXOd6?=
- =?us-ascii?Q?g2xNVPKMT0WRRTCAvp7GxYKMUIv2tBdHSZULoGcVnE1E4G6F2LgieyqfsEFQ?=
- =?us-ascii?Q?5mtMeQPekeJ3O7G0Z9zuhYWOyu7RuVyTKIBTtzt/jEfLyZju3oES82CsIveO?=
- =?us-ascii?Q?O4z9FotTC+CL6zFvcJ+MwRdSMUappO+kj+bj6BoxpHCgv8sDN6sWJCTWp29J?=
- =?us-ascii?Q?rYcrUPcIOFQiMNjWe7luv2D0zYf+Bn1UVYb4xIE5cdGzFeaK4nZ4ZKBmBSsf?=
- =?us-ascii?Q?hj2vligDeNSVW8HNo3fOeQUNGZtUkkGmax8IsyywW2V2sbuLA9QVJaEdZqy4?=
- =?us-ascii?Q?gGMmTXJO5r2HINJ3QEfTPRaj1bmO0V9ztKMF/bZN/am88Sj+CkoVAkyuZ4EN?=
- =?us-ascii?Q?Ly/W81RiE9BaFp3StAPiGq1OUXanAl+fy5q+TW6O1hpq1SCb3jZfbBQw9Ups?=
- =?us-ascii?Q?HOe8AqgtqmIw6cFt70V4nKId9JemaX0f40++HSE8XeFG27zdtbtagMyLuex8?=
- =?us-ascii?Q?8YzTDV366mQUrpr0cPsfmIF9SpSMnsKFFf6qz+TZhEkIxcuC8LdXcnG0v7zJ?=
- =?us-ascii?Q?mkXcqpTn7iS88F/lEGJqUeNqWFkewcnx9DHlApjPUznNlPwBYXu3jvHNvyui?=
- =?us-ascii?Q?Lla95c5rjD1WqPRTnHK0Irnc81o0FmcmDyy0zzG4TstTusFstEWxUFSRLcYW?=
- =?us-ascii?Q?im8wasSDDU8cPDD/UwTkhWDfASTTw1L78U5eSq2bIj5/YdkyRNxgvx8fZiQ+?=
- =?us-ascii?Q?ViUxwd0KwyD5UQa6XnaPI7s6G/A/m+v//cQ+u23PyaA/Iuxz30WOyzyKopGU?=
- =?us-ascii?Q?9IoHsajpkmXcyvZvQXHRZvPyTqwqDszNPxpW18vPwZ958IhtYKcwtshNI1tH?=
- =?us-ascii?Q?OYPu6ynl34afb8MIG3SVVEIAaWd8gT+/m4wHieSJrX71U4XNupEGnsK53HwO?=
- =?us-ascii?Q?ch6GrjxwcBMZJpOm558SqDlwfyM5SWuJQ6doH+uImfl9lRrsJkbFwPynPoMf?=
- =?us-ascii?Q?hCmjUgG9aBneNxEnwgPPuop6u9g6lvitoxCcp8NDpNTEFAe5n1UMbKHdx7Sv?=
- =?us-ascii?Q?OB4oEfXyuoZWIwj8VWdVQU+EJ+tpJAYIo27ufGe6zMquI7eXK53yv8iaehWS?=
- =?us-ascii?Q?DDNzfZNEQhbDLKnCJmc=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75C2510E2DD;
+	Tue, 24 Oct 2023 06:01:01 +0000 (UTC)
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [IPv6:2a00:1450:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1E1B10E2DD
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Oct 2023 06:00:59 +0000 (UTC)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-9ba081173a3so643372266b.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Oct 2023 23:00:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1698127258; x=1698732058; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=yItibheYKmuGuFXD0RO6DSdn65yFwOLuG7LRlUNNvtM=;
+ b=kjEPV/ZghKorf3y2bzHAUnRwhj0mlS07z0M7xsKMyQfjJkAh4hKGOqFjpIdKdfG13o
+ E0QH4fdl9tMjVt4dDBwXMf1SKyTADyD2QXx//OgAApEHKDGiiLMW01R+YHLveyCPliwg
+ yvBz2pCwhrE2o4SjP+vX7N7JKIrUQYl0bBZ+z0NlwxPbH+S7RqhfhLyOkp50C0cXUZuq
+ JSrCLM8afd9t5zF4C4D1uzYjv+BuO+2P1DGIXMq6XpVTuzQLLsHaSv+MEIZEAsJ8KJTW
+ OFziYBd9Rvr8ER22L7zyC87wmxAh9dg1RCFRRlE6woWzk7W3hgJnh6AH6FG1bFQDHVUn
+ VlDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1698127258; x=1698732058;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=yItibheYKmuGuFXD0RO6DSdn65yFwOLuG7LRlUNNvtM=;
+ b=ox/PV3TFsUETtCN05GUEsvbUrZqvzdeFHM5iutdIvv1iLgMLZjiujGZi9i/WzIoPWm
+ BsMgf6Umbkti8p4NMnp7yK8cXmt52vhmwZoVYHjOz7XO6Tpe/11NI149nRjpa6fWj4sY
+ DMZgX4WM6461MRGttu20rO/nQEtj6o6BPf+ukmNg7nTQ5kxKX6d614kaB/VoahVeIvdS
+ I2e5ykpKw194Yu1I1tJw5DKO8xq2e7NP1NM4KrO24OHCFg0MwSXCHt9ns9WlJBqnIgPC
+ +hn63GqYXZXyFRDifHPKv520u+IEInPA2ZeEX4jbp37B8BHYC/LC3pT0gvNHLzmBUdoo
+ yv+Q==
+X-Gm-Message-State: AOJu0Yz2OaqDVySY7JmPWwd5ssX94uNBJYLbwN0lvkUZA4gqat4dVG9m
+ VCwfgSn9rWrt9OuUZgWbVmg=
+X-Google-Smtp-Source: AGHT+IHMAlIlDBbaLBh3J2moddIj/y88b/oIMhIfw93Y3C9K/DdSz41FRdXYJ/YweJkyRt9FvyLGjg==
+X-Received: by 2002:a17:907:6e8c:b0:9b2:765b:273b with SMTP id
+ sh12-20020a1709076e8c00b009b2765b273bmr11288284ejc.70.1698127258085; 
+ Mon, 23 Oct 2023 23:00:58 -0700 (PDT)
+Received: from [192.168.178.25] ([134.19.55.171])
+ by smtp.gmail.com with ESMTPSA id
+ v12-20020a1709063bcc00b0099bc2d1429csm7662114ejf.72.2023.10.23.23.00.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 23 Oct 2023 23:00:57 -0700 (PDT)
+Message-ID: <bf4e2094-3304-412b-a196-27c289e080a5@gmail.com>
+Date: Tue, 24 Oct 2023 08:00:56 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4621fb11-c3a4-4844-4d0c-08dbd4516b00
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Oct 2023 05:23:55.5664 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: IEkaDKwShBf/Kcp4nWQt0ZMp3Bx13BaeV0Uoh++4oRSJNMjwSI5axlX9YIIwTod3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7521
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Initialize schedulers before using them
+Content-Language: en-US
+To: Luben Tuikov <luben.tuikov@amd.com>,
+ AMD Graphics <amd-gfx@lists.freedesktop.org>
+References: <20231023032344.164925-1-luben.tuikov@amd.com>
+ <402f475c-bb67-4061-9521-2f811eca7657@gmail.com>
+ <53e14f59-6743-4a11-bf27-151507071bb0@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <53e14f59-6743-4a11-bf27-151507071bb0@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,159 +77,211 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <Alexander.Deucher@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Am 24.10.23 um 04:55 schrieb Luben Tuikov:
+> On 2023-10-23 01:49, Christian König wrote:
+>>
+>> Am 23.10.23 um 05:23 schrieb Luben Tuikov:
+>>> Initialize ring schedulers before using them, very early in the amdgpu boot,
+>>> at PCI probe time, specifically at frame-buffer dumb-create at fill-buffer.
+>>>
+>>> This was discovered by using dynamic scheduler run-queues, which showed that
+>>> amdgpu was using a scheduler before calling drm_sched_init(), and the only
+>>> reason it was working was because sched_rq[] was statically allocated in the
+>>> scheduler structure. However, the scheduler structure had _not_ been
+>>> initialized.
+>>>
+>>> When switching to dynamically allocated run-queues, this lack of
+>>> initialization was causing an oops and a blank screen at boot up. This patch
+>>> fixes this amdgpu bug.
+>>>
+>>> This patch depends on the "drm/sched: Convert the GPU scheduler to variable
+>>> number of run-queues" patch, as that patch prevents subsequent scheduler
+>>> initialization if a scheduler has already been initialized.
+>>>
+>>> Cc: Christian König <christian.koenig@amd.com>
+>>> Cc: Alex Deucher <Alexander.Deucher@amd.com>
+>>> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+>>> Cc: AMD Graphics <amd-gfx@lists.freedesktop.org>
+>>> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+>>> ---
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 14 ++++++++++++++
+>>>    1 file changed, 14 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>> index 4e51dce3aab5d6..575ef7e1e30fd4 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>> @@ -60,6 +60,7 @@
+>>>    #include "amdgpu_atomfirmware.h"
+>>>    #include "amdgpu_res_cursor.h"
+>>>    #include "bif/bif_4_1_d.h"
+>>> +#include "amdgpu_reset.h"
+>>>    
+>>>    MODULE_IMPORT_NS(DMA_BUF);
+>>>    
+>>> @@ -2059,6 +2060,19 @@ void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
+>>>    
+>>>    		ring = adev->mman.buffer_funcs_ring;
+>>>    		sched = &ring->sched;
+>>> +
+>>> +		r = drm_sched_init(sched, &amdgpu_sched_ops,
+>>> +				   DRM_SCHED_PRIORITY_COUNT,
+>>> +				   ring->num_hw_submission, 0,
+>>> +				   adev->sdma_timeout, adev->reset_domain->wq,
+>>> +				   ring->sched_score, ring->name,
+>>> +				   adev->dev);
+>>> +		if (r) {
+>>> +			drm_err(adev, "%s: couldn't initialize ring:%s error:%d\n",
+>>> +				__func__, ring->name, r);
+>>> +			return;
+>>> +		}
+>> That doesn't look correct either.
+>>
+>> amdgpu_ttm_set_buffer_funcs_status() should only be called with
+>> enable=true as argument *after* the copy ring is initialized and valid
+>> to use. One part of this ring initialization is to setup the scheduler.
+> It's the only way to keep the functionality of amdgpu_fill_buffer()
+> from amdgpu_mode_dumb_create(), from drm_client_framebuffer_create(),
+> from ... without an oops and a blank screen at boot up.
+>
+> Here is a stack of the oops:
+>
+> Oct 20 22:12:34 fedora kernel: RIP: 0010:drm_sched_job_arm+0x1f/0x60 [gpu_sched]
+> Oct 20 22:12:34 fedora kernel: Code: 90 90 90 90 90 90 90 90 90 90 90 0f 1f 44 00 00 55 53 48 8b 6f 58 48 85 ed 74 3f 48 89 fb 48 89 ef e8 95 34 00 00 48 8b 45 10 <48> 8b 50 08 48 89 53 18 8b 45 24 89 43 54 b8 01 00 00 00 f0 48 0f
+> Oct 20 22:12:34 fedora kernel: RSP: 0018:ffffc90001613838 EFLAGS: 00010246
+> Oct 20 22:12:34 fedora kernel: RAX: 0000000000000000 RBX: ffff88812f33b400 RCX: 0000000000000004
+> Oct 20 22:12:34 fedora kernel: RDX: 0000000000000000 RSI: ffffc9000395145c RDI: ffff88812eacf850
+> Oct 20 22:12:34 fedora kernel: RBP: ffff88812eacf850 R08: 0000000000000004 R09: 0000000000030000
+> Oct 20 22:12:34 fedora kernel: R10: ffffffffc066b850 R11: ffffffffbc848ef1 R12: 0000000000000000
+> Oct 20 22:12:34 fedora kernel: R13: 0000000000000004 R14: 0000008003000000 R15: 0000000001000000
+> Oct 20 22:12:34 fedora kernel: FS:  00007f7be4866940(0000) GS:ffff88880ed00000(0000) knlGS:0000000000000000
+> Oct 20 22:12:34 fedora kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> Oct 20 22:12:34 fedora kernel: CR2: 0000000000000008 CR3: 000000012cf22000 CR4: 00000000003506e0
+> Oct 20 22:12:34 fedora kernel: Call Trace:
+> Oct 20 22:12:34 fedora kernel:  <TASK>
+> Oct 20 22:12:34 fedora kernel:  ? __die+0x1f/0x70
+> Oct 20 22:12:34 fedora kernel:  ? page_fault_oops+0x149/0x440
+> Oct 20 22:12:34 fedora kernel:  ? drm_sched_fence_alloc+0x1a/0x40 [gpu_sched]
+> Oct 20 22:12:34 fedora kernel:  ? amdgpu_job_alloc_with_ib+0x34/0xb0 [amdgpu]
+> Oct 20 22:12:34 fedora kernel:  ? srso_return_thunk+0x5/0x10
+> Oct 20 22:12:34 fedora kernel:  ? do_user_addr_fault+0x65/0x650
+> Oct 20 22:12:34 fedora kernel:  ? drm_client_framebuffer_create+0xa3/0x280 [drm]
+> Oct 20 22:12:34 fedora kernel:  ? exc_page_fault+0x7b/0x180
+> Oct 20 22:12:34 fedora kernel:  ? asm_exc_page_fault+0x22/0x30
+> Oct 20 22:12:34 fedora kernel:  ? local_pci_probe+0x41/0x90
+> Oct 20 22:12:34 fedora kernel:  ? __pfx_sdma_v5_0_emit_fill_buffer+0x10/0x10 [amdgpu]
+> Oct 20 22:12:34 fedora kernel:  ? drm_sched_job_arm+0x1f/0x60 [gpu_sched]
+> Oct 20 22:12:34 fedora kernel:  ? drm_sched_job_arm+0x1b/0x60 [gpu_sched]
+> Oct 20 22:12:34 fedora kernel:  amdgpu_job_submit+0xf/0x70 [amdgpu]
+> Oct 20 22:12:34 fedora kernel:  amdgpu_fill_buffer+0x2b4/0x650 [amdgpu]
+> Oct 20 22:12:34 fedora kernel:  amdgpu_bo_create+0x401/0x4a0 [amdgpu]
+> Oct 20 22:12:34 fedora kernel:  ? srso_return_thunk+0x5/0x10
+> Oct 20 22:12:34 fedora kernel:  amdgpu_bo_create_user+0x24/0x40 [amdgpu]
+> Oct 20 22:12:34 fedora kernel:  amdgpu_mode_dumb_create+0xf8/0x1a0 [amdgpu]
+> Oct 20 22:12:34 fedora kernel:  ? drm_client_framebuffer_create+0x69/0x280 [drm]
+> Oct 20 22:12:34 fedora kernel:  ? __pfx_amdgpu_bo_user_destroy+0x10/0x10 [amdgpu]
+> Oct 20 22:12:34 fedora kernel:  drm_client_framebuffer_create+0xa3/0x280 [drm]
+> Oct 20 22:12:34 fedora kernel:  ? amdgpu_vm_bo_add+0x2a/0xb0 [amdgpu]
+> Oct 20 22:12:34 fedora kernel:  drm_fbdev_generic_helper_fb_probe+0x61/0x190 [drm_kms_helper]
+> Oct 20 22:12:34 fedora kernel:  __drm_fb_helper_initial_config_and_unlock+0x297/0x500 [drm_kms_helper]
+> Oct 20 22:12:34 fedora kernel:  drm_fbdev_generic_client_hotplug+0x66/0xb0 [drm_kms_helper]
+> Oct 20 22:12:34 fedora kernel:  drm_client_register+0x75/0xb0 [drm]
+> Oct 20 22:12:34 fedora kernel:  amdgpu_pci_probe+0x3ac/0x440 [amdgpu]
+> Oct 20 22:12:34 fedora kernel:  local_pci_probe+0x41/0x90
+> Oct 20 22:12:34 fedora kernel:  pci_device_probe+0xb3/0x210
+> Oct 20 22:12:34 fedora kernel:  really_probe+0x19e/0x3e0
+> Oct 20 22:12:34 fedora kernel:  ? __pfx___driver_attach+0x10/0x10
+> Oct 20 22:12:34 fedora kernel:  __driver_probe_device+0x78/0x160
+> Oct 20 22:12:34 fedora kernel:  driver_probe_device+0x1f/0x90
+> Oct 20 22:12:34 fedora kernel:  __driver_attach+0xce/0x1c0
+> Oct 20 22:12:34 fedora kernel:  bus_for_each_dev+0x63/0xa0
+> Oct 20 22:12:34 fedora kernel:  bus_add_driver+0x112/0x210
+> Oct 20 22:12:34 fedora kernel:  driver_register+0x55/0x100
+> Oct 20 22:12:34 fedora kernel:  ? __pfx_amdgpu_init+0x10/0x10 [amdgpu]
+> Oct 20 22:12:34 fedora kernel:  do_one_initcall+0x46/0x310
+> Oct 20 22:12:34 fedora kernel:  ? srso_return_thunk+0x5/0x10
+> Oct 20 22:12:34 fedora kernel:  ? kmalloc_trace+0x26/0x90
+> Oct 20 22:12:34 fedora kernel:  do_init_module+0x60/0x230
+> Oct 20 22:12:34 fedora kernel:  init_module_from_file+0x75/0xa0
+> Oct 20 22:12:34 fedora kernel:  idempotent_init_module+0xf9/0x270
+> Oct 20 22:12:34 fedora kernel:  __x64_sys_finit_module+0x5a/0xb0
+> Oct 20 22:12:34 fedora kernel:  do_syscall_64+0x3b/0x90
+> Oct 20 22:12:34 fedora kernel:  entry_SYSCALL_64_after_hwframe+0x6e/0xd8
+>
+> It is at PCI probe time, when DRM probes for an fb dev.
+>
+>>
+>>> +
+>>>    		r = drm_sched_entity_init(&adev->mman.high_pr,
+>>>    					  DRM_SCHED_PRIORITY_KERNEL, &sched,
+>>>    					  1, NULL);
+>> That here looks totally incorrect and misplaced to me.
+>> amdgpu_ttm_set_buffer_funcs_status() should only enabled/disable using
+>> the copy functions and not really initialize the entity.
+>>
+>> So the entity should only be created when enable=true and it should
+>> especially *not* re-created all the time without properly destroying it.
+>>
+>> Can you look at the history of the code? I'm pretty sure that this was
+>> at some time correctly implemented.
+> Yeah, the drm_sched_entity_init() line above--which is not part of this
+> patch--comes from this commit:
+>
+> commit c3aaca43fb07ce
+> Author: Mukul Joshi <mukul.joshi@amd.com>
+> Date:   Wed May 17 15:53:50 2023 -0400
+>
+>      drm/amdgpu: Add a low priority scheduler for VRAM clearing
+>      
+>      Add a low priority DRM scheduler for VRAM clearing instead of using
+>      the exisiting high priority scheduler. Use the high priority scheduler
+>      for migrations and evictions.
+>      
+>      Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+>      Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+>      Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>
+> The options are,
+>
+> a) Revert c3aaca43fb07ce.
+>
+> b) Let this patch in, so that it's not blocking the DRM dynamic sched_rq,
+>     and we can fix this properly in the future locally in amdgpu, as it is
+>     a driver issue, and it shouldn't be blocking the DRM dynamic sched_rq.
+>     If we had the dynamic sched_rq in before May 17 of this year, c3aaca43fb07ce
+>     wouldn't have been able to go in (due to oops). More details in the commit
+>     message of this patch above.
+>
+> I'm writing this from a 6.6.0-rc6 + {DRM dynamic sched_rq patch, this patch}.
 
------Original Message-----
-From: Yuan, Perry <Perry.Yuan@amd.com>
-Sent: Tuesday, October 24, 2023 10:33 AM
-To: Zhang, Yifan <Yifan1.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.co=
-m>; Limonciello, Mario <Mario.Limonciello@amd.com>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Wang, Yang(Kevin) <Kevi=
-nYang.Wang@amd.com>; amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/3] drm/amdgpu: avoid sending csib command when system res=
-umes from S3
+Let me take a closer look first, there seems to be quite a bunch of 
+stuff wrong here. Alex, if you can some input would be helpful as well.
 
-Previously the CSIB command pocket was sent to GFX block while amdgpu drive=
-r loading or S3 resuming time all the time.
-As the CP protocol required, the CSIB is not needed to send again while GC =
-is not powered down while resuming from aborted S3 suspend sequence.
+In general "drm/amdgpu: Add a low priority scheduler for VRAM clearing" 
+shouldn't have added the entity init in this place, but this is just a 
+minor issue.
 
-PREAMBLE_CNTL packet coming in the ring after PG event where the RLC alread=
-y sent its copy of CSIB, send another CSIB pocket will cause Gfx IB testing=
- timeout when system resume from S3.
+The bigger problem is that we call drm_client_register() *before* the 
+hardware is fully initialized. That is certainly illegal and can cause 
+quite a bunch of other problems as well.
 
-Add flag `csib_initialized` to make sure normal S3 suspend/resume will init=
-ialize csib normally, when system abort to S3 suspend and resume immediatel=
-y because of some failed suspend callback, GPU is not power down at that ti=
-me, so csib command is not needed to send again.
+What saved us so far was the fact that once the scheduler is created we 
+ended up with the right result, e.g. a cleared and allocated buffer. But 
+that was pure coincident and not proper engineering.
 
-Error dmesg log:
-amdgpu 0000:04:00.0: [drm:amdgpu_ib_ring_tests [amdgpu]] *ERROR* IB test fa=
-iled on gfx_0.0.0 (-110).
-[drm:amdgpu_device_delayed_init_work_handler [amdgpu]] *ERROR* ib ring test=
- failed (-110).
-PM: resume of devices complete after 2373.995 msecs
-PM: Finishing wakeup.
+Thanks for looking into this,
+Christian.
 
-Signed-off-by: Perry Yuan <perry.yuan@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  5 +++++  drivers/gpu/drm/amd/am=
-dgpu/gfx_v10_0.c  | 29 ++++++++++++++++++-------
- 3 files changed, 27 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu.h
-index 44df1a5bce7f..e5d85ea26a5e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1114,6 +1114,7 @@ struct amdgpu_device {
-        bool                            debug_vm;
-        bool                            debug_largebar;
-        bool                            debug_disable_soft_recovery;
-+       bool                            csib_initialized;
-[Kevin]:
-you'd better use space to instead of "tab" , to align with other field.
-
- };
-
- static inline uint32_t amdgpu_ip_version(const struct amdgpu_device *adev,=
- diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_drv.c
-index 420196a17e22..a47c9f840754 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2468,6 +2468,11 @@ static int amdgpu_pmops_suspend_noirq(struct device =
-*dev)
-        if (amdgpu_acpi_should_gpu_reset(adev))
-                return amdgpu_asic_reset(adev);
-
-+       /* update flag to make sure csib will be sent when system
-+        * resume from normal S3
-+        */
-+       adev->csib_initialized =3D false;
-+
-        return 0;
- }
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v10_0.c
-index 6399bc71c56d..ab2e3e592dfc 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -3481,6 +3481,7 @@ static uint64_t gfx_v10_0_get_gpu_clock_counter(struc=
-t amdgpu_device *adev);  static void gfx_v10_0_select_se_sh(struct amdgpu_d=
-evice *adev, u32 se_num,
-                                   u32 sh_num, u32 instance, int xcc_id);  =
-static u32 gfx_v10_0_get_wgp_active_bitmap_per_sh(struct amdgpu_device *ade=
-v);
-+static int gfx_v10_0_wait_for_idle(void *handle);
-
- static int gfx_v10_0_rlc_backdoor_autoload_buffer_init(struct amdgpu_devic=
-e *adev);  static void gfx_v10_0_rlc_backdoor_autoload_buffer_fini(struct a=
-mdgpu_device *adev); @@ -5958,7 +5959,7 @@ static int gfx_v10_0_cp_gfx_load=
-_microcode(struct amdgpu_device *adev)
-        return 0;
- }
-
--static int gfx_v10_0_cp_gfx_start(struct amdgpu_device *adev)
-+static int gfx_v10_csib_submit(struct amdgpu_device *adev)
- {
-        struct amdgpu_ring *ring;
-        const struct cs_section_def *sect =3D NULL; @@ -5966,13 +5967,6 @@ =
-static int gfx_v10_0_cp_gfx_start(struct amdgpu_device *adev)
-        int r, i;
-        int ctx_reg_offset;
-
--       /* init the CP */
--       WREG32_SOC15(GC, 0, mmCP_MAX_CONTEXT,
--                    adev->gfx.config.max_hw_contexts - 1);
--       WREG32_SOC15(GC, 0, mmCP_DEVICE_ID, 1);
--
--       gfx_v10_0_cp_gfx_enable(adev, true);
--
-        ring =3D &adev->gfx.gfx_ring[0];
-        r =3D amdgpu_ring_alloc(ring, gfx_v10_0_get_csb_size(adev) + 4);
-        if (r) {
-@@ -6035,6 +6029,25 @@ static int gfx_v10_0_cp_gfx_start(struct amdgpu_devi=
-ce *adev)
-
-                amdgpu_ring_commit(ring);
-        }
-+
-+       gfx_v10_0_wait_for_idle(adev);
-[kevin]:
-Do you forgot to check return value here?  If you want to ignore the return=
- result, you'd better put some comments here.
-Thanks.
-
-Best Regards,
-Kevin
-
-+       adev->csib_initialized =3D true;
-+
-+       return 0;
-+};
-+
-+static int gfx_v10_0_cp_gfx_start(struct amdgpu_device *adev) {
-+       /* init the CP */
-+       WREG32_SOC15(GC, 0, mmCP_MAX_CONTEXT,
-+                    adev->gfx.config.max_hw_contexts - 1);
-+       WREG32_SOC15(GC, 0, mmCP_DEVICE_ID, 1);
-+
-+       gfx_v10_0_cp_gfx_enable(adev, true);
-+
-+       if (!adev->csib_initialized)
-+               gfx_v10_csib_submit(adev);
-+
-        return 0;
- }
-
---
-2.34.1
+>
+>> Thanks,
+>> Christian.
+>>
+>>> base-commit: 05d3ef8bba77c1b5f98d941d8b2d4aeab8118ef1
+>>> prerequisite-patch-id: c52673df9b6fc9ee001d6261c7ac107b618912a0
 
