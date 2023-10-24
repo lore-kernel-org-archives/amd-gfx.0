@@ -4,60 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DC42C00A8F
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Oct 2023 09:38:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A887FC00A8F
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Oct 2023 10:14:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2ED410E0AC;
-	Tue, 24 Oct 2023 09:38:53 +0000 (UTC)
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9EFC10E2EC
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Oct 2023 07:52:12 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2c4fe37f166so59962781fa.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Oct 2023 00:52:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49CBF10E31B;
+	Tue, 24 Oct 2023 10:14:34 +0000 (UTC)
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C74210E31B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Oct 2023 10:14:32 +0000 (UTC)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-40850b244beso33835445e9.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Oct 2023 03:14:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698133931; x=1698738731; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ d=gmail.com; s=20230601; t=1698142471; x=1698747271; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=ilKMnCDZxes3neJ/m0gqhGJPibPIN/Gb1E4NmL9n6tE=;
- b=H1BIta3tXlCR4dLvt7HV1M2Rtfl1MBIq0dBY+4ACcNkaz2aB7EkEAWLvtmM4OFapPs
- M0HMHC83xgGGrorZkxV4az7Ix/6Bbf2W8hXzg5YypsuLfOwQz9apZIchmbPyCAzn+djp
- vMhPbE3yrhgQT8/P3iTVgkhvRLG9qhaXx8Y9nmE+bTbi+EPm0dM5n7Tl74Na1rXBbrsM
- FBR6UJZwD5vnmSR/k7Yl2ESiktJprkVLk0F48Yzf2QlBa6Zma6eebA0PyhIsjZRkE/11
- /Y75bYMyWHl/Cy0ipKNH5x0etgyrtM8ZyhtY4uRCvCTxlGHx8+nwP5zq4gFaECmFdzW/
- dJKA==
+ bh=3nBks4lwoVedgylmPrC0c/+H/rOXyq/Ae0WPQgqcPSM=;
+ b=UkdOtVBefyKaXAfEjJ0wlTFR0+enYEM7boSaojZm1wYhykaX71LAwGrp7wz80V2uKt
+ UjDpS1wNs8ANPDjelCexO2YOIC9xQzusSsQ/5s9jkc/67weSpC7yRZxvVoGE5vyNbYRD
+ kCaPL+mrSkNKeTc1rB7REWoBeC5RRZK4Y39q2uGf1f39WQTSYdfYypg98h+W5jLCAKAr
+ MvhgM2VXSY9hkWp8gZ3nCkwPQvGZfbXeVPlEX9i2b3Z3IxD0/8zjFiCfqGZVpoUQkkhh
+ lwZqlKD9VrsvkVaAXKhKmyoh/2t2wCk6BKAox/Z3QczGPpv+LJTcGPyuIT41LPPUeHrM
+ Do8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698133931; x=1698738731;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ d=1e100.net; s=20230601; t=1698142471; x=1698747271;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ilKMnCDZxes3neJ/m0gqhGJPibPIN/Gb1E4NmL9n6tE=;
- b=L1+4Pg8y0WAULBJlK7kQ1q3GWi2UCZlHnV+h/oNJ/jFrlxeNHFrm5XdcqPPAHExw0F
- qOl7/+SFiTld5sLPe0vOiCqArno9m9+uwR569guCBUQFQ5TgvrToVMccaAD2oAj2QMPv
- FERGO7h+I2YMuMwUEMB/Iq4JSAwyBJCO2mehzlybodiPFRqwy0U4WHsstU9POA2SjIFs
- ySireyvSMKY0xyUIeMb1+QysnTj4fBDEfdIvJoyvwoDLOedYvhX4ZdN8w2vcjQ0U9FJ/
- 1vM8ZAfQYflaKQqDRSAQH2fBusyDaHfZVlOJcr6ne2gcBY9Vj+hEIX8vt+NsR4iagbE7
- i8yw==
-X-Gm-Message-State: AOJu0YwldQCCPRT/YN5Kvu4H3hEfwUWjnp32yMnAfm2fsyXiCAySQ/G+
- AeSf2H1gLmA829Kvi/URoZncZQ==
-X-Google-Smtp-Source: AGHT+IHyrZ9RoYlI8A3qiSP0nlZSIc+pBNzGzYtiovRmGj9s81PSUkS6KsGId3DCcuSW+hVOF5nsWQ==
-X-Received: by 2002:a2e:a7cc:0:b0:2c5:fb9:49b6 with SMTP id
- x12-20020a2ea7cc000000b002c50fb949b6mr11022386ljp.10.1698133930734; 
- Tue, 24 Oct 2023 00:52:10 -0700 (PDT)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- z2-20020a05600c0a0200b004060f0a0fd5sm11320822wmp.13.2023.10.24.00.52.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Oct 2023 00:52:10 -0700 (PDT)
-Date: Tue, 24 Oct 2023 10:52:04 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Stanley.Yang@amd.com
-Subject: [bug report] drm/amdgpu: Workaround to skip kiq ring test during ras
- gpu recovery
-Message-ID: <bb137e53-8c19-4495-9404-7b250c510356@moroto.mountain>
+ bh=3nBks4lwoVedgylmPrC0c/+H/rOXyq/Ae0WPQgqcPSM=;
+ b=rfy/XN7q4ftAnLOqPKzovVKbc+PvBYQhMMxZlECtnY1DhrS9zvL/vUDdcvIXS5dZSx
+ OCSvgBeTx4tii+GvdowGZ/9ZkV2I1o+4n+vf6WsXB2E+9rCCb3zxtPT3cm1vz6/jJ9MZ
+ LVnLmWWI4Ix18PKBDZR9fhw7W/7NGLaRx56P5HSn+T108+fcrUHY+wCAorVc5qWMFL4m
+ 9f58o2eX5unqwSnwYYIMdoyaGlxCoSvXJeChFkTWjCrdg7ZlbY+TALd2SlYsVw+Ggc4B
+ 9l7NX5YqoE+5zqwYZOYFybftfu5EKAnPfz6kH+bwbjjuoGJMu5qRXGqAhXwaf310vDrr
+ Cm+Q==
+X-Gm-Message-State: AOJu0YzVQq0JKqcw0e+nGWGiiKyi0lx8jxOw8VTtLWOyHlpuPw7zzWQG
+ yOj2CC2UX6hcHxYkBndRqonhSLTVWpQLnA==
+X-Google-Smtp-Source: AGHT+IF4R0fLm3nL6HJIT8jcjxnKMJw8W33HppUOaOBhV+xYCfYnJ53q9tSpDFYEJvCebClnJwxKQA==
+X-Received: by 2002:a5d:58e5:0:b0:323:3b5f:3564 with SMTP id
+ f5-20020a5d58e5000000b003233b5f3564mr7698480wrd.10.1698142470436; 
+ Tue, 24 Oct 2023 03:14:30 -0700 (PDT)
+Received: from [10.254.108.106] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ s3-20020adfea83000000b0031980783d78sm9586059wrm.54.2023.10.24.03.14.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 Oct 2023 03:14:29 -0700 (PDT)
+Message-ID: <6dcf471e-6daf-4aaf-a534-322b6483bc87@gmail.com>
+Date: Tue, 24 Oct 2023 12:14:28 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailman-Approved-At: Tue, 24 Oct 2023 09:38:51 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Initialize schedulers before using them
+Content-Language: en-US
+To: Luben Tuikov <luben.tuikov@amd.com>,
+ AMD Graphics <amd-gfx@lists.freedesktop.org>
+References: <20231023032344.164925-1-luben.tuikov@amd.com>
+ <402f475c-bb67-4061-9521-2f811eca7657@gmail.com>
+ <53e14f59-6743-4a11-bf27-151507071bb0@amd.com>
+ <bf4e2094-3304-412b-a196-27c289e080a5@gmail.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <bf4e2094-3304-412b-a196-27c289e080a5@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,40 +78,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <Alexander.Deucher@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Stanley.Yang,
+[SNIP]
+> Let me take a closer look first
 
-The patch b1338a8e71ac: "drm/amdgpu: Workaround to skip kiq ring test
-during ras gpu recovery" from Oct 17, 2023 (linux-next), leads to the
-following Smatch static checker warning:
+I think I've figured out why this isn't working as expected. It started 
+with this patch here:
 
-	drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c:513 amdgpu_get_xgmi_hive()
-	warn: sleeping in atomic context
+commit 5fd8518d187ed03403a4d4f7f56f52c00b11c148
+Author: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Date:   Mon Dec 6 14:59:35 2021 -0500
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-    500 struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev)
-    501 {
-    502         struct amdgpu_hive_info *hive = NULL;
-    503         int ret;
-    504 
-    505         if (!adev->gmc.xgmi.hive_id)
-    506                 return NULL;
-    507 
-    508         if (adev->hive) {
-    509                 kobject_get(&adev->hive->kobj);
-    510                 return adev->hive;
-    511         }
-    512 
---> 513         mutex_lock(&xgmi_mutex);
+     drm/amdgpu: Move scheduler init to after XGMI is ready
 
-The patch adds a new caller amdgpu_gfx_disable_kcq() which is holding
-spin_lock(&kiq->ring_lock).  And we can't take a mutex if we're already
-holding a spin_lock.  Turn on CONFIG_DEBUG_ATOMIC_SLEEP to see the
-warning.
+     Before we initialize schedulers we must know which reset
+     domain are we in - for single device there iis a single
+     domain per device and so single wq per device. For XGMI
+     the reset domain spans the entire XGMI hive and so the
+     reset wq is per hive.
+
+     Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+     Reviewed-by: Christian König <christian.koenig@amd.com>
+     Link: https://www.spinics.net/lists/amd-gfx/msg74112.html
+
+Andrey separated the scheduler initialization from the ring init because 
+we need some of the rings for XGMI initialization which in turn in 
+necessary to figure out the XGMI hive and so the reset domain for the 
+scheduler.
+
+The code inside amdgpu_ttm_set_buffer_funcs_status() is actually 
+correct, the problem is that this is called as part of the hw init which 
+comes earlier than the scheduler init.
+
+@Alex, Ideas how to fix this? My best guess is that we should move the 
+call to amdgpu_ttm_set_buffer_funcs_status() from the DMA specific code 
+into the higher level handling in amdgpu_device.c
+
+Regards,
+Christian.
 
 
-regards,
-dan carpenter
