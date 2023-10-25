@@ -4,68 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 279A0C07545
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Oct 2023 14:05:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B8D2C0032E
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Oct 2023 14:15:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE6DA10E664;
-	Wed, 25 Oct 2023 14:05:47 +0000 (UTC)
-Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
- [IPv6:2607:f8b0:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1691D10E661;
- Wed, 25 Oct 2023 14:05:09 +0000 (UTC)
-Received: by mail-pf1-x42f.google.com with SMTP id
- d2e1a72fcca58-6b9af7d41d2so4971156b3a.0; 
- Wed, 25 Oct 2023 07:05:09 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C022F10E662;
+	Wed, 25 Oct 2023 14:15:23 +0000 (UTC)
+Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
+ [IPv6:2607:f8b0:4864:20::c2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93F2A10E662
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Oct 2023 14:15:22 +0000 (UTC)
+Received: by mail-oo1-xc2d.google.com with SMTP id
+ 006d021491bc7-581de3e691dso3271128eaf.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Oct 2023 07:15:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698242708; x=1698847508; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:from:to:cc:subject:date:message-id:reply-to;
- bh=QodZ+zOhRS9ysFD14TPJp+ufF/L2P9im5K7i5cATYBY=;
- b=KDGWnrlwEKkWGiUrZn/cEij6dqyLVuuFJXeOkZwmnAw7ApegytL/FYJScH3a2tOwPP
- /uWdmVfM5Z8Ypg2qwpbidXUrjseD/Msp24/fW9FQ1Z/nho48Txstv7egS0a4xzNF/7Lc
- prBQcvPmHWPre0RKnVx4X3oflrxwjFnw8gobIJzQjSICbD1Bw2S949znI/LEo+JEyYx5
- i5PVKL1AOZPxz7KajDrGwXQjL85pfJiYVIxf9z/rUDDqchsJMq2N35r1u5FOgk9VpXWy
- Khb8ylnhu6/mFjXucGj3H5sl9UaZRGqa54ErImG+9ZaplryNHxhe53xIj9MqPEPM7T2E
- yHsQ==
+ d=gmail.com; s=20230601; t=1698243322; x=1698848122; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=433cjQuAq+DlBySXGYGylk6DZIpSN43/8Q3A1fYAusA=;
+ b=XJqzaS+XfB2gzW1CRTD/z2GFDp11NBMvk9FP7s6phAu1AbKjXKdjT6MSU2IJyCyxtm
+ d6LXe//TyVeS/ut2KZashEqmYqK5sBvg/YqY/NFKSlrAbNDdjwZGF3o75+167mZ9bg7c
+ xl7p6VS5up75iv732RUoEv3w5tMffwwPFUQmfgq8T1cR7jufq6r9Ad9QmbFb/GOASuSm
+ XVTpUcig9+OGdjB6oZauZDyoyrY9SSmmw0X3K01lW7wk2H9VfOrGaMBYy2KvYmAMrGWT
+ WY2CCuLsQNO9pfPGKIyVdh23cNncY1djMSHfgYXl1F/hfnVIiaSPmiuAfwyOxfvq+PYh
+ 6iGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698242708; x=1698847508;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=QodZ+zOhRS9ysFD14TPJp+ufF/L2P9im5K7i5cATYBY=;
- b=rJBeuHbtjsSmnaZWKSrImFLvAjvAYzPIW9WheZ12y7RRGtwy3wqnYkZ0CcloFkMiRU
- TGqNNFbzARsx2WfmBisasu1plBZH3Bp8MeqfxhWBFKkECebdg/ZbauoazzwtWhR98wOA
- PcYmp+C8VPwQASYdNQjfMGLuCM4+A0U2lZGopwhXJg2T09UR499i1+4ATfje/FiIOuZz
- Y3VXEG6z4th5bSTzzTiuTAgplwfF/PGh4SST8L8mSsI96q9bgkC1P6KhrN93Xm9orxxZ
- XuS5UGEDg/PqlGBtAErpNyIZtpRgajuzLAWEvVHoMjyk9nWdhxG+O5zF/Z4+X1PBbjDU
- FKxA==
-X-Gm-Message-State: AOJu0YyCMkPVMMmdBKsjIHB849+z9AfyvKemww73263cEZ/CBDuqIqda
- Rn2gu70GzkufxL0FcUh3w6vlF79heCnaP/tm
-X-Google-Smtp-Source: AGHT+IHGIX91kg9M698jtU9/okbgfeX+hEAvgOPmIzyzhvaiddrf/3vGC6KhyzP5/E1RDET9W87TAQ==
-X-Received: by 2002:a05:6a00:14ce:b0:691:2d4:23a2 with SMTP id
- w14-20020a056a0014ce00b0069102d423a2mr15058971pfu.31.1698242708473; 
- Wed, 25 Oct 2023 07:05:08 -0700 (PDT)
-Received: from sagar-virtual-machine.localdomain ([103.70.144.216])
- by smtp.gmail.com with ESMTPSA id
- v124-20020a626182000000b0064fd4a6b306sm9838330pfb.76.2023.10.25.07.05.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Oct 2023 07:05:08 -0700 (PDT)
-From: Sagar Vashnav <sagarvashnav72427@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Sagar Vashnav <sagarvashnav72427@gmail.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amd/display: add kernel docs for
- dc_stream_forward_crc_window
-Date: Wed, 25 Oct 2023 10:04:16 -0400
-Message-Id: <20231025140419.21180-1-sagarvashnav72427@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ d=1e100.net; s=20230601; t=1698243322; x=1698848122;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=433cjQuAq+DlBySXGYGylk6DZIpSN43/8Q3A1fYAusA=;
+ b=Waf1NeVzDNI+GdbdKatRBBZL9ZoCy45ycUZRXkB5ociVcv9/CIk54ON4u2fEYlp6Jj
+ sbb2FSiJrtz3mnO+dvDgNzOqGp27ovsTOR8IsLEcB+mukY+/g1upK41ABJWXn9nSMyfD
+ AiDATU97ksfzwybbLpFT9ovzze2K0twNK7SwEZA3Xkzekgmt8iWpGq8fsG03fY0u1d6U
+ XrQeY1psYIihQEuC+BoQz8CYyS/r952JE/IB6pZYdh18yn8RSUgcyYqDro8S5GDTqw0x
+ yb13oe7mNONr56bTbKmf+4Vj+/Ac7RfhSIMcVlk3TkC/4kUEf32tDy5iMubU3gkpcRIw
+ NGRA==
+X-Gm-Message-State: AOJu0YzaPGIaK3I7sdVqp+rn2e5eBbV/rTSBRJ2/nrQIIssj/ML5gkVc
+ PaGA5527uF3EAa05QFm+5Xd34K0iZK6XA/KF96w=
+X-Google-Smtp-Source: AGHT+IFNDuNKetKEGZxKlSp8+kAqE5X+HvEf6STO5b2aXN0VtRpunuLwi8HND5xiwKzEX07OOU16ewP7lXymHcPzEO8=
+X-Received: by 2002:a05:6870:3d96:b0:1e9:bd5c:ae8b with SMTP id
+ lm22-20020a0568703d9600b001e9bd5cae8bmr18782532oab.5.1698243321623; Wed, 25
+ Oct 2023 07:15:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Wed, 25 Oct 2023 14:05:47 +0000
+References: <20231025035035.766947-1-kenneth.feng@amd.com>
+In-Reply-To: <20231025035035.766947-1-kenneth.feng@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 25 Oct 2023 10:15:10 -0400
+Message-ID: <CADnq5_M0=x=u72fXvmka9m2QLXUYi==jt5Fo=hm7D873mWqW6g@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amd/pm: fix the high voltage and temperature issue
+To: Kenneth Feng <kenneth.feng@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,40 +67,266 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add kernel documentation for the dc_stream_forward_crc_window
+On Tue, Oct 24, 2023 at 11:57=E2=80=AFPM Kenneth Feng <kenneth.feng@amd.com=
+> wrote:
+>
+> fix the high voltage and temperature issue after the driver is unloaded o=
+n smu 13.0.0,
+> smu 13.0.7 and smu 13.0.10
+> v2 - fix the code format and make sure it is used on the unload case only=
+.
+>
+> Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 36 +++++++++++++++----
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 33 +++++++++++++++--
+>  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  1 +
+>  drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h  |  2 ++
+>  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    | 13 +++++++
+>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |  8 ++++-
+>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  |  8 ++++-
+>  7 files changed, 90 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 31f8c3ead161..c5c892a8b3f9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -3986,13 +3986,23 @@ int amdgpu_device_init(struct amdgpu_device *adev=
+,
+>                                 }
+>                         }
+>                 } else {
+> -                       tmp =3D amdgpu_reset_method;
+> -                       /* It should do a default reset when loading or r=
+eloading the driver,
+> -                        * regardless of the module parameter reset_metho=
+d.
+> -                        */
+> -                       amdgpu_reset_method =3D AMD_RESET_METHOD_NONE;
+> -                       r =3D amdgpu_asic_reset(adev);
+> -                       amdgpu_reset_method =3D tmp;
+> +                       switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
+> +                       case IP_VERSION(13, 0, 0):
+> +                       case IP_VERSION(13, 0, 7):
+> +                       case IP_VERSION(13, 0, 10):
+> +                               r =3D psp_gpu_reset(adev);
+> +                               break;
+> +                       default:
+> +                               tmp =3D amdgpu_reset_method;
+> +                               /* It should do a default reset when load=
+ing or reloading the driver,
+> +                                * regardless of the module parameter res=
+et_method.
+> +                                */
+> +                               amdgpu_reset_method =3D AMD_RESET_METHOD_=
+NONE;
+> +                               r =3D amdgpu_asic_reset(adev);
+> +                               amdgpu_reset_method =3D tmp;
+> +                               break;
+> +                       }
+> +
+>                         if (r) {
+>                                 dev_err(adev->dev, "asic reset on init fa=
+iled\n");
+>                                 goto failed;
+> @@ -5945,6 +5955,18 @@ int amdgpu_device_baco_exit(struct drm_device *dev=
+)
+>                 return -ENOTSUPP;
+>
+>         ret =3D amdgpu_dpm_baco_exit(adev);
+> +
+> +       if (!ret)
+> +               switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
+> +               case IP_VERSION(13, 0, 0):
+> +               case IP_VERSION(13, 0, 7):
+> +               case IP_VERSION(13, 0, 10):
+> +                       adev->gfx.is_poweron =3D false;
+> +                       break;
+> +               default:
+> +                       break;
+> +               }
 
-Signed-off-by: Sagar Vashnav <sagarvashnav72427@gmail.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+Was it not possible to put this in the smu13 baco exit code?
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 1729fb727..5ab35e482 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -528,6 +528,19 @@ dc_stream_forward_dmcu_crc_window(struct dmcu *dmcu,
- 		dmcu->funcs->forward_crc_window(dmcu, rect, mux_mapping);
- }
- 
-+/**
-+ * dc_stream_forward_crc_window() - Forward CRC window configuration to DMUB or DMCU.
-+ * @stream: The stream state to forward CRC window configuration for.
-+ * @rect: Pointer to the rectangle defining the CRC window coordinates.
-+ * @is_stop: Flag indicating whether the CRC capture should be stopped.
-+
-+ * This function is responsible for forwarding the CRC window configuration
-+ * for a given stream to either the DMUB or DMCU, depending on their availability.
-+
-+ * Return:
-+ * %true if the CRC window configuration was successfully forwarded;
-+ * %false if the stream was not found or CRC forwarding is not supported.
-+ */
- bool
- dc_stream_forward_crc_window(struct dc_stream_state *stream,
- 		struct rect *rect, bool is_stop)
--- 
-2.34.1
+> +
+>         if (ret)
+>                 return ret;
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/=
+amd/pm/swsmu/amdgpu_smu.c
+> index 7c3356d6da5e..2e82172ba250 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -733,7 +733,7 @@ static int smu_early_init(void *handle)
+>         smu->adev =3D adev;
+>         smu->pm_enabled =3D !!amdgpu_dpm;
+>         smu->is_apu =3D false;
+> -       smu->smu_baco.state =3D SMU_BACO_STATE_EXIT;
+> +       smu->smu_baco.state =3D SMU_BACO_STATE_NONE;
+>         smu->smu_baco.platform_support =3D false;
+>         smu->user_dpm_profile.fan_mode =3D -1;
+>
+> @@ -1740,10 +1740,31 @@ static int smu_smc_hw_cleanup(struct smu_context =
+*smu)
+>         return 0;
+>  }
+>
+> +static int smu_reset_mp1_state(struct smu_context *smu)
+> +{
+> +       struct amdgpu_device *adev =3D smu->adev;
+> +       int ret =3D 0;
+> +
+> +       if ((!adev->in_runpm) && (!adev->in_suspend) &&
+> +               (!amdgpu_in_reset(adev)))
+> +               switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
+> +                 case IP_VERSION(13, 0, 0):
+> +                 case IP_VERSION(13, 0, 7):
+> +                 case IP_VERSION(13, 0, 10):
+> +                       ret =3D smu_set_mp1_state(smu, PP_MP1_STATE_UNLOA=
+D);
+> +                       break;
 
+Is there any reason not to enable this on all dGPUs?
+
+Alex
+
+> +                 default:
+> +                       break;
+> +               }
+> +
+> +       return ret;
+> +}
+> +
+>  static int smu_hw_fini(void *handle)
+>  {
+>         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+>         struct smu_context *smu =3D adev->powerplay.pp_handle;
+> +       int ret;
+>
+>         if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
+>                 return 0;
+> @@ -1761,7 +1782,15 @@ static int smu_hw_fini(void *handle)
+>
+>         adev->pm.dpm_enabled =3D false;
+>
+> -       return smu_smc_hw_cleanup(smu);
+> +       ret =3D smu_smc_hw_cleanup(smu);
+> +       if (ret)
+> +               return ret;
+> +
+> +       ret =3D smu_reset_mp1_state(smu);
+> +       if (ret)
+> +               return ret;
+> +
+> +       return 0;
+>  }
+>
+>  static void smu_late_fini(void *handle)
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/=
+drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> index 1454eed76604..9f2dbc90b606 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> @@ -419,6 +419,7 @@ enum smu_reset_mode {
+>  enum smu_baco_state {
+>         SMU_BACO_STATE_ENTER =3D 0,
+>         SMU_BACO_STATE_EXIT,
+> +       SMU_BACO_STATE_NONE,
+>  };
+>
+>  struct smu_baco_context {
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h b/drivers/gpu/d=
+rm/amd/pm/swsmu/inc/smu_v13_0.h
+> index cc02f979e9e9..43c7ba68eb50 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+> @@ -299,5 +299,7 @@ int smu_v13_0_update_pcie_parameters(struct smu_conte=
+xt *smu,
+>                                      uint8_t pcie_gen_cap,
+>                                      uint8_t pcie_width_cap);
+>
+> +int smu_v13_0_disable_pmfw_state(struct smu_context* smu);
+> +
+>  #endif
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu=
+/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> index bcb7ab9d2221..0724441e53ef 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> @@ -2473,3 +2473,16 @@ int smu_v13_0_update_pcie_parameters(struct smu_co=
+ntext *smu,
+>
+>         return 0;
+>  }
+> +
+> +int smu_v13_0_disable_pmfw_state(struct smu_context* smu)
+> +{
+> +       int ret;
+> +       struct amdgpu_device *adev =3D smu->adev;
+> +
+> +       WREG32_PCIE(MP1_Public | (smnMP1_FIRMWARE_FLAGS & 0xffffffff), 0)=
+;
+> +
+> +       ret =3D RREG32_PCIE(MP1_Public |
+> +                                          (smnMP1_FIRMWARE_FLAGS & 0xfff=
+fffff));
+> +
+> +       return ret =3D=3D 0 ? 0 : -EINVAL;
+> +}
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> index 47d008cbc186..e2a09fe29e2f 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> @@ -2758,7 +2758,13 @@ static int smu_v13_0_0_set_mp1_state(struct smu_co=
+ntext *smu,
+>
+>         switch (mp1_state) {
+>         case PP_MP1_STATE_UNLOAD:
+> -               ret =3D smu_cmn_set_mp1_state(smu, mp1_state);
+> +               ret =3D smu_cmn_send_smc_msg_with_param(smu,
+> +                                                               SMU_MSG_P=
+repareMp1ForUnload,
+> +                                                               0x55, NUL=
+L);
+> +
+> +               if (!ret && smu->smu_baco.state =3D=3D SMU_BACO_STATE_EXI=
+T)
+> +                       ret =3D smu_v13_0_disable_pmfw_state(smu);
+> +
+>                 break;
+>         default:
+>                 /* Ignore others */
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> index b8a7a1d853df..2a0d1da18a9b 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> @@ -2429,7 +2429,13 @@ static int smu_v13_0_7_set_mp1_state(struct smu_co=
+ntext *smu,
+>
+>         switch (mp1_state) {
+>         case PP_MP1_STATE_UNLOAD:
+> -               ret =3D smu_cmn_set_mp1_state(smu, mp1_state);
+> +               ret =3D smu_cmn_send_smc_msg_with_param(smu,
+> +                                                               SMU_MSG_P=
+repareMp1ForUnload,
+> +                                                               0x55, NUL=
+L);
+> +
+> +               if (!ret && smu->smu_baco.state =3D=3D SMU_BACO_STATE_EXI=
+T)
+> +                       ret =3D smu_v13_0_disable_pmfw_state(smu);
+> +
+>                 break;
+>         default:
+>                 /* Ignore others */
+> --
+> 2.34.1
+>
