@@ -4,92 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 430AFC07545
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Oct 2023 20:54:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2FDEC25B47
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Oct 2023 01:25:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E64B410E71C;
-	Wed, 25 Oct 2023 20:54:28 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2060.outbound.protection.outlook.com [40.107.223.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7028510E71C
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Oct 2023 20:54:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kMT/dj51hH9gNPFd99jAlTn/iOJnbb6rv8XWwtPHpQ8nefJW8IiPQZ3q+YTr0n40byFJevZfIhpzd6TALjtJhaTC9iR3YV4QU/ISa1QnU9CSEA3MqdK/N4bzhVz/dMMiL3evRzCVERlxZyz3/g5UaneA8VIeGd38s5IM/kBG54vaRZwevxaEq7jHHvZ1OSO6zc7RLdDYp86VeiGuIRAVQg06sVvLKfd7QMz5/MwYCQYK6QVQYkXEo9JTJ6fdraZOpk95oSHGBi4Dn6BykEGnXUUqL/8GfR/VBGm3jdRiKRdsJ7m9XNgvTR26AGoUUBthdMhrywa5ELlFvcElMz7TFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kCf+ZprgcdzF/BAXNiDNuDxsZuhEbnCv4iSUj7hz0GI=;
- b=EdGoB8HsnDXfBVdcvMEKUnChjM7zNGrPuemxyKBThp/OjxD9GPCNWbfwRBcg/knhWCttyTjU7JgKvZHLTd5piFrjzcE2Zcv+WR9KWwWQeVQLqf3pWjcCiyQE408dU2WQMngmUDbGchpEPEzKUq3wzWmAW47YL2/xyutMtnPmcu1+0LiXnu/9h1KsjQJtAsUc92Wxw/BxzeO2pIEAYNAuqDjtaZfZYGqxTGfBP0sI22x65ltXFYc9EaEcka+IwnqqX5TQSWCrNOA8aedafeXk3fUUOLAsObABc0NiTX21pe4V504Bz+07EJbBR5KKx1s8zJVqxd2ukMzHq6d/H6WSDA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kCf+ZprgcdzF/BAXNiDNuDxsZuhEbnCv4iSUj7hz0GI=;
- b=wu2YD9d3QflBlOjxcvnej8H38ANt6p6vaTQC0aqhxb1bHXuSv+ScUDhXIsSTP8egbTi7zyFL44EWx11FlMxhln3VIV2vxTHlHjwM5wTPbb5kWPUzfNIBG9dndzxFy1X00kOigWYcBQBml/9ZKZf3QoFPozJd0h2p+XwyCDOfj94=
-Received: from CH2PR18CA0009.namprd18.prod.outlook.com (2603:10b6:610:4f::19)
- by DS7PR12MB6240.namprd12.prod.outlook.com (2603:10b6:8:94::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.33; Wed, 25 Oct
- 2023 20:54:23 +0000
-Received: from DS2PEPF00003441.namprd04.prod.outlook.com
- (2603:10b6:610:4f:cafe::8d) by CH2PR18CA0009.outlook.office365.com
- (2603:10b6:610:4f::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.35 via Frontend
- Transport; Wed, 25 Oct 2023 20:54:23 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS2PEPF00003441.mail.protection.outlook.com (10.167.17.68) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6933.15 via Frontend Transport; Wed, 25 Oct 2023 20:54:23 +0000
-Received: from ubuntu22.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Wed, 25 Oct
- 2023 15:54:21 -0500
-From: Victor Lu <victorchengchi.lu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 5/5] drm/amdgpu: Change WREG32_RLC to WREG32_SOC15_RLC where
- inst != 0
-Date: Wed, 25 Oct 2023 16:52:42 -0400
-Message-ID: <20231025205242.40490-5-victorchengchi.lu@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231025205242.40490-1-victorchengchi.lu@amd.com>
-References: <f68e701c-518d-9782-7da6-2f62f4aaa368@amd.com>
- <20231025205242.40490-1-victorchengchi.lu@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74BF610E602;
+	Thu, 26 Oct 2023 01:25:54 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E329110E602;
+ Thu, 26 Oct 2023 01:25:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1698283553; x=1729819553;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=amRn4daTHQX0xyFE0A0SgaV8/g/JqTUm/9VBQw6e+oY=;
+ b=G4prrn559aiGpd01ZexAOyh62Wks6dgJ4Zj1MDaASRacQEFXD6APT7vx
+ tVuG8QMsWI2ggY8TVQnYjAIzVBdehisMEdwGesEDziT3QoQJv5L/+zweI
+ RZ4HgIeNkboyIsox7TZCH7vcQCuTePfhXkSjZgq6mXjoAlKq+tQTpS4ws
+ azGXH7ljCfQ/xG6prXpIhPnzGAYxKdwkKJlOmDvrEKcSEBormUvV+4gHK
+ 1HXNB7v6P54WFP15Cg6KJpdc6P6oIdIaw3GcBzuNItsm4xfArL1AirvmK
+ LbFJugrJL/9fvX4hB50Cb4mOALKdNqr9E68yEyDaWr86VEa/EzZkdMKEn A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10874"; a="224222"
+X-IronPort-AV: E=Sophos;i="6.03,252,1694761200"; 
+   d="scan'208";a="224222"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2023 18:25:52 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10874"; a="932563473"
+X-IronPort-AV: E=Sophos;i="6.03,252,1694761200"; d="scan'208";a="932563473"
+Received: from lkp-server01.sh.intel.com (HELO 8917679a5d3e) ([10.239.97.150])
+ by orsmga005.jf.intel.com with ESMTP; 25 Oct 2023 18:25:47 -0700
+Received: from kbuild by 8917679a5d3e with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qvp85-0009KA-0R;
+ Thu, 26 Oct 2023 01:25:45 +0000
+Date: Thu, 26 Oct 2023 09:25:12 +0800
+From: kernel test robot <lkp@intel.com>
+To: Sagar Vashnav <sagarvashnav72427@gmail.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/amd/display: add kernel docs for
+ dc_stream_forward_crc_window
+Message-ID: <202310260912.JFR01gdE-lkp@intel.com>
+References: <20231025140419.21180-1-sagarvashnav72427@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003441:EE_|DS7PR12MB6240:EE_
-X-MS-Office365-Filtering-Correlation-Id: d8cba2eb-0185-43e4-e50a-08dbd59c9147
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gGloS5JQBD32LDLhuhJXfeGQn1TAUNxlhzpzFlO4eRXDid1dP6RVepAF+24cRffgxX67SDQqwk+LhAe6aZicdMTerfFXOnDJjULC4qi3qS6UX0Gw2hE46FHmmTFi5Qi1vSI3tzC7e2EOdamqPzu/mNKCxvCMTwCF29L3hHdPpMUciyURr7jUP3qej/ngzfBtpRgj5TEftlzO/APWlG0SwKmFFDyDkR/4Ghgp3Um2QoWaGIiIok7A8SDYvFmciGaxIonam4MqC5jNldDc9wzLR41KqYeTeNIYh4HRhDqKdPJDawCz3J1J57i0Mnhk6CWfHXA5TBRcFblHIDEbPIA3CVsyFr4cz9C0zF7mz7GOZGRAS8AN9/9hUWX1lxyvPIOyjK/y7BkUgUBE3t5L+Bi2h/VkpRGZ9gtZ7HlanKaG3DC4YL7u7jSrAS0CstudHbSnWSx1TAIoHrp3Q+9pSVoVtIuSuT1pz78bhOkxdEWVrzruGjSSJ2IHgrFeV94ypvmqPx+ebf/NImWs31M2tCC28WNplcPRd1MJF5mFjSUN818D3ijomihz2R/k6eSoc8j/4Vn5pjtWHrQgUeIpJRUEFxwreXkvbggjjvqW0jo/mYTLt2R39jgev5MrPrsXwi8HgkRFB6GODS2Tp26McQwOmPAY6Hw2J3dI/dGCtzqfc51yi2dMjNoSLCR850MkrIMGjTPR6TH1GpO50DBycLZdPb+WhGodRwB5vxMSD+yrDAuhUFuiUI4d6zSxnSYGmPFFy+Z2cWHPJBwRoHGBvJNrbg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(136003)(396003)(346002)(376002)(39860400002)(230922051799003)(1800799009)(82310400011)(64100799003)(451199024)(186009)(40470700004)(46966006)(36840700001)(83380400001)(40460700003)(40480700001)(54906003)(5660300002)(6666004)(70206006)(70586007)(41300700001)(86362001)(478600001)(6916009)(7696005)(316002)(2906002)(8936002)(4326008)(36756003)(8676002)(81166007)(36860700001)(336012)(426003)(356005)(16526019)(2616005)(1076003)(82740400003)(26005)(47076005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2023 20:54:23.1298 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8cba2eb-0185-43e4-e50a-08dbd59c9147
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003441.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6240
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231025140419.21180-1-sagarvashnav72427@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,192 +68,96 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: lijo.lazar@amd.com, davis.ming@amd.com,
- Victor Lu <victorchengchi.lu@amd.com>
+Cc: oe-kbuild-all@lists.linux.dev
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W/RREG32_RLC is hardedcoded to use instance 0. W/RREG32_SOC15_RLC
-should  be used instead when inst != 0.
+Hi Sagar,
 
-Signed-off-by: Victor Lu <victorchengchi.lu@amd.com>
----
- .../drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c   | 38 ++++++++----------
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 40 +++++++++----------
- drivers/gpu/drm/amd/amdgpu/soc15_common.h     |  2 +-
- 3 files changed, 37 insertions(+), 43 deletions(-)
+kernel test robot noticed the following build warnings:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
-index c94df54e2657..cac6171528be 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
-@@ -306,8 +306,7 @@ static int kgd_gfx_v9_4_3_hqd_load(struct amdgpu_device *adev, void *mqd,
- 	/* Activate doorbell logic before triggering WPTR poll. */
- 	data = REG_SET_FIELD(m->cp_hqd_pq_doorbell_control,
- 			     CP_HQD_PQ_DOORBELL_CONTROL, DOORBELL_EN, 1);
--	WREG32_RLC(SOC15_REG_OFFSET(GC, GET_INST(GC, inst), regCP_HQD_PQ_DOORBELL_CONTROL),
--				data);
-+	WREG32_SOC15_RLC(GC, GET_INST(GC, inst), regCP_HQD_PQ_DOORBELL_CONTROL, data);
- 
- 	if (wptr) {
- 		/* Don't read wptr with get_user because the user
-@@ -336,27 +335,24 @@ static int kgd_gfx_v9_4_3_hqd_load(struct amdgpu_device *adev, void *mqd,
- 		guessed_wptr += m->cp_hqd_pq_wptr_lo & ~(queue_size - 1);
- 		guessed_wptr += (uint64_t)m->cp_hqd_pq_wptr_hi << 32;
- 
--		WREG32_RLC(SOC15_REG_OFFSET(GC, GET_INST(GC, inst), regCP_HQD_PQ_WPTR_LO),
--		       lower_32_bits(guessed_wptr));
--		WREG32_RLC(SOC15_REG_OFFSET(GC, GET_INST(GC, inst), regCP_HQD_PQ_WPTR_HI),
--		       upper_32_bits(guessed_wptr));
--		WREG32_RLC(SOC15_REG_OFFSET(GC, GET_INST(GC, inst), regCP_HQD_PQ_WPTR_POLL_ADDR),
--		       lower_32_bits((uintptr_t)wptr));
--		WREG32_RLC(SOC15_REG_OFFSET(GC, GET_INST(GC, inst),
--			regCP_HQD_PQ_WPTR_POLL_ADDR_HI),
-+		WREG32_SOC15_RLC(GC, GET_INST(GC, inst), regCP_HQD_PQ_WPTR_LO,
-+			lower_32_bits(guessed_wptr));
-+		WREG32_SOC15_RLC(GC, GET_INST(GC, inst), regCP_HQD_PQ_WPTR_HI,
-+			upper_32_bits(guessed_wptr));
-+		WREG32_SOC15_RLC(GC, GET_INST(GC, inst), regCP_HQD_PQ_WPTR_POLL_ADDR,
-+			lower_32_bits((uintptr_t)wptr));
-+		WREG32_SOC15_RLC(GC, GET_INST(GC, inst), regCP_HQD_PQ_WPTR_POLL_ADDR_HI,
- 			upper_32_bits((uintptr_t)wptr));
--		WREG32(SOC15_REG_OFFSET(GC, GET_INST(GC, inst), regCP_PQ_WPTR_POLL_CNTL1),
--		       (uint32_t)kgd_gfx_v9_get_queue_mask(adev, pipe_id,
--			       queue_id));
-+		WREG32_SOC15_RLC(GC, GET_INST(GC, inst), regCP_PQ_WPTR_POLL_CNTL1,
-+			(uint32_t)kgd_gfx_v9_get_queue_mask(adev, pipe_id, queue_id));
- 	}
- 
- 	/* Start the EOP fetcher */
--	WREG32_RLC(SOC15_REG_OFFSET(GC, GET_INST(GC, inst), regCP_HQD_EOP_RPTR),
--	       REG_SET_FIELD(m->cp_hqd_eop_rptr,
--			     CP_HQD_EOP_RPTR, INIT_FETCHER, 1));
-+	WREG32_SOC15_RLC(GC, GET_INST(GC, inst), regCP_HQD_EOP_RPTR,
-+	       REG_SET_FIELD(m->cp_hqd_eop_rptr, CP_HQD_EOP_RPTR, INIT_FETCHER, 1));
- 
- 	data = REG_SET_FIELD(m->cp_hqd_active, CP_HQD_ACTIVE, ACTIVE, 1);
--	WREG32_RLC(SOC15_REG_OFFSET(GC, GET_INST(GC, inst), regCP_HQD_ACTIVE), data);
-+	WREG32_SOC15_RLC(GC, GET_INST(GC, inst), regCP_HQD_ACTIVE, data);
- 
- 	kgd_gfx_v9_release_queue(adev, inst);
- 
-@@ -494,15 +490,15 @@ static uint32_t kgd_gfx_v9_4_3_set_address_watch(
- 			VALID,
- 			1);
- 
--	WREG32_RLC((SOC15_REG_OFFSET(GC, GET_INST(GC, inst),
-+	WREG32_XCC((SOC15_REG_OFFSET(GC, GET_INST(GC, inst),
- 			regTCP_WATCH0_ADDR_H) +
- 			(watch_id * TCP_WATCH_STRIDE)),
--			watch_address_high);
-+			AMDGPU_REGS_RLC, watch_address_high, inst);
- 
--	WREG32_RLC((SOC15_REG_OFFSET(GC, GET_INST(GC, inst),
-+	WREG32_XCC((SOC15_REG_OFFSET(GC, GET_INST(GC, inst),
- 			regTCP_WATCH0_ADDR_L) +
- 			(watch_id * TCP_WATCH_STRIDE)),
--			watch_address_low);
-+			AMDGPU_REGS_RLC, watch_address_low, inst);
- 
- 	return watch_address_cntl;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index 47c8c334c779..f5ef8f0543fd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -91,8 +91,8 @@ void kgd_gfx_v9_program_sh_mem_settings(struct amdgpu_device *adev, uint32_t vmi
- {
- 	kgd_gfx_v9_lock_srbm(adev, 0, 0, 0, vmid, inst);
- 
--	WREG32_RLC(SOC15_REG_OFFSET(GC, GET_INST(GC, inst), mmSH_MEM_CONFIG), sh_mem_config);
--	WREG32_RLC(SOC15_REG_OFFSET(GC, GET_INST(GC, inst), mmSH_MEM_BASES), sh_mem_bases);
-+	WREG32_SOC15_RLC(GC, GET_INST(GC, inst), mmSH_MEM_CONFIG, sh_mem_config);
-+	WREG32_SOC15_RLC(GC, GET_INST(GC, inst), mmSH_MEM_BASES, sh_mem_bases);
- 	/* APE1 no longer exists on GFX9 */
- 
- 	kgd_gfx_v9_unlock_srbm(adev, inst);
-@@ -245,8 +245,7 @@ int kgd_gfx_v9_hqd_load(struct amdgpu_device *adev, void *mqd,
- 	/* Activate doorbell logic before triggering WPTR poll. */
- 	data = REG_SET_FIELD(m->cp_hqd_pq_doorbell_control,
- 			     CP_HQD_PQ_DOORBELL_CONTROL, DOORBELL_EN, 1);
--	WREG32_RLC(SOC15_REG_OFFSET(GC, GET_INST(GC, inst), mmCP_HQD_PQ_DOORBELL_CONTROL),
--					data);
-+	WREG32_SOC15_RLC(GC, GET_INST(GC, inst), mmCP_HQD_PQ_DOORBELL_CONTROL, data);
- 
- 	if (wptr) {
- 		/* Don't read wptr with get_user because the user
-@@ -275,25 +274,24 @@ int kgd_gfx_v9_hqd_load(struct amdgpu_device *adev, void *mqd,
- 		guessed_wptr += m->cp_hqd_pq_wptr_lo & ~(queue_size - 1);
- 		guessed_wptr += (uint64_t)m->cp_hqd_pq_wptr_hi << 32;
- 
--		WREG32_RLC(SOC15_REG_OFFSET(GC, GET_INST(GC, inst), mmCP_HQD_PQ_WPTR_LO),
--		       lower_32_bits(guessed_wptr));
--		WREG32_RLC(SOC15_REG_OFFSET(GC, GET_INST(GC, inst), mmCP_HQD_PQ_WPTR_HI),
--		       upper_32_bits(guessed_wptr));
--		WREG32_RLC(SOC15_REG_OFFSET(GC, GET_INST(GC, inst), mmCP_HQD_PQ_WPTR_POLL_ADDR),
--		       lower_32_bits((uintptr_t)wptr));
--		WREG32_RLC(SOC15_REG_OFFSET(GC, GET_INST(GC, inst), mmCP_HQD_PQ_WPTR_POLL_ADDR_HI),
--		       upper_32_bits((uintptr_t)wptr));
--		WREG32_SOC15(GC, GET_INST(GC, inst), mmCP_PQ_WPTR_POLL_CNTL1,
--		       (uint32_t)kgd_gfx_v9_get_queue_mask(adev, pipe_id, queue_id));
-+		WREG32_SOC15_RLC(GC, GET_INST(GC, inst), mmCP_HQD_PQ_WPTR_LO,
-+			lower_32_bits(guessed_wptr));
-+		WREG32_SOC15_RLC(GC, GET_INST(GC, inst), mmCP_HQD_PQ_WPTR_HI,
-+			upper_32_bits(guessed_wptr));
-+		WREG32_SOC15_RLC(GC, GET_INST(GC, inst), mmCP_HQD_PQ_WPTR_POLL_ADDR,
-+			lower_32_bits((uintptr_t)wptr));
-+		WREG32_SOC15_RLC(GC, GET_INST(GC, inst), mmCP_HQD_PQ_WPTR_POLL_ADDR_HI,
-+			upper_32_bits((uintptr_t)wptr));
-+		WREG32_SOC15_RLC(GC, GET_INST(GC, inst), mmCP_PQ_WPTR_POLL_CNTL1,
-+			(uint32_t)kgd_gfx_v9_get_queue_mask(adev, pipe_id, queue_id));
- 	}
- 
- 	/* Start the EOP fetcher */
--	WREG32_RLC(SOC15_REG_OFFSET(GC, GET_INST(GC, inst), mmCP_HQD_EOP_RPTR),
--	       REG_SET_FIELD(m->cp_hqd_eop_rptr,
--			     CP_HQD_EOP_RPTR, INIT_FETCHER, 1));
-+	WREG32_SOC15_RLC(GC, GET_INST(GC, inst), mmCP_HQD_EOP_RPTR,
-+	       REG_SET_FIELD(m->cp_hqd_eop_rptr, CP_HQD_EOP_RPTR, INIT_FETCHER, 1));
- 
- 	data = REG_SET_FIELD(m->cp_hqd_active, CP_HQD_ACTIVE, ACTIVE, 1);
--	WREG32_RLC(SOC15_REG_OFFSET(GC, GET_INST(GC, inst), mmCP_HQD_ACTIVE), data);
-+	WREG32_SOC15_RLC(GC, GET_INST(GC, inst), mmCP_HQD_ACTIVE, data);
- 
- 	kgd_gfx_v9_release_queue(adev, inst);
- 
-@@ -556,7 +554,7 @@ int kgd_gfx_v9_hqd_destroy(struct amdgpu_device *adev, void *mqd,
- 		break;
- 	}
- 
--	WREG32_RLC(SOC15_REG_OFFSET(GC, GET_INST(GC, inst), mmCP_HQD_DEQUEUE_REQUEST), type);
-+	WREG32_SOC15_RLC(GC, GET_INST(GC, inst), mmCP_HQD_DEQUEUE_REQUEST, type);
- 
- 	end_jiffies = (utimeout * HZ / 1000) + jiffies;
- 	while (true) {
-@@ -908,8 +906,8 @@ void kgd_gfx_v9_get_iq_wait_times(struct amdgpu_device *adev,
- 					uint32_t inst)
- 
- {
--	*wait_times = RREG32(SOC15_REG_OFFSET(GC, GET_INST(GC, inst),
--			mmCP_IQ_WAIT_TIME2));
-+	*wait_times = RREG32_SOC15_RLC(GC, GET_INST(GC, inst),
-+			mmCP_IQ_WAIT_TIME2);
- }
- 
- void kgd_gfx_v9_set_vm_context_page_table_base(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15_common.h b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
-index c75e9cd5c98b..4607df23fe27 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15_common.h
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
-@@ -140,7 +140,7 @@
- 
- /* for GC only */
- #define RREG32_RLC(reg) \
--	__RREG32_SOC15_RLC__(reg, AMDGPU_REGS_RLC, GC_HWIP)
-+	__RREG32_SOC15_RLC__(reg, AMDGPU_REGS_RLC, GC_HWIP, 0)
- 
- #define WREG32_RLC_NO_KIQ(reg, value, hwip) \
- 	__WREG32_SOC15_RLC__(reg, value, AMDGPU_REGS_NO_KIQ | AMDGPU_REGS_RLC, hwip, 0)
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on linus/master v6.6-rc7 next-20231025]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Sagar-Vashnav/drm-amd-display-add-kernel-docs-for-dc_stream_forward_crc_window/20231026-001250
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20231025140419.21180-1-sagarvashnav72427%40gmail.com
+patch subject: [PATCH] drm/amd/display: add kernel docs for dc_stream_forward_crc_window
+config: csky-randconfig-002-20231026 (https://download.01.org/0day-ci/archive/20231026/202310260912.JFR01gdE-lkp@intel.com/config)
+compiler: csky-linux-gcc (GCC) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231026/202310260912.JFR01gdE-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202310260912.JFR01gdE-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:536: warning: bad line: 
+   drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:539: warning: bad line: 
+
+
+vim +536 drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c
+
+   530	
+   531	/**
+   532	 * dc_stream_forward_crc_window() - Forward CRC window configuration to DMUB or DMCU.
+   533	 * @stream: The stream state to forward CRC window configuration for.
+   534	 * @rect: Pointer to the rectangle defining the CRC window coordinates.
+   535	 * @is_stop: Flag indicating whether the CRC capture should be stopped.
+ > 536	
+   537	 * This function is responsible for forwarding the CRC window configuration
+   538	 * for a given stream to either the DMUB or DMCU, depending on their availability.
+   539	
+   540	 * Return:
+   541	 * %true if the CRC window configuration was successfully forwarded;
+   542	 * %false if the stream was not found or CRC forwarding is not supported.
+   543	 */
+   544	bool
+   545	dc_stream_forward_crc_window(struct dc_stream_state *stream,
+   546			struct rect *rect, bool is_stop)
+   547	{
+   548		struct dmcu *dmcu;
+   549		struct dc_dmub_srv *dmub_srv;
+   550		struct otg_phy_mux mux_mapping;
+   551		struct pipe_ctx *pipe;
+   552		int i;
+   553		struct dc *dc = stream->ctx->dc;
+   554	
+   555		for (i = 0; i < MAX_PIPES; i++) {
+   556			pipe = &dc->current_state->res_ctx.pipe_ctx[i];
+   557			if (pipe->stream == stream && !pipe->top_pipe && !pipe->prev_odm_pipe)
+   558				break;
+   559		}
+   560	
+   561		/* Stream not found */
+   562		if (i == MAX_PIPES)
+   563			return false;
+   564	
+   565		mux_mapping.phy_output_num = stream->link->link_enc_hw_inst;
+   566		mux_mapping.otg_output_num = pipe->stream_res.tg->inst;
+   567	
+   568		dmcu = dc->res_pool->dmcu;
+   569		dmub_srv = dc->ctx->dmub_srv;
+   570	
+   571		/* forward to dmub */
+   572		if (dmub_srv)
+   573			dc_stream_forward_dmub_crc_window(dmub_srv, rect, &mux_mapping, is_stop);
+   574		/* forward to dmcu */
+   575		else if (dmcu && dmcu->funcs->is_dmcu_initialized(dmcu))
+   576			dc_stream_forward_dmcu_crc_window(dmcu, rect, &mux_mapping, is_stop);
+   577		else
+   578			return false;
+   579	
+   580		return true;
+   581	}
+   582	#endif /* CONFIG_DRM_AMD_SECURE_DISPLAY */
+   583	
+
 -- 
-2.34.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
