@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 048C4C25B67
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Oct 2023 14:20:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1517CC25B48
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Oct 2023 14:20:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E20E10E7F9;
-	Thu, 26 Oct 2023 14:20:41 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2057.outbound.protection.outlook.com [40.107.101.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5018C10E7F9
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Oct 2023 14:20:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9274D10E7FE;
+	Thu, 26 Oct 2023 14:20:43 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20610.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e89::610])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C84F10E7F9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Oct 2023 14:20:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=K3sa9QxBQKoyX5LT5N//9frTMaHXCus8PWL3/irtOLhPAFq14fNN8yktrSpwG9EcqjVNBS6qV8kX0RRHm2rnT5cHXXQE1wSCL9iYcvvU1eIjN+2ISqnO/ARUXCASwvnzMH8fltynwvEqb6GS78m8HO+ad6bd5Dn5Uqe6ivZPfvXLW88HIlZn+cms1TyCYGaDOYIMTJ0NY62g78ghFXnc7QerXU62SwjF/dVc1hDee/p/ZxRYiqu9w4NoxkVP7iIreslqxyPjGZmghq0UsygsSgnyLy1eKCdAglDROeZtSTXXQ8LyjEN41fHY9bBrFRU21ejtOg7Cx43Mkgd0p+qBSg==
+ b=L1zAkYCu+3puD7zvr9znLO6nLG2hBgXSHxHiDtKNNSIfioMJqT+ltjLqI7WY9f8DWJEJcOxSorZsnGEylceeOITtU8nCJq9iiitDXdScx4FuqHB0j96kp0yIzP3XsPVZdPFj3WBcu+GiqjgqagFRSq98zbjXb3SwhvU/fPYjlMIbLXUeaewfHMKjLJjhJ4Y4vivHobwtwQFmVZo0UDiO9YOlhYewIaPO3jcMB0vdL2yMBwLYjAkqhnEiEbK1R0gl3Vd/+QLWqfWUmOtYY/KsTi4ciahHzkWVYiAlmaTUJW4gKs5bOl0Xii+P8y0VTBgC7FLQQg3Rd+hbRJdBn/iFzA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nUmZccLrb2vHUatPtG38K6X1wED4ABitIbRsF4VTIfo=;
- b=SdGW/Va/k6EcTCrkBtOQzQXUBa5DiSgmG63/dODAogK79cnWKfGqFuT9AC708PmULMO4xyvgaJOZJM4BVQJqxhfbMOIE4o10D7gc00egRrYB/yFYGg2pKccRrtN5Mw1lN8SZPVFYe1ORr1i1+U1kQoihywu840D9E7rRGdaVCpcdf4riApJ/ugXLs/GJGbfTnAS79Uim1lG11vHzFPBrXyjzVbSuGFxJqAcDWzK/61uNwlbwqaoj+TeIlKIFIBfXVw8JmcvNMl5ladDcj8bMW9UsBKk54Fm+8aEC+3xsNsYqaM/no45Nk1yTEsihD8ttcPE2HDcrglpt3KV0Jgw6Jg==
+ bh=E7/8ovmqWLCIFPak8+8conepVutkbqHzQlaoIbaSUaw=;
+ b=bIOjY0ovCrHEgHtx/kdNgpRR67UPQdC5nlA3zT2su23Lewv1x8OJpb7FkvJFdVOisC2lC/mLTsRVFPYIvHCVco3hklYQ1uOd3Sm50b5tU1ojhhIqwhxZ/YZkjdG+m16APDV89Oiqz6gcBZzPFLqrNC1g0otbE3CRzX9ULceZob8b1yvJ/ymq3RF3rYrsb9g4oQQGr9EIaqi7GN8CvQWrLDiAS7KnBGDKp3G8q5OywYQNQxVkuC0AhTj9mV9xU3YCMDX+IKkQkHo1cbvlx2KWLcW3GifBhGGIOInpaRbk8miJxz12bLwDEw5nLQnTTuptqQQXgQ1ZskbxwJBLViOJlA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nUmZccLrb2vHUatPtG38K6X1wED4ABitIbRsF4VTIfo=;
- b=zrfNoJo8v1oOeXFy5hFoJbu4cpl3u1Yfd0TLiAaUkmptEYn+r6zOql03wfOxo0qNpowpuL5ACkvyAu1MFg0Nm7eN+O/RFVSUI7IcKCrZFrF4CO56l+l10VkSc3gB3qFQY8gOT+4nb0KtkIp79+ZcSmmBXH9AzeeqrmJpokBDcc4=
-Received: from CH0PR03CA0087.namprd03.prod.outlook.com (2603:10b6:610:cc::32)
- by MN2PR12MB4256.namprd12.prod.outlook.com (2603:10b6:208:1d2::14)
+ bh=E7/8ovmqWLCIFPak8+8conepVutkbqHzQlaoIbaSUaw=;
+ b=aYRa+qZnqBJE5a740H/a2c2wspdUHU3jdMtgn9SSjMOwuiWtSipUY7uO89hBHkctVLGZNk1jFfoW0xGbxamZg9UMhpiykWPJjK8eL9xstYu8GeDLOmKm77y9fbrAjpJTl7PaSpwyFWBKW2tm5qiJJzKujn25qRkC9dgiB/AOzWU=
+Received: from CH0PR03CA0089.namprd03.prod.outlook.com (2603:10b6:610:cc::34)
+ by SJ1PR12MB6097.namprd12.prod.outlook.com (2603:10b6:a03:488::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.19; Thu, 26 Oct
- 2023 14:20:34 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.29; Thu, 26 Oct
+ 2023 14:20:33 +0000
 Received: from MWH0EPF000989E9.namprd02.prod.outlook.com
- (2603:10b6:610:cc:cafe::27) by CH0PR03CA0087.outlook.office365.com
- (2603:10b6:610:cc::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.22 via Frontend
- Transport; Thu, 26 Oct 2023 14:20:34 +0000
+ (2603:10b6:610:cc:cafe::70) by CH0PR03CA0089.outlook.office365.com
+ (2603:10b6:610:cc::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.19 via Frontend
+ Transport; Thu, 26 Oct 2023 14:20:33 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,20 +48,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  MWH0EPF000989E9.mail.protection.outlook.com (10.167.241.136) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6933.15 via Frontend Transport; Thu, 26 Oct 2023 14:20:33 +0000
+ 15.20.6933.15 via Frontend Transport; Thu, 26 Oct 2023 14:20:32 +0000
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Thu, 26 Oct
- 2023 09:20:32 -0500
+ 2023 09:20:30 -0500
 Received: from hersenwu-Majolica-CZN.hitronhub.home (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32
- via Frontend Transport; Thu, 26 Oct 2023 09:20:31 -0500
+ via Frontend Transport; Thu, 26 Oct 2023 09:20:29 -0500
 From: Hersen Wu <hersenxs.wu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 05/25] drm/amd/display: decouple dmcub execution to reduce
- lock granularity
-Date: Thu, 26 Oct 2023 10:20:00 -0400
-Message-ID: <20231026142020.67861-6-hersenxs.wu@amd.com>
+Subject: [PATCH 04/25] drm/amd/display: Enable fast update on blendTF change
+Date: Thu, 26 Oct 2023 10:19:59 -0400
+Message-ID: <20231026142020.67861-5-hersenxs.wu@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231026142020.67861-1-hersenxs.wu@amd.com>
 References: <20231026142020.67861-1-hersenxs.wu@amd.com>
@@ -69,26 +69,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989E9:EE_|MN2PR12MB4256:EE_
-X-MS-Office365-Filtering-Correlation-Id: 81009d0a-ab2a-474c-8bb3-08dbd62eb78a
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989E9:EE_|SJ1PR12MB6097:EE_
+X-MS-Office365-Filtering-Correlation-Id: ff0df44b-f8d1-4ffe-7fdb-08dbd62eb6dc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wsfgjbhHvA5QrzGogef3BHYKL4r8S9rA9hTNdELviCjZh4MCQNZGVtT2g6j43quydHUKO04TEHS3pdq6LYsVh3f2yMn5pCEfdqu8u9KMSHphV1l4ymJjnZVtrd4UuJ45sSLC5pg/o94V+G47k5ACJcAtVwI4Gu71PwvtFQF4tg+IBoA4WYzyBHQSXPgwvsNdEjJZoxmb01rr7W8TLFJvcAKiYSlC5hS8slt8XP02oM0dfma0T/j8/GCJwtFEwoqKGRemlL+pO4d446rVI4g3IWFHpQilQjGCJoKs6yo5tXkXFsbNyYgUf0Inu/mAefLhrsQAyET4a9a1zrWJqgLJjca2awEoyJgt05HWFpLuZcLRBKKADOEYPt1l+uluTCLWDDzEU9aAuoGbwSg1V+iWgUlcTossT/h3LjzgBjw8VW4TUCsvs6U61poGBFmDjUFpWaPafeeMm08F/594sHtRUz8CKOP2mP/+7fNBpSursNswmzS91cPjEJAkfxrbmC51ruPV74uxc2DjdRikOZu3KTUa6BSgk7pGb7Ub4t8pb7nkCDACT/EzvnwVrCjKMgBpeDkNGHt/4rElzHiHJmyIIuFkYqruBO8Gt3ikvN7Kf0gRtGYZuVSZEG8uaCBeFNHypEK3eDwcc6XaDAjY6ztIBuH6Jmf/wZ0jvpCVRDdpo/9YXMDUmbJ/pi21fmAu79FcK06kteL53/yzgDrokQbEjlE9tqQDqzxLP3wrwWakvzzbTnvZ3NU2Xu94eg/LXyzBa/5vriyLnHe49Kw3aV5MgA==
+X-Microsoft-Antispam-Message-Info: 5ZK7f4J7zfYG5o5H2Njot8FKLvqhiDATMYrzvdvK7gAb5QGKbVMnbzYEetbuzcn1RMVC0UUSoHWXwZaSNv3zMvvFtV0S5xoeIrrVnTbyMPvinZilH0Hoq4bOhJgO1OocOXPC9ASRDomCL++EoC7Kvb0jLvuX1F6Tsymz3wpaOp1IYszFu+ZsvctKfaLs9Ph2v3blkSaRlSxrQJyVD8GjTKDae7GCmBhLttRkMq94c7ADm5eFBeS1jNo4iLd7eLkht9tk5XJSwU6ioBSeOncpyUfft05SzsJ0VrqM5G80Bsa56Ik5wjDTkv+qxUwUjggTpZtTZTiRE0R9m84N6OSskMvEoGDq5LMo3004GVK4LInVrAj6AA4YuVfQkJY/lalII/sRcot+duwaNiWVH8ecGyV9IazwLbRPFYXVq2opL7T1bPSkMUyQ75S4Fg4CsZ/H4GcTX7Sw8tkzDWbtPKi3ck2MiVFMBIRsOqk7BPQu20NBWR/g+Jzvw1eizWEUAsqcMN5JLtg9fX9nlK86VSsxUyupmy+lCsdioegzmR+K9BgolWaRaf4Lxn0e86sgOUKDNjjJZtPxC8uyRuDpvJ8uxnJ/Jh7a2zLKkZHaXiH5SjLVAEtjB8KP+Ima2rSLDLphFuwk4LzSgGJ1fuceB73gALLO4b/GAz8MQNkDvTunyIIURxS9RQyPLitvB3mSSP5lNn8a0nqZiXy5D4TIYmROTq76/RT7e5BHmvQG+56vqPrYj4jIBuh6Wc3ZXgBnN1Xtla9rxJ5ErdJo1nxU04Tz8A==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(136003)(396003)(346002)(39860400002)(230922051799003)(451199024)(64100799003)(1800799009)(82310400011)(186009)(36840700001)(46966006)(40470700004)(83380400001)(81166007)(47076005)(41300700001)(2906002)(86362001)(5660300002)(82740400003)(26005)(356005)(1076003)(336012)(426003)(36860700001)(36756003)(2616005)(40460700003)(40480700001)(70206006)(6916009)(6666004)(478600001)(54906003)(8936002)(70586007)(316002)(8676002)(4326008)(36900700001);
+ SFS:(13230031)(4636009)(376002)(396003)(346002)(39860400002)(136003)(230922051799003)(186009)(64100799003)(1800799009)(82310400011)(451199024)(36840700001)(40470700004)(46966006)(40460700003)(2906002)(15650500001)(2616005)(6666004)(54906003)(426003)(26005)(316002)(478600001)(70586007)(86362001)(1076003)(356005)(47076005)(83380400001)(82740400003)(36860700001)(81166007)(336012)(70206006)(5660300002)(4326008)(41300700001)(8936002)(40480700001)(36756003)(8676002)(4744005)(6916009)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2023 14:20:33.7488 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 81009d0a-ab2a-474c-8bb3-08dbd62eb78a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2023 14:20:32.6082 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff0df44b-f8d1-4ffe-7fdb-08dbd62eb6dc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E9.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4256
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6097
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,135 +100,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Josip Pavic <josip.pavic@amd.com>,
- chiahsuan.chung@amd.com, Sunpeng.Li@amd.com, "JinZe.Xu" <jinze.xu@amd.com>,
+Cc: stylon.wang@amd.com, Ilya Bakoulin <ilya.bakoulin@amd.com>,
+ Aric Cyr <aric.cyr@amd.com>, chiahsuan.chung@amd.com, Sunpeng.Li@amd.com,
  Rodrigo.Siqueira@amd.com, roman.li@amd.com, jerry.zuo@amd.com,
  Aurabindo.Pillai@amd.com, hersenxs.wu@amd.com, wayne.lin@amd.com,
  Harry.Wentland@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "JinZe.Xu" <jinze.xu@amd.com>
+From: Ilya Bakoulin <ilya.bakoulin@amd.com>
 
 [Why]
-On some systems dmub commands run at high IRQ, so long running
-commands will block other interrupts.
+Full update is not required on surface blend TF change.
 
 [How]
-Decouple wait_for_idle from dmcub queue/execute/wait.
+Update full_update_required condition.
 
-Reviewed-by: Josip Pavic <josip.pavic@amd.com>
+Reviewed-by: Aric Cyr <aric.cyr@amd.com>
 Acked-by: Hersen Wu <hersenxs.wu@amd.com>
-Signed-off-by: JinZe.Xu <jinze.xu@amd.com>
+Signed-off-by: Ilya Bakoulin <ilya.bakoulin@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c | 74 ++++++++++++++++++++
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h |  8 +++
- 2 files changed, 82 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-index ba142bef626b..e4c007203318 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-@@ -120,6 +120,80 @@ void dc_dmub_srv_send_inbox0_cmd(struct dc_dmub_srv *dc_dmub_srv,
- 	}
- }
- 
-+bool dc_dmub_srv_cmd_list_queue_execute(struct dc_dmub_srv *dc_dmub_srv,
-+		unsigned int count,
-+		union dmub_rb_cmd *cmd_list)
-+{
-+	struct dc_context *dc_ctx = dc_dmub_srv->ctx;
-+	struct dmub_srv *dmub;
-+	enum dmub_status status;
-+	int i;
-+
-+	if (!dc_dmub_srv || !dc_dmub_srv->dmub)
-+		return false;
-+
-+	dmub = dc_dmub_srv->dmub;
-+
-+	for (i = 0 ; i < count; i++) {
-+		// Queue command
-+		status = dmub_srv_cmd_queue(dmub, &cmd_list[i]);
-+
-+		if (status == DMUB_STATUS_QUEUE_FULL) {
-+			/* Execute and wait for queue to become empty again. */
-+			dmub_srv_cmd_execute(dmub);
-+			dmub_srv_wait_for_idle(dmub, 100000);
-+
-+			/* Requeue the command. */
-+			status = dmub_srv_cmd_queue(dmub, &cmd_list[i]);
-+		}
-+
-+		if (status != DMUB_STATUS_OK) {
-+			DC_ERROR("Error queueing DMUB command: status=%d\n", status);
-+			dc_dmub_srv_log_diagnostic_data(dc_dmub_srv);
-+			return false;
-+		}
-+	}
-+
-+	status = dmub_srv_cmd_execute(dmub);
-+	if (status != DMUB_STATUS_OK) {
-+		DC_ERROR("Error starting DMUB execution: status=%d\n", status);
-+		dc_dmub_srv_log_diagnostic_data(dc_dmub_srv);
-+		return false;
-+	}
-+
-+	return true;
-+}
-+
-+bool dc_dmub_srv_wait_for_idle(struct dc_dmub_srv *dc_dmub_srv,
-+		enum dm_dmub_wait_type wait_type,
-+		union dmub_rb_cmd *cmd_list)
-+{
-+	struct dmub_srv *dmub;
-+	enum dmub_status status;
-+
-+	if (!dc_dmub_srv || !dc_dmub_srv->dmub)
-+		return false;
-+
-+	dmub = dc_dmub_srv->dmub;
-+
-+	// Wait for DMUB to process command
-+	if (wait_type != DM_DMUB_WAIT_TYPE_NO_WAIT) {
-+		status = dmub_srv_wait_for_idle(dmub, 100000);
-+
-+		if (status != DMUB_STATUS_OK) {
-+			DC_LOG_DEBUG("No reply for DMUB command: status=%d\n", status);
-+			dc_dmub_srv_log_diagnostic_data(dc_dmub_srv);
-+			return false;
-+		}
-+
-+		// Copy data back from ring buffer into command
-+		if (wait_type == DM_DMUB_WAIT_TYPE_WAIT_WITH_REPLY)
-+			dmub_rb_get_return_data(&dmub->inbox1_rb, cmd_list);
-+	}
-+
-+	return true;
-+}
-+
- bool dc_dmub_srv_cmd_run(struct dc_dmub_srv *dc_dmub_srv, union dmub_rb_cmd *cmd, enum dm_dmub_wait_type wait_type)
- {
- 	return dc_dmub_srv_cmd_run_list(dc_dmub_srv, 1, cmd, wait_type);
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-index 31150b214394..d4a60f53faab 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-@@ -56,6 +56,14 @@ void dc_dmub_srv_wait_idle(struct dc_dmub_srv *dc_dmub_srv);
- 
- bool dc_dmub_srv_optimized_init_done(struct dc_dmub_srv *dc_dmub_srv);
- 
-+bool dc_dmub_srv_cmd_list_queue_execute(struct dc_dmub_srv *dc_dmub_srv,
-+		unsigned int count,
-+		union dmub_rb_cmd *cmd_list);
-+
-+bool dc_dmub_srv_wait_for_idle(struct dc_dmub_srv *dc_dmub_srv,
-+		enum dm_dmub_wait_type wait_type,
-+		union dmub_rb_cmd *cmd_list);
-+
- bool dc_dmub_srv_cmd_run(struct dc_dmub_srv *dc_dmub_srv, union dmub_rb_cmd *cmd, enum dm_dmub_wait_type wait_type);
- 
- bool dc_dmub_srv_cmd_run_list(struct dc_dmub_srv *dc_dmub_srv, unsigned int count, union dmub_rb_cmd *cmd_list, enum dm_dmub_wait_type wait_type);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 74c21d98b4de..4360a696f10a 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -4348,7 +4348,6 @@ static bool full_update_required(struct dc *dc,
+ 				srf_updates[i].in_transfer_func ||
+ 				srf_updates[i].func_shaper ||
+ 				srf_updates[i].lut3d_func ||
+-				srf_updates[i].blend_tf ||
+ 				srf_updates[i].surface->force_full_update ||
+ 				(srf_updates[i].flip_addr &&
+ 				srf_updates[i].flip_addr->address.tmz_surface != srf_updates[i].surface->address.tmz_surface) ||
 -- 
 2.25.1
 
