@@ -4,58 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B512EC25B48
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Oct 2023 18:59:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4E8BC25B48
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Oct 2023 19:06:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30FE410E867;
-	Thu, 26 Oct 2023 18:59:23 +0000 (UTC)
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [IPv6:2001:4860:4864:20::2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FA5810E867
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Oct 2023 18:59:21 +0000 (UTC)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-1e9bb3a0bfeso828097fac.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Oct 2023 11:59:21 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 554BD10E09C;
+	Thu, 26 Oct 2023 19:06:05 +0000 (UTC)
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91DC510E843
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Oct 2023 17:33:43 +0000 (UTC)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4081ccf69dcso14048025e9.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Oct 2023 10:33:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698346761; x=1698951561; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yYxtlvRDX7G7RfNAO9bur8y47ToZm/1Z0lun5XK2WAU=;
- b=iz1bP1x07TDjhebokIYXrzB4HWs8glESFTpLrjz4/rOGDYj4sdts7UtlqRxC+mUMQB
- iY8SfPKWZELfb2x6wxWPRj3e/yVmrknN1YNW1i0Q/uazijaB4XbNvSmP13dpN31T8m7H
- H9aBks1hFlyNV5EuUrQsflXPZ2yj0RsH6tSJv6vhV7Il+ze0IVhmHo9ldscInPcvyRR7
- B3TfKGYtgb/aScs/vf+VP8IEJkR3u4svv9DvIpSpWlj2Vlxc3J0pEzp3O/McmoC0Tfj9
- jDPQAlX7N023+NNVwNiMmpkgUV6WNDZUJ0lLVJT6ejkdhDMhTP4kpsscEQGdtTZdGf84
- GxOQ==
+ d=linaro.org; s=google; t=1698341622; x=1698946422; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=kODa0N4RmPWhXOkFZtrSi2EV6hRoPP6ATwYExjZLFqU=;
+ b=bw5e/8yr1C121WTG64xAwDpntXQ87urxrzQWBeWFHmBG5ABB0zhXmr0OR5uGaictgc
+ dHcQRFjT2xZe3L5exjs9lf0MtlVzvMwNOWLM+vXcT4IbKJAj+ZHZRNSZRExfenQnCFer
+ gc66yz3Ob1HPaqvz2WeQqgC5+AcW6AqdLRRovC8VBzADqhL424wDa3liJkIJscwPWKSW
+ TVj4c1Czi+55rpRqy4lH0Asos535Edq58fsOmASat9ioJOUCO/OwyvyD22fgMsqscYg4
+ A8hQd8qDgAFr3+p3hC1aIQK7u/2+3gOeWw+IEbkPxl8AH1H2f1CvcY4eMMass3Z4MRUO
+ S+XQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698346761; x=1698951561;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=yYxtlvRDX7G7RfNAO9bur8y47ToZm/1Z0lun5XK2WAU=;
- b=bUgaTx8OxvBxvN+r1g9EoZ/FO67wHf75TEcnpLGdpaNWzDkdB75h3iDXdrkQI3wGtz
- Misy7Q0zz4RUliDQuFMDcPMQsgii3F0w7vfDSVk5E17Aavzd0AhuvcjlLdXHUg4B8g2A
- 9/9MvlWYGPldYIzGEdj+Ulwqt2rAWyycIN0szG0YGJzFDcDHz6kybpSWO8AnfWIdEKhK
- 1ZARmA1w6IFrkjSvR1vgGZ0VEodKWnVcFdM6umUaewg0OlkulNWY9XMfmgAaI+yW4uAJ
- iPFT3hed8aqcbLM0TlVGHTwFSgSKGerT7zUGVQJLWWxcslmEF4GTgcgtpWKiRf+P7XI4
- w5vA==
-X-Gm-Message-State: AOJu0YxXWuRC1JmBqAuH90ri8g0K5HKi/mz/CzyHFrCAoJho+hxxr5w5
- cw6bXicDDIK6Q4PlyZogL03S45rivmIdzSELIxp7EvJI
-X-Google-Smtp-Source: AGHT+IGLnZxjEiKxQU/laqHhvVajLkf/okubJTVy5eE7OttPqgjrVLdNou8bACbw5AJC+SBXbeSN4y8K6n02C1eNohs=
-X-Received: by 2002:a05:6870:d683:b0:1e9:a741:44f3 with SMTP id
- z3-20020a056870d68300b001e9a74144f3mr646833oap.14.1698346760627; Thu, 26 Oct
- 2023 11:59:20 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1698341622; x=1698946422;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=kODa0N4RmPWhXOkFZtrSi2EV6hRoPP6ATwYExjZLFqU=;
+ b=SVjCEIvJ2SwwGD6pWq4aGFSnqowViTqgSBHUAxVfDEIHR7MYUbvs98VhZ/cmU/HlY3
+ QeEb/3uXFTClCq1DW2OiNRevNatcjlIrKAxuhSzrTxDZAf6uGMMuH6MT+Go3dzZWpHgw
+ rP9OT6zE8CjWXBsvc3WlkgNln/nRF85p3TI8f6eBmHKNiG68ShR6iiH+odOqJQzKC8Ul
+ I1TFnCdj7rS5P5oV3wrP+RL+60BW5X5dxdRZJi58TmAvUtIFNHcjTfSrBve+kXF0mpGM
+ np9uiqIwklesqFceLCD5WzG72T+jY3scqcSE0csYYxHSZrJNEdkhRveDXwvhm50OpE/9
+ c43Q==
+X-Gm-Message-State: AOJu0YwGxDD34/RxpNoxs6WoClKxuah4pxGQZpZlWaV03eVofhABSzh+
+ T+WbtjCqOY8xEIGe3taw3+FjUy84xhp3Cr74TILdWQ==
+X-Google-Smtp-Source: AGHT+IHS+e/1aJbW5bTQTAm8VGasNzmiEEEr/R+7zojVf4ISGNWsbt1rRD/ziGfT0qFpFtdXhFPfWQ==
+X-Received: by 2002:a05:600c:3c97:b0:402:e68f:8a4f with SMTP id
+ bg23-20020a05600c3c9700b00402e68f8a4fmr608518wmb.0.1698341621783; 
+ Thu, 26 Oct 2023 10:33:41 -0700 (PDT)
+Received: from localhost.localdomain ([2a02:c7c:7213:c700:ddfa:8123:b8d1:3b7d])
+ by smtp.gmail.com with ESMTPSA id
+ w11-20020a05600c474b00b004067e905f44sm3164541wmo.9.2023.10.26.10.33.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Oct 2023 10:33:41 -0700 (PDT)
+From: Alexey Klimov <alexey.klimov@linaro.org>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [REGRESSION] rx7600 stopped working after "1cfb4d612127 drm/amdgpu:
+ put MQDs in VRAM"
+Date: Thu, 26 Oct 2023 18:33:20 +0100
+Message-ID: <20231026173320.552430-1-alexey.klimov@linaro.org>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-References: <20231026182125.264464-1-mukul.joshi@amd.com>
-In-Reply-To: <20231026182125.264464-1-mukul.joshi@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 26 Oct 2023 14:59:09 -0400
-Message-ID: <CADnq5_MhcHtAfAenbYAQ40X-s_xv9rGGrWGA5CLKFdAMWW9xKQ@mail.gmail.com>
-Subject: Re: [PATCHv2] drm/amdgpu: Fix typo in IP discovery parsing
-To: Mukul Joshi <mukul.joshi@amd.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Thu, 26 Oct 2023 19:06:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,50 +72,210 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
+Cc: mathieu.poirier@linaro.org, Xinhui.Pan@amd.com, klimov.linux@gmail.com,
+ luben.tuikov@amd.com, mario.limonciello@amd.com, leo.yan@linaro.org,
+ alexander.deucher@amd.com, christian.koenig@amd.com, alexey.klimov@linaro.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 26, 2023 at 2:32=E2=80=AFPM Mukul Joshi <mukul.joshi@amd.com> w=
-rote:
->
-> Fix a typo in parsing of the GC info table header when
-> reading the IP discovery table.
->
-> Fixes: ecb70926eb86 ("drm/amdgpu: add type conversion for gc info")
-> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+#regzbot introduced: 1cfb4d612127
+#regzbot title: rx7600 stopped working after "1cfb4d612127 drm/amdgpu: put =
+MQDs in VRAM"
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Hi all,
 
-> ---
-> v1->v2:
-> - Add the Fixes tag.
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_discovery.c
-> index 8d3681172cea..81476cd8461c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -1488,7 +1488,7 @@ static int amdgpu_discovery_get_gfx_info(struct amd=
-gpu_device *adev)
->                 adev->gfx.config.num_sc_per_sh =3D le32_to_cpu(gc_info->v=
-2.gc_num_sc_per_se) /
->                         le32_to_cpu(gc_info->v2.gc_num_sh_per_se);
->                 adev->gfx.config.num_packer_per_sc =3D le32_to_cpu(gc_inf=
-o->v2.gc_num_packer_per_sc);
-> -               if (le16_to_cpu(gc_info->v2.header.version_minor =3D=3D 1=
-)) {
-> +               if (le16_to_cpu(gc_info->v2.header.version_minor) =3D=3D =
-1) {
->                         adev->gfx.config.gc_num_tcp_per_sa =3D le32_to_cp=
-u(gc_info->v2_1.gc_num_tcp_per_sh);
->                         adev->gfx.config.gc_tcp_size_per_cu =3D le32_to_c=
-pu(gc_info->v2_1.gc_tcp_size_per_cu);
->                         adev->gfx.config.gc_num_sdp_interface =3D le32_to=
-_cpu(gc_info->v2_1.gc_num_sdp_interface); /* per XCD */
-> --
-> 2.35.1
->
+I've been playing with RX7600 and it was observed that amdgpu stopped worki=
+ng between kernel 6.2 and 6.5.
+Then I narrowed it down to 6.4 <-> 6.5-rc1 and finally bisect pointed at 1c=
+fb4d6121276a829aa94d0e32a7f5e1830ebc21
+And I manually checked if it boots/works on the previous commit and the men=
+tioned one.
+
+I guess the log also reveals warning in error path. Please see below.
+
+I didn't check any further. This is simple debian testing system with the f=
+ollowing cmdline options:
+root@avadebian:~# cat /proc/cmdline
+BOOT_IMAGE=3D/boot/vmlinuz-6.6-rc7+ ignore_loglevel root=3D/dev/nvme1n1p2 r=
+o nr_cpus=3D32
+
+So far simple revert (patch is below) returns things back to normal-ish: th=
+ere are huge graphics artifacts on Xorg/X11 under 6.1 to upstream kernel. W=
+ayland-based sway works great without issues. Not sure where should I repor=
+t this.
+
+Please let me know if I can help debugging, testing or provide some other l=
+ogs regarding 1cfb4d612127? Any cmdline options to collect more info?
+
+Thanks,
+Alexey
+
+
+
+From 214372d5cedcf8757dd80d5f4d058377a3d92c52 Mon Sep 17 00:00:00 2001
+From: Alexey Klimov <alexey.klimov@linaro.org>
+Date: Thu, 26 Oct 2023 17:01:02 +0100
+Subject: [PATCH] drm/amdgpu: Revert "drm/amdgpu: put MQDs in VRAM"
+
+This reverts commit 1cfb4d6121276a829aa94d0e32a7f5e1830ebc21.
+
+amdgpu driver fails during initialisation with RX7600/gfx11 on
+ADLINK Ampere Altra Developer Platform (AVA developer platform)
+with mentioned commit:
+
+[   12.559893] [drm] Display Core v3.2.247 initialized on DCN 3.2.1
+[   12.565906] [drm] DP-HDMI FRL PCON supported
+[   12.572192] [drm] DMUB hardware initialized: version=3D0x07000C00
+[   12.582541] snd_hda_intel 000d:03:00.1: bound 000d:03:00.0 (ops amdgpu_d=
+m_audio_component_bind_ops [amdgpu])
+[   12.625357] [drm] kiq ring mec 3 pipe 1 q 0
+[   12.857087] amdgpu 000d:03:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] =
+*ERROR* ring comp_1.0.0 test failed (-110)
+[   12.867930] [drm:amdgpu_device_init [amdgpu]] *ERROR* hw_init of IP bloc=
+k <gfx_v11_0> failed -110
+[   12.877289] amdgpu 000d:03:00.0: amdgpu: amdgpu_device_ip_init failed
+[   12.883723] amdgpu 000d:03:00.0: amdgpu: Fatal error during GPU init
+[   12.890070] amdgpu 000d:03:00.0: amdgpu: amdgpu: finishing device.
+[   12.896586] [drm] DSC precompute is not needed.
+[   12.901142] ------------[ cut here ]------------
+[   12.905747] WARNING: CPU: 0 PID: 212 at drivers/gpu/drm/amd/amdgpu/amdgp=
+u_irq.c:615 amdgpu_irq_put+0xa8/0xc8 [amdgpu]
+[   12.916841] Modules linked in: hid_generic(E) usbhid(E) hid(E) qrtr(E) i=
+ptable_nat(E) amdgpu(E+) nf_nat(E) nf_conntrack(E) snd_hda_codec_hdmi(E) nf=
+_defrag_ipv6(E) nf_defrag_ipv4(E) libcrc32c(E) iptable_mangle(E) iptable_fi=
+lter(E) amdxcp(E) drm_exec(E) gpu_sched(E) snd_hda_intel(E) aes_ce_blk(E) s=
+nd_intel_dspcfg(E) drm_buddy(E) aes_ce_cipher(E) snd_hda_codec(E) xhci_pci(=
+E) video(E) crct10dif_ce(E) polyval_ce(E) snd_hda_core(E) xhci_hcd(E) drm_s=
+uballoc_helper(E) snd_hwdep(E) polyval_generic(E) drm_ttm_helper(E) snd_pcm=
+(E) ghash_ce(E) ast(E) ttm(E) gf128mul(E) snd_timer(E) ipmi_ssif(E) drm_dis=
+play_helper(E) drm_shmem_helper(E) sha2_ce(E) sha256_arm64(E) ipmi_devintf(=
+E) usbcore(E) snd(E) drm_kms_helper(E) igb(E) sha1_ce(E) sbsa_gwdt(E) ipmi_=
+msghandler(E) arm_spe_pmu(E) soundcore(E) usb_common(E) i2c_algo_bit(E) cpp=
+c_cpufreq(E) i2c_designware_platform(E) arm_dsu_pmu(E) arm_cmn(E) xgene_hwm=
+on(E) i2c_designware_core(E) evdev(E) binfmt_misc(E) loop(E) fuse(E) efi_ps=
+tore(E) drm(E) dm_mod(E) dax(E) configfs(E) efivarfs(E)
+[   12.916916]  ip_tables(E) x_tables(E) autofs4(E)
+[   13.011111] CPU: 0 PID: 212 Comm: kworker/0:2 Tainted: G            E   =
+   6.6.0-rc7+ #23
+[   13.019277] Hardware name: ADLINK Ampere Altra Developer Platform/Ampere=
+ Altra Developer Platform, BIOS TianoCore 2.04.100.10 (SYS: 2.06.20220308) =
+04/18/2
+[   13.033084] Workqueue: events work_for_cpu_fn
+[   13.037434] pstate: 20400009 (nzCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=
+=3D--)
+[   13.044384] pc : amdgpu_irq_put+0xa8/0xc8 [amdgpu]
+[   13.049652] lr : amdgpu_fence_driver_hw_fini+0x118/0x160 [amdgpu]
+[   13.056220] sp : ffff80008012bc10
+[   13.059522] x29: ffff80008012bc20 x28: 0000000000000000 x27: 00000000000=
+00000
+[   13.066647] x26: 0000000000000000 x25: ffff07ff98580010 x24: ffff07ff985=
+80000
+[   13.073772] x23: ffff07ff985a78f0 x22: ffff07ff98580010 x21: ffff07ff985=
+904c8
+[   13.080896] x20: ffff07ff985900e8 x19: ffff07ff98598580 x18: 00000000000=
+00006
+[   13.088020] x17: 0000000000000020 x16: ffffbb510d0d7140 x15: fffffffffff=
+ffefb
+[   13.095145] x14: 0000000000000000 x13: 2e64656465656e20 x12: ffff07ff8c7=
+fd9e0
+[   13.102268] x11: 00000000000003e8 x10: ffff07ff8c7fd9e0 x9 : ffffbb50ac3=
+345e0
+[   13.109392] x8 : ffffbb50abf18000 x7 : 0000000000000000 x6 : 000000007a4=
+56104
+[   13.116516] x5 : 0000000000000000 x4 : ffff07ff98580000 x3 : 00000000000=
+00000
+[   13.123641] x2 : 0000000000000000 x1 : ffff07ff985a78f0 x0 : ffff07ffc5f=
+d4000
+[   13.130765] Call trace:
+[   13.133200]  amdgpu_irq_put+0xa8/0xc8 [amdgpu]
+[   13.138121]  amdgpu_device_fini_hw+0xb8/0x380 [amdgpu]
+[   13.143732]  amdgpu_driver_unload_kms+0x54/0x80 [amdgpu]
+[   13.149517]  amdgpu_driver_load_kms+0x100/0x1c0 [amdgpu]
+[   13.155301]  amdgpu_pci_probe+0x134/0x428 [amdgpu]
+[   13.160564]  local_pci_probe+0x48/0xb8
+[   13.164305]  work_for_cpu_fn+0x24/0x40
+[   13.168043]  process_one_work+0x170/0x3d0
+[   13.172042]  worker_thread+0x2bc/0x3e0
+[   13.175781]  kthread+0x118/0x128
+[   13.178999]  ret_from_fork+0x10/0x20
+[   13.182564] ---[ end trace 0000000000000000 ]---
+...
+[   16.984679] amdgpu: probe of 000d:03:00.0 failed with error -110
+
+Cc: Luben Tuikov <luben.tuikov@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Fixes: 1cfb4d612127 drm/amdgpu: put MQDs in VRAM
+Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 9 ++-------
+ drivers/gpu/drm/amd/amdgpu/mes_v10_1.c  | 1 -
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  | 1 -
+ 3 files changed, 2 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_gfx.c
+index 2382921710ec..1f2d8be0fc44 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -382,11 +382,6 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *adev,
+ 	int r, i, j;
+ 	struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[xcc_id];
+ 	struct amdgpu_ring *ring =3D &kiq->ring;
+-	u32 domain =3D AMDGPU_GEM_DOMAIN_GTT;
+-
+-	/* Only enable on gfx10 and 11 for now to avoid changing behavior on olde=
+r chips */
+-	if (adev->ip_versions[GC_HWIP][0] >=3D IP_VERSION(10, 0, 0))
+-		domain |=3D AMDGPU_GEM_DOMAIN_VRAM;
+=20
+ 	/* create MQD for KIQ */
+ 	if (!adev->enable_mes_kiq && !ring->mqd_obj) {
+@@ -421,7 +416,7 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *adev,
+ 			ring =3D &adev->gfx.gfx_ring[i];
+ 			if (!ring->mqd_obj) {
+ 				r =3D amdgpu_bo_create_kernel(adev, mqd_size, PAGE_SIZE,
+-							    domain, &ring->mqd_obj,
++							    AMDGPU_GEM_DOMAIN_GTT, &ring->mqd_obj,
+ 							    &ring->mqd_gpu_addr, &ring->mqd_ptr);
+ 				if (r) {
+ 					dev_warn(adev->dev, "failed to create ring mqd bo (%d)", r);
+@@ -445,7 +440,7 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *adev,
+ 		ring =3D &adev->gfx.compute_ring[j];
+ 		if (!ring->mqd_obj) {
+ 			r =3D amdgpu_bo_create_kernel(adev, mqd_size, PAGE_SIZE,
+-						    domain, &ring->mqd_obj,
++						    AMDGPU_GEM_DOMAIN_GTT, &ring->mqd_obj,
+ 						    &ring->mqd_gpu_addr, &ring->mqd_ptr);
+ 			if (r) {
+ 				dev_warn(adev->dev, "failed to create ring mqd bo (%d)", r);
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c b/drivers/gpu/drm/amd/a=
+mdgpu/mes_v10_1.c
+index eb06d749876f..080e7eb3f98d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
+@@ -898,7 +898,6 @@ static int mes_v10_1_mqd_sw_init(struct amdgpu_device *=
+adev,
+ 		return 0;
+=20
+ 	r =3D amdgpu_bo_create_kernel(adev, mqd_size, PAGE_SIZE,
+-				    AMDGPU_GEM_DOMAIN_VRAM |
+ 				    AMDGPU_GEM_DOMAIN_GTT, &ring->mqd_obj,
+ 				    &ring->mqd_gpu_addr, &ring->mqd_ptr);
+ 	if (r) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/mes_v11_0.c
+index 6827d547042e..0608710306b8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -1004,7 +1004,6 @@ static int mes_v11_0_mqd_sw_init(struct amdgpu_device=
+ *adev,
+ 		return 0;
+=20
+ 	r =3D amdgpu_bo_create_kernel(adev, mqd_size, PAGE_SIZE,
+-				    AMDGPU_GEM_DOMAIN_VRAM |
+ 				    AMDGPU_GEM_DOMAIN_GTT, &ring->mqd_obj,
+ 				    &ring->mqd_gpu_addr, &ring->mqd_ptr);
+ 	if (r) {
+--=20
+2.42.0
+
