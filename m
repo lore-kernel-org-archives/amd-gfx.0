@@ -4,116 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3F58C25B6B
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Oct 2023 07:31:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE52BC25B6B
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Oct 2023 08:16:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7216C10E76A;
-	Thu, 26 Oct 2023 07:31:21 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2054.outbound.protection.outlook.com [40.107.223.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58B4210E76A
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Oct 2023 07:31:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EB6C10E773;
+	Thu, 26 Oct 2023 08:16:58 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2063.outbound.protection.outlook.com [40.107.94.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2B6010E773
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Oct 2023 08:16:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BcjyPiYxZ3Rc/20VVirlFXG2PvkaGVV/iSoIGTsMUOuNEPIVudfPNZW4WfIAU3C37B1rtoD/cz36ck/x8gDW6dc3/LjgjnyOrMxiHPIypCQ/c3dbAPgijPMdSHmNa2aAFmtmpbROX1XvhFbJMtJ85hP0bXbKlaMqpStd0Ql+vmpFkD8BOLbHdR0PRRnM2ojxUJPUSBKEiyhJbvQbHoBdmGKz3CzhNpdJPVVG+FnB4MyaSzCef95xGNmjD3RTtm8fxjhTKqRoQ3uHLyDod57LPqRuKYFTHJSEbMZGuOt343yGL3FvIagHSH6fBgz6aSdwkW98v+v13Es5hcnVnYlsqA==
+ b=E8Lwny7HymIj59INQWyQOfYq9QbL6vUDZwIy5E3o1JRnW82zhHrAwpqhLsHVwYYuREwTpo56uCcclkb1PMDp+d6AhGK9dKVjV/bVAwDP56+10hoLjgzv8JdYSOoE5YoaP9pvP17EA/PNRzfBufheidZ1ObjnAyjjvAsexRUfEuDBLYOedVKCPwegKMTwxXKfrV0Mc2oB91aJ1s1K9lOVCXZuAPcFxFUsPhzYmIORVxd1UY+YP42tH8wvQGKR6sfyeHORo9GAA8QUFxx0GyvOnVNlU0kMu0u5oFkCo67mMjcJ1PSsZPbI6ItFwJYw9Wj5yyL72eW5/QFeDRzUjF3cJQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gqA7ws8t4/XDsKdnLN0sRmXLxGWcR59/p9VSFcI88G0=;
- b=N5nm2ZyksJygC8oPC8VvXE6UN2EpSx4X8S5Yxd6GvOzH2VamXpqjeej8X7TtLEZGG5AQmS2XnIaZ3z+DbTLeEMlrnzRQpbh7tfT4s0XIcUzvCr2L4EPMZ2uWbgEEKeff+BiR8JZDDV7N7sBBuHUvWaCeuCSIUFb45zszZeOQu12Qp2YnZUVXycz9OPRgYTOd88BO3dTU1nh6K6to5vOTTW3eyBfcyt3fGa9GgMmCg4QD2ujbY/F6mBk5jMw/9ri2RIhW3P84lIIlYourMdzQm+tzgfDsuNEz+aXwDkKTZ8ger3KraURSuGPYFYPLSQq1tPiEjhmBjnea2q+jmeNRRw==
+ bh=Y6Q4OJalJPHh5y+iE1Nwk4ZQr8Md+A968NelT6rxcdQ=;
+ b=LYVHC33Lsmu9hisb6rqFO+8dt7f4NJbl06uc/naDNUnRSb1QlzkmDVQ/OT5tAxF7VNy20ZKJl7b2pNe5mEH6jH4mLMCjnqdLBuCL8IN0VuPuChZcvtH7BON4UaBv3CHqNR9K2cUpn3Wpnk5FnQzH+Z6+AMSpi7NpkTcKfJc3qLRbmy0xfgC6s2Ls2GRi5Dn2GoqsBlrf8o3AU+BdXtRCio5AdFddAiNLgT11TF/B0JH5w5eHQnAVT1VcsLmVIfFOtCiOWtcyixkst25hzinx71dPNQVYODfp8xhb9Es0EpzaNfXQfLcpd3s3/M9PaEZd2nI6TP5TPbIW+uf5kiX8Sg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gqA7ws8t4/XDsKdnLN0sRmXLxGWcR59/p9VSFcI88G0=;
- b=0HPBWAtPesqLJgbfJfUHwQQB83MOiPAMGJivKjbYYS+s1b6uYSiFwybJBWlZfKVaobiaQH3dE2lgtIFy09+rVQ1LiUobyJKx8W+Xn+ctBV6+qxkirXjQM6CDxguEmcVEXZam1rucA/ZQ2zSnxo3r63YBDu2jqS0UTLWZe04mpow=
-Received: from CY5PR12MB6369.namprd12.prod.outlook.com (2603:10b6:930:21::10)
- by MW6PR12MB8916.namprd12.prod.outlook.com (2603:10b6:303:24b::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.31; Thu, 26 Oct
- 2023 07:31:17 +0000
-Received: from CY5PR12MB6369.namprd12.prod.outlook.com
- ([fe80::9b2f:2ac9:bfd0:589b]) by CY5PR12MB6369.namprd12.prod.outlook.com
- ([fe80::9b2f:2ac9:bfd0:589b%3]) with mapi id 15.20.6907.030; Thu, 26 Oct 2023
- 07:31:17 +0000
-From: "Zhang, Yifan" <Yifan1.Zhang@amd.com>
-To: "Yuan, Perry" <Perry.Yuan@amd.com>, "Feng, Kenneth"
- <Kenneth.Feng@amd.com>, "Limonciello, Mario" <Mario.Limonciello@amd.com>
-Subject: RE: [PATCH v2 2/3] drm/amdgpu: avoid sending csib command when system
- resumes from S3
-Thread-Topic: [PATCH v2 2/3] drm/amdgpu: avoid sending csib command when
- system resumes from S3
-Thread-Index: AQHaBolXT7qlqmrERkuea16E3Eapg7Bbr7fQ
-Date: Thu, 26 Oct 2023 07:31:16 +0000
-Message-ID: <CY5PR12MB63690CB8961261A2B0E64620C1DDA@CY5PR12MB6369.namprd12.prod.outlook.com>
-References: <3ad257465bb9fe2542970ae0f3ab06dd29f1f1b2.1698158958.git.perry.yuan@amd.com>
- <3e270efa46affe3c52614099575368726eb32793.1698158958.git.perry.yuan@amd.com>
-In-Reply-To: <3e270efa46affe3c52614099575368726eb32793.1698158958.git.perry.yuan@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=a1a0ff45-6a71-40e6-ab4f-f00b7db4d757;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-10-26T07:31:12Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
+ bh=Y6Q4OJalJPHh5y+iE1Nwk4ZQr8Md+A968NelT6rxcdQ=;
+ b=UwIuTs/t5y4ba6U31GlwoNWdimRZz3dk3vXmrpNz9F76PDr1pIOcGxvb7Vun5YjOUzkbDcOaD3CICf+wN+iYg6K8ZM2m6+P5e+9pyNSFxr3hLIM0wez6njp1gPIFElfi3h6dskzKYWaxvHC+6OGwqtahGQo5Zo4JJjzO2yaw84Y=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY5PR12MB6369:EE_|MW6PR12MB8916:EE_
-x-ms-office365-filtering-correlation-id: 5d576dc8-71b5-4a2d-4d9d-08dbd5f58a7b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 94zTYxyqEEGnRIf/cX8GitPTjl4KRWD7mkgHnVmG31MNMAuB4Ylw3dn+taJlmiDijm4EqjczIhL7kf5zzH1onocUYeMbWpwUHSKyeqggfqbbUrxz1kmIctVLzMd7KS3qa0PjmhiFpEVOIkb8JdcX2yCeq8WMA8IAY9vlI1j/O3jbNE+BWi8FeKmKdDidvMevoEZo1WmzsTUpZ8JwHspdGQETgAG/6jkABOU7bYIZ8ipFTji2i2RU6tbjuxJJ+gIfdpnzUI0VKWORC/JnX9p7jk85FwaCCHg3rVgea6A7pDw1SrmFZo2oK1luT78b8YdN9GtYCRJQM5V8EMbCXdMLoqejzyGn2ATWUhfAzzxMsHl6wky64qEMhXmCp8doqknqk4ugR7010pKIXxAqp3mJlna6QWfYnKId2oQ3L9xLEtrhF/2vc++ha3nIpNPAKFfa7Ke4WzSWkBgT4AR4GmFvBfTlWxGCAXc1obIAD9B79jCZfx0dpmBvmcBUVq8dzHOma9FJtgBH6lW2WsmkXl+bcEJmEXJUSfNr3BhGv4On4s4zJ7+5mMexL6x16mqlpinH6ng9u2MZRphr1W7BqRkNSnhkMW9xI6oNAtydAU5fDRA73ubcVEQbM/QnZqmPgXWc
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR12MB6369.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366004)(136003)(396003)(376002)(39860400002)(346002)(230922051799003)(451199024)(186009)(64100799003)(1800799009)(38070700009)(26005)(38100700002)(55016003)(122000001)(2906002)(6636002)(86362001)(4326008)(76116006)(8936002)(8676002)(33656002)(54906003)(110136005)(71200400001)(66446008)(478600001)(64756008)(7696005)(6506007)(52536014)(66556008)(41300700001)(66476007)(66946007)(316002)(83380400001)(5660300002)(53546011)(9686003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?qJeF55/OaovZmphIK+l2ez/kNiwsKmPpYlYusFYLosvRy7R4YENvftoj1d/t?=
- =?us-ascii?Q?Cbc6Qyp3jYcjXWBzkRkca9ksq2nv16o3CIgT4ifkwAgWyZLy4JMI0GVbHQKV?=
- =?us-ascii?Q?pzbgScYdvVkU+55hbnfr0P4Q9G17p+7pW+kFz84exQV4ekvug8tQrL9ZKO1M?=
- =?us-ascii?Q?Y1FnFI9VjYL6AzmFVBDLAcAsW+xPonJS6uQwsOVwXrF5uqX8+FPEDGwGhL6B?=
- =?us-ascii?Q?n2o4N/SAZ/VJ5U1UBaFNtNGaO1g7/ZZgM7ojeOAhlMPcu87+2QSDjbIkhPuS?=
- =?us-ascii?Q?Knp9jycwGsduHU3tPNtBgh1qPXK5K2Beq8U8i0dOKaBwQBQAJMP3OKqJsA72?=
- =?us-ascii?Q?Nklu2mnXH1i8yBksToKQGm95b/sYfqVFUTuL+dGilXoLviu1vLse2GMkHGox?=
- =?us-ascii?Q?d+PTvCw+7H1cbI+8sW4DtlbU79RCf6XVqjkNkblKJ/fSbTyt0c/vRjM7mMn6?=
- =?us-ascii?Q?zOIWPq5xpEIL2Xfe6LrIBAq9dWmNpz5RFVNHyxNG4b9cD1Gg+HTwzm5kfWS/?=
- =?us-ascii?Q?ztiiSvmtn/HSrMY+aRpsCJIjEFwGBbIuHDWc5crMseqKc/KXdFDHOaD2pPAy?=
- =?us-ascii?Q?TtxINIjoUWTWDfHGZ7gsXj0haR9k0xN3EbirrULXHKdlhPv1T8V/CqrZMfBd?=
- =?us-ascii?Q?pPtNv57OUcUmYSQiJnrmshu2ZFz9UdBgUVYvO6FbL3QFMCAJnb1kzwTeQL6a?=
- =?us-ascii?Q?0yRCQ09smi9Nrn+67xw2OI0BJeMLG5ZJwaEh8lBc9fG0Z5ezqQfW2kY2dcUr?=
- =?us-ascii?Q?HHmCdm0csaXaHbTivaQ0wsb4ae34xx+RiwnUNW508nDWL2LPKLM6LA91SzWd?=
- =?us-ascii?Q?P/WmaU7JC6SkOgy2OWCl7Fc1UIEOcGUiFSShXCM2GmewiDVR/h4SxJpaK1MC?=
- =?us-ascii?Q?TO0t78P8kJBwnRT7j9AoV6D8POosk7jlnc0NBXwz6wyHwNBF2Ot95kPR8vSL?=
- =?us-ascii?Q?gHTnyA3pl37fUqi4riEOKSTmWTij4chOr2xWDOhuyz4Kl9zegxSO7WeiIJ0N?=
- =?us-ascii?Q?VcfAXcB8hVPcdxAKm7nUIk236vMOeGpyRvGz6NktSSb2bmqUhl3USSOQK+oO?=
- =?us-ascii?Q?KvaR0xMmui0mZE5NfHnMDtvhknAd10aHA/kFKL9LTpFZVqsiQ9u4CnwGNDeZ?=
- =?us-ascii?Q?ywV2eEtz/PAeSyDO5MD3876b1UXOschI0taGEbdksjY4vsChFi8QiBaq6PbP?=
- =?us-ascii?Q?mAcP9C5pALsjiy28m6Ay1DJuLWpsZzakqP+pCYgFJHvy4lBE/qH7yce2rdQC?=
- =?us-ascii?Q?lXMDQ17DxNLXcEUhQvSzt86eLk617+6FO5bmE2Xl1RWiYI6AvZ6CvYSGGSgH?=
- =?us-ascii?Q?+8akkvSdurEQPAK/qE2WY+L5mjiEWYlAZK10pK/PRQOy7KCMMBadcsru/ErB?=
- =?us-ascii?Q?l3FP3EnKP/r+2CPtZXzo8zo/u/erk9/nxWD41MhI0a3t7dN66JXPmoGmK0oo?=
- =?us-ascii?Q?jqtNhNUgWgZLElv4bHsOyyf+NIEaVzdn8TfoxMhoKv0SRDuixBQCNoVwnOS4?=
- =?us-ascii?Q?uaW0itWxxqGDCmm0WgjX5b8/hs0oXJBXkL4tPh2GSpAPuGwUuZyEpD7/mfQc?=
- =?us-ascii?Q?F+ePAFVyVtoIkaQOtW8=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by PH7PR12MB7115.namprd12.prod.outlook.com (2603:10b6:510:1ee::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.26; Thu, 26 Oct
+ 2023 08:16:54 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::737e:9615:922a:d3d4]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::737e:9615:922a:d3d4%4]) with mapi id 15.20.6933.019; Thu, 26 Oct 2023
+ 08:16:54 +0000
+Message-ID: <66077329-08cb-8857-584c-1b14bbe23a11@amd.com>
+Date: Thu, 26 Oct 2023 13:46:46 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.1
+Subject: Re: [PATCH 3/5] drm/amdgpu: Use correct KIQ MEC engine for gfx9.4.3
+ (v3)
+Content-Language: en-US
+To: Victor Lu <victorchengchi.lu@amd.com>, amd-gfx@lists.freedesktop.org
+References: <f68e701c-518d-9782-7da6-2f62f4aaa368@amd.com>
+ <20231025205242.40490-1-victorchengchi.lu@amd.com>
+ <20231025205242.40490-3-victorchengchi.lu@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20231025205242.40490-3-victorchengchi.lu@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2PR01CA0126.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:6::11) To BYAPR12MB4614.namprd12.prod.outlook.com
+ (2603:10b6:a03:a6::22)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BYAPR12MB4614:EE_|PH7PR12MB7115:EE_
+X-MS-Office365-Filtering-Correlation-Id: f0e5b302-4d8e-432e-7a5c-08dbd5fbe9af
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: saC7hDc1n8DPzkDov6BfImbHan2/ETJItHZk4CyvL0Z17GUSA1J+wQYHS8gkmntdCpyMIkrYfw6LbOTqJoKNSwtxewlC+H/lVAMHpw5XTb8/SvlpmgadLgraeuD0grvK6Npr6fTwl+JTX/pMe0dEx7eVfeVk2nGjo1ujVXRmrWRzDKj2tCNXOWeUmGWzDmGDrxN6xFArZUNpbp2XqB0j6ecChvf3fMpe+Lonq/jkmCPQSeHZXb8+4O/MdsM44eVf1azgU67kAll4rje94X4PzAcKm1eKg4MB7lyw6JTE8xHj2lLT/qQ/olTHR85yY95rPwkvDLi6euVY9jpMtUlrcB91D3+iKiqGcuZ7FqF4oqow/Qoj3sNa3CTaHyuHcsKLC6JIlXgM5Txgbxqav6IXDpgXrZY5ToMwcN4PDxMyk6Dq7CQub8hggJJXnMOtlF6qinox/oSZGQvop8kyZ78v47DJtuqxLKTPEcgtYb0VCsMaRh/DohsG3JOtA5mDMWAzFqTUemh/ba6dfMmqhDTcfv3u6CawjwBlw+J8hdcrzJmjZrz694uIBgbFUPtMWJRzYujp0a0p2KIihM1EWVsIz2/fLE5CGfW2UoUEJ/r4+1UmvCW37HElY9VVHBOsnsroGN8ztaY9ZA2PMuBKRScUFg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(136003)(396003)(346002)(376002)(366004)(230922051799003)(64100799003)(186009)(1800799009)(451199024)(8676002)(31686004)(53546011)(6506007)(6666004)(36756003)(478600001)(316002)(26005)(66946007)(66476007)(66556008)(38100700002)(6486002)(83380400001)(2616005)(6512007)(2906002)(4326008)(5660300002)(31696002)(41300700001)(30864003)(86362001)(8936002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VTdVOUF4a0hNWUs5eHlBcWU2emZMQjg5M3pieEYxRTVpZXJyckpaMkY0bHFX?=
+ =?utf-8?B?bVIrMVlnOUpGaklqUmxrV0paQmRyMDRYZXVMSFQyMDdBZmlDWEUzMkVsOXRa?=
+ =?utf-8?B?dWpCRmc4V1VmeWpQQUpWdERtOTRIWkRHRXEzTTY4N0k4RzBMZy9peWh4QmpO?=
+ =?utf-8?B?SXVXVkkzd3RML3ZpOWhCN1JPd0Rlbjc0ellQaDF3MkpVWFlkdEptV1MvcENS?=
+ =?utf-8?B?UXEzSHhTZlpnRVN2cXJjK1M3WC91aHFtK1drTUhjODMxMjFBRzMyR2puKzY0?=
+ =?utf-8?B?ZnRMK2hDWTBCY2ZHYnNsaS9BMFl1VDg5WFBvc3hKYlR4U1RpekdLTmI0ZmVY?=
+ =?utf-8?B?UDVwVEdNUks4VlNuOG5aK203Tno1M3RqemJ4bTEvMHF5LzVzdkwwZTRlcDZu?=
+ =?utf-8?B?ZWtWVUk1UmpRM200SUV2blpJQytWUGN0d1JITFNyRDUvdzhUOG5KRmtURkRy?=
+ =?utf-8?B?TFJINVJTU0JRWGtUVTZLUnRoUTlzOGF5aUo3aEVncTl2TG80SlhObHlsU1Zj?=
+ =?utf-8?B?YzdIUU5BVGROc3pZQyt4OXFXK21leFVpODNhYmVzaXhlNTlOVE1pTUo5Z0pu?=
+ =?utf-8?B?NVZVaFdCNWw0R1RQZ2N0NjJSeGJNL3ZQV0tEenFVa1JiY3RTZEpOcSttYkV1?=
+ =?utf-8?B?dThVM2pSV3NJdG1BZno4MnFRRDBYV2xxUzc0SXhlVFI3MkYzMTE0K25la3VO?=
+ =?utf-8?B?c0R4KzVaekI1d3VPNHhOTlFQdjFiWDFmL1ZDc0YrVUtLUTdybk5BUGpGZmNy?=
+ =?utf-8?B?N3QyeC8raTRlY3BIbTRHT2JHbDRGWWVLdWNUZUxvbzBLSGhxa2d2VUNseHdt?=
+ =?utf-8?B?czNyRjJUUURRUXZZeDVJMlYrWktXS3RJY21OZ3ZjSGpqUHBmU3JoZDNMdEY2?=
+ =?utf-8?B?a0JOWUFKRnpXQ0c1Ly9RUVI3ZHNxUXNySS8yUkE0UlJLcGhRVjdRNno3RHBC?=
+ =?utf-8?B?c3hzRXhBc3RteVVFMmdpWmtWTnR6MHJCL1YraEVEK3BWNkMxZm5ucHRDL3h2?=
+ =?utf-8?B?eHJYRGh6TWNxbGw2UEQ2WERKT0NTWE42TjdWMlBkLzVMRWdCeGxKRkx3T0J4?=
+ =?utf-8?B?QVFDSVAzTjlMQW5BQXl1ZVpVUHNpOTJnNUxEUy9SdE9jcUUxN21HYU8zU204?=
+ =?utf-8?B?eUxhd1BNS0NxcjVPWXRzVnVrdFlpaERhcWtYYkNsTXJZNW9ZTlpsN1hRcXo5?=
+ =?utf-8?B?RE12WGw1S2pYNmJpVDkrWE9JNm9NaGJhajhKemR2a251RGhKM0JhdUN1SERO?=
+ =?utf-8?B?cEpCUHh4d0NpVUNPNTRYTXNGRXY1dkZOMWJ2dXRhSVRCUG9aNHFXZnJ5cXNT?=
+ =?utf-8?B?djNlVTh2aE1zNERpS3ZnNUxSTHJHZGx1dHpEVys2VHNIYUdQYktuWkVjZFly?=
+ =?utf-8?B?SnppR1NwSUhwb295eFlIa2V1RWlsVzZ6NHQvY2IwL3JMMzRTMHhUZmsyL1JB?=
+ =?utf-8?B?RWxoRzh5Z0pacWN3WXV1NXlWL3dpMjUrYzd6V29KeWp4a0tlZ29wa2hSWExC?=
+ =?utf-8?B?YVA5MlkzN25TUUdOdk90aDE0VXpvOUUxSlpzNEJacnV4VmJhMUlyU0RNWE01?=
+ =?utf-8?B?SFdEZEsxTXpBdFd6T0wxL3ZuMFYvUzN2MlRPY2pOa3RuUFp6V250SUJnbGRn?=
+ =?utf-8?B?YXorMlFaNEl0eGZSOE1oa3FYdm1oZWJWTFVBeWZLMnJQd2RURnQ3dTNYdmdr?=
+ =?utf-8?B?cU9vR2hSUG1OeUhoNG0xV0hCNnRpcHBkeGlvNzh6QnBLcHRHS1NHb2g3dDM1?=
+ =?utf-8?B?YjRNWXNqS2o4QmxDSlRpWG5oWGRVdGJlcFpSdmU5YnhuL2IwMEt5VHhkaUwx?=
+ =?utf-8?B?MmMwT0pqeWU5T0l5eUFLeEIvTVZZckJsNTdaRjk1U1ZMWjdqVlZFVTZ6WHQ4?=
+ =?utf-8?B?eHNpMzZ2V016UnNDc0pBQ1cvUktFVXB1MzZLdmpCdXJiQnJYZG1xZ3E3TUhJ?=
+ =?utf-8?B?cTBsci9waVg1STF1TVd2MW8xbjNLQ3drdmtBNStPb1VnU29kZ0JUdUc4RkVi?=
+ =?utf-8?B?TmptUFFYRnNtemVVUDFpcjROakdjbnBvdkt1NVhzNmZaa1A3bndBY0E1eG5v?=
+ =?utf-8?B?OGhhUEtlQ25wOThuYi9sdFlKaGZvdjl1aGM1QjdSZ29lOVhMTWlIakZuaXFF?=
+ =?utf-8?Q?mAI8vqP629yChGijFnZ2kdQkL?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0e5b302-4d8e-432e-7a5c-08dbd5fbe9af
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6369.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d576dc8-71b5-4a2d-4d9d-08dbd5f58a7b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Oct 2023 07:31:16.9515 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: e+uNyKTmj2BJ9aPsmIcCfDsU4kxvnWhzT/qM4Y8XD3ACgF+vfIrtCHjJBmc90usH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8916
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2023 08:16:54.1015 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9HoKOJuC4wkPan5CzWw3jZa14c1VInuuZJ2HjEnlUtiegLqJaRASBfJxh/H6NluL
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7115
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,163 +126,322 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Wang,
- Yang\(Kevin\)" <KevinYang.Wang@amd.com>
+Cc: davis.ming@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
 
-This patch is:
 
-Reviewed-by: Yifan Zhang <yifan1.zhang@amd.com>
+On 10/26/2023 2:22 AM, Victor Lu wrote:
+> amdgpu_kiq_wreg/rreg is hardcoded to use MEC engine 0.
+> 
+> Add an xcc_id parameter to amdgpu_kiq_wreg/rreg, define W/RREG32_XCC
+> and amdgpu_device_xcc_wreg/rreg to to use the new xcc_id parameter.
+> 
+> v3: use W/RREG32_XCC to handle non-kiq case
+> 
+> v2: define amdgpu_device_xcc_wreg/rreg instead of changing parameters
+>      of amdgpu_device_wreg/rreg
+> 
+> Signed-off-by: Victor Lu <victorchengchi.lu@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h           | 13 ++-
+>   .../drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c   |  2 +-
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 84 ++++++++++++++++++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c       |  8 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |  4 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c      |  4 +-
+>   drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       |  8 +-
+>   8 files changed, 107 insertions(+), 18 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index a2e8c2b60857..09989ebb5da3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1168,11 +1168,18 @@ uint32_t amdgpu_device_rreg(struct amdgpu_device *adev,
+>   			    uint32_t reg, uint32_t acc_flags);
+>   u32 amdgpu_device_indirect_rreg_ext(struct amdgpu_device *adev,
+>   				    u64 reg_addr);
+> +uint32_t amdgpu_device_xcc_rreg(struct amdgpu_device *adev,
+> +				uint32_t reg, uint32_t acc_flags,
+> +				uint32_t xcc_id);
+>   void amdgpu_device_wreg(struct amdgpu_device *adev,
+>   			uint32_t reg, uint32_t v,
+>   			uint32_t acc_flags);
+>   void amdgpu_device_indirect_wreg_ext(struct amdgpu_device *adev,
+>   				     u64 reg_addr, u32 reg_data);
+> +void amdgpu_device_xcc_wreg(struct amdgpu_device *adev,
+> +			    uint32_t reg, uint32_t v,
+> +			    uint32_t acc_flags,
+> +			    uint32_t xcc_id);
+>   void amdgpu_mm_wreg_mmio_rlc(struct amdgpu_device *adev,
+>   			     uint32_t reg, uint32_t v, uint32_t xcc_id);
+>   void amdgpu_mm_wreg8(struct amdgpu_device *adev, uint32_t offset, uint8_t value);
+> @@ -1213,8 +1220,8 @@ int emu_soc_asic_init(struct amdgpu_device *adev);
+>   #define RREG32_NO_KIQ(reg) amdgpu_device_rreg(adev, (reg), AMDGPU_REGS_NO_KIQ)
+>   #define WREG32_NO_KIQ(reg, v) amdgpu_device_wreg(adev, (reg), (v), AMDGPU_REGS_NO_KIQ)
+>   
+> -#define RREG32_KIQ(reg) amdgpu_kiq_rreg(adev, (reg))
+> -#define WREG32_KIQ(reg, v) amdgpu_kiq_wreg(adev, (reg), (v))
+> +#define RREG32_KIQ(reg) amdgpu_kiq_rreg(adev, (reg), 0)
+> +#define WREG32_KIQ(reg, v) amdgpu_kiq_wreg(adev, (reg), (v), 0)
+>   
+>   #define RREG8(reg) amdgpu_mm_rreg8(adev, (reg))
+>   #define WREG8(reg, v) amdgpu_mm_wreg8(adev, (reg), (v))
+> @@ -1224,6 +1231,8 @@ int emu_soc_asic_init(struct amdgpu_device *adev);
+>   #define WREG32(reg, v) amdgpu_device_wreg(adev, (reg), (v), 0)
+>   #define REG_SET(FIELD, v) (((v) << FIELD##_SHIFT) & FIELD##_MASK)
+>   #define REG_GET(FIELD, v) (((v) << FIELD##_SHIFT) & FIELD##_MASK)
+> +#define RREG32_XCC(reg, flag, inst) amdgpu_device_xcc_rreg(adev, (reg), flag, inst)
+> +#define WREG32_XCC(reg, v, flag, inst) amdgpu_device_xcc_wreg(adev, (reg), (v), flag, inst)
+>   #define RREG32_PCIE(reg) adev->pcie_rreg(adev, (reg))
+>   #define WREG32_PCIE(reg, v) adev->pcie_wreg(adev, (reg), (v))
+>   #define RREG32_PCIE_PORT(reg) adev->pciep_rreg(adev, (reg))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+> index 490c8f5ddb60..c94df54e2657 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+> @@ -300,7 +300,7 @@ static int kgd_gfx_v9_4_3_hqd_load(struct amdgpu_device *adev, void *mqd,
+>   	hqd_end = SOC15_REG_OFFSET(GC, GET_INST(GC, inst), regCP_HQD_AQL_DISPATCH_ID_HI);
+>   
+>   	for (reg = hqd_base; reg <= hqd_end; reg++)
+> -		WREG32_RLC(reg, mqd_hqd[reg - hqd_base]);
+> +		WREG32_XCC(reg, mqd_hqd[reg - hqd_base], AMDGPU_REGS_RLC, inst);
+>   
+>   
+>   	/* Activate doorbell logic before triggering WPTR poll. */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> index 51011e8ee90d..47c8c334c779 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> @@ -239,7 +239,7 @@ int kgd_gfx_v9_hqd_load(struct amdgpu_device *adev, void *mqd,
+>   
+>   	for (reg = hqd_base;
+>   	     reg <= SOC15_REG_OFFSET(GC, GET_INST(GC, inst), mmCP_HQD_PQ_WPTR_HI); reg++)
+> -		WREG32_RLC(reg, mqd_hqd[reg - hqd_base]);
+> +		WREG32_XCC(reg, mqd_hqd[reg - hqd_base], AMDGPU_REGS_RLC, inst);
+>   
+>   
+>   	/* Activate doorbell logic before triggering WPTR poll. */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 7ec32b44df05..9a35088b990a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -471,7 +471,7 @@ uint32_t amdgpu_device_rreg(struct amdgpu_device *adev,
+>   		if (!(acc_flags & AMDGPU_REGS_NO_KIQ) &&
+>   		    amdgpu_sriov_runtime(adev) &&
+>   		    down_read_trylock(&adev->reset_domain->sem)) {
+> -			ret = amdgpu_kiq_rreg(adev, reg);
+> +			ret = amdgpu_kiq_rreg(adev, reg, 0);
+>   			up_read(&adev->reset_domain->sem);
+>   		} else {
+>   			ret = readl(((void __iomem *)adev->rmmio) + (reg * 4));
+> @@ -508,6 +508,48 @@ uint8_t amdgpu_mm_rreg8(struct amdgpu_device *adev, uint32_t offset)
+>   	BUG();
+>   }
+>   
+> +
+> +/**
+> + * amdgpu_device_xcc_rreg - read a memory mapped IO or indirect register
+> + *
+> + * @adev: amdgpu_device pointer
+> + * @reg: dword aligned register offset
+> + * @acc_flags: access flags which require special behavior
+> + * @xcc_id: xcc accelerated compute core id
+> + *
+> + * Returns the 32 bit value from the offset specified.
+> + */
+> +uint32_t amdgpu_device_xcc_rreg(struct amdgpu_device *adev,
+> +				uint32_t reg, uint32_t acc_flags,
+> +				uint32_t xcc_id)
+> +{
+> +	uint32_t ret;
+> +
+> +	if (amdgpu_device_skip_hw_access(adev))
+> +		return 0;
+> +
+> +	if ((reg * 4) < adev->rmmio_size) {
+> +		if ((acc_flags & AMDGPU_REGS_RLC) &&
+> +		    (!amdgpu_sriov_runtime(adev)) &&
+> +		    adev->gfx.rlc.rlcg_reg_access_supported) {
+> +			amdgpu_sriov_rreg(adev, reg, acc_flags, GC_HWIP, xcc_id);
+> +		} else if (!(acc_flags & AMDGPU_REGS_NO_KIQ) &&
+> +		    amdgpu_sriov_runtime(adev) &&
+> +		    down_read_trylock(&adev->reset_domain->sem)) {
+> +			ret = amdgpu_kiq_rreg(adev, reg, xcc_id);
+> +			up_read(&adev->reset_domain->sem);
+> +		} else {
+> +			ret = readl(((void __iomem *)adev->rmmio) + (reg * 4));
+> +		}
+> +	} else {
+> +		ret = adev->pcie_rreg(adev, reg * 4);
+> +	}
+> +
+> +	trace_amdgpu_device_rreg(adev->pdev->device, reg, ret);
+> +
+> +	return ret;
+> +}
+> +
+>   /*
+>    * MMIO register write with bytes helper functions
+>    * @offset:bytes offset from MMIO start
+> @@ -555,7 +597,7 @@ void amdgpu_device_wreg(struct amdgpu_device *adev,
+>   		if (!(acc_flags & AMDGPU_REGS_NO_KIQ) &&
+>   		    amdgpu_sriov_runtime(adev) &&
+>   		    down_read_trylock(&adev->reset_domain->sem)) {
+> -			amdgpu_kiq_wreg(adev, reg, v);
+> +			amdgpu_kiq_wreg(adev, reg, v, 0);
+>   			up_read(&adev->reset_domain->sem);
+>   		} else {
+>   			writel(v, ((void __iomem *)adev->rmmio) + (reg * 4));
+> @@ -596,6 +638,44 @@ void amdgpu_mm_wreg_mmio_rlc(struct amdgpu_device *adev,
+>   	}
+>   }
+>   
+> +/**
+> + * amdgpu_device_wreg - write to a memory mapped IO or indirect register with specific XCC
+> + *
+> + * @adev: amdgpu_device pointer
+> + * @reg: dword aligned register offset
+> + * @v: 32 bit value to write to the register
+> + * @acc_flags: access flags which require special behavior
+> + * @xcc_id: xcc accelerated compute core id
+> + *
+> + * Writes the value specified to the offset specified.
+> + */
+> +void amdgpu_device_xcc_wreg(struct amdgpu_device *adev,
+> +			uint32_t reg, uint32_t v,
+> +			uint32_t acc_flags, uint32_t xcc_id)
+> +{
+> +	if (amdgpu_device_skip_hw_access(adev))
+> +		return;
+> +
+> +	if ((reg * 4) < adev->rmmio_size) {
+> +		if ((acc_flags & AMDGPU_REGS_RLC) &&
+> +		    (!amdgpu_sriov_runtime(adev)) &&
+> +		    adev->gfx.rlc.rlcg_reg_access_supported) {
+> +			amdgpu_sriov_wreg(adev, reg, v, acc_flags, GC_HWIP, xcc_id);
 
-Best Regards,
-Yifan
 
------Original Message-----
-From: Yuan, Perry <Perry.Yuan@amd.com>
-Sent: Tuesday, October 24, 2023 10:50 PM
-To: Zhang, Yifan <Yifan1.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.co=
-m>; Limonciello, Mario <Mario.Limonciello@amd.com>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Wang, Yang(Kevin) <Kevi=
-nYang.Wang@amd.com>; amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2 2/3] drm/amdgpu: avoid sending csib command when system =
-resumes from S3
+I see this path
 
-Previously the CSIB command pocket was sent to GFX block while amdgpu drive=
-r loading or S3 resuming time all the time.
-As the CP protocol required, the CSIB is not needed to send again while GC =
-is not powered down while resuming from aborted S3 suspend sequence.
+WREG32_XCC -> amdgpu_device_xcc_wreg -> amdgpu_sriov_wreg -> WREG32_XCC
 
-PREAMBLE_CNTL packet coming in the ring after PG event where the RLC alread=
-y sent its copy of CSIB, send another CSIB pocket will cause Gfx IB testing=
- timeout when system resume from S3.
+Similar for rreg. I'm not able to work out the RLC/sriov runtime 
+conditions. Is this tested before submitting?
 
-Add flag `csib_initialized` to make sure normal S3 suspend/resume will init=
-ialize csib normally, when system abort to S3 suspend and resume immediatel=
-y because of some failed suspend callback, GPU is not power down at that ti=
-me, so csib command is not needed to send again.
-
-Error dmesg log:
-amdgpu 0000:04:00.0: [drm:amdgpu_ib_ring_tests [amdgpu]] *ERROR* IB test fa=
-iled on gfx_0.0.0 (-110).
-[drm:amdgpu_device_delayed_init_work_handler [amdgpu]] *ERROR* ib ring test=
- failed (-110).
-PM: resume of devices complete after 2373.995 msecs
-PM: Finishing wakeup.
-
-v1-v2:
- * align csib_initialized with other failed with space[Kevin]
- * check return value check for gfx_v10_0_wait_for_idle()[Kevin]
-
-Signed-off-by: Perry Yuan <perry.yuan@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  5 ++++  drivers/gpu/drm/amd/amd=
-gpu/gfx_v10_0.c  | 32 ++++++++++++++++++-------
- 3 files changed, 30 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu.h
-index 44df1a5bce7f..7d570f53e66b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1114,6 +1114,7 @@ struct amdgpu_device {
-        bool                            debug_vm;
-        bool                            debug_largebar;
-        bool                            debug_disable_soft_recovery;
-+       bool                            csib_initialized;
- };
-
- static inline uint32_t amdgpu_ip_version(const struct amdgpu_device *adev,=
- diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_drv.c
-index 420196a17e22..a47c9f840754 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2468,6 +2468,11 @@ static int amdgpu_pmops_suspend_noirq(struct device =
-*dev)
-        if (amdgpu_acpi_should_gpu_reset(adev))
-                return amdgpu_asic_reset(adev);
-
-+       /* update flag to make sure csib will be sent when system
-+        * resume from normal S3
-+        */
-+       adev->csib_initialized =3D false;
-+
-        return 0;
- }
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v10_0.c
-index 6399bc71c56d..138340e1fa95 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -3481,6 +3481,7 @@ static uint64_t gfx_v10_0_get_gpu_clock_counter(struc=
-t amdgpu_device *adev);  static void gfx_v10_0_select_se_sh(struct amdgpu_d=
-evice *adev, u32 se_num,
-                                   u32 sh_num, u32 instance, int xcc_id);  =
-static u32 gfx_v10_0_get_wgp_active_bitmap_per_sh(struct amdgpu_device *ade=
-v);
-+static int gfx_v10_0_wait_for_idle(void *handle);
-
- static int gfx_v10_0_rlc_backdoor_autoload_buffer_init(struct amdgpu_devic=
-e *adev);  static void gfx_v10_0_rlc_backdoor_autoload_buffer_fini(struct a=
-mdgpu_device *adev); @@ -5958,7 +5959,7 @@ static int gfx_v10_0_cp_gfx_load=
-_microcode(struct amdgpu_device *adev)
-        return 0;
- }
-
--static int gfx_v10_0_cp_gfx_start(struct amdgpu_device *adev)
-+static int gfx_v10_csib_submit(struct amdgpu_device *adev)
- {
-        struct amdgpu_ring *ring;
-        const struct cs_section_def *sect =3D NULL; @@ -5966,13 +5967,6 @@ =
-static int gfx_v10_0_cp_gfx_start(struct amdgpu_device *adev)
-        int r, i;
-        int ctx_reg_offset;
-
--       /* init the CP */
--       WREG32_SOC15(GC, 0, mmCP_MAX_CONTEXT,
--                    adev->gfx.config.max_hw_contexts - 1);
--       WREG32_SOC15(GC, 0, mmCP_DEVICE_ID, 1);
--
--       gfx_v10_0_cp_gfx_enable(adev, true);
--
-        ring =3D &adev->gfx.gfx_ring[0];
-        r =3D amdgpu_ring_alloc(ring, gfx_v10_0_get_csb_size(adev) + 4);
-        if (r) {
-@@ -6035,6 +6029,28 @@ static int gfx_v10_0_cp_gfx_start(struct amdgpu_devi=
-ce *adev)
-
-                amdgpu_ring_commit(ring);
-        }
-+
-+       r =3D gfx_v10_0_wait_for_idle(adev);
-+       if (r)
-+               return r;
-+
-+       adev->csib_initialized =3D true;
-+
-+       return 0;
-+};
-+
-+static int gfx_v10_0_cp_gfx_start(struct amdgpu_device *adev) {
-+       /* init the CP */
-+       WREG32_SOC15(GC, 0, mmCP_MAX_CONTEXT,
-+                    adev->gfx.config.max_hw_contexts - 1);
-+       WREG32_SOC15(GC, 0, mmCP_DEVICE_ID, 1);
-+
-+       gfx_v10_0_cp_gfx_enable(adev, true);
-+
-+       if (!adev->csib_initialized)
-+               gfx_v10_csib_submit(adev);
-+
-        return 0;
- }
-
---
-2.34.1
-
+Thanks,
+Lijo
+> +		} else if (!(acc_flags & AMDGPU_REGS_NO_KIQ) &&
+> +		    amdgpu_sriov_runtime(adev) &&
+> +		    down_read_trylock(&adev->reset_domain->sem)) {
+> +			amdgpu_kiq_wreg(adev, reg, v, xcc_id);
+> +			up_read(&adev->reset_domain->sem);
+> +		} else {
+> +			writel(v, ((void __iomem *)adev->rmmio) + (reg * 4));
+> +		}
+> +	} else {
+> +		adev->pcie_wreg(adev, reg * 4, v);
+> +	}
+> +
+> +	trace_amdgpu_device_wreg(adev->pdev->device, reg, v);
+> +}
+> +
+>   /**
+>    * amdgpu_device_indirect_rreg - read an indirect register
+>    *
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> index c92e0aba69e1..60ae4bfdc7f5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -929,12 +929,12 @@ void amdgpu_gfx_ras_error_func(struct amdgpu_device *adev,
+>   		func(adev, ras_error_status, i);
+>   }
+>   
+> -uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg)
+> +uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg, uint32_t xcc_id)
+>   {
+>   	signed long r, cnt = 0;
+>   	unsigned long flags;
+>   	uint32_t seq, reg_val_offs = 0, value = 0;
+> -	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
+> +	struct amdgpu_kiq *kiq = &adev->gfx.kiq[xcc_id];
+>   	struct amdgpu_ring *ring = &kiq->ring;
+>   
+>   	if (amdgpu_device_skip_hw_access(adev))
+> @@ -997,12 +997,12 @@ uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg)
+>   	return ~0;
+>   }
+>   
+> -void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v)
+> +void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v, uint32_t xcc_id)
+>   {
+>   	signed long r, cnt = 0;
+>   	unsigned long flags;
+>   	uint32_t seq;
+> -	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
+> +	struct amdgpu_kiq *kiq = &adev->gfx.kiq[xcc_id];
+>   	struct amdgpu_ring *ring = &kiq->ring;
+>   
+>   	BUG_ON(!ring->funcs->emit_wreg);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> index 7088c5015675..f23bafec71c5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> @@ -521,8 +521,8 @@ int amdgpu_gfx_process_ras_data_cb(struct amdgpu_device *adev,
+>   int amdgpu_gfx_cp_ecc_error_irq(struct amdgpu_device *adev,
+>   				  struct amdgpu_irq_src *source,
+>   				  struct amdgpu_iv_entry *entry);
+> -uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg);
+> -void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v);
+> +uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg, uint32_t xcc_id);
+> +void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v, uint32_t xcc_id);
+>   int amdgpu_gfx_get_num_kcq(struct amdgpu_device *adev);
+>   void amdgpu_gfx_cp_init_microcode(struct amdgpu_device *adev, uint32_t ucode_id);
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> index a0aa624f5a92..c6c8f4fed0c1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -1076,7 +1076,7 @@ void amdgpu_sriov_wreg(struct amdgpu_device *adev,
+>   	if (acc_flags & AMDGPU_REGS_NO_KIQ)
+>   		WREG32_NO_KIQ(offset, value);
+>   	else
+> -		WREG32(offset, value);
+> +		WREG32_XCC(offset, value, acc_flags, xcc_id);
+>   }
+>   
+>   u32 amdgpu_sriov_rreg(struct amdgpu_device *adev,
+> @@ -1091,5 +1091,5 @@ u32 amdgpu_sriov_rreg(struct amdgpu_device *adev,
+>   	if (acc_flags & AMDGPU_REGS_NO_KIQ)
+>   		return RREG32_NO_KIQ(offset);
+>   	else
+> -		return RREG32(offset);
+> +		return RREG32_XCC(offset, acc_flags, xcc_id);
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> index 386804f2e95c..b24db7974311 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> @@ -2739,16 +2739,16 @@ static void gfx_v9_4_3_xcc_set_compute_eop_interrupt_state(
+>   
+>   	switch (state) {
+>   	case AMDGPU_IRQ_STATE_DISABLE:
+> -		mec_int_cntl = RREG32(mec_int_cntl_reg);
+> +		mec_int_cntl = RREG32_XCC(mec_int_cntl_reg, AMDGPU_REGS_RLC, xcc_id);
+>   		mec_int_cntl = REG_SET_FIELD(mec_int_cntl, CP_ME1_PIPE0_INT_CNTL,
+>   					     TIME_STAMP_INT_ENABLE, 0);
+> -		WREG32(mec_int_cntl_reg, mec_int_cntl);
+> +		WREG32_XCC(mec_int_cntl_reg, mec_int_cntl, AMDGPU_REGS_RLC, xcc_id);
+>   		break;
+>   	case AMDGPU_IRQ_STATE_ENABLE:
+> -		mec_int_cntl = RREG32(mec_int_cntl_reg);
+> +		mec_int_cntl = RREG32_XCC(mec_int_cntl_reg, AMDGPU_REGS_RLC, xcc_id);
+>   		mec_int_cntl = REG_SET_FIELD(mec_int_cntl, CP_ME1_PIPE0_INT_CNTL,
+>   					     TIME_STAMP_INT_ENABLE, 1);
+> -		WREG32(mec_int_cntl_reg, mec_int_cntl);
+> +		WREG32_XCC(mec_int_cntl_reg, mec_int_cntl, AMDGPU_REGS_RLC, xcc_id);
+>   		break;
+>   	default:
+>   		break;
