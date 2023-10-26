@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60A69C0032E
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Oct 2023 02:30:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2901C25B47
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Oct 2023 02:46:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2D7310E112;
-	Thu, 26 Oct 2023 02:30:22 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2087.outbound.protection.outlook.com [40.107.102.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4CFF10E72E
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Oct 2023 02:30:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DF5E10E72E;
+	Thu, 26 Oct 2023 02:46:10 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2087.outbound.protection.outlook.com [40.107.94.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E264B10E72E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Oct 2023 02:46:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NFOT0yFihhhJQamlxgzYGdHY2mHLq5H+ESgaxDrW7HP/IqOtLvtsYUyWOxhnpxmoX+C2DO8vFT08XtHTl78zBCpr6LB4CXFzJRrN2qTKvwlruUnqoN9A825SqxtpbXgwbiLi4EZmGALewYcFB460LTLWLdjvK9bRXB1y4bnDt6G5yJ55uu+ErOWgBlXxrBxZO1IFsRj8ywS+qN5cUhStVMIluOKi3An2yds1gf82eehmZ5b56avA5oywbD9TK4TqJuO+V0wPuTg9Irs7z9dacHLpVa/7semt/AtVsk0Ew7NgiNBhfSVG+ETCLUWVFxdXKyew8La/fcEJ2eWvftJQ3A==
+ b=LGYdrLpA8FciR/8lsf0xL2OK1lTZL0ydbUeB7x78Xdvx9BZOc8psmCCGa+XLjtkbJPv3YhyG18v0T0tAbPPtNebZxpcjuq7bMQBssr2R3UZ0P6zu6q/Hntc8kraaeD6II+W1fuLtyEXHVsZ8lAnin7YmgtSTnSUHuB28VOEM2yARpla6VVz1AZoDuwMwtBr4AFNc0QxzLX0JSnZqJ37ep6l3JcRHOFIu/I81NA5H6CsCYmmYYbKmfAmpYMfvvTtdzhFmDk4xciCoWyG0S0svfwDYvDKr8k6twq0Kr7/WkBYgDw+DiuetXY+l6MYup+juR7oZFZCtUB55OdSbwLXiQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GYaekmf8K08N1WTqtZE39XnJrBbh+6CEx7rAF8PIGQI=;
- b=UvSGk/LSyAtFku+Yg35hckF3lz54LQ37t+nWewrh+Ab0Z2e9CpiUFaNAwO6uOIfq1j1Nh4JqNA6H7UM8vQIKFaXtIXuq0ah782zvqr2CM8Pevlpx5XO8qUGwgf0ibFtr9/uHgDFyV+x5nuV+/9TfkimEqcFRKvyvu/5gZpF+Yzw5oLehQAshQK/o0BZKukX7oatyTGIUzpcrcRHZxSuQis1X7D1H731H19pk2nLZ37MmS3rX5X5NS9L81PUe9t36AUtnNOJUoBb+QlPNyWKGi6R1ZFqg5zommvlTX08QM+DKTYEPR2h4Xya9iyMllbDGR3Uy2iM2/f2QCkMYrjItpQ==
+ bh=wyMzxCgKANvXWrw3EzJqJll6ruho+d1GcwjE1WImTlA=;
+ b=n5YWrsELSEHb2hXVKnZXEW8UmwEfrzc6IToEM/ju5F/7vOHkT239d2rseRiTLsbIQraFB8QxGsnoGrGaFgdBFCy+wMNQn6ZZEsKfvJjWXMxs8hFIoWTo0UOB68pBZT1aH+YSNQddiOiLi49AAVwcTAvzkVzTuov6IgVI2cEeG3YzTTZ4bkw9T1wuc9hXD1s2DrybKaYMumyIn7TcAEtC5tXyVbW6GF4lQaezYEdTXkMnXlNUbgsbcBFjO9eTuuuIsiw5CakUdRMK6xS7x+tkXkTYSqf3NWv6HTvPpu5pMtP5HyN3dMFndZbO+Y+w19OB0IBwEUuUzdefhVv8rIbjwQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GYaekmf8K08N1WTqtZE39XnJrBbh+6CEx7rAF8PIGQI=;
- b=27hdL9QDnGLLejx/kHxlur7rNa0gA8PCnjHDzXFNvzphC8hq+pq8OOaaZEx5GIjpR/c18JHusAXmZpwHQdR2U+CqH5UazUINFBQOAO0U7xBXpCdeW0+4L2QcydU5BVsfSgoxFDhoGbuWVT5FU5K58Qm9d1Qhuyx3//FE7n0OY5U=
-Received: from DM6PR14CA0058.namprd14.prod.outlook.com (2603:10b6:5:18f::35)
- by MW4PR12MB5628.namprd12.prod.outlook.com (2603:10b6:303:185::5) with
+ bh=wyMzxCgKANvXWrw3EzJqJll6ruho+d1GcwjE1WImTlA=;
+ b=k6F+ADfCU5DwcuhHHjbuVU1Xx0FpMukxmaZRkfVaamekzHpp2F+JSDDQbarWq7I4+yMpalU5VCOUS/BHpv8A7mwodJzbR1RTtD+B85Q26inUiqOX2Ak8dlPnzD7onYBUDsUb8bNx5a9Kppv6Fe3J4JGJpkSC8aq0ThrnHAW/a/k=
+Received: from BL1P223CA0007.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:2c4::12)
+ by DM4PR12MB6253.namprd12.prod.outlook.com (2603:10b6:8:a6::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.19; Thu, 26 Oct
- 2023 02:30:18 +0000
-Received: from CY4PEPF0000EE3F.namprd03.prod.outlook.com
- (2603:10b6:5:18f:cafe::fa) by DM6PR14CA0058.outlook.office365.com
- (2603:10b6:5:18f::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.29; Thu, 26 Oct
+ 2023 02:46:03 +0000
+Received: from MN1PEPF0000ECDA.namprd02.prod.outlook.com
+ (2603:10b6:208:2c4:cafe::3e) by BL1P223CA0007.outlook.office365.com
+ (2603:10b6:208:2c4::12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.19 via Frontend
- Transport; Thu, 26 Oct 2023 02:30:18 +0000
+ Transport; Thu, 26 Oct 2023 02:46:03 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,20 +45,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE3F.mail.protection.outlook.com (10.167.242.19) with Microsoft
+ MN1PEPF0000ECDA.mail.protection.outlook.com (10.167.242.134) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6933.15 via Frontend Transport; Thu, 26 Oct 2023 02:30:18 +0000
-Received: from canli-build.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.6933.15 via Frontend Transport; Thu, 26 Oct 2023 02:46:03 +0000
+Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Wed, 25 Oct
- 2023 21:30:16 -0500
-From: Candice Li <candice.li@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Identify data parity error corrected in replay
- mode
-Date: Thu, 26 Oct 2023 10:30:03 +0800
-Message-ID: <20231026023003.642684-1-candice.li@amd.com>
-X-Mailer: git-send-email 2.25.1
+ 2023 21:46:01 -0500
+From: Ma Jun <Jun.Ma2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Kenneth.Feng@amd.com>,
+ <Alexander.Deucher@amd.com>
+Subject: [PATCH] drm/amd/pm: only check sriov vf flag once when creating pm
+ sysfs
+Date: Thu, 26 Oct 2023 10:45:46 +0800
+Message-ID: <20231026024546.1468900-1-Jun.Ma2@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -67,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3F:EE_|MW4PR12MB5628:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87fbf78c-19de-41b7-ea16-08dbd5cb7e90
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECDA:EE_|DM4PR12MB6253:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5fdc2f06-672e-49e3-6904-08dbd5cdb21e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: SggWJDnRkmXarI9Z5C1VQ/s9MuDk/NYnU01GUA0J6BVSKd2RuQIfJd/Ie+Nfh4hW7uejHQFurhU97l2/2E1D0vGUDYX3eaT+fxI1x+n58PluKt236rG8WKXMWqnfBtStkTZk9TjHjriA8qSEpnIJcPOo0NeQ6D+y5CCNWiVL+HyIymozp11KEzmQ+jByxpffC3WVVzDpk2FbOd245gf2jRedBAnOioDMiw5ZNYMl7V8SMWJ+yI0P9GkCZjmY/InH4acTQhcbbb0jERpZvkNIwcW73xfDJKd+mXDq1k28zyYUrrrz1dCnPy3qxBZpZbqYiLFbDmDks7KmT2jvFVzv07Y/ku+1jFwTpeCTKMugtEGVwTGuyKOunTC+zCayIPSE+YravviSvta3p0OHWJHe2Onwk8LILGOIObE31YwReXWe/VhZdTjQ8wjMJrE/4k9f4BSVQ8VXE7wlJX3GnfY4BTlWtsvDajR6WushBzdE1IVCn4uUBiRXyj5o0fDm03Kn54EzRScjDbm+gvxRrkc6GMWExEMHuOu27RtBQqC98K+tviAPZB2hehJ757dNGcrHgSQZ+RuWmnfqT9uuILz2wbz5WxEeMkr9dihAdmYEbPzKBDmxdDBj1tL4723HXpoichyzJEFwxbfHpq+g5I6z/HaJ0tmLUzFHIH+4DCSfRH1Gz07fu+0T0+MFDwJ4sEfkTc28qW+RUqdMMUrkEVHWWa4BY69C/wZ+a0BR52qFDlZRH+2kT5reW2lCJp2T3RBUE7xhMBhlpntRpkbDR0rFsw==
+X-Microsoft-Antispam-Message-Info: K3xDypD1zSvKEho/94NhXQchnuYJTso5HpiXevHh0ZhCf5mS/O7HvCWj5lwlWnpWKiGH95KaXjAIzeuy+cIMB2xo7x+I0X886V12AqOn2cSrHWZFniYrqdeu5kzwj/ake+3T3md14k1R0RwTXaT/FJ35GRN3HSG944ju/gb4MTIfI/L1biOF/3L4Y2A2kkgIJDJVxmwH2aWxiReRDCo/AMFfyBS/o2lDu2T/FbLftU6wdCmj1efzQbmFqwbol9CJGf8bHmFrmed8Eue9OuuxMFDO9xhiJomFs6Rm86lWYkwWWoCo8QhbSvZSPdDmj5lQ4ejA7m4GUv/N9NKLs+m/wx2AZPiwEIKXih3XlB1xhvf3A3NLrsd5d2fFhcqegOnuv81ufwQX+qztfzi+5bRGYByKcdj4G6k+dKVSC8CHsAcxFkNr7I6dwqDPuKwcUTQ2KJNMU9t0ovAe7AxHR5ivx3pfsdvhNFUzVMuWC9Yxms8zfIfbYT01UE6i+/tNxFzFFSafFkfnMWxs1jKbRXMAFv0eCGqr3w2kgZq0CabYkqr1ioZyuBj2XN67x8zUOu/L9B5dHPzSJ9CjRxqhHcBJ0F2n/1AE1Ku1GQ7/y1t2evkXUhs29YZ4jIKp6VRQ9gGSokwqjJqQ3sxO/ct8NsGFN+DnMlH+wmp290ank2kez0d9oXjfHzaFXzPk2vIhuzvhE/RsNDzAcEmppcvCByxoc+N0xqxEM9XqePCO2enhnUzqKhEOrlzVHr2PgdVPeh59z7vXK9xumgIoaDCr93+wkw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(346002)(396003)(376002)(136003)(230922051799003)(186009)(1800799009)(451199024)(64100799003)(82310400011)(46966006)(36840700001)(40470700004)(40460700003)(44832011)(40480700001)(7696005)(6666004)(478600001)(54906003)(2616005)(70206006)(70586007)(1076003)(6916009)(316002)(86362001)(47076005)(36860700001)(426003)(336012)(81166007)(82740400003)(26005)(356005)(8936002)(16526019)(8676002)(83380400001)(4326008)(36756003)(5660300002)(41300700001)(2906002)(36900700001);
+ SFS:(13230031)(4636009)(376002)(136003)(39860400002)(396003)(346002)(230922051799003)(64100799003)(186009)(82310400011)(451199024)(1800799009)(46966006)(40470700004)(36840700001)(16526019)(26005)(36756003)(2906002)(41300700001)(5660300002)(36860700001)(86362001)(316002)(8936002)(8676002)(4326008)(1076003)(478600001)(7696005)(6636002)(81166007)(356005)(110136005)(40460700003)(70586007)(82740400003)(2616005)(83380400001)(336012)(70206006)(40480700001)(426003)(47076005)(6666004)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2023 02:30:18.0467 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87fbf78c-19de-41b7-ea16-08dbd5cb7e90
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2023 02:46:03.5937 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5fdc2f06-672e-49e3-6904-08dbd5cdb21e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECDA.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5628
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6253
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,75 +99,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao Zhou <tao.zhou1@amd.com>, Candice Li <candice.li@amd.com>
+Cc: Ma Jun <Jun.Ma2@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use ErrorCodeExt field to identify data parity error in replay mode.
+The current code checks sriov vf flag multiple times when creating
+pm sysfs. So fix it and optimize related code here.
 
-Signed-off-by: Candice Li <candice.li@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/umc_v12_0.c | 32 ++++++++++++++++++--------
- 1 file changed, 23 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c | 27 ++++++++++++++-------------
+ 1 file changed, 14 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-index 025e6aeb058d43..743d2f68b09020 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-@@ -88,6 +88,27 @@ static void umc_v12_0_reset_error_count(struct amdgpu_device *adev)
- 		umc_v12_0_reset_error_count_per_channel, NULL);
- }
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 358bb5e485f2..ee46d04549e6 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -3288,10 +3288,6 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
+ 	uint32_t gc_ver = amdgpu_ip_version(adev, GC_HWIP, 0);
+ 	uint32_t tmp;
  
-+static bool umc_v12_0_is_uncorrectable_error(uint64_t mc_umc_status)
-+{
-+	return ((REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Val) == 1) &&
-+		(REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Deferred) == 1 ||
-+		REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, PCC) == 1 ||
-+		REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, UC) == 1 ||
-+		REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, TCC) == 1));
-+}
+-	/* under multi-vf mode, the hwmon attributes are all not supported */
+-	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
+-		return 0;
+-
+ 	/* under pp one vf mode manage of hwmon attributes is not supported */
+ 	if (amdgpu_sriov_is_pp_one_vf(adev))
+ 		effective_mode &= ~S_IWUSR;
+@@ -4162,6 +4158,7 @@ static int amdgpu_od_set_init(struct amdgpu_device *adev)
+ 
+ int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)
+ {
++	enum amdgpu_sriov_vf_mode mode;
+ 	uint32_t mask = 0;
+ 	int ret;
+ 
+@@ -4173,17 +4170,21 @@ int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)
+ 	if (adev->pm.dpm_enabled == 0)
+ 		return 0;
+ 
+-	adev->pm.int_hwmon_dev = hwmon_device_register_with_groups(adev->dev,
+-								   DRIVER_NAME, adev,
+-								   hwmon_groups);
+-	if (IS_ERR(adev->pm.int_hwmon_dev)) {
+-		ret = PTR_ERR(adev->pm.int_hwmon_dev);
+-		dev_err(adev->dev,
+-			"Unable to register hwmon device: %d\n", ret);
+-		return ret;
++	mode = amdgpu_virt_get_sriov_vf_mode(adev);
 +
-+static bool umc_v12_0_is_correctable_error(uint64_t mc_umc_status)
-+{
-+	return (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Val) == 1 &&
-+		(REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, CECC) == 1 ||
-+		(REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, UECC) == 1 &&
-+		REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, UC) == 0) ||
-+		/* Identify data parity error in replay mode */
-+		((REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, ErrorCodeExt) == 0x5 ||
-+		REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, ErrorCodeExt) == 0xb) &&
-+		!(umc_v12_0_is_uncorrectable_error(mc_umc_status)))));
-+}
-+
- static void umc_v12_0_query_correctable_error_count(struct amdgpu_device *adev,
- 						   uint64_t umc_reg_offset,
- 						   unsigned long *error_count)
-@@ -104,10 +125,7 @@ static void umc_v12_0_query_correctable_error_count(struct amdgpu_device *adev,
- 	mc_umc_status =
- 		RREG64_PCIE_EXT((mc_umc_status_addr + umc_reg_offset) * 4);
++	/* under multi-vf mode, the hwmon attributes are all not supported */
++	if (mode != SRIOV_VF_MODE_MULTI_VF) {
++		adev->pm.int_hwmon_dev = hwmon_device_register_with_groups(adev->dev,
++														DRIVER_NAME, adev,
++														hwmon_groups);
++		if (IS_ERR(adev->pm.int_hwmon_dev)) {
++			ret = PTR_ERR(adev->pm.int_hwmon_dev);
++			dev_err(adev->dev, "Unable to register hwmon device: %d\n", ret);
++			return ret;
++		}
+ 	}
  
--	if (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Val) == 1 &&
--	    (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, CECC) == 1 ||
--	    (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, UECC) == 1 &&
--	    REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, UC) == 0)))
-+	if (umc_v12_0_is_correctable_error(mc_umc_status))
- 		*error_count += 1;
- }
- 
-@@ -125,11 +143,7 @@ static void umc_v12_0_query_uncorrectable_error_count(struct amdgpu_device *adev
- 	mc_umc_status =
- 		RREG64_PCIE_EXT((mc_umc_status_addr + umc_reg_offset) * 4);
- 
--	if ((REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Val) == 1) &&
--	    (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Deferred) == 1 ||
--	    REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, PCC) == 1 ||
--	    REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, UC) == 1 ||
--	    REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, TCC) == 1))
-+	if (umc_v12_0_is_uncorrectable_error(mc_umc_status))
- 		*error_count += 1;
- }
- 
+-	switch (amdgpu_virt_get_sriov_vf_mode(adev)) {
++	switch (mode) {
+ 	case SRIOV_VF_MODE_ONE_VF:
+ 		mask = ATTR_FLAG_ONEVF;
+ 		break;
 -- 
-2.25.1
+2.34.1
 
