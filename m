@@ -4,88 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5E86C25B6E
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Oct 2023 22:19:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26DC2C25B6B
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Oct 2023 22:43:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D08910E8C6;
-	Thu, 26 Oct 2023 22:19:27 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2048.outbound.protection.outlook.com [40.107.220.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1561510E8C6
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Oct 2023 22:19:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9744B10E033;
+	Thu, 26 Oct 2023 22:43:07 +0000 (UTC)
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ (mail-dbaeur03olkn2064.outbound.protection.outlook.com [40.92.58.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CD4710E8B3;
+ Thu, 26 Oct 2023 21:26:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jbCOIuqqUnOqE1ADhm80wqP0IwhNpThBkW8opHLkr2auLHFPV5QD3b2JeOuoaCDiVePu3nh5ev7Hqf1ubCjzQcOjUa1ZwcsnlJZSQ3IGpym7mOZfiR6BZ/9J7XVAsGBcr9G+FWIRER30gIT62b+813JZmDDe0nL5tEsWaZv1AXjDxSKZFIqplB/bZHQHcXhRWhEWfN040LQ68awjAn6nerp6stLcJ4xVAdc0XgUbwMzyW2QVnaQKuj7TFnndF/WRIyWDmolTE/GVd63VKReAtlVO03CZORAbk+QUbJeNxucvQKG6SRGELOLAGjWgBwE0TTj/QHQCM+Sp9xIdt3QFkg==
+ b=F4857gl0ZOIfwkYRGg/8E0G52L0KNWjT2dduxYHnsd/pMT6j3WvinU4Vh1tA49WOxF7Mmne3qvz+rSOtzLFoYhhEhE2d/WvsY/PnHBlbcWs28UKMHox9uNOLvLaH+MgFgxJu6PdJxvarauCvjMn+q6k6d1mmKnGR6SK7U93jqJzUYYw1SszbwJhS4ACrOW6kg6E20jeLVqJYmLEhNlVBRRDAPgVsRVvN1V53a03Onbd/FqQtXN7WZxMQ/q1l1S3DY30oZP8H8fAhuQUZCKG91f34SpuOcIld6OW43TK67W8xiskePRhXu30iqs2InVszGMaE7tPPfJ/4pC88Bt+zdw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T0u2D+kpJBBCnQfAZDz+2cT0GuxufBi6NchD6xnJyXE=;
- b=Kgkdcl+s8Udqo6Cbu25rPHT7fdjF1CF5E06a0mEQrjEecugviBks/4XdngITKBwIEpeWb2tbPAL2UZTal4vvuHAIodhk044mH8W48y/tulQM+paZPnBdOLXe2G8L2GGk4Ul0KmrnesusSEq0gGiVtBcVNjWCBLS0qlHxZfeGyRR9Z1C08Fk6S57viTA20yetijWV7TGvMzCRvbpR3w+CcdqeGOtbZ+WBU7xm/Q2lJR2gzHxM5jbLUkCY+ZoElSVRebB2rTAYfwehXZn8lzaiouYaTSSzrZUzSp54SqJI1mkq59RGD6eQ/hDeMNdIw/aamZZ96IILPqVDRPpmXnfzcg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ bh=vvTDWnP6BP4i0z4ePFmSjQRmIPt/0p278Jda4TnVk8U=;
+ b=OXrG4lrrSKe9bXW+Y40j6XaDvLPzG+h9By8aR2KrpMnVe80/gstYJI8IhlZCPAoe64o2ujK2G6apwu+0LgINfvjMAUECHchPPXmS1UeNnSfgZG75mPs84b+k0kWIW35rCqJ7CiRBujDdMhi+C/uCbWdJD2YxD/3qwhYo65EbE2+FJvqDVZPhEf9iPWjCy1XFr9aAGOruwcApubm454Gc+Aog28ZhQg7faPfRFgwiAZYVa5YUn7Y8ngK2e37vIO75VhYRVDVxMQSmcbCge2TtXXpVtzl2hcpJmlR9l1qDprGnFVrL6ralwvp0UaCRdR8Jb7dSBs/j1OeE3EU3iVZZ0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T0u2D+kpJBBCnQfAZDz+2cT0GuxufBi6NchD6xnJyXE=;
- b=p8SnPbQo2ByTwtG4D1xfSidoszMj2AEdWDP28jqsF/OTMSG82hSQVvU8xs7XQjYDr1hY5rFfeSRGOsZjmwsH8kqifzM9znamQjER5Y0F61JQm+TUAxs7MQ8c0Mjxj7v9heuwli4bqVFjEBQrm4SJqpv9zsO1tEcKYH4vzCEVrp0=
-Received: from SJ0PR13CA0231.namprd13.prod.outlook.com (2603:10b6:a03:2c1::26)
- by LV3PR12MB9188.namprd12.prod.outlook.com (2603:10b6:408:19b::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.29; Thu, 26 Oct
- 2023 22:19:23 +0000
-Received: from CO1PEPF000042AE.namprd03.prod.outlook.com
- (2603:10b6:a03:2c1:cafe::3) by SJ0PR13CA0231.outlook.office365.com
- (2603:10b6:a03:2c1::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.8 via Frontend
- Transport; Thu, 26 Oct 2023 22:19:23 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000042AE.mail.protection.outlook.com (10.167.243.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6933.15 via Frontend Transport; Thu, 26 Oct 2023 22:19:23 +0000
-Received: from mukjoshi-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Thu, 26 Oct
- 2023 17:19:22 -0500
-From: Mukul Joshi <mukul.joshi@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: Update cache reporting for GFX 9.4.3
-Date: Thu, 26 Oct 2023 18:18:40 -0400
-Message-ID: <20231026221840.441807-1-mukul.joshi@amd.com>
-X-Mailer: git-send-email 2.35.1
-MIME-Version: 1.0
+ bh=vvTDWnP6BP4i0z4ePFmSjQRmIPt/0p278Jda4TnVk8U=;
+ b=uHekLsnVB2Bp8+epGTB6sLSLdXJ4h2xxj6JvuTmrGeAN3WDlzRf1Jn0KoLdnv9VIzHWDDMWxv1BZeSPFxYBn6WLG+S/bJiY591TqcsuO3xVlu2/jWspzQOFjHDdLJTXetLjSyo1SmwrFEZm3KQ8LSFkuFoGUIsmyWwANGfqQrsGKq47KYupvH0ysRvivOXSJ81pERfdxlJ3W53EB5lQgMcxnxFexI07i7qaHf+5uiY4n7HgtppCMsH7T7sNVJZnKB7o3iLpuqXdWxYEM3Oc6DLIi5L9+8MHMYSOBo2gkxLULsX+ej3u97OcN31FsDPV5fBDAifZQVosvrzkAAKEMaQ==
+Received: from DB3PR10MB6835.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:42a::7)
+ by DB4PR10MB7470.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:3ce::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.23; Thu, 26 Oct
+ 2023 21:25:57 +0000
+Received: from DB3PR10MB6835.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::e2b0:8d7e:e293:bd97]) by DB3PR10MB6835.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::e2b0:8d7e:e293:bd97%6]) with mapi id 15.20.6907.032; Thu, 26 Oct 2023
+ 21:25:57 +0000
+From: Yuran Pereira <yuran.pereira@hotmail.com>
+To: airlied@gmail.com
+Subject: [PATCH] drm/amdgpu: Fixes uninitialized variable usage in
+ amdgpu_dm_setup_replay
+Date: Fri, 27 Oct 2023 02:55:22 +0530
+Message-ID: <DB3PR10MB683590457246A6625BAA6102E8DDA@DB3PR10MB6835.EURPRD10.PROD.OUTLOOK.COM>
+X-Mailer: git-send-email 2.25.1
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-TMN: [utdfQUfuOHrvZaYQtSo/S7KqlpK/7k6M]
+X-ClientProxiedBy: JN2P275CA0038.ZAFP275.PROD.OUTLOOK.COM (2603:1086:0:2::26)
+ To DB3PR10MB6835.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:10:42a::7)
+X-Microsoft-Original-Message-ID: <20231026212522.1242103-1-yuran.pereira@hotmail.com>
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042AE:EE_|LV3PR12MB9188:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1379ddf1-bd59-4fe5-3b42-08dbd6719bb0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
+X-MS-TrafficTypeDiagnostic: DB3PR10MB6835:EE_|DB4PR10MB7470:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ea3fef4-86f0-4657-ede0-08dbd66a2474
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TY21UV0KcOvNK96ke39GJRRSLbg+rdZxW86xehwqv3i1S5iiB7U3SuT423VXo1so3DGtcqTq2++rUOK3X4L/tbH898yW1V8ZU2yiWIkVi7cQpGaBoRFlIykBLPUrubYHqpQdEYL+yDhvGwkNAo9f8OKM+qRZB3asqdtrOOL3Q7/bNQGwJQP9P+Z7/0gwP6Kj/isD3m3XHaLcqbXsWW+eiIs7OcTDWS/lbjTlLwIyCXpFo0APrVfLxZh0JSJIiAnSJWK/vaY0Mp09PbctsKecSt3ptgwnZjC2W/esnxRjQBnZeWQ7UPzcGYLVxKhaa4dOdfjR+TBtLUz8w55iWgrGkfmPJ9knrrQHW+1ZjoqgcRlHAVhA6qSPJpdk/J9dNU+dadlogOGmTd/DSqvjPV13LW+d6c0LV/fcJ948zsX9JofRuO9Ed1QicZ0IBZoV2ItGJdxkTcuRNnXJjGoRsjiEJcEMHCovJZeztgI56Jps6+rN5+n7sHBzOlN7vf9SGVf4/SquO153Q1Xny+nEG8jseENpQtkFUCeKoPWnMC8MRmSshjkCcvTx1k0obGO8mk7aI3h8gPDcWNcHJEtV4LmUxFTT3R+GTE8kXAAcgeGF+1k1f6+8pNboLzJRC37lT/j0F+v1teboIFcjfl0nIOxVYMlm1h8B+lsLVRwrWmF+Bb/dWwyljCXI2CE3St1UruMxtJiUuGCS9LtH+XtAbjPTY9Pn2IEI3ImYIivNjcZ8XT6dXT37rw7C6i+lH5Si5GcWOISmIIZbipIRxJFL2jkFBg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(396003)(346002)(136003)(376002)(230922051799003)(451199024)(1800799009)(64100799003)(82310400011)(186009)(36840700001)(40470700004)(46966006)(41300700001)(16526019)(2906002)(81166007)(40460700003)(54906003)(316002)(82740400003)(6666004)(6916009)(1076003)(70206006)(70586007)(336012)(47076005)(40480700001)(426003)(83380400001)(7696005)(36860700001)(44832011)(86362001)(5660300002)(15650500001)(478600001)(2616005)(4326008)(36756003)(8936002)(8676002)(26005)(356005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2023 22:19:23.3159 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1379ddf1-bd59-4fe5-3b42-08dbd6719bb0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042AE.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9188
+X-Microsoft-Antispam-Message-Info: UrAQx8wOGD9DqIlXaZ2UI/Ax4EQiw34khcm/17TVVi9IcsTr3Cd6GCI0kJoNjpGqRyN+VI3nmOQid9ezvgkVs9y8nbFE8h9RQnME3JqSTgCBBept4fdbNpXfFQdCtR/xr2jq31Q1Bvt40kPUmleu9j2Q1UoXylIMeE/LYbR9eZsnHa1J4ObjMrJRnTFp/RML2wPF6JKrP3MmxDHJTuqAI5xTr6tqB3LTb0bLvRDzxpbc89O+8rUhDd7VLAWc2RARgwK3ByXU6UcJ8rIY6WmEjaQ9Jm5rscWfiqUxYxZL5rk9cTZYwYqcOBeUlhOBlHMK+jA561uRJPB3xh8T57s/7k48bEh+vx2sdLQ3VlM4B+Su7Lr24sCJ8ReC3JBJCaf0ovygpQPu8J0EUlUMuKyt8XIBf2GNfnrjukB7SHXus2gRHUIBmz10F9xAOsv+NeB1B91QVYuWHaKAMzOh4aumbDNwEA52UmLRU+HAEEdeC/F7diQSPdKuA2jUbu5hXGgTb1E16ZD5C6pBCtwqPvvntKBhuO3ba8wY3Lqa3S7fsnwsWK+AaxRVbug1xXFKgEv//7aSGYRxkVhePyxrinkUxfiWaGWeSNa5nWQtaswSraM8sWr7HriajIjKSAnVvCHZ
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?PFJvyyvt0T9qQRR5QyMFKcL7dZqC+CGMSS8JxDOFICdLjm2+77000u6u1711?=
+ =?us-ascii?Q?7C/0GzloFIGQN41Mc8NKqkwVAfhLVAyEsSIo8dSOsijOSKje3ZAgHy+1PSDG?=
+ =?us-ascii?Q?uGcvTj6XNuLajAFxuB6B/sRAQOovouEZMt/GV3Ba0Qjkz5aTkEKXqVW8htT1?=
+ =?us-ascii?Q?Z1bubkVKhTXmGaLE1zeHk+mbpV+LxcpY8DrHIjST4WvAdS6Zlp3uGx/XrGni?=
+ =?us-ascii?Q?/qZVpPfkVFAzxopR5AAkK/YSRdu/9TjD+O2m1NgQcm68jPxf0kiR+8ipRobW?=
+ =?us-ascii?Q?hhDGQ7zTIenALSLtXkS7niiQM3ipchgWilOywLq1Bhh6LpLgFUyZ9YDw9Q8L?=
+ =?us-ascii?Q?MpwEfeJdESRQxal5oxjO/aAe8cQuwJdoINBjV4O8B2Yth/eWwoCkwVXKHI/g?=
+ =?us-ascii?Q?vOdbt654oQC+k4TZ0ge+Mux4hL74uiqUZyAqYShtpLdkoGtFBfSmlpP9Cjqr?=
+ =?us-ascii?Q?HOOvmRItn5QT1QtK3usJPI8lRDQ5ipoZeUhSiQRgfw0WZaDj+lectLGWq6Kc?=
+ =?us-ascii?Q?TrYt51fYXFypxSNk+w5dhIm0UJ7g2yMrkQzDxsm7rcEnsfZtfYPQldw4ntC4?=
+ =?us-ascii?Q?OWTflb5a3GxwALDBZpMg4ngWOWGp2miGjZ+uqd1IBDZb3N6x7TVF+P5oVp/E?=
+ =?us-ascii?Q?mAMOMbIBHgQnsCLn9ZSdr/Zby2W+rSWSPBxGE+QGRUc3ejS0rAuY7Se3ILn3?=
+ =?us-ascii?Q?G5ihgcjL2iXr1AgNUC8D91H2f+7I3DKzP60Uqimh9brPpR/bVy33T/WMTuY2?=
+ =?us-ascii?Q?5l8bvzmAerbSjEpKz5KzI6n79wmOX+Uk5uGx1k8hcsO4IG5x2TH+avqzvWG6?=
+ =?us-ascii?Q?/K8130J10SsKjYtvk27FtdSrRNk6YG/sOBQyFKoKuYo0s/M4wG2KK4EA9neq?=
+ =?us-ascii?Q?Bf088RvEx9r2ubs+8FHt4W6iJV+p8nYak0z5Qoc3zL7T3TV6CT9QqXkM8UU8?=
+ =?us-ascii?Q?qHBrEJLobFz1UUCcZgbgSfw4TAhLGZoADWT3jd/EvMPjiZeQgbawIlxc9F4u?=
+ =?us-ascii?Q?lIfbZW0ekVqhm3nsTV4NCQOGMOhxXL1s6TyM6FnA3NvgbyoExyFVvZ04Q3wh?=
+ =?us-ascii?Q?cZGl1C62/elCv7uX+/pgj+ywZHymxGjBZQYQkmCWTlNhzaHCu+reOH5BzO1r?=
+ =?us-ascii?Q?lM3cuYI/5KPrxBSuOY1W5Ri4zE09iEU5jwBSZu9mWu8twAorVLpE1c/vRgsD?=
+ =?us-ascii?Q?4RIRHFd0zfk/ADlyIvxeMBCgAAR26aZiDpehQkF3gQsoxAeNruyubFAQWbQ?=
+ =?us-ascii?Q?=3D?=
+X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-6b909.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ea3fef4-86f0-4657-ede0-08dbd66a2474
+X-MS-Exchange-CrossTenant-AuthSource: DB3PR10MB6835.EURPRD10.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2023 21:25:57.4774 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR10MB7470
+X-Mailman-Approved-At: Thu, 26 Oct 2023 22:43:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,154 +101,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, Mukul Joshi <mukul.joshi@amd.com>,
- Felix.Kuehling@amd.com
+Cc: sunpeng.li@amd.com, Bhawanpreet.Lakha@amd.com, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, alexander.deucher@amd.com,
+ Yuran Pereira <yuran.pereira@hotmail.com>, harry.wentland@amd.com,
+ christian.koenig@amd.com, linux-kernel-mentees@lists.linuxfoundation.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-GFX 9.4.3 uses a new version of the GC info table in IP
-discovery. This patch adds a new function to parse and
-fill the cache information based on the new table. Also,
-update cache reporting based on compute and memory
-partitioning modes.
+Since `pr_config` is not initialized after its declaration, the
+following operations with `replay_enable_option` may be performed
+when `replay_enable_option` is holding junk values which could
+possibly lead to undefined behaviour
 
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+```
+    ...
+    pr_config.replay_enable_option |= pr_enable_option_static_screen;
+    ...
+
+    if (!pr_config.replay_timing_sync_supported)
+        pr_config.replay_enable_option &= ~pr_enable_option_general_ui;
+    ...
+```
+
+This patch initializes `pr_config` after its declaration to ensure that
+it doesn't contain junk data, and prevent any undefined behaviour
+
+Addresses-Coverity-ID: 1544428 ("Uninitialized scalar variable")
+Fixes: dede1fea4460 ("drm/amd/display: Add Freesync Panel DM code")
+Signed-off-by: Yuran Pereira <yuran.pereira@hotmail.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 66 ++++++++++++++++++++++-
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 23 +++++++-
- 2 files changed, 86 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index 0e792a8496d6..cd8e459201f1 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -1404,6 +1404,66 @@ static int kfd_fill_gpu_cache_info_from_gfx_config(struct kfd_dev *kdev,
- 	return i;
- }
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
+index 32d3086c4cb7..40526507f50b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
+@@ -23,6 +23,7 @@
+  *
+  */
  
-+static int kfd_fill_gpu_cache_info_from_gfx_config_v2(struct kfd_dev *kdev,
-+						   struct kfd_gpu_cache_info *pcache_info)
-+{
-+	struct amdgpu_device *adev = kdev->adev;
-+	int i = 0;
++#include <linux/string.h>
+ #include "amdgpu_dm_replay.h"
+ #include "dc.h"
+ #include "dm_helpers.h"
+@@ -74,6 +75,8 @@ bool amdgpu_dm_setup_replay(struct dc_link *link, struct amdgpu_dm_connector *ac
+ 	struct replay_config pr_config;
+ 	union replay_debug_flags *debug_flags = NULL;
+ 
++	memset(&pr_config, 0, sizeof(pr_config));
 +
-+	/* TCP L1 Cache per CU */
-+	if (adev->gfx.config.gc_tcp_size_per_cu) {
-+		pcache_info[i].cache_size = adev->gfx.config.gc_tcp_size_per_cu;
-+		pcache_info[i].cache_level = 1;
-+		pcache_info[i].flags = (CRAT_CACHE_FLAGS_ENABLED |
-+					CRAT_CACHE_FLAGS_DATA_CACHE |
-+					CRAT_CACHE_FLAGS_SIMD_CACHE);
-+		pcache_info[i].num_cu_shared = 1;
-+		i++;
-+	}
-+	/* Scalar L1 Instruction Cache per SQC */
-+	if (adev->gfx.config.gc_l1_instruction_cache_size_per_sqc) {
-+		pcache_info[i].cache_size =
-+			adev->gfx.config.gc_l1_instruction_cache_size_per_sqc;
-+		pcache_info[i].cache_level = 1;
-+		pcache_info[i].flags = (CRAT_CACHE_FLAGS_ENABLED |
-+					CRAT_CACHE_FLAGS_INST_CACHE |
-+					CRAT_CACHE_FLAGS_SIMD_CACHE);
-+		pcache_info[i].num_cu_shared = adev->gfx.config.gc_num_cu_per_sqc;
-+		i++;
-+	}
-+	/* Scalar L1 Data Cache per SQC */
-+	if (adev->gfx.config.gc_l1_data_cache_size_per_sqc) {
-+		pcache_info[i].cache_size = adev->gfx.config.gc_l1_data_cache_size_per_sqc;
-+		pcache_info[i].cache_level = 1;
-+		pcache_info[i].flags = (CRAT_CACHE_FLAGS_ENABLED |
-+					CRAT_CACHE_FLAGS_DATA_CACHE |
-+					CRAT_CACHE_FLAGS_SIMD_CACHE);
-+		pcache_info[i].num_cu_shared = adev->gfx.config.gc_num_cu_per_sqc;
-+		i++;
-+	}
-+	/* L2 Data Cache per GPU (Total Tex Cache) */
-+	if (adev->gfx.config.gc_tcc_size) {
-+		pcache_info[i].cache_size = adev->gfx.config.gc_tcc_size;
-+		pcache_info[i].cache_level = 2;
-+		pcache_info[i].flags = (CRAT_CACHE_FLAGS_ENABLED |
-+					CRAT_CACHE_FLAGS_DATA_CACHE |
-+					CRAT_CACHE_FLAGS_SIMD_CACHE);
-+		pcache_info[i].num_cu_shared = adev->gfx.config.max_cu_per_sh;
-+		i++;
-+	}
-+	/* L3 Data Cache per GPU */
-+	if (adev->gmc.mall_size) {
-+		pcache_info[i].cache_size = adev->gmc.mall_size / 1024;
-+		pcache_info[i].cache_level = 3;
-+		pcache_info[i].flags = (CRAT_CACHE_FLAGS_ENABLED |
-+					CRAT_CACHE_FLAGS_DATA_CACHE |
-+					CRAT_CACHE_FLAGS_SIMD_CACHE);
-+		pcache_info[i].num_cu_shared = adev->gfx.config.max_cu_per_sh;
-+		i++;
-+	}
-+	return i;
-+}
-+
- int kfd_get_gpu_cache_info(struct kfd_node *kdev, struct kfd_gpu_cache_info **pcache_info)
- {
- 	int num_of_cache_types = 0;
-@@ -1461,10 +1521,14 @@ int kfd_get_gpu_cache_info(struct kfd_node *kdev, struct kfd_gpu_cache_info **pc
- 			num_of_cache_types = ARRAY_SIZE(vega20_cache_info);
- 			break;
- 		case IP_VERSION(9, 4, 2):
--		case IP_VERSION(9, 4, 3):
- 			*pcache_info = aldebaran_cache_info;
- 			num_of_cache_types = ARRAY_SIZE(aldebaran_cache_info);
- 			break;
-+		case IP_VERSION(9, 4, 3):
-+			num_of_cache_types =
-+				kfd_fill_gpu_cache_info_from_gfx_config_v2(kdev->kfd,
-+									*pcache_info);
-+			break;
- 		case IP_VERSION(9, 1, 0):
- 		case IP_VERSION(9, 2, 2):
- 			*pcache_info = raven_cache_info;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index 4e530791507e..1a79a6c25466 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1602,10 +1602,13 @@ static int fill_in_l2_l3_pcache(struct kfd_cache_properties **props_ext,
- 	unsigned int cu_sibling_map_mask;
- 	int first_active_cu;
- 	int i, j, k, xcc, start, end;
-+	int num_xcc = NUM_XCC(knode->xcc_mask);
- 	struct kfd_cache_properties *pcache = NULL;
-+	enum amdgpu_memory_partition mode;
-+	struct amdgpu_device *adev = knode->adev;
- 
- 	start = ffs(knode->xcc_mask) - 1;
--	end = start + NUM_XCC(knode->xcc_mask);
-+	end = start + num_xcc;
- 	cu_sibling_map_mask = cu_info->bitmap[start][0][0];
- 	cu_sibling_map_mask &=
- 		((1 << pcache_info[cache_type].num_cu_shared) - 1);
-@@ -1624,7 +1627,23 @@ static int fill_in_l2_l3_pcache(struct kfd_cache_properties **props_ext,
- 		pcache->processor_id_low = cu_processor_id
- 					+ (first_active_cu - 1);
- 		pcache->cache_level = pcache_info[cache_type].cache_level;
--		pcache->cache_size = pcache_info[cache_type].cache_size;
-+		if (pcache->cache_level == 2) {
-+			pcache->cache_size = pcache_info[cache_type].cache_size * num_xcc;
-+		} else {
-+			if (KFD_GC_VERSION(knode) == IP_VERSION(9, 4, 3)) {
-+				mode = adev->gmc.gmc_funcs->query_mem_partition_mode(adev);
-+				if (mode) {
-+					pcache->cache_size =
-+						pcache_info[cache_type].cache_size / mode;
-+				} else {
-+					dev_warn(adev->dev, "Unexpected memory partition %u", mode);
-+					pcache->cache_size =
-+						pcache_info[cache_type].cache_size;
-+				}
-+			} else {
-+				pcache->cache_size = pcache_info[cache_type].cache_size;
-+			}
-+		}
- 
- 		if (pcache_info[cache_type].flags & CRAT_CACHE_FLAGS_DATA_CACHE)
- 			pcache->cache_type |= HSA_CACHE_TYPE_DATA;
+ 	// For eDP, if Replay is supported, return true to skip checks
+ 	if (link->replay_settings.config.replay_supported)
+ 		return true;
 -- 
-2.35.1
+2.25.1
 
