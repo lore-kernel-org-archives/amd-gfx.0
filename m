@@ -4,90 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA7F8C25B67
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Oct 2023 11:33:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B84F7C25B47
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Oct 2023 16:59:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D9E910E0C6;
-	Fri, 27 Oct 2023 11:33:35 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20622.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5a::622])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71F0310E0C6
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Oct 2023 11:33:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F8tSxWrpvPzuwdUEU8x1O+JjvtaWmVZOwhPrKTV92hPK932XEgcjBY9U2WgaYU04z3E0OXD1OjA8o7YqXH6KUNC7hea5RwgiXnmhkI4F+5jDgl0KOO75IJLkZLjRyrOCiYm/+FrRKPNRHzQSlX3VruR6nn6Uyz/t/LcIZjpSBXrMRUJbDkkqZgpq/PEqP+nxkVEq1OwoApbgNqnQYAcxlrYlI25fOgDvKBfzDRjraVF3qqCGCnkZv/ZiAXWQNRJMqJQYh6tkIi7IjVBO9i6tGuSn3meZyXJetSvNI/kkgUJ0f6PsS+Q4pmWXYxw81r62HIKQLDtnGaeYWAnwvspXTQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8QZAak04rr3nScaLD8L755R5FNhQ7x+mGu+jg4Ntyu0=;
- b=ZmX4fYmWQXZzznNXjsAlEml5L3SxBDK9vuFOP3p166+FrsziNfeLIu4ri9LQFZsobQSreR7OMHh+z4keMWAh+Bcsj5uWtWxSPAbGpNCcczl6oRlUPb4428QbfI/xIMJhE5F642+i6PRX1AMq1imyrFR7oJmx4Ljpcpa3S1nXBY6S8VS13zI99l8KsMSsiMx1f70ZZz77Bc6JowvW32abWp7JeH/Et/kJ1YX0JyDFQ4D9HzW74EzRWxfAeCKPyUfA3CKGT+OdAnwyl5bGMyCyzY3B9C33LbC9QhSNT0lFhr/LThsmekGH0suQHuIA23rwRMtDNzX/Xrhau0qzl2YQCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8QZAak04rr3nScaLD8L755R5FNhQ7x+mGu+jg4Ntyu0=;
- b=ILPvs0EOkljtVjevR7vySb4bGgWUkXMqYL/HpR6j3VwBhn9E5AAe582iWTqBWvDlwi2F+HN/TGDFyrPqJIN2iqPiPUhzY5EGuAjge1Q61M3AoHT3m0eLrk7ElVOpBtwB5rsRFQvSq33g4/0HecRACxRszrjXOpjlzWqVGw7tKRk=
-Received: from DM6PR01CA0022.prod.exchangelabs.com (2603:10b6:5:296::27) by
- PH7PR12MB7307.namprd12.prod.outlook.com (2603:10b6:510:20b::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6933.24; Fri, 27 Oct 2023 11:33:30 +0000
-Received: from DS2PEPF0000343F.namprd02.prod.outlook.com
- (2603:10b6:5:296:cafe::4e) by DM6PR01CA0022.outlook.office365.com
- (2603:10b6:5:296::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.24 via Frontend
- Transport; Fri, 27 Oct 2023 11:33:30 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS2PEPF0000343F.mail.protection.outlook.com (10.167.18.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6933.18 via Frontend Transport; Fri, 27 Oct 2023 11:33:29 +0000
-Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Fri, 27 Oct
- 2023 06:33:27 -0500
-From: Tao Zhou <tao.zhou1@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/amdgpu: add RAS reset/query operations for XGMI v6_4
-Date: Fri, 27 Oct 2023 19:32:54 +0800
-Message-ID: <20231027113254.20958-2-tao.zhou1@amd.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20231027113254.20958-1-tao.zhou1@amd.com>
-References: <20231027113254.20958-1-tao.zhou1@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2835C10EA12;
+	Fri, 27 Oct 2023 16:59:16 +0000 (UTC)
+Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
+ [IPv6:2607:f8b0:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23DDC10E141;
+ Fri, 27 Oct 2023 16:59:15 +0000 (UTC)
+Received: by mail-pg1-x52b.google.com with SMTP id
+ 41be03b00d2f7-5a9bc2ec556so1850151a12.0; 
+ Fri, 27 Oct 2023 09:59:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1698425954; x=1699030754; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=l2XOiyO7ELntzgtLuOwOBKhVQExybEKPgHk4URVDgho=;
+ b=FjFy+FOkCP9RMiPr369zyKzQ1BLB4JhIXhoRIKSHIzm0J6M5x/oq8tbctibYaN50Dp
+ yiPjYbqP0WoWuycO9Z3Waw3ETGZl8p9D7kHwKTlS8BU841D1ZfybT+Gj6CRS9ibcj/xY
+ ZFMOeTklBCn/EK96GnHX5Md5jfMlJ4WEe+yZWgsaPBhAWvTdCmj14BPalH1hGYboXWjR
+ m3/qJtWLuhsWltsfkuRgN3UusznHbdTBWTzX1eO9LO1nVYb7u3zDwDfq/p8hW+TR8qXK
+ /181Q74YuYiawQQ/GoPJEWcekgwUzMG6xSsUG0wcWvStDggvTeGL5RpImD9nCDsBRjcU
+ Rfsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1698425954; x=1699030754;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=l2XOiyO7ELntzgtLuOwOBKhVQExybEKPgHk4URVDgho=;
+ b=BdRvSKw+zrFDBInmsv1/tdPX0ZN2Diwh+M+KQKeh+n9hoTTiwJGPNwMqiYBO2U13RK
+ B2Al1rRx1ML7ZE9Se29O94g8oztGWis57Jzby1kPPzwjpjRUKAxUbWaObLyqckseKazq
+ nFh8EkW8QqcuuAHgvknk8iCQrqS1D3n6MFOLz4L/fR4gRY3Gft/df9pzwVSm/Jc1MBKD
+ wO/I1y1tn2/7uPR9ZKFZCamCkRCTd/vIlZTmABoDS/MWBikuj6JELNz/n4TznZAV+uYl
+ pY+jTShMkW/0qsC8MokmGf+G4YUy/Ukwkm6d7FZD+AKZcv8Z0G2b9xNeQ9w0wH60KZBH
+ Ep4g==
+X-Gm-Message-State: AOJu0Yz/mYPD5eLw1tpQYSj9G51QqYiGIbW6LwVafq/RGgVg8lhmUQnZ
+ 3oF9u4d8cl9GPKA7EgC6cyJJuM9TZAc=
+X-Google-Smtp-Source: AGHT+IGmj0N9Vkha046UwwcpchKPTTZ+UtBOMnjmz7YeYZi5yoFGRN7OlD9zVh2noyVB62tlU/Jayw==
+X-Received: by 2002:a17:90a:1a0b:b0:280:1022:f00e with SMTP id
+ 11-20020a17090a1a0b00b002801022f00emr1807988pjk.29.1698425954002; 
+ Fri, 27 Oct 2023 09:59:14 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:6c80:7c10:75a0:44f4])
+ by smtp.gmail.com with ESMTPSA id
+ s31-20020a17090a2f2200b0028017a2a8fasm733629pjd.3.2023.10.27.09.59.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 27 Oct 2023 09:59:13 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH 0/7] drm/msm/gem: drm_exec conversion
+Date: Fri, 27 Oct 2023 09:58:34 -0700
+Message-ID: <20231027165859.395638-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF0000343F:EE_|PH7PR12MB7307:EE_
-X-MS-Office365-Filtering-Correlation-Id: 67ebd2e7-9bdd-4d79-a143-08dbd6e08b32
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UQPf95ied0Fs3wjcA9YkyJXwPxsVV6eMzXGGm4aF+0Qzhe+DkqPFLjrI/vP0G4FpmoR8m1157Mh2zgyDceCRFrpM/MWKzkPR7XhFDreQ/B1Lt0ijR10gLjTFM9ZAfiSZtYmfGIg4C6gHxuzI5ljtw9TAXD5SMF+qI+93ZsTn9mtLv35QnN6086MJyTujDNQgRbtYfJRrhvPAfsJBx5I8oxrsB4rhngQ45kFlKOlgHuQmMEsgUkUqdz0U1paFYCVQbE4AsqziZzOengEmJoaY+HjZYpCXnga02xuzC7QdqujTSnkcBlNpxC4ewdovqnMH2DvNvc9iNauBtfzeVdOvpMTiPy0ZAeRHg99COpL5J6XNXIbKfpAdxn+j78Ugb+IVCxNsro9/OwM94tBMwL7IiEm/lXEbxKpsQsrqg/CuLdKam9Wl7wcc1AuSnqvOmuK4Sl9PmqsaUVkN5hsJ79FcuW3VLg1K8ZiBMad5kyCJDCLPT+r1oh5mAjbjZD+4z4/I9wfHp+B735u8TBcAAN5z2FTArohQGcuDR1/zXGzVJ6bl3cIpRmeoH88vx4YgAgfoMMYcNDvp+JDQ81ZMmdPllMWwycd2tgCSKOcUTECZB2IlIyZivQ5lUUgl8Q6aSLAxSaiRNiqSAdVkh99GF2KZxqDZc7LmDeMBxeLz4oxCXLsQqhWWmU4MhLPHXFfx3N4IMWeEEzLWK631B6kpARw/raUUBQltdkaqCkczVINQCM6jnxr9l6a+KLR4XtRIeri/0qwWW24g5l9MLdhXnlG/jg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(136003)(346002)(376002)(396003)(230922051799003)(451199024)(64100799003)(82310400011)(1800799009)(186009)(46966006)(40470700004)(36840700001)(36860700001)(40460700003)(426003)(356005)(81166007)(83380400001)(36756003)(16526019)(1076003)(26005)(336012)(7696005)(70206006)(70586007)(316002)(6916009)(478600001)(6666004)(2906002)(82740400003)(5660300002)(41300700001)(2616005)(86362001)(8676002)(4326008)(8936002)(47076005)(40480700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2023 11:33:29.8645 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67ebd2e7-9bdd-4d79-a143-08dbd6e08b32
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343F.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7307
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,104 +69,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao Zhou <tao.zhou1@amd.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>, Mario Limonciello <mario.limonciello@amd.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Clark <robdclark@chromium.org>, Guchun Chen <guchun.chen@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>,
+ "open list:SUSPEND TO RAM" <linux-pm@vger.kernel.org>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ Dong Chenchen <dongchenchen2@huawei.com>, Luben Tuikov <luben.tuikov@amd.com>,
+ Philip Yang <Philip.Yang@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ linux-arm-msm@vger.kernel.org, James Zhu <James.Zhu@amd.com>,
+ Sean Paul <sean@poorly.run>, Jack Xiao <Jack.Xiao@amd.com>,
+ Jonathan Kim <jonathan.kim@amd.com>, freedreno@lists.freedesktop.org,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lang Yu <Lang.Yu@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reset/query RAS error status and count.
+From: Rob Clark <robdclark@chromium.org>
 
-v2: use XGMI IP version instead of WAFL version.
+Simplify the exec path (removing a legacy optimization) and convert to
+drm_exec.  One drm_exec patch to allow passing in the expected # of GEM
+objects to avoid re-allocation.
 
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 46 ++++++++++++++++++++++--
- 1 file changed, 43 insertions(+), 3 deletions(-)
+I'd be a bit happier if I could avoid the extra objects table allocation
+in drm_exec in the first place, but wasn't really happy with any of the
+things I tried to get rid of that.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-index 2b7dc490ba6b..0533f873001b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -103,6 +103,16 @@ static const int walf_pcs_err_noncorrectable_mask_reg_aldebaran[] = {
- 	smnPCS_GOPX1_PCS_ERROR_NONCORRECTABLE_MASK + 0x100000
- };
- 
-+static const int xgmi3x16_pcs_err_status_reg_v6_4[] = {
-+	smnPCS_XGMI3X16_PCS_ERROR_STATUS,
-+	smnPCS_XGMI3X16_PCS_ERROR_STATUS + 0x100000
-+};
-+
-+static const int xgmi3x16_pcs_err_noncorrectable_mask_reg_v6_4[] = {
-+	smnPCS_XGMI3X16_PCS_ERROR_NONCORRECTABLE_MASK,
-+	smnPCS_XGMI3X16_PCS_ERROR_NONCORRECTABLE_MASK + 0x100000
-+};
-+
- static const struct amdgpu_pcs_ras_field xgmi_pcs_ras_fields[] = {
- 	{"XGMI PCS DataLossErr",
- 	 SOC15_REG_FIELD(XGMI0_PCS_GOPX16_PCS_ERROR_STATUS, DataLossErr)},
-@@ -958,6 +968,16 @@ static void amdgpu_xgmi_reset_ras_error_count(struct amdgpu_device *adev)
- 	default:
- 		break;
- 	}
-+
-+	switch (amdgpu_ip_version(adev, XGMI_HWIP, 0)) {
-+	case IP_VERSION(6, 4, 0):
-+		for (i = 0; i < ARRAY_SIZE(xgmi3x16_pcs_err_status_reg_v6_4); i++)
-+			pcs_clear_status(adev,
-+					xgmi3x16_pcs_err_status_reg_v6_4[i]);
-+		break;
-+	default:
-+		break;
-+	}
- }
- 
- static int amdgpu_xgmi_query_pcs_error_status(struct amdgpu_device *adev,
-@@ -975,7 +995,9 @@ static int amdgpu_xgmi_query_pcs_error_status(struct amdgpu_device *adev,
- 
- 	if (is_xgmi_pcs) {
- 		if (amdgpu_ip_version(adev, XGMI_HWIP, 0) ==
--		    IP_VERSION(6, 1, 0)) {
-+		    IP_VERSION(6, 1, 0) ||
-+		    amdgpu_ip_version(adev, XGMI_HWIP, 0) ==
-+		    IP_VERSION(6, 4, 0)) {
- 			pcs_ras_fields = &xgmi3x16_pcs_ras_fields[0];
- 			field_array_size = ARRAY_SIZE(xgmi3x16_pcs_ras_fields);
- 		} else {
-@@ -1013,7 +1035,7 @@ static void amdgpu_xgmi_query_ras_error_count(struct amdgpu_device *adev,
- 					     void *ras_error_status)
- {
- 	struct ras_err_data *err_data = (struct ras_err_data *)ras_error_status;
--	int i;
-+	int i, supported = 1;
- 	uint32_t data, mask_data = 0;
- 	uint32_t ue_cnt = 0, ce_cnt = 0;
- 
-@@ -1077,7 +1099,25 @@ static void amdgpu_xgmi_query_ras_error_count(struct amdgpu_device *adev,
- 		}
- 		break;
- 	default:
--		dev_warn(adev->dev, "XGMI RAS error query not supported");
-+		supported = 0;
-+		break;
-+	}
-+
-+	switch (amdgpu_ip_version(adev, XGMI_HWIP, 0)) {
-+	case IP_VERSION(6, 4, 0):
-+		/* check xgmi3x16 pcs error */
-+		for (i = 0; i < ARRAY_SIZE(xgmi3x16_pcs_err_status_reg_v6_4); i++) {
-+			data = RREG32_PCIE(xgmi3x16_pcs_err_status_reg_v6_4[i]);
-+			mask_data =
-+				RREG32_PCIE(xgmi3x16_pcs_err_noncorrectable_mask_reg_v6_4[i]);
-+			if (data)
-+				amdgpu_xgmi_query_pcs_error_status(adev, data,
-+						mask_data, &ue_cnt, &ce_cnt, true, true);
-+		}
-+		break;
-+	default:
-+		if (!supported)
-+			dev_warn(adev->dev, "XGMI RAS error query not supported");
- 		break;
- 	}
- 
+Rob Clark (7):
+  drm/msm/gem: Remove "valid" tracking
+  drm/msm/gem: Remove submit_unlock_unpin_bo()
+  drm/msm/gem: Don't queue job to sched in error cases
+  drm/msm/gem: Split out submit_unpin_objects() helper
+  drm/msm/gem: Cleanup submit_cleanup_bo()
+  drm/exec: Pass in initial # of objects
+  drm/msm/gem: Convert to drm_exec
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c |   4 +-
+ drivers/gpu/drm/drm_exec.c              |  15 +-
+ drivers/gpu/drm/msm/Kconfig             |   1 +
+ drivers/gpu/drm/msm/msm_gem.h           |  13 +-
+ drivers/gpu/drm/msm/msm_gem_submit.c    | 197 ++++++------------------
+ drivers/gpu/drm/msm/msm_ringbuffer.c    |   3 +-
+ drivers/gpu/drm/nouveau/nouveau_exec.c  |   2 +-
+ drivers/gpu/drm/nouveau/nouveau_uvmm.c  |   2 +-
+ include/drm/drm_exec.h                  |   2 +-
+ 12 files changed, 79 insertions(+), 170 deletions(-)
+
 -- 
-2.35.1
+2.41.0
 
