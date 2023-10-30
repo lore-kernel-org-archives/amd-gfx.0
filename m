@@ -4,58 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDE6CC4167B
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Oct 2023 09:23:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 535C6C4167D
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Oct 2023 09:23:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C27C210E445;
-	Tue, 31 Oct 2023 09:23:48 +0000 (UTC)
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6853910E439
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Oct 2023 08:57:37 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-409299277bbso34300925e9.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Oct 2023 01:57:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698742656; x=1699347456; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=KdIgMt0Zd5OrTAXhCgGiW0ACxcmVYMBjRSImafg865I=;
- b=cXHctjLAsf2/BYqILuKbAzBxXkpGV3ztF2TzgLObjfkv17zfO2/Fc8OJWONjNyVIzy
- o3TE07MIOdDGcMKnpyXHOhHk1D3/1BoyjoSjECasN0indGT7lMsQEV93sa1hP6EZfoEQ
- jMYs6ydOBUla++L/NfnmctvG1R3nFiv52EAguObU6VjmlurRnbAGeKcXP/Pn7tA0DV4c
- FEzGfeOjZvVpKT9FIqAH5N3Rgc1FhYlUsFL3Cn0em3XH6YHV0vFzWEvHl2/mGscsz80z
- aX5wy0kGOIYOJ/6ABOhfk5GD0OrlzIQP78Zl4HCnyShyejL75ewOtmDRs8LxW9bOwexf
- ug0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698742656; x=1699347456;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=KdIgMt0Zd5OrTAXhCgGiW0ACxcmVYMBjRSImafg865I=;
- b=UKX6zP0XwCMrbKRXarr8Lv3pEK3EeGUqw7Xoiiu2GtpATnxeAgaRpnQwAMiLwOtHhL
- YlFhlAntaac17o0jXNaO9imPS+2j6LepEwtqT7siVfwGRNNl05eKKmbwUJ1XTfIMwmAp
- /ZG+Xu5BG0vDAPl4umMNb5GTgMOx9omEzIEvMxhhTx/1udyiPsc3I3YeLDma1u2byj7m
- dVkxhZyl34HEpQNVcqnD8dObm0ot4aNnJTUljmPDIDqyisWm3klYEKFCNzbUrNyHotCt
- 5nQ25y5oSDeSwvkv4uS9Umy98+nZv0+GbVM3U3PmP6gm0Msf9xheeUsQvD7XGzMFcodj
- z+rQ==
-X-Gm-Message-State: AOJu0YyCKvp8pYpx+Htu08x56dl8YwUcnXOv1yfeW7/7mEubtkG4lDXJ
- tclwz41g9DkJTlEQhWf2OLHuTw==
-X-Google-Smtp-Source: AGHT+IHAStacHa9biIkH81dxXEV2xdyUtO+PorrqumPvn5b6OJ2e/L4MwAP8DCM+n0AjYZ8UXx694Q==
-X-Received: by 2002:a05:600c:4f92:b0:402:f55c:faee with SMTP id
- n18-20020a05600c4f9200b00402f55cfaeemr9229980wmq.26.1698742655548; 
- Tue, 31 Oct 2023 01:57:35 -0700 (PDT)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- b3-20020a05600c150300b004083729fc14sm1096849wmg.20.2023.10.31.01.57.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Oct 2023 01:57:35 -0700 (PDT)
-Date: Tue, 31 Oct 2023 11:57:32 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: stylon.wang@amd.com
-Subject: [bug report] drm/amd/display: Add interface to enable DPIA trace
-Message-ID: <961dd9b8-6000-4af8-ba24-15688723e372@moroto.mountain>
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECD3810E43E;
+	Tue, 31 Oct 2023 09:23:52 +0000 (UTC)
+X-Greylist: delayed 918 seconds by postgrey-1.36 at gabe;
+ Mon, 30 Oct 2023 16:41:56 UTC
+Received: from 3.mo560.mail-out.ovh.net (3.mo560.mail-out.ovh.net
+ [46.105.58.226])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3229D10E0F9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Oct 2023 16:41:56 +0000 (UTC)
+Received: from director7.ghost.mail-out.ovh.net (unknown [10.108.4.127])
+ by mo560.mail-out.ovh.net (Postfix) with ESMTP id EBF8527582
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Oct 2023 16:26:35 +0000 (UTC)
+Received: from ghost-submission-6684bf9d7b-7hln7 (unknown [10.110.208.67])
+ by director7.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 16CAE1FE61;
+ Mon, 30 Oct 2023 16:26:35 +0000 (UTC)
+Received: from RCM-web3.webmail.mail.ovh.net ([178.33.236.78])
+ by ghost-submission-6684bf9d7b-7hln7 with ESMTPSA
+ id zBVnAzvZP2VUTQEAW38/SQ
+ (envelope-from <jose.pekkarinen@foxhound.fi>); Mon, 30 Oct 2023 16:26:35 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Date: Mon, 30 Oct 2023 18:26:34 +0200
+From: =?UTF-8?Q?Jos=C3=A9_Pekkarinen?= <jose.pekkarinen@foxhound.fi>
+To: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Subject: Re: [PATCH] drm/amd/display: remove redundant check
+In-Reply-To: <ce1b69e1-fa38-2e12-1ad5-375ac244af42@amd.com>
+References: <20231029124404.16159-1-jose.pekkarinen@foxhound.fi>
+ <ce1b69e1-fa38-2e12-1ad5-375ac244af42@amd.com>
+User-Agent: Roundcube Webmail/1.4.15
+Message-ID: <3c228e4f69c01dddd4743bdb68845566@foxhound.fi>
+X-Sender: jose.pekkarinen@foxhound.fi
+Organization: Foxhound Ltd.
+X-Originating-IP: 162.247.74.74
+X-Webmail-UserID: jose.pekkarinen@foxhound.fi
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 15653104930003855014
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvkedruddttddgkeeiucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepggffhffvvefujghffgfkgihoihgtgfesthekjhdttderjeenucfhrhhomheplfhoshorucfrvghkkhgrrhhinhgvnhcuoehjohhsvgdrphgvkhhkrghrihhnvghnsehfohighhhouhhnugdrfhhiqeenucggtffrrghtthgvrhhnpeekhfeguddufeegvdelgedtvdffgeehvddtkeevkeejvedvgeeitdefleehtdeitdenucfkphepuddvjedrtddrtddruddpudeivddrvdegjedrjeegrdejgedpudejkedrfeefrddvfeeirdejkeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepoehjohhsvgdrphgvkhhkrghrihhnvghnsehfohighhhouhhnugdrfhhiqedpnhgspghrtghpthhtohepuddprhgtphhtthhopegrmhguqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdfovfetjfhoshhtpehmohehiedtpdhmohguvgepshhmthhpohhuth
 X-Mailman-Approved-At: Tue, 31 Oct 2023 09:23:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,36 +58,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: dillon.varone@amd.com, george.shen@amd.com, sunpeng.li@amd.com,
+ airlied@gmail.com, dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org, samson.tam@amd.com,
+ SyedSaaem.Rizvi@amd.com, amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
+ skhan@linuxfoundation.org, alexander.deucher@amd.com, Jun.Lei@amd.com,
+ harry.wentland@amd.com, christian.koenig@amd.com,
+ linux-kernel-mentees@lists.linuxfoundation.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Stylon Wang,
+On 2023-10-30 15:52, Aurabindo Pillai wrote:
+> On 10/29/2023 8:44 AM, José Pekkarinen wrote:
+>> This patch addresses the following warning spotted by
+>> using coccinelle where the case checked does the same
+>> than the else case.
+>> 
+>> drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c:4664:8-10: 
+>> WARNING: possible condition with no effect (if == else)
+>> 
+>> Signed-off-by: José Pekkarinen <jose.pekkarinen@foxhound.fi>
+>> ---
+>>   .../drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c   | 4 
+>> ----
+>>   1 file changed, 4 deletions(-)
+>> 
+>> diff --git 
+>> a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c 
+>> b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+>> index ecea008f19d3..d940dfa5ae43 100644
+>> --- 
+>> a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+>> +++ 
+>> b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+>> @@ -4661,10 +4661,6 @@ void dml32_CalculateMinAndMaxPrefetchMode(
+>>   	} else if (AllowForPStateChangeOrStutterInVBlankFinal == 
+>> dm_prefetch_support_uclk_fclk_and_stutter) {
+>>   		*MinPrefetchMode = 0;
+>>   		*MaxPrefetchMode = 0;
+>> -	} else if (AllowForPStateChangeOrStutterInVBlankFinal ==
+>> -			dm_prefetch_support_uclk_fclk_and_stutter_if_possible) {
+>> -		*MinPrefetchMode = 0;
+>> -		*MaxPrefetchMode = 3;
+>>   	} else {
+>>   		*MinPrefetchMode = 0;
+>>   		*MaxPrefetchMode = 3;
+> 
+> What tree did you use to generate the patch? On amd-staging-drm-next,
+> MaxPrefetchMode is 0 for the second last branch, which is the correct
+> one, so this patch isnt needed.
 
-The patch 71ba6b577a35: "drm/amd/display: Add interface to enable
-DPIA trace" from Jun 30, 2023 (linux-next), leads to the following
-Smatch static checker warning:
+     I'm using the stable tree, sorry, if it is out of
+date just ignore it then.
 
-	drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c:1041 dc_dmub_srv_enable_dpia_trace()
-	error: we previously assumed 'dc_dmub_srv' could be null (see line 1040)
+     Thanks!
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c
-    1033 void dc_dmub_srv_enable_dpia_trace(const struct dc *dc)
-    1034 {
-    1035         struct dc_dmub_srv *dc_dmub_srv = dc->ctx->dmub_srv;
-    1036         struct dmub_srv *dmub;
-    1037         enum dmub_status status;
-    1038         static const uint32_t timeout_us = 30;
-    1039 
-    1040         if (!dc_dmub_srv || !dc_dmub_srv->dmub) {
---> 1041                 DC_LOG_ERROR("%s: invalid parameters.", __func__);
-                         ^^^^^^^^^^^^^
-This macro dereferences dc_dmub_srv.
-
-    1042                 return;
-    1043         }
-    1044 
-    1045         dmub = dc_dmub_srv->dmub;
-
-regards,
-dan carpenter
+     José.
