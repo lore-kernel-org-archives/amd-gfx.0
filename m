@@ -4,60 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00219C4167D
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Oct 2023 13:38:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4264C4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Oct 2023 13:52:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A9BE10E2C5;
-	Mon, 30 Oct 2023 13:38:43 +0000 (UTC)
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C7E910E2C3;
- Mon, 30 Oct 2023 13:38:40 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-507975d34e8so6462503e87.1; 
- Mon, 30 Oct 2023 06:38:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698673119; x=1699277919; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+XTY7Ceg2W761HSG7aGBRMEokR6cgjVhFDn1Z8HE4To=;
- b=ZZOfVJQPSBsf3wjC+N80yTAcgNFlMdwP1AHLv1IhG7t4DLn2j2rBXeBlXzJriHsrdz
- CcLXID9+HCZxFgAEykHvgK/ldZFSoqvPP+XXMrZRuEF3JmA6Vhf/8iG6wWiy5Vcz86qG
- 7gmQuAD+2+LMWNVVCFkQdPW+WYWeF1Z3UBi58jWD84JWYdz3RUXWLo15fma6x9+grHli
- cE2oMD4kDZ3rBzdAHFYejRYscbbXM8HumVUyqeg8oHOFE1+4glo79iJpZRjCWeV8aDLV
- F/qNiE3wItf13K0Ga7eKO3vOzxskWyIvSLwYNzl7WRxmVw4HtxkaYG2eD1IZ+T4qDyio
- YG6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698673119; x=1699277919;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=+XTY7Ceg2W761HSG7aGBRMEokR6cgjVhFDn1Z8HE4To=;
- b=sabC8iHrlLxU5U5LVloreAOo5A2mdafMxm6WNjhghXPn6zsJDYvYhzA65qvZt5iwGj
- vR5Ccli3SRzeKainQsMWRSyFZxY/CP5HjgBn0SwbclmQJH3HJ2psszFEakY+u2kleX0D
- Jq8a5jvEFdHr3CbwCVz7H2j1U7faY9NN7OvZjkB8BeoeV7LhT9jPgqFtxKdAXzRzOrGg
- Vf224iaQP5JQy21/id4KooRFw9IX9Sq8mV5KGg11+AYlhdYxnr9u4rb6u+yz7GdU2fds
- W9VoWq47993SJZ0DU+LEHMUuhqH/GbrAuI/sI7XlbT9XiTWJCm7tuEhyUTWrIMe+8GV/
- fyQA==
-X-Gm-Message-State: AOJu0YwqXPMUCKOtyuOA6g0Zp4FCp4cACy1QwgGgsSmloVcmt7fQgw9d
- kdpU7YdAv4MiYOK4IJ8kzrHQIvM8AzqrNO/Z1U0=
-X-Google-Smtp-Source: AGHT+IHdElXWFmKYD1j9eSX3y4FD/cwV2Kl6WssGkJK7frmORyS1HkzDxkdhTKCzAef0BSodpHk6yj3z/NEtX5b7xY4=
-X-Received: by 2002:a19:5513:0:b0:507:a8d1:6e57 with SMTP id
- n19-20020a195513000000b00507a8d16e57mr6903381lfe.40.1698673118796; Mon, 30
- Oct 2023 06:38:38 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 331F710E2CB;
+	Mon, 30 Oct 2023 13:52:10 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on20629.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7ea9::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7ECE10E2DD;
+ Mon, 30 Oct 2023 13:52:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=F3oOkeF4wWNFVx4maxn5gFDyQznnXvHUQZyUqH9nRDlDxwGuWl7zZ4Qiy9bIOHrzDoXmhnh7Wz/dmfRlLUWcG1dHBrFMLd3d5Q7xW8Z3Ru48Z1MNL3GtrwU1RW9cPzBlqqL/XORkEAepKOJpUDcYi1VOMZUfGnHWLqFCIuXAkKro41OvGIPhni0WwEDgxQCYKkELk/7M3v5ed288qdeJdvYNEwWIHU2XXRPXYjsiCTQrToNbAfkktVjgCYPVVBmyVTVJQEdHD1wUTaRujNgHh6LHcuiijvMv/+JBOaC+13LC6ipSwcrwPgoDhVBMzpqUiQ3FUBuG0qzOdQrntRC5YA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WAvYyCUfzFWpmUDh+wAyeZQqRi506s2q/sPelqImZr0=;
+ b=dVgcJGN7ylLU9f0aZhwhwP3GpTUtK6uH7oCfNrqYSfEBxHWCNgLHjoC5P0tYidf5RF4U3b2B45451tWGOKNvGJaoCoGfECzamVXhygMfZVR9B8Vtlijh1hCBTv/NIegiuIHM983qTu3rY9sisARiznqI7yqvK2gIw5kCt0y9c4frMQ5otLwe9PgW8ey1QHZAEe5jqscwEbIShGFjRRKSG/fqDTgl2CMCyI359Rh9G0+21ZcT9HjtqnmuE7rzk+g05kLHCjs3MMZDVQGIK0mb5BoIWLq8L8JLrKRZZMiWyTNgv4IEIGO0+3dXZSp4XMAt+T0u391KCS3haQyeo1/JTg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WAvYyCUfzFWpmUDh+wAyeZQqRi506s2q/sPelqImZr0=;
+ b=No5OfcqTMXdcp0nlY1SuXBiD3NWNRh5zWnAbxnCUeVjakVkvUVjQl3+jxD+HE4F1Ot6Lok+zOACbAlM5uf1c3hub3sdnhnFllXvMCsubzvButAncrJsMsGVRE0Xv6j7rwVilF8oLSQP/KZ9J2aOKkU5cHrptvkgm/Jr5iifGrzM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
+ by MN2PR12MB4533.namprd12.prod.outlook.com (2603:10b6:208:266::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.26; Mon, 30 Oct
+ 2023 13:52:05 +0000
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::33ed:3162:e4ed:3569]) by CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::33ed:3162:e4ed:3569%6]) with mapi id 15.20.6933.028; Mon, 30 Oct 2023
+ 13:52:04 +0000
+Message-ID: <ce1b69e1-fa38-2e12-1ad5-375ac244af42@amd.com>
+Date: Mon, 30 Oct 2023 09:52:00 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: remove redundant check
+Content-Language: en-CA
+To: =?UTF-8?Q?Jos=C3=A9_Pekkarinen?= <jose.pekkarinen@foxhound.fi>,
+ harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ skhan@linuxfoundation.org
+References: <20231029124404.16159-1-jose.pekkarinen@foxhound.fi>
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+In-Reply-To: <20231029124404.16159-1-jose.pekkarinen@foxhound.fi>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0276.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:68::30) To CH0PR12MB5284.namprd12.prod.outlook.com
+ (2603:10b6:610:d7::13)
 MIME-Version: 1.0
-References: <20231027165859.395638-1-robdclark@gmail.com>
- <20231027165859.395638-7-robdclark@gmail.com>
- <597b5bb3-ca75-4662-9904-12c4d8e9101a@amd.com>
-In-Reply-To: <597b5bb3-ca75-4662-9904-12c4d8e9101a@amd.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 30 Oct 2023 06:38:26 -0700
-Message-ID: <CAF6AEGu1Z1k0bKrMZw4-RJSC-nbO=tuDOjQiPmi61_m_1nRCgA@mail.gmail.com>
-Subject: Re: [PATCH 6/7] drm/exec: Pass in initial # of objects
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5284:EE_|MN2PR12MB4533:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2210fe1d-0435-4c48-0248-08dbd94f6653
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: TUYzhs0CLnmwr23cS/36s4UeCIRaPBd0wKCFRMpnCEOOqVbnRwuIaZDkv8ftmVqT8yLwThR1HZlbTUE+zOD2oxmQDWAbw24rnmbBdonvTEyQhXzy+aojNuIpO5cu89T5iVKjoMkkaVnyd9dhDoAcJlMubiiEPn3G+GTDpYtWS/xC6+Oq47y4xjIemVbZJCLNTIUInqKu3lwok19Ke+Fq34rT7iY251mtTTznMqPuPUFe0VxSYLTSrjsMHY8G+/E0jfcgmnBy7iHiOTOsdRcSQOnGni/MgcZNEyAkd/bRtfGfR5r6R1g4DWzNLF9wHYmM8XO9OoQBJZRaEtO9YuY+Sqlnn8eIzZbyu6NF2nsDQllKORWPDkKfuleEqLhkl8fXUcda+aguptE3LRC26vD+iaukVoUKHkYiRBf8aOYjqgKCRa3iyh4XymwyRcjvATVQMA0/RjzOxMBmfvltEwerMGzXaMJRXXTjWGZ9kofVlpGVidGPmswLrGkmAmGqFDsfjjMtU97GEgQIo2rqnxVlEmGgWe734iUvtCrHQ5aCjf1ys8ldHMDAPUYubbvWiqYQI2QhvYynyzoK4AifDvNwuMV7pRAAYsp6cb6QUIXpH/9UeqHc7RRNhBtcBkt+R6rXu2x6ngidUN1UiMFT8idvKMyPTeoUsJWPKs1l+Z2LIs+mg2BjBfWHJzgOMC0YPKgf
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(396003)(366004)(376002)(346002)(39860400002)(136003)(230922051799003)(230273577357003)(230173577357003)(64100799003)(186009)(1800799009)(451199024)(6506007)(53546011)(6666004)(6512007)(6486002)(83380400001)(478600001)(26005)(2616005)(2906002)(5660300002)(66946007)(66476007)(66556008)(8936002)(44832011)(8676002)(4326008)(316002)(31696002)(86362001)(36756003)(38100700002)(41300700001)(31686004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TkphMldpTktnbS9La2pVMFFGbGkrcFlwTHZ0aWpaSTRKbHkvVkRwT0JPeUp3?=
+ =?utf-8?B?WktuU1ZIOHZveTdHUWRUd29NU29jTEpISDhqNGg5YVBxRHVwY3hLb3hCRmU1?=
+ =?utf-8?B?SXJBNW5rdXYrM25Ldm1hbmIyRzRjOXRUeG4wTGdwc21QK2lFWkhmNmhpNURl?=
+ =?utf-8?B?ck9WdlA4K0NVcksrYzhESUQ2TnhaaGlrOThDQVJhbjNnL0crSGUrZE1pMkU4?=
+ =?utf-8?B?R1RHaWpxNmhvcFJuRDhFV1JVRWs2dHN2Z2VTL01TSjV3R3BpZXovOEt0WjVQ?=
+ =?utf-8?B?S0huRUNIWDdwM0hRZzlVMEg5dlhTZkk2eWh3bERrRHh3WTRTV3N3NUlSZDZL?=
+ =?utf-8?B?SkhDOGpFMzVJS2NaWVM0MXVBOElMM2hQaFFYU1IyZzBVYmpaVlEwOWVWOUtp?=
+ =?utf-8?B?cmw5NTBHRUU5akNFMTdZVTJUc0IvTk1WbkdZcjRDMCtoK0oxWmFrQ1RKdWZX?=
+ =?utf-8?B?dzhDb0xzZndub05CekdKOHBYeFJNbXYrZkpBL0xTWk5LS25JS1RJcHZ4NWpZ?=
+ =?utf-8?B?R2JRcHVTU1ZtWExPYzVDdWo3YXlsUFVqMDdPTXdpNUdYeVlmUlZ1NWdJZUto?=
+ =?utf-8?B?U09HU0IyNC9mbFdsMmZuT2IzVUNzSDFBa0JGc2NoWEJXeFZicG5Pd1V4VWQ1?=
+ =?utf-8?B?emJrSi9hcjJZVHN0dDFzZ29yK0lnQkg1WDNWaWRIWVArWURsSmNFMTJMQ3ht?=
+ =?utf-8?B?WDB0eWN2bTNSQUpZeEhVMndvS0l0VWEvMWVBSmI1ajRZK09iUmRnY0JobDNq?=
+ =?utf-8?B?eE5hMjB3OEFVT3hhWmxlRzdpaGkvSVJuTUhlQ2djbXA3M09jNVFmam4zQnpG?=
+ =?utf-8?B?dGZZZlcxRkh0YnFidXFzT01PRXgxNzh4TE5GQk1YYUdxbys2aFo1ZDBxT0oy?=
+ =?utf-8?B?RXBLWXFUY0NOMHZGZG01aVlYQU91SjNDR0lEbHRGbWtXQ2pUaXJubnJaUkF4?=
+ =?utf-8?B?eXhRaDA4WjlSNUZLQnY1UnZDRE9rY3ZGL0VyaHR4STIwNjJRMDFsNzZXbjVE?=
+ =?utf-8?B?RUxua1dGb0huZ2xENEIrY3lvQ0RNMHFVeHp6all0R1hJRE5EZUdlTklJV2Jl?=
+ =?utf-8?B?TDZVWHFtWC9MbmlDS3QwSFkycjl2dVMrcTQvSGRSdjA0bG9qSnBFZG1rT2lp?=
+ =?utf-8?B?bHdteTBma2dCQTN0MlFnelBIcCt6V0Z4TEpzZ3BqaWJSUXo1ckhvRVZVdTJL?=
+ =?utf-8?B?Y1ZSVVBuUzBEK2hNMWxGU05MTzVpUnZORjJUb216cmNGQ1RNakNjaVN5R1RZ?=
+ =?utf-8?B?a0tjZFN2Mk1IYXFRZ0tocE9Sd0NrT2xvM3pHQXNuTkFsb0dGMkpvZWZWekhO?=
+ =?utf-8?B?TWVZWlhNaWVSeE83WXd6R1RnMUZKZzhEYktKUU53VWZ6MWlsQ0laMEl6K3NQ?=
+ =?utf-8?B?NUZyOG05SElucUJoMXdXdzdMcnJRQ1BaWWlXNWtPU2paV2lFMnZIcWc4Y2Fy?=
+ =?utf-8?B?R3dVbmpueXVCV1RtYnZPZkM4U3FveWFqS1IzK0RDUnF6SFVLOTh1YnJhL1lV?=
+ =?utf-8?B?WDA1dXFTVEtCdXY0RmlzL3ZKV2hYSDBuMnBhdjR0R1Iwa2dhVHBOc2lmeUh4?=
+ =?utf-8?B?eHN1ZXBaT3VpK0lvYlJvcEk4YWw1V2tFOFBZM0QyQ0JQTW5JSjdHRXJ1MGpC?=
+ =?utf-8?B?QzZ1cUl4R3U2QUMyQ3J2eVlMNExxaTZMRktnMktza25jZVptV0ZMQVFVOFhN?=
+ =?utf-8?B?NEZQL0x6VjZVc29VN09rcHMxbExZdXFHM0dBeVZZMFRyVU5vd0h0THhnY0pk?=
+ =?utf-8?B?OGpHZlFJdE1oanVXOUV0RDhNMFVvQ1o5VW5aa1ZZWUZibEhkUHhacEgxM3RD?=
+ =?utf-8?B?eVhTV3RjU0UvZitGZXBmQ0FmVENDcm9RNG5NdzBTeHVjd0p1d1Bmdmk5d0tI?=
+ =?utf-8?B?UU1IelkrNmFEVmN2cE4weDhnSUNlZ0dkK0tsTDErUkVXSzkxQVEzYmpGVGpJ?=
+ =?utf-8?B?K21kRWtSc3VWVWl6L05tR2Z0Q1RQNHFON1QvOVNtd3JEVk5YM1FLSUxKZVVm?=
+ =?utf-8?B?NHQ3TS9aUms5RjhyS0swK2dNK3JaNnowcmFleDVTT3hrNFNLQlRkUlJzQkFq?=
+ =?utf-8?B?NnI1cE1pMW1RRm9ia0RhV20yLzNhQlNMY1YveGpuMkNyQ3FLMWV5R3RVb2Y4?=
+ =?utf-8?Q?yfvIuPAiD4UiN6/Dv5t3YAmVA?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2210fe1d-0435-4c48-0248-08dbd94f6653
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2023 13:52:04.7773 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: swi3s53oDuxj3i0pQTXhzRYMB20+xKi0Rx5i93JJgTEY2Rvia0WNuwiUAZ3ayQ7neWROSDrdr+3vmGZJKN9cBw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4533
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,247 +125,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kefeng Wang <wangkefeng.wang@huawei.com>, Karol Herbst <kherbst@redhat.com>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, dri-devel@lists.freedesktop.org,
- Mario Limonciello <mario.limonciello@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- David Airlie <airlied@gmail.com>, Rob Clark <robdclark@chromium.org>,
- Guchun Chen <guchun.chen@amd.com>, Shashank Sharma <shashank.sharma@amd.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- Dong Chenchen <dongchenchen2@huawei.com>, Luben Tuikov <luben.tuikov@amd.com>,
- Ben Skeggs <bskeggs@redhat.com>, Philip Yang <Philip.Yang@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Jack Xiao <Jack.Xiao@amd.com>, Jonathan Kim <jonathan.kim@amd.com>,
- freedreno@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, open list <linux-kernel@vger.kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lang Yu <Lang.Yu@amd.com>
+Cc: dillon.varone@amd.com, linux-kernel-mentees@lists.linuxfoundation.org,
+ dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
+ linux-kernel@vger.kernel.org, samson.tam@amd.com, SyedSaaem.Rizvi@amd.com,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, george.shen@amd.com,
+ alexander.deucher@amd.com, Jun.Lei@amd.com, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 30, 2023 at 1:05=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> Am 27.10.23 um 18:58 schrieb Rob Clark:
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > In cases where the # is known ahead of time, it is silly to do the tabl=
-e
-> > resize dance.
->
-> Ah, yes that was my initial implementation as well, but I ditched that
-> because nobody actually used it.
->
-> One comment below.
->
-> >
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  |  2 +-
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c |  4 ++--
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c |  4 ++--
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c |  4 ++--
-> >   drivers/gpu/drm/drm_exec.c              | 15 ++++++++++++---
-> >   drivers/gpu/drm/nouveau/nouveau_exec.c  |  2 +-
-> >   drivers/gpu/drm/nouveau/nouveau_uvmm.c  |  2 +-
-> >   include/drm/drm_exec.h                  |  2 +-
-> >   8 files changed, 22 insertions(+), 13 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_cs.c
-> > index efdb1c48f431..d27ca8f61929 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > @@ -65,7 +65,7 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_par=
-ser *p,
-> >       }
-> >
-> >       amdgpu_sync_create(&p->sync);
-> > -     drm_exec_init(&p->exec, DRM_EXEC_INTERRUPTIBLE_WAIT);
-> > +     drm_exec_init(&p->exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
-> >       return 0;
-> >   }
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_csa.c
-> > index 720011019741..796fa6f1420b 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
-> > @@ -70,7 +70,7 @@ int amdgpu_map_static_csa(struct amdgpu_device *adev,=
- struct amdgpu_vm *vm,
-> >       struct drm_exec exec;
-> >       int r;
-> >
-> > -     drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT);
-> > +     drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
-> >       drm_exec_until_all_locked(&exec) {
-> >               r =3D amdgpu_vm_lock_pd(vm, &exec, 0);
-> >               if (likely(!r))
-> > @@ -110,7 +110,7 @@ int amdgpu_unmap_static_csa(struct amdgpu_device *a=
-dev, struct amdgpu_vm *vm,
-> >       struct drm_exec exec;
-> >       int r;
-> >
-> > -     drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT);
-> > +     drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
-> >       drm_exec_until_all_locked(&exec) {
-> >               r =3D amdgpu_vm_lock_pd(vm, &exec, 0);
-> >               if (likely(!r))
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_gem.c
-> > index ca4d2d430e28..16f1715148ad 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> > @@ -203,7 +203,7 @@ static void amdgpu_gem_object_close(struct drm_gem_=
-object *obj,
-> >       struct drm_exec exec;
-> >       long r;
-> >
-> > -     drm_exec_init(&exec, DRM_EXEC_IGNORE_DUPLICATES);
-> > +     drm_exec_init(&exec, DRM_EXEC_IGNORE_DUPLICATES, 0);
-> >       drm_exec_until_all_locked(&exec) {
-> >               r =3D drm_exec_prepare_obj(&exec, &bo->tbo.base, 1);
-> >               drm_exec_retry_on_contention(&exec);
-> > @@ -739,7 +739,7 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, voi=
-d *data,
-> >       }
-> >
-> >       drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT |
-> > -                   DRM_EXEC_IGNORE_DUPLICATES);
-> > +                   DRM_EXEC_IGNORE_DUPLICATES, 0);
-> >       drm_exec_until_all_locked(&exec) {
-> >               if (gobj) {
-> >                       r =3D drm_exec_lock_obj(&exec, gobj);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_mes.c
-> > index b6015157763a..3c351941701e 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> > @@ -1105,7 +1105,7 @@ int amdgpu_mes_ctx_map_meta_data(struct amdgpu_de=
-vice *adev,
-> >
-> >       amdgpu_sync_create(&sync);
-> >
-> > -     drm_exec_init(&exec, 0);
-> > +     drm_exec_init(&exec, 0, 0);
-> >       drm_exec_until_all_locked(&exec) {
-> >               r =3D drm_exec_lock_obj(&exec,
-> >                                     &ctx_data->meta_data_obj->tbo.base)=
-;
-> > @@ -1176,7 +1176,7 @@ int amdgpu_mes_ctx_unmap_meta_data(struct amdgpu_=
-device *adev,
-> >       struct drm_exec exec;
-> >       long r;
-> >
-> > -     drm_exec_init(&exec, 0);
-> > +     drm_exec_init(&exec, 0, 0);
-> >       drm_exec_until_all_locked(&exec) {
-> >               r =3D drm_exec_lock_obj(&exec,
-> >                                     &ctx_data->meta_data_obj->tbo.base)=
-;
-> > diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
-> > index 5d2809de4517..27d11c20d148 100644
-> > --- a/drivers/gpu/drm/drm_exec.c
-> > +++ b/drivers/gpu/drm/drm_exec.c
-> > @@ -69,16 +69,25 @@ static void drm_exec_unlock_all(struct drm_exec *ex=
-ec)
-> >    * drm_exec_init - initialize a drm_exec object
-> >    * @exec: the drm_exec object to initialize
-> >    * @flags: controls locking behavior, see DRM_EXEC_* defines
-> > + * @nr: the initial # of objects
-> >    *
-> >    * Initialize the object and make sure that we can track locked objec=
-ts.
-> > + *
-> > + * If nr is non-zero then it is used as the initial objects table size=
-.
-> > + * In either case, the table will grow (be re-allocated) on demand.
-> >    */
-> > -void drm_exec_init(struct drm_exec *exec, uint32_t flags)
-> > +void drm_exec_init(struct drm_exec *exec, uint32_t flags, unsigned nr)
-> >   {
-> > +     size_t sz =3D PAGE_SIZE;
-> > +
-> > +     if (nr)
-> > +             sz =3D (size_t)nr * sizeof(void *);
-> > +
-> >       exec->flags =3D flags;
-> > -     exec->objects =3D kmalloc(PAGE_SIZE, GFP_KERNEL);
-> > +     exec->objects =3D kmalloc(sz, GFP_KERNEL);
->
-> Please use k*v*malloc() here since we can't predict how large that will b=
-e.
 
-or __GFP_NOWARN?  If userspace (or kasan) is cheeky and asks for ~0
-objects, we should probably just fail?
 
-BR,
--R
+On 10/29/2023 8:44 AM, José Pekkarinen wrote:
+> This patch addresses the following warning spotted by
+> using coccinelle where the case checked does the same
+> than the else case.
+> 
+> drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c:4664:8-10: WARNING: possible condition with no effect (if == else)
+> 
+> Signed-off-by: José Pekkarinen <jose.pekkarinen@foxhound.fi>
+> ---
+>   .../drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c   | 4 ----
+>   1 file changed, 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+> index ecea008f19d3..d940dfa5ae43 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+> @@ -4661,10 +4661,6 @@ void dml32_CalculateMinAndMaxPrefetchMode(
+>   	} else if (AllowForPStateChangeOrStutterInVBlankFinal == dm_prefetch_support_uclk_fclk_and_stutter) {
+>   		*MinPrefetchMode = 0;
+>   		*MaxPrefetchMode = 0;
+> -	} else if (AllowForPStateChangeOrStutterInVBlankFinal ==
+> -			dm_prefetch_support_uclk_fclk_and_stutter_if_possible) {
+> -		*MinPrefetchMode = 0;
+> -		*MaxPrefetchMode = 3;
+>   	} else {
+>   		*MinPrefetchMode = 0;
+>   		*MaxPrefetchMode = 3;
 
-> With that fixed the patch is Reviewed-by: Christian K=C3=B6nig
-> <christian.koenig@amd.com>.
->
-> Regards,
-> Christian.
->
-> >
-> >       /* If allocation here fails, just delay that till the first use *=
-/
-> > -     exec->max_objects =3D exec->objects ? PAGE_SIZE / sizeof(void *) =
-: 0;
-> > +     exec->max_objects =3D exec->objects ? sz / sizeof(void *) : 0;
-> >       exec->num_objects =3D 0;
-> >       exec->contended =3D DRM_EXEC_DUMMY;
-> >       exec->prelocked =3D NULL;
-> > diff --git a/drivers/gpu/drm/nouveau/nouveau_exec.c b/drivers/gpu/drm/n=
-ouveau/nouveau_exec.c
-> > index 19024ce21fbb..f5930cc0b3fb 100644
-> > --- a/drivers/gpu/drm/nouveau/nouveau_exec.c
-> > +++ b/drivers/gpu/drm/nouveau/nouveau_exec.c
-> > @@ -103,7 +103,7 @@ nouveau_exec_job_submit(struct nouveau_job *job)
-> >
-> >       nouveau_uvmm_lock(uvmm);
-> >       drm_exec_init(exec, DRM_EXEC_INTERRUPTIBLE_WAIT |
-> > -                         DRM_EXEC_IGNORE_DUPLICATES);
-> > +                         DRM_EXEC_IGNORE_DUPLICATES, 0);
-> >       drm_exec_until_all_locked(exec) {
-> >               struct drm_gpuva *va;
-> >
-> > diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c b/drivers/gpu/drm/n=
-ouveau/nouveau_uvmm.c
-> > index aae780e4a4aa..3a9331a1c830 100644
-> > --- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-> > +++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-> > @@ -1288,7 +1288,7 @@ nouveau_uvmm_bind_job_submit(struct nouveau_job *=
-job)
-> >       }
-> >
-> >       drm_exec_init(exec, DRM_EXEC_INTERRUPTIBLE_WAIT |
-> > -                         DRM_EXEC_IGNORE_DUPLICATES);
-> > +                         DRM_EXEC_IGNORE_DUPLICATES, 0);
-> >       drm_exec_until_all_locked(exec) {
-> >               list_for_each_op(op, &bind_job->ops) {
-> >                       struct drm_gpuva_op *va_op;
-> > diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-> > index b5bf0b6da791..f1a66c048721 100644
-> > --- a/include/drm/drm_exec.h
-> > +++ b/include/drm/drm_exec.h
-> > @@ -135,7 +135,7 @@ static inline bool drm_exec_is_contended(struct drm=
-_exec *exec)
-> >       return !!exec->contended;
-> >   }
-> >
-> > -void drm_exec_init(struct drm_exec *exec, uint32_t flags);
-> > +void drm_exec_init(struct drm_exec *exec, uint32_t flags, unsigned nr)=
-;
-> >   void drm_exec_fini(struct drm_exec *exec);
-> >   bool drm_exec_cleanup(struct drm_exec *exec);
-> >   int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *o=
-bj);
->
+What tree did you use to generate the patch? On amd-staging-drm-next, 
+MaxPrefetchMode is 0 for the second last branch, which is the correct 
+one, so this patch isnt needed.
