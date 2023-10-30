@@ -4,121 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A189EC4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Oct 2023 18:00:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3713BC4167D
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Oct 2023 18:27:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BB0110E358;
-	Mon, 30 Oct 2023 18:00:59 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2068.outbound.protection.outlook.com [40.107.243.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5369D10E358
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Oct 2023 18:00:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g0r3PmG6Ad/o3nTUlzZ7VDAWsI7cgI6j56ZcaeVo7hO0aN5t1mN1wxKb3A0xBSoCLlhXbWKOez5in13k1zVPIIv5gs9A9lgC6KFAvs6rybY1LhI6AgN3S8j2wH+Q+9OlkvCjM4KCVDltZrxWsjOzTdg+QuyKxx//b/TBjKZbQFa0gU1FIimtXtAmBadf+FDoUDm7xirN2oIUlIOTlIyEafIW/BxyX0kPYfYPvFFIdiIjt6iSJdmo4u0Es1jf8/TQjSt0cNZmuCnUEG6cqfBjY9ozS/wsnqRwMJFMBFcesMQsYK0k32hIOeXnfucjIMCvWi8d/bJPkNbdiGQeWe6krQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q1ctWRRviuJBHwnlxBFfLMFbqb07VvvqZmjmMzKWuiQ=;
- b=GBUW/+tPhTgNKvN6/U2D7vLbBw2bjoO9uigjyvHH9UDobzcEwsS+gPafQ2rxSuZidSZ+25bwJxq46GU6MIltYnT5svPOJJXIWkt6Q5YVpfCDteCYfn4oWF3U6GS+3xYbb+shw75Pu+r0TAM3OpdnPJiC8actJc+C3lK67ImMFVjm+VSHVuc248rk/LLONAkmBItm//9HmoHkX2oJ5qqA7oRCkbZT2aIBa7Ffmxd15b++DWFsbBG//khQzyS5/UxmdAdgxiBeTqXMoDa4hnS7t9GONgc2Yd3phsWxv7g9BuwzsoLYnLlyQuSQZrwZ6omQbQUxD6bIj5mjFaREJsRHtQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q1ctWRRviuJBHwnlxBFfLMFbqb07VvvqZmjmMzKWuiQ=;
- b=DO04J3W/54h+t5Nosrp1DDw01FHjUW6hCFFvItau7BBPCVNuPc5XXgFW7a/26jcyKrUt7WrjPgoPU1AmMhZ3Pqj9/fjgoyYHhWLQGVOfGtH4k3OXkU7nEria4f/c3u/Gz2tGuSn41BTFJlDCl9vGcVPvSZ/QzNqhZY9VlrV+uWc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DS0PR12MB8270.namprd12.prod.outlook.com (2603:10b6:8:fe::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.27; Mon, 30 Oct
- 2023 18:00:54 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::ca80:8f1c:c11:ded3]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::ca80:8f1c:c11:ded3%6]) with mapi id 15.20.6933.029; Mon, 30 Oct 2023
- 18:00:53 +0000
-Message-ID: <6129c413-73c7-4ae7-91d6-9311cbd21eb9@amd.com>
-Date: Mon, 30 Oct 2023 19:00:49 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] drm/amdkfd: Run restore_workers on freezable WQs
-Content-Language: en-US
-To: Felix Kuehling <felix.kuehling@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx@lists.freedesktop.org
-References: <20231027223911.2640763-1-Felix.Kuehling@amd.com>
- <8e81a28a-5d50-44df-b441-6ceb2133c5e9@amd.com>
- <da7010c1-6b11-41f6-986d-796539073451@amd.com>
- <39374cfe-9c98-46bc-8b3d-196e50a65839@gmail.com>
- <f1d1b3e1-fac3-49a2-97f8-7cf9ede8c064@amd.com>
- <2e1e1fd3-ae15-4faa-98a6-a71ba3d8fafe@amd.com>
- <b6f9450c-c12e-4c2b-988a-bbb79c2ce6aa@amd.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <b6f9450c-c12e-4c2b-988a-bbb79c2ce6aa@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0270.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b5::16) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52DD210E0FD;
+	Mon, 30 Oct 2023 18:27:15 +0000 (UTC)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFBD710E055;
+ Mon, 30 Oct 2023 18:27:13 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-507a0907896so6912579e87.2; 
+ Mon, 30 Oct 2023 11:27:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1698690432; x=1699295232; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=68ru9uL7QOJiXYVvDv7F1f/kURJOj/MVfTQISNyePXw=;
+ b=kbFI5RE9+2HszQcQtf+N+aM7KxwX4Jip1pR/ezCDz+SWklPFrNE4Q4UT9J9sg9LBuG
+ zyyT8Go/SYdvLuj5+WSf0l7UEAKMxwL/Yop0v8xQ1+SM6hQb9d67Ou33/S6Bg7Kdr01X
+ xPMMb73agbFQlNGH4MXpF35gp9RHo1siy//SkBLvipFlkoJsKch1WdPi7xIJwtoKTUGX
+ RJTWMovvi//CkAQ+eF6epF1MWip4PaL55wetJw1sYpHHE9acLrfcNYgQpbbpNLBJTmtI
+ UkEAQiLPXwCNnr3uxLNodfhVkoq3s+bI1KvpPpEqgSmcX3qPXvPpEFyMrQokkkE5yx2C
+ 4+Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1698690432; x=1699295232;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=68ru9uL7QOJiXYVvDv7F1f/kURJOj/MVfTQISNyePXw=;
+ b=Uu5c7/laEHJUxWXtr4eW5cAqVuVXRdP8XAu2ZQvnPq/p/aJSrarTsMw1wINuahjSyV
+ o3WE+iJLy/h5yGBcZwcjQy9yH/hMXhQiLVyZwz+KdDr6Dq0PwO8yF29A08N5HaGj1uhI
+ iFZAwY+0+Aw8Rqihz8Lo06oHB7cv32X/jB4i/lZs4vVKppntS48steNzG+xTRRFOXOrv
+ LBEymprPe4I4vGrFHX3mIyUgLliDD1CBp4Mh6m6tJqmdkr3rPLCV+a/0IB6afeVn7Qeg
+ Qq+bQw9RrPa4rOitoa9XB44mMfVaO6WId3LiWDDAiy/HH/KUZd8SHhGmcCEZsrozvXqK
+ 0KCg==
+X-Gm-Message-State: AOJu0YyENN5DFI8QeDmBA6iS3Z2OhnldcFkk8+n/MLP6mdA2N4djwtbw
+ gaqRErx6rjyi5yySLPfzAoainVKpsa5IOLl7Hmo=
+X-Google-Smtp-Source: AGHT+IHYr1b1vlP+xjU2P6kzEETyjPXpEnHyblf9hzTh9kwbBkX03iDZkkdZd+RgmmfoxDH0tVEbBXblpMLqhuFLLSA=
+X-Received: by 2002:a05:6512:1107:b0:508:1178:efa4 with SMTP id
+ l7-20020a056512110700b005081178efa4mr9236721lfg.55.1698690431567; Mon, 30 Oct
+ 2023 11:27:11 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DS0PR12MB8270:EE_
-X-MS-Office365-Filtering-Correlation-Id: 01abb166-c4f4-45b4-73a0-08dbd9722881
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OWSMpmr0jGbN4eG1lnVfVwoEVoE7wZQLRvxTrnMf+vEpDzMPZboYG/ULWp8lt8imw0fu0hL/LqOBfFaV/vqD+l+TY/zWYRQR9JmSTvC1MY6kec1L2mKKPSuQ23RbqignTXyR0Kpowta3P9DtLb7TclHRdEG1/QbI3ThCCyoTHzr+Z7GgNvdRlGe5wQldnc3wYf+1YgAbtfFZ/NQ93Hz67J7AjruDVkxamK8wZvARex+Kc3skftxeZF0BWRC6lx+tZkpDszYAGVWosZV8i+Hkt98PwI/Mkb1777WOf0GCnxWcMFMXX0t8Kt9s1pcQQk46OPoy38rbaP6WgzdksJcxWMSOhryE/OYrNPEgCLxQXk75aPLuep03BMH0qC3T27in6G9YpPOcxH2LdIHUHqmOAAcQ09mFcE0+qcoTnYoWVtumrmrMnGPXa0owZvCsjRUEfICecUdI4hgQIx/jzFAcXlK/Q3pZq1WpnaBv+BD4JyyuKDpLyXAH2kipCOMl6pH/puq97OAO5YVuN+X2N5c1dGqcSWcBdDX4K1SatGWge/r7CGtXxkHTvYDJXXYwJ+HnYoMGEx45YL+SSz4JDZk/ybcYtXfh6cSxC+S5V60FiiDvljTyo6k123HXRGoDeuQ7xeZ3h4ncodKGDPEjTaVCqg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(39860400002)(136003)(366004)(346002)(396003)(230922051799003)(186009)(1800799009)(64100799003)(451199024)(31686004)(6512007)(26005)(38100700002)(36756003)(86362001)(31696002)(4001150100001)(83380400001)(2906002)(478600001)(6506007)(66574015)(53546011)(6666004)(66476007)(8936002)(8676002)(6486002)(2616005)(316002)(4326008)(41300700001)(66946007)(5660300002)(110136005)(66556008)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NW1EVE01RWtPK1NSRStTSWhoSjZqZ1VaUzhpQjNSenFWVkNRK0N5WGdnSDcr?=
- =?utf-8?B?NHRVREROVmtjejNrZ3ozZDdEMTZ3dUtWUExrTytFTklaaHZ4REtTRVhOMzNQ?=
- =?utf-8?B?ODFEd1kycG5oQlV2V3A1RHF5UTQrZ2Ztd2l4UzN2bEZSUjI3alV5ZTZRR1dP?=
- =?utf-8?B?aVh2amdOOVI5elhkTjluOEE4QUpUUnRWd0ZKQmdTZVVLL3o5anRMckJ6OVJE?=
- =?utf-8?B?RGxaMWl6djVtaFFiRC9UcGxoTlU2OXArVlRlY3pNcFZpaVVSOHZJK2owZ3Jt?=
- =?utf-8?B?eVMrT3J0SmwyZVo5TXdmclJWNW1reFZ2cXJ4eS9RQjNJNTU0Y0k4c2ZwdStp?=
- =?utf-8?B?TjJvZWNxTHhqTHJ0WDlUTGhZTjBHODVMZ2JDY2NTZmttUXZIN29OeEtEbjNW?=
- =?utf-8?B?cDV4c0JtMG8xR3dJYm04UWdyNmhkcTExZis1UzhBTW1oRHo0cFF6Qm9vUlUw?=
- =?utf-8?B?SS9ESWRIQlZHbDhxRUQ5cWtEcmZydDRaMURRQ2I3djhYczlyamJwdit2OHAv?=
- =?utf-8?B?K1dnVTJEY2xMeU1WS2o3ZlhIRWlWOEJ1TlZBYlFMczJUMVB5UTMwYjYrS3I3?=
- =?utf-8?B?NDFaR0JKdHAyQ0JENTVvY2xFdFU4aUR3Vm10c1dUdkJQM1I5U29zUmhYNmZM?=
- =?utf-8?B?YVJHaklLSlBJR0hUT0pQYUtCZmNPTTUvdUpHMnRSZ05paDEwZWRuWUtRK1pj?=
- =?utf-8?B?M3lWRDJ1VDFqSHEwa3l5UkFvS3VUTkx1MEY5WEtiaWFkNVFhNHZiWkFYTDZh?=
- =?utf-8?B?Q2pZMkpQTWFJQktqZ09CTkt2VisrSVhZVWxBUGxTRGl6L1hBOVBxWnFFMVps?=
- =?utf-8?B?OTZVRHQ4TUltTzYzaFJJZ1lVTmRJL0x2MU54UTM4SW9ta2FYVkVYZ2JjUFQr?=
- =?utf-8?B?OWFacVhqZk1VVkczV2hGS0huSUEyUFh3QStOUWdwMERkKzdnMWhTUHRvZ2ox?=
- =?utf-8?B?d1g5dzU0ay9oOGh5RVVtbTd4bmNvdTBYVUx5UmJmeWc4Yy9ZdThQajZsQU9h?=
- =?utf-8?B?N0ROdGptRHNDZ3lrZUhiVXYwS2htTnd0Q3NsdnZaNnpXRFJmdTlPUENIQU9j?=
- =?utf-8?B?UVI3a1NESEJkRWJkNklzSEk4VHJLN3Rtb015dDIwSTNkUGNSdlZMMEp5UHgz?=
- =?utf-8?B?a0NZWGhqVFFEczNxaUdSRm1nOVBQY2lqK2E1K3RvWVVKMk5BSElJdnV0YU1N?=
- =?utf-8?B?Qm8zcHlCajE3MEpyUXlnTXdWOTFUdzZ2TElSZmNHMHhJNDdaMkp3am15MDVY?=
- =?utf-8?B?elY1Q0VSM3BmOWNPalJKWXJYWUJIanNKcU5YWFB3UHA5SHFnQ2RhTElCcyt1?=
- =?utf-8?B?QlNYd2E5TjQxWXI1S3dmcVU1Y0tOUU1HK2ZhMGd1S0pUM2FhSmFuK0QreGlI?=
- =?utf-8?B?ZDVrc2xwMTZ4RmtVNEdHbFd4OFdoZjI3WVV5amlrNXdyS2lvcFFoUXhSWE80?=
- =?utf-8?B?WnJyWlpZUW41eGZKb3VVNUJEZEFiVjVndnljODZaM1hiVU5pY2xBdHNTMElO?=
- =?utf-8?B?dWpOSDFmT0JpZkFJeUZNNElIQkNJVW9NQVBxZ0pFOFcxS3ZWTnE3cGxscFow?=
- =?utf-8?B?MCtYazd3dmRWbGFZcGY4ZTdPanlrQXJuakdybDhWSDJNQlI4dG1PaXhsSFha?=
- =?utf-8?B?U1RMclZ6cXRGZ0pKSG5JQzdWMHhrR2pUem1sWjdqWnByYVJBMWx5cm9TLzhh?=
- =?utf-8?B?NzFFbFpiaXhnZVBtWkJqV2htbmF0a1ltUCtYa3RnclAvSHdUNEdmZ3Y0U3Jo?=
- =?utf-8?B?ekErV1NiRXl2NmpRSzZOdG5oamNFZUNLTkhnRkQ1eEM4TWtpSVVIZFNOVERw?=
- =?utf-8?B?MFZwZnlZR2tMc1U3d3RsN2cyRTRLTUNwb3NNWnIrZUNJTTVWSHU5QklLMWRX?=
- =?utf-8?B?akRxMUdWbE02TVJrRHk3QytWZWRudmRlWVNadDdmOW9Qc1F2TEZoaGs0OEpV?=
- =?utf-8?B?eGVJTjVNODZTZmZ0RVpHa0NzblBlYjhqYm52clh5QnZkMmYzbEROSEF3T21q?=
- =?utf-8?B?b0RENW9PZ1F0aDk0VkNCc1dybHlQdk5PYkExUmdxV2FkL3hodUJUcFY5U2hh?=
- =?utf-8?B?UVlVamt3emJHOVhWanA0YjdDTlRCR1JjLy8vWWRYR2tPN3dSc1M4SUY2MG5X?=
- =?utf-8?Q?v0ZgCvRoyFcGk2RE8hu6YPixD?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01abb166-c4f4-45b4-73a0-08dbd9722881
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2023 18:00:53.4816 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Rvh+fs+PjNnBTEgydy75Qpr+RMHQ/U35YNqSPruU8hvmhyPBKoniUr6oTwuTu3VC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8270
+References: <20231027165859.395638-1-robdclark@gmail.com>
+ <20231027165859.395638-7-robdclark@gmail.com>
+ <597b5bb3-ca75-4662-9904-12c4d8e9101a@amd.com>
+ <CAF6AEGu1Z1k0bKrMZw4-RJSC-nbO=tuDOjQiPmi61_m_1nRCgA@mail.gmail.com>
+ <836a6052-ad23-4a5f-9eb5-a7b5361b568c@gmail.com>
+In-Reply-To: <836a6052-ad23-4a5f-9eb5-a7b5361b568c@gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 30 Oct 2023 11:26:59 -0700
+Message-ID: <CAF6AEGsq+LApqQQA9z9p+ce4CN-eant==y5hcOzNZ0PccHFCnQ@mail.gmail.com>
+Subject: Re: [PATCH 6/7] drm/exec: Pass in initial # of objects
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,99 +71,270 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: emily.deng@amd.com, xinhui.pan@amd.com
+Cc: Kefeng Wang <wangkefeng.wang@huawei.com>, Karol Herbst <kherbst@redhat.com>,
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>, dri-devel@lists.freedesktop.org,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ David Airlie <airlied@gmail.com>, Rob Clark <robdclark@chromium.org>,
+ Guchun Chen <guchun.chen@amd.com>, Shashank Sharma <shashank.sharma@amd.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ Dong Chenchen <dongchenchen2@huawei.com>, Luben Tuikov <luben.tuikov@amd.com>,
+ Philip Yang <Philip.Yang@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Jack Xiao <Jack.Xiao@amd.com>, Jonathan Kim <jonathan.kim@amd.com>,
+ Lang Yu <Lang.Yu@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, open list <linux-kernel@vger.kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>, freedreno@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 30.10.23 um 18:56 schrieb Felix Kuehling:
-> On 2023-10-30 13:48, Christian König wrote:
->>
->>
->> Am 30.10.23 um 18:38 schrieb Felix Kuehling:
->>> On 2023-10-30 12:16, Christian König wrote:
->>>>>>> @@ -1904,6 +1906,19 @@ kfd_process_gpuid_from_node(struct 
->>>>>>> kfd_process *p, struct kfd_node *node,
->>>>>>>       return -EINVAL;
->>>>>>>   }
->>>>>>>   +static void signal_eviction_fence(struct kfd_process *p)
->>>>>>> +{
->>>>>>> +    spin_lock(&p->ef_lock);
->>>>>>> +    if (!p->ef)
->>>>>>> +        goto unlock_out;
->>>>>>> +    dma_fence_signal(p->ef);
->>>>>>
->>>>>> This needs to grab the internal lock of the eviction fence, I'm 
->>>>>> not sure that has correct ordering with the newly added ef_lock.
->>>>>
->>>>> Hmm, the only thing we could get a circular lock dependency would 
->>>>> be, if we took the p->ef_lock in a fence callback. I don't think 
->>>>> that ever happens, because even the eviction work runs on a worker 
->>>>> thread (exactly to avoid such lock dependency issues).
->>>>>
->>>>> Anyway, I could try to move the fence_signal out of the critical 
->>>>> section. The lock is only there to ensure that exactly one process 
->>>>> signals and frees the fence.
->>>>>
->>>>
->>>> So basically either the eviction worker or the GPU reset could 
->>>> signal this fence.
->>>>
->>>> In that case I think it would be simpler to grab the reset lock in 
->>>> the eviction worker to protect against a concurrent reset.
->>>
->>> Which reset lock? adev->reset_cntl->reset_lock? I only see that lock 
->>> taken in aldebaran_mode2_perform_reset. I don't understand why this 
->>> is in ASIC-specific code. But even so, it's only taken during the 
->>> actual reset (in aldebaran_mode2_perform_reset). I don't think it 
->>> covers the pre-reset code path that signals the eviction fence.
->>
->> No, what I mean is adev->reset_domain->sem. It's hold in write lock 
->> during the reset and you can grab the read side if you need to delay 
->> a reset.
->>
->> But thinking about that a bit more, you actually don't need any of 
->> this. Something like this here should do fine:
->>
->> tmp = dma_fence_get_rcu_safe(&p->ef);
->> dma_fence_signal(tmp);
->> dma_fence_put(tmp);
+On Mon, Oct 30, 2023 at 9:01=E2=80=AFAM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
 >
-> dma_fence_get_rcu_safe gets a new reference that dma_fence_put drops. 
-> It doesn't drop the original reference in p->ef.
+> Am 30.10.23 um 14:38 schrieb Rob Clark:
+> > On Mon, Oct 30, 2023 at 1:05=E2=80=AFAM Christian K=C3=B6nig
+> > <christian.koenig@amd.com> wrote:
+> >> Am 27.10.23 um 18:58 schrieb Rob Clark:
+> >>> From: Rob Clark <robdclark@chromium.org>
+> >>>
+> >>> In cases where the # is known ahead of time, it is silly to do the ta=
+ble
+> >>> resize dance.
+> >> Ah, yes that was my initial implementation as well, but I ditched that
+> >> because nobody actually used it.
+> >>
+> >> One comment below.
+> >>
+> >>> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> >>> ---
+> >>>    drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  |  2 +-
+> >>>    drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c |  4 ++--
+> >>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c |  4 ++--
+> >>>    drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c |  4 ++--
+> >>>    drivers/gpu/drm/drm_exec.c              | 15 ++++++++++++---
+> >>>    drivers/gpu/drm/nouveau/nouveau_exec.c  |  2 +-
+> >>>    drivers/gpu/drm/nouveau/nouveau_uvmm.c  |  2 +-
+> >>>    include/drm/drm_exec.h                  |  2 +-
+> >>>    8 files changed, 22 insertions(+), 13 deletions(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_cs.c
+> >>> index efdb1c48f431..d27ca8f61929 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> >>> @@ -65,7 +65,7 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_p=
+arser *p,
+> >>>        }
+> >>>
+> >>>        amdgpu_sync_create(&p->sync);
+> >>> -     drm_exec_init(&p->exec, DRM_EXEC_INTERRUPTIBLE_WAIT);
+> >>> +     drm_exec_init(&p->exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
+> >>>        return 0;
+> >>>    }
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_csa.c
+> >>> index 720011019741..796fa6f1420b 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
+> >>> @@ -70,7 +70,7 @@ int amdgpu_map_static_csa(struct amdgpu_device *ade=
+v, struct amdgpu_vm *vm,
+> >>>        struct drm_exec exec;
+> >>>        int r;
+> >>>
+> >>> -     drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT);
+> >>> +     drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
+> >>>        drm_exec_until_all_locked(&exec) {
+> >>>                r =3D amdgpu_vm_lock_pd(vm, &exec, 0);
+> >>>                if (likely(!r))
+> >>> @@ -110,7 +110,7 @@ int amdgpu_unmap_static_csa(struct amdgpu_device =
+*adev, struct amdgpu_vm *vm,
+> >>>        struct drm_exec exec;
+> >>>        int r;
+> >>>
+> >>> -     drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT);
+> >>> +     drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
+> >>>        drm_exec_until_all_locked(&exec) {
+> >>>                r =3D amdgpu_vm_lock_pd(vm, &exec, 0);
+> >>>                if (likely(!r))
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_gem.c
+> >>> index ca4d2d430e28..16f1715148ad 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> >>> @@ -203,7 +203,7 @@ static void amdgpu_gem_object_close(struct drm_ge=
+m_object *obj,
+> >>>        struct drm_exec exec;
+> >>>        long r;
+> >>>
+> >>> -     drm_exec_init(&exec, DRM_EXEC_IGNORE_DUPLICATES);
+> >>> +     drm_exec_init(&exec, DRM_EXEC_IGNORE_DUPLICATES, 0);
+> >>>        drm_exec_until_all_locked(&exec) {
+> >>>                r =3D drm_exec_prepare_obj(&exec, &bo->tbo.base, 1);
+> >>>                drm_exec_retry_on_contention(&exec);
+> >>> @@ -739,7 +739,7 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, v=
+oid *data,
+> >>>        }
+> >>>
+> >>>        drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT |
+> >>> -                   DRM_EXEC_IGNORE_DUPLICATES);
+> >>> +                   DRM_EXEC_IGNORE_DUPLICATES, 0);
+> >>>        drm_exec_until_all_locked(&exec) {
+> >>>                if (gobj) {
+> >>>                        r =3D drm_exec_lock_obj(&exec, gobj);
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_mes.c
+> >>> index b6015157763a..3c351941701e 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> >>> @@ -1105,7 +1105,7 @@ int amdgpu_mes_ctx_map_meta_data(struct amdgpu_=
+device *adev,
+> >>>
+> >>>        amdgpu_sync_create(&sync);
+> >>>
+> >>> -     drm_exec_init(&exec, 0);
+> >>> +     drm_exec_init(&exec, 0, 0);
+> >>>        drm_exec_until_all_locked(&exec) {
+> >>>                r =3D drm_exec_lock_obj(&exec,
+> >>>                                      &ctx_data->meta_data_obj->tbo.ba=
+se);
+> >>> @@ -1176,7 +1176,7 @@ int amdgpu_mes_ctx_unmap_meta_data(struct amdgp=
+u_device *adev,
+> >>>        struct drm_exec exec;
+> >>>        long r;
+> >>>
+> >>> -     drm_exec_init(&exec, 0);
+> >>> +     drm_exec_init(&exec, 0, 0);
+> >>>        drm_exec_until_all_locked(&exec) {
+> >>>                r =3D drm_exec_lock_obj(&exec,
+> >>>                                      &ctx_data->meta_data_obj->tbo.ba=
+se);
+> >>> diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
+> >>> index 5d2809de4517..27d11c20d148 100644
+> >>> --- a/drivers/gpu/drm/drm_exec.c
+> >>> +++ b/drivers/gpu/drm/drm_exec.c
+> >>> @@ -69,16 +69,25 @@ static void drm_exec_unlock_all(struct drm_exec *=
+exec)
+> >>>     * drm_exec_init - initialize a drm_exec object
+> >>>     * @exec: the drm_exec object to initialize
+> >>>     * @flags: controls locking behavior, see DRM_EXEC_* defines
+> >>> + * @nr: the initial # of objects
+> >>>     *
+> >>>     * Initialize the object and make sure that we can track locked ob=
+jects.
+> >>> + *
+> >>> + * If nr is non-zero then it is used as the initial objects table si=
+ze.
+> >>> + * In either case, the table will grow (be re-allocated) on demand.
+> >>>     */
+> >>> -void drm_exec_init(struct drm_exec *exec, uint32_t flags)
+> >>> +void drm_exec_init(struct drm_exec *exec, uint32_t flags, unsigned n=
+r)
+> >>>    {
+> >>> +     size_t sz =3D PAGE_SIZE;
+> >>> +
+> >>> +     if (nr)
+> >>> +             sz =3D (size_t)nr * sizeof(void *);
+> >>> +
+> >>>        exec->flags =3D flags;
+> >>> -     exec->objects =3D kmalloc(PAGE_SIZE, GFP_KERNEL);
+> >>> +     exec->objects =3D kmalloc(sz, GFP_KERNEL);
+> >> Please use k*v*malloc() here since we can't predict how large that wil=
+l be.
+> > or __GFP_NOWARN?  If userspace (or kasan) is cheeky and asks for ~0
+> > objects, we should probably just fail?
 >
-> I need a way to ensure that exactly one thread frees the original 
-> reference in p->ef. Even with RCU, concurrent writers still need a 
-> lock or a mutex. So I don't think I can avoid using another lock here 
-> because I have potentially two concurrent writers.
+> Oh, good point! If this value is controlled by userspace we must be much
+> more careful.
+>
+> Instead of __GFP_NOWARN or any other workaround we should use
+> kvmalloc_array() here.
+>
+> Maybe turn the code upside down, in other words something like this here:
+>
+> if (!nr)
+>      nr =3D PAGE_SIZE / sizeof(void *);
+>
+> exec->objects =3D kvmalloc_array(nr, sizeof(void *), GFP_KERNEL);
+> exec->max_objects =3D exec->objects ? nr : 0;
 
-Mhm, why would you need that? Isn't p->ef be replaced with a new fence 
-when the process is restored?
+oh, good point
 
-Or do you go from fence->NULL->fence? If that's the case then yeah the 
-lock is probably your only option.
-
-Regards,
-Christian.
+BR,
+-R
 
 >
 > Regards,
->   Felix
+> Christian.
 >
+> >
+> > BR,
+> > -R
+> >
+> >> With that fixed the patch is Reviewed-by: Christian K=C3=B6nig
+> >> <christian.koenig@amd.com>.
+> >>
+> >> Regards,
+> >> Christian.
+> >>
+> >>>        /* If allocation here fails, just delay that till the first us=
+e */
+> >>> -     exec->max_objects =3D exec->objects ? PAGE_SIZE / sizeof(void *=
+) : 0;
+> >>> +     exec->max_objects =3D exec->objects ? sz / sizeof(void *) : 0;
+> >>>        exec->num_objects =3D 0;
+> >>>        exec->contended =3D DRM_EXEC_DUMMY;
+> >>>        exec->prelocked =3D NULL;
+> >>> diff --git a/drivers/gpu/drm/nouveau/nouveau_exec.c b/drivers/gpu/drm=
+/nouveau/nouveau_exec.c
+> >>> index 19024ce21fbb..f5930cc0b3fb 100644
+> >>> --- a/drivers/gpu/drm/nouveau/nouveau_exec.c
+> >>> +++ b/drivers/gpu/drm/nouveau/nouveau_exec.c
+> >>> @@ -103,7 +103,7 @@ nouveau_exec_job_submit(struct nouveau_job *job)
+> >>>
+> >>>        nouveau_uvmm_lock(uvmm);
+> >>>        drm_exec_init(exec, DRM_EXEC_INTERRUPTIBLE_WAIT |
+> >>> -                         DRM_EXEC_IGNORE_DUPLICATES);
+> >>> +                         DRM_EXEC_IGNORE_DUPLICATES, 0);
+> >>>        drm_exec_until_all_locked(exec) {
+> >>>                struct drm_gpuva *va;
+> >>>
+> >>> diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c b/drivers/gpu/drm=
+/nouveau/nouveau_uvmm.c
+> >>> index aae780e4a4aa..3a9331a1c830 100644
+> >>> --- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+> >>> +++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+> >>> @@ -1288,7 +1288,7 @@ nouveau_uvmm_bind_job_submit(struct nouveau_job=
+ *job)
+> >>>        }
+> >>>
+> >>>        drm_exec_init(exec, DRM_EXEC_INTERRUPTIBLE_WAIT |
+> >>> -                         DRM_EXEC_IGNORE_DUPLICATES);
+> >>> +                         DRM_EXEC_IGNORE_DUPLICATES, 0);
+> >>>        drm_exec_until_all_locked(exec) {
+> >>>                list_for_each_op(op, &bind_job->ops) {
+> >>>                        struct drm_gpuva_op *va_op;
+> >>> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
+> >>> index b5bf0b6da791..f1a66c048721 100644
+> >>> --- a/include/drm/drm_exec.h
+> >>> +++ b/include/drm/drm_exec.h
+> >>> @@ -135,7 +135,7 @@ static inline bool drm_exec_is_contended(struct d=
+rm_exec *exec)
+> >>>        return !!exec->contended;
+> >>>    }
+> >>>
+> >>> -void drm_exec_init(struct drm_exec *exec, uint32_t flags);
+> >>> +void drm_exec_init(struct drm_exec *exec, uint32_t flags, unsigned n=
+r);
+> >>>    void drm_exec_fini(struct drm_exec *exec);
+> >>>    bool drm_exec_cleanup(struct drm_exec *exec);
+> >>>    int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object=
+ *obj);
 >
->>
->> dma_fences are always RCU protected and can be signaled from multiple 
->> sources by design.
->>
->> Regards,
->> Christian.
->>
->>>
->>> Regards,
->>>   Felix
->>>
->>>
->>>>
->>>> Regards,
->>>> Christian.
->>
-
