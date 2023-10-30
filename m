@@ -4,71 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1341EC4167B
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Oct 2023 15:52:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BFB0C4167B
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Oct 2023 15:59:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8881510E2F7;
-	Mon, 30 Oct 2023 15:52:33 +0000 (UTC)
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D606E10E0E2;
- Mon, 30 Oct 2023 15:52:30 +0000 (UTC)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-9d216597f64so297181666b.3; 
- Mon, 30 Oct 2023 08:52:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698681149; x=1699285949; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=qcBEi1lBI38DN/iPYBUEKFD33e1P8VGGwEZLkT86i0o=;
- b=f4FN5c+2AwhtsHhWCobNu4oVMQMXQLdemGVNbGjtQAhMCowzLZeTPQ8/afF149A/Dc
- Jhu7fRpXKS0MkbMwwPT6kxBXFSjvtNNDAGO9gyC9jvD+seWPvm1ApNPb8+eRbjpxfszy
- YTQlQidt2n96nV0ltlQxHriJjlSOOpxyGDQdNbODBDn/o8bDHI33GTPcl2uvwHZ1L9Dh
- gVQ//MC+uVTIsKV6G+4HTAtnRL8HnWhVqlWRuzBNSVDgEk3t84zsQTUkMmZuaNLSqoJu
- hgOrPLGVM74q7HIm46HRPthWhRoaQFRkeZ5dN9HAO3V4tlUP94oqenatQrPnmiF8gfVE
- VXjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698681149; x=1699285949;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=qcBEi1lBI38DN/iPYBUEKFD33e1P8VGGwEZLkT86i0o=;
- b=bPB/+Zz48KgtCUdJQ0ehKwmNYjBTEnw6TWvoZ3w4pewEWzdbYE3dtZACctpyya7oby
- 6wuLqv79KELRNLGy+bJ1nQ4HJG4YFgNRVRNbiw+D8oDZ3V2+GpU0NWcslI2HQe3BgO+z
- Ohlawe3ZQdWUeEVbb/s9QYFkKY+cyB7GsDWLvalRdMIrFDXXrHUyTN1ursMaH8WO0los
- wf6hSOqBH20+HxNB9F/G7WdL011YpdPt3C7ImPNhR8VhViVEURY5TrgXaqhAjD+xyCAE
- DRmx96OqeSD37w0vUCDK4Ib/XpsCRe2dKju/3T6foNVc5iK5mvY3HRRv5olRIYXutI05
- Qhfg==
-X-Gm-Message-State: AOJu0YyfT2uDn6ysIAMt4uY+HfDDyIPnOz6Iod1r1u7UNL540XCx9nDi
- LgPRfaFLdTqclHtSKovbykc=
-X-Google-Smtp-Source: AGHT+IGlois2Urfp4DO3dHoJNYIFRP6cbF1tyrafdH0gLp9u4cmMpfl/mWbX2MVvH6o1Af4Rzoxv1A==
-X-Received: by 2002:a17:906:80da:b0:9d3:ccd1:a922 with SMTP id
- a26-20020a17090680da00b009d3ccd1a922mr2329078ejx.58.1698681149064; 
- Mon, 30 Oct 2023 08:52:29 -0700 (PDT)
-Received: from [192.168.178.25] ([134.19.60.47])
- by smtp.gmail.com with ESMTPSA id
- lo10-20020a170906fa0a00b00993a37aebc5sm6100891ejb.50.2023.10.30.08.52.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Oct 2023 08:52:28 -0700 (PDT)
-Message-ID: <403a0750-361e-4218-8c83-a085966349e4@gmail.com>
-Date: Mon, 30 Oct 2023 16:52:25 +0100
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1978A10E30E;
+	Mon, 30 Oct 2023 15:59:37 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20618.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::618])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C998A8916D;
+ Mon, 30 Oct 2023 15:59:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mQfeXlJ5KXDUtfnQnonta2PyCs6ESKjpWYkDHDBtM2ZM9KtmFoTJkHmbjLFoV6RxgMPWTYZ6h9lAEPMHW2wWbVMN1WXMTFLxO/zsGqm33uBDPy4kF0iRGR+ePHJEMHhwBx0aqDv7ovtFRi8FbOKBEqUANVdgW1e/YMZj/qvJlAmpYUnkqRKZNMTb5Ckkf8K9xjFU12upaMtErfxC2Vh6KdzYWQ4aHS8S9ywSJ509Q9TBcl3bbJOW4Dx1pzPADpmoEA3xQSmfU/lMEF3bjw1REkm9JPrvbmjxt+4e/nkCBSLayv9sZGCrFu9YuQ7kbQ8ZBT0tJZL8pcV1COPAKOCH6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0wkET0b+zKP9zEWzUOjDCwVGNWa6mOth6GWfbKVsw6E=;
+ b=Bfg1w/0K9M8Avk9ElIuOzJZD+LPvllCAeCZPGvjC870UCqB9sJZeLxbmCPhb+Im9skZCVqyenUt124hfCHjXNQFG2UpJY0ROpQe4GTpA8m+ki1fzn3UL+wdaKDHK8nGGy+g3AywAX2x5+rEyQyxQOcSD7/ZuXsjBJVkNfTVr1Iyk50dYqpux9dX9F/seZ9bTCb90qW0v1LDRZN4mfVmKXGkhmn4X/s+V+bsLFO8fjoD9IpXkF0P+ZxCKnuiFz52jp0PF3xKwv9Ar4XO7O/WCARftFokHGBAr/9l+FFcmXGwkn577zIvcdwdHGAUQLEEEuNOkcU9jUMmeeTpjlGbQmA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0wkET0b+zKP9zEWzUOjDCwVGNWa6mOth6GWfbKVsw6E=;
+ b=Bzh4Rc4j0w59NQq52ccEPULLT7Ig6AWOzqFVS1pvCDBqZO4O5cSgw5/LZeqJ2XDo8iEBVVo/xNtaCF8fv5VWdInTdu8qE511jfL2lsu6RCzxeXdnhcs9t0wlPhu2nj2MbcmkzJ7h0D/CboWHqA+wlgCPl/6QjDkc9sPi+/YeScM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB2941.namprd12.prod.outlook.com (2603:10b6:208:a9::12)
+ by IA1PR12MB6388.namprd12.prod.outlook.com (2603:10b6:208:388::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.26; Mon, 30 Oct
+ 2023 15:59:30 +0000
+Received: from MN2PR12MB2941.namprd12.prod.outlook.com
+ ([fe80::5f1e:bfb0:43e5:dc81]) by MN2PR12MB2941.namprd12.prod.outlook.com
+ ([fe80::5f1e:bfb0:43e5:dc81%2]) with mapi id 15.20.6933.028; Mon, 30 Oct 2023
+ 15:59:30 +0000
+Message-ID: <a2aed954-6d37-4380-8234-b4da1f6a91f0@amd.com>
+Date: Mon, 30 Oct 2023 09:59:26 -0600
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Fixes uninitialized variable usage in
- amdgpu_dm_setup_replay
+Subject: Re: [PATCH] drm/amd/display: add kernel docs for
+ dc_stream_forward_crc_window
 Content-Language: en-US
-To: Yuran Pereira <yuran.pereira@hotmail.com>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>
-References: <DB3PR10MB683590457246A6625BAA6102E8DDA@DB3PR10MB6835.EURPRD10.PROD.OUTLOOK.COM>
- <dc2242cd-6522-4073-b376-edc2a9abc3d9@amd.com>
- <PH8PR12MB727953EE85D593EF25650454F9DCA@PH8PR12MB7279.namprd12.prod.outlook.com>
- <39ab34ec-209d-4176-b271-1a02e2976497@amd.com>
- <DB3PR10MB6835311E66539604DD442CBBE8A3A@DB3PR10MB6835.EURPRD10.PROD.OUTLOOK.COM>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <DB3PR10MB6835311E66539604DD442CBBE8A3A@DB3PR10MB6835.EURPRD10.PROD.OUTLOOK.COM>
+To: Sagar Vashnav <sagarvashnav72427@gmail.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20231025140419.21180-1-sagarvashnav72427@gmail.com>
+From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
+In-Reply-To: <20231025140419.21180-1-sagarvashnav72427@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BN9PR03CA0606.namprd03.prod.outlook.com
+ (2603:10b6:408:106::11) To MN2PR12MB2941.namprd12.prod.outlook.com
+ (2603:10b6:208:a9::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN2PR12MB2941:EE_|IA1PR12MB6388:EE_
+X-MS-Office365-Filtering-Correlation-Id: aedaaad6-333d-477d-1ed1-08dbd961337d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: zpqw0FSyyhX7Dqpqn4eqhERmyFYoCCPE0ax/+cP04IDJ7RCbnXb8XtfZuiHYHoBwrTlcQ5vTFj39BI4mXpbiFFP5HcvLTOz6PMuzlyYHZkHBH/scrctDK5h5qtVNawKM+UgqS/enfG1fX977fRsISjZdsoBv/crDgt1Uu/NlEd1csEFhWvAPJaz9I/6n+ORiOosPB+7AKeg5d8J42PEj7k53tZ1Q/4gaFi+511X0UW43CcRyzaCgCisOLbVKoI8SRVg0ys6d4x9mQKAdHgcvwsaVpHCbOTGSGXh8lNjXfbkLNv4psovTRkjrlr9SsILObPtBFVNST81meVenVM52f6RqiKMJoPA4XpbhQjG/p8klbUS39cFXGRO8y7MCmpqpcEw4g5ZQV73gkX1KbYcFXmKHpy/Nw12w+NKJzqK1W9ijrJVHwTPcx32ssjz9cr3ELOC86wSsyjIV+OqK4qzW8X1uvBWdnDo2tC235S7LSZlZ0uendr6zDzzlwxjWxqAVEWwSRjgPT4EFMkXt4Kd5E2gQdjSX7nKGjRhZE5paHMd9x4wFbLQaYZRdCBNA8cnqkiuh/0nDlJL+efIyDslrIDh0Xg32Zz2Xm71Ih4ruMgu1TaU//kLCkp4cl1j55av9f/iHSAeBnh8n0iHR66bEgXlpLUgzVWZuQp+NRYR8gKA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB2941.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(396003)(39860400002)(346002)(366004)(376002)(230922051799003)(451199024)(64100799003)(186009)(1800799009)(6512007)(36756003)(26005)(5660300002)(6666004)(6506007)(53546011)(2616005)(8676002)(8936002)(66556008)(66476007)(316002)(41300700001)(31686004)(66946007)(86362001)(31696002)(478600001)(921008)(38100700002)(6486002)(2906002)(110136005)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VDlSemJvcjNPNFI0ZVM3Mi81elJtK3dQQlFzeVNMYkpDSnFOcmc5YlJ5LzVv?=
+ =?utf-8?B?eDc3Ui9hb0oxUUs3b1pXTmpNTHhMdEgwWlpvTjFoSjEyK0FzaFlWemZwYngz?=
+ =?utf-8?B?d04zSWRxYlhFUThQalh6U2pMQlg5M1JzdGY1QXVtNExyZTN1enBEMmR3YlE1?=
+ =?utf-8?B?ZzNmZWF4OVI4VHE5a2lQOVZKY2FiaUFLZ3VwTjdKQ204UEJaOVlDL2QzQlAr?=
+ =?utf-8?B?V3YyVytidFV3azdFazB0SlhBelVxZzZJbDlVMzM2SHhoN09UL3EzWUhscDZu?=
+ =?utf-8?B?YmZNd0F0bWsrT2hwRHpTaVk2U0M3Mm9RYVVHOXdxeEtDZm1nNmhuNW50dXli?=
+ =?utf-8?B?M3d5M3ducWtzTUhsMU9ickV2Ri9WMWtlaWRpOFdiaEZYWCs2UnhXL3VRUFVH?=
+ =?utf-8?B?bExtRWZJUkZHVUpZTERRUFBidWZHT0w3eW05VmFtNUFvdWFSK3JuT1MxY0or?=
+ =?utf-8?B?K2xUSkJUbGRuTXdxdnExbGQrKzl2dnZCeDlqSXJZUEhzdUNMaU1WL1F2NTM4?=
+ =?utf-8?B?Q09SMStuZjY0T3dDQjREV3BmamowemduUTRLbG9GdWFVd3BmSXNxTmFNTWZj?=
+ =?utf-8?B?aWc5SnROeWVDWUIzekh1OTIvbXVIR3lGYVdqTlpXdDJxVWJwRmxnQTJTN3ky?=
+ =?utf-8?B?T3Q4TWg4UFk2UU5scDJ3RzFIWHZuYkJPY0RzalJVOHcwSEZ2d0gzQmhkVTdk?=
+ =?utf-8?B?RUdLWTVhdmtKWnNzazBDRC9DUEZhS3ZHZ3VuencxN1d0R29tOWZxMENCVFZX?=
+ =?utf-8?B?M0x1V1pnSU0vOEl6bnZZTmRFQzIrOFUzMDNXSTBaRmw4bkhFVXYwbE55WS9G?=
+ =?utf-8?B?cHVhM2hDQVpoTU9ITmxDbUMxanlDdFJvelFKdXRZRkRaTUM4RXkybElRc1lK?=
+ =?utf-8?B?VU5xdDd2THlvWVRMS05QV2ptZE43dWZrNmQzN1V6UlV6eDRzMEo2QjlCdC9I?=
+ =?utf-8?B?QXR6UWp0N0JLQm1rS1lUeHV3ci9YdTcxWVhBeUJEQjdQdDdQVmlmdXpQUDd1?=
+ =?utf-8?B?NUNYVGtNYUpkbFpkdnh0a0k0SENCNWNJRHhLNmhmL2R0ZUFSdEd2WXhDTFJ0?=
+ =?utf-8?B?c1dWcVM0cDR1K29mNmYyOFlNQ0ZtZm9iRGFSYm9TdTh6bmcvcEczWWFNOU1a?=
+ =?utf-8?B?cUEwSkdRQ1VGQU5oQW96M1Z3eVc0aG42dEJxU0o2UGFMZ1pPcnVYM09tUUlU?=
+ =?utf-8?B?ck4wTUNuRjR2SmZRMUV0YVRkRGhBUndRbXdwNTBlMXphMzQ5VVdZQmhRTk0y?=
+ =?utf-8?B?SHJRZVRDMTJadkdIUWtGazFZNnRtTmdKV2g3NWg0a3pPV016RFIxeWxLZW45?=
+ =?utf-8?B?N3lFNXhNZUh1aUJaTm5WaFZkRnd3T3ZGaXpHVk1oV2FjTTNLSmw4aHBpc3Mx?=
+ =?utf-8?B?emEweWxYT0w1SUNYNzVXS1RvN0VlQ3IxMHdMWEU1OE1FOFloSXV2eFVEYlFk?=
+ =?utf-8?B?SHdDcG9UMlV5SEI3YWtLbEo2cXNCRlhtZHVCa1NXemc3TFJIOC9EVmE4eGt6?=
+ =?utf-8?B?RHgvdmROL1o3bnFGaGx0U2RCbFpoWFhCbThubFVxU3ZKT09PdjRRc2hBSC9p?=
+ =?utf-8?B?WmFIdUJEN0x3Tm1hMEk3S251VVJCOUt3ZW9MU2t0R2Z0RFVGMm03TUtPN2Vi?=
+ =?utf-8?B?YXRhL1BZV3BvZW1sTlhUUHBNMFBUSlNsVmtRRVFaUEhreWF5bWU2NHUyd3p5?=
+ =?utf-8?B?Slk2UHJBQWtpWGFTSFkrRktxN05TUGVLcGIycGVaRTdLMjNLRVlnbjlCdmgy?=
+ =?utf-8?B?NHJOOWNJdGNQYldGYUlsVG9KRVp3M3lLZW5GTjVkRHh2MGNRNGpBSkJCN1R1?=
+ =?utf-8?B?cUUxK01CdHFTRStvaVBYNlRJMUtCalUxbzRPUml4WVpySzF5SEk1YW9PWmVF?=
+ =?utf-8?B?SWdxTVF2alB2UzIyQk50bWhZYWg4OHdNMnlxNllaWEZZd2tFWlNhNk1LZmZ0?=
+ =?utf-8?B?cFVaY0tYR2hvN2RqdXVYZ0dVSmlVS0IwRUZPOEM0MmhXTmNWckw4VTltbjZY?=
+ =?utf-8?B?Qy9zcVNMY0wyRXJEU3ByM0RraG5MMlh4SjJROFJicHg5My9Fa0xUZTd0MGVo?=
+ =?utf-8?B?SGcyNFFYSGRMWkxKZllxODJySFVWd0d6aWdkRFNsMTBWbnAreTRoV0NPRnYv?=
+ =?utf-8?Q?hP0EGUS92f+nf+ZqOcrUa5STp?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aedaaad6-333d-477d-1ed1-08dbd961337d
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2941.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2023 15:59:30.3182 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BsZ9cXvmyuFKw7orsWiCss97v1LQAETC6JY0kZQ1yfkC0KecZyqq24YrzMcSuxH5dA41trxTWk54xAgJEaaEBw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6388
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,120 +130,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Li, Sun peng \(Leo\)" <Sunpeng.Li@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Lakha,
- Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>,
- "linux-kernel-mentees@lists.linuxfoundation.org"
- <linux-kernel-mentees@lists.linuxfoundation.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 28.10.23 um 02:48 schrieb Yuran Pereira:
-> Hello,
-> On Fri, Oct 27, 2023 at 11:57:45AM -0400, Hamza Mahfooz wrote:
->> On 10/27/23 11:55, Lakha, Bhawanpreet wrote:
->>> [AMD Official Use Only - General]
->>>
->>>
->>>
->>> There was a consensus to use memset instead of {0}. I remember making
->>> changes related to that previously.
->> Hm, seems like it's used rather consistently in the DM and in DC
->> though.
->>
-> Have you decided which one should be used?
->
-> Should I submit a v2 patch using {0} instead of memset?
+Hi Sagar,
 
-The problem is that {0} doesn't initialize padding fields in structures.
+First of all, thanks for your patch.
 
-So what can happen are problems like leaking bytes to userspace or 
-getting unstable hash keys etc...
+On 10/25/23 08:04, Sagar Vashnav wrote:
+> Add kernel documentation for the dc_stream_forward_crc_window
+> 
+> Signed-off-by: Sagar Vashnav <sagarvashnav72427@gmail.com>
+> ---
+>   drivers/gpu/drm/amd/display/dc/core/dc.c | 13 +++++++++++++
+>   1 file changed, 13 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> index 1729fb727..5ab35e482 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> @@ -528,6 +528,19 @@ dc_stream_forward_dmcu_crc_window(struct dmcu *dmcu,
+>   		dmcu->funcs->forward_crc_window(dmcu, rect, mux_mapping);
+>   }
+>   
+> +/**
+> + * dc_stream_forward_crc_window() - Forward CRC window configuration to DMUB or DMCU.
 
-So I think memset() is usually preferred and that not only counts for Linux.
+Add an empty comment line between the summary and the parameter description.
 
-Regards,
-Christian.
+> + * @stream: The stream state to forward CRC window configuration for.
+> + * @rect: Pointer to the rectangle defining the CRC window coordinates.
+> + * @is_stop: Flag indicating whether the CRC capture should be stopped.
+> +
 
->
->
-> Yuran Pereira
->>> Bhawan
->>>
->>> ------------------------------------------------------------------------
->>> *From:* Mahfooz, Hamza <Hamza.Mahfooz@amd.com>
->>> *Sent:* October 27, 2023 11:53 AM
->>> *To:* Yuran Pereira <yuran.pereira@hotmail.com>; airlied@gmail.com
->>> <airlied@gmail.com>
->>> *Cc:* Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; Lakha, Bhawanpreet
->>> <Bhawanpreet.Lakha@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; Siqueira,
->>> Rodrigo <Rodrigo.Siqueira@amd.com>; linux-kernel@vger.kernel.org
->>> <linux-kernel@vger.kernel.org>; amd-gfx@lists.freedesktop.org
->>> <amd-gfx@lists.freedesktop.org>; dri-devel@lists.freedesktop.org
->>> <dri-devel@lists.freedesktop.org>; Deucher, Alexander
->>> <Alexander.Deucher@amd.com>; Koenig, Christian
->>> <Christian.Koenig@amd.com>;
->>> linux-kernel-mentees@lists.linuxfoundation.org
->>> <linux-kernel-mentees@lists.linuxfoundation.org>
->>> *Subject:* Re: [PATCH] drm/amdgpu: Fixes uninitialized variable usage in
->>> amdgpu_dm_setup_replay
->>> On 10/26/23 17:25, Yuran Pereira wrote:
->>>> Since `pr_config` is not initialized after its declaration, the
->>>> following operations with `replay_enable_option` may be performed
->>>> when `replay_enable_option` is holding junk values which could
->>>> possibly lead to undefined behaviour
->>>>
->>>> ```
->>>>        ...
->>>>        pr_config.replay_enable_option |= pr_enable_option_static_screen;
->>>>        ...
->>>>
->>>>        if (!pr_config.replay_timing_sync_supported)
->>>>            pr_config.replay_enable_option &= ~pr_enable_option_general_ui;
->>>>        ...
->>>> ```
->>>>
->>>> This patch initializes `pr_config` after its declaration to ensure that
->>>> it doesn't contain junk data, and prevent any undefined behaviour
->>>>
->>>> Addresses-Coverity-ID: 1544428 ("Uninitialized scalar variable")
->>>> Fixes: dede1fea4460 ("drm/amd/display: Add Freesync Panel DM code")
->>>> Signed-off-by: Yuran Pereira <yuran.pereira@hotmail.com>
->>>> ---
->>>>     drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c | 3 +++
->>>>     1 file changed, 3 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
->>>> index 32d3086c4cb7..40526507f50b 100644
->>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
->>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
->>>> @@ -23,6 +23,7 @@
->>>>      *
->>>>      */
->>>> +#include <linux/string.h>
->>>>     #include "amdgpu_dm_replay.h"
->>>>     #include "dc.h"
->>>>     #include "dm_helpers.h"
->>>> @@ -74,6 +75,8 @@ bool amdgpu_dm_setup_replay(struct dc_link *link, struct amdgpu_dm_connector *ac
->>>>          struct replay_config pr_config;
->>> I would prefer setting pr_config = {0};
->>>
->>>>          union replay_debug_flags *debug_flags = NULL;
->>>> +     memset(&pr_config, 0, sizeof(pr_config));
->>>> +
->>>>          // For eDP, if Replay is supported, return true to skip checks
->>>>          if (link->replay_settings.config.replay_supported)
->>>>                  return true;
->>> -- 
->>> Hamza
->>>
->> -- 
->> Hamza
->>
+You need to add `*` in the above line.
+
+> + * This function is responsible for forwarding the CRC window configuration
+> + * for a given stream to either the DMUB or DMCU, depending on their availability.
+> +
+
+Same as my previous comment.
+
+> + * Return:
+> + * %true if the CRC window configuration was successfully forwarded;
+> + * %false if the stream was not found or CRC forwarding is not supported.
+
+Afaik, we don't use `%` in the kernel-doc. Maybe just use 'True' and 
+'False'?
+
+Thanks
+Siqueira
+
+> + */
+>   bool
+>   dc_stream_forward_crc_window(struct dc_stream_state *stream,
+>   		struct rect *rect, bool is_stop)
 
