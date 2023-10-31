@@ -4,59 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95772C4167D
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Oct 2023 20:08:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99843C4167B
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Oct 2023 23:53:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1248410E5B7;
-	Tue, 31 Oct 2023 20:08:16 +0000 (UTC)
-Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
- [IPv6:2607:f8b0:4864:20::c2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA90610E5B6;
- Tue, 31 Oct 2023 20:08:13 +0000 (UTC)
-Received: by mail-oo1-xc2e.google.com with SMTP id
- 006d021491bc7-586beb5e6a7so3185980eaf.1; 
- Tue, 31 Oct 2023 13:08:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698782893; x=1699387693; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=iu1Hcatd1VMcKcshOO2Tp9XCxjRyh4/pRps0AbnJ/RA=;
- b=gQVrGP+sfcj1alAJeo450G7zAYKnBSO6vwiX7DamKg8KwWSmavrWa8f00mNFJSjbSA
- bmdi25dhh/kyYQdQ2Ga34riEvVSOv1zvKyo7zrKcnJ5SEG9hv7ds5Zv6R1g+1DSQtsYG
- 1emlb6EANZYZKj/OcOWDduFSYc76Y3shnOTZ5/HmI0lVHxCvXInOrn4rEG1RlfSIwTOO
- LOJ53Q7RzhrI4UQyP0l4CGKqxcLTdi/xOX9zxF7yJdFMc4f6Ia5a/D6W48NdxricU2CO
- ZVefaWZ+Vlg2XxmYqlAR3XxKRr9Gx6szkTGbjRTE6g1ZmEKmSbqHZtLTtQGZ+RukNKkO
- xK7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698782893; x=1699387693;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=iu1Hcatd1VMcKcshOO2Tp9XCxjRyh4/pRps0AbnJ/RA=;
- b=sHp9XaVm+LSkcEPuo40BEicW/2Kb++q9GzGCW4nBEHOscquZ2YviAM7KamLdrvN0WP
- URpLWJfEfjZPi5+hZKTS2acUI4Jpb2QKgAmEUe8AmiA7QNN2fmxGLTXlXTnoo/qfJnY8
- q6vEpqqLZecDF6YuqqiFkXXliykKz9rCpGYOOr8QogVER8v3v8/m/JZYIV+Lh2vFd+4P
- +HD9uDltAarxDysXXrdy8f8pD2lTZonkmHNQkNAvVSHd6Di9zLE5YbJempYqEzt0MJYm
- IhyZK7Wh4DnykSyLeBF98vSsy+oqgsXITAw1HCnnPcScYQ1sSgB1MmC7nGWx7QpATIMy
- uCiQ==
-X-Gm-Message-State: AOJu0YzOZxHn9orE6MU61uF/tOnwoqrUsczemm3YlYjJky5pOrBj1jAW
- htPKlswqMXlM780GN3cWbGqt8vny9InsfWTmR88=
-X-Google-Smtp-Source: AGHT+IG+P7koVY8SGJbHtXG0/I8RB4zJVep7b7vhj49JCoS41sDj06lVp1lboFSvN8IsADheLWD1PEtNE+1O9JUH1WY=
-X-Received: by 2002:a05:6870:f814:b0:1ef:b949:3f5a with SMTP id
- fr20-20020a056870f81400b001efb9493f5amr9883998oab.4.1698782892851; Tue, 31
- Oct 2023 13:08:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C37F10E5E8;
+	Tue, 31 Oct 2023 23:53:08 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C0A510E5DB;
+ Tue, 31 Oct 2023 23:53:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1698796385; x=1730332385;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=4i1y3DVKkpZNztiXnFlc1I3XO3HIruaCd99l2W6lqvs=;
+ b=LPjOSX8S2cubHOJwNJpFs7YZg4OBdWnU5F5Q/BG7SnhB1jxKdosydYd0
+ eUoN08JtylQejdBtqlP6EEOsQiGbWZ6dBcAfI9M8dQsgVEjFstLphxsFP
+ tEbCVe6lHnuP1bS/ojjOy1wTvU86zlgYbdVZ2DvkmgRbx8xRzVvvlf6sr
+ 0BJgqYWSgnDyla4whTP2A+3bLwZmqBViWsDXeQbqkICzC1QohnupUzCBd
+ wFSu1Y0171IXlh//4Q6zIRdSe5ijD32VDgUmwDkZ+HhWuYvd3S8Q1MM9m
+ VVVuFpnPbokMcNITibk+85LEEpHmmVme8jvK0NhjraTzcTAEPnhuiYYie A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10880"; a="419516381"
+X-IronPort-AV: E=Sophos;i="6.03,266,1694761200"; d="scan'208";a="419516381"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Oct 2023 16:53:05 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10880"; a="1092168372"
+X-IronPort-AV: E=Sophos;i="6.03,266,1694761200"; d="scan'208";a="1092168372"
+Received: from lkp-server01.sh.intel.com (HELO 17d9e85e5079) ([10.239.97.150])
+ by fmsmga005.fm.intel.com with ESMTP; 31 Oct 2023 16:53:03 -0700
+Received: from kbuild by 17d9e85e5079 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qxyXd-0000T8-0Z;
+ Tue, 31 Oct 2023 23:53:01 +0000
+Date: Wed, 1 Nov 2023 07:52:21 +0800
+From: kernel test robot <lkp@intel.com>
+To: Tatsuyuki Ishi <ishitatsuyuki@gmail.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 2/6] drm/amdgpu: Separate eviction from VM status.
+Message-ID: <202311010709.XbwKjVaq-lkp@intel.com>
+References: <20231031134059.171277-3-ishitatsuyuki@gmail.com>
 MIME-Version: 1.0
-References: <20231031170847.23458-1-jose.pekkarinen@foxhound.fi>
-In-Reply-To: <20231031170847.23458-1-jose.pekkarinen@foxhound.fi>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 31 Oct 2023 16:08:00 -0400
-Message-ID: <CADnq5_NX2XDA87xfgF0ddStKyJofhkCr-rzvnKVkZ2XfM4t=mw@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/radeon: replace 1-element arrays with
- flexible-array members
-To: =?UTF-8?Q?Jos=C3=A9_Pekkarinen?= <jose.pekkarinen@foxhound.fi>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20231031134059.171277-3-ishitatsuyuki@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,317 +60,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- skhan@linuxfoundation.org, alexander.deucher@amd.com,
- linux-kernel-mentees@lists.linuxfoundation.org, christian.koenig@amd.com
+Cc: Tatsuyuki Ishi <ishitatsuyuki@gmail.com>, christian.koenig@amd.com,
+ oe-kbuild-all@lists.linux.dev
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Oct 31, 2023 at 1:09=E2=80=AFPM Jos=C3=A9 Pekkarinen
-<jose.pekkarinen@foxhound.fi> wrote:
->
-> Reported by coccinelle, the following patch will move the
-> following 1 element arrays to flexible arrays.
->
-> drivers/gpu/drm/radeon/atombios.h:5523:32-48: WARNING use flexible-array =
-member instead (https://www.kernel.org/doc/html/latest/process/deprecated.h=
-tml#zero-length-and-one-element-arrays)
-> drivers/gpu/drm/radeon/atombios.h:5545:32-48: WARNING use flexible-array =
-member instead (https://www.kernel.org/doc/html/latest/process/deprecated.h=
-tml#zero-length-and-one-element-arrays)
-> drivers/gpu/drm/radeon/atombios.h:5461:34-44: WARNING use flexible-array =
-member instead (https://www.kernel.org/doc/html/latest/process/deprecated.h=
-tml#zero-length-and-one-element-arrays)
-> drivers/gpu/drm/radeon/atombios.h:4447:30-40: WARNING use flexible-array =
-member instead (https://www.kernel.org/doc/html/latest/process/deprecated.h=
-tml#zero-length-and-one-element-arrays)
-> drivers/gpu/drm/radeon/atombios.h:4236:30-41: WARNING use flexible-array =
-member instead (https://www.kernel.org/doc/html/latest/process/deprecated.h=
-tml#zero-length-and-one-element-arrays)
-> drivers/gpu/drm/radeon/atombios.h:7095:28-45: WARNING use flexible-array =
-member instead (https://www.kernel.org/doc/html/latest/process/deprecated.h=
-tml#zero-length-and-one-element-arrays)
-> drivers/gpu/drm/radeon/atombios.h:3896:27-37: WARNING use flexible-array =
-member instead (https://www.kernel.org/doc/html/latest/process/deprecated.h=
-tml#zero-length-and-one-element-arrays)
-> drivers/gpu/drm/radeon/atombios.h:5443:16-25: WARNING use flexible-array =
-member instead (https://www.kernel.org/doc/html/latest/process/deprecated.h=
-tml#zero-length-and-one-element-arrays)
-> drivers/gpu/drm/radeon/atombios.h:5454:34-43: WARNING use flexible-array =
-member instead (https://www.kernel.org/doc/html/latest/process/deprecated.h=
-tml#zero-length-and-one-element-arrays)
-> drivers/gpu/drm/radeon/atombios.h:4603:21-32: WARNING use flexible-array =
-member instead (https://www.kernel.org/doc/html/latest/process/deprecated.h=
-tml#zero-length-and-one-element-arrays)
-> drivers/gpu/drm/radeon/atombios.h:4628:32-46: WARNING use flexible-array =
-member instead (https://www.kernel.org/doc/html/latest/process/deprecated.h=
-tml#zero-length-and-one-element-arrays)
-> drivers/gpu/drm/radeon/atombios.h:6285:29-39: WARNING use flexible-array =
-member instead (https://www.kernel.org/doc/html/latest/process/deprecated.h=
-tml#zero-length-and-one-element-arrays)
-> drivers/gpu/drm/radeon/atombios.h:4296:30-36: WARNING use flexible-array =
-member instead (https://www.kernel.org/doc/html/latest/process/deprecated.h=
-tml#zero-length-and-one-element-arrays)
-> drivers/gpu/drm/radeon/atombios.h:4756:28-36: WARNING use flexible-array =
-member instead (https://www.kernel.org/doc/html/latest/process/deprecated.h=
-tml#zero-length-and-one-element-arrays)
-> drivers/gpu/drm/radeon/atombios.h:4064:22-35: WARNING use flexible-array =
-member instead (https://www.kernel.org/doc/html/latest/process/deprecated.h=
-tml#zero-length-and-one-element-arrays)
-> drivers/gpu/drm/radeon/atombios.h:7327:9-24: WARNING use flexible-array m=
-ember instead (https://www.kernel.org/doc/html/latest/process/deprecated.ht=
-ml#zero-length-and-one-element-arrays)
-> drivers/gpu/drm/radeon/atombios.h:7332:32-53: WARNING use flexible-array =
-member instead (https://www.kernel.org/doc/html/latest/process/deprecated.h=
-tml#zero-length-and-one-element-arrays)
-> drivers/gpu/drm/radeon/atombios.h:7362:26-41: WARNING use flexible-array =
-member instead (https://www.kernel.org/doc/html/latest/process/deprecated.h=
-tml#zero-length-and-one-element-arrays)
-> drivers/gpu/drm/radeon/atombios.h:7369:29-44: WARNING use flexible-array =
-member instead (https://www.kernel.org/doc/html/latest/process/deprecated.h=
-tml#zero-length-and-one-element-arrays)
-> drivers/gpu/drm/radeon/atombios.h:7349:24-32: WARNING use flexible-array =
-member instead (https://www.kernel.org/doc/html/latest/process/deprecated.h=
-tml#zero-length-and-one-element-arrays)
-> drivers/gpu/drm/radeon/atombios.h:7355:27-35: WARNING use flexible-array =
-member instead (https://www.kernel.org/doc/html/latest/process/deprecated.h=
-tml#zero-length-and-one-element-arrays)
->
-> Signed-off-by: Jos=C3=A9 Pekkarinen <jose.pekkarinen@foxhound.fi>
-> ---
-> [v1 -> v2] removed padding and hinted sensitive cases from original patch
+Hi Tatsuyuki,
 
-Applied.  Thanks!
+kernel test robot noticed the following build warnings:
 
-Alex
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on drm/drm-next drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.6 next-20231031]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
->
->  drivers/gpu/drm/radeon/atombios.h | 42 +++++++++++++++----------------
->  1 file changed, 21 insertions(+), 21 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/atombios.h b/drivers/gpu/drm/radeon/a=
-tombios.h
-> index 8a6621f1e82c..2db40789235c 100644
-> --- a/drivers/gpu/drm/radeon/atombios.h
-> +++ b/drivers/gpu/drm/radeon/atombios.h
-> @@ -3893,7 +3893,7 @@ typedef struct _ATOM_GPIO_PIN_ASSIGNMENT
->  typedef struct _ATOM_GPIO_PIN_LUT
->  {
->    ATOM_COMMON_TABLE_HEADER  sHeader;
-> -  ATOM_GPIO_PIN_ASSIGNMENT     asGPIO_Pin[1];
-> +  ATOM_GPIO_PIN_ASSIGNMENT     asGPIO_Pin[];
->  }ATOM_GPIO_PIN_LUT;
->
->  /***********************************************************************=
-*****/
-> @@ -4061,7 +4061,7 @@ typedef struct _ATOM_SRC_DST_TABLE_FOR_ONE_OBJECT  =
-       //usSrcDstTableOffset
->    UCHAR               ucNumberOfSrc;
->    USHORT              usSrcObjectID[1];
->    UCHAR               ucNumberOfDst;
-> -  USHORT              usDstObjectID[1];
-> +  USHORT              usDstObjectID[];
->  }ATOM_SRC_DST_TABLE_FOR_ONE_OBJECT;
->
->
-> @@ -4233,7 +4233,7 @@ typedef struct  _ATOM_CONNECTOR_DEVICE_TAG_RECORD
->    ATOM_COMMON_RECORD_HEADER   sheader;
->    UCHAR                       ucNumberOfDevice;
->    UCHAR                       ucReserved;
-> -  ATOM_CONNECTOR_DEVICE_TAG   asDeviceTag[1];         //This Id is same =
-as "ATOM_DEVICE_XXX_SUPPORT", 1 is only for allocation
-> +  ATOM_CONNECTOR_DEVICE_TAG   asDeviceTag[];          //This Id is same =
-as "ATOM_DEVICE_XXX_SUPPORT", 1 is only for allocation
->  }ATOM_CONNECTOR_DEVICE_TAG_RECORD;
->
->
-> @@ -4293,7 +4293,7 @@ typedef struct  _ATOM_OBJECT_GPIO_CNTL_RECORD
->    ATOM_COMMON_RECORD_HEADER   sheader;
->    UCHAR                       ucFlags;                // Future expnadib=
-ility
->    UCHAR                       ucNumberOfPins;         // Number of GPIO =
-pins used to control the object
-> -  ATOM_GPIO_PIN_CONTROL_PAIR  asGpio[1];              // the real gpio p=
-in pair determined by number of pins ucNumberOfPins
-> +  ATOM_GPIO_PIN_CONTROL_PAIR  asGpio[];               // the real gpio p=
-in pair determined by number of pins ucNumberOfPins
->  }ATOM_OBJECT_GPIO_CNTL_RECORD;
->
->  //Definitions for GPIO pin state
-> @@ -4444,7 +4444,7 @@ typedef struct  _ATOM_BRACKET_LAYOUT_RECORD
->    UCHAR                       ucWidth;
->    UCHAR                       ucConnNum;
->    UCHAR                       ucReserved;
-> -  ATOM_CONNECTOR_LAYOUT_INFO  asConnInfo[1];
-> +  ATOM_CONNECTOR_LAYOUT_INFO  asConnInfo[];
->  }ATOM_BRACKET_LAYOUT_RECORD;
->
->  /***********************************************************************=
-*****/
-> @@ -4600,7 +4600,7 @@ typedef struct  _ATOM_I2C_VOLTAGE_OBJECT_V3
->     UCHAR    ucVoltageControlAddress;
->     UCHAR    ucVoltageControlOffset;
->     ULONG    ulReserved;
-> -   VOLTAGE_LUT_ENTRY asVolI2cLut[1];        // end with 0xff
-> +   VOLTAGE_LUT_ENTRY asVolI2cLut[];         // end with 0xff
->  }ATOM_I2C_VOLTAGE_OBJECT_V3;
->
->  // ATOM_I2C_VOLTAGE_OBJECT_V3.ucVoltageControlFlag
-> @@ -4625,7 +4625,7 @@ typedef struct  _ATOM_LEAKAGE_VOLTAGE_OBJECT_V3
->     UCHAR    ucLeakageEntryNum;           // indicate the entry number of=
- LeakageId/Voltage Lut table
->     UCHAR    ucReserved[2];
->     ULONG    ulMaxVoltageLevel;
-> -   LEAKAGE_VOLTAGE_LUT_ENTRY_V2 asLeakageIdLut[1];
-> +   LEAKAGE_VOLTAGE_LUT_ENTRY_V2 asLeakageIdLut[];
->  }ATOM_LEAKAGE_VOLTAGE_OBJECT_V3;
->
->
-> @@ -4753,7 +4753,7 @@ typedef struct _ATOM_POWER_SOURCE_INFO
->  {
->                 ATOM_COMMON_TABLE_HEADER                asHeader;
->                 UCHAR                                                    =
-                                       asPwrbehave[16];
-> -               ATOM_POWER_SOURCE_OBJECT                asPwrObj[1];
-> +               ATOM_POWER_SOURCE_OBJECT                asPwrObj[];
->  }ATOM_POWER_SOURCE_INFO;
->
->
-> @@ -5440,7 +5440,7 @@ typedef struct _ATOM_FUSION_SYSTEM_INFO_V2
->  typedef struct _ATOM_I2C_DATA_RECORD
->  {
->    UCHAR         ucNunberOfBytes;                                        =
-      //Indicates how many bytes SW needs to write to the external ASIC for=
- one block, besides to "Start" and "Stop"
-> -  UCHAR         ucI2CData[1];                                           =
-      //I2C data in bytes, should be less than 16 bytes usually
-> +  UCHAR         ucI2CData[];                                            =
-      //I2C data in bytes, should be less than 16 bytes usually
->  }ATOM_I2C_DATA_RECORD;
->
->
-> @@ -5451,14 +5451,14 @@ typedef struct _ATOM_I2C_DEVICE_SETUP_INFO
->    UCHAR                                        ucSSChipID;             /=
-/SS chip being used
->    UCHAR                                        ucSSChipSlaveAddr;      /=
-/Slave Address to set up this SS chip
->    UCHAR                           ucNumOfI2CDataRecords;  //number of da=
-ta block
-> -  ATOM_I2C_DATA_RECORD            asI2CData[1];
-> +  ATOM_I2C_DATA_RECORD            asI2CData[];
->  }ATOM_I2C_DEVICE_SETUP_INFO;
->
->  //=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->  typedef struct  _ATOM_ASIC_MVDD_INFO
->  {
->    ATOM_COMMON_TABLE_HEADER           sHeader;
-> -  ATOM_I2C_DEVICE_SETUP_INFO      asI2CSetup[1];
-> +  ATOM_I2C_DEVICE_SETUP_INFO      asI2CSetup[];
->  }ATOM_ASIC_MVDD_INFO;
->
->  //=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> @@ -5520,7 +5520,7 @@ typedef struct _ATOM_ASIC_INTERNAL_SS_INFO
->  typedef struct _ATOM_ASIC_INTERNAL_SS_INFO_V2
->  {
->    ATOM_COMMON_TABLE_HEADER           sHeader;
-> -  ATOM_ASIC_SS_ASSIGNMENT_V2             asSpreadSpectrum[1];      //thi=
-s is point only.
-> +  ATOM_ASIC_SS_ASSIGNMENT_V2             asSpreadSpectrum[];       //thi=
-s is point only.
->  }ATOM_ASIC_INTERNAL_SS_INFO_V2;
->
->  typedef struct _ATOM_ASIC_SS_ASSIGNMENT_V3
-> @@ -5542,7 +5542,7 @@ typedef struct _ATOM_ASIC_SS_ASSIGNMENT_V3
->  typedef struct _ATOM_ASIC_INTERNAL_SS_INFO_V3
->  {
->    ATOM_COMMON_TABLE_HEADER           sHeader;
-> -  ATOM_ASIC_SS_ASSIGNMENT_V3             asSpreadSpectrum[1];      //thi=
-s is pointer only.
-> +  ATOM_ASIC_SS_ASSIGNMENT_V3             asSpreadSpectrum[];       //thi=
-s is pointer only.
->  }ATOM_ASIC_INTERNAL_SS_INFO_V3;
->
->
-> @@ -6282,7 +6282,7 @@ typedef union _ATOM_MEMORY_SETTING_ID_CONFIG_ACCESS
->
->  typedef struct _ATOM_MEMORY_SETTING_DATA_BLOCK{
->         ATOM_MEMORY_SETTING_ID_CONFIG_ACCESS                    ulMemoryI=
-D;
-> -       ULONG                                                            =
-                                                               aulMemData[1=
-];
-> +       ULONG                                                            =
-                                                               aulMemData[]=
-;
->  }ATOM_MEMORY_SETTING_DATA_BLOCK;
->
->
-> @@ -7092,7 +7092,7 @@ typedef struct _ATOM_DISP_OUT_INFO_V3
->    UCHAR  ucCoreRefClkSource;                    // value of CORE_REF_CLK=
-_SOURCE
->    UCHAR  ucDispCaps;
->    UCHAR  ucReserved[2];
-> -  ASIC_TRANSMITTER_INFO_V2  asTransmitterInfo[1];     // for alligment o=
-nly
-> +  ASIC_TRANSMITTER_INFO_V2  asTransmitterInfo[];      // for alligment o=
-nly
->  }ATOM_DISP_OUT_INFO_V3;
->
->  //ucDispCaps
-> @@ -7324,12 +7324,12 @@ typedef struct _CLOCK_CONDITION_SETTING_ENTRY{
->    USHORT usMaxClockFreq;
->    UCHAR  ucEncodeMode;
->    UCHAR  ucPhySel;
-> -  ULONG  ulAnalogSetting[1];
-> +  ULONG  ulAnalogSetting[];
->  }CLOCK_CONDITION_SETTING_ENTRY;
->
->  typedef struct _CLOCK_CONDITION_SETTING_INFO{
->    USHORT usEntrySize;
-> -  CLOCK_CONDITION_SETTING_ENTRY asClkCondSettingEntry[1];
-> +  CLOCK_CONDITION_SETTING_ENTRY asClkCondSettingEntry[];
->  }CLOCK_CONDITION_SETTING_INFO;
->
->  typedef struct _PHY_CONDITION_REG_VAL{
-> @@ -7346,27 +7346,27 @@ typedef struct _PHY_CONDITION_REG_VAL_V2{
->  typedef struct _PHY_CONDITION_REG_INFO{
->    USHORT usRegIndex;
->    USHORT usSize;
-> -  PHY_CONDITION_REG_VAL asRegVal[1];
-> +  PHY_CONDITION_REG_VAL asRegVal[];
->  }PHY_CONDITION_REG_INFO;
->
->  typedef struct _PHY_CONDITION_REG_INFO_V2{
->    USHORT usRegIndex;
->    USHORT usSize;
-> -  PHY_CONDITION_REG_VAL_V2 asRegVal[1];
-> +  PHY_CONDITION_REG_VAL_V2 asRegVal[];
->  }PHY_CONDITION_REG_INFO_V2;
->
->  typedef struct _PHY_ANALOG_SETTING_INFO{
->    UCHAR  ucEncodeMode;
->    UCHAR  ucPhySel;
->    USHORT usSize;
-> -  PHY_CONDITION_REG_INFO  asAnalogSetting[1];
-> +  PHY_CONDITION_REG_INFO  asAnalogSetting[];
->  }PHY_ANALOG_SETTING_INFO;
->
->  typedef struct _PHY_ANALOG_SETTING_INFO_V2{
->    UCHAR  ucEncodeMode;
->    UCHAR  ucPhySel;
->    USHORT usSize;
-> -  PHY_CONDITION_REG_INFO_V2  asAnalogSetting[1];
-> +  PHY_CONDITION_REG_INFO_V2  asAnalogSetting[];
->  }PHY_ANALOG_SETTING_INFO_V2;
->
->  typedef struct _GFX_HAVESTING_PARAMETERS {
-> --
-> 2.39.2
->
+url:    https://github.com/intel-lab-lkp/linux/commits/Tatsuyuki-Ishi/drm-amdgpu-Don-t-implicit-sync-PRT-maps/20231031-224530
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20231031134059.171277-3-ishitatsuyuki%40gmail.com
+patch subject: [PATCH 2/6] drm/amdgpu: Separate eviction from VM status.
+config: arc-randconfig-001-20231101 (https://download.01.org/0day-ci/archive/20231101/202311010709.XbwKjVaq-lkp@intel.com/config)
+compiler: arceb-elf-gcc (GCC) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231101/202311010709.XbwKjVaq-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202311010709.XbwKjVaq-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:178: warning: Function parameter or member 'evicted' not described in 'amdgpu_vm_bo_set_evicted'
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:178: warning: expecting prototype for amdgpu_vm_bo_evicted(). Prototype was for amdgpu_vm_bo_set_evicted() instead
+
+
+vim +178 drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+
+dcb388eddb5f1b Nirmoy Das      2021-06-28  168  
+bcdc9fd634d1f0 Christian König 2018-08-30  169  /**
+bcdc9fd634d1f0 Christian König 2018-08-30  170   * amdgpu_vm_bo_evicted - vm_bo is evicted
+bcdc9fd634d1f0 Christian König 2018-08-30  171   *
+bcdc9fd634d1f0 Christian König 2018-08-30  172   * @vm_bo: vm_bo which is evicted
+bcdc9fd634d1f0 Christian König 2018-08-30  173   *
+bcdc9fd634d1f0 Christian König 2018-08-30  174   * State for PDs/PTs and per VM BOs which are not at the location they should
+bcdc9fd634d1f0 Christian König 2018-08-30  175   * be.
+bcdc9fd634d1f0 Christian König 2018-08-30  176   */
+cac82290238e47 Tatsuyuki Ishi  2023-10-31  177  static void amdgpu_vm_bo_set_evicted(struct amdgpu_vm_bo_base *vm_bo, bool evicted)
+bcdc9fd634d1f0 Christian König 2018-08-30 @178  {
+bcdc9fd634d1f0 Christian König 2018-08-30  179  	struct amdgpu_vm *vm = vm_bo->vm;
+bcdc9fd634d1f0 Christian König 2018-08-30  180  	struct amdgpu_bo *bo = vm_bo->bo;
+bcdc9fd634d1f0 Christian König 2018-08-30  181  
+757eb2bedd08a1 Philip Yang     2022-09-15  182  	spin_lock(&vm_bo->vm->status_lock);
+cac82290238e47 Tatsuyuki Ishi  2023-10-31  183  	if (evicted && bo->tbo.base.resv == vm->root.bo->tbo.base.resv) {
+bcdc9fd634d1f0 Christian König 2018-08-30  184  		if (bo->tbo.type == ttm_bo_type_kernel)
+cac82290238e47 Tatsuyuki Ishi  2023-10-31  185  			list_move(&vm_bo->eviction_status, &vm->evicted);
+bcdc9fd634d1f0 Christian König 2018-08-30  186  		else
+cac82290238e47 Tatsuyuki Ishi  2023-10-31  187  			list_move_tail(&vm_bo->eviction_status, &vm->evicted);
+cac82290238e47 Tatsuyuki Ishi  2023-10-31  188  	} else {
+cac82290238e47 Tatsuyuki Ishi  2023-10-31  189  		list_del_init(&vm_bo->eviction_status);
+cac82290238e47 Tatsuyuki Ishi  2023-10-31  190  	}
+757eb2bedd08a1 Philip Yang     2022-09-15  191  	spin_unlock(&vm_bo->vm->status_lock);
+bcdc9fd634d1f0 Christian König 2018-08-30  192  }
+cac82290238e47 Tatsuyuki Ishi  2023-10-31  193  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
