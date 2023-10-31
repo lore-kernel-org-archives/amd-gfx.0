@@ -4,115 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE65EC4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Oct 2023 04:00:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6119AC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Oct 2023 04:01:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1BCB10E3EC;
-	Tue, 31 Oct 2023 04:00:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6F8210E3E9;
+	Tue, 31 Oct 2023 04:01:48 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2065.outbound.protection.outlook.com [40.107.237.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6FC910E3EC
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Oct 2023 04:00:01 +0000 (UTC)
+ (mail-bn8nam12on2060f.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::60f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB88410E3E9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Oct 2023 04:01:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mn9C1wGJBcHL250BuCT9fhXQ7q949ECUSXovM1aEJTXXF9fAycup5Ka2uR/YTi1T+0BZcKtmlVs7H3l+U1kjrpCgZwUm3H2hQX8Zd83JBkFP7ycdFQUXYCOVoNSEN3okrFp6dPE9o/8JUzYlSuqAPqxu7x/KZzwys+rE/vIyfvKjPLlnY9IRSzhSHDF3oDLp5nkDyag4yIDrZYKJBT8QkTZWzWAipTP0lFJGe+agCUygCU0nRf8Wog/etSKJ+O+vhEMX+QZsQbqnqC6vWuhUCpSxvhbXVD5ZkVkK/JUz+FqMGeczihVHjZUkhPM7XTjIvxjuGtR9hW+MSqdHywx3NQ==
+ b=DID32LPBXOJULPxg2TzHcYlz3Ui68LLAg6t61o7vqOyCvJfyJkHc2Tbs+XwDN4aRdiHi7uE5A9CyBWvWU+KcWMKFe6/MELBLgLFmS2/cld5XbMmrwfmGVubREQNSGnJLLfuA23hcXH5/86OwVBehaNO+YRSFgQjuRHescWK6FRHJ5CWWxYOTZbxXnsVIBM5pIOwcDW6IoznkRLKovegcIQ5dfrM9vxUzD3UeRSY6blVBafcup02spvGlEZ4jyZ9kOsrU+KCjD+usqUF0Pv+98/gt4JvguSZOFxU+FVZEs9JL870eJDeES0YwSqdJuYAY1ccuG4+AMaWohROqSV4u+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CfMKhPllKyEbtbRFaGFK17gLiNHFhqYuM4yHfU2FRAc=;
- b=NsVICicXGRaWPsCEXslH2/Ilpjp8jps14pr8mRp2SfO2hTgD12M5n+cw39miaSe8YJ1IPKHVc36zjifomS2jCCK3DMj+oqOE3+MgD7mr+aZQe3SwCT7HBpI5mF12sxvBDydH4dMJwOeL1ntju4jOzEW1OoWz3mjHp8POx62uO6hhDWtOWE7VU4HYNFNAhginf0NGpLpkXGlaOQqXip1Y8hWzxBdLcRF4m1e+Jlh6zuKnmS29kOkX9tpLCC5GAmele5rV6VpaeRQ3LSBpITx53gnmHxIGMCved+zSCNNx3Eev2nqDzzCN/jOzD2bsUljv0X+LEOMIozNDY5/4uvQP8A==
+ bh=WZXMF5/0IhnrfqX7xponN8DFwVEN4in1ZlVGKgRJcOM=;
+ b=DePejuAaA++9W7X9kTUE5XZN/9LHOhL525THflvuiHK/fbZXgWQe368uEIOGGIMDRylCiBs+YAF4ClFG+Ys6hpo/KNdcgpwaFUrzCkvMtbzdYMS29UnjSTGxCnVIO824cmIGMroUCLYjgSGiSNxJH4rev7d9nV/B9RZRZ8kYGSQSuW3JdvM/ii/bATMFpQhqE14ONEyx7GeK14MxzveO0u2cgF/LgYE0YbHDmDkX7bmqluFNIx6wZ5wVdGYbwO2MrvgEYcnz2M7MCg1PcTdaFNelBIuJJcCsBjRc6pzDiyS5MkBjHxyWhCGj22vWO9zCP1FSJ5m+5hyqony6KIIdOw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CfMKhPllKyEbtbRFaGFK17gLiNHFhqYuM4yHfU2FRAc=;
- b=c2jbQDUoKOuFhDuctEHkBj6vltC0wZlUonuO89FuweMCwRScAn47ncNso3SAZmpNOtOhhTvx47674gD+GXItSP145YLKsNbvvaHk34JRGarCswWkgjZcJ5Qx+lqECuWygiEDzfamwz6QfsF9zF0O6/eydAKsUAEkbRXK4m6Mnzg=
+ bh=WZXMF5/0IhnrfqX7xponN8DFwVEN4in1ZlVGKgRJcOM=;
+ b=muyLHTFgXPKlj4fA164eqzRN8pAWyrP/oaTj4r1ZpZUlVLljh/Y1G2NVGGs35f0k9oc6CmxD/yqxhvop1A6+Kb4KNu8YRhtg2IQWSdHnTPnkRobls/ZSVrOFGEVKMjVwX4ZgqUSlNkwCPskL5wArTT13enklIjDNYchmh3Xu/7I=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
  by BL0PR12MB4964.namprd12.prod.outlook.com (2603:10b6:208:1c7::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.28; Tue, 31 Oct
- 2023 03:59:58 +0000
+ 2023 04:01:44 +0000
 Received: from BYAPR12MB4614.namprd12.prod.outlook.com
  ([fe80::8b0b:3c38:b988:ca27]) by BYAPR12MB4614.namprd12.prod.outlook.com
  ([fe80::8b0b:3c38:b988:ca27%3]) with mapi id 15.20.6933.024; Tue, 31 Oct 2023
- 03:59:57 +0000
-Message-ID: <a69f99f0-881a-1b52-1e29-4cb6b2bc1994@amd.com>
-Date: Tue, 31 Oct 2023 09:29:49 +0530
+ 04:01:44 +0000
+Message-ID: <86c0e3d3-cb89-b45b-f75f-2396277a9ab8@amd.com>
+Date: Tue, 31 Oct 2023 09:31:36 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.13.1
-Subject: Re: [PATCH] drm/amdgpu: Add xcc instance parameter to
- *REG32_SOC15_IP_NO_KIQ (v3)
+Subject: Re: [PATCH] drm/amdgpu: Add xcc_inst param to
+ amdgpu_virt_kiq_reg_write_reg_wait (v3)
 Content-Language: en-US
 To: Victor Lu <victorchengchi.lu@amd.com>, amd-gfx@lists.freedesktop.org
-References: <3ef27e68-be40-fce4-1f04-680ee74833d8@amd.com>
- <20231027200614.2249-1-victorchengchi.lu@amd.com>
+References: <20231025205242.40490-4-victorchengchi.lu@amd.com>
+ <20231027201122.2344-1-victorchengchi.lu@amd.com>
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20231027200614.2249-1-victorchengchi.lu@amd.com>
+In-Reply-To: <20231027201122.2344-1-victorchengchi.lu@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0181.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:be::14) To BYAPR12MB4614.namprd12.prod.outlook.com
+X-ClientProxiedBy: BM1P287CA0010.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:b00:40::20) To BYAPR12MB4614.namprd12.prod.outlook.com
  (2603:10b6:a03:a6::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BYAPR12MB4614:EE_|BL0PR12MB4964:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1a9ac308-d158-4ee4-7c4e-08dbd9c5d8a1
+X-MS-Office365-Filtering-Correlation-Id: f541c64b-c2aa-4bbc-80bf-08dbd9c61825
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /HKKWmPuciJBjgsWkotZhTtU8sVN1QPNmHRYH9bVh6Q4nBtG6jynjIqx4FDe+ob2pMRBrbGR+Wx1dUrzA90hrf5vg1kS34tbip7aa/l/a47yyfB8VswHz5S4JZ9mmfX7v3Ep2+lVYJhEP+m9jgCyFhP9DWFUr4lXBjMq6ezez16KS+XoKM00Ww/OXaRgAuvbcB0J7J+1LFlwb8lSzaoNVWv865aWTDw9s0prcr3C71l3W50jgjF0UQpUUWcw/yDSFAzuOMkhxh1MaYoaDOnxosWuW+wcWBy70yDVXEc4SFzU1ttilqonGJ/IPrjYVTs94zOzxebmizh0FE6ObGzNc5hvNUFNwQs5ueP7Lm/2jay3aRmpErtWeDX/CiVeUa1IT6aZDuOSrTAG+34Ciu8B2nLJrOk0ofq1LhHZGqjbvhnfzmiMVHLGyE2VhcW04feiaWrhZjgGdrQ3an7JSaKXAeezCrH518X22yj6VZko/KoNEC6Arx9/uHZfq4h795L/UmobvNqbW3udfKXKFHSDURs80xsEmRdcyT1D94x+sdWU98XLKvk3vCbNZSe1a9cLP/hTgnSFJgnmnuxpC4FPE6jCZoti70+7Uy0++X+6TxtS9mlcUVqXuTyXvCQ7wecxUtw+KNasPG6zKc7Js+X17w==
+X-Microsoft-Antispam-Message-Info: mmgCj1KEesETh0Jxl5xsxCtUW7WrGs5zWT5sp2NzdccT2zHtQmueUXz7lKbaiVltG0hhlOggBFgHSmhYUut0kfrqNU1mJSuCi5/DELrEuGBehPT/nrw3pXHuYR4xb2ljvxRdzQPgyb1L0yyNFV2yOt4c6VUGPDxZlM4xCMjPen3mkKD02YbxiB8EI2hCw3bHi1puGK+eo7ZKYHCqy3Bpfg9wiQFz2t6lNZNc1YslsXFH6EXUUtyOLKnExjtvpYOJr8rxWjJU9T+42QPrTGP7eeUKr7aY8YBvdiBOj96brvaUK/kBraG6ZNAQMuC7txMgMrqIBq0Du/TRURIWoz5jTLD2QkCFz5N4iMTFmp+EItKjDRnRElaRI4X+eAH5+jj3Ormi506PG8Bp69XaNoNfqwvzb1vSX9fxkILCfIJNr4+Oo/5EfRWBt4qg2Pu9OZj2H9/YQwmTtbHFLqUG0SM3MhA3MWGVMGzwIjDErmQKk9NO0k85iCXsmawumRwOsZ+6ET+rKS9wMPp73m/rVqa5xc4hGJ29JB2ZGixwEcUCLVCJFpQO96dpfzZ/dSewCRl+RH9IdljS4V8aLNKWwGbUGtISNz/HSfi72fEIUdFtCtOysdm8okDNPXn7eQ27vwXiHwjk3GcJSJ+o/EMxHPk4jQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230031)(39860400002)(346002)(396003)(366004)(376002)(136003)(230922051799003)(64100799003)(1800799009)(451199024)(186009)(31686004)(6512007)(26005)(2616005)(38100700002)(31696002)(86362001)(36756003)(2906002)(6486002)(83380400001)(6506007)(53546011)(478600001)(6666004)(8936002)(8676002)(4326008)(316002)(66476007)(5660300002)(66946007)(66556008)(41300700001)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TUhkVjhMN1daaXhVd2ZYWFFDa0lCbUNuTk1JdXVqUGFoTG5VdDVHV3A1bU51?=
- =?utf-8?B?M1lQcExZUzZ3YjM5RlFZY0g0QUNuUmYxaXpxbU00TUdqcFkxU2MwWkJaVXh1?=
- =?utf-8?B?ek1IaFdlNlNDRXQ0WkRLWWNUSzJ1M2NCdjNxSTZFclZOTmNhQnZxRTcvbnNV?=
- =?utf-8?B?SGcwTVlhOExmTTRBNkh4SjUxQXoxZ0ZTcDNWSk9wY0g1QmR2WWJkMS9NWGRB?=
- =?utf-8?B?SndraFdjdjFVMC92MVEvOW1YQlhpRXI5V083clM3bSsvbHA2elJHdjJtUE1z?=
- =?utf-8?B?SnNGR3FEKzhmN3I0Rk8vOWx2UjN5SndiNGNMRkpmbC9wU0VJZW5Tbkk0dEZq?=
- =?utf-8?B?b2JrVnNjUlByRjFuTkRWVU5Lb2JzeGNPZDdKdk1oeWtiV3BtVmgycVFlWG84?=
- =?utf-8?B?citjZUt3Sk00RGxkTEllSFBNeDc4TEppVUtDQUphNHdmNlkyeHBPS1dFZlFu?=
- =?utf-8?B?eTZLZ09zRmJNOStNVWVQOTlGaHVxVHlBVnhMeGlwbnBlTGF0V25naDJjVk1D?=
- =?utf-8?B?OGhOK2d3K2pENW5pMlYrZWlFUnd6S3MvUWduWCtxZXdtUnd2cERLd1R3eEhZ?=
- =?utf-8?B?VEtZSWltTzZ6NER5SURvbUxtZ1R2RXBSYTdVRjFsTjJLOEdyU1NiQzQzQmFL?=
- =?utf-8?B?K0dZL1NoZno1em51QjZkazJ4VWpKTDVzMU82c3BRSC8zczVTMEp6MXhYMG4w?=
- =?utf-8?B?Njd0Z1UwbHlINWNaRml2YVZnK2pFWDEvM05KOEJMVk9BRW1rWnVjdjYyVzF6?=
- =?utf-8?B?MkFQQjRoMzMxSmtEUXhqWWsrSnU5VFQxR2k4cmsraFNiUXRmUzF5K1RFNjFh?=
- =?utf-8?B?NXJNd1ZsRlBVY3RzeHNuRHpqYTdzcW8ySjd5V3NlSUJnMTlVZEJzVW55TGVp?=
- =?utf-8?B?dnloNFV6V1JZcFJXV0JkNytack1IREd6V1pWS0haQk5ZT3hIMjVlWU1KMy9j?=
- =?utf-8?B?VnNhTjJENkd1eWwxR1NSWXVrMEw1SXNnNW9tUDh5aUg1cVlGQTJSOUhSTlBz?=
- =?utf-8?B?eHFaSncyLzdnc2ViOExOcjdLMkhXSGQ3T3lZVjl3QTR5UWpSWTIxc3ZQdWJr?=
- =?utf-8?B?ZkxiZ1Mvci94MkFDbGY2MFM5ek4wQi91Ym9VVDJZQmlKeXhQTG1udUMzaDU4?=
- =?utf-8?B?Q1UrM240SG04YnlMakxwSjl6UW1lZEhZOFAvdmlHeXViSi84Ymk3eC9YY0Jr?=
- =?utf-8?B?eU1jMHlzT1I1eGdZUG9TTXlkdWtZVXFEdFpmVm9Qa093QTZZWXp1V2NNTFdG?=
- =?utf-8?B?Tnl0Q0dScWdxV0EvN3NxMWlDY2x3Y1BpSjA4blhjZnF0ZXVyNzdneExLQm9S?=
- =?utf-8?B?ZndMTDVpQnA1NUZvd3ZxNlVROEFnMVBmbzZPaWhBc2xmSFo2RUNiRUxHeWR5?=
- =?utf-8?B?R3JGZk9nbVc4OG1TaExIY3I0SzJISUhqcklmMTQxc1dFNUdGa1ZVbWNWQm5I?=
- =?utf-8?B?dUV2MHNhR01paFpkYUZwYS8xNHZpZjN2ejQyZDZhKzByai9CL0V3Q1ViWUZy?=
- =?utf-8?B?T3YyRXkxS2ptcjIwb0xWWDMrOVMrY3Y1cjJRemZvaVBXRnVyb0xTd0VsTVdC?=
- =?utf-8?B?bHNITUFtVFN4ZWRsVXh4SEFPczlUVnlQN0xLQ1dnRjlZRjRjZHM2QTFveEdy?=
- =?utf-8?B?RzBTTC9WWm80NDJiRk4ra2hSNWEwOFN2QWdqZnpOUURDdjd2V2paZVAxRWVI?=
- =?utf-8?B?UCs1cUtKYko2MWRVVk5pU3Q0Y21IbnZ0RCtVNHdkUVZ4YlpvTmNTWDZmVWxB?=
- =?utf-8?B?cGdwQmZ4dUtGa2c0VEI0SnNQR2J1dDVReU1oN3FLZVlsbHFKVTBNeVRMWUpy?=
- =?utf-8?B?TU9QMHJzSTBySU04bTBNaVBOMnF2Z2NtNDhLb3pNem5EWDZ2M3FWNmp2OG5G?=
- =?utf-8?B?aSticjJGWENocnVvSDJiZy9LQ1lZZm9LVGN5MmNGZDNNVUhmM1JTNmk2cnNt?=
- =?utf-8?B?M1J1RzhRYjQyTFk1SWdQaS9wK21RTU9wQ1BGaGdFME5OTVlzMnJxVSs2UFBv?=
- =?utf-8?B?aEgwUUNHYWMxemRpZ1Y0ekEzZ2lsTEhOcXphVVNhSS9pTE1aVnBVSTNLeGZv?=
- =?utf-8?B?YjVFMUdYVlBIeXVZbkg2eFhXT2EyV1YvK2FCbktHaS9yYjI2S1hZWWxJOHd2?=
- =?utf-8?Q?hHdlwWFZZowa45k0vIgxgvDdf?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eUlvTjhJejJybDBwNnlvaUpVNVpIWVNOU0FMNkd4M0hHL3lzcm1yc0UrYytY?=
+ =?utf-8?B?N3JScHl1T2JacHdrK2VtWVV6SVlCSDNXRVJxbnFJbGkrOVp5TFFrU3NQemhq?=
+ =?utf-8?B?bTlWU05TdW1LQVBiVytNWTYwQmk5eEFRMnl5K1FIZ2I4cHVqWlNHaHg3Q0dD?=
+ =?utf-8?B?ZnV1aE50R2EycWllc0k0R0pqK2EwdkRCNUFHNzdrU2VtYUgzQ2JJVGdXc3kr?=
+ =?utf-8?B?MGRHdlFtNjlqMlJNZ2FrT0VOUUlTTjh0eEQ5M1ZNVllnVE54M2NQRVhzMGJK?=
+ =?utf-8?B?RWF1TmdxTnRUOXFoM3kydDhDWDF5YjJzZXFBcUFKMm5GTGpMMkZRNXJTMDE5?=
+ =?utf-8?B?Q1VSVGhSY05DT3VFSFVheUtldWNpMW5IdHAvNFc5UEthZlp6cERRMUVSZExq?=
+ =?utf-8?B?OTMxZi92RlV1clBzNUhVMnJ6N3B6czVUL3NIclYxZWhxNHZ2OWJVRWVkRGlr?=
+ =?utf-8?B?SFkxWHRtcmswWG5sRlV6THZ0V1lLVXI0Z0t3Qkk1MTl6R1d4QUtpai9vT0Vt?=
+ =?utf-8?B?WFJndzJZWFBERVd6NU04TmY2UnNwanNKZytaa0l6V0V2a0ZBTHNyWU1vRkYx?=
+ =?utf-8?B?blFqeXhSdlVxNW9Ud2g1WkFZQWZyVnkyUG9PdWtsMGp4dVRjRUJZR01TeEw3?=
+ =?utf-8?B?R0g5ZG9yU0NhSWx0WkZyR0xaV1V3dFBUc2d5VE5QM3NWZVVWQkhWbGxRQTBV?=
+ =?utf-8?B?NmNha09ucklhQnVqMU1OdEhERU9pcm9WTklpUzN1Y0NEeUJGTnZmY0cyYWFP?=
+ =?utf-8?B?bWVrMTBRdk1RbFcwMUxkaFZMNGo1ajZrTlMrRitvYU9EY1V4UENMVTNlditK?=
+ =?utf-8?B?L1EzMmNPd1NVQ3BMdmQxeUVuOWp1RS9FMFdmWDcwUWkwUWZNWmZVbithUitH?=
+ =?utf-8?B?OG55eFVYbHo5cDc0VGpkUXUzYktScnA2a2YybWc1cngrOWpzU0tXMkFid3Nr?=
+ =?utf-8?B?Nnd1ZzV5S2JWeXREdnFuTGVRWGJrbmdvUk14VEFHYUVvMStrM1ZhVnE3NDQ3?=
+ =?utf-8?B?NmFjYjROVmlaRSt6SFlvRGJ1dVl3U2VhV3VBZFRHMjlnSEUxM1Q4cGZ2Um1C?=
+ =?utf-8?B?T3FiRXNVSXhTdUVFK2phbmZMb2w3azVNNm1zd0c1aGZLQm9ER0RNWC9VaGdR?=
+ =?utf-8?B?SC83SHRlNFRFRlFVeW1rV21HOStiSEFBakI0eEwyWGo0N3V5VXlNU2dUNmJk?=
+ =?utf-8?B?V3drZzZra041dGxUTlJzT2dqclVWT2FCYmNHY2xZSkVTOWpLVjVaNmhOeHk5?=
+ =?utf-8?B?QjlpMjVjSlZUdm9odUpUNTlEQytNeUlVWmx3QlJVc01MWC9lOHl5T1dxS3Ry?=
+ =?utf-8?B?blVxS2w1aVVKZEpqL2NSQWJYaDhaQ0FKMUtTYUwxYllvQWdQeDJVOGl5c0FO?=
+ =?utf-8?B?dUVVM1ZyYU96YUY5V1ZWWFg5YktjcXVHdFlpd2NHUVEwL1A1bkZLUWYxQ1ZP?=
+ =?utf-8?B?bkMxb05mYXFKQWxzWFZYNEcybm91cnJDaHl2UlorVnhybTY4QUFiQ2xmRjlM?=
+ =?utf-8?B?QTJzb3d1OUFEdkdDbWtBakJKYk5mcXk3YlVMU1hXZWwrci82QXNzZjRuY2Y4?=
+ =?utf-8?B?b0ZjV0EzMW4zUlZxTEN0WWtNaTV4eHZhUzRLMWc5YVZyM05iSzR5SXcyb01O?=
+ =?utf-8?B?cFpGeU9OMkxpVDNmSEJsdU1YN21qOTlXNmxEUUdhVTBRQnlkd2VZTkpFVVNR?=
+ =?utf-8?B?Sml4bTFuc3lSUGpTc0w4dW00VnlFMUQ2Nml6RVJGcnl1TlJySHFMYjhtT2RD?=
+ =?utf-8?B?d3orZlNnVnFiY0FHSUE0eUNXRTRaM3hkb0swaGFleHJBazlBV1gyczVpR2NK?=
+ =?utf-8?B?UXBVM3hrVExEdDRuTkkxbklicmF4SDR5bEJ1Q2pxUjBXbGxLZVFCblZLZ3Ja?=
+ =?utf-8?B?UmFqL1JIdXRTL1NWa21ZaUxZMjF2UWl4WmFIOXZXbmhOdUhvZWo2SVhaR0Uw?=
+ =?utf-8?B?T1BpNWd5ME5UMVFSdWtyYm1MbFRSSWFVeHhJelZncEtja2dZSVd5L2dXT1Iw?=
+ =?utf-8?B?a1Y1SytvRlpDWkRhMDFvU2tVK0VVOEdQZDJZNWVZS1NjU2VQcnRuZVp6M3FV?=
+ =?utf-8?B?aWlxa25hcmRPZmw1TkVONGpiNy8xNmlzRS8zNjZGVXRpbjdtUjFMUit1OTF6?=
+ =?utf-8?Q?qjFscv3CmKdmuIhgCjlCIwX5j?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a9ac308-d158-4ee4-7c4e-08dbd9c5d8a1
+X-MS-Exchange-CrossTenant-Network-Message-Id: f541c64b-c2aa-4bbc-80bf-08dbd9c61825
 X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2023 03:59:57.3240 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2023 04:01:43.8554 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: T3CClNApnY4ikAVppSbek3Ppl6j1AkfUuyqaOBCQPYfndhe2b6VEqLEH+xpq8zKI
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9btGcoAzLLZsZl8tSAObaQLYlRHX2JdJ7m+3I6BVCVRjJDGgqWlvCyV+1r/8dLhP
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4964
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -131,101 +132,164 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 10/28/2023 1:36 AM, Victor Lu wrote:
-> The WREG32/RREG32_SOC15_IP_NO_KIQ call is using XCC0's RLCG interface
-> when programming other XCCs.
+On 10/28/2023 1:41 AM, Victor Lu wrote:
+> amdgpu_virt_kiq_reg_write_reg_wait is hardcoded to use MEC engine 0.
+> Add xcc_inst as a parameter to allow it to use different MEC engines.
 > 
-> Add xcc instance parameter to them.
-> 
-> v3: xcc not needed for MMMHUB
+> v3: use first xcc for MMHUB in gmc_v9_0_flush_gpu_tlb
 > 
 > v2: rebase
 > 
 > Signed-off-by: Victor Lu <victorchengchi.lu@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c     | 16 ++++++++--------
->   drivers/gpu/drm/amd/amdgpu/soc15_common.h |  6 +++---
->   2 files changed, 11 insertions(+), 11 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c |  5 +++--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h |  3 ++-
+>   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c   |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c   |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c    | 26 ++++++++++++++----------
+>   5 files changed, 22 insertions(+), 16 deletions(-)
 > 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> index 7a084fbfd33c..82762c61d3ec 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -73,9 +73,10 @@ void amdgpu_virt_init_setting(struct amdgpu_device *adev)
+>   
+>   void amdgpu_virt_kiq_reg_write_reg_wait(struct amdgpu_device *adev,
+>   					uint32_t reg0, uint32_t reg1,
+> -					uint32_t ref, uint32_t mask)
+> +					uint32_t ref, uint32_t mask,
+> +					uint32_t xcc_inst)
+>   {
+> -	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
+> +	struct amdgpu_kiq *kiq = &adev->gfx.kiq[xcc_inst];
+>   	struct amdgpu_ring *ring = &kiq->ring;
+>   	signed long r, cnt = 0;
+>   	unsigned long flags;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> index 03c0e38b8aea..5c64258eb728 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> @@ -334,7 +334,8 @@ bool amdgpu_virt_mmio_blocked(struct amdgpu_device *adev);
+>   void amdgpu_virt_init_setting(struct amdgpu_device *adev);
+>   void amdgpu_virt_kiq_reg_write_reg_wait(struct amdgpu_device *adev,
+>   					uint32_t reg0, uint32_t rreg1,
+> -					uint32_t ref, uint32_t mask);
+> +					uint32_t ref, uint32_t mask,
+> +					uint32_t xcc_id);
+>   int amdgpu_virt_request_full_gpu(struct amdgpu_device *adev, bool init);
+>   int amdgpu_virt_release_full_gpu(struct amdgpu_device *adev, bool init);
+>   int amdgpu_virt_reset_gpu(struct amdgpu_device *adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> index d8a4fddab9c1..173237e99882 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> @@ -268,7 +268,7 @@ static void gmc_v10_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+>   	if (adev->gfx.kiq[0].ring.sched.ready && !adev->enable_mes &&
+>   	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
+>   		amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack, inv_req,
+> -				1 << vmid);
+> +				1 << vmid, 0);
+>   		return;
+>   	}
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> index 19eaada35ede..2e4abb356e38 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> @@ -228,7 +228,7 @@ static void gmc_v11_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+>   	if ((adev->gfx.kiq[0].ring.sched.ready || adev->mes.ring.sched.ready) &&
+>   	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
+>   		amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack, inv_req,
+> -				1 << vmid);
+> +				1 << vmid, 0);
+>   		return;
+>   	}
+>   
 > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index 3a1050344b59..0ab9c554da78 100644
+> index 0ab9c554da78..32cc3645f02b 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -856,9 +856,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
->   		for (j = 0; j < adev->usec_timeout; j++) {
->   			/* a read return value of 1 means semaphore acquire */
->   			if (vmhub >= AMDGPU_MMHUB0(0))
-> -				tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, sem);
-> +				tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, sem, 0);
+> @@ -817,7 +817,7 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+>   					uint32_t vmhub, uint32_t flush_type)
+>   {
+>   	bool use_semaphore = gmc_v9_0_use_invalidate_semaphore(adev, vmhub);
+> -	u32 j, inv_req, tmp, sem, req, ack;
+> +	u32 j, inv_req, tmp, sem, req, ack, inst;
+>   	const unsigned int eng = 17;
+>   	struct amdgpu_vmhub *hub;
+>   
+> @@ -832,13 +832,17 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+>   	/* This is necessary for a HW workaround under SRIOV as well
+>   	 * as GFXOFF under bare metal
+>   	 */
+> -	if (adev->gfx.kiq[0].ring.sched.ready &&
+> +	if (vmhub >= AMDGPU_MMHUB0(0))
+> +		inst = 0;
 
-Since rlc reg access ctrl is populated using GET_INST(GC, xcc_id), use 
-GET_INST(GC, 0) to be consistent.
+Same GET_INST(GC, 0) comment here. Looks like this hunk can be combined 
+with patch 1.
 
 Thanks,
 Lijo
+> +	else
+> +		inst = vmhub;
+> +	if (adev->gfx.kiq[inst].ring.sched.ready &&
+>   	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
+>   		uint32_t req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
+>   		uint32_t ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
+>   
+>   		amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack, inv_req,
+> -						   1 << vmid);
+> +						   1 << vmid, inst);
+>   		return;
+>   	}
+>   
+> @@ -856,9 +860,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+>   		for (j = 0; j < adev->usec_timeout; j++) {
+>   			/* a read return value of 1 means semaphore acquire */
+>   			if (vmhub >= AMDGPU_MMHUB0(0))
+> -				tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, sem, 0);
+> +				tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, sem, inst);
 >   			else
-> -				tmp = RREG32_SOC15_IP_NO_KIQ(GC, sem);
-> +				tmp = RREG32_SOC15_IP_NO_KIQ(GC, sem, vmhub);
+> -				tmp = RREG32_SOC15_IP_NO_KIQ(GC, sem, vmhub);
+> +				tmp = RREG32_SOC15_IP_NO_KIQ(GC, sem, inst);
 >   			if (tmp & 0x1)
 >   				break;
 >   			udelay(1);
-> @@ -869,9 +869,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+> @@ -869,9 +873,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
 >   	}
 >   
 >   	if (vmhub >= AMDGPU_MMHUB0(0))
-> -		WREG32_SOC15_IP_NO_KIQ(MMHUB, req, inv_req);
-> +		WREG32_SOC15_IP_NO_KIQ(MMHUB, req, inv_req, 0);
+> -		WREG32_SOC15_IP_NO_KIQ(MMHUB, req, inv_req, 0);
+> +		WREG32_SOC15_IP_NO_KIQ(MMHUB, req, inv_req, inst);
 >   	else
-> -		WREG32_SOC15_IP_NO_KIQ(GC, req, inv_req);
-> +		WREG32_SOC15_IP_NO_KIQ(GC, req, inv_req, vmhub);
+> -		WREG32_SOC15_IP_NO_KIQ(GC, req, inv_req, vmhub);
+> +		WREG32_SOC15_IP_NO_KIQ(GC, req, inv_req, inst);
 >   
 >   	/*
 >   	 * Issue a dummy read to wait for the ACK register to
-> @@ -884,9 +884,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+> @@ -884,9 +888,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
 >   
 >   	for (j = 0; j < adev->usec_timeout; j++) {
 >   		if (vmhub >= AMDGPU_MMHUB0(0))
-> -			tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, ack);
-> +			tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, ack, 0);
+> -			tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, ack, 0);
+> +			tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, ack, inst);
 >   		else
-> -			tmp = RREG32_SOC15_IP_NO_KIQ(GC, ack);
-> +			tmp = RREG32_SOC15_IP_NO_KIQ(GC, ack, vmhub);
+> -			tmp = RREG32_SOC15_IP_NO_KIQ(GC, ack, vmhub);
+> +			tmp = RREG32_SOC15_IP_NO_KIQ(GC, ack, inst);
 >   		if (tmp & (1 << vmid))
 >   			break;
 >   		udelay(1);
-> @@ -899,9 +899,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+> @@ -899,9 +903,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
 >   		 * write with 0 means semaphore release
 >   		 */
 >   		if (vmhub >= AMDGPU_MMHUB0(0))
-> -			WREG32_SOC15_IP_NO_KIQ(MMHUB, sem, 0);
-> +			WREG32_SOC15_IP_NO_KIQ(MMHUB, sem, 0, 0);
+> -			WREG32_SOC15_IP_NO_KIQ(MMHUB, sem, 0, 0);
+> +			WREG32_SOC15_IP_NO_KIQ(MMHUB, sem, 0, inst);
 >   		else
-> -			WREG32_SOC15_IP_NO_KIQ(GC, sem, 0);
-> +			WREG32_SOC15_IP_NO_KIQ(GC, sem, 0, vmhub);
+> -			WREG32_SOC15_IP_NO_KIQ(GC, sem, 0, vmhub);
+> +			WREG32_SOC15_IP_NO_KIQ(GC, sem, 0, inst);
 >   	}
 >   
 >   	spin_unlock(&adev->gmc.invalidate_lock);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15_common.h b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
-> index da683afa0222..c75e9cd5c98b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15_common.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
-> @@ -69,7 +69,7 @@
->   
->   #define RREG32_SOC15_IP(ip, reg) __RREG32_SOC15_RLC__(reg, 0, ip##_HWIP, 0)
->   
-> -#define RREG32_SOC15_IP_NO_KIQ(ip, reg) __RREG32_SOC15_RLC__(reg, AMDGPU_REGS_NO_KIQ, ip##_HWIP, 0)
-> +#define RREG32_SOC15_IP_NO_KIQ(ip, reg, inst) __RREG32_SOC15_RLC__(reg, AMDGPU_REGS_NO_KIQ, ip##_HWIP, inst)
->   
->   #define RREG32_SOC15_NO_KIQ(ip, inst, reg) \
->   	__RREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg, \
-> @@ -86,8 +86,8 @@
->   #define WREG32_SOC15_IP(ip, reg, value) \
->   	 __WREG32_SOC15_RLC__(reg, value, 0, ip##_HWIP, 0)
->   
-> -#define WREG32_SOC15_IP_NO_KIQ(ip, reg, value) \
-> -	 __WREG32_SOC15_RLC__(reg, value, AMDGPU_REGS_NO_KIQ, ip##_HWIP, 0)
-> +#define WREG32_SOC15_IP_NO_KIQ(ip, reg, value, inst) \
-> +	 __WREG32_SOC15_RLC__(reg, value, AMDGPU_REGS_NO_KIQ, ip##_HWIP, inst)
->   
->   #define WREG32_SOC15_NO_KIQ(ip, inst, reg, value) \
->   	__WREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg, \
