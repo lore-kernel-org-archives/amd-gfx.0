@@ -4,56 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FB48C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Oct 2023 15:19:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C63EEC4167D
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Oct 2023 15:43:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 061DA10E52C;
-	Tue, 31 Oct 2023 15:19:10 +0000 (UTC)
-Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
- [IPv6:2001:4860:4864:20::2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5F5910E52C
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Oct 2023 15:19:07 +0000 (UTC)
-Received: by mail-oa1-x2e.google.com with SMTP id
- 586e51a60fabf-1dcfe9cd337so2554379fac.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Oct 2023 08:19:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F2FC10E537;
+	Tue, 31 Oct 2023 15:43:40 +0000 (UTC)
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1693A10E537
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Oct 2023 15:43:38 +0000 (UTC)
+Received: by mail-ot1-x32f.google.com with SMTP id
+ 46e09a7af769-6ce344fa7e4so3795853a34.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Oct 2023 08:43:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698765547; x=1699370347; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1698767017; x=1699371817; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=KNQ8HwZxmG+pHrcTTleOPjnIhvt2StNieUgZmdk0ppo=;
- b=BQkn1+Pmq0OFUoe2fuDg3Z0F2Gqa579vR4QdM1socPQZnDmwHc9Tuv7oAB2mf23CKI
- ahuZ7+NEbqaJRCkuQrii8Zr7ls+GVJiTMJO53FEDGc2DJH/QCyHk//zn+ieixw8seAJW
- 8df5mVguQWqxYPaOnWesvCy9xyOCVer8ZlxgqbREHLyYLpkx9CQvqRq/Eeela26yAVy4
- hVmImY5dHFhZK8jMXroQ1Y/egdllUirAH0iqOymhkHyx2hvciVrVcaOtotgEEiUQExGG
- A6jQKGOgtFsgbAjAitQSc+ZVBu57+5uNjuOQdtULhzql7ceYgNf/bOXJADg/aeFJT4/b
- fCMQ==
+ bh=bVytfTqDUnq3eoq8Cx6VjJ1UUzli8ZsnkRjBUBtFcgw=;
+ b=hoEKCwbU4SErFpTv4pyDTS4G9PXHX+npQgg1hCoGo4I+b0xc9QNuxhpeC6kl4ouG86
+ rEJYqhD6knTqOumhq3BOAjsK2wAcFB8AD3rRji813QmzFxZ/BCz5AQpcuOy2yjjiT+x2
+ dOmJP9ZKC8cBflvEw+Yxev+qE5H0gyrLHrjgyczP3IWl72KM52tj32SMl8MaIOa1xArK
+ BKUKAJd47x2STle6TkX2I9U6+oh1Hnv8iatHOxHaTZtmXWxD1IrGY3zXmB+FF0oJEwC8
+ Ddse4wotp/pfHshKBxbY36ApYCXESl8eQPeVt9BawfkGybRfnkpYiUmIUoe+/es65qFn
+ krvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698765547; x=1699370347;
+ d=1e100.net; s=20230601; t=1698767017; x=1699371817;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=KNQ8HwZxmG+pHrcTTleOPjnIhvt2StNieUgZmdk0ppo=;
- b=HjIQpJW7WS1GDgEesYtQxAOXD3BTsMdO7F2wZ3h9KM35WE4a9Q+TEm9f/BPIj9C1+U
- xGuRzeqgxRMPuCbwpLs65Cur71abI4wVNmR40yueE7ED/JMKo8bZn9dohgojUzbl/k63
- Cm/sZRMEyJHuyRd01uapjrPONNyrBqzBxN+dQhQpfj/Pm1tNaP7hrv8v3j6DmooXXn6b
- GY3D1kzVX6/CgPOkHiQSSPscPMrmctzofIgEFTnrRmcGXsagwWlFToCwj4Ogx8jH1++L
- DQjvct1CJ8xi4Y/QKHGatV2SjLn5G0iZP1ai8HC8ywyA6S8s+YNJFeKT1O3IwTfIGvxY
- NJvQ==
-X-Gm-Message-State: AOJu0YyJYf1zyNqtjrJgqdFu1lbP8/ARwNPVESbvgnrdk3eUPWUqeBM9
- I4xkwlQit35ahu9ypk6jFniRO31rKxzNMGCpsHI=
-X-Google-Smtp-Source: AGHT+IEwMf+izwItIa8CMAMkIv6Dqjr2VqgfDXcKX2oSL7aczq/jE3+AUL4MkxqKIavF49iLQrqVNXeZtAxXWO43ShU=
-X-Received: by 2002:a05:6871:5c4d:b0:1e9:de37:a75d with SMTP id
- os13-20020a0568715c4d00b001e9de37a75dmr14194274oac.17.1698765546989; Tue, 31
- Oct 2023 08:19:06 -0700 (PDT)
+ bh=bVytfTqDUnq3eoq8Cx6VjJ1UUzli8ZsnkRjBUBtFcgw=;
+ b=miJRrbW+8DvmxQuXqXUsxayHYWjiGSfmlQcJ5XL4Lmv96/W535IyyWHf1LhqJ0aUEa
+ /3tJaVOh3swCxglL3OukVKaIhbpaRD5WGP/q66ap2AwLbKN2oiJqw1ZFsDAW9eCasAch
+ D+ynlJJUbztiaHCtP2XaFBohlMdEmd2F1JG+YXRc2b8uwLOf7mhTeeroxllELydO5z6V
+ YUOdZM/me23y+9fJ0APC0fzTWA9/eDMeV4T2XhEaUJHfOj5IDZImJWNuk0PW4nIP7fIm
+ bjpd1n+Y4RKgiH6UhlGNgNFzX9D1teGAseCMpjirwW8FvcpJU8oiWag0Itdk1yo/BmSL
+ HV9g==
+X-Gm-Message-State: AOJu0YwxIpMbRyPFC2bZFS75+mT21FMI+Fw4kSdluoei+4husswOsaBn
+ X6FZpjAIa+ADQYEouI1EzV0LvszLgxXwaPokuvVIFaJe
+X-Google-Smtp-Source: AGHT+IFJ0JlsLNag1K8ufIqhwzvt0KyHEuC/hD5Le1aIxZcKFLAAAgnDuw2+2eG4lj/9CHPJMjyFjZpmdglqyJYj/Ag=
+X-Received: by 2002:a05:6870:6b91:b0:1d5:91d6:65f3 with SMTP id
+ ms17-20020a0568706b9100b001d591d665f3mr15330173oab.7.1698767016889; Tue, 31
+ Oct 2023 08:43:36 -0700 (PDT)
 MIME-Version: 1.0
-References: <20231031145534.2501-1-christian.koenig@amd.com>
-In-Reply-To: <20231031145534.2501-1-christian.koenig@amd.com>
+References: <20231027154225.1662448-1-alexander.deucher@amd.com>
+In-Reply-To: <20231027154225.1662448-1-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 31 Oct 2023 11:18:55 -0400
-Message-ID: <CADnq5_N1St5NDG-uAtVnEcj1P+f0jt-Rp-3kND_XjTTbqmbbGw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix error handling in amdgpu_vm_init
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Date: Tue, 31 Oct 2023 11:43:25 -0400
+Message-ID: <CADnq5_My9PuGnR8LBkU1tuYD_38c-rL_2U0HrZCiD4Y2dzLcNw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/amdgpu: don't use ATRM for external devices
+To: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -67,99 +67,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Kenny.Ho@amd.com, amd-gfx@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Oct 31, 2023 at 11:12=E2=80=AFAM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> When clearing the root PD fails we need to properly release it again.
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+Ping on this series?
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Alex
 
+On Sat, Oct 28, 2023 at 2:32=E2=80=AFAM Alex Deucher <alexander.deucher@amd=
+.com> wrote:
+>
+> The ATRM ACPI method is for fetching the dGPU vbios rom
+> image on laptops and all-in-one systems.  It should not be
+> used for external add in cards.  If the dGPU is thunderbolt
+> connected, don't try ATRM.
+>
+> v2: pci_is_thunderbolt_attached only works for Intel.  Use
+>     pdev->external_facing instead.
+> v3: dev_is_removable() seems to be what we want
+>
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2925
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 31 +++++++++++++-------------
->  1 file changed, 16 insertions(+), 15 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 5 +++++
+>  1 file changed, 5 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.c
-> index d72daf15662f..5877f6e9b893 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2042,7 +2042,8 @@ long amdgpu_vm_wait_idle(struct amdgpu_vm *vm, long=
- timeout)
->   * Returns:
->   * 0 for success, error for failure.
->   */
-> -int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm, int=
-32_t xcp_id)
-> +int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-> +                  int32_t xcp_id)
->  {
->         struct amdgpu_bo *root_bo;
->         struct amdgpu_bo_vm *root;
-> @@ -2061,6 +2062,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, stru=
-ct amdgpu_vm *vm, int32_t xcp
->         INIT_LIST_HEAD(&vm->done);
->         INIT_LIST_HEAD(&vm->pt_freed);
->         INIT_WORK(&vm->pt_free_work, amdgpu_vm_pt_free_work);
-> +       INIT_KFIFO(vm->faults);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_bios.c
+> index 38ccec913f00..f3a09ecb7699 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> @@ -29,6 +29,7 @@
+>  #include "amdgpu.h"
+>  #include "atom.h"
 >
->         /* create scheduler entities for page table updates */
->         r =3D drm_sched_entity_init(&vm->immediate, DRM_SCHED_PRIORITY_NO=
-RMAL,
-> @@ -2103,34 +2105,33 @@ int amdgpu_vm_init(struct amdgpu_device *adev, st=
-ruct amdgpu_vm *vm, int32_t xcp
->                                 false, &root, xcp_id);
->         if (r)
->                 goto error_free_delayed;
-> -       root_bo =3D &root->bo;
+> +#include <linux/device.h>
+>  #include <linux/pci.h>
+>  #include <linux/slab.h>
+>  #include <linux/acpi.h>
+> @@ -287,6 +288,10 @@ static bool amdgpu_atrm_get_bios(struct amdgpu_devic=
+e *adev)
+>         if (adev->flags & AMD_IS_APU)
+>                 return false;
+>
+> +       /* ATRM is for on-platform devices only */
+> +       if (dev_is_removable(&adev->pdev->dev))
+> +               return false;
 > +
-> +       root_bo =3D amdgpu_bo_ref(&root->bo);
->         r =3D amdgpu_bo_reserve(root_bo, true);
-> -       if (r)
-> -               goto error_free_root;
-> +       if (r) {
-> +               amdgpu_bo_unref(&root->shadow);
-> +               amdgpu_bo_unref(&root_bo);
-> +               goto error_free_delayed;
-> +       }
->
-> +       amdgpu_vm_bo_base_init(&vm->root, vm, root_bo);
->         r =3D dma_resv_reserve_fences(root_bo->tbo.base.resv, 1);
->         if (r)
-> -               goto error_unreserve;
-> -
-> -       amdgpu_vm_bo_base_init(&vm->root, vm, root_bo);
-> +               goto error_free_root;
->
->         r =3D amdgpu_vm_pt_clear(adev, vm, root, false);
->         if (r)
-> -               goto error_unreserve;
-> +               goto error_free_root;
->
->         amdgpu_bo_unreserve(vm->root.bo);
-> -
-> -       INIT_KFIFO(vm->faults);
-> +       amdgpu_bo_unref(&root_bo);
->
->         return 0;
->
-> -error_unreserve:
-> -       amdgpu_bo_unreserve(vm->root.bo);
-> -
->  error_free_root:
-> -       amdgpu_bo_unref(&root->shadow);
-> +       amdgpu_vm_pt_free_root(adev, vm);
-> +       amdgpu_bo_unreserve(vm->root.bo);
->         amdgpu_bo_unref(&root_bo);
-> -       vm->root.bo =3D NULL;
->
->  error_free_delayed:
->         dma_fence_put(vm->last_tlb_flush);
+>         while ((pdev =3D pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev))=
+ !=3D NULL) {
+>                 dhandle =3D ACPI_HANDLE(&pdev->dev);
+>                 if (!dhandle)
 > --
-> 2.34.1
+> 2.41.0
 >
