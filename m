@@ -4,89 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03077C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Nov 2023 08:55:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FA69C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Nov 2023 10:35:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8C6C10E0D3;
-	Wed,  1 Nov 2023 08:55:05 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2062e.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8d::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4840C10E0D3
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Nov 2023 08:55:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3D9810E6BA;
+	Wed,  1 Nov 2023 10:35:07 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2057.outbound.protection.outlook.com [40.107.94.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1B2210E6BA
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Nov 2023 10:35:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YF6kgT2fNwaUyfUrOWoMeHWv1G+YP7haWIMBbHlv9GOrylLvUg11HI2zH6ubvX/cvJJCBpU3Qpn10sTd/dYA8rtS/unn2p2FQA4WK0X2Jtak1eHKYYJ2EZHggb7uyawZMgmhOoJ90z2LEoNDtVogYV3ophOZA1ufUnBWd5BbtCjYBnRTwwj7sQIAdgQJRb5mnXvibSZ45S3b9ym6lIwi0jJydIelzYagQjoKj3xQbQttGlkvuGzyR6av8ey0aF2F35rgH29NgtFYLEOkr+6o8F9xpeBvnal84aJvoXLDxGPumiq4PNjoXKjXW3VuH8nbC2GKSlYvj/ISu6fp+zr1KQ==
+ b=XE6GOg3PC0SCsX/wmXRTqPI5w5Yw0+1uN90r+f9GmudQmAJ5D0liEq5h/u38FWg/+rOZZ7hITfJjyrD/uG2B6tdvX+NqQJkK8lVRgsM8Repa5+72pbZ/D3IIRYO6m0+aSSwFppIa2SO0z7en4XrSryl5Y0P6sQ5URGzwUVKkFLY+EL8alXMByj3ikteNongKqXJJMTSB4kUVl+nI2RrWObVt3/9O36Zyb20nDbMI1AqFo2t8onPWGPqwNUZSA5mg+APqpI/U6EkHvhFimW6WRySimmMK2sdtQjfYDVHU9ph4UnvBl6N6qrUUJdTIFkaacMtUpRmRy4c7zimEy5hJJA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Tsv0VO+aFXecMSi9kROOJfigv7C/uXvt3c+54rNLoyA=;
- b=F5o2DaqToEoFvwV2NvXXDmjqxde+vsHLisgp2UIOsSu9uuo19EzdqBI2rfjrBWI5YlwAUmy+kmVHJLzMrKAJrzj9h1UzeF8CnXVx1j6deXyoot7SX1mvg8U39epx1yZHXVCTKwgx8MTt9WL2P3M8ok/v+qhCv+xZZr/9k+Z5NxDSncSvJSrYK16JruhNs7uf4jYJQbO8gjmGiEptdrOPAV5nSZL7xuuCmCD9BJLGHB2Hj5zkEUecI0B1VztyE1WISb2B7KO+49qYhK9pkaSBxYM3ottVhWGhpex7MHiXBPndcojlNxCaBxcgVmUBU+GTafzmeEdLK6KiyeIc3Gqf+A==
+ bh=gmfHIU4tvmQS01xbp9HW83mDeGQQ0xt+gu7EVW20Rqg=;
+ b=VS2RZ+vuUqmGUd6mvexbXNoMbv57+dqh9Aloo1K73lTNnmHdtCrr9340nqG8ecVwvNWviG/Y6Ow32qLV4CMVmNIvHzDdbNd+kGv+jU8qPXrNJHHNi4He1mhloCR9w+/BjF1kpvJb92LpeaFmdbDh8a5nbnanotAW8zbwbqnMZBPSke5MCkK5C1Chq7p20ZYM+CPy4YNaylTakr9kS1OIwri+rXUR8UyWEhIt33j0RjGenZpH6J7Cfpl4RQHkdjxraWURfqid7o69am+Df4EO/uD3IyMAlI5idqWEjqQpB5kE/xvo3Yxg/zKvB/Pyu6ePd7o3YLecuag0WjlPwYcCOQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Tsv0VO+aFXecMSi9kROOJfigv7C/uXvt3c+54rNLoyA=;
- b=Sg3UIbG0p/h2NrgBNOZjn/R7Mvwe61wzlpBJREwY75xz8VijgXujDuY+IXT95opR5Ee5VcjKnWsZqSrpSXoaQXNCwim71OUfyOG6tvW6kHZoIfuu2CQHG2vNefR84nA8FuGi1BT95mA/7B3y61VQ22cxb1o9/9zlJ/U1hx0Hy8c=
-Received: from SA0PR11CA0164.namprd11.prod.outlook.com (2603:10b6:806:1bb::19)
- by DM8PR12MB5400.namprd12.prod.outlook.com (2603:10b6:8:3b::12) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=gmfHIU4tvmQS01xbp9HW83mDeGQQ0xt+gu7EVW20Rqg=;
+ b=L5VU/Wti6yqjyg41/TMFi2Q7Qtpy6FIYP2qquNGmE4CfKmZfI2SqzBcddv4xmBVdc58KZsQAZTZYChZRA4yFqVrfz3S0WB3nSCCR7NZGEDY9GRqCC0cH7RxFdFIlxQIYuDgREypgIwr2XcNfs7iqbxDDiIN7lkY7RiGIC8FyqRE=
+Received: from PH8PR05CA0016.namprd05.prod.outlook.com (2603:10b6:510:2cc::17)
+ by SJ0PR12MB6928.namprd12.prod.outlook.com (2603:10b6:a03:47a::21)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.19; Wed, 1 Nov
- 2023 08:54:59 +0000
-Received: from SA2PEPF00001505.namprd04.prod.outlook.com
- (2603:10b6:806:1bb:cafe::78) by SA0PR11CA0164.outlook.office365.com
- (2603:10b6:806:1bb::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.19 via Frontend
- Transport; Wed, 1 Nov 2023 08:54:59 +0000
+ 2023 10:35:03 +0000
+Received: from SN1PEPF0002BA4B.namprd03.prod.outlook.com
+ (2603:10b6:510:2cc:cafe::f6) by PH8PR05CA0016.outlook.office365.com
+ (2603:10b6:510:2cc::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.18 via Frontend
+ Transport; Wed, 1 Nov 2023 10:35:02 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF00001505.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SN1PEPF0002BA4B.mail.protection.outlook.com (10.167.242.68) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6954.19 via Frontend Transport; Wed, 1 Nov 2023 08:54:58 +0000
-Received: from ldev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6954.19 via Frontend Transport; Wed, 1 Nov 2023 10:35:02 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Wed, 1 Nov
- 2023 03:54:20 -0500
-From: Tim Huang <Tim.Huang@amd.com>
+ 2023 05:34:57 -0500
+Received: from stanley-test.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32 via Frontend
+ Transport; Wed, 1 Nov 2023 05:34:56 -0500
+From: Stanley.Yang <Stanley.Yang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2] drm/amdgpu: fix GRBM read timeout when do mes_self_test
-Date: Wed, 1 Nov 2023 16:53:17 +0800
-Message-ID: <20231101085317.609080-1-Tim.Huang@amd.com>
-X-Mailer: git-send-email 2.39.2
+Subject: [PATCH Review 1/1] drm/amdgpu: Reset vram error data info
+Date: Wed, 1 Nov 2023 18:34:49 +0800
+Message-ID: <20231101103449.3657664-1-Stanley.Yang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00001505:EE_|DM8PR12MB5400:EE_
-X-MS-Office365-Filtering-Correlation-Id: 156aab2a-d8f8-46d1-8f97-08dbdab83a42
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4B:EE_|SJ0PR12MB6928:EE_
+X-MS-Office365-Filtering-Correlation-Id: f6ca3798-3ea5-4969-815a-08dbdac634cb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: oiBhaM2wvrPje3Se9CDv6x+/BCFZLsqFtA1sZbGWkodGHHxfrvuwk5/Tv+TpSj97HmYF9mXMSVhT2lCH9ggHvo4au4DF31z+hqyHsWZyMG1ZSMnwU7dURmfRbqt+22guEMcrk83x/PYt5ovR05X3IP1Q3gw+zCbzWTdt/6iK92i53N/L44p/qKZNOn7lfghpCMb4z22iUFvJI8vOe2cExtvKFmxNLb9Hcqi5xL8Gs0kcfK+QKtkejeJXxpQKnKCFPxF0xtpQl2u6tMUIhRTsikeHKsITgfaty26bgk5SskwDXyjb3Gnon1DAve6OJmHGsVYvQzFEukx3IVYKJkEOZNZAYEHjCTCAedVmfqgVIM3eQ/S7gdZsW6zAREqGvVTs7bIyiYHTvzGZlCpq5K5wXvy9UD+q0P2QcSmMJmY15pSRlyis3VhemQIPQP6GFyoySHA7NEWRthpNrs53SGsWXBfNpEU0Yykb0HXFb/AdosNpRU111Lk3U7PiyGlJsQ2By3wO0hGPMYyUOcSxziqzVpoupES1WhWBhd758Qr4pwYgcjLAPjdeV/tlw4wvxpGxOZp6o8X6XSap9nUAuTT3GndtmAK2LHh3/Xw6dOffH/sqiKaGTbtXmouxxfhj2yib7+ygIYPhyr6TsL0UFU+nBCVRL64AAol7BuwpEPwl8T7dPaMd+Eq7IkixtruGDHl7bgz4jZ6BYvxGqQW1SS98tPdWnXWjwJpSgrtN41Kmvi2v8+Jnn1X0Rbd1n84RSMKE/fakxnSH/EAVDST+Zu8MdA==
+X-Microsoft-Antispam-Message-Info: 6v2FqdRn40pFBKJAH1KQxKlamHzrd90OgrvDBTxv2+Nt2WHHQ+AxOYwnn1j5UXAymM3TQF9an3EoeRdmWUHiGC0uHvMx/+1tms44Zg0/h1yAbUViA/8WisNtpANNU0aZLNhdZ24VjA7ZaZ2ea8VC4Bki3vU7kldPFXiyMNNy5mOXMcKXgZxAicBfXr1OS5ANo8i6BTsA4952MmehB7fTmEXtzlMeAxb9B+2mNUXLZ5GXKiklSTF3TGg0fAI2EV07GLI7aDOZRxlSXrErjnnUxO3yWOYXiNXd9BqFq6Rs/yPJIfnY8Tw59zf9PJXW+Sl7ce+alTKHOQFvLzifABpCAfNs1wPeKrAME87KtTSMhZKmXmmO+Nw497SA5tIryAcaAoxm+fL32+NiFtVKvOPg4WkE3HCehnCzxJUC7LVh82feGUkwncmb3ZtgzWFiDk+wckhR70BBxD1ondtzKO/hVENMA2L7GEvn032RavpSKH+O6vH24kVYP9uRmc2UJHcwFLwTTg3SbzDtpHqDVoQYa5DZylEuehFmDJm0TwwMdR24l6ojB6MCnQX4HCzce6DwdfdIKO9T7AAEqHpBBUG3/GFF13ZKqZ7hNchfz+p2IRgrcg7U/C/7MzMS80oQL+NXzWEpbKVTuMb08qxXnrgdS1pHuTYKLRMWGY+Pyw9StafEqURLnB2GtOEBvkQ2RKq1aB6wERVSBJ+bj4J4W4KWukrGuKsCunmcLy14RRTqcP9hdvPIGA64AUAgUpZ0Jzs+QcXEUykMstT+Ht4hnq80fA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(136003)(346002)(39860400002)(396003)(376002)(230922051799003)(451199024)(1800799009)(82310400011)(64100799003)(186009)(40470700004)(46966006)(36840700001)(40460700003)(40480700001)(6916009)(70206006)(54906003)(70586007)(316002)(7696005)(6666004)(26005)(1076003)(426003)(336012)(16526019)(2616005)(82740400003)(356005)(36756003)(83380400001)(47076005)(81166007)(36860700001)(86362001)(478600001)(8676002)(8936002)(5660300002)(4326008)(41300700001)(2906002)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(136003)(396003)(39860400002)(376002)(346002)(230922051799003)(82310400011)(186009)(1800799009)(451199024)(64100799003)(40470700004)(36840700001)(46966006)(6666004)(40460700003)(7696005)(478600001)(40480700001)(47076005)(41300700001)(83380400001)(5660300002)(4326008)(36860700001)(2906002)(8936002)(70586007)(6916009)(316002)(70206006)(26005)(8676002)(2616005)(86362001)(336012)(426003)(81166007)(356005)(82740400003)(36756003)(1076003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2023 08:54:58.8866 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 156aab2a-d8f8-46d1-8f97-08dbdab83a42
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2023 10:35:02.5626 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6ca3798-3ea5-4969-815a-08dbdac634cb
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00001505.namprd04.prod.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA4B.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5400
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6928
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,59 +97,162 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Yifan1.zhang@amd.com, Jack.Xiao@amd.com,
- Tim Huang <Tim.Huang@amd.com>
+Cc: "Stanley.Yang" <Stanley.Yang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use a proper MEID to make sure the CP_HQD_* and CP_GFX_HQD_* registers
-can be touched when initialize the compute and gfx mqd in mes_self_test.
-Otherwise, we expect no response from CP and an GRBM eventual timeout.
+Reset error data info stored in vram  when user clear eeprom table.
 
-Signed-off-by: Tim Huang <Tim.Huang@amd.com>
+Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       | 97 ++++++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h       |  2 +
+ .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    |  4 +
+ 3 files changed, 77 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index 70fe3b39c004..45280fb0e00c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -556,8 +556,20 @@ static void amdgpu_mes_queue_init_mqd(struct amdgpu_device *adev,
- 	mqd_prop.hqd_queue_priority = p->hqd_queue_priority;
- 	mqd_prop.hqd_active = false;
- 
-+	if (p->queue_type == AMDGPU_RING_TYPE_GFX ||
-+	    p->queue_type == AMDGPU_RING_TYPE_COMPUTE) {
-+		mutex_lock(&adev->srbm_mutex);
-+		amdgpu_gfx_select_me_pipe_q(adev, p->ring->me, p->ring->pipe, 0, 0, 0);
-+	}
-+
- 	mqd_mgr->init_mqd(adev, q->mqd_cpu_ptr, &mqd_prop);
- 
-+	if (p->queue_type == AMDGPU_RING_TYPE_GFX ||
-+	    p->queue_type == AMDGPU_RING_TYPE_COMPUTE) {
-+		amdgpu_gfx_select_me_pipe_q(adev, 0, 0, 0, 0, 0);
-+		mutex_unlock(&adev->srbm_mutex);
-+	}
-+
- 	amdgpu_bo_unreserve(q->mqd_obj);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 753260745554..9c1072ea5760 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -2336,6 +2336,77 @@ int amdgpu_ras_add_bad_pages(struct amdgpu_device *adev,
+ 	return ret;
  }
  
-@@ -993,9 +1005,13 @@ int amdgpu_mes_add_ring(struct amdgpu_device *adev, int gang_id,
- 	switch (queue_type) {
- 	case AMDGPU_RING_TYPE_GFX:
- 		ring->funcs = adev->gfx.gfx_ring[0].funcs;
-+		ring->me = adev->gfx.gfx_ring[0].me;
-+		ring->pipe = adev->gfx.gfx_ring[0].pipe;
- 		break;
- 	case AMDGPU_RING_TYPE_COMPUTE:
- 		ring->funcs = adev->gfx.compute_ring[0].funcs;
-+		ring->me = adev->gfx.compute_ring[0].me;
-+		ring->pipe = adev->gfx.compute_ring[0].pipe;
- 		break;
- 	case AMDGPU_RING_TYPE_SDMA:
- 		ring->funcs = adev->sdma.instance[0].ring.funcs;
++int amdgpu_ras_error_data_init(struct ras_err_data *err_data)
++{
++	memset(err_data, 0, sizeof(*err_data));
++
++	INIT_LIST_HEAD(&err_data->err_node_list);
++
++	return 0;
++}
++
++static void amdgpu_ras_error_node_release(struct ras_err_node *err_node)
++{
++	if (!err_node)
++		return;
++
++	list_del(&err_node->node);
++	kvfree(err_node);
++}
++
++void amdgpu_ras_error_data_fini(struct ras_err_data *err_data)
++{
++	struct ras_err_node *err_node, *tmp;
++
++	list_for_each_entry_safe(err_node, tmp, &err_data->err_node_list, node)
++		amdgpu_ras_error_node_release(err_node);
++}
++
++static void amdgpu_ras_reset_error_info(struct ras_manager *obj)
++{
++	struct ras_err_data *err_data;
++
++	if (!obj)
++		return;
++
++	err_data = &obj->err_data;
++
++	/* release all error nodes */
++	amdgpu_ras_error_data_fini(err_data);
++
++	/* reset error data and init */
++	amdgpu_ras_error_data_init(err_data);
++}
++
++/* reset vram bad pages data and umc ras manager error count */
++int amdgpu_ras_reset_vram_bad_pages(struct amdgpu_device *adev)
++{
++	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
++	struct ras_err_handler_data *data;
++	struct ras_manager *obj;
++
++	if (!con || !con->eh_data)
++		return 0;
++
++	mutex_lock(&con->recovery_lock);
++
++	data = con->eh_data;
++	data->space_left += data->count;
++	data->count = 0;
++	memset(data->bps, 0, data->space_left * sizeof(data->bps));
++
++	mutex_unlock(&con->recovery_lock);
++
++	list_for_each_entry(obj, &con->head, node) {
++		if (obj->head.block == AMDGPU_RAS_BLOCK__UMC) {
++			amdgpu_ras_reset_error_info(obj);
++			break;
++		}
++	}
++
++	return 0;
++}
++
+ /*
+  * write error record array to eeprom, the function should be
+  * protected by recovery_lock
+@@ -3556,32 +3627,6 @@ void amdgpu_ras_inst_reset_ras_error_count(struct amdgpu_device *adev,
+ 	}
+ }
+ 
+-int amdgpu_ras_error_data_init(struct ras_err_data *err_data)
+-{
+-	memset(err_data, 0, sizeof(*err_data));
+-
+-	INIT_LIST_HEAD(&err_data->err_node_list);
+-
+-	return 0;
+-}
+-
+-static void amdgpu_ras_error_node_release(struct ras_err_node *err_node)
+-{
+-	if (!err_node)
+-		return;
+-
+-	list_del(&err_node->node);
+-	kvfree(err_node);
+-}
+-
+-void amdgpu_ras_error_data_fini(struct ras_err_data *err_data)
+-{
+-	struct ras_err_node *err_node, *tmp;
+-
+-	list_for_each_entry_safe(err_node, tmp, &err_data->err_node_list, node)
+-		amdgpu_ras_error_node_release(err_node);
+-}
+-
+ static struct ras_err_node *amdgpu_ras_error_find_node_by_id(struct ras_err_data *err_data,
+ 							     struct amdgpu_smuio_mcm_config_info *mcm_info)
+ {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index 665414c22ca9..64710517b9fe 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -622,6 +622,8 @@ int amdgpu_ras_add_bad_pages(struct amdgpu_device *adev,
+ int amdgpu_ras_save_bad_pages(struct amdgpu_device *adev,
+ 		unsigned long *new_cnt);
+ 
++int amdgpu_ras_reset_vram_bad_pages(struct amdgpu_device *adev);
++
+ static inline enum ta_ras_block
+ amdgpu_ras_block_to_ta(enum amdgpu_ras_block block) {
+ 	switch (block) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+index 65aa218380be..40060f1b8ad6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+@@ -462,6 +462,10 @@ int amdgpu_ras_eeprom_reset_table(struct amdgpu_ras_eeprom_control *control)
+ 
+ 	mutex_unlock(&control->ras_tbl_mutex);
+ 
++	/* reset dad pages in vram structure */
++	if (amdgpu_ras_reset_vram_bad_pages(adev))
++		dev_warn(adev->dev, "reset vram bad pages structure failed, need reboot system\n");
++
+ 	return res;
+ }
+ 
 -- 
-2.39.2
+2.25.1
 
