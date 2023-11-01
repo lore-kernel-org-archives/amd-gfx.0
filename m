@@ -4,58 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CEF6C4167D
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Nov 2023 21:36:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 815B5C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Nov 2023 22:00:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FEDC10E7BF;
-	Wed,  1 Nov 2023 21:36:39 +0000 (UTC)
-Received: from mail-oo1-xc31.google.com (mail-oo1-xc31.google.com
- [IPv6:2607:f8b0:4864:20::c31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C05110E7BF;
- Wed,  1 Nov 2023 21:36:36 +0000 (UTC)
-Received: by mail-oo1-xc31.google.com with SMTP id
- 006d021491bc7-5820299b99cso661683eaf.1; 
- Wed, 01 Nov 2023 14:36:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698874595; x=1699479395; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=NzeWTgZIZ83OtuqSWokoE3B69bPXrO05k5OrT4HO0NY=;
- b=lgdw8og3g8fSds6tR/NHCuHjwI3gSouMb4uRF1dkvwZCBFa5T6iMVEhb01LKgtFNBO
- uMz17oDmgCPVlVWHFptZDd/pQLKyVA3H0NDEqFT+DIVGGMWhXZSfCHhmnZg/Op72JeND
- c7lQY2vnLjEUZ4ZWKl7nev/xrCATu+M4TMv2MR0W8KFsv0XvTc+bF3FpUix3e09JPi1w
- QHcmoq45UUDnWj3HF/GgSuB1dtMstKuEERZxCUO3/xgU8eE6hYi0klT4lTvWnuRNsbuY
- JoMW/XTxkfTkBnl+PB5fVU2G9bm+60PvCQ6XTdH6/Agii0JA+wgFTHicJ5DhCGkfY0E2
- GW/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698874595; x=1699479395;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=NzeWTgZIZ83OtuqSWokoE3B69bPXrO05k5OrT4HO0NY=;
- b=qZT9TdDJdpMtnbIVkWBE92Qn4z/ln/R8y2rKlQuJSE8gLDyCcNJTFkkS/Ok6kmR24h
- eqRPpBSUjKreaWBviWs8vMgFDqyS351UbDePjaUfkjg7FkMXJxWApb1oyyWyCXSoTq5e
- bjo+QD7nD+lPIkbbvfDuF/CHHT/bEYakpdIzdRMu5dSJE8fqw+LZH+YDxEQvlv4Hh5vc
- 1XUfZFAIDSDhE+BjXp5P7EF2Z8SnotoeiACekHtNoI8V+VgM3F94muWs0Bf161LXQLho
- K6kHLXnKt9ru6BFAPBGWEydJjE+Gkrh6uMaETb0EMGnLL3g9I5Qo+1o2TiiiAF/V+kwZ
- 7MlQ==
-X-Gm-Message-State: AOJu0Yw/jlIMbXF+xkbm1FkA4T3an3niEb7vvbp4hOePtX7y/XFPtva0
- doWxiK8YTODO83AclZKO6SMMawteBraKz+RMDuw=
-X-Google-Smtp-Source: AGHT+IGVaW7xWUNgn6WGaMiP138/xSb7/M1aRCKqX5RPCLQjltubi4nNgmznGdjRFlY6UmtBEOIaKOjSpBWCTg7AsRA=
-X-Received: by 2002:a05:6871:60d:b0:1e9:88e0:b8ba with SMTP id
- w13-20020a056871060d00b001e988e0b8bamr2121816oan.29.1698874595339; Wed, 01
- Nov 2023 14:36:35 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D9AA10E7D8;
+	Wed,  1 Nov 2023 22:00:51 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20601.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eae::601])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6166410E7D8
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Nov 2023 22:00:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hOstnbhVyOaDd+Wf2GfiYYP4GtxCv9LAezzH1mp3GG1vkio3+hsb+R+YhM0WKSmycPBGZ1asrCpYWQMZc4qYTujLaE6oYu3PUDNEInqjwSH3kOqhQi3AV2IV2sXERC1vgVLgJAr2Xi3tg4eN97LXFMI6WLnZT00mJv3DA3nU2ew3MT/3jSD5PQeova9Kl25elQbxrp+exyrF2MMYLu101UCSw7cKXVm61SYbMzlQKUpKElFYGDMwjR3bKYtOq5KtywXJ7fxz8TiEJO9BxonHJi7hh3ZskKRE9s22iSdKqqwB2nW5As3DdO/Ra0eBsCOepN+Q3sP/j/Ht7VUSY2SOKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VukIOkvYPZjxoUd2PX+qXa3esM3wxDM2Jop7jhyezb4=;
+ b=e9zLvurY+yqFnQULiq3P4nQLiAVboakK4pRPLwddLsHT0V/7D/LEVtz0cMKSdDkNoYzumP8J6DerxrFiTRyH/8VCxokcdMymlVs82u+Eh8NHEwn5gIc51N/7lvmmgj52c/VihUsLUQt7hkCqpBCugUSb43PwzbYdSivcd6Mp3nFnNeifdXJJXx3K06VAknYHBk62cfP3zEvfqiBjwPJJLEqJG+cHL8ykITZcC71fvGu6aInUo9ZtYfEXL4CsEIRpT0ZWMuwq660BMaC/7nWh9DW1QtiAXOjxBwKYa3IwIyHNOatVcyfNgILIDxtG9ylWvzx/Dw1/vh+rLKRWEGM72A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VukIOkvYPZjxoUd2PX+qXa3esM3wxDM2Jop7jhyezb4=;
+ b=0Yoj1/glmk3J/9VIyJQAUmdyE7DnOEwUfbt24IbtPgv5myQv4vSOraboe6WNnXUBGrWGVXgCrZzmBKhMUdpp5npnqkTJghj2l4u6P7jjlpYSIE/OahQKujsW2tG3LK7mRjn3F0o2BKkbA3HuPpI57SVc2mkeYC7Ud1sQ5YO7CpY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by LV8PR12MB9451.namprd12.prod.outlook.com (2603:10b6:408:206::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.28; Wed, 1 Nov
+ 2023 22:00:46 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::19c3:4a94:9ddf:35aa]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::19c3:4a94:9ddf:35aa%3]) with mapi id 15.20.6954.019; Wed, 1 Nov 2023
+ 22:00:46 +0000
+Message-ID: <9622bd17-a526-48d2-b3c3-f5e7bbd82ecf@amd.com>
+Date: Wed, 1 Nov 2023 18:00:44 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: fix error handling in amdgpu_vm_init
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+References: <20231031145534.2501-1-christian.koenig@amd.com>
+ <CADnq5_N1St5NDG-uAtVnEcj1P+f0jt-Rp-3kND_XjTTbqmbbGw@mail.gmail.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <CADnq5_N1St5NDG-uAtVnEcj1P+f0jt-Rp-3kND_XjTTbqmbbGw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0307.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6c::29) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
-References: <20231101210037.130494-1-hamza.mahfooz@amd.com>
-In-Reply-To: <20231101210037.130494-1-hamza.mahfooz@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 1 Nov 2023 17:36:24 -0400
-Message-ID: <CADnq5_Nv0MnG+pPvRQO37OP8iYwz8oGvFLs2g-+U=URHWcqJGw@mail.gmail.com>
-Subject: Re: [PATCH] drm/edid: add a quirk for two 240Hz Samsung monitors
-To: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|LV8PR12MB9451:EE_
+X-MS-Office365-Filtering-Correlation-Id: b15982f5-629b-4d92-36b0-08dbdb26005b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Y6OB9PpPML2/VVFvKRXR6iPPNNnNv9SZ1MVQAo4enL6ny9j+DR4MrWFVbKIf5zOpDNYyIvwsExhPcMl1uie6nhYc+xs3iM0S82ERMj9HmgNyWmRWdhWCaotNhbsboJLvQxGhAOdHO50VnCQTFndzQn9WSrZFIUHW5AEE011IXAaoiltQjVk/0vFQ4OGSfUP2YuVsEPwiCVL5T48LFXrUl8J8fWPOkmmRVHloNKgx2H3e+igzhk4vvONild1q+VJkG3dsmPnMe9KBA34Imtp20nB5xKMfStz5wnipGBw63BPTCx1wOyIev9wsjy1WtZnPlqg06c3tA/xIN93x7JDrr3z9OR6I8XGwvwsSBPeTIbew1adzDM6WMQWQeJGGu5kr6IfD2GA+j203LX7a6tOiwZ4Skfo2HSLxmn7GYhuDJxQPpr9IS95JUY+CLK6zsCbT4xQk/Xu+cf45jhp6YF1RAYurXCdxFABhj9yWT/rTAmQaBWfomXTXhYmYnfF9xJsjWNqUrGck1LLUCjKJuswU/g6G2BZdlpCSBryMNZ8wS7iZh0KYMze8VwqtEP5q8ZVAQVct0i98xsog70IqIksPkTpObFiVnhqJ1Jm/Z52Iu1K86fd4HRTLzg/4jobI//O8+RZ6a/myPXuQ/wr56+ARuA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(346002)(136003)(366004)(376002)(396003)(230922051799003)(1800799009)(186009)(451199024)(64100799003)(2906002)(4001150100001)(2616005)(26005)(6512007)(36916002)(4326008)(478600001)(66574015)(66476007)(83380400001)(6506007)(8676002)(44832011)(6486002)(66946007)(110136005)(41300700001)(66556008)(8936002)(316002)(53546011)(5660300002)(36756003)(31696002)(38100700002)(86362001)(31686004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OVY2cnFWMk16dlBHRTFDUHozYU9YNGd0eGE3M2xpZVNPVmpjNU1XaGt5UGhz?=
+ =?utf-8?B?dkN3RC9Jb0Flakdxa2J0OW5QM3VYc0RaejJwb0Y4TDJLOEo3djVhYTh1Z05J?=
+ =?utf-8?B?elRWWVI0eGpVV2xVSVpJbTlnK0lPTDRzZ3NlOURUN2pkRlVLOURyb0ZnbU1u?=
+ =?utf-8?B?Yk9NTUxHT2xGcDM3dTZCb0QxcElTbW5GVXFBbW5nci95M1B2MklwYXFrMTdN?=
+ =?utf-8?B?V2tSQ2R5OHhTcVk2QldVaEd2YWZPMC9UNk94WTYwNTVJdm12cFBtOTlsRGl2?=
+ =?utf-8?B?azhHTmhWR01sNVVsUWpqSDd1TjlOc0VueVQ2QXBNcU1jcmdrNWtVclRJN2tz?=
+ =?utf-8?B?N1ZOZHRUa1JGSzJIQ3hJcXZucWxIUFA5VUF5SXhkOGpyZjhqUHNwUnBnbGZ1?=
+ =?utf-8?B?MXlXaWdaUE5qVGNCd3QzeTN2YmZOYVd4ckFLMHY5L2JNdERvRVNpczVtOGx5?=
+ =?utf-8?B?eFoxUzRvaU1IZTZzbnRveHAyOUZWZG4vbTdYbzNiVUVxT2paU1QzVzdKQnBl?=
+ =?utf-8?B?R3hLWGJGcWlDL05BclZ1ZU45VkZMU2pWT0d5UFp3SVdxaWp5N2lpRGwzbm1V?=
+ =?utf-8?B?RHU4SXJwaFJkcWJmYkhNbHdXSXY3MzZaREVHNFZnbmRiVWdLQS9sVlQxVHJB?=
+ =?utf-8?B?K24rSEd5eCtoekU5cUIvYm1tMFZxdlZlTnZIbWVDdFNVMnQvUSthNVBKZG5x?=
+ =?utf-8?B?cmhjdXJpdk5WbzVEOGdQQUc4aEVCUG5DRFQ5RlRZTFN2SlFZZUhza1JQRUd3?=
+ =?utf-8?B?c3ZaM2x3K3V5YzZpaVNBdGN4dkVwaEg4TlhSNm91eENwdFczL3RwSzVzNXVT?=
+ =?utf-8?B?ZXd6Y1djNnR0aE1XYkVjUUUrKzZJVGRkNmdscUxlYWg5UjlCRVduWC9za21J?=
+ =?utf-8?B?MHB5TjQ4Qy9UclI3cTRlbEF0dDdnZUdnMFQ5YjFSejROa0NGWEI3N0tKdmF4?=
+ =?utf-8?B?cVVhUjZ2R2tRZllnQWVkdHZpTEp0R1p2RUJiK2RoZUZ0VnhxMVprb09zNWFq?=
+ =?utf-8?B?S3BXeTRZSFdNVzUrUy9rdEJLS2RNTS95OFdrZzA4VmhXc1kvcDFMMisxckhI?=
+ =?utf-8?B?RHF6MmZWOUk2TUprcTdWUlpHamtDcE9KVUZ5aElqcUJSc0pJdTAvVnhpSWxQ?=
+ =?utf-8?B?a0twaVBGdFR2KzBiMU4wenZoM1k2cHJEeDI5aUdKZkxEbkFyZWtzbWtWUm8r?=
+ =?utf-8?B?RWpXK0Q2RWtqOVVKaGF4MHJYbWNwS1FXR0NkRnJpVWtESDNQaUx3Tm5Zdnd4?=
+ =?utf-8?B?b284TElJcmIzQi9nS0pQbTVPU1V2K3hrR3BFRVlueXpIemhYUTlwZlNnc1hE?=
+ =?utf-8?B?Wi9ZUnQwN00yZmNCZG9mbzl0WmZzejhHTVBDcmUwaUJBQ2NucHUrU1JMK2s5?=
+ =?utf-8?B?ZzdaM3FRRGxvWXlyUW9WSDZHSVlWaWZKOUp0eXRHTTdGa0MyZUNzaU0xSURU?=
+ =?utf-8?B?dmNxZzVEWmN4US8xSzJIeWpLbmlFU1h4RnRkTWJOSzJoOFl4elZJbmloTDIy?=
+ =?utf-8?B?aDJ1clJtVDh1QzF0NEhnVnlXbXAzSWc5UkxoNmU4SSs2MHFTUU4vSGF3TTBM?=
+ =?utf-8?B?bVBVb1czZTVFUWZ1a3g3bWFEcjdWeXZGWG5qdHBLb3dlTUVLU2o3aThGL1Rp?=
+ =?utf-8?B?Mjc4WnJScDBqVU9pT0VYcUxGYmxFbWlVYUs3MjVISnBlbUpNMWZBUWlVTXMr?=
+ =?utf-8?B?QVNveWZpUUN5Y3JMMWFzSUhhYTVxUDJ5TStEdXAwYi9WK01Rb2lZL0xHTnlx?=
+ =?utf-8?B?bW1pbVl2ZVRiUlcwa2R5NEVpcEFucVlFbFZ2NTdIR1N1biszZGVmYk9PSmlU?=
+ =?utf-8?B?QUtLbERzbVJsQTNDR1kzaDdxRW01VDVMdWZSVDdCNkVLSlQ2eGo2Z01rekVw?=
+ =?utf-8?B?VzNvM3VRVTJBV0tSQ3JtSzAxblNZMTkwTUFrYnp1SVNEMU1xcEZVRGxJbTNS?=
+ =?utf-8?B?RUV5RlA5andHMk95MytrcFpycUZDcUZNbFdGWlp2ajdtL2RjQ0w2d1BYY1BU?=
+ =?utf-8?B?cjhjV3RmMm1lNEY2ckxCMnRYTExhcERHQVBDZHhPdFRoNDJ4YXZjVXgvNzVV?=
+ =?utf-8?B?VFJFMnhrUklpbWIxV1lCTWVCZzdtVEFuZTJYTUZTdW1XSUxtMzdJU0FuSU9x?=
+ =?utf-8?Q?8Q9yX2f+vSVfH8aL0dwBeowV/?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b15982f5-629b-4d92-36b0-08dbdb26005b
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2023 22:00:46.5834 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: O7zJpaaakALPF96ObziLWwAT5e10YvYDSbZvLUQD6PrkjuY8c1MLip9ZgUYcJFnMMiz+o4FPRJox97qfWULU5Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9451
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,148 +126,100 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Jerry Zuo <jerry.zuo@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>
+Cc: Alexander.Deucher@amd.com, Kenny.Ho@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Nov 1, 2023 at 5:01=E2=80=AFPM Hamza Mahfooz <hamza.mahfooz@amd.com=
-> wrote:
->
-> Without this fix the 5120x1440@240 timing of these monitors
-> leads to screen flickering.
->
-> Cc: stable@vger.kernel.org # 6.1+
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1442
-> Co-developed-by: Harry Wentland <harry.wentland@amd.com>
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-> ---
->  drivers/gpu/drm/drm_edid.c | 47 +++++++++++++++++++++++++++++++++++---
->  1 file changed, 44 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> index bca2af4fe1fc..3fdb8907f66b 100644
-> --- a/drivers/gpu/drm/drm_edid.c
-> +++ b/drivers/gpu/drm/drm_edid.c
-> @@ -89,6 +89,8 @@ static int oui(u8 first, u8 second, u8 third)
->  #define EDID_QUIRK_NON_DESKTOP                 (1 << 12)
->  /* Cap the DSC target bitrate to 15bpp */
->  #define EDID_QUIRK_CAP_DSC_15BPP               (1 << 13)
-> +/* Fix up a particular 5120x1440@240Hz timing */
-> +#define EDID_QUIRK_FIXUP_5120_1440_240         (1 << 14)
+On 2023-10-31 11:18, Alex Deucher wrote:
+> On Tue, Oct 31, 2023 at 11:12 AM Christian König
+> <ckoenig.leichtzumerken@gmail.com> wrote:
+>> When clearing the root PD fails we need to properly release it again.
+>>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Has this been submitted? I see some intermittent failures in the PSDB 
+that may be related to this.
 
-What is wrong with the original timing that needs to be fixed?
+Regards,
+   Felix
 
-Alex
 
 
 >
->  #define MICROSOFT_IEEE_OUI     0xca125c
->
-> @@ -170,6 +172,12 @@ static const struct edid_quirk {
->         EDID_QUIRK('S', 'A', 'M', 596, EDID_QUIRK_PREFER_LARGE_60),
->         EDID_QUIRK('S', 'A', 'M', 638, EDID_QUIRK_PREFER_LARGE_60),
->
-> +       /* Samsung C49G95T */
-> +       EDID_QUIRK('S', 'A', 'M', 0x7053, EDID_QUIRK_FIXUP_5120_1440_240)=
-,
-> +
-> +       /* Samsung S49AG95 */
-> +       EDID_QUIRK('S', 'A', 'M', 0x71ac, EDID_QUIRK_FIXUP_5120_1440_240)=
-,
-> +
->         /* Sony PVM-2541A does up to 12 bpc, but only reports max 8 bpc *=
-/
->         EDID_QUIRK('S', 'N', 'Y', 0x2541, EDID_QUIRK_FORCE_12BPC),
->
-> @@ -6586,7 +6594,37 @@ static void update_display_info(struct drm_connect=
-or *connector,
->         drm_edid_to_eld(connector, drm_edid);
->  }
->
-> -static struct drm_display_mode *drm_mode_displayid_detailed(struct drm_d=
-evice *dev,
-> +static void drm_mode_displayid_detailed_edid_quirks(struct drm_connector=
- *connector,
-> +                                                   struct drm_display_mo=
-de *mode)
-> +{
-> +       unsigned int hsync_width;
-> +       unsigned int vsync_width;
-> +
-> +       if (connector->display_info.quirks & EDID_QUIRK_FIXUP_5120_1440_2=
-40) {
-> +               if (mode->hdisplay =3D=3D 5120 && mode->vdisplay =3D=3D 1=
-440 &&
-> +                   mode->clock =3D=3D 1939490) {
-> +                       hsync_width =3D mode->hsync_end - mode->hsync_sta=
-rt;
-> +                       vsync_width =3D mode->vsync_end - mode->vsync_sta=
-rt;
-> +
-> +                       mode->clock =3D 2018490;
-> +                       mode->hdisplay =3D 5120;
-> +                       mode->hsync_start =3D 5120 + 8;
-> +                       mode->hsync_end =3D 5120 + 8 + hsync_width;
-> +                       mode->htotal =3D 5200;
-> +
-> +                       mode->vdisplay =3D 1440;
-> +                       mode->vsync_start =3D 1440 + 165;
-> +                       mode->vsync_end =3D 1440 + 165 + vsync_width;
-> +                       mode->vtotal =3D 1619;
-> +
-> +                       drm_dbg_kms(connector->dev,
-> +                                   "[CONNECTOR:%d:%s] Samsung 240Hz mode=
- quirk applied\n",
-> +                                   connector->base.id, connector->name);
-> +               }
-> +       }
-> +}
-> +
-> +static struct drm_display_mode *drm_mode_displayid_detailed(struct drm_c=
-onnector *connector,
->                                                             struct displa=
-yid_detailed_timings_1 *timings,
->                                                             bool type_7)
->  {
-> @@ -6605,7 +6643,7 @@ static struct drm_display_mode *drm_mode_displayid_=
-detailed(struct drm_device *d
->         bool hsync_positive =3D (timings->hsync[1] >> 7) & 0x1;
->         bool vsync_positive =3D (timings->vsync[1] >> 7) & 0x1;
->
-> -       mode =3D drm_mode_create(dev);
-> +       mode =3D drm_mode_create(connector->dev);
->         if (!mode)
->                 return NULL;
->
-> @@ -6628,6 +6666,9 @@ static struct drm_display_mode *drm_mode_displayid_=
-detailed(struct drm_device *d
->
->         if (timings->flags & 0x80)
->                 mode->type |=3D DRM_MODE_TYPE_PREFERRED;
-> +
-> +       drm_mode_displayid_detailed_edid_quirks(connector, mode);
-> +
->         drm_mode_set_name(mode);
->
->         return mode;
-> @@ -6650,7 +6691,7 @@ static int add_displayid_detailed_1_modes(struct dr=
-m_connector *connector,
->         for (i =3D 0; i < num_timings; i++) {
->                 struct displayid_detailed_timings_1 *timings =3D &det->ti=
-mings[i];
->
-> -               newmode =3D drm_mode_displayid_detailed(connector->dev, t=
-imings, type_7);
-> +               newmode =3D drm_mode_displayid_detailed(connector, timing=
-s, type_7);
->                 if (!newmode)
->                         continue;
->
-> --
-> 2.42.0
->
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 31 +++++++++++++-------------
+>>   1 file changed, 16 insertions(+), 15 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> index d72daf15662f..5877f6e9b893 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> @@ -2042,7 +2042,8 @@ long amdgpu_vm_wait_idle(struct amdgpu_vm *vm, long timeout)
+>>    * Returns:
+>>    * 0 for success, error for failure.
+>>    */
+>> -int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm, int32_t xcp_id)
+>> +int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>> +                  int32_t xcp_id)
+>>   {
+>>          struct amdgpu_bo *root_bo;
+>>          struct amdgpu_bo_vm *root;
+>> @@ -2061,6 +2062,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm, int32_t xcp
+>>          INIT_LIST_HEAD(&vm->done);
+>>          INIT_LIST_HEAD(&vm->pt_freed);
+>>          INIT_WORK(&vm->pt_free_work, amdgpu_vm_pt_free_work);
+>> +       INIT_KFIFO(vm->faults);
+>>
+>>          /* create scheduler entities for page table updates */
+>>          r = drm_sched_entity_init(&vm->immediate, DRM_SCHED_PRIORITY_NORMAL,
+>> @@ -2103,34 +2105,33 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm, int32_t xcp
+>>                                  false, &root, xcp_id);
+>>          if (r)
+>>                  goto error_free_delayed;
+>> -       root_bo = &root->bo;
+>> +
+>> +       root_bo = amdgpu_bo_ref(&root->bo);
+>>          r = amdgpu_bo_reserve(root_bo, true);
+>> -       if (r)
+>> -               goto error_free_root;
+>> +       if (r) {
+>> +               amdgpu_bo_unref(&root->shadow);
+>> +               amdgpu_bo_unref(&root_bo);
+>> +               goto error_free_delayed;
+>> +       }
+>>
+>> +       amdgpu_vm_bo_base_init(&vm->root, vm, root_bo);
+>>          r = dma_resv_reserve_fences(root_bo->tbo.base.resv, 1);
+>>          if (r)
+>> -               goto error_unreserve;
+>> -
+>> -       amdgpu_vm_bo_base_init(&vm->root, vm, root_bo);
+>> +               goto error_free_root;
+>>
+>>          r = amdgpu_vm_pt_clear(adev, vm, root, false);
+>>          if (r)
+>> -               goto error_unreserve;
+>> +               goto error_free_root;
+>>
+>>          amdgpu_bo_unreserve(vm->root.bo);
+>> -
+>> -       INIT_KFIFO(vm->faults);
+>> +       amdgpu_bo_unref(&root_bo);
+>>
+>>          return 0;
+>>
+>> -error_unreserve:
+>> -       amdgpu_bo_unreserve(vm->root.bo);
+>> -
+>>   error_free_root:
+>> -       amdgpu_bo_unref(&root->shadow);
+>> +       amdgpu_vm_pt_free_root(adev, vm);
+>> +       amdgpu_bo_unreserve(vm->root.bo);
+>>          amdgpu_bo_unref(&root_bo);
+>> -       vm->root.bo = NULL;
+>>
+>>   error_free_delayed:
+>>          dma_fence_put(vm->last_tlb_flush);
+>> --
+>> 2.34.1
+>>
