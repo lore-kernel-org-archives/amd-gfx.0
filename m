@@ -4,52 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 087F8C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Nov 2023 02:44:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99B3FC4332F
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Nov 2023 03:05:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7634310E0D0;
-	Wed,  1 Nov 2023 02:44:01 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE40910E0D0;
- Wed,  1 Nov 2023 02:43:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698806640; x=1730342640;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=0qK83WQuB6+tWkmTs5R7oM338PFBsvB/8n6IBXJ8CX4=;
- b=k/g/v5ANwG7MBQfYMbqh+BpJzKvfJPJtqrfnIHk483B2j3iuzoFu6plQ
- ZdGCKcXNTpDCX8mkzI5BZgC9a8ry5ETPZpSIjmFhFQm/IfdEwClYHHJM3
- 5zrBoi4klKUpem0nLAl7Aa0QEE+dewBYA9gWznmwGFjLj3ZSlDqhhz7bP
- JfeG9ChWuxLgWbS5mP5ygdxvxYbH2poASwnROfAQmCOxSNuDTA5hYmGQn
- 7dDxJZLmWprwi/lViprnu5Ucu9dfywo/to34YdakrzkZ6CclVjrAkK6oA
- AaQMbL5x+Of+DG/PCN9uEt+cNke0wW3Ugii9cwFIF33XWsIfomhB4XnJE g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10880"; a="474659826"
-X-IronPort-AV: E=Sophos;i="6.03,266,1694761200"; d="scan'208";a="474659826"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Oct 2023 19:43:59 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10880"; a="737262184"
-X-IronPort-AV: E=Sophos;i="6.03,266,1694761200"; d="scan'208";a="737262184"
-Received: from lkp-server01.sh.intel.com (HELO 17d9e85e5079) ([10.239.97.150])
- by orsmga006.jf.intel.com with ESMTP; 31 Oct 2023 19:43:56 -0700
-Received: from kbuild by 17d9e85e5079 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qy1D0-0000Xk-1F;
- Wed, 01 Nov 2023 02:43:54 +0000
-Date: Wed, 1 Nov 2023 10:42:55 +0800
-From: kernel test robot <lkp@intel.com>
-To: Tatsuyuki Ishi <ishitatsuyuki@gmail.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 5/6] drm/amdgpu: Add flag to disable implicit sync for
- GEM operations.
-Message-ID: <202311011037.Bt6NSYwA-lkp@intel.com>
-References: <20231031134059.171277-6-ishitatsuyuki@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BD2410E0BB;
+	Wed,  1 Nov 2023 03:05:04 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2050.outbound.protection.outlook.com [40.107.244.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 589CF10E030
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Nov 2023 03:05:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QhHmjLkVU1l3sIAtV8n/B7JP17SP7Ihz+yS8cttm9j3057x51qAuOnKxOVm8BT9gaKgltspxIZxPy/9/KRGOVjxdU6koF9twTVwwie4ivngBUYwb69m8jSxNNHJ7Nd7l4B5wkQLAs0vH+0KE9Gr+a0FP7nC5D4h+ZeSU4BoqjTL15Dc+OnVyIXKCFiYjfpRUsNqL241h+rT2jChLN/MPEfz78a0AY3sJy4w7OMnhh7H1pSQ6PsbfY4Lcqk2Rf6X4pitHaj9KrUnGx1aDbpC2KjRUNR0aTVRYlJzWK4sG8fvhnfoKy/aRgys/U//FkatmdJ38F7rJNZ8U2fsXK0/rjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BoMDX0N2Bf8LRO/7hawQ/m7rqRqIORxPJBtCAJq2XpQ=;
+ b=e2mOWnyCNkHKZyImxTRFxO8HsUq0+Zxpxus2f340rOCtbEZgwj/5KheriJSqGXMx116967tHHiVKmxm48DlMcUIHJzhL2vejRPoiciQhC82gSlPVyF9PkarAdbwlFDPjWV+WScb788rN/lWAEtXCXxzYrfUismMsOC2BtVBMSx1S8q3LImSk3ZDQmOfHV3d1la4TDEvunXayErvvox9V37Wb1ol2B4esjICl8Ns9jjPCqaeVe4ROG4Eh8LQ3yXDHlulJtEIhWGQBiS2Ewf1g0oXVVxHq5ZYc+TvPNV4hwFwMHWrHrnXWiG6DxM3HVEsPfgGs0hOg+a9YRAJFIPFPyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BoMDX0N2Bf8LRO/7hawQ/m7rqRqIORxPJBtCAJq2XpQ=;
+ b=RWsJzf1OxOcC4aPpG24VuWd8IPF4+ES30k9vjWQCBbToNMJ1/OXXs6qgwEKrA3Dm7PFb4VhX+oWAoO6SB9Jv6G8EM9oWOvJZFb+9xNQnc3FGooKx7KXTGEta+Zb/Sn7fMYjvzzi4h5pctPszpXPlofIi9r11zw+j96nYhuHm2fo=
+Received: from BL1PR13CA0407.namprd13.prod.outlook.com (2603:10b6:208:2c2::22)
+ by DS0PR12MB8071.namprd12.prod.outlook.com (2603:10b6:8:df::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6933.29; Wed, 1 Nov 2023 03:04:59 +0000
+Received: from BL6PEPF0001AB51.namprd04.prod.outlook.com
+ (2603:10b6:208:2c2:cafe::40) by BL1PR13CA0407.outlook.office365.com
+ (2603:10b6:208:2c2::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.18 via Frontend
+ Transport; Wed, 1 Nov 2023 03:04:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0001AB51.mail.protection.outlook.com (10.167.242.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6954.19 via Frontend Transport; Wed, 1 Nov 2023 03:04:59 +0000
+Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Tue, 31 Oct
+ 2023 22:04:57 -0500
+From: Ma Jun <Jun.Ma2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Kenneth.Feng@amd.com>,
+ <Alexander.Deucher@amd.com>
+Subject: [PATCH v2 2/2] drm/amdgpu: Fix the the asic type of some new asics
+Date: Wed, 1 Nov 2023 11:04:42 +0800
+Message-ID: <20231101030442.1988771-2-Jun.Ma2@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20231101030442.1988771-1-Jun.Ma2@amd.com>
+References: <20231101030442.1988771-1-Jun.Ma2@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20231031134059.171277-6-ishitatsuyuki@gmail.com>
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB51:EE_|DS0PR12MB8071:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0a280815-1a51-48b3-4b0f-08dbda87557c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: wWYYqCnqZFVZfzSJchqSIiyGjDQi6sVMR+CYfoZYlJUsXjyHnGiV2+EyhlX7dUOREE6tUNJW+1ljCmiDDCUusjK+8UQdyFlwDRTXTzyYFciZ+VxKE21lJQirsupVvvPRu7DBd20sbp58mcreidfVedW1fpiDIbAPfhBD/db9yTwWdOg85ZJ+/h95rlvgDR1wMgeGxCrG9syRJH7OFY0bkJnRArF3vMXtAwkXtEYGwsNs7dTgIAxBP3ph6AM/FiueSTkoJdI1ho1gRcwT9AVIy6CX/sAI+nt5jmEYQ9cs+iY+BZj5YEBuCsgcAo9LsbEH/Z8yoUKCc6x33RGl3fKqMbtWsvo7ycvaUTfsLI1sR7khZi+m0VpH3dVg6f3hOTjhAw97ehYtw9XejjXuDYEDpaA3z85+07SpHKyg593pXl/Mk5gfV7qQdSY0zchmYGCZM42ZFzdc+42Js/0a3tdCXgRQPXX3AQb1Qtt2k3MPJQzQ4rwOJt+4pMWj2heTg03l6TA0SzrrUyVOGcJ+0J+wSnKrSQd/3VyuFKW5zK1BnmkIjuM4dGAbPRi6HQ99mG2AjEQelioIuqJ2zdoGSQuLB4HnkGMHelRHmG2yVgbfj3LIkXjvkN7lZb/FK+MenGcEY1IjX+0CJPvOvy3nJF+rn/8a59hGDTNzQk0bLfqhCcLH7ZBHsZsyhPhrdEmWTDgpzENemjCyPU2M3boG/pyCsmrVdnCjbo0VQedMT27h2/M9smwcs42QIDqBazQp+GrDzY26R6+ksLdZkz3pY76wNg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(376002)(346002)(396003)(136003)(39860400002)(230922051799003)(1800799009)(451199024)(186009)(82310400011)(64100799003)(46966006)(36840700001)(40470700004)(40460700003)(40480700001)(426003)(36756003)(2616005)(7696005)(26005)(86362001)(336012)(1076003)(16526019)(6666004)(36860700001)(47076005)(81166007)(82740400003)(356005)(2906002)(478600001)(41300700001)(6636002)(316002)(110136005)(70586007)(70206006)(4326008)(5660300002)(8676002)(8936002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2023 03:04:59.2393 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a280815-1a51-48b3-4b0f-08dbda87557c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB51.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8071
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,101 +100,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tatsuyuki Ishi <ishitatsuyuki@gmail.com>, christian.koenig@amd.com,
- oe-kbuild-all@lists.linux.dev
+Cc: Ma Jun <Jun.Ma2@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Tatsuyuki,
+Some new asics use the same device id as Sienna_Cichlid.
+So fix it.
 
-kernel test robot noticed the following build warnings:
+Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on drm-exynos/exynos-drm-next drm-intel/for-linux-next-fixes linus/master v6.6]
-[cannot apply to drm/drm-next drm-intel/for-linux-next drm-tip/drm-tip next-20231031]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Tatsuyuki-Ishi/drm-amdgpu-Don-t-implicit-sync-PRT-maps/20231031-224530
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20231031134059.171277-6-ishitatsuyuki%40gmail.com
-patch subject: [PATCH 5/6] drm/amdgpu: Add flag to disable implicit sync for GEM operations.
-config: arc-randconfig-001-20231101 (https://download.01.org/0day-ci/archive/20231101/202311011037.Bt6NSYwA-lkp@intel.com/config)
-compiler: arceb-elf-gcc (GCC) 13.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231101/202311011037.Bt6NSYwA-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202311011037.Bt6NSYwA-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:178: warning: Function parameter or member 'evicted' not described in 'amdgpu_vm_bo_set_evicted'
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:178: warning: expecting prototype for amdgpu_vm_bo_evicted(). Prototype was for amdgpu_vm_bo_set_evicted() instead
->> drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:1667: warning: Function parameter or member 'sync_unmap' not described in 'amdgpu_vm_bo_unmap'
-
-
-vim +1667 drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-
-d38ceaf99ed015 Alex Deucher      2015-04-20  1650  
-d38ceaf99ed015 Alex Deucher      2015-04-20  1651  /**
-d38ceaf99ed015 Alex Deucher      2015-04-20  1652   * amdgpu_vm_bo_unmap - remove bo mapping from vm
-d38ceaf99ed015 Alex Deucher      2015-04-20  1653   *
-d38ceaf99ed015 Alex Deucher      2015-04-20  1654   * @adev: amdgpu_device pointer
-d38ceaf99ed015 Alex Deucher      2015-04-20  1655   * @bo_va: bo_va to remove the address from
-d38ceaf99ed015 Alex Deucher      2015-04-20  1656   * @saddr: where to the BO is mapped
-d38ceaf99ed015 Alex Deucher      2015-04-20  1657   *
-d38ceaf99ed015 Alex Deucher      2015-04-20  1658   * Remove a mapping of the BO at the specefied addr from the VM.
-7fc48e5912795c Andrey Grodzovsky 2018-06-11  1659   *
-7fc48e5912795c Andrey Grodzovsky 2018-06-11  1660   * Returns:
-7fc48e5912795c Andrey Grodzovsky 2018-06-11  1661   * 0 for success, error for failure.
-d38ceaf99ed015 Alex Deucher      2015-04-20  1662   *
-49b02b180a541d Chunming Zhou     2015-11-13  1663   * Object has to be reserved and unreserved outside!
-d38ceaf99ed015 Alex Deucher      2015-04-20  1664   */
-1550024e9de031 Tatsuyuki Ishi    2023-10-31  1665  int amdgpu_vm_bo_unmap(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
-1550024e9de031 Tatsuyuki Ishi    2023-10-31  1666  		       uint64_t saddr, bool sync_unmap)
-d38ceaf99ed015 Alex Deucher      2015-04-20 @1667  {
-d38ceaf99ed015 Alex Deucher      2015-04-20  1668  	struct amdgpu_bo_va_mapping *mapping;
-ec681545afe5a4 Christian König   2017-08-01  1669  	struct amdgpu_vm *vm = bo_va->base.vm;
-7fc11959018f8b Christian König   2015-07-30  1670  	bool valid = true;
-d38ceaf99ed015 Alex Deucher      2015-04-20  1671  
-6c7fc503a47f9b Christian König   2015-06-05  1672  	saddr /= AMDGPU_GPU_PAGE_SIZE;
-32b41ac21fde8f Christian König   2016-03-08  1673  
-7fc11959018f8b Christian König   2015-07-30  1674  	list_for_each_entry(mapping, &bo_va->valids, list) {
-a9f87f64525435 Christian König   2017-03-30  1675  		if (mapping->start == saddr)
-7fc11959018f8b Christian König   2015-07-30  1676  			break;
-7fc11959018f8b Christian König   2015-07-30  1677  	}
-7fc11959018f8b Christian König   2015-07-30  1678  
-7fc11959018f8b Christian König   2015-07-30  1679  	if (&mapping->list == &bo_va->valids) {
-7fc11959018f8b Christian König   2015-07-30  1680  		valid = false;
-7fc11959018f8b Christian König   2015-07-30  1681  
-7fc11959018f8b Christian König   2015-07-30  1682  		list_for_each_entry(mapping, &bo_va->invalids, list) {
-a9f87f64525435 Christian König   2017-03-30  1683  			if (mapping->start == saddr)
-d38ceaf99ed015 Alex Deucher      2015-04-20  1684  				break;
-d38ceaf99ed015 Alex Deucher      2015-04-20  1685  		}
-d38ceaf99ed015 Alex Deucher      2015-04-20  1686  
-32b41ac21fde8f Christian König   2016-03-08  1687  		if (&mapping->list == &bo_va->invalids)
-d38ceaf99ed015 Alex Deucher      2015-04-20  1688  			return -ENOENT;
-d38ceaf99ed015 Alex Deucher      2015-04-20  1689  	}
-32b41ac21fde8f Christian König   2016-03-08  1690  
-d38ceaf99ed015 Alex Deucher      2015-04-20  1691  	list_del(&mapping->list);
-a9f87f64525435 Christian König   2017-03-30  1692  	amdgpu_vm_it_remove(mapping, &vm->va);
-aebc5e6f50f770 Christian König   2017-09-06  1693  	mapping->bo_va = NULL;
-1550024e9de031 Tatsuyuki Ishi    2023-10-31  1694  	mapping->sync_unmap = sync_unmap;
-93e3e4385b69d8 Christian König   2015-06-09  1695  	trace_amdgpu_vm_bo_unmap(bo_va, mapping);
-d38ceaf99ed015 Alex Deucher      2015-04-20  1696  
-e17841b97587ad Christian König   2016-03-08  1697  	if (valid)
-d38ceaf99ed015 Alex Deucher      2015-04-20  1698  		list_add(&mapping->list, &vm->freed);
-e17841b97587ad Christian König   2016-03-08  1699  	else
-284710fa6c3a5f Christian König   2017-01-30  1700  		amdgpu_vm_free_mapping(adev, vm, mapping,
-284710fa6c3a5f Christian König   2017-01-30  1701  				       bo_va->last_pt_update);
-d38ceaf99ed015 Alex Deucher      2015-04-20  1702  
-d38ceaf99ed015 Alex Deucher      2015-04-20  1703  	return 0;
-d38ceaf99ed015 Alex Deucher      2015-04-20  1704  }
-d38ceaf99ed015 Alex Deucher      2015-04-20  1705  
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 756cf49557a2..93c8c8b763ed 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2073,6 +2073,17 @@ static const struct amdgpu_asic_type_quirk asic_type_quirks[] = {
+ 	{0x67FF, 0xE7, CHIP_POLARIS10},
+ 	{0x67FF, 0xF3, CHIP_POLARIS10},
+ 	{0x67FF, 0xF7, CHIP_POLARIS10},
++	/* differentiate between Sienna_Cichlid and new asics with the same DID */
++	{0x73BF, 0x18, CHIP_IP_DISCOVERY},
++	{0x73BF, 0x19, CHIP_IP_DISCOVERY},
++	{0x73BF, 0xD2, CHIP_IP_DISCOVERY},
++	{0x73BF, 0xD4, CHIP_IP_DISCOVERY},
++	{0x73BF, 0xD5, CHIP_IP_DISCOVERY},
++	{0x73BF, 0xD6, CHIP_IP_DISCOVERY},
++	{0x73BF, 0xD8, CHIP_IP_DISCOVERY},
++	{0x73BF, 0xD9, CHIP_IP_DISCOVERY},
++	{0x73BF, 0xDA, CHIP_IP_DISCOVERY},
++	{0x73BF, 0xDB, CHIP_IP_DISCOVERY},
+ };
+ 
+ static struct drm_driver amdgpu_kms_driver;
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.34.1
+
