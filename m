@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF3BAC4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Nov 2023 11:22:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77B00C4167B
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Nov 2023 11:22:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 409E810E06B;
-	Wed,  1 Nov 2023 11:22:36 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2051.outbound.protection.outlook.com [40.107.92.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3408D10E06B
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Nov 2023 11:22:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE3BF10E6C9;
+	Wed,  1 Nov 2023 11:22:37 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2084.outbound.protection.outlook.com [40.107.100.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A83B10E6C7
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Nov 2023 11:22:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ScOU07cwGZlv5vVMkrOMQtpMVQ87LUwW7Rdxw3CiEn7xmWqx+yBMi522MRfaitirFeVDQRzhXVzL5NtgCx/duPfcs3nxcxhK4/zz6B9NFpriwI42YF7aga0zZHSQ+rPeW176Q/bD3KQGLHu1UZLGQyItjq1evQNyIRkbDh5tL9XhFh6hKY9k9Dqot0/tu0Q05418NXa+l5QMVRsT0k/J8nQlXvEz7BZiWq6nPJN7f5wAu2jn4/ejjCno4irqNbE1H3k/omNR5L6S0WqifzMQqkghzCk9tS872eLqbZmdsXY93sN5XznaK2rZ1HVZ9wLcwfA/nyHDlonXHY1BvgAvlg==
+ b=NcJiDoVLRKuhNgBdaPVcQ+Uk3g3yD2OznG73bS/HOznd+P4j3robf2r7wqDxumPQB9N+H5EgFQP/heJXJYFt00+KzXzUakOS1tuWdSWC1fSAEWIGw9IbUIopD3efIQnCgr530eucbpeE2E5QRf15AUg0hO244WHLhdpC48vagoHPneXKA0VTHjPyNv00bhnKW/UxKJ2PW8iHYj+ghE2c3df+eayW2k2XCiKnSYttsjGVs13AAI3B8wno3z8ULNJ6RmFeisMg4nDs3TGI6RcfxPpHnAIL+Ou4OxvE21tY1B4JHyjp/978awmEXlqMVptIpWRzRrjWRms5quM690xVdg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rDBR8m8YuktLbC9MYlOxIoZ+GOm7vsIRc9nHpbypJWY=;
- b=nzY0hAqAmCj04IE65yU6QyGvGvtPTSAWbPmbkD2u5PP2jZ8+cpDu2kz9+PcdrbK8EbJtFXQZjvNI4rLcK1eRNEAkIkvZM48dR7dg3rL6841xvRREuxZ/INPQyttXuOiucRMIS9eZW3UdsjjsjriFwhNQ4gCFZqwdhwidWC+e/RHgq9hCAM8RAyx61IbsKJ1jfhBk2feihmRsrTdN/kEtJSWkj2rHcL1umSOMrgtSfqR3zy/+FuQwXnM7wQ8MjuSKb3W6H/Y40b4yhUqswFzz9aCqMY5DV55x4m3L24WjcMzpVvd6PqXpbIckj3qyZ0wqtP0pmb+Lceeo3G7Wu9nhuw==
+ bh=ZMoord91RK/gwyOjoTHnLH6FVTbOrsMCrdetuulwvzo=;
+ b=ISz7Q66lsH66GqsSaDkqHc2VDeACZ7XmddlJdj8u3/pBZQHkYCu0/JNJmrwAHKgaCpBUlfZkS+wVNJE0fYC5XdfDYDyIjW2JhH0KAD7twFxHYGOx4iXwLMvQuhY5LMmRmrcehb7duNomo6KZXepp3wXI1eXMwahsZJvMJGb4zemY4fvt4NXyOkamMdF8gNYQajGPu4iGuL+udPZ9yWgEpDBYqYLR48jOT00n3ywKcQ47PbqRg+T3fPsNZURyXWBz2nyLb00BJD5Et+LMtxE1IcmhLYj9CnqUn/TJkacl63OD55xUB6EDK+4ksKVH5riLeWutX1uYxasimJAYKQmYLw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rDBR8m8YuktLbC9MYlOxIoZ+GOm7vsIRc9nHpbypJWY=;
- b=MIIYLeXy65QViqO9m+rQmz297QS9A5tc+SYQ85Z82heprkPoNAr5EZTUx/mkIJPsxnNJwBkxjocixbCG2vyTyMiSyA+rNbFl46G2U5JYc1y9hFriEZJB+Ltne5VhO56Dh4bjzeW0sRfEM+Asd5Lx3oONZmYXQoX92FBv3Q7Duic=
-Received: from MW4PR03CA0163.namprd03.prod.outlook.com (2603:10b6:303:8d::18)
- by SJ1PR12MB6147.namprd12.prod.outlook.com (2603:10b6:a03:45a::22)
+ bh=ZMoord91RK/gwyOjoTHnLH6FVTbOrsMCrdetuulwvzo=;
+ b=UgV+pzv5LP70XttI575NPzdMDt+nKd1cdja4Gz4aAMeg5eWoO/+3Gh25gLhaQLveMLtAPPn/mirf5yfothyHZhdQnh/DHz5JeP3N8D1ZFkKsRBc33Dj7j3Um79E5sfEIYZClLNOk2rtdGNXjWu5W3JFt/yD0wDjB/YsoxZChlW0=
+Received: from MW3PR06CA0007.namprd06.prod.outlook.com (2603:10b6:303:2a::12)
+ by BL1PR12MB5238.namprd12.prod.outlook.com (2603:10b6:208:31e::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.19; Wed, 1 Nov
- 2023 11:22:31 +0000
-Received: from MWH0EPF000971E8.namprd02.prod.outlook.com
- (2603:10b6:303:8d:cafe::c6) by MW4PR03CA0163.outlook.office365.com
- (2603:10b6:303:8d::18) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 11:22:34 +0000
+Received: from MWH0EPF000971E5.namprd02.prod.outlook.com
+ (2603:10b6:303:2a:cafe::6f) by MW3PR06CA0007.outlook.office365.com
+ (2603:10b6:303:2a::12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.19 via Frontend
- Transport; Wed, 1 Nov 2023 11:22:31 +0000
+ Transport; Wed, 1 Nov 2023 11:22:34 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,50 +45,48 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- MWH0EPF000971E8.mail.protection.outlook.com (10.167.243.68) with Microsoft
+ MWH0EPF000971E5.mail.protection.outlook.com (10.167.243.73) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6954.19 via Frontend Transport; Wed, 1 Nov 2023 11:22:31 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ 15.20.6954.19 via Frontend Transport; Wed, 1 Nov 2023 11:22:34 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Wed, 1 Nov
- 2023 06:22:30 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Wed, 1 Nov
- 2023 06:22:30 -0500
+ 2023 06:22:32 -0500
 Received: from hawzhang-System-Product-Next-Generation.amd.com
  (10.180.168.240) by SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP
- Server id 15.1.2507.32 via Frontend Transport; Wed, 1 Nov 2023 06:22:29 -0500
+ Server id 15.1.2507.32 via Frontend Transport; Wed, 1 Nov 2023 06:22:32 -0500
 From: Hawking Zhang <Hawking.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/3] drm/amdgpu: Add C2PMSG_109/126 reg field shift/masks
-Date: Wed, 1 Nov 2023 19:22:23 +0800
-Message-ID: <20231101112225.5731-1-Hawking.Zhang@amd.com>
+Subject: [PATCH 2/3] drm/amdgpu: Add psp v13 function to query boot status
+Date: Wed, 1 Nov 2023 19:22:24 +0800
+Message-ID: <20231101112225.5731-2-Hawking.Zhang@amd.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20231101112225.5731-1-Hawking.Zhang@amd.com>
+References: <20231101112225.5731-1-Hawking.Zhang@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000971E8:EE_|SJ1PR12MB6147:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0a2cdb31-2ecc-47c8-52e1-08dbdaccd6b4
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E5:EE_|BL1PR12MB5238:EE_
+X-MS-Office365-Filtering-Correlation-Id: cafbcb24-fc13-4643-cc77-08dbdaccd8b6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0MONPlixbS/2P6Ki5R9iGd1hmC2WGf/TPoPCvvPXvv9zo4GMLiGGwrYQPM5yATt5BGXk4U+blZZD8biQHWSouU7IFqy2EBrGuIlWWI7TfeejEJq2vZKYKWV2szGTmc5yNssykY5W5tfwt8aO8rkj8sW9c3F5DFVbrq3nPSB0Zhqf/W3grBksmEFsgK7v9KaXJoxJiZCRTX0v6rDUXrdsjXEkNGt86DVdyl9UzSL8tJVzNWKQPhy3kHI/k3orKtVDGsHYinib995975Khm0hEFW7bTpVxMEsDUNIHx07TgMOaSt/U2we+erhvrx8BNvxO+t7nyZfQ3asR1wORacvFQ85WgSoJXEvQjxYdM5D3QgGpbz+W3pPvSrYDgxn7hOptznhRGUpt09X74SRUboT8s44cRRUgLLVer/XqlqoUidUwDOqRWDfeK7z/ZQtfV/nsKgmBN5baPN4Ccuy8wY54Q1KBZAD3TOD0sJb1K/SLTtAKVsZIKGRYLyr5NhtExKqveBnTJltPB9BG1zUANLl0IW00X1kDAYgmGbik2OwwLF56G+vkJY4olO3/Dc/XorTnPMVIdf6FXAVOOAw7XyGlg8la3/wqX/UjLCizgAp6ZQFSXaq61gwWddMMo/7p3ELdreysu40DxQnNDVZHmkBgj3ugGxU2bGIHT/Cq4Jf8XfMAKmB4i63t9nSHh3Vo/iAQesl6RDvo6bRnNRIVz03oIS6W6fs3B4+MvFKN/+KXfaJ4LEzNVEdSF5++LRU3AoSW7Pp+HBTZIGT/VlPhRX6t4g==
+X-Microsoft-Antispam-Message-Info: cq27i1NgaUYor7Rz88DxFrm27kBeW03Jrhq0ymUMWgaC9TqUHhxqgOLq0Ggac0n9WZdWmX0hPbl9NiueBAJdOxdM3RFDI8l1Yma8+/oIIzy3N1J0f221u09sVt1aFt0gN2+kH5DLURmz9tr+GVFAAhaAoapItb4X82C9c1w6PclKrMyu2MXpzq+EeU6wGiuD2QWiTeHoO0LYjQOSlSB0IzsbDeqG3VBjDHGb+cM9LxNLCeY3rt05miiLlSFXA4hHoKH62XkI0DRupAeYfYIR5OHIqBNtGVY9Zzllov5s5GkanFZuOY6rGL81t0Fm1AyrC/3TeRN0g0DhrWIdJDlGYOonjr/HkdR+SejJP9LBXz/2pmwObwnUcH/UMRGRlyZc9QyY1s/hk2QX5pFyeTxBvDlgL3Qz4VDr3pbqTdXYPgXSJVMOycCA69XovxIhD8UpjSMuijWVeUYTubPHc1A4xUMwoDfS34i9DpZuXxcdBlXoEkwsbCpjZ3l4/ZVKXeG4fSTnPOIKdbDreQvyMlt8dDIfbKLL2Mqp6ZICiCfvyIGrPy+0RAInQ8+mUGb1sdHlrxqM/KrNlgRjShn12TySRkrgn7tssrYItQl9KUxuGm9vKQfYywKo3SASL7wkF6VPfnsQXCGejeV0jFPjJjI1Y8mTwd/ufdP2gqih5imTV92foMDawpRIxMfFn9SLTrLkFFJ6Epw/17VF3o1RhFBcdH3+OyqUbSwJPZOnJhYWYyGDf4W1pd9yH8hcbNmhQ9FplgXbnvMjVC5FLLeTrdct+w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(346002)(396003)(136003)(376002)(230922051799003)(82310400011)(64100799003)(186009)(451199024)(1800799009)(36840700001)(40470700004)(46966006)(1076003)(2616005)(7696005)(40460700003)(26005)(81166007)(82740400003)(47076005)(356005)(36756003)(86362001)(36860700001)(336012)(426003)(8676002)(4326008)(8936002)(2906002)(5660300002)(316002)(6916009)(70586007)(40480700001)(478600001)(70206006)(6666004)(41300700001)(36900700001);
+ SFS:(13230031)(4636009)(136003)(376002)(39860400002)(346002)(396003)(230922051799003)(451199024)(82310400011)(64100799003)(186009)(1800799009)(46966006)(40470700004)(36840700001)(316002)(6916009)(70206006)(70586007)(40460700003)(40480700001)(36756003)(6666004)(7696005)(356005)(336012)(426003)(26005)(2616005)(1076003)(82740400003)(81166007)(83380400001)(47076005)(86362001)(36860700001)(478600001)(8936002)(4326008)(8676002)(5660300002)(2906002)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2023 11:22:31.1663 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0a2cdb31-2ecc-47c8-52e1-08dbdaccd6b4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2023 11:22:34.5537 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cafbcb24-fc13-4643-cc77-08dbdaccd8b6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E8.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E5.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6147
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5238
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,56 +102,161 @@ Cc: Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add MP0_C2PMSG_109/126 register field shift/masks
-that are used to identify boot status by driver.
+Add psp v13 function to query boot status.
+
+v2: limit the use case to dGPU only (Lijo)
 
 Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
 Reviewed-by: Le Ma <le.ma@amd.com>
 ---
- .../include/asic_reg/mp/mp_13_0_2_sh_mask.h   | 28 +++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 15 +++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  3 +
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0.c  | 78 +++++++++++++++++++++++++
+ 3 files changed, 96 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_2_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_2_sh_mask.h
-index 6e29a185de51..765d9ca2316f 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_2_sh_mask.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_2_sh_mask.h
-@@ -242,6 +242,34 @@
- //MP0_SMN_C2PMSG_103
- #define MP0_SMN_C2PMSG_103__CONTENT__SHIFT                                                                    0x0
- #define MP0_SMN_C2PMSG_103__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP0_SMN_C2PMSG_109
-+#define MP0_SMN_C2PMSG_109__CONTENT__SHIFT                                                                    0x0
-+#define MP0_SMN_C2PMSG_109__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP0_SMN_C2PMSG_126
-+#define MP0_SMN_C2PMSG_126__GPU_ERR_MEM_TRAINING__SHIFT                                                       0x0
-+#define MP0_SMN_C2PMSG_126__GPU_ERR_FW_LOAD__SHIFT                                                            0x1
-+#define MP0_SMN_C2PMSG_126__GPU_ERR_WAFL_LINK_TRAINING__SHIFT                                                 0x2
-+#define MP0_SMN_C2PMSG_126__GPU_ERR_XGMI_LINK_TRAINING__SHIFT                                                 0x3
-+#define MP0_SMN_C2PMSG_126__GPU_ERR_USR_CP_LINK_TRAINING__SHIFT                                               0x4
-+#define MP0_SMN_C2PMSG_126__GPU_ERR_USR_DP_LINK_TRAINING__SHIFT                                               0x5
-+#define MP0_SMN_C2PMSG_126__GPU_ERR_HBM_MEM_TEST__SHIFT                                                       0x6
-+#define MP0_SMN_C2PMSG_126__GPU_ERR_HBM_BIST_TEST__SHIFT                                                      0x7
-+#define MP0_SMN_C2PMSG_126__SOCKET_ID__SHIFT                                                                  0x8
-+#define MP0_SMN_C2PMSG_126__AID_ID__SHIFT                                                                     0xb
-+#define MP0_SMN_C2PMSG_126__HBM_ID__SHIFT                                                                     0xd
-+#define MP0_SMN_C2PMSG_126__BOOT_STATUS__SHIFT                                                                0x1f
-+#define MP0_SMN_C2PMSG_126__GPU_ERR_MEM_TRAINING_MASK                                                         0x00000001L
-+#define MP0_SMN_C2PMSG_126__GPU_ERR_FW_LOAD_MASK                                                              0x00000002L
-+#define MP0_SMN_C2PMSG_126__GPU_ERR_WAFL_LINK_TRAINING_MASK                                                   0x00000004L
-+#define MP0_SMN_C2PMSG_126__GPU_ERR_XGMI_LINK_TRAINING_MASK                                                   0x00000008L
-+#define MP0_SMN_C2PMSG_126__GPU_ERR_USR_CP_LINK_TRAINING_MASK                                                 0x00000010L
-+#define MP0_SMN_C2PMSG_126__GPU_ERR_USR_DP_LINK_TRAINING_MASK                                                 0x00000020L
-+#define MP0_SMN_C2PMSG_126__GPU_ERR_HBM_MEM_TEST_MASK                                                         0x00000040L
-+#define MP0_SMN_C2PMSG_126__GPU_ERR_HBM_BIST_TEST_MASK                                                        0x00000080L
-+#define MP0_SMN_C2PMSG_126__SOCKET_ID_MASK                                                                    0x00000700L
-+#define MP0_SMN_C2PMSG_126__AID_ID_MASK                                                                       0x00001800L
-+#define MP0_SMN_C2PMSG_126__HBM_ID_MASK                                                                       0x00002000L
-+#define MP0_SMN_C2PMSG_126__BOOT_STATUS_MASK                                                                  0x80000000L
- //MP0_SMN_IH_CREDIT
- #define MP0_SMN_IH_CREDIT__CREDIT_VALUE__SHIFT                                                                0x0
- #define MP0_SMN_IH_CREDIT__CLIENT_ID__SHIFT                                                                   0x10
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index e6dc3cfbac0e..66d9c189af29 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -2120,6 +2120,21 @@ int amdgpu_psp_wait_for_bootloader(struct amdgpu_device *adev)
+ 	return ret;
+ }
+ 
++int amdgpu_psp_query_boot_status(struct amdgpu_device *adev)
++{
++	struct psp_context *psp = &adev->psp;
++	int ret;
++
++	if (amdgpu_sriov_vf(adev) || (adev->flags & AMD_IS_APU))
++		return 0;
++
++	if (psp->funcs &&
++	    psp->funcs->query_boot_status)
++		ret = psp->funcs->query_boot_status(psp);
++
++	return ret;
++}
++
+ static int psp_hw_start(struct psp_context *psp)
+ {
+ 	struct amdgpu_device *adev = psp->adev;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+index 7111dd32e66f..5d36ad3f48c7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+@@ -134,6 +134,7 @@ struct psp_funcs {
+ 	int (*update_spirom)(struct psp_context *psp, uint64_t fw_pri_mc_addr);
+ 	int (*vbflash_stat)(struct psp_context *psp);
+ 	int (*fatal_error_recovery_quirk)(struct psp_context *psp);
++	int (*query_boot_status)(struct psp_context *psp);
+ };
+ 
+ struct ta_funcs {
+@@ -537,4 +538,6 @@ int is_psp_fw_valid(struct psp_bin_desc bin);
+ 
+ int amdgpu_psp_wait_for_bootloader(struct amdgpu_device *adev);
+ 
++int amdgpu_psp_query_boot_status(struct amdgpu_device *adev);
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
+index 4142e2fcd866..3cf4684d0d3f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
+@@ -759,6 +759,83 @@ static int psp_v13_0_fatal_error_recovery_quirk(struct psp_context *psp)
+ 	return 0;
+ }
+ 
++
++static void psp_v13_0_boot_error_reporting(struct amdgpu_device *adev,
++					   uint32_t inst,
++					   uint32_t boot_error)
++{
++	uint32_t socket_id;
++	uint32_t aid_id;
++	uint32_t hbm_id;
++	uint32_t reg_data;
++
++	socket_id = REG_GET_FIELD(boot_error, MP0_SMN_C2PMSG_126, SOCKET_ID);
++	aid_id = REG_GET_FIELD(boot_error, MP0_SMN_C2PMSG_126, AID_ID);
++	hbm_id = REG_GET_FIELD(boot_error, MP0_SMN_C2PMSG_126, HBM_ID);
++
++	reg_data = RREG32_SOC15(MP0, inst, regMP0_SMN_C2PMSG_109);
++	dev_info(adev->dev, "socket: %d, aid: %d, firmware boot failed, fw status is 0x%x\n",
++		 socket_id, aid_id, reg_data);
++
++	if (REG_GET_FIELD(boot_error, MP0_SMN_C2PMSG_126, GPU_ERR_MEM_TRAINING))
++		dev_info(adev->dev, "socket: %d, aid: %d, hbm: %d, memory training failed\n",
++			 socket_id, aid_id, hbm_id);
++
++	if (REG_GET_FIELD(boot_error, MP0_SMN_C2PMSG_126, GPU_ERR_FW_LOAD))
++		dev_info(adev->dev, "socket: %d, aid: %d, firmware load failed at boot time\n",
++			 socket_id, aid_id);
++
++	if (REG_GET_FIELD(boot_error, MP0_SMN_C2PMSG_126, GPU_ERR_WAFL_LINK_TRAINING))
++		dev_info(adev->dev, "socket: %d, aid: %d, wafl link training failed\n",
++			 socket_id, aid_id);
++
++	if (REG_GET_FIELD(boot_error, MP0_SMN_C2PMSG_126, GPU_ERR_XGMI_LINK_TRAINING))
++		dev_info(adev->dev, "socket: %d, aid: %d, xgmi link training failed\n",
++			 socket_id, aid_id);
++
++	if (REG_GET_FIELD(boot_error, MP0_SMN_C2PMSG_126, GPU_ERR_USR_CP_LINK_TRAINING))
++		dev_info(adev->dev, "socket: %d, aid: %d, usr cp link training failed\n",
++			 socket_id, aid_id);
++
++	if (REG_GET_FIELD(boot_error, MP0_SMN_C2PMSG_126, GPU_ERR_USR_DP_LINK_TRAINING))
++		dev_info(adev->dev, "socket: %d, aid: %d, usr dp link training failed\n",
++			 socket_id, aid_id);
++
++	if (REG_GET_FIELD(boot_error, MP0_SMN_C2PMSG_126, GPU_ERR_HBM_MEM_TEST))
++		dev_info(adev->dev, "socket: %d, aid: %d, hbm: %d, hbm memory test failed\n",
++			 socket_id, aid_id, hbm_id);
++
++	if (REG_GET_FIELD(boot_error, MP0_SMN_C2PMSG_126, GPU_ERR_HBM_BIST_TEST))
++		dev_info(adev->dev, "socket: %d, aid: %d, hbm: %d, hbm bist test failed\n",
++			 socket_id, aid_id, hbm_id);
++}
++
++static int psp_v13_0_query_boot_status(struct psp_context *psp)
++{
++	struct amdgpu_device *adev = psp->adev;
++	int inst_mask = adev->aid_mask;
++	uint32_t reg_data;
++	uint32_t i;
++	int ret = 0;
++
++	if (amdgpu_ip_version(adev, MP0_HWIP, 0) != IP_VERSION(13, 0, 6))
++		return 0;
++
++	if (RREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_59) < 0x00a10007)
++		return 0;
++
++	for_each_inst(i, inst_mask) {
++		reg_data = RREG32_SOC15(MP0, i, regMP0_SMN_C2PMSG_126);
++		if (!REG_GET_FIELD(reg_data, MP0_SMN_C2PMSG_126, BOOT_STATUS)) {
++			psp_v13_0_boot_error_reporting(adev, i, reg_data);
++			ret = -EINVAL;
++			break;
++		}
++	}
++
++	return ret;
++}
++
+ static const struct psp_funcs psp_v13_0_funcs = {
+ 	.init_microcode = psp_v13_0_init_microcode,
+ 	.wait_for_bootloader = psp_v13_0_wait_for_bootloader_steady_state,
+@@ -781,6 +858,7 @@ static const struct psp_funcs psp_v13_0_funcs = {
+ 	.update_spirom = psp_v13_0_update_spirom,
+ 	.vbflash_stat = psp_v13_0_vbflash_status,
+ 	.fatal_error_recovery_quirk = psp_v13_0_fatal_error_recovery_quirk,
++	.query_boot_status = psp_v13_0_query_boot_status,
+ };
+ 
+ void psp_v13_0_set_psp_funcs(struct psp_context *psp)
 -- 
 2.17.1
 
