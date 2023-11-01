@@ -4,62 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA469C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Nov 2023 00:27:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46B70C00142
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Nov 2023 00:27:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15A1310E5FB;
-	Wed,  1 Nov 2023 00:26:31 +0000 (UTC)
-Received: from mail-il1-x12d.google.com (mail-il1-x12d.google.com
- [IPv6:2607:f8b0:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01EB210E5F1;
- Wed,  1 Nov 2023 00:26:25 +0000 (UTC)
-Received: by mail-il1-x12d.google.com with SMTP id
- e9e14a558f8ab-3592fadbd7eso5999265ab.0; 
- Tue, 31 Oct 2023 17:26:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B932510E609;
+	Wed,  1 Nov 2023 00:26:33 +0000 (UTC)
+Received: from mail-il1-x130.google.com (mail-il1-x130.google.com
+ [IPv6:2607:f8b0:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDBF510E5E3;
+ Wed,  1 Nov 2023 00:26:28 +0000 (UTC)
+Received: by mail-il1-x130.google.com with SMTP id
+ e9e14a558f8ab-3574f99d260so24333405ab.3; 
+ Tue, 31 Oct 2023 17:26:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698798385; x=1699403185; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1698798388; x=1699403188; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=X+YoaYP9Btr77N0brD8AfqI/lJY3W3ao1Z4fzgsncX4=;
- b=I4BNVd5THuE3y5qEmfFZJH/j16pyOxTgX0OexqVrpHYWcTJJP+bAPN8ug74hsDSCBC
- suVAP0swnhqU7yACv1wcwYgSbxgTpd1hVsssQS3BaitX1Cf4HCElkkV/9NNCAjAVyS0K
- 7EnrpPbsFrALvCsfwc9i08P2VxaKuGFBEkgkEFTwTEBHDADofKlmFSGMEahoQuxarklW
- f491wzaNHVgoDVuXKysIaIM/PibxbEV3NRuELn6QDpHd6vBqeajMaAxnhBo5aRCAG3Eh
- z9ns+GBVinSbcqFWtCW7IEs6rPgbNpsBOaMabT2AnARCFsITGsckYa7qubpsj6do4wE+
- 4GWA==
+ bh=m2Hn5pT28/jZmYZLDxW0t8SHXvPdNDH+Olrk3yFtzgY=;
+ b=eN0wRE05+9adrNPHOsWddjpp4CiSJo1FetulLy30ceC1gPvL9pRdQYtbt6O6hvg0F/
+ bNUMPm1SkHB2cnPnXcocuyyCq3MbAuqYMfrZmEnbT+s/Gv4Q3Ks04F/b2SFfJLIjZxii
+ z/QqBmHI/U7HTokRI99R/+iQCs+RLWEc4Ksr6Q1Dp8kOp1vBFSfmNA5SbRBVxAG/sGpJ
+ UsIqGY5IR0O2QCFIu60rDrKVv7+5XKUOC5basuQOS6QF0BhaPAEQvLc/4+PnPyrDjMcx
+ 83Gd6PAkOLcrqrbtRaIvaTSjvqRFp+K5CajGTgSW/nyLHhWjGGBjvvjdCBekqwEPu4rh
+ n9rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698798385; x=1699403185;
+ d=1e100.net; s=20230601; t=1698798388; x=1699403188;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=X+YoaYP9Btr77N0brD8AfqI/lJY3W3ao1Z4fzgsncX4=;
- b=VcF/0VL5zaJdqbo4Zfrt4fKTIq/sNrAYUD0qzid0UsCpxFk6x0dPAfLKy6Ljb2LMbB
- TPjGQ3DNtmW7Vtj3PHj0Ow26SouF3SRwU83x4iLK3M7+sUK3xAyKLFu/APtt0CybMhK6
- VYeu3ciasr1khqkXwfFdRQiRnsNERhuOrZntIj/WtfdAX8tCkwUFcUIy5WNXMVfPUQdQ
- bnYghwI9sUOLrnD9auzjMRRII58mC3flNoFTNxdu4fomESY7m1zO+GBLCigX4Ok+wNLz
- +Z2Y3xAvv0AAuwq8/LtFUVSCtu/jGJsvz9+aIoB8uiN5Qnb0frDaBNgeM7z+q/gAvGz0
- tdVw==
-X-Gm-Message-State: AOJu0Yw8CqrAMwblmPuHnteAwmdi4R2UMsqh3aH7u+WpPz+lMrPPFJSg
- P+7aiGsafZMlCXR5N+AA+AA=
-X-Google-Smtp-Source: AGHT+IHFCe2bEfwNiGqjn9xcNuK0WJbUzvMAzVY5SQXMQ86DRyZUDjpBsVnnRJtNMNOhfxSk8+K5PQ==
-X-Received: by 2002:a05:6e02:1b05:b0:357:47a3:adb8 with SMTP id
- i5-20020a056e021b0500b0035747a3adb8mr18275462ilv.29.1698798385252; 
- Tue, 31 Oct 2023 17:26:25 -0700 (PDT)
+ bh=m2Hn5pT28/jZmYZLDxW0t8SHXvPdNDH+Olrk3yFtzgY=;
+ b=jjRiNMLYqH+OazZzU8VQAfZ/+KMu96NH7czJBpQZIr0r7lOjWoMX3z5PtSYUXKiGZA
+ 8/XStxjI2zce+HX3osn5ALjYnXpshhVKRejR3J8StORF6Ov+lKNSk4MxJhCbvWCXZgUj
+ PBJ6JqHo9ieOXVRyzfHloGEpckVKiHjqgRmS3e/4KQvO9RJMh/6WMnW0Y7J3G4iv346+
+ UbtYi2Zrm2afOm4y4v2KLIByFxxW7mpvkZGgXj04mYFu/iAoUirA74E2hYLemgI/QHJ4
+ qEqbXhmHMgvYYxhyZg8Y/PP55pPSTtccYQbkW8kn4h2GPh06klMAhhwtT+AnLawKGMtY
+ d+gw==
+X-Gm-Message-State: AOJu0Yzr/dsmNy38lKmLC0tWhO7oayt25qGoDAUp4cHKfUy/qlUw7Axu
+ o57v5L8HbuFXPjMUnRfTHrk=
+X-Google-Smtp-Source: AGHT+IFvuPGBkNbFf/fTVtSst2LwZG2A9Fm+Bj7H59AMN11vAl9xnIK4MAmI8QEipNT2dqX9XpGkzg==
+X-Received: by 2002:a05:6e02:2143:b0:357:549f:eca2 with SMTP id
+ d3-20020a056e02214300b00357549feca2mr19697911ilv.5.1698798388096; 
+ Tue, 31 Oct 2023 17:26:28 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- t1-20020a92c901000000b00357cc8df1d5sm141701ilp.68.2023.10.31.17.26.24
+ t1-20020a92c901000000b00357cc8df1d5sm141701ilp.68.2023.10.31.17.26.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Oct 2023 17:26:24 -0700 (PDT)
+ Tue, 31 Oct 2023 17:26:27 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH v7d 06/23] dyndbg: split param_set_dyndbg_classes to
- module/wrapper fns
-Date: Tue, 31 Oct 2023 18:25:52 -0600
-Message-ID: <20231101002609.3533731-7-jim.cromie@gmail.com>
+Subject: [PATCH v7d 08/23] dyndbg: reduce verbose/debug clutter
+Date: Tue, 31 Oct 2023 18:25:54 -0600
+Message-ID: <20231101002609.3533731-9-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20231101002609.3533731-1-jim.cromie@gmail.com>
 References: <20231101002609.3533731-1-jim.cromie@gmail.com>
@@ -87,90 +86,91 @@ Cc: quic_saipraka@quicinc.com, linux-doc@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-rename param_set_dyndbg_classes: add _module_ name & arg, old name is
-wrapper to new.  New arg allows caller to specify that only one module
-is affected by a prdbgs update.
+currently, for verbose=3, these are logged (blank lines for clarity):
 
-Outer fn preserves kernel_param interface, passing NULL to inner fn.
-This selectivity will be used later to narrow the scope of changes
-made.
+ dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
+ dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
 
-no functional change.
+ dyndbg: op='+'
+ dyndbg: flags=0x1
+ dyndbg: *flagsp=0x1 *maskp=0xffffffff
+
+ dyndbg: parsed: func="" file="" module="" format="" lineno=0-0 class=...
+ dyndbg: no matches for query
+ dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
+ dyndbg: processed 1 queries, with 0 matches, 0 errs
+
+That is excessive, so this patch:
+ - shrinks 3 lines of 2nd stanza to single line
+ - drops 1st 2 lines of 3rd stanza
+   3rd is like 1st, with result, not procedure.
+   2nd is just status, retold in 4th, with more info.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 37 ++++++++++++++++++++++---------------
- 1 file changed, 22 insertions(+), 15 deletions(-)
+ lib/dynamic_debug.c | 14 +++-----------
+ 1 file changed, 3 insertions(+), 11 deletions(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index ba41fdeaaf98..b67c9b137447 100644
+index b67c9b137447..b0e11f6bfaa2 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -708,18 +708,9 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
- 	return 0;
+@@ -266,9 +266,6 @@ static int ddebug_change(const struct ddebug_query *query,
+ 	}
+ 	mutex_unlock(&ddebug_lock);
+ 
+-	if (!nfound && verbose)
+-		pr_info("no matches for query\n");
+-
+ 	return nfound;
  }
  
--/**
-- * param_set_dyndbg_classes - class FOO >control
-- * @instr: string echo>d to sysfs, input depends on map_type
-- * @kp:    kp->arg has state: bits/lvl, map, map_type
-- *
-- * Enable/disable prdbgs by their class, as given in the arguments to
-- * DECLARE_DYNDBG_CLASSMAP.  For LEVEL map-types, enforce relative
-- * levels by bitpos.
-- *
-- * Returns: 0 or <0 if error.
-- */
--int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
-+static int param_set_dyndbg_module_classes(const char *instr,
-+					   const struct kernel_param *kp,
-+					   const char *modnm)
- {
- 	const struct ddebug_class_param *dcp = kp->arg;
- 	const struct ddebug_class_map *map = dcp->map;
-@@ -756,8 +747,8 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
- 				KP_NAME(kp), inrep, CLASSMAP_BITMASK(map->length));
- 			inrep &= CLASSMAP_BITMASK(map->length);
+@@ -497,7 +494,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+ 		pr_err("bad flag-op %c, at start of %s\n", *str, str);
+ 		return -EINVAL;
+ 	}
+-	v3pr_info("op='%c'\n", op);
+ 
+ 	for (; *str ; ++str) {
+ 		for (i = ARRAY_SIZE(opt_array) - 1; i >= 0; i--) {
+@@ -511,7 +507,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+ 			return -EINVAL;
  		}
--		v2pr_info("bits:%lx > %s\n", inrep, KP_NAME(kp));
--		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits, NULL);
-+		v2pr_info("bits:0x%lx > %s.%s\n", inrep, modnm ?: "*", KP_NAME(kp));
-+		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits, modnm);
- 		*dcp->bits = inrep;
+ 	}
+-	v3pr_info("flags=0x%x\n", modifiers->flags);
+ 
+ 	/* calculate final flags, mask based upon op */
+ 	switch (op) {
+@@ -527,7 +522,7 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+ 		modifiers->flags = 0;
  		break;
- 	case DD_CLASS_TYPE_LEVEL_NUM:
-@@ -770,7 +761,7 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
- 		old_bits = CLASSMAP_BITMASK(*dcp->lvl);
- 		new_bits = CLASSMAP_BITMASK(inrep);
- 		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
--		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, NULL);
-+		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, modnm);
- 		*dcp->lvl = inrep;
- 		break;
- 	default:
-@@ -779,6 +770,22 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
- 	vpr_info("%s: total matches: %d\n", KP_NAME(kp), totct);
+ 	}
+-	v3pr_info("*flagsp=0x%x *maskp=0x%x\n", modifiers->flags, modifiers->mask);
++	v3pr_info("op='%c' flags=0x%x maskp=0x%x\n", op, modifiers->flags, modifiers->mask);
+ 
  	return 0;
  }
-+
-+/**
-+ * param_set_dyndbg_classes - class FOO >control
-+ * @instr: string echo>d to sysfs, input depends on map_type
-+ * @kp:    kp->arg has state: bits/lvl, map, map_type
-+ *
-+ * Enable/disable prdbgs by their class, as given in the arguments to
-+ * DECLARE_DYNDBG_CLASSMAP.  For LEVEL map-types, enforce relative
-+ * levels by bitpos.
-+ *
-+ * Returns: 0 or <0 if error.
-+ */
-+int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
-+{
-+	return param_set_dyndbg_module_classes(instr, kp, NULL);
-+}
- EXPORT_SYMBOL(param_set_dyndbg_classes);
+@@ -537,7 +532,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
+ 	struct flag_settings modifiers = {};
+ 	struct ddebug_query query = {};
+ #define MAXWORDS 9
+-	int nwords, nfound;
++	int nwords;
+ 	char *words[MAXWORDS];
  
- /**
+ 	nwords = ddebug_tokenize(query_string, words, MAXWORDS);
+@@ -555,10 +550,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
+ 		return -EINVAL;
+ 	}
+ 	/* actually go and implement the change */
+-	nfound = ddebug_change(&query, &modifiers);
+-	vpr_info_dq(&query, nfound ? "applied" : "no-match");
+-
+-	return nfound;
++	return ddebug_change(&query, &modifiers);
+ }
+ 
+ /* handle multiple queries in query string, continue on error, return
 -- 
 2.41.0
 
