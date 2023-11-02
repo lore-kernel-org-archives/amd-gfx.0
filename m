@@ -4,46 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BED2C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 13:05:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1336AC4332F
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 13:05:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BED1610E87D;
-	Thu,  2 Nov 2023 13:05:31 +0000 (UTC)
-X-Greylist: delayed 1796 seconds by postgrey-1.36 at gabe;
- Thu, 02 Nov 2023 12:34:55 UTC
-Received: from sipsolutions.net (s3.sipsolutions.net
- [IPv6:2a01:4f8:242:246e::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12F8A10E07C
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Nov 2023 12:34:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
- Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
- Resent-Cc:Resent-Message-ID; bh=HntS3je0QXLdwZ1+s0cY5G8BrYYXr4+VZLC8JT4/rII=; 
- t=1698928494; x=1700138094; b=TVZUW4fjIVt98eAGKhj5E91eN4tXapy+eHw2lBTF6y0+a+W
- CHtg8RW7dnm+Ke1yp5ynlRoBBCjZrHKKyvZ8N4FfhoS5jVDzn3AWVvNKogYv5/3ykgW2tFpgDBeKY
- I7dbHP9NaZZZXUIB+o1B1kQtObIFLLMpELCQZGG61TmDvGLe5jhhVyBR7Cgxp3FEOndo3nriRyXGG
- kvF6Ykr7Lxs6ZMY9Le8yjw4SMGereWnwvgvZ0sYnPTR+HY3WaoYl47QOohbK1u7nwkTaaOlxf0GpZ
- MoBu5TgWOQyQTRATJWHmEyChOWerTLLPlA8uvPPod9Jqlrgrl+04LkUI74f3gyzA==;
-Received: by sipsolutions.net with esmtpsa
- (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
- (Exim 4.97-RC1) (envelope-from <johannes@sipsolutions.net>)
- id 1qyWRS-0000000BHyX-0ieC; Thu, 02 Nov 2023 13:04:54 +0100
-Message-ID: <b080757463a1f55a38484e3ea39fd3697e98409e.camel@sipsolutions.net>
-Subject: Re: [Patch v13 4/9] wifi: mac80211: Add support for WBRF features
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Ilpo =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, Ma Jun
- <Jun.Ma2@amd.com>
-Date: Thu, 02 Nov 2023 13:04:52 +0100
-In-Reply-To: <5b8ea81c-dd4c-7f2a-c862-b9a0aab16044@linux.intel.com>
-References: <20231030071832.2217118-1-Jun.Ma2@amd.com>
- <20231030071832.2217118-5-Jun.Ma2@amd.com>
- <5b8ea81c-dd4c-7f2a-c862-b9a0aab16044@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBD5310E87E;
+	Thu,  2 Nov 2023 13:05:32 +0000 (UTC)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9667810E835;
+ Thu,  2 Nov 2023 09:32:13 +0000 (UTC)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-40850b244beso5384925e9.2; 
+ Thu, 02 Nov 2023 02:32:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1698917532; x=1699522332; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=WqxvJKYv5vpdTxmgr1nqq+qFlX0PIIBhjoeGRz1GRg8=;
+ b=fTcFR3GHGY5TMU4BdDqHfms2H3gf8INCaww9Vc0iD7T2mJJUdcY6Q8qhOpsEzZi/Qe
+ tiP1qDKZztlsFQKf6SaxHHeE5uBA86RO1nvsP220NK/MxN/6mjV+bx4DAX7C8Fdabyh4
+ V2I4U1UWdSupsBnAhxbpS+8xQ1xWZGfPWhCQjgwV7PzA9MtUuybt/Cn6TgLr5CBQqnFc
+ 0G85XfcyYx3AoQ1a5UriJEGH3B7Bwn5WtNFFnaUaCGVMkyufQdUNVihh5pjB+oAX9X3b
+ Jl5/f1jW+MUaAArkHqOZOtTmjCG7/jr62AatItijqdwv/Dizjaq24xLMHsBtC01BZGXA
+ bZpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1698917532; x=1699522332;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=WqxvJKYv5vpdTxmgr1nqq+qFlX0PIIBhjoeGRz1GRg8=;
+ b=ouk8biHHHfH7gkhcxoVV2XJlKBY0nBw2VHkQekRWU191iIzflnqV1mdVTn4qkiHJQx
+ emwm2xjgDEZFod1+gXD45wX9eF2vjtXAKRPnQ/UOusfpanWE4oHeYZ5mQ3vJiPiUqUAg
+ NUks4tg6UmoRhxnVXAt/5kltS7zKqF+fY7cE0SbC/zoDCgpSVMOI9RQVEId7GY6JrV+o
+ M0Bh+iv+g43he2I618kpaJd3s+V0zztveq30oup5itQxGjcGrBLGXcw6hOiNwpMGLwp4
+ RjsoJ+ijGZNOhtm9gutqChAnSjyedydX0qVKF3EXCIdV4ckMCw6azBZ3eMZsmqONbp1Z
+ Vgbg==
+X-Gm-Message-State: AOJu0Yx/5pGvOP1mTW7Iwo9LUFCqTpMHfbcWR2yjyIqr0xkO3eH2qxY+
+ WTFk/jEVgUu+I1Swn1Vg2hk=
+X-Google-Smtp-Source: AGHT+IHc0wpbmRp2tgf8ByRrDxa2IV0hXvaKz5WVhrwURQsV1he73lF5J1ODWGCP4OWwTpvppn7IUg==
+X-Received: by 2002:a05:600c:5119:b0:409:2f7:d771 with SMTP id
+ o25-20020a05600c511900b0040902f7d771mr15550596wms.4.1698917531582; 
+ Thu, 02 Nov 2023 02:32:11 -0700 (PDT)
+Received: from debian ([167.98.27.226]) by smtp.gmail.com with ESMTPSA id
+ z6-20020a7bc7c6000000b00401d8181f8bsm2240311wmk.25.2023.11.02.02.32.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Nov 2023 02:32:11 -0700 (PDT)
+Date: Thu, 2 Nov 2023 09:32:08 +0000
+From: "Sudip Mukherjee (Codethink)" <sudipm.mukherjee@gmail.com>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Roman Li <roman.li@amd.com>, Qingqing Zhuo <Qingqing.Zhuo@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Subject: mainline build failure due to 7966f319c66d ("drm/amd/display:
+ Introduce DML2")
+Message-ID: <ZUNsmJGbYwgPaUpY@debian>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Thu, 02 Nov 2023 13:05:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,31 +71,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Evan Quan <quanliangl@hotmail.com>, linux-doc@vger.kernel.org,
- Netdev <netdev@vger.kernel.org>, Lijo.Lazar@amd.com,
- linux-wireless@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- amd-gfx@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- edumazet@google.com, mario.limonciello@amd.com, alexander.deucher@amd.com,
- kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net, lenb@kernel.org
+Cc: regressions@lists.linux.dev, Leo Li <sunpeng.li@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ "linux-kernel@vger.kernel.orgLinus Torvalds" <torvalds@linux-foundation.org>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2023-11-02 at 13:55 +0200, Ilpo J=C3=A4rvinen wrote:
+Hi All,
 
+The latest mainline kernel branch fails to build x86_64 allmodconfig
+with the error:
 
-[please trim your quotes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c: In function 'dml_prefetch_check':
+drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c:6707:1: error: the frame size of 2056 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]
+ 6707 | }
+      | ^
 
-> > +static void get_chan_freq_boundary(u32 center_freq, u32 bandwidth, u64=
- *start, u64 *end)
-> > +{
-> > +	bandwidth =3D MHZ_TO_KHZ(bandwidth);
-> > +	center_freq =3D MHZ_TO_KHZ(center_freq);
->=20
-> Please use include/linux/units.h ones for these too.
+git bisect pointed to 7966f319c66d ("drm/amd/display: Introduce DML2")
 
-Now we're feature creeping though - this has existed for *years* in the
-wireless stack with many instances? We can convert them over, I guess,
-but not sure that makes much sense here - we'd want to add such macros
-to units.h, but ... moving them can be independent of this patch?
+I will be happy to test any patch or provide any extra log if needed.
 
-johannes
+#regzbot introduced: 7966f319c66d9468623c6a6a017ecbc0dd79be75
+
+-- 
+Regards
+Sudip
