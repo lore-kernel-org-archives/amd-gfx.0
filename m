@@ -4,74 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE497C4167B
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 07:31:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23919C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 07:59:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80F0E10E060;
-	Thu,  2 Nov 2023 07:31:13 +0000 (UTC)
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F30D710E060
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Nov 2023 07:31:11 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2c6b30aca06so8016401fa.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 02 Nov 2023 00:31:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=froggi.es; s=google; t=1698910270; x=1699515070; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=zeFycR0Rr0GUmHVxqIhdxYVIQiMjHLDufapTQmILkYo=;
- b=YwW4U93sehCC2m22yTBCjiou9lkff+HMyA6JG+jXrp+YnA0sIIh46EfLMnbW/79AD1
- z4hVuOyClMPJbG9M2vTgXCcXmJWuZO3cRGHyoNHFSdmtddN1lbeI/ab2p8c9YWWJTHnv
- efmf/sKcTgBfNcDyrUg6xPeUt4KJCIt3JNtNt6tCWNkM1fcj3c1jGQTL6ZrFnPbjHqHw
- aktuKXtAvUqhp+khG5HGsLEiZ2aOPLVXnmyybJPiMmIxIlEcQ5LJYofPBdUWBxA1xUku
- BobcGeDmjhOq9wk0m2abQu8HIybiYVt0fHiR2hYD8cCoXCGYQr5SnmqRai00xyO/Jan5
- mpQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698910270; x=1699515070;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=zeFycR0Rr0GUmHVxqIhdxYVIQiMjHLDufapTQmILkYo=;
- b=AgM1manS1w11oOvKlFG1eWNw4df5U7+Sv1702CuVEN9WPum6/046pkWGs5Y1ttVMvN
- tF4ATV2uwIfIR9nSgNA3CwLOciAdO4Jir2dFzk449ivJeqv1CtZX4BGH0nlP9AO5sJ/U
- BTGSmA9sUBQO+RGLYW5PXME8Q9LLiHahLtfbEuMPzUJm6wwX5XHIZVEfe4qdTWuSrmvv
- o2ANUlMY21VMufig9NE2ufWNdkbv000QT8uuKE0//IhIxY/RmE02wmugbSmSG09Ijsr3
- UtnjYkHalv3Oew5m+s6QvZm6k+ziPGvUg65sxk7scxp+IUP94X5se+Nff1RkXmf2xURA
- SWLg==
-X-Gm-Message-State: AOJu0YzpUZ/M1WbYWpps76OsO/ZOiembTP8hi9Wapbau6z1m/k1PcNTn
- Ax17lhtQZWB88i8mZ/lr62183A==
-X-Google-Smtp-Source: AGHT+IHPZu+62qcnva1kKFS2tHhEJ4jXW24foTL77nc5LO4M6E7dC8hjXxsGCshbgirgSbnGoLl8oA==
-X-Received: by 2002:a05:651c:2109:b0:2c2:c1f6:3097 with SMTP id
- a9-20020a05651c210900b002c2c1f63097mr17870850ljq.22.1698910269855; 
- Thu, 02 Nov 2023 00:31:09 -0700 (PDT)
-Received: from [192.168.0.89]
- (darl-09-b2-v4wan-165404-cust288.vm5.cable.virginm.net. [86.17.61.33])
- by smtp.gmail.com with ESMTPSA id
- l11-20020a5d480b000000b0032cc35c2ef7sm1644645wrq.29.2023.11.02.00.31.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Nov 2023 00:31:08 -0700 (PDT)
-Message-ID: <8a5bd15e-82d1-47ea-9db4-592887d7b3e7@froggi.es>
-Date: Thu, 2 Nov 2023 07:31:07 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75CC510E823;
+	Thu,  2 Nov 2023 07:59:58 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2068.outbound.protection.outlook.com [40.107.93.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6D6210E822
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Nov 2023 07:59:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=oLMY5Rltg5CFxvN6Ph5aFpcRvXwdpC3y8Y5PX+w/hIjbBY5j4pOE3Z3OMSteH8SbXqtFXKSV26UtkiLF8tCuDAHNqqJDebe8fH0F80ygd0ScoZEWosi5ZGLRp2GtPqUmot5s7qvB1yU8jI6LcIj82IW+sV1tEW+fRkj/VqyE2aGZ7Yzqg//4o64rFtj3Px1t+9MclV4Y3NlBXYPdVDNhO/sjx2NEI6kjnWVVUFpTsjJVDXDnnB5OUCHvGSczp2qhudFaTE3knflG9KG2X11uRdRhAtyr+S8H3+SP+2Fn8DtTdAMZrpwPKfqiIxjy9FgbeniXkyg56Lg1a0DLtg4oqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=StEmFchsVtND+I6L4Q29Au+heFjhuGgOrr79azL0dS4=;
+ b=NG9DExqY3Pe0NF/Po8VLF1RloA5m2kcLcaLrES2SmPwZAVDfI7TrJl8j/YBWjwftC3gVcGrWgzIi6Fu98eRrLX0duXEe/tEuDBKXFRJdXwtNCNGL/3F7re+J2NPHVgtg1h9l3Hd7c5tNLs864foseGZZJe9vziJOQcl1uVvsSm+ks94wBGlIAH/akQN2MJKrsYCX4WDsaG8FvdNvNUigNb8nbKSvHoft1A1Dwr7JBKi7Er+/Z6QOLSSPc0ToQutAiWMHQs80W5y5dVawcRs1e7spORN+k0rN/pyaXl7I5Jnqk29psFgZPpoe1Rp+dELUp5Vq6DztT9fE0AEHW4IQSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=StEmFchsVtND+I6L4Q29Au+heFjhuGgOrr79azL0dS4=;
+ b=5DyTMpxSwW2yIsGLDYTHJVEjCWtA442Hd2VHBRxfg8N7bynQkNwF8FRjgcCQ2TiGnRT+8U61YHfCYf3G4ci/Xcm4hrBfv6lPMA3RvEIRn9i2W3bghENL+FFyKvRc5vLNDDkrYbrPQ6P0I1E3yUl9UogcAO+9MxcUqVoD4z3Ww5k=
+Received: from SN6PR05CA0013.namprd05.prod.outlook.com (2603:10b6:805:de::26)
+ by MW3PR12MB4378.namprd12.prod.outlook.com (2603:10b6:303:52::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.19; Thu, 2 Nov
+ 2023 07:59:54 +0000
+Received: from SA2PEPF00001508.namprd04.prod.outlook.com
+ (2603:10b6:805:de:cafe::ec) by SN6PR05CA0013.outlook.office365.com
+ (2603:10b6:805:de::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.19 via Frontend
+ Transport; Thu, 2 Nov 2023 07:59:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF00001508.mail.protection.outlook.com (10.167.242.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6954.19 via Frontend Transport; Thu, 2 Nov 2023 07:59:53 +0000
+Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Thu, 2 Nov
+ 2023 02:59:47 -0500
+From: Ma Jun <Jun.Ma2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Kenneth.Feng@amd.com>,
+ <Alexander.Deucher@amd.com>
+Subject: [PATCH] drm/amd/pm:Fix return vlaue and drop redundant param
+Date: Thu, 2 Nov 2023 15:59:16 +0800
+Message-ID: <20231102075916.2701221-1-Jun.Ma2@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 09/32] drm/amd/display: add plane 3D LUT
- driver-specific properties
-Content-Language: en-US
-From: Joshua Ashton <joshua@froggi.es>
-To: Melissa Wen <mwen@igalia.com>, amd-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch
-References: <20231005171527.203657-1-mwen@igalia.com>
- <20231005171527.203657-10-mwen@igalia.com>
- <16b3f90b-5295-46ce-8a5c-a71a7abe83a4@froggi.es>
-In-Reply-To: <16b3f90b-5295-46ce-8a5c-a71a7abe83a4@froggi.es>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00001508:EE_|MW3PR12MB4378:EE_
+X-MS-Office365-Filtering-Correlation-Id: a4cfd78f-8ee1-406f-6ac4-08dbdb79b2b8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: zIziuVTfr7hGsGJh9mArCFkY6m6hHRmKeHg3jQF3TU7ICkFmqK7Bcz1za66S00gcVD2hNF09q+xzEXydMgSa/rifjcv7J/6hZVm6NobQC0bb9Sa+V33cbesHe3MZ8S9fIi+6hXpR1wXjf89kC1TVLKxjgBX/xw6mxntiWyiTn15Kcfh891JoIBySTMQTlt9SHhjelExJjm2LsDRaS9MaPj7HaFRB6jg+nnARuDGEOHOqMgkl+nuqez8mT/di9f0Jmqtu2TQQrDuqzflcEU1hKGQFqGPMnuXAl42mziDUu8g49vmfmMCBKDSV5svQkP4s89U/JWubDmNzMubiKIxmCDI/5zEGrv562FdiQL+lP9IIQicS+JVf02dD0PK84iWjGZquf3mx+ef2gGTfOzgT20a+zWonTEBHT2OsVq2nR2J96TTv6yjpnZFxv4zyQIq8xjmr8+jBXi8rQ/pTrhazX1FnDNXXRJRRvGYCnx1udzCBFVW+UE29biUPTe2EEBa437tt96hFmeBrQjoTEHvYh7EbQI09MpHkxhrmH+t0st9jdHnjIFZm8WC6VAbYEOtTiXP8I1nt33QfL7f3rTLQvfggGgCiPKfvZb+Dl3Bb6YKXhkjmJirUSSH9QU9NG2abiHQXkH2NDWSbBPzOVaAxKe97ttdcy+/i90ubcj5VP9D6rmFELF+JbyjJOkxoGEieBH48xCM2rT8dPNYU9n9FB1D365zAncbTi3hjyx3gf/fqLKg66X0SG/aB+ya5/m/HDTgybNsvc1dZvtwCdtAGNQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(376002)(136003)(396003)(346002)(39860400002)(230922051799003)(451199024)(186009)(64100799003)(82310400011)(1800799009)(36840700001)(40470700004)(46966006)(2906002)(40480700001)(40460700003)(16526019)(26005)(2616005)(426003)(1076003)(7696005)(47076005)(336012)(8676002)(6666004)(478600001)(36860700001)(5660300002)(30864003)(83380400001)(70206006)(41300700001)(70586007)(110136005)(8936002)(316002)(6636002)(4326008)(356005)(81166007)(82740400003)(86362001)(36756003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2023 07:59:53.8075 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4cfd78f-8ee1-406f-6ac4-08dbdb79b2b8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00001508.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4378
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,255 +98,276 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Shashank Sharma <Shashank.Sharma@amd.com>, Alex Hung <alex.hung@amd.com>,
- Simon Ser <contact@emersion.fr>, Xaver Hugl <xaver.hugl@gmail.com>,
- kernel-dev@igalia.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- sungjoon.kim@amd.com
+Cc: Ma Jun <Jun.Ma2@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Also, Melissa, you cannot do:
+Fix the return value and drop redundant parameter of
+get_asic_baco_capability function to simplify the code
 
-	if (!plane_state->color_mgmt_changed)
-		return 0;
+Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+---
+ drivers/gpu/drm/amd/include/kgd_pp_interface.h       |  2 +-
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c                  |  8 +++-----
+ drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c     | 11 ++++-------
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.c   |  7 +++----
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.h   |  2 +-
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.c   |  9 ++++-----
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.h   |  2 +-
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c |  9 ++++-----
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.h |  2 +-
+ drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h         |  2 +-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c            | 12 +++++-------
+ 11 files changed, 28 insertions(+), 38 deletions(-)
 
-in amdgpu_dm_plane_set_color_properties.
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+index 3201808c2dd8..60e6b82077e8 100644
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+@@ -421,7 +421,7 @@ struct amd_pm_funcs {
+ 	int (*set_hard_min_dcefclk_by_freq)(void *handle, uint32_t clock);
+ 	int (*set_hard_min_fclk_by_freq)(void *handle, uint32_t clock);
+ 	int (*set_min_deep_sleep_dcefclk)(void *handle, uint32_t clock);
+-	int (*get_asic_baco_capability)(void *handle, bool *cap);
++	bool (*get_asic_baco_capability)(void *handle);
+ 	int (*get_asic_baco_state)(void *handle, int *state);
+ 	int (*set_asic_baco_state)(void *handle, int state);
+ 	int (*get_ppfeature_status)(void *handle, char *buf);
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+index acf3527fff2d..24fd036a15c0 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+@@ -185,8 +185,7 @@ bool amdgpu_dpm_is_baco_supported(struct amdgpu_device *adev)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+ 	void *pp_handle = adev->powerplay.pp_handle;
+-	bool baco_cap;
+-	int ret = 0;
++	bool ret;
+ 
+ 	if (!pp_funcs || !pp_funcs->get_asic_baco_capability)
+ 		return false;
+@@ -204,12 +203,11 @@ bool amdgpu_dpm_is_baco_supported(struct amdgpu_device *adev)
+ 
+ 	mutex_lock(&adev->pm.mutex);
+ 
+-	ret = pp_funcs->get_asic_baco_capability(pp_handle,
+-						 &baco_cap);
++	ret = pp_funcs->get_asic_baco_capability(pp_handle);
+ 
+ 	mutex_unlock(&adev->pm.mutex);
+ 
+-	return ret ? false : baco_cap;
++	return ret;
+ }
+ 
+ int amdgpu_dpm_mode2_reset(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+index 9e4f8a4104a3..e82c2b2fffb5 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+@@ -1368,21 +1368,18 @@ static int pp_set_active_display_count(void *handle, uint32_t count)
+ 	return phm_set_active_display_count(hwmgr, count);
+ }
+ 
+-static int pp_get_asic_baco_capability(void *handle, bool *cap)
++static bool pp_get_asic_baco_capability(void *handle)
+ {
+ 	struct pp_hwmgr *hwmgr = handle;
+ 
+-	*cap = false;
+ 	if (!hwmgr)
+-		return -EINVAL;
++		return false;
+ 
+ 	if (!(hwmgr->not_vf && amdgpu_dpm) ||
+ 		!hwmgr->hwmgr_func->get_asic_baco_capability)
+-		return 0;
++		return false;
+ 
+-	hwmgr->hwmgr_func->get_asic_baco_capability(hwmgr, cap);
+-
+-	return 0;
++	return hwmgr->hwmgr_func->get_asic_baco_capability(hwmgr);
+ }
+ 
+ static int pp_get_asic_baco_state(void *handle, int *state)
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.c
+index 044cda005aed..e8a9471c1898 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.c
+@@ -33,21 +33,20 @@
+ #include "smu/smu_7_1_2_d.h"
+ #include "smu/smu_7_1_2_sh_mask.h"
+ 
+-int smu7_baco_get_capability(struct pp_hwmgr *hwmgr, bool *cap)
++bool smu7_baco_get_capability(struct pp_hwmgr *hwmgr)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)(hwmgr->adev);
+ 	uint32_t reg;
+ 
+-	*cap = false;
+ 	if (!phm_cap_enabled(hwmgr->platform_descriptor.platformCaps, PHM_PlatformCaps_BACO))
+ 		return 0;
+ 
+ 	reg = RREG32(mmCC_BIF_BX_FUSESTRAP0);
+ 
+ 	if (reg & CC_BIF_BX_FUSESTRAP0__STRAP_BIF_PX_CAPABLE_MASK)
+-		*cap = true;
++		return true;
+ 
+-	return 0;
++	return false;
+ }
+ 
+ int smu7_baco_get_state(struct pp_hwmgr *hwmgr, enum BACO_STATE *state)
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.h
+index be0d98abb536..73a773f4ce2e 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.h
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.h
+@@ -25,7 +25,7 @@
+ #include "hwmgr.h"
+ #include "common_baco.h"
+ 
+-extern int smu7_baco_get_capability(struct pp_hwmgr *hwmgr, bool *cap);
++extern bool smu7_baco_get_capability(struct pp_hwmgr *hwmgr);
+ extern int smu7_baco_get_state(struct pp_hwmgr *hwmgr, enum BACO_STATE *state);
+ extern int smu7_baco_set_state(struct pp_hwmgr *hwmgr, enum BACO_STATE state);
+ 
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.c
+index de0a37f7c632..c66ef9741535 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.c
+@@ -28,14 +28,13 @@
+ #include "vega10_inc.h"
+ #include "smu9_baco.h"
+ 
+-int smu9_baco_get_capability(struct pp_hwmgr *hwmgr, bool *cap)
++bool smu9_baco_get_capability(struct pp_hwmgr *hwmgr)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)(hwmgr->adev);
+ 	uint32_t reg, data;
+ 
+-	*cap = false;
+ 	if (!phm_cap_enabled(hwmgr->platform_descriptor.platformCaps, PHM_PlatformCaps_BACO))
+-		return 0;
++		return false;
+ 
+ 	WREG32(0x12074, 0xFFF0003B);
+ 	data = RREG32(0x12075);
+@@ -44,10 +43,10 @@ int smu9_baco_get_capability(struct pp_hwmgr *hwmgr, bool *cap)
+ 		reg = RREG32_SOC15(NBIF, 0, mmRCC_BIF_STRAP0);
+ 
+ 		if (reg & RCC_BIF_STRAP0__STRAP_PX_CAPABLE_MASK)
+-			*cap = true;
++			return true;
+ 	}
+ 
+-	return 0;
++	return false;
+ }
+ 
+ int smu9_baco_get_state(struct pp_hwmgr *hwmgr, enum BACO_STATE *state)
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.h
+index 84e90f801ac3..9ff7c2ea1b58 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.h
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.h
+@@ -25,7 +25,7 @@
+ #include "hwmgr.h"
+ #include "common_baco.h"
+ 
+-extern int smu9_baco_get_capability(struct pp_hwmgr *hwmgr, bool *cap);
++extern bool smu9_baco_get_capability(struct pp_hwmgr *hwmgr);
+ extern int smu9_baco_get_state(struct pp_hwmgr *hwmgr, enum BACO_STATE *state);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c
+index 994c0d374bfa..dad4c80aee58 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c
+@@ -36,23 +36,22 @@ static const struct soc15_baco_cmd_entry clean_baco_tbl[] = {
+ 	{CMD_WRITE, SOC15_REG_ENTRY(NBIF, 0, mmBIOS_SCRATCH_7), 0, 0, 0, 0},
+ };
+ 
+-int vega20_baco_get_capability(struct pp_hwmgr *hwmgr, bool *cap)
++bool vega20_baco_get_capability(struct pp_hwmgr *hwmgr)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)(hwmgr->adev);
+ 	uint32_t reg;
+ 
+-	*cap = false;
+ 	if (!phm_cap_enabled(hwmgr->platform_descriptor.platformCaps, PHM_PlatformCaps_BACO))
+-		return 0;
++		return false;
+ 
+ 	if (((RREG32(0x17569) & 0x20000000) >> 29) == 0x1) {
+ 		reg = RREG32_SOC15(NBIF, 0, mmRCC_BIF_STRAP0);
+ 
+ 		if (reg & RCC_BIF_STRAP0__STRAP_PX_CAPABLE_MASK)
+-			*cap = true;
++			return true;
+ 	}
+ 
+-	return 0;
++	return false;
+ }
+ 
+ int vega20_baco_get_state(struct pp_hwmgr *hwmgr, enum BACO_STATE *state)
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.h
+index f06471e712dc..bdad9c915631 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.h
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.h
+@@ -25,7 +25,7 @@
+ #include "hwmgr.h"
+ #include "common_baco.h"
+ 
+-extern int vega20_baco_get_capability(struct pp_hwmgr *hwmgr, bool *cap);
++extern bool vega20_baco_get_capability(struct pp_hwmgr *hwmgr);
+ extern int vega20_baco_get_state(struct pp_hwmgr *hwmgr, enum BACO_STATE *state);
+ extern int vega20_baco_set_state(struct pp_hwmgr *hwmgr, enum BACO_STATE state);
+ extern int vega20_baco_apply_vdci_flush_workaround(struct pp_hwmgr *hwmgr);
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
+index 81650727a5de..6f536159df4d 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
++++ b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
+@@ -351,7 +351,7 @@ struct pp_hwmgr_func {
+ 	int (*set_hard_min_fclk_by_freq)(struct pp_hwmgr *hwmgr, uint32_t clock);
+ 	int (*set_hard_min_gfxclk_by_freq)(struct pp_hwmgr *hwmgr, uint32_t clock);
+ 	int (*set_soft_max_gfxclk_by_freq)(struct pp_hwmgr *hwmgr, uint32_t clock);
+-	int (*get_asic_baco_capability)(struct pp_hwmgr *hwmgr, bool *cap);
++	bool (*get_asic_baco_capability)(struct pp_hwmgr *hwmgr);
+ 	int (*get_asic_baco_state)(struct pp_hwmgr *hwmgr, enum BACO_STATE *state);
+ 	int (*set_asic_baco_state)(struct pp_hwmgr *hwmgr, enum BACO_STATE state);
+ 	int (*get_ppfeature_status)(struct pp_hwmgr *hwmgr, char *buf);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 23b00eddc1af..82be473a3fc3 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -3004,19 +3004,17 @@ static int smu_set_xgmi_pstate(void *handle,
+ 	return ret;
+ }
+ 
+-static int smu_get_baco_capability(void *handle, bool *cap)
++static bool smu_get_baco_capability(void *handle)
+ {
+ 	struct smu_context *smu = handle;
+ 
+-	*cap = false;
+-
+ 	if (!smu->pm_enabled)
+-		return 0;
++		return false;
+ 
+-	if (smu->ppt_funcs && smu->ppt_funcs->baco_is_support)
+-		*cap = smu->ppt_funcs->baco_is_support(smu);
++	if (!smu->ppt_funcs || !smu->ppt_funcs->baco_is_support)
++		return false;
+ 
+-	return 0;
++	return smu->ppt_funcs->baco_is_support(smu);
+ }
+ 
+ static int smu_baco_set_state(void *handle, int state)
+-- 
+2.34.1
 
-The allocation for dc_plane_state could be new and zero'ed so it needs 
-to be set every time. (Until AMDGPU has better dedup'ing of stuff there)
-
-The reason it looked like it worked for you now is because the duplicate 
-was broken, so color mgmt for planes was always being marked as dirty there.
-
-Thanks
-
-- Joshie 🐸✨
-
-On 11/2/23 03:48, Joshua Ashton wrote:
-> 
-> 
-> On 10/5/23 18:15, Melissa Wen wrote:
->> Add 3D LUT property for plane color transformations using a 3D lookup
->> table. 3D LUT allows for highly accurate and complex color
->> transformations and is suitable to adjust the balance between color
->> channels. It's also more complex to manage and require more
->> computational resources.
->>
->> Since a 3D LUT has a limited number of entries in each dimension we want
->> to use them in an optimal fashion. This means using the 3D LUT in a
->> colorspace that is optimized for human vision, such as sRGB, PQ, or
->> another non-linear space. Therefore, userpace may need one 1D LUT
->> (shaper) before it to delinearize content and another 1D LUT after 3D
->> LUT (blend) to linearize content again for blending. The next patches
->> add these 1D LUTs to the plane color mgmt pipeline.
->>
->> v3:
->> - improve commit message about 3D LUT
->> - describe the 3D LUT entries and size (Harry)
->>
->> v4:
->> - advertise 3D LUT max size as the size of a single-dimension
->>
->> Signed-off-by: Melissa Wen <mwen@igalia.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      | 18 +++++++++++++++
->>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  9 ++++++++
->>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 14 +++++++++++
->>   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 23 +++++++++++++++++++
->>   4 files changed, 64 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
->> index 62044d41da75..f7adaa52c23f 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
->> @@ -363,6 +363,24 @@ struct amdgpu_mode_info {
->>        * @plane_hdr_mult_property:
->>        */
->>       struct drm_property *plane_hdr_mult_property;
->> +    /**
->> +     * @plane_lut3d_property: Plane property for color transformation 
->> using
->> +     * a 3D LUT (pre-blending), a three-dimensional array where each
->> +     * element is an RGB triplet. Each dimension has a size of the cubed
->> +     * root of lut3d_size. The array contains samples from the 
->> approximated
->> +     * function. On AMD, values between samples are estimated by
->> +     * tetrahedral interpolation. The array is accessed with three 
->> indices,
->> +     * one for each input dimension (color channel), blue being the
->> +     * outermost dimension, red the innermost.
->> +     */
->> +    struct drm_property *plane_lut3d_property;
->> +    /**
->> +     * @plane_degamma_lut_size_property: Plane property to define the 
->> max
->> +     * size of 3D LUT as supported by the driver (read-only). The max 
->> size
->> +     * is the max size of one dimension and, therefore, the max 
->> number of
->> +     * entries for 3D LUT array is the 3D LUT size cubed;
->> +     */
->> +    struct drm_property *plane_lut3d_size_property;
->>   };
->>   #define AMDGPU_MAX_BL_LEVEL 0xFF
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h 
->> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
->> index bb2ce843369d..7a2350c62cf1 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
->> @@ -784,6 +784,11 @@ struct dm_plane_state {
->>        * TF is needed for any subsequent linear-to-non-linear transforms.
->>        */
->>       __u64 hdr_mult;
->> +    /**
->> +     * @lut3d: 3D lookup table blob. The blob (if not NULL) is an 
->> array of
->> +     * &struct drm_color_lut.
->> +     */
->> +    struct drm_property_blob *lut3d;
->>   };
->>   struct dm_crtc_state {
->> @@ -869,6 +874,10 @@ void amdgpu_dm_update_freesync_caps(struct 
->> drm_connector *connector,
->>   void amdgpu_dm_trigger_timing_sync(struct drm_device *dev);
->> +/* 3D LUT max size is 17x17x17 (4913 entries) */
->> +#define MAX_COLOR_3DLUT_SIZE 17
->> +#define MAX_COLOR_3DLUT_BITDEPTH 12
->> +/* 1D LUT size */
->>   #define MAX_COLOR_LUT_ENTRIES 4096
->>   /* Legacy gamm LUT users such as X doesn't like large LUT sizes */
->>   #define MAX_COLOR_LEGACY_LUT_ENTRIES 256
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c 
->> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
->> index caf49a044ab4..011f2f9ec890 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
->> @@ -230,6 +230,20 @@ amdgpu_dm_create_color_properties(struct 
->> amdgpu_device *adev)
->>           return -ENOMEM;
->>       adev->mode_info.plane_hdr_mult_property = prop;
->> +    prop = drm_property_create(adev_to_drm(adev),
->> +                   DRM_MODE_PROP_BLOB,
->> +                   "AMD_PLANE_LUT3D", 0);
->> +    if (!prop)
->> +        return -ENOMEM;
->> +    adev->mode_info.plane_lut3d_property = prop;
->> +
->> +    prop = drm_property_create_range(adev_to_drm(adev),
->> +                     DRM_MODE_PROP_IMMUTABLE,
->> +                     "AMD_PLANE_LUT3D_SIZE", 0, UINT_MAX);
->> +    if (!prop)
->> +        return -ENOMEM;
->> +    adev->mode_info.plane_lut3d_size_property = prop;
->> +
->>       return 0;
->>   }
->>   #endif
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c 
->> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
->> index ae64d4b73360..068798ffdd56 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
->> @@ -1359,6 +1359,8 @@ dm_drm_plane_duplicate_state(struct drm_plane 
->> *plane)
->>       if (dm_plane_state->degamma_lut)
->>           drm_property_blob_get(dm_plane_state->degamma_lut);
->> +    if (dm_plane_state->lut3d)
->> +        drm_property_blob_get(dm_plane_state->lut3d);
-> 
-> This is wrong, and was breaking state restoration on suspend.
-> 
-> dm_plane_state->lut3d is always NULL as it's the new zero-ed state, you 
-> need to check the old_dm_plane_state's values and then set it on the new 
-> state after _get.
-> 
-> It should be like this: (based on end of the patchset).
-> 
->      if (old_dm_plane_state->degamma_lut) {
->          drm_property_blob_get(old_dm_plane_state->degamma_lut);
->          dm_plane_state->degamma_lut = old_dm_plane_state->degamma_lut;
->      }
->      if (old_dm_plane_state->ctm) {
->          drm_property_blob_get(old_dm_plane_state->ctm);
->          dm_plane_state->ctm = old_dm_plane_state->ctm;
->      }
->      if (old_dm_plane_state->shaper_lut) {
->          drm_property_blob_get(old_dm_plane_state->shaper_lut);
->          dm_plane_state->shaper_lut = old_dm_plane_state->shaper_lut;
->      }
->      if (old_dm_plane_state->lut3d) {
->          drm_property_blob_get(old_dm_plane_state->lut3d);
->          dm_plane_state->lut3d = old_dm_plane_state->lut3d;
->      }
->      if (old_dm_plane_state->blend_lut) {
->          drm_property_blob_get(old_dm_plane_state->blend_lut);
->          dm_plane_state->blend_lut = old_dm_plane_state->blend_lut;
->      }
-> 
-> because it doesn't do the memcpy like the base drm atomic stuff.
-> 
-> I also had to add a patch to ensure color mgmt was updated on unsuspend 
-> always too, but that's not related to this patchset and also affected 
-> stuff beforehand.
-> 
-> I'll send that patch in a bit.
-> 
-> Thanks!
-> - Joshie 🐸✨
-> 
->>       dm_plane_state->degamma_tf = old_dm_plane_state->degamma_tf;
->>       dm_plane_state->hdr_mult = old_dm_plane_state->hdr_mult;
->> @@ -1432,6 +1434,8 @@ static void dm_drm_plane_destroy_state(struct 
->> drm_plane *plane,
->>       if (dm_plane_state->degamma_lut)
->>           drm_property_blob_put(dm_plane_state->degamma_lut);
->> +    if (dm_plane_state->lut3d)
->> +        drm_property_blob_put(dm_plane_state->lut3d);
->>       if (dm_plane_state->dc_state)
->>           dc_plane_state_release(dm_plane_state->dc_state);
->> @@ -1462,6 +1466,14 @@ 
->> dm_atomic_plane_attach_color_mgmt_properties(struct 
->> amdgpu_display_manager *dm,
->>       drm_object_attach_property(&plane->base,
->>                      dm->adev->mode_info.plane_hdr_mult_property,
->>                      AMDGPU_HDR_MULT_DEFAULT);
->> +
->> +    if (dpp_color_caps.hw_3d_lut) {
->> +        drm_object_attach_property(&plane->base,
->> +                       mode_info.plane_lut3d_property, 0);
->> +        drm_object_attach_property(&plane->base,
->> +                       mode_info.plane_lut3d_size_property,
->> +                       MAX_COLOR_3DLUT_SIZE);
->> +    }
->>   }
->>   static int
->> @@ -1493,6 +1505,14 @@ dm_atomic_plane_set_property(struct drm_plane 
->> *plane,
->>               dm_plane_state->hdr_mult = val;
->>               dm_plane_state->base.color_mgmt_changed = 1;
->>           }
->> +    } else if (property == adev->mode_info.plane_lut3d_property) {
->> +        ret = drm_property_replace_blob_from_id(plane->dev,
->> +                            &dm_plane_state->lut3d,
->> +                            val, -1,
->> +                            sizeof(struct drm_color_lut),
->> +                            &replaced);
->> +        dm_plane_state->base.color_mgmt_changed |= replaced;
->> +        return ret;
->>       } else {
->>           drm_dbg_atomic(plane->dev,
->>                      "[PLANE:%d:%s] unknown property [PROP:%d:%s]]\n",
->> @@ -1520,6 +1540,9 @@ dm_atomic_plane_get_property(struct drm_plane 
->> *plane,
->>           *val = dm_plane_state->degamma_tf;
->>       } else if (property == adev->mode_info.plane_hdr_mult_property) {
->>           *val = dm_plane_state->hdr_mult;
->> +    } else     if (property == adev->mode_info.plane_lut3d_property) {
->> +        *val = (dm_plane_state->lut3d) ?
->> +            dm_plane_state->lut3d->base.id : 0;
->>       } else {
->>           return -EINVAL;
->>       }
