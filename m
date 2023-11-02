@@ -4,59 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB7D6C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 17:57:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54E09C4167D
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 19:00:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8646010E97A;
-	Thu,  2 Nov 2023 17:57:26 +0000 (UTC)
-Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
- [IPv6:2607:f8b0:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C126210E978;
- Thu,  2 Nov 2023 17:57:24 +0000 (UTC)
-Received: by mail-ot1-x32e.google.com with SMTP id
- 46e09a7af769-6ce353df504so634658a34.3; 
- Thu, 02 Nov 2023 10:57:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698947844; x=1699552644; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8Zmxt6jWHSk0ufE+QEoUUpI6OvaXUdy9+PMpDjlbgbE=;
- b=PN7EBf1DOn3XHnJVxtKpZDgahXu5paNBrpJR38pdrm6xKxOk0CBKqxTDx9umgONFZG
- 0iNuKGC4Cj9IVrblPnIAzN1FedS5Tss2lLZaOHRa78YWyZ7Tpyff62la+5rakskIz7CY
- LdAqzBOb0TAmuE+N5xHL7sc7mBEUKcawJnvZCW7nkr81dEX74d4529sl4qvd0AzzcAXp
- RFHOrX8bX+eNLJ2iP+4c41Ifvr75LenCeRKCUsJf2EsSKBTTxS6L4EJMviDLr1o70uxR
- ckuXV2hoX8a6CCMwzjTW28dZ5P8yTMlSYZeVgUsLLyV6FaORZIAs3h+M581QA+WQKLV0
- ztTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698947844; x=1699552644;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=8Zmxt6jWHSk0ufE+QEoUUpI6OvaXUdy9+PMpDjlbgbE=;
- b=LotG7PIn9nDT3Uh4gVJ3W1f4u5dgvyHbghPCFmsK7X+qmGpDxuaFjwyMWq+ewdede7
- JQW4QOI2DknFzpqRAnVHW6oTIAwXPc2zKpNhKe8SGQ20hvFYvYwozFUeXBc8zIKwhwVY
- ur31V/0uqNaFI2sfXzq75nl8k2DhRdqkC/L+FmnbZoIs9BZ5a7eyX2r/ZscYrNGg8Jvt
- Mv3NbdXB/0nG5/Z0SXgGhtJS3fL2BbqkVFIAcoMDNf9/jxul+De8KVrU7agQDV5OYVAr
- zqTNKEGpavUcJtI255CkKP1tL4Oc2DjPaKTEGQbWDb/2yJ8LRV8o6JlbssxXArIudcDH
- itBA==
-X-Gm-Message-State: AOJu0YxG7PWYUJpBM1rWHRK31feCxpD2UPtAMHPGuhVhXRw+UGjYdQnk
- 8Km3h9TCw/vFzYli/riza/PYJzHelJGAl/jg+Dw=
-X-Google-Smtp-Source: AGHT+IEzDqhOut1KREmFrWLe+QG/NITaNhdTFcbHjufmkoxmoYPpZ7zZ11VJWIqQKnQGyX9v9BIiLWnuBQEeAkHRqzQ=
-X-Received: by 2002:a05:6870:815:b0:1e9:9c39:a580 with SMTP id
- fw21-20020a056870081500b001e99c39a580mr22766888oab.7.1698947843923; Thu, 02
- Nov 2023 10:57:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE3FF10E983;
+	Thu,  2 Nov 2023 19:00:44 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2068.outbound.protection.outlook.com [40.107.94.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD28510E983;
+ Thu,  2 Nov 2023 19:00:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DPwLF0tGRg+qpRP6tlQaPTMfFsbWgOmM5HI30t7UJia8k7J2KWLuLXIDhNr4EVgcVnaycJM6CQoLpyR6ro+HnWpkySAppf7hXrDdl52zwMS25ngQR81yYttuJNkSlpnVB9Etkb9/at3AxnAbgENDnV5kp2O8/QceeFbP8jt6ZwiHTak1lwjWxeCW4WN84Jtd4xZN0EKUDd3zeNqcsoDRVQ+Mshw1GcHNCWU5ufLtPPlgIZMoUcgw1vDJ4btUOGHc9C6XEnZgLdo5nbO4Y6imjGzXbu/0nOFu2n6Wdd49dq4706d8wkYjGJIyMI8bxHWFoihQOtiP6uwGmwLEQZlXMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=c5Y28Wm2wIfxhJiYkMWDWW/VzW7YYYLCesct4WDAwPA=;
+ b=LsGK8yrr63gmwpLZDyRoIkcHUqn02Gm7juNsRHXsRzROwy5rCoTHeoB18g6Wy/mZlgTWxNnwgJexXl5Y69RFfBunr0hPXm4WX/cKuub/Rwi+8hDkoQLug8QU/AYtB6sfERQqbH2MYUCuWJm4fl8qhmxmPxPzPewNcBlNnmpklinNobEUqKhSO5FZNDihywi4RJsWoPU0F73Q5FZRgNTk/Ql/gY0iViOUN+Wia8Gx4OZUeKK1kjZLNzHwHBTMvWOIS7FxQPRU5FUQ7/C67eN7AGioXSDrVwIJ8KN2hFOq9vJiInWKgFYkAVBpHVkDo1dZQogpYkLO5b+hJ6ac84ZKwA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=c5Y28Wm2wIfxhJiYkMWDWW/VzW7YYYLCesct4WDAwPA=;
+ b=5clJhTyxIKPEDY7JPI9WPfAkdUBeSnRtP9s0VghzvtYBthDDLKp3uPPVgRP/eW4n6gI96T7Ei4h7g5Af+BiVCqHYFbaTAYCkuO/F/g+GJbTkBwrvWYSmeCMqxkLCdghfo2utE5lXai/dGC59HiKQQjF1IbEtTXj9kUR0wUivlCo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) by
+ CH0PR12MB5090.namprd12.prod.outlook.com (2603:10b6:610:bd::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6954.21; Thu, 2 Nov 2023 19:00:41 +0000
+Received: from DM4PR12MB6280.namprd12.prod.outlook.com
+ ([fe80::5588:7117:d54e:9466]) by DM4PR12MB6280.namprd12.prod.outlook.com
+ ([fe80::5588:7117:d54e:9466%7]) with mapi id 15.20.6954.019; Thu, 2 Nov 2023
+ 19:00:41 +0000
+Message-ID: <1eed6bfa-3e98-45d1-9908-2c5a0f3173c3@amd.com>
+Date: Thu, 2 Nov 2023 15:00:37 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/edid: add a quirk for two 240Hz Samsung monitors
+To: Alex Deucher <alexdeucher@gmail.com>
+References: <20231101210037.130494-1-hamza.mahfooz@amd.com>
+ <CADnq5_Nv0MnG+pPvRQO37OP8iYwz8oGvFLs2g-+U=URHWcqJGw@mail.gmail.com>
+Content-Language: en-US
+From: Hamza Mahfooz <hamza.mahfooz@amd.com>
+In-Reply-To: <CADnq5_Nv0MnG+pPvRQO37OP8iYwz8oGvFLs2g-+U=URHWcqJGw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0339.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6b::29) To DM4PR12MB6280.namprd12.prod.outlook.com
+ (2603:10b6:8:a2::11)
 MIME-Version: 1.0
-References: <20231102-amdgpu-dml2-increase-frame-size-warning-for-clang-v2-1-b088a718131a@kernel.org>
-In-Reply-To: <20231102-amdgpu-dml2-increase-frame-size-warning-for-clang-v2-1-b088a718131a@kernel.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 2 Nov 2023 13:57:12 -0400
-Message-ID: <CADnq5_O_V7mxRP4PWv8+M0GaHb42N00NoyQqN-GiX0HKSgaS+A@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd/display: Increase frame warning limit with
- KASAN or KCSAN in dml2
-To: Nathan Chancellor <nathan@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6280:EE_|CH0PR12MB5090:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0c100731-7b0d-4241-f5c5-08dbdbd6023b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: l36x+ebe/kKiGBQQNdYL5TUNMo7lHreDqJs51GtlnntZa75dSs9+YhJcTAsVXs1cPF+cIDH5enlvrHE0KfEmmj1WLKnnBXcRFdSZJKlRMYA0L1zjobIydMo1H+zcFWOoopPfpPSL5wMbizjH+DVDiVViN+fn2vTazfMzh8ntvgiAXwxj61SnVrCSQCry2jxc0ixLF/dIkXaECOODO/JRq5OduvAuZtHu3lv6J62ShZWDVV9QeL4sCbBjE+eQZdPipOdG1dzGPDYFGJI3bN1RGIehDA+DcMPP79o6ySevNXFHtK7gYLDHdexUTcvmet/USy8Uf/AvS3CuZA42JDtkp6AIeFk+pNt4tQmQZYrQA0KSg63/npJ41zARqYYh+m6uKzbvM7yN2dydg1vV8LCx6aanbpbqyaYqRQSjikMAvjg+i9Y5Iw9DPEvJnH0kiGwEHpAgCDyIH2f8zIWP4cy7FpHmpvqfrCjbnnNusLoDIylGxZden3cM44k5dxYFCVdKAAkPmqwxgbgOUynZB19kQbx8ljVXrUen66D7fuDyqAVxFfY8D7mTEEttynBCN5CNASp8Y4z+AnIMIqZKK/1kcMdZVrLzPAWTpcog/IOAJyjsppjDAHptMiutupU2KNkj
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6280.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366004)(346002)(136003)(376002)(39860400002)(396003)(230922051799003)(451199024)(186009)(1800799009)(64100799003)(2906002)(45080400002)(6486002)(966005)(478600001)(2616005)(36756003)(26005)(41300700001)(38100700002)(86362001)(31696002)(53546011)(83380400001)(6506007)(6666004)(6512007)(316002)(6916009)(66946007)(54906003)(66476007)(66556008)(44832011)(5660300002)(4326008)(8676002)(8936002)(31686004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UVl1NytNZFNmV1hSTWRKZUxSSXpUdEZoZGFlWTJUdzAzVXpGSW5MaE5YNDBn?=
+ =?utf-8?B?WDdqMGJmYjJzNlRWeHc2c3dzWGxjdlU0VFBzc2k5K1F2S01sSmZva3FveXRE?=
+ =?utf-8?B?Zy9rQVFKekNjcG10YklWUVBQdUFpS0hXRFZSN3dDVzFQQVRESEtjdG9URG4y?=
+ =?utf-8?B?Skd3bTZTd0lieC82NTdTd1RPeE1pTHVpMWhZMGxSekR5MHkwdFFkQ1NUU2dK?=
+ =?utf-8?B?VjFFNEg5ZWRwcXhiV2wycHh2NEU3eStJQVlCQVMvTDVCR3pyRjVJL3JGK0NH?=
+ =?utf-8?B?YWhQQndUZEZnSkN4blE5b3RWWWNuNCtHY0tlRTJjdHJ6dm05dUFkUWdOcStY?=
+ =?utf-8?B?a0p0RjcrWEpzQ1VWR0RQVmJaNHJ6RXFDTlVCeVQ2WHlFQmYvV1VuNGhSYW1S?=
+ =?utf-8?B?OXRkRmhQbFFLZk54dDZnaDVGOVJHTk1kOWc4ZGdRL1Ivd2p2L2JRUklYMCtP?=
+ =?utf-8?B?SkhYeHJlS005eE1xTVh0YzEwVEE2NnFYVzNIOW9VRXlUdVhHSTFBT3JlVi9p?=
+ =?utf-8?B?ZTdzNkt3M2tzckIyYWJRbjl1c05qb0NLQ3U5L2xySEhCM0t3cDh0b0U0Q0NJ?=
+ =?utf-8?B?Y0JESmdMU1g3WVVXM09mYzcrS3hid0JKSDJjUFZOa0ovWVFxL3pTaHcwWXoz?=
+ =?utf-8?B?M3ZGc0JMaEhiN2liK1hFOUVYalZoNkxhNENOdThTaFRMRHh4b243dHRvSUhX?=
+ =?utf-8?B?eVRZcEdTelJGYVZwc3FMakhsa3hVRHp2KzJCTXVlZkZJWFMyU1QyQUFlTHRh?=
+ =?utf-8?B?NVk1bmcwS1dhaE8wcUl3c1NEZlVOcTZwY1g1WXZjOVlVZ3NqZit4KzZUZkZW?=
+ =?utf-8?B?eGFrU2Y1Sm1Ec1docm9kckxkYUFERXBnb0NWV3dIVG81blNKeldnYnZQNnhI?=
+ =?utf-8?B?c0tnZ2taSzJXNmZnSnltbUNJRGU3bmhCTnU4czNWMTNUaVhobkFURVJHdHdH?=
+ =?utf-8?B?aFFENnM1V2Y0NS9lUHI3ZE82ZXZBN0Y0UndzRnlockZwS2JNeEJlcE1QYURv?=
+ =?utf-8?B?QklmZzhlM3dRcXVKeXNlWmRGcG9BV2NmTS9VQkdPYUY1akUzR0NUSyt4dmFF?=
+ =?utf-8?B?RzdJUjR6Szk1UmRiSVNZVC8zdUxTOGkzbDdYODMrR24vanZwekdGVzd0SU9q?=
+ =?utf-8?B?ZXRubWVMVDhaajQ5NWpSMktEcnRIMk00em1KVktpTlh3M1E5RFdMNG9aeFVJ?=
+ =?utf-8?B?U2FjSDgraEo5TVlTa0taaWwvL1JmdCs0b2xsYzFVeXpMMTVOUlJ2ZC9Damh4?=
+ =?utf-8?B?cjUvcEM2bmJDYThKcUlYVHk3TjJWUWE3RENRdnRON0hiZGVIMnhnczNHazFn?=
+ =?utf-8?B?K0o5b1VHRVJkbzNGNHo1d1czdDZoNjgranl0aTJLa2Q4cHZsY3YwMEFvanA2?=
+ =?utf-8?B?RENLZU12VERpN29vSDRmQTFDQ1hxeXIxWTRUclFudGNROGthSklPZnd4ZzhZ?=
+ =?utf-8?B?dG0vVnhVRXBBOURiT2UxVVZvL01BZjdxeEN0M0FHYkFLSUlFaUx5Ujd2SGJH?=
+ =?utf-8?B?QzhCOU5wSU1jbHhDeDF4VnUzRWkrT2IzU2RaS0JVOW9QWGh0RkVobkhBTEpp?=
+ =?utf-8?B?Ukx4ZEk0K3ZWUGo3enpXRjVYSmNkSTNlSG1wejRaR3BkYVphZTE3T2ZLbEdi?=
+ =?utf-8?B?VEhFSGpVQlZjODdhVVpwQ3ZhOWFCemFmU0pUQU9odTBRbFR4bldqWEpDcHlH?=
+ =?utf-8?B?YUxmbnlMdzRrVHpsVFk3WEF5bEZhNTFBdEh2T0lNOER2UC95L2t1NXMraVFR?=
+ =?utf-8?B?RHNpc0ZDRHlxQXdhVzNQSE1SNi9GYUhlWGRHZ3ZsYkpjVnBtVVR6Z2UxMjZu?=
+ =?utf-8?B?MDc3MVUxNGtMck1GdExYNTlXSVltK29DM0swOTJXVDVKd2I5ZmlBYXcyNjhv?=
+ =?utf-8?B?TkpmR0cxQUpCM2Urdy96ZlVZQXdEM2xJUlNwbSthVjlycFl6NXUrK1JjWmRi?=
+ =?utf-8?B?aVVWYjBDaWRjZXU3Y1FWWDUyVk9nbGhLcVhLdlgrQm9aNkF6WktVdllZWUNY?=
+ =?utf-8?B?MGZTMXJVcGdpTTVJTUNnUk5ySERLWUYzT1AwWngyTUFYRkk5OHI2cDh0bGo2?=
+ =?utf-8?B?SFNvZmtzY1RNeURNeGx3OUw0bEp4U2NiOEtJc3lTRU5Za1ViN2djRWRjTHp6?=
+ =?utf-8?Q?2JhSDXu6oDNIj/2MczBnk9Hdh?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0c100731-7b0d-4241-f5c5-08dbdbd6023b
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6280.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2023 19:00:41.2081 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XWfVa5GYj3TfcSO344IaDn7TJ3FbhqJCp5tRyD0PmVTpK9M+M8c16zfjvsVEkOLqkEXoPt9TGqUtkyTVwxehJA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5090
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,106 +123,137 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ndesaulniers@google.com, llvm@lists.linux.dev, sunpeng.li@amd.com,
- trix@redhat.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
- patches@lists.linux.dev, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- harry.wentland@amd.com, christian.koenig@amd.com
+Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Jerry Zuo <jerry.zuo@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 2, 2023 at 1:41=E2=80=AFPM Nathan Chancellor <nathan@kernel.org=
-> wrote:
->
-> When building ARCH=3Dx86_64 allmodconfig with clang, which will typically
-> have sanitizers enabled, there is a warning about a large stack frame.
->
->   drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c:6265:=
-13: error: stack frame size (2520) exceeds limit (2048) in 'dml_prefetch_ch=
-eck' [-Werror,-Wframe-larger-than]
->    6265 | static void dml_prefetch_check(struct display_mode_lib_st *mode=
-_lib)
->         |             ^
->   1 error generated.
->
-> Notably, GCC 13.2.0 does not do too much of a better job, as it is right
-> at the current limit of 2048 (and others have reported being over with
-> older GCC versions):
->
->   drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c: In f=
-unction 'dml_prefetch_check':
->   drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c:6705:=
-1: error: the frame size of 2048 bytes is larger than 1800 bytes [-Werror=
-=3Dframe-larger-than=3D]
->    6705 | }
->         | ^
->
-> In the past, these warnings have been avoided by reducing the number of
-> parameters to various functions so that not as many arguments need to be
-> passed on the stack. However, these patches take a good amount of effort
-> to write despite being mechanical due to code structure and complexity
-> and they are never carried forward to new generations of the code so
-> that effort has to be expended every new hardware generation, which
-> becomes harder to justify as time goes on.
->
-> To avoid having a noticeable or lengthy breakage in all{mod,yes}config,
-> which are easy testing targets that have -Werror enabled, increase the
-> limit for configurations that have KASAN or KCSAN enabled by 50% so that
-> cases of extremely poor code generation can still be caught while not
-> breaking the majority of builds. CONFIG_KMSAN also causes high stack
-> usage but the frame limit is already set to zero when it is enabled,
-> which is accounted for by the check for CONFIG_FRAME_WARN=3D0 in the dml2
-> Makefile.
->
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-> ---
-> If there is another DRM pull before 6.7-rc1, it would be much
-> appreciated if this could make that so that other trees are not
-> potentially broken by this. If not, no worries, as it was my fault for
-> not sending this sooner.
+On 11/1/23 17:36, Alex Deucher wrote:
+> On Wed, Nov 1, 2023 at 5:01 PM Hamza Mahfooz <hamza.mahfooz@amd.com> wrote:
+>>
+>> Without this fix the 5120x1440@240 timing of these monitors
+>> leads to screen flickering.
+>>
+>> Cc: stable@vger.kernel.org # 6.1+
+>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1442
+>> Co-developed-by: Harry Wentland <harry.wentland@amd.com>
+>> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+>> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+>> ---
+>>   drivers/gpu/drm/drm_edid.c | 47 +++++++++++++++++++++++++++++++++++---
+>>   1 file changed, 44 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+>> index bca2af4fe1fc..3fdb8907f66b 100644
+>> --- a/drivers/gpu/drm/drm_edid.c
+>> +++ b/drivers/gpu/drm/drm_edid.c
+>> @@ -89,6 +89,8 @@ static int oui(u8 first, u8 second, u8 third)
+>>   #define EDID_QUIRK_NON_DESKTOP                 (1 << 12)
+>>   /* Cap the DSC target bitrate to 15bpp */
+>>   #define EDID_QUIRK_CAP_DSC_15BPP               (1 << 13)
+>> +/* Fix up a particular 5120x1440@240Hz timing */
+>> +#define EDID_QUIRK_FIXUP_5120_1440_240         (1 << 14)
+> 
+> What is wrong with the original timing that needs to be fixed?
 
-Applied.  Thanks!  Will send out a PR this week.
+Apparently, all of timing values for the 5120x1440@240 mode of these
+monitors aren't set correctly (they are all lower than they should be)
+in their EDIDs. For what it's worth, the windows driver has had a quirk
+similar the one proposed in this patch for ~2 years.
 
-Alex
+> 
+> Alex
+> 
+> 
+>>
+>>   #define MICROSOFT_IEEE_OUI     0xca125c
+>>
+>> @@ -170,6 +172,12 @@ static const struct edid_quirk {
+>>          EDID_QUIRK('S', 'A', 'M', 596, EDID_QUIRK_PREFER_LARGE_60),
+>>          EDID_QUIRK('S', 'A', 'M', 638, EDID_QUIRK_PREFER_LARGE_60),
+>>
+>> +       /* Samsung C49G95T */
+>> +       EDID_QUIRK('S', 'A', 'M', 0x7053, EDID_QUIRK_FIXUP_5120_1440_240),
+>> +
+>> +       /* Samsung S49AG95 */
+>> +       EDID_QUIRK('S', 'A', 'M', 0x71ac, EDID_QUIRK_FIXUP_5120_1440_240),
+>> +
+>>          /* Sony PVM-2541A does up to 12 bpc, but only reports max 8 bpc */
+>>          EDID_QUIRK('S', 'N', 'Y', 0x2541, EDID_QUIRK_FORCE_12BPC),
+>>
+>> @@ -6586,7 +6594,37 @@ static void update_display_info(struct drm_connector *connector,
+>>          drm_edid_to_eld(connector, drm_edid);
+>>   }
+>>
+>> -static struct drm_display_mode *drm_mode_displayid_detailed(struct drm_device *dev,
+>> +static void drm_mode_displayid_detailed_edid_quirks(struct drm_connector *connector,
+>> +                                                   struct drm_display_mode *mode)
+>> +{
+>> +       unsigned int hsync_width;
+>> +       unsigned int vsync_width;
+>> +
+>> +       if (connector->display_info.quirks & EDID_QUIRK_FIXUP_5120_1440_240) {
+>> +               if (mode->hdisplay == 5120 && mode->vdisplay == 1440 &&
+>> +                   mode->clock == 1939490) {
+>> +                       hsync_width = mode->hsync_end - mode->hsync_start;
+>> +                       vsync_width = mode->vsync_end - mode->vsync_start;
+>> +
+>> +                       mode->clock = 2018490;
+>> +                       mode->hdisplay = 5120;
+>> +                       mode->hsync_start = 5120 + 8;
+>> +                       mode->hsync_end = 5120 + 8 + hsync_width;
+>> +                       mode->htotal = 5200;
+>> +
+>> +                       mode->vdisplay = 1440;
+>> +                       mode->vsync_start = 1440 + 165;
+>> +                       mode->vsync_end = 1440 + 165 + vsync_width;
+>> +                       mode->vtotal = 1619;
+>> +
+>> +                       drm_dbg_kms(connector->dev,
+>> +                                   "[CONNECTOR:%d:%s] Samsung 240Hz mode quirk applied\n",
+>> +                                   connector->base.id, connector->name);
+>> +               }
+>> +       }
+>> +}
+>> +
+>> +static struct drm_display_mode *drm_mode_displayid_detailed(struct drm_connector *connector,
+>>                                                              struct displayid_detailed_timings_1 *timings,
+>>                                                              bool type_7)
+>>   {
+>> @@ -6605,7 +6643,7 @@ static struct drm_display_mode *drm_mode_displayid_detailed(struct drm_device *d
+>>          bool hsync_positive = (timings->hsync[1] >> 7) & 0x1;
+>>          bool vsync_positive = (timings->vsync[1] >> 7) & 0x1;
+>>
+>> -       mode = drm_mode_create(dev);
+>> +       mode = drm_mode_create(connector->dev);
+>>          if (!mode)
+>>                  return NULL;
+>>
+>> @@ -6628,6 +6666,9 @@ static struct drm_display_mode *drm_mode_displayid_detailed(struct drm_device *d
+>>
+>>          if (timings->flags & 0x80)
+>>                  mode->type |= DRM_MODE_TYPE_PREFERRED;
+>> +
+>> +       drm_mode_displayid_detailed_edid_quirks(connector, mode);
+>> +
+>>          drm_mode_set_name(mode);
+>>
+>>          return mode;
+>> @@ -6650,7 +6691,7 @@ static int add_displayid_detailed_1_modes(struct drm_connector *connector,
+>>          for (i = 0; i < num_timings; i++) {
+>>                  struct displayid_detailed_timings_1 *timings = &det->timings[i];
+>>
+>> -               newmode = drm_mode_displayid_detailed(connector->dev, timings, type_7);
+>> +               newmode = drm_mode_displayid_detailed(connector, timings, type_7);
+>>                  if (!newmode)
+>>                          continue;
+>>
+>> --
+>> 2.42.0
+>>
+-- 
+Hamza
 
-
->
-> Changes in v2:
-> - Adjust workaround to check for either CONFIG_KASAN=3Dy or
->   CONFIG_KCSAN=3Dy, as the same problem has been reported with older
->   versions of GCC (Hamza, Alex)
-> - Link to v1: https://lore.kernel.org/r/20231102-amdgpu-dml2-increase-fra=
-me-size-warning-for-clang-v1-1-6eb157352931@kernel.org
-> ---
->  drivers/gpu/drm/amd/display/dc/dml2/Makefile | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml2/Makefile b/drivers/gpu/d=
-rm/amd/display/dc/dml2/Makefile
-> index 70ae5eba624e..acff3449b8d7 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml2/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
-> @@ -60,8 +60,12 @@ endif
->  endif
->
->  ifneq ($(CONFIG_FRAME_WARN),0)
-> +ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)),y)
-> +frame_warn_flag :=3D -Wframe-larger-than=3D3072
-> +else
->  frame_warn_flag :=3D -Wframe-larger-than=3D2048
->  endif
-> +endif
->
->  CFLAGS_$(AMDDALPATH)/dc/dml2/display_mode_core.o :=3D $(dml2_ccflags) $(=
-frame_warn_flag)
->  CFLAGS_$(AMDDALPATH)/dc/dml2/display_mode_util.o :=3D $(dml2_ccflags)
->
-> ---
-> base-commit: 21e80f3841c01aeaf32d7aee7bbc87b3db1aa0c6
-> change-id: 20231102-amdgpu-dml2-increase-frame-size-warning-for-clang-c93=
-bd2d6a871
->
-> Best regards,
-> --
-> Nathan Chancellor <nathan@kernel.org>
->
