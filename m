@@ -4,61 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43878C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 17:09:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1C20C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 17:12:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBA9A10E951;
-	Thu,  2 Nov 2023 17:09:37 +0000 (UTC)
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3417710E94E;
- Thu,  2 Nov 2023 17:07:56 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-9c2a0725825so186393066b.2; 
- Thu, 02 Nov 2023 10:07:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698944874; x=1699549674; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Xl4I+HvP3J5ZJKuSb/CouLtm+Hi9ya1nTcmqWDQztKk=;
- b=k9eIHhZ3QjwMneqjVet8LSC/ri0rn6C6dyUTeBKXMSCsIYL4IuajSE3WRrowpvwEjV
- cDQHKHSZ9wHOkOh5oeAP9UPtITdr3Fz0C20uyMRG+mgfWeWgCzD9XWMXKkQdnQoJkSnC
- Aj5OvT3gZ2ak/DE53eojwbMA78Co5oOqdhqxBqd9cCAMayHhfGBj+gIjfsdIbALcrS34
- joSXq37H2zKzkdFO0TbCEfICMZa1d3S+lGLTmf6Cc0OIgb60RBv/GQbubXi30OXhg5c3
- wdMRFWIA1Ijl8vz2TvTRyPV60UkQrEZQw0fG7AOh1/TCaBSxl6/2iv8Nqo9ldsd8HUhf
- PpiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698944874; x=1699549674;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Xl4I+HvP3J5ZJKuSb/CouLtm+Hi9ya1nTcmqWDQztKk=;
- b=SBI0FxdekOt18Bl7Fui30Okd9dNGb4wnIXzWNpCWRh1mB96yuagnFWyLMxFCDLP+/v
- fE4ulytdugdBwddzPG6D1SiSsGcv4SpAtSJjzBYtqaEgZubjs+RB0vJe1XhgLYeKhxgB
- Xo+IoAp/If6Nl89aSNylz4/fAKaXWSGUnq2yURPHLdG63lG5bQwvV7Ye/wC7idswRAfP
- TmigKpvK1Jkqiong4BgECd0yOAXbeFDc+7xILlu3fI9qpBOUQvkwwjpITiZd2Ma4jlou
- /UcNpfZ+zifIK0qZcf32p5EfjRsqqYGqDDw9kG4dMMJFE5+7mm+Fr+uI1QuRJ/hbpVAq
- Fmbw==
-X-Gm-Message-State: AOJu0Yzbh1NzmyachCWLtQhyw3oav9f7Of4dFCiWhgaPnKM+mt740Z5W
- t5tzAn01N/w0PObEoSW7LGjzSAGFXGoA/bGOFqo=
-X-Google-Smtp-Source: AGHT+IELCuRpMJYiWl0Qrpfp672D7mV32NZ7IqUrU0Waf2iuqATWpRIDQA27z7e6YAK1wp9d4NaPJSOdvn5cL7zLluI=
-X-Received: by 2002:a17:906:d552:b0:9be:77cd:4c2c with SMTP id
- cr18-20020a170906d55200b009be77cd4c2cmr3767379ejc.28.1698944874378; Thu, 02
- Nov 2023 10:07:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D98B10E05D;
+	Thu,  2 Nov 2023 17:12:44 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71B8010E05D;
+ Thu,  2 Nov 2023 17:12:42 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id 904B0B81D65;
+ Thu,  2 Nov 2023 17:12:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CCAEC433C8;
+ Thu,  2 Nov 2023 17:12:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1698945159;
+ bh=ryrWuOdl5QuvOo8MpWIUO841knqP3oJT43UEwAMLjDs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=a/rvGNC6axkHxeKTK5U0IZVFi6LZ05A3vL9dJJVOW19SJZhOxitTGGSLBsSKyz2v2
+ d3FXXgSnQYKc3wq32ofYyQoXw6ytZroz8Uo31TQOdsqwjPidNRIAxXpdyfsdZdRAYC
+ u0APsG5geXUWVOnpi5aw1UOLhrKyoF3beWPdxRyMKcjoD2g0cpuplDzxm4XaJYQk2a
+ 1Mppxl/gVrH09BUeG/IqekPXY/m8VO4oDThYxRCT/L1W5Gu9E8OaKAqROfguT9UHD6
+ WowWGw6Tp55BRZAtlORAOLEzG3yZeHasI8J1YouQP3Bn5srHf5RfB+XoA5ni+XfgTs
+ Bz+4Ve/MSegrQ==
+Date: Thu, 2 Nov 2023 10:12:37 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Subject: Re: [PATCH] drm/amd/display: Increase frame warning limit for clang
+ in dml2
+Message-ID: <20231102171237.GA1184739@dev-arch.thelio-3990X>
+References: <20231102-amdgpu-dml2-increase-frame-size-warning-for-clang-v1-1-6eb157352931@kernel.org>
+ <bb3b74c8-8ab5-472c-84c1-8aa0d8bfa3b8@amd.com>
 MIME-Version: 1.0
-References: <ZUNsmJGbYwgPaUpY@debian>
- <CADnq5_Minarw2D_TeRdkm6nJOP_4qHM+MxiMeLWMXqHxjq22Xw@mail.gmail.com>
-In-Reply-To: <CADnq5_Minarw2D_TeRdkm6nJOP_4qHM+MxiMeLWMXqHxjq22Xw@mail.gmail.com>
-From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-Date: Thu, 2 Nov 2023 17:07:18 +0000
-Message-ID: <CADVatmO9NCs=ryNg72HNzMDpqg862gpGnnFhQ4uwTpEkjOkCLw@mail.gmail.com>
-Subject: Re: mainline build failure due to 7966f319c66d ("drm/amd/display:
- Introduce DML2")
-To: Alex Deucher <alexdeucher@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Thu, 02 Nov 2023 17:09:35 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bb3b74c8-8ab5-472c-84c1-8aa0d8bfa3b8@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,51 +51,101 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: regressions@lists.linux.dev, Leo Li <sunpeng.li@amd.com>,
- Qingqing Zhuo <Qingqing.Zhuo@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Roman Li <roman.li@amd.com>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- "linux-kernel@vger.kernel.orgLinus Torvalds" <torvalds@linux-foundation.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: ndesaulniers@google.com, llvm@lists.linux.dev, sunpeng.li@amd.com,
+ trix@redhat.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
+ patches@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ harry.wentland@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2 Nov 2023 at 16:52, Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> On Thu, Nov 2, 2023 at 5:32=E2=80=AFAM Sudip Mukherjee (Codethink)
-> <sudipm.mukherjee@gmail.com> wrote:
-> >
-> > Hi All,
-> >
-> > The latest mainline kernel branch fails to build x86_64 allmodconfig
-> > with the error:
-> >
-> > drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c: In f=
-unction 'dml_prefetch_check':
-> > drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c:6707:=
-1: error: the frame size of 2056 bytes is larger than 2048 bytes [-Werror=
-=3Dframe-larger-than=3D]
-> >  6707 | }
-> >       | ^
-> >
-> > git bisect pointed to 7966f319c66d ("drm/amd/display: Introduce DML2")
-> >
-> > I will be happy to test any patch or provide any extra log if needed.
->
-> This was reported earlier and fixed by:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
-/?id=3D089dbf6a06f1dcaeed4f8b86d619e8d28b235207
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
-/?id=3Db141fa036c901303ca5659cc22e9c08f8b097892
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
-/?id=3D5b2c54e0d0ea09f7a3b500510731878326e1117e
-> but I guess maybe different compiler versions are still hitting this.
+On Thu, Nov 02, 2023 at 12:59:00PM -0400, Hamza Mahfooz wrote:
+> On 11/2/23 12:24, Nathan Chancellor wrote:
+> > When building ARCH=x86_64 allmodconfig with clang, which have sanitizers
+> > enabled, there is a warning about a large stack frame.
+> > 
+> >    drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c:6265:13: error: stack frame size (2520) exceeds limit (2048) in 'dml_prefetch_check' [-Werror,-Wframe-larger-than]
+> >     6265 | static void dml_prefetch_check(struct display_mode_lib_st *mode_lib)
+> >          |             ^
+> >    1 error generated.
+> > 
+> > Notably, GCC 13.2.0 does not do too much of a better job, as it is right
+> > at the current limit of 2048:
+> > 
+> >    drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c: In function 'dml_prefetch_check':
+> >    drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c:6705:1: error: the frame size of 2048 bytes is larger than 1800 bytes [-Werror=frame-larger-than=]
+> >     6705 | }
+> >          | ^
+> > 
+> > In the past, these warnings have been avoided by reducing the number of
+> > parameters to various functions so that not as many arguments need to be
+> > passed on the stack. However, these patches take a good amount of effort
+> > to write despite being mechanical due to code structure and complexity
+> > and they are never carried forward to new generations of the code so
+> > that effort has to be expended every new hardware generation, which
+> > becomes harder to justify as time goes on.
+> > 
+> > There is some effort to improve clang's code generation but that may
+> > take some time between code review, shifting priorities, and release
+> > cycles. To avoid having a noticeable or lengthy breakage in
+> > all{mod,yes}config, which are easy testing targets that have -Werror
+> > enabled, increase the limit for clang by 50% so that cases of extremely
+> > poor code generation can still be caught while not breaking the majority
+> > of builds. When clang's code generation improves, the limit increase can
+> > be restricted to older clang versions.
+> > 
+> > Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+> > ---
+> > If there is another DRM pull before 6.7-rc1, it would be much
+> > appreciated if this could make that so that other trees are not
+> > potentially broken by this. If not, no worries, as it was my fault for
+> > not sending this sooner.
+> > ---
+> >   drivers/gpu/drm/amd/display/dc/dml2/Makefile | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dml2/Makefile b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
+> > index 70ae5eba624e..dff8237c0999 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dml2/Makefile
+> > +++ b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
+> > @@ -60,7 +60,7 @@ endif
+> >   endif
+> >   ifneq ($(CONFIG_FRAME_WARN),0)
+> > -frame_warn_flag := -Wframe-larger-than=2048
+> > +frame_warn_flag := -Wframe-larger-than=$(if $(CONFIG_CC_IS_CLANG),3072,2048)
+> 
+> I would prefer checking for `CONFIG_KASAN || CONFIG_KCSAN` instead
+> since the stack usage shouldn't change much if both of those are disabled.
 
-Yes, I should have mentioned. gcc-11 and gcc-12 failed to build. but
-gcc-13 was ok.
+So something like this? Or were you talking about replacing the clang
+check entirely with the KASAN/KCSAN check?
 
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/Makefile b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
+index 70ae5eba624e..0fc1b13295eb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
+@@ -60,8 +60,12 @@ endif
+ endif
+ 
+ ifneq ($(CONFIG_FRAME_WARN),0)
++ifeq ($(CONFIG_CC_IS_CLANG)$(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)),yy)
++frame_warn_flag := -Wframe-larger-than=3072
++else
+ frame_warn_flag := -Wframe-larger-than=2048
+ endif
++endif
+ 
+ CFLAGS_$(AMDDALPATH)/dc/dml2/display_mode_core.o := $(dml2_ccflags) $(frame_warn_flag)
+ CFLAGS_$(AMDDALPATH)/dc/dml2/display_mode_util.o := $(dml2_ccflags)
 
---=20
-Regards
-Sudip
+> >   endif
+> >   CFLAGS_$(AMDDALPATH)/dc/dml2/display_mode_core.o := $(dml2_ccflags) $(frame_warn_flag)
+> > 
+> > ---
+> > base-commit: 21e80f3841c01aeaf32d7aee7bbc87b3db1aa0c6
+> > change-id: 20231102-amdgpu-dml2-increase-frame-size-warning-for-clang-c93bd2d6a871
+> > 
+> > Best regards,
+> -- 
+> Hamza
+> 
