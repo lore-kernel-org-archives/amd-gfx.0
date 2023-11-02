@@ -4,72 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C289CC4332F
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 03:48:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C03EAC4332F
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 04:22:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74E2A10E146;
-	Thu,  2 Nov 2023 03:48:48 +0000 (UTC)
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C4BF10E146
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Nov 2023 03:48:45 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-40859c46447so3140765e9.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 01 Nov 2023 20:48:45 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D64010E7F6;
+	Thu,  2 Nov 2023 04:22:07 +0000 (UTC)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DB9D10E7F6
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Nov 2023 04:22:05 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-40836ea8cbaso3745635e9.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 01 Nov 2023 21:22:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=froggi.es; s=google; t=1698896924; x=1699501724; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=wIwlmy9ewr84YWr6/p1QP8NYBIQ1d1OmqXNWQXzDDrs=;
- b=DUS45m0ZeWAp/t1mAmLWF4iuk9ihm02xhiShA4aenGcBMZXvYRmvvxu0rTYJTSjumE
- I0gLTNQwQoDfYvXrjyrqdRB1z/Y9kWl3R+qUzEHyZSFxyF8OLJw94XC0vbJgeoykJuG6
- +pK+UzagudESF/THvF/KaBiPovwu4aibaDScmuyE06r0FbpqTyY5lB4b3ZPDZgS2QWy4
- +8O1eVZcKFokxbxexvCyFaVNLRngb2l5qrUf09auJvsfTX4ENdSQ/mmOEOfF0AZ4vI1k
- ciUahYTAP533dJwhwCBUef4CGGcLGklSWdG8fv5ArjZ2BmKFo93wvgCUfhyF2+soCoaF
- K1NQ==
+ d=froggi.es; s=google; t=1698898923; x=1699503723; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=5ZwWyspK+XPCtmA8GrXQiGYA1eOJSYOJSKoXN9b/7Gc=;
+ b=JJCeftjG6pk4+uo5T6kRQEc/JK/sCc2rsjICy70/frZnZee3SC0mxSLTD8Rt1dLAig
+ tPvRkiLKbksh53qq5MZnYEwBU0Z7bNHwLjQ0xPJI0RY6tGFl+FW8aPYPY5Br8DCmtqPR
+ GRpiJ485qSP31h3Yo13Oq1cZR1UA6rFcOTcOeUqae3CVFOc/ryMSpibWeCvgvyHlj8Gg
+ +663GkKSY+HUiUTUMAr14nMpSwUrmNpxfLb5CMEam010hcBxK+h4AU9zWiPgLvKgFKZM
+ JoOHJZc2V5kgniVOXT37aLwgc+57IH8xYq/9nHZ/wVlwfWn8UJ/LRmGaxqRSDCDeLm0H
+ qM4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698896924; x=1699501724;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=wIwlmy9ewr84YWr6/p1QP8NYBIQ1d1OmqXNWQXzDDrs=;
- b=NGQkalYKnZB6pMdwSCYWs+lp+0wjGFnfD+fyGOXnhPt7erioqpkgOqvMpUgDdZN8nx
- bDW9JOTsS3R6myr95Ce5DCWqgn6ANkrf52GGG6VaLkzCkPIJudO0k7lQkNReyoU6MRmG
- 8vAy73CvDCf3hXLEys+5sW7OG0Fai9ARQlqeQfW749CCsxnR/00t7K+HQPqq1fI/WuGb
- 24ty/Xjm3kIaRtkxc9+izWasq/+BsJVgeKVK0+oY2+358P83oixiVjxzw0qYcxTtfi3i
- uN5HnpK8bZcmB8jGxucsTf4o61ocllOq40S1Sjt1RWixeerCjXD02ikW7xMyCArirNwf
- o7Ug==
-X-Gm-Message-State: AOJu0YxgEJTj34jro8pQNIxeemyT4L1GOb5xzRenNdEKoup60EZL+sB5
- ES6ZXK7tWvMxdDWi7zPFOIzPMg==
-X-Google-Smtp-Source: AGHT+IFMfNcfV3yhTW8Zj11iwBq1B1oCRLbj1VE8WeXQ5uIai4fW3C38Miy5vLD9rjAVZ1gIFMrD6w==
-X-Received: by 2002:a05:600c:458e:b0:406:44d2:8431 with SMTP id
- r14-20020a05600c458e00b0040644d28431mr14448013wmo.6.1698896923723; 
- Wed, 01 Nov 2023 20:48:43 -0700 (PDT)
-Received: from [192.168.0.89]
+ d=1e100.net; s=20230601; t=1698898923; x=1699503723;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=5ZwWyspK+XPCtmA8GrXQiGYA1eOJSYOJSKoXN9b/7Gc=;
+ b=fdZKgbWEOxoQtBTQV80ducDvsZl8RqR9n0E+zOYfciMyPI7IfLD8ooNGm1Z6StX7gK
+ CRvOUfGS5Lagr32IuyaqWP0NEYteUVhK/jvpquFM4at8+F1q7FLN28KW3HHGa+kUUPhq
+ p8QmVEKgaI0FLnHdHyOo9/3Y8RWAncpHwaavSe/oXBwwz/dtdWWdgKlUKXJ7WAxsvUj+
+ hOj0s0EzunSmA7F9za/w9JpA0R7UwonyBSx6DNDKCmPMenxaKGJAbQItBu2gZQKuavbs
+ yYrOIry8c1FHSfB1evI7NhjsU6V3XnAeAFXDFUG93qiMlYiLCLCS9hTgQBjI5sLE8ccm
+ q3dg==
+X-Gm-Message-State: AOJu0YzyJQIDC4JuDliyfKe+ZFGqAakx9aVWiMGy/01/aQzk5ORRxfXL
+ pmOvjDSo8v0VqFvtqzJnkCWkMn8JVKslCvYlBFBjUA==
+X-Google-Smtp-Source: AGHT+IHxSmLnkIFR3Hgkcm8PiDMcVFmR9I/PASgEnVYRktwvEbzW12ONifqo5KAvL5VY5tZA4c+v/A==
+X-Received: by 2002:a05:600c:3589:b0:401:b2c7:349b with SMTP id
+ p9-20020a05600c358900b00401b2c7349bmr15237258wmq.7.1698898923162; 
+ Wed, 01 Nov 2023 21:22:03 -0700 (PDT)
+Received: from localhost.localdomain
  (darl-09-b2-v4wan-165404-cust288.vm5.cable.virginm.net. [86.17.61.33])
  by smtp.gmail.com with ESMTPSA id
- n4-20020a05600c3b8400b003fe61c33df5sm1482615wms.3.2023.11.01.20.48.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Nov 2023 20:48:43 -0700 (PDT)
-Message-ID: <16b3f90b-5295-46ce-8a5c-a71a7abe83a4@froggi.es>
-Date: Thu, 2 Nov 2023 03:48:41 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 09/32] drm/amd/display: add plane 3D LUT
- driver-specific properties
-Content-Language: en-US
-To: Melissa Wen <mwen@igalia.com>, amd-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch
-References: <20231005171527.203657-1-mwen@igalia.com>
- <20231005171527.203657-10-mwen@igalia.com>
+ f8-20020a05600c4e8800b004068de50c64sm1432553wmq.46.2023.11.01.21.22.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Nov 2023 21:22:02 -0700 (PDT)
 From: Joshua Ashton <joshua@froggi.es>
-In-Reply-To: <20231005171527.203657-10-mwen@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amd/display: Set color_mgmt_changed to true on unsuspend
+Date: Thu,  2 Nov 2023 04:21:55 +0000
+Message-ID: <20231102042200.2070333-1-joshua@froggi.es>
+X-Mailer: git-send-email 2.42.0
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,228 +70,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Shashank Sharma <Shashank.Sharma@amd.com>, Alex Hung <alex.hung@amd.com>,
- Simon Ser <contact@emersion.fr>, Xaver Hugl <xaver.hugl@gmail.com>,
- kernel-dev@igalia.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- sungjoon.kim@amd.com
+Cc: Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Otherwise we can end up with a frame on unsuspend where color management
+is not applied when userspace has not committed themselves.
 
+Fixes re-applying color management on Steam Deck/Gamescope on S3 resume.
 
-On 10/5/23 18:15, Melissa Wen wrote:
-> Add 3D LUT property for plane color transformations using a 3D lookup
-> table. 3D LUT allows for highly accurate and complex color
-> transformations and is suitable to adjust the balance between color
-> channels. It's also more complex to manage and require more
-> computational resources.
-> 
-> Since a 3D LUT has a limited number of entries in each dimension we want
-> to use them in an optimal fashion. This means using the 3D LUT in a
-> colorspace that is optimized for human vision, such as sRGB, PQ, or
-> another non-linear space. Therefore, userpace may need one 1D LUT
-> (shaper) before it to delinearize content and another 1D LUT after 3D
-> LUT (blend) to linearize content again for blending. The next patches
-> add these 1D LUTs to the plane color mgmt pipeline.
-> 
-> v3:
-> - improve commit message about 3D LUT
-> - describe the 3D LUT entries and size (Harry)
-> 
-> v4:
-> - advertise 3D LUT max size as the size of a single-dimension
-> 
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      | 18 +++++++++++++++
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  9 ++++++++
->   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 14 +++++++++++
->   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 23 +++++++++++++++++++
->   4 files changed, 64 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> index 62044d41da75..f7adaa52c23f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> @@ -363,6 +363,24 @@ struct amdgpu_mode_info {
->   	 * @plane_hdr_mult_property:
->   	 */
->   	struct drm_property *plane_hdr_mult_property;
-> +	/**
-> +	 * @plane_lut3d_property: Plane property for color transformation using
-> +	 * a 3D LUT (pre-blending), a three-dimensional array where each
-> +	 * element is an RGB triplet. Each dimension has a size of the cubed
-> +	 * root of lut3d_size. The array contains samples from the approximated
-> +	 * function. On AMD, values between samples are estimated by
-> +	 * tetrahedral interpolation. The array is accessed with three indices,
-> +	 * one for each input dimension (color channel), blue being the
-> +	 * outermost dimension, red the innermost.
-> +	 */
-> +	struct drm_property *plane_lut3d_property;
-> +	/**
-> +	 * @plane_degamma_lut_size_property: Plane property to define the max
-> +	 * size of 3D LUT as supported by the driver (read-only). The max size
-> +	 * is the max size of one dimension and, therefore, the max number of
-> +	 * entries for 3D LUT array is the 3D LUT size cubed;
-> +	 */
-> +	struct drm_property *plane_lut3d_size_property;
->   };
->   
->   #define AMDGPU_MAX_BL_LEVEL 0xFF
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> index bb2ce843369d..7a2350c62cf1 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> @@ -784,6 +784,11 @@ struct dm_plane_state {
->   	 * TF is needed for any subsequent linear-to-non-linear transforms.
->   	 */
->   	__u64 hdr_mult;
-> +	/**
-> +	 * @lut3d: 3D lookup table blob. The blob (if not NULL) is an array of
-> +	 * &struct drm_color_lut.
-> +	 */
-> +	struct drm_property_blob *lut3d;
->   };
->   
->   struct dm_crtc_state {
-> @@ -869,6 +874,10 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
->   
->   void amdgpu_dm_trigger_timing_sync(struct drm_device *dev);
->   
-> +/* 3D LUT max size is 17x17x17 (4913 entries) */
-> +#define MAX_COLOR_3DLUT_SIZE 17
-> +#define MAX_COLOR_3DLUT_BITDEPTH 12
-> +/* 1D LUT size */
->   #define MAX_COLOR_LUT_ENTRIES 4096
->   /* Legacy gamm LUT users such as X doesn't like large LUT sizes */
->   #define MAX_COLOR_LEGACY_LUT_ENTRIES 256
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> index caf49a044ab4..011f2f9ec890 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> @@ -230,6 +230,20 @@ amdgpu_dm_create_color_properties(struct amdgpu_device *adev)
->   		return -ENOMEM;
->   	adev->mode_info.plane_hdr_mult_property = prop;
->   
-> +	prop = drm_property_create(adev_to_drm(adev),
-> +				   DRM_MODE_PROP_BLOB,
-> +				   "AMD_PLANE_LUT3D", 0);
-> +	if (!prop)
-> +		return -ENOMEM;
-> +	adev->mode_info.plane_lut3d_property = prop;
-> +
-> +	prop = drm_property_create_range(adev_to_drm(adev),
-> +					 DRM_MODE_PROP_IMMUTABLE,
-> +					 "AMD_PLANE_LUT3D_SIZE", 0, UINT_MAX);
-> +	if (!prop)
-> +		return -ENOMEM;
-> +	adev->mode_info.plane_lut3d_size_property = prop;
-> +
->   	return 0;
->   }
->   #endif
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index ae64d4b73360..068798ffdd56 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -1359,6 +1359,8 @@ dm_drm_plane_duplicate_state(struct drm_plane *plane)
->   
->   	if (dm_plane_state->degamma_lut)
->   		drm_property_blob_get(dm_plane_state->degamma_lut);
-> +	if (dm_plane_state->lut3d)
-> +		drm_property_blob_get(dm_plane_state->lut3d);
+Signed-off-by: Joshua Ashton <joshua@froggi.es>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-This is wrong, and was breaking state restoration on suspend.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index adbeb2c897b5..ae650707f234 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2967,6 +2967,7 @@ static int dm_resume(void *handle)
+ 			dc_stream_release(dm_new_crtc_state->stream);
+ 			dm_new_crtc_state->stream = NULL;
+ 		}
++		dm_new_crtc_state->base.color_mgmt_changed = true;
+ 	}
+ 
+ 	for_each_new_plane_in_state(dm->cached_state, plane, new_plane_state, i) {
+-- 
+2.42.0
 
-dm_plane_state->lut3d is always NULL as it's the new zero-ed state, you 
-need to check the old_dm_plane_state's values and then set it on the new 
-state after _get.
-
-It should be like this: (based on end of the patchset).
-
-	if (old_dm_plane_state->degamma_lut) {
-		drm_property_blob_get(old_dm_plane_state->degamma_lut);
-		dm_plane_state->degamma_lut = old_dm_plane_state->degamma_lut;
-	}
-	if (old_dm_plane_state->ctm) {
-		drm_property_blob_get(old_dm_plane_state->ctm);
-		dm_plane_state->ctm = old_dm_plane_state->ctm;
-	}
-	if (old_dm_plane_state->shaper_lut) {
-		drm_property_blob_get(old_dm_plane_state->shaper_lut);
-		dm_plane_state->shaper_lut = old_dm_plane_state->shaper_lut;
-	}
-	if (old_dm_plane_state->lut3d) {
-		drm_property_blob_get(old_dm_plane_state->lut3d);
-		dm_plane_state->lut3d = old_dm_plane_state->lut3d;
-	}
-	if (old_dm_plane_state->blend_lut) {
-		drm_property_blob_get(old_dm_plane_state->blend_lut);
-		dm_plane_state->blend_lut = old_dm_plane_state->blend_lut;
-	}
-
-because it doesn't do the memcpy like the base drm atomic stuff.
-
-I also had to add a patch to ensure color mgmt was updated on unsuspend 
-always too, but that's not related to this patchset and also affected 
-stuff beforehand.
-
-I'll send that patch in a bit.
-
-Thanks!
-- Joshie 🐸✨
-
->   
->   	dm_plane_state->degamma_tf = old_dm_plane_state->degamma_tf;
->   	dm_plane_state->hdr_mult = old_dm_plane_state->hdr_mult;
-> @@ -1432,6 +1434,8 @@ static void dm_drm_plane_destroy_state(struct drm_plane *plane,
->   
->   	if (dm_plane_state->degamma_lut)
->   		drm_property_blob_put(dm_plane_state->degamma_lut);
-> +	if (dm_plane_state->lut3d)
-> +		drm_property_blob_put(dm_plane_state->lut3d);
->   
->   	if (dm_plane_state->dc_state)
->   		dc_plane_state_release(dm_plane_state->dc_state);
-> @@ -1462,6 +1466,14 @@ dm_atomic_plane_attach_color_mgmt_properties(struct amdgpu_display_manager *dm,
->   	drm_object_attach_property(&plane->base,
->   				   dm->adev->mode_info.plane_hdr_mult_property,
->   				   AMDGPU_HDR_MULT_DEFAULT);
-> +
-> +	if (dpp_color_caps.hw_3d_lut) {
-> +		drm_object_attach_property(&plane->base,
-> +					   mode_info.plane_lut3d_property, 0);
-> +		drm_object_attach_property(&plane->base,
-> +					   mode_info.plane_lut3d_size_property,
-> +					   MAX_COLOR_3DLUT_SIZE);
-> +	}
->   }
->   
->   static int
-> @@ -1493,6 +1505,14 @@ dm_atomic_plane_set_property(struct drm_plane *plane,
->   			dm_plane_state->hdr_mult = val;
->   			dm_plane_state->base.color_mgmt_changed = 1;
->   		}
-> +	} else if (property == adev->mode_info.plane_lut3d_property) {
-> +		ret = drm_property_replace_blob_from_id(plane->dev,
-> +							&dm_plane_state->lut3d,
-> +							val, -1,
-> +							sizeof(struct drm_color_lut),
-> +							&replaced);
-> +		dm_plane_state->base.color_mgmt_changed |= replaced;
-> +		return ret;
->   	} else {
->   		drm_dbg_atomic(plane->dev,
->   			       "[PLANE:%d:%s] unknown property [PROP:%d:%s]]\n",
-> @@ -1520,6 +1540,9 @@ dm_atomic_plane_get_property(struct drm_plane *plane,
->   		*val = dm_plane_state->degamma_tf;
->   	} else if (property == adev->mode_info.plane_hdr_mult_property) {
->   		*val = dm_plane_state->hdr_mult;
-> +	} else 	if (property == adev->mode_info.plane_lut3d_property) {
-> +		*val = (dm_plane_state->lut3d) ?
-> +			dm_plane_state->lut3d->base.id : 0;
->   	} else {
->   		return -EINVAL;
->   	}
