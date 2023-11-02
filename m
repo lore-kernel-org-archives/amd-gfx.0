@@ -4,61 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F260C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 22:53:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A42BAC4332F
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 23:47:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0302C10E189;
-	Thu,  2 Nov 2023 22:53:24 +0000 (UTC)
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
- [IPv6:2001:4860:4864:20::2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67B3C10E189;
- Thu,  2 Nov 2023 22:53:22 +0000 (UTC)
-Received: by mail-oa1-x2c.google.com with SMTP id
- 586e51a60fabf-1f05247791fso614482fac.0; 
- Thu, 02 Nov 2023 15:53:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698965601; x=1699570401; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ywkZ1ZWfNmiVp7a6UPS372ot5uoGxaI4T7nCnN1k30I=;
- b=H8YvvuO3sGoOkuMF2Tc4+BxQsxX6Vx7oZwaTy92vBhTmnAD1/snqMNFg64F/kOX6zl
- GUmTGN81kDALSWGyukWykoKDUHTLcN8sZE+xjOO7SU77L6XQ1petr0If0r3sKyyfRSS7
- JC4udZK8jnLQ/+NvN0/FUJAtzrAcGc96Z8D+gIH+v93MSqwiZEL+wz+CXDVFpI/N8eKi
- fP8RB+qNxVL6i0HIs3wci9sTf4qFzhw7MfoW4g7PjVJ59y3z9mSoZHRqI1OrjUwDY/KZ
- w/cqdZfBgbgX4GTx7lLYCA4kIQsnPg7ABWaqS8+uPf6D6IAY5snaUMeExBLX8vWxqbXh
- Rjnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698965601; x=1699570401;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ywkZ1ZWfNmiVp7a6UPS372ot5uoGxaI4T7nCnN1k30I=;
- b=To6WAKgEu9BX6eL86jmJ4gKIRQPnn4HpU68ZakNrjqryC7rJJRc+kbn4fxAotc7jVM
- 2S6NTycrzciXhol/gKivsmCO9AqwCj9Q0CcP5vMtyq6bnJ8UyzjGbC3AdGM5i5JutVjl
- 9HeEOKUb5w7w2Fs7f8jNjytqg9a46fqWHvOi5mcOdpamTnLvv+r5+rRIBRzQJuzhywWi
- kGxauHqKQJZrFVcq3umlxp671ffky8ACHzAGySQdp8WbsNglp0xoxmCY5iMkxsERSPqN
- dTwrkZmgTbktKhmEkSUixDoMisTaH0n04IctuYI7EyEdkK0zNyQA5FbL/LF2nge9Iu1V
- odvw==
-X-Gm-Message-State: AOJu0YyeISQ/Zf1VZkdSD2PiSz/d3k5fpt2jutEiBkVYAYR2xUMg3x0L
- +AZjTFjRd6sQ4dR8TC9qPQWHBiTPnFAUWX07ldU=
-X-Google-Smtp-Source: AGHT+IE1yCCtzM/K8cFr0IT8oP2y3RjE6Uh5RrkvdH5l8sS2cDigljS/xmdpOFoQ2Ifca4c1s8xNpN5SqSINFrPB+PA=
-X-Received: by 2002:a05:6870:2007:b0:1dc:c65e:ded2 with SMTP id
- o7-20020a056870200700b001dcc65eded2mr24706945oab.12.1698965601603; Thu, 02
- Nov 2023 15:53:21 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A17710E10A;
+	Thu,  2 Nov 2023 23:47:16 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2086.outbound.protection.outlook.com [40.107.93.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E837610E10A
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Nov 2023 23:47:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GsVgSzrzi3ziJuOB9ug+lxJcB6ZGEdMr0Hms/iaTtbGNN2Gy1fPQhMz5lb2ZHHoA+3azHg7JNtR3Q4foN3GX7L/KLIvPzd9SP6faHsD6d7njcwpXZv4vFDZvrbYeRLQDcfH6U7l+WN9D8wn9oEKuFUUPWCvThV1rVaZfqyFFcbOHEoe8PFhpHXOPkgCWOi+42r+YfnFbslMQDT9zpAPY+TlN+QyzOX26Tf92GKuWEYu+cIH3sy600mJ6XPOwsaJ7H6nw+NMJZitkoZvctaTcU6lZdsDZCJpeHLoJt9ETnXPn6+24mCr3HpcMfGOBtyAIxJGzr3SbfeAjghqiqgrKBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+32B6LPRKT2++yVGQvm2mXE7URlemhEMDTs1t5bav2Y=;
+ b=iqQNeP1FATIZMGs8h4Cj2qJ/vB5QkCMtTMziBwuHjfBLPlqLGs6wiGKeBidEBYSszIZJqAzbr9KFXB1LpaCvVr9nhCSxMj31/EWoM23mpoLxSwBEtCunXv1ApdOzhi75RtEu/J/GlZWshWY3BALoNfRe6XtPoQnmioYTiATkZIWafi0CWFJrYXOxopEXm2oIJbenWdDC/QGUegs+RrhT59dk3EdnC4uvmAngszJlwL6lIPj83cIOC/I7Wu59+ESWeuUzYLI/ozDgCBCYTizYoGy81AkvRClgXGMnR+MklSHYHPhtCJpBB0R45SzIvrD99B+D70f+fdwK1jE5vkwD/Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+32B6LPRKT2++yVGQvm2mXE7URlemhEMDTs1t5bav2Y=;
+ b=AeM3gyTq5debADWb9dWw60DzZEjnqDVdup4wjTuVeXZCmFGkRo9v9qxP+K9aPq3fJ41O/bLtNxUK8zQS8qW/01cx1NWDpcqlc09i6k6QdVL8LnywBSGBiHwXvewoIb0lJcFoDZXqGacJ6RBiMmjoNEOBrs70TtoIxxHjg9JU3vc=
+Received: from SA1PR04CA0016.namprd04.prod.outlook.com (2603:10b6:806:2ce::21)
+ by CY8PR12MB7435.namprd12.prod.outlook.com (2603:10b6:930:51::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.32; Thu, 2 Nov
+ 2023 23:47:10 +0000
+Received: from SA2PEPF000015CD.namprd03.prod.outlook.com
+ (2603:10b6:806:2ce:cafe::df) by SA1PR04CA0016.outlook.office365.com
+ (2603:10b6:806:2ce::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.21 via Frontend
+ Transport; Thu, 2 Nov 2023 23:47:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF000015CD.mail.protection.outlook.com (10.167.241.203) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6954.19 via Frontend Transport; Thu, 2 Nov 2023 23:47:09 +0000
+Received: from shaoyunl-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Thu, 2 Nov
+ 2023 18:47:09 -0500
+From: shaoyunl <shaoyun.liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Enable MES to handle doorbell ring on unmapped
+ queue
+Date: Thu, 2 Nov 2023 19:46:55 -0400
+Message-ID: <20231102234655.391451-1-shaoyun.liu@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <ZUNsmJGbYwgPaUpY@debian>
- <CADnq5_Minarw2D_TeRdkm6nJOP_4qHM+MxiMeLWMXqHxjq22Xw@mail.gmail.com>
- <CADVatmO9NCs=ryNg72HNzMDpqg862gpGnnFhQ4uwTpEkjOkCLw@mail.gmail.com>
-In-Reply-To: <CADVatmO9NCs=ryNg72HNzMDpqg862gpGnnFhQ4uwTpEkjOkCLw@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 2 Nov 2023 18:53:10 -0400
-Message-ID: <CADnq5_Ou7Cq071DJZnq+3PDNqkd3ZJb+dCEvMjiked6_t=E6MA@mail.gmail.com>
-Subject: Re: mainline build failure due to 7966f319c66d ("drm/amd/display:
- Introduce DML2")
-To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015CD:EE_|CY8PR12MB7435:EE_
+X-MS-Office365-Filtering-Correlation-Id: f6db085c-f3b9-4184-a3f7-08dbdbfe07a0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: vdRRtwQEOAbd6r5PBUdbfcEBDJFnc7EDFr0T1TElhH540bvuqyTJEsTLTKrBPqz59q1yz9wq63B6W0DfAzpyDUVrhjHQnuvmLFkvpjK47T7FA8XrwX4XvlwKA7CpYzccRe2xHLkByJmB1+3jyRfYIMuS16oFBT6kUeskXaZLN+8xcZIRzzByyWDzq7jK5TYs8mrvFe1sAB+1DadNNb1+AswLoL1aZBdfabXzURsDwP3fO1xEDsjNpUpkkpsC39wMtpFim3n5Oo/04ZbMGNTWyVd0Zc1uHrUo+Ln7vEiQyiqegHs7qrLtIX9lHPeCkE6tjIdCXODYNVZMkY7iQtnEjz2h7KC0vmhJJVs+8qRMeL5fNB8mbfdV/utfL+E9O+gfBUbLd7y1qZ+QrX5coLJnTStjDSR9NwJabLPz2dR9+iYhPVbwlKQftT15B7SS3Tk5C0q1/Yk9sExcQV9ATvciWq/d9MAUxBv36X/brx6T16UErpjKlQHjEq+CfgVO25Xd7bIDOnW80UJ5SHiwqMD0v9oVFGWDFus68FgRr8I/+0r7fHzv/fPD1UiLdjXVRnTVKH+sNJEM4Shd04HYpY/aZUchOfgt5TvaYn8RUDXE9/lOKvGG9dkDw8OSeSv7OvG6fXmrlDyqfU2Qcgcenodg5+mqrAqdSaTXwsEQPgQFZ32pylUgr69Arxt/C9xFgT71Yditurv2CIicJ3/RxaEqGKMW6k6m0dYfeP9mWSrOM2uJnCwhDFZi14EN1L5AM1fVqHlvuQ6c/xXLtp3vm+onsRZuoh1fhMuOZ5pKC2KeFhU=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(346002)(376002)(396003)(136003)(39860400002)(230922051799003)(1800799009)(451199024)(82310400011)(64100799003)(186009)(46966006)(36840700001)(40470700004)(41300700001)(81166007)(86362001)(40480700001)(47076005)(6916009)(316002)(478600001)(26005)(356005)(4326008)(70206006)(70586007)(5660300002)(7696005)(16526019)(2616005)(6666004)(426003)(8676002)(8936002)(1076003)(336012)(2906002)(36756003)(36860700001)(82740400003)(40460700003)(43062005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2023 23:47:09.8576 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6db085c-f3b9-4184-a3f7-08dbdbfe07a0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015CD.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7435
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,55 +98,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: regressions@lists.linux.dev, Leo Li <sunpeng.li@amd.com>,
- Qingqing Zhuo <Qingqing.Zhuo@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Roman Li <roman.li@amd.com>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- "linux-kernel@vger.kernel.orgLinus Torvalds" <torvalds@linux-foundation.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: shaoyunl <shaoyun.liu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 2, 2023 at 1:07=E2=80=AFPM Sudip Mukherjee
-<sudipm.mukherjee@gmail.com> wrote:
->
-> On Thu, 2 Nov 2023 at 16:52, Alex Deucher <alexdeucher@gmail.com> wrote:
-> >
-> > On Thu, Nov 2, 2023 at 5:32=E2=80=AFAM Sudip Mukherjee (Codethink)
-> > <sudipm.mukherjee@gmail.com> wrote:
-> > >
-> > > Hi All,
-> > >
-> > > The latest mainline kernel branch fails to build x86_64 allmodconfig
-> > > with the error:
-> > >
-> > > drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c: In=
- function 'dml_prefetch_check':
-> > > drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c:670=
-7:1: error: the frame size of 2056 bytes is larger than 2048 bytes [-Werror=
-=3Dframe-larger-than=3D]
-> > >  6707 | }
-> > >       | ^
-> > >
-> > > git bisect pointed to 7966f319c66d ("drm/amd/display: Introduce DML2"=
-)
-> > >
-> > > I will be happy to test any patch or provide any extra log if needed.
-> >
-> > This was reported earlier and fixed by:
-> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
-it/?id=3D089dbf6a06f1dcaeed4f8b86d619e8d28b235207
-> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
-it/?id=3Db141fa036c901303ca5659cc22e9c08f8b097892
-> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
-it/?id=3D5b2c54e0d0ea09f7a3b500510731878326e1117e
-> > but I guess maybe different compiler versions are still hitting this.
->
-> Yes, I should have mentioned. gcc-11 and gcc-12 failed to build. but
-> gcc-13 was ok.
+On navi4x and up, HW can monitor up to 2048 doorbells that not be
+mapped currently and trigger the interrupt to MES when these unmapped
+doorbell been ringed.
 
-Should be fixed with Nathan's patch:
-https://patchwork.freedesktop.org/patch/565675/
+Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+index ac41c649caa0..eac34ed1a504 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+@@ -455,6 +455,27 @@ static void mes_v12_0_init_aggregated_doorbell(struct amdgpu_mes *mes)
+ 	WREG32_SOC15(GC, 0, regCP_HQD_GFX_CONTROL, data);
+ }
+ 
++
++static void mes_v12_0_enable_unmapped_doorbell_handling(
++		struct amdgpu_mes *mes, bool enable)
++{
++	struct amdgpu_device *adev = mes->adev;
++	uint32_t data = RREG32_SOC15(GC, 0, regCP_UNMAPPED_DOORBELL);
++
++	/*
++	 * The default PROC_LSB settng is 0xc which means doorbell
++	 * addr[16:12] gives the doorbell page number. For kfd, each
++	 * process will use 2 pages of doorbell, we need to change the
++	 * setting to 0xd
++	 */
++	data &= ~CP_UNMAPPED_DOORBELL__PROC_LSB_MASK;
++	data |= 0xd <<  CP_UNMAPPED_DOORBELL__PROC_LSB__SHIFT;
++
++	data |= (enable ? 1 : 0) << CP_UNMAPPED_DOORBELL__ENABLE__SHIFT;
++
++	WREG32_SOC15(GC, 0, regCP_UNMAPPED_DOORBELL, data);
++}
++
+ static const struct amdgpu_mes_funcs mes_v12_0_funcs = {
+ 	.add_hw_queue = mes_v12_0_add_hw_queue,
+ 	.remove_hw_queue = mes_v12_0_remove_hw_queue,
+@@ -1235,6 +1256,9 @@ static int mes_v12_0_hw_init(void *handle)
+ 
+ 	mes_v12_0_init_aggregated_doorbell(&adev->mes);
+ 
++	/* Enable the MES to handle doorbell ring on unmapped queue */
++	mes_v12_0_enable_unmapped_doorbell_handling(&adev->mes, true);
++
+ 	r = mes_v12_0_query_sched_status(&adev->mes);
+ 	if (r) {
+ 		DRM_ERROR("MES is busy\n");
+-- 
+2.34.1
+
