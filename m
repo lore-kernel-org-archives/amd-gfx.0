@@ -4,111 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E868C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Nov 2023 22:15:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78E59C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 00:58:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DB6910E7D9;
-	Wed,  1 Nov 2023 22:15:01 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2043.outbound.protection.outlook.com [40.107.102.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECEFD10E7D9
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Nov 2023 22:14:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AD5F10E05E;
+	Thu,  2 Nov 2023 00:58:37 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2072.outbound.protection.outlook.com [40.107.101.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A4C410E05A
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Nov 2023 00:58:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=N/rcm4Szyw3QcPdT1+NXg6DgzZ8UAdIaBAb54EQUaM016X255Tpw2OOLlIW/hbUy/nJXBvNNnbkankQ6NZ2sjloAY2i/9xnj9rsRJ/8ZKNmkWUTNWaWxG7Y/QWr53SGL/G+G2KmekQ52LJV8bMx4KGNy7lgDiMq1dmFfzTX0IK/gzmlP+Zu9FK+xY1+jubRWlFYq3A7y77iuhUDfIPV++nLi0Et+rvTb75xE04KgtOyI3T169nhqYyEjPrtsMOu92GGUakcQsBTjeU4+0nDpiMYPqn6j32guPcX1iubXAuYfmkrbPt+RzKv28tsmv/j80V0ZLo83e/sqV3S5p/vuyg==
+ b=CfzBQvZC60sNQyhcrkXc45zkBExryWNiZuku0VYVufiPgMT7jGAlExiWMGg10Si1SH4LwKJbsy+JTBidai37C5ZWEhh682U9DRgCwqVHzxHCU5sPiny9nipUGRbK2DQY1BIX2JcnyTjQ4i5tydhODrjmJKeJ0OOq/5ftXJfkSzCU5QYfJwhXPOSpTQynldSm/l9ZJkQzc0iJQ5oebX6g9/8R9MZdEZ4if2NS+lMOfJuydqMjf8qd/5F/24o6mstpDswlPFvt7zdiThr622ZLLpR388eL8XOPjBveLlLAhdImgaY0lZel/637t324B7I6MxzP1p6LCwEbzrfliU9RZA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UY3pEhLHfrpG9ItSn07Scx6CWlX6kTwpYP7TMFJ2lxE=;
- b=AImR11i+wN7XLMmht98GHIDv6T+cnzKf4xcStSapiC9VfqosFoD4C79Z94yohCv+cMOykCS41aRbUmTRQMCuIqgthLS72YKzB24cY1GUIqC9FUosKE2GzyE8tlPaR5Zu0rg5zUxKFOp1e7E+82BLIuV/QpOvoDdmPnEf/sJJD+Ldy0CF/WwnxFyYOL+QjablluVftw80abpdCHyG904ZCPdaRIFT6TiXX04LhiUv0VI1dd7kaSLZPFEAj5PVjKRf3/HkRP+pAYiAWfMZwTl/u+t5ta2wHzq9rQ43Zw3f0EDJCVbv2hskegj6/9k9oqf2eXvFNV7DWmckSrZdFh4vLA==
+ bh=HEwF8MnJx/S/HdV+Sm6nK4zJww+N/TK8nCrJYISm39E=;
+ b=J8BEe2BGxRb4kDu33hT4z3x6sFRhn/1uGHbS3tHfnuRiAUTJwqoagvLqgOuOLUbEOucyXCSgB9QyAbm0KYrdHouv2wBSD+uq+PkHuSNQm2Oz8b9DVf0AZuAIiueDWY+KrPCg3g4M9TmoVVu1LCjY9AR5+h0XVVNFofDJVrTYFk9WrGjtlsqOs4M+QGtMeo57db/mrbaBoy90NPZWHQh3ddolCPqjmw5NxEdiIsUXfr8eTqXkVV/ZMYeOurarg7eIksLO+NBxkWLMxVpDdwqiqoe3f7mA+1fGpo+eK/ZD4qLz9ChqWRhUKhNow6Lr1MP+u2v/rEU5ijZw1n0jcbqAwA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UY3pEhLHfrpG9ItSn07Scx6CWlX6kTwpYP7TMFJ2lxE=;
- b=1HWFIbI4kTAC+VTxloRuPRESZTS8GymYrcAg9y7oy+eDOI/pppb61mR5cjtEq2IgQf7BCtqjTxS8ntHNkTigFloei84DKLFJhs8ie8zKejfG3M1me5efWWMe6mfb8qdf0WuJ1GaydwGB71efyu8hDUDhTGyKLB2D3ISNGxLLG4k=
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
- by DS0PR12MB7769.namprd12.prod.outlook.com (2603:10b6:8:138::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.28; Wed, 1 Nov
- 2023 22:14:57 +0000
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::ca1f:8b18:846d:234e]) by PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::ca1f:8b18:846d:234e%4]) with mapi id 15.20.6933.025; Wed, 1 Nov 2023
- 22:14:57 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher, 
- Alexander" <Alexander.Deucher@amd.com>
-Subject: Re: [PATCH] drm/amdgpu/smu13: drop compute workload workaround
-Thread-Topic: [PATCH] drm/amdgpu/smu13: drop compute workload workaround
-Thread-Index: AQHaDPypNE1Y4k/1pk2aX4sprmuACbBmB18x
-Date: Wed, 1 Nov 2023 22:14:57 +0000
-Message-ID: <PH7PR12MB59974AAF1C322B11F9D4418382A7A@PH7PR12MB5997.namprd12.prod.outlook.com>
-References: <20231101194958.3526118-1-alexander.deucher@amd.com>
-In-Reply-To: <20231101194958.3526118-1-alexander.deucher@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-11-01T22:13:41.8837571Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard
-authentication-results: dkim=none (message not signed)
+ bh=HEwF8MnJx/S/HdV+Sm6nK4zJww+N/TK8nCrJYISm39E=;
+ b=W45BGYmb17W9OZje+Iy0Q4lioCN9pnhtbRUOD+3uI8p/Iq4Hglza9e5GC6bvG1saYXL/UU/EhZ1huaVBzccHTXfZC9uQriTz8YMa0H7+Lo9JFpnISe+cUJt92bFkQSD+krHkr8Z9rcmK7S8zhSAGGpNNb+z3PgL0NReXJXOBDyk=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|DS0PR12MB7769:EE_
-x-ms-office365-filtering-correlation-id: 823730ad-47d8-4ba5-c7f2-08dbdb27fb6a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: KcOMifYFHa5JdenKdbGIe00GLY0e6pVs3pwO2QyssGheATnc7NJUyN/7+gxP18LNlVZQ2q3TFWrfdga+y5JOXuazwrOAC7kQACw5RSRxt5hNLldIhxdKQjQKpaf8gR2dVXeE5o/ZYceYIk4WQN/iS3sw9AOnHPE87Ha7lUXm5dd5AFoB96JpI0kTt8Itz/RqL6/N02DbJ60xWbha6lgNf6Yzdqpnj2FX411LGTp6/5oiq5ZatQfIPnubjGiEkJUXNfLWHpijrlk6x38cWGL/y4A6xzK2HZLkLvjJwd+TfyGygDSeDfEuPGvg3i1yDuJXQjqNVnyrFSK8bYNL/X177Hkq0DxnuaRwe57Hp6Ly4JBzQWTpu1oG6saN4/aq/3cMZ2DC45tMpFG1SpTsHu73KJJiCbeHCi7Kxuni/ZxdzmlYwlBfrfOUrYDtQTFPPQGS9pXSwiqatozayZS7PgbwVQYHoPT2ZsrPEDUbc+aV1GrG92Tn1T2JidDNZg8+FH/i8nhMkRJDH/1qiThLavJDNRiJ7jym7WXFq3plgvFHlhs3EXonVQKmu5lwgBPUGcQkM60g80tvow1CzSx0MMwZEj9l3H9kY2LAt6NxScTwurdRw3TOJFaURzRcxx3xeLXrAr4hb6vN+8Gfg1i6OSwWB9tyQO9en00tdpiM7kKMxjs=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(396003)(366004)(39860400002)(136003)(346002)(230273577357003)(230922051799003)(230173577357003)(1800799009)(451199024)(186009)(64100799003)(316002)(71200400001)(55016003)(2906002)(33656002)(41300700001)(38070700009)(52536014)(110136005)(8936002)(86362001)(8676002)(4326008)(76116006)(38100700002)(66446008)(66476007)(122000001)(6636002)(6506007)(66556008)(5660300002)(66946007)(83380400001)(26005)(478600001)(7696005)(53546011)(9686003)(64756008);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?lGo27ZryFqdVck//CNSOYGrUccxqbVdN/WYnZSCp1cnUGLqBRQin72tYzUhX?=
- =?us-ascii?Q?wTxatMEMCxK6LXWT8liw/NAtuXZHkrzA8VhKz35ZRqgORgmEJa9j8JYTiFiO?=
- =?us-ascii?Q?gWgy2/mqKMHkd32ymSggVpvLV032fpOR+0bkMTfkcW6YWs0tyNAPGM2Bq+7G?=
- =?us-ascii?Q?3Aa/XXu7JT0+t4yqZCcElqhx66ICm+ja3U4NrL3PLy1SaHGPQBjbvULPAOeL?=
- =?us-ascii?Q?gWqCXpGE97slSebR6V9+rtjT7d9UbJL8YiijUep4nEpwoc/rh+d9jotArPNK?=
- =?us-ascii?Q?pUS8iJkVvVhfDu8LQvvRn9G1dlJIQDV9xczyJ88EjrC7g8VBwz1MV3YdSZ5f?=
- =?us-ascii?Q?czsul4E636hr6F8Tk4GC4K/J9b4MlihZOpkaM6hOsPoGiH6SQGXQVA98QMBR?=
- =?us-ascii?Q?D8dszFqnP381Kji3IsaxExgig8UDKVRWavn3/2pjKfyrvuQic4hTisw6vPKQ?=
- =?us-ascii?Q?QDxwsCyH7cXIoXAtI3D2nsIjf7+y3Ku4x/S2Oq9DczkCkB3y0sk7q/YFc+pK?=
- =?us-ascii?Q?zDz/x/tjf+ddukGausK3dEuEFovjswVZRJW9VT/l2GEbR8dSnLt3JGvWuQ9E?=
- =?us-ascii?Q?R9VQunsq8rJcJs372UMFN+CYIPiRMuaXPD2ST4aFAn/3+2O5Dv5cMVSOzYrA?=
- =?us-ascii?Q?YJxXq8h0pS+9oNLV45mIiP0H5u11P5m6LPL6sWNhXSG0TSANiTkHcNNL44t5?=
- =?us-ascii?Q?IDNMSpuaznJHQYGZw6t4AR9nouxsnFD6PA2pUH1qoji6FkFCCH7o+7Wt2IMC?=
- =?us-ascii?Q?Ss88EFCc3/69VUOF74wVbaWjNJ8HS2JE2yB7i8YgsGhBmlwRnlT73hg2mxOn?=
- =?us-ascii?Q?LvJ8HsnTJWxM/S6vCQB8Xnm2uJMI2WcdSCDeOScPNDmI51SseIuSxZpcd/JH?=
- =?us-ascii?Q?Y/+LrYuMMFulclnXxn8v07t7QjFX2DnYkeEDWV0UWEi4d/aJ5HjgnIGytGqw?=
- =?us-ascii?Q?GQQ0qBhVt60SFMgKsy5g2tZGM0BCX75REoXVnnlN5MVlSt2TVywgeAgyhtkI?=
- =?us-ascii?Q?khD6ysFqWTNj3Ak+P2sC0oYjIleFTPj0u8kDQtZoAJv/G5gGFDCaHqKqGGai?=
- =?us-ascii?Q?JvYc5Y8rZFI/T8bI2MUCzu0jpBPwHKqCC6p1z7pFtP4o1q3tBUfI/AA0nuVn?=
- =?us-ascii?Q?N5b1wApANYV31k81CF6hHV3UvOykX1Z2xBtcRhQoijmSeXnpPoKVU+MVUam1?=
- =?us-ascii?Q?qwaQ57Zm1nlVep+7Ibk79Y54b/dQDe4PWSZ9PRLiCL5Ej0xwJxbOruswXbY+?=
- =?us-ascii?Q?oq0ptDrt9ZjXJYkUF0tHaK79h2MX4OaCfdKT9hMcke9JwZxdsTVZ6Noqba7G?=
- =?us-ascii?Q?49/1hHKpmd5adbAPOUzOOEHrs0nK/U7s1Y4dHG/XWy7zGvlSOr6C0/NwZe9c?=
- =?us-ascii?Q?fAjOyMo4GCv9UP4ALkCtDhF9bWTTZYVZFhQRHqEWx2Rn4H+WKWMM737nzegK?=
- =?us-ascii?Q?BB+GBHOA9RIx3M4lojs+L3RbRKyPHY+gjRVsIkllC55PimOVfM+lSG4BdDlU?=
- =?us-ascii?Q?P90v/D2/lXUnyqkm+DdctNC0B68F1eqzDr5WKNZzgB4VlS7vg0+Vuq4ApdWF?=
- =?us-ascii?Q?S8Dq8x68f75YVBssEqdZW1RJW4Ma+ipKbzlUmEvq?=
-Content-Type: multipart/alternative;
- boundary="_000_PH7PR12MB59974AAF1C322B11F9D4418382A7APH7PR12MB5997namp_"
+Received: from DM4PR12MB6351.namprd12.prod.outlook.com (2603:10b6:8:a2::6) by
+ IA0PR12MB8304.namprd12.prod.outlook.com (2603:10b6:208:3dc::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.29; Thu, 2 Nov
+ 2023 00:58:32 +0000
+Received: from DM4PR12MB6351.namprd12.prod.outlook.com
+ ([fe80::5287:5f3:34f:4402]) by DM4PR12MB6351.namprd12.prod.outlook.com
+ ([fe80::5287:5f3:34f:4402%7]) with mapi id 15.20.6933.028; Thu, 2 Nov 2023
+ 00:58:32 +0000
+Message-ID: <b499c258-9b13-4612-810c-979ee847059e@amd.com>
+Date: Thu, 2 Nov 2023 08:58:24 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] drm/amdgpu: Optimize the asic type fix code
+To: Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org,
+ Kenneth.Feng@amd.com, Alexander.Deucher@amd.com
+References: <20231101030442.1988771-1-Jun.Ma2@amd.com>
+Content-Language: en-US
+From: "Ma, Jun" <majun@amd.com>
+In-Reply-To: <20231101030442.1988771-1-Jun.Ma2@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI2PR01CA0046.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:193::18) To DM4PR12MB6351.namprd12.prod.outlook.com
+ (2603:10b6:8:a2::6)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6351:EE_|IA0PR12MB8304:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4960ccdd-461b-4e0f-1916-08dbdb3ed55a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Lli4keplki62028zq0ol+Vrhlfa7GViHqqqE8xZOAW1hSczR7PV/oadMF0XvAw4ppzOwSzhxstNl31+vCIkRlNTW02JlBsQJPjGwajonEDqOw7LN/4FhVadvf+oHHr6739yYFQP44jdIgW0UURxGeI8mv13CgRmBUYoTq7fZXL323siMaW5U0Y+vY+cLAz/7Nn5RU5rWju6o0ORXpD0jUkVOMor+LXuLgtFbKKw6a1Pd1yHMfjpedX1Z5NdbvYYARpYYDYHhpyDwV6uEccK6ZyQIuCN2ijGpxLEBRZwfvhbTr6/GqC1IBwPTaotNsFbMAQzUZOazwbqq51A2Nevm3DM/N7AcsXoYsw+Ut30XwD7dBhjEJgW6WMmezRxwZzHfJerBZeS1WSpvDr8sMcoAOE8xXsndNg014YD41nQrTleCotWxDmtfNB1mpWLK6w9lDvPCDWgcXINJdw1DitHicPTVccLLtLbQkA6XgaOzaJs+CCbK4fUOOWhkg4rX4tEY0o/vX+6c5t7p5dV232kei+FfNhe9pkHiYEc8/+0f2id5BwMj/ZIdVHBgpnk5CRQKMa9HA+J/RdZVObTUsAecKHvAjvNGkdd6VQi7ec3BxOAyBr7gfTrBYAN3YBNGUw6hR47zyjwrSXWr8XtzC975EA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6351.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376002)(136003)(366004)(396003)(39860400002)(346002)(230922051799003)(64100799003)(186009)(451199024)(1800799009)(36756003)(2616005)(6506007)(6512007)(26005)(53546011)(31696002)(6666004)(38100700002)(83380400001)(2906002)(6486002)(478600001)(66946007)(41300700001)(31686004)(66476007)(316002)(66556008)(8936002)(8676002)(4326008)(5660300002)(6636002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NlJjd3RxNmhaOGdwR0pQMWcydS90dDVybmtlbjdoR0lXTWovdzNNNnRCbDkx?=
+ =?utf-8?B?T0QrQ3BNQm5GOEFjTDdFR01FVFFBb3ZNN0tRWEdGb3p0Mkl3SG5hWmdjemxF?=
+ =?utf-8?B?ZHFZNXZjY00vaERZeFByWjZNdDFxUjFNdFY5NlRMa2FBdEV3Nkw0akZTWjBB?=
+ =?utf-8?B?VDJUWUcvRnFIWjBrWTdCZGpBOFBLdXFyU1F4eDJ5d1UvdGw4bWhkWDRDNU8z?=
+ =?utf-8?B?WWRPRGZscWlPNVczZXh4YmxieWxVZG5palVCbjBpemxQZjRvM2thMllVR0k4?=
+ =?utf-8?B?MmpHM1NGV2NWUlBLTFlJNmxkemlPOXRRWXZXNnBiZzVibEZvcVUxaFh5d3hJ?=
+ =?utf-8?B?WHJFb1FOZ0NuZUVNZytJVmI1Z2o3TUZNamp1WWRGaU1JMHRhaDNkYWNlTGRI?=
+ =?utf-8?B?d0tWdnVERDFYUU5xY1UxblpUdUx5Q2RpUkZFLzRoNks5U3ZJN2tiakVQY1Rr?=
+ =?utf-8?B?b2x4SWVLTUc3aDhBTEhuVzVrazd0TTEwZzQzdHNrZjBPY3o5TkhNN3VPM204?=
+ =?utf-8?B?N3F5VFV6bUFwQk5zdE1TNzhPNjVxOVhlUUY2dDcvTk9IR245dHhpOGdtQXhZ?=
+ =?utf-8?B?NE9MMzRIQkFUVnI4dU1aZDJVOTUzU2RydDRlS1RtY2doZEhiS2FQd0ppUStO?=
+ =?utf-8?B?bnVUazFzT3drYURpNFlpVUduR21hSU1aUFVqdUk4M0ladVQxTHNkcS9xaHRS?=
+ =?utf-8?B?aHVIQTFnM1czWUVsenkzSS85QmNnQUxjNzJROE9hQmFxemZmNVZYc3o2b1NE?=
+ =?utf-8?B?eThVWldEVUpyRVlPOFRpdE9HWWxHbEd6NG9hY083bmdMUkwvOSs5bHkzeVpk?=
+ =?utf-8?B?ZE5zdkFFNlRObVR0TURVdXQ4MStrNFk2NkdMeEtzVjZ5VGNaMkxFd0kyMXNk?=
+ =?utf-8?B?ZXhPQmxqSFFPUUdtZVdvZzVxNzJyRWlyRURxeHJXL0wvN3hSTzRBUHdQSUxT?=
+ =?utf-8?B?czBjMldPNnZ4eENvTzZ2TzkrT1EyUngzblpCcEF0WGMwQkV0WFA3czdIRFI3?=
+ =?utf-8?B?RWhUb1Zscnc3b2U2UloxSFlYT09nWmxTeDNuNURDdHV5ckFyOHRWUWhSVzQr?=
+ =?utf-8?B?WE91R3c1MzRtLytnemNJdkZ3OEVLUmhJazRhbGR0dFM3dE56dHd5akMxTnRF?=
+ =?utf-8?B?NXRlbFNjRXJXOTNMTG04dlRIRTFEYTNUdWMrZTc0cTQ4dXB3dW9UL2xRQVZZ?=
+ =?utf-8?B?cXI0M0JPSWVwZzVMMXR4WWkrS1FlSmNhTWFSZGQybGc4Vi93elBYVHBpWFFx?=
+ =?utf-8?B?NUZlb3huek5XOFZFRTBvNktCSkwxclJzMXdhY1B2N1p0TkYxcUpSamZVa1FG?=
+ =?utf-8?B?UEJJZ21jUXFNUnVyTGFtczhuc2VUTlpZdDd5OWhOZDJTLy9xNVQ3QmpQdFdY?=
+ =?utf-8?B?Vm91TWdHaUdpaUdnenpkSUh3aXZZZEFqWUZvbEM4Q0ljMXE4b3FDd09DQlNO?=
+ =?utf-8?B?bzFRSVBMaTJZOVkybHZ0MHRhNkc4UWIyR3N5MUlwM3FKNjFjb0s0NWlTajJl?=
+ =?utf-8?B?ZGttL0xseDhOWDdzaEk4Yys2N3ZFaDVwUTdVa0QxY0Q0M3IrSGtqL2Jaa2FM?=
+ =?utf-8?B?SnEvREdjVzhCTG9CWVFOUUZBVXY0aTdhbHd2c0dkRkpJUUh6dGtCZ3pvNWRV?=
+ =?utf-8?B?OXh5RkpxdFREUldQOHhDUWkzQVhCL1RyVElVekxxaUhBWk5PSVIxU1p1bW1W?=
+ =?utf-8?B?VlRWd2VlNHY0d1lpYWs4eHBzSWFyZ0M0NDZCZk5ERkVyTHFGMW04V0drL3lo?=
+ =?utf-8?B?SG1UQS94azI3NDJsTHV2NXVLeklSN20yQnl3SENrSWtvTkFzVlBBdVJyRVJo?=
+ =?utf-8?B?M3ZVMjN4YUZiQ3VZTDVDczJ4bzhRMUsxeHpGT2puNGlTaTkrbVNSR2R2U3Rp?=
+ =?utf-8?B?cXdZTE5yak5QZWpJaDRWK1l4TXRKNm9sbk4yTENuVE5BWVN1M3ZJMWNHN3l6?=
+ =?utf-8?B?ZW9BUDVtaVNpdFRCVkFlR3dOQ2RhZmZxOXh5NU4wNmp2RXhpRlNmQjF1ekZn?=
+ =?utf-8?B?Vit6TnNlSDVTMFM1dFJWcHkwNHZPb1ZlblQzTzVvZVZrdXUwR21nTXk2bnRD?=
+ =?utf-8?B?eWZDTHl3SFJTemVTQlpNZGI3Z0tnYVF1by9BZnAxS0dsbEV3c3lyZGlCZ3V4?=
+ =?utf-8?Q?AXLt4nay2GyTaF5C+pb7yph4F?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4960ccdd-461b-4e0f-1916-08dbdb3ed55a
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6351.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 823730ad-47d8-4ba5-c7f2-08dbdb27fb6a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Nov 2023 22:14:57.0929 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Cr9qnUl3gtSQ1bBUP+vypnIKBMzdxv+a9XTklwaCAHxmKsumm4RiL0HopavTxsDc
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7769
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2023 00:58:32.1328 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: O7srkYjpNA8tcpTiJFp/beYx+2A8hdjXp+W7gAruZXeyZzVFmihdTZqs41dVcq2u
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8304
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,273 +123,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_PH7PR12MB59974AAF1C322B11F9D4418382A7APH7PR12MB5997namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ping...
 
-[AMD Official Use Only - General]
+Regards,
+Ma Jun
 
-Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
-
-Best Regards,
-Kevin
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Alex Deu=
-cher <alexander.deucher@amd.com>
-Sent: Thursday, November 2, 2023 03:50
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-Subject: [PATCH] drm/amdgpu/smu13: drop compute workload workaround
-
-This was fixed in PMFW before launch and is no longer
-required.
-
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 32 ++-----------------
- 1 file changed, 2 insertions(+), 30 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index ef0c30075658..82c4e1f1c6f0 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -2530,38 +2530,10 @@ static int smu_v13_0_0_set_power_profile_mode(struc=
-t smu_context *smu,
-                 }
-         }
-
--       if (smu->power_profile_mode =3D=3D PP_SMC_POWER_PROFILE_COMPUTE &&
--               (((smu->adev->pdev->device =3D=3D 0x744C) && (smu->adev->pd=
-ev->revision =3D=3D 0xC8)) ||
--               ((smu->adev->pdev->device =3D=3D 0x744C) && (smu->adev->pde=
-v->revision =3D=3D 0xCC)))) {
--               ret =3D smu_cmn_update_table(smu,
--                                          SMU_TABLE_ACTIVITY_MONITOR_COEFF=
-,
--                                          WORKLOAD_PPLIB_COMPUTE_BIT,
--                                          (void *)(&activity_monitor_exter=
-nal),
--                                          false);
--               if (ret) {
--                       dev_err(smu->adev->dev, "[%s] Failed to get activit=
-y monitor!", __func__);
--                       return ret;
--               }
--
--               ret =3D smu_cmn_update_table(smu,
--                                          SMU_TABLE_ACTIVITY_MONITOR_COEFF=
-,
--                                          WORKLOAD_PPLIB_CUSTOM_BIT,
--                                          (void *)(&activity_monitor_exter=
-nal),
--                                          true);
--               if (ret) {
--                       dev_err(smu->adev->dev, "[%s] Failed to set activit=
-y monitor!", __func__);
--                       return ret;
--               }
--
--               workload_type =3D smu_cmn_to_asic_specific_index(smu,
--                                                      CMN2ASIC_MAPPING_WOR=
-KLOAD,
--                                                      PP_SMC_POWER_PROFILE=
-_CUSTOM);
--       } else {
--               /* conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT */
--               workload_type =3D smu_cmn_to_asic_specific_index(smu,
-+       /* conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT */
-+       workload_type =3D smu_cmn_to_asic_specific_index(smu,
-                                                        CMN2ASIC_MAPPING_WO=
-RKLOAD,
-                                                        smu->power_profile_=
-mode);
--       }
-
-         if (workload_type < 0)
-                 return -EINVAL;
---
-2.41.0
-
-
---_000_PH7PR12MB59974AAF1C322B11F9D4418382A7APH7PR12MB5997namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-</head>
-<body>
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - General]<br>
-</p>
-<br>
-<div>
-<div dir=3D"ltr">
-<div></div>
-<div>
-<div dir=3D"ltr">Reviewed-by: Yang Wang &lt;kevinyang.wang@amd.com&gt;</div=
->
-<div dir=3D"ltr"><br>
-</div>
-<div dir=3D"ltr">Best Regards,</div>
-<div dir=3D"ltr">Kevin</div>
-<div id=3D"mail-editor-reference-message-container" class=3D"ms-outlook-mob=
-ile-reference-message">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif"><b=
->From:</b> amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org&gt; on behalf =
-of Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-<b>Sent:</b> Thursday, November 2, 2023 03:50<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu/smu13: drop compute workload workaround
-<div>&nbsp;</div>
-</font></div>
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from text --><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">This was fixed in PMFW before launch and is no lon=
-ger<br>
-required.<br>
-<br>
-Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
----<br>
-&nbsp;.../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c&nbsp; | 32 ++-----------=
-------<br>
-&nbsp;1 file changed, 2 insertions(+), 30 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c<br>
-index ef0c30075658..82c4e1f1c6f0 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c<br>
-@@ -2530,38 +2530,10 @@ static int smu_v13_0_0_set_power_profile_mode(struc=
-t smu_context *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu-&gt;power_profile_mode =3D=3D=
- PP_SMC_POWER_PROFILE_COMPUTE &amp;&amp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; (((smu-&gt;adev-&gt;pdev-&gt;device =3D=3D 0x744C) &amp;&amp; (s=
-mu-&gt;adev-&gt;pdev-&gt;revision =3D=3D 0xC8)) ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ((smu-&gt;adev-&gt;pdev-&gt;device =3D=3D 0x744C) &amp;&amp; (sm=
-u-&gt;adev-&gt;pdev-&gt;revision =3D=3D 0xCC)))) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ret =3D smu_cmn_update_table(smu,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; SMU_TABLE_ACTIVITY_MONITOR_COEFF,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; WORKLOAD_PPLIB_COMPUTE_BIT,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; (void *)(&amp;activity_monitor_external),<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; false);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (ret) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(smu-&gt;=
-adev-&gt;dev, &quot;[%s] Failed to get activity monitor!&quot;, __func__);<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ret =3D smu_cmn_update_table(smu,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; SMU_TABLE_ACTIVITY_MONITOR_COEFF,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; WORKLOAD_PPLIB_CUSTOM_BIT,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; (void *)(&amp;activity_monitor_external),<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; true);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (ret) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(smu-&gt;=
-adev-&gt;dev, &quot;[%s] Failed to set activity monitor!&quot;, __func__);<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; workload_type =3D smu_cmn_to_asic_specific_index(smu,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; CMN2ASIC_MAPPING_WORKLOAD,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; PP_SMC_POWER_PROFILE_CUSTOM);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; /* conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; workload_type =3D smu_cmn_to_asic_specific_index(smu,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* conv PP_SMC_POWER_PROFILE* to WORK=
-LOAD_PPLIB_*_BIT */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; workload_type =3D smu_cmn_to_asic_spe=
-cific_index(smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CMN2ASIC_MAPPING_WORKLOAD,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;power_profile_mode);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (workload_type &lt; 0)<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
--- <br>
-2.41.0<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_PH7PR12MB59974AAF1C322B11F9D4418382A7APH7PR12MB5997namp_--
+On 11/1/2023 11:04 AM, Ma Jun wrote:
+> Use a new struct array to define the asic information which
+> asic type needs to be fixed.
+> 
+> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 35 ++++++++++++++++++-------
+>  include/drm/amd_asic_type.h             |  5 ++++
+>  2 files changed, 31 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 84703e0a73bd..756cf49557a2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2067,6 +2067,14 @@ static const struct pci_device_id pciidlist[] = {
+>  
+>  MODULE_DEVICE_TABLE(pci, pciidlist);
+>  
+> +static const struct amdgpu_asic_type_quirk asic_type_quirks[] = {
+> +	/* differentiate between P10 and P11 asics with the same DID */
+> +	{0x67FF, 0xE3, CHIP_POLARIS10},
+> +	{0x67FF, 0xE7, CHIP_POLARIS10},
+> +	{0x67FF, 0xF3, CHIP_POLARIS10},
+> +	{0x67FF, 0xF7, CHIP_POLARIS10},
+> +};
+> +
+>  static struct drm_driver amdgpu_kms_driver;
+>  
+>  static void amdgpu_get_secondary_funcs(struct amdgpu_device *adev)
+> @@ -2109,6 +2117,22 @@ static void amdgpu_init_debug_options(struct amdgpu_device *adev)
+>  	}
+>  }
+>  
+> +static unsigned long amdgpu_fix_asic_type(struct pci_dev *pdev, unsigned long flags)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(asic_type_quirks); i++) {
+> +		if (pdev->device == asic_type_quirks[i].device &&
+> +			pdev->revision == asic_type_quirks[i].revision) {
+> +				flags &= ~AMD_ASIC_MASK;
+> +				flags |= asic_type_quirks[i].type;
+> +				break;
+> +			}
+> +	}
+> +
+> +	return flags;
+> +}
+> +
+>  static int amdgpu_pci_probe(struct pci_dev *pdev,
+>  			    const struct pci_device_id *ent)
+>  {
+> @@ -2138,15 +2162,8 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+>  			 "See modparam exp_hw_support\n");
+>  		return -ENODEV;
+>  	}
+> -	/* differentiate between P10 and P11 asics with the same DID */
+> -	if (pdev->device == 0x67FF &&
+> -	    (pdev->revision == 0xE3 ||
+> -	     pdev->revision == 0xE7 ||
+> -	     pdev->revision == 0xF3 ||
+> -	     pdev->revision == 0xF7)) {
+> -		flags &= ~AMD_ASIC_MASK;
+> -		flags |= CHIP_POLARIS10;
+> -	}
+> +
+> +	flags = amdgpu_fix_asic_type(pdev, flags);
+>  
+>  	/* Due to hardware bugs, S/G Display on raven requires a 1:1 IOMMU mapping,
+>  	 * however, SME requires an indirect IOMMU mapping because the encryption
+> diff --git a/include/drm/amd_asic_type.h b/include/drm/amd_asic_type.h
+> index 90b69270f2fa..724c45e3e9a7 100644
+> --- a/include/drm/amd_asic_type.h
+> +++ b/include/drm/amd_asic_type.h
+> @@ -68,4 +68,9 @@ enum amd_asic_type {
+>  
+>  extern const char *amdgpu_asic_name[];
+>  
+> +struct amdgpu_asic_type_quirk {
+> +	unsigned short device;	/* PCI device ID */
+> +	u8 revision;	/* revision ID */
+> +	unsigned short type;	/* real ASIC type */
+> +};
+>  #endif /*__AMD_ASIC_TYPE_H__ */
