@@ -4,47 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C165CC4332F
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 13:05:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D17FBC0018A
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 13:05:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 405DD10E883;
-	Thu,  2 Nov 2023 13:05:34 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC7A210E864
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Nov 2023 11:55:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698926122; x=1730462122;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=LN2zsFLqmMKh/7dbnLz+vFNRTOnaAK8H94eqPAfKQj4=;
- b=F8E3VKITOsdg61omRXWQ/NIqn93FhfKdal8/ypjm6RviE3ROXFgX4zck
- 9iv6Sf5gcq2jT+nYsr7/L95FclqdSf2D+83aJSZAwzqnlZchBSHW7rvR7
- 2gfg8uLlKsvQ0ZwqOGLQ/WSDff/p/u0QVZR9CCDkVHIRR/P2lVQhpggSr
- tjV74QpJDzJbIAgpBRunhwSgDGfDZoIYV1wtNQPcPKMF2qVIrQm1rbGPQ
- 1igAQkcm5HeFotWu8+hu30Pd7dDZv9NA818YI8eIaseU8X0buy8VAoJlR
- vHglcWYSOmUD/r/MfLv4XeEYmb/Iq1MUvE6dosCDiFyUhdyi69WApY6qm g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10881"; a="455176344"
-X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="455176344"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2023 04:55:21 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10881"; a="904988180"
-X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="904988180"
-Received: from sdsadara-mobl.ger.corp.intel.com ([10.251.215.6])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2023 04:55:17 -0700
-Date: Thu, 2 Nov 2023 13:55:11 +0200 (EET)
-From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Ma Jun <Jun.Ma2@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6129110E884;
+	Thu,  2 Nov 2023 13:05:35 +0000 (UTC)
+Received: from sipsolutions.net (s3.sipsolutions.net
+ [IPv6:2a01:4f8:242:246e::2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 176D210E87A
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Nov 2023 13:04:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+ Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+ Resent-Cc:Resent-Message-ID; bh=lhnHvgPTUerCavcKvy4VoFNn9k17Ymmjx4Tbd3bshik=; 
+ t=1698930286; x=1700139886; b=VufvgQTN2x+ccuWQJSzLjrK9rDx0J5+TMJajhEpNClRZj33
+ VK8Xs8YfOizK/DFJWLv8bfZyXc/g9MMY2AHTOtYDNC5/z7iPCHHNWgE2dnrDIL+TcbyXUhEFpaJq1
+ Wy/3LIc8lT51zbb+SDc68nJvL5tK1AMRYiHB1c7fcyO72IoD6FpxVvVVqJq0nfLrPQ/mwDKTlpo7R
+ 0i4Zd/kS9Q+U+GWeiNxIJnGeHMgUSR1Jfzb3TFM0zE7OcdvqQQ5cpSi8E6AzIKKrOn8G56/vt3tKY
+ kj+mX9bwVe+f4QgpydGRyRniVQWYD8fsI9hB1g2gU1Ohf0W6IH82hu2RDwbM7y+w==;
+Received: by sipsolutions.net with esmtpsa
+ (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+ (Exim 4.97-RC1) (envelope-from <johannes@sipsolutions.net>)
+ id 1qyXNL-0000000BJWz-3w9i; Thu, 02 Nov 2023 14:04:44 +0100
+Message-ID: <d0d35561b80b873d9f78c9ca4ad304b6e0f16cb2.camel@sipsolutions.net>
 Subject: Re: [Patch v13 4/9] wifi: mac80211: Add support for WBRF features
-In-Reply-To: <20231030071832.2217118-5-Jun.Ma2@amd.com>
-Message-ID: <5b8ea81c-dd4c-7f2a-c862-b9a0aab16044@linux.intel.com>
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Ilpo =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Thu, 02 Nov 2023 14:04:42 +0100
+In-Reply-To: <e42c5484-d66-e41a-8b2e-a1fa4495ce2@linux.intel.com>
 References: <20231030071832.2217118-1-Jun.Ma2@amd.com>
  <20231030071832.2217118-5-Jun.Ma2@amd.com>
+ <5b8ea81c-dd4c-7f2a-c862-b9a0aab16044@linux.intel.com>
+ <b080757463a1f55a38484e3ea39fd3697e98409e.camel@sipsolutions.net>
+ <e42c5484-d66-e41a-8b2e-a1fa4495ce2@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-malware-bazaar: not-scanned
 X-Mailman-Approved-At: Thu, 02 Nov 2023 13:05:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,183 +59,53 @@ Cc: Evan Quan <quanliangl@hotmail.com>, linux-doc@vger.kernel.org,
  Netdev <netdev@vger.kernel.org>, Lijo.Lazar@amd.com,
  linux-wireless@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
  amd-gfx@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- edumazet@google.com, mario.limonciello@amd.com, alexander.deucher@amd.com,
- kuba@kernel.org, johannes@sipsolutions.net, pabeni@redhat.com,
+ Ma Jun <Jun.Ma2@amd.com>, edumazet@google.com, mario.limonciello@amd.com,
+ alexander.deucher@amd.com, kuba@kernel.org, pabeni@redhat.com,
  davem@davemloft.net, lenb@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 30 Oct 2023, Ma Jun wrote:
+On Thu, 2023-11-02 at 14:24 +0200, Ilpo J=C3=A4rvinen wrote:
+> On Thu, 2 Nov 2023, Johannes Berg wrote:
+> > On Thu, 2023-11-02 at 13:55 +0200, Ilpo J=C3=A4rvinen wrote:
+> >=20
+> > > > +static void get_chan_freq_boundary(u32 center_freq, u32 bandwidth,=
+ u64 *start, u64 *end)
+> > > > +{
+> > > > +	bandwidth =3D MHZ_TO_KHZ(bandwidth);
+> > > > +	center_freq =3D MHZ_TO_KHZ(center_freq);
+> > >=20
+> > > Please use include/linux/units.h ones for these too.
+> >=20
+> > Now we're feature creeping though - this has existed for *years* in the
+> > wireless stack with many instances? We can convert them over, I guess,
+> > but not sure that makes much sense here - we'd want to add such macros
+> > to units.h, but ... moving them can be independent of this patch?
+>=20
+> What new macros you're talking about?=C2=A0
 
-> From: Evan Quan <quanliangl@hotmail.com>
-> 
-> To support the WBRF mechanism, Wifi adapters utilized in the system must
-> register the frequencies in use (or unregister those frequencies no longer
-> used) via the dedicated calls. So that, other drivers responding to the
-> frequencies can take proper actions to mitigate possible interference.
-> 
-> Co-developed-by: Mario Limonciello <mario.limonciello@amd.com>
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> Co-developed-by: Evan Quan <quanliangl@hotmail.com>
-> Signed-off-by: Evan Quan <quanliangl@hotmail.com>
-> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
-> --
-> v1->v2:
->   - place the new added member(`wbrf_supported`) in
->     ieee80211_local(Johannes)
->   - handle chandefs change scenario properly(Johannes)
->   - some minor fixes around code sharing and possible invalid input
->     checks(Johannes)
-> v2->v3:
->   - drop unnecessary input checks and intermediate APIs(Mario)
->   - Separate some mac80211 common code(Mario, Johannes)
-> v3->v4:
->   - some minor fixes around return values(Johannes)
-> v9->v10:
->   - get ranges_in->num_of_ranges set and passed in(Johannes)
-> v12:
->   - use acpi_amd_wbrf_add_remove to replace the acpi_amd_wbrf_add_exclusion
->     acpi_amd_wbrf_remove_exclusion
-> v13:
->   - Fix the format issue (IIpo Jarvinen)
->   - Remove KHZ_TO_HZ and use HZ_PER_KHZ in linux/units.h (IIpo Jarvinen)
-> ---
->  net/mac80211/Makefile      |  2 +
->  net/mac80211/chan.c        |  9 ++++
->  net/mac80211/ieee80211_i.h |  7 +++
->  net/mac80211/main.c        |  2 +
->  net/mac80211/wbrf.c        | 95 ++++++++++++++++++++++++++++++++++++++
->  5 files changed, 115 insertions(+)
->  create mode 100644 net/mac80211/wbrf.c
-> 
-> diff --git a/net/mac80211/Makefile b/net/mac80211/Makefile
-> index b8de44da1fb8..d46c36f55fd3 100644
-> --- a/net/mac80211/Makefile
-> +++ b/net/mac80211/Makefile
-> @@ -65,4 +65,6 @@ rc80211_minstrel-$(CONFIG_MAC80211_DEBUGFS) += \
->  
->  mac80211-$(CONFIG_MAC80211_RC_MINSTREL) += $(rc80211_minstrel-y)
->  
-> +mac80211-y += wbrf.o
-> +
->  ccflags-y += -DDEBUG
-> diff --git a/net/mac80211/chan.c b/net/mac80211/chan.c
-> index 68952752b599..458469c224ae 100644
-> --- a/net/mac80211/chan.c
-> +++ b/net/mac80211/chan.c
-> @@ -506,11 +506,16 @@ static void _ieee80211_change_chanctx(struct ieee80211_local *local,
->  
->  	WARN_ON(!cfg80211_chandef_compatible(&ctx->conf.def, chandef));
->  
-> +	ieee80211_remove_wbrf(local, &ctx->conf.def);
-> +
->  	ctx->conf.def = *chandef;
->  
->  	/* check if min chanctx also changed */
->  	changed = IEEE80211_CHANCTX_CHANGE_WIDTH |
->  		  _ieee80211_recalc_chanctx_min_def(local, ctx, rsvd_for);
-> +
-> +	ieee80211_add_wbrf(local, &ctx->conf.def);
-> +
->  	drv_change_chanctx(local, ctx, changed);
->  
->  	if (!local->use_chanctx) {
-> @@ -668,6 +673,8 @@ static int ieee80211_add_chanctx(struct ieee80211_local *local,
->  	lockdep_assert_held(&local->mtx);
->  	lockdep_assert_held(&local->chanctx_mtx);
->  
-> +	ieee80211_add_wbrf(local, &ctx->conf.def);
-> +
->  	if (!local->use_chanctx)
->  		local->hw.conf.radar_enabled = ctx->conf.radar_enabled;
->  
-> @@ -748,6 +755,8 @@ static void ieee80211_del_chanctx(struct ieee80211_local *local,
->  	}
->  
->  	ieee80211_recalc_idle(local);
-> +
-> +	ieee80211_remove_wbrf(local, &ctx->conf.def);
->  }
->  
->  static void ieee80211_free_chanctx(struct ieee80211_local *local,
-> diff --git a/net/mac80211/ieee80211_i.h b/net/mac80211/ieee80211_i.h
-> index 98ef1fe1226e..1172554bd831 100644
-> --- a/net/mac80211/ieee80211_i.h
-> +++ b/net/mac80211/ieee80211_i.h
-> @@ -1600,6 +1600,8 @@ struct ieee80211_local {
->  
->  	/* extended capabilities provided by mac80211 */
->  	u8 ext_capa[8];
-> +
-> +	bool wbrf_supported;
->  };
->  
->  static inline struct ieee80211_sub_if_data *
-> @@ -2637,4 +2639,9 @@ ieee80211_eht_cap_ie_to_sta_eht_cap(struct ieee80211_sub_if_data *sdata,
->  				    const struct ieee80211_eht_cap_elem *eht_cap_ie_elem,
->  				    u8 eht_cap_len,
->  				    struct link_sta_info *link_sta);
-> +
-> +void ieee80211_check_wbrf_support(struct ieee80211_local *local);
-> +void ieee80211_add_wbrf(struct ieee80211_local *local, struct cfg80211_chan_def *chandef);
-> +void ieee80211_remove_wbrf(struct ieee80211_local *local, struct cfg80211_chan_def *chandef);
-> +
->  #endif /* IEEE80211_I_H */
-> diff --git a/net/mac80211/main.c b/net/mac80211/main.c
-> index 24315d7b3126..b20bdaac84db 100644
-> --- a/net/mac80211/main.c
-> +++ b/net/mac80211/main.c
-> @@ -1396,6 +1396,8 @@ int ieee80211_register_hw(struct ieee80211_hw *hw)
->  	debugfs_hw_add(local);
->  	rate_control_add_debugfs(local);
->  
-> +	ieee80211_check_wbrf_support(local);
-> +
->  	rtnl_lock();
->  	wiphy_lock(hw->wiphy);
->  
-> diff --git a/net/mac80211/wbrf.c b/net/mac80211/wbrf.c
-> new file mode 100644
-> index 000000000000..ca3f30b58476
-> --- /dev/null
-> +++ b/net/mac80211/wbrf.c
-> @@ -0,0 +1,95 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Wifi Band Exclusion Interface for WLAN
-> + * Copyright (C) 2023 Advanced Micro Devices
-> + *
-> + */
-> +
-> +#include <linux/acpi_amd_wbrf.h>
-> +#include <linux/units.h>
-> +#include <net/cfg80211.h>
-> +#include "ieee80211_i.h"
-> +
-> +void ieee80211_check_wbrf_support(struct ieee80211_local *local)
-> +{
-> +	struct wiphy *wiphy = local->hw.wiphy;
-> +	struct device *dev;
-> +
-> +	if (!wiphy)
-> +		return;
-> +
-> +	dev = wiphy->dev.parent;
-> +	if (!dev)
-> +		return;
-> +
-> +	local->wbrf_supported = acpi_amd_wbrf_supported_producer(dev);
-> +	dev_dbg(dev, "WBRF is %s supported\n",
-> +		local->wbrf_supported ? "" : "not");
-> +}
-> +
-> +static void get_chan_freq_boundary(u32 center_freq, u32 bandwidth, u64 *start, u64 *end)
-> +{
-> +	bandwidth = MHZ_TO_KHZ(bandwidth);
-> +	center_freq = MHZ_TO_KHZ(center_freq);
+Sorry, I got confused - for some reason I was pretty sure something here
+was already being added to units.h in this patchset.
 
-Please use include/linux/units.h ones for these too.
+> Nothing new needs to be added=20
+> as there's already KHZ_PER_MHZ so these would just be:
+>=20
+> 	bandwidth *=3D KHZ_PER_MHZ;
+> 	center_freq *=3D KHZ_PER_MHZ;
 
--- 
- i.
+Sure, and in this case that's probably pretty much equivalent. But
+having a MHZ_TO_KHZ() macro isn't inherently *bad*, and I'm not sure
+you're objection to it on anything other than "it's not defined in
+units.h".
 
+> Everything can of course be postponed by the argument that some=20
+> subsystem specific mechanism has been there before the generic one
+> but the end of that road won't be pretty... What I was trying to do
+> here was to point out the new stuff introduced by this series into the=
+=20
+> direction of the generic thing.
+
+I just think that the better course of action would be to eventually
+move MHZ_TO_KHZ() to units.h ...
+
+johannes
