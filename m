@@ -4,58 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2312C4167B
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 19:06:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F260C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 22:53:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C3FC10E985;
-	Thu,  2 Nov 2023 19:06:28 +0000 (UTC)
-Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
- [IPv6:2001:4860:4864:20::30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E361C10E985;
- Thu,  2 Nov 2023 19:06:26 +0000 (UTC)
-Received: by mail-oa1-x30.google.com with SMTP id
- 586e51a60fabf-1f03db0a410so746027fac.1; 
- Thu, 02 Nov 2023 12:06:26 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0302C10E189;
+	Thu,  2 Nov 2023 22:53:24 +0000 (UTC)
+Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
+ [IPv6:2001:4860:4864:20::2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67B3C10E189;
+ Thu,  2 Nov 2023 22:53:22 +0000 (UTC)
+Received: by mail-oa1-x2c.google.com with SMTP id
+ 586e51a60fabf-1f05247791fso614482fac.0; 
+ Thu, 02 Nov 2023 15:53:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698951986; x=1699556786; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1698965601; x=1699570401; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=i/xUgcpbnnTlXsVcZhoWq2pWvJ/EENYDU0v0UaFuVGU=;
- b=f47IxcN14Wl0Z+snp2BnTpMHgM7NqvbeNkkpmGO74IgtGiEEcduBbzx4iQezLMgQ4v
- 0QakHaM35dAlB8v5+qzO1UkQauongOq8nhiHy/VxlMI9S7asXEBySqPR32OyAzB8/xas
- es1WC2pNg6jo4cKJPCcquhw9Xh0G7j4wWbsBapLlUnHOtKL9dYzkeVDjEvi7S7KdghuH
- MdA94ueyiGuLPvUWX88mFACeHeyCxtdAqrGUdX3AD6girljVsjwRiTRJWW2sxtlymFoV
- 7npn6TsL2LqU315CLzrq/0uV8mYLQEkFqtKupATn420ilcEaE67ZiBTpATZgAI/x/EqZ
- WNew==
+ bh=ywkZ1ZWfNmiVp7a6UPS372ot5uoGxaI4T7nCnN1k30I=;
+ b=H8YvvuO3sGoOkuMF2Tc4+BxQsxX6Vx7oZwaTy92vBhTmnAD1/snqMNFg64F/kOX6zl
+ GUmTGN81kDALSWGyukWykoKDUHTLcN8sZE+xjOO7SU77L6XQ1petr0If0r3sKyyfRSS7
+ JC4udZK8jnLQ/+NvN0/FUJAtzrAcGc96Z8D+gIH+v93MSqwiZEL+wz+CXDVFpI/N8eKi
+ fP8RB+qNxVL6i0HIs3wci9sTf4qFzhw7MfoW4g7PjVJ59y3z9mSoZHRqI1OrjUwDY/KZ
+ w/cqdZfBgbgX4GTx7lLYCA4kIQsnPg7ABWaqS8+uPf6D6IAY5snaUMeExBLX8vWxqbXh
+ Rjnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698951986; x=1699556786;
+ d=1e100.net; s=20230601; t=1698965601; x=1699570401;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=i/xUgcpbnnTlXsVcZhoWq2pWvJ/EENYDU0v0UaFuVGU=;
- b=X/KD3Tj16zaVXGDy5QY6ewq4H2hb5NpoG1YxeKzv2XmBj3yvxKVNHB8ph5OUcvs06l
- mekW1AYtyiQPmhLOvNWbe2tj735gRsD6jmqWiz2qUeZgp86lvyVNKVjQoulGsbb4qDM5
- DqZ8VQmaKflF7MyuJetoLd8tNKSFGWERGPDhy6l0FTjGa0iqg7ATD/uDKV9bwPchb0Qq
- aROKPjPPxkQjh3By+q4tWyCrv3KcF1SxQUYYCWqx6MivrWhpWHqLLky+J7pImSNqSmTa
- mNUIAOy7G56y1a+kCv3CBbNVolGvrTCWu5LXidfcqk4Wka1yjK5UUXOhPhzQpCAWqyJh
- s3RQ==
-X-Gm-Message-State: AOJu0Yxur9Dqlp/7eynK+hyg4JPEIAZQ7qfkJZDyY8Et56Im8BsJCmwP
- RNipldKAgOcS+1uzF+56zswBJ1meJNj8kw8Psiw=
-X-Google-Smtp-Source: AGHT+IE+V1VAlstb0TbKqgf3RZO31vQQTFTfQzdY2gUqTavTHX6nIqS+s+vxsEbElZ2mYPIfzTXXRqe/HPy+X4sL70o=
-X-Received: by 2002:a05:6871:c48e:b0:1e9:dae7:f58a with SMTP id
- ci14-20020a056871c48e00b001e9dae7f58amr17197041oac.22.1698951985938; Thu, 02
- Nov 2023 12:06:25 -0700 (PDT)
+ bh=ywkZ1ZWfNmiVp7a6UPS372ot5uoGxaI4T7nCnN1k30I=;
+ b=To6WAKgEu9BX6eL86jmJ4gKIRQPnn4HpU68ZakNrjqryC7rJJRc+kbn4fxAotc7jVM
+ 2S6NTycrzciXhol/gKivsmCO9AqwCj9Q0CcP5vMtyq6bnJ8UyzjGbC3AdGM5i5JutVjl
+ 9HeEOKUb5w7w2Fs7f8jNjytqg9a46fqWHvOi5mcOdpamTnLvv+r5+rRIBRzQJuzhywWi
+ kGxauHqKQJZrFVcq3umlxp671ffky8ACHzAGySQdp8WbsNglp0xoxmCY5iMkxsERSPqN
+ dTwrkZmgTbktKhmEkSUixDoMisTaH0n04IctuYI7EyEdkK0zNyQA5FbL/LF2nge9Iu1V
+ odvw==
+X-Gm-Message-State: AOJu0YyeISQ/Zf1VZkdSD2PiSz/d3k5fpt2jutEiBkVYAYR2xUMg3x0L
+ +AZjTFjRd6sQ4dR8TC9qPQWHBiTPnFAUWX07ldU=
+X-Google-Smtp-Source: AGHT+IE1yCCtzM/K8cFr0IT8oP2y3RjE6Uh5RrkvdH5l8sS2cDigljS/xmdpOFoQ2Ifca4c1s8xNpN5SqSINFrPB+PA=
+X-Received: by 2002:a05:6870:2007:b0:1dc:c65e:ded2 with SMTP id
+ o7-20020a056870200700b001dcc65eded2mr24706945oab.12.1698965601603; Thu, 02
+ Nov 2023 15:53:21 -0700 (PDT)
 MIME-Version: 1.0
-References: <20231101210037.130494-1-hamza.mahfooz@amd.com>
- <CADnq5_Nv0MnG+pPvRQO37OP8iYwz8oGvFLs2g-+U=URHWcqJGw@mail.gmail.com>
- <1eed6bfa-3e98-45d1-9908-2c5a0f3173c3@amd.com>
-In-Reply-To: <1eed6bfa-3e98-45d1-9908-2c5a0f3173c3@amd.com>
+References: <ZUNsmJGbYwgPaUpY@debian>
+ <CADnq5_Minarw2D_TeRdkm6nJOP_4qHM+MxiMeLWMXqHxjq22Xw@mail.gmail.com>
+ <CADVatmO9NCs=ryNg72HNzMDpqg862gpGnnFhQ4uwTpEkjOkCLw@mail.gmail.com>
+In-Reply-To: <CADVatmO9NCs=ryNg72HNzMDpqg862gpGnnFhQ4uwTpEkjOkCLw@mail.gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 2 Nov 2023 15:06:14 -0400
-Message-ID: <CADnq5_OUjbrVOmSr7vuK8h8rmg+q14ra1jiE+B0TRfZos-jn5w@mail.gmail.com>
-Subject: Re: [PATCH] drm/edid: add a quirk for two 240Hz Samsung monitors
-To: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Date: Thu, 2 Nov 2023 18:53:10 -0400
+Message-ID: <CADnq5_Ou7Cq071DJZnq+3PDNqkd3ZJb+dCEvMjiked6_t=E6MA@mail.gmail.com>
+Subject: Re: mainline build failure due to 7966f319c66d ("drm/amd/display:
+ Introduce DML2")
+To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -69,172 +70,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Jerry Zuo <jerry.zuo@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>
+Cc: regressions@lists.linux.dev, Leo Li <sunpeng.li@amd.com>,
+ Qingqing Zhuo <Qingqing.Zhuo@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Roman Li <roman.li@amd.com>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ "linux-kernel@vger.kernel.orgLinus Torvalds" <torvalds@linux-foundation.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 2, 2023 at 3:00=E2=80=AFPM Hamza Mahfooz <hamza.mahfooz@amd.com=
-> wrote:
+On Thu, Nov 2, 2023 at 1:07=E2=80=AFPM Sudip Mukherjee
+<sudipm.mukherjee@gmail.com> wrote:
 >
-> On 11/1/23 17:36, Alex Deucher wrote:
-> > On Wed, Nov 1, 2023 at 5:01=E2=80=AFPM Hamza Mahfooz <hamza.mahfooz@amd=
-.com> wrote:
-> >>
-> >> Without this fix the 5120x1440@240 timing of these monitors
-> >> leads to screen flickering.
-> >>
-> >> Cc: stable@vger.kernel.org # 6.1+
-> >> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1442
-> >> Co-developed-by: Harry Wentland <harry.wentland@amd.com>
-> >> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> >> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-> >> ---
-> >>   drivers/gpu/drm/drm_edid.c | 47 +++++++++++++++++++++++++++++++++++-=
---
-> >>   1 file changed, 44 insertions(+), 3 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> >> index bca2af4fe1fc..3fdb8907f66b 100644
-> >> --- a/drivers/gpu/drm/drm_edid.c
-> >> +++ b/drivers/gpu/drm/drm_edid.c
-> >> @@ -89,6 +89,8 @@ static int oui(u8 first, u8 second, u8 third)
-> >>   #define EDID_QUIRK_NON_DESKTOP                 (1 << 12)
-> >>   /* Cap the DSC target bitrate to 15bpp */
-> >>   #define EDID_QUIRK_CAP_DSC_15BPP               (1 << 13)
-> >> +/* Fix up a particular 5120x1440@240Hz timing */
-> >> +#define EDID_QUIRK_FIXUP_5120_1440_240         (1 << 14)
+> On Thu, 2 Nov 2023 at 16:52, Alex Deucher <alexdeucher@gmail.com> wrote:
 > >
-> > What is wrong with the original timing that needs to be fixed?
+> > On Thu, Nov 2, 2023 at 5:32=E2=80=AFAM Sudip Mukherjee (Codethink)
+> > <sudipm.mukherjee@gmail.com> wrote:
+> > >
+> > > Hi All,
+> > >
+> > > The latest mainline kernel branch fails to build x86_64 allmodconfig
+> > > with the error:
+> > >
+> > > drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c: In=
+ function 'dml_prefetch_check':
+> > > drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c:670=
+7:1: error: the frame size of 2056 bytes is larger than 2048 bytes [-Werror=
+=3Dframe-larger-than=3D]
+> > >  6707 | }
+> > >       | ^
+> > >
+> > > git bisect pointed to 7966f319c66d ("drm/amd/display: Introduce DML2"=
+)
+> > >
+> > > I will be happy to test any patch or provide any extra log if needed.
+> >
+> > This was reported earlier and fixed by:
+> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
+it/?id=3D089dbf6a06f1dcaeed4f8b86d619e8d28b235207
+> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
+it/?id=3Db141fa036c901303ca5659cc22e9c08f8b097892
+> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
+it/?id=3D5b2c54e0d0ea09f7a3b500510731878326e1117e
+> > but I guess maybe different compiler versions are still hitting this.
 >
-> Apparently, all of timing values for the 5120x1440@240 mode of these
-> monitors aren't set correctly (they are all lower than they should be)
-> in their EDIDs. For what it's worth, the windows driver has had a quirk
-> similar the one proposed in this patch for ~2 years.
+> Yes, I should have mentioned. gcc-11 and gcc-12 failed to build. but
+> gcc-13 was ok.
 
-It would be good to at least include the original mode timings from
-the EDID and the new ones added by the quirk in the commit message and
-a description of why they are problematic and why the new ones work.
+Should be fixed with Nathan's patch:
+https://patchwork.freedesktop.org/patch/565675/
 
 Alex
-
-
->
-> >
-> > Alex
-> >
-> >
-> >>
-> >>   #define MICROSOFT_IEEE_OUI     0xca125c
-> >>
-> >> @@ -170,6 +172,12 @@ static const struct edid_quirk {
-> >>          EDID_QUIRK('S', 'A', 'M', 596, EDID_QUIRK_PREFER_LARGE_60),
-> >>          EDID_QUIRK('S', 'A', 'M', 638, EDID_QUIRK_PREFER_LARGE_60),
-> >>
-> >> +       /* Samsung C49G95T */
-> >> +       EDID_QUIRK('S', 'A', 'M', 0x7053, EDID_QUIRK_FIXUP_5120_1440_2=
-40),
-> >> +
-> >> +       /* Samsung S49AG95 */
-> >> +       EDID_QUIRK('S', 'A', 'M', 0x71ac, EDID_QUIRK_FIXUP_5120_1440_2=
-40),
-> >> +
-> >>          /* Sony PVM-2541A does up to 12 bpc, but only reports max 8 b=
-pc */
-> >>          EDID_QUIRK('S', 'N', 'Y', 0x2541, EDID_QUIRK_FORCE_12BPC),
-> >>
-> >> @@ -6586,7 +6594,37 @@ static void update_display_info(struct drm_conn=
-ector *connector,
-> >>          drm_edid_to_eld(connector, drm_edid);
-> >>   }
-> >>
-> >> -static struct drm_display_mode *drm_mode_displayid_detailed(struct dr=
-m_device *dev,
-> >> +static void drm_mode_displayid_detailed_edid_quirks(struct drm_connec=
-tor *connector,
-> >> +                                                   struct drm_display=
-_mode *mode)
-> >> +{
-> >> +       unsigned int hsync_width;
-> >> +       unsigned int vsync_width;
-> >> +
-> >> +       if (connector->display_info.quirks & EDID_QUIRK_FIXUP_5120_144=
-0_240) {
-> >> +               if (mode->hdisplay =3D=3D 5120 && mode->vdisplay =3D=
-=3D 1440 &&
-> >> +                   mode->clock =3D=3D 1939490) {
-> >> +                       hsync_width =3D mode->hsync_end - mode->hsync_=
-start;
-> >> +                       vsync_width =3D mode->vsync_end - mode->vsync_=
-start;
-> >> +
-> >> +                       mode->clock =3D 2018490;
-> >> +                       mode->hdisplay =3D 5120;
-> >> +                       mode->hsync_start =3D 5120 + 8;
-> >> +                       mode->hsync_end =3D 5120 + 8 + hsync_width;
-> >> +                       mode->htotal =3D 5200;
-> >> +
-> >> +                       mode->vdisplay =3D 1440;
-> >> +                       mode->vsync_start =3D 1440 + 165;
-> >> +                       mode->vsync_end =3D 1440 + 165 + vsync_width;
-> >> +                       mode->vtotal =3D 1619;
-> >> +
-> >> +                       drm_dbg_kms(connector->dev,
-> >> +                                   "[CONNECTOR:%d:%s] Samsung 240Hz m=
-ode quirk applied\n",
-> >> +                                   connector->base.id, connector->nam=
-e);
-> >> +               }
-> >> +       }
-> >> +}
-> >> +
-> >> +static struct drm_display_mode *drm_mode_displayid_detailed(struct dr=
-m_connector *connector,
-> >>                                                              struct di=
-splayid_detailed_timings_1 *timings,
-> >>                                                              bool type=
-_7)
-> >>   {
-> >> @@ -6605,7 +6643,7 @@ static struct drm_display_mode *drm_mode_display=
-id_detailed(struct drm_device *d
-> >>          bool hsync_positive =3D (timings->hsync[1] >> 7) & 0x1;
-> >>          bool vsync_positive =3D (timings->vsync[1] >> 7) & 0x1;
-> >>
-> >> -       mode =3D drm_mode_create(dev);
-> >> +       mode =3D drm_mode_create(connector->dev);
-> >>          if (!mode)
-> >>                  return NULL;
-> >>
-> >> @@ -6628,6 +6666,9 @@ static struct drm_display_mode *drm_mode_display=
-id_detailed(struct drm_device *d
-> >>
-> >>          if (timings->flags & 0x80)
-> >>                  mode->type |=3D DRM_MODE_TYPE_PREFERRED;
-> >> +
-> >> +       drm_mode_displayid_detailed_edid_quirks(connector, mode);
-> >> +
-> >>          drm_mode_set_name(mode);
-> >>
-> >>          return mode;
-> >> @@ -6650,7 +6691,7 @@ static int add_displayid_detailed_1_modes(struct=
- drm_connector *connector,
-> >>          for (i =3D 0; i < num_timings; i++) {
-> >>                  struct displayid_detailed_timings_1 *timings =3D &det=
-->timings[i];
-> >>
-> >> -               newmode =3D drm_mode_displayid_detailed(connector->dev=
-, timings, type_7);
-> >> +               newmode =3D drm_mode_displayid_detailed(connector, tim=
-ings, type_7);
-> >>                  if (!newmode)
-> >>                          continue;
-> >>
-> >> --
-> >> 2.42.0
-> >>
-> --
-> Hamza
->
