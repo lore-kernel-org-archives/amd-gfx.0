@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41165C04E83
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Nov 2023 19:08:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9ECEC4167D
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Nov 2023 19:09:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0979B10EA71;
-	Fri,  3 Nov 2023 19:08:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C3C910EA6F;
+	Fri,  3 Nov 2023 19:08:51 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2041.outbound.protection.outlook.com [40.107.220.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F0BC10EA73;
- Fri,  3 Nov 2023 19:08:42 +0000 (UTC)
+ (mail-co1nam11on20627.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eab::627])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE08C10EA74;
+ Fri,  3 Nov 2023 19:08:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FPy/0keoTcYrxIUxXOKX9W+s7kd3sTefyw3q1VP4WNXFcWtyoKw6OzjdhMRWKh67cgOVJVOtMh3M4UxaAsCwS/oEov8g+D8LuPXVsV76oF+l1S/Lg6Fiqr0PmA0GAIhHTByZahhr9jV+zPJ7g5NUtjioIpLe8TQ1YQmq4U+sc+pBDB+CBHIPVWz9HJrx9vM0RG5FveyxdM3MuhUGO3GtFJvZjWOoEPZEbfVFEFlSiL8dpBNJ9h9m9vhFaCUs4sqFXPpNWya+EjinmelytgHjvXt/uJWt9Qh6Txy2mZJvSl/UNsanvaABBoGaxlGZ1khRV+7WuIJ/ki4QEE3Rfy92Nw==
+ b=RHsZrfp7WQNjz+J9I/444tKaWInicMD/ZPpZbkzMAP1irWS9Q47MdAWEv4nng9FhVbH+JYx8qb3O9EGGxF+7+hb4KLizqQ/izjpWiHzu/gOCVfPoS2LbjyjneFKQX9L66QASTQ0X/u+2RUuIWdFaPPML5CVNbnaRXOtc/LTdKIVJ/V5WvwA7OWzqI+6rTtTaCiOwY1R6hyhhBgKz/27PQJFtApo0pUaNUgmcftOiEQHx9aAUiXKPbExoXqF5WHXBHJ6WQ5+GAkHZpxgNnxEPW8xW/S32nsWzKASkSFsOewsm7YsiNedmyYo2aQPQK7U26upkms8ZzgD+XH3EL++kSw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rvK1EOLRL3fEva493L/Ddocddm/ytkNImCssFqfMRSA=;
- b=KycTN0muaer/qxpYxvrTzl9twhktwoYk2PrlEPQnfh18WyK0sd41sbKh9pE6LyuBnl/d+Coub81JC5eWzEj2yg6JdzDfa5AH0CFuIO/3JvIMIgmD0GqLyx6bJt9toxs/DYpm2h//gDFmG4mEA7UHfIfevIxbnlXWLmCPBGIUXRkFb4l/9vyIyS0BeAYK9KXhq0qrFh/fLhdxH8lZRyFAp7LdxZ6A0LMyhFX0U584/+g1Oeo69lI5bl8x+MZ1C12tVRdA7bMRdLeA/rMMSHscWAUol0u1gAnDgySOfUvSb8z4ei+m99SVACIGoDFl+UNwOuxlWgWyk2zuPX5ENuCFfg==
+ bh=9bm6CvuPszQdPXt5Zsc6/nH1F3rQtl/A2wuDDypGcGk=;
+ b=MOr/Iq/sk0lYyeJfRLo4LUHtO95iqkW7uUpmoV0WOarEnqgNhVxCwIX8G3oaYA3YvSMmT6EN/sF9fuP6Fw+UM+wXikR7bzgeJIG2DddEM4/P9Ir049NCUFbxHOGRAgHOizR3AjodfxLsqtXH5b7epa+FfFSgurCIRXNDX8T0fUC7PpBLeUHz8vfG7srFdVxQqxJGKoryQa4xHgvqQtkEG7bl8WRSPUkkplUxsFUBbNXSD7JFsuBqBKPAB9zxA2JcTo+uEOaHQcAFaftbl5/e5H2xRW8kYGjkq4vaEKPssPeU8CuRxmFKcXaiqERuti0zo4rSbTLLMenTzEt1ZYO9bg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rvK1EOLRL3fEva493L/Ddocddm/ytkNImCssFqfMRSA=;
- b=0Mi5GWbP+ZVanmSU/PEva62VMf4h7wXsZAECQx9yEDp47qucAAvJBP3mC02Fje57iuEd46hPYCzVGJ9XpebIAjUpOPgG7zZApHLzDHRFpNnbOXLPjAE0vt96plv99Hd7QsuIN60IxWNa7VtmWCqOIe9lp372pcgRaR+ieS3bLoE=
-Received: from MW2PR2101CA0010.namprd21.prod.outlook.com (2603:10b6:302:1::23)
- by LV8PR12MB9231.namprd12.prod.outlook.com (2603:10b6:408:192::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.21; Fri, 3 Nov
- 2023 19:08:39 +0000
-Received: from CO1PEPF000044EF.namprd05.prod.outlook.com
- (2603:10b6:302:1:cafe::70) by MW2PR2101CA0010.outlook.office365.com
- (2603:10b6:302:1::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.10 via Frontend
- Transport; Fri, 3 Nov 2023 19:08:39 +0000
+ bh=9bm6CvuPszQdPXt5Zsc6/nH1F3rQtl/A2wuDDypGcGk=;
+ b=Jc0A8ugIcvY3nY1ksEuQVqNtqx3jY1/eckxO8CLf8hp0X/l8Vpi71s7YCRuyq19iuhVljfR4iNbuBiizkUoED7FuHkxNnANcRc1+NBU+YGeG7pv5a+KHfv2qFWymRnkZgjgpJSFnhGs8hjpHGdSehoKHOSQBTbzBQpw0Ss2KeEg=
+Received: from MW4P221CA0008.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::13)
+ by SN7PR12MB8146.namprd12.prod.outlook.com (2603:10b6:806:323::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.24; Fri, 3 Nov
+ 2023 19:08:45 +0000
+Received: from CO1PEPF000044F0.namprd05.prod.outlook.com
+ (2603:10b6:303:8b:cafe::26) by MW4P221CA0008.outlook.office365.com
+ (2603:10b6:303:8b::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.22 via Frontend
+ Transport; Fri, 3 Nov 2023 19:08:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,13 +46,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000044EF.mail.protection.outlook.com (10.167.241.69) with Microsoft
+ CO1PEPF000044F0.mail.protection.outlook.com (10.167.241.70) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6954.19 via Frontend Transport; Fri, 3 Nov 2023 19:08:39 +0000
+ 15.20.6954.19 via Frontend Transport; Fri, 3 Nov 2023 19:08:44 +0000
 Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Fri, 3 Nov
- 2023 14:08:35 -0500
+ 2023 14:08:41 -0500
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, "Alex
  Deucher" <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
@@ -59,10 +60,10 @@ To: Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, "Alex
  Goede" <hdegoede@redhat.com>, =?UTF-8?q?Ilpo=20J=C3=A4rvinen?=
  <ilpo.jarvinen@linux.intel.com>, Mika Westerberg
  <mika.westerberg@linux.intel.com>, Lukas Wunner <lukas@wunner.de>
-Subject: [PATCH v2 7/9] PCI: ACPI: Detect PCIe root ports that are used for
- tunneling
-Date: Fri, 3 Nov 2023 14:07:56 -0500
-Message-ID: <20231103190758.82911-8-mario.limonciello@amd.com>
+Subject: [PATCH v2 9/9] PCI: Add a quirk to mark 0x8086 : 0x9a23 as supporting
+ PCIe tunneling
+Date: Fri, 3 Nov 2023 14:07:58 -0500
+Message-ID: <20231103190758.82911-10-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231103190758.82911-1-mario.limonciello@amd.com>
 References: <20231103190758.82911-1-mario.limonciello@amd.com>
@@ -74,26 +75,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044EF:EE_|LV8PR12MB9231:EE_
-X-MS-Office365-Filtering-Correlation-Id: a5b2457e-15b6-4a57-e1e3-08dbdca049d5
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F0:EE_|SN7PR12MB8146:EE_
+X-MS-Office365-Filtering-Correlation-Id: af307a45-915a-42fa-0ab9-08dbdca04ce3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RijnE6ToB9ggfAu8en5ipXcGmL3JY+sd1LC0IBROqrHg2EUjPqORlIT9UpmR7jZMfYR8FagjDYL+bsXkqcUZvpt8zr/wnPDMWKajMVlayZ2fm1QIDHU/99ii931BKNCeVc07YQlt3j6/eRfZMIESSMZksOE7BMCbjHLNWTMQPShcwT9NmIBqHYZrQTL9sOncay6Msb20xL+pHJEBM21UTZUy68+fJ9WOqNnJhcg54cVu5QhnO1zOKCPA9lJgnW/OVUjXdiLNiusdFRstUngm4CRtogDWXYn8ngluhDxUyUWPgw+UUbq5Ldc/gj+M7czn+U247xl1O4vQC2+FHLF1nW4Fz3OegaRUYw3OIDt1YSpUIRAZEAd4H1tqzlSiAdVxFyeZbUQkprEz08xKKhCU5Fv4j7/LKyYf1OjKQ6Z6plmk5YpWYNdHhECuRy15ADmLmFAR4VHS3zuySbVCPKJclOVSAz1m0Hj8nJxOzxlgzkn/0qK1cA8ZFGcOfrdx+v8QKltqCagiDU2Z7Dq7FHqf537GLcQZ01Bdl5vLylpH6gkxVjIZdeNCQxQ1FaX2uOvSMH8diA4No9HHZkQEvGlN7yv4p3g9G8pjMZvypzVVkUd95Q4e6v9PlHlWhCGV1A1E8n0YQae4PRlJ8zzm7MQ/fntp0uVu32z8N2OsvodA5l6LwHdbnFtI1vFVb4/mYWJtJ0Kr0qwGE88ZZ67xsDbVRRy0NsxuXIJ/VdefVARSM5VUGbVPCsFtcndbkcdRIq4tydVmJRYiGqGHuk2/WjB9V6hf5KPs8j8ma76EU4mRWltwn1b6PehhWriFPzSyLTIG
+X-Microsoft-Antispam-Message-Info: RFPYuBVsqfBHmJXlBnNiy1k/QcZUag5y1aEzneMp8T7RXa09nxgtEHw12USPTpKsC1J8RF/7tszj4l8FExfwYeUHXgm8w8eRHBKdBDJbWf9GVRnIqwluq/5ItSvgQCwdCANqGJUW9mgsYwXUiQ9y4pCM9VFKqR5nLZrFQdORomem6R6Jwz0kIikyiCimcm2wriyQWrn/8N3x8TkjaH1F+Ecv9sOUzioaUkShCOczD9IndWHwvksjEEZMt+dXp3BpMFc6oJw4SOMTzrg7PAqBRJ7DKlvHZSZZSiE3+6E7dXMoFKHroe0d+MRnhAnW0dFUTg/wiiVQnNhXhpLkWY7hB8CAx4+rMTUeSDW+bX/Ynk4D1xhZIhGnM0wRCFWOVXQqhTLpOhOTLJahzqlWSVYvcQqTtUFJ1mjhJb+tgOEp+wy9/O2NOmBksD8ceeFN2sQTSUwTZAsmrkb4oTLtLACNwnJr6OZhGqK9NL31WqWJLTzDkCH2W8aHcHEvmoBOGZMu1TDQS/O7NrmYb+L8+t+sQdPl8CkbB60CP6eeRe+doRIzCmkmSRiM2f0SdSvb7ype2TD1etQU5Fx9nkslpRiCPm9pHiDWGbvTYn6Hn0xg22DavCTinLgdp6XWaKkNOynNkuU5/g8Id7Q//wMgNlZXhvWZ9PSm0egFZwdtnWv1Pc389yifDKt2cMyls9CMI/a2Cyb/QZ6ZTb5wpEEOh1Y2i9M1HbB+EdG6jdJOf2UqtfBXOhF7cxhuDNGV1EMkN8LG
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(136003)(396003)(346002)(39860400002)(376002)(230273577357003)(230173577357003)(230922051799003)(82310400011)(1800799009)(64100799003)(451199024)(186009)(40470700004)(46966006)(36840700001)(36860700001)(47076005)(66574015)(336012)(16526019)(426003)(2616005)(1076003)(6666004)(26005)(83380400001)(7696005)(316002)(478600001)(70206006)(110136005)(966005)(54906003)(81166007)(356005)(70586007)(82740400003)(8676002)(8936002)(44832011)(41300700001)(40460700003)(40480700001)(4326008)(86362001)(2906002)(7416002)(5660300002)(36756003)(36900700001);
+ SFS:(13230031)(4636009)(396003)(346002)(136003)(376002)(39860400002)(230922051799003)(451199024)(1800799009)(186009)(82310400011)(64100799003)(46966006)(40470700004)(36840700001)(47076005)(70206006)(70586007)(86362001)(110136005)(26005)(336012)(82740400003)(81166007)(426003)(2616005)(16526019)(1076003)(316002)(54906003)(478600001)(966005)(7696005)(6666004)(8936002)(8676002)(356005)(40480700001)(40460700003)(4326008)(44832011)(36756003)(2906002)(83380400001)(7416002)(36860700001)(5660300002)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2023 19:08:39.3126 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a5b2457e-15b6-4a57-e1e3-08dbdca049d5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2023 19:08:44.4476 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: af307a45-915a-42fa-0ab9-08dbdca04ce3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044EF.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F0.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9231
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8146
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,61 +129,45 @@ Cc: "open list:THUNDERBOLT DRIVER" <linux-usb@vger.kernel.org>, "Rafael J .
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-USB4 routers support a feature called "PCIe tunneling". This
-allows PCIe traffic to be transmitted over USB4 fabric.
+The PCI root port used for tunneling USB4 traffic on Tiger Lake is
+is not marked as tunneling but has the same limitations as other
+PCIe root ports used for tunneling.
 
-PCIe root ports that are used in this fashion can be discovered
-by device specific data that specifies the USB4 router they are
-connected to. For the PCI core, the specific connection information
-doesn't matter, but it's interesting to know that this root port is
-used for tunneling traffic. This will allow other decisions to be
-made based upon it.
+This causes pcie_bandwidth_available() to treat it as the limiting
+device in the PCI hierarchy and downstream driver to program devices
+incorrectly as a result.
 
-Detect the `usb4-host-interface` _DSD and if it's found save it
-into the `is_tunneling` bit in `struct pci_device`.
+Add a quirk to mark the device as tunneling so that it will be skipped
+in pcie_bandwidth_available() like other TBT3/USB4 root ports and bridges.
 
-Link: https://www.usb.org/document-library/usb4r-specification-v20
-      USB4 V2 with Errata and ECN through June 2023
-      Section 2.2.10.3
-Link: https://learn.microsoft.com/en-us/windows-hardware/design/component-guidelines/usb4-acpi-requirements#port-mapping-_dsd-for-usb-3x-and-pcie
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2885
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/pci/pci-acpi.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ drivers/pci/quirks.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/pci/pci-acpi.c b/drivers/pci/pci-acpi.c
-index 05b7357bd258..81dbfd335f34 100644
---- a/drivers/pci/pci-acpi.c
-+++ b/drivers/pci/pci-acpi.c
-@@ -1414,12 +1414,28 @@ static void pci_acpi_set_external_facing(struct pci_dev *dev)
- 		dev->external_facing = 1;
- }
- 
-+static void pci_acpi_set_tunneling(struct pci_dev *dev)
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index 4bbf6e33ca11..0f124e075834 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -3827,6 +3827,17 @@ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_CACTUS_RIDGE_2C
+ 			quirk_thunderbolt_command_complete);
+ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_PORT_RIDGE,
+ 			quirk_thunderbolt_command_complete);
++
++/*
++ * PCIe root port associated with the integrated controller is used for PCIe
++ * tunneling but can't be detected using ACPI.
++ */
++static void quirk_thunderbolt_tunneling(struct pci_dev *pdev)
 +{
-+	if (!pci_is_pcie(dev))
-+		return;
-+
-+	switch (pci_pcie_type(dev)) {
-+	case PCI_EXP_TYPE_ROOT_PORT:
-+	case PCI_EXP_TYPE_DOWNSTREAM:
-+		dev->is_tunneled = device_property_present(&dev->dev, "usb4-host-interface");
-+		break;
-+	default:
-+		return;
-+	}
++	pdev->is_tunneled = 1;
 +}
-+
- void pci_acpi_setup(struct device *dev, struct acpi_device *adev)
- {
- 	struct pci_dev *pci_dev = to_pci_dev(dev);
- 
- 	pci_acpi_optimize_delay(pci_dev, adev->handle);
- 	pci_acpi_set_external_facing(pci_dev);
-+	pci_acpi_set_tunneling(pci_dev);
- 	pci_acpi_add_edr_notifier(pci_dev);
- 
- 	pci_acpi_add_pm_notifier(adev, pci_dev);
++DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0x9a23,
++			quirk_thunderbolt_tunneling);
+ #ifdef CONFIG_ACPI
+ /*
+  * Apple: Shutdown Cactus Ridge Thunderbolt controller.
 -- 
 2.34.1
 
