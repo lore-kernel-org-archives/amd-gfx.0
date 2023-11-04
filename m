@@ -4,63 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 264E4C4167D
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 09:00:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 292B7C0018A
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 09:00:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 678EE10E28F;
-	Mon,  6 Nov 2023 09:00:04 +0000 (UTC)
-Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
- [IPv6:2607:f8b0:4864:20::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3308210E11A
- for <amd-gfx@lists.freedesktop.org>; Sun,  5 Nov 2023 17:55:58 +0000 (UTC)
-Received: by mail-pl1-x62b.google.com with SMTP id
- d9443c01a7336-1cc5b7057d5so33666845ad.2
- for <amd-gfx@lists.freedesktop.org>; Sun, 05 Nov 2023 09:55:58 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A9F710E28E;
+	Mon,  6 Nov 2023 09:00:05 +0000 (UTC)
+Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
+ [IPv6:2607:f8b0:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D24710E0BE;
+ Sat,  4 Nov 2023 13:02:33 +0000 (UTC)
+Received: by mail-pf1-x435.google.com with SMTP id
+ d2e1a72fcca58-6ba54c3ed97so3078528b3a.2; 
+ Sat, 04 Nov 2023 06:02:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1699206957; x=1699811757; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
- :reply-to; bh=HIXC95EsfE1M+IH5iNxhZaF/mLKVXVH52rDOYhksDf4=;
- b=KW47Ns1nmomh1fZR7dM11DbKIXxhEuZJKmK8tOUtewm5JYA0tZ4yH0i0aIh0Z4gMrU
- 3F9NHqR6c6dxA7b08bHe3RgoVVaJnWw7dA3XxzdzcCaPzoar80zeweYkggFQ1F9AOP5S
- HzQrS+JnPftFLpne66VXJRxtcBBCkSq11CDxJ8gFvkqFtMUkbWKIjfwc1OH2xqzJzXwG
- YXsuOmEMa8DD1eiwqAUn4BZl09k3DiZHPlEQyrw6cUDP631bGRmOew4YPPvy7vt5R6aK
- 1hj/dPxVAofcRDdRT+AW57Wwe5yxk9bY49PiECpGwArHZ1du8p0u3NwXEyroMBwI3S5/
- Ixng==
+ d=gmail.com; s=20230601; t=1699102952; x=1699707752; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=LFVAhVDAedSPFBRNn04JrHWzW4kv30ibC/cuBpR5pcg=;
+ b=Baka9YFWf5y+G9TWSAYxNWS8e2Xub/MJ3kvd5Qc5ljEaOBBSD2dpbxe1UQ8UifPSvA
+ gAsDAf0+GxHpCiBN4N9iG8u8cJ6tWWgMpBMtdkEHG9dfhlPPjs91afuDrap3wWr/rYtS
+ ToYgkWiTybd0Xpu/cqhd439u12JqxWULdXJCExKtkLqVawa8TfrsnOmPdSG/EgUOg93Z
+ EPasEvMNGjr1jU5ecfvworYvVgmmCrjCVIz68toGem4FkAnTXbPWyzusO4BuNCHWVlO3
+ Yi9kV3SAyV+3P15CqUb7TOXWCHYqJxGXJ3pCFA4h5y6AND9VTh6IJEjOo4Wwj/BQTc6S
+ NRoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699206957; x=1699811757;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:sender:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=HIXC95EsfE1M+IH5iNxhZaF/mLKVXVH52rDOYhksDf4=;
- b=rI2gZRihp7FjnsHO419k1QUqorMKG5hY8xqDiqWFJshxEgfhQhIxJwLgiTthkHle8D
- pygIfz0p90uWgE6jKrIJI8NAWUgx5RTDLNcu5BJyX9FvsBKRHuyNqdBtoAOpYTszqJxD
- rdnMFFMU8XBuhs8T0qWHIKsWR8YZjaKsyZEXT+4onS0cJ288cMIyHt+4yJUqw8mvVclz
- 2WcptpVDMp1FPNTuUKU79xOy7ffQ+Nmns/Dt7tMOIu1GexHEfG74HuykhI3IPZo8ez9u
- 18nAI0CwESX1wjqiwsGMvMxgMQ0T1cB9iZ7sUFBcGb1/XUBBUyG4hY37a7fXaM26aph1
- V04g==
-X-Gm-Message-State: AOJu0Yzj2H1acrm1GWkzbbehI9qKMJZBxNejGbry9sLQ6PYcL902dTA8
- cU4wMQO1molAj8A+JrJikX0=
-X-Google-Smtp-Source: AGHT+IFBLGY54PYhYsI+r9J0zFjt+Lj9MUAmvwx6SjMhszUI82oqENWEtbcEZk5jA75+E2fw/54IEQ==
-X-Received: by 2002:a17:902:ecce:b0:1cc:59a1:79c6 with SMTP id
- a14-20020a170902ecce00b001cc59a179c6mr22992191plh.18.1699206957551; 
- Sun, 05 Nov 2023 09:55:57 -0800 (PST)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ d=1e100.net; s=20230601; t=1699102952; x=1699707752;
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=LFVAhVDAedSPFBRNn04JrHWzW4kv30ibC/cuBpR5pcg=;
+ b=makvNvIiPSH38XuKyTD5Lxi9w6Z/Jw8UxE2D05qVT9umvzcyCAiFNEzfGiBrV90/5/
+ ZD1JuTif/arz6ncMmt3NuY53tt/6E+oo9faXLUVAO2mmpvTf8YfV0U1XUHFT0eru09bd
+ v570C2AM51pbE6Q+i0PKFJnyQeX292Vja/+VArtOgwNI1wHUzl9pt336D6SXSb/y/D4g
+ UZ1TB+JErq6j7ZY2c1kePXNX4C2NBOGHrbA5uY4j+6g5J5EzAmizg6c82r/o+gNR2aS/
+ g7l9zaZSmUH0WRz/HdZX/oKKMfxj1HfZil3awX3wneTs6u6Gyn631dlggTcKo2qby4hF
+ VC7g==
+X-Gm-Message-State: AOJu0YwihVKko3i5xWcOx+x28fH4P/Zx9bVkfSHCvVg4dXJWgiTZBeif
+ tX4kzHZCDeEYjHEtXF8CnvmrTSVjyyA=
+X-Google-Smtp-Source: AGHT+IGb2vdo0cD4NjwXX5OmI6gWBS7QEBhZ6vsJMldsGy5t93N5hQHbF6HT7pFJFA7qYJp4Mni0UA==
+X-Received: by 2002:a05:6a20:7348:b0:17a:eddb:ac6a with SMTP id
+ v8-20020a056a20734800b0017aeddbac6amr31496489pzc.6.1699102952530; 
+ Sat, 04 Nov 2023 06:02:32 -0700 (PDT)
+Received: from [192.168.1.11] ([27.5.100.249])
  by smtp.gmail.com with ESMTPSA id
- m15-20020a170902db0f00b001c7443d0890sm3062865plx.102.2023.11.05.09.55.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 05 Nov 2023 09:55:56 -0800 (PST)
-Date: Sun, 5 Nov 2023 09:55:55 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Subject: Re: [PATCH 2/2] drm/amd/display: Fix stack size issue on DML2
-Message-ID: <aa6344f8-abd4-4f9e-86cf-febecd6fd747@roeck-us.net>
-References: <20231016142031.241912-1-Rodrigo.Siqueira@amd.com>
- <20231016142031.241912-3-Rodrigo.Siqueira@amd.com>
+ f20-20020a635554000000b0059d6f5196fasm2844708pgm.78.2023.11.04.06.02.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 04 Nov 2023 06:02:32 -0700 (PDT)
+Message-ID: <2bb714be-9511-4f79-a633-9f4467a6dcba@gmail.com>
+Date: Sat, 4 Nov 2023 18:32:25 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231016142031.241912-3-Rodrigo.Siqueira@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: avoid variable reinitialization
+Content-Language: en-US
+From: Bragatheswaran Manickavel <bragathemanick0908@gmail.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ daniel@ffwll.ch, airlied@gmail.com, Qingqing.Zhuo@amd.com,
+ alvin.lee2@amd.com, wenjing.liu@amd.com, jun.lei@amd.com, Samson.Tam@amd.com
+References: <20231024181134.48066-1-bragathemanick0908@gmail.com>
+ <744beb05-1327-401e-a961-edfe63bd8927@gmail.com>
+In-Reply-To: <744beb05-1327-401e-a961-edfe63bd8927@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 06 Nov 2023 09:00:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,33 +79,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>, Roman Li <roman.li@amd.com>,
- amd-gfx@lists.freedesktop.org, linux-next@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Chaitanya Dhere <chaitanya.dhere@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 16, 2023 at 08:19:18AM -0600, Rodrigo Siqueira wrote:
-> This commit is the last part of the fix that reduces the stack size in
-> the DML2 code.
-> 
 
-That does not really help when trying to build allmodconfig or allyesconfig
-with gcc 11.4 or 12.3.
+On 30/10/23 20:17, Bragatheswaran Manickavel wrote:
+>
+> On 24/10/23 23:41, Bragatheswaran Manickavel wrote:
+>> The member variable enable_hpo_pg_support is already initialized
+>> and hence the reinitialization instruction can be removed. Issue
+>> identified using the doubleinit.cocci Coccinelle semantic patch script.
+>>
+>> Signed-off-by: Bragatheswaran Manickavel <bragathemanick0908@gmail.com>
+>> ---
+>>   drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c | 1 -
+>>   1 file changed, 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c 
+>> b/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c
+>> index 99d55b958977..1fd9df8da09c 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c
+>> @@ -739,7 +739,6 @@ static const struct dc_debug_options 
+>> debug_defaults_drv = {
+>>       .disable_boot_optimizations = false,
+>>       .disable_unbounded_requesting = false,
+>>       .disable_mem_low_power = false,
+>> -    .enable_hpo_pg_support = false,
+>>       //must match enable_single_display_2to1_odm_policy to support 
+>> dynamic ODM transitions
+>>       .enable_double_buffered_dsc_pg_support = true,
+>>       .enable_dp_dig_pixel_rate_div_policy = 1,
+>
+>
+> just a friendly ping
+>
+> Thanks,
+> Bragathe
+>
+Could someone help me in reviewing this changes ?
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c: In function 'dml_prefetch_check':
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c:6707:1: error: the frame size of 2056 bytes is larger than 2048 bytes
+Thanks,
+Bragathe
 
-This is with v6.6-14500-g1c41041124bd.
-
-I am overwriting it by forcing CONFIG_FRAME_WARN=0 in my test builds for
-x86_64, but of course that affects all code. Maybe consider increasing
-frame-larger-than in drivers/gpu/drm/amd/display/dc/dml2/Makefile ?
-Currently it is
-
-ifneq ($(CONFIG_FRAME_WARN),0)
-frame_warn_flag := -Wframe-larger-than=2048
-endif
-
-Guenter
