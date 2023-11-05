@@ -4,65 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4663CC4332F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAB20C001B0
 	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 09:00:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53F2010E291;
-	Mon,  6 Nov 2023 09:00:05 +0000 (UTC)
-Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
- [IPv6:2607:f8b0:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDAE410E261;
- Mon,  6 Nov 2023 05:15:50 +0000 (UTC)
-Received: by mail-pf1-x42c.google.com with SMTP id
- d2e1a72fcca58-6b44befac59so3888516b3a.0; 
- Sun, 05 Nov 2023 21:15:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1699247750; x=1699852550; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=wJQuj+yw5AtCsm3Nh3eaEJ8IPjFc0cjx5pVXpkaybko=;
- b=CMybkdB4jrrTL119qMesmNBviyxoUSPrJ1URyyQ5UVVxafTCgEwKp2hDUlbaj3GTn2
- bxJ/PJcvwf2r8DuGc6OsRU7Ksr4vKqdZaK+YpMFZ3RK5d/a5L7ln37RQRpzF1m/Yydpj
- lezGJyUasfqV2N5+C97sP5JDhK7GTwosstUb/jDLk5wCsvrxSRIl532PDpPJZ4bOHTif
- RADAeQyioVOkrOO+Y4xwWzeoQZYMayI3qMci8ZO56cvd2lHWiQMtotFaJCz8MlrEhxKw
- PXp1l9QY6iY1GskWz/URs+SUiKQJcOdQL9x2eQ5y5EKaVBhNAqaqbAN7pWRqn4rrrO+r
- sx3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699247750; x=1699852550;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=wJQuj+yw5AtCsm3Nh3eaEJ8IPjFc0cjx5pVXpkaybko=;
- b=KjvE5yPq/PQUgyGmP2tgavJoyieSb5MtNSMUxqVsCMUi91QzB/cTJuNUZqn/ufVZ5B
- nD2NR1uCwWmuwvRnYWxOGpuTGDARZSP1kLlUjELfhh5gFiMCGm0Dbz+B9/ynMis1iBJy
- 61o/SeyflVKDKNFbym/wfv7v4meCaHahnnFVPhKAlP1tyZh9i1hkvydSzIwif1ljSQ2+
- 6ReYVW8XDX2dnuxcI+nBetTKhmUW/k6YY6In6RRJptrQxLL18DDcRriQC9didCxYNZFE
- AfgrfRNlhiRcGPSLENkOn7Xq7bMXs6BLfjbXy7HeOnNxTiV37MJZ6fWOe3E2k2Yr7fnK
- fKqg==
-X-Gm-Message-State: AOJu0YyQ9KH/8DIcFYsp7vsOkB2G/qtHoqFu6Vu390jWiokwhPps1Wjg
- bD3hw+MTCfNL0rX/sLghb6Q=
-X-Google-Smtp-Source: AGHT+IFJnPm4yurMc99aQj3qffQVoJNmBJcK7sbQ+SdUH+x3YGKqHbHy1aOCEnKMvznjVmoguV3Pzw==
-X-Received: by 2002:a05:6a20:2587:b0:181:a5ff:2dfa with SMTP id
- k7-20020a056a20258700b00181a5ff2dfamr11831872pzd.5.1699247750411; 
- Sun, 05 Nov 2023 21:15:50 -0800 (PST)
-Received: from debian.me ([103.131.18.64]) by smtp.gmail.com with ESMTPSA id
- s133-20020a632c8b000000b005ab281d0777sm4748640pgs.20.2023.11.05.21.15.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 05 Nov 2023 21:15:49 -0800 (PST)
-Received: by debian.me (Postfix, from userid 1000)
- id EE5B1822370C; Mon,  6 Nov 2023 12:15:43 +0700 (WIB)
-Date: Mon, 6 Nov 2023 12:15:42 +0700
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: Hunter Chasens <hunter.chasens18@ncf.edu>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v1] drm: amd: Resolve Sphinx unexpected indentation warning
-Message-ID: <ZUh2fuCjmgle3vd9@debian.me>
-References: <20231105210044.70371-1-hunter.chasens18@ncf.edu>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07E6D10E28D;
+	Mon,  6 Nov 2023 09:00:06 +0000 (UTC)
+X-Greylist: delayed 366 seconds by postgrey-1.36 at gabe;
+ Sun, 05 Nov 2023 09:55:02 UTC
+Received: from smtp.gentoo.org (mail.gentoo.org
+ [IPv6:2001:470:ea4a:1:5054:ff:fec7:86e4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E2E110E04A;
+ Sun,  5 Nov 2023 09:55:02 +0000 (UTC)
+User-agent: mu4e 1.10.7; emacs 30.0.50
+From: Sam James <sam@gentoo.org>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: amdgpu_amdkfd_gfx* triggers new -Walloc-size warnings in GCC 14
+Date: Sun, 05 Nov 2023 09:45:24 +0000
+Organization: Gentoo
+Message-ID: <87wmuwo7i3.fsf@gentoo.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Z3YYlR3KMg8w41Vy"
-Content-Disposition: inline
-In-Reply-To: <20231105210044.70371-1-hunter.chasens18@ncf.edu>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 06 Nov 2023 09:00:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,67 +38,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lijo Lazar <lijo.lazar@amd.com>,
- Linux Documentation <linux-doc@vger.kernel.org>, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org,
- Linux DRI Development <dri-devel@lists.freedesktop.org>, daniel@ffwll.ch,
- alexander.deucher@amd.com, evan.quan@amd.com, airlied@gmail.com,
- christian.koenig@amd.com
+Cc: Kees Cook <kees@kernel.org>, uecker@gcc.gnu.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+GCC 14 introduces a new -Walloc-size warning (https://gcc.gnu.org/onlinedoc=
+s/gcc/Warning-Options.html#index-Wno-alloc-size)
+which triggers on the following amdgpu files:
+"""
+/var/tmp/portage/sys-kernel/gentoo-kernel-6.5.10/work/linux-6.5/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c: In function =E2=80=98kgd_hqd_dump=
+=E2=80=99:
+/var/tmp/portage/sys-kernel/gentoo-kernel-6.5.10/work/linux-6.5/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c:241:15: error: allocation of insuffi=
+cient size =E2=80=984=E2=80=99 for type =E2=80=98uint32_t[2]=E2=80=99 {aka =
+=E2=80=98unsigned int[2
+]=E2=80=99} with size =E2=80=988=E2=80=99 [-Werror=3Dalloc-size[https://gcc=
+.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Walloc-size]]
+  241 |         *dump =3D kmalloc_array(HQD_N_REGS * 2, sizeof(uint32_t), G=
+FP_KERNEL);
+      |               ^
+/var/tmp/portage/sys-kernel/gentoo-kernel-6.5.10/work/linux-6.5/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c: In function =E2=80=98kgd_hqd_sdma_d=
+ump=E2=80=99:
+/var/tmp/portage/sys-kernel/gentoo-kernel-6.5.10/work/linux-6.5/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c:327:15: error: allocation of insuffi=
+cient size =E2=80=984=E2=80=99 for type =E2=80=98uint32_t[2]=E2=80=99 {aka =
+=E2=80=98unsigned int[2
+]=E2=80=99} with size =E2=80=988=E2=80=99 [-Werror=3Dalloc-size[https://gcc=
+.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Walloc-size]]
+  327 |         *dump =3D kmalloc_array(HQD_N_REGS * 2, sizeof(uint32_t), G=
+FP_KERNEL);
+      |               ^
+/var/tmp/portage/sys-kernel/gentoo-kernel-6.5.10/work/linux-6.5/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c: In function =E2=80=98kgd_arcturus=
+_hqd_sdma_dump=E2=80=99:
+/var/tmp/portage/sys-kernel/gentoo-kernel-6.5.10/work/linux-6.5/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c:203:15: error: allocation of insuf=
+ficient size =E2=80=984=E2=80=99 for type =E2=80=98uint32_t[2]=E2=80=99 {ak=
+a =E2=80=98unsigned int
+[2]=E2=80=99} with size =E2=80=988=E2=80=99 [-Werror=3Dalloc-size[https://g=
+cc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Walloc-size]]
+  203 |         *dump =3D kmalloc_array(HQD_N_REGS * 2, sizeof(uint32_t), G=
+FP_KERNEL);
+      |               ^
+/var/tmp/portage/sys-kernel/gentoo-kernel-6.5.10/work/linux-6.5/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c: In function =E2=80=98kgd_gfx_v9_4=
+_3_hqd_sdma_dump=E2=80=99:
+/var/tmp/portage/sys-kernel/gentoo-kernel-6.5.10/work/linux-6.5/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c:142:15: error: allocation of insuf=
+ficient size =E2=80=984=E2=80=99 for type =E2=80=98uint32_t[2]=E2=80=99 {ak=
+a =E2=80=98unsigned int
+[2]=E2=80=99} with size =E2=80=988=E2=80=99 [-Werror=3Dalloc-size[https://g=
+cc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Walloc-size]]
+  142 |         *dump =3D kmalloc_array(HQD_N_REGS * 2, sizeof(uint32_t), G=
+FP_KERNEL);
+      |               ^
+"""
 
---Z3YYlR3KMg8w41Vy
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+$ gcc-14 --version
+gcc-14 (Gentoo Hardened 14.0.0 p, commit
+2b02f083e67e97f8187d3ec023c3d281f49232c0) 14.0.0 20231104 (experimental)
+8d22ac6a18cf542cd541c06b2a7df8fdd293946d
+Copyright (C) 2023 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is
+NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPO=
+SE.
 
-On Sun, Nov 05, 2023 at 04:00:44PM -0500, Hunter Chasens wrote:
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/=
-amdgpu_pm.c
-> index 517b9fb4624c..703fe2542258 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> @@ -990,11 +990,14 @@ static ssize_t amdgpu_get_pp_features(struct device=
- *dev,
->   * the power state and the clock information for those levels. If deep s=
-leep is
->   * applied to a clock, the level will be denoted by a special level 'S:'
->   * E.g.,
-> - *	S: 19Mhz *
-> - *	0: 615Mhz
-> - *	1: 800Mhz
-> - *	2: 888Mhz
-> - *	3: 1000Mhz
-> + *
-> + * ::
-> + *
-> + *  S: 19Mhz *
-> + *  0: 615Mhz
-> + *  1: 800Mhz
-> + *  2: 888Mhz
-> + *  3: 1000Mhz
->   *
->   *
->   * To manually adjust these states, first select manual using
-
-LGTM, thanks!
-
-Fixes: 615585d09b33 ("Documentation/amdgpu: Modify pp_dpm_*clk details")
-Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
-
---=20
-An old man doll... just what I always wanted! - Clara
-
---Z3YYlR3KMg8w41Vy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZUh2dgAKCRD2uYlJVVFO
-o8u3AP9EGukcdCE9j7syJTFV3j9ZJFi0tBknTBxXtF86voVT7QEA7mRPIMBMAUYJ
-/kqkXet60szZtgn55HRclmw6vzSt9g4=
-=qHmW
------END PGP SIGNATURE-----
-
---Z3YYlR3KMg8w41Vy--
+thanks,
+sam
