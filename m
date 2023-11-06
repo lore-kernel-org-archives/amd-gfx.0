@@ -4,69 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 292B7C0018A
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 09:00:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C908C41535
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 09:00:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A9F710E28E;
-	Mon,  6 Nov 2023 09:00:05 +0000 (UTC)
-Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
- [IPv6:2607:f8b0:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D24710E0BE;
- Sat,  4 Nov 2023 13:02:33 +0000 (UTC)
-Received: by mail-pf1-x435.google.com with SMTP id
- d2e1a72fcca58-6ba54c3ed97so3078528b3a.2; 
- Sat, 04 Nov 2023 06:02:33 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF35E10E28B;
+	Mon,  6 Nov 2023 09:00:03 +0000 (UTC)
+Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
+ [IPv6:2607:f8b0:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E42F10E273;
+ Mon,  6 Nov 2023 08:14:46 +0000 (UTC)
+Received: by mail-pl1-x62a.google.com with SMTP id
+ d9443c01a7336-1cc3542e328so26660665ad.1; 
+ Mon, 06 Nov 2023 00:14:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1699102952; x=1699707752; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=LFVAhVDAedSPFBRNn04JrHWzW4kv30ibC/cuBpR5pcg=;
- b=Baka9YFWf5y+G9TWSAYxNWS8e2Xub/MJ3kvd5Qc5ljEaOBBSD2dpbxe1UQ8UifPSvA
- gAsDAf0+GxHpCiBN4N9iG8u8cJ6tWWgMpBMtdkEHG9dfhlPPjs91afuDrap3wWr/rYtS
- ToYgkWiTybd0Xpu/cqhd439u12JqxWULdXJCExKtkLqVawa8TfrsnOmPdSG/EgUOg93Z
- EPasEvMNGjr1jU5ecfvworYvVgmmCrjCVIz68toGem4FkAnTXbPWyzusO4BuNCHWVlO3
- Yi9kV3SAyV+3P15CqUb7TOXWCHYqJxGXJ3pCFA4h5y6AND9VTh6IJEjOo4Wwj/BQTc6S
- NRoA==
+ d=gmail.com; s=20230601; t=1699258485; x=1699863285; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=RnL15XWbR/PqBAe5vEEeomw1xohZpb97YhaYfG/+2hE=;
+ b=YYgJWapjy69T8t2aG6jXlY8BS/QGT0tktYggGBR982h1f+xHqV2mOYYbqOlj4Mpbzs
+ od0D1iFTczLuxoYhXzECVRQqmNQ0unPkRdDck9HWgjxAJ6IhUKy7FwbADRoNnazm1XOZ
+ Y1omSZsIHFPX5ThrVUukRexqoCmnHPxWKrSyXRibYgtGga2QcS2RXk1Xq0/4XziEQUbH
+ doA1Dho4qhFaL10SqdrdWrClFJLp2XJmQqLckQllDlpE3EwG5aX4qhyIQEnzJkCMWJXh
+ ZWLQOEe14v6gncgnMqV/Kllo1+9EwtrRxXJ05IB67+F6qcjJsxHWr3ab4dmFfqYBEtew
+ XZxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699102952; x=1699707752;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=LFVAhVDAedSPFBRNn04JrHWzW4kv30ibC/cuBpR5pcg=;
- b=makvNvIiPSH38XuKyTD5Lxi9w6Z/Jw8UxE2D05qVT9umvzcyCAiFNEzfGiBrV90/5/
- ZD1JuTif/arz6ncMmt3NuY53tt/6E+oo9faXLUVAO2mmpvTf8YfV0U1XUHFT0eru09bd
- v570C2AM51pbE6Q+i0PKFJnyQeX292Vja/+VArtOgwNI1wHUzl9pt336D6SXSb/y/D4g
- UZ1TB+JErq6j7ZY2c1kePXNX4C2NBOGHrbA5uY4j+6g5J5EzAmizg6c82r/o+gNR2aS/
- g7l9zaZSmUH0WRz/HdZX/oKKMfxj1HfZil3awX3wneTs6u6Gyn631dlggTcKo2qby4hF
- VC7g==
-X-Gm-Message-State: AOJu0YwihVKko3i5xWcOx+x28fH4P/Zx9bVkfSHCvVg4dXJWgiTZBeif
- tX4kzHZCDeEYjHEtXF8CnvmrTSVjyyA=
-X-Google-Smtp-Source: AGHT+IGb2vdo0cD4NjwXX5OmI6gWBS7QEBhZ6vsJMldsGy5t93N5hQHbF6HT7pFJFA7qYJp4Mni0UA==
-X-Received: by 2002:a05:6a20:7348:b0:17a:eddb:ac6a with SMTP id
- v8-20020a056a20734800b0017aeddbac6amr31496489pzc.6.1699102952530; 
- Sat, 04 Nov 2023 06:02:32 -0700 (PDT)
-Received: from [192.168.1.11] ([27.5.100.249])
- by smtp.gmail.com with ESMTPSA id
- f20-20020a635554000000b0059d6f5196fasm2844708pgm.78.2023.11.04.06.02.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 04 Nov 2023 06:02:32 -0700 (PDT)
-Message-ID: <2bb714be-9511-4f79-a633-9f4467a6dcba@gmail.com>
-Date: Sat, 4 Nov 2023 18:32:25 +0530
+ d=1e100.net; s=20230601; t=1699258485; x=1699863285;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=RnL15XWbR/PqBAe5vEEeomw1xohZpb97YhaYfG/+2hE=;
+ b=ZAcGv+rX9z6U0snVcL07nDViUNZ1hdRjEfhBdC4yIxL9WIs/uZxcT5egD8/t38yR4O
+ r0BIYSVNhHo3oPZBayAMaH3Z4WNykhUstdBvP7KTiZsxOEOxYC2BFE4/Km91Pd9P8NiE
+ AQ36JVCwmTbpiWZu4S94agaOlGXQcgPEusrLizVeRKgHwRWk1seut2TpdoC2+ZLG6tik
+ vYpUMWKzW0cCb/iXX7DpP08E3LxutsXHXaVI/Dt0lFSahzxChkq2g83bZoVmTYsh3dnk
+ W1cvgJolLaA+lwLg/Fj6W3W/asa/ljhfUggJ6UKZJv4Wtb/r9w1h5cryVpqmkSYCKS0J
+ PQbQ==
+X-Gm-Message-State: AOJu0YwxzX327ComnhSAOzU41gD+TsrfjBv8AMIWJ6NBrYAyOLhKbfXJ
+ ++6QbvFmV3LWeMhY/zo0wpQ=
+X-Google-Smtp-Source: AGHT+IEH71t99GuGPuDpnkZTNN858Z5Z6G2lkYXBgMtLmpxZNn3A6l6Q8xwlyYMdOWlmUXyeV+Q6aA==
+X-Received: by 2002:a17:902:ec81:b0:1cc:6e5e:a980 with SMTP id
+ x1-20020a170902ec8100b001cc6e5ea980mr16100026plg.3.1699258485414; 
+ Mon, 06 Nov 2023 00:14:45 -0800 (PST)
+Received: from debian.me ([103.131.18.64]) by smtp.gmail.com with ESMTPSA id
+ l12-20020a170903120c00b001c746b986e5sm5349705plh.45.2023.11.06.00.14.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Nov 2023 00:14:44 -0800 (PST)
+Received: by debian.me (Postfix, from userid 1000)
+ id DCC899481F1F; Mon,  6 Nov 2023 15:14:40 +0700 (WIB)
+Date: Mon, 6 Nov 2023 15:14:38 +0700
+From: Bagas Sanjaya <bagasdotme@gmail.com>
+To: Randy Dunlap <rdunlap@infradead.org>,
+ Hunter Chasens <hunter.chasens18@ncf.edu>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v1] drm: amd: Resolve Sphinx unexpected indentation warning
+Message-ID: <ZUigbshGGc451V5L@debian.me>
+References: <20231105210044.70371-1-hunter.chasens18@ncf.edu>
+ <ZUh2fuCjmgle3vd9@debian.me>
+ <665794d7-38e0-4e74-9af7-eca986792e44@infradead.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: avoid variable reinitialization
-Content-Language: en-US
-From: Bragatheswaran Manickavel <bragathemanick0908@gmail.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- daniel@ffwll.ch, airlied@gmail.com, Qingqing.Zhuo@amd.com,
- alvin.lee2@amd.com, wenjing.liu@amd.com, jun.lei@amd.com, Samson.Tam@amd.com
-References: <20231024181134.48066-1-bragathemanick0908@gmail.com>
- <744beb05-1327-401e-a961-edfe63bd8927@gmail.com>
-In-Reply-To: <744beb05-1327-401e-a961-edfe63bd8927@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="pfvq47Pno2Wrjbn6"
+Content-Disposition: inline
+In-Reply-To: <665794d7-38e0-4e74-9af7-eca986792e44@infradead.org>
 X-Mailman-Approved-At: Mon, 06 Nov 2023 09:00:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,48 +78,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: Lijo Lazar <lijo.lazar@amd.com>,
+ Linux Documentation <linux-doc@vger.kernel.org>, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org,
+ Linux DRI Development <dri-devel@lists.freedesktop.org>, daniel@ffwll.ch,
+ alexander.deucher@amd.com, evan.quan@amd.com, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 30/10/23 20:17, Bragatheswaran Manickavel wrote:
->
-> On 24/10/23 23:41, Bragatheswaran Manickavel wrote:
->> The member variable enable_hpo_pg_support is already initialized
->> and hence the reinitialization instruction can be removed. Issue
->> identified using the doubleinit.cocci Coccinelle semantic patch script.
->>
->> Signed-off-by: Bragatheswaran Manickavel <bragathemanick0908@gmail.com>
->> ---
->>   drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c | 1 -
->>   1 file changed, 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c 
->> b/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c
->> index 99d55b958977..1fd9df8da09c 100644
->> --- a/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c
->> +++ b/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c
->> @@ -739,7 +739,6 @@ static const struct dc_debug_options 
->> debug_defaults_drv = {
->>       .disable_boot_optimizations = false,
->>       .disable_unbounded_requesting = false,
->>       .disable_mem_low_power = false,
->> -    .enable_hpo_pg_support = false,
->>       //must match enable_single_display_2to1_odm_policy to support 
->> dynamic ODM transitions
->>       .enable_double_buffered_dsc_pg_support = true,
->>       .enable_dp_dig_pixel_rate_div_policy = 1,
->
->
-> just a friendly ping
->
-> Thanks,
-> Bragathe
->
-Could someone help me in reviewing this changes ?
+--pfvq47Pno2Wrjbn6
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks,
-Bragathe
+On Sun, Nov 05, 2023 at 09:26:26PM -0800, Randy Dunlap wrote:
+>=20
+>=20
+> On 11/5/23 21:15, Bagas Sanjaya wrote:
+> > On Sun, Nov 05, 2023 at 04:00:44PM -0500, Hunter Chasens wrote:
+> >> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/=
+pm/amdgpu_pm.c
+> >> index 517b9fb4624c..703fe2542258 100644
+> >> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> >> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> >> @@ -990,11 +990,14 @@ static ssize_t amdgpu_get_pp_features(struct dev=
+ice *dev,
+> >>   * the power state and the clock information for those levels. If dee=
+p sleep is
+> >>   * applied to a clock, the level will be denoted by a special level '=
+S:'
+> >>   * E.g.,
+> >> - *	S: 19Mhz *
+> >> - *	0: 615Mhz
+> >> - *	1: 800Mhz
+> >> - *	2: 888Mhz
+> >> - *	3: 1000Mhz
+> >> + *
+> >> + * ::
+> >> + *
+> >> + *  S: 19Mhz *
+> >> + *  0: 615Mhz
+> >> + *  1: 800Mhz
+> >> + *  2: 888Mhz
+> >> + *  3: 1000Mhz
+> >>   *
+> >>   *
+> >>   * To manually adjust these states, first select manual using
+> >=20
+> > LGTM, thanks!
+> >=20
+> > Fixes: 615585d09b33 ("Documentation/amdgpu: Modify pp_dpm_*clk details")
+> > Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
+> >=20
+>=20
+> but can it be done without being so obvious about using Sphinx (or is it =
+ReST?)
+> in source files?
 
+Yes, the comment is included in Documentation/gpu/amdgpu/thermal.rst, so re=
+ST
+syntax applies there.
+
+--=20
+An old man doll... just what I always wanted! - Clara
+
+--pfvq47Pno2Wrjbn6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZUigaAAKCRD2uYlJVVFO
+o2CLAQCUAbBtOtn22yQGu7Uv9lipjEUjPeZ57pIl4xfW8ZjorQEA7hZ6R3PSNen9
+ebEfktqrfgqONoXsVVGm1/5wlmlsggc=
+=yZdv
+-----END PGP SIGNATURE-----
+
+--pfvq47Pno2Wrjbn6--
