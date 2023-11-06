@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB32BC4332F
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 13:53:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B6F8C4167D
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 13:53:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88F4810E322;
-	Mon,  6 Nov 2023 13:53:33 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 946B110E2D9;
- Mon,  6 Nov 2023 12:27:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CF6110E323;
+	Mon,  6 Nov 2023 13:53:34 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FD5210E2F4;
+ Mon,  6 Nov 2023 12:42:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1699273670; x=1730809670;
+ t=1699274530; x=1730810530;
  h=date:from:to:cc:subject:in-reply-to:message-id:
  references:mime-version;
- bh=PoyeCM8Yua9sK4/tet7vyzbQ1ABy9+K2hq4FnkLDYA4=;
- b=cKnP2KpFLLMJJKrdz+6QZytwKMn7Zf0kw/UbFcFJDKNfkcJDrCHQUv8Z
- zeZfual7aBC1ow7GaclAfJ4zFlMCwPvKrzCMw4Fpw9UaMhUluvcACziBP
- CQ0qt3tAeKik9dPQ7mch0J4MSdcguQdg/9axARS9vh9tcQCArRpCs5MUm
- dFhso6FLRYc6STibv21SzOmwOhQdTv9Z71iLsm4xg98NlwLZaUigbkvTV
- qmvhEUOk0IZ51y/eEKDD1LOz8x6iGOjmxBaWcJoC1BKff3NK4iEKailO3
- UkceOIdot4kOOSdeszaaX7aVNgm5aOAcz99wa1a2JCT0hxEp9cPqkgLuk g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="368600082"
-X-IronPort-AV: E=Sophos;i="6.03,281,1694761200"; d="scan'208";a="368600082"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Nov 2023 04:27:49 -0800
+ bh=cpxdEtpcZ2PUz94OUq3gxytopBJ1J624EoZVZJrzV38=;
+ b=K5eix7OYwMOvydPS7YRFXGUv7pyNjJpXMcmYx/ELWSg4jqsneW1/1APa
+ 8nZzqSnG49cUKfFNDPvnSHtakpgDE4xXZDLOQO1CnAqhimaNtSlzvymXu
+ O9TbuwAdXAYqUXMabDsvts3l7zbTbA6WSR32O1HUSL8se1FpLC+hbtd5a
+ tAXndSyvSFRdbwUl0wYvgEizx1qds5EeoqySOrYiU0ukexkbrbZpCMAfc
+ 5KLIJgDZFhr6NJVLY77N4k5L9ORaacvs+embgXXNTB1D0T64bG4cWOyRe
+ 4hX/C04xf7FEdYR1m1U1/YkJHxpNr9YZdZce8FQXxwDqOvvkKctiez7CR w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="392132896"
+X-IronPort-AV: E=Sophos;i="6.03,281,1694761200"; d="scan'208";a="392132896"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Nov 2023 04:42:09 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="765937251"
-X-IronPort-AV: E=Sophos;i="6.03,281,1694761200"; d="scan'208";a="765937251"
+X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="797295909"
+X-IronPort-AV: E=Sophos;i="6.03,281,1694761200"; d="scan'208";a="797295909"
 Received: from rmstoi-mobl.ger.corp.intel.com ([10.251.216.76])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Nov 2023 04:27:42 -0800
-Date: Mon, 6 Nov 2023 14:27:39 +0200 (EET)
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Nov 2023 04:42:01 -0800
+Date: Mon, 6 Nov 2023 14:41:58 +0200 (EET)
 From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
 To: Mario Limonciello <mario.limonciello@amd.com>
-Subject: Re: [PATCH v2 2/9] drm/radeon: Switch from
- pci_is_thunderbolt_attached() to dev_is_removable()
-In-Reply-To: <20231103190758.82911-3-mario.limonciello@amd.com>
-Message-ID: <71a39188-2caf-58a-1094-4773e88c111b@linux.intel.com>
+Subject: Re: [PATCH v2 5/9] PCI: pciehp: Move check for is_thunderbolt into
+ a quirk
+In-Reply-To: <20231103190758.82911-6-mario.limonciello@amd.com>
+Message-ID: <e0a74b28-e862-202e-328-9eca3cb622f@linux.intel.com>
 References: <20231103190758.82911-1-mario.limonciello@amd.com>
- <20231103190758.82911-3-mario.limonciello@amd.com>
+ <20231103190758.82911-6-mario.limonciello@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 X-Mailman-Approved-At: Mon, 06 Nov 2023 13:53:32 +0000
@@ -87,53 +87,97 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Fri, 3 Nov 2023, Mario Limonciello wrote:
 
-> pci_is_thunderbolt_attached() only works for Intel TBT devices. Switch to
-> using dev_is_removable() to be able to detect USB4 devices as well.
+> commit 493fb50e958c ("PCI: pciehp: Assume NoCompl+ for Thunderbolt
+> ports") added a check into pciehp code to explicitly set NoCompl+
+> for all Intel Thunderbolt controllers, including those that don't
+> need it.
+> 
+> This overloaded the purpose of the `is_thunderbolt` member of
+> `struct pci_device` because that means that any controller that
+> identifies as thunderbolt would set NoCompl+ even if it doesn't
+> suffer this deficiency. As that commit helpfully specifies all the
+> controllers with the problem, move them into a PCI quirk.
+> 
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  drivers/pci/hotplug/pciehp_hpc.c |  6 +-----
+>  drivers/pci/quirks.c             | 20 ++++++++++++++++++++
+>  include/linux/pci.h              |  1 +
+>  3 files changed, 22 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/pci/hotplug/pciehp_hpc.c b/drivers/pci/hotplug/pciehp_hpc.c
+> index fd713abdfb9f..23a92d681d1c 100644
+> --- a/drivers/pci/hotplug/pciehp_hpc.c
+> +++ b/drivers/pci/hotplug/pciehp_hpc.c
+> @@ -991,11 +991,7 @@ struct controller *pcie_init(struct pcie_device *dev)
+>  	if (pdev->hotplug_user_indicators)
+>  		slot_cap &= ~(PCI_EXP_SLTCAP_AIP | PCI_EXP_SLTCAP_PIP);
+>  
+> -	/*
+> -	 * We assume no Thunderbolt controllers support Command Complete events,
+> -	 * but some controllers falsely claim they do.
+> -	 */
+> -	if (pdev->is_thunderbolt)
+> +	if (pdev->no_command_complete)
+>  		slot_cap |= PCI_EXP_SLTCAP_NCCS;
+>  
+>  	ctrl->slot_cap = slot_cap;
+> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+> index eeec1d6f9023..4bbf6e33ca11 100644
+> --- a/drivers/pci/quirks.c
+> +++ b/drivers/pci/quirks.c
+> @@ -3807,6 +3807,26 @@ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_CACTUS_RIDGE_4C
+>  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_PORT_RIDGE,
+>  			quirk_thunderbolt_hotplug_msi);
+>  
+> +/*
+> + * We assume no Thunderbolt controllers support Command Complete events,
+> + * but some controllers falsely claim they do.
 
-Same here as with 1/9.
+IMO, this wording makes little sense with the new code. How about taking 
+some text from the original commit's changelog:
+
+/*
+ * Certain Thunderbolt 1 controllers falsely claim to support Command 
+ * Completed events.
+ */
+
+The code change looks fine.
 
 -- 
  i.
 
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
->  drivers/gpu/drm/radeon/radeon_device.c | 4 ++--
->  drivers/gpu/drm/radeon/radeon_kms.c    | 2 +-
->  2 files changed, 3 insertions(+), 3 deletions(-)
+> + */
+> +static void quirk_thunderbolt_command_complete(struct pci_dev *pdev)
+> +{
+> +	pdev->no_command_complete = 1;
+> +}
+> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_LIGHT_RIDGE,
+> +			quirk_thunderbolt_command_complete);
+> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_EAGLE_RIDGE,
+> +			quirk_thunderbolt_command_complete);
+> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_LIGHT_PEAK,
+> +			quirk_thunderbolt_command_complete);
+> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_CACTUS_RIDGE_4C,
+> +			quirk_thunderbolt_command_complete);
+> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_CACTUS_RIDGE_2C,
+> +			quirk_thunderbolt_command_complete);
+> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_PORT_RIDGE,
+> +			quirk_thunderbolt_command_complete);
+>  #ifdef CONFIG_ACPI
+>  /*
+>   * Apple: Shutdown Cactus Ridge Thunderbolt controller.
+> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> index 530b0a360514..439c2dac8a3e 100644
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -441,6 +441,7 @@ struct pci_dev {
+>  	unsigned int	is_hotplug_bridge:1;
+>  	unsigned int	shpc_managed:1;		/* SHPC owned by shpchp */
+>  	unsigned int	is_thunderbolt:1;	/* Thunderbolt controller */
+> +	unsigned int	no_command_complete:1;	/* No command completion */
+>  	/*
+>  	 * Devices marked being untrusted are the ones that can potentially
+>  	 * execute DMA attacks and similar. They are typically connected
 > 
-> diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-> index afbb3a80c0c6..ba0ca0694d18 100644
-> --- a/drivers/gpu/drm/radeon/radeon_device.c
-> +++ b/drivers/gpu/drm/radeon/radeon_device.c
-> @@ -1429,7 +1429,7 @@ int radeon_device_init(struct radeon_device *rdev,
->  
->  	if (rdev->flags & RADEON_IS_PX)
->  		runtime = true;
-> -	if (!pci_is_thunderbolt_attached(rdev->pdev))
-> +	if (!dev_is_removable(&rdev->pdev->dev))
->  		vga_switcheroo_register_client(rdev->pdev,
->  					       &radeon_switcheroo_ops, runtime);
->  	if (runtime)
-> @@ -1519,7 +1519,7 @@ void radeon_device_fini(struct radeon_device *rdev)
->  	radeon_bo_evict_vram(rdev);
->  	radeon_audio_component_fini(rdev);
->  	radeon_fini(rdev);
-> -	if (!pci_is_thunderbolt_attached(rdev->pdev))
-> +	if (!dev_is_removable(&rdev->pdev->dev))
->  		vga_switcheroo_unregister_client(rdev->pdev);
->  	if (rdev->flags & RADEON_IS_PX)
->  		vga_switcheroo_fini_domain_pm_ops(rdev->dev);
-> diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/radeon/radeon_kms.c
-> index a16590c6247f..ead912a58ab8 100644
-> --- a/drivers/gpu/drm/radeon/radeon_kms.c
-> +++ b/drivers/gpu/drm/radeon/radeon_kms.c
-> @@ -138,7 +138,7 @@ int radeon_driver_load_kms(struct drm_device *dev, unsigned long flags)
->  	if ((radeon_runtime_pm != 0) &&
->  	    radeon_has_atpx() &&
->  	    ((flags & RADEON_IS_IGP) == 0) &&
-> -	    !pci_is_thunderbolt_attached(pdev))
-> +	    !dev_is_removable(&pdev->dev))
->  		flags |= RADEON_IS_PX;
->  
->  	/* radeon_device_init should report only fatal error
-> 
+
