@@ -4,117 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C827C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 12:13:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90A66C4332F
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 12:31:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C560B10E0C6;
-	Mon,  6 Nov 2023 12:13:47 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20619.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5b::619])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50EBC10E06F
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Nov 2023 12:13:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Bf3X95sufPh95JN9hxdW4QcCn7/psJFH9AeRpEzwXz0p6BCHlSIpADNKJ3zkHABL/gIcsF5S2dxyJoBCiIw4gtTlhjT7AyI27IxWSGQI7ENW/ps2KySKotFGy3CUO5cnL7u/qVFelkqq6rsMw7og7lg7oSsqP9qiVEZL0JH+eW5+6Yq9HQTGdl6p0IH5Ntmhg4TdmZ1Us1qDxwPC90mULKHZW9x8RIceYgRkUp49UnMeTGMl8XV26VpeSt2ox2ZLNiZFkxfMdC/Gsio5tpuh98f8e2MiAMm88E27hWqa5uro7oUqe8hADQxLzebbByJ/XX6cu769/m5M3aH39OpKfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BH41wcuX163cCxxteZe/+NDk5u0vlZDnNVEgUruVoGU=;
- b=neUswETKPj48eINpShfYNOWld+0r+XcWzZ8PmoEYG+yMYXvZq28IkKQpK+eBvF/GH/EPs9YAtZbH3KOm0Dni8dJJ5haVvgiHUmGa+sqAew+BqGSulVmNLMwf3AId58pYXcvBO9WMQ1Bd6nNZqv8oBT3eZyp/Y85l9R0j3Fmxc1SEv4l3GFRG9P2zOwiu3Jt97WKrrzuyi10+YUBp7lw/I0YAdhhf0mX19lMVmKGTN0rbsVXOqbIF+63ZEd9QBRPQE1Ua9+cW4ktHAxvg0GqFEJX5p2DYoHnPZc2yoM3of0gg3+Gzliebb1po6jFyJioGUZQyCrfxkUSJPaCgWiGGfg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BH41wcuX163cCxxteZe/+NDk5u0vlZDnNVEgUruVoGU=;
- b=mDnOI7dkFa2YIbA0hYP9yy+MSoKK3fiS40aNWDI4T+4xSCOipw7EhVxT+vq/OjEhO5vao9kygtuUBP7hePuf2+J2WxDhzmilRJnh9Yimfm57U4XoQwaDyDlQLA47uO2XkDpMExVy6lsZ63bd8sHfNsMTvy8jN5vrokCnPIFnCcg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) by
- LV3PR12MB9411.namprd12.prod.outlook.com (2603:10b6:408:215::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.19; Mon, 6 Nov
- 2023 12:13:43 +0000
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::5588:7117:d54e:9466]) by DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::5588:7117:d54e:9466%7]) with mapi id 15.20.6954.028; Mon, 6 Nov 2023
- 12:13:43 +0000
-Message-ID: <e67d3918-f52c-4058-bce8-114ec685168f@amd.com>
-Date: Mon, 6 Nov 2023 07:13:17 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amd/display: Fix stack size issue on DML2
-To: Guenter Roeck <linux@roeck-us.net>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-References: <20231016142031.241912-1-Rodrigo.Siqueira@amd.com>
- <20231016142031.241912-3-Rodrigo.Siqueira@amd.com>
- <aa6344f8-abd4-4f9e-86cf-febecd6fd747@roeck-us.net>
-Content-Language: en-US
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-In-Reply-To: <aa6344f8-abd4-4f9e-86cf-febecd6fd747@roeck-us.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0260.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10f::29) To DM4PR12MB6280.namprd12.prod.outlook.com
- (2603:10b6:8:a2::11)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16F3310E06E;
+	Mon,  6 Nov 2023 12:31:56 +0000 (UTC)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A988010E06E
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Nov 2023 12:31:53 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-40839807e82so26750585e9.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 06 Nov 2023 04:31:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1699273912; x=1699878712; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=mT8DshFByZi1cB9vHhL3aykt3S8oLYv9ECCteWxYwzY=;
+ b=LUkHDWoZnmFPR3P/eOIk+MNMAFSBU1kscR+CAKRJQG05/8GLIc7EzPRFVUf2liAPA1
+ /hfyfw6X9flwUWkr/WqjZGcU334ulDdzHmybP/XqrRuzNtW9tGZ2uuMLod+j7i7fZgOo
+ zDoyPfkk0nxXBAoQ0nxAyVkKcOom4g2+Xm9uWMZSgaRRmBRo8tUrFRTSkv4K0cJbS6Eo
+ GvJrdHPggBbe1yrzXo7a92H2YPn2WFmVVZBLtQ70LNuZw8QZuqaJOV5NBVTjql9AeZuY
+ musqUF32ByU79PAdhXu4AeENRg9f/Qi0mSQaaEgi4x5kvfvCXZh/5O6/XILuTaaiIXfY
+ +9tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1699273912; x=1699878712;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=mT8DshFByZi1cB9vHhL3aykt3S8oLYv9ECCteWxYwzY=;
+ b=eoULLwbieDBwH8KwdEmvsdxUrLbmtk2l9ivxVU7v77FKC9LPTtBG3TNBDgQD7ZBkVH
+ /yo3ff0x1rAHgvn2I8uAch/Frm6jwbsjzK5SgQ7NWAoqwA+cF5R0hSOl4TKwe8tx//Mw
+ ERq+keSYwLJlOoC+K9QqvWXP4nDlmWMERli2xTS3w0pJn8ffc1E+TDb9JJUswOUMasL3
+ FVDCuGAVkK/031adk1N3A19RXtFjtKertL80eLfhQMkbNV1IeT3dRwTOtBlCcUwtrpEO
+ aiAbGs6rdrkObRHZbJRHNmBFMeaGbIk0qmRGd8/CXEZTe+ZN0hiyPJGEa4ZafOBrYv0l
+ KNig==
+X-Gm-Message-State: AOJu0YyLv6NYv6Z7T6WOdLpnRsfXa4FC2UZvcGCWk/OX3ZiEGvZcR+7A
+ BNKOP5UjAPwmYJSefEYsSi7WTBJpnWWwog==
+X-Google-Smtp-Source: AGHT+IFinoWz6D4AiHc682nzMWsj0+zhKJdyejWGC1HBHjZaTUkYl1pe209cIFc2wifu0AhN2zBVeg==
+X-Received: by 2002:a05:600c:3c91:b0:405:3924:3cad with SMTP id
+ bg17-20020a05600c3c9100b0040539243cadmr12006844wmb.15.1699273911406; 
+ Mon, 06 Nov 2023 04:31:51 -0800 (PST)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ fb14-20020a05600c520e00b0040841e79715sm11803511wmb.27.2023.11.06.04.31.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 Nov 2023 04:31:50 -0800 (PST)
+Message-ID: <d71eacf2-6a2c-4993-9fd5-0280aa2d9ee1@gmail.com>
+Date: Mon, 6 Nov 2023 13:31:49 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6280:EE_|LV3PR12MB9411:EE_
-X-MS-Office365-Filtering-Correlation-Id: e05e734f-060b-419d-e919-08dbdec1d1cf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: iKkbQ1fc3DNLmFJxkly22yy064N1rjLXnhRsjGhnr4NO0NJ+kRtfzoNfhPJ6wrONUiHbFGO942dAWLVXhaCwp28C08Z0uSu6W/p/l8VB2gUO93TdpyWurGic6u3wDruI619UV4d6MTOiV37zpni6PulOkFn91JJvFE75DVhRIitcAqBf7PnkaNRQ1aN7YdjcjG5SvoD1RwJb9EUTrpu+s3amJZ0gm5Jj7bgcLk+izJ4szYq/MPKmVkp7dctjWC8ALsOfzTBNgJ07tnuKje7+YCN7ji8GcK1PT3oxeFPAO4eeLxn1kFqi2TfHsiMBmp42tS2IfLuZMkbPT+EilbHxK+L3Q/O/MsJtDQe4dxkF1qlyy76gLcLh3fRo1yzpJkDoE6eHOY2ZoqhlPthjMsPqZzroCeiva8HWM+J1S/1WmX/qL6bxt0T0KtW2sPSTrOfnXEtfeDNfDx6HRZRgaugSnFPc2cHP7mW4RLumO9RkkJS23pdHCqNQDB4RH+S0xOvnIPjQrNUe6WhD7Dk3yjaRuf7NJOlglj1S4oPDgp/RFBJeFCXzqnQBlXEh/PqZ1YP8GIrs1b64xYQ5GptgPkjI9rNI6V0wf5M+9uYDiHyXTb5/9VTXXAD3S6lYqrLle7Kn
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6280.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(366004)(396003)(346002)(136003)(39860400002)(230922051799003)(451199024)(186009)(1800799009)(64100799003)(6486002)(2906002)(36756003)(26005)(2616005)(6506007)(6666004)(478600001)(4326008)(54906003)(66556008)(66946007)(44832011)(41300700001)(110136005)(66476007)(8936002)(6636002)(966005)(8676002)(316002)(38100700002)(86362001)(31696002)(6512007)(53546011)(5660300002)(31686004)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d3ZHSExGTUxZM3NxMDdEamZPc0pjcjh1NTBVS0sxdkxBR1dZdEhRN1BiTVB6?=
- =?utf-8?B?RlFCcUJONUpQcU5PWmw0dUNCbldDUUNKZGJqTU1kWFdzUG0wbzk5V0Q4bUR2?=
- =?utf-8?B?cDVRUzIxV1BpTU5mWmdMM3lkdTlzVHRHSEg5dXlOUHdvWUNjdjZDclkwS1dk?=
- =?utf-8?B?VEltVFJyNUxsNGR5ckJ6WDFFQTdybmpJQlBRaHVZZmZxNEh0ZlRVQ3hKTEFV?=
- =?utf-8?B?R3k2d0hheGY1WVozbTRWaFdnQ2VxbE92ckdscTlqUFFwWHhhUVJScUhaTy9q?=
- =?utf-8?B?dndUa0I4d2FVanBpRWR4YjlkckZXSHZyRTBrUUVuSXgzbUkrclcxc1VDVzdZ?=
- =?utf-8?B?Wm56RGpjakh1aWFoeHhZbTJ5ZlE4cGJyZTEvQ1ZzK2c2Nkk0bStxVWlSR1Mv?=
- =?utf-8?B?RDV5eFZxSURpd0RQNmxlaDdaWThmdGhNYmxtd2xtSXBmbE1ORitWbVlDa1lS?=
- =?utf-8?B?UzVCd2kyTkZYaFpvbVNTUTNoR2J6ekpPcmhYckhnWVpUclZmUDdIU01ZM3F2?=
- =?utf-8?B?T2RaOUpNcGpBcHd1bmdWWjI2TGJnUGV2RXdMY0FJdXJobVhyaTZISVhRR3lS?=
- =?utf-8?B?Ty9abFV6UTExZXMyUXFyQk4wSEZUUkFJeTBReThvaVlkOUpPWGkwTjNsc3g0?=
- =?utf-8?B?Nm5SNVg3R3lGVFJsaEhUTnZpOHVOa245TFNBbDVtclhGNmMvK1lSSW83Qkgx?=
- =?utf-8?B?a1FPd3I4dVpNSlJ5YVFBWnViUkxCVUJ3aHlpRmRxMitKMGFLQXVaQXFPdlJS?=
- =?utf-8?B?U085RlY2b2VXRFpES21YTlZVN1ZJVWl2Ukc0bzJZZ2ZKcWEzUm80b3ZqOXpQ?=
- =?utf-8?B?SldFNUNYbkFoWFY4SDhLb0p2SWNBaXRhYzdpTkhXZTVYdlE2aHUxSkRaaTNW?=
- =?utf-8?B?UlBwTDNwNzlTdmhVeTAyWUsxKyszTW8vRGJYa0I4b2tqeWFVNm9aL3NXV0JI?=
- =?utf-8?B?Qk9IVDlTU2pBdGtwU3ZwVDIvbys0REJjTWV1YTBkNEdya0syaC84TXIxY3lE?=
- =?utf-8?B?ZC8rZjFxWW9iczVWTGZyTVFnemR3VURRSDEvQk5qNkFVZG5Wb090blpaMHVL?=
- =?utf-8?B?TlN4QVRaL1U3SUNGREdzVFRTbmNHT2M1b2lLdWwxNDFiNTVtbUJqbGE1OU1s?=
- =?utf-8?B?enJHTVhPd2tyQXZ4V3ptWjlSV3Exa1RDM3pmMCtCZUJKU0gyUFFmQVBtT1dw?=
- =?utf-8?B?Y3VvNDZOLzlHbE5GQWlha2h6YS9qd09RT1VONStMcWhlRWJSSWNJY25VK3ds?=
- =?utf-8?B?bkRNb1QyZkZKaEpVWEJ4MWFKMTBOM1NHQmhVdE1WSEpjWUIwcDgxL0paVUs2?=
- =?utf-8?B?SUxRazNVVWtNZFJMeUE4Tjg2YjcveDVtR3VYd1FiMzBNWWFiN1pPa0dySUdE?=
- =?utf-8?B?by9RSVlsYnBuNE9QbkNEeWRKVWFDYVlQWGliNEZFdmNwZ08zTkIvaUxIYndj?=
- =?utf-8?B?QUtYdUo0Ly9mdHpJWUdlVGR2NEhLUDBnSW1HUDlJaG9SRUxMdnFnb0JWeGxE?=
- =?utf-8?B?eFpuWmpiMnh1N2FnallXME9ZRkpwY2hMNkZqNUYyL2ZucTdPVG93djVXMEQ1?=
- =?utf-8?B?YXF3ZzBDc3dqT3pHOVlpdU9wMXo0RnIxMjlRUlgrSURPekpSRTF2R2J4S1k0?=
- =?utf-8?B?UnB5YUhiUGJHWE1XclQ3UnNJOWtHV1hvcmsyNWs0U21KMDV6ZXhCRUV4TWdl?=
- =?utf-8?B?UzVNZndTYjNBY1ZTRWxQSDIvNG42QkFrWC9tT2dpdXRpVTZFd0FVWTZRc2VS?=
- =?utf-8?B?UGpOU1JmNndpdU0ydXlVeFVvTzZQV016U094LzVhZkJpOGgrZ0hKelpBSnNE?=
- =?utf-8?B?ZjllcElac091MlhpTndkWUt5Z1dxbTBpdTYxTFN5clpYRm03cklKcGtlQmtS?=
- =?utf-8?B?V0h6YnZMYm82bXpKQkxxcjFwb0FadDcyUjJBbS80ZkczUzNndHVBN0hQVFo3?=
- =?utf-8?B?dEZmV3pwaUE1NlNMSHNCb2liejdKWGtNQlkwcVpZeDhaUDZxQXdyRVZuNkRz?=
- =?utf-8?B?ai9RdTI5bGwzQ1pnNTJqVlpOSHhPRm9aWTVyeGxiVGd5aUVVWkZHdnpDd2hn?=
- =?utf-8?B?QlhRc2lCcVJzYXpCRU9tRHJxTHgrdUI2K3VkbmJkYXZJMStuWDZ4cSszaUd6?=
- =?utf-8?Q?yKwAnMA/uu5uj1uC5lqHprbh1?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e05e734f-060b-419d-e919-08dbdec1d1cf
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6280.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2023 12:13:43.4783 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FQ2zXpikPVRboWvwmd88qqfhIMwqMx5ZGEj3aNnlsSpND29n7aCKz1EcnS1zbiUkZ1A9NBKxNtcyukbQm42CZg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9411
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: fix error handling in amdgpu_vm_init
+Content-Language: en-US
+To: Felix Kuehling <felix.kuehling@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+References: <20231031145534.2501-1-christian.koenig@amd.com>
+ <CADnq5_N1St5NDG-uAtVnEcj1P+f0jt-Rp-3kND_XjTTbqmbbGw@mail.gmail.com>
+ <9622bd17-a526-48d2-b3c3-f5e7bbd82ecf@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <9622bd17-a526-48d2-b3c3-f5e7bbd82ecf@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,41 +77,118 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>, Roman Li <roman.li@amd.com>,
- amd-gfx@lists.freedesktop.org, linux-next@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Chaitanya Dhere <chaitanya.dhere@amd.com>
+Cc: Alexander.Deucher@amd.com, Kenny.Ho@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/5/23 12:55, Guenter Roeck wrote:
-> On Mon, Oct 16, 2023 at 08:19:18AM -0600, Rodrigo Siqueira wrote:
->> This commit is the last part of the fix that reduces the stack size in
->> the DML2 code.
+Am 01.11.23 um 23:00 schrieb Felix Kuehling:
+> On 2023-10-31 11:18, Alex Deucher wrote:
+>> On Tue, Oct 31, 2023 at 11:12 AM Christian König
+>> <ckoenig.leichtzumerken@gmail.com> wrote:
+>>> When clearing the root PD fails we need to properly release it again.
+>>>
+>>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> Has this been submitted? I see some intermittent failures in the PSDB 
+> that may be related to this.
+
+Not yet. But going to push that now
+
+This is just a fix for the error code path. Fixing the underlying 
+problem had more importance.
+
+Regards,
+Christian.
+
+>
+> Regards,
+>   Felix
+>
+>
+>
 >>
-> 
-> That does not really help when trying to build allmodconfig or allyesconfig
-> with gcc 11.4 or 12.3.
-> 
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c: In function 'dml_prefetch_check':
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c:6707:1: error: the frame size of 2056 bytes is larger than 2048 bytes
-> 
-> This is with v6.6-14500-g1c41041124bd.
-> 
-> I am overwriting it by forcing CONFIG_FRAME_WARN=0 in my test builds for
-> x86_64, but of course that affects all code. Maybe consider increasing
-> frame-larger-than in drivers/gpu/drm/amd/display/dc/dml2/Makefile ?
-
-That has been done as of the following patch:
-https://patchwork.freedesktop.org/patch/565675/
-
-> Currently it is
-> 
-> ifneq ($(CONFIG_FRAME_WARN),0)
-> frame_warn_flag := -Wframe-larger-than=2048
-> endif
-> 
-> Guenter
--- 
-Hamza
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 31 
+>>> +++++++++++++-------------
+>>>   1 file changed, 16 insertions(+), 15 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> index d72daf15662f..5877f6e9b893 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> @@ -2042,7 +2042,8 @@ long amdgpu_vm_wait_idle(struct amdgpu_vm *vm, 
+>>> long timeout)
+>>>    * Returns:
+>>>    * 0 for success, error for failure.
+>>>    */
+>>> -int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm 
+>>> *vm, int32_t xcp_id)
+>>> +int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>>> +                  int32_t xcp_id)
+>>>   {
+>>>          struct amdgpu_bo *root_bo;
+>>>          struct amdgpu_bo_vm *root;
+>>> @@ -2061,6 +2062,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, 
+>>> struct amdgpu_vm *vm, int32_t xcp
+>>>          INIT_LIST_HEAD(&vm->done);
+>>>          INIT_LIST_HEAD(&vm->pt_freed);
+>>>          INIT_WORK(&vm->pt_free_work, amdgpu_vm_pt_free_work);
+>>> +       INIT_KFIFO(vm->faults);
+>>>
+>>>          /* create scheduler entities for page table updates */
+>>>          r = drm_sched_entity_init(&vm->immediate, 
+>>> DRM_SCHED_PRIORITY_NORMAL,
+>>> @@ -2103,34 +2105,33 @@ int amdgpu_vm_init(struct amdgpu_device 
+>>> *adev, struct amdgpu_vm *vm, int32_t xcp
+>>>                                  false, &root, xcp_id);
+>>>          if (r)
+>>>                  goto error_free_delayed;
+>>> -       root_bo = &root->bo;
+>>> +
+>>> +       root_bo = amdgpu_bo_ref(&root->bo);
+>>>          r = amdgpu_bo_reserve(root_bo, true);
+>>> -       if (r)
+>>> -               goto error_free_root;
+>>> +       if (r) {
+>>> +               amdgpu_bo_unref(&root->shadow);
+>>> +               amdgpu_bo_unref(&root_bo);
+>>> +               goto error_free_delayed;
+>>> +       }
+>>>
+>>> +       amdgpu_vm_bo_base_init(&vm->root, vm, root_bo);
+>>>          r = dma_resv_reserve_fences(root_bo->tbo.base.resv, 1);
+>>>          if (r)
+>>> -               goto error_unreserve;
+>>> -
+>>> -       amdgpu_vm_bo_base_init(&vm->root, vm, root_bo);
+>>> +               goto error_free_root;
+>>>
+>>>          r = amdgpu_vm_pt_clear(adev, vm, root, false);
+>>>          if (r)
+>>> -               goto error_unreserve;
+>>> +               goto error_free_root;
+>>>
+>>>          amdgpu_bo_unreserve(vm->root.bo);
+>>> -
+>>> -       INIT_KFIFO(vm->faults);
+>>> +       amdgpu_bo_unref(&root_bo);
+>>>
+>>>          return 0;
+>>>
+>>> -error_unreserve:
+>>> -       amdgpu_bo_unreserve(vm->root.bo);
+>>> -
+>>>   error_free_root:
+>>> -       amdgpu_bo_unref(&root->shadow);
+>>> +       amdgpu_vm_pt_free_root(adev, vm);
+>>> +       amdgpu_bo_unreserve(vm->root.bo);
+>>>          amdgpu_bo_unref(&root_bo);
+>>> -       vm->root.bo = NULL;
+>>>
+>>>   error_free_delayed:
+>>>          dma_fence_put(vm->last_tlb_flush);
+>>> -- 
+>>> 2.34.1
+>>>
 
