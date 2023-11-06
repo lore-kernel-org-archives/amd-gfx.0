@@ -4,50 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F7E1C0018A
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 13:53:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 503C0C4167B
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 15:29:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10F9C10E328;
-	Mon,  6 Nov 2023 13:53:37 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69BDA10E2F8;
- Mon,  6 Nov 2023 12:52:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1699275162; x=1730811162;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=ksjO7REBXQEKPi1wlrbUj9HrMuDV2WJEcaQRc/T5UtQ=;
- b=BaGPnJFd3IMzqLJIUZ25eFc0yma06tIJupE4ZNDjm9TyN12B8P25ZzQc
- FGK6cap/MM1NZ6mIW8vjtGyka4Fz4IcZjB0LXDFOTKreVGdjPtL8vo2/r
- QahJdRoBrz29G1p4La7jPe7EL9cUZfXO2FcfFCkRZkm3CFblsDs23GUp4
- FNuKPM/wikH/jN4jmYFsDurGwxdvZDL6//ycqTFdZm93yL4nR/riWDfjG
- uwPjQtjU2dMGChhrxjJrZVkZDXrQIxsEYEv3ZVVnUJmUNvf97O4ssqtnZ
- UbMCH+X+uUIdNlBGwLRX2/+fN7p6TojAeeyiv9K4TunWFMPS5Kcv+CkFp A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="2176888"
-X-IronPort-AV: E=Sophos;i="6.03,281,1694761200"; 
-   d="scan'208";a="2176888"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Nov 2023 04:52:41 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="852989745"
-X-IronPort-AV: E=Sophos;i="6.03,281,1694761200"; d="scan'208";a="852989745"
-Received: from rmstoi-mobl.ger.corp.intel.com ([10.251.216.76])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Nov 2023 04:52:33 -0800
-Date: Mon, 6 Nov 2023 14:52:31 +0200 (EET)
-From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Subject: Re: [PATCH v2 8/9] PCI: Exclude PCIe ports used for tunneling in
- pcie_bandwidth_available()
-In-Reply-To: <20231103190758.82911-9-mario.limonciello@amd.com>
-Message-ID: <bdae1a8-d62-6af6-316d-1e3a5ac15bc@linux.intel.com>
-References: <20231103190758.82911-1-mario.limonciello@amd.com>
- <20231103190758.82911-9-mario.limonciello@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FA6810E345;
+	Mon,  6 Nov 2023 15:29:05 +0000 (UTC)
+Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
+ [IPv6:2001:4860:4864:20::30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EA3410E345;
+ Mon,  6 Nov 2023 15:29:04 +0000 (UTC)
+Received: by mail-oa1-x30.google.com with SMTP id
+ 586e51a60fabf-1f0656b5c99so1850987fac.1; 
+ Mon, 06 Nov 2023 07:29:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1699284543; x=1699889343; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=uvIhF9xuFJUuwvzTU42upDnVbw8DHp9VYw/HLhc/loM=;
+ b=MX8djYqvtoc+1b10QffHfMl7EDLwxNdNEC/z97+w8yJiOPwfpL2kR+s3dhadowYv4J
+ U4Yfp3BfsM3/d0+PowpaLYcD1SP8oBS4ajOTHdpUu/qQ4/WM70rh3gtwnA17/jIMR2VT
+ o0Eqqhr7BDw1WI9bmGFTfOqIojppdiEyWMRPjZ6VeH9UTuUUKOiOFjblo+FI/APN5LW9
+ kZG8U1/hMIlYUNAT3ZHWDuJXDy8xvdWcLlwLLsnLmESFjtgJRB3WhPSxLWUbGTmIVEmz
+ q3iWpjCBHlsHnKLcY561YTilqOKG7wMYt96pCc4/KhGbY8EcQVw68p6LxRwdDTDMbjPn
+ WJyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1699284543; x=1699889343;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=uvIhF9xuFJUuwvzTU42upDnVbw8DHp9VYw/HLhc/loM=;
+ b=u23hmK6U4vaVD5Z+IzSaQhd81Jd5dfyL6wiwGq2q2BmFUYgR8+zYXBHjl5jlLFg1Ap
+ w3GY6MAFz1O83IHZL5uw39nfmBiIogHSbDSbaS4/QJ1EieVvqDPy4iFGYQK4k3FoHf0/
+ gj/kyTZTZD4h1q2u9IiMmcG6GBxVwCsRntjmJBwx0djqICfemg/8uHKGLWfZd7Lz7mXZ
+ k0NECQGdcthGV+owwuMtb473Iou31LPosThcqp6JxaLoHhePSMDseEccIaEQdwzxaXhx
+ Y2VNJa95HTT5zbT/NSunNbsvH9vkK6GviGqYTaDS9YrAGPTKeUKhHtNR5L70sMjyr60O
+ J5sA==
+X-Gm-Message-State: AOJu0YxkvasW+OoPJtg2mN9wdyNeEU28jeAWMkuRJYebdhu9fcGFV8zR
+ 5ODmRUIsSeTPy6z9Y5uzAgdN3OS3DhotFGPZnMM=
+X-Google-Smtp-Source: AGHT+IFteXQH9BHt3ZRZ7W8tal+jmYmVtmtqRSJtP+IzhFyTFRZv9u7SFv3/jCWbln4qIky7btDjoxGt8fk0qUfbPt8=
+X-Received: by 2002:a05:6871:489:b0:1ef:b0b6:7e14 with SMTP id
+ f9-20020a056871048900b001efb0b67e14mr6595oaj.10.1699284543003; Mon, 06 Nov
+ 2023 07:29:03 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-X-Mailman-Approved-At: Mon, 06 Nov 2023 13:53:32 +0000
+References: <CABXGCsNsDLvZR8RGf9ji5938QreSix89FCpGHju+9in2x6OfDw@mail.gmail.com>
+In-Reply-To: <CABXGCsNsDLvZR8RGf9ji5938QreSix89FCpGHju+9in2x6OfDw@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 6 Nov 2023 10:28:51 -0500
+Message-ID: <CADnq5_ObMvxN4pFAsWU7OM3SAtYCNHKE_fHsLqizGm0p1ubp=w@mail.gmail.com>
+Subject: Re: 6.7/regression/KASAN: null-ptr-deref in
+ amdgpu_ras_reset_error_count+0x2d6
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,180 +68,170 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:THUNDERBOLT DRIVER" <linux-usb@vger.kernel.org>,
- Karol Herbst <kherbst@redhat.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <dri-devel@lists.freedesktop.org>,
- "open list:X86 PLATFORM DRIVERS" <platform-driver-x86@vger.kernel.org>,
- Andreas Noever <andreas.noever@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- =?ISO-8859-15?Q?Marek_Beh=FAn?= <kabel@kernel.org>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:ACPI" <linux-acpi@vger.kernel.org>,
- Danilo Krummrich <dakr@redhat.com>,
- "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Michael Jamet <michael.jamet@intel.com>, Mark Gross <markgross@kernel.org>,
- Hans de Goede <hdegoede@redhat.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, open list <linux-kernel@vger.kernel.org>,
- Lukas Wunner <lukas@wunner.de>, Daniel Vetter <daniel@ffwll.ch>,
- Yehezkel Bernat <YehezkelShB@gmail.com>,
- =?ISO-8859-15?Q?Pali_Roh=E1r?= <pali@kernel.org>,
- =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>,
- "Maciej W . Rozycki" <macro@orcam.me.uk>
+Cc: tao.zhou1@amd.com, Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 3 Nov 2023, Mario Limonciello wrote:
+On Mon, Nov 6, 2023 at 10:22=E2=80=AFAM Mikhail Gavrilov
+<mikhail.v.gavrilov@gmail.com> wrote:
+>
+> Hi,
+> another release cycle, and another regression.
+> After another kernel update in Fedora Rawhide GPU not
+> entering in graphic mode on my laptop ASUS ROG Strix G15 Advantage
+> Edition G513QY-HQ007.
+> And in kernel log appears this bug trace:
+> [   22.574698] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> [   22.574704] BUG: KASAN: null-ptr-deref in
+> amdgpu_ras_reset_error_count+0x2d6/0x3e0 [amdgpu]
+> [   22.575115] Read of size 4 at addr 0000000000000180 by task (udev-work=
+er)/504
+>
+> [   22.575125] CPU: 2 PID: 504 Comm: (udev-worker) Tainted: G        W
+>    L     6.6.0-last-d2f51b3516dade79269ff45eae2a7668ae711b25+ #163
+> [   22.575135] Hardware name: ASUSTeK COMPUTER INC. ROG Strix
+> G513QY_G513QY/G513QY, BIOS G513QY.331 02/24/2023
+> [   22.575143] Call Trace:
+> [   22.575147]  <TASK>
+> [   22.575151]  dump_stack_lvl+0x76/0xd0
+> [   22.575158]  kasan_report+0xa6/0xe0
+> [   22.575165]  ? amdgpu_ras_reset_error_count+0x2d6/0x3e0 [amdgpu]
+> [   22.575320]  kasan_check_range+0x105/0x1b0
+> [   22.575320]  amdgpu_ras_reset_error_count+0x2d6/0x3e0 [amdgpu]
+> [   22.575320]  gmc_v9_0_late_init+0xcf/0x1b0 [amdgpu]
+> [   22.575320]  amdgpu_device_ip_late_init+0x103/0x7b0 [amdgpu]
+> [   22.575320]  amdgpu_device_init+0x7b33/0x8a90 [amdgpu]
+> [   22.575320]  ? __pfx_amdgpu_device_init+0x10/0x10 [amdgpu]
+> [   22.575320]  ? __pfx_pci_bus_read_config_word+0x10/0x10
+> [   22.575320]  ? do_pci_enable_device+0x22d/0x2a0
+> [   22.575320]  ? __pfx_pci_request_acs+0x1/0x10
+> [   22.575320]  ? _raw_spin_unlock_irqrestore+0x66/0x80
+> [   22.575320]  ? lockdep_hardirqs_on+0x81/0x110
+> [   22.575320]  ? __kasan_check_byte+0x13/0x50
+> [   22.575320]  amdgpu_driver_load_kms+0x1d/0x4b0 [amdgpu]
+> [   22.575320]  amdgpu_pci_probe+0x282/0xac0 [amdgpu]
+> [   22.575320]  ? __pfx_amdgpu_pci_probe+0x10/0x10 [amdgpu]
+> [   22.575320]  local_pci_probe+0xdd/0x190
+> [   22.575320]  pci_device_probe+0x23a/0x780
+> [   22.575320]  ? kernfs_add_one+0x326/0x490
+> [   22.575320]  ? kernfs_get.part.0+0x4c/0x70
+> [   22.575320]  ? __pfx_pci_device_probe+0x10/0x10
+> [   22.575320]  ? kernfs_create_link+0x16b/0x230
+> [   22.575320]  ? kernfs_put+0x1c/0x40
+> [   22.575320]  ? sysfs_do_create_link_sd+0x8e/0x100
+> [   22.575320]  really_probe+0x3e2/0xb80
+> [   22.575320]  __driver_probe_device+0x18c/0x450
+> [   22.575320]  driver_probe_device+0x4a/0x120
+> [   22.575320]  __driver_attach+0x1e5/0x4a0
+> [   22.575320]  ? __pfx___driver_attach+0x10/0x10
+> [   22.575320]  bus_for_each_dev+0x109/0x190
+> [   22.575320]  ? __pfx_bus_for_each_dev+0x10/0x10
+> [   22.575320]  bus_add_driver+0x2a1/0x570
+> [   22.575320]  driver_register+0x134/0x460
+> [   22.575320]  ? __pfx_amdgpu_init+0x10/0x10 [amdgpu]
+> [   22.575320]  do_one_initcall+0xd6/0x430
+> [   22.575320]  ? __pfx_do_one_initcall+0x10/0x10
+> [   22.575320]  ? kasan_unpoison+0x44/0x70
+> [   22.575320]  do_init_module+0x238/0x770
+> [   22.575320]  load_module+0x5581/0x6f10
+> [   22.575320]  ? __pfx_load_module+0x10/0x10
+> [   22.575320]  ? ima_post_read_file+0x189/0x1b0
+> [   22.575320]  ? __pfx_ima_post_read_file+0x10/0x10
+> [   22.575320]  ? __pfx_bpf_lsm_kernel_post_read_file+0x10/0x10
+> [   22.575320]  ? kernel_read_file+0x243/0x820
+> [   22.575320]  ? __pfx_kernel_read_file+0x10/0x10
+> [   22.575320]  ? init_module_from_file+0xd1/0x130
+> [   22.575320]  init_module_from_file+0xd1/0x130
+> [   22.575320]  ? __pfx_init_module_from_file+0x10/0x10
+> [   22.575320]  ? local_clock_noinstr+0x45/0xc0
+> [   22.575320]  ? do_raw_spin_unlock+0x58/0x1f0
+> [   22.575320]  idempotent_init_module+0x235/0x650
+> [   22.575320]  ? __pfx_idempotent_init_module+0x10/0x10
+> [   22.575320]  ? __pfx_bpf_lsm_capable+0x10/0x10
+> [   22.575320]  ? security_capable+0x74/0xb0
+> [   22.575320]  __x64_sys_finit_module+0xbe/0x130
+> [   22.575320]  do_syscall_64+0x64/0xe0
+> [   22.575320]  ? do_syscall_64+0x70/0xe0
+> [   22.575320]  ? lockdep_hardirqs_on+0x81/0x110
+> [   22.575320]  ? do_syscall_64+0x70/0xe0
+> [   22.575320]  ? do_syscall_64+0x70/0xe0
+> [   22.575320]  ? do_syscall_64+0x70/0xe0
+> [   22.575320]  ? do_syscall_64+0x70/0xe0
+> [   22.575320]  ? do_syscall_64+0x70/0xe0
+> [   22.575320]  ? do_syscall_64+0x70/0xe0
+> [   22.575320]  ? lockdep_hardirqs_on+0x81/0x110
+> [   22.575320]  ? do_syscall_64+0x70/0xe0
+> [   22.575320]  ? lockdep_hardirqs_on+0x81/0x110
+> [   22.575320]  entry_SYSCALL_64_after_hwframe+0x6e/0x76
+> [   22.575320] RIP: 0033:0x7f8ab56bbf8d
+> [   22.575320] Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e
+> fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24
+> 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 73 4e 0c 00 f7 d8 64 89
+> 01 48
+> [   22.575320] RSP: 002b:00007ffe2e836608 EFLAGS: 00000246 ORIG_RAX:
+> 0000000000000139
+> [   22.575320] RAX: ffffffffffffffda RBX: 000055f55ef37f30 RCX: 00007f8ab=
+56bbf8d
+> [   22.575320] RDX: 0000000000000000 RSI: 000055f55ef10950 RDI: 000000000=
+0000015
+> [   22.575320] RBP: 00007ffe2e8366c0 R08: 0000000000000000 R09: 00007ffe2=
+e836650
+> [   22.575320] R10: 0000000000000015 R11: 0000000000000246 R12: 000055f55=
+ef10950
+> [   22.575320] R13: 0000000000020000 R14: 000055f55ef37240 R15: 000055f55=
+ef393d0
+> [   22.575320]  </TASK>
+> [   22.575320] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+>
+> Using bisect, I found out that this commit is to blame
+> =E2=9D=AF git bisect good
+> 73582be11ac8f6d6765e185bf48f22efb9d28c3b is the first bad commit
+> commit 73582be11ac8f6d6765e185bf48f22efb9d28c3b
+> Author: Tao Zhou <tao.zhou1@amd.com>
+> Date:   Thu Oct 12 14:33:37 2023 +0800
+>
+>     drm/amdgpu: bypass RAS error reset in some conditions
+>
+>     PMFW is responsible for RAS error reset in some conditions, driver ca=
+n
+>     skip the operation.
+>
+>     v2: add check for ras->in_recovery, it's set earlier than
+>     amdgpu_in_reset.
+>
+>     v3: fix error in gpu reset check.
+>
+>     Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+>     Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+>     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+>
+> I rebuilt the kernel from master with reverted
+> 73582be11ac8f6d6765e185bf48f22efb9d28c3b and my laptop started working
+> again.
+>
+> All kernel logs and build config I attached below.
+> Laptop hardware probe is here: https://linux-hardware.org/?probe=3D85a38e=
+7906
 
-> The USB4 spec specifies that PCIe ports that are used for tunneling
-> PCIe traffic over USB4 fabric will be hardcoded to advertise 2.5GT/s and
-> behave as a PCIe Gen1 device. The actual performance of these ports is
-> controlled by the fabric implementation.
-> 
-> Downstream drivers such as amdgpu which utilize pcie_bandwidth_available()
-> to program the device will always find the PCIe ports used for
-> tunneling as a limiting factor potentially leading to incorrect
-> performance decisions.
-> 
-> To prevent problems in downstream drivers check explicitly for ports
-> being used for PCIe tunneling and skip them when looking for bandwidth
-> limitations of the hierarchy. If the only device connected is a root port
-> used for tunneling then report that device.
-> 
-> Downstream drivers could make this change on their own but then they
-> wouldn't be able to detect other potential speed bottlenecks from the
-> hierarchy without duplicating pcie_bandwidth_available() logic.
-> 
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2925#note_2145860
-> Link: https://www.usb.org/document-library/usb4r-specification-v20
->       USB4 V2 with Errata and ECN through June 2023
->       Section 11.2.1
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
->  drivers/pci/pci.c | 74 +++++++++++++++++++++++++++++++----------------
->  1 file changed, 49 insertions(+), 25 deletions(-)
-> 
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index d9aa5a39f585..15e37164ce56 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -6223,6 +6223,35 @@ int pcie_set_mps(struct pci_dev *dev, int mps)
->  }
->  EXPORT_SYMBOL(pcie_set_mps);
->  
-> +static u32 pcie_calc_bw_limits(struct pci_dev *dev, u32 bw,
-> +			       struct pci_dev **limiting_dev,
-> +			       enum pci_bus_speed *speed,
-> +			       enum pcie_link_width *width)
-> +{
-> +	enum pcie_link_width next_width;
-> +	enum pci_bus_speed next_speed;
-> +	u32 next_bw;
-> +	u16 lnksta;
-> +
-> +	pcie_capability_read_word(dev, PCI_EXP_LNKSTA, &lnksta);
-> +	next_speed = pcie_link_speed[lnksta & PCI_EXP_LNKSTA_CLS];
-> +	next_width = (lnksta & PCI_EXP_LNKSTA_NLW) >> PCI_EXP_LNKSTA_NLW_SHIFT;
-> +	next_bw = next_width * PCIE_SPEED2MBS_ENC(next_speed);
-> +
-> +	/* Check if current device limits the total bandwidth */
-> +	if (!bw || next_bw <= bw) {
-> +		bw = next_bw;
-> +		if (limiting_dev)
-> +			*limiting_dev = dev;
-> +		if (speed)
-> +			*speed = next_speed;
-> +		if (width)
-> +			*width = next_width;
-> +	}
-> +
-> +	return bw;
-> +}
-> +
->  /**
->   * pcie_bandwidth_available - determine minimum link settings of a PCIe
->   *			      device and its bandwidth limitation
-> @@ -6236,47 +6265,42 @@ EXPORT_SYMBOL(pcie_set_mps);
->   * limiting_dev, speed, and width pointers are supplied) information about
->   * that point.  The bandwidth returned is in Mb/s, i.e., megabits/second of
->   * raw bandwidth.
-> + *
-> + * This excludes the bandwidth calculation that has been returned from a
-> + * PCIe device used for transmitting tunneled PCIe traffic over a Thunderbolt
-> + * or USB4 link that is part of larger hierarchy. The calculation is excluded
-> + * because the USB4 specification specifies that the max speed returned from
-> + * PCIe configuration registers for the tunneling link is always PCI 1x 2.5 GT/s.
-> + * When only tunneled devices are present, the bandwidth returned is the
-> + * bandwidth available from the first tunneled device.
->   */
->  u32 pcie_bandwidth_available(struct pci_dev *dev, struct pci_dev **limiting_dev,
->  			     enum pci_bus_speed *speed,
->  			     enum pcie_link_width *width)
->  {
-> -	u16 lnksta;
-> -	enum pci_bus_speed next_speed;
-> -	enum pcie_link_width next_width;
-> -	u32 bw, next_bw;
-> +	struct pci_dev *tdev = NULL;
-> +	u32 bw = 0;
->  
->  	if (speed)
->  		*speed = PCI_SPEED_UNKNOWN;
->  	if (width)
->  		*width = PCIE_LNK_WIDTH_UNKNOWN;
->  
-> -	bw = 0;
-> -
->  	while (dev) {
-> -		pcie_capability_read_word(dev, PCI_EXP_LNKSTA, &lnksta);
-> -
-> -		next_speed = pcie_link_speed[lnksta & PCI_EXP_LNKSTA_CLS];
-> -		next_width = (lnksta & PCI_EXP_LNKSTA_NLW) >>
-> -			PCI_EXP_LNKSTA_NLW_SHIFT;
-> -
-> -		next_bw = next_width * PCIE_SPEED2MBS_ENC(next_speed);
-> -
-> -		/* Check if current device limits the total bandwidth */
-> -		if (!bw || next_bw <= bw) {
-> -			bw = next_bw;
-> -
-> -			if (limiting_dev)
-> -				*limiting_dev = dev;
-> -			if (speed)
-> -				*speed = next_speed;
-> -			if (width)
-> -				*width = next_width;
-> +		if (dev->is_tunneled) {
-> +			if (!tdev)
-> +				tdev = dev;
-> +			goto skip;
->  		}
-> -
-> +		bw = pcie_calc_bw_limits(dev, bw, limiting_dev, speed, width);
-> +skip:
->  		dev = pci_upstream_bridge(dev);
->  	}
->  
-> +	/* If nothing "faster" found on link, limit to first tunneled device */
-> +	if (tdev && !bw)
-> +		bw = pcie_calc_bw_limits(tdev, bw, limiting_dev, speed, width);
-> +
->  	return bw;
->  }
->  EXPORT_SYMBOL(pcie_bandwidth_available);
-> 
+Already fixed in this commit:
+https://gitlab.freedesktop.org/agd5f/linux/-/commit/d1d4c0b7b65b7fab2bc6f97=
+af9e823b1c42ccdb0
+Which is in included in last weeks PR.
 
-This patch should be split into two, where one just moves the code to the 
-new function.
+Alex
 
-Also note that this will conflict with the FIELD_GET() changes (try to 
-not reintroduce non-FIELD_GET() code when you rebase this on top of 
-v6.7-rc1 :-)).
-
--- 
- i.
-
+>
+> --
+> Best Regards,
+> Mike Gavrilov.
