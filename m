@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C22DBC4332F
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 13:53:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 033EFC4167B
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 13:53:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5714610E324;
-	Mon,  6 Nov 2023 13:53:34 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B162110E06F;
- Mon,  6 Nov 2023 12:33:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 357EA10E326;
+	Mon,  6 Nov 2023 13:53:35 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAD6110E061;
+ Mon,  6 Nov 2023 12:25:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1699274033; x=1730810033;
+ t=1699273536; x=1730809536;
  h=date:from:to:cc:subject:in-reply-to:message-id:
  references:mime-version;
- bh=lly8ppgmxcDDLOmDBL4aU0UCetKvXa6D6CEONx55ShM=;
- b=fl1HAM8RLmfBfFwSXhfJ2lfviepCCwgP/bGCGYfuPGdd4mOtgtsC9BB+
- flZFOuZPzuBxjisjuH9GddRb4DWZz2BGCf2Y7EX31vSLvxoYSbKV9z+mw
- 1+aXI8v6inGgtq56I122ebpKVaRgfuIM8rdQpJwiCw0x9EFggcum3DOLo
- 14VtFWl8dkrsRNlmUijI0FGn7mllUlv5lectJmS4BcsZ540qKSZtPGeQA
- RjcnjSiYiSPhfEIuLOKm82SIKQMnWceXVhdjJcVk8ynhszfaThMMmhEHO
- pNn1wmSFw31age3VFkeY6mLw1HX7mbhR1lgspmJ0EmJhiHT3pvrBjSXgk g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="379657178"
-X-IronPort-AV: E=Sophos;i="6.03,281,1694761200"; d="scan'208";a="379657178"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Nov 2023 04:33:53 -0800
+ bh=2pR8X4BMVcOGKWPNkgcioekUqSx5/pk8Jhwvb4ict+4=;
+ b=i1ILJryameQME2wCRiiRbVH+TQb/wd1dauLPCNARzBp00uPXWi8Scw5z
+ 1PKdTA9jabyoy9/DLJWxDsU7i/1t6mIraTua7+YHkF1YFmd08tQG/YkQV
+ 6kFQqMUsV1QpBQWl/sZQgBvOhG9I/lKWHAE7A9q3mHG+T2H5qxzphMs9n
+ oh6mFO4jU8hLWO/cUJbHw+mKEi5KH1u9gGVexCfS6s5eh05rAz9nATEK5
+ XY4U9JB6/7PRs+pryVjUn0EXe3hOFhEAAgMNFLY2XjPWxuDS4s+2QGZyn
+ voVw4s1RDMdkqSQd8ObwX6ioj8qAPohuGbclSgHI6FrqzVTsVcTLA1e58 A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="420376188"
+X-IronPort-AV: E=Sophos;i="6.03,281,1694761200"; d="scan'208";a="420376188"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Nov 2023 04:25:36 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="765938147"
-X-IronPort-AV: E=Sophos;i="6.03,281,1694761200"; d="scan'208";a="765938147"
+X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="828193825"
+X-IronPort-AV: E=Sophos;i="6.03,281,1694761200"; d="scan'208";a="828193825"
 Received: from rmstoi-mobl.ger.corp.intel.com ([10.251.216.76])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Nov 2023 04:33:43 -0800
-Date: Mon, 6 Nov 2023 14:33:40 +0200 (EET)
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Nov 2023 04:25:27 -0800
+Date: Mon, 6 Nov 2023 14:25:24 +0200 (EET)
 From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
 To: Mario Limonciello <mario.limonciello@amd.com>
-Subject: Re: [PATCH v2 3/9] PCI: Drop pci_is_thunderbolt_attached()
-In-Reply-To: <20231103190758.82911-4-mario.limonciello@amd.com>
-Message-ID: <4747b7b8-ea48-4117-f746-a18dae97bc2@linux.intel.com>
+Subject: Re: [PATCH v2 1/9] drm/nouveau: Switch from
+ pci_is_thunderbolt_attached() to dev_is_removable()
+In-Reply-To: <20231103190758.82911-2-mario.limonciello@amd.com>
+Message-ID: <55563d57-60c3-1789-1e7c-5e618fbd6253@linux.intel.com>
 References: <20231103190758.82911-1-mario.limonciello@amd.com>
- <20231103190758.82911-4-mario.limonciello@amd.com>
+ <20231103190758.82911-2-mario.limonciello@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 X-Mailman-Approved-At: Mon, 06 Nov 2023 13:53:32 +0000
@@ -86,52 +87,44 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Fri, 3 Nov 2023, Mario Limonciello wrote:
 
-> All callers have switched to dev_is_removable() for detecting
-> hotpluggable PCIe devices.
-> 
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
->  include/linux/pci.h | 22 ----------------------
->  1 file changed, 22 deletions(-)
-> 
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index b56417276042..530b0a360514 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -2616,28 +2616,6 @@ static inline bool pci_ari_enabled(struct pci_bus *bus)
->  	return bus->self && bus->self->ari_enabled;
->  }
->  
-> -/**
-> - * pci_is_thunderbolt_attached - whether device is on a Thunderbolt daisy chain
-> - * @pdev: PCI device to check
-> - *
-> - * Walk upwards from @pdev and check for each encountered bridge if it's part
-> - * of a Thunderbolt controller.  Reaching the host bridge means @pdev is not
-> - * Thunderbolt-attached.  (But rather soldered to the mainboard usually.)
-> - */
-> -static inline bool pci_is_thunderbolt_attached(struct pci_dev *pdev)
-> -{
-> -	struct pci_dev *parent = pdev;
-> -
-> -	if (pdev->is_thunderbolt)
-> -		return true;
-> -
-> -	while ((parent = pci_upstream_bridge(parent)))
-> -		if (parent->is_thunderbolt)
-> -			return true;
-> -
-> -	return false;
-> -}
-> -
->  #if defined(CONFIG_PCIEPORTBUS) || defined(CONFIG_EEH)
->  void pci_uevent_ers(struct pci_dev *pdev, enum  pci_ers_result err_type);
->  #endif
-> 
+> pci_is_thunderbolt_attached() only works for Intel TBT devices. Switch to
+> using dev_is_removable() to be able to detect USB4 devices as well.
 
-I don't think all callers have been removed. Ah, lkp has caught the same 
-problem.
+Please extend this with more details. I had to lookup the TBT change to 
+be able to make any guess why you're doing this (and it's still a guess 
+at best).
 
 -- 
  i.
 
+
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  drivers/gpu/drm/nouveau/nouveau_vga.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_vga.c b/drivers/gpu/drm/nouveau/nouveau_vga.c
+> index f8bf0ec26844..14215b7ca187 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_vga.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_vga.c
+> @@ -94,8 +94,8 @@ nouveau_vga_init(struct nouveau_drm *drm)
+>  
+>  	vga_client_register(pdev, nouveau_vga_set_decode);
+>  
+> -	/* don't register Thunderbolt eGPU with vga_switcheroo */
+> -	if (pci_is_thunderbolt_attached(pdev))
+> +	/* don't register USB4/Thunderbolt eGPU with vga_switcheroo */
+> +	if (dev_is_removable(&pdev->dev))
+>  		return;
+>  
+>  	vga_switcheroo_register_client(pdev, &nouveau_switcheroo_ops, runtime);
+> @@ -118,7 +118,7 @@ nouveau_vga_fini(struct nouveau_drm *drm)
+>  
+>  	vga_client_unregister(pdev);
+>  
+> -	if (pci_is_thunderbolt_attached(pdev))
+> +	if (dev_is_removable(&pdev->dev))
+>  		return;
+>  
+>  	vga_switcheroo_unregister_client(pdev);
+> 
