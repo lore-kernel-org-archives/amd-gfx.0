@@ -4,68 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C908C41535
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 09:00:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4663CC4332F
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 09:00:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF35E10E28B;
-	Mon,  6 Nov 2023 09:00:03 +0000 (UTC)
-Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
- [IPv6:2607:f8b0:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E42F10E273;
- Mon,  6 Nov 2023 08:14:46 +0000 (UTC)
-Received: by mail-pl1-x62a.google.com with SMTP id
- d9443c01a7336-1cc3542e328so26660665ad.1; 
- Mon, 06 Nov 2023 00:14:46 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53F2010E291;
+	Mon,  6 Nov 2023 09:00:05 +0000 (UTC)
+Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
+ [IPv6:2607:f8b0:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDAE410E261;
+ Mon,  6 Nov 2023 05:15:50 +0000 (UTC)
+Received: by mail-pf1-x42c.google.com with SMTP id
+ d2e1a72fcca58-6b44befac59so3888516b3a.0; 
+ Sun, 05 Nov 2023 21:15:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1699258485; x=1699863285; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1699247750; x=1699852550; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=RnL15XWbR/PqBAe5vEEeomw1xohZpb97YhaYfG/+2hE=;
- b=YYgJWapjy69T8t2aG6jXlY8BS/QGT0tktYggGBR982h1f+xHqV2mOYYbqOlj4Mpbzs
- od0D1iFTczLuxoYhXzECVRQqmNQ0unPkRdDck9HWgjxAJ6IhUKy7FwbADRoNnazm1XOZ
- Y1omSZsIHFPX5ThrVUukRexqoCmnHPxWKrSyXRibYgtGga2QcS2RXk1Xq0/4XziEQUbH
- doA1Dho4qhFaL10SqdrdWrClFJLp2XJmQqLckQllDlpE3EwG5aX4qhyIQEnzJkCMWJXh
- ZWLQOEe14v6gncgnMqV/Kllo1+9EwtrRxXJ05IB67+F6qcjJsxHWr3ab4dmFfqYBEtew
- XZxQ==
+ bh=wJQuj+yw5AtCsm3Nh3eaEJ8IPjFc0cjx5pVXpkaybko=;
+ b=CMybkdB4jrrTL119qMesmNBviyxoUSPrJ1URyyQ5UVVxafTCgEwKp2hDUlbaj3GTn2
+ bxJ/PJcvwf2r8DuGc6OsRU7Ksr4vKqdZaK+YpMFZ3RK5d/a5L7ln37RQRpzF1m/Yydpj
+ lezGJyUasfqV2N5+C97sP5JDhK7GTwosstUb/jDLk5wCsvrxSRIl532PDpPJZ4bOHTif
+ RADAeQyioVOkrOO+Y4xwWzeoQZYMayI3qMci8ZO56cvd2lHWiQMtotFaJCz8MlrEhxKw
+ PXp1l9QY6iY1GskWz/URs+SUiKQJcOdQL9x2eQ5y5EKaVBhNAqaqbAN7pWRqn4rrrO+r
+ sx3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699258485; x=1699863285;
+ d=1e100.net; s=20230601; t=1699247750; x=1699852550;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=RnL15XWbR/PqBAe5vEEeomw1xohZpb97YhaYfG/+2hE=;
- b=ZAcGv+rX9z6U0snVcL07nDViUNZ1hdRjEfhBdC4yIxL9WIs/uZxcT5egD8/t38yR4O
- r0BIYSVNhHo3oPZBayAMaH3Z4WNykhUstdBvP7KTiZsxOEOxYC2BFE4/Km91Pd9P8NiE
- AQ36JVCwmTbpiWZu4S94agaOlGXQcgPEusrLizVeRKgHwRWk1seut2TpdoC2+ZLG6tik
- vYpUMWKzW0cCb/iXX7DpP08E3LxutsXHXaVI/Dt0lFSahzxChkq2g83bZoVmTYsh3dnk
- W1cvgJolLaA+lwLg/Fj6W3W/asa/ljhfUggJ6UKZJv4Wtb/r9w1h5cryVpqmkSYCKS0J
- PQbQ==
-X-Gm-Message-State: AOJu0YwxzX327ComnhSAOzU41gD+TsrfjBv8AMIWJ6NBrYAyOLhKbfXJ
- ++6QbvFmV3LWeMhY/zo0wpQ=
-X-Google-Smtp-Source: AGHT+IEH71t99GuGPuDpnkZTNN858Z5Z6G2lkYXBgMtLmpxZNn3A6l6Q8xwlyYMdOWlmUXyeV+Q6aA==
-X-Received: by 2002:a17:902:ec81:b0:1cc:6e5e:a980 with SMTP id
- x1-20020a170902ec8100b001cc6e5ea980mr16100026plg.3.1699258485414; 
- Mon, 06 Nov 2023 00:14:45 -0800 (PST)
+ bh=wJQuj+yw5AtCsm3Nh3eaEJ8IPjFc0cjx5pVXpkaybko=;
+ b=KjvE5yPq/PQUgyGmP2tgavJoyieSb5MtNSMUxqVsCMUi91QzB/cTJuNUZqn/ufVZ5B
+ nD2NR1uCwWmuwvRnYWxOGpuTGDARZSP1kLlUjELfhh5gFiMCGm0Dbz+B9/ynMis1iBJy
+ 61o/SeyflVKDKNFbym/wfv7v4meCaHahnnFVPhKAlP1tyZh9i1hkvydSzIwif1ljSQ2+
+ 6ReYVW8XDX2dnuxcI+nBetTKhmUW/k6YY6In6RRJptrQxLL18DDcRriQC9didCxYNZFE
+ AfgrfRNlhiRcGPSLENkOn7Xq7bMXs6BLfjbXy7HeOnNxTiV37MJZ6fWOe3E2k2Yr7fnK
+ fKqg==
+X-Gm-Message-State: AOJu0YyQ9KH/8DIcFYsp7vsOkB2G/qtHoqFu6Vu390jWiokwhPps1Wjg
+ bD3hw+MTCfNL0rX/sLghb6Q=
+X-Google-Smtp-Source: AGHT+IFJnPm4yurMc99aQj3qffQVoJNmBJcK7sbQ+SdUH+x3YGKqHbHy1aOCEnKMvznjVmoguV3Pzw==
+X-Received: by 2002:a05:6a20:2587:b0:181:a5ff:2dfa with SMTP id
+ k7-20020a056a20258700b00181a5ff2dfamr11831872pzd.5.1699247750411; 
+ Sun, 05 Nov 2023 21:15:50 -0800 (PST)
 Received: from debian.me ([103.131.18.64]) by smtp.gmail.com with ESMTPSA id
- l12-20020a170903120c00b001c746b986e5sm5349705plh.45.2023.11.06.00.14.44
+ s133-20020a632c8b000000b005ab281d0777sm4748640pgs.20.2023.11.05.21.15.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Nov 2023 00:14:44 -0800 (PST)
+ Sun, 05 Nov 2023 21:15:49 -0800 (PST)
 Received: by debian.me (Postfix, from userid 1000)
- id DCC899481F1F; Mon,  6 Nov 2023 15:14:40 +0700 (WIB)
-Date: Mon, 6 Nov 2023 15:14:38 +0700
+ id EE5B1822370C; Mon,  6 Nov 2023 12:15:43 +0700 (WIB)
+Date: Mon, 6 Nov 2023 12:15:42 +0700
 From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: Randy Dunlap <rdunlap@infradead.org>,
- Hunter Chasens <hunter.chasens18@ncf.edu>,
+To: Hunter Chasens <hunter.chasens18@ncf.edu>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Subject: Re: [PATCH v1] drm: amd: Resolve Sphinx unexpected indentation warning
-Message-ID: <ZUigbshGGc451V5L@debian.me>
+Message-ID: <ZUh2fuCjmgle3vd9@debian.me>
 References: <20231105210044.70371-1-hunter.chasens18@ncf.edu>
- <ZUh2fuCjmgle3vd9@debian.me>
- <665794d7-38e0-4e74-9af7-eca986792e44@infradead.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="pfvq47Pno2Wrjbn6"
+ protocol="application/pgp-signature"; boundary="Z3YYlR3KMg8w41Vy"
 Content-Disposition: inline
-In-Reply-To: <665794d7-38e0-4e74-9af7-eca986792e44@infradead.org>
+In-Reply-To: <20231105210044.70371-1-hunter.chasens18@ncf.edu>
 X-Mailman-Approved-At: Mon, 06 Nov 2023 09:00:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,71 +85,57 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
---pfvq47Pno2Wrjbn6
+--Z3YYlR3KMg8w41Vy
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Nov 05, 2023 at 09:26:26PM -0800, Randy Dunlap wrote:
->=20
->=20
-> On 11/5/23 21:15, Bagas Sanjaya wrote:
-> > On Sun, Nov 05, 2023 at 04:00:44PM -0500, Hunter Chasens wrote:
-> >> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/=
-pm/amdgpu_pm.c
-> >> index 517b9fb4624c..703fe2542258 100644
-> >> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> >> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> >> @@ -990,11 +990,14 @@ static ssize_t amdgpu_get_pp_features(struct dev=
-ice *dev,
-> >>   * the power state and the clock information for those levels. If dee=
-p sleep is
-> >>   * applied to a clock, the level will be denoted by a special level '=
-S:'
-> >>   * E.g.,
-> >> - *	S: 19Mhz *
-> >> - *	0: 615Mhz
-> >> - *	1: 800Mhz
-> >> - *	2: 888Mhz
-> >> - *	3: 1000Mhz
-> >> + *
-> >> + * ::
-> >> + *
-> >> + *  S: 19Mhz *
-> >> + *  0: 615Mhz
-> >> + *  1: 800Mhz
-> >> + *  2: 888Mhz
-> >> + *  3: 1000Mhz
-> >>   *
-> >>   *
-> >>   * To manually adjust these states, first select manual using
-> >=20
-> > LGTM, thanks!
-> >=20
-> > Fixes: 615585d09b33 ("Documentation/amdgpu: Modify pp_dpm_*clk details")
-> > Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
-> >=20
->=20
-> but can it be done without being so obvious about using Sphinx (or is it =
-ReST?)
-> in source files?
+On Sun, Nov 05, 2023 at 04:00:44PM -0500, Hunter Chasens wrote:
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/=
+amdgpu_pm.c
+> index 517b9fb4624c..703fe2542258 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> @@ -990,11 +990,14 @@ static ssize_t amdgpu_get_pp_features(struct device=
+ *dev,
+>   * the power state and the clock information for those levels. If deep s=
+leep is
+>   * applied to a clock, the level will be denoted by a special level 'S:'
+>   * E.g.,
+> - *	S: 19Mhz *
+> - *	0: 615Mhz
+> - *	1: 800Mhz
+> - *	2: 888Mhz
+> - *	3: 1000Mhz
+> + *
+> + * ::
+> + *
+> + *  S: 19Mhz *
+> + *  0: 615Mhz
+> + *  1: 800Mhz
+> + *  2: 888Mhz
+> + *  3: 1000Mhz
+>   *
+>   *
+>   * To manually adjust these states, first select manual using
 
-Yes, the comment is included in Documentation/gpu/amdgpu/thermal.rst, so re=
-ST
-syntax applies there.
+LGTM, thanks!
+
+Fixes: 615585d09b33 ("Documentation/amdgpu: Modify pp_dpm_*clk details")
+Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
 
 --=20
 An old man doll... just what I always wanted! - Clara
 
---pfvq47Pno2Wrjbn6
+--Z3YYlR3KMg8w41Vy
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZUigaAAKCRD2uYlJVVFO
-o2CLAQCUAbBtOtn22yQGu7Uv9lipjEUjPeZ57pIl4xfW8ZjorQEA7hZ6R3PSNen9
-ebEfktqrfgqONoXsVVGm1/5wlmlsggc=
-=yZdv
+iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZUh2dgAKCRD2uYlJVVFO
+o8u3AP9EGukcdCE9j7syJTFV3j9ZJFi0tBknTBxXtF86voVT7QEA7mRPIMBMAUYJ
+/kqkXet60szZtgn55HRclmw6vzSt9g4=
+=qHmW
 -----END PGP SIGNATURE-----
 
---pfvq47Pno2Wrjbn6--
+--Z3YYlR3KMg8w41Vy--
