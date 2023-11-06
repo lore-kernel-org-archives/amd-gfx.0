@@ -4,28 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAB20C001B0
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 09:00:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6F2BC4167B
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 09:00:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07E6D10E28D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51A6F10E294;
 	Mon,  6 Nov 2023 09:00:06 +0000 (UTC)
-X-Greylist: delayed 366 seconds by postgrey-1.36 at gabe;
- Sun, 05 Nov 2023 09:55:02 UTC
-Received: from smtp.gentoo.org (mail.gentoo.org
- [IPv6:2001:470:ea4a:1:5054:ff:fec7:86e4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E2E110E04A;
- Sun,  5 Nov 2023 09:55:02 +0000 (UTC)
-User-agent: mu4e 1.10.7; emacs 30.0.50
-From: Sam James <sam@gentoo.org>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: amdgpu_amdkfd_gfx* triggers new -Walloc-size warnings in GCC 14
-Date: Sun, 05 Nov 2023 09:45:24 +0000
-Organization: Gentoo
-Message-ID: <87wmuwo7i3.fsf@gentoo.org>
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BA4810E267;
+ Mon,  6 Nov 2023 05:26:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=zasn4w0oFWumSsqCqP28MJ/uPlB0cSsr7K9bf/OVxqY=; b=eRcSAPghQurk40C3TGIMY4j69Y
+ 4Pi1KCpZsK8FUtXRJzZrqZqhaGQTCMmnPvHt7yf1SIBQGmaIHvw/3b3OG6tloG+7KxYwZw5e64w43
+ Ucwd+8TWrzmoY2zVW5Za9kZ/SnJyr/GxpuEOSao0SnwPjkG+SuEpRvMO/VGpWcKudcHkwnjSzGUJQ
+ r8OWlfaYTI1juyHZF1+5L1ps5p+N+8E80SUfDBpNC2SwVEdHSTRuQ+rZT8q3OpTjOQZycGCxzVj/S
+ dW39s1M5goCXED/9TUyown7DWb+MzxF9Y0mn7r9kJvPThVrbnY9MUAXrd88iu546OBAafJ7G/K5su
+ dmuWKKKQ==;
+Received: from [50.53.46.231] (helo=[192.168.254.15])
+ by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1qzs83-00Ft8t-2N; Mon, 06 Nov 2023 05:26:27 +0000
+Message-ID: <665794d7-38e0-4e74-9af7-eca986792e44@infradead.org>
+Date: Sun, 5 Nov 2023 21:26:26 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] drm: amd: Resolve Sphinx unexpected indentation warning
+Content-Language: en-US
+To: Bagas Sanjaya <bagasdotme@gmail.com>,
+ Hunter Chasens <hunter.chasens18@ncf.edu>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+References: <20231105210044.70371-1-hunter.chasens18@ncf.edu>
+ <ZUh2fuCjmgle3vd9@debian.me>
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <ZUh2fuCjmgle3vd9@debian.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 06 Nov 2023 09:00:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -38,72 +53,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kees Cook <kees@kernel.org>, uecker@gcc.gnu.org
+Cc: Lijo Lazar <lijo.lazar@amd.com>,
+ Linux Documentation <linux-doc@vger.kernel.org>, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org,
+ Linux DRI Development <dri-devel@lists.freedesktop.org>, daniel@ffwll.ch,
+ alexander.deucher@amd.com, evan.quan@amd.com, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-GCC 14 introduces a new -Walloc-size warning (https://gcc.gnu.org/onlinedoc=
-s/gcc/Warning-Options.html#index-Wno-alloc-size)
-which triggers on the following amdgpu files:
-"""
-/var/tmp/portage/sys-kernel/gentoo-kernel-6.5.10/work/linux-6.5/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c: In function =E2=80=98kgd_hqd_dump=
-=E2=80=99:
-/var/tmp/portage/sys-kernel/gentoo-kernel-6.5.10/work/linux-6.5/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c:241:15: error: allocation of insuffi=
-cient size =E2=80=984=E2=80=99 for type =E2=80=98uint32_t[2]=E2=80=99 {aka =
-=E2=80=98unsigned int[2
-]=E2=80=99} with size =E2=80=988=E2=80=99 [-Werror=3Dalloc-size[https://gcc=
-.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Walloc-size]]
-  241 |         *dump =3D kmalloc_array(HQD_N_REGS * 2, sizeof(uint32_t), G=
-FP_KERNEL);
-      |               ^
-/var/tmp/portage/sys-kernel/gentoo-kernel-6.5.10/work/linux-6.5/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c: In function =E2=80=98kgd_hqd_sdma_d=
-ump=E2=80=99:
-/var/tmp/portage/sys-kernel/gentoo-kernel-6.5.10/work/linux-6.5/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c:327:15: error: allocation of insuffi=
-cient size =E2=80=984=E2=80=99 for type =E2=80=98uint32_t[2]=E2=80=99 {aka =
-=E2=80=98unsigned int[2
-]=E2=80=99} with size =E2=80=988=E2=80=99 [-Werror=3Dalloc-size[https://gcc=
-.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Walloc-size]]
-  327 |         *dump =3D kmalloc_array(HQD_N_REGS * 2, sizeof(uint32_t), G=
-FP_KERNEL);
-      |               ^
-/var/tmp/portage/sys-kernel/gentoo-kernel-6.5.10/work/linux-6.5/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c: In function =E2=80=98kgd_arcturus=
-_hqd_sdma_dump=E2=80=99:
-/var/tmp/portage/sys-kernel/gentoo-kernel-6.5.10/work/linux-6.5/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c:203:15: error: allocation of insuf=
-ficient size =E2=80=984=E2=80=99 for type =E2=80=98uint32_t[2]=E2=80=99 {ak=
-a =E2=80=98unsigned int
-[2]=E2=80=99} with size =E2=80=988=E2=80=99 [-Werror=3Dalloc-size[https://g=
-cc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Walloc-size]]
-  203 |         *dump =3D kmalloc_array(HQD_N_REGS * 2, sizeof(uint32_t), G=
-FP_KERNEL);
-      |               ^
-/var/tmp/portage/sys-kernel/gentoo-kernel-6.5.10/work/linux-6.5/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c: In function =E2=80=98kgd_gfx_v9_4=
-_3_hqd_sdma_dump=E2=80=99:
-/var/tmp/portage/sys-kernel/gentoo-kernel-6.5.10/work/linux-6.5/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c:142:15: error: allocation of insuf=
-ficient size =E2=80=984=E2=80=99 for type =E2=80=98uint32_t[2]=E2=80=99 {ak=
-a =E2=80=98unsigned int
-[2]=E2=80=99} with size =E2=80=988=E2=80=99 [-Werror=3Dalloc-size[https://g=
-cc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Walloc-size]]
-  142 |         *dump =3D kmalloc_array(HQD_N_REGS * 2, sizeof(uint32_t), G=
-FP_KERNEL);
-      |               ^
-"""
 
-$ gcc-14 --version
-gcc-14 (Gentoo Hardened 14.0.0 p, commit
-2b02f083e67e97f8187d3ec023c3d281f49232c0) 14.0.0 20231104 (experimental)
-8d22ac6a18cf542cd541c06b2a7df8fdd293946d
-Copyright (C) 2023 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is
-NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPO=
-SE.
 
-thanks,
-sam
+On 11/5/23 21:15, Bagas Sanjaya wrote:
+> On Sun, Nov 05, 2023 at 04:00:44PM -0500, Hunter Chasens wrote:
+>> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+>> index 517b9fb4624c..703fe2542258 100644
+>> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+>> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+>> @@ -990,11 +990,14 @@ static ssize_t amdgpu_get_pp_features(struct device *dev,
+>>   * the power state and the clock information for those levels. If deep sleep is
+>>   * applied to a clock, the level will be denoted by a special level 'S:'
+>>   * E.g.,
+>> - *	S: 19Mhz *
+>> - *	0: 615Mhz
+>> - *	1: 800Mhz
+>> - *	2: 888Mhz
+>> - *	3: 1000Mhz
+>> + *
+>> + * ::
+>> + *
+>> + *  S: 19Mhz *
+>> + *  0: 615Mhz
+>> + *  1: 800Mhz
+>> + *  2: 888Mhz
+>> + *  3: 1000Mhz
+>>   *
+>>   *
+>>   * To manually adjust these states, first select manual using
+> 
+> LGTM, thanks!
+> 
+> Fixes: 615585d09b33 ("Documentation/amdgpu: Modify pp_dpm_*clk details")
+> Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
+> 
+
+but can it be done without being so obvious about using Sphinx (or is it ReST?)
+in source files?
+
+e.g.: (not tested)
+
+ * E.g.:
+ * *	S: 19Mhz *
+ * *	0: 615Mhz
+ * *	1: 800Mhz
+ * *	2: 888Mhz
+ * *	3: 1000Mhz
+
+This is what I have seen done in quite a few source files.
+
+Oh well, lots of files are already infected, so WTH. :(
+
+-- 
+~Randy
