@@ -4,67 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F23C6C4167B
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 21:37:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C714CC4332F
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 21:40:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9C5C10E43E;
-	Mon,  6 Nov 2023 21:37:31 +0000 (UTC)
-Received: from mail-oo1-xc32.google.com (mail-oo1-xc32.google.com
- [IPv6:2607:f8b0:4864:20::c32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C5C710E436;
- Mon,  6 Nov 2023 21:20:08 +0000 (UTC)
-Received: by mail-oo1-xc32.google.com with SMTP id
- 006d021491bc7-582050ce2d8so819816eaf.0; 
- Mon, 06 Nov 2023 13:20:08 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EF5D10E440;
+	Mon,  6 Nov 2023 21:40:21 +0000 (UTC)
+Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
+ [IPv6:2001:4860:4864:20::34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D17210E440
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Nov 2023 21:40:19 +0000 (UTC)
+Received: by mail-oa1-x34.google.com with SMTP id
+ 586e51a60fabf-1f03fdfcfacso2949443fac.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 06 Nov 2023 13:40:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1699305607; x=1699910407; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=1fyk105fO9nPx1K8RQh7z3r5ykWh5/CrtqeSXyVa34c=;
- b=HE7iYAtSDgKg4l4CWcWcumSQG9a21pWzw+EC6ZA+1tOjjgK08AcO2V4/Iwmgkmw7ct
- UmfcP0gEylosJu/w7hiXRtE4zhDecysB5F2BMe1q1s06vzSkjKWgbG3hBTZUR4425FSO
- m+r+x25BwoiWiDEPN6iG+2xxJ+GLqj4t63uiQzK1EoQj4mUsnBvcPb8eFrQoEC5BsYEA
- XtxoMgcMxHVTGEk+WSDocOIwtYDafmReMES8U5/+sAuPa6PfHwl52etypXaQXAC9+wn+
- FlCmPgX7Rskg5eHqGtZJ0/LmOVRJ9W3eejHPV1nGOLaAj6lwQQ8FjA1aciY2Jpi3nbUC
- rxNQ==
+ d=gmail.com; s=20230601; t=1699306819; x=1699911619; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=CAbQVm3zJ4UqsbrmZsxrr43vEClld4C/EEamWDlJsuU=;
+ b=DJgT8PeYYdF0igBpTTj28yJBOMMKFxgTc9S4vVlONDIOa2tk/mZHN603jKXgpD5DTG
+ MqDGVKWgAgItYqmlbSl3GEwYFIjb+1F//m7+ulUPKh+PTmxTTkqPXH/2XCklEaO70b0D
+ YSdz1lGWXpHdTTJnUAxgS20xmWoje6hzObi9Hz1dwEzenralFtN0bIhYudYbD494LX5x
+ lqGmnxeCqqhBc2OXNMUKmSOyIggRjxqYtxIoDkvFWpP/dzI3U7gdp1bgUl2PkD61WM9B
+ vmM6YA46ewuGHoTsNP9zd8+eDpSzR5/xiQ1UcCV+4is8xMS1S9Miw3H0GB4B6nVkhjbk
+ PmAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699305607; x=1699910407;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=1fyk105fO9nPx1K8RQh7z3r5ykWh5/CrtqeSXyVa34c=;
- b=Mvr+p+5Fbe6ssz1y5x7tniscjb6XaUoLP5q7/eDmHlCLYEC48aXsGd5Hh6kMmXUPnx
- 0REpD23OYsSVb59K/sq6lR53QLA+IEK/dxKr64jsJn9+ztIxwwHTTZJSW2hHNrg4PuZI
- 9Q3FTsi5uzeVH9gQiqqGhK0yl0rSxPU7tYBBtZ0F+npxp4DLA7T3S5UED7S2XoGK72ms
- qWvuSZwwBYQE35ewXObt7AeZp0QdzItV/swRtlDOgIXV3YljO2ukS2w5C+VUuhAfdNdA
- 1nBPBgXqKjxqgDrOltjbSqgF0TckTzcZi1H/joaBab/ZUm53Ul9sm7AXcTepTSQWDq2k
- lbeg==
-X-Gm-Message-State: AOJu0YzFprqSdxYqweWebfF37WZd8fJLkXqusYpXv++kDfHKzCMBo7q6
- MMU3Jy5rlK6AFb6EjqnoxTI=
-X-Google-Smtp-Source: AGHT+IH4VDf8xNiyaOS4OHF/NY+0agil1P2kuT4qJkDyOIVe9taGaS0U+sjLOgwU7KXVIGo4aSi+fQ==
-X-Received: by 2002:a05:6358:f201:b0:169:4a72:2b84 with SMTP id
- jj1-20020a056358f20100b001694a722b84mr41339730rwb.1.1699305607292; 
- Mon, 06 Nov 2023 13:20:07 -0800 (PST)
-Received: from [192.168.0.152] ([103.75.161.210])
- by smtp.gmail.com with ESMTPSA id
- y188-20020a6364c5000000b005b92ba3938dsm190941pgb.77.2023.11.06.13.20.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Nov 2023 13:20:06 -0800 (PST)
-Message-ID: <3b92b89b-ca72-4012-b4f2-0b19e4ba9153@gmail.com>
-Date: Tue, 7 Nov 2023 02:49:56 +0530
+ d=1e100.net; s=20230601; t=1699306819; x=1699911619;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=CAbQVm3zJ4UqsbrmZsxrr43vEClld4C/EEamWDlJsuU=;
+ b=d3IVhWG3w/ybMvP3fEPmeSS6YEdtCq3HXhn7qqt96VEUT9J18teO1HVvcZ9ONeTbun
+ i8385zr2VVIzDFXHqSnjz6mDnxTC7pxaZ1DFzXlQ4VzFp0AMnWIEjcMCYue9T8IApySq
+ XQuxfP+Z+Hi/zfzUJxNylJpqp8TUIwQ6j7vGcFyoOILdPaf7fz4r00FlFPY6STvDlR84
+ EWMyitvA7CuNSu7BdVIkkaG/3kTJlBZgxosWDz0jkC81E/uOHqksJ5lVdNzwZYQDC6G+
+ yfea+oNDpNJBBAVgx2lrGzYKhP5MxRk9DxD13tIGHtKKtsUulhhKp/ckM+JO5B9h6G5h
+ FEtQ==
+X-Gm-Message-State: AOJu0Yyb72EYEZ0wwk5Bcr3BX16gC6fDXtG7yZOSMMXQmdfCeHCjNYoL
+ HTFcqYcFX9kUdg2d78dXzGxcwVMuqJls1llk+811HEYB
+X-Google-Smtp-Source: AGHT+IEXIPr5IkWW/bCPyFI1cC0gy5VbbEcdQCyHKUda7FkSJSuvM548nensOcxMWPHB0zxJetiK6eyTd9XE59HbEEo=
+X-Received: by 2002:a05:6871:4505:b0:19f:aee0:e169 with SMTP id
+ nj5-20020a056871450500b0019faee0e169mr1122125oab.30.1699306818785; Mon, 06
+ Nov 2023 13:40:18 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drivers: gpu: Fix warning using plain integer as NULL
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <20231103155013.332367-1-singhabhinav9051571833@gmail.com>
- <CADnq5_OkWD3YmCKgXbtk=Gnba3AgAiAWp2z_nzHQvRfEOsdXVg@mail.gmail.com>
-From: Abhinav Singh <singhabhinav9051571833@gmail.com>
-In-Reply-To: <CADnq5_OkWD3YmCKgXbtk=Gnba3AgAiAWp2z_nzHQvRfEOsdXVg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 06 Nov 2023 21:37:29 +0000
+References: <20231106193010.2093-1-mario.limonciello@amd.com>
+In-Reply-To: <20231106193010.2093-1-mario.limonciello@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 6 Nov 2023 16:40:07 -0500
+Message-ID: <CADnq5_P4bnESWVAs4LMmDoF-MJeJVQobFJ7aRU3R-Z9t1aDxxw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: Exclude dGPUs in eGPU enclosures from DPM quirks
+To: Mario Limonciello <mario.limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,69 +67,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@gmail.com, Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, alexander.deucher@amd.com,
- linux-kernel-mentees@lists.linuxfoundation.org, christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/7/23 00:25, Alex Deucher wrote:
-> Applied.  This matches what we already do in the other clear state headers.
-> 
-> Alex
-> 
-> On Fri, Nov 3, 2023 at 12:00 PM Abhinav Singh
-> <singhabhinav9051571833@gmail.com> wrote:
->>
->> sparse static analysis tools generate a warning with this message
->> "Using plain integer as NULL pointer". In this case this warning is
->> being shown because we are trying to intialize a pointer to NULL using
->> integer value 0.
->>
->> Signed-off-by: Abhinav Singh <singhabhinav9051571833@gmail.com>
->> ---
->>   drivers/gpu/drm/radeon/clearstate_evergreen.h | 8 ++++----
->>   1 file changed, 4 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/radeon/clearstate_evergreen.h b/drivers/gpu/drm/radeon/clearstate_evergreen.h
->> index 63a1ffbb3ced..3b645558f133 100644
->> --- a/drivers/gpu/drm/radeon/clearstate_evergreen.h
->> +++ b/drivers/gpu/drm/radeon/clearstate_evergreen.h
->> @@ -1049,7 +1049,7 @@ static const struct cs_extent_def SECT_CONTEXT_defs[] =
->>       {SECT_CONTEXT_def_5, 0x0000a29e, 5 },
->>       {SECT_CONTEXT_def_6, 0x0000a2a5, 56 },
->>       {SECT_CONTEXT_def_7, 0x0000a2de, 290 },
->> -    { 0, 0, 0 }
->> +    { NULL, 0, 0 }
->>   };
->>   static const u32 SECT_CLEAR_def_1[] =
->>   {
->> @@ -1060,7 +1060,7 @@ static const u32 SECT_CLEAR_def_1[] =
->>   static const struct cs_extent_def SECT_CLEAR_defs[] =
->>   {
->>       {SECT_CLEAR_def_1, 0x0000ffc0, 3 },
->> -    { 0, 0, 0 }
->> +    { NULL, 0, 0 }
->>   };
->>   static const u32 SECT_CTRLCONST_def_1[] =
->>   {
->> @@ -1070,11 +1070,11 @@ static const u32 SECT_CTRLCONST_def_1[] =
->>   static const struct cs_extent_def SECT_CTRLCONST_defs[] =
->>   {
->>       {SECT_CTRLCONST_def_1, 0x0000f3fc, 2 },
->> -    { 0, 0, 0 }
->> +    { NULL, 0, 0 }
->>   };
->>   static const struct cs_section_def evergreen_cs_data[] = {
->>       { SECT_CONTEXT_defs, SECT_CONTEXT },
->>       { SECT_CLEAR_defs, SECT_CLEAR },
->>       { SECT_CTRLCONST_defs, SECT_CTRLCONST },
->> -    { 0, SECT_NONE }
->> +    { NULL, SECT_NONE }
->>   };
->> --
->> 2.39.2
->>
-Hi Alex, thanks for looking into this. By applied you mean this patch is 
-accepted and it has been merged?
+On Mon, Nov 6, 2023 at 3:07=E2=80=AFPM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+> DPM should be enabled on dGPUs that are used in eGPU enclosures
+> regardless of the host support.
+
+Are you sure?  Seems like this would be dependent on whether the eGPU
+bridge supports dynamic switching or not.
+
+Alex
+
+>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index e2199d8fd30e..29d5820e912b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1466,11 +1466,15 @@ bool amdgpu_device_seamless_boot_supported(struct=
+ amdgpu_device *adev)
+>   * https://edc.intel.com/content/www/us/en/design/products/platforms/det=
+ails/raptor-lake-s/13th-generation-core-processors-datasheet-volume-1-of-2/=
+005/pci-express-support/
+>   * https://gitlab.freedesktop.org/drm/amd/-/issues/2663
+>   */
+> -static bool amdgpu_device_pcie_dynamic_switching_supported(void)
+> +static bool amdgpu_device_pcie_dynamic_switching_supported(struct amdgpu=
+_device *adev)
+>  {
+>  #if IS_ENABLED(CONFIG_X86)
+>         struct cpuinfo_x86 *c =3D &cpu_data(0);
+>
+> +       /* don't worry about external dGPUs */
+> +       if (dev_is_removable(adev->dev))
+> +               return true;
+> +
+>         if (c->x86_vendor =3D=3D X86_VENDOR_INTEL)
+>                 return false;
+>  #endif
+> @@ -2310,7 +2314,7 @@ static int amdgpu_device_ip_early_init(struct amdgp=
+u_device *adev)
+>                 adev->pm.pp_feature &=3D ~PP_GFXOFF_MASK;
+>         if (amdgpu_sriov_vf(adev) && adev->asic_type =3D=3D CHIP_SIENNA_C=
+ICHLID)
+>                 adev->pm.pp_feature &=3D ~PP_OVERDRIVE_MASK;
+> -       if (!amdgpu_device_pcie_dynamic_switching_supported())
+> +       if (!amdgpu_device_pcie_dynamic_switching_supported(adev))
+>                 adev->pm.pp_feature &=3D ~PP_PCIE_DPM_MASK;
+>
+>         total =3D true;
+> --
+> 2.34.1
+>
