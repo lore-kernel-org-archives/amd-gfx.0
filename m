@@ -4,120 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35874C001B5
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 13:34:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6039C4332F
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 13:44:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5E7810E31C;
-	Mon,  6 Nov 2023 13:34:07 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2060c.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::60c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7953010E31A;
- Mon,  6 Nov 2023 13:34:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D91910E31E;
+	Mon,  6 Nov 2023 13:44:28 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2046.outbound.protection.outlook.com [40.107.93.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F44D10E31E;
+ Mon,  6 Nov 2023 13:44:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WgZIjOuhBE3BHLaYLC1b64bZgaqWTPNQZ1Yc3ERgne2tHOn+sUdwv5ptNrLw50EOSOZJ6omvuWk7d12AvKXCgcU5AM1/J6Ye847DdtXlgC0xm+aWsnyRB/liBQ4ZrLNRCqno9fX3rZOndHsr1Uw4EHmnR2QueEkZL7d8dkLRdrbqWcGm+FcooYId8jCZGquvDiUpGio1/g6YmtQ5+u7ezEXf8CXxz07crFrE2ukJKQtGbd7i8CHqXiA8vKKFuw4H0+TAMyxAthHNOV6wmPvlmu+6kcaL/r18Z6hwug46Jlq3CUvl+sH7BCKxqZeJQ5bJcw+tkFzhYn+ULxL87Zg4Bg==
+ b=RnH70WpB9nLSz/t9jRUx26xs4nrVXLJmQuuo38sCnJkcR0G3jawtSMIlN3TnpDO+P7O1WY73aU4Hdem0wHK2UZ5sTW6Feho9vXnwzSU6+tbo+bkWJAfA2KizBXEMt7ES6hmLVDwiQurWSBjRppBM+Ug5cWErSr3i1UzJbFjc9UV5WSJjlmFiqthkHZIODy1bmi5RyaDslZb1wYvSXfXuwe47OdPjTfS/vzF1x8BonqldZiXGtQB/lJEZLcS74ZCulvYNGtRz41QJoaUijAok8cFpALGYKDEEwUf26S1wnYMoDEQmrn95CMLx1tBuGpmnzzv1aQqZzk5Tm1GyBBmCfw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aJUpwGvwAsGNKEzP5f1uKpttVBzMDnnwwszcj07/RUg=;
- b=iOVB7gypL9wK+FeygT+K8UGfs9IBDbU6W6UUyPBVG/JGGKt9Nwk9dNbgsQBDSSpM5s0vW3fX5sGXPJzX+zVeXOZgjbXHFLrzN9RtMmN76PJqqukgrx0JrgFm7RP4GCiUm+qxJrW9/7yfCOsihgdCaJ1o0ezJD5bSMJh4xHck+H6o6YSSEbZ6ZQN6Qae6iSzW1tf2P0/UykQh+gPMHS7JfeRue0J4VsitCVezXqzs/1DQWsPOYu5SvT1UVb7Fo83y+mGWQlrzwKkUxlFS2B+BHIuih4BoXg7RfjeHByx5yu37vSzNxkJ0xNOqMGIzOFOcDtgZbz5ffYsB+0bHQFT5Vg==
+ bh=FJPnn3Be5tG/w9DLVZXxSRRZRIoXSzaCs/Epb+K+cak=;
+ b=nH6mQPli4OHiFfW+ShfPYbBoqzgHg/8iXuMTSOwk6CDGEmxMqd+7TTL2XK8K9SzMn7uo/T+HoUmmwNI/a+uDLT7Rt0YdkpvNezaV6fXnC72Jyl7ePk+X2sU3VGjkErc11HJgNeZ1KEQeSScxMqJsciTNQpJl8euct4QIMiuMfF2zKpent0XLWZoCU1YKozvI7ribviYzcX9tieflTesNG/WHNYo3lgdPlh1xHuvVAnZM1j8ZR6W6gnFoDZ3/WVq8sM74P7QG3id17KoIeNjOCh6uQC5e6qv9fi03LrfO2Tb5/S4G+KqxAwqpN4sOCLqJTbBMwu2qWXGJXY2uEeU3fA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aJUpwGvwAsGNKEzP5f1uKpttVBzMDnnwwszcj07/RUg=;
- b=YYvf2OLr+wbNmIeZE4Oee4WKtWprfvg3Mtjhm5vyDca+BCoRUZ2qCzBOdf1na50NqTsA3Y/U6OA5eCMBro4mtHSQU7yzpV/CR+7nH94nx14BzsoSEYKH4BvOEqI08QGtNxDUUeUKSoWc6/BKjyfTfBLmdfTzlgmpPw3TGwQbpsA=
+ bh=FJPnn3Be5tG/w9DLVZXxSRRZRIoXSzaCs/Epb+K+cak=;
+ b=5mYdSNHRFHzcdjvRyL7KWBiZNRWWg1dNbVu9AwjeK4ODkRbEZz+1RMj3VEFErcI8q8H1GYoAOF9TyF6CpO+APccAqJEUHgzA73bnyFCPyaUAhdlytL5eB+J6f12eEKHuvwvEIcfoQ2JoVtsncDaK4BCMovetAwkIMATIT0o7nMA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by CY5PR12MB6372.namprd12.prod.outlook.com (2603:10b6:930:e::5) with
- Microsoft SMTP Server (version=TLS1_2,
+ by SJ2PR12MB7800.namprd12.prod.outlook.com (2603:10b6:a03:4c1::18)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.28; Mon, 6 Nov
- 2023 13:34:02 +0000
+ 2023 13:44:22 +0000
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::ca80:8f1c:c11:ded3]) by BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::ca80:8f1c:c11:ded3%6]) with mapi id 15.20.6954.027; Mon, 6 Nov 2023
- 13:34:02 +0000
-Content-Type: multipart/alternative;
- boundary="------------3hoCGbxeVeZUMDTuprTXv4iZ"
-Message-ID: <9ea730cc-0f69-4acb-bb5a-4c105c420646@amd.com>
-Date: Mon, 6 Nov 2023 14:33:57 +0100
+ 13:44:21 +0000
+Message-ID: <d044c075-3030-4d76-b507-398be639fa50@amd.com>
+Date: Mon, 6 Nov 2023 14:44:17 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] drm/amdgpu: Flush VM updates for split bindings
- eagerly.
+Subject: Re: [PATCH v2 2/3] drm/amdgpu: Add flag to disable implicit sync for
+ GEM operations.
 Content-Language: en-US
-To: Tatsuyuki Ishi <ishitatsuyuki@gmail.com>
+To: Tatsuyuki Ishi <ishitatsuyuki@gmail.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 References: <20231031134059.171277-1-ishitatsuyuki@gmail.com>
- <20231031134059.171277-4-ishitatsuyuki@gmail.com>
- <30bcd9b7-903d-435e-9318-346777a3fd55@amd.com>
- <CAP+8YyFEKDGPCvA-puUBHNXcrEX4rXOJz=WkBpJyJrmqZ=rtMA@mail.gmail.com>
- <ffafa427-e755-4f86-8aab-8e69ef63325a@amd.com>
- <7BE47209-2D0C-4E21-8CFB-418D5FA4759C@gmail.com>
+ <20231102140436.180989-1-ishitatsuyuki@gmail.com>
+ <20231102140436.180989-3-ishitatsuyuki@gmail.com>
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <7BE47209-2D0C-4E21-8CFB-418D5FA4759C@gmail.com>
-X-ClientProxiedBy: FR2P281CA0159.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:99::8) To BN8PR12MB3587.namprd12.prod.outlook.com
+In-Reply-To: <20231102140436.180989-3-ishitatsuyuki@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0121.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:94::8) To BN8PR12MB3587.namprd12.prod.outlook.com
  (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|CY5PR12MB6372:EE_
-X-MS-Office365-Filtering-Correlation-Id: cfc7c68e-4cb2-4cdf-9894-08dbdecd09e2
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|SJ2PR12MB7800:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ef1583d-f071-4342-f303-08dbdece7b4f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uhynSXclUTZdEGAdiZTchI4vsBoP0lfK5xqOjp0WuhTBwci0QYdTO9Ss13DaVKKdzPBg3hD+bgK54AeZ4Z+JBnWgDUJCG1CICOtAJFcsC99v7mM/zCofw2krjABKTfF6JUDjWOXyQeooxuajZ+hi6kSh05QEEHhW6xeChSN0uzRZZX9fC2qe/72YvrHOquszsI6PnbjotjIaX9B/jm40eUm2+vo9ItXn03niiDVaVfn0P0P5RBiFVwwRdsBokmVYWaOurkoG9sxBZ7Sm8a8BOOZAK2qOPjFQXsvlZSER9GXZHA83QXtLc3qeMt19OnmVkbX1TQTB8O+pSJK7IHy/SwCGJGkwvTWkucr3NUgH2FPC7YSDrPdqhTsFPoW4sI3sJR7AVr6jLK+R6n1CnxRGusN+/1MjWMRBG7s74v67UzY8HqWnahJXuNb0fzHlZCbERPDIT1Ot4knTjJmK4puWMVw92LoIbYVUG+MVJPCvgng2U9bA2ZMQgmZfvcfGsiJqgiyD7rFgvWCgyA61GjVZkPsswXsbaz3tVw2ks62vdLKLFwbZODHPbSG2iy3pHi08W14mdF4UyvpmEyqF5i7sptsGD5dta0TkXUZ+vJbff6MEEvLIoeo2UxuPS0HzxnwVUwIRNeSBEQeWfonNdf+xhg==
+X-Microsoft-Antispam-Message-Info: v9herjFTpF8lOFEJRVZeeIUxDUWy2xwL2nPxljjLbpEVZjImAmxLJgC/hGXA1jTHnJtN046CF8oU7fCJqTGQl8cTVAkwQVXIIZEjQr5eWhdEU+73up41jP9zansbZ1VKFkc0UeQtjPh2O/tEDK7loec5oqd+Z6tf1RBsZBDU3UjLVUKSaRdLr1dJmoPEegM2zcSbb3ve/292lwS4jVmc17imIaUWBSWoIFU3K5GCMqj7BorjKe+7zSCoU5p3zO82b8PrXhQZVZwUBGNOS03dRrzsXzMgnrfP1klB1pgQlTcjQ6qXa/hSNktl55R9d97M4RyEtUevWOVZZ2J7gMIyocYhP36yijQwruOSIpAuDWXYAcC/X0UAzZLWxFlmvSX2BqdyCCc1keIy+khb2iTurIpzem1a2CU5xWO2x5PpmsYt89ixLXtKO8N8sYIDuKraWZ6ufqpvS4OD96mZcfMNRztBZpN49KdG+YT0zX1ApShm1+naNe6YxXDzcCbBPPdQ6DihjYqfv4ghtN33b/oPU2f3RdD39W37CjT+TRSEXmu4aQGt+s81bcUSETtV+QD/oErBxCTBFL8ENz+hnTHX3cb9IlahuY+ZY9yY+oh+Pja4csE5xp800DkbeeySeNGUqRkFNPkXkFqX2IgmaQFEww==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(39860400002)(396003)(366004)(376002)(136003)(230922051799003)(1800799009)(186009)(451199024)(64100799003)(31686004)(6666004)(53546011)(6512007)(33964004)(6506007)(6486002)(31696002)(36756003)(86362001)(38100700002)(478600001)(166002)(5660300002)(2906002)(30864003)(15650500001)(26005)(66574015)(83380400001)(2616005)(8676002)(4326008)(66476007)(66946007)(316002)(6916009)(8936002)(41300700001)(66556008)(45980500001)(43740500002)(579004);
+ SFS:(13230031)(136003)(376002)(346002)(39860400002)(396003)(366004)(230922051799003)(64100799003)(451199024)(186009)(1800799009)(36756003)(83380400001)(8936002)(8676002)(316002)(66946007)(26005)(66476007)(66556008)(5660300002)(2906002)(30864003)(41300700001)(478600001)(6512007)(6486002)(2616005)(6666004)(6506007)(31686004)(4326008)(31696002)(86362001)(38100700002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M3dtNkhQUTNNUHJKVngwaWNsTE1sVi9MNlhvYzNaWFdCWkhNV3ZaWUpZeUFS?=
- =?utf-8?B?L0UvK01jVXpqeEJvQllhbmdDL3dsQ0lUc25EVzIyWG5kbDQvaTVlRVlPZUtn?=
- =?utf-8?B?djFMeGppU1F3and3VE1qT0d0bnBnSE5hVFpibWdYWkcxSXBNSUdUUlh1K1JP?=
- =?utf-8?B?aWtJK0xLNUJuQy94NVQ3STk3OStSQnNQQks3Z1QzQUwvcFVTZkVYT0dlQSt1?=
- =?utf-8?B?ZUJiMkRLdG5IZDNCU0s3WEdVWkdpOGJLU2VLS3N5ci9sL2NqZ2hUa3FEVjVn?=
- =?utf-8?B?UEdMY243aFUxa3B0Z3FVR1A1MjExWWh6dml6bTR4VzAybFFLVk1MdlJwNXhx?=
- =?utf-8?B?NElvSEdKWXZYTEpnZTUzUmcyL1NiM0p0MENTSEw5VE9pSmdPOTlIOHNCQkZt?=
- =?utf-8?B?cGV4R1pJc0d5U2wyMGVaMmtJdTBZdXlHZTJUTlREeGI5VTQ5VThSSUZiczBX?=
- =?utf-8?B?ZXVhOVdpcnd1K0c1b05XTU9jK0g1d0xyWi9UbFN1SFFVOGRydzF6UGM2bTRU?=
- =?utf-8?B?SUhWM01CemNKS0xyQlQzTWJ5eWFONTFmOXphZENzU2t3SWlsY0tCSnYvVm9S?=
- =?utf-8?B?VTZHVklBdTBkKzFab1BBRCsyOGFhYmE4Q2N5cGRjeWd6cjBRMXFyRjRwYUNw?=
- =?utf-8?B?WFdiYzFCZHVsamZ3cTQrdks1citLUjRnekdZYjQwWWxHZ1VneUNMNHVXUkJh?=
- =?utf-8?B?Zm1vZUVUa1RQK0RValpsT3U0YVc1elBQbE5COWpZZmpmVC9GT0l2bXgrSVR1?=
- =?utf-8?B?MTdiUU5CbUwxNmNPR1BuY2V6N01sRG1NVG9mNVNzN3AweFVOcXM4WmxtVkh5?=
- =?utf-8?B?bEN4RU8rendWYTFLNzdXR2JqdUI3YW5yRzhZWkovd1FMNk1PWVM2MW9YR3N1?=
- =?utf-8?B?eFBLYlMrc1plNjZPbWNoNnVQVk5neXRFdU03amtUUGM2V1pJNGhGc2szQ1VB?=
- =?utf-8?B?YWVXb0Z4OWRjblc0QVZ2UTlMSE40bDNtWkFNclpMYzh2TVFibW1VYU9YTTdJ?=
- =?utf-8?B?TzA5WWJDYlJJNHBCdGlTbmN5REhZNThsanljaGluZkxOMUUyWEFGMVRYL3NR?=
- =?utf-8?B?LzZwbUhlQTRKckJMYmV5YXBJVGgrQzgrOGJHTk8yYkN3MGs4eEpPTUpXK1By?=
- =?utf-8?B?eFdzK29iSmJkRlVZSXNKcFVkREVaRmpEcDQvUFFBbFBnM2hWSW05M3lZbWo3?=
- =?utf-8?B?NGlWYmdwekVrVlQ3ZXN6dW95ODRPY1ArTkdSZXVYS1BhQU5KWXIvNGppeUFI?=
- =?utf-8?B?azNFM3lVVlRXOVppdDRVTXhGTUk2ZU9nTHp2Q3AvVzBhSytJUm8zcG5CTk4r?=
- =?utf-8?B?endTenYvcFV3T2U4dGVyRkgvclNtZ1BWKzRRcEQxcWczZWZGWjJjemkyUFVU?=
- =?utf-8?B?S0hGb202eXNCZ3hBR2YwZVdjWWs2Q0N3Rk1IOSswMkZBMUJlNDMyRStLWkpu?=
- =?utf-8?B?NVNaQVZETXlSaDJoRjNhUGErNXFZVGxsTGpMdEhtQnRtdTZEeWpSN3R5NnYr?=
- =?utf-8?B?OHZ2ME84QXZoTHRHc2pidDIvOFF5SnZTelpDYmhTZVFMblRFOWJyQ1hJMjdt?=
- =?utf-8?B?U3BtK2dadlBvZklEMU1pM0N3ZEtVeU0vdDU4V1V2UWxQeS9KTmdLQ2Q0OXBm?=
- =?utf-8?B?K2txVXNMckVwK0pCWC9nbTVnRHRtSFNJN1RFOHk1N2tBUjcwdHBHL2JEeUxU?=
- =?utf-8?B?OVIwUk1BOU1ianJtMnI5RjVaR2lmNDBJd3NyYjR3VzV0cDBjK052QWhYeFd0?=
- =?utf-8?B?N2ZMOG9wK2I5QjdUb0RYeWdDekl5dzdjYksxU0xqTml0Zk55dE12WHhaZGc1?=
- =?utf-8?B?anBBOGN3WXJsamUyQ0RNNjRIWVlLbGpMTWNEUDFyUXhPeld0Y2FpSmZPSWdY?=
- =?utf-8?B?Q05GSFdyNGx0VktHRjlwdnBRNFlCNHVodUpUYnltRkh1N2xxZUdieFhDazdy?=
- =?utf-8?B?akFMNi9LVzhyck5Uek9TTi9WeUs2QjNKdVJjL0VhTStqZ2RCN2R1ZHNzSmE4?=
- =?utf-8?B?QlRaYUdsVTlUNll6eC9hZDdOdU5PSVN5YlA4eldPRS9PT0wvN2Jyd0dJcjFW?=
- =?utf-8?B?cTZ3Z0JjbWxDS04zYUZxaEl2ZWJmREMzTnZBWHFCcWNBYVhXQWpaRmJaMkZp?=
- =?utf-8?Q?f4bY=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aGY5bGh2VDROOXMzZVNrVjVabERkZGNXOVR2YzBtM1kwamVqNkJHYzRBYkFh?=
+ =?utf-8?B?UklGckY3NDNMSWlwU0RQWWF6MTM5NmJ6bjcvdDhrbnVkaVZycmJuT0JJMWlY?=
+ =?utf-8?B?N1JORHBudi9EdXdXcDFMaDB0MGd6WEc1NHlSMDdEdUdhTEMyaGRzSVZDU0pS?=
+ =?utf-8?B?Y1kya1BoNXQyLzRuZm1GNFlDK0FGVkk2ZzhMeUxwNUVobUJMajJUcTFDL2lX?=
+ =?utf-8?B?blk4QjV4ckZWOFpoSWVlazltejZhMmVuby9ROWtEM3FPRFpDd2d6L0xZSXZ3?=
+ =?utf-8?B?ZE1vd1M4dWVXTkM4dEsxK0s1S0wvUXRjaUo5azNJdFFaRlB4R0I4ZWFEdDhr?=
+ =?utf-8?B?NHp1MDBWdG9GMmFzSkhkQzI1SlExK3ppRUwxOXR1R0lIbU5WQVdFZTltZFZL?=
+ =?utf-8?B?WmFlaFZwMnVab2FOSnVta0R3SDZoUmk0TzFLWVU3TDBmd3ViWEpNMk5YR1lo?=
+ =?utf-8?B?WXBKakVFNmk4Uk9NZENUV3JJSS8zd2daTmFmWCsxZ3FuMk82Y3BDMlFvT2tl?=
+ =?utf-8?B?MWFjdTNUQUdCSFZKYVFSanQvQVJDVHZKUk1rQ0FnVWk3amdXcFRTNG92VStQ?=
+ =?utf-8?B?TTRtTHFuYTlnNGJoTWdRWVl3ODE4UHZLbUJPeUR6NmV3bElhTG5Db3dTVzNW?=
+ =?utf-8?B?OU9JRVZwanNrSHNzSUZ3ZlpRdjZ1Wmd0V0VLU2RrUkhIMmZ4aExjUGQ0N0ZN?=
+ =?utf-8?B?K29GaUJUZlE3MGxuUkhQdGhOSXhWeEsrb3pJbFVPWGI0elAxUGhlWGtlcGFl?=
+ =?utf-8?B?UnQwcmVNTkt0aHFLeDJZcHRMYlU2WVViYVJSRSs1TXJuaUh3MWdPd21FOUQr?=
+ =?utf-8?B?UDdZMlpDUUxRTHQ2NnNvQzA1d3hmVzYyeUVwWmxUaGQwYjdyMHR6NityYVFK?=
+ =?utf-8?B?L0d0bzhkMHJmTjBqSzFxdjNqZXcyZUlVdllxbXZwYVpqa1dPdmx6RFd3YTRQ?=
+ =?utf-8?B?ZHRCNlR3eFIyUGsxUTIvQW9PVFY4emU4WE54bkpsVCtKQ1o4NnNFNWxucmNN?=
+ =?utf-8?B?VmR4SEpHOExZTWQ3bWJHazVVMndrN1FKQ0hWbXZiOTJVNkFVR2I4bTc1OTA5?=
+ =?utf-8?B?eHF1UWhmU0lXOFNkT2RzeUdWOW5Lc09SSzFobUlZQTVrR3dGd01kVkp1cks3?=
+ =?utf-8?B?TWtkc2ZYcUNPOHQ0eUl0VmRSNEg2eGErM0lHS3dVOEM5RENtRmFVZDlxR3c2?=
+ =?utf-8?B?ZUtIdjFreWZtdWNtbmRUOEk3Tzhod2ZsRnNaZGdlajhCVlA5T0xzZExIR1VG?=
+ =?utf-8?B?cFJhTWVvWmhKenMzRFdmOUtVMGZPRE5FRFJQdHkvR1NDQnloL0ZKQnN2b3pF?=
+ =?utf-8?B?NkhlMkVyS1V1aTJLdUxVemthSmg3dGRTajRpdnh2eENQR3ZtRkwwK0MraUE2?=
+ =?utf-8?B?b1ZVVnVUMzlwaVRUQzJzZzU5bUd0V3phN0p3Z05KZFA2OHJsRVlFN21VWWsr?=
+ =?utf-8?B?RGxVQ1A2aUNlN3N1VG9jSW5id08vQVVYMkVVZ3ZJNUdOMW9UYytvMzEyblpv?=
+ =?utf-8?B?MnV3RXFjLzNWbjErUEVpdXZDR1dNSitVSHg1TklEQlg4aEdPamFad0IzMmlq?=
+ =?utf-8?B?dnk4MU5VTCtVNlBncG1DN3A2NzdaV2sxSkg1MUxwZHMxNDdBOC9KRHpKSldL?=
+ =?utf-8?B?SldNNGVRaW1rNmVKNUxndEV5L1ZxK3djNDVBbW12TnJrMVU2TFYxRzV0VGFS?=
+ =?utf-8?B?azhoVVNNS0x3WXByUDkyZFZWQ21WdlZRNzZYT1ZRT1dtVktTRUpCQndJVExP?=
+ =?utf-8?B?NFp5UXJwTGFWNDIyejJPNFFjRERLeVZxeW1xN08rbXlRa2ZsYldob09xNEVJ?=
+ =?utf-8?B?RCtTLy91bHFFejVQMkhQZ1B0U0RUYjlHeXJvK2tmSllobVBUaElpYW1SU0hQ?=
+ =?utf-8?B?a3YveXdLanVDZ1dqdURKRGwvUkh1MUYzeXFMbGRYOFJtbXlpczB0ZkxFajIz?=
+ =?utf-8?B?K25PS2E5QUxzNDZCZVV1N3l1NDBVYWE2NUxOOTlBOWZnN3pqNzFjZm9xb2M0?=
+ =?utf-8?B?OW1RNEFYbjNuM2tlQXhjc2NKQXMrSHZVc1VJZzhSeDIweElhVmwzc2xOOGtr?=
+ =?utf-8?B?UG5QTVVpZGw0SHFCSWxXK1J0dVI0VitlN25NTW4wYlFJTllrMDFxdDBwMDk3?=
+ =?utf-8?Q?st1A=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cfc7c68e-4cb2-4cdf-9894-08dbdecd09e2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ef1583d-f071-4342-f303-08dbdece7b4f
 X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2023 13:34:02.0777 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2023 13:44:21.7427 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: on1RssU3WZuhjceWwGu4f1YkdkH8swBo/XMbQ2mi4yNwX8yLcFHu3BN3zfm7v2zp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6372
+X-MS-Exchange-CrossTenant-UserPrincipalName: DJaFwA6BPxNG5FsoV0X515xyqFCx+MrZegvnYzL1Px+/e9UV7pCTySPg3FMtXRHP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7800
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,904 +126,437 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Cc: daniel@ffwll.ch, bas@basnieuwenhuizen.nl
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------3hoCGbxeVeZUMDTuprTXv4iZ
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+  Am 02.11.23 um 15:04 schrieb Tatsuyuki Ishi:
+> In Vulkan, it is the application's responsibility to perform adequate
+> synchronization before a sparse unmap, replace or BO destroy operation.
+> Until now, the kernel applied the same rule as implicitly-synchronized
+> APIs like OpenGL, which with per-VM BOs made page table updates stall the
+> queue completely. The newly added AMDGPU_VM_EXPLICIT_SYNC flag allows
+> drivers to opt-out of this behavior, while still ensuring adequate implicit
+> sync happens for kernel-initiated updates (e.g. BO moves).
+>
+> We record whether to use implicit sync or not for each freed mapping. To
+> avoid increasing the mapping struct's size, this is union-ized with the
+> interval tree field which is unused after the unmap.
+>
+> The reason this is done with a GEM ioctl flag, instead of being a VM /
+> context global setting, is that the current libdrm implementation shares
+> the DRM handle even between different kind of drivers (radeonsi vs radv).
 
-Am 06.11.23 um 08:56 schrieb Tatsuyuki Ishi:
->
->> On Oct 31, 2023, at 23:07, Christian König <christian.koenig@amd.com> 
->> wrote:
->>
->> Am 31.10.23 um 14:59 schrieb Bas Nieuwenhuizen:
->>>
->>>
->>> On Tue, Oct 31, 2023 at 2:57 PM Christian König 
->>> <christian.koenig@amd.com> wrote:
->>>
->>>     Am 31.10.23 um 14:40 schrieb Tatsuyuki Ishi:
->>>     > The current amdgpu_gem_va_update_vm only tries to perform
->>>     updates for the
->>>     > BO specified in the GEM ioctl; however, when a binding is
->>>     split, the
->>>     > adjacent bindings also need to be updated. Such updates
->>>     currently ends up
->>>     > getting deferred until next submission which causes stalls.
->>>
->>>     Yeah, that is a necessity. The hardware simply doesn't support
->>>     what you
->>>     try to do here in all cases.
->>>
->>>
->>> What can the hardware not do here? Is this just needing to wait for 
->>> TLB flushes before we can free pagetables, can we just delay that?
->>
->> On some hardware generations (especially Navi1x, but also everything 
->> older than Polaris) you can't invalidate the TLB while it is in use.
->>
->> For Polaris and older it just means that you don't have a guarantee 
->> that the shader can't access the memory any more. So delaying the 
->> free operation helps here.
->>
->> But for Navi1x it's a workaround for a hardware bug. If you try to 
->> invalidate the TLB while it is in use you can potentially triggering 
->> memory accesses to random addresses.
->>
->> That's why we still delay TLB invalidation's to the next CS and use a 
->> new VMID for each submission instead of invalidating the old one.
->
-> Thanks for the information. I looked into the VMID allocation logic 
-> and I see that if concurrent_flush is false, then we defer any flush 
-> (or VMID reuse that requires a flush) until that VMID is idle.
->
-> What patch #3 ends up doing is just performing the PT update right 
-> away. Any required TLB update is deferred by amdgpu_vm_update_range 
-> through the increment of tlb_seq, and amdgpu_vmid.c is responsible for 
-> doing the actual TLB flush in a manner that does not trigger the bug.
->
-> Can you confirm that this would be fine for the current hardware?
+It would be nice if we could make this more future prove by not using a 
+flag, but rather a drm_syncobj.
 
-Yeah, that should work. I'm just think about the UAPI a bit, we should 
-probably improve this to use something like a drm_syncobj instead of 
-just a flag to be future prove.
+You can extend the drm_amdgpu_gem_va structure by adding a drm_syncobj 
+handle and timeline point at the end.
 
+If the syncobj/timeline point results in a fence we give that as input 
+dependency the operation has to wait for.
+
+And output fence can come later on as well, but that one is much more 
+harder to handle.
+
+Regards,
 Christian.
 
 >
-> Tatsuyuki.
+> Signed-off-by: Tatsuyuki Ishi <ishitatsuyuki@gmail.com>
+> ---
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c       |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       | 14 ++++--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |  7 ++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     |  6 ++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 47 +++++++++++--------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        | 23 +++++----
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c          | 18 +++----
+>   include/uapi/drm/amdgpu_drm.h                 |  2 +
+>   9 files changed, 71 insertions(+), 50 deletions(-)
 >
->>
->> I'm currently working on changing that for Navi2x and newer (maybe 
->> Vega as well), but this is something you can really only do on some 
->> hw generations after validating that it works.
->>
->> Regards,
->> Christian.
->>
->>>
->>>
->>>     So this approach won't work in general.
->>>
->>>     Regards,
->>>     Christian.
->>>
->>>     >
->>>     > Introduce a new state "dirty", shared between per-VM BOs and
->>>     traditional
->>>     > BOs, containing all BOs that have pending updates in `invalids`.
->>>     > amdgpu_gem_va_update_vm will now simply flush any pending
->>>     updates for BOs
->>>     > in the dirty state.
->>>     >
->>>     > Signed-off-by: Tatsuyuki Ishi <ishitatsuyuki@gmail.com>
->>>     > ---
->>>     >   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 18 ++++---
->>>     >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 66
->>>     ++++++++++++++++++-------
->>>     >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  | 3 ++
->>>     >   3 files changed, 63 insertions(+), 24 deletions(-)
->>>     >
->>>     > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>     b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>     > index a1b15d0d6c48..01d3a97248b0 100644
->>>     > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>     > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>     > @@ -604,10 +604,9 @@ int amdgpu_gem_metadata_ioctl(struct
->>>     drm_device *dev, void *data,
->>>     >    * vital here, so they are not reported back to userspace.
->>>     >    */
->>>     >   static void amdgpu_gem_va_update_vm(struct amdgpu_device *adev,
->>>     > -                                 struct amdgpu_vm *vm,
->>>     > -                                 struct amdgpu_bo_va *bo_va,
->>>     > -                                 uint32_t operation)
->>>     > +                                 struct amdgpu_vm *vm)
->>>     >   {
->>>     > +     struct amdgpu_bo_va *bo_va;
->>>     >       int r;
->>>     >
->>>     >       if (!amdgpu_vm_ready(vm))
->>>     > @@ -617,12 +616,18 @@ static void
->>>     amdgpu_gem_va_update_vm(struct amdgpu_device *adev,
->>>     >       if (r)
->>>     >               goto error;
->>>     >
->>>     > -     if (operation == AMDGPU_VA_OP_MAP ||
->>>     > -         operation == AMDGPU_VA_OP_REPLACE) {
->>>     > +     spin_lock(&vm->status_lock);
->>>     > +     while (!list_empty(&vm->dirty)) {
->>>     > +             bo_va = list_first_entry(&vm->dirty, struct
->>>     amdgpu_bo_va,
->>>     > + base.vm_status);
->>>     > +  spin_unlock(&vm->status_lock);
->>>     > +
->>>     >               r = amdgpu_vm_bo_update(adev, bo_va, false);
->>>     >               if (r)
->>>     >                       goto error;
->>>     > +  spin_lock(&vm->status_lock);
->>>     >       }
->>>     > +     spin_unlock(&vm->status_lock);
->>>     >
->>>     >       r = amdgpu_vm_update_pdes(adev, vm, false);
->>>     >
->>>     > @@ -792,8 +797,7 @@ int amdgpu_gem_va_ioctl(struct drm_device
->>>     *dev, void *data,
->>>     >               break;
->>>     >       }
->>>     >       if (!r && !(args->flags & AMDGPU_VM_DELAY_UPDATE) &&
->>>     !amdgpu_vm_debug)
->>>     > -             amdgpu_gem_va_update_vm(adev, &fpriv->vm, bo_va,
->>>     > -  args->operation);
->>>     > +             amdgpu_gem_va_update_vm(adev, &fpriv->vm);
->>>     >
->>>     >   error:
->>>     >       drm_exec_fini(&exec);
->>>     > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>     b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>     > index dd6f72e2a1d6..01d31891cd05 100644
->>>     > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>     > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>     > @@ -191,6 +191,21 @@ static void
->>>     amdgpu_vm_bo_set_evicted(struct amdgpu_vm_bo_base *vm_bo, bool evict
->>>     >  spin_unlock(&vm_bo->vm->status_lock);
->>>     >   }
->>>     >
->>>     > +/**
->>>     > + * amdgpu_vm_bo_dirty - vm_bo is dirty
->>>     > + *
->>>     > + * @vm_bo: vm_bo which is dirty
->>>     > + *
->>>     > + * State for normal and per VM BOs that are not moved, but
->>>     have new entries in
->>>     > + * bo_va->invalids.
->>>     > + */
->>>     > +static void amdgpu_vm_bo_dirty(struct amdgpu_vm_bo_base *vm_bo)
->>>     > +{
->>>     > +  spin_lock(&vm_bo->vm->status_lock);
->>>     > +     list_move(&vm_bo->vm_status, &vm_bo->vm->dirty);
->>>     > +  spin_unlock(&vm_bo->vm->status_lock);
->>>     > +}
->>>     > +
->>>     >   /**
->>>     >    * amdgpu_vm_bo_moved - vm_bo is moved
->>>     >    *
->>>     > @@ -1042,6 +1057,9 @@ void amdgpu_vm_get_memory(struct
->>>     amdgpu_vm *vm,
->>>     >       list_for_each_entry_safe(bo_va, tmp, &vm->evicted,
->>>     base.eviction_status)
->>>     >               amdgpu_vm_bo_get_memory(bo_va, stats);
->>>     >
->>>     > +     list_for_each_entry_safe(bo_va, tmp, &vm->dirty,
->>>     base.vm_status)
->>>     > +             amdgpu_vm_bo_get_memory(bo_va, stats);
->>>     > +
->>>     >       list_for_each_entry_safe(bo_va, tmp, &vm->relocated,
->>>     base.vm_status)
->>>     >               amdgpu_vm_bo_get_memory(bo_va, stats);
->>>     >
->>>     > @@ -1411,6 +1429,17 @@ int amdgpu_vm_handle_moved(struct
->>>     amdgpu_device *adev,
->>>     >                       dma_resv_unlock(resv);
->>>     >  spin_lock(&vm->status_lock);
->>>     >       }
->>>     > +
->>>     > +     while (!list_empty(&vm->dirty)) {
->>>     > +             bo_va = list_first_entry(&vm->dirty, struct
->>>     amdgpu_bo_va,
->>>     > + base.vm_status);
->>>     > +  spin_unlock(&vm->status_lock);
->>>     > +
->>>     > +             r = amdgpu_vm_bo_update(adev, bo_va, false);
->>>     > +             if (r)
->>>     > +                     return r;
->>>     > +  spin_lock(&vm->status_lock);
->>>     > +     }
->>>     >       spin_unlock(&vm->status_lock);
->>>     >
->>>     >       return 0;
->>>     > @@ -1476,19 +1505,16 @@ static void
->>>     amdgpu_vm_bo_insert_map(struct amdgpu_device *adev,
->>>     >                                   struct amdgpu_bo_va_mapping
->>>     *mapping)
->>>     >   {
->>>     >       struct amdgpu_vm *vm = bo_va->base.vm;
->>>     > -     struct amdgpu_bo *bo = bo_va->base.bo <http://base.bo/>;
->>>     >
->>>     >       mapping->bo_va = bo_va;
->>>     >       list_add(&mapping->list, &bo_va->invalids);
->>>     >       amdgpu_vm_it_insert(mapping, &vm->va);
->>>     > +     if (!bo_va->base.moved)
->>>     > +  amdgpu_vm_bo_dirty(&bo_va->base);
->>>     >
->>>     >       if (mapping->flags & AMDGPU_PTE_PRT)
->>>     >               amdgpu_vm_prt_get(adev);
->>>     >
->>>     > -     if (bo && bo->tbo.base.resv == vm->root.bo->tbo.base.resv &&
->>>     > -         !bo_va->base.moved) {
->>>     > -  amdgpu_vm_bo_moved(&bo_va->base);
->>>     > -     }
->>>     >       trace_amdgpu_vm_bo_map(bo_va, mapping);
->>>     >   }
->>>     >
->>>     > @@ -1725,6 +1751,8 @@ int amdgpu_vm_bo_clear_mappings(struct
->>>     amdgpu_device *adev,
->>>     >                       before->flags = tmp->flags;
->>>     >                       before->bo_va = tmp->bo_va;
->>>     >  list_add(&before->list, &tmp->bo_va->invalids);
->>>     > +                     if (!tmp->bo_va->base.moved)
->>>     > +  amdgpu_vm_bo_dirty(&tmp->bo_va->base);
->>>     >               }
->>>     >
->>>     >               /* Remember mapping split at the end */
->>>     > @@ -1736,6 +1764,8 @@ int amdgpu_vm_bo_clear_mappings(struct
->>>     amdgpu_device *adev,
->>>     >                       after->flags = tmp->flags;
->>>     >                       after->bo_va = tmp->bo_va;
->>>     >  list_add(&after->list, &tmp->bo_va->invalids);
->>>     > +                     if (!tmp->bo_va->base.moved)
->>>     > +  amdgpu_vm_bo_dirty(&tmp->bo_va->base);
->>>     >               }
->>>     >
->>>     >               list_del(&tmp->list);
->>>     > @@ -1761,30 +1791,18 @@ int amdgpu_vm_bo_clear_mappings(struct
->>>     amdgpu_device *adev,
->>>     >
->>>     >       /* Insert partial mapping before the range */
->>>     >       if (!list_empty(&before->list)) {
->>>     > -             struct amdgpu_bo *bo = before->bo_va->base.bo
->>>     <http://base.bo/>;
->>>     > -
->>>     >               amdgpu_vm_it_insert(before, &vm->va);
->>>     >               if (before->flags & AMDGPU_PTE_PRT)
->>>     >  amdgpu_vm_prt_get(adev);
->>>     > -
->>>     > -             if (bo && bo->tbo.base.resv ==
->>>     vm->root.bo->tbo.base.resv &&
->>>     > -  !before->bo_va->base.moved)
->>>     > -  amdgpu_vm_bo_moved(&before->bo_va->base);
->>>     >       } else {
->>>     >               kfree(before);
->>>     >       }
->>>     >
->>>     >       /* Insert partial mapping after the range */
->>>     >       if (!list_empty(&after->list)) {
->>>     > -             struct amdgpu_bo *bo = after->bo_va->base.bo
->>>     <http://base.bo/>;
->>>     > -
->>>     >               amdgpu_vm_it_insert(after, &vm->va);
->>>     >               if (after->flags & AMDGPU_PTE_PRT)
->>>     >  amdgpu_vm_prt_get(adev);
->>>     > -
->>>     > -             if (bo && bo->tbo.base.resv ==
->>>     vm->root.bo->tbo.base.resv &&
->>>     > -  !after->bo_va->base.moved)
->>>     > -  amdgpu_vm_bo_moved(&after->bo_va->base);
->>>     >       } else {
->>>     >               kfree(after);
->>>     >       }
->>>     > @@ -2136,6 +2154,7 @@ int amdgpu_vm_init(struct amdgpu_device
->>>     *adev, struct amdgpu_vm *vm, int32_t xcp
->>>     >       INIT_LIST_HEAD(&vm->evicted);
->>>     >       INIT_LIST_HEAD(&vm->relocated);
->>>     >       INIT_LIST_HEAD(&vm->moved);
->>>     > +     INIT_LIST_HEAD(&vm->dirty);
->>>     >       INIT_LIST_HEAD(&vm->idle);
->>>     >  INIT_LIST_HEAD(&vm->invalidated);
->>>     >  spin_lock_init(&vm->status_lock);
->>>     > @@ -2648,11 +2667,13 @@ void amdgpu_debugfs_vm_bo_info(struct
->>>     amdgpu_vm *vm, struct seq_file *m)
->>>     >   {
->>>     >       struct amdgpu_bo_va *bo_va, *tmp;
->>>     >       u64 total_idle = 0;
->>>     > +     u64 total_dirty = 0;
->>>     >       u64 total_relocated = 0;
->>>     >       u64 total_moved = 0;
->>>     >       u64 total_invalidated = 0;
->>>     >       u64 total_done = 0;
->>>     >       unsigned int total_idle_objs = 0;
->>>     > +     unsigned int total_dirty_objs = 0;
->>>     >       unsigned int total_relocated_objs = 0;
->>>     >       unsigned int total_moved_objs = 0;
->>>     >       unsigned int total_invalidated_objs = 0;
->>>     > @@ -2669,6 +2690,15 @@ void amdgpu_debugfs_vm_bo_info(struct
->>>     amdgpu_vm *vm, struct seq_file *m)
->>>     >       total_idle_objs = id;
->>>     >       id = 0;
->>>     >
->>>     > +     seq_puts(m, "\tDirty BOs:\n");
->>>     > +     list_for_each_entry_safe(bo_va, tmp, &vm->dirty,
->>>     base.vm_status) {
->>>     > +             if (!bo_va->base.bo <http://base.bo/>)
->>>     > +                     continue;
->>>     > +             total_dirty += amdgpu_bo_print_info(id++,
->>>     bo_va->base.bo <http://base.bo/>, m);
->>>     > +     }
->>>     > +     total_dirty_objs = id;
->>>     > +     id = 0;
->>>     > +
->>>     >       seq_puts(m, "\tRelocated BOs:\n");
->>>     >       list_for_each_entry_safe(bo_va, tmp, &vm->relocated,
->>>     base.vm_status) {
->>>     >               if (!bo_va->base.bo <http://base.bo/>)
->>>     > @@ -2707,6 +2737,8 @@ void amdgpu_debugfs_vm_bo_info(struct
->>>     amdgpu_vm *vm, struct seq_file *m)
->>>     >
->>>     >       seq_printf(m, "\tTotal idle size:  
->>>     %12lld\tobjs:\t%d\n", total_idle,
->>>     >                  total_idle_objs);
->>>     > +     seq_printf(m, "\tTotal dirty size:
->>>      %12lld\tobjs:\t%d\n", total_dirty,
->>>     > +                total_dirty_objs);
->>>     >       seq_printf(m, "\tTotal relocated size:
->>>      %12lld\tobjs:\t%d\n", total_relocated,
->>>     >                  total_relocated_objs);
->>>     >       seq_printf(m, "\tTotal moved size:
->>>      %12lld\tobjs:\t%d\n", total_moved,
->>>     > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>>     b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>>     > index d9ab97eabda9..f91d4fcf80b8 100644
->>>     > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>>     > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>>     > @@ -276,6 +276,9 @@ struct amdgpu_vm {
->>>     >       /* per VM BOs moved, but not yet updated in the PT */
->>>     >       struct list_head        moved;
->>>     >
->>>     > +     /* normal and per VM BOs that are not moved, but have
->>>     new PT entries */
->>>     > +     struct list_head        dirty;
->>>     > +
->>>     >       /* All BOs of this VM not currently in the state machine */
->>>     >       struct list_head        idle;
->>>     >
->>>
->>
->
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index 7d6daf8d2bfa..10e129bff977 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -1196,7 +1196,7 @@ static void unmap_bo_from_gpuvm(struct kgd_mem *mem,
+>   	struct amdgpu_device *adev = entry->adev;
+>   	struct amdgpu_vm *vm = bo_va->base.vm;
+>   
+> -	amdgpu_vm_bo_unmap(adev, bo_va, entry->va);
+> +	amdgpu_vm_bo_unmap(adev, bo_va, entry->va, true);
+>   
+>   	amdgpu_vm_clear_freed(adev, vm, &bo_va->last_pt_update);
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
+> index 720011019741..612279e65bff 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
+> @@ -122,7 +122,7 @@ int amdgpu_unmap_static_csa(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   		}
+>   	}
+>   
+> -	r = amdgpu_vm_bo_unmap(adev, bo_va, csa_addr);
+> +	r = amdgpu_vm_bo_unmap(adev, bo_va, csa_addr, true);
+>   	if (r) {
+>   		DRM_ERROR("failed to do bo_unmap on static CSA, err=%d\n", r);
+>   		goto error;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> index a1b15d0d6c48..cca68b89754e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> @@ -667,9 +667,9 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+>   	const uint32_t valid_flags = AMDGPU_VM_DELAY_UPDATE |
+>   		AMDGPU_VM_PAGE_READABLE | AMDGPU_VM_PAGE_WRITEABLE |
+>   		AMDGPU_VM_PAGE_EXECUTABLE | AMDGPU_VM_MTYPE_MASK |
+> -		AMDGPU_VM_PAGE_NOALLOC;
+> +		AMDGPU_VM_PAGE_NOALLOC | AMDGPU_VM_EXPLICIT_SYNC;
+>   	const uint32_t prt_flags = AMDGPU_VM_DELAY_UPDATE |
+> -		AMDGPU_VM_PAGE_PRT;
+> +		AMDGPU_VM_PAGE_PRT | AMDGPU_VM_EXPLICIT_SYNC;
+>   
+>   	struct drm_amdgpu_gem_va *args = data;
+>   	struct drm_gem_object *gobj;
+> @@ -680,6 +680,7 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+>   	struct drm_exec exec;
+>   	uint64_t va_flags;
+>   	uint64_t vm_size;
+> +	bool sync_unmap;
+>   	int r = 0;
+>   
+>   	if (args->va_address < AMDGPU_VA_RESERVED_SIZE) {
+> @@ -715,6 +716,8 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+>   		return -EINVAL;
+>   	}
+>   
+> +	sync_unmap = !(args->flags & AMDGPU_VM_EXPLICIT_SYNC);
+> +
+>   	switch (args->operation) {
+>   	case AMDGPU_VA_OP_MAP:
+>   	case AMDGPU_VA_OP_UNMAP:
+> @@ -774,19 +777,20 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+>   				     va_flags);
+>   		break;
+>   	case AMDGPU_VA_OP_UNMAP:
+> -		r = amdgpu_vm_bo_unmap(adev, bo_va, args->va_address);
+> +		r = amdgpu_vm_bo_unmap(adev, bo_va, args->va_address,
+> +				       sync_unmap);
+>   		break;
+>   
+>   	case AMDGPU_VA_OP_CLEAR:
+>   		r = amdgpu_vm_bo_clear_mappings(adev, &fpriv->vm,
+>   						args->va_address,
+> -						args->map_size);
+> +						args->map_size, sync_unmap);
+>   		break;
+>   	case AMDGPU_VA_OP_REPLACE:
+>   		va_flags = amdgpu_gem_va_map_flags(adev, args->flags);
+>   		r = amdgpu_vm_bo_replace_map(adev, bo_va, args->va_address,
+>   					     args->offset_in_bo, args->map_size,
+> -					     va_flags);
+> +					     va_flags, sync_unmap);
+>   		break;
+>   	default:
+>   		break;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> index f3ee83cdf97e..28be03f1bbcf 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> @@ -67,7 +67,12 @@ struct amdgpu_bo_va_mapping {
+>   	struct rb_node			rb;
+>   	uint64_t			start;
+>   	uint64_t			last;
+> -	uint64_t			__subtree_last;
+> +	union {
+> +		/* BOs in interval tree only */
+> +		uint64_t		__subtree_last;
+> +		/* Freed BOs only */
+> +		bool			sync_unmap;
+> +	};
+>   	uint64_t			offset;
+>   	uint64_t			flags;
+>   };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+> index 2fd1bfb35916..e71443c8c59b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+> @@ -276,6 +276,7 @@ TRACE_EVENT(amdgpu_vm_bo_unmap,
+>   			     __field(long, last)
+>   			     __field(u64, offset)
+>   			     __field(u64, flags)
+> +			     __field(bool, sync_unmap)
+>   			     ),
+>   
+>   	    TP_fast_assign(
+> @@ -284,10 +285,11 @@ TRACE_EVENT(amdgpu_vm_bo_unmap,
+>   			   __entry->last = mapping->last;
+>   			   __entry->offset = mapping->offset;
+>   			   __entry->flags = mapping->flags;
+> +			   __entry->sync_unmap = mapping->sync_unmap;
+>   			   ),
+> -	    TP_printk("bo=%p, start=%lx, last=%lx, offset=%010llx, flags=%llx",
+> +	    TP_printk("bo=%p, start=%lx, last=%lx, offset=%010llx, flags=%llx, sync_unmap=%d",
+>   		      __entry->bo, __entry->start, __entry->last,
+> -		      __entry->offset, __entry->flags)
+> +		      __entry->offset, __entry->flags, __entry->sync_unmap)
+>   );
+>   
+>   DECLARE_EVENT_CLASS(amdgpu_vm_mapping,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 7b9762f1cddd..a74472e16952 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -844,6 +844,7 @@ static void amdgpu_vm_tlb_seq_cb(struct dma_fence *fence,
+>    * @immediate: immediate submission in a page fault
+>    * @unlocked: unlocked invalidation during MM callback
+>    * @flush_tlb: trigger tlb invalidation after update completed
+> + * @sync_unmap: wait for BO users before unmapping
+>    * @resv: fences we need to sync to
+>    * @start: start of mapped range
+>    * @last: last mapped entry
+> @@ -861,8 +862,9 @@ static void amdgpu_vm_tlb_seq_cb(struct dma_fence *fence,
+>    */
+>   int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   			   bool immediate, bool unlocked, bool flush_tlb,
+> -			   struct dma_resv *resv, uint64_t start, uint64_t last,
+> -			   uint64_t flags, uint64_t offset, uint64_t vram_base,
+> +			   bool sync_unmap, struct dma_resv *resv,
+> +			   uint64_t start, uint64_t last, uint64_t flags,
+> +			   uint64_t offset, uint64_t vram_base,
+>   			   struct ttm_resource *res, dma_addr_t *pages_addr,
+>   			   struct dma_fence **fence)
+>   {
+> @@ -902,7 +904,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   	/* Implicitly sync to command submissions in the same VM before
+>   	 * unmapping. Sync to moving fences before mapping.
+>   	 */
+> -	if (!(flags & (AMDGPU_PTE_VALID | AMDGPU_PTE_PRT)))
+> +	if (!(flags & (AMDGPU_PTE_VALID | AMDGPU_PTE_PRT)) && sync_unmap)
+>   		sync_mode = AMDGPU_SYNC_EQ_OWNER;
+>   	else
+>   		sync_mode = AMDGPU_SYNC_EXPLICIT;
+> @@ -1145,10 +1147,10 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+>   		trace_amdgpu_vm_bo_update(mapping);
+>   
+>   		r = amdgpu_vm_update_range(adev, vm, false, false, flush_tlb,
+> -					   resv, mapping->start, mapping->last,
+> -					   update_flags, mapping->offset,
+> -					   vram_base, mem, pages_addr,
+> -					   last_update);
+> +					   true, resv, mapping->start,
+> +					   mapping->last, update_flags,
+> +					   mapping->offset, vram_base, mem,
+> +					   pages_addr, last_update);
+>   		if (r)
+>   			return r;
+>   	}
+> @@ -1340,7 +1342,8 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+>   		    mapping->start < AMDGPU_GMC_HOLE_START)
+>   			init_pte_value = AMDGPU_PTE_DEFAULT_ATC;
+>   
+> -		r = amdgpu_vm_update_range(adev, vm, false, false, true, resv,
+> +		r = amdgpu_vm_update_range(adev, vm, false, false, true,
+> +					   mapping->sync_unmap, resv,
+>   					   mapping->start, mapping->last,
+>   					   init_pte_value, 0, 0, NULL, NULL,
+>   					   &f);
+> @@ -1572,6 +1575,7 @@ int amdgpu_vm_bo_map(struct amdgpu_device *adev,
+>    * @offset: requested offset in the BO
+>    * @size: BO size in bytes
+>    * @flags: attributes of pages (read/write/valid/etc.)
+> + * @sync_unmap: wait for BO users before replacing existing mapping
+>    *
+>    * Add a mapping of the BO at the specefied addr into the VM. Replace existing
+>    * mappings as we do so.
+> @@ -1582,9 +1586,9 @@ int amdgpu_vm_bo_map(struct amdgpu_device *adev,
+>    * Object has to be reserved and unreserved outside!
+>    */
+>   int amdgpu_vm_bo_replace_map(struct amdgpu_device *adev,
+> -			     struct amdgpu_bo_va *bo_va,
+> -			     uint64_t saddr, uint64_t offset,
+> -			     uint64_t size, uint64_t flags)
+> +			     struct amdgpu_bo_va *bo_va, uint64_t saddr,
+> +			     uint64_t offset, uint64_t size, uint64_t flags,
+> +			     bool sync_unmap)
+>   {
+>   	struct amdgpu_bo_va_mapping *mapping;
+>   	struct amdgpu_bo *bo = bo_va->base.bo;
+> @@ -1608,7 +1612,7 @@ int amdgpu_vm_bo_replace_map(struct amdgpu_device *adev,
+>   	if (!mapping)
+>   		return -ENOMEM;
+>   
+> -	r = amdgpu_vm_bo_clear_mappings(adev, bo_va->base.vm, saddr, size);
+> +	r = amdgpu_vm_bo_clear_mappings(adev, bo_va->base.vm, saddr, size, sync_unmap);
+>   	if (r) {
+>   		kfree(mapping);
+>   		return r;
+> @@ -1633,6 +1637,7 @@ int amdgpu_vm_bo_replace_map(struct amdgpu_device *adev,
+>    * @adev: amdgpu_device pointer
+>    * @bo_va: bo_va to remove the address from
+>    * @saddr: where to the BO is mapped
+> + * @sync_unmap: wait for BO users before unmapping
+>    *
+>    * Remove a mapping of the BO at the specefied addr from the VM.
+>    *
+> @@ -1641,9 +1646,8 @@ int amdgpu_vm_bo_replace_map(struct amdgpu_device *adev,
+>    *
+>    * Object has to be reserved and unreserved outside!
+>    */
+> -int amdgpu_vm_bo_unmap(struct amdgpu_device *adev,
+> -		       struct amdgpu_bo_va *bo_va,
+> -		       uint64_t saddr)
+> +int amdgpu_vm_bo_unmap(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+> +		       uint64_t saddr, bool sync_unmap)
+>   {
+>   	struct amdgpu_bo_va_mapping *mapping;
+>   	struct amdgpu_vm *vm = bo_va->base.vm;
+> @@ -1671,6 +1675,7 @@ int amdgpu_vm_bo_unmap(struct amdgpu_device *adev,
+>   	list_del(&mapping->list);
+>   	amdgpu_vm_it_remove(mapping, &vm->va);
+>   	mapping->bo_va = NULL;
+> +	mapping->sync_unmap = sync_unmap;
+>   	trace_amdgpu_vm_bo_unmap(bo_va, mapping);
+>   
+>   	if (valid)
+> @@ -1689,6 +1694,7 @@ int amdgpu_vm_bo_unmap(struct amdgpu_device *adev,
+>    * @vm: VM structure to use
+>    * @saddr: start of the range
+>    * @size: size of the range
+> + * @sync_unmap: wait for BO users before unmapping
+>    *
+>    * Remove all mappings in a range, split them as appropriate.
+>    *
+> @@ -1696,8 +1702,8 @@ int amdgpu_vm_bo_unmap(struct amdgpu_device *adev,
+>    * 0 for success, error for failure.
+>    */
+>   int amdgpu_vm_bo_clear_mappings(struct amdgpu_device *adev,
+> -				struct amdgpu_vm *vm,
+> -				uint64_t saddr, uint64_t size)
+> +				struct amdgpu_vm *vm, uint64_t saddr,
+> +				uint64_t size, bool sync_unmap)
+>   {
+>   	struct amdgpu_bo_va_mapping *before, *after, *tmp, *next;
+>   	LIST_HEAD(removed);
+> @@ -1761,6 +1767,7 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_device *adev,
+>   		    tmp->last = eaddr;
+>   
+>   		tmp->bo_va = NULL;
+> +		tmp->sync_unmap = sync_unmap;
+>   		list_add(&tmp->list, &vm->freed);
+>   		trace_amdgpu_vm_bo_unmap(NULL, tmp);
+>   	}
+> @@ -1889,6 +1896,7 @@ void amdgpu_vm_bo_del(struct amdgpu_device *adev,
+>   		list_del(&mapping->list);
+>   		amdgpu_vm_it_remove(mapping, &vm->va);
+>   		mapping->bo_va = NULL;
+> +		mapping->sync_unmap = true;
+>   		trace_amdgpu_vm_bo_unmap(bo_va, mapping);
+>   		list_add(&mapping->list, &vm->freed);
+>   	}
+> @@ -2617,8 +2625,9 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+>   		goto error_unlock;
+>   	}
+>   
+> -	r = amdgpu_vm_update_range(adev, vm, true, false, false, NULL, addr,
+> -				   addr, flags, value, 0, NULL, NULL, NULL);
+> +	r = amdgpu_vm_update_range(adev, vm, true, false, false, true, NULL,
+> +				   addr, addr, flags, value, 0, NULL, NULL,
+> +				   NULL);
+>   	if (r)
+>   		goto error_unlock;
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index 204ab13184ed..73b7b49fdb2e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -423,12 +423,12 @@ void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
+>   			    struct amdgpu_vm *vm, struct amdgpu_bo *bo);
+>   int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   			   bool immediate, bool unlocked, bool flush_tlb,
+> -			   struct dma_resv *resv, uint64_t start, uint64_t last,
+> -			   uint64_t flags, uint64_t offset, uint64_t vram_base,
+> +			   bool sync_unmap, struct dma_resv *resv,
+> +			   uint64_t start, uint64_t last, uint64_t flags,
+> +			   uint64_t offset, uint64_t vram_base,
+>   			   struct ttm_resource *res, dma_addr_t *pages_addr,
+>   			   struct dma_fence **fence);
+> -int amdgpu_vm_bo_update(struct amdgpu_device *adev,
+> -			struct amdgpu_bo_va *bo_va,
+> +int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+>   			bool clear);
+>   bool amdgpu_vm_evictable(struct amdgpu_bo *bo);
+>   void amdgpu_vm_bo_invalidate(struct amdgpu_device *adev,
+> @@ -444,15 +444,14 @@ int amdgpu_vm_bo_map(struct amdgpu_device *adev,
+>   		     uint64_t addr, uint64_t offset,
+>   		     uint64_t size, uint64_t flags);
+>   int amdgpu_vm_bo_replace_map(struct amdgpu_device *adev,
+> -			     struct amdgpu_bo_va *bo_va,
+> -			     uint64_t addr, uint64_t offset,
+> -			     uint64_t size, uint64_t flags);
+> -int amdgpu_vm_bo_unmap(struct amdgpu_device *adev,
+> -		       struct amdgpu_bo_va *bo_va,
+> -		       uint64_t addr);
+> +			     struct amdgpu_bo_va *bo_va, uint64_t addr,
+> +			     uint64_t offset, uint64_t size, uint64_t flags,
+> +			     bool sync_unmap);
+> +int amdgpu_vm_bo_unmap(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+> +		       uint64_t addr, bool sync_unmap);
+>   int amdgpu_vm_bo_clear_mappings(struct amdgpu_device *adev,
+> -				struct amdgpu_vm *vm,
+> -				uint64_t saddr, uint64_t size);
+> +				struct amdgpu_vm *vm, uint64_t saddr,
+> +				uint64_t size, bool sync_unmap);
+>   struct amdgpu_bo_va_mapping *amdgpu_vm_bo_lookup_mapping(struct amdgpu_vm *vm,
+>   							 uint64_t addr);
+>   void amdgpu_vm_bo_trace_cs(struct amdgpu_vm *vm, struct ww_acquire_ctx *ticket);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index bb16b795d1bc..6eb4a0a4bc84 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -1291,9 +1291,9 @@ svm_range_unmap_from_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   
+>   	pr_debug("[0x%llx 0x%llx]\n", start, last);
+>   
+> -	return amdgpu_vm_update_range(adev, vm, false, true, true, NULL, start,
+> -				      last, init_pte_value, 0, 0, NULL, NULL,
+> -				      fence);
+> +	return amdgpu_vm_update_range(adev, vm, false, true, true, true, NULL,
+> +				      start, last, init_pte_value, 0, 0, NULL,
+> +				      NULL, fence);
+>   }
+>   
+>   static int
+> @@ -1398,12 +1398,12 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
+>   		 * different memory partition based on fpfn/lpfn, we should use
+>   		 * same vm_manager.vram_base_offset regardless memory partition.
+>   		 */
+> -		r = amdgpu_vm_update_range(adev, vm, false, false, flush_tlb, NULL,
+> -					   last_start, prange->start + i,
+> -					   pte_flags,
+> -					   (last_start - prange->start) << PAGE_SHIFT,
+> -					   bo_adev ? bo_adev->vm_manager.vram_base_offset : 0,
+> -					   NULL, dma_addr, &vm->last_update);
+> +		r = amdgpu_vm_update_range(
+> +			adev, vm, false, false, flush_tlb, true, NULL,
+> +			last_start, prange->start + i, pte_flags,
+> +			(last_start - prange->start) << PAGE_SHIFT,
+> +			bo_adev ? bo_adev->vm_manager.vram_base_offset : 0,
+> +			NULL, dma_addr, &vm->last_update);
+>   
+>   		for (j = last_start - prange->start; j <= i; j++)
+>   			dma_addr[j] |= last_domain;
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> index f477eda6a2b8..3cdcc299956e 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -556,6 +556,8 @@ struct drm_amdgpu_gem_op {
+>   #define AMDGPU_VM_MTYPE_RW		(5 << 5)
+>   /* don't allocate MALL */
+>   #define AMDGPU_VM_PAGE_NOALLOC		(1 << 9)
+> +/* don't sync on unmap */
+> +#define AMDGPU_VM_EXPLICIT_SYNC		(1 << 10)
+>   
+>   struct drm_amdgpu_gem_va {
+>   	/** GEM object handle */
 
---------------3hoCGbxeVeZUMDTuprTXv4iZ
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    Am 06.11.23 um 08:56 schrieb Tatsuyuki Ishi:<br>
-    <blockquote type="cite" cite="mid:7BE47209-2D0C-4E21-8CFB-418D5FA4759C@gmail.com">
-      
-      <br>
-      <div>
-        <blockquote type="cite">
-          <div>On Oct 31, 2023, at 23:07, Christian König
-            <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a> wrote:</div>
-          <br class="Apple-interchange-newline">
-          <div>
-            <div> Am 31.10.23 um 14:59 schrieb Bas Nieuwenhuizen:<br>
-              <blockquote type="cite" cite="mid:CAP+8YyFEKDGPCvA-puUBHNXcrEX4rXOJz=WkBpJyJrmqZ=rtMA@mail.gmail.com">
-                <div dir="ltr">
-                  <div dir="ltr"><br>
-                  </div>
-                  <br>
-                  <div class="gmail_quote">
-                    <div dir="ltr" class="gmail_attr">On Tue, Oct 31,
-                      2023 at 2:57 PM Christian König &lt;<a href="mailto:christian.koenig@amd.com" moz-do-not-send="true" class="moz-txt-link-freetext">christian.koenig@amd.com</a>&gt;
-                      wrote:<br>
-                    </div>
-                    <blockquote class="gmail_quote" style="margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Am
-                      31.10.23 um 14:40 schrieb Tatsuyuki Ishi:<br>
-                      &gt; The current amdgpu_gem_va_update_vm only
-                      tries to perform updates for the<br>
-                      &gt; BO specified in the GEM ioctl; however, when
-                      a binding is split, the<br>
-                      &gt; adjacent bindings also need to be updated.
-                      Such updates currently ends up<br>
-                      &gt; getting deferred until next submission which
-                      causes stalls.<br>
-                      <br>
-                      Yeah, that is a necessity. The hardware simply
-                      doesn't support what you <br>
-                      try to do here in all cases.<br>
-                    </blockquote>
-                    <div><br>
-                    </div>
-                    <div>What can the hardware not do here? Is this just
-                      needing to wait for TLB flushes before we can free
-                      pagetables, can we just delay that?</div>
-                  </div>
-                </div>
-              </blockquote>
-              <br>
-              On some hardware generations (especially Navi1x, but also
-              everything older than Polaris) you can't invalidate the
-              TLB while it is in use.<br>
-              <br>
-              For Polaris and older it just means that you don't have a
-              guarantee that the shader can't access the memory any
-              more. So delaying the free operation helps here.<br>
-              <br>
-              But for Navi1x it's a workaround for a hardware bug. If
-              you try to invalidate the TLB while it is in use you can
-              potentially triggering memory accesses to random
-              addresses.<br>
-              <br>
-              That's why we still delay TLB invalidation's to the next
-              CS and use a new VMID for each submission instead of
-              invalidating the old one.<br>
-            </div>
-          </div>
-        </blockquote>
-        <div><br>
-        </div>
-        <div>Thanks for the information. I looked into the VMID
-          allocation logic and I see that if concurrent_flush is false,
-          then we defer any flush (or VMID reuse that requires a flush)
-          until that VMID is idle.</div>
-        <div><br>
-        </div>
-        <div>What patch #3 ends up doing is just performing the PT
-          update right away. Any required TLB update is deferred by
-          amdgpu_vm_update_range through the increment of tlb_seq, and
-          amdgpu_vmid.c is responsible for doing the actual TLB flush in
-          a manner that does not trigger the bug.</div>
-        <div><br>
-        </div>
-        <div>Can you confirm that this would be fine for the current
-          hardware?</div>
-      </div>
-    </blockquote>
-    <br>
-    Yeah, that should work. I'm just think about the UAPI a bit, we
-    should probably improve this to use something like a drm_syncobj
-    instead of just a flag to be future prove.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite" cite="mid:7BE47209-2D0C-4E21-8CFB-418D5FA4759C@gmail.com">
-      <div>
-        <div><br>
-        </div>
-        <div>Tatsuyuki.</div>
-        <br>
-        <blockquote type="cite">
-          <div>
-            <div> <br>
-              I'm currently working on changing that for Navi2x and
-              newer (maybe Vega as well), but this is something you can
-              really only do on some hw generations after validating
-              that it works.<br>
-              <br>
-              Regards,<br>
-              Christian. <br>
-              <br>
-              <blockquote type="cite" cite="mid:CAP+8YyFEKDGPCvA-puUBHNXcrEX4rXOJz=WkBpJyJrmqZ=rtMA@mail.gmail.com">
-                <div dir="ltr">
-                  <div class="gmail_quote">
-                    <div>&nbsp;<br>
-                    </div>
-                    <blockquote class="gmail_quote" style="margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-                      <br>
-                      So this approach won't work in general.<br>
-                      <br>
-                      Regards,<br>
-                      Christian.<br>
-                      <br>
-                      &gt;<br>
-                      &gt; Introduce a new state &quot;dirty&quot;, shared between
-                      per-VM BOs and traditional<br>
-                      &gt; BOs, containing all BOs that have pending
-                      updates in `invalids`.<br>
-                      &gt; amdgpu_gem_va_update_vm will now simply flush
-                      any pending updates for BOs<br>
-                      &gt; in the dirty state.<br>
-                      &gt;<br>
-                      &gt; Signed-off-by: Tatsuyuki Ishi &lt;<a href="mailto:ishitatsuyuki@gmail.com" target="_blank" moz-do-not-send="true" class="moz-txt-link-freetext">ishitatsuyuki@gmail.com</a>&gt;<br>
-                      &gt; ---<br>
-                      &gt;&nbsp; &nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c |
-                      18 ++++---<br>
-                      &gt;&nbsp; &nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c&nbsp; |
-                      66 ++++++++++++++++++-------<br>
-                      &gt;&nbsp; &nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h&nbsp; |&nbsp;
-                      3 ++<br>
-                      &gt;&nbsp; &nbsp;3 files changed, 63 insertions(+), 24
-                      deletions(-)<br>
-                      &gt;<br>
-                      &gt; diff --git
-                      a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-                      b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
-                      &gt; index a1b15d0d6c48..01d3a97248b0 100644<br>
-                      &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
-                      &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
-                      &gt; @@ -604,10 +604,9 @@ int
-                      amdgpu_gem_metadata_ioctl(struct drm_device *dev,
-                      void *data,<br>
-                      &gt;&nbsp; &nbsp; * vital here, so they are not reported
-                      back to userspace.<br>
-                      &gt;&nbsp; &nbsp; */<br>
-                      &gt;&nbsp; &nbsp;static void amdgpu_gem_va_update_vm(struct
-                      amdgpu_device *adev,<br>
-                      &gt; -&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;struct
-                      amdgpu_vm *vm,<br>
-                      &gt; -&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;struct
-                      amdgpu_bo_va *bo_va,<br>
-                      &gt; -&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;uint32_t
-                      operation)<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;struct
-                      amdgpu_vm *vm)<br>
-                      &gt;&nbsp; &nbsp;{<br>
-                      &gt; +&nbsp; &nbsp; &nbsp;struct amdgpu_bo_va *bo_va;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;int r;<br>
-                      &gt;&nbsp; &nbsp;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;if (!amdgpu_vm_ready(vm))<br>
-                      &gt; @@ -617,12 +616,18 @@ static void
-                      amdgpu_gem_va_update_vm(struct amdgpu_device
-                      *adev,<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;if (r)<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;goto error;<br>
-                      &gt;&nbsp; &nbsp;<br>
-                      &gt; -&nbsp; &nbsp; &nbsp;if (operation == AMDGPU_VA_OP_MAP ||<br>
-                      &gt; -&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;operation == AMDGPU_VA_OP_REPLACE)
-                      {<br>
-                      &gt; +&nbsp; &nbsp; &nbsp;spin_lock(&amp;vm-&gt;status_lock);<br>
-                      &gt; +&nbsp; &nbsp; &nbsp;while (!list_empty(&amp;vm-&gt;dirty))
-                      {<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;bo_va =
-                      list_first_entry(&amp;vm-&gt;dirty, struct
-                      amdgpu_bo_va,<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      base.vm_status);<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp;spin_unlock(&amp;vm-&gt;status_lock);<br>
-                      &gt; +<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;r = amdgpu_vm_bo_update(adev,
-                      bo_va, false);<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (r)<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;goto error;<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp;spin_lock(&amp;vm-&gt;status_lock);<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;}<br>
-                      &gt; +&nbsp; &nbsp; &nbsp;spin_unlock(&amp;vm-&gt;status_lock);<br>
-                      &gt;&nbsp; &nbsp;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;r = amdgpu_vm_update_pdes(adev, vm,
-                      false);<br>
-                      &gt;&nbsp; &nbsp;<br>
-                      &gt; @@ -792,8 +797,7 @@ int
-                      amdgpu_gem_va_ioctl(struct drm_device *dev, void
-                      *data,<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;break;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;}<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;if (!r &amp;&amp; !(args-&gt;flags
-                      &amp; AMDGPU_VM_DELAY_UPDATE) &amp;&amp;
-                      !amdgpu_vm_debug)<br>
-                      &gt; -&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;amdgpu_gem_va_update_vm(adev,
-                      &amp;fpriv-&gt;vm, bo_va,<br>
-                      &gt; -&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp;args-&gt;operation);<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;amdgpu_gem_va_update_vm(adev,
-                      &amp;fpriv-&gt;vm);<br>
-                      &gt;&nbsp; &nbsp;<br>
-                      &gt;&nbsp; &nbsp;error:<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;drm_exec_fini(&amp;exec);<br>
-                      &gt; diff --git
-                      a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-                      b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-                      &gt; index dd6f72e2a1d6..01d31891cd05 100644<br>
-                      &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-                      &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-                      &gt; @@ -191,6 +191,21 @@ static void
-                      amdgpu_vm_bo_set_evicted(struct amdgpu_vm_bo_base
-                      *vm_bo, bool evict<br>
-                      &gt;&nbsp; &nbsp; &nbsp;
-                      &nbsp;spin_unlock(&amp;vm_bo-&gt;vm-&gt;status_lock);<br>
-                      &gt;&nbsp; &nbsp;}<br>
-                      &gt;&nbsp; &nbsp;<br>
-                      &gt; +/**<br>
-                      &gt; + * amdgpu_vm_bo_dirty - vm_bo is dirty<br>
-                      &gt; + *<br>
-                      &gt; + * @vm_bo: vm_bo which is dirty<br>
-                      &gt; + *<br>
-                      &gt; + * State for normal and per VM BOs that are
-                      not moved, but have new entries in<br>
-                      &gt; + * bo_va-&gt;invalids.<br>
-                      &gt; + */<br>
-                      &gt; +static void amdgpu_vm_bo_dirty(struct
-                      amdgpu_vm_bo_base *vm_bo)<br>
-                      &gt; +{<br>
-                      &gt; +&nbsp; &nbsp;
-                      &nbsp;spin_lock(&amp;vm_bo-&gt;vm-&gt;status_lock);<br>
-                      &gt; +&nbsp; &nbsp; &nbsp;list_move(&amp;vm_bo-&gt;vm_status,
-                      &amp;vm_bo-&gt;vm-&gt;dirty);<br>
-                      &gt; +&nbsp; &nbsp;
-                      &nbsp;spin_unlock(&amp;vm_bo-&gt;vm-&gt;status_lock);<br>
-                      &gt; +}<br>
-                      &gt; +<br>
-                      &gt;&nbsp; &nbsp;/**<br>
-                      &gt;&nbsp; &nbsp; * amdgpu_vm_bo_moved - vm_bo is moved<br>
-                      &gt;&nbsp; &nbsp; *<br>
-                      &gt; @@ -1042,6 +1057,9 @@ void
-                      amdgpu_vm_get_memory(struct amdgpu_vm *vm,<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;list_for_each_entry_safe(bo_va, tmp,
-                      &amp;vm-&gt;evicted, base.eviction_status)<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;amdgpu_vm_bo_get_memory(bo_va,
-                      stats);<br>
-                      &gt;&nbsp; &nbsp;<br>
-                      &gt; +&nbsp; &nbsp; &nbsp;list_for_each_entry_safe(bo_va, tmp,
-                      &amp;vm-&gt;dirty, base.vm_status)<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;amdgpu_vm_bo_get_memory(bo_va,
-                      stats);<br>
-                      &gt; +<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;list_for_each_entry_safe(bo_va, tmp,
-                      &amp;vm-&gt;relocated, base.vm_status)<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;amdgpu_vm_bo_get_memory(bo_va,
-                      stats);<br>
-                      &gt;&nbsp; &nbsp;<br>
-                      &gt; @@ -1411,6 +1429,17 @@ int
-                      amdgpu_vm_handle_moved(struct amdgpu_device *adev,<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;dma_resv_unlock(resv);<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp;spin_lock(&amp;vm-&gt;status_lock);<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;}<br>
-                      &gt; +<br>
-                      &gt; +&nbsp; &nbsp; &nbsp;while (!list_empty(&amp;vm-&gt;dirty))
-                      {<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;bo_va =
-                      list_first_entry(&amp;vm-&gt;dirty, struct
-                      amdgpu_bo_va,<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      base.vm_status);<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp;spin_unlock(&amp;vm-&gt;status_lock);<br>
-                      &gt; +<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;r = amdgpu_vm_bo_update(adev,
-                      bo_va, false);<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (r)<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return r;<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp;spin_lock(&amp;vm-&gt;status_lock);<br>
-                      &gt; +&nbsp; &nbsp; &nbsp;}<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;spin_unlock(&amp;vm-&gt;status_lock);<br>
-                      &gt;&nbsp; &nbsp;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;return 0;<br>
-                      &gt; @@ -1476,19 +1505,16 @@ static void
-                      amdgpu_vm_bo_insert_map(struct amdgpu_device
-                      *adev,<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;struct
-                      amdgpu_bo_va_mapping *mapping)<br>
-                      &gt;&nbsp; &nbsp;{<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;struct amdgpu_vm *vm =
-                      bo_va-&gt;base.vm;<br>
-                      &gt; -&nbsp; &nbsp; &nbsp;struct amdgpu_bo *bo = bo_va-&gt;<a href="http://base.bo/" rel="noreferrer" target="_blank" moz-do-not-send="true">base.bo</a>;<br>
-                      &gt;&nbsp; &nbsp;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;mapping-&gt;bo_va = bo_va;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;list_add(&amp;mapping-&gt;list,
-                      &amp;bo_va-&gt;invalids);<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;amdgpu_vm_it_insert(mapping,
-                      &amp;vm-&gt;va);<br>
-                      &gt; +&nbsp; &nbsp; &nbsp;if (!bo_va-&gt;base.moved)<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp;amdgpu_vm_bo_dirty(&amp;bo_va-&gt;base);<br>
-                      &gt;&nbsp; &nbsp;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;if (mapping-&gt;flags &amp;
-                      AMDGPU_PTE_PRT)<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;amdgpu_vm_prt_get(adev);<br>
-                      &gt;&nbsp; &nbsp;<br>
-                      &gt; -&nbsp; &nbsp; &nbsp;if (bo &amp;&amp; bo-&gt;tbo.base.resv
-                      == vm-&gt;root.bo-&gt;tbo.base.resv &amp;&amp;<br>
-                      &gt; -&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!bo_va-&gt;base.moved) {<br>
-                      &gt; -&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp;amdgpu_vm_bo_moved(&amp;bo_va-&gt;base);<br>
-                      &gt; -&nbsp; &nbsp; &nbsp;}<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;trace_amdgpu_vm_bo_map(bo_va, mapping);<br>
-                      &gt;&nbsp; &nbsp;}<br>
-                      &gt;&nbsp; &nbsp;<br>
-                      &gt; @@ -1725,6 +1751,8 @@ int
-                      amdgpu_vm_bo_clear_mappings(struct amdgpu_device
-                      *adev,<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;before-&gt;flags =
-                      tmp-&gt;flags;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;before-&gt;bo_va =
-                      tmp-&gt;bo_va;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp;list_add(&amp;before-&gt;list,
-                      &amp;tmp-&gt;bo_va-&gt;invalids);<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if
-                      (!tmp-&gt;bo_va-&gt;base.moved)<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp;amdgpu_vm_bo_dirty(&amp;tmp-&gt;bo_va-&gt;base);<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}<br>
-                      &gt;&nbsp; &nbsp;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* Remember mapping split at
-                      the end */<br>
-                      &gt; @@ -1736,6 +1764,8 @@ int
-                      amdgpu_vm_bo_clear_mappings(struct amdgpu_device
-                      *adev,<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;after-&gt;flags =
-                      tmp-&gt;flags;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;after-&gt;bo_va =
-                      tmp-&gt;bo_va;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp;list_add(&amp;after-&gt;list,
-                      &amp;tmp-&gt;bo_va-&gt;invalids);<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if
-                      (!tmp-&gt;bo_va-&gt;base.moved)<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp;amdgpu_vm_bo_dirty(&amp;tmp-&gt;bo_va-&gt;base);<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}<br>
-                      &gt;&nbsp; &nbsp;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;list_del(&amp;tmp-&gt;list);<br>
-                      &gt; @@ -1761,30 +1791,18 @@ int
-                      amdgpu_vm_bo_clear_mappings(struct amdgpu_device
-                      *adev,<br>
-                      &gt;&nbsp; &nbsp;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;/* Insert partial mapping before the
-                      range */<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;if (!list_empty(&amp;before-&gt;list))
-                      {<br>
-                      &gt; -&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;struct amdgpu_bo *bo =
-                      before-&gt;bo_va-&gt;<a href="http://base.bo/" rel="noreferrer" target="_blank" moz-do-not-send="true">base.bo</a>;<br>
-                      &gt; -<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;amdgpu_vm_it_insert(before,
-                      &amp;vm-&gt;va);<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (before-&gt;flags &amp;
-                      AMDGPU_PTE_PRT)<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp;amdgpu_vm_prt_get(adev);<br>
-                      &gt; -<br>
-                      &gt; -&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (bo &amp;&amp;
-                      bo-&gt;tbo.base.resv ==
-                      vm-&gt;root.bo-&gt;tbo.base.resv &amp;&amp;<br>
-                      &gt; -&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp;!before-&gt;bo_va-&gt;base.moved)<br>
-                      &gt; -&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp;amdgpu_vm_bo_moved(&amp;before-&gt;bo_va-&gt;base);<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;} else {<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;kfree(before);<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;}<br>
-                      &gt;&nbsp; &nbsp;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;/* Insert partial mapping after the
-                      range */<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;if (!list_empty(&amp;after-&gt;list)) {<br>
-                      &gt; -&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;struct amdgpu_bo *bo =
-                      after-&gt;bo_va-&gt;<a href="http://base.bo/" rel="noreferrer" target="_blank" moz-do-not-send="true">base.bo</a>;<br>
-                      &gt; -<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;amdgpu_vm_it_insert(after,
-                      &amp;vm-&gt;va);<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (after-&gt;flags &amp;
-                      AMDGPU_PTE_PRT)<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp;amdgpu_vm_prt_get(adev);<br>
-                      &gt; -<br>
-                      &gt; -&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (bo &amp;&amp;
-                      bo-&gt;tbo.base.resv ==
-                      vm-&gt;root.bo-&gt;tbo.base.resv &amp;&amp;<br>
-                      &gt; -&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp;!after-&gt;bo_va-&gt;base.moved)<br>
-                      &gt; -&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp;amdgpu_vm_bo_moved(&amp;after-&gt;bo_va-&gt;base);<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;} else {<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;kfree(after);<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;}<br>
-                      &gt; @@ -2136,6 +2154,7 @@ int
-                      amdgpu_vm_init(struct amdgpu_device *adev, struct
-                      amdgpu_vm *vm, int32_t xcp<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;INIT_LIST_HEAD(&amp;vm-&gt;evicted);<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;INIT_LIST_HEAD(&amp;vm-&gt;relocated);<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;INIT_LIST_HEAD(&amp;vm-&gt;moved);<br>
-                      &gt; +&nbsp; &nbsp; &nbsp;INIT_LIST_HEAD(&amp;vm-&gt;dirty);<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;INIT_LIST_HEAD(&amp;vm-&gt;idle);<br>
-                      &gt;&nbsp; &nbsp; &nbsp;
-                      &nbsp;INIT_LIST_HEAD(&amp;vm-&gt;invalidated);<br>
-                      &gt;&nbsp; &nbsp; &nbsp;
-                      &nbsp;spin_lock_init(&amp;vm-&gt;status_lock);<br>
-                      &gt; @@ -2648,11 +2667,13 @@ void
-                      amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm,
-                      struct seq_file *m)<br>
-                      &gt;&nbsp; &nbsp;{<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;struct amdgpu_bo_va *bo_va, *tmp;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;u64 total_idle = 0;<br>
-                      &gt; +&nbsp; &nbsp; &nbsp;u64 total_dirty = 0;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;u64 total_relocated = 0;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;u64 total_moved = 0;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;u64 total_invalidated = 0;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;u64 total_done = 0;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;unsigned int total_idle_objs = 0;<br>
-                      &gt; +&nbsp; &nbsp; &nbsp;unsigned int total_dirty_objs = 0;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;unsigned int total_relocated_objs = 0;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;unsigned int total_moved_objs = 0;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;unsigned int total_invalidated_objs =
-                      0;<br>
-                      &gt; @@ -2669,6 +2690,15 @@ void
-                      amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm,
-                      struct seq_file *m)<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;total_idle_objs = id;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;id = 0;<br>
-                      &gt;&nbsp; &nbsp;<br>
-                      &gt; +&nbsp; &nbsp; &nbsp;seq_puts(m, &quot;\tDirty BOs:\n&quot;);<br>
-                      &gt; +&nbsp; &nbsp; &nbsp;list_for_each_entry_safe(bo_va, tmp,
-                      &amp;vm-&gt;dirty, base.vm_status) {<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (!bo_va-&gt;<a href="http://base.bo/" rel="noreferrer" target="_blank" moz-do-not-send="true">base.bo</a>)<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;continue;<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;total_dirty +=
-                      amdgpu_bo_print_info(id++, bo_va-&gt;<a href="http://base.bo/" rel="noreferrer" target="_blank" moz-do-not-send="true">base.bo</a>,
-                      m);<br>
-                      &gt; +&nbsp; &nbsp; &nbsp;}<br>
-                      &gt; +&nbsp; &nbsp; &nbsp;total_dirty_objs = id;<br>
-                      &gt; +&nbsp; &nbsp; &nbsp;id = 0;<br>
-                      &gt; +<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;seq_puts(m, &quot;\tRelocated BOs:\n&quot;);<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;list_for_each_entry_safe(bo_va, tmp,
-                      &amp;vm-&gt;relocated, base.vm_status) {<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (!bo_va-&gt;<a href="http://base.bo/" rel="noreferrer" target="_blank" moz-do-not-send="true">base.bo</a>)<br>
-                      &gt; @@ -2707,6 +2737,8 @@ void
-                      amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm,
-                      struct seq_file *m)<br>
-                      &gt;&nbsp; &nbsp;<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;seq_printf(m, &quot;\tTotal idle size:&nbsp; &nbsp; &nbsp;
-                      &nbsp; %12lld\tobjs:\t%d\n&quot;, total_idle,<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; total_idle_objs);<br>
-                      &gt; +&nbsp; &nbsp; &nbsp;seq_printf(m, &quot;\tTotal dirty size:&nbsp; &nbsp; &nbsp;
-                      &nbsp;%12lld\tobjs:\t%d\n&quot;, total_dirty,<br>
-                      &gt; +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; total_dirty_objs);<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;seq_printf(m, &quot;\tTotal relocated size:&nbsp;
-                      &nbsp;%12lld\tobjs:\t%d\n&quot;, total_relocated,<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; total_relocated_objs);<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;seq_printf(m, &quot;\tTotal moved size:&nbsp; &nbsp; &nbsp;
-                      &nbsp;%12lld\tobjs:\t%d\n&quot;, total_moved,<br>
-                      &gt; diff --git
-                      a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-                      b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
-                      &gt; index d9ab97eabda9..f91d4fcf80b8 100644<br>
-                      &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
-                      &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
-                      &gt; @@ -276,6 +276,9 @@ struct amdgpu_vm {<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;/* per VM BOs moved, but not yet
-                      updated in the PT */<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;struct list_head&nbsp; &nbsp; &nbsp; &nbsp; moved;<br>
-                      &gt;&nbsp; &nbsp;<br>
-                      &gt; +&nbsp; &nbsp; &nbsp;/* normal and per VM BOs that are not
-                      moved, but have new PT entries */<br>
-                      &gt; +&nbsp; &nbsp; &nbsp;struct list_head&nbsp; &nbsp; &nbsp; &nbsp; dirty;<br>
-                      &gt; +<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;/* All BOs of this VM not currently in
-                      the state machine */<br>
-                      &gt;&nbsp; &nbsp; &nbsp; &nbsp;struct list_head&nbsp; &nbsp; &nbsp; &nbsp; idle;<br>
-                      &gt;&nbsp; &nbsp;<br>
-                      <br>
-                    </blockquote>
-                  </div>
-                </div>
-              </blockquote>
-              <br>
-            </div>
-          </div>
-        </blockquote>
-      </div>
-      <br>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------3hoCGbxeVeZUMDTuprTXv4iZ--
