@@ -4,89 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A138AC4167B
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 19:30:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35CF4C4332F
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 19:34:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 412F110E3E3;
-	Mon,  6 Nov 2023 19:30:40 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20624.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5a::624])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC63E10E3E3
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Nov 2023 19:30:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Z3tQY6ss9sjmJgTH1545Qw1DsOw1JRMK7d91gueQpzqOEFZXgWdf6L9hlcteIwKQQgLt8EFDv4gImPMLLss3YpEiPG5D03Wf6QlzhbSFKsooGbe0Muohvh63Zr4NZK24sV4JwEiAJuQkLhfgbVowJwKZdcWPopneguBQs+C7UYhlIxnBySDpxlY7l+Ij6lSib0Mk7cAlT9egrUjTOGnvgep1iFRUOIbrxGtmv64RYvte93ID8KEMDYtemnKnwUB1fGGZk/x6kSN4PbneL9RYG3nIuCXHCY42ZRZVknUUL9N/vcgtoqL2Hl7oeorjc80Si13ipH0l30C4AaDqAU2Vtg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XfB66AwoKZzEuntYBAvhfjvj488ZwUGer0hAzomI3yY=;
- b=IdWpj+GoRXF7m37wNsLFvqvwIgiCONansDY7TUKZWZlLuMnvafCmdw827rcE0nbMN8s5yD/xbl3KDUXyERQj0xmczEbIjtGsOQ6MgdKrkKgRHNSq7VYB1qkb+QxrGbvWw+sXh+t46DtpPzkJlcQQR7a21u7nU3wUKQsWDQ42AFoORe8TMO/gxO6s3cV/PQoQ8wLgtka2maJZptdHvUpfycCWMQ6rPe+DxPwCHtiK2uduJ+ku1W8eaotVQqt6h91INrr1F98DAENX03gWSBLnXNe9MdKGXFf5LHxpyhHg2c4Dp7scpve65NFIg2k9uv1OxcIG2HFysFlk4gdBLqBa3g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XfB66AwoKZzEuntYBAvhfjvj488ZwUGer0hAzomI3yY=;
- b=ulYj/rrqxQDuLi4/HkW2WZ9lXG9/wrggpDnR8QraxYCR1cdqSbgwRjwmtYrsqDdLAB5s7QCSpQhzEUVSy46XJ5/LP9wi2YIlGa7THVszuoQWxYy+SkmddTcbbB3k62+LHwSJWtZGmDnF+3N330imATl3nwqhTzJIefnNgVPQueU=
-Received: from MN2PR18CA0002.namprd18.prod.outlook.com (2603:10b6:208:23c::7)
- by MN6PR12MB8567.namprd12.prod.outlook.com (2603:10b6:208:478::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.27; Mon, 6 Nov
- 2023 19:30:36 +0000
-Received: from MN1PEPF0000F0E5.namprd04.prod.outlook.com
- (2603:10b6:208:23c:cafe::69) by MN2PR18CA0002.outlook.office365.com
- (2603:10b6:208:23c::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.27 via Frontend
- Transport; Mon, 6 Nov 2023 19:30:35 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000F0E5.mail.protection.outlook.com (10.167.242.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6977.16 via Frontend Transport; Mon, 6 Nov 2023 19:30:35 +0000
-Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 6 Nov
- 2023 13:30:31 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd: Exclude dGPUs in eGPU enclosures from DPM quirks
-Date: Mon, 6 Nov 2023 13:30:10 -0600
-Message-ID: <20231106193010.2093-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74FB110E3EB;
+	Mon,  6 Nov 2023 19:34:21 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 999C510E3E9;
+ Mon,  6 Nov 2023 19:34:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=OVVOlTIarNX7e6zMEZmJVvGlQRSRufjZRH7oNdzWmmc=; b=rxr8KNHd9z1rYs+McTOREX3GMf
+ HgdNuuqUWPJJHqLjOY3iwLLEYBvzU884vwlb9KnaTUcR7efnIvMEpJ/s3jzmJDxcSvyQg/OiweAcH
+ 14yYVjkhY9sMAXV2wDT+X9CD6SIBqSUxodMUZbTND3Q5s2BUvMHXADvouaSNvhGgo1IL1uIB2ulWO
+ gaPuzZMKRiVonqN6JVCqfHezELz/ZXpiAT1XJv5HBlxhVBA+RCJbrT27M+cn0OYopxnKWl7tVR9Ml
+ LaxBjtovuDZZaM5CIWDmGJ215LKc+GQyRGm8NvN+uzKSha9tiPsuAD/m7YqQ0vkstnP0JZ6tVLYAD
+ iM2ByOzg==;
+Received: from [102.213.205.115] (helo=mail.igalia.com)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1r05MQ-0008JT-Fb; Mon, 06 Nov 2023 20:34:10 +0100
+Date: Mon, 6 Nov 2023 18:33:54 -0100
+From: Melissa Wen <mwen@igalia.com>
+To: Sebastian Wick <sebastian.wick@redhat.com>
+Subject: Re: [PATCH v4 00/32] drm/amd/display: add AMD driver-specific
+ properties for color mgmt
+Message-ID: <20231106193354.ce4vi4p6zgol5f4y@mail.igalia.com>
+References: <20231005171527.203657-1-mwen@igalia.com>
+ <20231006092825.GB400742@toolbox>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E5:EE_|MN6PR12MB8567:EE_
-X-MS-Office365-Filtering-Correlation-Id: 050d8c61-a711-4cc1-dcc4-08dbdefed9a8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hE0d3QerXRwhW5BzWdU2gHgEmGvx2l+m/TEutSSmtV7I1qs7vObtHURxmLmYIlfsCBUGFHFDzq4zBu6KNRtpmh+7YdZenT8qMadWd0zSvTa6d7vlCdzL2gTNS4fIKV025LyZ6+hcRGjpcNgoHS9CfVZVctSQj/X25d9IagnAo67TqAEANKwaeIIXc7ZOJyvduGcyodFd+8CKrnTj2rzlSDXQbZutk5aURvoRzZWLJ8Jp0vOo0K7l1Kr8tUs9nYD+VO83wcyHyTQTj5FWkDMa/4XKzbw0spIzDftb4pl+9TEkSoM7rWm9RBTuzxYY95IwQ9KG2jgkAG85qzlgdcas8bJzo+qUCLryIPtsgYNmVeAaYNwPhpNUyx6PY8HEGHYiP1YCIxqt0JHiZXsWIoNvjvFnApQXR4c11ED09unIJvKV7USgE4a/5+dm8ena2VtWNuuOy+VrbFrTs07138VRclIfI7vS5ro68OfISP4WFRaQNXY8sij5E3jy7aXaBbvpD2SuVaeB7R8zY7VQJylCrNhUqNIVl1XPt8YpH8L9/vF2jwop0wphhYh1VF2k5s9Z+IKWf3oRvmv0Sz3zNrfq8oPQwCbLjxAq3AqcfIG/tIOASM4iUz8k2qt/9scV2EIhWqOUJn+CgbSsKxQbUHPzI+kUyOmFw3r51JXkoNT6/QOyvq8E70lsUTxQktanmQ5BuFzggmvKhQvBnw/EricQX6gi1KNNBeZWyzmmEgxnPmVROpUL1yTJbB/uqOtFM5e1pQCWAxucR1FU64Lt49yiCqdJQoqej0aKaPWpoatt4+M=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(396003)(376002)(346002)(136003)(230922051799003)(230273577357003)(230173577357003)(1800799009)(451199024)(186009)(64100799003)(82310400011)(36840700001)(46966006)(40470700004)(86362001)(36860700001)(40460700003)(41300700001)(5660300002)(2906002)(36756003)(356005)(82740400003)(81166007)(16526019)(426003)(478600001)(336012)(83380400001)(70586007)(70206006)(26005)(2616005)(1076003)(316002)(6916009)(7696005)(966005)(44832011)(6666004)(47076005)(40480700001)(8936002)(8676002)(4326008)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2023 19:30:35.5651 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 050d8c61-a711-4cc1-dcc4-08dbdefed9a8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E5.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8567
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231006092825.GB400742@toolbox>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,48 +52,257 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: liviu.dudau@arm.com, dri-devel@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>, brian.starkey@arm.com,
+ Shashank Sharma <Shashank.Sharma@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ kernel-dev@igalia.com, Daniel Vetter <daniel@ffwll.ch>, sunpeng.li@amd.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, sungjoon.kim@amd.com,
+ Pekka Paalanen <pekka.paalanen@collabora.com>, Simon Ser <contact@emersion.fr>,
+ Xinhui.Pan@amd.com, Xaver Hugl <xaver.hugl@gmail.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, tzimmermann@suse.de,
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
+ Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-DPM should be enabled on dGPUs that are used in eGPU enclosures
-regardless of the host support.
+On 10/06, Sebastian Wick wrote:
+> On Thu, Oct 05, 2023 at 04:14:55PM -0100, Melissa Wen wrote:
+> > Hello,
+> > 
+> > Just another iteration for AMD driver-specific color properties.
+> > Basically, addressing comments from the previous version.
+> > 
+> > Recap: this series extends the current KMS color management API with AMD
+> > driver-specific properties to enhance the color management support on
+> > AMD Steam Deck. The key additions to the color pipeline include:
+> 
+> Did you talk with the maintainers about this already? The last few times
+> driver specific properties, and even kind of generic plane properties
+> with a fixed position in the pipeline were proposed they were all
+> NAKed. Just putting them behind a define doesn't sound great and I don't
+> think there is any precedence for allowing this in. This is basically
+> just more burden for upstream without any benefits for upstream.
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+Hi Sebastian,
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index e2199d8fd30e..29d5820e912b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1466,11 +1466,15 @@ bool amdgpu_device_seamless_boot_supported(struct amdgpu_device *adev)
-  * https://edc.intel.com/content/www/us/en/design/products/platforms/details/raptor-lake-s/13th-generation-core-processors-datasheet-volume-1-of-2/005/pci-express-support/
-  * https://gitlab.freedesktop.org/drm/amd/-/issues/2663
-  */
--static bool amdgpu_device_pcie_dynamic_switching_supported(void)
-+static bool amdgpu_device_pcie_dynamic_switching_supported(struct amdgpu_device *adev)
- {
- #if IS_ENABLED(CONFIG_X86)
- 	struct cpuinfo_x86 *c = &cpu_data(0);
- 
-+	/* don't worry about external dGPUs */
-+	if (dev_is_removable(adev->dev))
-+		return true;
-+
- 	if (c->x86_vendor == X86_VENDOR_INTEL)
- 		return false;
- #endif
-@@ -2310,7 +2314,7 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
- 		adev->pm.pp_feature &= ~PP_GFXOFF_MASK;
- 	if (amdgpu_sriov_vf(adev) && adev->asic_type == CHIP_SIENNA_CICHLID)
- 		adev->pm.pp_feature &= ~PP_OVERDRIVE_MASK;
--	if (!amdgpu_device_pcie_dynamic_switching_supported())
-+	if (!amdgpu_device_pcie_dynamic_switching_supported(adev))
- 		adev->pm.pp_feature &= ~PP_PCIE_DPM_MASK;
- 
- 	total = true;
--- 
-2.34.1
+Sorry for delaying. I believe it was already answered during the XDC KMS
+color workshop, but: yes, I've talked with them and they are fine with
+the cflags approach. Remember that we are not using here kconfig anymore.
+The driver-specific properties (creation and attachment) are guarded by
+cflags, not a kernel building option. We changed to cflags after Harry's
+suggestion in the first version.
 
+I think the main point for upstream it now is that we can actually
+exercise the plane color properties and all machinery around new color
+elements (as 3D LUT) with a userspace that cares about it (Gamescope).
+Worth mentioning that I removed CRTC shaper/3D LUT support from previous
+version, because, even with the internal implementation, we don't have
+how to exercise these CRTC properties right now.
+
+Finally, the main goal is ofc attaching it to the generic API from
+Harry's series. We are all in the same page about it.
+
+BR,
+
+Melissa
+
+> 
+> Maybe you can separate the uAPI changes from the internal improvements
+> to land at least parts of this faster.
+> 
+> > - plane degamma LUT and pre-defined TF;
+> > - plane HDR multiplier;
+> > - plane CTM 3x4;
+> > - plane shaper LUT and pre-defined TF;
+> > - plane 3D LUT;
+> > - plane blend LUT and pre-defined TF;
+> > - CRTC gamma pre-defined TF;
+> > 
+> > You can find the AMD HW color capabilities documented here:
+> > https://dri.freedesktop.org/docs/drm/gpu/amdgpu/display/display-manager.html#color-management-properties
+> > 
+> > The userspace case is Gamescope[1], the compositor for SteamOS.
+> > Gamescope has already adopted AMD driver-specific properties to
+> > implement comprehensive color management support, including gamut
+> > mapping, HDR rendering, SDR on HDR, HDR on SDR. Using these features in
+> > the SteamOS 3.5[2] users can expect a significantly enhanced visual
+> > experience. 
+> > 
+> > You can find a brief overview of the Steam Deck color pipeline here:
+> > https://github.com/ValveSoftware/gamescope/blob/master/src/docs/Steam%20Deck%20Display%20Pipeline.png
+> > 
+> > Changes from:
+> > 
+> > [RFC] https://lore.kernel.org/dri-devel/20230423141051.702990-1-mwen@igalia.com
+> > - Remove KConfig and guard properties with `AMD_PRIVATE_COLOR`;
+> > - Remove properties for post-blending/CRTC shaper TF+LUT and 3D LUT;
+> > - Use color caps to improve the support of pre-defined curve;
+> > 
+> > [v1] https://lore.kernel.org/dri-devel/20230523221520.3115570-1-mwen@igalia.com
+> > - Replace DRM_ by AMDGPU_ prefix for transfer function (TF) enum; 
+> > - Explicitly define EOTFs and inverse EOTFs and set props accordingly;
+> > - Document pre-defined transfer functions;
+> > - Remove HLG transfer function from supported TFs;
+> > - Remove misleading comments;
+> > - Remove post-blending shaper TF+LUT and 3D LUT support;
+> > - Move driver-specific property operations from amdgpu_display.c to
+> >   amdgpu_dm_color.c;
+> > - Reset planes if any color props change;
+> > - Add plane CTM 3x4 support;
+> > - Removed two DC fixes already applied upstream;
+> > 
+> > [v2] https://lore.kernel.org/dri-devel/20230810160314.48225-1-mwen@igalia.com
+> > - Many documentation fixes: BT.709 OETF, description of sRGB and pure
+> >   power functions, TF+1D LUT behavior;
+> > - Rename CTM2 to CTM 3x4 and fix misleading comment about DC gamut remap;
+> > - Squash `Linear` and `Unity` TF in `Identity`;
+> > - Remove the `MPC gamut remap` patch already applied upstream[3];
+> > - Remove outdated delta segmentation fix;
+> > - Nits/small fixes;
+> > 
+> > [v3] https://lore.kernel.org/amd-gfx/20230925194932.1329483-1-mwen@igalia.com
+> > - Add table to describe value range in linear and non-linear forms
+> > - Comment the PQ TF need after HDR multiplier
+> > - Advertise the 3D LUT size as the size of a single-dimension (read-only)
+> > - remove function to check expected size from 3DLUT caps
+> > - cleanup comments
+> > 
+> > It's worth noting that driver-specific properties are guarded by
+> > `AMD_PRIVATE_COLOR`. So, finally, this is the color management API when
+> > driver-specific properties are enabled:
+> > 
+> > +----------------------+
+> > |   PLANE              |
+> > |                      |
+> > |  +----------------+  |
+> > |  | AMD Degamma    |  |
+> > |  |                |  |
+> > |  | EOTF | 1D LUT  |  |
+> > |  +--------+-------+  |
+> > |           |          |
+> > |  +--------v-------+  |
+> > |  |    AMD HDR     |  |
+> > |  |    Multiply    |  |
+> > |  +--------+-------+  |
+> > |           |          |
+> > |  +--------v-------+  |
+> > |  |  AMD CTM (3x4) |  |
+> > |  +--------+-------+  |
+> > |           |          |
+> > |  +--------v-------+  |
+> > |  | AMD Shaper     |  |
+> > |  |                |  |
+> > |  | inv_EOTF |     |  |
+> > |  | Custom 1D LUT  |  |
+> > |  +--------+-------+  |
+> > |           |          |
+> > |  +--------v-------+  |
+> > |  |   AMD 3D LUT   |  |
+> > |  |   17^3/12-bit  |  |
+> > |  +--------+-------+  |
+> > |           |          |
+> > |  +--------v-------+  |
+> > |  | AMD Blend      |  |
+> > |  |                |  |
+> > |  | EOTF | 1D LUT  |  |
+> > |  +--------+-------+  |
+> > |           |          |
+> > ++----------v---------++
+> > ||      Blending      ||
+> > ++----------+---------++
+> > |    CRTC   |          |
+> > |           |          |
+> > |   +-------v-------+  |
+> > |   | DRM Degamma   |  |
+> > |   |               |  |
+> > |   | Custom 1D LUT |  |
+> > |   +-------+-------+  |
+> > |           |          |
+> > |   +-------v-------+  |
+> > |   | DRM CTM (3x3) |  |
+> > |   +-------+-------+  |
+> > |           |          |
+> > |   +-------v-------+  |
+> > |   | DRM Gamma     |  |
+> > |   |               |  |
+> > |   | Custom 1D LUT |  |
+> > |   +---------------+  |
+> > |   | *AMD Gamma    |  |
+> > |   |   inv_EOTF    |  |
+> > |   +---------------+  |
+> > |                      |
+> > +----------------------+
+> > 
+> > Please, let us know your thoughts.
+> > 
+> > Best Regards,
+> > 
+> > Melissa Wen
+> > 
+> > [1] https://github.com/ValveSoftware/gamescope
+> > [2] https://store.steampowered.com/news/app/1675200/view/3686804163591367815
+> > [3] https://lore.kernel.org/dri-devel/20230721132431.692158-1-mwen@igalia.com
+> > 
+> > Joshua Ashton (14):
+> >   drm/amd/display: add plane degamma TF driver-specific property
+> >   drm/amd/display: add plane HDR multiplier driver-specific property
+> >   drm/amd/display: add plane blend LUT and TF driver-specific properties
+> >   drm/amd/display: add CRTC gamma TF support
+> >   drm/amd/display: set sdr_ref_white_level to 80 for out_transfer_func
+> >   drm/amd/display: mark plane as needing reset if color props change
+> >   drm/amd/display: add plane degamma TF and LUT support
+> >   drm/amd/display: add dc_fixpt_from_s3132 helper
+> >   drm/amd/display: add HDR multiplier support
+> >   drm/amd/display: handle empty LUTs in __set_input_tf
+> >   drm/amd/display: add plane blend LUT and TF support
+> >   drm/amd/display: allow newer DC hardware to use degamma ROM for PQ/HLG
+> >   drm/amd/display: copy 3D LUT settings from crtc state to stream_update
+> >   drm/amd/display: Add 3x4 CTM support for plane CTM
+> > 
+> > Melissa Wen (18):
+> >   drm/drm_mode_object: increase max objects to accommodate new color
+> >     props
+> >   drm/drm_property: make replace_property_blob_from_id a DRM helper
+> >   drm/drm_plane: track color mgmt changes per plane
+> >   drm/amd/display: add driver-specific property for plane degamma LUT
+> >   drm/amd/display: explicitly define EOTF and inverse EOTF
+> >   drm/amd/display: document AMDGPU pre-defined transfer functions
+> >   drm/amd/display: add plane 3D LUT driver-specific properties
+> >   drm/amd/display: add plane shaper LUT and TF driver-specific
+> >     properties
+> >   drm/amd/display: add CRTC gamma TF driver-specific property
+> >   drm/amd/display: add comments to describe DM crtc color mgmt behavior
+> >   drm/amd/display: encapsulate atomic regamma operation
+> >   drm/amd/display: decouple steps for mapping CRTC degamma to DC plane
+> >   drm/amd/display: reject atomic commit if setting both plane and CRTC
+> >     degamma
+> >   drm/amd/display: add plane shaper LUT support
+> >   drm/amd/display: add plane shaper TF support
+> >   drm/amd/display: add plane 3D LUT support
+> >   drm/amd/display: add plane CTM driver-specific property
+> >   drm/amd/display: add plane CTM support
+> > 
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  90 ++
+> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  34 +-
+> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 108 +++
+> >  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 821 ++++++++++++++++--
+> >  .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  72 ++
+> >  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 224 ++++-
+> >  .../gpu/drm/amd/display/include/fixed31_32.h  |  12 +
+> >  drivers/gpu/drm/arm/malidp_crtc.c             |   2 +-
+> >  drivers/gpu/drm/drm_atomic.c                  |   1 +
+> >  drivers/gpu/drm/drm_atomic_state_helper.c     |   1 +
+> >  drivers/gpu/drm/drm_atomic_uapi.c             |  43 +-
+> >  drivers/gpu/drm/drm_property.c                |  49 ++
+> >  include/drm/drm_mode_object.h                 |   2 +-
+> >  include/drm/drm_plane.h                       |   7 +
+> >  include/drm/drm_property.h                    |   6 +
+> >  include/uapi/drm/drm_mode.h                   |   8 +
+> >  16 files changed, 1371 insertions(+), 109 deletions(-)
+> > 
+> > -- 
+> > 2.40.1
+> > 
+> 
