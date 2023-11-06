@@ -4,70 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E832C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 18:32:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5046C4332F
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 18:35:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F87610E3AA;
-	Mon,  6 Nov 2023 18:32:39 +0000 (UTC)
-Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
- [IPv6:2607:f8b0:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D78AA10E134;
- Mon,  6 Nov 2023 18:19:25 +0000 (UTC)
-Received: by mail-pl1-x630.google.com with SMTP id
- d9443c01a7336-1cc2b8deb23so7022785ad.1; 
- Mon, 06 Nov 2023 10:19:25 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2408310E3A9;
+	Mon,  6 Nov 2023 18:35:52 +0000 (UTC)
+Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
+ [IPv6:2001:4860:4864:20::34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F95110E3A9;
+ Mon,  6 Nov 2023 18:35:50 +0000 (UTC)
+Received: by mail-oa1-x34.google.com with SMTP id
+ 586e51a60fabf-1e9c42fc0c9so1946569fac.1; 
+ Mon, 06 Nov 2023 10:35:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1699294765; x=1699899565; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Tl8ZlpdAg7GwtfMnMLLp2fEwluCCUsAiPSPuqFG5Xz0=;
- b=WlJSn7isvEUoSthDmgfHfJKHhgC/gOIj0Av7hLSSppiFFMYeodK73jMAmf4bbGlh+1
- j1SKHDwigRZgSdYTKmxjo6I4zrq2lKquLmA7uhYyXRgoac/660+feVSQb8Nusx2LwoPd
- uuPvh89k7BoJJjh/CelGZp6yXbV1+/ATEPz1LaQKv/qD/3gBND3cBhFf/h6BTvX+vGPu
- dfoyjaGf6e/FbkTUs+ld6z5VmxoWQ7auC0cg+wGZP4KAMBYi40PCrAAU/tgS2f8FYExh
- d954VAPPXFtclhFMi58RB0qAZMji+RTy/QPJLRpmRUhvkblbPLI/SDbYM8zPuyvHte3c
- x10Q==
+ d=gmail.com; s=20230601; t=1699295749; x=1699900549; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4FyxgsqyDTTsJmSPOBc9fyUquINbkS3ed/Fwy5DuS5A=;
+ b=gl4vbfWa36i9A9ldwL9EbuiZKfkLjEcZpauphv4RljdWiejwzHawwxfPUpL0RK889k
+ HyDml9e6ikX+181+r23mYYryRmV8CT6Z0GFPC13xek+Rmsqlqpf9s6MrQBDKPmHWjpjl
+ 8Fkg5lLG1GLFDhp/+Cf7PcGwdWKtdL7yvBAiGsuZRCrBJLWkCWIQifuuNThZwCRSSLIX
+ N8Yawvfrs5SR381ysFvVeIrYDijCWCsI3dd/6qfi6Co3Q3zCRsQH/49QblqPLtqrXa5E
+ CMxeyee00n7XvamggX81mZRpmxTF7GGhdQ57RLvn6M0G/Gtx+DjnW8H2fbbWQOWy7vXX
+ jGvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699294765; x=1699899565;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Tl8ZlpdAg7GwtfMnMLLp2fEwluCCUsAiPSPuqFG5Xz0=;
- b=rBgbn9CiJ7sU+Xr/dtDK5rW/6/2WoyMIaMuMjMTWKLixGap9FRsj84M8Pm5ktvbF2u
- 1+7DhveNsqb8qO+Djy/H28Zx3Do+Oa2RW4/+6AExfpNdbxvsA04OWe4uMPE1YmPfxoau
- y6Q5EU/aXH48FMHSKySbbIaX0m0GtYwwbI6TTtFX1dH3qVxsYP9ZT6KR1m3Jr9KMpy2g
- uCrruX0kpaue2j1AZBr06L90C/vZD3nW3I/5PfqBk0k0b+jNVh/WaFqt6gT/hdUx9QaU
- AqzAlonFF89Hh7ruE2ZVftIbggrvNbaeW51tnxSF2Lr8GPDAhsvmv82qcHyHt1Kc9dzW
- KdAg==
-X-Gm-Message-State: AOJu0Yyt8njH9SvlzJgkA/wxKn0nTzXdU94yEWMlsVJ1VdZePMc6E0E2
- KIe/RbggoKR9TRJY9fe2c28=
-X-Google-Smtp-Source: AGHT+IGZuMNhI2zZQoFqXXq3E+/brKmtT53P7YA09Nfn+zaDB3yG15dLm3XBrAxgDZ/f+n0Zz0X0rQ==
-X-Received: by 2002:a17:902:f213:b0:1c4:1cd3:8062 with SMTP id
- m19-20020a170902f21300b001c41cd38062mr31371603plc.2.1699294765189; 
- Mon, 06 Nov 2023 10:19:25 -0800 (PST)
-Received: from [192.168.0.152] ([103.75.161.211])
- by smtp.gmail.com with ESMTPSA id
- u14-20020a170902e5ce00b001c9b35287aesm6204407plf.88.2023.11.06.10.19.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Nov 2023 10:19:24 -0800 (PST)
-Message-ID: <ba31f441-80cd-4745-b425-23e5b9e0f9c0@gmail.com>
-Date: Mon, 6 Nov 2023 23:49:14 +0530
+ d=1e100.net; s=20230601; t=1699295749; x=1699900549;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=4FyxgsqyDTTsJmSPOBc9fyUquINbkS3ed/Fwy5DuS5A=;
+ b=xHPutqyp6ejEhEX7NsAutGvNaDJsacZ500eJSu9vvqglSWEq/Ahfexpildh+xCtTFq
+ b80ePrl9QZORC5Fm2U9EN8p2LNtqCIvCa1A4gVNRfkBeDx42omAa40/TKuWY49RXVjda
+ r8Y9hW2ukouopiHFxUW+xQqKPX/frtIp++SPyAciwBiyNbbNCnEFTwCwrtev5cJt532q
+ hT8EYNOietCj42B+96d37mK3Dy4ALHpkFWQnRa4iteOHuhpB22C/7XLcwMgqRNyQFU0J
+ n9x/sg4tnip0Malh17VTZ6Y1xBdyYHEE2WCkMn9R5uBrMLIiiVvQk3QPbEdEWb4LQQ8B
+ ikpQ==
+X-Gm-Message-State: AOJu0Yx9x0XcIFliT7ju90nkiBhxTOkPa48m5r4Y/OXvHB8lFreNCZSC
+ dYJ4otm0QWqwejqlz2Bsh3dfzxlo3a7wr7CIVc0In+Iu
+X-Google-Smtp-Source: AGHT+IHyNL5Y+NlJaXyaf72PDsyLKHnkDv/n1KFwzrC23GcvbcqxrMtSr+TtQ1Bx4YzC0Pa2/GTEedzxkelIazWbdrA=
+X-Received: by 2002:a05:6871:7293:b0:1e9:b0fa:de4c with SMTP id
+ mm19-20020a056871729300b001e9b0fade4cmr718153oac.33.1699295749256; Mon, 06
+ Nov 2023 10:35:49 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drivers: gpu: Fix warning using plain integer as NULL
-Content-Language: en-US
-To: Jani Nikula <jani.nikula@linux.intel.com>, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch
-References: <20231103155013.332367-1-singhabhinav9051571833@gmail.com>
- <87sf5jyvkt.fsf@intel.com> <a2310260-ba15-428e-9fd1-08abb9565b18@gmail.com>
- <87h6lyzvg8.fsf@intel.com>
-From: Abhinav Singh <singhabhinav9051571833@gmail.com>
-In-Reply-To: <87h6lyzvg8.fsf@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 06 Nov 2023 18:32:38 +0000
+References: <20231024181134.48066-1-bragathemanick0908@gmail.com>
+In-Reply-To: <20231024181134.48066-1-bragathemanick0908@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 6 Nov 2023 13:35:37 -0500
+Message-ID: <CADnq5_OS+15+u-4w3Ca9Q+ivm8U1P=6r-pOrC9fCbZSAUR=5hA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: avoid variable reinitialization
+To: Bragatheswaran Manickavel <bragathemanick0908@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,95 +67,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel-mentees@lists.linuxfoundation.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ sunpeng.li@amd.com, airlied@gmail.com, Qingqing.Zhuo@amd.com,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
+ Samson.Tam@amd.com, wenjing.liu@amd.com, alvin.lee2@amd.com, daniel@ffwll.ch,
+ alexander.deucher@amd.com, jun.lei@amd.com, harry.wentland@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/6/23 22:10, Jani Nikula wrote:
-> On Mon, 06 Nov 2023, Abhinav Singh <singhabhinav9051571833@gmail.com> wrote:
->> On 11/6/23 16:53, Jani Nikula wrote:
->>> On Fri, 03 Nov 2023, Abhinav Singh <singhabhinav9051571833@gmail.com> wrote:
->>>> sparse static analysis tools generate a warning with this message
->>>> "Using plain integer as NULL pointer". In this case this warning is
->>>> being shown because we are trying to intialize a pointer to NULL using
->>>> integer value 0.
->>>>
->>>> Signed-off-by: Abhinav Singh <singhabhinav9051571833@gmail.com>
->>>> ---
->>>>    drivers/gpu/drm/radeon/clearstate_evergreen.h | 8 ++++----
->>>>    1 file changed, 4 insertions(+), 4 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/radeon/clearstate_evergreen.h b/drivers/gpu/drm/radeon/clearstate_evergreen.h
->>>> index 63a1ffbb3ced..3b645558f133 100644
->>>> --- a/drivers/gpu/drm/radeon/clearstate_evergreen.h
->>>> +++ b/drivers/gpu/drm/radeon/clearstate_evergreen.h
->>>> @@ -1049,7 +1049,7 @@ static const struct cs_extent_def SECT_CONTEXT_defs[] =
->>>>        {SECT_CONTEXT_def_5, 0x0000a29e, 5 },
->>>>        {SECT_CONTEXT_def_6, 0x0000a2a5, 56 },
->>>>        {SECT_CONTEXT_def_7, 0x0000a2de, 290 },
->>>> -    { 0, 0, 0 }
->>>> +    { NULL, 0, 0 }
->>>
->>> Random drive-by comment:
->>>
->>> I'd just use {} as the sentinel.
->>>
->>> BR,
->>> Jani.
->>>
->>>>    };
->>>>    static const u32 SECT_CLEAR_def_1[] =
->>>>    {
->>>> @@ -1060,7 +1060,7 @@ static const u32 SECT_CLEAR_def_1[] =
->>>>    static const struct cs_extent_def SECT_CLEAR_defs[] =
->>>>    {
->>>>        {SECT_CLEAR_def_1, 0x0000ffc0, 3 },
->>>> -    { 0, 0, 0 }
->>>> +    { NULL, 0, 0 }
->>>>    };
->>>>    static const u32 SECT_CTRLCONST_def_1[] =
->>>>    {
->>>> @@ -1070,11 +1070,11 @@ static const u32 SECT_CTRLCONST_def_1[] =
->>>>    static const struct cs_extent_def SECT_CTRLCONST_defs[] =
->>>>    {
->>>>        {SECT_CTRLCONST_def_1, 0x0000f3fc, 2 },
->>>> -    { 0, 0, 0 }
->>>> +    { NULL, 0, 0 }
->>>>    };
->>>>    static const struct cs_section_def evergreen_cs_data[] = {
->>>>        { SECT_CONTEXT_defs, SECT_CONTEXT },
->>>>        { SECT_CLEAR_defs, SECT_CLEAR },
->>>>        { SECT_CTRLCONST_defs, SECT_CTRLCONST },
->>>> -    { 0, SECT_NONE }
->>>> +    { NULL, SECT_NONE }
->>>>    };
->>>> --
->>>> 2.39.2
->>>>
->>>
->> Hi, Thanks for dropping by and the suggestion. I thought of using NULL
->> instead of {} is because, first the warning itself says that 0 is used
->> to intialize pointers with NULL, and second due this link
->> https://www.spinics.net/lists/linux-sparse/msg10066.html where linus is
->> talking about not using 0 NULL intialization of pointer variable and he
->> thinks this is a legitimate issue and not some false positive
-> 
-> But... {} is neither of those things. It's empty initialization instead
-> of 0. It's valid in GCC and C23, and used all over the place in the
-> kernel.
-> 
-> BR,
-> Jani.
-> 
-> 
-> 
-If I understand correctly you want to me change from this "{ NULL, 
-SECT_NONE }" to "{}" right? If yes, then according to what I read from 
-some online, it is better to intialize variables especially pointer 
-because in some cases a non initialized pointer doesnt always point to 
-NULL. Not sure if this applies in kernel space as well. But yeah my 
-knowledge is pretty limited in C in user space and in kernel space it is 
-even more limited :)
+Applied.  Thanks!
 
+On Tue, Oct 24, 2023 at 2:11=E2=80=AFPM Bragatheswaran Manickavel
+<bragathemanick0908@gmail.com> wrote:
+>
+> The member variable enable_hpo_pg_support is already initialized
+> and hence the reinitialization instruction can be removed. Issue
+> identified using the doubleinit.cocci Coccinelle semantic patch script.
+>
+> Signed-off-by: Bragatheswaran Manickavel <bragathemanick0908@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c | 1 -
+>  1 file changed, 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c b/driv=
+ers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c
+> index 99d55b958977..1fd9df8da09c 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_resource.c
+> @@ -739,7 +739,6 @@ static const struct dc_debug_options debug_defaults_d=
+rv =3D {
+>         .disable_boot_optimizations =3D false,
+>         .disable_unbounded_requesting =3D false,
+>         .disable_mem_low_power =3D false,
+> -       .enable_hpo_pg_support =3D false,
+>         //must match enable_single_display_2to1_odm_policy to support dyn=
+amic ODM transitions
+>         .enable_double_buffered_dsc_pg_support =3D true,
+>         .enable_dp_dig_pixel_rate_div_policy =3D 1,
+> --
+> 2.34.1
+>
