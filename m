@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10517C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 12:28:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15577C4167D
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 12:28:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BE3510E58F;
-	Tue,  7 Nov 2023 12:28:23 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AF0310E58F;
- Tue,  7 Nov 2023 12:28:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F04E210E597;
+	Tue,  7 Nov 2023 12:28:46 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0570A10E596;
+ Tue,  7 Nov 2023 12:28:45 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id B9F7C611F1;
- Tue,  7 Nov 2023 12:28:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B1C4C433CC;
- Tue,  7 Nov 2023 12:28:18 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 508A8CE0F24;
+ Tue,  7 Nov 2023 12:28:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54ECDC433CA;
+ Tue,  7 Nov 2023 12:28:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1699360100;
- bh=Jq8oJ7AYW80o0hr5iSyHocs/HPpshFqmsLbNM/OVXls=;
+ s=k20201202; t=1699360122;
+ bh=wvaUSrY3S8godRYePLky/TPd8j7ygIKj7p7gRhB3l/g=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XuUCR0FcHNf6JE9ylk6MwIijDr44Z03Idn/RdncAZb9u63cM0iwzCT3tOHtr6rS0r
- YQrA5pL9MkEGSAoGJ0oAKcFGQ+1vru0b/Ntsz2IKcOdERV7sFzhAueDCQnQ2ZX/vDc
- JAUUCwYz1IkVrSZ3dU4ajeJ0E5Ed4JS4MMp7OHZ/3hr5MTcJifa7893VHJj9uiCToO
- 4TRf1mzIdqFDgiLfSGleY1uMCK1mgWlKl/dT6Z1xuVYMwa6SUu+/1p8ovNUz+a8Wjz
- gtbkWExsVdn0UIwR+3iteYq01HS6ttVbJD21YAXgk/Bvq7wfgOo3UDHZA0c7IuCuEt
- SXBWRrwvwMqMg==
+ b=TiyKTtkLqhqgy7VpRwbLbqOehOY3+eKsQg5wX3cjRgEDNUJQl33TlQK87Iail+pGM
+ KCFGwVVglfSq1jwWkrzs2eC4tdTka59zzgo0pGqyj8wjoOA5hGIrAXy4WYHUZwCZVe
+ PwNianzW4oQKsRhSxfaFIMZWzdW4TJWWwI+TPNv6oIQujq3ZhwhaDKQ6qceCgANfj0
+ t6HfQqdsPg92gOZ4o7Gv2ERBKKtq8qzkTf2ZcVCgmpCaT7WtZtre2BPf7kk6BkBcvS
+ N8NSXH1ZK9P3XyIxCwjBSzHd++C6WsCZEyBrwCa+LbzG55uF3ukg93m7aGAE2ohFCH
+ BKjr6MVyaGPhg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 06/25] drm/amd/display: use full update for clip
- size increase of large plane source
-Date: Tue,  7 Nov 2023 07:26:45 -0500
-Message-ID: <20231107122745.3761613-6-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 14/25] drm/radeon: Fix UBSAN
+ array-index-out-of-bounds for Radeon HD 5430
+Date: Tue,  7 Nov 2023 07:26:53 -0500
+Message-ID: <20231107122745.3761613-14-sashal@kernel.org>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231107122745.3761613-1-sashal@kernel.org>
 References: <20231107122745.3761613-1-sashal@kernel.org>
@@ -53,101 +53,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, aric.cyr@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, Qingqing.Zhuo@amd.com,
- Xinhui.Pan@amd.com, Wenjing Liu <wenjing.liu@amd.com>, samson.tam@amd.com,
- chiawen.huang@amd.com, Daniel Wheeler <daniel.wheeler@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, alvin.lee2@amd.com,
+Cc: Felix Held <felix.held@amd.com>, Sasha Levin <sashal@kernel.org>,
+ dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org, Mario Limonciello <mario.limonciello@amd.com>,
  daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
- Jun Lei <jun.lei@amd.com>, harry.wentland@amd.com, christian.koenig@amd.com
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wenjing Liu <wenjing.liu@amd.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
 
-[ Upstream commit 05b78277ef0efc1deebc8a22384fffec29a3676e ]
+[ Upstream commit c63079c61177ba1b17fa05c6875699a36924fe39 ]
 
-[why]
-Clip size increase will increase viewport, which could cause us to
-switch  to MPC combine.
-If we skip full update, we are not able to change to MPC combine in
-fast update. This will cause corruption showing on the video plane.
+For pptable structs that use flexible array sizes, use flexible arrays.
 
-[how]
-treat clip size increase of a surface larger than 5k as a full update.
-
-Reviewed-by: Jun Lei <jun.lei@amd.com>
-Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Suggested-by: Felix Held <felix.held@amd.com>
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2894
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 12 ++++++++++--
- drivers/gpu/drm/amd/display/dc/dc.h      |  5 +++++
- 2 files changed, 15 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/radeon/pptable.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 15d3caf3d6d72..9d321f4f486e2 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -996,7 +996,8 @@ static bool dc_construct(struct dc *dc,
- 	/* set i2c speed if not done by the respective dcnxxx__resource.c */
- 	if (dc->caps.i2c_speed_in_khz_hdcp == 0)
- 		dc->caps.i2c_speed_in_khz_hdcp = dc->caps.i2c_speed_in_khz;
--
-+	if (dc->caps.max_optimizable_video_width == 0)
-+		dc->caps.max_optimizable_video_width = 5120;
- 	dc->clk_mgr = dc_clk_mgr_create(dc->ctx, dc->res_pool->pp_smu, dc->res_pool->dccg);
- 	if (!dc->clk_mgr)
- 		goto fail;
-@@ -2438,6 +2439,7 @@ static enum surface_update_type get_plane_info_update_type(const struct dc_surfa
- }
- 
- static enum surface_update_type get_scaling_info_update_type(
-+		const struct dc *dc,
- 		const struct dc_surface_update *u)
+diff --git a/drivers/gpu/drm/radeon/pptable.h b/drivers/gpu/drm/radeon/pptable.h
+index 4c2eec49dadc9..94947229888ba 100644
+--- a/drivers/gpu/drm/radeon/pptable.h
++++ b/drivers/gpu/drm/radeon/pptable.h
+@@ -74,7 +74,7 @@ typedef struct _ATOM_PPLIB_THERMALCONTROLLER
+ typedef struct _ATOM_PPLIB_STATE
  {
- 	union surface_update_flags *update_flags = &u->surface->update_flags;
-@@ -2472,6 +2474,12 @@ static enum surface_update_type get_scaling_info_update_type(
- 			update_flags->bits.clock_change = 1;
- 	}
+     UCHAR ucNonClockStateIndex;
+-    UCHAR ucClockStateIndices[1]; // variable-sized
++    UCHAR ucClockStateIndices[]; // variable-sized
+ } ATOM_PPLIB_STATE;
  
-+	if (u->scaling_info->src_rect.width > dc->caps.max_optimizable_video_width &&
-+		(u->scaling_info->clip_rect.width > u->surface->clip_rect.width ||
-+		 u->scaling_info->clip_rect.height > u->surface->clip_rect.height))
-+		 /* Changing clip size of a large surface may result in MPC slice count change */
-+		update_flags->bits.bandwidth_change = 1;
-+
- 	if (u->scaling_info->src_rect.x != u->surface->src_rect.x
- 			|| u->scaling_info->src_rect.y != u->surface->src_rect.y
- 			|| u->scaling_info->clip_rect.x != u->surface->clip_rect.x
-@@ -2509,7 +2517,7 @@ static enum surface_update_type det_surface_update(const struct dc *dc,
- 	type = get_plane_info_update_type(u);
- 	elevate_update_type(&overall_type, type);
  
--	type = get_scaling_info_update_type(u);
-+	type = get_scaling_info_update_type(dc, u);
- 	elevate_update_type(&overall_type, type);
- 
- 	if (u->flip_addr) {
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index a4540f83aae59..f773a467fef54 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -230,6 +230,11 @@ struct dc_caps {
- 	uint32_t dmdata_alloc_size;
- 	unsigned int max_cursor_size;
- 	unsigned int max_video_width;
-+	/*
-+	 * max video plane width that can be safely assumed to be always
-+	 * supported by single DPP pipe.
-+	 */
-+	unsigned int max_optimizable_video_width;
- 	unsigned int min_horizontal_blanking_period;
- 	int linear_pitch_alignment;
- 	bool dcc_const_color;
 -- 
 2.42.0
 
