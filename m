@@ -4,36 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 165DCC4167D
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 12:29:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C270EC0032E
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 12:30:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AFEB10E5AE;
-	Tue,  7 Nov 2023 12:29:57 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A3D610E5AC;
- Tue,  7 Nov 2023 12:29:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E59A10E5B2;
+	Tue,  7 Nov 2023 12:30:15 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C64D910E5B2;
+ Tue,  7 Nov 2023 12:30:12 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 9C00D611FB;
- Tue,  7 Nov 2023 12:29:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 299C4C433C7;
- Tue,  7 Nov 2023 12:29:51 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 47F6361202;
+ Tue,  7 Nov 2023 12:30:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80AFDC433CA;
+ Tue,  7 Nov 2023 12:30:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1699360193;
- bh=TopocSPAbf/BcmnmzvBXwJfFDgTQn2jt4LUo57c7e3k=;
+ s=k20201202; t=1699360212;
+ bh=aC3dPQ4Mo3N8gQ1e9FEqnfJWhMw/61/34kaiJdMRu88=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cLAlNoDSj0G0Z5kht+Y1Rcxf+ssuAQeBfQBkGs6F9lGsEAYnW5F0eh3wqOfeB69cN
- Q/iX/nEz0C/KJRucoN/SY75e+VgNYQnyX+VTAcexagWyus+9afVJOTqzDIE8Bf9SX6
- e65mryoDClDNzlxpSUa4vap85eDm/XmPU/9/ddMiO55tNEOuIcvOFkM3filQyii8xr
- hJGy2wcmIUyBJthvdkApTF568vIwEFLe5eYoY8wJDngCLRHtnBKvdsmfuDm/B/idum
- B2mR2YxNuVFRNrQN+HeuMhsx2IOIkq3LUMv/IeTCJJqXoZA+0u+VyKNJws7lbkzh+f
- Jlp3mQ4R6dekQ==
+ b=q51X5XO9j+o1EkDCIKjLhKliFLJT2pAT3FflWlfl5o7hrYHIXO7gqVn88CIo84PcH
+ vEI9n54JPu40eoqtSphKgUivxH6OQzxjI2SxfgO8qEpvBBp+cN8X888jgcBM1bKqM5
+ VqrqrmEopVtz54uzhMIu+NVd4D/1vds/ss70siteo73jUcDUnXlbDDeAxrr3TXmdzK
+ N0BILHYvtmLpy4b1O98KNUUxq/L298aaODJbJDcPITUN/NMGEOJFpfCUT8wOtpXr02
+ CIUA6W3mUdqJKbE04ZmnP1abPCmgsOByg5eFCeHZGm8Qor2l5vklHaRMce4vUXLcVL
+ 3gVBCGxpexQtQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 03/20] drm/amd/display: use full update for clip
- size increase of large plane source
-Date: Tue,  7 Nov 2023 07:28:57 -0500
-Message-ID: <20231107122940.3762228-3-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 09/20] drm/amd: Fix UBSAN
+ array-index-out-of-bounds for SMU7
+Date: Tue,  7 Nov 2023 07:29:03 -0500
+Message-ID: <20231107122940.3762228-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231107122940.3762228-1-sashal@kernel.org>
 References: <20231107122940.3762228-1-sashal@kernel.org>
@@ -53,101 +54,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, aric.cyr@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, Qingqing.Zhuo@amd.com,
- Xinhui.Pan@amd.com, Wenjing Liu <wenjing.liu@amd.com>, samson.tam@amd.com,
- chiawen.huang@amd.com, Daniel Wheeler <daniel.wheeler@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, alvin.lee2@amd.com,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
- Jun Lei <jun.lei@amd.com>, harry.wentland@amd.com, christian.koenig@amd.com
+Cc: Felix Held <felix.held@amd.com>, Sasha Levin <sashal@kernel.org>,
+ sunran001@208suo.com, dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org, Mario Limonciello <mario.limonciello@amd.com>,
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, evan.quan@amd.com,
+ airlied@gmail.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wenjing Liu <wenjing.liu@amd.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
 
-[ Upstream commit 05b78277ef0efc1deebc8a22384fffec29a3676e ]
+[ Upstream commit 760efbca74a405dc439a013a5efaa9fadc95a8c3 ]
 
-[why]
-Clip size increase will increase viewport, which could cause us to
-switch  to MPC combine.
-If we skip full update, we are not able to change to MPC combine in
-fast update. This will cause corruption showing on the video plane.
+For pptable structs that use flexible array sizes, use flexible arrays.
 
-[how]
-treat clip size increase of a surface larger than 5k as a full update.
-
-Reviewed-by: Jun Lei <jun.lei@amd.com>
-Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Suggested-by: Felix Held <felix.held@amd.com>
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2874
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 12 ++++++++++--
- drivers/gpu/drm/amd/display/dc/dc.h      |  5 +++++
- 2 files changed, 15 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/include/pptable.h                 | 4 ++--
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index ffe7479a047d8..3919e75fec16d 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -886,7 +886,8 @@ static bool dc_construct(struct dc *dc,
- 	/* set i2c speed if not done by the respective dcnxxx__resource.c */
- 	if (dc->caps.i2c_speed_in_khz_hdcp == 0)
- 		dc->caps.i2c_speed_in_khz_hdcp = dc->caps.i2c_speed_in_khz;
--
-+	if (dc->caps.max_optimizable_video_width == 0)
-+		dc->caps.max_optimizable_video_width = 5120;
- 	dc->clk_mgr = dc_clk_mgr_create(dc->ctx, dc->res_pool->pp_smu, dc->res_pool->dccg);
- 	if (!dc->clk_mgr)
- 		goto fail;
-@@ -2053,6 +2054,7 @@ static enum surface_update_type get_plane_info_update_type(const struct dc_surfa
- }
- 
- static enum surface_update_type get_scaling_info_update_type(
-+		const struct dc *dc,
- 		const struct dc_surface_update *u)
+diff --git a/drivers/gpu/drm/amd/include/pptable.h b/drivers/gpu/drm/amd/include/pptable.h
+index 0b6a057e0a4c4..5aac8d545bdc6 100644
+--- a/drivers/gpu/drm/amd/include/pptable.h
++++ b/drivers/gpu/drm/amd/include/pptable.h
+@@ -78,7 +78,7 @@ typedef struct _ATOM_PPLIB_THERMALCONTROLLER
+ typedef struct _ATOM_PPLIB_STATE
  {
- 	union surface_update_flags *update_flags = &u->surface->update_flags;
-@@ -2087,6 +2089,12 @@ static enum surface_update_type get_scaling_info_update_type(
- 			update_flags->bits.clock_change = 1;
- 	}
+     UCHAR ucNonClockStateIndex;
+-    UCHAR ucClockStateIndices[1]; // variable-sized
++    UCHAR ucClockStateIndices[]; // variable-sized
+ } ATOM_PPLIB_STATE;
  
-+	if (u->scaling_info->src_rect.width > dc->caps.max_optimizable_video_width &&
-+		(u->scaling_info->clip_rect.width > u->surface->clip_rect.width ||
-+		 u->scaling_info->clip_rect.height > u->surface->clip_rect.height))
-+		 /* Changing clip size of a large surface may result in MPC slice count change */
-+		update_flags->bits.bandwidth_change = 1;
-+
- 	if (u->scaling_info->src_rect.x != u->surface->src_rect.x
- 			|| u->scaling_info->src_rect.y != u->surface->src_rect.y
- 			|| u->scaling_info->clip_rect.x != u->surface->clip_rect.x
-@@ -2124,7 +2132,7 @@ static enum surface_update_type det_surface_update(const struct dc *dc,
- 	type = get_plane_info_update_type(u);
- 	elevate_update_type(&overall_type, type);
  
--	type = get_scaling_info_update_type(u);
-+	type = get_scaling_info_update_type(dc, u);
- 	elevate_update_type(&overall_type, type);
+@@ -473,7 +473,7 @@ typedef struct _ATOM_PPLIB_STATE_V2
+       /**
+       * Driver will read the first ucNumDPMLevels in this array
+       */
+-      UCHAR clockInfoIndex[1];
++      UCHAR clockInfoIndex[];
+ } ATOM_PPLIB_STATE_V2;
  
- 	if (u->flip_addr)
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index e0f58fab5e8ed..09a8726c26399 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -164,6 +164,11 @@ struct dc_caps {
- 	uint32_t dmdata_alloc_size;
- 	unsigned int max_cursor_size;
- 	unsigned int max_video_width;
-+	/*
-+	 * max video plane width that can be safely assumed to be always
-+	 * supported by single DPP pipe.
-+	 */
-+	unsigned int max_optimizable_video_width;
- 	unsigned int min_horizontal_blanking_period;
- 	int linear_pitch_alignment;
- 	bool dcc_const_color;
+ typedef struct _StateArray{
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h
+index b0ac4d121adca..41444e27bfc0c 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h
+@@ -179,7 +179,7 @@ typedef struct _ATOM_Tonga_MCLK_Dependency_Record {
+ typedef struct _ATOM_Tonga_MCLK_Dependency_Table {
+ 	UCHAR ucRevId;
+ 	UCHAR ucNumEntries; 										/* Number of entries. */
+-	ATOM_Tonga_MCLK_Dependency_Record entries[1];				/* Dynamically allocate entries. */
++	ATOM_Tonga_MCLK_Dependency_Record entries[];				/* Dynamically allocate entries. */
+ } ATOM_Tonga_MCLK_Dependency_Table;
+ 
+ typedef struct _ATOM_Tonga_SCLK_Dependency_Record {
+@@ -194,7 +194,7 @@ typedef struct _ATOM_Tonga_SCLK_Dependency_Record {
+ typedef struct _ATOM_Tonga_SCLK_Dependency_Table {
+ 	UCHAR ucRevId;
+ 	UCHAR ucNumEntries; 										/* Number of entries. */
+-	ATOM_Tonga_SCLK_Dependency_Record entries[1];				 /* Dynamically allocate entries. */
++	ATOM_Tonga_SCLK_Dependency_Record entries[];				 /* Dynamically allocate entries. */
+ } ATOM_Tonga_SCLK_Dependency_Table;
+ 
+ typedef struct _ATOM_Polaris_SCLK_Dependency_Record {
 -- 
 2.42.0
 
