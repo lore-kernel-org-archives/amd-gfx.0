@@ -4,116 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDA54C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 05:28:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3F49C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 05:33:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3C3E10E4AE;
-	Tue,  7 Nov 2023 05:28:42 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73E2910E4AE
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Nov 2023 05:28:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 832FD10E063;
+	Tue,  7 Nov 2023 05:33:40 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2054.outbound.protection.outlook.com [40.107.93.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A341110E063
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Nov 2023 05:33:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VJq2k5j6RyaPsCFwQrNSweSIPuHdOZiwpnhGZofpUkiNktlbh/xcuHeo1Z3sqhPMGX1vN1ey1Dm4ID8ooiTdIkaedtLVQOL5QXbx2mXSKeslCHcxZcWVhb5uDIu5c7Sux5Q9UylKi5r+PfBHDNrsIFOdmBFq8IqNohSbN2Vq0/anh3kOEnUvOfb7V5oLsyu+VaMQs5dkZ+lcVxaKzIgINJuCL2Xx3n4dZF136yJcBCrTlobaiEZcXt3h7b4ctMWPLxV8ITbCvkOcbyaKtXWaJ5/xioGvvzr7GCZBw3ntsPoj40y43P1mOmWCcn4ZD/Aw1LIJZOmyRsOsP0S++VrbsQ==
+ b=P+IrUvMud4iF+y/1tMOeeA9u4q/3tjGqSk0TxgvqiDek0PpH87HZ7cPkVpPzOt3cvzspj3f96BpglVm/TDAzNtpilTZ/ADT6yhRr6V5a+zKFd89hUkhXr4SFVmZf6isGHf394q9b3L2tfppzfokCXg5mAJ9iVSaEmGyovKrTURu2zupIYCa5ncNyIqtq8rro+M94HLIpcfmjBFbH5CyMExYU2eWn/CaYsBk+DUqQQd54I/IePqsVJjW1yIZDJiHKQmXE3YiFoPpMXSZYRyruntkXRzpcphn6kMq5t3yl80Lg3VfBYucKW8K4ifVXnFF94KySdFCWdDKoWwCKq55QBg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XX4zSrh9SpRRACpS+63QXDogVbmJ3bqsYWuebjZWGTM=;
- b=PP079wkx32xul9JAcjXs9L9R/Z4/r+Gh6S+CgCACyo53NwHAogSfrzks2Hh56bcN13NBUwRe5zmWfPtkiI3eRRwF6MU2GzRZq5dCyno9Yc4SaYiELaBEPfQbITVbXC0eZZabky8soISQ+vdrqwbJxYpteaQy7F/Lz07U3HK/CxKuZJGLdpOQ0F9cdKmj8HMp5qIBA2S8MIZnGhaKb9n34V8t5p7KeM54mZepo0V2K8SwMoWdDWQRPqxexLWEeD52pWWvI7Pi048Q0H1jse6qakmDyzrsmwoVCvx2glUQTVFd32rDKkm3h89t4I7U1u1b37J048FtsvDcc5qk5wGoUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=nB4MOVDbdP14hVBmq9HBoe/QaBe8QrkDoGrzTXKkxRg=;
+ b=QZ3dnH4ZvsR8gVpKu+R7yt9/CFpTZi6PKe4OuCtWWtqyHJiAtAI+hkiXX2aTQhu5hj4pyn2Tni/7t388XVTTS+ygFIWH7m8bCCslHpazg7xiRKBj5ykRK0KZLyT1AFYtzCJJnX1bkrgIqodaOEzXyesCUi5BplbL1ZKP96uEfU8S0gMbs7Fa+2L3b7l58Styk5GvnStXQpIo/9L9KLO93YMoLAyhjeX65GpzV/qAoZL/PFuF1G348KeichofZz2k2SAU8ar6xMIVdVvzFPlALl8f/0f57CCPLR1z5sGFFWURi/AEjUlqxGZR8KDdpNC8WhpyszQSpXbHhbmk9dkecg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XX4zSrh9SpRRACpS+63QXDogVbmJ3bqsYWuebjZWGTM=;
- b=KfXoSEsh4OkRDii8kgcicRuAYOSSO4mzqbDdzs8h+TUsWu2ErnKHvZrwsYGNaSdxmBUA5oZcAAkwntItB3jxcIIWA//LHAY/gX4o3ATvD1IGMmUbfIi80QDs8iNQshYTBN1IhAL76zG1UesT1Q8BxeodpoBBZxCUjA1Z9lM4/Uo=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by MN0PR12MB5857.namprd12.prod.outlook.com (2603:10b6:208:378::10)
+ bh=nB4MOVDbdP14hVBmq9HBoe/QaBe8QrkDoGrzTXKkxRg=;
+ b=JJSZ7mhccL1dLJGPxoRKPRBRhwvZFNOElh+ltGOrPv/uP5khb4UbhgiGtzJPst6o0TQCRLLfCI5FktwD34d5/2fLXrDjtbex3tYncXPQeoFObKMti1r1DTHdvU0iHeeRPWUft88u1meq538WyFbkeksV33ntkSPF1HD24r4OMqs=
+Received: from MN2PR11CA0021.namprd11.prod.outlook.com (2603:10b6:208:23b::26)
+ by PH7PR12MB5595.namprd12.prod.outlook.com (2603:10b6:510:135::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.29; Tue, 7 Nov
- 2023 05:28:36 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::f0fa:4908:b418:96d2]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::f0fa:4908:b418:96d2%7]) with mapi id 15.20.6954.028; Tue, 7 Nov 2023
- 05:28:36 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Zhang, Morris" <Shiwu.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 2/2] drm/amdgpu: expose the connected port num info
- through sysfs
-Thread-Topic: [PATCH 2/2] drm/amdgpu: expose the connected port num info
- through sysfs
-Thread-Index: AQHaESdxYoGMhgaaF0Ktrg9lzjK+kbBuU/4A
-Date: Tue, 7 Nov 2023 05:28:36 +0000
-Message-ID: <BN9PR12MB525745CEA405D3560ABEDF7EFCA9A@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20231107030611.31109-1-shiwu.zhang@amd.com>
- <20231107030611.31109-2-shiwu.zhang@amd.com>
-In-Reply-To: <20231107030611.31109-2-shiwu.zhang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=2251fafa-a841-418b-972a-2ced475ab5b4;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-11-07T05:27:51Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|MN0PR12MB5857:EE_
-x-ms-office365-filtering-correlation-id: d9443cce-c2ac-44ab-2831-08dbdf526439
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: N6wgPQZh5JaNcf69AT0/7V3nAiSPcw8VFcbmJ61eSeiThHXsIJx/Rs7aYQWPbexkAa7GzaTQwHqXSBKRl/wGNnizBBk0XcYd/FlSpz0hQcFVeB0zVT6WHGwQG6cjfpP50Bh9SjH77QJuYg4rNEFweQLvP4txYYHIAEf25/s6h+yz+jcAmlFgTCk46FOMpdYbtDvcu/Ia5nJ37gsEQmQZ2Yopp2jR0uTIQVc7Xh49yqFLeGlucgiZxT/0O/FLCMNa2xsrENJuhmlAf3/zQdhsBZoY9x9RF0LP8HHZS1PD9YWKP2n9KFlxbJZCQ5Ee5mzU/xpPuVnWoHxJqyQUfWpErWxBUkHktupYS40XR7DM/k3uYNfU5cfWYBfGQzokMgAhVxE904j+CBj9fG93BNJoZhXTSuz08gtgY4O9/Nq+UyyG8StDzJSrcEpfAStFqjtBtwyyDS5GBM/UNd8Y3M5zXJMgJZU0HYzxv6F4TIUZYuXmAUWYjJIQ/BLWNXlLXGy0FyZj86eXoGj9eh5brMqWskdQGs07HirlLJ7HblW4U6iDZVa44ReNxs+ScfPlCt3QxYeZjON1C9K1wbXvH3jnWDJb9IilvYnsuKKBL6SsiEyDniSFTzqTS3f6nBRC0BMu
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(366004)(39860400002)(136003)(396003)(346002)(230922051799003)(1800799009)(186009)(64100799003)(451199024)(53546011)(6506007)(7696005)(478600001)(9686003)(71200400001)(83380400001)(26005)(2906002)(41300700001)(5660300002)(76116006)(66476007)(64756008)(66446008)(66556008)(66946007)(316002)(110136005)(52536014)(8936002)(8676002)(38070700009)(33656002)(38100700002)(86362001)(122000001)(55016003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?NfjzMSosn+wcke0/NJ4lRWcgAVgfyzjjJQHjlN8O6yTaq9OGpSvKk4bvGLdf?=
- =?us-ascii?Q?uhq9syjS+2wYFQdHjjiyk/04DPELlKY1nIcZWngiGf2z8PhgRQInVaxKdWb9?=
- =?us-ascii?Q?fDbgmtbDqu5qIVFqi+ypLjie4oo341xsz5vP+RENBKydnc+PAYjfq6bD0Eve?=
- =?us-ascii?Q?nvIVz85DoN3KiMRQtad+awj4Bg3ejYKtWZWKI0g2XjN679J31WHSqNdw2/RM?=
- =?us-ascii?Q?TZ8z1nRGnuO1UEwlQuuFLebpJQ67e9EPyiqA5mLaoWq2yVzD+XlZNRvsS/L0?=
- =?us-ascii?Q?U/NnU57ykm8LuEGT8lYGVBYUYL6K13Ad4Y48hgcKIWcyYrUgkaOk2k7ZurUI?=
- =?us-ascii?Q?+1DrZwjJkvwSYbUzsqHxl80S2zY7TlhxkmKdG7wnsb71EVPtLzz5WMFvyJWe?=
- =?us-ascii?Q?ywqXD7vnC+WCQz/JmXrZcmO6WhJ7kfr4Fut4cSOa7co0J3Ht/fpXXefwBZpK?=
- =?us-ascii?Q?d5oGSQ9wtkLa4RaOJwlbyH83065ab75KuCkF3EmxhTYBC98TMVFxDchWLiks?=
- =?us-ascii?Q?Ivt+JPlU2xu3FtXG+GzKck8QJsTOarBI8zs9zQAsSu2ibLx7jEHJpEWJS83v?=
- =?us-ascii?Q?h8I+6KgRWFQpVPzPvAgpxlWOWGdtKRBOCM9yA9ZGAktzhyCFL24T/bM5rP0Y?=
- =?us-ascii?Q?XLNokO4ZlMmfHAm7oov/28iAdi4pTGnXdBA4mPD44Gl6+zYBTm/ZOKGjWvNV?=
- =?us-ascii?Q?ionbIOfSkG+Fw/YHQ3Zfjuk6x0DbdPZyOWyUJPZyI1Fu0Fj0OVrphu+JfULa?=
- =?us-ascii?Q?c40c1T0rG225qXOwndCh0Q1M2YAre4dAaDMtB6tzrvThif+PYnQrUJB8EOFv?=
- =?us-ascii?Q?FvpKHJtkeJUiyU7h6egXQxYYLTw8QkwCMY/QGGis1t6Xl7ZnLOnJbC07Cv5w?=
- =?us-ascii?Q?jp5c5O4MgWtEyyIhzzMh3lR6Cg4sZcHLGEK5hhsbFI/6vx91XDzATpZuQdzC?=
- =?us-ascii?Q?SQypeG+zLPXTqmoddvBwDGFyXZaXAElsFnh5CxSKxGHdonAdrPKgesjKiHJ6?=
- =?us-ascii?Q?HX4ggyyKlD4Z3AURmaybC/sFbmZTcs/tjlTcfu2CzuH4CMwEBDWoR2ByVY2Q?=
- =?us-ascii?Q?EPLda04fQJ646PW9A6KE3EFQHNcmBJvPaMtE9JCINMJ4bLZOHwnsgEbrwDo2?=
- =?us-ascii?Q?KRtP8xEtAGXYJuFIfvDSqfhn/SjO0Z4hJZOJ0+UWMkWaNPS7sF7+pnO9LEEx?=
- =?us-ascii?Q?54IX2f/EbvZ8IFlZ4V/bzc/IORivlTgqhRFQdprP9SsmeunOMYJcvU6tCub/?=
- =?us-ascii?Q?A5187kcFYbePUyvLz5kuoSdk12VLX5UqReUr/kD3wn4Y4UV2dO6Q4pcZO3sy?=
- =?us-ascii?Q?3/f4IvEMrGuebIrACSDq8+wBMmTrXvE6pb1Kv6Y/g1I4c7MiVbGSqxOo9bYZ?=
- =?us-ascii?Q?KlVSkzOrYn0s2h7k7kmTJTJHVJaXfO+j9RbQU+ES6WyEydtMu6a+UZynmEEb?=
- =?us-ascii?Q?n1CfP7i/dE2VeLVIBLOmBaH4Pb1NebDVsfiii32uE+MbLG7a099VlBvM7EM+?=
- =?us-ascii?Q?c0nkYM+xwzO9ire9Vg3KkIugqbDC3kqe+86Wl3vN75VxhCWYhpghz+M3aGNr?=
- =?us-ascii?Q?M9ympNo5wItksB8DTfZf8nS/ycsuw+WoQk7nK9fO?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.25; Tue, 7 Nov
+ 2023 05:33:36 +0000
+Received: from BL6PEPF0001AB55.namprd02.prod.outlook.com
+ (2603:10b6:208:23b:cafe::6e) by MN2PR11CA0021.outlook.office365.com
+ (2603:10b6:208:23b::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.28 via Frontend
+ Transport; Tue, 7 Nov 2023 05:33:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0001AB55.mail.protection.outlook.com (10.167.241.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6977.16 via Frontend Transport; Tue, 7 Nov 2023 05:33:35 +0000
+Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 6 Nov
+ 2023 23:33:33 -0600
+From: Ma Jun <Jun.Ma2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Kenneth.Feng@amd.com>,
+ <Alexander.Deucher@amd.com>, <kevinyang.wang@amd.com>
+Subject: [PATCH] drm/amd/pm: Remove redundant function members of pptable_funcs
+Date: Tue, 7 Nov 2023 13:33:06 +0800
+Message-ID: <20231107053306.3452343-1-Jun.Ma2@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB55:EE_|PH7PR12MB5595:EE_
+X-MS-Office365-Filtering-Correlation-Id: e5617cbe-028f-4bfb-b1db-08dbdf5316ab
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: xu2qULLimByTHiBpBnWawm/RVGjezjieJ+f/sXbW9l/HZ+cW1eODPz20FmDV4DCCWDS9/u+lCxRGXhh7o+6P4uT4Vt8DHb0mr/IYSE6CNyCXDxrCNX7H14WSRZaKSsDUsGlth7m6goxAdeMpWTeKs98mNd6SvMuEUuwB2JYlmglz0VJClVBoyxvBVGpOb789r+pM/Y4REtSI0ooIBp+nGBNWqmOi7PqhkSsDpG5PXVjCB22JtulsZvq5xQnjUx4tvNGJoF/pwFmkYR2nqfxENOaDwSb2P/5mkeru7VdrXBPjuy9KbnWSpA75nXVO5YLfjricKob9nPP73joATb8Pb3m6gqYR02evVGuNjZoeOz1QXoSyoYp0XxN8rUTrg6l614zdZOQ+bPEyfH28+yept+SfWjE6OUKjVTRdJM5KVBuhy0GgU+cM60Nf2YlGDnGBA5caR1xKv2aFPb4FBW0scpUM17FTD/cWz602Zgtbbba/Z5wRpg1itLka7uDaxk0PE2pF278RvjaK3dcteU9vvrR1aP9NfqYDNsC8RhRVU2Vs6WhjuFVMm8i8nR0L6D9zPvYDyUHhxTtVLN3AmEoxQ4iLlmhTG954EEFogbuKbfa7XRR3jONsW0H0tQynpC8/ktrY8WbxQWYAV7oPFQ4uIConaw83hs5DBjt96mOXeAYnSXxKqzTiKpmp5uYf4BHil5XlExveZdkvj4jeZmsLUc39mV1JFAnPnLGdRJ1bU/W1xsPT9Tqu6CH5Divrhh4oVxT5I/IZ1qtQv9S8xl8+3Q==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(376002)(136003)(39860400002)(346002)(396003)(230922051799003)(82310400011)(186009)(64100799003)(1800799009)(451199024)(36840700001)(40470700004)(46966006)(41300700001)(2906002)(36860700001)(47076005)(70206006)(70586007)(110136005)(81166007)(82740400003)(86362001)(356005)(6666004)(83380400001)(7696005)(2616005)(478600001)(336012)(1076003)(426003)(16526019)(26005)(5660300002)(4326008)(40460700003)(8936002)(316002)(6636002)(36756003)(8676002)(40480700001)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9443cce-c2ac-44ab-2831-08dbdf526439
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Nov 2023 05:28:36.4794 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: wXV8Xv3NL+M+vdBQnL5E9/Z5gZgpsAHarr2PdOBB1hh1uac6k2Krqvcq9uDZj1IK2C3Ecs2lIWSdY0W1jjEmDQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5857
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2023 05:33:35.8218 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5617cbe-028f-4bfb-b1db-08dbdf5316ab
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB55.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5595
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,152 +98,170 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Ma Jun <Jun.Ma2@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Remove redundant functions members of pptable_funcs and change
+the function type as static because they are not called by other
+files.
 
-Series is
-
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-
-Regards,
-Hawking
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Shiwu Zh=
-ang
-Sent: Tuesday, November 7, 2023 11:06
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amdgpu: expose the connected port num info through=
- sysfs
-
-By catting the xgmi_port_num sysfs node, it prints out the info in the form=
-at of <src node id>:<src port num> -> <dst node id>:<dst port num> for one =
-xgmi link.
-
-For example, in case of 4 sockets fully and evenly connected setup, it woul=
-d be like as below for the first node in the hive.
-01:02 -> 02:03
-01:03 -> 02:02
-01:07 -> 03:04
-01:04 -> 03:07
-01:06 -> 04:05
-01:05 -> 04:06
-Based on the fact that there is two xgmi links between each socket pair,
-"01:02 -> 02:03" means that the current socket in question use the port 2 t=
-o connect with port 3 of the second node in the hive and so on.
-
-v2: print out the src/dst node id for each xgmi link (lijo)
-v3: replace the current_node++ with +1 to align with dst node (le)
-    and use the dev_err instead of pr_err (lijo)
-
-Signed-off-by: Shiwu Zhang <shiwu.zhang@amd.com>
-Acked-by: Lijo Lazar <lijo.lazar@amd.com>
-Reviewed-by: Le Ma <le.ma@amd.com>
+Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 44 ++++++++++++++++++++++++
- 1 file changed, 44 insertions(+)
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h  |  4 --
+ .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  2 -
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  2 -
+ .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  2 -
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    | 41 +++++++++----------
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |  2 -
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  |  2 -
+ 7 files changed, 20 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_xgmi.c
-index 2b7dc490ba6b..4bce96300e7c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -372,6 +372,38 @@ static ssize_t amdgpu_xgmi_show_num_links(struct devic=
-e *dev,
-        return sysfs_emit(buf, "%s\n", buf);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+index 95cb919718ae..f307a7965941 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+@@ -215,10 +215,6 @@ int smu_v13_0_baco_set_armd3_sequence(struct smu_context *smu,
+ 
+ bool smu_v13_0_baco_is_support(struct smu_context *smu);
+ 
+-enum smu_baco_state smu_v13_0_baco_get_state(struct smu_context *smu);
+-
+-int smu_v13_0_baco_set_state(struct smu_context *smu, enum smu_baco_state state);
+-
+ int smu_v13_0_baco_enter(struct smu_context *smu);
+ int smu_v13_0_baco_exit(struct smu_context *smu);
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+index 2cb6b68222ba..4cd43bbec910 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+@@ -2407,8 +2407,6 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
+ 	.set_azalia_d3_pme = smu_v11_0_set_azalia_d3_pme,
+ 	.get_max_sustainable_clocks_by_dc = smu_v11_0_get_max_sustainable_clocks_by_dc,
+ 	.baco_is_support = smu_v11_0_baco_is_support,
+-	.baco_get_state = smu_v11_0_baco_get_state,
+-	.baco_set_state = smu_v11_0_baco_set_state,
+ 	.baco_enter = smu_v11_0_baco_enter,
+ 	.baco_exit = smu_v11_0_baco_exit,
+ 	.get_dpm_ultimate_freq = smu_v11_0_get_dpm_ultimate_freq,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index a38233cc5b7f..8d1d29ffb0f1 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -3537,8 +3537,6 @@ static const struct pptable_funcs navi10_ppt_funcs = {
+ 	.set_azalia_d3_pme = smu_v11_0_set_azalia_d3_pme,
+ 	.get_max_sustainable_clocks_by_dc = smu_v11_0_get_max_sustainable_clocks_by_dc,
+ 	.baco_is_support = smu_v11_0_baco_is_support,
+-	.baco_get_state = smu_v11_0_baco_get_state,
+-	.baco_set_state = smu_v11_0_baco_set_state,
+ 	.baco_enter = navi10_baco_enter,
+ 	.baco_exit = navi10_baco_exit,
+ 	.get_dpm_ultimate_freq = smu_v11_0_get_dpm_ultimate_freq,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index 8cb5b71c09d1..f2f401f00ed1 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -4428,8 +4428,6 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
+ 	.set_azalia_d3_pme = smu_v11_0_set_azalia_d3_pme,
+ 	.get_max_sustainable_clocks_by_dc = smu_v11_0_get_max_sustainable_clocks_by_dc,
+ 	.baco_is_support = smu_v11_0_baco_is_support,
+-	.baco_get_state = smu_v11_0_baco_get_state,
+-	.baco_set_state = smu_v11_0_baco_set_state,
+ 	.baco_enter = sienna_cichlid_baco_enter,
+ 	.baco_exit = sienna_cichlid_baco_exit,
+ 	.mode1_reset_is_support = sienna_cichlid_is_mode1_reset_supported,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+index 1f42befcc213..9172d5d431f8 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+@@ -2220,33 +2220,14 @@ int smu_v13_0_baco_set_armd3_sequence(struct smu_context *smu,
+ 	return 0;
  }
-
-+static ssize_t amdgpu_xgmi_show_connected_port_num(struct device *dev,
-+                                       struct device_attribute *attr,
-+                                       char *buf)
+ 
+-bool smu_v13_0_baco_is_support(struct smu_context *smu)
+-{
+-	struct smu_baco_context *smu_baco = &smu->smu_baco;
+-
+-	if (amdgpu_sriov_vf(smu->adev) ||
+-	    !smu_baco->platform_support)
+-		return false;
+-
+-	/* return true if ASIC is in BACO state already */
+-	if (smu_v13_0_baco_get_state(smu) == SMU_BACO_STATE_ENTER)
+-		return true;
+-
+-	if (smu_cmn_feature_is_supported(smu, SMU_FEATURE_BACO_BIT) &&
+-	    !smu_cmn_feature_is_enabled(smu, SMU_FEATURE_BACO_BIT))
+-		return false;
+-
+-	return true;
+-}
+-
+-enum smu_baco_state smu_v13_0_baco_get_state(struct smu_context *smu)
++static enum smu_baco_state smu_v13_0_baco_get_state(struct smu_context *smu)
+ {
+ 	struct smu_baco_context *smu_baco = &smu->smu_baco;
+ 
+ 	return smu_baco->state;
+ }
+ 
+-int smu_v13_0_baco_set_state(struct smu_context *smu,
++static int smu_v13_0_baco_set_state(struct smu_context *smu,
+ 			     enum smu_baco_state state)
+ {
+ 	struct smu_baco_context *smu_baco = &smu->smu_baco;
+@@ -2280,6 +2261,24 @@ int smu_v13_0_baco_set_state(struct smu_context *smu,
+ 	return ret;
+ }
+ 
++bool smu_v13_0_baco_is_support(struct smu_context *smu)
 +{
-+       struct drm_device *ddev =3D dev_get_drvdata(dev);
-+       struct amdgpu_device *adev =3D drm_to_adev(ddev);
-+       struct psp_xgmi_topology_info *top =3D &adev->psp.xgmi_context.top_=
-info;
-+       int i, j, size =3D 0;
-+       int current_node;
-+       /*
-+        * get the node id in the sysfs for the current socket and show
-+        * it in the port num info output in the sysfs for easy reading.
-+        * it is NOT the one retrieved from xgmi ta.
-+        */
-+       for (i =3D 0; i < top->num_nodes; i++) {
-+               if (top->nodes[i].node_id =3D=3D adev->gmc.xgmi.node_id) {
-+                       current_node =3D i;
-+                       break;
-+               }
-+       }
++	struct smu_baco_context *smu_baco = &smu->smu_baco;
 +
-+       for (i =3D 0; i < top->num_nodes; i++) {
-+               for (j=3D0; j < top->nodes[i].num_links; j++)
-+                       /* node id in sysfs starts from 1 rather than 0 so =
-+1 here */
-+                       size +=3D sysfs_emit_at(buf, size, "%02x:%02x ->  %=
-02x:%02x\n", current_node + 1,
-+                                             top->nodes[i].port_num[j].src=
-_xgmi_port_num, i + 1,
-+                                             top->nodes[i].port_num[j].dst=
-_xgmi_port_num);
-+       }
++	if (amdgpu_sriov_vf(smu->adev) || !smu_baco->platform_support)
++		return false;
 +
-+       return size;
++	/* return true if ASIC is in BACO state already */
++	if (smu_v13_0_baco_get_state(smu) == SMU_BACO_STATE_ENTER)
++		return true;
++
++	if (smu_cmn_feature_is_supported(smu, SMU_FEATURE_BACO_BIT) &&
++	    !smu_cmn_feature_is_enabled(smu, SMU_FEATURE_BACO_BIT))
++		return false;
++
++	return true;
 +}
 +
- #define AMDGPU_XGMI_SET_FICAA(o)       ((o) | 0x456801)
- static ssize_t amdgpu_xgmi_show_error(struct device *dev,
-                                      struct device_attribute *attr, @@ -41=
-1,6 +443,7 @@ static DEVICE_ATTR(xgmi_physical_id, 0444, amdgpu_xgmi_show_p=
-hysical_id, NULL);  static DEVICE_ATTR(xgmi_error, S_IRUGO, amdgpu_xgmi_sho=
-w_error, NULL);  static DEVICE_ATTR(xgmi_num_hops, S_IRUGO, amdgpu_xgmi_sho=
-w_num_hops, NULL);  static DEVICE_ATTR(xgmi_num_links, S_IRUGO, amdgpu_xgmi=
-_show_num_links, NULL);
-+static DEVICE_ATTR(xgmi_port_num, S_IRUGO,
-+amdgpu_xgmi_show_connected_port_num, NULL);
-
- static int amdgpu_xgmi_sysfs_add_dev_info(struct amdgpu_device *adev,
-                                         struct amdgpu_hive_info *hive)
-@@ -446,6 +479,13 @@ static int amdgpu_xgmi_sysfs_add_dev_info(struct amdgp=
-u_device *adev,
-        if (ret)
-                pr_err("failed to create xgmi_num_links\n");
-
-+       /* Create xgmi port num file if supported */
-+       if (adev->psp.xgmi_context.xgmi_ta_caps & EXTEND_PEER_LINK_INFO_CMD=
-_FLAG) {
-+               ret =3D device_create_file(adev->dev, &dev_attr_xgmi_port_n=
-um);
-+               if (ret)
-+                       dev_err(adev->dev, "failed to create xgmi_port_num\=
-n");
-+       }
-+
-        /* Create sysfs link to hive info folder on the first device */
-        if (hive->kobj.parent !=3D (&adev->dev->kobj)) {
-                ret =3D sysfs_create_link(&adev->dev->kobj, &hive->kobj, @@=
- -476,6 +516,8 @@ static int amdgpu_xgmi_sysfs_add_dev_info(struct amdgpu_d=
-evice *adev,
-        device_remove_file(adev->dev, &dev_attr_xgmi_error);
-        device_remove_file(adev->dev, &dev_attr_xgmi_num_hops);
-        device_remove_file(adev->dev, &dev_attr_xgmi_num_links);
-+       if (adev->psp.xgmi_context.xgmi_ta_caps & EXTEND_PEER_LINK_INFO_CMD=
-_FLAG)
-+               device_remove_file(adev->dev, &dev_attr_xgmi_port_num);
-
- success:
-        return ret;
-@@ -492,6 +534,8 @@ static void amdgpu_xgmi_sysfs_rem_dev_info(struct amdgp=
-u_device *adev,
-        device_remove_file(adev->dev, &dev_attr_xgmi_error);
-        device_remove_file(adev->dev, &dev_attr_xgmi_num_hops);
-        device_remove_file(adev->dev, &dev_attr_xgmi_num_links);
-+       if (adev->psp.xgmi_context.xgmi_ta_caps & EXTEND_PEER_LINK_INFO_CMD=
-_FLAG)
-+               device_remove_file(adev->dev, &dev_attr_xgmi_port_num);
-
-        if (hive->kobj.parent !=3D (&adev->dev->kobj))
-                sysfs_remove_link(&adev->dev->kobj,"xgmi_hive_info");
---
-2.17.1
+ int smu_v13_0_baco_enter(struct smu_context *smu)
+ {
+ 	struct smu_baco_context *smu_baco = &smu->smu_baco;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index d715ca2ec121..4a5f3cc44e98 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -3030,8 +3030,6 @@ static const struct pptable_funcs smu_v13_0_0_ppt_funcs = {
+ 	.deep_sleep_control = smu_v13_0_deep_sleep_control,
+ 	.gfx_ulv_control = smu_v13_0_gfx_ulv_control,
+ 	.baco_is_support = smu_v13_0_baco_is_support,
+-	.baco_get_state = smu_v13_0_baco_get_state,
+-	.baco_set_state = smu_v13_0_baco_set_state,
+ 	.baco_enter = smu_v13_0_baco_enter,
+ 	.baco_exit = smu_v13_0_baco_exit,
+ 	.mode1_reset_is_support = smu_v13_0_0_is_mode1_reset_supported,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index f5596f031d00..2909ec06b1cb 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -2594,8 +2594,6 @@ static const struct pptable_funcs smu_v13_0_7_ppt_funcs = {
+ 	.get_pp_feature_mask = smu_cmn_get_pp_feature_mask,
+ 	.set_pp_feature_mask = smu_cmn_set_pp_feature_mask,
+ 	.baco_is_support = smu_v13_0_baco_is_support,
+-	.baco_get_state = smu_v13_0_baco_get_state,
+-	.baco_set_state = smu_v13_0_baco_set_state,
+ 	.baco_enter = smu_v13_0_baco_enter,
+ 	.baco_exit = smu_v13_0_baco_exit,
+ 	.mode1_reset_is_support = smu_v13_0_7_is_mode1_reset_supported,
+-- 
+2.34.1
 
