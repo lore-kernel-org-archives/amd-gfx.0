@@ -4,53 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBDD2C4167B
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 08:13:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5D72C4167D
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 08:13:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55EF310E4C5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D772710E4C7;
 	Tue,  7 Nov 2023 08:13:31 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 158CD10E4B4;
- Tue,  7 Nov 2023 05:45:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1699335936; x=1730871936;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=ulbDZvz1gkMd0q7p/mpQrgQlpVcd7at70sX5zqHvqBA=;
- b=cOlG4fpzk8v8Pl7mZVg8wylLQ/j/812fOWoxVRdbxqg7LxLAlXmtUINp
- oiFIsEdWRn29gEdHheS/CwK4bal9oDxJex9OpOAU/99sFe1K+F4G2zJTD
- 7vVZkofr3DgEWSu5MRMlAn0MnpL5sjjWpX7AIEKVrbGm2DPAyT8vhAYRm
- JJZfbRoxfERICeCWIUWhppZghwEao9dKSMXUi8ub/WJWdO7cgTvjwUVcP
- +S6KuZ1htemBG5NV/6F9ND5Tf8c1TEepC0Spw+W8FDx4qIS+cQu9tJfxP
- UC2ddEDHNlv1M1TSTTdcyC6WrA6/ybTup8v+s37AQ402ARaJ2VR1LsjBC g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10886"; a="386609232"
-X-IronPort-AV: E=Sophos;i="6.03,282,1694761200"; d="scan'208";a="386609232"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Nov 2023 21:45:35 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10886"; a="886176112"
-X-IronPort-AV: E=Sophos;i="6.03,282,1694761200"; d="scan'208";a="886176112"
-Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga004.jf.intel.com with ESMTP; 06 Nov 2023 21:45:27 -0800
-Received: by black.fi.intel.com (Postfix, from userid 1001)
- id 6642D3CC; Tue,  7 Nov 2023 07:45:26 +0200 (EET)
-Date: Tue, 7 Nov 2023 07:45:26 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Lukas Wunner <lukas@wunner.de>
-Subject: Re: [PATCH v2 8/9] PCI: Exclude PCIe ports used for tunneling in
- pcie_bandwidth_available()
-Message-ID: <20231107054526.GT17433@black.fi.intel.com>
-References: <20231103190758.82911-1-mario.limonciello@amd.com>
- <20231103190758.82911-9-mario.limonciello@amd.com>
- <20231106181022.GA18564@wunner.de>
- <712ebb25-3fc0-49b5-96a1-a13c3c4c4921@amd.com>
- <20231106185652.GA3360@wunner.de>
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [IPv6:2607:f8b0:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 389AF10E495;
+ Tue,  7 Nov 2023 00:25:14 +0000 (UTC)
+Received: by mail-pl1-x636.google.com with SMTP id
+ d9443c01a7336-1cc30bf9e22so40492065ad.1; 
+ Mon, 06 Nov 2023 16:25:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1699316714; x=1699921514; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=KvNevDILmrFumM2oQIUBMvMXYtsYvLzdrTujg9hVkHI=;
+ b=miBkMjSDa+KJpdbHLW5RXIoBdprMRRqM+HJZaU3zMqfqvyoKGVcLfUtdl1LX0Wnwwy
+ /kpYdpv1wrsmwGrd5x8x/2fsupgJTYRlMajpZBW8MuAPHU61em0XZMYi+KpvtlOORheK
+ jb6R33X745Ldj+a5r3bkdZjW5qbxUZMrm4x5BXKw7DFeF/S0qllAXOByvnslOcQ6lR+s
+ r4yYMVRqxUYdTu8Z475fmsabFmupStl/HHg54wiRexFEONDNNi7OH2aof3ysdJy8CQKB
+ agOl+93JID7LS+Xxgy+F85FlMX0MolYRmOWY9bl8BdURlwX8Upa06A4ophPPaV6B/2nx
+ TWUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1699316714; x=1699921514;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=KvNevDILmrFumM2oQIUBMvMXYtsYvLzdrTujg9hVkHI=;
+ b=WqFcEeYnMLdvCgiDnpjx1ee8V55a4hwHnNjMveP6c2oyeiOpQ+5rPvmCafghrT6kc0
+ KWG2SwCXwlBNNZx/sNFPEar5r3IqTR+4aUY0VawvvE13Oy5XZ953OcOs6sjqYhqTM4IH
+ V/68P7SChq0MZqVKMR28O82paYVRgGLVPOMhdRISVhkbLgpLjtSkznb0FW1gTYWyxqHT
+ 4pZZCePMFpR6chELAC44YUDbC3QFz7Q85+VXS3aIlzAnw8iUjE+9WnziNEOrec+b8Lso
+ Uo7YWME4qErCs0EAy6GWyg9rP7LEc/e/HD99XM/ojQy2dNPr/RsVlICHD8ciD8lAFM1f
+ kB6g==
+X-Gm-Message-State: AOJu0YwvyEeLXSUvTBudeUsKVnfQjhnMI+SOSwUVmcWIHirZgwm8EG8C
+ TpFntI3QTOdYNUt2mLnt3cw=
+X-Google-Smtp-Source: AGHT+IFpEJjW+6bQ6vlcdu8jbIyxxRW7ZMOKGK03NP4M1Mz4NcROaycZ11XDShYh+2rBgXl2g25WXw==
+X-Received: by 2002:a17:902:e551:b0:1cc:51ee:5faf with SMTP id
+ n17-20020a170902e55100b001cc51ee5fafmr1650822plf.7.1699316713622; 
+ Mon, 06 Nov 2023 16:25:13 -0800 (PST)
+Received: from debian.me ([103.131.18.64]) by smtp.gmail.com with ESMTPSA id
+ d7-20020a170902654700b001bb1f0605b2sm6573600pln.214.2023.11.06.16.25.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Nov 2023 16:25:13 -0800 (PST)
+Received: by debian.me (Postfix, from userid 1000)
+ id 63C18817FA85; Tue,  7 Nov 2023 07:25:00 +0700 (WIB)
+Date: Tue, 7 Nov 2023 07:24:58 +0700
+From: Bagas Sanjaya <bagasdotme@gmail.com>
+To: Hunter Chasens <hunter.chasens18@ncf.edu>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] drm: amd: Resolve Sphinx unexpected indentation warning
+Message-ID: <ZUmD2u7qZS9XWRRz@debian.me>
+References: <20231106201739.29507-1-hunter.chasens18@ncf.edu>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="/im2KQQsxOjeQDIO"
 Content-Disposition: inline
-In-Reply-To: <20231106185652.GA3360@wunner.de>
+In-Reply-To: <20231106201739.29507-1-hunter.chasens18@ncf.edu>
 X-Mailman-Approved-At: Tue, 07 Nov 2023 08:13:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,62 +75,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:THUNDERBOLT DRIVER" <linux-usb@vger.kernel.org>,
- Karol Herbst <kherbst@redhat.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <dri-devel@lists.freedesktop.org>,
- "open list:X86 PLATFORM DRIVERS" <platform-driver-x86@vger.kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Andreas Noever <andreas.noever@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Marek =?utf-8?B?QmVow7pu?= <kabel@kernel.org>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:ACPI" <linux-acpi@vger.kernel.org>,
- Danilo Krummrich <dakr@redhat.com>,
- "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
- Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Michael Jamet <michael.jamet@intel.com>, Mark Gross <markgross@kernel.org>,
- Hans de Goede <hdegoede@redhat.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, open list <linux-kernel@vger.kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Yehezkel Bernat <YehezkelShB@gmail.com>,
- Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- "Maciej W . Rozycki" <macro@orcam.me.uk>
+Cc: Lijo Lazar <lijo.lazar@amd.com>,
+ Linux Documentation <linux-doc@vger.kernel.org>, Xinhui.Pan@amd.com,
+ Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
+ Linux DRI Development <dri-devel@lists.freedesktop.org>, daniel@ffwll.ch,
+ alexander.deucher@amd.com, airlied@gmail.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
 
-On Mon, Nov 06, 2023 at 07:56:52PM +0100, Lukas Wunner wrote:
-> On Mon, Nov 06, 2023 at 12:44:25PM -0600, Mario Limonciello wrote:
-> > Tangentially related; the link speed is currently symmetric but there are
-> > two sysfs files.  Mika left a comment in drivers/thunderbolt/switch.c it may
-> > be asymmetric in the future. So we may need to keep that in mind on any
-> > design that builds on top of them.
-> 
-> Aren't asymmetric Thunderbolt speeds just a DisplayPort thing?
+--/im2KQQsxOjeQDIO
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-No, they affect the whole fabric. We have the initial code for
-asymmetric switching in v6.7-rc1.
+On Mon, Nov 06, 2023 at 03:17:39PM -0500, Hunter Chasens wrote:
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/=
+amdgpu_pm.c
+> index 517b9fb4624c..81b8ceb26890 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> @@ -989,12 +989,13 @@ static ssize_t amdgpu_get_pp_features(struct device=
+ *dev,
+>   * Reading back the files will show you the available power levels within
+>   * the power state and the clock information for those levels. If deep s=
+leep is
+>   * applied to a clock, the level will be denoted by a special level 'S:'
+> - * E.g.,
+> - *	S: 19Mhz *
+> - *	0: 615Mhz
+> - *	1: 800Mhz
+> - *	2: 888Mhz
+> - *	3: 1000Mhz
+> + * E.g.::
+> + *
+> + *  S: 19Mhz *
+> + *  0: 615Mhz
+> + *  1: 800Mhz
+> + *  2: 888Mhz
+> + *  3: 1000Mhz
+>   *
+>   *
+>   * To manually adjust these states, first select manual using
 
-> > As 'thunderbolt' can be a module or built in, we need to bring code into PCI
-> > core so that it works in early boot before it loads.
-> 
-> tb_switch_get_generation() is small enough that it could be moved to the
-> PCI core.  I doubt that we need to make thunderbolt built-in only
-> or move a large amount of code to the PCI core.
+LGTM, thanks!
 
-If at all possible I would like to avoid this and littering PCI side
-with non-PCI stuff. There could be other similar "mediums" in the future
-where you can transfer packets of "native" protocols such as PCIe so
-instead of making it Thunderbolt/USB4 specific it should be generic
-enough to support future extensions.
+Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
 
-In case of Thunderbolt/USB4 there is no real way to figure out how much
-bandwidth each PCIe tunnel gets (it is kind of bulk traffic that gets
-what is left from isochronous protocols) so I would not even try that
-and instead use the real PCIe links in pcie_bandwidth_available() and
-skip all the "virtual" ones.
+--=20
+An old man doll... just what I always wanted! - Clara
+
+--/im2KQQsxOjeQDIO
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZUmDrQAKCRD2uYlJVVFO
+o3+ZAQDfjlESW3+XuDhrOEojS9fqik7nCHXgYFOPvulyC48CzwEAmlHOs12KiwgZ
+BP9nE37zIUNmEkWjNU+PCfws51OmbgE=
+=JkyO
+-----END PGP SIGNATURE-----
+
+--/im2KQQsxOjeQDIO--
