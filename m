@@ -4,44 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5F65C4167D
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 12:33:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16884C4167B
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 13:38:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B49C10E5E4;
-	Tue,  7 Nov 2023 12:33:07 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 397E810E5E5;
- Tue,  7 Nov 2023 12:33:06 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id B305F61208;
- Tue,  7 Nov 2023 12:33:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B0AEC433C9;
- Tue,  7 Nov 2023 12:33:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1699360385;
- bh=yTUkAbSOWbPFtXr4p0Q28MnJPqNQ0ClvWZAnZTKlqUM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WwF8WgqUWQhUD9OHZ7Smm29jouit6z/k1iW0fUupaDCSAhwbx2mETuW1KswHjnnUZ
- QCg+FUfMJBG+bcYrfY1SdF5TukPuWexRNJxQM2/czWcVcNM7ShBXGlv5Y2AomZAs4T
- MjCFXrqnyh2dOdyazYvfu2flxBLHtubZC8B2oFH95YJ+r36yrisDs4Ut1QDfnvlufA
- xA/V1DoI34kxvgiXFS90/CHvhH2G+qtoUmBxiz/pLQqHcUO/xQK7DTVuU7evWWg0+f
- SC9woCLxl9O3rvHc5rEnHYL6X/tQCEDrJJvEtK/p6nLLO4XqvO31Pt68PtDWPhxbIJ
- DY7vcn2CjuT/A==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.14 3/4] drm/amd: Fix UBSAN array-index-out-of-bounds
- for Polaris and Tonga
-Date: Tue,  7 Nov 2023 07:32:40 -0500
-Message-ID: <20231107123256.3763357-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231107123256.3763357-1-sashal@kernel.org>
-References: <20231107123256.3763357-1-sashal@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5263410E14C;
+	Tue,  7 Nov 2023 13:38:17 +0000 (UTC)
+Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
+ [IPv6:2607:f8b0:4864:20::c2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 683AB10E04C;
+ Tue,  7 Nov 2023 13:38:16 +0000 (UTC)
+Received: by mail-oo1-xc2f.google.com with SMTP id
+ 006d021491bc7-586beb5e6a7so3180618eaf.1; 
+ Tue, 07 Nov 2023 05:38:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1699364295; x=1699969095; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=u/JzXXKi9EWZmEKt0kuoOZHJPpAwEzdC1EaLt8yqMl0=;
+ b=ASqNRG66OEXUyFRSUA6Qn4rrzbkjk1Duqc7Je6Sx78IJxWkXxsrj6grtwgDR99coR+
+ TpuxlkRNZD3/RcBdtBs2BLzVP7sh1+7EfXItFWWmuRcmeAknVOlXuT6RW3Vkjsx49dCY
+ rn6rTHv2Q8HQ7cbePDLH6HJA1C/APn55d+RYul0cxyAbmrP+xoKqXU0r7BrU/6KVqfgE
+ OiH50H6XrA60PeaZ1yozaIzBnvlMVIiN9mNZdjXyxLebXZs5aiQewTuGWPikgaPjgcTD
+ R4PLkck7y9nscgKxx0lWCZp9enPVHfwShAVFvBqICe6l8Mm0dGairfudyaUudlRcujNB
+ o4PQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1699364295; x=1699969095;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=u/JzXXKi9EWZmEKt0kuoOZHJPpAwEzdC1EaLt8yqMl0=;
+ b=leZLqJkYQndFSMK7ZELMsv4hJ6lq9ZdjX7YRr5U/+IJkQ3hJksxdGI16es7W1qPZ/6
+ RLF37DZv1syZ7p2qYsSS74dJfkMJYLsn/p7bOP2gacKroKsZL9/KXAPzq0wcBZbWzJJp
+ QZvsxbjVUQcMFJOuHLeEH1xDmREpP03yG6UDLP6TpF74qqMDc0HX9uQjEyqLhOyvuL31
+ iXXKEC1Kc/0uP6dlt8Zc4LRbAe9RkKWT2IdNMw2MrIoA6GlgVfRRR/Xl+vBatzaD9Keu
+ uOTWR/QDuNWAxWAdkFUQR13ZRZi6zwRZ3P1bVsYxFy7QrKcQYUMVoToaed45aE+DHgyA
+ U23A==
+X-Gm-Message-State: AOJu0YwLgR43/9F/jEY3ox4pdZQ5dECmbL8Ar7QN5YEQ2D3P7VO+5svL
+ xicvtp4RqDDdqGnj7yhuN56FAWPkq/Y7gV2wt9q6gXk1
+X-Google-Smtp-Source: AGHT+IHNBTVDKA0fR0kDClpaT8pql9m1AEsUIvWGKaOkV7HGpxLEMW93vsgGqKhwvt+ff8/n4Uq7GyTt1WdlZHsmbo0=
+X-Received: by 2002:a05:6871:af8c:b0:1e9:b9e6:98e1 with SMTP id
+ zx12-20020a056871af8c00b001e9b9e698e1mr2251960oab.1.1699364295339; Tue, 07
+ Nov 2023 05:38:15 -0800 (PST)
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 4.14.328
-Content-Transfer-Encoding: 8bit
+References: <20231107121837.3759358-1-sashal@kernel.org>
+ <20231107121837.3759358-21-sashal@kernel.org>
+In-Reply-To: <20231107121837.3759358-21-sashal@kernel.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 7 Nov 2023 08:38:03 -0500
+Message-ID: <CADnq5_PzxAMvY7FKDuBT-7RwGhXusoKioF8zXwKR9oWvdp9foQ@mail.gmail.com>
+Subject: Re: [PATCH AUTOSEL 6.6 21/40] drm/radeon: Fix UBSAN
+ array-index-out-of-bounds for Radeon HD 5430
+To: Sasha Levin <sashal@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,87 +69,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org,
- Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
- Mario Limonciello <mario.limonciello@amd.com>, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
- christian.koenig@amd.com
+Cc: Felix Held <felix.held@amd.com>, Xinhui.Pan@amd.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ stable@vger.kernel.org, christian.koenig@amd.com,
+ Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mario Limonciello <mario.limonciello@amd.com>
+On Tue, Nov 7, 2023 at 7:20=E2=80=AFAM Sasha Levin <sashal@kernel.org> wrot=
+e:
+>
+> From: Mario Limonciello <mario.limonciello@amd.com>
+>
+> [ Upstream commit c63079c61177ba1b17fa05c6875699a36924fe39 ]
+>
+> For pptable structs that use flexible array sizes, use flexible arrays.
+>
+> Suggested-by: Felix Held <felix.held@amd.com>
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2894
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-[ Upstream commit 0f0e59075b5c22f1e871fbd508d6e4f495048356 ]
+FWIW, I don't think any of these UBSAN variable sized array changes
+are really stable material.  They are not really fixing an actual
+issue just making UBSAN happy.
 
-For pptable structs that use flexible array sizes, use flexible arrays.
+Alex
 
-Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2036742
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/powerplay/hwmgr/pptable_v1_0.h | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/pptable_v1_0.h b/drivers/gpu/drm/amd/powerplay/hwmgr/pptable_v1_0.h
-index d5a4a08c6d392..0c61e2bc14cde 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/pptable_v1_0.h
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/pptable_v1_0.h
-@@ -164,7 +164,7 @@ typedef struct _ATOM_Tonga_State {
- typedef struct _ATOM_Tonga_State_Array {
- 	UCHAR ucRevId;
- 	UCHAR ucNumEntries;		/* Number of entries. */
--	ATOM_Tonga_State entries[1];	/* Dynamically allocate entries. */
-+	ATOM_Tonga_State entries[];	/* Dynamically allocate entries. */
- } ATOM_Tonga_State_Array;
- 
- typedef struct _ATOM_Tonga_MCLK_Dependency_Record {
-@@ -210,7 +210,7 @@ typedef struct _ATOM_Polaris_SCLK_Dependency_Record {
- typedef struct _ATOM_Polaris_SCLK_Dependency_Table {
- 	UCHAR ucRevId;
- 	UCHAR ucNumEntries;							/* Number of entries. */
--	ATOM_Polaris_SCLK_Dependency_Record entries[1];				 /* Dynamically allocate entries. */
-+	ATOM_Polaris_SCLK_Dependency_Record entries[];				 /* Dynamically allocate entries. */
- } ATOM_Polaris_SCLK_Dependency_Table;
- 
- typedef struct _ATOM_Tonga_PCIE_Record {
-@@ -222,7 +222,7 @@ typedef struct _ATOM_Tonga_PCIE_Record {
- typedef struct _ATOM_Tonga_PCIE_Table {
- 	UCHAR ucRevId;
- 	UCHAR ucNumEntries; 										/* Number of entries. */
--	ATOM_Tonga_PCIE_Record entries[1];							/* Dynamically allocate entries. */
-+	ATOM_Tonga_PCIE_Record entries[];							/* Dynamically allocate entries. */
- } ATOM_Tonga_PCIE_Table;
- 
- typedef struct _ATOM_Polaris10_PCIE_Record {
-@@ -235,7 +235,7 @@ typedef struct _ATOM_Polaris10_PCIE_Record {
- typedef struct _ATOM_Polaris10_PCIE_Table {
- 	UCHAR ucRevId;
- 	UCHAR ucNumEntries;                                         /* Number of entries. */
--	ATOM_Polaris10_PCIE_Record entries[1];                      /* Dynamically allocate entries. */
-+	ATOM_Polaris10_PCIE_Record entries[];                      /* Dynamically allocate entries. */
- } ATOM_Polaris10_PCIE_Table;
- 
- 
-@@ -252,7 +252,7 @@ typedef struct _ATOM_Tonga_MM_Dependency_Record {
- typedef struct _ATOM_Tonga_MM_Dependency_Table {
- 	UCHAR ucRevId;
- 	UCHAR ucNumEntries; 										/* Number of entries. */
--	ATOM_Tonga_MM_Dependency_Record entries[1]; 			   /* Dynamically allocate entries. */
-+	ATOM_Tonga_MM_Dependency_Record entries[]; 			   /* Dynamically allocate entries. */
- } ATOM_Tonga_MM_Dependency_Table;
- 
- typedef struct _ATOM_Tonga_Voltage_Lookup_Record {
-@@ -265,7 +265,7 @@ typedef struct _ATOM_Tonga_Voltage_Lookup_Record {
- typedef struct _ATOM_Tonga_Voltage_Lookup_Table {
- 	UCHAR ucRevId;
- 	UCHAR ucNumEntries; 										/* Number of entries. */
--	ATOM_Tonga_Voltage_Lookup_Record entries[1];				/* Dynamically allocate entries. */
-+	ATOM_Tonga_Voltage_Lookup_Record entries[];				/* Dynamically allocate entries. */
- } ATOM_Tonga_Voltage_Lookup_Table;
- 
- typedef struct _ATOM_Tonga_Fan_Table {
--- 
-2.42.0
-
+> ---
+>  drivers/gpu/drm/radeon/pptable.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/pptable.h b/drivers/gpu/drm/radeon/pp=
+table.h
+> index 4c2eec49dadc9..94947229888ba 100644
+> --- a/drivers/gpu/drm/radeon/pptable.h
+> +++ b/drivers/gpu/drm/radeon/pptable.h
+> @@ -74,7 +74,7 @@ typedef struct _ATOM_PPLIB_THERMALCONTROLLER
+>  typedef struct _ATOM_PPLIB_STATE
+>  {
+>      UCHAR ucNonClockStateIndex;
+> -    UCHAR ucClockStateIndices[1]; // variable-sized
+> +    UCHAR ucClockStateIndices[]; // variable-sized
+>  } ATOM_PPLIB_STATE;
+>
+>
+> --
+> 2.42.0
+>
