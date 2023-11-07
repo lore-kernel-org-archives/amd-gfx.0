@@ -4,57 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A479FC4332F
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 15:40:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97FDEC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 16:46:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49C3F10E14B;
-	Tue,  7 Nov 2023 15:40:22 +0000 (UTC)
-Received: from mail-vs1-xe32.google.com (mail-vs1-xe32.google.com
- [IPv6:2607:f8b0:4864:20::e32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A2DC10E073
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Nov 2023 15:35:59 +0000 (UTC)
-Received: by mail-vs1-xe32.google.com with SMTP id
- ada2fe7eead31-45dad6ece90so1392323137.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 07 Nov 2023 07:35:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1699371358; x=1699976158; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=BZqwEk90H97hbODv9brPBFZE2JhJMU7rcldMtR9zCqM=;
- b=o+EqWpLJXasRZJSCHQlvxSN0AyAu5WL4er+qyH0zmoK3XzFL15KZqExXbIq16d4doU
- 6MiqK11vTpB+0YJ7YFIq/aB/hpqtb34NgEnXirbqJuiZuk2OYt9GPAdBxoApkA3hbT02
- UVAg/bzqJ2g9aS1F4GdjeGIm+oaTzAU7fZHnyV0GSuNPVHObAeMtWogvbllrk71Xow5S
- BC6KCTYjbahaxWOU22NltH1XGPyFUtMywWHgrrP07QEHb+rWKlUgSzBU1D6e2Ov7FRO3
- zgh0yA/sAYx8RiLZkzfimvhyG7ma03VdO5jI8hmwt00JHiAmqQ6FHB/hM9u5VPjQXpFW
- 9zGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699371358; x=1699976158;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=BZqwEk90H97hbODv9brPBFZE2JhJMU7rcldMtR9zCqM=;
- b=HZBkskH0oxJSIQ3BcwqnBT8k0v8qE7W9VVrr2ugCysWcEWplQ3m+v3zLusrwFT4zye
- +SrGk1Reqas+d7F+FSs7BhXVAT4KfwxFKwK6fJdAZS3vU2BTFOo+x3QQIUxURdSEcwGq
- mrSCT3/MJSUKRRU6hQAcj9WemoC1U506b5Lr/8GjQjJdfpUpbRLNsfCgFGrOP2KUbVQf
- xzn0FM2EG7XGDg9rY32eHXMIXUYjtz4Fj8OFpSQFIV41M1a8qRIZkeHgjQYOqjLWefVE
- iUUxd8X+yYAzg4enugJ6HfwgOgGwuKY7AWI0UwbqlYHUv3hSUasar4aR+MIFU52TATgJ
- 8Btw==
-X-Gm-Message-State: AOJu0YylgS51zuT9WnLr4RsiDL2v7s93PJ2xPOdqtfUeCDCDmj1RcsmB
- oINuLLnkd7gA+vYd7BIT97R9duQuxOhisvG3yclQyQ==
-X-Google-Smtp-Source: AGHT+IG5CuPEbzlo2z0WKHJQCgqgKd0wyQ+rtlhDVzsghymOYbe8ervp6lWqf1FTSQbV4tPEGP0CprIm0yVbUDYzT7I=
-X-Received: by 2002:a05:6102:5493:b0:45f:3b30:9c93 with SMTP id
- bk19-20020a056102549300b0045f3b309c93mr5361920vsb.22.1699371358609; Tue, 07
- Nov 2023 07:35:58 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF32E10E029;
+	Tue,  7 Nov 2023 16:46:35 +0000 (UTC)
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org
+ [IPv6:2001:67c:2050:0:465::101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B773810E029
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Nov 2023 16:46:33 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4SPvHp13t3z9sqs;
+ Tue,  7 Nov 2023 17:46:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1699375590;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=IxdoJ4c3a2OHv/hdoxmB51kAnBxs7RW+qrX8vQhzNSY=;
+ b=PL5wndRAQVJKGC1seHM8fqox9HQSo3Q3mHNnrmeJRTts4ycSiFg3wvwE/q2y1cjsAYA36S
+ b35wNXwiAhwzkYsXCtl+FYZmx6em4ddfrJueRH0kISrlhQ3+MuhGskkfDKZ9v9eoy9k4/J
+ C8cczW9m3FPQ2YPAg5NkSvdAx/C8qqKKV5IDFivqktisxvN8E1Vl1R2Zw3OLkKD45MkdAu
+ lH5w0JagNqaINfCIsIRNwY+wMkQJga3c6moyD6fQ7GoGNIBbw4mg2AS9GiZ4RcVAhtuctf
+ iaw9i7oElcF38zeKqICAm5x1EJxhMb/SQv2NKEtCMLonDk9tKe+BJ7mpsHWGyw==
+Message-ID: <693780d8-ea44-efa1-dbbd-00864f993e76@mailbox.org>
+Date: Tue, 7 Nov 2023 17:46:28 +0100
 MIME-Version: 1.0
-References: <20231031175453.1383422-1-alexander.deucher@amd.com>
-In-Reply-To: <20231031175453.1383422-1-alexander.deucher@amd.com>
-From: Alexey Klimov <alexey.klimov@linaro.org>
-Date: Tue, 7 Nov 2023 15:35:47 +0000
-Message-ID: <CANgGJDrGb3_jnRySPMqkjyRWC3PmWTM=ucAD6-EDpWQew1ZYzQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: don't put MQDs in VRAM on ARM | ARM64
-To: Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Tue, 07 Nov 2023 15:40:20 +0000
+Subject: Re: [PATCH] drm/amdgpu: move buffer funcs setting up a level
+Content-Language: en-CA
+To: Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+References: <20231025171928.3318505-1-alexander.deucher@amd.com>
+ <96db9e3d-4636-4da4-b4d1-ca3f5fd8d887@gmail.com>
+ <CADnq5_ORyv9MDfUd3NPDw+APUunDjkTW4Bx4z0FoCiK+s_i+uw@mail.gmail.com>
+ <04db543c-7aec-4550-878f-a9753142130e@gmail.com>
+ <a8a0eb47-3aca-4c87-b5f7-dc54e5667944@gmail.com>
+ <CADnq5_PS64jYS_Y3kGW27m-kuWP+FQFiaVcOaZiB=JLSgPnXBQ@mail.gmail.com>
+ <CADnq5_MBgNQPzZmvBagzUdi94X=rr-h=aaE334RzVozgOHU64g@mail.gmail.com>
+ <bfb3d504-61c9-43e8-b3b3-2d8193e54d81@gmail.com>
+ <CADnq5_OB0OvtqJf5nue-XsTZxOcnfN0Sy6pyryW_GF_Y+S6eYg@mail.gmail.com>
+ <CADnq5_OkTuEJ+i+MpfZprSjkGcG99OVSndwyZYWiYEDMEvatgw@mail.gmail.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <CADnq5_OkTuEJ+i+MpfZprSjkGcG99OVSndwyZYWiYEDMEvatgw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 8cdad4d6122c372ce32
+X-MBO-RS-META: a1feriyj47dwgctp7hauekaier8igzzn
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,57 +65,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>, Leo Liu <leo.liu@amd.com>,
+ amd-gfx@lists.freedesktop.org, Luben Tuikov <ltuikov89@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 31 Oct 2023 at 17:55, Alex Deucher <alexander.deucher@amd.com> wrote:
->
-> Issues were reported with commit 1cfb4d612127
-> ("drm/amdgpu: put MQDs in VRAM") on an ADLINK Ampere
-> Altra Developer Platform (AVA developer platform).
->
-> Various ARM systems seem to have problems related
-> to PCIe and MMIO access.  In this case, I'm not sure
-> if this is specific to the ADLINK platform or ARM
-> in general.  Seems to be some coherency issue with
-> VRAM.  For now, just don't put MQDs in VRAM on ARM.
->
-> Link: https://lists.freedesktop.org/archives/amd-gfx/2023-October/100453.html
-> Fixes: 1cfb4d612127 ("drm/amdgpu: put MQDs in VRAM")
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: alexey.klimov@linaro.org
+On 11/7/23 15:47, Alex Deucher wrote:
+> On Tue, Nov 7, 2023 at 9:19 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+>> On Tue, Nov 7, 2023 at 5:52 AM Christian König
+>> <ckoenig.leichtzumerken@gmail.com> wrote:
+>>> Am 03.11.23 um 23:10 schrieb Alex Deucher:
+>>>> On Fri, Nov 3, 2023 at 4:17 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>>>>> On Thu, Oct 26, 2023 at 4:17 PM Luben Tuikov <ltuikov89@gmail.com> wrote:
+>>>>>> Pushed to drm-misc-next.
+>>>>> BTW, I'm seeing the following on older GPUs with VCE and UVD even with
+>>>>> this patch:
+>>>>> [   11.886024] amdgpu 0000:0a:00.0: [drm] *ERROR* drm_sched_job_init:
+>>>>> entity has no rq!
+>>>>> [   11.886028] amdgpu 0000:0a:00.0: [drm:amdgpu_ib_ring_tests
+>>>>> [amdgpu]] *ERROR* IB test failed on uvd (-2).
+>>>>> [   11.889927] amdgpu 0000:0a:00.0: [drm] *ERROR* drm_sched_job_init:
+>>>>> entity has no rq!
+>>>>> [   11.889930] amdgpu 0000:0a:00.0: [drm:amdgpu_ib_ring_tests
+>>>>> [amdgpu]] *ERROR* IB test failed on vce0 (-2).
+>>>>> [   11.890172] [drm:process_one_work] *ERROR* ib ring test failed (-2).
+>>>>> Seems to be specific to UVD and VCE, I don't see anything similar with
+>>>>> VCN, but the flows for both are pretty similar.  Not sure why we are
+>>>>> not seeing it for VCN.  Just a heads up if you have any ideas.  Will
+>>>>> take a closer look next week.
+>>>> + Leo
+>>>>
+>>>> I found the problem.  We set up scheduling entities for UVD and VCE
+>>>> specifically and not for any other engines.  I don't remember why
+>>>> offhand.  I'm guessing maybe to deal with the session limits on UVD
+>>>> and VCE?  If so I'm not sure of a clean way to fix this.
+>>>
+>>> I haven't looked through all my mails yet so could be that Leo has
+>>> already answered this.
+>>>
+>>> The UVD/VCE entities are used for the older chips where applications
+>>> have to use create/destroy messages to the firmware.
+>>>
+>>> If an application exits without cleaning up their handles the kernel
+>>> sends the appropriate destroy messages itself. For an example see
+>>> amdgpu_uvd_free_handles().
+>>>
+>>> We used to initialize those entities with separate calls after the
+>>> scheduler had been brought up, see amdgpu_uvd_entity_init() for an example.
+>>>
+>>> But this was somehow messed up and we now do the call to
+>>> amdgpu_uvd_entity_init() at the end of *_sw_init() instead of _late_init().
+>>>
+>>> I suggest to just come up with a function which can be used for the
+>>> late_init() callback of the UVD/VCE blocks.
+>>
+>> I guess the issue is that we only need to initialize the entity once
+>> so sw_init makes sense.  All of the other functions get called at
+>> resume time, etc.  I think we could probably put it into
+>> amdgpu_device_init_schedulers() somehow.
+> 
+> I think something like this might do the trick.
 
-Thanks for the patch! Can you please give me day or two to test it a
-little bit more? I am still trying ti figure out if page faults in GPU
-depend on this patch or not. I can provide Tested-by tag then.
-
-Also, FWIW maybe you can add Reported-by tag.
-
-Thanks,
-Alexey
+This does indeed fix the IB test failures for me with Bonaire.
 
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> index c92e0aba69e1..a2a29dcb2422 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -385,9 +385,11 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *adev,
->         struct amdgpu_ring *ring = &kiq->ring;
->         u32 domain = AMDGPU_GEM_DOMAIN_GTT;
->
-> +#if !defined(CONFIG_ARM) && !defined(CONFIG_ARM64)
->         /* Only enable on gfx10 and 11 for now to avoid changing behavior on older chips */
->         if (amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(10, 0, 0))
->                 domain |= AMDGPU_GEM_DOMAIN_VRAM;
-> +#endif
->
->         /* create MQD for KIQ */
->         if (!adev->enable_mes_kiq && !ring->mqd_obj) {
-> --
-> 2.41.0
->
+There are still
+
+[drm] Fence fallback timer expired on ring sdma0
+
+messages, that might be a separate regression though.
+
+
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
+
