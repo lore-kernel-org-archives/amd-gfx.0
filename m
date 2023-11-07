@@ -4,56 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97FDEC4332F
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 16:46:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19B71C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 16:58:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF32E10E029;
-	Tue,  7 Nov 2023 16:46:35 +0000 (UTC)
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org
- [IPv6:2001:67c:2050:0:465::101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B773810E029
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Nov 2023 16:46:33 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4SPvHp13t3z9sqs;
- Tue,  7 Nov 2023 17:46:30 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1699375590;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=IxdoJ4c3a2OHv/hdoxmB51kAnBxs7RW+qrX8vQhzNSY=;
- b=PL5wndRAQVJKGC1seHM8fqox9HQSo3Q3mHNnrmeJRTts4ycSiFg3wvwE/q2y1cjsAYA36S
- b35wNXwiAhwzkYsXCtl+FYZmx6em4ddfrJueRH0kISrlhQ3+MuhGskkfDKZ9v9eoy9k4/J
- C8cczW9m3FPQ2YPAg5NkSvdAx/C8qqKKV5IDFivqktisxvN8E1Vl1R2Zw3OLkKD45MkdAu
- lH5w0JagNqaINfCIsIRNwY+wMkQJga3c6moyD6fQ7GoGNIBbw4mg2AS9GiZ4RcVAhtuctf
- iaw9i7oElcF38zeKqICAm5x1EJxhMb/SQv2NKEtCMLonDk9tKe+BJ7mpsHWGyw==
-Message-ID: <693780d8-ea44-efa1-dbbd-00864f993e76@mailbox.org>
-Date: Tue, 7 Nov 2023 17:46:28 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5CF010E621;
+	Tue,  7 Nov 2023 16:58:35 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2043.outbound.protection.outlook.com [40.107.244.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FD4C10E046
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Nov 2023 16:58:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=d2yTju30GiVyw5Vm5+NeiFxoocf8+1KCHDaZ0ioKfU7fzEKyGFJ1/kBTpf8l8UcSCWcnbjKbNxhQQ0ASMR5Z/Pd6Pm/C1zB3C41IPAmR0AROzcFeTWKFsNTqV2p7gLcLPx+8Q0Gnp5q3zwm9oXOQNP7q2QdMel30zLChiUezCxRpaFhEBQHiZOzcRrcyNCluLCQKn8jrJGB15BZryc8HMKqmqEu7ydx3ty35ROAwfXqS/S7vbGgWmD98g6RYByfY/rBFaTusuoqOiSH3V1lg+KyLx7aTvhOU4+V4oFY6V9fy9duAE1gIi4HMuqSFxSNzXOgVcmiEAfNQrvUfYgKmHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5awVU+TVxAh8pKJQbTYGmFCdfnutzD74QR4AFJeVI68=;
+ b=FH30K2RUtKx2a+kyFllsPUp/1YPh5bqEuoXpnNiKWK1nKlwciMlnG/HNv/64Ocprp3TZJBuuq4vYIXmb74L6yMoTP0UcZ+JIfUwiy14bps8cX/B9ExXnvDM7OCFjtvHBlPwQOTJPE3QueAFkwRxv1mBmwBWB+Ki/hlFu50BeJO12ta0lBhSc6XjMF+zK0LYAiRwf9UhQ/cEhoisYuttkHHyimTHmBdBiYKwViZJ0C5q1uofmQb2SUGNO4u0CDUeo6a9df6gsSnZ4uV0WzMwcAa6e6/daJHUYC/TzRw3syerNqBkFRSQqwEfujuIXCIgADNyroc0RNcY+tSsB6unH/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5awVU+TVxAh8pKJQbTYGmFCdfnutzD74QR4AFJeVI68=;
+ b=aBgD2qewGeOCVDuqJKF111+9PltQCMIB3RUw0zNIU+6JsXjAfYiJZm+uoUJmyDMe3GbV3ZDQGgKQl3vIpQIdcXvCv5qPMdxa05pYIpvPm9bXJ9dHY/nQbiDZka5/pvipCW9poeYF6YC+Bydi4BM6Jwmvy1Aeh2VQCmHF7uo2E7I=
+Received: from CH2PR18CA0022.namprd18.prod.outlook.com (2603:10b6:610:4f::32)
+ by CYXPR12MB9338.namprd12.prod.outlook.com (2603:10b6:930:e5::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.28; Tue, 7 Nov
+ 2023 16:58:31 +0000
+Received: from DS2PEPF00003446.namprd04.prod.outlook.com
+ (2603:10b6:610:4f:cafe::82) by CH2PR18CA0022.outlook.office365.com
+ (2603:10b6:610:4f::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.29 via Frontend
+ Transport; Tue, 7 Nov 2023 16:58:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS2PEPF00003446.mail.protection.outlook.com (10.167.17.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6977.16 via Frontend Transport; Tue, 7 Nov 2023 16:58:31 +0000
+Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Tue, 7 Nov
+ 2023 10:58:30 -0600
+From: Felix Kuehling <Felix.Kuehling@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/6] drm/amdgpu: Fix possible null pointer dereference
+Date: Tue, 7 Nov 2023 11:58:09 -0500
+Message-ID: <20231107165814.3628510-1-Felix.Kuehling@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: Re: [PATCH] drm/amdgpu: move buffer funcs setting up a level
-Content-Language: en-CA
-To: Alex Deucher <alexdeucher@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-References: <20231025171928.3318505-1-alexander.deucher@amd.com>
- <96db9e3d-4636-4da4-b4d1-ca3f5fd8d887@gmail.com>
- <CADnq5_ORyv9MDfUd3NPDw+APUunDjkTW4Bx4z0FoCiK+s_i+uw@mail.gmail.com>
- <04db543c-7aec-4550-878f-a9753142130e@gmail.com>
- <a8a0eb47-3aca-4c87-b5f7-dc54e5667944@gmail.com>
- <CADnq5_PS64jYS_Y3kGW27m-kuWP+FQFiaVcOaZiB=JLSgPnXBQ@mail.gmail.com>
- <CADnq5_MBgNQPzZmvBagzUdi94X=rr-h=aaE334RzVozgOHU64g@mail.gmail.com>
- <bfb3d504-61c9-43e8-b3b3-2d8193e54d81@gmail.com>
- <CADnq5_OB0OvtqJf5nue-XsTZxOcnfN0Sy6pyryW_GF_Y+S6eYg@mail.gmail.com>
- <CADnq5_OkTuEJ+i+MpfZprSjkGcG99OVSndwyZYWiYEDMEvatgw@mail.gmail.com>
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
-In-Reply-To: <CADnq5_OkTuEJ+i+MpfZprSjkGcG99OVSndwyZYWiYEDMEvatgw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 8cdad4d6122c372ce32
-X-MBO-RS-META: a1feriyj47dwgctp7hauekaier8igzzn
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003446:EE_|CYXPR12MB9338:EE_
+X-MS-Office365-Filtering-Correlation-Id: 34bba617-4faa-4b27-e516-08dbdfb2c576
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ADGlWl4h/nqfNENyzMuCMgZPMjg8iQ7Fpz6lGRBsYVTQfFJNP6BlYPOTVBrzrCFV0Z5qv91DtiVYM0mvcLWJaPB9XEAUsQwj6NklxmULgz5+cBivoz1YDoNtB4z4qMP83JQ4AEP98IM1NmEH7F7jZk0Uxqdf8jp3gpwcBPIrmUrFgTZ86Lqmi2z8YjPe9WKsWYCRpnxNkX4c3MC+rKWp11yEIllcnXkvawYa+JhEBHaYjMbaI4ljumfNCB/O+kjSu4K8EPzTTpvdnqFfbNMRAbQmRrgc5QDrbg2AEiFA7BY9/dxvt1DkMStD4MrWqsh61pqgO1DdgTj0zMF+fgMuflv2K/2HoG5dWXJQSTgpSnG2s7fR8RozCjVY2ZOhSC8kjIjGBE0bg1eBGvS3tlLLQgp4k7sfxm5D5uBwAh04TtxI8VGaltM5H1gTbCaN6w9R1XP26VKEM+zwbTXKMI+M8PEolZWyCDziJQ2IpYjdevMCjzN/3e626uqdqMTPNMC2SKnIM+J39f4odRB9JDjzY6Yr1eaog4by4EPRTRkb38SPlCKm4U75SVbOqTCVAN+eiumtUMbAALSGhd8oBZ7VanJHMRNlOJ8eWHOvCLIKt0GH7HKEeWXAISUM3GECOmk8A3zBo51hwZmkABvlaKzLb+lKMQf2XleAgrQ5LqQwikK5saTASn4jLdq5BA06wCBiQ23fo83EjLdew1R2vyrZc8Me9Sem7Wi8O0Q9DnAPJMLJHnuCE3FouAaH1Ev73d3uSfpSZQrqk/Fo8aIVwD1T2A==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(396003)(376002)(136003)(346002)(39860400002)(230922051799003)(64100799003)(82310400011)(451199024)(1800799009)(186009)(46966006)(36840700001)(40470700004)(40480700001)(40460700003)(47076005)(36860700001)(83380400001)(4326008)(36756003)(86362001)(8936002)(8676002)(2906002)(4744005)(41300700001)(6666004)(7696005)(6916009)(478600001)(82740400003)(356005)(16526019)(5660300002)(81166007)(316002)(426003)(54906003)(26005)(70206006)(336012)(2616005)(1076003)(70586007)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2023 16:58:31.2352 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 34bba617-4faa-4b27-e516-08dbdfb2c576
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003446.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9338
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,79 +97,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Luben Tuikov <luben.tuikov@amd.com>, Leo Liu <leo.liu@amd.com>,
- amd-gfx@lists.freedesktop.org, Luben Tuikov <ltuikov89@gmail.com>
+Cc: xiaogang.chen@amd.com, ramesh.errabolu@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/7/23 15:47, Alex Deucher wrote:
-> On Tue, Nov 7, 2023 at 9:19 AM Alex Deucher <alexdeucher@gmail.com> wrote:
->> On Tue, Nov 7, 2023 at 5:52 AM Christian König
->> <ckoenig.leichtzumerken@gmail.com> wrote:
->>> Am 03.11.23 um 23:10 schrieb Alex Deucher:
->>>> On Fri, Nov 3, 2023 at 4:17 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->>>>> On Thu, Oct 26, 2023 at 4:17 PM Luben Tuikov <ltuikov89@gmail.com> wrote:
->>>>>> Pushed to drm-misc-next.
->>>>> BTW, I'm seeing the following on older GPUs with VCE and UVD even with
->>>>> this patch:
->>>>> [   11.886024] amdgpu 0000:0a:00.0: [drm] *ERROR* drm_sched_job_init:
->>>>> entity has no rq!
->>>>> [   11.886028] amdgpu 0000:0a:00.0: [drm:amdgpu_ib_ring_tests
->>>>> [amdgpu]] *ERROR* IB test failed on uvd (-2).
->>>>> [   11.889927] amdgpu 0000:0a:00.0: [drm] *ERROR* drm_sched_job_init:
->>>>> entity has no rq!
->>>>> [   11.889930] amdgpu 0000:0a:00.0: [drm:amdgpu_ib_ring_tests
->>>>> [amdgpu]] *ERROR* IB test failed on vce0 (-2).
->>>>> [   11.890172] [drm:process_one_work] *ERROR* ib ring test failed (-2).
->>>>> Seems to be specific to UVD and VCE, I don't see anything similar with
->>>>> VCN, but the flows for both are pretty similar.  Not sure why we are
->>>>> not seeing it for VCN.  Just a heads up if you have any ideas.  Will
->>>>> take a closer look next week.
->>>> + Leo
->>>>
->>>> I found the problem.  We set up scheduling entities for UVD and VCE
->>>> specifically and not for any other engines.  I don't remember why
->>>> offhand.  I'm guessing maybe to deal with the session limits on UVD
->>>> and VCE?  If so I'm not sure of a clean way to fix this.
->>>
->>> I haven't looked through all my mails yet so could be that Leo has
->>> already answered this.
->>>
->>> The UVD/VCE entities are used for the older chips where applications
->>> have to use create/destroy messages to the firmware.
->>>
->>> If an application exits without cleaning up their handles the kernel
->>> sends the appropriate destroy messages itself. For an example see
->>> amdgpu_uvd_free_handles().
->>>
->>> We used to initialize those entities with separate calls after the
->>> scheduler had been brought up, see amdgpu_uvd_entity_init() for an example.
->>>
->>> But this was somehow messed up and we now do the call to
->>> amdgpu_uvd_entity_init() at the end of *_sw_init() instead of _late_init().
->>>
->>> I suggest to just come up with a function which can be used for the
->>> late_init() callback of the UVD/VCE blocks.
->>
->> I guess the issue is that we only need to initialize the entity once
->> so sw_init makes sense.  All of the other functions get called at
->> resume time, etc.  I think we could probably put it into
->> amdgpu_device_init_schedulers() somehow.
-> 
-> I think something like this might do the trick.
+mem = bo->tbo.resource may be NULL in amdgpu_vm_bo_update.
 
-This does indeed fix the IB test failures for me with Bonaire.
+Fixes: 180253782038 ("drm/ttm: stop allocating dummy resources during BO creation")
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-
-There are still
-
-[drm] Fence fallback timer expired on ring sdma0
-
-messages, that might be a separate regression though.
-
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 7b2a7c9156f0..1442d97ddd0f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1015,8 +1015,8 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+ 				bo = gem_to_amdgpu_bo(gobj);
+ 		}
+ 		mem = bo->tbo.resource;
+-		if (mem->mem_type == TTM_PL_TT ||
+-		    mem->mem_type == AMDGPU_PL_PREEMPT)
++		if (mem && (mem->mem_type == TTM_PL_TT ||
++			    mem->mem_type == AMDGPU_PL_PREEMPT))
+ 			pages_addr = bo->tbo.ttm->dma_address;
+ 	}
+ 
 -- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
+2.34.1
 
