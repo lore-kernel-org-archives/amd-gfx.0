@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6085C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 12:20:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57736C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 12:20:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5800F10E52D;
-	Tue,  7 Nov 2023 12:20:26 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99E4E10E532;
- Tue,  7 Nov 2023 12:20:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3C4310E532;
+	Tue,  7 Nov 2023 12:20:29 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 622FB10E532;
+ Tue,  7 Nov 2023 12:20:27 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 0444261181;
+ by ams.source.kernel.org (Postfix) with ESMTP id 03F2FB8169F;
+ Tue,  7 Nov 2023 12:20:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23BB2C433B9;
  Tue,  7 Nov 2023 12:20:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46743C433AB;
- Tue,  7 Nov 2023 12:20:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1699359623;
- bh=zDHFRvNkX4EZMyCL45G4aAFvmvn62XXSfgOmBGXiw2o=;
+ s=k20201202; t=1699359625;
+ bh=wvaUSrY3S8godRYePLky/TPd8j7ygIKj7p7gRhB3l/g=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ifPQ7W+OApwyg0PrWRbZD32Upvqv3dP01gajEIZ4UxWBxoJO8KmpOX8KtKPwO5btD
- ubXU6TW2SykJhs+ukOzPwmue4pCs2PhrTU8JFmTec11vgghu22h4Zc9gQdzKhC9B/P
- 5J+wq7h7xqP7elTCxLaWpavOZOp67z+hWdGNpM8QNjwthbLPwKpJI++N8M8qOiFTNA
- WOjSM+p6As9YmWkW4KO0xXPwmG92RLeOM3ONgRxihCqbsFssOTocRfdovaAq56JpKH
- OGuO6ykHYFz30RpsMr7yhtA/rn4JNH+A4mzaCGLTpkutKdBHMHV+4G5QEUcbtPHWOI
- Ax0fVDeNQRQ8g==
+ b=qCQ+JVjtvDwMRiehAio56vGiby4ov81eortgOs3AObyNi7P63bNkRPAEv9fExUGqy
+ uopWxgfYlZIjTms02p84jRusfdUxtUOZnECWlFhaTrOnTORx78Y/kqYYvjRTpGMDNt
+ xkJWj2AbHQNbEa/jVSkbYrXiUO2Z3H6bI59+TzTE/dCy7XXVZ6kTbJBfxN0A5n433H
+ mxeDF8Q6bjTA6AiEt7EuIIKgxs5KI4uPvGHzy6TeIuUtJWH7WTCQUIFtKPDHL8H0xr
+ gN7fXcuYkHIPmKVYCgMi86eWQn85j8hNc6uKugURJXRZNpTggmAMjwX1I48xjziQRY
+ Cka0OzC8y8Hgg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.6 20/40] drm/amd: Fix UBSAN
- array-index-out-of-bounds for SMU7
-Date: Tue,  7 Nov 2023 07:16:22 -0500
-Message-ID: <20231107121837.3759358-20-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.6 21/40] drm/radeon: Fix UBSAN
+ array-index-out-of-bounds for Radeon HD 5430
+Date: Tue,  7 Nov 2023 07:16:23 -0500
+Message-ID: <20231107121837.3759358-21-sashal@kernel.org>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231107121837.3759358-1-sashal@kernel.org>
 References: <20231107121837.3759358-1-sashal@kernel.org>
@@ -54,35 +54,34 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Felix Held <felix.held@amd.com>, Sasha Levin <sashal@kernel.org>,
- sunran001@208suo.com, dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
+ dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
  amd-gfx@lists.freedesktop.org, Mario Limonciello <mario.limonciello@amd.com>,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, evan.quan@amd.com,
- airlied@gmail.com, christian.koenig@amd.com
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-[ Upstream commit 760efbca74a405dc439a013a5efaa9fadc95a8c3 ]
+[ Upstream commit c63079c61177ba1b17fa05c6875699a36924fe39 ]
 
 For pptable structs that use flexible array sizes, use flexible arrays.
 
 Suggested-by: Felix Held <felix.held@amd.com>
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2874
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2894
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/include/pptable.h                 | 4 ++--
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/radeon/pptable.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/include/pptable.h b/drivers/gpu/drm/amd/include/pptable.h
-index 0b6a057e0a4c4..5aac8d545bdc6 100644
---- a/drivers/gpu/drm/amd/include/pptable.h
-+++ b/drivers/gpu/drm/amd/include/pptable.h
-@@ -78,7 +78,7 @@ typedef struct _ATOM_PPLIB_THERMALCONTROLLER
+diff --git a/drivers/gpu/drm/radeon/pptable.h b/drivers/gpu/drm/radeon/pptable.h
+index 4c2eec49dadc9..94947229888ba 100644
+--- a/drivers/gpu/drm/radeon/pptable.h
++++ b/drivers/gpu/drm/radeon/pptable.h
+@@ -74,7 +74,7 @@ typedef struct _ATOM_PPLIB_THERMALCONTROLLER
  typedef struct _ATOM_PPLIB_STATE
  {
      UCHAR ucNonClockStateIndex;
@@ -91,37 +90,6 @@ index 0b6a057e0a4c4..5aac8d545bdc6 100644
  } ATOM_PPLIB_STATE;
  
  
-@@ -473,7 +473,7 @@ typedef struct _ATOM_PPLIB_STATE_V2
-       /**
-       * Driver will read the first ucNumDPMLevels in this array
-       */
--      UCHAR clockInfoIndex[1];
-+      UCHAR clockInfoIndex[];
- } ATOM_PPLIB_STATE_V2;
- 
- typedef struct _StateArray{
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h
-index 7a31cfa5e7fb4..57bca1e81d3a7 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h
-@@ -179,7 +179,7 @@ typedef struct _ATOM_Tonga_MCLK_Dependency_Record {
- typedef struct _ATOM_Tonga_MCLK_Dependency_Table {
- 	UCHAR ucRevId;
- 	UCHAR ucNumEntries; 										/* Number of entries. */
--	ATOM_Tonga_MCLK_Dependency_Record entries[1];				/* Dynamically allocate entries. */
-+	ATOM_Tonga_MCLK_Dependency_Record entries[];				/* Dynamically allocate entries. */
- } ATOM_Tonga_MCLK_Dependency_Table;
- 
- typedef struct _ATOM_Tonga_SCLK_Dependency_Record {
-@@ -194,7 +194,7 @@ typedef struct _ATOM_Tonga_SCLK_Dependency_Record {
- typedef struct _ATOM_Tonga_SCLK_Dependency_Table {
- 	UCHAR ucRevId;
- 	UCHAR ucNumEntries; 										/* Number of entries. */
--	ATOM_Tonga_SCLK_Dependency_Record entries[1];				 /* Dynamically allocate entries. */
-+	ATOM_Tonga_SCLK_Dependency_Record entries[];				 /* Dynamically allocate entries. */
- } ATOM_Tonga_SCLK_Dependency_Table;
- 
- typedef struct _ATOM_Polaris_SCLK_Dependency_Record {
 -- 
 2.42.0
 
