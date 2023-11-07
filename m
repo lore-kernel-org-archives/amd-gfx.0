@@ -4,37 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59A5EC4332F
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 12:30:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0480AC4167D
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 12:30:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8E4210E5B7;
-	Tue,  7 Nov 2023 12:30:24 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E08B510E5B7;
- Tue,  7 Nov 2023 12:30:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79E7510E5AD;
+	Tue,  7 Nov 2023 12:30:35 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E546910E5BC;
+ Tue,  7 Nov 2023 12:30:32 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 5EB5961181;
- Tue,  7 Nov 2023 12:30:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05F77C433D9;
- Tue,  7 Nov 2023 12:30:20 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 3BF46CE0EE4;
+ Tue,  7 Nov 2023 12:30:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38D64C433C8;
+ Tue,  7 Nov 2023 12:30:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1699360223;
- bh=bDGQYFArKPvTWstkMjeVmNma192FojHGBFgTuORE/n4=;
+ s=k20201202; t=1699360230;
+ bh=il0AiPPbAIBL0vfiS/CCkdxk9nh3/ViTZzuK06f5fdk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=E6r0d8KC4ZIliDrp6GjH6Dp7oo/kpvFVuqA1DoZ2LopwlTfFY8J1Ft0Zm1EyhbqQx
- rWrEJmzlElrs8bJQrvJ1mg6kpho/134WhC05lFo6uvAk9BtvumS65Rt72KeLzka7a+
- ffPQ1Hh9CHX2kDc7Zdbz4RQyJWUnVa21V4AL96KfYpQrHgWdF4+OhgpTQZqBbqQYjT
- FbM+Sj3s7uAoxkpWs86cUb5bSjvQ4F6Gzs7KDK7WDMJRcIcwB70WugBbRyqJqCXzPU
- xpAeXzLda2QmDalz7YxtCPLFDurpwvQ8p8Q5a+PUyogl7wth7daoc2KMfq+Z5ulIR+
- IZ9YBoPP/93Gw==
+ b=XB2nFnvWqf6CcI2ZBfoMObWj8IS1FAI/XPPU8P3HE0VVAPeUbll1EQMRYR4VpffSI
+ Gue+FF7K+iNWGf4wdtuuWuE4dgOIJVdEdQhGj+XAfcRMcUAdZHsdnqkSIWfVfM60Wk
+ WlN/rDagva659XPDxQpd+Jv4Zk+x9dxOYhOj9XcoeiI5/12dFsCJCSyGmxZqkY4mOA
+ ybQe00A74IMdPIqLu0BFAZG3RkB081UfOcHRJBgozq3at4R4Rzn51yjTScQ3qVCvON
+ TOVuIfBx/7rqOcZ8PnRTFras3t3NhuNT+iKEmY0SWxdJ8F8iTmbAZkql9op4NY0hEi
+ GUxLiQiB3nQyw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 12/20] drm/amdgpu: Fix potential null pointer
- derefernce
-Date: Tue,  7 Nov 2023 07:29:06 -0500
-Message-ID: <20231107122940.3762228-12-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 15/20] drm/amdgpu/vkms: fix a possible null
+ pointer dereference
+Date: Tue,  7 Nov 2023 07:29:09 -0500
+Message-ID: <20231107122940.3762228-15-sashal@kernel.org>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231107122940.3762228-1-sashal@kernel.org>
 References: <20231107122940.3762228-1-sashal@kernel.org>
@@ -54,46 +53,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Tao Zhou <tao.zhou1@amd.com>,
- andrealmeid@igalia.com, shashank.sharma@amd.com,
- dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, lijo.lazar@amd.com, le.ma@amd.com,
- "Stanley.Yang" <Stanley.Yang@amd.com>, mario.limonciello@amd.com,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
- srinivasan.shanmugam@amd.com, candice.li@amd.com, airlied@gmail.com,
- christian.koenig@amd.com, Hawking.Zhang@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, guchun.chen@amd.com, Xinhui.Pan@amd.com,
+ Ma Ke <make_ruc2021@163.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Stanley.Yang" <Stanley.Yang@amd.com>
+From: Ma Ke <make_ruc2021@163.com>
 
-[ Upstream commit 80285ae1ec8717b597b20de38866c29d84d321a1 ]
+[ Upstream commit cd90511557fdfb394bb4ac4c3b539b007383914c ]
 
-The amdgpu_ras_get_context may return NULL if device
-not support ras feature, so add check before using.
+In amdgpu_vkms_conn_get_modes(), the return value of drm_cvt_mode()
+is assigned to mode, which will lead to a NULL pointer dereference
+on failure of drm_cvt_mode(). Add a check to avoid null pointer
+dereference.
 
-Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Signed-off-by: Ma Ke <make_ruc2021@163.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 2cf49a32ac6c3..e60130653c54e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5097,7 +5097,8 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 	 * Flush RAM to disk so that after reboot
- 	 * the user can read log and see why the system rebooted.
- 	 */
--	if (need_emergency_restart && amdgpu_ras_get_context(adev)->reboot) {
-+	if (need_emergency_restart && amdgpu_ras_get_context(adev) &&
-+		amdgpu_ras_get_context(adev)->reboot) {
- 		DRM_WARN("Emergency reboot.");
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+index 4e8274de8fc0c..083f9c637a82e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+@@ -238,6 +238,8 @@ static int amdgpu_vkms_conn_get_modes(struct drm_connector *connector)
  
- 		ksys_sync_helper();
+ 	for (i = 0; i < ARRAY_SIZE(common_modes); i++) {
+ 		mode = drm_cvt_mode(dev, common_modes[i].w, common_modes[i].h, 60, false, false, false);
++		if (!mode)
++			continue;
+ 		drm_mode_probed_add(connector, mode);
+ 	}
+ 
 -- 
 2.42.0
 
