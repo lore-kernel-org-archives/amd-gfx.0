@@ -4,37 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED465C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 12:25:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F471C4167D
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 12:25:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FFD010E55E;
-	Tue,  7 Nov 2023 12:25:01 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0612910E55E;
- Tue,  7 Nov 2023 12:25:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8128E10E563;
+	Tue,  7 Nov 2023 12:25:11 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E5EA10E55F;
+ Tue,  7 Nov 2023 12:25:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 4EEE7611F6;
- Tue,  7 Nov 2023 12:24:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4BCAC433C8;
- Tue,  7 Nov 2023 12:24:55 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 30AC5B8168C;
+ Tue,  7 Nov 2023 12:25:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E7B3C433C9;
+ Tue,  7 Nov 2023 12:25:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1699359899;
- bh=RP8n8ZjJjBFF+fWywtuw6xPKragHUvinKAZzrtZFnXY=;
+ s=k20201202; t=1699359906;
+ bh=wH/Olkb/S96csUlOkSkdKDGcYNnJ9Oeo8bBkQ7+Z+mU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=T/WWCN1Tj0mug5BZbpNsJ2miEZRx5ELaYPeS85Yj0+bNWR/DynnDArJ6GKYyZEi0o
- UPhGrOhyOv1huXwD+3TiW08t96mPCpDdhL0EalGLzfuWVxEOrp+5hmc4GKdk4jPGZA
- Soy+C8JfwTyaACuU281QgqdC+yF9byovlEmWYRwpmGEP0D3uR71UhQUtjxYtjThcTM
- MIruGIxgzetbk4PNDPDoWAeYkVdwuPa3Cim1YTuf8SFA91CbwoT+7aX94kMpqQAmEK
- TIxGpT2fbsNK9SYCTyUr22DqX6U/RSE71d0Qqzh0gyEa3OsZb/YyaxzFEWmDcnjdn3
- JOpuMSIabgM/w==
+ b=f8S5R6Y9hyRafCHNx9USOlRDw5CGVNk6/hJLd4MPXXg/hGaAjZK7hYxn/l7uUgGDF
+ KBM1ybc3hRhHC8HoU3WnBiPuXUcHY7Y0LQ4gY/ivIcY3Nplk1jVVd8/Y/4fqLAJn1Z
+ rWxdUdzhg2BGVPlMpqkd0f6P9zT2XgLNsUEU9WZx+RcxpIY6jRnMPvIkcvemSFWrXi
+ madHWhpqJkcYN/RBuR7hvnVbvNpJNQBH/2neRNK57qJEn1qDoaf5zlfAfmFu6+1dFS
+ 1BnCDp7UceOYuWQjcK2rXZeiiBPlibLeeK3lGOpr/vhLHzOCPCG2xgV+Xvc8nOx0t9
+ Jr5TqfAGSmx0w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.5 06/37] drm/amd/display: add seamless pipe topology
- transition check
-Date: Tue,  7 Nov 2023 07:21:17 -0500
-Message-ID: <20231107122407.3760584-6-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.5 09/37] drm/amdgpu: not to save bo in the case of
+ RAS err_event_athub
+Date: Tue,  7 Nov 2023 07:21:20 -0500
+Message-ID: <20231107122407.3760584-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231107122407.3760584-1-sashal@kernel.org>
 References: <20231107122407.3760584-1-sashal@kernel.org>
@@ -54,163 +53,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: aric.cyr@amd.com, Wenjing Liu <wenjing.liu@amd.com>, samson.tam@amd.com,
- moadhuri@amd.com, syedsaaem.rizvi@amd.com, jun.lei@amd.com, airlied@gmail.com,
- Sasha Levin <sashal@kernel.org>, danny.wang@amd.com, Rodrigo.Siqueira@amd.com,
- amd-gfx@lists.freedesktop.org, aurabindo.pillai@amd.com, alvin.lee2@amd.com,
- george.shen@amd.com, harry.wentland@amd.com, Stylon Wang <stylon.wang@amd.com>,
- sunpeng.li@amd.com, chiawen.huang@amd.com, duncan.ma@amd.com, mwen@igalia.com,
- Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
- hanghong.ma@amd.com, Dillon Varone <dillon.varone@amd.com>,
- chiahsuan.chung@amd.com, Wesley.Chalmers@amd.com, Qingqing.Zhuo@amd.com,
- Xinhui.Pan@amd.com, dmytro.laktyushkin@amd.com, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Hongkun.Zhang@amd.com, tao.zhou1@amd.com,
+ srinivasan.shanmugam@amd.com, airlied@gmail.com,
+ dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org, lijo.lazar@amd.com, gpiccoli@igalia.com,
+ mario.limonciello@amd.com, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>,
+ "David \(Ming Qiang\) Wu" <David.Wu3@amd.com>, James.Zhu@amd.com,
+ Leo Liu <leo.liu@amd.com>, christian.koenig@amd.com,
+ saleemkhan.jamadar@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wenjing Liu <wenjing.liu@amd.com>
+From: "David (Ming Qiang) Wu" <David.Wu3@amd.com>
 
-[ Upstream commit 15c6798ae26d5c7a7776f4f7d0c1fa8c462688a2 ]
+[ Upstream commit fa1f1cc09d588a90c8ce3f507c47df257461d148 ]
 
-[why]
-We have a few cases where we need to perform update topology update
-in dc update interface. However some of the updates are not seamless
-This could cause user noticible glitches. To enforce seamless transition
-we are adding a checking condition and error logging so the corruption
-as result of non seamless transition can be easily spotted.
+err_event_athub will corrupt VCPU buffer and not good to
+be restored in amdgpu_vcn_resume() and in this case
+the VCPU buffer needs to be cleared for VCN firmware to
+work properly.
 
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Acked-by: Stylon Wang <stylon.wang@amd.com>
-Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Acked-by: Leo Liu <leo.liu@amd.com>
+Signed-off-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  8 +++
- .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    | 52 +++++++++++++++++++
- .../drm/amd/display/dc/dcn32/dcn32_hwseq.h    |  4 ++
- .../gpu/drm/amd/display/dc/dcn32/dcn32_init.c |  1 +
- .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |  3 ++
- 5 files changed, 68 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index ab79bcd264164..93e6265e58509 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -4414,6 +4414,14 @@ bool dc_update_planes_and_stream(struct dc *dc,
- 				update_type,
- 				context);
- 	} else {
-+		if (!stream_update &&
-+				dc->hwss.is_pipe_topology_transition_seamless &&
-+				!dc->hwss.is_pipe_topology_transition_seamless(
-+						dc, dc->current_state, context)) {
-+
-+			DC_LOG_ERROR("performing non-seamless pipe topology transition with surface only update!\n");
-+			BREAK_TO_DEBUGGER();
-+		}
- 		commit_planes_for_stream(
- 				dc,
- 				srf_updates,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-index b6608d7ab4450..5b3d0e5b90a3e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-@@ -1621,3 +1621,55 @@ void dcn32_blank_phantom(struct dc *dc,
- 	if (tg->funcs->is_tg_enabled(tg))
- 		hws->funcs.wait_for_blank_complete(opp);
- }
-+
-+bool dcn32_is_pipe_topology_transition_seamless(struct dc *dc,
-+		const struct dc_state *cur_ctx,
-+		const struct dc_state *new_ctx)
-+{
-+	int i;
-+	const struct pipe_ctx *cur_pipe, *new_pipe;
-+	bool is_seamless = true;
-+
-+	for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+		cur_pipe = &cur_ctx->res_ctx.pipe_ctx[i];
-+		new_pipe = &new_ctx->res_ctx.pipe_ctx[i];
-+
-+		if (resource_is_pipe_type(cur_pipe, FREE_PIPE) ||
-+				resource_is_pipe_type(new_pipe, FREE_PIPE))
-+			/* adding or removing free pipes is always seamless */
-+			continue;
-+		else if (resource_is_pipe_type(cur_pipe, OTG_MASTER)) {
-+			if (resource_is_pipe_type(new_pipe, OTG_MASTER))
-+				if (cur_pipe->stream->stream_id == new_pipe->stream->stream_id)
-+				/* OTG master with the same stream is seamless */
-+					continue;
-+		} else if (resource_is_pipe_type(cur_pipe, OPP_HEAD)) {
-+			if (resource_is_pipe_type(new_pipe, OPP_HEAD)) {
-+				if (cur_pipe->stream_res.tg == new_pipe->stream_res.tg)
-+					/*
-+					 * OPP heads sharing the same timing
-+					 * generator is seamless
-+					 */
-+					continue;
-+			}
-+		} else if (resource_is_pipe_type(cur_pipe, DPP_PIPE)) {
-+			if (resource_is_pipe_type(new_pipe, DPP_PIPE)) {
-+				if (cur_pipe->stream_res.opp == new_pipe->stream_res.opp)
-+					/*
-+					 * DPP pipes sharing the same OPP head is
-+					 * seamless
-+					 */
-+					continue;
-+			}
-+		}
-+
-+		/*
-+		 * This pipe's transition doesn't fall under any seamless
-+		 * conditions
-+		 */
-+		is_seamless = false;
-+		break;
-+	}
-+
-+	return is_seamless;
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h
-index 616d5219119e9..9992e40acd217 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h
-@@ -120,4 +120,8 @@ void dcn32_blank_phantom(struct dc *dc,
- 		int width,
- 		int height);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index ae455aab5d29d..7e54abca45206 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -292,8 +292,15 @@ int amdgpu_vcn_suspend(struct amdgpu_device *adev)
+ 	void *ptr;
+ 	int i, idx;
  
-+bool dcn32_is_pipe_topology_transition_seamless(struct dc *dc,
-+		const struct dc_state *cur_ctx,
-+		const struct dc_state *new_ctx);
++	bool in_ras_intr = amdgpu_ras_intr_triggered();
 +
- #endif /* __DC_HWSS_DCN32_H__ */
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
-index 279f312f74076..12e0f48a13e48 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
-@@ -116,6 +116,7 @@ static const struct hw_sequencer_funcs dcn32_funcs = {
- 	.update_dsc_pg = dcn32_update_dsc_pg,
- 	.apply_update_flags_for_phantom = dcn32_apply_update_flags_for_phantom,
- 	.blank_phantom = dcn32_blank_phantom,
-+	.is_pipe_topology_transition_seamless = dcn32_is_pipe_topology_transition_seamless,
- };
+ 	cancel_delayed_work_sync(&adev->vcn.idle_work);
  
- static const struct hwseq_private_funcs dcn32_private_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
-index 7a702e216e530..66e680902c95c 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
-@@ -401,6 +401,9 @@ struct hw_sequencer_funcs {
- 			struct dc_state *context,
- 			struct pipe_ctx *phantom_pipe);
- 	void (*apply_update_flags_for_phantom)(struct pipe_ctx *phantom_pipe);
-+	bool (*is_pipe_topology_transition_seamless)(struct dc *dc,
-+			const struct dc_state *cur_ctx,
-+			const struct dc_state *new_ctx);
- 
- 	void (*commit_subvp_config)(struct dc *dc, struct dc_state *context);
- 	void (*enable_phantom_streams)(struct dc *dc, struct dc_state *context);
++	/* err_event_athub will corrupt VCPU buffer, so we need to
++	 * restore fw data and clear buffer in amdgpu_vcn_resume() */
++	if (in_ras_intr)
++		return 0;
++
+ 	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
+ 		if (adev->vcn.harvest_config & (1 << i))
+ 			continue;
 -- 
 2.42.0
 
