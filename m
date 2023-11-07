@@ -4,37 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF4D8C4167D
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 12:28:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E2C0C4167B
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 12:29:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CA8210E59D;
-	Tue,  7 Nov 2023 12:28:56 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8012910E59C;
- Tue,  7 Nov 2023 12:28:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9034E10E5A1;
+	Tue,  7 Nov 2023 12:29:01 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07E5E10E5A1;
+ Tue,  7 Nov 2023 12:28:59 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id CD112CE0F4C;
- Tue,  7 Nov 2023 12:28:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 735C0C433C7;
- Tue,  7 Nov 2023 12:28:49 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 9E797B816AC;
+ Tue,  7 Nov 2023 12:28:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAFA1C433C9;
+ Tue,  7 Nov 2023 12:28:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1699360131;
- bh=X226EpgIEneFaPqtTSC31tllmiqpBdJiVVgarJUWHJk=;
+ s=k20201202; t=1699360137;
+ bh=glK+fc6SkALhklAyab2VVmEAZfVWmTE/zUuxVHevs6E=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KnkB1pXWG88IPvIXW6XtKDeavM7h3IJQO8bX1lhpp2bmVmr2+ECe2vG7aCTyRJbPh
- L7GQqbrYqO6ffCbwlrhYmmW33nkklz/cfRbzawBhJmdK+0LJaHR+FIRX6z7F+BVZG9
- x6eXICGURKy5YNZC5Gk4fxGibs+oB/K7jNE9t5ODUwo4qD/P3S4fEvLRgQYjv0VoNt
- yXoku3ehWu7jVgKo5NzsQyisaYxjYAbNuI7goh2h0RS3laS8uYFvPhzFfcyUus5iHQ
- t4zYJmhQGv8c38f3PTooMl0v/P6KHSTJoJggY/g/q2NoEBzA74sjd12W8z7PkD98B3
- r9DxAMtT16u1A==
+ b=WZXCcPmCP2KeSiqARRh/OtK9GrpCcoSmaLcQhmf3/IYzD7RyREV66aTtYURC+MR9T
+ b6Zx6y9qWQSLMKO5k1ccySvTCYjdMip4RD/7kEGB9r3kywg2Nh5hzd/NVEW46DScRj
+ jblaV0exYwhRhd3JU0wAJr9GzcuEkEOf04ltrhysS85rqys1c6/y4z+SrZ/vAADHTi
+ pUy+shgzeCWFZ4TJDvU6a/E0arrB3gVTn22W3Sikv66vCAabWhyv3QCDbpkFavRVDw
+ zrbouVo4UTRl6uaGwB/TQM7f79YHzwc64D22fmdi/8GRdZRFpu5bC3KPeesT5kfJ6l
+ zvM2uvHQcwgfg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 16/25] drm/amdgpu: Fix potential null pointer
- derefernce
-Date: Tue,  7 Nov 2023 07:26:55 -0500
-Message-ID: <20231107122745.3761613-16-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 19/25] drm/radeon: fix a possible null pointer
+ dereference
+Date: Tue,  7 Nov 2023 07:26:58 -0500
+Message-ID: <20231107122745.3761613-19-sashal@kernel.org>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231107122745.3761613-1-sashal@kernel.org>
 References: <20231107122745.3761613-1-sashal@kernel.org>
@@ -54,46 +53,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Tao Zhou <tao.zhou1@amd.com>,
- andrealmeid@igalia.com, shashank.sharma@amd.com,
- dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, lijo.lazar@amd.com, le.ma@amd.com,
- "Stanley.Yang" <Stanley.Yang@amd.com>, mario.limonciello@amd.com,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
- srinivasan.shanmugam@amd.com, candice.li@amd.com, airlied@gmail.com,
- christian.koenig@amd.com, Hawking.Zhang@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Xinhui.Pan@amd.com,
+ Ma Ke <make_ruc2021@163.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Stanley.Yang" <Stanley.Yang@amd.com>
+From: Ma Ke <make_ruc2021@163.com>
 
-[ Upstream commit 80285ae1ec8717b597b20de38866c29d84d321a1 ]
+[ Upstream commit 2c1fe3c480f9e1deefd50d4b18be4a046011ee1f ]
 
-The amdgpu_ras_get_context may return NULL if device
-not support ras feature, so add check before using.
+In radeon_tv_get_modes(), the return value of drm_cvt_mode()
+is assigned to mode, which will lead to a NULL pointer
+dereference on failure of drm_cvt_mode(). Add a check to
+avoid null point dereference.
 
-Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Signed-off-by: Ma Ke <make_ruc2021@163.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/radeon/radeon_connectors.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 92fa2faf63e41..dc61cc1659326 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5330,7 +5330,8 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 	 * Flush RAM to disk so that after reboot
- 	 * the user can read log and see why the system rebooted.
- 	 */
--	if (need_emergency_restart && amdgpu_ras_get_context(adev)->reboot) {
-+	if (need_emergency_restart && amdgpu_ras_get_context(adev) &&
-+		amdgpu_ras_get_context(adev)->reboot) {
- 		DRM_WARN("Emergency reboot.");
- 
- 		ksys_sync_helper();
+diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
+index f7431d2246044..5837af5123a9f 100644
+--- a/drivers/gpu/drm/radeon/radeon_connectors.c
++++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+@@ -1122,6 +1122,8 @@ static int radeon_tv_get_modes(struct drm_connector *connector)
+ 	else {
+ 		/* only 800x600 is supported right now on pre-avivo chips */
+ 		tv_mode = drm_cvt_mode(dev, 800, 600, 60, false, false, false);
++		if (!tv_mode)
++			return 0;
+ 		tv_mode->type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
+ 		drm_mode_probed_add(connector, tv_mode);
+ 	}
 -- 
 2.42.0
 
