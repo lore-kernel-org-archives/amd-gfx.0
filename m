@@ -4,66 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A30DDC04A95
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Nov 2023 14:12:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FBB1C4167D
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Nov 2023 14:49:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 074A410E77E;
-	Wed,  8 Nov 2023 14:11:57 +0000 (UTC)
-Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
- [IPv6:2607:f8b0:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF46C10E189;
- Tue,  7 Nov 2023 23:57:30 +0000 (UTC)
-Received: by mail-pf1-x42d.google.com with SMTP id
- d2e1a72fcca58-6c33ab26dddso4663205b3a.0; 
- Tue, 07 Nov 2023 15:57:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1699401450; x=1700006250; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=2KudK+PVMmmjq0H50mDCqvHMKAjy6NjrP5mENlT6IeI=;
- b=LFGQJaEmLg9pfsJdireKIgUrqc7zE8ZYjM+MwjNnxEFhkzCz/K7wklcqCauealBMaU
- sLfch56SzKMuDz8LbVIIV0n6AIWuqyEGguhpwbybwq9EMbTwuoxYC5YCVuv5ievT9jaS
- 862FbovL2g95mCn9PKID4JewbpBnLhATfLLOXnhERSiU4xz92cnMDURrcHQ79zIR9bla
- 3IZPnDK8Km6n33C8bF5aIya3hkXYhCvhDy3EOn1WU+GnPVwkA+ved3XiNUulh2SpA11L
- NUqChTMlWn6LqAthHby+PMo0jgEmPn7Z37AVlRY5ye+aZyDMQ0S5SdHySqTaR6gUcJbZ
- 0VWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699401450; x=1700006250;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=2KudK+PVMmmjq0H50mDCqvHMKAjy6NjrP5mENlT6IeI=;
- b=ee8IgIVHVrFnaI3KcTfUTtbNVo9AXDrCBChIG1B0imkpjZfs/tB21Fo1ZjtrqkCSEb
- QDK4pahQ+7c6aW35kDxSJGh3jiYyairGy1W4ZAIce3LwJJc21iFLc/rHAg4actRVIYgR
- ekDHMbaHk3mW73mx1CZd0jSqTqb8gndnPBar0HsX8oj/v1SIx3htY8AeqteQhUqf2ZNl
- Wd8NNuqvL3ksAZ7efdVosVJnuNsLL2BCdVeJwkUnK6BgKjjNxjQq0HuBtXxKq3T2CfsV
- HBcRBjneFDi+GK0nQmFWFhAvUPsf39FVfJvZwIKSPP3HKJ5C+ltK5sPWnyjXi4rZxW/0
- RvYA==
-X-Gm-Message-State: AOJu0YwgXi2y+ee/RjnvBVfO+TRTWj0BrM5/3WV4jA0Sn9YuNcElwL1s
- x54PSSdKsQx/XPG8g1qK6Gg9ZTE+60M=
-X-Google-Smtp-Source: AGHT+IHGNAErG58V9Xptsi9rhCr540MMtqj5pUEVIhkp8UyJJWdw2+ugBMjHDeueIBYjz3yn6Bm33Q==
-X-Received: by 2002:a05:6a00:1401:b0:68f:ece2:ac2a with SMTP id
- l1-20020a056a00140100b0068fece2ac2amr196394pfu.27.1699401450307; 
- Tue, 07 Nov 2023 15:57:30 -0800 (PST)
-Received: from debian.me ([103.131.18.64]) by smtp.gmail.com with ESMTPSA id
- q22-20020a63d616000000b0059d34fb9ccasm1856065pgg.2.2023.11.07.15.57.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Nov 2023 15:57:29 -0800 (PST)
-Received: by debian.me (Postfix, from userid 1000)
- id 2117D819DE58; Wed,  8 Nov 2023 06:57:25 +0700 (WIB)
-Date: Wed, 8 Nov 2023 06:57:25 +0700
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: Hunter Chasens <hunter.chasens18@ncf.edu>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3] drm: amd: Resolve Sphinx unexpected indentation warning
-Message-ID: <ZUrO5aRPUux_QchV@debian.me>
-References: <20231107162830.36856-1-hunter.chasens18@ncf.edu>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B735D10E798;
+	Wed,  8 Nov 2023 14:49:16 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2070.outbound.protection.outlook.com [40.107.94.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24C5410E792;
+ Wed,  8 Nov 2023 14:49:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=e6F/k6Xu33mcDB7++fIQ8vzaaBFqBu5TjlSoUhK1r5eMY1zIMabm+8fmILOWuCRqCXGfbtLYa2EcKE98GcmP3MP8f91SPl+NLkvtS5ZJpEz/j14xkOW6VRWk1dSPpjxp7Vog1oX13lKTcUR+U4boBKCU7yxKHrcFcWwKXNyHOBLQ3VZCizpMRN3/o5zYpJ+LDetHN1c9M69K73Z4W70vHRlMTcZ/oOa9+kXdHOk6GRF+clwux3eCXrNUKsUv3D+gbcQxvlMOewXrminTYvoh/oDChVMW/AH4fFySIyPLIpsouwd78IWXdXKGrp00SSI9c+Iw+2IwXYAAi5LSCSuZtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=h8XVs+CbixUD68jDiJDhAjqTni6U7nqFTDG6xFWVMvU=;
+ b=du7kt19BbsK/elV+aUHOx6aR8cTcMuMRVO/su1VsNfLRGtZrmybEPmtbgA5KWHHYHlYce/girz9Qi7YVgOFdsCiMEbtLw29LOvDSlsMZo6OK9eCX6cqIULSesuKYYq4yrAJaT0QJ/CjJ9ZgCsxZJLyTx+BwNQDxML5xGRyl0ldiMXcJJGR5xMo05bYP0XY+M6KF2RqxSDwulpe+BeLse44IfdNrF1QtfMyX1+kLfyxMIfUKnNRLx/BUGVd/NbV+ipV/Z8fVYspM7vmkJKhPrW8Rgh8AYpmQe6CvS5y6DHPxZS0XzUpkgcR+43S/8XNFGIgtGOL6iZXJ2AF+OnNqPfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h8XVs+CbixUD68jDiJDhAjqTni6U7nqFTDG6xFWVMvU=;
+ b=3lL63r4eD9qQBiHzGutA7B/84Dhc3DrbhPP6FaLHXOpGNmF4iFt5LV9qQ3jwmSgOc35P9COfEFail3fhIaM9wg3IzQbFlp2o/QI00oGfE1LB6bBs0GHeUThXUsN4WdRyAHNdoipMrWISPN6fSTzYoB4UWnQgfQZPwOxnV1brrmY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by CH3PR12MB9394.namprd12.prod.outlook.com (2603:10b6:610:1cf::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.28; Wed, 8 Nov
+ 2023 14:49:09 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::ca80:8f1c:c11:ded3]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::ca80:8f1c:c11:ded3%6]) with mapi id 15.20.6954.029; Wed, 8 Nov 2023
+ 14:49:09 +0000
+Message-ID: <86152ebb-96eb-43a1-b244-052c42ef1024@amd.com>
+Date: Wed, 8 Nov 2023 15:49:03 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Patch v2] drm/ttm: Schedule delayed_delete worker closer
+Content-Language: en-US
+To: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20231108125824.995445-1-rajneesh.bhardwaj@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20231108125824.995445-1-rajneesh.bhardwaj@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0039.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4a::11) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="kv+cup+JVOlwZ+Z6"
-Content-Disposition: inline
-In-Reply-To: <20231107162830.36856-1-hunter.chasens18@ncf.edu>
-X-Mailman-Approved-At: Wed, 08 Nov 2023 14:11:48 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|CH3PR12MB9394:EE_
+X-MS-Office365-Filtering-Correlation-Id: c6519f5a-6086-4c05-536f-08dbe069dd57
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: kb8xpsCtt7IaRXi7Zumbsr73L8xBBP8w6eCVwQR5ifibR0GXXQHNnL/WzHfBD3i70ECATLPHli822MxoCs2e0cCavk4m6ORwAOdUPQonW8zXnFFUurjVBkaq9X6SmUvjkFoXy+kUTJw8FbmgIPQuecBXdqP1kl9EBxGqoMIrpiR9ksX9/wDK/NdhXOk+uiZrR0LdDjY5BUXtEsfxBki2sovVCd87nJHEffrikHvT/nRz6hfdnuZ3CAEdnXCwZeXaJGLYgB39x6ibLAmmXekz0mK6D3JkDnGWtvjQh8+lIhQLbK3UPFQIYfWUW5WrkshfD+1HyEK4PRZHynZP6whjJj4Xtjza3wZW9YNP3KPcGbreJuLMiOHLilkJaMUeWGyTYZuYk1qnBAhaFRRBVCHquTrZt+KEQ49wW0nFBnz7/giXpBrDVcmyaJDqkQv/IvmqZucisTC3XJmy2M/pokY8NXmWfVK/k95yGavGaJw6AR0CKf7xK1pNzoym2yn5CSD9Z7HglmyKoDE9s2RxiVvXtTHBaR4jir6MYzPrYPGl5lhKD43hki0HAZHCpMtK5mMoL1PbmOg8glFS8p3eQjN17X0M612PDz9uv+Pj06vmNyyfa75x/H2yYUgSsDV09dGHdRy4Ytfplm6nj9P5Nh1ylg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(396003)(39860400002)(346002)(136003)(366004)(376002)(230922051799003)(64100799003)(186009)(451199024)(1800799009)(41300700001)(66476007)(450100002)(8676002)(4326008)(66946007)(8936002)(66556008)(66574015)(6486002)(31686004)(478600001)(5660300002)(316002)(2906002)(6506007)(6666004)(6512007)(2616005)(36756003)(26005)(38100700002)(83380400001)(31696002)(86362001)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UndqWEtxZmlNOGorelhHUEVNTWtkbG1NUDJuOC8rQ2lzcllpYjdWVUxWNFV0?=
+ =?utf-8?B?RTFjVVBaOGl1VUtwMmlwQWR3YVdPQVNTTTdOelEvUTZheXhUU2pKQXFTTXZH?=
+ =?utf-8?B?MGhWbER3YUc5cjdQdDFmUVdBblZPc3VWb1RtbWdiYlBCbmZweVhLY3pNR05s?=
+ =?utf-8?B?emN5V2s5Mng0em1Sa24vQzRYVUF3bndWMnNOTzVCNEFHa3hQL21WakVoRnVM?=
+ =?utf-8?B?eWE1RUJ5UTFJSTh5QVgxeHhZWCtVellyN1pBTWZqTnRFSFRxNzVCUFVFZmxC?=
+ =?utf-8?B?d2hlOFdFMmdVR1FYWG05L2NmT0V0N0FlM1gyaGFLNDFCUFBRVjQycHlaVTgr?=
+ =?utf-8?B?c3FhQ1gyVXhVSGE4WWJISzFueGIrOEpFVFBkaDJPejd3QzlwM244Q0lCVmJh?=
+ =?utf-8?B?SGkwdjNHNXBUYnBGak0vaXM4eWQzdVlwZ05FMG1EeDJsTjFwOXo3dzd4eWFY?=
+ =?utf-8?B?UDEvaGNKbUxFcGVEalVPNnd3Mm5iZkdXb0N6aG1LQVllVUsxaTlobnUrTktM?=
+ =?utf-8?B?TDdyVW10bWU3VFlUMUhPVVkwdUp1QWxnb3dMWnVCK0o1WFo5RXozUEQ5Y09J?=
+ =?utf-8?B?TmhWRTR6d2toVEkxL0RKNExCUGpRTFRjc3FtT0tJN2ZKMTlBSWJkWWRwTk8z?=
+ =?utf-8?B?TGg4VDM1YTN4ZG9vY1gxSWU3L0lSa3ZwK0VqdisrdlpObHIvZlBidFNpdWVz?=
+ =?utf-8?B?YUFFNUlSUmpySGEwOGI1eERadWUySUEyWUx4ZFprZ2RYdjExb0xCd1R4Snk3?=
+ =?utf-8?B?OUVOZjVuVUlkNHNXTXJaUTAremp3NlpabS9yVFlPTGZQMzFYQnM1ckhpRDZx?=
+ =?utf-8?B?SHhHeEdXUmI0MTFPR1N1ejY2M0RmY0tFSFZDa1pnRG9GTVQ5T1dHTmlGK0Fv?=
+ =?utf-8?B?WWdOb2dYWnEvSWRURFQzYzd1enVpL2FQaTEzeGVNblFFZ3M3VHpiSGtiTW4v?=
+ =?utf-8?B?dFExV3luUlFlOFh1ZmNXUk9XaWFDc0hvSzFWSmo4Y21sV0VlQUVjR1poZlo5?=
+ =?utf-8?B?THEyMG5VbUFJU2Z4VDY0czFnNzVTMWpkSEtrNG5RdytMNlFYcjFmQUdLSVZR?=
+ =?utf-8?B?MEl4TmFIZ1d1ZUhBSDFDNzBDRjRROVN6WWx3RFlQQVFCZTRBWldxeFhNZFA4?=
+ =?utf-8?B?WUtqbXhqUE1jZlRVUHZ4WGZDTlBRb2s4TVBJcTZjM1dtcTJzdm8vMFAvZmhw?=
+ =?utf-8?B?UEdVaWJHOVMvR3BzVHozOU96RmU4TnQyNVZpSVNFQnBFSjMvRGJRTVpUMXZu?=
+ =?utf-8?B?UHVKVkdabkMvQlhwd0NFZU80bWdubDg1WVlSeHlETTZhMXIvL01KcFpVUFEy?=
+ =?utf-8?B?ZldZdkxieEpxUThWQ1lrZ1J1ZUR3UnNDL1BSclVJc2JwMGlFR2NCTVJOY2Js?=
+ =?utf-8?B?QVRjWWExZm92VENXLzE1aVZMVXdab3FSL052c2VEZEI1OVNqYmE1RC9TVFBl?=
+ =?utf-8?B?RzA5QjVvRm9EU1FTZkRpK2s3azZWaFFxWmpCR2czejhUYUFMeCtsL2Rxbllq?=
+ =?utf-8?B?ZVVITnVmYnNVUTFzS1JaSzhsSGorVjlpVDVhNXJyaDVMQkpsL1dCWUwrQ0R0?=
+ =?utf-8?B?RTFESHpzMDFlYjZUMnN1TVorOXJ1a005Z0NVMXBsUjUvSFBrQlJBL1hJMS94?=
+ =?utf-8?B?cTlqeHM5VVVFU0l6M2xIamNHeFVzVklpK3l5TXMrUTFxV3BmS2I5M2tSMmVG?=
+ =?utf-8?B?RVdlZE5obTdTTldVV2RuNFFRSjFIc0gyRU1GckpZc0Q4WjB0LzNRaS9VVENC?=
+ =?utf-8?B?NkdKZWM3TDJBYzIyTENXS08vcERZa0hTNDF2WlBmRUZlRGJtQisyYkxKd1c1?=
+ =?utf-8?B?K0hMbGZwL0tLT2E4dGpjRHZJWjVwSXZLZ0JaZzByOHBSQVorSEJ0ZFN1di9v?=
+ =?utf-8?B?SjFjclRhL05wZ05XNE1LVWJsRVcxYmNaMFpvNVZXcndwVWcxVG9WYitpSDVX?=
+ =?utf-8?B?SHRnaVBCVTJvamJpdElYVmdzQ1Y1UkhXalczRXVMMC9sbTl5N1RKQVBPK3FZ?=
+ =?utf-8?B?ekVWc3FFeFU2QVIvanVVSmRoV2dVL21PTXdqVHhyQVhURHRqU2hLSEE4dDRu?=
+ =?utf-8?B?RUFnTWl6UTNqaWIyd1pneXl2RytOamIzbUY2eGJNeFh0MUU3TGxJbERqbnJF?=
+ =?utf-8?Q?AT9Y=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c6519f5a-6086-4c05-536f-08dbe069dd57
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2023 14:49:09.4805 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jUQQs+VsjHEwK9xLIgsHeGymrSAXPto4Z/pRqyiHp/MlgyONi1ZYBStnLMcnMabS
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9394
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,80 +123,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lijo Lazar <lijo.lazar@amd.com>,
- Linux Documentation <linux-doc@vger.kernel.org>, Xinhui.Pan@amd.com,
- Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
- Linux DRI Development <dri-devel@lists.freedesktop.org>, daniel@ffwll.ch,
- alexander.deucher@amd.com, airlied@gmail.com, christian.koenig@amd.com
+Cc: alexander.deucher@amd.com, felix.kuehling@amd.com,
+ dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 08.11.23 um 13:58 schrieb Rajneesh Bhardwaj:
+> Try to allocate system memory on the NUMA node the device is closest to
+> and try to run delayed_delete workers on a CPU of this node as well.
+>
+> To optimize the memory clearing operation when a TTM BO gets freed by
+> the delayed_delete worker, scheduling it closer to a NUMA node where the
+> memory was initially allocated helps avoid the cases where the worker
+> gets randomly scheduled on the CPU cores that are across interconnect
+> boundaries such as xGMI, PCIe etc.
+>
+> This change helps USWC GTT allocations on NUMA systems (dGPU) and AMD
+> APU platforms such as GFXIP9.4.3.
+>
+> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 
---kv+cup+JVOlwZ+Z6
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-On Tue, Nov 07, 2023 at 11:28:30AM -0500, Hunter Chasens wrote:
-> Resolves Sphinx unexpected indentation warning when compiling
-> documentation (e.g. `make htmldocs`). Replaces tabs with spaces and adds
-> a literal block to keep vertical formatting of the
-> example power state list.
->=20
-> Signed-off-by: Hunter Chasens <hunter.chasens18@ncf.edu>
+Going to push this to drm-misc-next.
 
-Nit: Whenever a reviewer has offered a Reviewed-by: or Acked-by: trailer,
-you should include it in the next reroll unless there is substantial changes
-in the reroll.
+Thanks,
+Christian.
 
 > ---
->  drivers/gpu/drm/amd/pm/amdgpu_pm.c | 13 +++++++------
->  1 file changed, 7 insertions(+), 6 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/=
-amdgpu_pm.c
-> index 517b9fb4624c..576202bf64f3 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> @@ -989,12 +989,13 @@ static ssize_t amdgpu_get_pp_features(struct device=
- *dev,
->   * Reading back the files will show you the available power levels within
->   * the power state and the clock information for those levels. If deep s=
-leep is
->   * applied to a clock, the level will be denoted by a special level 'S:'
-> - * E.g.,
-> - *	S: 19Mhz *
-> - *	0: 615Mhz
-> - *	1: 800Mhz
-> - *	2: 888Mhz
-> - *	3: 1000Mhz
-> + * E.g., ::
-> + *
-> + *  S: 19Mhz *
-> + *  0: 615Mhz
-> + *  1: 800Mhz
-> + *  2: 888Mhz
-> + *  3: 1000Mhz
->   *
->   *
->   * To manually adjust these states, first select manual using
+>
+> Changes in v2:
+>   - Absorbed the feedback provided by Christian in the commit message and
+>     the comment.
+>
+>   drivers/gpu/drm/ttm/ttm_bo.c     | 8 +++++++-
+>   drivers/gpu/drm/ttm/ttm_device.c | 3 ++-
+>   2 files changed, 9 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+> index 5757b9415e37..6f28a77a565b 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -370,7 +370,13 @@ static void ttm_bo_release(struct kref *kref)
+>   			spin_unlock(&bo->bdev->lru_lock);
+>   
+>   			INIT_WORK(&bo->delayed_delete, ttm_bo_delayed_delete);
+> -			queue_work(bdev->wq, &bo->delayed_delete);
+> +
+> +			/* Schedule the worker on the closest NUMA node. This
+> +			 * improves performance since system memory might be
+> +			 * cleared on free and that is best done on a CPU core
+> +			 * close to it.
+> +			 */
+> +			queue_work_node(bdev->pool.nid, bdev->wq, &bo->delayed_delete);
+>   			return;
+>   		}
+>   
+> diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_device.c
+> index 43e27ab77f95..72b81a2ee6c7 100644
+> --- a/drivers/gpu/drm/ttm/ttm_device.c
+> +++ b/drivers/gpu/drm/ttm/ttm_device.c
+> @@ -213,7 +213,8 @@ int ttm_device_init(struct ttm_device *bdev, struct ttm_device_funcs *funcs,
+>   	bdev->funcs = funcs;
+>   
+>   	ttm_sys_man_init(bdev);
+> -	ttm_pool_init(&bdev->pool, dev, NUMA_NO_NODE, use_dma_alloc, use_dma32);
+> +
+> +	ttm_pool_init(&bdev->pool, dev, dev_to_node(dev), use_dma_alloc, use_dma32);
+>   
+>   	bdev->vma_manager = vma_manager;
+>   	spin_lock_init(&bdev->lru_lock);
 
-Anyway, LGTM, thanks!
-
-Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
-
---=20
-An old man doll... just what I always wanted! - Clara
-
---kv+cup+JVOlwZ+Z6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZUrO3wAKCRD2uYlJVVFO
-o9PfAQCQoOysBPfyyDkpbc/cw6GEYb9qbjfdqZzmsgFQRMiMNgEAswr/n/nO5KLA
-SIGTnW07DyMIEw/LEG799c6gZANsJwc=
-=he+5
------END PGP SIGNATURE-----
-
---kv+cup+JVOlwZ+Z6--
