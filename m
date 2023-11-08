@@ -4,50 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 497CDC4167B
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Nov 2023 14:12:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C21CC0018C
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Nov 2023 14:12:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EBB710E77D;
-	Wed,  8 Nov 2023 14:11:55 +0000 (UTC)
-X-Greylist: delayed 2400 seconds by postgrey-1.36 at gabe;
- Wed, 08 Nov 2023 08:18:55 UTC
-Received: from 20.mo550.mail-out.ovh.net (20.mo550.mail-out.ovh.net
- [188.165.45.168])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88EAB10E484
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Nov 2023 08:18:55 +0000 (UTC)
-Received: from director8.ghost.mail-out.ovh.net (unknown [10.109.143.18])
- by mo550.mail-out.ovh.net (Postfix) with ESMTP id 91C4726BCD
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Nov 2023 07:02:58 +0000 (UTC)
-Received: from ghost-submission-6684bf9d7b-lkwnp (unknown [10.110.115.9])
- by director8.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 9A5291FD24;
- Wed,  8 Nov 2023 07:02:57 +0000 (UTC)
-Received: from RCM-web9.webmail.mail.ovh.net ([151.80.29.21])
- by ghost-submission-6684bf9d7b-lkwnp with ESMTPSA
- id nOucGqEyS2V5+woArb8c/A
- (envelope-from <jose.pekkarinen@foxhound.fi>); Wed, 08 Nov 2023 07:02:57 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5900310E77C;
+	Wed,  8 Nov 2023 14:11:56 +0000 (UTC)
+X-Greylist: delayed 605 seconds by postgrey-1.36 at gabe;
+ Wed, 08 Nov 2023 07:12:50 UTC
+Received: from 17.mo582.mail-out.ovh.net (17.mo582.mail-out.ovh.net
+ [46.105.36.150])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C1D610E0B7
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Nov 2023 07:12:50 +0000 (UTC)
+Received: from director4.ghost.mail-out.ovh.net (unknown [10.108.20.113])
+ by mo582.mail-out.ovh.net (Postfix) with ESMTP id 3DE3928801
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Nov 2023 06:55:49 +0000 (UTC)
+Received: from ghost-submission-6684bf9d7b-v2f9h (unknown [10.110.208.162])
+ by director4.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 0DFBC1FD69;
+ Wed,  8 Nov 2023 06:55:45 +0000 (UTC)
+Received: from foxhound.fi ([37.59.142.96])
+ by ghost-submission-6684bf9d7b-v2f9h with ESMTPSA
+ id V/SvOPEwS2WlSQsAsZoO1Q
+ (envelope-from <jose.pekkarinen@foxhound.fi>); Wed, 08 Nov 2023 06:55:45 +0000
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-96R001fd1c432e-144d-4186-b8a9-dc0114c8abac,
+ CA30051851D9204B2894E18F048F6C805596AA31)
+ smtp.auth=jose.pekkarinen@foxhound.fi
+X-OVh-ClientIp: 87.94.109.40
+From: =?UTF-8?q?Jos=C3=A9=20Pekkarinen?= <jose.pekkarinen@foxhound.fi>
+To: evan.quan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, skhan@linuxfoundation.org
+Subject: [PATCH] drm/amd/pm: replace 1-element arrays with flexible-array
+ members
+Date: Wed,  8 Nov 2023 08:55:39 +0200
+Message-Id: <20231108065539.14223-1-jose.pekkarinen@foxhound.fi>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Date: Wed, 08 Nov 2023 09:02:56 +0200
-From: =?UTF-8?Q?Jos=C3=A9_Pekkarinen?= <jose.pekkarinen@foxhound.fi>
-To: Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [PATCH] drm/amd/pm: clean up redundant comparisons with 0
-In-Reply-To: <f98d840d-f3ff-47e1-b609-2cfe33c65cb5@roeck-us.net>
-References: <20231107082910.92508-1-jose.pekkarinen@foxhound.fi>
- <98e8490e-6608-47a8-890c-f1fe894dac7f@roeck-us.net>
- <65d132b0dbef66039fd6938ecbc2bf68@foxhound.fi>
- <f98d840d-f3ff-47e1-b609-2cfe33c65cb5@roeck-us.net>
-User-Agent: Roundcube Webmail/1.4.15
-Message-ID: <b15e6759f51beed255036b9b3c7c6740@foxhound.fi>
-X-Sender: jose.pekkarinen@foxhound.fi
-Organization: Foxhound Ltd.
-X-Originating-IP: 192.42.116.216
-X-Webmail-UserID: jose.pekkarinen@foxhound.fi
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 3648478649106343617
+X-Ovh-Tracer-Id: 3527725884123096769
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvkedruddukedguddtudcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecunecujfgurhepggffhffvvefujghffgfkgihoihgtgfesthekjhdttderjeenucfhrhhomheplfhoshorucfrvghkkhgrrhhinhgvnhcuoehjohhsvgdrphgvkhhkrghrihhnvghnsehfohighhhouhhnugdrfhhiqeenucggtffrrghtthgvrhhnpeekhfeguddufeegvdelgedtvdffgeehvddtkeevkeejvedvgeeitdefleehtdeitdenucfkphepuddvjedrtddrtddruddpudelvddrgedvrdduudeirddvudeipdduhedurdektddrvdelrddvudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepoehjohhsvgdrphgvkhhkrghrihhnvghnsehfohighhhouhhnugdrfhhiqedpnhgspghrtghpthhtohepuddprhgtphhtthhopegrmhguqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdfovfetjfhoshhtpehmohehhedtpdhmohguvgepshhmthhpohhuth
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvkedruddukedguddttdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecunecujfgurhephffvvefufffkofggtgfgsehtkeertdertdejnecuhfhrohhmpeflohhsrocurfgvkhhkrghrihhnvghnuceojhhoshgvrdhpvghkkhgrrhhinhgvnhesfhhogihhohhunhgurdhfiheqnecuggftrfgrthhtvghrnheptddutefhgefhgeffhfdtueehudekudduueeiieetgeektddugedvkeetffetvdffnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucfkphepuddvjedrtddrtddruddpkeejrdelgedruddtledrgedtpdefjedrheelrddugedvrdelieenucevlhhushhtvghrufhiiigvpedvnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepoehjohhsvgdrphgvkhhkrghrihhnvghnsehfohighhhouhhnugdrfhhiqedpnhgspghrtghpthhtohepuddprhgtphhtthhopegrmhguqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdfovfetjfhoshhtpehmohehkedvpdhmohguvgepshhmthhpohhuth
 X-Mailman-Approved-At: Wed, 08 Nov 2023 14:11:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,64 +57,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-hwmon@vger.kernel.org, jdelvare@suse.com, Xinhui.Pan@amd.com,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, skhan@linuxfoundation.org,
- alexander.deucher@amd.com, evan.quan@amd.com, airlied@gmail.com,
- christian.koenig@amd.com, linux-kernel-mentees@lists.linux.dev
+Cc: daniel@ffwll.ch, lijo.lazar@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org,
+ =?UTF-8?q?Jos=C3=A9=20Pekkarinen?= <jose.pekkarinen@foxhound.fi>,
+ dri-devel@lists.freedesktop.org, sunran001@208suo.com, airlied@gmail.com,
+ colin.i.king@gmail.com, linux-kernel-mentees@lists.linux.dev
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023-11-07 20:03, Guenter Roeck wrote:
-> On 11/7/23 09:26, José Pekkarinen wrote:
->> On 2023-11-07 16:08, Guenter Roeck wrote:
->>> On 11/7/23 00:29, José Pekkarinen wrote:
->>>> There is a couple of function return checks of functions that return
->>>> unsigned values, and local variables to hold them are also unsigned, 
->>>> so
->>>> checking if they are negative will always return false. This patch 
->>>> will
->>>> remove them, as well as the never reached code.
->>>> 
->>>> drivers/gpu/drm/amd/pm/amdgpu_pm.c:2801:5-8: WARNING: Unsigned 
->>>> expression compared with zero: val < 0
->>>> drivers/gpu/drm/amd/pm/amdgpu_pm.c:2814:5-8: WARNING: Unsigned 
->>>> expression compared with zero: val < 0
->>>> 
->>>> Signed-off-by: José Pekkarinen <jose.pekkarinen@foxhound.fi>
->>>> ---
->>>>   drivers/gpu/drm/amd/pm/amdgpu_pm.c | 4 ----
->>>>   1 file changed, 4 deletions(-)
->>>> 
->>>> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c 
->>>> b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->>>> index 8bb2da13826f..e7bb1d324084 100644
->>>> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->>>> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->>>> @@ -2798,8 +2798,6 @@ static ssize_t 
->>>> amdgpu_hwmon_show_power_avg(struct device *dev,
->>>>       unsigned int val;
->>>>         val = amdgpu_hwmon_get_power(dev, 
->>>> AMDGPU_PP_SENSOR_GPU_AVG_POWER);
->>>> -    if (val < 0)
->>>> -        return val;
->>>> 
->>> 
->>> This is reporting errors returned from amdgpu_hwmon_get_power() as
->>> large integers.
->> 
->>      Alright, that case it is a false positive, thanks for the 
->> comment!
->> 
-> 
-> 
-> No, it isn't a false positive. The fix is wrong. The variable should be 
-> declared
-> 'int val', not 'unsigned int val'.
+While the structures affected seems to be unused along the driver the
+following patch will care of replacing their members to flexible array,
+removing the following warnings:
 
-     Sorry I may have missunderstood your comment, I certainly can do the
-minor fix then.
+drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h:169:47-54: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h:174:47-54: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h:179:48-55: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h:184:47-54: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h:518:32-39: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
 
-     Thanks!
+Signed-off-by: José Pekkarinen <jose.pekkarinen@foxhound.fi>
+---
+ drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-     José.
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
+index 81650727a5de..082d0bb79277 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
++++ b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
+@@ -166,22 +166,22 @@ struct phm_phase_shedding_limits_table {
+ 
+ struct phm_vceclock_voltage_dependency_table {
+ 	uint8_t count;                                    /* Number of entries. */
+-	struct phm_vceclock_voltage_dependency_record entries[1]; /* Dynamically allocate count entries. */
++	struct phm_vceclock_voltage_dependency_record entries[]; /* Dynamically allocate count entries. */
+ };
+ 
+ struct phm_uvdclock_voltage_dependency_table {
+ 	uint8_t count;                                    /* Number of entries. */
+-	struct phm_uvdclock_voltage_dependency_record entries[1]; /* Dynamically allocate count entries. */
++	struct phm_uvdclock_voltage_dependency_record entries[]; /* Dynamically allocate count entries. */
+ };
+ 
+ struct phm_samuclock_voltage_dependency_table {
+ 	uint8_t count;                                    /* Number of entries. */
+-	struct phm_samuclock_voltage_dependency_record entries[1]; /* Dynamically allocate count entries. */
++	struct phm_samuclock_voltage_dependency_record entries[]; /* Dynamically allocate count entries. */
+ };
+ 
+ struct phm_acpclock_voltage_dependency_table {
+ 	uint32_t count;                                    /* Number of entries. */
+-	struct phm_acpclock_voltage_dependency_record entries[1]; /* Dynamically allocate count entries. */
++	struct phm_acpclock_voltage_dependency_record entries[]; /* Dynamically allocate count entries. */
+ };
+ 
+ struct phm_vce_clock_voltage_dependency_table {
+-- 
+2.39.2
+
