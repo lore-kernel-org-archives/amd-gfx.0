@@ -4,114 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB31CC4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Nov 2023 04:42:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A065C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Nov 2023 07:02:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50B0610E383;
-	Wed,  8 Nov 2023 04:42:36 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2077.outbound.protection.outlook.com [40.107.223.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D13FA10E383
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Nov 2023 04:42:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NHLp0rinnfdYHraLDeg17+Q5fNKq7BH7GZLOGPWwXoC8lqlKOAj6oYyVx3/R08zaHtvs6Hn5EE9Oiju6sNtR5lN9mtzV0aCEOujspnFMFlvr7yR901FDt0q2OLmvXOALKlLU18fAwwmdskc0ce9mE+qII3qldQ3ioWuzcM9MvhxtcgSh4rLvcfzFP3khTGxq1AeNv8PRzO3thGE+0pTV6u6CSzR8YSVK1reed1rMyiSXaAHXB1vpZgUXcFvwqHpI4RkZ/k41kINtjNQEE44RHbUBdI8vtcFqtuTVGE6sABv/yg1YPMYPZP0h8Ox9WwKW7im7X9TnNuyJExFPqCakRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jNjUo+1utL9ZOWSKMaKLvwXiJKGkU/KfOWzjS7VwWZw=;
- b=mwKDAuvZ6HrNeKxrJ4T6mfEcCsYuvrDnzVEkC5pmjwJ8+xE5m1qKutyt8extfAKaoeaoS7BUrOatH/yMJ+zawQHx9Y/eK7stOYRQgBjsXNN3wTJcvDNIYhGrTrL9gUTfOipVLLqNPbX6pSCD2aRtFhze7tmlXMRW6FjXj00j8LU95skr2smkycICK+YCjVtakNR4cq8TN5uSnYX2mGbg4NSLOFXNRse1foYav20CdwK2wZB36na6OkmuyJ1vAgpyXGmA/HEl4ec3PND1Tk74c5VX436+ksenzr+4PeLc2yQLJnedHCXWgPzY/aHaUpFje58EL33XhVeLgJaPl9QS7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jNjUo+1utL9ZOWSKMaKLvwXiJKGkU/KfOWzjS7VwWZw=;
- b=Em/bWVCASVssrmgALd0WVqg6Bl+SC6PDIMRe+afOwlr4uQUqjIEqUl8fRj+nEC+LT2hgnslh/qaxzaofy0QlAdW3iA1e6k+4GlkUqxlocw3Q3r29gvtr9RIIGugTUGOIKSQeDWNoF3P2b20cy/eWsIxWG8wRT0DYHSnAVcvEDac=
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
- by SA1PR12MB7247.namprd12.prod.outlook.com (2603:10b6:806:2bb::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.28; Wed, 8 Nov
- 2023 04:42:31 +0000
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::ca1f:8b18:846d:234e]) by PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::ca1f:8b18:846d:234e%4]) with mapi id 15.20.6954.028; Wed, 8 Nov 2023
- 04:42:31 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v2 2/4] drm/amd/pm: Add support to fetch pm metrics sample
-Thread-Topic: [PATCH v2 2/4] drm/amd/pm: Add support to fetch pm metrics sample
-Thread-Index: AQHaEfswI4dUo1sbA0eJ2yStvcTtiLBv19yA
-Date: Wed, 8 Nov 2023 04:42:31 +0000
-Message-ID: <PH7PR12MB5997C0D90BBA9256A980598182A8A@PH7PR12MB5997.namprd12.prod.outlook.com>
-References: <20231108042207.528357-1-lijo.lazar@amd.com>
- <20231108042207.528357-2-lijo.lazar@amd.com>
-In-Reply-To: <20231108042207.528357-2-lijo.lazar@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=7c323e7e-6ed9-47d5-bcdc-e06e04a6ff98;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-11-08T04:42:00Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|SA1PR12MB7247:EE_
-x-ms-office365-filtering-correlation-id: 6628923f-b7a3-4446-804d-08dbe0151ea2
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: QAmisAtrjOjzQGDGVmrTTcGMNGHAddFj7e3G4DRmUigHCnaD+/K1Ou0rfah3vlELF5B9QLm7ODReOFtmhQ6jEjXQ5LFEr2nGFLx++tWxvwVIlBtu8RaVaviZ7EKLxcalWmRaWFbfqP5eTPAKyYvSX9pONp0nb22i+5skIeyBNw0NDsANdkuTYZ74Yo89p/E36nHKUGeGzsU4fvTY+gVjC8kl59ijHoj2RoVbx5dTlyTfz3WbhK1Zn8CiWMKDc5J6ZYCebIwbgA53r3KW+PdagmO41SyBnwyllv6qDiqzxC8/fmH467bxY+/G9m1o9BmKPUkOW3bEQm3nowK52aWQ9laeZYgL3TuAAU/B17W7M0knbiqqthbgygQNCfgQBVUL5Dp+29aMiZeGzAvAyg6hek8p7aQlraJaTYMMNcd6+Ltv+rk+zRzuSvUE7bPAMLJL/9QCRVSa0YsRCy+W2lr4cYDs+iQAj3GrPt11lo3BvQef3Tv6ChRYvSMgmUkP0kmbwkl/Cm2kOdw4JWvclEOx7BdiASKw6cRSXN9zN+58ki4SLG7+C4L/IEuNp8bcqtqVG/cml9+3NArDtvdQqOFfiG2nT6BueDoVPyuOGaY4S9jZ5G7FYqfC3e399eeOynDy
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366004)(136003)(39860400002)(396003)(346002)(376002)(230922051799003)(451199024)(186009)(1800799009)(64100799003)(55016003)(38100700002)(7696005)(71200400001)(6506007)(53546011)(83380400001)(9686003)(122000001)(86362001)(316002)(41300700001)(2906002)(76116006)(33656002)(8936002)(5660300002)(66946007)(4326008)(8676002)(52536014)(64756008)(54906003)(66556008)(66476007)(110136005)(66446008)(26005)(478600001)(38070700009);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Dtk11ifAOMS9+xQFk4QBG+xUGFvWp8uF94Z5A2qSYKO9gQwX7rrMT4slQxIF?=
- =?us-ascii?Q?idvdw0NsUOeEPFb1KkL3ZT8wRO6GzXyn34yD01tACSnDg83x4L+Aqcy3HHwY?=
- =?us-ascii?Q?QPR1roafzcK7mska+8Q8uJyCrobUSjZPJCVMi/a/jmg0YKPyeyd0KteoHu4o?=
- =?us-ascii?Q?M6tFMIlLSELIspkeMp/djfhC2hzWsmhmZy+0HKvEPg2Os3PuSx4uDaTEAm2N?=
- =?us-ascii?Q?uS4U3PhAucz0ydi6GuNEdWq83hmUek3O6zgGbLdk0/IB9oRDO0RZgqQF3tsB?=
- =?us-ascii?Q?3/tyiEdcI6IYoM0TJfNimGmuqKboqoN1Poore14w6osyfjhX/Il3ySucyMJ7?=
- =?us-ascii?Q?5ut+HY4NI8Zkv/TvJIQaqquVyR35IMj8KWdj8PSUmH9VL4IKaEf3v5uR7UFx?=
- =?us-ascii?Q?J8fZmL8PUPCYzHSFqcc0/+GYlyoz8U3fmuQOfkpYSybiynKZhIW52hOhWb4r?=
- =?us-ascii?Q?lVwDtWyV5ATcGVnnJnUh/4Fdb621VOBXiVINgvZTov/1zoDSfAM19s7brTwP?=
- =?us-ascii?Q?4f98NiVR7HnhG85i+XkL9Y96viJOZfidIhn7XjjZFGy8iXJlyfVEjjA0Warx?=
- =?us-ascii?Q?5d0KX/ILKc7zBAOCRXdftWybnrmD3UHAKv8PuDeqRlPWSWJXBNjxa/ebDZBR?=
- =?us-ascii?Q?il9X0KG9GM2O84TTMTPapqdjs1eivhwlWzQbzKfgwM7ZkENCHkZpuQm1WNAm?=
- =?us-ascii?Q?bG5spE+iTjMoYNHk6Xo2hqIXQdKZ6mnB7bZsX5Nwj+Sgog9+OC0oq5KX6zmE?=
- =?us-ascii?Q?K3cHF1Nbc9fRYrKqq9zfk2ijZIrrFgztAiipKvnrs9beAxlDSh2abKdiH+t/?=
- =?us-ascii?Q?JsF+lX0hWio9dicqiCWrk2vw8gOIUIYIYSta+Llna3+jAuOmFZquZt5nkcG+?=
- =?us-ascii?Q?cxKKMcQIXqd7vBllOfUlPFz557NvdPTzhNZh2AZQyKvpQcl6Aj/2oXB7Ncd+?=
- =?us-ascii?Q?oFIT1okw6QQ4cFqyMNMop7OeB3xfEoyy8qRklr5Unq7sfKBJcfvI5PuM5wka?=
- =?us-ascii?Q?M5cZavdt4WbFoRJJqojKIevhWvafSXxK/DiSigSps31oRpSjuqvT98vBCu9v?=
- =?us-ascii?Q?sr3q9I6bxQpdM1hmrdoPP7DTJn+/2mMOa21Lrex//QjkZLDzjXNVoXzXtexd?=
- =?us-ascii?Q?SExTlzioR4N6M4H+BkrTIjZtV58BnIUMOTtMbs5Af4QvfwO2Xm0ltUgmngAo?=
- =?us-ascii?Q?z9ygv3IysCasyx2LlqQ0BGAHhrxgyB6Kg4aQ3j7pXB58T5HJ8Pf1MZljOUWJ?=
- =?us-ascii?Q?Sy/7WTNE1aIDWkTY8nCDbVYC6CWVeml8hta2HB56LlzXFQQ+EsEq6vSYDNdV?=
- =?us-ascii?Q?nGJsSBLSXsdvX4zaNpP5/LKRQRzQZoM2fAVK4uCZpp1Mva3yAvLW+xJb5ugI?=
- =?us-ascii?Q?61XxW5YuSsKJe1gV/qyGYV+q+jBEE6vSiGkftXcLyl8M1412hXc8GoUfql3i?=
- =?us-ascii?Q?KlHUSmUWMDWUkDigjdDIddkWwK1RafrxauOoQ2gUF5T5XwX45SNACQBv/crp?=
- =?us-ascii?Q?90O9OAtm78BPAZRdp84asQHcQm/ibrQBDv8tQj5QVCte7v7rHhhjSXiuuXCM?=
- =?us-ascii?Q?lNgZGMvDGA0mAyuLYDI=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBE9B10E07F;
+	Wed,  8 Nov 2023 07:02:51 +0000 (UTC)
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FA3110E388
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Nov 2023 07:02:49 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-32fb1d757f7so3579329f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 07 Nov 2023 23:02:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1699426968; x=1700031768; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=tWUp23xh4ITLDSr9bFyil4vQNgZN6BpQ+YW/sH4bNHo=;
+ b=HIeHHlnTgzuQaR5MfZtGJ6yLdHqfk2R3Pv1nAA0jgA474dyMz+QP0cHQu+ipl8ucpA
+ JP6VBiu85pjWLy4QUUaSB47DJmRjUwWh0/qiJJaVcAIFynqWMPwA2rmgimYayji5vDnt
+ Q6k2bW6bIHlgfUxqI0DrImqIMKQARqWfs9Qtk8BzCELEDTW/MvIsfCaMALBtGXjCuAJq
+ t1/L6pQd3TZd0QPSAz9BgPHyi5RrUwCBhn7odK+trr6aCKEhmx/cjmB0qOVdzNcpTtlL
+ JlsB3xHEut5NejE+1laHznw4JEp2uHijOXm41mX0/Rk/SoDBevBlMVI0bMYmjIG5lFev
+ TnYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1699426968; x=1700031768;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=tWUp23xh4ITLDSr9bFyil4vQNgZN6BpQ+YW/sH4bNHo=;
+ b=OG/A6snND9zGVTp1cNZXzeSnjlBg26811paxNrHXPRgFIG79Cyb+p7F2QbWjEgGhp4
+ JD9Q8dOVonxx8RA80YSHji+dGkg5EEfVb0DQPi0AFEXXDqafXzoFuO3NckWj3bmtnYtA
+ BTgt528QIEw/pClzm0uQx9xiSwSVTeHCkAzNTHfJkLGVU1yjnCyteJZtG96VMlHKwb5F
+ ggdizwqmszRGFJe1xXM0QXW0a9QUmrqQ6qYki7MkbYsAFHSh1/bPKGw/04xJttOq0doQ
+ ceu6WJzMjko5HU8HXKckqwRKz8zOODrdVYQVgzBQBUujFpGczOlEMUjGvyUsf+nIUTta
+ +LPg==
+X-Gm-Message-State: AOJu0Ywa/UJ2WhoctwNE8VK00ZRqlIm1hnRqu2kIRgrhUABGHNQWi+R0
+ ROwwMoEtEfCeeZEGvAmtXMEnJqIsD3K0cQ==
+X-Google-Smtp-Source: AGHT+IHvVYJNXhIT8J/vsewTqjgMFk4Q6FknHQLtW/c1s2Bt4lJ+Egcot7B+CbZjZyMdENBHYT6V6w==
+X-Received: by 2002:a17:907:9603:b0:9be:481c:60bf with SMTP id
+ gb3-20020a170907960300b009be481c60bfmr784788ejc.55.1699426946938; 
+ Tue, 07 Nov 2023 23:02:26 -0800 (PST)
+Received: from [192.168.178.25] ([134.19.101.78])
+ by smtp.gmail.com with ESMTPSA id
+ z17-20020a170906669100b009920e9a3a73sm554264ejo.115.2023.11.07.23.01.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 07 Nov 2023 23:02:01 -0800 (PST)
+Message-ID: <4c7f2ff7-c65a-4e8e-adcb-3612db2dd58e@gmail.com>
+Date: Wed, 8 Nov 2023 08:01:33 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6628923f-b7a3-4446-804d-08dbe0151ea2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Nov 2023 04:42:31.5598 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: gDk88FyYqGUNL9BFcWEFKLHCZLWGIDeD7LqZNC9fNs3I6vnAeTdaTzLhR88uDAR3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7247
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: move buffer funcs setting up a level
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>
+References: <20231025171928.3318505-1-alexander.deucher@amd.com>
+ <96db9e3d-4636-4da4-b4d1-ca3f5fd8d887@gmail.com>
+ <CADnq5_ORyv9MDfUd3NPDw+APUunDjkTW4Bx4z0FoCiK+s_i+uw@mail.gmail.com>
+ <04db543c-7aec-4550-878f-a9753142130e@gmail.com>
+ <a8a0eb47-3aca-4c87-b5f7-dc54e5667944@gmail.com>
+ <CADnq5_PS64jYS_Y3kGW27m-kuWP+FQFiaVcOaZiB=JLSgPnXBQ@mail.gmail.com>
+ <CADnq5_MBgNQPzZmvBagzUdi94X=rr-h=aaE334RzVozgOHU64g@mail.gmail.com>
+ <bfb3d504-61c9-43e8-b3b3-2d8193e54d81@gmail.com>
+ <CADnq5_OB0OvtqJf5nue-XsTZxOcnfN0Sy6pyryW_GF_Y+S6eYg@mail.gmail.com>
+ <CADnq5_OkTuEJ+i+MpfZprSjkGcG99OVSndwyZYWiYEDMEvatgw@mail.gmail.com>
+ <63770cb6-e042-4acc-8731-35b187551ca7@gmail.com>
+ <CADnq5_NC_OOhYw2iyY1uH+BY4tTjfi43PokuFPqFNwPp6Az1vw@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CADnq5_NC_OOhYw2iyY1uH+BY4tTjfi43PokuFPqFNwPp6Az1vw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,197 +85,528 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>, Leo Liu <leo.liu@amd.com>,
+ amd-gfx@lists.freedesktop.org, Luben Tuikov <ltuikov89@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Am 07.11.23 um 16:14 schrieb Alex Deucher:
+> On Tue, Nov 7, 2023 at 9:52 AM Christian König
+> <ckoenig.leichtzumerken@gmail.com> wrote:
+>> This is only needed for certain UVD/VCE hardware/firmware versions.
+> We currently enable it for all UVD and VCE versions.
+>
+>> Leo needs to decide that, but I would rather like to keep the call to
+>> create the entity in the HW IP specific files.
+> That will complicate things.  The problem is sw_init() is called too
+> early and we don't have any other one time init IP callbacks.  We
+> could move it to late_init, but then we'd need to also track whether
+> or not the entity has been initialized.  I think this is cleaner.
 
-Series is.
-Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+Good point. In this case maybe just keep the amdgpu_uvd_entity_init() 
+and amdgpu_vce_entity_init() functions and call it from the device 
+generic code.
 
-Best Regards,
-Kevin
------Original Message-----
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Wednesday, November 8, 2023 12:22 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-Subject: [PATCH v2 2/4] drm/amd/pm: Add support to fetch pm metrics sample
+This way we at least don't mess with UVD/VCE stuff in the device generic 
+code.
 
-Add API support to fetch a snapshot of power management metrics from PMFW.
+Christian.
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
----
-v2:
-        Return EOPNOTSUPP if callback not implemented (KevinYang)
-
- drivers/gpu/drm/amd/include/kgd_pp_interface.h |  1 +
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c            | 17 +++++++++++++++++
- drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h        | 12 ++++++++++++
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c      | 15 +++++++++++++++
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h  | 10 ++++++++++
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h   |  3 ++-
- 6 files changed, 57 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/d=
-rm/amd/include/kgd_pp_interface.h
-index f9c438d16c56..6a1d31e8fdd1 100644
---- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-@@ -431,6 +431,7 @@ struct amd_pm_funcs {
-        int (*set_df_cstate)(void *handle, enum pp_df_cstate state);
-        int (*set_xgmi_pstate)(void *handle, uint32_t pstate);
-        ssize_t (*get_gpu_metrics)(void *handle, void **table);
-+       ssize_t (*get_pm_metrics)(void *handle, void *pmmetrics, size_t siz=
-e);
-        int (*set_watermarks_for_clock_ranges)(void *handle,
-                                               struct pp_smu_wm_range_sets =
-*ranges);
-        int (*display_disable_memory_clock_switch)(void *handle, diff --git=
- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.=
-c
-index 1ae3b81548fa..4717884a2bc4 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-@@ -1299,6 +1299,23 @@ int amdgpu_dpm_get_gpu_metrics(struct amdgpu_device =
-*adev, void **table)
-        return ret;
- }
-
-+ssize_t amdgpu_dpm_get_pm_metrics(struct amdgpu_device *adev, void *pm_met=
-rics,
-+                                 size_t size)
-+{
-+       const struct amd_pm_funcs *pp_funcs =3D adev->powerplay.pp_funcs;
-+       int ret =3D 0;
-+
-+       if (!pp_funcs->get_pm_metrics)
-+               return -EOPNOTSUPP;
-+
-+       mutex_lock(&adev->pm.mutex);
-+       ret =3D pp_funcs->get_pm_metrics(adev->powerplay.pp_handle, pm_metr=
-ics,
-+                                      size);
-+       mutex_unlock(&adev->pm.mutex);
-+
-+       return ret;
-+}
-+
- int amdgpu_dpm_get_fan_control_mode(struct amdgpu_device *adev,
-                                    uint32_t *fan_mode)
- {
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/=
-pm/inc/amdgpu_dpm.h
-index feccd2a7120d..9b3fef5474b1 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-@@ -511,6 +511,18 @@ int amdgpu_dpm_get_power_profile_mode(struct amdgpu_de=
-vice *adev,  int amdgpu_dpm_set_power_profile_mode(struct amdgpu_device *ad=
-ev,
-                                      long *input, uint32_t size);
- int amdgpu_dpm_get_gpu_metrics(struct amdgpu_device *adev, void **table);
-+
-+/**
-+ * @get_pm_metrics: Get one snapshot of power management metrics from
-+PMFW. The
-+ * sample is copied to pm_metrics buffer. It's expected to be allocated
-+by the
-+ * caller and size of the allocated buffer is passed. Max size expected
-+for a
-+ * metrics sample is 4096 bytes.
-+ *
-+ * Return: Actual size of the metrics sample  */ ssize_t
-+amdgpu_dpm_get_pm_metrics(struct amdgpu_device *adev, void *pm_metrics,
-+                                 size_t size);
-+
- int amdgpu_dpm_get_fan_control_mode(struct amdgpu_device *adev,
-                                    uint32_t *fan_mode);
- int amdgpu_dpm_set_fan_speed_pwm(struct amdgpu_device *adev, diff --git a/=
-drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/am=
-dgpu_smu.c
-index 37c2605f9b35..930e7e3532ad 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -3189,6 +3189,20 @@ static ssize_t smu_sys_get_gpu_metrics(void *handle,=
- void **table)
-        return smu->ppt_funcs->get_gpu_metrics(smu, table);  }
-
-+static ssize_t smu_sys_get_pm_metrics(void *handle, void *pm_metrics,
-+                                     size_t size)
-+{
-+       struct smu_context *smu =3D handle;
-+
-+       if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
-+               return -EOPNOTSUPP;
-+
-+       if (!smu->ppt_funcs->get_pm_metrics)
-+               return -EOPNOTSUPP;
-+
-+       return smu->ppt_funcs->get_pm_metrics(smu, pm_metrics, size); }
-+
- static int smu_enable_mgpu_fan_boost(void *handle)  {
-        struct smu_context *smu =3D handle;
-@@ -3330,6 +3344,7 @@ static const struct amd_pm_funcs swsmu_pm_funcs =3D {
-        .set_df_cstate                    =3D smu_set_df_cstate,
-        .set_xgmi_pstate                  =3D smu_set_xgmi_pstate,
-        .get_gpu_metrics                  =3D smu_sys_get_gpu_metrics,
-+       .get_pm_metrics                   =3D smu_sys_get_pm_metrics,
-        .set_watermarks_for_clock_ranges     =3D smu_set_watermarks_for_clo=
-ck_ranges,
-        .display_disable_memory_clock_switch =3D smu_display_disable_memory=
-_clock_switch,
-        .get_max_sustainable_clocks_by_dc    =3D smu_get_max_sustainable_cl=
-ocks_by_dc,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/dr=
-m/amd/pm/swsmu/inc/amdgpu_smu.h
-index 8def291b18bc..32600ba74bf1 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-@@ -253,6 +253,7 @@ struct smu_table {
-        uint64_t mc_address;
-        void *cpu_addr;
-        struct amdgpu_bo *bo;
-+       uint32_t version;
- };
-
- enum smu_perf_level_designation {
-@@ -1252,6 +1253,15 @@ struct pptable_funcs {
-         */
-        ssize_t (*get_gpu_metrics)(struct smu_context *smu, void **table);
-
-+       /**
-+        * @get_pm_metrics: Get one snapshot of power management metrics fr=
-om
-+        * PMFW.
-+        *
-+        * Return: Size of the metrics sample
-+        */
-+       ssize_t (*get_pm_metrics)(struct smu_context *smu, void *pm_metrics=
-,
-+                                 size_t size);
-+
-        /**
-         * @enable_mgpu_fan_boost: Enable multi-GPU fan boost.
-         */
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm=
-/amd/pm/swsmu/inc/smu_types.h
-index 9dd47d91093e..ea8ea99b7436 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-@@ -259,7 +259,8 @@
-        __SMU_DUMMY_MAP(PowerUpUmsch),  \
-        __SMU_DUMMY_MAP(PowerDownUmsch),        \
-        __SMU_DUMMY_MAP(SetSoftMaxVpe), \
--       __SMU_DUMMY_MAP(SetSoftMinVpe),
-+       __SMU_DUMMY_MAP(SetSoftMinVpe), \
-+       __SMU_DUMMY_MAP(GetMetricsVersion),
-
- #undef __SMU_DUMMY_MAP
- #define __SMU_DUMMY_MAP(type)  SMU_MSG_##type
---
-2.25.1
+>
+> Alex
+>
+>> Regards,
+>> Christian.
+>>
+>> Am 07.11.23 um 15:47 schrieb Alex Deucher:
+>>> On Tue, Nov 7, 2023 at 9:19 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+>>>> On Tue, Nov 7, 2023 at 5:52 AM Christian König
+>>>> <ckoenig.leichtzumerken@gmail.com> wrote:
+>>>>> Am 03.11.23 um 23:10 schrieb Alex Deucher:
+>>>>>> On Fri, Nov 3, 2023 at 4:17 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>>>>>>> On Thu, Oct 26, 2023 at 4:17 PM Luben Tuikov <ltuikov89@gmail.com> wrote:
+>>>>>>>> Pushed to drm-misc-next.
+>>>>>>> BTW, I'm seeing the following on older GPUs with VCE and UVD even with
+>>>>>>> this patch:
+>>>>>>> [   11.886024] amdgpu 0000:0a:00.0: [drm] *ERROR* drm_sched_job_init:
+>>>>>>> entity has no rq!
+>>>>>>> [   11.886028] amdgpu 0000:0a:00.0: [drm:amdgpu_ib_ring_tests
+>>>>>>> [amdgpu]] *ERROR* IB test failed on uvd (-2).
+>>>>>>> [   11.889927] amdgpu 0000:0a:00.0: [drm] *ERROR* drm_sched_job_init:
+>>>>>>> entity has no rq!
+>>>>>>> [   11.889930] amdgpu 0000:0a:00.0: [drm:amdgpu_ib_ring_tests
+>>>>>>> [amdgpu]] *ERROR* IB test failed on vce0 (-2).
+>>>>>>> [   11.890172] [drm:process_one_work] *ERROR* ib ring test failed (-2).
+>>>>>>> Seems to be specific to UVD and VCE, I don't see anything similar with
+>>>>>>> VCN, but the flows for both are pretty similar.  Not sure why we are
+>>>>>>> not seeing it for VCN.  Just a heads up if you have any ideas.  Will
+>>>>>>> take a closer look next week.
+>>>>>> + Leo
+>>>>>>
+>>>>>> I found the problem.  We set up scheduling entities for UVD and VCE
+>>>>>> specifically and not for any other engines.  I don't remember why
+>>>>>> offhand.  I'm guessing maybe to deal with the session limits on UVD
+>>>>>> and VCE?  If so I'm not sure of a clean way to fix this.
+>>>>> I haven't looked through all my mails yet so could be that Leo has
+>>>>> already answered this.
+>>>>>
+>>>>> The UVD/VCE entities are used for the older chips where applications
+>>>>> have to use create/destroy messages to the firmware.
+>>>>>
+>>>>> If an application exits without cleaning up their handles the kernel
+>>>>> sends the appropriate destroy messages itself. For an example see
+>>>>> amdgpu_uvd_free_handles().
+>>>>>
+>>>>> We used to initialize those entities with separate calls after the
+>>>>> scheduler had been brought up, see amdgpu_uvd_entity_init() for an example.
+>>>>>
+>>>>> But this was somehow messed up and we now do the call to
+>>>>> amdgpu_uvd_entity_init() at the end of *_sw_init() instead of _late_init().
+>>>>>
+>>>>> I suggest to just come up with a function which can be used for the
+>>>>> late_init() callback of the UVD/VCE blocks.
+>>>> I guess the issue is that we only need to initialize the entity once
+>>>> so sw_init makes sense.  All of the other functions get called at
+>>>> resume time, etc.  I think we could probably put it into
+>>>> amdgpu_device_init_schedulers() somehow.
+>>> I think something like this might do the trick.
+>>>
+>>> Alex
+>>>
+>>>> Alex
+>>>>
+>>>>> Christian.
+>>>>>
+>>>>>> Alex
+>>>>>>
+>>>>>>> Alex
+>>>>>>>
+>>>>>>>> Regards,
+>>>>>>>> Luben
+>>>>>>>>
+>>>>>>>> On 2023-10-26 15:52, Luben Tuikov wrote:
+>>>>>>>>> On 2023-10-26 15:32, Alex Deucher wrote:
+>>>>>>>>>> On Thu, Oct 26, 2023 at 2:22 AM Christian König
+>>>>>>>>>> <ckoenig.leichtzumerken@gmail.com> wrote:
+>>>>>>>>>>> Am 25.10.23 um 19:19 schrieb Alex Deucher:
+>>>>>>>>>>>> Rather than doing this in the IP code for the SDMA paging
+>>>>>>>>>>>> engine, move it up to the core device level init level.
+>>>>>>>>>>>> This should fix the scheduler init ordering.
+>>>>>>>>>>>>
+>>>>>>>>>>>> v2: drop extra parens
+>>>>>>>>>>>> v3: drop SDMA helpers
+>>>>>>>>>>>>
+>>>>>>>>>>>> Tested-by: Luben Tuikov <luben.tuikov@amd.com>
+>>>>>>>>>>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>>>>>>>>>>> I don't know of hand if the high level function really cover everything,
+>>>>>>>>>>> so only Acked-by: Christian König <christian.koenig@amd.com> for now.
+>>>>>>>>>>>
+>>>>>>>>>> Luben,
+>>>>>>>>>>
+>>>>>>>>>> Was this needed for some of the scheduler stuff that is pending?  If
+>>>>>>>>>> you would rather take it via drm-misc to align with the scheduler
+>>>>>>>>>> changes, that works for me, otherwise I can take it via the amdgpu
+>>>>>>>>>> tree.
+>>>>>>>>> Hi Alex,
+>>>>>>>>>
+>>>>>>>>> Yes, it does.
+>>>>>>>>>
+>>>>>>>>> I can take it via drm-misc-next as that where the scheduler changes landed.
+>>>>>>>>>
+>>>>>>>>> I'll add Christian's Acked-by.
+>>>>>>>>>
+>>>>>>>>> I'll add a Fixes tag because ideally it should've gone before the dynamic
+>>>>>>>>> sched_rq commit.
+>>>>>>>>>
+>>>>>>>>> Thanks for the heads-up!
+>>>>>>>>>
+>>>>>>>>> Regards,
+>>>>>>>>> Luben
+>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>>> Thanks,
+>>>>>>>>>>
+>>>>>>>>>> Alex
+>>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>>> Christian.
+>>>>>>>>>>>
+>>>>>>>>>>>> ---
+>>>>>>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 15 +++++++++++++++
+>>>>>>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c   | 21 ---------------------
+>>>>>>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h   |  1 -
+>>>>>>>>>>>>      drivers/gpu/drm/amd/amdgpu/cik_sdma.c      |  5 -----
+>>>>>>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c     |  5 -----
+>>>>>>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c     |  5 -----
+>>>>>>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c     | 16 +---------------
+>>>>>>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c     | 10 +---------
+>>>>>>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c     | 10 +---------
+>>>>>>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c     | 10 +---------
+>>>>>>>>>>>>      drivers/gpu/drm/amd/amdgpu/si_dma.c        |  5 -----
+>>>>>>>>>>>>      11 files changed, 19 insertions(+), 84 deletions(-)
+>>>>>>>>>>>>
+>>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>>>>>>> index 2031a467b721..5c90080e93ba 100644
+>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>>>>>>> @@ -2662,6 +2662,9 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
+>>>>>>>>>>>>          if (r)
+>>>>>>>>>>>>                  goto init_failed;
+>>>>>>>>>>>>
+>>>>>>>>>>>> +     if (adev->mman.buffer_funcs_ring->sched.ready)
+>>>>>>>>>>>> +             amdgpu_ttm_set_buffer_funcs_status(adev, true);
+>>>>>>>>>>>> +
+>>>>>>>>>>>>          /* Don't init kfd if whole hive need to be reset during init */
+>>>>>>>>>>>>          if (!adev->gmc.xgmi.pending_reset) {
+>>>>>>>>>>>>                  kgd2kfd_init_zone_device(adev);
+>>>>>>>>>>>> @@ -3260,6 +3263,8 @@ int amdgpu_device_ip_suspend(struct amdgpu_device *adev)
+>>>>>>>>>>>>                  amdgpu_virt_request_full_gpu(adev, false);
+>>>>>>>>>>>>          }
+>>>>>>>>>>>>
+>>>>>>>>>>>> +     amdgpu_ttm_set_buffer_funcs_status(adev, false);
+>>>>>>>>>>>> +
+>>>>>>>>>>>>          r = amdgpu_device_ip_suspend_phase1(adev);
+>>>>>>>>>>>>          if (r)
+>>>>>>>>>>>>                  return r;
+>>>>>>>>>>>> @@ -3449,6 +3454,9 @@ static int amdgpu_device_ip_resume(struct amdgpu_device *adev)
+>>>>>>>>>>>>
+>>>>>>>>>>>>          r = amdgpu_device_ip_resume_phase2(adev);
+>>>>>>>>>>>>
+>>>>>>>>>>>> +     if (adev->mman.buffer_funcs_ring->sched.ready)
+>>>>>>>>>>>> +             amdgpu_ttm_set_buffer_funcs_status(adev, true);
+>>>>>>>>>>>> +
+>>>>>>>>>>>>          return r;
+>>>>>>>>>>>>      }
+>>>>>>>>>>>>
+>>>>>>>>>>>> @@ -4236,6 +4244,8 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
+>>>>>>>>>>>>          /* disable ras feature must before hw fini */
+>>>>>>>>>>>>          amdgpu_ras_pre_fini(adev);
+>>>>>>>>>>>>
+>>>>>>>>>>>> +     amdgpu_ttm_set_buffer_funcs_status(adev, false);
+>>>>>>>>>>>> +
+>>>>>>>>>>>>          amdgpu_device_ip_fini_early(adev);
+>>>>>>>>>>>>
+>>>>>>>>>>>>          amdgpu_irq_fini_hw(adev);
+>>>>>>>>>>>> @@ -4407,6 +4417,8 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
+>>>>>>>>>>>>
+>>>>>>>>>>>>          amdgpu_ras_suspend(adev);
+>>>>>>>>>>>>
+>>>>>>>>>>>> +     amdgpu_ttm_set_buffer_funcs_status(adev, false);
+>>>>>>>>>>>> +
+>>>>>>>>>>>>          amdgpu_device_ip_suspend_phase1(adev);
+>>>>>>>>>>>>
+>>>>>>>>>>>>          if (!adev->in_s0ix)
+>>>>>>>>>>>> @@ -5178,6 +5190,9 @@ int amdgpu_do_asic_reset(struct list_head *device_list_handle,
+>>>>>>>>>>>>                                  if (r)
+>>>>>>>>>>>>                                          goto out;
+>>>>>>>>>>>>
+>>>>>>>>>>>> +                             if (tmp_adev->mman.buffer_funcs_ring->sched.ready)
+>>>>>>>>>>>> +                                     amdgpu_ttm_set_buffer_funcs_status(tmp_adev, true);
+>>>>>>>>>>>> +
+>>>>>>>>>>>>                                  if (vram_lost)
+>>>>>>>>>>>>                                          amdgpu_device_fill_reset_magic(tmp_adev);
+>>>>>>>>>>>>
+>>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+>>>>>>>>>>>> index e8cbc4142d80..1d9d187de6ee 100644
+>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+>>>>>>>>>>>> @@ -292,27 +292,6 @@ int amdgpu_sdma_init_microcode(struct amdgpu_device *adev,
+>>>>>>>>>>>>          return err;
+>>>>>>>>>>>>      }
+>>>>>>>>>>>>
+>>>>>>>>>>>> -void amdgpu_sdma_unset_buffer_funcs_helper(struct amdgpu_device *adev)
+>>>>>>>>>>>> -{
+>>>>>>>>>>>> -     struct amdgpu_ring *sdma;
+>>>>>>>>>>>> -     int i;
+>>>>>>>>>>>> -
+>>>>>>>>>>>> -     for (i = 0; i < adev->sdma.num_instances; i++) {
+>>>>>>>>>>>> -             if (adev->sdma.has_page_queue) {
+>>>>>>>>>>>> -                     sdma = &adev->sdma.instance[i].page;
+>>>>>>>>>>>> -                     if (adev->mman.buffer_funcs_ring == sdma) {
+>>>>>>>>>>>> -                             amdgpu_ttm_set_buffer_funcs_status(adev, false);
+>>>>>>>>>>>> -                             break;
+>>>>>>>>>>>> -                     }
+>>>>>>>>>>>> -             }
+>>>>>>>>>>>> -             sdma = &adev->sdma.instance[i].ring;
+>>>>>>>>>>>> -             if (adev->mman.buffer_funcs_ring == sdma) {
+>>>>>>>>>>>> -                     amdgpu_ttm_set_buffer_funcs_status(adev, false);
+>>>>>>>>>>>> -                     break;
+>>>>>>>>>>>> -             }
+>>>>>>>>>>>> -     }
+>>>>>>>>>>>> -}
+>>>>>>>>>>>> -
+>>>>>>>>>>>>      int amdgpu_sdma_ras_sw_init(struct amdgpu_device *adev)
+>>>>>>>>>>>>      {
+>>>>>>>>>>>>          int err = 0;
+>>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+>>>>>>>>>>>> index 513ac22120c1..173a2a308078 100644
+>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+>>>>>>>>>>>> @@ -169,7 +169,6 @@ int amdgpu_sdma_init_microcode(struct amdgpu_device *adev, u32 instance,
+>>>>>>>>>>>>                                 bool duplicate);
+>>>>>>>>>>>>      void amdgpu_sdma_destroy_inst_ctx(struct amdgpu_device *adev,
+>>>>>>>>>>>>              bool duplicate);
+>>>>>>>>>>>> -void amdgpu_sdma_unset_buffer_funcs_helper(struct amdgpu_device *adev);
+>>>>>>>>>>>>      int amdgpu_sdma_ras_sw_init(struct amdgpu_device *adev);
+>>>>>>>>>>>>
+>>>>>>>>>>>>      #endif
+>>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+>>>>>>>>>>>> index ee5dce6f6043..a3fccc4c1f43 100644
+>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+>>>>>>>>>>>> @@ -308,8 +308,6 @@ static void cik_sdma_gfx_stop(struct amdgpu_device *adev)
+>>>>>>>>>>>>          u32 rb_cntl;
+>>>>>>>>>>>>          int i;
+>>>>>>>>>>>>
+>>>>>>>>>>>> -     amdgpu_sdma_unset_buffer_funcs_helper(adev);
+>>>>>>>>>>>> -
+>>>>>>>>>>>>          for (i = 0; i < adev->sdma.num_instances; i++) {
+>>>>>>>>>>>>                  rb_cntl = RREG32(mmSDMA0_GFX_RB_CNTL + sdma_offsets[i]);
+>>>>>>>>>>>>                  rb_cntl &= ~SDMA0_GFX_RB_CNTL__RB_ENABLE_MASK;
+>>>>>>>>>>>> @@ -498,9 +496,6 @@ static int cik_sdma_gfx_resume(struct amdgpu_device *adev)
+>>>>>>>>>>>>                  r = amdgpu_ring_test_helper(ring);
+>>>>>>>>>>>>                  if (r)
+>>>>>>>>>>>>                          return r;
+>>>>>>>>>>>> -
+>>>>>>>>>>>> -             if (adev->mman.buffer_funcs_ring == ring)
+>>>>>>>>>>>> -                     amdgpu_ttm_set_buffer_funcs_status(adev, true);
+>>>>>>>>>>>>          }
+>>>>>>>>>>>>
+>>>>>>>>>>>>          return 0;
+>>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+>>>>>>>>>>>> index b58a13bd75db..45377a175250 100644
+>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+>>>>>>>>>>>> @@ -339,8 +339,6 @@ static void sdma_v2_4_gfx_stop(struct amdgpu_device *adev)
+>>>>>>>>>>>>          u32 rb_cntl, ib_cntl;
+>>>>>>>>>>>>          int i;
+>>>>>>>>>>>>
+>>>>>>>>>>>> -     amdgpu_sdma_unset_buffer_funcs_helper(adev);
+>>>>>>>>>>>> -
+>>>>>>>>>>>>          for (i = 0; i < adev->sdma.num_instances; i++) {
+>>>>>>>>>>>>                  rb_cntl = RREG32(mmSDMA0_GFX_RB_CNTL + sdma_offsets[i]);
+>>>>>>>>>>>>                  rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_ENABLE, 0);
+>>>>>>>>>>>> @@ -474,9 +472,6 @@ static int sdma_v2_4_gfx_resume(struct amdgpu_device *adev)
+>>>>>>>>>>>>                  r = amdgpu_ring_test_helper(ring);
+>>>>>>>>>>>>                  if (r)
+>>>>>>>>>>>>                          return r;
+>>>>>>>>>>>> -
+>>>>>>>>>>>> -             if (adev->mman.buffer_funcs_ring == ring)
+>>>>>>>>>>>> -                     amdgpu_ttm_set_buffer_funcs_status(adev, true);
+>>>>>>>>>>>>          }
+>>>>>>>>>>>>
+>>>>>>>>>>>>          return 0;
+>>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+>>>>>>>>>>>> index c5ea32687eb5..2ad615be4bb3 100644
+>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+>>>>>>>>>>>> @@ -513,8 +513,6 @@ static void sdma_v3_0_gfx_stop(struct amdgpu_device *adev)
+>>>>>>>>>>>>          u32 rb_cntl, ib_cntl;
+>>>>>>>>>>>>          int i;
+>>>>>>>>>>>>
+>>>>>>>>>>>> -     amdgpu_sdma_unset_buffer_funcs_helper(adev);
+>>>>>>>>>>>> -
+>>>>>>>>>>>>          for (i = 0; i < adev->sdma.num_instances; i++) {
+>>>>>>>>>>>>                  rb_cntl = RREG32(mmSDMA0_GFX_RB_CNTL + sdma_offsets[i]);
+>>>>>>>>>>>>                  rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_ENABLE, 0);
+>>>>>>>>>>>> @@ -746,9 +744,6 @@ static int sdma_v3_0_gfx_resume(struct amdgpu_device *adev)
+>>>>>>>>>>>>                  r = amdgpu_ring_test_helper(ring);
+>>>>>>>>>>>>                  if (r)
+>>>>>>>>>>>>                          return r;
+>>>>>>>>>>>> -
+>>>>>>>>>>>> -             if (adev->mman.buffer_funcs_ring == ring)
+>>>>>>>>>>>> -                     amdgpu_ttm_set_buffer_funcs_status(adev, true);
+>>>>>>>>>>>>          }
+>>>>>>>>>>>>
+>>>>>>>>>>>>          return 0;
+>>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+>>>>>>>>>>>> index 683d51ae4bf1..3d68dd5523c6 100644
+>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+>>>>>>>>>>>> @@ -877,8 +877,6 @@ static void sdma_v4_0_gfx_enable(struct amdgpu_device *adev, bool enable)
+>>>>>>>>>>>>          u32 rb_cntl, ib_cntl;
+>>>>>>>>>>>>          int i;
+>>>>>>>>>>>>
+>>>>>>>>>>>> -     amdgpu_sdma_unset_buffer_funcs_helper(adev);
+>>>>>>>>>>>> -
+>>>>>>>>>>>>          for (i = 0; i < adev->sdma.num_instances; i++) {
+>>>>>>>>>>>>                  rb_cntl = RREG32_SDMA(i, mmSDMA0_GFX_RB_CNTL);
+>>>>>>>>>>>>                  rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_ENABLE, enable ? 1 : 0);
+>>>>>>>>>>>> @@ -913,8 +911,6 @@ static void sdma_v4_0_page_stop(struct amdgpu_device *adev)
+>>>>>>>>>>>>          u32 rb_cntl, ib_cntl;
+>>>>>>>>>>>>          int i;
+>>>>>>>>>>>>
+>>>>>>>>>>>> -     amdgpu_sdma_unset_buffer_funcs_helper(adev);
+>>>>>>>>>>>> -
+>>>>>>>>>>>>          for (i = 0; i < adev->sdma.num_instances; i++) {
+>>>>>>>>>>>>                  rb_cntl = RREG32_SDMA(i, mmSDMA0_PAGE_RB_CNTL);
+>>>>>>>>>>>>                  rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_PAGE_RB_CNTL,
+>>>>>>>>>>>> @@ -1402,13 +1398,7 @@ static int sdma_v4_0_start(struct amdgpu_device *adev)
+>>>>>>>>>>>>                          r = amdgpu_ring_test_helper(page);
+>>>>>>>>>>>>                          if (r)
+>>>>>>>>>>>>                                  return r;
+>>>>>>>>>>>> -
+>>>>>>>>>>>> -                     if (adev->mman.buffer_funcs_ring == page)
+>>>>>>>>>>>> -                             amdgpu_ttm_set_buffer_funcs_status(adev, true);
+>>>>>>>>>>>>                  }
+>>>>>>>>>>>> -
+>>>>>>>>>>>> -             if (adev->mman.buffer_funcs_ring == ring)
+>>>>>>>>>>>> -                     amdgpu_ttm_set_buffer_funcs_status(adev, true);
+>>>>>>>>>>>>          }
+>>>>>>>>>>>>
+>>>>>>>>>>>>          return r;
+>>>>>>>>>>>> @@ -1921,11 +1911,8 @@ static int sdma_v4_0_hw_fini(void *handle)
+>>>>>>>>>>>>          struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>>>>>>>>>>>>          int i;
+>>>>>>>>>>>>
+>>>>>>>>>>>> -     if (amdgpu_sriov_vf(adev)) {
+>>>>>>>>>>>> -             /* disable the scheduler for SDMA */
+>>>>>>>>>>>> -             amdgpu_sdma_unset_buffer_funcs_helper(adev);
+>>>>>>>>>>>> +     if (amdgpu_sriov_vf(adev))
+>>>>>>>>>>>>                  return 0;
+>>>>>>>>>>>> -     }
+>>>>>>>>>>>>
+>>>>>>>>>>>>          if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__SDMA)) {
+>>>>>>>>>>>>                  for (i = 0; i < adev->sdma.num_instances; i++) {
+>>>>>>>>>>>> @@ -1964,7 +1951,6 @@ static int sdma_v4_0_resume(void *handle)
+>>>>>>>>>>>>          if (adev->in_s0ix) {
+>>>>>>>>>>>>                  sdma_v4_0_enable(adev, true);
+>>>>>>>>>>>>                  sdma_v4_0_gfx_enable(adev, true);
+>>>>>>>>>>>> -             amdgpu_ttm_set_buffer_funcs_status(adev, true);
+>>>>>>>>>>>>                  return 0;
+>>>>>>>>>>>>          }
+>>>>>>>>>>>>
+>>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+>>>>>>>>>>>> index be5d099c9898..c78027ebdcb9 100644
+>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+>>>>>>>>>>>> @@ -559,8 +559,6 @@ static void sdma_v5_0_gfx_stop(struct amdgpu_device *adev)
+>>>>>>>>>>>>          u32 rb_cntl, ib_cntl;
+>>>>>>>>>>>>          int i;
+>>>>>>>>>>>>
+>>>>>>>>>>>> -     amdgpu_sdma_unset_buffer_funcs_helper(adev);
+>>>>>>>>>>>> -
+>>>>>>>>>>>>          for (i = 0; i < adev->sdma.num_instances; i++) {
+>>>>>>>>>>>>                  rb_cntl = RREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_CNTL));
+>>>>>>>>>>>>                  rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_ENABLE, 0);
+>>>>>>>>>>>> @@ -825,9 +823,6 @@ static int sdma_v5_0_gfx_resume(struct amdgpu_device *adev)
+>>>>>>>>>>>>                  r = amdgpu_ring_test_helper(ring);
+>>>>>>>>>>>>                  if (r)
+>>>>>>>>>>>>                          return r;
+>>>>>>>>>>>> -
+>>>>>>>>>>>> -             if (adev->mman.buffer_funcs_ring == ring)
+>>>>>>>>>>>> -                     amdgpu_ttm_set_buffer_funcs_status(adev, true);
+>>>>>>>>>>>>          }
+>>>>>>>>>>>>
+>>>>>>>>>>>>          return 0;
+>>>>>>>>>>>> @@ -1426,11 +1421,8 @@ static int sdma_v5_0_hw_fini(void *handle)
+>>>>>>>>>>>>      {
+>>>>>>>>>>>>          struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>>>>>>>>>>>>
+>>>>>>>>>>>> -     if (amdgpu_sriov_vf(adev)) {
+>>>>>>>>>>>> -             /* disable the scheduler for SDMA */
+>>>>>>>>>>>> -             amdgpu_sdma_unset_buffer_funcs_helper(adev);
+>>>>>>>>>>>> +     if (amdgpu_sriov_vf(adev))
+>>>>>>>>>>>>                  return 0;
+>>>>>>>>>>>> -     }
+>>>>>>>>>>>>
+>>>>>>>>>>>>          sdma_v5_0_ctx_switch_enable(adev, false);
+>>>>>>>>>>>>          sdma_v5_0_enable(adev, false);
+>>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+>>>>>>>>>>>> index a3e8b10c071c..2e35f3571774 100644
+>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+>>>>>>>>>>>> @@ -364,8 +364,6 @@ static void sdma_v5_2_gfx_stop(struct amdgpu_device *adev)
+>>>>>>>>>>>>          u32 rb_cntl, ib_cntl;
+>>>>>>>>>>>>          int i;
+>>>>>>>>>>>>
+>>>>>>>>>>>> -     amdgpu_sdma_unset_buffer_funcs_helper(adev);
+>>>>>>>>>>>> -
+>>>>>>>>>>>>          for (i = 0; i < adev->sdma.num_instances; i++) {
+>>>>>>>>>>>>                  rb_cntl = RREG32_SOC15_IP(GC, sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_CNTL));
+>>>>>>>>>>>>                  rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_ENABLE, 0);
+>>>>>>>>>>>> @@ -625,9 +623,6 @@ static int sdma_v5_2_gfx_resume(struct amdgpu_device *adev)
+>>>>>>>>>>>>                  r = amdgpu_ring_test_helper(ring);
+>>>>>>>>>>>>                  if (r)
+>>>>>>>>>>>>                          return r;
+>>>>>>>>>>>> -
+>>>>>>>>>>>> -             if (adev->mman.buffer_funcs_ring == ring)
+>>>>>>>>>>>> -                     amdgpu_ttm_set_buffer_funcs_status(adev, true);
+>>>>>>>>>>>>          }
+>>>>>>>>>>>>
+>>>>>>>>>>>>          return 0;
+>>>>>>>>>>>> @@ -1284,11 +1279,8 @@ static int sdma_v5_2_hw_fini(void *handle)
+>>>>>>>>>>>>      {
+>>>>>>>>>>>>          struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>>>>>>>>>>>>
+>>>>>>>>>>>> -     if (amdgpu_sriov_vf(adev)) {
+>>>>>>>>>>>> -             /* disable the scheduler for SDMA */
+>>>>>>>>>>>> -             amdgpu_sdma_unset_buffer_funcs_helper(adev);
+>>>>>>>>>>>> +     if (amdgpu_sriov_vf(adev))
+>>>>>>>>>>>>                  return 0;
+>>>>>>>>>>>> -     }
+>>>>>>>>>>>>
+>>>>>>>>>>>>          sdma_v5_2_ctx_switch_enable(adev, false);
+>>>>>>>>>>>>          sdma_v5_2_enable(adev, false);
+>>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+>>>>>>>>>>>> index 445a34549d2c..1c6ff511f501 100644
+>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+>>>>>>>>>>>> @@ -348,8 +348,6 @@ static void sdma_v6_0_gfx_stop(struct amdgpu_device *adev)
+>>>>>>>>>>>>          u32 rb_cntl, ib_cntl;
+>>>>>>>>>>>>          int i;
+>>>>>>>>>>>>
+>>>>>>>>>>>> -     amdgpu_sdma_unset_buffer_funcs_helper(adev);
+>>>>>>>>>>>> -
+>>>>>>>>>>>>          for (i = 0; i < adev->sdma.num_instances; i++) {
+>>>>>>>>>>>>                  rb_cntl = RREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_RB_CNTL));
+>>>>>>>>>>>>                  rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_QUEUE0_RB_CNTL, RB_ENABLE, 0);
+>>>>>>>>>>>> @@ -561,9 +559,6 @@ static int sdma_v6_0_gfx_resume(struct amdgpu_device *adev)
+>>>>>>>>>>>>                  r = amdgpu_ring_test_helper(ring);
+>>>>>>>>>>>>                  if (r)
+>>>>>>>>>>>>                          return r;
+>>>>>>>>>>>> -
+>>>>>>>>>>>> -             if (adev->mman.buffer_funcs_ring == ring)
+>>>>>>>>>>>> -                     amdgpu_ttm_set_buffer_funcs_status(adev, true);
+>>>>>>>>>>>>          }
+>>>>>>>>>>>>
+>>>>>>>>>>>>          return 0;
+>>>>>>>>>>>> @@ -1308,11 +1303,8 @@ static int sdma_v6_0_hw_fini(void *handle)
+>>>>>>>>>>>>      {
+>>>>>>>>>>>>          struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>>>>>>>>>>>>
+>>>>>>>>>>>> -     if (amdgpu_sriov_vf(adev)) {
+>>>>>>>>>>>> -             /* disable the scheduler for SDMA */
+>>>>>>>>>>>> -             amdgpu_sdma_unset_buffer_funcs_helper(adev);
+>>>>>>>>>>>> +     if (amdgpu_sriov_vf(adev))
+>>>>>>>>>>>>                  return 0;
+>>>>>>>>>>>> -     }
+>>>>>>>>>>>>
+>>>>>>>>>>>>          sdma_v6_0_ctxempty_int_enable(adev, false);
+>>>>>>>>>>>>          sdma_v6_0_enable(adev, false);
+>>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/si_dma.c b/drivers/gpu/drm/amd/amdgpu/si_dma.c
+>>>>>>>>>>>> index 42c4547f32ec..9aa0e11ee673 100644
+>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/si_dma.c
+>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/si_dma.c
+>>>>>>>>>>>> @@ -115,8 +115,6 @@ static void si_dma_stop(struct amdgpu_device *adev)
+>>>>>>>>>>>>          u32 rb_cntl;
+>>>>>>>>>>>>          unsigned i;
+>>>>>>>>>>>>
+>>>>>>>>>>>> -     amdgpu_sdma_unset_buffer_funcs_helper(adev);
+>>>>>>>>>>>> -
+>>>>>>>>>>>>          for (i = 0; i < adev->sdma.num_instances; i++) {
+>>>>>>>>>>>>                  /* dma0 */
+>>>>>>>>>>>>                  rb_cntl = RREG32(DMA_RB_CNTL + sdma_offsets[i]);
+>>>>>>>>>>>> @@ -177,9 +175,6 @@ static int si_dma_start(struct amdgpu_device *adev)
+>>>>>>>>>>>>                  r = amdgpu_ring_test_helper(ring);
+>>>>>>>>>>>>                  if (r)
+>>>>>>>>>>>>                          return r;
+>>>>>>>>>>>> -
+>>>>>>>>>>>> -             if (adev->mman.buffer_funcs_ring == ring)
+>>>>>>>>>>>> -                     amdgpu_ttm_set_buffer_funcs_status(adev, true);
+>>>>>>>>>>>>          }
+>>>>>>>>>>>>
+>>>>>>>>>>>>          return 0;
 
