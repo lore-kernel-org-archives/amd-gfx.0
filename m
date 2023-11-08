@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D0F6C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Nov 2023 19:09:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97CA2C4167D
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Nov 2023 19:09:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2415610E82B;
-	Wed,  8 Nov 2023 19:09:49 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2074.outbound.protection.outlook.com [40.107.220.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAF8210E829
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Nov 2023 19:09:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F48310E82C;
+	Wed,  8 Nov 2023 19:09:52 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2053.outbound.protection.outlook.com [40.107.237.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCC7210E829
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Nov 2023 19:09:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UAvXtvYCnSy26PJfOlC754d5tJzYS7x8HJvCegx5bPQ/1tW7u4fFb6yvO+EpA3gxgueQfr9ByNJKZ0LDA/nY3YCFlUu8iyFWGVtHTJuAAds8Da7kujPEN1BKuNk2uiLiCWtOnsKjfOV3bqIc8CRNLUV4B1u95CMwNxWhfHliIe3zBN9MxkdgojJ4u+h4o6MgERDN9Tab3ex0PPkZPgXI1HZzVLLZvzTgR0oTBxOF5hLULNKS3vFFP5PJ7NXmLqlbg3ESXn+wIb/U6zqtAM8zYl8cdGjdF1WEvd2H7Ll4Alw8L+pa32yVcQ/c1t9ZslpCc4HsCJ2pkJr8ft+d+apxnA==
+ b=dBCBYf6lTKOn66okwAyygu+BFuGTCTFWaBnVOIu0ECiE3VBp9Gb5lQ3so4w1RdcWWjwydbXABQv5nmh6Og9Y1+IvmIedDf53eYpNUdYgMdrgXOv5b9rofZkWVC4uVR2MHAnn+c9vwI1UgVz2rdTK+PJi0+C6tcvKz4gnJWnYH5J+pDfxOkLqR/mf2N4rd99SRFhOyW9nyA7gvnDkrpxRyXVAEjVwnJQf8XieWjzh0Pai56uD8AjTZgFhc3ws11dDD5CF7FPVAshVhOqqpmgAzz/QBeZwJjQpIq3KA8tuaV5PhvLmZj+OZox02O0hjRsNt6h05DoKjgycpUAfL2zAPA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GL3l1/AkcmUPoXVtNLTLjEyp183HecvgSYsCRHgAd+o=;
- b=gA4J42uCHpiHY99eAjXesXoGO+L0KQ+M+miJ6JTM9SIJo1Qgap8LSkUE04iYZ6iZy7Oo7lQtYcwa2UvMGcTL+mr/hhssm5hlAEvY7bxVrawbulviOOS9crL2BRzvAWY6I/xe2hwcnzEw1JOcLKwWizXvhVlNvMhGshKi860QUQ1t5P+CdhV8rZ3AL/udAePYBL3z7iReCDrRhBIupXdGpGG0xrSVUQ3xeASGFIWidoor+68VFNlRfKXKK0IBCot7F/wyiy43I1pSqmioZgs4Gcch4HIekFrdI1wW7dX4donVNm6UPNeCCLY36GjljOPKhTPug74rmIotofn0UDfCaA==
+ bh=b9iJaknyqPS+6HHQZARmkmTwskhlNZzadSSt2s3Ys8M=;
+ b=YbtmmHQl420kO2tbf0Oc4JxgbvQyS6gb0uymrTJiPy6LbCpfsI1YO7vQHhjZKJUDytr4XqFP75tZTmj+J0133akOyjbbuJI6qKWPU1OOjN+Vi0j4XOAsjTNluSzMLQ43r5UVUQx0jgMue3mxgtDCGMlp0iflzJ7tURe2mzpBjtjLaKsxwBk32y84CUrEGMxQqxZKz+ua16uNE4PW7lJWIa/3Fpk8Z42HWH7zuP6BsFfHPpPd9YIfU2rYuBX2XRIBciTEGyCq0DjwNbXylCmEw+SBEw8Foy7q/zoTTmoNT7N627M5gChdtMu8TD0IxzjCbP4s7/JeOLxDwX5p04mVkA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GL3l1/AkcmUPoXVtNLTLjEyp183HecvgSYsCRHgAd+o=;
- b=ZGU6N1d+TCjWzPmn3pY51j73w2A1uhY5JPIt67cu4B9kre8nkVAcWc3rHotHgGMkF8V08vn2aa46hyepENDLV8OxTPzRBAahEgIBy3HEXNlrCIxU7tZnKNdHptkBbgjC2uzlIcHsfh1rJS6NLbATXySBsC1fPYGTwj1TOZRYpUc=
-Received: from CH2PR03CA0022.namprd03.prod.outlook.com (2603:10b6:610:59::32)
- by DM4PR12MB6184.namprd12.prod.outlook.com (2603:10b6:8:a6::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6954.28; Wed, 8 Nov 2023 19:09:22 +0000
+ bh=b9iJaknyqPS+6HHQZARmkmTwskhlNZzadSSt2s3Ys8M=;
+ b=MlfJRJ550j/RYHkLvXOHsDPgYzxNKME5Rn9KUcCjhOdf8OybOPDTQ8JWXkZOc2KkmxV0/xUqh6ro7giXCQFCqIVG/3BnXpkdmWsRQyohIzo1daP7IhVcdoLwF79NcCUbz9QulPrDNs9rOer9SCWmf1cGl1DVQLxFfxGDTG+Gdto=
+Received: from CH2PR03CA0030.namprd03.prod.outlook.com (2603:10b6:610:59::40)
+ by DM3PR12MB9351.namprd12.prod.outlook.com (2603:10b6:8:1ac::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.28; Wed, 8 Nov
+ 2023 19:09:41 +0000
 Received: from DS2PEPF00003441.namprd04.prod.outlook.com
- (2603:10b6:610:59:cafe::ce) by CH2PR03CA0022.outlook.office365.com
- (2603:10b6:610:59::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.18 via Frontend
- Transport; Wed, 8 Nov 2023 19:09:22 +0000
+ (2603:10b6:610:59:cafe::7d) by CH2PR03CA0030.outlook.office365.com
+ (2603:10b6:610:59::40) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.19 via Frontend
+ Transport; Wed, 8 Nov 2023 19:09:41 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DS2PEPF00003441.mail.protection.outlook.com (10.167.17.68) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6977.16 via Frontend Transport; Wed, 8 Nov 2023 19:09:22 +0000
+ 15.20.6977.16 via Frontend Transport; Wed, 8 Nov 2023 19:09:41 +0000
 Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Wed, 8 Nov
- 2023 13:09:19 -0600
+ 2023 13:09:38 -0600
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 14/20] drm/amd/display: Change the DMCUB mailbox memory
- location from FB to inbox
-Date: Wed, 8 Nov 2023 11:44:29 -0700
-Message-ID: <20231108185501.45359-15-alex.hung@amd.com>
+Subject: [PATCH 15/20] drm/amd/display: Enable DSC Flag in MST Mode Validation
+Date: Wed, 8 Nov 2023 11:44:30 -0700
+Message-ID: <20231108185501.45359-16-alex.hung@amd.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231108185501.45359-1-alex.hung@amd.com>
 References: <20231108185501.45359-1-alex.hung@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003441:EE_|DM4PR12MB6184:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7a1b98b2-2a8a-4954-c752-08dbe08e3796
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003441:EE_|DM3PR12MB9351:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8820c1f1-0599-4c95-09fd-08dbe08e42bf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 34/pJ2H+150s/c1UzWCIIw4SYi6gW2FPwCl4jEtkgskZfRDKRzYhVe9TCXK1P5IfeVKfRXi7df1Os1Gic2dHwEnvr47RgiN7TBuzHgu8unAjsdyDPreUsZA/ZpuWuy/2FTFQx35UWj0CGlHGFoIqffNjnvTRXpHEhmCljwCmvMJB2n49VSeI49cIJ8i2P+kc/QTSgD3olFITOoZQvh7LfZa+ef9kf7u8I2hV5QigZRhB0eay16ekltXdf3qLHPWfeAuZZdMy541TeC8/MDpEkKFH7Zjl1XHpRH1j74tnOHsf3iwOO8Gp58grKzP01g3t/MuNTKl1+iWEhXd+7UqPJ6uUQNoadTUIjGIla3gaakmWJ30bnlJTLYR85i83UCBi5K5EghILT+mer12ASH81+710BcgDmNFyjyN1U4WRjg5pqcat/MGkVPdegHZpcRvn3xWWpx2Si3vBR0isI68XlnSvAjvH+RaiDYs045tZGh4mnhtP0oKYuHBcpLlEN5YnMNkmDwA+3dXjEU/iBAZjkbiJHJes614vvMGUL5Q9R9VnDTjU2my/mZWcJYFuhYhduD32uU+ARNFKtCjpV+ekcEKEGFS/gZsWgw4Z38FnOMWhLmj3WGdTq/TSZDnfKIGooh1PlWOIfV+8OvG6bt2AbTp6TP5Xks9PbmftWL6A3Csc9Wp+QIFDhAsYHkzXAILHvfN1V0A9nEluyjGF2diOPp8bl3W+6X4/sb56Mv4NDZszNzqd/GCSYR9GNEK/iiELy/ZRJYab646FL12WqyV+xg==
+X-Microsoft-Antispam-Message-Info: LJ5cg8W3buYnq0yJo8tGr1X9Oc1mZyDPR8HH4vcMkmYnMwz9V9eblJg8oKkhagze4wOS1K4/mJMBVBjgB5wgBDl9BmagSSy2HxB0j7q11ZhcXRcrfdYVJlby76iETY60JiP5lwIPlHbaogMPkvcIRFNOxaXsGnhAKW26BAnMRZQ/DICWCn4YgVyH6F6rNXFEA6dwl4WW201UAJIQlwPbcyXnSpWvDensbNMWEiu9/hG97QQRk0Ogn171OZlOe4ZBkHt2IHxMS91rzr1zOJKjmQq1qLhyTvAjBHxW4RsKnPsoZFcTTdbtTQynMqIi6GVvUD1bQuoGdIeHmaUF/vCz58GGXSF3x5jf6Ep8szwEz2jtIXvUSeSJ1YO4aeE5m96Qybn939YfmpBjVgR39y0vL3eRubvcjrSryiIjDoziJoCoW2BXvTero2EiexqzfPZmaJFFQAbHHTTfRmq/aO26JghPXyhgakZyz9LusFP3lbqyAz83by4tA2XJVTTNf9SeAR8ZUhPlt8bAPIDWVR82PBIb3z6yHCKOhDcZBPCwPb/lP+N8SoNOkEi5LJX0fVm9XPDcYe5zRFK8zSKHgjsa2ygk0a7DiuWnT1Uu65Wnr4qksIZ6EmFCQycb1YbMUicE2UYWJFcg5kPVxaIXEcst1U1dPvUCIrt3QYSvhwyK4pE6hxl1K86UzfLVcHpd9sR+8kCHkcKpuCXd9O0PMawzs2qXAh+7P9RwZFsisNQ1CtvPHZToF0ym6kzulbGtRlwJ4ZvvnN24IH/GZEtO1IL2JQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(346002)(396003)(136003)(376002)(230922051799003)(64100799003)(186009)(1800799009)(82310400011)(451199024)(36840700001)(40470700004)(46966006)(336012)(83380400001)(2616005)(81166007)(426003)(6666004)(7696005)(1076003)(26005)(16526019)(478600001)(40480700001)(82740400003)(47076005)(36860700001)(356005)(70586007)(70206006)(6916009)(54906003)(8936002)(316002)(44832011)(4326008)(15650500001)(86362001)(2906002)(5660300002)(41300700001)(40460700003)(36756003)(8676002)(36900700001);
+ SFS:(13230031)(4636009)(376002)(396003)(346002)(39860400002)(136003)(230922051799003)(451199024)(186009)(82310400011)(1800799009)(64100799003)(46966006)(36840700001)(40470700004)(40480700001)(40460700003)(426003)(7696005)(6666004)(478600001)(2616005)(36756003)(81166007)(36860700001)(86362001)(356005)(82740400003)(70586007)(26005)(8676002)(44832011)(70206006)(41300700001)(2906002)(16526019)(47076005)(1076003)(336012)(83380400001)(6916009)(5660300002)(4326008)(316002)(8936002)(54906003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2023 19:09:22.4882 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a1b98b2-2a8a-4954-c752-08dbe08e3796
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2023 19:09:41.2069 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8820c1f1-0599-4c95-09fd-08dbe08e42bf
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003441.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6184
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9351
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,219 +99,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Lewis
- Huang <lewis.huang@amd.com>, chiahsuan.chung@amd.com, Sunpeng.Li@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, stable@vger.kernel.org,
- Alex Hung <alex.hung@amd.com>, jerry.zuo@amd.com, Aurabindo.Pillai@amd.com,
- hersenxs.wu@amd.com, Mario Limonciello <mario.limonciello@amd.com>,
- wayne.lin@amd.com, Alex Deucher <alexander.deucher@amd.com>,
- Harry.Wentland@amd.com, Nicholas
- Kazlauskas <nicholas.kazlauskas@amd.com>, agustin.gutierrez@amd.com
+Cc: stylon.wang@amd.com, chiahsuan.chung@amd.com, Sunpeng.Li@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, Alex
+ Hung <alex.hung@amd.com>, jerry.zuo@amd.com, Aurabindo.Pillai@amd.com,
+ hersenxs.wu@amd.com, wayne.lin@amd.com, Harry.Wentland@amd.com,
+ agustin.gutierrez@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lewis Huang <lewis.huang@amd.com>
+From: Fangzhi Zuo <jerry.zuo@amd.com>
 
-[WHY]
-Flush command sent to DMCUB spends more time for execution on
-a dGPU than on an APU. This causes cursor lag when using high
-refresh rate mouses.
+[WHY & HOW]
+When dsc is possible, MST mode validation includes:
+1. if maximum dsc compression cannot fit into end to end bw, mode pruned
+2. if native bw cannot fit into end to end bw, try to enabled dsc to see
+   whether a feasible dsc config can be found
+3. if native bw can fit into end to end bw, mode supported
 
-[HOW]
-1. Change the DMCUB mailbox memory location from FB to inbox.
-2. Only change windows memory to inbox.
-
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Wayne Lin <wayne.lin@amd.com>
 Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Lewis Huang <lewis.huang@amd.com>
+Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 13 ++++----
- drivers/gpu/drm/amd/display/dmub/dmub_srv.h   | 22 ++++++++-----
- .../gpu/drm/amd/display/dmub/src/dmub_srv.c   | 32 ++++++++++++++-----
- 3 files changed, 45 insertions(+), 22 deletions(-)
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 44 +++++++++++--------
+ 1 file changed, 26 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 8ebdbfbbb691..6199440a9da8 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2078,7 +2078,7 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev)
- 	struct dmub_srv_create_params create_params;
- 	struct dmub_srv_region_params region_params;
- 	struct dmub_srv_region_info region_info;
--	struct dmub_srv_fb_params fb_params;
-+	struct dmub_srv_memory_params memory_params;
- 	struct dmub_srv_fb_info *fb_info;
- 	struct dmub_srv *dmub_srv;
- 	const struct dmcub_firmware_header_v1_0 *hdr;
-@@ -2181,6 +2181,7 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev)
- 		adev->dm.dmub_fw->data +
- 		le32_to_cpu(hdr->header.ucode_array_offset_bytes) +
- 		PSP_HEADER_BYTES;
-+	region_params.is_mailbox_in_inbox = false;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index ec87e31c6fe8..8d7d4024f285 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -1602,9 +1602,8 @@ enum dc_status dm_dp_mst_is_port_support_mode(
+ 	struct dc_link_settings cur_link_settings;
+ 	unsigned int end_to_end_bw_in_kbps = 0;
+ 	unsigned int upper_link_bw_in_kbps = 0, down_link_bw_in_kbps = 0;
+-	unsigned int max_compressed_bw_in_kbps = 0;
+ 	struct dc_dsc_bw_range bw_range = {0};
+-	uint16_t full_pbn = aconnector->mst_output_port->full_pbn;
++	struct dc_dsc_config_options dsc_options = {0};
  
- 	status = dmub_srv_calc_region_info(dmub_srv, &region_params,
- 					   &region_info);
-@@ -2204,10 +2205,10 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev)
- 		return r;
+ 	/*
+ 	 * Consider the case with the depth of the mst topology tree is equal or less than 2
+@@ -1620,30 +1619,39 @@ enum dc_status dm_dp_mst_is_port_support_mode(
+ 	   (aconnector->mst_output_port->passthrough_aux ||
+ 	    aconnector->dsc_aux == &aconnector->mst_output_port->aux)) {
+ 		cur_link_settings = stream->link->verified_link_cap;
++		upper_link_bw_in_kbps = dc_link_bandwidth_kbps(aconnector->dc_link, &cur_link_settings);
++		down_link_bw_in_kbps = kbps_from_pbn(aconnector->mst_output_port->full_pbn);
  
- 	/* Rebase the regions on the framebuffer address. */
--	memset(&fb_params, 0, sizeof(fb_params));
--	fb_params.cpu_addr = adev->dm.dmub_bo_cpu_addr;
--	fb_params.gpu_addr = adev->dm.dmub_bo_gpu_addr;
--	fb_params.region_info = &region_info;
-+	memset(&memory_params, 0, sizeof(memory_params));
-+	memory_params.cpu_fb_addr = adev->dm.dmub_bo_cpu_addr;
-+	memory_params.gpu_fb_addr = adev->dm.dmub_bo_gpu_addr;
-+	memory_params.region_info = &region_info;
- 
- 	adev->dm.dmub_fb_info =
- 		kzalloc(sizeof(*adev->dm.dmub_fb_info), GFP_KERNEL);
-@@ -2219,7 +2220,7 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev)
- 		return -ENOMEM;
- 	}
- 
--	status = dmub_srv_calc_fb_info(dmub_srv, &fb_params, fb_info);
-+	status = dmub_srv_calc_mem_info(dmub_srv, &memory_params, fb_info);
- 	if (status != DMUB_STATUS_OK) {
- 		DRM_ERROR("Error calculating DMUB FB info: %d\n", status);
- 		return -EINVAL;
-diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-index 9665ada0f894..df63aa8f01e9 100644
---- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-+++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-@@ -195,6 +195,7 @@ struct dmub_srv_region_params {
- 	uint32_t vbios_size;
- 	const uint8_t *fw_inst_const;
- 	const uint8_t *fw_bss_data;
-+	bool is_mailbox_in_inbox;
- };
- 
- /**
-@@ -214,20 +215,25 @@ struct dmub_srv_region_params {
-  */
- struct dmub_srv_region_info {
- 	uint32_t fb_size;
-+	uint32_t inbox_size;
- 	uint8_t num_regions;
- 	struct dmub_region regions[DMUB_WINDOW_TOTAL];
- };
- 
- /**
-- * struct dmub_srv_fb_params - parameters used for driver fb setup
-+ * struct dmub_srv_memory_params - parameters used for driver fb setup
-  * @region_info: region info calculated by dmub service
-- * @cpu_addr: base cpu address for the framebuffer
-- * @gpu_addr: base gpu virtual address for the framebuffer
-+ * @cpu_fb_addr: base cpu address for the framebuffer
-+ * @cpu_inbox_addr: base cpu address for the gart
-+ * @gpu_fb_addr: base gpu virtual address for the framebuffer
-+ * @gpu_inbox_addr: base gpu virtual address for the gart
-  */
--struct dmub_srv_fb_params {
-+struct dmub_srv_memory_params {
- 	const struct dmub_srv_region_info *region_info;
--	void *cpu_addr;
--	uint64_t gpu_addr;
-+	void *cpu_fb_addr;
-+	void *cpu_inbox_addr;
-+	uint64_t gpu_fb_addr;
-+	uint64_t gpu_inbox_addr;
- };
- 
- /**
-@@ -563,8 +569,8 @@ dmub_srv_calc_region_info(struct dmub_srv *dmub,
-  *   DMUB_STATUS_OK - success
-  *   DMUB_STATUS_INVALID - unspecified error
-  */
--enum dmub_status dmub_srv_calc_fb_info(struct dmub_srv *dmub,
--				       const struct dmub_srv_fb_params *params,
-+enum dmub_status dmub_srv_calc_mem_info(struct dmub_srv *dmub,
-+				       const struct dmub_srv_memory_params *params,
- 				       struct dmub_srv_fb_info *out);
- 
- /**
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-index 5d36f3e5dc2b..22fc4ba96def 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-@@ -434,7 +434,7 @@ dmub_srv_calc_region_info(struct dmub_srv *dmub,
- 	uint32_t fw_state_size = DMUB_FW_STATE_SIZE;
- 	uint32_t trace_buffer_size = DMUB_TRACE_BUFFER_SIZE;
- 	uint32_t scratch_mem_size = DMUB_SCRATCH_MEM_SIZE;
+-		upper_link_bw_in_kbps = dc_link_bandwidth_kbps(aconnector->dc_link,
+-							       &cur_link_settings);
+-		down_link_bw_in_kbps = kbps_from_pbn(full_pbn);
 -
-+	uint32_t previous_top = 0;
- 	if (!dmub->sw_init)
- 		return DMUB_STATUS_INVALID;
+-		/* pick the bottleneck */
+-		end_to_end_bw_in_kbps = min(upper_link_bw_in_kbps,
+-					    down_link_bw_in_kbps);
+-
+-		/*
+-		 * use the maximum dsc compression bandwidth as the required
+-		 * bandwidth for the mode
+-		 */
+-		max_compressed_bw_in_kbps = bw_range.min_kbps;
++		/* pick the end to end bw bottleneck */
++		end_to_end_bw_in_kbps = min(upper_link_bw_in_kbps, down_link_bw_in_kbps);
  
-@@ -459,8 +459,15 @@ dmub_srv_calc_region_info(struct dmub_srv *dmub,
- 	bios->base = dmub_align(stack->top, 256);
- 	bios->top = bios->base + params->vbios_size;
- 
--	mail->base = dmub_align(bios->top, 256);
--	mail->top = mail->base + DMUB_MAILBOX_SIZE;
-+	if (params->is_mailbox_in_inbox) {
-+		mail->base = 0;
-+		mail->top = mail->base + DMUB_MAILBOX_SIZE;
-+		previous_top = bios->top;
-+	} else {
-+		mail->base = dmub_align(bios->top, 256);
-+		mail->top = mail->base + DMUB_MAILBOX_SIZE;
-+		previous_top = mail->top;
-+	}
- 
- 	fw_info = dmub_get_fw_meta_info(params);
- 
-@@ -479,7 +486,7 @@ dmub_srv_calc_region_info(struct dmub_srv *dmub,
- 			dmub->fw_version = fw_info->fw_version;
- 	}
- 
--	trace_buff->base = dmub_align(mail->top, 256);
-+	trace_buff->base = dmub_align(previous_top, 256);
- 	trace_buff->top = trace_buff->base + dmub_align(trace_buffer_size, 64);
- 
- 	fw_state->base = dmub_align(trace_buff->top, 256);
-@@ -490,11 +497,14 @@ dmub_srv_calc_region_info(struct dmub_srv *dmub,
- 
- 	out->fb_size = dmub_align(scratch_mem->top, 4096);
- 
-+	if (params->is_mailbox_in_inbox)
-+		out->inbox_size = dmub_align(mail->top, 4096);
+-		if (end_to_end_bw_in_kbps < max_compressed_bw_in_kbps) {
+-			DRM_DEBUG_DRIVER("Mode does not fit into DSC pass-through bandwidth validation\n");
++		if (end_to_end_bw_in_kbps < bw_range.min_kbps) {
++			DRM_DEBUG_DRIVER("maximum dsc compression cannot fit into end-to-end bandwidth\n");
+ 			return DC_FAIL_BANDWIDTH_VALIDATE;
+ 		}
 +
- 	return DMUB_STATUS_OK;
- }
- 
--enum dmub_status dmub_srv_calc_fb_info(struct dmub_srv *dmub,
--				       const struct dmub_srv_fb_params *params,
-+enum dmub_status dmub_srv_calc_mem_info(struct dmub_srv *dmub,
-+				       const struct dmub_srv_memory_params *params,
- 				       struct dmub_srv_fb_info *out)
- {
- 	uint8_t *cpu_base;
-@@ -509,8 +519,8 @@ enum dmub_status dmub_srv_calc_fb_info(struct dmub_srv *dmub,
- 	if (params->region_info->num_regions != DMUB_NUM_WINDOWS)
- 		return DMUB_STATUS_INVALID;
- 
--	cpu_base = (uint8_t *)params->cpu_addr;
--	gpu_base = params->gpu_addr;
-+	cpu_base = (uint8_t *)params->cpu_fb_addr;
-+	gpu_base = params->gpu_fb_addr;
- 
- 	for (i = 0; i < DMUB_NUM_WINDOWS; ++i) {
- 		const struct dmub_region *reg =
-@@ -518,6 +528,12 @@ enum dmub_status dmub_srv_calc_fb_info(struct dmub_srv *dmub,
- 
- 		out->fb[i].cpu_addr = cpu_base + reg->base;
- 		out->fb[i].gpu_addr = gpu_base + reg->base;
-+
-+		if (i == DMUB_WINDOW_4_MAILBOX && params->cpu_inbox_addr != 0) {
-+			out->fb[i].cpu_addr = (uint8_t *)params->cpu_inbox_addr + reg->base;
-+			out->fb[i].gpu_addr = params->gpu_inbox_addr + reg->base;
++		if (end_to_end_bw_in_kbps < bw_range.stream_kbps) {
++			dc_dsc_get_default_config_option(stream->link->dc, &dsc_options);
++			dsc_options.max_target_bpp_limit_override_x16 = aconnector->base.display_info.max_dsc_bpp * 16;
++			if (dc_dsc_compute_config(stream->sink->ctx->dc->res_pool->dscs[0],
++					&stream->sink->dsc_caps.dsc_dec_caps,
++					&dsc_options,
++					end_to_end_bw_in_kbps,
++					&stream->timing,
++					dc_link_get_highest_encoding_format(stream->link),
++					&stream->timing.dsc_cfg)) {
++				stream->timing.flags.DSC = 1;
++				DRM_DEBUG_DRIVER("end-to-end bandwidth require dsc and dsc config found\n");
++			} else {
++				DRM_DEBUG_DRIVER("end-to-end bandwidth require dsc but dsc config not found\n");
++				return DC_FAIL_BANDWIDTH_VALIDATE;
++			}
 +		}
-+
- 		out->fb[i].size = reg->top - reg->base;
+ 	} else {
+ 		/* check if mode could be supported within full_pbn */
+ 		bpp = convert_dc_color_depth_into_bpc(stream->timing.display_color_depth) * 3;
+ 		pbn = drm_dp_calc_pbn_mode(stream->timing.pix_clk_100hz / 10, bpp, false);
+-		if (pbn > full_pbn)
++		if (pbn > aconnector->mst_output_port->full_pbn)
+ 			return DC_FAIL_BANDWIDTH_VALIDATE;
  	}
  
 -- 
