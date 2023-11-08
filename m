@@ -4,51 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BDFAC4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Nov 2023 13:48:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3522C4167B
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Nov 2023 13:57:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0945110E759;
-	Wed,  8 Nov 2023 13:48:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 384C410E75C;
+	Wed,  8 Nov 2023 13:57:13 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20625.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5a::625])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F1E810E75A
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Nov 2023 13:48:52 +0000 (UTC)
+ (mail-mw2nam12on2067.outbound.protection.outlook.com [40.107.244.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BA5510E75C
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Nov 2023 13:57:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bdGSru9Nd8aOxb33yDyd+rCXhmLK/enPNsx7SopDk95uqTC44bdhmrIvYN87G7tC5AY75aT+7qBem55C70uoi7bDjaG74SU1CdlYZn0inZhm2lQntPP99HAAEW0tbn/BSoA9u1pS8sylkKVA4PQJ7XClZJLMj3LuarkNiBYKOPZrEijp5FW44ScHF/FVcoZ+hrw0+SOGbtir6RVJZn0m3mCr8htDguniYBbWExAeKTQs+XveOco2AxHt488so92YhHfyFXgFUyPM11ZCXuKQqiw/yJIvmWjNcYZ4EkoDhVsQGuF3Lx0w9L7UYTLEpbnaxZxrUT56EoBSg1E7VyQeDg==
+ b=QphZ1ukU7oM+OukOc4e9s/B8zWubbjq0C8XW5j+4UE4pcjDDLBDjNlItMndTrzdB7SaRicGxlVY8LF+1zpp6Q+R1ITrkOgyjXaWkJZdIFmBzWP1Fjz45siyG428U8kzu1EzGdswjMqu74i/Ki8M/ZOYXmU1CkRWP9Ryp2/RzVn/9mVvRhJm4P5rJ5eWZMbpuBVhUFnj9cJyKV5jgvW+bkPefmL9F+RDZvm4CUw9rzKiM6MHKzbE7MVDpG8hGYWlTmclSqeLfuIdS+h9NQ/hurQ+sAZMyblyv7jeHeeJTeZC8eFXBCt0ljADPJvtrDQ8hOYMpGZXiHvYUsq5Vm9qqBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DngQ6gB0h1Ece9Ln5lUGLViQ4z6PK8L4Y2L1Feace+c=;
- b=CtcaYrSFTU8lUWBbWJ044YqL1+IqeKoqJpKDap7BbO1BZnsmc5UIOk5iGps2oGwF8Ck9tOzc9YSzV1Yb0tYJv/Ed83BMU2d01nwK/XdyyGLvuethtYPwpbT3Mef2OprdUouGewNM36N9q4FE5I80JTyhMjyIB6zMyMQO+Nmu/U0vCuig3AMy6QfZeie+WOVMeI/zt8eTzU3SEzr0JKK7uK9q0S6ThduBbKG3BTfEjfIJl1jF3FIvvnLnaGTrylnLhtCKSvBHi7P1b7CjY+a9dr6SAt3nVmPM6ZWMibb7Owob5nkjf12o4LouZ8/CT1qlo8B/xh48sAqpzDAUsu8Ztg==
+ bh=UhjwnZVvlJM1hmCEmCUeBvxhQMQEqabcnPkLvl49b0c=;
+ b=RVhwLoJqoq6IzBBo7snDNPN8C77SAw5ICZSAsDr/k12RIWGwhiJQ44ZzEQYKt4p6pEXDo+sgwlPNsBATEiwQ1YD7Z4v6esNZLY/uGJ/eF39C6zl+Swq4SVUn5hW6Sk3s+1mdKpatAo4+X5wT+WWT1MBb332jF/6MdIWu8YLEMHJr4nzbYs7U23wXV+c3Lw3fW0LQH4vbXOzPNds3VeTYexW96bU3sX6mGPQkBtw7QbQRMprijqzl3/HuwJpIKh9oZfQBAO3sbyGhVUlAXM+O7jdbvFdbDwZby80diTkJAoXLCY0dezLymzoM/W0/g5jik47v9/Cg5lrlwvQDXsd8Ug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DngQ6gB0h1Ece9Ln5lUGLViQ4z6PK8L4Y2L1Feace+c=;
- b=VZOv5Sz6zfWlEhUrs5HbMalXmk8CQZ8Oyuk2cgwa/5NB3sFtOpjKV+214FHzVEG2C2E17aUOhKyabIrGdfHY6nikgSNcWTla7msilxJqMiEWKqohM+qJCgkXms2GSxMeLagjbbAgVy1qqLmRp5ZgA7yru8NnqIHYcnqKLsV0AEE=
+ bh=UhjwnZVvlJM1hmCEmCUeBvxhQMQEqabcnPkLvl49b0c=;
+ b=5Pd8dFdEzAVvfILADGnd0QZGCHD8PA7o626aoUWm4cV4BzXmIkcC5ZDix7xWK/H4O+9J/BrsNEsWTgQadXsInXGYBXkdDaEczOn5gyu255SYUj+Buv7el8zmGhZ/2Z5tHKWuy1qubk/On0cR1RUSqAPV2NNhj+VSmA/50JMtJUc=
 Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
- by MN6PR12MB8513.namprd12.prod.outlook.com (2603:10b6:208:472::13)
- with Microsoft SMTP Server (version=TLS1_2,
+ by DM6PR12MB5021.namprd12.prod.outlook.com (2603:10b6:5:208::17) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.28; Wed, 8 Nov
- 2023 13:48:49 +0000
+ 2023 13:57:09 +0000
 Received: from PH7PR12MB5997.namprd12.prod.outlook.com
  ([fe80::ca1f:8b18:846d:234e]) by PH7PR12MB5997.namprd12.prod.outlook.com
  ([fe80::ca1f:8b18:846d:234e%4]) with mapi id 15.20.6954.028; Wed, 8 Nov 2023
- 13:48:49 +0000
+ 13:57:07 +0000
 From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
 To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 6/7] drm/amdgpu: correct acclerator check architecutre dump
-Thread-Topic: [PATCH 6/7] drm/amdgpu: correct acclerator check architecutre
- dump
-Thread-Index: AQHaEkNAvq8jDP8tI0uSQG9DcSFxbrBwb+Uw
-Date: Wed, 8 Nov 2023 13:48:49 +0000
-Message-ID: <PH7PR12MB5997B9635BC239DD8613E15982A8A@PH7PR12MB5997.namprd12.prod.outlook.com>
+Subject: RE: [PATCH 3/7] drm/amdgpu: Support multiple error query modes
+Thread-Topic: [PATCH 3/7] drm/amdgpu: Support multiple error query modes
+Thread-Index: AQHaEkM+zW3qgQ8W6kmF/LoWjiuiSLBwckHQ
+Date: Wed, 8 Nov 2023 13:57:06 +0000
+Message-ID: <PH7PR12MB5997844A98664B9AF3346F0B82A8A@PH7PR12MB5997.namprd12.prod.outlook.com>
 References: <20231108125735.2497856-1-kevinyang.wang@amd.com>
- <20231108125735.2497856-6-kevinyang.wang@amd.com>
-In-Reply-To: <20231108125735.2497856-6-kevinyang.wang@amd.com>
+ <20231108125735.2497856-3-kevinyang.wang@amd.com>
+In-Reply-To: <20231108125735.2497856-3-kevinyang.wang@amd.com>
 Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -56,57 +54,57 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|MN6PR12MB8513:EE_
-x-ms-office365-filtering-correlation-id: 19c8d95b-b539-4d3d-823d-08dbe0616fc4
+x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|DM6PR12MB5021:EE_
+x-ms-office365-filtering-correlation-id: 0efc575e-f0c1-4dd6-3c19-08dbe0629857
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: tja1azJeC8fEoqDiM+yKmMCBI7FdhU7gyUx+p/Q90hlL9KhREb+P9Ksjr81hA0H3DEEIGW62+YrXwgW4E6N1Or11rF7FAkFvF04HZNqA34a+h0gSaPEJH/AZ9C5U/6OzItcda8nndyXKBMnsX9Ormc23WcxED9IlmdZS7choYi2/v9lP0TsUlyuDyiPakosjiBBd8quWT1GdjI6xXXsKrhEhOzmPpCrc2xikre493TRBTr3psh3VIGBrosdpfqfiqlKcTdLPgB9b23weLyuDzDuUWCFotihL6dGVk3pNC++30Z2Suyget6yiu4ZtvYcXnsc7XbN6GIbRDSC1GECtXxZCspbWA8Siuzkm3xLj5dhEqcfw76WYu5AION+1YiXURMfw4eFz8B2SMpz8nF/Z4QOFhZSrAWv/WJRZ34pHdJl4uBDwTml3B9Z4BFP1zKnpw16K3ZrtKi9vZuHE9wTPrQBJNBP8kJEZuzLXnkTc6JpqUip+YePbivt/rqXTyXG3CXuoMlvufOFzjOlnc4HOO1ssRjHNMas9v1Egfgyoo8XvpqT2vaMp77hJ2Z9YQV1/LBWP+zuIoIfgb8/d9iG6WNS2xcdlEYbAunHLd4BopQAFbBdcfmF2quA7hMNxENbH
+x-microsoft-antispam-message-info: N/LDLZ/Cvy1uPoqNvH2KY+tkINxJPXWVjlkKyXgBPhOdD1kqGXBLXB9t0BANnRUWsvboknrNm4SnTfhSjms7phhwQ1d+sufOFhhHZ42Hh7/jdOIbfuLPCBuoDAhapoRZkVek9MescXWfFL1qgP6SzzZb56Yl9sOYI5kFTi3BWMrgfdgfPKfugHg8fhKH/XThvCMkjj9MFKV9w+32DeFhNOTkiZ8QJqcfP13Eta3ihe94eoAmn1zaluidioD0pDKAtIWp+hTz4QYxxxK9IkdA3cPty48QaGjm+u6Oe14e+yJIGKWjJ28ay4f+qtFNF09tXLrq2Xaj6g1wpQ1p2gIfkLHbNSmiuAIqiEI4ZmwGlNwOknthUsNfm/suJ4W6NXjYwSDwiUmYzA2oHC5gxZoTYDdrVpJwNcUbSFOMRAK9vyQRMMXVKcIbpOJ93tmQJRqc0mxkmNGKy3rWQep4SLRsDc3TKmUd/lfTdC1y4rhLzXO5v0K2eSICLSqQKGCV/p/BYaTQc+aT0lYUiUeCIFEF0l/Dw0TpvOWFHQt0i+FXAxdMMoZhCY3SODRkcOq/+Ftjlqv38eV0Dy+JgskySVdTGk/fKzY/AhL6RCOla8ZMH5YkxKMHGgmoT2njYElffZHz
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(366004)(396003)(39860400002)(376002)(346002)(230922051799003)(1800799009)(451199024)(64100799003)(186009)(55016003)(2906002)(5660300002)(4326008)(8936002)(8676002)(86362001)(38100700002)(41300700001)(83380400001)(33656002)(76116006)(9686003)(122000001)(52536014)(316002)(110136005)(64756008)(66446008)(66556008)(66476007)(66946007)(71200400001)(7696005)(6506007)(53546011)(38070700009)(26005)(478600001);
+ SFS:(13230031)(396003)(346002)(366004)(136003)(39860400002)(376002)(230922051799003)(1800799009)(186009)(64100799003)(451199024)(9686003)(52536014)(76116006)(122000001)(26005)(110136005)(478600001)(66556008)(66476007)(66946007)(66446008)(38070700009)(64756008)(71200400001)(316002)(7696005)(53546011)(6506007)(8676002)(4326008)(5660300002)(8936002)(55016003)(2906002)(41300700001)(33656002)(38100700002)(83380400001)(86362001);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?UQsgqEuw8s6kWE6nzcXomee8MhONxWVDEpn2Sw/qJG/CsPBAot+xAUG+Gpxr?=
- =?us-ascii?Q?/Qaby9nSU1RjqPPg5LIWtrSoA/M7V7uazS+WApQ3FdBt31alGgOCz1f24LBP?=
- =?us-ascii?Q?Ig54dq5W3Hpt3GtBa5urzANy26keaV47dku5FyS3sMgGoxerX/VKP+2AQprk?=
- =?us-ascii?Q?kAdAUvPyIo3BymT72xHlBUuI0USo6XN3RlLvEvld/faiwKJkZaLq77peZZAz?=
- =?us-ascii?Q?uobX0LXZ7oXXPyB3BnQv5GhcUDv8aF9yNPklvoOpcRQCEqKGzd/Fu1PoWYaY?=
- =?us-ascii?Q?6zwAQ6bK0xm1WPE2SyQnzGScgEd55jnToA+FhZd7dePeOlFT2kffxVjZMwt+?=
- =?us-ascii?Q?Kqs6ixWH1gS6Wn+dMcFp9NxrBVlp4RSFoKB+6RVPNvZYMYS7ahMX/emUcOhm?=
- =?us-ascii?Q?9SBd5OOFBVKo/AzB7btQFGmFj9wEZhWEV6nDQVeylih10qnGxTYq0cMFBU9h?=
- =?us-ascii?Q?zJM3VHCxbmeGy05kFNRPkN+sw3+3M2vuKbNTuXrk/e4HNmXYWuB+WF0Ra3+c?=
- =?us-ascii?Q?XqwTaf2Fjo0+AReZ8B8rY/YHSCByJ5KfqgK/7ylNwNhMtD2DegrCJkko6gzY?=
- =?us-ascii?Q?GMwjAMFB4D8irZhM1ghGUDyxjEOMcXptd8DnldNgUQpI+BP1T8po5nIUJGmQ?=
- =?us-ascii?Q?ugKT4548wjIUgqQ267N0hYeDTi4PbGgIYJCrTjFlXPzNmZnZXShSku0AhHaZ?=
- =?us-ascii?Q?Lv8RSXTPwOio1UwFUbZk8OMuB3NwtWrDi3DGH2IpHNRwyG1WA/cBbCrIH6CV?=
- =?us-ascii?Q?03Z2PStlELpbPrUNZw7ibkTZKaVcdqfcydDRTehn+wi2XUAslaAjZVRa3C6o?=
- =?us-ascii?Q?x7C2H9vm76yfDq0PCBhcbMdIek5jzFQFS2qqEwEiDnvlYp/mMg/4eDNgsG1g?=
- =?us-ascii?Q?v+63H0MlmgWyfem1GGbiYTLCMdQ492a9+HRJOdT2ZHYhuTCPSFF9m1NMP5Bx?=
- =?us-ascii?Q?BruOMXlHCII+k9Ehvf2XQhUsmTiUqXgupS4I2eR7ITjtukCT3hjwJtJy5fLF?=
- =?us-ascii?Q?xtfN3g4zlSqNmzgRlTtMxzT95ftV/kV7vjXRwdpdgBnt+Oo4x081L+7UgwiK?=
- =?us-ascii?Q?c/h561IZJ5FJ3BuYvKoK91ZCJ4WzJz8nuV6H3e0NUyBkeIEKnAkc3mabjvVZ?=
- =?us-ascii?Q?BLUID6MmiPu/sfZqiGWAjbgRFkNlflbM/l5daFonDbdTNWpHYXia59lr66D6?=
- =?us-ascii?Q?dVx9ERON8wZjj83XQI5bJvV5w3SILDLjGecwNB3VekgoNll6zdnuE5qN5/1G?=
- =?us-ascii?Q?CxGHc6zrRn0RDlDH2s9yXIj1Ph+QLrqvz4BmXBLsLxyAlAjIKcFtKeBjNemZ?=
- =?us-ascii?Q?JOcVtFVK+cA6OeVAY8rgjr7DkrA3edRmoyIr/Kc5xP+NUjX0eM5PMlbADrhQ?=
- =?us-ascii?Q?zZQvlZZPx3YClUI/4p6pgF85CQMuSmWlWdVQP/5diMitUm+LW3Sbxa7SeOoi?=
- =?us-ascii?Q?RAdGqnV/Hdh4byghKpieuBjOiaQQwSjibYo84bu4FG7pNGjr/UzPw6qIdAl7?=
- =?us-ascii?Q?WBPtReWFi9VJgj8+UPGbhW/WMNR3StV7AYRqEpl42lpW6K/kb3T3dS0k7xKL?=
- =?us-ascii?Q?npa576oRU/jvRwXelQU=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?+7tHnN/wcj9vV3BEWoDsIk6RpVzKR34wVIt73W/Hexb69CVcq4w0UiDEB4mS?=
+ =?us-ascii?Q?Wxu06kdJBMYWuMnAbZlmqV6P5aElE3fjst+MY9rtHs8T6Zjev2qQAXL4apJ8?=
+ =?us-ascii?Q?+1hnJ8OLSLnEdWxZMWGyRX1g65u3ug2zL/AXAz6ClH5Ef7ZNnw4BUKV+0i4q?=
+ =?us-ascii?Q?frxFi5ddkx/vo/yHAxb+NIINMCPdIqLO1Ar9GZYV27bogiy5rSXOhnqqT6Q+?=
+ =?us-ascii?Q?Kps+L43p1rcnicwNDLFbTRrxKPklIgnJzc41Imc6h+W1zTwwJPQfegb5pQVR?=
+ =?us-ascii?Q?YKum7KPWUXcZAZCsqLVAWtrlJfZ1leXnno4iWWQJ2hr5YOFTe9GAchJl1e2B?=
+ =?us-ascii?Q?PCKxoiLTCK4muwLr3ewlkZ8gxaaFiGgiA7Zeo43Qcrn7u75xF9SN1Ph8C46k?=
+ =?us-ascii?Q?WE8CmfmZUeFo0q517jA0js5S+5+l+PKt6KJckc7I2SBimte3d/Ofy5Zadx5q?=
+ =?us-ascii?Q?LTmx1LezGuBY+Ia08sJQat2DlYM9Zo5tEq21Jc9Ig709pWVOmTpC+G9dtI7f?=
+ =?us-ascii?Q?OZHRUrVwbemjtsWFgY724hRjvC3xrQ60bOrprYIZWZP5cwAGLk/ZHO+cWj2m?=
+ =?us-ascii?Q?N5yF9pnWgKa2Bvl1W6fYXkCuymEIPy3rY0yisu6Np46ygj54yLlyOTlkNmFM?=
+ =?us-ascii?Q?m6uAfr50JQfkyafM6EAurq8J7WnFDLatAvd4xm6BUhQ+sYCxvFYODFkgfsls?=
+ =?us-ascii?Q?QqY4wAF55h4ZxJxYgtI0ge9eGxDiGNg8wiX1TgungD6rvv9H8AmLtr7oE8Pv?=
+ =?us-ascii?Q?1Fvos7oLIuwoJBDnST5a+gmSzhTNSLMjna742heHTQaGWGOJ+3HomOp2mzS1?=
+ =?us-ascii?Q?qsElfke0DyZXEesrVnIVKaZrAujvV8VE98/n6r+eZungtpaQH1tm56mLQoM6?=
+ =?us-ascii?Q?tKCvdbHth0mqD1MSoAaU1xgFmLzDGvSto86hRcWOmLi8Dw2UCkQaZEZmX71w?=
+ =?us-ascii?Q?KX4B+p9VzwKmnycif4MM/ENnYp/ELPZiznZTggf1NQWEw96F7Yk6vC+pmwqs?=
+ =?us-ascii?Q?x6OHcCRWnrVaCthKgSel1tYFPmpYK2b6YLYJ/t4T6A19IlRqCu+A5dJ99JNH?=
+ =?us-ascii?Q?sq92VSiHi9KkpF5bF3dfyWZKHbVkI0GsUNezJqxPxDQcZy15AEg3wxPk3pdw?=
+ =?us-ascii?Q?e/aUKfm6uarx6T6i3kggJ+kDvYUwtAGsdDP/S4SGeX8RmEoi4SYaCAEBSxAC?=
+ =?us-ascii?Q?MqFAFDECuJmxzBuCR6R1SNiUUsFw9JzxVCoXWKdvPda0zTrNR8N4mZLimD7k?=
+ =?us-ascii?Q?/0sdcSM9oo+S3tv8xhFMm1Tf6Be16o0qP2dN2JgfRPltbAhSVs+BzQYnRHYW?=
+ =?us-ascii?Q?TfH7f2QiLb1jhUyzdEyjGb2H+dZq5YN645Pcd2Q41N4nuNq1o+GdPrZo+xFF?=
+ =?us-ascii?Q?7iSgkCSHPs5QA80Ea6tq1DHar7c/1xB0u9ErJ5aveChztT3lJSW20K9MVIdJ?=
+ =?us-ascii?Q?nBfEj7GIGBHtTklHWdmsvsqI5wBh6tMxt95g7YE/RNnZsPmccg7GG+xfOOya?=
+ =?us-ascii?Q?1j/LEy9KdTQjaFe309DCfTX6R405uXqRM0v1uz3o0pcFovaL8wvpR5+lBCwf?=
+ =?us-ascii?Q?kuvtQjFIp2WMEQEOdFQ=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19c8d95b-b539-4d3d-823d-08dbe0616fc4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Nov 2023 13:48:49.4424 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0efc575e-f0c1-4dd6-3c19-08dbe0629857
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Nov 2023 13:57:06.9741 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: S+k4U5luDCbOJubQrL+ITkD1aKEDb+GNm5378FmeW60845PXwGvcfhh+zDocbpOD
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8513
+X-MS-Exchange-CrossTenant-userprincipalname: utKJl+rgu67LA036uBPXYZcIyYX3FnH+dP5uqP8qD+RvF2r3ssXIVxcvIdnQ+rdw
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB5021
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,71 +131,177 @@ g
 Sent: Wednesday, November 8, 2023 8:58 PM
 To: amd-gfx@lists.freedesktop.org
 Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH 6/7] drm/amdgpu: correct acclerator check architecutre dump
+Subject: [PATCH 3/7] drm/amdgpu: Support multiple error query modes
 
 From: Hawking Zhang <Hawking.Zhang@amd.com>
 
-So driver doesn't touch invalid aca entries.
+Direct error query mode and firmware error query mode are supported for now=
+.
 
 Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c | 15 +++++++++++----  drivers/gpu/=
-drm/amd/amdgpu/amdgpu_mca.h |  2 --
- 2 files changed, 11 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 93 +++++++++++++++++++------  dr=
+ivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  8 +++
+ 2 files changed, 78 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_mca.c
-index 3302f4a29387..65926f3c708a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
-@@ -202,10 +202,17 @@ int amdgpu_mca_smu_set_debug_mode(struct amdgpu_devic=
-e *adev, bool enable)
-=20
- static void amdgpu_mca_smu_mca_bank_dump(struct amdgpu_device *adev, int i=
-dx, struct mca_bank_entry *entry)  {
--	int i;
--
--	for (i =3D 0; i < ARRAY_SIZE(entry->regs); i++)
--		dev_dbg(adev->dev, "mca entry[%02d].regs[%02d]=3D0x%016llx\n", idx, i, e=
-ntry->regs[i]);
-+	dev_info(adev->dev, "[Hardware error] Accelerator Check Architecture even=
-ts logged\n");
-+	dev_info(adev->dev, "[Hardware error] aca entry[%02d].STATUS=3D0x%016llx\=
-n",
-+		 idx, entry->regs[MCA_REG_IDX_STATUS]);
-+	dev_info(adev->dev, "[Hardware error] aca entry[%02d].ADDR=3D0x%016llx\n"=
-,
-+		 idx, entry->regs[MCA_REG_IDX_ADDR]);
-+	dev_info(adev->dev, "[Hardware error] aca entry[%02d].MISC0=3D0x%016llx\n=
-",
-+		 idx, entry->regs[MCA_REG_IDX_MISC0]);
-+	dev_info(adev->dev, "[Hardware error] aca entry[%02d].IPID=3D0x%016llx\n"=
-,
-+		 idx, entry->regs[MCA_REG_IDX_IPID]);
-+	dev_info(adev->dev, "[Hardware error] aca entry[%02d].SYND=3D0x%016llx\n"=
-,
-+		 idx, entry->regs[MCA_REG_IDX_SYND]);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
+index cfb361cd0320..11055e0856bc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -1165,13 +1165,53 @@ static void amdgpu_rasmgr_error_data_statistic_upda=
+te(struct ras_manager *obj, s
+ 	}
  }
 =20
- int amdgpu_mca_smu_log_ras_error(struct amdgpu_device *adev, enum amdgpu_r=
-as_block blk, enum amdgpu_mca_error_type type, struct ras_err_data *err_dat=
-a) diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_mca.h
-index 45f90edf2283..e4f30d20170f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h
-@@ -79,11 +79,9 @@ struct amdgpu_mca {
+-/* query/inject/cure begin */
+-int amdgpu_ras_query_error_status(struct amdgpu_device *adev,
+-				  struct ras_query_if *info)
++static int amdgpu_ras_query_error_status_helper(struct amdgpu_device *adev=
+,
++						struct ras_query_if *info,
++						struct ras_err_data *err_data,
++						unsigned int error_query_mode)
+ {
++	enum amdgpu_ras_block blk =3D info ? info->head.block :=20
++AMDGPU_RAS_BLOCK_COUNT;
+ 	struct amdgpu_ras_block_object *block_obj =3D NULL;
++
++	if (error_query_mode =3D=3D AMDGPU_RAS_INVALID_ERROR_QUERY)
++		return -EINVAL;
++
++	if (error_query_mode =3D=3D AMDGPU_RAS_DIRECT_ERROR_QUERY) {
++		if (info->head.block =3D=3D AMDGPU_RAS_BLOCK__UMC) {
++			amdgpu_ras_get_ecc_info(adev, err_data);
++		} else {
++			block_obj =3D amdgpu_ras_get_ras_block(adev, info->head.block, 0);
++			if (!block_obj || !block_obj->hw_ops) {
++				dev_dbg_once(adev->dev, "%s doesn't config RAS function\n",
++					     get_ras_block_str(&info->head));
++				return -EINVAL;
++			}
++
++			if (block_obj->hw_ops->query_ras_error_count)
++				block_obj->hw_ops->query_ras_error_count(adev, &err_data);
++
++			if ((info->head.block =3D=3D AMDGPU_RAS_BLOCK__SDMA) ||
++			    (info->head.block =3D=3D AMDGPU_RAS_BLOCK__GFX) ||
++			    (info->head.block =3D=3D AMDGPU_RAS_BLOCK__MMHUB)) {
++				if (block_obj->hw_ops->query_ras_error_status)
++					block_obj->hw_ops->query_ras_error_status(adev);
++			}
++		}
++	} else {
++		/* FIXME: add code to check return value later */
++		amdgpu_mca_smu_log_ras_error(adev, blk, AMDGPU_MCA_ERROR_TYPE_UE, err_da=
+ta);
++		amdgpu_mca_smu_log_ras_error(adev, blk, AMDGPU_MCA_ERROR_TYPE_CE, err_da=
+ta);
++	}
++
++	return 0;
++}
++
++/* query/inject/cure begin */
++int amdgpu_ras_query_error_status(struct amdgpu_device *adev, struct=20
++ras_query_if *info) {
+ 	struct ras_manager *obj =3D amdgpu_ras_find_obj(adev, &info->head);
+ 	struct ras_err_data err_data;
++	unsigned int error_query_mode;
+ 	int ret;
+=20
+ 	if (!obj)
+@@ -1181,27 +1221,14 @@ int amdgpu_ras_query_error_status(struct amdgpu_dev=
+ice *adev,
+ 	if (ret)
+ 		return ret;
+=20
+-	if (info->head.block =3D=3D AMDGPU_RAS_BLOCK__UMC) {
+-		amdgpu_ras_get_ecc_info(adev, &err_data);
+-	} else {
+-		block_obj =3D amdgpu_ras_get_ras_block(adev, info->head.block, 0);
+-		if (!block_obj || !block_obj->hw_ops)   {
+-			dev_dbg_once(adev->dev, "%s doesn't config RAS function\n",
+-				     get_ras_block_str(&info->head));
+-			ret =3D -EINVAL;
+-			goto out_fini_err_data;
+-		}
+-
+-		if (block_obj->hw_ops->query_ras_error_count)
+-			block_obj->hw_ops->query_ras_error_count(adev, &err_data);
++	if (!amdgpu_ras_get_error_query_mode(adev, &error_query_mode))
++		return -EINVAL;
+=20
+-		if ((info->head.block =3D=3D AMDGPU_RAS_BLOCK__SDMA) ||
+-		    (info->head.block =3D=3D AMDGPU_RAS_BLOCK__GFX) ||
+-		    (info->head.block =3D=3D AMDGPU_RAS_BLOCK__MMHUB)) {
+-				if (block_obj->hw_ops->query_ras_error_status)
+-					block_obj->hw_ops->query_ras_error_status(adev);
+-			}
+-	}
++	ret =3D amdgpu_ras_query_error_status_helper(adev, info,
++						   &err_data,
++						   error_query_mode);
++	if (ret)
++		goto out_fini_err_data;
+=20
+ 	amdgpu_rasmgr_error_data_statistic_update(obj, &err_data);
+=20
+@@ -3397,6 +3424,26 @@ bool amdgpu_ras_get_mca_debug_mode(struct amdgpu_dev=
+ice *adev)
+ 		return true;
+ }
+=20
++bool amdgpu_ras_get_error_query_mode(struct amdgpu_device *adev,
++				     unsigned int *error_query_mode) {
++	struct amdgpu_ras *con =3D amdgpu_ras_get_context(adev);
++	const struct amdgpu_mca_smu_funcs *mca_funcs =3D adev->mca.mca_funcs;
++
++	if (!con) {
++		*error_query_mode =3D AMDGPU_RAS_INVALID_ERROR_QUERY;
++		return false;
++	}
++
++	if (mca_funcs && mca_funcs->mca_set_debug_mode)
++		*error_query_mode =3D
++			(con->is_mca_debug_mode) ? AMDGPU_RAS_DIRECT_ERROR_QUERY : AMDGPU_RAS_F=
+IRMWARE_ERROR_QUERY;
++	else
++		*error_query_mode =3D AMDGPU_RAS_DIRECT_ERROR_QUERY;
++
++	return true;
++}
++
+ /* Register each ip ras block into amdgpu ras */  int amdgpu_ras_register_=
+ras_block(struct amdgpu_device *adev,
+ 		struct amdgpu_ras_block_object *ras_block_obj) diff --git a/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index 665414c22ca9..19161916ac46 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -320,6 +320,12 @@ enum amdgpu_ras_ret {
+ 	AMDGPU_RAS_PT,
  };
 =20
- enum mca_reg_idx {
--	MCA_REG_IDX_CONTROL		=3D 0,
- 	MCA_REG_IDX_STATUS		=3D 1,
- 	MCA_REG_IDX_ADDR		=3D 2,
- 	MCA_REG_IDX_MISC0		=3D 3,
--	MCA_REG_IDX_CONFIG		=3D 4,
- 	MCA_REG_IDX_IPID		=3D 5,
- 	MCA_REG_IDX_SYND		=3D 6,
- 	MCA_REG_IDX_COUNT		=3D 16,
++enum amdgpu_ras_error_query_mode {
++	AMDGPU_RAS_INVALID_ERROR_QUERY		=3D 0,
++	AMDGPU_RAS_DIRECT_ERROR_QUERY		=3D 1,
++	AMDGPU_RAS_FIRMWARE_ERROR_QUERY		=3D 2,
++};
++
+ /* ras error status reisger fields */
+ #define ERR_STATUS_LO__ERR_STATUS_VALID_FLAG__SHIFT	0x0
+ #define ERR_STATUS_LO__ERR_STATUS_VALID_FLAG_MASK	0x00000001L
+@@ -769,6 +775,8 @@ int amdgpu_ras_set_context(struct amdgpu_device *adev, =
+struct amdgpu_ras *ras_co
+=20
+ void amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool enable=
+);  bool amdgpu_ras_get_mca_debug_mode(struct amdgpu_device *adev);
++bool amdgpu_ras_get_error_query_mode(struct amdgpu_device *adev,
++				     unsigned int *mode);
+=20
+ int amdgpu_ras_register_ras_block(struct amdgpu_device *adev,
+ 				struct amdgpu_ras_block_object *ras_block_obj);
 --
 2.34.1
 
