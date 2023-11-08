@@ -4,114 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE7D2C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Nov 2023 18:16:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8406C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Nov 2023 18:20:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FF0510E80C;
-	Wed,  8 Nov 2023 18:16:53 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2046.outbound.protection.outlook.com [40.107.244.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C20210E80C
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Nov 2023 18:16:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94F2B10E80D;
+	Wed,  8 Nov 2023 18:19:56 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0B6610E187;
+ Wed,  8 Nov 2023 18:19:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bVPGMDxUt1biAdFSQINrwCH6GPV8SxCESSNQRy5qOsQrrFAFmA60uhfoFvTX/xDzlUZo3EskMFODoax8GP8Lg0JdjYj2KrvakTSo4z3vF0QFzUBM/4+avPIaqnQnI6zbMzWSOqFWboRtvKpZ7bJZdwnueTmUeaBwL9Jfz6xhw8Rtn1HqxEqGSOH2qUuS6/hhNIyGnNQnfLMTlP1k5agDlbCURNVZayqWuw2faDT5rxqhdgpvABWKZ/17FyDUIbpIM9YdAPkX9dyS6qXujrbXPEtI0RfFVXug2b6F5cGFCW+oY7msvUNLjKCSjRS/8yMTAZ8ny+qTvkR9ZOadSO8Z+g==
+ b=EytWWoXivWtD+fvY79ASIoCWVAonga6vRPmWqIy15N3uVwTERxM51bcSR7J4wJNPFwIMoks71NRPHnAwfMK3zmO62LS1dXcMGS47BqHng3s9gFF/cQww0uoI5X3xS66ZJ7MFL5AygikALP0s3AyfG5YAxuwWyKIA5KoX28lsU47ijrjeCvP7aip4jsXwxJz5bm9tDIaCXlxKsI7pKdvoJtSgkYGxbXGWAQfVY6cvgB7VpLEAMMvGQtqlLw10MqOYKfBtAk/oa6ROiN0S9pVBSea7n2/VcH4RnKrnIbexe0bIIKykN0v7XGj6grHmN8iE+N+s6CMHPrscwYSXVulPyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rFLwa70FsCbxiXqCLs9kP+weJCz3Xj6fkyQYc6xlX6s=;
- b=AebFmwqy+oeGi+uSdSNWZG+WsHZAv/VmnGVIVFjdzB6tIZLGZ5vgKVIMeaO7/aLhXnECrEnIhkeZWFJGlIhCVaGvAUC6yVcEI+m9X7PwqHOmBiAmTOS1yS5hV3xhIpCtVxcF4qk0nXjZ7y3QMFm9GV/r9zfzjiZY0/CEya1VKDm5diDekP0Xj0qK7LAt5jPRTgMGpn2qR6iTD812JyDqNlDDUyhPQ9GlvV3wcm3aTJJX7HwhKMzMZiW7G03XelwVB7783/BGMB7NRX6znejR1ztuVMgrdAl2mEwQ65MP9FzEG9i5cFeF/B9Cmv7AdhlH8bNXxCA+ewfaDBCsr+43hQ==
+ bh=WKQMKoHL6BpDb1u+rKe60LdTpDbSXCmwzkYIfYCqBD4=;
+ b=IIaZ3JNHcmjXwqC3t3TsSIUXw9lIyad8slQf7B1SVZtIqWqAS0YXxLvq9lNlBARIcWgKDWtjVO2YIOsCbPVc18HKjcPmJ+TDrkvMoZQNbE0AkQmO5qmLZ2A1FTfPSuvttcucIJ8RzATZW4BCRGMmhBlaqKoB1+JD/M12ioQ5Hevv6rBvtqzVg1SivmOOfkiLadUCAFydeR8m363eYF4Y3BI3lhRqlRWhYZwurJ39nioGI/Lm86h38rqALRUz1okCiP+FSahbRpMdJNowDFRt61H9LxojDk0vahadowURsf+uhNDh/iq6Q+UY22gabVrHLaRkylcYYOEuw33ANqsqlA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rFLwa70FsCbxiXqCLs9kP+weJCz3Xj6fkyQYc6xlX6s=;
- b=Dc1j6rWShqDvgEdFwzGbxG1L/3qX9eruNHKgV+LROjZ85AuS+4gGllKTppQHMtD0OkfsE173Jphlz1LQ46a6FU3uI2dyjc8cENpdXciJATS8lfIe417iNm3yS2PZ+BAww6AZOhcp6tA9YtBR3IeM9sC8pRkx3w14sk7S2W52dAs=
+ bh=WKQMKoHL6BpDb1u+rKe60LdTpDbSXCmwzkYIfYCqBD4=;
+ b=SH61X2dQgBO3iGGnuiQ3LqbOCD8GMeKJ+rFUOMeFN6nidKhNtJu+mbMHWVsbvIDGJhFg3DeNNPsXNDD//oi1QIg7vtgmaBZ/JoiJ4jpi7OJuFt7XiGYTX5Afy5sDdO2fKnzLihD3rrbag8E2LPg6LiahIMevVAzbMM0kTKi5LCE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DM4PR12MB5230.namprd12.prod.outlook.com (2603:10b6:5:399::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.29; Wed, 8 Nov
- 2023 18:16:47 +0000
+ by CH3PR12MB8283.namprd12.prod.outlook.com (2603:10b6:610:12a::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.28; Wed, 8 Nov
+ 2023 18:19:50 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::7bfc:e32b:f362:60f3]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::7bfc:e32b:f362:60f3%4]) with mapi id 15.20.6977.018; Wed, 8 Nov 2023
- 18:16:47 +0000
-Message-ID: <9207d6f4-bc51-428f-bd19-01d059880f4a@amd.com>
-Date: Wed, 8 Nov 2023 13:16:46 -0500
+ 18:19:50 +0000
+Message-ID: <70542451-fd03-4b44-a416-02426f26b74a@amd.com>
+Date: Wed, 8 Nov 2023 13:19:48 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: Change extended-scope MTYPE on GC 9.4.3
-To: David Yat Sin <David.YatSin@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20231108172524.2366960-1-David.YatSin@amd.com>
+Subject: Re: [Patch v2] drm/ttm: Schedule delayed_delete worker closer
 Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20231108125824.995445-1-rajneesh.bhardwaj@amd.com>
+ <86152ebb-96eb-43a1-b244-052c42ef1024@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <20231108172524.2366960-1-David.YatSin@amd.com>
+In-Reply-To: <86152ebb-96eb-43a1-b244-052c42ef1024@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQXP288CA0016.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:c00:41::44) To BN9PR12MB5115.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0105.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:5::8) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM4PR12MB5230:EE_
-X-MS-Office365-Filtering-Correlation-Id: 638f7028-2e24-4560-e5c5-08dbe086df0f
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CH3PR12MB8283:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7e3e97fd-b1d2-453f-7601-08dbe0874bee
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5jOudS3xB6sskRgVVunBSkia6nDqiIT3lAGb0cdb4tT2czugRqgsxViAZ2vYliaPx+4zdizIozip9hbCJxbsmAfH7szOgUqq0Tvv6eJwGKXtLnAJhz23oaggS++phXOiU9Fuy3mCVR7ky7VlPlUn2z4JfDXpbRF1W870hbpTg4sY/RuykLhnHu/6F7PFwiCK5/P0pnl/nmv+3q78xSnP6Gmtjqxw4r2jxsM4eu4mCw0t75jHjjfgWZUdBsxRuiPj54Kj60jdm5zaGzb8c1rDfpfkjeLqJMB43Zhj/2fSNCjSHJHtW+MzMDX0k8HF32bnSIhUwZG+ewL023qjRS2QKE4hMMTRr+MpvWJm/+JguyiDepS3fkW8uupafP6kRtOOh4Mm/ESeKrv9EZeNwsN0TI/sWJpUnBaF+ekRB0AKLRQIsldwvlW+dxrFO4NxJSgBC6TrQ7ipX+jYADHrTl89fIvf8C4WszNN9knyYmZ2zNInr4Zqrk8gP2SA+4qHntdrTUOAt0Z0OV+g6w/AGeHFZIXj1vTy71Gg2dQFBeMVppbRwcSu2CDgkgV/qNeHm5VQN/nKugTQE3mK82NOUmwmo3g+tTDVpA8vQCQVx+2iS+kZA/lQQ1gzxtPwtnyjvxbhDwt7sgIEfz+/YJiXcsGxGw==
+X-Microsoft-Antispam-Message-Info: e03Iofaddtmgk7ZAZIDyJ8BUbTinSV6J7rHKJ5nWJEbV1yjQzhpbWrFyrUPT6xJpXebS8J6nT/yPngeKE9hkKFHDvNkLIsYk1RBmKtwOESI/k2txRKAummEcHU/bL7kuMEFWL00lCFWPBYE7RSEt6F2jfTCi43Cjt588wmA8TMBac1lD7AVCgrtzf9cpGv+XmGDrXRBYVsQ4XxEYKhczozot5yxGowhY4m75v/kQyDx5j+B/0Fb7DvI+y2EnenAKjSiNORXSsY9ZjHazWMT9+Ev95rnNgjYOtIyrF4Y2vEodWbI4PQLxzJMHNSoT6Acygo8lkrsiHNyheVGfgH94r//32aeZ1QxcdPcI7RebNVMGKy/EkXuhttnR302zTwO0uLbE/frvqrtw2LL7SZQBcqSWFsHh4jgrRkjZtFdAcIurXiydyYKKHGn0IpNFapmPE9MGvO+Kd16vrJAjTqOSUbDZRV4teaj7XgXIQQCxJWbyNO4xQpA8IWeAG4X2gjUNg7MH3pY+mNr0QZSLfkSc4zDbtF3GAqXmbc3tGcALdboKfzEImFrgyYcK01lbnnUgesvTJ0WYbhn6vUA/4wW0kM8nk+1YcIovKUDUqdRnTriJ0E/js3093n3FnwNhqbStJcVXapek4jGDkMyDogOIkg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(346002)(376002)(136003)(396003)(366004)(230922051799003)(1800799009)(186009)(64100799003)(451199024)(6486002)(478600001)(66946007)(66556008)(6506007)(66476007)(53546011)(2616005)(26005)(36916002)(41300700001)(6512007)(8936002)(5660300002)(8676002)(316002)(2906002)(44832011)(36756003)(86362001)(38100700002)(31696002)(83380400001)(31686004)(43740500002)(45980500001);
+ SFS:(13230031)(346002)(366004)(39860400002)(136003)(396003)(376002)(230922051799003)(64100799003)(451199024)(186009)(1800799009)(53546011)(31686004)(83380400001)(26005)(110136005)(6512007)(66946007)(2616005)(66574015)(478600001)(8676002)(4326008)(450100002)(8936002)(6506007)(36916002)(66556008)(66476007)(316002)(6486002)(44832011)(5660300002)(41300700001)(38100700002)(86362001)(31696002)(2906002)(36756003)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R1pTQ0Z1SzhNR3owSnE5UkY1TUY3Z0Z2YTlwMkNDQ08rR0lpeU5KcUM4UnR2?=
- =?utf-8?B?UU5yS1A4UDRWZEFLbkRKTUVuNGI4WWNUNHp0Q1lmdGRYd1JLZVh6andiN3N1?=
- =?utf-8?B?Y3hDeG5oN2FneTh3OVIyS0tGV1gycU5BN3FRZjdhK0kxRmI1ZGRlaTlJZ052?=
- =?utf-8?B?S0N6UkdhTHJvWE9hVFFUNmNocnJmUy9lQWpocW5KNnJydmo2MWNROFM5eVAv?=
- =?utf-8?B?SzB2aWpxajNTbnhGYS9PQW12VVVlUXdQZDFVMFBOKy9qdDhUQjBpUFExM09E?=
- =?utf-8?B?bEhQbmtwR2xEbWJKTHdDa1ZEbnQ3L3lKOUlSSVJOWmI4UExXZUs4b0pURlgx?=
- =?utf-8?B?bEdxeWpYR0diRmRrZjQzbVdpbktCbEFGbW5meCtqMS84K1c0bjY1MkxxTk91?=
- =?utf-8?B?WlBwQllWQWZ0TFpxUmdrekQ3VHh1NTVIdzl6bnFJNkViQjhkeVMxRHQ2OVhu?=
- =?utf-8?B?bmN2Q3F6d09ka2ZrQUZCUVk5QzNUS3VPY0l1ZUtUV1d1c1AwUzYzWmtDM3Y1?=
- =?utf-8?B?ZEN4RFh2K0RiTnVUbDdYd0ZIYmNpemJYS0pOZUFFWkIzYyszS3ZnaitjVnBi?=
- =?utf-8?B?WW9vckp6aFA5NTRRKzl3ZDV6L3crNjBCVFFjQ0VDTDg1TXBrRUFrNG8wOHVh?=
- =?utf-8?B?N0pGZVViSGZlOWlEd1dyVXVWL0JkQVR2VlpjZ1lLdVk0NDl6NERRYXltejRD?=
- =?utf-8?B?YnVWbWtwUWtROXBCc2V4NHBjZUVORXZOYWdLYWc1bEMvemZ4Mi9XSkxLUXlt?=
- =?utf-8?B?RHFMeW9kYzRJalVMejZ6REpGSXRCUWkxSlp3UkhHd1AzQ0thbVNBa0Q2YTls?=
- =?utf-8?B?ek9qN0daU2xhSFpCQVlraUJudGNPbHhKb2JYalBZQzRCQnZqa2VXZ1VhdVRk?=
- =?utf-8?B?NEF3cmdSQjJ2NmhabFpTM1h3bUhXdEJLbEtWZ295eFU5S2k2RDRWMkZJazU2?=
- =?utf-8?B?R0UzRitQbnhsaWo1U3plK2s3Z3B2eVJuRHlWbUs2OUd0YU1UK0tGdFVVc2hZ?=
- =?utf-8?B?d0kwb0IwVEFLUVJ0dS9Kd29GVXRybzBTYUdyUlltMjNBODhoNG40OExWSm5Q?=
- =?utf-8?B?QzVRS2ttbEl1SDNReGpOOTdCMHRWejBLZVhTanQweU03ZUQwNkVNZ211VUFR?=
- =?utf-8?B?ajd2bVdoVHg3TXRyb0lscmRpVFhPcDB6WWorMHk5Tm1yekdNaFZhQU51SDYy?=
- =?utf-8?B?YUYrK1JMNGhLTXBnMGUvTWpwM1hZSTcyTnpoVWpaK0tjWTY3WDVUazJmdksy?=
- =?utf-8?B?WTJkcWcyVW91WFdEUldBc2pDaTUrem50VUVwbTVPV0VGaGt3bWxuZkdEUTNM?=
- =?utf-8?B?am1McXBkSzVxNUxRdS9WbTY5ZEduWVFGWG1JcU4yUFMyTFdpNE1tcUYweHdm?=
- =?utf-8?B?bXNJT1I5dkMxaEdPdkgxN3Badk84M2hrNHRadW9NMHVxTUloZXU2UkJ0N3JR?=
- =?utf-8?B?MWtsdWdURGlxNHJvQlBLYkEyUnhrZlJYcE9MemxvTDl0QUZJQW1Ba3FoNThE?=
- =?utf-8?B?Qk9kZjVpRDUydXJEd1ZrcURxUjFzS29VVElncGtsVGM0TkkvR1Bha1ZKMWFm?=
- =?utf-8?B?VmgvdEZkRlhkMVlOOHpWS2p0RkdGL3YvUllqWHBRUUtpcmp5bElWZFIzM1NI?=
- =?utf-8?B?eWVHcVhidkFWSjlnRTI0akdWRGpCVnpBY3J5MGg0OWJKcStmU2l3T3JKM2hY?=
- =?utf-8?B?QWE1K0VGQ1FvUG9PWEtzTU5hU0liS0dFbkFjUk8vcFd2V0M0MFRTMFZFRE9L?=
- =?utf-8?B?dG1TR0dEYm5Fc3laL3pQRVRuNzFhdHZvTEpKZGJCMFlINVhGM25maWpNNVdG?=
- =?utf-8?B?MzZha0phL2c2eE9SUHpZaGZsaUNzcFhweVFINDNmbkRSdGtzWWtqOUc1V0FW?=
- =?utf-8?B?L1JZSHNDOTdpTnVEcExnSGliellUTzl5eFFkUVB5ZWh1MGdXWVdTejlEMXJM?=
- =?utf-8?B?UXFGWDBSZG81L0RMTllYSllnSGxYdmZEOWZpd0VhbkxudWtyYU4wMVZMemww?=
- =?utf-8?B?WTBZOGhkWE5TenRNejdPTlZGUjhRS00rQWZsait0eFlaa0ZGTzVtTlRjZ29m?=
- =?utf-8?B?SzlZbkVzc1Y1TFE5bGdJT3RKUTYydVFuZ0Frd3BTa0dVWnozUWI2aVdZRlJx?=
- =?utf-8?Q?SuLC8dmpLy6goBbh9Z3ggG+Jh?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Um50QzBKbzZFNFhieHpRS1BQN216bkQ1czkyazU2V1AxY0MrYkMzcG4vdnRI?=
+ =?utf-8?B?ZkFRNVpaZ2tBK3RpQ3VGdFJZWVJIZGI4R2ZUaEd3a2tvQzIxVEV6UlYvNUZD?=
+ =?utf-8?B?YzBSSm1zR0h0WllaRWtFZmpMNU45SkFuZlJBVnNLalRYWmRjTzZFZU8rU2h3?=
+ =?utf-8?B?OFRRS2syNE12QmxlanBGWU1NK2lyVWEwMHJwREExdDROVjlucld1d2tGMUI2?=
+ =?utf-8?B?WnNqSUo0NzdFWmdoSWVzRDFmaFBKN0ZKK1FHRisyVTJ0N0NjVG9iVi92TWVp?=
+ =?utf-8?B?UkVEOHBKQ2tWRXYvNnZBVHZ6dkJTL3lGNkUrVEgrN25tSVV3NWRrK1BYemRR?=
+ =?utf-8?B?LzkzbE14SzhpNk1HdysrOStOcHRsR3RWdlc3MUJPZC91S3JlZmN0cC9oV1ZB?=
+ =?utf-8?B?cHVGY2FySTlxb2dHd3JBK1c5dXh3MDNHT29YZGZXb2lEeWNXaHVSek14b2lV?=
+ =?utf-8?B?Qkp3czZoV0QyT3lrdHozbm5lcXVTWDN6RFNQcW5TUVUwZ2UwaFBTNnBPbEhI?=
+ =?utf-8?B?SktNV1F6TXgvNElyRjhXcnhIR1ByVUVOamdqRjZIZTAxNzdUeityNjdsekhx?=
+ =?utf-8?B?Z0Z4YTZMYUhuM09aLzlnMXNGMTZHYXJxM0tpQWVsQ1RHRERQWHJIT21KVDVM?=
+ =?utf-8?B?VFVnYmhUWmw4Si94RTFBMFFXK2orUHAxMTBSSWpPVUR1R08rMWtlRTk3TlZv?=
+ =?utf-8?B?d29RbmlLTVZ0SFJ2dXdIT3NKQTBnaEkxajFRWGtwTzhKc1ZNNVQ2VUpQVmsv?=
+ =?utf-8?B?cSt2bUJhbHVRYXJBcnhhdTBuZUE1VWZ6R0h3M1lObVIzT2dEUnlrUk1sdUtV?=
+ =?utf-8?B?QjZLQWVnaFZLaFV1YW5kNzJIS2FqZmlmNnYrdkRTNndmUXphUmhOKzVMc09q?=
+ =?utf-8?B?OXQvMjA1TTNDbnUyL3FYUk1paUZyWWluQUhwcER0NmNSZFRWUmxlY1FkM3NH?=
+ =?utf-8?B?MThYNXJpd2dvQmZndEorbjBkQ0VNdWJla3M4c3JDT1VpUC8yeVVxelNKOEsw?=
+ =?utf-8?B?dm9Hb2dpL3FSaVpzcmQyeWtNSEc2RW01ckhJZlhkMjlrV2N6aGl2eTBjUEh6?=
+ =?utf-8?B?SS9RUTM4anN1Q0Y4bGxwL0U2MjhoaE9pRTIvaElZSWNVOTBsYjd0bTd3QmZy?=
+ =?utf-8?B?OFVTQithZ0tlTk5TdUpra0VqRnBRUGQzVWdlZFo4akF5dnAvRHRJenRvcmFh?=
+ =?utf-8?B?Zno3WVNMeitTaVJwWkJ5ay9sd2xDS3BpZm5WdWlKYjljaGRQdlpOZk04UXFx?=
+ =?utf-8?B?eGt6UkxOM2JXcUlNUkhLaUMzKzg2Nittdm0zdWliVFVxVm9QeXl2ODV0Slcw?=
+ =?utf-8?B?YXJoNmZYV2pJdmYwK09lZmV6S1YrbXdIaFhzajBacnoycUtERTN0ak9XeDdR?=
+ =?utf-8?B?Y0gwQi9uV2tiSGhOaTZ0YzB0SWtmWW1RZDViZTFJTEpzMk9ESGxzT0h6UkVI?=
+ =?utf-8?B?bmp2Vlphb05VMVdSeVd4ZzE2SUFMdnVaZzhWRVFScjY3RFJReFBQRTd2Vkps?=
+ =?utf-8?B?Q3UrL0pHWER1RlBsTkl2My9aeW5JMkZ1bjR4eDhPU0ptSTVIeUNwRWMvUlN4?=
+ =?utf-8?B?cnJ6bjNaRXMzcVNmZGl6cTFETFNpS2ZZQ0RVSlJvT0krdXY3SURVMnpDQUF4?=
+ =?utf-8?B?NXJIbHM0YnFYQlBFRTI1ZjVaYzUzYVpITWcwWnRodXl6M3Q0QlZxK0E5Rzdq?=
+ =?utf-8?B?U3doWUtBOThSSlZIbTIyQ09xQ3BpaWNWZ0tLVnFYS0lQbWNXa0o0c3NNMmRW?=
+ =?utf-8?B?R0owaEtzbmlMMW4rRkJNVGhnMUFmVmpqd1NWVkxveHlPK1hZQ25rRm00WFVj?=
+ =?utf-8?B?dExTd1pJZFluZEY0RFpxZTJLbHRSUjlkRGpPd2hKL1B1dmNSb1VucjdBb2oy?=
+ =?utf-8?B?V0J2Q3p4ajk5dTVRR09SaDBXaE5RZEVNbEs2TEpWeUpxWHhEdllMbHZmR20v?=
+ =?utf-8?B?SVpyMlNVL0VpM2c5cERBZ3VDVGhXbnVBZzJTYWdKUDlKa3JSTEF2MWZETG5U?=
+ =?utf-8?B?ODRMTWV2aUsreGRqclVRSlV2dmJwSk1rY25GNkJydjg3T2c0U0t3NzB2aEl1?=
+ =?utf-8?B?aWhzUEhYcWkrOEZzanlRcklWNWt1dTdBNTkzT2JlOXYwVnV4c0pXb0JMNDRh?=
+ =?utf-8?Q?h6mTJv/TAFYgsAwQLFLofLP40?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 638f7028-2e24-4560-e5c5-08dbe086df0f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7e3e97fd-b1d2-453f-7601-08dbe0874bee
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2023 18:16:47.7388 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2023 18:19:50.3504 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KKHkQclFJoBhHCSXGZhbcr8OPsKY/NwScm6LgUKEurDAHnbHnOxregQvZWxCNj/xyiVUS4B4G1siLcC6TXKy6Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5230
+X-MS-Exchange-CrossTenant-UserPrincipalName: hUhbDJMSCBkpEFIEo2FpBjJclFv+eFGsrywufH6dMJIaUVX5TeulWScJnfAs377898KfT5tc09fsxDAdSp200A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8283
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,63 +125,85 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: alexander.deucher@amd.com, dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023-11-08 12:25, David Yat Sin wrote:
-> Change local memory type to MTYPE_UC on revision id 0
+On 2023-11-08 09:49, Christian König wrote:
+> Am 08.11.23 um 13:58 schrieb Rajneesh Bhardwaj:
+>> Try to allocate system memory on the NUMA node the device is closest to
+>> and try to run delayed_delete workers on a CPU of this node as well.
+>>
+>> To optimize the memory clearing operation when a TTM BO gets freed by
+>> the delayed_delete worker, scheduling it closer to a NUMA node where the
+>> memory was initially allocated helps avoid the cases where the worker
+>> gets randomly scheduled on the CPU cores that are across interconnect
+>> boundaries such as xGMI, PCIe etc.
+>>
+>> This change helps USWC GTT allocations on NUMA systems (dGPU) and AMD
+>> APU platforms such as GFXIP9.4.3.
+>>
+>> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+>> Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 >
-> Signed-off-by: David Yat Sin <David.YatSin@amd.com>
-
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 7 +++++--
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c  | 8 +++++---
->   2 files changed, 10 insertions(+), 5 deletions(-)
+> Reviewed-by: Christian König <christian.koenig@amd.com>
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index b66c5f7e1c56..5ecddd08c363 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1176,7 +1176,10 @@ static void gmc_v9_0_get_coherence_flags(struct amdgpu_device *adev,
->   		if (uncached) {
->   			mtype = MTYPE_UC;
->   		} else if (ext_coherent) {
-> -			mtype = is_local ? MTYPE_CC : MTYPE_UC;
-> +			if (adev->rev_id)
-> +				mtype = is_local ? MTYPE_CC : MTYPE_UC;
-> +			else
-> +				mtype = MTYPE_UC;
->   		} else if (adev->flags & AMD_IS_APU) {
->   			mtype = is_local ? mtype_local : MTYPE_NC;
->   		} else {
-> @@ -1297,7 +1300,7 @@ static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
->   
->   			*flags = (*flags & ~AMDGPU_PTE_MTYPE_VG10_MASK) |
->   				 AMDGPU_PTE_MTYPE_VG10(mtype_local);
-> -		} else {
-> +		} else if (adev->rev_id) {
->   			/* MTYPE_UC case */
->   			*flags = (*flags & ~AMDGPU_PTE_MTYPE_VG10_MASK) |
->   				 AMDGPU_PTE_MTYPE_VG10(MTYPE_CC);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index fe937670c927..b23ba92a794c 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1253,9 +1253,11 @@ svm_range_get_pte_flags(struct kfd_node *node,
->   		}
->   		break;
->   	case IP_VERSION(9, 4, 3):
-> -		mtype_local = amdgpu_mtype_local == 1 ? AMDGPU_VM_MTYPE_NC :
-> -			      (amdgpu_mtype_local == 2 || ext_coherent ?
-> -					AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW);
-> +		if (ext_coherent)
-> +			mtype_local = node->adev->rev_id ? AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_UC;
-> +		else
-> +			mtype_local = amdgpu_mtype_local == 1 ? AMDGPU_VM_MTYPE_NC :
-> +				amdgpu_mtype_local == 2 ? AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;
->   		snoop = true;
->   		if (uncached) {
->   			mapping_flags |= AMDGPU_VM_MTYPE_UC;
+> Going to push this to drm-misc-next.
+
+Hold on. Rajneesh just pointed out a WARN regression from testing. I 
+think the problem is that the bdev->wq is not unbound.
+
+Regards,
+   Felix
+
+
+>
+> Thanks,
+> Christian.
+>
+>> ---
+>>
+>> Changes in v2:
+>>   - Absorbed the feedback provided by Christian in the commit message 
+>> and
+>>     the comment.
+>>
+>>   drivers/gpu/drm/ttm/ttm_bo.c     | 8 +++++++-
+>>   drivers/gpu/drm/ttm/ttm_device.c | 3 ++-
+>>   2 files changed, 9 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+>> index 5757b9415e37..6f28a77a565b 100644
+>> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+>> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+>> @@ -370,7 +370,13 @@ static void ttm_bo_release(struct kref *kref)
+>>               spin_unlock(&bo->bdev->lru_lock);
+>>                 INIT_WORK(&bo->delayed_delete, ttm_bo_delayed_delete);
+>> -            queue_work(bdev->wq, &bo->delayed_delete);
+>> +
+>> +            /* Schedule the worker on the closest NUMA node. This
+>> +             * improves performance since system memory might be
+>> +             * cleared on free and that is best done on a CPU core
+>> +             * close to it.
+>> +             */
+>> +            queue_work_node(bdev->pool.nid, bdev->wq, 
+>> &bo->delayed_delete);
+>>               return;
+>>           }
+>>   diff --git a/drivers/gpu/drm/ttm/ttm_device.c 
+>> b/drivers/gpu/drm/ttm/ttm_device.c
+>> index 43e27ab77f95..72b81a2ee6c7 100644
+>> --- a/drivers/gpu/drm/ttm/ttm_device.c
+>> +++ b/drivers/gpu/drm/ttm/ttm_device.c
+>> @@ -213,7 +213,8 @@ int ttm_device_init(struct ttm_device *bdev, 
+>> struct ttm_device_funcs *funcs,
+>>       bdev->funcs = funcs;
+>>         ttm_sys_man_init(bdev);
+>> -    ttm_pool_init(&bdev->pool, dev, NUMA_NO_NODE, use_dma_alloc, 
+>> use_dma32);
+>> +
+>> +    ttm_pool_init(&bdev->pool, dev, dev_to_node(dev), use_dma_alloc, 
+>> use_dma32);
+>>         bdev->vma_manager = vma_manager;
+>>       spin_lock_init(&bdev->lru_lock);
+>
