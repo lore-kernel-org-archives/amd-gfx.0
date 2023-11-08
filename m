@@ -4,38 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72D5BC4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Nov 2023 14:11:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FE19C4167D
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Nov 2023 14:11:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8844610E775;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAE7210E777;
 	Wed,  8 Nov 2023 14:11:50 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0810A10E0B7;
- Wed,  8 Nov 2023 07:30:03 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 628F4B81590;
- Wed,  8 Nov 2023 07:30:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F2BDC433C8;
- Wed,  8 Nov 2023 07:30:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1699428601;
- bh=yo7b1LGNFyvDpF1t3rH3P/9deVIKXquQeoyvxzFhZ0M=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CkhXJ7Ewr/fNRkHHqlD8wzG3L5thil15gOltKdbJxoYBn9ZW/PdFIWeOTEb95ES9h
- S062er0V6eQzPe82wMFHixIkfWeYoclSgNATcdBmNt9WIxjjIXNS4Q0yRmT6GAIE5+
- dFXsFvg2TYOp5HHIq7IR01jIPslm/BClcHAsS+0M=
-Date: Wed, 8 Nov 2023 08:29:58 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: =?iso-8859-1?Q?Jos=E9?= Pekkarinen <jose.pekkarinen@foxhound.fi>
-Subject: Re: [PATCH] drm/amd/pm: replace 1-element arrays with flexible-array
- members
-Message-ID: <2023110835-magnolia-prune-02d0@gregkh>
-References: <20231108065436.13969-1-jose.pekkarinen@foxhound.fi>
+X-Greylist: delayed 1801 seconds by postgrey-1.36 at gabe;
+ Wed, 08 Nov 2023 07:33:34 UTC
+Received: from 6.mo575.mail-out.ovh.net (6.mo575.mail-out.ovh.net
+ [46.105.63.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB69210E3B8
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Nov 2023 07:33:34 +0000 (UTC)
+Received: from director6.ghost.mail-out.ovh.net (unknown [10.109.146.132])
+ by mo575.mail-out.ovh.net (Postfix) with ESMTP id 4DE6628EFD
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Nov 2023 06:55:20 +0000 (UTC)
+Received: from ghost-submission-6684bf9d7b-lv8ff (unknown [10.110.208.62])
+ by director6.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 15B4C1FE12;
+ Wed,  8 Nov 2023 06:55:17 +0000 (UTC)
+Received: from foxhound.fi ([37.59.142.109])
+ by ghost-submission-6684bf9d7b-lv8ff with ESMTPSA
+ id uGgwOtUwS2X3fAAAN287Lg
+ (envelope-from <jose.pekkarinen@foxhound.fi>); Wed, 08 Nov 2023 06:55:17 +0000
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-109S003812ecbba-255d-4a16-800e-086f660595b3,
+ CA30051851D9204B2894E18F048F6C805596AA31)
+ smtp.auth=jose.pekkarinen@foxhound.fi
+X-OVh-ClientIp: 87.94.109.40
+From: =?UTF-8?q?Jos=C3=A9=20Pekkarinen?= <jose.pekkarinen@foxhound.fi>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ skhan@linuxfoundation.org
+Subject: [PATCH] drm/amdgpu: remove unused MES_LOG_BUFFER struct
+Date: Wed,  8 Nov 2023 08:55:12 +0200
+Message-Id: <20231108065512.14087-1-jose.pekkarinen@foxhound.fi>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20231108065436.13969-1-jose.pekkarinen@foxhound.fi>
+X-Ovh-Tracer-Id: 3519281634429019841
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvkedruddukedguddttdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecunecujfgurhephffvvefufffkofggtgfgsehtkeertdertdejnecuhfhrohhmpeflohhsrocurfgvkhhkrghrihhnvghnuceojhhoshgvrdhpvghkkhgrrhhinhgvnhesfhhogihhohhunhgurdhfiheqnecuggftrfgrthhtvghrnheptddutefhgefhgeffhfdtueehudekudduueeiieetgeektddugedvkeetffetvdffnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucfkphepuddvjedrtddrtddruddpkeejrdelgedruddtledrgedtpdefjedrheelrddugedvrddutdelnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpeeojhhoshgvrdhpvghkkhgrrhhinhgvnhesfhhogihhohhunhgurdhfiheqpdhnsggprhgtphhtthhopedupdhrtghpthhtoheprghmugdqghhfgieslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdpoffvtefjohhsthepmhhoheejhedpmhhouggvpehsmhhtphhouhht
 X-Mailman-Approved-At: Wed, 08 Nov 2023 14:11:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -48,39 +56,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, skhan@linuxfoundation.org, alexander.deucher@amd.com,
- evan.quan@amd.com, airlied@gmail.com, christian.koenig@amd.com,
+Cc: Jack.Xiao@amd.com, jonathan.kim@amd.com, felix.kuehling@amd.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ =?UTF-8?q?Jos=C3=A9=20Pekkarinen?= <jose.pekkarinen@foxhound.fi>,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, airlied@gmail.com,
  linux-kernel-mentees@lists.linux.dev
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Nov 08, 2023 at 08:54:35AM +0200, José Pekkarinen wrote:
-> The following case seems to be safe to be replaced with a flexible array
-> to clean up the added coccinelle warning. This patch will just do it.
-> 
-> drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h:76:38-63: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
-> 
-> Signed-off-by: José Pekkarinen <jose.pekkarinen@foxhound.fi>
-> ---
->  drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h
-> index c7b61222d258..1ce4087005f0 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h
-> @@ -73,7 +73,7 @@ struct smu8_register_index_data_pair {
->  
->  struct smu8_ih_meta_data {
->  	uint32_t command;
-> -	struct smu8_register_index_data_pair register_index_value_pair[1];
-> +	struct smu8_register_index_data_pair register_index_value_pair[];
+The mention struct seems not to be used along the driver, and is also
+triggering a warning to migrate to flexible array. This patch will
+remove the full structure and get rid of the warning.
 
-Did you just change this structure size without any need to change any
-code as well?  How was this tested?
+drivers/gpu/drm/amd/include/mes_v11_api_def.h:192:27-34: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
 
-thanks,
+Signed-off-by: JosÃ© Pekkarinen <jose.pekkarinen@foxhound.fi>
+---
+ drivers/gpu/drm/amd/include/mes_v11_api_def.h | 5 -----
+ 1 file changed, 5 deletions(-)
 
-greg k-h
+diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
+index b1db2b190187..e032ee262fa9 100644
+--- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
++++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
+@@ -187,11 +187,6 @@ struct MES_LOG_ENTRY_DATA {
+ 	};
+ };
+ 
+-struct MES_LOG_BUFFER {
+-	struct MES_LOG_ENTRY_HEADER	header;
+-	struct MES_LOG_ENTRY_DATA	entries[1];
+-};
+-
+ enum MES_SWIP_TO_HWIP_DEF {
+ 	MES_MAX_HWIP_SEGMENT = 8,
+ };
+-- 
+2.39.2
+
