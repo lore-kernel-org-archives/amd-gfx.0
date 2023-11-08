@@ -4,59 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E362C4167D
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Nov 2023 19:04:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95FD7C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Nov 2023 19:05:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA22B10E822;
-	Wed,  8 Nov 2023 19:04:31 +0000 (UTC)
-Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
- [IPv6:2001:4860:4864:20::31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56E5B10E821;
- Wed,  8 Nov 2023 19:04:15 +0000 (UTC)
-Received: by mail-oa1-x31.google.com with SMTP id
- 586e51a60fabf-1f00b95dc43so4272941fac.3; 
- Wed, 08 Nov 2023 11:04:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1699470254; x=1700075054; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PIAfp4n5FTAxG5B/n8MBsaBM3cT8s3lVCrtfOSkbjqw=;
- b=njmhSleLqVaHJsWSvHkxzjrctoMFRNjNqrwEM/QFEUl9D1Mqn0fEcdvfIxJK3rO6fj
- sNywdhRlvtYu/sxGFoWCKjSK44wBcDDGo76aXOQvgM663K5y1VGesrlmRMI42ba2wlgJ
- 9EKi9ulYeyKst0l6HrFmtyZRbUWoC/FSmDjPni/T+0TMme2Vy9ueqAZM9jx95HUjWg7y
- bMpKdoV5FannPwYP2JtQK6CuO/FI1d+5ztXS4QfnTf5m6TVPo0irdPI6ogIy7Yk/OKBu
- w6Ar7kh52UPsFrSBIOhqV9ECpdPOGw5ouzbuGc+qB4CkgkyzSy3BofaXJNu6zGjQHys6
- RlCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699470254; x=1700075054;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=PIAfp4n5FTAxG5B/n8MBsaBM3cT8s3lVCrtfOSkbjqw=;
- b=As10YWQ6THfJVMZkM86SFGRRSU9yLLvhV7kzbRhLGegBSC7kdq48LVFJ8kUrjpB/X7
- 1uZ1TCwPgePrMrDP+fdBnrBvAIingVsxcI8sQjVqV0F1A3cr9X9kxPtHoxLeo+erQdxp
- nnDlYOFBOqaSPLIZ2s6r7CZ4aekF8Q9eRX/EDSdZfVBFD7oRrs13J6xSH/komLniTmrX
- qdVJ9IXmiyubsZ3y6FxJBHg3xf0/iC0qYY2dxarDjHMgZom+yF8BRqpqvUOICaOd4+rf
- TBu4LTGdhvcOS8VtyrTzp+TFAvuZqxuhygTv5MzrRjwekHiP6wdBASXHmYjWm2IfgekI
- gKMg==
-X-Gm-Message-State: AOJu0YyxmswNV2TRm3cWsnsW+mgxulh8UxC0kSTewAQcwKRJ1mygTl3U
- cT4qRMoeeZfuclkSmBkZ2y12V/Qu9mE+mElvw0hSzNpt
-X-Google-Smtp-Source: AGHT+IFMQHWb9vtoHBrkxGDELJboskZE0aJf095yx+v+npphVWFwsJlmyOfvUZWdSPLGSEwyBKaIWu1ACGNqXJ8U2Oo=
-X-Received: by 2002:a05:6870:9551:b0:1ea:7bd1:c495 with SMTP id
- v17-20020a056870955100b001ea7bd1c495mr2449172oal.27.1699470254574; Wed, 08
- Nov 2023 11:04:14 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2B6B10E825;
+	Wed,  8 Nov 2023 19:05:45 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2087.outbound.protection.outlook.com [40.107.237.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2999210E823
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Nov 2023 19:05:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YUSApi3CMs865kd8Cnyw08hAYt5kvT4co9M9klyHYYFIE33CkcOdKR+F9J0jeycDZIW1+sCHzIm1BzYs+ahpgXO72EJbnugysmFwoBDH/frVYWG4ujrkDs0q/6Qi2R2crTdQyy5iFZDxLK67c2lvBu2MCzo8nYYe2Arh5JDM0Le+48sLK65ZkJ/b63H+BhRtaRzZtHtppNG9O5r7K8zNEh+EWQrF4R3RnhyEFhPUQPbizSYNekEHCaFNazGSzWW6sWpRIEjzdCxtsYB+m5ub2JeGoYoIkDjRDgknCImYOJz4EVDi06wzWJaWLLmQKFyrgffStt/FR3zIMetND7v9mg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=p8FDRptqoo7W0qffIjZhdS6oIUALKOTcHtqzKelX6X4=;
+ b=X5c/vr1QBQCEy6LLyH9XsDs+Sj/H+8i0Wt3ph+Sdy6GGpFnjIGpnEVOrn6nnFW2BQYwH8KfyWDxStrqqQJN8pcjCLhIKeSLbo0cPas6f1WBX156PNE24R3oREqdugU7/u44K656k7wmAjoUrAy96YhyTJdqeYhyyLWiyPB+XP2FehwePv1GZXY6/LQUtX4XzGYmq6I+QRRpU1lAkZbSsfe2WakiJUdGoVrBft57EiqDgmqYFDTWU7rZF6kb2GOESloTB6FFzLN3cNbKN78T5TwHGmTaAlsqv2rfOoyZAC6vGYnX0ND5rVSnJcyM4AWMc4JVkqJ9yGHIIjG8KLJKORQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p8FDRptqoo7W0qffIjZhdS6oIUALKOTcHtqzKelX6X4=;
+ b=f7UIsPn3T3Kgf1IyUdCqmL54SA3euycER8ZZHE25arp24TdC8K7z0uKpvz1QzougBw+jTHUUrC2gWPJf50bP4Ct8vPnp/0NX+0/bMaqXU9wqqLmlqXWR7W8vxoHvi9/5Q3YwpefgHtO/oTwXXKZ6tM0q/57dAVqTqIueX6hS1n8=
+Received: from BY5PR03CA0029.namprd03.prod.outlook.com (2603:10b6:a03:1e0::39)
+ by LV8PR12MB9419.namprd12.prod.outlook.com (2603:10b6:408:206::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.21; Wed, 8 Nov
+ 2023 19:05:09 +0000
+Received: from DS2PEPF00003442.namprd04.prod.outlook.com
+ (2603:10b6:a03:1e0:cafe::fb) by BY5PR03CA0029.outlook.office365.com
+ (2603:10b6:a03:1e0::39) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.18 via Frontend
+ Transport; Wed, 8 Nov 2023 19:05:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS2PEPF00003442.mail.protection.outlook.com (10.167.17.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6977.16 via Frontend Transport; Wed, 8 Nov 2023 19:05:08 +0000
+Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Wed, 8 Nov
+ 2023 13:05:00 -0600
+From: Alex Hung <alex.hung@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 07/20] drm/amd/display: Enable fast plane updates on DCN3.2
+ and above
+Date: Wed, 8 Nov 2023 11:44:22 -0700
+Message-ID: <20231108185501.45359-8-alex.hung@amd.com>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20231108185501.45359-1-alex.hung@amd.com>
+References: <20231108185501.45359-1-alex.hung@amd.com>
 MIME-Version: 1.0
-References: <20231107162830.36856-1-hunter.chasens18@ncf.edu>
- <2853fe7e-7d39-9b32-87b2-93845f16ae51@amd.com>
-In-Reply-To: <2853fe7e-7d39-9b32-87b2-93845f16ae51@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 8 Nov 2023 14:04:03 -0500
-Message-ID: <CADnq5_O4AXB_x8uv1bx0XZHt+mqxtKdaH0XAFFouuJ0X_QCNhA@mail.gmail.com>
-Subject: Re: [PATCH v3] drm: amd: Resolve Sphinx unexpected indentation warning
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003442:EE_|LV8PR12MB9419:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3a8f71e6-1030-4583-ef6f-08dbe08da037
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: UguNE9JhgzNQFJ0tpqdOm83rIGHXwLxyw+FL/osc3pnKOWMYKWlxWHSK60XG3iTEstzP3ZZ9QVPQQ2xikJoF8EUJf/mjIyA414k160z7fXfAZmGi8e054vXdRW7jC4j8WQVGo8jXdR7lhlGWPY/AANd0/68SbYlsRKW5jwGrihtaVkRWOYAOChwRb3098Lo4c5YRwvghK5l5QSI+VrPuja5pfjRdVJuUxm+FQVown1r2E6KNpJfzfDSYEM0wlI5SBPaMqUIvZjjN4YF6RRWwqMOwShgqxePLjCcOK9n7Sc/wipoX5buLtQxBYBUqatQsL0ZFydtKZH1fhx675IY9Gdfd79AWvK9WEosJczGfqs5fe0y3BLjuXNvWhdTIoC13uwb+QWpXu9Rhov6Hy0Sic54y0VmaMhB3yyHMF4xli22W1zZXhaUtNEFB8/XYcPDhlab5nQqk/hIMMP4xk7a3FBZeJ6qgD7FKKq2eX9pyhy3RHnI5c6f/fCeMDNmD/CwaxsL6jk8xvwV0vUK8+eKhZdzTj3MZMUyEa8leJr7sm1uTW1Ypo7yZcGMc8yFpYd6L+8TS7sA4uogSx4p89rE38tKmqgW3VXD86GFq06QDytl8iY3OjT3IcQJGhmYv+ZZBh9AB/hPc3y4IAOdUBK+3fP6+GQuJ7COTX3HVv4vYWb9RXy2eTkU4QWRK/D+4HUNoMHNSdUbI9bHRRCf0x8TAAmMv4flxmGjA4cWhS5tw0NV8LyTL39Leumcuf5OP25X+X4JLnTgEjxbfn+0wFTtqzQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(396003)(346002)(39860400002)(136003)(376002)(230922051799003)(451199024)(82310400011)(1800799009)(186009)(64100799003)(40470700004)(36840700001)(46966006)(2906002)(40460700003)(81166007)(6666004)(426003)(86362001)(2616005)(336012)(36860700001)(15650500001)(356005)(83380400001)(41300700001)(47076005)(82740400003)(36756003)(7696005)(26005)(478600001)(1076003)(16526019)(70206006)(54906003)(6916009)(44832011)(316002)(70586007)(8676002)(4326008)(8936002)(40480700001)(5660300002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2023 19:05:08.5306 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a8f71e6-1030-4583-ef6f-08dbe08da037
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003442.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9419
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,64 +100,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-doc@vger.kernel.org, Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Hunter Chasens <hunter.chasens18@ncf.edu>, alexander.deucher@amd.com,
- christian.koenig@amd.com
+Cc: stylon.wang@amd.com, chiahsuan.chung@amd.com, Sunpeng.Li@amd.com,
+ Tianci Yin <tianci.yin@amd.com>, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ stable@vger.kernel.org, Alex Hung <alex.hung@amd.com>, jerry.zuo@amd.com,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, hersenxs.wu@amd.com,
+ Mario Limonciello <mario.limonciello@amd.com>, wayne.lin@amd.com,
+ Alex Deucher <alexander.deucher@amd.com>, Harry.Wentland@amd.com,
+ agustin.gutierrez@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+From: Tianci Yin <tianci.yin@amd.com>
 
-On Tue, Nov 7, 2023 at 11:17=E2=80=AFPM Lazar, Lijo <lijo.lazar@amd.com> wr=
-ote:
->
->
->
-> On 11/7/2023 9:58 PM, Hunter Chasens wrote:
-> > Resolves Sphinx unexpected indentation warning when compiling
-> > documentation (e.g. `make htmldocs`). Replaces tabs with spaces and add=
-s
-> > a literal block to keep vertical formatting of the
-> > example power state list.
-> >
-> > Signed-off-by: Hunter Chasens <hunter.chasens18@ncf.edu>
->
-> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
->
-> Thanks,
-> Lijo
->
-> > ---
-> >   drivers/gpu/drm/amd/pm/amdgpu_pm.c | 13 +++++++------
-> >   1 file changed, 7 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/p=
-m/amdgpu_pm.c
-> > index 517b9fb4624c..576202bf64f3 100644
-> > --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> > +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> > @@ -989,12 +989,13 @@ static ssize_t amdgpu_get_pp_features(struct devi=
-ce *dev,
-> >    * Reading back the files will show you the available power levels wi=
-thin
-> >    * the power state and the clock information for those levels. If dee=
-p sleep is
-> >    * applied to a clock, the level will be denoted by a special level '=
-S:'
-> > - * E.g.,
-> > - *   S: 19Mhz *
-> > - *   0: 615Mhz
-> > - *   1: 800Mhz
-> > - *   2: 888Mhz
-> > - *   3: 1000Mhz
-> > + * E.g., ::
-> > + *
-> > + *  S: 19Mhz *
-> > + *  0: 615Mhz
-> > + *  1: 800Mhz
-> > + *  2: 888Mhz
-> > + *  3: 1000Mhz
-> >    *
-> >    *
-> >    * To manually adjust these states, first select manual using
+[WHY]
+When cursor moves across screen boarder, lag cursor observed,
+since subvp settings need to sync up with vblank that causes
+cursor updates being delayed.
+
+[HOW]
+Enable fast plane updates on DCN3.2 to fix it.
+
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Acked-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Tianci Yin <tianci.yin@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index adbeb2c897b5..8ebdbfbbb691 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -9585,14 +9585,14 @@ static bool should_reset_plane(struct drm_atomic_state *state,
+ 	struct drm_plane *other;
+ 	struct drm_plane_state *old_other_state, *new_other_state;
+ 	struct drm_crtc_state *new_crtc_state;
++	struct amdgpu_device *adev = drm_to_adev(plane->dev);
+ 	int i;
+ 
+ 	/*
+-	 * TODO: Remove this hack once the checks below are sufficient
+-	 * enough to determine when we need to reset all the planes on
+-	 * the stream.
++	 * TODO: Remove this hack for all asics once it proves that the
++	 * fast updates works fine on DCN3.2+.
+ 	 */
+-	if (state->allow_modeset)
++	if (adev->ip_versions[DCE_HWIP][0] < IP_VERSION(3, 2, 0) && state->allow_modeset)
+ 		return true;
+ 
+ 	/* Exit early if we know that we're adding or removing the plane. */
+-- 
+2.42.0
+
