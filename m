@@ -4,46 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FE19C4167D
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Nov 2023 14:11:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5727CC4332F
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Nov 2023 14:12:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAE7210E777;
-	Wed,  8 Nov 2023 14:11:50 +0000 (UTC)
-X-Greylist: delayed 1801 seconds by postgrey-1.36 at gabe;
- Wed, 08 Nov 2023 07:33:34 UTC
-Received: from 6.mo575.mail-out.ovh.net (6.mo575.mail-out.ovh.net
- [46.105.63.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB69210E3B8
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Nov 2023 07:33:34 +0000 (UTC)
-Received: from director6.ghost.mail-out.ovh.net (unknown [10.109.146.132])
- by mo575.mail-out.ovh.net (Postfix) with ESMTP id 4DE6628EFD
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Nov 2023 06:55:20 +0000 (UTC)
-Received: from ghost-submission-6684bf9d7b-lv8ff (unknown [10.110.208.62])
- by director6.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 15B4C1FE12;
- Wed,  8 Nov 2023 06:55:17 +0000 (UTC)
-Received: from foxhound.fi ([37.59.142.109])
- by ghost-submission-6684bf9d7b-lv8ff with ESMTPSA
- id uGgwOtUwS2X3fAAAN287Lg
- (envelope-from <jose.pekkarinen@foxhound.fi>); Wed, 08 Nov 2023 06:55:17 +0000
-Authentication-Results: garm.ovh; auth=pass
- (GARM-109S003812ecbba-255d-4a16-800e-086f660595b3,
- CA30051851D9204B2894E18F048F6C805596AA31)
- smtp.auth=jose.pekkarinen@foxhound.fi
-X-OVh-ClientIp: 87.94.109.40
-From: =?UTF-8?q?Jos=C3=A9=20Pekkarinen?= <jose.pekkarinen@foxhound.fi>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- skhan@linuxfoundation.org
-Subject: [PATCH] drm/amdgpu: remove unused MES_LOG_BUFFER struct
-Date: Wed,  8 Nov 2023 08:55:12 +0200
-Message-Id: <20231108065512.14087-1-jose.pekkarinen@foxhound.fi>
-X-Mailer: git-send-email 2.39.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1430710E77A;
+	Wed,  8 Nov 2023 14:11:55 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3C2210E064
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Nov 2023 07:52:53 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id CD0A2614ED;
+ Wed,  8 Nov 2023 07:52:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2121FC433C8;
+ Wed,  8 Nov 2023 07:52:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1699429972;
+ bh=3PeDvtMdSO3qjEIRN0wzlZUivW+dRg1lpgO8Cx8G+fY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=hSt2svxHMxfcvq8fGAArYucSippdqVxYXhNKd4RbHB/xNIehdFm4zoG/NKJidho+v
+ +Q7b0VeYVrWNhucZHAsGu0uMmvRCiek/mNXiEJOpEU7cVcOJ3pdSbC8Qn7IN6OROSy
+ I0cugCSoAjzPQE3lrRKchuGsf0Dbwp2mZVsm5CNA=
+Date: Wed, 8 Nov 2023 08:52:49 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [PATCH] r8169: fix ASPM-related issues on a number of systems
+ with NIC version from RTL8168h
+Message-ID: <2023110833-renegade-fidgety-a008@gregkh>
+References: <20231108033359.3948216-1-li.ma@amd.com>
+ <2023110845-factual-dawn-7d68@gregkh>
+ <9a5ba6df-5d15-4c23-98cd-686b1f62e05b@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 3519281634429019841
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvkedruddukedguddttdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecunecujfgurhephffvvefufffkofggtgfgsehtkeertdertdejnecuhfhrohhmpeflohhsrocurfgvkhhkrghrihhnvghnuceojhhoshgvrdhpvghkkhgrrhhinhgvnhesfhhogihhohhunhgurdhfiheqnecuggftrfgrthhtvghrnheptddutefhgefhgeffhfdtueehudekudduueeiieetgeektddugedvkeetffetvdffnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucfkphepuddvjedrtddrtddruddpkeejrdelgedruddtledrgedtpdefjedrheelrddugedvrddutdelnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpeeojhhoshgvrdhpvghkkhgrrhhinhgvnhesfhhogihhohhunhgurdhfiheqpdhnsggprhgtphhtthhopedupdhrtghpthhtoheprghmugdqghhfgieslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdpoffvtefjohhsthepmhhoheejhedpmhhouggvpehsmhhtphhouhht
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9a5ba6df-5d15-4c23-98cd-686b1f62e05b@gmail.com>
 X-Mailman-Approved-At: Wed, 08 Nov 2023 14:11:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,41 +50,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jack.Xiao@amd.com, jonathan.kim@amd.com, felix.kuehling@amd.com,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- =?UTF-8?q?Jos=C3=A9=20Pekkarinen?= <jose.pekkarinen@foxhound.fi>,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, airlied@gmail.com,
- linux-kernel-mentees@lists.linux.dev
+Cc: yifan1.zhang@amd.com, amd-gfx@lists.freedesktop.org, stable@vger.kernel.org,
+ mario.limonciello@amd.com, Alexander.Deucher@amd.com,
+ "David S . Miller" <davem@davemloft.net>, Li Ma <li.ma@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The mention struct seems not to be used along the driver, and is also
-triggering a warning to migrate to flexible array. This patch will
-remove the full structure and get rid of the warning.
+On Wed, Nov 08, 2023 at 08:40:48AM +0100, Heiner Kallweit wrote:
+> On 08.11.2023 08:05, Greg KH wrote:
+> > On Wed, Nov 08, 2023 at 11:34:00AM +0800, Li Ma wrote:
+> >> From: Heiner Kallweit <hkallweit1@gmail.com>
+> >>
+> >> This effectively reverts 4b5f82f6aaef. On a number of systems ASPM L1
+> >> causes tx timeouts with RTL8168h, see referenced bug report.
+> >>
+> >> Fixes: 4b5f82f6aaef ("r8169: enable ASPM L1/L1.1 from RTL8168h")
+> >> Cc: stable@vger.kernel.org
+> >> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=217814
+> >> Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
+> >> Signed-off-by: David S. Miller <davem@davemloft.net>
+> >> (cherry picked from commit 90ca51e8c654699b672ba61aeaa418dfb3252e5e)
+> >> ---
+> >>  drivers/net/ethernet/realtek/r8169_main.c | 4 ----
+> >>  1 file changed, 4 deletions(-)
+> > 
+> > Is this a proposed stable tree patch?  If so, what kernel(s) are you
+> > wanting it applied to?
+> > 
+> This should have been sent neither to you nor stable@vger.kernel.org.
+> This patch has been applied to stable already, the mail is something
+> AMD-internal it seems.
 
-drivers/gpu/drm/amd/include/mes_v11_api_def.h:192:27-34: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
-
-Signed-off-by: José Pekkarinen <jose.pekkarinen@foxhound.fi>
----
- drivers/gpu/drm/amd/include/mes_v11_api_def.h | 5 -----
- 1 file changed, 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-index b1db2b190187..e032ee262fa9 100644
---- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-+++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-@@ -187,11 +187,6 @@ struct MES_LOG_ENTRY_DATA {
- 	};
- };
- 
--struct MES_LOG_BUFFER {
--	struct MES_LOG_ENTRY_HEADER	header;
--	struct MES_LOG_ENTRY_DATA	entries[1];
--};
--
- enum MES_SWIP_TO_HWIP_DEF {
- 	MES_MAX_HWIP_SEGMENT = 8,
- };
--- 
-2.39.2
-
+Then someone needs to seriously fix their scripts as it is very
+confusing :(
