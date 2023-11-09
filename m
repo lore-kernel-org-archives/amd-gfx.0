@@ -4,88 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCC22C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Nov 2023 22:14:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65C31C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Nov 2023 22:30:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E23B10E405;
-	Thu,  9 Nov 2023 22:14:22 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F58010E404
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 22:14:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FztlqDnkgwSmLl10Wm90Uc8oABW5u5fkOL14Dn1VFjypT9mFksmvM9RCR3nm1EfDY/uDs6XpT7wZMl3egun/UIDrXpYuHNg1uIH/kCGOBhxY79RBrcYc+8yMU1YNpwKtnONfOGbkLk1A3sqPJxR+fVrOsP+4qR1p0Za84Ni7kp/pi0j6aEqxEA6fkfzEusx5O3il0s9TRbjaTc3gIj4HkttXlEi5PSzpLlRlkyU4kz/DxLCo1esBiPaq/rR8xY9VWAupErTwvldvXdE7ZNWtvCFpjSdbj/FILh/hjX1kBrF582nZPlX1LtU+6o3vb4b/mjGNnfv9UEmxU8rc5Me4qg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Gw4/Sp+xDHqu0zl4i2lc8utP313cEJI7D7HnoYr0dmg=;
- b=C2CwG1XX/Ymb24QbNQmHmkxjdIFZhJwBpDiUHntI2rIOVnADgUV5Q8zUXJ8NWSMmkY9rQZPGEbeUcYPr0xpvpcvu8cENdNZnscb4FsQtUnr/QOY/ZXPVHtrmTo5EPeDNIlEf8hNPX9/wyu6pYbfiravzH7kLcsgAkJCqooXlPu+KtS6KhP2kbefM2w+InuSNUtWRpwqHATgx1bnUw+mKnj0z+MCwp+TekxjOQW/q6O+0DguEgRZQoW7CliMRK+RvZs+2kwv8w2CzUL2ZCgveZrZ1IYY/W1G4fJNoyOJUymhYUUBDpQgjK10v8TfDd2PbrbhlNqEJMMthaQbcJ+U9VQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gw4/Sp+xDHqu0zl4i2lc8utP313cEJI7D7HnoYr0dmg=;
- b=Kgs7+NIziyCaFU+Ca+t3V+3XuRHWMavLTZ6HlK9AKWjftWgtk6s1iD2f6NXnMhJ/5t+Fsky2yiMwyAhxYhe/ykf4bV3fiRHRh6gxyXOfgTwW1Ff+BvECPKujix4eee9loGMW4NwOkM136NwriDgLAodaMFjHKY4qB9oRQbS3Ty4=
-Received: from CH0PR03CA0017.namprd03.prod.outlook.com (2603:10b6:610:b0::22)
- by SA3PR12MB7973.namprd12.prod.outlook.com (2603:10b6:806:305::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.28; Thu, 9 Nov
- 2023 22:14:15 +0000
-Received: from DS2PEPF0000343C.namprd02.prod.outlook.com
- (2603:10b6:610:b0:cafe::e) by CH0PR03CA0017.outlook.office365.com
- (2603:10b6:610:b0::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.19 via Frontend
- Transport; Thu, 9 Nov 2023 22:14:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS2PEPF0000343C.mail.protection.outlook.com (10.167.18.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6977.16 via Frontend Transport; Thu, 9 Nov 2023 22:14:14 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Thu, 9 Nov
- 2023 16:14:13 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/3] drm/amdgpu: fix avg vs input power reporting on smu7
-Date: Thu, 9 Nov 2023 17:13:58 -0500
-Message-ID: <20231109221400.936847-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.41.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A30010E38D;
+	Thu,  9 Nov 2023 22:30:52 +0000 (UTC)
+Received: from mail-oo1-xc33.google.com (mail-oo1-xc33.google.com
+ [IPv6:2607:f8b0:4864:20::c33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1075910E34C
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 22:30:43 +0000 (UTC)
+Received: by mail-oo1-xc33.google.com with SMTP id
+ 006d021491bc7-586beb5e6a7so766293eaf.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Nov 2023 14:30:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1699569042; x=1700173842; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=B0GJxq/h12yDf80y3OOB67VUasw0FUtytPfVRV7f1ko=;
+ b=MJ2tzWtty3kUBbkDifpRW7vpleEkRfhdJbfCeM+0JeVBAJlPs3Lv0QSlB0tl/I/g+S
+ 5Y0ga3WNyGqjUo9k9rQjQbhJbVq9ib+toqjWPpguBRMEUPX/XjoHK+aEtVA22KMdapo2
+ nglsYNQ5lFCcsUcn4ABOBKsuYvrWVyCKyWeXJ6MYqxKAlqHJxwABYjnFTRHVd1L675a1
+ Mg3wahXozPYxHmC2q7IEZGxmvFyuExSRguh6klG8fJBduG80tnrhgdKfso+fBb+Mahuc
+ I1CrmW0Ef6fJ4dHTu31xGLusbbBaAHiIAk9hDtBuTQR1R1UcI4ZGL+Zsbst/0A3Ryk6x
+ zCyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1699569042; x=1700173842;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=B0GJxq/h12yDf80y3OOB67VUasw0FUtytPfVRV7f1ko=;
+ b=HmiKlmWrRko8zMsZKNxiFkDs/pJaDO4pkmifwuVZm3ZFssjb6KrJ/vID8td0iJ0cv5
+ N+amLrDW1ddCGTsPGjm568yeptYE1papAFPY8Ls8+8IHyG1l+RXR7hyA/wcBpoc1141O
+ hkVN48mh3eh+ZqnPJH6uKOim/WjQT4nhyTgXlNw9m0+EjmADPGVjcM9rLMglqfbFnapd
+ 4tB0hmXN2hL0xY/cJqKyP2bwdllpqb2N7qJ0dq9H2jqUyLyjnm7FSJN3s/7tiI1B512E
+ 9ez1T/1IC2nbdJyQgt/uP9rzTk3dF1YK1MSCvhzDW0lNbKGI0C/GDycV5PcBXyShwIk5
+ UphQ==
+X-Gm-Message-State: AOJu0YzuTaHL4z7MhkR4j8KsMK0lFe4RMzH3sgIPKSEkCIqPQbVBU3Iz
+ 8yZGZy6KQeZ4lEf5TXEV/skQUsyuvbAq7ogkxSobCvcX
+X-Google-Smtp-Source: AGHT+IGOv273GuA3CR6CdBQ5fYgFF07ITwhJgShSEwuGQS5Ex56r4t0Xr8odKDiys+b7OOPdUc5DyzdGdak9phxGXBE=
+X-Received: by 2002:a05:6870:1090:b0:1f0:d96:8d9f with SMTP id
+ 16-20020a056870109000b001f00d968d9fmr5451454oaq.57.1699569042097; Thu, 09 Nov
+ 2023 14:30:42 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF0000343C:EE_|SA3PR12MB7973:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20153960-3970-4cff-cbfb-08dbe17135bb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: udfVA9mCnMvu+qCLVwQ7zJi080M3mb3UZEbvoiPRgEm1dgfYm7Aos2JBye5IG7BPCTk/yG61CKXBXLhs4nHL8gVLOKmCrisVX7htsSgAWvwj+BphUknzfP2PhR+O43U6d+n6QdIMIWTYcczTzB0wdFE3rbloTlFt8un5T17KOpC7vbQOD2uWoH88uNUinQ+WqunN0P4zfZogop4SAIJtxVNXFq3TpJU6UtPlkN3irjBrrXUoUJ9RQWsEOQSXK7vc5dpBP4yCRQw4H1YBTrbBdMDG9L1DQ0igoHRc6ynpHLrWDT9ZBsM5b6M6W4xZ/zg+kMcVYJZgotIizrdpkMRHfuIGE6t6HVjpNToxVDkfqcXveV+dxZhL46rOzKpCb+qJf6LbnBv1+iVuHaUL67QU5Z5GP+R6lDYJOU6em78jUvMhGpVnAvmVhzs7MmloqDTQ2CTzJuIZSLY98aX+Dd2VbGcNFML/PGtXIGFyOkFoftiugpYJBq/jmbAdU8wL5xea112sOHGT/1zMDD7WCflMqWz/tKHA/2HYqPS/29uqmK2XlItiRxFLpANYMs/s2p/PYVULniHwHlLrh7O9NOMDkTzkzmuPjmpzIJ/12sR04LMfkFnFCDwFQr8cUOTe4HZjBUvYl6uW4iKoScfyTaMFBSJVBglcpNkOfeObMkTIWDJ8CFD4Yo5N3E6xuwsPIpzkQE5ZNgPWCKleK9Spppbf0qp+7l5KESTEINbrykNdpUmP5oauYeRSe+/3e5R2FAHEVHnrcDjx4PtkLPKLC4q9NA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(396003)(136003)(346002)(376002)(230922051799003)(1800799009)(82310400011)(451199024)(186009)(64100799003)(46966006)(40470700004)(36840700001)(2906002)(6916009)(5660300002)(86362001)(316002)(70206006)(8676002)(4326008)(40460700003)(36756003)(41300700001)(70586007)(82740400003)(1076003)(26005)(16526019)(83380400001)(426003)(336012)(81166007)(7696005)(2616005)(6666004)(47076005)(8936002)(356005)(36860700001)(40480700001)(478600001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2023 22:14:14.6798 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20153960-3970-4cff-cbfb-08dbe17135bb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343C.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7973
+References: <20231108184152.4755-1-alexander.deucher@amd.com>
+ <CADnq5_Msooo0n7=hLS9vXL3sn-_AGHaauejkCE+NP-AUuaEJEg@mail.gmail.com>
+ <55c7fe4c-b594-4442-971e-3d4adefdb664@gmail.com>
+In-Reply-To: <55c7fe4c-b594-4442-971e-3d4adefdb664@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 9 Nov 2023 17:30:30 -0500
+Message-ID: <CADnq5_M5O0mWyg3FWrbgbEg9Ng6jFgtjPc9ECpntushdfexMow@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: move UVD and VCE sched entity init after
+ sched init
+To: Luben Tuikov <ltuikov89@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,53 +70,323 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hawaii, Bonaire, Fiji, and Tonga support average power, the others
-support current power.
+On Thu, Nov 9, 2023 at 4:35=E2=80=AFPM Luben Tuikov <ltuikov89@gmail.com> w=
+rote:
+>
+> On 2023-11-09 11:13, Alex Deucher wrote:
+> > Ping?
+> >
+> > On Wed, Nov 8, 2023 at 1:42=E2=80=AFPM Alex Deucher <alexander.deucher@=
+amd.com> wrote:
+> >>
+> >> We need kernel scheduling entities to deal with handle clean up
+> >> if apps are not cleaned up properly.  With commit 56e449603f0ac5
+> >> ("drm/sched: Convert the GPU scheduler to variable number of run-queue=
+s")
+> >> the scheduler entities have to be created after scheduler init, so
+> >> change the ordering to fix this.
+> >>
+> >> v2: Leave logic in UVD and VCE code
+> >>
+> >> Fixes: 56e449603f0ac5 ("drm/sched: Convert the GPU scheduler to variab=
+le number of run-queues")
+> >> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> >> Cc: ltuikov89@gmail.com
+>
+> Reviewed-by: Luben Tuikov <ltuikov89@gmail.com>
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+Thanks Luben!
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-index 11372fcc59c8..a2c7b2e111fa 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-@@ -3995,6 +3995,7 @@ static int smu7_read_sensor(struct pp_hwmgr *hwmgr, int idx,
- 	uint32_t sclk, mclk, activity_percent;
- 	uint32_t offset, val_vid;
- 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct amdgpu_device *adev = hwmgr->adev;
- 
- 	/* size must be at least 4 bytes for all sensors */
- 	if (*size < 4)
-@@ -4038,7 +4039,21 @@ static int smu7_read_sensor(struct pp_hwmgr *hwmgr, int idx,
- 		*size = 4;
- 		return 0;
- 	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
--		return smu7_get_gpu_power(hwmgr, (uint32_t *)value);
-+		if ((adev->asic_type != CHIP_HAWAII) &&
-+		    (adev->asic_type != CHIP_BONAIRE) &&
-+		    (adev->asic_type != CHIP_FIJI) &&
-+		    (adev->asic_type != CHIP_TONGA))
-+			return smu7_get_gpu_power(hwmgr, (uint32_t *)value);
-+		else
-+			return -EOPNOTSUPP;
-+	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
-+		if ((adev->asic_type != CHIP_HAWAII) &&
-+		    (adev->asic_type != CHIP_BONAIRE) &&
-+		    (adev->asic_type != CHIP_FIJI) &&
-+		    (adev->asic_type != CHIP_TONGA))
-+			return -EOPNOTSUPP;
-+		else
-+			return smu7_get_gpu_power(hwmgr, (uint32_t *)value);
- 	case AMDGPU_PP_SENSOR_VDDGFX:
- 		if ((data->vr_config & VRCONF_VDDGFX_MASK) ==
- 		    (VR_SVI2_PLANE_2 << VRCONF_VDDGFX_SHIFT))
--- 
-2.41.0
+Alex
 
+>
+> Regards,
+> Luben
+>
+> >> ---
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 +++++++++++
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c    | 22 ++++++++++----------
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h    |  2 +-
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c    | 24 +++++++++++----------=
+-
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h    |  2 +-
+> >>  drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c      |  2 --
+> >>  drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c      |  2 --
+> >>  drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c      |  2 --
+> >>  drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c      |  2 --
+> >>  drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c      |  4 ----
+> >>  drivers/gpu/drm/amd/amdgpu/vce_v2_0.c      |  2 --
+> >>  drivers/gpu/drm/amd/amdgpu/vce_v3_0.c      |  2 --
+> >>  drivers/gpu/drm/amd/amdgpu/vce_v4_0.c      |  5 -----
+> >>  13 files changed, 37 insertions(+), 46 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_device.c
+> >> index 43a95feba884..03e669c34033 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> >> @@ -2499,6 +2499,18 @@ static int amdgpu_device_init_schedulers(struct=
+ amdgpu_device *adev)
+> >>                                   ring->name);
+> >>                         return r;
+> >>                 }
+> >> +               r =3D amdgpu_uvd_entity_init(adev, ring);
+> >> +               if (r) {
+> >> +                       DRM_ERROR("Failed to create UVD scheduling ent=
+ity on ring %s.\n",
+> >> +                                 ring->name);
+> >> +                       return r;
+> >> +               }
+> >> +               r =3D amdgpu_vce_entity_init(adev, ring);
+> >> +               if (r) {
+> >> +                       DRM_ERROR("Failed to create VCE scheduling ent=
+ity on ring %s.\n",
+> >> +                                 ring->name);
+> >> +                       return r;
+> >> +               }
+> >>         }
+> >>
+> >>         amdgpu_xcp_update_partition_sched_list(adev);
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_uvd.c
+> >> index 815b7c34ed33..65949cc7abb9 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> >> @@ -399,20 +399,20 @@ int amdgpu_uvd_sw_fini(struct amdgpu_device *ade=
+v)
+> >>   *
+> >>   * @adev: amdgpu_device pointer
+> >>   *
+> >> + * Initialize the entity used for handle management in the kernel dri=
+ver.
+> >>   */
+> >> -int amdgpu_uvd_entity_init(struct amdgpu_device *adev)
+> >> +int amdgpu_uvd_entity_init(struct amdgpu_device *adev, struct amdgpu_=
+ring *ring)
+> >>  {
+> >> -       struct amdgpu_ring *ring;
+> >> -       struct drm_gpu_scheduler *sched;
+> >> -       int r;
+> >> +       if (ring =3D=3D &adev->uvd.inst[0].ring) {
+> >> +               struct drm_gpu_scheduler *sched =3D &ring->sched;
+> >> +               int r;
+> >>
+> >> -       ring =3D &adev->uvd.inst[0].ring;
+> >> -       sched =3D &ring->sched;
+> >> -       r =3D drm_sched_entity_init(&adev->uvd.entity, DRM_SCHED_PRIOR=
+ITY_NORMAL,
+> >> -                                 &sched, 1, NULL);
+> >> -       if (r) {
+> >> -               DRM_ERROR("Failed setting up UVD kernel entity.\n");
+> >> -               return r;
+> >> +               r =3D drm_sched_entity_init(&adev->uvd.entity, DRM_SCH=
+ED_PRIORITY_NORMAL,
+> >> +                                         &sched, 1, NULL);
+> >> +               if (r) {
+> >> +                       DRM_ERROR("Failed setting up UVD kernel entity=
+.\n");
+> >> +                       return r;
+> >> +               }
+> >>         }
+> >>
+> >>         return 0;
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_uvd.h
+> >> index a9f342537c68..9dfad2f48ef4 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h
+> >> @@ -73,7 +73,7 @@ struct amdgpu_uvd {
+> >>
+> >>  int amdgpu_uvd_sw_init(struct amdgpu_device *adev);
+> >>  int amdgpu_uvd_sw_fini(struct amdgpu_device *adev);
+> >> -int amdgpu_uvd_entity_init(struct amdgpu_device *adev);
+> >> +int amdgpu_uvd_entity_init(struct amdgpu_device *adev, struct amdgpu_=
+ring *ring);
+> >>  int amdgpu_uvd_prepare_suspend(struct amdgpu_device *adev);
+> >>  int amdgpu_uvd_suspend(struct amdgpu_device *adev);
+> >>  int amdgpu_uvd_resume(struct amdgpu_device *adev);
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_vce.c
+> >> index 1904edf68407..0954447f689d 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+> >> @@ -231,20 +231,20 @@ int amdgpu_vce_sw_fini(struct amdgpu_device *ade=
+v)
+> >>   *
+> >>   * @adev: amdgpu_device pointer
+> >>   *
+> >> + * Initialize the entity used for handle management in the kernel dri=
+ver.
+> >>   */
+> >> -int amdgpu_vce_entity_init(struct amdgpu_device *adev)
+> >> +int amdgpu_vce_entity_init(struct amdgpu_device *adev, struct amdgpu_=
+ring *ring)
+> >>  {
+> >> -       struct amdgpu_ring *ring;
+> >> -       struct drm_gpu_scheduler *sched;
+> >> -       int r;
+> >> -
+> >> -       ring =3D &adev->vce.ring[0];
+> >> -       sched =3D &ring->sched;
+> >> -       r =3D drm_sched_entity_init(&adev->vce.entity, DRM_SCHED_PRIOR=
+ITY_NORMAL,
+> >> -                                 &sched, 1, NULL);
+> >> -       if (r !=3D 0) {
+> >> -               DRM_ERROR("Failed setting up VCE run queue.\n");
+> >> -               return r;
+> >> +       if (ring =3D=3D &adev->vce.ring[0]) {
+> >> +               struct drm_gpu_scheduler *sched =3D &ring->sched;
+> >> +               int r;
+> >> +
+> >> +               r =3D drm_sched_entity_init(&adev->vce.entity, DRM_SCH=
+ED_PRIORITY_NORMAL,
+> >> +                                         &sched, 1, NULL);
+> >> +               if (r !=3D 0) {
+> >> +                       DRM_ERROR("Failed setting up VCE run queue.\n"=
+);
+> >> +                       return r;
+> >> +               }
+> >>         }
+> >>
+> >>         return 0;
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_vce.h
+> >> index ea680fc9a6c3..6e53f872d084 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h
+> >> @@ -55,7 +55,7 @@ struct amdgpu_vce {
+> >>
+> >>  int amdgpu_vce_sw_init(struct amdgpu_device *adev, unsigned long size=
+);
+> >>  int amdgpu_vce_sw_fini(struct amdgpu_device *adev);
+> >> -int amdgpu_vce_entity_init(struct amdgpu_device *adev);
+> >> +int amdgpu_vce_entity_init(struct amdgpu_device *adev, struct amdgpu_=
+ring *ring);
+> >>  int amdgpu_vce_suspend(struct amdgpu_device *adev);
+> >>  int amdgpu_vce_resume(struct amdgpu_device *adev);
+> >>  void amdgpu_vce_free_handles(struct amdgpu_device *adev, struct drm_f=
+ile *filp);
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c b/drivers/gpu/drm/a=
+md/amdgpu/uvd_v3_1.c
+> >> index 58a8f78c003c..a6006f231c65 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+> >> @@ -577,8 +577,6 @@ static int uvd_v3_1_sw_init(void *handle)
+> >>         ptr +=3D ucode_len;
+> >>         memcpy(&adev->uvd.keyselect, ptr, 4);
+> >>
+> >> -       r =3D amdgpu_uvd_entity_init(adev);
+> >> -
+> >>         return r;
+> >>  }
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c b/drivers/gpu/drm/a=
+md/amdgpu/uvd_v4_2.c
+> >> index d3b1e31f5450..1aa09ad7bbe3 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
+> >> @@ -127,8 +127,6 @@ static int uvd_v4_2_sw_init(void *handle)
+> >>         if (r)
+> >>                 return r;
+> >>
+> >> -       r =3D amdgpu_uvd_entity_init(adev);
+> >> -
+> >>         return r;
+> >>  }
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/a=
+md/amdgpu/uvd_v5_0.c
+> >> index 5a8116437abf..f8b229b75435 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
+> >> @@ -125,8 +125,6 @@ static int uvd_v5_0_sw_init(void *handle)
+> >>         if (r)
+> >>                 return r;
+> >>
+> >> -       r =3D amdgpu_uvd_entity_init(adev);
+> >> -
+> >>         return r;
+> >>  }
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/a=
+md/amdgpu/uvd_v6_0.c
+> >> index 74c09230aeb3..a9a6880f44e3 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+> >> @@ -432,8 +432,6 @@ static int uvd_v6_0_sw_init(void *handle)
+> >>                 }
+> >>         }
+> >>
+> >> -       r =3D amdgpu_uvd_entity_init(adev);
+> >> -
+> >>         return r;
+> >>  }
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/a=
+md/amdgpu/uvd_v7_0.c
+> >> index 1c42cf10cc29..6068b784dc69 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+> >> @@ -480,10 +480,6 @@ static int uvd_v7_0_sw_init(void *handle)
+> >>         if (r)
+> >>                 return r;
+> >>
+> >> -       r =3D amdgpu_uvd_entity_init(adev);
+> >> -       if (r)
+> >> -               return r;
+> >> -
+> >>         r =3D amdgpu_virt_alloc_mm_table(adev);
+> >>         if (r)
+> >>                 return r;
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c b/drivers/gpu/drm/a=
+md/amdgpu/vce_v2_0.c
+> >> index 67eb01fef789..a08e7abca423 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
+> >> @@ -441,8 +441,6 @@ static int vce_v2_0_sw_init(void *handle)
+> >>                         return r;
+> >>         }
+> >>
+> >> -       r =3D amdgpu_vce_entity_init(adev);
+> >> -
+> >>         return r;
+> >>  }
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/a=
+md/amdgpu/vce_v3_0.c
+> >> index 18f6e62af339..f4760748d349 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+> >> @@ -450,8 +450,6 @@ static int vce_v3_0_sw_init(void *handle)
+> >>                         return r;
+> >>         }
+> >>
+> >> -       r =3D amdgpu_vce_entity_init(adev);
+> >> -
+> >>         return r;
+> >>  }
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c b/drivers/gpu/drm/a=
+md/amdgpu/vce_v4_0.c
+> >> index e0b70cd3b697..06d787385ad4 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
+> >> @@ -486,11 +486,6 @@ static int vce_v4_0_sw_init(void *handle)
+> >>                         return r;
+> >>         }
+> >>
+> >> -
+> >> -       r =3D amdgpu_vce_entity_init(adev);
+> >> -       if (r)
+> >> -               return r;
+> >> -
+> >>         r =3D amdgpu_virt_alloc_mm_table(adev);
+> >>         if (r)
+> >>                 return r;
+> >> --
+> >> 2.41.0
+> >>
