@@ -4,44 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7605C4167D
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Nov 2023 14:43:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2EF5C001B2
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Nov 2023 14:43:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87C7B10E236;
-	Thu,  9 Nov 2023 14:43:42 +0000 (UTC)
-Received: from 5.mo583.mail-out.ovh.net (5.mo583.mail-out.ovh.net
- [87.98.173.103])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EC4610E1E6
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 08:41:19 +0000 (UTC)
-Received: from director5.ghost.mail-out.ovh.net (unknown [10.108.20.85])
- by mo583.mail-out.ovh.net (Postfix) with ESMTP id AF6FA26CD6
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 08:41:17 +0000 (UTC)
-Received: from ghost-submission-6684bf9d7b-vsp9x (unknown [10.110.115.108])
- by director5.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 30EBA1FD1C;
- Thu,  9 Nov 2023 08:41:15 +0000 (UTC)
-Received: from foxhound.fi ([37.59.142.103])
- by ghost-submission-6684bf9d7b-vsp9x with ESMTPSA
- id y8qgBiubTGXYrAEAbsEDOA
- (envelope-from <jose.pekkarinen@foxhound.fi>); Thu, 09 Nov 2023 08:41:15 +0000
-Authentication-Results: garm.ovh; auth=pass
- (GARM-103G00528d66f00-163d-49d8-8ce5-862fd5d6f579,
- 40AB3B8824D5DAA18E3B98848C0232F256E668F8)
- smtp.auth=jose.pekkarinen@foxhound.fi
-X-OVh-ClientIp: 213.216.210.65
-From: =?UTF-8?q?Jos=C3=A9=20Pekkarinen?= <jose.pekkarinen@foxhound.fi>
-To: evan.quan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, skhan@linuxfoundation.org
-Subject: [PATCH] drm/amd/pm: make power values signed
-Date: Thu,  9 Nov 2023 10:41:10 +0200
-Message-Id: <20231109084110.4056-1-jose.pekkarinen@foxhound.fi>
-X-Mailer: git-send-email 2.39.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00A8610E8B5;
+	Thu,  9 Nov 2023 14:43:46 +0000 (UTC)
+X-Greylist: delayed 104625 seconds by postgrey-1.36 at gabe;
+ Thu, 09 Nov 2023 11:59:35 UTC
+Received: from 6.mo581.mail-out.ovh.net (6.mo581.mail-out.ovh.net
+ [188.165.39.218])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD5F110E8B0
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 11:59:35 +0000 (UTC)
+Received: from director4.ghost.mail-out.ovh.net (unknown [10.108.20.52])
+ by mo581.mail-out.ovh.net (Postfix) with ESMTP id 3A1962B617
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 11:54:09 +0000 (UTC)
+Received: from ghost-submission-6684bf9d7b-mtzwj (unknown [10.110.115.240])
+ by director4.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 85C921FE5E;
+ Thu,  9 Nov 2023 11:54:08 +0000 (UTC)
+Received: from RCM-web7.webmail.mail.ovh.net ([151.80.29.19])
+ by ghost-submission-6684bf9d7b-mtzwj with ESMTPSA
+ id RRNyHmDITGUefgQAf8sC0A
+ (envelope-from <jose.pekkarinen@foxhound.fi>); Thu, 09 Nov 2023 11:54:08 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Date: Thu, 09 Nov 2023 13:54:07 +0200
+From: =?UTF-8?Q?Jos=C3=A9_Pekkarinen?= <jose.pekkarinen@foxhound.fi>
+To: Greg KH <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH] drm/amd/pm: replace 1-element arrays with flexible-array
+ members
+In-Reply-To: <2023110916-tinfoil-concur-77d8@gregkh>
+References: <20231108065436.13969-1-jose.pekkarinen@foxhound.fi>
+ <2023110835-magnolia-prune-02d0@gregkh>
+ <1b20f2e4ddc0b0e94aa9a1f9c76ff75c@foxhound.fi>
+ <2023110916-tinfoil-concur-77d8@gregkh>
+User-Agent: Roundcube Webmail/1.4.15
+Message-ID: <ee757d648a601ba3530e0eeb1c5d178e@foxhound.fi>
+X-Sender: jose.pekkarinen@foxhound.fi
+Organization: Foxhound Ltd.
+X-Originating-IP: 109.70.100.69
+X-Webmail-UserID: jose.pekkarinen@foxhound.fi
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 11181593452377646785
+X-Ovh-Tracer-Id: 14438821884044027585
 X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvkedruddvtddguddulecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecunecujfgurhephffvvefufffkofggtgfgsehtkeertdertdejnecuhfhrohhmpeflohhsrocurfgvkhhkrghrihhnvghnuceojhhoshgvrdhpvghkkhgrrhhinhgvnhesfhhogihhohhunhgurdhfiheqnecuggftrfgrthhtvghrnhepfedtleeuteeitedvtedtteeuieevudejfeffvdetfeekleehhfelleefteetjeejnecukfhppeduvdejrddtrddtrddupddvudefrddvudeirddvuddtrdeihedpfeejrdehledrudegvddruddtfeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepoehjohhsvgdrphgvkhhkrghrihhnvghnsehfohighhhouhhnugdrfhhiqedpnhgspghrtghpthhtohepuddprhgtphhtthhopegrmhguqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdfovfetjfhoshhtpehmohehkeefpdhmohguvgepshhmthhpohhuth
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvkedruddvuddgfedvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepggffhffvvefujghffgfkgihoihgtgfesthekjhdttderjeenucfhrhhomheplfhoshorucfrvghkkhgrrhhinhgvnhcuoehjohhsvgdrphgvkhhkrghrihhnvghnsehfohighhhouhhnugdrfhhiqeenucggtffrrghtthgvrhhnpeehieduleeufeeggfeuhefgueekjeegtdehudefvdduteefudevkeelfeduheejtdenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecukfhppeduvdejrddtrddtrddupddutdelrdejtddruddttddrieelpdduhedurdektddrvdelrdduleenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepoehjohhsvgdrphgvkhhkrghrihhnvghnsehfohighhhouhhnugdrfhhiqedpnhgspghrtghpthhtohepuddprhgtphhtthhopegrmhguqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdfovfetjfhoshhtpehmohehkedupdhmohguvgepshhmthhpohhuth
 X-Mailman-Approved-At: Thu, 09 Nov 2023 14:43:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,48 +61,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jdelvare@suse.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org,
- =?UTF-8?q?Jos=C3=A9=20Pekkarinen?= <jose.pekkarinen@foxhound.fi>,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, airlied@gmail.com,
- linux@roeck-us.net, linux-kernel-mentees@lists.linux.dev
+Cc: Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, skhan@linuxfoundation.org, alexander.deucher@amd.com,
+ evan.quan@amd.com, airlied@gmail.com, christian.koenig@amd.com,
+ linux-kernel-mentees@lists.linux.dev
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The following patch will convert the power values returned by
-amdgpu_hwmon_get_power to signed, fixing the following warnings reported
-by coccinelle:
+On 2023-11-09 11:06, Greg KH wrote:
+> On Thu, Nov 09, 2023 at 10:43:50AM +0200, José Pekkarinen wrote:
+>> On 2023-11-08 09:29, Greg KH wrote:
+>> > On Wed, Nov 08, 2023 at 08:54:35AM +0200, José Pekkarinen wrote:
+>> > > The following case seems to be safe to be replaced with a flexible
+>> > > array
+>> > > to clean up the added coccinelle warning. This patch will just do it.
+>> > >
+>> > > drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h:76:38-63:
+>> > > WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+>> > >
+>> > > Signed-off-by: José Pekkarinen <jose.pekkarinen@foxhound.fi>
+>> > > ---
+>> > >  drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h | 2 +-
+>> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+>> > >
+>> > > diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h
+>> > > b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h
+>> > > index c7b61222d258..1ce4087005f0 100644
+>> > > --- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h
+>> > > +++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h
+>> > > @@ -73,7 +73,7 @@ struct smu8_register_index_data_pair {
+>> > >
+>> > >  struct smu8_ih_meta_data {
+>> > >  	uint32_t command;
+>> > > -	struct smu8_register_index_data_pair register_index_value_pair[1];
+>> > > +	struct smu8_register_index_data_pair register_index_value_pair[];
+>> >
+>> > Did you just change this structure size without any need to change any
+>> > code as well?  How was this tested?
+>> 
+>>     I didn't find any use of that struct member, if I missed
+>> something here, please let me know and I'll happily address any
+>> needed further work.
+> 
+> I don't think this is even a variable array.  It's just a one element
+> one, which is fine, don't be confused by the coccinelle "warning" here,
+> it's fired many false-positives and you need to verify this properly
+> with the driver authors first before changing anything.
 
-drivers/gpu/drm/amd/pm/amdgpu_pm.c:2801:5-8: WARNING: Unsigned expression compared with zero: val < 0
-drivers/gpu/drm/amd/pm/amdgpu_pm.c:2814:5-8: WARNING: Unsigned expression compared with zero: val < 0
+      My apologies to you, and anybody that feels the same, it is not my
+intention to bother with mistaken patches, I just assume that this patch
+or any other from me, will go to review process, where it should be fine
+if the patch is right, wrong, need further work, or further testing 
+either
+from my side or anybody else, and at the end of the day I need to do
+patches if I want to find my mentorship patches, and graduate.
 
-Signed-off-by: José Pekkarinen <jose.pekkarinen@foxhound.fi>
----
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+> In short, you just changed the size of this structure, are you _sure_
+> you can do that?  And yes, it doesn't look like this field is used, but
+> the structure is, so be careful.
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index e7bb1d324084..913ff62d5d5e 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -2795,7 +2795,7 @@ static ssize_t amdgpu_hwmon_show_power_avg(struct device *dev,
- 					   struct device_attribute *attr,
- 					   char *buf)
- {
--	unsigned int val;
-+	int val;
- 
- 	val = amdgpu_hwmon_get_power(dev, AMDGPU_PP_SENSOR_GPU_AVG_POWER);
- 
-@@ -2806,7 +2806,7 @@ static ssize_t amdgpu_hwmon_show_power_input(struct device *dev,
- 					     struct device_attribute *attr,
- 					     char *buf)
- {
--	unsigned int val;
-+	int val;
- 
- 	val = amdgpu_hwmon_get_power(dev, AMDGPU_PP_SENSOR_GPU_INPUT_POWER);
- 
--- 
-2.39.2
+     I don't know, let check it out together and see where this goes.
 
+     José.
