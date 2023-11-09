@@ -4,42 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B587C4332F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3802AC4167B
 	for <amd-gfx@archiver.kernel.org>; Thu,  9 Nov 2023 14:43:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17D8C10E8B0;
-	Thu,  9 Nov 2023 14:43:43 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B692010E1F5;
- Thu,  9 Nov 2023 09:06:43 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 5DBE6B81FED;
- Thu,  9 Nov 2023 09:06:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA174C433C7;
- Thu,  9 Nov 2023 09:06:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1699520801;
- bh=aREHLc+TYmAypcve6YQJsCcETJWSOyfcp56f4SIqchQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=fp3XYzZkaZD54ayEILKaIbNnDFFW7dBkAuLI6XzNQ4vw7zZIN1v7lqnMcaaL0xJeL
- 4r9vJXXwNQ1/I7fAwy8IXuQ1EXAUxeGFcOqYkdd1h1z4E/v70vNUdSR6kwjT/f8FIU
- KSPiqU78Bh19szmFZANlOMP1y3CHm/nHjxVsAVC0=
-Date: Thu, 9 Nov 2023 10:06:38 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: =?iso-8859-1?Q?Jos=E9?= Pekkarinen <jose.pekkarinen@foxhound.fi>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB7CD10E237;
+	Thu,  9 Nov 2023 14:43:42 +0000 (UTC)
+X-Greylist: delayed 92406 seconds by postgrey-1.36 at gabe;
+ Thu, 09 Nov 2023 08:53:48 UTC
+Received: from 2.mo575.mail-out.ovh.net (2.mo575.mail-out.ovh.net
+ [46.105.52.162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AF9A10E1FB
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 08:53:48 +0000 (UTC)
+Received: from director4.ghost.mail-out.ovh.net (unknown [10.108.20.214])
+ by mo575.mail-out.ovh.net (Postfix) with ESMTP id 4C0A125ABA
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 08:43:52 +0000 (UTC)
+Received: from ghost-submission-6684bf9d7b-v4d2x (unknown [10.110.171.163])
+ by director4.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 3B4F01FE30;
+ Thu,  9 Nov 2023 08:43:51 +0000 (UTC)
+Received: from RCM-web5.webmail.mail.ovh.net ([51.255.71.60])
+ by ghost-submission-6684bf9d7b-v4d2x with ESMTPSA
+ id xetbDMebTGXnFgAAqsDEaA
+ (envelope-from <jose.pekkarinen@foxhound.fi>); Thu, 09 Nov 2023 08:43:51 +0000
+MIME-Version: 1.0
+Date: Thu, 09 Nov 2023 10:43:50 +0200
+From: =?UTF-8?Q?Jos=C3=A9_Pekkarinen?= <jose.pekkarinen@foxhound.fi>
+To: Greg KH <gregkh@linuxfoundation.org>
 Subject: Re: [PATCH] drm/amd/pm: replace 1-element arrays with flexible-array
  members
-Message-ID: <2023110916-tinfoil-concur-77d8@gregkh>
+In-Reply-To: <2023110835-magnolia-prune-02d0@gregkh>
 References: <20231108065436.13969-1-jose.pekkarinen@foxhound.fi>
  <2023110835-magnolia-prune-02d0@gregkh>
- <1b20f2e4ddc0b0e94aa9a1f9c76ff75c@foxhound.fi>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Roundcube Webmail/1.4.15
+Message-ID: <1b20f2e4ddc0b0e94aa9a1f9c76ff75c@foxhound.fi>
+X-Sender: jose.pekkarinen@foxhound.fi
+Organization: Foxhound Ltd.
+X-Originating-IP: 185.220.102.8
+X-Webmail-UserID: jose.pekkarinen@foxhound.fi
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <1b20f2e4ddc0b0e94aa9a1f9c76ff75c@foxhound.fi>
-X-Mailman-Approved-At: Thu, 09 Nov 2023 14:43:36 +0000
+X-Ovh-Tracer-Id: 11224940598066063041
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvkedruddvtddguddvtdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeggfffhvfevufgjfhgfkfigohhitgfgsehtkehjtddtreejnecuhfhrohhmpeflohhsrocurfgvkhhkrghrihhnvghnuceojhhoshgvrdhpvghkkhgrrhhinhgvnhesfhhogihhohhunhgurdhfiheqnecuggftrfgrthhtvghrnhepheeiudelueefgefgueehgfeukeejgedthedufedvudetfeduveekleefudehjedtnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucfkphepuddvjedrtddrtddruddpudekhedrvddvtddruddtvddrkedphedurddvheehrdejuddriedtnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpeeojhhoshgvrdhpvghkkhgrrhhinhgvnhesfhhogihhohhunhgurdhfiheqpdhnsggprhgtphhtthhopedupdhrtghpthhtoheprghmugdqghhfgieslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdpoffvtefjohhsthepmhhoheejhedpmhhouggvpehsmhhtphhouhht
+X-Mailman-Approved-At: Thu, 09 Nov 2023 14:43:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,49 +67,38 @@ Cc: Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 09, 2023 at 10:43:50AM +0200, JosÈ Pekkarinen wrote:
-> On 2023-11-08 09:29, Greg KH wrote:
-> > On Wed, Nov 08, 2023 at 08:54:35AM +0200, JosÈ Pekkarinen wrote:
-> > > The following case seems to be safe to be replaced with a flexible
-> > > array
-> > > to clean up the added coccinelle warning. This patch will just do it.
-> > > 
-> > > drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h:76:38-63:
-> > > WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
-> > > 
-> > > Signed-off-by: JosÈ Pekkarinen <jose.pekkarinen@foxhound.fi>
-> > > ---
-> > >  drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h
-> > > b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h
-> > > index c7b61222d258..1ce4087005f0 100644
-> > > --- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h
-> > > +++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h
-> > > @@ -73,7 +73,7 @@ struct smu8_register_index_data_pair {
-> > > 
-> > >  struct smu8_ih_meta_data {
-> > >  	uint32_t command;
-> > > -	struct smu8_register_index_data_pair register_index_value_pair[1];
-> > > +	struct smu8_register_index_data_pair register_index_value_pair[];
-> > 
-> > Did you just change this structure size without any need to change any
-> > code as well?  How was this tested?
+On 2023-11-08 09:29, Greg KH wrote:
+> On Wed, Nov 08, 2023 at 08:54:35AM +0200, Jos√© Pekkarinen wrote:
+>> The following case seems to be safe to be replaced with a flexible 
+>> array
+>> to clean up the added coccinelle warning. This patch will just do it.
+>> 
+>> drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h:76:38-63: 
+>> WARNING use flexible-array member instead 
+>> (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+>> 
+>> Signed-off-by: Jos√© Pekkarinen <jose.pekkarinen@foxhound.fi>
+>> ---
+>>  drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>> 
+>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h 
+>> b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h
+>> index c7b61222d258..1ce4087005f0 100644
+>> --- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h
+>> +++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu8_smumgr.h
+>> @@ -73,7 +73,7 @@ struct smu8_register_index_data_pair {
+>> 
+>>  struct smu8_ih_meta_data {
+>>  	uint32_t command;
+>> -	struct smu8_register_index_data_pair register_index_value_pair[1];
+>> +	struct smu8_register_index_data_pair register_index_value_pair[];
 > 
->     I didn't find any use of that struct member, if I missed
-> something here, please let me know and I'll happily address any
-> needed further work.
+> Did you just change this structure size without any need to change any
+> code as well?  How was this tested?
 
-I don't think this is even a variable array.  It's just a one element
-one, which is fine, don't be confused by the coccinelle "warning" here,
-it's fired many false-positives and you need to verify this properly
-with the driver authors first before changing anything.
+     I didn't find any use of that struct member, if I missed
+something here, please let me know and I'll happily address any
+needed further work.
 
-In short, you just changed the size of this structure, are you _sure_
-you can do that?  And yes, it doesn't look like this field is used, but
-the structure is, so be careful.
-
-thanks,
-
-greg k-h
+     Jos√©.
