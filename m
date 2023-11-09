@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F589C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Nov 2023 20:51:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46A44C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Nov 2023 20:51:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF42510E914;
-	Thu,  9 Nov 2023 20:51:45 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2058.outbound.protection.outlook.com [40.107.100.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1270F10E912
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 20:51:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AF7C10E916;
+	Thu,  9 Nov 2023 20:51:49 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2081.outbound.protection.outlook.com [40.107.92.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0733910E912
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 20:51:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ez7EQ5RTPUoErbzyWYy13kQXATNkoeQ7Lwtn/KSiUpsp94AjcOpogUqUOjh4brczB1cqqmrwn+aDyjNAhMMkJ6pXM3qxzIuADGcaf5nSiJqHyu/OCNpCHqaMZ+k3jZow5jkz2FKvuOulR7td+TNCZuSNF1fJSz65UcmD41q/B308VU78Q8QViY6lJWJeu8Gu4JtfDuFdEdrWe/gF8wnYjKRP4Qc+TWhlOG5j13qQ6Nh4p5KlZOLjctVpPgmfZm/Ok9Mp47tbFNFCJLpFR5Q/wa6Gx/mMQwgybIbv5iBOnz1aCPMJTbFPvhdzjUezBoG2JmSlRNxjV90LmhGtu1VFfA==
+ b=ZQVNm2VakmBbumJGS7YoEeWvtUc7AbFKj9BoAS094V+Z/V2rq1q+wqx9udMn8qVQlwEyjfSj2OOEzWkAxSkV92y4C9823h1N9jkRKQoohk0KgUZtVEOJkEI250t5nrH3u3KbpfhLnuzScVN6Gt3Ie4YnIlIVARQY03vs/a19xaZRK1o4PlRqZUE+chNt8E8Jm3Nbeovgu2Xgy19XlkLILLxbJgiy9HHPVLveroHJeMI724sissOookuxXh2FSO3ZAlJ2wbiELbOtPRYYoeGAwajoOEpg6pBf94m5V25FbOgNEHhF7TOtBXTGFoh7jv6vTTHqhYJg+6Z6datjvLJTXQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QyDuiqF8bwvQ2Uahx1BmhqRd9dhgKLENUqgMp71HMVo=;
- b=jwvm0mZgNdSrQDMOqTGD5uO3c5OiDq8vCgnETQp0Nde6VD+lno8GzGG/wXk1tU59u3pVDICLJphPUcmQ+gHaOlvd4vxT/UISbBfWEEmkH1OGkrqrd7l/huYXdY69H973cXF/p0/pgVyrFfB0LqIjXC8mTLWU6oM986CvUzRMdVxJDJ/xsfCCefqqq+TbULLUh+l8PEzww6M6nC2MsB87F7xWPFjIim7ZuqrVqb4i6e9WTUj+YXDkK1EAyGYB4m3mPSHRm6N5Z7mjC1Z9DkWMFaAI0sCIYjuEOvpgi5Sa9kqkohRmK9E94hZMSRVo4FU/rNbxLW36srCVVT77BLnzvw==
+ bh=lok/TX7mgJNAI3KDVmHbTuXozSGbBDX3vo8f7hWJXYA=;
+ b=XWauPliFUmXxdpPUuRJvatFD7vby70KTMKd9u9VWO6nqVnNc3S7D8zYabRRouCTmP8H11mKGBLZKXDFZQsSVz6mASJkVe1VT+wXI9yBFU4mNT4FHAX9SzG/5Gk1yqamGaXHLB1qXrwwRQlHRzV1yPo04Oi/C4/vGHH8pNUyiQz6drE66ioU//nXVtRyHTta5G6b3aejYtp3WY8ctwT2yOd8ICKS1mEvEO0tsUSIxp+ZA5vxnSrTYwZzgUZZWYtF2VqQN8m8KjXcl+OUkx03QKXEWXcI/EkCCKCGw+Z27753AubsKm+nKM4MDUqQt5+vTregYLm39vIqOX7Mhr2u0Gg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QyDuiqF8bwvQ2Uahx1BmhqRd9dhgKLENUqgMp71HMVo=;
- b=3fDBaKUvHxw4waoVEiVggp5jNcLxU2f79ZDcCSUIA88N6hfotRrKW9cYhB4nP27mT1aAEgjYoQhybS/Vz5rjFh8SH6cXLdDWqjuT91Pp69MoEBkidnrV5Opr/4Qm5yS3SIzKNVJOWQV0iEpeEFdVqlMGOQswP0o1AUnHfpVEVTs=
-Received: from DS7PR03CA0315.namprd03.prod.outlook.com (2603:10b6:8:2b::10) by
- DM6PR12MB4484.namprd12.prod.outlook.com (2603:10b6:5:28f::24) with
+ bh=lok/TX7mgJNAI3KDVmHbTuXozSGbBDX3vo8f7hWJXYA=;
+ b=FJ4EkkTLOjiTKiJLuc7U8RgD9BFCexVYXAfmg0Q8YXJnT/lzR4VUKBSQgB9AK8A8KKSk+wulOd1rl+zIQeFdFYkn5cHWMITGBbGXMW03P35F67GN/HlH+0DXdzWJgs7N1dtMkh5kxyDWV1ggis3XLqqlq6IZDTXfRPiLfiVIYf8=
+Received: from DS7PR03CA0323.namprd03.prod.outlook.com (2603:10b6:8:2b::12) by
+ CYYPR12MB8889.namprd12.prod.outlook.com (2603:10b6:930:cb::16) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6954.29; Thu, 9 Nov 2023 20:51:39 +0000
+ 15.20.6954.28; Thu, 9 Nov 2023 20:51:39 +0000
 Received: from DS1PEPF00017098.namprd05.prod.outlook.com
- (2603:10b6:8:2b:cafe::ed) by DS7PR03CA0315.outlook.office365.com
- (2603:10b6:8:2b::10) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:8:2b:cafe::b) by DS7PR03CA0323.outlook.office365.com
+ (2603:10b6:8:2b::12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.19 via Frontend
  Transport; Thu, 9 Nov 2023 20:51:39 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
@@ -54,10 +54,13 @@ Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  2023 14:51:38 -0600
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/5] drm/amdgpu/gmc11: fix logic typo in AGP check
-Date: Thu, 9 Nov 2023 15:51:21 -0500
-Message-ID: <20231109205125.513643-1-alexander.deucher@amd.com>
+Subject: [PATCH 2/5] drm/amdgpu: add a module parameter to control the AGP
+ aperture
+Date: Thu, 9 Nov 2023 15:51:22 -0500
+Message-ID: <20231109205125.513643-2-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20231109205125.513643-1-alexander.deucher@amd.com>
+References: <20231109205125.513643-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017098:EE_|DM6PR12MB4484:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9d08ccfc-e8a6-4c09-6179-08dbe165abc1
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017098:EE_|CYYPR12MB8889:EE_
+X-MS-Office365-Filtering-Correlation-Id: 69f4eb43-7de6-4a81-10c9-08dbe165abf1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lKtj7a57zONciQ44dBiRI/HfQG/8aOUUZOD/2Kc6LbVOjrpz787ogNrceG9pFKUsXyDfoXKjdGQdzx3y9wCLw+0U0jYeWS1C+98K7sskxwaleyhSklA/mZeQ6L+m/Kbot1d8oB5kJuOXjTvzYtQwgo9Tm8vW0d6I9utbYUmgjsQHJsmrF8Zl2S6ob/VGCT3pklNuYX7BG36q3InhN2M6Ryg6cNkGDxUVotckErqsMpav/l4a3xoVGHr0evfmUbGgfauY9oUBPi5zenFxNHGuC+A6klvUL8Vegah2z1GTbwJT+YRNUnBE+l6cqoNQ7DS5Umq8MaKI7x6aCO6euLARtjMmZfHOEjyVkRhcpWzbA/ACDEHeGP4vBlDMPREXOH0W81F9RR135GBSHn/LPHSU4WdRsx6txFUbIEKURBTdkEQQMupCFVlNvztmjASdnzHVW3PiWONaFYPKih1avlvUMDFkh4tGAsxAKs4d2wqd87NGXTdk5tgW5YyfYtYGBFyKr0Slz2t0whxhUVfCCfSDhRBJgUssDEvB8x3Q7aKGCU5OfLDwlpVB1Fq/nbd3n70ew5fmxyop4zAtcaeW1aQgGmf3F7eIipzq7x0ljGe6RQ5mXxLqgpH/Y9mFyVm2oy1ZNxyW+G16uWhFlKekN7gE1jpPYbzOGy3s+sATL78sEeJmCPj+6LrT8Q+RjiB8JCxMdqXMo4749yAbPr+ZjJ2yPVonSyEZ5keMHbcRCa5uRCeHNiAo9uOWgpuMhFQ9aMNSmEFwBeZI3Kp7de3Q8WudSg==
+X-Microsoft-Antispam-Message-Info: y+NrnKCqk7Wks4cfx90wZjYuwghyee8fsshTyhynutbbOAQZtgTnEVVt5Dbb4j+hBT3XE7jD+qRmZqPfSqIl+MwTz/TELfeS6F61lak0pjJNjGEsn7/rUmf8ZmpbRCNo7iFoMcDxIohoSk97qy6yCSwVAmuYbjbiaXAtbOXlSQoKFjuUFAmQiY0TySd7zzfh6rK5BEoM5soIu3D8piuJDXmu7mjpCgg4O03Ar2EriSaaVWUNQZJvRsJEnWYyWd8mVWuxecfexdSemvvBvlKd0urLbVN810K/jtlLCvpU5YZbDLlIvHcYJadiFp9VyW47PTiwa2DFbO1QEJEMghz+HtR7FokfMsOlXrabzu6QW8IV8EEgdE/Ro+mkjxSuHbh/eLkUsvDO6OLRVhE7JEyfB4Cj3ppWce/nnR9yPNmqpykIsvLEcSJ38nLmIbkK3dFJKzwre/OT5qUI7Qm2lnWero1glgK/dVEFDBfFfaG6+3WkoX1sXMV5/IwYqebQnBT4BwEFxx4RlUtC3m7MAL6+2BCfg3R3/hVkJ7EMEeqbHv+UKRnFYEMNiYmgomVms+eUUYGOtXTWZ0lkjEACJL0UsNhL5wsioVYd56leBmVnpinxJDykVZIxTfNELlB6xuPOqQDmwB0TOH0NDl7mqk9TLgbaQtjg1NaNFgZXYTcqv97qAuhFkw2b3n0PXA0ZfXDnTbge/YNl3JNI+5dFXXmmTBSdiR/jXnKSyE6IjFw1Sal0oCqIPJHhMDGtAslpzqgwuFilM5HmUyRofal1hh77Nw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(396003)(39860400002)(376002)(136003)(230922051799003)(186009)(64100799003)(451199024)(82310400011)(1800799009)(40470700004)(36840700001)(46966006)(4326008)(47076005)(8936002)(40460700003)(8676002)(70586007)(316002)(6916009)(41300700001)(2906002)(86362001)(70206006)(4744005)(5660300002)(83380400001)(81166007)(426003)(336012)(356005)(2616005)(26005)(16526019)(1076003)(82740400003)(36860700001)(40480700001)(36756003)(7696005)(478600001)(6666004)(36900700001);
+ SFS:(13230031)(4636009)(346002)(136003)(376002)(396003)(39860400002)(230922051799003)(82310400011)(1800799009)(186009)(64100799003)(451199024)(40470700004)(36840700001)(46966006)(83380400001)(26005)(2616005)(70586007)(70206006)(1076003)(336012)(478600001)(426003)(47076005)(40480700001)(8936002)(6666004)(4326008)(8676002)(316002)(6916009)(7696005)(16526019)(40460700003)(41300700001)(5660300002)(82740400003)(36860700001)(81166007)(356005)(86362001)(36756003)(2906002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2023 20:51:39.1799 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d08ccfc-e8a6-4c09-6179-08dbe165abc1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2023 20:51:39.4924 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69f4eb43-7de6-4a81-10c9-08dbe165abf1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017098.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4484
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8889
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,27 +104,103 @@ Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Should be && rather than ||.
+Add a module parameter to control the AGP aperture.  The AGP
+aperture is an aperture in the GPU's internal address space
+which provides direct non-paged access to the platform address
+space.  This access is non-snooped so only uncached memory
+can be accessed.
 
-Fixes: b2e1cbe6281f ("drm/amdgpu/gmc11: disable AGP on GC 11.5")
+Add a knob so that we can toggle this for debugging.
+
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 10 ++++++++++
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  |  3 ++-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   |  2 +-
+ 5 files changed, 15 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-index 6dce9b29f675..ba4c82f5e617 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-@@ -640,7 +640,7 @@ static void gmc_v11_0_vram_gtt_location(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 969d8ba8b8dc..8c1f88b4a58c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -250,6 +250,7 @@ extern int amdgpu_umsch_mm;
+ extern int amdgpu_seamless;
+ 
+ extern int amdgpu_user_partt_mode;
++extern int amdgpu_agp;
+ 
+ #define AMDGPU_VM_MAX_NUM_CTX			4096
+ #define AMDGPU_SG_THRESHOLD			(256*1024*1024)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 0c0497d3a003..e8c42ff5d464 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -207,6 +207,7 @@ int amdgpu_user_partt_mode = AMDGPU_AUTO_COMPUTE_PARTITION_MODE;
+ int amdgpu_umsch_mm;
+ int amdgpu_seamless = -1; /* auto */
+ uint amdgpu_debug_mask;
++int amdgpu_agp = -1; /* auto */
+ 
+ static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
+ 
+@@ -961,6 +962,15 @@ module_param_named(seamless, amdgpu_seamless, int, 0444);
+ MODULE_PARM_DESC(debug_mask, "debug options for amdgpu, disabled by default");
+ module_param_named(debug_mask, amdgpu_debug_mask, uint, 0444);
+ 
++/**
++ * DOC: agp (int)
++ * Enable the AGP aperture.  This provides an aperture in the GPU's internal
++ * address space for direct access to system memory.  Note that these accesses
++ * are non-snooped, so they are only used for access to uncached memory.
++ */
++MODULE_PARM_DESC(agp, "AGP (-1 = auto (default), 0 = disable, 1 = enable)");
++module_param_named(agp, amdgpu_agp, int, 0444);
++
+ /* These devices are not supported by amdgpu.
+  * They are supported by the mach64, r128, radeon drivers
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index 0ec7b061d7c2..23483bffa1c7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -675,7 +675,7 @@ static void gmc_v10_0_vram_gtt_location(struct amdgpu_device *adev,
  	amdgpu_gmc_set_agp_default(adev, mc);
  	amdgpu_gmc_vram_location(adev, &adev->gmc, base);
- 	amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_HIGH);
--	if (!amdgpu_sriov_vf(adev) ||
-+	if (!amdgpu_sriov_vf(adev) &&
- 	    (amdgpu_ip_version(adev, GC_HWIP, 0) < IP_VERSION(11, 5, 0)))
+ 	amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_BEST_FIT);
+-	if (!amdgpu_sriov_vf(adev))
++	if (!amdgpu_sriov_vf(adev) && (amdgpu_agp != 0))
  		amdgpu_gmc_agp_location(adev, mc);
  
+ 	/* base offset of vram pages */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index ba4c82f5e617..e1078b53e942 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -641,7 +641,8 @@ static void gmc_v11_0_vram_gtt_location(struct amdgpu_device *adev,
+ 	amdgpu_gmc_vram_location(adev, &adev->gmc, base);
+ 	amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_HIGH);
+ 	if (!amdgpu_sriov_vf(adev) &&
+-	    (amdgpu_ip_version(adev, GC_HWIP, 0) < IP_VERSION(11, 5, 0)))
++	    (amdgpu_ip_version(adev, GC_HWIP, 0) < IP_VERSION(11, 5, 0)) &&
++	    (amdgpu_agp != 0))
+ 		amdgpu_gmc_agp_location(adev, mc);
+ 
+ 	/* base offset of vram pages */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index bde25eb4ed8e..22375fc23412 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1630,7 +1630,7 @@ static void gmc_v9_0_vram_gtt_location(struct amdgpu_device *adev,
+ 	} else {
+ 		amdgpu_gmc_vram_location(adev, mc, base);
+ 		amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_BEST_FIT);
+-		if (!amdgpu_sriov_vf(adev))
++		if (!amdgpu_sriov_vf(adev) && (amdgpu_agp != 0))
+ 			amdgpu_gmc_agp_location(adev, mc);
+ 	}
+ 	/* base offset of vram pages */
 -- 
 2.41.0
 
