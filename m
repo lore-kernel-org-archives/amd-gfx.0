@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3E0AC4332F
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Nov 2023 09:48:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC5BAC4167D
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Nov 2023 09:49:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90D8D10E1F9;
-	Thu,  9 Nov 2023 09:48:57 +0000 (UTC)
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F182710E1F9
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29B0010E214;
+	Thu,  9 Nov 2023 09:49:00 +0000 (UTC)
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [IPv6:2a00:1450:4864:20::52d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5765110E1F9
  for <amd-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 09:48:54 +0000 (UTC)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-53de8fc1ad8so972833a12.0
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-53b32dca0bfso1417022a12.0
  for <amd-gfx@lists.freedesktop.org>; Thu, 09 Nov 2023 01:48:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=gmail.com; s=20230601; t=1699523333; x=1700128133; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=zI3JAeZLlSX/PMhrIdaWaAEe3wMM8uOfVKj+q3rvDS0=;
- b=REovOceRqFW2vsASeQmHAjzxDFgEkId+EhsTD5/8wG/nd1EXOxsN6MJAfNE48IYFhi
- WaP/JiV6Pg7TaEyrhhRGJt2wCVG0lkz3d0Kav0Xpmr0nI9fTMTmzDLZ3mAbnh3KahNB0
- IwmaYkPB+scVoiB6PqLz7hO9gLcYMf9OxeciRNSA4t7RMwISDBkj+AJ35ghq1o+Zntcy
- e8QRJfuZzXPxMWnLBk39+RI0YG48JRLGxaX/TmZp2ok1tS5dW7Ogqaq2CZQjiu1IKLBC
- siVG+fnq3xEOtzEKUeLMzY/yFzmmjO/itKOoFZgdmjxyNCdLjQmuIcKhAiTTDjQ5YdaY
- jDiw==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=N4GZPr3RBAEqoXrk87IPRQ0Il9ybtSGY8Ba75kAQ6OM=;
+ b=iL/DyVCPi15ip9OXkMneS563wbegRgjzhexZYSKLWruvdQVK2f/4wX55cYzBc4/X48
+ fr0eV0xNbn3LWAOUriw7LJQDxUjbBjf+Lz/2QCuZb0oKuXRVBlVlb9c5VpHvH0V4hMwE
+ PVyCt8pus7Kbh10P3okxdVdrZnEQBgW5XISODfveGALeYbo96JRgugsIZdK0ITZBDiDA
+ 5WVpvJWKi48uzpJukTIOmarLaYaMAy+KRowPw+USqgFWeBTUuSS6j3m2uCln+2jOa766
+ msFgABIIFxTolM/6OHciCz8CQlBh4kO6pvw8TQo/pWXJ6XhhNjyFBn1RCr9iHspFqO6W
+ 3zWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1699523333; x=1700128133;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=zI3JAeZLlSX/PMhrIdaWaAEe3wMM8uOfVKj+q3rvDS0=;
- b=reymwxRHBwB9jJVbujm+q6JleJOF5wtP04/5cWV9zCFwF/LKLhf6y9B87mY2wxO3pj
- 5/NiLDqSPsMUpYAoLbS4s8dtLUdJdQ+Rhy1N4BHB/pWMTyFdx3mfTWjMcWd65xkUkVxE
- TZpNjcA5ax9a3IML83LvkiJas9iYslzXn7fzAJqL9yC0QFbGp8+IPzNTIQSl6tIlL+Ag
- akHb9ZOsqqKOzsVL5mNOeqyYM6GxNO642vIZqoKGmU1bwCg20ho2utf21pt4g5CHkLr4
- Ac50k7+Hlhr2H1QCQ0Ruhr9XoAxL27z5FxJm03CgehzVIfTuBS/1E9CrWZV5rE8StxBk
- kYTg==
-X-Gm-Message-State: AOJu0YzkEP20o5PShRJM4HxTuAnHUUtjC9JoAp7zk6HdoeQln2axNdfi
- vDJ8oWUFgIJvJ+LFRlzRwdzvuZudU65KUv/V
-X-Google-Smtp-Source: AGHT+IH7c6KRWVRrI6jkP3EoIruORsBsZvxFrd+YGcqVq3Usa62V0axotUja4U/ILyawCgewNBLrIQ==
-X-Received: by 2002:a50:cd57:0:b0:543:ba03:9b3b with SMTP id
- d23-20020a50cd57000000b00543ba039b3bmr3580221edj.25.1699523333166; 
- Thu, 09 Nov 2023 01:48:53 -0800 (PST)
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=N4GZPr3RBAEqoXrk87IPRQ0Il9ybtSGY8Ba75kAQ6OM=;
+ b=MkZtPyAjq3oOA9v3QnAQTjzoKpYp7rC6FbOqEJNMBsDPQSGNWyMHW90VXm2c5+jGfq
+ u3VMvshRxGMd4Pqej/h+4LQTDkD9wMGaoXgck4sdsU0WDLLDCZUI76qiURxbRsalFotM
+ oVrC7xLgjgvZHXvvAuTP6UETHL5JJ277dfvAyKRu/d9qG0LMLSYYIBC5SeOjDVvTPPk4
+ Uc5dEi4RRqC0h1LJe8e5ldbWeQBJwTd+nQdVKaxje88cwvNJ0nAxC/mxKHGjk2nwB6kf
+ eIhlCXf/uzw1LYgYxyI/m7rs3uLI1VgV2COUQGpH5UGJXCwU5Vf0ys5ii3yBpjqxZqPh
+ 7aLg==
+X-Gm-Message-State: AOJu0Yz4g+OM5MSOC7wW3JN1vzzpap3HGhGt4p8jvwvjnc62XpSjulu6
+ +Wou8r3IC9tJIv2AlmeJabJAGIKYbAO0KpIk
+X-Google-Smtp-Source: AGHT+IEc6qfUGpWgRNtywVdAzZ4j2Jan5BBK5HZlBSANWmjLuLEnONC9T8fp43a6RmkUFWx9W+4QsQ==
+X-Received: by 2002:a50:ff19:0:b0:53e:1207:5b69 with SMTP id
+ a25-20020a50ff19000000b0053e12075b69mr4700440edu.10.1699523332629; 
+ Thu, 09 Nov 2023 01:48:52 -0800 (PST)
 Received: from able.fritz.box ([2a00:e180:1516:6100:36ac:9121:5531:de23])
  by smtp.gmail.com with ESMTPSA id
- d14-20020a05640208ce00b0054130b1bc77sm7792401edz.51.2023.11.09.01.48.52
+ d14-20020a05640208ce00b0054130b1bc77sm7792401edz.51.2023.11.09.01.48.51
  for <amd-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Thu, 09 Nov 2023 01:48:52 -0800 (PST)
@@ -55,12 +54,10 @@ From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amdgpu: lower CS errors to debug severity
-Date: Thu,  9 Nov 2023 10:48:51 +0100
-Message-Id: <20231109094851.674657-2-christian.koenig@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: fix error handling in amdgpu_bo_list_get()
+Date: Thu,  9 Nov 2023 10:48:50 +0100
+Message-Id: <20231109094851.674657-1-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231109094851.674657-1-christian.koenig@amd.com>
-References: <20231109094851.674657-1-christian.koenig@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -78,25 +75,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Otherwise userspace can spam the logs by using incorrect input values.
+We should not leak the pointer where we couldn't grab the reference
+on to the caller because it can be that the error handling still
+tries to put the reference then.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index aafedb344c1b..af844c98f295 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1442,7 +1442,7 @@ int amdgpu_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		if (r == -ENOMEM)
- 			DRM_ERROR("Not enough memory for command submission!\n");
- 		else if (r != -ERESTARTSYS && r != -EAGAIN)
--			DRM_ERROR("Failed to process the buffer list %d!\n", r);
-+			DRM_DEBUG("Failed to process the buffer list %d!\n", r);
- 		goto error_fini;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+index 4e7089a22139..8ffad1dabcb5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+@@ -168,6 +168,7 @@ int amdgpu_bo_list_get(struct amdgpu_fpriv *fpriv, int id,
  	}
+ 
+ 	rcu_read_unlock();
++	*result = NULL;
+ 	return -ENOENT;
+ }
  
 -- 
 2.34.1
