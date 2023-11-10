@@ -4,60 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84945C4332F
-	for <amd-gfx@archiver.kernel.org>; Sun, 12 Nov 2023 18:00:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7373C4332F
+	for <amd-gfx@archiver.kernel.org>; Sun, 12 Nov 2023 18:01:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EBFE10E029;
-	Sun, 12 Nov 2023 18:00:50 +0000 (UTC)
-Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
- [IPv6:2607:f8b0:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EE9F10E029;
- Sun, 12 Nov 2023 18:00:49 +0000 (UTC)
-Received: by mail-ot1-x32a.google.com with SMTP id
- 46e09a7af769-6ce2988d62eso2267810a34.1; 
- Sun, 12 Nov 2023 10:00:49 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BD4710E0AA;
+	Sun, 12 Nov 2023 18:01:10 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFED110E242
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Nov 2023 23:32:43 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id
+ ffacd0b85a97d-32d849cc152so1617638f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Nov 2023 15:32:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1699812048; x=1700416848; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=YfKjTNPjLOgd1jDpWmUB18irX4zVfrahQ01NcwWX1j8=;
- b=REp7nkNYS/WNX2RbPkoukj0TeXWzVDwJ3TI4WiEsS15BAvfpK7tJtrpkKwRc/y2T4F
- cvb7g30/7DW9joWVTvqZdPvqBBJ2nxOeCsqpvu9tim537MTf4N+WnKvi3yt8fh5h2TJm
- PtwfoG+nqQ5kwrYuHK8oNRqY75vNj6px4yUITaG/X7RfymGjMyEaqCY2Z4FpiHZYDM34
- GqnaruHcSIc6Ai9/Om0lcx3TROFwezj4RqOlb4BPv0a2++sKd4T0GYMSxsDyDeQTYSkr
- bqOndmy6USH4xUZ7w4oJePeVXT3wuy6/x1KF3aSXDB/GxTyVsAayf79nsCZ+8baReOv7
- BSFA==
+ d=gmail.com; s=20230601; t=1699659162; x=1700263962; darn=lists.freedesktop.org;
+ h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=1wkd7rIipmMYONgRoY2xjF4x8cV6fihkOEeUr4AhBok=;
+ b=KuilRjS3OrhVu1uza5iuKXJgcqNVmzb9cepBwTws7ayAMX3meRAKTsLAE57o8cmDx+
+ F245fGX5wohmXYubVG/0EqddaU+FbdhA6XTW8md+cVFZhcnm65mrj6p32RAAjeXhxZUC
+ +/pDOPBlimHDA8ZXgk3mtu3tm7i1K+7QUYVPcjUhnxONjoWaD/erc5S+7jKk/WDLdXJq
+ tqEyS3pjyNq8PGgiRzwGo/A6NCjlGYAYYtUDysOh1XIQXh4yxwKRYr1fL3eGkc/I4QSW
+ F3HqzdRIDCCypSZpc/YhTpNnY5aR1M7WUG6E8DPHyFU1DALYmV3mfdB9gG21cTunkwyW
+ 5GJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699812048; x=1700416848;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=YfKjTNPjLOgd1jDpWmUB18irX4zVfrahQ01NcwWX1j8=;
- b=BXBgXKRuBLFBH0h24a+ZRG6OHCr/mI/NOs5VWUfzb2dBGKgTOoFTr7JH+qZLumu7ZZ
- WspNYSWimgbXtNOl/t7As8JOMYN9Rfz6CnPQloarRrmWO2ar2JM9EeJBmzZyQMEXsTtv
- owGlYiR7N95miIhda4y2KHJSTME0M+LtNIiM4aHJd9aZDDPxT9p1ypzSsE13JlOPuTab
- 0c9CcziMjaESumoS+7GMCCDw0PcrUalPTUGaqsXw0vpT2iBKuoPcNqmDbsEop52bjbPK
- vsdIWj421g+X9Pn4eEJqmolyo9UKivJmkYDOaNeJY0YQw1c0zedk6yLbtTsx/vrxz4fy
- 9d3w==
-X-Gm-Message-State: AOJu0YypgTnMtSpp4BjGFRkJqzi9tpwmZ6DD+fAXCj2LiB6teEnlbSgh
- XQofqu4rqypj15EyNuWQOELTRPXl71j/pIb0NCSimu6a
-X-Google-Smtp-Source: AGHT+IH9fCeY0p+889Hq5E/FeznaMxKk7hWotHF2e82tGctkmrbNfl7InHIcS1n/Xm3M6i7unsWVB+A73D9Q09eat1c=
-X-Received: by 2002:a05:6870:cd0e:b0:1e9:dae7:f58a with SMTP id
- qk14-20020a056870cd0e00b001e9dae7f58amr6491610oab.22.1699812048373; Sun, 12
- Nov 2023 10:00:48 -0800 (PST)
+ d=1e100.net; s=20230601; t=1699659162; x=1700263962;
+ h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=1wkd7rIipmMYONgRoY2xjF4x8cV6fihkOEeUr4AhBok=;
+ b=Ot4Oo9BsIh7omsdEJ35+XROOQtiFoD7ScKnHw5XBTfIPOc8NUTi5H4d2BF3d1cdGJS
+ 1JDUSYaig6jzmCyBKiTlbmBG/8GOikseBxoybEqcLrcJkUSEKV9r8tBrOwcLKdwYNYPF
+ e85EN3Kq5FC9v4OuYPfWRsoIROfPccRlDt8FTm7DVFTC/+UHDTb1HybESMNd9BUQPLhp
+ Nnew092+NaNTBrocnwsi5Yrkz021bZj3y/Wd8XdmbeIAvLIJhdrHbQfPfzCG60JvOM09
+ zr74Ax5aIknS/653HZIStqapFbfHmpSsYTWllthXb8IJDCPJKXGbb7H4Ht5ealJ0yDXQ
+ /NCQ==
+X-Gm-Message-State: AOJu0Yz4WKJedvlTk8psJ8XjV0mAE3fwGR0Lh1JWRpSIcv9+vE7E3cJr
+ qDxMjiAYZWFSFM+tTQgh5+MvqKsrMLvDdSmwvKjGjrhcdHeyJOhg
+X-Google-Smtp-Source: AGHT+IFKvVIBAoZz/9YLXCAvVGWjeDaLFF+pjDET/Y9BEeZMk22i22WhZ3o7w0MEEwje0zQQsXw1c4jALJvs7AvOBzg=
+X-Received: by 2002:a5d:588e:0:b0:32d:ad4a:bcef with SMTP id
+ n14-20020a5d588e000000b0032dad4abcefmr482245wrf.2.1699659161993; Fri, 10 Nov
+ 2023 15:32:41 -0800 (PST)
 MIME-Version: 1.0
-References: <20231112132736.175494-1-sashal@kernel.org>
- <20231112132736.175494-9-sashal@kernel.org>
-In-Reply-To: <20231112132736.175494-9-sashal@kernel.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Sun, 12 Nov 2023 13:00:37 -0500
-Message-ID: <CADnq5_OyK=rDH38Q8Kiyq9BhWuihgd8wX7XKAffxwkO4w+ksog@mail.gmail.com>
-Subject: Re: [PATCH AUTOSEL 6.6 09/11] drm/amd: Fix UBSAN
- array-index-out-of-bounds for Powerplay headers
-To: Sasha Levin <sashal@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: J Fra <jfra4799@gmail.com>
+Date: Fri, 10 Nov 2023 17:32:31 -0600
+Message-ID: <CAE584xbGzrZtk6RFtWkP-N19M1MaKWpaoT+zg1WyMikuG5J0Nw@mail.gmail.com>
+Subject: Re: [PATCH v7d 01/23] test-dyndbg: fixup CLASSMAP usage error
+To: amd-gfx@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="00000000000097079a0609d4bc68"
+X-Mailman-Approved-At: Sun, 12 Nov 2023 18:01:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,196 +63,17 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Nov 12, 2023 at 8:27=E2=80=AFAM Sasha Levin <sashal@kernel.org> wro=
-te:
->
-> From: Alex Deucher <alexander.deucher@amd.com>
->
-> [ Upstream commit 49afe91370b86566857a3c2c39612cf098110885 ]
->
-> For pptable structs that use flexible array sizes, use flexible arrays.
->
-> Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2039926
-> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+--00000000000097079a0609d4bc68
+Content-Type: text/plain; charset="UTF-8"
 
-I don't think any of these UBSAN flexible array changes are stable material=
-.
 
-Alex
 
-> ---
->  .../drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h |  4 ++--
->  .../amd/pm/powerplay/hwmgr/vega10_pptable.h   | 24 +++++++++----------
->  2 files changed, 14 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h b/driv=
-ers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h
-> index 7a31cfa5e7fb4..df7cab1a571b3 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h
-> @@ -367,7 +367,7 @@ typedef struct _ATOM_Tonga_VCE_State_Record {
->  typedef struct _ATOM_Tonga_VCE_State_Table {
->         UCHAR ucRevId;
->         UCHAR ucNumEntries;
-> -       ATOM_Tonga_VCE_State_Record entries[1];
-> +       ATOM_Tonga_VCE_State_Record entries[];
->  } ATOM_Tonga_VCE_State_Table;
->
->  typedef struct _ATOM_Tonga_PowerTune_Table {
-> @@ -481,7 +481,7 @@ typedef struct _ATOM_Tonga_Hard_Limit_Record {
->  typedef struct _ATOM_Tonga_Hard_Limit_Table {
->         UCHAR ucRevId;
->         UCHAR ucNumEntries;
-> -       ATOM_Tonga_Hard_Limit_Record entries[1];
-> +       ATOM_Tonga_Hard_Limit_Record entries[];
->  } ATOM_Tonga_Hard_Limit_Table;
->
->  typedef struct _ATOM_Tonga_GPIO_Table {
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_pptable.h b/dr=
-ivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_pptable.h
-> index 8b0590b834cca..de2926df5ed74 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_pptable.h
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_pptable.h
-> @@ -129,7 +129,7 @@ typedef struct _ATOM_Vega10_State {
->  typedef struct _ATOM_Vega10_State_Array {
->         UCHAR ucRevId;
->         UCHAR ucNumEntries;                                         /* Nu=
-mber of entries. */
-> -       ATOM_Vega10_State states[1];                             /* Dynam=
-ically allocate entries. */
-> +       ATOM_Vega10_State states[];                             /* Dynami=
-cally allocate entries. */
->  } ATOM_Vega10_State_Array;
->
->  typedef struct _ATOM_Vega10_CLK_Dependency_Record {
-> @@ -169,37 +169,37 @@ typedef struct _ATOM_Vega10_GFXCLK_Dependency_Table=
- {
->  typedef struct _ATOM_Vega10_MCLK_Dependency_Table {
->      UCHAR ucRevId;
->      UCHAR ucNumEntries;                                         /* Numbe=
-r of entries. */
-> -    ATOM_Vega10_MCLK_Dependency_Record entries[1];            /* Dynamic=
-ally allocate entries. */
-> +    ATOM_Vega10_MCLK_Dependency_Record entries[];            /* Dynamica=
-lly allocate entries. */
->  } ATOM_Vega10_MCLK_Dependency_Table;
->
->  typedef struct _ATOM_Vega10_SOCCLK_Dependency_Table {
->      UCHAR ucRevId;
->      UCHAR ucNumEntries;                                         /* Numbe=
-r of entries. */
-> -    ATOM_Vega10_CLK_Dependency_Record entries[1];            /* Dynamica=
-lly allocate entries. */
-> +    ATOM_Vega10_CLK_Dependency_Record entries[];            /* Dynamical=
-ly allocate entries. */
->  } ATOM_Vega10_SOCCLK_Dependency_Table;
->
->  typedef struct _ATOM_Vega10_DCEFCLK_Dependency_Table {
->      UCHAR ucRevId;
->      UCHAR ucNumEntries;                                         /* Numbe=
-r of entries. */
-> -    ATOM_Vega10_CLK_Dependency_Record entries[1];            /* Dynamica=
-lly allocate entries. */
-> +    ATOM_Vega10_CLK_Dependency_Record entries[];            /* Dynamical=
-ly allocate entries. */
->  } ATOM_Vega10_DCEFCLK_Dependency_Table;
->
->  typedef struct _ATOM_Vega10_PIXCLK_Dependency_Table {
->         UCHAR ucRevId;
->         UCHAR ucNumEntries;                                         /* Nu=
-mber of entries. */
-> -       ATOM_Vega10_CLK_Dependency_Record entries[1];            /* Dynam=
-ically allocate entries. */
-> +       ATOM_Vega10_CLK_Dependency_Record entries[];            /* Dynami=
-cally allocate entries. */
->  } ATOM_Vega10_PIXCLK_Dependency_Table;
->
->  typedef struct _ATOM_Vega10_DISPCLK_Dependency_Table {
->         UCHAR ucRevId;
->         UCHAR ucNumEntries;                                         /* Nu=
-mber of entries.*/
-> -       ATOM_Vega10_CLK_Dependency_Record entries[1];            /* Dynam=
-ically allocate entries. */
-> +       ATOM_Vega10_CLK_Dependency_Record entries[];            /* Dynami=
-cally allocate entries. */
->  } ATOM_Vega10_DISPCLK_Dependency_Table;
->
->  typedef struct _ATOM_Vega10_PHYCLK_Dependency_Table {
->         UCHAR ucRevId;
->         UCHAR ucNumEntries;                                         /* Nu=
-mber of entries. */
-> -       ATOM_Vega10_CLK_Dependency_Record entries[1];            /* Dynam=
-ically allocate entries. */
-> +       ATOM_Vega10_CLK_Dependency_Record entries[];            /* Dynami=
-cally allocate entries. */
->  } ATOM_Vega10_PHYCLK_Dependency_Table;
->
->  typedef struct _ATOM_Vega10_MM_Dependency_Record {
-> @@ -213,7 +213,7 @@ typedef struct _ATOM_Vega10_MM_Dependency_Record {
->  typedef struct _ATOM_Vega10_MM_Dependency_Table {
->         UCHAR ucRevId;
->         UCHAR ucNumEntries;                                         /* Nu=
-mber of entries */
-> -       ATOM_Vega10_MM_Dependency_Record entries[1];             /* Dynam=
-ically allocate entries */
-> +       ATOM_Vega10_MM_Dependency_Record entries[];             /* Dynami=
-cally allocate entries */
->  } ATOM_Vega10_MM_Dependency_Table;
->
->  typedef struct _ATOM_Vega10_PCIE_Record {
-> @@ -225,7 +225,7 @@ typedef struct _ATOM_Vega10_PCIE_Record {
->  typedef struct _ATOM_Vega10_PCIE_Table {
->         UCHAR  ucRevId;
->         UCHAR  ucNumEntries;                                        /* Nu=
-mber of entries */
-> -       ATOM_Vega10_PCIE_Record entries[1];                      /* Dynam=
-ically allocate entries. */
-> +       ATOM_Vega10_PCIE_Record entries[];                      /* Dynami=
-cally allocate entries. */
->  } ATOM_Vega10_PCIE_Table;
->
->  typedef struct _ATOM_Vega10_Voltage_Lookup_Record {
-> @@ -235,7 +235,7 @@ typedef struct _ATOM_Vega10_Voltage_Lookup_Record {
->  typedef struct _ATOM_Vega10_Voltage_Lookup_Table {
->         UCHAR ucRevId;
->         UCHAR ucNumEntries;                                          /* N=
-umber of entries */
-> -       ATOM_Vega10_Voltage_Lookup_Record entries[1];             /* Dyna=
-mically allocate entries */
-> +       ATOM_Vega10_Voltage_Lookup_Record entries[];             /* Dynam=
-ically allocate entries */
->  } ATOM_Vega10_Voltage_Lookup_Table;
->
->  typedef struct _ATOM_Vega10_Fan_Table {
-> @@ -327,7 +327,7 @@ typedef struct _ATOM_Vega10_VCE_State_Record {
->  typedef struct _ATOM_Vega10_VCE_State_Table {
->      UCHAR ucRevId;
->      UCHAR ucNumEntries;
-> -    ATOM_Vega10_VCE_State_Record entries[1];
-> +    ATOM_Vega10_VCE_State_Record entries[];
->  } ATOM_Vega10_VCE_State_Table;
->
->  typedef struct _ATOM_Vega10_PowerTune_Table {
-> @@ -427,7 +427,7 @@ typedef struct _ATOM_Vega10_Hard_Limit_Record {
->  typedef struct _ATOM_Vega10_Hard_Limit_Table {
->      UCHAR ucRevId;
->      UCHAR ucNumEntries;
-> -    ATOM_Vega10_Hard_Limit_Record entries[1];
-> +    ATOM_Vega10_Hard_Limit_Record entries[];
->  } ATOM_Vega10_Hard_Limit_Table;
->
->  typedef struct _Vega10_PPTable_Generic_SubTable_Header {
-> --
-> 2.42.0
->
+--00000000000097079a0609d4bc68
+Content-Type: text/html; charset="UTF-8"
+
+<div dir="auto"></div>
+
+--00000000000097079a0609d4bc68--
