@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E5C1C4167D
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Nov 2023 07:17:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 195ADC4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Nov 2023 07:56:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4344A10E6B5;
-	Fri, 10 Nov 2023 07:17:18 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2056.outbound.protection.outlook.com [40.107.237.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6147010E6A8;
- Fri, 10 Nov 2023 07:17:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FAC410E945;
+	Fri, 10 Nov 2023 07:56:10 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2059.outbound.protection.outlook.com [40.107.96.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 432F210E943
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Nov 2023 07:56:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RXp+amiD/I451OHAJmCGsi7AB7tjm7B4gmYZMLd14wcJHrWpx2oeg5cpgQGdyRKdfeyscCe6Pbg7Gh1bps1iMajezs2tvlocgipTYGtDGxUja5a4aBm4u5vVcyaIO+u5fwEwM38f8U+Uo1q3iA8fksqL+BKBQVWWHC85uxWjayhSrQHSwOVls/fCvc7YmYo1eTp3/rZzO+u/K1oKDmUuQ/U+hVkAUJG7f6pIsP4WHitZAFIyHNu0B9cX1M4JcBzve+0LFrvWen9IRRjMB5pWVCiDxH0dlTDV8pnJIG3ZwiO7KaX6O6jWQ5ZyeJls0mWMR7BSB0+xJDw0mILgwy2+wg==
+ b=R/j54h2EJnE9D8HMu6roEwjMsy09TMlHeB07lM6625irPD+TIFlJZA+bvrqJNuf9e8YtfSjKqm20+zn4F01EAuJMPQqzeP37HUCtnNyzX4eqUGoM4lrSXXqM7/EEfejUzfHiu+tNVzTqNIbXo48vytQ0L6N9cZ3KKD0LE9gHrIH/4Qu9YdJOB031bE81B9dEmIxrSJL2uidRDu0xcn2oSeRiHkXS4Jg0qtfvx88Guld4b+v+r3hVtXwUOOfgQIj6b4h3QUIFQD+3m2zHuWEjCknqE/U8SHEhhiqy5DfDVBRSa2x8yTblpbI3JwE3tYYGYS17TUg2ZbxXLSs0z2nqKg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/jg6T/G1JPjOi2//nxlFQPuwyX6gp0XevSOpuSdi1ew=;
- b=Bgq6ts4f9y19/PEpA1fghnO/bNaLVpfSwWLkGBuJcDHNsP9H4YJJAcksNkoDN+gzAftyqMbiGvmBalAgl54Kk4EneCYyVEdlWwaPBXInrMRb+5P1p71gbAbgsBgZQYrK18GCSwsfyoJRk+GqqTColTwd5zv4pcWAh5xwQA55wWY9+MbtF624hfItpz8ASH1+c55jis6dshYBsfqNhAj3eqVYobjb6eluctl5NAXXEbIT5Evvxw03amkA9ZekBU3yKZ62iB4rJTRVeozSfH51cV0jmh4bYWSl5cUdRLmerzs/a4jiQQ7x4LkJLF/u/WyS/yC8ZTrRAH7GV1ddtyLFIw==
+ bh=MjxvNeFqjkNGMNKNC4o1PdUpo2/l3zoOoSLvv51AA7k=;
+ b=K6I/Yq3vriMOl7ZI3vIMcLy3UY/+qKxIVer5ZjFaa7i94zh3PcWqyVGQCwWYup2pvrB76UcAkudH9d14yDhqmZXJtunRtSOY/4RBFJws94XchohcSFLGQotOS+t6MVQvyUuh4QPMMbhQY4zf1OGjscdLdmsYyNKQLWzZBExpr1tIwjcodxuTuumiA/3e53pXLaeNULoaSyyghxR+3Fy1fUOG3bRb6k2QgbrO9V0iFPBjTyMJzKXt4kNySkh6UMOhj2mj7S+oJwkaI2hStXQOO28Ow1ceCD3xl6h4EtrlOp6pHYY7ns/wqqxEBe6uRwKAQ/uc8P2avf0f+RBmCqGUhQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=chromium.org smtp.mailfrom=amd.com;
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/jg6T/G1JPjOi2//nxlFQPuwyX6gp0XevSOpuSdi1ew=;
- b=L7jxhGYQ4//KHkZi8wcMukwqaCASHl7nBoktSimWmGSeHu5nqJLlAHXBU0BuuiNq1H0veOKyX9ajsOfGDqs1Qlwx4XA6vdDMl/GjeeCWxRM6zFYaTwYTaXI8Ycawb9nHTxydbc7jKRfziznZSoK6Vj58D+3b2orX8CEdf5L6E+c=
-Received: from MW4PR04CA0145.namprd04.prod.outlook.com (2603:10b6:303:84::30)
- by IA1PR12MB8309.namprd12.prod.outlook.com (2603:10b6:208:3fe::8)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=MjxvNeFqjkNGMNKNC4o1PdUpo2/l3zoOoSLvv51AA7k=;
+ b=tdbQdl4OaMZ2UzSmKEquBnH82fOWWjWztbMNNqpUi91Et/aFHbHsAL1TrEYfDEsZhBPTRhIsab++zgGt/7lzxs+LtbjkyBEZ1ilv2gr2/2hYUz0homNhcvmj76AiWjkLyxzch9FZcX+TFGhlO/bEWzk8sRWK4IzlJGEdOzfBL/c=
+Received: from DS7PR05CA0015.namprd05.prod.outlook.com (2603:10b6:5:3b9::20)
+ by SA3PR12MB8762.namprd12.prod.outlook.com (2603:10b6:806:31f::9) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.28; Fri, 10 Nov
- 2023 07:17:10 +0000
-Received: from MWH0EPF000989E8.namprd02.prod.outlook.com
- (2603:10b6:303:84:cafe::4a) by MW4PR04CA0145.outlook.office365.com
- (2603:10b6:303:84::30) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 07:56:05 +0000
+Received: from DS3PEPF000099DF.namprd04.prod.outlook.com
+ (2603:10b6:5:3b9:cafe::8f) by DS7PR05CA0015.outlook.office365.com
+ (2603:10b6:5:3b9::20) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.19 via Frontend
- Transport; Fri, 10 Nov 2023 07:17:09 +0000
+ Transport; Fri, 10 Nov 2023 07:56:04 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,25 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000989E8.mail.protection.outlook.com (10.167.241.135) with Microsoft
+ DS3PEPF000099DF.mail.protection.outlook.com (10.167.17.202) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6977.16 via Frontend Transport; Fri, 10 Nov 2023 07:17:09 +0000
-Received: from jenkins-julia.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.6977.16 via Frontend Transport; Fri, 10 Nov 2023 07:56:04 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Fri, 10 Nov
- 2023 01:17:01 -0600
-From: Julia Zhang <julia.zhang@amd.com>
-To: Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, David Airlie <airlied@redhat.com>, Gerd Hoffmann
- <kraxel@redhat.com>, <linux-kernel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
- <virtualization@lists.linux-foundation.org>
-Subject: [PATCH 2/2] drm/virtio: Modify RESOURCE_GET_LAYOUT ioctl
-Date: Fri, 10 Nov 2023 15:16:32 +0800
-Message-ID: <20231110071632.24612-3-julia.zhang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231110071632.24612-1-julia.zhang@amd.com>
-References: <20231110071632.24612-1-julia.zhang@amd.com>
+ 2023 01:56:02 -0600
+From: Lijo Lazar <lijo.lazar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v3] drm/amdgpu: Move mca debug mode decision to ras
+Date: Fri, 10 Nov 2023 13:25:47 +0530
+Message-ID: <20231110075547.565860-1-lijo.lazar@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -72,26 +66,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989E8:EE_|IA1PR12MB8309:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1c585098-003c-4b9e-fe49-08dbe1bd0d71
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099DF:EE_|SA3PR12MB8762:EE_
+X-MS-Office365-Filtering-Correlation-Id: d7d2bfc8-f906-4b4e-800d-08dbe1c27d74
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nb5njeUlUlb9I0OPHl378SITL87GpTwysKZ4/ud+37PYq0WFL60eCPean1xnx/X37G8HMEjTZodVD6HkNDgWf0sHqrlU9KzYLdtYiJbv8ZG/jAZ3eZ00Mlsc0HK2HT2QupEOieXVWVpCzQWzXRMgWcda8LNajaEh3zi0Q7ytLnEbgR44JJs60ZKCuZUn9SFpg0yT38xF4oQMx7PX8p40sURH5tzCMujoqnrNKwYGwfxV31GR0J9q7WZNBQ/K4UKokuqr1BFDXvQqLclvFmO10lQa3bDdoLrwdsiAkYK2OBThs/qBmaNvStbORoKWFYLhMk0hGZMLsNSekW85Jamkfbvudgqz0W3GsTBzijlJsruIbyW7JCGaCvJiTKuMl2UgXzJY1Cgf2ijQEfut7q2JrzCfKCvrbJ5B9m6HtiTEnXWPdJQx+JZA0xhaBjAbdkoRF/jfZUBeIovDjVkRA+4pT7Q2qKc8NND6KgWc6hnK9E5wqw1KX0a9+AsHbf9CS4+EcCTPjJT3TqHvq9UcUv8cSl/r8k8xwtyTnIoZ5G/B75/IFpWbkVo0X/oxthFeJ2ClozIrIuVfnSphmNbtAmzg+B8gHxiHT/deSjXMKcVSR5aN+iy9gGkd5M+/A3p1Bt7RoGytUhK1WwwwSCJnJjQmadhDmcuNJqO10REZGfNweK3AIlamaFraJ8LaktaStHo0vSIXSG6pFEZPWtw+I6tvHGsxWiShCiTyLcBu/Wuk9eoDdjgszrHYo8cUT2nhPZbJAcMingWwitt12pzLgVckCw==
+X-Microsoft-Antispam-Message-Info: zZrRaxvap3o2rA3W+MNWhh6JusxaakGLnORkrY/BjQ0dNB2kYhnTzz4ehZkBLxNEU8ty1EE+4u4IdWS+XZiamcllkZl9oDtbE3uqCBD/Lwy1VKpODTo/KeWbAGVfKjlBzs40pZO+sY2KyOm+yyhRRMQd4eLhxf7kYG9eedi0GhO+GNOuMIuf0px+iJ0cDFDR4+luqHBkpR6zg2o2oDxblD7+5bGbIm37aaUYCvIz53viLwOS1ufn9yEZn1Z3b+Y5uXGeS/ri4ub23F+QhIwJhwcczZghUddILG4NQjKixmwxbnXNyih6MhXdtQm1PeRGKzhcdkPN3QSJR5ZXVWbRxJCOvT2BiUXeL3jhXz32kZIQst5dmPT8pHMwpgyJXIVez3PufnvCcq+bpWFCTcPtF+7DevoiqCgdwcOogM03yvCBaPkBOVW1O8BeMCMIZ3QtAbaSJaulMkPyOVnz4uWE+fdTiIXAoKaePKo5PvKW5Pq3cv+SSubzXVsCb331cqaFFKIxpvuiKupHCOyAtQcc/eXM/EPxOf1zm6tC3wq8o6b/nakmN9rY9NyzQKbQo/fxA4nQC2yL0JUJep8ikK3uFm4oiDYcsuvtoA2jycPVktkXCwsdMKQ4euYBZqbvTk1QaSIU91U8A1SSidZQhLHDwkC1GBzptH9hZzbEKBbaerh8p1inJJZznOXuRzaYc44F6bxLuolPGeMxCQPaHmiJqdI3yaxzRwfWggpONU2AE4NSV/ngZppTA1NNEcweNL3BC7Ec33LkOFFlQGgZ73VSotQlfc4/QVxSOW8fnGsw26gL5K2t5HflK58RUXwe6kR2
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(136003)(396003)(376002)(346002)(39860400002)(230922051799003)(64100799003)(186009)(82310400011)(451199024)(1800799009)(36840700001)(46966006)(40470700004)(316002)(41300700001)(8936002)(36756003)(2906002)(40480700001)(8676002)(4326008)(5660300002)(36860700001)(47076005)(356005)(54906003)(7416002)(81166007)(86362001)(44832011)(70206006)(83380400001)(40460700003)(336012)(16526019)(26005)(82740400003)(1076003)(2616005)(70586007)(426003)(110136005)(7696005)(6666004)(478600001)(36900700001);
+ SFS:(13230031)(4636009)(376002)(346002)(136003)(396003)(39860400002)(230922051799003)(230273577357003)(230173577357003)(82310400011)(186009)(451199024)(64100799003)(1800799009)(40470700004)(46966006)(36840700001)(7696005)(44832011)(86362001)(478600001)(8676002)(8936002)(4326008)(6666004)(1076003)(5660300002)(36756003)(54906003)(6916009)(316002)(70206006)(70586007)(2616005)(40480700001)(426003)(2906002)(26005)(336012)(40460700003)(83380400001)(47076005)(16526019)(36860700001)(41300700001)(356005)(82740400003)(81166007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2023 07:17:09.2293 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c585098-003c-4b9e-fe49-08dbe1bd0d71
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2023 07:56:04.6967 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7d2bfc8-f906-4b4e-800d-08dbe1c27d74
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E8.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099DF.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8309
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8762
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,286 +97,126 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Erik Faye-Lund <kusmabite@gmail.com>,
- =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>,
- Chen Jiqian <Jiqian.Chen@amd.com>, Huang Rui <ray.huang@amd.com>,
- Honglei Huang <honglei1.huang@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Julia Zhang <julia.zhang@amd.com>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alexander.Deucher@amd.com, kevinyang.wang@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Modify RESOURCE_GET_LAYOUT ioctl to handle the use case that query
-correct stride for guest linear resource before it is created.
+Refactor code such that ras block decides the default mca debug mode,
+and not swsmu block.
 
-Signed-off-by: Julia Zhang <julia.zhang@amd.com>
+By default mca debug mode is set to false.
+
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- drivers/gpu/drm/virtio/virtgpu_drv.h   | 26 ++++++++------
- drivers/gpu/drm/virtio/virtgpu_ioctl.c | 47 ++++++++++++--------------
- drivers/gpu/drm/virtio/virtgpu_vq.c    | 35 +++++++++++--------
- include/uapi/drm/virtgpu_drm.h         |  6 ++--
- include/uapi/linux/virtio_gpu.h        |  8 ++---
- 5 files changed, 66 insertions(+), 56 deletions(-)
+v3: Default mca debug mode is set to false
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
-index d6fc0d4ecb7d..82dffb3e4c6b 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.h
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
-@@ -93,15 +93,6 @@ struct virtio_gpu_object {
- 	bool host3d_blob, guest_blob;
- 	uint32_t blob_mem, blob_flags;
+v2: Set mca debug mode early before ras block late init as ras query is
+initiated during late init of ras blocks (KevinYang)
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c            |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            | 14 +++++++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h            |  2 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   | 12 ------------
+ 4 files changed, 13 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+index cf33eb219e25..54f2f346579e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+@@ -377,7 +377,7 @@ static int amdgpu_mca_smu_debug_mode_set(void *data, u64 val)
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)data;
+ 	int ret;
  
--	atomic_t layout_state;
--	struct {
--		uint64_t offset;
--		uint64_t size;
--		uint32_t stride;
--	} planes[VIRTIO_GPU_RES_MAX_PLANES];
--	uint64_t modifier;
--	uint32_t num_planes;
--
- 	int uuid_state;
- 	uuid_t uuid;
- 
-@@ -225,6 +216,16 @@ struct virtio_gpu_drv_cap_cache {
- 	atomic_t is_valid;
- };
- 
-+struct virtio_gpu_query_info {
-+	uint32_t num_planes;
-+	uint64_t modifier;
-+	struct {
-+		uint64_t offset;
-+		uint32_t stride;
-+	} planes [VIRTIO_GPU_MAX_RESOURCE_PLANES];
-+	atomic_t is_valid;
-+};
-+
- struct virtio_gpu_device {
- 	struct drm_device *ddev;
- 
-@@ -448,7 +449,12 @@ void virtio_gpu_cmd_host_wait(struct virtio_gpu_device *vgdev,
- 
- int
- virtio_gpu_cmd_get_resource_layout(struct virtio_gpu_device *vgdev,
--				   struct virtio_gpu_object *bo);
-+				   struct virtio_gpu_query_info *bo_info,
-+				   uint32_t width,
-+				   uint32_t height,
-+				   uint32_t format,
-+				   uint32_t bind,
-+				   uint32_t hw_res_handle);
- 
- /* virtgpu_display.c */
- int virtio_gpu_modeset_init(struct virtio_gpu_device *vgdev);
-diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-index 51d04460d0d8..034a7c0927a5 100644
---- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-@@ -685,9 +685,9 @@ static int virtio_gpu_resource_query_layout_ioctl(struct drm_device *dev,
- {
- 	struct drm_virtgpu_resource_query_layout *args = data;
- 	struct virtio_gpu_device *vgdev = dev->dev_private;
--	struct drm_gem_object *obj;
--	struct virtio_gpu_object *bo;
--	int layout_state;
-+	struct drm_gem_object *obj = NULL;
-+	struct virtio_gpu_object *bo = NULL;
-+	struct virtio_gpu_query_info bo_info = {0};
- 	int ret = 0;
- 	int i;
- 
-@@ -696,50 +696,45 @@ static int virtio_gpu_resource_query_layout_ioctl(struct drm_device *dev,
- 		return -EINVAL;
- 	}
- 
--	obj = drm_gem_object_lookup(file, args->handle);
--	if (obj == NULL) {
--		DRM_ERROR("invalid handle 0x%x\n", args->handle);
--		return -ENOENT;
--	}
--	bo = gem_to_virtio_gpu_obj(obj);
--
--	layout_state = atomic_read(&bo->layout_state);
--	if (layout_state == STATE_ERR) {
--		ret = -EINVAL;
--		goto out;
--	} else if (layout_state == STATE_OK) {
--		goto valid;
-+	if (args->handle > 0) {
-+		obj = drm_gem_object_lookup(file, args->handle);
-+		if (obj == NULL) {
-+			DRM_ERROR("invalid handle 0x%x\n", args->handle);
-+			return -ENOENT;
-+		}
-+		bo = gem_to_virtio_gpu_obj(obj);
- 	}
- 
--	ret = virtio_gpu_cmd_get_resource_layout(vgdev, bo);
-+	ret = virtio_gpu_cmd_get_resource_layout(vgdev, &bo_info, args->width,
-+						 args->height, args->format,
-+						 args->bind, bo ? bo->hw_res_handle : 0);
+-	ret = amdgpu_mca_smu_set_debug_mode(adev, val ? true : false);
++	ret = amdgpu_ras_set_mca_debug_mode(adev, val ? true : false);
  	if (ret)
- 		goto out;
+ 		return ret;
  
- 	ret = wait_event_timeout(vgdev->resp_wq,
--				 atomic_read(&bo->layout_state) == STATE_OK,
-+				 atomic_read(&bo_info.is_valid),
- 				 5 * HZ);
- 	if (!ret)
- 		goto out;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 84e5987b14e0..6747fbe4feab 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -3132,6 +3132,8 @@ int amdgpu_ras_late_init(struct amdgpu_device *adev)
+ 	if (amdgpu_sriov_vf(adev))
+ 		return 0;
  
- valid:
- 	smp_rmb();
--	WARN_ON(atomic_read(&bo->layout_state) != STATE_OK);
--	args->num_planes = bo->num_planes;
--	args->modifier = bo->modifier;
-+	WARN_ON(atomic_read(&bo_info.is_valid));
-+	args->num_planes = bo_info.num_planes;
-+	args->modifier = bo_info.modifier;
- 	for (i = 0; i < args->num_planes; i++) {
--		args->planes[i].offset = bo->planes[i].offset;
--		args->planes[i].size = bo->planes[i].size;
--		args->planes[i].stride = bo->planes[i].stride;
-+		args->planes[i].offset = bo_info.planes[i].offset;
-+		args->planes[i].stride = bo_info.planes[i].stride;
- 	}
- 	for (; i < VIRTIO_GPU_MAX_RESOURCE_PLANES; i++) {
- 		args->planes[i].offset = 0;
--		args->planes[i].size = 0;
- 		args->planes[i].stride = 0;
- 	}
- 	ret = 0;
++	amdgpu_ras_set_mca_debug_mode(adev, false);
++
+ 	list_for_each_entry_safe(node, tmp, &adev->ras_list, node) {
+ 		if (!node->ras_obj) {
+ 			dev_warn(adev->dev, "Warning: abnormal ras list node.\n");
+@@ -3405,12 +3407,18 @@ int amdgpu_ras_reset_gpu(struct amdgpu_device *adev)
+ 	return 0;
+ }
  
- out:
--	drm_gem_object_put(obj);
-+	if (obj)
-+		drm_gem_object_put(obj);
+-void amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool enable)
++int amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool enable)
+ {
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
++	int ret;
+ 
+-	if (con)
+-		con->is_mca_debug_mode = enable;
++	if (con) {
++		ret = amdgpu_mca_smu_set_debug_mode(adev, enable);
++		if (!ret)
++			con->is_mca_debug_mode = enable;
++	}
++
++	return ret;
+ }
+ 
+ bool amdgpu_ras_get_mca_debug_mode(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index 19161916ac46..6a941eb8fb8f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -773,7 +773,7 @@ struct amdgpu_ras* amdgpu_ras_get_context(struct amdgpu_device *adev);
+ 
+ int amdgpu_ras_set_context(struct amdgpu_device *adev, struct amdgpu_ras *ras_con);
+ 
+-void amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool enable);
++int amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool enable);
+ bool amdgpu_ras_get_mca_debug_mode(struct amdgpu_device *adev);
+ bool amdgpu_ras_get_error_query_mode(struct amdgpu_device *adev,
+ 				     unsigned int *mode);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index 6cbfb25a05de..f09f56efbdc3 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -1516,7 +1516,6 @@ static int smu_v13_0_6_mca_set_debug_mode(struct smu_context *smu, bool enable)
+ 	if (smu->smc_fw_version < 0x554800)
+ 		return 0;
+ 
+-	amdgpu_ras_set_mca_debug_mode(smu->adev, enable);
+ 	return smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_ClearMcaOnRead,
+ 					       enable ? 0 : ClearMcaOnRead_UE_FLAG_MASK | ClearMcaOnRead_CE_POLL_MASK,
+ 					       NULL);
+@@ -2338,16 +2337,6 @@ static int smu_v13_0_6_smu_send_hbm_bad_page_num(struct smu_context *smu,
  	return ret;
  }
  
-diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
-index 8d0a2eaec11c..95da6d0008f8 100644
---- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-@@ -1339,33 +1339,36 @@ static void virtio_gpu_cmd_get_resource_layout_cb(struct virtio_gpu_device *vgde
+-static int smu_v13_0_6_post_init(struct smu_context *smu)
+-{
+-	struct amdgpu_device *adev = smu->adev;
+-
+-	if (!amdgpu_sriov_vf(adev) && adev->ras_enabled)
+-		return smu_v13_0_6_mca_set_debug_mode(smu, false);
+-
+-	return 0;
+-}
+-
+ static int mca_smu_set_debug_mode(struct amdgpu_device *adev, bool enable)
  {
- 	struct virtio_gpu_resp_resource_layout *resp =
- 		(struct virtio_gpu_resp_resource_layout *)vbuf->resp_buf;
--	struct virtio_gpu_object *bo = vbuf->resp_cb_data;
-+	struct virtio_gpu_query_info *bo_info = vbuf->resp_cb_data;
- 	int i;
- 
- 	vbuf->resp_cb_data = NULL;
- 
- 	if (resp->hdr.type != VIRTIO_GPU_RESP_OK_RESOURCE_LAYOUT) {
--		atomic_set(&bo->layout_state, STATE_ERR);
-+		atomic_set(&bo_info->is_valid, 0);
- 		goto out;
- 	}
- 
--	bo->modifier = le64_to_cpu(resp->modifier);
--	bo->num_planes = le32_to_cpu(resp->num_planes);
--	for (i = 0; i < VIRTIO_GPU_RES_MAX_PLANES; i++) {
--		bo->planes[i].offset = le64_to_cpu(resp->planes[i].offset);
--		bo->planes[i].size = le64_to_cpu(resp->planes[i].size);
--		bo->planes[i].stride = le32_to_cpu(resp->planes[i].stride);
-+	bo_info->modifier = le64_to_cpu(resp->modifier);
-+	bo_info->num_planes = le32_to_cpu(resp->num_planes);
-+	for (i = 0; i < bo_info->num_planes; i++) {
-+		bo_info->planes[i].stride = le32_to_cpu(resp->planes[i].stride);
-+		bo_info->planes[i].offset = le32_to_cpu(resp->planes[i].offset);
- 	}
- 	smp_wmb();
--	atomic_set(&bo->layout_state, STATE_OK);
-+	atomic_set(&bo_info->is_valid, 1);
- 
- out:
--	drm_gem_object_put(&bo->base.base);
- 	wake_up_all(&vgdev->resp_wq);
- }
- 
- int virtio_gpu_cmd_get_resource_layout(struct virtio_gpu_device *vgdev,
--				       struct virtio_gpu_object *bo)
-+				       struct virtio_gpu_query_info *bo_info,
-+				       uint32_t width,
-+				       uint32_t height,
-+				       uint32_t format,
-+				       uint32_t bind,
-+				       uint32_t hw_res_handle)
- {
- 	struct virtio_gpu_resource_query_layout *cmd_p;
- 	struct virtio_gpu_vbuffer *vbuf;
-@@ -1383,9 +1386,13 @@ int virtio_gpu_cmd_get_resource_layout(struct virtio_gpu_device *vgdev,
- 	memset(cmd_p, 0, sizeof(*cmd_p));
- 
- 	cmd_p->hdr.type = cpu_to_le32(VIRTIO_GPU_CMD_RESOURCE_QUERY_LAYOUT);
--	cmd_p->resource_id = cpu_to_le32(bo->hw_res_handle);
--	drm_gem_object_get(&bo->base.base);
--	vbuf->resp_cb_data = bo;
-+	cmd_p->resource_id = cpu_to_le32(hw_res_handle);
-+	cmd_p->width = cpu_to_le32(width);
-+	cmd_p->height = cpu_to_le32(height);
-+	cmd_p->format = cpu_to_le32(format);
-+	cmd_p->bind = cpu_to_le32(bind);
-+	vbuf->resp_cb_data = bo_info;
-+
- 	virtio_gpu_queue_ctrl_buffer(vgdev, vbuf);
- 	return 0;
- }
-diff --git a/include/uapi/drm/virtgpu_drm.h b/include/uapi/drm/virtgpu_drm.h
-index 7ec57d7e261a..41f9c592aeaf 100644
---- a/include/uapi/drm/virtgpu_drm.h
-+++ b/include/uapi/drm/virtgpu_drm.h
-@@ -217,13 +217,15 @@ struct drm_virtgpu_context_init {
- #define VIRTIO_GPU_MAX_RESOURCE_PLANES 4
- struct drm_virtgpu_resource_query_layout {
- 	__u32 handle;
-+	__u32 width;
-+	__u32 height;
-+	__u32 format;
-+	__u32 bind;
- 	__u32 num_planes;
- 	__u64 modifier;
- 	struct {
- 		__u64 offset;
--		__u64 size;
- 		__u32 stride;
--		__u32 padding;
- 	} planes[VIRTIO_GPU_MAX_RESOURCE_PLANES];
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+@@ -2904,7 +2893,6 @@ static const struct pptable_funcs smu_v13_0_6_ppt_funcs = {
+ 	.i2c_init = smu_v13_0_6_i2c_control_init,
+ 	.i2c_fini = smu_v13_0_6_i2c_control_fini,
+ 	.send_hbm_bad_pages_num = smu_v13_0_6_smu_send_hbm_bad_page_num,
+-	.post_init = smu_v13_0_6_post_init,
  };
  
-diff --git a/include/uapi/linux/virtio_gpu.h b/include/uapi/linux/virtio_gpu.h
-index c7b22861af69..3e653f018dd7 100644
---- a/include/uapi/linux/virtio_gpu.h
-+++ b/include/uapi/linux/virtio_gpu.h
-@@ -485,7 +485,10 @@ struct virtio_gpu_cmd_host_wait {
- struct virtio_gpu_resource_query_layout {
- 	struct virtio_gpu_ctrl_hdr hdr;
- 	__le32 resource_id;
--	__le32 padding;
-+	__le32 width;
-+	__le32 height;
-+	__le32 format;
-+	__le32 bind;
- };
- 
- 
-@@ -495,12 +498,9 @@ struct virtio_gpu_resp_resource_layout {
- 	struct virtio_gpu_ctrl_hdr hdr;
- 	__le64 modifier;
- 	__le32 num_planes;
--	__le32 padding;
- 	struct virtio_gpu_resource_plane {
- 		__le64 offset;
--		__le64 size;
- 		__le32 stride;
--		__le32 padding;
- 	} planes[VIRTIO_GPU_RES_MAX_PLANES];
- };
- 
+ void smu_v13_0_6_set_ppt_funcs(struct smu_context *smu)
 -- 
-2.34.1
+2.25.1
 
