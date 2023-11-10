@@ -4,41 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BA25C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Nov 2023 15:56:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9824FC4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Nov 2023 17:01:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB3B310E116;
-	Fri, 10 Nov 2023 15:56:05 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31B5910E114;
- Fri, 10 Nov 2023 15:56:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=PXwXN5tEaR5kdeL10MocxWEaauKlj7fnNpl4PFnuxYM=; b=d1kbIHQgk3i7aNFylGG3Bb2XtI
- AmBsCJCFTGSWWS+JpsukzdbLm80G/eW43IctFGZ3y0SxuGQ8tCPMJRv7eX1YGTX41ouUDPVFXcAu3
- 1DFFveqrJUD4hJ3RvcPkZsDrS6AnufUvcRR3IVFkHsEkojSPGtHIaPxT71zkPHGz0BEufb3OTZdic
- avFBnBOGyB0mAucQCN1fyneCryJ0HF7BJCk5L8PMN6OUD69/VkrgFXtc+b9HMddus1BMbRPVCMFy3
- 2kJwmjzSf6zPgzzfVlsu1MqH9KtMlTDyVMcxMBSrusmxxHVnDLb2cmgdFVnbKzZPN9ZT46epEcgNY
- PZi+w30g==;
-Received: from pool-96-246-156-208.nycmny.fios.verizon.net ([96.246.156.208]
- helo=X1.myfiosgateway.com) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1r1TrU-001hA7-V0; Fri, 10 Nov 2023 16:56:01 +0100
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amd: Document device reset methods
-Date: Fri, 10 Nov 2023 10:55:48 -0500
-Message-ID: <20231110155548.20599-1-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.42.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF45C10E11F;
+	Fri, 10 Nov 2023 17:01:52 +0000 (UTC)
+Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
+ [IPv6:2001:4860:4864:20::30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1F7810E11F;
+ Fri, 10 Nov 2023 17:01:51 +0000 (UTC)
+Received: by mail-oa1-x30.google.com with SMTP id
+ 586e51a60fabf-1ef9f1640a5so1180507fac.3; 
+ Fri, 10 Nov 2023 09:01:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1699635711; x=1700240511; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=sMrYZbRlgCXN0jdJWgsU4bTo4xTt1FXQt6GOccDcYUQ=;
+ b=cm04iJvF+gpJK+rzOFu7+Mn0ExXXzdP/8fHjjTxTFuOh85kgdtnXJ09/S16VMIAiFF
+ 2BXvWPMIHDZrIVoBcSfRyMFclQPJZ9wV5sQTufytJrOxUxtsCu78gXUgmIqlaVP5bkC5
+ tG+L8f3fVgU98hoY9QYYzHSHSwfbhN5PkayeQjcl4yoj2LOfB95+OCKfj+utXdzcPB7h
+ OjI2wDa7BwarENuzPx0WN/VOBS4CvxXPrRdAVcyomvYBFtQXiPYHp6jLMA1quSIIWi19
+ UTDVbL4Bbh17ZgK8jTIXl26SOfaCnuVs6wVgk8XjEGvZ/efQB0JU2TVGLjPfdfPpWEUq
+ cptw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1699635711; x=1700240511;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=sMrYZbRlgCXN0jdJWgsU4bTo4xTt1FXQt6GOccDcYUQ=;
+ b=vJpcdmJzofez/MhmCjTSQIoEZKMreUFcG0b7SQ1SAqjM+ahqCKfXxu3Vph2/X9bXsB
+ MH3BvX9MnRhJbORo7zygExFpHX+72ZDlOEvbElpD6dk1cTq5EVJfaJxb/VCi608Q0Dug
+ o0oeapinQpT5Y+c4MgGJvKHG/eSutyfSI5yIuJ9GUIjjtRAR8TBg8+/4m373tip6hRDB
+ 4vg6OZDxL4jIL3fSZ2+DviMYoN9VuHTAOrdwpl+ec+emCwU4tmU5Artdk9cuo6kXKLXo
+ 3OrC+C7F08HuOyXLmLHSbfChHYYTSzpqtou7hIf+1j4VqCirzwteNcm2M6F/hHEhpmQ8
+ Whwg==
+X-Gm-Message-State: AOJu0YzQh9mb/zJaObavgD8I43IjTTI/KqJtDq7ZpTr4T21Fy8uTlh2g
+ pbeCkusV9J1hlAWt4yWLvmYrA7wNXINP1immZ1E=
+X-Google-Smtp-Source: AGHT+IFl+/Nl/Vd6SMC08TbrrJikc5Cwz1liEKDu9OSvpC5Ug3/XWtCFUFE0q3JqNBokWuXM1Cv+CweVjxik2T5qJ+E=
+X-Received: by 2002:a05:6870:1090:b0:1f0:d96:8d9f with SMTP id
+ 16-20020a056870109000b001f00d968d9fmr7573876oaq.57.1699635710907; Fri, 10 Nov
+ 2023 09:01:50 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20231110155548.20599-1-andrealmeid@igalia.com>
+In-Reply-To: <20231110155548.20599-1-andrealmeid@igalia.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 10 Nov 2023 12:01:39 -0500
+Message-ID: <CADnq5_MOQXiUkyobpuEAnNmcX2jFbEvva+1bm4hrRQ0aguPFag@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: Document device reset methods
+To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,50 +67,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, ray.huang@amd.com,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- christian.koenig@amd.com, kernel-dev@igalia.com
+Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ ray.huang@amd.com, dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Document what each amdgpu driver reset method does.
+On Fri, Nov 10, 2023 at 10:56=E2=80=AFAM Andr=C3=A9 Almeida <andrealmeid@ig=
+alia.com> wrote:
+>
+> Document what each amdgpu driver reset method does.
+>
+> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h | 20 ++++++++++++++++++++
+>  1 file changed, 20 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
+dgpu/amdgpu.h
+> index a79d53bdbe13..500f86c79eb7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -504,6 +504,26 @@ struct amdgpu_allowed_register_entry {
+>         bool grbm_indexed;
+>  };
+>
+> +/**
+> + * enum amd_reset_method - Methods for resetting AMD GPU devices
+> + *
+> + * @AMD_RESET_METHOD_NONE: The device will not be reset.
+> + * @AMD_RESET_LEGACY: Method reserved for SI/CIK asics.
 
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+This also applies to VI asics.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index a79d53bdbe13..500f86c79eb7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -504,6 +504,26 @@ struct amdgpu_allowed_register_entry {
- 	bool grbm_indexed;
- };
- 
-+/**
-+ * enum amd_reset_method - Methods for resetting AMD GPU devices
-+ *
-+ * @AMD_RESET_METHOD_NONE: The device will not be reset.
-+ * @AMD_RESET_LEGACY: Method reserved for SI/CIK asics.
-+ * @AMD_RESET_MODE0: High level PCIe reset.
-+ * @AMD_RESET_MODE1: Resets each IP block (SDMA, GFX, VCN, etc.) individually.
-+ *                   Suitable only for some discrete GPUs.
-+ * @AMD_RESET_MODE2: Resets only the GFX block. Useful for APUs, giving that
-+ *                   the rest of IP blocks and SMU is shared with the CPU.
-+ * @AMD_RESET_BACO: BACO (Bus Alive, Chip Off) method powers off and on the card
-+ *                  but without powering off the PCI bus. Suitable only for
-+ *                  discrete GPUs.
-+ * @AMD_RESET_PCI: Does a full bus reset, including powering on and off the
-+ *                 card.
-+ *
-+ * Methods available for AMD GPU driver for resetting the device. Not all
-+ * methods are suitable for every device. User can overwrite the method using
-+ * module parameter `reset_method`.
-+ */
- enum amd_reset_method {
- 	AMD_RESET_METHOD_NONE = -1,
- 	AMD_RESET_METHOD_LEGACY = 0,
--- 
-2.42.1
+> + * @AMD_RESET_MODE0: High level PCIe reset.
 
+Resets the entire ASIC.  Here for completeness, but not actually
+available to the driver.
+
+> + * @AMD_RESET_MODE1: Resets each IP block (SDMA, GFX, VCN, etc.) individ=
+ually.
+> + *                   Suitable only for some discrete GPUs.
+
+Resets all IPs on the asic.  Not available on all asics.
+
+> + * @AMD_RESET_MODE2: Resets only the GFX block. Useful for APUs, giving =
+that
+> + *                   the rest of IP blocks and SMU is shared with the CP=
+U.
+
+Resets a lesser level of IPs compared to MODE1.  Which IPs are reset
+depends on the asic.  Notably doesn't reset IPs shared with the CPU on
+APUs or the memory controllers (so VRAM is not lost).  Not available
+on all asics.
+
+> + * @AMD_RESET_BACO: BACO (Bus Alive, Chip Off) method powers off and on =
+the card
+> + *                  but without powering off the PCI bus. Suitable only =
+for
+> + *                  discrete GPUs.
+> + * @AMD_RESET_PCI: Does a full bus reset, including powering on and off =
+the
+> + *                 card.
+
+This calls into the core Linux PCI reset code and does a secondary bus
+reset or FLR, depending on what the underlying hardware supports.
+
+> + *
+> + * Methods available for AMD GPU driver for resetting the device. Not al=
+l
+> + * methods are suitable for every device. User can overwrite the method =
+using
+> + * module parameter `reset_method`.
+> + */
+>  enum amd_reset_method {
+>         AMD_RESET_METHOD_NONE =3D -1,
+>         AMD_RESET_METHOD_LEGACY =3D 0,
+> --
+> 2.42.1
+>
