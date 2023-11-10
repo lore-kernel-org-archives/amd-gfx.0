@@ -4,65 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B102C4167D
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Nov 2023 14:48:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7781FC4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Nov 2023 14:51:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D33210E0C5;
-	Fri, 10 Nov 2023 14:48:16 +0000 (UTC)
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF3D010E0C5
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Nov 2023 14:48:13 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-32fb190bf9bso1993688f8f.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Nov 2023 06:48:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1699627692; x=1700232492; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=rDM0twlXiXIvN2aV8dwTmhrwhhGG93vGzD5fVgF26Ak=;
- b=AHNCibdZqn+bFqfnXCY3hMIlSrZZ3SWEp+jesEOr87JI4mW6YxcP1NHrI710WRpW6D
- KkeBv5JG1/Yk7frXEPJDbD5od4oHtkmfvB+Y/sRIuQ2WRQzxNLRelIqq4x8smUx0svYL
- +Cn1ZISUaq+pLmS6KiqoB3NWVXFGfqPhWNOFfq1/WwgqaJ1Ek0TdqxDub/GP1FC4l2hF
- S3prPCFJ/npdIKEfuDMP/TN26def1ASPiEPuLb48qJ1hL3n6VEN4eXskumOPyChtEdWF
- W/Bd2XIlSaIEg7yp7kc6mExlge8n4n7Z0bYqEHztDBkhmar6PDwiBl4+au+ErtGKLSub
- jVrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699627692; x=1700232492;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=rDM0twlXiXIvN2aV8dwTmhrwhhGG93vGzD5fVgF26Ak=;
- b=NSaBAg5sl6SVtEoF0b02HIp2D2j8H/jZ+eFWMIhqpt0guNKTVRP9y3xvDIPbSdEPUL
- QWo0/JssmbH7+iSCSJ/rMyyVCL9J5bVx/qktCViq2hiU9m0pLGx0Z5zAZeRJdGJdb46q
- fVaDDg2ao6QErKA1MaY+En7V3yHYVmPRG4dgB9C7ljdum9YFmlepcQsNUGoBY/VhsH/P
- pqlgdSvmAuqs1azFivw9lMllO2zdWqnBn6fA7LIQcr8DHd1AWjd6IxkLSr/gobxpFFhD
- i5d8atTxvw6h+RI3i5LMgvgY7GgOF/E8RVAhqFQ4lOMQgzMbASQvHqOr0BxaLUFhXqWc
- /roQ==
-X-Gm-Message-State: AOJu0Yx38wVFYiHIeHdv/UmVbZDiFTChwQYl+c+MPDqOhDAOWjkVjgyS
- KYfPU6PJuQm1QcXZih94iYo=
-X-Google-Smtp-Source: AGHT+IE1shdL4t6RTqlQ6eQTPbfP9cy/HrGWJS1BQUOCTCB6z57dGdpB48iAXeYJaWybLFsgrCZHPQ==
-X-Received: by 2002:adf:e195:0:b0:32f:a8bb:31b6 with SMTP id
- az21-20020adfe195000000b0032fa8bb31b6mr3458923wrb.7.1699627691855; 
- Fri, 10 Nov 2023 06:48:11 -0800 (PST)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- v16-20020a5d6110000000b0032f983f7306sm2064076wrt.78.2023.11.10.06.48.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 Nov 2023 06:48:11 -0800 (PST)
-Message-ID: <a8e73966-e233-4ec8-9e33-9821da64e67c@gmail.com>
-Date: Fri, 10 Nov 2023 15:48:10 +0100
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0208B10E112;
+	Fri, 10 Nov 2023 14:51:07 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2055.outbound.protection.outlook.com [40.107.92.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E45E10E0F6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Nov 2023 14:51:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ANWWh++Q/Ku3ijmYtwpoE62vGdjQk/PvKC2v8kk78nRyfoGb74Zm15vRu/KVQ36JocED3JMlzO+9GtDT98T4yZ5qBAlhqJezcQWPp2G+OCyoGHtryf1I/hBfjMQIHp2s+g24Lmbnbk6cCzF6HoxS+5ATdZsDTqZ3BJSEGpOCTKYQzgoepRi9+8hLjbFKJ978IetxsY+S3YjsLlq32r4MstbiqTGrWu7ycI6hXn4a7DL1NUeZ/dNv0fgJKqHNyUuQgNh6nefN0z7yOroqqhUTu75zCYkLmPOCLcc9saPPuVlAYv52X4SWHNpfcfN9smIn8aFnMS9rDwoY5B2Di0sGAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WrD0+j0WAEDOq1dEtENRTV1aoZFyWWAxe8BmBhWXP/s=;
+ b=XGTLXsIFnBEksaLW9osyBsDUA34uB27r4mHbsO+hi0nWdfgWOyJLnuRnpyizGdqQ1vgR/sfY1ji1ile+/SDqbQq7eeqaGJ5ca9Lue3Jeb4OjU1qz/sqcP9XjbfK+3/2TIZRcVD7MHHQZrbSr/0BbkZdCFYjxuY9pSO02dH/dzL8F8J82sNWq+44ZmAHegcBDBKHr/jI8QVNYePXc+/yl7/fVC4vf5HZx0r/X+txr2EeHPISu7v/cZ6gun9fudKMj/N2wtl4HDD09oWR1zdR8fWA63QognMOKMa3eKmN5ftiR7Dj0UlycWFhhVXVhRI4mgnhUQPaTEtyGEopHCQtu6A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WrD0+j0WAEDOq1dEtENRTV1aoZFyWWAxe8BmBhWXP/s=;
+ b=LhF7Y9xkozWQNNxpd6sItdJJhI+yajdRqvfmXPp8+1VA7bP+cil5cDyJFBhUYFAe7Pk1w0p+XSUxKDPXg6NZ2fveDZKUuxmfm07uc55rFbWVEcwoDrjH5O2Yv6/jcn+bh8nvi+h7N3JMm3ZpE60mgcHNL5vxrtWvvhViSXALvPA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by DM4PR12MB6613.namprd12.prod.outlook.com (2603:10b6:8:b8::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.30; Fri, 10 Nov
+ 2023 14:51:02 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::ca80:8f1c:c11:ded3]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::ca80:8f1c:c11:ded3%6]) with mapi id 15.20.6954.029; Fri, 10 Nov 2023
+ 14:51:02 +0000
+Message-ID: <59668638-00ce-4407-a0c1-47200480fe8f@amd.com>
+Date: Fri, 10 Nov 2023 15:50:57 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Skip execution of pending reset jobs
+Subject: Re: [PATCH] drm/amdgpu: fix AGP addressing when GART is not at 0
 Content-Language: en-US
-To: Lijo Lazar <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20231109073813.552664-1-lijo.lazar@amd.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20231109073813.552664-1-lijo.lazar@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20231110144701.1895397-1-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20231110144701.1895397-1-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0061.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:93::18) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DM4PR12MB6613:EE_
+X-MS-Office365-Filtering-Correlation-Id: 890740cf-bfdc-4218-f356-08dbe1fc7559
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: cP8bD9tUjbnMBMueKXJNT4J8TMMPG0pg+yZLyqqGAo7D5rOY+DRjXf2XeRL2QRABKbwimH9v6hWJXhLBD4jPjWzuYi8jk++pjl87LVV9i582uME7v8fINFlEeRSEfm8ia59dfbIOzvjatyidG/zfZXPgeG9vYKraV6SUvWZRIlfUFQaKb/+YVlY7NffNkuJXOW7Gtb6yVxWuvG0ul7RgjTU0HWX36Y2xR3v4QWkKtnQpGhNctyWbqWnVGJWqi9F0LddV1D2maaORAh2WLWklVMx+6RbaP4oHPh1E/58m+5lYqAVnCoqh5QihubuPYqyKeX54I3QDODuGm/h5VZGBTWTYoXVTpihfviWNeRqLZy3pHAs3hahJRhYTvNLNzrexk6LHeQWaxvV0RRS7LMX+eiW8ohKtDJ/DuhYgfnnxIGmuG1x+VdUkkhyxMGlyZ4U1Qey51IOd+k6MgLuS3BPmjWI6PPYqAu4sClxNRDXeDmW+zPW0qvZPw6Xiu639OPNlYa/r2J09Z7uly2vDCtaQpLWhLt1EN6MUb1Cm7o8sp2aCooGmuxUhChenieVJDC3646FGF4pJvRcIDz/fr27C6hd6R//Zwh+mBSv7njvnk3eG6Ewdrbaro5o4GbfWcV7P9M56184GLSEeXAij6UdsUw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(346002)(39860400002)(366004)(396003)(376002)(230922051799003)(1800799009)(451199024)(186009)(64100799003)(38100700002)(31696002)(86362001)(36756003)(478600001)(6486002)(6666004)(2906002)(6506007)(5660300002)(26005)(6512007)(4326008)(8676002)(2616005)(316002)(8936002)(54906003)(31686004)(66946007)(66476007)(66556008)(41300700001)(83380400001)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TnhONWhEMEZvaTA2RVdKVmhmZkVGOE5QaE9VdU9xZE95UitXMERSc0oxcWZi?=
+ =?utf-8?B?Y2dqa01LVTJPczdlbklVL2NzMnp6UnBXYUhzSENUVGd5aG9DY1RwNHdWYTg0?=
+ =?utf-8?B?bCtTbFNwcHgwQVl1RWd0M2x6TUU0SFRWbzFPaW0vRkJGUHZ5TmZGM3p0WjlR?=
+ =?utf-8?B?Vy9BaldSVGlHaDFXMXlOK3hORnhReTgwNnhsQ2NWYW5BdVlCK09vWmJHV0dT?=
+ =?utf-8?B?RTJZQlcwTkNvNGN0YVBjaDE5Uno1bVFkWkVaTDc2VjNkK3AvazJaK0E1a1V4?=
+ =?utf-8?B?Wml0VUk2Wm5saGFPVndZWEsxT1hYS0VxVUtEb2doZEpsZ3o1V2dOaWZXa1B1?=
+ =?utf-8?B?Z3dJcVBwZVJHUnRMYWlFY2RuQ3JPVU1CZGczV2lIQnAzOHF3VWxSeHU5S1Rk?=
+ =?utf-8?B?RXRwZytNVTJhTUlMMUtpOWRvdFpwN0QzTlFubmQrNGgwMzRoQVppQ3ZrSkx5?=
+ =?utf-8?B?NDZ1YVNVa04wRW1GeVVRZGhiazM4R2JkTVd2NTNKK2F0WGtpK0lPWXRTemVi?=
+ =?utf-8?B?NDBMNE5HbkkzazZRWDNCai9NWmg0SWhFVVpVelpDd0liS0xrdnZnUERNUExi?=
+ =?utf-8?B?VEJibXlkRkNqL0lpTVd3QXZ1amJWb1RDSzBsdHNiL0VVQ3NFUE5MVmgvUnUr?=
+ =?utf-8?B?b0F2b2ZVTEtJeFNXZWhsMTVoNjMyUjNhVTg1MTBaT01hQVkvSW0vWXo5bjRl?=
+ =?utf-8?B?MXZoUDNBT0Q2ekZCWktmN3M3NUxHUjRETS8wVTRCZXkzQjlOUStkZkJmUlNJ?=
+ =?utf-8?B?Z2VxeWlIODdLNDdUejZudHlkcXBKS3g5V1Q5aGZ1YVBlQlZaU0E0UGZzWnla?=
+ =?utf-8?B?QVlFU3QvQURNV2pWbEZoZllINTJpbFpidE9KaktydThLWFpxWmdxbjNFT3ZN?=
+ =?utf-8?B?RENuV2ZFZmQyOHRVd1NLQk56TE9qbFBCZTF1WWhiTVF2YXBxOWI3MWR3OWp5?=
+ =?utf-8?B?RkZFa3JLYkN0LzdzdVkzU1dTQU9neWRtWVpqd2VrUFlVLzlUY1FwbWErWlN5?=
+ =?utf-8?B?RW4zODZLNjQ1VVk1alZab2R6Q29lcFdzbDFTSFFHOFE1VkpEeERGRW96ZHlL?=
+ =?utf-8?B?czlkYzZpTGQ4SS9FUUc2dXlkbFZLZEF3WVptbGhFUXNGUzV0b2psdllZeFY1?=
+ =?utf-8?B?Q2tBNXltaSswYVdxNzQycW5IR2V3ZDVxY3RyaFVZNDRIbVFuaU4vOWtEcXQ3?=
+ =?utf-8?B?L3ArNGsvbDRDRHVvUUp4RW5USkhyWWppMEtLbURFOGxmaHNIYjlKcjdrRUFh?=
+ =?utf-8?B?UU9uZVE5YURkaDQ2dXpJOEVIRlZ1eStVbjdjWXVJVTZVZnRsOHhETzNRTTVZ?=
+ =?utf-8?B?K0hKVFN0Q2JCQjR5dGRlVlBrUlU5clAyL3pVZ0pGY2xtaXdxMTUyWDU5TXA4?=
+ =?utf-8?B?NitEcjRTcHIvaTVOZ3VpUU5NVUkvY05iQzVIMGVSenEzclptYkc1M3lWT2Y0?=
+ =?utf-8?B?R29OOG5MZHdaQ1BqWEl1Sk9VdlJCbzY1SHRpUThTRmVWeTllSnMxbU1LbGY0?=
+ =?utf-8?B?TURTQzRYZkRxcUx2cU13SEhrbWh4OUhWcmdET2piVGlJYlNwdXV5Zys0MTJB?=
+ =?utf-8?B?MlRLdFZSMGxVYUw0dzF0dEZGQWdaWTFkNDMzNzVmZTlyRHBYRDU5VEpvWW5S?=
+ =?utf-8?B?d1NtZmp6aWtOcVlPYnB4TXREbS9WbGl4SzgvTDVjYzIzMEpKbHdPQmthYk8r?=
+ =?utf-8?B?dWNJWEwzdlZmcytkaExmN1hQcVo3S1RwRlpSVlMvNS9TQzd0ZVliTGlSc1Rs?=
+ =?utf-8?B?WXBBMXNSQmoxK253Y1ZYQlRUODNZenNXeVR2MFFuVWQ4TXhpR3owQzAzaU5p?=
+ =?utf-8?B?WnRhZmlFYTVyd3N5bklIWC81cUs2aWlid3dtQlF6MVRxQjcyYzFYaVlCd2l2?=
+ =?utf-8?B?b0hmQkNkVUhGSzVsSExqVVErSS9OWTd1NUZOM3poUml2YW83QXVzU1h2QVpz?=
+ =?utf-8?B?cnkxSThYcnV4eUpVeHNBM002dklmcTFMMExPQ2NTb1kxNkdPY3I0MDZlQnU1?=
+ =?utf-8?B?T3hwRWdXdmV3WVdVMzcwa1QxOEh4Z3NMTXJMZnNuQnlOK3drTGJFRWJMRGg0?=
+ =?utf-8?B?aUJUTnNTVGl5bFlMZHBMVHBHeDcwQU5Qbmp3cTdzWDZvbGxhN1hSUGFkTm4w?=
+ =?utf-8?Q?rm5Fi5oOPWwwaG06gZtn3RliE?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 890740cf-bfdc-4218-f356-08dbe1fc7559
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2023 14:51:02.1788 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GiICu9yBThe2mtn7qJUSiyY6//AVYn1GS03e7rXgFQdjvWPf+tXCVYjUDn0UVob+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6613
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,115 +122,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Hawking.Zhang@amd.com
+Cc: Yifan Zhang <yifan1.zhang@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 09.11.23 um 08:38 schrieb Lijo Lazar:
-> cancel_work is not backported to all custom kernels.
+Am 10.11.23 um 15:47 schrieb Alex Deucher:
+> This worked by luck if the GART aperture ended up at 0.  When
+> we ended up moving GART on some chips, the GART aperture ended
+> up offsetting the the AGP address since the resource->start is
+> a GART offset, not an MC address.  Fix this by moving the AGP
+> address setup into amdgpu_bo_gpu_offset_no_check().
+>
+> Reported-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> Reported-by: Yifan Zhang <yifan1.zhang@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Cc: christian.koenig@amd.com
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 10 +++++++---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |  4 +---
+>   2 files changed, 8 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index cef920a93924..1b3e97522838 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -1527,10 +1527,14 @@ u64 amdgpu_bo_gpu_offset(struct amdgpu_bo *bo)
+>   u64 amdgpu_bo_gpu_offset_no_check(struct amdgpu_bo *bo)
+>   {
+>   	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+> -	uint64_t offset;
+> +	uint64_t offset, addr;
+>   
+> -	offset = (bo->tbo.resource->start << PAGE_SHIFT) +
+> -		 amdgpu_ttm_domain_start(adev, bo->tbo.resource->mem_type);
+> +	addr = amdgpu_gmc_agp_addr(&bo->tbo);
 
-Well this is pretty clear NAK to pushing this upstream. We absolutely 
-can't add workaround for older kernels.
-
-You could keep this in the backported kernel, but why should cancel_work 
-not be available?
+IIRC you must check bo->tbo.resource->mem_type before calling 
+amdgpu_gmc_agp_addr().
 
 Regards,
 Christian.
 
->   Add a workaround to
-> skip execution of already queued recovery jobs, if the device is already
-> reset.
->
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  5 +++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  |  9 +++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h  | 16 ++++++++++++++++
->   3 files changed, 30 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index bebc73c6822c..c66524e2a56a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -5411,6 +5411,8 @@ static inline void amdgpu_device_stop_pending_resets(struct amdgpu_device *adev)
->   {
->   	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+> +	if (addr != AMDGPU_BO_INVALID_OFFSET)
+> +		offset = addr;
+> +	else
+> +		offset = (bo->tbo.resource->start << PAGE_SHIFT) +
+> +			amdgpu_ttm_domain_start(adev, bo->tbo.resource->mem_type);
 >   
-> +	amdgpu_reset_domain_clear_pending(adev->reset_domain);
-> +
->   #if defined(CONFIG_DEBUG_FS)
->   	if (!amdgpu_sriov_vf(adev))
->   		cancel_work(&adev->reset_work);
-> @@ -5452,6 +5454,9 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->   	bool audio_suspended = false;
->   	bool gpu_reset_for_dev_remove = false;
->   
-> +	if (amdgpu_reset_domain_in_drain_mode(adev->reset_domain))
-> +		return 0;
-> +
->   	gpu_reset_for_dev_remove =
->   			test_bit(AMDGPU_RESET_FOR_DEVICE_REMOVE, &reset_context->flags) &&
->   				test_bit(AMDGPU_NEED_FULL_RESET, &reset_context->flags);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> index 4baa300121d8..3ece7267d6ea 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> @@ -120,6 +120,14 @@ void amdgpu_reset_destroy_reset_domain(struct kref *ref)
->   	kvfree(reset_domain);
+>   	return amdgpu_gmc_sign_extend(offset);
 >   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index 05991c5c8ddb..ab4a762aed5b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -959,10 +959,8 @@ int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo)
+>   		return 0;
 >   
-> +static void amdgpu_reset_domain_cancel_all_work(struct work_struct *work)
-> +{
-> +	struct amdgpu_reset_domain *reset_domain =
-> +		container_of(work, struct amdgpu_reset_domain, clear);
-> +
-> +	reset_domain->drain = false;
-> +}
-> +
->   struct amdgpu_reset_domain *amdgpu_reset_create_reset_domain(enum amdgpu_reset_domain_type type,
->   							     char *wq_name)
->   {
-> @@ -142,6 +150,7 @@ struct amdgpu_reset_domain *amdgpu_reset_create_reset_domain(enum amdgpu_reset_d
+>   	addr = amdgpu_gmc_agp_addr(bo);
+> -	if (addr != AMDGPU_BO_INVALID_OFFSET) {
+> -		bo->resource->start = addr >> PAGE_SHIFT;
+> +	if (addr != AMDGPU_BO_INVALID_OFFSET)
+>   		return 0;
+> -	}
 >   
->   	}
->   
-> +	INIT_WORK(&reset_domain->clear, amdgpu_reset_domain_cancel_all_work);
->   	atomic_set(&reset_domain->in_gpu_reset, 0);
->   	atomic_set(&reset_domain->reset_res, 0);
->   	init_rwsem(&reset_domain->sem);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-> index b0335a1c5e90..70059eea7e2f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-> @@ -87,6 +87,8 @@ struct amdgpu_reset_domain {
->   	struct rw_semaphore sem;
->   	atomic_t in_gpu_reset;
->   	atomic_t reset_res;
-> +	struct work_struct clear;
-> +	bool drain;
->   };
->   
->   #ifdef CONFIG_DEV_COREDUMP
-> @@ -137,6 +139,20 @@ static inline bool amdgpu_reset_domain_schedule(struct amdgpu_reset_domain *doma
->   	return queue_work(domain->wq, work);
->   }
->   
-> +static inline void amdgpu_reset_domain_clear_pending(struct amdgpu_reset_domain *domain)
-> +{
-> +	domain->drain = true;
-> +	/* queue one more work to the domain queue. Till this work is finished,
-> +	 * domain is in drain mode.
-> +	 */
-> +	queue_work(domain->wq, &domain->clear);
-> +}
-> +
-> +static inline bool amdgpu_reset_domain_in_drain_mode(struct amdgpu_reset_domain *domain)
-> +{
-> +	return domain->drain;
-> +}
-> +
->   void amdgpu_device_lock_reset_domain(struct amdgpu_reset_domain *reset_domain);
->   
->   void amdgpu_device_unlock_reset_domain(struct amdgpu_reset_domain *reset_domain);
+>   	/* allocate GART space */
+>   	placement.num_placement = 1;
 
