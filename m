@@ -4,54 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA6F7C072DD
-	for <amd-gfx@archiver.kernel.org>; Sun, 12 Nov 2023 18:01:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75A93C4332F
+	for <amd-gfx@archiver.kernel.org>; Sun, 12 Nov 2023 18:10:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADDBE10E0DA;
-	Sun, 12 Nov 2023 18:01:12 +0000 (UTC)
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 808B710E242
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Nov 2023 23:32:05 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-4084095722aso19561945e9.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Nov 2023 15:32:05 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FFDF10E148;
+	Sun, 12 Nov 2023 18:10:32 +0000 (UTC)
+Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
+ [IPv6:2001:4860:4864:20::33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DD5F10E148
+ for <amd-gfx@lists.freedesktop.org>; Sun, 12 Nov 2023 18:10:30 +0000 (UTC)
+Received: by mail-oa1-x33.google.com with SMTP id
+ 586e51a60fabf-1e9bb3a0bfeso2444745fac.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 12 Nov 2023 10:10:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1699659124; x=1700263924; darn=lists.freedesktop.org;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=G0Xxx3+DUmKqCjOHgRxC9Cu8pQOaIoyEbq7uXsJmyuo=;
- b=NRIIDSGhC1KCkpZNDUvFce5VoinJP+am3iVEUsZLl2J34+YVwESJew+2Y4ijuVnOLb
- V8N+qHfNpIzWxfg3pOD0OPlsVpUUOzruz2FzLtTrDyz54pzEZkp3K+ssWhoK1CCMmWxx
- f9VwmBljkDFdXS2w8V3LV/xgcxBh20UKJGqa8vKVh8h14V4Kcg7e5+y3deFpzX8oeCBn
- qj6QT3YqPyk+wYqLfTwAvq4dZK6eqEEMRzrUvRadIPPTGk5onLRgfJS0DOi3WtSON5Oo
- vfbpsBUHH62i57bgK9ITDMcBBhUHBPdg8UcpadmjDPC1E4Hgco3bqp6iqCx7k7rcaKJE
- Fs+w==
+ d=gmail.com; s=20230601; t=1699812629; x=1700417429; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PZ4msdo8hjkAOngMra0anrRMo3QEhsiuohbiItzDD1s=;
+ b=J1DUMO5GBznuZ43mx2obWJGFVqs2YeAs0COzh4cWk0kbJAWezXPt9hnleVukbyCC/o
+ r1vrdBMkX1tZ/Dle0lJQnB5GAzjoC69cBcNWunoAFDMbxy70DypwIK+TSzIcuV31ilBM
+ hpZ48Lut9wGZTw3ucRht93EW2gH2uFwBjh8MsPAvwOhopr7HIo8Jxeoo/c48kXwrpIgw
+ FqGgzBjPujExY0qJBGt5NxuG2Y1oqbMq+z23e/l0BMxvwL2xFsyaIIoo5IVBacwLRrNd
+ YJvUGTX8h3EuGUQMIkjha5Ruu3HM6/8f2TV1DHDzLcXwe7pyxCivO4i91wTkXKXktz1R
+ C2ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699659124; x=1700263924;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=G0Xxx3+DUmKqCjOHgRxC9Cu8pQOaIoyEbq7uXsJmyuo=;
- b=v+bLjvXrBNLuCmB1KP3OsLuL3vJGuSkB8KiFR0i/TEEHzcw+jwu0/j9DJhUt9FtvN9
- StfSuFRSehWIPs7MwqQRW1qRiuNSMgWt+I90qUa2J03EOO+snFuODHitmAENtGqm5BjD
- KA7O9cfsRxCDGvLYBFoqIbGxqJI3TwPwxf82Dxh+asxfHT9m1VhdjpEoijKl9DXi1zn6
- h2rMWh7neqttH4N9xdFab5+LcQg5i59A2Ks0XgxzyeX8leVTFH3RCQ9+nfbYnLImVN4A
- 7g63BEUyjbqmpUzJowEWoxxST5mcTtMVP5QFDHVgwxEQ0zgCr8fOaJHbWSWEiKYKueX6
- JvSw==
-X-Gm-Message-State: AOJu0Yy3cyHG63ZM1hF0sN/RcztqwzNeygYHRIuZ2ey6vF0alDnsITVY
- T/JNHnuotC3zM3r7JtPA1dWejKboSOZ/EDdkKExLlFKdY537vQ==
-X-Google-Smtp-Source: AGHT+IFG6URo6uQE2p8wiMVe/XtEaUyefdx6hpALNvAZBpUx688Cz2eYMzmFqf0yRanMiS5kiR+oZO/fKeOyOUJm7K8=
-X-Received: by 2002:a05:6000:1567:b0:319:867e:97d7 with SMTP id
- 7-20020a056000156700b00319867e97d7mr500266wrz.52.1699659123266; Fri, 10 Nov
- 2023 15:32:03 -0800 (PST)
+ d=1e100.net; s=20230601; t=1699812629; x=1700417429;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=PZ4msdo8hjkAOngMra0anrRMo3QEhsiuohbiItzDD1s=;
+ b=b/ljohso16nny0nApprst1oCFkQ0l0wIvmGGoI05ZUS7Ilv5TaJU+lCUt1XyagIc+g
+ TC++SqqyAA12Ejpi6LBJVpDIw29E8ktpdO72Wb90sFCsltJugpHS6PvYrxF+e8xuN5aB
+ RulTHj5PFbtEQ8JAYNtHZJQMd5UJ1pEiQtH8b834BWkel0RWrhx+A6UaUArnWIx96Tga
+ Bv0ipnQjOGusyhZZ35lT+Qalzef/rj5aV8gyaj7sRagPx4yG+2HgsOvatTu0VQu8qldY
+ tv/hckG8rftkA/oTu/HQyjCh9MGVWD1qVBOKIn8umbiVqPBEBVZMjLA1VMNHLEWE6BIw
+ tgOQ==
+X-Gm-Message-State: AOJu0Yy2hiVCpEBKvIL6fhEiPd5YBCXeiHVFztrJC9o4fFCFoY6de+Uf
+ 34JwZBgtj+kXuwtY4fT7y5x18NQSFcU4fpuoKGw=
+X-Google-Smtp-Source: AGHT+IHLaieSHt7tqcfWc9yCPTP70JXOgsAJ/BGTb333hMZ4TcmGpwwO3v5/zKQaE52OSokdtMtEAeZ0x1Bs3jr3ev0=
+X-Received: by 2002:a05:6870:c1d1:b0:1e9:b3f6:12de with SMTP id
+ i17-20020a056870c1d100b001e9b3f612demr6742650oad.31.1699812629364; Sun, 12
+ Nov 2023 10:10:29 -0800 (PST)
 MIME-Version: 1.0
-From: J Fra <jfra4799@gmail.com>
-Date: Fri, 10 Nov 2023 17:31:52 -0600
-Message-ID: <CAE584xbwK36APghuq_83W6KD2XHNY99-NmH+M1a3kZufyYp8WA@mail.gmail.com>
-Subject: Re: [PATCH v7d 00/23] fix DRM_USE_DYNAMIC_DEBUG=y regression
-To: amd-gfx@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="0000000000004819e60609d4ba44"
-X-Mailman-Approved-At: Sun, 12 Nov 2023 18:01:09 +0000
+References: <20231112042559.1631414-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20231112042559.1631414-1-srinivasan.shanmugam@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Sun, 12 Nov 2023 13:10:18 -0500
+Message-ID: <CADnq5_OfKMXb8d8bkWbt0-TrDC5p30bgF9SxYLG93roJhtVVsw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Address member 'ring' not described in
+ 'amdgpu_ vce, uvd_entity_init()'
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,17 +68,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alex Deucher <alexander.deucher@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000004819e60609d4ba44
-Content-Type: text/plain; charset="UTF-8"
+On Sat, Nov 11, 2023 at 11:32=E2=80=AFPM Srinivasan Shanmugam
+<srinivasan.shanmugam@amd.com> wrote:
+>
+> Fixes the following:
+>
+> drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c:237: warning: Function parameter =
+or member 'ring' not described in 'amdgpu_vce_entity_init'
+> drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:405: warning: Function parameter =
+or member 'ring' not described in 'amdgpu_uvd_entity_init'
+>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c | 1 +
+>  2 files changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_uvd.c
+> index 65949cc7abb9..354317c9e47a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> @@ -398,6 +398,7 @@ int amdgpu_uvd_sw_fini(struct amdgpu_device *adev)
+>   * amdgpu_uvd_entity_init - init entity
+>   *
+>   * @adev: amdgpu_device pointer
+> + * @ring: UVD scheduling entity on ring
 
+amdgpu_ring pointer to check
 
+>   *
+>   * Initialize the entity used for handle management in the kernel driver=
+.
+>   */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_vce.c
+> index 0954447f689d..578c5c90448f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+> @@ -230,6 +230,7 @@ int amdgpu_vce_sw_fini(struct amdgpu_device *adev)
+>   * amdgpu_vce_entity_init - init entity
+>   *
+>   * @adev: amdgpu_device pointer
+> + * @ring: VCE scheduling entity on ring
 
---0000000000004819e60609d4ba44
-Content-Type: text/html; charset="UTF-8"
+Same here.
 
-<div dir="auto"></div>
-
---0000000000004819e60609d4ba44--
+>   *
+>   * Initialize the entity used for handle management in the kernel driver=
+.
+>   */
+> --
+> 2.34.1
+>
