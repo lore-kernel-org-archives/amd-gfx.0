@@ -4,53 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FBACC4332F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED4BAC4167D
 	for <amd-gfx@archiver.kernel.org>; Sun, 12 Nov 2023 18:01:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56A1A10E0D5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4511210E0CF;
 	Sun, 12 Nov 2023 18:01:12 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4052410E242
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Nov 2023 23:32:56 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id
- ffacd0b85a97d-32f7bd27c2aso1683122f8f.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Nov 2023 15:32:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1699659174; x=1700263974; darn=lists.freedesktop.org;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=HpQQWTdBqHFTmJNUoiy1oT/yZ78ycZkY/c+sOqBhWe8=;
- b=SkuASrkdMEbSZOgAZ1TxHv8ife0Vp5gmDOU3HSezFOgtYlGKAgbKqSrGMsid7kIshu
- +5M8ZgoS8wdRSSdXJE9cxW6titzQeZ+oF+Spe20yrvhixROOw9mIyAzVX4eHXZ2Gozqf
- a2wmNG/D1Fq5O3XkNdNJAp8VzQ+UTwVkU4LFLbvTHq+L9lc/chU1xhDoHsonyuVq0QGz
- pwLaVS7xkayCUSKJ3//BeFCBSxVMqGEOnt1DDI6uGr4OUEgpMEv9WMuyvDJzsWfBpSEa
- Mg5gz3qBZjSO5YWIoV8ydKj6I04A4rFyP/FxWq9F86soU7++sKcQAzIkIW6vGyXyoYUM
- pRCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699659174; x=1700263974;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=HpQQWTdBqHFTmJNUoiy1oT/yZ78ycZkY/c+sOqBhWe8=;
- b=Lj7mFUtCWKeS/hz7ECsjkcTN64Llhy2rJX3x2fxvmBDn5fmVsiVqr3MiZZl0xKqBlo
- h1QMDXe7WlTFjJ3t9/hU2HZ9opKR11kjJKhsr3/BiD5EZdFB+/C7O1+Tuhws9x9LrGUV
- cB+VjlEX53iS63wsv21dxHvSTycBrO7PW1TUraleDAsf/Hd+PTuEFJEnmk7jZFmAnj3L
- Nb6vESfWSY3CF44vmHZKglOdrq98pCO+qOQA6GKdsw2NeFmt+n8Fy5VzUu7/D7d3eQW5
- sys40djkov7X+qgbiZNpN6womDVt/FfXOvkaJIosYYaN+3dPmrG2WUzbCt+FOgFoylaY
- PAuw==
-X-Gm-Message-State: AOJu0YyuUQQfqtsy7SpX/9ItwriWQaNXyyxBIdQkY5pIZAGKbXVVP9/P
- vkHXeJ50YE0oxwMcfdzwbzk95KljRdUWWBMDFFdixcX/8bp6mDTR
-X-Google-Smtp-Source: AGHT+IFSv0SRci0nz3+D4ShjG9cVywVZyzHs8uOz55coeo5oYeugzp56ZZwOYFUPdULmabKlWz7PxbIHtBVqiWcAGJE=
-X-Received: by 2002:adf:fccd:0:b0:32d:5cc0:2f0c with SMTP id
- f13-20020adffccd000000b0032d5cc02f0cmr473702wrs.40.1699659174408; Fri, 10 Nov
- 2023 15:32:54 -0800 (PST)
+X-Greylist: delayed 992 seconds by postgrey-1.36 at gabe;
+ Sun, 12 Nov 2023 11:39:48 UTC
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E442710E08D
+ for <amd-gfx@lists.freedesktop.org>; Sun, 12 Nov 2023 11:39:48 +0000 (UTC)
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1r28Yb-0004SW-Jn; Sun, 12 Nov 2023 12:23:13 +0100
+Message-ID: <a45a2e5a-505f-4438-84de-ef867934e655@leemhuis.info>
+Date: Sun, 12 Nov 2023 12:23:12 +0100
 MIME-Version: 1.0
-From: J Fra <jfra4799@gmail.com>
-Date: Fri, 10 Nov 2023 17:32:43 -0600
-Message-ID: <CAE584xaTsBzyJ1kEzJJwPV+=7RVr3CX45VVHGoWujYHsdgwe7A@mail.gmail.com>
-Subject: Re: [PATCH v7d 04/23] dyndbg: replace classmap list with a vector
-To: amd-gfx@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="0000000000005476700609d4bd00"
+User-Agent: Mozilla Thunderbird
+Subject: Re: mainline build failure due to 7966f319c66d ("drm/amd/display:
+ Introduce DML2")
+Content-Language: en-US, de-DE
+To: regressions@lists.linux.dev
+References: <ZUNsmJGbYwgPaUpY@debian>
+ <CADnq5_Minarw2D_TeRdkm6nJOP_4qHM+MxiMeLWMXqHxjq22Xw@mail.gmail.com>
+ <CADVatmO9NCs=ryNg72HNzMDpqg862gpGnnFhQ4uwTpEkjOkCLw@mail.gmail.com>
+ <CADnq5_Ou7Cq071DJZnq+3PDNqkd3ZJb+dCEvMjiked6_t=E6MA@mail.gmail.com>
+ <CADVatmN4njCTGxNPjtpX9gdaySUxW07petaRP1uOzHaQNxf7fQ@mail.gmail.com>
+From: "Linux regression tracking #update (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+In-Reply-To: <CADVatmN4njCTGxNPjtpX9gdaySUxW07petaRP1uOzHaQNxf7fQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1699789189;
+ 88e9f5d5; 
+X-HE-SMSGID: 1r28Yb-0004SW-Jn
 X-Mailman-Approved-At: Sun, 12 Nov 2023 18:01:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,17 +52,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000005476700609d4bd00
-Content-Type: text/plain; charset="UTF-8"
+[TLDR: This mail in primarily relevant for Linux kernel regression
+tracking. See link in footer if these mails annoy you.]
 
+On 04.11.23 10:42, Sudip Mukherjee wrote:
+> On Thu, 2 Nov 2023 at 22:53, Alex Deucher <alexdeucher@gmail.com> wrote:
+>> On Thu, Nov 2, 2023 at 1:07 PM Sudip Mukherjee
+>> <sudipm.mukherjee@gmail.com> wrote:
+>>> On Thu, 2 Nov 2023 at 16:52, Alex Deucher <alexdeucher@gmail.com> wrote:
+>>>> On Thu, Nov 2, 2023 at 5:32 AM Sudip Mukherjee (Codethink)
+>>>> <sudipm.mukherjee@gmail.com> wrote:
+>>
+>> Should be fixed with Nathan's patch:
+>> https://patchwork.freedesktop.org/patch/565675/
+> 
+> Yes, it does. Thanks.
+> 
+> Tested-by: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
 
+#regzbot fix: 6740ec97bcdbe9
+#regzbot ignore-activity
 
---0000000000005476700609d4bd00
-Content-Type: text/html; charset="UTF-8"
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+--
+Everything you wanna know about Linux kernel regression tracking:
+https://linux-regtracking.leemhuis.info/about/#tldr
+That page also explains what to do if mails like this annoy you.
 
-<div dir="auto"></div>
-
---0000000000005476700609d4bd00--
