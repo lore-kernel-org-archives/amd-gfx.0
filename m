@@ -4,117 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E80CC4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Nov 2023 15:05:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D65CC4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Nov 2023 15:12:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0124810E3B2;
-	Mon, 13 Nov 2023 15:05:23 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on20615.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8c::615])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8928310E3A2
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Nov 2023 15:05:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D2CA10E399;
+	Mon, 13 Nov 2023 15:12:44 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2087.outbound.protection.outlook.com [40.107.243.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2ED1210E380
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Nov 2023 15:12:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MzIETVibIkGS3e9ULNIMi/tsnEJlEqEz5Wmypk0HpahAJgW//NWRbHhFsJv/yYoV/IGZrK+TFL2hyRLWJBsXaRO2yJh71RV/a+TqtEtzBKFJNkjUcqNy5JLkL4tXxL1yZ+5n+eKd/9g0yjgiFt6qYyXHg4fkwIML+IHw2u7f/JEzln+jDpTEluiWumuh1QfylYjT7LlzJ2NaRKmg2USDrXk2KMonQuFemj52t9aClh3geozA6yoFNY3g31OMN0P8MKgUB6eUZTabbzIdQcR34VivD0Jj1Lsz2qFo+hSkdIc4UFCCGODVDdZEIo7ApBKHLU7d+XyAStlnEqhvG37pPw==
+ b=OFRRFwfcLHoje39wmZu+FRKXxOWtrskL+LmQsV29dPhYcfyMPNnJ+hcT8N7CiwBYFHEoT0HsnriW3vhiLPI8lH87KUkSZ4MKh6mfGgeMjl5ac8Z/zAeeqfoDcTz+4JrmXsztNz6CKidLTPsLdQiTF68ajyuFGfWTSfziTtFMkAgiptAv1TufqutBcdEvP4dMJa2cQxXu7cvbVVTsoJnJKCww4Xvhz6OvF0qFqep6jB4uNu6zcJ6Q1u7wk8RSgtHDKnsa0CdzVweHbfAE+5R3v4rp24NC4JpD3QwIBSIwT/v7XeulHDF5TdacxZq6ySoAhRP+RaVfMiCqbE+RFtVLPA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G9Mz6WWl2ePsaNIDs2FZ2v9yYsq5YEVBF+dCYar1tgE=;
- b=lrkE0QxXfG9ROqZHUlF7DzPlySwPFzTZS1DAcS4aTgoJvyRFdXufSlqUDMXPJw0080xluzeEyRR15jDuX++jAbb8OwJSVsYtp7vaQmnSTYkyfi/S7KPfuo9kCRM2cDAKuVltEwEw+jjhU5C5K/YmrUype5GglE+GmO/cJYjChEKQ5K9XFqxFGbwp4vnNt6uzF1gP8cejBx1mY7oJ7AIpIM1/kOiZcZ3CCsTY9D2Y8WgxWoayXklXarumw2l4p9nOjgPOqR3GGf3p5lm4TI6qqc9PyrrRvm9xOz9T1IGuJYlnF/5oebENhHn0ftZZm9TgNTpxiPLJHfR4VciVGKQ80g==
+ bh=olvQzRj6omJMB+PNLWASzQ//QCmZEZ3wnPmsBNb/bXA=;
+ b=kUJpKFLUaE7/PU9wNp1kO4mCiKKzbEvEdRCqF1H2RcTltCqt6YAF/kQP/qEwWs+lZDOcnGb6yilP3Q6PZ2CnsrPOjSHCg9xxlSWyxRgHNUqHYiI94C6KqyR/AMAm/N1duOc4WxAPW8uiezJaPAg3C3mC5jBV4jgdQlNjD+begaWV7BWHgd7F9ufr0bdti2lP3U/RNP5al73H8852aK5IIJftdM8x4mFSQzKx2lWXu8SJ2prvRcblTFKxWsOVChWHVAz3Jgpc5HRzU99tjZP7aWyyeFTdyxxlh9sPbFmEjkeo0Z4K9gIbeVsYeLdkaGffZdkyXrIqsGppc9NGm9/wAg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G9Mz6WWl2ePsaNIDs2FZ2v9yYsq5YEVBF+dCYar1tgE=;
- b=PwSf2jBCRligGjJnTiuU1zJhq+EA1YB7xa7b5fPpGZzBg1MqfGdNO7zO+cmbVm/3rXPoqoKZ0zwGLEdVLxITt6gdTMcc1tAAqavlAO8yQipV6lXsH/+vzy6jCa7FDRgx8BV3UQmr9SXziTMOnKgm6IrgpMRUeIViFUDHVoeKOxs=
-Received: from MW5PR12MB5600.namprd12.prod.outlook.com (2603:10b6:303:195::12)
- by CH2PR12MB4921.namprd12.prod.outlook.com (2603:10b6:610:62::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.31; Mon, 13 Nov
- 2023 15:05:17 +0000
-Received: from MW5PR12MB5600.namprd12.prod.outlook.com
- ([fe80::f786:72d4:735c:aa84]) by MW5PR12MB5600.namprd12.prod.outlook.com
- ([fe80::f786:72d4:735c:aa84%6]) with mapi id 15.20.6977.029; Mon, 13 Nov 2023
- 15:05:17 +0000
-From: "Dhume, Samir" <Samir.Dhume@amd.com>
-To: "Lu, Victor Cheng Chi (Victor)" <VictorChengChi.Lu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v2] drm/amdgpu: Do not program VF copy regs in mmhub v1.8
- under SRIOV (v2)
-Thread-Topic: [PATCH v2] drm/amdgpu: Do not program VF copy regs in mmhub v1.8
- under SRIOV (v2)
-Thread-Index: AQHaFCFCtYzTirdMnUqbbcZBB3i+DLB4XU1A
-Date: Mon, 13 Nov 2023 15:05:17 +0000
-Message-ID: <MW5PR12MB56007B064C20AC90483A6393E6B3A@MW5PR12MB5600.namprd12.prod.outlook.com>
-References: <MW5PR12MB5600A804F2DC648D9BD863B5E6AEA@MW5PR12MB5600.namprd12.prod.outlook.com>
- <20231110215933.3265-1-victorchengchi.lu@amd.com>
-In-Reply-To: <20231110215933.3265-1-victorchengchi.lu@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=8510cf18-73cf-4961-823d-f7455341ff09;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-11-13T15:05:04Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
+ bh=olvQzRj6omJMB+PNLWASzQ//QCmZEZ3wnPmsBNb/bXA=;
+ b=EE/SGTdqzxZAM0D0Eoxdj8ObOlbbL2JligKGQbxLZZe2AWTcZZGt0rmhKqYb1/1DR+Xi4xU+0edq+fP3MTIrerT9SF7eza0AMBQlIfd5yrPk8LpzOiEISWAnfAgduTWMBIeoLgz3doQY+p1/CnVtdOLzfDNeO1dRQpIXOjKunOo=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW5PR12MB5600:EE_|CH2PR12MB4921:EE_
-x-ms-office365-filtering-correlation-id: efa588c3-d2f2-474f-1e72-08dbe459f24a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 12SNurk3ZO4sRu3zBEwf7Obs3UjVb6qu74sLqzwUKc1vzKsDQyp7wR+aha8UNPC3VY+sjCqice4zdQECEQSfIETljd3tWigq/JjNW9V/2+JV5G60znKo9XsSIw+HDtQ1teje4D5WAPU4C8EWJzu3ul9BMuaWqse6cQYU5zU1wl2Mf+UabRM7V+DUSeLt7OmXtmk3kYgQzRmbFlno2+Jq+M9OfaOHR4Xwf6j2VX1z4EcQetF5Lkg2XL12BRUKdcJQIydZ3nYG6cnskNf2Zb7JzyHZ/6ZRGyo7gEEd+l98KSWEZIoeMQBzLe8iS6/xf7lHjDN4YgXdSaPYiDNkx+/Td3uVcoma0UbGngJx2zjztp1VHq3nlwQ4rICn5Wa4JyzTfr3MVxlaZZkfBSQZi96TrNqOuSyX42/8705M2LB4XUyXSYmAuTdmIxA3SgsdpSKYsstvYCTAy3tMYnCW2Z5rYXr47Ijul0c4uGBrlt5tw7O/QkSYHjm/513DAnbXUg1X5iwdu1Z5bxGG3j9VGuOZne4zDorb/IXVeJIbjlhi2XIrg+XfgPfXbsnqd2VgAuBq3bvPVkqXb/xlr6j/MMeVTRktVZ+JS+NfvptKXyl+6wHsDWadiM9ofCybE8RkKboz
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW5PR12MB5600.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(366004)(396003)(39860400002)(346002)(136003)(230922051799003)(1800799009)(64100799003)(451199024)(186009)(38070700009)(122000001)(83380400001)(110136005)(26005)(478600001)(53546011)(7696005)(6506007)(71200400001)(9686003)(86362001)(5660300002)(55016003)(52536014)(33656002)(41300700001)(38100700002)(2906002)(8676002)(8936002)(316002)(64756008)(66446008)(66476007)(76116006)(66556008)(66946007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?t/jBqj40pb8lga5ytCw9iMr4A62LTaVfkwCNvGHeEelkOe/8lpzClShXBD5k?=
- =?us-ascii?Q?e2u8Fy9CHCFwv3Eb3k9zvZYObBYbPrPj36DnBVgeYcd1ZK9jjkroV25Z6GCw?=
- =?us-ascii?Q?Tb1D1csU+CZ8RYbEXDRq+GkpyqryMGwqflr6Mlo+ypRGXBUUfX1LTTfWDGMA?=
- =?us-ascii?Q?zLCRH6cGPGykO2iWK6uV0+0JfuPxWF8Sw20rWZmg+zVtmybQIcF0ZgrLk2hL?=
- =?us-ascii?Q?OKCwC4u9Y8ATVTBzF3i3YgHudwixJ5aoLBd30oLqjdfW7LOvRa6aXsLhV9z2?=
- =?us-ascii?Q?iDq01sm08a0xg0L12GRRj+vsOkFr/xnKsQ8+TlNhfh4T06V8AqX0283uUUXi?=
- =?us-ascii?Q?ytjcufndR+zRci/4YM/G9RQQ2vlNr3oXm+UNZR1WcCmADbMTkXK4mGnc3jxl?=
- =?us-ascii?Q?ahF5u0B17bYS6c9PHIvq9ikq9TDMdD02Sth0+3gh8sQdSH7EQI/NQIpKYgt/?=
- =?us-ascii?Q?/xA0+dM1gO72jS+CXZIAQp1NI6O8/yBDdUN+lDibteIEpowfjnWAMcWuqUwd?=
- =?us-ascii?Q?mNBbiCNo8PD/KfJCUm+R2YsaoRtd7NBxajlblv+VfkFPZPqm2zabB5QgPDF3?=
- =?us-ascii?Q?RGwEX8tHR/0Xlq+iKzkwpWR5M8nAOVpJl0+CBPPMmkhsHLE7XX7o69GqOSys?=
- =?us-ascii?Q?Wy2BCU52ivCC6jGwWOA9FrlojZv27bhnnLNODWHG3lix+pSLMxXOANc7uVOB?=
- =?us-ascii?Q?jbOkIg+hl+Sdww+KGj7r0Szr1AH2llhGCnpDCO1c5CHWcrcmXH7rUwL/EY9f?=
- =?us-ascii?Q?JZfAfftBGPi18EwFBV6hjzZOFGkQu67d0usHxv+xtAWk+cyTc7BQNZ70WSbP?=
- =?us-ascii?Q?bHIbhhvkLjxzYTSitJAe8aWGUinrhmhrJHSewq0lRSQEmQo0SSJjsX0tkHNy?=
- =?us-ascii?Q?Y5gsZO/1tjko/bhw/2S/4JX+VF874zl9CSozZ3UUJ8X45dL91xav7spllPLY?=
- =?us-ascii?Q?MqytVbgNFYQDJoU9WNncSCxHiP+8IBXSDJVNXHMN4MzJcahoG03L6GV602Vy?=
- =?us-ascii?Q?yZkV0k7yWRcO4VJS5zOvhtRWPhUd4aNfYkMbzVNvfvAkTbOmuNlVpS11aB28?=
- =?us-ascii?Q?ss50ncqc4GEEJn7zqPL+1WMuA/+73ZnN66f5AzVtGFWEBVF8XFkI9QMPLZto?=
- =?us-ascii?Q?gP0S1o0Rq0c3R0pGiriTCTW35KVUjS54wjlEOx192SRmFgEuLNj+Vlf4UEnE?=
- =?us-ascii?Q?Lrhz0Zt4cEvohah92s4bU/RW6pgXKgY9+zFMImSOna+vcxwjspP9fsWVFkPj?=
- =?us-ascii?Q?ttRHRKwMvS5RdZKCEerv04y9QqpSfgK8ROv67XzDW8w8KwJrVUz8YVHriGLu?=
- =?us-ascii?Q?egc4a0jP/uOw7NeqG4C8PJp7sl0BC8uqI411LVuPfVyxLzmqN3HNUpJmbqE8?=
- =?us-ascii?Q?3+sFknE0DTJYtuuwq5B40McCySKZXuVPLUc0lqcjnixHl6hf3GiXS5no9acN?=
- =?us-ascii?Q?FYhJFyGytF+7XGhZfV5O3xWBj2piIDKqyNSClprzlDnncMElpVNXevPsN+1q?=
- =?us-ascii?Q?6QdrPmVP44BLV1xEcf4e+mkrXBfKk25gH8j9gqFgr+kk1KeVwVmqkw42whlr?=
- =?us-ascii?Q?iBhTpS+6mmDMjKebnr0=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from SJ0PR12MB6760.namprd12.prod.outlook.com (2603:10b6:a03:44c::18)
+ by PH0PR12MB8052.namprd12.prod.outlook.com (2603:10b6:510:28b::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.29; Mon, 13 Nov
+ 2023 15:12:38 +0000
+Received: from SJ0PR12MB6760.namprd12.prod.outlook.com
+ ([fe80::ae50:7a3a:dad3:1d04]) by SJ0PR12MB6760.namprd12.prod.outlook.com
+ ([fe80::ae50:7a3a:dad3:1d04%6]) with mapi id 15.20.6977.029; Mon, 13 Nov 2023
+ 15:12:38 +0000
+Content-Type: multipart/alternative;
+ boundary="------------CaAhPO3ocUrS06FsRIaXjWyH"
+Message-ID: <e26179d6-f172-4df4-8ea3-a3cbceac6ce0@amd.com>
+Date: Mon, 13 Nov 2023 10:12:35 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 22/24] drm/amdkfd: add pc sampling release when process
+ release
+To: "Yat Sin, David" <David.YatSin@amd.com>, "Zhu, James" <James.Zhu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20231103131139.766920-1-James.Zhu@amd.com>
+ <20231103131139.766920-23-James.Zhu@amd.com>
+ <DM6PR12MB5021960306E3061166F20DE095AEA@DM6PR12MB5021.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: James Zhu <jamesz@amd.com>
+Organization: AMD RTG
+In-Reply-To: <DM6PR12MB5021960306E3061166F20DE095AEA@DM6PR12MB5021.namprd12.prod.outlook.com>
+X-ClientProxiedBy: YQBPR0101CA0328.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6c::20) To SJ0PR12MB6760.namprd12.prod.outlook.com
+ (2603:10b6:a03:44c::18)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB6760:EE_|PH0PR12MB8052:EE_
+X-MS-Office365-Filtering-Correlation-Id: cbfb0dd4-74b8-4a30-a08f-08dbe45af93c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: KOSMdzBHopVULheZ9P5vOwqHCEIuFQsR+844UreJ1hD7kjge+SFczSG+oi4YVEY3VK2xJUc72rigHPOh3l+voj5zmRtNDenqMq+Z6KkdBN/IJEcC0Bs5XdzlDUTOR3YQulC6EFEIzRvQUORLq2pCH+Oxsvi8ltSr0NgPKnQWtkkPxrcBqpTjyadQMgD3otBj8dNy8oRWRXw3uGxkFsVem4V2RxILTUiiC50fAeRA5DbbyaapX8CnaXdAJy08ulxyAPse8xVQx6CalUfYfbufGhUakpz1mRkfJ4vBxCryZ0qfEXc3wxE/ivWYsKh6nJ6KiIBZWw7SuVWzmHEsl8KMGVrN8HwThwS6GCellroRHjvbF1RY1aUxOOsK+Ewo0d1sj+sg+opfdUoEoWWv3NFrhL53Q+I0xmXsYmOxgOobfhvmTYPH2qCBsYrhGLUhkFpcvEjFp/7HZmWPWWb9yCz2UtjILO13P3fGBANiWXRrXqIRi4avl4mDQ5UIimV+TlO7o7LF3EkPtrxe2kbOcWL7sSueNI/nlFDDcLmqoR7xGNuw2DBqLKr8yKVEM4VDBaw7ttXUUJM+pHDrsSm6xERAKmFBwkfQN5yF1ruJvJd7f0hFqIT86smX7ixxpo/18OCD1EiE0YnjhvvhGuC1TcOjcA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB6760.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(396003)(39860400002)(376002)(136003)(346002)(366004)(230922051799003)(451199024)(186009)(64100799003)(1800799009)(26005)(36916002)(33964004)(6506007)(53546011)(6666004)(2616005)(6512007)(83380400001)(5660300002)(4326008)(8936002)(8676002)(2906002)(41300700001)(4001150100001)(6486002)(478600001)(316002)(110136005)(54906003)(66476007)(66946007)(66556008)(36756003)(31696002)(38100700002)(31686004)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z21LUzVWSEQxbGFwQmNFOEREczlzaDJtUWdJQjUwQ2NpMkZGR21SbkE5SDBx?=
+ =?utf-8?B?NHdiRDdRZGVmczFCL05DZ1N1aTE1QnJoNmVPQnAwWGJMS2hwYzNwblZIYktT?=
+ =?utf-8?B?Q1E5QVVxeW54RGl1R2UrazNFemZYMTZJazNobG1aSjVhSmRBTkhlcngzeTF3?=
+ =?utf-8?B?QndHbXQxK2FoY0JSbWY3ZHBSUjJic3BTUkxLcUU4THRPTXFBMjZjZlJ3T09S?=
+ =?utf-8?B?cjJCUlkvMkt3eGNzSTRmM2RBdEZkY0N4ZmVsc2lhRDZnN3plbkpNWVBqVmJN?=
+ =?utf-8?B?aHFrdGFCSUNBTW8zRXN1TlBoa2ZTRGpraUtwUWVJZncxNm45L1BWNkZ5SW16?=
+ =?utf-8?B?WmRMb0ZNRnVpclAzU3F1NytnSWtQdWdyMUU5ZzB4dnJnSjU4NW1RVDhQZDlI?=
+ =?utf-8?B?WHBPbStZK3FSaHRjTStqZkhaYmp3SHJPTzl6RG1jTkVhZTFXdmFpc2ZnQnBr?=
+ =?utf-8?B?WHZxVzVLeTZZeDQrZTQxU1NVYzAwL01BcnVyQ0NLbDJ2TW12TFp0Q3ovVUNm?=
+ =?utf-8?B?L2RYaWkvYU1TTXpXRnN5TnErdk5QVTFMeS9zck1PZS9qcU5JVU9mT2lTRVdT?=
+ =?utf-8?B?MjBac1RJZlhNUXR1dnVoNG1BSHhHcERTN3pBY3dpY2NhUDN6ZE9BYlVtbzg1?=
+ =?utf-8?B?N1JJUE53YXRQancrUzlXWmk1bmNTWWh6bi9rQlo2NmFpWFhPS3Y5UzdsaXA3?=
+ =?utf-8?B?ak1RT1o5Rm9GQmV5anE2Ny9lUmc0SXlzR2FaSStHOHplZGUxNGlDRVZDMTNW?=
+ =?utf-8?B?VW0vS1duT2xReG5hcDMwbGk5WllxUFRLS1FkWDlTVkxBM1JUdExuMmlTaGFj?=
+ =?utf-8?B?M29KcW9mRmJWclhySlJiY25uOUd2TnB3WFpNOHh4SEphbGhTUlY3b3ZQc1Fk?=
+ =?utf-8?B?cmVkc0Z4MU1RMFY0ZGUxNnVGR05GeEszVGFoSnBKVUZmV3FwRWJZSzNTTG1U?=
+ =?utf-8?B?aU40alA3T0tEN2JBOFZudmdKUHdDVUFwa0FGdDU1MkV2cVpGbklEN2RkM2Z0?=
+ =?utf-8?B?M0Q3enBzc01lOEY1THdrNXgrRkVTcUh4Z2JHUTVYaTlySVBRZnVqaHV0NTc2?=
+ =?utf-8?B?K2ljZWNQVkJSZ3cyVmlBNUszU1pwMVlIUTBpU2FLNCtiVTVNZklLVy91YWh5?=
+ =?utf-8?B?YjFvVmNIMDI2NEtieVlEU1Y5WDg3NVJDVHBiS3RYQ29jalpaOTFCV0JxUjJp?=
+ =?utf-8?B?M3FTODZRQ2RBMTROcWpqa0JsZWZ0QlpNd2FKcGJadjNWd1NWTXJHU1ZPN2kw?=
+ =?utf-8?B?UjRMUUdXUXdmcWF2eWlKQk1zNzNFNW5GYW9aTGJJTVA4OXdPWFBhay8vcVNr?=
+ =?utf-8?B?T0tiRlUrd1l2WGtBOTh3L05kTnVsam9BcTNxNFgrVWZ0SU5RQ2FuTzdBVlJY?=
+ =?utf-8?B?dnVBeWVuYTBIM1hVcnk4RlY0THhLRDJqVlNaYTJWVC9mL1FucDkrNkVTUHdV?=
+ =?utf-8?B?amUveGdWYlphRTd4WjBkZmZrTjlPSFkvWUdZbnVGRFp1Q0JTbTVRcTl1OHhO?=
+ =?utf-8?B?dDQvMDJ3M1R5VDZIQ3MxbSs5MVA3ZUROVmplYkdkWkh4bndQTGZXbmQ1cGwx?=
+ =?utf-8?B?aWwzSzZJdWxUQkRlM0NNOVNOV0MyL2lGc3RacDVnSTI4QjMvMmQzajd1ZWhi?=
+ =?utf-8?B?czdjRzNlOFVwSkxSenNETGtMK1RvVGt4YklVNkQzLzBUT1ZjUTRKM2VueEI0?=
+ =?utf-8?B?Q2RMT25vVmxPNytMK2RRVzNDUjdzdEZzSjNqVVZrVGRiOXBiNWxUS2p6UGlS?=
+ =?utf-8?B?SjMxNXJjY3A3ODMvNHdYOEk4NzRVWFl2ZGE0RDZvTDBsdXpmTzNrT1hvV00v?=
+ =?utf-8?B?UlVndFhvdXFvV0tVS2NabUpEWE8wb3pQK1JEYTEzSm5YQVJBMzFtVkxtM3hI?=
+ =?utf-8?B?THptYVNNTTdNN3orTER0R09KR3QxWDVFODZuanFGTEVQUC9YTjVZeXZzNitT?=
+ =?utf-8?B?aW92SEpjWU9sc3k1MnhJQ2NQVEFpRndyVC9SdGIzQlB3VllJR1lOQXJQN2tH?=
+ =?utf-8?B?NHp6NFV1bUN3ZXN6RDBSTXRueEdnTzF1RkxUZTRWRFgwQjV6UEVOREZpQlc0?=
+ =?utf-8?B?NnBaOGRqdEhuMWZpWU1aVktjREhCZHFRN2hRTnk5M0RuL2VrUXE4QnhCSGJ3?=
+ =?utf-8?Q?7Klz+ADHHcL2IhQIv0AMLBXjV?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cbfb0dd4-74b8-4a30-a08f-08dbe45af93c
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB6760.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW5PR12MB5600.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: efa588c3-d2f2-474f-1e72-08dbe459f24a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Nov 2023 15:05:17.1148 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7DeklATV38MJhOdBthahSp1jcZeHMNIzn6hVt7cNeYtp+hDyqeGJc5/tft1da6rn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4921
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2023 15:12:38.5094 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: M2fofbuwV8N92jt6XpERYVZCXsB7FO59Ok8DMvQypzQFudhctNCtGv8NIuYx5mhW
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8052
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,59 +127,263 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Greathouse,
+ Joseph" <Joseph.Greathouse@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+--------------CaAhPO3ocUrS06FsRIaXjWyH
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Reviewed-by: Samir Dhume <samir.dhume@amd.com>
 
------Original Message-----
-From: Lu, Victor Cheng Chi (Victor) <VictorChengChi.Lu@amd.com>
-Sent: Friday, November 10, 2023 5:00 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Dhume, Samir <Samir.Dhume@amd.com>; Lu, Victor Cheng Chi (Victor) <Vict=
-orChengChi.Lu@amd.com>
-Subject: [PATCH v2] drm/amdgpu: Do not program VF copy regs in mmhub v1.8 u=
-nder SRIOV (v2)
+On 2023-11-10 14:08, Yat Sin, David wrote:
+> [AMD Official Use Only - General]
+>
+>> -----Original Message-----
+>> From: Zhu, James<James.Zhu@amd.com>
+>> Sent: Friday, November 3, 2023 9:12 AM
+>> To:amd-gfx@lists.freedesktop.org
+>> Cc: Kuehling, Felix<Felix.Kuehling@amd.com>; Greathouse, Joseph
+>> <Joseph.Greathouse@amd.com>; Yat Sin, David<David.YatSin@amd.com>; Zhu,
+>> James<James.Zhu@amd.com>
+>> Subject: [PATCH 22/24] drm/amdkfd: add pc sampling release when process
+>> release
+>>
+>> Add pc sampling release when process release, it will force to stop all activate
+>> sessions with this process.
+>>
+>> Signed-off-by: James Zhu<James.Zhu@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c | 26
+>> ++++++++++++++++++++  drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.h |
+>> 1 +
+>>   drivers/gpu/drm/amd/amdkfd/kfd_process.c     |  3 +++
+>>   3 files changed, 30 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
+>> index 66670cdb813a..00d8d3f400a9 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
+>> @@ -274,6 +274,32 @@ static int kfd_pc_sample_destroy(struct
+>> kfd_process_device *pdd, uint32_t trace_
+>>        return 0;
+>>   }
+>>
+>> +void kfd_pc_sample_release(struct kfd_process_device *pdd) {
+>> +     struct pc_sampling_entry *pcs_entry;
+>> +     struct idr *idp;
+>> +     uint32_t id;
+>> +
+>> +     if (sched_policy == KFD_SCHED_POLICY_NO_HWS) {
+>> +             pr_err("PC Sampling does not support sched_policy %i",
+>> sched_policy);
+>> +             return;
+>> +     }
+> You do not need to check the sched_policy here, already checked in kfd_ioctl_pc_sample(..) , so cannot have a hosttrap session if policy is NO_HWS.
+[JZ]kfd_pc_sample_release is not called from kfd_ioctl_pc_sample. It is 
+in process quit process.
+>> +
+>> +     /* force to release all PC sampling task for this process */
+>> +     idp = &pdd->dev->pcs_data.hosttrap_entry.base.pc_sampling_idr;
+>> +     mutex_lock(&pdd->dev->pcs_data.mutex);
+>> +     idr_for_each_entry(idp, pcs_entry, id) {
+>> +             if (pcs_entry->pdd != pdd)
+>> +                     continue;
+>> +             mutex_unlock(&pdd->dev->pcs_data.mutex);
+> Can we not release the mutex here and just tell the worker thread to exit by setting the stop_enable bit.
+> I find we have a lot of places where we are acquiring/releasing the mutex within loops and this results in a
+> lot of extra states that we have to account for during the start/stop/destroy calls.
+>> +             if (pcs_entry->enabled)
+>> +                     kfd_pc_sample_stop(pdd, pcs_entry);
+>> +             kfd_pc_sample_destroy(pdd, id, pcs_entry);
+>> +             mutex_lock(&pdd->dev->pcs_data.mutex);
+>> +     }
+>> +     mutex_unlock(&pdd->dev->pcs_data.mutex);
+>> +}
+>> +
+>>   int kfd_pc_sample(struct kfd_process_device *pdd,
+>>                                        struct kfd_ioctl_pc_sample_args __user
+>> *args)  { diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.h
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.h
+>> index cb93909e6bd3..4ea064fdaa98 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.h
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.h
+>> @@ -30,6 +30,7 @@
+>>
+>>   int kfd_pc_sample(struct kfd_process_device *pdd,
+>>                                        struct kfd_ioctl_pc_sample_args __user
+>> *args);
+>> +void kfd_pc_sample_release(struct kfd_process_device *pdd);
+>>   void kfd_pc_sample_handler(struct work_struct *work);
+>>
+>>   #endif /* KFD_PC_SAMPLING_H_ */
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>> index d22d804f180d..54f3db7eaae2 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>> @@ -43,6 +43,7 @@ struct mm_struct;
+>>   #include "kfd_svm.h"
+>>   #include "kfd_smi_events.h"
+>>   #include "kfd_debug.h"
+>> +#include "kfd_pc_sampling.h"
+>>
+>>   /*
+>>    * List of struct kfd_process (field kfd_process).
+>> @@ -1020,6 +1021,8 @@ static void kfd_process_destroy_pdds(struct
+>> kfd_process *p)
+>>                pr_debug("Releasing pdd (topology id %d) for process (pasid
+>> 0x%x)\n",
+>>                                pdd->dev->id, p->pasid);
+>>
+>> +             kfd_pc_sample_release(pdd);
+>> +
+>>                kfd_process_device_destroy_cwsr_dgpu(pdd);
+>>                kfd_process_device_destroy_ib_mem(pdd);
+>>
+>> --
+>> 2.25.1
+--------------CaAhPO3ocUrS06FsRIaXjWyH
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-MC_VM_AGP_* registers should not be programmed by guest driver.
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2023-11-10 14:08, Yat Sin, David
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:DM6PR12MB5021960306E3061166F20DE095AEA@DM6PR12MB5021.namprd12.prod.outlook.com">
+      <pre class="moz-quote-pre" wrap="">[AMD Official Use Only - General]
 
-v2: move early return outside of loop
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">-----Original Message-----
+From: Zhu, James <a class="moz-txt-link-rfc2396E" href="mailto:James.Zhu@amd.com">&lt;James.Zhu@amd.com&gt;</a>
+Sent: Friday, November 3, 2023 9:12 AM
+To: <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
+Cc: Kuehling, Felix <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>; Greathouse, Joseph
+<a class="moz-txt-link-rfc2396E" href="mailto:Joseph.Greathouse@amd.com">&lt;Joseph.Greathouse@amd.com&gt;</a>; Yat Sin, David <a class="moz-txt-link-rfc2396E" href="mailto:David.YatSin@amd.com">&lt;David.YatSin@amd.com&gt;</a>; Zhu,
+James <a class="moz-txt-link-rfc2396E" href="mailto:James.Zhu@amd.com">&lt;James.Zhu@amd.com&gt;</a>
+Subject: [PATCH 22/24] drm/amdkfd: add pc sampling release when process
+release
 
-Signed-off-by: Victor Lu <victorchengchi.lu@amd.com>
+Add pc sampling release when process release, it will force to stop all activate
+sessions with this process.
+
+Signed-off-by: James Zhu <a class="moz-txt-link-rfc2396E" href="mailto:James.Zhu@amd.com">&lt;James.Zhu@amd.com&gt;</a>
 ---
- drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c | 26
+++++++++++++++++++++  drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.h |
+1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c     |  3 +++
+ 3 files changed, 30 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c b/drivers/gpu/drm/amd/=
-amdgpu/mmhub_v1_8.c
-index ea142611be1c..9b0146732e13 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-@@ -130,6 +130,9 @@ static void mmhub_v1_8_init_system_aperture_regs(struct=
- amdgpu_device *adev)
-        uint64_t value;
-        int i;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
+b/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
+index 66670cdb813a..00d8d3f400a9 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
+@@ -274,6 +274,32 @@ static int kfd_pc_sample_destroy(struct
+kfd_process_device *pdd, uint32_t trace_
+      return 0;
+ }
 
-+       if (amdgpu_sriov_vf(adev))
-+               return;
++void kfd_pc_sample_release(struct kfd_process_device *pdd) {
++     struct pc_sampling_entry *pcs_entry;
++     struct idr *idp;
++     uint32_t id;
 +
-        inst_mask =3D adev->aid_mask;
-        for_each_inst(i, inst_mask) {
-                /* Program the AGP BAR */
-@@ -139,9 +142,6 @@ static void mmhub_v1_8_init_system_aperture_regs(struct=
- amdgpu_device *adev)
-                WREG32_SOC15(MMHUB, i, regMC_VM_AGP_TOP,
-                             adev->gmc.agp_end >> 24);
++     if (sched_policy == KFD_SCHED_POLICY_NO_HWS) {
++             pr_err(&quot;PC Sampling does not support sched_policy %i&quot;,
+sched_policy);
++             return;
++     }
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">You do not need to check the sched_policy here, already checked in kfd_ioctl_pc_sample(..) , so cannot have a hosttrap session if policy is NO_HWS.</pre>
+    </blockquote>
+    [JZ]<span style="white-space: pre-wrap">kfd_pc_sample_release is not called from </span><span style="white-space: pre-wrap">kfd_ioctl_pc_sample. It is in process quit process.</span>
+    <blockquote type="cite" cite="mid:DM6PR12MB5021960306E3061166F20DE095AEA@DM6PR12MB5021.namprd12.prod.outlook.com">
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">+
++     /* force to release all PC sampling task for this process */
++     idp = &amp;pdd-&gt;dev-&gt;pcs_data.hosttrap_entry.base.pc_sampling_idr;
++     mutex_lock(&amp;pdd-&gt;dev-&gt;pcs_data.mutex);
++     idr_for_each_entry(idp, pcs_entry, id) {
++             if (pcs_entry-&gt;pdd != pdd)
++                     continue;
++             mutex_unlock(&amp;pdd-&gt;dev-&gt;pcs_data.mutex);
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">Can we not release the mutex here and just tell the worker thread to exit by setting the stop_enable bit.
+I find we have a lot of places where we are acquiring/releasing the mutex within loops and this results in a
+lot of extra states that we have to account for during the start/stop/destroy calls.
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">+             if (pcs_entry-&gt;enabled)
++                     kfd_pc_sample_stop(pdd, pcs_entry);
++             kfd_pc_sample_destroy(pdd, id, pcs_entry);
++             mutex_lock(&amp;pdd-&gt;dev-&gt;pcs_data.mutex);
++     }
++     mutex_unlock(&amp;pdd-&gt;dev-&gt;pcs_data.mutex);
++}
++
+ int kfd_pc_sample(struct kfd_process_device *pdd,
+                                      struct kfd_ioctl_pc_sample_args __user
+*args)  { diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.h
+b/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.h
+index cb93909e6bd3..4ea064fdaa98 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.h
+@@ -30,6 +30,7 @@
 
--               if (amdgpu_sriov_vf(adev))
--                       return;
--
-                /* Program the system aperture low logical page number. */
-                WREG32_SOC15(MMHUB, i, regMC_VM_SYSTEM_APERTURE_LOW_ADDR,
-                        min(adev->gmc.fb_start, adev->gmc.agp_start) >> 18)=
-;
+ int kfd_pc_sample(struct kfd_process_device *pdd,
+                                      struct kfd_ioctl_pc_sample_args __user
+*args);
++void kfd_pc_sample_release(struct kfd_process_device *pdd);
+ void kfd_pc_sample_handler(struct work_struct *work);
+
+ #endif /* KFD_PC_SAMPLING_H_ */
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index d22d804f180d..54f3db7eaae2 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -43,6 +43,7 @@ struct mm_struct;
+ #include &quot;kfd_svm.h&quot;
+ #include &quot;kfd_smi_events.h&quot;
+ #include &quot;kfd_debug.h&quot;
++#include &quot;kfd_pc_sampling.h&quot;
+
+ /*
+  * List of struct kfd_process (field kfd_process).
+@@ -1020,6 +1021,8 @@ static void kfd_process_destroy_pdds(struct
+kfd_process *p)
+              pr_debug(&quot;Releasing pdd (topology id %d) for process (pasid
+0x%x)\n&quot;,
+                              pdd-&gt;dev-&gt;id, p-&gt;pasid);
+
++             kfd_pc_sample_release(pdd);
++
+              kfd_process_device_destroy_cwsr_dgpu(pdd);
+              kfd_process_device_destroy_ib_mem(pdd);
+
 --
-2.34.1
+2.25.1
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+    </blockquote>
+  </body>
+</html>
 
+--------------CaAhPO3ocUrS06FsRIaXjWyH--
