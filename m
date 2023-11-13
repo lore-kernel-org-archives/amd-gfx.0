@@ -4,50 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D13B6C4167D
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Nov 2023 08:18:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE67DC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Nov 2023 08:18:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9637110E1CC;
-	Tue, 14 Nov 2023 08:18:11 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABA3A10E377;
- Mon, 13 Nov 2023 13:18:41 +0000 (UTC)
-Received: from [10.3.2.161] (zone.collabora.co.uk [167.235.23.81])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id EF94A6602F27;
- Mon, 13 Nov 2023 13:18:38 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1699881520;
- bh=PsIR0GMAaqeUGdkQLSq03TGY+YtcolIVSMRqZDzc4JU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=X6iNkjwQ8pObx2Yq1DU9viprvhAzw6KpMX/7M6wC4FvKDGMfxLVcYSFLxI9LSkM00
- Rde7H5LmO6xc6SWwyoprZBk4t9b6gE2W+YfXYZVRz3gS50oZ50MpHUB5IHZ1jmDsop
- xmjdsnRVIkvvADYlsOhztSTId32H6nhE2i/rkKGXYrHZpHEiYUb0s9kvfIOsTP8/z8
- ZikdbAh/HYFzUqB62ESil2c4PqvnnhvxzxYivCwUltf7pykxcKlYLIgbtzAmFSjRUL
- SklX/mE5/zPNykCY/JMvQX5RQ1ybYIIkXmEWdAYCGaW0zkZpeOar30hDaQkJkWvQia
- BnBX7FQ8DMC1g==
-Message-ID: <622e2064-095f-d2da-0ad1-887642306020@collabora.com>
-Date: Mon, 13 Nov 2023 16:18:34 +0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB54010E1CF;
+	Tue, 14 Nov 2023 08:18:12 +0000 (UTC)
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5706D10E066;
+ Mon, 13 Nov 2023 11:24:02 +0000 (UTC)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-40859c466efso33253355e9.3; 
+ Mon, 13 Nov 2023 03:24:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1699874641; x=1700479441; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=4/UMvWLGwbB65y4MgNgbTrhLeriroJNqxOaU5RBpd/A=;
+ b=ReU3n2VR/eDzsvpcwoBaylOONtUUzQYaE1EHdRkNHzJo9tP/cWtnAASy8MwRnIpEkf
+ dY67iclsy4hBTB/1FUpDooa3msWSO76IlsvVE9DocHrNewI/zhSX30K1YlppKDDifA9h
+ FRcACapFxSU3OKq12GT8hmruAPTP/whFyX6gcBHg3cVXhYKYhRCmtxEBCcg1oNwqurm3
+ az+1xI5Kqp4k7rVA7GBMZ2W4TUknCk0xrIO9bvw51kiCNrnV12NAWfWUDPut1JXLx2Z4
+ T5tFrmwYl9/DN1x3TIVZeWmYtYkURAbP+qFQMUbn9ORjU3NSpv198p9DDVR8otrn2cJX
+ Bq6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1699874641; x=1700479441;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=4/UMvWLGwbB65y4MgNgbTrhLeriroJNqxOaU5RBpd/A=;
+ b=Ojau1HxDsVoGxW096zZRrIlsu21XgxM0cUhu+n1VmBtl6e/lO/9aseRezb1LQvTFw+
+ JtQLRlj7yfutxEDFlunDPbCkQhaKAWthii0VPSZEl6+H02JHZRr/EoBecoqDiz6Z3sct
+ yjez6oX+P3gHW9ExIJmFxC5wR++g/r1iGWZM6q3MLVms+/rcSIvEMJkC/iPgDwSBKSaj
+ GM2PU49kHia8ILw+Upaqs+iYoRiYncu0LRQDtf52AjgixE6fRP433XMpQ/XH6nxCFhLz
+ qYZpr6zeC5cHpua62xAqa3Gi4X7yBbKGCJZpM3H8dU80+MIiZFVRbwX3IcEWngYY7PLl
+ fG3w==
+X-Gm-Message-State: AOJu0YxeojRDtZewBAAsF0R0slKXhc5y6ApsPuFBAScwzlwCh0vNJ7X0
+ JybSUCWBrDHNNZuBF6jbVjc=
+X-Google-Smtp-Source: AGHT+IHeSfxulnBJhsxmWDCBwohx10bO7bTu1BHjhSiyjqQiFY1QaU+JjC7xoDkTmTAquVkbrdJhaA==
+X-Received: by 2002:a05:600c:4fd2:b0:404:7670:90b8 with SMTP id
+ o18-20020a05600c4fd200b00404767090b8mr5004204wmq.27.1699874640270; 
+ Mon, 13 Nov 2023 03:24:00 -0800 (PST)
+Received: from zotac.lan.
+ (dynamic-2a01-0c22-6e16-fe00-2223-08ff-fe18-0310.c22.pool.telefonica.de.
+ [2a01:c22:6e16:fe00:2223:8ff:fe18:310])
+ by smtp.gmail.com with ESMTPSA id
+ l19-20020a05600c4f1300b0040772138bb7sm13565787wmq.2.2023.11.13.03.23.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 Nov 2023 03:23:59 -0800 (PST)
+From: Heiner Kallweit <hkallweit1@gmail.com>
+To: Wolfram Sang <wsa@kernel.org>,
+	intel-gfx@lists.freedesktop.org
+Subject: [PATCH 00/20] remove I2C_CLASS_DDC support
+Date: Mon, 13 Nov 2023 12:23:24 +0100
+Message-ID: <20231113112344.719-1-hkallweit1@gmail.com>
+X-Mailer: git-send-email 2.42.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH 2/2] drm/virtio: Modify RESOURCE_GET_LAYOUT ioctl
-Content-Language: en-US
-To: Julia Zhang <julia.zhang@amd.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, David Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org
-References: <20231110071632.24612-1-julia.zhang@amd.com>
- <20231110071632.24612-3-julia.zhang@amd.com>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20231110071632.24612-3-julia.zhang@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 14 Nov 2023 08:18:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,46 +73,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Honglei Huang <honglei1.huang@amd.com>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>,
- Erik Faye-Lund <kusmabite@gmail.com>, Chen Jiqian <Jiqian.Chen@amd.com>,
- Huang Rui <ray.huang@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Yongqin Liu <yongqin.liu@linaro.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, amd-gfx@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, linux-sunxi@lists.linux.dev,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, Sean Paul <sean@poorly.run>,
+ linux-arm-kernel@lists.infradead.org, Jocelyn Falempe <jfalempe@redhat.com>,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, John Stultz <jstultz@google.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>, freedreno@lists.freedesktop.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/10/23 10:16, Julia Zhang wrote:
-> Modify RESOURCE_GET_LAYOUT ioctl to handle the use case that query
-> correct stride for guest linear resource before it is created.
-> 
-> Signed-off-by: Julia Zhang <julia.zhang@amd.com>
-> ---
->  drivers/gpu/drm/virtio/virtgpu_drv.h   | 26 ++++++++------
->  drivers/gpu/drm/virtio/virtgpu_ioctl.c | 47 ++++++++++++--------------
->  drivers/gpu/drm/virtio/virtgpu_vq.c    | 35 +++++++++++--------
->  include/uapi/drm/virtgpu_drm.h         |  6 ++--
->  include/uapi/linux/virtio_gpu.h        |  8 ++---
->  5 files changed, 66 insertions(+), 56 deletions(-)
+After removal of the legacy EEPROM driver and I2C_CLASS_DDC support in
+olpc_dcon there's no i2c client driver left supporting I2C_CLASS_DDC.
+Class-based device auto-detection is a legacy mechanism and shouldn't
+be used in new code. So we can remove this class completely now.
 
-1. Please squash this all into a single patch. For upstream kernel it's
-not acceptable to have subsequent commits modifying previous commits. To
-commit message add your s-o-b, your co-developed-by tags and a brief
-comment explaining changes you've done to the original patch.
+Preferably this series should be applied via the i2c tree.
 
-Signed-off-by: Daniel Stone <daniels@collabora.com>
-Co-developed-by: Julia Zhang <julia.zhang@amd.com> # query correct
-stride for guest linear resource before it's created
-Signed-off-by: Julia Zhang <julia.zhang@amd.com>
+Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
 
-2. Make sure that patch passes `scripts/checkpatch.pl`
+---
 
-3. Add link to the commit message for the relevant Mesa MR that makes
-use of the new ioctl. The MR should be already merged or ready to be merged.
-
-Link: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/123456
-
--- 
-Best regards,
-Dmitry
-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c           |    1 -
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    1 -
+ drivers/gpu/drm/ast/ast_i2c.c                     |    1 -
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c         |    1 -
+ drivers/gpu/drm/display/drm_dp_helper.c           |    1 -
+ drivers/gpu/drm/display/drm_dp_mst_topology.c     |    1 -
+ drivers/gpu/drm/gma500/cdv_intel_dp.c             |    1 -
+ drivers/gpu/drm/gma500/intel_gmbus.c              |    1 -
+ drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c        |    1 -
+ drivers/gpu/drm/gma500/psb_intel_sdvo.c           |    1 -
+ drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   |    1 -
+ drivers/gpu/drm/i915/display/intel_gmbus.c        |    1 -
+ drivers/gpu/drm/i915/display/intel_sdvo.c         |    1 -
+ drivers/gpu/drm/loongson/lsdc_i2c.c               |    1 -
+ drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c           |    1 -
+ drivers/gpu/drm/mgag200/mgag200_i2c.c             |    1 -
+ drivers/gpu/drm/msm/hdmi/hdmi_i2c.c               |    1 -
+ drivers/gpu/drm/radeon/radeon_i2c.c               |    1 -
+ drivers/gpu/drm/rockchip/inno_hdmi.c              |    1 -
+ drivers/gpu/drm/rockchip/rk3066_hdmi.c            |    1 -
+ drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c            |    1 -
+ drivers/video/fbdev/core/fb_ddc.c                 |    1 -
+ drivers/video/fbdev/cyber2000fb.c                 |    1 -
+ drivers/video/fbdev/i740fb.c                      |    1 -
+ drivers/video/fbdev/intelfb/intelfb_i2c.c         |   15 +++++----------
+ drivers/video/fbdev/matrox/i2c-matroxfb.c         |   12 ++++--------
+ drivers/video/fbdev/s3fb.c                        |    1 -
+ drivers/video/fbdev/tdfxfb.c                      |    1 -
+ drivers/video/fbdev/tridentfb.c                   |    1 -
+ drivers/video/fbdev/via/via_i2c.c                 |    1 -
+ include/linux/i2c.h                               |    1 -
+ 31 files changed, 9 insertions(+), 47 deletions(-)
