@@ -4,31 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F0B8C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Nov 2023 08:02:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5417BC4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Nov 2023 08:17:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FDCC10E08B;
-	Mon, 13 Nov 2023 08:02:34 +0000 (UTC)
-X-Greylist: delayed 523 seconds by postgrey-1.36 at gabe;
- Sun, 12 Nov 2023 18:50:47 UTC
-Received: from vps.thesusis.net (vps.thesusis.net
- [IPv6:2600:1f18:60b9:2f00:6f85:14c6:952:bad3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19A9810E0BF
- for <amd-gfx@lists.freedesktop.org>; Sun, 12 Nov 2023 18:50:47 +0000 (UTC)
-Received: by vps.thesusis.net (Postfix, from userid 1000)
- id A1719148909; Sun, 12 Nov 2023 13:42:02 -0500 (EST)
-From: Phillip Susi <phill@thesusis.net>
-To: Bagas Sanjaya <bagasdotme@gmail.com>, Luben Tuikov
- <luben.tuikov@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: Re: Radeon regression in 6.6 kernel
-In-Reply-To: <ZVCzCrkdRJy9AHd2@archie.me>
-References: <87edgv4x3i.fsf@vps.thesusis.net> <ZVCzCrkdRJy9AHd2@archie.me>
-Date: Sun, 12 Nov 2023 13:42:02 -0500
-Message-ID: <87fs1addad.fsf@vps.thesusis.net>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D81D210E064;
+	Mon, 13 Nov 2023 08:17:01 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2076.outbound.protection.outlook.com [40.107.101.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 316A110E064
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Nov 2023 08:17:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fsffkRdVlGC0+XPgpAEffTmTSc005egFmulaeFG9ch8wJYiZPKeNwS2vthh30batM9quIxkQDRKgZo3B8DFNU/7UBlyz26kYYOsJdkvuhXTeW+qgVDyyDlXWIPJH1ITSMHQXmSTAquTLHw7l2ur1UeIQbu3A8yd+eiMoSnzs9eGRcJtRNihuqSXoxKNbLbFztvb41P1YXlowuOtVrVqw0P/b8PMjq7iVA/VJ8zrWGyC1MQSm0OXza9bIN7DPyMp6ZMOBbKZ+xNoHBIaxZTqow6BCmerdgW2EVwtMvTM0QELfghIPwJ1r51xSD+5QVhGFCn/UyN3GyoFx09CT5qVHJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SVqSi+r3AVwqkXLI7J2hRjkcY0iMmapp5rAXBz5stoA=;
+ b=mzSea4IR8/3vmWVuS1hsk/cN+beB7ROrI/0fOtWvpLYDUjR8a3zhTBKGZzDg0VL/WabCfSX7P2TOWTDjXuFc7sgg53VV+61Fv8PqnxnQlBOfmTxhfLNcAcmRyM75y0rcrSTPdPTCaOuyCoNxN8IR/EH4tn2UXTSRxVOD2ZRfUeh2lO3ekQg+1+HIO+dOLNFO0pEd69UIUZChhkcTj79Sf4CXi4wVFUq9LDNDTSUNPvN8d1+Ps4+MoPfGliiW4yAT2OIcfzFGseDAKkCwAhYlzWuJToBA9SeZvFXZ9piqqyAIU/+SqG4jUjJ1rStkMFHqt/ja5xwsBY/UaBgf1LDDLQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SVqSi+r3AVwqkXLI7J2hRjkcY0iMmapp5rAXBz5stoA=;
+ b=N9nxeGtGulmQhmfuwUXL0noaLEZsUWa1DoR6WukFNobanppbNiZCJ9julJXcZ6UR/4XCl+eIna530KkdOxtMIKXap5gSXRYmtAYLR/iCDXOcQowH9+ldlsxpy8LrsAJe7NnUM/lEeiYHkV6U+rwTkEwXWEoP180jebgWHXkpwoE=
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
+ MW3PR12MB4362.namprd12.prod.outlook.com (2603:10b6:303:5d::19) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6977.29; Mon, 13 Nov 2023 08:16:58 +0000
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::a294:a55c:ea32:7ba8]) by DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::a294:a55c:ea32:7ba8%7]) with mapi id 15.20.6977.029; Mon, 13 Nov 2023
+ 08:16:58 +0000
+From: "Liang, Prike" <Prike.Liang@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 2/2] drm/amdgpu: add amdgpu runpm usage trace for separate
+ funcs
+Thread-Topic: [PATCH 2/2] drm/amdgpu: add amdgpu runpm usage trace for
+ separate funcs
+Thread-Index: AQHaEt+Wghrfd1yDKUi1nT0ievrp37Byh3aAgAVk5gA=
+Date: Mon, 13 Nov 2023 08:16:58 +0000
+Message-ID: <DS7PR12MB600593A08FAA506942886383FBB3A@DS7PR12MB6005.namprd12.prod.outlook.com>
+References: <20231109073701.1751965-1-Prike.Liang@amd.com>
+ <20231109073701.1751965-2-Prike.Liang@amd.com>
+ <BL1PR12MB514499B78DF69E6AE4371CC3F7AFA@BL1PR12MB5144.namprd12.prod.outlook.com>
+In-Reply-To: <BL1PR12MB514499B78DF69E6AE4371CC3F7AFA@BL1PR12MB5144.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=50d2075b-33e7-444b-a125-5bb4fa4efee0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
+ 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-11-09T21:47:08Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|MW3PR12MB4362:EE_
+x-ms-office365-filtering-correlation-id: 9a24112d-05a9-45dd-dfc1-08dbe420e7b9
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: DGAttGqpeR1Y72TrL6QKGaz4NYS4i0MDrFcyrPhOUF5ITmLZj3NN3uFjg/aTCbFXb2LTtmk/GeOQF+5BoZX/al8VFHWfzuqhAiLlzyx55//d7sRnF6AaDuIpjD2TuF7pNU/Xk7Wu5nropHG6M2golKDTh3UaGh8WA7PN+TmTdbC/FZQ3yU5o/aCIIpbsMTQILulbX0hCachpFqVe/RDUv0PH1932K14b0fqpm0nam6zABOwdrhh5zdtIVdnPZnpS6x8d/gI97ApBgazaZGIH4MvPTw4CeVA6AgvqNRBiKeZO91xQ8+551gCsZ302Y5S4JsQIHJtmStjYzvfuYpPxrZcHrBlGB7vD3+zoprlvT9RF0sOVUbPqZFovzXjZN+gq5dmpXHzrlpbQ9X2kRUkdgJ9vFZK1/LKTY/dHUjelCC53ny8+YmUmDRk/9LZY0MB1s0Aq/blTlqXBuXl5lLx6wLpFxVS8BpamamEMQB45uy9lVxpflyfO9d+fWC7+kaX8pzq9nsi1BV4XxHGg6FvLwTyncABerG+qQ8uXbL4g9Ny6nvbp6kDtKiaUBPENuWeZleOEWI5UsFWKXznxHZnJnNZRz8QYToAxWm744S3raKTweZ7vrJN1YuRkPitQw02w
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(366004)(376002)(396003)(346002)(39860400002)(230922051799003)(1800799009)(186009)(64100799003)(451199024)(55016003)(66446008)(64756008)(66476007)(66556008)(76116006)(66946007)(110136005)(33656002)(86362001)(38070700009)(38100700002)(122000001)(9686003)(83380400001)(316002)(26005)(71200400001)(7696005)(6506007)(53546011)(41300700001)(2906002)(478600001)(5660300002)(8936002)(52536014)(8676002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?F+Ker/Uboo9LHoT/cSffhEX1WNItHd7Odz+d3DCFvIezxBQwrHmHfqDX68tX?=
+ =?us-ascii?Q?hVs09XsSMmIpbS49iVdgeXuGlG1nv8iwn4J9q0LnkpRb8VCpH23Vvez3Oyum?=
+ =?us-ascii?Q?irnPFcNoWMEbve7vKUQYuNtw80MQq0IxjZsKoYSzPHmxktN0XeUXFoZNGk4p?=
+ =?us-ascii?Q?YUFT8/7mC+1hLGKwlGHWIq7MJD1sd4OnP09dxlRelD7IpCoE9vPxr+lLNBkd?=
+ =?us-ascii?Q?Enzcl7VaU//3FTXO8RndqTyUtgJXUr8PgAbcx2IovGrss4C3NYoGrqNnDdgy?=
+ =?us-ascii?Q?MsS0hvTKWOPJmapu3iaBc6v0H7+5SWgW/3Q74QCAI37Z4Z6YzvMeAbi7EjkR?=
+ =?us-ascii?Q?1/v+xWdzIvxgYVSsdQ1MqUUgaHAcW9UhUJyQn25oy89WQuFtS6ikI4qdXIeF?=
+ =?us-ascii?Q?D/EL77AemaTgXrY9h9Nw0wQ6XrnFpOPM1HA0Ti/TkWypZtvIdDvIGUqOy/9i?=
+ =?us-ascii?Q?5wHWPo+R7QGcwZUZJejoRpPzf1P9hXpwxP3NmztL6dl5b3btFM6ve3iZyXL1?=
+ =?us-ascii?Q?PPCM6Qa4wSQhp4DwKufwAjt3nsn+btV2EySVxriLfLZtJfQn+PSltQUUIXl1?=
+ =?us-ascii?Q?eEhbAKZhCquTJ0c/ka2QlRcbS+Sg9A7xTjnoCCptvjHZOFLguseVGxj91wtV?=
+ =?us-ascii?Q?rlNRBtGyVnM6Gd6N84yXGxP/DkOcS5RRXhA+Rpt2WIKxqSP6DCq73irSQzDm?=
+ =?us-ascii?Q?Yzf1FfbbI9Pf49/6p0OeIBd82fiAx6FLKIzDbawSyNkpVIpvDHLQeRFl9zJn?=
+ =?us-ascii?Q?2By5JyBK/hRzPfMOCyKhweG5LtPEsgNeGAxnzn7khRvNX17d1lvx7xNaXinl?=
+ =?us-ascii?Q?LH8JxYI01zF9bkvDXzDWEeyN4r1QlBQJTV1y8mOW705JU4Rj6//n3cpYGKYh?=
+ =?us-ascii?Q?qDBhhAbLsfqompERgvTwL/rQkJEvgyX5A9XdJUHpc7zacbpNorplH/cL85Zx?=
+ =?us-ascii?Q?PBiAEEks1glvKxaKxX/p0+L0DuA2zgYT68blJa3QLzZmr19838ygi8oh7zTO?=
+ =?us-ascii?Q?FldxX8s0x37mjfKF+jSRCJm8dBwW4TIFbTTY/JNNa1RrZYGi+3K+JzcBE6Ye?=
+ =?us-ascii?Q?P+QmAPcZLpV3TNL7nUYG6rzVUfAagOqLw/2xoZp7LuF5GmAXEeH6BynVIisz?=
+ =?us-ascii?Q?Jx7YfuBfrrJOkSuHVTm93g7mvCS8k8QF8utqm+vi8waWCivtk7aZIrS1EV6v?=
+ =?us-ascii?Q?CFpD8HhNjPtkK4NEVxhSd1h1s12GE+taPjvxrUtJGj9RfRbzmjSG5C7ucjvq?=
+ =?us-ascii?Q?M3jggPxca44JEtfnDKnO1UkSq0ODtHbskE41z3TAvZ2aM17O0AWj7Rujy4ae?=
+ =?us-ascii?Q?eTZhqgu3uf/K9KEdk2q0vuUigTI1pGd4wklfjUA6bk3eJZ/OhdC9VE4bg85v?=
+ =?us-ascii?Q?vr1xgnJslFZaP5Uvu1mVgkjOPaUQBFNGXIZYZ5gRN2xw8E38Sop8UUOALNsD?=
+ =?us-ascii?Q?bIHze0OH6OSKaITSsMyCkYh7+S7+3pNdeuLlv7q2UrVQuZOlWhbX++U11oS+?=
+ =?us-ascii?Q?r4kgQ1MlPpE0OZu5cNdHiI6UvwpZWo5ALJv4+CXwdMiVFy1wjVdiSJpi/CCv?=
+ =?us-ascii?Q?GP+rn/xlFIwSGeveyEg=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="=-=-="
-X-Mailman-Approved-At: Mon, 13 Nov 2023 08:02:32 +0000
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a24112d-05a9-45dd-dfc1-08dbe420e7b9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Nov 2023 08:16:58.0313 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ZOMrPbgfExT6/vCESQJpIQsOr9n3FKN9dK+/QElL2zc7CT9DDg8l687yycj741Ju
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4362
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,77 +127,161 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux DRI Development <dri-devel@lists.freedesktop.org>,
- Linux Regressions <regressions@lists.linux.dev>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---=-=-=
-Content-Type: text/plain
+[Public]
 
-Bagas Sanjaya <bagasdotme@gmail.com> writes:
+> -----Original Message-----
+> From: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Sent: Friday, November 10, 2023 5:49 AM
+> To: Liang, Prike <Prike.Liang@amd.com>; amd-gfx@lists.freedesktop.org
+> Subject: RE: [PATCH 2/2] drm/amdgpu: add amdgpu runpm usage trace for
+> separate funcs
+>
+> [Public]
+>
+> > -----Original Message-----
+> > From: Liang, Prike <Prike.Liang@amd.com>
+> > Sent: Thursday, November 9, 2023 2:37 AM
+> > To: amd-gfx@lists.freedesktop.org
+> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liang, Prike
+> > <Prike.Liang@amd.com>
+> > Subject: [PATCH 2/2] drm/amdgpu: add amdgpu runpm usage trace for
+> > separate funcs
+> >
+> > Add trace for amdgpu runpm separate funcs usage and this will help
+> > debugging on the case of runpm usage missed to dereference.
+> > In the normal case the runpm usage count referred by one kind of
+> > functionality pairwise and usage should be changed from 1 to 0,
+> > otherwise there will be an issue in the amdgpu runpm usage dereference.
+> >
+> > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+>
+> Looks good.  Not sure if you want to add tracepoints to the other call si=
+tes as
+> well.  These are probably the trickiest however.
+>
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+>
+[Prike] Thanks for the review, now the trace points only added to the amdgp=
+u functions which are referencing and dereferencing amdgpu runpm usage sepa=
+rately and from the checking that seems no more separate functions need the=
+ trace point at the moment.
 
-> Please show the full bisect log, and also tell why these commits are
-> skipped.
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  4 ++++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c   |  7 ++++++-
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h   | 15 +++++++++++++++
+> >  3 files changed, 25 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> > index e7e87a3b2601..decbbe3d4f06 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> > @@ -42,6 +42,7 @@
+> >  #include <linux/dma-fence-array.h>
+> >  #include <linux/pci-p2pdma.h>
+> >  #include <linux/pm_runtime.h>
+> > +#include "amdgpu_trace.h"
+> >
+> >  /**
+> >   * amdgpu_dma_buf_attach - &dma_buf_ops.attach implementation @@
+> -
+> > 63,6 +64,7 @@ static int amdgpu_dma_buf_attach(struct dma_buf
+> *dmabuf,
+> >               attach->peer2peer =3D false;
+> >
+> >       r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
+> > +     trace_amdgpu_runpm_reference_dumps(1, __func__);
+> >       if (r < 0)
+> >               goto out;
+> >
+> > @@ -70,6 +72,7 @@ static int amdgpu_dma_buf_attach(struct dma_buf
+> > *dmabuf,
+> >
+> >  out:
+> >       pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> > +     trace_amdgpu_runpm_reference_dumps(0, __func__);
+> >       return r;
+> >  }
+> >
+> > @@ -90,6 +93,7 @@ static void amdgpu_dma_buf_detach(struct dma_buf
+> > *dmabuf,
+> >
+> >       pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+> >       pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> > +     trace_amdgpu_runpm_reference_dumps(0, __func__);
+> >  }
+> >
+> >  /**
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > index 709a2c1b9d63..1026a9fa0c0f 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > @@ -183,6 +183,7 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring,
+> > struct dma_fence **f, struct amd
+> >       amdgpu_ring_emit_fence(ring, ring->fence_drv.gpu_addr,
+> >                              seq, flags | AMDGPU_FENCE_FLAG_INT);
+> >       pm_runtime_get_noresume(adev_to_drm(adev)->dev);
+> > +     trace_amdgpu_runpm_reference_dumps(1, __func__);
+> >       ptr =3D &ring->fence_drv.fences[seq & ring-
+> > >fence_drv.num_fences_mask];
+> >       if (unlikely(rcu_dereference_protected(*ptr, 1))) {
+> >               struct dma_fence *old;
+> > @@ -286,8 +287,11 @@ bool amdgpu_fence_process(struct amdgpu_ring
+> > *ring)
+> >           seq !=3D ring->fence_drv.sync_seq)
+> >               amdgpu_fence_schedule_fallback(ring);
+> >
+> > -     if (unlikely(seq =3D=3D last_seq))
+> > +     if (unlikely(seq =3D=3D last_seq)) {
+> > +             pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> > +             trace_amdgpu_runpm_reference_dumps(0, __func__);
+> >               return false;
+> > +     }
+> >
+> >       last_seq &=3D drv->num_fences_mask;
+> >       seq &=3D drv->num_fences_mask;
+> > @@ -310,6 +314,7 @@ bool amdgpu_fence_process(struct amdgpu_ring
+> > *ring)
+> >               dma_fence_put(fence);
+> >               pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+> >               pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> > +             trace_amdgpu_runpm_reference_dumps(0, __func__);
+> >       } while (last_seq !=3D seq);
+> >
+> >       return true;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+> > index 2fd1bfb35916..5d4792645540 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+> > @@ -554,6 +554,21 @@ TRACE_EVENT(amdgpu_reset_reg_dumps,
+> >                     __entry->value)
+> >  );
+> >
+> > +TRACE_EVENT(amdgpu_runpm_reference_dumps,
+> > +         TP_PROTO(uint32_t index, const char *func),
+> > +         TP_ARGS(index, func),
+> > +         TP_STRUCT__entry(
+> > +                          __field(uint32_t, index)
+> > +                          __string(func, func)
+> > +                          ),
+> > +         TP_fast_assign(
+> > +                        __entry->index =3D index;
+> > +                        __assign_str(func, func);
+> > +                        ),
+> > +         TP_printk("amdgpu runpm reference dump 0x%d: 0x%s\n",
+> > +                   __entry->index,
+> > +                   __get_str(func))
+> > +);
+> >  #undef AMDGPU_JOB_GET_TIMELINE_NAME
+> >  #endif
+> >
+> > --
+> > 2.34.1
+>
 
-Two of them would not compile and one would not boot.
-
-Here's the log.
-
-
---=-=-=
-Content-Type: text/plain
-Content-Disposition: inline; filename=BISECT_LOG
-Content-Description: BISECT_LOG
-
-# bad: [4bbdb725a36b0d235f3b832bd0c1e885f0442d9f] Merge tag 'iommu-updates-v6.7' of git://git.kernel.org/pub/scm/linux/kernel/git/joro/iommu
-# good: [94f6f0550c625fab1f373bb86a6669b45e9748b3] Linux 6.6-rc5
-git bisect start 'HEAD' 'v6.6-rc5'
-# good: [8bc9e6515183935fa0cccaf67455c439afe4982b] Merge tag 'devicetree-for-6.7' of git://git.kernel.org/pub/scm/linux/kernel/git/robh/linux
-git bisect good 8bc9e6515183935fa0cccaf67455c439afe4982b
-# bad: [431f1051884e38d2a5751e4731d69b2ff289ee56] Merge tag 'leds-next-6.7' of git://git.kernel.org/pub/scm/linux/kernel/git/lee/leds
-git bisect bad 431f1051884e38d2a5751e4731d69b2ff289ee56
-# bad: [0364249d2073c32c5214f02866999ce940bc35a2] Merge tag 'for-6.7/dm-changes' of git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm
-git bisect bad 0364249d2073c32c5214f02866999ce940bc35a2
-# good: [27442758e9b4e083bef3f164a1739475c01f3202] Merge tag 'amd-drm-next-6.7-2023-10-13' of https://gitlab.freedesktop.org/agd5f/linux into drm-next
-git bisect good 27442758e9b4e083bef3f164a1739475c01f3202
-# bad: [631808095a82e6b6f8410a95f8b12b8d0d38b161] Merge tag 'amd-drm-next-6.7-2023-10-27' of https://gitlab.freedesktop.org/agd5f/linux into drm-next
-git bisect bad 631808095a82e6b6f8410a95f8b12b8d0d38b161
-# skip: [0ecf4aa32b7896b9160688bdbd20153dc06a50fb] Merge tag 'amd-drm-next-6.7-2023-10-20' of https://gitlab.freedesktop.org/agd5f/linux into drm-next
-git bisect skip 0ecf4aa32b7896b9160688bdbd20153dc06a50fb
-# good: [74ce0f3873821f12391bcf5469d81583d34f4c6c] accel/ivpu: Fix verbose version of REG_POLL macros
-git bisect good 74ce0f3873821f12391bcf5469d81583d34f4c6c
-# skip: [3f5ba636d6987ddffeaa056dea1c524da63912f3] Merge tag 'drm-msm-next-2023-10-17' of https://gitlab.freedesktop.org/drm/msm into drm-next
-git bisect skip 3f5ba636d6987ddffeaa056dea1c524da63912f3
-# good: [a3cd664e7f971b0f33acb3ba790c142669cd34e5] accel/ivpu: Print IPC type string instead of number
-git bisect good a3cd664e7f971b0f33acb3ba790c142669cd34e5
-# good: [b0b0d811eac6b4c52cb9ad632fa6384cf48869e7] drm/mediatek: Fix coverity issue with unintentional integer overflow
-git bisect good b0b0d811eac6b4c52cb9ad632fa6384cf48869e7
-# good: [808b43fa7e56e94563b86af2703ba88ee156e3c2] drm/i915/dp_mst: Set connector DSC capabilities and decompression AUX
-git bisect good 808b43fa7e56e94563b86af2703ba88ee156e3c2
-# skip: [11ae5eb516b656e8a0e4efbea90ea24c152a346d] Merge tag 'topic/vmemdup-user-array-2023-10-24-1' of git://anongit.freedesktop.org/drm/drm into drm-next
-git bisect skip 11ae5eb516b656e8a0e4efbea90ea24c152a346d
-# good: [a67f7a0b18c09d5b62eafb6d5c2f54e6f6ea6cf1] drm/amd/display: Update SDP VSC colorimetry from DP test automation request
-git bisect good a67f7a0b18c09d5b62eafb6d5c2f54e6f6ea6cf1
-# good: [dd3dd9829bf9a4ecd55482050745efdd9f7f97fc] drm/amdgpu: Remove unused variables from amdgpu_show_fdinfo
-git bisect good dd3dd9829bf9a4ecd55482050745efdd9f7f97fc
-# good: [b1abb484417ec8edd68df0c9bf8cb1c1fc035fd2] drm/ci: force-enable CONFIG_MSM_MMCC_8996 as built-in
-git bisect good b1abb484417ec8edd68df0c9bf8cb1c1fc035fd2
-# good: [5fa8f128462c5b3b20576b12286dca7fe95b3af1] drm/ci: increase i915 job timeout to 1h30m
-git bisect good 5fa8f128462c5b3b20576b12286dca7fe95b3af1
-# good: [3ddba96b0d7e714dee4db5aed4f7d413be43b4ba] MAINTAINERS: drm/ci: add entries for xfail files
-git bisect good 3ddba96b0d7e714dee4db5aed4f7d413be43b4ba
-# bad: [b70438004a14f4d0f9890b3297cd66248728546c] drm/amdgpu: move buffer funcs setting up a level
-git bisect bad b70438004a14f4d0f9890b3297cd66248728546c
-# skip: [56e449603f0ac580700621a356d35d5716a62ce5] drm/sched: Convert the GPU scheduler to variable number of run-queues
-git bisect skip 56e449603f0ac580700621a356d35d5716a62ce5
-# skip: [c07bf1636f0005f9eb7956404490672286ea59d3] MAINTAINERS: Update the GPU Scheduler email
-git bisect skip c07bf1636f0005f9eb7956404490672286ea59d3
-# only skipped commits left to test
-# possible first bad commit: [b70438004a14f4d0f9890b3297cd66248728546c] drm/amdgpu: move buffer funcs setting up a level
-# possible first bad commit: [c07bf1636f0005f9eb7956404490672286ea59d3] MAINTAINERS: Update the GPU Scheduler email
-# possible first bad commit: [56e449603f0ac580700621a356d35d5716a62ce5] drm/sched: Convert the GPU scheduler to variable number of run-queues
-
---=-=-=--
