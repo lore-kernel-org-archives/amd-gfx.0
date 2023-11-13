@@ -4,113 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD7A8C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Nov 2023 03:51:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B10A4C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Nov 2023 08:18:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D91310E1AF;
-	Tue, 14 Nov 2023 03:51:19 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2084.outbound.protection.outlook.com [40.107.237.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 553BC10E1AF
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Nov 2023 03:51:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lsfdyR0LcMKBq2lOqc37aTv2RF5YVbY7WuXsl6U/6otsQtldQTNc09MzqNPVuRUAdNpUmXKiDY3iy26iXO7iqs/fQxKIJCwBJL2z/5aOCzEn4x+6b0EiVD/HvE3y39E/wrpIVrpQooaGz6UP01cyprH2DoGKfHJgy0BiZ0/zd6P4O7Kzx/o10/sFC/oMnpRLxoh/fCwZtRoDLE+RgOWQ1duQgfQpvfTe6I9zATuMIdNwFQF78iD7kuKXtEnALyH3vW6WbX//tkW/79ZXO9iOS9gZuCoLPHx+3zeqZjdKUAT0lTPIjIpI/x+9//RIjzQ3yA9BK4TwLp/HlFBnlFbyrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C3R4EiZti5q6RzrEm6y8nvPHWv87mqZ5bXP8LHfzoBs=;
- b=ApIR/f+gUloG92LVWl03qyIQ2VV1ymcvFBX2GNbgZZYhdJV6xZ4YmXuB6M4naV/ESf6CLBEz7RLT1ufFjgSg8dm0q0G1qPyAL3bbo+jrykuU4W8vJws09M7Y4KEIXpD+aN462idwrqUhXvh8NUBpCys1v9xf4BIYTNjDRYWB/NRYhtDSs3i3+TR4K13ONsf33FWai+XaYzV18UfOQz54+DBpw/5MTV9S5hTJtWk0E27p/FQeYAc9rXTw8+PWhvglpeTHBYfxRJqGatVokr8sHPa0maKtzvyn4Dj9UlDTxAo8ExrDciCTwgWhFL5pzZ++skSCtANmC8MSlsMtP+edDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C3R4EiZti5q6RzrEm6y8nvPHWv87mqZ5bXP8LHfzoBs=;
- b=sjxr0kEYfoFZF6SazwzcJfThGQFWk11SiTDOjcM3l6T7IIL+6tVu+cazaYKmgk/NL5Jer609hZnZvIFznHANPHAQRDLk/wSGGG57biZAwME97Qk2/yBfsVFZ/X1o80j3rBM2JnUlhF51DPS8wVqhwS7HmqS2cq37EoIRzMvQT90=
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
- SN7PR12MB8059.namprd12.prod.outlook.com (2603:10b6:806:32b::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6977.31; Tue, 14 Nov 2023 03:51:14 +0000
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::a294:a55c:ea32:7ba8]) by DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::a294:a55c:ea32:7ba8%7]) with mapi id 15.20.6977.029; Tue, 14 Nov 2023
- 03:51:14 +0000
-From: "Liang, Prike" <Prike.Liang@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: needn't set aggregated doorbell for map queue
-Thread-Topic: [PATCH] drm/amdgpu: needn't set aggregated doorbell for map queue
-Thread-Index: AQHaEt989oyBBZsLEUuTKC1F3k5xaLB5NJpw
-Date: Tue, 14 Nov 2023 03:51:14 +0000
-Message-ID: <DS7PR12MB60059AD2E2CCE471EA628213FBB2A@DS7PR12MB6005.namprd12.prod.outlook.com>
-References: <20231109073625.1751945-1-Prike.Liang@amd.com>
-In-Reply-To: <20231109073625.1751945-1-Prike.Liang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=95ef8e3f-41b5-4cec-a2bd-95b1582de4ee;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-11-14T03:46:56Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|SN7PR12MB8059:EE_
-x-ms-office365-filtering-correlation-id: 93309ac7-a6c4-4a0a-5f0d-08dbe4c4f2cc
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: pU7yItE09ICjquMaYXc6DFSL9v2Qd8PgONgI1siqhvqbvvHalG1ezilZvI46xWxjtE4b/nB5ehX4/WlW3x2gGmgOoDrrp2zJDeOzFp0W2kYyrh6vcPYTe8EwU9s/xdHvMFfLn4K8C7lfUzpVsLN/9qSwUFe2D9HLtVq0F2JNRYpOsiPyKHN3TpHBjw7K+yQGglXGVwvUOGC7WZ5UsySPJeS798TkzavhdwWBBG0ZHIt6BYjMB7fa22QncmaJXBeY91UaEse1LZkCQCRy6lCmtHaofJUQ2GJbssdF7hy++Hy7x2/YDY7YCCq+kvMqDF1p9jGcxKt8yPiXu7J4bS3GpZMwepaROX9AfiQFzQAHEEAkj8GtXGF27RBiLpJ45Ll3hQfeDy9wMSlafCcqEvOIXLz5gPFCMkfciFyl13C0dTq60gdnmlIzPlE0/CSabfuA9gh0TBPZed7pwJaGpkvjRocJN6yPo0N23kNwQ2/7ScGE0YRYAfj/Dy9bMi6cz35jSnKoUj1qnlzitSQSPpTPZO4xp/0PWSQtrHRdTjiYlGf4Q04YAj6Fe7tfSUwVZgHsBwD7wYVZAgs7wF3ONPsTdESaaWYhYuQFJBfOoxIvOB0ZhqHXPx6NF5fuQKXr0u9W7TaPzd0BHkdoDN6mVXX2uw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(366004)(396003)(376002)(346002)(39860400002)(230922051799003)(186009)(1800799009)(451199024)(64100799003)(6506007)(7696005)(71200400001)(53546011)(478600001)(122000001)(83380400001)(55016003)(38100700002)(9686003)(8676002)(2906002)(33656002)(41300700001)(5660300002)(8936002)(86362001)(52536014)(66556008)(66476007)(66946007)(66446008)(64756008)(6916009)(4326008)(76116006)(316002)(26005)(38070700009)(21314003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?oVDy2SBKhdTsAFmmGe2m/R7cGj7sROcodt8/22Kj0otDj7qlSL7WHm6QCmJO?=
- =?us-ascii?Q?vmvxUGWovDFDBtw0AUGpPdn/wB3/+y71ur+eFvitFREZCEHuuKoNn0SCCd9i?=
- =?us-ascii?Q?Q9cVQrohnulOwvbUgc2szcjnxk84/3rhDtbdI1DoTdSwICjTSiyQp8xUhYaR?=
- =?us-ascii?Q?jMU17atzUfq8C76/ZTBULzAJ1gvC4CRcFPDQZtmhPyZSpazDMOvtRCU/3Aiq?=
- =?us-ascii?Q?N0wpR87s1HJoC25PzH3jWdO44CIlbfkErisSRFG0yV2S81DlLpHqenfH+hcq?=
- =?us-ascii?Q?n21gI7+VL/cerJiBSG3ndGf7oBvavk3GEY7Qmj/lub+mHMcWTNYjMPAq91cn?=
- =?us-ascii?Q?uptghDq6474XS5pVhBFHyVTJg5njaP1mU5Qawh6dnHhNTGAvAfKH5KoYbJpD?=
- =?us-ascii?Q?qHZDReptTwjnwwtDK7+SimAmkRY17xMO0WMFWoaibX4X9l6xOB9bg3Z2h8J8?=
- =?us-ascii?Q?bLwQ75L9qmZRCSNP07i947hWOb9iOft5CivqjzMLTVAqEnLMhzAi6i4Bt1dv?=
- =?us-ascii?Q?og5H9jxL82eRl+YUNFqbBARSpDIV4FIqniTKgJIYo/kCV9Y5Y6mv6sQCV8MD?=
- =?us-ascii?Q?qHV9Z7U1E9Hlqijc31mhvvq8UaXwJqS9rk+D13M/Kwi6I9cY00IaB6MtENBZ?=
- =?us-ascii?Q?Xd1KMDCS4D1bXDzHOjnF14np5s1VSvYdJWdZgDkQTIRupuXEV/iZ/r441xL7?=
- =?us-ascii?Q?NXYGqiQIAhRNN3eFAxQgve8DZOPY52BgRLSjwHNih5st7HRIWdZXFgR0D8bK?=
- =?us-ascii?Q?mbsBPbVyM32gslnzvOO/hACuQ/eoik/klweYVfKKPKJb98WPo01Hz+Mqn8wc?=
- =?us-ascii?Q?lY+hJcNOAHL2pM3LqDedJ6n//mI32myvblawOc1n4NWhApUveu3Z40sw2d8N?=
- =?us-ascii?Q?XTPfR90YXxeNUQv/UmPaaVdJHz+SyC4+lxSRm90v35i03qCVFWlUSniuto2D?=
- =?us-ascii?Q?s9fUCpYIZaRu6okHJC7FBfaudJ/dz3Tfq7Z81No1YyXv4lD+7M/MLw8RRj17?=
- =?us-ascii?Q?wh7l7y8oCAJZlgJRs/vmKC6GAQZIc0I7LhZp8I8rIPoROHE0JoJ0XXwzrlhS?=
- =?us-ascii?Q?+Zy8n05Z5CL3XZVxUZi7pWX/ETqEq3WglMv9a6Zjq7A7YdPF4bg/JAlGYJ0A?=
- =?us-ascii?Q?qAT/XhOwNWJvIkpSGqhjVnTpvqMxkv9VJmeyqgCk98N9fpWlqtfhXK2Vm79A?=
- =?us-ascii?Q?kbmYo/GomUvqMJ0aqzeS1KmpPdC6RNAulwkvZ/qAph/WwMerwG//UlSYfxI5?=
- =?us-ascii?Q?lj8aZ30PCQhk9TOjoQZF3uPat9dBkw3dg44OWWxDgjEeCmq3l8Ayfl3F2wWW?=
- =?us-ascii?Q?JbtbQ/7XTOeVVBhi+C2uTY/wTRIKXO8k16GnLpmgU5hTCDCOoAIluwfJmT/Y?=
- =?us-ascii?Q?IlK0iNBPf9jNMq519Go8taFLkPtqFNY0eFbvNQk1r05OCc/TP5dKGNClSMqY?=
- =?us-ascii?Q?kOpyXoMXdQDVO6K1gV7f89Cs/SbeYyD0P4uxbUVIty+0lSljagSciJyrBkhX?=
- =?us-ascii?Q?aXj0g4uIjdS2A8hicSr7Qvf2gK4hNPoAnPprKciFAfS8Wp7Jv46kjsWd5IyI?=
- =?us-ascii?Q?GCFC7kZOQ6jIT+HUThw=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35F9C10E1BE;
+	Tue, 14 Nov 2023 08:18:03 +0000 (UTC)
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [IPv6:2a00:1450:4864:20::633])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDB3410E358;
+ Mon, 13 Nov 2023 11:37:17 +0000 (UTC)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-9e28724ac88so657454966b.2; 
+ Mon, 13 Nov 2023 03:37:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1699875436; x=1700480236; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:autocrypt:subject:from:cc:to
+ :content-language:user-agent:mime-version:date:message-id:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=DgL+h1xvkV19EYm8iY1TRE4bSspx8QceS9CKDbQWUdE=;
+ b=euwJGlJNEUeYwzD+nTFTA6tjgtNHP2XfvztCDmuj8R8ubWsVGjJaKfYRzGFau/g4tc
+ GynXjgOryyX7eQQipvTiXb0W1kq5bgpEbgbprdwsLnEZ/7pL4nhjL9HTnaW75hXYy0EE
+ ce3O9y7Uw1qlq7Pe73xmz4g1rPOqHPwtDv4qOguU5YeOK7hn8JraTA3X0c4CuCnNZ8C9
+ K2/s+80m6KNC0RCimWnNnge6/rcl8t38NhkrmrkPSn2y/bdl54y1BLo8evnrFLw7jKvw
+ SWo+w/wTqpiMtaEEObPRijP1lRpbHff2JNVfTDBz6LNEJFZ/YutTdesmvHD6fVBiCEJ4
+ KsvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1699875436; x=1700480236;
+ h=content-transfer-encoding:autocrypt:subject:from:cc:to
+ :content-language:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=DgL+h1xvkV19EYm8iY1TRE4bSspx8QceS9CKDbQWUdE=;
+ b=G9RkAPH2Ycr+I36MhnAiY73hSXZH5P3vplnRwLT0U2S5pKihkjPaCO0Xl8sM2zZLGA
+ Ka2qvpTirz77+PtzBruUgpo+zElV+UD6WYasyxCIF+Mp8/fDkXucRsfK7m5agZALH4zt
+ gG8YO3+pRbO9advCxddxvyOh3lAERFjpq9CM6ur1PjuNpPM7doCMHOxS5FILu8yNQt2D
+ NYP9jaZMEJzGU98k6TIzQgGTTTBBroTr+mczenbf1jQNVZ6dUNlyMh//8zyazNj145kW
+ FUTFdRBZkgQBt8yhmfnutMDbHirF3XdEe5OmEByjWrJz2NntpXYDBtfs6RzAY8MpI18S
+ 3T6w==
+X-Gm-Message-State: AOJu0Yzwr5W+tbcRq3Vg14iKgv+4NP+Hg7a6i4B+kugi5eKYi2b7CVR2
+ qAW4CgBZ0Q4P6gl0WeNkzgM=
+X-Google-Smtp-Source: AGHT+IFEqHqhLdUMGiCY9qRSeJATe2WDRNYP1706/LoUMXQwgB2L6HSCW/GqTT4mEMVGXIFV7KFjZg==
+X-Received: by 2002:a17:906:a187:b0:9dd:9ba7:690d with SMTP id
+ s7-20020a170906a18700b009dd9ba7690dmr4390106ejy.14.1699875436133; 
+ Mon, 13 Nov 2023 03:37:16 -0800 (PST)
+Received: from ?IPV6:2a01:c22:6e16:fe00:5105:d737:3805:1e81?
+ (dynamic-2a01-0c22-6e16-fe00-5105-d737-3805-1e81.c22.pool.telefonica.de.
+ [2a01:c22:6e16:fe00:5105:d737:3805:1e81])
+ by smtp.googlemail.com with ESMTPSA id
+ t17-20020a1709064f1100b009e60b72dd17sm3863344eju.100.2023.11.13.03.37.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Nov 2023 03:37:15 -0800 (PST)
+Message-ID: <839c0546-9bad-4b5a-9216-d5e3bab32370@gmail.com>
+Date: Mon, 13 Nov 2023 12:37:15 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93309ac7-a6c4-4a0a-5f0d-08dbe4c4f2cc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Nov 2023 03:51:14.0727 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Xzge1+d850kregTv4lWReP6CVx8OajnB/ZSOO5eKPET8253Wr6nvRXSLz40Wp4fn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8059
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Wolfram Sang <wsa@kernel.org>
+From: Heiner Kallweit <hkallweit1@gmail.com>
+Subject: [PATCH] drm/amd/pm: Remove I2C_CLASS_SPD support
+Autocrypt: addr=hkallweit1@gmail.com; keydata=
+ xsFNBF/0ZFUBEAC0eZyktSE7ZNO1SFXL6cQ4i4g6Ah3mOUIXSB4pCY5kQ6OLKHh0FlOD5/5/
+ sY7IoIouzOjyFdFPnz4Bl3927ClT567hUJJ+SNaFEiJ9vadI6vZm2gcY4ExdIevYHWe1msJF
+ MVE4yNwdS+UsPeCF/6CQQTzHc+n7DomE7fjJD5J1hOJjqz2XWe71fTvYXzxCFLwXXbBiqDC9
+ dNqOe5odPsa4TsWZ09T33g5n2nzTJs4Zw8fCy8rLqix/raVsqr8fw5qM66MVtdmEljFaJ9N8
+ /W56qGCp+H8Igk/F7CjlbWXiOlKHA25mPTmbVp7VlFsvsmMokr/imQr+0nXtmvYVaKEUwY2g
+ 86IU6RAOuA8E0J5bD/BeyZdMyVEtX1kT404UJZekFytJZrDZetwxM/cAH+1fMx4z751WJmxQ
+ J7mIXSPuDfeJhRDt9sGM6aRVfXbZt+wBogxyXepmnlv9K4A13z9DVLdKLrYUiu9/5QEl6fgI
+ kPaXlAZmJsQfoKbmPqCHVRYj1lpQtDM/2/BO6gHASflWUHzwmBVZbS/XRs64uJO8CB3+V3fa
+ cIivllReueGCMsHh6/8wgPAyopXOWOxbLsZ291fmZqIR0L5Y6b2HvdFN1Xhc+YrQ8TKK+Z4R
+ mJRDh0wNQ8Gm89g92/YkHji4jIWlp2fwzCcx5+lZCQ1XdqAiHQARAQABzSZIZWluZXIgS2Fs
+ bHdlaXQgPGhrYWxsd2VpdDFAZ21haWwuY29tPsLBjgQTAQgAOBYhBGxfqY/yOyXjyjJehXLe
+ ig9U8DoMBQJf9GRVAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEHLeig9U8DoMSycQ
+ AJbfg8HZEK0ljV4M8nvdaiNixWAufrcZ+SD8zhbxl8GispK4F3Yo+20Y3UoZ7FcIidJWUUJL
+ axAOkpI/70YNhlqAPMsuudlAieeYZKjIv1WV5ucNZ3VJ7dC+dlVqQdAr1iD869FZXvy91KhJ
+ wYulyCf+s4T9YgmLC6jLMBZghKIf1uhSd0NzjyCqYWbk2ZxByZHgunEShOhHPHswu3Am0ftt
+ ePaYIHgZs+Vzwfjs8I7EuW/5/f5G9w1vibXxtGY/GXwgGGHRDjFM7RSprGOv4F5eMGh+NFUJ
+ TU9N96PQYMwXVxnQfRXl8O6ffSVmFx4H9rovxWPKobLmqQL0WKLLVvA/aOHCcMKgfyKRcLah
+ 57vGC50Ga8oT2K1g0AhKGkyJo7lGXkMu5yEs0m9O+btqAB261/E3DRxfI1P/tvDZpLJKtq35
+ dXsj6sjvhgX7VxXhY1wE54uqLLHY3UZQlmH3QF5t80MS7/KhxB1pO1Cpcmkt9hgyzH8+5org
+ +9wWxGUtJWNP7CppY+qvv3SZtKJMKsxqk5coBGwNkMms56z4qfJm2PUtJQGjA65XWdzQACib
+ 2iaDQoBqGZfXRdPT0tC1H5kUJuOX4ll1hI/HBMEFCcO8++Bl2wcrUsAxLzGvhINVJX2DAQaF
+ aNetToazkCnzubKfBOyiTqFJ0b63c5dqziAgzsFNBF/0ZFUBEADF8UEZmKDl1w/UxvjeyAeX
+ kghYkY3bkK6gcIYXdLRfJw12GbvMioSguvVzASVHG8h7NbNjk1yur6AONfbUpXKSNZ0skV8V
+ fG+ppbaY+zQofsSMoj5gP0amwbwvPzVqZCYJai81VobefTX2MZM2Mg/ThBVtGyzV3NeCpnBa
+ 8AX3s9rrX2XUoCibYotbbxx9afZYUFyflOc7kEpc9uJXIdaxS2Z6MnYLHsyVjiU6tzKCiVOU
+ KJevqvzPXJmy0xaOVf7mhFSNQyJTrZpLa+tvB1DQRS08CqYtIMxRrVtC0t0LFeQGly6bOngr
+ ircurWJiJKbSXVstLHgWYiq3/GmCSx/82ObeLO3PftklpRj8d+kFbrvrqBgjWtMH4WtK5uN5
+ 1WJ71hWJfNchKRlaJ3GWy8KolCAoGsQMovn/ZEXxrGs1ndafu47yXOpuDAozoHTBGvuSXSZo
+ ythk/0EAuz5IkwkhYBT1MGIAvNSn9ivE5aRnBazugy0rTRkVggHvt3/7flFHlGVGpBHxFUwb
+ /a4UjJBPtIwa4tWR8B1Ma36S8Jk456k2n1id7M0LQ+eqstmp6Y+UB+pt9NX6t0Slw1NCdYTW
+ gJezWTVKF7pmTdXszXGxlc9kTrVUz04PqPjnYbv5UWuDd2eyzGjrrFOsJEi8OK2d2j4FfF++
+ AzOMdW09JVqejQARAQABwsF2BBgBCAAgFiEEbF+pj/I7JePKMl6Fct6KD1TwOgwFAl/0ZFUC
+ GwwACgkQct6KD1TwOgxUfg//eAoYc0Vm4NrxymfcY30UjHVD0LgSvU8kUmXxil3qhFPS7KA+
+ y7tgcKLHOkZkXMX5MLFcS9+SmrAjSBBV8omKoHNo+kfFx/dUAtz0lot8wNGmWb+NcHeKM1eb
+ nwUMOEa1uDdfZeKef/U/2uHBceY7Gc6zPZPWgXghEyQMTH2UhLgeam8yglyO+A6RXCh+s6ak
+ Wje7Vo1wGK4eYxp6pwMPJXLMsI0ii/2k3YPEJPv+yJf90MbYyQSbkTwZhrsokjQEaIfjrIk3
+ rQRjTve/J62WIO28IbY/mENuGgWehRlTAbhC4BLTZ5uYS0YMQCR7v9UGMWdNWXFyrOB6PjSu
+ Trn9MsPoUc8qI72mVpxEXQDLlrd2ijEWm7Nrf52YMD7hL6rXXuis7R6zY8WnnBhW0uCfhajx
+ q+KuARXC0sDLztcjaS3ayXonpoCPZep2Bd5xqE4Ln8/COCslP7E92W1uf1EcdXXIrx1acg21
+ H/0Z53okMykVs3a8tECPHIxnre2UxKdTbCEkjkR4V6JyplTS47oWMw3zyI7zkaadfzVFBxk2
+ lo/Tny+FX1Azea3Ce7oOnRUEZtWSsUidtIjmL8YUQFZYm+JUIgfRmSpMFq8JP4VH43GXpB/S
+ OCrl+/xujzvoUBFV/cHKjEQYBxo+MaiQa1U54ykM2W4DnHb1UiEf5xDkFd4=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Tue, 14 Nov 2023 08:18:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,84 +121,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: "open list:AMD KFD" <dri-devel@lists.freedesktop.org>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+I2C_CLASS_SPD was used to expose the EEPROM content to user space,
+via the legacy eeprom driver. Now that this driver has been removed,
+we can remove I2C_CLASS_SPD support. at24 driver with explicit
+instantiation should be used instead.
 
-Please ignore this patch, double confirm from the stakeholder the MES map q=
-ueue has possibility to change as an unmap queue after write the doorbell.
+If in doubt this patch could be applied via the i2c tree.
 
-Regards,
---Prike
+Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c   | 1 -
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 1 -
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 1 -
+ 3 files changed, 3 deletions(-)
 
-> -----Original Message-----
-> From: Liang, Prike <Prike.Liang@amd.com>
-> Sent: Thursday, November 9, 2023 3:36 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liang, Prike
-> <Prike.Liang@amd.com>
-> Subject: [PATCH] drm/amdgpu: needn't set aggregated doorbell for map
-> queue
->
-> Needn't set aggregated doorbell for map queue and remove the dead code.
->
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 6 ------
-> drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 4 ----
->  2 files changed, 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> index c8a3bf01743f..601bb6755bd3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -8220,9 +8220,6 @@ static void gfx_v10_0_ring_set_wptr_gfx(struct
-> amdgpu_ring *ring)
->                       WDOORBELL64(ring->doorbell_index, wptr_tmp);
->               } else {
->                       WDOORBELL64(ring->doorbell_index, wptr_tmp);
-> -
-> -                     if (*is_queue_unmap)
-> -                             WDOORBELL64(aggregated_db_index,
-> wptr_tmp);
->               }
->       } else {
->               if (ring->use_doorbell) {
-> @@ -8283,9 +8280,6 @@ static void
-> gfx_v10_0_ring_set_wptr_compute(struct amdgpu_ring *ring)
->                       WDOORBELL64(ring->doorbell_index, wptr_tmp);
->               } else {
->                       WDOORBELL64(ring->doorbell_index, wptr_tmp);
-> -
-> -                     if (*is_queue_unmap)
-> -                             WDOORBELL64(aggregated_db_index,
-> wptr_tmp);
->               }
->       } else {
->               /* XXX check if swapping is necessary on BE */ diff --git
-> a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-> b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-> index c1ff5eda8961..14633e2ceac6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-> @@ -358,10 +358,6 @@ static void sdma_v5_0_ring_set_wptr(struct
-> amdgpu_ring *ring)
->                       DRM_DEBUG("calling WDOORBELL64(0x%08x,
-> 0x%016llx)\n",
->                                       ring->doorbell_index, ring->wptr <<
-> 2);
->                       WDOORBELL64(ring->doorbell_index, ring->wptr <<
-> 2);
-> -
-> -                     if (*is_queue_unmap)
-> -                             WDOORBELL64(aggregated_db_index,
-> -                                         ring->wptr << 2);
->               }
->       } else {
->               if (ring->use_doorbell) {
-> --
-> 2.34.1
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+index 1a6675d70..bc56a29e6 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+@@ -1527,7 +1527,6 @@ static int aldebaran_i2c_control_init(struct smu_context *smu)
+ 	smu_i2c->port = 0;
+ 	mutex_init(&smu_i2c->mutex);
+ 	control->owner = THIS_MODULE;
+-	control->class = I2C_CLASS_SPD;
+ 	control->dev.parent = &adev->pdev->dev;
+ 	control->algo = &aldebaran_i2c_algo;
+ 	snprintf(control->name, sizeof(control->name), "AMDGPU SMU 0");
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index 82c4e1f1c..c0e62bab9 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -2720,7 +2720,6 @@ static int smu_v13_0_0_i2c_control_init(struct smu_context *smu)
+ 		smu_i2c->port = i;
+ 		mutex_init(&smu_i2c->mutex);
+ 		control->owner = THIS_MODULE;
+-		control->class = I2C_CLASS_SPD;
+ 		control->dev.parent = &adev->pdev->dev;
+ 		control->algo = &smu_v13_0_0_i2c_algo;
+ 		snprintf(control->name, sizeof(control->name), "AMDGPU SMU %d", i);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index 891605d49..9de91bd77 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -1884,7 +1884,6 @@ static int smu_v13_0_6_i2c_control_init(struct smu_context *smu)
+ 		smu_i2c->port = i;
+ 		mutex_init(&smu_i2c->mutex);
+ 		control->owner = THIS_MODULE;
+-		control->class = I2C_CLASS_SPD;
+ 		control->dev.parent = &adev->pdev->dev;
+ 		control->algo = &smu_v13_0_6_i2c_algo;
+ 		snprintf(control->name, sizeof(control->name), "AMDGPU SMU %d", i);
+-- 
+2.42.1
 
