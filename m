@@ -4,80 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4193C4167D
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Nov 2023 08:18:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FEC3C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Nov 2023 08:18:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D27FC10E1C8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2D0B10E1C9;
 	Tue, 14 Nov 2023 08:18:06 +0000 (UTC)
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2558310E0D9;
- Mon, 13 Nov 2023 18:21:41 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-32daeed7771so2712368f8f.3; 
- Mon, 13 Nov 2023 10:21:41 -0800 (PST)
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 905C110E35C;
+ Mon, 13 Nov 2023 11:42:17 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-9d242846194so639283366b.1; 
+ Mon, 13 Nov 2023 03:42:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1699899699; x=1700504499; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:to:subject:user-agent:mime-version:date
+ d=gmail.com; s=20230601; t=1699875736; x=1700480536; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+ :from:content-language:subject:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=g6Py8y1O0VaAYNtx9zZaLLFtioZaJRlxInJEtHb5OPU=;
- b=dwWBjpfaKI7uRvjMaVVGnf23Lw8aIsm1H9GGDF04WkIVhB6nExvQ81eMyua10O3+GJ
- WdDwgfaZL6M2U/eYdM5S5oaY7rorKr5R64PSezMVb1pp+1vh7y4hgy7kt0psGqxjCWOC
- iSWW0U6uXx8P9ew9PpZ7IlOacGnM1mwrifK1GuDCQj8zRidfiS9Q+hAag1zzbBWmNVbE
- e83XJxShrmCAAZdmSPsHf8kIzxVOsVioFXyXtat3irbC/0Zn8yyEeRq76UoF/amoCAzW
- G3OV7p8R2iwy/tYHSQZ9sb7/2InxW2m8KgC+LzXJb89XgZwZlK+3rVvUzfLHur5ULmWd
- wETQ==
+ bh=+0mLfvvdd3U9C62qkI5x9CxndLXgVsSBv8YYoccslrs=;
+ b=lLrDO+np6JTc4gdJJ8CVAHAusAuqJyWe3vpvuay+OENNzUAsN6IdMAzcg27H0LiRfy
+ 3p+YVB8SJTa4xpkdLGdycPSOVPlGRPAsDFQ0S5Ik2X3Of1GpWuJrLMCXVci9QNUOnXfF
+ CB0KuaveA30e6u3CK7ZtBz69GJuVFLLL3Otih/f8V+wCCiAbsLuHNI39fyxWc3ZGFsE3
+ XNUFCQPm300sXwsgW3tnNpn818N0qBiU/ZQaL9xu2p9yoOZOkOACsEMHP79WznObPplB
+ RFMzUckoE1TfSEbGD+duQvK/oveAiY3KbgMbY0B+p/LQIfmAM3qrycWP2P8TR3BqDPAc
+ SB8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699899699; x=1700504499;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:to:subject:user-agent:mime-version:date
+ d=1e100.net; s=20230601; t=1699875736; x=1700480536;
+ h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+ :from:content-language:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=g6Py8y1O0VaAYNtx9zZaLLFtioZaJRlxInJEtHb5OPU=;
- b=U61ZYMDgmlq5Ao5uXgFp0MEFaF/1WgMlahNQN5MT44EDMHM6pXUpH0gsTSE2HAQgGm
- Ezx2zocojBUqzuO1X+9nYjlV9CTx6cDQnDx0a1nueN88LNxIb7xQLv1lAEsNmirzLqv/
- IBMMvxEuhDWB19miKYqjstXMVBZcvfw8jFN5ty6H14L1Ht3zCMYJrbb9Uq2C7RahmRxR
- jsp13sBUA2VC7OTz6+4uG7NjgU/jOMyAOEXaCq644tZ7pO/9ly1ZhqtAS10US4Z1ZhXM
- 4JIHzWDArPNZ33amgiQf2BrgabODxi/zkz08z+2COHyRG2kFfdjxsZn8oQoY4g9oG7K1
- Lhqg==
-X-Gm-Message-State: AOJu0Yx+lErtwzHmzLkBB8Tk3jVQNOiBQNjmaPOxtqW3F6JN9NG7qIuO
- /M70IRhGgzyef3hREHZy0pA=
-X-Google-Smtp-Source: AGHT+IFySfNcTFpucqZk6RHNcEFdOXteKIxtHKgHG43rTpgaV2wy9GOPNp/Ua++AZ5vHdCtlkQU0rw==
-X-Received: by 2002:a5d:47a8:0:b0:32f:8c32:35bd with SMTP id
- 8-20020a5d47a8000000b0032f8c3235bdmr6027704wrb.4.1699899699279; 
- Mon, 13 Nov 2023 10:21:39 -0800 (PST)
-Received: from ?IPV6:2a01:c22:6e16:fe00:c172:813e:6561:e5e7?
- (dynamic-2a01-0c22-6e16-fe00-c172-813e-6561-e5e7.c22.pool.telefonica.de.
- [2a01:c22:6e16:fe00:c172:813e:6561:e5e7])
+ bh=+0mLfvvdd3U9C62qkI5x9CxndLXgVsSBv8YYoccslrs=;
+ b=qjyHOIzkOhElA0FOMfjeUrukFxXcXuFvth05BzOKmDtXH7u6E3V+K/Wt5G1Out2Jkm
+ A19KfF39i5QjIOi3UIRc0/Ij7YU4J9k7rE84glxJfi5i3GrKD3MnhIOJQrLCqvNzVPd/
+ X3Awr2h39uEQo/u6rHkXFZyU4/F5PVwWvgizLUghoyBHQFPuJYknoly2FI96efqWEuG4
+ WAC+14V8BvPnwmVeCy6Pp+pggihssEC16ekp7devNtdkD3PZW9QRkEl1XytSvHLcL/ud
+ +NC2PA9Uga2TomTWD5NaAkbK9lgEnz8Pf+GIsU1YA71rDtJ3OgywrvTg8kcxKN+EnGmI
+ PVTQ==
+X-Gm-Message-State: AOJu0YzFpdHw1S4U9SObEiBtjDJVhU0TktPQagABMSg/P+5LkNOhOeWq
+ v6gvIC9wb9ED6GvCUg37tw4=
+X-Google-Smtp-Source: AGHT+IE8wYUKmcn/50egMvlxlwG8174bKkF8+030/n+eZOTzY0JRYFfjcptOWJUr4wzyKfMSBgRpcw==
+X-Received: by 2002:a17:906:4914:b0:9bd:dfaa:3f3 with SMTP id
+ b20-20020a170906491400b009bddfaa03f3mr4401062ejq.7.1699875735907; 
+ Mon, 13 Nov 2023 03:42:15 -0800 (PST)
+Received: from ?IPV6:2a01:c22:6e16:fe00:5105:d737:3805:1e81?
+ (dynamic-2a01-0c22-6e16-fe00-5105-d737-3805-1e81.c22.pool.telefonica.de.
+ [2a01:c22:6e16:fe00:5105:d737:3805:1e81])
  by smtp.googlemail.com with ESMTPSA id
- l10-20020adfa38a000000b0032dbf26e7aesm5989241wrb.65.2023.11.13.10.21.38
+ r25-20020a170906351900b009ddaa2183d4sm3866510eja.42.2023.11.13.03.42.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Nov 2023 10:21:38 -0800 (PST)
-Message-ID: <887657ba-86ca-49bc-b6c3-8543610c3230@gmail.com>
-Date: Mon, 13 Nov 2023 19:21:38 +0100
+ Mon, 13 Nov 2023 03:42:15 -0800 (PST)
+Message-ID: <7510e716-5970-44a1-bb10-8e8418d743c3@gmail.com>
+Date: Mon, 13 Nov 2023 12:42:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/20] remove I2C_CLASS_DDC support
-To: Wolfram Sang <wsa@kernel.org>, intel-gfx@lists.freedesktop.org,
- linux-i2c@vger.kernel.org, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonas Karlman <jonas@kwiboo.se>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- linux-fbdev@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jocelyn Falempe <jfalempe@redhat.com>, linux-sunxi@lists.linux.dev,
- linux-mediatek@lists.infradead.org, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Yongqin Liu
- <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>
-References: <20231113112344.719-1-hkallweit1@gmail.com>
- <ZVJhwSS16+/Zzt0f@shikoro>
+Subject: Re: [PATCH] drm/amd/pm: Remove I2C_CLASS_SPD support
 Content-Language: en-US
 From: Heiner Kallweit <hkallweit1@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Wolfram Sang <wsa@kernel.org>
+References: <839c0546-9bad-4b5a-9216-d5e3bab32370@gmail.com>
 Autocrypt: addr=hkallweit1@gmail.com; keydata=
  xsFNBF/0ZFUBEAC0eZyktSE7ZNO1SFXL6cQ4i4g6Ah3mOUIXSB4pCY5kQ6OLKHh0FlOD5/5/
  sY7IoIouzOjyFdFPnz4Bl3927ClT567hUJJ+SNaFEiJ9vadI6vZm2gcY4ExdIevYHWe1msJF
@@ -121,7 +109,7 @@ Autocrypt: addr=hkallweit1@gmail.com; keydata=
  H/0Z53okMykVs3a8tECPHIxnre2UxKdTbCEkjkR4V6JyplTS47oWMw3zyI7zkaadfzVFBxk2
  lo/Tny+FX1Azea3Ce7oOnRUEZtWSsUidtIjmL8YUQFZYm+JUIgfRmSpMFq8JP4VH43GXpB/S
  OCrl+/xujzvoUBFV/cHKjEQYBxo+MaiQa1U54ykM2W4DnHb1UiEf5xDkFd4=
-In-Reply-To: <ZVJhwSS16+/Zzt0f@shikoro>
+In-Reply-To: <839c0546-9bad-4b5a-9216-d5e3bab32370@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 14 Nov 2023 08:18:02 +0000
@@ -136,20 +124,26 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "open list:AMD KFD" <dri-devel@lists.freedesktop.org>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 13.11.2023 18:49, Wolfram Sang wrote:
+On 13.11.2023 12:37, Heiner Kallweit wrote:
+> I2C_CLASS_SPD was used to expose the EEPROM content to user space,
+> via the legacy eeprom driver. Now that this driver has been removed,
+> we can remove I2C_CLASS_SPD support. at24 driver with explicit
+> instantiation should be used instead.
 > 
->> Preferably this series should be applied via the i2c tree.
+> If in doubt this patch could be applied via the i2c tree.
 > 
-> Are we in a hurry here, i.e. does it block further development of the
-> i801 smbus driver? My gut feeling says the patches should rather go via
-> drm and fbdev trees, but I may be convinced otherwise.
-> 
-We're not in a hurry. It's just my experience with patch series' affecting
-multiple subsystems that typically the decision was to apply the full
-series via one tree. Also to avoid inquires from maintainers like:
-Shall I take it or are you going to take it?
-Of course there may be different opinions. Please advise.
+> Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
+> ---
+
+The mail to Evan couldn't be delivered. Maybe MAINTAINERS needs to be updated?
+
+Generating server: SATLEXMB03.amd.com
+evan.quan@amd.com
+Remote Server returned '550 5.1.10 RESOLVER.ADR.RecipientNotFound; Recipient not found by SMTP address lookup'
 
