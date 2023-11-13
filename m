@@ -4,39 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AD0FC4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Nov 2023 09:53:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 314C2C4167D
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Nov 2023 10:15:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AA9F10E334;
-	Mon, 13 Nov 2023 09:53:18 +0000 (UTC)
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org
- [IPv6:2001:67c:2050:0:465::101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDF1910E334;
- Mon, 13 Nov 2023 09:53:15 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4STPr80ndrz9srw;
- Mon, 13 Nov 2023 10:53:12 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1699869192;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=hSEEONC8xHuiK/FSJm36NKCtjchv8QqjOuZVvBDV3Wo=;
- b=EUoMgOnCwBKR4xWSxgLK4CJhGEWQVHqQcQtHihA+3MSvjNnXXhPF9E8NaHO9oD+pz/HD/o
- ZvbsTkfo49iMRW+PbmU/3tV6Dxvs5mhhZGRkY8d4PaV0G4iZJz7tsZLJZlOG5bB0//3diH
- CgypVFqBvDgQHyry5PavyGxfq+PJZEakDDvwXIbAOwzjm+HpWfVBedUWEPeH3i02EUzJm/
- oqaX4exNqKCt+Jj7hr3oGPqB3xuwDttX8e7XBi2HnsQJOwvTdc10sNbodmY/POaiGZ9gwG
- CK6Lre9LSpuGdElQb3YZGUtyN+Qxk6szZJuraLaeOcSLwvIE//X3Q2lYc/YW1w==
-Message-ID: <7339350d-a796-86c4-ab9f-752c161923e3@mailbox.org>
-Date: Mon, 13 Nov 2023 10:53:08 +0100
-MIME-Version: 1.0
-Subject: Re: [PATCH v6 6/6] drm/doc: Define KMS atomic state set
-Content-Language: de-CH-frami, en-CA
+	by gabe.freedesktop.org (Postfix) with ESMTP id D263610E041;
+	Mon, 13 Nov 2023 10:15:17 +0000 (UTC)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E81D910E041;
+ Mon, 13 Nov 2023 10:15:15 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-50a6ff9881fso4521443e87.1; 
+ Mon, 13 Nov 2023 02:15:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1699870514; x=1700475314; darn=lists.freedesktop.org;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=4rzaUs2XAqeA/RwRAkAgsgiaQodYWE7wdOheKWd5RMI=;
+ b=Y5kQWucqyvEK1iYWCHwTJDN253TVfi69CYCabWyZrawKgRc6WszEsTlZljvDUMARDi
+ qKcmrNLnVbhu2HbTJy5qiL43XMFCHsLCHenEJnfTMWzR7nSZsS/I0akcz8RFJ3VHOd7X
+ faQ4h/WlYhLj9oSEioTpTKwVCjqDc3geMm9b/e7kdPkmnIbNt+PayGjhweZRpE26z8HK
+ qQmsYFFdmP7WDL9G1gb4V0ueTkammRJI/wqtwd9WrnRo5ffGyDA+RB23XJSc0lUIx3el
+ 3HS2HYfgBMf0mNodsEOi5x44UJPa+/7tEzzaRvBxTSo5EA47pFXz/CDC7Bea253Blnv3
+ 1bOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1699870514; x=1700475314;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=4rzaUs2XAqeA/RwRAkAgsgiaQodYWE7wdOheKWd5RMI=;
+ b=VDvWbOP9RbTmihbu4AvpsQaSIOy88smRw6Np7V3WrEPg0hlkqYXQ7x3r42eUJrE5FK
+ FV6qzhAM2v0BjC7wp5mqobkMmmPwqWstsBz+Q6q4Iljbd9oDM9EaCzrVk9oh8v/lBv3D
+ rV8bQEqPuHZvNUWN1JdseFvefKx9sS3R0h7nuh08bKCrqdt3L+YBHDy5jrdxzRrf6MFv
+ JqNdPUhzjGf8RBZFUfFNOUKfBIgCg5AVbz8F7drysPG1tCOiSXQJb5AYABwNSf8SwY/I
+ UjHiya51d7QIGL4UkPvbFCBW955jD5jnH3qCz6VFSXEP/M+YTvz8qA4axc0F6/Ok/xq1
+ 92Yw==
+X-Gm-Message-State: AOJu0YzEU7oRj5tzStZzMksJTE3JWuO1cvwAsFWAOusFJnsA9d/fnEz2
+ V8V9Fcp5vL1Y3y+b89403L8=
+X-Google-Smtp-Source: AGHT+IHtYW+7Xf0/srPPhEqOEnKJaAXNGJ9qvsN45itd/Zr75+AjH5CsC3G+tdXul0NcVxuVwX18aQ==
+X-Received: by 2002:a2e:bc25:0:b0:2c5:23f8:1111 with SMTP id
+ b37-20020a2ebc25000000b002c523f81111mr5497470ljf.41.1699870513595; 
+ Mon, 13 Nov 2023 02:15:13 -0800 (PST)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ a16-20020a2e8610000000b002c0055834b3sm941568lji.4.2023.11.13.02.15.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 Nov 2023 02:15:13 -0800 (PST)
+Date: Mon, 13 Nov 2023 12:15:08 +0200
+From: Pekka Paalanen <ppaalanen@gmail.com>
 To: Simon Ser <contact@emersion.fr>
+Subject: Re: [PATCH v6 6/6] drm/doc: Define KMS atomic state set
+Message-ID: <20231113121508.16a75352@eldfell>
+In-Reply-To: <ha7UwaZ0eilF_Hl6wWqJXJQ0oy9_rD1FKUNDwIlNxC-vT3InSP4bpTRwVnZG9QvzZBsX4W-p_vz5FfByoAXuGewyhVtwVd4KyRSMJ4G8cQ4=@emersion.fr>
 References: <20230815185710.159779-1-andrealmeid@igalia.com>
  <aa424bf8-5652-4a44-9b93-bdc0a31d835a@igalia.com>
  <20231016175222.7a89e6ab@eldfell> <ZS1ST6XAUHilBg3d@intel.com>
@@ -44,14 +61,12 @@ References: <20230815185710.159779-1-andrealmeid@igalia.com>
  <ZS55mXTSxpXKYbsd@intel.com>
  <mawSNnD1hQ6vCVrNVMAvuQESnTToKPXrtiHIXXdqC-mq_LkxWOizPCcXx_KiEASVX-Mbm0LgjfTYkMNOjSAKCldpkXHAd9MmRzbC8ECPsTs=@emersion.fr>
  <5_NYn1PEc-XUYiRf5fC9oQqTaJxoAuvHVvw1PVTume5m8_cbOyku2Q2XKdCm66g0WcMq_RL8oSp52AowBzX9WAEiVBgdmYtPeXI9SWnD6Ts=@emersion.fr>
- <438f2960-c49e-6485-5916-20d6e69ef7d4@mailbox.org>
- <lpel36VSNcFmcpY-E0tWcyO88CxmVfIdAMNYkkyxRy8ELbvM5xEZS68zxsK3JncHlkjQnxdE8vbKsJT_RZSGRCkPSiTvbXZWqOER6ZtpL2A=@emersion.fr>
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
-In-Reply-To: <lpel36VSNcFmcpY-E0tWcyO88CxmVfIdAMNYkkyxRy8ELbvM5xEZS68zxsK3JncHlkjQnxdE8vbKsJT_RZSGRCkPSiTvbXZWqOER6ZtpL2A=@emersion.fr>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: ffb3b1a56ad4ece27b5
-X-MBO-RS-META: wfipq1n5mfspi8nqc5r7f573gwwg4fg1
+ <20231113113804.6e2adfa8@eldfell>
+ <ha7UwaZ0eilF_Hl6wWqJXJQ0oy9_rD1FKUNDwIlNxC-vT3InSP4bpTRwVnZG9QvzZBsX4W-p_vz5FfByoAXuGewyhVtwVd4KyRSMJ4G8cQ4=@emersion.fr>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
+MIME-Version: 1.0
+Content-Type: multipart/signed; boundary="Sig_/6bNbi9WwCvCAexOid30925v";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,96 +79,202 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: pierre-eric.pelloux-prayer@amd.com,
- =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
- =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
+ =?UTF-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>,
+ 'Marek =?UTF-8?B?T2w=?= =?UTF-8?B?xaHDoWsn?= <maraeo@gmail.com>,
+ Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>,
  Randy Dunlap <rdunlap@infradead.org>, xaver.hugl@gmail.com,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Pekka Paalanen <ppaalanen@gmail.com>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, joshua@froggi.es,
  wayland-devel@lists.freedesktop.org, hwentlan@amd.com,
- christian.koenig@amd.com, joshua@froggi.es
+ christian.koenig@amd.com,
+ Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/13/23 10:47, Simon Ser wrote:
-> On Monday, November 13th, 2023 at 10:41, Michel Dänzer <michel.daenzer@mailbox.org> wrote:
-> 
->> On 11/13/23 10:18, Simon Ser wrote:
->>
->>> On Monday, October 23rd, 2023 at 10:25, Simon Ser contact@emersion.fr wrote:
->>>
->>>>>>>>>>>>> +An atomic commit with the flag DRM_MODE_PAGE_FLIP_ASYNC is allowed to
->>>>>>>>>>>>> +effectively change only the FB_ID property on any planes. No-operation changes
->>>>>>>>>>>>> +are ignored as always. [...]
->>>>>>>>>>>>> During the hackfest in Brno, it was mentioned that a commit which re-sets the same FB_ID could actually have an effect with VRR: It could trigger scanout of the next frame before vertical blank has reached its maximum duration. Some kind of mechanism is required for this in order to allow user space to perform low frame rate compensation.
->>>>>>>>>>>
->>>>>>>>>>> Xaver tested this hypothesis in a flipping the same fb in a VRR monitor
->>>>>>>>>>> and it worked as expected, so this shouldn't be a concern.
->>>>>>>>>>> Right, so it must have some effect. It cannot be simply ignored like in
->>>>>>>>>>> the proposed doc wording. Do we special-case re-setting the same FB_ID
->>>>>>>>>>> as "not a no-op" or "not ignored" or some other way?
->>>>>>>>>>> There's an effect in the refresh rate, the image won't change but it
->>>>>>>>>>> will report that a flip had happened asynchronously so the reported
->>>>>>>>>>> framerate will be increased. Maybe an additional wording could be like:
->>>>>>>>>
->>>>>>>>> Flipping to the same FB_ID will result in a immediate flip as if it was
->>>>>>>>> changing to a different one, with no effect on the image but effecting
->>>>>>>>> the reported frame rate.
->>>>>>>>
->>>>>>>> Re-setting FB_ID to its current value is a special case regardless of
->>>>>>>> PAGE_FLIP_ASYNC, is it not?
->>>>>>>
->>>>>>> No. The rule has so far been that all side effects are observed
->>>>>>> even if you flip to the same fb. And that is one of my annoyances
->>>>>>> with this proposal. The rules will now be different for async flips
->>>>>>> vs. everything else.
->>>>>>
->>>>>> Well with the patches the async page-flip case is exactly the same as
->>>>>> the non-async page-flip case. In both cases, if a FB_ID is included in
->>>>>> an atomic commit then the side effects are triggered even if the property
->>>>>> value didn't change. The rules are the same for everything.
->>>>>
->>>>> I see it only checking if FB_ID changes or not. If it doesn't
->>>>> change then the implication is that the side effects will in
->>>>> fact be skipped as not all planes may even support async flips.
->>>>
->>>> Hm right. So the problem is that setting any prop = same value as
->>>> previous one will result in a new page-flip for asynchronous page-flips,
->>>> but will not result in any side-effect for asynchronous page-flips.
->>>>
->>>> Does it actually matter though? For async page-flips, I don't think this
->>>> would result in any actual difference in behavior?
->>>
->>> To sum this up, here is a matrix of behavior as seen by user-space:
->>>
->>> - Sync atomic page-flip
->>> - Set FB_ID to different value: programs hw for page-flip, sends uevent
->>> - Set FB_ID to same value: same (important for VRR)
->>> - Set another plane prop to same value: same
->>
->> A page flip is programmed even if FB_ID isn't touched?
-> 
-> I believe so. Set CRTC_X on a plane to the same value as before, and the
-> CRTC gets implicitly included in the atomic commit?
-> 
->>> - Set another plane prop to different value: maybe rejected if modeset required
->>> - Async atomic page-flip
->>> - Set FB_ID to different value: updates hw with new FB address, sends
->>> immediate uevent
->>> - Set FB_ID to same value: same (no-op for the hw)
->>
->> No-op implies it doesn't trigger scanning out a frame with VRR, if
->> scanout is currently in vertical blank. Is that the case? If so, async
->> flips can't reliably trigger scanning out a frame with VRR.
-> 
-> By no-op I mean that the hw is programmed for an immediate async flip
-> with the same buffer addr as the previous one. So this doesn't actually
-> change anything.
+--Sig_/6bNbi9WwCvCAexOid30925v
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-If a flip is programmed to the HW, it's not a no-op any more than in the sync case, in particular not with VRR.
+On Mon, 13 Nov 2023 09:44:15 +0000
+Simon Ser <contact@emersion.fr> wrote:
+
+> On Monday, November 13th, 2023 at 10:38, Pekka Paalanen <ppaalanen@gmail.=
+com> wrote:
+>=20
+> > On Mon, 13 Nov 2023 09:18:39 +0000
+> > Simon Ser contact@emersion.fr wrote:
+> >  =20
+> > > On Monday, October 23rd, 2023 at 10:25, Simon Ser contact@emersion.fr=
+ wrote:
+> > >  =20
+> > > > > > > > > > > > > +An atomic commit with the flag DRM_MODE_PAGE_FLI=
+P_ASYNC is allowed to
+> > > > > > > > > > > > > +effectively change only the FB_ID property on an=
+y planes. No-operation changes
+> > > > > > > > > > > > > +are ignored as always. [...]
+> > > > > > > > > > > > > During the hackfest in Brno, it was mentioned tha=
+t a commit which re-sets the same FB_ID could actually have an effect with =
+VRR: It could trigger scanout of the next frame before vertical blank has r=
+eached its maximum duration. Some kind of mechanism is required for this in=
+ order to allow user space to perform low frame rate compensation. =20
+> > > > > > > > > > >=20
+> > > > > > > > > > > Xaver tested this hypothesis in a flipping the same f=
+b in a VRR monitor
+> > > > > > > > > > > and it worked as expected, so this shouldn't be a con=
+cern.
+> > > > > > > > > > > Right, so it must have some effect. It cannot be simp=
+ly ignored like in
+> > > > > > > > > > > the proposed doc wording. Do we special-case re-setti=
+ng the same FB_ID
+> > > > > > > > > > > as "not a no-op" or "not ignored" or some other way?
+> > > > > > > > > > > There's an effect in the refresh rate, the image won'=
+t change but it
+> > > > > > > > > > > will report that a flip had happened asynchronously s=
+o the reported
+> > > > > > > > > > > framerate will be increased. Maybe an additional word=
+ing could be like: =20
+> > > > > > > > >=20
+> > > > > > > > > Flipping to the same FB_ID will result in a immediate fli=
+p as if it was
+> > > > > > > > > changing to a different one, with no effect on the image =
+but effecting
+> > > > > > > > > the reported frame rate. =20
+> > > > > > > >=20
+> > > > > > > > Re-setting FB_ID to its current value is a special case reg=
+ardless of
+> > > > > > > > PAGE_FLIP_ASYNC, is it not? =20
+> > > > > > >=20
+> > > > > > > No. The rule has so far been that all side effects are observ=
+ed
+> > > > > > > even if you flip to the same fb. And that is one of my annoya=
+nces
+> > > > > > > with this proposal. The rules will now be different for async=
+ flips
+> > > > > > > vs. everything else. =20
+> > > > > >=20
+> > > > > > Well with the patches the async page-flip case is exactly the s=
+ame as
+> > > > > > the non-async page-flip case. In both cases, if a FB_ID is incl=
+uded in
+> > > > > > an atomic commit then the side effects are triggered even if th=
+e property
+> > > > > > value didn't change. The rules are the same for everything. =20
+> > > > >=20
+> > > > > I see it only checking if FB_ID changes or not. If it doesn't
+> > > > > change then the implication is that the side effects will in
+> > > > > fact be skipped as not all planes may even support async flips. =
+=20
+> > > >=20
+> > > > Hm right. So the problem is that setting any prop =3D same value as
+> > > > previous one will result in a new page-flip for asynchronous page-f=
+lips,
+> > > > but will not result in any side-effect for asynchronous page-flips.
+> > > >=20
+> > > > Does it actually matter though? For async page-flips, I don't think=
+ this
+> > > > would result in any actual difference in behavior? =20
+> >=20
+> >=20
+> > Hi Simon,
+> >=20
+> > a fly-by question...
+> >  =20
+> > > To sum this up, here is a matrix of behavior as seen by user-space:
+> > >=20
+> > > - Sync atomic page-flip
+> > > - Set FB_ID to different value: programs hw for page-flip, sends ueve=
+nt
+> > > - Set FB_ID to same value: same (important for VRR)
+> > > - Set another plane prop to same value: same
+> > > - Set another plane prop to different value: maybe rejected if modese=
+t required
+> > > - Async atomic page-flip
+> > > - Set FB_ID to different value: updates hw with new FB address, sends
+> > > immediate uevent
+> > > - Set FB_ID to same value: same (no-op for the hw) =20
+> >=20
+> > It should not be a no-op for the hw, because the hw might be in the
+> > middle of a VRR front-porch waiting period, and the commit needs to end
+> > the waiting immediately rather than time out? =20
+>=20
+> I'm not sure=20
+
+Would people not want to use async commits to trigger new VRR scanout
+cycles without content updates?
+
+I seem to recall previous comments that switching between sync and
+async commit modes may take a moment (intel's one last sync flip), so
+using sync once in a while then using async otherwise is probably not a
+good idea.
+
+> > > - Set another plane prop to same value: ignored, sends immediate ueve=
+nt
+> > > (special codepath) =20
+> >=20
+> > If the sync case says "same", then shouldn't this say "same" as well to
+> > be consistent? =20
+>=20
+> Okay, I think I chose my words badly. By "same" I meant "same as
+> previous item in the list".
+>=20
+> Here I tried to be more explicit and explain why it's the same behavior.
+> We have a special path in the kernel code that ignores the change, but
+> the effective result is that it doesn't differ from the sync case.
+>=20
+> Here's a fixed matrix where I don't use confusing words:
+>=20
+> - Sync atomic page-flip
+>   - Set FB_ID to different value: programs hw for page-flip, sends uevent
+>   - Set FB_ID to same value: programs hw for page-flip, sends uevent (imp=
+ortant
+>     for VRR)
+>   - Set another plane prop to same value: programs hw for page-flip, sends
+>     uevent
+
+Programming hw for page-flip probably triggers a new VRR scanout cycle,
+even if the FB address didn't change.
+
+>   - Set another plane prop to different value: maybe rejected if modeset =
+required
+> - Async atomic page-flip
+>   - Set FB_ID to different value: updates hw with new FB address, sends
+>     immediate uevent
+>   - Set FB_ID to same value: updates hw with new FB address (no-op for th=
+e hw),
+>     sends immediate uevent
+>   - Set another plane prop to same value: ignored, sends immediate uevent
+>     (special codepath)
+
+Just like Michel points out: if this case has a special case ignoring
+the set, then this case will not trigger a new VRR scanout cycle like
+the corresponding sync case does.
+
+>   - Set another plane prop to different value: always rejected
 
 
--- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
+Thanks,
+pq
 
+--Sig_/6bNbi9WwCvCAexOid30925v
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmVR9ywACgkQI1/ltBGq
+qqcOLg//aENH/YGXJFSAaa7U/b5a15bjSk0KT6YsWFgdxSVo+At/1BIdx8tPVQuo
+s/haxSzjuNba/YLevARZVFsGBCyYQG+BLqE1M1q5g6umjjgS9Yhw2B8Ik2elnxSY
+U8o575TWYmq+9SMVK2qxXUNKbomxGtLUSCNC67yLRD+Xtz2prBgox/QCkxSZTPcz
+W/x+rLN/93IdU5sEF73uoH7rGReovDupVimwEnCRIxlwEMT4xtZmRVDRVITkx16I
++oZaZnLZE4V8G6BaFtMFkhN33Z13g/lxA71MbCNdVAamSOepQaC+MP0BqF49QEnr
+NXkKckUK7dx+sjVEpW/6CHKZ/7u8ewxBjdtxKMFKSMuYFpIASZeaUz3QSK+Ke2py
+zWji+lFYgtr/HIKbkdVHjI0Q/4OtQPmujzAPFioM2VD4r1p/apkeW1Ikf+ZrxlWk
+XXvxBVyMyTker23+EQC97g+CyDNApinc88V5ab0GrzQMC9gWQBCLn34/TqRq2tsZ
+ymxYWI3R4YOKqSXLPesE0e/sVDyN1sURAWNvUz1W3Ymm4Y7L/LF5YZbDH/UbcZhW
+0J3+JgrCDoHOKTPmAx6OTyGZxZ/QH4I/5c00JOlxbtl1D/8xF7/OfbGCACIhZoY0
+QWa6q1cMsPd4O1hKBHAvkSWHBV7PQEf6ljHq/5MlzDDLLAAJNZs=
+=LCPG
+-----END PGP SIGNATURE-----
+
+--Sig_/6bNbi9WwCvCAexOid30925v--
