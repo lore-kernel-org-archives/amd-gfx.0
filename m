@@ -4,93 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00EAAC54E6B
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Nov 2023 20:09:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 231FBC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Nov 2023 21:01:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7CF610E4D6;
-	Tue, 14 Nov 2023 20:08:45 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2064.outbound.protection.outlook.com [40.107.94.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E68F10E4CB;
- Tue, 14 Nov 2023 20:08:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F47410E0FD;
+	Tue, 14 Nov 2023 21:01:24 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2070.outbound.protection.outlook.com [40.107.244.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8371210E02E;
+ Tue, 14 Nov 2023 21:01:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SLFqqwBliHfL5CRK424gmlMBxUetwKos43G+9Gk2pOKiEzjbT8RjRaWQfLL7y1SXkkBdgFp6Qu6fIH91r0SBo2K6fVySdbL1sNLBeNEnXz6G3vmwPYXYmD0RSgidek8KqExpbcpEV5SEvZ05r0uquR5u21hnqhRVaNatrZAYzaYarfdMOWbq7fNkJHiTAbEKd7BA7omebk5uTnT3t2YLOl70TUeEZ7GDLoE2G3kRQJ4bAaOYMLDD+1CPbcaVfbWKWFhx9nOxe/cEOU97hg48dc9WIP4qsGj3P/O6fsR5wJjuz2OQEP5gDudka/ZLkeF5C2iQwxK35rLkYfRe587EDA==
+ b=NWN/j3etZd+47G+ZvneYvfMBK4DNRKWfhc4VBJt16GoXdPwkPmkcBz56w0ZMWjbLKK0LjQyk9zTj3KmY8gIlO3CondyNxxtMiZ1Yvj5vZxHDS4/J7xEeQ9kJuogMgY+8SppTHotASdEB3J2T5TyhNim9dnmembg1jcgLtE2l8LqPWOrHx8jEytFc+//IB7ehnymurVRO6VErKBD0LTokrnQOPBiyp+PLczEPcvmQ6xXtOPc4PLMCI8Xury32MQ4CZqFUGLVy3rVUaEyMYdfty/6C1Oz+xgEHB27awFgKn68KZnGhTBIrtwozXRQnf1NmJiXUhkE1wy7mUdu5hZUZig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QJzGKPDUmP7pviUBNdyibSeuU9WM7t2twfOHK0K1rUY=;
- b=fDc/P8+CuBXwMv71paD72ag+YpsWPzdBLk2ISG3YX2YuNUmJUpLmpqijduxwWg1cvLgo4+RxtObpQZaAABweP4CSl45Ba4osMVGGoqpGijP5zoTd4FNWbBVmYUxFdk8Y92YDlL5IXfwFBa7N+zbrCbqu7ix0jZmpDBgCFKr0PhrzgulZ9x6G9L2uePrBG1cPSYcn4ayQnmj7r9lfnrKeH/+m+7LGAf2BsaOgZRunOsUtphvWs8yXLwwSYNWKkohGC9Ti1RVwB+57qi/omKcrvB7cF0fLQ/Y6k8cnet1ycKkuuISvBNSHiTom6sVLA8jmdJWnrRWIxkcOgM+gcB1VDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ bh=bMy3a6q41TetShNkIiUHauKfv/BFEDOhF0VSlxLQSzk=;
+ b=asD5EPwTWS5t4mbuYHvgvzpA0jHDCfzPLgJ+sAUSwSdO2ZiN2Nm/d1sjeieYP/Wvv/ttxoi93i69cRCoQI5366Xxk3qW8rby84YTWKHY+YbDQk0FK88CLIyWjo63i/svpyUlfK7NJLJl3TeMvrhiVUauAaaXHT+X8jFZDcdK8sulsf2aN+qIvL2Ds/RRHj3iZe+Nj4Y/AktveI2S4Rb/tdbI4HsHPv/zoVrajvuO4i8nzF+YH28iOLc83aHwXzjIyzOnO+HWJ1+9Hvj6Ubqk2eRadrZSzDKnMSiZiG34P0ICqPJ/3KD8VhPe/RfqlsgBOFcQAUSUm1XbITNDlgBGeg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QJzGKPDUmP7pviUBNdyibSeuU9WM7t2twfOHK0K1rUY=;
- b=mcOGpZwCtYx/uY9lW5p07eYdz1td1/xiFRpHXFv7XL26c9z6BoPRPcUKI1XnUODuGym9XVy/eHDLKRV2sTFxAwgxYNxlk4ejN2YGouIP7R6AxwIJj+BP78LYE9hjA1Axzyc20ZvYYvrrRHB7ZyPgJNGhjd5q5A7AhHHcg944ocw=
-Received: from BLAPR03CA0153.namprd03.prod.outlook.com (2603:10b6:208:32f::19)
- by DS0PR12MB6392.namprd12.prod.outlook.com (2603:10b6:8:cc::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.17; Tue, 14 Nov
- 2023 20:08:34 +0000
-Received: from BL02EPF0001A103.namprd05.prod.outlook.com
- (2603:10b6:208:32f:cafe::87) by BLAPR03CA0153.outlook.office365.com
- (2603:10b6:208:32f::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.31 via Frontend
- Transport; Tue, 14 Nov 2023 20:08:34 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A103.mail.protection.outlook.com (10.167.241.133) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7002.13 via Frontend Transport; Tue, 14 Nov 2023 20:08:34 +0000
-Received: from test-TBI1100B.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Tue, 14 Nov
- 2023 14:08:32 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, "Alex
- Deucher" <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>, "Mika
- Westerberg" <mika.westerberg@linux.intel.com>, Lukas Wunner <lukas@wunner.de>
-Subject: [PATCH v3 4/7] PCI: pciehp: Move check for is_thunderbolt into a quirk
-Date: Tue, 14 Nov 2023 14:07:52 -0600
-Message-ID: <20231114200755.14911-5-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20231114200755.14911-1-mario.limonciello@amd.com>
-References: <20231114200755.14911-1-mario.limonciello@amd.com>
-MIME-Version: 1.0
+ bh=bMy3a6q41TetShNkIiUHauKfv/BFEDOhF0VSlxLQSzk=;
+ b=JbCyR7WdOyRfIqqlq458NzVyMF36L2tBRxGaYIU+FlJZJpz3jYo5AUBTfyZoWEKoKKw2JQ24kGn7v0dsmv8b1Gmx20/rFeVpeCJry9Ty/hprgKhRaIDmBf/1noaZ5VsUFdVOAxOhQF0rq3F3zXz/d4Brfs7AaWTHM5yTAreBWg4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) by
+ DM4PR12MB5722.namprd12.prod.outlook.com (2603:10b6:8:5d::11) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7002.17; Tue, 14 Nov 2023 21:01:19 +0000
+Received: from DM4PR12MB6280.namprd12.prod.outlook.com
+ ([fe80::5588:7117:d54e:9466]) by DM4PR12MB6280.namprd12.prod.outlook.com
+ ([fe80::5588:7117:d54e:9466%7]) with mapi id 15.20.7002.015; Tue, 14 Nov 2023
+ 21:01:17 +0000
+Message-ID: <689f3862-09d5-448d-b418-fd52d7288106@amd.com>
+Date: Tue, 14 Nov 2023 16:01:14 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amd/display: fix NULL dereference
+Content-Language: en-US
+To: =?UTF-8?Q?Jos=C3=A9_Pekkarinen?= <jose.pekkarinen@foxhound.fi>,
+ harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ skhan@linuxfoundation.org
+References: <20231114152751.30167-1-jose.pekkarinen@foxhound.fi>
+From: Hamza Mahfooz <hamza.mahfooz@amd.com>
+In-Reply-To: <20231114152751.30167-1-jose.pekkarinen@foxhound.fi>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YT4PR01CA0068.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:111::28) To DM4PR12MB6280.namprd12.prod.outlook.com
+ (2603:10b6:8:a2::11)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A103:EE_|DS0PR12MB6392:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9abb656f-3e41-40b1-15e6-08dbe54d7b25
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6280:EE_|DM4PR12MB5722:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1601b413-be29-416a-d365-08dbe554d899
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jMOIA6xYltxfdXkxdG8T5SNQSet4XxKcJUYea9nqU/AGmbdBm/3l0O9MOhguF4Jye6V9bSgAp55xqDHW2vyRgJ44UnWcb5yOa5lXWDQPsKqo+Qn5Eb/8ewCg65MwtveWRvu1KPDaSqGQp1CdXDwZ5OkQcLg8dA0xe3Pv4w1uNHvu8KADEYRIJ/nm6oUjFn4LcgJWUpxxwGvQfM/jnuUksw2ejUE6EZbdzPk7c14ClOUIT/SZdB8GMhW0hyQl4nSSF1/8McopxnTBtObagCAv/EJsIE6bqJe2by+DhWkp0YvE7xy5gjp1cZCubyvtElaYblAkGPo9tksJuw6cYgIlxt2WXHNnqOXIqyMlZSPq6jM84wfPQpoE6UA+QLVYswFHt6WcJun31oFAaZuvrQZJr2vj+Xihwig0NvVWCtkB//HkvXe6JNyG8lxiLmUS5OaRX3llwusJNYH0bmT2McMW7go2jRcdQ1YUtsQpGxX1wZIVJw1BjiL2xgVjjc8p0t4aCKVKM+ed7R29gb1D+MWc+kze9YtXSwvIbPisE75k/Apj7kl6kzOYZfoAj7g/ymWMWWEepxI6IlYfiRlWtdvtsKH+nZppsKsFO9PzGaGmhF1/zfmd5aWw+1mcDBQ0tSF3WpZXjcRFHEjIZ6CK+vYsrsg25mqT1028Qxh6NX/NTpOTJQOTeBjEYiNQNAxJ1XsSi6TEy++8jj2FaMs0h71hVZYzIm5elxX4/fbmmzX6nmLey/bviK53zmIpvN0/4cV/U8BH4GT3sWSeq943r85igA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(136003)(39860400002)(396003)(346002)(230922051799003)(451199024)(186009)(1800799009)(82310400011)(64100799003)(36840700001)(46966006)(40470700004)(40460700003)(36860700001)(41300700001)(54906003)(70586007)(70206006)(86362001)(110136005)(36756003)(356005)(81166007)(82740400003)(478600001)(16526019)(26005)(1076003)(336012)(6666004)(2906002)(426003)(7696005)(7416002)(2616005)(5660300002)(83380400001)(40480700001)(44832011)(316002)(47076005)(4326008)(8936002)(8676002)(36900700001);
+X-Microsoft-Antispam-Message-Info: HpRsVqnykqLEuNaveGV9tMyITIUBj9SxE/MAPymLDIeAmB5TSxTJaT0sVBSt2OTwso5rILcESBf7EgUAuetL9l9/cNGKApaVCrmaZCAh/aThD1uTSVdIWv2Jr9045fj7DjyK+h8A1HJCdNZnOjazEmyMabTI510kMQrkq8XlEF20ci6iX1sTRXyKV3dLZBSMYRinBEdXoUPJqOEqvF93B1WmjzGz7wCXVk6QbRn1juewxL64C8mqJdQ4obH5ROo4VhMtIY/pXNLIIepvFdiqbA2mGgTCCPM0dx2IcQ3BUaTgxNzklxTWnXLfoMsko9lxjgfvZ0wMWVWOUrdsqdBagmbEE52kqqbKiRC2rg9FdLXw8HG4HETFHFviipERbuprpQbbDAPUZBHFzOvVSzs0oU8SHYZ8HtqU4R1d3GLo9pT4Badh8rRDJ4jcRXqaZTsW5KMU7oJ8E0Pr4MR/tlupNFAa8FdTsqcNvdYQXqKW4e5TJy/Uq12WfUSXC8gFiPNtG2yAO6pbdXJEEh+2I8zXO9qXcjs2/Elg2Kak5W1t16w87/DCXG13ND1uQ5MySSuhxMZBNzjFsDKGpa4K+1TX1CEtDfAg2war7fAdTQjwVhrwiJsEdzbve0YiVh5QZDk+wvYptUqvLVEplk8hwcTZow==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6280.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(346002)(366004)(39860400002)(396003)(376002)(230922051799003)(451199024)(1800799009)(186009)(64100799003)(26005)(53546011)(6506007)(6666004)(2616005)(6512007)(83380400001)(44832011)(8936002)(5660300002)(4326008)(8676002)(41300700001)(2906002)(6486002)(478600001)(316002)(86362001)(66476007)(66556008)(66946007)(31696002)(36756003)(38100700002)(31686004)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?emdFVGd3YUJaZmJ5TEF3MGRwRkc1YmY0aExRbHBZMWF4WVVyYnd2b25zMldo?=
+ =?utf-8?B?b0xWeWdmL2hjVC9XZ2xDVXRHcjl1QUsrbEpEbHpzSlJrVWg1NEZOOWVJTXkx?=
+ =?utf-8?B?S0VmRm81VXhJU05McGIrS203NmJqNjdGZXBHejV2K3hyL3FPcTIxRk56KzZO?=
+ =?utf-8?B?NWViNFlxYjlJU1pQMTdlWVBvWHQ4ejBWYnBxS0U1citlbk9KbU9zZ1pQTWhW?=
+ =?utf-8?B?MG55c1JrRWJpcVB5eEcvM3dVYTZ2d1FsWnl2bUNwME53VzNiQUw5NTQ1ZnlE?=
+ =?utf-8?B?eExvSS9Hb2JiL05Ra0RNYTMramdVb3pMRVZiajZib2E0VmEwVWtpRy8reVhv?=
+ =?utf-8?B?ckdKWTBuOWY3Zzk5NDRadEgvdXRKSTJFWlM3SS91MDV2OVRBY1FZcVI4WGZt?=
+ =?utf-8?B?K2czR3Q1RFNUMFh0amZwZ3huL1ZTREdSRFFtY2VONFdjMkRENUdxRzN6Mk5k?=
+ =?utf-8?B?YXBoQi9MRnFhOW1wTkllU0RpQUc3SlBzVkxla3hicG8rdzhML3R3QTN3d2po?=
+ =?utf-8?B?eGRLM0s1Um9neUQ3WWNFekpmN3h4NW5rM3BaK3RRLzcxMGhYOUVYUmJySzIr?=
+ =?utf-8?B?SERqV2J4QllvWmwwMWJpTEU3cE5ERjBwaE42Q0xWY2o5UDJoNWZBSFV6NDdW?=
+ =?utf-8?B?M3lSaFR3ZmRONml3aE96M2tOL3pJZVhlWU9ncTNJWS9PVk4ybXMvSnFFMlRq?=
+ =?utf-8?B?SUg4cjBFU0huL2ZHa2F6TkRxUTIwMURSVmJCQ3dzNlZXbzFnbFNETEJjY0Nx?=
+ =?utf-8?B?elRZKzVWRE5mRW1pYXExSUg2V2N1K2VSUXZhUk5KMGNwM042dGN5eDV1L0Jz?=
+ =?utf-8?B?MU9odjZNV0F6cjlwbjZGN1ZCKzRHT2dOSkkxQWRzbzc3eE1ndmN2NitOMWNq?=
+ =?utf-8?B?cU5nemd0MHJRZklXZjllR2Y0MVNQSmVBUGQwSEhwektlNGxoeFJ2QzhCRGFZ?=
+ =?utf-8?B?SGwxc2tqSXdUaWtpR2pXUnY1MnFPSDJxbk5RUlJMbHpyNWdjL2JtbmVZY2NK?=
+ =?utf-8?B?WkVIWmt2TlR4M2V6RDB4SHQzMjNkTHh2bUpFSmgvaHg0SnowNmlSdnRzaFJW?=
+ =?utf-8?B?bkFqd2dwb3RpRzZUWWU4VHYzMlZkRHB5WUlFMzZNSUNBWGk3QUhDSmJVbjZG?=
+ =?utf-8?B?VjF0Z0wvcTNhMm1ubmxIdVA2Z1lzWDJ6Uk10ZjZtcjVHWC85NFQwc1ZEWW1W?=
+ =?utf-8?B?bElpL3Z4TEYrM202d3JtaTdmTnU5RERiemc2K1l4dFVRa0JISXNhWHk3dnd2?=
+ =?utf-8?B?eGFwd1pvYnZnZzF4dHg0WmtjdDFJamNGVWNZdEhrWldBNnBQbGM4TnFIbi9O?=
+ =?utf-8?B?OTRRM2g2QWNxSUxoTmpDNEs4V05PZ2lDbVNJenlhR1JVLzVjRkRTcG9FWW5K?=
+ =?utf-8?B?QWdrQ3JvS1RFVlNXVTV0T1BCTzltdmVmYUlEakxUS1M5RFVZSmplQVdoQkc0?=
+ =?utf-8?B?U0tmTllQL3ArL0FEREdtNVNnQlppRXNvUHEyZThvQjVUZmY4bWIxclRwdnNN?=
+ =?utf-8?B?LzNhU1lCSVFRQk10WFFGd0VGMEJrRkFuWm5YSzV6SzhnWnNsN1lBVkJ6dTZC?=
+ =?utf-8?B?NEhjb0F1cVhySmNxMnV5eUtSMGswK1psL25CTFBzdjBRY0ZoSURnZkk1Z3gv?=
+ =?utf-8?B?c21rRDNjSGVRaHpjSUxaZTRzbzBwWnpKZ1BtdUtrUmg4N3p3Q2toYWhFeU1J?=
+ =?utf-8?B?OXRRNEhOM1JQa0xnbUxiOUkrcjlDb29LM2NpN1J0L1JGeFBmNXd0NkxmcWZq?=
+ =?utf-8?B?a0Z6UW9VK2FDS3JMMElFSTlFbGRjeEwwR0xpd1JGWVFmOEJEZ3VQNXVOc1NL?=
+ =?utf-8?B?UE1icXV3VFBtYUxBd3JBZlpHcCs2SnNiWE5jTDR6elNJbkYzQ042MGx1NFdt?=
+ =?utf-8?B?STM5RnNjMEFGR052MlFUd25EdVJrUllRUnpkWlptekxRYkc4Y2xRdG1CS0Vi?=
+ =?utf-8?B?YkZaK3d0V01YaEQ2QkxhTHlHM2tmckdyMGVqMnYrbE1hMUd5RkE5cUdMK3B0?=
+ =?utf-8?B?YldiemNqb00vM0E2a2cxZVZZSWlLd0xGajhQd01KTTdNK1BueGd0aHJrL2VY?=
+ =?utf-8?B?MVh6NitsaDNOd2U3YWFZWmZBYXhVM295dDZDMCtBTGZlaldkWGtTMjlmcDJX?=
+ =?utf-8?Q?ncgwtksjb9BtFb3wWRD/uctj3?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2023 20:08:34.2765 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9abb656f-3e41-40b1-15e6-08dbe54d7b25
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1601b413-be29-416a-d365-08dbe554d899
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6280.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2023 21:01:17.8398 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A103.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6392
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uc+Sp1/+ev8TMDIRsmEmV1xr3Lz1dW8u228QxJRzblLTM8BlL3EoSPMjufZUQVYSQg/8LtWKqEYMByfrIe22Aw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5722
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,107 +125,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
- "open list:RADEON and AMDGPU DRM
- DRIVERS" <amd-gfx@lists.freedesktop.org>, "Rafael J .
- Wysocki" <rafael@kernel.org>,
- "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
- =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
- Xinhui Pan <Xinhui.Pan@amd.com>, Manivannan Sadhasivam <mani@kernel.org>, open
- list <linux-kernel@vger.kernel.org>, "open list:DRM DRIVER FOR
- NVIDIA GEFORCE/QUADRO GPUS" <dri-devel@lists.freedesktop.org>,
- "open list:ACPI" <linux-acpi@vger.kernel.org>,
- Danilo Krummrich <dakr@redhat.com>,
- Mario Limonciello <mario.limonciello@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- "open list:DRM
- DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS" <nouveau@lists.freedesktop.org>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- David Airlie <airlied@gmail.com>, "Maciej W . Rozycki" <macro@orcam.me.uk>
+Cc: srinivasan.shanmugam@amd.com, qingqing.zhuo@amd.com, wenjing.liu@amd.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ aurabindo.pillai@amd.com, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Wayne.Lin@amd.com, mikita.lipski@amd.com, airlied@gmail.com,
+ linux-kernel-mentees@lists.linux.dev, sungjoon.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-commit 493fb50e958c ("PCI: pciehp: Assume NoCompl+ for Thunderbolt
-ports") added a check into pciehp code to explicitly set NoCompl+
-for all Intel Thunderbolt controllers, including those that don't
-need it.
+On 11/14/23 10:27, José Pekkarinen wrote:
+> The following patch will fix a minor issue where a debug message is
+> referencing an struct that has just being checked whether is null or
+> not. This has been noticed by using coccinelle, in the following output:
+> 
+> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c:540:25-29: ERROR: aconnector is NULL but dereferenced.
+> 
+> Fixes: 5d72e247e58c9 ("drm/amd/display: switch DC over to the new DRM logging macros")
 
-This overloaded the purpose of the `is_thunderbolt` member of
-`struct pci_device` because that means that any controller that
-identifies as thunderbolt would set NoCompl+ even if it doesn't
-suffer this deficiency. As that commit helpfully specifies all the
-controllers with the problem, move them into a PCI quirk.
+You only need the first 12 characters of the hash here. I have fixed it
+for you and applied the patch in this case. But, in the future please
+test your patches against `./scripts/checkpatch.pl` before submitting
+them.
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
-v2->v3:
- * Reword commit message
- * Update comments
----
- drivers/pci/hotplug/pciehp_hpc.c |  6 +-----
- drivers/pci/quirks.c             | 20 ++++++++++++++++++++
- include/linux/pci.h              |  1 +
- 3 files changed, 22 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/pci/hotplug/pciehp_hpc.c b/drivers/pci/hotplug/pciehp_hpc.c
-index b1d0a1b3917d..40f7a26fb98f 100644
---- a/drivers/pci/hotplug/pciehp_hpc.c
-+++ b/drivers/pci/hotplug/pciehp_hpc.c
-@@ -992,11 +992,7 @@ struct controller *pcie_init(struct pcie_device *dev)
- 	if (pdev->hotplug_user_indicators)
- 		slot_cap &= ~(PCI_EXP_SLTCAP_AIP | PCI_EXP_SLTCAP_PIP);
- 
--	/*
--	 * We assume no Thunderbolt controllers support Command Complete events,
--	 * but some controllers falsely claim they do.
--	 */
--	if (pdev->is_thunderbolt)
-+	if (pdev->no_command_complete)
- 		slot_cap |= PCI_EXP_SLTCAP_NCCS;
- 
- 	ctrl->slot_cap = slot_cap;
-diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index ea476252280a..fa9b82cd7b3b 100644
---- a/drivers/pci/quirks.c
-+++ b/drivers/pci/quirks.c
-@@ -3809,6 +3809,26 @@ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_CACTUS_RIDGE_4C
- DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_PORT_RIDGE,
- 			quirk_thunderbolt_hotplug_msi);
- 
-+/*
-+ * Certain Thunderbolt 1 controllers falsely claim to support Command
-+ * Completed events.
-+ */
-+static void quirk_thunderbolt_command_complete(struct pci_dev *pdev)
-+{
-+	pdev->no_command_complete = 1;
-+}
-+DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_LIGHT_RIDGE,
-+			quirk_thunderbolt_command_complete);
-+DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_EAGLE_RIDGE,
-+			quirk_thunderbolt_command_complete);
-+DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_LIGHT_PEAK,
-+			quirk_thunderbolt_command_complete);
-+DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_CACTUS_RIDGE_4C,
-+			quirk_thunderbolt_command_complete);
-+DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_CACTUS_RIDGE_2C,
-+			quirk_thunderbolt_command_complete);
-+DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_PORT_RIDGE,
-+			quirk_thunderbolt_command_complete);
- #ifdef CONFIG_ACPI
- /*
-  * Apple: Shutdown Cactus Ridge Thunderbolt controller.
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index 1fbca2bd92e8..20a6e4fc3060 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -441,6 +441,7 @@ struct pci_dev {
- 	unsigned int	is_hotplug_bridge:1;
- 	unsigned int	shpc_managed:1;		/* SHPC owned by shpchp */
- 	unsigned int	is_thunderbolt:1;	/* Thunderbolt controller */
-+	unsigned int	no_command_complete:1;	/* No command completion */
- 	/*
- 	 * Devices marked being untrusted are the ones that can potentially
- 	 * execute DMA attacks and similar. They are typically connected
+> Signed-off-by: José Pekkarinen <jose.pekkarinen@foxhound.fi>
+> ---
+> [v1 -> v2]: Remove the debugging message, requested by Hamza
+> 
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 5 +----
+>   1 file changed, 1 insertion(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> index ed784cf27d39..c7a29bb737e2 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> @@ -536,11 +536,8 @@ bool dm_helpers_dp_read_dpcd(
+>   
+>   	struct amdgpu_dm_connector *aconnector = link->priv;
+>   
+> -	if (!aconnector) {
+> -		drm_dbg_dp(aconnector->base.dev,
+> -			   "Failed to find connector for link!\n");
+> +	if (!aconnector)
+>   		return false;
+> -	}
+>   
+>   	return drm_dp_dpcd_read(&aconnector->dm_dp_aux.aux, address, data,
+>   				size) == size;
 -- 
-2.34.1
+Hamza
 
