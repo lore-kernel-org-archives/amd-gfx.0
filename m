@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24087C072A2
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Nov 2023 19:44:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA183C54FB9
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Nov 2023 19:44:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B058F10E587;
-	Wed, 15 Nov 2023 19:44:38 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2089.outbound.protection.outlook.com [40.107.100.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14FC510E585
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Nov 2023 19:44:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4155F10E588;
+	Wed, 15 Nov 2023 19:44:41 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2089.outbound.protection.outlook.com [40.107.94.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2E4510E583
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Nov 2023 19:44:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cJmFMlDaxYpr+JnJAUcxC46uz1n6FaQ/rAnegEAL8c5hsOeOeH24qrN5hPTo4cFTZpcCpXdmNa+NAe6yBw5ce6t73Be9JWKvqLJ6cIb6+X2es0rAZtlYXd44Nw2ToTdpkT5sKatbunjSeZ/W37bZ47zaVI96OEHusGkfNFvMntxoSiIKE2ay8WvtwR2IuDGeoI3IBXfoGIa997Hi8JOnA9ixSmaPg/fAa6UPtYwcfpBlHTrmNvwm6xb6DDp79QyDjdZTThv4B2JRwm/RVu2T/fBt3hUmP0WNZxEPGVc9aABjNO6kWaju9eRKPR02Jh/cnBgTvT42tcmYs2KWJUErqw==
+ b=nre5hG6d63KGMc/e1XXgG7adhxpg+4JuK/IwCBT3TsITXBYdUPmhlpGmOLyqLC19vv+dbeNn7xuyK2u+lKwBMyaXuYd0d9wMS9NRshC95MRYzMh6BzzeEmUHvKECpGi4gmo6N8B5otEq9OmmTvdKETnVYRcHr4gObAH4vinl3i12Ux7+318jTKShknj+g6B0ZYcZ65KPioAI6HK7gfmtYX46LX+9yrIZZTLoVQtp940vLOHBTmnHLnCKKhzsskxJSByx87lQiis6aZoeIu0retTblalR4KvIH5wj/1C9VaBrELqh195fsQNVClLOgYa7XVyT2iVj/gALXo1nZwrwtQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=boKwHu/4O5xigN4QmKpvqPX/Gt5SlX7DgXka/3B6Sb8=;
- b=Joz6bWACu3ik4Cjb3ob6zDrrwgijpFri+aJeciKEjWBuvQfHO0Z5psu3kIdCeavoXbpABoofDUhx+tPt/wjKUuWCFvcb929Es7ANRo5aLf+wNr9JgyTvoRzu1PdV4cAUUAOMqzPmeh7U468aVORDepCe1m5E09nNaas4PYeKLv5YVhKXfP0RWCdsFpituTvOGbyMWbaPHvoBlmlC7hPIOL13Z0tWwQvxSBm+9xbTg3lLQ978ljoDQIcWPPKuWrG7lrlWeAW5O3IkcCewX/0eeueWePDrR8W0ywUyAZFc8Y4b3n2jFE6LfCzqMbr5HqZdAcf7JWOwLYPl4Xt0MUiryg==
+ bh=9n+ZuVAK/GEXVD5syziglSB1kjIUt40j5YUcjykueFM=;
+ b=lhX+BmZlIGkgU8TgVW85qIazGZCafAcO0K6UBrYmu4uygM0A/vQq7DTsEI1F/EF6kEPcHceTRAqMisGmWJseamzdT5en6o00hD9171A/svpV1LwT5i5+W1k9mV1e9ygTpAOtA3dYRhvJVuSE0i1a2TSUdgWVZ1xrfBqVXlQdf2rhh6PQBf5686spRw8mZ0rWXCgfZsd4ozc8DjBrffcem9NswnZyyluG6lSA5/n6R50tX9i9VqG4iTfOchW4C8Nz5tDPyCEyiCnc/71FP7S5SY2oloh+C5FLlrini1tgOs7Sp3nY5NgljVBrFFeFHTjMsNQgKlb0WLz1F3bP9kraEQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=boKwHu/4O5xigN4QmKpvqPX/Gt5SlX7DgXka/3B6Sb8=;
- b=icBxmIlfagSVXjgDEbcX/qqykbPAzLNWzYLp1ODDiYnzd1zp3xS61drqOWI4+wtPEAZpfiH5HXG9VykY8MnDGdLgOesJNS6foYoRSOJrDfPUsjxGItaHDLCk1Ej+iRzrKN2/EBBGnzAidU7WKSm+wDpm8uesTp4VYNUFcieMwA8=
-Received: from BL1PR13CA0261.namprd13.prod.outlook.com (2603:10b6:208:2ba::26)
- by BY5PR12MB4211.namprd12.prod.outlook.com (2603:10b6:a03:20f::19)
+ bh=9n+ZuVAK/GEXVD5syziglSB1kjIUt40j5YUcjykueFM=;
+ b=AeBXDSxadThlB+/CSV19T4zf3j2oXNT+7EeJ7SyPEY0tmMlSzUKWvD/Drc98wOQ944nYKAqvXRDtBKQKtRofQVNT0aqcnwUn8sdo5g5VmL05BA4Ko/AlCbKc3bwLFaY4ENI8MCOk4m6FD0FjzrLfUJdcU5a9YPF5YKQVEQIoHw8=
+Received: from BL1PR13CA0118.namprd13.prod.outlook.com (2603:10b6:208:2b9::33)
+ by MN6PR12MB8469.namprd12.prod.outlook.com (2603:10b6:208:46e::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.17; Wed, 15 Nov
- 2023 19:44:33 +0000
-Received: from BL6PEPF0001AB75.namprd02.prod.outlook.com
- (2603:10b6:208:2ba:cafe::43) by BL1PR13CA0261.outlook.office365.com
- (2603:10b6:208:2ba::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.17 via Frontend
- Transport; Wed, 15 Nov 2023 19:44:32 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.20; Wed, 15 Nov
+ 2023 19:44:34 +0000
+Received: from BL6PEPF0001AB71.namprd02.prod.outlook.com
+ (2603:10b6:208:2b9:cafe::83) by BL1PR13CA0118.outlook.office365.com
+ (2603:10b6:208:2b9::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.19 via Frontend
+ Transport; Wed, 15 Nov 2023 19:44:34 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB75.mail.protection.outlook.com (10.167.242.168) with Microsoft
+ BL6PEPF0001AB71.mail.protection.outlook.com (10.167.242.164) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7002.20 via Frontend Transport; Wed, 15 Nov 2023 19:44:32 +0000
+ 15.20.7002.13 via Frontend Transport; Wed, 15 Nov 2023 19:44:34 +0000
 Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Wed, 15 Nov
- 2023 13:44:27 -0600
+ 2023 13:44:31 -0600
 From: Hamza Mahfooz <hamza.mahfooz@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 17/35] drm/amd/display: replay: Augment Frameupdate Command
-Date: Wed, 15 Nov 2023 14:40:30 -0500
-Message-ID: <20231115194332.39469-18-hamza.mahfooz@amd.com>
+Subject: [PATCH 21/35] drm/amd/display: Enable SubVP on 1080p60 displays
+Date: Wed, 15 Nov 2023 14:40:34 -0500
+Message-ID: <20231115194332.39469-22-hamza.mahfooz@amd.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231115194332.39469-1-hamza.mahfooz@amd.com>
 References: <20231115194332.39469-1-hamza.mahfooz@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB75:EE_|BY5PR12MB4211:EE_
-X-MS-Office365-Filtering-Correlation-Id: a4d8b228-8b2f-4b37-a401-08dbe6134a4e
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB71:EE_|MN6PR12MB8469:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2745c44a-cdc1-49e5-f06e-08dbe6134b7f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gh8BdDdl2iV9VOk7FrV4XfVBDzqBhqEUiW3/lweAjLYI3kSdyJpbFQJO/BZ9t2Yjjkl4FWegZmlImYrBkGXlOQEO5zmwZKByUxrE+InqIaYUQS6MYX1rqYg8BhSPKmMWDsgMABpNo02RBfF42Aps9Xs0H4oPyt8fCHifVQAKD88rvW6g7WOIXZgLN1WGaeELDjleCxvd0jmmvlRZBX8zHCKuXiJQaoH2kw/7xD5DyQJS4D08QCrQca7vf0PfpMpiqXcEh4/xI5X0uU4IBe/Fzp8SeNK64L5AajVaSzfMxK0pFBG9x+bdovMaGYDdwlEriDO3A8DubSWcPRRey6cULMheiCUuM938rCuGm9E2fJ91HiH4wSRF+/lCDgCapOFihbkNB0WSsvyk+ihyELBv/BuEcjePLcRyxkl7SPijPJHX4jtxuKTJz3qKOauXKiT56JQXdHQClbbm4gjYmd0FFMbSmSN4qK7W/8bQj+W8Dbie3hWgZV9oq28T6HuekrIlanqr0CsuhPaOa8siuruCoaNAqK/wqbTvbQCeByybv7kJ6hGmvxO1lV+4Cxg4fwWAPx2PwLJcOLGoPn0ubPdm65UULZ6NUdv6z74QrIXJFKFpAxsLl7Ep9ZqNTuNIGxJl6jaHUEGZbg0YQKE1Y0HI9WMSypl7Ljyddwr4lhN8LLLNpkWzKzzco+3uY+SScttqjJqLtvM578Wc5hh1icZwsDpbBXQ7YCP8tkBJIba9LlOzI4kvKrNNN8yzzyrJeGtaspBUqecb0+insH6HpLwO8yTdJ0I1uIVyW4h+PQBWw8cFTum1yaxSmfOSuerKvKjf
+X-Microsoft-Antispam-Message-Info: eYmWblArE0eCPM0347HEkYOMCalZNyfEv0bMc/ZxO9oCrXs8hJqt1l+JfuXRk74ujT2Mrse3BrG7OwK2IgYPbVC2hVOp4HlmKDqIvQSjuqc6cVt6/ixmUYv+GhYagXc6T8rP9JtDdGpvoY49ibVKXdvtW79y2umMsgy77MsUl1uFspFYAxQxo96LCL6NNtus0cCKfkYNyDaM4X5Wd1qeOoje/jdP9UNZMxmdd7P81GCebQvagbo8Iu/6JNCk7J80wZ3EjJlSpRjtHeS+b3jqrHC+1JOeldhQis9RP/Z2BmcS/+n+VXvpbNn/mef6A+hWappXbMXRJPn8eSpGu2XRgNOCcGfVCzrai2pAsAnphZSjX95gugwhGZn+c7Glo0Xj5tOu6y45gEt7YoWAgyM3hL2n7Vcpn5wsc5yUOsh+f6qmYCsMMTkiTEd8A5A/DNLZJ4N4A70wJh6wm8YulYQvczkiYYWkB9Opq2czvbixgdFpYSDxsP1kQ0KYXbO0ikIyc4R1SUtAHeL+QEKE6UJHMmvTHEkccbGzEFCvtk5N+2aK5cCQ0szwN5Mhf+ifLqy83SciZL6R1Fl2wtJjjoaPqw+GtD0WX62AxQJqjMUWYxXEh10kuRTFfKxXKwcsTPI2cF5RBWtBxZGNtjxJpZNn55Q5Jmju5eBEV4UnXF70zuLGVkihNe8UJJN+T557CiLYxIMSOvXn/Mf8E0AW0A565h8jFARmUi4IVvur6mys3yghpF3TFhpPy0gR+r7glWf4HRaXkpgAZtiYX118Dz6fHIQ3p9E7MfbrtHnR2+ca1jX0HUTdipmsM2YUy9+aEn2E
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(376002)(136003)(39860400002)(396003)(230922051799003)(82310400011)(1800799009)(186009)(451199024)(64100799003)(46966006)(36840700001)(40470700004)(36860700001)(41300700001)(2616005)(1076003)(44832011)(83380400001)(8936002)(16526019)(4326008)(8676002)(336012)(6666004)(426003)(47076005)(26005)(2906002)(478600001)(356005)(40480700001)(81166007)(5660300002)(82740400003)(316002)(70206006)(36756003)(70586007)(54906003)(6916009)(86362001)(40460700003)(36900700001)(16060500005);
+ SFS:(13230031)(4636009)(39860400002)(396003)(346002)(376002)(136003)(230922051799003)(451199024)(64100799003)(82310400011)(186009)(1800799009)(36840700001)(40470700004)(46966006)(356005)(40480700001)(81166007)(83380400001)(36860700001)(54906003)(8936002)(8676002)(4326008)(70586007)(70206006)(336012)(426003)(36756003)(41300700001)(47076005)(1076003)(16526019)(26005)(2616005)(478600001)(2906002)(40460700003)(44832011)(82740400003)(6916009)(316002)(5660300002)(86362001)(36900700001)(16060500005);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2023 19:44:32.8023 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a4d8b228-8b2f-4b37-a401-08dbe6134a4e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2023 19:44:34.7562 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2745c44a-cdc1-49e5-f06e-08dbe6134b7f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB75.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB71.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4211
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8469
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,161 +100,222 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, chiahsuan.chung@amd.com, Sunpeng.Li@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, Max
- Tseng <max.tseng@amd.com>, jerry.zuo@amd.com, Aurabindo.Pillai@amd.com,
- hersenxs.wu@amd.com, Dennis Chan <dennis.chan@amd.com>, wayne.lin@amd.com,
- Harry.Wentland@amd.com, agustin.gutierrez@amd.com,
- Hamza Mahfooz <hamza.mahfooz@amd.com>
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, Samson Tam <samson.tam@amd.com>,
+ jerry.zuo@amd.com, Aurabindo.Pillai@amd.com, hersenxs.wu@amd.com, Alvin
+ Lee <alvin.lee2@amd.com>, wayne.lin@amd.com, Harry.Wentland@amd.com,
+ agustin.gutierrez@amd.com, Hamza Mahfooz <hamza.mahfooz@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Max Tseng <max.tseng@amd.com>
+From: Alvin Lee <alvin.lee2@amd.com>
 
-[Why]
-Sending certain Frameupdate number for Replay Power Evaluation
+[Description]
+- Previously SubVP would never be selected on 1080p60 displays because
+  it has too much vactive margin. However, implement a change to allow
+  it like how 1440p60 is allowed.
+- Add a new struct such that we have a list of allowed modes for
+  enabling subvp with vactive margin (currently 1080p60 and 1440p60)
+- Also ensure to block drr + vblank cases to prevent unexpected
+  enablement of new display configs
+- Update SW cursor fallback for these new potential cases as well
 
-Reviewed-by: Dennis Chan <dennis.chan@amd.com>
+Reviewed-by: Samson Tam <samson.tam@amd.com>
 Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Signed-off-by: Max Tseng <max.tseng@amd.com>
+Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc_types.h     |  1 +
- .../gpu/drm/amd/display/dc/dce/dmub_replay.h  |  2 +-
- .../link/protocols/link_edp_panel_control.c   | 10 +++-
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 51 +++++++++++++++++++
- 4 files changed, 61 insertions(+), 3 deletions(-)
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  2 +-
+ .../display/dc/dcn32/dcn32_resource_helpers.c | 32 ++++++++++++++-
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 41 +++++++++++--------
+ .../dc/resource/dcn32/dcn32_resource.h        | 10 +++++
+ 4 files changed, 65 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
-index 6f5da510e8de..4a60d2c47686 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
-@@ -1031,6 +1031,7 @@ enum replay_coasting_vtotal_type {
- enum replay_FW_Message_type {
- 	Replay_Msg_Not_Support = -1,
- 	Replay_Set_Timing_Sync_Supported,
-+	Replay_Set_Residency_Frameupdate_Timer,
- };
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 84d632700949..f3a9fdd2340d 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -5316,7 +5316,7 @@ bool check_subvp_sw_cursor_fallback_req(const struct dc *dc, struct dc_stream_st
+ 	if (dc->current_state->stream_count == 1 && stream->timing.v_addressable >= 2880 &&
+ 			((stream->timing.pix_clk_100hz * 100) / stream->timing.v_total / stream->timing.h_total) < 120)
+ 		return true;
+-	else if (dc->current_state->stream_count > 1 && stream->timing.v_addressable >= 2160 &&
++	else if (dc->current_state->stream_count > 1 && stream->timing.v_addressable >= 1080 &&
+ 			((stream->timing.pix_clk_100hz * 100) / stream->timing.v_total / stream->timing.h_total) < 120)
+ 		return true;
  
- union replay_error_status {
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h
-index 368711f76335..b3ee90a0b8b3 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h
-@@ -46,7 +46,7 @@ struct dmub_replay_funcs {
- 	void (*replay_set_power_opt)(struct dmub_replay *dmub, unsigned int power_opt,
- 		uint8_t panel_inst);
- 	void (*replay_send_cmd)(struct dmub_replay *dmub,
--		enum replay_FW_Message_type msg, unsigned int panel_inst, union dmub_replay_cmd_set *cmd_element);
-+		enum replay_FW_Message_type msg, union dmub_replay_cmd_set *cmd_element);
- 	void (*replay_set_coasting_vtotal)(struct dmub_replay *dmub, uint16_t coasting_vtotal,
- 		uint8_t panel_inst);
- 	void (*replay_residency)(struct dmub_replay *dmub,
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-index 6bc8ec47e267..fdeb8dff5485 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-@@ -1023,10 +1023,16 @@ bool edp_send_replay_cmd(struct dc_link *link,
- 	if (!replay)
- 		return false;
- 
--	if (!dc_get_edp_link_panel_inst(dc, link, &panel_inst))
-+	DC_LOGGER_INIT(link->ctx->logger);
-+
-+	if (dc_get_edp_link_panel_inst(dc, link, &panel_inst))
-+		cmd_data->panel_inst = panel_inst;
-+	else {
-+		DC_LOG_DC("%s(): get edp panel inst fail ", __func__);
- 		return false;
-+	}
- 
--	replay->funcs->replay_send_cmd(replay, msg, panel_inst, cmd_data);
-+	replay->funcs->replay_send_cmd(replay, msg, cmd_data);
- 
- 	return true;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
+index ef0a2b01734d..389ac7ae1154 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
+@@ -665,6 +665,30 @@ bool dcn32_check_native_scaling_for_res(struct pipe_ctx *pipe, unsigned int widt
+ 	return is_native_scaling;
  }
-diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-index 5f06cf4c663f..d1becbb5aa29 100644
---- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-+++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-@@ -2880,6 +2880,10 @@ enum dmub_cmd_replay_type {
- 	 * Set disabled iiming sync.
- 	 */
- 	DMUB_CMD__REPLAY_SET_TIMING_SYNC_SUPPORTED	= 5,
-+	/**
-+	 * Set Residency Frameupdate Timer.
-+	 */
-+	DMUB_CMD__REPLAY_SET_RESIDENCY_FRAMEUPDATE_TIMER = 6,
- };
- 
- /**
-@@ -3143,14 +3147,57 @@ struct dmub_rb_cmd_replay_set_timing_sync {
- 	struct dmub_cmd_replay_set_timing_sync_data replay_set_timing_sync_data;
- };
  
 +/**
-+ * Data passed from driver to FW in  DMUB_CMD__REPLAY_SET_RESIDENCY_FRAMEUPDATE_TIMER command.
++ * disallow_subvp_in_active_plus_blank() - Function to determine disallowed subvp + drr/vblank configs
++ *
++ * @pipe: subvp pipe to be used for the subvp + drr/vblank config
++ *
++ * Since subvp is being enabled on more configs (such as 1080p60), we want
++ * to explicitly block any configs that we don't want to enable. We do not
++ * want to enable any 1080p60 (SubVP) + drr / vblank configs since these
++ * are already convered by FPO.
++ *
++ * Return: True if disallowed, false otherwise
 + */
-+struct dmub_cmd_replay_frameupdate_timer_data {
-+	/**
-+	 * Panel Instance.
-+	 * Panel isntance to identify which replay_state to use
-+	 * Currently the support is only for 0 or 1
-+	 */
-+	uint8_t panel_inst;
-+	/**
-+	 * Replay Frameupdate Timer Enable or not
-+	 */
-+	uint8_t enable;
-+	/**
-+	 * REPLAY force reflash frame update number
-+	 */
-+	uint16_t frameupdate_count;
-+};
-+/**
-+ * Definition of DMUB_CMD__REPLAY_SET_RESIDENCY_FRAMEUPDATE_TIMER
-+ */
-+struct dmub_rb_cmd_replay_set_frameupdate_timer {
-+	/**
-+	 * Command header.
-+	 */
-+	struct dmub_cmd_header header;
-+	/**
-+	 * Definition of a DMUB_CMD__SET_REPLAY_POWER_OPT command.
-+	 */
-+	struct dmub_cmd_replay_frameupdate_timer_data data;
-+};
++static bool disallow_subvp_in_active_plus_blank(struct pipe_ctx *pipe)
++{
++	bool disallow = false;
++
++	if (resource_is_pipe_type(pipe, OPP_HEAD) &&
++			resource_is_pipe_type(pipe, DPP_PIPE)) {
++		if (pipe->stream->timing.v_addressable == 1080 && pipe->stream->timing.h_addressable == 1920)
++			disallow = true;
++	}
++	return disallow;
++}
 +
  /**
-  * Definition union of replay command set
-  */
- union dmub_replay_cmd_set {
-+	/**
-+	 * Panel Instance.
-+	 * Panel isntance to identify which replay_state to use
-+	 * Currently the support is only for 0 or 1
-+	 */
-+	uint8_t panel_inst;
- 	/**
- 	 * Definition of DMUB_CMD__REPLAY_SET_TIMING_SYNC_SUPPORTED command data.
- 	 */
- 	struct dmub_cmd_replay_set_timing_sync_data sync_data;
-+	/**
-+	 * Definition of DMUB_CMD__REPLAY_SET_RESIDENCY_FRAMEUPDATE_TIMER command data.
-+	 */
-+	struct dmub_cmd_replay_frameupdate_timer_data timer_data;
+  * dcn32_subvp_drr_admissable() - Determine if SubVP + DRR config is admissible
+  *
+@@ -688,6 +712,7 @@ bool dcn32_subvp_drr_admissable(struct dc *dc, struct dc_state *context)
+ 	bool drr_pipe_found = false;
+ 	bool drr_psr_capable = false;
+ 	uint64_t refresh_rate = 0;
++	bool subvp_disallow = false;
+ 
+ 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
+ 		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
+@@ -697,6 +722,7 @@ bool dcn32_subvp_drr_admissable(struct dc *dc, struct dc_state *context)
+ 			if (pipe->stream->mall_stream_config.type == SUBVP_MAIN) {
+ 				subvp_count++;
+ 
++				subvp_disallow |= disallow_subvp_in_active_plus_blank(pipe);
+ 				refresh_rate = (pipe->stream->timing.pix_clk_100hz * (uint64_t)100 +
+ 					pipe->stream->timing.v_total * pipe->stream->timing.h_total - (uint64_t)1);
+ 				refresh_rate = div_u64(refresh_rate, pipe->stream->timing.v_total);
+@@ -713,7 +739,7 @@ bool dcn32_subvp_drr_admissable(struct dc *dc, struct dc_state *context)
+ 		}
+ 	}
+ 
+-	if (subvp_count == 1 && non_subvp_pipes == 1 && drr_pipe_found && !drr_psr_capable &&
++	if (subvp_count == 1 && !subvp_disallow && non_subvp_pipes == 1 && drr_pipe_found && !drr_psr_capable &&
+ 		((uint32_t)refresh_rate < 120))
+ 		result = true;
+ 
+@@ -746,6 +772,7 @@ bool dcn32_subvp_vblank_admissable(struct dc *dc, struct dc_state *context, int
+ 	struct vba_vars_st *vba = &context->bw_ctx.dml.vba;
+ 	bool vblank_psr_capable = false;
+ 	uint64_t refresh_rate = 0;
++	bool subvp_disallow = false;
+ 
+ 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
+ 		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
+@@ -755,6 +782,7 @@ bool dcn32_subvp_vblank_admissable(struct dc *dc, struct dc_state *context, int
+ 			if (pipe->stream->mall_stream_config.type == SUBVP_MAIN) {
+ 				subvp_count++;
+ 
++				subvp_disallow |= disallow_subvp_in_active_plus_blank(pipe);
+ 				refresh_rate = (pipe->stream->timing.pix_clk_100hz * (uint64_t)100 +
+ 					pipe->stream->timing.v_total * pipe->stream->timing.h_total - (uint64_t)1);
+ 				refresh_rate = div_u64(refresh_rate, pipe->stream->timing.v_total);
+@@ -772,7 +800,7 @@ bool dcn32_subvp_vblank_admissable(struct dc *dc, struct dc_state *context, int
+ 	}
+ 
+ 	if (subvp_count == 1 && non_subvp_pipes == 1 && !drr_pipe_found && !vblank_psr_capable &&
+-		((uint32_t)refresh_rate < 120) &&
++		((uint32_t)refresh_rate < 120) && !subvp_disallow &&
+ 		vba->DRAMClockChangeSupport[vlevel][vba->maxMpcComb] == dm_dram_clock_change_vblank_w_mall_sub_vp)
+ 		result = true;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+index 92e2ddc9ab7e..c4ffb4b92b56 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+@@ -45,6 +45,14 @@ static const struct subvp_high_refresh_list subvp_high_refresh_list = {
+ 				{.width = 1920, .height = 1080, }},
  };
  
- /**
-@@ -4288,6 +4335,10 @@ union dmub_rb_cmd {
- 	struct dmub_rb_cmd_replay_set_power_opt_and_coasting_vtotal replay_set_power_opt_and_coasting_vtotal;
++static const struct subvp_active_margin_list subvp_active_margin_list = {
++			.min_refresh = 55,
++			.max_refresh = 65,
++			.res = {
++				{.width = 2560, .height = 1440, },
++				{.width = 1920, .height = 1080, }},
++};
++
+ struct _vcs_dpi_ip_params_st dcn3_2_ip = {
+ 	.gpuvm_enable = 0,
+ 	.gpuvm_max_page_table_levels = 4,
+@@ -3295,25 +3303,24 @@ bool dcn32_allow_subvp_with_active_margin(struct pipe_ctx *pipe)
+ {
+ 	bool allow = false;
+ 	uint32_t refresh_rate = 0;
++	uint32_t min_refresh = subvp_active_margin_list.min_refresh;
++	uint32_t max_refresh = subvp_active_margin_list.max_refresh;
++	uint32_t i;
  
- 	struct dmub_rb_cmd_replay_set_timing_sync replay_set_timing_sync;
-+	/**
-+	 * Definition of a DMUB_CMD__REPLAY_SET_RESIDENCY_FRAMEUPDATE_TIMER command.
-+	 */
-+	struct dmub_rb_cmd_replay_set_frameupdate_timer replay_set_frameupdate_timer;
+-	/* Allow subvp on displays that have active margin for 2560x1440@60hz displays
+-	 * only for now. There must be no scaling as well.
+-	 *
+-	 * For now we only enable on 2560x1440@60hz displays to enable 4K60 + 1440p60 configs
+-	 * for p-state switching.
+-	 */
+-	if (pipe->stream && pipe->plane_state) {
+-		refresh_rate = (pipe->stream->timing.pix_clk_100hz * 100 +
+-						pipe->stream->timing.v_total * pipe->stream->timing.h_total - 1)
+-						/ (double)(pipe->stream->timing.v_total * pipe->stream->timing.h_total);
+-		if (pipe->stream->timing.v_addressable == 1440 &&
+-				pipe->stream->timing.h_addressable == 2560 &&
+-				refresh_rate >= 55 && refresh_rate <= 65 &&
+-				pipe->plane_state->src_rect.height == 1440 &&
+-				pipe->plane_state->src_rect.width == 2560 &&
+-				pipe->plane_state->dst_rect.height == 1440 &&
+-				pipe->plane_state->dst_rect.width == 2560)
++	for (i = 0; i < SUBVP_ACTIVE_MARGIN_LIST_LEN; i++) {
++		uint32_t width = subvp_active_margin_list.res[i].width;
++		uint32_t height = subvp_active_margin_list.res[i].height;
++
++		refresh_rate = (pipe->stream->timing.pix_clk_100hz * (uint64_t)100 +
++			pipe->stream->timing.v_total * pipe->stream->timing.h_total - (uint64_t)1);
++		refresh_rate = div_u64(refresh_rate, pipe->stream->timing.v_total);
++		refresh_rate = div_u64(refresh_rate, pipe->stream->timing.h_total);
++
++		if (refresh_rate >= min_refresh && refresh_rate <= max_refresh &&
++				dcn32_check_native_scaling_for_res(pipe, width, height)) {
+ 			allow = true;
++			break;
++		}
+ 	}
+ 	return allow;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
+index b931008114c9..b2f20e6cfb38 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
+@@ -39,6 +39,7 @@
+ #define DCN3_2_MBLK_HEIGHT_8BPE 64
+ #define DCN3_2_DCFCLK_DS_INIT_KHZ 10000 // Choose 10Mhz for init DCFCLK DS freq
+ #define SUBVP_HIGH_REFRESH_LIST_LEN 4
++#define SUBVP_ACTIVE_MARGIN_LIST_LEN 2
+ #define DCN3_2_MAX_SUBVP_PIXEL_RATE_MHZ 1800
+ #define DCN3_2_VMIN_DISPCLK_HZ 717000000
+ 
+@@ -57,6 +58,15 @@ struct subvp_high_refresh_list {
+ 	} res[SUBVP_HIGH_REFRESH_LIST_LEN];
  };
  
- /**
++struct subvp_active_margin_list {
++	int min_refresh;
++	int max_refresh;
++	struct {
++		int width;
++		int height;
++	} res[SUBVP_ACTIVE_MARGIN_LIST_LEN];
++};
++
+ struct dcn32_resource_pool {
+ 	struct resource_pool base;
+ };
 -- 
 2.42.0
 
