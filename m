@@ -4,122 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F313FC54FB9
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Nov 2023 21:09:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0874C2BB3F
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Nov 2023 21:41:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF69810E16D;
-	Wed, 15 Nov 2023 21:09:16 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2079.outbound.protection.outlook.com [40.107.244.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6F7F10E10B;
- Wed, 15 Nov 2023 21:09:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8936A10E26B;
+	Wed, 15 Nov 2023 21:41:57 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2081.outbound.protection.outlook.com [40.107.220.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5CD210E26B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Nov 2023 21:41:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=m0lGvH7585XTgFQJWJo6Ne6Jf7qoBog1o47Kho6hFs2D3xBlHe9+Hq+h+wqb5quZfs7UTHuzM29vHuDCWE/LddMddEJ9fKRXqto7Ol8VJhqXxUadGVR7hxbR97m9MQQRFVozNbqnl0Gikf25uNad0K1AKM8dg77FMjUA+wO1W3dyZgqsBV/XCqEkB/PVkFwCf5puI1Gzl98CZOC/6SMneXynXbvOV9qOBEH7OA3JVOdgm8yvIe9Ae+a6Q6opLDa6ewashmfs71nJddgRXoEoT/tFFlldwthqBQFWLLrxb+SohQ0QXQOtanBK8xGBsqIczsXb8C/1XvRjTYLl5ucHVw==
+ b=NCSE9mOErdoZxXOUM9j+dJCAUz0SCp+zuXPZQFGxJi1CMagEP3Mh9jTZzMmnud92y7LVR6cpNCMv7wbXmKsqM6epuffj3Vpew61nVeNdrGdzCEMJx7M0DoYY1xvfww5BrlJ0M/mRiyCvkOwWybAjLURfsBakb7nZTLRUInaMBWwlGbYiOMWQQ3nFq4sVmUXd+UxSD5mAPdjQPJueAjyZWmlrO7qcNFHNgm0rrkO2GqJlJxkhpWRB8L+/eg7tf1q7ZYWKonW6ZTZUnSRnXK85DOx+vpAuC11egTvTV+efW6L1z9mPdLmezgiOqQip6YTWjU2lEsSjXNajijFk/eBt5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LEAGG7uaQ7Cx4EW/SpG+sUaW8WzVuepuE6BNGplDn0k=;
- b=byVDGCpz384wMfJCO4AMfrA45HIMkpdHscWlmXlV1yVGhjMkM1nL/x+8mnVov/MnrwX2tqkjW4eMr5xstuj3Iz1qp8YeHD8iBo3YjSQ+eJRhFug2cogffj9dl175MjJ0Q6NlgYPSr/ljEew0rGaDwLY4cHE/P7pgNOciqlMmgSNmXZNFABb1NVhrNfr7YG43G5zFCiPAJu/NJk0W7EOkIZRQo7J+hSOVXZbMl3SQBArRnMDL/SkcTv4ybW3WNmugsAt5oG2H1IaAZ3YySbJikP7k3YMQ4PQyOhUJZ65FcO25nAl4LuxNF390hMnVsMl6mIPIilFp30Oi4u3p+HpatQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=BqQHHn7eHE3rz5I4wjR5g1WU/AaqXlcEbwQ3lgsliNc=;
+ b=TwHyyHL+E3GXV6XiiKxcDlViUenSS4+N+KDrs9TARp6TGm/F3j93nb8i78ef1RjhiSxxTQsXSof3OHw/ZkcbqUREEYBHuP9aRvxIIRx5Cb5//AgJCIrTgZb7OPffscHvoR3hAMnVxnuy+MUTCO2LBUWPyZjCUQadwwc7O12KhKbIG1kSdnfhCrh+LW635l47lvGXa88u3sZ4PWMQetorleSOMrt9Vm7XqStVZz1qw3kAH6zyVgS1yGdLxYA/3eQ81RiHQC8JF6oS15rxT8QP6paqBBIGFKcGJ2orCWO8ScQ969UKc0347Qs5ks3lU3FCM7sdCsz8bqBuJ7f7tWI0Tw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LEAGG7uaQ7Cx4EW/SpG+sUaW8WzVuepuE6BNGplDn0k=;
- b=5KmSIE5vcdtsByWfkmdtDel79v77vWxoOFZRmLYfgqT7mfPejO7bfSuAYsiIsuAGxh8po98Y3yJLAxMRWoiXCGl/RM78aoDU7JbTp8hhRJEsvv7DiQmYL73OMmFmunbenpBZVnJDnlxiJzGbey6lCVjok9kxFIB6bflcvQ4TWUo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by SA3PR12MB8021.namprd12.prod.outlook.com (2603:10b6:806:305::16)
+ bh=BqQHHn7eHE3rz5I4wjR5g1WU/AaqXlcEbwQ3lgsliNc=;
+ b=tylYlaLiAPOivhKEaaSLGYXE4n0/6x0+hB81ZhPI4uhJJ0VSdz9Y8dKI5a7mkQjfSnY9S4M71TQwEhqCyRy3lgw2igP4HwRo28WJC4q74u+K/3HckhoP+L399s43fBPncwdp0NAAoHV0nI1BNW33x4JgKSTnf4RriW8i6dRCfos=
+Received: from SN7PR04CA0057.namprd04.prod.outlook.com (2603:10b6:806:120::32)
+ by PH7PR12MB6490.namprd12.prod.outlook.com (2603:10b6:510:1f5::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.31; Wed, 15 Nov
- 2023 21:09:12 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::83d7:9c4f:4d9b:1f2a]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::83d7:9c4f:4d9b:1f2a%5]) with mapi id 15.20.7002.019; Wed, 15 Nov 2023
- 21:09:12 +0000
-Message-ID: <d7539754-1877-43ed-a1b4-f969315ec271@amd.com>
-Date: Wed, 15 Nov 2023 15:09:09 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/7] PCI: Exclude PCIe ports used for virtual links in
- pcie_bandwidth_available()
-Content-Language: en-US
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: "Lazar, Lijo" <lijo.lazar@amd.com>, Karol Herbst <kherbst@redhat.com>,
- Lyude Paul <lyude@redhat.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Lukas Wunner <lukas@wunner.de>
-References: <20231114200755.14911-1-mario.limonciello@amd.com>
- <20231114200755.14911-8-mario.limonciello@amd.com>
- <e0e76948-a0a8-b6c2-163b-1d00afb6650c@amd.com>
- <5356bcbd-0785-4156-993c-338fed67d39d@amd.com>
-In-Reply-To: <5356bcbd-0785-4156-993c-338fed67d39d@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SN7PR04CA0210.namprd04.prod.outlook.com
- (2603:10b6:806:126::35) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.18; Wed, 15 Nov
+ 2023 21:41:53 +0000
+Received: from SN1PEPF0002BA52.namprd03.prod.outlook.com
+ (2603:10b6:806:120:cafe::69) by SN7PR04CA0057.outlook.office365.com
+ (2603:10b6:806:120::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.20 via Frontend
+ Transport; Wed, 15 Nov 2023 21:41:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF0002BA52.mail.protection.outlook.com (10.167.242.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7002.20 via Frontend Transport; Wed, 15 Nov 2023 21:41:52 +0000
+Received: from thonkpad.localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Wed, 15 Nov
+ 2023 15:41:51 -0600
+From: <ivlipski@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] Revert "drm/amdgpu: fix AGP init order"
+Date: Wed, 15 Nov 2023 16:40:29 -0500
+Message-ID: <20231115214029.960838-1-ivlipski@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|SA3PR12MB8021:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb0818b5-fedc-4b50-1e8e-08dbe61f1da5
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA52:EE_|PH7PR12MB6490:EE_
+X-MS-Office365-Filtering-Correlation-Id: 12a8c042-6a9c-4bde-7e32-08dbe623ae96
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: XSDulacBpiZOYPqY02M1QXNhuWU+lQ44PhLYYbFBAxPLMIsKrujhBC+MqvSE2PF7GlneU2Iur64RvzjY1KzNPeBkCXj8btycM4IPXJHczXBffLhRPnbKLZKPx5UZ6OBcRSfMZHpnHWT7KfXMVtXzYf6I5xQO1YK93XNEUoP5RiZzwIW5j/ASlGdEwfwt48r3pZ0P8FvXZGOY7bkf/U0NxYhI8C3DdwyKHMP4u7FJgtcUvsfDIFdC6eCQnx0anny1eB2y0jBX/Y4jmkxj1WuZQmUTBu5ADRbNjgpcX07LTUZAPmPTlHZwUsYBsLsfe/B+YHqWjZRh8UOm5qUfHNOaMr5DSPrAB/ZLdxrUk9SmAweYKYbMZIvEJkdx7lzqmY1ZbIiSZgKvT4vPN6ou/3UKv+aCq87MCNWiao1gwCFZ5/scAGlc7+WDPeoU7uFaUhcj249XNkaF6FSKHWsE8Hbr0DK7o7dPZRGro8zZEUwd7xWSIwiBSDidmn9mxt8rnKZWBVMMHWJhGJlFoeimvQsXCCbcoxMrEUv+GQqyopxT5kXllSm47eNg+uZi8+lmTsfBrCwv42y29gSNG4vlWM7NxY317ECDp+Xx01eqfW7oPNrbaI4RYRvzp1WyZQbXO7nl
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(366004)(39860400002)(396003)(346002)(376002)(230922051799003)(64100799003)(451199024)(186009)(1800799009)(8936002)(31686004)(54906003)(2906002)(7416002)(5660300002)(4326008)(83380400001)(966005)(6486002)(44832011)(8676002)(478600001)(36756003)(66476007)(86362001)(66946007)(31696002)(316002)(41300700001)(38100700002)(66556008)(53546011)(6506007)(6666004)(2616005)(26005)(6512007)(110136005)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: 6qbW04DyhD+mdrSnXC8ZLM36eCGAG51x5UbVIYqmTCTEGG/noRenmDlRtRb8dGVnROWNc/UgvT1jQh71JHrp83YojgbHgqo8Z3ASqplVnlJhREGkD61jczqMLFkJsr8OYJlqzrUm4+JVtBN/H9RGwAEu0seazVW5DYDKf1hnh9S5dU5GvnWmBn0t4qj+MuzUSsCR/zfE+AdJLqIRSvUWRL+QFlLi9N+ufqVblzStUFWVDb66FpcI4aK4Z262kksbNRPc/Akw+nC7poX8sf1Yotnxrb4TWQ6kH4PQEbwWzDRyt4MviAosRjHtHPNnILKOQVLe2ruAu8uTHh07YrNurCeb/YTFBbJuH2EjbUv7pFrWPf3pRYHKLx8XZBt+7WRn+CI5VRMfAQJEvPX46v5ydib7os56EK1KOVVLcm/J9xqTVIwLgqqqdUgnxJFLw98m6lRBMnwftC59qFLZKyQ4Fy4HF2pEA5j9lzBlg6DqNMqwvSwSXCx8pQgx3FAi8BuRmq/FS+gcsDqaKIiQJwcHUIUpsdUBv1Mzp4/bmCYwumibqXJCPwpNklNAGQcjQ/jbvH8bF8y5IF+LiJzp8QbKjFsSOZApnZGZxVSe8v6YE/j6X2+jvmfa0cM9YJE7dYMud1d0d5aKlJtQbfr/tcc6MIQZj2d6jamkoZ3rwBJDlnkUdwAdR8nHg/06mvtVrPpI9VTB7Sl4o0m84Ped8wvY2wV8Zel4zHP24QNlMuUg3dGVFk6SO6W3TK+hDYShjeJOEG+g5w91J7u43tRZ3jvh2g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(136003)(396003)(346002)(39860400002)(376002)(230922051799003)(451199024)(186009)(1800799009)(82310400011)(64100799003)(46966006)(36840700001)(40470700004)(82740400003)(47076005)(81166007)(41300700001)(16526019)(8676002)(4326008)(8936002)(26005)(336012)(426003)(40480700001)(1076003)(83380400001)(356005)(36756003)(36860700001)(2616005)(40460700003)(2876002)(478600001)(2906002)(6916009)(316002)(54906003)(70206006)(70586007)(6666004)(5660300002)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WWJzQVdsaENSNElNUGtDcU8wcG5SN3RyN1gvN1NYdGEybnFucXdHeVNtaFh6?=
- =?utf-8?B?SUMxaWprekMrb043eWduWVpxZ1BZWERiZStLM09xYWRJWWlrRlI3TEtSQTds?=
- =?utf-8?B?US9QS3JLQ2lLWkVVN2lvZXExWm9nRTd5NUdEVHgvV2FYWW1ZUFI1K2psNGl6?=
- =?utf-8?B?aEJOQzYybXJDNE81T3JZSlU1YXdscTQ4OGZkMG5ySzM5NjFjVWFEOUV1cTV0?=
- =?utf-8?B?dElxVlRzSGN6Rkw0SThHZjduRHd5L052ZXRxSHowNU80ZldETFIrREJkOXdT?=
- =?utf-8?B?eGo0VVVpSEJPSENEL3dXUmduQU92VWgvcS9zb1hMNi9Od09YWVZTRG5EY2FW?=
- =?utf-8?B?OFU0eEVrc01LVzNkaWNmdDJ5dTJXYjladUtNdGVOcnMxRWk3ck1lMmJqZC9X?=
- =?utf-8?B?N1VlUmEzcmxwOHAyTlhteU5PczJaV3RVa0NJQy9UM0xCbVNiR2hhenlVdWtN?=
- =?utf-8?B?VWlRWWVIaGZLc0xjYnBEWWZ0M0s2Rjh1WURsdUh1WGNncFVMU0xRYnR3cDJ1?=
- =?utf-8?B?QW8rdzdjaklZalVzUE5ja1hGdU1aN0kvc0JQSHNQZVFjN0llMy95RGl6VjdY?=
- =?utf-8?B?NllCWmgzNE00aDFTVm5hTlV4cHpQc0R2NzlUOGMrUmVpVFZOWTQ4eDllOHRB?=
- =?utf-8?B?My9TVHFNYTFvYmVQVkFkVE1QVnZFendwUUZrdnU3d3p2TGtscUZNZkgrYTdN?=
- =?utf-8?B?eWRvbVhDY0k2V3R5cDlyVUUvaDAwSm9sOTdZbHprTHBTRnRyUmx2VEVmb2FU?=
- =?utf-8?B?aWJhaitBK3pab3U1RGg0MWVjNUJGRmpyaWc3bDNDU0lJWHd4YmFyNUg0MERD?=
- =?utf-8?B?alM2bHFHVnZiSXlNYlFCYXE4QkloRWNuUVJvT2VJMUQ1SDJNZVNpajNsbmM0?=
- =?utf-8?B?M3RLcThLRk9UVWNPczZtTHd0eEYzVER4cDd4NGM3VzNBL1NIaFZsbzE2eUZU?=
- =?utf-8?B?M3llZGRsNTRNNzhLSThYbmF3QnNWSjd6QjRMZWVYandjb2ZWREx2Ylo2ei9m?=
- =?utf-8?B?SUlSYkxXTUllZ1VDeVNIcHoyZndPUExFOWxXYzhLMkFySEdUWS9zcnQ3Vnpq?=
- =?utf-8?B?OVJRNTFMSHlWWHJodk9ZdkdseXY0c1ROa0gvNVdRQUVvUUpTR3hSNloyTU5I?=
- =?utf-8?B?MzB4UWpoRkJsSmlOUFQ5bXhZMVQ2VndBVXQ1VnZmZW1KQVFuU3crcElJK2xT?=
- =?utf-8?B?TnVDakNrZUh0NHhNVlgvN3pRdzI5SUZ0b2Vxc3Yvdm9DdDVOSUxSaWY2d1I3?=
- =?utf-8?B?Sk80TmZEajFCcHpvZUpkYXlzeGovT0t2Mkd6QWtuOVR0bU5YZGErYW5PMy9V?=
- =?utf-8?B?NGZxWWU0Ukx3TU9UYndPNVl4S29VNnhqMU9QRElwc3dGbmZvclpSNk9QUUFQ?=
- =?utf-8?B?YjZkN0N3ckt0Smk4TmNVcFNQZDBzNXVCbWI2M0grcjBRWUV0bFU4WWJheWFX?=
- =?utf-8?B?bjUyc25tUXdVb3VNUXZiU1pKMjJnYjlkRHozVEVCS21wRFE5cUkvQnZXdll1?=
- =?utf-8?B?ditYYlJqSEZKamRZdXhBSHRMQjVIVWhxY2llYkVRbG9UdXNkY0wxdTJ3Wk9W?=
- =?utf-8?B?dENlZ0o5bjVpUUlWTjFGaTFveTRJakVieEhOTEt5S2pkZDQ0OVBvUFpZYXVq?=
- =?utf-8?B?TzJiU0ZSd2lQUkQvUHlDNHhxN1Bld2NrNWxucWZIczBTazFEdE11Q3FqaHBl?=
- =?utf-8?B?VmZtNWJWQ01PY0RqdFBuOGQ1ZkRVcG1mRWtXSnlrUTdyODRORWZlNUZwWVNW?=
- =?utf-8?B?T1VwWW9TWFR6ODJhTzF3V1h4WFNaMUVsaHp0d3ZSRzduT2hUQjVsODhCUHkz?=
- =?utf-8?B?aG1ZSkk1VUxnUWE5N2xLdnJEOGtoLzlIbmU5Uk4ra2MxK001VndEQjN4NjJU?=
- =?utf-8?B?cmxtOHJkQm5xN3BhUEd2b2YxeHBhNjYzQlI1Vng5WjNCL0pCckhtWlJkTm4v?=
- =?utf-8?B?ZDQzTVFHcytSSEdCb1paZTVBOEQvQlhvMmdTZy9lOTdGS1FOdTl3UVRGdWNh?=
- =?utf-8?B?QXpMb0hycXhrTVBKVi8zTUZvOFNoVEV6T1JnY2xHdGZlTlF4OGUxSmRLaGxD?=
- =?utf-8?B?L2oxVi9VNFg5TXNHaXpxeExLTUhvNUZTUWp5Q1RoZjlNVkZIM21Ydld3RzZu?=
- =?utf-8?Q?umJUHMGpaKzMbmHGN5EpwnT0r?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb0818b5-fedc-4b50-1e8e-08dbe61f1da5
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2023 21:09:12.0446 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2023 21:41:52.9618 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 12a8c042-6a9c-4bde-7e32-08dbe623ae96
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 894K+cIUIXH53edsRey+eUXhVK+B8QMVv3KdCXXxjged4rzpwmKdkC9+sanOAEueOnKFuRhVfRrG9w8QneS0YA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8021
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA52.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6490
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,139 +97,122 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Marek_Beh=C3=BAn?= <kabel@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Rafael J . Wysocki" <rafael@kernel.org>,
- "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
- Xinhui Pan <Xinhui.Pan@amd.com>, open list <linux-kernel@vger.kernel.org>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:ACPI" <linux-acpi@vger.kernel.org>,
- Danilo Krummrich <dakr@redhat.com>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <dri-devel@lists.freedesktop.org>, Manivannan Sadhasivam <mani@kernel.org>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
- "Maciej W . Rozycki" <macro@orcam.me.uk>
+Cc: Ivan Lipski <ivlipski@amd.com>, kenny.ho@amd.com, rodrigo.siqueira@amd.com,
+ aurabindo.pillai@amd.com, nicholas.choi@amd.com, hamza.mahfooz@amd.com,
+ alexander.deucher@amd.com, harry.wentland@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/15/2023 11:04, Mario Limonciello wrote:
-> On 11/14/2023 21:23, Lazar, Lijo wrote:
->>
->>
->> On 11/15/2023 1:37 AM, Mario Limonciello wrote:
->>> The USB4 spec specifies that PCIe ports that are used for tunneling
->>> PCIe traffic over USB4 fabric will be hardcoded to advertise 2.5GT/s and
->>> behave as a PCIe Gen1 device. The actual performance of these ports is
->>> controlled by the fabric implementation.
->>>
->>> Callers for pcie_bandwidth_available() will always find the PCIe ports
->>> used for tunneling as a limiting factor potentially leading to incorrect
->>> performance decisions.
->>>
->>> To prevent such problems check explicitly for ports that are marked as
->>> virtual links or as thunderbolt controllers and skip them when looking
->>> for bandwidth limitations of the hierarchy. If the only device connected
->>> is a port used for tunneling then report that device.
->>>
->>> Callers to pcie_bandwidth_available() could make this change on their
->>> own as well but then they wouldn't be able to detect other potential
->>> speed bottlenecks from the hierarchy without duplicating
->>> pcie_bandwidth_available() logic.
->>>
->>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2925#note_2145860
->>> Link: https://www.usb.org/document-library/usb4r-specification-v20
->>>        USB4 V2 with Errata and ECN through June 2023
->>>        Section 11.2.1
->>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->>> ---
->>> v2->v3:
->>>   * Split from previous patch version
->>>   * Look for thunderbolt or virtual link
->>> ---
->>>   drivers/pci/pci.c | 19 +++++++++++++++++++
->>>   1 file changed, 19 insertions(+)
->>>
->>> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
->>> index 0ff7883cc774..b1fb2258b211 100644
->>> --- a/drivers/pci/pci.c
->>> +++ b/drivers/pci/pci.c
->>> @@ -6269,11 +6269,20 @@ static u32 pcie_calc_bw_limits(struct pci_dev 
->>> *dev, u32 bw,
->>>    * limiting_dev, speed, and width pointers are supplied) 
->>> information about
->>>    * that point.  The bandwidth returned is in Mb/s, i.e., 
->>> megabits/second of
->>>    * raw bandwidth.
->>> + *
->>> + * This excludes the bandwidth calculation that has been returned 
->>> from a
->>> + * PCIe device that is used for transmitting tunneled PCIe traffic 
->>> over a virtual
->>> + * link part of larger hierarchy. Examples include Thunderbolt3 and 
->>> USB4 links.
->>> + * The calculation is excluded because the USB4 specification 
->>> specifies that the
->>> + * max speed returned from PCIe configuration registers for the 
->>> tunneling link is
->>> + * always PCI 1x 2.5 GT/s.  When only tunneled devices are present, 
->>> the bandwidth
->>> + * returned is the bandwidth available from the first tunneled device.
->>>    */
->>>   u32 pcie_bandwidth_available(struct pci_dev *dev, struct pci_dev 
->>> **limiting_dev,
->>>                    enum pci_bus_speed *speed,
->>>                    enum pcie_link_width *width)
->>>   {
->>> +    struct pci_dev *vdev = NULL;
->>>       u32 bw = 0;
->>>       if (speed)
->>> @@ -6282,10 +6291,20 @@ u32 pcie_bandwidth_available(struct pci_dev 
->>> *dev, struct pci_dev **limiting_dev,
->>>           *width = PCIE_LNK_WIDTH_UNKNOWN;
->>>       while (dev) {
->>> +        if (dev->is_virtual_link || dev->is_thunderbolt) {
->>> +            if (!vdev)
->>> +                vdev = dev;
->>> +            goto skip;
->>> +        }
->>
->> One problem with this is it *silently* ignores the bandwidth limiting 
->> device - the bandwidth may not be really available if there are 
->> virtual links in between. That is a change in behavior from the 
->> messages shown in __pcie_print_link_status.
-> 
-> That's a good point.  How about a matching behavioral change to 
-> __pcie_print_link_status() where it looks at the entire hierarchy for 
-> any links marked as virtual and prints a message along the lines of:
-> 
-> "This value may be further limited by virtual links".
+From: Ivan Lipski <ivlipski@amd.com>
 
-I'll wait for some more feedback on the series before posting another 
-version, but I did put this together and this is a sample from dmesg of 
-the wording I'm planning on using for the next version:
+This commit caused a page fault issue on RX7000 series GPU.
+It would occur when running different IGT tests, including
+kms_properties*
+kms_cursor_legacy*
+kms_prop_blob@blob*
 
-31.504 Gb/s available PCIe bandwidth, this may be further limited by 
-conditions of virtual link 0000:00:03.1
+It would also occur on desttop after some time of idling.
 
-> 
->>
->> Thanks,
->> Lijo
->>
->>>           bw = pcie_calc_bw_limits(dev, bw, limiting_dev, speed, width);
->>> +skip:
->>>           dev = pci_upstream_bridge(dev);
->>>       }
->>> +    /* If nothing "faster" found on hierarchy, limit to first 
->>> virtual link */
->>> +    if (vdev && !bw)
->>> +        bw = pcie_calc_bw_limits(vdev, bw, limiting_dev, speed, width);
->>> +
->>>       return bw;
->>>   }
->>>   EXPORT_SYMBOL(pcie_bandwidth_available);
-> 
+The easiest fix for it seems to revert it.
+
+This reverts commit b93ed51c32caad2b96cbc8e4754802078ede87ab.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 +++
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c     | 1 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c     | 1 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c      | 1 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c      | 1 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c      | 1 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      | 2 --
+ 7 files changed, 3 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index cef920a93924..0dcb6c36b02c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1062,6 +1062,9 @@ static const char * const amdgpu_vram_names[] = {
+  */
+ int amdgpu_bo_init(struct amdgpu_device *adev)
+ {
++	/* set the default AGP aperture state */
++	amdgpu_gmc_set_agp_default(adev, &adev->gmc);
++
+ 	/* On A+A platform, VRAM can be mapped as WB */
+ 	if (!adev->gmc.xgmi.connected_to_cpu && !adev->gmc.is_app_apu) {
+ 		/* reserve PAT memory space to WC for VRAM */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index 0ec7b061d7c2..a43d1aa42e11 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -672,7 +672,6 @@ static void gmc_v10_0_vram_gtt_location(struct amdgpu_device *adev,
+ 	/* add the xgmi offset of the physical node */
+ 	base += adev->gmc.xgmi.physical_node_id * adev->gmc.xgmi.node_segment_size;
+ 
+-	amdgpu_gmc_set_agp_default(adev, mc);
+ 	amdgpu_gmc_vram_location(adev, &adev->gmc, base);
+ 	amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_BEST_FIT);
+ 	if (!amdgpu_sriov_vf(adev))
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index ba4c82f5e617..ee7f3f8c1b4a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -637,7 +637,6 @@ static void gmc_v11_0_vram_gtt_location(struct amdgpu_device *adev,
+ 
+ 	base = adev->mmhub.funcs->get_fb_location(adev);
+ 
+-	amdgpu_gmc_set_agp_default(adev, mc);
+ 	amdgpu_gmc_vram_location(adev, &adev->gmc, base);
+ 	amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_HIGH);
+ 	if (!amdgpu_sriov_vf(adev) &&
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+index 42e103d7077d..7f66954fd302 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+@@ -211,7 +211,6 @@ static void gmc_v6_0_vram_gtt_location(struct amdgpu_device *adev,
+ 
+ 	base <<= 24;
+ 
+-	amdgpu_gmc_set_agp_default(adev, mc);
+ 	amdgpu_gmc_vram_location(adev, mc, base);
+ 	amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_BEST_FIT);
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+index efc16e580f1e..61ca1a82b651 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+@@ -239,7 +239,6 @@ static void gmc_v7_0_vram_gtt_location(struct amdgpu_device *adev,
+ 
+ 	base <<= 24;
+ 
+-	amdgpu_gmc_set_agp_default(adev, mc);
+ 	amdgpu_gmc_vram_location(adev, mc, base);
+ 	amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_BEST_FIT);
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+index ff4ae73d27ec..fa59749c2aef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+@@ -413,7 +413,6 @@ static void gmc_v8_0_vram_gtt_location(struct amdgpu_device *adev,
+ 		base = RREG32(mmMC_VM_FB_LOCATION) & 0xFFFF;
+ 	base <<= 24;
+ 
+-	amdgpu_gmc_set_agp_default(adev, mc);
+ 	amdgpu_gmc_vram_location(adev, mc, base);
+ 	amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_BEST_FIT);
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index c1f2f166f064..83733156ee53 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1621,8 +1621,6 @@ static void gmc_v9_0_vram_gtt_location(struct amdgpu_device *adev,
+ {
+ 	u64 base = adev->mmhub.funcs->get_fb_location(adev);
+ 
+-	amdgpu_gmc_set_agp_default(adev, mc);
+-
+ 	/* add the xgmi offset of the physical node */
+ 	base += adev->gmc.xgmi.physical_node_id * adev->gmc.xgmi.node_segment_size;
+ 	if (adev->gmc.xgmi.connected_to_cpu) {
+-- 
+2.34.1
 
