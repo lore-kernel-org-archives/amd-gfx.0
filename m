@@ -4,42 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CD10C07548
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Nov 2023 09:16:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BD59C47076
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Nov 2023 09:16:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66FB110E50D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 978EC10E50E;
 	Wed, 15 Nov 2023 09:15:55 +0000 (UTC)
-X-Greylist: delayed 397 seconds by postgrey-1.36 at gabe;
- Tue, 14 Nov 2023 09:38:00 UTC
-Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73F9710E1E2
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Nov 2023 09:38:00 +0000 (UTC)
-Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
- id A170A1C0050; Tue, 14 Nov 2023 10:31:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ucw.cz; s=gen1;
- t=1699954281;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=CODz8NstgmK92moXl+UOkCNSWzwauPKSWbUcbQNR6vc=;
- b=czasQl0YeQ5W+RSIiEMH8+ShxacJhxOxWAjh6P/5BRH6rK2eZU4z3Ko9aLSDCMlQIreHfL
- vhBaiZANOPqhbezEb/rKXFn4lTxMZo7Gd4RtCKj+eLOgIV5tBuwy+sFascrkKUf66y4ZDz
- fTZmcHV5xjCnffI/qz1h7FpaVYj1074=
-Date: Tue, 14 Nov 2023 10:31:21 +0100
-From: Pavel Machek <pavel@ucw.cz>
-To: Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH AUTOSEL 6.6 09/11] drm/amd: Fix UBSAN
- array-index-out-of-bounds for Powerplay headers
-Message-ID: <ZVM+af4bbB/Hx5Pd@duo.ucw.cz>
-References: <20231112132736.175494-1-sashal@kernel.org>
- <20231112132736.175494-9-sashal@kernel.org>
- <CADnq5_OyK=rDH38Q8Kiyq9BhWuihgd8wX7XKAffxwkO4w+ksog@mail.gmail.com>
- <ZVEewK-GAnRsrPA3@sashalap>
+Received: from 4.mo550.mail-out.ovh.net (4.mo550.mail-out.ovh.net
+ [46.105.76.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 006E210E4E8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Nov 2023 06:09:05 +0000 (UTC)
+Received: from director1.ghost.mail-out.ovh.net (unknown [10.108.20.172])
+ by mo550.mail-out.ovh.net (Postfix) with ESMTP id 87E8428EC7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Nov 2023 05:52:54 +0000 (UTC)
+Received: from ghost-submission-6684bf9d7b-p7h5p (unknown [10.109.156.181])
+ by director1.ghost.mail-out.ovh.net (Postfix) with ESMTPS id B9F281FE33;
+ Wed, 15 Nov 2023 05:52:52 +0000 (UTC)
+Received: from RCM-web6.webmail.mail.ovh.net ([151.80.29.20])
+ by ghost-submission-6684bf9d7b-p7h5p with ESMTPSA
+ id KK+VK7RcVGUPGyAA34RSKA
+ (envelope-from <jose.pekkarinen@foxhound.fi>); Wed, 15 Nov 2023 05:52:52 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature"; boundary="paJBZC1F9+gCvnp8"
-Content-Disposition: inline
-In-Reply-To: <ZVEewK-GAnRsrPA3@sashalap>
+Date: Wed, 15 Nov 2023 07:52:52 +0200
+From: =?UTF-8?Q?Jos=C3=A9_Pekkarinen?= <jose.pekkarinen@foxhound.fi>
+To: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Subject: Re: [PATCH v2] drm/amd/display: fix NULL dereference
+In-Reply-To: <689f3862-09d5-448d-b418-fd52d7288106@amd.com>
+References: <20231114152751.30167-1-jose.pekkarinen@foxhound.fi>
+ <689f3862-09d5-448d-b418-fd52d7288106@amd.com>
+User-Agent: Roundcube Webmail/1.4.15
+Message-ID: <87904eedaf4170e2302450eaa27f57d0@foxhound.fi>
+X-Sender: jose.pekkarinen@foxhound.fi
+Organization: Foxhound Ltd.
+X-Originating-IP: 45.151.167.10
+X-Webmail-UserID: jose.pekkarinen@foxhound.fi
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 6680527099856594625
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvkedrudefhedgvddvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepggffhffvvefujghffgfkgihoihgtgfesthekjhdttderjeenucfhrhhomheplfhoshorucfrvghkkhgrrhhinhgvnhcuoehjohhsvgdrphgvkhhkrghrihhnvghnsehfohighhhouhhnugdrfhhiqeenucggtffrrghtthgvrhhnpeekhfeguddufeegvdelgedtvdffgeehvddtkeevkeejvedvgeeitdefleehtdeitdenucfkphepuddvjedrtddrtddruddpgeehrdduhedurdduieejrddutddpudehuddrkedtrddvledrvddtnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpeeojhhoshgvrdhpvghkkhgrrhhinhgvnhesfhhogihhohhunhgurdhfiheqpdhnsggprhgtphhtthhopedupdhrtghpthhtoheprghmugdqghhfgieslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdpoffvtefjohhsthepmhhoheehtddpmhhouggvpehsmhhtphhouhht
 X-Mailman-Approved-At: Wed, 15 Nov 2023 09:15:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -52,61 +56,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexdeucher@gmail.com>,
- stable@vger.kernel.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>
+Cc: Wayne.Lin@amd.com, sunpeng.li@amd.com, airlied@gmail.com,
+ qingqing.zhuo@amd.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ wenjing.liu@amd.com, aurabindo.pillai@amd.com, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, skhan@linuxfoundation.org, alexander.deucher@amd.com,
+ srinivasan.shanmugam@amd.com, mikita.lipski@amd.com, harry.wentland@amd.com,
+ christian.koenig@amd.com, linux-kernel-mentees@lists.linux.dev,
+ sungjoon.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 2023-11-14 23:01, Hamza Mahfooz wrote:
+> On 11/14/23 10:27, José Pekkarinen wrote:
+>> The following patch will fix a minor issue where a debug message is
+>> referencing an struct that has just being checked whether is null or
+>> not. This has been noticed by using coccinelle, in the following 
+>> output:
+>> 
+>> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c:540:25-29: 
+>> ERROR: aconnector is NULL but dereferenced.
+>> 
+>> Fixes: 5d72e247e58c9 ("drm/amd/display: switch DC over to the new DRM 
+>> logging macros")
+> 
+> You only need the first 12 characters of the hash here. I have fixed it
+> for you and applied the patch in this case. But, in the future please
+> test your patches against `./scripts/checkpatch.pl` before submitting
+> them.
 
---paJBZC1F9+gCvnp8
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+     Oops! Sorry I didn't notice! Thanks!
 
-Hi!
-
-> > > From: Alex Deucher <alexander.deucher@amd.com>
-> > >=20
-> > > [ Upstream commit 49afe91370b86566857a3c2c39612cf098110885 ]
-> > >=20
-> > > For pptable structs that use flexible array sizes, use flexible array=
-s.
-> > >=20
-> > > Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2039926
-> > > Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-> > > Acked-by: Christian K=F6nig <christian.koenig@amd.com>
-> > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > > Signed-off-by: Sasha Levin <sashal@kernel.org>
-> >=20
-> > I don't think any of these UBSAN flexible array changes are stable mate=
-rial.
->=20
-> I'll drop it, but in general we've been taking kasan/ubsan/kcsan/...
-> annotation fixes since it enables (easier) testing on the LTS trees, and
-> for example finding issues specific to those LTS trees.
-
-I believe they should not be in stable, either.
-
-In any case, Documentation/process/stable-kernel-rules.rst should be
-updated, because it contradicts current practice.
-
-Best regards,
-								Pavel
---=20
-People of Russia, stop Putin before his war on Ukraine escalates.
-
---paJBZC1F9+gCvnp8
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCZVM+aQAKCRAw5/Bqldv6
-8mtwAKCOdMnLlfmoCA/L8EwU7sO7zQZxOACfbkjh4IwjOXNImQ69u5j7dz7e4Bs=
-=B0dk
------END PGP SIGNATURE-----
-
---paJBZC1F9+gCvnp8--
+     José.
