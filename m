@@ -4,91 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72540C5AE4B
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Nov 2023 19:45:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88173C2BB3F
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Nov 2023 20:08:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0050D10E596;
-	Wed, 15 Nov 2023 19:45:02 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2089.outbound.protection.outlook.com [40.107.93.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1D2410E58B
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Nov 2023 19:44:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jcv036qcOW7YdhEy5RqPvoWbwRq8fbHWU4QhoypQdfMLCYnaUFPhfytwFoFBWre0tYlDd1YCyVBg6NlQc4NWentl8hHPBlohp9IqnQ5OBAruIexlqMofArMboCSY2TMeoewtyW8ewJoEDs0VL7Xr7sc7lpi3zVe1ehjCQ9p3hQHD1naWwtbIcTgOiXpk2R1uuRi9JFsabj7l0J/PYqlumDkb0M+wphQzNXSzPs5X/xs0E3Wc6t3OkCvLzVEttkJzqLGRVCgWlPc/d5xMjEHYcoarMutZzThteHSGfVZ+ycaVCEZHIuMCj26p8FCz063J3AZLi52vakRbSkmxxquh6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VRy3flln/0b2dqG7E/WsV4vtz+P75YHNO0WQxbTKDCc=;
- b=cIL4kgEEVqnRsI+6Qmq25t5VEyIHWfsZFnu+PGP6dpAdqt5wo4KP8COepUHffcNiKks6B3Pkch8u6e++W5F99Gc2Xzq+11LlwfOgt4RxlQhKAbBAJBZLkgicTXpPnku6c4S4iDhiAoz81FcvDDvekbzu1wIyPGa0ZsJB+LCrPg3OtlO+TN/8SMOvK1e2AtSv+PX0/aGE2YiuZviimEs6EDfc+cufPTTEyvCbnC+25r6hALFLLbeMAL1u4ksFq3X7K4E/8tjG6od1y4ShYX6XTv2OnPe4BT5X32euRF/I34DHu0z+OBzRHJ3z2z1ECYkA/UGudFpDphDdjN/4pdSkNA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VRy3flln/0b2dqG7E/WsV4vtz+P75YHNO0WQxbTKDCc=;
- b=WGHMPnGyw42wAzWVEwdvzSkM9vCl+ojF/qfSDcRymSzzZJZPCSw/tNu65yFyHZU/Ok7oqdCd3gq+523PR9Ooe8eCytI9E+kdPlau9bDgV3a7Zqv3zvH/pEejMiYPVwpTHsg50Pk6188aJOJk3cqinCxNIAU+aqjMUassSirDios=
-Received: from BL0PR1501CA0011.namprd15.prod.outlook.com
- (2603:10b6:207:17::24) by SA3PR12MB8803.namprd12.prod.outlook.com
- (2603:10b6:806:317::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.31; Wed, 15 Nov
- 2023 19:44:41 +0000
-Received: from BL6PEPF0001AB76.namprd02.prod.outlook.com
- (2603:10b6:207:17:cafe::10) by BL0PR1501CA0011.outlook.office365.com
- (2603:10b6:207:17::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.29 via Frontend
- Transport; Wed, 15 Nov 2023 19:44:40 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB76.mail.protection.outlook.com (10.167.242.169) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7002.20 via Frontend Transport; Wed, 15 Nov 2023 19:44:40 +0000
-Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Wed, 15 Nov
- 2023 13:44:38 -0600
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 27/35] drm/amd/display: force toggle rate wa for first link
- training for a retimer
-Date: Wed, 15 Nov 2023 14:40:40 -0500
-Message-ID: <20231115194332.39469-28-hamza.mahfooz@amd.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231115194332.39469-1-hamza.mahfooz@amd.com>
-References: <20231115194332.39469-1-hamza.mahfooz@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A72110E18C;
+	Wed, 15 Nov 2023 20:08:58 +0000 (UTC)
+Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
+ [IPv6:2607:f8b0:4864:20::1136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E83510E18C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Nov 2023 20:08:57 +0000 (UTC)
+Received: by mail-yw1-x1136.google.com with SMTP id
+ 00721157ae682-5af15c3f734so5434577b3.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Nov 2023 12:08:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1700078936; x=1700683736; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dudJu8bqmoA0uQm5mbpxz9Q3fjggrbI693boctNIlwg=;
+ b=ELWJNRIGRyT5t+88Wb+K4Xai9qXNw1OuvOKH/8ZCU2uZT769zAw+vDkIQITEuWatNt
+ ywsHkP+aYa5/PJiOva2FclEw4UF86jayZp3fZ6/cOEgfjL4ZQzCEanMs1p+mMFdHg9eW
+ UbrxhaYuYJx2T5RftGhEI0p3EciLLEBQvwaF6fiaACKl95DBaAFh8go8S2sk+CoFl1YW
+ mj2CZY6P5QV8BNflj6kaNqT10dAfPiopsOeQwfFWFGZ5RCZ8btQo+/BZPdIuCyHxVKfX
+ lQ9WKg/9XiuwyV5MflUjvhl6QRvAeX2oWth/OBTGbEt1z2kv63Hg6k3khPtxjh1kuCVB
+ hoLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1700078936; x=1700683736;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=dudJu8bqmoA0uQm5mbpxz9Q3fjggrbI693boctNIlwg=;
+ b=MI/T+ZZUgTEit2e5Vl7hXGZcTPfkfFMWVv216egJd7Ra2MtQYqYsBnluYG+lCiYVlX
+ 6Ppgtbaq9ofAzLMtB0MKbJHt8q7GB6ZtrtFw8JHrk4J/jUtKksjAv8+pno+YGu30l4ve
+ UDm0GA/4FIYQPqpj2nnSBe1C5yEK9ekTMAWhyNiRXknGn3k1lxE/OaUVw2cPqBOH2g4a
+ 9y6TBXxVx24YgH1S+yjvLISd96guT52dJhuP84gJunIoKVfd+IYtME9QmnnjMSJJt6Tu
+ dc/f89HzlTRpjJ4NGJb49N5sdTWDvJ99/Rg3nDWjobzfDXDhDXZh/u85wdppklQ96+F+
+ DSIA==
+X-Gm-Message-State: AOJu0YxT31GpGLtnR3TfNWCQUf6VkaO/aW8R6kS+PRsebdkBMQ/R6wAI
+ 0/kbbsa8vFgcaTkLFXFFGrFc3ysBLEcf4YaEcgE=
+X-Google-Smtp-Source: AGHT+IHRkkHlie4UQ1NReHZ8gGxmxQucffqCVtYpZbaibyoZxtH1P8lpv4HNZVkT5YfCpALDmktBsBV2BTTL3WdoRvk=
+X-Received: by 2002:a05:690c:4887:b0:5a8:9e9:e661 with SMTP id
+ hd7-20020a05690c488700b005a809e9e661mr4614841ywb.1.1700078936216; Wed, 15 Nov
+ 2023 12:08:56 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB76:EE_|SA3PR12MB8803:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0112ed1a-c5d8-46a4-b9b6-08dbe6134efa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YD0qn5fc4yQD+U1GrRzr3N5aWDI1vvg86o1Ih3oGa0grRyIxQfFOf/Yh6IBrhQvWjwyvFWwBwyvo8I29SQ6hRdZWM06a/WKJB9L6fRYlEO8nT0ZNnEy1bSWcuk6UMDM4tTiwQfbfZzfo1uqZcD5iL3sZ9iy5HYI9MV6arX+YXsnWMzNHEr5dGXfTxKYg2Kwctkre8xjsslNMdPISrpruDA5FDWHJe++ZWVDvHwBu7Gilt25QU5/EeC7NsgCWwr7HkoD2XVPFtNlS2wKbAEGcLYq21AL8FKNKnKhHi84ooc9/LwDJaho71vg3MvosG7JtZSyZAxJu52bWt5UQ8csbir8uLuhY80wfRz/tf+Gf2syY8bCxd50/ItBrox+904B/j9gzqRMvyf+z0UnS9i3QtaeX7ttdBl4Fm2OYG8++5UdpTSs1DFOVPdVT+FVNOKQ+3JjUl4IeoxMpWkhq0HYFtpPKGa7XVZZTYiy0VmLLpL9UWZKREdrapA9alL2aJnfzrHzF5ctHyJ+bzHwIA2B5qJLFDHtQ1DY0LvAME31D9xE6WNukrvXDf+yM+x7tw14l5YkguwukZVB10UIRKU7E+kuoL5TRWaOeJLK6PDdbu+7SNGel8qEK5ZXRyLEv681lYBDDmGZtMSLRdy/H8EttU5sgEptr6oRwq8JamPtqXkcZpSY7egDci0mNVpAblUBJ+yuAhMIdh9glxYR/npnb2E5vZ6vF/YbOutqHOe4tbLB+MJETfGAcf5H0S3209DspSI6neI/rvQzto+Q2B2uYk6srZLXn1/m61OlnC481w3kqeJ+CxpE9pLNV1f3sVQRp
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(136003)(346002)(396003)(376002)(39860400002)(230922051799003)(1800799009)(451199024)(186009)(64100799003)(82310400011)(46966006)(40470700004)(36840700001)(70206006)(54906003)(70586007)(2616005)(6916009)(6666004)(40480700001)(478600001)(316002)(8676002)(8936002)(4326008)(36860700001)(82740400003)(356005)(83380400001)(47076005)(41300700001)(5660300002)(86362001)(426003)(36756003)(336012)(40460700003)(44832011)(26005)(16526019)(81166007)(2906002)(1076003)(36900700001)(16060500005);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2023 19:44:40.6409 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0112ed1a-c5d8-46a4-b9b6-08dbe6134efa
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB76.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8803
+References: <CABXGCsNRb0QbF2pKLJMDhVOKxyGD6-E+8p-4QO6FOWa6zp22_A@mail.gmail.com>
+ <CABXGCsOqbLRHSkiz79NkVQ-wUtR7y-ZFHvhMw0+JJ_cY2AZmSw@mail.gmail.com>
+ <CABXGCsPE9=Qp3Jg5hkRsTQoNgODnS_cXFU1d+hg3Baob40AaAA@mail.gmail.com>
+ <edc5b75b-c08d-4c62-ae5e-089ffac27772@amd.com>
+ <CABXGCsO=pdxorK9pO7qBPJM-xvgPPtpZqxLvQO4t2AK5qW3vcA@mail.gmail.com>
+ <DM8PR12MB5400EAB81E5FA10F4309A732D1B1A@DM8PR12MB5400.namprd12.prod.outlook.com>
+In-Reply-To: <DM8PR12MB5400EAB81E5FA10F4309A732D1B1A@DM8PR12MB5400.namprd12.prod.outlook.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Thu, 16 Nov 2023 01:08:44 +0500
+Message-ID: <CABXGCsNpEh7GjFPvx=rz6ZeB7Kx4iqV-e8HyFKyhNau2S5gENw@mail.gmail.com>
+Subject: Re: regression/bisected/6.7rc1: Instead of desktop I see a horizontal
+ flashing bar with a picture of the desktop background on white screen
+To: "Lee, Alvin" <Alvin.Lee2@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,64 +73,29 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, chiahsuan.chung@amd.com, Sunpeng.Li@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, stable@vger.kernel.org,
- Zhongwei <zhongwei.zhang@amd.com>, jerry.zuo@amd.com, Aurabindo.Pillai@amd.com,
- hersenxs.wu@amd.com, Hamza Mahfooz <hamza.mahfooz@amd.com>, wayne.lin@amd.com,
- Michael Strauss <michael.strauss@amd.com>, Harry.Wentland@amd.com,
- agustin.gutierrez@amd.com
+Cc: Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Wheeler,
+ Daniel" <Daniel.Wheeler@amd.com>, "Wu, Hersen" <hersenxs.wu@amd.com>, "Mahfooz,
+ Hamza" <Hamza.Mahfooz@amd.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Zhongwei <zhongwei.zhang@amd.com>
+On Wed, Nov 15, 2023 at 11:39=E2=80=AFPM Lee, Alvin <Alvin.Lee2@amd.com> wr=
+ote:
+>
+> This change has a DMCUB dependency - are you able to update your DMCUB ve=
+rsion as well?
+>
 
-[WHY]
-Handover from DMUB to driver does not perform link rate toggle.
-It might cause link training failure for boot up.
+I can confirm this issue was gone after updating firmware.
 
-[HOW]
-Force toggle rate wa for first link train.
-link->vendor_specific_lttpr_link_rate_wa should be zero then.
+=E2=9D=AF dmesg | grep DMUB
+[   11.496679] [drm] Loading DMUB firmware via PSP: version=3D0x07002300
+[   12.000314] [drm] DMUB hardware initialized: version=3D0x07002300
 
-Cc: stable@vger.kernel.org # 6.1+
-Reviewed-by: Michael Strauss <michael.strauss@amd.com>
-Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Signed-off-by: Zhongwei <zhongwei.zhang@amd.com>
----
- .../link/protocols/link_dp_training_fixed_vs_pe_retimer.c   | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c
-index fd8f6f198146..68096d12f52f 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c
-@@ -115,7 +115,7 @@ static enum link_training_result perform_fixed_vs_pe_nontransparent_training_seq
- 		lt_settings->cr_pattern_time = 16000;
- 
- 	/* Fixed VS/PE specific: Toggle link rate */
--	apply_toggle_rate_wa = (link->vendor_specific_lttpr_link_rate_wa == target_rate);
-+	apply_toggle_rate_wa = ((link->vendor_specific_lttpr_link_rate_wa == target_rate) || (link->vendor_specific_lttpr_link_rate_wa == 0));
- 	target_rate = get_dpcd_link_rate(&lt_settings->link_settings);
- 	toggle_rate = (target_rate == 0x6) ? 0xA : 0x6;
- 
-@@ -271,7 +271,7 @@ enum link_training_result dp_perform_fixed_vs_pe_training_sequence_legacy(
- 	/* Vendor specific: Toggle link rate */
- 	toggle_rate = (rate == 0x6) ? 0xA : 0x6;
- 
--	if (link->vendor_specific_lttpr_link_rate_wa == rate) {
-+	if (link->vendor_specific_lttpr_link_rate_wa == rate || link->vendor_specific_lttpr_link_rate_wa == 0) {
- 		core_link_write_dpcd(
- 				link,
- 				DP_LINK_BW_SET,
-@@ -617,7 +617,7 @@ enum link_training_result dp_perform_fixed_vs_pe_training_sequence(
- 	/* Vendor specific: Toggle link rate */
- 	toggle_rate = (rate == 0x6) ? 0xA : 0x6;
- 
--	if (link->vendor_specific_lttpr_link_rate_wa == rate) {
-+	if (link->vendor_specific_lttpr_link_rate_wa == rate || link->vendor_specific_lttpr_link_rate_wa == 0) {
- 		core_link_write_dpcd(
- 				link,
- 				DP_LINK_BW_SET,
--- 
-2.42.0
 
+--=20
+Best Regards,
+Mike Gavrilov.
