@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6D60C47071
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 19:58:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AA87C5AE4A
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 19:58:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56E0210E6A1;
-	Thu, 16 Nov 2023 19:58:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 621F310E69E;
+	Thu, 16 Nov 2023 19:58:35 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FE0610E6A0;
- Thu, 16 Nov 2023 19:58:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F61010E698;
+ Thu, 16 Nov 2023 19:58:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,26 +19,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=woPEN37wWhfQDbL9zM1RteALD03JUK+h2wvGEX+z3zw=; b=huUaHRVjorVfuHmcIDZ/Y0xTd5
- YxuJYHCRXfMEfUh+Ks9zNYjzgSnwbJRe2Y7uiVfiknZmSFSSgMgOZFAkPZBbsrkbvev8ZrIKxeyjF
- sbP8DvUhuzixm654cDmh0eXn2hT27pjQQKGSSJWPcsfGF4OkuHxL48bY2O7EpJ+Sgr5/A03bqaHat
- 1BSr6PwkI0WgM7UiEHBPmaeKHUpgjTeMkfy7JZhPyRifZZ6qcORHem0aGUgwxolLV1tqGgaABT6yt
- tJ4C6asL47YKSh8t+A5rv/jE3TGAx8PAUQE5VGtsVRBPX8BS+3oy3nkFotRt5B3eNNH4/Y6SWjtKx
- rlLO0Osg==;
+ bh=NRCcBXnmGSKr8m7ip5h6qqs877Fiim5Th5OQ4js85NY=; b=e8e88sg1nl312YanSlRaLcVNhb
+ BHCP2AXVQrRmiGOk5UZCpVjdcbJKLNCt7NkH+QbKx3Cn4c3ah4voCdaCFUxMoh0KFhMbJXUWPf6FQ
+ yZBSpPLTjr6HDYfQtNHz7CYXBtqx2uLlqh3KAMPw2Fas6JuBnE6WfiaR5ycp/i04tino2hMHJpBPF
+ 41wSVhPwIF42vMiwro6oEi8ZzSt5NSsznj9QrF8qE2w1UhVdFppMyGT2sEpMeZgfUI77rRPHGKsPj
+ d+Dctisb8nZ6QTqvKQ4Wt4xbsCTS/d8UoL7YpJt0vbF5Hh72UAJ1RPB8gQs9vHfEiA2lAXc7jTRRj
+ PLtSamNw==;
 Received: from [102.213.205.115] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1r3iVR-0048Yy-I2; Thu, 16 Nov 2023 20:58:29 +0100
+ id 1r3iVL-0048Yy-1g; Thu, 16 Nov 2023 20:58:23 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch
-Subject: [PATCH v5 06/32] drm/amd/display: explicitly define EOTF and inverse
- EOTF
-Date: Thu, 16 Nov 2023 18:57:46 -0100
-Message-Id: <20231116195812.906115-7-mwen@igalia.com>
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, daniel@ffwll.ch
+Subject: [PATCH v5 03/32] drm/drm_plane: track color mgmt changes per plane
+Date: Thu, 16 Nov 2023 18:57:43 -0100
+Message-Id: <20231116195812.906115-4-mwen@igalia.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231116195812.906115-1-mwen@igalia.com>
 References: <20231116195812.906115-1-mwen@igalia.com>
@@ -64,151 +63,61 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of relying on color block names to get the transfer function
-intention regarding encoding pixel's luminance, define supported
-Electro-Optical Transfer Functions (EOTFs) and inverse EOTFs, that
-includes pure gamma or standardized transfer functions.
+We will add color mgmt properties to DRM planes in the next patches and
+we want to track when one of this properties change to define atomic
+commit behaviors. Using a similar approach from CRTC color props, we set
+a color_mgmt_changed boolean whenever a plane color prop changes.
 
-v3:
-- squash linear and unity TFs to identity (Pekka)
-- define the right TFs for BT.709 (Pekka and Harry)
-- add comment about AMD TF coefficients
-
-Suggested-by: Harry Wentland <harry.wentland@amd.com>
 Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 27 +++++---
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 67 ++++++++++++++-----
- 2 files changed, 71 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/drm_atomic.c              | 1 +
+ drivers/gpu/drm/drm_atomic_state_helper.c | 1 +
+ include/drm/drm_plane.h                   | 7 +++++++
+ 3 files changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index ab89538d5663..98f7267d5ee7 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -716,16 +716,27 @@ static inline void amdgpu_dm_set_mst_status(uint8_t *status,
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 2c454568a607..2925371d230d 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -724,6 +724,7 @@ static void drm_atomic_plane_print_state(struct drm_printer *p,
+ 		   drm_get_color_encoding_name(state->color_encoding));
+ 	drm_printf(p, "\tcolor-range=%s\n",
+ 		   drm_get_color_range_name(state->color_range));
++	drm_printf(p, "\tcolor_mgmt_changed=%d\n", state->color_mgmt_changed);
  
- extern const struct amdgpu_ip_block_version dm_ip_block;
- 
-+/* enum amdgpu_transfer_function: pre-defined transfer function supported by AMD.
-+ *
-+ * It includes standardized transfer functions and pure power functions. The
-+ * transfer function coefficients are available at modules/color/color_gamma.c
-+ */
- enum amdgpu_transfer_function {
- 	AMDGPU_TRANSFER_FUNCTION_DEFAULT,
--	AMDGPU_TRANSFER_FUNCTION_SRGB,
--	AMDGPU_TRANSFER_FUNCTION_BT709,
--	AMDGPU_TRANSFER_FUNCTION_PQ,
--	AMDGPU_TRANSFER_FUNCTION_LINEAR,
--	AMDGPU_TRANSFER_FUNCTION_UNITY,
--	AMDGPU_TRANSFER_FUNCTION_GAMMA22,
--	AMDGPU_TRANSFER_FUNCTION_GAMMA24,
--	AMDGPU_TRANSFER_FUNCTION_GAMMA26,
-+	AMDGPU_TRANSFER_FUNCTION_SRGB_EOTF,
-+	AMDGPU_TRANSFER_FUNCTION_BT709_INV_OETF,
-+	AMDGPU_TRANSFER_FUNCTION_PQ_EOTF,
-+	AMDGPU_TRANSFER_FUNCTION_IDENTITY,
-+	AMDGPU_TRANSFER_FUNCTION_GAMMA22_EOTF,
-+	AMDGPU_TRANSFER_FUNCTION_GAMMA24_EOTF,
-+	AMDGPU_TRANSFER_FUNCTION_GAMMA26_EOTF,
-+	AMDGPU_TRANSFER_FUNCTION_SRGB_INV_EOTF,
-+	AMDGPU_TRANSFER_FUNCTION_BT709_OETF,
-+	AMDGPU_TRANSFER_FUNCTION_PQ_INV_EOTF,
-+	AMDGPU_TRANSFER_FUNCTION_GAMMA22_INV_EOTF,
-+	AMDGPU_TRANSFER_FUNCTION_GAMMA24_INV_EOTF,
-+	AMDGPU_TRANSFER_FUNCTION_GAMMA26_INV_EOTF,
-+        AMDGPU_TRANSFER_FUNCTION_COUNT
- };
- 
- struct dm_plane_state {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index 8e02d2b1249d..a32abbd93a61 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -85,18 +85,57 @@ void amdgpu_dm_init_color_mod(void)
+ 	if (plane->funcs->atomic_print_state)
+ 		plane->funcs->atomic_print_state(p, state);
+diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+index 784e63d70a42..25bb0859fda7 100644
+--- a/drivers/gpu/drm/drm_atomic_state_helper.c
++++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+@@ -338,6 +338,7 @@ void __drm_atomic_helper_plane_duplicate_state(struct drm_plane *plane,
+ 	state->fence = NULL;
+ 	state->commit = NULL;
+ 	state->fb_damage_clips = NULL;
++	state->color_mgmt_changed = false;
  }
+ EXPORT_SYMBOL(__drm_atomic_helper_plane_duplicate_state);
  
- #ifdef AMD_PRIVATE_COLOR
--static const struct drm_prop_enum_list amdgpu_transfer_function_enum_list[] = {
--	{ AMDGPU_TRANSFER_FUNCTION_DEFAULT, "Default" },
--	{ AMDGPU_TRANSFER_FUNCTION_SRGB, "sRGB" },
--	{ AMDGPU_TRANSFER_FUNCTION_BT709, "BT.709" },
--	{ AMDGPU_TRANSFER_FUNCTION_PQ, "PQ (Perceptual Quantizer)" },
--	{ AMDGPU_TRANSFER_FUNCTION_LINEAR, "Linear" },
--	{ AMDGPU_TRANSFER_FUNCTION_UNITY, "Unity" },
--	{ AMDGPU_TRANSFER_FUNCTION_GAMMA22, "Gamma 2.2" },
--	{ AMDGPU_TRANSFER_FUNCTION_GAMMA24, "Gamma 2.4" },
--	{ AMDGPU_TRANSFER_FUNCTION_GAMMA26, "Gamma 2.6" },
-+static const char * const
-+amdgpu_transfer_function_names[] = {
-+	[AMDGPU_TRANSFER_FUNCTION_DEFAULT]		= "Default",
-+	[AMDGPU_TRANSFER_FUNCTION_IDENTITY]		= "Identity",
-+	[AMDGPU_TRANSFER_FUNCTION_SRGB_EOTF]		= "sRGB EOTF",
-+	[AMDGPU_TRANSFER_FUNCTION_BT709_INV_OETF]	= "BT.709 inv_OETF",
-+	[AMDGPU_TRANSFER_FUNCTION_PQ_EOTF]		= "PQ EOTF",
-+	[AMDGPU_TRANSFER_FUNCTION_GAMMA22_EOTF]		= "Gamma 2.2 EOTF",
-+	[AMDGPU_TRANSFER_FUNCTION_GAMMA24_EOTF]		= "Gamma 2.4 EOTF",
-+	[AMDGPU_TRANSFER_FUNCTION_GAMMA26_EOTF]		= "Gamma 2.6 EOTF",
-+	[AMDGPU_TRANSFER_FUNCTION_SRGB_INV_EOTF]	= "sRGB inv_EOTF",
-+	[AMDGPU_TRANSFER_FUNCTION_BT709_OETF]		= "BT.709 OETF",
-+	[AMDGPU_TRANSFER_FUNCTION_PQ_INV_EOTF]		= "PQ inv_EOTF",
-+	[AMDGPU_TRANSFER_FUNCTION_GAMMA22_INV_EOTF]	= "Gamma 2.2 inv_EOTF",
-+	[AMDGPU_TRANSFER_FUNCTION_GAMMA24_INV_EOTF]	= "Gamma 2.4 inv_EOTF",
-+	[AMDGPU_TRANSFER_FUNCTION_GAMMA26_INV_EOTF]	= "Gamma 2.6 inv_EOTF",
+diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
+index 51291983ea44..52c3287da0da 100644
+--- a/include/drm/drm_plane.h
++++ b/include/drm/drm_plane.h
+@@ -237,6 +237,13 @@ struct drm_plane_state {
+ 
+ 	/** @state: backpointer to global drm_atomic_state */
+ 	struct drm_atomic_state *state;
++
++	/**
++	 * @color_mgmt_changed: Color management properties have changed. Used
++	 * by the atomic helpers and drivers to steer the atomic commit control
++	 * flow.
++	 */
++	bool color_mgmt_changed : 1;
  };
  
-+static const u32 amdgpu_eotf =
-+	BIT(AMDGPU_TRANSFER_FUNCTION_SRGB_EOTF) |
-+	BIT(AMDGPU_TRANSFER_FUNCTION_BT709_INV_OETF) |
-+	BIT(AMDGPU_TRANSFER_FUNCTION_PQ_EOTF) |
-+	BIT(AMDGPU_TRANSFER_FUNCTION_GAMMA22_EOTF) |
-+	BIT(AMDGPU_TRANSFER_FUNCTION_GAMMA24_EOTF) |
-+	BIT(AMDGPU_TRANSFER_FUNCTION_GAMMA26_EOTF);
-+
-+static struct drm_property *
-+amdgpu_create_tf_property(struct drm_device *dev,
-+			  const char *name,
-+			  u32 supported_tf)
-+{
-+	u32 transfer_functions = supported_tf |
-+				 BIT(AMDGPU_TRANSFER_FUNCTION_DEFAULT) |
-+				 BIT(AMDGPU_TRANSFER_FUNCTION_IDENTITY);
-+	struct drm_prop_enum_list enum_list[AMDGPU_TRANSFER_FUNCTION_COUNT];
-+	int i, len;
-+
-+	len = 0;
-+	for (i = 0; i < AMDGPU_TRANSFER_FUNCTION_COUNT; i++) {
-+		if ((transfer_functions & BIT(i)) == 0)
-+			continue;
-+
-+		enum_list[len].type = i;
-+		enum_list[len].name = amdgpu_transfer_function_names[i];
-+		len++;
-+	}
-+
-+	return drm_property_create_enum(dev, DRM_MODE_PROP_ENUM,
-+					name, enum_list, len);
-+}
-+
- int
- amdgpu_dm_create_color_properties(struct amdgpu_device *adev)
- {
-@@ -117,11 +156,9 @@ amdgpu_dm_create_color_properties(struct amdgpu_device *adev)
- 		return -ENOMEM;
- 	adev->mode_info.plane_degamma_lut_size_property = prop;
- 
--	prop = drm_property_create_enum(adev_to_drm(adev),
--					DRM_MODE_PROP_ENUM,
--					"AMD_PLANE_DEGAMMA_TF",
--					amdgpu_transfer_function_enum_list,
--					ARRAY_SIZE(amdgpu_transfer_function_enum_list));
-+	prop = amdgpu_create_tf_property(adev_to_drm(adev),
-+					 "AMD_PLANE_DEGAMMA_TF",
-+					 amdgpu_eotf);
- 	if (!prop)
- 		return -ENOMEM;
- 	adev->mode_info.plane_degamma_tf_property = prop;
+ static inline struct drm_rect
 -- 
 2.40.1
 
