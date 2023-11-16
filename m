@@ -4,43 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AC03C47071
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 19:58:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7221C47071
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 19:58:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42E9710E695;
-	Thu, 16 Nov 2023 19:58:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBB6C10E698;
+	Thu, 16 Nov 2023 19:58:25 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB59710E693;
- Thu, 16 Nov 2023 19:58:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 574E810E697;
+ Thu, 16 Nov 2023 19:58:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:
- Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=+DxgjsvuCtkCiraJPkDyhj201h2ysE/rDnknD0WVBLg=; b=dtl4HgHQoHN0b9IgX8yWpNBGp3
- +lt0oaOXLnrpghuF2hWQDVcDT0R0MIODYqFLYh3X1+XWuLIwIljBHbtCcG2iVldBWD1EEsGA8LBIx
- 6n7UrOFL3yZUhk+dWnXQxdAEcoorQEzRT992gbNQzPhPQAFr/aVhrOzv5r0AkaMM3Eizkam9jswrH
- WJ/C5fro46jej0ETPpZ+H7TemEt8xtLbTpTZuz678JgqaU/b+aTzDlc0rwBz5pXx3663ZqqYSxtA/
- xNMUQS9hXJHo9SLcQXIBQHY76Eddkb6kvjKeX3GZ5/+cwvRrSPvVtaoWF2wCoFK6/Vn4Ne2uB/IUu
- /XzCNHJw==;
+ bh=PU/RohkQdiuMXLcg1jeuCkhkWT3KWq21ziH0SYnQbs0=; b=nrFDW2Y8QQ/9zrhmo1kCsb4Xh5
+ kMuxX+V07AXYab9des6XKruwGSfyY0FXpBpjWyXd+DA9vPlmXfQFhFOh0e3z5CQBbYI0yGIBbDBtk
+ Wxq2+XP6iOdLaL1LqiyIwhpZvi1g4KEtB84gRZO5ILF4bFIg+Em6lS9ZAclgsogcMs1zI7XxLPc/F
+ FY5as+6VozoP87jgFrpXCBc1qbY2m9N0xXNP7NkpMPXsFnVya7qD9+9hC8xuqQBl5+d7fbbrBKOaG
+ sMaS4Ky1yuXvumhoovPX+KILT4khm+UV4UE8IXwb0OGk4jOaM36lDO6H6/xu4ltEPzP+n2Nla0N5n
+ wzy1mTOw==;
 Received: from [102.213.205.115] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1r3iVE-0048Yy-3A; Thu, 16 Nov 2023 20:58:16 +0100
+ id 1r3iVI-0048Yy-Q6; Thu, 16 Nov 2023 20:58:20 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
- airlied@gmail.com, brian.starkey@arm.com, christian.koenig@amd.com,
- daniel@ffwll.ch, liviu.dudau@arm.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, Xinhui.Pan@amd.com
-Subject: [PATCH v5 00/32] drm/amd/display: add AMD driver-specific properties
- for color mgmt
-Date: Thu, 16 Nov 2023 18:57:40 -0100
-Message-Id: <20231116195812.906115-1-mwen@igalia.com>
+ liviu.dudau@arm.com, brian.starkey@arm.com, airlied@gmail.com,
+ daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de
+Subject: [PATCH v5 02/32] drm/drm_property: make replace_property_blob_from_id
+ a DRM helper
+Date: Thu, 16 Nov 2023 18:57:42 -0100
+Message-Id: <20231116195812.906115-3-mwen@igalia.com>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20231116195812.906115-1-mwen@igalia.com>
+References: <20231116195812.906115-1-mwen@igalia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -63,148 +65,199 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+Place it in drm_property where drm_property_replace_blob and
+drm_property_lookup_blob live. Then we can use the DRM helper for
+driver-specific KMS properties too.
 
-This series extends the current KMS color management API with AMD
-driver-specific properties to enhance the color management support on
-AMD Steam Deck. The key additions to the color pipeline include:
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+---
+ drivers/gpu/drm/arm/malidp_crtc.c |  2 +-
+ drivers/gpu/drm/drm_atomic_uapi.c | 43 ++++-----------------------
+ drivers/gpu/drm/drm_property.c    | 49 +++++++++++++++++++++++++++++++
+ include/drm/drm_property.h        |  6 ++++
+ 4 files changed, 61 insertions(+), 39 deletions(-)
 
-- plane degamma LUT and pre-defined TF;
-- plane HDR multiplier;
-- plane CTM 3x4;
-- plane shaper LUT and pre-defined TF;
-- plane 3D LUT;
-- plane blend LUT and pre-defined TF;
-- CRTC gamma pre-defined TF;
-
-You can find the AMD HW color capabilities documented here:
-https://dri.freedesktop.org/docs/drm/gpu/amdgpu/display/display-manager.html#color-management-properties
-
-The userspace case is Gamescope[1], the compositor for SteamOS.
-Gamescope has already adopted AMD driver-specific properties to
-implement comprehensive color management support, including gamut
-mapping, HDR rendering, SDR on HDR, HDR on SDR. Using these features in
-the SteamOS 3.5[2] users can expect a significantly enhanced visual
-experience. 
-
-You can find a brief overview of the Steam Deck color pipeline here:
-https://github.com/ValveSoftware/gamescope/blob/master/src/docs/Steam%20Deck%20Display%20Pipeline.png
-
-This version (v5) includes the fixes for documentation (Sebastian),
-suspend/resume and color management setup (Joshua) suggested in the
-previous version. It also includes Harry's reviewed-by.
-
-Thank you everyone for reviews and feedback.
-
-Changes since:
-
-[RFC] https://lore.kernel.org/dri-devel/20230423141051.702990-1-mwen@igalia.com
-- Remove KConfig and guard properties with `AMD_PRIVATE_COLOR`;
-- Remove properties for post-blending/CRTC shaper TF+LUT and 3D LUT;
-- Use color caps to improve the support of pre-defined curve;
-
-[v1] https://lore.kernel.org/dri-devel/20230523221520.3115570-1-mwen@igalia.com
-- Replace DRM_ by AMDGPU_ prefix for transfer function (TF) enum; 
-- Explicitly define EOTFs and inverse EOTFs and set props accordingly;
-- Document pre-defined transfer functions;
-- Remove HLG transfer function from supported TFs;
-- Remove misleading comments;
-- Remove post-blending shaper TF+LUT and 3D LUT support;
-- Move driver-specific property operations from amdgpu_display.c to
-  amdgpu_dm_color.c;
-- Reset planes if any color props change;
-- Add plane CTM 3x4 support;
-- Removed two DC fixes already applied upstream;
-
-[v2] https://lore.kernel.org/dri-devel/20230810160314.48225-1-mwen@igalia.com
-- Many documentation fixes: BT.709 OETF, description of sRGB and pure
-  power functions, TF+1D LUT behavior;
-- Rename CTM2 to CTM 3x4 and fix misleading comment about DC gamut remap;
-- Squash `Linear` and `Unity` TF in `Identity`;
-- Remove the `MPC gamut remap` patch already applied upstream[3];
-- Remove outdated delta segmentation fix;
-- Nits/small fixes;
-
-[v3] https://lore.kernel.org/amd-gfx/20230925194932.1329483-1-mwen@igalia.com
-- Add table to describe value range in linear and non-linear forms;
-- Comment the PQ TF need after HDR multiplier;
-- Advertise the 3D LUT size as the size of a single-dimension (read-only);
-- remove function to check expected size from 3DLUT caps;
-- cleanup comments.
-
-[v4] https://lore.kernel.org/amd-gfx/20231005171527.203657-1-mwen@igalia.com
-- Fix documentation about 3D LUT size;
-- Correctly getting LUT blobs;
-- Always set plane color properties, regardless plane->color_mgmt_changed.
-
-It's worth noting that driver-specific properties are guarded by
-cflags `AMD_PRIVATE_COLOR`.
-
-Best Regards,
-
-Melissa Wen
-
-[1] https://github.com/ValveSoftware/gamescope
-[2] https://store.steampowered.com/news/app/1675200/view/3686804163591367815
-[3] https://lore.kernel.org/dri-devel/20230721132431.692158-1-mwen@igalia.com
-
-Joshua Ashton (14):
-  drm/amd/display: add plane degamma TF driver-specific property
-  drm/amd/display: add plane HDR multiplier driver-specific property
-  drm/amd/display: add plane blend LUT and TF driver-specific properties
-  drm/amd/display: add CRTC gamma TF support
-  drm/amd/display: set sdr_ref_white_level to 80 for out_transfer_func
-  drm/amd/display: mark plane as needing reset if color props change
-  drm/amd/display: add plane degamma TF and LUT support
-  drm/amd/display: add dc_fixpt_from_s3132 helper
-  drm/amd/display: add HDR multiplier support
-  drm/amd/display: handle empty LUTs in __set_input_tf
-  drm/amd/display: add plane blend LUT and TF support
-  drm/amd/display: allow newer DC hardware to use degamma ROM for PQ/HLG
-  drm/amd/display: copy 3D LUT settings from crtc state to stream_update
-  drm/amd/display: Add 3x4 CTM support for plane CTM
-
-Melissa Wen (18):
-  drm/drm_mode_object: increase max objects to accommodate new color
-    props
-  drm/drm_property: make replace_property_blob_from_id a DRM helper
-  drm/drm_plane: track color mgmt changes per plane
-  drm/amd/display: add driver-specific property for plane degamma LUT
-  drm/amd/display: explicitly define EOTF and inverse EOTF
-  drm/amd/display: document AMDGPU pre-defined transfer functions
-  drm/amd/display: add plane 3D LUT driver-specific properties
-  drm/amd/display: add plane shaper LUT and TF driver-specific
-    properties
-  drm/amd/display: add CRTC gamma TF driver-specific property
-  drm/amd/display: add comments to describe DM crtc color mgmt behavior
-  drm/amd/display: encapsulate atomic regamma operation
-  drm/amd/display: decouple steps for mapping CRTC degamma to DC plane
-  drm/amd/display: reject atomic commit if setting both plane and CRTC
-    degamma
-  drm/amd/display: add plane shaper LUT support
-  drm/amd/display: add plane shaper TF support
-  drm/amd/display: add plane 3D LUT support
-  drm/amd/display: add plane CTM driver-specific property
-  drm/amd/display: add plane CTM support
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  91 ++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  34 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 108 +++
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 818 ++++++++++++++++--
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  72 ++
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 232 ++++-
- .../gpu/drm/amd/display/include/fixed31_32.h  |  12 +
- drivers/gpu/drm/arm/malidp_crtc.c             |   2 +-
- drivers/gpu/drm/drm_atomic.c                  |   1 +
- drivers/gpu/drm/drm_atomic_state_helper.c     |   1 +
- drivers/gpu/drm/drm_atomic_uapi.c             |  43 +-
- drivers/gpu/drm/drm_property.c                |  49 ++
- include/drm/drm_mode_object.h                 |   2 +-
- include/drm/drm_plane.h                       |   7 +
- include/drm/drm_property.h                    |   6 +
- include/uapi/drm/drm_mode.h                   |   8 +
- 16 files changed, 1377 insertions(+), 109 deletions(-)
-
+diff --git a/drivers/gpu/drm/arm/malidp_crtc.c b/drivers/gpu/drm/arm/malidp_crtc.c
+index dc01c43f6193..d72c22dcf685 100644
+--- a/drivers/gpu/drm/arm/malidp_crtc.c
++++ b/drivers/gpu/drm/arm/malidp_crtc.c
+@@ -221,7 +221,7 @@ static int malidp_crtc_atomic_check_ctm(struct drm_crtc *crtc,
+ 
+ 	/*
+ 	 * The size of the ctm is checked in
+-	 * drm_atomic_replace_property_blob_from_id.
++	 * drm_property_replace_blob_from_id.
+ 	 */
+ 	ctm = (struct drm_color_ctm *)state->ctm->data;
+ 	for (i = 0; i < ARRAY_SIZE(ctm->matrix); ++i) {
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index d867e7f9f2cd..a6a9ee5086dd 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -362,39 +362,6 @@ static s32 __user *get_out_fence_for_connector(struct drm_atomic_state *state,
+ 	return fence_ptr;
+ }
+ 
+-static int
+-drm_atomic_replace_property_blob_from_id(struct drm_device *dev,
+-					 struct drm_property_blob **blob,
+-					 uint64_t blob_id,
+-					 ssize_t expected_size,
+-					 ssize_t expected_elem_size,
+-					 bool *replaced)
+-{
+-	struct drm_property_blob *new_blob = NULL;
+-
+-	if (blob_id != 0) {
+-		new_blob = drm_property_lookup_blob(dev, blob_id);
+-		if (new_blob == NULL)
+-			return -EINVAL;
+-
+-		if (expected_size > 0 &&
+-		    new_blob->length != expected_size) {
+-			drm_property_blob_put(new_blob);
+-			return -EINVAL;
+-		}
+-		if (expected_elem_size > 0 &&
+-		    new_blob->length % expected_elem_size != 0) {
+-			drm_property_blob_put(new_blob);
+-			return -EINVAL;
+-		}
+-	}
+-
+-	*replaced |= drm_property_replace_blob(blob, new_blob);
+-	drm_property_blob_put(new_blob);
+-
+-	return 0;
+-}
+-
+ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
+ 		struct drm_crtc_state *state, struct drm_property *property,
+ 		uint64_t val)
+@@ -415,7 +382,7 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
+ 	} else if (property == config->prop_vrr_enabled) {
+ 		state->vrr_enabled = val;
+ 	} else if (property == config->degamma_lut_property) {
+-		ret = drm_atomic_replace_property_blob_from_id(dev,
++		ret = drm_property_replace_blob_from_id(dev,
+ 					&state->degamma_lut,
+ 					val,
+ 					-1, sizeof(struct drm_color_lut),
+@@ -423,7 +390,7 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
+ 		state->color_mgmt_changed |= replaced;
+ 		return ret;
+ 	} else if (property == config->ctm_property) {
+-		ret = drm_atomic_replace_property_blob_from_id(dev,
++		ret = drm_property_replace_blob_from_id(dev,
+ 					&state->ctm,
+ 					val,
+ 					sizeof(struct drm_color_ctm), -1,
+@@ -431,7 +398,7 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
+ 		state->color_mgmt_changed |= replaced;
+ 		return ret;
+ 	} else if (property == config->gamma_lut_property) {
+-		ret = drm_atomic_replace_property_blob_from_id(dev,
++		ret = drm_property_replace_blob_from_id(dev,
+ 					&state->gamma_lut,
+ 					val,
+ 					-1, sizeof(struct drm_color_lut),
+@@ -563,7 +530,7 @@ static int drm_atomic_plane_set_property(struct drm_plane *plane,
+ 	} else if (property == plane->color_range_property) {
+ 		state->color_range = val;
+ 	} else if (property == config->prop_fb_damage_clips) {
+-		ret = drm_atomic_replace_property_blob_from_id(dev,
++		ret = drm_property_replace_blob_from_id(dev,
+ 					&state->fb_damage_clips,
+ 					val,
+ 					-1,
+@@ -729,7 +696,7 @@ static int drm_atomic_connector_set_property(struct drm_connector *connector,
+ 		if (state->link_status != DRM_LINK_STATUS_GOOD)
+ 			state->link_status = val;
+ 	} else if (property == config->hdr_output_metadata_property) {
+-		ret = drm_atomic_replace_property_blob_from_id(dev,
++		ret = drm_property_replace_blob_from_id(dev,
+ 				&state->hdr_output_metadata,
+ 				val,
+ 				sizeof(struct hdr_output_metadata), -1,
+diff --git a/drivers/gpu/drm/drm_property.c b/drivers/gpu/drm/drm_property.c
+index dfec479830e4..f72ef6493340 100644
+--- a/drivers/gpu/drm/drm_property.c
++++ b/drivers/gpu/drm/drm_property.c
+@@ -751,6 +751,55 @@ bool drm_property_replace_blob(struct drm_property_blob **blob,
+ }
+ EXPORT_SYMBOL(drm_property_replace_blob);
+ 
++/**
++ * drm_property_replace_blob_from_id - replace a blob property taking a reference
++ * @dev: DRM device
++ * @blob: a pointer to the member blob to be replaced
++ * @blob_id: the id of the new blob to replace with
++ * @expected_size: expected size of the blob property
++ * @expected_elem_size: expected size of an element in the blob property
++ * @replaced: if the blob was in fact replaced
++ *
++ * Look up the new blob from id, take its reference, check expected sizes of
++ * the blob and its element and replace the old blob by the new one. Advertise
++ * if the replacement operation was successful.
++ *
++ * Return: true if the blob was in fact replaced. -EINVAL if the new blob was
++ * not found or sizes don't match.
++ */
++int drm_property_replace_blob_from_id(struct drm_device *dev,
++					 struct drm_property_blob **blob,
++					 uint64_t blob_id,
++					 ssize_t expected_size,
++					 ssize_t expected_elem_size,
++					 bool *replaced)
++{
++	struct drm_property_blob *new_blob = NULL;
++
++	if (blob_id != 0) {
++		new_blob = drm_property_lookup_blob(dev, blob_id);
++		if (new_blob == NULL)
++			return -EINVAL;
++
++		if (expected_size > 0 &&
++		    new_blob->length != expected_size) {
++			drm_property_blob_put(new_blob);
++			return -EINVAL;
++		}
++		if (expected_elem_size > 0 &&
++		    new_blob->length % expected_elem_size != 0) {
++			drm_property_blob_put(new_blob);
++			return -EINVAL;
++		}
++	}
++
++	*replaced |= drm_property_replace_blob(blob, new_blob);
++	drm_property_blob_put(new_blob);
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_property_replace_blob_from_id);
++
+ int drm_mode_getblob_ioctl(struct drm_device *dev,
+ 			   void *data, struct drm_file *file_priv)
+ {
+diff --git a/include/drm/drm_property.h b/include/drm/drm_property.h
+index 65bc9710a470..082f29156b3e 100644
+--- a/include/drm/drm_property.h
++++ b/include/drm/drm_property.h
+@@ -279,6 +279,12 @@ struct drm_property_blob *drm_property_create_blob(struct drm_device *dev,
+ 						   const void *data);
+ struct drm_property_blob *drm_property_lookup_blob(struct drm_device *dev,
+ 						   uint32_t id);
++int drm_property_replace_blob_from_id(struct drm_device *dev,
++				      struct drm_property_blob **blob,
++				      uint64_t blob_id,
++				      ssize_t expected_size,
++				      ssize_t expected_elem_size,
++				      bool *replaced);
+ int drm_property_replace_global_blob(struct drm_device *dev,
+ 				     struct drm_property_blob **replace,
+ 				     size_t length,
 -- 
 2.40.1
 
