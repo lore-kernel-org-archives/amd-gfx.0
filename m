@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93B9BC54E76
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 19:59:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBB48C47071
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 19:59:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3C2210E6C8;
-	Thu, 16 Nov 2023 19:59:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EE1010E6B4;
+	Thu, 16 Nov 2023 19:59:33 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E0C710E6D1;
- Thu, 16 Nov 2023 19:59:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFCAE10E6B6;
+ Thu, 16 Nov 2023 19:59:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,26 +19,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=EnEW14o0j5YDmUW9rO6TY2059Oskgr8Nk0tIa02KK6g=; b=lamDpU9KT0mBCXPvfacm4hHqzw
- lIRAtVqILgD6po96DrWDvErrzWAFDXwEJFwQjItsX8B5JNeGQXbqDeGrvj81moSIebc8Nc8n/o+kJ
- ySpAwYrI2+xocMKuQHPwxqpdm9hxtgDQd5NvXXNidKm1MDR7/xhPLhg29h23Y2FJ6dbZjdOxZDXkX
- jP166k9wc+T9oXRTQqPuFhLS5ANVoJr6rPG370RWbBNfv5TQ3oKNclkR+Wofk7622c9y6iinuPHb5
- kMH1jRstC5W2mb2mxQtZ5cqr17cnIl+TAMu+fJUeLI7iIj9EqXCmwZtlE4ANm1j6BDhUsyYdCu5Ia
- 2M9QBeAA==;
+ bh=HBlXT5q4f/nB/ojMuSFM31LySNWse2grmdKMngZ9f5Q=; b=TY+w1DxAg0JV3KGxgzEpC76MIM
+ QuY9lK1jbM6r03pP/L5o7+CGnakq/DYof4sMCLz0NlZidspFI4VC5Eosx6nb7Z/Cy8QsICjaCDvch
+ zCNtrDNs2P7shW85xZv48yGrdLjm3XcYKT+ZQfvuioA0O4yWuvknBj3x1FFGznA1zRHEBS5+YQPdX
+ yhFxCsuk6CQCRM6w0abVly7+eXCP8lnRHyNP1HWDm04NaU7TonodMy2Gzl/AMYQq6Tdort/BTvulF
+ bCsIFBjAVIkA0MONYY4FbZhMJUrnjJaXsr1hZAy3VJLcqGXJKf2KKqxIQTd5eoFGWa1SbXTte95jy
+ 0pH5lZ2w==;
 Received: from [102.213.205.115] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1r3iWM-0048Yy-Ve; Thu, 16 Nov 2023 20:59:27 +0100
+ id 1r3iVy-0048Yy-NE; Thu, 16 Nov 2023 20:59:02 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de
-Subject: [PATCH v5 32/32] drm/amd/display: Add 3x4 CTM support for plane CTM
-Date: Thu, 16 Nov 2023 18:58:12 -0100
-Message-Id: <20231116195812.906115-33-mwen@igalia.com>
+ daniel@ffwll.ch
+Subject: [PATCH v5 21/32] drm/amd/display: add dc_fixpt_from_s3132 helper
+Date: Thu, 16 Nov 2023 18:58:01 -0100
+Message-Id: <20231116195812.906115-22-mwen@igalia.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231116195812.906115-1-mwen@igalia.com>
 References: <20231116195812.906115-1-mwen@igalia.com>
@@ -66,112 +65,66 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Joshua Ashton <joshua@froggi.es>
 
-Create drm_color_ctm_3x4 to support 3x4-dimension plane CTM matrix and
-convert DRM CTM to DC CSC float matrix.
-
-v3:
-- rename ctm2 to ctm_3x4 (Harry)
+Detach value translation from CTM to reuse it for programming HDR
+multiplier property.
 
 Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Joshua Ashton <joshua@froggi.es>
+Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 28 +++++++++++++++++--
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  2 +-
- include/uapi/drm/drm_mode.h                   |  8 ++++++
- 3 files changed, 34 insertions(+), 4 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c  |  8 +-------
+ drivers/gpu/drm/amd/display/include/fixed31_32.h     | 12 ++++++++++++
+ 2 files changed, 13 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index d52c3333ea13..96aecc1a71a3 100644
+index 8fc715fa426c..c160dbef5224 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -434,6 +434,28 @@ static void __drm_ctm_to_dc_matrix(const struct drm_color_ctm *ctm,
+@@ -405,7 +405,6 @@ static void __drm_lut_to_dc_gamma(const struct drm_color_lut *lut,
+ static void __drm_ctm_to_dc_matrix(const struct drm_color_ctm *ctm,
+ 				   struct fixed31_32 *matrix)
+ {
+-	int64_t val;
+ 	int i;
+ 
+ 	/*
+@@ -424,12 +423,7 @@ static void __drm_ctm_to_dc_matrix(const struct drm_color_ctm *ctm,
+ 		}
+ 
+ 		/* gamut_remap_matrix[i] = ctm[i - floor(i/4)] */
+-		val = ctm->matrix[i - (i / 4)];
+-		/* If negative, convert to 2's complement. */
+-		if (val & (1ULL << 63))
+-			val = -(val & ~(1ULL << 63));
+-
+-		matrix[i].value = val;
++		matrix[i] = dc_fixpt_from_s3132(ctm->matrix[i - (i / 4)]);
  	}
  }
  
-+/**
-+ * __drm_ctm_3x4_to_dc_matrix - converts a DRM CTM 3x4 to a DC CSC float matrix
-+ * @ctm: DRM color transformation matrix with 3x4 dimensions
-+ * @matrix: DC CSC float matrix
-+ *
-+ * The matrix needs to be a 3x4 (12 entry) matrix.
-+ */
-+static void __drm_ctm_3x4_to_dc_matrix(const struct drm_color_ctm_3x4 *ctm,
-+				       struct fixed31_32 *matrix)
+diff --git a/drivers/gpu/drm/amd/display/include/fixed31_32.h b/drivers/gpu/drm/amd/display/include/fixed31_32.h
+index d4cf7ead1d87..84da1dd34efd 100644
+--- a/drivers/gpu/drm/amd/display/include/fixed31_32.h
++++ b/drivers/gpu/drm/amd/display/include/fixed31_32.h
+@@ -69,6 +69,18 @@ static const struct fixed31_32 dc_fixpt_epsilon = { 1LL };
+ static const struct fixed31_32 dc_fixpt_half = { 0x80000000LL };
+ static const struct fixed31_32 dc_fixpt_one = { 0x100000000LL };
+ 
++static inline struct fixed31_32 dc_fixpt_from_s3132(__u64 x)
 +{
-+	int i;
++	struct fixed31_32 val;
 +
-+	/* The format provided is S31.32, using signed-magnitude representation.
-+	 * Our fixed31_32 is also S31.32, but is using 2's complement. We have
-+	 * to convert from signed-magnitude to 2's complement.
-+	 */
-+	for (i = 0; i < 12; i++) {
-+		/* gamut_remap_matrix[i] = ctm[i - floor(i/4)] */
-+		matrix[i] = dc_fixpt_from_s3132(ctm->matrix[i]);
-+	}
++	/* If negative, convert to 2's complement. */
++	if (x & (1ULL << 63))
++		x = -(x & ~(1ULL << 63));
++
++	val.value = x;
++	return val;
 +}
 +
- /**
-  * __set_legacy_tf - Calculates the legacy transfer function
-  * @func: transfer function
-@@ -1173,7 +1195,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
- {
- 	struct amdgpu_device *adev = drm_to_adev(crtc->base.state->dev);
- 	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane_state);
--	struct drm_color_ctm *ctm = NULL;
-+	struct drm_color_ctm_3x4 *ctm = NULL;
- 	struct dc_color_caps *color_caps = NULL;
- 	bool has_crtc_cm_degamma;
- 	int ret;
-@@ -1228,7 +1250,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
- 
- 	/* Setup CRTC CTM. */
- 	if (dm_plane_state->ctm) {
--		ctm = (struct drm_color_ctm *)dm_plane_state->ctm->data;
-+		ctm = (struct drm_color_ctm_3x4 *)dm_plane_state->ctm->data;
- 		/*
- 		 * DCN2 and older don't support both pre-blending and
- 		 * post-blending gamut remap. For this HW family, if we have
-@@ -1240,7 +1262,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
- 		 * mapping CRTC CTM to MPC and keeping plane CTM setup at DPP,
- 		 * as it's done by dcn30_program_gamut_remap().
- 		 */
--		__drm_ctm_to_dc_matrix(ctm, dc_plane_state->gamut_remap_matrix.matrix);
-+		__drm_ctm_3x4_to_dc_matrix(ctm, dc_plane_state->gamut_remap_matrix.matrix);
- 
- 		dc_plane_state->gamut_remap_matrix.enable_remap = true;
- 		dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index f10c5154d06a..8a4c40b4c27e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1561,7 +1561,7 @@ dm_atomic_plane_set_property(struct drm_plane *plane,
- 		ret = drm_property_replace_blob_from_id(plane->dev,
- 							&dm_plane_state->ctm,
- 							val,
--							sizeof(struct drm_color_ctm), -1,
-+							sizeof(struct drm_color_ctm_3x4), -1,
- 							&replaced);
- 		dm_plane_state->base.color_mgmt_changed |= replaced;
- 		return ret;
-diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-index 46becedf5b2f..a811d24e8ed5 100644
---- a/include/uapi/drm/drm_mode.h
-+++ b/include/uapi/drm/drm_mode.h
-@@ -838,6 +838,14 @@ struct drm_color_ctm {
- 	__u64 matrix[9];
- };
- 
-+struct drm_color_ctm_3x4 {
-+	/*
-+	 * Conversion matrix with 3x4 dimensions in S31.32 sign-magnitude
-+	 * (not two's complement!) format.
-+	 */
-+	__u64 matrix[12];
-+};
-+
- struct drm_color_lut {
- 	/*
- 	 * Values are mapped linearly to 0.0 - 1.0 range, with 0x0 == 0.0 and
+ /*
+  * @brief
+  * Initialization routines
 -- 
 2.40.1
 
