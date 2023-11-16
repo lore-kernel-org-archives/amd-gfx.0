@@ -4,44 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23889C54E76
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 19:58:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20DD4C5ACB3
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 19:58:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7DA510E6AF;
-	Thu, 16 Nov 2023 19:58:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0417C10E6B2;
+	Thu, 16 Nov 2023 19:58:52 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F163210E6AB;
- Thu, 16 Nov 2023 19:58:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFDC710E6A0;
+ Thu, 16 Nov 2023 19:58:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=rW6e8Wz3hNwNjkrRY9Znuto9unoEv2l3DW4o7bg/gbY=; b=o+eo5Vjn24WaS7hp9PBiliXeRQ
- X8Maw/BURy+keM5N3HYwZ2bTiXo2UmUvQQmlZyLaXeGKGarR9kJrjUpG9mYvcYU3yDTe8cy1Aol/L
- MteqON+i49HHrqzmC2VRmI7LxVlxF+Lt3/EYJuq4L0ko2QqONbTXDSilAR4WQLkD32+LjFmXd6/Kc
- 2ZDUzRkWwTenuEIMZa9GViJ4+gS29IVPZQ9cE3RaWIGAirHeF6n94kXtajibXUWBk10v3nWGQ+Ejm
- kJDoVmwVNQA1f8xmJfVDVrhb2VKYjn/LvV1kRMfJl8S/5yw5SGGK9JEIfkqFGz4/7RyrmQMFpRTPa
- hU1+ju2g==;
+ bh=t124/2VXkkq9IBi4C/lfDlMMa/jXITa3YTzJQPndZTU=; b=q9Z9d4hVdS4ISCxJeYps1Z4s3L
+ uw4qN0SQwMJq4pcRBTEQcuv3r2vMJuwJ5j2MXV4nloFRoh0LKKob+YqXkADx8EYKFT8UR/vT8FR/0
+ QRln/uKysN5FrG4eQWiof5V0cFiR9sHLRDvtfBjv149FgQWHfL1Y2xGXtyp02uu3tYDODvAdJHdlv
+ nneu2cql5CxhLQLDDw7P8opS/FbUQNDwnLzLTPmHk5j2dahxXXich+f2I7ZJ99T7kxm/7nw0YKpoS
+ JsZv43jobaf+1D+Maaobn/ToOAZGqVLM4ZLfxdAaxJtHpfT45wLnueGealwvUn2ajalbsGPPH8oYC
+ LpW02q/g==;
 Received: from [102.213.205.115] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1r3iVi-0048Yy-VP; Thu, 16 Nov 2023 20:58:47 +0100
+ id 1r3iVT-0048Yy-Nn; Thu, 16 Nov 2023 20:58:31 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch
-Subject: [PATCH v5 14/32] drm/amd/display: encapsulate atomic regamma operation
-Date: Thu, 16 Nov 2023 18:57:54 -0100
-Message-Id: <20231116195812.906115-15-mwen@igalia.com>
+Subject: [PATCH v5 07/32] drm/amd/display: document AMDGPU pre-defined
+ transfer functions
+Date: Thu, 16 Nov 2023 18:57:47 -0100
+Message-Id: <20231116195812.906115-8-mwen@igalia.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231116195812.906115-1-mwen@igalia.com>
 References: <20231116195812.906115-1-mwen@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,95 +65,97 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We will wire up MPC 3D LUT to DM CRTC color pipeline in the next patch,
-but so far, only for atomic interface. By checking
-set_output_transfer_func in DC drivers with MPC 3D LUT support, we can
-verify that regamma is only programmed when 3D LUT programming fails. As
-a groundwork to introduce 3D LUT programming and better understand each
-step, detach atomic regamma programming from the crtc colocr updating
-code.
+Brief documentation about pre-defined transfer function usage on AMD
+display driver and standardized EOTFs and inverse EOTFs.
+
+v3:
+- Document BT709 OETF (Pekka)
+- Fix description of sRGB and pure power funcs (Pekka)
+
+v4:
+- Add description of linear and non-linear forms (Harry)
 
 Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Co-developed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 55 ++++++++++++-------
- 1 file changed, 35 insertions(+), 20 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 62 +++++++++++++++++++
+ 1 file changed, 62 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index 0b92513eab98..dec734f03832 100644
+index a32abbd93a61..49faaf606cfe 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -525,6 +525,37 @@ static int __set_output_tf(struct dc_transfer_func *func,
- 	return res ? 0 : -ENOMEM;
+@@ -85,6 +85,68 @@ void amdgpu_dm_init_color_mod(void)
  }
  
-+static int amdgpu_dm_set_atomic_regamma(struct dc_stream_state *stream,
-+					const struct drm_color_lut *regamma_lut,
-+					uint32_t regamma_size, bool has_rom)
-+{
-+	struct dc_transfer_func *out_tf = stream->out_transfer_func;
-+	int ret = 0;
-+
-+	if (regamma_size) {
-+		/*
-+		 * CRTC RGM goes into RGM LUT.
-+		 *
-+		 * Note: there is no implicit sRGB regamma here. We are using
-+		 * degamma calculation from color module to calculate the curve
-+		 * from a linear base.
-+		 */
-+		out_tf->type = TF_TYPE_DISTRIBUTED_POINTS;
-+		out_tf->tf = TRANSFER_FUNCTION_LINEAR;
-+
-+		ret = __set_output_tf(out_tf, regamma_lut, regamma_size, has_rom);
-+	} else {
-+		/*
-+		 * No CRTC RGM means we can just put the block into bypass
-+		 * since we don't have any plane level adjustments using it.
-+		 */
-+		out_tf->type = TF_TYPE_BYPASS;
-+		out_tf->tf = TRANSFER_FUNCTION_LINEAR;
-+	}
-+
-+	return ret;
-+}
-+
- /**
-  * __set_input_tf - calculates the input transfer function based on expected
-  * input space.
-@@ -672,28 +703,12 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
- 				    regamma_size, has_rom);
- 		if (r)
- 			return r;
--	} else if (has_regamma) {
--		/*
--		 * CRTC RGM goes into RGM LUT.
--		 *
--		 * Note: there is no implicit sRGB regamma here. We are using
--		 * degamma calculation from color module to calculate the curve
--		 * from a linear base.
--		 */
--		stream->out_transfer_func->type = TF_TYPE_DISTRIBUTED_POINTS;
--		stream->out_transfer_func->tf = TRANSFER_FUNCTION_LINEAR;
--
--		r = __set_output_tf(stream->out_transfer_func, regamma_lut,
--				    regamma_size, has_rom);
-+	} else {
-+		regamma_size = has_regamma ? regamma_size : 0;
-+		r = amdgpu_dm_set_atomic_regamma(stream, regamma_lut,
-+						 regamma_size, has_rom);
- 		if (r)
- 			return r;
--	} else {
--		/*
--		 * No CRTC RGM means we can just put the block into bypass
--		 * since we don't have any plane level adjustments using it.
--		 */
--		stream->out_transfer_func->type = TF_TYPE_BYPASS;
--		stream->out_transfer_func->tf = TRANSFER_FUNCTION_LINEAR;
- 	}
- 
- 	/*
+ #ifdef AMD_PRIVATE_COLOR
++/* Pre-defined Transfer Functions (TF)
++ *
++ * AMD driver supports pre-defined mathematical functions for transferring
++ * between encoded values and optical/linear space. Depending on HW color caps,
++ * ROMs and curves built by the AMD color module support these transforms.
++ *
++ * The driver-specific color implementation exposes properties for pre-blending
++ * degamma TF, shaper TF (before 3D LUT), and blend(dpp.ogam) TF and
++ * post-blending regamma (mpc.ogam) TF. However, only pre-blending degamma
++ * supports ROM curves. AMD color module uses pre-defined coefficients to build
++ * curves for the other blocks. What can be done by each color block is
++ * described by struct dpp_color_capsand struct mpc_color_caps.
++ *
++ * AMD driver-specific color API exposes the following pre-defined transfer
++ * functions:
++ *
++ * - Identity: linear/identity relationship between pixel value and
++ *   luminance value;
++ * - Gamma 2.2, Gamma 2.4, Gamma 2.6: pure power functions;
++ * - sRGB: 2.4: The piece-wise transfer function from IEC 61966-2-1:1999;
++ * - BT.709: has a linear segment in the bottom part and then a power function
++ *   with a 0.45 (~1/2.22) gamma for the rest of the range; standardized by
++ *   ITU-R BT.709-6;
++ * - PQ (Perceptual Quantizer): used for HDR display, allows luminance range
++ *   capability of 0 to 10,000 nits; standardized by SMPTE ST 2084.
++ *
++ * The AMD color model is designed with an assumption that SDR (sRGB, BT.709,
++ * Gamma 2.2, etc.) peak white maps (normalized to 1.0 FP) to 80 nits in the PQ
++ * system. This has the implication that PQ EOTF (non-linear to linear) maps to
++ * [0.0..125.0] where 125.0 = 10,000 nits / 80 nits.
++ *
++ * Non-linear and linear forms are described in the table below:
++ *
++ * ┌───────────┬─────────────────────┬──────────────────────┐
++ * │           │     Non-linear      │   Linear             │
++ * ├───────────┼─────────────────────┼──────────────────────┤
++ * │      sRGB │ UNORM or [0.0, 1.0] │ [0.0, 1.0]           │
++ * ├───────────┼─────────────────────┼──────────────────────┤
++ * │     BT709 │ UNORM or [0.0, 1.0] │ [0.0, 1.0]           │
++ * ├───────────┼─────────────────────┼──────────────────────┤
++ * │ Gamma 2.x │ UNORM or [0.0, 1.0] │ [0.0, 1.0]           │
++ * ├───────────┼─────────────────────┼──────────────────────┤
++ * │        PQ │ UNORM or FP16 CCCS* │ [0.0, 125.0]         │
++ * ├───────────┼─────────────────────┼──────────────────────┤
++ * │  Identity │ UNORM or FP16 CCCS* │ [0.0, 1.0] or CCCS** │
++ * └───────────┴─────────────────────┴──────────────────────┘
++ * * CCCS: Windows canonical composition color space
++ * ** Respectively
++ *
++ * In the driver-specific API, color block names attached to TF properties
++ * suggest the intention regarding non-linear encoding pixel's luminance
++ * values. As some newer encodings don't use gamma curve, we make encoding and
++ * decoding explicit by defining an enum list of transfer functions supported
++ * in terms of EOTF and inverse EOTF, where:
++ *
++ * - EOTF (electro-optical transfer function): is the transfer function to go
++ *   from the encoded value to an optical (linear) value. De-gamma functions
++ *   traditionally do this.
++ * - Inverse EOTF (simply the inverse of the EOTF): is usually intended to go
++ *   from an optical/linear space (which might have been used for blending)
++ *   back to the encoded values. Gamma functions traditionally do this.
++ */
+ static const char * const
+ amdgpu_transfer_function_names[] = {
+ 	[AMDGPU_TRANSFER_FUNCTION_DEFAULT]		= "Default",
 -- 
 2.40.1
 
