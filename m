@@ -4,114 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5D25C54FB9
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 12:40:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06B19C54FB9
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 13:18:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C27D10E280;
-	Thu, 16 Nov 2023 12:40:31 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20603.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eab::603])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5175610E280
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Nov 2023 12:40:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bx+sOVwAJFa4B0NPtkUMywDrG7Pj58c0hX0g23iwgmCBiezvvlbOX6ATAYMZAMatDBpA6BaDryhg8f9xCxn2IsTDwbRGp84Ov13DVhU6+Za4pWjByaSE9OyGk8358aetlZod8d9tjEAwyAW1kKehHQQ6i9nK7a3H/ShTv0b1fVFS2m3CcS8fI7xdNipL5GTNKvRk41HA0GdoRQKB0hX9hdWANvDINdRfn9VD9pzYe8P5j2wGnsNhzAAEgUDzc/h3JFkKIByTLe3YNs+qpshJcspXPdaWZnJfWtl21U8HBmo2c3RzXd+/HW5AQGNRKoTyUlSl17KTj1pnrXl4tnU/Ng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MdAt1fhMiMwQ5cmCFlDydQPoHHtEtXmLcN5IdRWoA50=;
- b=YWRbrfKoRbXalT6I+P7B7ynH85h0G3iDxJxe/KGUUm+hBKUslfl2s07Z4rZudAmhM/E/t4LEwSbfAlVmHSnkhQoRMDpmOJELgWdCuHOkYcLYrNMvu/XsPRsKt5GdWbbWdI/qCRHOkvP8V4PwVUkuy61d2cXARb7U8UCvRgrm7Rx4/u9XS/5WkKsQZ/sbaGdvTXjkTpjz82+cyb+IfQelTwfKaOe4w3aDDTRUhk4tioL51MYssAhM9CXYxVBBh8YXhmhmXZXzGeG1RwpxY/4r/inN8nYPp6vUZRF8OLeSt+vdSYiIeykgYT4myaCSuZbaYM2vpXiQBA+Xu2Ap6ODtwQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MdAt1fhMiMwQ5cmCFlDydQPoHHtEtXmLcN5IdRWoA50=;
- b=VIPmTUFMqP9Gs+CNC6+bM/XjuzKBp8u1eI5dbWtDbZmEjEHSghOQcZubAFqZQDaGI4RHH7v+WNL+uBI22/PLn13s9tSE0vKq2hpGxSAz+Ahpv2bvtUFFWB1/BDuVldttXzJENHDE1cKK4IEr94aj14C3umI/qenrBy1BA6BANR0=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by PH8PR12MB7421.namprd12.prod.outlook.com (2603:10b6:510:22b::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.31; Thu, 16 Nov
- 2023 12:40:26 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::f0fa:4908:b418:96d2]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::f0fa:4908:b418:96d2%7]) with mapi id 15.20.7002.021; Thu, 16 Nov 2023
- 12:40:26 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v3] drm/amdgpu: Move mca debug mode decision to ras
-Thread-Topic: [PATCH v3] drm/amdgpu: Move mca debug mode decision to ras
-Thread-Index: AQHaE6tbYGx1OxBX2EG5ptZrk5/YZbB87LOg
-Date: Thu, 16 Nov 2023 12:40:26 +0000
-Message-ID: <BN9PR12MB52579377E777E17712720A26FCB0A@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20231110075547.565860-1-lijo.lazar@amd.com>
-In-Reply-To: <20231110075547.565860-1-lijo.lazar@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=8c28ba4b-16fd-4cd1-b0ec-ef8db9a63185;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-11-16T12:40:03Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|PH8PR12MB7421:EE_
-x-ms-office365-filtering-correlation-id: c31ec243-b720-40d9-7a2d-08dbe6a1357c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: V2SykKZZfU5KkQFgL66+K4LJJOoB0VCtHyghmEyPOnPKwUnvo3DfgPrJeeSk1AKJnS32MCYdScp5v37VTnSTyoFKavHjLeQexaNoq13P/mLWovbraue8Fr7Wz/LFs0a07LAbdFDX7Bl6ABtMIsu7Tqkm6/xYkt3ViVPA1SW18Ad1JV5Oj3oR4oH1J6iPuJTkl66wogThwj27M1S4UxvNjkN9xgpr4w4GDgCt0g4lA4gqWZeH5gRTfClEzk/fEnkrKf0X+v0Z608nv0KQdRVtnQyIhLQ+Acur9usUcaEUJbaTIwPkuJ/Bgd87ax7PDj/6/TBecw1dx36EpYH31ChRaYoVtYC7cxr+Uow7QfBIW2RBr9q2CqISLhJdCWQx5lyOye08d25Rij+rOFPUtWFN7Tn8/LZqZKee2rkvDgD8vFrmPfB0lbBpyhnxiz+tZzZEz+P2q4YK8ok5Obq3caBkjPDy4V9awWxMJW4fnsueZ7pI7f8vCmcG0T5oFroz3NF9NWXOB45/S9WuliohAe0wU6zvIKq1MVUWsfpyCR55n2n5jRotD5XKIe64p/XuQGqt+8qgkn4r9F4mstt5BxqpvVIJ469xDKd/Xk20eHftgvla386Nokk772oaTghz3q3qByIaWIccg0p1Vkqs+2CinhI3tlAh53nq6Jvuhs9bOfA=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(396003)(136003)(366004)(39860400002)(376002)(230922051799003)(230173577357003)(230273577357003)(186009)(64100799003)(451199024)(1800799009)(7696005)(86362001)(6506007)(8676002)(52536014)(66556008)(8936002)(4326008)(38070700009)(53546011)(71200400001)(478600001)(26005)(2906002)(55016003)(38100700002)(66446008)(54906003)(66476007)(64756008)(9686003)(66946007)(316002)(76116006)(5660300002)(110136005)(33656002)(41300700001)(83380400001)(122000001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?SldkodMjf8H3X/YcriUKLqJlJLya/RGOEbR/Hks/XmnmdEzz8Jd8bTxCO+82?=
- =?us-ascii?Q?Nq4pZSq+J4aT+l19jIoVereAqLyde3fMyW5uPfz66ZzPEbnKQ34zie3pgHLe?=
- =?us-ascii?Q?JaR6ZduAU5/w/KEdCrK+sJ2OgoTwPjIHg4+eAKk/DSBXMBsizF88GcsaCvUK?=
- =?us-ascii?Q?sfGbZNMjWESS5NYFa44qw7s/7wLoRkH+7harBhCrpcJxxODEB2MaxCy8Tm7v?=
- =?us-ascii?Q?Hxv0wp/t556a2rP2dwYHuCV2h1lx1LfgKUG5BQ8GnW0OjCMjLLGXZsXL1L1L?=
- =?us-ascii?Q?zazGWTQdL8sjiF1ivXwJcCG+J0j194AM6IZTfzywNeHLwtLZyPvMhMaAAwsk?=
- =?us-ascii?Q?/d5+3yBPLzNkGVwrElBheSMaf6vhof+IkNZKDgf+R0Df9F3noSlL6meGdrkh?=
- =?us-ascii?Q?gBlAaDAUwRmLmENieiCWxt6+hbB6kJkZVtsjCLhLZiFLls6amZA+pHKHjem2?=
- =?us-ascii?Q?wpMkcwvFHqaQACRUCCXn9ezS16YymRLGG4gqD5NTcot4rbU1aZxh1AFk1twQ?=
- =?us-ascii?Q?qCbRk0Pdnofy66+6uOIKxwbuMonT8peSMIdFu2M6CbwLiKI648o9u5Yt+ZYY?=
- =?us-ascii?Q?hddGZOIiKT7T8zQwhoHSt3+BBVq79TnakqTid5r9AnicBAiFk2GdfJIYdR+H?=
- =?us-ascii?Q?mABlgTevEtB1zi1ufiKiLGRvCCTuuyooEjYZho+97aUSQTn4h5rSXPp7IO2x?=
- =?us-ascii?Q?vSafaDw0Au66fQaKgckKGya15+H/H6ahu0l9OiZFG9toAPXYWNl7/N2ImsT1?=
- =?us-ascii?Q?JNs52n/PQFQXZ5Wpb6lxKEewlSDG8bwZm0kNOzaRSdnlC8bB8vS2sZvkBRLf?=
- =?us-ascii?Q?RcFJ0loZ0eAYG4daWjgItQPybD17BzHYVeu99gWbnhpL+QJzXIyD3xdzTV8s?=
- =?us-ascii?Q?Blnrx9B59abyUVlXyH43xgILT+PKJn9L7gO7MRjYL2bzobmp/IgLKzEoWKxI?=
- =?us-ascii?Q?ysRq14t3OI9xlOTP/bEIgFCN2eimGZgo4twQvDiioKqDZtQM6YmW/+tiVZ5E?=
- =?us-ascii?Q?jGkM5IBH5AzCE7EI3mAAFDfFm0HEXPl7rFd2qlbYuwJ30Cvw7W+bkIAaahzN?=
- =?us-ascii?Q?LiCSZR9eqvv4M/ESFqO/KuIa37e7YPXCFiyY6XLO4Ewq9nYLvtJSAk/22fpz?=
- =?us-ascii?Q?B0lmMrlacdHm0Jl+R8xNTDA6kPKynJ0NQDGyE/p7boU1tHMTwRhsmdQFsUzA?=
- =?us-ascii?Q?Hbn0vjjTDjm35VS4uyDsBOHijiU2Gm873f96KN7LJpLzI0lHQEihm2BLhYnJ?=
- =?us-ascii?Q?yXYydeDeRb6PoUU+W1XdeEvs7add+BP1Algi3cAkTS1pfJikRd7UraQscK7w?=
- =?us-ascii?Q?sFnFtZgS6afO+HluXbhRsdcMu66FSZCsIcUXLTpGIV0elHaQ0TLYPCAgTcdg?=
- =?us-ascii?Q?FS9SqNaIKhBX/m0YL+NPX6JHofri8vTeZg91jRowQWjgih7h8kY2KpjhTzH8?=
- =?us-ascii?Q?NG60Bpq+AHyDA+zFwKu1qTsRbsY4M/nw4zppYBlxDMgbIBMhkauMgut6y4DS?=
- =?us-ascii?Q?b99N5XAgyUTqNUoKPvX8cWySkLibMtaNKjq07Gbtu4B5b0fSLzxVNUc7XIYN?=
- =?us-ascii?Q?9TJHoI7/v2mmjgowNOo=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id D560410E5DB;
+	Thu, 16 Nov 2023 13:18:47 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CC1B10E5D8;
+ Thu, 16 Nov 2023 13:18:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1700140725; x=1731676725;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=JfV7Uu+OT5A/m9+BJcsKjzT8vpmqyhGWO9tixPjFoYs=;
+ b=Bi0ZCQfIk1G/XnGvGkKw0LPtPSrYNoLsVii+Yn8oAdgGarrKwKdYx9BO
+ TzOebkFgvXJ+2ShxIOXvLvYE+mfQ7VV/sJlApuiCsRJZv+AdBHKgBXgBB
+ kd7zueW+fqDyetkYZ9f9Vvt2a84bHQL5/XJExdpSsaDSNDMLtAVpxCxJF
+ LYu50pbvAKKMRk3a1MuGn5J1hePEHEKu/s9/JnnYEShriovJxg1hxvWwA
+ OsX+bv9klGGZPobHfpwltSORBRYWfXhRp84oVVqlucme1dnv65NshWx7w
+ +c+LLlJcOaKN81qNzPlVEfTEGhe5F+MI78U6JYxOQ1jJHtOlXq6fgFpFm A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10895"; a="422177147"
+X-IronPort-AV: E=Sophos;i="6.04,308,1695711600"; d="scan'208";a="422177147"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2023 05:18:44 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10895"; a="938834328"
+X-IronPort-AV: E=Sophos;i="6.04,308,1695711600"; d="scan'208";a="938834328"
+Received: from ideak-desk.fi.intel.com ([10.237.72.78])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2023 05:18:42 -0800
+From: Imre Deak <imre.deak@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Subject: [PATCH v2 01/11] drm/dp_mst: Store the MST PBN divider value in fixed
+ point format
+Date: Thu, 16 Nov 2023 15:18:31 +0200
+Message-Id: <20231116131841.1588781-2-imre.deak@intel.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20231116131841.1588781-1-imre.deak@intel.com>
+References: <20231116131841.1588781-1-imre.deak@intel.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c31ec243-b720-40d9-7a2d-08dbe6a1357c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2023 12:40:26.4262 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: AGQitCfu8WYyJWS1GodaLLYTnAUC/3dgGpF7Pzj/1ydxl38bMy9Zc3d1rgp/F1YudSJpD9uKAZMk9FNRP/43ZA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7421
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,155 +57,259 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Wang,
- Yang\(Kevin\)" <KevinYang.Wang@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Wayne Lin <wayne.lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+On UHBR links the PBN divider is a fractional number, accordingly store
+it in fixed point format. For now drm_dp_get_vc_payload_bw() always
+returns a whole number and all callers will use only the integer part of
+it which should preserve the current behavior. The next patch will fix
+drm_dp_get_vc_payload_bw() for UHBR rates returning a fractional number
+for those (also accounting for the channel coding efficiency correctly).
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-
-Regards,
-Hawking
------Original Message-----
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Friday, November 10, 2023 15:56
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-Subject: [PATCH v3] drm/amdgpu: Move mca debug mode decision to ras
-
-Refactor code such that ras block decides the default mca debug mode, and n=
-ot swsmu block.
-
-By default mca debug mode is set to false.
-
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Wayne Lin <wayne.lin@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
-v3: Default mca debug mode is set to false
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  5 +++--
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  3 ++-
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  5 +++--
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 22 +++++++++++++------
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |  3 ++-
+ drivers/gpu/drm/nouveau/dispnv50/disp.c       |  6 +++--
+ include/drm/display/drm_dp_mst_helper.h       |  7 +++---
+ 7 files changed, 33 insertions(+), 18 deletions(-)
 
-v2: Set mca debug mode early before ras block late init as ras query is ini=
-tiated during late init of ras blocks (KevinYang)
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c            |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            | 14 +++++++++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h            |  2 +-
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   | 12 ------------
- 4 files changed, 13 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_mca.c
-index cf33eb219e25..54f2f346579e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
-@@ -377,7 +377,7 @@ static int amdgpu_mca_smu_debug_mode_set(void *data, u6=
-4 val)
-        struct amdgpu_device *adev =3D (struct amdgpu_device *)data;
-        int ret;
-
--       ret =3D amdgpu_mca_smu_set_debug_mode(adev, val ? true : false);
-+       ret =3D amdgpu_ras_set_mca_debug_mode(adev, val ? true : false);
-        if (ret)
-                return ret;
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ras.c
-index 84e5987b14e0..6747fbe4feab 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -3132,6 +3132,8 @@ int amdgpu_ras_late_init(struct amdgpu_device *adev)
-        if (amdgpu_sriov_vf(adev))
-                return 0;
-
-+       amdgpu_ras_set_mca_debug_mode(adev, false);
-+
-        list_for_each_entry_safe(node, tmp, &adev->ras_list, node) {
-                if (!node->ras_obj) {
-                        dev_warn(adev->dev, "Warning: abnormal ras list nod=
-e.\n"); @@ -3405,12 +3407,18 @@ int amdgpu_ras_reset_gpu(struct amdgpu_devi=
-ce *adev)
-        return 0;
- }
-
--void amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool enable=
-)
-+int amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool
-+enable)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 74f9f02abcdec..12346b21d0b05 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -85,6 +85,7 @@
+ #include <drm/drm_atomic_uapi.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_blend.h>
++#include <drm/drm_fixed.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_eld.h>
+@@ -6909,8 +6910,8 @@ static int dm_encoder_helper_atomic_check(struct drm_encoder *encoder,
+ 	if (IS_ERR(mst_state))
+ 		return PTR_ERR(mst_state);
+ 
+-	if (!mst_state->pbn_div)
+-		mst_state->pbn_div = dm_mst_get_pbn_divider(aconnector->mst_root->dc_link);
++	if (!mst_state->pbn_div.full)
++		mst_state->pbn_div.full = dfixed_const(dm_mst_get_pbn_divider(aconnector->mst_root->dc_link));
+ 
+ 	if (!state->duplicated) {
+ 		int max_bpc = conn_state->max_requested_bpc;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index ed784cf27d396..63024393b516e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -31,6 +31,7 @@
+ #include <drm/drm_probe_helper.h>
+ #include <drm/amdgpu_drm.h>
+ #include <drm/drm_edid.h>
++#include <drm/drm_fixed.h>
+ 
+ #include "dm_services.h"
+ #include "amdgpu.h"
+@@ -210,7 +211,7 @@ static void dm_helpers_construct_old_payload(
+ 			struct drm_dp_mst_atomic_payload *old_payload)
  {
-        struct amdgpu_ras *con =3D amdgpu_ras_get_context(adev);
-+       int ret;
-
--       if (con)
--               con->is_mca_debug_mode =3D enable;
-+       if (con) {
-+               ret =3D amdgpu_mca_smu_set_debug_mode(adev, enable);
-+               if (!ret)
-+                       con->is_mca_debug_mode =3D enable;
-+       }
+ 	struct drm_dp_mst_atomic_payload *pos;
+-	int pbn_per_slot = mst_state->pbn_div;
++	int pbn_per_slot = dfixed_trunc(mst_state->pbn_div);
+ 	u8 next_payload_vc_start = mgr->next_start_slot;
+ 	u8 payload_vc_start = new_payload->vc_start_slot;
+ 	u8 allocated_time_slots;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 9a58e1a4c5f49..d1ba3ae228b08 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -27,6 +27,7 @@
+ #include <drm/display/drm_dp_mst_helper.h>
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_fixed.h>
+ #include "dm_services.h"
+ #include "amdgpu.h"
+ #include "amdgpu_dm.h"
+@@ -941,10 +942,10 @@ static int increase_dsc_bpp(struct drm_atomic_state *state,
+ 		link_timeslots_used = 0;
+ 
+ 		for (i = 0; i < count; i++)
+-			link_timeslots_used += DIV_ROUND_UP(vars[i + k].pbn, mst_state->pbn_div);
++			link_timeslots_used += DIV_ROUND_UP(vars[i + k].pbn, dfixed_trunc(mst_state->pbn_div));
+ 
+ 		fair_pbn_alloc =
+-			(63 - link_timeslots_used) / remaining_to_increase * mst_state->pbn_div;
++			(63 - link_timeslots_used) / remaining_to_increase * dfixed_trunc(mst_state->pbn_div);
+ 
+ 		if (initial_slack[next_index] > fair_pbn_alloc) {
+ 			vars[next_index].pbn += fair_pbn_alloc;
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index 4d72c9a32026e..000d05e80352a 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -43,6 +43,7 @@
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_edid.h>
++#include <drm/drm_fixed.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ 
+@@ -3578,16 +3579,22 @@ static int drm_dp_send_up_ack_reply(struct drm_dp_mst_topology_mgr *mgr,
+  * value is in units of PBNs/(timeslots/1 MTP). This value can be used to
+  * convert the number of PBNs required for a given stream to the number of
+  * timeslots this stream requires in each MTP.
++ *
++ * Returns the BW / timeslot value in 20.12 fixed point format.
+  */
+-int drm_dp_get_vc_payload_bw(const struct drm_dp_mst_topology_mgr *mgr,
+-			     int link_rate, int link_lane_count)
++fixed20_12 drm_dp_get_vc_payload_bw(const struct drm_dp_mst_topology_mgr *mgr,
++				    int link_rate, int link_lane_count)
+ {
++	fixed20_12 ret;
 +
-+       return ret;
+ 	if (link_rate == 0 || link_lane_count == 0)
+ 		drm_dbg_kms(mgr->dev, "invalid link rate/lane count: (%d / %d)\n",
+ 			    link_rate, link_lane_count);
+ 
+ 	/* See DP v2.0 2.6.4.2, VCPayload_Bandwidth_for_OneTimeSlotPer_MTP_Allocation */
+-	return link_rate * link_lane_count / 54000;
++	ret.full = dfixed_const(link_rate * link_lane_count / 54000);
++
++	return ret;
  }
-
- bool amdgpu_ras_get_mca_debug_mode(struct amdgpu_device *adev) diff --git =
-a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdg=
-pu_ras.h
-index 19161916ac46..6a941eb8fb8f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -773,7 +773,7 @@ struct amdgpu_ras* amdgpu_ras_get_context(struct amdgpu=
-_device *adev);
-
- int amdgpu_ras_set_context(struct amdgpu_device *adev, struct amdgpu_ras *=
-ras_con);
-
--void amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool enable=
-);
-+int amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool
-+enable);
- bool amdgpu_ras_get_mca_debug_mode(struct amdgpu_device *adev);  bool amdg=
-pu_ras_get_error_query_mode(struct amdgpu_device *adev,
-                                     unsigned int *mode);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index 6cbfb25a05de..f09f56efbdc3 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -1516,7 +1516,6 @@ static int smu_v13_0_6_mca_set_debug_mode(struct smu_=
-context *smu, bool enable)
-        if (smu->smc_fw_version < 0x554800)
-                return 0;
-
--       amdgpu_ras_set_mca_debug_mode(smu->adev, enable);
-        return smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_ClearMcaOnRead,
-                                               enable ? 0 : ClearMcaOnRead_=
-UE_FLAG_MASK | ClearMcaOnRead_CE_POLL_MASK,
-                                               NULL);
-@@ -2338,16 +2337,6 @@ static int smu_v13_0_6_smu_send_hbm_bad_page_num(str=
-uct smu_context *smu,
-        return ret;
- }
-
--static int smu_v13_0_6_post_init(struct smu_context *smu) -{
--       struct amdgpu_device *adev =3D smu->adev;
--
--       if (!amdgpu_sriov_vf(adev) && adev->ras_enabled)
--               return smu_v13_0_6_mca_set_debug_mode(smu, false);
--
--       return 0;
--}
--
- static int mca_smu_set_debug_mode(struct amdgpu_device *adev, bool enable)=
-  {
-        struct smu_context *smu =3D adev->powerplay.pp_handle; @@ -2904,7 +=
-2893,6 @@ static const struct pptable_funcs smu_v13_0_6_ppt_funcs =3D {
-        .i2c_init =3D smu_v13_0_6_i2c_control_init,
-        .i2c_fini =3D smu_v13_0_6_i2c_control_fini,
-        .send_hbm_bad_pages_num =3D smu_v13_0_6_smu_send_hbm_bad_page_num,
--       .post_init =3D smu_v13_0_6_post_init,
+ EXPORT_SYMBOL(drm_dp_get_vc_payload_bw);
+ 
+@@ -4335,7 +4342,7 @@ int drm_dp_atomic_find_time_slots(struct drm_atomic_state *state,
+ 		}
+ 	}
+ 
+-	req_slots = DIV_ROUND_UP(pbn, topology_state->pbn_div);
++	req_slots = DIV_ROUND_UP(pbn, dfixed_trunc(topology_state->pbn_div));
+ 
+ 	drm_dbg_atomic(mgr->dev, "[CONNECTOR:%d:%s] [MST PORT:%p] TU %d -> %d\n",
+ 		       port->connector->base.id, port->connector->name,
+@@ -4872,7 +4879,8 @@ void drm_dp_mst_dump_topology(struct seq_file *m,
+ 	state = to_drm_dp_mst_topology_state(mgr->base.state);
+ 	seq_printf(m, "\n*** Atomic state info ***\n");
+ 	seq_printf(m, "payload_mask: %x, max_payloads: %d, start_slot: %u, pbn_div: %d\n",
+-		   state->payload_mask, mgr->max_payloads, state->start_slot, state->pbn_div);
++		   state->payload_mask, mgr->max_payloads, state->start_slot,
++		   dfixed_trunc(state->pbn_div));
+ 
+ 	seq_printf(m, "\n| idx | port | vcpi | slots | pbn | dsc | status |     sink name     |\n");
+ 	for (i = 0; i < mgr->max_payloads; i++) {
+@@ -5330,10 +5338,10 @@ drm_dp_mst_atomic_check_payload_alloc_limits(struct drm_dp_mst_topology_mgr *mgr
+ 	}
+ 
+ 	if (!payload_count)
+-		mst_state->pbn_div = 0;
++		mst_state->pbn_div.full = dfixed_const(0);
+ 
+ 	drm_dbg_atomic(mgr->dev, "[MST MGR:%p] mst state %p TU pbn_div=%d avail=%d used=%d\n",
+-		       mgr, mst_state, mst_state->pbn_div, avail_slots,
++		       mgr, mst_state, dfixed_trunc(mst_state->pbn_div), avail_slots,
+ 		       mst_state->total_avail_slots - avail_slots);
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 0cb9405f59eaa..e5d6b811c22ef 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -26,6 +26,7 @@
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_edid.h>
++#include <drm/drm_fixed.h>
+ #include <drm/drm_probe_helper.h>
+ 
+ #include "i915_drv.h"
+@@ -202,7 +203,7 @@ static int intel_dp_mst_find_vcpi_slots_for_bpp(struct intel_encoder *encoder,
+ 		 */
+ 		drm_WARN_ON(&i915->drm, remote_m_n.tu < crtc_state->dp_m_n.tu);
+ 		crtc_state->dp_m_n.tu = remote_m_n.tu;
+-		crtc_state->pbn = remote_m_n.tu * mst_state->pbn_div;
++		crtc_state->pbn = remote_m_n.tu * dfixed_trunc(mst_state->pbn_div);
+ 
+ 		slots = drm_dp_atomic_find_time_slots(state, &intel_dp->mst_mgr,
+ 						      connector->port,
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+index 493fe4660f651..11fe75b68e95c 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+@@ -40,6 +40,7 @@
+ #include <drm/drm_edid.h>
+ #include <drm/drm_eld.h>
+ #include <drm/drm_fb_helper.h>
++#include <drm/drm_fixed.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_vblank.h>
+ 
+@@ -946,7 +947,8 @@ nv50_msto_prepare(struct drm_atomic_state *state,
+ 	if (ret == 0) {
+ 		nvif_outp_dp_mst_vcpi(&mstm->outp->outp, msto->head->base.index,
+ 				      payload->vc_start_slot, payload->time_slots,
+-				      payload->pbn, payload->time_slots * mst_state->pbn_div);
++				      payload->pbn,
++				      payload->time_slots * dfixed_trunc(mst_state->pbn_div));
+ 	} else {
+ 		nvif_outp_dp_mst_vcpi(&mstm->outp->outp, msto->head->base.index, 0, 0, 0, 0);
+ 	}
+@@ -990,7 +992,7 @@ nv50_msto_atomic_check(struct drm_encoder *encoder,
+ 	if (IS_ERR(mst_state))
+ 		return PTR_ERR(mst_state);
+ 
+-	if (!mst_state->pbn_div) {
++	if (!mst_state->pbn_div.full) {
+ 		struct nouveau_encoder *outp = mstc->mstm->outp;
+ 
+ 		mst_state->pbn_div = drm_dp_get_vc_payload_bw(&mstm->mgr,
+diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
+index a4aad6df71f18..9b19d8bd520af 100644
+--- a/include/drm/display/drm_dp_mst_helper.h
++++ b/include/drm/display/drm_dp_mst_helper.h
+@@ -25,6 +25,7 @@
+ #include <linux/types.h>
+ #include <drm/display/drm_dp_helper.h>
+ #include <drm/drm_atomic.h>
++#include <drm/drm_fixed.h>
+ 
+ #if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
+ #include <linux/stackdepot.h>
+@@ -617,7 +618,7 @@ struct drm_dp_mst_topology_state {
+ 	 * @pbn_div: The current PBN divisor for this topology. The driver is expected to fill this
+ 	 * out itself.
+ 	 */
+-	int pbn_div;
++	fixed20_12 pbn_div;
  };
-
- void smu_v13_0_6_set_ppt_funcs(struct smu_context *smu)
---
-2.25.1
+ 
+ #define to_dp_mst_topology_mgr(x) container_of(x, struct drm_dp_mst_topology_mgr, base)
+@@ -839,8 +840,8 @@ struct edid *drm_dp_mst_get_edid(struct drm_connector *connector,
+ 				 struct drm_dp_mst_topology_mgr *mgr,
+ 				 struct drm_dp_mst_port *port);
+ 
+-int drm_dp_get_vc_payload_bw(const struct drm_dp_mst_topology_mgr *mgr,
+-			     int link_rate, int link_lane_count);
++fixed20_12 drm_dp_get_vc_payload_bw(const struct drm_dp_mst_topology_mgr *mgr,
++				    int link_rate, int link_lane_count);
+ 
+ int drm_dp_calc_pbn_mode(int clock, int bpp);
+ 
+-- 
+2.39.2
 
