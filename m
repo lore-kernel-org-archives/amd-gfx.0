@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57FEFC5AE4B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2ABBC5AE5C
 	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 19:58:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5892610E6B0;
-	Thu, 16 Nov 2023 19:58:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0642310E6B3;
+	Thu, 16 Nov 2023 19:58:57 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D652510E6AB;
- Thu, 16 Nov 2023 19:58:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EB6910E6AC;
+ Thu, 16 Nov 2023 19:58:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,26 +19,26 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=pfO0AbH6aZ0ndtM3ZK70gHTP5GLSc5uydmbi1tifutc=; b=idPUq0pZRGwCYXGq/d6vrqpMxJ
- FpZ3qMYoCzpvWHzbVnVLgC581Opql56dQVB0HG+T9QXkRvRKJBvJtCcbEqJdUGhiRunHkLi++3b+7
- VJ8jugewicvdzfF+aWJiDin51mmlVtNgUHqWBavNpgdtYEl32syOymIlzM2hlbFfezmYmf+Bzsd9P
- OqQwhmzSAnsFTy0TsdS9ddAhrTRY5ngZ7HkarY+5rxpFgEjBqyQNaq22t3bNMhY5mn/hbG2XLU9Qy
- E1TRvK46nGZeIHwJF6SM60kBXId/MPvsxgVrpPq/WEwRxT9hKAODX4HNXIEze71D3+txsgqQnKZNz
- 09xO853w==;
+ bh=Tc6dQqp9LKRy3s04deOlWNF5oJ1lwPVEHDcRE56Keak=; b=WPiSg2VqJsd3sfTM357H66OHws
+ +T2+LSnNFyC2Vgt4CbF8y+Hgvyoc1JO3I0guMwWG2lCloATaxt7sG3aE92stmwlTeAzAli3SInkUh
+ 89FyFsGSHjz8nqSNKby8U9I+tyxAlb7m7XFxhfKLL342SjVuxAQa1n90zQR0p/aZczBiiMgLYnf2u
+ iZHImGatVJjHETGqnR7+q8KIgl71eWxnwqdvwEPXGvAWdrAf8DLc2ZiGY4JO/0Io6rMD/xQBfSqcQ
+ FXBfhA5tewZnO5fjtKojeu587TaVZcmFhx/6fZlnlIlBXXsKkI98F1mmvSttdiB1VcparGZ+Tg12U
+ zelc7Qhg==;
 Received: from [102.213.205.115] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1r3iVg-0048Yy-Sc; Thu, 16 Nov 2023 20:58:45 +0100
+ id 1r3iVn-0048Yy-K6; Thu, 16 Nov 2023 20:58:51 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch
-Subject: [PATCH v5 13/32] drm/amd/display: add comments to describe DM crtc
- color mgmt behavior
-Date: Thu, 16 Nov 2023 18:57:53 -0100
-Message-Id: <20231116195812.906115-14-mwen@igalia.com>
+Subject: [PATCH v5 16/32] drm/amd/display: set sdr_ref_white_level to 80 for
+ out_transfer_func
+Date: Thu, 16 Nov 2023 18:57:56 -0100
+Message-Id: <20231116195812.906115-17-mwen@igalia.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231116195812.906115-1-mwen@igalia.com>
 References: <20231116195812.906115-1-mwen@igalia.com>
@@ -64,46 +64,39 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Describe some expected behavior of the AMD DM color mgmt programming.
+From: Joshua Ashton <joshua@froggi.es>
+
+Otherwise this is just initialized to 0. This needs to actually have a
+value so that compute_curve can work for PQ EOTF.
 
 Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Joshua Ashton <joshua@froggi.es>
+Co-developed-by: Melissa Wen <mwen@igalia.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c  | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index 4150e9370daf..0b92513eab98 100644
+index 9b930e3eb79d..83c14fb57721 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -661,13 +661,25 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
- 		crtc->cm_is_degamma_srgb = true;
- 		stream->out_transfer_func->type = TF_TYPE_DISTRIBUTED_POINTS;
- 		stream->out_transfer_func->tf = TRANSFER_FUNCTION_SRGB;
--
-+		/*
-+		 * Note: although we pass has_rom as parameter here, we never
-+		 * actually use ROM because the color module only takes the ROM
-+		 * path if transfer_func->type == PREDEFINED.
-+		 *
-+		 * See more in mod_color_calculate_regamma_params()
-+		 */
- 		r = __set_legacy_tf(stream->out_transfer_func, regamma_lut,
- 				    regamma_size, has_rom);
- 		if (r)
- 			return r;
- 	} else if (has_regamma) {
--		/* If atomic regamma, CRTC RGM goes into RGM LUT. */
-+		/*
-+		 * CRTC RGM goes into RGM LUT.
-+		 *
-+		 * Note: there is no implicit sRGB regamma here. We are using
-+		 * degamma calculation from color module to calculate the curve
-+		 * from a linear base.
-+		 */
- 		stream->out_transfer_func->type = TF_TYPE_DISTRIBUTED_POINTS;
- 		stream->out_transfer_func->tf = TRANSFER_FUNCTION_LINEAR;
+@@ -72,6 +72,7 @@
+  */
  
+ #define MAX_DRM_LUT_VALUE 0xFFFF
++#define SDR_WHITE_LEVEL_INIT_VALUE 80
+ 
+ /**
+  * amdgpu_dm_init_color_mod - Initialize the color module.
+@@ -552,6 +553,7 @@ static int amdgpu_dm_set_atomic_regamma(struct dc_stream_state *stream,
+ 		 */
+ 		out_tf->type = TF_TYPE_DISTRIBUTED_POINTS;
+ 		out_tf->tf = tf;
++		out_tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
+ 
+ 		ret = __set_output_tf(out_tf, regamma_lut, regamma_size, has_rom);
+ 	} else {
 -- 
 2.40.1
 
