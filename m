@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37799C197A0
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 14:28:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39323C5ACB3
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 14:28:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD42210E5F1;
-	Thu, 16 Nov 2023 14:28:40 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F86710E281;
- Thu, 16 Nov 2023 12:30:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48CD510E5F3;
+	Thu, 16 Nov 2023 14:28:41 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C45E010E5D3;
+ Thu, 16 Nov 2023 13:02:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1700137838; x=1731673838;
+ t=1700139740; x=1731675740;
  h=date:from:to:cc:subject:in-reply-to:message-id:
  references:mime-version;
- bh=Zb8EkOCoEXSVYt6JBVTP/C88txRSmKBaT8vzI6Rweaw=;
- b=CXEf3kVFbyCfn2/Npb9aQwtAyGEoZnu09487ec8dN4o0ASVj4sYa714V
- xj54azKzxiILd3rc0TXAHRtDErwby/VtKiIcIOeaZ4dPu6elXG+RvVjX3
- hxPZH/cqZYpNhse8Y/swYaOrmaS7McNo8n0PR6YhMqwC+BgElenGz4AT4
- +FWvtq3So/sptLGoqfIAb6yDRcPLaHWIaUixbCJKYovJrstkbT92XL5iP
- p/PA4b7QJraXAnVXWf0kuODgSZzvUSCb/AFSF+vy047CqCVZo06rb03Vk
- Oxnh3f58rqlBCeyGtE9U1iOlyLdUaclPIVG7x6XHuveb2hGFv0p4zeELZ Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10895"; a="393930205"
-X-IronPort-AV: E=Sophos;i="6.04,308,1695711600"; d="scan'208";a="393930205"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2023 04:30:37 -0800
+ bh=qni4q+MCRq+nAUIb30fVBT62T2fPU22iNzyXzheWpdg=;
+ b=QolO64CJe2TCEWToxUrLxK29Vbq4OR1al+Dv5dFGWH1zo4lKZMfAcIfV
+ FuPwkYNSzt/or0oTtZMqjVYsIvREVP9VQ3gApCCT56in/lyVF4DDpNux7
+ l5aNIkJgRyVJb8w+YECRMTQMCa5o8HkyBLqhMhZb0kw1eopgACZWw/44q
+ icTe4i7d7AQIVLy4fwhWiGdxPcbg+x/CdJphtBnMnoEW6OqCHd3k7nXVk
+ u7gs8T1T1ZIG/GqaIb9UgYSRjQBP9FSzkoogSH/W48bHhrGYR2ljrusqe
+ B7TKniPK50hOeOEw5noyIc79JFR9VSgIhZvU7OIaMvlJBiULJFpOKnLjF g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10895"; a="388247935"
+X-IronPort-AV: E=Sophos;i="6.04,308,1695711600"; d="scan'208";a="388247935"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2023 05:02:19 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10895"; a="835736305"
-X-IronPort-AV: E=Sophos;i="6.04,308,1695711600"; d="scan'208";a="835736305"
+X-IronPort-AV: E=Sophos;i="6.04,308,1695711600"; d="scan'208";a="13550045"
 Received: from jhsteyn-mobl1.ger.corp.intel.com ([10.252.40.9])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2023 04:30:31 -0800
-Date: Thu, 16 Nov 2023 14:30:28 +0200 (EET)
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2023 05:02:14 -0800
+Date: Thu, 16 Nov 2023 15:02:11 +0200 (EET)
 From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
 To: Mario Limonciello <mario.limonciello@amd.com>
-Subject: Re: [PATCH v3 4/7] PCI: pciehp: Move check for is_thunderbolt into
- a quirk
-In-Reply-To: <20231114200755.14911-5-mario.limonciello@amd.com>
-Message-ID: <8ade60ab-881b-8046-5d3a-ad82fe16d49@linux.intel.com>
+Subject: Re: [PATCH v3 6/7] PCI: Split up some logic in
+ pcie_bandwidth_available() to separate function
+In-Reply-To: <20231114200755.14911-7-mario.limonciello@amd.com>
+Message-ID: <671f5c3b-fd24-7d24-c848-1ae31cea82ff@linux.intel.com>
 References: <20231114200755.14911-1-mario.limonciello@amd.com>
- <20231114200755.14911-5-mario.limonciello@amd.com>
+ <20231114200755.14911-7-mario.limonciello@amd.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-35208055-1700137836=:1886"
+Content-Type: multipart/mixed; boundary="8323329-761469376-1700139739=:1886"
 X-Mailman-Approved-At: Thu, 16 Nov 2023 14:28:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,99 +81,122 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-35208055-1700137836=:1886
-Content-Type: text/plain; charset=ISO-8859-15
+--8323329-761469376-1700139739=:1886
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8BIT
 
 On Tue, 14 Nov 2023, Mario Limonciello wrote:
 
-> commit 493fb50e958c ("PCI: pciehp: Assume NoCompl+ for Thunderbolt
-> ports") added a check into pciehp code to explicitly set NoCompl+
-> for all Intel Thunderbolt controllers, including those that don't
-> need it.
+> The logic to calculate bandwidth limits may be used at multiple call sites
+> so split it up into its own static function instead.
 > 
-> This overloaded the purpose of the `is_thunderbolt` member of
-> `struct pci_device` because that means that any controller that
-> identifies as thunderbolt would set NoCompl+ even if it doesn't
-> suffer this deficiency. As that commit helpfully specifies all the
-> controllers with the problem, move them into a PCI quirk.
+> No intended functional changes.
 > 
+> Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 > ---
 > v2->v3:
->  * Reword commit message
->  * Update comments
+>  * Split from previous patch version
 > ---
->  drivers/pci/hotplug/pciehp_hpc.c |  6 +-----
->  drivers/pci/quirks.c             | 20 ++++++++++++++++++++
->  include/linux/pci.h              |  1 +
->  3 files changed, 22 insertions(+), 5 deletions(-)
+>  drivers/pci/pci.c | 60 +++++++++++++++++++++++++++--------------------
+>  1 file changed, 34 insertions(+), 26 deletions(-)
 > 
-> diff --git a/drivers/pci/hotplug/pciehp_hpc.c b/drivers/pci/hotplug/pciehp_hpc.c
-> index b1d0a1b3917d..40f7a26fb98f 100644
-> --- a/drivers/pci/hotplug/pciehp_hpc.c
-> +++ b/drivers/pci/hotplug/pciehp_hpc.c
-> @@ -992,11 +992,7 @@ struct controller *pcie_init(struct pcie_device *dev)
->  	if (pdev->hotplug_user_indicators)
->  		slot_cap &= ~(PCI_EXP_SLTCAP_AIP | PCI_EXP_SLTCAP_PIP);
+> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> index 55bc3576a985..0ff7883cc774 100644
+> --- a/drivers/pci/pci.c
+> +++ b/drivers/pci/pci.c
+> @@ -6224,6 +6224,38 @@ int pcie_set_mps(struct pci_dev *dev, int mps)
+>  }
+>  EXPORT_SYMBOL(pcie_set_mps);
 >  
-> -	/*
-> -	 * We assume no Thunderbolt controllers support Command Complete events,
-> -	 * but some controllers falsely claim they do.
-> -	 */
-> -	if (pdev->is_thunderbolt)
-> +	if (pdev->no_command_complete)
->  		slot_cap |= PCI_EXP_SLTCAP_NCCS;
->  
->  	ctrl->slot_cap = slot_cap;
-> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-> index ea476252280a..fa9b82cd7b3b 100644
-> --- a/drivers/pci/quirks.c
-> +++ b/drivers/pci/quirks.c
-> @@ -3809,6 +3809,26 @@ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_CACTUS_RIDGE_4C
->  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_PORT_RIDGE,
->  			quirk_thunderbolt_hotplug_msi);
->  
-> +/*
-> + * Certain Thunderbolt 1 controllers falsely claim to support Command
-> + * Completed events.
-> + */
-> +static void quirk_thunderbolt_command_complete(struct pci_dev *pdev)
+> +static u32 pcie_calc_bw_limits(struct pci_dev *dev, u32 bw,
+> +			       struct pci_dev **limiting_dev,
+> +			       enum pci_bus_speed *speed,
+> +			       enum pcie_link_width *width)
 > +{
-> +	pdev->no_command_complete = 1;
-> +}
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_LIGHT_RIDGE,
-> +			quirk_thunderbolt_command_complete);
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_EAGLE_RIDGE,
-> +			quirk_thunderbolt_command_complete);
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_LIGHT_PEAK,
-> +			quirk_thunderbolt_command_complete);
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_CACTUS_RIDGE_4C,
-> +			quirk_thunderbolt_command_complete);
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_CACTUS_RIDGE_2C,
-> +			quirk_thunderbolt_command_complete);
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_PORT_RIDGE,
-> +			quirk_thunderbolt_command_complete);
->  #ifdef CONFIG_ACPI
->  /*
->   * Apple: Shutdown Cactus Ridge Thunderbolt controller.
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index 1fbca2bd92e8..20a6e4fc3060 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -441,6 +441,7 @@ struct pci_dev {
->  	unsigned int	is_hotplug_bridge:1;
->  	unsigned int	shpc_managed:1;		/* SHPC owned by shpchp */
->  	unsigned int	is_thunderbolt:1;	/* Thunderbolt controller */
-> +	unsigned int	no_command_complete:1;	/* No command completion */
->  	/*
->  	 * Devices marked being untrusted are the ones that can potentially
->  	 * execute DMA attacks and similar. They are typically connected
-> 
+> +	enum pcie_link_width next_width;
+> +	enum pci_bus_speed next_speed;
+> +	u32 next_bw;
+> +	u16 lnksta;
+> +
+> +	pcie_capability_read_word(dev, PCI_EXP_LNKSTA, &lnksta);
+> +
+> +	next_speed = pcie_link_speed[FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta)];
+> +	next_width = FIELD_GET(PCI_EXP_LNKSTA_NLW, lnksta);
+> +
+> +	next_bw = next_width * PCIE_SPEED2MBS_ENC(next_speed);
+> +
+> +	/* Check if current device limits the total bandwidth */
 
-Reviewed-by: Ilpo J�rvinen <ilpo.jarvinen@linux.intel.com>
+I'd make this a function comment instead and say:
+
+/* Check if @dev limits the total bandwidth. */
+
+Other than that,
+
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 
 -- 
  i.
 
---8323329-35208055-1700137836=:1886--
+> +	if (!bw || next_bw <= bw) {
+> +		bw = next_bw;
+> +
+> +		if (limiting_dev)
+> +			*limiting_dev = dev;
+> +		if (speed)
+> +			*speed = next_speed;
+> +		if (width)
+> +			*width = next_width;
+> +	}
+> +
+> +	return bw;
+> +}
+> +
+>  /**
+>   * pcie_bandwidth_available - determine minimum link settings of a PCIe
+>   *			      device and its bandwidth limitation
+> @@ -6242,39 +6274,15 @@ u32 pcie_bandwidth_available(struct pci_dev *dev, struct pci_dev **limiting_dev,
+>  			     enum pci_bus_speed *speed,
+>  			     enum pcie_link_width *width)
+>  {
+> -	u16 lnksta;
+> -	enum pci_bus_speed next_speed;
+> -	enum pcie_link_width next_width;
+> -	u32 bw, next_bw;
+> +	u32 bw = 0;
+>  
+>  	if (speed)
+>  		*speed = PCI_SPEED_UNKNOWN;
+>  	if (width)
+>  		*width = PCIE_LNK_WIDTH_UNKNOWN;
+>  
+> -	bw = 0;
+> -
+>  	while (dev) {
+> -		pcie_capability_read_word(dev, PCI_EXP_LNKSTA, &lnksta);
+> -
+> -		next_speed = pcie_link_speed[FIELD_GET(PCI_EXP_LNKSTA_CLS,
+> -						       lnksta)];
+> -		next_width = FIELD_GET(PCI_EXP_LNKSTA_NLW, lnksta);
+> -
+> -		next_bw = next_width * PCIE_SPEED2MBS_ENC(next_speed);
+> -
+> -		/* Check if current device limits the total bandwidth */
+> -		if (!bw || next_bw <= bw) {
+> -			bw = next_bw;
+> -
+> -			if (limiting_dev)
+> -				*limiting_dev = dev;
+> -			if (speed)
+> -				*speed = next_speed;
+> -			if (width)
+> -				*width = next_width;
+> -		}
+> -
+> +		bw = pcie_calc_bw_limits(dev, bw, limiting_dev, speed, width);
+>  		dev = pci_upstream_bridge(dev);
+>  	}
+>  
+> 
+--8323329-761469376-1700139739=:1886--
