@@ -4,60 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E75F4C47071
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 19:35:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A146EC197A0
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 19:58:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75B0F10E03A;
-	Thu, 16 Nov 2023 19:35:04 +0000 (UTC)
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
- [IPv6:2001:4860:4864:20::33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B899610E03A
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Nov 2023 19:35:01 +0000 (UTC)
-Received: by mail-oa1-x33.google.com with SMTP id
- 586e51a60fabf-1f0f94a08a0so631714fac.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Nov 2023 11:35:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1700163301; x=1700768101; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=fWfSLGH7asko5D4M852+VyQVsrVuNLDho5e3wAZpiPM=;
- b=HrLx1DNGeOFbS94yPUg8VYOgLXExuxoNqjqh9wuFBuSktNe29mFbilaJCqhBTj0xNZ
- J0DMptJZMIcPXG7j1V1ktnCfZruw00xTJCAbVIqqRQmjd9cO+GSMc2p+fPys9+498zku
- LqFRsePIK8SSEHpKrsvws37GRP66ehVrbRKs8gaREAEzhRm3zQckWA7BLGV/UAULa6iz
- mPx2vxPefGITiSZHsLcoumy2zp0tI1gxCFmNb1AHGZLxvDW4q0bR+5L0XAkNZfGN+WXc
- YmMCiyTUn89rGXHfwCJ+RHSxCTYZ+IWBs5e3FFlmrE114SqpxaEJBKIBwwPLqAfR8l5S
- 808g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700163301; x=1700768101;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=fWfSLGH7asko5D4M852+VyQVsrVuNLDho5e3wAZpiPM=;
- b=Kk4Mq+VGjle1rDa7V8774bjmOIeqiulx94D2gIRWadcSZq2mt5t/Bn0P/KuAvoa4fE
- TcDGVSKA2pVbDNo4JEl5aD9eYzqjbbzIKnikMCHLAbCD5Z/r0zjlPMe30F22irU3qgMc
- SmbLQkhbrhe4txeH+U7deBEzSmp9LOGRmmPa4QQhgED023kMZZHkwk5B7CxHXMVWZidJ
- jIwTSEKuRa3EwKTAKXV13WmrtmPqbRTJvbjAVVcDwqA7WpgcGooU1OF6kPYyvyg1uTID
- VD+fbZuIO6kB4lnA1zcBK+QDtXvxqZ7iQOmx69K/ZxPSbCiRUqx3ICVNHxO710kCZHRp
- Uj6Q==
-X-Gm-Message-State: AOJu0YyhKR/L+8xS6OJKEDUHdDXpjXe6urTneV2Ktk+Us6Qe4d39d9g3
- gUfaUfbMVDhkE15p1vHfygHvu6vDFTum72N04dOZl0REULs=
-X-Google-Smtp-Source: AGHT+IGdyPqgnYCU0luzZW3jJRWyJoLAfpVXvqxwBF3n6uRoLplIVJXMUe+wmDtoFw74fppoG0upQxCQpZpDOyM7QoE=
-X-Received: by 2002:a05:6870:a40e:b0:1ef:c07e:b54c with SMTP id
- m14-20020a056870a40e00b001efc07eb54cmr19334782oal.57.1700163301023; Thu, 16
- Nov 2023 11:35:01 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D21210E693;
+	Thu, 16 Nov 2023 19:58:23 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDA5210E2BA;
+ Thu, 16 Nov 2023 19:58:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=rfx4tvW7R2KBhwKSd3k5sJd6oheAeA5m3drlsyYWwvQ=; b=OsxFvhIsNa/SlvsBimtb9aAA6B
+ qlNPIv9GSThU7J4y00L3xv10CO+DqA98MQr92BPrqdWBfZ+tSaLR4g5f5tkouP2SMPuJkdMF2RnlE
+ 0syW+YoLwvMVsGnkH+zbBdQs71hKRYyitTuBSa+0z9aFVci+MAiW0pXHQMApYTz0OJ67O2fzo2cVY
+ eUQ/6YNZL0yRFT5O5gm6a5YjovUsONFiEjn2YUZ8t3DlC7VPhvfFH3Z+Uu8G3gNuW1QgsO3DIKR4u
+ 4bylvRVuHngJEGY8dRVQAiwuIPtetoV6dA9vMbXLdECsYYaa8mDLOb9wGEVj1uvnJGUkdp7/6cDIR
+ jP4XZC5Q==;
+Received: from [102.213.205.115] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1r3iVG-0048Yy-Cj; Thu, 16 Nov 2023 20:58:18 +0100
+From: Melissa Wen <mwen@igalia.com>
+To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
+ Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, daniel@ffwll.ch
+Subject: [PATCH v5 01/32] drm/drm_mode_object: increase max objects to
+ accommodate new color props
+Date: Thu, 16 Nov 2023 18:57:41 -0100
+Message-Id: <20231116195812.906115-2-mwen@igalia.com>
+X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20231116195812.906115-1-mwen@igalia.com>
+References: <20231116195812.906115-1-mwen@igalia.com>
 MIME-Version: 1.0
-References: <20231114045156.qymbztbq5x57crsd@praveen.org.uk>
- <fdca133c-c151-47f4-578d-2f4a423c57b5@suse.cz>
-In-Reply-To: <fdca133c-c151-47f4-578d-2f4a423c57b5@suse.cz>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 16 Nov 2023 14:34:50 -0500
-Message-ID: <CADnq5_NgUQqo+dKr6D4wv2k6GRkysH9hoQJiWRzNtq8vNgbp8w@mail.gmail.com>
-Subject: Re: page fault GCVM_L2_PROTECTION_FAULT_STATUS on 7900xtx Linux
- 6.7-rc1 with Mesa 23.3.0-rc3
-To: Vlastimil Babka <vbabka@suse.cz>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,26 +55,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Abhinav Praveen <abhinav@praveen.org.uk>, amd-gfx@lists.freedesktop.org
+Cc: Sebastian Wick <sebastian.wick@redhat.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Shashank Sharma <Shashank.Sharma@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Simon Ser <contact@emersion.fr>, Xaver Hugl <xaver.hugl@gmail.com>,
+ kernel-dev@igalia.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Joshua Ashton <joshua@froggi.es>, sungjoon.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 16, 2023 at 11:42=E2=80=AFAM Vlastimil Babka <vbabka@suse.cz> w=
-rote:
->
-> On 11/14/23 05:51, Abhinav Praveen wrote:
-> > Hi,
-> >
-> > When I start X/i3 on a 7900xtx with Linux 6.7-rc1 and Mesa 23.3_rc3, my
-> > log is filled with errors like:
->
-> I have same kind of errors filling my dmesg with 6.7-rc1 with Radeon RX 7=
-600
-> using KDE on Wayland. I don't notice any other issues than the dmesg itse=
-lf.
-> Also attaching dmesg.
+DRM_OBJECT_MAX_PROPERTY limits the number of properties to be attached
+and we are increasing that value all time we add a new property (generic
+or driver-specific).
 
-I think this series should fix it:
-https://patchwork.freedesktop.org/series/126220/
+In this series, we are adding 13 new KMS driver-specific properties for
+AMD color manage:
+- CRTC Gamma enumerated Transfer Function
+- Plane: Degamma LUT+size+TF, HDR multiplier, shaper LUT+size+TF, 3D
+  LUT+size, blend LUT+size+TF (12)
 
-Alex
+Therefore, just increase DRM_OBJECT_MAX_PROPERTY to a number (64) that
+accomodates these new properties and gives some room for others,
+avoiding change this number everytime we add a new KMS property.
+
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Reviewed-by: Simon Ser <contact@emersion.fr>
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+---
+ include/drm/drm_mode_object.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/drm/drm_mode_object.h b/include/drm/drm_mode_object.h
+index 912f1e415685..08d7a7f0188f 100644
+--- a/include/drm/drm_mode_object.h
++++ b/include/drm/drm_mode_object.h
+@@ -60,7 +60,7 @@ struct drm_mode_object {
+ 	void (*free_cb)(struct kref *kref);
+ };
+ 
+-#define DRM_OBJECT_MAX_PROPERTY 24
++#define DRM_OBJECT_MAX_PROPERTY 64
+ /**
+  * struct drm_object_properties - property tracking for &drm_mode_object
+  */
+-- 
+2.40.1
+
