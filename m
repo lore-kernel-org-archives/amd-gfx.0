@@ -4,66 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80862C54FB9
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 11:11:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A7A9C197A0
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 11:28:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35A6010E268;
-	Thu, 16 Nov 2023 11:11:25 +0000 (UTC)
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C021910E268
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Nov 2023 11:11:22 +0000 (UTC)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-40838915cecso5267755e9.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Nov 2023 03:11:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1700133081; x=1700737881; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=fw7EMDPsjW5B0WvPq6tPMZM1EXUaJoJYkR3b56qPMJg=;
- b=PX0VLytwkVwdsN4D3fN/l8pe0PPB01duxpNaYtgTF2oXGQi/w2kmNX9UG69qnagSj5
- GVZ/Vsvrezm1WMlQWc+xAZbJcDzfghEnFMm/MN+KElJPoBCc40WkYxxsGOOP2nXqE1IE
- fxXetB5l8i2eWxWsv+KG/86B5gcd4pZc95e1Xj8yOuO+hdRQ3Zr8VYkCqgwbdsNCqsVo
- V/dS3W8qNEr8j7vD7VCvzaTdVZCQ/wYuGhADwfCmkzl0gtsXXUzwizelHaxsiFjWk2+U
- cXSP1UI56vLxbdCXVDVra394zqZ0DmGhviQ2LKSNsLUldGoSfsAFzXP+aw3w6Aj1D3Bw
- wb7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700133081; x=1700737881;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=fw7EMDPsjW5B0WvPq6tPMZM1EXUaJoJYkR3b56qPMJg=;
- b=rmkrIILED1dwkjfu0UUrQLBKHa2QjTV1t0t3yNkL21dP7UFpjPuKl3j0sy9Lo3v3Z0
- 37f9gTSaWofbgz+BckMxCDSZ9sEGQ3Xd9ugmdjO6KSCxFl28JdT5e9jyiZhvlCDcYRXn
- PkSGLJcFi4FoHX1MOYou9m3xG8qArxSXCxAGIf0JSXvva6jMIbO9qH2dyOFv6Eig0eYH
- RWJwmrUXUdbg5uew8oRQ0POvpXkvLFaEH3e0ru3QLKPdIiWwTW9mGzyRyHibjhbFyF6r
- xlkT49Xzo3IhwjosoMomrUlXvEjFYoqus/CTtSMcVrYtcbCe5v+47InVAicHBrRa/Htn
- ui3A==
-X-Gm-Message-State: AOJu0Yy/r+lV28sBrA54PdgGZakyfp3XgBOhGqhsizXrsv7RWSbVBwJM
- OPdXZmRUk/W9LGYYGV555PcEd2+VHe0=
-X-Google-Smtp-Source: AGHT+IFhh2/pcz/odFrldaBhkqHHpk5a3ToCOuzbU178zpmKboQsAyLfKCdzpF/WEQOunlXE7iTduA==
-X-Received: by 2002:a05:600c:350f:b0:405:49aa:d578 with SMTP id
- h15-20020a05600c350f00b0040549aad578mr12500852wmq.37.1700133080788; 
- Thu, 16 Nov 2023 03:11:20 -0800 (PST)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- v3-20020a05600c444300b004063c9f68f2sm3185583wmn.26.2023.11.16.03.11.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Nov 2023 03:11:20 -0800 (PST)
-Message-ID: <f1b877d8-d446-4a50-9a0e-1f0c99c164ed@gmail.com>
-Date: Thu, 16 Nov 2023 12:11:19 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd: Enable checkpoint and restore of VRAM Bos with
- no VA
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A94010E271;
+	Thu, 16 Nov 2023 11:28:06 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2087.outbound.protection.outlook.com [40.107.220.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FC4D10E272
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Nov 2023 11:28:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DPwhtdFLOz9+wsnCIiX9MZxqgA8/JgXHeBIf72+EOa2LS9PycLkzFiAzsxyxf7C0p0ex/tups+CJZ2XNW4agCMJdk3H66YPWaaI9fmOI5J01DXjtkDrSg9JkGFhQtjbwRych8y50y8nefy14388mSeEun2nnY2QWhOzJpUazQd1DfXFlvdbu6UPc8SqSzahnDEFbJ1avzdMkL7wevM5HlqzYdhDFkuhvRGHgj2a+etO1QyJR9wiKsSrpj28EyVAAIscCQDYl25t6p8T96mHpUH15IO3R38FbBXi4OA9aD7WQgpUmit10D7UDFtuST7Rn/NEbDFqgNpwI4NPf5M18Kg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=N6sxAq1XJWPSsuLZRyxFVrWi5aIJVqCjVX0QBvjSSmI=;
+ b=fVbo+2IAidS99puKYTp5xsHBigrVQXqbKRYPrucqynwrn3PQVN5tfqlzWziS1GZm263uGYHRcHexUuK/3P8eqzEZC6dzh0FH1TctuOq2SmExY6WczrHiOoqDRYbyMqqvinbrG0e3ZFxMnS8fBJk3cAdfaM0XiCi+CXgDDCIG0+kfjfppJQPb+4MY/Cysnrc/2x/dJHFquy0piIrhTGwV3RPaEimX+VHcEpZ6oRD2H1RO/C3gh3mF9rzC4ISi2a/YASG/buEPBI6lBtWqkFknEVgkuDm/BkL7xtIO0Y2wXBtCcwnPMIRhtlF3LgiCQ28/y/Dt5sutNCRBbz+XG6CA4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=N6sxAq1XJWPSsuLZRyxFVrWi5aIJVqCjVX0QBvjSSmI=;
+ b=AXvVE50C2gMKWjO5G2pIg8wTskoCXYnXEsjIwI0PGGqcYzz0U0ase+ewEVzhg42jls5nxmYnKzA3HSl74c5ru3GP0rSqzZtNowwd0SFsWAPq2JSRxhCNt/PP8xE0/lBJ1kbDpA6l7pTu7KGApAvpvR9tAlCQHFLgwK6LYhMluu8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by CH0PR12MB5219.namprd12.prod.outlook.com (2603:10b6:610:d2::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.21; Thu, 16 Nov
+ 2023 11:28:01 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::c258:1e94:a85b:1510]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::c258:1e94:a85b:1510%5]) with mapi id 15.20.7002.021; Thu, 16 Nov 2023
+ 11:28:00 +0000
+Message-ID: <60914753-9800-5fa7-6796-45c16e21fcfa@amd.com>
+Date: Thu, 16 Nov 2023 16:57:50 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.1
+Subject: Re: [PATCH v3] drm/amdgpu: Move mca debug mode decision to ras
 Content-Language: en-US
-To: Ramesh Errabolu <Ramesh.Errabolu@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20231116024705.591555-1-Ramesh.Errabolu@amd.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20231116024705.591555-1-Ramesh.Errabolu@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+To: amd-gfx@lists.freedesktop.org
+References: <20231110075547.565860-1-lijo.lazar@amd.com>
+In-Reply-To: <20231110075547.565860-1-lijo.lazar@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BMXPR01CA0095.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:54::35) To BYAPR12MB4614.namprd12.prod.outlook.com
+ (2603:10b6:a03:a6::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BYAPR12MB4614:EE_|CH0PR12MB5219:EE_
+X-MS-Office365-Filtering-Correlation-Id: 018b45f8-060a-48a3-7412-08dbe6971693
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: dd294e0eC2lqsyTQdie1E2TklKchpmawhJ/DJTK/iR9+Gn59d03hD61nqBMQXRyDxYQQVGfDHpMf9/qD//5zUs7LY9fy1hyjzxgGvdo/GhTyqoKl3NmNM0FHxkWpGE5eS89nAoxhts0TuvocgZmuX8D1HoTRpHu9T9MmTspCIRTcRc99oeY3BYSihTDLy5SvPTqwvH0H9iHw2s9Qy8hhlRXE5jEtMRe+VOx2gSr3vMfqngZmM8w143SuYUkTh76RgD6hxzuX78s1JlSmxuDtufApp2jOuv7ujTys5vNXl6hTot/jGGE5j7y3p1iampGZYSjtSmasgOr3b6tM5B8Ci0SRbm6m1cKh6BVe3kejB3dpJNwWi99Tviermob6nrQzVUi+XT+ATPbVdfRvCB/2mNZCRAgp9jWi9/kd1bGITxdBmfjDW0rOLyavlpCaQsGPnO7R3bjYYM+jxYZtQHfEHST9LUzHuofpq8HlF9AO25SAWUkyrfJj6TkVntziw+zqzK4uc1Kc0igDgwxrKga43xKQp16Dh3Dki5Tpd1PigxX5aKvUCgUCQdwtJ5CE9jsoIjCMyq1QFcDHrgtBReUA3yi7caisOVn0mFuSPlp4I2eo56Zh1pGHM6ZySeCr4dBPSHnQjs8FDx49WaM9xzkqo6zNC9g31Sug36tOF11Ss6FnHg9vV9CvhgkTuuoG6w37
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(346002)(366004)(376002)(396003)(39860400002)(136003)(230922051799003)(230173577357003)(230273577357003)(1800799009)(186009)(64100799003)(451199024)(6512007)(6916009)(316002)(36756003)(66946007)(66476007)(66556008)(26005)(2616005)(6486002)(478600001)(6506007)(53546011)(6666004)(31696002)(5660300002)(86362001)(38100700002)(31686004)(2906002)(83380400001)(8936002)(8676002)(41300700001)(4326008)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NThiRUFhbWliQlh0RlhjVkcwZ0tLV2MyalJCMXhRZVJyU2tUZnFvOVVPcEFn?=
+ =?utf-8?B?ZEVjcFFlb2dGQi8vTG9WWHNWMjZMZ21PMkhOSFVsS3kxd2JRSUo2YnJ1R3NU?=
+ =?utf-8?B?enl6T0VZTS9qTyswQktOSlB6QVB4WGgrSTZNc2RKdk40VG9hWUVCbzE2S0dt?=
+ =?utf-8?B?dmhzWlI1SEFUdzNXcUR4ZUFWZ0VzK2VxSnlFT0ZPNmdvcFBwNlArK3lpWG91?=
+ =?utf-8?B?czhSU1BiM3ZhSm5JRTd0VWZCbGFseHN5WEdZQlBjdmh3QjJMSUgzeEY1ejZQ?=
+ =?utf-8?B?WG41NUxibWZaUzE4VjJLa0tSUkY5UGgxdWlrVGlXRGVZczRDS0dsVnQ4LzlQ?=
+ =?utf-8?B?bjNpT1pPWlJRcWNFRVh3VEdPQ3htM1RoYW5jcVRuS3FDUEdBU3BIZnZzYXhq?=
+ =?utf-8?B?aHduazdqRnZxNjVGQk55bXVaejE1ZEJRZngyKzlwTmVpY1JVSHJFOUFwbSto?=
+ =?utf-8?B?M2NSTE84S2RHRzhRL1lrSDg0QXphWWJpTndZWDluZE9vbmQ5dWhZUllPVHZ0?=
+ =?utf-8?B?MHVYY1JJTjVnaUs1RWxlTjVLa0kzd2lhbkxlZEttMXpwaGdpYnVOMG5QRFNn?=
+ =?utf-8?B?RjBJZjlqYXhJNTg4KzE0ZUtmTVpQNVEvbVliaDNVb0R4WjBpQ1RKK25QVXRU?=
+ =?utf-8?B?RkErTmIrK2dFd2VMMUNXdEZiSTJOdm9SZkJzeU93NEsyMXp3Vi9lL29LNFdm?=
+ =?utf-8?B?amJaSE5mMGxjYUp0T1AzR3BXOUUwMDdjclhOMDVDMGxYa0d0RCsxdHQzaWhw?=
+ =?utf-8?B?L3FKbDIvVXRmZjhoam01dEUxM0ZZZ1diaEl2Rzh1Q2VrVGdQRlpxUU5aT1Nr?=
+ =?utf-8?B?TEtlK1VJY0t5L2xzMnAvT0MzdFo3THM1ZXM0eGNmRmFEZkl4RjFjT3VBZ3ZL?=
+ =?utf-8?B?RDl2YU5vZU1nWVBoSFFHMmM1MkM3K1h0K0RZV3BxOVlielNsUkhYeXVWWlpk?=
+ =?utf-8?B?bFRpMEZ5SWtGR2hZMk5SSXp1ZFZkVXhZakgzRkdIbkpNVFAwRGhYN09zVElM?=
+ =?utf-8?B?dlBDWmFSRFBVTUpPUFN0T08xbFAyWFhBRmFESHdjSENsc01DYlFXNEc4aklh?=
+ =?utf-8?B?d3M4UFN0N2dZMXNxUksxS2M3c0hOUHRFRHBlU1VCeWpHYTdQd2J5TXJKQUFR?=
+ =?utf-8?B?QWY1eUhJWFd3OFJBdWpyREp4ZmtDYjhMS3J1VVZuZG9LZkp4TVFneEhZdnpl?=
+ =?utf-8?B?Tm82NEt2SkV4Yjh1bUo4M3lXb2YxV0xmaDBCK0xOelJNT1RoNlpEUjhXVFB0?=
+ =?utf-8?B?QXF3c01lODlNWFlDSjJtMFRYcG5uaXdCb0xITHFiM29MOFVER0VNdkdwWlRH?=
+ =?utf-8?B?V2M5UGVudnFDazdqTnh6YmI0K2ZJU2ZyVGZCc2pQVmQ4U2Jla3Z6SnRJYTBL?=
+ =?utf-8?B?dWNMVFdFYnEwVjBoUTU4akoxSFFGdFRZUWJxdVN3bGV2N3lrT3E4TkxtRVY4?=
+ =?utf-8?B?THlwMXRGcEVVWTVta09OdU0wZ002NkhlTWxIUDhhUXN3OVkyQkNscXlEUXZN?=
+ =?utf-8?B?dnRCMmlrcTNhSVdIREcyZzZ5NWlCMjF0SlhkdW9mQWlzRENXaXpLa0hrQ2li?=
+ =?utf-8?B?Qk9yV0x1UHJLby9mUEEvZDFpUzVBV3F0UU82M0ZiR0UvREJvTDhWTlA1VXB4?=
+ =?utf-8?B?RUwrRmIreUhrdVdnc3NGSHEwZW9uTTA4YWM0aHl2YndoVjVub3FCcmZOMzV1?=
+ =?utf-8?B?dWFmZGpOVTF5UmdtWmY2cjVINHV0NTduRW1YUmRtZEJmb1VmdXMxM0hvYldi?=
+ =?utf-8?B?RWdSYll1bkZUYzlPRmp2Z3pCNDVKZ0VMd2V4REdYN3VaU1dUSER2ZVhPQ25O?=
+ =?utf-8?B?VVZQdDdoc3g0WFRRcnhEai9kajlIZitKdzRGVTc4b1VWcFY4ZWZnZElkM2Rv?=
+ =?utf-8?B?SXBzdktCRGdFdVk2YVZIRVNRMVlKMEt1RHM5L2xIenJpSVZ6ck8rVlBBR2lw?=
+ =?utf-8?B?cEtITHlCL0lkekJ3MS9DZ0ppb0dpVVA0Z1FJQzlCTlBXbWtZRmpkbWFVUmpo?=
+ =?utf-8?B?N3Bob25qMDN0a3JEM2l2YW9UZkFJQ2JRbjhtMmtJMlpuQzd2RzlMVnlxZWE3?=
+ =?utf-8?B?NlJCcks1bENmZkk2K1l2OVZtWkRiMEdCdkUzUmZBYkJMQXhjRUc4WmJ5enQ1?=
+ =?utf-8?Q?9DUpdFN4L9/Z08OkI2Hlan66m?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 018b45f8-060a-48a3-7412-08dbe6971693
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2023 11:28:00.5750 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ccQ4txzyRtx8NhByU5v/qQbz8TMp3sBdRpWSqlAnRl3cawYJ1Jk4RQ9a1vvS4KAl
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5219
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,611 +123,126 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alexander.Deucher@amd.com, kevinyang.wang@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+<ping>
 
-
-Am 16.11.23 um 03:47 schrieb Ramesh Errabolu:
-> Tag VRAM BOs that do not have a VA with a unique Id, a 128-bit
-> UUID. This unique Id is used to distinguish BOs that might
-> otherwise be of same size. Checkpoint and restore assumes
-> that these BOs are not imported into a DRM device that is
-> accessible either from current process or its parent or
-> child process
->
-> Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
+On 11/10/2023 1:25 PM, Lijo Lazar wrote:
+> Refactor code such that ras block decides the default mca debug mode,
+> and not swsmu block.
+> 
+> By default mca debug mode is set to false.
+> 
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/Makefile           |   3 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |   3 +-
->   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  29 ++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_criu.c      | 190 ++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_criu.h      | 103 ++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |  17 ++
->   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  30 ++-
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   3 +-
->   drivers/gpu/drm/amd/amdkfd/kfd_process.c      |   2 +-
->   9 files changed, 370 insertions(+), 10 deletions(-)
->   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_criu.c
->   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_criu.h
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-> index 260e32ef7bae..851e2c4db372 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
-> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-> @@ -270,7 +270,8 @@ amdgpu-y += \
->   	amdgpu_amdkfd_gc_9_4_3.o \
->   	amdgpu_amdkfd_gfx_v10.o \
->   	amdgpu_amdkfd_gfx_v10_3.o \
-> -	amdgpu_amdkfd_gfx_v11.o
-> +	amdgpu_amdkfd_gfx_v11.o \
-> +	amdgpu_criu.o
->   
->   ifneq ($(CONFIG_DRM_AMDGPU_CIK),)
->   amdgpu-y += amdgpu_amdkfd_gfx_v7.o
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> index fcf8a98ad15e..6c0d7e6a66cd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> @@ -289,7 +289,8 @@ size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev,
->   int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
->   		struct amdgpu_device *adev, uint64_t va, uint64_t size,
->   		void *drm_priv, struct kgd_mem **mem,
-> -		uint64_t *offset, uint32_t flags, bool criu_resume);
-> +		uint64_t *offset, uint32_t flags,
-> +		bool criu_resume, uuid_t *uuid);
->   int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
->   		struct amdgpu_device *adev, struct kgd_mem *mem, void *drm_priv,
->   		uint64_t *size);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index 2e302956a279..b139ffd519e1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -25,6 +25,7 @@
->   #include <linux/pagemap.h>
->   #include <linux/sched/mm.h>
->   #include <linux/sched/task.h>
-> +#include <linux/uuid.h>
->   #include <drm/ttm/ttm_tt.h>
->   
->   #include "amdgpu_object.h"
-> @@ -35,6 +36,7 @@
->   #include "amdgpu_dma_buf.h"
->   #include <uapi/linux/kfd_ioctl.h>
->   #include "amdgpu_xgmi.h"
-> +#include "amdgpu_criu.h"
->   #include "kfd_priv.h"
->   #include "kfd_smi_events.h"
->   
-> @@ -1718,7 +1720,8 @@ size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev,
->   int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
->   		struct amdgpu_device *adev, uint64_t va, uint64_t size,
->   		void *drm_priv, struct kgd_mem **mem,
-> -		uint64_t *offset, uint32_t flags, bool criu_resume)
-> +		uint64_t *offset, uint32_t flags,
-> +		bool criu_resume, uuid_t *uuid)
->   {
->   	struct amdgpu_vm *avm = drm_priv_to_vm(drm_priv);
->   	struct amdgpu_fpriv *fpriv = container_of(avm, struct amdgpu_fpriv, vm);
-> @@ -1814,13 +1817,23 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
->   		 va, (*mem)->aql_queue ? size << 1 : size,
->   		 domain_string(alloc_domain), xcp_id);
->   
-> -	ret = amdgpu_gem_object_create(adev, aligned_size, 1, alloc_domain, alloc_flags,
-> -				       bo_type, NULL, &gobj, xcp_id + 1);
-> +	/* Construction of VRAM BO one with no VA, during CRIU Restore
-> +	 * should consult BO table. Will return either a previously
-> +	 * constructed BO or will construct a BO anew
-> +	 */
-> +	if (criu_resume && (va == 0) && (flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM))
-> +		ret = restore_vram_bo(adev, aligned_size, 1, alloc_flags, uuid,
-> +				&gobj, xcp_id + 1);
-> +	else
-> +		ret = amdgpu_gem_object_create(adev, aligned_size, 1, alloc_domain,
-> +				alloc_flags, bo_type, NULL, &gobj, xcp_id + 1);
-> +
->   	if (ret) {
->   		pr_debug("Failed to create BO on domain %s. ret %d\n",
->   			 domain_string(alloc_domain), ret);
->   		goto err_bo_create;
->   	}
-> +
->   	ret = drm_vma_node_allow(&gobj->vma_node, drm_priv);
->   	if (ret) {
->   		pr_debug("Failed to allow vma node access. ret %d\n", ret);
-> @@ -1843,6 +1856,16 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
->   
->   	add_kgd_mem_to_kfd_bo_list(*mem, avm->process_info, user_addr);
->   
-> +	/* Initialize the UUID field of a BO that:
-> +	 *     - Represents a VRAM BO
-> +	 *     - Does not have a VA bound
-> +	 *     - Is allocated outside CRIU Resume procedure
-> +	 */
-> +	if (!criu_resume && (va == 0) && (flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM)) {
-> +		if (uuid_is_null(&bo->uuid))
-> +			uuid_gen(&bo->uuid);
-> +	}
-> +
->   	if (user_addr) {
->   		pr_debug("creating userptr BO for user_addr = %llx\n", user_addr);
->   		ret = init_user_pages(*mem, user_addr, criu_resume);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_criu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_criu.c
-> new file mode 100644
-> index 000000000000..4b43a3df6913
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_criu.c
-> @@ -0,0 +1,190 @@
-> +// SPDX-License-Identifier: MIT
-> +/*
-> + * Copyright 2022 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#include "amdgpu_criu.h"
-> +
-> +/*
-> + * Hash table to host BOs that have their unique IDs initialized
-> + * The table comes into play during CRIU Restore procedure
-> + *
-> + * @note: Currently these BOs encapsulate device memory i.e. are
-> + * VRAM BOs
-> + */
-> +DECLARE_HASHTABLE(criu_bo_table, CRIU_BO_TABLE_SIZE);
-> +static DEFINE_MUTEX(criu_mutex);
-> +
-> +/* Global counter to track life of Hash table */
-> +atomic_t criu_bo_counter = ATOMIC_INIT(0);
-> +
-> +void print_uuid(uuid_t *uuid)
-
-All non-static function should have an amdgpu_ prefix.
-
-
-
-> +{
-> +	pr_err("\n");
-> +	for (int idx = 0; idx < 16; idx++)
-> +		pr_err("Idx[%d] %d\n", idx, uuid->b[idx]);
-> +	pr_err("\n");
-> +}
-> +
-> +void print_uuid_compare(uuid_t *uuid1, uuid_t *uuid2)
-> +{
-> +	pr_err("\n");
-> +	for (int idx = 0; idx < 16; idx++)
-> +		pr_err("Idx[%d] %d,  %d\n", idx, uuid1->b[idx], uuid2->b[idx]);
-> +	pr_err("\n");
-> +}
-> +
-> +void inc_table_counter(uint32_t cntr)
-> +{
-> +	int init;
-> +
-> +	mutex_lock(&criu_mutex);
-> +	init = atomic_read(&criu_bo_counter);
-> +	if (init == 0x00) {
-> +		pr_debug("%s(), Invoking hash_init api\n", __func__);
-> +		hash_init(criu_bo_table);
-> +	}
-> +
-> +	atomic_add(cntr, &criu_bo_counter);
-> +	init = atomic_read(&criu_bo_counter);
-> +	mutex_unlock(&criu_mutex);
-> +}
-> +
-> +static void free_bo_table(void)
-> +{
-> +	struct criu_bo_uuid *bo_uuid = NULL;
-> +	uint32_t bkt;
-> +
-> +	hash_for_each_rcu(criu_bo_table, bkt, bo_uuid, node)
-> +		hash_del_rcu(&bo_uuid->node);
-> +}
-> +
-> +void dec_table_counter(uint32_t cntr)
-> +{
-> +	uint32_t deinit;
-> +
-> +	mutex_lock(&criu_mutex);
-> +	atomic_sub(cntr, &criu_bo_counter);
-> +	deinit = atomic_read(&criu_bo_counter);
-> +	if (deinit == 0x00) {
-> +		pr_debug("%s(), Invoking free_bo_table api\n", __func__);
-> +		free_bo_table();
-> +	}
-> +
-> +	if (deinit < 0)
-> +		pr_err("%s(), BO Table counter is inconsistent: %d\n", __func__, deinit);
-> +
-> +	mutex_unlock(&criu_mutex);
-> +}
-> +
-> +uint32_t query_table_counter(void)
-> +{
-> +	uint32_t cntr;
-> +
-> +	mutex_lock(&criu_mutex);
-> +	cntr = atomic_read(&criu_bo_counter);
-> +	mutex_unlock(&criu_mutex);
-> +	return cntr;
-> +}
-> +
-> +/* Determine if BO is present in Hash table */
-> +static void add_bo_uuid(struct criu_bo_uuid *bo_uuid)
-> +{
-> +	mutex_lock(&criu_mutex);
-> +	hash_add_rcu(criu_bo_table, &bo_uuid->node, (uintptr_t)bo_uuid->uuid);
-> +	mutex_unlock(&criu_mutex);
-> +}
-> +
-> +/* Determine if BO is present in Hash table
-> + *
-> + * @note: Does the look up object based on value of key
-> + * and not just its integer value
-> + */
-> +static struct criu_bo_uuid *get_bo_uuid(uuid_t *uuid)
-> +{
-> +	struct criu_bo_uuid *bo_uuid = NULL;
-> +	uint32_t bkt;
-> +
-> +	mutex_lock(&criu_mutex);
-> +	hash_for_each_rcu(criu_bo_table, bkt, bo_uuid, node)
-> +		if (uuid_equal(uuid, bo_uuid->uuid))
-> +			goto ret_abo;
-> +
-> +ret_abo:
-> +	mutex_unlock(&criu_mutex);
-> +	return bo_uuid;
-> +}
-> +
-> +int restore_vram_bo(struct amdgpu_device *adev,
-> +		    unsigned long size, int align, u64 flags,
-> +		    uuid_t *uuid, struct drm_gem_object **gobj, int8_t xcp_id_plus1)
-> +{
-> +	enum ttm_bo_type bo_type = ttm_bo_type_device;
-> +	u32 domain = AMDGPU_GEM_DOMAIN_VRAM;
-> +	struct criu_bo_uuid *bo_uuid;
-> +	struct amdgpu_bo *abo;
-> +	int ret;
-> +
-> +	/* Determine if VRAM was built originally for exporting it
-> +	 * to peers. Currently the only VRAM BOs that are exportable
-> +	 * are those that do not have a VA attached
-> +	 */
-> +	if (unlikely(uuid == NULL)) {
-> +		pr_err("A NULL UUID is Illegal for VRAM BOs without a VA\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	/* Determine if BO is already present in hash table */
-> +	bo_uuid = get_bo_uuid(uuid);
-> +
-> +	/* Return the BO present in table */
-> +	if (bo_uuid != NULL) {
-> +		abo = bo_uuid->abo;
-> +		*gobj = &(abo->tbo.base);
-> +		return 0;
-> +	}
-> +
-> +	/* Build the BO and add it to table before returning it */
-> +	ret = amdgpu_gem_object_create(adev, size, align,
-> +			domain, flags, bo_type, NULL, gobj, xcp_id_plus1);
-> +	if (ret) {
-> +		pr_err("Failed to Restore VRAM BO, Retval: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	/* Re-init uuid of BO that identifies it uniquely and
-> +	 * add the BO into the table
-> +	 */
-> +	abo = gem_to_amdgpu_bo(*gobj);
-> +	uuid_copy(&(abo->uuid), uuid);
-> +	bo_uuid = kzalloc(sizeof(*bo_uuid), GFP_KERNEL);
-> +	if (bo_uuid == NULL)
-> +		return -EINVAL;
-> +	bo_uuid->abo = abo;
-> +	bo_uuid->uuid = uuid;
-> +	add_bo_uuid(bo_uuid);
-> +
-> +	/* Return the BO that was built */
-> +	*gobj = &(abo->tbo.base);
-> +	return 0;
-> +}
-> +
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_criu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_criu.h
-> new file mode 100644
-> index 000000000000..b895c698a2e0
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_criu.h
-> @@ -0,0 +1,103 @@
-> +/* SPDX-License-Identifier: MIT
-> + *
-> + * Copyright 2022 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +#ifndef AMDGPU_CRIU_H_INCLUDED
-> +#define AMDGPU_CRIU_H_INCLUDED
-> +
-> +#include <linux/list.h>
-> +#include <linux/atomic.h>
-> +#include <linux/pagemap.h>
-> +#include <linux/dma-buf.h>
-> +#include <linux/sched/mm.h>
-> +#include <linux/hashtable.h>
-> +#include <linux/sched/task.h>
-> +#include <uapi/linux/kfd_ioctl.h>
-> +
-> +#include "amdgpu_object.h"
-> +#include "amdgpu_gem.h"
-> +#include "amdgpu_vm.h"
-> +#include "amdgpu_amdkfd.h"
-> +#include "amdgpu_dma_buf.h"
-> +
-> +/* Specify Hash table and its size to host VRAM BOs that have their
-> + * unique IDs iniialized. These BOs which can be exported as Dmabuf
-> + * allows user space to bind different virtual addresses on different
-> + * DRM devices.
-> + *
-> + * @note: Currently these BOs encapsulate device memory i.e. are VRAM BOs
-> + */
-> +#define CRIU_BO_TABLE_SIZE	    8
-> +extern DECLARE_HASHTABLE(criu_bo_table, CRIU_BO_TABLE_SIZE);
-> +
-> +struct criu_bo_uuid {
-> +
-> +	/* Unique ID of BO, serves the role of KEY */
-> +	uuid_t *uuid;
-> +
-> +	/* Handle of BO, serves the role of VALUE */
-> +	struct amdgpu_bo *abo;
-> +
-> +	/* Allows chaining of BO being managed by table */
-> +	struct hlist_node node;
-> +};
-> +
-> +
-> +/* Global counter to track life of Hash table */
-> +extern atomic_t criu_bo_counter;
-> +
-> +/**
-> + * restore_vram_bo() - Returns handle of a GEM object either by look up
-> + * or by construction. Look up a Global BO table to determine if the BO
-> + * of concern has already been constructed. By construction if the look
-> + * up fails to find the BO in the global BO table
-> + *
-> + * NOTE: Following two conditions must be held TRUE when invoking this method
-> + *  - This method deals with VRAM BOs only. Invoking this method to handle
-> + *    BOs of other kinds is invalid.
-> + *  - This method is invoked during a CRIU Restore procedure. An Invocation
-> + *    outside of this scneario is invalid
-> + *
-> + * @adev: Handle of device to use in construction
-> + * @size: BO's memory size in bytes
-> + * @align: Alignment requirements, if any, in allocating memory
-> + * @flags: Flags to apply in allocating memory
-> + * @uuid: Handle of UUID object to be restored
-> + * @gobj: Output parameter updated with handle of GEM object
-> + * @xcp_id_plus1: ID of the XCD on which BO is to be created
-> + *
-> + * Return: ZERO if successful, a negative value in case of error
-> + */
-> +int restore_vram_bo(struct amdgpu_device *adev,
-> +		    unsigned long size, int align, u64 flags,
-> +		    uuid_t *uuid, struct drm_gem_object **gobj,
-> +		    int8_t xcp_id_plus1);
-> +
-> +void print_uuid(uuid_t *uuid);
-> +void print_uuid_compare(uuid_t *uuid1, uuid_t *uuid2);
-> +
-> +uint32_t query_table_counter(void);
-> +void inc_table_counter(uint32_t cntr);
-> +void dec_table_counter(uint32_t cntr);
-> +
-> +#endif	/* AMDGPU_CRIU_H_INCLUDED */
-> +
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> index d28e21baef16..dc61b252fe49 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> @@ -117,6 +117,23 @@ struct amdgpu_bo {
->   	 * for memory accounting.
->   	 */
->   	int8_t				xcp_id;
-> +
-> +	/*
-> +	 * @uuid: Unique ID of a BO that is being exported. The 128-bit ID is
-> +	 * considered to be unique across processes and time. One use of this
-> +	 * ID is to support CRIU operations of Checkpointing & Restore.
-> +	 *
-> +	 * ID is a byte array of length UUID_SIZE. This is to accommodate UUID,
-> +	 * a 128-bit number defined by RFC 4122. Hex string form of UUID is
-> +	 * defined as a sequence of 32 hexadecimal digits, divided into five
-> +	 * groups that are delimited by hyphens "-". The sequence of groups
-> +	 * from length perspective is: 8-4-4-4-12.
-> +	 *
-> +	 * The default value of this field is set ZEROS. It is initialized to a
-> +	 * NON-ZERO value when a BO is exported using GEM Prime Apis. Currently
-> +	 * the only BOs that can be exported are GTT and VRAM BOs.
-> +	 */
-> +	uuid_t uuid;
-
-Clear NAK to add this to the amdgpu_bo structure.
-
-This is not related to general BO handling but a specialized use case.
-
-What exactly are you trying to do here in the first place?
-
-Regards,
-Christian.
-
->   };
->   
->   struct amdgpu_bo_user {
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index 06988cf1db51..310a48b627ef 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -38,6 +38,7 @@
->   #include <linux/dma-buf.h>
->   #include <linux/fdtable.h>
->   #include <linux/processor.h>
-> +#include <linux/uuid.h>
->   #include "kfd_priv.h"
->   #include "kfd_device_queue_manager.h"
->   #include "kfd_svm.h"
-> @@ -45,6 +46,7 @@
->   #include "kfd_smi_events.h"
->   #include "amdgpu_dma_buf.h"
->   #include "kfd_debug.h"
-> +#include "amdgpu_criu.h"
->   
->   static long kfd_ioctl(struct file *, unsigned int, unsigned long);
->   static int kfd_open(struct inode *, struct file *);
-> @@ -1147,7 +1149,7 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
->   	err = amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
->   		dev->adev, args->va_addr, args->size,
->   		pdd->drm_priv, (struct kgd_mem **) &mem, &offset,
-> -		flags, false);
-> +		flags, false, NULL);
->   
->   	if (err)
->   		goto err_unlock;
-> @@ -1848,6 +1850,12 @@ static uint32_t get_process_num_bos(struct kfd_process *p)
->   		idr_for_each_entry(&pdd->alloc_idr, mem, id) {
->   			struct kgd_mem *kgd_mem = (struct kgd_mem *)mem;
->   
-> +			/* Count BOs whose VA is either zero or is equal
-> +			 * to or exceed GPUVMs base address
-> +			 *
-> +			 * @note: BOs whose VA is below GPUVM base are
-> +			 * used internally, e.g. Trap handler buffer
-> +			 */
->   			if (!kgd_mem->va || kgd_mem->va > pdd->gpuvm_base)
->   				num_of_bos++;
->   		}
-> @@ -1936,6 +1944,12 @@ static int criu_checkpoint_bos(struct kfd_process *p,
->   			bo_bucket->alloc_flags = (uint32_t)kgd_mem->alloc_flags;
->   			bo_priv->idr_handle = id;
->   
-> +			/* Copy uuid of BO that identifies it uniquely
-> +			 * Currently this is true for only VRAM BOs that
-> +			 * have been exported
-> +			 */
-> +			uuid_copy((uuid_t *)bo_priv->uuid, &kgd_mem->bo->uuid);
-> +
->   			if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) {
->   				ret = amdgpu_ttm_tt_get_userptr(&dumper_bo->tbo,
->   								&bo_priv->user_addr);
-> @@ -2295,6 +2309,7 @@ static int criu_restore_memory_of_gpu(struct kfd_process_device *pdd,
+> v3: Default mca debug mode is set to false
+> 
+> v2: Set mca debug mode early before ras block late init as ras query is
+> initiated during late init of ras blocks (KevinYang)
+> 
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c            |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            | 14 +++++++++++---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h            |  2 +-
+>   .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   | 12 ------------
+>   4 files changed, 13 insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+> index cf33eb219e25..54f2f346579e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+> @@ -377,7 +377,7 @@ static int amdgpu_mca_smu_debug_mode_set(void *data, u64 val)
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)data;
 >   	int ret;
->   	const bool criu_resume = true;
->   	u64 offset;
-> +	uuid_t *uuid;
 >   
->   	if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL) {
->   		if (bo_bucket->size !=
-> @@ -2318,10 +2333,17 @@ static int criu_restore_memory_of_gpu(struct kfd_process_device *pdd,
->   	} else if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) {
->   		offset = bo_priv->user_addr;
->   	}
-> -	/* Create the BO */
-> +
-> +	/* Acquire handle of UUID of BO if need be */
-> +	uuid = NULL;
-> +	if ((bo_bucket->addr == 0) &&
-> +	    (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM))
-> +		uuid = (uuid_t *)bo_priv->uuid;
-> +
->   	ret = amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(pdd->dev->adev, bo_bucket->addr,
->   						      bo_bucket->size, pdd->drm_priv, kgd_mem,
-> -						      &offset, bo_bucket->alloc_flags, criu_resume);
-> +						      &offset, bo_bucket->alloc_flags,
-> +							  criu_resume, uuid);
->   	if (ret) {
->   		pr_err("Could not create the BO\n");
+> -	ret = amdgpu_mca_smu_set_debug_mode(adev, val ? true : false);
+> +	ret = amdgpu_ras_set_mca_debug_mode(adev, val ? true : false);
+>   	if (ret)
 >   		return ret;
-> @@ -2728,10 +2750,12 @@ static int kfd_ioctl_criu(struct file *filep, struct kfd_process *p, void *data)
->   		ret = criu_unpause(filep, p, args);
->   		break;
->   	case KFD_CRIU_OP_RESTORE:
-> +		inc_table_counter(p->n_pdds);
->   		ret = criu_restore(filep, p, args);
->   		break;
->   	case KFD_CRIU_OP_RESUME:
->   		ret = criu_resume(filep, p, args);
-> +		dec_table_counter(p->n_pdds);
->   		break;
->   	default:
->   		dev_dbg(kfd_device, "Unsupported CRIU operation:%d\n", args->op);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index a40f8cfc6aa5..320408239896 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -1178,7 +1178,7 @@ int kfd_process_init_cwsr_apu(struct kfd_process *process, struct file *filep);
->    * kfd_criu_svm_range_priv_data
->    */
 >   
-> -#define KFD_CRIU_PRIV_VERSION 1
-> +#define KFD_CRIU_PRIV_VERSION 2
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> index 84e5987b14e0..6747fbe4feab 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> @@ -3132,6 +3132,8 @@ int amdgpu_ras_late_init(struct amdgpu_device *adev)
+>   	if (amdgpu_sriov_vf(adev))
+>   		return 0;
 >   
->   struct kfd_criu_process_priv_data {
->   	uint32_t version;
-> @@ -1193,6 +1193,7 @@ struct kfd_criu_device_priv_data {
->   struct kfd_criu_bo_priv_data {
->   	uint64_t user_addr;
->   	uint32_t idr_handle;
-> +	uint8_t uuid[16];	/* Unique Id of BO whose size is UUID_SIZE */
->   	uint32_t mapped_gpuids[MAX_GPU_INSTANCE];
+> +	amdgpu_ras_set_mca_debug_mode(adev, false);
+> +
+>   	list_for_each_entry_safe(node, tmp, &adev->ras_list, node) {
+>   		if (!node->ras_obj) {
+>   			dev_warn(adev->dev, "Warning: abnormal ras list node.\n");
+> @@ -3405,12 +3407,18 @@ int amdgpu_ras_reset_gpu(struct amdgpu_device *adev)
+>   	return 0;
+>   }
+>   
+> -void amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool enable)
+> +int amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool enable)
+>   {
+>   	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+> +	int ret;
+>   
+> -	if (con)
+> -		con->is_mca_debug_mode = enable;
+> +	if (con) {
+> +		ret = amdgpu_mca_smu_set_debug_mode(adev, enable);
+> +		if (!ret)
+> +			con->is_mca_debug_mode = enable;
+> +	}
+> +
+> +	return ret;
+>   }
+>   
+>   bool amdgpu_ras_get_mca_debug_mode(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> index 19161916ac46..6a941eb8fb8f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> @@ -773,7 +773,7 @@ struct amdgpu_ras* amdgpu_ras_get_context(struct amdgpu_device *adev);
+>   
+>   int amdgpu_ras_set_context(struct amdgpu_device *adev, struct amdgpu_ras *ras_con);
+>   
+> -void amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool enable);
+> +int amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool enable);
+>   bool amdgpu_ras_get_mca_debug_mode(struct amdgpu_device *adev);
+>   bool amdgpu_ras_get_error_query_mode(struct amdgpu_device *adev,
+>   				     unsigned int *mode);
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> index 6cbfb25a05de..f09f56efbdc3 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> @@ -1516,7 +1516,6 @@ static int smu_v13_0_6_mca_set_debug_mode(struct smu_context *smu, bool enable)
+>   	if (smu->smc_fw_version < 0x554800)
+>   		return 0;
+>   
+> -	amdgpu_ras_set_mca_debug_mode(smu->adev, enable);
+>   	return smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_ClearMcaOnRead,
+>   					       enable ? 0 : ClearMcaOnRead_UE_FLAG_MASK | ClearMcaOnRead_CE_POLL_MASK,
+>   					       NULL);
+> @@ -2338,16 +2337,6 @@ static int smu_v13_0_6_smu_send_hbm_bad_page_num(struct smu_context *smu,
+>   	return ret;
+>   }
+>   
+> -static int smu_v13_0_6_post_init(struct smu_context *smu)
+> -{
+> -	struct amdgpu_device *adev = smu->adev;
+> -
+> -	if (!amdgpu_sriov_vf(adev) && adev->ras_enabled)
+> -		return smu_v13_0_6_mca_set_debug_mode(smu, false);
+> -
+> -	return 0;
+> -}
+> -
+>   static int mca_smu_set_debug_mode(struct amdgpu_device *adev, bool enable)
+>   {
+>   	struct smu_context *smu = adev->powerplay.pp_handle;
+> @@ -2904,7 +2893,6 @@ static const struct pptable_funcs smu_v13_0_6_ppt_funcs = {
+>   	.i2c_init = smu_v13_0_6_i2c_control_init,
+>   	.i2c_fini = smu_v13_0_6_i2c_control_fini,
+>   	.send_hbm_bad_pages_num = smu_v13_0_6_smu_send_hbm_bad_page_num,
+> -	.post_init = smu_v13_0_6_post_init,
 >   };
 >   
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index c10d050e1a61..1969eb9375c2 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -716,7 +716,7 @@ static int kfd_process_alloc_gpuvm(struct kfd_process_device *pdd,
->   
->   	err = amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(kdev->adev, gpu_va, size,
->   						 pdd->drm_priv, mem, NULL,
-> -						 flags, false);
-> +						 flags, false, NULL);
->   	if (err)
->   		goto err_alloc_mem;
->   
-
+>   void smu_v13_0_6_set_ppt_funcs(struct smu_context *smu)
