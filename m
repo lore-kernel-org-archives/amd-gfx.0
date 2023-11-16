@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC587C47071
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 19:59:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05B63C5AE4A
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 19:59:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5259110E6B8;
-	Thu, 16 Nov 2023 19:59:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFC7B10E6C6;
+	Thu, 16 Nov 2023 19:59:23 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 479D510E6B9;
- Thu, 16 Nov 2023 19:59:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D531110E6C6;
+ Thu, 16 Nov 2023 19:59:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,25 +19,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=4vTgtSvk6qnVKhp1iGRv6fEC+DaWQZfFEt8qLYPPnY0=; b=VR7lVWU1VDjmyNmULRm6hrO7Cn
- s7/qR4njjvI9jT4b/5gWO4jbNLeWMZ8qqOtxp19bJE5WpwW4D36uQYUEanXlNvvDOyoZrJOBficl6
- VmEENShd6JaXINpqnp1JLmcTMprOpBz6T1nU+2qU/CITIeKMrUELmA1klbMKT3Cb+I2BZ4MsjOYHP
- HXsQmd7KXZEI4obthbSwA0kGN0IYhPvoJUebyCpoc4Zz1JHVaME8Qr5oETaSG+2p72z9RrT/K9wQG
- qCut2D+ih+bKWOwckxJd/M67w3Uvqa0OcPfni0SISQcAXL4XX6Jcnnwp09ladq/tK0tQNwpyS340Q
- +o42iniw==;
+ bh=gmWVD0faPvDYFzAKyyRNjRMBweX7IKn24Er7RTDt/YY=; b=FtbyHtdPTehLq60LedBY3AwrP+
+ 4f89615glAdhZbRslolm+6RoasEBID1eeZHndC/5eT104fqrFuYe1NIhvRI0cFHWccTnAzrqWHSQR
+ BdvJEzl7IbWQFmlKYeH5YTIFkmBVne1Ma0CwIlSG1vuaWGkrpRmrOU4+Ou0Gc21X7IQ1enY/v8Dld
+ 1H1BhGjgt9f3g5q8dkl03pg0pBdU8dIkcbxvzfQgi3mN3s4Z5WRkb+wWT/Ty4G/SUuVljsJQDcIgm
+ E7dFtpiIHEpeFoLFRq4iAvH/flCJI5ZX1bD2ypXPrC1CGR4I2vaiXxirRLkWLFi2oBp71KC0Ixmmt
+ il6yFiIQ==;
 Received: from [102.213.205.115] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1r3iW1-0048Yy-9O; Thu, 16 Nov 2023 20:59:05 +0100
+ id 1r3iW9-0048Yy-RS; Thu, 16 Nov 2023 20:59:14 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch
-Subject: [PATCH v5 22/32] drm/amd/display: add HDR multiplier support
-Date: Thu, 16 Nov 2023 18:58:02 -0100
-Message-Id: <20231116195812.906115-23-mwen@igalia.com>
+Subject: [PATCH v5 26/32] drm/amd/display: handle empty LUTs in __set_input_tf
+Date: Thu, 16 Nov 2023 18:58:06 -0100
+Message-Id: <20231116195812.906115-27-mwen@igalia.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231116195812.906115-1-mwen@igalia.com>
 References: <20231116195812.906115-1-mwen@igalia.com>
@@ -65,50 +65,52 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Joshua Ashton <joshua@froggi.es>
 
-With `dc_fixpt_from_s3132()` translation, we can just use it to set
-hdr_mult.
+Unlike degamma, blend gamma doesn't support hardcoded curve
+(predefined/ROM), but we can use AMD color module to fill blend gamma
+parameters when we have non-linear plane gamma TF without plane gamma
+LUT. The regular degamma path doesn't hit this.
 
 Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Joshua Ashton <joshua@froggi.es>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c       | 1 +
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 3 +++
- 2 files changed, 4 insertions(+)
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 20 +++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index e694bc3c2d5f..aa91a4b245f6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8154,6 +8154,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 			bundle->surface_updates[planes_count].gamma = dc_plane->gamma_correction;
- 			bundle->surface_updates[planes_count].in_transfer_func = dc_plane->in_transfer_func;
- 			bundle->surface_updates[planes_count].gamut_remap_matrix = &dc_plane->gamut_remap_matrix;
-+			bundle->surface_updates[planes_count].hdr_mult = dc_plane->hdr_mult;
- 		}
- 
- 		amdgpu_dm_plane_fill_dc_scaling_info(dm->adev, new_plane_state,
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index c160dbef5224..35f148524827 100644
+index f55e0a69dd32..738399538432 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -927,6 +927,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
- 				      struct drm_plane_state *plane_state,
- 				      struct dc_plane_state *dc_plane_state)
- {
-+	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane_state);
- 	bool has_crtc_cm_degamma;
- 	int ret;
+@@ -578,17 +578,21 @@ static int __set_input_tf(struct dc_transfer_func *func,
+ 	struct dc_gamma *gamma = NULL;
+ 	bool res;
  
-@@ -937,6 +938,8 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
- 	/* After, we start to update values according to color props */
- 	has_crtc_cm_degamma = (crtc->cm_has_degamma || crtc->cm_is_degamma_srgb);
+-	gamma = dc_create_gamma();
+-	if (!gamma)
+-		return -ENOMEM;
++	if (lut_size) {
++		gamma = dc_create_gamma();
++		if (!gamma)
++			return -ENOMEM;
  
-+	dc_plane_state->hdr_mult = dc_fixpt_from_s3132(dm_plane_state->hdr_mult);
+-	gamma->type = GAMMA_CUSTOM;
+-	gamma->num_entries = lut_size;
++		gamma->type = GAMMA_CUSTOM;
++		gamma->num_entries = lut_size;
+ 
+-	__drm_lut_to_dc_gamma(lut, gamma, false);
++		__drm_lut_to_dc_gamma(lut, gamma, false);
++	}
+ 
+-	res = mod_color_calculate_degamma_params(NULL, func, gamma, true);
+-	dc_gamma_release(&gamma);
++	res = mod_color_calculate_degamma_params(NULL, func, gamma, gamma != NULL);
 +
- 	ret = __set_dm_plane_degamma(plane_state, dc_plane_state);
- 	if (ret == -ENOMEM)
- 		return ret;
++	if (gamma)
++		dc_gamma_release(&gamma);
+ 
+ 	return res ? 0 : -ENOMEM;
+ }
 -- 
 2.40.1
 
