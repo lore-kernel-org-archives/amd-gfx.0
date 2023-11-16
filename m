@@ -4,45 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FC98C197A0
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 19:59:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50B11C197A0
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 20:01:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2C8310E6E3;
-	Thu, 16 Nov 2023 19:59:36 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF79310E6CE;
- Thu, 16 Nov 2023 19:59:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=vAjqkvmADD8hhmSRG2zlvMMF4QeHywhY4AUqwqbLSt4=; b=SmoAX4YdYlm4s99P3YXA5SL00o
- g2oYjFnSokbjQI7XzvzU99y2MnUCzqEPGQ2/Wp0vJdAJ7C0RN9LRE8C9jj9rOJtIDCODS/yWa89/C
- EOU9KDvYBmOYpTPMPi6IHX6CmLVtDkxIWEEigmZE9kYyrMbN0dr74TEh/v6rIJxKZwcWu0AE4Jmgl
- n34PzKT/40qw7iDx3qXZ+VO+EQggX5FYUuItiNe904ck+Mvx3WbHfH4A5oTZ8lsrTpTL35Ir9Ozi6
- baobgr8W5gFntYSL6wO0MoYLwMWy5TWrGkRb8Ihh09FQCyb6rkBl/1Om3e7e5ANIaVuHm5AGOhHYt
- YVqkKY/A==;
-Received: from [102.213.205.115] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1r3iWK-0048Yy-Jl; Thu, 16 Nov 2023 20:59:24 +0100
-From: Melissa Wen <mwen@igalia.com>
-To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch
-Subject: [PATCH v5 31/32] drm/amd/display: add plane CTM support
-Date: Thu, 16 Nov 2023 18:58:11 -0100
-Message-Id: <20231116195812.906115-32-mwen@igalia.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20231116195812.906115-1-mwen@igalia.com>
-References: <20231116195812.906115-1-mwen@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E992910E6D0;
+	Thu, 16 Nov 2023 20:01:33 +0000 (UTC)
+Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
+ [IPv6:2001:4860:4864:20::35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D9A110E6D0;
+ Thu, 16 Nov 2023 20:01:32 +0000 (UTC)
+Received: by mail-oa1-x35.google.com with SMTP id
+ 586e51a60fabf-1ef9f1640a5so620670fac.3; 
+ Thu, 16 Nov 2023 12:01:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1700164891; x=1700769691; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5F/bRACSm+KB9HqCPptTC4wnPimDAu4Tx2OSkrkdoQs=;
+ b=Kkta51S5b/JPKeje36J5BPBcYdH4EkWnb+WoREZrmz7g0d6a2OQKyAeC1Njby5mDIE
+ j9y1sG/pXyFpXis/tYESpUPsc6af5Z99PnoRyqQMMPVlT3f2VqcfVds29JzNwFV1e/iw
+ ryEwV0mQ7q0V/RM0UsOUo6H0b/Olge0RMxrbwCOKXy8NEBuSBE8n/nXYasWqleM1umBq
+ aOETR1iRD0SyFcvWFmieS/si4whzA2m55YVoaF+YmBvR2g8KCUP6kJ5cfhq7BRPud0MM
+ 4XSW0RDRZoZZvHmN7jzoDAqP/ixUuXbmnlie0bBtfqRQ0TgXnn6GRoqc68BpbZsy2sQ+
+ Zq5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1700164891; x=1700769691;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=5F/bRACSm+KB9HqCPptTC4wnPimDAu4Tx2OSkrkdoQs=;
+ b=rFkx2zqgSc8HGE8fu0SeQDxzVekS1ViBcILUwgPhFnZjsOAqxhhKgmc55KrnzBRZi8
+ Ig31skqBEz8fY4WfMmGN1+qL1BImrJ/1MceVzMnzlRL1nP5MYboui4OykcTl6ojVL+wK
+ Z7DlfZl2qMQhErj2lNpgPiGlkg7wV9XmNMB7NQLqfmcNSFJJ9hx5S0NcOLe77Zp/eSoJ
+ WLxdJW4j36rTjWANjJaL6jfSVuaYETmpbVxtyz8q78NIo8lT1FMo36OdWVos95PPEbHU
+ fHUGPcmN8Yt82eGz0l91A4xgnk1B36l7i9JIh8OoRrlTrdtp419liN2B9j50l3LWHR1I
+ 8+Ug==
+X-Gm-Message-State: AOJu0Yyx3l7aFLHInVMw8X+KVOBeShYRiugS0ViMfL3ZvvSdOb0ejUXy
+ Qr9gIKhAVFWA5bybIM4XtI4ToKbLJMZaHhzULqGTTlKd
+X-Google-Smtp-Source: AGHT+IFIN8bwGRrQxflEzWWxXE5Gr3CVLYY+pkoS2zfF+G1/FFhZzzoNEh8/iT12Y98vW/4ZjMSvtf3sxtGvLbdDprc=
+X-Received: by 2002:a05:6870:e85:b0:1e9:cdad:4903 with SMTP id
+ mm5-20020a0568700e8500b001e9cdad4903mr20368203oab.50.1700164891382; Thu, 16
+ Nov 2023 12:01:31 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20231110172328.27451-1-andrealmeid@igalia.com>
+In-Reply-To: <20231110172328.27451-1-andrealmeid@igalia.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 16 Nov 2023 15:01:19 -0500
+Message-ID: <CADnq5_P9Kpw3_eVaEc_g8E3viTYT=JVvpqOVPV_CEYH8oaJEig@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amd: Document device reset methods
+To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,84 +67,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Shashank Sharma <Shashank.Sharma@amd.com>, Alex Hung <alex.hung@amd.com>,
- Simon Ser <contact@emersion.fr>, Xaver Hugl <xaver.hugl@gmail.com>,
- kernel-dev@igalia.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Joshua Ashton <joshua@froggi.es>, sungjoon.kim@amd.com
+Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ ray.huang@amd.com, dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Map the plane CTM driver-specific property to DC plane, instead of DC
-stream. The remaining steps to program DPP block are already implemented
-on DC shared-code.
+On Fri, Nov 10, 2023 at 12:23=E2=80=AFPM Andr=C3=A9 Almeida <andrealmeid@ig=
+alia.com> wrote:
+>
+> Document what each amdgpu driver reset method does.
+>
+> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
 
-v3:
-- fix comment about plane and CRTC CTMs priorities (Harry)
+Applied with Randy's suggestion.  Thanks!
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  1 +
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 26 +++++++++++++++++++
- 2 files changed, 27 insertions(+)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index ef39255bb37e..e5f1086da09f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9686,6 +9686,7 @@ static bool should_reset_plane(struct drm_atomic_state *state,
- 		if (dm_old_other_state->degamma_tf != dm_new_other_state->degamma_tf ||
- 		    dm_old_other_state->degamma_lut != dm_new_other_state->degamma_lut ||
- 		    dm_old_other_state->hdr_mult != dm_new_other_state->hdr_mult ||
-+		    dm_old_other_state->ctm != dm_new_other_state->ctm ||
- 		    dm_old_other_state->shaper_lut != dm_new_other_state->shaper_lut ||
- 		    dm_old_other_state->shaper_tf != dm_new_other_state->shaper_tf ||
- 		    dm_old_other_state->lut3d != dm_new_other_state->lut3d ||
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index 3eed47736b26..d52c3333ea13 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -1172,6 +1172,8 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
- 				      struct dc_plane_state *dc_plane_state)
- {
- 	struct amdgpu_device *adev = drm_to_adev(crtc->base.state->dev);
-+	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane_state);
-+	struct drm_color_ctm *ctm = NULL;
- 	struct dc_color_caps *color_caps = NULL;
- 	bool has_crtc_cm_degamma;
- 	int ret;
-@@ -1224,5 +1226,29 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
- 			return ret;
- 	}
- 
-+	/* Setup CRTC CTM. */
-+	if (dm_plane_state->ctm) {
-+		ctm = (struct drm_color_ctm *)dm_plane_state->ctm->data;
-+		/*
-+		 * DCN2 and older don't support both pre-blending and
-+		 * post-blending gamut remap. For this HW family, if we have
-+		 * the plane and CRTC CTMs simultaneously, CRTC CTM takes
-+		 * priority, and we discard plane CTM, as implemented in
-+		 * dcn10_program_gamut_remap(). However, DCN3+ has DPP
-+		 * (pre-blending) and MPC (post-blending) `gamut remap` blocks;
-+		 * therefore, we can program plane and CRTC CTMs together by
-+		 * mapping CRTC CTM to MPC and keeping plane CTM setup at DPP,
-+		 * as it's done by dcn30_program_gamut_remap().
-+		 */
-+		__drm_ctm_to_dc_matrix(ctm, dc_plane_state->gamut_remap_matrix.matrix);
-+
-+		dc_plane_state->gamut_remap_matrix.enable_remap = true;
-+		dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
-+	} else {
-+		/* Bypass CTM. */
-+		dc_plane_state->gamut_remap_matrix.enable_remap = false;
-+		dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
-+	}
-+
- 	return amdgpu_dm_plane_set_color_properties(plane_state, dc_plane_state);
- }
--- 
-2.40.1
-
+> ---
+> v2: Add more details and small correction (Alex)
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h | 25 +++++++++++++++++++++++++
+>  1 file changed, 25 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
+dgpu/amdgpu.h
+> index a79d53bdbe13..c4675572f907 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -504,6 +504,31 @@ struct amdgpu_allowed_register_entry {
+>         bool grbm_indexed;
+>  };
+>
+> +/**
+> + * enum amd_reset_method - Methods for resetting AMD GPU devices
+> + *
+> + * @AMD_RESET_METHOD_NONE: The device will not be reset.
+> + * @AMD_RESET_LEGACY: Method reserved for SI, CIK and VI ASICs.
+> + * @AMD_RESET_MODE0: Reset the entire ASIC. Not currently available for =
+the
+> + *                   any device.
+> + * @AMD_RESET_MODE1: Resets all IP blocks on the ASIC (SDMA, GFX, VCN, e=
+tc.)
+> + *                   individually. Suitable only for some discrete GPU, =
+not
+> + *                   available for all ASICs.
+> + * @AMD_RESET_MODE2: Resets a lesser level of IPs compared to MODE1. Whi=
+ch IPs
+> + *                   are reset depends on the ASIC. Notably doesn't rese=
+t IPs
+> + *                   shared with the CPU on APUs or the memory controlle=
+rs (so
+> + *                   VRAM is not lost). Not available on all ASICs.
+> + * @AMD_RESET_BACO: BACO (Bus Alive, Chip Off) method powers off and on =
+the card
+> + *                  but without powering off the PCI bus. Suitable only =
+for
+> + *                  discrete GPUs.
+> + * @AMD_RESET_PCI: Does a full bus reset using core Linux subsystem PCI =
+reset
+> + *                 and does a secondary bus reset or FLR, depending on w=
+hat the
+> + *                 underlying hardware supports.
+> + *
+> + * Methods available for AMD GPU driver for resetting the device. Not al=
+l
+> + * methods are suitable for every device. User can overwrite the method =
+using
+> + * module parameter `reset_method`.
+> + */
+>  enum amd_reset_method {
+>         AMD_RESET_METHOD_NONE =3D -1,
+>         AMD_RESET_METHOD_LEGACY =3D 0,
+> --
+> 2.42.1
+>
