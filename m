@@ -4,48 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 721B7C54FB9
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 14:28:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F89FC197A0
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 14:51:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52C0710E5F6;
-	Thu, 16 Nov 2023 14:28:42 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EAF810E2A6;
- Thu, 16 Nov 2023 12:52:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1700139125; x=1731675125;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=f4QDrezvvE23+gVuxjkoKDCNJ2E6SLKLC02A5VExyX4=;
- b=EP7cY4RGW7EO7/wewcm1Wqg9dyuph63l722KQcvJt7Ktdv/98CuMPDGV
- ncmK9wMaG+8Qzm+RcQv6e3K9x4rjsqeSYhz9259SWQnHaM8SiTCudEnT5
- Xwrw/cm8n+PoS9BU8aqf3V05/Uez5vrjcSOjwMq7fK6h5G1CdF3xGHWCe
- ycxJGnv5boroTgcT56JKXwwzEqv7PJjK1N1Faa34fkXpCTJNcGo1BgneB
- xiaW8XujIrcGzvIxzPhPHK1FsB+SPTBfiqX5cMHBL/RCXoGfS/l3Qtlus
- lxfnrQj0XdyORbRg4HGMTZh2K5TLpU47ECHL1zioORq6WSf0sqfLDUNWg g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10895"; a="376126900"
-X-IronPort-AV: E=Sophos;i="6.04,308,1695711600"; d="scan'208";a="376126900"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2023 04:52:04 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10895"; a="768899030"
-X-IronPort-AV: E=Sophos;i="6.04,308,1695711600"; d="scan'208";a="768899030"
-Received: from jhsteyn-mobl1.ger.corp.intel.com ([10.252.40.9])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2023 04:51:57 -0800
-Date: Thu, 16 Nov 2023 14:51:55 +0200 (EET)
-From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Subject: Re: [PATCH v3 3/7] PCI: Drop pci_is_thunderbolt_attached()
-In-Reply-To: <20231114200755.14911-4-mario.limonciello@amd.com>
-Message-ID: <74dcfcaf-e6d4-dec8-4227-a4caf51bd4d0@linux.intel.com>
-References: <20231114200755.14911-1-mario.limonciello@amd.com>
- <20231114200755.14911-4-mario.limonciello@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D26E10E60E;
+	Thu, 16 Nov 2023 14:51:40 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2040.outbound.protection.outlook.com [40.107.94.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 180EE10E60C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Nov 2023 14:51:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gipP2nV9MKhq1g2KfuJPFH1td7qkdGtd3nsSzCeL1LCgNecqQNVCcWRnWFk0qOiXr9a7KAunMZgXWm9zFZJShDxTlIPDbOnUXyxwLz49VVYapUmBGiiMXbKVvABlcj59+CTPrMjTbWS3unFeHgYIYoM+gXqLkC+plTjXzRLmjPk8+F54Bid7MrS6h9hs5F09wJLOcvAP3ImjvxIAWuIDjYhmITnSleBIwkea4o8ybNhijDnMT6pctzWLi4dCC8iWIhHVnXEn/5QF95AScCoWVU4cOf5QMq6S9oyqlHinFta2VpmH7fPalKwY7xNd/cWj3Qvm7dDr8tJHdfWrO0CFbg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=okHfLAUn3h6ceTzaUF+ow+uy6JZuAIG5SW0GtnnPLsQ=;
+ b=I2c0QwViy1d1bH/bXNbFQslp7VNWSsPZNUZDqGwYpTXUrTOaT+dxrWujkPXrksYof+rUTc6JbBgWe007qw9f1aNpacIdGkBCDRLj7nGdLhztmxciqqe16RUci77tONoyyGr8xgnBis6iF+rsZycTMb/sLf2px/c7kG1VjrrEFY6TpubLMGUliNL8bJnAHyt47cGPZRrwyZpgr9jgwpyY9wtFQr3louXIHdi0pomPfUfvCGLMi901IJuZZT4v8L/+qzdnk4B3RTBgTyXKT6Coy/mHwahIDCNTbTp1KbDD1fSIEzAWPNfSeTEnxeuf8hgl/syvwY+RqZm/4iO2+EadLw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=okHfLAUn3h6ceTzaUF+ow+uy6JZuAIG5SW0GtnnPLsQ=;
+ b=bhoGemim3nUH90UvHEJZ9qJnPO9LuEanEKa42b7GORDuiHWp+ATOQB0PCEog0TutQFVT5NedGckYUVNc7wD7uGR1zXQMj63nV47vDsVjn/AFXTAwKa5tykeYeGVjE1ixg/R++Vr4dSvUR8/vPFpfh9ynBlD2O7hPfYHiPySSRB4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB6760.namprd12.prod.outlook.com (2603:10b6:a03:44c::18)
+ by SA1PR12MB7320.namprd12.prod.outlook.com (2603:10b6:806:2b7::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.17; Thu, 16 Nov
+ 2023 14:51:35 +0000
+Received: from SJ0PR12MB6760.namprd12.prod.outlook.com
+ ([fe80::ae50:7a3a:dad3:1d04]) by SJ0PR12MB6760.namprd12.prod.outlook.com
+ ([fe80::ae50:7a3a:dad3:1d04%7]) with mapi id 15.20.7002.021; Thu, 16 Nov 2023
+ 14:51:35 +0000
+Message-ID: <9a988cdc-302b-4fc5-88e6-75de0e29ad25@amd.com>
+Date: Thu, 16 Nov 2023 09:51:32 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/24] Support Host Trap Sampling for MI200
+To: James Zhu <James.Zhu@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20231103131139.766920-1-James.Zhu@amd.com>
+Content-Language: en-US
+From: James Zhu <jamesz@amd.com>
+Organization: AMD RTG
+In-Reply-To: <20231103131139.766920-1-James.Zhu@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0108.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:5::11) To SJ0PR12MB6760.namprd12.prod.outlook.com
+ (2603:10b6:a03:44c::18)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1230501375-1700139122=:1886"
-X-Mailman-Approved-At: Thu, 16 Nov 2023 14:28:37 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB6760:EE_|SA1PR12MB7320:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72d2574f-ab2b-414e-a2c2-08dbe6b38784
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: SqFPAxEg1LQUPzrPs0v1gTRT+fZv2f+EDbZUgJAPjBtgZbwbPVeeWniYo9rb0h/GlueYDwYhgb7Nbe6RKZ8IedFtvKt38Ap3sYbnqmYHQ9ZBZphaPbW6XI1o3Zyy+MDFcSkJ4MpjK5hF/FX6HJQDWzbQpaa1YltULCzxmUuktUeKRWEWCYPIkAQWJ2ZKgH4+NDkW01xrRdJmSGMAgRP+lNhDj+aqJRVXSEeUBhvHVbTMEFoZdPGgfWSBuNMwdzckMbf6GluCcF1iPOeHhtOJ2U1fzLnuIyCHj4q2e7o+bdIR+4HyRJP0C7jsf/vlSSVJeKv0Y9pJvyzts1XkuRiH8GR5qr/DO1ZQp9YU/p9Frgjohv6YMYYIe5jChZ34xFKGEVel+dYOoFX0jTHnU90kSDGX4Ss3hgFjuT43zGjxUqAl7L9I7FOc/5Zi3vby9PevPaJHXtXwzO4ECmQz3ZKObgf4ZMwsfXct/Rrg/plDAyHnz3xB0UeISTdx6wgyalnvrgB69nfhbV7gotmVaqT5OlDRmNW5nqiLJmuFKBIkkVwD0g1Xo+edRFPz6tTZvPWQ5lbkyaUqwJuLcMfdC4PFNB+a1rFCZPZw5ko5QHEjeISzYwMrnlCCP8P5ycefmsszhTYawwdVfbiA2LOK7U6Y6A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB6760.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(346002)(396003)(136003)(366004)(39860400002)(376002)(230922051799003)(64100799003)(451199024)(1800799009)(186009)(6506007)(6512007)(36916002)(38100700002)(53546011)(36756003)(2906002)(26005)(83380400001)(31696002)(41300700001)(2616005)(5660300002)(66556008)(478600001)(316002)(66476007)(6486002)(66946007)(31686004)(6666004)(8676002)(4326008)(8936002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Yks0R29Ib0FkbEtLeDkvd2JlREpaOXFsODlRUTdZUFQ3MEhSbkJiei9YU0dI?=
+ =?utf-8?B?cmNYU2JvTVRGTG03Um9oVTAyaStOd0o2dEJ2OERDQlA0OE13d0RxR0Vrcmh3?=
+ =?utf-8?B?Wnd3RmxYUjhEQlJkTEl3Zi96L3F5cXJEWEtGdG5KQmR3MGJqZDhOODR2K2Zk?=
+ =?utf-8?B?K2xsNFk0R1BSVU9aa1VNejk4VmdvZE83ZGEyZ2NXVW5FNnVFUldVcitVbVRO?=
+ =?utf-8?B?dDA5anl0MklVT093Q2V5OHpZaDMrdHZUaEJZWnVzZFRkdlM3NW9tVEtPa3A3?=
+ =?utf-8?B?NlF4OUF2RkZrMmJtalBNcWRGcXhhb2pXcHNMbS93clNuVlBwZkVFVEtkSlJQ?=
+ =?utf-8?B?dkFLdmtNT3JlZk1zUFJ2TnF6TVl3MVA5NVFPL2ZTU1diR2pzQnVPbnAxQXZP?=
+ =?utf-8?B?RW5tNDRUWWRTSDZrRnlDQlljWGhxRE5NMnd6TmJZMGNvczFESHhleGNZR1dO?=
+ =?utf-8?B?NTU5UndwVEJicTUwMGt1aEtMV1E4ZXNFUDRNeUgrRC9ROVJrbm9SemtYT2dv?=
+ =?utf-8?B?YVlXaVVOVlNXOUNFQkNHbzV4VzdRY0hVY1FuOUZiWW4zcVJXdTN0VXMxZy9U?=
+ =?utf-8?B?d0FRRWhPSkRudVpoT254TkFrY0ZVNlYrckF4cXRGQjZxUjNJeHRScnFSZ3dn?=
+ =?utf-8?B?UHBNZ3RSRnFiSHhTVkhORk9pb3k1aUJDSjAxNldaVGhWNTdRK21KZEd1SzJ0?=
+ =?utf-8?B?Q1lyYktlY0djSEg4M2hNVWJNTWRmL01ZSWFUSTBVRXdCN1NPMEJBNnBGUW9K?=
+ =?utf-8?B?NkdzNWhOSDl5a05RSCt2Y21hYVlGaVBZZjY0TUZOVjBHV3R2TVhBd2dEcW9j?=
+ =?utf-8?B?T3JUODhUSE5EeEJTcGxyK2JYcG5GeVRUQ3Z3MUFwejhmN1NxcE8zRWdHQWJh?=
+ =?utf-8?B?Sit0dWk1NEhVN3lHQTdoT3VNZnZDR1FsUzFNeldHckc1a1JmT0FDTXhqV3I0?=
+ =?utf-8?B?R3M5Vk9zTE9vK05MM1UydGo2T0JSenpMY0NVU00waCtOaGZlb0M3STNzbnNo?=
+ =?utf-8?B?UlVxREF5WHdJb0l3MThINXRYcEpvKzRvWGNzb0dFaFpIY2lPT0RqaVhsbTNs?=
+ =?utf-8?B?dkpRNll0T1hPamZnY0tVU0xOTWJqZWozN2xaTnhseEoxTWsxSWdqd3l3ZGxC?=
+ =?utf-8?B?c3d2TnZDcW83blNRZDJLZXZBKzU3QjVidTFLdi9MNWEyRFk0TGxRbTBEM3dz?=
+ =?utf-8?B?V1FIUXZMV21FaEVlbDdNZ1VXSUVzT2FrMnp6a1JBMzRIZXBxTS9uMEV1aFpD?=
+ =?utf-8?B?R3RDRG9JSHQvb1dHVEZ3Q1BVb0p1cW00UjdONEtKVzRRSE9ZcDF0bitmTE4y?=
+ =?utf-8?B?ci9ZZHZkMWxqRmxmQk1GcGNqSDk1MFprRFBHVE90alBONFBPUCtBS0MrbGhn?=
+ =?utf-8?B?dGdFbGpYUEVNcFoxU2ZGYVo5NVVkSDNybEJ0bnRrakFKNFVDODYvWmJ6QXNp?=
+ =?utf-8?B?VkwwVEFDSnRsTUJHamRBWHh5dXpPZ09yVmQvZThhZ1JsNEFsWmZjcGJyMjNE?=
+ =?utf-8?B?RC9qemJ6dVEybzJOeE9zNXRIWEhtc1BOODlHNk5iYVhzRnZNUmNxYnl0MC9q?=
+ =?utf-8?B?N0NMcjV6bHZjYVhvWWp5OWN3ZktCOTlzVmpheHVkeEdYb0IrOTczUXRJTWhn?=
+ =?utf-8?B?RmozVFdRcUJCZ0NtWmNGVEZoS1d6NVNMZy9lRERhQm5VTnpueTVuZDBGQmdM?=
+ =?utf-8?B?UWMyZ3VXVkI4RVUrWXF3ZjFuYjVhWXlPRG9SOTYyMmNEM3MxbExBK3kwcEhv?=
+ =?utf-8?B?YmQ5MlpOVTE2M1lFdDI5bmRyVWpscnpQNlprbjVoSEFYMStsQkxCbW5Na1NT?=
+ =?utf-8?B?dG9TZlhTNmlYYUZ5VlpNZzZTOW0vWUxzWm1UaWpVdkJ2SldNNDEycDdCSHhX?=
+ =?utf-8?B?blphd1phbkJ4K0VNMTV6dzdQb05oR3Y5dGNFUkVsalYzamtPajJaQTdXaXlK?=
+ =?utf-8?B?eGNUdENpbHdsK1d0b04yUlRuK1pDeTVFbDMxZnBibmwra0RoZGV4cTc0RVdH?=
+ =?utf-8?B?OTBaUHN2UUREdUZmaWQ4TGdGRHZyK0hHeFUxb1luMVRJUFN4S0lzc2QyQXF4?=
+ =?utf-8?B?bUpBMldPSS82MlJJZFAyRk5OVkhXYmswVXBJcWtwUnlIb1hHTlpFTjl2QktR?=
+ =?utf-8?Q?VXQV0lUydCNYUyrkdKi2SEOHP?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72d2574f-ab2b-414e-a2c2-08dbe6b38784
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB6760.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2023 14:51:35.3118 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: durKDIG4WtDWWdoJ5ch0yiTyhxfh2y7ajeH0qC3rRwU4OBfE+ZuLLByNPenJhpMQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7320
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,85 +123,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Karol Herbst <kherbst@redhat.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
- "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <dri-devel@lists.freedesktop.org>, David Airlie <airlied@gmail.com>,
- =?ISO-8859-15?Q?Marek_Beh=FAn?= <kabel@kernel.org>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:ACPI" <linux-acpi@vger.kernel.org>,
- Danilo Krummrich <dakr@redhat.com>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, open list <linux-kernel@vger.kernel.org>,
- Lukas Wunner <lukas@wunner.de>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?ISO-8859-15?Q?Pali_Roh=E1r?= <pali@kernel.org>,
- =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>,
- "Maciej W . Rozycki" <macro@orcam.me.uk>
+Cc: Felix.kuehling@amd.com, joseph.greathouse@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Ping ...
 
---8323329-1230501375-1700139122=:1886
-Content-Type: text/plain; charset=ISO-8859-15
-Content-Transfer-Encoding: 8BIT
-
-On Tue, 14 Nov 2023, Mario Limonciello wrote:
-
-> All callers have switched to dev_is_removable() for detecting
-> hotpluggable PCIe devices.
-> 
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
-> v2->v3:
->  * No changes
-> ---
->  include/linux/pci.h | 22 ----------------------
->  1 file changed, 22 deletions(-)
-> 
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index 60ca768bc867..1fbca2bd92e8 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -2645,28 +2645,6 @@ static inline bool pci_ari_enabled(struct pci_bus *bus)
->  	return bus->self && bus->self->ari_enabled;
->  }
->  
-> -/**
-> - * pci_is_thunderbolt_attached - whether device is on a Thunderbolt daisy chain
-> - * @pdev: PCI device to check
-> - *
-> - * Walk upwards from @pdev and check for each encountered bridge if it's part
-> - * of a Thunderbolt controller.  Reaching the host bridge means @pdev is not
-> - * Thunderbolt-attached.  (But rather soldered to the mainboard usually.)
-> - */
-> -static inline bool pci_is_thunderbolt_attached(struct pci_dev *pdev)
-> -{
-> -	struct pci_dev *parent = pdev;
-> -
-> -	if (pdev->is_thunderbolt)
-> -		return true;
-> -
-> -	while ((parent = pci_upstream_bridge(parent)))
-> -		if (parent->is_thunderbolt)
-> -			return true;
-> -
-> -	return false;
-> -}
-> -
->  #if defined(CONFIG_PCIEPORTBUS) || defined(CONFIG_EEH)
->  void pci_uevent_ers(struct pci_dev *pdev, enum  pci_ers_result err_type);
->  #endif
-> 
-
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-
--- 
- i.
-
---8323329-1230501375-1700139122=:1886--
+On 2023-11-03 09:11, James Zhu wrote:
+> PC sampling is a form of software profiling, where the threads of an application
+> are periodically interrupted and the program counter that the thread is currently
+> attempting to execute is saved out for profiling.
+>
+> David Yat Sin (5):
+>    drm/amdkfd/kfd_ioctl: add pc sampling support
+>    drm/amdkfd: add pc sampling support
+>    drm/amdkfd: enable pc sampling query
+>    drm/amdkfd: enable pc sampling create
+>    drm/amdkfd: add pc sampling capability check
+>
+> James Zhu (19):
+>    drm/amdkfd: add pc sampling mutex
+>    drm/amdkfd: add trace_id return
+>    drm/amdkfd: check pcs_enrty valid
+>    drm/amdkfd: enable pc sampling destroy
+>    drm/amdkfd: add interface to trigger pc sampling trap
+>    drm/amdkfd: trigger pc sampling trap for gfx v9
+>    drm/amdkfd/gfx9: enable host trap
+>    drm/amdgpu: use trapID 4 for host trap
+>    drm/amdgpu: add sq host trap status check
+>    drm/amdkfd: trigger pc sampling trap for arcturus
+>    drm/amdkfd: trigger pc sampling trap for aldebaran
+>    drm/amdkfd: use bit operation set debug trap
+>    drm/amdkfd: add setting trap pc sampling flag
+>    drm/amdkfd: enable pc sampling start
+>    drm/amdkfd: enable pc sampling stop
+>    drm/amdkfd: enable pc sampling work to trigger trap
+>    drm/amdkfd: add queue remapping
+>    drm/amdkfd: add pc sampling release when process release
+>    drm/amdkfd: bump kfd ioctl minor version for pc sampling availability
+>
+>   .../drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c  |   11 +
+>   .../drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c   |   14 +-
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c |   72 +
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h |    7 +
+>   drivers/gpu/drm/amd/amdkfd/Makefile           |    3 +-
+>   .../gpu/drm/amd/amdkfd/cwsr_trap_handler.h    | 2106 +++++++++--------
+>   .../drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm |   29 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |   44 +
+>   drivers/gpu/drm/amd/amdkfd/kfd_device.c       |   17 +
+>   .../drm/amd/amdkfd/kfd_device_queue_manager.c |   11 +
+>   .../drm/amd/amdkfd/kfd_device_queue_manager.h |    5 +
+>   drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c  |  348 +++
+>   drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.h  |   36 +
+>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   43 +
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c      |   32 +-
+>   .../amd/include/asic_reg/gc/gc_9_0_offset.h   |    2 +
+>   .../amd/include/asic_reg/gc/gc_9_0_sh_mask.h  |    5 +
+>   .../gpu/drm/amd/include/kgd_kfd_interface.h   |    6 +
+>   include/uapi/linux/kfd_ioctl.h                |   60 +-
+>   19 files changed, 1792 insertions(+), 1059 deletions(-)
+>   create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
+>   create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.h
+>
