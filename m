@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E642C197A0
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 15:40:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04E47C2BB3F
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 15:40:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAD4910E411;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9651210E41B;
 	Mon, 20 Nov 2023 15:40:26 +0000 (UTC)
 Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
  [80.237.130.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BADA10E04F;
- Sun, 19 Nov 2023 13:48:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D82C710E08A
+ for <amd-gfx@lists.freedesktop.org>; Sat, 18 Nov 2023 14:25:09 +0000 (UTC)
 Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
  by wp530.webpack.hosteurope.de running ExIM with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1r4iAQ-0000jH-0q; Sun, 19 Nov 2023 14:48:54 +0100
-Message-ID: <9195ca1f-1d72-4616-8bdf-62f9f5c636b9@leemhuis.info>
-Date: Sun, 19 Nov 2023 14:48:53 +0100
+ id 1r4MFw-0004iM-8d; Sat, 18 Nov 2023 15:25:08 +0100
+Message-ID: <7f4d0dc4-eba7-4221-a1d6-d815c2f3b967@leemhuis.info>
+Date: Sat, 18 Nov 2023 15:25:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Radeon regression in 6.6 kernel
+Subject: Re: regression/bisected/6.7rc1: Instead of desktop I see a horizontal
+ flashing bar with a picture of the desktop background on white screen
 Content-Language: en-US, de-DE
-To: Bagas Sanjaya <bagasdotme@gmail.com>, Dave Airlie <airlied@gmail.com>,
- Linux Regressions <regressions@lists.linux.dev>
-References: <87edgv4x3i.fsf@vps.thesusis.net>
- <559d0fa5-953a-4a97-b03b-5eb1287c83d8@leemhuis.info>
- <CAPM=9tw-8pQWFso0zuLqpsqd5BSHWtc4As9ttdjY-DDr70EMqQ@mail.gmail.com>
- <ZVoMklvIVClr_IIH@archie.me>
-From: "Linux regression tracking (Thorsten Leemhuis)"
+To: Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Linux kernel regressions list <regressions@lists.linux.dev>
+References: <CABXGCsNRb0QbF2pKLJMDhVOKxyGD6-E+8p-4QO6FOWa6zp22_A@mail.gmail.com>
+From: "Linux regression tracking #adding (Thorsten Leemhuis)"
  <regressions@leemhuis.info>
-In-Reply-To: <ZVoMklvIVClr_IIH@archie.me>
+In-Reply-To: <CABXGCsNRb0QbF2pKLJMDhVOKxyGD6-E+8p-4QO6FOWa6zp22_A@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1700401736;
- adf05db9; 
-X-HE-SMSGID: 1r4iAQ-0000jH-0q
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1700317510;
+ bfff7da7; 
+X-HE-SMSGID: 1r4MFw-0004iM-8d
 X-Mailman-Approved-At: Mon, 20 Nov 2023 15:40:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -50,64 +49,51 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux DRI Development <dri-devel@lists.freedesktop.org>,
- Luben Tuikov <luben.tuikov@amd.com>,
- Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
- Phillip Susi <phill@thesusis.net>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 19.11.23 14:24, Bagas Sanjaya wrote:
-> On Sun, Nov 19, 2023 at 04:47:01PM +1000, Dave Airlie wrote:
->>> On 12.11.23 01:46, Phillip Susi wrote:
->>>> I had been testing some things on a post 6.6-rc5 kernel for a week or
->>>> two and then when I pulled to a post 6.6 release kernel, I found that
->>>> system suspend was broken.  It seems that the radeon driver failed to
->>>> suspend, leaving the display dead, the wayland display server hung, and
->>>> the system still running.  I have been trying to bisect it for the last
->>>> few days and have only been able to narrow it down to the following 3
->>>> commits:
->>>>
->>>> There are only 'skip'ped commits left to test.
->>>> The first bad commit could be any of:
->>>> 56e449603f0ac580700621a356d35d5716a62ce5
->>>> c07bf1636f0005f9eb7956404490672286ea59d3
->>>> b70438004a14f4d0f9890b3297cd66248728546c
->>>> We cannot bisect more!
->>>
->>> Hmm, not a single reply from the amdgpu folks. Wondering how we can
->>> encourage them to look into this.
->>>
->>> Phillip, reporting issues by mail should still work, but you might have
->>> more luck here, as that's where the amdgpu afaics prefer to track bugs:
->>> https://gitlab.freedesktop.org/drm/amd/-/issues
->>>
->>> When you file an issue there, please mention it here.
->>>
->>> Furthermore it might help if you could verify if 6.7-rc1 (or rc2, which
->>> comes out later today) or 6.6.2-rc1 improve things.
+[TLDR: I'm adding this report to the list of tracked Linux kernel
+regressions; the text you find below is based on a few templates
+paragraphs you might have encountered already in similar form.
+See link in footer if these mails annoy you.]
 
-BTW, ignore the "6.6.2-rc1" here, I misunderstood one detail earlier. Sorry.
-
->> It would also be good to test if reverting any of these is possible or not.
-
-Good point, sorry, forgot to mention that.
-
-> Hi Dave,
+On 14.11.23 11:55, Mikhail Gavrilov wrote:
+> Hi,
+> Yesterday came the 6.7-rc1 kernel.
+> And surprisingly it turned out it is not working with my LG C3.
+> I use this OLED TV as my primary monitor.
+> After login to GNOME I see a horizontal flashing bar with a picture of
+> the desktop background on white screen.
+> Demonstration: https://youtu.be/7F76VfRkrVo
 > 
-> AFAIK commit c07bf1636f0005 ("MAINTAINERS: Update the GPU Scheduler email")
-> doesn't seem to do with this regression as it doesn't change any amdgpu code
-> that may introduce the regression.
+> I made a bisection.
+> And bisect said that the first bad commit is:
+> commit ed6e2782e9747508888f671e1101250bb19045be
+> [...]
 
-Bagas, sorry for being blunt here, I know you mean well. But I feel the
-need to say the following in the open, as this otherwise falls back on
-me and regression tracking.
+Thanks for the report. To be sure the issue doesn't fall through the
+cracks unnoticed, I'm adding it to regzbot, the Linux kernel regression
+tracking bot:
 
-Stating the above is not very helpful, as Dave for sure will know.
-Telling Phillip that he likely can skip that commit might have been
-something different. But I guess even for most users that are able to do
-a bisection it's obvious and maybe not worth pointing out.
+#regzbot ^introduced ed6e2782e9747508888f671e1101250bb190
+#regzbot title drm/amd/display: horizontal flashing bar with a picture
+of the desktop background on white screen after login
+#regzbot ignore-activity
 
-Ciao, Thorsten
+This isn't a regression? This issue or a fix for it are already
+discussed somewhere else? It was fixed already? You want to clarify when
+the regression started to happen? Or point out I got the title or
+something else totally wrong? Then just reply and tell me -- ideally
+while also telling regzbot about it, as explained by the page listed in
+the footer of this mail.
+
+Developers: When fixing the issue, remember to add 'Link:' tags pointing
+to the report (the parent of this mail). See page linked in footer for
+details.
+
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+--
+Everything you wanna know about Linux kernel regression tracking:
+https://linux-regtracking.leemhuis.info/about/#tldr
+That page also explains what to do if mails like this annoy you.
+
