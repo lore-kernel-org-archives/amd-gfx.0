@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14432C54E76
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Nov 2023 19:33:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9157C5AE5B
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Nov 2023 19:33:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2494D10E162;
-	Sat, 18 Nov 2023 19:33:16 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2051.outbound.protection.outlook.com [40.107.220.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71CD110E162
- for <amd-gfx@lists.freedesktop.org>; Sat, 18 Nov 2023 19:33:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B1C410E187;
+	Sat, 18 Nov 2023 19:33:17 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2066.outbound.protection.outlook.com [40.107.101.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE4A010E162
+ for <amd-gfx@lists.freedesktop.org>; Sat, 18 Nov 2023 19:33:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FC9NjIaFAaaEcLF8zEXJOfgUrRe1TDpU3rjKyfGDlZVKJzC+27GV/0AP1QN39T/c0xz7QTSJhPJRSuX6vMUrBW1F6SNqzU94l/OHx75dz2xf3Q74B5Ld3Tl23HKlj8gh8yxScKcd2bOpx60agNNFH9vfLWIVq6PlarYw3xs63n6ogc08q1fs1/ODY1kk+Wra4JJfEJWRrQDGPNUqytBsLF+VdRrk8PzjzkXFiFiR8cvauv88jNJKZhvKn7jirN6qvXhW4pw+IF4YpB8UT1KkmRvKQTMg99ikemCj/DNU3ydBv4bKnH//hQJPDJjVLgi9y0gt02CXd3SgaUBW4Yf8Kg==
+ b=Wd6zGZ3AqNlk+yc4lL7XBxJQ8Oel/7mXvWPrvKJjHsI1TI8+85pVRPsjIJbBwNcdS2DATTWbcp6t7iLDCqkzmPrrMRl7KY2C0qyLQMyeKo2JGwN0ACW4Jxbwf8R/u8JuMUz8zmuiKjKqh92tOIkhksBkJggYaZh48dYmJdNjGbH3IUs5Q+yDaArB9Nm6cuQjz4rPBRAlBkmuUo8sEUE/CeTLI354wTn/YHd0W8Ba3VNC49FkLHFgtrotezVWNcHy7Pl912em3m6CMAjiY8jV0Z5UBYtbbCp5KegKNOFQsMSu+RJMX6LszYnYZsDUNKsugpHwCOuQKr8CAW3qmj2aTA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v0dxyp9FRzUePJH0nDMmW1/4cp+TAt31i7MmM/jvXNU=;
- b=F7CiSvUzgSND63BIulOh/oYXhE3ri17U4z65ulnBgVZ3OnwX2PlJsiLmHgtGjhY3zmw3oV4u4fI6HjpP0q6Ng+/NM6AoOFgjIERB54wbQDxIKqRPjQWb+daJc5oXDhLVH3oH9VRHN6NG8ANsjKanRT6Dgn2dV/BaMI5bCa5YxuVsDn5QHb+UqTbaGjyszW2ztp0wQv8IntmqCrv78VUsxUhOjcOTZ3XcjUfT9HII/VluKZOPOFei4i6D6ebevy3jUISQ9w3DO1bEetxVqE1pVCPXj6Gylg6YCBEVVbkbcmEpc16/LiDvZzRlu6TwL36PJWnjDAaHNr8C6BUfah2GPw==
+ bh=4GGCfqY5hSM/VquS9LM1UEwG+d9b2YdzydUitcmEDz8=;
+ b=ZG3StHoWDo9EPeTAqOLlEEmjXoOluJmLO+6UbKFwEQXl5jYMeDpipJlqhXLw8O2538HNnDMpiP9JXAkRAwxG9W1IWQD9z7WQXUmbsek8y6ekCj60h+yQuEuFEyeILzR09gNiatH4UjHYSmsmyv228QlsBGSGs/mNVh3v5CrEBnwbEgm+Oax5cmydhScB4lO67EkByjjbxqXCBo9dt7tEkx/Vak9ZK9FusDxht59nWyltm9khd8GRHexeqEsWiXgdaPK5oPZ3/EzrfUqUXSHy96F5H83j+BD9iXDHtQkenlgzgYLxA2LcBpD0gPijLES4qANpFlk0qsPO7xkuxtjeFA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v0dxyp9FRzUePJH0nDMmW1/4cp+TAt31i7MmM/jvXNU=;
- b=erQveuqUObfkxQjAxnRMqaqTUfXs64qKcjvpYnjS4vhi0CHMdMSiohPTkAjYMav2qjOFJ5iLswfKWBOJvCT+MPvP9OwzoCxn+MLBxCV5fbrI5uBR0SISWZyRKKEbNCfZm+5SHeVopHV+5XvZREE5LZsWndxsfseI9zRwaOpgxfg=
-Received: from BLAP220CA0008.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:32c::13)
- by BN9PR12MB5275.namprd12.prod.outlook.com (2603:10b6:408:100::14)
+ bh=4GGCfqY5hSM/VquS9LM1UEwG+d9b2YdzydUitcmEDz8=;
+ b=sgEkQ8Q06hir7f/EqbcsXUYHDNADocDit6AuiMUrjSkAjAe/QcWtUtEJhxfwP6YC8K7FCfjRYTD9A+oeKOfSkpxwCSvYQeDXVnjp73kYfLtowWyyBd1uV26QVN24qzARbyXAgYf7dWNrs6dHAWnLk6XJ9s9X19pTkOAlN42YGxI=
+Received: from BLAP220CA0012.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:32c::17)
+ by SJ1PR12MB6196.namprd12.prod.outlook.com (2603:10b6:a03:456::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.26; Sat, 18 Nov
- 2023 19:33:07 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.23; Sat, 18 Nov
+ 2023 19:33:08 +0000
 Received: from BL6PEPF0001AB4E.namprd04.prod.outlook.com
- (2603:10b6:208:32c:cafe::b3) by BLAP220CA0008.outlook.office365.com
- (2603:10b6:208:32c::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.23 via Frontend
- Transport; Sat, 18 Nov 2023 19:33:07 +0000
+ (2603:10b6:208:32c:cafe::2a) by BLAP220CA0012.outlook.office365.com
+ (2603:10b6:208:32c::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.25 via Frontend
+ Transport; Sat, 18 Nov 2023 19:33:08 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BL6PEPF0001AB4E.mail.protection.outlook.com (10.167.242.72) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7025.12 via Frontend Transport; Sat, 18 Nov 2023 19:33:07 +0000
+ 15.20.7025.12 via Frontend Transport; Sat, 18 Nov 2023 19:33:08 +0000
 Received: from quartz-7b1chost.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Sat, 18 Nov
- 2023 13:33:01 -0600
+ 2023 13:33:02 -0600
 From: Yazen Ghannam <yazen.ghannam@amd.com>
 To: <linux-edac@vger.kernel.org>
-Subject: [PATCH 03/20] x86/mce: Use mce_setup() helpers for
- apei_smca_report_x86_error()
-Date: Sat, 18 Nov 2023 13:32:31 -0600
-Message-ID: <20231118193248.1296798-4-yazen.ghannam@amd.com>
+Subject: [PATCH 05/20] x86/mce/amd: Use helper for UMC bank type check
+Date: Sat, 18 Nov 2023 13:32:33 -0600
+Message-ID: <20231118193248.1296798-6-yazen.ghannam@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231118193248.1296798-1-yazen.ghannam@amd.com>
 References: <20231118193248.1296798-1-yazen.ghannam@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4E:EE_|BN9PR12MB5275:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8cb3f286-3c71-4429-fd8c-08dbe86d30fc
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4E:EE_|SJ1PR12MB6196:EE_
+X-MS-Office365-Filtering-Correlation-Id: 71159e73-5b23-43a9-82d0-08dbe86d3163
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: SmZhPYg5YHBgLEMF7CwBOz4HgPhgryYm51tdHWFl0JkvMNks5ko+VkiwP4WiayMCVHI/1kHvl5a2Z27EHJBLzeTeZ0sckgjMZJ2HLu6PuOWUcJ8Fs8AI9Rp8YyotLClqRJIptpcS7VpWwdAo368sIb9imLp+TZTKWuUM0GAtbmIcka3u1pxGJ+R6PfOhWBjQnBbiwxbnRaGXYlQWUYxkqxEHC7qnKH6CorlTYaw5G9NzyM8I1qlOuTn6zq0sFz4CNRLUReDGL/xrvmGBlwCSlN2TjKgnfMEV/aR0XbrjQj3TegYXAmfHK5rkpsKiEIYVbb6jXJ46fJxRtY7Ou1r/E9/Xg2uwQcL3KabwItAiSm8rLuNZfKA3ul1cdSozA3qRIaq5HEUHlpYvO+7Bv+gXwTyS+av8QYnQe5UMQ4COEEQaFUd/qm14wdIIDqMmsyH54cdvfWgmzFgyHDtAR0a1XHRj5qW2F6JCBhlOi7UwVZt+MPkgZSXYyUVry5keC/91gsKSfbZ3OfUX6UK1mt34gMrJ0AjkQXKMGSbxfhRJHy0hMWCBosKkilb3DU66Mkv0RpWoB3q2ZtL7axbQUw+xR+FiRDTlJAjfJTQFecyosjZqhzBrwl4DIjYcgj8buQckV/f8AfM0q10R/WylSr1atgvgAkjGW/pmoEEZv8CY0RUIK7imiySAPPKzZV+kwvfzxbik/pcFaZuo3FtT26Mx68sfDqkztbijrF1ursXknzuWDtiAEE38be5J8ZEJOCrmiGluoFKERMQCNouZU95cIA==
+X-Microsoft-Antispam-Message-Info: LodaIw+JgHauZ34G1VCGtwUxUnVInfQHj8BFeq+61Gqi9z1ShzUzyL/TGGKFuCCm1SocerGvngijy4pEx0V73sTxQqpBznFDW0K2U5Hc7omSBGpblBBAj/NMZ6Mq86SH0I9carshiEKpuoxM00qrrpmxwMFHCc6iSVlSnhCUTRf5JkOyFwku3Y5q/Y4+0ywQS8EGZnoMKhwlpvTljkZQahTHuFLg9IbTSZAlAHvaZam26USqoUIf1xSSUdysEHw5CUNo3d/VP84iITvSJb9LbEzoUU9CRcFj0s+GfA6ZsOaiL+9uJPrm6SVMIKx1ROKn2wDWYBlCEhq6PIkTkg8b5hVbuayf9X2IyAkZsUM7rb2D3JBQs95EMRbjroBJdflCK0xjH1jxuqVvXQpgfH74p5QnFBr93QQxcYSntSuVxbHUuVb7DAd2zi7tjEQhRbqCfjTiX/JnkEWAnPurFdihnG0E8mz5FBZiJDqMb5VnYgfI/fc8tm/YHsmIsb7B/IO763l8uHf9Y2Lpu0Osl9B8QQJ5/7myOk0ASJZfo5pOtlFl4A7yriDAIknF8afqfMZwnrHceKLs+s8NflVrdhNNxy3D+tTp2GQeUGLoCoKOdkDRQ+eQAUkE4YiSspBuecbip0rfj4xHSTN+AyeurZ8gzO2gf86cYUcXp8BknGFq5QYtitLmsKYQTHMqxtI9BEG73rdpqVKVZIo9sdCcZwMX96RO8ep3MAOWtXxwLalmzURThQY11XlXfrox1d8GuyRJfdTEP6WrsiuNk/tIEhwt8g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(136003)(39860400002)(376002)(346002)(230922051799003)(451199024)(64100799003)(82310400011)(186009)(1800799012)(40470700004)(46966006)(36840700001)(2906002)(41300700001)(8936002)(8676002)(4326008)(40460700003)(316002)(5660300002)(44832011)(86362001)(36756003)(2616005)(1076003)(83380400001)(16526019)(336012)(426003)(26005)(82740400003)(6666004)(7696005)(81166007)(356005)(47076005)(36860700001)(40480700001)(478600001)(6916009)(54906003)(70206006)(70586007)(36900700001);
+ SFS:(13230031)(4636009)(136003)(346002)(376002)(39860400002)(396003)(230922051799003)(64100799003)(186009)(1800799012)(451199024)(82310400011)(40470700004)(36840700001)(46966006)(8936002)(8676002)(4326008)(6916009)(70586007)(70206006)(44832011)(316002)(54906003)(5660300002)(40480700001)(81166007)(36860700001)(15650500001)(40460700003)(2906002)(47076005)(36756003)(7696005)(6666004)(478600001)(336012)(356005)(82740400003)(426003)(86362001)(41300700001)(83380400001)(26005)(16526019)(2616005)(1076003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2023 19:33:07.3554 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8cb3f286-3c71-4429-fd8c-08dbe86d30fc
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2023 19:33:08.0272 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71159e73-5b23-43a9-82d0-08dbe86d3163
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB4E.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5275
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6196
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,76 +106,97 @@ Cc: tony.luck@intel.com, x86@kernel.org, linux-kernel@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Current AMD systems may report MCA errors using the ACPI Boot Error
-Record Table (BERT). The BERT entries for MCA errors will be an x86
-Common Platform Error Record (CPER) with an MSR register context that
-matches the MCAX/SMCA register space.
+Scalable MCA systems use values in the MCA_IPID register to describe the
+type of hardware for an MCA bank. This information is used when
+bank-specific actions or decoding are needed. Otherwise,
+microarchitectural information, like MCA_STATUS bits, should be used.
 
-However, the BERT will not necessarily be processed on the CPU that
-reported the MCA errors. Therefore, the correct CPU number needs to be
-determined and the information saved in struct mce.
+Currently, the bank type information is cached at boot time for all CPUs
+and all banks. This uses more memory as the number of CPUs and MCA banks
+increases. Furthermore, this causes bank-specific actions to rely on the
+OS "CPU number" to look up cached values. And this can break if the CPU
+number processing an error is not the same at the CPU that reported the
+error.
 
-The CPU number is determined by searching all possible CPUs for a Local
-APIC ID matching the value in the x86 CPER.
+The bank type should be determined solely on the MCA_IPID values. And
+the cached information should be removed.
 
-Set up the MCA record after searching for a CPU number. If no possible
-CPU was found, then return early.
+Define a helper function to check for a UMC bank type. This simplifies
+the common case where software needs to determine if an MCA error is for
+memory, and where the exact bank type is not needed.
 
-Gather the global MCA information first, save the found CPU number, then
-gather the per-CPU information.
+Use bitops and rename old mask until removed.
 
 Signed-off-by: Yazen Ghannam <yazen.ghannam@amd.com>
 ---
- arch/x86/kernel/cpu/mce/apei.c     | 18 ++++++++----------
- arch/x86/kernel/cpu/mce/internal.h |  2 ++
- 2 files changed, 10 insertions(+), 10 deletions(-)
+ arch/x86/include/asm/mce.h    |  3 ++-
+ arch/x86/kernel/cpu/mce/amd.c | 15 +++++++++------
+ 2 files changed, 11 insertions(+), 7 deletions(-)
 
-diff --git a/arch/x86/kernel/cpu/mce/apei.c b/arch/x86/kernel/cpu/mce/apei.c
-index 7f7309ff67d0..33cefe6157eb 100644
---- a/arch/x86/kernel/cpu/mce/apei.c
-+++ b/arch/x86/kernel/cpu/mce/apei.c
-@@ -97,20 +97,18 @@ int apei_smca_report_x86_error(struct cper_ia_proc_ctx *ctx_info, u64 lapic_id)
- 	if (ctx_info->reg_arr_size < 48)
- 		return -EINVAL;
+diff --git a/arch/x86/include/asm/mce.h b/arch/x86/include/asm/mce.h
+index 4ad49afca2db..c43b41677a3e 100644
+--- a/arch/x86/include/asm/mce.h
++++ b/arch/x86/include/asm/mce.h
+@@ -60,7 +60,8 @@
+  */
+ #define MCI_CONFIG_MCAX		0x1
+ #define MCI_IPID_MCATYPE	0xFFFF0000
+-#define MCI_IPID_HWID		0xFFF
++#define MCI_IPID_HWID_OLD	0xFFF
++#define MCI_IPID_HWID		GENMASK_ULL(43, 32)
  
--	mce_setup(&m);
--
--	m.extcpu = -1;
--	m.socketid = -1;
--
- 	for_each_possible_cpu(cpu) {
--		if (cpu_data(cpu).topo.initial_apicid == lapic_id) {
--			m.extcpu = cpu;
--			m.socketid = cpu_data(m.extcpu).topo.pkg_id;
-+		if (cpu_data(cpu).topo.initial_apicid == lapic_id)
- 			break;
--		}
+ /*
+  * Note that the full MCACOD field of IA32_MCi_STATUS MSR is
+diff --git a/arch/x86/kernel/cpu/mce/amd.c b/arch/x86/kernel/cpu/mce/amd.c
+index 6cf8ed9c79be..c8fb6c24170f 100644
+--- a/arch/x86/kernel/cpu/mce/amd.c
++++ b/arch/x86/kernel/cpu/mce/amd.c
+@@ -7,6 +7,7 @@
+  *
+  *  All MC4_MISCi registers are shared between cores on a node.
+  */
++#include <linux/bitfield.h>
+ #include <linux/interrupt.h>
+ #include <linux/notifier.h>
+ #include <linux/kobject.h>
+@@ -143,6 +144,12 @@ enum smca_bank_types smca_get_bank_type(unsigned int cpu, unsigned int bank)
+ }
+ EXPORT_SYMBOL_GPL(smca_get_bank_type);
+ 
++/* UMCs have HWID=0x96.*/
++static bool smca_umc_bank_type(u64 ipid)
++{
++	return FIELD_GET(MCI_IPID_HWID, ipid) == 0x96;
++}
++
+ static const struct smca_hwid smca_hwid_mcatypes[] = {
+ 	/* { bank_type, hwid_mcatype } */
+ 
+@@ -304,7 +311,7 @@ static void smca_configure(unsigned int bank, unsigned int cpu)
+ 		return;
  	}
  
--	m.apicid = lapic_id;
-+	if (!cpu_possible(cpu))
-+		return -EINVAL;
-+
-+	mce_setup_global(&m);
-+	m.cpu = m.extcpu = cpu;
-+	mce_setup_per_cpu(&m);
-+
- 	m.bank = (ctx_info->msr_addr >> 4) & 0xFF;
- 	m.status = *i_mce;
- 	m.addr = *(i_mce + 1);
-diff --git a/arch/x86/kernel/cpu/mce/internal.h b/arch/x86/kernel/cpu/mce/internal.h
-index e13a26c9c0ac..424c7461dcf9 100644
---- a/arch/x86/kernel/cpu/mce/internal.h
-+++ b/arch/x86/kernel/cpu/mce/internal.h
-@@ -209,6 +209,8 @@ enum mca_msr {
+-	hwid_mcatype = HWID_MCATYPE(high & MCI_IPID_HWID,
++	hwid_mcatype = HWID_MCATYPE(high & MCI_IPID_HWID_OLD,
+ 				    (high & MCI_IPID_MCATYPE) >> 16);
  
- /* Decide whether to add MCE record to MCE event pool or filter it out. */
- extern bool filter_mce(struct mce *m);
-+void mce_setup_global(struct mce *m);
-+void mce_setup_per_cpu(struct mce *m);
+ 	for (i = 0; i < ARRAY_SIZE(smca_hwid_mcatypes); i++) {
+@@ -714,14 +721,10 @@ static bool legacy_mce_is_memory_error(struct mce *m)
+  */
+ static bool smca_mce_is_memory_error(struct mce *m)
+ {
+-	enum smca_bank_types bank_type;
+-
+ 	if (XEC(m->status, 0x3f))
+ 		return false;
  
- #ifdef CONFIG_X86_MCE_AMD
- extern bool amd_filter_mce(struct mce *m);
+-	bank_type = smca_get_bank_type(m->extcpu, m->bank);
+-
+-	return bank_type == SMCA_UMC || bank_type == SMCA_UMC_V2;
++	return smca_umc_bank_type(m->ipid);
+ }
+ 
+ bool amd_mce_is_memory_error(struct mce *m)
 -- 
 2.34.1
 
