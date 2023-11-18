@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D697C54FB9
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Nov 2023 21:57:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAC7AC2BB3F
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Nov 2023 16:13:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BF8210E79E;
-	Fri, 17 Nov 2023 21:57:10 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 017E710E799;
- Fri, 17 Nov 2023 21:57:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C423E10E231;
+	Sat, 18 Nov 2023 16:13:46 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20600.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e89::600])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 419B710E231
+ for <amd-gfx@lists.freedesktop.org>; Sat, 18 Nov 2023 16:13:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AQ3SAT0tESYKnfPfvwC5zGg1CEmeKw3vksF8ouURDq3+yFOPPVHU3pajTbQJ0zgCNv8RFYwnKVAQOuMFZPs5nRYymQhEV/FSdAvTiaHJ6a4HKegnFCDGp07448mAJ6heQ2I5HCEZjwhjwVoQZHyA8VFz6Fh9mBXU2ZBcJKwrp3I5WT2lTJdmJ9qy7JdjW1ihupZEptdZpSYSq6BX8XZcpB+92N0pK7BikFTiSt4/4vlCqJ4mKY170T8rKxLfpPTGxbHSskUvOoNEQpNFdtQlkBzTTza0RyJlZLXPunmQwK8WbOxRXkgVHszoUeI3q8EqTV1Mdfb8HclrZBFMZMB4nA==
+ b=dWN1k3EEN890ctcKua7kWMD6YoPNU0lGJYsTx/8DIlrYCZo9nehpTd9sclzgdSLcXWPvySn1ALJfzjJGBcqicQUpSiTH1sX5xW9OruIg3rqVWsXehd8lWFH71TGw13GfrA1+ieL05tCYDYotvUSHv4fLDAglI0HCsc90h9D1Fnpc8G5+7FxkDSj9L3PDYydpejBnACPMO8RRglEfHGgfRFoujnxdguxCrwlnJYN4n0Bl8d7Ni5p7SciIHKCOaws2xSSVJPHud3p4OQtdeIJTU/uGCgdmT6q3jQ1frGwgiJq6fqqYaN5I0pBJk0ywYevw2Rz1WKEnQ8zCT2eFFxdWuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H03MrNYHtSL2bxChKF6OTueRnfCP1kiVfslk2TnP7MY=;
- b=oK7XWhbo3RjaMsz0CPlaTzI55Z5OJb65wAxaqBiSdzW0f58j1LOmzZrhvZmmOrMHw3QFYOWh2mVe9mi3gs4vAx+RS9cqVGolQK2U5kASzj7MxUV/ujkKFAiYpJbbBx//Mv84Nn7dfqaTDlXzof9zQmr5h8u538TTbkP6BaYMTFPStfnD8JvratSViVdAIFb6DkU+xB2K6Z+xNd46N348OZt/OPXfLnlAFWCUCDuE4RtgZKaSAbYr3RB0S1z5mUmEGzuEdOpjWaxeQYOulicPSAxuJqbbZHToVAlB2TciTLhuOTJRKsI1TJtyiJcHJVb4nfVVxS87Lr668XHXwcZmaw==
+ bh=MJwfpteK0xHCTlmiq/U7rnyOgpjhTOWHSB6Wnn7vrr0=;
+ b=FJQF1dBCueuVh2DrSy7AgE+QZWtG3GpOWD1JiB0REwCFkGnEX2RGb3Odypo/J5YN68EnqF4vqdy6rr2a5lwFLaw+iJIdLNqiaV0GKP+JX3BXLIpUmZZ+hlLzwUKbgYjhRhbVktEyXMgklDjpp/A7UKrd1zQPo6sVEGVi7RhgTx5NR8hDbrISQbpkAphcsG+qZfgdxYxB5xF73B1kqZCuHP3Q3u+QBcHqFZghdjoTnuZlDRsxPyY0Jd8hZaIv8kBcKtcDCzcoh8wF9MjCbKIm6VMUD3HrqTMOcgDu9c8J+Mlth8FNAEfmgG2XyzkabnT5Ytrwjvo6sAuFI0QBdQtFaQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H03MrNYHtSL2bxChKF6OTueRnfCP1kiVfslk2TnP7MY=;
- b=voS1adBOVS2OkvPjPNg3LeAjuip+fbDag8jZgQz6RtjtbVUf+mvME2G2cqCzh/Czn03NKrF3iFtN12KBna9qzx1bflOVM17lx/HrWukFVEvHLYqeyolNzPd0Av1x1sPtBO1BA30FoqR30ig19IuEZmVFtKWy7lQM7EyyX35KZEo=
-Received: from BN9PR03CA0421.namprd03.prod.outlook.com (2603:10b6:408:113::6)
- by PH8PR12MB7111.namprd12.prod.outlook.com (2603:10b6:510:22d::8)
+ bh=MJwfpteK0xHCTlmiq/U7rnyOgpjhTOWHSB6Wnn7vrr0=;
+ b=sKMcdVMNf2oxh1nWbDopGAP9ckGClSsT+KeBelW7so632lJCQ68MblvLp4zeZvAYZiFVMiUI6d/JsyA8xt1LOy4xUl3ZNujHkE2H5HqqHUcNwy5BQxhPXg43zumO1oYxSS4nhBhL3oMNZRq4cKOtfYItApvpsXdiIh7fOGVpi+4=
+Received: from MW4PR04CA0066.namprd04.prod.outlook.com (2603:10b6:303:6b::11)
+ by SJ0PR12MB6735.namprd12.prod.outlook.com (2603:10b6:a03:479::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.21; Fri, 17 Nov
- 2023 21:57:03 +0000
-Received: from SN1PEPF0002BA4C.namprd03.prod.outlook.com
- (2603:10b6:408:113:cafe::86) by BN9PR03CA0421.outlook.office365.com
- (2603:10b6:408:113::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.23 via Frontend
- Transport; Fri, 17 Nov 2023 21:57:03 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.25; Sat, 18 Nov
+ 2023 16:13:39 +0000
+Received: from CO1PEPF000042AA.namprd03.prod.outlook.com
+ (2603:10b6:303:6b:cafe::3) by MW4PR04CA0066.outlook.office365.com
+ (2603:10b6:303:6b::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.25 via Frontend
+ Transport; Sat, 18 Nov 2023 16:13:38 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,49 +46,48 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF0002BA4C.mail.protection.outlook.com (10.167.242.69) with Microsoft
+ CO1PEPF000042AA.mail.protection.outlook.com (10.167.243.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7025.12 via Frontend Transport; Fri, 17 Nov 2023 21:57:03 +0000
-Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.7025.12 via Frontend Transport; Sat, 18 Nov 2023 16:13:38 +0000
+Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Fri, 17 Nov
- 2023 15:57:01 -0600
-From: Felix Kuehling <Felix.Kuehling@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 3/3] drm/amdkfd: Import DMABufs for interop through DRM
-Date: Fri, 17 Nov 2023 16:44:19 -0500
-Message-ID: <20231117214419.418556-3-Felix.Kuehling@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231117214419.418556-1-Felix.Kuehling@amd.com>
-References: <20231117214419.418556-1-Felix.Kuehling@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Sat, 18 Nov
+ 2023 10:13:37 -0600
+From: Alex Sierra <alex.sierra@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Force order between a read and write to the same
+ address
+Date: Sat, 18 Nov 2023 10:13:21 -0600
+Message-ID: <20231118161321.18632-1-alex.sierra@amd.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4C:EE_|PH8PR12MB7111:EE_
-X-MS-Office365-Filtering-Correlation-Id: a7e2aa71-295b-4198-96d8-08dbe7b821db
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042AA:EE_|SJ0PR12MB6735:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0c5a3e46-8304-4a3a-2815-08dbe85152e3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Vzo1lz3AbudNuS4nHH1DO2DF85d2wmUzxPTQbO2BWo56fUCwSEaRlbZgxXTic30RvBFogHU4HneKbDEMEfEG5v8sW+ivrnkza0RVAR0NlUeix4sW/NGtQBMOLWFOkZ1lc9SIfNPtugoyVk7q9Wjkrg6pEKDM9TbDF0uBXKRqU1mv9Il8SSNKOFQ41qARgsALeJvAdw2YpIxEXZcTkrAY8ITRFwoZTKoPAoahSF0z6CHvG8uXSWuZdiSXgeTOZCHwQRIWMAGDmQBpIyHCqYr+w25gXvlfnGT78JB5PssYXhLEQRHOkCq9txKEyOBYmpQ2N6AYs2zqFrA055x0ggZaVlHY9m3lsBn18qoPOVJCIPQSzdk57ajWafTW+zTd4EXNdHfCKsxGsUboRMKaMIvtdDMMLD5bmgVkvMYl+qiMRZ3CQ7As1+RGL7EH/QC+0mLRWachDzxTRWEVeRLOm+DN3Ji5PGX+dLFA6uMx2OQ4qh4kM92quGubRbqB5TBdHY0EKmYJNLsVdlkR954SY1/CHur4jEoDtpUpD3NXZwURuQPeXsVyOtjpHy99qixpTGOAosaik4yHhetSWfsy5XxLxqJgg/+WJgV1FOMBJJrMb5nTY3uLxiWaJXJ5+oAwK4GrpFH8eVEgCZt6wKZ9n6WC96rODA3jUs0zXNRhJov+HckrHPUFaln0w/Sdkizyc0y3AypV4MsHBcvB048AtWU+2KSLM1OUum/agFm/np2/ukO6UBvINfihf0BSqKupv6sXe4+qa1uzn/KLuV34DYSh8Q==
+X-Microsoft-Antispam-Message-Info: pd/pp5qMRnRRUc3fdjfJIgH++gqwvdCSFB48Six773r2XelidPgJjnHMQccnVvaFiqCTj5HE7bMhZBWZGnG6eQZQMb6zRtNwhEhUE0kODVUUy41SGkLclqsOVGaFKf7V66SqRzodd6MXlvNTWV30OREzN8xKdBZVLCk5aMcI9PgBC4AF4Z1SLg9lPF+sycZT+kCXtkQVcJy1NBYFygje/6fUnz/Qj6q5m+UOpRgyqeqcEkdveSqD+M25nqMKRmUa7fiKLtaFeJei1Im+rhjYTE2Y3DSLdL9y4bfiV54nwCBZA+oTwCTLJeTefAtF5fbkwOzXO8CWOi1yIIQrAuNNUH+1qCqeJ50JPnrBiwbgh9YxHCs1OCEB85sZRDeUu7k4Z7ZwiCKQ8Lpg/Cy510kIe7jJjAHEq828MzMhEsmcZJMux4qA4jN7DEEsToPi1GeIo/VOBi0KPUqRg5JuHqXEpK5l7xBOEFkt5Im1qwppRSwBLLun3f6c5b5HC7I3FrL/bTb+ORlJp5gS/+bDDOn3j9DMlKFA0OaABcfvH3v94M5yyZYT9ml4gbC6tCvXvQ9fSCdgFzeWelDVdPe6dOAZ00alchRGSghYsbdYsD6uMW57k3LaDYRbo4f2deNurOFx1aJvoNOmErl21vPmzcMas6r2fzp9xkRZc1lNJMoPldmZy3iJzAMPgI185tcy7u5RZKFlHCiT5BLmFdSURwI6Xq7YUvc6kjHF+UHRGhveVoUDOtmzpHbojryAlJXskp90HoboF6JbyErGeVE7msiKqw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(39860400002)(376002)(396003)(136003)(230922051799003)(82310400011)(1800799009)(451199024)(64100799003)(186009)(46966006)(40470700004)(36840700001)(4326008)(2906002)(5660300002)(81166007)(356005)(86362001)(36860700001)(82740400003)(47076005)(40480700001)(8936002)(450100002)(41300700001)(8676002)(83380400001)(66574015)(336012)(426003)(2616005)(36756003)(316002)(54906003)(16526019)(26005)(1076003)(70586007)(70206006)(110136005)(7696005)(40460700003)(6666004)(478600001)(36900700001);
+ SFS:(13230031)(4636009)(39860400002)(376002)(136003)(346002)(396003)(230922051799003)(186009)(82310400011)(64100799003)(451199024)(1800799012)(36840700001)(40470700004)(46966006)(426003)(336012)(70206006)(70586007)(316002)(6916009)(54906003)(26005)(16526019)(40460700003)(36756003)(8936002)(4326008)(8676002)(41300700001)(356005)(81166007)(82740400003)(36860700001)(47076005)(44832011)(86362001)(2906002)(5660300002)(83380400001)(7696005)(40480700001)(478600001)(1076003)(2616005)(6666004)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2023 21:57:03.0626 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7e2aa71-295b-4198-96d8-08dbe7b821db
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2023 16:13:38.2108 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0c5a3e46-8304-4a3a-2815-08dbe85152e3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA4C.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042AA.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7111
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6735
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,198 +99,149 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Xiaogang . Chen" <Xiaogang.Chen@amd.com>,
- Ramesh Errabolu <Ramesh.Errabolu@amd.com>, christian.koenig@amd.com
+Cc: Alex Sierra <alex.sierra@amd.com>, Felix.Kuehling@amd.com,
+ joseph.greathouse@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use drm_gem_prime_fd_to_handle to import DMABufs for interop. This
-ensures that a GEM handle is created on import and that obj->dma_buf
-will be set and remain set as long as the object is imported into KFD.
+Setting register to force ordering to prevent read/write or write/read
+hazards for un-cached modes.
 
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Reviewed-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
-Reviewed-by: Xiaogang.Chen <Xiaogang.Chen@amd.com>
-Acked-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Sierra <alex.sierra@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  9 ++-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 64 +++++++++++++------
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 15 ++---
- 3 files changed, 52 insertions(+), 36 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 22 +++++++++++++------
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        |  8 +++++++
+ .../include/asic_reg/gc/gc_11_0_0_offset.h    |  2 ++
+ 3 files changed, 25 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index c1195eb67057..8da42e0dddcb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -319,11 +319,10 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *process_info,
- 					    struct dma_fence **ef);
- int amdgpu_amdkfd_gpuvm_get_vm_fault_info(struct amdgpu_device *adev,
- 					      struct kfd_vm_fault_info *info);
--int amdgpu_amdkfd_gpuvm_import_dmabuf(struct amdgpu_device *adev,
--				      struct dma_buf *dmabuf,
--				      uint64_t va, void *drm_priv,
--				      struct kgd_mem **mem, uint64_t *size,
--				      uint64_t *mmap_offset);
-+int amdgpu_amdkfd_gpuvm_import_dmabuf_fd(struct amdgpu_device *adev, int fd,
-+					 uint64_t va, void *drm_priv,
-+					 struct kgd_mem **mem, uint64_t *size,
-+					 uint64_t *mmap_offset);
- int amdgpu_amdkfd_gpuvm_export_dmabuf(struct kgd_mem *mem,
- 				      struct dma_buf **dmabuf);
- void amdgpu_amdkfd_debug_mem_fence(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index b13d68b7bb28..966272e067b2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1957,8 +1957,7 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 68747a52e5c2..592ac993f013 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -3193,7 +3193,8 @@ static const struct soc15_reg_golden golden_settings_gc_10_3[] = {
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmSQ_PERFCOUNTER9_SELECT, 0xf0f001ff, 0x00000000),
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmSX_DEBUG_1, 0x00010000, 0x00010020),
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmTA_CNTL_AUX, 0xfff7ffff, 0x01030000),
+-	SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffbfffff, 0x00a00000)
++	SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffbfffff, 0x00a00000),
++	SOC15_REG_GOLDEN_VALUE(GC, 0, mmTCP_CNTL, 0x20000000, 0x20000000)
+ };
  
- 	/* Free the BO*/
- 	drm_vma_node_revoke(&mem->bo->tbo.base.vma_node, drm_priv);
--	if (!mem->is_imported)
--		drm_gem_handle_delete(adev->kfd.client.file, mem->gem_handle);
-+	drm_gem_handle_delete(adev->kfd.client.file, mem->gem_handle);
- 	if (mem->dmabuf) {
- 		dma_buf_put(mem->dmabuf);
- 		mem->dmabuf = NULL;
-@@ -2314,34 +2313,26 @@ int amdgpu_amdkfd_gpuvm_get_vm_fault_info(struct amdgpu_device *adev,
- 	return 0;
- }
+ static const struct soc15_reg_golden golden_settings_gc_10_3_sienna_cichlid[] = {
+@@ -3245,6 +3246,7 @@ static const struct soc15_reg_golden golden_settings_gc_10_3_2[] = {
  
--int amdgpu_amdkfd_gpuvm_import_dmabuf(struct amdgpu_device *adev,
--				      struct dma_buf *dma_buf,
--				      uint64_t va, void *drm_priv,
--				      struct kgd_mem **mem, uint64_t *size,
--				      uint64_t *mmap_offset)
-+static int import_obj_create(struct amdgpu_device *adev,
-+			     struct dma_buf *dma_buf,
-+			     struct drm_gem_object *obj,
-+			     uint64_t va, void *drm_priv,
-+			     struct kgd_mem **mem, uint64_t *size,
-+			     uint64_t *mmap_offset)
+ 	/* This is not in GDB yet. Don't remove it. It fixes a GPU hang on Navy Flounder. */
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmLDS_CONFIG,  0x00000020, 0x00000020),
++	SOC15_REG_GOLDEN_VALUE(GC, 0, mmTCP_CNTL, 0x20000000, 0x20000000)
+ };
+ 
+ static const struct soc15_reg_golden golden_settings_gc_10_3_vangogh[] = {
+@@ -3275,6 +3277,7 @@ static const struct soc15_reg_golden golden_settings_gc_10_3_vangogh[] = {
+ 
+ 	/* This is not in GDB yet. Don't remove it. It fixes a GPU hang on VanGogh. */
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmLDS_CONFIG,  0x00000020, 0x00000020),
++	SOC15_REG_GOLDEN_VALUE(GC, 0, mmTCP_CNTL, 0x20000000, 0x20000000)
+ };
+ 
+ static const struct soc15_reg_golden golden_settings_gc_10_3_3[] = {
+@@ -3297,7 +3300,8 @@ static const struct soc15_reg_golden golden_settings_gc_10_3_3[] = {
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmPA_SC_BINNER_TIMEOUT_COUNTER, 0xffffffff, 0x00000800),
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmPA_SC_ENHANCE_2, 0xffffffbf, 0x00000820),
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmTA_CNTL_AUX, 0xfff7ffff, 0x01030000),
+-	SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffffffff, 0x00100000)
++	SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffffffff, 0x00100000),
++	SOC15_REG_GOLDEN_VALUE(GC, 0, mmTCP_CNTL, 0x20000000, 0x20000000)
+ };
+ 
+ static const struct soc15_reg_golden golden_settings_gc_10_3_4[] = {
+@@ -3336,7 +3340,8 @@ static const struct soc15_reg_golden golden_settings_gc_10_3_4[] = {
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmSX_DEBUG_1, 0x00010000, 0x00010020),
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmTA_CNTL_AUX, 0x01030000, 0x01030000),
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0x03a00000, 0x00a00000),
+-	SOC15_REG_GOLDEN_VALUE(GC, 0, mmLDS_CONFIG,  0x00000020, 0x00000020)
++	SOC15_REG_GOLDEN_VALUE(GC, 0, mmLDS_CONFIG,  0x00000020, 0x00000020),
++	SOC15_REG_GOLDEN_VALUE(GC, 0, mmTCP_CNTL, 0x20000000, 0x20000000)
+ };
+ 
+ static const struct soc15_reg_golden golden_settings_gc_10_3_5[] = {
+@@ -3371,7 +3376,8 @@ static const struct soc15_reg_golden golden_settings_gc_10_3_5[] = {
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmSQ_PERFCOUNTER8_SELECT, 0xf0f001ff, 0x00000000),
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmSQ_PERFCOUNTER9_SELECT, 0xf0f001ff, 0x00000000),
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmTA_CNTL_AUX, 0xfff7ffff, 0x01030000),
+-	SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffbfffff, 0x00a00000)
++	SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffbfffff, 0x00a00000),
++	SOC15_REG_GOLDEN_VALUE(GC, 0, mmTCP_CNTL, 0x20000000, 0x20000000)
+ };
+ 
+ static const struct soc15_reg_golden golden_settings_gc_10_0_cyan_skillfish[] = {
+@@ -3408,7 +3414,7 @@ static const struct soc15_reg_golden golden_settings_gc_10_0_cyan_skillfish[] =
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmSQ_ARB_CONFIG, 0x00000100, 0x00000130),
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmSQ_LDS_CLK_CTRL, 0xffffffff, 0xffffffff),
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmTA_CNTL_AUX, 0x00030008, 0x01030000),
+-	SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0x00800000, 0x00800000)
++	SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0x00800000, 0x00800000),
+ };
+ 
+ static const struct soc15_reg_golden golden_settings_gc_10_3_6[] = {
+@@ -3433,7 +3439,8 @@ static const struct soc15_reg_golden golden_settings_gc_10_3_6[] = {
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmSQG_CONFIG, 0x000017ff, 0x00001000),
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmSX_DEBUG_1, 0xffffff7f, 0x00010020),
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmTA_CNTL_AUX, 0xfff7ffff, 0x01030000),
+-	SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffffffff, 0x00100000)
++	SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffffffff, 0x00100000),
++	SOC15_REG_GOLDEN_VALUE(GC, 0, mmTCP_CNTL, 0x20000000, 0x20000000)
+ };
+ 
+ static const struct soc15_reg_golden golden_settings_gc_10_3_7[] = {
+@@ -3458,7 +3465,8 @@ static const struct soc15_reg_golden golden_settings_gc_10_3_7[] = {
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmSQG_CONFIG, 0x000017ff, 0x00001000),
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmSX_DEBUG_1, 0xffffff7f, 0x00010020),
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmTA_CNTL_AUX, 0xfff7ffff, 0x01030000),
+-	SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffffffff, 0x00100000)
++	SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffffffff, 0x00100000),
++	SOC15_REG_GOLDEN_VALUE(GC, 0, mmTCP_CNTL, 0x20000000, 0x20000000)
+ };
+ 
+ #define DEFAULT_SH_MEM_CONFIG \
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index fd22943685f7..84decd069875 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -89,6 +89,10 @@ MODULE_FIRMWARE("amdgpu/gc_11_5_0_me.bin");
+ MODULE_FIRMWARE("amdgpu/gc_11_5_0_mec.bin");
+ MODULE_FIRMWARE("amdgpu/gc_11_5_0_rlc.bin");
+ 
++static const struct soc15_reg_golden golden_settings_gc_11_0[] = {
++	SOC15_REG_GOLDEN_VALUE(GC, 0, regTCP_CNTL, 0x20000000, 0x20000000)
++};
++
+ static const struct soc15_reg_golden golden_settings_gc_11_0_1[] =
  {
- 	struct amdgpu_vm *avm = drm_priv_to_vm(drm_priv);
--	struct drm_gem_object *obj;
- 	struct amdgpu_bo *bo;
- 	int ret;
- 
--	obj = amdgpu_gem_prime_import(adev_to_drm(adev), dma_buf);
--	if (IS_ERR(obj))
--		return PTR_ERR(obj);
--
- 	bo = gem_to_amdgpu_bo(obj);
- 	if (!(bo->preferred_domains & (AMDGPU_GEM_DOMAIN_VRAM |
--				    AMDGPU_GEM_DOMAIN_GTT))) {
-+				    AMDGPU_GEM_DOMAIN_GTT)))
- 		/* Only VRAM and GTT BOs are supported */
--		ret = -EINVAL;
--		goto err_put_obj;
--	}
-+		return -EINVAL;
- 
- 	*mem = kzalloc(sizeof(struct kgd_mem), GFP_KERNEL);
--	if (!*mem) {
--		ret = -ENOMEM;
--		goto err_put_obj;
--	}
-+	if (!*mem)
-+		return -ENOMEM;
- 
- 	ret = drm_vma_node_allow(&obj->vma_node, drm_priv);
- 	if (ret)
-@@ -2391,8 +2382,41 @@ int amdgpu_amdkfd_gpuvm_import_dmabuf(struct amdgpu_device *adev,
- 	drm_vma_node_revoke(&obj->vma_node, drm_priv);
- err_free_mem:
- 	kfree(*mem);
-+	return ret;
-+}
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, regCGTT_GS_NGG_CLK_CTRL, 0x9fff8fff, 0x00000010),
+@@ -303,6 +307,10 @@ static void gfx_v11_0_init_golden_registers(struct amdgpu_device *adev)
+ 	default:
+ 		break;
+ 	}
++	soc15_program_register_sequence(adev,
++					golden_settings_gc_11_0,
++					(const u32)ARRAY_SIZE(golden_settings_gc_11_0));
 +
-+int amdgpu_amdkfd_gpuvm_import_dmabuf_fd(struct amdgpu_device *adev, int fd,
-+					 uint64_t va, void *drm_priv,
-+					 struct kgd_mem **mem, uint64_t *size,
-+					 uint64_t *mmap_offset)
-+{
-+	struct drm_gem_object *obj;
-+	uint32_t handle;
-+	int ret;
-+
-+	ret = drm_gem_prime_fd_to_handle(&adev->ddev, adev->kfd.client.file, fd,
-+					 &handle);
-+	if (ret)
-+		return ret;
-+	obj = drm_gem_object_lookup(adev->kfd.client.file, handle);
-+	if (!obj) {
-+		ret = -EINVAL;
-+		goto err_release_handle;
-+	}
-+
-+	ret = import_obj_create(adev, obj->dma_buf, obj, va, drm_priv, mem, size,
-+				mmap_offset);
-+	if (ret)
-+		goto err_put_obj;
-+
-+	(*mem)->gem_handle = handle;
-+
-+	return 0;
-+
- err_put_obj:
- 	drm_gem_object_put(obj);
-+err_release_handle:
-+	drm_gem_handle_delete(adev->kfd.client.file, handle);
- 	return ret;
  }
  
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index f6d4748c1980..247281b1c9d4 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1564,16 +1564,11 @@ static int kfd_ioctl_import_dmabuf(struct file *filep,
- {
- 	struct kfd_ioctl_import_dmabuf_args *args = data;
- 	struct kfd_process_device *pdd;
--	struct dma_buf *dmabuf;
- 	int idr_handle;
- 	uint64_t size;
- 	void *mem;
- 	int r;
- 
--	dmabuf = dma_buf_get(args->dmabuf_fd);
--	if (IS_ERR(dmabuf))
--		return PTR_ERR(dmabuf);
--
- 	mutex_lock(&p->mutex);
- 	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
- 	if (!pdd) {
-@@ -1587,10 +1582,10 @@ static int kfd_ioctl_import_dmabuf(struct file *filep,
- 		goto err_unlock;
- 	}
- 
--	r = amdgpu_amdkfd_gpuvm_import_dmabuf(pdd->dev->adev, dmabuf,
--					      args->va_addr, pdd->drm_priv,
--					      (struct kgd_mem **)&mem, &size,
--					      NULL);
-+	r = amdgpu_amdkfd_gpuvm_import_dmabuf_fd(pdd->dev->adev, args->dmabuf_fd,
-+						 args->va_addr, pdd->drm_priv,
-+						 (struct kgd_mem **)&mem, &size,
-+						 NULL);
- 	if (r)
- 		goto err_unlock;
- 
-@@ -1601,7 +1596,6 @@ static int kfd_ioctl_import_dmabuf(struct file *filep,
- 	}
- 
- 	mutex_unlock(&p->mutex);
--	dma_buf_put(dmabuf);
- 
- 	args->handle = MAKE_HANDLE(args->gpu_id, idr_handle);
- 
-@@ -1612,7 +1606,6 @@ static int kfd_ioctl_import_dmabuf(struct file *filep,
- 					       pdd->drm_priv, NULL);
- err_unlock:
- 	mutex_unlock(&p->mutex);
--	dma_buf_put(dmabuf);
- 	return r;
- }
- 
+ static void gfx_v11_0_write_data_to_reg(struct amdgpu_ring *ring, int eng_sel,
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h
+index c92c4b83253f..4bff1ef8a9a6 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h
+@@ -6369,6 +6369,8 @@
+ #define regTCP_INVALIDATE_BASE_IDX                                                                      1
+ #define regTCP_STATUS                                                                                   0x19a1
+ #define regTCP_STATUS_BASE_IDX                                                                          1
++#define regTCP_CNTL                                                                                     0x19a2
++#define regTCP_CNTL_BASE_IDX                                                                            1
+ #define regTCP_CNTL2                                                                                    0x19a3
+ #define regTCP_CNTL2_BASE_IDX                                                                           1
+ #define regTCP_DEBUG_INDEX                                                                              0x19a5
 -- 
-2.34.1
+2.32.0
 
