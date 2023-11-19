@@ -4,81 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B38B2C197A0
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 15:40:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBD36C5AE5B
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 15:40:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACCDD10E413;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDEC110E416;
 	Mon, 20 Nov 2023 15:40:25 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAECF10E395
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 10:48:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1700477283;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=0fmHCyTLsVBo0Kc83TqxxdVsk2B46TkdS7UkGLyTjj8=;
- b=bfwB025oHthyMqE4lM2yJJIMs2CU7LGJf3mwtCfwX5m8s7BaSSfkncurhDtTJUnqc23ATi
- Dk4EmROb5e4WXtw6fhnDwkc4bc7IgzS81zlW7bVoR0zJDD2R3K1YCT86S6EdgTT0YNfMqW
- Sx1hoXx1yvHzh+vs8Sf6SCkaMYG+V5A=
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
- [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-399-96YOpiMPNgq8n5A94PwfIw-1; Mon, 20 Nov 2023 05:48:01 -0500
-X-MC-Unique: 96YOpiMPNgq8n5A94PwfIw-1
-Received: by mail-ed1-f69.google.com with SMTP id
- 4fb4d7f45d1cf-5411d71889aso3152988a12.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 02:48:01 -0800 (PST)
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F83010E19D;
+ Sun, 19 Nov 2023 10:14:57 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-9f27af23441so462789466b.2; 
+ Sun, 19 Nov 2023 02:14:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1700388895; x=1700993695; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=aXnYU9L0SxzpQBJjG8833LUnrTfJuWwdCW2h6rtJH0c=;
+ b=PtDdXlrXW80Shn8D19JM1joNx9qJBt9q2PnpmCUSpx/SeJw6QQBvqsGhwtKLEAJoxN
+ aJsMVYovzseL3WSKozwUNNOq4Dxs478IYYMFf/xkj4TMAKlN6KXcZD6iogWfRQB7RMmh
+ FotVIp61H9A4DxHCu3gP4p8MxWjRd1MJb+W8MLLfB3tGDManQ4PFc5hYYk1KUXiWf5E/
+ kF8DoGfreE2gwxZ9bRM9DMOFtBYyI/ZBmWpVixJxQAABN1xkZZ5Oh1M1o0LDgvWE8Uu6
+ fmUeynSiSqUMwv+YnuGpmpV66gyvwQSUXp0b5XOwx/uMZ6uv7iUaKm3FR2KQkdO1OBd/
+ fysw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700477280; x=1701082080;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=0fmHCyTLsVBo0Kc83TqxxdVsk2B46TkdS7UkGLyTjj8=;
- b=PzYLP3XuvKrmCTi3GvUTgzjdonmoQviGEYS3cIthqkHv/TjkITsxSi+2orEpZNSz1R
- mqc93f3wWgOhI6oaY83x2tmlANgFGouORfMM8q547VW4akyb10K23hEATEflhkby/bOQ
- Vf5l56sl9H2C16bhn7tQ/bcxfs2xeL+CEgpMPFvT9+Pu3Njs4l/49HXmy0frbC0iQN5P
- a174koZNFkkiBVT4WpZ5bf0aColjWAbi16X+WN/y8eBwyeDJ5WbTBHbbNjNnu6IL+nAV
- mFR+rNGWZz+utHJHRQaZ2kwrDY/H+OQVP66NCuVF5mE5rwdIECFWUzGuCgWgLin9S3BW
- eD5g==
-X-Gm-Message-State: AOJu0YwRizwiDf1Gnj2XTEtJotVpyZFmrgrvzF9ZaH9c057XeerWl4TN
- Af4d7hCgRwq65gKz5NPtEsaKwydN+0aCcgnB00cKCOrOXvAi8yfuLtat7psMnT8rdk0Psc/fLcc
- tYcrgio4triq9OxZZP2pKv6CY4w==
-X-Received: by 2002:aa7:c702:0:b0:548:b824:1cb8 with SMTP id
- i2-20020aa7c702000000b00548b8241cb8mr1156618edq.38.1700477280745; 
- Mon, 20 Nov 2023 02:48:00 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGOKYlrVDNsMyV/4F65dLvuDm38zuCaU8IqDF/1O3DU8ss3iUrOKIxHJ5ajO+kL3lmaO+RtpQ==
-X-Received: by 2002:aa7:c702:0:b0:548:b824:1cb8 with SMTP id
- i2-20020aa7c702000000b00548b8241cb8mr1156590edq.38.1700477280434; 
- Mon, 20 Nov 2023 02:48:00 -0800 (PST)
-Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
- (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+ d=1e100.net; s=20230601; t=1700388895; x=1700993695;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=aXnYU9L0SxzpQBJjG8833LUnrTfJuWwdCW2h6rtJH0c=;
+ b=Y7mFPzIGU0jkDXN7ibGmO0kCDa1zceRTbBe9KWeFpJoaVQVJOosyoIFfHF2XBb9UD3
+ vc3afJGL7jdfQO+v9w8Pluk23lQb7i583fRAgrTXX9QfNEpqqAo8O8YZJWVmeyizlWIA
+ 3vorkAdT3jYdCfpjusj8YGZihMx0M+CRyw4GnswWYN08yia69Tdo9bXTX4jRw6Byw8lD
+ C/1QvTCIK1cITq9My2QpIJHlEHIx80XeSRNyy9DqxLpjxYITFxZyPA/SnufiPG1HZW3J
+ 8XvSxAdMA9NtWxjDWpnr/1fNfDzWCKg9g9UCctPfxU4Zz5xdj5Xf0nEBj43MlAKmFp9D
+ qpgw==
+X-Gm-Message-State: AOJu0YzyphDl9qqfGRA02gzxrczROZMPHKE+7UhDzv8PdkNNxeF/O1m0
+ B728ZV3EGSYK29T4BCwxGWE=
+X-Google-Smtp-Source: AGHT+IGcxHwORYlBS6UfqYLTAlk7jFkDNf4Zgyz4V+4rMe/1cLzpIIDW4QHLGADivIY95M311Q5DQg==
+X-Received: by 2002:a17:906:10d2:b0:9fd:f325:1317 with SMTP id
+ v18-20020a17090610d200b009fdf3251317mr304396ejv.24.1700388895427; 
+ Sun, 19 Nov 2023 02:14:55 -0800 (PST)
+Received: from zotac.lan.
+ (dynamic-2a01-0c23-bde4-3e00-2223-08ff-fe18-0310.c23.pool.telefonica.de.
+ [2a01:c23:bde4:3e00:2223:8ff:fe18:310])
  by smtp.gmail.com with ESMTPSA id
- u24-20020aa7d998000000b00548b55f5ffdsm1059461eds.16.2023.11.20.02.47.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Nov 2023 02:47:59 -0800 (PST)
-Message-ID: <e74b7896-2915-47bf-803e-25897cbb8eed@redhat.com>
-Date: Mon, 20 Nov 2023 11:47:58 +0100
+ p20-20020a17090628d400b009928b4e3b9fsm2743581ejd.114.2023.11.19.02.14.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 19 Nov 2023 02:14:55 -0800 (PST)
+From: Heiner Kallweit <hkallweit1@gmail.com>
+To: Wolfram Sang <wsa@kernel.org>,
+	Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH v3 07/20] drivers/gpu/drm: remove I2C_CLASS_DDC support
+Date: Sun, 19 Nov 2023 11:14:32 +0100
+Message-ID: <20231119101445.4737-8-hkallweit1@gmail.com>
+X-Mailer: git-send-email 2.42.1
+In-Reply-To: <20231119101445.4737-1-hkallweit1@gmail.com>
+References: <20231119101445.4737-1-hkallweit1@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 2/9] platform/x86/amd: Add support for AMD ACPI based
- Wifi band RFI mitigation feature
-To: Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org, lenb@kernel.org, 
- johannes@sipsolutions.net, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, alexander.deucher@amd.com,
- Lijo.Lazar@amd.com, mario.limonciello@amd.com
-References: <20231017025358.1773598-1-Jun.Ma2@amd.com>
- <20231017025358.1773598-3-Jun.Ma2@amd.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <20231017025358.1773598-3-Jun.Ma2@amd.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, nl
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 20 Nov 2023 15:40:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,206 +76,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Evan Quan <quanliangl@hotmail.com>, linux-doc@vger.kernel.org,
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-i2c@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+After removal of the legacy EEPROM driver and I2C_CLASS_DDC support in
+olpc_dcon there's no i2c client driver left supporting I2C_CLASS_DDC.
+Class-based device auto-detection is a legacy mechanism and shouldn't
+be used in new code. So we can remove this class completely now.
 
-On 10/17/23 04:53, Ma Jun wrote:
-> Due to electrical and mechanical constraints in certain platform designs
-> there may be likely interference of relatively high-powered harmonics of
-> the (G-)DDR memory clocks with local radio module frequency bands used
-> by Wifi 6/6e/7.
-> 
-> To mitigate this, AMD has introduced a mechanism that devices can use to
-> notify active use of particular frequencies so that other devices can make
-> relative internal adjustments as necessary to avoid this resonance.
-> 
-> Co-Developed-by: Evan Quan <quanliangl@hotmail.com>
-> Signed-off-by: Evan Quan <quanliangl@hotmail.com>
-> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+Preferably this series should be applied via the i2c tree.
 
-<snip>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
 
-> +bool acpi_amd_wbrf_supported_producer(struct device *dev)
-> +{
-> +	struct acpi_device *adev = ACPI_COMPANION(dev);
-> +
-> +	if (!adev)
-> +		return false;
-> +
-> +	if (!acpi_amd_wbrf_supported_system())
-> +		return false;
-> +
-> +
-> +	return acpi_check_dsm(adev->handle, &wifi_acpi_dsm_guid,
-> +			      WBRF_REVISION,
-> +			      BIT(WBRF_RECORD));
-> +}
-> +EXPORT_SYMBOL_GPL(acpi_amd_wbrf_supported_producer);
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c |    1 -
+ drivers/gpu/drm/radeon/radeon_i2c.c     |    1 -
+ 2 files changed, 2 deletions(-)
 
-So until here you use acpi_dsm methods (1), which matches
-with patch 1/9 which says that both producers and consumers
-use a _DSM for WBRF.
-
-1) With the exception of the weird acpi_amd_wbrf_supported_system()
-helper.
-
-> +static union acpi_object *
-> +acpi_evaluate_wbrf(acpi_handle handle, u64 rev, u64 func)
-> +{
-> +	acpi_status ret;
-> +	struct acpi_buffer buf = {ACPI_ALLOCATE_BUFFER, NULL};
-> +	union acpi_object params[4];
-> +	struct acpi_object_list input = {
-> +		.count = 4,
-> +		.pointer = params,
-> +	};
-> +
-> +	params[0].type = ACPI_TYPE_INTEGER;
-> +	params[0].integer.value = rev;
-> +	params[1].type = ACPI_TYPE_INTEGER;
-> +	params[1].integer.value = func;
-> +	params[2].type = ACPI_TYPE_PACKAGE;
-> +	params[2].package.count = 0;
-> +	params[2].package.elements = NULL;
-> +	params[3].type = ACPI_TYPE_STRING;
-> +	params[3].string.length = 0;
-> +	params[3].string.pointer = NULL;
-> +
-> +	ret = acpi_evaluate_object(handle, "WBRF", &input, &buf);
-> +	if (ACPI_FAILURE(ret))
-> +		return NULL;
-> +
-> +	return buf.pointer;
-> +}
-
-But now all of a sudden you start calling a WBRF method
-directly instead of calling a _DSM by GUID, which seems
-to be intended for consumers.
-
-This contradicts with the documentation which says that
-consumers also use the _DSM.
-
-And this looks a lot like acpi_evaluate_dsm and
-... (continued below)
-
-> +
-> +static bool check_acpi_wbrf(acpi_handle handle, u64 rev, u64 funcs)
-> +{
-> +	int i;
-> +	u64 mask = 0;
-> +	union acpi_object *obj;
-> +
-> +	if (funcs == 0)
-> +		return false;
-> +
-> +	obj = acpi_evaluate_wbrf(handle, rev, 0);
-> +	if (!obj)
-> +		return false;
-> +
-> +	if (obj->type != ACPI_TYPE_BUFFER)
-> +		return false;
-> +
-> +	/*
-> +	 * Bit vector providing supported functions information.
-> +	 * Each bit marks support for one specific function of the WBRF method.
-> +	 */
-> +	for (i = 0; i < obj->buffer.length && i < 8; i++)
-> +		mask |= (u64)obj->buffer.pointer[i] << i * 8;
-> +
-> +	ACPI_FREE(obj);
-> +
-> +	if ((mask & BIT(WBRF_ENABLED)) && (mask & funcs) == funcs)
-> +		return true;
-> +
-> +	return false;
-> +}
-
-This looks exactly like acpi_check_dsm().
-
-> +
-> +/**
-> + * acpi_amd_wbrf_supported_consumer - determine if the WBRF can be enabled
-> + *                                    for the device as a consumer
-> + *
-> + * @dev: device pointer
-> + *
-> + * Determine if the platform equipped with necessary implementations to
-> + * support WBRF for the device as a consumer.
-> + *
-> + * Return:
-> + * true if WBRF is supported, otherwise returns false.
-> + */
-> +bool acpi_amd_wbrf_supported_consumer(struct device *dev)
-> +{
-> +	struct acpi_device *adev = ACPI_COMPANION(dev);
-> +
-> +	if (!adev)
-> +		return false;
-> +
-> +	if (!acpi_amd_wbrf_supported_system())
-> +		return false;
-> +
-> +	return check_acpi_wbrf(adev->handle,
-> +			       WBRF_REVISION,
-> +			       BIT(WBRF_RETRIEVE));
-> +}
-> +EXPORT_SYMBOL_GPL(acpi_amd_wbrf_supported_consumer);
-
-So I would expect this to just use acpi_check_dsm like
-is done for the producers.
-
-> +
-> +/**
-> + * amd_wbrf_retrieve_freq_band - retrieve current active frequency
-> + *                                     bands
-> + *
-> + * @dev: device pointer
-> + * @out: output structure containing all the active frequency bands
-> + *
-> + * Retrieve the current active frequency bands which were broadcasted
-> + * by other producers. The consumer who calls this API should take
-> + * proper actions if any of the frequency band may cause RFI with its
-> + * own frequency band used.
-> + *
-> + * Return:
-> + * 0 for getting wifi freq band successfully.
-> + * Returns a negative error code for failure.
-> + */
-> +int amd_wbrf_retrieve_freq_band(struct device *dev,
-> +				      struct wbrf_ranges_in_out *out)
-> +{
-> +	struct acpi_device *adev = ACPI_COMPANION(dev);
-> +	struct amd_wbrf_ranges_out acpi_out = {0};
-> +	union acpi_object *obj;
-> +	int ret = 0;
-> +
-> +	if (!adev)
-> +		return -ENODEV;
-> +
-> +	obj = acpi_evaluate_wbrf(adev->handle,
-> +				 WBRF_REVISION,
-> +				 WBRF_RETRIEVE);
-> +	if (!obj)
-> +		return -EINVAL;
-
-And I would expect this to use acpi_evaluate_dsm(), or
-preferably if possible acpi_evaluate_dsm_typed().
-
-Is there any reason why the code is directly calling
-a method called WBRF here instead of going through
-the _DSM method ?
-
-And if there is such a reason then please update
-the documentation to say so, instead of having
-the docs clam that consumers also use the _DSM method.
-
-Regards,
-
-Hans
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
+index 82608df43..d79cb13e1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
+@@ -175,7 +175,6 @@ struct amdgpu_i2c_chan *amdgpu_i2c_create(struct drm_device *dev,
+ 
+ 	i2c->rec = *rec;
+ 	i2c->adapter.owner = THIS_MODULE;
+-	i2c->adapter.class = I2C_CLASS_DDC;
+ 	i2c->adapter.dev.parent = dev->dev;
+ 	i2c->dev = dev;
+ 	i2c_set_adapdata(&i2c->adapter, i2c);
+diff --git a/drivers/gpu/drm/radeon/radeon_i2c.c b/drivers/gpu/drm/radeon/radeon_i2c.c
+index 314d066e6..3d174390a 100644
+--- a/drivers/gpu/drm/radeon/radeon_i2c.c
++++ b/drivers/gpu/drm/radeon/radeon_i2c.c
+@@ -918,7 +918,6 @@ struct radeon_i2c_chan *radeon_i2c_create(struct drm_device *dev,
+ 
+ 	i2c->rec = *rec;
+ 	i2c->adapter.owner = THIS_MODULE;
+-	i2c->adapter.class = I2C_CLASS_DDC;
+ 	i2c->adapter.dev.parent = dev->dev;
+ 	i2c->dev = dev;
+ 	i2c_set_adapdata(&i2c->adapter, i2c);
 
