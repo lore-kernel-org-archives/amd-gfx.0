@@ -4,83 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45285C5AE5B
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 15:40:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27A2DC2BB3F
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 15:40:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA20910E424;
-	Mon, 20 Nov 2023 15:40:39 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8329D10E395
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 10:54:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1700477660;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=2zUAf0kRwyhFacdVDNduqaFmW+J2nhNnMJ6K916lSRE=;
- b=JF4Fp2nnhphCjILUdJ6p0Q5YtN11BxnU1nzbUUcvyCLhCgyk1IQqPz9YDQ2fpgVcS57Q1Q
- xkhmG7U+YiPmcLhUxSjfT3+XCQahkaY8mVPYyeR2g9tjJUMbuifUg4V4d60LKGTgv6jy29
- OnfVC9PyYiUTBON91VQL4c2ORJ0rpD8=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-152-gbEoHwsLNse6ulyO5lhiHQ-1; Mon, 20 Nov 2023 05:54:19 -0500
-X-MC-Unique: gbEoHwsLNse6ulyO5lhiHQ-1
-Received: by mail-ej1-f72.google.com with SMTP id
- a640c23a62f3a-a00436b5d6bso18476066b.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 02:54:18 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FC0F10E426;
+	Mon, 20 Nov 2023 15:40:40 +0000 (UTC)
+Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
+ [IPv6:2607:f8b0:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD27310E0AD;
+ Sun, 19 Nov 2023 13:24:39 +0000 (UTC)
+Received: by mail-pl1-x629.google.com with SMTP id
+ d9443c01a7336-1cc0d0a0355so24068565ad.3; 
+ Sun, 19 Nov 2023 05:24:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1700400279; x=1701005079; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=+BRkKo1UDNyPwLET0kko4yMFYg9wtyizgbwaduapHpU=;
+ b=Y2J3M9LOEAOL3Ycv9QRJROX8446qvYnNQyvVxMAL/TiyOkj+PVZSq9FicmreYYfqvv
+ yKxmgYzSSDIY2Vk/auYOEEGTR9Sx1sIKnMwq9M2XOpyWzsPv7BceVUMR6NMFfI3srYmk
+ dx6tL4QhglsCBT/c9f8mlwfibJt8rqJ3GF81qqFWNdTQwhTGe2WEn5hMgTG289llOVuH
+ GrsRp4m3G5FHqOQ1HMgO2AfnVHMlXOEg+ugDSNBVFlcwQLNRqTGrFad0FQeamjX6vGLT
+ gG7Lpz+7RZCu2SEZRpY4Fw2nw0e4soMXypQgVvynR8PkVlZi2mle6bkJF6vWJ+yxfe3+
+ DNpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700477658; x=1701082458;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=2zUAf0kRwyhFacdVDNduqaFmW+J2nhNnMJ6K916lSRE=;
- b=iyErTMaNcRJlzL7TwR/Zy3epWYF22ZCv9YR9E/3aA1/rL2jyJRSetiNHpRTawAB+Wm
- 9r4Xhhz/pHlWoluq+Zk8/Ywu2VBXuTv6JJfLU5RfiFA36BVJAQXH05xhqc5TReMa4t3a
- jCfBfe0a/EtdetPyDcYBP4nQTlxxfBKxwPE72jc0f8MJ4mt1qoyawZyNv4OjPR7IuItC
- poZM9siN9K0+dRbnr2qJuqYQ5qo8OGTo3mhs9tR/+WXROuDNBwQ7fKvVN2K++7adkc8U
- 7lW+R6cn9pPjl4Ns49deYfqyPZCc7Zihww5Kmo44wGw8Fqxb5LHNFCOX8M3Mi22h0pD9
- 45tw==
-X-Gm-Message-State: AOJu0YyUSLgpfsYIlGhl7slSBNqdRNLuMh37umHUS/hqjuX6yRnb7xsl
- ZGFeYPvhJ1Eqp7UVAxk3HR+GrJYYzQuNYPoi3i3faa6e5yIS8nhgtlEUhlENTRTasAuNBP5xehX
- cyXIc40GZBGPF8Lby0dMrdP4V+Q==
-X-Received: by 2002:a17:906:32c7:b0:9e7:3af8:1fd0 with SMTP id
- k7-20020a17090632c700b009e73af81fd0mr5202189ejk.76.1700477658014; 
- Mon, 20 Nov 2023 02:54:18 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEgoytvF8lwwp8rKx8884Oj65m/vmtmib1MiNPAMSTReWskVDTF1HFC8OJm9t7uAUXBc0cvnQ==
-X-Received: by 2002:a17:906:32c7:b0:9e7:3af8:1fd0 with SMTP id
- k7-20020a17090632c700b009e73af81fd0mr5202175ejk.76.1700477657734; 
- Mon, 20 Nov 2023 02:54:17 -0800 (PST)
-Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
- (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
- by smtp.gmail.com with ESMTPSA id
- jx27-20020a170906ca5b00b009fda627abd9sm1262032ejb.79.2023.11.20.02.54.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Nov 2023 02:54:16 -0800 (PST)
-Message-ID: <76d4f18e-a349-4337-a301-ffebb8f1c5e8@redhat.com>
-Date: Mon, 20 Nov 2023 11:54:16 +0100
+ d=1e100.net; s=20230601; t=1700400279; x=1701005079;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+BRkKo1UDNyPwLET0kko4yMFYg9wtyizgbwaduapHpU=;
+ b=Os2thxXaWpGt9SQeks7cOORhbdFNLdY5Yy6Ju7PyFpzbhcfOecc3ylnF+VEnxvO575
+ cTYgKqO/Rotyj3CSA1qyI6JfpszzlB72gEa5BKBncotPgZHEtgSNmnWKJ0vhgeiuDjt1
+ Jc4VsjMtlpt9fAtTdiCFdmnOu2WGJ8pjR4l7R8i+MwMvlPbSQ8icXdUewnrdKrweL38x
+ +QzzrpyLqFqc2ial1ILpezzqPsMV2x6oLaLGl+usiCRCaqXoQXBmNNqqzlMnMZ7WJVsj
+ FUg5jnVCo4LulIUR23+Jm5KTnV/g7K586gx5RdOTUPmiJJ+rYDre7XMEA8Wo3Lo6yRy1
+ ne7A==
+X-Gm-Message-State: AOJu0YwDuGtxCx/reM9v8Bx/y0tMUC8JXsuuEEB9NGV5f9fB0k/xI3Eo
+ OH59ijs1gc86l8v2LiHZSCFfPaZ4gtneiQ==
+X-Google-Smtp-Source: AGHT+IH+GUySa5SoJL2NpO5wI6AD3djXnM6Z0QKKx43P1ujsH4FL99jFgWVrO0t4Qct9yRRYsyuIag==
+X-Received: by 2002:a17:902:70c8:b0:1cc:ef37:664a with SMTP id
+ l8-20020a17090270c800b001ccef37664amr2876743plt.31.1700400279063; 
+ Sun, 19 Nov 2023 05:24:39 -0800 (PST)
+Received: from archie.me ([103.131.18.64]) by smtp.gmail.com with ESMTPSA id
+ n4-20020a1709026a8400b001c5dea67c26sm4292539plk.233.2023.11.19.05.24.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 19 Nov 2023 05:24:38 -0800 (PST)
+Received: by archie.me (Postfix, from userid 1000)
+ id 3FFFF101D92E3; Sun, 19 Nov 2023 20:24:35 +0700 (WIB)
+Date: Sun, 19 Nov 2023 20:24:34 +0700
+From: Bagas Sanjaya <bagasdotme@gmail.com>
+To: Dave Airlie <airlied@gmail.com>,
+ Linux Regressions <regressions@lists.linux.dev>
+Subject: Re: Radeon regression in 6.6 kernel
+Message-ID: <ZVoMklvIVClr_IIH@archie.me>
+References: <87edgv4x3i.fsf@vps.thesusis.net>
+ <559d0fa5-953a-4a97-b03b-5eb1287c83d8@leemhuis.info>
+ <CAPM=9tw-8pQWFso0zuLqpsqd5BSHWtc4As9ttdjY-DDr70EMqQ@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 0/9] Enable Wifi RFI interference mitigation feature
- support
-To: "Ma, Jun" <majun@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
- amd-gfx@lists.freedesktop.org, lenb@kernel.org, johannes@sipsolutions.net,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, alexander.deucher@amd.com, Lijo.Lazar@amd.com,
- mario.limonciello@amd.com
-References: <20231017025358.1773598-1-Jun.Ma2@amd.com>
- <5f85eb72-3f34-4006-85ca-2a2181113008@amd.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <5f85eb72-3f34-4006-85ca-2a2181113008@amd.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, nl
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 20 Nov 2023 15:40:24 +0000
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="A17eLGPWZDe3T98X"
+Content-Disposition: inline
+In-Reply-To: <CAPM=9tw-8pQWFso0zuLqpsqd5BSHWtc4As9ttdjY-DDr70EMqQ@mail.gmail.com>
+X-Mailman-Approved-At: Mon, 20 Nov 2023 15:40:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,105 +77,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: netdev@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux DRI Development <dri-devel@lists.freedesktop.org>,
+ Luben Tuikov <luben.tuikov@amd.com>,
+ Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
+ Phillip Susi <phill@thesusis.net>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
 
-On 10/19/23 08:17, Ma, Jun wrote:
-> ping...
-> Any other comments?
+--A17eLGPWZDe3T98X
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Patches 1/9 and 2/9 look reasonable, once the questions about
-use of the _DSM vs directly calling the WBRF ACPI method are
-resolved I can merge patches 1/9 and 2/9 and create an immutable
-feature branch based on 6.7-rc1 + these 2 patches.
+On Sun, Nov 19, 2023 at 04:47:01PM +1000, Dave Airlie wrote:
+> >
+> > On 12.11.23 01:46, Phillip Susi wrote:
+> > > I had been testing some things on a post 6.6-rc5 kernel for a week or
+> > > two and then when I pulled to a post 6.6 release kernel, I found that
+> > > system suspend was broken.  It seems that the radeon driver failed to
+> > > suspend, leaving the display dead, the wayland display server hung, a=
+nd
+> > > the system still running.  I have been trying to bisect it for the la=
+st
+> > > few days and have only been able to narrow it down to the following 3
+> > > commits:
+> > >
+> > > There are only 'skip'ped commits left to test.
+> > > The first bad commit could be any of:
+> > > 56e449603f0ac580700621a356d35d5716a62ce5
+> > > c07bf1636f0005f9eb7956404490672286ea59d3
+> > > b70438004a14f4d0f9890b3297cd66248728546c
+> > > We cannot bisect more!
+> >
+> > Hmm, not a single reply from the amdgpu folks. Wondering how we can
+> > encourage them to look into this.
+> >
+> > Phillip, reporting issues by mail should still work, but you might have
+> > more luck here, as that's where the amdgpu afaics prefer to track bugs:
+> > https://gitlab.freedesktop.org/drm/amd/-/issues
+> >
+> > When you file an issue there, please mention it here.
+> >
+> > Furthermore it might help if you could verify if 6.7-rc1 (or rc2, which
+> > comes out later today) or 6.6.2-rc1 improve things.
+>=20
+> It would also be good to test if reverting any of these is possible or no=
+t.
+>=20
 
-I'll then also send a pull-request to the wifi /resp amdgpu
-maintainers from this branch.
+Hi Dave,
 
-I see no acks / reviews from the wifi folks yet,
-so once that immutable feature branch is ready the first
-thing to do is try to get the wifi folks to review + merge WBRF
-support.
+AFAIK commit c07bf1636f0005 ("MAINTAINERS: Update the GPU Scheduler email")
+doesn't seem to do with this regression as it doesn't change any amdgpu code
+that may introduce the regression.
 
-Note I plan to not actually merge the feature branch
-into for-next until the wifi folks are happy with the code.
+Thanks.
 
-This way if changes are necessary I can do a v2 feature branch
-and the wifi folks can merge that instead.
+--=20
+An old man doll... just what I always wanted! - Clara
 
-Regards,
+--A17eLGPWZDe3T98X
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Hans
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZVoMjwAKCRD2uYlJVVFO
+o2QaAQC6Z6Oet9ctoQNb/3mlbO7qKOQNiQjysEw57sJGJ5fCrgD9EY2N+PxFc4ZM
+7JJJBQvw63BIl4tWd1RfxzxM4knFaQw=
+=1kus
+-----END PGP SIGNATURE-----
 
-
-
-> On 10/17/2023 10:53 AM, Ma Jun wrote:
->> Due to electrical and mechanical constraints in certain platform designs there
->> may be likely interference of relatively high-powered harmonics of the (G-)DDR
->> memory clocks with local radio module frequency bands used by Wifi 6/6e/7. To
->> mitigate possible RFI interference we introuduced WBRF(Wifi Band RFI mitigation Feature).
->> Producers can advertise the frequencies in use and consumers can use this information
->> to avoid using these frequencies for sensitive features.
->>
->> The whole patch set is based on Linux 6.5.0. With some brief introductions
->> as below:
->> Patch1:      Document about WBRF
->> Patch2:      Core functionality setup for WBRF feature support
->> Patch3 - 4:  Bring WBRF support to wifi subsystem.
->> Patch5 - 9:  Bring WBRF support to AMD graphics driver.
->>
->> Evan Quan (7):
->>   cfg80211: expose nl80211_chan_width_to_mhz for wide sharing
->>   wifi: mac80211: Add support for WBRF features
->>   drm/amd/pm: update driver_if and ppsmc headers for coming wbrf feature
->>   drm/amd/pm: setup the framework to support Wifi RFI mitigation feature
->>   drm/amd/pm: add flood detection for wbrf events
->>   drm/amd/pm: enable Wifi RFI mitigation feature support for SMU13.0.0
->>   drm/amd/pm: enable Wifi RFI mitigation feature support for SMU13.0.7
->>
->> Ma Jun (2):
->>   Documentation/driver-api: Add document about WBRF mechanism
->>   platform/x86/amd: Add support for AMD ACPI based Wifi band RFI
->>     mitigation feature
->>
->>  Documentation/driver-api/wbrf.rst             |  71 +++
->>  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   2 +
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  17 +
->>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 214 +++++++++
->>  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  33 ++
->>  .../inc/pmfw_if/smu13_driver_if_v13_0_0.h     |  14 +-
->>  .../inc/pmfw_if/smu13_driver_if_v13_0_7.h     |  14 +-
->>  .../pm/swsmu/inc/pmfw_if/smu_v13_0_0_ppsmc.h  |   3 +-
->>  .../pm/swsmu/inc/pmfw_if/smu_v13_0_7_ppsmc.h  |   3 +-
->>  drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |   3 +-
->>  drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h  |   3 +
->>  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |   9 +
->>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |  60 +++
->>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  |  59 +++
->>  drivers/gpu/drm/amd/pm/swsmu/smu_internal.h   |   3 +
->>  drivers/platform/x86/amd/Kconfig              |  15 +
->>  drivers/platform/x86/amd/Makefile             |   1 +
->>  drivers/platform/x86/amd/wbrf.c               | 422 ++++++++++++++++++
->>  include/linux/acpi_amd_wbrf.h                 | 101 +++++
->>  include/linux/ieee80211.h                     |   1 +
->>  include/net/cfg80211.h                        |   8 +
->>  net/mac80211/Makefile                         |   2 +
->>  net/mac80211/chan.c                           |   9 +
->>  net/mac80211/ieee80211_i.h                    |   9 +
->>  net/mac80211/main.c                           |   2 +
->>  net/mac80211/wbrf.c                           | 105 +++++
->>  net/wireless/chan.c                           |   3 +-
->>  27 files changed, 1180 insertions(+), 6 deletions(-)
->>  create mode 100644 Documentation/driver-api/wbrf.rst
->>  create mode 100644 drivers/platform/x86/amd/wbrf.c
->>  create mode 100644 include/linux/acpi_amd_wbrf.h
->>  create mode 100644 net/mac80211/wbrf.c
->>
-> 
-
+--A17eLGPWZDe3T98X--
