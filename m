@@ -4,66 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DBA6C5AE5C
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 15:40:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E642C197A0
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 15:40:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65EEA10E419;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAD4910E411;
 	Mon, 20 Nov 2023 15:40:26 +0000 (UTC)
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [IPv6:2a00:1450:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6247488FAE;
- Sat, 18 Nov 2023 17:42:34 +0000 (UTC)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-4083dbc43cfso3834945e9.3; 
- Sat, 18 Nov 2023 09:42:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1700329353; x=1700934153; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=aXnYU9L0SxzpQBJjG8833LUnrTfJuWwdCW2h6rtJH0c=;
- b=V0IIEnVAJbk3l6lMor0Vc4V9j+6CNX+m4pEo00OPku4pcIStI4x2NZUnXTC7I0rxUO
- hRXCTwAKSchE3e93JA0lbmRLLqaaoMnArrk9IyZ2l5oJLnC2OIInYv7OvPeQv8I4ck5V
- Lw0s79YErPaFasrr3li9AzaXTqPhpDvtlYb+xi2ezMJiyS2WeLyheCEMf/dHluMlSe3K
- LXfKYfl4Dk55b1WdKvvedpKYTkDWc/fTc9LzJpWxKJJ1kiIDQr7sGJaTvSdAez5JkFX1
- j1S6oj5YdT4QoPcTRx1OeDCwQRU4vrfTlBYTgcDmZGcXVmWJnf0viFkCJh91UlyOL5hE
- K12A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700329353; x=1700934153;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=aXnYU9L0SxzpQBJjG8833LUnrTfJuWwdCW2h6rtJH0c=;
- b=JTMfoKPV2OB+e2Ow/UGu7r4SGuewwm8GQFFyArxIy86klImrW3FLvfNOWLqimqoY0Q
- tBHbkP/iM/NTShLT2YhARmop8WzyLB5Qon2aFSV54VZpDdAdnPFIGb8+j1uinY25apZb
- asxrGWX75w9WqqiFOPn4Z0XdWXXRBIUPuMNUFhZNOQrMUcphmZjCu8xNEPqe5a53nnQN
- WPCAxg9r2dydGHLUc4EETbC0mywxOJY5j3mHAfiqI5rnFy6mjz4Jnc+tYqNvP6lWgPhv
- kSJCVVlG+gv0XzYfPkkMLBfFGEW9UPSSaZ7mk0t55XZVhP7SNmWQ/kf6Z5AlTtZ6PTrB
- QETg==
-X-Gm-Message-State: AOJu0Yz15KofnDDb6LFkQQDql0OpgBthExnaJbrilgob60XJQMHhYpqP
- lUddX3QlyP5da0iGxj8cE7s=
-X-Google-Smtp-Source: AGHT+IH+vVNTNRuNzx5HCBAwdawDR0oj+mid80kQSKCziiwvte/UEe7naf5BwwoyEL1Bwr25F9JxEg==
-X-Received: by 2002:a05:600c:1f94:b0:408:4160:1528 with SMTP id
- je20-20020a05600c1f9400b0040841601528mr2146365wmb.30.1700329352609; 
- Sat, 18 Nov 2023 09:42:32 -0800 (PST)
-Received: from zotac.lan.
- (dynamic-2a01-0c22-77bf-8300-2223-08ff-fe18-0310.c22.pool.telefonica.de.
- [2a01:c22:77bf:8300:2223:8ff:fe18:310])
- by smtp.gmail.com with ESMTPSA id
- y10-20020a05600c340a00b004068de50c64sm6964211wmp.46.2023.11.18.09.42.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 18 Nov 2023 09:42:32 -0800 (PST)
-From: Heiner Kallweit <hkallweit1@gmail.com>
-To: Wolfram Sang <wsa@kernel.org>,
-	Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH v2 07/20] drivers/gpu/drm: remove I2C_CLASS_DDC support
-Date: Sat, 18 Nov 2023 18:42:07 +0100
-Message-ID: <20231118174221.851-8-hkallweit1@gmail.com>
-X-Mailer: git-send-email 2.42.1
-In-Reply-To: <20231118174221.851-1-hkallweit1@gmail.com>
-References: <20231118174221.851-1-hkallweit1@gmail.com>
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BADA10E04F;
+ Sun, 19 Nov 2023 13:48:56 +0000 (UTC)
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1r4iAQ-0000jH-0q; Sun, 19 Nov 2023 14:48:54 +0100
+Message-ID: <9195ca1f-1d72-4616-8bdf-62f9f5c636b9@leemhuis.info>
+Date: Sun, 19 Nov 2023 14:48:53 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: Radeon regression in 6.6 kernel
+Content-Language: en-US, de-DE
+To: Bagas Sanjaya <bagasdotme@gmail.com>, Dave Airlie <airlied@gmail.com>,
+ Linux Regressions <regressions@lists.linux.dev>
+References: <87edgv4x3i.fsf@vps.thesusis.net>
+ <559d0fa5-953a-4a97-b03b-5eb1287c83d8@leemhuis.info>
+ <CAPM=9tw-8pQWFso0zuLqpsqd5BSHWtc4As9ttdjY-DDr70EMqQ@mail.gmail.com>
+ <ZVoMklvIVClr_IIH@archie.me>
+From: "Linux regression tracking (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+In-Reply-To: <ZVoMklvIVClr_IIH@archie.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1700401736;
+ adf05db9; 
+X-HE-SMSGID: 1r4iAQ-0000jH-0q
 X-Mailman-Approved-At: Mon, 20 Nov 2023 15:40:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,52 +49,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-i2c@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Heiner Kallweit <hkallweit1@gmail.com>
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux DRI Development <dri-devel@lists.freedesktop.org>,
+ Luben Tuikov <luben.tuikov@amd.com>,
+ Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
+ Phillip Susi <phill@thesusis.net>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-After removal of the legacy EEPROM driver and I2C_CLASS_DDC support in
-olpc_dcon there's no i2c client driver left supporting I2C_CLASS_DDC.
-Class-based device auto-detection is a legacy mechanism and shouldn't
-be used in new code. So we can remove this class completely now.
+On 19.11.23 14:24, Bagas Sanjaya wrote:
+> On Sun, Nov 19, 2023 at 04:47:01PM +1000, Dave Airlie wrote:
+>>> On 12.11.23 01:46, Phillip Susi wrote:
+>>>> I had been testing some things on a post 6.6-rc5 kernel for a week or
+>>>> two and then when I pulled to a post 6.6 release kernel, I found that
+>>>> system suspend was broken.  It seems that the radeon driver failed to
+>>>> suspend, leaving the display dead, the wayland display server hung, and
+>>>> the system still running.  I have been trying to bisect it for the last
+>>>> few days and have only been able to narrow it down to the following 3
+>>>> commits:
+>>>>
+>>>> There are only 'skip'ped commits left to test.
+>>>> The first bad commit could be any of:
+>>>> 56e449603f0ac580700621a356d35d5716a62ce5
+>>>> c07bf1636f0005f9eb7956404490672286ea59d3
+>>>> b70438004a14f4d0f9890b3297cd66248728546c
+>>>> We cannot bisect more!
+>>>
+>>> Hmm, not a single reply from the amdgpu folks. Wondering how we can
+>>> encourage them to look into this.
+>>>
+>>> Phillip, reporting issues by mail should still work, but you might have
+>>> more luck here, as that's where the amdgpu afaics prefer to track bugs:
+>>> https://gitlab.freedesktop.org/drm/amd/-/issues
+>>>
+>>> When you file an issue there, please mention it here.
+>>>
+>>> Furthermore it might help if you could verify if 6.7-rc1 (or rc2, which
+>>> comes out later today) or 6.6.2-rc1 improve things.
 
-Preferably this series should be applied via the i2c tree.
+BTW, ignore the "6.6.2-rc1" here, I misunderstood one detail earlier. Sorry.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
+>> It would also be good to test if reverting any of these is possible or not.
 
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c |    1 -
- drivers/gpu/drm/radeon/radeon_i2c.c     |    1 -
- 2 files changed, 2 deletions(-)
+Good point, sorry, forgot to mention that.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
-index 82608df43..d79cb13e1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
-@@ -175,7 +175,6 @@ struct amdgpu_i2c_chan *amdgpu_i2c_create(struct drm_device *dev,
- 
- 	i2c->rec = *rec;
- 	i2c->adapter.owner = THIS_MODULE;
--	i2c->adapter.class = I2C_CLASS_DDC;
- 	i2c->adapter.dev.parent = dev->dev;
- 	i2c->dev = dev;
- 	i2c_set_adapdata(&i2c->adapter, i2c);
-diff --git a/drivers/gpu/drm/radeon/radeon_i2c.c b/drivers/gpu/drm/radeon/radeon_i2c.c
-index 314d066e6..3d174390a 100644
---- a/drivers/gpu/drm/radeon/radeon_i2c.c
-+++ b/drivers/gpu/drm/radeon/radeon_i2c.c
-@@ -918,7 +918,6 @@ struct radeon_i2c_chan *radeon_i2c_create(struct drm_device *dev,
- 
- 	i2c->rec = *rec;
- 	i2c->adapter.owner = THIS_MODULE;
--	i2c->adapter.class = I2C_CLASS_DDC;
- 	i2c->adapter.dev.parent = dev->dev;
- 	i2c->dev = dev;
- 	i2c_set_adapdata(&i2c->adapter, i2c);
+> Hi Dave,
+> 
+> AFAIK commit c07bf1636f0005 ("MAINTAINERS: Update the GPU Scheduler email")
+> doesn't seem to do with this regression as it doesn't change any amdgpu code
+> that may introduce the regression.
 
+Bagas, sorry for being blunt here, I know you mean well. But I feel the
+need to say the following in the open, as this otherwise falls back on
+me and regression tracking.
+
+Stating the above is not very helpful, as Dave for sure will know.
+Telling Phillip that he likely can skip that commit might have been
+something different. But I guess even for most users that are able to do
+a bisection it's obvious and maybe not worth pointing out.
+
+Ciao, Thorsten
