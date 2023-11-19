@@ -4,68 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27A2DC2BB3F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A913DC5AD4C
 	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 15:40:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FC0F10E426;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DF3410E427;
 	Mon, 20 Nov 2023 15:40:40 +0000 (UTC)
-Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
- [IPv6:2607:f8b0:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD27310E0AD;
- Sun, 19 Nov 2023 13:24:39 +0000 (UTC)
-Received: by mail-pl1-x629.google.com with SMTP id
- d9443c01a7336-1cc0d0a0355so24068565ad.3; 
- Sun, 19 Nov 2023 05:24:39 -0800 (PST)
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F92B10E0E8;
+ Sun, 19 Nov 2023 20:48:06 +0000 (UTC)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-40b23aeb9d9so265975e9.3; 
+ Sun, 19 Nov 2023 12:48:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1700400279; x=1701005079; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=+BRkKo1UDNyPwLET0kko4yMFYg9wtyizgbwaduapHpU=;
- b=Y2J3M9LOEAOL3Ycv9QRJROX8446qvYnNQyvVxMAL/TiyOkj+PVZSq9FicmreYYfqvv
- yKxmgYzSSDIY2Vk/auYOEEGTR9Sx1sIKnMwq9M2XOpyWzsPv7BceVUMR6NMFfI3srYmk
- dx6tL4QhglsCBT/c9f8mlwfibJt8rqJ3GF81qqFWNdTQwhTGe2WEn5hMgTG289llOVuH
- GrsRp4m3G5FHqOQ1HMgO2AfnVHMlXOEg+ugDSNBVFlcwQLNRqTGrFad0FQeamjX6vGLT
- gG7Lpz+7RZCu2SEZRpY4Fw2nw0e4soMXypQgVvynR8PkVlZi2mle6bkJF6vWJ+yxfe3+
- DNpQ==
+ d=gmail.com; s=20230601; t=1700426884; x=1701031684; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=CWjU5VUo5KxpXKqn9WIzgJnzu39lgDeK8IHP51RTeRo=;
+ b=YrQODM0poxMQLl3S9R4Yf2MNbf/QJ4wBaik19UODz4/m6qDf71cT1rcTg+viA4FAGm
+ 9s7FFy1puxNDXAVg9rPaFlqJavtx/pV4dYdAvO1QrhkyTfkh4Rce3+B97mbVHoqXzkr3
+ uhSGcyaxJ0H0Mt3z6FgvnKYXkug2+wU/8OfJrsw1Q63TZ3Yvh99g4rtoudquHrq1kKZ8
+ n9UkWL8nbQplNDPVyAs9YU4lsCeDAkConc16aTxaOwISZNvZa0jRlFc4pQHXMSf/GnIk
+ APa3oVfq/xH/XDnlWtTgGWLOfTmFW4erocqKbfFX1kqbtNI/tOHa6czsMQeJ9/3T280h
+ omEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700400279; x=1701005079;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+BRkKo1UDNyPwLET0kko4yMFYg9wtyizgbwaduapHpU=;
- b=Os2thxXaWpGt9SQeks7cOORhbdFNLdY5Yy6Ju7PyFpzbhcfOecc3ylnF+VEnxvO575
- cTYgKqO/Rotyj3CSA1qyI6JfpszzlB72gEa5BKBncotPgZHEtgSNmnWKJ0vhgeiuDjt1
- Jc4VsjMtlpt9fAtTdiCFdmnOu2WGJ8pjR4l7R8i+MwMvlPbSQ8icXdUewnrdKrweL38x
- +QzzrpyLqFqc2ial1ILpezzqPsMV2x6oLaLGl+usiCRCaqXoQXBmNNqqzlMnMZ7WJVsj
- FUg5jnVCo4LulIUR23+Jm5KTnV/g7K586gx5RdOTUPmiJJ+rYDre7XMEA8Wo3Lo6yRy1
- ne7A==
-X-Gm-Message-State: AOJu0YwDuGtxCx/reM9v8Bx/y0tMUC8JXsuuEEB9NGV5f9fB0k/xI3Eo
- OH59ijs1gc86l8v2LiHZSCFfPaZ4gtneiQ==
-X-Google-Smtp-Source: AGHT+IH+GUySa5SoJL2NpO5wI6AD3djXnM6Z0QKKx43P1ujsH4FL99jFgWVrO0t4Qct9yRRYsyuIag==
-X-Received: by 2002:a17:902:70c8:b0:1cc:ef37:664a with SMTP id
- l8-20020a17090270c800b001ccef37664amr2876743plt.31.1700400279063; 
- Sun, 19 Nov 2023 05:24:39 -0800 (PST)
-Received: from archie.me ([103.131.18.64]) by smtp.gmail.com with ESMTPSA id
- n4-20020a1709026a8400b001c5dea67c26sm4292539plk.233.2023.11.19.05.24.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 19 Nov 2023 05:24:38 -0800 (PST)
-Received: by archie.me (Postfix, from userid 1000)
- id 3FFFF101D92E3; Sun, 19 Nov 2023 20:24:35 +0700 (WIB)
-Date: Sun, 19 Nov 2023 20:24:34 +0700
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: Dave Airlie <airlied@gmail.com>,
- Linux Regressions <regressions@lists.linux.dev>
-Subject: Re: Radeon regression in 6.6 kernel
-Message-ID: <ZVoMklvIVClr_IIH@archie.me>
-References: <87edgv4x3i.fsf@vps.thesusis.net>
- <559d0fa5-953a-4a97-b03b-5eb1287c83d8@leemhuis.info>
- <CAPM=9tw-8pQWFso0zuLqpsqd5BSHWtc4As9ttdjY-DDr70EMqQ@mail.gmail.com>
+ d=1e100.net; s=20230601; t=1700426884; x=1701031684;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=CWjU5VUo5KxpXKqn9WIzgJnzu39lgDeK8IHP51RTeRo=;
+ b=CdGsiCNlz+M9msaEpEyk3LZwF2YCMJkKR5nFOJ9uwjQ+WAuSL5ZOTxWqTfpOYgUO0n
+ 0U00XLKoQxXawjgNCVqP1qH0A808GtbCI9hMOkgCYMCh1r228nWR1DAKCVzPk/N70KHy
+ LhDsonB4T+Zc+sR8D2VzWO2jvuYi5kaRiH51u2IDPnJy7gNr/CwT57wKkU4zl+k3oDmk
+ M2x4QfkMuQwVK6g2+0X/fDxW+3Wd3tITrpdor0G7dEgube2MtVYLaNUhl8xrlTs3xojE
+ 9kMarloPBmWEv5g262pt0XirD/MimFnqvQvCj4Z21tt51VXgU1ENeBwPRzYR3zeAIh1P
+ furA==
+X-Gm-Message-State: AOJu0YwcYrMSsJwo+u3t3C1T9CTbiVNI1V+t8xggh9vcHDAOAn3jY6gh
+ o3Vq/LbUdfzjA8fX0/yeBck=
+X-Google-Smtp-Source: AGHT+IEZWWO++JrGT2JldQTNZQiclsVj7v8gw6AW+sIz2m4IlYJdoZpCoqhsNP5PyKjcAeBOrXC68g==
+X-Received: by 2002:a05:600c:5248:b0:408:3ab3:a029 with SMTP id
+ fc8-20020a05600c524800b004083ab3a029mr4716084wmb.38.1700426884087; 
+ Sun, 19 Nov 2023 12:48:04 -0800 (PST)
+Received: from ?IPV6:2a01:c23:bde4:3e00:9589:aeb1:adc4:e0f?
+ (dynamic-2a01-0c23-bde4-3e00-9589-aeb1-adc4-0e0f.c23.pool.telefonica.de.
+ [2a01:c23:bde4:3e00:9589:aeb1:adc4:e0f])
+ by smtp.googlemail.com with ESMTPSA id
+ o14-20020aa7dd4e000000b0053e15aefb0fsm2911997edw.85.2023.11.19.12.48.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 19 Nov 2023 12:48:03 -0800 (PST)
+Message-ID: <b336a8e3-44e7-4f56-a950-5155675b5628@gmail.com>
+Date: Sun, 19 Nov 2023 21:48:02 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="A17eLGPWZDe3T98X"
-Content-Disposition: inline
-In-Reply-To: <CAPM=9tw-8pQWFso0zuLqpsqd5BSHWtc4As9ttdjY-DDr70EMqQ@mail.gmail.com>
-X-Mailman-Approved-At: Mon, 20 Nov 2023 15:40:23 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 RESEND 00/20] remove I2C_CLASS_DDC support
+Content-Language: en-US
+To: Helge Deller <deller@gmx.de>, Wolfram Sang <wsa@kernel.org>,
+ intel-gfx@lists.freedesktop.org
+References: <20231119112826.5115-1-hkallweit1@gmail.com>
+ <e40b913f-379f-4b6e-a0d2-844887a17284@gmx.de>
+From: Heiner Kallweit <hkallweit1@gmail.com>
+Autocrypt: addr=hkallweit1@gmail.com; keydata=
+ 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
+In-Reply-To: <e40b913f-379f-4b6e-a0d2-844887a17284@gmx.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 20 Nov 2023 15:40:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,77 +122,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux DRI Development <dri-devel@lists.freedesktop.org>,
- Luben Tuikov <luben.tuikov@amd.com>,
- Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
- Phillip Susi <phill@thesusis.net>, Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Yongqin Liu <yongqin.liu@linaro.org>, amd-gfx@lists.freedesktop.org,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, linux-rockchip@lists.infradead.org,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, linux-sunxi@lists.linux.dev,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, Sean Paul <sean@poorly.run>,
+ linux-arm-kernel@lists.infradead.org, Jocelyn Falempe <jfalempe@redhat.com>,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, John Stultz <jstultz@google.com>,
+ freedreno@lists.freedesktop.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 19.11.2023 21:28, Helge Deller wrote:
+> On 11/19/23 12:28, Heiner Kallweit wrote:
+>> After removal of the legacy EEPROM driver and I2C_CLASS_DDC support in
+>> olpc_dcon there's no i2c client driver left supporting I2C_CLASS_DDC.
+>> Class-based device auto-detection is a legacy mechanism and shouldn't
+>> be used in new code. So we can remove this class completely now.
+>>
+>> Preferably this series should be applied via the i2c tree.
+> 
+> The fbdev changes look at least ok so far, so:
+> Acked-by: Helge Deller <deller@gmx.de>   #fbdev
+> 
+I think this refers to patch 5 of the series. Could you please reply
+to patch 5 instead of the cover letter with your acked-by so that
+patchwork gets it right? Thanks!
 
---A17eLGPWZDe3T98X
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> 
+>> v2:
+>> - change tag in commit subject of patch 03
+>> - add ack tags
+>> v3:
+>> - fix a compile error in patch 5
+>>
+>> Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
+>>
+>> ---
+>>
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c           |    1 -
+>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    1 -
+>>   drivers/gpu/drm/ast/ast_i2c.c                     |    1 -
+>>   drivers/gpu/drm/bridge/synopsys/dw-hdmi.c         |    1 -
+>>   drivers/gpu/drm/display/drm_dp_helper.c           |    1 -
+>>   drivers/gpu/drm/display/drm_dp_mst_topology.c     |    1 -
+>>   drivers/gpu/drm/gma500/cdv_intel_dp.c             |    1 -
+>>   drivers/gpu/drm/gma500/intel_gmbus.c              |    1 -
+>>   drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c        |    1 -
+>>   drivers/gpu/drm/gma500/psb_intel_sdvo.c           |    1 -
+>>   drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   |    1 -
+>>   drivers/gpu/drm/i915/display/intel_gmbus.c        |    1 -
+>>   drivers/gpu/drm/i915/display/intel_sdvo.c         |    1 -
+>>   drivers/gpu/drm/loongson/lsdc_i2c.c               |    1 -
+>>   drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c           |    1 -
+>>   drivers/gpu/drm/mgag200/mgag200_i2c.c             |    1 -
+>>   drivers/gpu/drm/msm/hdmi/hdmi_i2c.c               |    1 -
+>>   drivers/gpu/drm/radeon/radeon_i2c.c               |    1 -
+>>   drivers/gpu/drm/rockchip/inno_hdmi.c              |    1 -
+>>   drivers/gpu/drm/rockchip/rk3066_hdmi.c            |    1 -
+>>   drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c            |    1 -
+>>   drivers/video/fbdev/core/fb_ddc.c                 |    1 -
+>>   drivers/video/fbdev/cyber2000fb.c                 |    1 -
+>>   drivers/video/fbdev/i740fb.c                      |    1 -
+>>   drivers/video/fbdev/intelfb/intelfb_i2c.c         |   15 +++++----------
+>>   drivers/video/fbdev/matrox/i2c-matroxfb.c         |   12 ++++--------
+>>   drivers/video/fbdev/s3fb.c                        |    1 -
+>>   drivers/video/fbdev/tdfxfb.c                      |    1 -
+>>   drivers/video/fbdev/tridentfb.c                   |    1 -
+>>   drivers/video/fbdev/via/via_i2c.c                 |    1 -
+>>   include/linux/i2c.h                               |    1 -
+>>   31 files changed, 9 insertions(+), 47 deletions(-)
+>>
+> 
 
-On Sun, Nov 19, 2023 at 04:47:01PM +1000, Dave Airlie wrote:
-> >
-> > On 12.11.23 01:46, Phillip Susi wrote:
-> > > I had been testing some things on a post 6.6-rc5 kernel for a week or
-> > > two and then when I pulled to a post 6.6 release kernel, I found that
-> > > system suspend was broken.  It seems that the radeon driver failed to
-> > > suspend, leaving the display dead, the wayland display server hung, a=
-nd
-> > > the system still running.  I have been trying to bisect it for the la=
-st
-> > > few days and have only been able to narrow it down to the following 3
-> > > commits:
-> > >
-> > > There are only 'skip'ped commits left to test.
-> > > The first bad commit could be any of:
-> > > 56e449603f0ac580700621a356d35d5716a62ce5
-> > > c07bf1636f0005f9eb7956404490672286ea59d3
-> > > b70438004a14f4d0f9890b3297cd66248728546c
-> > > We cannot bisect more!
-> >
-> > Hmm, not a single reply from the amdgpu folks. Wondering how we can
-> > encourage them to look into this.
-> >
-> > Phillip, reporting issues by mail should still work, but you might have
-> > more luck here, as that's where the amdgpu afaics prefer to track bugs:
-> > https://gitlab.freedesktop.org/drm/amd/-/issues
-> >
-> > When you file an issue there, please mention it here.
-> >
-> > Furthermore it might help if you could verify if 6.7-rc1 (or rc2, which
-> > comes out later today) or 6.6.2-rc1 improve things.
->=20
-> It would also be good to test if reverting any of these is possible or no=
-t.
->=20
-
-Hi Dave,
-
-AFAIK commit c07bf1636f0005 ("MAINTAINERS: Update the GPU Scheduler email")
-doesn't seem to do with this regression as it doesn't change any amdgpu code
-that may introduce the regression.
-
-Thanks.
-
---=20
-An old man doll... just what I always wanted! - Clara
-
---A17eLGPWZDe3T98X
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZVoMjwAKCRD2uYlJVVFO
-o2QaAQC6Z6Oet9ctoQNb/3mlbO7qKOQNiQjysEw57sJGJ5fCrgD9EY2N+PxFc4ZM
-7JJJBQvw63BIl4tWd1RfxzxM4knFaQw=
-=1kus
------END PGP SIGNATURE-----
-
---A17eLGPWZDe3T98X--
