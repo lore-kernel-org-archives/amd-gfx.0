@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A522C5AD4C
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 15:40:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFB7CC2BB3F
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 15:40:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1062410E41D;
-	Mon, 20 Nov 2023 15:40:27 +0000 (UTC)
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0310310E332;
- Sat, 18 Nov 2023 17:42:28 +0000 (UTC)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-408425c7c10so4783115e9.0; 
- Sat, 18 Nov 2023 09:42:27 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 630FA10E420;
+	Mon, 20 Nov 2023 15:40:38 +0000 (UTC)
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 335BE10E1C0;
+ Sun, 19 Nov 2023 11:28:31 +0000 (UTC)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-9e62ab773f1so479654566b.0; 
+ Sun, 19 Nov 2023 03:28:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1700329346; x=1700934146; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1700393309; x=1700998109; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=4/UMvWLGwbB65y4MgNgbTrhLeriroJNqxOaU5RBpd/A=;
- b=dgXK08HwpVRcvpM0aJCEg7scHvny7VjUez5qyc9OfC4EpD5ahmrnKpnhm7ZO9S11ZL
- lJhvCHl6Fn+2Dbtrtl31MdqaNSavWax8pKmCmTGIgjQMYYUllVUmcxsYt7aYpL66vN4n
- d/s1PkzdZGpj7QBbWB2CT7IhWOVoysSMqNDPn5qF5xIdv+loHiZzwfXxNBr69kBXk06A
- a6CAUMSB2jL14X59e8YSYdl/KlexR7gc2VuhT31Cek2e1Asmnkhwp8HrsvUpelZFpuT7
- 1doc+pWkxRlVI70XNFV4TmPp3cY6jng276SuDhZJimgXxZYdlJPG/H+zqtTWj2HfG5Oi
- W6AA==
+ bh=4zsSf4ZkDNs2IGAtcWQSvygdvnaeiSuxsGnh/E5aZTQ=;
+ b=MVj/k3/d+EhxyoltlIyNBeH4BdTjMJJxWGpBUBQ0EGx4Isom+R+BS9fDnA/GJChdQo
+ LvNXeFohnKWR7Q+qfZFGAw3Q7/YB5dNfPjCRE2gd3UlbuOk3yqzv2YExNPnTlMOiKeCE
+ MgbLKFLFMd3PpgjWRN4Uw7+7/Za4Otq4/hSG73qe61gfP6NFKwQhmaJXf4shX8thGs7M
+ 5PAx6jfVmbNBTTAoT78VBLAs1jrWbINVsHSzwdB9kuAcIEN9LK+URgW+zwnSCE8UbrJN
+ mSJM/bOtnnAI9VEDm6DW7gNmcf3E6IwHvuTUfSn53vMFCXwjsN3rpzMgB0FO1w2Eanqu
+ cV/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700329346; x=1700934146;
+ d=1e100.net; s=20230601; t=1700393309; x=1700998109;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=4/UMvWLGwbB65y4MgNgbTrhLeriroJNqxOaU5RBpd/A=;
- b=q1J31V4BnK/eib3g8LKX6yUjIooeP3NUUjYYqwMrOO0ysi7z9I8EpJLMAkJXcM/GOs
- B586bP5dv5o0w8fnHPrkNbDjFFIwkA6HDeroVbVfHgRuOqrI+pApeHUkDWxmID+x0ryV
- 0Paub3qAjw/x2iB6U4C2K+gNVRnoHJO06nGoyX5er2XVDmSsgQaML4Bo/8U68x0pncyD
- Emj0m9PNCmxB3yXKfMAW95m4bV7ywQlzh136NP1It7NbkR1MO1BAgLruBauXHzeDL7+P
- oIh/5kkdkrHKMdsx+BlQmW5h1asgBJRU2V/Hi3kXk0z4xqTDePAVMFVqhG/yC+om9VVM
- X/lA==
-X-Gm-Message-State: AOJu0YyJnQyGQGWZtwxYJeww9TAgm2O/V7hZvkFhKpbI+FgfEgYVT/9y
- nR24INLJJBbwgfeGWK/PALM=
-X-Google-Smtp-Source: AGHT+IGJBMJGBtOSgxjPC+wTqBOjKUX0OkeFIG96ALnW2TXBuODjpDTjYiE8IirfVuZmHsPbu37kWw==
-X-Received: by 2002:a05:600c:46cd:b0:407:7ea1:e9a4 with SMTP id
- q13-20020a05600c46cd00b004077ea1e9a4mr2170232wmo.5.1700329345971; 
- Sat, 18 Nov 2023 09:42:25 -0800 (PST)
+ bh=4zsSf4ZkDNs2IGAtcWQSvygdvnaeiSuxsGnh/E5aZTQ=;
+ b=Zw69pBbLghZUha6CoEFt/QYiM88jtOxMiz3S98wKg1t9clpHl5Obf9LDvaAqmxqUZ9
+ ID64Er65cE7/0eemtpf6LtlZGfGZR8EWfmqXxYQFzyGuz3/7V0xt4ydhNngEWICtKU6z
+ ybWk8gybSuyvQktOouv2KaP0NnZP3Lv5Ix+3qhw082pdhP2mUGjj7elhPbPxzYPJ9JkS
+ sLN1+nJyTZVHRZ60qtOhUIJAfEkVudcMZXafiihEY6/TXvNbo5P1gVSTtfNg540sml90
+ SLBN9PBy7xE+UUCHRAqnhvydlsSKUuD62T/HUTfCjNAHrDVsDNmXapPBKIqA3oRK3cbg
+ VhAQ==
+X-Gm-Message-State: AOJu0YxRhH5+zDAQyNf5N1kzPWLPpTPcB6Eg2TLPaaaG+OoSHWXXW9FY
+ uwnpeYtuMe2Xn4RlCvNFUKA=
+X-Google-Smtp-Source: AGHT+IE5uGBUmol5ov0XxZ5Dqkm6UF3fXf9Nab5r2AlC03wH+Qnp4IS3AGLhaN/CFXgIHkYcW7HMmw==
+X-Received: by 2002:a17:906:2b56:b0:9d3:8d1e:cf0 with SMTP id
+ b22-20020a1709062b5600b009d38d1e0cf0mr2841220ejg.54.1700393309393; 
+ Sun, 19 Nov 2023 03:28:29 -0800 (PST)
 Received: from zotac.lan.
- (dynamic-2a01-0c22-77bf-8300-2223-08ff-fe18-0310.c22.pool.telefonica.de.
- [2a01:c22:77bf:8300:2223:8ff:fe18:310])
+ (dynamic-2a01-0c23-bde4-3e00-2223-08ff-fe18-0310.c23.pool.telefonica.de.
+ [2a01:c23:bde4:3e00:2223:8ff:fe18:310])
  by smtp.gmail.com with ESMTPSA id
- y10-20020a05600c340a00b004068de50c64sm6964211wmp.46.2023.11.18.09.42.24
+ k22-20020a1709063fd600b009f8af454d0dsm2420378ejj.112.2023.11.19.03.28.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 18 Nov 2023 09:42:25 -0800 (PST)
+ Sun, 19 Nov 2023 03:28:29 -0800 (PST)
 From: Heiner Kallweit <hkallweit1@gmail.com>
 To: Wolfram Sang <wsa@kernel.org>,
 	intel-gfx@lists.freedesktop.org
-Subject: [PATCH 00/20] remove I2C_CLASS_DDC support
-Date: Sat, 18 Nov 2023 18:42:00 +0100
-Message-ID: <20231118174221.851-1-hkallweit1@gmail.com>
+Subject: [PATCH v3 RESEND 00/20] remove I2C_CLASS_DDC support
+Date: Sun, 19 Nov 2023 12:28:05 +0100
+Message-ID: <20231119112826.5115-1-hkallweit1@gmail.com>
 X-Mailer: git-send-email 2.42.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -96,6 +96,12 @@ Class-based device auto-detection is a legacy mechanism and shouldn't
 be used in new code. So we can remove this class completely now.
 
 Preferably this series should be applied via the i2c tree.
+
+v2:
+- change tag in commit subject of patch 03
+- add ack tags
+v3:
+- fix a compile error in patch 5
 
 Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
 
