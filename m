@@ -4,114 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ABDDC2BB3F
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 15:36:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7721EC197A0
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 15:40:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA12210E40A;
-	Mon, 20 Nov 2023 15:36:20 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2083.outbound.protection.outlook.com [40.107.212.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAB0D10E04E;
- Mon, 20 Nov 2023 15:36:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GS+qN7AWaYjGnRe+RfEGEhpNqVbNGbdtXXcslmWwWyCsCfkt9DcqBeRrnHO4atWXS+1jy3sK4oSOjQlHmFfnLeFQSZrJePovhi9L9qP2ZcBh2+5NgsBbaE2DWlP693JKrztXl6jYzHbattpjVGMpYwGevq2FAHx5Sq3bJJROZnenl9Bj3nQ1t4ypG8g/RZMAyEGA/XwLhpW1MuivFH20TkP32zbx33AuVuBJqjDft7L5sD/WRp8UZzVR1p9ETtM5gOZt5XLQVglkw/vbUlRQBeScBRYgP6BwtH3JSTN6hLx+fAl9vZ2n3i1OjklI3KPQxog5LLzUvP6N/EzXpcVNSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m5Msi3veq7g2BYPRCBLmE6LY9CBzSyijyYsZSKUQIg0=;
- b=ehY8sOEV1iA5kcA3e/wSfuMg7uRofLHEsIrfa4Km/LZ0c4Ot3kBbmf0HSf9G86rBR6MYLgpXbUlDmM5t08MrhvT9Vhv8XymENA1oMLfAmrPuN5f9+yIWIpSnKDwqERGbUzffedYkKN9IwuzIvKZ8IH1ZMKctL97Da6PAAhS9GRzngAWr386uPg0bEAXBATZ33dl6E83GosOh2VUFoojDBa30gC+j2zQPDKbY+bPduslQouxucXjtHb/dTKFOgERYdmzwiX60OQ/+B+cc4oAZkeSDGiS2B1a78RXpvh885FSPCnfbJcB5VIe1/0xrM7vMBdCHqcLZtj6LVmBupkj/ug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m5Msi3veq7g2BYPRCBLmE6LY9CBzSyijyYsZSKUQIg0=;
- b=GYrrbbtes60H8C78j1/xJFah2u8E64ecsD5WK8foWEcWK7YzrlpuY6v6GYyI4NVjkMU1tt5CUNIy361yjV8UsAym/eiPtTC4c5uigSjMH6UGYhiKLHRCbJaQ57lj5fj4hZhzRa6IzqTQQCY/3EhBVqlnuW3V9xqA0Qwrodlci9E=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) by
- DS7PR12MB6168.namprd12.prod.outlook.com (2603:10b6:8:97::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7002.27; Mon, 20 Nov 2023 15:36:15 +0000
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::5588:7117:d54e:9466]) by DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::5588:7117:d54e:9466%7]) with mapi id 15.20.7002.027; Mon, 20 Nov 2023
- 15:36:15 +0000
-Message-ID: <22a0edcb-26fa-415a-a05a-e4d807e2b703@amd.com>
-Date: Mon, 20 Nov 2023 10:36:12 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Bug 218168] New: amdgpu: kfd_topology.c warning: the frame size
- of 1408 bytes is larger than 1024 bytes
-To: bugzilla-daemon@kernel.org, dri-devel@lists.freedesktop.org
-References: <bug-218168-2300@https.bugzilla.kernel.org/>
-Content-Language: en-US
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-In-Reply-To: <bug-218168-2300@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQXPR0101CA0063.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:14::40) To DM4PR12MB6280.namprd12.prod.outlook.com
- (2603:10b6:8:a2::11)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2372C10E40C;
+	Mon, 20 Nov 2023 15:40:25 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DCB110E0E8;
+ Sun, 19 Nov 2023 20:29:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.de; s=s31663417;
+ t=1700425726; x=1701030526; i=deller@gmx.de;
+ bh=miLPHMfrxwqmKAd27ektH7WBR0JCMcBObraky+HNbnc=;
+ h=X-UI-Sender-Class:Date:Subject:To:Cc:References:From:
+ In-Reply-To;
+ b=E4jYA/oNAE1F4fRLys0rhnfWTR6mbTmPHQKKEJCETWu0LBaCX91aeusBuo8GftgP
+ u5Yf+8CJMYTesutHmhgZPjLc0YIey1P58hytjI3W2oI6cmJD4a66ddUDeMTYL8cPz
+ 06sC6LXnnMMug/2n122HJpqwJaCvsitj+wSg4/dgVqWovLl7DbuexVwk5XZQWvs6G
+ qqlc6B7JrjRbgGzZ/67UtE1y7q+aAam2vyubXPuewtivWKGQphESEIF/5ZfjYElhX
+ fJgtaP/GBWiy0Y5u/q27PPZDVcdZ5rJ2M15RPfuUwzZELKSuLF7iMrykojzgG+H2w
+ kueKdwgmN4PFyJii8Q==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from [192.168.20.60] ([94.134.146.64]) by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1N0oBx-1rJSwN2Ptl-00wmKV; Sun, 19
+ Nov 2023 21:28:46 +0100
+Message-ID: <e40b913f-379f-4b6e-a0d2-844887a17284@gmx.de>
+Date: Sun, 19 Nov 2023 21:28:42 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6280:EE_|DS7PR12MB6168:EE_
-X-MS-Office365-Filtering-Correlation-Id: f40ba01d-c6f6-4ad4-e50e-08dbe9de6ead
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kAXf1ThykHo5M26v3JI0TgNHRB5qZwZV82CLtbe5UL2zrJZXggKw+bqO7McJpFa1NQkhDBxxTK4rgsEW5haOEnabf+IjGkPyAHMnhl99/yrK35Cut3YiNVxPBLXPv6jwBW3hRMXDxWTIkHkWKjMKRSqpoHWuiGJa64FWzIDWpTVJTTSg6FrE3yOhylQMyD9oIl9pdciqnAPrZG593k7FfFjeBp3Xt4T/O53vezhymCZlGK89vX5EMnnKmRIsQImi9uTuplACdyvboJONl6Hfjb4xb4iPcKmzmQ8gDFzW5LZi99cX/HCUZkv+Sr130yEP+ZZrWsWb3OQn8MJU1Piulg3cfl8CnqvU/yocvC+g4j/AGgtCbLXrCkHV+AQgbOdshQBcwYsAbWRrzMxwkRjBn9z4LxV2x45BJpkqDs5VyOdLTmj262ua6jgmR/UC75vigaVHZ+S2Rhl4is/739lXMK+EDbWvMOKf8e11BTEFrG0ToL/7R9WrE1z8O3K6cC2BCxbpT0IQl7Q/3x/0tSYfs6l8Lawk0ywSNwevUu04uAS4VABmlNZfClqw5FuaetjzieEMi/3mIjuH+Fa9eRbRDo73451zqNmzXhg/dDXacncoxPoEn3potHWGM/WdfzxHMixod+bKTCtapZTEzBN8VseoS7hNX7a4wHcvZaJVuaW1wSoh/eVKdusaJswghvvp
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6280.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(366004)(376002)(136003)(346002)(39860400002)(230273577357003)(230173577357003)(230922051799003)(451199024)(64100799003)(186009)(1800799012)(83380400001)(6512007)(53546011)(26005)(4326008)(8676002)(41300700001)(38100700002)(8936002)(2906002)(4744005)(44832011)(5660300002)(478600001)(6486002)(966005)(6506007)(6666004)(66476007)(66556008)(66946007)(316002)(36756003)(86362001)(31696002)(31686004)(2616005)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SXByS2VGUXNKL0JtVHo2ekZaaVB6Yk9tVWdwUXZxY1JxQ0phUlE1emxNRmpN?=
- =?utf-8?B?Mkp5VDBhcXpXcy9SMGhSYjA4aS9tWGcwazExSUVobHBMWEZ5T2tuaGxkK3cy?=
- =?utf-8?B?bDNDaUkwVEhGamppMmI4VnJleFBJL2xDeDhjMEZGdzlTOENQN2M0ekhRN01V?=
- =?utf-8?B?OTJxZ2lqL21CdXpHM093eDQ4b3dhVGZ2MFR1UisvUUgrRi9CTmNnMFBvV014?=
- =?utf-8?B?cldEU3VBK1R0OHlSWDFaN0RXTVlrVnV0K1ByMUdlZGVZc29NaUFhQnZPSnNO?=
- =?utf-8?B?MnMvbGFNRnpKL2JiRUR2NFlmdUc0eDFaYmVaaVNtM010NWFWUlljL0paa2o5?=
- =?utf-8?B?M2dIUC9raG12b1pPSUo4dEZ5UGZmQWZSL1lBMnBOb0pDL0NESHNIVDM1QXNa?=
- =?utf-8?B?UnB5cjV4U3pmOENpNm1vNmVIekRkb3JJbnRjYU1Falc3clNEZ2w0Y293cHlL?=
- =?utf-8?B?MlF2b3VrMXhNejlOc2k5U2Z0eml1amNuY3N3QmNONHpNQVYzdkhyVXlVaGxj?=
- =?utf-8?B?eUdlUzU3d0EvUmU4RlJua2UvTUdPc3dQM2owNkpJN2FDZ3RHZldNem96MURB?=
- =?utf-8?B?TzFqckkvcGdVTzlaYlhpcUQ4M1loek12ZXAyK3ZHaGI5VzFEYU5YWUVRSGJL?=
- =?utf-8?B?cEVsLzBVd0xRUnRZQVZjdXFUOFdDZndRbEI3bUUxcEtUY1V6aVdSQ2l1THgr?=
- =?utf-8?B?V24vZ21tc2tyaHhsQk1EcEplVHNJcnp1MGttTFdvamlHRWpuRWM2Qi9XMUo1?=
- =?utf-8?B?cWJIdGpSelQybkpMaWUyS0I0aFl3ejRuN3VlNEQvcUF2RlJNNlFMTE9CMmhT?=
- =?utf-8?B?Q0IrTUJyMlFiVmUyak5mV09ramxWUldlMDA5Ym5XcEJ5enZUUEdqMVNXY2lU?=
- =?utf-8?B?VmR0VDBpeitYeDhFd3BGK2RhUHRFZ0lvVjQ5c2FTVXlBV29NWGlVMnkzVktU?=
- =?utf-8?B?dWx5R0xhODNHelFla013K056Q216L2tzSVQ1bi9wYkxEd3gyWDZ5R3JodlpP?=
- =?utf-8?B?VHBvS09leitaNDNyV3dvWnllTk5nZkw0VlY4NGNGTmpsaDYvbkhNS2xheUNY?=
- =?utf-8?B?MzJ4NlJBK3V1RXNvWHBTdDBtUzlsTWMzd040TU5xU3dlemRuTHZBTitVR1c1?=
- =?utf-8?B?VDVydm5TNDRJMElVYVU2ZGNCR1h3ZVZNMjlRYUlhRWptdXo5OE10UzNjT21u?=
- =?utf-8?B?WCsyODVBUGpoeSt5dXNhc0tGbENzSWJ4K1ZBM2RpZXRXK3hmdkZjSEZyNDJa?=
- =?utf-8?B?SkI3WStTV3JLNm9ZeFNKWVBPSmZ6Q0NKRk50aEdDMDVQeko5d3BGcXRBcm8w?=
- =?utf-8?B?bmxOeHpBVVN2UENVZ1ZGaUtTallBemdkTmx6bXVHNDM4dHF2aTJKeHhYS2Zh?=
- =?utf-8?B?UVZsTDMvdFZPNGoxZXp5U2dLVUNWSXU2NHo0aEhicDlwbWY1VTl4Q1ZadUtv?=
- =?utf-8?B?ZkNWVkNMRDJEMXpmTWo0c0hJbGp5YnVCQjVOQ2dRak5wNVlDZWxLQVBUczJY?=
- =?utf-8?B?M3pON0UzQVp2VHJEVEk5Uks0UEFyWDJhVm9JYlMrekVKZEZLU0xOYUY2OFNW?=
- =?utf-8?B?dEZMTWpOSmk4eWFVWjI5NDFFQldUQStIb29kUUhpRGZkNU4zSzdXLzU4RW9y?=
- =?utf-8?B?Ykd2NFVGcTI4aE9vRzdlQ3QzUjdoMkZQOEtnVW1BVnFqcGd2aUo3VTRtR2Ru?=
- =?utf-8?B?RjNGQ3VUVHEwaTBETGRhbFpaLzlGNjRmQm1PdUp4bkRnZ2VsMXFzOXRURU4w?=
- =?utf-8?B?VVRjS1ZSRnJMT3ZOelZxRzNPNHFFT2E3RDB2YUN1WHR3SUplVFpuTTJyWkps?=
- =?utf-8?B?ZTkzZW9yNUU0MTcvS0NYbFJlbDEwRTkyVDBETU1jMXhOV0JaV0ZyQU5tUU0z?=
- =?utf-8?B?ako1Z2pOTHJwdGF3SWRUNUEzLys5TEF4cGJNTnNEc3hPL3BFQ1RYM0hseE42?=
- =?utf-8?B?UDAwY2Z6M2NQV1FHaXFUTzRkNTRRT1pBQmg5VHlBVDhWUXREbnIzS3puVDIy?=
- =?utf-8?B?SU80bHdKbHQ0eWREN1Era1V5Q1paV2dMeG9wb2t4cU5NV29yNGx4SHNPZmc4?=
- =?utf-8?B?elFycUxLbG9qUjNmOVF6Sys5NEFOY2hEUTc3aGE4Nm9NN29haVRTajBROVJG?=
- =?utf-8?Q?oDjr/4Tr9vd5bLE0e1j9yu4ej?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f40ba01d-c6f6-4ad4-e50e-08dbe9de6ead
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6280.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2023 15:36:15.3449 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OMrgyKNy4DoNlWbBKeM7xOxxXI4io/DZozmVUEOOQ6/+xKSwNsrYF8ElNof8gR9LgPy479/DcT4lqcaVoX4grw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6168
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 RESEND 00/20] remove I2C_CLASS_DDC support
+Content-Language: en-US
+To: Heiner Kallweit <hkallweit1@gmail.com>, Wolfram Sang <wsa@kernel.org>,
+ intel-gfx@lists.freedesktop.org
+References: <20231119112826.5115-1-hkallweit1@gmail.com>
+From: Helge Deller <deller@gmx.de>
+Autocrypt: addr=deller@gmx.de; keydata=
+ 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
+In-Reply-To: <20231119112826.5115-1-hkallweit1@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:AOqyT+NYfpLX8ZR5FyXZkrdchrLDHO79+2/Qu8gOe5asfRsZTI/
+ IriLQSNbku4YQ+qp0/psHOEUtwe2GGW1KQKpfJRDT6tPEzLiP39Yb3jaivbCF34rs3NAAAK
+ P77AvvT/8I3KI1mZu0lQ/gc8VMpyLMtSdecqmqbnSEio473SWbeyQnNtoP5uzUPbcX0IuM2
+ 8iJWd3wafDn6+LxRy4xYg==
+UI-OutboundReport: notjunk:1;M01:P0:3klw1RSna4g=;NZvvWyleiLnoQ8OEiVQyCF0geUn
+ nn/XK+nqayeGU7XpzHB2xZWPxSeQ0TuaqQNo5XKDdkjffQ4mScPbkzxfO9ECE0g2o9LHF/OYT
+ U6yLvwgXnTHZKnDQPgOxFmvtFrIsyfdPS5g97tBjmA97aGXzPaZYZ0iCTkkfSmTwkHbjCg5qd
+ HGUwtFENdTexjJOqcMiN3bYTJx+FtZpl/57KhpOz7lK/o9bNYP3taYD4o8bU/rnqSmhnmkj6C
+ CSHDSv8SP6bMPkGDEZMhOlkARgyENdqiKlopMUrUtLemjT4DN6IF/OixCcBFUOpuhRXs81XP3
+ toMLZAIvkj3RPf7b7eW6PQ91dbAagZCmzWyVg6wKxGORVgHu6JKeIyGyfzNXru9mK4F7RHz+f
+ YU0z97BEViaNubXCd7VOHEUYYNPV6jnXeF3NCaeAb+ZrLcfRFPvpI47xFK8ZmEvs/myvtOVJ7
+ kkrpy2Nnp+Ied0vCKeqT/uKKAhBCp4LmTUpDM7zagtPIlSESuwLdGM7oxTGS4RTWH6tZnRwxs
+ Kcv8ok/g8GBzbylu0F0Mi9MpggjTmTetgZtJ0O1f8Px/1/lV/FtHpHV4ifpjdpI1UKkJgKcps
+ ZbC+C1cJnT9MlPFKGHdZHuBfH1gcz/5Pfuj6/P1s/tgc2CiQKEMAFvFiNFBnL5/aREPKxH13S
+ h/r11uIpW9F9rQoWWzWXa1BtrMFrcycVfOJALbQtU8gilexeWnHUbPnhQqdjMPmbpNcBgBJwO
+ crpbmKctnh3VXv80OG3fJQp+c4fNoJE95P5kZXyAii1keAfTjwzboKsqGEMB4lfhLRYp3z41C
+ xMm21d0Q5JGoWeY0gC/ZaS8A+1Jp79XUHwYUCPOVpa2FLkx0lIYxEycHSXXgrZpzBd0P/pt06
+ D147Z5XdRZHyh9dhBcQGisXZ3gtvbA4nBK1CO1grjhgR66s47R1ONMw52V2yIVEXJIyqAty5v
+ PUXMfmHELDEjshgicEPFWlfBqK8=
+X-Mailman-Approved-At: Mon, 20 Nov 2023 15:40:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,43 +114,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Yongqin Liu <yongqin.liu@linaro.org>, amd-gfx@lists.freedesktop.org,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, linux-rockchip@lists.infradead.org,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, linux-sunxi@lists.linux.dev,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, Sean Paul <sean@poorly.run>,
+ linux-arm-kernel@lists.infradead.org, Jocelyn Falempe <jfalempe@redhat.com>,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, John Stultz <jstultz@google.com>,
+ freedreno@lists.freedesktop.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+ amd-gfx
-+ Felix
+On 11/19/23 12:28, Heiner Kallweit wrote:
+> After removal of the legacy EEPROM driver and I2C_CLASS_DDC support in
+> olpc_dcon there's no i2c client driver left supporting I2C_CLASS_DDC.
+> Class-based device auto-detection is a legacy mechanism and shouldn't
+> be used in new code. So we can remove this class completely now.
+>
+> Preferably this series should be applied via the i2c tree.
 
-On 11/20/23 10:16, bugzilla-daemon@kernel.org wrote:
-> https://bugzilla.kernel.org/show_bug.cgi?id=218168
-> 
->              Bug ID: 218168
->             Summary: amdgpu: kfd_topology.c warning: the frame size of 1408
->                      bytes is larger than 1024 bytes
->             Product: Drivers
->             Version: 2.5
->            Hardware: All
->                  OS: Linux
->              Status: NEW
->            Severity: normal
->            Priority: P3
->           Component: Video(DRI - non Intel)
->            Assignee: drivers_video-dri@kernel-bugs.osdl.org
->            Reporter: bluesun654@gmail.com
->          Regression: No
-> 
-> Trying to compile Linux 6.6.2 with GCC 13.2.1 and CONFIG_WERROR=y:
-> 
-> [...]
-> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c: In function
-> 'kfd_topology_add_device':
-> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:2082:1: error: the frame
-> size of 1408 bytes is larger than 1024 bytes [-Werror=frame-larger-than=]
->   2082 | }
->        | ^
-> cc1: all warnings being treated as errors
-> [...]
-> 
--- 
-Hamza
+The fbdev changes look at least ok so far, so:
+Acked-by: Helge Deller <deller@gmx.de>   #fbdev
+
+
+> v2:
+> - change tag in commit subject of patch 03
+> - add ack tags
+> v3:
+> - fix a compile error in patch 5
+>
+> Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
+>
+> ---
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c           |    1 -
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    1 -
+>   drivers/gpu/drm/ast/ast_i2c.c                     |    1 -
+>   drivers/gpu/drm/bridge/synopsys/dw-hdmi.c         |    1 -
+>   drivers/gpu/drm/display/drm_dp_helper.c           |    1 -
+>   drivers/gpu/drm/display/drm_dp_mst_topology.c     |    1 -
+>   drivers/gpu/drm/gma500/cdv_intel_dp.c             |    1 -
+>   drivers/gpu/drm/gma500/intel_gmbus.c              |    1 -
+>   drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c        |    1 -
+>   drivers/gpu/drm/gma500/psb_intel_sdvo.c           |    1 -
+>   drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   |    1 -
+>   drivers/gpu/drm/i915/display/intel_gmbus.c        |    1 -
+>   drivers/gpu/drm/i915/display/intel_sdvo.c         |    1 -
+>   drivers/gpu/drm/loongson/lsdc_i2c.c               |    1 -
+>   drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c           |    1 -
+>   drivers/gpu/drm/mgag200/mgag200_i2c.c             |    1 -
+>   drivers/gpu/drm/msm/hdmi/hdmi_i2c.c               |    1 -
+>   drivers/gpu/drm/radeon/radeon_i2c.c               |    1 -
+>   drivers/gpu/drm/rockchip/inno_hdmi.c              |    1 -
+>   drivers/gpu/drm/rockchip/rk3066_hdmi.c            |    1 -
+>   drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c            |    1 -
+>   drivers/video/fbdev/core/fb_ddc.c                 |    1 -
+>   drivers/video/fbdev/cyber2000fb.c                 |    1 -
+>   drivers/video/fbdev/i740fb.c                      |    1 -
+>   drivers/video/fbdev/intelfb/intelfb_i2c.c         |   15 +++++--------=
+--
+>   drivers/video/fbdev/matrox/i2c-matroxfb.c         |   12 ++++--------
+>   drivers/video/fbdev/s3fb.c                        |    1 -
+>   drivers/video/fbdev/tdfxfb.c                      |    1 -
+>   drivers/video/fbdev/tridentfb.c                   |    1 -
+>   drivers/video/fbdev/via/via_i2c.c                 |    1 -
+>   include/linux/i2c.h                               |    1 -
+>   31 files changed, 9 insertions(+), 47 deletions(-)
+>
 
