@@ -4,114 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9D0AC2BB3F
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 15:40:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF0B4C197A0
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 15:40:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E658610E429;
-	Mon, 20 Nov 2023 15:40:42 +0000 (UTC)
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20AEF10E0E8;
- Sun, 19 Nov 2023 20:51:59 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-507bd644a96so5179478e87.3; 
- Sun, 19 Nov 2023 12:51:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1700427117; x=1701031917; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
- :from:content-language:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=uu9XWxOM4gpFfh/NFjHiFzJcxz5jo+VBF/7USM4yGiU=;
- b=BjRMknig0Ch2SEgaJgTWj1Ee8/8BFIOpf7fMW7fZdFQK0CgJppb56RhGMuawknUR/b
- 0tL6FrISu6l7vBfdgPN4/b8PZSEeNeDb8fE524XDiRvNJyDvGsOoENRDcSOTpGyu5E2M
- hzu/fgHOJfwfKlB+f/URZAYUKJ5kbjKzvYk+kJOIFy7e+3RefR9X86BeBHlwNgxI2dbS
- M3s4Lx1SccrmJfE+GFAxanp2hntsgykx+3vvDoPpDR1Orvy0i5Mba+M4VpkdAu/FtoIA
- jYFrjjQZdy31+g0nYERuboPZfIZ9DAXs3JbaC7+x9wwx3Fr9X+2X42VQefpa9JUrqzeN
- 9fVg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8217110E421;
+	Mon, 20 Nov 2023 15:40:54 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEC9110E395
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 10:35:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1700476511;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=WDa5Zifa699JA7DgA6NqBUl602nqWvF/0Qs0z1ItO6s=;
+ b=XSX1aJAVxBnOE2QsM2OlWcbguDnWIqcnzEwk4C6NS2+mS729v+8oKcOCLdy1Juu1GZQQNc
+ KxatyVcpqvAGDK8EfbhR7yZp8tCmMBkZKQDVyK/DFpwo/E7DQEzxvxFO1Mt65zQxxSaZGZ
+ E5holZuu05dxMyNK0CdKu6eLLPrL+vc=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-257-vp4T6mAVP0C12s4yC5sLqg-1; Mon, 20 Nov 2023 05:35:09 -0500
+X-MC-Unique: vp4T6mAVP0C12s4yC5sLqg-1
+Received: by mail-ej1-f72.google.com with SMTP id
+ a640c23a62f3a-9e27cc6dbf0so304269166b.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 02:35:09 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700427117; x=1701031917;
- h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
- :from:content-language:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=uu9XWxOM4gpFfh/NFjHiFzJcxz5jo+VBF/7USM4yGiU=;
- b=vW4Tref1CTmlR5Gl0T++QAaEZdmfbY8A3QMaPyei/dllUcIQjJmG4F1V+DRMvesZJU
- RHGf6TUxCvw7MvkgnfuzfwFS5yUkw4nSB923HI4tpyaTJkfXHUlyvJxWsHhybiT9zSZM
- RT3wRidGo3YOMJ9l7n1i1w60Q9ZLxppswki6aIHw5kcCMA3vIdCw666lzGq9KXcpgHSn
- NtWOKE6GdBfoScxoXQq0LcH35i535q6PbnRjrlPfnPYpfDZRqXi4BR3dHSWnSpkK9fSt
- XR6E9Nogamwk6I5zB3c5J5pg1Dsb4G6i3ZIbR9H16ITrmDNDsoNunJM5cK8kV+l82djo
- E3qA==
-X-Gm-Message-State: AOJu0Ywm+tFmJavaxnnLMGx5tdaf1jQZzyI9aVcDGJ4zrx9BBkUfJ7kD
- 16+g2iF8bpnmaSW5zs7q9xQ=
-X-Google-Smtp-Source: AGHT+IGkcUNAKJspmSgawNPYtDADP2ghxS0J5OcNfogBhKT1Lxa0wlmDoysvJFNbsGkprNkSEa8XVg==
-X-Received: by 2002:ac2:5312:0:b0:507:9a93:84df with SMTP id
- c18-20020ac25312000000b005079a9384dfmr4300199lfh.25.1700427116798; 
- Sun, 19 Nov 2023 12:51:56 -0800 (PST)
-Received: from ?IPV6:2a01:c23:bde4:3e00:9589:aeb1:adc4:e0f?
- (dynamic-2a01-0c23-bde4-3e00-9589-aeb1-adc4-0e0f.c23.pool.telefonica.de.
- [2a01:c23:bde4:3e00:9589:aeb1:adc4:e0f])
- by smtp.googlemail.com with ESMTPSA id
- a16-20020a50e710000000b00532eba07773sm2861341edn.25.2023.11.19.12.51.55
+ d=1e100.net; s=20230601; t=1700476508; x=1701081308;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=WDa5Zifa699JA7DgA6NqBUl602nqWvF/0Qs0z1ItO6s=;
+ b=vbz58TVEUnO1pjBx+0ARuWBGFgOJ1vJ+05d2gRxjVQocsUYL8PavtK8tAun9uPjbrr
+ 0ZOCTCk+Fbl9rCh8/HjgCLlUVE+FalSZWWilHCaJXcpjdvgWIWfI5EPb89oGP99ECHnG
+ W0AHWUJpnVRIrj1NcMdSaLHpFxyeCPXuOmtpCw2Kw5fwziaZ8ZN6COTIQr2nqABe/q/2
+ bpiXF2TUANH1FxJnGYEAKaJaj8PKE10i7QTi2J0nKWIlCjT0pxA3DaRZ3ZH16GLpKgN5
+ na6EjcwlFLGFcqguPnOt32Ah/1SyIMbgSKxGLYVmB8dHcLMuBpqbNtUhKG7+nhY5QiiF
+ moDA==
+X-Gm-Message-State: AOJu0Yz5uZLcZj3RAnNICyPt9VegJVuahgwx64ZNn0Qir1mSMM1bK/6k
+ Hpow3Dsi8Nmnpltvt3ZRrViIxJJPEn9B0/PQoghJhUaqiqbSSn6xCcZfQmo4AkfiT6YwoMrdOV3
+ wG8Oy+E1/WYjiR50x/3BILQHNPQ==
+X-Received: by 2002:a17:907:c24b:b0:9ae:6ad0:f6db with SMTP id
+ tj11-20020a170907c24b00b009ae6ad0f6dbmr6930269ejc.71.1700476508610; 
+ Mon, 20 Nov 2023 02:35:08 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFtYB3LpQ2jUhXembvmGnwIAULaeNK5MwYtq0w1lhRVzSiXtm7qVIWAoEoosVuqDagxql3aow==
+X-Received: by 2002:a17:907:c24b:b0:9ae:6ad0:f6db with SMTP id
+ tj11-20020a170907c24b00b009ae6ad0f6dbmr6930238ejc.71.1700476507968; 
+ Mon, 20 Nov 2023 02:35:07 -0800 (PST)
+Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
+ (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+ by smtp.gmail.com with ESMTPSA id
+ p27-20020a1709060ddb00b009fc50ebb062sm1745968eji.4.2023.11.20.02.35.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 19 Nov 2023 12:51:56 -0800 (PST)
-Message-ID: <bd4be069-b86d-4a69-aa0f-71257f93691f@gmail.com>
-Date: Sun, 19 Nov 2023 21:51:55 +0100
+ Mon, 20 Nov 2023 02:35:07 -0800 (PST)
+Message-ID: <db2051d0-c847-4d3b-98da-4f4f68a5b30b@redhat.com>
+Date: Mon, 20 Nov 2023 11:35:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 RESEND 00/20] remove I2C_CLASS_DDC support
-Content-Language: en-US
-From: Heiner Kallweit <hkallweit1@gmail.com>
-To: Helge Deller <deller@gmx.de>, Wolfram Sang <wsa@kernel.org>,
- intel-gfx@lists.freedesktop.org
-References: <20231119112826.5115-1-hkallweit1@gmail.com>
- <e40b913f-379f-4b6e-a0d2-844887a17284@gmx.de>
- <b336a8e3-44e7-4f56-a950-5155675b5628@gmail.com>
-Autocrypt: addr=hkallweit1@gmail.com; keydata=
- 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
-In-Reply-To: <b336a8e3-44e7-4f56-a950-5155675b5628@gmail.com>
+Subject: Re: [PATCH v12 1/9] Documentation/driver-api: Add document about WBRF
+ mechanism
+To: Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org, lenb@kernel.org, 
+ johannes@sipsolutions.net, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, alexander.deucher@amd.com,
+ Lijo.Lazar@amd.com, mario.limonciello@amd.com
+References: <20231017025358.1773598-1-Jun.Ma2@amd.com>
+ <20231017025358.1773598-2-Jun.Ma2@amd.com>
+From: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <20231017025358.1773598-2-Jun.Ma2@amd.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US, nl
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 20 Nov 2023 15:40:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -124,86 +91,118 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Yongqin Liu <yongqin.liu@linaro.org>, amd-gfx@lists.freedesktop.org,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, linux-rockchip@lists.infradead.org,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, linux-sunxi@lists.linux.dev,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
- linux-mediatek@lists.infradead.org, Sean Paul <sean@poorly.run>,
- linux-arm-kernel@lists.infradead.org, Jocelyn Falempe <jfalempe@redhat.com>,
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, John Stultz <jstultz@google.com>,
- freedreno@lists.freedesktop.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: linux-doc@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 19.11.2023 21:48, Heiner Kallweit wrote:
-> On 19.11.2023 21:28, Helge Deller wrote:
->> On 11/19/23 12:28, Heiner Kallweit wrote:
->>> After removal of the legacy EEPROM driver and I2C_CLASS_DDC support in
->>> olpc_dcon there's no i2c client driver left supporting I2C_CLASS_DDC.
->>> Class-based device auto-detection is a legacy mechanism and shouldn't
->>> be used in new code. So we can remove this class completely now.
->>>
->>> Preferably this series should be applied via the i2c tree.
->>
->> The fbdev changes look at least ok so far, so:
->> Acked-by: Helge Deller <deller@gmx.de>   #fbdev
->>
-> I think this refers to patch 5 of the series. Could you please reply
-> to patch 5 instead of the cover letter with your acked-by so that
-> patchwork gets it right? Thanks!
-> 
-Sorry, just looked at where you are in To, not Cc.
-So your ack includes patches 6, 9, 10, 13?
+Hi,
 
->>
->>> v2:
->>> - change tag in commit subject of patch 03
->>> - add ack tags
->>> v3:
->>> - fix a compile error in patch 5
->>>
->>> Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
->>>
->>> ---
->>>
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c           |    1 -
->>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    1 -
->>>   drivers/gpu/drm/ast/ast_i2c.c                     |    1 -
->>>   drivers/gpu/drm/bridge/synopsys/dw-hdmi.c         |    1 -
->>>   drivers/gpu/drm/display/drm_dp_helper.c           |    1 -
->>>   drivers/gpu/drm/display/drm_dp_mst_topology.c     |    1 -
->>>   drivers/gpu/drm/gma500/cdv_intel_dp.c             |    1 -
->>>   drivers/gpu/drm/gma500/intel_gmbus.c              |    1 -
->>>   drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c        |    1 -
->>>   drivers/gpu/drm/gma500/psb_intel_sdvo.c           |    1 -
->>>   drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   |    1 -
->>>   drivers/gpu/drm/i915/display/intel_gmbus.c        |    1 -
->>>   drivers/gpu/drm/i915/display/intel_sdvo.c         |    1 -
->>>   drivers/gpu/drm/loongson/lsdc_i2c.c               |    1 -
->>>   drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c           |    1 -
->>>   drivers/gpu/drm/mgag200/mgag200_i2c.c             |    1 -
->>>   drivers/gpu/drm/msm/hdmi/hdmi_i2c.c               |    1 -
->>>   drivers/gpu/drm/radeon/radeon_i2c.c               |    1 -
->>>   drivers/gpu/drm/rockchip/inno_hdmi.c              |    1 -
->>>   drivers/gpu/drm/rockchip/rk3066_hdmi.c            |    1 -
->>>   drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c            |    1 -
->>>   drivers/video/fbdev/core/fb_ddc.c                 |    1 -
->>>   drivers/video/fbdev/cyber2000fb.c                 |    1 -
->>>   drivers/video/fbdev/i740fb.c                      |    1 -
->>>   drivers/video/fbdev/intelfb/intelfb_i2c.c         |   15 +++++----------
->>>   drivers/video/fbdev/matrox/i2c-matroxfb.c         |   12 ++++--------
->>>   drivers/video/fbdev/s3fb.c                        |    1 -
->>>   drivers/video/fbdev/tdfxfb.c                      |    1 -
->>>   drivers/video/fbdev/tridentfb.c                   |    1 -
->>>   drivers/video/fbdev/via/via_i2c.c                 |    1 -
->>>   include/linux/i2c.h                               |    1 -
->>>   31 files changed, 9 insertions(+), 47 deletions(-)
->>>
->>
+On 10/17/23 04:53, Ma Jun wrote:
+> Add documentation about AMD's Wifi band RFI mitigation (WBRF) mechanism
+> explaining the theory and how it is used.
 > 
+> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+> ---
+>  Documentation/driver-api/wbrf.rst | 73 +++++++++++++++++++++++++++++++
+>  1 file changed, 73 insertions(+)
+>  create mode 100644 Documentation/driver-api/wbrf.rst
+> 
+> diff --git a/Documentation/driver-api/wbrf.rst b/Documentation/driver-api/wbrf.rst
+> new file mode 100644
+> index 000000000000..8561840263b3
+> --- /dev/null
+> +++ b/Documentation/driver-api/wbrf.rst
+> @@ -0,0 +1,73 @@
+> +.. SPDX-License-Identifier: GPL-2.0-or-later
+> +
+> +=================================
+> +WBRF - Wifi Band RFI Mitigations
+> +=================================
+> +Due to electrical and mechanical constraints in certain platform designs
+> +there may be likely interference of relatively high-powered harmonics of
+> +the GPU memory clocks with local radio module frequency bands used by
+> +certain Wifi bands.
+> +
+> +To mitigate possible RFI interference producers can advertise the
+> +frequencies in use and consumers can use this information to avoid using
+> +these frequencies for sensitive features.
+> +
+> +When a platform is known to have this issue with any contained devices,
+> +the platform designer will advertise the availability of this feature via
+> +ACPI devices with a device specific method (_DSM).
+> +* Producers with this _DSM will be able to advertise the frequencies in use.
+> +* Consumers with this _DSM will be able to register for notifications of
+> +frequencies in use.
+> +
+> +Some general terms
+> +==================
+> +Producer: such component who can produce high-powered radio frequency
+> +Consumer: such component who can adjust its in-use frequency in
+> +           response to the radio frequencies of other components to
+> +           mitigate the possible RFI.
+> +
+> +To make the mechanism function, those producers should notify active use
+> +of their particular frequencies so that other consumers can make relative
+> +internal adjustments as necessary to avoid this resonance.
+> +
+> +ACPI interface
+> +==============
+> +Although initially used by for wifi + dGPU use cases, the ACPI interface
+> +can be scaled to any type of device that a platform designer discovers
+> +can cause interference.
+> +
+> +The GUID used for the _DSM is 7B7656CF-DC3D-4C1C-83E9-66E721DE3070.
+> +
+> +3 functions are available in this _DSM:
+> +
+> +* 0: discover # of functions available
+> +* 1: record RF bands in use
+> +* 2: retrieve RF bands in use
+> +
+> +Driver programming interface
+> +============================
+> +.. kernel-doc:: drivers/platform/x86/amd/wbrf.c
+> +
+> +Sample Usage
+> +=============
+> +The expected flow for the producers:
+> +1) During probe, call `acpi_amd_wbrf_supported_producer` to check if WBRF
+> +can be enabled for the device.
+> +2) On using some frequency band, call `acpi_amd_wbrf_add_remove` with 'add'
+> +param to get other consumers properly notified.
+> +3) Or on stopping using some frequency band, call
+> +`acpi_amd_wbrf_add_remove` with 'remove' param to get other consumers notified.
+> +
+> +The expected flow for the consumers:
+> +1) During probe, call `acpi_amd_wbrf_supported_consumer` to check if WBRF
+> +can be enabled for the device.
+> +2) Call `amd_wbrf_register_notifier` to register for notification
+> +of frequency band change(add or remove) from other producers.
+
+> +3) Call the `amd_wbrf_retrieve_freq_band` intentionally to retrieve
+> +current active frequency bands considering some producers may broadcast
+> +such information before the consumer is up.
+
+"intentionally" in this sentence should be "initially" (I presume).
+
+With that fixed and Ilpo's review comments addressed you may add my:
+
+Reviewed-by: Hans de Goede <hdegoede@redhat.com>
+
+to this patch.
+
+Regards,
+
+Hans
+
+
+
+
+> +4) On receiving a notification for frequency band change, run
+> +`amd_wbrf_retrieve_freq_band` again to retrieve the latest
+> +active frequency bands.
+> +5) During driver cleanup, call `amd_wbrf_unregister_notifier` to
+> +unregister the notifier.
 
