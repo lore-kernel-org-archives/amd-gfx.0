@@ -4,81 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF0B4C197A0
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 15:40:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54297C2BB3F
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 15:40:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8217110E421;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC5E510E422;
 	Mon, 20 Nov 2023 15:40:54 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEC9110E395
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 10:35:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1700476511;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=WDa5Zifa699JA7DgA6NqBUl602nqWvF/0Qs0z1ItO6s=;
- b=XSX1aJAVxBnOE2QsM2OlWcbguDnWIqcnzEwk4C6NS2+mS729v+8oKcOCLdy1Juu1GZQQNc
- KxatyVcpqvAGDK8EfbhR7yZp8tCmMBkZKQDVyK/DFpwo/E7DQEzxvxFO1Mt65zQxxSaZGZ
- E5holZuu05dxMyNK0CdKu6eLLPrL+vc=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-257-vp4T6mAVP0C12s4yC5sLqg-1; Mon, 20 Nov 2023 05:35:09 -0500
-X-MC-Unique: vp4T6mAVP0C12s4yC5sLqg-1
-Received: by mail-ej1-f72.google.com with SMTP id
- a640c23a62f3a-9e27cc6dbf0so304269166b.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 02:35:09 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700476508; x=1701081308;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=WDa5Zifa699JA7DgA6NqBUl602nqWvF/0Qs0z1ItO6s=;
- b=vbz58TVEUnO1pjBx+0ARuWBGFgOJ1vJ+05d2gRxjVQocsUYL8PavtK8tAun9uPjbrr
- 0ZOCTCk+Fbl9rCh8/HjgCLlUVE+FalSZWWilHCaJXcpjdvgWIWfI5EPb89oGP99ECHnG
- W0AHWUJpnVRIrj1NcMdSaLHpFxyeCPXuOmtpCw2Kw5fwziaZ8ZN6COTIQr2nqABe/q/2
- bpiXF2TUANH1FxJnGYEAKaJaj8PKE10i7QTi2J0nKWIlCjT0pxA3DaRZ3ZH16GLpKgN5
- na6EjcwlFLGFcqguPnOt32Ah/1SyIMbgSKxGLYVmB8dHcLMuBpqbNtUhKG7+nhY5QiiF
- moDA==
-X-Gm-Message-State: AOJu0Yz5uZLcZj3RAnNICyPt9VegJVuahgwx64ZNn0Qir1mSMM1bK/6k
- Hpow3Dsi8Nmnpltvt3ZRrViIxJJPEn9B0/PQoghJhUaqiqbSSn6xCcZfQmo4AkfiT6YwoMrdOV3
- wG8Oy+E1/WYjiR50x/3BILQHNPQ==
-X-Received: by 2002:a17:907:c24b:b0:9ae:6ad0:f6db with SMTP id
- tj11-20020a170907c24b00b009ae6ad0f6dbmr6930269ejc.71.1700476508610; 
- Mon, 20 Nov 2023 02:35:08 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFtYB3LpQ2jUhXembvmGnwIAULaeNK5MwYtq0w1lhRVzSiXtm7qVIWAoEoosVuqDagxql3aow==
-X-Received: by 2002:a17:907:c24b:b0:9ae:6ad0:f6db with SMTP id
- tj11-20020a170907c24b00b009ae6ad0f6dbmr6930238ejc.71.1700476507968; 
- Mon, 20 Nov 2023 02:35:07 -0800 (PST)
-Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
- (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
- by smtp.gmail.com with ESMTPSA id
- p27-20020a1709060ddb00b009fc50ebb062sm1745968eji.4.2023.11.20.02.35.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Nov 2023 02:35:07 -0800 (PST)
-Message-ID: <db2051d0-c847-4d3b-98da-4f4f68a5b30b@redhat.com>
-Date: Mon, 20 Nov 2023 11:35:06 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EBF710E3A8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 11:59:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1700481593; x=1732017593;
+ h=date:from:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=hLlgtN7e+i6tZI3bxI8GySjeZu1w9pcdPAelbmCT79A=;
+ b=PU0P1fFlepeIrHUMp9oRK8f7ggnceVcBwcsr8EF7pMuNOEG67r1OqpuX
+ 1Yly59lnLpziaSbUsLl6wGjuUvJ99XiCXix35cRWY0F4oCvSDIfSgPp0c
+ v/FCmR6m9u50iVBgAYO/RuO8TesKUfwRohJII2m3OfUacDAwX1NvdFWvu
+ obAF+4riVGMBOupexgevm/nebzo+acAS1/ZGgxLom0cLNOXySaVVoLY6W
+ eBmSOkyx5eVcsrup/oPd8gQZOI2C7lhNIPnekUKkzkEPVtycZNXFJ9Cia
+ s/syjlZDGykvxEBeoa73eHTJ2eGIafliSvNZrcrAip9KMTQuY806ccida A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10899"; a="4723177"
+X-IronPort-AV: E=Sophos;i="6.04,213,1695711600"; 
+   d="scan'208";a="4723177"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Nov 2023 03:59:52 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10899"; a="766253122"
+X-IronPort-AV: E=Sophos;i="6.04,213,1695711600"; d="scan'208";a="766253122"
+Received: from akeren-mobl.ger.corp.intel.com ([10.252.40.26])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Nov 2023 03:59:46 -0800
+Date: Mon, 20 Nov 2023 13:59:44 +0200 (EET)
+From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Ma Jun <Jun.Ma2@amd.com>
+Subject: Re: [Patch v13 1/9] Documentation/driver-api: Add document about
+ WBRF mechanism
+In-Reply-To: <20231030071832.2217118-2-Jun.Ma2@amd.com>
+Message-ID: <3e18c716-4c1b-ea3-ede3-5a67555f5e72@linux.intel.com>
+References: <20231030071832.2217118-1-Jun.Ma2@amd.com>
+ <20231030071832.2217118-2-Jun.Ma2@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 1/9] Documentation/driver-api: Add document about WBRF
- mechanism
-To: Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org, lenb@kernel.org, 
- johannes@sipsolutions.net, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, alexander.deucher@amd.com,
- Lijo.Lazar@amd.com, mario.limonciello@amd.com
-References: <20231017025358.1773598-1-Jun.Ma2@amd.com>
- <20231017025358.1773598-2-Jun.Ma2@amd.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <20231017025358.1773598-2-Jun.Ma2@amd.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, nl
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 X-Mailman-Approved-At: Mon, 20 Nov 2023 15:40:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,118 +59,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-doc@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- platform-driver-x86@vger.kernel.org
+Cc: linux-doc@vger.kernel.org, Netdev <netdev@vger.kernel.org>,
+ Lijo.Lazar@amd.com, linux-wireless@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, edumazet@google.com,
+ mario.limonciello@amd.com, alexander.deucher@amd.com, kuba@kernel.org,
+ johannes@sipsolutions.net, pabeni@redhat.com, davem@davemloft.net,
+ lenb@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+On Mon, 30 Oct 2023, Ma Jun wrote:
 
-On 10/17/23 04:53, Ma Jun wrote:
 > Add documentation about AMD's Wifi band RFI mitigation (WBRF) mechanism
 > explaining the theory and how it is used.
 > 
 > Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
 > ---
->  Documentation/driver-api/wbrf.rst | 73 +++++++++++++++++++++++++++++++
->  1 file changed, 73 insertions(+)
+>  Documentation/driver-api/wbrf.rst | 76 +++++++++++++++++++++++++++++++
+>  1 file changed, 76 insertions(+)
 >  create mode 100644 Documentation/driver-api/wbrf.rst
 > 
-> diff --git a/Documentation/driver-api/wbrf.rst b/Documentation/driver-api/wbrf.rst
-> new file mode 100644
-> index 000000000000..8561840263b3
-> --- /dev/null
-> +++ b/Documentation/driver-api/wbrf.rst
-> @@ -0,0 +1,73 @@
-> +.. SPDX-License-Identifier: GPL-2.0-or-later
-> +
-> +=================================
-> +WBRF - Wifi Band RFI Mitigations
-> +=================================
-> +Due to electrical and mechanical constraints in certain platform designs
-> +there may be likely interference of relatively high-powered harmonics of
-> +the GPU memory clocks with local radio module frequency bands used by
-> +certain Wifi bands.
-> +
-> +To mitigate possible RFI interference producers can advertise the
-> +frequencies in use and consumers can use this information to avoid using
-> +these frequencies for sensitive features.
-> +
-> +When a platform is known to have this issue with any contained devices,
-> +the platform designer will advertise the availability of this feature via
-> +ACPI devices with a device specific method (_DSM).
-> +* Producers with this _DSM will be able to advertise the frequencies in use.
-> +* Consumers with this _DSM will be able to register for notifications of
-> +frequencies in use.
-> +
-> +Some general terms
-> +==================
-> +Producer: such component who can produce high-powered radio frequency
-> +Consumer: such component who can adjust its in-use frequency in
-> +           response to the radio frequencies of other components to
-> +           mitigate the possible RFI.
-> +
-> +To make the mechanism function, those producers should notify active use
-> +of their particular frequencies so that other consumers can make relative
-> +internal adjustments as necessary to avoid this resonance.
-> +
-> +ACPI interface
-> +==============
-> +Although initially used by for wifi + dGPU use cases, the ACPI interface
-> +can be scaled to any type of device that a platform designer discovers
-> +can cause interference.
-> +
-> +The GUID used for the _DSM is 7B7656CF-DC3D-4C1C-83E9-66E721DE3070.
-> +
-> +3 functions are available in this _DSM:
-> +
-> +* 0: discover # of functions available
-> +* 1: record RF bands in use
-> +* 2: retrieve RF bands in use
-> +
 > +Driver programming interface
 > +============================
 > +.. kernel-doc:: drivers/platform/x86/amd/wbrf.c
 > +
 > +Sample Usage
 > +=============
+
+A lot better but you missed adding newlines here for this and previous 
+section title.
+
 > +The expected flow for the producers:
-> +1) During probe, call `acpi_amd_wbrf_supported_producer` to check if WBRF
-> +can be enabled for the device.
-> +2) On using some frequency band, call `acpi_amd_wbrf_add_remove` with 'add'
-> +param to get other consumers properly notified.
-> +3) Or on stopping using some frequency band, call
-> +`acpi_amd_wbrf_add_remove` with 'remove' param to get other consumers notified.
+> +1). During probe, call `acpi_amd_wbrf_supported_producer` to check if WBRF
+> +    can be enabled for the device.
+> +2). On using some frequency band, call `acpi_amd_wbrf_add_remove` with 'add'
+> +    param to get other consumers properly notified.
+> +3). Or on stopping using some frequency band, call
+> +    `acpi_amd_wbrf_add_remove` with 'remove' param to get other consumers notified.
 > +
 > +The expected flow for the consumers:
-> +1) During probe, call `acpi_amd_wbrf_supported_consumer` to check if WBRF
-> +can be enabled for the device.
-> +2) Call `amd_wbrf_register_notifier` to register for notification
-> +of frequency band change(add or remove) from other producers.
+> +1). During probe, call `acpi_amd_wbrf_supported_consumer` to check if WBRF
+> +    can be enabled for the device.
+> +2). Call `amd_wbrf_register_notifier` to register for notification
+> +    of frequency band change(add or remove) from other producers.
+> +3). Call the `amd_wbrf_retrieve_freq_band` intentionally to retrieve
+> +    current active frequency bands considering some producers may broadcast
+> +    such information before the consumer is up.
+> +4). On receiving a notification for frequency band change, run
+> +    `amd_wbrf_retrieve_freq_band` again to retrieve the latest
+> +    active frequency bands.
+> +5). During driver cleanup, call `amd_wbrf_unregister_notifier` to
+> +    unregister the notifier.
 
-> +3) Call the `amd_wbrf_retrieve_freq_band` intentionally to retrieve
-> +current active frequency bands considering some producers may broadcast
-> +such information before the consumer is up.
+The correct kerneldoc format should be without the closing parenthesis:
 
-"intentionally" in this sentence should be "initially" (I presume).
+1. Text here that
+   spills to second line.
+2. Second entry.
 
-With that fixed and Ilpo's review comments addressed you may add my:
-
-Reviewed-by: Hans de Goede <hdegoede@redhat.com>
-
-to this patch.
-
-Regards,
-
-Hans
-
-
-
-
-> +4) On receiving a notification for frequency band change, run
-> +`amd_wbrf_retrieve_freq_band` again to retrieve the latest
-> +active frequency bands.
-> +5) During driver cleanup, call `amd_wbrf_unregister_notifier` to
-> +unregister the notifier.
+-- 
+ i.
 
