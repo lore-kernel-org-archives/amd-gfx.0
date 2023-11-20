@@ -4,37 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 735B0C2BB3F
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 15:40:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B38B2C197A0
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 15:40:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C89610E40F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACCDD10E413;
 	Mon, 20 Nov 2023 15:40:25 +0000 (UTC)
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3595810E06D;
- Sun, 19 Nov 2023 06:32:57 +0000 (UTC)
-Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1r4bMV-0000Gj-3u; Sun, 19 Nov 2023 07:32:55 +0100
-Message-ID: <559d0fa5-953a-4a97-b03b-5eb1287c83d8@leemhuis.info>
-Date: Sun, 19 Nov 2023 07:32:54 +0100
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAECF10E395
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 10:48:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1700477283;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=0fmHCyTLsVBo0Kc83TqxxdVsk2B46TkdS7UkGLyTjj8=;
+ b=bfwB025oHthyMqE4lM2yJJIMs2CU7LGJf3mwtCfwX5m8s7BaSSfkncurhDtTJUnqc23ATi
+ Dk4EmROb5e4WXtw6fhnDwkc4bc7IgzS81zlW7bVoR0zJDD2R3K1YCT86S6EdgTT0YNfMqW
+ Sx1hoXx1yvHzh+vs8Sf6SCkaMYG+V5A=
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
+ [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-399-96YOpiMPNgq8n5A94PwfIw-1; Mon, 20 Nov 2023 05:48:01 -0500
+X-MC-Unique: 96YOpiMPNgq8n5A94PwfIw-1
+Received: by mail-ed1-f69.google.com with SMTP id
+ 4fb4d7f45d1cf-5411d71889aso3152988a12.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 02:48:01 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1700477280; x=1701082080;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=0fmHCyTLsVBo0Kc83TqxxdVsk2B46TkdS7UkGLyTjj8=;
+ b=PzYLP3XuvKrmCTi3GvUTgzjdonmoQviGEYS3cIthqkHv/TjkITsxSi+2orEpZNSz1R
+ mqc93f3wWgOhI6oaY83x2tmlANgFGouORfMM8q547VW4akyb10K23hEATEflhkby/bOQ
+ Vf5l56sl9H2C16bhn7tQ/bcxfs2xeL+CEgpMPFvT9+Pu3Njs4l/49HXmy0frbC0iQN5P
+ a174koZNFkkiBVT4WpZ5bf0aColjWAbi16X+WN/y8eBwyeDJ5WbTBHbbNjNnu6IL+nAV
+ mFR+rNGWZz+utHJHRQaZ2kwrDY/H+OQVP66NCuVF5mE5rwdIECFWUzGuCgWgLin9S3BW
+ eD5g==
+X-Gm-Message-State: AOJu0YwRizwiDf1Gnj2XTEtJotVpyZFmrgrvzF9ZaH9c057XeerWl4TN
+ Af4d7hCgRwq65gKz5NPtEsaKwydN+0aCcgnB00cKCOrOXvAi8yfuLtat7psMnT8rdk0Psc/fLcc
+ tYcrgio4triq9OxZZP2pKv6CY4w==
+X-Received: by 2002:aa7:c702:0:b0:548:b824:1cb8 with SMTP id
+ i2-20020aa7c702000000b00548b8241cb8mr1156618edq.38.1700477280745; 
+ Mon, 20 Nov 2023 02:48:00 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGOKYlrVDNsMyV/4F65dLvuDm38zuCaU8IqDF/1O3DU8ss3iUrOKIxHJ5ajO+kL3lmaO+RtpQ==
+X-Received: by 2002:aa7:c702:0:b0:548:b824:1cb8 with SMTP id
+ i2-20020aa7c702000000b00548b8241cb8mr1156590edq.38.1700477280434; 
+ Mon, 20 Nov 2023 02:48:00 -0800 (PST)
+Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
+ (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+ by smtp.gmail.com with ESMTPSA id
+ u24-20020aa7d998000000b00548b55f5ffdsm1059461eds.16.2023.11.20.02.47.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 20 Nov 2023 02:47:59 -0800 (PST)
+Message-ID: <e74b7896-2915-47bf-803e-25897cbb8eed@redhat.com>
+Date: Mon, 20 Nov 2023 11:47:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Radeon regression in 6.6 kernel
-Content-Language: en-US, de-DE
-To: Phillip Susi <phill@thesusis.net>, Luben Tuikov <luben.tuikov@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-References: <87edgv4x3i.fsf@vps.thesusis.net>
-From: "Linux regression tracking (Thorsten Leemhuis)"
- <regressions@leemhuis.info>
-In-Reply-To: <87edgv4x3i.fsf@vps.thesusis.net>
+Subject: Re: [PATCH v12 2/9] platform/x86/amd: Add support for AMD ACPI based
+ Wifi band RFI mitigation feature
+To: Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org, lenb@kernel.org, 
+ johannes@sipsolutions.net, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, alexander.deucher@amd.com,
+ Lijo.Lazar@amd.com, mario.limonciello@amd.com
+References: <20231017025358.1773598-1-Jun.Ma2@amd.com>
+ <20231017025358.1773598-3-Jun.Ma2@amd.com>
+From: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <20231017025358.1773598-3-Jun.Ma2@amd.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US, nl
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1700375577;
- 88fa1715; 
-X-HE-SMSGID: 1r4bMV-0000Gj-3u
 X-Mailman-Approved-At: Mon, 20 Nov 2023 15:40:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -47,128 +91,206 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Linux kernel regressions list <regressions@lists.linux.dev>
+Cc: Evan Quan <quanliangl@hotmail.com>, linux-doc@vger.kernel.org,
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Lo!
+Hi,
 
-On 12.11.23 01:46, Phillip Susi wrote:
-> I had been testing some things on a post 6.6-rc5 kernel for a week or
-> two and then when I pulled to a post 6.6 release kernel, I found that
-> system suspend was broken.  It seems that the radeon driver failed to
-> suspend, leaving the display dead, the wayland display server hung, and
-> the system still running.  I have been trying to bisect it for the last
-> few days and have only been able to narrow it down to the following 3
-> commits:
+On 10/17/23 04:53, Ma Jun wrote:
+> Due to electrical and mechanical constraints in certain platform designs
+> there may be likely interference of relatively high-powered harmonics of
+> the (G-)DDR memory clocks with local radio module frequency bands used
+> by Wifi 6/6e/7.
 > 
-> There are only 'skip'ped commits left to test.
-> The first bad commit could be any of:
-> 56e449603f0ac580700621a356d35d5716a62ce5
-> c07bf1636f0005f9eb7956404490672286ea59d3
-> b70438004a14f4d0f9890b3297cd66248728546c
-> We cannot bisect more!
-
-Hmm, not a single reply from the amdgpu folks. Wondering how we can
-encourage them to look into this.
-
-Phillip, reporting issues by mail should still work, but you might have
-more luck here, as that's where the amdgpu afaics prefer to track bugs:
-https://gitlab.freedesktop.org/drm/amd/-/issues
-
-When you file an issue there, please mention it here.
-
-Furthermore it might help if you could verify if 6.7-rc1 (or rc2, which
-comes out later today) or 6.6.2-rc1 improve things.
-
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
---
-Everything you wanna know about Linux kernel regression tracking:
-https://linux-regtracking.leemhuis.info/about/#tldr
-If I did something stupid, please tell me, as explained on that page.
-
-#regzbot poke
-
-
-> It appears that there was a late merge in the 6.6 window that originally
-> forked from the -rc2, as many of the later commits that I bisected had
-> that version number.
+> To mitigate this, AMD has introduced a mechanism that devices can use to
+> notify active use of particular frequencies so that other devices can make
+> relative internal adjustments as necessary to avoid this resonance.
 > 
-> I couldn't get it more narrowed down because I had to skip the
-> surrounding commits because they wouldn't even boot up to a gui desktop,
-> let alone try to suspend.
-> 
-> When system suspend fails, I find the following in my syslog after I
-> have to magic-sysrq reboot because the the display is dead:
-> 
-> Nov 11 18:44:39 faldara kernel: PM: suspend entry (deep)
-> Nov 11 18:44:39 faldara kernel: Filesystems sync: 0.035 seconds
-> Nov 11 18:44:40 faldara kernel: Freezing user space processes
-> Nov 11 18:44:40 faldara kernel: Freezing user space processes completed (elapsed 0.001 seconds)
-> Nov 11 18:44:40 faldara kernel: OOM killer disabled.
-> Nov 11 18:44:40 faldara kernel: Freezing remaining freezable tasks
-> Nov 11 18:44:40 faldara kernel: Freezing remaining freezable tasks completed (elapsed 0.001 seconds)
-> Nov 11 18:44:40 faldara kernel: printk: Suspending console(s) (use no_console_suspend to debug)
-> Nov 11 18:44:40 faldara kernel: serial 00:01: disabled
-> Nov 11 18:44:40 faldara kernel: e1000e: EEE TX LPI TIMER: 00000011
-> Nov 11 18:44:40 faldara kernel: sd 4:0:0:0: [sdb] Synchronizing SCSI cache
-> Nov 11 18:44:40 faldara kernel: sd 1:0:0:0: [sda] Synchronizing SCSI cache
-> Nov 11 18:44:40 faldara kernel: sd 5:0:0:0: [sdc] Synchronizing SCSI cache
-> Nov 11 18:44:40 faldara kernel: sd 4:0:0:0: [sdb] Stopping disk
-> Nov 11 18:44:40 faldara kernel: sd 1:0:0:0: [sda] Stopping disk
-> Nov 11 18:44:40 faldara kernel: sd 5:0:0:0: [sdc] Stopping disk
-> Nov 11 18:44:40 faldara kernel: amdgpu: Move buffer fallback to memcpy unavailable
-> Nov 11 18:44:40 faldara kernel: [TTM] Buffer eviction failed
-> Nov 11 18:44:40 faldara kernel: [drm] evicting device resources failed
-> Nov 11 18:44:40 faldara kernel: amdgpu 0000:03:00.0: PM: pci_pm_suspend(): amdgpu_pmops_suspend+0x0/0x80 [amdgpu] returns -19
-> Nov 11 18:44:40 faldara kernel: amdgpu 0000:03:00.0: PM: dpm_run_callback(): pci_pm_suspend+0x0/0x170 returns -19
-> Nov 11 18:44:40 faldara kernel: amdgpu 0000:03:00.0: PM: failed to suspend async: error -19
-> Nov 11 18:44:40 faldara kernel: PM: Some devices failed to suspend, or early wake event detected
-> Nov 11 18:44:40 faldara kernel: xhci_hcd 0000:06:00.0: xHC error in resume, USBSTS 0x401, Reinit
-> Nov 11 18:44:40 faldara kernel: usb usb3: root hub lost power or was reset
-> Nov 11 18:44:40 faldara kernel: usb usb4: root hub lost power or was reset
-> Nov 11 18:44:40 faldara kernel: serial 00:01: activated
-> Nov 11 18:44:40 faldara kernel: nvme nvme0: 4/0/0 default/read/poll queues
-> Nov 11 18:44:40 faldara kernel: ata8: SATA link down (SStatus 0 SControl 300)
-> Nov 11 18:44:40 faldara kernel: ata7: SATA link down (SStatus 0 SControl 300)
-> Nov 11 18:44:40 faldara kernel: ata4: SATA link up 1.5 Gbps (SStatus 113 SControl 300)
-> Nov 11 18:44:40 faldara kernel: ata1: SATA link down (SStatus 4 SControl 300)
-> Nov 11 18:44:40 faldara kernel: ata3: SATA link down (SStatus 4 SControl 300)
-> Nov 11 18:44:40 faldara kernel: ata4.00: configured for UDMA/133
-> Nov 11 18:44:40 faldara kernel: OOM killer enabled.
-> Nov 11 18:44:40 faldara kernel: Restarting tasks ... done.
-> Nov 11 18:44:40 faldara kernel: random: crng reseeded on system resumption
-> Nov 11 18:44:40 faldara kernel: PM: suspend exit
-> Nov 11 18:44:40 faldara kernel: PM: suspend entry (s2idle)
-> Nov 11 18:44:40 faldara systemd-networkd[384]: enp0s31f6: Gained IPv6LL
-> Nov 11 18:44:40 faldara avahi-daemon[668]: Joining mDNS multicast group on interface enp0s31f6.IPv6 with address fe80::3ad5:47ff:fe0f:488a.
-> 
-> My video card is this:
-> 
-> 03:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Navi 23 (rev c7) (prog-if 00 [VGA controller])
->         Subsystem: Gigabyte Technology Co., Ltd Navi 23
->         Flags: bus master, fast devsel, latency 0, IRQ 139
->         Memory at e0000000 (64-bit, prefetchable) [size=256M]
->         Memory at f0000000 (64-bit, prefetchable) [size=2M]
->         I/O ports at e000 [size=256]
->         Memory at f7900000 (32-bit, non-prefetchable) [size=1M]
->         Expansion ROM at 000c0000 [disabled] [size=128K]
->         Capabilities: [48] Vendor Specific Information: Len=08 <?>
->         Capabilities: [50] Power Management version 3
->         Capabilities: [64] Express Legacy Endpoint, MSI 00
->         Capabilities: [a0] MSI: Enable+ Count=1/1 Maskable- 64bit+
->         Capabilities: [100] Vendor Specific Information: ID=0001 Rev=1 Len=010 <?>
->         Capabilities: [150] Advanced Error Reporting
->         Capabilities: [200] Physical Resizable BAR
->         Capabilities: [240] Power Budgeting <?>
->         Capabilities: [270] Secondary PCI Express
->         Capabilities: [2a0] Access Control Services
->         Capabilities: [2d0] Process Address Space ID (PASID)
->         Capabilities: [320] Latency Tolerance Reporting
->         Capabilities: [410] Physical Layer 16.0 GT/s <?>
->         Capabilities: [440] Lane Margining at the Receiver <?>
->         Kernel driver in use: amdgpu
->         Kernel modules: amdgpu
+> Co-Developed-by: Evan Quan <quanliangl@hotmail.com>
+> Signed-off-by: Evan Quan <quanliangl@hotmail.com>
+> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+
+<snip>
+
+> +bool acpi_amd_wbrf_supported_producer(struct device *dev)
+> +{
+> +	struct acpi_device *adev = ACPI_COMPANION(dev);
+> +
+> +	if (!adev)
+> +		return false;
+> +
+> +	if (!acpi_amd_wbrf_supported_system())
+> +		return false;
+> +
+> +
+> +	return acpi_check_dsm(adev->handle, &wifi_acpi_dsm_guid,
+> +			      WBRF_REVISION,
+> +			      BIT(WBRF_RECORD));
+> +}
+> +EXPORT_SYMBOL_GPL(acpi_amd_wbrf_supported_producer);
+
+So until here you use acpi_dsm methods (1), which matches
+with patch 1/9 which says that both producers and consumers
+use a _DSM for WBRF.
+
+1) With the exception of the weird acpi_amd_wbrf_supported_system()
+helper.
+
+> +static union acpi_object *
+> +acpi_evaluate_wbrf(acpi_handle handle, u64 rev, u64 func)
+> +{
+> +	acpi_status ret;
+> +	struct acpi_buffer buf = {ACPI_ALLOCATE_BUFFER, NULL};
+> +	union acpi_object params[4];
+> +	struct acpi_object_list input = {
+> +		.count = 4,
+> +		.pointer = params,
+> +	};
+> +
+> +	params[0].type = ACPI_TYPE_INTEGER;
+> +	params[0].integer.value = rev;
+> +	params[1].type = ACPI_TYPE_INTEGER;
+> +	params[1].integer.value = func;
+> +	params[2].type = ACPI_TYPE_PACKAGE;
+> +	params[2].package.count = 0;
+> +	params[2].package.elements = NULL;
+> +	params[3].type = ACPI_TYPE_STRING;
+> +	params[3].string.length = 0;
+> +	params[3].string.pointer = NULL;
+> +
+> +	ret = acpi_evaluate_object(handle, "WBRF", &input, &buf);
+> +	if (ACPI_FAILURE(ret))
+> +		return NULL;
+> +
+> +	return buf.pointer;
+> +}
+
+But now all of a sudden you start calling a WBRF method
+directly instead of calling a _DSM by GUID, which seems
+to be intended for consumers.
+
+This contradicts with the documentation which says that
+consumers also use the _DSM.
+
+And this looks a lot like acpi_evaluate_dsm and
+... (continued below)
+
+> +
+> +static bool check_acpi_wbrf(acpi_handle handle, u64 rev, u64 funcs)
+> +{
+> +	int i;
+> +	u64 mask = 0;
+> +	union acpi_object *obj;
+> +
+> +	if (funcs == 0)
+> +		return false;
+> +
+> +	obj = acpi_evaluate_wbrf(handle, rev, 0);
+> +	if (!obj)
+> +		return false;
+> +
+> +	if (obj->type != ACPI_TYPE_BUFFER)
+> +		return false;
+> +
+> +	/*
+> +	 * Bit vector providing supported functions information.
+> +	 * Each bit marks support for one specific function of the WBRF method.
+> +	 */
+> +	for (i = 0; i < obj->buffer.length && i < 8; i++)
+> +		mask |= (u64)obj->buffer.pointer[i] << i * 8;
+> +
+> +	ACPI_FREE(obj);
+> +
+> +	if ((mask & BIT(WBRF_ENABLED)) && (mask & funcs) == funcs)
+> +		return true;
+> +
+> +	return false;
+> +}
+
+This looks exactly like acpi_check_dsm().
+
+> +
+> +/**
+> + * acpi_amd_wbrf_supported_consumer - determine if the WBRF can be enabled
+> + *                                    for the device as a consumer
+> + *
+> + * @dev: device pointer
+> + *
+> + * Determine if the platform equipped with necessary implementations to
+> + * support WBRF for the device as a consumer.
+> + *
+> + * Return:
+> + * true if WBRF is supported, otherwise returns false.
+> + */
+> +bool acpi_amd_wbrf_supported_consumer(struct device *dev)
+> +{
+> +	struct acpi_device *adev = ACPI_COMPANION(dev);
+> +
+> +	if (!adev)
+> +		return false;
+> +
+> +	if (!acpi_amd_wbrf_supported_system())
+> +		return false;
+> +
+> +	return check_acpi_wbrf(adev->handle,
+> +			       WBRF_REVISION,
+> +			       BIT(WBRF_RETRIEVE));
+> +}
+> +EXPORT_SYMBOL_GPL(acpi_amd_wbrf_supported_consumer);
+
+So I would expect this to just use acpi_check_dsm like
+is done for the producers.
+
+> +
+> +/**
+> + * amd_wbrf_retrieve_freq_band - retrieve current active frequency
+> + *                                     bands
+> + *
+> + * @dev: device pointer
+> + * @out: output structure containing all the active frequency bands
+> + *
+> + * Retrieve the current active frequency bands which were broadcasted
+> + * by other producers. The consumer who calls this API should take
+> + * proper actions if any of the frequency band may cause RFI with its
+> + * own frequency band used.
+> + *
+> + * Return:
+> + * 0 for getting wifi freq band successfully.
+> + * Returns a negative error code for failure.
+> + */
+> +int amd_wbrf_retrieve_freq_band(struct device *dev,
+> +				      struct wbrf_ranges_in_out *out)
+> +{
+> +	struct acpi_device *adev = ACPI_COMPANION(dev);
+> +	struct amd_wbrf_ranges_out acpi_out = {0};
+> +	union acpi_object *obj;
+> +	int ret = 0;
+> +
+> +	if (!adev)
+> +		return -ENODEV;
+> +
+> +	obj = acpi_evaluate_wbrf(adev->handle,
+> +				 WBRF_REVISION,
+> +				 WBRF_RETRIEVE);
+> +	if (!obj)
+> +		return -EINVAL;
+
+And I would expect this to use acpi_evaluate_dsm(), or
+preferably if possible acpi_evaluate_dsm_typed().
+
+Is there any reason why the code is directly calling
+a method called WBRF here instead of going through
+the _DSM method ?
+
+And if there is such a reason then please update
+the documentation to say so, instead of having
+the docs clam that consumers also use the _DSM method.
+
+Regards,
+
+Hans
+
+
