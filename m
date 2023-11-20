@@ -4,117 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90EB9C2BB3F
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 16:21:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13C6CC197A0
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 16:23:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D13C10E089;
-	Mon, 20 Nov 2023 16:21:12 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 643FB10E089
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 16:21:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE0C210E05A;
+	Mon, 20 Nov 2023 16:22:58 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2065.outbound.protection.outlook.com [40.107.94.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B0F610E059;
+ Mon, 20 Nov 2023 16:22:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F1keBssq+viYRQEEjl1cF1EKzNmR81/3Z66rJ8YgGL7/OmjFFXcy90ohGQILTOhuKKiY5glz2NAkMx9LsQzKtX2cyw7a7oGEQa6NQVYrxONVU+pgwUatwHQplgJIgnV+UFJigzNcRJFRvN7zB+D9tWxzdDDw8XTGKSXSg9U0g8PIK5qjJJs+9P3SDVhBYHMZd10ptrQg10TIUPlTYunK1HpC/+QTqEJt8gEvipVuOeK+RMVnAF2wEkjnM9RP46JimLoPTAfdyup9A7RFKWm4G/Zz0GHWBdKXdGJKaRSpDqBJYi1HfZn6QHsGluY1MrJY45uGpS9pETBQ2kJ0Fr3g2g==
+ b=Zbeeu65cgfhCNN8NSP7BIP46PYtmlS46GxISi/rtrajc+nhsWjiwV3wOP4WhQybReCGTJQ97aN+l5kPTxD7I5AfNT35OFuFzL/YQJlr0gQBcPMkFoZ5DHNmTkr9T7RuWM8n+6hr7DiAJYRE1EY2lElXT7GrodH0L+ZFmyAu/pvt3UUlU06OhkW18ZSlcjjcwvco5ieUc9xEN07CbS5x+DI73Ix3NgkSWB3vFe2N1XyBZfun9Pe4yI29R7GVnYUFmTnX2yfA5N9NOIlPeLkBnkuNTOeOk++y2rn7KAAyFntS1Ixg8/vu7kzcfDca/OF6u6ZUIXfQJkXGcCy5ZDWf45A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y2+vg33FbyisLSgGmigUHcQYozGy37N7E6J0ktl9xcI=;
- b=gjZ2pFZyPsrM/XO6djiNMtSOuJV0Ae0YFS9bXluoJmaEA5qTfhcm09nyg7VZpkhP53vqkR8VGuwnlLwv0s+bMzhGzQjJQFZLsCFfoeZrjj2zWyfYkujSK2TbgMvlYrYrUT0yDIvM7/GH0lVU2JB+UrBnmCgR9WRjKOALlunAT+IuW0qCgCxWUQAbI7SkKOXvAL7kU5JgxaBDqOft8A9lEyzfdAYkgJBOdDOej4nVoY7LTHDjUukx6tbR7cbezp2FCJbveT+qVBJ/3mL3Meh+4Ty0rrTNJaiDGJyId3da513cbQATy4ZGbgXbWqLYB4jAOSI7jOglcyQuvYb7U8H0nw==
+ bh=U82BxjxFNDxJXXt8aQA3CwCp5D5vBtikbPb+hMFIdMg=;
+ b=ArlLPaOxE8tE/ec8CYX7IVbpEYOHiEfzIpcNeh9PDzEsbRFIEVMC9+J/ul8sLAXv8gwFhWZiB7Y+vvdWi+13ny0s6t2kpEcNzhIWGL2BIyoZRxyxFf5DxPMWHtmCh+dfEf7sQaoG42fhb6tZwroQY5ZuDvakr7kAwTtm84HZ93PYW1CdZlGWehfgXtQEYnTUCMuW6MO4EhyYCNgzgG3vLMhmDNvJDzAKR7tbtTyv5DGzLfDuggitoKj0oJDACeuEBZ9FsZHCuGgOADS63D0UexYCaDkkiPXItcDURpezk58wqEDPFkdfi9pl4i4rbunmmqZ3fhUWH26HxbjwUHECZQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y2+vg33FbyisLSgGmigUHcQYozGy37N7E6J0ktl9xcI=;
- b=oQ2Sd74z/Yvzh4TdUoYvRieqT1PonJnHc2N7PbTVGxpwx9pG9TyUoR1DzhjxIwocx7BrURGDnGztKn6rFuwwCestVlFSKzx44Jx5q2z8R7RCiSyAvMK9g6v7I/8+hvTA0jDy5pqekiDR6+FdtKqr3N73F2aXbIjgy1ehectACW0=
+ bh=U82BxjxFNDxJXXt8aQA3CwCp5D5vBtikbPb+hMFIdMg=;
+ b=oFPrh6XTz/wakFHfPv4DNYEliNDanTiP8XnaPK2McINyHrBsDgbuEjddfXv5wBIV5t/kjeoJVOjB/JCFD7H9cpxaoHR3JRq54zVwmE2RgRTNhHKNFwee4+QqmSc2Jp46kTn0pi0C89qg+IPJ+NSLVEZTLeQbZKUAXqpz/nZ0qtw=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB6760.namprd12.prod.outlook.com (2603:10b6:a03:44c::18)
- by MN2PR12MB4422.namprd12.prod.outlook.com (2603:10b6:208:265::9)
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by PH8PR12MB8608.namprd12.prod.outlook.com (2603:10b6:510:1bc::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.27; Mon, 20 Nov
- 2023 16:21:07 +0000
-Received: from SJ0PR12MB6760.namprd12.prod.outlook.com
- ([fe80::ae50:7a3a:dad3:1d04]) by SJ0PR12MB6760.namprd12.prod.outlook.com
- ([fe80::ae50:7a3a:dad3:1d04%7]) with mapi id 15.20.7002.026; Mon, 20 Nov 2023
- 16:21:07 +0000
-Message-ID: <acdec25e-ecb1-4d3e-9f4f-1930f83ba5b6@amd.com>
-Date: Mon, 20 Nov 2023 11:21:05 -0500
+ 2023 16:22:53 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::ca80:8f1c:c11:ded3]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::ca80:8f1c:c11:ded3%7]) with mapi id 15.20.7002.027; Mon, 20 Nov 2023
+ 16:22:53 +0000
+Message-ID: <5fee047e-2dfb-450d-839b-01fffb3c01d0@amd.com>
+Date: Mon, 20 Nov 2023 17:22:49 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 16/24] drm/amdkfd: use bit operation set debug trap
+Subject: Re: [PATCH 1/3] Revert "drm/prime: Unexport helpers for fd/handle
+ conversion"
 Content-Language: en-US
-To: "Yat Sin, David" <David.YatSin@amd.com>, "Zhu, James" <James.Zhu@amd.com>,
+To: Felix Kuehling <felix.kuehling@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20231103131139.766920-1-James.Zhu@amd.com>
- <20231103131139.766920-17-James.Zhu@amd.com>
- <DM6PR12MB5021F17F6D01763004219A4E95AEA@DM6PR12MB5021.namprd12.prod.outlook.com>
-From: James Zhu <jamesz@amd.com>
-Organization: AMD RTG
-In-Reply-To: <DM6PR12MB5021F17F6D01763004219A4E95AEA@DM6PR12MB5021.namprd12.prod.outlook.com>
+References: <20231117214419.418556-1-Felix.Kuehling@amd.com>
+ <73a16f1e-3556-49b3-bd19-8b510f6af3fd@suse.de>
+ <7501fb58-9f34-4410-b529-c01e2e45e019@amd.com>
+ <86a843ed-d286-4da0-9fa9-b777d783982f@suse.de>
+ <c4e5254a-6c69-434a-8128-dd140ddba623@amd.com>
+ <73722172-69e8-4bdf-bfe3-e7c5bbff7219@suse.de>
+ <814430b0-38de-4fd5-9719-a2f7b217cb0d@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <814430b0-38de-4fd5-9719-a2f7b217cb0d@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0083.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:84::24) To SJ0PR12MB6760.namprd12.prod.outlook.com
- (2603:10b6:a03:44c::18)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0218.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e4::12) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB6760:EE_|MN2PR12MB4422:EE_
-X-MS-Office365-Filtering-Correlation-Id: 06c9796d-faa9-4cef-f769-08dbe9e4b356
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|PH8PR12MB8608:EE_
+X-MS-Office365-Filtering-Correlation-Id: eb98164f-060c-46d8-a690-08dbe9e4f223
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: g8bLaSEdTi68XoSoYqVAiJpW/ykSR2RLJKaWkRn1CKlA5no8kFT9H0h/bdBqWeUCQpTji7ajO9pdjjxWuBSnMnJmrFlRSi3GD+sIN1FgaUR1d1ebOGzfpO0eQ3VaRWEhNDkcb/0HyHNP3I5K0NfnM0zUV89jkIJGjzBz73pI6JGKQgEYN0esN4Pl6RqsaWWuouENf7RwiNtuN3PRJqAyvRukrgCPwR2ervDocYsTAzuEJtPBlTnPmZP+QICsE4mFbktB1Is40XDs1g0ypRvrepq7AUSjUMWYkoTXhDg3KJJt+mfb7NhtOz7TNUwL3koqE3m89GZOb3mwffdmCl9JMXdyQiWWUKOsIuWaQ25FObtJLCawv+BqapiFcGo6hJC1QAs7c88YmmZuiNRVW3V1eaBD0gJg/PLSz5hA3lSiX7pekL8IWOrT+6BdO2geRhA7/dBKlTpwXq4AtA/xtgvyDm030iBmp4FV7BSPPsis/HFPvTs1rJ9W4BxpuX6QKNQkB6hvbSb5krR5XH7SIaVz5ywauJJf9GDgXQ+m6yryTzJMuxDVe9/brOJCdt3GzmyEFaeyFEdD7CPgsQO83VVTgp6g/ChMu0lR6VxsPiVTbZ/ZHJbPw116RYtrelZm1OpESf1IglYoh4UTNo2+nLNmyA==
+X-Microsoft-Antispam-Message-Info: mYATTg4JZz6fWImAN8mxAZLfGRCLVz1f33LYBVKCDcZqRxs6z2yS108asRg1GnydF83OW9rO6vogiyLGFrOJ1tGdc1R7nqN44GSjJlanEtuDE9ISN6HyvXFQPcrB8ZFFsnDk+8RFP9S3PiVRCWZO2nhZ8S0jpQ3m7Fq0iZhsavuwMveVXz3VTkLUAaFc0zyQv7F7w4Z/Z818GQkFaiYBRnALrlBrL/5Rw/Jp6qp8D76CTHVDy9zd6VrJX2H+6bfyAjccchidlJfLeZvwROv9YHGdp+OUQw6jKXwgbabq3jmwzG1K6lJY8tN9nqH39Ph+SP9J1Fv0Y5s4RUXQ/zwVM/odbvUx2Gh17wy1pZtPjWneKPE2qQwP76Juu+qEjo86lJ/gQhaoHgK04gA6C6I0/FKxz8rzmcafbYDq8geQhBTcRQar75+UH8oIQAvnz1wmub1s0jrBX7SvuESqqr8cpAfZpwsPOrrl7r3YhfTf2GWJsU5ECmpGnkygtW1R3Y28CoZvBkqHyTPNMieF3iqh2EH360ENJawM7JsG1R0P3OSeV3O2iMqC5JqMsCWvvfg6guEUxBC+hUD8uuHKutJrRCxvPhRKejJFg8SXYFg4WYnrHjib3B5k8dln6FUVYIgVvVpIaW09MYXfED+pdxod5A==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB6760.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(136003)(346002)(39860400002)(366004)(396003)(230922051799003)(64100799003)(451199024)(186009)(1800799012)(316002)(110136005)(54906003)(66556008)(66476007)(36916002)(6506007)(53546011)(36756003)(6512007)(2616005)(26005)(6486002)(478600001)(38100700002)(31696002)(83380400001)(66946007)(4001150100001)(5660300002)(2906002)(31686004)(4326008)(8936002)(41300700001)(8676002)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(346002)(396003)(366004)(136003)(376002)(230922051799003)(64100799003)(186009)(1800799012)(451199024)(86362001)(31696002)(31686004)(110136005)(6486002)(6666004)(6506007)(66476007)(66556008)(316002)(66946007)(36756003)(2616005)(53546011)(6512007)(26005)(83380400001)(66574015)(30864003)(2906002)(4001150100001)(41300700001)(478600001)(5660300002)(38100700002)(8936002)(8676002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bVgxbmVSa1pyeVlGQW44SFM4Y0NWQTBqT0pVMWRVTHpEaW9XcURsQ00yZGZN?=
- =?utf-8?B?MTNMQ3pqczVHYkNVcEJVNlUrZHRyZE9QUXFtNmJCbWxWaCtOZnZaMUl3YXZi?=
- =?utf-8?B?NVMwM3o4N0ZDeTFvQUlEZitUaFpIU0RwTjZiN2R1ZGh2RXdnemRpb3RwNGIz?=
- =?utf-8?B?TW1ITkJFUHExT0ZGUEFsaWVFdTg2c3phQjBCTW9PbnJQVWx6aHA2T3laUUZK?=
- =?utf-8?B?c1dybk5IOG81VVlxSm1kWllXeG5zY29PTGFLd0FxU2JCNnJlY1pNb1N5emRJ?=
- =?utf-8?B?Mk1rajdiSS9YODdPZjBnN2EzeHRrVnZKRUZDaVdMM1J5K2lVQjBKb1o3ZDdx?=
- =?utf-8?B?Qis4MWs0ZE8yZEZxdjBJRWNSK2ltUzZTWHJCd0QyQk1TcGhyZC9aS3BVWW51?=
- =?utf-8?B?Q1BRdWFSS3ZoRDNnblY4ZGpITU9PVlMzcnNjTGNuOWFpNWI5ZmVVaTcyTXQ5?=
- =?utf-8?B?bjNYRmhMT0tndS8ycEtWbTN2M25ONUdYWDNKQnNCM081VjUvQ20zV0xmVUhD?=
- =?utf-8?B?V0hIK1V1bFY5V0NpS2kxeVQ2cWRKTDNyU1lEdkpXVmtmUlc2Ukd3aG95bGtJ?=
- =?utf-8?B?eFNuZWdQWDcyWjNnYTQrTlluQ0R5bTJJQ0JnZTFnYW5Oa1J0NnhnSFFTY2pR?=
- =?utf-8?B?eHRJSjVqN1IxMi93Mk13Tjc4bDlnT2pHTWxrQjFMbVNPU1N4VkRyc2xLSmFL?=
- =?utf-8?B?YXBZbnB2QnRRdXhuTmpvNmJscWFVUlI0Q3VScUFXWkp6aGdxZFI3UW1rZXNp?=
- =?utf-8?B?QS9XWXJIdWRpS1JxTXJ4OE4wLzRYMHFJdVUyaFNHNWw0UExnUElUL255aEda?=
- =?utf-8?B?U2VsM0o5UXdLb3RhUU5UREtuMEkxQW1WeUZkZ1NHZVdhRVZWa1hLTFB6c2hK?=
- =?utf-8?B?dFNpU1MzMURYeGJLc3JGU01aL0pwNllzcnVPOGxibUdtZWJFc2hFYzhhRVFN?=
- =?utf-8?B?TGwvWU1Pelphc1lNczYvcDNYOENsZXRPdm1nMkVDYWJFS1ZmWDhOeUhFQ1Fi?=
- =?utf-8?B?c2dObDNZL2RtMkprMnpBNzN2VTM0SnpycXdIWTNUR0lHN2J0WmtoZXgvT0Nw?=
- =?utf-8?B?TE1OdVpXc2NQZm12N0thT0VvYjZOeU1mYnVrVXY3U2VPMGtlaGNOVFRLV2x0?=
- =?utf-8?B?L1dzcFNyelIyQ0Y2RGlmQTZjaXhYcnJVL0RDR1FoK3dhamtSZmZnelpSdHRl?=
- =?utf-8?B?QlpwcGxDNnVUdVp0ZDEyRHcvMVpzazN2MW1ucFNBMjZZRk5QcnpRSi9VVldQ?=
- =?utf-8?B?c3VIeEcvaVdKb1JicUYvSzhvQTFkSmhTRGJ1ODBBdmVSenlicm9IZUVtN2o1?=
- =?utf-8?B?RDVORlJIY2JBOU5tWXdSeDRiL0szbFdMQko1MCswcjRDWFh6L3BwRmtjaXdJ?=
- =?utf-8?B?NnpkNW1nZE13M09OU00vZit0aWxzMFhGaDJhMjhiWkJ3dStEbWltZWNZZURC?=
- =?utf-8?B?dWFVdFBGRkMydHovTi9PTDhtZ1NIRGl5UEI1cUdHd09vRW1GeWkyRk1EZEJB?=
- =?utf-8?B?bCtxOHNPbXM0MDNhMk1HRStvdnZEVEpCbVdzNWJuR1FOR3JLbHZ1MmVDZWhL?=
- =?utf-8?B?QW4yNWJMKzJqbUl2OFdackRRcnh1U05BR24yTHBnOWpFM0xDVEJlbGFwTGhJ?=
- =?utf-8?B?MmZlWUc3RFBXbEVmYXVDQ2VIK2I2cUZlR1JERDFzaVRnZGttUVVKNllUVGMr?=
- =?utf-8?B?SnVKNVlVcmM1dEN1UXhSOHpBaE82SFFiVlhybWZreHNHOVJ2Z0JOUTc4MjQ4?=
- =?utf-8?B?S3ladm5aSFF5aVpvVW9kV0tVMWJabGxuQzR6ZGJMUjlyUm9VelZWQnRZbEh5?=
- =?utf-8?B?Z3BaWWcvekwvdmliam15Z2MvbU96ZVh1cHg1U3pSdHFqdWVNVGx1RDlrdlpt?=
- =?utf-8?B?dHZaOERFQjVNSzlUWXJ0NzVGSDhpZ0x4OU1GVGtQRmpjYWhCZlVmbUFlNWE4?=
- =?utf-8?B?cGFMUjRBbzRmTUxoeTYvUXZVT3FIRjF0Y21LWkZ1THVyTHdpZVdvTU9PbG1a?=
- =?utf-8?B?aDlKS0ZvSzZZaVpWQXBiYlVWVHpaL0hMRDFhRGx4QzA4ZUx3eVZIRkdEME1F?=
- =?utf-8?B?dk1TTmp3OEE1d2FZR29TZHJXd3FVRlNlTm1GU2VPSEFuSE1HWlpUemhFUmdF?=
- =?utf-8?Q?/oI0Iiig4zKK/nxQGtrnwfKbv?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TEdhSXl1N2ZkQlJhYlpLcFdoOTJLaitHQ25RSnljZnkza0h1NzBpRFV4K2U1?=
+ =?utf-8?B?WGhzR1FOSHVubUcrMjlsbWVkZGxIWXNMdXlqOFJIb2FWZDN5WG1QVEpqeFk3?=
+ =?utf-8?B?YkFpVXhwNlA1VHd1MHNrcXlRcE1aNUd5QVozUjVEQW5NQ2tST29nVjFhQnU3?=
+ =?utf-8?B?d3BzVlBlYzBrVlE0NkZrNElnTmFEYkhyZ2N6Skhsd0p2U1FOQnBvREZNbjY3?=
+ =?utf-8?B?VVliOVNRa3piSnMycnFaeE1xd3JXRFVsM2IxS2J5RXVvRng3VTJSMW1RU0Mr?=
+ =?utf-8?B?YWMxT3lqamZpekpqbHo0Zm9PV3lqcU94aTVaNENEdTJyZ2hWdG9hREJ1LzFR?=
+ =?utf-8?B?S1pTRHk5dTFkT3pBQWRScHJSbEdZMXVrVmwxRU52eTJtMHdXVEJYVGJoRUtl?=
+ =?utf-8?B?UnRCOURBUkl2WXF1M1RSdmdaVyt3dlV1NGR3akthdERqOGc1eStQS2ZxTmIz?=
+ =?utf-8?B?TVlhN0ZHNFJRa3FVL3krK0ZmWGJMb2VySXAwcWV4RlpVZGRkS3YxOXJWNGxI?=
+ =?utf-8?B?NXZoZmM2SG4xVmpvWW9VUC80bTFLa3p5aDNpU1JKS0dIM1AydmNWTzA5WkNl?=
+ =?utf-8?B?Q1g1ZFhaWVpzbnlVcU92UHU3bHZqc3UwTHplOUM0RCtpSTJ0Y2o5SE1BUWc1?=
+ =?utf-8?B?MmJlcEVIRWZrUWFXMDAva0xrYkNRTDBMb3pzOXVidjRjbEVmTHBsTFJEN21H?=
+ =?utf-8?B?K3VsT3pnd1VKYW9oYldYTmVaNzcvNWgvbGhkSlpsUWk3bUhTY3ROVFJxUHJQ?=
+ =?utf-8?B?RlBSN0V4R1ZJdXp1NzZObEU4bXlZblJlWkgzZ0M3Ynk3dmhYak81enJxcHFO?=
+ =?utf-8?B?NHBZWVJFRWlnT0JMR1VVbFZzZUpiNnArM2RsUEFoUGJuNUhDeUtkTEROMXlO?=
+ =?utf-8?B?VXZtK0J1SUJGalVyYy9hUld2R0IrMkdBMGx2L0tBMGJoVjcza2NjMVA2WDRP?=
+ =?utf-8?B?aHNJM2l3ZG42QmxlSzd3Qi9zQks0dXRtVzJEb2xJdm81QnNreEl0dy9scUFs?=
+ =?utf-8?B?dUJHTE1XRTcyc2U2OVk4TjRaUDI1YkxvYVhMVWQ1Rk1FWjRRRHJDa2htK283?=
+ =?utf-8?B?SFd6RG14aG9ROHJsK3N6UE15TFR1eVhsVXREeU9raThVbzBCb0NRMk5kK1VS?=
+ =?utf-8?B?eHhUeXlHWlNZUEowZmhWOURTUWxKL0FUcm9tWG9pUUNWa0U3YUlmUXp3cU1M?=
+ =?utf-8?B?ZFFlNEgwSjJLTnozOUM0c0VwbWdOQ3JObUgvZ1NGNzYxaG0rbjViaTRNNUxw?=
+ =?utf-8?B?SVAxZzJNRlczQmdGWGRFc3JEQkExZStycXdsOWhHWGxuY2pJcVdxbnFOUlpl?=
+ =?utf-8?B?ekUyNTBpZit4VUJBMzl1MDF2Y0hlWmY4OUlobmh3bGJWYzVOT0pjekF1S0R0?=
+ =?utf-8?B?UGxkNzEySzRsQ3FSUUlZdzZsQTBab2NGYjNrZ1E3WXVMVU9OQzltakJpWDFR?=
+ =?utf-8?B?U1FqRzJUbzBaU0VlYVFtaEhML1NBdGc5QzZXc1RNaC9PMzRZRHBzUGZvSUdr?=
+ =?utf-8?B?aTk5Q1N2d0d6dkNPMy9NWERRNktES0M1U1h6Yzg5Wlp2MkxyUjRSdGxIRXhT?=
+ =?utf-8?B?SVF4UnFoaU41aUhhTVNMMFhYamJCNWNScEJxMWp5aVltbUpUTDg5NUVuQ29E?=
+ =?utf-8?B?NG84N2U3QmhhcGZvL1FYN0JrWlp3TGRlbzY2NGpQcVg0RnUrM01kck1wdHFT?=
+ =?utf-8?B?TWhMckJsT0xHcytTS0treTl4bGlFOVBCWEtWWTI2am9xWEorZUt6bldjN1p2?=
+ =?utf-8?B?SEJPN0dSd25sS2NnMzVhNFA2RURGK3hNMnVUclRkV2hCWWY0blhJMHNvdTAy?=
+ =?utf-8?B?U1BCTk9iMzgrMmplR05mV0tja2hpRW92ZEZUanNvcExLV1JBekxpRG81TEdG?=
+ =?utf-8?B?QnVzWDFnSzJtbGlzcjdsWnY3em9kWUd1ZGZ3SDcvaklCczhndC9qc3pwUlZB?=
+ =?utf-8?B?RURTWmZQT05WenorblhXcUlkZUlka3Fpc0d1TnpsZ01GSzJLWHpNRGcrN0Fw?=
+ =?utf-8?B?aTM5RVVnQlVFcFlBZWFWWWwzTkV2K05abHVVa1VIY1hVZ0RoNFZTQ21FMW4x?=
+ =?utf-8?B?OFNGZWIwOG4yT3JsUW9rT0EyU1p4and1VDU4ZVVadWlzVjczbWNXc1JvSFBU?=
+ =?utf-8?Q?bK+XP1ITCU5zeOCKThOjyZrx5?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 06c9796d-faa9-4cef-f769-08dbe9e4b356
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB6760.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: eb98164f-060c-46d8-a690-08dbe9e4f223
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2023 16:21:07.5062 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2023 16:22:52.9529 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: doAQlFtrOBKT8NcVSjvlHa3cww8U6Q9LJUHJjYiDOj1Y1DNd3NaKToyjYBtIffxC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4422
+X-MS-Exchange-CrossTenant-UserPrincipalName: N6qQ/Nx0V5wN0g+H7gKhRzRtaofY10xKCcVR6D1gCzN070Cg0olkETDrMdBjXoBX
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB8608
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,68 +132,268 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Greathouse,
- Joseph" <Joseph.Greathouse@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 2023-11-10 14:08, Yat Sin, David wrote:
-> [AMD Official Use Only - General]
+Am 20.11.23 um 17:15 schrieb Felix Kuehling:
 >
->> -----Original Message-----
->> From: Zhu, James <James.Zhu@amd.com>
->> Sent: Friday, November 3, 2023 9:12 AM
->> To: amd-gfx@lists.freedesktop.org
->> Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Greathouse, Joseph
->> <Joseph.Greathouse@amd.com>; Yat Sin, David <David.YatSin@amd.com>; Zhu,
->> James <James.Zhu@amd.com>
->> Subject: [PATCH 16/24] drm/amdkfd: use bit operation set debug trap
+> On 2023-11-20 11:02, Thomas Zimmermann wrote:
+>> Hi Christian
 >>
->> 1st level TMA's 2nd byte which used for trap type setting, to use bit operation to
->> change selected bit only.
+>> Am 20.11.23 um 16:22 schrieb Christian König:
+>>> Am 20.11.23 um 16:18 schrieb Thomas Zimmermann:
+>>>> Hi
+>>>>
+>>>> Am 20.11.23 um 16:06 schrieb Felix Kuehling:
+>>>>> On 2023-11-20 6:54, Thomas Zimmermann wrote:
+>>>>>> Hi
+>>>>>>
+>>>>>> Am 17.11.23 um 22:44 schrieb Felix Kuehling:
+>>>>>>> This reverts commit 71a7974ac7019afeec105a54447ae1dc7216cbb3.
+>>>>>>>
+>>>>>>> These helper functions are needed for KFD to export and import 
+>>>>>>> DMABufs
+>>>>>>> the right way without duplicating the tracking of DMABufs
+>>>>>>> associated with
+>>>>>>> GEM objects while ensuring that move notifier callbacks are 
+>>>>>>> working as
+>>>>>>> intended.
+>>>>>> I'm unhappy to see these functions making a comeback. They are the
+>>>>>> boiler-plate logic that all drivers should use. Historically,
+>>>>>> drivers did a lot one things in their GEM code that was only
+>>>>>> semi-correct. Unifying most of that made the memory management more
+>>>>>> readable. Not giving back drivers to option of tinkering with this
+>>>>>> might be preferable. The rsp hooks in struct drm_driver,
+>>>>>> prime_fd_to_handle and prime_handle_to_fd, are only there for 
+>>>>>> vmwgfx.
+>>>>>>
+>>>>>> If you want to hook into prime import and export, there are
+>>>>>> drm_driver.gem_prime_import and drm_gem_object_funcs.export. Isn't
+>>>>>> it possible to move the additional code behind these pointers?
+>>>>> I'm not trying to hook into these functions, I'm just trying to call
+>>>>> them. I'm not bringing back the .prime_handle_to_fd and
+>>>>> .prime_fd_to_handle hooks in struct drm_driver. I need a clean way to
+>>>>> export and import DMAbuffers from a kernel mode context. I had
+>>>>> incorrect or semi-correct ways of doing that by calling some
+>>>>> driver-internal functions, but then my DMABufs aren't correctly
+>>>>> linked with GEM handles in DRM and move notifiers in amdgpu aren't
+>>>>> working correctly.
+>>>> I understand that. But why don't you use drm_driver.gem_prime_import
+>>>> and drm_gem_object_funcs.export to add the amdkfd-specific code? These
+>>>> callbacks are being invoked from within 
+>>>> drm_gem_prime_fd_to_handle() and
+>>>> drm_gem_prime_handle_to_fd() as part of the importing and exporting
+>>>> logic. With the intention of doing driver-specific things. Hence you
+>>>> should not have to re-export the internal drm_gem_prime_*_to_*() 
+>>>> helpers.
+>>>>
+>>>> My question is if the existing hooks are not suitable for your needs.
+>>>> If so, how could we improve them?
+>>> No no. You don't seem to understand the use case :) Felix doesn't 
+>>> try to
+>>> implement any driver-specific things.
+>> I meant that I understand that this patchset is not about setting
+>> drm_driver.prime_handle_to_fd, et al.
 >>
->> Signed-off-by: James Zhu <James.Zhu@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 16 +++++++++++++---
->>   1 file changed, 13 insertions(+), 3 deletions(-)
+>>> What Felix tries to do is to export a DMA-buf handle from kernel space.
+>> For example, looking at patch 2, it converts a GEM handle to a file
+>> descriptor and then assigns the rsp dmabuf to mem, which is of type
+>> struct kgd_mem. From my impression, this could be done within the
+>> existing ->export hook.
+>
+> That would skip the call to export_and_register_object. I think that's 
+> what I'm currently missing to set up gem_obj->dmabuf.
+
+I think we are talking past each other. kgd_mem is not part of the 
+amdgpu driver, so it can't go into an ->export callback.
+
+What happens here is that a drm_client code uses the amdgpu driver to 
+export some DMA-buf to file descriptors.
+
+In other words this is a high level user of drm_client and not something 
+driver internal.
+
+If you don't want to export the drm_gem_prime_handle_to_fd() function 
+directly we could add some drm_client_buffer_export() or similar.
+
+Regards,
+Christian.
+
+>
+> Regards,
+>   Felix
+>
+>
 >>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> index fbf053001af9..a0b729c65a7c 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> @@ -1434,13 +1434,23 @@ bool kfd_process_xnack_mode(struct kfd_process
->> *p, bool supported)
->>        return true;
->>   }
+>> Then there's close_fd(), which cannot go into ->export. It looks like
+>> the fd isn't really required.  Could the drm_prime_handle_to_fd() be
+>> reworked into a helper that converts the handle to the dmabuf without
+>> the fd?  Something like drm_gem_prime_handle_to_dmabuf(), which would
+>> then be exported?
 >>
->> +/* bit offset in 1st-level TMA's 2nd byte which used for
->> +KFD_TRAP_TYPE_BIT */ enum KFD_TRAP_TYPE_BIT {
-> Nit pick. New line after comment
-[JZ] something wrong with your email. it is new line originally,
->> +     KFD_TRAP_TYPE_DEBUG = 0,                /* bit 0 for debug trap */
->> +     KFD_TRAP_TYPE_HOST,
->> +     KFD_TRAP_TYPE_STOCHASTIC,
->> +};
->> +
->>   void kfd_process_set_trap_debug_flag(struct qcm_process_device *qpd,
->>                                     bool enabled)
->>   {
->>        if (qpd->cwsr_kaddr) {
->> -             uint64_t *tma =
->> -                     (uint64_t *)(qpd->cwsr_kaddr +
->> KFD_CWSR_TMA_OFFSET);
->> -             tma[2] = enabled;
->> +             volatile unsigned long *tma =
->> +                     (volatile unsigned long *)(qpd->cwsr_kaddr +
->> KFD_CWSR_TMA_OFFSET);
->> +             if (enabled)
->> +                     set_bit(KFD_TRAP_TYPE_DEBUG, &tma[2]);
->> +             else
->> +                     clear_bit(KFD_TRAP_TYPE_DEBUG, &tma[2]);
->>        }
->>   }
+>> And I have the question wrt the 3rd patch; just that it's about 
+>> importing.
 >>
->> --
->> 2.25.1
+>> (Looking further through the code, it appears that the fd could be
+>> removed from the helpers, the callbacks and vmwgfx. It would then be
+>> used entirely in the ioctl entry points, such as
+>> drm_prime_fd_to_handle_ioctl().)
+>>
+>> Best regards
+>> Thomas
+>>
+>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>> Best regards
+>>>> Thomas
+>>>>
+>>>>
+>>>>> Regards,
+>>>>>     Felix
+>>>>>
+>>>>>
+>>>>>> Best regards
+>>>>>> Thomas
+>>>>>>
+>>>>>>> CC: Christian König <christian.koenig@amd.com>
+>>>>>>> CC: Thomas Zimmermann <tzimmermann@suse.de>
+>>>>>>> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+>>>>>>> ---
+>>>>>>>    drivers/gpu/drm/drm_prime.c | 33 
+>>>>>>> ++++++++++++++++++---------------
+>>>>>>>    include/drm/drm_prime.h     |  7 +++++++
+>>>>>>>    2 files changed, 25 insertions(+), 15 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/drm_prime.c 
+>>>>>>> b/drivers/gpu/drm/drm_prime.c
+>>>>>>> index 63b709a67471..834a5e28abbe 100644
+>>>>>>> --- a/drivers/gpu/drm/drm_prime.c
+>>>>>>> +++ b/drivers/gpu/drm/drm_prime.c
+>>>>>>> @@ -278,7 +278,7 @@ void drm_gem_dmabuf_release(struct dma_buf
+>>>>>>> *dma_buf)
+>>>>>>>    }
+>>>>>>>    EXPORT_SYMBOL(drm_gem_dmabuf_release);
+>>>>>>>    -/*
+>>>>>>> +/**
+>>>>>>>     * drm_gem_prime_fd_to_handle - PRIME import function for GEM
+>>>>>>> drivers
+>>>>>>>     * @dev: drm_device to import into
+>>>>>>>     * @file_priv: drm file-private structure
+>>>>>>> @@ -292,9 +292,9 @@ EXPORT_SYMBOL(drm_gem_dmabuf_release);
+>>>>>>>     *
+>>>>>>>     * Returns 0 on success or a negative error code on failure.
+>>>>>>>     */
+>>>>>>> -static int drm_gem_prime_fd_to_handle(struct drm_device *dev,
+>>>>>>> -                      struct drm_file *file_priv, int prime_fd,
+>>>>>>> -                      uint32_t *handle)
+>>>>>>> +int drm_gem_prime_fd_to_handle(struct drm_device *dev,
+>>>>>>> +                   struct drm_file *file_priv, int prime_fd,
+>>>>>>> +                   uint32_t *handle)
+>>>>>>>    {
+>>>>>>>        struct dma_buf *dma_buf;
+>>>>>>>        struct drm_gem_object *obj;
+>>>>>>> @@ -360,6 +360,7 @@ static int drm_gem_prime_fd_to_handle(struct
+>>>>>>> drm_device *dev,
+>>>>>>>        dma_buf_put(dma_buf);
+>>>>>>>        return ret;
+>>>>>>>    }
+>>>>>>> +EXPORT_SYMBOL(drm_gem_prime_fd_to_handle);
+>>>>>>>      int drm_prime_fd_to_handle_ioctl(struct drm_device *dev, void
+>>>>>>> *data,
+>>>>>>>                     struct drm_file *file_priv)
+>>>>>>> @@ -408,7 +409,7 @@ static struct dma_buf
+>>>>>>> *export_and_register_object(struct drm_device *dev,
+>>>>>>>        return dmabuf;
+>>>>>>>    }
+>>>>>>>    -/*
+>>>>>>> +/**
+>>>>>>>     * drm_gem_prime_handle_to_fd - PRIME export function for GEM
+>>>>>>> drivers
+>>>>>>>     * @dev: dev to export the buffer from
+>>>>>>>     * @file_priv: drm file-private structure
+>>>>>>> @@ -421,10 +422,10 @@ static struct dma_buf
+>>>>>>> *export_and_register_object(struct drm_device *dev,
+>>>>>>>     * The actual exporting from GEM object to a dma-buf is done
+>>>>>>> through the
+>>>>>>>     * &drm_gem_object_funcs.export callback.
+>>>>>>>     */
+>>>>>>> -static int drm_gem_prime_handle_to_fd(struct drm_device *dev,
+>>>>>>> -                      struct drm_file *file_priv, uint32_t handle,
+>>>>>>> -                      uint32_t flags,
+>>>>>>> -                      int *prime_fd)
+>>>>>>> +int drm_gem_prime_handle_to_fd(struct drm_device *dev,
+>>>>>>> +                   struct drm_file *file_priv, uint32_t handle,
+>>>>>>> +                   uint32_t flags,
+>>>>>>> +                   int *prime_fd)
+>>>>>>>    {
+>>>>>>>        struct drm_gem_object *obj;
+>>>>>>>        int ret = 0;
+>>>>>>> @@ -506,6 +507,7 @@ static int drm_gem_prime_handle_to_fd(struct
+>>>>>>> drm_device *dev,
+>>>>>>>          return ret;
+>>>>>>>    }
+>>>>>>> +EXPORT_SYMBOL(drm_gem_prime_handle_to_fd);
+>>>>>>>      int drm_prime_handle_to_fd_ioctl(struct drm_device *dev, void
+>>>>>>> *data,
+>>>>>>>                     struct drm_file *file_priv)
+>>>>>>> @@ -864,9 +866,9 @@ EXPORT_SYMBOL(drm_prime_get_contiguous_size);
+>>>>>>>     * @obj: GEM object to export
+>>>>>>>     * @flags: flags like DRM_CLOEXEC and DRM_RDWR
+>>>>>>>     *
+>>>>>>> - * This is the implementation of the &drm_gem_object_funcs.export
+>>>>>>> functions
+>>>>>>> - * for GEM drivers using the PRIME helpers. It is used as the
+>>>>>>> default for
+>>>>>>> - * drivers that do not set their own.
+>>>>>>> + * This is the implementation of the &drm_gem_object_funcs.export
+>>>>>>> functions for GEM drivers
+>>>>>>> + * using the PRIME helpers. It is used as the default in
+>>>>>>> + * drm_gem_prime_handle_to_fd().
+>>>>>>>     */
+>>>>>>>    struct dma_buf *drm_gem_prime_export(struct drm_gem_object *obj,
+>>>>>>>                         int flags)
+>>>>>>> @@ -962,9 +964,10 @@ EXPORT_SYMBOL(drm_gem_prime_import_dev);
+>>>>>>>     * @dev: drm_device to import into
+>>>>>>>     * @dma_buf: dma-buf object to import
+>>>>>>>     *
+>>>>>>> - * This is the implementation of the gem_prime_import functions
+>>>>>>> for GEM
+>>>>>>> - * drivers using the PRIME helpers. It is the default for drivers
+>>>>>>> that do
+>>>>>>> - * not set their own &drm_driver.gem_prime_import.
+>>>>>>> + * This is the implementation of the gem_prime_import functions
+>>>>>>> for GEM drivers
+>>>>>>> + * using the PRIME helpers. Drivers can use this as their
+>>>>>>> + * &drm_driver.gem_prime_import implementation. It is used as the
+>>>>>>> default
+>>>>>>> + * implementation in drm_gem_prime_fd_to_handle().
+>>>>>>>     *
+>>>>>>>     * Drivers must arrange to call drm_prime_gem_destroy() from 
+>>>>>>> their
+>>>>>>>     * &drm_gem_object_funcs.free hook when using this function.
+>>>>>>> diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
+>>>>>>> index a7abf9f3e697..2a1d01e5b56b 100644
+>>>>>>> --- a/include/drm/drm_prime.h
+>>>>>>> +++ b/include/drm/drm_prime.h
+>>>>>>> @@ -60,12 +60,19 @@ enum dma_data_direction;
+>>>>>>>      struct drm_device;
+>>>>>>>    struct drm_gem_object;
+>>>>>>> +struct drm_file;
+>>>>>>>      /* core prime functions */
+>>>>>>>    struct dma_buf *drm_gem_dmabuf_export(struct drm_device *dev,
+>>>>>>>                          struct dma_buf_export_info *exp_info);
+>>>>>>>    void drm_gem_dmabuf_release(struct dma_buf *dma_buf);
+>>>>>>>    +int drm_gem_prime_fd_to_handle(struct drm_device *dev,
+>>>>>>> +                   struct drm_file *file_priv, int prime_fd,
+>>>>>>> uint32_t *handle);
+>>>>>>> +int drm_gem_prime_handle_to_fd(struct drm_device *dev,
+>>>>>>> +                   struct drm_file *file_priv, uint32_t handle,
+>>>>>>> uint32_t flags,
+>>>>>>> +                   int *prime_fd);
+>>>>>>> +
+>>>>>>>    /* helper functions for exporting */
+>>>>>>>    int drm_gem_map_attach(struct dma_buf *dma_buf,
+>>>>>>>                   struct dma_buf_attachment *attach);
+
