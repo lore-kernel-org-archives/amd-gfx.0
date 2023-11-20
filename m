@@ -4,68 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CAB5C197A0
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 16:16:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A78F5C2BB3F
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 16:16:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3720F10E434;
-	Mon, 20 Nov 2023 16:16:10 +0000 (UTC)
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE19410E432
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 16:16:07 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-40a4848c6e1so14638805e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 08:16:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1700496966; x=1701101766; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=bKuIED46SpLHzaqk+GMg9YcCJrlMCfmnX4FjTeB2cUI=;
- b=QufawLY/y2F+SSVlEi8DP38HHIyD0qDBy/2B4n1gyd+kXI2V1AIhWCp3ZUaHW4eX1Z
- HzY6W58LT1NiZpyeyJ+6zsuoGcFh7mbYFYeU9OElFaHCSHIs67B2aVuZYMiu9YkM2bFl
- V9ZEfifjpIuLzoRV5+FVAT2yC8Sx3KdQPkoOHwXDic0+SksgRdm+M4ZcrVN2/nk3Xl6G
- vFI1wIFTKLyH1Pq0/WdZqGIQBKRprP3FZyDt47Az1w/nqeQwIVgqD9iR/oiOxBv2s31t
- wMcoEcupPbBdp0K2OTHxuVCIeRWkJm49yDSK7/SXW5T9EaHi6AS7x5twQHH7uF7QgGOZ
- t5lA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700496966; x=1701101766;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=bKuIED46SpLHzaqk+GMg9YcCJrlMCfmnX4FjTeB2cUI=;
- b=FpNaRGupL8uNYl4g46Ybvdv21nIkLTPI5xo/VxsluL0gsBi7Dj0m5mk0LrXy2P/70H
- Kld/tFDlAIRJZl5CrX/P4gWmaPpP17bcRcrXvnBEnwFG+3dzVSPR+gUjDb8raGtcx5S2
- QD5MrcGkTYEUoXY0OKdiGecMWqCFfM/hmVrqDHVo/SJ4Ulx0hbVreEKDmOh486WACaEN
- Ie4on3lEqAt0qaCQ+BSyuGBgWzzsIlDwTDu+CtRPIueGf8RS+iuRd24UBSeaes5ov+Jp
- a0L/3365aAQ/kOHv1Q/CWcrA9MGKjmpxl7uaaEezBYRELtgSSipNtL+VPfXoKfdUx52+
- /dRw==
-X-Gm-Message-State: AOJu0YxcDNbtIE3y3uaYHOOC8z8ZnN1+E/t9/Qr7fUXiACbv0n25pSDY
- Rv1zAbPLRiw/xlFi0P5vQaY=
-X-Google-Smtp-Source: AGHT+IFPYLErTpatInLNqs75XflrlkaKAbSANEWMmPi0NSYYeZT4BhYfgUE0PU52FkCwW5vhknWceg==
-X-Received: by 2002:a05:6000:186d:b0:32d:a54a:f57c with SMTP id
- d13-20020a056000186d00b0032da54af57cmr6448256wri.25.1700496966002; 
- Mon, 20 Nov 2023 08:16:06 -0800 (PST)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- p9-20020a5d6389000000b00332cc3e0817sm406628wru.39.2023.11.20.08.16.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Nov 2023 08:16:05 -0800 (PST)
-Message-ID: <a8de3009-199a-4157-9113-4b560aaffbab@gmail.com>
-Date: Mon, 20 Nov 2023 17:16:02 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08D7010E432;
+	Mon, 20 Nov 2023 16:16:34 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2076.outbound.protection.outlook.com [40.107.93.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B34C10E089
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 16:16:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MeqVQD/r+VCl8lK1xz9lgTXGk1Aep/RTrQe3yuWOGqhDwjOM8orw8B3n+ffejLrrlMIi0NauG4Jmjkiz6fISoI/ST7NHZ71uiUlrMJF0xgYOoGFs6wRh+V1PsIwJR83Gs6wkSXdGZDRKrzpPt4pliXrlXUIGpxhXLjjjIuuW1E5oiD0aA1byYfliI0UO/Z/I7T8vwV4fIFObuAyMsmeN+nOO2UpCSByQ3u71FIw1YUC5AsdNyZnpeE8nOu7AU3jRzLrE9VWjvTmNm93hVW2G1TPl4xdBEhqmdIqYxIKkApRouqKKA89RYIwH/utmnHNf560v8wmWKxIWmsx9IkniAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Shu29LmOvuXJwnHV/MA1kgA1/T53TBz7sXprzidDs2o=;
+ b=DdMfJ1YhNxl9E/qtUK4ndh2W7XH8yTbWGCC8edc3YR31+0UXsqxkg0faWfWM6YuxyiCcfRdN75/BEglF46v9zZPXmHb5EZAKXCukPW9TB7uPKtLcJVhJ95O5cMcVfFR7mlajT3qLJ+2XAckbIsv5Vis8ewitEq+pDGwSlfdae/jhbP5Ji0KlqAlI/MIsdRk8kUGM0/CUoXtTwL5K7wAyXq5AFVWOAnoUMD3RVHlEKiGQYvOUaDyDbg0u8uEhZryKDu3R9sIl6ROnhzhIsnxuk/hDDd1RJLptlEzn45J5ZlGCPqEZYAwwrLtSlW2deCkvRj4KiaKIjuQmpYIlXMwf9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Shu29LmOvuXJwnHV/MA1kgA1/T53TBz7sXprzidDs2o=;
+ b=3JsCTnDcmGOvaLX9PK79idl3fH4aU2CHqTGSb5TmKq49hl4w6Rc3zT/hwlZLbGWHFG/3srrCPtXGWVukFp6eUDkEqNyFlkVpTYOb3njec6Og1vYQNUaQV1SDsjoqRq607qbOJ34IE1AmzTIo4Zr0lwfokqAZIYXIteUH/Xz2ClI=
+Received: from BLAPR03CA0084.namprd03.prod.outlook.com (2603:10b6:208:329::29)
+ by CH0PR12MB8578.namprd12.prod.outlook.com (2603:10b6:610:18e::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.27; Mon, 20 Nov
+ 2023 16:16:26 +0000
+Received: from BL6PEPF0001AB52.namprd02.prod.outlook.com
+ (2603:10b6:208:329:cafe::c4) by BLAPR03CA0084.outlook.office365.com
+ (2603:10b6:208:329::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.27 via Frontend
+ Transport; Mon, 20 Nov 2023 16:16:25 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0001AB52.mail.protection.outlook.com (10.167.241.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7025.12 via Frontend Transport; Mon, 20 Nov 2023 16:16:25 +0000
+Received: from jz-tester2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 20 Nov
+ 2023 10:16:24 -0600
+From: James Zhu <James.Zhu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2 13/24] drm/amdgpu: add sq host trap status check
+Date: Mon, 20 Nov 2023 11:16:15 -0500
+Message-ID: <20231120161615.2544829-1-James.Zhu@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20231103131139.766920-14-James.Zhu@amd.com>
+References: <20231103131139.766920-14-James.Zhu@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: fix AGP addressing when GART is not at 0
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-References: <20231110150206.1900871-1-alexander.deucher@amd.com>
- <95b9b67e-1a85-4de2-8c93-226075401c48@amd.com>
- <CADnq5_P7EcNx=pZF6DGZ+_vtTOmXiXqe5VeUQRE5ytXYu5r3PA@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CADnq5_P7EcNx=pZF6DGZ+_vtTOmXiXqe5VeUQRE5ytXYu5r3PA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB52:EE_|CH0PR12MB8578:EE_
+X-MS-Office365-Filtering-Correlation-Id: c2ee24a9-dcc5-40e3-337d-08dbe9e40b7b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 1GSAKXAeniTW0vxFxe1fHxPRBcj/05SAoffK0NEN3p5RtcoEJrwuP5kBTf1/UCz+TLZo3aznZ1sJPs68g8SGddPGysTKwhXwkudHpmJ0ZnFDDFyRKbVoIKGDSck8DsIOXI34c/Mopgc2Zzi5iImJUC2OCpbIaCmXq+NE6kfHj8U7qAvpOZKobA7hOH9sXm7hdAMNSVgN785w8JoClW4bsAGY4/syioMtqINpRaPV3+Zg24D7ghj6cyBVPhRG5r6kKnIoJ9eFyKTu6IH109CqeXimB3UvGE729GAO7seKUVgLtXnRT3LGZezU5PVdJqRPQlK85MRBbtnVSiqLG90YhGojdw760NjhtBDAROouK+sFdw1yu/0FnLARlMuNwJfHLXQhSFl6ZRS5f9RQKjkOQ0Jo3/0d0CpJxpAFCJAd/4rpN2Kss4/aZlibUNSWgifJDTxJKZyMdfT0E3MHZp+EeSi0n2FNQw+sAN8qe1umHV+HEXt+yaXWX3gzfGg/+1clkBiLDOrj8eguETNggG1B3mcz5nZnpM2Gu/DAkne7gP/pSwt1vRzscnLxYDEliS8+8iCq7De0j0mxS4UvvrAi2pjPB6SKS8Yh3tnAOn4vn1u6IKmIEC6TerzQUrJFTuGn2cr4Dv3iF2SC0eV3NVcYNQ1MAIfn+X1jpuXgKGi6qonBnVUaMJSLLhOhB6zFTqiM4yJUDiQHgBD7IwAdUxL2S2+LNOsqkvZsN2FDxsfJcQqoIlCjGxgu7RGTyri2bbxi3wASWlqGKXwweVbsDrf5NA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(396003)(136003)(346002)(376002)(39860400002)(230922051799003)(186009)(64100799003)(82310400011)(1800799012)(451199024)(46966006)(40470700004)(36840700001)(40480700001)(40460700003)(54906003)(70206006)(70586007)(36756003)(82740400003)(81166007)(356005)(86362001)(36860700001)(336012)(83380400001)(16526019)(26005)(1076003)(7696005)(2616005)(6666004)(2906002)(426003)(6916009)(316002)(478600001)(8676002)(4326008)(5660300002)(47076005)(41300700001)(8936002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2023 16:16:25.7183 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c2ee24a9-dcc5-40e3-337d-08dbe9e40b7b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB52.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8578
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,223 +99,101 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Yifan Zhang <yifan1.zhang@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: Felix.kuehling@amd.com, joseph.greathouse@amd.com, jamesz@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 17.11.23 um 20:24 schrieb Alex Deucher:
-> On Fri, Nov 10, 2023 at 10:22 AM Christian König
-> <christian.koenig@amd.com> wrote:
->> Am 10.11.23 um 16:02 schrieb Alex Deucher:
->>> This worked by luck if the GART aperture ended up at 0.  When
->>> we ended up moving GART on some chips, the GART aperture ended
->>> up offsetting the the AGP address since the resource->start is
->>> a GART offset, not an MC address.  Fix this by moving the AGP
->>> address setup into amdgpu_bo_gpu_offset_no_check().
->>>
->>> v2: check mem_type before checking agp
->>>
->>> Fixes: 67318cb84341 ("drm/amdgpu/gmc11: set gart placement GC11")
->>> Reported-by: Jesse Zhang <Jesse.Zhang@amd.com>
->>> Reported-by: Yifan Zhang <yifan1.zhang@amd.com>
->>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->>> Cc: christian.koenig@amd.com
->> Reviewed-by: Christian König <christian.koenig@amd.com>
-> Mario is getting a segfault with this patch on PHX.  Any ideas?
+Before fire a new host trap, check the host trap status.
 
-No idea, what does amdgpu_gmc_agp_addr+0x16 point to?
+Signed-off-by: James Zhu <James.Zhu@amd.com>
+---
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 35 +++++++++++++++++++
+ .../amd/include/asic_reg/gc/gc_9_0_offset.h   |  2 ++
+ .../amd/include/asic_reg/gc/gc_9_0_sh_mask.h  |  5 +++
+ 3 files changed, 42 insertions(+)
 
-What could be is that the BO isn't backed by anything, e.g. GART not 
-initialized yet or something like that.
-
-In this case we probably need to add some checks to amdgpu_gmc_agp_addr().
-
-Regards,
-Christian.
-
->    I
-> don't see how this could happen off hand.
->
-> [   28.980823] [drm] GART: num cpu pages 131072, num gpu pages 131072
-> [   28.980846] BUG: kernel NULL pointer dereference, address:
-> 000000000000000c
-> [   28.981424] #PF: supervisor read access in kernel mode
-> [   28.981849] #PF: error_code(0x0000) - not-present page
-> [   28.982259] PGD 0 P4D 0
-> [   28.982469] Oops: 0000 [#1] PREEMPT SMP NOPTI
-> [   28.982817] CPU: 10 PID: 547 Comm: (udev-worker) Not tainted
-> 6.7.0-rc1-00006-ge5e258131973 #175
-> [   28.984060] RIP: 0010:amdgpu_gmc_agp_addr+0x16/
-> 0x60 [amdgpu]
-> [   28.984828] Code: 00 00 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90
-> 90 90 90 0f 1f 44 00 00 48 8b 87 88 01 00 00 49 b8 ff ff ff ff ff ff ff
-> 7f <83> 78 0c 01 75 2e 83 78 28 02 74 28 48 8b 40 18 48 8b 97 60 01 00
-> [   28.984829] RSP: 0018:ffffc90000ff7998 EFLAGS: 00010282
-> [   28.984831] RAX: 0000000000000000 RBX: ffff888103f83800 RCX:
-> 0000000000000000
-> [   28.984832] RDX: 7fffffffffffffff RSI: ffff888103f83858 RDI:
-> ffff888103f83858
-> [   28.984832] RBP: ffff888102f0f020 R08: 7fffffffffffffff R09:
-> 0000000000000000
-> [   28.984833] R10: 0000000000001000 R11: 0000000000001000 R12:
-> ffff888103f83800
-> [   28.984834] R13: ffff888102f0fdf8 R14: ffff888102f0fe00 R15:
-> 0000000000000000
-> [   28.984835] FS:  00007fe6aa26a8c0(0000) GS:ffff88844e880000(0000)
-> knlGS:0000000000000000
-> [   28.984836] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [   28.984837] CR2: 000000000000000c CR3: 000000011556e000 CR4:
-> 0000000000750ef0
-> [   28.984838] PKRU: 55555554
-> [   28.984839] Call Trace:
-> [   28.984842]  <TASK>
-> [   28.984845]  ? __die+0x20/0x70
-> [   28.984850]  ? page_fault_oops+0x151/0x4b0
-> [   28.984854]  ? srso_alias_return_thunk+0x5/0xfbef5
-> [   28.992663]  ? do_user_addr_fault+0x65/0x6b0
-> [   28.992672]  ? exc_page_fault+0x74/0x170
-> [   28.992676]  ? asm_exc_page_fault+0x22/0x30
-> [   28.993714]  ? amdgpu_gmc_agp_addr+0x16/0x60 [amdgpu]
-> [   28.994455]  amdgpu_bo_gpu_offset_no_check+0x1a/0x70 [amdgpu]
-> [   28.995110]  amdgpu_bo_create_reserved.part.0+0x109/0x290 [amdgpu]
-> [   28.995786]  ? __pfx_amdgpu_bo_destroy+0x10/0x10 [amdgpu]
-> [   28.996400]  amdgpu_bo_create_kernel+0x3f/0xa0 [amdgpu]
-> [   28.996992]  amdgpu_device_init+0x15fa/0x2b60 [amdgpu]
-> [   28.997591]  ? pci_bus_read_config_word+0x46/0x80
-> [   28.997598]  ? srso_alias_return_thunk+0x5/0xfbef5
-> [   28.998385]  ? do_pci_enable_device+0xd4/0x100
-> [   28.998390]  amdgpu_driver_load_kms+0x15/0x190 [amdgpu]
-> [   28.999194]  amdgpu_pci_probe+0x180/0x570 [amdgpu]
-> [   28.999781]  ? srso_alias_return_thunk+0x5/0xfbef5
-> [   29.000232]  local_pci_probe+0x43/0xa0
-> [   29.000552]  pci_device_probe+0xc5/0x270
-> [   29.000883]  really_probe+0x1b4/0x420
-> [   29.001194]  __driver_probe_device+0x84/0x170
-> [   29.001558]  driver_probe_device+0x1e/0xb0
-> [   29.001901]  __driver_attach+0xe5/0x1f0
-> [   29.002224]  ? __pfx___driver_attach+0x10/0x10
-> [   29.002594]  bus_for_each_dev+0x75/0xd0
-> [   29.002919]  bus_add_driver+0x112/0x220
-> [   29.003243]  driver_register+0x5c/0x120
-> [   29.003569]  ? __pfx_amdgpu_init+0x10/0x10 [amdgpu]
-> [   29.004148]  do_one_initcall+0x41/0x300
-> [   29.004471]  ? srso_alias_return_thunk+0x5/0xfbef5
-> [   29.004876]  ? kmalloc_trace+0x25/0x90
-> [   29.005197]  do_init_module+0x64/0x250
-> [   29.005201]  init_module_from_file+0x8b/0xd0
-> [   29.005207]  idempotent_init_module+0x181/0x240
-> [   29.006235]  __x64_sys_finit_module+0x5a/0xb0
-> [   29.006238]  do_syscall_64+0x5c/0xe0
-> [   29.006868]  ? srso_alias_return_thunk+0x5/0xfbef5
-> [   29.006870]  ? syscall_exit_to_user_mode+0x27/0x40
-> [   29.006872]  ? srso_alias_return_thunk+0x5/0xfbef5
-> [   29.008000]  ? do_syscall_64+0x6b/0xe0
-> [   29.008004]  entry_SYSCALL_64_after_hwframe+0x6e/0x76
-> [   29.008703] RIP: 0033:0x7fe6aa125c7d
-> [   29.008991] Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa
-> 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f
-> 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 6b 81 0d 00 f7 d8 64 89 01 48
-> [   29.008993] RSP: 002b:00007ffe22be7618 EFLAGS: 00000246 ORIG_RAX:
-> 0000000000000139
-> [   29.010434] RAX: ffffffffffffffda RBX: 000055b2f8dee0f0 RCX:
-> 00007fe6aa125c7d
-> [   29.010435] RDX: 0000000000000000 RSI: 00007fe6aa33544a RDI:
-> 0000000000000017
-> [   29.010436] RBP: 00007fe6aa33544a R08: 0000000000000040 R09:
-> fffffffffffffde0
-> [   29.010438] R10: fffffffffffffe18 R11: 0000000000000246 R12:
-> 0000000000020000
-> [   29.010439] R13: 000055b2f8f12ba0 R14: 0000000000000000 R15:
-> 000055b2f8f49ef0
-> [   29.010443]  </TASK>
-> [   29.010444] Modules linked in: binfmt_misc squashfs vfat fat
-> snd_hda_codec_hdmi intel_rapl_msr intel_rapl_common amdgpu(+)
-> snd_soc_dmic snd_ps_pdm_dma snd_soc_ps_mach snd_hda_intel
-> snd_intel_dspcfg snd_soc_core snd_hda_codec snd_compress ac97_bus
-> snd_pcm_dmaengine snd_hda_core snd_seq_dummy uvcvideo snd_hwdep uvc
-> hid_sensor_magn_3d hid_sensor_gyro_3d snd_seq_oss videobuf2_vmalloc
-> snd_pci_ps hid_sensor_trigger videobuf2_memops hid_sensor_iio_common
-> snd_seq_midi snd_rpl_pci_acp6x snd_seq_midi_event
-> industrialio_triggered_buffer kfifo_buf videobuf2_v4l2 snd_acp_pci
-> edac_mce_amd industrialio crct10dif_pclmul videobuf2_common snd_rawmidi
-> snd_acp_legacy_common polyval_clmulni amdxcp gpu_sched polyval_generic
-> snd_pci_acp6x joydev i2c_algo_bit videodev drm_suballoc_helper
-> drm_ttm_helper snd_seq snd_pcm ghash_clmulni_intel ttm sha512_ssse3
-> snd_seq_device drm_exec sha256_ssse3 mc snd_timer snd_pci_acp5x
-> drm_display_helper sha1_ssse3 snd_rn_pci_acp3x snd_acp_config wmi_bmof
-> snd rapl cec snd_soc_acpi drm_buddy soundcore i2c_piix4
-> [   29.014048]  snd_pci_acp3x k10temp amd_pmf platform_profile
-> hid_sensor_hub amd_pmc hid_multitouch serio_raw kvm_amd ccp kvm
-> irqbypass iptable_filter ip6table_filter ip6_tables br_netfilter bridge
-> stp llc arp_tables parport_pc ppdev lp parport loop fuse ip_tables
-> rtsx_pci_sdmmc mmc_core video nvme crc32_pclmul crc32c_intel thunderbolt
-> nvme_core amd_sfh r8169 rtsx_pci wmi i2c_hid_acpi i2c_hid
-> [   29.023590] CR2: 000000000000000c
-> [   29.023856] ---[ end trace 0000000000000000 ]---
-> [   29.024220] RIP: 0010:amdgpu_gmc_agp_addr+0x16/0x60 [amdgpu]
-> [   29.024886] Code: 00 00 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90
-> 90 90 90 0f 1f 44 00 00 48 8b 87 88 01 00 00 49 b8 ff ff ff ff ff ff ff
-> 7f <83> 78 0c 01 75 2e 83 78 28 02 74 28 48 8b 40 18 48 8b 97 60 01 00
-> [   29.026324] RSP: 0018:ffffc90000ff7998 EFLAGS: 00010282
-> [   29.026737] RAX: 0000000000000000 RBX: ffff888103f83800 RCX:
-> 0000000000000000
-> [   29.027290] RDX: 7fffffffffffffff RSI: ffff888103f83858 RDI:
-> ffff888103f83858
-> [   29.027848] RBP: ffff888102f0f020 R08: 7fffffffffffffff R09:
-> 0000000000000000
-> [   29.028401] R10: 0000000000001000 R11: 0000000000001000 R12:
-> ffff888103f83800
-> [   29.028960] R13: ffff888102f0fdf8 R14: ffff888102f0fe00 R15:
-> 0000000000000000
-> [   29.029521] FS:  00007fe6aa26a8c0(0000) GS:ffff88844e880000(0000)
-> knlGS:0000000000000000
-> [   29.030147] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [   29.030600] CR2: 000000000000000c CR3: 000000011556e000 CR4:
-> 0000000000750ef0
->
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 10 +++++++---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |  4 +---
->>>    2 files changed, 8 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->>> index cef920a93924..d79b4ca1ecfc 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->>> @@ -1527,10 +1527,14 @@ u64 amdgpu_bo_gpu_offset(struct amdgpu_bo *bo)
->>>    u64 amdgpu_bo_gpu_offset_no_check(struct amdgpu_bo *bo)
->>>    {
->>>        struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
->>> -     uint64_t offset;
->>> +     uint64_t offset = AMDGPU_BO_INVALID_OFFSET;
->>>
->>> -     offset = (bo->tbo.resource->start << PAGE_SHIFT) +
->>> -              amdgpu_ttm_domain_start(adev, bo->tbo.resource->mem_type);
->>> +     if (bo->tbo.resource->mem_type == TTM_PL_TT)
->>> +             offset = amdgpu_gmc_agp_addr(&bo->tbo);
->>> +
->>> +     if (offset == AMDGPU_BO_INVALID_OFFSET)
->>> +             offset = (bo->tbo.resource->start << PAGE_SHIFT) +
->>> +                     amdgpu_ttm_domain_start(adev, bo->tbo.resource->mem_type);
->>>
->>>        return amdgpu_gmc_sign_extend(offset);
->>>    }
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->>> index 05991c5c8ddb..ab4a762aed5b 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->>> @@ -959,10 +959,8 @@ int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo)
->>>                return 0;
->>>
->>>        addr = amdgpu_gmc_agp_addr(bo);
->>> -     if (addr != AMDGPU_BO_INVALID_OFFSET) {
->>> -             bo->resource->start = addr >> PAGE_SHIFT;
->>> +     if (addr != AMDGPU_BO_INVALID_OFFSET)
->>>                return 0;
->>> -     }
->>>
->>>        /* allocate GART space */
->>>        placement.num_placement = 1;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+index 423611904eaf..89157130e476 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+@@ -1146,6 +1146,35 @@ void kgd_gfx_v9_program_trap_handler_settings(struct amdgpu_device *adev,
+ 	kgd_gfx_v9_unlock_srbm(adev, inst);
+ }
+ 
++static uint32_t kgd_aldebaran_get_hosttrap_status(struct amdgpu_device *adev)
++{
++	uint32_t sq_hosttrap_status = 0x0;
++	int i, j;
++
++	mutex_lock(&adev->grbm_idx_mutex);
++	for (i = 0; i < adev->gfx.config.max_shader_engines; i++) {
++		for (j = 0; j < adev->gfx.config.max_sh_per_se; j++) {
++			amdgpu_gfx_select_se_sh(adev, i, j, 0xffffffff, 0);
++			sq_hosttrap_status = RREG32_SOC15(GC, 0, mmSQ_HOSTTRAP_STATUS);
++
++			if (sq_hosttrap_status & SQ_HOSTTRAP_STATUS__HTPENDING_OVERRIDE_MASK) {
++				WREG32_SOC15(GC, 0, mmSQ_HOSTTRAP_STATUS,
++					SQ_HOSTTRAP_STATUS__HTPENDING_OVERRIDE_MASK);
++				sq_hosttrap_status = 0x0;
++				continue;
++			}
++			if (sq_hosttrap_status)
++				goto out;
++		}
++	}
++
++out:
++	amdgpu_gfx_select_se_sh(adev, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0);
++	mutex_unlock(&adev->grbm_idx_mutex);
++
++	return sq_hosttrap_status;
++}
++
+ uint32_t kgd_gfx_v9_trigger_pc_sample_trap(struct amdgpu_device *adev,
+ 					    uint32_t vmid,
+ 					    uint32_t max_wave_slot,
+@@ -1156,6 +1185,12 @@ uint32_t kgd_gfx_v9_trigger_pc_sample_trap(struct amdgpu_device *adev,
+ {
+ 	if (method == KFD_IOCTL_PCS_METHOD_HOSTTRAP) {
+ 		uint32_t value = 0;
++		uint32_t sq_hosttrap_status = 0x0;
++
++		sq_hosttrap_status = kgd_aldebaran_get_hosttrap_status(adev);
++		/* skip when last host trap request is still pending to complete */
++		if (sq_hosttrap_status)
++			return 0;
+ 
+ 		value = REG_SET_FIELD(value, SQ_CMD, CMD, SQ_IND_CMD_CMD_TRAP);
+ 		value = REG_SET_FIELD(value, SQ_CMD, MODE, SQ_IND_CMD_MODE_SINGLE);
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_offset.h
+index 12d451e5475b..5b17d9066452 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_offset.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_offset.h
+@@ -462,6 +462,8 @@
+ #define mmSQ_IND_DATA_BASE_IDX                                                                         0
+ #define mmSQ_CMD                                                                                       0x037b
+ #define mmSQ_CMD_BASE_IDX                                                                              0
++#define mmSQ_HOSTTRAP_STATUS                                                                           0x0376
++#define mmSQ_HOSTTRAP_STATUS_BASE_IDX                                                                  0
+ #define mmSQ_TIME_HI                                                                                   0x037c
+ #define mmSQ_TIME_HI_BASE_IDX                                                                          0
+ #define mmSQ_TIME_LO                                                                                   0x037d
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_sh_mask.h
+index efc16ddf274a..3dfe4ab31421 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_sh_mask.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_sh_mask.h
+@@ -2616,6 +2616,11 @@
+ //SQ_CMD_TIMESTAMP
+ #define SQ_CMD_TIMESTAMP__TIMESTAMP__SHIFT                                                                    0x0
+ #define SQ_CMD_TIMESTAMP__TIMESTAMP_MASK                                                                      0x000000FFL
++//SQ_HOSTTRAP_STATUS
++#define SQ_HOSTTRAP_STATUS__HTPENDINGCOUNT__SHIFT                                                             0x0
++#define SQ_HOSTTRAP_STATUS__HTPENDING_OVERRIDE__SHIFT                                                         0x8
++#define SQ_HOSTTRAP_STATUS__HTPENDINGCOUNT_MASK                                                               0x000000FFL
++#define SQ_HOSTTRAP_STATUS__HTPENDING_OVERRIDE_MASK                                                           0x00000100L
+ //SQ_IND_INDEX
+ #define SQ_IND_INDEX__WAVE_ID__SHIFT                                                                          0x0
+ #define SQ_IND_INDEX__SIMD_ID__SHIFT                                                                          0x4
+-- 
+2.25.1
 
