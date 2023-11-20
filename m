@@ -4,63 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79992C2BB3F
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 17:31:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 533FBC197A0
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 17:42:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0740210E0CD;
-	Mon, 20 Nov 2023 17:31:51 +0000 (UTC)
-Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
- [IPv6:2001:4860:4864:20::29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01E1810E0CD;
- Mon, 20 Nov 2023 17:31:49 +0000 (UTC)
-Received: by mail-oa1-x29.google.com with SMTP id
- 586e51a60fabf-1f937a7b8aaso671145fac.0; 
- Mon, 20 Nov 2023 09:31:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1700501509; x=1701106309; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=WAF1U/lCbnAz9mXeRmxCPX739RNT9Ki2al6h9FhAbIA=;
- b=A/ka4N9wvpJve9pHY2zNvbPpup/8G6exeaWFVDqDmgfEFy1QMMbzX6PSeexWlinFt/
- /Uh83eO+vdP5PbLVlOF4ot5U1rDpVx4fxQy2UW9M8rPJd2AZQC0fidll3JJGLdZWV84Q
- m6HtKytnO8owDMs693Eu1X29SV2NKYALBxqXfXZ5q2bt/OXqjCorm85MU4nTEQyHVIjb
- Ho0kQFnPB9yXfKNSbNbKplFGKmFVF30Xsuzbf2F7Pa8jywSNEhUqUjhPz5xFV/qKbBEa
- 7DCX+c5+VAfpkbgNkufzAqGevkKHrvURKcEP2l/hwW/Z0qektVHoQ59XF0e3kVYZoD5Q
- c08w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700501509; x=1701106309;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=WAF1U/lCbnAz9mXeRmxCPX739RNT9Ki2al6h9FhAbIA=;
- b=TJBJLSX0PcWWRYY6VpuP37mwvvu/qcP+io8YtTLo64+x+f9frYjdZlkLy7MNskL3ky
- gKQKDWoXhqXO8zGSIzlPeiU41LSBmhmaqbOXWYIK9LWYdYKuC1zBfM9y49OZVq6etsGl
- 5xSmLXCBouQ0rF88QMRrpmHlIpstrUVRNp6l5t4EPY2VKaJdgpOfXvvaycErj6WabycE
- JLKZ6k9uKBvBxCwYSU8pGmWEtglB+4zYiL0sl/F12+Oza/tCkrr0jERHgTSAKKxyKSYn
- 5BnJVXHLCRh653ZoXKAL0bwNgW8gXUDOjdWjblYsbGsbAStXaPMdMIVT0gTV4mvTIEt5
- bM1Q==
-X-Gm-Message-State: AOJu0YxagwfrV8nEFkQWE3XA7snjzymR2hqrus7dJcqk7C616YTuNCGw
- ORNuuzMLKI18x1/YFvmpeaTlkZFWttiuZd9g0eZ+5HDWbek=
-X-Google-Smtp-Source: AGHT+IHXGPskkZjPASHv5zjmBj8vTC+m/HXkKut1/0s33s6XPps0+a5t8sGmtHhxRowQsRtHWKhR/1Ty6hqrzEufKKE=
-X-Received: by 2002:a05:6870:d3cc:b0:1f0:c29:d75c with SMTP id
- l12-20020a056870d3cc00b001f00c29d75cmr9798494oag.47.1700501509193; Mon, 20
- Nov 2023 09:31:49 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D84DE10E0E0;
+	Mon, 20 Nov 2023 17:42:14 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2043.outbound.protection.outlook.com [40.107.101.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D2CF10E0E0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 17:42:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ekMWBiPowtXl4mNX36+pPNmU5BtYtbBQnmNVtvq0UIiySG0wJKBJhv8r94pJrq8aPZg8StHQVmMAikgXLlRiibMIn5iqc91jLCfj7KEkjc5GR1j8nIkUVlingyqdjTMa3U9CV8v0TW1lQEZxeeszG7DEq5AIQ/SUOBlyN+b06R/YRv9WmMzvpMPmNIhk7eaY5i8bTWtJap0/jSnyxIQBvKnFHTzlkuhYxzY353+/lV2l5k/4Fh9CEjd2vnpcmoIfl+wnzHvpGJtkkfal6NZrNclpvx/UwbuvXoQMrigzXwFAA5RTbwkikzC7KenPeyAfz3E6aAMl4KFh1rT+YbNl1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=E54fFfWUppH6YNTIjPUqc8A57Cv46kYwG4F1N4rxeYI=;
+ b=X/qwxnCpTFipkXqsLpjkCk7j+8caWBGMyIHeqCmedDB2yTy9nXE4Q6SnxX564Hl2SUJtKwD4tovYTRCDxZT6Kc6OgJA6y7clLzRRx2ZFvKyGwcEA6rImPqUR4RvN74f1MuWBlhRvBoef+/NiU141jOyHyivxJzjG55LEMivu8vzvquEVbzs3+hYVdcU0rfZnG/lPb1W5lzX712XM7Ed0Upy0U+DF6x9kJd2K4nP0zr42LeWGafciRAWUcuRyL1GTwQQ+PGGFeSLmNjCmu5K84CXg5/OusY9uDHpKvXdIFZ00IRtHQu94/N7PJDkkKSIon/hO1zeJzS5QfAcY0SpfXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=E54fFfWUppH6YNTIjPUqc8A57Cv46kYwG4F1N4rxeYI=;
+ b=CXzSiD0a1OH3aDLGWf71VMXyaaGeixXck8gcPR5idOKoN8UpCSqXmPRa0Cb3n0lXyqB+moyOqJ89oiiAPNxTrX4s4JqE8MukdUSzIxejEt3DpaxIYNaXVhTfvyBhWyqD5GJefxL04mStoNGYgE3c6FV+0UeMUstvkiZi8vpeVKc=
+Received: from CY5PR15CA0059.namprd15.prod.outlook.com (2603:10b6:930:1b::28)
+ by CH3PR12MB9122.namprd12.prod.outlook.com (2603:10b6:610:196::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.26; Mon, 20 Nov
+ 2023 17:42:11 +0000
+Received: from CY4PEPF0000EE33.namprd05.prod.outlook.com
+ (2603:10b6:930:1b:cafe::dd) by CY5PR15CA0059.outlook.office365.com
+ (2603:10b6:930:1b::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.27 via Frontend
+ Transport; Mon, 20 Nov 2023 17:42:11 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EE33.mail.protection.outlook.com (10.167.242.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7025.12 via Frontend Transport; Mon, 20 Nov 2023 17:42:11 +0000
+Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 20 Nov
+ 2023 11:42:10 -0600
+From: Alex Sierra <alex.sierra@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Force order between a read and write to the same
+ address
+Date: Mon, 20 Nov 2023 11:41:59 -0600
+Message-ID: <20231120174159.22491-1-alex.sierra@amd.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-References: <87edgv4x3i.fsf@vps.thesusis.net>
- <559d0fa5-953a-4a97-b03b-5eb1287c83d8@leemhuis.info>
- <CAPM=9tw-8pQWFso0zuLqpsqd5BSHWtc4As9ttdjY-DDr70EMqQ@mail.gmail.com>
- <bdb238b6-60c7-4f26-81d0-9e62cd5dd326@gmail.com>
- <CADnq5_NVGS1XykxGxpcu_bpPbzboCUJQkcCF3r+0N9a23KUgiQ@mail.gmail.com>
- <96e2e13c-f01c-4baf-a9a3-cbaa48fb10c7@amd.com>
-In-Reply-To: <96e2e13c-f01c-4baf-a9a3-cbaa48fb10c7@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 20 Nov 2023 12:31:38 -0500
-Message-ID: <CADnq5_NBfeAXEyQw0gnSd67=tR-bUKg8w=10+4z9pGGuRnP9uw@mail.gmail.com>
-Subject: Re: Radeon regression in 6.6 kernel
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE33:EE_|CH3PR12MB9122:EE_
+X-MS-Office365-Filtering-Correlation-Id: acec818e-122b-49dd-1667-08dbe9f0065c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: NZ8Wfv9Q9g069civYE1DjGzFU4sOgujCmmhemEy3SVpNG7mV2j6l7dZBzf51sLXUApFX8GeaK/lGDedepgn2p963gWXYq2BFoTfPQg3GmTzhf1/CtNntLjJXsxJuI55S9z3kxiV1RrLimTqyiE/WvmqZo8bHyQmgg/55/+eHe5Q0LB3icBquau2YbIoGhq2HQDVTvNBDQhTeQ1EPO5R3nxLaDrG0OPM5gTTbpxH8n/pcg4ma+oVpt0l7P47DWpIvAX2rR/EME7kBMoBXuNqhcczLKVpzwU4FW5TXLDSLf/xgY2riblZ2hKAH3TJcuZE11wLSK2QYufAVt3YJoh3kkrLezN6OAWLYxwKKaT30lex7seLvy7f0S38e1twyzmilBrdSmOZViuiuDRG+QEVS35u6gZpF/EuYNQEVURASEyYRuT5fDINQf6omUfliN9ds+hC9UNbUWTVLd2kQm/ZqwiBEG6LZZyETTDL5m2m5MeALb2uYAMXDihlp/ZG0D1Dfa24XzUx7Ns7kri43VDIaFk1V/S2aQSaX2q1ac7WbzIQC22EOgm1g5xMP4o7/jpJTj/XqiJ/q7CrohOHk6nYedoYOhLOP/1l0KpSmIT9GOppfVz5JW+oCq+4oRSxI4FOS7IerQSjP+JrCwds1hBZbS1SwkEIevc/wK9+mOQSw8BNrTe5pG1Z4JMYWPg9jQsw/PnNcmIlHj4mmlrAyz/zT52jBlww6tVyrL9KZx0UUNFHt+kVLnjqhATJ19LB1D5BgLsP4MHFfkxvZPbaUL5msGg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(396003)(346002)(136003)(376002)(39860400002)(230922051799003)(451199024)(64100799003)(186009)(1800799012)(82310400011)(36840700001)(40470700004)(46966006)(40460700003)(70206006)(70586007)(6916009)(54906003)(316002)(36756003)(7696005)(6666004)(426003)(336012)(2616005)(1076003)(16526019)(478600001)(26005)(82740400003)(81166007)(356005)(83380400001)(36860700001)(86362001)(47076005)(44832011)(40480700001)(2906002)(5660300002)(4326008)(8676002)(8936002)(41300700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2023 17:42:11.0240 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: acec818e-122b-49dd-1667-08dbe9f0065c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE33.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9122
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,96 +98,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux regressions mailing list <regressions@lists.linux.dev>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- linux-kernel@vger.kernel.org,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Luben Tuikov <luben.tuikov@amd.com>, dri-devel@lists.freedesktop.org,
- Phillip Susi <phill@thesusis.net>, Alex Deucher <alexander.deucher@amd.com>,
- Dave Airlie <airlied@gmail.com>
+Cc: Alex Sierra <alex.sierra@amd.com>, Felix.Kuehling@amd.com,
+ joseph.greathouse@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 20, 2023 at 11:24=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> Am 20.11.23 um 17:08 schrieb Alex Deucher:
-> > On Mon, Nov 20, 2023 at 10:57=E2=80=AFAM Christian K=C3=B6nig
-> > <ckoenig.leichtzumerken@gmail.com> wrote:
-> >> Am 19.11.23 um 07:47 schrieb Dave Airlie:
-> >>>> On 12.11.23 01:46, Phillip Susi wrote:
-> >>>>> I had been testing some things on a post 6.6-rc5 kernel for a week =
-or
-> >>>>> two and then when I pulled to a post 6.6 release kernel, I found th=
-at
-> >>>>> system suspend was broken.  It seems that the radeon driver failed =
-to
-> >>>>> suspend, leaving the display dead, the wayland display server hung,=
- and
-> >>>>> the system still running.  I have been trying to bisect it for the =
-last
-> >>>>> few days and have only been able to narrow it down to the following=
- 3
-> >>>>> commits:
-> >>>>>
-> >>>>> There are only 'skip'ped commits left to test.
-> >>>>> The first bad commit could be any of:
-> >>>>> 56e449603f0ac580700621a356d35d5716a62ce5
-> >>>>> c07bf1636f0005f9eb7956404490672286ea59d3
-> >>>>> b70438004a14f4d0f9890b3297cd66248728546c
-> >>>>> We cannot bisect more!
-> >>>> Hmm, not a single reply from the amdgpu folks. Wondering how we can
-> >>>> encourage them to look into this.
-> >>>>
-> >>>> Phillip, reporting issues by mail should still work, but you might h=
-ave
-> >>>> more luck here, as that's where the amdgpu afaics prefer to track bu=
-gs:
-> >>>> https://gitlab.freedesktop.org/drm/amd/-/issues
-> >>>>
-> >>>> When you file an issue there, please mention it here.
-> >>>>
-> >>>> Furthermore it might help if you could verify if 6.7-rc1 (or rc2, wh=
-ich
-> >>>> comes out later today) or 6.6.2-rc1 improve things.
-> >>> It would also be good to test if reverting any of these is possible o=
-r not.
-> >> Well none of the commits mentioned can affect radeon in any way. Radeo=
-n
-> >> simply doesn't use the scheduler.
-> >>
-> >> My suspicion is that the user is actually using amdgpu instead of
-> >> radeon. The switch potentially occurred accidentally, for example by
-> >> compiling amdgpu support for SI/CIK.
-> >>
-> >> Those amdgpu problems for older ASIC have already been worked on and
-> >> should be fixed by now.
-> > In this case it's a navi23 (so radeon in the marketing sense).
->
-> Thanks, couldn't find that in the mail thread.
->
-> In that case those are the already known problems with the scheduler
-> changes, aren't they?
+Setting register to force ordering to prevent read/write or write/read
+hazards for un-cached modes.
 
-Yes.  Those changes went into 6.7 though, not 6.6 AFAIK.  Maybe I'm
-misunderstanding what the original report was actually testing.  If it
-was 6.7, then try reverting:
-56e449603f0ac580700621a356d35d5716a62ce5
-b70438004a14f4d0f9890b3297cd66248728546c
+Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c                    | 8 ++++++++
+ .../gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h    | 2 ++
+ 2 files changed, 10 insertions(+)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 0c6133cc5e57..40ce12323164 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -89,6 +89,10 @@ MODULE_FIRMWARE("amdgpu/gc_11_5_0_me.bin");
+ MODULE_FIRMWARE("amdgpu/gc_11_5_0_mec.bin");
+ MODULE_FIRMWARE("amdgpu/gc_11_5_0_rlc.bin");
+ 
++static const struct soc15_reg_golden golden_settings_gc_11_0[] = {
++	SOC15_REG_GOLDEN_VALUE(GC, 0, regTCP_CNTL, 0x20000000, 0x20000000)
++};
++
+ static const struct soc15_reg_golden golden_settings_gc_11_0_1[] =
+ {
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, regCGTT_GS_NGG_CLK_CTRL, 0x9fff8fff, 0x00000010),
+@@ -304,6 +308,10 @@ static void gfx_v11_0_init_golden_registers(struct amdgpu_device *adev)
+ 	default:
+ 		break;
+ 	}
++	soc15_program_register_sequence(adev,
++					golden_settings_gc_11_0,
++					(const u32)ARRAY_SIZE(golden_settings_gc_11_0));
++
+ }
+ 
+ static void gfx_v11_0_write_data_to_reg(struct amdgpu_ring *ring, int eng_sel,
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h
+index c92c4b83253f..4bff1ef8a9a6 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h
+@@ -6369,6 +6369,8 @@
+ #define regTCP_INVALIDATE_BASE_IDX                                                                      1
+ #define regTCP_STATUS                                                                                   0x19a1
+ #define regTCP_STATUS_BASE_IDX                                                                          1
++#define regTCP_CNTL                                                                                     0x19a2
++#define regTCP_CNTL_BASE_IDX                                                                            1
+ #define regTCP_CNTL2                                                                                    0x19a3
+ #define regTCP_CNTL2_BASE_IDX                                                                           1
+ #define regTCP_DEBUG_INDEX                                                                              0x19a5
+-- 
+2.32.0
 
->
-> Christian.
->
-> >
-> > Alex
-> >
-> >> Regards,
-> >> Christian.
-> >>
-> >>> File the gitlab issue and we should poke amd a but more to take a loo=
-k.
-> >>>
-> >>> Dave.
->
