@@ -4,50 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54297C2BB3F
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 15:40:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77DFAC2BB3F
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 15:55:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC5E510E422;
-	Mon, 20 Nov 2023 15:40:54 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EBF710E3A8
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 11:59:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1700481593; x=1732017593;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=hLlgtN7e+i6tZI3bxI8GySjeZu1w9pcdPAelbmCT79A=;
- b=PU0P1fFlepeIrHUMp9oRK8f7ggnceVcBwcsr8EF7pMuNOEG67r1OqpuX
- 1Yly59lnLpziaSbUsLl6wGjuUvJ99XiCXix35cRWY0F4oCvSDIfSgPp0c
- v/FCmR6m9u50iVBgAYO/RuO8TesKUfwRohJII2m3OfUacDAwX1NvdFWvu
- obAF+4riVGMBOupexgevm/nebzo+acAS1/ZGgxLom0cLNOXySaVVoLY6W
- eBmSOkyx5eVcsrup/oPd8gQZOI2C7lhNIPnekUKkzkEPVtycZNXFJ9Cia
- s/syjlZDGykvxEBeoa73eHTJ2eGIafliSvNZrcrAip9KMTQuY806ccida A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10899"; a="4723177"
-X-IronPort-AV: E=Sophos;i="6.04,213,1695711600"; 
-   d="scan'208";a="4723177"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2023 03:59:52 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10899"; a="766253122"
-X-IronPort-AV: E=Sophos;i="6.04,213,1695711600"; d="scan'208";a="766253122"
-Received: from akeren-mobl.ger.corp.intel.com ([10.252.40.26])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2023 03:59:46 -0800
-Date: Mon, 20 Nov 2023 13:59:44 +0200 (EET)
-From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Ma Jun <Jun.Ma2@amd.com>
-Subject: Re: [Patch v13 1/9] Documentation/driver-api: Add document about
- WBRF mechanism
-In-Reply-To: <20231030071832.2217118-2-Jun.Ma2@amd.com>
-Message-ID: <3e18c716-4c1b-ea3-ede3-5a67555f5e72@linux.intel.com>
-References: <20231030071832.2217118-1-Jun.Ma2@amd.com>
- <20231030071832.2217118-2-Jun.Ma2@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19BFD10E078;
+	Mon, 20 Nov 2023 15:55:57 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2076.outbound.protection.outlook.com [40.107.93.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BDDA10E06F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 15:55:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iQdub3rFfeQt6ce3Fiqa0OOb7wpyV/9ldPOffIi9/K2vzfuHdqedjQ0R1Uzkkmz3xgo8/pnLzsDc84kc2obhdfbRrIe7g2pIn2eVtNI4LFq+zZoAmd9i4ORaKYLAPcUS2mrO244VKS1SPs1P0dlYr/gk6W2Q0awgKwcyzvw99awkVIHftsVaBlUMknbkj1aTzJnNSWx9waHbwdALP3mpsEUwOfffu6JRK24uRrFfTcicaq/5D3EOKLfYvZJkfmEQSWix0hEqE6GREcswtWbUc0m7CToHG09N1v5Ap6TnxJeiJNpdm+MIhA3KWbTzVV5W5a66Yrk5GoJjxyaFSFt08g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=A8bwJT49m27cYY03dSQj/tBtYrBLwL4qe6QWOzjW21M=;
+ b=IrLLgkkTNZgh0xbZ0HQ2O+4wG7DUkA8/Gc3Y3jo9dSwOBstfjBoC9TgzNAPxea2GqX/gqf/gA5zoCFptnB6RKOgkdpCUiPDkQiCvv9e+uM9lIukzdQDuW0Xx23eTCmDu+PZBnp6v2Qhryvw94O+t34A44W1FVIZ2GlsuPpE4mjpDIDGm9ZrWte/u9yup/MsZ9/DW8Ph8PYshMbhPAbt2H/eBXVAZ05JGnZXGavjAs2vQDazZ8AHXJazpNHKIpbfqBqXdO47jZs17KTstZMBtrB6jsR0mczybQo6dCTeEmOepSsUla7KDsSLi5LIu2Hu5och8deZu0pJxllmf/c+/eg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=A8bwJT49m27cYY03dSQj/tBtYrBLwL4qe6QWOzjW21M=;
+ b=qDfqQIAiWyXqMf5Jc0UqAlgSkvuByVtRyal5p+zjh9ldQ10riYbqXLaQ3mPE3P2ImwgWk5gtckt1g0n3+WFSEAOKLNcYe0K/zib+4ePb6go5/xSAMBk83pKiCDCYiB046naaMuys+ZXtAgb8qOgKnMcqqGFPB8h8d2HJkNIdxEk=
+Received: from MW4PR03CA0076.namprd03.prod.outlook.com (2603:10b6:303:b6::21)
+ by DM4PR12MB6373.namprd12.prod.outlook.com (2603:10b6:8:a4::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7002.27; Mon, 20 Nov 2023 15:55:50 +0000
+Received: from MWH0EPF000971E8.namprd02.prod.outlook.com
+ (2603:10b6:303:b6:cafe::2a) by MW4PR03CA0076.outlook.office365.com
+ (2603:10b6:303:b6::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.17 via Frontend
+ Transport; Mon, 20 Nov 2023 15:55:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000971E8.mail.protection.outlook.com (10.167.243.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7025.12 via Frontend Transport; Mon, 20 Nov 2023 15:55:50 +0000
+Received: from jz-tester2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 20 Nov
+ 2023 09:55:49 -0600
+From: James Zhu <James.Zhu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2 07/24] drm/amdkfd: check pcs_enrty valid
+Date: Mon, 20 Nov 2023 10:55:15 -0500
+Message-ID: <20231120155515.2523038-1-James.Zhu@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20231103131139.766920-8-James.Zhu@amd.com>
+References: <20231103131139.766920-8-James.Zhu@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-X-Mailman-Approved-At: Mon, 20 Nov 2023 15:40:24 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E8:EE_|DM4PR12MB6373:EE_
+X-MS-Office365-Filtering-Correlation-Id: a7a99c35-814b-4a32-5505-08dbe9e12b47
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: gJ38yYUozw3nzI6/Yf/AM9f2YwGKxO2R3Shy4Z7CZMSitQbyKfvA3wDXBC41LBuUiKpPfAZDOGdC/AxjnpdhxX9PVQ73yoaiRGR55sBGWgFDK9FbVyIwO7BXfRsC3aDeguLl/sQBVnKBtZFFWx1qUQduK3H1905jPyA6yEga5iIGW7kJESuJMhbXYron1YBOILef4IXUYLTkBIQHWKk6mtboxOIka0JjLQ5tw4kF+Xnba2cyh0znmQbMHQpLFy6z/OnQwkXduHL/iwRGZsN+PXcwYelONRgTeMkFnIt5+76hbjhn7qNwQ8pRjRaBLVkuE47V4CaYSUsA3nbEbTOmigwB/RKBGmXYVhyEEDWzUheXpFB8zQYk/QWNudeqm78UqDWJUyd2jLUBNEQJw3uVskSpJpwOChtZyqYgXxGRzQ6lknA1d98TX905mZPv5bBQBQ2QD1H+C+NdCkweUHHcLYfzxiEonBjB6IR/7JR8pVwYbA7gwAqHPxdZGHGCYpsiXfInACgVeaETDM+elUQOyqJMzp+w0QeDIPKlo1HwFDTKT4Nv8pNq/lTn89OOxiW8Sosnxw2CzqeeGyj6JUAQRcoeGL2oROutSxmS3dCE6vim/L5lgSd4/c3ylffdgI3rPK+MTTC30UWcOLdR5X8I9+uOH/yJt5OO/3JItBzdrcfMRBc484jsw0PvIGHkHeNlL00nKQnh7+acUZA0WYbRmTmXGdt2V826AT2zGwsn+qYbfHQcUZxBuUmWVZZxWUBioaR3QpFNJbQf4e+pDRQGAA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(396003)(346002)(376002)(136003)(39860400002)(230922051799003)(186009)(64100799003)(451199024)(82310400011)(1800799012)(40470700004)(46966006)(36840700001)(82740400003)(83380400001)(336012)(426003)(16526019)(36756003)(86362001)(40460700003)(36860700001)(81166007)(47076005)(356005)(6916009)(70586007)(70206006)(54906003)(316002)(8676002)(4326008)(8936002)(41300700001)(5660300002)(2906002)(1076003)(40480700001)(7696005)(2616005)(26005)(478600001)(6666004)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2023 15:55:50.4659 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7a99c35-814b-4a32-5505-08dbe9e12b47
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E8.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6373
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,65 +99,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-doc@vger.kernel.org, Netdev <netdev@vger.kernel.org>,
- Lijo.Lazar@amd.com, linux-wireless@vger.kernel.org,
- LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, edumazet@google.com,
- mario.limonciello@amd.com, alexander.deucher@amd.com, kuba@kernel.org,
- johannes@sipsolutions.net, pabeni@redhat.com, davem@davemloft.net,
- lenb@kernel.org
+Cc: Felix.kuehling@amd.com, joseph.greathouse@amd.com, jamesz@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 30 Oct 2023, Ma Jun wrote:
+Check pcs_entry valid for pc sampling ioctl.
 
-> Add documentation about AMD's Wifi band RFI mitigation (WBRF) mechanism
-> explaining the theory and how it is used.
-> 
-> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
-> ---
->  Documentation/driver-api/wbrf.rst | 76 +++++++++++++++++++++++++++++++
->  1 file changed, 76 insertions(+)
->  create mode 100644 Documentation/driver-api/wbrf.rst
-> 
-> +Driver programming interface
-> +============================
-> +.. kernel-doc:: drivers/platform/x86/amd/wbrf.c
-> +
-> +Sample Usage
-> +=============
+Signed-off-by: James Zhu <James.Zhu@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c | 30 ++++++++++++++++++--
+ 1 file changed, 27 insertions(+), 3 deletions(-)
 
-A lot better but you missed adding newlines here for this and previous 
-section title.
-
-> +The expected flow for the producers:
-> +1). During probe, call `acpi_amd_wbrf_supported_producer` to check if WBRF
-> +    can be enabled for the device.
-> +2). On using some frequency band, call `acpi_amd_wbrf_add_remove` with 'add'
-> +    param to get other consumers properly notified.
-> +3). Or on stopping using some frequency band, call
-> +    `acpi_amd_wbrf_add_remove` with 'remove' param to get other consumers notified.
-> +
-> +The expected flow for the consumers:
-> +1). During probe, call `acpi_amd_wbrf_supported_consumer` to check if WBRF
-> +    can be enabled for the device.
-> +2). Call `amd_wbrf_register_notifier` to register for notification
-> +    of frequency band change(add or remove) from other producers.
-> +3). Call the `amd_wbrf_retrieve_freq_band` intentionally to retrieve
-> +    current active frequency bands considering some producers may broadcast
-> +    such information before the consumer is up.
-> +4). On receiving a notification for frequency band change, run
-> +    `amd_wbrf_retrieve_freq_band` again to retrieve the latest
-> +    active frequency bands.
-> +5). During driver cleanup, call `amd_wbrf_unregister_notifier` to
-> +    unregister the notifier.
-
-The correct kerneldoc format should be without the closing parenthesis:
-
-1. Text here that
-   spills to second line.
-2. Second entry.
-
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c b/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
+index 4c9fc48e1a6a..36366c8847de 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
+@@ -179,6 +179,21 @@ static int kfd_pc_sample_destroy(struct kfd_process_device *pdd, uint32_t trace_
+ int kfd_pc_sample(struct kfd_process_device *pdd,
+ 					struct kfd_ioctl_pc_sample_args __user *args)
+ {
++	struct pc_sampling_entry *pcs_entry;
++
++	if (args->op != KFD_IOCTL_PCS_OP_QUERY_CAPABILITIES &&
++		args->op != KFD_IOCTL_PCS_OP_CREATE) {
++
++		mutex_lock(&pdd->dev->pcs_data.mutex);
++		pcs_entry = idr_find(&pdd->dev->pcs_data.hosttrap_entry.base.pc_sampling_idr,
++				args->trace_id);
++		mutex_unlock(&pdd->dev->pcs_data.mutex);
++
++		if (!pcs_entry ||
++			pcs_entry->pdd != pdd)
++			return -EINVAL;
++	}
++
+ 	switch (args->op) {
+ 	case KFD_IOCTL_PCS_OP_QUERY_CAPABILITIES:
+ 		return kfd_pc_sample_query_cap(pdd, args);
+@@ -187,13 +202,22 @@ int kfd_pc_sample(struct kfd_process_device *pdd,
+ 		return kfd_pc_sample_create(pdd, args);
+ 
+ 	case KFD_IOCTL_PCS_OP_DESTROY:
+-		return kfd_pc_sample_destroy(pdd, args->trace_id);
++		if (pcs_entry->enabled)
++			return -EBUSY;
++		else
++			return kfd_pc_sample_destroy(pdd, args->trace_id);
+ 
+ 	case KFD_IOCTL_PCS_OP_START:
+-		return kfd_pc_sample_start(pdd);
++		if (pcs_entry->enabled)
++			return -EALREADY;
++		else
++			return kfd_pc_sample_start(pdd);
+ 
+ 	case KFD_IOCTL_PCS_OP_STOP:
+-		return kfd_pc_sample_stop(pdd);
++		if (!pcs_entry->enabled)
++			return -EALREADY;
++		else
++			return kfd_pc_sample_stop(pdd);
+ 	}
+ 
+ 	return -EINVAL;
 -- 
- i.
+2.25.1
 
