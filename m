@@ -4,58 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00938C61D85
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Nov 2023 18:53:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62049C61D90
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Nov 2023 18:53:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DD7C10E2B8;
-	Tue, 21 Nov 2023 18:53:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF54710E580;
+	Tue, 21 Nov 2023 18:53:54 +0000 (UTC)
 Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
  [IPv6:2001:4860:4864:20::2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D62F10E2B8;
- Tue, 21 Nov 2023 18:53:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44F5410E575
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Nov 2023 18:53:54 +0000 (UTC)
 Received: by mail-oa1-x2b.google.com with SMTP id
- 586e51a60fabf-1f938410f92so1377213fac.3; 
- Tue, 21 Nov 2023 10:53:08 -0800 (PST)
+ 586e51a60fabf-1f03d9ad89fso3334451fac.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Nov 2023 10:53:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1700592788; x=1701197588; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1700592833; x=1701197633; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4MJviHtyv8L1V4pX3J+mGOhL9XRHlVW6pwIEatSbK/o=;
- b=UC0lk1hQA2KKAivYd/scbg6bJKs5bMzYrby6bBXieBzYUrhzi71X0/swBlmCWdcbaa
- qZyqpeJZ/pLyz1U643HEUmd2pW9E2W42DwIw+uDjWRXeaKIUMH/Ul1jkPUL3eRMTBUo8
- xbceE0Dah6MrZzXr44TohyD4zpl4qMJYTdaf3t8iOmN43rxZpj8BuLF57QN5XTzH8XxA
- 2Y0KBKhiWnXafU/tcy7ta9fAbnIXRMfztd/K8higOO/YNRiuwM0oo4tekTvn60nItltH
- lMCtfWr3yKyBltXu198E16VDqFU87KlG0V11Zr4/KttymJnxnQktQ7wWzoaxr/lEOq7N
- gwKA==
+ bh=ivY/HIiQjXVe0XnnIADCfB9M9uqRTWJJyHgRqJCkUKI=;
+ b=QBfeC5eR3MgpZ3wRufp3b/89h50C+4sWvFJisYypkbbc+Pb9tr4bxpA3kCv6WkxvFs
+ Gig1zDa1nGgGnHgK9lxX2cVomupJvlbdRV6zBvEj3ILbpQcv/rYwe70ZWx6fwp8/MyId
+ NELgvwtwUymAYU/HkcOuIRcygl7Vbm6pA2h0tRZqFNYCTz1KhA/70PpNUFM/VSjK3IW9
+ 9kbKyI/yomWDypOn9sIQTgBkMJ90G2cyHGBNpQVp+A7tw/JvfOz3Er7WYf1KYYWugLfP
+ Abd6pK5yh6zErWZ0Awp+G9YqwvNSXMG27xD86jZAgAn7x9O/1EJuzgZiC7HYsajSm79U
+ NYXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700592788; x=1701197588;
+ d=1e100.net; s=20230601; t=1700592833; x=1701197633;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=4MJviHtyv8L1V4pX3J+mGOhL9XRHlVW6pwIEatSbK/o=;
- b=sD0jX5iHDJegS7+3KVaBzKxCAU/Qwl5vr6mWyjhqzIc5+ViT1A/lVNFAPMw6NhnhaA
- YxBhwGcc3Xv5ooCYl1M6KlZY6Xu7o6RESCls9Qs2LQK9Rgo1WXPmBCQKbq6Bal/WG9hC
- YFLkKN5XLjTIXQAIfKJZIa7s7eNjNLQe3kAcM8ICSRx6NGYBF4uDI/uDVoqtVO9oPDFl
- 1MJKHaYFh+brMjtbL6ugqTA7XfK39Mb7nIOGO5QhsUJh7cU4rGmrZTbAWAD1Xu+H6eHr
- vJaCvT0/2WbIt8zRlia0X3xtD63INdfd/chVZ+lGudZ2eGSSc2Z1RC6BmYbXH2nB51sy
- T3lQ==
-X-Gm-Message-State: AOJu0YwAa7LJnrqpGyv90uzUkAphep0A90tSvuY9gnthQNWg0LKCICHA
- VISemNcDHX4m/1qFFl98B+Z3bQiIoWq7lIhOZsE=
-X-Google-Smtp-Source: AGHT+IE4CuBHJccxLbxl9uGN4mYz2Nq3566nDVcfvuXoHLGqjwkxWr/FWzsJgyhoRhGglObIvVU6uSnFU4vVZm9S4z0=
-X-Received: by 2002:a05:6870:bacf:b0:1f9:5155:b135 with SMTP id
- js15-20020a056870bacf00b001f95155b135mr187608oab.39.1700592787805; Tue, 21
- Nov 2023 10:53:07 -0800 (PST)
+ bh=ivY/HIiQjXVe0XnnIADCfB9M9uqRTWJJyHgRqJCkUKI=;
+ b=L8ttjwZv3E3bBVRpyh8jEdY5CrFE4ONxHzTA9DVhtxHdn0tRJo3C77UcqFJX6OR5rf
+ eb66BA9lqWAnddat41eJ8iKjpPyLTZpxpnGXyCVef0TVsnBNXw3BHA01i1myWfbUA1tA
+ q8sh4/Nh7Al6aO3bi1hcchGJDkEKgbFtzuNXl1WeMBKWEwAeCVe6g+rzT6/eKim52nBg
+ nAPBuOEEcecN0outf9L1CmNiGW6l862abxrNYeMevrrxINwm1gnwqTcPEj8yAv3UFgTn
+ O21p/wzZGdIqRdp/WAC1rLw5Mc7u0mLq9kk88RlYlcqhLa4Xuv2ubZ2TwrdEOl1iW/70
+ O1ag==
+X-Gm-Message-State: AOJu0Yx9BJK6NTXkbrMTmE/KFmk/PhMGLxpO/qSme57AZmcF21k0hXUG
+ y2nXLQU3xYkFtywe3ZwLK4kOv6AWOo0K0gD+en8mD1HY
+X-Google-Smtp-Source: AGHT+IEXHe5N0/bUSTo3f8fCXV9tb603rYRtQUoOlKrFhtjB2PID4/zIbPFUN/dwY7Xd9ZEuJh1XAyKD6H+UuehQYCo=
+X-Received: by 2002:a05:6870:2e0d:b0:1ea:69f6:fe09 with SMTP id
+ oi13-20020a0568702e0d00b001ea69f6fe09mr236790oab.10.1700592833515; Tue, 21
+ Nov 2023 10:53:53 -0800 (PST)
 MIME-Version: 1.0
-References: <20231121043621.9351-1-u202112078@hust.edu.cn>
- <bac617fe-6b23-411f-8dc9-c97cc84208f3@amd.com>
-In-Reply-To: <bac617fe-6b23-411f-8dc9-c97cc84208f3@amd.com>
+References: <20231121091011.3283118-1-li.ma@amd.com>
+In-Reply-To: <20231121091011.3283118-1-li.ma@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 21 Nov 2023 13:52:56 -0500
-Message-ID: <CADnq5_P-Wr8C75vueF_oEqfp+PB2rf8KcJE8z4Xtd84jLB96bA@mail.gmail.com>
-Subject: Re: [PATCH] gpu: display: remove unnecessary braces to fix coding
- style
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Date: Tue, 21 Nov 2023 13:53:42 -0500
+Message-ID: <CADnq5_Ork17R1wh4dehSZvYKT9jC_WtbojdxQWtiompbs_Zxqg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: add init_registers for nbio v7.11
+To: Li Ma <li.ma@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -69,65 +67,157 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: hust-os-kernel-patches@googlegroups.com, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
- RutingZhang <u202112078@hust.edu.cn>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Dongliang Mu <dzm91@hust.edu.cn>,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>
+Cc: alexander.deucher@amd.com, yifan1.zhang@amd.com, lang.yu@amd.com,
+ christian.koenig@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 21, 2023 at 4:27=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
+On Tue, Nov 21, 2023 at 4:27=E2=80=AFAM Li Ma <li.ma@amd.com> wrote:
 >
-> Am 21.11.23 um 05:36 schrieb RutingZhang:
-> > checkpatch complains that:
-> >
-> > WARNING: braces {} are not necessary for single statement blocks
-> > +                if (pool->base.irqs !=3D NULL) {
-> > +                        dal_irq_service_destroy(&pool->base.irqs);
-> > +                }
-> >
-> > Fixed it by removing unnecessary braces to fix the coding style issue.
-> >
-> > Signed-off-by: RutingZhang <u202112078@hust.edu.cn>
-> > Reviewed-by: Dongliang Mu <dzm91@hust.edu.cn>
+> enable init_registers callback func for nbio v7.11.
 >
-> Subject line prefix should be "drm/amdgpu".
->
-> Apart from this nit it looks good to me, but might be already fixed
-> internally.
+> Signed-off-by: Li Ma <li.ma@amd.com>
 
-Applied.  Thanks!
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Alex
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c       | 18 ++++++------
+>  .../asic_reg/nbio/nbio_7_11_0_offset.h        |  2 ++
+>  .../asic_reg/nbio/nbio_7_11_0_sh_mask.h       | 29 +++++++++++++++++++
+>  3 files changed, 40 insertions(+), 9 deletions(-)
 >
-> Regards,
-> Christian.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c b/drivers/gpu/drm/am=
+d/amdgpu/nbio_v7_11.c
+> index 676ab1d20d2f..1f52b4b1db03 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
+> @@ -259,17 +259,17 @@ const struct nbio_hdp_flush_reg nbio_v7_11_hdp_flus=
+h_reg =3D {
 >
-> > ---
-> >   drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c | 3 +--
-> >   1 file changed, 1 insertion(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/dr=
-ivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-> > index 447de8492594..6835dbb733a2 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-> > @@ -713,9 +713,8 @@ static void dcn21_resource_destruct(struct dcn21_re=
-source_pool *pool)
-> >                       pool->base.hubps[i] =3D NULL;
-> >               }
-> >
-> > -             if (pool->base.irqs !=3D NULL) {
-> > +             if (pool->base.irqs !=3D NULL)
-> >                       dal_irq_service_destroy(&pool->base.irqs);
-> > -             }
-> >       }
-> >
-> >       for (i =3D 0; i < pool->base.res_cap->num_ddc; i++) {
+>  static void nbio_v7_11_init_registers(struct amdgpu_device *adev)
+>  {
+> -/*     uint32_t def, data;
+> +       uint32_t def, data;
+> +
+> +       def =3D data =3D RREG32_SOC15(NBIO, 0, regBIF_BIF256_CI256_RC3X4_=
+USB4_PCIE_MST_CTRL_3);
+> +       data =3D REG_SET_FIELD(data, BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST=
+_CTRL_3,
+> +                               CI_SWUS_MAX_READ_REQUEST_SIZE_MODE, 1);
+> +       data =3D REG_SET_FIELD(data, BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST=
+_CTRL_3,
+> +                               CI_SWUS_MAX_READ_REQUEST_SIZE_PRIV, 1);
+>
+> -               def =3D data =3D RREG32_SOC15(NBIO, 0, regBIF_BIF256_CI25=
+6_RC3X4_USB4_PCIE_MST_CTRL_3);
+> -               data =3D REG_SET_FIELD(data, BIF_BIF256_CI256_RC3X4_USB4_=
+PCIE_MST_CTRL_3,
+> -                       CI_SWUS_MAX_READ_REQUEST_SIZE_MODE, 1);
+> -               data =3D REG_SET_FIELD(data, BIF_BIF256_CI256_RC3X4_USB4_=
+PCIE_MST_CTRL_3,
+> -                       CI_SWUS_MAX_READ_REQUEST_SIZE_PRIV, 1);
+> +       if (def !=3D data)
+> +               WREG32_SOC15(NBIO, 0, regBIF_BIF256_CI256_RC3X4_USB4_PCIE=
+_MST_CTRL_3, data);
+>
+> -               if (def !=3D data)
+> -                       WREG32_SOC15(NBIO, 0, regBIF_BIF256_CI256_RC3X4_U=
+SB4_PCIE_MST_CTRL_3, data);
+> -*/
+>  }
+>
+>  static void nbio_v7_11_update_medium_grain_clock_gating(struct amdgpu_de=
+vice *adev,
+> diff --git a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset=
+.h b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset.h
+> index ff30f04be591..7ee3d291120d 100644
+> --- a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset.h
+> +++ b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset.h
+> @@ -781,6 +781,8 @@
+>  #define regBIF_BIF256_CI256_RC3X4_USB4_PCIE_CNTL2_BASE_IDX              =
+                                5
+>  #define regBIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1             =
+                                0x420187
+>  #define regBIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1_BASE_IDX    =
+                                5
+> +#define regBIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3                  =
+                                0x4201c6
+> +#define regBIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3_BASE_IDX         =
+                                5
+>
+>
+>  // addressBlock: nbio_nbif0_bif_cfg_dev0_rc_bifcfgdecp
+> diff --git a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_sh_mas=
+k.h b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_sh_mask.h
+> index 7f131999a263..eb8c556d9c93 100644
+> --- a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_sh_mask.h
+> +++ b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_sh_mask.h
+> @@ -24646,6 +24646,35 @@
+>  //BIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1
+>  #define BIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1__MST_MEM_LS_EN_=
+MASK                                  0x00000001L
+>  #define BIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1__REPLAY_MEM_LS_=
+EN_MASK                               0x00000008L
+> +//BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_MAX_PAYLOAD=
+_SIZE_MODE__SHIFT                     0x8
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_PRIV_MAX_PA=
+YLOAD_SIZE__SHIFT                     0x9
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_10BIT_TAG_EN_OVE=
+RRIDE__SHIFT                          0xb
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_10BIT_TAG_E=
+N_OVERRIDE__SHIFT                     0xd
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__MST_DROP_SYNC_FLOOD=
+_EN__SHIFT                            0xf
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_MAX_PAYLOAD_SIZE=
+_MODE__SHIFT                          0x10
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_PRIV_MAX_PAYLOAD=
+_SIZE__SHIFT                          0x11
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_MAX_READ_REQUEST=
+_SIZE_MODE__SHIFT                     0x14
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_PRIV_MAX_READ_RE=
+QUEST_SIZE__SHIFT                     0x15
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_MAX_READ_SAFE_MO=
+DE__SHIFT                             0x18
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_EXTENDED_TAG_EN_=
+OVERRIDE__SHIFT                       0x19
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_MAX_READ_RE=
+QUEST_SIZE_MODE__SHIFT                0x1b
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_MAX_READ_RE=
+QUEST_SIZE_PRIV__SHIFT                0x1c
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_EXTENDED_TA=
+G_EN_OVERRIDE__SHIFT                  0x1e
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_MAX_PAYLOAD=
+_SIZE_MODE_MASK                       0x00000100L
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_PRIV_MAX_PA=
+YLOAD_SIZE_MASK                       0x00000600L
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_10BIT_TAG_EN_OVE=
+RRIDE_MASK                            0x00001800L
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_10BIT_TAG_E=
+N_OVERRIDE_MASK                       0x00006000L
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__MST_DROP_SYNC_FLOOD=
+_EN_MASK                              0x00008000L
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_MAX_PAYLOAD_SIZE=
+_MODE_MASK                            0x00010000L
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_PRIV_MAX_PAYLOAD=
+_SIZE_MASK                            0x000E0000L
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_MAX_READ_REQUEST=
+_SIZE_MODE_MASK                       0x00100000L
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_PRIV_MAX_READ_RE=
+QUEST_SIZE_MASK                       0x00E00000L
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_MAX_READ_SAFE_MO=
+DE_MASK                               0x01000000L
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_EXTENDED_TAG_EN_=
+OVERRIDE_MASK                         0x06000000L
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_MAX_READ_RE=
+QUEST_SIZE_MODE_MASK                  0x08000000L
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_MAX_READ_RE=
+QUEST_SIZE_PRIV_MASK                  0x30000000L
+> +#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_EXTENDED_TA=
+G_EN_OVERRIDE_MASK                    0xC0000000L
+>
+>  // addressBlock: nbio_nbif0_bif_cfg_dev0_rc_bifcfgdecp
+>  //BIF_CFG_DEV0_RC0_VENDOR_ID
+> --
+> 2.25.1
 >
