@@ -4,116 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DED0C61D85
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Nov 2023 16:06:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BA0FC61D85
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Nov 2023 16:41:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAE5010E4FE;
-	Tue, 21 Nov 2023 16:06:28 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20601.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eae::601])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32B9610E4FE
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Nov 2023 16:06:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD20B10E50F;
+	Tue, 21 Nov 2023 16:41:35 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20600.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::600])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBC2F10E50D;
+ Tue, 21 Nov 2023 16:41:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BkHe3U69u+AYG6UO4lBGDPSmuEiAQK+5VXHiPca2AEjCsL2M7lz7zYgkyGiI0oah7x/Eenize/0wVD2jV4HRZxJgOgRApza2y/UFsB4EbwCVkqzbzNtAilg0VZ3jMdURTnITVDgGiEhb/1bqpHtGUp/Q4hkKOKXRiV+sxa7KxK8asLEj9FjGTUPlx5Hy1LuLt1L5UMDg7Ri0PbbnL2+tBEP3iqhyhEenm2TZ537JhNMR0OSA8Os8bt8aGSrPnrJNGqArB7HLxLj9fC1/1P3kMAhIdwNRnrFmB6dygzsJjy6LBWPdkT0y4NkREk5mlDYru10pkKg9SUscdHTXwnkFzw==
+ b=FNcnMF2eX9P1w7rJbzEMVwjnC45XRLHABM8CmRA/G2IqBbk58divc+S+zJw6XQuuy8kiGMwgj61ySzS/LoODCEM0qnPB3mI4iJcgHmbabvycZRTMBvl0R7D6JmSx7mqG8P6qKL4WdVKY0YQtn4KNXH7CbLxg7LOIqzzRhu9xuZR0VimHSVigjIJ41Zh5w7eA2MVM/72N3UTCT/MoicJDENM61lzI0BH+o5cr/AV05U6as6+Jzc7JtUU6sI2kCoy/XD76gURMJs+dlQaCVd3dDf99/WiV1MjaI1lbZ1OUKNb/iR5zc/y9wjDd4oEGTDKaBzjP/irFPCa0yqXidKOgdg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sRz1XInLnmG53ACCRSWjlT/RnuLH+h02zrU6XildsUY=;
- b=BlMz0Qk1IPKikwcVb3FGIllI/w1psk+P51LIOayct5WCOSlZHUt2ARA9RD1v0lnRajel3S+pAnOebZU1dforP9CT6bA/dVyVWWHtYboMJdhBSDfgTE7LchYWxwTTTUPuwwnNiTDGI3EIOOXP1tyJ4jhWlR3OMD3zKBGWbbNQm4PJ8L/Csf3ZoAP9nf0G4iLB3opdfqYiy+wEqLK0Yp5Pxu5uPHQULkZAPy5ve0KXAHh/S1kyVxKL7HqHwOluSOCeuGPizv1Nf6Ne6FwTgtNY/rU23/o4bKmekGNuHe99aW70OUcKZShqpnZjPhv7qMfU1g6RbccE+QXRVkNOFSy+zg==
+ bh=EVGM3ETCkkmMJBcNgPksQm10XmtucRdS/ZVrjj0v9VM=;
+ b=VO76zal78DEXgGm8yZVUTjn/xxESTnncB8g9M38JbQJ7thrJo31m2ta6E7N50eVjEHQJ0v4quJsb1O+VK5yj9pUwpxuKJ2bpMbNyL/1lhBszPlgugXKdGcj2leMq16Xopi3v/hRUkPthk1yz5+8N80NZnCrUHuX+RljOxK60Ipdn/OwDbMbripJU1PqmMNjejCrSMQ9UTYlilGlKAbE17acfuKXrJXicLZjyazLreMq+q34Y5mjO65cqw2sYb3EBWbJhIf5cwR8c/oOy5pgTR/O/8x+UGlCS23KseBGXRAiIwkuVat5l1Pm8z9b5AshE8aZ0dFSp3nBq6P09mAk4lA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sRz1XInLnmG53ACCRSWjlT/RnuLH+h02zrU6XildsUY=;
- b=ENABLP1PSd+Oh+jcBR7xt23volOV/n50Vd+hRhw2ZZmWL3p6xK2Txf8l6EtDXXXRVvgDKLSjooHxjd/31B9HUpsmjC5RPg7XnMJYTJhCUM5jCX76HmSbp08/ANg4dmRXz4p3wQbLgb/mLs+5QCaUMclCgb/zSCDRcIYiafRglAs=
+ bh=EVGM3ETCkkmMJBcNgPksQm10XmtucRdS/ZVrjj0v9VM=;
+ b=M3I1L5Btm70mCq04ooWN+be4N0XGfvZp5xAuGSxJV8g6l4tIOmzahn0XDzPBtZXjUfxeFxstkOBzOYII3AMY9xYIvW0UAkgAOAE9ZflScFmHEeHtWTMBCp9jsyYZGY2dhSQAZzTmC8sOs7Pz0fVxI4NhV3V6r/TxKyRFvjSVB/E=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DS0PR12MB7557.namprd12.prod.outlook.com (2603:10b6:8:130::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.28; Tue, 21 Nov
- 2023 16:06:21 +0000
+ by CYXPR12MB9428.namprd12.prod.outlook.com (2603:10b6:930:d5::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.27; Tue, 21 Nov
+ 2023 16:41:30 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::7bfc:e32b:f362:60f3]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::7bfc:e32b:f362:60f3%5]) with mapi id 15.20.7002.026; Tue, 21 Nov 2023
- 16:06:21 +0000
-Message-ID: <6e044163-c7a7-4a32-8a38-390e2b6a3fb2@amd.com>
-Date: Tue, 21 Nov 2023 11:06:19 -0500
+ 16:41:30 +0000
+Message-ID: <fe6549e8-12b7-4ccb-96d1-a01cfa39709c@amd.com>
+Date: Tue, 21 Nov 2023 11:41:28 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Force order between a read and write to the
- same address
-To: Alex Sierra <alex.sierra@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20231120174159.22491-1-alex.sierra@amd.com>
+Subject: Re: [Bug 218168] New: amdgpu: kfd_topology.c warning: the frame size
+ of 1408 bytes is larger than 1024 bytes
 Content-Language: en-US
+To: Hamza Mahfooz <hamza.mahfooz@amd.com>, bugzilla-daemon@kernel.org,
+ dri-devel@lists.freedesktop.org
+References: <bug-218168-2300@https.bugzilla.kernel.org/>
+ <22a0edcb-26fa-415a-a05a-e4d807e2b703@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <20231120174159.22491-1-alex.sierra@amd.com>
+In-Reply-To: <22a0edcb-26fa-415a-a05a-e4d807e2b703@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0055.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:88::19) To BN9PR12MB5115.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR01CA0005.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01::13)
+ To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DS0PR12MB7557:EE_
-X-MS-Office365-Filtering-Correlation-Id: c29e3cbc-c23d-4fa7-063a-08dbeaabcd60
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CYXPR12MB9428:EE_
+X-MS-Office365-Filtering-Correlation-Id: e579f691-753d-46e8-9398-08dbeab0b6d3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yQj6jKzyihmlMcqznn4a9c3QtpNIbFkw6c3s6Lssluh9IaMJLeuC3PVDmmRCmVk5kLN7qvjRI4I3mgQJTzUuQBaAoHR5BF7FXs7cp67mo5E16/EOTirmQlFCsJ71FFdnZgthawU/7FsGOn8OU6N3Tvorwi68Nbn1m5THygXMKF8UJ89vouAWTKTFItnWRVwQYdaOo2II+2lNHClb+4j8qvsMT5sow/75HOYl8IrvhMMWjvr7nA8b+C53an45igHbE4KXQJulpXbddWSUdpLlNAYiQlUO7GukIctOBUxrA5j95g12eCGp3V3xm47h+FeTzFyC4yO1HN2tCfhF18Qc82PRiekbZwjSQCPLEBkoc4BuZ5UiIe9O9VZVAxi2iqtBh013ifzzX2/tN8tUD/q8XoUe88DivhabL6R9deHqT0OS8lnQ9ueQu960TpTwB6SiZd3w4sJZfAKZ0Etl2wdQhXB3Pg48lXNCHBBtqv9spe8pNU3ExZRsbhfdA6VCTrroreKQ5tic9umtApbG+us/9/WCk0CcDcrqd5dvGQ8IcArIhJ8HW681H4XXsul5XzlkqxPRAap+F3D2/nAYj9osnVoAtmkMveD/qvtwKFE0U0WdM1q4wsl2RHodm6XpCsDcGOR5vIuFfu+C16Zvfyk6mA==
+X-Microsoft-Antispam-Message-Info: Q5ouKgW1WNzezU+ptvAQe9MDzGfQvuJPGe6oQOWFPVdG/xK2RDS8mETBji2cIsg5CeU0qQMgLqMdwCuqSdu7ky9WsrRIoBQBuf4MNTpokyXbe0uZi7DrZQiAhtEv5wuHn6ngFUFskNUxg1Ef38F+Dny+VkrFFYKbDeKrUPEtrDMtscTdmNMZexIipEhO9Ov5pS+TNdDR+iXIytqJrkrt/hArg513gDBqrRVbXZEqTasBQ1zPa+/QLAZ64+9yDYJqr1nCPcJLplKo4v0S0P/FVz2pXRhS36xspb5ww1xFfkpCprN06n7fYsOVFhVfOktFuOdHPQ17tOYDIMVaE7TU1zctnL0KZ8X8mnUetMtcHcw+Q/1y+AyqiaozyVNQ5WClv/b0aClI60OdLNdCYhI9Hek75OhMiBewqQtj0pUMyEenhjUWJmSJva0uoUg0a9a9SHD5zdGtCKIwQQG3RDuNIU3fbFtT34I2CN/r3cbH0XJYE42g3CofAIq7oiDUjAYcYOG/Kk4tp7/uG9J3NIsb7yuh0SXJ5xaA47LwzCGX38ZTh9CS9YOrPDCThAeSWJdtfiVIdr8VDZa9fbn3pSEdoSWrCoQys1DSDtxbSLSMbztSDGBQolHjwLWLMWEWglJerJn3TZdD11kt/NoZ0yYGyCETAHev+CgLAmNI+KpYaf6k/9IY1NIHBpwZi6hau2R9HjfVxLWIrABXUVcZjKafxw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(346002)(396003)(366004)(136003)(39860400002)(230922051799003)(1800799012)(64100799003)(186009)(451199024)(4001150100001)(44832011)(5660300002)(4326008)(8936002)(8676002)(31686004)(2906002)(41300700001)(316002)(66946007)(66556008)(66476007)(86362001)(6486002)(478600001)(26005)(36756003)(36916002)(6512007)(53546011)(6506007)(2616005)(83380400001)(38100700002)(31696002)(45980500001)(43740500002);
+ SFS:(13230031)(136003)(366004)(346002)(396003)(376002)(39860400002)(230273577357003)(230922051799003)(230173577357003)(1800799012)(451199024)(186009)(64100799003)(83380400001)(6506007)(478600001)(2616005)(53546011)(36916002)(6486002)(966005)(26005)(66574015)(316002)(31686004)(66556008)(66476007)(66946007)(6512007)(4326008)(8936002)(8676002)(38100700002)(44832011)(31696002)(5660300002)(2906002)(41300700001)(86362001)(36756003)(4001150100001)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?THNLVDNLdVEwTkdxOVArRHpYaVpRaTlXMWpZZFNpUGFpZGs5ZlI0cldvZnd3?=
- =?utf-8?B?SWs0N3VrWU04YUJPWEJOMG01dVZQempFcWtaWUEvNjREMnVsVDVVbTJURW15?=
- =?utf-8?B?L0lramtjMUppa2ZQR3d1S1M4c2dOOEQrUENPS1JXeVU4MjhQUDVNeXpQdmQ0?=
- =?utf-8?B?LzJFekU1dzdCUVdsSFR5U1dFc1l6R0FsRmR5SFVqMndyWkZXWFFWa3hjR0tP?=
- =?utf-8?B?TnU3VDZBK1pTUzcyTUl2S2hZM29uaC9ya2NkcjdUK01GYm50NGxsQ0JmRnhv?=
- =?utf-8?B?bHZCa3VyNlE5Q2k1T0Z5cFVGQ2JEZnlYMUUraCtQUzRrSlFobzJIdDhsK2hh?=
- =?utf-8?B?NmVBYXJEb0xuSmFaRTJyNGF4anU3djN0RHdsQ29DRnhKWUlKcElNSUZxcnBp?=
- =?utf-8?B?b20wbEw3OFUveWV2SFZZZTJHc3g5ZVpjbHFkQUlQTGxENENFTFJzQ3ovU3hJ?=
- =?utf-8?B?Z2pkZDdjaWpscGJHZGt1Y0VjSlQvRndvdFphRFF6czRpZk9oWlk0Nk8vNVNR?=
- =?utf-8?B?MVNzT2lyWXJMbDdTUnlGRFJ5MUNBd2E2QzVzWTkyNVJDQWorbWFvWDFCS05L?=
- =?utf-8?B?TlJiZ2dscGY1R0RrMHlkc3NhZGpkS21zaEtJYnI3TGxzdVNKcmZQZ3FON3lR?=
- =?utf-8?B?WCttdFR0clhJV1cxWndYbUVRZXloTWpWWVZYNVpTNi93c1VacnJuQkZsOGo0?=
- =?utf-8?B?NDhzamdabVhOUTRMYjl1WjFtbVNkWitTRkJEeEFudngwQjNPYmtiQ2NPcGRn?=
- =?utf-8?B?dTlKRTlpUUttekxROGR5V3ZBZkF1SmNHY0tIaDI2T3d1dElzY2dPaW4wNnBU?=
- =?utf-8?B?ZkY2MkNra3FLMWg1dGVmL2ZXRDI4eUxidDFUK2hERUxOc0kxZjgzeEhCRExz?=
- =?utf-8?B?dHN3MXRwK25DakFuTCtGYmZKa3dVZkgwemNLZDRYM2J0QnpNRXhydkhLMzBG?=
- =?utf-8?B?R3hndUlJN1VWSEFmTldOVkhMN2ZUNmRKUjVZUkdXSFc1L0lFY21sSlhEbm1D?=
- =?utf-8?B?Q2lNM0hBMllvYjVwMngzODBKY1NSZW1WRGNoYndqUERORTRPOHFDZDFCenB0?=
- =?utf-8?B?SnJoVFJxeVNwUGErb3cwU01ua0lhdWFlRmVHWHJzWXJuWVMwUzU4RlkvbmZZ?=
- =?utf-8?B?bGtrcW5NOFJIdnBsQ1FKRHZEWWp3UTZyWDdpV2Z6VUtQZGNjb2VCMldoTTVL?=
- =?utf-8?B?N2dqL2IxWGdIT1hBNVl2N1VqcnR5MDJBY2Z3L0tGeC9wUWhiNWRBMmRaUDhk?=
- =?utf-8?B?MFJuTEpzMFA4YVV5L3E3YUtFeVZqSS82Lytvb1hRVHV2Y3NPS01jTGtwVC93?=
- =?utf-8?B?R1YzbDBXNk1JS0ozeDFnZkoydXpURmxHTTF2eUxsdmNoL2p2SklTdVZpb1Rp?=
- =?utf-8?B?VDdSQkhUelFzNUZaNmx4TzJSc0xKdHg0M1RXVlpuWjJVd1ZnSTR0VUllTzBu?=
- =?utf-8?B?dnlhS0h4U3FobXNSaWVvdTl4ZUluN3hvYWs2YWVOWkh5SzBuTWoxSGw3MVUz?=
- =?utf-8?B?M1Rhby8xQXd0UFFBYUcwY3Y3TnV1QTZwaHJtOVVRRm9zR1hTKzRjMEIyUWM1?=
- =?utf-8?B?UlVNbThVUEt2eDdaMFd2eFZlOFNaOVJoRC9jN3NLaHk2TnFTOEYyaEdXUWMv?=
- =?utf-8?B?cVhHNkZCYnp4MU91V01YcTFnbGxBK1QzdnRTWnArYnVqa2RaU0NZNDhINitK?=
- =?utf-8?B?RzVwNmdqcFpLd0c0Z1BlRmQ3OFRzaHNXVWQzZGwxaWZwQ0xHVGk4OHlRVEZT?=
- =?utf-8?B?UUVLdUtKMC9kdDQ2WXM3M0dlZlVYRkEvNThwZ1hhZDBEZUI3N3Z1OEN4U25Y?=
- =?utf-8?B?Wk4rZlJUdFdSQkRKaDE1QXB1THEzSFZTdEZDOHo1ZXJTb3ZHZDVwbzJpaU9B?=
- =?utf-8?B?aEJkdWFmSXY3TG9NeGRoSjdDWWx4OUl1dTBHQXJxcU43S0FuZ3cyOFEydzl5?=
- =?utf-8?B?MnZmNE81WXo4aDY1Qmh0eGpVRjVYVUpxemI1WlR4Y1J4aTFmQ0hRN255T25x?=
- =?utf-8?B?YWhWWFd2WEV5ajJYUjlxMHNVWEIwYkRpOTZQb2wyYUVTVFllNTlUZk5HUzBK?=
- =?utf-8?B?clFGLzh6WDJWRVBUbkE1cEU1RDFxU2FxalpuTzNrWGpDN3ZjbVBUQmhVb08w?=
- =?utf-8?Q?qPu460tkSuiu2kvPa2MCQGDkH?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y1NGaVkxeGVCOS9rSWkxQXFDMnJycXJhSFpDRzFEb0EvdnNaQnlPaE1jd0wr?=
+ =?utf-8?B?QThKb2JtNi8wZ1NFU1o5QkhuWXB4LytyZGIwTzM0cklROEtEQm42SWRvUCts?=
+ =?utf-8?B?VEpsRmdoVmhFZGk1MERDano3Q2NEWnRkeWVzdVZmTm5HQUJnNXdOVUh2UnZN?=
+ =?utf-8?B?WU9NaUloNVgzcnZ4ZHRsNDMzYlJjSWpwTFI2KzZFWVJMVXdaVitUSXd5aTNL?=
+ =?utf-8?B?QW1UY3kxSFp1cDBMempTdHRjRXZGbkhyL0xnOEQ1MDJlbkU4Nng3T0VBTEJZ?=
+ =?utf-8?B?c0tHUEVuMnJMUGV3cGg0S2p2eTdlUnhCOW9mOThGQ3hhY0piMlYycUQ4anhq?=
+ =?utf-8?B?WE9KMTdNVS9iOGpRd29XVzhtS09NeDBYZHFMODloSWt4S0h1WnFNcXlQbWY0?=
+ =?utf-8?B?Y2MzRUxiVDFWenNMYW5DdmNRRTRlZVQ2UFdZR3M3bEE0ck5PdFRoU2FVNVFZ?=
+ =?utf-8?B?YmRRK3ZZUWlFS3B0MkVYa1ZvTENxUzNiUkVNWWczc25pRnowWXYyejVOVjJN?=
+ =?utf-8?B?OWtGdlpRTXZtK1dkZTFQcVYzL0w4Z0lyMG1rZnNob1VRc2tUY3ZQTGpOMjRF?=
+ =?utf-8?B?YmI1S3hXT0lYSHp2dWMxWXNDNHRHYVY0aGhEZVNUOXl1S2RNNXFSM1p0SDhJ?=
+ =?utf-8?B?bGdKZkpnTFMxRGtEWThYVk9MRWdRa0F4b0NuK1ljRlpScDZSWDFtSjdxQjVR?=
+ =?utf-8?B?clBFaTgwaGpLcUl5NXE5T3N4S1dTem5HV2lqNThZZS9TSXpJU3JvNVBRSC9u?=
+ =?utf-8?B?MWtRaXl2Zm1WR1RNSDlqZlhSRWl6OTFjVUdRY0tHdE8ydENtZEtEcVRwUVJv?=
+ =?utf-8?B?YWZOemNKL3R0SHRYdXQvaHZCUWdtOVV2bmNPcmVNcnVIaUllZSs1d29VMDh6?=
+ =?utf-8?B?bXNjOU9tNldMNXFaRHhUYlpsUm9yM1dCditxSnFFemZkY280TC9uVVF1cWVR?=
+ =?utf-8?B?UGZpckFrb0lvYmpGTnVNQThUQ3hiaEwvZlRneGZWV3RITVAyc0haUEdaLzZW?=
+ =?utf-8?B?SUdRdllZQlBMM3VIWE9RSDJGVmd4ZUhVcjdneHI5a2tBbiszYVpmR0VWQklM?=
+ =?utf-8?B?ZVpoZVZ6a1R6Y1FaRnJWMEhyQjQ4UEUwa1owZ05YNVMrYlh5NFJUTjg1MUx3?=
+ =?utf-8?B?YUJYUVI2cFdEdVJ3a0dkM3ZhMHB0c2tTLzJEclI3b1pNeDhTQTJFeFRiVG9Z?=
+ =?utf-8?B?VVQrcXg5Y3pWYkRuQ3VYai94YVk1eUU2UVBndWFkaURMNThpRlN2NEpONHk1?=
+ =?utf-8?B?OFBoUkwwckFHRXl6Q1JJdXFPUkpEaFAxQWg3NWVMbHZ0SEp4dFg5enBHK0RS?=
+ =?utf-8?B?azBiNlhDak9iZW81cmZxK3dLeUUwaXZxQ2RXRWZQdHpON3FQdGhkeU52Vm5r?=
+ =?utf-8?B?Q2x3UHM4U0JZSElLQ1hZZHB3S1VQTFNuQVlPYU8rbmRmaFJSVVB1NWZLZGJJ?=
+ =?utf-8?B?Q0tEenZrb1UzVTlqNFpDNFdwY2xVUWhPUmtyU053V1VvRyt4Yi9kSmNzaUFI?=
+ =?utf-8?B?VVZ5VEhmZUZrK3Y2SHlWSi9aZW0raE14K3lIVnNSRm0wdGZpRE1Hd0cvS2kz?=
+ =?utf-8?B?eVlTYnQyN0ZiTlVURER1aHlMK3ZONVoxQmpyaWxrSDNoUlV1ZmpuQlFiNFBx?=
+ =?utf-8?B?SzlGdHpSNHN6KzlVZWNYdnlCbnVxMTMrbmFDZHB3U1Fud1BLZURyTVRKWGlz?=
+ =?utf-8?B?MFdFNjl1MUVYaUVGbW5obGwwYnhLOUMya3RLWEZEeEZsR1EwSnQvSHFvZVpR?=
+ =?utf-8?B?SEd6ZDJiS3RHb2FaSFJDNmY5a3hwTlVubEJRVkVCZnlFSmFQc1NmUS9NTHNh?=
+ =?utf-8?B?aDFsMndMbDNBQThJSXcxSWZVODU1SHQwTUpRQzFQS2tQeDZxYUt6bklDQTc4?=
+ =?utf-8?B?MnpROXdCSVplMXN4TDg2TnQrckJvcnUzSGpnSWpscEFZWGNRTlg5TERKMzgz?=
+ =?utf-8?B?MnJFMmlNWFNPY0JpdEtBLzNxeldBWGxjQlMzUkt0Rm80OGNrNHd1dGVLVzEr?=
+ =?utf-8?B?UzcvWmFPZGxiekdJZXgrWmtGSXBaSkhIaFR3UTg0cDBMaHJNWXEwdm1wblps?=
+ =?utf-8?B?Uzk2TlBLaSt4M1BTcFZVY3M0clBtbG1QYm9ZRlJJay83Y3dVWXFlcDliK0FD?=
+ =?utf-8?Q?qVbkUgI2MMf/mE/MH1dxrSjxj?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c29e3cbc-c23d-4fa7-063a-08dbeaabcd60
+X-MS-Exchange-CrossTenant-Network-Message-Id: e579f691-753d-46e8-9398-08dbeab0b6d3
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2023 16:06:21.0622 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2023 16:41:30.7450 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: omUt+b3NjfdHdzkLRgC1nxBTIYy2kuHKA71sb5RXdK9z7ldl6xMoVyfhu+JDY7vvpFSN3so7QCseK6+j03H1Rw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7557
+X-MS-Exchange-CrossTenant-UserPrincipalName: O9XalHvkzQkXeJaao0URKyjINnvnB9REqXvWouL/psXVqIS5wmlxCZXILDa/iAHg61zwfgRBMOaDl1pB0ci/4A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9428
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,60 +127,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: joseph.greathouse@amd.com
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023-11-20 12:41, Alex Sierra wrote:
-> Setting register to force ordering to prevent read/write or write/read
-> hazards for un-cached modes.
+There are two patches that didn't make it into Linux 6.6 that reduce the 
+stack size in kfd_topology_add_device. Can you check if those fix the 
+problem?
+
+commit aa5a9b2ccda2fa834fddb4bd30a2ab831598f551
+Author: Alex Deucher <alexander.deucher@amd.com>
+Date:   Tue Sep 26 12:00:23 2023 -0400
+
+     drm/amdkfd: drop struct kfd_cu_info
+     
+     I think this was an abstraction back from when
+     kfd supported both radeon and amdgpu.  Since we just
+     support amdgpu now, there is no more need for this and
+     we can use the amdgpu structures directly.
+     
+     This also avoids having the kfd_cu_info structures on
+     the stack when inlining which can blow up the stack.
+     
+     Cc: Arnd Bergmann <arnd@kernel.org>
+     Acked-by: Arnd Bergmann <arnd@arndb.de>
+     Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+     Acked-by: Christian König <christian.koenig@amd.com>
+     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+
+commit 1f3b515578a1d73926993629a06a7f3b60535b59
+Author: Alex Deucher <alexander.deucher@amd.com>
+Date:   Thu Sep 21 10:32:09 2023 -0400
+
+     drm/amdkfd: reduce stack size in kfd_topology_add_device()
+     
+     kfd_topology.c:2082:1: warning: the frame size of 1440 bytes is larger than 1024 bytes
+     
+     Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2866
+     Cc: Arnd Bergmann <arnd@kernel.org>
+     Acked-by: Arnd Bergmann <arnd@arndb.de>
+     Acked-by: Christian König <christian.koenig@amd.com>
+     Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+
+Regards,
+   Felix
+
+
+On 2023-11-20 10:36, Hamza Mahfooz wrote:
+> + amd-gfx
+> + Felix
 >
-> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c                    | 8 ++++++++
->   .../gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h    | 2 ++
->   2 files changed, 10 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index 0c6133cc5e57..40ce12323164 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -89,6 +89,10 @@ MODULE_FIRMWARE("amdgpu/gc_11_5_0_me.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_5_0_mec.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_5_0_rlc.bin");
->   
-> +static const struct soc15_reg_golden golden_settings_gc_11_0[] = {
-> +	SOC15_REG_GOLDEN_VALUE(GC, 0, regTCP_CNTL, 0x20000000, 0x20000000)
-> +};
-> +
->   static const struct soc15_reg_golden golden_settings_gc_11_0_1[] =
->   {
->   	SOC15_REG_GOLDEN_VALUE(GC, 0, regCGTT_GS_NGG_CLK_CTRL, 0x9fff8fff, 0x00000010),
-> @@ -304,6 +308,10 @@ static void gfx_v11_0_init_golden_registers(struct amdgpu_device *adev)
->   	default:
->   		break;
->   	}
-> +	soc15_program_register_sequence(adev,
-> +					golden_settings_gc_11_0,
-> +					(const u32)ARRAY_SIZE(golden_settings_gc_11_0));
-> +
->   }
->   
->   static void gfx_v11_0_write_data_to_reg(struct amdgpu_ring *ring, int eng_sel,
-> diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h
-> index c92c4b83253f..4bff1ef8a9a6 100644
-> --- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h
-> +++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h
-> @@ -6369,6 +6369,8 @@
->   #define regTCP_INVALIDATE_BASE_IDX                                                                      1
->   #define regTCP_STATUS                                                                                   0x19a1
->   #define regTCP_STATUS_BASE_IDX                                                                          1
-> +#define regTCP_CNTL                                                                                     0x19a2
-> +#define regTCP_CNTL_BASE_IDX                                                                            1
->   #define regTCP_CNTL2                                                                                    0x19a3
->   #define regTCP_CNTL2_BASE_IDX                                                                           1
->   #define regTCP_DEBUG_INDEX                                                                              0x19a5
+> On 11/20/23 10:16, bugzilla-daemon@kernel.org wrote:
+>> https://bugzilla.kernel.org/show_bug.cgi?id=218168
+>>
+>>              Bug ID: 218168
+>>             Summary: amdgpu: kfd_topology.c warning: the frame size 
+>> of 1408
+>>                      bytes is larger than 1024 bytes
+>>             Product: Drivers
+>>             Version: 2.5
+>>            Hardware: All
+>>                  OS: Linux
+>>              Status: NEW
+>>            Severity: normal
+>>            Priority: P3
+>>           Component: Video(DRI - non Intel)
+>>            Assignee: drivers_video-dri@kernel-bugs.osdl.org
+>>            Reporter: bluesun654@gmail.com
+>>          Regression: No
+>>
+>> Trying to compile Linux 6.6.2 with GCC 13.2.1 and CONFIG_WERROR=y:
+>>
+>> [...]
+>> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c: In function
+>> 'kfd_topology_add_device':
+>> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:2082:1: error: 
+>> the frame
+>> size of 1408 bytes is larger than 1024 bytes 
+>> [-Werror=frame-larger-than=]
+>>   2082 | }
+>>        | ^
+>> cc1: all warnings being treated as errors
+>> [...]
+>>
