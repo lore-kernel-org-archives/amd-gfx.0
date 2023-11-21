@@ -4,89 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BF1EC61D85
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Nov 2023 18:12:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00938C61D85
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Nov 2023 18:53:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1906A10E556;
-	Tue, 21 Nov 2023 18:12:12 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56EE110E556
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Nov 2023 18:12:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bMHuSBM1uk5BXcypdrts/p9iKMP1a4a8ODv6I4gQzrb3Dsmd3XKgKo9Wr5EytyeG0fhaw6wvJ1VR8oJSg0mbeOSl4NvLPucptdPcEwQDPc6Lb78UoDimaXK7xt9DtlPkCBJDjRePkxi2kwxFoQWXBz3qoozTjrzWTQEA96KDO3GlpvLyxi3wzBFpQ6+Prt8U8SPxv4LRwFOafjckfi9WmkiMWkHl3i4PO2L47FsCpzUGIHVaUmJqd9zaoG4rHqSbiTB2TjNe8n8K3I3pOHbSc29+NX7rpGTnEE8fPXk+9rgv5MhtvP+A6GSMkkJ6J1F7aED0M4dRT4O3R8zod/UlHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ssQ4Yr7Ver3oTpMBl/KrUoFjnDijHLncadph/ptPiV0=;
- b=m5PKCAcJQ8oere/aNeBo61JjkMxhQYJWQdsNgdPLq10fZ2lVHhNN33OcqGMoS+uPoyg1R7tYMvo/EjJNs6cWeW1PJIXlv2Ij3B3KuJsKRn6L33UthGX0HpcwyBnGClcn++nFSwa7DftiCCaZJmwIu/2DCcYpIuBYDn7QfyGPUq9Y1UX0NGGN6iAmRhdhLzrSXM8EFV5uMCZle2UrohZcrTyU809M/JReVzT+hxbs4YODuNvlQRVU7dLmO8h5kQ8fMXIwmURu+59QkePTvOHNZKf6BrNtR0wf9sSqQm+FsD3+s/Ntjm4SlPYpqriM/lWTlADebQmmC4ZkOQL/TRbgEw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ssQ4Yr7Ver3oTpMBl/KrUoFjnDijHLncadph/ptPiV0=;
- b=raxiX3k2GDf0SFfMx/PwfirsciSzrgp4HbjrwOAlQh8miYQHaBaw6KbUYH24Z2KeQBfW3ddvrL/sSFy1IU0vlMyQ4TjIkCLhdmY4/AIo/1w0lUPjsYoEjuHmeJljFUQsXg0EMUVcpaEGKVfPf76YUhh9JxPYAi6vw8mfIJwf7sQ=
-Received: from PH7PR17CA0029.namprd17.prod.outlook.com (2603:10b6:510:323::23)
- by SN7PR12MB7250.namprd12.prod.outlook.com (2603:10b6:806:2aa::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.26; Tue, 21 Nov
- 2023 18:12:06 +0000
-Received: from SA2PEPF000015C6.namprd03.prod.outlook.com
- (2603:10b6:510:323:cafe::d9) by PH7PR17CA0029.outlook.office365.com
- (2603:10b6:510:323::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.28 via Frontend
- Transport; Tue, 21 Nov 2023 18:12:06 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF000015C6.mail.protection.outlook.com (10.167.241.196) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7025.12 via Frontend Transport; Tue, 21 Nov 2023 18:12:06 +0000
-Received: from KfdLnx23.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 21 Nov
- 2023 12:12:03 -0600
-From: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] dma-buf: Correct the documentation of name and exp_name
- symbols
-Date: Tue, 21 Nov 2023 12:11:52 -0600
-Message-ID: <20231121181152.33213-1-Ramesh.Errabolu@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DD7C10E2B8;
+	Tue, 21 Nov 2023 18:53:11 +0000 (UTC)
+Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
+ [IPv6:2001:4860:4864:20::2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D62F10E2B8;
+ Tue, 21 Nov 2023 18:53:08 +0000 (UTC)
+Received: by mail-oa1-x2b.google.com with SMTP id
+ 586e51a60fabf-1f938410f92so1377213fac.3; 
+ Tue, 21 Nov 2023 10:53:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1700592788; x=1701197588; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4MJviHtyv8L1V4pX3J+mGOhL9XRHlVW6pwIEatSbK/o=;
+ b=UC0lk1hQA2KKAivYd/scbg6bJKs5bMzYrby6bBXieBzYUrhzi71X0/swBlmCWdcbaa
+ qZyqpeJZ/pLyz1U643HEUmd2pW9E2W42DwIw+uDjWRXeaKIUMH/Ul1jkPUL3eRMTBUo8
+ xbceE0Dah6MrZzXr44TohyD4zpl4qMJYTdaf3t8iOmN43rxZpj8BuLF57QN5XTzH8XxA
+ 2Y0KBKhiWnXafU/tcy7ta9fAbnIXRMfztd/K8higOO/YNRiuwM0oo4tekTvn60nItltH
+ lMCtfWr3yKyBltXu198E16VDqFU87KlG0V11Zr4/KttymJnxnQktQ7wWzoaxr/lEOq7N
+ gwKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1700592788; x=1701197588;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=4MJviHtyv8L1V4pX3J+mGOhL9XRHlVW6pwIEatSbK/o=;
+ b=sD0jX5iHDJegS7+3KVaBzKxCAU/Qwl5vr6mWyjhqzIc5+ViT1A/lVNFAPMw6NhnhaA
+ YxBhwGcc3Xv5ooCYl1M6KlZY6Xu7o6RESCls9Qs2LQK9Rgo1WXPmBCQKbq6Bal/WG9hC
+ YFLkKN5XLjTIXQAIfKJZIa7s7eNjNLQe3kAcM8ICSRx6NGYBF4uDI/uDVoqtVO9oPDFl
+ 1MJKHaYFh+brMjtbL6ugqTA7XfK39Mb7nIOGO5QhsUJh7cU4rGmrZTbAWAD1Xu+H6eHr
+ vJaCvT0/2WbIt8zRlia0X3xtD63INdfd/chVZ+lGudZ2eGSSc2Z1RC6BmYbXH2nB51sy
+ T3lQ==
+X-Gm-Message-State: AOJu0YwAa7LJnrqpGyv90uzUkAphep0A90tSvuY9gnthQNWg0LKCICHA
+ VISemNcDHX4m/1qFFl98B+Z3bQiIoWq7lIhOZsE=
+X-Google-Smtp-Source: AGHT+IE4CuBHJccxLbxl9uGN4mYz2Nq3566nDVcfvuXoHLGqjwkxWr/FWzsJgyhoRhGglObIvVU6uSnFU4vVZm9S4z0=
+X-Received: by 2002:a05:6870:bacf:b0:1f9:5155:b135 with SMTP id
+ js15-20020a056870bacf00b001f95155b135mr187608oab.39.1700592787805; Tue, 21
+ Nov 2023 10:53:07 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015C6:EE_|SN7PR12MB7250:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5801e590-23ab-4a0e-8ffa-08dbeabd5ec9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lDgdEEUEphaUsLoUP9XXhfODYqUz9ve30yR8OG2j511FHnVQkNdCPrnlm83OgQFy/qyq3zTokUSnfYnC5iW46ZlMgu1GHbSOaRBaqg8JSmpU5p1Svizuuh3hPdqcxSfcru+CaS2SUwTotgaTalPnFGkayhkXkA+avgNq9/tAYQJk8yedyRhKfcK+yyvSoEBRxp2HNiVxz1dgqo/cRTAGz9pZoMngeBZH535vOYgPMv+KpWcrFBicp2lfyDnr/YqALrvpV1e02FUfijNubCjBjq9lv/JkvDL+w9WsrWWTFjfYP649m2ssppv95Rm38zCfGkuaDwjRKL+/uDQ+wJnW1r4EKbLiTjx/vX3KEL0h7ejLAENbg69zldDiEHhrnAVyKv+JY444BhtCDMW5OJOdAnFiStl+gWmi2WbjqQ/rsDREROunelsn9LYD9L37vQCUxmK6CqfrhWta3a+AzbB/atAAQlpHIvTZESw5JFe6quXeDtqiIcGI5wYziEcdUvwdur5k/O9YJQiJ5TJmLVMr8BdnnEIceVX7gdtla7E14o4B9mTAsTYRQc/uR60qgrpbO4DHetxGkUL2pDITQDob6kPcqKZ44HMnC77APTISWkPRsOVrlcb2/uqmwvYe66NgnXuBOkbw6L6DQjIg7+fByEY9AuOZxZoV9HpXgVwE40HsDl2FTTRh/mG275Cl4JKvfwQ16j1E2zTNhuqqwGS8f7LEHvIhlzQEJXVEMIfGrwvMs/n67eSOsx8BcQMV9b0cDp1nfjCxnA1z7pqNLOJbpw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(376002)(136003)(346002)(39860400002)(230922051799003)(186009)(82310400011)(1800799012)(64100799003)(451199024)(40470700004)(46966006)(36840700001)(81166007)(478600001)(356005)(47076005)(336012)(82740400003)(426003)(16526019)(26005)(2616005)(36860700001)(40480700001)(7696005)(1076003)(83380400001)(6666004)(70586007)(6916009)(70206006)(316002)(86362001)(5660300002)(2906002)(41300700001)(8936002)(40460700003)(8676002)(4326008)(36756003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2023 18:12:06.2418 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5801e590-23ab-4a0e-8ffa-08dbeabd5ec9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015C6.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7250
+References: <20231121043621.9351-1-u202112078@hust.edu.cn>
+ <bac617fe-6b23-411f-8dc9-c97cc84208f3@amd.com>
+In-Reply-To: <bac617fe-6b23-411f-8dc9-c97cc84208f3@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 21 Nov 2023 13:52:56 -0500
+Message-ID: <CADnq5_P-Wr8C75vueF_oEqfp+PB2rf8KcJE8z4Xtd84jLB96bA@mail.gmail.com>
+Subject: Re: [PATCH] gpu: display: remove unnecessary braces to fix coding
+ style
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,46 +69,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
+Cc: hust-os-kernel-patches@googlegroups.com, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
+ RutingZhang <u202112078@hust.edu.cn>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Dongliang Mu <dzm91@hust.edu.cn>,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the documentation of struct dma_buf members name and exp_name
-as to how these members are to be used and accessed.
+On Tue, Nov 21, 2023 at 4:27=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> Am 21.11.23 um 05:36 schrieb RutingZhang:
+> > checkpatch complains that:
+> >
+> > WARNING: braces {} are not necessary for single statement blocks
+> > +                if (pool->base.irqs !=3D NULL) {
+> > +                        dal_irq_service_destroy(&pool->base.irqs);
+> > +                }
+> >
+> > Fixed it by removing unnecessary braces to fix the coding style issue.
+> >
+> > Signed-off-by: RutingZhang <u202112078@hust.edu.cn>
+> > Reviewed-by: Dongliang Mu <dzm91@hust.edu.cn>
+>
+> Subject line prefix should be "drm/amdgpu".
+>
+> Apart from this nit it looks good to me, but might be already fixed
+> internally.
 
-Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
----
- include/linux/dma-buf.h | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+Applied.  Thanks!
 
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index 3f31baa3293f..8ff4add71f88 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -343,16 +343,19 @@ struct dma_buf {
- 	/**
- 	 * @exp_name:
- 	 *
--	 * Name of the exporter; useful for debugging. See the
--	 * DMA_BUF_SET_NAME IOCTL.
-+	 * Name of the exporter; useful for debugging. Must not be NULL
- 	 */
- 	const char *exp_name;
- 
- 	/**
- 	 * @name:
- 	 *
--	 * Userspace-provided name; useful for accounting and debugging,
--	 * protected by dma_resv_lock() on @resv and @name_lock for read access.
-+	 * Userspace-provided name. Default value is NULL. If not NULL,
-+	 * length cannot be longer than DMA_BUF_NAME_LEN, including NIL
-+	 * char. Useful for accounting and debugging. Read/Write accesses
-+	 * are protected by @name_lock
-+	 *
-+	 * See the IOCTLs DMA_BUF_SET_NAME or DMA_BUF_SET_NAME_A/B
- 	 */
- 	const char *name;
- 
--- 
-2.34.1
+Alex
 
+>
+> Regards,
+> Christian.
+>
+> > ---
+> >   drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c | 3 +--
+> >   1 file changed, 1 insertion(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/dr=
+ivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+> > index 447de8492594..6835dbb733a2 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+> > @@ -713,9 +713,8 @@ static void dcn21_resource_destruct(struct dcn21_re=
+source_pool *pool)
+> >                       pool->base.hubps[i] =3D NULL;
+> >               }
+> >
+> > -             if (pool->base.irqs !=3D NULL) {
+> > +             if (pool->base.irqs !=3D NULL)
+> >                       dal_irq_service_destroy(&pool->base.irqs);
+> > -             }
+> >       }
+> >
+> >       for (i =3D 0; i < pool->base.res_cap->num_ddc; i++) {
+>
