@@ -4,59 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49929C2BB3F
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 18:51:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80F18C61D88
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Nov 2023 00:40:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAEE610E117;
-	Mon, 20 Nov 2023 18:51:21 +0000 (UTC)
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [IPv6:2001:4860:4864:20::2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F7B510E117
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 18:51:20 +0000 (UTC)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-1f5eac85e0eso801902fac.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 10:51:20 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B5DE10E00B;
+	Tue, 21 Nov 2023 00:40:05 +0000 (UTC)
+Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
+ [IPv6:2607:f8b0:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CA0E10E00B;
+ Tue, 21 Nov 2023 00:40:03 +0000 (UTC)
+Received: by mail-pl1-x630.google.com with SMTP id
+ d9443c01a7336-1ce3084c2d1so42367565ad.3; 
+ Mon, 20 Nov 2023 16:40:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1700506279; x=1701111079; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gAo1F1Ar4VU1q+bAPY4AjUS/NCxQ4Rf70LTJU+qz9s0=;
- b=fQRDOxFAytmWtXnmUXLPLLi5yvNOGiZFlTwYPoKXFlJU+dhqoz5k81KpbS2qh5Wk4R
- MLtrMT4HhpRnfkMBFmf4YS2JdEK8NVfWhmsYJK/P8MrCb8MBM42hVwpFvzreL9Q0go1s
- DECY2Pd4o45BTD1cb/eVttA7Trq/0FgqPeyrUkR6hcHeSACLwVNnp6qxF/nXiMCqy/7k
- dZXu1L6/DyplWFVHcQ3KIjRnQ6aovkI8qAk78YEASrPf6NL96fooYjBQRopmr9xXgZ6i
- m1T8hWHUIbsSDxVtaoj8WMbIaxoinM+Cq7ayFWZi3I84E497qHPHorMydgKHVbtJs/rF
- 8uAQ==
+ d=gmail.com; s=20230601; t=1700527203; x=1701132003; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=bWNEMhZS/K0TJv2uoFh3uKzFoySYNwsIpa4bcavYV+M=;
+ b=UNIMvzUXuR88ShzjHhxLwBPY0k3sB/U/qIBadD+f3ycteOl+Itl7oqWznB894V07Tr
+ Yla2SqW4BHVx/TnbMt/ayVYMtoST1SfgrvdRzjzZDAM+9yHm9SAMn5TONN9ouoh0hY6I
+ 9CDC9Zyp8O3DLrQdn5V8wwVdl3GaeTpjdbwLSF0aeoQI4xW7WuWmpaLyY2eALcTWrxxf
+ XOUHdAHhNbY0iz6XDyeBhFFIuYuvn6eYxJwB4GniNkQ/drv9zjnmuv42UbyX8U8JMEX8
+ 7Kb+tNpMQ431p08tNHRQMLvCJmASGkIH2jGAV5PgakO5dxc7DX8culphs+91TY6JVzvz
+ +43Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700506279; x=1701111079;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=gAo1F1Ar4VU1q+bAPY4AjUS/NCxQ4Rf70LTJU+qz9s0=;
- b=UY2A+2wf3O5MJPcCxSwv+y0sLDK81B1qkEQzbUK08f3rjozVA+JIKaj9U5pxNnGmzD
- dOqaaRPjmIvk4JNdHV7SinZplZLjkMlJaQcznRfnPLrtY9/d5i/f4wHl9cHtfnTw8kSB
- PDxn9LLNXrDR7v7qZJ4rzCSVAw1tipndMM78wJO2zbcXob7cZvyhP7s5KO+DX1IdLdSn
- IyaF2LxDrgypaEhTE7vwbRzSPnrCz3XpXU980DesyABtMK2p5zqlt6QGHn0NFtxi6AtD
- ino1sWD+1K9xom8u5YR3ckt5puMwAs7LIUXXCG/aadCpsoopjtrZYugdQ7ip153lyOgW
- 3k2g==
-X-Gm-Message-State: AOJu0YxHPmciLQG4raZ5OrUZxxVuBBXQI6WHplxygYwkNOklhtBz3oeC
- 3c6fKaMJvUdAWJMFJcZdphhKtR3iN8DXCFdgSDc=
-X-Google-Smtp-Source: AGHT+IEup6jBvhal0C1IxuDfxJEp3DDkho9VINscF9YcLhQzfudUDbVcgNIwWqKvLLtnmpTa6d0lgOMRBEfv9yYpBBw=
-X-Received: by 2002:a05:6870:bf16:b0:1e9:8d7a:fc5b with SMTP id
- qh22-20020a056870bf1600b001e98d7afc5bmr8095977oab.47.1700506279161; Mon, 20
- Nov 2023 10:51:19 -0800 (PST)
+ d=1e100.net; s=20230601; t=1700527203; x=1701132003;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=bWNEMhZS/K0TJv2uoFh3uKzFoySYNwsIpa4bcavYV+M=;
+ b=kzMuZotExaQ+qdaiIxAfYh6A1IXq/WmJou0tqabrMSFtuzxPS2P0tR6TXgEE4YgJBx
+ Ekybtzw5laHByB7MCj/fewFop0brCM79cickj/Zh0p7c3KfrgbOF2puXkN0EA1PBqNd8
+ H/k3YpJD4SovtUmzz3FTb2S+3ormoFEZq4uWE02DQy9NTbAD5EJs1dEyByT0KUFa/l5f
+ ySfJODzSn7h6fonhrnv9ewh8nMTwwrJu2YYK4/hr96ncXeacaD7KlzZJBwkJ8OUYfkSu
+ b24lqSWbrk7PXOHb1Y36Yx7fRaB685exEPJu+CNOF7Igm9SsGNnq+/U+x3rtJt5bJq/B
+ IjUg==
+X-Gm-Message-State: AOJu0YygpVR/nkE9W+8tktFu7h+V00l9p1QXXX1Pgj5cweVlyI/VuERt
+ SCLjrflgJmDagsAAQPHm0ta5n3xbP3A=
+X-Google-Smtp-Source: AGHT+IFXhiAAFyErJlqOO1DTQVYb7f74uon84kYLMLdTjeTRCnwI6JR3VAOwwCqryfnQrGSMB9oxFQ==
+X-Received: by 2002:a17:902:eccd:b0:1cf:54e1:8c8c with SMTP id
+ a13-20020a170902eccd00b001cf54e18c8cmr9016957plh.63.1700527202832; 
+ Mon, 20 Nov 2023 16:40:02 -0800 (PST)
+Received: from localhost ([47.215.232.245]) by smtp.gmail.com with ESMTPSA id
+ g3-20020a170902868300b001cc436e9806sm6636258plo.81.2023.11.20.16.40.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Nov 2023 16:40:02 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH v2 0/7] drm/msm/gem: drm_exec conversion
+Date: Mon, 20 Nov 2023 16:38:44 -0800
+Message-ID: <20231121003935.5868-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-References: <20231118161321.18632-1-alex.sierra@amd.com>
-In-Reply-To: <20231118161321.18632-1-alex.sierra@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 20 Nov 2023 13:51:07 -0500
-Message-ID: <CADnq5_Oe2KxOaKk6Dk3WC2wrHU7QUBdyugpQ-PBaeo7jhJ0c-w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Force order between a read and write to the
- same address
-To: Alex Sierra <alex.sierra@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,222 +69,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix.Kuehling@amd.com, joseph.greathouse@amd.com,
- amd-gfx@lists.freedesktop.org
+Cc: Philip Yang <Philip.Yang@amd.com>,
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>, Lijo Lazar <lijo.lazar@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Arthur Grillo <arthurgrillo@riseup.net>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Rob Clark <robdclark@chromium.org>,
+ Guchun Chen <guchun.chen@amd.com>, Shashank Sharma <shashank.sharma@amd.com>,
+ Suren Baghdasaryan <surenb@google.com>,
+ "open list:POWER MANAGEMENT CORE" <linux-pm@vger.kernel.org>,
+ "open list:AMD KFD" <amd-gfx@lists.freedesktop.org>,
+ Danilo Krummrich <dakr@redhat.com>,
+ Veerabadhran Gopalakrishnan <Veerabadhran.Gopalakrishnan@amd.com>,
+ freedreno@lists.freedesktop.org,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ linux-arm-msm@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Jack Xiao <Jack.Xiao@amd.com>, Jonathan Kim <jonathan.kim@amd.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>, Lang Yu <Lang.Yu@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Leo Liu <leo.liu@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Nov 18, 2023 at 1:12=E2=80=AFPM Alex Sierra <alex.sierra@amd.com> w=
-rote:
->
-> Setting register to force ordering to prevent read/write or write/read
-> hazards for un-cached modes.
->
-> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+From: Rob Clark <robdclark@chromium.org>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Simplify the exec path (removing a legacy optimization) and convert to
+drm_exec.  One drm_exec patch to allow passing in the expected # of GEM
+objects to avoid re-allocation.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 22 +++++++++++++------
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        |  8 +++++++
->  .../include/asic_reg/gc/gc_11_0_0_offset.h    |  2 ++
->  3 files changed, 25 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v10_0.c
-> index 68747a52e5c2..592ac993f013 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -3193,7 +3193,8 @@ static const struct soc15_reg_golden golden_setting=
-s_gc_10_3[] =3D {
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmSQ_PERFCOUNTER9_SELECT, 0xf0f001f=
-f, 0x00000000),
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmSX_DEBUG_1, 0x00010000, 0x0001002=
-0),
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmTA_CNTL_AUX, 0xfff7ffff, 0x010300=
-00),
-> -       SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffbfffff, 0x00a0000=
-0)
-> +       SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffbfffff, 0x00a0000=
-0),
-> +       SOC15_REG_GOLDEN_VALUE(GC, 0, mmTCP_CNTL, 0x20000000, 0x20000000)
->  };
->
->  static const struct soc15_reg_golden golden_settings_gc_10_3_sienna_cich=
-lid[] =3D {
-> @@ -3245,6 +3246,7 @@ static const struct soc15_reg_golden golden_setting=
-s_gc_10_3_2[] =3D {
->
->         /* This is not in GDB yet. Don't remove it. It fixes a GPU hang o=
-n Navy Flounder. */
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmLDS_CONFIG,  0x00000020, 0x000000=
-20),
-> +       SOC15_REG_GOLDEN_VALUE(GC, 0, mmTCP_CNTL, 0x20000000, 0x20000000)
->  };
->
->  static const struct soc15_reg_golden golden_settings_gc_10_3_vangogh[] =
-=3D {
-> @@ -3275,6 +3277,7 @@ static const struct soc15_reg_golden golden_setting=
-s_gc_10_3_vangogh[] =3D {
->
->         /* This is not in GDB yet. Don't remove it. It fixes a GPU hang o=
-n VanGogh. */
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmLDS_CONFIG,  0x00000020, 0x000000=
-20),
-> +       SOC15_REG_GOLDEN_VALUE(GC, 0, mmTCP_CNTL, 0x20000000, 0x20000000)
->  };
->
->  static const struct soc15_reg_golden golden_settings_gc_10_3_3[] =3D {
-> @@ -3297,7 +3300,8 @@ static const struct soc15_reg_golden golden_setting=
-s_gc_10_3_3[] =3D {
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmPA_SC_BINNER_TIMEOUT_COUNTER, 0xf=
-fffffff, 0x00000800),
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmPA_SC_ENHANCE_2, 0xffffffbf, 0x00=
-000820),
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmTA_CNTL_AUX, 0xfff7ffff, 0x010300=
-00),
-> -       SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffffffff, 0x0010000=
-0)
-> +       SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffffffff, 0x0010000=
-0),
-> +       SOC15_REG_GOLDEN_VALUE(GC, 0, mmTCP_CNTL, 0x20000000, 0x20000000)
->  };
->
->  static const struct soc15_reg_golden golden_settings_gc_10_3_4[] =3D {
-> @@ -3336,7 +3340,8 @@ static const struct soc15_reg_golden golden_setting=
-s_gc_10_3_4[] =3D {
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmSX_DEBUG_1, 0x00010000, 0x0001002=
-0),
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmTA_CNTL_AUX, 0x01030000, 0x010300=
-00),
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0x03a00000, 0x00a0000=
-0),
-> -       SOC15_REG_GOLDEN_VALUE(GC, 0, mmLDS_CONFIG,  0x00000020, 0x000000=
-20)
-> +       SOC15_REG_GOLDEN_VALUE(GC, 0, mmLDS_CONFIG,  0x00000020, 0x000000=
-20),
-> +       SOC15_REG_GOLDEN_VALUE(GC, 0, mmTCP_CNTL, 0x20000000, 0x20000000)
->  };
->
->  static const struct soc15_reg_golden golden_settings_gc_10_3_5[] =3D {
-> @@ -3371,7 +3376,8 @@ static const struct soc15_reg_golden golden_setting=
-s_gc_10_3_5[] =3D {
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmSQ_PERFCOUNTER8_SELECT, 0xf0f001f=
-f, 0x00000000),
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmSQ_PERFCOUNTER9_SELECT, 0xf0f001f=
-f, 0x00000000),
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmTA_CNTL_AUX, 0xfff7ffff, 0x010300=
-00),
-> -       SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffbfffff, 0x00a0000=
-0)
-> +       SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffbfffff, 0x00a0000=
-0),
-> +       SOC15_REG_GOLDEN_VALUE(GC, 0, mmTCP_CNTL, 0x20000000, 0x20000000)
->  };
->
->  static const struct soc15_reg_golden golden_settings_gc_10_0_cyan_skillf=
-ish[] =3D {
-> @@ -3408,7 +3414,7 @@ static const struct soc15_reg_golden golden_setting=
-s_gc_10_0_cyan_skillfish[] =3D
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmSQ_ARB_CONFIG, 0x00000100, 0x0000=
-0130),
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmSQ_LDS_CLK_CTRL, 0xffffffff, 0xff=
-ffffff),
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmTA_CNTL_AUX, 0x00030008, 0x010300=
-00),
-> -       SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0x00800000, 0x0080000=
-0)
-> +       SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0x00800000, 0x0080000=
-0),
->  };
->
->  static const struct soc15_reg_golden golden_settings_gc_10_3_6[] =3D {
-> @@ -3433,7 +3439,8 @@ static const struct soc15_reg_golden golden_setting=
-s_gc_10_3_6[] =3D {
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmSQG_CONFIG, 0x000017ff, 0x0000100=
-0),
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmSX_DEBUG_1, 0xffffff7f, 0x0001002=
-0),
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmTA_CNTL_AUX, 0xfff7ffff, 0x010300=
-00),
-> -       SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffffffff, 0x0010000=
-0)
-> +       SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffffffff, 0x0010000=
-0),
-> +       SOC15_REG_GOLDEN_VALUE(GC, 0, mmTCP_CNTL, 0x20000000, 0x20000000)
->  };
->
->  static const struct soc15_reg_golden golden_settings_gc_10_3_7[] =3D {
-> @@ -3458,7 +3465,8 @@ static const struct soc15_reg_golden golden_setting=
-s_gc_10_3_7[] =3D {
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmSQG_CONFIG, 0x000017ff, 0x0000100=
-0),
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmSX_DEBUG_1, 0xffffff7f, 0x0001002=
-0),
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmTA_CNTL_AUX, 0xfff7ffff, 0x010300=
-00),
-> -       SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffffffff, 0x0010000=
-0)
-> +       SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffffffff, 0x0010000=
-0),
-> +       SOC15_REG_GOLDEN_VALUE(GC, 0, mmTCP_CNTL, 0x20000000, 0x20000000)
->  };
->
->  #define DEFAULT_SH_MEM_CONFIG \
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v11_0.c
-> index fd22943685f7..84decd069875 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -89,6 +89,10 @@ MODULE_FIRMWARE("amdgpu/gc_11_5_0_me.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_5_0_mec.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_5_0_rlc.bin");
->
-> +static const struct soc15_reg_golden golden_settings_gc_11_0[] =3D {
-> +       SOC15_REG_GOLDEN_VALUE(GC, 0, regTCP_CNTL, 0x20000000, 0x20000000=
-)
-> +};
-> +
->  static const struct soc15_reg_golden golden_settings_gc_11_0_1[] =3D
->  {
->         SOC15_REG_GOLDEN_VALUE(GC, 0, regCGTT_GS_NGG_CLK_CTRL, 0x9fff8fff=
-, 0x00000010),
-> @@ -303,6 +307,10 @@ static void gfx_v11_0_init_golden_registers(struct a=
-mdgpu_device *adev)
->         default:
->                 break;
->         }
-> +       soc15_program_register_sequence(adev,
-> +                                       golden_settings_gc_11_0,
-> +                                       (const u32)ARRAY_SIZE(golden_sett=
-ings_gc_11_0));
-> +
->  }
->
->  static void gfx_v11_0_write_data_to_reg(struct amdgpu_ring *ring, int en=
-g_sel,
-> diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h b=
-/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h
-> index c92c4b83253f..4bff1ef8a9a6 100644
-> --- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h
-> +++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h
-> @@ -6369,6 +6369,8 @@
->  #define regTCP_INVALIDATE_BASE_IDX                                      =
-                                1
->  #define regTCP_STATUS                                                   =
-                                0x19a1
->  #define regTCP_STATUS_BASE_IDX                                          =
-                                1
-> +#define regTCP_CNTL                                                     =
-                                0x19a2
-> +#define regTCP_CNTL_BASE_IDX                                            =
-                                1
->  #define regTCP_CNTL2                                                    =
-                                0x19a3
->  #define regTCP_CNTL2_BASE_IDX                                           =
-                                1
->  #define regTCP_DEBUG_INDEX                                              =
-                                0x19a5
-> --
-> 2.32.0
->
+I'd be a bit happier if I could avoid the extra objects table allocation
+in drm_exec in the first place, but wasn't really happy with any of the
+things I tried to get rid of that.
+
+v2: updates in 6/7 and other nit-addressing
+
+Rob Clark (7):
+  drm/msm/gem: Remove "valid" tracking
+  drm/msm/gem: Remove submit_unlock_unpin_bo()
+  drm/msm/gem: Don't queue job to sched in error cases
+  drm/msm/gem: Split out submit_unpin_objects() helper
+  drm/msm/gem: Cleanup submit_cleanup_bo()
+  drm/exec: Pass in initial # of objects
+  drm/msm/gem: Convert to drm_exec
+
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c       |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c       |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c  |   4 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |   2 +-
+ drivers/gpu/drm/drm_exec.c                    |  13 +-
+ drivers/gpu/drm/msm/Kconfig                   |   1 +
+ drivers/gpu/drm/msm/msm_gem.h                 |  13 +-
+ drivers/gpu/drm/msm/msm_gem_submit.c          | 199 +++++-------------
+ drivers/gpu/drm/msm/msm_ringbuffer.c          |   3 +-
+ drivers/gpu/drm/nouveau/nouveau_exec.c        |   2 +-
+ drivers/gpu/drm/nouveau/nouveau_uvmm.c        |   2 +-
+ drivers/gpu/drm/tests/drm_exec_test.c         |  16 +-
+ include/drm/drm_exec.h                        |   2 +-
+ 16 files changed, 92 insertions(+), 187 deletions(-)
+
+-- 
+2.42.0
+
