@@ -4,61 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B48DC61D88
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Nov 2023 00:59:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D777BC61D90
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Nov 2023 00:59:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B47B410E203;
-	Tue, 21 Nov 2023 00:59:15 +0000 (UTC)
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFC5010E1B9;
- Mon, 20 Nov 2023 21:46:29 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-32f8441dfb5so3793526f8f.0; 
- Mon, 20 Nov 2023 13:46:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1700516788; x=1701121588; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=ifrjBfgOSiyuCFRkxJCsnT3OdDkva6hhJuoAwARmBUY=;
- b=eGVxsGy8PKPU3YmMohPBPkIMgraS0dU+oLNGvp9BHy8uc9Nc9hYDibOFnPdDb4NkqX
- YcwMFBaaEk1Z6hetJ8xfHnx2X9e5vMNIFmYZG2L7r/qNTeBbVH4D7ErNBjEy6j958W4T
- nQw3d+7owdsg9ft0pkVOaZGNwSzPdDiwg1zv/+UpVv7NnAttiv0KsVFn2e9R9VZaKn3T
- iWuCSNwyoNf/ZvQ/Ki6o1YhBmdUn/ekXkaEI1EkZdudJJ5RzFUzSyMjVhJmUOlUF81fa
- TceEw+/PW3lOs2ny7KIy4gUqCte2oLnslumDW8B1Vz81IXOM7kA73U51okGpAXy/GSia
- 5ehg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700516788; x=1701121588;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ifrjBfgOSiyuCFRkxJCsnT3OdDkva6hhJuoAwARmBUY=;
- b=bCDHfh0P4XVdkqPnySzO+MlNKr3m3hJqh4XQWk9tMTMekuxa4YhACaMbWbclthY4Ai
- wACSavILzZJR/krZfuo4V35N9K3NHTs0P7a1ACTD5URMUJtYti3Qu1o3+Z16JCcsUlye
- Cyfq5ACuymcJqixAOZjb9tYYkA7sNc7IPmM5be004JN/kpa5eNNRW6HP/B6RnhWkIBEI
- qeeUu+GUaaTAJ0HgwFeeFGxgtyVSSnxjGtPOfMKiXJm0yQRomoCFKbL/jCcy4pV10PgN
- cEuX5qWSGdYti1YLFOf6hbb1R/TLGoUNnrpFgfxccOOWNMJot4RDjlc0HXMhWbvfEVdl
- Ustw==
-X-Gm-Message-State: AOJu0YzsZPamokA/tDDH6vdU0IaYjyqWpHIV5RTp44o6mZ57+iuHu8jH
- t+njhagHOs3o/HjbRk839AE=
-X-Google-Smtp-Source: AGHT+IHp3LoF2DOrCwbBP5ZAP28MyKKAznq0CT/uy4NViD6EoST7Z+71CXBfeYQKBX9yVV00pAiniQ==
-X-Received: by 2002:adf:e9cb:0:b0:32d:9d3a:d8c0 with SMTP id
- l11-20020adfe9cb000000b0032d9d3ad8c0mr5215561wrn.60.1700516787764; 
- Mon, 20 Nov 2023 13:46:27 -0800 (PST)
-Received: from zotac.lan.
- (dynamic-2a02-3100-9030-5a00-2223-08ff-fe18-0310.310.pool.telefonica.de.
- [2a02:3100:9030:5a00:2223:8ff:fe18:310])
- by smtp.gmail.com with ESMTPSA id
- i13-20020a5d584d000000b00332cb0937f4sm2667052wrf.33.2023.11.20.13.46.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Nov 2023 13:46:27 -0800 (PST)
-From: Heiner Kallweit <hkallweit1@gmail.com>
-To: Wolfram Sang <wsa@kernel.org>,
-	intel-gfx@lists.freedesktop.org
-Subject: [PATCH v4 00/20] remove I2C_CLASS_DDC support
-Date: Mon, 20 Nov 2023 22:46:03 +0100
-Message-ID: <20231120214624.9378-1-hkallweit1@gmail.com>
-X-Mailer: git-send-email 2.42.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E61710E20F;
+	Tue, 21 Nov 2023 00:59:16 +0000 (UTC)
+Received: from out30-110.freemail.mail.aliyun.com
+ (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88B6810E203;
+ Tue, 21 Nov 2023 00:49:45 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R231e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046050;
+ MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=11; SR=0;
+ TI=SMTPD_---0VwqRWD4_1700527781; 
+Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
+ fp:SMTPD_---0VwqRWD4_1700527781) by smtp.aliyun-inc.com;
+ Tue, 21 Nov 2023 08:49:42 +0800
+From: Yang Li <yang.lee@linux.alibaba.com>
+To: alexander.deucher@amd.com, harry.wentland@amd.com,
+ Rodrigo.Siqueira@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch
+Subject: [PATCH -next] drm/amd/display: Remove duplicated include in
+ dcn201_resource.c
+Date: Tue, 21 Nov 2023 08:49:39 +0800
+Message-Id: <20231121004939.55904-1-yang.lee@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 21 Nov 2023 00:59:15 +0000
@@ -73,71 +43,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Yongqin Liu <yongqin.liu@linaro.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, amd-gfx@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, linux-sunxi@lists.linux.dev,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
- linux-mediatek@lists.infradead.org, Sean Paul <sean@poorly.run>,
- linux-arm-kernel@lists.infradead.org, Jocelyn Falempe <jfalempe@redhat.com>,
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, John Stultz <jstultz@google.com>,
- Heiner Kallweit <hkallweit1@gmail.com>, freedreno@lists.freedesktop.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Abaci Robot <abaci@linux.alibaba.com>, Yang Li <yang.lee@linux.alibaba.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-After removal of the legacy EEPROM driver and I2C_CLASS_DDC support in
-olpc_dcon there's no i2c client driver left supporting I2C_CLASS_DDC.
-Class-based device auto-detection is a legacy mechanism and shouldn't
-be used in new code. So we can remove this class completely now.
+./drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c: dcn201/dcn201_hubbub.h is included more than once.
 
-Preferably this series should be applied via the i2c tree.
-
-v2:
-- change tag in commit subject of patch 03
-- add ack tags
-v3:
-- fix a compile error in patch 5
-v4:
-- more ack and review tags
-
-Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
-
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=7583
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
 ---
+ drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c | 1 -
+ 1 file changed, 1 deletion(-)
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c           |    1 -
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    1 -
- drivers/gpu/drm/ast/ast_i2c.c                     |    1 -
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c         |    1 -
- drivers/gpu/drm/display/drm_dp_helper.c           |    1 -
- drivers/gpu/drm/display/drm_dp_mst_topology.c     |    1 -
- drivers/gpu/drm/gma500/cdv_intel_dp.c             |    1 -
- drivers/gpu/drm/gma500/intel_gmbus.c              |    1 -
- drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c        |    1 -
- drivers/gpu/drm/gma500/psb_intel_sdvo.c           |    1 -
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   |    1 -
- drivers/gpu/drm/i915/display/intel_gmbus.c        |    1 -
- drivers/gpu/drm/i915/display/intel_sdvo.c         |    1 -
- drivers/gpu/drm/loongson/lsdc_i2c.c               |    1 -
- drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c           |    1 -
- drivers/gpu/drm/mgag200/mgag200_i2c.c             |    1 -
- drivers/gpu/drm/msm/hdmi/hdmi_i2c.c               |    1 -
- drivers/gpu/drm/radeon/radeon_i2c.c               |    1 -
- drivers/gpu/drm/rockchip/inno_hdmi.c              |    1 -
- drivers/gpu/drm/rockchip/rk3066_hdmi.c            |    1 -
- drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c            |    1 -
- drivers/video/fbdev/core/fb_ddc.c                 |    1 -
- drivers/video/fbdev/cyber2000fb.c                 |    1 -
- drivers/video/fbdev/i740fb.c                      |    1 -
- drivers/video/fbdev/intelfb/intelfb_i2c.c         |   15 +++++----------
- drivers/video/fbdev/matrox/i2c-matroxfb.c         |   12 ++++--------
- drivers/video/fbdev/s3fb.c                        |    1 -
- drivers/video/fbdev/tdfxfb.c                      |    1 -
- drivers/video/fbdev/tridentfb.c                   |    1 -
- drivers/video/fbdev/via/via_i2c.c                 |    1 -
- include/linux/i2c.h                               |    1 -
- 31 files changed, 9 insertions(+), 47 deletions(-)
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c
+index 914b234d7f6b..3cfb7e913c4c 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c
+@@ -55,7 +55,6 @@
+ #include "dce110/dce110_resource.h"
+ #include "dce/dce_aux.h"
+ #include "dce/dce_i2c.h"
+-#include "dcn201/dcn201_hubbub.h"
+ #include "dcn10/dcn10_resource.h"
+ 
+ #include "cyan_skillfish_ip_offset.h"
+-- 
+2.20.1.7.g153144c
+
