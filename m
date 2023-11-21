@@ -4,49 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5EE6C61D92
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Nov 2023 13:54:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA53CC61D92
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Nov 2023 14:05:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4154D10E0C7;
-	Tue, 21 Nov 2023 13:54:56 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3BCC10E0C7;
- Tue, 21 Nov 2023 13:54:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1700574895; x=1732110895;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- mime-version:in-reply-to;
- bh=2bD+Ccm3m05w6tvwgulYcUxARR8S8upx+BQa3lMbuyU=;
- b=FvMm4IppZlR6YENp4+m6JV1NHscQPQjhaPvbE645EtZviqw0nYROPXhF
- pwuw8sGwglB1DY14oxZeWj17dIDJaa+avNnmSshksbFw7TcaAHYKUFIUQ
- Xeaqu7Zh+eeDsetC7QEbjS5mknbcaxkvogIZaPd1M/ibd2gDgFGWSLR9v
- U05L4iJjAcnhdzAxtS73cAKhGBBo66QAAJK79jWQVsI12i5TwtsCev8jg
- YZjEArbVIa64SLB64o/rgA35vCJvkcDMn9P0PmTzTsK2ZHeWbjrlq1mYe
- IYU0yPehlsjyLP8SuofCEStLAuiY8pPHl0bmpX8Ll1JCB1BxNX5XoqQ1k Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10901"; a="395766182"
-X-IronPort-AV: E=Sophos;i="6.04,215,1695711600"; d="scan'208";a="395766182"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Nov 2023 05:54:54 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.04,215,1695711600"; d="scan'208";a="14909936"
-Received: from ideak-desk.fi.intel.com ([10.237.72.78])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Nov 2023 05:54:52 -0800
-Date: Tue, 21 Nov 2023 15:54:52 +0200
-From: Imre Deak <imre.deak@intel.com>
-To: Wayne Lin <wayne.lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@intel.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
-Subject: Re: [PATCH v2 01/11] drm/dp_mst: Store the MST PBN divider value in
- fixed point format
-Message-ID: <ZVy2rGFvp2cXaCoc@ideak-desk.fi.intel.com>
-References: <20231116131841.1588781-1-imre.deak@intel.com>
- <20231116131841.1588781-2-imre.deak@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4379310E096;
+	Tue, 21 Nov 2023 14:05:54 +0000 (UTC)
+Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
+ [IPv6:2001:4860:4864:20::2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80DE610E02C;
+ Tue, 21 Nov 2023 14:05:51 +0000 (UTC)
+Received: by mail-oa1-x2c.google.com with SMTP id
+ 586e51a60fabf-1f03d9ad89fso3134973fac.1; 
+ Tue, 21 Nov 2023 06:05:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1700575550; x=1701180350; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JicfpEa3uNWDUz2NDkVsyh217wG6PJj7MozXv7sFA4w=;
+ b=VnqrX9hZzzlnkcVS0uLxllOAsddAh/mM/8gqRibK7Npe91cpe9o7LHuT6yehTedqB/
+ A1/6Fuzjq/5+rbZPMGrlhI9Kdwz7bFLUCfU+MtoPgLdTj3S8agyZVbqtabls+5lZtfPY
+ 6q7Eb9jLSTm8oNTXDR5HFzEu6jDeTXe+LZzYJGCHi5RpOzPcBENIXgdEkqhPQXE/oxJ4
+ kpURjQ6bJLmdTrd2qyeJjRys1LajuCmRk+Rd71tbrF7lvQT6dEl9rh/cDOS300vzvgFg
+ Yx/i6PQ7fCbZ7knQDSMgCQkdomF34BnmMXz2czseQlnGXnYjDhH76VDtoul5Zv2nejp7
+ DAnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1700575550; x=1701180350;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=JicfpEa3uNWDUz2NDkVsyh217wG6PJj7MozXv7sFA4w=;
+ b=U08pTa6BEzBoEoHeHrN5LF53LexUbhoHnmzS57qQDLdsSFXUsWEwOdn+Pv1UISsooE
+ z4FkLGAqr3KyJhidLHQhOFn0jZ+IZlK11Dor+cSmptsEo3YjcIlf5h72fykXbGqGTNL7
+ miNYLfs7iMyE+mgSa8rMzPeULiSROW87fbcP8VGW2guFjBF8oARz+56cKp5X8T9JKPM/
+ 4V2YqrUM9AWu8yoIEQVmyStFXUMuZ+FGp562bYZB8FlLgAKclXXtPw6AB6C3Wn6ILAXk
+ QSIPXBnbpG3cuDTlDYY3Tm22KpHwh1T/sPby7NClEugL2FGnnUuUSQwU4T1H6mDG/oHL
+ avGw==
+X-Gm-Message-State: AOJu0YwhOGVIOhmqxbzjTBByqbQXkfh6x6vvTgjUXbz556MkB1PLSoWy
+ JEvpDprkzam7imrGWPACVdVY4ZuTSGILgFxaht0=
+X-Google-Smtp-Source: AGHT+IHKHQMKS3b1gLqqox30Lk4uUwKC52JYW8VCEcKNOaYp9uPK894sLiFLuA30J+s9SqYcbYaSE9jt5JVjnAUgiXE=
+X-Received: by 2002:a05:6871:7398:b0:1f5:994:9853 with SMTP id
+ na24-20020a056871739800b001f509949853mr13022151oac.22.1700575550741; Tue, 21
+ Nov 2023 06:05:50 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231116131841.1588781-2-imre.deak@intel.com>
+References: <87edgv4x3i.fsf@vps.thesusis.net>
+ <559d0fa5-953a-4a97-b03b-5eb1287c83d8@leemhuis.info>
+ <CAPM=9tw-8pQWFso0zuLqpsqd5BSHWtc4As9ttdjY-DDr70EMqQ@mail.gmail.com>
+ <bdb238b6-60c7-4f26-81d0-9e62cd5dd326@gmail.com>
+ <CADnq5_NVGS1XykxGxpcu_bpPbzboCUJQkcCF3r+0N9a23KUgiQ@mail.gmail.com>
+ <96e2e13c-f01c-4baf-a9a3-cbaa48fb10c7@amd.com>
+ <CADnq5_NBfeAXEyQw0gnSd67=tR-bUKg8w=10+4z9pGGuRnP9uw@mail.gmail.com>
+ <87bkbodp51.fsf@vps.thesusis.net>
+In-Reply-To: <87bkbodp51.fsf@vps.thesusis.net>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 21 Nov 2023 09:05:39 -0500
+Message-ID: <CADnq5_Nh4wCFY10Ha9dTGWvehPCdY2zxfERtFuoeF5_xA+P=QA@mail.gmail.com>
+Subject: Re: Radeon regression in 6.6 kernel
+To: Phillip Susi <phill@thesusis.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,63 +74,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: imre.deak@intel.com
-Cc: intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+Cc: Linux regressions mailing list <regressions@lists.linux.dev>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ linux-kernel@vger.kernel.org,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Luben Tuikov <luben.tuikov@amd.com>, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 16, 2023 at 03:18:31PM +0200, Imre Deak wrote:
-[...]
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> index ed784cf27d396..63024393b516e 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> @@ -31,6 +31,7 @@
->  #include <drm/drm_probe_helper.h>
->  #include <drm/amdgpu_drm.h>
->  #include <drm/drm_edid.h>
-> +#include <drm/drm_fixed.h>
->  
->  #include "dm_services.h"
->  #include "amdgpu.h"
-> @@ -210,7 +211,7 @@ static void dm_helpers_construct_old_payload(
->  			struct drm_dp_mst_atomic_payload *old_payload)
->  {
->  	struct drm_dp_mst_atomic_payload *pos;
-> -	int pbn_per_slot = mst_state->pbn_div;
-> +	int pbn_per_slot = dfixed_trunc(mst_state->pbn_div);
->  	u8 next_payload_vc_start = mgr->next_start_slot;
->  	u8 payload_vc_start = new_payload->vc_start_slot;
->  	u8 allocated_time_slots;
+On Mon, Nov 20, 2023 at 5:40=E2=80=AFPM Phillip Susi <phill@thesusis.net> w=
+rote:
+>
+> Alex Deucher <alexdeucher@gmail.com> writes:
+>
+> > Yes.  Those changes went into 6.7 though, not 6.6 AFAIK.  Maybe I'm
+> > misunderstanding what the original report was actually testing.  If it
+> > was 6.7, then try reverting:
+> > 56e449603f0ac580700621a356d35d5716a62ce5
+> > b70438004a14f4d0f9890b3297cd66248728546c
+>
+> I had been running v6.6-rc5 before pulling.  It looks like that got me
+> somewhere between v6.6 and v6.7-rc1.  Reverting those two commits fixes
+> it.
 
-I'm planning to merge this patchset today via drm-intel-next and for
-that I'll need to rebase the above change to:
+Does reverting 56e449603f0ac580700621a356d35d5716a62ce5 alone fix it?
+Can you also attach your full dmesg log for the failed suspend?
 
-@@ -205,13 +206,14 @@ void dm_helpers_dp_update_branch_info(
-
- static void dm_helpers_construct_old_payload(
-                        struct dc_link *link,
--                       int pbn_per_slot,
-+                       fixed20_12 pbn_per_slot_fp,
-                        struct drm_dp_mst_atomic_payload *new_payload,
-                        struct drm_dp_mst_atomic_payload *old_payload)
- {
-        struct link_mst_stream_allocation_table current_link_table =
-                                                                        link->mst_stream_alloc_table;
-        struct link_mst_stream_allocation *dc_alloc;
-+       int pbn_per_slot = dfixed_trunc(pbn_per_slot_fp);
-        int i;
-
-        *old_payload = *new_payload;
-
-and then apply the original changes in the patch above while merging
-drm-intel-next to drm-tip. This is required due to
-
-commit 9031e0013f819c ("drm/amd/display: Fix mst hub unplug warning")
-
-being only in drm-misc-next, but not yet in drm-intel-next.
-
-Let me know if you have a concern with this.
-
---Imre
+Alex
