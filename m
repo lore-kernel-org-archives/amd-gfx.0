@@ -4,88 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41FA8C54FB9
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Nov 2023 09:10:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 849BEC5ACB3
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Nov 2023 09:17:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB1A910E107;
-	Tue, 21 Nov 2023 09:10:26 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2065.outbound.protection.outlook.com [40.107.96.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D95B810E107
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Nov 2023 09:10:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAF5910E367;
+	Tue, 21 Nov 2023 09:17:11 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6BDB10E322;
+ Tue, 21 Nov 2023 09:17:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=J6wo2fvH9YfvA2Hzu+aAi10/zq/t1xrtKW/XdnjoSg2UIA7Xi1LckLh9S6cf216dWWG/LiGRRRp3/e+B5DZkHydpkxC5puUNcdzX8SBkdMInF5HmdhHr046DHqne7jqhGeR+vapGqt75wFGkaZLzfyCJysWHqeZv3RxQpRU8jh61DW0DSWJBgIjW4KTH2lhg92poTiM5to8DgRKnfM17sB3SWXIgmGBrpznthkscI+98oiB4qDiuUbGuzkknhfgbmop+HQr4LwSHTud2VNhAyw6/oLMfM1wiUMo8vBAn8AnNbaf5v9NYxf0Qde8nJfhx5DYJulE0wL0+fV7XmhX+zg==
+ b=iGRiSuoEtMu6/8woZCg4JB558lYfA8c1uemScjWzydXJoLVfMemz5klLVqk2/jh9a3fPgLiCgecgLhlOGX6McKpbXudzLAPwHfaH77rVEY5LLefmG8ngXiv2hSzP5k59fukjNMtDuZLF884kVLv2OSig4oi75bu1BSLKgYpzHO0BblDDg9noLntMvi0s554aKUzEqjpadc7FKl85ZGlkY7pxDhd8qsCaCIA7+j5L5awMdOUOsoNiJw2Ncasq6huiYGdVtkJ4KHdpt+feg9vdZIiAms1USRqCzZZqs367O7ruWTka1H/VBmAEBiRZf6Ftdq7fugZG/w2q4WU630gooQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/lJWsK7mxltlHqAxieXaa9XigLQK7EP42czNXUq33HA=;
- b=kIX55d6XaaI8nnM5xd1X8aTBomXQrl2NGEjJkKkULvf8OxK8XEOQH8yFN2W897ec2Neij85CkON/SaxQCw1bePsjyJG92PXwSdkkDu/rkCxFTSU0eHhMewaP9NQr50P5jHEwvkGyME1Cyvnc16FGlWD0ARV3WhVNjpwGsAJGKWOZ6DtoDuBBfTSxFvWY/O1Yi+uFdfZxetz9c8naEL1HKqH1v/8jg+S2pugOgr55EReLM5Lsuq/FFGlDd4cwqS0gdFCaXlcEECvosuRaZoAlWR3+bU7g9eb5kJiQgEHrb+9dNUf8Vx342qoEwMjASHBRZ9VCMk/e9rmfLCCe6aSnTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=g6FleHveucG2H5Fm6Z3n3w4GeKDeMhQsStOBTI5aFxY=;
+ b=QjazYbFYF2Fthanxp0TwAjL2f/HB4mbObYna7KdMiSJOIb+3O4woOC1PCnDYt4c2AsWuoxq39d0qy760h/f56rlGDF46QeVqshTHmyacFEeCwLaVxetq6YsViqxBxP2gnMFjbGNBVTr4y2dv2sFqOCh+09b7hOf+9teRSmV+UDdTq3reRXVz1N7QLXo9B1NT8l/JoY+678QSeXqOY+Nfv21r+kruMAHDTDdnUxk5wGhjeEgDbx5bl8NAOUGpS729Rb+SOwMSgApbFk0hr+KJTtP684HUmK0Kc7DRS+6vUIKjJqQ4YdX7EJ/+e0DwYogE+oQs2SbU7qm8ThGV1FREJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/lJWsK7mxltlHqAxieXaa9XigLQK7EP42czNXUq33HA=;
- b=pRsdcrDkVYiep0EUILgS8/2hxRc5KvDGNehzJDpltiLcli1729ilBXZiiFdlOy/GRWDotl4r8kZo/sZzWixM03JYnwBwVqfzphQs3cffbbhWNUgGvxcC1ZkhUyNdj+0pCBow6HGOpi2PJNLanxqa1tmk/7FcuYBmyCmKB5nXbcs=
-Received: from DS7PR03CA0328.namprd03.prod.outlook.com (2603:10b6:8:2b::30) by
- SN7PR12MB8131.namprd12.prod.outlook.com (2603:10b6:806:32d::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.31; Tue, 21 Nov
- 2023 09:10:22 +0000
-Received: from DS1PEPF00017097.namprd05.prod.outlook.com
- (2603:10b6:8:2b:cafe::56) by DS7PR03CA0328.outlook.office365.com
- (2603:10b6:8:2b::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.28 via Frontend
- Transport; Tue, 21 Nov 2023 09:10:22 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF00017097.mail.protection.outlook.com (10.167.18.101) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7025.12 via Frontend Transport; Tue, 21 Nov 2023 09:10:22 +0000
-Received: from jenkins-mali-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 21 Nov
- 2023 03:10:19 -0600
-From: Li Ma <li.ma@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: add init_registers for nbio v7.11
-Date: Tue, 21 Nov 2023 17:10:10 +0800
-Message-ID: <20231121091011.3283118-1-li.ma@amd.com>
-X-Mailer: git-send-email 2.25.1
+ bh=g6FleHveucG2H5Fm6Z3n3w4GeKDeMhQsStOBTI5aFxY=;
+ b=Uf0bRjHw6vy2hIrheSWCJgvdM8oMwop738Mq2PlelbmFtvgrDmYGlElBnH4rl+Y3lb3iCAZiYprDmn6MXsCDGP2MBDuIXbmBTh1zYL6JeAH1WUVhXNrb/N3aiKJgxIQH/YcxxGL3XG99FFr+P+dKI9pRDyBPZo0pJu1gnktWjgA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by CY5PR12MB6600.namprd12.prod.outlook.com (2603:10b6:930:40::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.27; Tue, 21 Nov
+ 2023 09:17:06 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::ca80:8f1c:c11:ded3]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::ca80:8f1c:c11:ded3%7]) with mapi id 15.20.7002.028; Tue, 21 Nov 2023
+ 09:17:06 +0000
+Message-ID: <bac617fe-6b23-411f-8dc9-c97cc84208f3@amd.com>
+Date: Tue, 21 Nov 2023 10:17:00 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] gpu: display: remove unnecessary braces to fix coding
+ style
+Content-Language: en-US
+To: RutingZhang <u202112078@hust.edu.cn>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, "Pan, Xinhui"
+ <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+References: <20231121043621.9351-1-u202112078@hust.edu.cn>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20231121043621.9351-1-u202112078@hust.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0195.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a4::7) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017097:EE_|SN7PR12MB8131:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f31ed0e-0f77-4a5a-e9ec-08dbea71b0dc
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|CY5PR12MB6600:EE_
+X-MS-Office365-Filtering-Correlation-Id: 780feb06-2842-4659-7d2d-08dbea72a184
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +HlWAiLA7UY4G7tQ+YCz4AQBTRArjFIladgulBbxwHuivNiTQWES4TIp2zgSIXeM3TuuTKyZQiaaxNVlew2VYlgJtX8M3hYB2rAkZ9XE++YroS0qV9sJ+KdWHiziwDAsvJ9fUDnlxrvv8L3o0OZ/bchXSy2LomWNirqUG+IbMkQU+bQznBoGz6XMxXSDHDlZc0AW5JbLFNyVB9kCHaTLvnaqLOfPr9+RfrCqIO0YhfnDwiRYuB9j+gZOvuWWB8l6fZXYRg5SKNgU/m97M2svmh7BBYtRR6YvCYBCEaJJ1UI4iBkuaWZQ87XGYqU5/V5+pUzZXgEnOMPj4fwpJbi4m1MW18PMTG90tEuI+iOy/JEQYX6+oKlzwvkKcBQa3UysogEXdQp/XtLWQgOwp0uVTTV3ETvohC7y4p6Z831FA2xBX3Wok3ffGNg8rqQAkXRgZAbtps24VT9slYvkunausVn2v6aJr7GsA8UKsvd4QIaEM0C98N5HQeMF9W0vZ6WQpV5myuqNmPLBd6bAeu3cjMtoE95qg2QacDmvJnXIMwGeej50OhJnZ7aM2TPsLpQKGmRLr2XeWbIqL2Fbf2a06dl0DzOmmBAZzuqlg9CpyMEyC61I2tHW8WBIFuIoYKaynxR2kLWjZB5xuOl6/nQx/cr6K0oEpamQdo2hfypGaW3IW8S4aIW0/9ChB5KoCrr+3/crKLay79aC3NG58bmhE/hRWAXcNS99GaqfOOcjrC1brtaezpP8XsMrTkcnctDutm4ybasuRkBfQZFtIuB+dw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(376002)(396003)(39860400002)(136003)(230922051799003)(82310400011)(451199024)(186009)(64100799003)(1800799012)(40470700004)(46966006)(36840700001)(81166007)(36756003)(336012)(426003)(356005)(41300700001)(47076005)(36860700001)(40460700003)(83380400001)(8936002)(2616005)(86362001)(5660300002)(4326008)(40480700001)(8676002)(7696005)(44832011)(26005)(316002)(54906003)(70586007)(70206006)(6916009)(2906002)(6666004)(82740400003)(478600001)(16526019)(1076003)(36900700001);
+X-Microsoft-Antispam-Message-Info: 8dpPTc3TPL6A82wRB/vRNDHyp/tJSuRSKIHdm2FVXWEaKI+Ii1WLmcsKLrFLQccFRuINdzIav3CRXncV0srUPtYqBJedIrIQ/WE8OLK1LHH0VgOE4CpKXUO/QR/uQ1Gnjnw56CtyDmkpjOlRCNq0jIP17DlPsOMJPYTKWfT1vyTqp0Hc2hW1S/ZPFDROd49CEJInFcFXLeOgQg9ckdMHT8U+xVFekaiKTyL7Sz0dLO2FOPqcK6+srR/ZLdD2v53W4WYWiPTg/bS39HYujOXZTUlnavRfoBgWkV8CndHm6HJr4q/aI+nlRyAG/Q/DK6tAaxADysw/gFh5U2Qf662UoPBpiaBtmmgEdRBokQPiXh7lgXBDVS6DEhGx6rmlBIWBmAFdiRkmz1+9ZezjyKSKvXqWM3P3ZTMUn2Z4NqHx7odBPK5/ksl4Iq72GA1ivOrw/3yC+uV3QRGagAwR6d6bQ4X8r2Xti/xH992/jYH9C0ObYdWAwLGVoKQ1/uky0G6E4h5opvbkd3XEVSpdwoPnwVme4rDDWaVJU5S6XF81DdNjHN291Sz0CsFcWRZEBwRicDA6yjLQAVwM2ffsFLd2/TQ1zT3wRJkz975fCKl8bXP3T0b2gFFqyXD602Fp69nqXv7kJhQ/tWOlU4IYQujMJyjTmjQKNlvbfA0k3pxWCCKNTnMv8L0O9647RF53YL4J
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(376002)(396003)(346002)(39860400002)(366004)(230922051799003)(230273577357003)(230173577357003)(186009)(451199024)(64100799003)(1800799012)(6512007)(31686004)(6506007)(6666004)(6486002)(478600001)(316002)(4326008)(8936002)(8676002)(66946007)(38100700002)(2616005)(110136005)(66476007)(66556008)(83380400001)(2906002)(5660300002)(31696002)(26005)(41300700001)(86362001)(36756003)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RDV6bUcyMEF3N0xhbGhGMDIvMTIvR1Vzd2lRNHZKTzRldUxwUzcwSTdna1pS?=
+ =?utf-8?B?a2ZCd3V5L0YrWTdIK3NjQy9CWmVnWjV1cldJTVlIYk9aTWl4SGNONEVHeGVO?=
+ =?utf-8?B?bW1xc1M1UlJBWEdXSEtjdXlweXh3cGV6RDdMZmU1NW0xSVlJSktwdklmN01T?=
+ =?utf-8?B?N2g1TGhBN0FWT0FWWFk2cFMvbW9mWWk5aWw3R0crSXZ5VzZEYWxnUFd1Z0d4?=
+ =?utf-8?B?bEFoSGtPZlo4a3lTK2FPLzFxUjVuWldoczhwblJjYk1DYi9BWWJCOHE4R2Vs?=
+ =?utf-8?B?dUZqd3JIblVLbWludzRIMjRIOUtrdUpEZE1FVWEyRm9SOEI0VjhncXpoRHN0?=
+ =?utf-8?B?cWdGZUVGR0R1S3JwNGI5NHpkYTNwNVhKM0pKLzFnMjZZRCtHT3R4T0hsM0Vk?=
+ =?utf-8?B?NVJrRDcxbVNPYWtWdkRXZGhWL3k4V29URlZEems4ZHMwMGVhUDZQSitLS3Jv?=
+ =?utf-8?B?L1p2bG0zZm9ncUxQZ0poeDUzdkN5WTVkS0pCSHllc0FKMFdLUStmQS9HdHM2?=
+ =?utf-8?B?N3NvVjF5clBIZm5ueXdqNWxlYkNFRGpORG5KZWJScldKWFZ5WkY0RXVCaUlR?=
+ =?utf-8?B?NFF0YUxqS2ROVDFnNWt1M3oxa24vWXpYdE1pYUVSTFlrbjNDeExkbnA1bUFl?=
+ =?utf-8?B?ZUJHQ3REZDcwNjBHdGVUVHA5RFNTWkZzekFMSWhqUytmY3h6MUdJeVFpMm0v?=
+ =?utf-8?B?OEFHOUwrbis4aFNndloyYmswUklqdzZlY3JDTmxUZSs2MkozZ2ZOZ1pZMjZj?=
+ =?utf-8?B?UmRLSDFjZ3ZEcEN4aFBQT1pHbXNjbzlEVU55dWRWcG5VRFdrRUNjQWZUdVZ5?=
+ =?utf-8?B?Y2lRT3NCUlZwZU10SVAvRnI3ZFJWT1FiTkw0UEVYY2ZBMk1HREUxcjRZeWFY?=
+ =?utf-8?B?dVBWa3lKM1ZPUjVKQU52Zm1acVllejVJSzRGYlNiTE1qSGpNNStLUnBWUEdw?=
+ =?utf-8?B?Z3BiNGdpMjdZZytSc3B1VFgxN1YzRE91b3NNS3AyY0NJSGczMGJKdEx2SklK?=
+ =?utf-8?B?eHprY2dmZmdWK295eGNWVEF0UlQ1RmVoWTlPd2lwWElDQTcvQzVFcjR5eWo4?=
+ =?utf-8?B?djNUQWp3YVF5R0Rid3hOSVQ4Y3psS2ZCSGpqZ29oV0hHaUQxRTl1bVJKcTNI?=
+ =?utf-8?B?RTI2cGxySVNDUUo4YmNkNjVUZGVtdHRmMFpINVQ3SG9ZTFdxeXk2Qzc5ZUEx?=
+ =?utf-8?B?YVUrMUZmNytiNStjK05HV1FiVW5iWEdCUXhwNGU1RlBFTkVXWnNiRUVMcStk?=
+ =?utf-8?B?TW45bm1GcURJVW9mRDJCbWlhbzVVSktkMUdKZW5CN1dVV1V4WFQxOFR5VENo?=
+ =?utf-8?B?QkY5OCtrdzNQdVdEMnRlN283K3pFQXpGeGl2RU54SmFXekJJYzE3WDZNM2R1?=
+ =?utf-8?B?dndyVUEwelNwOTAwWndhNDJ0cmpPN0dqZGV0V21PV0dqWXZ1ZTJLSmZHUDE2?=
+ =?utf-8?B?elBmSUpmVE9QdEV5L3J3bzZ5aTA2bWpxdkRXRjJiSnlPejVTZFZ1d3BSR1h0?=
+ =?utf-8?B?NXcwY1ppOEwzRTd5dk8wZGNMc3hKY1YyY1hMd0YveXNHWkY4U2J2cDlYdlZj?=
+ =?utf-8?B?WlZteS9telJubm9YNkxuS1l5T1F5MkR3YXBHb0taNkNIckc1cGF2TlR3alJv?=
+ =?utf-8?B?NGdjcy9nSTFjbytDanVMSHZEQnJLV1grMzZRTVJ5STJ5REtPSHpRVmRSckFz?=
+ =?utf-8?B?bE01WVoybjM5Mk1RbmNoUUVSQ2tjZW0vRitFSjI1TE1na1NDYVVRYzB5Rkp2?=
+ =?utf-8?B?MmtJc041Mjd3SFA5NmhrdENKYVAyUWt5QVoyRlpJdXhQeXFONi9lN3BOQXE4?=
+ =?utf-8?B?N2VJT3BaZmlhdjUvaFdHVDNEUzhpNWVjWG5yQW5EaW1RZVVYTVYvNEhzTWl1?=
+ =?utf-8?B?RkRKL3BWQllsVzlLN3B2WlJGdFhRaDlKWDZhcHdoQkkwc29uc21RUUR0dVpN?=
+ =?utf-8?B?OGtvZURBTVFDVnp2VS9DOFpnOEJmRWJSTXAxSHp4aW1vUTVCMThzVlZOZERH?=
+ =?utf-8?B?R0FYQjBsWTdnUGdNK3o1bnVvVXdMVG5SaGE5QXludXF2dDNTS0MzdlNWRWJJ?=
+ =?utf-8?B?ck5FNGZ2VTgzY1RtR0QzT25lT1Q0bjV2cmpkOEhYVC9NMlRycVNEQXM1aFQ1?=
+ =?utf-8?Q?A598vAYzu3EA9ps452VFuroqx?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2023 09:10:22.1904 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f31ed0e-0f77-4a5a-e9ec-08dbea71b0dc
+X-MS-Exchange-CrossTenant-Network-Message-Id: 780feb06-2842-4659-7d2d-08dbea72a184
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2023 09:17:06.2045 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017097.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8131
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WqcUafJ4HjjewtkG5LkpEr0PlpsFZCij8OznedfsG+1jOZ/w1o31qPpw6FzqIjjS
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6600
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,104 +128,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, yifan1.zhang@amd.com, lang.yu@amd.com,
- christian.koenig@amd.com, Li Ma <li.ma@amd.com>
+Cc: hust-os-kernel-patches@googlegroups.com, Dongliang Mu <dzm91@hust.edu.cn>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-enable init_registers callback func for nbio v7.11.
+Am 21.11.23 um 05:36 schrieb RutingZhang:
+> checkpatch complains that:
+>
+> WARNING: braces {} are not necessary for single statement blocks
+> +                if (pool->base.irqs != NULL) {
+> +                        dal_irq_service_destroy(&pool->base.irqs);
+> +                }
+>
+> Fixed it by removing unnecessary braces to fix the coding style issue.
+>
+> Signed-off-by: RutingZhang <u202112078@hust.edu.cn>
+> Reviewed-by: Dongliang Mu <dzm91@hust.edu.cn>
 
-Signed-off-by: Li Ma <li.ma@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c       | 18 ++++++------
- .../asic_reg/nbio/nbio_7_11_0_offset.h        |  2 ++
- .../asic_reg/nbio/nbio_7_11_0_sh_mask.h       | 29 +++++++++++++++++++
- 3 files changed, 40 insertions(+), 9 deletions(-)
+Subject line prefix should be "drm/amdgpu".
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
-index 676ab1d20d2f..1f52b4b1db03 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
-@@ -259,17 +259,17 @@ const struct nbio_hdp_flush_reg nbio_v7_11_hdp_flush_reg = {
- 
- static void nbio_v7_11_init_registers(struct amdgpu_device *adev)
- {
--/*	uint32_t def, data;
-+	uint32_t def, data;
-+
-+	def = data = RREG32_SOC15(NBIO, 0, regBIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3);
-+	data = REG_SET_FIELD(data, BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3,
-+				CI_SWUS_MAX_READ_REQUEST_SIZE_MODE, 1);
-+	data = REG_SET_FIELD(data, BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3,
-+				CI_SWUS_MAX_READ_REQUEST_SIZE_PRIV, 1);
- 
--		def = data = RREG32_SOC15(NBIO, 0, regBIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3);
--		data = REG_SET_FIELD(data, BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3,
--			CI_SWUS_MAX_READ_REQUEST_SIZE_MODE, 1);
--		data = REG_SET_FIELD(data, BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3,
--			CI_SWUS_MAX_READ_REQUEST_SIZE_PRIV, 1);
-+	if (def != data)
-+		WREG32_SOC15(NBIO, 0, regBIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3, data);
- 
--		if (def != data)
--			WREG32_SOC15(NBIO, 0, regBIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3, data);
--*/
- }
- 
- static void nbio_v7_11_update_medium_grain_clock_gating(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset.h
-index ff30f04be591..7ee3d291120d 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset.h
-@@ -781,6 +781,8 @@
- #define regBIF_BIF256_CI256_RC3X4_USB4_PCIE_CNTL2_BASE_IDX                                              5
- #define regBIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1                                             0x420187
- #define regBIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1_BASE_IDX                                    5
-+#define regBIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3                                                  0x4201c6
-+#define regBIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3_BASE_IDX                                         5
- 
- 
- // addressBlock: nbio_nbif0_bif_cfg_dev0_rc_bifcfgdecp
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_sh_mask.h
-index 7f131999a263..eb8c556d9c93 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_sh_mask.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_sh_mask.h
-@@ -24646,6 +24646,35 @@
- //BIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1
- #define BIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1__MST_MEM_LS_EN_MASK                                  0x00000001L
- #define BIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1__REPLAY_MEM_LS_EN_MASK                               0x00000008L
-+//BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_MAX_PAYLOAD_SIZE_MODE__SHIFT                     0x8
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_PRIV_MAX_PAYLOAD_SIZE__SHIFT                     0x9
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_10BIT_TAG_EN_OVERRIDE__SHIFT                          0xb
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_10BIT_TAG_EN_OVERRIDE__SHIFT                     0xd
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__MST_DROP_SYNC_FLOOD_EN__SHIFT                            0xf
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_MAX_PAYLOAD_SIZE_MODE__SHIFT                          0x10
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_PRIV_MAX_PAYLOAD_SIZE__SHIFT                          0x11
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_MAX_READ_REQUEST_SIZE_MODE__SHIFT                     0x14
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_PRIV_MAX_READ_REQUEST_SIZE__SHIFT                     0x15
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_MAX_READ_SAFE_MODE__SHIFT                             0x18
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_EXTENDED_TAG_EN_OVERRIDE__SHIFT                       0x19
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_MAX_READ_REQUEST_SIZE_MODE__SHIFT                0x1b
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_MAX_READ_REQUEST_SIZE_PRIV__SHIFT                0x1c
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_EXTENDED_TAG_EN_OVERRIDE__SHIFT                  0x1e
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_MAX_PAYLOAD_SIZE_MODE_MASK                       0x00000100L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_PRIV_MAX_PAYLOAD_SIZE_MASK                       0x00000600L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_10BIT_TAG_EN_OVERRIDE_MASK                            0x00001800L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_10BIT_TAG_EN_OVERRIDE_MASK                       0x00006000L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__MST_DROP_SYNC_FLOOD_EN_MASK                              0x00008000L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_MAX_PAYLOAD_SIZE_MODE_MASK                            0x00010000L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_PRIV_MAX_PAYLOAD_SIZE_MASK                            0x000E0000L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_MAX_READ_REQUEST_SIZE_MODE_MASK                       0x00100000L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_PRIV_MAX_READ_REQUEST_SIZE_MASK                       0x00E00000L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_MAX_READ_SAFE_MODE_MASK                               0x01000000L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_EXTENDED_TAG_EN_OVERRIDE_MASK                         0x06000000L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_MAX_READ_REQUEST_SIZE_MODE_MASK                  0x08000000L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_MAX_READ_REQUEST_SIZE_PRIV_MASK                  0x30000000L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_EXTENDED_TAG_EN_OVERRIDE_MASK                    0xC0000000L
- 
- // addressBlock: nbio_nbif0_bif_cfg_dev0_rc_bifcfgdecp
- //BIF_CFG_DEV0_RC0_VENDOR_ID
--- 
-2.25.1
+Apart from this nit it looks good to me, but might be already fixed 
+internally.
+
+Regards,
+Christian.
+
+> ---
+>   drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+> index 447de8492594..6835dbb733a2 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+> @@ -713,9 +713,8 @@ static void dcn21_resource_destruct(struct dcn21_resource_pool *pool)
+>   			pool->base.hubps[i] = NULL;
+>   		}
+>   
+> -		if (pool->base.irqs != NULL) {
+> +		if (pool->base.irqs != NULL)
+>   			dal_irq_service_destroy(&pool->base.irqs);
+> -		}
+>   	}
+>   
+>   	for (i = 0; i < pool->base.res_cap->num_ddc; i++) {
 
