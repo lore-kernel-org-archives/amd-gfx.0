@@ -4,113 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5741AC61D97
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Nov 2023 00:32:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40DCEC61D92
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Nov 2023 02:52:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01B3A10E5BE;
-	Wed, 22 Nov 2023 00:32:32 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2075.outbound.protection.outlook.com [40.107.100.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0611610E5BE
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Nov 2023 00:32:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B43910E5D0;
+	Wed, 22 Nov 2023 02:51:59 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on20626.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e83::626])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF64610E2EA
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Nov 2023 02:51:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KrhAuQepLx+PA3VLiWUAHX7+6dfBF8Y7w5x9cc7J5W6pNlP/jhopFwqh/ey3hwu+CYbyOJlOHe7iqIwgfnjiNRLxZC5By5qyFb7Z8Cqh5+P28ByB/25piE9/j8RjLQ5bWpvzjcstPvGgEBZIbqr9KXusyFZliDMgiAwyEdXOBC4XLmWT6viqc742Dn1nZOU67dXGMEDchNY7h7UxftRbT5XLRB+FbyS9BONeym+Z1LtGwvGibyqIY7aI802Z5YSRnIy7CovMZYJ//HDYp8rhunLVC/o2nDbiEUu/59XMmXrvAz5JSgktojJqTumMXpeVP9KXVxPREAupGvDlF+HBQA==
+ b=At7syYSY4ftHBsNHd7V/8XXWWG1zvxVwkmkRUCIkQR+62AZ7saqUbuJ7jBTITxt6rb29WROXGMF0NOMFW9pFFp2ZdVtFjsxlB60vl9bRL5fchXMFF1lL6nLQOoUSr9b6aA9DR77Nxm3LwSGrwuJxBdKzr2Isoe5YtjQUYcwjNETLammvbPoxkJJeBDioNHp72DUmfh/9A7oUhmor94tt7I8HIsRc0qvxK4Pcs4yPzxdruX5nC2ErDSZj+HBcKJggEXDi9hhXf8ApAZ7JNqCk2TCz8f8ylty/DnIVYXe2wbFP7yvnd0tZMPR4h7VqQfeAFqp/Azr1TtfoCBbRkJlSKw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4v+CvJUs6Q0caqM4ySyrGkTn6gfys5h6eaKui5Z7H1Y=;
- b=Q1VVkPgUavd4Fc1xvjHaj2m2RqMVTblkNJ99FkCXF4Z2zqlOWa92lATG0b5ZiuGpNn05dDZMLkoZNc7zEuaCV1I+jBujxs09pd05GOearrem/MGD1QP1b4avZ/Ql4YaBCLpOyCGO2VBZJ4TDdRY8drgDDwZHTFxKygdrlT7PdIYWxnluIeDU+J11ZRfTmPxmRtKnFEzx+zfADM2R/p+MWo0otXxZtjcdn4bQXJbbZPUv905nKhDpTESedOvqd7FoQLEaSiqKHqUDny+BuXr6E64+MQbsx3VTv0Z1+7Gu1rfqeBJRDe83OC3LHdg6nseL8+qvdJ1KYTGW2aeCTRQ88w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=QRi8ce3uFF6SzLzbwvlDCPE+ZaETa8TqR8PHFRABvso=;
+ b=n6xgrnpxeFVEvrL58mF96RZm5T5J+p61IvzGOmA0v7nXDJOkFVMyD1bmXgOnAx3/DqwPahOdTYosQRxzbMzn6I3woWPEyjCZ40WAYLC+35hVRQQw1YpapgM3g1yjqIU3HiAHGRaVgz2wVK/g/5N0EvfCVHZJxKnwvJBAK3UCFPGVFVQFEjU2RPuOdAUtiJ9Ovy8LCeP0/RgOLlguqEM+fmOIrynKq+MnE1u9JMCW5bip7ozpl0lCtv+P3dSNDT4qD5o5UX/ql/kwvMYlYKBX2Ogp+F2kcSvuzWiYSUkdHBQxy3Gykb2X/3kfZbBaPv9QCEhxrkuVxu0o3r/xq1GJLg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4v+CvJUs6Q0caqM4ySyrGkTn6gfys5h6eaKui5Z7H1Y=;
- b=P67FXh3jpsiemwTRcNuQQpFzcVjLUISligBlJH6/8gvCH4ZaFQ8JtQKL9wVTNQCIoYz1hmhDbnn1KnsvYaDRKQKJImekGUnwBnYkfwZj3p1UaMTVcf12Oi196Rl+rhsJNqSJ+18RlGr6JmTNE6EJ0JP9xUXjxgdikguKHmoIZ10=
-Received: from CY5PR12MB6369.namprd12.prod.outlook.com (2603:10b6:930:21::10)
- by SA0PR12MB4527.namprd12.prod.outlook.com (2603:10b6:806:73::18)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=QRi8ce3uFF6SzLzbwvlDCPE+ZaETa8TqR8PHFRABvso=;
+ b=MLpEXaNXWKVC77KsIgoS6F0CKByW+DRD9BhzT2C9/Cg4pgUts/GKP5wBxf3zc1wFidNh8nzjuD2u9V/Fw9+hGnz0v5p6hRgZqXqQ4KIHjKNGN86/2uIndEuT95/BP39mTB3DaZClyztxQz09U/+mCrEU3pddYi/sTdFtlftPK9U=
+Received: from CY8PR12CA0046.namprd12.prod.outlook.com (2603:10b6:930:49::24)
+ by DS7PR12MB6239.namprd12.prod.outlook.com (2603:10b6:8:95::18) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.18; Wed, 22 Nov
- 2023 00:32:28 +0000
-Received: from CY5PR12MB6369.namprd12.prod.outlook.com
- ([fe80::9b2f:2ac9:bfd0:589b]) by CY5PR12MB6369.namprd12.prod.outlook.com
- ([fe80::9b2f:2ac9:bfd0:589b%3]) with mapi id 15.20.7002.028; Wed, 22 Nov 2023
- 00:32:28 +0000
-From: "Zhang, Yifan" <Yifan1.Zhang@amd.com>
-To: "Ma, Li" <Li.Ma@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: add init_registers for nbio v7.11
-Thread-Topic: [PATCH] drm/amdgpu: add init_registers for nbio v7.11
-Thread-Index: AQHaHFqT/riZDfJzQkSnPrDn6U/S0rCFffFQ
-Date: Wed, 22 Nov 2023 00:32:26 +0000
-Message-ID: <CY5PR12MB6369F69A53F1241FF96417BEC1BAA@CY5PR12MB6369.namprd12.prod.outlook.com>
-References: <20231121091011.3283118-1-li.ma@amd.com>
-In-Reply-To: <20231121091011.3283118-1-li.ma@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=dc2c62a5-11e5-4c4b-ae43-2f0872694e0d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-11-22T00:32:08Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY5PR12MB6369:EE_|SA0PR12MB4527:EE_
-x-ms-office365-filtering-correlation-id: 6da4c5d1-7339-4454-3cda-08dbeaf28102
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 07y6sG6ovYVIN7L8vbBY4yrPy6vq0gwzSyZFj2BGuhJvxHM1ci1cG3GfANNQweTKjGehwOBwB/pWu4Vra8y7ixDhhFneYPtvI+8mqBWIPQry0LfwFnaEUVvPktNtHUF/fzAUq4TEqPhfCKi9DiV4oXq67IpWzctsNk5379wYucaEMOtuc5T0qKnYGR9u9BSCm2SplcnI2GfnUwZNaoUgbUPadIcG+dKKWz9n5jd+O2gPl6SUvBzuz7IBPkpVyJLwtLDkRRZ8aVmTW38fcpez42A8Avex265Fayr8Dh9wZT7sgg6rhARXTj+IrKp0PBjeKqsiEGT18ENIBuazZbzd2KnZNBBvffoEWHoOwFP2fZmdC1Wzdb/wSqgWkpcdEYNjVnC0zcZjHdWEetekccVP6/zV9nWYhi/hxO4cMLSx2Qt/5+CEoFf6wib3wBwAtoG6S1YNgiis5ZEB/sIccejiKpDWFjlT2bISzj5gAlKsVmges69pgwbvu/gfdr2qVPK15wDFohWpIrAITvp5zeqCu/i5Rn8tQkR6ADxqPwWf+fe7J85hBRpWnG5frUg7PsuuhNFOY32xveMS0H3twOF5Q1LA/th1V2eUlFzS5yoDTebEucGj5ML+vg6yn/lhNCrB
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR12MB6369.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(376002)(366004)(396003)(136003)(346002)(230922051799003)(64100799003)(1800799012)(451199024)(186009)(5660300002)(71200400001)(2906002)(53546011)(6506007)(478600001)(4326008)(8676002)(8936002)(66556008)(52536014)(64756008)(66946007)(66476007)(54906003)(66446008)(316002)(76116006)(110136005)(86362001)(122000001)(41300700001)(55016003)(83380400001)(33656002)(26005)(38100700002)(7696005)(38070700009)(9686003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?dAuPz89lRDu/9trChPHGtsD5sMp77Fyg5Vp6z07aaCOIuC/XDYWCEh865KEP?=
- =?us-ascii?Q?hgPGlmBUwNv6ecsaxJAjT73DOHC269JsZWvYR7pCunLRJX/UKZaCVDcBjJr7?=
- =?us-ascii?Q?RBjne1mbPr4Se/kBXhg1Hgt5R6ROZefBToY2ji8700Dnf9TD9tX1JeZw/DmQ?=
- =?us-ascii?Q?BzrcntPOfKq4jKfka5byiI5Ac8PE/OXV987dN4PNoTq4vWCv5Lp/7QgvNNzm?=
- =?us-ascii?Q?GhLY3uyJHyocTEv+TaEvkPWt6oOY0aM0lPVJR+jpViP9liIJ2DyjhT6syX6v?=
- =?us-ascii?Q?wyZr3UFdUJDIzXziTYR9XV92iUQCibI/S18va4snmvMCWB9he4xMleeCuTzo?=
- =?us-ascii?Q?iuFmNoWURW7s4rKsBAEkpgsXrrETeeVBEEsHY2BNZ1IqpsVCkSDAfyQqqWN2?=
- =?us-ascii?Q?8TZ0nW00NBP+M9twNUoxKqKfqclxX6jZiunUfqmkb5K7zfcpAy6v3WQ10wGh?=
- =?us-ascii?Q?0ABBT7L1OY6jR1PjA/2bcTAdi2z74yZeU0oDwApA4UpiRQKUTIzpta8Vner1?=
- =?us-ascii?Q?AWUcsE1i/izDCWLZP8m8aDfwu78ojoc8/8Ol+Ue5kyqIdQqpgNrg4g5jUoSx?=
- =?us-ascii?Q?dCqebZVerFII5c8+/bBsGEICIgZqEO/tYNW+ilIjsOZj8YepRVngzaLRSpir?=
- =?us-ascii?Q?bgZ42cJ2Uqth2TM42HYEXGicq+H2Dao9ApDwSXWXVHEt2WFS0tv+rn9UHCiX?=
- =?us-ascii?Q?sjkbgLuQrWrbKOxLpR0pBlWC4GM9GTyWKjEigOcQPwNRbdqGu1uQKl4v5k3s?=
- =?us-ascii?Q?lTDji4v4odfWdgbD55F2vhCs4R92itcn5gQmYt5m6Fv/LP8132pa+Q3BQbF0?=
- =?us-ascii?Q?FG/ep0p81uuiM0qIC6uYT2cHfWJY04CImWF+Rtl5IcGK/7ThEVhaBqsdjVNT?=
- =?us-ascii?Q?a8fA2JXD6oom/iJrvZXUHA3Zf2LXcXSZqHvW1sw+qzxNx9ml8uaJ2qr2SmJe?=
- =?us-ascii?Q?gl0GF7sSJAitOX0ADjYGNLbx65RLCC6CjAhYneYMj6D8hS93tqukLRGi7RxK?=
- =?us-ascii?Q?di2b7N6i/zEJOp8NmP2fC1Mh7acYcjoeel6oiCkoLI1fL77Qrcv7VtDFKafg?=
- =?us-ascii?Q?gBGKAr2UuhaKQBX/S13xvsa0IArjaeg2+9r0Ofkb+1YZZWss3pLyM7PC2UI3?=
- =?us-ascii?Q?NlPIszJ7xq9pddUvpLUN/NltrWsCkM4ibaBT8qUE0oMbR9uqz+GiOas46s8x?=
- =?us-ascii?Q?t1tQmGdp9ZFUOoq45hXxj90+pBRsTtxKemQyiL0i676Vlhx4zG2mN68fPnY1?=
- =?us-ascii?Q?9JhGsZBtfOB6SUf6jQBBeoVke0UBKjYBObf7o1jmHJSJot4DLxGT3Ta66XZ3?=
- =?us-ascii?Q?sZXWiatPMKMMZS5nld30k4ymMITrgtH16t5+mwfPK0L6LOeAJV26tt+AP90J?=
- =?us-ascii?Q?bCj0FtgTT63SqjrQrQaXQDNonh3O0nnZeamnm/7PajCzm2JqlPOvTMpoKcGK?=
- =?us-ascii?Q?H39EOsIyS9CHqRZV3EUomT5hMKQ4lgZWg2EjbN6idHvhyjBfVo421OLUxkLT?=
- =?us-ascii?Q?pNoRa1JdMUnoXQgTxf94O7ZEzdPMO7s2KVh9gOohhlUdZ6wcbkXFruIk2GMy?=
- =?us-ascii?Q?kpquIrrGxP6XUzHYSAQ=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 2023 02:51:53 +0000
+Received: from CY4PEPF0000EE3D.namprd03.prod.outlook.com
+ (2603:10b6:930:49:cafe::67) by CY8PR12CA0046.outlook.office365.com
+ (2603:10b6:930:49::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.18 via Frontend
+ Transport; Wed, 22 Nov 2023 02:51:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EE3D.mail.protection.outlook.com (10.167.242.17) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7025.13 via Frontend Transport; Wed, 22 Nov 2023 02:51:53 +0000
+Received: from ldev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 21 Nov
+ 2023 20:51:50 -0600
+From: Tim Huang <Tim.Huang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amdgpu: fix memory overflow in the IB test
+Date: Wed, 22 Nov 2023 10:47:43 +0800
+Message-ID: <20231122024743.707236-1-Tim.Huang@amd.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3D:EE_|DS7PR12MB6239:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5f15b8f6-69df-419b-b932-08dbeb05fba1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: vcApb797uJIcJRJJ3LbL1um42zG+Ao2CBgoJhDZnhivWblH/A6JGJ7cLdtvobTlkBbx7fJPApH100onIGsgU2b24eEIyx36SoUCkgLXvokjcsKKcuXIlYA71ZWq/y6uPq7gh0gGCJp070SewB3h5mD4xY5DIrJvMFvjPK3Hqw4hpgwrVPTVcIimItOGqhvL3n8y5DhYcGJoBl+UziOFFLKNmyz2up600sgtxS6nX/Cb8IMn/Hq+7FZlS5UlHBNKAbCjaynhoUT/YT4PQ3IzyqAIcjNmv6s/hsMzxh7ElhMQugjoLDLp21kqe1Y2A/LHEkCDb1D/IOW4sr2mrZREK4K8EVY6FWQLtcfl+hgHJfXXgz+qCcYt0qnFKKxHAMbaVjbBIHKXKqzeuy/rcJCdySuDmIH3DA75VhogU6sUrXD0Y10TiWRow6Mwz8yNrATf8zqnoZ9KR/uDugXhTGnzzj4JeesjaYtC79znZMUJWd1wCl7PwAMrhUXF3XQz5YBFmRnPLigW47RPL8aqc62hGb80KUiQuSY8N5gfuzZd/8/m3F82YF0TknMuM4jrq13h8SVyAWQH/5ETCvdKk0RlmSVbJBAuo1QE84HWVtgNB/hNAy/wbeYKc+V2y7wh219x8BRqTO178fYuCzbgJPy9okEDBWqveyApHGhgtJGdtsJGSuvWDdD7pZqxM1mqRwwchYmxkJNX9aPvcqTrMllHkZyFCiLRztx3H/eEMkJLAG0YJK6gOhQOmvmKlaaQryrXSrz9c+hdtNTChT9nN7v4PIw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(39860400002)(376002)(346002)(136003)(396003)(230922051799003)(186009)(64100799003)(1800799012)(82310400011)(451199024)(36840700001)(46966006)(40470700004)(336012)(82740400003)(426003)(83380400001)(478600001)(6666004)(7696005)(26005)(1076003)(40480700001)(16526019)(2616005)(8936002)(6916009)(8676002)(316002)(70206006)(4326008)(54906003)(70586007)(36860700001)(47076005)(5660300002)(356005)(81166007)(2906002)(40460700003)(41300700001)(86362001)(36756003)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6369.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6da4c5d1-7339-4454-3cda-08dbeaf28102
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Nov 2023 00:32:26.9885 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: nVA2vMmGoOjOTEh8rkLDA3fMNIKSSs8zhucXkcWdAza8Rwy9xduLLhMYcWQK8Uw4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4527
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2023 02:51:53.1007 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f15b8f6-69df-419b-b932-08dbeb05fba1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3D.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6239
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,165 +98,86 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Yu,
- Lang" <Lang.Yu@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: Tim Huang <Tim.Huang@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Fix a memory overflow issue in the gfx IB test
+for some ASICs. At least 20 bytes are needed for
+the IB test packet.
 
+v2: correct code indentation errors. (Christian)
+
+Signed-off-by: Tim Huang <Tim.Huang@amd.com>
 Reviewed-by: Yifan Zhang <yifan1.zhang@amd.com>
-
-
------Original Message-----
-From: Ma, Li <Li.Ma@amd.com>
-Sent: Tuesday, November 21, 2023 5:10 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
-stian.Koenig@amd.com>; Zhang, Yifan <Yifan1.Zhang@amd.com>; Yu, Lang <Lang.=
-Yu@amd.com>; Ma, Li <Li.Ma@amd.com>
-Subject: [PATCH] drm/amdgpu: add init_registers for nbio v7.11
-
-enable init_registers callback func for nbio v7.11.
-
-Signed-off-by: Li Ma <li.ma@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c       | 18 ++++++------
- .../asic_reg/nbio/nbio_7_11_0_offset.h        |  2 ++
- .../asic_reg/nbio/nbio_7_11_0_sh_mask.h       | 29 +++++++++++++++++++
- 3 files changed, 40 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c   | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 4 ++--
+ 4 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c b/drivers/gpu/drm/amd/=
-amdgpu/nbio_v7_11.c
-index 676ab1d20d2f..1f52b4b1db03 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
-@@ -259,17 +259,17 @@ const struct nbio_hdp_flush_reg nbio_v7_11_hdp_flush_=
-reg =3D {
-
- static void nbio_v7_11_init_registers(struct amdgpu_device *adev)  {
--/*     uint32_t def, data;
-+       uint32_t def, data;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 0c6133cc5e57..f281eecaeeec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -419,7 +419,7 @@ static int gfx_v11_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 		adev->wb.wb[index] = cpu_to_le32(0xCAFEDEAD);
+ 		cpu_ptr = &adev->wb.wb[index];
+ 
+-		r = amdgpu_ib_get(adev, NULL, 16, AMDGPU_IB_POOL_DIRECT, &ib);
++		r = amdgpu_ib_get(adev, NULL, 20, AMDGPU_IB_POOL_DIRECT, &ib);
+ 		if (r) {
+ 			DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r);
+ 			goto err1;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index 885ebd703260..1943beb135c4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -883,8 +883,8 @@ static int gfx_v8_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	gpu_addr = adev->wb.gpu_addr + (index * 4);
+ 	adev->wb.wb[index] = cpu_to_le32(0xCAFEDEAD);
+ 	memset(&ib, 0, sizeof(ib));
+-	r = amdgpu_ib_get(adev, NULL, 16,
+-					AMDGPU_IB_POOL_DIRECT, &ib);
 +
-+       def =3D data =3D RREG32_SOC15(NBIO, 0, regBIF_BIF256_CI256_RC3X4_US=
-B4_PCIE_MST_CTRL_3);
-+       data =3D REG_SET_FIELD(data, BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_C=
-TRL_3,
-+                               CI_SWUS_MAX_READ_REQUEST_SIZE_MODE, 1);
-+       data =3D REG_SET_FIELD(data, BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_C=
-TRL_3,
-+                               CI_SWUS_MAX_READ_REQUEST_SIZE_PRIV, 1);
-
--               def =3D data =3D RREG32_SOC15(NBIO, 0, regBIF_BIF256_CI256_=
-RC3X4_USB4_PCIE_MST_CTRL_3);
--               data =3D REG_SET_FIELD(data, BIF_BIF256_CI256_RC3X4_USB4_PC=
-IE_MST_CTRL_3,
--                       CI_SWUS_MAX_READ_REQUEST_SIZE_MODE, 1);
--               data =3D REG_SET_FIELD(data, BIF_BIF256_CI256_RC3X4_USB4_PC=
-IE_MST_CTRL_3,
--                       CI_SWUS_MAX_READ_REQUEST_SIZE_PRIV, 1);
-+       if (def !=3D data)
-+               WREG32_SOC15(NBIO, 0, regBIF_BIF256_CI256_RC3X4_USB4_PCIE_M=
-ST_CTRL_3,
-+data);
-
--               if (def !=3D data)
--                       WREG32_SOC15(NBIO, 0, regBIF_BIF256_CI256_RC3X4_USB=
-4_PCIE_MST_CTRL_3, data);
--*/
- }
-
- static void nbio_v7_11_update_medium_grain_clock_gating(struct amdgpu_devi=
-ce *adev, diff --git a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_=
-0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset.h
-index ff30f04be591..7ee3d291120d 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_offset.h
-@@ -781,6 +781,8 @@
- #define regBIF_BIF256_CI256_RC3X4_USB4_PCIE_CNTL2_BASE_IDX                =
-                              5
- #define regBIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1               =
-                              0x420187
- #define regBIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1_BASE_IDX      =
-                              5
-+#define regBIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3                    =
-                              0x4201c6
-+#define regBIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3_BASE_IDX           =
-                              5
-
-
- // addressBlock: nbio_nbif0_bif_cfg_dev0_rc_bifcfgdecp
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_sh_mask.=
-h b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_sh_mask.h
-index 7f131999a263..eb8c556d9c93 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_sh_mask.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_11_0_sh_mask.h
-@@ -24646,6 +24646,35 @@
- //BIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1
- #define BIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1__MST_MEM_LS_EN_MA=
-SK                                  0x00000001L
- #define BIF_BIF256_CI256_RC3X4_USB4_PCIE_TX_POWER_CTRL_1__REPLAY_MEM_LS_EN=
-_MASK                               0x00000008L
-+//BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_MAX_PAYLOAD_S=
-IZE_MODE__SHIFT                     0x8
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_PRIV_MAX_PAYL=
-OAD_SIZE__SHIFT                     0x9
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_10BIT_TAG_EN_OVERR=
-IDE__SHIFT                          0xb
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_10BIT_TAG_EN_=
-OVERRIDE__SHIFT                     0xd
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__MST_DROP_SYNC_FLOOD_E=
-N__SHIFT                            0xf
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_MAX_PAYLOAD_SIZE_M=
-ODE__SHIFT                          0x10
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_PRIV_MAX_PAYLOAD_S=
-IZE__SHIFT                          0x11
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_MAX_READ_REQUEST_S=
-IZE_MODE__SHIFT                     0x14
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_PRIV_MAX_READ_REQU=
-EST_SIZE__SHIFT                     0x15
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_MAX_READ_SAFE_MODE=
-__SHIFT                             0x18
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_EXTENDED_TAG_EN_OV=
-ERRIDE__SHIFT                       0x19
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_MAX_READ_REQU=
-EST_SIZE_MODE__SHIFT                0x1b
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_MAX_READ_REQU=
-EST_SIZE_PRIV__SHIFT                0x1c
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_EXTENDED_TAG_=
-EN_OVERRIDE__SHIFT                  0x1e
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_MAX_PAYLOAD_S=
-IZE_MODE_MASK                       0x00000100L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_PRIV_MAX_PAYL=
-OAD_SIZE_MASK                       0x00000600L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_10BIT_TAG_EN_OVERR=
-IDE_MASK                            0x00001800L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_10BIT_TAG_EN_=
-OVERRIDE_MASK                       0x00006000L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__MST_DROP_SYNC_FLOOD_E=
-N_MASK                              0x00008000L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_MAX_PAYLOAD_SIZE_M=
-ODE_MASK                            0x00010000L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_PRIV_MAX_PAYLOAD_S=
-IZE_MASK                            0x000E0000L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_MAX_READ_REQUEST_S=
-IZE_MODE_MASK                       0x00100000L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_PRIV_MAX_READ_REQU=
-EST_SIZE_MASK                       0x00E00000L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_MAX_READ_SAFE_MODE=
-_MASK                               0x01000000L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_EXTENDED_TAG_EN_OV=
-ERRIDE_MASK                         0x06000000L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_MAX_READ_REQU=
-EST_SIZE_MODE_MASK                  0x08000000L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_MAX_READ_REQU=
-EST_SIZE_PRIV_MASK                  0x30000000L
-+#define BIF_BIF256_CI256_RC3X4_USB4_PCIE_MST_CTRL_3__CI_SWUS_EXTENDED_TAG_=
-EN_OVERRIDE_MASK                    0xC0000000L
-
- // addressBlock: nbio_nbif0_bif_cfg_dev0_rc_bifcfgdecp
- //BIF_CFG_DEV0_RC0_VENDOR_ID
---
-2.25.1
++	r = amdgpu_ib_get(adev, NULL, 20, AMDGPU_IB_POOL_DIRECT, &ib);
+ 	if (r)
+ 		goto err1;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index e3ff6e46f3f7..69c500910746 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -1039,8 +1039,8 @@ static int gfx_v9_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	gpu_addr = adev->wb.gpu_addr + (index * 4);
+ 	adev->wb.wb[index] = cpu_to_le32(0xCAFEDEAD);
+ 	memset(&ib, 0, sizeof(ib));
+-	r = amdgpu_ib_get(adev, NULL, 16,
+-					AMDGPU_IB_POOL_DIRECT, &ib);
++
++	r = amdgpu_ib_get(adev, NULL, 20, AMDGPU_IB_POOL_DIRECT, &ib);
+ 	if (r)
+ 		goto err1;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index 40d06d32bb74..4a09cc0d8ce0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -297,8 +297,8 @@ static int gfx_v9_4_3_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	gpu_addr = adev->wb.gpu_addr + (index * 4);
+ 	adev->wb.wb[index] = cpu_to_le32(0xCAFEDEAD);
+ 	memset(&ib, 0, sizeof(ib));
+-	r = amdgpu_ib_get(adev, NULL, 16,
+-			  AMDGPU_IB_POOL_DIRECT, &ib);
++
++	r = amdgpu_ib_get(adev, NULL, 20, AMDGPU_IB_POOL_DIRECT, &ib);
+ 	if (r)
+ 		goto err1;
+ 
+-- 
+2.39.2
 
