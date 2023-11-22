@@ -4,66 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 708A9C61D97
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Nov 2023 15:11:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE4C0C61D97
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Nov 2023 15:17:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 091B110E65A;
-	Wed, 22 Nov 2023 15:11:42 +0000 (UTC)
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B0C310E65A
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Nov 2023 15:11:40 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-40b2979a74eso14478735e9.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Nov 2023 07:11:40 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93CCC10E12E;
+	Wed, 22 Nov 2023 15:17:23 +0000 (UTC)
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13EC610E12E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Nov 2023 15:16:03 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2c871890c12so62544221fa.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Nov 2023 07:16:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1700665898; x=1701270698; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=TnkAUI6tyMrGbaSyTNTqw1sM0D2avYCMZvR4okKJDbA=;
- b=MQltGFidn3NDVtuTqvbWSaOqszPcjOkiA7xB/+6RpDo/bp5qnVt0vAiAu3l6k3elL5
- kweCUYQyXOwPofNuUr3aLl546DPZ2mYneq1RSTf6bGPfJfQfuk8Q1mnoCpKxUCAH6bNI
- L3W3YVftp0jacEqYY+ymkjEJqNtTk/Eg6KEpicAn2tLsdPelmAGTSJlJ2dWwTdd3rqEC
- YzNVlf88Qgn7GI70qSHJWyTSEWDixjBA4/AE2UlcMcBH3xjr+nlohAYiq4PLSDuYJ+Lz
- WCUWVZYSRtenq9NRZHsyzfHwNAKjEOL9bOv7dKcxEznlELvdqmukDOrLowT2ML1uRs3b
- d70g==
+ d=bell-sw-com.20230601.gappssmtp.com; s=20230601; t=1700666161; x=1701270961;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=k4la8UpxEoYpxdcxRxCTap7JavEAWyXMLLtxwyAIxnQ=;
+ b=UrtlSFn4Ygqch0iabtfxj50BtgT95EyuY5qQ3Qbo5SNqK9ko9dlhX858+eoCJ3wwh3
+ JuwBKaQzGRrxlgMl8W1ENNriw6WM8ryNuNRtdzf/XMoFK5CbuCPbHXoI0I7HnJKmZFlt
+ UAb0eq4DObRD39DnB9Qwbz+KKYoDtsi9dyuHCw+fOKbS6UKtgCGwK5YEK79xIhkUZ6cC
+ WjxGWLNf8Njf+ackZIOtqbpkcWLpSwxD87sWdo+n4sbPm64E00QH0SD60fcoTpsCmxNJ
+ LKRNyjyBNSboSJfjK4bR6Tk5mk7lIsYyMtBwDc/oHfCEjIgcRa/IwiNwj0LaB/7HFaZC
+ 2amQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700665898; x=1701270698;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=TnkAUI6tyMrGbaSyTNTqw1sM0D2avYCMZvR4okKJDbA=;
- b=bssVBggRhz2XpM4eaPJONg699tCBn6lNZz9T6HbgLLRI+wm2puvwPFxs9u3QqlPOsc
- 2CealIB7Rji/Hzu8QI1KDTvBIn8u1pVBtX1vreV/ndGZgE2zLZvzZR6dMMg2pRdSkg0T
- jHsFJn+2Nfa2BZuhciSgOg7FWrVHC2VSxRGkHk8eYxpU+Y02zgX/MiHCUvb7i7v0qU7W
- qdJMvAqpHYYsm6PX62gmuTp0ubtklU/x1Mk+77oSsk4CzygSOIiAdtbXHktL3cBWmmzz
- njwU5DOYWrWSOUuo/rXka06bEi5+bWQsuY2b+zlpyRmOPr9uRZBDyuHvHvJzp+VgLyWg
- SuZg==
-X-Gm-Message-State: AOJu0Ywi1NK9ylcRnrnn/ouMeE1IfkfhSHar+NzaSdIzrDxe06XYr/No
- ZWk5NPgGp8wdIJMXl9H2HiU=
-X-Google-Smtp-Source: AGHT+IFkA1DXqXPXMtQ1dVvQ6lHz3Ek7Os0WiW576SddNnh6b8XNxOHKzQ5xQSYqz5869htfEhs7fw==
-X-Received: by 2002:a05:600c:314c:b0:401:b53e:6c3b with SMTP id
- h12-20020a05600c314c00b00401b53e6c3bmr1966177wmo.6.1700665898314; 
- Wed, 22 Nov 2023 07:11:38 -0800 (PST)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ d=1e100.net; s=20230601; t=1700666161; x=1701270961;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=k4la8UpxEoYpxdcxRxCTap7JavEAWyXMLLtxwyAIxnQ=;
+ b=lmiSOZTitSLdPLirAYsvmIX7xteUYy+ziCPA/4pRw1bfRpcNG9i0umotWF/0mUxovn
+ 5SxRdk7Un/LtB8piizwfPn7usFid+IiJ31Rj5V9miNJ6FxmUmfC2CUacf7nLS427ORyQ
+ QV//p1KOCX21lEQ3lEFc/gxucRF6+TJKRXPJJdQ45nhZnTWPz+9ePtEDUFfs5D3nTH5d
+ FDB9mQ5CphqZHIkQbPmBUCpzRkqDL8U0QslUGD1SyT7ozHZuRFR0JeXVQv8uV66Aqhqf
+ Yz20+JUSb0JB3ll5C/k+3P+nDXBAMY9L6JtCPoI+MW1vPoS8zcYXVSvgbmIkAINk1i24
+ /dxg==
+X-Gm-Message-State: AOJu0YyUtugLJtOzo1YwetT9F8VFsAbyJ5E6ilx8FRXzpf9MDlltR7z8
+ 4jVJGXNywx0buEiY3BzBiBwnZOaWb7xSzFqrXQ==
+X-Google-Smtp-Source: AGHT+IE7acJ+mrGKI8dEez9Jr/Q/F4Vd3LZiM8dT1TFVtj+xd4Ur812Xsa7Cv6FUQui9CyMjIrBpIw==
+X-Received: by 2002:a2e:9f52:0:b0:2c5:38d:f80b with SMTP id
+ v18-20020a2e9f52000000b002c5038df80bmr1914914ljk.6.1700666161007; 
+ Wed, 22 Nov 2023 07:16:01 -0800 (PST)
+Received: from belltron.int.bell-sw.com ([95.161.223.113])
  by smtp.gmail.com with ESMTPSA id
- h12-20020a05600c314c00b004097881d5f0sm2503446wmo.29.2023.11.22.07.11.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Nov 2023 07:11:37 -0800 (PST)
-Message-ID: <419cbbcb-a064-4b89-b5f2-4f916c84ac08@gmail.com>
-Date: Wed, 22 Nov 2023 16:11:36 +0100
+ t13-20020a2e8e6d000000b002c87988459dsm1084206ljk.86.2023.11.22.07.16.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Nov 2023 07:16:00 -0800 (PST)
+From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amd/display: avoid amdgpu_crtc dereference before crtc
+ check
+Date: Wed, 22 Nov 2023 18:15:25 +0300
+Message-Id: <20231122151525.66910-1-aleksei.kodanev@bell-sw.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: Correct the documentation of name and exp_name
- symbols
-Content-Language: en-US
-To: Ramesh Errabolu <Ramesh.Errabolu@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20231121181152.33213-1-Ramesh.Errabolu@amd.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20231121181152.33213-1-Ramesh.Errabolu@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 22 Nov 2023 15:17:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,52 +72,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 21.11.23 um 19:11 schrieb Ramesh Errabolu:
-> Fix the documentation of struct dma_buf members name and exp_name
-> as to how these members are to be used and accessed.
->
-> Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
+'amdgpu_crtc' is set with 'container_of(crtc, ...)', and at
+the same time 'crtc' ptr is checked for NULL before and after
+'amdgpu_crtc' dereference in args passed to drm_dbg_atomic():
 
-Looks good to me, but you need to send this to dri-devel and a bunch of 
-other lists as well.
+  * when setting 'struct dm_crtc_state *crtc_state'
+  * inside amdgpu_dm_plane_get_cursor_position(), the function
+    doesn't set position.enable when crtc is NULL.
 
-Try to use the get_maintainer script to find all recipients.
+Considering all this, it is safer to move drm_dbg_atomic() after
+'position.enable' check. It can guarantee that 'crtc' is valid
+and that 'amdgpu_crtc' also has a valid pointer.
 
-Christian.
+Detected using the static analysis tool - Svace.
 
-> ---
->   include/linux/dma-buf.h | 11 +++++++----
->   1 file changed, 7 insertions(+), 4 deletions(-)
->
-> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> index 3f31baa3293f..8ff4add71f88 100644
-> --- a/include/linux/dma-buf.h
-> +++ b/include/linux/dma-buf.h
-> @@ -343,16 +343,19 @@ struct dma_buf {
->   	/**
->   	 * @exp_name:
->   	 *
-> -	 * Name of the exporter; useful for debugging. See the
-> -	 * DMA_BUF_SET_NAME IOCTL.
-> +	 * Name of the exporter; useful for debugging. Must not be NULL
->   	 */
->   	const char *exp_name;
->   
->   	/**
->   	 * @name:
->   	 *
-> -	 * Userspace-provided name; useful for accounting and debugging,
-> -	 * protected by dma_resv_lock() on @resv and @name_lock for read access.
-> +	 * Userspace-provided name. Default value is NULL. If not NULL,
-> +	 * length cannot be longer than DMA_BUF_NAME_LEN, including NIL
-> +	 * char. Useful for accounting and debugging. Read/Write accesses
-> +	 * are protected by @name_lock
-> +	 *
-> +	 * See the IOCTLs DMA_BUF_SET_NAME or DMA_BUF_SET_NAME_A/B
->   	 */
->   	const char *name;
->   
+Signed-off-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 116121e647ca..47d8d569d9eb 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1242,10 +1242,6 @@ void amdgpu_dm_plane_handle_cursor_update(struct drm_plane *plane,
+ 	if (!plane->state->fb && !old_plane_state->fb)
+ 		return;
+ 
+-	drm_dbg_atomic(plane->dev, "crtc_id=%d with size %d to %d\n",
+-		       amdgpu_crtc->crtc_id, plane->state->crtc_w,
+-		       plane->state->crtc_h);
+-
+ 	ret = amdgpu_dm_plane_get_cursor_position(plane, crtc, &position);
+ 	if (ret)
+ 		return;
+@@ -1261,6 +1257,10 @@ void amdgpu_dm_plane_handle_cursor_update(struct drm_plane *plane,
+ 		return;
+ 	}
+ 
++	drm_dbg_atomic(plane->dev, "crtc_id=%d with size %d to %d\n",
++		       amdgpu_crtc->crtc_id, plane->state->crtc_w,
++		       plane->state->crtc_h);
++
+ 	amdgpu_crtc->cursor_width = plane->state->crtc_w;
+ 	amdgpu_crtc->cursor_height = plane->state->crtc_h;
+ 
+-- 
+2.25.1
 
