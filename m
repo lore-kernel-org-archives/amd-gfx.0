@@ -4,53 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87D2EC27C40
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Nov 2023 20:24:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C610BC61D97
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Nov 2023 20:28:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22CC210E304;
-	Wed, 22 Nov 2023 20:23:57 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25EE910E300;
- Wed, 22 Nov 2023 20:23:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1700684634; x=1732220634;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=0hV/4dxSkvkv58x8jhfB0rBCjxCGhFBbb9yCA58ugb0=;
- b=UNJgjvZb7vUq1KKwQU3PD8fQHKHqZmgs6rAlHTShhsfRaGipMo7drniz
- YtWRp3gVHwmrW/Ud37ID7o4f06+WDzRclmKqro37g631ffCfH4jjEJR6I
- GXxn8s4tF6GanbeTETumPqL3O+edh+W1p3q4LWcwWRfNFczGZUvXSs4hH
- +EI9gTr8ff5NawMzQQpfoluhH9LRPg3ZH8e3e0s2m8WaAxDbfgBD+VXzn
- rMMFBQNwZra7278Cx/RmLzwdoAdGrbBARdYbTuBAAfWOo34Tx1U8zDcTq
- OGpTDAnZw8o4uTFuIoi1Mfg6eOR3WwW+/czOjRPjqKvtov+ymGBeZxujf w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10902"; a="389295085"
-X-IronPort-AV: E=Sophos;i="6.04,219,1695711600"; d="scan'208";a="389295085"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Nov 2023 12:23:53 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10902"; a="940392899"
-X-IronPort-AV: E=Sophos;i="6.04,219,1695711600"; d="scan'208";a="940392899"
-Received: from lkp-server01.sh.intel.com (HELO d584ee6ebdcc) ([10.239.97.150])
- by orsmga005.jf.intel.com with ESMTP; 22 Nov 2023 12:23:48 -0800
-Received: from kbuild by d584ee6ebdcc with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1r5tlC-0000qp-1t;
- Wed, 22 Nov 2023 20:23:46 +0000
-Date: Thu, 23 Nov 2023 04:23:18 +0800
-From: kernel test robot <lkp@intel.com>
-To: Samuel Holland <samuel.holland@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-riscv@lists.infradead.org
-Subject: Re: [PATCH 1/3] riscv: Add support for kernel-mode FPU
-Message-ID: <202311230215.DBFyWPqb-lkp@intel.com>
-References: <20231122030621.3759313-2-samuel.holland@sifive.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B2FB10E30E;
+	Wed, 22 Nov 2023 20:28:53 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BCD410E30E;
+ Wed, 22 Nov 2023 20:28:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=dGgYBtPaNkz+NxmhFb7ZvVAiX42aZMlvMkpZ6HlBFVw=; b=Feg7DpwLlnWD3LTpkA08M3Gg0F
+ LFRp0VDueKotk4Gcu5iGti02Rgic0ihhonOYctmgp7Q/nIUF6MehpE43BOKeUG23Io4d2G4snp+ng
+ gZRSma4BTxueV0gtjkK6BdAuj80fVgNAKqFHwcm85cEmFnraoas7zbvrcBAdkxPCxZDeT2iNLROAU
+ Tc+RAyhDz872OuZ2eC+TLRr0HZItiFXx1xb+mf6/ey3W1nAJSuSlOjp+JzewPlG5IeuFYTPQFvyRd
+ bxVFc7umgMDjyIwydXTk1ZwhHxGDfhdKaSpTFMOKGxgeG0rXvjkgrIBVMTDUQimpoVcti2ZRvaWTu
+ n6VdKdBg==;
+Received: from 189-69-166-209.dial-up.telesp.net.br ([189.69.166.209]
+ helo=[192.168.1.111]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1r5tpw-0065hQ-Ea; Wed, 22 Nov 2023 21:28:40 +0100
+Message-ID: <50ff86d4-5ce1-4ae5-aafb-ce3bc0069629@igalia.com>
+Date: Wed, 22 Nov 2023 17:28:35 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231122030621.3759313-2-samuel.holland@sifive.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 0/4] drm: Add support for atomic async page-flip
+Content-Language: en-US
+To: Hamza Mahfooz <hamza.mahfooz@amd.com>
+References: <20231122161941.320564-1-andrealmeid@igalia.com>
+ <cc10f6b0-e26e-4021-85ca-33cb1e58e937@amd.com>
+From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <cc10f6b0-e26e-4021-85ca-33cb1e58e937@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,55 +53,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pan Xinhui <Xinhui.Pan@amd.com>, llvm@lists.linux.dev,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Samuel Holland <samuel.holland@sifive.com>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, oe-kbuild-all@lists.linux.dev,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ intel-gfx@lists.freedesktop.org, Randy Dunlap <rdunlap@infradead.org>,
+ xaver.hugl@gmail.com, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Pekka Paalanen <ppaalanen@gmail.com>,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Samuel,
+Hi Hamza,
 
-kernel test robot noticed the following build errors:
+Em 22/11/2023 17:23, Hamza Mahfooz escreveu:
+> Hi André,
+> On 11/22/23 11:19, André Almeida wrote:
+>> Hi,
+>>
+>> This work from me and Simon adds support for DRM_MODE_PAGE_FLIP_ASYNC 
+>> through
+>> the atomic API. This feature is already available via the legacy API. 
+>> The use
+>> case is to be able to present a new frame immediately (or as soon as
+>> possible), even if after missing a vblank. This might result in 
+>> tearing, but
+>> it's useful when a high framerate is desired, such as for gaming.
+>>
+>> Differently from earlier versions, this one refuses to flip if any 
+>> prop changes
+>> for async flips. The idea is that the fast path of immediate page 
+>> flips doesn't
+>> play well with modeset changes, so only the fb_id can be changed.
+>>
+>> Tested with:
+>>   - Intel TigerLake-LP GT2
+>>   - AMD VanGogh
+> 
+> Have you had a chance to test this with VRR enabled? Since, I suspect
+> this series might break that feature.
+> 
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on linus/master v6.7-rc2 next-20231122]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Someone asked this question in an earlier version of this patch, and the 
+result is that VRR still works as expected. You can follow the thread at 
+this link:
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Samuel-Holland/riscv-Add-support-for-kernel-mode-FPU/20231122-111015
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20231122030621.3759313-2-samuel.holland%40sifive.com
-patch subject: [PATCH 1/3] riscv: Add support for kernel-mode FPU
-config: riscv-allnoconfig (https://download.01.org/0day-ci/archive/20231123/202311230215.DBFyWPqb-lkp@intel.com/config)
-compiler: clang version 17.0.0 (https://github.com/llvm/llvm-project.git 4a5ac14ee968ff0ad5d2cc1ffa0299048db4c88a)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231123/202311230215.DBFyWPqb-lkp@intel.com/reproduce)
+https://lore.kernel.org/lkml/b48bd1fc-fcb0-481b-8413-9210d44d709b@igalia.com/
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202311230215.DBFyWPqb-lkp@intel.com/
+I should have included this note at my cover letter, my bad.
 
-All errors (new ones prefixed by >>):
-
->> arch/riscv/kernel/process.c:229:19: error: use of undeclared identifier '__fstate_save'
-     229 | EXPORT_SYMBOL_GPL(__fstate_save);
-         |                   ^
->> arch/riscv/kernel/process.c:230:19: error: use of undeclared identifier '__fstate_restore'
-     230 | EXPORT_SYMBOL_GPL(__fstate_restore);
-         |                   ^
-   2 errors generated.
-
-
-vim +/__fstate_save +229 arch/riscv/kernel/process.c
-
-   228	
- > 229	EXPORT_SYMBOL_GPL(__fstate_save);
- > 230	EXPORT_SYMBOL_GPL(__fstate_restore);
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks,
+	André
