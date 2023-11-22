@@ -4,66 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82BF3C61D9C
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Nov 2023 14:05:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34A0DC61D9B
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Nov 2023 14:05:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DCBA10E645;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5998010E648;
 	Wed, 22 Nov 2023 14:05:14 +0000 (UTC)
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
- [IPv6:2607:f8b0:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21EF110E253
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Nov 2023 03:06:29 +0000 (UTC)
-Received: by mail-pf1-x431.google.com with SMTP id
- d2e1a72fcca58-6cb55001124so310680b3a.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Nov 2023 19:06:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=sifive.com; s=google; t=1700622388; x=1701227188; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=/Qgh5NSWFVqrYvvpg0jEH3io2ggLKyOiM/1ZRjzAMrY=;
- b=mAt84/9lm14N4r6RaTXZvNoGnUUmeN0puecKTHDYfmFMTnjs+2hSHZ00D0PGRHkgHZ
- EKqiwQhCu9aXirROBgtyuPO/iD/DO3jstkp/KVtcNYE92QbSLGDzAOTsnBQc9qjbu5BJ
- UkAMLtcYVS8BxFvn7GdhtNOgq7lq01hL6o4Z5wouRAhmaOjd3JEhh7PddSIC914P28nK
- iTtx7SFZxfrQ0xZRg2RIklZssNugMRmFbmmuOAh/0H1R1WQrpur2x/C/20Wn6RkYJ3EN
- Y0UPAUoapXdz+jbDty9SlIsf/V9Fl0kWn9P4vnfQgG+VrJ3Nk0hD83VdPGns7B96Nz88
- /kuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700622388; x=1701227188;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=/Qgh5NSWFVqrYvvpg0jEH3io2ggLKyOiM/1ZRjzAMrY=;
- b=II5V4o7SC5kg+3g1UHcRMiwOWA2Z0SO26hXnqHDNi0Gyf4WRell8tRnsLh/LyZRjyf
- tWTXH7H6H9+/uhv25ygYVxObAdauKIlk1lousdu06kF2offDQqeO2bvkWICSXdnkxrdp
- ucqQ9NtBXHHVjnABDBgVXSturA6aFx7tQMGhlh9LPjTpJzqMye/cKYG/B1orXP3zfpVh
- zXuS9zRmxGQQnfQO9r0jL8edm76Cy5BK+MTjcXvCXSf7Pgv683efLqFl2xrBbMB0p/hq
- jwrJRwKwKsxuzjul71a2Z2mEts8k6s5q2HCdW4Z0YOF2kSx7Qktd2b5QNtqbJzSvxWJN
- 73MA==
-X-Gm-Message-State: AOJu0YxLad5S1+7l4b+Xn4UH3v5JQjR3oyWzR8/fL1A90iscBfBBOhrA
- YtN96iGiSx5dy9noEuw9RUOzpQ==
-X-Google-Smtp-Source: AGHT+IERIccwRaRQ+wlnx1zMjy0fsc3cDGpf4RjMA9LPr92p23dqVKDgXQEo3A0Wn14b3XN9NyJnpA==
-X-Received: by 2002:a05:6a20:7da0:b0:17a:4871:63fd with SMTP id
- v32-20020a056a207da000b0017a487163fdmr1833586pzj.0.1700622388655; 
- Tue, 21 Nov 2023 19:06:28 -0800 (PST)
-Received: from sw06.internal.sifive.com ([4.53.31.132])
- by smtp.gmail.com with ESMTPSA id
- s2-20020aa78282000000b006a77343b0ccsm8614917pfm.89.2023.11.21.19.06.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Nov 2023 19:06:28 -0800 (PST)
-From: Samuel Holland <samuel.holland@sifive.com>
-To: Palmer Dabbelt <palmer@dabbelt.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-riscv@lists.infradead.org
-Subject: [PATCH 2/3] riscv: Factor out riscv-march-y to a separate Makefile
-Date: Tue, 21 Nov 2023 19:05:14 -0800
-Message-ID: <20231122030621.3759313-3-samuel.holland@sifive.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231122030621.3759313-1-samuel.holland@sifive.com>
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAA1E10E5DC;
+ Wed, 22 Nov 2023 08:33:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=c3B+JcPJMghWo+nJ71PzWYCU8IF2ZA/XTIwpeIzvQJc=; b=iry9qYaAzZ72Yw7RgNmlMyzxch
+ uBcG/uUni+Zl/djnDtICDx2l+t+X3Ms06RvQs4Lb3itE+ICRA3BnUQ28ve4901i8R99Of7L2yah8D
+ RblXmxBNOT8SZ7EBXHivnR/9JonEkP8AEz38O1JNMe914sZQ5FMz2k2Jr39lzxrjJl/9/hXlr6jaT
+ 12mYDAlJbu2ZIMzyAGZU06bSsjjuQnN46n5Ddo7tAMPWslUGtxgB2dPGvggIsGAiGH+vRaouJkXNV
+ grvsGAUvQL6fLENnXHV+maDUx3GbhmSxIZtB7YLNaGffCD8FCcCGJH+zdWAY+BERdes5OswtdPonj
+ UpNoiBaA==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.96 #2 (Red Hat
+ Linux)) id 1r5ifs-0014GP-2o; Wed, 22 Nov 2023 08:33:32 +0000
+Date: Wed, 22 Nov 2023 00:33:32 -0800
+From: Christoph Hellwig <hch@infradead.org>
+To: Samuel Holland <samuel.holland@sifive.com>
+Subject: Re: [PATCH 1/3] riscv: Add support for kernel-mode FPU
+Message-ID: <ZV283NfE/K5zLXDD@infradead.org>
 References: <20231122030621.3759313-1-samuel.holland@sifive.com>
+ <20231122030621.3759313-2-samuel.holland@sifive.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231122030621.3759313-2-samuel.holland@sifive.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mailman-Approved-At: Wed, 22 Nov 2023 14:05:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,77 +50,31 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pan Xinhui <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Samuel Holland <samuel.holland@sifive.com>,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
+ Pan Xinhui <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Palmer Dabbelt <palmer@dabbelt.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ linux-riscv@lists.infradead.org, Harry Wentland <harry.wentland@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Since it is not possible to incrementally add/remove extensions from the
-compiler's ISA string by appending arguments, any code that wants to
-modify the ISA string must recreate the whole thing. To support this,
-factor out the logic for generating the -march argument so it can be
-reused where needed.
+On Tue, Nov 21, 2023 at 07:05:13PM -0800, Samuel Holland wrote:
+> +static inline void kernel_fpu_begin(void)
+> +{
+> +	preempt_disable();
+> +	fstate_save(current, task_pt_regs(current));
+> +	csr_set(CSR_SSTATUS, SR_FS);
+> +}
+> +
+> +static inline void kernel_fpu_end(void)
+> +{
+> +	csr_clear(CSR_SSTATUS, SR_FS);
+> +	fstate_restore(current, task_pt_regs(current));
+> +	preempt_enable();
+> +}
 
-Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
----
-
- arch/riscv/Makefile     | 12 +-----------
- arch/riscv/Makefile.isa | 15 +++++++++++++++
- 2 files changed, 16 insertions(+), 11 deletions(-)
- create mode 100644 arch/riscv/Makefile.isa
-
-diff --git a/arch/riscv/Makefile b/arch/riscv/Makefile
-index a74be78678eb..c738eafe67a0 100644
---- a/arch/riscv/Makefile
-+++ b/arch/riscv/Makefile
-@@ -58,22 +58,12 @@ ifeq ($(CONFIG_SHADOW_CALL_STACK),y)
- 	KBUILD_LDFLAGS += --no-relax-gp
- endif
- 
--# ISA string setting
--riscv-march-$(CONFIG_ARCH_RV32I)	:= rv32ima
--riscv-march-$(CONFIG_ARCH_RV64I)	:= rv64ima
--riscv-march-$(CONFIG_FPU)		:= $(riscv-march-y)fd
--riscv-march-$(CONFIG_RISCV_ISA_C)	:= $(riscv-march-y)c
--riscv-march-$(CONFIG_RISCV_ISA_V)	:= $(riscv-march-y)v
--
- ifdef CONFIG_TOOLCHAIN_NEEDS_OLD_ISA_SPEC
- KBUILD_CFLAGS += -Wa,-misa-spec=2.2
- KBUILD_AFLAGS += -Wa,-misa-spec=2.2
--else
--riscv-march-$(CONFIG_TOOLCHAIN_NEEDS_EXPLICIT_ZICSR_ZIFENCEI) := $(riscv-march-y)_zicsr_zifencei
- endif
- 
--# Check if the toolchain supports Zihintpause extension
--riscv-march-$(CONFIG_TOOLCHAIN_HAS_ZIHINTPAUSE) := $(riscv-march-y)_zihintpause
-+include $(srctree)/arch/riscv/Makefile.isa
- 
- # Remove F,D,V from isa string for all. Keep extensions between "fd" and "v" by
- # matching non-v and non-multi-letter extensions out with the filter ([^v_]*)
-diff --git a/arch/riscv/Makefile.isa b/arch/riscv/Makefile.isa
-new file mode 100644
-index 000000000000..e10c77e26fe6
---- /dev/null
-+++ b/arch/riscv/Makefile.isa
-@@ -0,0 +1,15 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+
-+# ISA string setting
-+riscv-march-$(CONFIG_ARCH_RV32I)	:= rv32ima
-+riscv-march-$(CONFIG_ARCH_RV64I)	:= rv64ima
-+riscv-march-$(CONFIG_FPU)		:= $(riscv-march-y)fd
-+riscv-march-$(CONFIG_RISCV_ISA_C)	:= $(riscv-march-y)c
-+riscv-march-$(CONFIG_RISCV_ISA_V)	:= $(riscv-march-y)v
-+
-+ifndef CONFIG_TOOLCHAIN_NEEDS_OLD_ISA_SPEC
-+riscv-march-$(CONFIG_TOOLCHAIN_NEEDS_EXPLICIT_ZICSR_ZIFENCEI) := $(riscv-march-y)_zicsr_zifencei
-+endif
-+
-+# Check if the toolchain supports Zihintpause extension
-+riscv-march-$(CONFIG_TOOLCHAIN_HAS_ZIHINTPAUSE) := $(riscv-march-y)_zihintpause
--- 
-2.42.0
+Is there any critical reason to inline these two?  I'd much rather see
+them out of line and exported instead of the low-level helpers.
 
