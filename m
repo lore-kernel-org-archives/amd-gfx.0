@@ -4,64 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED2E9C61D9C
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Nov 2023 14:05:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29B4AC61D97
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Nov 2023 14:05:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D237C10E64C;
-	Wed, 22 Nov 2023 14:05:18 +0000 (UTC)
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [IPv6:2607:f8b0:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B111810E2B7
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Nov 2023 03:06:26 +0000 (UTC)
-Received: by mail-oi1-x22d.google.com with SMTP id
- 5614622812f47-3b83fc26e4cso46039b6e.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Nov 2023 19:06:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=sifive.com; s=google; t=1700622386; x=1701227186; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=n4I/LD7GmsgMbduRtQjHbuBVYFqV+JeYB9eIa+Lz0UU=;
- b=JnsVzVcTpISkoewDdl55KHfcycitatFg/qQDOtcHmGJ0FgqktZcLUzf42AdSwcnZyg
- 262Iu3RQs27RnRAHUN8I/m7QrUOUmy63jqdLNo4ILkXkDJZC6fly99bI6CnwdiETqIh8
- TNRJfYtlG3jxwOU6wz26XLGsiMRC9aeQRjVmhg8mMpTDLee+pPshmRtTsNLpyrNmwQp6
- C1p3SFJC06U5UGxpGCOedDy/LqALtpN4lYUFxnz5k19SQF3TNFJwsi0jLRMbTq+hb75q
- GGuP6BMxpEjCkBUONU5XCts3adPYrqYG0LncOb7k+upYM91/elHezcgwl2GaPDJ/eVL+
- +YBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700622386; x=1701227186;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=n4I/LD7GmsgMbduRtQjHbuBVYFqV+JeYB9eIa+Lz0UU=;
- b=J5mk5fVR+mOykqesAcE6bVyCzxIt6wlw18Ourys651xUDqG/DQZJ9YyAiXyW0foun2
- PsE5dlz9FFeNLDQOY1ShwbmydqzRGSAn4LIxEAexHCpczJq8VCaeZsRg+CXXk+yj49vm
- LZSnD7zUnaCVo+civw/HLRbL2Mky9MUkbw9X3ERX+1x5wW+TH5JkY0wGGru5Z0BY27SD
- dHrQGxaj/I+KNs/HGP5c1Yve4WmcIj/qeuMMyIC9d5nAKRrYjQBHUeQUfi4UkK2IHP+Q
- Mokm2hijCsXI4we5IAcUEafjcQ4EZphMd2D4Vaap7LTE6fqBsrebgroc78/AgjDhkwIG
- 4ETA==
-X-Gm-Message-State: AOJu0YyWsj6gZQDEdYn7M7AAZHbsoLC6juEBRVlb8Yjf4Bq1nxhs23FO
- pLuvUD0p4sGWcHXj3VsQDxg2Jg==
-X-Google-Smtp-Source: AGHT+IEIpXI2h8pXg+ykpqNNYZiarqi3t5LKkDhtbal14Y2nnzqjhX+0ng3mTUwJLxHE3tG0iOG9Lg==
-X-Received: by 2002:a05:6808:bce:b0:3b8:3ec6:8a41 with SMTP id
- o14-20020a0568080bce00b003b83ec68a41mr673776oik.45.1700622383389; 
- Tue, 21 Nov 2023 19:06:23 -0800 (PST)
-Received: from sw06.internal.sifive.com ([4.53.31.132])
- by smtp.gmail.com with ESMTPSA id
- s2-20020aa78282000000b006a77343b0ccsm8614917pfm.89.2023.11.21.19.06.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Nov 2023 19:06:23 -0800 (PST)
-From: Samuel Holland <samuel.holland@sifive.com>
-To: Palmer Dabbelt <palmer@dabbelt.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-riscv@lists.infradead.org
-Subject: [PATCH 0/3] riscv: Add kernel-mode FPU support for amdgpu
-Date: Tue, 21 Nov 2023 19:05:12 -0800
-Message-ID: <20231122030621.3759313-1-samuel.holland@sifive.com>
-X-Mailer: git-send-email 2.42.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E64210E64D;
+	Wed, 22 Nov 2023 14:05:19 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA26E10E5E1;
+ Wed, 22 Nov 2023 08:40:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=D5blU8RG7wrWZ9Dq/ESX/eAs3vI1C5+aiUl11b64TJI=; b=IkSrqbabsxJtFB+ZQhe2j8K6x6
+ gmah3bew0TPP0ysiQgpNZUFrCqPuz5lHJ+SRgg6OImxizgLz7xojou4jvO85FIqRpS8QO0tAUdKHE
+ rA4Uw6YYjcm+0HTujZSCoMbzEXPyjWNDQi5h4dJLM9wM/Ln2IYZXZY/WTR+WxIMJhILJ9DeeFlb8z
+ Sh9AFZK843MfY4JIxtlkW0I9zICdKW+ntXEodBFLQaC6YNvuXWjW87h+UB/TmK1UMAkUGI6VTa+3d
+ vVnSMTFNScSJr0L8JDnsTrn8iTyZqAK/m1GbJ6lYvAbf33DcWE787BrnJDz6876cmhrbYs26CtV3T
+ 0kSji68g==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.96 #2 (Red Hat
+ Linux)) id 1r5imd-0015Nr-35; Wed, 22 Nov 2023 08:40:31 +0000
+Date: Wed, 22 Nov 2023 00:40:31 -0800
+From: Christoph Hellwig <hch@infradead.org>
+To: Samuel Holland <samuel.holland@sifive.com>
+Subject: Re: [PATCH 3/3] drm/amd/display: Support DRM_AMD_DC_FP on RISC-V
+Message-ID: <ZV2+f/yu3C6xTVqn@infradead.org>
+References: <20231122030621.3759313-1-samuel.holland@sifive.com>
+ <20231122030621.3759313-4-samuel.holland@sifive.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231122030621.3759313-4-samuel.holland@sifive.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mailman-Approved-At: Wed, 22 Nov 2023 14:05:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,39 +50,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pan Xinhui <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Samuel Holland <samuel.holland@sifive.com>,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, dri-devel@lists.freedesktop.org,
+ linux-riscv@lists.infradead.org, David Airlie <airlied@gmail.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Masahiro Yamada <masahiroy@kernel.org>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Nicolas Schier <nicolas@fjasle.eu>,
+ Will Deacon <will@kernel.org>, linux-kbuild@vger.kernel.org,
+ Leo Li <sunpeng.li@amd.com>, Nathan Chancellor <nathan@kernel.org>,
+ Josh Poimboeuf <jpoimboe@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ Pan Xinhui <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
+ linux-kernel@vger.kernel.org, Palmer Dabbelt <palmer@dabbelt.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ linuxppc-dev@lists.ozlabs.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This series allows using newer AMD GPUs (e.g. Navi) on RISC-V boards
-such as SiFive's HiFive Unmatched. Those GPUs need CONFIG_DRM_AMD_DC_FP
-to initialize, which requires kernel-mode FPU support.
+> -	select DRM_AMD_DC_FP if (X86 || LOONGARCH || (PPC64 && ALTIVEC) || (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
+> +	select DRM_AMD_DC_FP if ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG
+> +	select DRM_AMD_DC_FP if PPC64 && ALTIVEC
+> +	select DRM_AMD_DC_FP if RISCV && FPU
+> +	select DRM_AMD_DC_FP if LOONGARCH || X86
 
-I'm sending these patches as one series so there is a user along with
-the infrastructure being added. I assume patch 3 would be merged
-separately, after patches 1-2 are merged.
+This really is a mess.  Can you add a ARCH_HAS_KERNEL_FPU_SUPPORT
+symbol that all architetures that have it select instead, and them
+make DRM_AMD_DC_FP depend on it?
 
+> -#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
+> +#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH) || defined(CONFIG_RISCV)
+>  		kernel_fpu_begin();
+>  #elif defined(CONFIG_PPC64)
+>  		if (cpu_has_feature(CPU_FTR_VSX_COMP))
+> @@ -122,7 +124,7 @@ void dc_fpu_end(const char *function_name, const int line)
+>  
+>  	depth = __this_cpu_dec_return(fpu_recursion_depth);
+>  	if (depth == 0) {
+> -#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
+> +#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH) || defined(CONFIG_RISCV)
+>  		kernel_fpu_end();
+>  #elif defined(CONFIG_PPC64)
+>  		if (cpu_has_feature(CPU_FTR_VSX_COMP))
 
-Samuel Holland (3):
-  riscv: Add support for kernel-mode FPU
-  riscv: Factor out riscv-march-y to a separate Makefile
-  drm/amd/display: Support DRM_AMD_DC_FP on RISC-V
+And then this mess can go away.  We'll need to decide if we want to
+cover all the in-kernel vector support as part of it, which would
+seem reasonable to me, or have a separate generic kernel_vector_begin
+with it's own option.
 
- arch/riscv/Makefile                            | 12 +-----------
- arch/riscv/Makefile.isa                        | 15 +++++++++++++++
- arch/riscv/include/asm/switch_to.h             | 14 ++++++++++++++
- arch/riscv/kernel/process.c                    |  3 +++
- drivers/gpu/drm/amd/display/Kconfig            |  5 ++++-
- drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c |  6 ++++--
- drivers/gpu/drm/amd/display/dc/dml/Makefile    |  6 ++++++
- drivers/gpu/drm/amd/display/dc/dml2/Makefile   |  6 ++++++
- 8 files changed, 53 insertions(+), 14 deletions(-)
- create mode 100644 arch/riscv/Makefile.isa
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> index ea7d60f9a9b4..5c8f840ef323 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> @@ -43,6 +43,12 @@ dml_ccflags := -mfpu=64
+>  dml_rcflags := -msoft-float
+>  endif
+>  
+> +ifdef CONFIG_RISCV
+> +include $(srctree)/arch/riscv/Makefile.isa
+> +# Remove V from the ISA string, like in arch/riscv/Makefile, but keep F and D.
+> +dml_ccflags := -march=$(shell echo $(riscv-march-y) | sed -E 's/(rv32ima|rv64ima)([^v_]*)v?/\1\2/')
+> +endif
+> +
+>  ifdef CONFIG_CC_IS_GCC
+>  ifneq ($(call gcc-min-version, 70100),y)
+>  IS_OLD_GCC = 1
 
--- 
-2.42.0
+And this is again not really something we should be doing.
+Instead we need a generic way in Kconfig to enable FPU support
+for an object file or set of, that the arch support can hook
+into.
 
+Btw, I'm also really worried about folks using the FPU instructions
+outside the kernel_fpu_begin/end windows in general (not directly
+related to the RISC-V support).  Can we have objecttool checks
+for that similar to only allowing the unsafe uaccess in the
+uaccess begin/end pairs?
