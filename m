@@ -4,65 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B64FC61D97
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Nov 2023 14:05:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED2E9C61D9C
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Nov 2023 14:05:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B23F810E64A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D237C10E64C;
 	Wed, 22 Nov 2023 14:05:18 +0000 (UTC)
-Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
- [IPv6:2607:f8b0:4864:20::432])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDD2F10E253
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Nov 2023 03:06:27 +0000 (UTC)
-Received: by mail-pf1-x432.google.com with SMTP id
- d2e1a72fcca58-6be1bc5aa1cso6365940b3a.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Nov 2023 19:06:27 -0800 (PST)
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B111810E2B7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Nov 2023 03:06:26 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id
+ 5614622812f47-3b83fc26e4cso46039b6e.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Nov 2023 19:06:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=sifive.com; s=google; t=1700622387; x=1701227187; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xQTyfvTA/sT9rfHfHNgSFRFvzietrqmBvaroSzp1CzI=;
- b=kqDa1l0SFNK8I0UmSRPYq5Totg+A+dltq8plBO3oEKgTogUIlSCsNBF+leACgpNIST
- KDxwIF8BDzTcopL7HCK8LstcH4QFfzaPZiGwAtKTOkMgYg9OGwJZPPXGMQi5WoTUDdgF
- o8cNF+r2JiU6Fj38gB2DkDHfDriMOQ3NxkK5kMfqhoRFcHugANaYBQMI6aXkgyHsodjG
- 0y4qJM2ApnlNitDPep9Rw+hyPMqvhouSM5IiN5kmKveCY+M77WulbeRAlo9bAhJ6NMVG
- x03x0rxDsMb49in5gAdaTaYHB3PprWazM8w5cWmtYTn/Kpusl0iyUEWdQc98z6d+8CWH
- yJfw==
+ d=sifive.com; s=google; t=1700622386; x=1701227186; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=n4I/LD7GmsgMbduRtQjHbuBVYFqV+JeYB9eIa+Lz0UU=;
+ b=JnsVzVcTpISkoewDdl55KHfcycitatFg/qQDOtcHmGJ0FgqktZcLUzf42AdSwcnZyg
+ 262Iu3RQs27RnRAHUN8I/m7QrUOUmy63jqdLNo4ILkXkDJZC6fly99bI6CnwdiETqIh8
+ TNRJfYtlG3jxwOU6wz26XLGsiMRC9aeQRjVmhg8mMpTDLee+pPshmRtTsNLpyrNmwQp6
+ C1p3SFJC06U5UGxpGCOedDy/LqALtpN4lYUFxnz5k19SQF3TNFJwsi0jLRMbTq+hb75q
+ GGuP6BMxpEjCkBUONU5XCts3adPYrqYG0LncOb7k+upYM91/elHezcgwl2GaPDJ/eVL+
+ +YBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700622387; x=1701227187;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=xQTyfvTA/sT9rfHfHNgSFRFvzietrqmBvaroSzp1CzI=;
- b=G5wQzTL12HAiLQki8rIbSJ7uswWf3uSw0nq2sLK/zRTrVT4I2swDW4NSnQbbpH1H2A
- cyCcD7WARZWxM82nkYEqsHdSlP2+FT/em5VSSpIRnV7QOa/5pw1bG/A/ciG61UJWC9L9
- 1cED2ELclCJvNs9CWJr0smRAMY/oOcIa4xxI0/MLakhcg/w54mchDKMSEJJD3H+c/B/c
- hHoM+LqBBqQwXfirceP9yBoPuEX8nXpQUyySHerNhSN276YnvuxK6ZYNU5WR+rlSHd6p
- 7M9y+8jvt1dPDfS4+jzEAHWif++7YGOX2wuF4lR7r/PUqrNHO+OZ6JAFSaPhHvwcnmQA
- /ziw==
-X-Gm-Message-State: AOJu0Yw/Vv8P1jZIhkJ0RhNk1CC6952PPunFW5usNnAO0YAdUhm3AjWm
- FDfG5ZMKZSlkQpGQSJussJKYmg==
-X-Google-Smtp-Source: AGHT+IHMBi1+1x3Yt/bfrl9gyv/iDKPNW7+yCziyo+xCTBYWw/hNzj1p+tHsCVOZgnyBdWAdN+80eQ==
-X-Received: by 2002:a05:6a20:78a2:b0:186:2389:a73e with SMTP id
- d34-20020a056a2078a200b001862389a73emr933242pzg.55.1700622387226; 
- Tue, 21 Nov 2023 19:06:27 -0800 (PST)
+ d=1e100.net; s=20230601; t=1700622386; x=1701227186;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=n4I/LD7GmsgMbduRtQjHbuBVYFqV+JeYB9eIa+Lz0UU=;
+ b=J5mk5fVR+mOykqesAcE6bVyCzxIt6wlw18Ourys651xUDqG/DQZJ9YyAiXyW0foun2
+ PsE5dlz9FFeNLDQOY1ShwbmydqzRGSAn4LIxEAexHCpczJq8VCaeZsRg+CXXk+yj49vm
+ LZSnD7zUnaCVo+civw/HLRbL2Mky9MUkbw9X3ERX+1x5wW+TH5JkY0wGGru5Z0BY27SD
+ dHrQGxaj/I+KNs/HGP5c1Yve4WmcIj/qeuMMyIC9d5nAKRrYjQBHUeQUfi4UkK2IHP+Q
+ Mokm2hijCsXI4we5IAcUEafjcQ4EZphMd2D4Vaap7LTE6fqBsrebgroc78/AgjDhkwIG
+ 4ETA==
+X-Gm-Message-State: AOJu0YyWsj6gZQDEdYn7M7AAZHbsoLC6juEBRVlb8Yjf4Bq1nxhs23FO
+ pLuvUD0p4sGWcHXj3VsQDxg2Jg==
+X-Google-Smtp-Source: AGHT+IEIpXI2h8pXg+ykpqNNYZiarqi3t5LKkDhtbal14Y2nnzqjhX+0ng3mTUwJLxHE3tG0iOG9Lg==
+X-Received: by 2002:a05:6808:bce:b0:3b8:3ec6:8a41 with SMTP id
+ o14-20020a0568080bce00b003b83ec68a41mr673776oik.45.1700622383389; 
+ Tue, 21 Nov 2023 19:06:23 -0800 (PST)
 Received: from sw06.internal.sifive.com ([4.53.31.132])
  by smtp.gmail.com with ESMTPSA id
- s2-20020aa78282000000b006a77343b0ccsm8614917pfm.89.2023.11.21.19.06.26
+ s2-20020aa78282000000b006a77343b0ccsm8614917pfm.89.2023.11.21.19.06.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Nov 2023 19:06:26 -0800 (PST)
+ Tue, 21 Nov 2023 19:06:23 -0800 (PST)
 From: Samuel Holland <samuel.holland@sifive.com>
 To: Palmer Dabbelt <palmer@dabbelt.com>,
  Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
  linux-riscv@lists.infradead.org
-Subject: [PATCH 1/3] riscv: Add support for kernel-mode FPU
-Date: Tue, 21 Nov 2023 19:05:13 -0800
-Message-ID: <20231122030621.3759313-2-samuel.holland@sifive.com>
+Subject: [PATCH 0/3] riscv: Add kernel-mode FPU support for amdgpu
+Date: Tue, 21 Nov 2023 19:05:12 -0800
+Message-ID: <20231122030621.3759313-1-samuel.holland@sifive.com>
 X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231122030621.3759313-1-samuel.holland@sifive.com>
-References: <20231122030621.3759313-1-samuel.holland@sifive.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 22 Nov 2023 14:05:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -84,53 +82,31 @@ Cc: Pan Xinhui <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is needed to support recent hardware in the amdgpu DRM driver. The
-FPU code in that driver is not performance-critical, so only provide the
-minimal support.
+This series allows using newer AMD GPUs (e.g. Navi) on RISC-V boards
+such as SiFive's HiFive Unmatched. Those GPUs need CONFIG_DRM_AMD_DC_FP
+to initialize, which requires kernel-mode FPU support.
 
-Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
----
+I'm sending these patches as one series so there is a user along with
+the infrastructure being added. I assume patch 3 would be merged
+separately, after patches 1-2 are merged.
 
- arch/riscv/include/asm/switch_to.h | 14 ++++++++++++++
- arch/riscv/kernel/process.c        |  3 +++
- 2 files changed, 17 insertions(+)
 
-diff --git a/arch/riscv/include/asm/switch_to.h b/arch/riscv/include/asm/switch_to.h
-index f90d8e42f3c7..4b15f1292fc4 100644
---- a/arch/riscv/include/asm/switch_to.h
-+++ b/arch/riscv/include/asm/switch_to.h
-@@ -63,6 +63,20 @@ static __always_inline bool has_fpu(void)
- 	return riscv_has_extension_likely(RISCV_ISA_EXT_f) ||
- 		riscv_has_extension_likely(RISCV_ISA_EXT_d);
- }
-+
-+static inline void kernel_fpu_begin(void)
-+{
-+	preempt_disable();
-+	fstate_save(current, task_pt_regs(current));
-+	csr_set(CSR_SSTATUS, SR_FS);
-+}
-+
-+static inline void kernel_fpu_end(void)
-+{
-+	csr_clear(CSR_SSTATUS, SR_FS);
-+	fstate_restore(current, task_pt_regs(current));
-+	preempt_enable();
-+}
- #else
- static __always_inline bool has_fpu(void) { return false; }
- #define fstate_save(task, regs) do { } while (0)
-diff --git a/arch/riscv/kernel/process.c b/arch/riscv/kernel/process.c
-index 4f21d970a129..6a18bc709d1c 100644
---- a/arch/riscv/kernel/process.c
-+++ b/arch/riscv/kernel/process.c
-@@ -225,3 +225,6 @@ int copy_thread(struct task_struct *p, const struct kernel_clone_args *args)
- 	p->thread.sp = (unsigned long)childregs; /* kernel sp */
- 	return 0;
- }
-+
-+EXPORT_SYMBOL_GPL(__fstate_save);
-+EXPORT_SYMBOL_GPL(__fstate_restore);
+Samuel Holland (3):
+  riscv: Add support for kernel-mode FPU
+  riscv: Factor out riscv-march-y to a separate Makefile
+  drm/amd/display: Support DRM_AMD_DC_FP on RISC-V
+
+ arch/riscv/Makefile                            | 12 +-----------
+ arch/riscv/Makefile.isa                        | 15 +++++++++++++++
+ arch/riscv/include/asm/switch_to.h             | 14 ++++++++++++++
+ arch/riscv/kernel/process.c                    |  3 +++
+ drivers/gpu/drm/amd/display/Kconfig            |  5 ++++-
+ drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c |  6 ++++--
+ drivers/gpu/drm/amd/display/dc/dml/Makefile    |  6 ++++++
+ drivers/gpu/drm/amd/display/dc/dml2/Makefile   |  6 ++++++
+ 8 files changed, 53 insertions(+), 14 deletions(-)
+ create mode 100644 arch/riscv/Makefile.isa
+
 -- 
 2.42.0
 
