@@ -4,115 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF9F2C61D97
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Nov 2023 22:40:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88C86C61D97
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Nov 2023 22:45:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EF3D10E6AB;
-	Wed, 22 Nov 2023 22:40:12 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2073.outbound.protection.outlook.com [40.107.243.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE7B010E6AB
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Nov 2023 22:40:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 312A610E0A0;
+	Wed, 22 Nov 2023 22:45:15 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2063.outbound.protection.outlook.com [40.107.237.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 053C510E0A0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Nov 2023 22:45:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B4nMnjqHFp6cOIt5Da+6NI9oFtudH6WcUIHKGkvMPRxcEtFWKHwss1jmEtElrcpksBEyDLl9TaHlqUZborF7OQFQ6/wBlqg6lt2JqE+x0C68J0X17rsCwXKRgCE0KAF3T1zs1sEmlEMClTpyaMXvhHPgk1lVfK9Ds1biVyobr2mjlDtBYxRLgCMla7uXWeqYweKjG8GUaXclO+Xb2oP98uFr0+W5XosmHSu5g54xAU/dhHh4vgHWyLI5TVX2hMu4YfPJ0Hm+A3HMXLFFsWzLT3yhWUhEGgsHpobG7TGZu0g4alyhVzDgo0VL/cHz18ovFaeA0a3oBsnhP41scMtdgA==
+ b=HU6fS5nLaGf/Xc+D/n03aa8kLPGU9N313vaRV1SH86T3m8v9RrnrOCnV+/0kzRMFJsp74wgmKqJ7mtDaE9BNqLi0pnQ0Bi1xeSYyotHOz22pX4hekWSGnrljq3qLjpi/hNmPbyUTjkzTICtrXVcMNqcSfGlzoGQG9cJJhDw1QBuxW8KKGNQjJUa8MMf/Og9RcGaZxsdZDZo59IyT72gZSGnZQRifVWAoWYqqB97shckFEa79kbIxlgfqiyP96rNaAfo5kINZxXnun/aLRDLtC7kZlanlBJKTaAiVJ1khqEVNKy9FfK2uGXPWL1cGCUhN9qQxlGJlnEuSvZfkT9NvLg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VGWtG0PYw+55UYLozFdO6HSor3aZO5GeWk3x1030Wyo=;
- b=cS+CFCtEZrf3m0Qgt1cXfS6miCqsm1mNi4rXFpJVHqVRHRKUbPyhsf9bI32brM9Q0j5+8FynN4vQv0YdElbZ6tkesru6pnXfKiBzupdgC/3syPS6MWs3eFvu0QN2kVgfVq8CS2EvSvrCKqFxBH0q/Xuzo1g8tLWUG0yV5T1iNYYyI2pXPIWtZqXQ2UprJzoBBnUPdMlfApuUfm/Nia4W9tJfFxjoDuBxDLh11x9ar9oIU7DRPYdJjf7YHpWD+hesKYNcqLHWtU8XyWo5I58ima32DdT1JrwK0z4AgaYCIQAn4JDZ5edWIonBjlb/tk0Prwr1N1XKyzWV8F4ytV5iVA==
+ bh=pVoQX4pD1/mbckFBSvprDkDxnPtfnfZysnT2obuWrPM=;
+ b=UFpWSNgbmMXaVBNkbdJWkBWg1PMEcgrM2non+SnErstSOdjzL1I2ght/NwWjg2IEalLK3vd3LZkmb3nLKYkLbYxuTOYLB4yY5LyB+V+TyY9CrmEY4iTqYk1/uH5C2GoZDlQeXsnrck9GSYrV7iNpGDNFrLrPHArsytL0F+MYSoH5O/BK37GxXpDyaQcYe0s/9i+R65xe6xavn/IEPaTGnJjvJz9qG1J2K45GtdqmyV26Ev1rWJLJ1Y/mGJ1RdwVwS9nt0fLhSvsnLmYv1LaHRFE8wew6KbrYwVe9ONBPuHfq9ntMrr8vXTKdNnytI+RdVNm5yUytnffcoczCY0skIQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VGWtG0PYw+55UYLozFdO6HSor3aZO5GeWk3x1030Wyo=;
- b=DBy5gW3oi4bkRqvQr3r8M9ZNOsdWyN6x/0JYYuEIZGASjzTiMIT7QBuoykWlZKWUbRw+mAYrKzaPx/9ZsArEfSoZcCnT8vYA4GpJCyzByCpbxAirXJ1il9hSycKKgNQDIqYwXrrd0EtDve/nFjjh5hPyotmIyttHIqaExWX9dV8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.18; Wed, 22 Nov
- 2023 22:40:08 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::7bfc:e32b:f362:60f3]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::7bfc:e32b:f362:60f3%5]) with mapi id 15.20.7025.019; Wed, 22 Nov 2023
- 22:40:08 +0000
-Message-ID: <f58f8c06-ff76-4d85-9116-6f63f22c29e5@amd.com>
-Date: Wed, 22 Nov 2023 17:40:06 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 23/24] drm/amdkfd: add pc sampling capability check
+ bh=pVoQX4pD1/mbckFBSvprDkDxnPtfnfZysnT2obuWrPM=;
+ b=jo6Y3KuZTvsW/NMowXeJjrAc4MB9naLSMUkUVwMLqG3vEH3bdF//8ODCMb4nMvctGqCBeDrC4ovB3FmjvR9/ZtK8e7fOkieUiec9rRufa49zbPKCV9GNhvw3JzJBmZei3B7LbQtUBLILeveTfeuDzqAsOwUqfVoZ1ujHpUP9cVM=
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
+ by IA1PR12MB6387.namprd12.prod.outlook.com (2603:10b6:208:389::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.19; Wed, 22 Nov
+ 2023 22:45:10 +0000
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::194a:56d:a41d:3c79]) by CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::194a:56d:a41d:3c79%6]) with mapi id 15.20.7025.017; Wed, 22 Nov 2023
+ 22:45:09 +0000
+From: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
+To: "Mahfooz, Hamza" <Hamza.Mahfooz@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amd/display: fix ABM disablement
+Thread-Topic: [PATCH] drm/amd/display: fix ABM disablement
+Thread-Index: AQHaHZKnPtA4XVMpIkiuOXs06doMU7CG7zDM
+Date: Wed, 22 Nov 2023 22:45:09 +0000
+Message-ID: <CH0PR12MB5284EF0EE7874354B444BC6C8BBAA@CH0PR12MB5284.namprd12.prod.outlook.com>
+References: <20231122222409.53901-1-hamza.mahfooz@amd.com>
+In-Reply-To: <20231122222409.53901-1-hamza.mahfooz@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: James Zhu <James.Zhu@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20231103131139.766920-1-James.Zhu@amd.com>
- <20231103131139.766920-24-James.Zhu@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20231103131139.766920-24-James.Zhu@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR01CA0020.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01::28)
- To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM4PR12MB8476:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6ff48e7d-334e-46d1-0898-08dbebabfb0c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0gv9XOK0uJ6pLziyLoaPK+x/WMzujvqIqqSfu2pOjl6r5oWiVxaJ36xVTFUhwCRI+R6Nf8R89DLqVZsEIevtdD6wZUdQ+UXwqzAYwqXJpeSamZ91QksAHt6S7iWPM+An7Vxd3n+olnLIXBkEzApB3LZFb/w+mMlqcjdjqQ73qDr/Rk+BBF7frVzG0Aw9q+Xszie9+8spc1gJXs1rM6R8m8hDjFf82py3SNnsikv/6uHfpBIp08QgoXYV3VU5dJR495rixWEaMcalZargsxlJbMZLFOJkz/s7vdDXpFZRfvMRdGuBtlItakfmSDdwjVUGn12UBLBhQsuOd3Yat/QlSHaswRsJNOcEQ2Lnw1slsfvnbh8xOT1Lq7CgT1bOiUpCXp14gXxDKWKlGhPnfPN3adGalkPm5lS/zsp+wgtv/TlxEP1unAfDewXN5XIytzcIZuIto9PSmZZX5iRZyffnW3aJTH6sgWDxEPMPi0VQDzi+jvYKjSKU7XkGkyCowZRMGt+WkE64eg/I519QUsA0msmZ5fcaVbpTggsOowiYzId8pY0BBzLPy870F8YRTVhX2ccdbfa4yve4M2Sb1zTQFiMonxfecBjp4e2kCLG2U/FjEFl7lvAWRvgXFZd+LERUaeT4B7zhTOtlzyms74jMvg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(366004)(136003)(396003)(39860400002)(376002)(230922051799003)(451199024)(1800799012)(64100799003)(186009)(6486002)(83380400001)(38100700002)(2616005)(26005)(31696002)(8936002)(8676002)(4326008)(44832011)(36916002)(53546011)(6512007)(6506007)(31686004)(478600001)(316002)(66476007)(66556008)(66946007)(41300700001)(36756003)(2906002)(86362001)(5660300002)(43740500002)(45980500001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-11-22T22:45:08.915Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH0PR12MB5284:EE_|IA1PR12MB6387:EE_
+x-ms-office365-filtering-correlation-id: e1a3d480-9f10-42aa-229e-08dbebacae39
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 0wBCd+ratI4Z/0zPEsCGv3kWL8o36pXzaUcmYWO4dBfQ9eQL/sjWPW+TF3MC5gbTsLVvpwgLruWKX7BZ7ZZtBxtayNAQB2eJNQmnm3oIeKhK/1Eq+DdKV7yaaLdDa7sO31ROekpNinpcoJC/Dmq12nilcmgtLLpbgXXsGFcCWOYgo+rw3HaMx3j3cEr8dViwmgVrer1N98Qz57X7e3pgGwSeHq4QtN5sRBPZmO2Q/5IkI+D+csamumSZ8RHyY5pmm2ZelQaoolPk+0CpCh/PKVpZsWfZQ3C/zypFRC/i4uylhbNc8GA3pG2CSQ6kHB1b8hEqJZb/seWDADu3drE5vOmIcfHTSK8Lpiv0JPoiPP2FeILf4HJ6AhHlXjvDz6A5pzQESPSInbqbFxH4P42cg4iXhj3w28MQ5ytKAAfkAh+lb4irdF4XDVUf1K0K4nxCk+mSrBoWFUU7M8oLy/SY2v11sfSaf7CIas1XkDgSKPnQ29cfXteTVxV4EJjOgO5HMh1NwagfDSSn3Ug76Lbk0iVuRQh7hwQVcJeIxyMQ7EzQ67C1JZYejKQkXh7UcmOL9W/zw99KFb/MWSXTQf/82pVIE/TfzQD1ah4OYSuH4jkF9Eii2cG271dY2K0XfQ72
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376002)(396003)(136003)(366004)(39860400002)(346002)(230922051799003)(64100799003)(451199024)(1800799012)(186009)(26005)(122000001)(38100700002)(86362001)(33656002)(38070700009)(83380400001)(316002)(54906003)(8676002)(8936002)(4326008)(64756008)(110136005)(66946007)(76116006)(66556008)(66476007)(66446008)(91956017)(55016003)(41300700001)(52536014)(5660300002)(19627405001)(2906002)(53546011)(71200400001)(6506007)(7696005)(9686003)(478600001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UjBZSDlDdWV5QW94NHkrckdGMUJhT0VSb1dzRGVDN1FKenkxK1I5YnV3a0Zw?=
- =?utf-8?B?WjlldFRmSnNreWkwR3JWMnJHQXhDdlp5ZUg0d1FucjVwUHc4Z0Voek1GZHoz?=
- =?utf-8?B?K1E4ZjJ5Qk9HSmJRME1mOUhxYnpDQmlDZ3hvdUN1K2VwMXV1L0U1SjN1alRT?=
- =?utf-8?B?SFM4NXNjODkvRDY2a2hQL1FFOWJRMzBDWlU5TjBLUnp3SURNbThlYk9KUitM?=
- =?utf-8?B?alFQdWJPbzV1QTVtMjhhWkxkNmRTWjNLeFpnWDRacGxzcks2NzdBVWVuajA5?=
- =?utf-8?B?bm43WVh1V0YyUWhlNERjZlk4RkFsYjhuVTNZTVNRS2l5UFpHU2hhaGJMNDlB?=
- =?utf-8?B?UlVMY2RNMTRXU2crSGNTaU5qKzZ0Z2N3VjU5eEFrOHRTVlRQRWpXOVBQRVNn?=
- =?utf-8?B?alloYnF2MitxdWxDOXQxUG9KbkI3d04vdVhuZXhOdkxIREFlcnRFd3RLZTdK?=
- =?utf-8?B?NmR5V0FtUSs4RWFpMnJWdEx6UXBQR1BFNU8vN1pmM05WcjNYVEVZZndCSEdJ?=
- =?utf-8?B?MWFzNFZES1NWWEc4UXRJWjhVN1VvMjdJZGJBV0ZqSjk3dTJ6Um9PSGFZdjRy?=
- =?utf-8?B?dk5LSWhuSlpuc05pOTRzbEJUMEtYVm12alBwN0lxTkZqL1ZJTjBabUJyQUwz?=
- =?utf-8?B?WjlCU2lkNVRLTVVIMENXdVdieFQxUXJ0MDI5Z2pndmRVVWcrSCtNUHd3MmdD?=
- =?utf-8?B?N1FrOFk0VytmSE5Mc3g4SERscVdkZ3JuQTM1VFcySDdLOVZnTllhaFlVMnZm?=
- =?utf-8?B?RFVSRHVRMTVZMGduZEtkKzljMFFUaDJxczF0Wm00UTFMbFRBbTkzUU1HSmMr?=
- =?utf-8?B?eHlDdjVUeXFVRk1Lalh1eTNCRjA3enVJL1o4Um9DRlZIRkZubytNV2hJdnRS?=
- =?utf-8?B?WVduWG9uS2pIcFk4UnhMWFB6cFpUWUI3bWtnbWdHL1E2d0k5aVB6VEsxa2FE?=
- =?utf-8?B?ZlQyUGpMOGVNakRXcGJLMFlNRlN1VSsvNVA4UlRGNGxSMXMwekw1SjdaVk4r?=
- =?utf-8?B?cEJ2c2VOYXpqWlJLT1FWazRrMVBEcnJXS3JmdlJuSVNsbUpKOW1YTFNtWnYw?=
- =?utf-8?B?MXN4Tm5FYkU0ajl3ejhaVFZTamR4b3FCSGZ0M3NEWG9LVUZUSWM0eVNLV1lz?=
- =?utf-8?B?RWpPZkt0UTk2L1ZzUmgvVVZicnlVQkYvdU84YXl0MVQ4RzVKT2tmcnpDRE03?=
- =?utf-8?B?Nk5YUmpMN0RkZ21ZMlR2ajYrbUVCWld4Q3JuM0x0U2MxMkxIdG92UDd0UWxz?=
- =?utf-8?B?Z0FlN0tEUGZGemhub2VGNk9zbXhrNE9vcmFEdW1TYmRScWtEcU5LT0ZJRUtp?=
- =?utf-8?B?WHhXd2JLeU1TQzBGU3BDM2E3RDQwdDh0RkpVSWNhMXV6OWtrdDE4azN0STdO?=
- =?utf-8?B?d3picVNrUG93QndBeDFmQktvMEQrL3dXVUZEK2NmQmhyOTF6a0pBRW5iZmZG?=
- =?utf-8?B?em9WanZXeHljSjNCR3JxTzNyUjBRbHE3OGFiQmlHR0JERVBBeTZ5VkFnUlQ2?=
- =?utf-8?B?YTZ1Y295cVV0dUpadEZySlRqL0h6VXlJQTdIbmZwTXNRWnJCRHNUVUp1SzBH?=
- =?utf-8?B?LzFvSmdYZHpBMU9vTjR5cnUxdzdxQUkwb0EzSjZiOURUVlFTOW5qVEpRb01O?=
- =?utf-8?B?UEk4MXo0OHVBcytFOE9SNWJSRFlUUFNIdmd2bXl3NDgzZkRSdDVxTmFFQ25O?=
- =?utf-8?B?VkNSaFNTTk95ZElDSFQ2M05RN292OERuRldseUEzWG4vUXNQZ2tGcWxlNTZz?=
- =?utf-8?B?TThkRkJSeEo4dmlESXB1MHBiUFFwck8wb3ExNVRBSDljbjNDYmtjdFFQTUlp?=
- =?utf-8?B?WUJYRE5QY2ZodW9LT2FMYWNWcUZBNFZtYWNKeVhCYWJtaHVscWlJSHd5S2NH?=
- =?utf-8?B?bXh6cldtVm9LSUlwYkg0Z3p5c0puMHoyY1pqenJreFMxL1JLajU4WjFYK3Y5?=
- =?utf-8?B?L1NsOVhPSm9mTTRkZFFmVEw0N21tVUZyVWpQVjdxZmRyWUpuZXlRNTVDV0Jv?=
- =?utf-8?B?a1ZvVWYzMnFjbTBRZ1hSeXVlZ2c1S2ZrVXdhd2p2dm53NUdiTjhMZm1pL3JD?=
- =?utf-8?B?ZzNJOGgrbS9hZE1LaGZ2ZUVESjZ6QkR0ZVEvSlRGdDI0V2NLN2taV3pWV3NG?=
- =?utf-8?Q?IvxXPAtqCyouJ2C+1CkElWNNR?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?nSm2EJTdoGn65SFk+jSx9WrSIG/ehcPnsCwtYGizeq5BN97gCQd5zaNP3aYg?=
+ =?us-ascii?Q?7AVnn5s5sT9aXQCn62rTrI+J5PLOUZv2Jfpm5zMnz+yqTY3iNmOAE00mhIxK?=
+ =?us-ascii?Q?2WdrzaNDG9XH+yr+Rx3hCafJZ0HIYwKS6kSEfsXU+G+BTPNaX65vMRsot+iO?=
+ =?us-ascii?Q?UDwvff9Aa9xFvni5kEP0NMI+++7eFddFWF/DynI8sdX2xXdoAhsqf03r1yia?=
+ =?us-ascii?Q?sbIZNe1AfyAb8g0K83Fh/A3SlrtNEEoSa+tmQfV9uLYd++xoFeC/XL/ZjAL/?=
+ =?us-ascii?Q?PSBinczk37bqeM6fVit2KE3Mkx+bBzMogwwuMqVp9ypyNkUJzRkHhIFcbALx?=
+ =?us-ascii?Q?vOsLyJXCoEhjsDxqYVoQUgkIotUMfW9H7pZD3FXMXJdYV59zHblUdk6WMlw3?=
+ =?us-ascii?Q?WP4ZK4aPRwM6tnolqXhxfFtwZBMB5jta3zPHmRFGGBAWslDPwNbjsqpuMAA2?=
+ =?us-ascii?Q?u6G29CQ7dOn7d6CG6WQ6XgDyiVduMi0YmD8aq7cJ+p9GBhuqJ5otGu41C4Vc?=
+ =?us-ascii?Q?LueNrLrKBWxaLUa0tYTCdJeFoBxhya8rTdEWTUut9+1jd9PCxWE78VhCp1T7?=
+ =?us-ascii?Q?eDAoKIhGrRcZWHVQj5t2iSByFQebP74kEn+cplZyWkWX3oYaomjVrkGaByQ8?=
+ =?us-ascii?Q?HcoWGpNWShFS7DFL15CSZ1md+IfwfPUyVJslwdvRcunz1DvRDEZFgg814/bW?=
+ =?us-ascii?Q?QvYEQWEPPJivYWKAzy0Qba3KAbSmcPY9mHuWr1Lvmble8R8evLWHnIe2k5L6?=
+ =?us-ascii?Q?9ZIciMGi+FKnluUw6ZeV3Y0pHM6HDm8W+5CKPGul2uemINR4bqSofaIyk7aZ?=
+ =?us-ascii?Q?0OpFvwBU0Dqa9bcBj1kESjHh6Qwkeayw0sais7RfOxSZChmchwfehiVcLh13?=
+ =?us-ascii?Q?2RklBVjSylSWNP9f6Ntn3cfdo3+DIqQPmU9vxSP2PDFoqbNamFJrOldQBwAj?=
+ =?us-ascii?Q?XUN3KDC/p27AKnYHE1xHXm9i632cmv6v5n340Gp0l6MCYLKHFhkq/Gznqcct?=
+ =?us-ascii?Q?BC9llHZY6C/Kmbd99Q25nstQ4teXY1yl4whw2A1xsH9qNbfC6GmU3B2Ap3s8?=
+ =?us-ascii?Q?nw+EBr6xwmhwYU21DNxIEK8sn0c7rThyZlmImh0fuaYM63kx3QjbekGqTRPO?=
+ =?us-ascii?Q?vo7z1BW+joUZtKW37CJHuRFQkeGC+xY57s1B5LG6YDK39cRr0CYK1UJziNYD?=
+ =?us-ascii?Q?rWBXR+1B83Ap+GwbS2BPOr8cB6bJ2juM3p2PPlwtvOV6sxBVl7FvlOl0CIWT?=
+ =?us-ascii?Q?yRRrer/i79FTEavqWG/uHnVT7mf4Phq0qedTPkYcJmDte3W0J3FywIjNgNj1?=
+ =?us-ascii?Q?7h8DNr/9mqIcRbLJvBLslw1uwqLCtJ2xbfau6Z7ZtCA8OCiTPEegyNdC5PdE?=
+ =?us-ascii?Q?DmHacv78x4pFeLgF1skC27zaMta3H3Z9BCeXRa8pXPXDGYd6ve4xQZZuSocm?=
+ =?us-ascii?Q?ZRtp1yr4q16f6oXbvwiAykhIXXNLdFZcvuShEE1r9ukZuaWQvsjAHBE/SJYY?=
+ =?us-ascii?Q?NuiJD9zUNCgMxx0tQKvXhnr7LhR2B8wMOWm4iRdZ3UOBJGNkKZJBaUJ/QQB5?=
+ =?us-ascii?Q?B6+AUBL3J1Ddm/FTeaY=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_CH0PR12MB5284EF0EE7874354B444BC6C8BBAACH0PR12MB5284namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ff48e7d-334e-46d1-0898-08dbebabfb0c
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2023 22:40:08.8438 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d69xIn5n455CLi5N8U/CYzSlT2pTT/M0YXGELfPFhTwIEt+LlWiHaonO2bPl0+AQpv0DkrrDn3GPpbqpwU7xrg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8476
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e1a3d480-9f10-42aa-229e-08dbebacae39
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Nov 2023 22:45:09.2451 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ZQXrseKkpkjVyt2p1zeKBscdvMZWR7HcesN0+O7OilcFHSBdJ264QS21dVCCD2TwEc23WVSOQKnvd9daUFXuUw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6387
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,80 +121,259 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: joseph.greathouse@amd.com, jamesz@amd.com
+Cc: "Li, Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>, "Hung, Alex" <Alex.Hung@amd.com>, "Wu,
+ Hersen" <hersenxs.wu@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023-11-03 09:11, James Zhu wrote:
-> From: David Yat Sin <david.yatsin@amd.com>
->
-> Add pc sampling capability check.
+--_000_CH0PR12MB5284EF0EE7874354B444BC6C8BBAACH0PR12MB5284namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-This should be squashed into patch 2. Or if you want to keep it 
-separate, put this patch before patch 2 and define AMDKFD_IOC_PC_SAMPLE 
-with KFD_IOC_FLAG_PERFMON from the beginning.
+[AMD Official Use Only - General]
+
+Does amdgpu_dm_connector_funcs_reset() get called on wakeup from suspend ? =
+ Users would want the system to have the same brightness level before suspe=
+nding.
+
+
+--
 
 Regards,
-   Felix
+Jay
+________________________________
+From: Mahfooz, Hamza <Hamza.Mahfooz@amd.com>
+Sent: Wednesday, November 22, 2023 5:24 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
+i@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Koenig, Christian=
+ <Christian.Koenig@amd.com>; Hung, Alex <Alex.Hung@amd.com>; Pillai, Aurabi=
+ndo <Aurabindo.Pillai@amd.com>; Wu, Hersen <hersenxs.wu@amd.com>; Lin, Wayn=
+e <Wayne.Lin@amd.com>; Mahfooz, Hamza <Hamza.Mahfooz@amd.com>
+Subject: [PATCH] drm/amd/display: fix ABM disablement
+
+On recent versions of DMUB firmware, if we want to completely disable
+ABM we have to pass ABM_LEVEL_IMMEDIATE_DISABLE as the requested ABM
+level to DMUB. Otherwise, LCD eDP displays are unable to reach their
+maximum brightness levels. So, to fix this whenever the user requests an
+ABM level of 0 pass ABM_LEVEL_IMMEDIATE_DISABLE to DMUB instead. Also,
+to keep the user's experience consistent map ABM_LEVEL_IMMEDIATE_DISABLE
+to 0 when a user tries to read the requested ABM level.
+
+Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 5d9496db0ecb..8cb92d941cd9 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6230,7 +6230,7 @@ int amdgpu_dm_connector_atomic_set_property(struct dr=
+m_connector *connector,
+                 dm_new_state->underscan_enable =3D val;
+                 ret =3D 0;
+         } else if (property =3D=3D adev->mode_info.abm_level_property) {
+-               dm_new_state->abm_level =3D val;
++               dm_new_state->abm_level =3D val ?: ABM_LEVEL_IMMEDIATE_DISA=
+BLE;
+                 ret =3D 0;
+         }
+
+@@ -6275,7 +6275,8 @@ int amdgpu_dm_connector_atomic_get_property(struct dr=
+m_connector *connector,
+                 *val =3D dm_state->underscan_enable;
+                 ret =3D 0;
+         } else if (property =3D=3D adev->mode_info.abm_level_property) {
+-               *val =3D dm_state->abm_level;
++               *val =3D (dm_state->abm_level !=3D ABM_LEVEL_IMMEDIATE_DISA=
+BLE) ?
++                       dm_state->abm_level : 0;
+                 ret =3D 0;
+         }
+
+@@ -6348,7 +6349,8 @@ void amdgpu_dm_connector_funcs_reset(struct drm_conne=
+ctor *connector)
+                 state->pbn =3D 0;
+
+                 if (connector->connector_type =3D=3D DRM_MODE_CONNECTOR_eD=
+P)
+-                       state->abm_level =3D amdgpu_dm_abm_level;
++                       state->abm_level =3D amdgpu_dm_abm_level ?:
++                               ABM_LEVEL_IMMEDIATE_DISABLE;
+
+                 __drm_atomic_helper_connector_reset(connector, &state->bas=
+e);
+         }
+--
+2.42.1
 
 
+--_000_CH0PR12MB5284EF0EE7874354B444BC6C8BBAACH0PR12MB5284namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-> Signed-off-by: David Yat Sin <david.yatsin@amd.com>
-> Signed-off-by: James Zhu <James.Zhu@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 10 +++++++++-
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h    | 13 +++++++++++++
->   2 files changed, 22 insertions(+), 1 deletion(-)
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
+style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - General]<br>
+</p>
+<br>
+<div>
+<div><span style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontSer=
+vice, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);=
+">Does
+</span><span style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontS=
+ervice, Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0=
+);">amdgpu_dm_connector_funcs_reset</span><span style=3D"font-family: Aptos=
+, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; =
+font-size: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">()
+ get called on wakeup from suspend ?&nbsp; Users would want the system to h=
+ave the same brightness level before suspending.<br>
+</span></div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"Signature">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+--</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Regards,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Jay<br>
+</div>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Mahfooz, Hamza &lt;Ha=
+mza.Mahfooz@amd.com&gt;<br>
+<b>Sent:</b> Wednesday, November 22, 2023 5:24 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Wentland, Harry &lt;Harry.Wentland@amd.com&gt;; Li, Sun peng (Le=
+o) &lt;Sunpeng.Li@amd.com&gt;; Siqueira, Rodrigo &lt;Rodrigo.Siqueira@amd.c=
+om&gt;; Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; Hung, Alex &lt;=
+Alex.Hung@amd.com&gt;; Pillai, Aurabindo &lt;Aurabindo.Pillai@amd.com&gt;;
+ Wu, Hersen &lt;hersenxs.wu@amd.com&gt;; Lin, Wayne &lt;Wayne.Lin@amd.com&g=
+t;; Mahfooz, Hamza &lt;Hamza.Mahfooz@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd/display: fix ABM disablement</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On recent versions of DMUB firmware, if we want to=
+ completely disable<br>
+ABM we have to pass ABM_LEVEL_IMMEDIATE_DISABLE as the requested ABM<br>
+level to DMUB. Otherwise, LCD eDP displays are unable to reach their<br>
+maximum brightness levels. So, to fix this whenever the user requests an<br=
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index b00390e451bf..5e47e374d824 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -3259,7 +3259,7 @@ static const struct amdkfd_ioctl_desc amdkfd_ioctls[] = {
->   			kfd_ioctl_set_debug_trap, 0),
->   
->   	AMDKFD_IOCTL_DEF(AMDKFD_IOC_PC_SAMPLE,
-> -			kfd_ioctl_pc_sample, 0),
-> +			kfd_ioctl_pc_sample, KFD_IOC_FLAG_PERFMON),
->   };
->   
->   #define AMDKFD_CORE_IOCTL_COUNT	ARRAY_SIZE(amdkfd_ioctls)
-> @@ -3336,6 +3336,14 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
->   		}
->   	}
->   
-> +	/* PC Sampling Monitor */
-> +	if (unlikely(ioctl->flags & KFD_IOC_FLAG_PERFMON)) {
-> +		if (!capable(CAP_PERFMON) && !capable(CAP_SYS_ADMIN)) {
-> +			retcode = -EACCES;
-> +			goto err_i1;
-> +		}
-> +	}
-> +
->   	if (cmd & (IOC_IN | IOC_OUT)) {
->   		if (asize <= sizeof(stack_kdata)) {
->   			kdata = stack_kdata;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index b7062033fda4..236d3de85153 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -144,6 +144,19 @@ enum kfd_ioctl_flags {
->   	 * we also allow ioctls with SYS_ADMIN capability.
->   	 */
->   	KFD_IOC_FLAG_CHECKPOINT_RESTORE = BIT(0),
-> +
-> +	/*
-> +	 * @KFD_IOC_FLAG_PERFMON:
-> +	 * Performance monitoring feature, GPU performance monitoring can allow users
-> +	 * to gather some information about other processes. PC sampling can allow
-> +	 * users to infer information about wavefronts from other processes that are
-> +	 * running on the same CUs, such as which execution units they are using. As
-> +	 * such, this type of performance monitoring should be protected and only
-> +	 * available to users with sufficient capabilities: either CAP_PERFMON, or,
-> +	 * for backwards compatibility, CAP_SYS_ADMIN.
-> +	 */
-> +
-> +	KFD_IOC_FLAG_PERFMON = BIT(1),
->   };
->   /*
->    * Kernel module parameter to specify maximum number of supported queues per
+ABM level of 0 pass ABM_LEVEL_IMMEDIATE_DISABLE to DMUB instead. Also,<br>
+to keep the user's experience consistent map ABM_LEVEL_IMMEDIATE_DISABLE<br=
+>
+to 0 when a user tries to read the requested ABM level.<br>
+<br>
+Signed-off-by: Hamza Mahfooz &lt;hamza.mahfooz@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 +++++---<br>
+&nbsp;1 file changed, 5 insertions(+), 3 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+index 5d9496db0ecb..8cb92d941cd9 100644<br>
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+@@ -6230,7 +6230,7 @@ int amdgpu_dm_connector_atomic_set_property(struct dr=
+m_connector *connector,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; dm_new_state-&gt;underscan_enable =3D val;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; ret =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (property =3D=3D=
+ adev-&gt;mode_info.abm_level_property) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; dm_new_state-&gt;abm_level =3D val;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; dm_new_state-&gt;abm_level =3D val ?: ABM_LEVEL_IMMEDIATE_DISABL=
+E;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; ret =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+@@ -6275,7 +6275,8 @@ int amdgpu_dm_connector_atomic_get_property(struct dr=
+m_connector *connector,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *val =3D dm_state-&gt;underscan_enable;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; ret =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (property =3D=3D=
+ adev-&gt;mode_info.abm_level_property) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; *val =3D dm_state-&gt;abm_level;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; *val =3D (dm_state-&gt;abm_level !=3D ABM_LEVEL_IMMEDIATE_DISABL=
+E) ?<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dm_state-&gt;abm=
+_level : 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; ret =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+@@ -6348,7 +6349,8 @@ void amdgpu_dm_connector_funcs_reset(struct drm_conne=
+ctor *connector)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; state-&gt;pbn =3D 0;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (connector-&gt;connector_type =3D=3D DRM_MODE_CONN=
+ECTOR_eDP)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; state-&gt;abm_le=
+vel =3D amdgpu_dm_abm_level;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; state-&gt;abm_le=
+vel =3D amdgpu_dm_abm_level ?:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ABM_LEVEL_IMMEDIATE_DISABLE;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; __drm_atomic_helper_connector_reset(connector, &amp;s=
+tate-&gt;base);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+-- <br>
+2.42.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_CH0PR12MB5284EF0EE7874354B444BC6C8BBAACH0PR12MB5284namp_--
