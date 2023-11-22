@@ -4,73 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34110C61D97
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Nov 2023 12:25:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C7BFC61D9B
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Nov 2023 14:05:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 726B710E60E;
-	Wed, 22 Nov 2023 12:24:59 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B28310E021;
- Wed, 22 Nov 2023 12:24:56 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E06801FD5E;
- Wed, 22 Nov 2023 12:24:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1700655894; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=V8CMN0nHD1nKPkkPa1nnvDRq5BKTUkGhYV6qhXJvheY=;
- b=mgBg7mVTfZwQ47qDtx8KL/mSoMQloPcfq4xk731L+R/wqMjQUOM8UD32CC/OTWPLr3bT/G
- 5mX3paMr3G4FaOsCpOHGmE7wF6tgIfRBbkMXFSUrWsphuxOj+f1npdqgwSaVVzS9ani9Zl
- yEz3C9Yr9EhouFUZNzyriNvGe4Cmyk4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1700655894;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=V8CMN0nHD1nKPkkPa1nnvDRq5BKTUkGhYV6qhXJvheY=;
- b=exIececOGTatJD+0ZcndJzZq8wG8fy7RUQLv/j9IsemsLX9TfWUjN8EJLRzIcB5GhYx+5t
- xvEzrTnrwVcsNKDg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A957513461;
- Wed, 22 Nov 2023 12:24:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id OCF5KBbzXWU2TAAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Wed, 22 Nov 2023 12:24:54 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: airlied@gmail.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, cai.huoqing@linux.dev
-Subject: [PATCH 07/14] drm/radeon: Do not include <drm/drm_legacy.h>
-Date: Wed, 22 Nov 2023 13:09:36 +0100
-Message-ID: <20231122122449.11588-8-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.42.1
-In-Reply-To: <20231122122449.11588-1-tzimmermann@suse.de>
-References: <20231122122449.11588-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C456F10E63F;
+	Wed, 22 Nov 2023 14:05:11 +0000 (UTC)
+Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
+ [IPv6:2607:f8b0:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A166810E253
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Nov 2023 03:06:30 +0000 (UTC)
+Received: by mail-pf1-x433.google.com with SMTP id
+ d2e1a72fcca58-6bd0e1b1890so5123668b3a.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Nov 2023 19:06:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=sifive.com; s=google; t=1700622390; x=1701227190; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=oBSDlJJdl9cJTZEKARyFff2b3kLrE8gro26mzSoUMfg=;
+ b=jUwoNNTs4DrsH6MJ3HKfPD3aDjjbM/Pskf4LrOXmBP+AOdHWmXqUCOXJzxq+MYveAv
+ 8s6ua4Z8sqZw73POK4hun8h66LPUZD+7NpW6oNRZtYYrwqVFQAijSRxzaNURVQJZmxP7
+ romItC8DXqgc/4WpUKn+f2COHotjjA3CMDFunTT9vbL1Jzb/9j3+NMNcXPWeDrcKhGcP
+ XshSU0r26UTX2Bl35QYC6YMYNoG4gIWLrNhKtqnG3F3IFLLSxF5JI2YbgelGdAbhPSmW
+ LImQ36HGt9NGrU1Pn3dsFOo1R3oRD+ieRmXFL/BuVXvKxR8trG9g76BC/Sz4FtoWYHX5
+ ciwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1700622390; x=1701227190;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=oBSDlJJdl9cJTZEKARyFff2b3kLrE8gro26mzSoUMfg=;
+ b=Dnb/HxXPNzqM3XL921SdJ3ysxpaHzuMpJnBqwxT+lMV5gbACguYA6ZBrP5RhQtGhtK
+ ccEIJxEZDSodRHMGKgntm8xAKYXbJOnqBInEBTNrPBnQIhEL8YEMC++plY2Kl6IzWV5g
+ oJJtY6OUdiJrGoepxarGgZJb2mPLxHvF72Mr1KSZ7fiosU9I25zxvS03/cKVieeK6lOh
+ Ps5fMaUYmfsvsiNbAONnrwfdxpOH4oBntVWZHO7TPVqs0MZdd47i67eTAYjD5TDMfXEZ
+ Uvz0NiRAvh3QjDvn4qUt0uykedUN7kYVOY9+i4/yLQv3CNqR0MTa5opKPgC4Puydjt9n
+ tDMw==
+X-Gm-Message-State: AOJu0YyulMroqfUZRdxwc4vrtmzen303KugsB8LXvb+w2Z6Z6XLb8oYu
+ c3bVKKEM4aTrs77lFknVDNcLFw==
+X-Google-Smtp-Source: AGHT+IGAWRMig9MTM8HwbUunWOHJsJ/tdXoUczvav4ujcqkNnMcjGyNXeyS3D3MD4r1LtBjigmKHkw==
+X-Received: by 2002:a05:6a00:98e:b0:6cb:cdd0:76f7 with SMTP id
+ u14-20020a056a00098e00b006cbcdd076f7mr417804pfg.21.1700622390174; 
+ Tue, 21 Nov 2023 19:06:30 -0800 (PST)
+Received: from sw06.internal.sifive.com ([4.53.31.132])
+ by smtp.gmail.com with ESMTPSA id
+ s2-20020aa78282000000b006a77343b0ccsm8614917pfm.89.2023.11.21.19.06.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Nov 2023 19:06:29 -0800 (PST)
+From: Samuel Holland <samuel.holland@sifive.com>
+To: Palmer Dabbelt <palmer@dabbelt.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ linux-riscv@lists.infradead.org
+Subject: [PATCH 3/3] drm/amd/display: Support DRM_AMD_DC_FP on RISC-V
+Date: Tue, 21 Nov 2023 19:05:15 -0800
+Message-ID: <20231122030621.3759313-4-samuel.holland@sifive.com>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20231122030621.3759313-1-samuel.holland@sifive.com>
+References: <20231122030621.3759313-1-samuel.holland@sifive.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Authentication-Results: smtp-out2.suse.de;
-	none
-X-Spamd-Result: default: False [-7.30 / 50.00]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
- REPLY(-4.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; RCPT_COUNT_SEVEN(0.00)[11];
- MID_CONTAINS_FROM(1.00)[];
- FREEMAIL_TO(0.00)[gmail.com,ffwll.ch,linux.intel.com,kernel.org,linux.dev];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
- RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-3.00)[99.99%]
+X-Mailman-Approved-At: Wed, 22 Nov 2023 14:05:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,36 +77,108 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
+Cc: Pan Xinhui <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Samuel Holland <samuel.holland@sifive.com>,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Including <drm/drm_legacy.h> is not required by radeon.
+RISC-V uses kernel_fpu_begin()/kernel_fpu_end() like several other
+architectures. Enabling hardware FP requires overriding the ISA string
+for the relevant compilation units.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
+Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
 ---
- drivers/gpu/drm/radeon/radeon_drv.h | 1 -
- 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.h b/drivers/gpu/drm/radeon/radeon_drv.h
-index 34a1c73d3938f..02a65971d140d 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.h
-+++ b/drivers/gpu/drm/radeon/radeon_drv.h
-@@ -33,7 +33,6 @@
+ drivers/gpu/drm/amd/display/Kconfig            | 5 ++++-
+ drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c | 6 ++++--
+ drivers/gpu/drm/amd/display/dc/dml/Makefile    | 6 ++++++
+ drivers/gpu/drm/amd/display/dc/dml2/Makefile   | 6 ++++++
+ 4 files changed, 20 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
+index 901d1961b739..49b33b2f6701 100644
+--- a/drivers/gpu/drm/amd/display/Kconfig
++++ b/drivers/gpu/drm/amd/display/Kconfig
+@@ -8,7 +8,10 @@ config DRM_AMD_DC
+ 	depends on BROKEN || !CC_IS_CLANG || ARM64 || RISCV || SPARC64 || X86_64
+ 	select SND_HDA_COMPONENT if SND_HDA_CORE
+ 	# !CC_IS_CLANG: https://github.com/ClangBuiltLinux/linux/issues/1752
+-	select DRM_AMD_DC_FP if (X86 || LOONGARCH || (PPC64 && ALTIVEC) || (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
++	select DRM_AMD_DC_FP if ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG
++	select DRM_AMD_DC_FP if PPC64 && ALTIVEC
++	select DRM_AMD_DC_FP if RISCV && FPU
++	select DRM_AMD_DC_FP if LOONGARCH || X86
+ 	help
+ 	  Choose this option if you want to use the new display engine
+ 	  support for AMDGPU. This adds required support for Vega and
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+index 4ae4720535a5..834dca0396f1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+@@ -35,6 +35,8 @@
+ #include <asm/neon.h>
+ #elif defined(CONFIG_LOONGARCH)
+ #include <asm/fpu.h>
++#elif defined(CONFIG_RISCV)
++#include <asm/switch_to.h>
+ #endif
  
- #include <linux/firmware.h>
- #include <linux/platform_device.h>
--#include <drm/drm_legacy.h>
+ /**
+@@ -89,7 +91,7 @@ void dc_fpu_begin(const char *function_name, const int line)
+ 	depth = __this_cpu_inc_return(fpu_recursion_depth);
  
- #include "radeon_family.h"
+ 	if (depth == 1) {
+-#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
++#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH) || defined(CONFIG_RISCV)
+ 		kernel_fpu_begin();
+ #elif defined(CONFIG_PPC64)
+ 		if (cpu_has_feature(CPU_FTR_VSX_COMP))
+@@ -122,7 +124,7 @@ void dc_fpu_end(const char *function_name, const int line)
  
+ 	depth = __this_cpu_dec_return(fpu_recursion_depth);
+ 	if (depth == 0) {
+-#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
++#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH) || defined(CONFIG_RISCV)
+ 		kernel_fpu_end();
+ #elif defined(CONFIG_PPC64)
+ 		if (cpu_has_feature(CPU_FTR_VSX_COMP))
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+index ea7d60f9a9b4..5c8f840ef323 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+@@ -43,6 +43,12 @@ dml_ccflags := -mfpu=64
+ dml_rcflags := -msoft-float
+ endif
+ 
++ifdef CONFIG_RISCV
++include $(srctree)/arch/riscv/Makefile.isa
++# Remove V from the ISA string, like in arch/riscv/Makefile, but keep F and D.
++dml_ccflags := -march=$(shell echo $(riscv-march-y) | sed -E 's/(rv32ima|rv64ima)([^v_]*)v?/\1\2/')
++endif
++
+ ifdef CONFIG_CC_IS_GCC
+ ifneq ($(call gcc-min-version, 70100),y)
+ IS_OLD_GCC = 1
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/Makefile b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
+index acff3449b8d7..15ad6e3a2173 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
+@@ -42,6 +42,12 @@ dml2_ccflags := -mfpu=64
+ dml2_rcflags := -msoft-float
+ endif
+ 
++ifdef CONFIG_RISCV
++include $(srctree)/arch/riscv/Makefile.isa
++# Remove V from the ISA string, like in arch/riscv/Makefile, but keep F and D.
++dml2_ccflags := -march=$(shell echo $(riscv-march-y) | sed -E 's/(rv32ima|rv64ima)([^v_]*)v?/\1\2/')
++endif
++
+ ifdef CONFIG_CC_IS_GCC
+ ifeq ($(call cc-ifversion, -lt, 0701, y), y)
+ IS_OLD_GCC = 1
 -- 
-2.42.1
+2.42.0
 
