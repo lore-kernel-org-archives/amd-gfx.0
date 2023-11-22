@@ -4,40 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29B4AC61D97
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Nov 2023 14:05:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 247A7C61DA7
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Nov 2023 14:05:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E64210E64D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4790A10E64E;
 	Wed, 22 Nov 2023 14:05:19 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:3::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA26E10E5E1;
- Wed, 22 Nov 2023 08:40:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=D5blU8RG7wrWZ9Dq/ESX/eAs3vI1C5+aiUl11b64TJI=; b=IkSrqbabsxJtFB+ZQhe2j8K6x6
- gmah3bew0TPP0ysiQgpNZUFrCqPuz5lHJ+SRgg6OImxizgLz7xojou4jvO85FIqRpS8QO0tAUdKHE
- rA4Uw6YYjcm+0HTujZSCoMbzEXPyjWNDQi5h4dJLM9wM/Ln2IYZXZY/WTR+WxIMJhILJ9DeeFlb8z
- Sh9AFZK843MfY4JIxtlkW0I9zICdKW+ntXEodBFLQaC6YNvuXWjW87h+UB/TmK1UMAkUGI6VTa+3d
- vVnSMTFNScSJr0L8JDnsTrn8iTyZqAK/m1GbJ6lYvAbf33DcWE787BrnJDz6876cmhrbYs26CtV3T
- 0kSji68g==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1r5imd-0015Nr-35; Wed, 22 Nov 2023 08:40:31 +0000
-Date: Wed, 22 Nov 2023 00:40:31 -0800
-From: Christoph Hellwig <hch@infradead.org>
-To: Samuel Holland <samuel.holland@sifive.com>
-Subject: Re: [PATCH 3/3] drm/amd/display: Support DRM_AMD_DC_FP on RISC-V
-Message-ID: <ZV2+f/yu3C6xTVqn@infradead.org>
-References: <20231122030621.3759313-1-samuel.holland@sifive.com>
- <20231122030621.3759313-4-samuel.holland@sifive.com>
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E81FC10E2FA;
+ Wed, 22 Nov 2023 09:35:17 +0000 (UTC)
+X-UUID: de93d3d6b16c4117a8e2d97be02e7a9a-20231122
+X-CID-CACHE: Type:Local,Time:202311221730+08,HitQuantity:1
+X-CID-O-RULE: Release_Ham
+X-CID-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.32, REQID:5f909ea2-bb5f-4f66-9788-b653b008008f, IP:15,
+ URL:0,TC:0,Content:0,EDM:-30,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,AC
+ TION:release,TS:-30
+X-CID-INFO: VERSION:1.1.32, REQID:5f909ea2-bb5f-4f66-9788-b653b008008f, IP:15,
+ UR
+ L:0,TC:0,Content:0,EDM:-30,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+ ON:release,TS:-30
+X-CID-META: VersionHash:5f78ec9, CLOUDID:a188d2fc-4a48-46e2-b946-12f04f20af8c,
+ B
+ ulkID:nil,BulkQuantity:0,Recheck:0,SF:44|66|24|17|19|102,TC:nil,Content:0,
+ EDM:2,IP:-2,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,
+ LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
+X-CID-BVR: 0,NGT
+X-CID-BAS: 0,NGT,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD,TF_CID_SPAM_FSI
+X-UUID: de93d3d6b16c4117a8e2d97be02e7a9a-20231122
+X-User: yaolu@kylinos.cn
+Received: from localhost.localdomain [(116.128.244.169)] by mailgw
+ (envelope-from <yaolu@kylinos.cn>) (Generic MTA)
+ with ESMTP id 891554106; Wed, 22 Nov 2023 17:35:12 +0800
+From: Lu Yao <yaolu@kylinos.cn>
+To: airlied@gmail.com,
+	daniel@ffwll.ch
+Subject: [PATCH] drm/amdgpu: Fix cat debugfs amdgpu_regs_didt causes kernel
+ null pointer
+Date: Wed, 22 Nov 2023 17:35:09 +0800
+Message-Id: <20231122093509.34302-1-yaolu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231122030621.3759313-4-samuel.holland@sifive.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 22 Nov 2023 14:05:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -50,78 +58,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Peter Zijlstra <peterz@infradead.org>,
- Catalin Marinas <catalin.marinas@arm.com>, dri-devel@lists.freedesktop.org,
- linux-riscv@lists.infradead.org, David Airlie <airlied@gmail.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Masahiro Yamada <masahiroy@kernel.org>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Nicolas Schier <nicolas@fjasle.eu>,
- Will Deacon <will@kernel.org>, linux-kbuild@vger.kernel.org,
- Leo Li <sunpeng.li@amd.com>, Nathan Chancellor <nathan@kernel.org>,
- Josh Poimboeuf <jpoimboe@kernel.org>, linux-arm-kernel@lists.infradead.org,
- Pan Xinhui <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
- linux-kernel@vger.kernel.org, Palmer Dabbelt <palmer@dabbelt.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- linuxppc-dev@lists.ozlabs.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Lu Yao <yaolu@kylinos.cn>, amd-gfx@lists.freedesktop.org,
+ alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> -	select DRM_AMD_DC_FP if (X86 || LOONGARCH || (PPC64 && ALTIVEC) || (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
-> +	select DRM_AMD_DC_FP if ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG
-> +	select DRM_AMD_DC_FP if PPC64 && ALTIVEC
-> +	select DRM_AMD_DC_FP if RISCV && FPU
-> +	select DRM_AMD_DC_FP if LOONGARCH || X86
+For 'AMDGPU_FAMILY_SI' family cards, in 'si_common_early_init' func, init
+'didt_rreg' and 'didt_wreg' to 'NULL'. But in func
+'amdgpu_debugfs_regs_didt_read/write', using 'RREG32_DIDT' 'WREG32_DIDT'
+lacks of relevant judgment. And other 'amdgpu_ip_block_version' that use
+these two definitions won't be added for 'AMDGPU_FAMILY_SI'.
 
-This really is a mess.  Can you add a ARCH_HAS_KERNEL_FPU_SUPPORT
-symbol that all architetures that have it select instead, and them
-make DRM_AMD_DC_FP depend on it?
+So, add null pointer judgment before calling.
 
-> -#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
-> +#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH) || defined(CONFIG_RISCV)
->  		kernel_fpu_begin();
->  #elif defined(CONFIG_PPC64)
->  		if (cpu_has_feature(CPU_FTR_VSX_COMP))
-> @@ -122,7 +124,7 @@ void dc_fpu_end(const char *function_name, const int line)
->  
->  	depth = __this_cpu_dec_return(fpu_recursion_depth);
->  	if (depth == 0) {
-> -#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
-> +#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH) || defined(CONFIG_RISCV)
->  		kernel_fpu_end();
->  #elif defined(CONFIG_PPC64)
->  		if (cpu_has_feature(CPU_FTR_VSX_COMP))
+Signed-off-by: Lu Yao <yaolu@kylinos.cn>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-And then this mess can go away.  We'll need to decide if we want to
-cover all the in-kernel vector support as part of it, which would
-seem reasonable to me, or have a separate generic kernel_vector_begin
-with it's own option.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index a53f436fa9f1..797d7d3bfd50 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -638,6 +638,11 @@ static ssize_t amdgpu_debugfs_regs_didt_read(struct file *f, char __user *buf,
+ 	if (size & 0x3 || *pos & 0x3)
+ 		return -EINVAL;
+ 
++	if (adev->didt_rreg == NULL) {
++		dev_err(adev->dev, "%s adev->didt_rreg is null!\n", __FUNC__);
++		return -EPERM;
++	}
++
+ 	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
+ 	if (r < 0) {
+ 		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+@@ -694,6 +699,11 @@ static ssize_t amdgpu_debugfs_regs_didt_write(struct file *f, const char __user
+ 	if (size & 0x3 || *pos & 0x3)
+ 		return -EINVAL;
+ 
++	if (adev->didt_wreg == NULL) {
++		dev_err(adev->dev, "%s adev->didt_wreg is null!\n", __FUNC__);
++		return -EPERM;
++	}
++
+ 	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
+ 	if (r < 0) {
+ 		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+-- 
+2.25.1
 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> index ea7d60f9a9b4..5c8f840ef323 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> @@ -43,6 +43,12 @@ dml_ccflags := -mfpu=64
->  dml_rcflags := -msoft-float
->  endif
->  
-> +ifdef CONFIG_RISCV
-> +include $(srctree)/arch/riscv/Makefile.isa
-> +# Remove V from the ISA string, like in arch/riscv/Makefile, but keep F and D.
-> +dml_ccflags := -march=$(shell echo $(riscv-march-y) | sed -E 's/(rv32ima|rv64ima)([^v_]*)v?/\1\2/')
-> +endif
-> +
->  ifdef CONFIG_CC_IS_GCC
->  ifneq ($(call gcc-min-version, 70100),y)
->  IS_OLD_GCC = 1
-
-And this is again not really something we should be doing.
-Instead we need a generic way in Kconfig to enable FPU support
-for an object file or set of, that the arch support can hook
-into.
-
-Btw, I'm also really worried about folks using the FPU instructions
-outside the kernel_fpu_begin/end windows in general (not directly
-related to the RISC-V support).  Can we have objecttool checks
-for that similar to only allowing the unsafe uaccess in the
-uaccess begin/end pairs?
