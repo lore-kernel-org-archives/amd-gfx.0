@@ -4,55 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 569EEC5AD4C
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Nov 2023 08:08:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E68BBC61D97
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Nov 2023 08:08:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0499A10E6DA;
-	Thu, 23 Nov 2023 08:08:55 +0000 (UTC)
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D120E10E12A
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Nov 2023 18:35:11 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 8472940E0258; 
- Wed, 22 Nov 2023 18:25:08 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
- header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
- by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id YgiYJuUjdv3l; Wed, 22 Nov 2023 18:25:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
- t=1700677506; bh=lqA5qVf9Mh3ghu+RQuFFADLB1EH+r3K5c+kuLOH/DB0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=fP9jg+JxNMXFB3FRiupIkDq9j0Re060w0g+5MobWmzPFc6kTOBt3rkemMvTtXC32U
- tZS45HdPeONct59wSXV6x88Dkub02kcxT5vk0VXnmJMmnL06O2n/liHsWN93QzbL/g
- YJj8pOfHvpOg1bfzl5x/WOO01q0Fz9gaGMyhWdJanveLsP8zzujClcsO+HrHBGMvBP
- Og6OUEN0FKc2khtNltzok2vg4SaT3s2J1siJ17hJeI0WqZlrGM2g8XdjEpnnLybJmq
- jZOx7IgWm3hf6Cl1D2bi3tmzrM7LuPyyHl7PVw3x7KJhyn/2XDkt0j60kS2EQ1NlEu
- ZIeQI4eViSyJys3b56s+cMRgpmoHV0GXRzI6G8lqGy56k6f8EhgyfLUDPeyW7P6bEz
- msYqhLLcDnhpUGrXpf9yxltWkbgqn8VAliHC+ft1PMTT3Z5UiE2ezeVySkb6p4K6jJ
- hkpQmS+M8oVQh4D6N64QdPZK910hb24YvOUrxmBD+1zOZXHWdxu7R5db+6i2788v1K
- Vi9eCp3CcxFo2qUGvKLk/wvmAo3l/XkRIb77MgoPTwpE4Fz6k+h+Hv5VNeS+R9IF0/
- IvMb9rzyVdW/myY8ckf67k7TwJx0s51c3BZaqpIMrb85KMH8i8/LQFgy+1OP6W1Wur
- PzfjGMdgGMwxfchDdGtAsiv0=
-Received: from zn.tnic (pd95304da.dip0.t-ipconnect.de [217.83.4.218])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
- SHA256) (No client certificate requested)
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 9691A40E0259;
- Wed, 22 Nov 2023 18:24:57 +0000 (UTC)
-Date: Wed, 22 Nov 2023 19:24:51 +0100
-From: Borislav Petkov <bp@alien8.de>
-To: Yazen Ghannam <yazen.ghannam@amd.com>
-Subject: Re: [PATCH 02/20] x86/mce: Define mce_setup() helpers for global and
- per-CPU fields
-Message-ID: <20231122182451.GHZV5Hc/49OYomyejc@fat_crate.local>
-References: <20231118193248.1296798-1-yazen.ghannam@amd.com>
- <20231118193248.1296798-3-yazen.ghannam@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20231118193248.1296798-3-yazen.ghannam@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93C7810E6DB;
+	Thu, 23 Nov 2023 08:08:56 +0000 (UTC)
+X-Greylist: delayed 352 seconds by postgrey-1.36 at gabe;
+ Thu, 23 Nov 2023 07:42:10 UTC
+Received: from zg8tndyumtaxlji0oc4xnzya.icoremail.net
+ (zg8tndyumtaxlji0oc4xnzya.icoremail.net [46.101.248.176])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 66B4410E6DB;
+ Thu, 23 Nov 2023 07:42:10 +0000 (UTC)
+Received: from localhost.localdomain (unknown [10.190.64.46])
+ by mail-app3 (Coremail) with SMTP id cC_KCgB3OOBjAF9l5MF0AQ--.22860S4;
+ Thu, 23 Nov 2023 15:34:02 +0800 (CST)
+From: Dinghao Liu <dinghao.liu@zju.edu.cn>
+To: dinghao.liu@zju.edu.cn
+Subject: [PATCH] drm/amd/pm: fix a memleak in aldebaran_tables_init
+Date: Thu, 23 Nov 2023 15:33:22 +0800
+Message-Id: <20231123073325.16843-1-dinghao.liu@zju.edu.cn>
+X-Mailer: git-send-email 2.17.1
+X-CM-TRANSID: cC_KCgB3OOBjAF9l5MF0AQ--.22860S4
+X-Coremail-Antispam: 1UD129KBjvdXoW7JFW7trW3uFW3WFy5Jr18Krg_yoWDurc_Wr
+ y8X3sxZ3s5JFyDJF12yFsIqFyI9an3ur1kJw1vqasIgr1UJr48urW2qF1kuw4fZF17AF4q
+ q3WkWw1rZrsxJjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbskFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
+ wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
+ vE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4UJVW0owA2z4x0Y4vEx4A2
+ jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52
+ x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWU
+ GwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI4
+ 8JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCF04k20xvY
+ 0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4fKr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+ 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+ 14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+ IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+ 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+ IFyTuYvjfUoOJ5UUUUU
+X-CM-SenderInfo: qrrzjiaqtzq6lmxovvfxof0/1tbiAgkMBmVKSCoDUABdsC
 X-Mailman-Approved-At: Thu, 23 Nov 2023 08:08:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,63 +54,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: tony.luck@intel.com, x86@kernel.org, Avadhut.Naik@amd.com,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Smita.KoralahalliChannabasappa@amd.com, linux-trace-kernel@vger.kernel.org,
- linux-edac@vger.kernel.org
+Cc: Yifan Zhang <yifan1.zhang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Yang Wang <kevinyang.wang@amd.com>, dri-devel@lists.freedesktop.org, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Le Ma <le.ma@amd.com>,
+ "Stanley.Yang" <Stanley.Yang@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Darren Powell <darren.powell@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Nov 18, 2023 at 01:32:30PM -0600, Yazen Ghannam wrote:
-> +void mce_setup_global(struct mce *m)
+When kzalloc() for smu_table->ecc_table fails, we should free
+the previously allocated resources to prevent memleak.
 
-We usually call those things "common":
+Fixes: edd794208555 ("drm/amd/pm: add message smu to get ecc_table v2")
+Signed-off-by: Dinghao Liu <dinghao.liu@zju.edu.cn>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-mce_setup_common().
-
-> +{
-> +	memset(m, 0, sizeof(struct mce));
-> +
-> +	m->cpuid	= cpuid_eax(1);
-> +	m->cpuvendor	= boot_cpu_data.x86_vendor;
-> +	m->mcgcap	= __rdmsr(MSR_IA32_MCG_CAP);
-> +	/* need the internal __ version to avoid deadlocks */
-> +	m->time		= __ktime_get_real_seconds();
-> +}
-> +
-> +void mce_setup_per_cpu(struct mce *m)
-
-And call this
-
-	mce_setup_for_cpu(unsigned int cpu, struct mce *m);
-
-so that it doesn't look like some per_cpu helper.
-
-And yes, you should supply the CPU number as an argument. Because
-otherwise, when you look at your next change:
-
-
-+       mce_setup_global(&m);
-+       m.cpu = m.extcpu = cpu;
-+       mce_setup_per_cpu(&m);
-
-This contains the "hidden" requirement that m.extcpu happens *always*
-*before* the mce_setup_per_cpu() call and that is flaky and error prone.
-
-So make that:
-
-	mce_setup_common(&m);
-	mce_setup_for_cpu(m.extcpu, &m);
-
-and do m.cpu = m.extcpu = cpu inside the second function.
-
-And then it JustWorks(tm) and you can't "forget" assigning m.extcpu and
-there's no subtlety.
-
-Ok?
-
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+index 1a6675d70a4b..f1440869d1ce 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+@@ -257,8 +257,11 @@ static int aldebaran_tables_init(struct smu_context *smu)
+ 	}
+ 
+ 	smu_table->ecc_table = kzalloc(tables[SMU_TABLE_ECCINFO].size, GFP_KERNEL);
+-	if (!smu_table->ecc_table)
++	if (!smu_table->ecc_table) {
++		kfree(smu_table->metrics_table);
++		kfree(smu_table->gpu_metrics_table);
+ 		return -ENOMEM;
++	}
+ 
+ 	return 0;
+ }
 -- 
-Regards/Gruss,
-    Boris.
+2.17.1
 
-https://people.kernel.org/tglx/notes-about-netiquette
