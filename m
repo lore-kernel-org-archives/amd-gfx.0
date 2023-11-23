@@ -4,88 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95330C5AD4C
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Nov 2023 06:20:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6828C5AD4C
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Nov 2023 06:57:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05DAA10E6D0;
-	Thu, 23 Nov 2023 06:20:27 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2089.outbound.protection.outlook.com [40.107.93.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37CD210E6CD
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Nov 2023 06:20:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=C1pTY/5VLHRLXGZJbusSlMC0+YTZ0sFuy+YcWdi0f+SX7lb2DDx6cXhX5lNyArhvpq2AkOt+NLb2YUfUKJh+ZXZcQlebTPhdnBx4IYbSwDznKEkx5/WhqUp1rc+O7zcorSnkhUy/kqTAmOGZM3s1f+6w8OQIXIJI8cs01wkWcaXwBqz0hKtMoSnXL6tA0yGLcwAalO/SYG+FMGGnuPSqrYRIxwgBMoabdMhQOQuvjsKkH5Rd//QjhBThYeSgWtnvKwrzCpZDlmyk8wqJ3EdxqFMxqM5StSdLkfVrAYB/9vAyy6Y3leNW+k9jhSmvfY6Ft1J8IMeaYEuc0L/EXpU7pQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MYGaQgbAPL1G0P8Le1rRDc+D7l5xCzNUfvDUb4x7tmY=;
- b=dPhqvJVvqZ0/liOtJw45YT0KsstG19tiscFdlcB8DbAUqW1qaJp024w3EToD1AIwqShS8ZIdvV7Q1suS0d4WmohUtr/wVCmeUvZJm7pHBatMIJyvKhpTsDbuMRgOTK1clAEYbYdK4g5dzBHOtK1M8umE8a8t8d1wcfYa1k5Gm83lIZb19dYuMMj1jwXH9MhqBcqStwxtgrly0KEVSpBAwRxzyFElIgS87yaFOwjRbXWnw/txgl9PJ+l89ocxRK36dF1BQw/g0GB619pDOK5DukY4dwXUlpO+jtTjtGczcbs6SJSWxujvcFyxhhPkVzCgxxs8YZzzloHsGrqUDhmBWg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MYGaQgbAPL1G0P8Le1rRDc+D7l5xCzNUfvDUb4x7tmY=;
- b=mPm6sa/JM1umehehiJwRkds4f7u5szvrti1CjAriaaQrJschwcO2kAJkEYGz1o2LhIPRq+5XE6CXFJDYFeE9JlVT+rXogwjqPST9wGt8nIAAci4NP6nG8gvUjl9C7Pn3UxQb5Fqv4CuEIUxUmbCR/zRC7G0PumFlc/hp+t1+lVs=
-Received: from DS7PR05CA0083.namprd05.prod.outlook.com (2603:10b6:8:57::29) by
- PH7PR12MB9128.namprd12.prod.outlook.com (2603:10b6:510:2f7::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7025.20; Thu, 23 Nov 2023 06:20:22 +0000
-Received: from DS3PEPF000099D8.namprd04.prod.outlook.com
- (2603:10b6:8:57:cafe::2f) by DS7PR05CA0083.outlook.office365.com
- (2603:10b6:8:57::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.13 via Frontend
- Transport; Thu, 23 Nov 2023 06:20:21 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099D8.mail.protection.outlook.com (10.167.17.9) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7025.12 via Frontend Transport; Thu, 23 Nov 2023 06:20:21 +0000
-Received: from amdoffice.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 23 Nov
- 2023 00:20:10 -0600
-From: ZhenGuo Yin <zhenguo.yin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v3] drm/amdkfd: Free gang_ctx_bo and wptr_bo in pqm_uninit
-Date: Thu, 23 Nov 2023 14:20:01 +0800
-Message-ID: <20231123062001.231761-1-zhenguo.yin@amd.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7B4110E6CF;
+	Thu, 23 Nov 2023 06:57:03 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25ED010E07A;
+ Thu, 23 Nov 2023 06:57:01 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A972F2192D;
+ Thu, 23 Nov 2023 06:56:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1700722619; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=+cyotAqL8AduDM5+Y4Kh5EBMjuBXnBF9LgA0c07VSx8=;
+ b=khMJDMZ73wZbWfp00ra0Z6efVYxQD/34+y1If9SLEjb3SE0lLgmaj3MW3iqWu2sGQxM852
+ 9iv7tId0W9hYPwGBcuhP9HOPS5W6oNg5GBvq7XNg5qIdp1rt3Om8nShqpS9BMYcf7A1iPs
+ I4RyuUmt8fZ7ehsjoJnaXePercV9OFM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1700722619;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=+cyotAqL8AduDM5+Y4Kh5EBMjuBXnBF9LgA0c07VSx8=;
+ b=IwktbC3zvGYGDcAPkvoq16OUkmjP98Yln46qE2evYjUeKg8wA3oZMCnNsBCDGUjBO6TWbi
+ 9gkNZHdNNFTUurBg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 32A74133B6;
+ Thu, 23 Nov 2023 06:56:59 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id /aJ2C7v3XmX5XAAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Thu, 23 Nov 2023 06:56:59 +0000
+Message-ID: <4e0cc556-a7eb-48ce-8226-0f5281f3ef0a@suse.de>
+Date: Thu, 23 Nov 2023 07:56:58 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099D8:EE_|PH7PR12MB9128:EE_
-X-MS-Office365-Filtering-Correlation-Id: 434aff64-4c9c-45a6-8802-08dbebec459b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: SS3uxRNmqmyG34/8vVZ+VT+OwjngnRXnZ1BPQNOmb6A3Bm11aTjQFn7YNb20YSC3GmnzVIHPuQGWoEz5VtJC8fYjgFOT5rbYQoOq6uTcbF05i7vgEQRFbt51XifmRMFt3cBaZ9otUGE31Ce6FqMniGQB1ma/HfGiLYpZHv8kheiMXvRm8Dz1G3JAyN3x6AtJ0G022CU9H4sa8NvfdoTTseyYdoS0yzPA/vUgehV/z+6JLyiG4eEzqiOWrNOPmicDvrL0Hso5cHuUMVLS0lV7x4gcfKNY3Zp0IxQt3WjfDSh1IzbKzlfgJX/T0CROcZ6U1hvE0fvJIkpA/FoQHoQmIBfZZcIwXEJIJWtxopqND99lBlZc9Jn/ccjcmrz5CakhhkzV+dMvyO34IABTr1yrPuZMcMv16w/qjCKlkaer4DWCE309CiGL6FPSLSOy2Ye2gqAVuJ1cu4aluGy04ENV/idE7B+Bi6Olpkt0rLDKLl3l/V120kzUDfK+5xpw9dwjhe5GVcXmJvzcHW0A40m1Xc2tkqMFzrJaplLMroiLcpfn/PHCh5N1I1s9/1jwF9X804vq+ipG1NhRrfcx4ShXrhhj3OGwbXgX3J5cVvxBVSerIGpkKEAok6KIemQI9kDDd0+Bh/O8BSk3xBCxhddH81XDb7xOgV8e5SNIAxCxgoZTvQJ2FOfYKFBXC3xTOFfy65sGJQ+yL3Pc5E/cSQ/2nK6z6YACxjCSJcXRSJS149ZEVBkX3E6VWdF9q3HHiWg6PMeW7HknxAvZ5HOJ3gbtqA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(136003)(376002)(346002)(39860400002)(230922051799003)(1800799012)(451199024)(64100799003)(186009)(82310400011)(40470700004)(46966006)(36840700001)(2906002)(41300700001)(8676002)(8936002)(4326008)(40480700001)(5660300002)(6916009)(316002)(54906003)(70206006)(70586007)(40460700003)(47076005)(86362001)(1076003)(2616005)(478600001)(7696005)(36756003)(26005)(6666004)(426003)(336012)(16526019)(356005)(81166007)(83380400001)(36860700001)(82740400003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2023 06:20:21.4905 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 434aff64-4c9c-45a6-8802-08dbebec459b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099D8.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9128
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 00/20] remove I2C_CLASS_DDC support
+To: Heiner Kallweit <hkallweit1@gmail.com>, Wolfram Sang <wsa@kernel.org>,
+ intel-gfx@lists.freedesktop.org
+References: <20231120214624.9378-1-hkallweit1@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20231120214624.9378-1-hkallweit1@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------vifXtZ8GAwM1Zi9nNGG8Dq4u"
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spamd-Result: default: False [-3.79 / 50.00]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ XM_UA_NO_VERSION(0.01)[]; TO_DN_SOME(0.00)[];
+ HAS_ATTACHMENT(0.00)[]; MIME_BASE64_TEXT_BOGUS(1.00)[];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_BASE64_TEXT(0.10)[];
+ SIGNED_PGP(-2.00)[];
+ FREEMAIL_TO(0.00)[gmail.com,kernel.org,lists.freedesktop.org];
+ FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+,1:+,2:+,3:~];
+ MID_RHS_MATCH_FROM(0.00)[]; BAYES_HAM(-3.00)[100.00%];
+ ARC_NA(0.00)[]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; TAGGED_RCPT(0.00)[];
+ MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCPT_COUNT_TWELVE(0.00)[24]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+ SUSPICIOUS_RECIPS(1.50)[];
+ FREEMAIL_CC(0.00)[vger.kernel.org, gmail.com, kwiboo.se, ideasonboard.com,
+ lists.freedesktop.org, lists.infradead.org, redhat.com, lists.linux.dev,
+ poorly.run, somainline.org, hisilicon.com, linaro.org, google.com]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,102 +114,130 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ZhenGuo Yin <zhenguo.yin@amd.com>, Felix.Kuehling@amd.com
+Cc: Yongqin Liu <yongqin.liu@linaro.org>, freedreno@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>, Jonas Karlman <jonas@kwiboo.se>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ John Stultz <jstultz@google.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>,
+ linux-rockchip@lists.infradead.org,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ linux-mediatek@lists.infradead.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-i2c@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-Memory leaks of gang_ctx_bo and wptr_bo.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------vifXtZ8GAwM1Zi9nNGG8Dq4u
+Content-Type: multipart/mixed; boundary="------------IiZwcTSMBVj1VO2fSGDyCS5o";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Heiner Kallweit <hkallweit1@gmail.com>, Wolfram Sang <wsa@kernel.org>,
+ intel-gfx@lists.freedesktop.org
+Cc: linux-i2c@vger.kernel.org, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonas Karlman <jonas@kwiboo.se>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ linux-fbdev@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jocelyn Falempe <jfalempe@redhat.com>, linux-sunxi@lists.linux.dev,
+ linux-mediatek@lists.infradead.org, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Yongqin Liu
+ <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>
+Message-ID: <4e0cc556-a7eb-48ce-8226-0f5281f3ef0a@suse.de>
+Subject: Re: [PATCH v4 00/20] remove I2C_CLASS_DDC support
+References: <20231120214624.9378-1-hkallweit1@gmail.com>
+In-Reply-To: <20231120214624.9378-1-hkallweit1@gmail.com>
 
-[How]
-Free gang_ctx_bo and wptr_bo in pqm_uninit.
+--------------IiZwcTSMBVj1VO2fSGDyCS5o
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-v2: add a common function pqm_clean_queue_resource to
-free queue's resources.
-v3: reset pdd->pqd.num_gws when destorying GWS queue.
+SGkNCg0KQW0gMjAuMTEuMjMgdW0gMjI6NDYgc2NocmllYiBIZWluZXIgS2FsbHdlaXQ6DQo+
+IEFmdGVyIHJlbW92YWwgb2YgdGhlIGxlZ2FjeSBFRVBST00gZHJpdmVyIGFuZCBJMkNfQ0xB
+U1NfRERDIHN1cHBvcnQgaW4NCj4gb2xwY19kY29uIHRoZXJlJ3Mgbm8gaTJjIGNsaWVudCBk
+cml2ZXIgbGVmdCBzdXBwb3J0aW5nIEkyQ19DTEFTU19EREMuDQo+IENsYXNzLWJhc2VkIGRl
+dmljZSBhdXRvLWRldGVjdGlvbiBpcyBhIGxlZ2FjeSBtZWNoYW5pc20gYW5kIHNob3VsZG4n
+dA0KPiBiZSB1c2VkIGluIG5ldyBjb2RlLiBTbyB3ZSBjYW4gcmVtb3ZlIHRoaXMgY2xhc3Mg
+Y29tcGxldGVseSBub3cuDQo+IA0KPiBQcmVmZXJhYmx5IHRoaXMgc2VyaWVzIHNob3VsZCBi
+ZSBhcHBsaWVkIHZpYSB0aGUgaTJjIHRyZWUuDQo+IA0KPiB2MjoNCj4gLSBjaGFuZ2UgdGFn
+IGluIGNvbW1pdCBzdWJqZWN0IG9mIHBhdGNoIDAzDQo+IC0gYWRkIGFjayB0YWdzDQo+IHYz
+Og0KPiAtIGZpeCBhIGNvbXBpbGUgZXJyb3IgaW4gcGF0Y2ggNQ0KPiB2NDoNCj4gLSBtb3Jl
+IGFjayBhbmQgcmV2aWV3IHRhZ3MNCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEhlaW5lciBLYWxs
+d2VpdCA8aGthbGx3ZWl0MUBnbWFpbC5jb20+DQoNCkFja2VkLWJ5OiBUaG9tYXMgWmltbWVy
+bWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT4NCg0KZm9yIHRoZSBwYXRjaGVzIHRoYXQgZG9u
+J3QgYWxyZWFkeSBoYXZlIG15IHItYi4NCg0KQmVzdCByZWdhcmRzDQpUaG9tYXMNCg0KPiAN
+Cj4gLS0tDQo+IA0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pMmMu
+YyAgICAgICAgICAgfCAgICAxIC0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
+YW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgICAgMSAtDQo+ICAgZHJpdmVycy9ncHUvZHJtL2Fz
+dC9hc3RfaTJjLmMgICAgICAgICAgICAgICAgICAgICB8ICAgIDEgLQ0KPiAgIGRyaXZlcnMv
+Z3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHctaGRtaS5jICAgICAgICAgfCAgICAxIC0NCj4g
+ICBkcml2ZXJzL2dwdS9kcm0vZGlzcGxheS9kcm1fZHBfaGVscGVyLmMgICAgICAgICAgIHwg
+ICAgMSAtDQo+ICAgZHJpdmVycy9ncHUvZHJtL2Rpc3BsYXkvZHJtX2RwX21zdF90b3BvbG9n
+eS5jICAgICB8ICAgIDEgLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9nbWE1MDAvY2R2X2ludGVs
+X2RwLmMgICAgICAgICAgICAgfCAgICAxIC0NCj4gICBkcml2ZXJzL2dwdS9kcm0vZ21hNTAw
+L2ludGVsX2dtYnVzLmMgICAgICAgICAgICAgIHwgICAgMSAtDQo+ICAgZHJpdmVycy9ncHUv
+ZHJtL2dtYTUwMC9vYWt0cmFpbF9oZG1pX2kyYy5jICAgICAgICB8ICAgIDEgLQ0KPiAgIGRy
+aXZlcnMvZ3B1L2RybS9nbWE1MDAvcHNiX2ludGVsX3Nkdm8uYyAgICAgICAgICAgfCAgICAx
+IC0NCj4gICBkcml2ZXJzL2dwdS9kcm0vaGlzaWxpY29uL2hpYm1jL2hpYm1jX2RybV9pMmMu
+YyAgIHwgICAgMSAtDQo+ICAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9n
+bWJ1cy5jICAgICAgICB8ICAgIDEgLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3Bs
+YXkvaW50ZWxfc2R2by5jICAgICAgICAgfCAgICAxIC0NCj4gICBkcml2ZXJzL2dwdS9kcm0v
+bG9vbmdzb24vbHNkY19pMmMuYyAgICAgICAgICAgICAgIHwgICAgMSAtDQo+ICAgZHJpdmVy
+cy9ncHUvZHJtL21lZGlhdGVrL210a19oZG1pX2RkYy5jICAgICAgICAgICB8ICAgIDEgLQ0K
+PiAgIGRyaXZlcnMvZ3B1L2RybS9tZ2FnMjAwL21nYWcyMDBfaTJjLmMgICAgICAgICAgICAg
+fCAgICAxIC0NCj4gICBkcml2ZXJzL2dwdS9kcm0vbXNtL2hkbWkvaGRtaV9pMmMuYyAgICAg
+ICAgICAgICAgIHwgICAgMSAtDQo+ICAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25f
+aTJjLmMgICAgICAgICAgICAgICB8ICAgIDEgLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9yb2Nr
+Y2hpcC9pbm5vX2hkbWkuYyAgICAgICAgICAgICAgfCAgICAxIC0NCj4gICBkcml2ZXJzL2dw
+dS9kcm0vcm9ja2NoaXAvcmszMDY2X2hkbWkuYyAgICAgICAgICAgIHwgICAgMSAtDQo+ICAg
+ZHJpdmVycy9ncHUvZHJtL3N1bjRpL3N1bjRpX2hkbWlfaTJjLmMgICAgICAgICAgICB8ICAg
+IDEgLQ0KPiAgIGRyaXZlcnMvdmlkZW8vZmJkZXYvY29yZS9mYl9kZGMuYyAgICAgICAgICAg
+ICAgICAgfCAgICAxIC0NCj4gICBkcml2ZXJzL3ZpZGVvL2ZiZGV2L2N5YmVyMjAwMGZiLmMg
+ICAgICAgICAgICAgICAgIHwgICAgMSAtDQo+ICAgZHJpdmVycy92aWRlby9mYmRldi9pNzQw
+ZmIuYyAgICAgICAgICAgICAgICAgICAgICB8ICAgIDEgLQ0KPiAgIGRyaXZlcnMvdmlkZW8v
+ZmJkZXYvaW50ZWxmYi9pbnRlbGZiX2kyYy5jICAgICAgICAgfCAgIDE1ICsrKysrLS0tLS0t
+LS0tLQ0KPiAgIGRyaXZlcnMvdmlkZW8vZmJkZXYvbWF0cm94L2kyYy1tYXRyb3hmYi5jICAg
+ICAgICAgfCAgIDEyICsrKystLS0tLS0tLQ0KPiAgIGRyaXZlcnMvdmlkZW8vZmJkZXYvczNm
+Yi5jICAgICAgICAgICAgICAgICAgICAgICAgfCAgICAxIC0NCj4gICBkcml2ZXJzL3ZpZGVv
+L2ZiZGV2L3RkZnhmYi5jICAgICAgICAgICAgICAgICAgICAgIHwgICAgMSAtDQo+ICAgZHJp
+dmVycy92aWRlby9mYmRldi90cmlkZW50ZmIuYyAgICAgICAgICAgICAgICAgICB8ICAgIDEg
+LQ0KPiAgIGRyaXZlcnMvdmlkZW8vZmJkZXYvdmlhL3ZpYV9pMmMuYyAgICAgICAgICAgICAg
+ICAgfCAgICAxIC0NCj4gICBpbmNsdWRlL2xpbnV4L2kyYy5oICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHwgICAgMSAtDQo+ICAgMzEgZmlsZXMgY2hhbmdlZCwgOSBpbnNlcnRp
+b25zKCspLCA0NyBkZWxldGlvbnMoLSkNCg0KLS0gDQpUaG9tYXMgWmltbWVybWFubg0KR3Jh
+cGhpY3MgRHJpdmVyIERldmVsb3Blcg0KU1VTRSBTb2Z0d2FyZSBTb2x1dGlvbnMgR2VybWFu
+eSBHbWJIDQpGcmFua2Vuc3RyYXNzZSAxNDYsIDkwNDYxIE51ZXJuYmVyZywgR2VybWFueQ0K
+R0Y6IEl2byBUb3RldiwgQW5kcmV3IE15ZXJzLCBBbmRyZXcgTWNEb25hbGQsIEJvdWRpZW4g
+TW9lcm1hbg0KSFJCIDM2ODA5IChBRyBOdWVybmJlcmcpDQo=
 
-Signed-off-by: ZhenGuo Yin <zhenguo.yin@amd.com>
----
- .../amd/amdkfd/kfd_process_queue_manager.c    | 54 +++++++++++--------
- 1 file changed, 33 insertions(+), 21 deletions(-)
+--------------IiZwcTSMBVj1VO2fSGDyCS5o--
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index ebaec476f49a..fb5840a5df06 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -169,16 +169,43 @@ int pqm_init(struct process_queue_manager *pqm, struct kfd_process *p)
- 	return 0;
- }
- 
-+static void pqm_clean_queue_resource(struct process_queue_manager *pqm,
-+				     struct process_queue_node *pqn)
-+{
-+	struct kfd_node *dev;
-+	struct kfd_process_device *pdd;
-+
-+	dev = pqn->q->device;
-+
-+	pdd = kfd_get_process_device_data(dev, pqm->process);
-+	if (!pdd) {
-+		pr_err("Process device data doesn't exist\n");
-+		return;
-+	}
-+
-+	if (pqn->q->gws) {
-+		if (KFD_GC_VERSION(pqn->q->device) != IP_VERSION(9, 4, 3) &&
-+		    !dev->kfd->shared_resources.enable_mes)
-+			amdgpu_amdkfd_remove_gws_from_process(
-+				pqm->process->kgd_process_info, pqn->q->gws);
-+				pdd->qpd.num_gws = 0;
-+	}
-+
-+	if (dev->kfd->shared_resources.enable_mes) {
-+		amdgpu_amdkfd_free_gtt_mem(dev->adev, pqn->q->gang_ctx_bo);
-+		if (pqn->q->wptr_bo)
-+			amdgpu_amdkfd_free_gtt_mem(dev->adev, pqn->q->wptr_bo);
-+	}
-+}
-+
- void pqm_uninit(struct process_queue_manager *pqm)
- {
- 	struct process_queue_node *pqn, *next;
- 
- 	list_for_each_entry_safe(pqn, next, &pqm->queues, process_queue_list) {
--		if (pqn->q && pqn->q->gws &&
--		    KFD_GC_VERSION(pqn->q->device) != IP_VERSION(9, 4, 3) &&
--		    !pqn->q->device->kfd->shared_resources.enable_mes)
--			amdgpu_amdkfd_remove_gws_from_process(pqm->process->kgd_process_info,
--				pqn->q->gws);
-+		if (pqn->q)
-+			pqm_clean_queue_resource(pqm, pqn);
-+
- 		kfd_procfs_del_queue(pqn->q);
- 		uninit_queue(pqn->q);
- 		list_del(&pqn->process_queue_list);
-@@ -465,22 +492,7 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
- 				goto err_destroy_queue;
- 		}
- 
--		if (pqn->q->gws) {
--			if (KFD_GC_VERSION(pqn->q->device) != IP_VERSION(9, 4, 3) &&
--			    !dev->kfd->shared_resources.enable_mes)
--				amdgpu_amdkfd_remove_gws_from_process(
--						pqm->process->kgd_process_info,
--						pqn->q->gws);
--			pdd->qpd.num_gws = 0;
--		}
--
--		if (dev->kfd->shared_resources.enable_mes) {
--			amdgpu_amdkfd_free_gtt_mem(dev->adev,
--						   pqn->q->gang_ctx_bo);
--			if (pqn->q->wptr_bo)
--				amdgpu_amdkfd_free_gtt_mem(dev->adev, pqn->q->wptr_bo);
--
--		}
-+		pqm_clean_queue_resource(pqm, pqn);
- 		uninit_queue(pqn->q);
- 	}
- 
--- 
-2.35.1
+--------------vifXtZ8GAwM1Zi9nNGG8Dq4u
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmVe97oFAwAAAAAACgkQlh/E3EQov+BL
+pRAAofCcHzKlz7RbTPrrcEcKn9btAb4NPmvFo3wpV8ZrJ3GDqaCOYx1jnoYJqfjk6iFqXqHFEOr3
+lmzuzL/jCzE6gA1fAlP0Uc0Fm9AwJoCYYQ9x81EGKKuQUMXkwnYYVMk1VtTdW3t2OcEQqFT1Mr1f
+GNZIVtD5iwXyEWdFDtWHqEPIR3Mgqk2u5twaqkxYkQrp5W594ZJxRJqdSj3AQf6stCxwd8cqHyH+
+m39bh2zMwVNC8LUQZNe+7UUB3uJUypHhtrexw07YRzHgvCo57c4i6YT69MzMarbREhxElAf5mPON
+Rb46KLVyJaTH8KVgGISA8pCVXadJwdf5h9hmUXgwp9Z8mHn/z0oXOK2WtAelRdQvMx1nHnCG/MUd
+bTpRzPI9SNEkTL6Q2r+ieDugUOWy5V3b+1RTd5lkzwvSbZZFfbYuIFpfY+h0UQdOQ8EvuKfibCMX
+0/Tp/o5qF5AP6bR9JZmB4mrfom85fqTFZoJjaN6uOaXkdLr+KK4ZhxiUmIhhsYJwB1rd5+STruaO
+6TbfOCLe+q69FMzuNn+95fb/iur0BMuV5ZKgpnOAaffivnGuztF9pGpKZLbT+so3OAy7LaoxiunE
+9/GJEStgnV43QE84GnfkMDEsRKMGwFXfCJNWcVJG9pBrYiN8nA5SAb0rWJNCKLMPi4aZwc7bj9Mu
+KaA=
+=qc7l
+-----END PGP SIGNATURE-----
+
+--------------vifXtZ8GAwM1Zi9nNGG8Dq4u--
