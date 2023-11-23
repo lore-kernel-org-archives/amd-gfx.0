@@ -4,88 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 590BBC61DF7
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Nov 2023 22:55:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E944C61DF7
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Nov 2023 23:01:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B34210E36C;
-	Thu, 23 Nov 2023 22:55:34 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2072.outbound.protection.outlook.com [40.107.220.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2571110E366
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Nov 2023 22:55:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 561C910E366;
+	Thu, 23 Nov 2023 23:01:52 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2082.outbound.protection.outlook.com [40.107.94.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D151C10E366
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Nov 2023 23:01:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IihsIpb742pWlleOWbs9VQdiYzyjNTPdPbOnEvSyvMxB/k7ID/c6Z6kAfnkR/s3gfo0qt+R2cN2TapeHIOqnBtZtojal9Ky5kCu1MwROf9I51euV5e6OzRcIcWb1czIO4CJ2+PXINxrgQi8rCvJIGfkw+Sh9XFHWQAf3H786GFEC6QmcK6iwfwBY+JDI4Bb9ywL0fN5GzzxeBDsY1W0biRCf0Xv7S9TO29D9ADRpat6rZy5l7xzjV21YYkqmmlJ+YUtdnfH9kRBAqMfxG4hE6HbRelAKNGPMIbnOywWmLlROSnmzYOQNrPFDE3+M/FWItS3cGj/UwkR/ivqyk6o5Qg==
+ b=hCj52WXZbQ3FS9vXt95hVlsG+veCmvwPQvo6TKUtGbq4qek3Xukvr/PxIPAFZ0haxjZdqYzi71pV8zXxxt0uC+C4R8Io5qDT3arWm/VGVCRPBHGDcLyJ1DTaVflEzWpfBNrqmxzf1NNmldF8z8Ck77QDolZ9mHQFe/xJ6kYvdS70mJl+D2g6/6BPoSZW9hlsqB/QZm8zTKB5QjxGmHuRGs4soFjEQD4efC3rgfVkN+2dsOED8RDg2+j6i1tMManPQ9pwJyGqg9xybiE5GGkuTOsKngm/h0WB5wTFFV2qwCkQNh9oqObev34LbOh3tScfQ03Q0Iqv4v5Ep4u2cjM43g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oNxLiy6r4QpOkJIZ2PlC8hA4371/VPdT7RUBThTZE4o=;
- b=eei5vRxYNIlR0upQ77J7A7SeNsRN4gP10OXRwfDMDeof0lV7o4todSHpf79/q4DqonCOzXswAb2mwPCUf2RqLNMoh0yltrxPbNdGRlCkgPJ17BQcDWItDPkR7tiSndxpdKv4nvNoh76WIGWYwlJkvCrQ13o3BPeuyWQ9J231tQyqJR28dOwjacXJJAB7kMwfKGqENWm5J/tYjBoNC6AqJQuS6ykltz+0jpVwQPT47Le7WChdzeQAnu3YPoIJcmJJd/TTanU09bbdVp7lj9sAWSK10Oo+J4nGG9AYyXQfnB6Znavg3WXM9KoqkPYxZd2jKtcj1G+JttMvzqjvxelXJQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=OP9apsN4i6hs0gbGyUotAlWZmJZeGtkEuHDdNAj0p5c=;
+ b=UDduRGLARbNygNQMu2BnJAIudOB9rYZnjxy3vgdeVQ9nV6xVs43BHoTEIeqLneUt32AIzI3Gm4Jiy6jR5H5xDYY1pXyZWpovOT9rjRqKHnqMMqyvMRJIVz2c30HcWZCUAyaY4J238tL3nh0ExaXSlEFIHPMGWh8qkjuI/iWZ3G7WIoJyyqYyBjTlbF9JuS52hMAz+BPQYiy7tVqiDZTtiuAQOEBHHWhASORlhgZx2pmtXZe3T5CZly6X2a3PboYuaUQuDM7qs0UNZwR7gN4StAkUqbSUCxAcSvJbwaBMSiYRFyBil0uqUxY9+PajJDQROeroFuMLnp/ALOlvE7Lbeg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oNxLiy6r4QpOkJIZ2PlC8hA4371/VPdT7RUBThTZE4o=;
- b=3qqB9VJV8KoSilXJ/oEq5jprtWyUR8RtMQWsnIAn+0mU1NYvLotxN2q+jITVeK5mRiIlnT4dJhbAywQUmwSYi4hbVi4JqG1cAepDS25ZfXg5dCvHLoPltBSOoRsccTg/06vl4f5DG9WxDpQUjFGZnVdJlatqdgesdzyb+euLRp8=
-Received: from BL1PR13CA0238.namprd13.prod.outlook.com (2603:10b6:208:2bf::33)
- by PH7PR12MB8014.namprd12.prod.outlook.com (2603:10b6:510:27c::19)
+ bh=OP9apsN4i6hs0gbGyUotAlWZmJZeGtkEuHDdNAj0p5c=;
+ b=wwzOy41EZrYDYEmvGR2SxqYlgSRhv6yQtEM4nPG2pj7IIVE+GSkScshvLI4/PbLd4qkKKuSYn0ZEiPKwHysFVFjaALAu+/oSEom+EMBduQy++xKOR7up/PL5aVFiGEcriSdL+TfLt50dFe4j/3zQ/nPL+RBB3jFYYAZxm3lrMWg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by CH3PR12MB9395.namprd12.prod.outlook.com (2603:10b6:610:1ce::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.20; Thu, 23 Nov
- 2023 22:55:29 +0000
-Received: from BL02EPF0001A100.namprd03.prod.outlook.com
- (2603:10b6:208:2bf:cafe::c) by BL1PR13CA0238.outlook.office365.com
- (2603:10b6:208:2bf::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.18 via Frontend
- Transport; Thu, 23 Nov 2023 22:55:29 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A100.mail.protection.outlook.com (10.167.242.107) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7025.12 via Frontend Transport; Thu, 23 Nov 2023 22:55:29 +0000
-Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 23 Nov
- 2023 16:55:28 -0600
-From: Felix Kuehling <Felix.Kuehling@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v3] drm/amdkfd: Run restore_workers on freezable WQs
-Date: Thu, 23 Nov 2023 17:55:06 -0500
-Message-ID: <20231123225506.986511-1-Felix.Kuehling@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+ 2023 23:01:47 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::7bfc:e32b:f362:60f3]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::7bfc:e32b:f362:60f3%5]) with mapi id 15.20.7025.019; Thu, 23 Nov 2023
+ 23:01:47 +0000
+Message-ID: <b319ba78-e4d6-4ef7-bf29-4fbddec9fd5a@amd.com>
+Date: Thu, 23 Nov 2023 18:01:45 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 21/24] drm/amdkfd: add queue remapping
+Content-Language: en-US
+To: "Greathouse, Joseph" <Joseph.Greathouse@amd.com>,
+ "Zhu, James" <James.Zhu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20231103131139.766920-1-James.Zhu@amd.com>
+ <20231103131139.766920-22-James.Zhu@amd.com>
+ <dc13740d-666d-4296-8f77-062c6f32374a@amd.com>
+ <f24bb157-8c36-44a8-9ffb-128c21377500@amd.com>
+ <5c8d90e1-11aa-49fe-9cc0-96e5123294a5@amd.com>
+ <809c2a1b-fe75-4068-baa1-728508dd789b@amd.com>
+ <MW3PR12MB44897FEB401745DC7E898971F9B9A@MW3PR12MB4489.namprd12.prod.outlook.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <MW3PR12MB44897FEB401745DC7E898971F9B9A@MW3PR12MB4489.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YQBPR0101CA0328.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6c::20) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A100:EE_|PH7PR12MB8014:EE_
-X-MS-Office365-Filtering-Correlation-Id: 097e77d7-8ea1-4390-7aa5-08dbec774a57
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CH3PR12MB9395:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8ad92db3-0821-453d-2d64-08dbec782b06
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7W800DyKagNwmnR52oBWhryOFd2Kqvd5ePEFyxsURxO4DM8QFjpdhCBxzJfg7c3vpc6zjqpMDURI7PofaaCDBS+9DfTbbATwi57IDShNUSNk6x5fLxQDyoTinsi53TcTLNyl2wAbIamLtlDDX73d57eMFXN6Jpu+86R2lsS0bIoCahz7ddvHT40c7G1lMjDd5q4EoSfjwBDuSnXb5AETY6/keRV2NqAuNuWoYoyAoPn9HDPXegWjf9uKPYRpxWHkEUO1YHsqC2Gaz3iEr8hMxUEOLujMhjp89x/UnzpJuQLVue0djmbRQFxmtVDYhkH+BdQdd7wFwyxyT+P1v+j881l7WCxvS8isQKh8x0+SE+gTp77RVZVfrhPSIRDCTIXYgVBs+6D0OmhsaZQWFrtxLnqL+0HwNLik5Nnzu481ArFOkjJmEtsNMRz1QPN13xWJGleXuVFUSrjFDFGOtlbB/lPqMsge3RuIezg32LvE6sXUJpBdQl5dtvsYtneclRpP+/MxczmOuQ53PDG1wo9bVJQfJ514ARbINR8OoDQ2XntiuvNAWaiDmjo5OVOJxSBO4SQNbLP5lpNllFiHUdYb/RB/zBo/PyMGTdj3xQFyamOkaUWHxq5mVT+4sNCDgAyP0tzFvS5o9l+RpkSoU869o2lCgus9jGn2WQ1K9zbYY5B+ygTwFMJndFpftQIo4fGuYdrotV+KbSncW9SqTCxPcFVXZJtk1rjUjbGklWQ5w4BbSVQh/XjV4IGmHGowXaF6/ZGkgbAXpQTA3L8QyF1OAg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(136003)(39860400002)(346002)(376002)(396003)(230922051799003)(451199024)(82310400011)(64100799003)(1800799012)(186009)(40470700004)(36840700001)(46966006)(40480700001)(16526019)(40460700003)(82740400003)(70586007)(54906003)(70206006)(36756003)(81166007)(356005)(6916009)(86362001)(36860700001)(47076005)(336012)(426003)(83380400001)(26005)(1076003)(7696005)(6666004)(2616005)(478600001)(2906002)(316002)(66574015)(8676002)(8936002)(4326008)(5660300002)(41300700001)(30864003)(45080400002)(36900700001);
+X-Microsoft-Antispam-Message-Info: pnbl2fX8ZcK87/ZU1wdfIsY1iNvzk1EmWkc/M6O2gZi/G+M5LtpN6AVnOLfAIcTqkvWj0Skq5mhuIU0TmNYEmoHgLUr01EIDCOeQ6JeX/nfqIWEBNKlEadlRcejPUxp2FNF8gVmbKIQXuqqDDGduNOchg4tsCdMdArlHf0BjycdBXJye326M1/dG5j8t9N9/cUyJ+uPURXEz7jQIVffUZGOe1ITpGzJMSTg36wxWs71+a3Aah8UKKF/9+YS5tX3ALcCQRizi7f1GAVvFsrtOJlm3qlpGZgMuSi1gUgvklIQxoXXZkk3TIln0qkJdenrPoOW94hE0Ie7rMSMcM40a5DgOo3Xq4kt656IGkQ/wj8yoZ4dtxNu5T1vVkc6ag8WQ1QHRcflkXYRhdkrkVaQxw/nCnaM/gAfouGN9/NiqFM4JyFBA8G98nV5iPN2PshV35w8Tzio1+u9Jvev3CVBZ6bERPCRohGgOEJgYHp17gRKNZy1YnM27NKydahfeJaUcPLaTwAdsL3eer/Ut/PVVthfHNyokzjSOhftJ8ufLCCTcW+3mZBzUzDtMYTca4Wjq9ExZq+FqF06Y1kKKQpKH+de6IdCGOgUHH87Met0Zk3I/VsH0FUAMt8lNqh4iyenpN3fH6Kq9kHnjKLHm+qnk6A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366004)(39860400002)(136003)(346002)(376002)(396003)(230922051799003)(451199024)(1800799012)(64100799003)(186009)(31686004)(2906002)(4001150100001)(44832011)(41300700001)(8676002)(8936002)(4326008)(5660300002)(66899024)(316002)(6512007)(66556008)(66476007)(110136005)(86362001)(6486002)(2616005)(83380400001)(478600001)(36756003)(66946007)(53546011)(36916002)(6506007)(26005)(38100700002)(31696002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bzVvTTJ6ZGs3SG9LWE5XMXVIM0dhWG9zUHdvVFdML2NtNC9JSnc1NDc5bnIr?=
+ =?utf-8?B?ZUg4MlJhTXhIYk5TNFlHUmRNeUZaN0ZIdGhkZ1N3R29oTEtVU3BKZTJjM09Y?=
+ =?utf-8?B?bk9LTWFCam1QaytnR2JWV1U4QkJORjY3akc2NzMydVpJZVZBVXRPTUI5dkFN?=
+ =?utf-8?B?QWI5NHR0OGczNjFPa09oV3h3ZHdHdGljZGYvRVZZQngyaWFobEVhckp5Uk52?=
+ =?utf-8?B?QlFvdGZ4T3JHSENjeVJoVGd4dnNpNGtiTnJDVmUyU3VuRXgrNzFBUUdMc3Va?=
+ =?utf-8?B?L05KQStBcThWemp0UGlxR01HQnFyUUFGSzRmNzdCVVVKcHEzZ04yVUo0VVJm?=
+ =?utf-8?B?NU1wcklZekpCYzhRK1Z4d2hJbTR4VVdaNUY0aDdmRk1RMUJxSHNmRzFTRUlW?=
+ =?utf-8?B?MFpQSGdESzBvSXdVM0lWU2grYVFsMmg0WkxYdEVGNmx1M2h1Und5R0t1M2FM?=
+ =?utf-8?B?cVlPOFlyRGtKenFiRFlmdXYrdjd0ejVuVFc5Mkd0Rzg0Ym5WTC96UEZiM2Zv?=
+ =?utf-8?B?Tk5icFVOZ1YvRXdaYjJSSkhkaWJ0TG1XNzAzSnNVN2orZElDc2VkWlhRUjhP?=
+ =?utf-8?B?WDNVS25HcG9xSmhmcmNsdzVWTUFVZmllM2dFdVFhTkFxNnJGMXVTSHFtaERo?=
+ =?utf-8?B?Z1hrNXFNSjBLT3hwQkloNGhNWXJRcE1GTzBrbXVDQzkxRTRCQVRxaUFuT1Vw?=
+ =?utf-8?B?RStZcXljaG94T3d3TVVmNDJuUDc1Wng2bHUwM3FyeEx0Y0dnQ2QwQzZ5cTEw?=
+ =?utf-8?B?YmYwWlE0SjVhOUNOQ2JXejkzUWxObk1ZMVdJaUZXc2pMbll5SHRYT2FpVWZP?=
+ =?utf-8?B?Y1JYTHN1WDBDUmF6ay9QRVFyMUk1TUtObU54c01XTm5JZGRsVGorQTRlOEwz?=
+ =?utf-8?B?QzhVaGd2eWcrM2E1UGRVY3R3T3JOUEpMcVZQL05xSzRZT1F6aGRDOG80Vnhh?=
+ =?utf-8?B?ZFRVVmRWZUs3NFVuUUc3bXNTVFltYS83S0xyeUw1NkZwUEFpUjIyYVJ1QVQv?=
+ =?utf-8?B?WnhMV1V0QjdRbDJtbExDT2o2b0hPZVFpNmljdXpFS1lYVzM4YUZmbzNYMXpH?=
+ =?utf-8?B?UmlGUVk5Zy91bzV6WHdZUDdRY3Y4bWNzcDlpRzJKWXFrTllCQVJnZEx1NG9a?=
+ =?utf-8?B?dGxVS1pZbXlYbmZ3b2N5MlpPSUNjald2MWM2QlZ0clM4ZTMwcS9CWEtJd2Z5?=
+ =?utf-8?B?NHF5d2N1NWpPWEZyYldrcDB5NklzanlFRkcyZ3RhSG9aczNOSlMyTDg2OSs2?=
+ =?utf-8?B?RXE0amw3a3E4MWtpbFc2NEtmYUtKODJ1bWlqMEs3ZnR2dndtd2hUckNObDJo?=
+ =?utf-8?B?OW83S2hrYkllSWJVNlcrOG5pakFSdnVhcUFZUk1kSDVjdUFrWGE5UmpXUUhh?=
+ =?utf-8?B?UUtzSnNFYnNYVUFCMzF3RmpQSzFIZ3FXYys0cEVSQXRJajUrUmtrdTQycHdN?=
+ =?utf-8?B?QmtOTnNMVFdkUFBmTTNHVlRsR1pkS1dya0FjbFc2eVQ0dW1Cb0ttbTlwQUxj?=
+ =?utf-8?B?M3IrMG9hTXgyYVJIbkxqaWM1R0J4aUFhMnFISGhGRSs1M09vZmRWMXc2QkJM?=
+ =?utf-8?B?OVVpZHJ2SDdyQjFPSERmNEgzQzBscXNpdTE0c1o3a1JmRVkwSXZDb3FmM2l3?=
+ =?utf-8?B?dFRhZERUbzVnRThtRU1nOGdLR1l2bWdNOFVwamNyLzh4ZlU1Y2dpbTB3UWVT?=
+ =?utf-8?B?YVB6dDc2anhQRlNWTDRkT0JLVWZ4SnV2bUFQVmJEaExSUVQrdWVQUEx4blFj?=
+ =?utf-8?B?b3dtOWpYeWN0QlJhSzZEelQ3NnA4b3VoK2dmREFaSEFvdUhXN1h0b290SFo4?=
+ =?utf-8?B?c0hoMlgvc0QxQ3UzcitiVS9lWm51d1dvb3p2Q2FkNjVKNWRweWNKMUJHK1RJ?=
+ =?utf-8?B?b2RXSXBQNTFEMXNjWTd6VXE1ODZFMkxZa0JQZExRakppb1lOQ1dUd3pjZWVs?=
+ =?utf-8?B?ZWNQNy82WHNoa1pHSFB1bmkwZVlHTGdoTGJGYlRRODdsOGk2UEpnL1ZyeXZv?=
+ =?utf-8?B?Rm5aM2E4UExMUTJ0eUFPd3dDcGYvK3ZjcEpKdXFLYWlBb2Nna0VtaHBkMk14?=
+ =?utf-8?B?dWZhS0JlQVI2VTZyWUVLNXRuKzJrM0hia0dtRmNNbit5WWNkb21aSDlqVllq?=
+ =?utf-8?Q?tq9tAp24Ntvsmucv6/NZpLCSw?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2023 22:55:29.5255 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 097e77d7-8ea1-4390-7aa5-08dbec774a57
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ad92db3-0821-453d-2d64-08dbec782b06
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2023 23:01:46.6512 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A100.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8014
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FGrZFmuLSh7kQDIYS3+Y8LXzGUpk4UEDwuh6IVYKRs7acwWQNb2hH3zWAnCgC8a47tS6y/lBM+rvISvhZ9jmfA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9395
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,375 +131,165 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: emily.deng@amd.com, xinhui.pan@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Make restore workers freezable so we don't have to explicitly flush them
-in suspend and GPU reset code paths, and we don't accidentally try to
-restore BOs while the GPU is suspended. Not having to flush restore_work
-also helps avoid lock/fence dependencies in the GPU reset case where we're
-not allowed to wait for fences.
+On 2023-11-23 17:41, Greathouse, Joseph wrote:
+> [Public]
+>
+>> -----Original Message-----
+>> From: Zhu, James <James.Zhu@amd.com>
+>> Sent: Thursday, November 23, 2023 1:49 PM
+>>
+>> On 2023-11-23 14:02, Felix Kuehling wrote:
+>>> On 2023-11-23 11:25, James Zhu wrote:
+>>>> On 2023-11-22 17:35, Felix Kuehling wrote:
+>>>>> On 2023-11-03 09:11, James Zhu wrote:
+>>>>>> Add queue remapping to force the waves in any running
+>>>>>> processes to complete a CWSR trap.
+>>>>> Please add an explanation why this is needed.
+>>>> [JZ] Even though the profiling-enabled bits is turned off, the CWSR
+>>>> trap handlers for some kernels with this process may still in running
+>>>> stage, this will
+>>>>
+>>>> force the waves in any running processes to complete a CWSR trap, and
+>>>> make sure pc sampling is completely stopped with this process.   I
+>>>> will add it later.
+>>> It may be confusing to talk specifically about "CWSR trap handler".
+>>> There is only one trap handler that is triggered by different events:
+>>> CWSR, host trap, s_trap instructions, exceptions, etc. When a new trap
+>>> triggers, it serializes with any currently running trap handler in
+>>> that wavefront. So it seems that you're using CWSR as a way to ensure
+>>> that any host trap has completed: CWSR will wait for previous traps to
+>>> finish before trapping again for CWSR, the HWS firmware waits for CWSR
+>>> completion and the driver waits for HWS to finish CWSR with a fence on
+>>> a HIQ QUERY_STATUS packet. Is that correct?
+>> [JZ] I think your explanation is more detail. Need Joseph to confirm.
+> Felix, your summary is correct. The reason we are trying to perform a queue unmap/map cycle as part of the PC sampling stop is to prevent the following:
+>
+> 1. A PC sampling request arrives to Wave X, sending it to 1st-level trap handler
+> 2. User thread asks KFD to stop sampling for this process, which leads to kfd_pc_sample_stop()
+> 3. kfd_pc_sample_stop() decrements the sampling refcent. If this is the last process to stop sampling, it stops any further sampling traps from being generated
+> 4. kfd_pc_sample_stop() sets this process's TMA flag to false so waves in the 1st-level trap handler know sampling is disabled
+>      4.1. Wave X may be in 1st-level handler and not yet checked the TMA flag. If so, it will exit the 1st-level handler when it sees flag is false
+>      4.2. Wave X may have already passed the 1st-level TMA flag check and entered the 2nd-level trap handler to do the PC sample
+> 5. kfd_pc_sample_stop() returns, eventually causing ioctl to return, back to user-space
+> 6. Because the stop ioctl has returned, user-land deallocates user-space buffer the 2nd level trap handler uses to output sample data
+> 7. Wave X that was in the 2nd-level handler tries to finish its sample output and writes to the now-freed location, causing a use-after-free
+>
+> Note that Step 3 does not always stop further traps from arriving -- if another process still wants to do sampling, the driver or HW might still send traps to every wave on the device after Step 3.
+> As such, to avoid going into the 2nd-level handler for non-sampled processes, all 1st-level handlers must check their TMA flag to see if they should allow the sample to flow to the 2nd-level handler.
+>
+> By removing the queue from the HW after Step 4, we can be sure that any existing waves from this process that entered the PC sampling 2nd-level handler before Step 4 are done.
+> Any waves that were still in the 1st-level handler at Step 4.1 will be filtered by the TMA flag being set to false. CWSR will wait until they exit.
+> Any waves that were already in the 2nd-level handler (4.2) must complete before the CWSR save will complete and allow this queue removal request to complete.
+> Any waves that enter the 1st-level trap handler after Step 4 won't go into the PC sampling logic in the 2nd-level handler because the TMA flag is set to false. CWSR will wait until they exit.
+>
+> When we then put the queue back on the hardware, any further traps that might show up (e.g. because another process is sampling) will get filtered by the TMA flag.
+>
+> So once the queue removal (and thus CWSR save cycle) has completed, we can be sure that no other traps to this process will try to use its PC sample data buffer, so it's safe to return to user-space and let them potentially free that buffer.
+>
+> I don't know how to summarize this nicely in a comment, but hopefully y'all can figure that out. :)
 
-A side effect of this is, that we can now have multiple concurrent threads
-trying to signal the same eviction fence. Rework eviction fence signaling
-and replacement to account for that.
+My best summary: We need to ensure that any waves executing the PC 
+sampling part of the trap handler are done before kfd_pc_sample_stop 
+returns, and that no new waves enter that part of the trap handler 
+afterwards. This avoids race conditions that could lead to 
+use-after-free. Unmapping and remapping the queues either waits for the 
+waves to drain, or preempts them with CWSR, which itself executes a trap 
+and waits for previous traps to finish.
 
-The GPU reset path can no longer rely on restore_process_worker to resume
-queues because evict/restore workers can run independently of it. Instead
-call a new restore_process_helper directly.
+Regards,
+   Felix
 
-This is an RFC and request for testing.
 
-v2:
-- Reworked eviction fence signaling
-- Introduced restore_process_helper
-
-v3:
-- Handle unsignaled eviction fences in restore_process_bos
-
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Acked-by: Christian König <christian.koenig@amd.com>
----
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 68 +++++++++++----
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 87 +++++++++++--------
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |  4 +-
- 3 files changed, 104 insertions(+), 55 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 2e302956a279..bdec88713a09 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1431,7 +1431,6 @@ static int init_kfd_vm(struct amdgpu_vm *vm, void **process_info,
- 				  amdgpu_amdkfd_restore_userptr_worker);
- 
- 		*process_info = info;
--		*ef = dma_fence_get(&info->eviction_fence->base);
- 	}
- 
- 	vm->process_info = *process_info;
-@@ -1462,6 +1461,8 @@ static int init_kfd_vm(struct amdgpu_vm *vm, void **process_info,
- 	list_add_tail(&vm->vm_list_node,
- 			&(vm->process_info->vm_list_head));
- 	vm->process_info->n_vms++;
-+
-+	*ef = dma_fence_get(&vm->process_info->eviction_fence->base);
- 	mutex_unlock(&vm->process_info->lock);
- 
- 	return 0;
-@@ -1473,10 +1474,7 @@ static int init_kfd_vm(struct amdgpu_vm *vm, void **process_info,
- reserve_pd_fail:
- 	vm->process_info = NULL;
- 	if (info) {
--		/* Two fence references: one in info and one in *ef */
- 		dma_fence_put(&info->eviction_fence->base);
--		dma_fence_put(*ef);
--		*ef = NULL;
- 		*process_info = NULL;
- 		put_pid(info->pid);
- create_evict_fence_fail:
-@@ -1670,7 +1668,8 @@ int amdgpu_amdkfd_criu_resume(void *p)
- 		goto out_unlock;
- 	}
- 	WRITE_ONCE(pinfo->block_mmu_notifications, false);
--	schedule_delayed_work(&pinfo->restore_userptr_work, 0);
-+	queue_delayed_work(system_freezable_wq,
-+			   &pinfo->restore_userptr_work, 0);
- 
- out_unlock:
- 	mutex_unlock(&pinfo->lock);
-@@ -2475,7 +2474,8 @@ int amdgpu_amdkfd_evict_userptr(struct mmu_interval_notifier *mni,
- 				       KFD_QUEUE_EVICTION_TRIGGER_USERPTR);
- 		if (r)
- 			pr_err("Failed to quiesce KFD\n");
--		schedule_delayed_work(&process_info->restore_userptr_work,
-+		queue_delayed_work(system_freezable_wq,
-+			&process_info->restore_userptr_work,
- 			msecs_to_jiffies(AMDGPU_USERPTR_RESTORE_DELAY_MS));
- 	}
- 	mutex_unlock(&process_info->notifier_lock);
-@@ -2810,7 +2810,8 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
- 
- 	/* If validation failed, reschedule another attempt */
- 	if (evicted_bos) {
--		schedule_delayed_work(&process_info->restore_userptr_work,
-+		queue_delayed_work(system_freezable_wq,
-+			&process_info->restore_userptr_work,
- 			msecs_to_jiffies(AMDGPU_USERPTR_RESTORE_DELAY_MS));
- 
- 		kfd_smi_event_queue_restore_rescheduled(mm);
-@@ -2819,6 +2820,23 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
- 	put_task_struct(usertask);
- }
- 
-+static void replace_eviction_fence(struct dma_fence **ef,
-+				   struct dma_fence *new_ef)
-+{
-+	struct dma_fence *old_ef = rcu_replace_pointer(*ef, new_ef, true
-+		/* protected by process_info->lock */);
-+
-+	/* If we're replacing an unsignaled eviction fence, that fence will
-+	 * never be signaled, and if anyone is still waiting on that fence,
-+	 * they will hang forever. This should never happen. We should only
-+	 * replace the fence in restore_work that only gets scheduled after
-+	 * eviction work signaled the fence.
-+	 */
-+	WARN_ONCE(!dma_fence_is_signaled(old_ef),
-+		  "Replacing unsignaled eviction fence");
-+	dma_fence_put(old_ef);
-+}
-+
- /** amdgpu_amdkfd_gpuvm_restore_process_bos - Restore all BOs for the given
-  *   KFD process identified by process_info
-  *
-@@ -2844,7 +2862,6 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence **ef)
- 	struct amdgpu_vm *peer_vm;
- 	struct kgd_mem *mem;
- 	struct bo_vm_reservation_context ctx;
--	struct amdgpu_amdkfd_fence *new_fence;
- 	int ret = 0, i;
- 	struct list_head duplicate_save;
- 	struct amdgpu_sync sync_obj;
-@@ -2974,22 +2991,35 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence **ef)
- 	/* Wait for validate and PT updates to finish */
- 	amdgpu_sync_wait(&sync_obj, false);
- 
--	/* Release old eviction fence and create new one, because fence only
--	 * goes from unsignaled to signaled, fence cannot be reused.
--	 * Use context and mm from the old fence.
-+	/* The old eviction fence may be unsignaled if restore happens
-+	 * after a GPU reset or suspend/resume. Keep the old fence in that
-+	 * case. Otherwise release the old eviction fence and create new
-+	 * one, because fence only goes from unsignaled to signaled once
-+	 * and cannot be reused. Use context and mm from the old fence.
-+	 *
-+	 * If an old eviction fence signals after this check, that's OK.
-+	 * Anyone signaling an eviction fence must stop the queues first
-+	 * and schedule another restore worker.
- 	 */
--	new_fence = amdgpu_amdkfd_fence_create(
-+	if (dma_fence_is_signaled(&process_info->eviction_fence->base)) {
-+		struct amdgpu_amdkfd_fence *new_fence =
-+			amdgpu_amdkfd_fence_create(
- 				process_info->eviction_fence->base.context,
- 				process_info->eviction_fence->mm,
- 				NULL);
--	if (!new_fence) {
--		pr_err("Failed to create eviction fence\n");
--		ret = -ENOMEM;
--		goto validate_map_fail;
-+
-+		if (!new_fence) {
-+			pr_err("Failed to create eviction fence\n");
-+			ret = -ENOMEM;
-+			goto validate_map_fail;
-+		}
-+		dma_fence_put(&process_info->eviction_fence->base);
-+		process_info->eviction_fence = new_fence;
-+		replace_eviction_fence(ef, dma_fence_get(&new_fence->base));
-+	} else {
-+		WARN_ONCE(*ef != &process_info->eviction_fence->base,
-+			  "KFD eviction fence doesn't match KGD process_info");
- 	}
--	dma_fence_put(&process_info->eviction_fence->base);
--	process_info->eviction_fence = new_fence;
--	*ef = dma_fence_get(&new_fence->base);
- 
- 	/* Attach new eviction fence to all BOs except pinned ones */
- 	list_for_each_entry(mem, &process_info->kfd_bo_list,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index c10d050e1a61..71df51fcc1b0 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -664,7 +664,8 @@ int kfd_process_create_wq(void)
- 	if (!kfd_process_wq)
- 		kfd_process_wq = alloc_workqueue("kfd_process_wq", 0, 0);
- 	if (!kfd_restore_wq)
--		kfd_restore_wq = alloc_ordered_workqueue("kfd_restore_wq", 0);
-+		kfd_restore_wq = alloc_ordered_workqueue("kfd_restore_wq",
-+							 WQ_FREEZABLE);
- 
- 	if (!kfd_process_wq || !kfd_restore_wq) {
- 		kfd_process_destroy_wq();
-@@ -1642,6 +1643,7 @@ int kfd_process_device_init_vm(struct kfd_process_device *pdd,
- 	struct amdgpu_fpriv *drv_priv;
- 	struct amdgpu_vm *avm;
- 	struct kfd_process *p;
-+	struct dma_fence *ef;
- 	struct kfd_node *dev;
- 	int ret;
- 
-@@ -1661,11 +1663,12 @@ int kfd_process_device_init_vm(struct kfd_process_device *pdd,
- 
- 	ret = amdgpu_amdkfd_gpuvm_acquire_process_vm(dev->adev, avm,
- 						     &p->kgd_process_info,
--						     &p->ef);
-+						     &ef);
- 	if (ret) {
- 		pr_err("Failed to create process VM object\n");
- 		return ret;
- 	}
-+	RCU_INIT_POINTER(p->ef, ef);
- 	pdd->drm_priv = drm_file->private_data;
- 
- 	ret = kfd_process_device_reserve_ib_mem(pdd);
-@@ -1908,6 +1911,21 @@ kfd_process_gpuid_from_node(struct kfd_process *p, struct kfd_node *node,
- 	return -EINVAL;
- }
- 
-+static int signal_eviction_fence(struct kfd_process *p)
-+{
-+	struct dma_fence *ef;
-+	int ret;
-+
-+	rcu_read_lock();
-+	ef = dma_fence_get_rcu_safe(&p->ef);
-+	rcu_read_unlock();
-+
-+	ret = dma_fence_signal(ef);
-+	dma_fence_put(ef);
-+
-+	return ret;
-+}
-+
- static void evict_process_worker(struct work_struct *work)
- {
- 	int ret;
-@@ -1920,31 +1938,46 @@ static void evict_process_worker(struct work_struct *work)
- 	 * lifetime of this thread, kfd_process p will be valid
- 	 */
- 	p = container_of(dwork, struct kfd_process, eviction_work);
--	WARN_ONCE(p->last_eviction_seqno != p->ef->seqno,
--		  "Eviction fence mismatch\n");
--
--	/* Narrow window of overlap between restore and evict work
--	 * item is possible. Once amdgpu_amdkfd_gpuvm_restore_process_bos
--	 * unreserves KFD BOs, it is possible to evicted again. But
--	 * restore has few more steps of finish. So lets wait for any
--	 * previous restore work to complete
--	 */
--	flush_delayed_work(&p->restore_work);
- 
- 	pr_debug("Started evicting pasid 0x%x\n", p->pasid);
- 	ret = kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_TRIGGER_TTM);
- 	if (!ret) {
--		dma_fence_signal(p->ef);
--		dma_fence_put(p->ef);
--		p->ef = NULL;
--		queue_delayed_work(kfd_restore_wq, &p->restore_work,
-+		/* If another thread already signaled the eviction fence,
-+		 * they are responsible stopping the queues and scheduling
-+		 * the restore work.
-+		 */
-+		if (!signal_eviction_fence(p))
-+			queue_delayed_work(kfd_restore_wq, &p->restore_work,
- 				msecs_to_jiffies(PROCESS_RESTORE_TIME_MS));
-+		else
-+			kfd_process_restore_queues(p);
- 
- 		pr_debug("Finished evicting pasid 0x%x\n", p->pasid);
- 	} else
- 		pr_err("Failed to evict queues of pasid 0x%x\n", p->pasid);
- }
- 
-+static int restore_process_helper(struct kfd_process *p)
-+{
-+	int ret = 0;
-+
-+	/* VMs may not have been acquired yet during debugging. */
-+	if (p->kgd_process_info) {
-+		ret = amdgpu_amdkfd_gpuvm_restore_process_bos(
-+			p->kgd_process_info, &p->ef);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = kfd_process_restore_queues(p);
-+	if (!ret)
-+		pr_debug("Finished restoring pasid 0x%x\n", p->pasid);
-+	else
-+		pr_err("Failed to restore queues of pasid 0x%x\n", p->pasid);
-+
-+	return ret;
-+}
-+
- static void restore_process_worker(struct work_struct *work)
- {
- 	struct delayed_work *dwork;
-@@ -1970,24 +2003,15 @@ static void restore_process_worker(struct work_struct *work)
- 	 */
- 
- 	p->last_restore_timestamp = get_jiffies_64();
--	/* VMs may not have been acquired yet during debugging. */
--	if (p->kgd_process_info)
--		ret = amdgpu_amdkfd_gpuvm_restore_process_bos(p->kgd_process_info,
--							     &p->ef);
-+
-+	ret = restore_process_helper(p);
- 	if (ret) {
- 		pr_debug("Failed to restore BOs of pasid 0x%x, retry after %d ms\n",
- 			 p->pasid, PROCESS_BACK_OFF_TIME_MS);
- 		ret = queue_delayed_work(kfd_restore_wq, &p->restore_work,
- 				msecs_to_jiffies(PROCESS_BACK_OFF_TIME_MS));
- 		WARN(!ret, "reschedule restore work failed\n");
--		return;
- 	}
--
--	ret = kfd_process_restore_queues(p);
--	if (!ret)
--		pr_debug("Finished restoring pasid 0x%x\n", p->pasid);
--	else
--		pr_err("Failed to restore queues of pasid 0x%x\n", p->pasid);
- }
- 
- void kfd_suspend_all_processes(void)
-@@ -1998,14 +2022,9 @@ void kfd_suspend_all_processes(void)
- 
- 	WARN(debug_evictions, "Evicting all processes");
- 	hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
--		cancel_delayed_work_sync(&p->eviction_work);
--		flush_delayed_work(&p->restore_work);
--
- 		if (kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_TRIGGER_SUSPEND))
- 			pr_err("Failed to suspend process 0x%x\n", p->pasid);
--		dma_fence_signal(p->ef);
--		dma_fence_put(p->ef);
--		p->ef = NULL;
-+		signal_eviction_fence(p);
- 	}
- 	srcu_read_unlock(&kfd_processes_srcu, idx);
- }
-@@ -2017,7 +2036,7 @@ int kfd_resume_all_processes(void)
- 	int ret = 0, idx = srcu_read_lock(&kfd_processes_srcu);
- 
- 	hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
--		if (!queue_delayed_work(kfd_restore_wq, &p->restore_work, 0)) {
-+		if (restore_process_helper(p)) {
- 			pr_err("Restore process %d failed during resume\n",
- 			       p->pasid);
- 			ret = -EFAULT;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index b23ba92a794c..42b5279c7010 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1871,7 +1871,7 @@ static void svm_range_restore_work(struct work_struct *work)
- 	/* If validation failed, reschedule another attempt */
- 	if (evicted_ranges) {
- 		pr_debug("reschedule to restore svm range\n");
--		schedule_delayed_work(&svms->restore_work,
-+		queue_delayed_work(system_freezable_wq, &svms->restore_work,
- 			msecs_to_jiffies(AMDGPU_SVM_RANGE_RESTORE_DELAY_MS));
- 
- 		kfd_smi_event_queue_restore_rescheduled(mm);
-@@ -1947,7 +1947,7 @@ svm_range_evict(struct svm_range *prange, struct mm_struct *mm,
- 			pr_debug("failed to quiesce KFD\n");
- 
- 		pr_debug("schedule to restore svm %p ranges\n", svms);
--		schedule_delayed_work(&svms->restore_work,
-+		queue_delayed_work(system_freezable_wq, &svms->restore_work,
- 			msecs_to_jiffies(AMDGPU_SVM_RANGE_RESTORE_DELAY_MS));
- 	} else {
- 		unsigned long s, l;
--- 
-2.34.1
-
+>
+> Thanks,
+> -Joe
+>
+>>> Regards,
+>>>    Felix
+>>>
+>>>
+>>>>>> Signed-off-by: James Zhu <James.Zhu@amd.com>
+>>>>>> ---
+>>>>>>    drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 11
+>>>>>> +++++++++++
+>>>>>>    drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h |  5 +++++
+>>>>>>    drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c          |  3 +++
+>>>>>>    3 files changed, 19 insertions(+)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+>>>>>> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+>>>>>> index c0e71543389a..a3f57be63f4f 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+>>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+>>>>>> @@ -3155,6 +3155,17 @@ int debug_refresh_runlist(struct
+>>>>>> device_queue_manager *dqm)
+>>>>>>        return debug_map_and_unlock(dqm);
+>>>>>>    }
+>>>>>>    +void remap_queue(struct device_queue_manager *dqm,
+>>>>>> +                enum kfd_unmap_queues_filter filter,
+>>>>>> +                uint32_t filter_param,
+>>>>>> +                uint32_t grace_period)
+>>>>> Not sure if you need the filter and grace period parameters in this
+>>>>> function. What's the point of exposing that to callers who just want
+>>>>> to trigger a CWSR? You could also change the function name to
+>>>>> reflect the purpose of the function, rather than the implementation.
+>>>> [JZ] Just want to create a general function in case that used by
+>>>> others. I am fine to remove passing filter_param/grace_period
+>>>>> Regards,
+>>>>>    Felix
+>>>>>
+>>>>>
+>>>>>> +{
+>>>>>> +    dqm_lock(dqm);
+>>>>>> +    if (!dqm->dev->kfd->shared_resources.enable_mes)
+>>>>>> +        execute_queues_cpsch(dqm, filter, filter_param,
+>>>>>> grace_period);
+>>>>>> +    dqm_unlock(dqm);
+>>>>>> +}
+>>>>>> +
+>>>>>>    #if defined(CONFIG_DEBUG_FS)
+>>>>>>      static void seq_reg_dump(struct seq_file *m,
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+>>>>>> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+>>>>>> index cf7e182588f8..f8aae3747a36 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+>>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+>>>>>> @@ -303,6 +303,11 @@ int debug_lock_and_unmap(struct
+>>>>>> device_queue_manager *dqm);
+>>>>>>    int debug_map_and_unlock(struct device_queue_manager *dqm);
+>>>>>>    int debug_refresh_runlist(struct device_queue_manager *dqm);
+>>>>>>    +void remap_queue(struct device_queue_manager *dqm,
+>>>>>> +                enum kfd_unmap_queues_filter filter,
+>>>>>> +                uint32_t filter_param,
+>>>>>> +                uint32_t grace_period);
+>>>>>> +
+>>>>>>    static inline unsigned int get_sh_mem_bases_32(struct
+>>>>>> kfd_process_device *pdd)
+>>>>>>    {
+>>>>>>        return (pdd->lds_base >> 16) & 0xFF;
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
+>>>>>> b/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
+>>>>>> index e8f0559b618e..66670cdb813a 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
+>>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
+>>>>>> @@ -24,6 +24,7 @@
+>>>>>>    #include "kfd_priv.h"
+>>>>>>    #include "amdgpu_amdkfd.h"
+>>>>>>    #include "kfd_pc_sampling.h"
+>>>>>> +#include "kfd_device_queue_manager.h"
+>>>>>>      struct supported_pc_sample_info {
+>>>>>>        uint32_t ip_version;
+>>>>>> @@ -164,6 +165,8 @@ static int kfd_pc_sample_stop(struct
+>>>>>> kfd_process_device *pdd,
+>>>>>> cancel_work_sync(&pdd->dev->pcs_data.hosttrap_entry.base.pc_sampling_work);
+>>>>>>
+>>>>>> kfd_process_set_trap_pc_sampling_flag(&pdd->qpd,
+>>>>>> pdd->dev->pcs_data.hosttrap_entry.base.pc_sample_info.method, false);
+>>>>>> +        remap_queue(pdd->dev->dqm,
+>>>>>> +            KFD_UNMAP_QUEUES_FILTER_ALL_QUEUES, 0,
+>>>>>> USE_DEFAULT_GRACE_PERIOD);
+>>>>>>              mutex_lock(&pdd->dev->pcs_data.mutex);
+>>>>>> pdd->dev->pcs_data.hosttrap_entry.base.target_simd = 0;
