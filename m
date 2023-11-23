@@ -4,117 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B527C5AD4C
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Nov 2023 20:01:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAD77C5AD4C
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Nov 2023 20:18:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8484110E162;
-	Thu, 23 Nov 2023 20:01:52 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2085.outbound.protection.outlook.com [40.107.95.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F05D910E162
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Nov 2023 20:01:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2073A10E18F;
+	Thu, 23 Nov 2023 20:18:13 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2061f.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e89::61f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24E0D10E18F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Nov 2023 20:18:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Y3uM7X6kpkTprG1i5dqVUF7y4ags9LfRfqSx8wYgCmwpGk7FbC/DbvoxEZC3uMeYX6SKVNxrsadAK5Fml1RBFW8kWNPv9IVHtl+icH5+KoXRnQEMMw/AoRKCbuxkiCpJN6Usg2vrXeS+9s11AA7Sq4jDWgY1+jW6zZkM59+UKu2fDzoalCuRyO78lIZR8vc0dW2V0EJY08Hv85VFoH4nxyZ7tuxEOtsIEa1TiToZJ4AVshJKa/1w5gUUUZKS9LWhCS05DWKH2DXtlcWItAqdYcbujdaKNpakrs3x16rb6dVhEpr7S0gBwUdGhWeP9KGPLmfyqs8Fu+pYDOa/6e4G/Q==
+ b=UZK2+cqYLZQHCrOlPmglW2IQya1nR1sAYdoIzh1/is2PHkoOoBQt2v12vUYyShsha/X54jU9rY91yw8NEsuS1QPGqBFzVtPI+O2zXsHuBJ97KaleLnZTEANxckHmnP7O5HR2ovtKyExL8WqaTbJrVQYr/HpUE33riMugHMBR3H04gol8RMGnUM+gzjMT8UPhXY2oX4yPIHUhCrBKy/oQU+eObTCy0GijPi8hGVRmuw2Oa0rlqpdmpM8QNQk01p5P5sROp5R+T6K4FtNVHXwvESXBq88MWfPvP3hjmJB4Wytmc8v98ilM5eLeehrq/0+FUiGXBt+2O1fIkNZ+Z/GEmQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7AZcqEtnH6RnxCfHFiBT/dGZ9dUd/OCGvPV3eSYreZA=;
- b=I2m50Bo/0HqVQ+egMdbWVZKNxQHWlTPefo2wgRMbjeMTR7Tjnt7tmAOIkbVXpAa6iEBJWcegcDNVJn63BTvkPVYkJ/g7JFoIxMy9Na2wz7xymsbsKHbtLughIGG8fLAv3HGhQU9iGzAfdsyp4tfYs3bzpPCMQp7IPyW63483KdLnazqIi2JpwxaGYKzMN12ihjylEDVymkU+cnsTlW7CjAl6Ma85OJSbA81dlL79ZBXFISf1+NTH5Rzm7LjSxgFbsQnf/yF2auQH1ODBc4BpbBkcWxrvxdTc6tmaaUCr/BJHbOMy67+JFiLCfy4NFN4lMt7LN6Z7eZa6MXX62XW4Gg==
+ bh=CkLvp5EKK5NKnGZPrSOoI4jC/Q2WDlvfTmhKVfAFYoo=;
+ b=JRYLazp733k/4thV5EMrY1QIjCoNGGB7H0cRrLwQcQJUNuV/1dOihcnTVdIbMxzmjUzLDPaaybnnrclcQetvgyXUvvfZfgGcONX31EK1ABSh1AcFRdkCTyqhZusecOgj6EvxLNrqxY9rFoTo6jnFBrbc6Jwlbyxrf+pjA6vcdXA5cxv/mg+KBX8bXwl5d7+ek/ET+5c8z4gq/zxUBshLQyke/RindtEp1IgGRd2+eZOylLRc+QRUN4xm95XFLaCv+R9qTUOfVIJY4JjTZ4ms3RX4RfKyK1IxS9/+vOzWXYHyr0dnnt8uWCzz9smUkSQ1Dw2r1Yh/PpQ6ppEoZ0eRaw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7AZcqEtnH6RnxCfHFiBT/dGZ9dUd/OCGvPV3eSYreZA=;
- b=2Aob1KSlfuvP4fWLx7PzBHpDespAj/ucwj0q992elqaoppuPuBl0QLLcNObDeiRRKFIE9sbnwrtL8qUyZB+2oTQDbHFAXuZUQb5gQY4OuWyczJaVwPvXjQqrh/w/wVRy+YL1PtvaDtd1px2zjrcg3lvPlzOBLGLD6ZBgoCTINsc=
+ bh=CkLvp5EKK5NKnGZPrSOoI4jC/Q2WDlvfTmhKVfAFYoo=;
+ b=yrIJwvV3/mEimQRcdl5wUINxhd54wItXK2X76qcLmL1W3M3Pe+iZR0YkW6TGOC3tcEJUwhlk56fdsnmfTOozcUPlsiTSjyq3TTJd8nIhBOBaYb4L939gd6VfNw4YqEm/wdz9Z3ZDldisNGaTPdhKIJbCt77dlumLRqRd1Wu5AEc=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SJ0PR12MB6760.namprd12.prod.outlook.com (2603:10b6:a03:44c::18)
- by CY8PR12MB8411.namprd12.prod.outlook.com (2603:10b6:930:6e::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.18; Thu, 23 Nov
- 2023 20:01:48 +0000
+ by MN2PR12MB4360.namprd12.prod.outlook.com (2603:10b6:208:266::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.20; Thu, 23 Nov
+ 2023 20:18:08 +0000
 Received: from SJ0PR12MB6760.namprd12.prod.outlook.com
  ([fe80::ae50:7a3a:dad3:1d04]) by SJ0PR12MB6760.namprd12.prod.outlook.com
  ([fe80::ae50:7a3a:dad3:1d04%7]) with mapi id 15.20.7025.020; Thu, 23 Nov 2023
- 20:01:48 +0000
-Message-ID: <958e5512-ac80-4cf8-b994-b0bf44f25ce7@amd.com>
-Date: Thu, 23 Nov 2023 15:01:45 -0500
+ 20:18:08 +0000
+Message-ID: <3fc881ee-06c5-4b67-bc0e-a19da4f1919c@amd.com>
+Date: Thu, 23 Nov 2023 15:18:05 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 18/24] drm/amdkfd: enable pc sampling start
+Subject: Re: [PATCH 07/24] drm/amdkfd: check pcs_enrty valid
 Content-Language: en-US
 To: Felix Kuehling <felix.kuehling@amd.com>, James Zhu <James.Zhu@amd.com>,
  amd-gfx@lists.freedesktop.org
 References: <20231103131139.766920-1-James.Zhu@amd.com>
- <20231103131139.766920-19-James.Zhu@amd.com>
- <eed89842-a946-4574-bafd-dd39bd471d79@amd.com>
+ <20231103131139.766920-8-James.Zhu@amd.com>
+ <8a4a1994-f92c-407d-8e12-4466b27ca53f@amd.com>
 From: James Zhu <jamesz@amd.com>
 Organization: AMD RTG
-In-Reply-To: <eed89842-a946-4574-bafd-dd39bd471d79@amd.com>
+In-Reply-To: <8a4a1994-f92c-407d-8e12-4466b27ca53f@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0007.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::25) To SJ0PR12MB6760.namprd12.prod.outlook.com
+X-ClientProxiedBy: YQZPR01CA0065.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:88::20) To SJ0PR12MB6760.namprd12.prod.outlook.com
  (2603:10b6:a03:44c::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB6760:EE_|CY8PR12MB8411:EE_
-X-MS-Office365-Filtering-Correlation-Id: 764f0503-bb8e-4959-82e0-08dbec5f06c1
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB6760:EE_|MN2PR12MB4360:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3fca0da7-995f-447f-eaa7-08dbec614eab
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jJsG1m6FITlDlcXESvskWVuCI2tY5YPlqbCOMZ0+M0wfPwERnirj1VTi0X8e41KKfIEUM6/b/8Vv5kczDwjOhuXDVVTUlPIRN21WBMtHO7sax0vR+3+4NQEhD3Lf3bC3x0KZdn0fXFbBnVSSd1cZTvmQGB3wPUacrWTDHnq4iuXnlCwJrHtdbo+WGVnNMfqYcnuPqktReA9njUnjQo3NhPHE/BjwOxcF9BnbdtFXllHXccunvzplripdDcY/Tbrqqz8dJtP9f828QpMSWTkw5rJYm6W+vvhli6z+jlfD//SmRI37Ci//0XhVUXUZE5ALg6iQbiEHJZdbd58k4ph5k71UPCQNb5HPKTfzuO8tnufqZqDOQM+lZx1t3YMvyEOfQXUJX7QBCQsL1q0I5Yqme7Lf8A/YfQs7EqxaTwRU6YAm8srj+0jHlSGnY0N+Oms2Qg3BQpXbIJz4TSFnF8Wmimk6hjrEEdCNBgZdKU2zjHQ1LdTxSMUjUPWfYIbFB7Mhz2N/FSFXhkWfAOAGitl2/B/ndx1IOv4HbV+IfwtZH8JFl+BehhXqab/TtCYcLd/UvAioO7tP640EanDJRKGLFAqzWa0s/RsBHzXM4Ubivn8DrY4mi7VzpvoxGXIm483qrjLlv0bMUoVhtAYUMBS7gg==
+X-Microsoft-Antispam-Message-Info: KzSA0tEMiWY3jSQqbzc2xFsuFBlNtAGKbVfeihE+Yhvfb9uva+Uv/kzhpwTGPj/Vo0xOv13Rt5hNviivFVDPrTNpyLK7FloOcU71NgQ/o9iidn6GNMzk7GvjH9YYAZ7RCW9DRddaRbEXb2RqzWhvh7/txF+osd8NrpalW+t17s4SAZmQsOnceAeF9/9xuxSt2ZYvgUkJH8SU4NlNnAxOb6THovH2DQTaGRj1jUpmOOZ/GUEPtuAd8/dQ/L80aopz54x2xU54ts6zsN1DZMeU3tv5O311VUy62TTU/u9C6u+Uj4RALXR5rIQQhYZk/xyFon1NA/3Yk+vLaFPtPLBBpcmm9lMTR/ywTxSBlHNk26aQZA76Y2jMhNvIWtGXb94YFeRMjLRSvETXDTlmGPIpSiDWewTocN3PZznmc4mmSc4JOnrF2G/UKIww0aDkJB4q7JitX4cLIuBChmBUd/ydPyPwLvYHmsv37QIw3cpYBn7CFY8T/eAnPuyIvvE9H3+rbockLsGLAOQQU/56ctqrqOAHCE/5OpvgqIKzASGu+ViMXMRRa0xD1G0zrVYkMejHlDn4RhbwpApqgQMT4BAoEOB+dlGHlwTSBgBFeeiqxf3XzmE+L//EG8iU6Qki+15mgHuhIGweTAyiwprZedhZjA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SJ0PR12MB6760.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(376002)(346002)(136003)(39860400002)(366004)(230922051799003)(1800799012)(64100799003)(186009)(451199024)(4001150100001)(31686004)(5660300002)(8936002)(4326008)(8676002)(2906002)(41300700001)(66556008)(316002)(66946007)(66476007)(110136005)(478600001)(2616005)(26005)(6486002)(6512007)(6506007)(6666004)(36756003)(36916002)(38100700002)(83380400001)(31696002)(53546011)(45980500001)(43740500002);
+ SFS:(13230031)(396003)(39860400002)(376002)(346002)(366004)(136003)(230922051799003)(64100799003)(186009)(451199024)(1800799012)(83380400001)(38100700002)(36756003)(31696002)(66946007)(8936002)(8676002)(4326008)(66476007)(316002)(66556008)(41300700001)(110136005)(5660300002)(4001150100001)(2906002)(31686004)(36916002)(53546011)(6512007)(26005)(2616005)(6486002)(6666004)(478600001)(6506007)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N0FlL1ZjbkRFMDdpc3Z1L0RVRlRRQ3BIZW5ySHNUcUtVMWk4N0dGeDc2SDVN?=
- =?utf-8?B?dytZRDNyKzlwQVYzYWpaM2RsTlBUemNzeVZRZGlyWkhiTjFCeHZEOE9HRXpm?=
- =?utf-8?B?Y21lVGhFQkpQQkFXaEtvRFJLeXcrRk56L3QrUHlYb1V2QXEzNmtsRWMxS1BI?=
- =?utf-8?B?bE1BZG4zWGJZd0U4SG1EV29uMEo5YmxhRlRucmV0bkpKeG9tN2RzMEhiUVNN?=
- =?utf-8?B?dytHMk54OTd2bHh4a2ViYVJoSXp2N29RSGMvalBmVTBOUlR5RW5lK3Bkd1ZX?=
- =?utf-8?B?SGE1M0Q4SHZqSzUvb2N3blh6UklOckFDZ29HTW1icFd0ekFhQWg2MU5tbkVE?=
- =?utf-8?B?TFpmSVl6QS9RZC9NWTFQTXVKNXZiMXJrVnZEOS9NcGlCaGduV0c1NThNdHdF?=
- =?utf-8?B?NE1yTUMxV3E2bVMzYllXUGxZWXBvOHRjbVdRK0thV3YzbHJ6WnJxZTV4RHo0?=
- =?utf-8?B?aFNYSFJrZnpjZkU4blNZN2I5ZnRIZmJvNmV4TU9NT0RWZk5wSEZxOUNtUzk0?=
- =?utf-8?B?L3ZjbHdJTnpFUmNkek5KU2RpV3Z1alBac1RIejJVTnBGcWxjZmZmYTFmaFE2?=
- =?utf-8?B?c1owdnQveDR2YklVTWMzN0hTQjd6bmxMOEFNR2FvdnFESzN1NnBnVFdZSW50?=
- =?utf-8?B?bHlCc1FJQnh1dkJ5WHE0bnhEZ1hqNSs0akxVVkdxNTVWZW1SR3UzM2dTSVFS?=
- =?utf-8?B?VWJSeHB4QkFVOXlnYTVuSkpCZCtNUVB6RHp2VjJnY09OWEZGYTBtNGhuNTUy?=
- =?utf-8?B?OHRBWlZJMFA1a0RZK2dQZ3F6T2I1ZmNwSG51Qmk4VDlmUkQ0MFFzR214WFd1?=
- =?utf-8?B?NVp2NWxxejFiMVE5KytHeEFYQlp6dmdpV044a3FDdnJkb25jRGhaTndsWFM3?=
- =?utf-8?B?c1NWdVdzS2tWK01WczFORFlvTElzSk52MURwenFQdmllSGs1Zm9DQWw1NVlX?=
- =?utf-8?B?MVl6akFwaVhpcXVtcm1TaFJINENSWm9Zd01LdG0ybnM2VnN3Y2FlSVNnVUJm?=
- =?utf-8?B?YVlDRHhsTDlUTit6emo2ZGc5L0lkdWdOcHNXaE1IZTIrQ3FBQWNKd1RuNmhM?=
- =?utf-8?B?M1d2UklEUTRsa3dxMFlQenlCdXl5eEJyWGxUVVc1dmllck4vZ2hZQStIMnpl?=
- =?utf-8?B?STNqaUJocGl0T2RSTTNsUUc5T0NaTytFTUgyc3FLTzd5QU16VlpwcXJvM1Bq?=
- =?utf-8?B?MkovelNjUStyc1BXUThldkh1VGRiNEZWeUtPMzNUdmlyQmFYL2E5ZjFVUTlT?=
- =?utf-8?B?cE9WQUU1TTh5TEZZc0dCUFhrRGNKcm5FSE5UZUkvOHhYaUdSR00yTFphN2tq?=
- =?utf-8?B?ekJsbHpXTmp2Rk9sVHhpSkR0RGZVOTk5RSt1OElpR090a3lUSXE5UWszZ2c4?=
- =?utf-8?B?dW5oWXE3N3VTbnRPMTMxVzY2alNPWUF2cytDZzVDb1ZDSnZpeU5JKzNNc08r?=
- =?utf-8?B?bVhUenBUb0MxTjVMQzFDTEhHdEQ0aSs4d3Y3VkJiRCt4eXEwUURhczdYYzNJ?=
- =?utf-8?B?ZjQ2ZDQ4R2U5TE4vZHR3YlBMYXBBcElnTDVyRmNCTXd5cGtQd2dtTDg0bHp5?=
- =?utf-8?B?ZEZXeGN2NVBPTEFXQVFKamJpUXBVb1ovZzFOMjkxZGtvOHRzZk01Nlc1NERT?=
- =?utf-8?B?djBYbGdEdWF1a0tRc1BjYlgvWHptVE5xNDE5cjhZR1FuclVSTGxLR0g1b3Rn?=
- =?utf-8?B?K21leTN0VTZGdnVSQ1pmVTdTWjA1cDRpQmxLUnRQd2pKdUFNNzA0NFZHcW1O?=
- =?utf-8?B?QThINlVLOFRIZjBOVE9XR0lVeFdyL3VRbzRNMjAyVllZeEZDU2VjaytWWUxC?=
- =?utf-8?B?YXV1ZEVmelNySmhmNWJCb2xud2tZMm8xTGlrK3NlUDlZU3dhcTByY0JBUk5L?=
- =?utf-8?B?RzhmZUVmcXNDRUtHVHlGM2pwNDM3NHFLYyttNEgrTTgzWTlhcWdJUzgwWk10?=
- =?utf-8?B?WmRIQVJHd3UzcWE0cERIME9uUGZXa1FCZU04M2t1bXRMUXA0ZXVEVk1wekQ2?=
- =?utf-8?B?NGxMeExNQ0FrbE9KTE1FeE54bWFoazhPd3F3TFZ4SHl0MS8xKy91aGtlTHNu?=
- =?utf-8?B?MEFGaFl5QmJrQnl2bTRkZXVWWlpBOVJVR055UnR6RlBjWlhMVzZUcEtId2x3?=
- =?utf-8?Q?c4C7twAhWefL3LCbi5VBcmrXt?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OS9DTWwzb01xaVFCaHd0Uzh6eDBWbzRoaDloeCsyK2hKV0R2eVZHYUtkN1RP?=
+ =?utf-8?B?cGl5Q3lhRmZTVm1mNUpRQWlnR0ZsRE9xOUtlNjRHczhTMzRWaEVvRUhDVCtl?=
+ =?utf-8?B?S3hoZ0p5bjNVbk15MW4xejZtdmlOM0lZNW5IYzNvRE05NEZUT1AxU0k2aFla?=
+ =?utf-8?B?S3JGSEYxbVRlaHdidGxpTVlwdFRrbXlKdEs1VlFpVkd4MGJweDlPN0tPeFBN?=
+ =?utf-8?B?L1RVUXpQb2VmcFBhRmgyMEZ0ZDZsMTBZcDljWFBBVG81ZWVtampocnAxaGJX?=
+ =?utf-8?B?TkV1YWsvdjBaTU1QLzJESktTdWFDZUZFL0Z3V21OQ0k4UVhWWS9pOG9aYjZy?=
+ =?utf-8?B?dEdLZ2JjaVhsbTlHZjBhVmdUWWZCa0c4N1pYUFNVTEUwU0VwUmEwNmhmay9w?=
+ =?utf-8?B?WXVSUm9seVVVTDljWjFwUS9tdVNXKytSMGtQaDA5Y3JBK0REUXR0VENOdkhr?=
+ =?utf-8?B?UDY4ckNSYnh1amhmZ0VOUE1MZ2hWVXlPMGUzalFmRWNsRHFYaWJjaXp3QkR4?=
+ =?utf-8?B?OFlFb0VMNlhRM0EvMm1xdWdiMlRUNFlHMWh5c0IvRmhYZFAwZXVUcHVLS3dr?=
+ =?utf-8?B?bjhSNlgvV0Z6WXBQYWJ5MDIyN2FpcnA1dktlZjdFTFZiSmxBSktSOXF1M283?=
+ =?utf-8?B?VjBQS2Q1L2ZGaTlrVWNxZEdMY1dKTS84QVJrMC80eFR1ejBwenZVVVlpOUVv?=
+ =?utf-8?B?L3dRMFRXcU52NVlZV1Bvb0I5QXVJUWNhZk9leXJqWkxRSGM5MXFMWU4yOVor?=
+ =?utf-8?B?MVJka3FWZS9sMkV1cFc0MVZqbGFSSGNYWm5iMDQrVHY2YjNwZS9uNWtqQWJq?=
+ =?utf-8?B?andCRHFJSXNjS3pST2NpOUJjNVJnMHJvc2tCdlNwNXZ0d3E2WC90VHgrc0xJ?=
+ =?utf-8?B?a2VJNXp4bkFjaUlWK3M0Z0F5OSt1b2U1ZlZoMDVoOVVseFN2T28rSFY4dDFN?=
+ =?utf-8?B?VUlIUHZVVUNCUVdQblk2a3BlY2RPbjVFRVo5ek1XR04wc2lBNm1JbE5wUllO?=
+ =?utf-8?B?eXpucVdFa0MrTE05bjl0SThmc2RhQU15MkVGM0c3VjUzdDh1YWtOMkZsNVkz?=
+ =?utf-8?B?NVVpV2dPMW82Z0diSzN3ZUVtQnJNZHlMci92dXJ6aEFYNkJ2WlBoK3VIclQv?=
+ =?utf-8?B?SFdNTFlkN2ZJUjduNGxnK0ZxSm9hTGUyR1IwZmRBQXlTWXR4VmtLSGM0VzRI?=
+ =?utf-8?B?SkJBcHR2VnZRR0x1QUp2SE9GNVFwV3JZV3BLalJEY0hCbnFVUG5QaDNrc0pY?=
+ =?utf-8?B?eXd1a2RRamZqeXpjUTQwTERZcUV6eHdQdU14OEtkTlAzZjd3UlpMUVprMmF2?=
+ =?utf-8?B?OUlpZzlYTHpjZWFpMFF4WExrNVdSVW5EQ3NyUldvbWM4TGtJWHF4bk0rL24x?=
+ =?utf-8?B?WTR2eHZiWlh3ZnV2emtPYXZMOXR1aVh1MGc2T1pDRURkRlk0OXlKWkNSMUZX?=
+ =?utf-8?B?TGp3aFBJeGIxK1R1aGRwRUNadU9Wc1RURGJJMEpKSGdydGRKTFVXQmpSeGNh?=
+ =?utf-8?B?VmR3S2J6SFl0TUdGa0dScERBbzNSdk91MU9aMGZZRGdFRm9EUldkWFlGWkxJ?=
+ =?utf-8?B?ZkFvb2xDUHo3Mkc0enZSM0xXZmRWLzRuVU44VVVSRHhYYlg0a1daVGFFMmV4?=
+ =?utf-8?B?WktTNExUWFRYYXpQanhPVmFqb0x3ajBIRU9HZUd4VXkyd0ZlaGNqaUwzS3Rl?=
+ =?utf-8?B?Z1h0VW5xNTJWeUt5Mnh3b2FXUzZtdnkrRFdtbEJEenJWWFhWaVplSndWb1oz?=
+ =?utf-8?B?MXlQYzRLZmIrQy9BT1Y4L1YzeDdEdVVSSEplc3VzMkZ3aG5ZVG5jSDdLNW9s?=
+ =?utf-8?B?TWhyTllxRVFLVytHZU5vTm5EN2pPS1lIRi9zZ0JGejlNbTRHek1yOGk0eEJY?=
+ =?utf-8?B?REM3eEV5cW8rL3hyRTE2ZlVJNlNYSGV6OXNPZDhIMU12MlFENFBOd0dMSytN?=
+ =?utf-8?B?bjcwZWEzT1ZJNnFSQ0Y3a1ZFR3R3cENqTHFqckUra2piOWRqWWE3YWYzM0Vz?=
+ =?utf-8?B?NHpRZXpRN3Z2aTBKaDZmVTErVzl4S090eVRHK2VkUXU2Q1ljN3J4cFFuRVMr?=
+ =?utf-8?B?eXFPT2lRc0lvMG14RDIrKzFhTGo5SFVva25iV3Zwb3JKNkNjdkJsSEJaN0RQ?=
+ =?utf-8?Q?PhXpk850Y0/0eXvVCvIApqote?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 764f0503-bb8e-4959-82e0-08dbec5f06c1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3fca0da7-995f-447f-eaa7-08dbec614eab
 X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB6760.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2023 20:01:48.6750 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2023 20:18:08.0841 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7awhBTir5/cks7pY2sUGzmBBTuHoZrNJG8LJfSkiDAOGCdHZoDnLzIhyuA6wBLmy
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8411
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ck2HQvc/XHfwc/MShx1RYrUvTGK3z8v/PKZ2HWSWo6nWHX79hM6835uxzFL/CLG7
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4360
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,84 +132,77 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 2023-11-22 17:27, Felix Kuehling wrote:
+On 2023-11-22 17:15, Felix Kuehling wrote:
 >
 > On 2023-11-03 09:11, James Zhu wrote:
->> Enable pc sampling start.
+>> Check pcs_enrty valid for pc sampling ioctl.
 >>
 >> Signed-off-by: James Zhu <James.Zhu@amd.com>
 >> ---
->>   drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c | 26 +++++++++++++++++---
->>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h        |  2 ++
->>   2 files changed, 25 insertions(+), 3 deletions(-)
+>>   drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c | 30 ++++++++++++++++++--
+>>   1 file changed, 27 insertions(+), 3 deletions(-)
 >>
 >> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c 
 >> b/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
->> index 60b29b245db5..33d003ca0093 100644
+>> index 4c9fc48e1a6a..36366c8847de 100644
 >> --- a/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
 >> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
->> @@ -83,9 +83,29 @@ static int kfd_pc_sample_query_cap(struct 
->> kfd_process_device *pdd,
->>       return 0;
->>   }
->>   -static int kfd_pc_sample_start(struct kfd_process_device *pdd)
->> +static int kfd_pc_sample_start(struct kfd_process_device *pdd,
->> +                    struct pc_sampling_entry *pcs_entry)
+>> @@ -179,6 +179,21 @@ static int kfd_pc_sample_destroy(struct 
+>> kfd_process_device *pdd, uint32_t trace_
+>>   int kfd_pc_sample(struct kfd_process_device *pdd,
+>>                       struct kfd_ioctl_pc_sample_args __user *args)
 >>   {
->> -    return -EINVAL;
->> +    bool pc_sampling_start = false;
+>> +    struct pc_sampling_entry *pcs_entry;
 >> +
->> +    pcs_entry->enabled = true;
->> +    mutex_lock(&pdd->dev->pcs_data.mutex);
->> +    if (!pdd->dev->pcs_data.hosttrap_entry.base.active_count)
->> +        pc_sampling_start = true;
->> + pdd->dev->pcs_data.hosttrap_entry.base.active_count++;
->> +    mutex_unlock(&pdd->dev->pcs_data.mutex);
+>> +    if (args->op != KFD_IOCTL_PCS_OP_QUERY_CAPABILITIES &&
+>> +        args->op != KFD_IOCTL_PCS_OP_CREATE) {
 >> +
->> +    while (pc_sampling_start) {
->> +        if 
->> (READ_ONCE(pdd->dev->pcs_data.hosttrap_entry.base.stop_enable)) {
->> +            usleep_range(1000, 2000);
+>> +        mutex_lock(&pdd->dev->pcs_data.mutex);
+>> +        pcs_entry = 
+>> idr_find(&pdd->dev->pcs_data.hosttrap_entry.base.pc_sampling_idr,
+>> +                args->trace_id);
+>> +        mutex_unlock(&pdd->dev->pcs_data.mutex);
 >
-> I don't understand why you need this synchronization through 
-> stop_enable. Why can't you do both the start and stop while holding 
-> the mutex? It's just setting a flag in the TMA, so it's not a 
-> time-consuming operation, and I don't see any potential for deadlocks.
-[JZ] for stop, not just set TMA. need wait for current pc sampling 
-completely stop and reset some initial setting.
+> You need to keep holding the lock while the pcs_entry is still used. 
+> That includes any of the kfd_pc_sample_<op> functions below. Otherwise 
+> someone could free it concurrently. It would also simplify the 
+> ..._<op> functions, if they didn't have to worry about the locking 
+> themselves.
+[JZ] pcs_entry is only for this pc sampling process, which has 
+kfd_process->mutex protected here.
 >
 > Regards,
 >   Felix
 >
 >
->> +        } else {
->> + kfd_process_set_trap_pc_sampling_flag(&pdd->qpd,
->> + pdd->dev->pcs_data.hosttrap_entry.base.pc_sample_info.method, true);
->> +            break;
->> +        }
+>> +
+>> +        if (!pcs_entry ||
+>> +            pcs_entry->pdd != pdd)
+>> +            return -EINVAL;
 >> +    }
 >> +
->> +    return 0;
->>   }
->>     static int kfd_pc_sample_stop(struct kfd_process_device *pdd)
->> @@ -225,7 +245,7 @@ int kfd_pc_sample(struct kfd_process_device *pdd,
->>           if (pcs_entry->enabled)
->>               return -EALREADY;
->>           else
->> -            return kfd_pc_sample_start(pdd);
->> +            return kfd_pc_sample_start(pdd, pcs_entry);
+>>       switch (args->op) {
+>>       case KFD_IOCTL_PCS_OP_QUERY_CAPABILITIES:
+>>           return kfd_pc_sample_query_cap(pdd, args);
+>> @@ -187,13 +202,22 @@ int kfd_pc_sample(struct kfd_process_device *pdd,
+>>           return kfd_pc_sample_create(pdd, args);
+>>         case KFD_IOCTL_PCS_OP_DESTROY:
+>> -        return kfd_pc_sample_destroy(pdd, args->trace_id);
+>> +        if (pcs_entry->enabled)
+>> +            return -EBUSY;
+>> +        else
+>> +            return kfd_pc_sample_destroy(pdd, args->trace_id);
+>>         case KFD_IOCTL_PCS_OP_START:
+>> -        return kfd_pc_sample_start(pdd);
+>> +        if (pcs_entry->enabled)
+>> +            return -EALREADY;
+>> +        else
+>> +            return kfd_pc_sample_start(pdd);
 >>         case KFD_IOCTL_PCS_OP_STOP:
->>           if (!pcs_entry->enabled)
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h 
->> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> index 6670534f47b8..613910e0d440 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> @@ -258,6 +258,8 @@ struct kfd_dev;
->>     struct kfd_dev_pc_sampling_data {
->>       uint32_t use_count;         /* Num of PC sampling sessions */
->> +    uint32_t active_count;      /* Num of active sessions */
->> +    bool stop_enable;           /* pc sampling stop in process */
->>       struct idr pc_sampling_idr;
->>       struct kfd_pc_sample_info pc_sample_info;
->>   };
+>> -        return kfd_pc_sample_stop(pdd);
+>> +        if (!pcs_entry->enabled)
+>> +            return -EALREADY;
+>> +        else
+>> +            return kfd_pc_sample_stop(pdd);
+>>       }
+>>         return -EINVAL;
