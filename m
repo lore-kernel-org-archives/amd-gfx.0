@@ -4,66 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDF2EC61D97
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Nov 2023 08:34:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D116CC61DF4
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Nov 2023 08:34:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C97A10E799;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8427E10E7A5;
 	Fri, 24 Nov 2023 08:34:02 +0000 (UTC)
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50AFA10E6F3;
- Thu, 23 Nov 2023 09:40:52 +0000 (UTC)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-548b54ed16eso899528a12.0; 
- Thu, 23 Nov 2023 01:40:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1700732451; x=1701337251; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bJZTY7Ppscmc7/agjAjlMp0CjMt1Rvl0KUPChAkdlBw=;
- b=cZOLyIZ/mXRnOXfPF3wqGoBISCTNPNl5lxn5R0F9IdaWjp1rQuuI8EjbF0er1rxBHi
- jRLcpsDucD5AfkpZtoEaY+Pz+0uPkfJLPT97MkeDGWDurW7SrIZNvTM0eriqncwTCk/5
- K+p0bRU+7R+94NUOvPhQLBrYtWKnpKVIEG+MrmlZtdmqdtKqWJPY37g5dim6EdIw9kSc
- x6sI9Zn7txsCV78hoS+ngbCIVBrszIitL4W6pEha+UKnYgZmeKBn+akV2k7P1m0rRJZy
- j9W2zIVDV7rHtAx+GG5EJAQ85yc7SrB48Q1VM8MI0yqJpKDXsAppZJ3paOMe3aclPQfK
- cnxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700732451; x=1701337251;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=bJZTY7Ppscmc7/agjAjlMp0CjMt1Rvl0KUPChAkdlBw=;
- b=cfUZoSJNxzVqpeH6nfzo6tBr7rL0KB5Xnzm/+MZfKpyRXFJJUNr4I/WBJmNnYWvBwF
- OEReCntU0AVfNmPRNe6sXmN7I7UMk7EofdqHGz0jxYhc/SjuyQYae6vY/yEjiVrScABl
- 4xl5fOHtKGdUyrSyG0NUYQa71rB1fnRLXdbwlkIVJEGIy60SzlxLGIvNo0Ir/MpVj6kz
- zhK2R6VtvRbXhYfeHYu5RRSYQadHgwHMUEjpYDrNAaJR2PaxpLhRol7Axfhog0XBk8F5
- lcyeSsUuQpNoQHIZpw24yBCCBstC4mmI3bthlDC4BQ75Ag2aqsds12Qx+mLHmiTvfQHe
- MQVQ==
-X-Gm-Message-State: AOJu0YxV2V3Nw/9GEWo6zvcaiXhj65h1rFL9PdJm0lNVUt65ZMUeXspg
- R3lwMBexHT66ZHJOwyCHL98=
-X-Google-Smtp-Source: AGHT+IHzN7AwPcm/sO9dy22vICRd2Xk4zJMeYsib0E7Fgzi8vCiMlpZC9C+ucr3iLv4APW5MC35HAA==
-X-Received: by 2002:a17:907:371:b0:a02:9700:bf53 with SMTP id
- rs17-20020a170907037100b00a029700bf53mr3303778ejb.46.1700732450616; 
- Thu, 23 Nov 2023 01:40:50 -0800 (PST)
-Received: from zotac.lan.
- (dynamic-2a01-0c23-c0f2-3200-2223-08ff-fe18-0310.c23.pool.telefonica.de.
- [2a01:c23:c0f2:3200:2223:8ff:fe18:310])
- by smtp.gmail.com with ESMTPSA id
- s9-20020a1709066c8900b009e5ce1acb01sm546199ejr.103.2023.11.23.01.40.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Nov 2023 01:40:50 -0800 (PST)
-From: Heiner Kallweit <hkallweit1@gmail.com>
-To: Wolfram Sang <wsa@kernel.org>,
-	Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH v5 07/20] drivers/gpu/drm: remove I2C_CLASS_DDC support
-Date: Thu, 23 Nov 2023 10:40:27 +0100
-Message-ID: <20231123094040.592-8-hkallweit1@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20231123094040.592-1-hkallweit1@gmail.com>
-References: <20231123094040.592-1-hkallweit1@gmail.com>
+X-Greylist: delayed 426 seconds by postgrey-1.36 at gabe;
+ Thu, 23 Nov 2023 14:30:50 UTC
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
+ [68.232.153.233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 620FA10E764;
+ Thu, 23 Nov 2023 14:30:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+ t=1700749851; x=1732285851;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=ohvzPpwHho+Wozsk3IfdLQvS5IQE5RYHnNIM727nKM4=;
+ b=G/+n9DcuBCRlavweXz9iaeMACm5vMIZviUmWld7RK3PHxhpwszu4tazP
+ kPbuRvheRzBrSTKfS6I5i85+Htw35N0HGjRRYkY1usk5vsYTuVjz/3qew
+ HDuW0eqTHOTfyoS2aF2dfTgShJEBnBkpP+/9ZCQ5KlzFEmW4KuvGFT0qZ
+ 9ml1+AOP9wDr/LEJAGFxsMwbUP/EYhGHjEs1uIJMJAmVhbf0frvew4RJS
+ MWH8UjCUhOmPFC/qEMqoHxQ+LaMuZuloPe9aj1ubhN+9o28YWSgW8Wdzb
+ kd9vEiicC6lMPlfMFmWVddex9K2SQZPcTMmB2KlaOBRwi6vbuy10ha1OQ A==;
+X-CSE-ConnectionGUID: PGZ2z8fJRMa+agPdtt+bKw==
+X-CSE-MsgGUID: EwqpIQk1Qom2mh0R2QGlFQ==
+X-ThreatScanner-Verdict: Negative
+X-IronPort-AV: E=Sophos;i="6.04,221,1695711600"; 
+ d="asc'?scan'208";a="12194934"
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+ by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 23 Nov 2023 07:23:44 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.21; Thu, 23 Nov 2023 07:23:32 -0700
+Received: from wendy (10.10.85.11) by chn-vm-ex01.mchp-main.com (10.10.85.143)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21 via Frontend
+ Transport; Thu, 23 Nov 2023 07:23:29 -0700
+Date: Thu, 23 Nov 2023 14:23:01 +0000
+From: Conor Dooley <conor.dooley@microchip.com>
+To: Samuel Holland <samuel.holland@sifive.com>
+Subject: Re: [PATCH 3/3] drm/amd/display: Support DRM_AMD_DC_FP on RISC-V
+Message-ID: <20231123-headdress-mold-0dd7a74477f7@wendy>
+References: <20231122030621.3759313-1-samuel.holland@sifive.com>
+ <20231122030621.3759313-4-samuel.holland@sifive.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="PT94HBO7SSDOZxaP"
+Content-Disposition: inline
+In-Reply-To: <20231122030621.3759313-4-samuel.holland@sifive.com>
 X-Mailman-Approved-At: Fri, 24 Nov 2023 08:34:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,53 +69,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-i2c@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Heiner Kallweit <hkallweit1@gmail.com>
+Cc: llvm@lists.linux.dev, arnd@arndb.de, Leo Li <sunpeng.li@amd.com>,
+ David Airlie <airlied@gmail.com>, Pan Xinhui <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Nathan Chancellor <nathan@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ linux-riscv@lists.infradead.org, Harry Wentland <harry.wentland@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-After removal of the legacy EEPROM driver and I2C_CLASS_DDC support in
-olpc_dcon there's no i2c client driver left supporting I2C_CLASS_DDC.
-Class-based device auto-detection is a legacy mechanism and shouldn't
-be used in new code. So we can remove this class completely now.
+--PT94HBO7SSDOZxaP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Preferably this series should be applied via the i2c tree.
+On Tue, Nov 21, 2023 at 07:05:15PM -0800, Samuel Holland wrote:
+> RISC-V uses kernel_fpu_begin()/kernel_fpu_end() like several other
+> architectures. Enabling hardware FP requires overriding the ISA string
+> for the relevant compilation units.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
+Ah yes, bringing the joy of frame-larger-than warnings to RISC-V:
+../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c:58:13: warning: stack frame size (2416) exceeds limit (2048) in 'DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation' [-Wframe-larger-than]
 
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c |    1 -
- drivers/gpu/drm/radeon/radeon_i2c.c     |    1 -
- 2 files changed, 2 deletions(-)
+Nathan, have you given up on these being sorted out?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
-index 82608df43..d79cb13e1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
-@@ -175,7 +175,6 @@ struct amdgpu_i2c_chan *amdgpu_i2c_create(struct drm_device *dev,
- 
- 	i2c->rec = *rec;
- 	i2c->adapter.owner = THIS_MODULE;
--	i2c->adapter.class = I2C_CLASS_DDC;
- 	i2c->adapter.dev.parent = dev->dev;
- 	i2c->dev = dev;
- 	i2c_set_adapdata(&i2c->adapter, i2c);
-diff --git a/drivers/gpu/drm/radeon/radeon_i2c.c b/drivers/gpu/drm/radeon/radeon_i2c.c
-index 314d066e6..3d174390a 100644
---- a/drivers/gpu/drm/radeon/radeon_i2c.c
-+++ b/drivers/gpu/drm/radeon/radeon_i2c.c
-@@ -918,7 +918,6 @@ struct radeon_i2c_chan *radeon_i2c_create(struct drm_device *dev,
- 
- 	i2c->rec = *rec;
- 	i2c->adapter.owner = THIS_MODULE;
--	i2c->adapter.class = I2C_CLASS_DDC;
- 	i2c->adapter.dev.parent = dev->dev;
- 	i2c->dev = dev;
- 	i2c_set_adapdata(&i2c->adapter, i2c);
+Also, what on earth is that function name, it exceeds 80 characters
+before even considering anything else? Actually, I don't think I want
+to know.
 
+--PT94HBO7SSDOZxaP
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZV9gRQAKCRB4tDGHoIJi
+0jEnAP9OKVgfXZxGyPpXzUcsNSne5N1ezJDKqBB32TBdrtW7vQD/Sd98JmdWJ4g8
+Labru0YLH7jrvDUwLAIAnldCPJQbfAw=
+=HKiT
+-----END PGP SIGNATURE-----
+
+--PT94HBO7SSDOZxaP--
