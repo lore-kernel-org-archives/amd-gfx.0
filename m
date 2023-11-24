@@ -4,64 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF7BAC61D97
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Nov 2023 08:34:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34CC2C61DF7
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Nov 2023 13:20:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46B7410E7AA;
-	Fri, 24 Nov 2023 08:34:08 +0000 (UTC)
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BBEF10E034;
- Thu, 23 Nov 2023 09:40:46 +0000 (UTC)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a00b01955acso88921166b.1; 
- Thu, 23 Nov 2023 01:40:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1700732445; x=1701337245; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=NrHROUSPlT4bN2lnsfzxw2GPuZ9Bx12dzaePQbmqgMk=;
- b=L5j7qckcIS7IMi0vqb6ghctXoaT8vRqEOy7RNY5CGf+Ek/SLZa2jnp9SEIh8/Cumi2
- rKxPGu2fkK8rSgQoNYeplVJVrVrq5XOOnKI1q5u284P58CYSZhlTrHZdrTJE/YnX8t+I
- 0pNrOBqhhP2EXDgZBLoTHewu7/XovHWqKEwlYWjqHdEl9rZ/HzFPgnYgTavR2HaPcSV3
- gLf6Bwcmucp6dW7rSTTfLhpAL0QM1CwDq6kaLOzWLFurmTFfx8MnvPQAafFnSp0Mprrl
- YBrjgOdUM/4u9t2q3hneMM9GKNIaylQGVZEXQlYhLNMi+cHE5BJ05K1dSs1LShl0c1Uh
- sCQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700732445; x=1701337245;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=NrHROUSPlT4bN2lnsfzxw2GPuZ9Bx12dzaePQbmqgMk=;
- b=bvQDjyUWdWRbnXyPyn05XTljOKTIUXTEUsxNqKcEXPbWETI2ZmXFY/EyFejey7Kz7/
- NO759O1g03yJn3buTYIbSNZxCaatkf07z2C5NVmne3KKYHnKyANgKFjqchPuuf+FT1iv
- 42H0Ti8nFzXh5VilFvJBpWqbusB7lULT57gAzbWcpVoMRSlf7ewLRlrFRg2uyuI9NQSI
- XazC25u+2Q10qVs5/lKYorHgFKL7KzB6rXilt1g9hw37bk/ZvfWvKDYIEZn8i+V8kBYg
- S7TTrr4RJlvWZSioC0qMgtatSINNuyubFBoaXaQ6t/89+TgBzZiTZTYygdKNUc9zfX0M
- D8aQ==
-X-Gm-Message-State: AOJu0Yz5S7TfvUhBJaypS6E99Q2mv0eeac/FbE/N6Wug7VcSaOtJTm9z
- PB2+ZI+pQ9YUzDIeGo616TE=
-X-Google-Smtp-Source: AGHT+IH3UA4nrdAqScERrRmQjf0/m1eRztQQIu3xcCY1PXQ8GvVHymqtee93zJ05NL2jqGs5ig2nmA==
-X-Received: by 2002:a17:906:290:b0:a01:b9bd:878 with SMTP id
- 16-20020a170906029000b00a01b9bd0878mr3573689ejf.14.1700732444513; 
- Thu, 23 Nov 2023 01:40:44 -0800 (PST)
-Received: from zotac.lan.
- (dynamic-2a01-0c23-c0f2-3200-2223-08ff-fe18-0310.c23.pool.telefonica.de.
- [2a01:c23:c0f2:3200:2223:8ff:fe18:310])
- by smtp.gmail.com with ESMTPSA id
- s9-20020a1709066c8900b009e5ce1acb01sm546199ejr.103.2023.11.23.01.40.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Nov 2023 01:40:44 -0800 (PST)
-From: Heiner Kallweit <hkallweit1@gmail.com>
-To: Wolfram Sang <wsa@kernel.org>,
-	intel-gfx@lists.freedesktop.org
-Subject: [PATCH v5 00/20] remove I2C_CLASS_DDC support
-Date: Thu, 23 Nov 2023 10:40:20 +0100
-Message-ID: <20231123094040.592-1-hkallweit1@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEB6710E7E9;
+	Fri, 24 Nov 2023 13:20:33 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4080110E7E7;
+ Fri, 24 Nov 2023 13:20:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1700832030; x=1732368030;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=PW3KckIX0ptjSyzaMFy5WY04i16wdeJmbtv0TsCpx/U=;
+ b=ViDvSMpq+Ni1UHF6uEGCnPyYSM5ThOrCKg6vLRKJ5NH3BMaBhl4TZsXR
+ HNegU3AjTzXdQQTcLo6ll+LT8eXzWcOOM4dms1zpm5k0seK8uODWf3Bw6
+ lZll6mMMWddJ8998lrSts5yoKhvBVZmEmMWQFCS7xb3hb961oqzc0wSfk
+ AmSi1HShenF8DMIK814uT67UMCq7KKgyeT/VFQtZiF+ro3wP2kXA3LqnF
+ SpjUnPM0VGQYB10PdDBf3Kn6ujjLaiywjc9+3u0bDiCcYvDT4eRL8E6DA
+ m4YeJalgXj30Vfj/8V9jRHmdKPwZUbWGYfT5iJFQqrw5MOUgA3PuHfcNj A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10904"; a="382823511"
+X-IronPort-AV: E=Sophos;i="6.04,224,1695711600"; d="scan'208";a="382823511"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2023 05:20:30 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10904"; a="885274573"
+X-IronPort-AV: E=Sophos;i="6.04,224,1695711600"; d="scan'208";a="885274573"
+Received: from lkp-server01.sh.intel.com (HELO d584ee6ebdcc) ([10.239.97.150])
+ by fmsmga002.fm.intel.com with ESMTP; 24 Nov 2023 05:20:27 -0800
+Received: from kbuild by d584ee6ebdcc with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1r6W6b-0002nz-2u;
+ Fri, 24 Nov 2023 13:20:25 +0000
+Date: Fri, 24 Nov 2023 21:19:32 +0800
+From: kernel test robot <lkp@intel.com>
+To: Lu Yao <yaolu@kylinos.cn>, airlied@gmail.com, daniel@ffwll.ch
+Subject: Re: [PATCH] drm/amdgpu: Fix cat debugfs amdgpu_regs_didt causes
+ kernel null pointer
+Message-ID: <202311241442.F0S4BazK-lkp@intel.com>
+References: <20231122093509.34302-1-yaolu@kylinos.cn>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 24 Nov 2023 08:34:01 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231122093509.34302-1-yaolu@kylinos.cn>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,73 +59,114 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Yongqin Liu <yongqin.liu@linaro.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, amd-gfx@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, linux-sunxi@lists.linux.dev,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
- linux-mediatek@lists.infradead.org, Sean Paul <sean@poorly.run>,
- linux-arm-kernel@lists.infradead.org, Jocelyn Falempe <jfalempe@redhat.com>,
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, John Stultz <jstultz@google.com>,
- Heiner Kallweit <hkallweit1@gmail.com>, freedreno@lists.freedesktop.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Lu Yao <yaolu@kylinos.cn>,
+ amd-gfx@lists.freedesktop.org, oe-kbuild-all@lists.linux.dev,
+ alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-After removal of the legacy EEPROM driver and I2C_CLASS_DDC support in
-olpc_dcon there's no i2c client driver left supporting I2C_CLASS_DDC.
-Class-based device auto-detection is a legacy mechanism and shouldn't
-be used in new code. So we can remove this class completely now.
+Hi Lu,
 
-Preferably this series should be applied via the i2c tree.
+kernel test robot noticed the following build errors:
 
-v2:
-- change tag in commit subject of patch 03
-- add ack tags
-v3:
-- fix a compile error in patch 5
-v4:
-- more ack and review tags
-v5:
-- more acks
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on linus/master v6.7-rc2 next-20231124]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
+url:    https://github.com/intel-lab-lkp/linux/commits/Lu-Yao/drm-amdgpu-Fix-cat-debugfs-amdgpu_regs_didt-causes-kernel-null-pointer/20231122-203138
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20231122093509.34302-1-yaolu%40kylinos.cn
+patch subject: [PATCH] drm/amdgpu: Fix cat debugfs amdgpu_regs_didt causes kernel null pointer
+config: x86_64-randconfig-001-20231123 (https://download.01.org/0day-ci/archive/20231124/202311241442.F0S4BazK-lkp@intel.com/config)
+compiler: clang version 16.0.4 (https://github.com/llvm/llvm-project.git ae42196bc493ffe877a7e3dff8be32035dea4d07)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231124/202311241442.F0S4BazK-lkp@intel.com/reproduce)
 
----
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202311241442.F0S4BazK-lkp@intel.com/
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c           |    1 -
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    1 -
- drivers/gpu/drm/ast/ast_i2c.c                     |    1 -
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c         |    1 -
- drivers/gpu/drm/display/drm_dp_helper.c           |    1 -
- drivers/gpu/drm/display/drm_dp_mst_topology.c     |    1 -
- drivers/gpu/drm/gma500/cdv_intel_dp.c             |    1 -
- drivers/gpu/drm/gma500/intel_gmbus.c              |    1 -
- drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c        |    1 -
- drivers/gpu/drm/gma500/psb_intel_sdvo.c           |    1 -
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   |    1 -
- drivers/gpu/drm/i915/display/intel_gmbus.c        |    1 -
- drivers/gpu/drm/i915/display/intel_sdvo.c         |    1 -
- drivers/gpu/drm/loongson/lsdc_i2c.c               |    1 -
- drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c           |    1 -
- drivers/gpu/drm/mgag200/mgag200_i2c.c             |    1 -
- drivers/gpu/drm/msm/hdmi/hdmi_i2c.c               |    1 -
- drivers/gpu/drm/radeon/radeon_i2c.c               |    1 -
- drivers/gpu/drm/rockchip/inno_hdmi.c              |    1 -
- drivers/gpu/drm/rockchip/rk3066_hdmi.c            |    1 -
- drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c            |    1 -
- drivers/video/fbdev/core/fb_ddc.c                 |    1 -
- drivers/video/fbdev/cyber2000fb.c                 |    1 -
- drivers/video/fbdev/i740fb.c                      |    1 -
- drivers/video/fbdev/intelfb/intelfb_i2c.c         |   15 +++++----------
- drivers/video/fbdev/matrox/i2c-matroxfb.c         |   12 ++++--------
- drivers/video/fbdev/s3fb.c                        |    1 -
- drivers/video/fbdev/tdfxfb.c                      |    1 -
- drivers/video/fbdev/tridentfb.c                   |    1 -
- drivers/video/fbdev/via/via_i2c.c                 |    1 -
- include/linux/i2c.h                               |    1 -
- 31 files changed, 9 insertions(+), 47 deletions(-)
+All errors (new ones prefixed by >>):
+
+   warning: unknown warning option '-Wstringop-truncation'; did you mean '-Wstring-concatenation'? [-Wunknown-warning-option]
+   warning: unknown warning option '-Wpacked-not-aligned'; did you mean '-Wpacked-non-pod'? [-Wunknown-warning-option]
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:642:55: error: use of undeclared identifier '__FUNC__'
+                   dev_err(adev->dev, "%s adev->didt_rreg is null!\n", __FUNC__);
+                                                                       ^
+   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:703:55: error: use of undeclared identifier '__FUNC__'
+                   dev_err(adev->dev, "%s adev->didt_wreg is null!\n", __FUNC__);
+                                                                       ^
+   2 warnings and 2 errors generated.
+
+
+vim +/__FUNC__ +642 drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+
+   618	
+   619	/**
+   620	 * amdgpu_debugfs_regs_didt_read - Read from a DIDT register
+   621	 *
+   622	 * @f: open file handle
+   623	 * @buf: User buffer to store read data in
+   624	 * @size: Number of bytes to read
+   625	 * @pos:  Offset to seek to
+   626	 *
+   627	 * The lower bits are the BYTE offset of the register to read.  This
+   628	 * allows reading multiple registers in a single call and having
+   629	 * the returned size reflect that.
+   630	 */
+   631	static ssize_t amdgpu_debugfs_regs_didt_read(struct file *f, char __user *buf,
+   632						size_t size, loff_t *pos)
+   633	{
+   634		struct amdgpu_device *adev = file_inode(f)->i_private;
+   635		ssize_t result = 0;
+   636		int r;
+   637	
+   638		if (size & 0x3 || *pos & 0x3)
+   639			return -EINVAL;
+   640	
+   641		if (adev->didt_rreg == NULL) {
+ > 642			dev_err(adev->dev, "%s adev->didt_rreg is null!\n", __FUNC__);
+   643			return -EPERM;
+   644		}
+   645	
+   646		r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
+   647		if (r < 0) {
+   648			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+   649			return r;
+   650		}
+   651	
+   652		r = amdgpu_virt_enable_access_debugfs(adev);
+   653		if (r < 0) {
+   654			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+   655			return r;
+   656		}
+   657	
+   658		while (size) {
+   659			uint32_t value;
+   660	
+   661			value = RREG32_DIDT(*pos >> 2);
+   662			r = put_user(value, (uint32_t *)buf);
+   663			if (r)
+   664				goto out;
+   665	
+   666			result += 4;
+   667			buf += 4;
+   668			*pos += 4;
+   669			size -= 4;
+   670		}
+   671	
+   672		r = result;
+   673	out:
+   674		pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+   675		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+   676		amdgpu_virt_disable_access_debugfs(adev);
+   677		return r;
+   678	}
+   679	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
