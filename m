@@ -4,57 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ED5DC07D5A
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Nov 2023 21:55:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41C9EC4167B
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Nov 2023 22:20:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09A4810E3FE;
-	Mon, 27 Nov 2023 21:55:48 +0000 (UTC)
-Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
- [IPv6:2001:4860:4864:20::36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9349C10E3FE
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Nov 2023 21:55:45 +0000 (UTC)
-Received: by mail-oa1-x36.google.com with SMTP id
- 586e51a60fabf-1f066fc2a2aso2451393fac.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Nov 2023 13:55:45 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 674B010E402;
+	Mon, 27 Nov 2023 22:20:52 +0000 (UTC)
+Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
+ [IPv6:2001:4860:4864:20::2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69F6210E0CF;
+ Mon, 27 Nov 2023 22:20:50 +0000 (UTC)
+Received: by mail-oa1-x2b.google.com with SMTP id
+ 586e51a60fabf-1fa1c3755afso1183078fac.1; 
+ Mon, 27 Nov 2023 14:20:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1701122145; x=1701726945; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1701123649; x=1701728449; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=JRrkOibBI2xutGYY7NLAyHS46z89sTj6YE2grjRoNkI=;
- b=coEngTfprub/3dIRPyx+PYjKkEJttSMOnvLQnsmWk+ePCQyN0LIDW6fS+ICsfAdGGd
- n5cQPOK840y8Lb2LQi33AB3Y6/56y0B4amFr8+2InBn2L0zAq/EbGiRZlf2Ud6MBXMGt
- fbBXrKvekt+bBSQwGg7Mu5p9ZqPfqjDIpiT14gcdHQHHa2LYZfLldA5QlC0u+SFKo2+S
- qzxla6bULVQJNfy3NiFMe6bUCfLKZ1J6LaxN3KzSOUKKl7V3IhL4KblaQSwJwD4EqWLy
- KX0ua0+efdb6L12aL8wNELCGz5Bgin/vSUwoFUjMz5XbUHgDDI2B9WxPzhVnnhiwEmu1
- NmSA==
+ bh=uOCoZok9ZC4QmtYsZ8TfeK+iIljTTrbyrnD/jz9we80=;
+ b=Nx+O1DHoS3UgnDS+dDbVpQGWPpm+e//cr/cHEHIGsXVR3wEWzb9GO4X+qYFmkrcQJE
+ YP1oP1x3BgRcfgLxkbMKIVRHI+6jMR1bj3sp5X2nUfR/HpJdQgn0IHH/NkyQc5smjx30
+ pF7lBWLRfN1gXJ9g92l1e8x0IU1xCJu414YuV7o8kyvQF5Xko7nluFfLPBpWJIiVAdFA
+ +E5m1eYVKfcDAnW/mQs0KmS4Fs0P01jEYJU/RtTuE6FASwAlOlAsw45dElpBlt9FBBpE
+ AU0ihchpEoNvdHoz3cg/CMVh/NKAYz7qBX9m3lxbaQzikidHGBvFdWUDxZkVT4ChWcVc
+ e8wQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701122145; x=1701726945;
+ d=1e100.net; s=20230601; t=1701123649; x=1701728449;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=JRrkOibBI2xutGYY7NLAyHS46z89sTj6YE2grjRoNkI=;
- b=pLfdJshd+OSH20q/stpO+kJp8L50NaZ1wJ5jYAkMQXL2qjp1M0JU3oIGJjxTe0BHyd
- YEmUHoM4f47GhK0v4JKLI1ELFtIyDxz2QxfCHtns6DWH1mAOocO8qW62oZMoyMzx7orW
- /u3IZDsDqEYvWlsfJ3hZnUcob3zlr+EEgCFIB7bUzIY+PD7LoS4lHNepqMKjxAcVrpYa
- zAzKdf/VvQVc/4Q7Ts26Fm5CMD6B1yXEZLxDS80tIb6BCORcehDxEXnRfej69Jk5wBCe
- WoiUZC3xzQHYRdsaywt4Fl6D4dMfx25GDMjDKepYMq5Tx/9icVgVy6Prxo5xO3QMMnFB
- ZeNA==
-X-Gm-Message-State: AOJu0Yy70g0q5HMJ2znXiDYqIZWrJ/gv7NScqWAnp+WxOYD/2L5w8dru
- F5JgCjlObVCxKK/OWT4inu55559921OslR+yy6vZcnDR
-X-Google-Smtp-Source: AGHT+IGw0kNBOq/vmlx90Qs36KHj0Nzz1qckhsk/87kGr6NXi1lapMaaX8uZOwHfqnxpj7GyRs5BhChcJ3mxoBlB9sk=
-X-Received: by 2002:a05:6870:6c16:b0:1fa:1fa6:231a with SMTP id
- na22-20020a0568706c1600b001fa1fa6231amr11001203oab.39.1701122144784; Mon, 27
- Nov 2023 13:55:44 -0800 (PST)
+ bh=uOCoZok9ZC4QmtYsZ8TfeK+iIljTTrbyrnD/jz9we80=;
+ b=HKyDBoyriSu+P/A9FNttCcFdMh/DAx6sKzznsxe8Yk79NsGo2GypN1T/949vEHudv6
+ lBRH7uwfkPRKU4OW4Md4mztu+hI6IhppTSlRMy4p7iEqFw3wc4AXsTTHFiVZ4uKLs2T/
+ dqJDiMotohWDHuaNHlGTZ5EjNL8Zy9f+tEms1I3qFQB3lzNahghGBKsDgr5E10UKqF1w
+ rr1bpWZ3cx8YABW9XK2Pe0qdgheUCOfyG4RxljMebSCTqsz13jbbVmCA9CZadl57o3Eq
+ z9X2zvVsV2tHeCbxIgLpikd6NcPrSPdyMhuOc9rlUkIk2/jyGK304DhVpRVP58CARBxO
+ 1k6g==
+X-Gm-Message-State: AOJu0YzLYAi3NkF0gCV24jKlAUoqlSk06lPGOtZJYqTUASI4CnO5B+hl
+ KFlQu8em3CZgOEpaw8/PRvZOmPM6ZNqiYLKwu68=
+X-Google-Smtp-Source: AGHT+IG606uGqVxVZUsnYhGnoio+vCyrTchzuHhHlW4YCPROWTyaN9UgJO6ZL1UuPP5MxYL7nL/3g2frkr9mEuro9o0=
+X-Received: by 2002:a05:6870:1603:b0:1f9:eb7e:6621 with SMTP id
+ b3-20020a056870160300b001f9eb7e6621mr6732690oae.18.1701123649584; Mon, 27 Nov
+ 2023 14:20:49 -0800 (PST)
 MIME-Version: 1.0
-References: <20231127182945.1109556-1-lijo.lazar@amd.com>
- <ac4bc87d-7ae1-45d3-8f85-0e294289ad3a@gmail.com>
-In-Reply-To: <ac4bc87d-7ae1-45d3-8f85-0e294289ad3a@gmail.com>
+References: <20231122093509.34302-1-yaolu@kylinos.cn>
+ <20231123012234.5783-1-yaolu@kylinos.cn>
+ <80ea6067-c531-4765-8576-265e565525fa@amd.com>
+In-Reply-To: <80ea6067-c531-4765-8576-265e565525fa@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 27 Nov 2023 16:55:33 -0500
-Message-ID: <CADnq5_NA0fi8cGvrSzCtmtsWpgKhaG4O8T6cW+ObJoCm=iwzSQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix uninitialized return value
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Date: Mon, 27 Nov 2023 17:20:38 -0500
+Message-ID: <CADnq5_M7TjyM5n7X1mvxRzrckd4meVsvJMrMyt-BpciEPcqC-Q@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: Fix cat debugfs amdgpu_regs_didt causes
+ kernel null pointer
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,54 +70,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Lijo Lazar <lijo.lazar@amd.com>,
- amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com
+Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Lu Yao <yaolu@kylinos.cn>, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ alexander.deucher@amd.com, airlied@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 27, 2023 at 2:22=E2=80=AFPM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
+Applied.  Thanks!
+
+Alex
+
+On Thu, Nov 23, 2023 at 3:22=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> Am 27.11.23 um 19:29 schrieb Lijo Lazar:
-> > The return value is uniinitialized if ras context is NULL.
+> Am 23.11.23 um 02:22 schrieb Lu Yao:
+> > For 'AMDGPU_FAMILY_SI' family cards, in 'si_common_early_init' func, in=
+it
+> > 'didt_rreg' and 'didt_wreg' to 'NULL'. But in func
+> > 'amdgpu_debugfs_regs_didt_read/write', using 'RREG32_DIDT' 'WREG32_DIDT=
+'
+> > lacks of relevant judgment. And other 'amdgpu_ip_block_version' that us=
+e
+> > these two definitions won't be added for 'AMDGPU_FAMILY_SI'.
 > >
-> > Fixes: 0f4c8faa043c (drm/amdgpu: Move mca debug mode decision to ras)
+> > So, add null pointer judgment before calling.
 > >
-> > Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+> > Signed-off-by: Lu Yao <yaolu@kylinos.cn>
+>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
 > > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> > Changes in v2:
+> >    1. Drop dev_err message.
+> >    2. Change error code from 'EPERM' to 'EOPNOTSUPP'
+> > Link to v1: https://lore.kernel.org/all/20231122093509.34302-1-yaolu@ky=
+linos.cn/
+> > Thanks Christian for his comments.
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 6 ++++++
+> >   1 file changed, 6 insertions(+)
 > >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_ras.c
-> > index 1a8668a63e67..f6b47ebce9d6 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> > @@ -3410,7 +3410,7 @@ int amdgpu_ras_reset_gpu(struct amdgpu_device *ad=
-ev)
-> >   int amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool en=
-able)
-> >   {
-> >       struct amdgpu_ras *con =3D amdgpu_ras_get_context(adev);
-> > -     int ret;
-> > +     int ret =3D 0;
->
-> That's usually considered very bad coding style and complained about by
-> automated checkers.
->
-> Instead explicitly set the return value in the code paths not actually
-> setting it.
-
-In this case, the function is so short, I think it makes things less
-readable to do that.
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
->
-> Regards,
-> Christian.
->
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_debugfs.c
+> > index a53f436fa9f1..e098cd66fa2a 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> > @@ -638,6 +638,9 @@ static ssize_t amdgpu_debugfs_regs_didt_read(struct=
+ file *f, char __user *buf,
+> >       if (size & 0x3 || *pos & 0x3)
+> >               return -EINVAL;
 > >
-> >       if (con) {
-> >               ret =3D amdgpu_mca_smu_set_debug_mode(adev, enable);
+> > +     if (adev->didt_rreg =3D=3D NULL)
+> > +             return -EOPNOTSUPP;
+> > +
+> >       r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
+> >       if (r < 0) {
+> >               pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> > @@ -694,6 +697,9 @@ static ssize_t amdgpu_debugfs_regs_didt_write(struc=
+t file *f, const char __user
+> >       if (size & 0x3 || *pos & 0x3)
+> >               return -EINVAL;
+> >
+> > +     if (adev->didt_wreg =3D=3D NULL)
+> > +             return -EOPNOTSUPP;
+> > +
+> >       r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
+> >       if (r < 0) {
+> >               pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
 >
