@@ -4,88 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98197C4167B
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Nov 2023 18:40:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80494C4167B
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Nov 2023 18:46:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0983A10E3D1;
-	Mon, 27 Nov 2023 18:40:32 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35AFD10E3D2
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Nov 2023 18:40:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=APaD2ucUZXM3ilIJAI+ZuUE9200KEO/hC5xibn6srKELrjlvDDoxpjACbJh1RD9ekUdYvo/GXlg1EEoBBYrnO70OkxO91ZKnmPbBJ8w4fhBUuVSaeuoOQhg4QIEcWo8PUgNy+qfKDMiC1F3PTo7FG5a7lVipfwTn0T1G45djwgE5s7ZLUWFIdODu5a3TDwbszv40AR+mbQFUMgr+ZdGreifHWczkg86qXafFVvvc0icMvqZFTxYLCob6UqTceihP/v3JPiT3kFg1YrlAXvlydBsEs/RmWwp1iEjrWM+tkR9aTK0OA/ySXNi3+ygjKdMnyRinX7x2rQVZy9grjnmCAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BceoZAOih0P0mgyWRQE6Mk6OEXrZ+s3BJTw5EMrRkYA=;
- b=Sa+pRHlM63TRdwPJMS7/9X3fUP4s6JSwq2jloNaWlxpJsyCv6WDCOTa2pvtgTJhlATmSqJmsS7X3e5dXbrY+WogJXKp1m+xeadYpu8YQ/gSx9OAe+/gnqz8FpfM0hTiF+KdjvM2W1eeZVW4ItAyKDQu8QUrBiYJZsTECVCILytFVfUzy0aiTxXcfUxs17xBsjvZ/VMRm26lKUN/Oq5E4RbBCsqbRiF1cX7RyGbAP56K2PlLfy+njfHp+NvZ0jr+BKp8Kj1Pb85H4DzWjlFVjH/Ag56dK0YNb6JeuAadIUxOSC5tFQ+/ZlKNG2nHNaGmzPx/Ao6sqEU1iWQjxYMkXQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BceoZAOih0P0mgyWRQE6Mk6OEXrZ+s3BJTw5EMrRkYA=;
- b=ckGf5Mr8M9wJWQmK8jAYGkYJGpyo/uDDa5R2syIaafhVp1oIJou6bKobYIwZ16zGRbLQAa0v5tSqkmKmTSDr7vGXPZ2vVVv9KGA1i5NnGiL/X+5KcstXg0An+C/7kmJZuM2ibgI6O5awXFTG2QIhQVj2kAVUdUdApvdB6ExwDUs=
-Received: from DM6PR02CA0107.namprd02.prod.outlook.com (2603:10b6:5:1f4::48)
- by CH3PR12MB8583.namprd12.prod.outlook.com (2603:10b6:610:15f::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.29; Mon, 27 Nov
- 2023 18:40:25 +0000
-Received: from CY4PEPF0000EDD2.namprd03.prod.outlook.com
- (2603:10b6:5:1f4:cafe::76) by DM6PR02CA0107.outlook.office365.com
- (2603:10b6:5:1f4::48) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.26 via Frontend
- Transport; Mon, 27 Nov 2023 18:40:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EDD2.mail.protection.outlook.com (10.167.241.206) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7046.17 via Frontend Transport; Mon, 27 Nov 2023 18:40:25 +0000
-Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 27 Nov
- 2023 12:40:24 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd: Enable PCIe PME from D3
-Date: Mon, 27 Nov 2023 12:40:01 -0600
-Message-ID: <20231127184001.3306-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EF1D10E301;
+	Mon, 27 Nov 2023 18:46:08 +0000 (UTC)
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B538810E301
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Nov 2023 18:46:06 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3316d09c645so3040521f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Nov 2023 10:46:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1701110765; x=1701715565; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=WISL0fjqdzOQYWQ6Ll7YK4vcayWymKsVRYuQWYUu9rA=;
+ b=lyNt5O/5/PzVln9acb4sV7SHkD4o7+JXICCcHKnBn6vv/ShvG/txQC8SVgrb2UiNE0
+ W8sJww2sC96lJjf71yD/aTX0TUk2dHD53eHTSrdtIEmpWqOGk4wBCQiUxgVrFKEexSWq
+ tp1xvzdciK7v9PK8mimaV3tzJSEe2Qwy4t/ji23LOmIp5I8m+yBi+hNjY7x0YDBkjdvM
+ Tg0ftZ9dBjsVa80yXd5sczHFiHqmrUFzk02K05JLisFTQhD/H67doaxO8xfCfrYwfh9S
+ QHrNlQt0DeVsE7qe1krNIMldKC4ztanAWHzMaZvlc9KApeolqwYHqQbj92wXoak8rgrp
+ RIBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1701110765; x=1701715565;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=WISL0fjqdzOQYWQ6Ll7YK4vcayWymKsVRYuQWYUu9rA=;
+ b=gSz8D/gOPiW9bHJ7VMkB+OENOyE8sbCang93P7oPZPDORDu/ftHzgTehW7Qdio6DQ7
+ DCYD4QeLIDoKv0Ka26qJFBCPwmSc3DlBr+9/9nl8L5va35BkPSBsxQvj2NXo/UxZEWlv
+ l8wHg8T2PZHIREvXU3I4QGa5yYSJKIYDIpoj7wRNB+MBeOvweUClYd8LNWKnMo+BDzJl
+ krSGh8sqd4/T12eIKRZlzTgRfid114I7yUCu6EokgEyfjU7O/jsoVtMnWF0r+P9laXs/
+ jwLM01Yb48igdMCOXM27tkJtGzTpDcwvjjlGxa9kSQ9tktWCwbqy40bhaHuvGrNafe59
+ Kj4g==
+X-Gm-Message-State: AOJu0YyRUJu5QPAuhiFqk5yk/d0GBj51Xt9Xih7v9aM6+/TbDRduaTJk
+ vn8Cxhn7c9kqSsDklNIodpA=
+X-Google-Smtp-Source: AGHT+IGlfVr24ffN7s5DgP+qlFqa0ws1WfikM6Y5c6osTTALxunGHh9rqgETOVdaY9r/UpkzN8k0CQ==
+X-Received: by 2002:adf:b1d5:0:b0:332:c441:70aa with SMTP id
+ r21-20020adfb1d5000000b00332c44170aamr9922419wra.26.1701110764840; 
+ Mon, 27 Nov 2023 10:46:04 -0800 (PST)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ f9-20020a0560001b0900b003143867d2ebsm12799909wrz.63.2023.11.27.10.46.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 27 Nov 2023 10:46:04 -0800 (PST)
+Message-ID: <ac4bc87d-7ae1-45d3-8f85-0e294289ad3a@gmail.com>
+Date: Mon, 27 Nov 2023 19:46:01 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD2:EE_|CH3PR12MB8583:EE_
-X-MS-Office365-Filtering-Correlation-Id: 906a5883-7278-4252-a2b6-08dbef7851e7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wDhCDw48pWG0fxDKtJ+Q7b/oeJDQuaWCD8qV4jBxF9qDNqR68gkZhtehmsYBR0MzGUO0nNsyhUzR2bsG8oUhAW155tZI+t3RSIDA8F9r+GeMqCJ+jzga9o3pk1RUy180CJ/j4aHMfbqa9sCd0f8tySnPwdEKs8EnIjBXi/TYwfWeTOSrtSCTCGNO4gS0YQtx3xAAqiey00NygjNb5XHJ/XEGRLZcpNxp0tZxxwE7/mZIMwbS2I6HqYJdCTMjCBXxxK5ZPWXX7ladD/MJaikhHBq+A4fJipGik1pZc25FHEZBH8IDFljzSxZE559BEbUJmEyN8HI1aU1U1cH+/iVRYw83EBbZZNOuCyXar7uy0qCskorUodrPHQSdnnHBSbH89bqL6gVqgknF34/SK7uAmAlvNiMc2RJ6Fkq6fjiImWljzuxqIEu4BfBBWkCa46A8KH27uGz8OAtkAL1knSjoCNdBznewBXw8jpjaa6+kgctUravtcbkAzG4pKBbwSvVRJZAYCbM2NMfGSmDaCmOlUmTTSqWMd1zfr4+I4C4fxQxAbKeDM3O8wrC/SQs9d/rgq6QFspWlGBhMl4bePaF7WErRyjP6/3yAGZJUXbNDmZ2ErottdeQjSjVtziA5vETiSndztboAI3j269xV+mdg4mBo6WMTrL05EjFpon2/Td4humWSzHO6sq4Wq8F8KtqqvvM1vOZq3y8xPoHDlrLXYRkztqKZ7Uogbk6bUPUrb/nli5u19Av7MiAjlTeohv7Y12o8fxthIpXymAfY57NI9w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(376002)(136003)(39860400002)(396003)(230922051799003)(1800799012)(82310400011)(186009)(64100799003)(451199024)(36840700001)(46966006)(40470700004)(41300700001)(36756003)(86362001)(1076003)(81166007)(356005)(47076005)(4744005)(83380400001)(5660300002)(336012)(426003)(82740400003)(16526019)(26005)(44832011)(36860700001)(2616005)(40480700001)(2906002)(7696005)(6666004)(8676002)(4326008)(8936002)(40460700003)(478600001)(70206006)(70586007)(6916009)(316002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2023 18:40:25.1212 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 906a5883-7278-4252-a2b6-08dbef7851e7
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD2.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8583
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Fix uninitialized return value
+Content-Language: en-US
+To: Lijo Lazar <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20231127182945.1109556-1-lijo.lazar@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20231127182945.1109556-1-lijo.lazar@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,36 +74,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alexander.Deucher@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When dGPU is put into BOCO it may be in D3cold but still able send
-PME on display hotplug event. For this to work it must be enabled
-as wake source from D3.
+Am 27.11.23 um 19:29 schrieb Lijo Lazar:
+> The return value is uniinitialized if ras context is NULL.
+>
+> Fixes: 0f4c8faa043c (drm/amdgpu: Move mca debug mode decision to ras)
+>
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> index 1a8668a63e67..f6b47ebce9d6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> @@ -3410,7 +3410,7 @@ int amdgpu_ras_reset_gpu(struct amdgpu_device *adev)
+>   int amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool enable)
+>   {
+>   	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+> -	int ret;
+> +	int ret = 0;
 
-When runpm is enabled use pci_wake_from_d3() to mark wakeup as
-enabled by default.
+That's usually considered very bad coding style and complained about by 
+automated checkers.
 
-Cc: stable@vger.kernel.org # 6.1+
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
+Instead explicitly set the return value in the code paths not actually 
+setting it.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 5d009175318e..08763f6de482 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2263,6 +2263,8 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
- 		pm_runtime_mark_last_busy(ddev->dev);
- 		pm_runtime_put_autosuspend(ddev->dev);
- 
-+		pci_wake_from_d3(pdev, TRUE);
-+
- 		/*
- 		 * For runpm implemented via BACO, PMFW will handle the
- 		 * timing for BACO in and out:
--- 
-2.34.1
+Regards,
+Christian.
+
+>   
+>   	if (con) {
+>   		ret = amdgpu_mca_smu_set_debug_mode(adev, enable);
 
