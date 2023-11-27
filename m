@@ -4,88 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4C7FC07D5A
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Nov 2023 18:57:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F2F3C4167B
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Nov 2023 18:59:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 385F110E0A3;
-	Mon, 27 Nov 2023 18:57:50 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2066.outbound.protection.outlook.com [40.107.95.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0662310E0A3
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Nov 2023 18:57:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Fxc1AICu+yDUkEOiMjxg0pUqtxXQRvC+9T4ghUjoRjSJdjxzllFbDUw7lPhEVVh26EvCWokMj4JKxMn3V36cxfdEzUutrW6YHl0xO9YWFXfQy46uM28eGd8KIPh8rTirnir6L6Gtvv8HkOalWLJz1tG9HTEjd5psuYl4fN1OnDsqDbEIL80VBVApD34ihtVjb2WLizGWul5gtMAJnTtrONia0HkHZ613Xu0xw5Z5t3+UcMwCdUvwz5FLhHxHBRReKi/9UQVETLbObsJJnlJmLhr6rzXW6HrpnCZSz3WWuilsBJbpfZDGcVfQdRM1w7YRavUGQ3ElfaA/TcDtKp6jlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pKqfpN/aGdidH+t4mz0T7Hr1oH8zS4SddzmlmgT09bw=;
- b=Ylf56lMpdx1ZYFv5b7PWbvut31XtQhAy5tl0e8YfLryyeznd4KcEGLXXlTun/jvD5RxU7ZuLzKUqdsn+PSwvnqV2g4UHFUlCGRoD84xHx93UXeHLagrkMha2nO9brb2dYYWAc0Po0J5OFSfS5vYmV21HyNhdDEjugZKyVUmnlcBqARvPZ6vRZyMFBX1AG9RBW93XqdwyjrTMlq4unmy3FnTFXgmF072HFU8dogtTdd3ZBMzYYtgsU5os13vlMfjzs+LnWMOCwMklFIKl7ItkJBmKDxxzs02ZsSEOEwmRFiPGdQahbnwV8tlkBTDvbtsyvbY1FlTosUU6k0Otr4d/2w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pKqfpN/aGdidH+t4mz0T7Hr1oH8zS4SddzmlmgT09bw=;
- b=PmLMJ3NiXiI2d+/g7jCrBExHWurQf2qh5KduB9QnKMkddHUb1M0o9D/jkXxc0D3daSLxYp19XzPoP909x69z7kWo9TROeys2ik2v19rfGTUukxQyErH9ys3kUKOtB+SPoPrkHgDfd2Z9Xt6W664ikuU8RDJH9KhEve1NY4pNnIo=
-Received: from BL1PR13CA0159.namprd13.prod.outlook.com (2603:10b6:208:2bd::14)
- by LV2PR12MB5774.namprd12.prod.outlook.com (2603:10b6:408:17a::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.28; Mon, 27 Nov
- 2023 18:57:45 +0000
-Received: from BL02EPF0001A101.namprd05.prod.outlook.com
- (2603:10b6:208:2bd:cafe::8f) by BL1PR13CA0159.outlook.office365.com
- (2603:10b6:208:2bd::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.19 via Frontend
- Transport; Mon, 27 Nov 2023 18:57:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A101.mail.protection.outlook.com (10.167.241.132) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7046.17 via Frontend Transport; Mon, 27 Nov 2023 18:57:44 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 27 Nov
- 2023 12:57:43 -0600
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2] drm/amdgpu: Fix uninitialized return value
-Date: Tue, 28 Nov 2023 00:26:15 +0530
-Message-ID: <20231127185615.1110293-1-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2828910E3D3;
+	Mon, 27 Nov 2023 18:59:23 +0000 (UTC)
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F86310E30B;
+ Mon, 27 Nov 2023 18:59:20 +0000 (UTC)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-40b4744d603so8591545e9.2; 
+ Mon, 27 Nov 2023 10:59:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1701111559; x=1701716359; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=WjiPRjZPiCmdU/duAiKaG+F7L9L8u8NYrRvuFjn8aG4=;
+ b=TCfjE4/IVdaAvwvFrwyjOEBQZMsZZW1A1d6O6+l3MHOMoV5dAPFnlEdreRZj0/z16k
+ Xl59PshiUBE31YJwSClNhAP6T/FQ80IygPzH1WJFPMnrRmFFNIJLoqk9isAhvEAR0rN3
+ DccxMx9Codz1x+xQrNstDNkDLBB7aL8IvRpQYNmnWEdpGSMwGhY0FVKyJTGM5XUBaP7R
+ U3M/86tEnj2WxqRRdtpvpvEUV40cWbsOGnFchIO8Z2k0g92uaOWurkJpgYz10g1lO505
+ iGUdkm0R1KPvgdQeSvqZ1+5Q/ZnGdu1mGG3Lv+X6nySsNFeYaclaqi++QIuyZWgiKxIu
+ zscQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1701111559; x=1701716359;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=WjiPRjZPiCmdU/duAiKaG+F7L9L8u8NYrRvuFjn8aG4=;
+ b=cV6Y9Kw/k4VtU9WkrsHNZ/M/5ZkWFn3janMHoxk3OUN2ibADV3FUjkhfugXPv3xRr/
+ CNZOatsif2cIqkKBTQtK0EPQ3heruPjhBvnFc5XNlCvzsjibWiG11EdWwQGX7uhEd5xu
+ 21QGDvwl5/XbeUJGUpDWqhAsZkpbphwLyYHSWgA5jDcZwDuZQmnu6iuLm5KlD8g8iTyD
+ LcDWBB1x4jnDrJ0NiGjaCK5XDS9fKnqLmYSSbp6cmGq7X9ywjEf9wKhtvxS1rrVogYF0
+ P/W0I08y75sdC6gxtC02qnuLn5S0wvIQ+rRWH1AXa4Q3slr3Endlba+uLPiBv8nGFjOu
+ 51qw==
+X-Gm-Message-State: AOJu0YxSAGQWdlaxQmuINI2WUR9NLdM9aT3Zm2mpGOzdQdO5k6iEtMnH
+ YIG+AQYOMu9fhhQFPQsRkKYpFXsrdrM=
+X-Google-Smtp-Source: AGHT+IFYgkKTxGMxfAVQ2TiCEt6no+2USkpLLKMpoenaxT5hDflerFFL3yg/x9yfMMXXyOIN1holhA==
+X-Received: by 2002:a05:600c:3595:b0:409:7d0:d20b with SMTP id
+ p21-20020a05600c359500b0040907d0d20bmr9631528wmq.24.1701111558608; 
+ Mon, 27 Nov 2023 10:59:18 -0800 (PST)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ j25-20020a05600c1c1900b004076f522058sm15526135wms.0.2023.11.27.10.59.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 27 Nov 2023 10:59:18 -0800 (PST)
+Message-ID: <c3809a89-31bc-4e5e-b0bf-538845e37f57@gmail.com>
+Date: Mon, 27 Nov 2023 19:59:16 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/amdgpu: use GTT only as fallback for VRAM|GTT
+Content-Language: en-US
+To: "Bhardwaj, Rajneesh" <Rajneesh.Bhardwaj@amd.com>,
+ "Mahfooz, Hamza" <Hamza.Mahfooz@amd.com>,
+ "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
+ "kherbst@redhat.com" <kherbst@redhat.com>, "dakr@redhat.com"
+ <dakr@redhat.com>, "zackr@vmware.com" <zackr@vmware.com>,
+ "Olsak, Marek" <Marek.Olsak@amd.com>,
+ "linux-graphics-maintainer@vmware.com"
+ <linux-graphics-maintainer@vmware.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "virtualization@lists.linux.dev" <virtualization@lists.linux.dev>,
+ "spice-devel@lists.freedesktop.org" <spice-devel@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+References: <20231127145437.15060-1-christian.koenig@amd.com>
+ <20231127145437.15060-3-christian.koenig@amd.com>
+ <a6e10770-32de-4235-a86f-02a90e93a0f4@amd.com>
+ <DS7PR12MB59339B73B38A4EFDB2A67A9FFEBDA@DS7PR12MB5933.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <DS7PR12MB59339B73B38A4EFDB2A67A9FFEBDA@DS7PR12MB5933.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A101:EE_|LV2PR12MB5774:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4fe9f99f-4ba6-4cb4-b157-08dbef7abd9e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: KaBVxsRjfLz9tsQaAoTkxu5L1Cz+qxe/I6a3HWM1rKhEPZhJPAm8L+SvQE5z2p7WFfRpiXb8s6zPZpUYXteNCHgbb8rghpOAReZpXJMU9HHnVrUbIO1MqhBj48hhKh6Neh5bKVdBeXuGv3gfNbQrBgxNi1pBQEwykm9BTjaNoLIotbc1fXHff0gpvltg4kaP9iBMu93lUNFHiq2/6aTet7Gn/ZE5Xj9xqlIClAtr/LoXEY/3zQc0/XQ4jr3Lv+8khAZ4FSMJyl+JE2MYCugW9rnttcsEstc5Z292A+RwMqatnhkeDR7+I3ddJe0jdvj3MWKZlw8ONHvKXIrcx2IJlYYaqPX5vrxak/sN47R8/dCWh4zMzUFL1uua0FunlkKqhsawoynhJ+i4A3baHd7C4koaPnai6H0Zj8McLgNlMn9vm/rnAReOqdUSgEYBA5Z/6ZnmzDujrU9JK3R2/ydofZno9Q6c2GOlR9FCLo+ZCxd4Me506t7opMnNTRrjiO3wT/TaOwZnU08N4CKzL/2mVzQB45r+Ww1ND29pma9UsGjhHv0tlHf9xQcbXxCxQm4MPzPmy6RblawWbuVf1q7u/vmGc1J7LuIyK9G+fBlRb9gEJDwWZH3PKS7OsjJRYjtoq07Hxlq+mp2VDIkuq7xQkh0hHA0tvuraZz/ydQjiHxOl8YDH3hiUdLPCwDDQPJaUSjfp8eHcNV+CAxtMoBofwr+LdjNFv09jwfig8c0iEcS07GayHI1X2zAcFC90IKoYteXP1d4qD+UwuRrP2eA+zA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(396003)(376002)(136003)(346002)(230922051799003)(186009)(451199024)(64100799003)(1800799012)(82310400011)(40470700004)(36840700001)(46966006)(6666004)(4326008)(8936002)(8676002)(7696005)(6916009)(54906003)(316002)(40460700003)(478600001)(81166007)(4744005)(356005)(47076005)(36756003)(40480700001)(41300700001)(1076003)(86362001)(26005)(44832011)(70586007)(36860700001)(336012)(2906002)(2616005)(426003)(16526019)(82740400003)(5660300002)(70206006)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2023 18:57:44.9087 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4fe9f99f-4ba6-4cb4-b157-08dbef7abd9e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A101.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5774
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,34 +90,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The return value is uniinitialized if ras context is NULL.
+Am 27.11.23 um 17:47 schrieb Bhardwaj, Rajneesh:
+> [AMD Official Use Only - General]
+>
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Hamza Mahfooz
+> Sent: Monday, November 27, 2023 10:53 AM
+> To: Christian König <ckoenig.leichtzumerken@gmail.com>; jani.nikula@linux.intel.com; kherbst@redhat.com; dakr@redhat.com; zackr@vmware.com; Olsak, Marek <Marek.Olsak@amd.com>; linux-graphics-maintainer@vmware.com; amd-gfx@lists.freedesktop.org; nouveau@lists.freedesktop.org; intel-gfx@lists.freedesktop.org; virtualization@lists.linux.dev; spice-devel@lists.freedesktop.org; dri-devel@lists.freedesktop.org
+> Subject: Re: [PATCH 2/2] drm/amdgpu: use GTT only as fallback for VRAM|GTT
+>
+> On 11/27/23 09:54, Christian König wrote:
+>> Try to fill up VRAM as well by setting the busy flag on GTT allocations.
+>>
+>> This fixes the issue that when VRAM was evacuated for suspend it's
+>> never filled up again unless the application is restarted.
+> I found the subject description a bit misleading. Maybe use a Fixes tag describing it is a fix for suspend resume regression other than that, looks good to me.
 
-Fixes: 0f4c8faa043c (drm/amdgpu: Move mca debug mode decision to ras)
+Well exactly that's the problem, this isn't really a fix and we also 
+don't want to backport it.
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
-v2: Avoid variable initialization (Christian)
+Basically the previous behavior was working as design, it's just that it 
+was never intended to be used like this.
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 2 ++
- 1 file changed, 2 insertions(+)
+>
+> Acked-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+>
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2893
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 1a8668a63e67..79fae180639a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -3416,6 +3416,8 @@ int amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool enable)
- 		ret = amdgpu_mca_smu_set_debug_mode(adev, enable);
- 		if (!ret)
- 			con->is_mca_debug_mode = enable;
-+	} else {
-+		ret = 0;
- 	}
- 
- 	return ret;
--- 
-2.25.1
+Thanks,
+Christian.
+
+>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>> ---
+>>    drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 6 ++++++
+>>    1 file changed, 6 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> index aa0dd6dad068..ddc8fb4db678 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> @@ -173,6 +173,12 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo *abo, u32 domain)
+>>                        abo->flags & AMDGPU_GEM_CREATE_PREEMPTIBLE ?
+>>                        AMDGPU_PL_PREEMPT : TTM_PL_TT;
+>>                places[c].flags = 0;
+>> +             /*
+>> +              * When GTT is just an alternative to VRAM make sure that we
+>> +              * only use it as fallback and still try to fill up VRAM first.
+>> +              */
+>> +             if (domain & AMDGPU_GEM_DOMAIN_VRAM)
+>> +                     places[c].flags |= TTM_PL_FLAG_BUSY;
+>>                c++;
+>>        }
+>>
+> --
+> Hamza
+>
 
