@@ -4,81 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F2F3C4167B
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Nov 2023 18:59:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B7B7C4167B
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Nov 2023 19:09:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2828910E3D3;
-	Mon, 27 Nov 2023 18:59:23 +0000 (UTC)
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F86310E30B;
- Mon, 27 Nov 2023 18:59:20 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-40b4744d603so8591545e9.2; 
- Mon, 27 Nov 2023 10:59:20 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E62110E0C9;
+	Mon, 27 Nov 2023 19:09:14 +0000 (UTC)
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63EA510E090
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Nov 2023 19:09:12 +0000 (UTC)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-40b479ec4a3so8391175e9.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Nov 2023 11:09:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1701111559; x=1701716359; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1701112151; x=1701716951; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:references:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=WjiPRjZPiCmdU/duAiKaG+F7L9L8u8NYrRvuFjn8aG4=;
- b=TCfjE4/IVdaAvwvFrwyjOEBQZMsZZW1A1d6O6+l3MHOMoV5dAPFnlEdreRZj0/z16k
- Xl59PshiUBE31YJwSClNhAP6T/FQ80IygPzH1WJFPMnrRmFFNIJLoqk9isAhvEAR0rN3
- DccxMx9Codz1x+xQrNstDNkDLBB7aL8IvRpQYNmnWEdpGSMwGhY0FVKyJTGM5XUBaP7R
- U3M/86tEnj2WxqRRdtpvpvEUV40cWbsOGnFchIO8Z2k0g92uaOWurkJpgYz10g1lO505
- iGUdkm0R1KPvgdQeSvqZ1+5Q/ZnGdu1mGG3Lv+X6nySsNFeYaclaqi++QIuyZWgiKxIu
- zscQ==
+ bh=m0TA5kKmrVUYrKs/M0IzHPEc34/l2/aasr4JDwFHAWg=;
+ b=cgQSeNA2dOH+CuPKWBzPFcs6cvHEX+cKHvq7iDB6AFMpqL7sQnWdJsBAF9pDp0QGc+
+ 1bAwakXDDiyZ0K+CS2kNhcsS7FerslNLGb/bRhyic+/GjDM3iodIF30QHhchN1l9DJID
+ TXn8YoNK+SVBoAeuAMyk5WU7YNaW/8FT9stWw8HREPvFPx74ChK0z3yy3ZYcy2c8d2d7
+ SF+CvjhpPVti3pUqud2b0CCQW+6wlvSAcUWw+ux/nBD4iZzZm84tNG9jA1+XbkCT1Xpq
+ GhjO66kM6mX80Ew8muAbsc+QAR+E3gFRfKrzi0mNroJGVJ/lw/eAJpOFKd966KQZnkER
+ Ndfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701111559; x=1701716359;
+ d=1e100.net; s=20230601; t=1701112151; x=1701716951;
  h=content-transfer-encoding:in-reply-to:from:references:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=WjiPRjZPiCmdU/duAiKaG+F7L9L8u8NYrRvuFjn8aG4=;
- b=cV6Y9Kw/k4VtU9WkrsHNZ/M/5ZkWFn3janMHoxk3OUN2ibADV3FUjkhfugXPv3xRr/
- CNZOatsif2cIqkKBTQtK0EPQ3heruPjhBvnFc5XNlCvzsjibWiG11EdWwQGX7uhEd5xu
- 21QGDvwl5/XbeUJGUpDWqhAsZkpbphwLyYHSWgA5jDcZwDuZQmnu6iuLm5KlD8g8iTyD
- LcDWBB1x4jnDrJ0NiGjaCK5XDS9fKnqLmYSSbp6cmGq7X9ywjEf9wKhtvxS1rrVogYF0
- P/W0I08y75sdC6gxtC02qnuLn5S0wvIQ+rRWH1AXa4Q3slr3Endlba+uLPiBv8nGFjOu
- 51qw==
-X-Gm-Message-State: AOJu0YxSAGQWdlaxQmuINI2WUR9NLdM9aT3Zm2mpGOzdQdO5k6iEtMnH
- YIG+AQYOMu9fhhQFPQsRkKYpFXsrdrM=
-X-Google-Smtp-Source: AGHT+IFYgkKTxGMxfAVQ2TiCEt6no+2USkpLLKMpoenaxT5hDflerFFL3yg/x9yfMMXXyOIN1holhA==
-X-Received: by 2002:a05:600c:3595:b0:409:7d0:d20b with SMTP id
- p21-20020a05600c359500b0040907d0d20bmr9631528wmq.24.1701111558608; 
- Mon, 27 Nov 2023 10:59:18 -0800 (PST)
+ bh=m0TA5kKmrVUYrKs/M0IzHPEc34/l2/aasr4JDwFHAWg=;
+ b=RjOWNBpKWdagcl5D6dFNJJaBqbDFo5Sjy53I/sCmE/uIUuEYE7pmXluyprm+RhYZ08
+ 750lDrWkYqGXSRFK6yNlesGOCbXs6ocMc5miuSJgXOx+i1UI/Q4UDmuzwRZipJ7FaDeq
+ HYGsykRtkw+iuvMYxHO4jzF7mvtF+HxCGl8r3tl2lhKUvBsyVm7hVJUwDz64kGYeORi4
+ GhiCP+U9NbdwFslS2BeIOOQpT3bYmK1ht0kgNINjZc+ekJSj2dhf2e4jMSxkC0BbNiV2
+ dNzy3TD5rd/zFZGEgsf7455VxTUDxI6c41Wc/zr1VmiCYZWPK1P9Hme2L846SDY0HLJx
+ E1Qg==
+X-Gm-Message-State: AOJu0YzcDtLSz1V5kHkgww+gy+HUkYGsGH3UddHH9YVMKqsw83f1QPrB
+ 0TTvLmACGwFL2ttJgwbAWlE=
+X-Google-Smtp-Source: AGHT+IFyTksDamHc0Y2cr1SyBAxtAFsd9RvDR60Yh3JdW79atuLLvh529HnIGIx6tzqqBLPBLr9W5Q==
+X-Received: by 2002:a05:600c:3510:b0:40b:45e2:1f56 with SMTP id
+ h16-20020a05600c351000b0040b45e21f56mr2874234wmq.39.1701112150592; 
+ Mon, 27 Nov 2023 11:09:10 -0800 (PST)
 Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- j25-20020a05600c1c1900b004076f522058sm15526135wms.0.2023.11.27.10.59.17
+ l10-20020a5d674a000000b00332eef1ca7asm8131648wrw.80.2023.11.27.11.09.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Nov 2023 10:59:18 -0800 (PST)
-Message-ID: <c3809a89-31bc-4e5e-b0bf-538845e37f57@gmail.com>
-Date: Mon, 27 Nov 2023 19:59:16 +0100
+ Mon, 27 Nov 2023 11:09:10 -0800 (PST)
+Message-ID: <d0e3f1e2-a263-4a35-a986-90b838dbb81f@gmail.com>
+Date: Mon, 27 Nov 2023 20:09:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: use GTT only as fallback for VRAM|GTT
+Subject: Re: [PATCH 1/2] drm/amdgpu/gmc: check if AGP is disabled in
+ amdgpu_gmc_agp_addr()
 Content-Language: en-US
-To: "Bhardwaj, Rajneesh" <Rajneesh.Bhardwaj@amd.com>,
- "Mahfooz, Hamza" <Hamza.Mahfooz@amd.com>,
- "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
- "kherbst@redhat.com" <kherbst@redhat.com>, "dakr@redhat.com"
- <dakr@redhat.com>, "zackr@vmware.com" <zackr@vmware.com>,
- "Olsak, Marek" <Marek.Olsak@amd.com>,
- "linux-graphics-maintainer@vmware.com"
- <linux-graphics-maintainer@vmware.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "virtualization@lists.linux.dev" <virtualization@lists.linux.dev>,
- "spice-devel@lists.freedesktop.org" <spice-devel@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-References: <20231127145437.15060-1-christian.koenig@amd.com>
- <20231127145437.15060-3-christian.koenig@amd.com>
- <a6e10770-32de-4235-a86f-02a90e93a0f4@amd.com>
- <DS7PR12MB59339B73B38A4EFDB2A67A9FFEBDA@DS7PR12MB5933.namprd12.prod.outlook.com>
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20231121150556.84900-1-alexander.deucher@amd.com>
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <DS7PR12MB59339B73B38A4EFDB2A67A9FFEBDA@DS7PR12MB5933.namprd12.prod.outlook.com>
+In-Reply-To: <20231121150556.84900-1-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,61 +78,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 27.11.23 um 17:47 schrieb Bhardwaj, Rajneesh:
-> [AMD Official Use Only - General]
->
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Hamza Mahfooz
-> Sent: Monday, November 27, 2023 10:53 AM
-> To: Christian König <ckoenig.leichtzumerken@gmail.com>; jani.nikula@linux.intel.com; kherbst@redhat.com; dakr@redhat.com; zackr@vmware.com; Olsak, Marek <Marek.Olsak@amd.com>; linux-graphics-maintainer@vmware.com; amd-gfx@lists.freedesktop.org; nouveau@lists.freedesktop.org; intel-gfx@lists.freedesktop.org; virtualization@lists.linux.dev; spice-devel@lists.freedesktop.org; dri-devel@lists.freedesktop.org
-> Subject: Re: [PATCH 2/2] drm/amdgpu: use GTT only as fallback for VRAM|GTT
->
-> On 11/27/23 09:54, Christian König wrote:
->> Try to fill up VRAM as well by setting the busy flag on GTT allocations.
->>
->> This fixes the issue that when VRAM was evacuated for suspend it's
->> never filled up again unless the application is restarted.
-> I found the subject description a bit misleading. Maybe use a Fixes tag describing it is a fix for suspend resume regression other than that, looks good to me.
+Am 21.11.23 um 16:05 schrieb Alex Deucher:
+> Return AMDGPU_BO_INVALID_OFFSET if the AGP aperture is disabled.
+> There is no reason to check further if the aperture is disabled.
 
-Well exactly that's the problem, this isn't really a fix and we also 
-don't want to backport it.
+Yeah, but there shouldn't be a reason to check it earlier either.
 
-Basically the previous behavior was working as design, it's just that it 
-was never intended to be used like this.
+The "if (bo->ttm->dma_address[0] + PAGE_SIZE >= adev->gmc.agp_size)" 
+just below this code here should catch that perfectly well.
 
->
-> Acked-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
->
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2893
-
-Thanks,
 Christian.
 
 >
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> ---
->>    drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 6 ++++++
->>    1 file changed, 6 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> index aa0dd6dad068..ddc8fb4db678 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> @@ -173,6 +173,12 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo *abo, u32 domain)
->>                        abo->flags & AMDGPU_GEM_CREATE_PREEMPTIBLE ?
->>                        AMDGPU_PL_PREEMPT : TTM_PL_TT;
->>                places[c].flags = 0;
->> +             /*
->> +              * When GTT is just an alternative to VRAM make sure that we
->> +              * only use it as fallback and still try to fill up VRAM first.
->> +              */
->> +             if (domain & AMDGPU_GEM_DOMAIN_VRAM)
->> +                     places[c].flags |= TTM_PL_FLAG_BUSY;
->>                c++;
->>        }
->>
-> --
-> Hamza
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 3 +++
+>   1 file changed, 3 insertions(+)
 >
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> index 5f71414190e9..0f85f906791b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -181,6 +181,9 @@ uint64_t amdgpu_gmc_agp_addr(struct ttm_buffer_object *bo)
+>   {
+>   	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->bdev);
+>   
+> +	if (!adev->gmc.agp_size)
+> +		return AMDGPU_BO_INVALID_OFFSET;
+> +
+>   	if (bo->ttm->num_pages != 1 || bo->ttm->caching == ttm_cached)
+>   		return AMDGPU_BO_INVALID_OFFSET;
+>   
 
