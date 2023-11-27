@@ -4,66 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B7B7C4167B
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Nov 2023 19:09:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79770C4167B
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Nov 2023 19:11:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E62110E0C9;
-	Mon, 27 Nov 2023 19:09:14 +0000 (UTC)
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63EA510E090
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Nov 2023 19:09:12 +0000 (UTC)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-40b479ec4a3so8391175e9.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Nov 2023 11:09:12 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16E9810E3CB;
+	Mon, 27 Nov 2023 19:11:34 +0000 (UTC)
+Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
+ [IPv6:2001:4860:4864:20::36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D71DB10E3CB
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Nov 2023 19:11:32 +0000 (UTC)
+Received: by mail-oa1-x36.google.com with SMTP id
+ 586e51a60fabf-1fa235f8026so1503924fac.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Nov 2023 11:11:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1701112151; x=1701716951; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=m0TA5kKmrVUYrKs/M0IzHPEc34/l2/aasr4JDwFHAWg=;
- b=cgQSeNA2dOH+CuPKWBzPFcs6cvHEX+cKHvq7iDB6AFMpqL7sQnWdJsBAF9pDp0QGc+
- 1bAwakXDDiyZ0K+CS2kNhcsS7FerslNLGb/bRhyic+/GjDM3iodIF30QHhchN1l9DJID
- TXn8YoNK+SVBoAeuAMyk5WU7YNaW/8FT9stWw8HREPvFPx74ChK0z3yy3ZYcy2c8d2d7
- SF+CvjhpPVti3pUqud2b0CCQW+6wlvSAcUWw+ux/nBD4iZzZm84tNG9jA1+XbkCT1Xpq
- GhjO66kM6mX80Ew8muAbsc+QAR+E3gFRfKrzi0mNroJGVJ/lw/eAJpOFKd966KQZnkER
- Ndfw==
+ d=gmail.com; s=20230601; t=1701112292; x=1701717092; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dfzRcTqpBktSLBkBD0j82m/Hwn5iOoiG8zoqIpWInnY=;
+ b=NMs/zZc41b+UaF6zuB7I45X10rdQYdTa3PQBn0QWZeu/ENeocn9cFC//ZOfb+d0Ya6
+ Oisxgmydvd5RZDdlINEAaG1/Gyh0QioAuj12fH/m5YywAHAHSi4if1riHrAwtg080Wmy
+ F5nhjbFURL2Uhty22cUQrpabYSY4dzDqFPRVRIwWWQtx9Fxf5yNlfyP+SLFE2rLrYs6L
+ 2v/AxVXYxYRmEtJ9qwuIu81PVPGFnKUo9U9IBQ5Q8kIz54sDIxeO+8pdmfX/bX7rKGUx
+ 35lfTXyZdvbapLEPzek5bIdaOi+fyiAd0pGLpm9oJN5dXSlF69NwyaaIr4QpmUi0MLVK
+ NbZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701112151; x=1701716951;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=m0TA5kKmrVUYrKs/M0IzHPEc34/l2/aasr4JDwFHAWg=;
- b=RjOWNBpKWdagcl5D6dFNJJaBqbDFo5Sjy53I/sCmE/uIUuEYE7pmXluyprm+RhYZ08
- 750lDrWkYqGXSRFK6yNlesGOCbXs6ocMc5miuSJgXOx+i1UI/Q4UDmuzwRZipJ7FaDeq
- HYGsykRtkw+iuvMYxHO4jzF7mvtF+HxCGl8r3tl2lhKUvBsyVm7hVJUwDz64kGYeORi4
- GhiCP+U9NbdwFslS2BeIOOQpT3bYmK1ht0kgNINjZc+ekJSj2dhf2e4jMSxkC0BbNiV2
- dNzy3TD5rd/zFZGEgsf7455VxTUDxI6c41Wc/zr1VmiCYZWPK1P9Hme2L846SDY0HLJx
- E1Qg==
-X-Gm-Message-State: AOJu0YzcDtLSz1V5kHkgww+gy+HUkYGsGH3UddHH9YVMKqsw83f1QPrB
- 0TTvLmACGwFL2ttJgwbAWlE=
-X-Google-Smtp-Source: AGHT+IFyTksDamHc0Y2cr1SyBAxtAFsd9RvDR60Yh3JdW79atuLLvh529HnIGIx6tzqqBLPBLr9W5Q==
-X-Received: by 2002:a05:600c:3510:b0:40b:45e2:1f56 with SMTP id
- h16-20020a05600c351000b0040b45e21f56mr2874234wmq.39.1701112150592; 
- Mon, 27 Nov 2023 11:09:10 -0800 (PST)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- l10-20020a5d674a000000b00332eef1ca7asm8131648wrw.80.2023.11.27.11.09.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Nov 2023 11:09:10 -0800 (PST)
-Message-ID: <d0e3f1e2-a263-4a35-a986-90b838dbb81f@gmail.com>
-Date: Mon, 27 Nov 2023 20:09:08 +0100
+ d=1e100.net; s=20230601; t=1701112292; x=1701717092;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=dfzRcTqpBktSLBkBD0j82m/Hwn5iOoiG8zoqIpWInnY=;
+ b=nXQ93/XhuAYdjckuH8/D7UHqeZ9u+y9On1z5ms/pE5R2UQlGfbos2EDyV/YJCao8Wk
+ 55uyq9CHaxzBc1FzE4K97yjdNoEMpKYRf9k2/KVj32czHYoZXmJeQ97hiqrssKIj4k5a
+ LpX9LobbgVRLLtu+Y7zfgFrXPLCb6snUx/ZaGTOAviZYBDyEO4UnnveEeKul6BVnYlky
+ Xq4KeVcsNhVqyKZGAT9iS31zqF/Je8jt7x3a4c1QWJIy2ZnFk2RiAezxHlQh07MziPYb
+ 2b3cgeWZiUrs0X5xQ8hCFlqy4AjsloeIGnOBNGCB5gtpeuPiT4QVUE7r+bcSdFLFQ+qn
+ NlTg==
+X-Gm-Message-State: AOJu0YzGqYmz1TeThm+Os/TgqRBy9MVmkzw5+tMc+Cln2borIBwwKIil
+ uZNHdonfF3u17jqYrR6c8d8qrC3UaevDw1fGUFrxK/9H
+X-Google-Smtp-Source: AGHT+IGSONNn+iAZr36mhJ+mP8eqQJ0OQmbUF2rouCsToobi+kR5A1DSmlh0doW/lTD0lDBjlFZ/e8Xmb5HZE+ZWw2I=
+X-Received: by 2002:a05:6870:3c8b:b0:1f9:dc5a:b8fc with SMTP id
+ gl11-20020a0568703c8b00b001f9dc5ab8fcmr17381435oab.56.1701112292037; Mon, 27
+ Nov 2023 11:11:32 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdgpu/gmc: check if AGP is disabled in
- amdgpu_gmc_agp_addr()
-Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20231121150556.84900-1-alexander.deucher@amd.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20231121150556.84900-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20231103131139.766920-1-James.Zhu@amd.com>
+ <20231103131139.766920-2-James.Zhu@amd.com>
+In-Reply-To: <20231103131139.766920-2-James.Zhu@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 27 Nov 2023 14:11:20 -0500
+Message-ID: <CADnq5_MyXm+G3n=n9o8NJiHR9BtFZkN9+FSS1r3MkUvaPnzh7g@mail.gmail.com>
+Subject: Re: [PATCH 01/24] drm/amdkfd/kfd_ioctl: add pc sampling support
+To: James Zhu <James.Zhu@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,38 +68,117 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Felix.kuehling@amd.com, jamesz@amd.com, joseph.greathouse@amd.com,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 21.11.23 um 16:05 schrieb Alex Deucher:
-> Return AMDGPU_BO_INVALID_OFFSET if the AGP aperture is disabled.
-> There is no reason to check further if the aperture is disabled.
-
-Yeah, but there shouldn't be a reason to check it earlier either.
-
-The "if (bo->ttm->dma_address[0] + PAGE_SIZE >= adev->gmc.agp_size)" 
-just below this code here should catch that perfectly well.
-
-Christian.
-
+On Fri, Nov 3, 2023 at 9:22=E2=80=AFAM James Zhu <James.Zhu@amd.com> wrote:
 >
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> From: David Yat Sin <david.yatsin@amd.com>
+>
+> Add pc sampling support in kfd_ioctl.
+>
+> Co-developed-by: James Zhu <James.Zhu@amd.com>
+> Signed-off-by: James Zhu <James.Zhu@amd.com>
+> Signed-off-by: David Yat Sin <david.yatsin@amd.com>
+
+For any new IOCTL interfaces, please provide a link to the user mode
+code branch which uses it in the patch description.
+
+Thanks,
+
+Alex
+
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 3 +++
->   1 file changed, 3 insertions(+)
+>  include/uapi/linux/kfd_ioctl.h | 57 +++++++++++++++++++++++++++++++++-
+>  1 file changed, 56 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> index 5f71414190e9..0f85f906791b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -181,6 +181,9 @@ uint64_t amdgpu_gmc_agp_addr(struct ttm_buffer_object *bo)
->   {
->   	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->bdev);
->   
-> +	if (!adev->gmc.agp_size)
-> +		return AMDGPU_BO_INVALID_OFFSET;
+> diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioct=
+l.h
+> index f0ed68974c54..5202e29c9560 100644
+> --- a/include/uapi/linux/kfd_ioctl.h
+> +++ b/include/uapi/linux/kfd_ioctl.h
+> @@ -1446,6 +1446,58 @@ struct kfd_ioctl_dbg_trap_args {
+>         };
+>  };
+>
+> +/**
+> + * kfd_ioctl_pc_sample_op - PC Sampling ioctl operations
+> + *
+> + * @KFD_IOCTL_PCS_OP_QUERY_CAPABILITIES: Query device PC Sampling capabi=
+lities
+> + * @KFD_IOCTL_PCS_OP_CREATE:             Register this process with a pe=
+r-device PC sampler instance
+> + * @KFD_IOCTL_PCS_OP_DESTROY:            Unregister from a previously re=
+gistered PC sampler instance
+> + * @KFD_IOCTL_PCS_OP_START:              Process begins taking samples f=
+rom a previously registered PC sampler instance
+> + * @KFD_IOCTL_PCS_OP_STOP:               Process stops taking samples fr=
+om a previously registered PC sampler instance
+> + */
+> +enum kfd_ioctl_pc_sample_op {
+> +       KFD_IOCTL_PCS_OP_QUERY_CAPABILITIES,
+> +       KFD_IOCTL_PCS_OP_CREATE,
+> +       KFD_IOCTL_PCS_OP_DESTROY,
+> +       KFD_IOCTL_PCS_OP_START,
+> +       KFD_IOCTL_PCS_OP_STOP,
+> +};
 > +
->   	if (bo->ttm->num_pages != 1 || bo->ttm->caching == ttm_cached)
->   		return AMDGPU_BO_INVALID_OFFSET;
->   
-
+> +/* Values have to be a power of 2*/
+> +#define KFD_IOCTL_PCS_FLAG_POWER_OF_2 0x00000001
+> +
+> +enum kfd_ioctl_pc_sample_method {
+> +       KFD_IOCTL_PCS_METHOD_HOSTTRAP =3D 1,
+> +       KFD_IOCTL_PCS_METHOD_STOCHASTIC,
+> +};
+> +
+> +enum kfd_ioctl_pc_sample_type {
+> +       KFD_IOCTL_PCS_TYPE_TIME_US,
+> +       KFD_IOCTL_PCS_TYPE_CLOCK_CYCLES,
+> +       KFD_IOCTL_PCS_TYPE_INSTRUCTIONS
+> +};
+> +
+> +struct kfd_pc_sample_info {
+> +       __u64 value;         /* [IN] if PCS_TYPE_INTERVAL_US: sample inte=
+rval in us
+> +                             * if PCS_TYPE_CLOCK_CYCLES: sample interval=
+ in graphics core clk cycles
+> +                             * if PCS_TYPE_INSTRUCTIONS: sample interval=
+ in instructions issued by
+> +                             * graphics compute units
+> +                             */
+> +       __u64 value_min;     /* [OUT] */
+> +       __u64 value_max;     /* [OUT] */
+> +       __u64 flags;         /* [OUT] indicate potential restrictions e.g=
+ FLAG_POWER_OF_2 */
+> +       __u32 method;        /* [IN/OUT] kfd_ioctl_pc_sample_method */
+> +       __u32 type;          /* [IN/OUT] kfd_ioctl_pc_sample_type */
+> +};
+> +
+> +struct kfd_ioctl_pc_sample_args {
+> +       __u64 sample_info_ptr;   /* array of kfd_pc_sample_info */
+> +       __u32 num_sample_info;
+> +       __u32 op;                /* kfd_ioctl_pc_sample_op */
+> +       __u32 gpu_id;
+> +       __u32 trace_id;
+> +};
+> +
+>  #define AMDKFD_IOCTL_BASE 'K'
+>  #define AMDKFD_IO(nr)                  _IO(AMDKFD_IOCTL_BASE, nr)
+>  #define AMDKFD_IOR(nr, type)           _IOR(AMDKFD_IOCTL_BASE, nr, type)
+> @@ -1566,7 +1618,10 @@ struct kfd_ioctl_dbg_trap_args {
+>  #define AMDKFD_IOC_DBG_TRAP                    \
+>                 AMDKFD_IOWR(0x26, struct kfd_ioctl_dbg_trap_args)
+>
+> +#define AMDKFD_IOC_PC_SAMPLE           \
+> +               AMDKFD_IOWR(0x27, struct kfd_ioctl_pc_sample_args)
+> +
+>  #define AMDKFD_COMMAND_START           0x01
+> -#define AMDKFD_COMMAND_END             0x27
+> +#define AMDKFD_COMMAND_END             0x28
+>
+>  #endif
+> --
+> 2.25.1
+>
