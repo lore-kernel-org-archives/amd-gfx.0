@@ -4,38 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA8DDC4167B
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Nov 2023 14:30:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE2A9C4167B
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Nov 2023 15:00:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 341D610E562;
-	Tue, 28 Nov 2023 14:30:35 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD16710E066;
- Tue, 28 Nov 2023 13:07:56 +0000 (UTC)
-Received: from kwepemm000018.china.huawei.com (unknown [172.30.72.57])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4Sfj3C1QgjzWhqF;
- Tue, 28 Nov 2023 20:49:59 +0800 (CST)
-Received: from DESKTOP-RAUQ1L5.china.huawei.com (10.174.179.172) by
- kwepemm000018.china.huawei.com (7.193.23.4) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Tue, 28 Nov 2023 20:50:40 +0800
-From: Weixi Zhu <weixi.zhu@huawei.com>
-To: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
- <akpm@linux-foundation.org>
-Subject: [RFC PATCH 1/6] mm/gmem: add heterogeneous NUMA node
-Date: Tue, 28 Nov 2023 20:50:20 +0800
-Message-ID: <20231128125025.4449-2-weixi.zhu@huawei.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20231128125025.4449-1-weixi.zhu@huawei.com>
-References: <20231128125025.4449-1-weixi.zhu@huawei.com>
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73AAE10E560;
+	Tue, 28 Nov 2023 15:00:24 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2082.outbound.protection.outlook.com [40.107.223.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02D0B10E560
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Nov 2023 15:00:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DnLhZ8k8GGQqO9G3vY4hIZiCceTZ0uXNYU8sEK3QsRWyTlDDd2ZA2YDqQk40Ll9Zs0Ar2OP755r6pOS36xDljlaYvjrB++MND+eiSH/Eg6j2kgYdNKA1KOSZgez6IJJekHQnEy1DWFsX2mrg3gGPo5pqQBH9sStPFgh0AGELZ5/q4s1p2In6/HplcS4nIZa0ZiCyKwOOoqWVhbc4uepItUWNt0Rpu68unJG/OpZbS/LB7o98zrVDilbTqDbtVrB/Np0iDXNv5ju0oOGZ8qCLPeUkPPPxs2x04dEIPXb120nQTQ3b8HknDe9TeqUpFNutIGmRPQ2Udj6XVX6V5380/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wTqniOpa4btowbFYgvnoa2Kh9shBapBvPMYw4rv62H4=;
+ b=X9GTxK8/2HNrkqFcwW7jwCx1BP9uKI5StJusxc2hOt7Icx8PQCUrdUtSK0VdOd3eSoQXIn62cDeA7ehgv1I+4gzixF88LJlqrFXTi7XgdUZduja2El3GHTwIocT68IQIUInm6eKR7Xw/RPB2d5L0DnfU+50rumE55j0PphwYzCW0fgjNbtFBmWV1bAZS0+Ni9avSOSeN0NgFppNtFwuxbjQQLCqSpr7JfKV3D3Fjzp4qpLZSGg7iuzJUJG1igj6qfDzDLYUrTNpinJdH4QGrDAUnbNvb/laxQRtBQjWIs9uaaC7RTEb7S8V4cfizpk8rw0uXlEVpt2BrEDa9Dkvlcw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wTqniOpa4btowbFYgvnoa2Kh9shBapBvPMYw4rv62H4=;
+ b=V4W7GU1nhuUlUFwjwuDYv774ClMm5qTZoG7hDaxyPuKISCRgqD3YqQ6Nuu5olvamhhQ0w6fbkLhjG7DCR+V2BIiiL4H7zQvhSeJzD/2fco3WeFltM5v1qvnc7mik4qQI1NruFIYS0pgLqWLeX2Vh9thEFMdVIYcl7sBa9PiDZjs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by DS7PR12MB8290.namprd12.prod.outlook.com (2603:10b6:8:d8::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.22; Tue, 28 Nov
+ 2023 15:00:19 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::7bfc:e32b:f362:60f3]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::7bfc:e32b:f362:60f3%5]) with mapi id 15.20.7025.022; Tue, 28 Nov 2023
+ 15:00:19 +0000
+Message-ID: <4558e54e-f0e9-4810-8c49-437b588f2d72@amd.com>
+Date: Tue, 28 Nov 2023 10:00:16 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Fix uninitialized return value
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ "Lazar, Lijo" <lijo.lazar@amd.com>, Alex Deucher <alexdeucher@gmail.com>
+References: <20231127182945.1109556-1-lijo.lazar@amd.com>
+ <ac4bc87d-7ae1-45d3-8f85-0e294289ad3a@gmail.com>
+ <CADnq5_NA0fi8cGvrSzCtmtsWpgKhaG4O8T6cW+ObJoCm=iwzSQ@mail.gmail.com>
+ <1c1877d8-c062-4648-950b-4e05f568b356@gmail.com>
+ <a61886fc-358c-4f89-961d-8145f70d31ee@amd.com>
+ <4664a573-da9a-4d48-bee7-4b2bef3081b6@gmail.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <4664a573-da9a-4d48-bee7-4b2bef3081b6@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.174.179.172]
-X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
- kwepemm000018.china.huawei.com (7.193.23.4)
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Tue, 28 Nov 2023 14:30:13 +0000
+X-ClientProxiedBy: YQBPR0101CA0076.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:4::9) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DS7PR12MB8290:EE_
+X-MS-Office365-Filtering-Correlation-Id: 657f52fc-42ab-44e7-6937-08dbf022bcd8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: h7YbbN8wy2wlFtZpIHnaCX+JqTbF386sKLqK0dhDC3KGh3Wn8cDJtcwW7asbEk2PQK9RF1VhmVkjhjR+0c7qMSlQsHIy+dGVuPTTJocaD3xh0If2nt5s2R7p7DdKETrozmOZA6M+KfoUVrmuMxwMNopRDcGY/q3QVc7BsrylglLMNC+3KDOsiMtw+nsfjmb9+cpU5MYl+3pP3yn4DW0nGcgvBU1frXRC393uRcJQ7S+xYhVSot24G2ukZqB84o+0APwr/4zumD46XucC7+fn3hl1BG/h0VpZC5lU0sqjoxnlHIXsM3wKMUmlfFGY+H6HmsViVbG7FdV8q/d5Mrrsf1r24tUxq2vavt23flF8PV3zE6mdn4r9Fv6UJs37N1TpU+z46/56pbiR7jdIVz//RfCPZ0jHYoFfXixjRPQ5iVCrDQucxENIQ5dz/Zw297V2af8kfH4X8nqiolYhn2ANQL3+rJAhx5evu428kDC2uRJW12iWiNcaF8eiHfN9zjdtcTnnU+pdtiqy0wl7FVbrS40WLQZXfYvmQyGTmQD62as3/E2qLFmpiUqdCiSJ3+23giuHpCjs+U9Sqph1RSoBGm9W3gdJK/KC/4bbQQQk8dZy+QqFpfgiBpxl8Y7a+VqBTnkk9MR6Z80+znlKeulWcu8Tj7ttvOujfbWKqs8/9/AYpOkAP/xskvknoMwb1U73
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(396003)(366004)(136003)(39860400002)(376002)(346002)(230273577357003)(230173577357003)(230922051799003)(64100799003)(451199024)(1800799012)(186009)(86362001)(31696002)(41300700001)(2906002)(4001150100001)(6486002)(66476007)(26005)(66556008)(2616005)(66946007)(110136005)(6666004)(6512007)(6506007)(53546011)(478600001)(8936002)(8676002)(4326008)(83380400001)(5660300002)(36756003)(44832011)(316002)(66574015)(38100700002)(31686004)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SmdBRU5UZ2tRV1VvSVBmb0h1UktNaDlMSjF2Y2RJejI0SHJLUkhyaWhmb1dy?=
+ =?utf-8?B?cUduZUFIanJiMEQrY080NGY1VFdLWGVnTXdweThPMER1VC9hU2VPQWRUUXE0?=
+ =?utf-8?B?YWFIbkpiaGhDbEJBUUszcWZrd2x5VzJ2cHNWTi9NbjZHVFpueW1XQ1J0SUdZ?=
+ =?utf-8?B?bHg5YkRhZkJTM3FNRTRaT1IzZXBoTS9qRS80aFhiQ3I1SUxPVnA3WDVQRG1q?=
+ =?utf-8?B?TGhSdEFnWFJRNkRwOUdWZVpwNHpsOWVST0c4K2Z6bkNWdlFCc2QzMG00MXNi?=
+ =?utf-8?B?Z3lPUFZRUlJsVTZMWXVzSVNUUlAyNzJ4UGVTTERqak4zOW1teDlURDFPQlB6?=
+ =?utf-8?B?S3JwS0hkY0F0QVBvWmVrendWQk1jd3pMTHlrdnV5MnVxMEY4WmxEcGR3R1Rh?=
+ =?utf-8?B?QTI0VGg5d3ZrRkxWRmFiRFVKdW1IOWJtcW9ybDJrOGFqd01OaVZ3eHZoamxQ?=
+ =?utf-8?B?MVNSLzQ1endaQU90dHpWdTBheXJnYXI1V0dsL0dXV1hCZHVqbmZ6dkNRaUxz?=
+ =?utf-8?B?UXA0UFhNcVJVNmlEaU04alN3Uk5UdFZaYytPNTlGcXdBclQxU3R0RS9aZVdJ?=
+ =?utf-8?B?RUtQb3ZKK3dvbHg3V3hETlpiTVM1Ukh3Y29MRStTMVN0REorb1N4NEtCclRD?=
+ =?utf-8?B?ZWFmOFJPRDdPWTBELzJXbnVUTktkSE84MHFET1lNMWtVVDFJb2JUNHhFM1RY?=
+ =?utf-8?B?Wk5zVjlia0xZclBsWGlXNWRiR25mWVNJMmlGb3pqcFBrZnVrUE51RTZQRW90?=
+ =?utf-8?B?Qkt3dmRJTnJNMUhTS3U2TE5ZSDV5YTZBTjY5UGRFcDVsTTBpZUlhZjFlRGV2?=
+ =?utf-8?B?OGVtQXZFOG5TckQvNiszUU1aN1owL1BPSlBPNHdtRzFuaDB1cTdsS3JnWFhV?=
+ =?utf-8?B?cml4ditBV2pUTkZnbmdYSWhqTzN4MnZuRVVNbWZ0Wlc4b2FRNk1GVXhOb0tH?=
+ =?utf-8?B?WEhyeDFqNDdiQnlLaS90Qmx4VVVPdENyYW13WEVGam5DaTQvZWwxMlh4RjY5?=
+ =?utf-8?B?Y1prdTEwdUFJbkdIb1ArNGdoMDJhMGFGbm9abVU1NlQ5YXY1U0JnN2xqN1Nl?=
+ =?utf-8?B?YTFIRExwbnBFVVRBeVREY0lGSXdneXVzVDNZdTRUMkZXM1owTThXZzg0Z0Vp?=
+ =?utf-8?B?ckxkTDByQk5GcUZ1VDRUMnI0Q05wd01MaUkwekpPWHpwZlBHcWpOeEJNZm5p?=
+ =?utf-8?B?ejZGTFd4bkNvWURZWWdSUHZJWGdNUHUxdXJqSnk2WEphc0IrMzNpdzNjM3o5?=
+ =?utf-8?B?alFwREErNjBmcEVrL01qd2E4cnJNblFvak9nVUtmQnZ4YUNKZ21xL3pYeVFh?=
+ =?utf-8?B?dVZmeE8wcTY0UTIxVVI1SlZydVhKMjBCeUNwMm5JUk9PRDFPVS9xalJyZkFO?=
+ =?utf-8?B?M2hnSkRQd0JCUHNDWkVEMFlpR09UbEZ5Y0RraE11VHJLUzVWQjNTVjlNb3Nn?=
+ =?utf-8?B?TEVLb0oramJHV1d2QmR1cXVOa2xKVU5OdS9pcTJTc2RmSnVuZk9taUg4Yy9O?=
+ =?utf-8?B?V3R2NCtHMDNDdlA5bkR3bUQzN0tZQmpJNmNxUzVmWGpLbWxxblN0RE00bk1z?=
+ =?utf-8?B?ZVk4QlBjcHlyNnRIZFpnVndCQjFhTHZVVUNrVFd6a0E4bmhseWNKMEhTaTdr?=
+ =?utf-8?B?S2xIRmtsVC95TXdlN3p5anZGZUFGRkxUa3hLendUdGFadjIrMGF2b1VSNnFF?=
+ =?utf-8?B?bWxGZUhmY1RxenVGbFpFL2VmaXgwbko2VXMzSURJakFMQkZrdUl1aGZkd05G?=
+ =?utf-8?B?WTJJeklPanpiT29pQTZCYndBOThTMkpFdkFXbW1td1FwT1lsSHIxSnhKWUZx?=
+ =?utf-8?B?MU5YWW5IVS9Fenplb04rTlgyMENFSkw5bENZQW1zdElUdGVyRkpNOGR6ME9r?=
+ =?utf-8?B?bVBjb1JBMEN6MnA5RVBaNm5zRm9UVTBVRHg3WkFaTnhRSHFNSGhXYlhZR3JK?=
+ =?utf-8?B?ejlZSUxMc0krM1g5RVkybVk1VmdGcEx6VzRxQ0tYeWZaQTMzYlNFVFU2em03?=
+ =?utf-8?B?ZmV0WW52MjNpRFRNYzN3ODgvRXJkQktIOEhERW9odzR3aG8wYi9MUVcrK3BC?=
+ =?utf-8?B?K2JqdjBlZ0FnNE5iZE5EQVJmQ3FJM043dnZYRmxnM05GUElMSnZHZW1nOG5a?=
+ =?utf-8?Q?BHrUZBvqkhsLpQ3qhTutT58S0?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 657f52fc-42ab-44e7-6937-08dbf022bcd8
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2023 15:00:19.2057 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IFSbNNiRanPnGNoZSdJkwB+q2tDIXtzkJjjE7t7cgCLi/ruLZTy6oAiH/1m8t7jJ78YFlqdnryblq9Gqa4csHA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8290
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,272 +128,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org,
- leonro@nvidia.com, apopple@nvidia.com, amd-gfx@lists.freedesktop.org,
- mgorman@suse.de, ziy@nvidia.com, zhi.a.wang@intel.com, rcampbell@nvidia.com,
- jgg@nvidia.com, weixi.zhu@openeuler.sh, jhubbard@nvidia.com,
- intel-gfx@lists.freedesktop.org, mhairgrove@nvidia.com,
- jani.nikula@linux.intel.com, jglisse@redhat.com, zhenyuw@linux.intel.com,
- rodrigo.vivi@intel.com, intel-gvt-dev@lists.freedesktop.org,
- tvrtko.ursulin@linux.intel.com, Felix.Kuehling@amd.com, Xinhui.Pan@amd.com,
- christian.koenig@amd.com, alexander.deucher@amd.com, ogabbay@kernel.org,
- Weixi Zhu <weixi.zhu@huawei.com>
+Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch adds a new NUMA node state, named N_HETEROGENEOUS. It is
-utilized to identify heterogeneous NUMA (hNUMA) node. Note that hNUMA node
-may not be directly accessible by the CPU.
+On 2023-11-28 8:18, Christian König wrote:
+> Am 28.11.23 um 10:49 schrieb Lazar, Lijo:
+>>
+>> On 11/28/2023 3:07 PM, Christian König wrote:
+>>> Am 27.11.23 um 22:55 schrieb Alex Deucher:
+>>>> On Mon, Nov 27, 2023 at 2:22 PM Christian König
+>>>> <ckoenig.leichtzumerken@gmail.com> wrote:
+>>>>> Am 27.11.23 um 19:29 schrieb Lijo Lazar:
+>>>>>> The return value is uniinitialized if ras context is NULL.
+>>>>>>
+>>>>>> Fixes: 0f4c8faa043c (drm/amdgpu: Move mca debug mode decision to 
+>>>>>> ras)
+>>>>>>
+>>>>>> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+>>>>>> ---
+>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 2 +-
+>>>>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c 
+>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+>>>>>> index 1a8668a63e67..f6b47ebce9d6 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+>>>>>> @@ -3410,7 +3410,7 @@ int amdgpu_ras_reset_gpu(struct 
+>>>>>> amdgpu_device *adev)
+>>>>>>    int amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, 
+>>>>>> bool enable)
+>>>>>>    {
+>>>>>>        struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+>>>>>> -     int ret;
+>>>>>> +     int ret = 0;
+>>>>> That's usually considered very bad coding style and complained 
+>>>>> about by
+>>>>> automated checkers.
+>>>>>
+>>>>> Instead explicitly set the return value in the code paths not 
+>>>>> actually
+>>>>> setting it.
+>>>> In this case, the function is so short, I think it makes things less
+>>>> readable to do that.
+>>>
+>>> Yeah, indeed but that doesn't help us with the coding style checkers.
+>>
+>> Are these checkers for real? I see many instances of variable 
+>> initialization including in core kernel code (ex: workqueue) code.
+>
+> Yes, I've got multiple complains about that already.
+>
+> What people basically seem to do is to search for patterns like "int 
+> ret = 0;... ret = whatever();.. return ret;" with cocci.
+>
+> This then results in a note that an initialization isn't necessary and 
+> should be avoided.
 
-Each hNUMA node can be identified with a NUMA id. This can be extended to
-provide NUMA topology including device local DRAM, where a cache-coherent
-bus does not need to exist between the CPU and device local DRAM.
-Furthermore, this allows an application user to issue memory hints that
-bind with specific hNUMA nodes.
+Isn't that the opposite of defensive programming? If you write your 
+kernel code in Rust, all your local variables will be implicitly 
+initialized. In C you have to do it yourself. And the compiler is 
+notoriously inconsistent warning about uninitialized variables.
 
-Signed-off-by: Weixi Zhu <weixi.zhu@huawei.com>
----
- drivers/base/node.c      |  6 ++++
- include/linux/gmem.h     | 19 ++++++++++
- include/linux/nodemask.h | 10 ++++++
- init/main.c              |  2 ++
- mm/Kconfig               | 14 ++++++++
- mm/Makefile              |  1 +
- mm/gmem.c                | 78 ++++++++++++++++++++++++++++++++++++++++
- mm/page_alloc.c          |  3 ++
- 8 files changed, 133 insertions(+)
- create mode 100644 include/linux/gmem.h
- create mode 100644 mm/gmem.c
+Regards,
+   Felix
 
-diff --git a/drivers/base/node.c b/drivers/base/node.c
-index 493d533f8375..aa4d2ca266aa 100644
---- a/drivers/base/node.c
-+++ b/drivers/base/node.c
-@@ -928,6 +928,9 @@ static struct node_attr node_state_attr[] = {
- 	[N_CPU] = _NODE_ATTR(has_cpu, N_CPU),
- 	[N_GENERIC_INITIATOR] = _NODE_ATTR(has_generic_initiator,
- 					   N_GENERIC_INITIATOR),
-+#ifdef CONFIG_GMEM
-+	[N_HETEROGENEOUS] = _NODE_ATTR(has_hetero_memory, N_HETEROGENEOUS),
-+#endif
- };
- 
- static struct attribute *node_state_attrs[] = {
-@@ -940,6 +943,9 @@ static struct attribute *node_state_attrs[] = {
- 	&node_state_attr[N_MEMORY].attr.attr,
- 	&node_state_attr[N_CPU].attr.attr,
- 	&node_state_attr[N_GENERIC_INITIATOR].attr.attr,
-+#ifdef CONFIG_GMEM
-+	&node_state_attr[N_HETEROGENEOUS].attr.attr,
-+#endif
- 	NULL
- };
- 
-diff --git a/include/linux/gmem.h b/include/linux/gmem.h
-new file mode 100644
-index 000000000000..fff877873557
---- /dev/null
-+++ b/include/linux/gmem.h
-@@ -0,0 +1,19 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Generalized Memory Management.
-+ *
-+ * Copyright (C) 2023- Huawei, Inc.
-+ * Author: Weixi Zhu
-+ *
-+ */
-+#ifndef _GMEM_H
-+#define _GMEM_H
-+
-+#ifdef CONFIG_GMEM
-+/* h-NUMA topology */
-+void __init hnuma_init(void);
-+#else
-+static inline void hnuma_init(void) {}
-+#endif
-+
-+#endif /* _GMEM_H */
-diff --git a/include/linux/nodemask.h b/include/linux/nodemask.h
-index 8d07116caaf1..66e4640a52ba 100644
---- a/include/linux/nodemask.h
-+++ b/include/linux/nodemask.h
-@@ -407,6 +407,9 @@ enum node_states {
- 	N_MEMORY,		/* The node has memory(regular, high, movable) */
- 	N_CPU,		/* The node has one or more cpus */
- 	N_GENERIC_INITIATOR,	/* The node has one or more Generic Initiators */
-+#ifdef CONFIG_GMEM
-+	N_HETEROGENEOUS,	/* The node has heterogeneous memory */
-+#endif
- 	NR_NODE_STATES
- };
- 
-@@ -536,6 +539,13 @@ static inline int node_random(const nodemask_t *maskp)
- #define for_each_node(node)	   for_each_node_state(node, N_POSSIBLE)
- #define for_each_online_node(node) for_each_node_state(node, N_ONLINE)
- 
-+#ifdef CONFIG_GMEM
-+/* For h-NUMA topology */
-+#define hnode_map		node_states[N_HETEROGENEOUS]
-+#define num_hnodes()		num_node_state(N_HETEROGENEOUS)
-+#define for_each_hnode(node)	for_each_node_state(node, N_HETEROGENEOUS)
-+#endif
-+
- /*
-  * For nodemask scratch area.
-  * NODEMASK_ALLOC(type, name) allocates an object with a specified type and
-diff --git a/init/main.c b/init/main.c
-index e24b0780fdff..12dfb5b63d51 100644
---- a/init/main.c
-+++ b/init/main.c
-@@ -100,6 +100,7 @@
- #include <linux/stackdepot.h>
- #include <linux/randomize_kstack.h>
- #include <net/net_namespace.h>
-+#include <linux/gmem.h>
- 
- #include <asm/io.h>
- #include <asm/setup.h>
-@@ -901,6 +902,7 @@ void start_kernel(void)
- 	setup_per_cpu_areas();
- 	smp_prepare_boot_cpu();	/* arch-specific boot-cpu hooks */
- 	boot_cpu_hotplug_init();
-+	hnuma_init();
- 
- 	pr_notice("Kernel command line: %s\n", saved_command_line);
- 	/* parameters may set static keys */
-diff --git a/mm/Kconfig b/mm/Kconfig
-index 89971a894b60..1a7d8194513c 100644
---- a/mm/Kconfig
-+++ b/mm/Kconfig
-@@ -1270,6 +1270,20 @@ config LOCK_MM_AND_FIND_VMA
- 	bool
- 	depends on !STACK_GROWSUP
- 
-+config GMEM
-+	bool "generalized memory management for external memory devices"
-+	depends on (ARM64 || X86_64) && MMU && TRANSPARENT_HUGEPAGE
-+	select ARCH_USES_HIGH_VMA_FLAGS
-+	default y
-+	help
-+	  Supporting GMEM (generalized memory management) for external memory
-+	  devices
-+
-+	  GMEM extends Linux MM to share its machine-independent MM code. Only
-+	  high-level interface is provided for device drivers. This prevents
-+	  accelerator drivers from reinventing the wheel, but relies on drivers to
-+	  implement their hardware-dependent functions declared by GMEM.
-+
- source "mm/damon/Kconfig"
- 
- endmenu
-diff --git a/mm/Makefile b/mm/Makefile
-index 33873c8aedb3..f48ea2eb4a44 100644
---- a/mm/Makefile
-+++ b/mm/Makefile
-@@ -138,3 +138,4 @@ obj-$(CONFIG_IO_MAPPING) += io-mapping.o
- obj-$(CONFIG_HAVE_BOOTMEM_INFO_NODE) += bootmem_info.o
- obj-$(CONFIG_GENERIC_IOREMAP) += ioremap.o
- obj-$(CONFIG_SHRINKER_DEBUG) += shrinker_debug.o
-+obj-$(CONFIG_GMEM) += gmem.o
-diff --git a/mm/gmem.c b/mm/gmem.c
-new file mode 100644
-index 000000000000..767eb070b22e
---- /dev/null
-+++ b/mm/gmem.c
-@@ -0,0 +1,78 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Generalized Memory Management.
-+ *
-+ * Copyright (C) 2023- Huawei, Inc.
-+ * Author: Weixi Zhu
-+ *
-+ */
-+#include <linux/mm.h>
-+#include <linux/gmem.h>
-+
-+DEFINE_SPINLOCK(hnode_lock);
-+
-+struct hnode {
-+	unsigned int id;
-+	struct gm_dev *dev;
-+	struct xarray pages;
-+};
-+
-+struct hnode *hnodes[MAX_NUMNODES];
-+
-+static bool is_hnode(int node)
-+{
-+	return !node_isset(node, node_possible_map) &&
-+	       node_isset(node, hnode_map);
-+}
-+
-+static bool is_hnode_allowed(int node)
-+{
-+	return is_hnode(node) && node_isset(node, current->mems_allowed);
-+}
-+
-+static struct hnode *get_hnode(unsigned int hnid)
-+{
-+	return hnodes[hnid];
-+}
-+
-+void __init hnuma_init(void)
-+{
-+	unsigned int node;
-+
-+	for_each_node(node)
-+		node_set(node, hnode_map);
-+}
-+
-+static unsigned int alloc_hnode_id(void)
-+{
-+	unsigned int node;
-+
-+	spin_lock(&hnode_lock);
-+	node = first_unset_node(hnode_map);
-+	node_set(node, hnode_map);
-+	spin_unlock(&hnode_lock);
-+
-+	return node;
-+}
-+
-+static void free_hnode_id(unsigned int nid)
-+{
-+	node_clear(nid, hnode_map);
-+}
-+
-+static void hnode_init(struct hnode *hnode, unsigned int hnid,
-+		       struct gm_dev *dev)
-+{
-+	hnodes[hnid] = hnode;
-+	hnodes[hnid]->id = hnid;
-+	hnodes[hnid]->dev = dev;
-+	xa_init(&hnodes[hnid]->pages);
-+}
-+
-+static void hnode_deinit(unsigned int hnid, struct gm_dev *dev)
-+{
-+	hnodes[hnid]->id = 0;
-+	hnodes[hnid]->dev = NULL;
-+	xa_destroy(&hnodes[hnid]->pages);
-+	hnodes[hnid] = NULL;
-+}
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 733732e7e0ba..a785b62a1542 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -192,6 +192,9 @@ EXPORT_SYMBOL(latent_entropy);
- nodemask_t node_states[NR_NODE_STATES] __read_mostly = {
- 	[N_POSSIBLE] = NODE_MASK_ALL,
- 	[N_ONLINE] = { { [0] = 1UL } },
-+#ifdef CONFIG_GMEM
-+	[N_HETEROGENEOUS] = NODE_MASK_NONE,
-+#endif
- #ifndef CONFIG_NUMA
- 	[N_NORMAL_MEMORY] = { { [0] = 1UL } },
- #ifdef CONFIG_HIGHMEM
--- 
-2.25.1
 
+>
+> Same for things like return after else, e.g. when you have something 
+> like this "if (...) { ret = whatever(); if (ret) return ret; } else { 
+> ... ret = 0;} return ret;".
+>
+> Regards,
+> Christian.
+>
+>>
+>> Thanks
+>>
+>> Lijo
+>>
+>>>
+>>> We could do something like this instead:
+>>>
+>>> if (!con)
+>>>     return 0;
+>>>
+>>> ret = amdgpu_mca_smu_set_debug_mode(adev, enable);
+>>> ...
+>>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>>
+>>>> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+>>>>
+>>>>> Regards,
+>>>>> Christian.
+>>>>>
+>>>>>>        if (con) {
+>>>>>>                ret = amdgpu_mca_smu_set_debug_mode(adev, enable);
+>>>
+>
