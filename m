@@ -4,77 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87FB0C4167B
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Nov 2023 10:48:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD260C4167B
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Nov 2023 11:02:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EB0710E4C9;
-	Tue, 28 Nov 2023 10:48:00 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4400F10E4C0
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Nov 2023 10:47:31 +0000 (UTC)
-Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 71C4D21993;
- Tue, 28 Nov 2023 10:47:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1701168448; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Xp0/n3rAzJHsgt84dqyPYq0k4jUW2xjL1Cp74rO1uao=;
- b=Y7Z4Ij/DbAJGVhlUr73ASmIr0hne5iSuVGFq0HiHXUn7c+YHPb2RoqSepANwqfpv4vk8LV
- fXNHfPCV6NiBFCfhuh0ZrFl4RgvGzC15vtuxeRWwimAjDZCp9iDtCawrnkAzuG0FFg7ovX
- 1gBYaMw+l+YaBurXJdXU0uKVoqHHsUc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1701168448;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Xp0/n3rAzJHsgt84dqyPYq0k4jUW2xjL1Cp74rO1uao=;
- b=n+09wQdViPHcI+CHLduBpochOKwVvmAxyp2BkKI8xPQkQK+wSA0CWkmtHbUnPfUjfQMQ4x
- 2ZfQENfelXItGvCA==
-Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 277FD139FC;
- Tue, 28 Nov 2023 10:47:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap2.dmz-prg2.suse.org with ESMTPSA id CKiSCEDFZWXpagAAn2gu4w
- (envelope-from <tzimmermann@suse.de>); Tue, 28 Nov 2023 10:47:28 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: mripard@kernel.org, maarten.lankhorst@linux.intel.com, daniel@ffwll.ch,
- airlied@gmail.com, suijingfeng@loongson.cn
-Subject: [PATCH 8/8] drm/xlnx: Do not include <drm/drm_plane_helper.h>
-Date: Tue, 28 Nov 2023 11:45:24 +0100
-Message-ID: <20231128104723.20622-9-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20231128104723.20622-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45A9F10E4DA;
+	Tue, 28 Nov 2023 11:02:14 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B612210E4D9;
+ Tue, 28 Nov 2023 11:02:11 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (213-243-189-158.bb.dnainternet.fi
+ [213.243.189.158])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id D62BB289;
+ Tue, 28 Nov 2023 12:01:34 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1701169295;
+ bh=aOAHm+7QlLBOLkQLIk6VxL4p/A6pjROBAZGcdianszY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=v8+IzSk347HNHTPwNz7exqJZKmnjvWzzfpUbvmt6+wJs24E02b+XylMVxxev6yACS
+ 15V6JrhH76sVK6ycJAsuGY2ghEhtg1XN8CBo6z3kshcrcsMHgycpi7ONSwOWQ1xqUE
+ t8kTepEHPUYGy/lHMwwpZEuB0YuJ8qi0Knl7Mbqc=
+Date: Tue, 28 Nov 2023 13:02:16 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH 8/8] drm/xlnx: Do not include <drm/drm_plane_helper.h>
+Message-ID: <20231128110216.GE25590@pendragon.ideasonboard.com>
 References: <20231128104723.20622-1-tzimmermann@suse.de>
+ <20231128104723.20622-9-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Authentication-Results: smtp-out1.suse.de;
-	none
-X-Spamd-Result: default: False [4.29 / 50.00]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- R_MISSING_CHARSET(2.50)[]; MIME_GOOD(-0.10)[text/plain];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; BROKEN_CONTENT_TYPE(1.50)[];
- NEURAL_HAM_LONG(-0.41)[-0.413];
- R_RATELIMIT(0.00)[to_ip_from(RL9pqk354j4esf7wsagg6iyf8a)];
- RCVD_COUNT_THREE(0.00)[3];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; RCPT_COUNT_TWELVE(0.00)[12];
- MID_CONTAINS_FROM(1.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email];
- FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,ffwll.ch,gmail.com,loongson.cn]; 
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
- BAYES_HAM(-0.00)[39.89%]
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20231128104723.20622-9-tzimmermann@suse.de>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,34 +46,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, javierm@redhat.com,
- amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- laurent.pinchart@ideasonboard.com, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-arm-kernel@lists.infradead.org
+Cc: amd-gfx@lists.freedesktop.org, suijingfeng@loongson.cn,
+ maarten.lankhorst@linux.intel.com, javierm@redhat.com, mripard@kernel.org,
+ linux-renesas-soc@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, airlied@gmail.com, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove unnecessary include statements for <drm/drm_plane_helper.h>.
-The file contains helpers for non-atomic code and should not be
-required by most drivers. No functional changes.
+Hi Thomas,
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/xlnx/zynqmp_kms.c | 1 -
- 1 file changed, 1 deletion(-)
+Thank you for the patch.
 
-diff --git a/drivers/gpu/drm/xlnx/zynqmp_kms.c b/drivers/gpu/drm/xlnx/zynqmp_kms.c
-index a7f8611be6f42..db3bb4afbfc46 100644
---- a/drivers/gpu/drm/xlnx/zynqmp_kms.c
-+++ b/drivers/gpu/drm/xlnx/zynqmp_kms.c
-@@ -27,7 +27,6 @@
- #include <drm/drm_managed.h>
- #include <drm/drm_mode_config.h>
- #include <drm/drm_plane.h>
--#include <drm/drm_plane_helper.h>
- #include <drm/drm_probe_helper.h>
- #include <drm/drm_simple_kms_helper.h>
- #include <drm/drm_vblank.h>
+On Tue, Nov 28, 2023 at 11:45:24AM +0100, Thomas Zimmermann wrote:
+> Remove unnecessary include statements for <drm/drm_plane_helper.h>.
+> The file contains helpers for non-atomic code and should not be
+> required by most drivers. No functional changes.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+Assuming you've compile-tested the driver,
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
+Please get this merged through drm-misc as part of the series if
+possible.
+
+> ---
+>  drivers/gpu/drm/xlnx/zynqmp_kms.c | 1 -
+>  1 file changed, 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/xlnx/zynqmp_kms.c b/drivers/gpu/drm/xlnx/zynqmp_kms.c
+> index a7f8611be6f42..db3bb4afbfc46 100644
+> --- a/drivers/gpu/drm/xlnx/zynqmp_kms.c
+> +++ b/drivers/gpu/drm/xlnx/zynqmp_kms.c
+> @@ -27,7 +27,6 @@
+>  #include <drm/drm_managed.h>
+>  #include <drm/drm_mode_config.h>
+>  #include <drm/drm_plane.h>
+> -#include <drm/drm_plane_helper.h>
+>  #include <drm/drm_probe_helper.h>
+>  #include <drm/drm_simple_kms_helper.h>
+>  #include <drm/drm_vblank.h>
+
 -- 
-2.43.0
+Regards,
 
+Laurent Pinchart
