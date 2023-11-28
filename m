@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D2B9C4167B
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Nov 2023 10:47:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 951F1C4167B
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Nov 2023 10:47:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCD6D10E4BE;
-	Tue, 28 Nov 2023 10:47:31 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24C0F10E4B7;
- Tue, 28 Nov 2023 10:47:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93AF510E4C1;
+	Tue, 28 Nov 2023 10:47:32 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86C0810E4B7;
+ Tue, 28 Nov 2023 10:47:28 +0000 (UTC)
 Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C697521991;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2814F1F74D;
  Tue, 28 Nov 2023 10:47:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1701168447; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xgcnHwIgJZoVSLRuiGwDdRuHj35/5Wl5SY0Uuq64evo=;
- b=vh/IN2Aor2PQfU1Z8twEihigSuyRFQTL3HnD3ywtgpmPsUb8B8Ljl4onQN2VkequjXwBOi
- 05ymQfyuio4BSLM8Mnpl02i7nqYbU3I3MYR2ma87wjdilvVNObIRwCLFa5bHJTvox2eYyt
- ge/wtxge+y52OHua2dx0SiIJ71YieCg=
+ bh=GlbV1AMis5WhR4RYiVpHv6K91/iOI9c1hHapYA4Li2M=;
+ b=TgoMgYHt0XwUMl3MuU09q+J7nnC7DyKcg328BpB55MDnyw2qWf7VCjAZ/yFNNT0R1VfH31
+ 1h68oOsNV9jibAsEF3Ovm5XXaGxI6EgmxW5GZC/5+u/JajgjzFxzXohXkoX4vSqlD/x0fx
+ 0v9CgdDUkSZDnD0V7/2ambw94xW/W7M=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1701168447;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xgcnHwIgJZoVSLRuiGwDdRuHj35/5Wl5SY0Uuq64evo=;
- b=PoENpfNxYRWF0CmyY94V0c0NOxvUwVO/BCiqK1XegELdM68iDJ1rsUAJnxFPATN0dt4THr
- X6+cqyM43oYje7Aw==
+ bh=GlbV1AMis5WhR4RYiVpHv6K91/iOI9c1hHapYA4Li2M=;
+ b=09KeOwxKdoa0HjBCN1wmOIeixQRrkXxp49ySxybGDmUPeKqtPXmZxa2i2XxTGRcN1ulAOl
+ cPedifzPGXc78vAw==
 Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 7D40E139FC;
- Tue, 28 Nov 2023 10:47:27 +0000 (UTC)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id D2998139FC;
+ Tue, 28 Nov 2023 10:47:26 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap2.dmz-prg2.suse.org with ESMTPSA id gOeYHT/FZWXpagAAn2gu4w
- (envelope-from <tzimmermann@suse.de>); Tue, 28 Nov 2023 10:47:27 +0000
+ by imap2.dmz-prg2.suse.org with ESMTPSA id 6IxJMj7FZWXpagAAn2gu4w
+ (envelope-from <tzimmermann@suse.de>); Tue, 28 Nov 2023 10:47:26 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: mripard@kernel.org, maarten.lankhorst@linux.intel.com, daniel@ffwll.ch,
  airlied@gmail.com, suijingfeng@loongson.cn
-Subject: [PATCH 6/8] drm/ofdrm: Do not include <drm/drm_plane_helper.h>
-Date: Tue, 28 Nov 2023 11:45:22 +0100
-Message-ID: <20231128104723.20622-7-tzimmermann@suse.de>
+Subject: [PATCH 4/8] drm/shmobile: Do not include <drm/drm_plane_helper.h>
+Date: Tue, 28 Nov 2023 11:45:20 +0100
+Message-ID: <20231128104723.20622-5-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20231128104723.20622-1-tzimmermann@suse.de>
 References: <20231128104723.20622-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Authentication-Results: smtp-out1.suse.de;
+Authentication-Results: smtp-out2.suse.de;
 	none
-X-Spamd-Result: default: False [8.56 / 50.00]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; BAYES_SPAM(4.28)[97.83%];
+X-Spamd-Result: default: False [4.29 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; BAYES_SPAM(0.01)[42.42%];
  FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
  FREEMAIL_ENVRCPT(0.00)[gmail.com]; R_MISSING_CHARSET(2.50)[];
  MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
@@ -97,21 +97,21 @@ required by most drivers. No functional changes.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/tiny/ofdrm.c | 1 -
+ drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tiny/ofdrm.c b/drivers/gpu/drm/tiny/ofdrm.c
-index 05a72473cfc65..ab89b7fc7bf61 100644
---- a/drivers/gpu/drm/tiny/ofdrm.c
-+++ b/drivers/gpu/drm/tiny/ofdrm.c
-@@ -19,7 +19,6 @@
- #include <drm/drm_gem_shmem_helper.h>
- #include <drm/drm_managed.h>
- #include <drm/drm_modeset_helper_vtables.h>
+diff --git a/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c b/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c
+index 8f9a728affde8..07ad17d24294d 100644
+--- a/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c
++++ b/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c
+@@ -14,7 +14,6 @@
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_framebuffer.h>
+ #include <drm/drm_gem_dma_helper.h>
 -#include <drm/drm_plane_helper.h>
- #include <drm/drm_probe_helper.h>
- #include <drm/drm_simple_kms_helper.h>
  
+ #include "shmob_drm_drv.h"
+ #include "shmob_drm_kms.h"
 -- 
 2.43.0
 
