@@ -4,69 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9411EC4167B
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Nov 2023 13:18:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6233C07CA9
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Nov 2023 14:08:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B26010E519;
-	Tue, 28 Nov 2023 13:18:45 +0000 (UTC)
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF19310E52A
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Nov 2023 13:18:42 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-332c0c32d19so3761753f8f.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Nov 2023 05:18:42 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28D0010E548;
+	Tue, 28 Nov 2023 14:08:31 +0000 (UTC)
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F050910E548
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Nov 2023 14:08:27 +0000 (UTC)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-32dff08bbdbso3719218f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Nov 2023 06:08:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1701177521; x=1701782321; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ d=gmail.com; s=20230601; t=1701180506; x=1701785306; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=fg3y8uj57KjPJzryTOjkfBNZcZnHKXJovwZNF9HthYE=;
- b=TzRzc+CSjhC4w1KeyCh2QLgonTlOEoqbMoVmHfvcz+0weOeucFuY+viiLzLaVDxTV0
- 7L5SbrxL7I/kj99Vxxji7UJTpmslIoyTzlbULM4mGFjKfOqMCdOROHKpeaqvxUJ6+qdX
- L1JM9eGbNCcgxBXvTE7dRBULWijCUBlkb3Y6HRuh9ndPnPxFPO57+LPOl7WnD+DYJy9H
- EhnPx3pqoYOXZV8w59Ry20UuTPVJHHgrIDtUPLrqLy7n0tvb1yT4wiAVsdajuKr5+ZC7
- xIwampfRzWUjG3LXaQmf9DWGUdfz9tzjVKtYVn3jl5J7hY4ce5HnEtbrWU7YowoYtWTo
- W7eA==
+ bh=JVBux2vZyV6n5xB1/Fmfsi2lyr37PWOkxhM5iwkid3U=;
+ b=Oyya5RBYJL0ZLQn36atWbkoz1ORryqw8H8V51srH926i1nvWf+aN0/YovJCZJAEMPS
+ 85tgkBZOpg0Ke3uSYB4k2bcGapn6aiGiv5Eok5CxSNy/TGXj+BVTeZGl2GsM056CHO1d
+ nx2r9OPv/EOJrRkI9oVpx5wDg8lXFDP6EU2XicWBwurAGY8mqRWnFXfvtd6S4oLvi66G
+ TwDuktgAVPv5jeEHieYLp7xoqWn/O9DVWiXGNgoyLH63Xzu+0QbJhZJyB/HeB1ZlXBiI
+ Dq53DnDqmgyjaZ9jjYMq/U8u53KipozV5HBx2hJbqiw7oaa3o/bh+W7t5OUSbcajipMo
+ TpfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701177521; x=1701782321;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ d=1e100.net; s=20230601; t=1701180506; x=1701785306;
+ h=content-transfer-encoding:in-reply-to:from:references:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=fg3y8uj57KjPJzryTOjkfBNZcZnHKXJovwZNF9HthYE=;
- b=OOUJJ8ntm0n5OaEOuN1AkKT99cITcAB0XNrJM1p6Ix+61LbMA4I0sMY9aPwSCbiohb
- 5BA0MA8Y09V6NBpM8to/YNWYm2Adbr6di/zZZZpRLvqzvVxX1inJbTjQnvHJQ3ibOM1S
- HM9xactQPDKEZaDAWsRdT7DNxI6ZYT/oQLlJ+xnPYq1lafwcyNwRK0FUOSjt6I46N3n2
- +21b/Rhj7uhMKf1Iuvqtw5vedSY8xwa3DUFABD5O+c9X2MYskdfj7y6Yv8lylKCaNJ+N
- I5HUMtIuV2yuc0XLrDSFDrnd4mXRFmW1Uz+UnHdZBK9iR/fuvY9OJGp56r/2aWTVKGtz
- 2Klg==
-X-Gm-Message-State: AOJu0YxssAVnPaipexnkeqcoaQPrb+LVd1QxYjrTK5AHFkfgM6h9VbHg
- ZLhZZxy6C42EYJ2lQWnwGR6XJ+loWtk=
-X-Google-Smtp-Source: AGHT+IE75A360j/tbucbzjADH+JaFxh2uL72fCf8BbPUmmrKjS21McqJ/PhDehgADAyxiTx8dUnfhQ==
-X-Received: by 2002:a5d:4b88:0:b0:332:cb97:2cbf with SMTP id
- b8-20020a5d4b88000000b00332cb972cbfmr9720788wrt.24.1701177520881; 
- Tue, 28 Nov 2023 05:18:40 -0800 (PST)
+ bh=JVBux2vZyV6n5xB1/Fmfsi2lyr37PWOkxhM5iwkid3U=;
+ b=J0cgmF9sWIozUk4xMrGBdm0q5FlPeHXTpt8fpKqnu5j/1dGGlz6f9GzpqdcGV2LmTF
+ rq1JVSS6jJCQxd+Etm6boqBiYpWumvkw6wLS+KYF6ePn2WUiO7aPVy+RaJVB8jedK7fY
+ NFdKmGXSydiZoZVkyzRoEtsAz91MIAnzPYSFAaMopmDhOwyBz/kBOnsPvOXSCEg+FA/o
+ oI0kg8jph0nVqNMsWScuQwvoQXM6rpyuhwTkAQbXjdwTqGXSOW4cm3Hlg1PxOqk4LCFd
+ wbcoJs6ADXO9jAQdjk7hMWfmaAZ59bslMNdFowE8SDu7w+UZNYuadkpgbvUEa9rdh8oT
+ e3SA==
+X-Gm-Message-State: AOJu0Yyfj0VkbdTstOj1NbPgJv7nhuraNEKBL3/W4S9/Wcz1EK/ju+yC
+ yMN/5G+KikyKgWAivyTNKTQ=
+X-Google-Smtp-Source: AGHT+IGRLb3kLDHzMHokPPEC/x3dx6N/p0LwIf0Yiw9GLUvLmMUAPDRhdHSfYEtWm1KhH9SCSpCISA==
+X-Received: by 2002:adf:a490:0:b0:332:e616:ed4f with SMTP id
+ g16-20020adfa490000000b00332e616ed4fmr9917371wrb.42.1701180506175; 
+ Tue, 28 Nov 2023 06:08:26 -0800 (PST)
 Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- a2-20020adff7c2000000b003258934a4bcsm12029650wrq.42.2023.11.28.05.18.39
+ c9-20020adfef49000000b0032fb7b4f191sm15166864wrp.91.2023.11.28.06.08.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Nov 2023 05:18:40 -0800 (PST)
-Message-ID: <4664a573-da9a-4d48-bee7-4b2bef3081b6@gmail.com>
-Date: Tue, 28 Nov 2023 14:18:37 +0100
+ Tue, 28 Nov 2023 06:08:25 -0800 (PST)
+Message-ID: <a42a4321-9dce-4c76-9578-8ea665b874f8@gmail.com>
+Date: Tue, 28 Nov 2023 15:08:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Fix uninitialized return value
+Subject: Re: [PATCH] drm/amdgpu: add shared fdinfo stats
 Content-Language: en-US
-To: "Lazar, Lijo" <lijo.lazar@amd.com>, Alex Deucher <alexdeucher@gmail.com>
-References: <20231127182945.1109556-1-lijo.lazar@amd.com>
- <ac4bc87d-7ae1-45d3-8f85-0e294289ad3a@gmail.com>
- <CADnq5_NA0fi8cGvrSzCtmtsWpgKhaG4O8T6cW+ObJoCm=iwzSQ@mail.gmail.com>
- <1c1877d8-c062-4648-950b-4e05f568b356@gmail.com>
- <a61886fc-358c-4f89-961d-8145f70d31ee@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20231117195626.13599-1-alexander.deucher@amd.com>
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <a61886fc-358c-4f89-961d-8145f70d31ee@amd.com>
+In-Reply-To: <20231117195626.13599-1-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,93 +74,109 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org,
- Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 28.11.23 um 10:49 schrieb Lazar, Lijo:
+Am 17.11.23 um 20:56 schrieb Alex Deucher:
+> Add shared stats.  Useful for seeing shared memory.
 >
-> On 11/28/2023 3:07 PM, Christian König wrote:
->> Am 27.11.23 um 22:55 schrieb Alex Deucher:
->>> On Mon, Nov 27, 2023 at 2:22 PM Christian König
->>> <ckoenig.leichtzumerken@gmail.com> wrote:
->>>> Am 27.11.23 um 19:29 schrieb Lijo Lazar:
->>>>> The return value is uniinitialized if ras context is NULL.
->>>>>
->>>>> Fixes: 0f4c8faa043c (drm/amdgpu: Move mca debug mode decision to ras)
->>>>>
->>>>> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
->>>>> ---
->>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 2 +-
->>>>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c 
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
->>>>> index 1a8668a63e67..f6b47ebce9d6 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
->>>>> @@ -3410,7 +3410,7 @@ int amdgpu_ras_reset_gpu(struct 
->>>>> amdgpu_device *adev)
->>>>>    int amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, 
->>>>> bool enable)
->>>>>    {
->>>>>        struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
->>>>> -     int ret;
->>>>> +     int ret = 0;
->>>> That's usually considered very bad coding style and complained 
->>>> about by
->>>> automated checkers.
->>>>
->>>> Instead explicitly set the return value in the code paths not actually
->>>> setting it.
->>> In this case, the function is so short, I think it makes things less
->>> readable to do that.
->>
->> Yeah, indeed but that doesn't help us with the coding style checkers.
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  4 ++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 11 +++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  6 ++++++
+>   3 files changed, 21 insertions(+)
 >
-> Are these checkers for real? I see many instances of variable 
-> initialization including in core kernel code (ex: workqueue) code.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> index 5706b282a0c7..c7df7fa3459f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> @@ -97,6 +97,10 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+>   		   stats.requested_visible_vram/1024UL);
+>   	drm_printf(p, "amd-requested-gtt:\t%llu KiB\n",
+>   		   stats.requested_gtt/1024UL);
+> +	drm_printf(p, "drm-shared-vram:\t%llu KiB\n", stats.vram_shared/1024UL);
+> +	drm_printf(p, "drm-shared-gtt:\t%llu KiB\n", stats.gtt_shared/1024UL);
+> +	drm_printf(p, "drm-shared-cpu:\t%llu KiB\n", stats.cpu_shared/1024UL);
+> +
+>   	for (hw_ip = 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
+>   		if (!usage[hw_ip])
+>   			continue;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index d79b4ca1ecfc..c24f7b2c04c1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -1287,25 +1287,36 @@ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
+>   			  struct amdgpu_mem_stats *stats)
+>   {
+>   	uint64_t size = amdgpu_bo_size(bo);
+> +	struct drm_gem_object *obj;
+>   	unsigned int domain;
+> +	bool shared;
+>   
+>   	/* Abort if the BO doesn't currently have a backing store */
+>   	if (!bo->tbo.resource)
+>   		return;
+>   
+> +	obj = &bo->tbo.base;
+> +	shared = obj->handle_count > 1;
 
-Yes, I've got multiple complains about that already.
+Interesting approach but I don't think that this is correct.
 
-What people basically seem to do is to search for patterns like "int ret 
-= 0;... ret = whatever();.. return ret;" with cocci.
+The handle_count is basically how many GEM handles are there for BO, so 
+for example it doesn't catch sharing things with V4L.
 
-This then results in a note that an initialization isn't necessary and 
-should be avoided.
-
-Same for things like return after else, e.g. when you have something 
-like this "if (...) { ret = whatever(); if (ret) return ret; } else { 
-... ret = 0;} return ret;".
+What we should probably rather do is to take a look if 
+bo->tbo.base.dma_buf is NULL or not.
 
 Regards,
 Christian.
 
->
-> Thanks
->
-> Lijo
->
->>
->> We could do something like this instead:
->>
->> if (!con)
->>     return 0;
->>
->> ret = amdgpu_mca_smu_set_debug_mode(adev, enable);
->> ...
->>
->> Regards,
->> Christian.
->>
->>>
->>> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
->>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>>        if (con) {
->>>>>                ret = amdgpu_mca_smu_set_debug_mode(adev, enable);
->>
+
+> +
+>   	domain = amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type);
+>   	switch (domain) {
+>   	case AMDGPU_GEM_DOMAIN_VRAM:
+>   		stats->vram += size;
+>   		if (amdgpu_bo_in_cpu_visible_vram(bo))
+>   			stats->visible_vram += size;
+> +		if (shared)
+> +			stats->vram_shared += size;
+>   		break;
+>   	case AMDGPU_GEM_DOMAIN_GTT:
+>   		stats->gtt += size;
+> +		if (shared)
+> +			stats->gtt_shared += size;
+>   		break;
+>   	case AMDGPU_GEM_DOMAIN_CPU:
+>   	default:
+>   		stats->cpu += size;
+> +		if (shared)
+> +			stats->cpu_shared += size;
+>   		break;
+>   	}
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> index d28e21baef16..0503af75dc26 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> @@ -138,12 +138,18 @@ struct amdgpu_bo_vm {
+>   struct amdgpu_mem_stats {
+>   	/* current VRAM usage, includes visible VRAM */
+>   	uint64_t vram;
+> +	/* current shared VRAM usage, includes visible VRAM */
+> +	uint64_t vram_shared;
+>   	/* current visible VRAM usage */
+>   	uint64_t visible_vram;
+>   	/* current GTT usage */
+>   	uint64_t gtt;
+> +	/* current shared GTT usage */
+> +	uint64_t gtt_shared;
+>   	/* current system memory usage */
+>   	uint64_t cpu;
+> +	/* current shared system memory usage */
+> +	uint64_t cpu_shared;
+>   	/* sum of evicted buffers, includes visible VRAM */
+>   	uint64_t evicted_vram;
+>   	/* sum of evicted buffers due to CPU access */
 
