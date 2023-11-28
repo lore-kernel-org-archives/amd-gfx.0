@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 864E9C4167B
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Nov 2023 17:56:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67EC0C4167B
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Nov 2023 17:56:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48B4710E324;
-	Tue, 28 Nov 2023 17:56:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3413B10E592;
+	Tue, 28 Nov 2023 17:56:38 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B2BE10E2FE;
- Tue, 28 Nov 2023 17:56:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC9C610E32B;
+ Tue, 28 Nov 2023 17:56:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,16 +19,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=SMKsWWEGfr4trzX+JRITiuYYa9v9fb6z+7R9LdpqZzE=; b=rkLi+WT2u94jjrCdIvoh7eCtO+
- CA3jq9kr/qgJct6ZwT8mXJkp1QtVcu+i6W2TWnU6r8iOuy98TZIZPGHeX1fjv5UOyqqjD3ahAcIvF
- 9zfJjKz2nl500gLQOOLiOwtUH/zmEqssFrCE5Dj3do7Ph0szr9JaEzVu7XSW/yxqVrmRTF/Paa5xm
- 9kXBH4exBpIFJdnc5MGJm7JcEOKey6uPwhm2J2ka6A4U5C86x0/xkONQC9K7cd7VDwqlexQGDLvDZ
- Y17zyODMSAtAGP/3VcxpAnn+p4kS26B6KCQkmrvcIkL2XuW3Fg7RpS20dGHfuxuPBzA6x4V6iTHdW
- 3/eYxfvA==;
+ bh=fo/Z2dbF9VUluYs16pMeHKAaV9qahO1OFUOsjcI1BI8=; b=j+Fl3iCQ0hy0mRd82TO9AoC7ZK
+ w521blcWn2+fYJydouFTIvMsgh6sfzuKekFq0ug9RncxN9NnbUa/MjrJe9YWw9BBxEmoFIx01vQnr
+ KgJNqhCcm2DPP2xBSqrZkYmwTmtYTpi+yWDXpU6N/JPgchXwCEc56TF9pTHwWsdI0QRN3AQXlgrl9
+ ZkLxr4fXZABtPhJ0IWOFlq67SidoXAg/AUFd4cq0tj1nhrUAEMFLzFN4ugq3goYs23lv8BpK5+jea
+ iH/jH9rOplCWnGbsKPmelEf+tZDotS6ewfwH2MOqMdCkKRbOISB27QDIwdHfRoJhqxkIv0BQ05yrC
+ L/xDQg4w==;
 Received: from [102.213.205.115] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1r82Jw-0087Bf-8t; Tue, 28 Nov 2023 18:56:28 +0100
+ id 1r82K1-0087Bf-MZ; Tue, 28 Nov 2023 18:56:33 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
@@ -37,9 +37,9 @@ To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Krunoslav Kovac <krunoslav.kovac@amd.com>, sunpeng.li@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch
-Subject: [PATCH v3 1/9] drm/amd/display: decouple color state from hw state log
-Date: Tue, 28 Nov 2023 16:52:49 -0100
-Message-ID: <20231128175623.121356-2-mwen@igalia.com>
+Subject: [PATCH v3 4/9] drm/amd/display: fill up DCN3 DPP color state
+Date: Tue, 28 Nov 2023 16:52:52 -0100
+Message-ID: <20231128175623.121356-5-mwen@igalia.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231128175623.121356-1-mwen@igalia.com>
 References: <20231128175623.121356-1-mwen@igalia.com>
@@ -60,65 +60,91 @@ Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Prepare to hook up color state log according to the DCN version.
+DCN3 DPP color state was uncollected and some state elements from DCN1
+doesn't fit DCN3. Create new elements according to DCN3 color caps and
+fill them up for DTN log output.
 
-v3:
-- put functions in single line (Siqueira)
+rfc-v2:
+- fix reading of gamcor and blnd gamma states
+- remove gamut remap register in favor of gamut remap matrix reading
 
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   | 26 +++++++++++++------
- 1 file changed, 18 insertions(+), 8 deletions(-)
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c  | 37 ++++++++++++++++++-
+ drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h   |  8 ++++
+ 2 files changed, 43 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-index 2b8b8366538e..9b801488eb9d 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-@@ -282,19 +282,13 @@ static void dcn10_log_hubp_states(struct dc *dc, void *log_ctx)
- 	DTN_INFO("\n");
- }
- 
--void dcn10_log_hw_state(struct dc *dc,
--	struct dc_log_buffer_ctx *log_ctx)
-+static void dcn10_log_color_state(struct dc *dc,
-+				  struct dc_log_buffer_ctx *log_ctx)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
+index 7c18f31bb56c..a3a769aad042 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
+@@ -44,12 +44,45 @@
+ void dpp30_read_state(struct dpp *dpp_base, struct dcn_dpp_state *s)
  {
- 	struct dc_context *dc_ctx = dc->ctx;
- 	struct resource_pool *pool = dc->res_pool;
- 	int i;
+ 	struct dcn3_dpp *dpp = TO_DCN30_DPP(dpp_base);
++	uint32_t gamcor_lut_mode, rgam_lut_mode;
  
--	DTN_INFO_BEGIN();
--
--	dcn10_log_hubbub_state(dc, log_ctx);
--
--	dcn10_log_hubp_states(dc, log_ctx);
--
- 	DTN_INFO("DPP:    IGAM format  IGAM mode    DGAM mode    RGAM mode"
- 			"  GAMUT mode  C11 C12   C13 C14   C21 C22   C23 C24   "
- 			"C31 C32   C33 C34\n");
-@@ -351,6 +345,22 @@ void dcn10_log_hw_state(struct dc *dc,
- 				s.idle);
- 	}
- 	DTN_INFO("\n");
-+}
-+
-+void dcn10_log_hw_state(struct dc *dc,
-+			struct dc_log_buffer_ctx *log_ctx)
-+{
-+	struct dc_context *dc_ctx = dc->ctx;
-+	struct resource_pool *pool = dc->res_pool;
-+	int i;
-+
-+	DTN_INFO_BEGIN();
-+
-+	dcn10_log_hubbub_state(dc, log_ctx);
-+
-+	dcn10_log_hubp_states(dc, log_ctx);
-+
-+	dcn10_log_color_state(dc, log_ctx);
+ 	REG_GET(DPP_CONTROL,
+-			DPP_CLOCK_ENABLE, &s->is_enabled);
++		DPP_CLOCK_ENABLE, &s->is_enabled);
  
- 	DTN_INFO("OTG:  v_bs  v_be  v_ss  v_se  vpol  vmax  vmin  vmax_sel  vmin_sel  h_bs  h_be  h_ss  h_se  hpol  htot  vtot  underflow blank_en\n");
+-	// TODO: Implement for DCN3
++	// Pre-degamma (ROM)
++	REG_GET_2(PRE_DEGAM,
++		  PRE_DEGAM_MODE, &s->pre_dgam_mode,
++		  PRE_DEGAM_SELECT, &s->pre_dgam_select);
++
++	// Gamma Correction (RAM)
++	REG_GET(CM_GAMCOR_CONTROL,
++		CM_GAMCOR_MODE_CURRENT, &s->gamcor_mode);
++	if (s->gamcor_mode) {
++		REG_GET(CM_GAMCOR_CONTROL, CM_GAMCOR_SELECT_CURRENT, &gamcor_lut_mode);
++		if (!gamcor_lut_mode)
++			s->gamcor_mode = LUT_RAM_A; // Otherwise, LUT_RAM_B
++	}
++
++	// Shaper LUT (RAM), 3D LUT (mode, bit-depth, size)
++	REG_GET(CM_SHAPER_CONTROL,
++		CM_SHAPER_LUT_MODE, &s->shaper_lut_mode);
++	REG_GET(CM_3DLUT_MODE,
++		CM_3DLUT_MODE_CURRENT, &s->lut3d_mode);
++	REG_GET(CM_3DLUT_READ_WRITE_CONTROL,
++		CM_3DLUT_30BIT_EN, &s->lut3d_bit_depth);
++	REG_GET(CM_3DLUT_MODE,
++		CM_3DLUT_SIZE, &s->lut3d_size);
++
++	// Blend/Out Gamma (RAM)
++	REG_GET(CM_BLNDGAM_CONTROL,
++		CM_BLNDGAM_MODE_CURRENT, &s->rgam_lut_mode);
++	if (s->rgam_lut_mode){
++		REG_GET(CM_BLNDGAM_CONTROL, CM_BLNDGAM_SELECT_CURRENT, &rgam_lut_mode);
++		if (!rgam_lut_mode)
++			s->rgam_lut_mode = LUT_RAM_A; // Otherwise, LUT_RAM_B
++	}
+ }
++
+ /*program post scaler scs block in dpp CM*/
+ void dpp3_program_post_csc(
+ 		struct dpp *dpp_base,
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h
+index b6acfd86642a..4e604bf24f51 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h
+@@ -151,6 +151,14 @@ struct dcn_dpp_state {
+ 	uint32_t gamut_remap_c33_c34;
+ 	// gamut_remap data for dcn*_log_color_state()
+ 	struct dpp_grph_csc_adjustment gamut_remap;
++	uint32_t shaper_lut_mode;
++	uint32_t lut3d_mode;
++	uint32_t lut3d_bit_depth;
++	uint32_t lut3d_size;
++	uint32_t blnd_lut_mode;
++	uint32_t pre_dgam_mode;
++	uint32_t pre_dgam_select;
++	uint32_t gamcor_mode;
+ };
  
+ struct CM_bias_params {
 -- 
 2.42.0
 
