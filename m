@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6E77C07E97
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Nov 2023 17:22:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 651FBC07E97
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Nov 2023 17:52:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F45C10E18B;
-	Tue, 28 Nov 2023 17:22:38 +0000 (UTC)
-Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
- [IPv6:2001:4860:4864:20::29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E52D310E18B;
- Tue, 28 Nov 2023 17:22:35 +0000 (UTC)
-Received: by mail-oa1-x29.google.com with SMTP id
- 586e51a60fabf-1ef36a04931so3756746fac.2; 
- Tue, 28 Nov 2023 09:22:35 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 942CD10E034;
+	Tue, 28 Nov 2023 17:52:34 +0000 (UTC)
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05D0A10E034;
+ Tue, 28 Nov 2023 17:52:33 +0000 (UTC)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-54917ef6c05so7698478a12.1; 
+ Tue, 28 Nov 2023 09:52:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1701192155; x=1701796955; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1701193951; x=1701798751; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SzkeMKrJwAap8TpqgWRyHUD01UHrQB9D2F34aPGr/tU=;
- b=Pwt6Z5CftBV3+osWqApRBbddOfgFKPoE+GmglMu3fVqZuPD4173s5iXg6d8/XXfjND
- 6bCJeD2thn9omjHYPqXo4YYd/RatX1gmG9lyPja3exzSyBTGhTZ7KsRYQGUQhMAEGj14
- W7GMV3JHjRelES9KgQFCu31ee6xl4q/M8sdGMtByuKw8woIwIQyNcWd356oq47klVvW9
- f1Hq+tO9VAcO4ZvskGLdyU2VtoS94eupg3Hjt8OQ4mty0Ml2AArX+mV8ys1I49boLvJQ
- 4xn+5NWY/rMSQLJSi1abu4CVgmTp80D9zXaqxg4jAPxDX8YXigkR9iMWe5qUqfq+8IYg
- kgMg==
+ bh=hmw2mUW+PTirMGKyBiA0Ej+OMU3c3B1BycO7cp9qoHM=;
+ b=UjS18mKJRuVUaIXa0gW50B78QU15yP4ytVxknX0p60paJxRp5B97cchv6E/8OB3Ops
+ E0O0loUvavG72Urq4zTyQvcIEGFYrUo2g07Fp3TpGmxBpkoS/e+gyuSDxuqtwZCQA0eX
+ sxl8Qd2BEyj0iOv5WL3srmLzr4F2R9qBdmt46auAM1nWZebCUIXk1FNVn5l5XRADklG3
+ zQrpVPOge3rgplIRoFpAIRdqb8NhzF0QiimP0kbfgdWR6sDBPLCGxIR7D8COdynKQ/th
+ c88cowUXDLzhtELlKboVUYOzR9bCudFbY9MRdfuL35oBF5+YQ7M9KW2L1ol6gz7zolAR
+ iFhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701192155; x=1701796955;
+ d=1e100.net; s=20230601; t=1701193951; x=1701798751;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=SzkeMKrJwAap8TpqgWRyHUD01UHrQB9D2F34aPGr/tU=;
- b=oKKAu+GjBjxQ6VTlSEVMX5IX+5pWEYA78fxgf/8CmeTSbBa3Rirr4ud4oB2Ffj+Oad
- rt3DEkHqp8sID3Wn47f7ncg8Ti5f4dhtd3/LQ9ylNfRfy9DulgLwfH/ASunr2ObhcKDu
- ta1pePFl+0LfnJm+2mKIa/Sr3NVnrRO0GpP+K0gvxlbOLeEsBrNEdK3a9Lun7LK6Objo
- QypVg1Azyra6NsJTE3p0ZVRdDnQnS8XJy13OaPEskpcC3U05Dyy3aW3/VyychQRz5+wI
- YYVG84a9f8P9gxnB1DbCMxo3mBJOjd+BNwEKzd3jdLGu8Qz3Q6FgRXjNLCIiMYJIKBjD
- 8mPA==
-X-Gm-Message-State: AOJu0YzKvqQHWLSGDBtJX1Nmhru8FglhOR/0d4DgcymnxkXkpy1nN0i9
- wIAV0hB7wyMEm49fDkcw+6dQ3EveRJ58vtrI9B4=
-X-Google-Smtp-Source: AGHT+IHx7OJmyQW4PfkOMGg+fvIN+/N2DSbzoe5jpapEq1fRxK1caMtkCHOIlaExdJWvHsPN4UjuHdlfPAH1AwXvqqA=
-X-Received: by 2002:a05:6870:5e48:b0:1fa:14e9:43ce with SMTP id
- ne8-20020a0568705e4800b001fa14e943cemr16091904oac.50.1701192154984; Tue, 28
- Nov 2023 09:22:34 -0800 (PST)
+ bh=hmw2mUW+PTirMGKyBiA0Ej+OMU3c3B1BycO7cp9qoHM=;
+ b=GWDh7nTWizRNv6+hDkpgIQVi1hUlupUtNgdrd8x+Lif/g+laKg5GVg7KtPJixGVI3H
+ axnI7hKZv93zFKjEBdSGKqNyKppwxziyMkzoRM/h9ivH9nMxJqLw62tS15PPoeKCW96a
+ BMBipkCnLp+/DTrDXnK8eidkVB/fG7v6xxHfRIShlFHl28sDtyTDV13YjWUZfAcQCyLR
+ XA2L/EToH6NecBXGSUiPnXdHkBxO/csz6vKConCTau8cf4+65ci/2C+wj3chjB41+2DX
+ vJgTIBAOMm7VqoA2do3ZEb8QI55DiWtKH5QvabzD40CJk292dZuhEhoH9iIAZzvikpjI
+ rUGQ==
+X-Gm-Message-State: AOJu0Yxn2Oh/jsPP+WpKYkW2wcZKfWP6mNkyCYAItNY7ZJ12rT46B3zJ
+ pm8MeBEtvsWHoiKBzQKCEM5yR6nicuZVUWnEcrI=
+X-Google-Smtp-Source: AGHT+IGw9RGIXsMdNCRhL+af9PGPXqu0MUs4xP6dw11yU/WyyYG4DI+5vcjhPCp0tXpRu0ISDVmAYt0J7p+yJpa1MmU=
+X-Received: by 2002:a50:fb0e:0:b0:54b:d16:4c4a with SMTP id
+ d14-20020a50fb0e000000b0054b0d164c4amr8558114edq.6.1701193951144; Tue, 28 Nov
+ 2023 09:52:31 -0800 (PST)
 MIME-Version: 1.0
-References: <20231117214419.418556-1-Felix.Kuehling@amd.com>
- <4293cfca-6775-44bb-b6f6-81c98491941b@amd.com>
-In-Reply-To: <4293cfca-6775-44bb-b6f6-81c98491941b@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 28 Nov 2023 12:22:23 -0500
-Message-ID: <CADnq5_Noy86ts4y3a2pns7U=biiFdLFjbYtq9sLaEsiXhLnNzQ@mail.gmail.com>
-Subject: Re: [PATCH 1/3] Revert "drm/prime: Unexport helpers for fd/handle
- conversion"
-To: Felix Kuehling <felix.kuehling@amd.com>
+References: <20231117195626.13599-1-alexander.deucher@amd.com>
+ <a42a4321-9dce-4c76-9578-8ea665b874f8@gmail.com>
+ <CADnq5_NiHRhDJt+bkdy35GPfTaTUdSRrf_aVVQobfFgayHP2hw@mail.gmail.com>
+In-Reply-To: <CADnq5_NiHRhDJt+bkdy35GPfTaTUdSRrf_aVVQobfFgayHP2hw@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 28 Nov 2023 09:52:19 -0800
+Message-ID: <CAF6AEGvVdnTsj1DZjOYn6YaygEqsJDkAUzbF_thgAw2CTLfBxA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: add shared fdinfo stats
+To: Alex Deucher <alexdeucher@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -69,192 +69,148 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, christian.koenig@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Rob Clark <robdclark@chromium.org>, amd-gfx@lists.freedesktop.org,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 23, 2023 at 6:12=E2=80=AFPM Felix Kuehling <felix.kuehling@amd.=
-com> wrote:
+On Tue, Nov 28, 2023 at 6:28=E2=80=AFAM Alex Deucher <alexdeucher@gmail.com=
+> wrote:
 >
-> [+Alex]
->
-> On 2023-11-17 16:44, Felix Kuehling wrote:
->
-> > This reverts commit 71a7974ac7019afeec105a54447ae1dc7216cbb3.
+> On Tue, Nov 28, 2023 at 9:17=E2=80=AFAM Christian K=C3=B6nig
+> <ckoenig.leichtzumerken@gmail.com> wrote:
 > >
-> > These helper functions are needed for KFD to export and import DMABufs
-> > the right way without duplicating the tracking of DMABufs associated wi=
-th
-> > GEM objects while ensuring that move notifier callbacks are working as
-> > intended.
+> > Am 17.11.23 um 20:56 schrieb Alex Deucher:
+> > > Add shared stats.  Useful for seeing shared memory.
+> > >
+> > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > > ---
+> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  4 ++++
+> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 11 +++++++++++
+> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  6 ++++++
+> > >   3 files changed, 21 insertions(+)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_fdinfo.c
+> > > index 5706b282a0c7..c7df7fa3459f 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> > > @@ -97,6 +97,10 @@ void amdgpu_show_fdinfo(struct drm_printer *p, str=
+uct drm_file *file)
+> > >                  stats.requested_visible_vram/1024UL);
+> > >       drm_printf(p, "amd-requested-gtt:\t%llu KiB\n",
+> > >                  stats.requested_gtt/1024UL);
+> > > +     drm_printf(p, "drm-shared-vram:\t%llu KiB\n", stats.vram_shared=
+/1024UL);
+> > > +     drm_printf(p, "drm-shared-gtt:\t%llu KiB\n", stats.gtt_shared/1=
+024UL);
+> > > +     drm_printf(p, "drm-shared-cpu:\t%llu KiB\n", stats.cpu_shared/1=
+024UL);
+> > > +
+> > >       for (hw_ip =3D 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
+> > >               if (!usage[hw_ip])
+> > >                       continue;
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_object.c
+> > > index d79b4ca1ecfc..c24f7b2c04c1 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > > @@ -1287,25 +1287,36 @@ void amdgpu_bo_get_memory(struct amdgpu_bo *b=
+o,
+> > >                         struct amdgpu_mem_stats *stats)
+> > >   {
+> > >       uint64_t size =3D amdgpu_bo_size(bo);
+> > > +     struct drm_gem_object *obj;
+> > >       unsigned int domain;
+> > > +     bool shared;
+> > >
+> > >       /* Abort if the BO doesn't currently have a backing store */
+> > >       if (!bo->tbo.resource)
+> > >               return;
+> > >
+> > > +     obj =3D &bo->tbo.base;
+> > > +     shared =3D obj->handle_count > 1;
 > >
-> > CC: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > CC: Thomas Zimmermann <tzimmermann@suse.de>
-> > Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> > Interesting approach but I don't think that this is correct.
+> >
+> > The handle_count is basically how many GEM handles are there for BO, so
+> > for example it doesn't catch sharing things with V4L.
+> >
+> > What we should probably rather do is to take a look if
+> > bo->tbo.base.dma_buf is NULL or not.
 >
-> Re: our discussion about v2 of this patch: If this version is
-> acceptable, can I get an R-b or A-b?
+> +Rob, dri-devel
 >
-> I would like to get this patch into drm-next as a prerequisite for
-> patches 2 and 3. I cannot submit it to the current amd-staging-drm-next
-> because the patch I'm reverting doesn't exist there yet.
->
-> Patch 2 and 3 could go into drm-next as well, or go through Alex's
-> amd-staging-drm-next branch once patch 1 is in drm-next. Alex, how do
-> you prefer to coordinate this?
+> This is what the generic drm helper code does.  See
+> drm_show_memory_stats().  If that is not correct that code should
+> probably be fixed too.
 
-I guess ideally this would go through my drm-next tree since your
-other patches depend on it unless others feel strongly that it should
-go through drm-misc.
+OTOH, v4l doesn't expose fdinfo.  What "shared" is telling you is
+whether the BO is counted multiple times when you look at all
+processes fdinfo.
 
-Alex
+But I guess it would be ok to look for obj->handle_count > 1 || obj->dma_bu=
+f
 
+BR,
+-R
 
 >
-> Regards,
->    Felix
+> Alex
 >
->
-> > ---
-> >   drivers/gpu/drm/drm_prime.c | 33 ++++++++++++++++++---------------
-> >   include/drm/drm_prime.h     |  7 +++++++
-> >   2 files changed, 25 insertions(+), 15 deletions(-)
 > >
-> > diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-> > index 63b709a67471..834a5e28abbe 100644
-> > --- a/drivers/gpu/drm/drm_prime.c
-> > +++ b/drivers/gpu/drm/drm_prime.c
-> > @@ -278,7 +278,7 @@ void drm_gem_dmabuf_release(struct dma_buf *dma_buf=
-)
-> >   }
-> >   EXPORT_SYMBOL(drm_gem_dmabuf_release);
+> > Regards,
+> > Christian.
 > >
-> > -/*
-> > +/**
-> >    * drm_gem_prime_fd_to_handle - PRIME import function for GEM drivers
-> >    * @dev: drm_device to import into
-> >    * @file_priv: drm file-private structure
-> > @@ -292,9 +292,9 @@ EXPORT_SYMBOL(drm_gem_dmabuf_release);
-> >    *
-> >    * Returns 0 on success or a negative error code on failure.
-> >    */
-> > -static int drm_gem_prime_fd_to_handle(struct drm_device *dev,
-> > -                                   struct drm_file *file_priv, int pri=
-me_fd,
-> > -                                   uint32_t *handle)
-> > +int drm_gem_prime_fd_to_handle(struct drm_device *dev,
-> > +                            struct drm_file *file_priv, int prime_fd,
-> > +                            uint32_t *handle)
-> >   {
-> >       struct dma_buf *dma_buf;
-> >       struct drm_gem_object *obj;
-> > @@ -360,6 +360,7 @@ static int drm_gem_prime_fd_to_handle(struct drm_de=
-vice *dev,
-> >       dma_buf_put(dma_buf);
-> >       return ret;
-> >   }
-> > +EXPORT_SYMBOL(drm_gem_prime_fd_to_handle);
 > >
-> >   int drm_prime_fd_to_handle_ioctl(struct drm_device *dev, void *data,
-> >                                struct drm_file *file_priv)
-> > @@ -408,7 +409,7 @@ static struct dma_buf *export_and_register_object(s=
-truct drm_device *dev,
-> >       return dmabuf;
-> >   }
+> > > +
+> > >       domain =3D amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type=
+);
+> > >       switch (domain) {
+> > >       case AMDGPU_GEM_DOMAIN_VRAM:
+> > >               stats->vram +=3D size;
+> > >               if (amdgpu_bo_in_cpu_visible_vram(bo))
+> > >                       stats->visible_vram +=3D size;
+> > > +             if (shared)
+> > > +                     stats->vram_shared +=3D size;
+> > >               break;
+> > >       case AMDGPU_GEM_DOMAIN_GTT:
+> > >               stats->gtt +=3D size;
+> > > +             if (shared)
+> > > +                     stats->gtt_shared +=3D size;
+> > >               break;
+> > >       case AMDGPU_GEM_DOMAIN_CPU:
+> > >       default:
+> > >               stats->cpu +=3D size;
+> > > +             if (shared)
+> > > +                     stats->cpu_shared +=3D size;
+> > >               break;
+> > >       }
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_object.h
+> > > index d28e21baef16..0503af75dc26 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> > > @@ -138,12 +138,18 @@ struct amdgpu_bo_vm {
+> > >   struct amdgpu_mem_stats {
+> > >       /* current VRAM usage, includes visible VRAM */
+> > >       uint64_t vram;
+> > > +     /* current shared VRAM usage, includes visible VRAM */
+> > > +     uint64_t vram_shared;
+> > >       /* current visible VRAM usage */
+> > >       uint64_t visible_vram;
+> > >       /* current GTT usage */
+> > >       uint64_t gtt;
+> > > +     /* current shared GTT usage */
+> > > +     uint64_t gtt_shared;
+> > >       /* current system memory usage */
+> > >       uint64_t cpu;
+> > > +     /* current shared system memory usage */
+> > > +     uint64_t cpu_shared;
+> > >       /* sum of evicted buffers, includes visible VRAM */
+> > >       uint64_t evicted_vram;
+> > >       /* sum of evicted buffers due to CPU access */
 > >
-> > -/*
-> > +/**
-> >    * drm_gem_prime_handle_to_fd - PRIME export function for GEM drivers
-> >    * @dev: dev to export the buffer from
-> >    * @file_priv: drm file-private structure
-> > @@ -421,10 +422,10 @@ static struct dma_buf *export_and_register_object=
-(struct drm_device *dev,
-> >    * The actual exporting from GEM object to a dma-buf is done through =
-the
-> >    * &drm_gem_object_funcs.export callback.
-> >    */
-> > -static int drm_gem_prime_handle_to_fd(struct drm_device *dev,
-> > -                                   struct drm_file *file_priv, uint32_=
-t handle,
-> > -                                   uint32_t flags,
-> > -                                   int *prime_fd)
-> > +int drm_gem_prime_handle_to_fd(struct drm_device *dev,
-> > +                            struct drm_file *file_priv, uint32_t handl=
-e,
-> > +                            uint32_t flags,
-> > +                            int *prime_fd)
-> >   {
-> >       struct drm_gem_object *obj;
-> >       int ret =3D 0;
-> > @@ -506,6 +507,7 @@ static int drm_gem_prime_handle_to_fd(struct drm_de=
-vice *dev,
-> >
-> >       return ret;
-> >   }
-> > +EXPORT_SYMBOL(drm_gem_prime_handle_to_fd);
-> >
-> >   int drm_prime_handle_to_fd_ioctl(struct drm_device *dev, void *data,
-> >                                struct drm_file *file_priv)
-> > @@ -864,9 +866,9 @@ EXPORT_SYMBOL(drm_prime_get_contiguous_size);
-> >    * @obj: GEM object to export
-> >    * @flags: flags like DRM_CLOEXEC and DRM_RDWR
-> >    *
-> > - * This is the implementation of the &drm_gem_object_funcs.export func=
-tions
-> > - * for GEM drivers using the PRIME helpers. It is used as the default =
-for
-> > - * drivers that do not set their own.
-> > + * This is the implementation of the &drm_gem_object_funcs.export func=
-tions for GEM drivers
-> > + * using the PRIME helpers. It is used as the default in
-> > + * drm_gem_prime_handle_to_fd().
-> >    */
-> >   struct dma_buf *drm_gem_prime_export(struct drm_gem_object *obj,
-> >                                    int flags)
-> > @@ -962,9 +964,10 @@ EXPORT_SYMBOL(drm_gem_prime_import_dev);
-> >    * @dev: drm_device to import into
-> >    * @dma_buf: dma-buf object to import
-> >    *
-> > - * This is the implementation of the gem_prime_import functions for GE=
-M
-> > - * drivers using the PRIME helpers. It is the default for drivers that=
- do
-> > - * not set their own &drm_driver.gem_prime_import.
-> > + * This is the implementation of the gem_prime_import functions for GE=
-M drivers
-> > + * using the PRIME helpers. Drivers can use this as their
-> > + * &drm_driver.gem_prime_import implementation. It is used as the defa=
-ult
-> > + * implementation in drm_gem_prime_fd_to_handle().
-> >    *
-> >    * Drivers must arrange to call drm_prime_gem_destroy() from their
-> >    * &drm_gem_object_funcs.free hook when using this function.
-> > diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
-> > index a7abf9f3e697..2a1d01e5b56b 100644
-> > --- a/include/drm/drm_prime.h
-> > +++ b/include/drm/drm_prime.h
-> > @@ -60,12 +60,19 @@ enum dma_data_direction;
-> >
-> >   struct drm_device;
-> >   struct drm_gem_object;
-> > +struct drm_file;
-> >
-> >   /* core prime functions */
-> >   struct dma_buf *drm_gem_dmabuf_export(struct drm_device *dev,
-> >                                     struct dma_buf_export_info *exp_inf=
-o);
-> >   void drm_gem_dmabuf_release(struct dma_buf *dma_buf);
-> >
-> > +int drm_gem_prime_fd_to_handle(struct drm_device *dev,
-> > +                            struct drm_file *file_priv, int prime_fd, =
-uint32_t *handle);
-> > +int drm_gem_prime_handle_to_fd(struct drm_device *dev,
-> > +                            struct drm_file *file_priv, uint32_t handl=
-e, uint32_t flags,
-> > +                            int *prime_fd);
-> > +
-> >   /* helper functions for exporting */
-> >   int drm_gem_map_attach(struct dma_buf *dma_buf,
-> >                      struct dma_buf_attachment *attach);
