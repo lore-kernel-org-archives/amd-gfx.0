@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58AD3C4167B
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Nov 2023 10:47:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAD6EC07CA9
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Nov 2023 10:48:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2BCF10E4C7;
-	Tue, 28 Nov 2023 10:47:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4847910E4CC;
+	Tue, 28 Nov 2023 10:48:00 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de
  [IPv6:2a07:de40:b251:101:10:150:64:2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 599BD10E4BC
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Nov 2023 10:47:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7725E10E4BC;
+ Tue, 28 Nov 2023 10:47:29 +0000 (UTC)
 Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 774311F7AB;
- Tue, 28 Nov 2023 10:47:27 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2252E1F853;
+ Tue, 28 Nov 2023 10:47:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1701168447; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1701168448; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ExXxLJjS9jDXqmfLP4q8+touNOshKNAA1Bvgzbxf2Lg=;
- b=E3HKAa/wc/0VjsJVzQchYOPJ8LIA0Bb/pyRIRyi5dCu3bNYBoe1Fdo/OnhvzvQY1gGbvTK
- FiXo27SX/9ni6RS6Emqj4JbPl23G9UvhQXsRhiuydsbTP9PTllYWp8hY5yrFROyjj+Aa+4
- +3bj9Ez7wRSL+xTCpL+tpjYQy8zrIfs=
+ bh=hoMj7u/SiP4JSEVbttQypjKrtx/na2aK6fwCHER7kus=;
+ b=ShV4RwLjFv9EuPHopem288luEhiZBR6qFETwU/8hn77HBL/esuHUmrU1YKDIxI0W3XTxSl
+ nt3n/W14e+mqHhBI5YdvRZALFw8dJ2MApZk9jlKNR5MvkGjBGxs+vWZLlgxKH3Br6PKenQ
+ CAqZ140wm/HEhlxeRwxa3KKg6ziSvBo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1701168447;
+ s=susede2_ed25519; t=1701168448;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ExXxLJjS9jDXqmfLP4q8+touNOshKNAA1Bvgzbxf2Lg=;
- b=tWMveWO09yCFNiClaR7qgL/M6y2vHgx6QFTfcNhgO4AEdxDJqYcFROqMmNxRNrNUASB8gd
- H5neTbwco4NJy2Bg==
+ bh=hoMj7u/SiP4JSEVbttQypjKrtx/na2aK6fwCHER7kus=;
+ b=aNx4/4Vcv17U53GHgEcIp/WtSivKRbt/0tmOt7Qj/ZTGU0loqu/CPcXyZPiid9TZQILC+w
+ 2Fm6MFD2o65dhHCQ==
 Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 2C4F913AE2;
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id CCB6813AE2;
  Tue, 28 Nov 2023 10:47:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap2.dmz-prg2.suse.org with ESMTPSA id iELRCT/FZWXpagAAn2gu4w
+ by imap2.dmz-prg2.suse.org with ESMTPSA id IPn2MD/FZWXpagAAn2gu4w
  (envelope-from <tzimmermann@suse.de>); Tue, 28 Nov 2023 10:47:27 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: mripard@kernel.org, maarten.lankhorst@linux.intel.com, daniel@ffwll.ch,
  airlied@gmail.com, suijingfeng@loongson.cn
-Subject: [PATCH 5/8] drm/solomon: Do not include <drm/drm_plane_helper.h>
-Date: Tue, 28 Nov 2023 11:45:21 +0100
-Message-ID: <20231128104723.20622-6-tzimmermann@suse.de>
+Subject: [PATCH 7/8] drm/simpledrm: Do not include <drm/drm_plane_helper.h>
+Date: Tue, 28 Nov 2023 11:45:23 +0100
+Message-ID: <20231128104723.20622-8-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20231128104723.20622-1-tzimmermann@suse.de>
 References: <20231128104723.20622-1-tzimmermann@suse.de>
@@ -59,20 +59,20 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Authentication-Results: smtp-out2.suse.de;
 	none
-X-Spamd-Result: default: False [2.75 / 50.00]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- R_MISSING_CHARSET(2.50)[]; MIME_GOOD(-0.10)[text/plain];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; BROKEN_CONTENT_TYPE(1.50)[];
- NEURAL_HAM_LONG(-0.42)[-0.422]; RCVD_COUNT_THREE(0.00)[3];
+X-Spamd-Result: default: False [4.29 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; BAYES_SPAM(0.00)[13.90%];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; R_MISSING_CHARSET(2.50)[];
+ MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ BROKEN_CONTENT_TYPE(1.50)[]; NEURAL_HAM_LONG(-0.41)[-0.409];
+ RCVD_COUNT_THREE(0.00)[3];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; RCPT_COUNT_TWELVE(0.00)[12];
  MID_CONTAINS_FROM(1.00)[];
  DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email];
  FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,ffwll.ch,gmail.com,loongson.cn]; 
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
- BAYES_HAM(-1.53)[91.91%]
+ MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,21 +97,21 @@ required by most drivers. No functional changes.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/solomon/ssd130x.h | 1 -
+ drivers/gpu/drm/tiny/simpledrm.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/solomon/ssd130x.h b/drivers/gpu/drm/solomon/ssd130x.h
-index acf7cedf0c1ab..075c5c3ee75ac 100644
---- a/drivers/gpu/drm/solomon/ssd130x.h
-+++ b/drivers/gpu/drm/solomon/ssd130x.h
-@@ -17,7 +17,6 @@
- #include <drm/drm_crtc.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_encoder.h>
+diff --git a/drivers/gpu/drm/tiny/simpledrm.c b/drivers/gpu/drm/tiny/simpledrm.c
+index 34bbbd7b53dd9..7ce1c46176750 100644
+--- a/drivers/gpu/drm/tiny/simpledrm.c
++++ b/drivers/gpu/drm/tiny/simpledrm.c
+@@ -25,7 +25,6 @@
+ #include <drm/drm_gem_shmem_helper.h>
+ #include <drm/drm_managed.h>
+ #include <drm/drm_modeset_helper_vtables.h>
 -#include <drm/drm_plane_helper.h>
+ #include <drm/drm_probe_helper.h>
  
- #include <linux/regmap.h>
- 
+ #define DRIVER_NAME	"simpledrm"
 -- 
 2.43.0
 
