@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E117EC07E98
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Nov 2023 17:56:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2D6AC07CA9
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Nov 2023 17:56:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80EBD10E595;
-	Tue, 28 Nov 2023 17:56:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E72810E59A;
+	Tue, 28 Nov 2023 17:56:39 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 564C010E591;
- Tue, 28 Nov 2023 17:56:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFFEC10E2FD;
+ Tue, 28 Nov 2023 17:56:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,16 +19,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=KZh3ndq0U9pwMTmGIthUZp+jUYfjwcrU1VxM+4cdg8c=; b=Aq5sk3vLmnZnk+UeqV2JcblQZx
- PN1cwJ9D7YbOMHAXaHjiaQrrSQAhtWixDMxw7dC6B6j1GI6B8GQ0gDtUPbgVjlwVEHRA5I33b49/e
- Xz0bydPX9T5SXoVTOx6srrxBqe0874a7Jyem11LzztKwstQT0+h7VOo6K7pp+wJK6kAGktGR32XMl
- Hiw8mows6Ur6tMwsdDShKKqo5I7UPp1v54uNoYAF/TjnOgh5+zlTNNhAaXHwfTynSBOcFYggItavR
- /9sEd60bBxqZgagUJ514Vc80a9C51W0+sEZ0xYXbFebZE2LBwO5j4QSv8MBiUf3X+svfq6HFK8+dS
- aKwg4ZOg==;
+ bh=iyNEss5RZFJ0ikgyV0qyUc9PcakRWbZTUYKd2vlA8JM=; b=Lt85mt+TEcgjVRwD6POq0QKBYk
+ Lp4tfY12KKQbj4n3U5iapIiOIWrUBLx2cP85TNYFbDu2yQAmrzJRR9O5nPaUkNxU1eoCr/b1ZWRIA
+ qPMzVfJuUnzOEjrg/XF2JQd2kC64Ya8gRgKXcv4o+wk3HykcCtDj47XOJb8uJIkO1ISM5Y67Qj0EU
+ V95CoyWpFD2oa5AgFl87O4XDKzBlWZvhQNx7p+2ddmcvDGpZJn7H2nrRPfh0/rbVBI1sx9OmNrUnw
+ 8sPe6U0UlISR+pjGab3cQX6JyrU6PsD6iYg6kuqVs7j8gEiia37euvYL8Mf5NoWpAdeaZ78BUsbHq
+ HlsFo2xQ==;
 Received: from [102.213.205.115] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1r82K0-0087Bf-4V; Tue, 28 Nov 2023 18:56:32 +0100
+ id 1r82K3-0087Bf-Hb; Tue, 28 Nov 2023 18:56:35 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
@@ -37,10 +37,9 @@ To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Krunoslav Kovac <krunoslav.kovac@amd.com>, sunpeng.li@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch
-Subject: [PATCH v3 3/9] drm/amd/display: read gamut remap matrix in
- fixed-point 31.32 format
-Date: Tue, 28 Nov 2023 16:52:51 -0100
-Message-ID: <20231128175623.121356-4-mwen@igalia.com>
+Subject: [PATCH v3 5/9] drm/amd/display: add get_gamut_remap helper for MPC3
+Date: Tue, 28 Nov 2023 16:52:53 -0100
+Message-ID: <20231128175623.121356-6-mwen@igalia.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231128175623.121356-1-mwen@igalia.com>
 References: <20231128175623.121356-1-mwen@igalia.com>
@@ -61,102 +60,101 @@ Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of read gamut remap data from hw values, convert HW register
-values (S2D13) into a fixed-point 31.32 matrix for color state log.
-Change DCN10 log to print data in the format of the gamut remap matrix.
+We want to be able to read the MPC's gamut remap matrix similar to
+what we do with .dpp_get_gamut_remap functions. On the other hand, we
+don't need a hook here because only DCN3+ has the MPC gamut remap
+block, being absent in previous families.
 
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   | 38 +++++++++++++------
- drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h   |  3 ++
- 2 files changed, 29 insertions(+), 12 deletions(-)
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c  | 58 +++++++++++++++++++
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_mpc.h  |  4 ++
+ 2 files changed, 62 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-index 9b801488eb9d..f0a9f8818909 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-@@ -289,20 +289,26 @@ static void dcn10_log_color_state(struct dc *dc,
- 	struct resource_pool *pool = dc->res_pool;
- 	int i;
- 
--	DTN_INFO("DPP:    IGAM format  IGAM mode    DGAM mode    RGAM mode"
--			"  GAMUT mode  C11 C12   C13 C14   C21 C22   C23 C24   "
--			"C31 C32   C33 C34\n");
-+	DTN_INFO("DPP:    IGAM format    IGAM mode    DGAM mode    RGAM mode"
-+		 "  GAMUT adjust  "
-+		 "C11        C12        C13        C14        "
-+		 "C21        C22        C23        C24        "
-+		 "C31        C32        C33        C34        \n");
- 	for (i = 0; i < pool->pipe_count; i++) {
- 		struct dpp *dpp = pool->dpps[i];
- 		struct dcn_dpp_state s = {0};
- 
- 		dpp->funcs->dpp_read_state(dpp, &s);
-+		dpp->funcs->dpp_get_gamut_remap(dpp, &s.gamut_remap);
- 
- 		if (!s.is_enabled)
- 			continue;
- 
--		DTN_INFO("[%2d]:  %11xh  %-11s  %-11s  %-11s"
--				"%8x    %08xh %08xh %08xh %08xh %08xh %08xh",
-+		DTN_INFO("[%2d]:  %11xh  %11s    %9s    %9s"
-+			 "  %12s  "
-+			 "%010lld %010lld %010lld %010lld "
-+			 "%010lld %010lld %010lld %010lld "
-+			 "%010lld %010lld %010lld %010lld",
- 				dpp->inst,
- 				s.igam_input_format,
- 				(s.igam_lut_mode == 0) ? "BypassFixed" :
-@@ -322,13 +328,21 @@ static void dcn10_log_color_state(struct dc *dc,
- 					((s.rgam_lut_mode == 3) ? "RAM" :
- 					((s.rgam_lut_mode == 4) ? "RAM" :
- 								 "Unknown")))),
--				s.gamut_remap_mode,
--				s.gamut_remap_c11_c12,
--				s.gamut_remap_c13_c14,
--				s.gamut_remap_c21_c22,
--				s.gamut_remap_c23_c24,
--				s.gamut_remap_c31_c32,
--				s.gamut_remap_c33_c34);
-+				(s.gamut_remap.gamut_adjust_type == 0) ? "Bypass" :
-+					((s.gamut_remap.gamut_adjust_type == 1) ? "HW" :
-+										  "SW"),
-+				s.gamut_remap.temperature_matrix[0].value,
-+				s.gamut_remap.temperature_matrix[1].value,
-+				s.gamut_remap.temperature_matrix[2].value,
-+				s.gamut_remap.temperature_matrix[3].value,
-+				s.gamut_remap.temperature_matrix[4].value,
-+				s.gamut_remap.temperature_matrix[5].value,
-+				s.gamut_remap.temperature_matrix[6].value,
-+				s.gamut_remap.temperature_matrix[7].value,
-+				s.gamut_remap.temperature_matrix[8].value,
-+				s.gamut_remap.temperature_matrix[9].value,
-+				s.gamut_remap.temperature_matrix[10].value,
-+				s.gamut_remap.temperature_matrix[11].value);
- 		DTN_INFO("\n");
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
+index d1500b223858..a6a4c3413f89 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
+@@ -1129,6 +1129,64 @@ void mpc3_set_gamut_remap(
  	}
- 	DTN_INFO("\n");
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h
-index 597ebdb4da4c..b6acfd86642a 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h
-@@ -141,6 +141,7 @@ struct dcn_dpp_state {
- 	uint32_t igam_input_format;
- 	uint32_t dgam_lut_mode;
- 	uint32_t rgam_lut_mode;
-+	// gamut_remap data for dcn10_get_cm_states()
- 	uint32_t gamut_remap_mode;
- 	uint32_t gamut_remap_c11_c12;
- 	uint32_t gamut_remap_c13_c14;
-@@ -148,6 +149,8 @@ struct dcn_dpp_state {
- 	uint32_t gamut_remap_c23_c24;
- 	uint32_t gamut_remap_c31_c32;
- 	uint32_t gamut_remap_c33_c34;
-+	// gamut_remap data for dcn*_log_color_state()
-+	struct dpp_grph_csc_adjustment gamut_remap;
- };
+ }
  
- struct CM_bias_params {
++static void read_gamut_remap(struct dcn30_mpc *mpc30,
++			     int mpcc_id,
++			     uint16_t *regval,
++			     uint32_t *select)
++{
++	struct color_matrices_reg gam_regs;
++
++	//current coefficient set in use
++	REG_GET(MPCC_GAMUT_REMAP_MODE[mpcc_id], MPCC_GAMUT_REMAP_MODE_CURRENT, select);
++
++	gam_regs.shifts.csc_c11 = mpc30->mpc_shift->MPCC_GAMUT_REMAP_C11_A;
++	gam_regs.masks.csc_c11  = mpc30->mpc_mask->MPCC_GAMUT_REMAP_C11_A;
++	gam_regs.shifts.csc_c12 = mpc30->mpc_shift->MPCC_GAMUT_REMAP_C12_A;
++	gam_regs.masks.csc_c12 = mpc30->mpc_mask->MPCC_GAMUT_REMAP_C12_A;
++
++	if (*select == GAMUT_REMAP_COEFF) {
++		gam_regs.csc_c11_c12 = REG(MPC_GAMUT_REMAP_C11_C12_A[mpcc_id]);
++		gam_regs.csc_c33_c34 = REG(MPC_GAMUT_REMAP_C33_C34_A[mpcc_id]);
++
++		cm_helper_read_color_matrices(
++				mpc30->base.ctx,
++				regval,
++				&gam_regs);
++
++	} else  if (*select == GAMUT_REMAP_COMA_COEFF) {
++
++		gam_regs.csc_c11_c12 = REG(MPC_GAMUT_REMAP_C11_C12_B[mpcc_id]);
++		gam_regs.csc_c33_c34 = REG(MPC_GAMUT_REMAP_C33_C34_B[mpcc_id]);
++
++		cm_helper_read_color_matrices(
++				mpc30->base.ctx,
++				regval,
++				&gam_regs);
++
++	}
++
++}
++
++void mpc3_get_gamut_remap(struct mpc *mpc,
++			  int mpcc_id,
++			  struct mpc_grph_gamut_adjustment *adjust)
++{
++	struct dcn30_mpc *mpc30 = TO_DCN30_MPC(mpc);
++	uint16_t arr_reg_val[12];
++	int select;
++
++	read_gamut_remap(mpc30, mpcc_id, arr_reg_val, &select);
++
++	if (select == GAMUT_REMAP_BYPASS) {
++		adjust->gamut_adjust_type = GRAPHICS_GAMUT_ADJUST_TYPE_BYPASS;
++		return;
++	}
++
++	adjust->gamut_adjust_type = GRAPHICS_GAMUT_ADJUST_TYPE_SW;
++	convert_hw_matrix(adjust->temperature_matrix,
++			  arr_reg_val, ARRAY_SIZE(arr_reg_val));
++}
++
+ bool mpc3_program_3dlut(
+ 		struct mpc *mpc,
+ 		const struct tetrahedral_params *params,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.h b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.h
+index 5198f2167c7c..9cb96ae95a2f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.h
+@@ -1056,6 +1056,10 @@ void mpc3_set_gamut_remap(
+ 	int mpcc_id,
+ 	const struct mpc_grph_gamut_adjustment *adjust);
+ 
++void mpc3_get_gamut_remap(struct mpc *mpc,
++			  int mpcc_id,
++			  struct mpc_grph_gamut_adjustment *adjust);
++
+ void mpc3_set_rmu_mux(
+ 	struct mpc *mpc,
+ 	int rmu_idx,
 -- 
 2.42.0
 
