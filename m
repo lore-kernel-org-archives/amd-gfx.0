@@ -4,57 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80D45C4167B
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Nov 2023 18:40:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F28EDC4167B
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Nov 2023 18:45:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29A8C10E052;
-	Wed, 29 Nov 2023 18:40:36 +0000 (UTC)
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BA1710E052
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Nov 2023 18:40:35 +0000 (UTC)
-Received: by mail-ot1-x332.google.com with SMTP id
- 46e09a7af769-6d84ec109fbso84697a34.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Nov 2023 10:40:35 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEA3310E236;
+	Wed, 29 Nov 2023 18:45:34 +0000 (UTC)
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9AD010E21E;
+ Wed, 29 Nov 2023 18:45:32 +0000 (UTC)
+Received: by mail-oi1-x236.google.com with SMTP id
+ 5614622812f47-3b85dcecc62so36591b6e.2; 
+ Wed, 29 Nov 2023 10:45:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1701283234; x=1701888034; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1701283532; x=1701888332; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=vk7JrAawAHloaVnarymRWt/jZosO9ViYZILZNMgjEHI=;
- b=RZ83c6lffrKqOW9ey9Xj/kxq9pQLmtSsAG7hq0Ul8bNBj5glH2BG8idK88+s3RnLPi
- 6NNJY8bCq+/6eW8CrdOgRIZlzLEU1EWtR5B1AtUz2SALOQYSWecDEdQG1Od+wgfHFW2e
- o//MH883b7LCf/CAkonKHRvyW7gb1wstxcb/tsSHbREASE0xADrRL7PEL+zth+Ir63Pg
- Hyv1kriTcFoTTFKUrSZZkFwo9l1Navddvvz0HDKdkAwedAF4WOn4OilJEfDTp2Kkdc2K
- qaHxwikPkOUvjWppbr4rPpGgEm127Yti5yQ9uSXwkD/QOvVe9O0cSCZzXvdOMxjJNeLa
- aU+g==
+ bh=n7DCR/D2puLrlYKtfnL5wOuzekl2PYjebLOO/OkVlkg=;
+ b=fW1vSeMtOM2sjoMF44K0za+dKtEYs5IacUCp0YnbTOT4j22IHYSlssNDVM25CfQ/7F
+ Te91Rk/imjsqN4Intujb9WwUncP98HuioyPKgWUSHhdZtuGWciQ8/VsAM2xhjow0MMnl
+ b0aT+nodNkZ3RLZUAgOhiyPeMT/nrGFIiarsjv+A2aLHEFo/eN1oM4MEN6CcbyG5S62m
+ N5eoLjJSh9H5+PGjQ4mBirg9cziOlywKVsLZTKfvYtzBTFWZfxH6j+eaYbhXQbY+UMZE
+ k5fCRqfZ52gVCVo3Zc0Jvll7Gew/697YsVciHo3KOsJsJFjfPuCnJCQ3bIwad959t40h
+ 8+OQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701283234; x=1701888034;
+ d=1e100.net; s=20230601; t=1701283532; x=1701888332;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=vk7JrAawAHloaVnarymRWt/jZosO9ViYZILZNMgjEHI=;
- b=JOXbIVtV+BDW2MQemsIHF+Le+MWEuJHAnDIU7zq9rV79SdFoLFhrk9k3yT4yktlR/L
- cZ/adGVO+KuunGnBrwdsD2Fi3VQh+OjU3uFt4bQMsVDJ7vQojdfjZI+vtW4GhEsbpJno
- t+PukWG5dH+aMN3m2rmRbxRl/CJ/158RX+8OiYWa8jnJufFVnZoEbTEkLHW2FdpEvlTt
- 5zCEFp/OTBNoOdT3aPuQI0wZYEcWbM4bNqtwSZ23+EY6iv9n2WtP3noz+b7TpY4KuY9w
- qBc/3HXrSlmodpaSqmqJGR/BHaTRDxAM8w4XDSI/yOqayVtHclCBN1rmoGqvLswWOi/0
- FfjA==
-X-Gm-Message-State: AOJu0YxveDhZOJ9y1307CERwr5WGLjSgmgiLydSMr5kt8NxYcs/du/Ji
- cqLTHJkyBf676VramWyNBUWhEZqWNwnYsk+UnB4=
-X-Google-Smtp-Source: AGHT+IGwuN8j/pNmEdCqGQigFXy++KsVa/CRDkhx5tt7E9BjTCyo5ukIXAEs91xuvuIUiY9H962LAgQSi5WRmn2N4nw=
-X-Received: by 2002:a05:6870:f783:b0:1ea:746d:16f7 with SMTP id
- fs3-20020a056870f78300b001ea746d16f7mr27324881oab.6.1701283234217; Wed, 29
- Nov 2023 10:40:34 -0800 (PST)
+ bh=n7DCR/D2puLrlYKtfnL5wOuzekl2PYjebLOO/OkVlkg=;
+ b=RWkjnDqHlr0nec6GB37wgU7PS0BABUs2nQOsbgeQeau/pSMIuR90hNsPH8mxEJb4Lg
+ jZ7t0UHDLpTroi2FWdkPPSGred7xcPvG25FCujdby083+zPy+W9iZo7kfukWnVtJb6EM
+ XpydTbrvhm2rz/NH1UlZ5ek05xYOlQFhVohmpEbgiQPV1E5XmSqFEADl0/n5DFLwPh8a
+ rlZlz/ZgzDNUWPHfiuIgGEX4t5rBeqV04xAaxd4gAGq64dBqvhVKDSZsXVd67klyImst
+ ZXg6PLHlWOB9LlfEa45yJcu+eJEr0CqbaQlV5Nt95usD+7SzpmDwhu9GkgLqFTGOXyAG
+ pAHg==
+X-Gm-Message-State: AOJu0YxQsizoYjXIc5Y10+6cgYovmpT0+e0d9XsPSpZlghSP65C0R9Be
+ 1qerGxxUmYQgVazei76m94JIuL3u1O9nAdTgBeym3xK5B20=
+X-Google-Smtp-Source: AGHT+IHlGLSafRGtkek0S5tuVTw6o7OhfniAJh5CzM0bn20/DR1kfW77Bo0cCRmK4BBhQD4xqF8usW0gMwTqN3vrV/Q=
+X-Received: by 2002:a05:6870:9e06:b0:1f9:f5c5:c023 with SMTP id
+ ps6-20020a0568709e0600b001f9f5c5c023mr28673722oab.57.1701283531835; Wed, 29
+ Nov 2023 10:45:31 -0800 (PST)
 MIME-Version: 1.0
-References: <20231129085156.30698-1-Jun.Ma2@amd.com>
- <d21116d8-9747-4b0f-b574-18b0d5558f16@amd.com>
-In-Reply-To: <d21116d8-9747-4b0f-b574-18b0d5558f16@amd.com>
+References: <87edgv4x3i.fsf@vps.thesusis.net>
+ <559d0fa5-953a-4a97-b03b-5eb1287c83d8@leemhuis.info>
+ <CAPM=9tw-8pQWFso0zuLqpsqd5BSHWtc4As9ttdjY-DDr70EMqQ@mail.gmail.com>
+ <bdb238b6-60c7-4f26-81d0-9e62cd5dd326@gmail.com>
+ <CADnq5_NVGS1XykxGxpcu_bpPbzboCUJQkcCF3r+0N9a23KUgiQ@mail.gmail.com>
+ <96e2e13c-f01c-4baf-a9a3-cbaa48fb10c7@amd.com>
+ <CADnq5_NBfeAXEyQw0gnSd67=tR-bUKg8w=10+4z9pGGuRnP9uw@mail.gmail.com>
+ <87jzq2ixtm.fsf@vps.thesusis.net>
+ <CADnq5_Ou-MVVm0rdWDmDnJNLkWUayXzO26uCEtz3ucNa4Ghy2w@mail.gmail.com>
+ <95fe9b5b-05ce-4462-9973-9aca306bc44f@gmail.com>
+ <CADnq5_MYEWx=e1LBLeVs0UbR5_xEScjDyw_-75mLe8RAMnqh6g@mail.gmail.com>
+ <05007cb0-871e-4dc7-af58-1351f4ba43e2@gmail.com>
+In-Reply-To: <05007cb0-871e-4dc7-af58-1351f4ba43e2@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 29 Nov 2023 13:40:22 -0500
-Message-ID: <CADnq5_P0rArhq19Hq6_tBb2jB5OdY+TCtyb6ops12M2rJ6Owqw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Add a new module param to disable d3cold
-To: Mario Limonciello <mario.limonciello@amd.com>
+Date: Wed, 29 Nov 2023 13:45:20 -0500
+Message-ID: <CADnq5_P3iCNRZ6o3w=u1GrZCd7vkM8GspTpdwT-1G_1eJSNwmQ@mail.gmail.com>
+Subject: Re: Radeon regression in 6.6 kernel
+To: Luben Tuikov <ltuikov89@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,154 +78,148 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Ma Jun <Jun.Ma2@amd.com>, Kenneth.Feng@amd.com,
- kevinyang.wang@amd.com, amd-gfx@lists.freedesktop.org
+Cc: Linux regressions mailing list <regressions@lists.linux.dev>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Danilo Krummrich <dakr@redhat.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Phillip Susi <phill@thesusis.net>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Nov 29, 2023 at 1:02=E2=80=AFPM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
+On Wed, Nov 29, 2023 at 11:21=E2=80=AFAM Luben Tuikov <ltuikov89@gmail.com>=
+ wrote:
 >
-> On 11/29/2023 02:51, Ma Jun wrote:
-> > Some platforms can't resume from d3cold state, So add a
-> > new module parameter to disable d3cold state for debugging
-> > purpose or workaround.
+> On 2023-11-29 08:50, Alex Deucher wrote:
+> > On Tue, Nov 28, 2023 at 11:45=E2=80=AFPM Luben Tuikov <ltuikov89@gmail.=
+com> wrote:
+> >>
+> >> On 2023-11-28 17:13, Alex Deucher wrote:
+> >>> On Mon, Nov 27, 2023 at 6:24=E2=80=AFPM Phillip Susi <phill@thesusis.=
+net> wrote:
+> >>>>
+> >>>> Alex Deucher <alexdeucher@gmail.com> writes:
+> >>>>
+> >>>>>> In that case those are the already known problems with the schedul=
+er
+> >>>>>> changes, aren't they?
+> >>>>>
+> >>>>> Yes.  Those changes went into 6.7 though, not 6.6 AFAIK.  Maybe I'm
+> >>>>> misunderstanding what the original report was actually testing.  If=
+ it
+> >>>>> was 6.7, then try reverting:
+> >>>>> 56e449603f0ac580700621a356d35d5716a62ce5
+> >>>>> b70438004a14f4d0f9890b3297cd66248728546c
+> >>>>
+> >>>> At some point it was suggested that I file a gitlab issue, but I too=
+k
+> >>>> this to mean it was already known and being worked on.  -rc3 came ou=
+t
+> >>>> today and still has the problem.  Is there a known issue I could tra=
+ck?
+> >>>>
+> >>>
+> >>> At this point, unless there are any objections, I think we should jus=
+t
+> >>> revert the two patches
+> >> Uhm, no.
+> >>
+> >> Why "the two" patches?
+> >>
+> >> This email, part of this thread,
+> >>
+> >> https://lore.kernel.org/all/87r0kircdo.fsf@vps.thesusis.net/
+> >>
+> >> clearly states that reverting *only* this commit,
+> >> 56e449603f0ac5 drm/sched: Convert the GPU scheduler to variable number=
+ of run-queues
+> >> *does not* mitigate the failed suspend. (Furthermore, this commit does=
+n't really change
+> >> anything operational, other than using an allocated array, instead of =
+a static one, in DRM,
+> >> while the 2nd patch is solely contained within the amdgpu driver code.=
+)
+> >>
+> >> Leaving us with only this change,
+> >> b70438004a14f4 drm/amdgpu: move buffer funcs setting up a level
+> >> to be at fault, as the kernel log attached in the linked email above s=
+hows.
+> >>
+> >> The conclusion is that only b70438004a14f4 needs reverting.
 > >
-> > Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
-> > ---
+> > b70438004a14f4 was a fix for 56e449603f0ac5.  Without b70438004a14f4,
+> > 56e449603f0ac5 breaks amdgpu.
 >
-> This patch is essentially an 'amdgpu knob' for d3cold on the root port.
-> At least for debugging purposes we also have a sysfs file
-> 'd3cold_allowed' that will enact the same behavior.
+> It doesn't "break" it, amdgpu just needs to be fixed.
 >
-> I do have a patch that I proposed to PCI core that stops d3cold_allowed
-> from working in favor of requesting pcie_port_pm=3Doff to be used instead
-> for debugging purposes.
+> I know we put in a Fixes tag in
+> b70438004a14f4 "drm/amdgpu: move buffer funcs setting up a level"
+> pointing to 56e449603f0ac5 "drm/sched: Convert the GPU scheduler to varia=
+ble number of run-queues",
+> but given the testing Phillip has done, the culprit is wholly contained i=
+n
+> the amdgpu driver code.
 >
-> However that's a 'relatively big' debugging knob however as it will
-> apply to all PCIe root ports.
+> No other driver has this problem since commit 56e449603f0ac5.
 >
-> Considering above I'm in favor of this being available as a localized
-> debugging path for just the root port the dGPU is connected to.
+> The Fixes tag in b70438004a14f4 "drm/amdgpu: move buffer funcs setting up=
+ a level" should've ideally
+> pointed to an amdgpu-driver code commit only (perhaps an old-old commit),=
+ and I was a bit uncomfortable
+> putting in a Fixes tag which pointed to drm code, but we did it so that t=
+he amdgpu commit follows
+> the changes in DRM. In retrospect, the Fixes tag should've pointed to and=
+ amdgpu-driver commit when
+> that the amdgpu code was originally written.
+>
+> I remember that the problem was really that amdgpu called drm_sched_entit=
+y_init(),
+> in amdgpu_ttm_set_buffer_funcs_status() without actually having initializ=
+ed the scheduler
+> used therein. For instance, the code before commit b70438004a14f4, looked=
+ like this:
+>
+> void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool =
+enable)
+> {
+>         struct ttm_resource_manager *man =3D ttm_manager_type(&adev->mman=
+.bdev, TTM_PL_VRAM);
+>         uint64_t size;
+>         int r;
+>
+>         if (!adev->mman.initialized || amdgpu_in_reset(adev) ||
+>             adev->mman.buffer_funcs_enabled =3D=3D enable)
+>                 return;
+>
+>         if (enable) {
+>                 struct amdgpu_ring *ring;
+>                 struct drm_gpu_scheduler *sched;
+>
+>                 ring =3D adev->mman.buffer_funcs_ring;
+>                 sched =3D &ring->sched;                             <-- L=
+T: No one has initialized this scheduler
+>                 r =3D drm_sched_entity_init(&adev->mman.entity,     <-- O=
+opses, now that sched->sched_rq is not a static array
+>                                           DRM_SCHED_PRIORITY_KERNEL, &sch=
+ed,
+>                                           1, NULL);
+>                 if (r) {
+>                         DRM_ERROR("Failed setting up TTM BO move entity (=
+%d)\n",
+>                                   r);
+>                         return;
+>                 }
+>
+>
+> Before commit 56e449603f0ac5, amdgpu was getting away with this, because =
+the sched->sched_rq
+> was a static array.
+>
+> Ideally, amdgpu code would be fixed.
 
-What functionality does this option provide that runpm=3D0 does not?
-AFAIK, the pci core should not enter d3cold at runtime if the driver
-doesn't call pm_runtime_allow().
+b70438004a14f4 was the amdgpu fix for this, but it appears to break
+suspend for some users.  I'm not confident we can fix it in time for
+6.7 final.
 
 Alex
-
->
-> Some comments below though:
->
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 1 +
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++++++
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 8 ++++++++
-> >   3 files changed, 16 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu.h
-> > index a9f54df9d33e..db9f60790267 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > @@ -166,6 +166,7 @@ extern char amdgpu_lockup_timeout[AMDGPU_MAX_TIMEOU=
-T_PARAM_LENGTH];
-> >   extern int amdgpu_dpm;
-> >   extern int amdgpu_fw_load_type;
-> >   extern int amdgpu_aspm;
-> > +extern int amdgpu_d3cold;
-> >   extern int amdgpu_runtime_pm;
-> >   extern uint amdgpu_ip_block_mask;
-> >   extern int amdgpu_bapm;
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_device.c
-> > index 22b6a910b7f2..90501c44e7d0 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -264,6 +264,13 @@ bool amdgpu_device_supports_px(struct drm_device *=
-dev)
-> >   bool amdgpu_device_supports_boco(struct drm_device *dev)
-> >   {
-> >       struct amdgpu_device *adev =3D drm_to_adev(dev);
-> > +     struct pci_dev *parent;
-> > +
-> > +     if (!amdgpu_d3cold) {
-> > +             parent =3D pcie_find_root_port(adev->pdev);
-> > +             pci_d3cold_disable(parent);
-> > +             return false;
-> > +     }
-> >
-> >       if (adev->has_pr3 ||
-> >           ((adev->flags & AMD_IS_PX) && amdgpu_is_atpx_hybrid()))
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_drv.c
-> > index 5f14f04cb553..c9fbb8bd4169 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > @@ -145,6 +145,7 @@ char amdgpu_lockup_timeout[AMDGPU_MAX_TIMEOUT_PARAM=
-_LENGTH];
-> >   int amdgpu_dpm =3D -1;
-> >   int amdgpu_fw_load_type =3D -1;
-> >   int amdgpu_aspm =3D -1;
-> > +int amdgpu_d3cold =3D -1;
->
-> If this was chained to a larger workaround (such as automatically
-> applying to a DMI quirk) it would make sense as int and with using
-> -1 for auto.  However there is a pretty dramatic downside for using this
-> knob that it can break s2idle.
->
-> In my testing I've found that the following happens on an A+A design
-> after s2idle with this parameter in use.
->
-> [   70.572270] pcieport 0000:01:00.0: Unable to change power state from
-> D3cold to D0, device inaccessible
-> [   70.572481] pcieport 0000:02:00.0: Unable to change power state from
-> D3cold to D0, device inaccessible
-> [   72.855769] amdgpu 0000:03:00.0: not ready 1023ms after resume; waitin=
-g
-> [   73.943545] amdgpu 0000:03:00.0: not ready 2047ms after resume; waitin=
-g
-> [   76.055602] amdgpu 0000:03:00.0: not ready 4095ms after resume; waitin=
-g
-> [   80.279550] amdgpu 0000:03:00.0: not ready 8191ms after resume; waitin=
-g
-> [   88.983562] amdgpu 0000:03:00.0: not ready 16383ms after resume; waiti=
-ng
-> [  105.879581] amdgpu 0000:03:00.0: not ready 32767ms after resume; waiti=
-ng
-> [  142.743646] amdgpu 0000:03:00.0: not ready 65535ms after resume;
-> giving up
-> [  142.743793] amdgpu 0000:03:00.0: Unable to change power state from
-> D3cold to D0, device inaccessible
-> [  142.804011] snd_hda_intel 0000:03:00.1: Unable to change power state
-> from D3cold to D0, device inaccessible
->
-> So I don't see us ever automatically using this and it should be
-> debugging only.  IOW this doesn't need to be integer; it can be boolean.
->
-> >   int amdgpu_runtime_pm =3D -1;
-> >   uint amdgpu_ip_block_mask =3D 0xffffffff;
-> >   int amdgpu_bapm =3D -1;
-> > @@ -359,6 +360,13 @@ module_param_named(fw_load_type, amdgpu_fw_load_ty=
-pe, int, 0444);
-> >   MODULE_PARM_DESC(aspm, "ASPM support (1 =3D enable, 0 =3D disable, -1=
- =3D auto)");
-> >   module_param_named(aspm, amdgpu_aspm, int, 0444);
-> >
-> > +/**
-> > + * DOC: d3cold (int)
->
-> If you flip it to boolean as I suggested this should probably either
-> rename to disable_d3cold or you should default to TRUE.
->
-> > + * To disable d3cold (1 =3D enable, 0 =3D disable). The default is -1 =
-(auto, enabled).
-> > + */
-> > +MODULE_PARM_DESC(d3cold, "d3cold support (1 =3D enable, 0 =3D disable,=
- -1 =3D auto)");
-> > +module_param_named(d3cold, amdgpu_d3cold, int, 0444);
-> > +
-> >   /**
-> >    * DOC: runpm (int)
-> >    * Override for runtime power management control for dGPUs. The amdgp=
-u driver can dynamically power down
->
