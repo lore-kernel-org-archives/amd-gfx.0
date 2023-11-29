@@ -4,91 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E7C5C4167B
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Nov 2023 05:58:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72366C07CB1
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Nov 2023 06:51:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBEBA10E350;
-	Wed, 29 Nov 2023 05:58:36 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2075.outbound.protection.outlook.com [40.107.94.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DC5410E068
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Nov 2023 05:58:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0760510E335;
+	Wed, 29 Nov 2023 06:51:55 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2069.outbound.protection.outlook.com [40.107.244.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB7FC10E0C0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Nov 2023 06:51:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SD17Y3k72EGkB81WblEq7a4fs/2twWih2AHF10LdOSgynoeg6zzVKVCg6a+MeHfHodQSotd+UqNT3HVjRtkRAJqjSaTCryfeaWrXvML7T8KkprSCJoU6IV8Pk4rO53uH2L5Nfoj9W8eU5p5QbGyT817JZaTkG8G5ERHwjFiQtNyHako4HYCZaCCT9ucXf9BUI7/XNOgwDPzb8Y3D0QT34Y45uZhESEloT3NDhfcIy88GWE1GLot2HdLAatjiLaZ/o9l2QeY2fBhbggKjaVmr1vN6GpzBOmWZodQVTmkEKtGcufcwCgwh+YIm5KU6wMJEtATC0nMbKGyGSDt1WV1uYQ==
+ b=VXC6WtqTvF4iD2UVCq1yEfjDnBNVFF0FlZ/iWXSs/STqqRtmLfxp69WkcaePsQI6R9J+2WTcz19f1rp8/IQBpyFwI5rm0f1SIgJmkPSqSOb5Xg5vBSBXVLVzieejwlOQAzwckQs/xDQdoFSEdYaT3pTG0dxpSjszwPWj/lCSHJg7dVtBeU6d1MsmquIW0/YkaNIJuFeIYFZKGL3fu1l6gziPdBa+AQrba/fiFD7ZWpxy900lSar2hCtCg3Y9zkrG5/onSo96a7odARicLx54NQ/EZtlQE4JoSQfxK+qFQRQZVFaAjPQn9PBnGXucjXYXazxq1oZ4UgctgHJS9cuInQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QxHD9lvqd+FbKgUB93iaCDRaTHOUMNbKWlcXfI7+hcI=;
- b=FWrKYsznfih3SLQ064o6ccQBvEwMec7qD6YWn+2T2QXLuh7w34HJ3WaAwTylK5J2Yzkc53cqURrsuYHhEYbK/x4/8vtcQ9QjgxxGCrbZYhUa5GMxZ2BDCbLDf2Q3rgihAaPbEjCxs+Xm1pmRmmjP8YrFc9BOijC/AwoeoPzx9fWgBU2E+LMPV1MAIK6dHfB+osFuAhtXgwxU1aVOr00wB2h3uVBv4l/Clzw0/wfIIbTHZzAXWqWsz3WSQSujkvhryAFpw4oH9cWJDs/1uYI91dzrvU2cTCD1+NTI61jtH8tiEy7UN7IQTJyi5XKCOHyFqzIvibQZTJ81OLOL8JHusQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=re0AN0LKHgUQveobU2RW7zwGV1TShjXtTjW0wId21vc=;
+ b=n+8WfXY7EW3axpNbPvRX5D5yWL7OjzJOgBfIeyPIUzDuM6yxegUPspIhRTfSNct2W2g3zr2IQMXSB54woGYrxIvX35WhgmP3A0IO0tUWc876KliDytlU9+OV/ZLeMG0Jby5wEYDzs2Ngd5d8G3CgBijZruc+0yd2nGtv3xi4T0fRSo+LL4oSJBTC3/2XGqjibE103dLSpLMC0zREZka75uxM4tW/eMyvSUbp8pUMHeV91p5GH8vU9MFBs11LIHZB/Hhtz73aTpp5Glghyta97Vlu1wupmJV9/sZeFhxyn/vSUOU2E8Z8+b7HE9I9nevMaEwmSrZymV07F9bJuUR2oA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QxHD9lvqd+FbKgUB93iaCDRaTHOUMNbKWlcXfI7+hcI=;
- b=uR5G9OO+ZP0FniLZq9GpNpEBjpv0JV9bwOdVkvqwRIhypjPp+mjKsgb6Gx7SYMvnbs6syrFi0JDmuHAKXR6VldSX8+F2v4kUPIctWqoQbI/gHw/kqCZU9PZ2e66WcUgIqPLLmlWVAYfdCv43ci5hnezrDL2yYCWaJgekU/LYReo=
-Received: from BL0PR03CA0016.namprd03.prod.outlook.com (2603:10b6:208:2d::29)
- by CH3PR12MB8484.namprd12.prod.outlook.com (2603:10b6:610:158::8)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=re0AN0LKHgUQveobU2RW7zwGV1TShjXtTjW0wId21vc=;
+ b=efb0cbup/hJPxJ0htTs8WJqLmpBNc90GBVJqFzXBXQozB13112VrgpzZS+YC4xLtDNmIvSLVIcbYfbyHpjNbNzkNYMcrciqmfH7FWXA7W5+yJ0hvdFW3oeuFRRqInuGeiLWMqS72mj3jJr6SiiEq1xLTvECYaAGVWjuL/txtCRQ=
+Received: from DM4PR12MB5072.namprd12.prod.outlook.com (2603:10b6:5:38b::22)
+ by CY5PR12MB6455.namprd12.prod.outlook.com (2603:10b6:930:35::10) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.29; Wed, 29 Nov
- 2023 05:58:27 +0000
-Received: from BL02EPF0001A106.namprd05.prod.outlook.com
- (2603:10b6:208:2d:cafe::4c) by BL0PR03CA0016.outlook.office365.com
- (2603:10b6:208:2d::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.29 via Frontend
- Transport; Wed, 29 Nov 2023 05:58:27 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A106.mail.protection.outlook.com (10.167.241.139) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7046.17 via Frontend Transport; Wed, 29 Nov 2023 05:58:27 +0000
-Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 28 Nov
- 2023 23:58:26 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 3/3] drm/amd: Drop calls for checking "support" for
- BACO/BOCO/PX
-Date: Tue, 28 Nov 2023 12:52:38 -0600
-Message-ID: <20231128185238.187381-4-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231128185238.187381-1-mario.limonciello@amd.com>
-References: <20231128185238.187381-1-mario.limonciello@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A106:EE_|CH3PR12MB8484:EE_
-X-MS-Office365-Filtering-Correlation-Id: fbd298ac-8c3b-487a-85f0-08dbf0a034ec
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nZBNiGqTQKnMDVYY/oajnE+Jag7y5FZbOntElAEeCSzKxsCxE+1kKCO6nNyf1kRhhiArO5Z1JpFtd8TkQ2yNjz3RSMtkxz1MEMvb0IP1fInRQShHcKsfBt3tLmJoOUh2/1qbJSTf6+9i3WY1BZ33mquL3Mqtub85fCZI3oK7EvI09ezRToAuFKHfSc9dvp4d5xpS+DMbXZvHrUvy8NbXCNBHsYnw5MmsparK12ya7cjLpfz1A4a4reVNlptUXRFdbxz9wg0iSjiCVqgB1eoDcGreQDgRKBEAnO7gUT6lrdGlprBc9uyeVgmTzRW5Pf/BIiwv0Pl37jYX5UCkSqR784DFBYdf3uFE04/xDAfUmMN7/pSItj8vz27yRDLmPfsQWiC/ZcVyE4q39xElY4yamhNwSDBkUWRS70eN+HJrfub+oxteO9P4Ax6uUdFv8NSbT4HNzV0mqe5E/aRM/8GlHnvKXsp0ZquBR5JSk87S6RVH8+KPNI6g4qtFC5pRKDx044WUnoSoWzHYtGl97oP2p5HlJg2WSVP32qhmY1VSUNoMBE7k4mmEEdHmsfiOPoK5o41JO0oGPaXNoAV2/h3QJOFYewnqKrXbawioouzNQSqF0bI6GvChGnNacdoETHQsJZSr6+d5LD19O7d7hGeMdt6dMSQOWMUiqErlKuS+K9Xycjsv2/WB+Y+DaaXByvCtcF0reA3L9aSsbSvwm/bDgk+tGtSsEiqE0xfMtGc8090X1J5ZYQpKCCPMQK2Wmmzs6ZbevTqZcm02du+r9p2HQQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(136003)(376002)(396003)(346002)(230922051799003)(82310400011)(1800799012)(451199024)(186009)(64100799003)(40470700004)(36840700001)(46966006)(83380400001)(81166007)(356005)(47076005)(336012)(8936002)(82740400003)(7696005)(8676002)(426003)(70586007)(70206006)(36860700001)(54906003)(316002)(4326008)(86362001)(44832011)(6916009)(5660300002)(478600001)(40480700001)(36756003)(41300700001)(2906002)(16526019)(6666004)(2616005)(1076003)(26005)(40460700003)(36900700001);
+ 2023 06:51:50 +0000
+Received: from DM4PR12MB5072.namprd12.prod.outlook.com
+ ([fe80::5f7a:93d6:c60:431e]) by DM4PR12MB5072.namprd12.prod.outlook.com
+ ([fe80::5f7a:93d6:c60:431e%4]) with mapi id 15.20.7025.022; Wed, 29 Nov 2023
+ 06:51:50 +0000
+From: "Chen, Horace" <Horace.Chen@amd.com>
+To: "Yin, ZhenGuo (Chris)" <ZhenGuo.Yin@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zha,
+ YiFan(Even)" <Yifan.Zha@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Skip access gfx11 golden registers under SRIOV
+Thread-Topic: [PATCH] drm/amdgpu: Skip access gfx11 golden registers under
+ SRIOV
+Thread-Index: AQHaHespoRiQ57S0eEiFQ+PA8zrdrLCNeuqAgANouQA=
+Date: Wed, 29 Nov 2023 06:51:50 +0000
+Message-ID: <DM4PR12MB5072B3371E70697243FE691BE183A@DM4PR12MB5072.namprd12.prod.outlook.com>
+References: <20231123085714.254103-1-zhenguo.yin@amd.com>
+ <3a94bd18-bd1c-9608-9b14-413a13e854ae@amd.com>
+In-Reply-To: <3a94bd18-bd1c-9608-9b14-413a13e854ae@amd.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=8b9b16b7-3fad-4209-be49-6a86555b4d7c;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-11-29T06:46:10Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5072:EE_|CY5PR12MB6455:EE_
+x-ms-office365-filtering-correlation-id: 2064632e-3542-4e68-5c81-08dbf0a7aa1b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 42VIvHHJuFn4QU0AKkCKckf1lgba8FcEJl7uI2hOI1ivfkYwDthAv2EgNpUXcTjXmCyFShHD5dfBlLDTr6O58pohNWt9+CbsSR5d2Ax+9tphTR7VrJuFa8Iz/UgDRiOZv6x2/9kixt7ppFXbl2uEoWVL47y1XdzmCe9t2eGWLEPNzS6JFJG4Pnxl1fas4M9OkDaPOTyyN5M0j1BEnwBeAMIU2lIwniWnGjU+EhK/sJdieiY5dIsJOSSTAn7dR1iaUEXmiko/wOdH56+9wjNVqLscxqsPMMsRWlyj1114qWNImUKYDnUF8mBNH9+Q2KsLn59qSRwT0YfWHNtdIsVzhowJla9lHhwpVw5k17F5nhZ89Tm08Su75vFzLWJTQaKya/Yve79szjOtaUPXcEQMDAi9JRu8eUz9n2sHCEEvHIDOWzPsVR5oyd5OzWA0eE/C7Gjbqi87ORQ1jwzBzYUNMX6H4h1hrP6oEarZnFyFu+gzXSY0n5dzE2deASthTe1IXayXHghhK1BL8w0mM1qX6hs2xiuSGthUpGVCYhddKB0Rol9fC5ShG3pXzY/fCRkc88yp2Sx5uAjr3svtLyLmIOArqRmshhItk7iT6Gk8FNrl7JwRqqGe50ck43xMmCqt
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5072.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376002)(396003)(366004)(39860400002)(346002)(136003)(230922051799003)(451199024)(1800799012)(64100799003)(186009)(52536014)(2906002)(5660300002)(8936002)(8676002)(41300700001)(55016003)(316002)(110136005)(64756008)(6636002)(66446008)(66556008)(66476007)(66946007)(76116006)(478600001)(9686003)(6506007)(7696005)(86362001)(71200400001)(53546011)(26005)(83380400001)(33656002)(122000001)(38070700009)(38100700002);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Ty9mcER4dDcxYWJDVXRFQVp2UjlJSTBjTWpXa1cwV1VGTmd2dW9RZkpEcUo2?=
+ =?utf-8?B?cGpDUHRRTE1FUWdMKzl6NFljYmYyUjNYaEFSSzBEbWorcGEwSlJpcnNMYUx2?=
+ =?utf-8?B?d1FoM21UL1liZE42MGpneHZzM09PcE14QnN0c0RTNk5QeXU3NVc3K3Vid2Ex?=
+ =?utf-8?B?ZmVqaG1iNEJvajErOEwwcm03c2lQYldBRkpRbWh3RUV0d1p1dVlDTGFqOS8x?=
+ =?utf-8?B?a0ZVejI3YkdzcUlrZDEvNzN1RmNsNnNaeEVFY1Z5LzRQYU5weDE5Zi9xSlRL?=
+ =?utf-8?B?Ny9WanoyQVNmOEhQK0ZENC9oRW5LTW5yL2h3VTk2N2xIL3p2SWFqYXc2UW1q?=
+ =?utf-8?B?R2pIaGxkWENKc3FLVnBDZWdLZTdJMHcxVnJ5ZWhqa3A3aWNSaU16T1hpa3ov?=
+ =?utf-8?B?WTAyYm1BaGNvanVEblBLMWZyS2VraEgxdExya0JtSlp4THl1RFdzWmIzc0pN?=
+ =?utf-8?B?RGR0OEVzVEEwQy9sZXplY2prSm5pRnhCdE5FcWMxR3dyeno2eVEzYW8zY0tt?=
+ =?utf-8?B?dkZjdHB6WTNUeWxldTRKSEREcStsamhaaWE4Yjk3SDhvR0FOVWxVUURhOVdo?=
+ =?utf-8?B?WEc2NGpuQ2JKemdMbVdMRFp5YW5BTXQ3bGY0bFk0bUhmN3hRMTl2bXRoZURZ?=
+ =?utf-8?B?WnMyT3NrZDJrcjhNOEJLMHNDL0c1enR6eFMyaysweVZ1djlRNzhTT2tyMGhS?=
+ =?utf-8?B?K2hLdDA0clIvYWFCTmRMWjJVNnplTlRTWHJkSm5zNGp3YUtlNzc3dlhzZUxQ?=
+ =?utf-8?B?cHNPdmU0OEd0eGU1d2Z2Y1YzK1A2SmNaUTNYTzA5NE9XUVc5OHkycDNIeDJR?=
+ =?utf-8?B?aWI1MzJuUW5GMTk1aDJTVVpkS0sxeE5WZ0JVZDZmcGxIZk5jOVYxWXJXbjM5?=
+ =?utf-8?B?SDZjTnRMRUtJbEJQam91VWJvVzhIY0pqeHBWNGNvYmR6eFl2c0NBeE5Dazlz?=
+ =?utf-8?B?ckF1R0VvT1BKbzRzNWU2R2s3TDdGSVZwMXdrNE8vcTQ0bDRGYUNsZXFmS1pq?=
+ =?utf-8?B?OTdEM0I3R05hejBLREhHYmhaYUswM050Q3VQY3dNbjRQUzNKVTlLand0dkk2?=
+ =?utf-8?B?Q21PUXk1c1h1dkNISlZwS1MrcXhlaWRPT2ord0I4Q2ZCVDZla0JMYXNZQUsw?=
+ =?utf-8?B?eW9uelkzR2RjejlXUXRWUk9KdlNmcU01Y282MUpJUnZyVEpVV2VZckM4N21r?=
+ =?utf-8?B?Y045SW1Yc1hpa1FERUVpcFg2VkdNYk9iZS94QSszSTh3N1IwSVdpSlhZUXYw?=
+ =?utf-8?B?aDYrMVpKVTU3TzI2Z01RYWxxb210b045d0ZuWEl6cFhEanNZN0V5MXVGM3Rh?=
+ =?utf-8?B?b0NpbkVzT0YyRUNEVGFyZTY1S2VRZEVGeTBQd05USzgwY0tiR2p2MTBaWEVE?=
+ =?utf-8?B?aUFGeUppTTE0SWxZK3g0NDkwSSt2bVJjS1FRWUlLU0VuWjAyd01zUlRTOTRS?=
+ =?utf-8?B?SHBXMnoxVk81WU1SdWs3cFlnbmpMNWZjaTVxT2FlYUpOZGFDMTBJNHdINTY3?=
+ =?utf-8?B?aXNXWEsrNlpZcDRwUk8yeTYzaWlHQW5GVTdpS3NrSzRkbkFocG1EYVoxQU9Z?=
+ =?utf-8?B?Q1NqUUZaZHFFZ2lONFptTVFzNCtWejNwdFFjV09DSEFZTmY5WXNKZi9kZ3Rt?=
+ =?utf-8?B?TFBKbmpnSk9sUnJ0ODFLVEJvUzJpTHkxWWFjcUQ5WjNrZldtSklDbU9UcmVZ?=
+ =?utf-8?B?T3l1TkRVVUsvMmc2TjBFRWx5azljSjk4c3FWVjdsUjlrQjVqWGg5Z2RPb01v?=
+ =?utf-8?B?b1dQOVVSRTM3WncwQkJYVEEvUkthUlU5WGNUNlNOaWRvT0V4NWdRc2EwYjY2?=
+ =?utf-8?B?OEl2YXB5ejR4V1JET1BtbDFoR0FUUUhWWGhITlRkWEZvTU9LaUIzTzN1RzZl?=
+ =?utf-8?B?MTlCd0l2cXgzMy9DR3pQOG1qMTg5SWhIaExKemZtU1g3cm1sdEwrZXV1cDB5?=
+ =?utf-8?B?ZmU3blpPM1FqQ01XU3pTTnMzUlROZlIyd1NCaHdsWXA1bENPRE94WlZNWU1V?=
+ =?utf-8?B?SS83UnRmWU5SNkI5b282bzgvaHFKZ084VHlkcVhBSm41SlpTSndSNXpZa3Ez?=
+ =?utf-8?B?ZFpvVUJVY2xSVFNKM210bUthWkVCMW9GMkMvSmwySHNlK09iRVJSVUNxZlhZ?=
+ =?utf-8?Q?ZEy8=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Nov 2023 05:58:27.5938 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fbd298ac-8c3b-487a-85f0-08dbf0a034ec
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A106.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8484
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5072.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2064632e-3542-4e68-5c81-08dbf0a7aa1b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Nov 2023 06:51:50.6842 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: PfVXEvAw2RVWSsdLp1trmKTdkL2g6ADWLSc5nJ8FEiu/4Q9BdU/o0QMjz7mWMg18
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6455
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,194 +134,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jun.Ma2@amd.com, Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As the module parameter can be used to control behavior, all parts
-of the driver should obey what has been programmed by user or
-detected by auto mode rather than what "can" be supported.
-
-Drop calls to all functions that check for BACO/BOCO/PX runpm modes
-and instead use the variable that is programmed when device is probed.
-
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  7 +++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 34 ++++++++++++----------
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  |  3 +-
- 3 files changed, 24 insertions(+), 20 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 1181fe4baf0f..8f7377b37f2f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1822,9 +1822,10 @@ static void amdgpu_switcheroo_set_state(struct pci_dev *pdev,
- 					enum vga_switcheroo_state state)
- {
- 	struct drm_device *dev = pci_get_drvdata(pdev);
-+	struct amdgpu_device *adev = drm_to_adev(dev);
- 	int r;
- 
--	if (amdgpu_device_supports_px(dev) && state == VGA_SWITCHEROO_OFF)
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX && state == VGA_SWITCHEROO_OFF)
- 		return;
- 
- 	if (state == VGA_SWITCHEROO_ON) {
-@@ -4244,7 +4245,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
- 		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode);
- 
--	px = amdgpu_device_supports_px(ddev);
-+	px = (adev->pm.rpm_mode == AMDGPU_RUNPM_PX);
- 
- 	if (px || (!dev_is_removable(&adev->pdev->dev) &&
- 				apple_gmux_detect(NULL, NULL)))
-@@ -4392,7 +4393,7 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
- 	kfree(adev->fru_info);
- 	adev->fru_info = NULL;
- 
--	px = amdgpu_device_supports_px(adev_to_drm(adev));
-+	px = (adev->pm.rpm_mode == AMDGPU_RUNPM_PX);
- 
- 	if (px || (!dev_is_removable(&adev->pdev->dev) &&
- 				apple_gmux_detect(NULL, NULL)))
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index e39f3a334c9d..12fb8398fb45 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2248,10 +2248,10 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
- 
- 	if (adev->pm.rpm_mode != AMDGPU_RUNPM_NONE) {
- 		/* only need to skip on ATPX */
--		if (amdgpu_device_supports_px(ddev))
-+		if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
- 			dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_NO_DIRECT_COMPLETE);
- 		/* we want direct complete for BOCO */
--		if (amdgpu_device_supports_boco(ddev))
-+		if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
- 			dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_SMART_PREPARE |
- 						DPM_FLAG_SMART_SUSPEND |
- 						DPM_FLAG_MAY_SKIP_RESUME);
-@@ -2284,7 +2284,8 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
- 		 * into D0 state. Then there will be a PMFW-aware D-state
- 		 * transition(D0->D3) on runpm suspend.
- 		 */
--		if (amdgpu_device_supports_baco(ddev) &&
-+		if ((adev->pm.rpm_mode == AMDGPU_RUNPM_BACO ||
-+		     adev->pm.rpm_mode == AMDGPU_RUNPM_BAMACO) &&
- 		    !(adev->flags & AMD_IS_APU) &&
- 		    (adev->asic_type >= CHIP_NAVI10))
- 			amdgpu_get_secondary_funcs(adev);
-@@ -2466,7 +2467,7 @@ static int amdgpu_pmops_prepare(struct device *dev)
- 	/* Return a positive number here so
- 	 * DPM_FLAG_SMART_SUSPEND works properly
- 	 */
--	if (amdgpu_device_supports_boco(drm_dev) &&
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO &&
- 	    pm_runtime_suspended(dev))
- 		return 1;
- 
-@@ -2664,7 +2665,7 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
- 	}
- 
- 	adev->in_runpm = true;
--	if (amdgpu_device_supports_px(drm_dev))
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
- 		drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
- 
- 	/*
-@@ -2674,7 +2675,7 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
- 	 * platforms.
- 	 * TODO: this may be also needed for PX capable platform.
- 	 */
--	if (amdgpu_device_supports_boco(drm_dev))
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
- 		adev->mp1_state = PP_MP1_STATE_UNLOAD;
- 
- 	ret = amdgpu_device_prepare(drm_dev);
-@@ -2683,15 +2684,15 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
- 	ret = amdgpu_device_suspend(drm_dev, false);
- 	if (ret) {
- 		adev->in_runpm = false;
--		if (amdgpu_device_supports_boco(drm_dev))
-+		if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
- 			adev->mp1_state = PP_MP1_STATE_NONE;
- 		return ret;
- 	}
- 
--	if (amdgpu_device_supports_boco(drm_dev))
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
- 		adev->mp1_state = PP_MP1_STATE_NONE;
- 
--	if (amdgpu_device_supports_px(drm_dev)) {
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX) {
- 		/* Only need to handle PCI state in the driver for ATPX
- 		 * PCI core handles it for _PR3.
- 		 */
-@@ -2700,9 +2701,10 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
- 		pci_ignore_hotplug(pdev);
- 		pci_set_power_state(pdev, PCI_D3cold);
- 		drm_dev->switch_power_state = DRM_SWITCH_POWER_DYNAMIC_OFF;
--	} else if (amdgpu_device_supports_boco(drm_dev)) {
-+	} else if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO) {
- 		/* nothing to do */
--	} else if (amdgpu_device_supports_baco(drm_dev)) {
-+	} else if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO ||
-+		   adev->pm.rpm_mode == AMDGPU_RUNPM_BAMACO) {
- 		amdgpu_device_baco_enter(drm_dev);
- 	}
- 
-@@ -2725,7 +2727,7 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
- 	if (!pci_device_is_present(adev->pdev))
- 		adev->no_hw_access = true;
- 
--	if (amdgpu_device_supports_px(drm_dev)) {
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX) {
- 		drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
- 
- 		/* Only need to handle PCI state in the driver for ATPX
-@@ -2737,22 +2739,22 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
- 		if (ret)
- 			return ret;
- 		pci_set_master(pdev);
--	} else if (amdgpu_device_supports_boco(drm_dev)) {
-+	} else if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO) {
- 		/* Only need to handle PCI state in the driver for ATPX
- 		 * PCI core handles it for _PR3.
- 		 */
- 		pci_set_master(pdev);
--	} else if (amdgpu_device_supports_baco(drm_dev)) {
-+	} else if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO) {
- 		amdgpu_device_baco_exit(drm_dev);
- 	}
- 	ret = amdgpu_device_resume(drm_dev, false);
- 	if (ret) {
--		if (amdgpu_device_supports_px(drm_dev))
-+		if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
- 			pci_disable_device(pdev);
- 		return ret;
- 	}
- 
--	if (amdgpu_device_supports_px(drm_dev))
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
- 		drm_dev->switch_power_state = DRM_SWITCH_POWER_ON;
- 	adev->in_runpm = false;
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index f464610a959f..d7977185f4e2 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -1618,7 +1618,8 @@ static int smu_disable_dpms(struct smu_context *smu)
- 	bool use_baco = !smu->is_apu &&
- 		((amdgpu_in_reset(adev) &&
- 		  (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO)) ||
--		 ((adev->in_runpm || adev->in_s4) && amdgpu_asic_supports_baco(adev)));
-+		 ((adev->in_runpm || adev->in_s4) &&
-+		 (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO || adev->pm.rpm_mode == AMDGPU_RUNPM_BAMACO)));
- 
- 	/*
- 	 * For SMU 13.0.0 and 13.0.7, PMFW will handle the DPM features(disablement or others)
--- 
-2.34.1
-
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNClJldmlld2VkLUJ5OiBIb3JhY2Ug
+Q2hlbiA8aG9yYWNlLmNoZW5AYW1kLmNvbT4NCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0N
+CkZyb206IFlpbiwgWmhlbkd1byAoQ2hyaXMpIDxaaGVuR3VvLllpbkBhbWQuY29tPg0KU2VudDog
+TW9uZGF5LCBOb3ZlbWJlciAyNywgMjAyMyAxMDo0MyBBTQ0KVG86IFlpbiwgWmhlbkd1byAoQ2hy
+aXMpIDxaaGVuR3VvLllpbkBhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7
+IFpoYSwgWWlGYW4oRXZlbikgPFlpZmFuLlpoYUBhbWQuY29tPjsgQ2hlbiwgSG9yYWNlIDxIb3Jh
+Y2UuQ2hlbkBhbWQuY29tPg0KU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdTogU2tpcCBh
+Y2Nlc3MgZ2Z4MTEgZ29sZGVuIHJlZ2lzdGVycyB1bmRlciBTUklPVg0KDQpBZGQgcG90ZW50aWFs
+IHJldmlld2Vycy4NCg0KT24gMTEvMjMvMjAyMyA0OjU3IFBNLCBaaGVuR3VvIFlpbiB3cm90ZToN
+Cj4gW1doeV0NCj4gR29sZGVuIHJlZ2lzdGVycyBhcmUgUEYtb25seSByZWdpc3RlcnMgb24gZ2Z4
+MTEuDQo+IFJMQ0cgaW50ZXJmYWNlIHdpbGwgcmV0dXJuICJvdXQtb2YtcmFuZ2UiIHVuZGVyIFNS
+SU9WIFZGLg0KPg0KPiBbSG93XQ0KPiBTa2lwIGFjY2VzcyBnZngxMSBnb2xkZW4gcmVnaXN0ZXJz
+IHVuZGVyIFNSSU9WLg0KPg0KPiBTaWduZWQtb2ZmLWJ5OiBaaGVuR3VvIFlpbiA8emhlbmd1by55
+aW5AYW1kLmNvbT4NCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Yx
+MV8wLmMgfCAzICsrKw0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKykNCj4NCj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTFfMC5jIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMV8wLmMNCj4gaW5kZXggOGVkNGE2ZmIxNDdh
+Li4yODhlOTI2ZTVjZDQgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2dmeF92MTFfMC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTFf
+MC5jDQo+IEBAIC0yOTMsNiArMjkzLDkgQEAgc3RhdGljIHZvaWQgZ2Z4X3YxMV8wX3NldF9raXFf
+cG00X2Z1bmNzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KPg0KPiAgIHN0YXRpYyB2b2lk
+IGdmeF92MTFfMF9pbml0X2dvbGRlbl9yZWdpc3RlcnMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
+ZXYpDQo+ICAgew0KPiArICAgICBpZiAoYW1kZ3B1X3NyaW92X3ZmKGFkZXYpKQ0KPiArICAgICAg
+ICAgICAgIHJldHVybjsNCj4gKw0KPiAgICAgICBzd2l0Y2ggKGFtZGdwdV9pcF92ZXJzaW9uKGFk
+ZXYsIEdDX0hXSVAsIDApKSB7DQo+ICAgICAgIGNhc2UgSVBfVkVSU0lPTigxMSwgMCwgMSk6DQo+
+ICAgICAgIGNhc2UgSVBfVkVSU0lPTigxMSwgMCwgNCk6DQo=
