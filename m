@@ -4,70 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85026C07E98
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Nov 2023 20:49:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6462DC4167B
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Nov 2023 20:49:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A09910E66C;
-	Wed, 29 Nov 2023 20:49:32 +0000 (UTC)
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [IPv6:2001:4860:4864:20::2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36A2410E374;
- Wed, 29 Nov 2023 20:49:30 +0000 (UTC)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-1f060e059a3so77011fac.1; 
- Wed, 29 Nov 2023 12:49:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1701290969; x=1701895769; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=uCwSK8iy7hq3osg12qE4HhNLJBHsTSSsnJBjaB7nWDA=;
- b=LDWDwDbFp8DlGMhLRoxL+aHaHuNnc8/mexq7aBs7hdfcrvoNJTP8JcJUXrJti1i7u+
- jU4zeElYtedidAPol0fURvkd6dOXMOG/8noXksZw0n7je1u2riKgxG0smx7A9oajEcoh
- kfUZ6dKYyYhDLaqwAjdRaWCNDbNV4eZhxigAlJf5CxzIau97e9evEtwxiouB8aVtspdQ
- 5B5OwkxH8Lv9wZxgizTX2ehFV9CK38J/P5U0GtU+kbK3/IxNlkQE2tvNHeGt7bTshF3T
- 98n8DiQbNHGcdoPAQGCbOF0flWoUp9rM+u/srNg4d+Ua7RYxL8zqVDaouGlX5Vjr4vZ6
- vX8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701290969; x=1701895769;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=uCwSK8iy7hq3osg12qE4HhNLJBHsTSSsnJBjaB7nWDA=;
- b=LqS0m5IVAGKiV+fDTaTQUcjIo5ms5arg2KE7oQ01tkvrYXDbvcDe66qO5GKyqmGBhl
- mR/jZryrcSWB6KB3YcmSTrbiXFyfWMOtT/MLAHvriCwopVwEOJ8FLg5kzcuHG7/c0sCS
- XpZA/GEoRpq67sTbnBdCvCRD1UTblcIgzddIDyyxAY03fC9XjPvQFOLElLNgvKPn5ZB7
- NT57qfCXuAGpaQD9z+Gyw/lIHVL+VdAL5ZyjXtC3Kub55ZCyvETuBjvB2rbgJhi0AoEh
- xDSpnHK6pQLTxgw0PjinI17OUeqMGIdpw0A2PyWNDw9aUWDkvRHCYaBQnTHPpoSCopLj
- ih0w==
-X-Gm-Message-State: AOJu0Yyt5+7oW//8A4um1jREv6iKIrYXrRM0+HwDDXWTyHwCRbLvERE8
- ZNjN/0L83wGVhKVwVzKEwFfPVodhvZUkY6B9aFo=
-X-Google-Smtp-Source: AGHT+IHyw8cAX9UfK9a8fY501yC2wNYtr22mgVoI8sSdazvxSzWX4/ffV64sBqiXIbZ1QzuNOcv1vH6FSPHW3piU2iY=
-X-Received: by 2002:a05:6870:2328:b0:1f9:faa4:8bd6 with SMTP id
- w40-20020a056870232800b001f9faa48bd6mr21314446oao.17.1701290969390; Wed, 29
- Nov 2023 12:49:29 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDEB810E678;
+	Wed, 29 Nov 2023 20:49:49 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2089.outbound.protection.outlook.com [40.107.100.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DABD710E678
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Nov 2023 20:49:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XYCwIvkB9zEJAFSmkcnU8kCkppMepjKQyghgYh4A9eUfldAEl8UVpXIem6ReA6P/hfSKvgpTVFB2hOhAtMhexKVWKMpQ2AWGsR0DX7pq/mFpbAn4mQ8wgwpEiT+jygdhEL0pu4n+xAhDoXAaqfGpQg8w6Sn6kBQS4VUWkQRP9t2xos87Tsn9tU/2OwB6ZDLH46bvcLGVa4WdEvCnN47m/adr3U7YMpfm7rYS3eX7wHea14v6+pVx3XWnYZDrXGV4kJiXruKFEmTovDWHlnXDZFUfT9Hwv2nW60ybVi25iJR4n2zRvm06zX8o15DUJ82n5u4EPsIP+8W+8UjdNrlL2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vf/g9VVMUGamb62yyvtP9MF0tM3UK+5d23Dlk+SEpSg=;
+ b=Jb1CE2rM8fdlfP8vKhtR2FCWZqmdSMo/cPCvM3UBLTUmuE9L1kWMyVaL7l8BETA81L/IX8QnHWXr0NJhND+eT+IdoXXEQl8EEA16Y6v1to+ZWDHPb6FcsW+KtwEOpheiS3jcWXhN5phq51JtqLa7kh05mLnvslNu1dvdtWHVKVIj/EzdPHTXtDG+7TODtoMXf36BQanJj2Ifhb5iZB/es9YN9DGA2cMfztzhx8y2HS6uJYVu1eYRiZvNzX6d0hSaZ38x4BB4kxfRPfBtOxBnuAod4G+nEbIu4+X7+rvS4t/v57v+0hw6k81XCLCtMh0sJqdgMrcOD3Y8InyX7SHHbg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vf/g9VVMUGamb62yyvtP9MF0tM3UK+5d23Dlk+SEpSg=;
+ b=WCO+xs5pth23gqsmwyYHs3CT+JFVUFpOruPEC0cfsWOufxCLvC081fYpqnu8uBlQ8imeYjD8d1PbGvXBFNjUlnnObV6wN7dSv2YFoiU52EuLBNrAgzFD8X9Z1KPhR+D5e0QmeDv402SyTYaUIUmsoMhcHIakSFAbRj1CdSe1Bzo=
+Received: from DM8PR12MB5399.namprd12.prod.outlook.com (2603:10b6:8:34::5) by
+ PH7PR12MB5856.namprd12.prod.outlook.com (2603:10b6:510:1d7::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.23; Wed, 29 Nov
+ 2023 20:49:44 +0000
+Received: from DM8PR12MB5399.namprd12.prod.outlook.com
+ ([fe80::2c8:a4b8:6a94:e062]) by DM8PR12MB5399.namprd12.prod.outlook.com
+ ([fe80::2c8:a4b8:6a94:e062%6]) with mapi id 15.20.7025.022; Wed, 29 Nov 2023
+ 20:49:43 +0000
+From: "Liu, Leo" <Leo.Liu@amd.com>
+To: "Zhang, Bokun" <Bokun.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amd/amdgpu: Clean up VCN fw_shared and set flag bits
+ during hw_init
+Thread-Topic: [PATCH] drm/amd/amdgpu: Clean up VCN fw_shared and set flag bits
+ during hw_init
+Thread-Index: AQHaIkFyF2+LE669cU2GfQDc6GwVz7CRxFGw
+Date: Wed, 29 Nov 2023 20:49:43 +0000
+Message-ID: <DM8PR12MB5399308F9EB1C9DB9CBAB5BFE583A@DM8PR12MB5399.namprd12.prod.outlook.com>
+References: <20231128212517.3183-1-bokun.zhang@amd.com>
+In-Reply-To: <20231128212517.3183-1-bokun.zhang@amd.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=bb1eae06-4b61-41de-ab2e-a630a2994546;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-11-29T20:41:22Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM8PR12MB5399:EE_|PH7PR12MB5856:EE_
+x-ms-office365-filtering-correlation-id: 4461e881-d16d-47cc-c610-08dbf11cb742
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: LHRc6VguH/wy16oc08juRAb8lvTmtCDOAOnodW+PzaOJAnsBSQvC/XZFgIEjFrDXArysLYRsfcJ56yJ84HtWRWebSWyxHcxNjfq5tRXGjt4SYWC/dQxSUcsUerw3+hQThLPUgq6cmtVLEY7h6DkP3ZJGh1Hg867hXhlr87WBaTJJoNRgZxIuuZTErRHKhLusZm6ODZfH/dEMrj2RMwjkrI2yp3AYh3jiriyrOopZJhvb1XqW4ek/gynaeJyX30jy2ue783geEw0Rru/2zmtxpbkPZ0YuitTD3R18PnFNzPVfZywO6JE5J7ZzytPHPuS3Dt3LV4UwXmFzVxkw+7+gQ1ybcRU1/XN2SomwCsdLO+/lSBf88YXcKE8ch3xDOv6sY+Dmp3dO/W6GM44GnIZ36096zbe+zEqowQNvn3Lv94eMaR4JETo88Kfhk46pmISfNugXYzJSnrJwCGZe8ZUhv3HV2k5wIza/GcXVRxIIJiK7U7yhqJ5Zyvyi/nNFlC8iW1aihHTcTkF6tnRMp2+vqNTeaPJqh7Dg5/fInHlwUvzr14dpTnu4SZVTj5boD96Rylr5TcqpLQ17wm4LV+PiiUWbMO164rtZYnwr0nguwQ4TJEQA8QxKlmaRU40epzX0x41rBkiG1JOYN8yvlvTeD/GdGcdAGeV0keU6FeNJWQs=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM8PR12MB5399.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(346002)(366004)(376002)(136003)(396003)(230922051799003)(451199024)(64100799003)(186009)(1800799012)(38100700002)(38070700009)(26005)(86362001)(316002)(66946007)(76116006)(64756008)(66556008)(110136005)(66446008)(66476007)(2906002)(202311291699003)(83380400001)(7696005)(53546011)(71200400001)(55016003)(9686003)(6506007)(8936002)(478600001)(8676002)(4326008)(52536014)(41300700001)(33656002)(122000001)(5660300002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?SZZKI5b/ZTRIzQ3cw4fWZOIVgrnAf86hAwEmtTlSFQaT17mbEBmiaQfBxEJJ?=
+ =?us-ascii?Q?uak0edQab42wR8QBnOW8T+XmhZDZ4AsvWX9L4SB9I4Bkxq/OVjnyhexiAC4B?=
+ =?us-ascii?Q?sFvcpsWokddvw0YnK06vO5d9exh+VXCHu515X73Hyw0oKYIxcTOShdN2h+GU?=
+ =?us-ascii?Q?581NGgQenyeurblDyjOQFcb6CmTEoWk4061ee5+nVdmoxPSjaxP78EIuZhpR?=
+ =?us-ascii?Q?dhcg0wRX0N8dXsY4wFQzMzqWaDMIEaMwp+VEKWbbZIRa2SagJO0pMsPJzftG?=
+ =?us-ascii?Q?xGN+yQcXUrSHwikLBccGrA4+ZzulvrdrmSy1IVM767xP7XQufbH4+TWbZwbH?=
+ =?us-ascii?Q?OJGtbGPxhBhFNQvWiv2zm651JJcU5WRpkUYJMx6qy/Z5F/HVcaKARY3+fl02?=
+ =?us-ascii?Q?t1foudDBU0tIkjcCPHeY0zldiqzX0gBK71vCdnE4DoZ0TV+f1Xzh5woDgCV/?=
+ =?us-ascii?Q?ioF0h0yQsuaL4FCytpJGAoXzrlVWiT4hjQVMMS7UqdlAt+mOHN+1Tlqy86Bi?=
+ =?us-ascii?Q?7hp8G1DuxSx9ZgYQ6gKiancEsykAYG+MUaJBaQYyyFFlaIgYzEiDuMN1mCz+?=
+ =?us-ascii?Q?JtnbasvHyvKAHm0PO+LZasFR2wAQcBletFBBksODO998lMesU6fjx7KoidPT?=
+ =?us-ascii?Q?UiVfwvBtvfVddIEmLntfO1v8VvoVAzY7P/kOABDd1UBIb1QNv71acYV9Q8JO?=
+ =?us-ascii?Q?2D9qncxIFr1sIyFlODulBZkAbWIOsBKvbdxPoJj7YrxvUAa2B71wivvk0aHk?=
+ =?us-ascii?Q?HuQIa2iD78GsSHf+Rj6uKkDYmhZXD4sqA1Ztj4maUtcKwMq/pYkp+z4t4rae?=
+ =?us-ascii?Q?KOLtcGFBbM8eoAyMPAD1qzzB2szI2h0a9sgHJcPUWCUBZejqT4FxreLp799x?=
+ =?us-ascii?Q?+pSYpPFMKewbKBsCC8vY0PdQf82ccZgGfX/HEZCPUyDG5VOAkPlqrv+GMgUA?=
+ =?us-ascii?Q?YwwgpdFcDOKoKsr+cQRf5jKtFJzwEegc02d1RITTSQ3LcWkTxdGyBlfMlAOn?=
+ =?us-ascii?Q?7G/nI7oqOjC9giVUBDX1WjVejhk8zUngXwjiofcwQevSfoITiX9Y7T/UxMac?=
+ =?us-ascii?Q?qtsQqMDri4n5aWcz8eo85BvFMK6Biuaf/o4N4nodptZFE8OOQF820B1+PyW1?=
+ =?us-ascii?Q?So2DxuUCYFhD6BuWnYvR7O25+z36HKFApsc749Xml4xq7dHG1mw6e3BXEQ41?=
+ =?us-ascii?Q?aIVk5viNhp4DF9PzweNaZ6ipiZzVyuNvYJaU4eVI92jOASNGRJWWxgSFI0AG?=
+ =?us-ascii?Q?gUFDQgTXyLsNJ2Bs+HwTdzZs3oZl/J7/dSeJebv2Gf0qp+6qdGdEntpLYvj9?=
+ =?us-ascii?Q?v9dAiOiEIBz+SRF9pHOsGhmKDD5kgsPVrc8KrR2SWFvjOjD4UsE3UoVeM3ZS?=
+ =?us-ascii?Q?WMNIqq6dYy+nNTId1ppwasGvEcd/lo8LPCrla/ZSqxpGvvUqZuO6b59UE2NS?=
+ =?us-ascii?Q?/rKLTjBXVIbsylfGVXMdy98dDqS0E9cvauJxfGBznSLdGg0WmbgHDAL0gxBg?=
+ =?us-ascii?Q?wIPZQCljTqj8R2RJTIq4v0uNyD5tfcx78H2jv+KoPqWORbiJURHUeK3A2w77?=
+ =?us-ascii?Q?2nEkeP1O9wgbxdZrsQY=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-References: <87edgv4x3i.fsf@vps.thesusis.net>
- <559d0fa5-953a-4a97-b03b-5eb1287c83d8@leemhuis.info>
- <CAPM=9tw-8pQWFso0zuLqpsqd5BSHWtc4As9ttdjY-DDr70EMqQ@mail.gmail.com>
- <bdb238b6-60c7-4f26-81d0-9e62cd5dd326@gmail.com>
- <CADnq5_NVGS1XykxGxpcu_bpPbzboCUJQkcCF3r+0N9a23KUgiQ@mail.gmail.com>
- <96e2e13c-f01c-4baf-a9a3-cbaa48fb10c7@amd.com>
- <CADnq5_NBfeAXEyQw0gnSd67=tR-bUKg8w=10+4z9pGGuRnP9uw@mail.gmail.com>
- <87jzq2ixtm.fsf@vps.thesusis.net>
- <CADnq5_Ou-MVVm0rdWDmDnJNLkWUayXzO26uCEtz3ucNa4Ghy2w@mail.gmail.com>
- <95fe9b5b-05ce-4462-9973-9aca306bc44f@gmail.com>
- <CADnq5_MYEWx=e1LBLeVs0UbR5_xEScjDyw_-75mLe8RAMnqh6g@mail.gmail.com>
- <CADnq5_OC=JFpGcN0oGbTF5xYEt4X3r0=jEY6hJ12W8CzYq1+cA@mail.gmail.com>
- <9595b8bf-e64d-4926-9263-97e18bcd7d05@gmail.com>
- <CADnq5_N6DF-huOzgaVygvS5N_j_oNUEC1aa4zRsZTzx8GOD_aw@mail.gmail.com>
- <CADnq5_PgMxoW=4iabtgeHydwye-6DvwvCyETdfBToEpuYWocmA@mail.gmail.com>
-In-Reply-To: <CADnq5_PgMxoW=4iabtgeHydwye-6DvwvCyETdfBToEpuYWocmA@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 29 Nov 2023 15:49:17 -0500
-Message-ID: <CADnq5_P0S7Jem0e4K6mG2+bboG8P56nELaGC1p4Pfx-8eV-BjQ@mail.gmail.com>
-Subject: Re: Radeon regression in 6.6 kernel
-To: Luben Tuikov <ltuikov89@gmail.com>
-Content-Type: multipart/mixed; boundary="000000000000e4307b060b50ab61"
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5399.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4461e881-d16d-47cc-c610-08dbf11cb742
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Nov 2023 20:49:43.8925 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 0nAPhNGiRy3sNOvRdtAKJ3xalRh+GuuUDYymSSrb0VW1ZJxIhNC/cfTkygfeOoyT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5856
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,176 +124,152 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux regressions mailing list <regressions@lists.linux.dev>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Danilo Krummrich <dakr@redhat.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Phillip Susi <phill@thesusis.net>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: "Zhang, Bokun" <Bokun.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000e4307b060b50ab61
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+[AMD Official Use Only - General]
 
-On Wed, Nov 29, 2023 at 3:10=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com=
-> wrote:
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> Bokun Zhang
+> Sent: Tuesday, November 28, 2023 4:25 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Zhang, Bokun <Bokun.Zhang@amd.com>
+> Subject: [PATCH] drm/amd/amdgpu: Clean up VCN fw_shared and set flag
+> bits during hw_init
 >
-> Actually I think I see the problem.  I'll try and send out a patch
-> later today to test.
-
-Does the attached patch fix it?
-
-Alex
-
+> - After whole GPU reset, the VCN fw_shared data is cleaned up.
+>   This seems like a new behavior and it is considered safer since
+>   we do not want to keep the residual data
 >
-> Alex
+> - However, the existing driver code still assumes the residual data.
+>   For example, in sw_init, we will set the UNIFIED_QUEUE flag bit.
+>   This flag bit is never set anywhere else.
 >
-> On Wed, Nov 29, 2023 at 1:52=E2=80=AFPM Alex Deucher <alexdeucher@gmail.c=
-om> wrote:
-> >
-> > On Wed, Nov 29, 2023 at 11:41=E2=80=AFAM Luben Tuikov <ltuikov89@gmail.=
-com> wrote:
-> > >
-> > > On 2023-11-29 10:22, Alex Deucher wrote:
-> > > > On Wed, Nov 29, 2023 at 8:50=E2=80=AFAM Alex Deucher <alexdeucher@g=
-mail.com> wrote:
-> > > >>
-> > > >> On Tue, Nov 28, 2023 at 11:45=E2=80=AFPM Luben Tuikov <ltuikov89@g=
-mail.com> wrote:
-> > > >>>
-> > > >>> On 2023-11-28 17:13, Alex Deucher wrote:
-> > > >>>> On Mon, Nov 27, 2023 at 6:24=E2=80=AFPM Phillip Susi <phill@thes=
-usis.net> wrote:
-> > > >>>>>
-> > > >>>>> Alex Deucher <alexdeucher@gmail.com> writes:
-> > > >>>>>
-> > > >>>>>>> In that case those are the already known problems with the sc=
-heduler
-> > > >>>>>>> changes, aren't they?
-> > > >>>>>>
-> > > >>>>>> Yes.  Those changes went into 6.7 though, not 6.6 AFAIK.  Mayb=
-e I'm
-> > > >>>>>> misunderstanding what the original report was actually testing=
-.  If it
-> > > >>>>>> was 6.7, then try reverting:
-> > > >>>>>> 56e449603f0ac580700621a356d35d5716a62ce5
-> > > >>>>>> b70438004a14f4d0f9890b3297cd66248728546c
-> > > >>>>>
-> > > >>>>> At some point it was suggested that I file a gitlab issue, but =
-I took
-> > > >>>>> this to mean it was already known and being worked on.  -rc3 ca=
-me out
-> > > >>>>> today and still has the problem.  Is there a known issue I coul=
-d track?
-> > > >>>>>
-> > > >>>>
-> > > >>>> At this point, unless there are any objections, I think we shoul=
-d just
-> > > >>>> revert the two patches
-> > > >>> Uhm, no.
-> > > >>>
-> > > >>> Why "the two" patches?
-> > > >>>
-> > > >>> This email, part of this thread,
-> > > >>>
-> > > >>> https://lore.kernel.org/all/87r0kircdo.fsf@vps.thesusis.net/
-> > > >>>
-> > > >>> clearly states that reverting *only* this commit,
-> > > >>> 56e449603f0ac5 drm/sched: Convert the GPU scheduler to variable n=
-umber of run-queues
-> > > >>> *does not* mitigate the failed suspend. (Furthermore, this commit=
- doesn't really change
-> > > >>> anything operational, other than using an allocated array, instea=
-d of a static one, in DRM,
-> > > >>> while the 2nd patch is solely contained within the amdgpu driver =
-code.)
-> > > >>>
-> > > >>> Leaving us with only this change,
-> > > >>> b70438004a14f4 drm/amdgpu: move buffer funcs setting up a level
-> > > >>> to be at fault, as the kernel log attached in the linked email ab=
-ove shows.
-> > > >>>
-> > > >>> The conclusion is that only b70438004a14f4 needs reverting.
-> > > >>
-> > > >> b70438004a14f4 was a fix for 56e449603f0ac5.  Without b70438004a14=
-f4,
-> > > >> 56e449603f0ac5 breaks amdgpu.
-> > > >
-> > > > We can try and re-enable it in the next kernel.  I'm just not sure
-> > > > we'll be able to fix this in time for 6.7 with the holidays and all
-> > > > and I don't want to cause a lot of scheduler churn at the end of th=
-e
-> > > > 6.7 cycle if we hold off and try and fix it.  Reverting seems like =
-the
-> > > > best short term solution.
-> > >
-> > > A lot of subsequent code has come in since commit 56e449603f0ac5, as =
-it opened
-> > > the opportunity for a 1-to-1 relationship between an entity and a sch=
-eduler.
-> > > (Should've always been the case, from the outset. Not sure why it was=
- coded as
-> > > a fixed-size array.)
-> > >
-> > > Given that commit 56e449603f0ac5 has nothing to do with amdgpu, and t=
-he problem
-> > > is wholly contained in amdgpu, and no other driver has this problem, =
-there is
-> > > no reason to have to "churn", i.e. go back and forth in DRM, only to =
-cover up
-> > > an init bug in amdgpu. See the response I just sent in @this thread:
-> > > https://lore.kernel.org/r/05007cb0-871e-4dc7-af58-1351f4ba43e2@gmail.=
-com
-> > >
-> > > And it's not like this issue is unknown. I first posted about it on 2=
-023-10-16.
-> > >
-> > > Ideally, amdgpu would just fix their init code.
-> >
-> > You can't make changes to core code that break other drivers.
-> > Arguably 56e449603f0ac5 should not have gone in in the first place if
-> > it broke amdgpu.  b70438004a14f4 was the code to fix amdgpu's init
-> > code, but as a side effect it seems to have broken suspend for some
-> > users.
-> >
-> > Alex
+>   Then if a WGR happens, sw_init will not be called and therefore,
+>   we will lose this bit and it leads to a crash in VCN FW.
+>
+> - A proper fix is that we explicitly set the flag bit in hw_init
+>   every time and the data is repopulated after a WGR instead of
+>   assuming the data can survive the WGR.
+>
+I think this is part of sw_init, along with loading fw. Should not be in th=
+e hw_init. I think you probably can try to save it to a saved_bo when suspe=
+nd, and copy back when resume, same way as for FW.
 
---000000000000e4307b060b50ab61
-Content-Type: text/x-patch; charset="US-ASCII"; 
-	name="0001-drm-amdgpu-fix-buffer-funcs-setting-order-on-suspend.patch"
-Content-Disposition: attachment; 
-	filename="0001-drm-amdgpu-fix-buffer-funcs-setting-order-on-suspend.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_lpk8pifj0>
-X-Attachment-Id: f_lpk8pifj0
+Regards,
+Leo
 
-RnJvbSA5NmU3NWI1MjE4ZjdhMTI0ZWFmYTUzODUzNjgxZWVmOGZlNTY3YWI4IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
-b20+CkRhdGU6IFdlZCwgMjkgTm92IDIwMjMgMTU6NDQ6MjUgLTA1MDAKU3ViamVjdDogW1BBVENI
-XSBkcm0vYW1kZ3B1OiBmaXggYnVmZmVyIGZ1bmNzIHNldHRpbmcgb3JkZXIgb24gc3VzcGVuZAoK
-V2UgbmVlZCB0byBtYWtlIGRpc2FibGUgdGhpcyBhZnRlciB0aGUgbGFzdCBldmljdGlvbgpjYWxs
-LCBidXQgYmVmb3JlIHdlIGRpc2FibGUgdGhlIFNETUEgSVAuCgpGaXhlczogYjcwNDM4MDA0YTE0
-ICgiZHJtL2FtZGdwdTogbW92ZSBidWZmZXIgZnVuY3Mgc2V0dGluZyB1cCBhIGxldmVsIikKTGlu
-azogaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvYXJjaGl2ZXMvYW1kLWdmeC8yMDIzLU5v
-dmVtYmVyLzEwMTE5Ny5odG1sClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVy
-LmRldWNoZXJAYW1kLmNvbT4KQ2M6IFBoaWxsaXAgU3VzaSA8cGhpbGxAdGhlc3VzaXMubmV0PgpD
-YzogTHViZW4gVHVpa292IDxsdHVpa292ODlAZ21haWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDQgKystLQogMSBmaWxlIGNoYW5nZWQsIDIg
-aW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfZGV2aWNlLmMKaW5kZXggYjVlZGY0MGI1ZDAzLi43ODU1M2UwMjdkYjQgMTAwNjQ0
-Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYworKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKQEAgLTQ1MzEsOCArNDUz
-MSw2IEBAIGludCBhbWRncHVfZGV2aWNlX3N1c3BlbmQoc3RydWN0IGRybV9kZXZpY2UgKmRldiwg
-Ym9vbCBmYmNvbikKIAogCWFtZGdwdV9yYXNfc3VzcGVuZChhZGV2KTsKIAotCWFtZGdwdV90dG1f
-c2V0X2J1ZmZlcl9mdW5jc19zdGF0dXMoYWRldiwgZmFsc2UpOwotCiAJYW1kZ3B1X2RldmljZV9p
-cF9zdXNwZW5kX3BoYXNlMShhZGV2KTsKIAogCWlmICghYWRldi0+aW5fczBpeCkKQEAgLTQ1NDIs
-NiArNDU0MCw4IEBAIGludCBhbWRncHVfZGV2aWNlX3N1c3BlbmQoc3RydWN0IGRybV9kZXZpY2Ug
-KmRldiwgYm9vbCBmYmNvbikKIAlpZiAocikKIAkJcmV0dXJuIHI7CiAKKwlhbWRncHVfdHRtX3Nl
-dF9idWZmZXJfZnVuY3Nfc3RhdHVzKGFkZXYsIGZhbHNlKTsKKwogCWFtZGdwdV9mZW5jZV9kcml2
-ZXJfaHdfZmluaShhZGV2KTsKIAogCWFtZGdwdV9kZXZpY2VfaXBfc3VzcGVuZF9waGFzZTIoYWRl
-dik7Ci0tIAoyLjQyLjAKCg==
---000000000000e4307b060b50ab61--
+
+
+> Signed-off-by: Bokun Zhang <bokun.zhang@amd.com>
+> Change-Id: I783ff826f12e12eaf48d046ff9f1cef65558c7b9
+> ---
+>  drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 45 +++++++++++++++++----------
+>  1 file changed, 28 insertions(+), 17 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+> b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+> index bf07aa200030..0cf3e639c480 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+> @@ -111,6 +111,7 @@ static int vcn_v4_0_sw_init(void *handle)  {
+>       struct amdgpu_ring *ring;
+>       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+> +     volatile struct amdgpu_vcn4_fw_shared *fw_shared;
+>       int i, r;
+>
+>       r =3D amdgpu_vcn_sw_init(adev);
+> @@ -124,11 +125,12 @@ static int vcn_v4_0_sw_init(void *handle)
+>               return r;
+>
+>       for (i =3D 0; i < adev->vcn.num_vcn_inst; i++) {
+> -             volatile struct amdgpu_vcn4_fw_shared *fw_shared;
+> -
+>               if (adev->vcn.harvest_config & (1 << i))
+>                       continue;
+>
+> +             fw_shared =3D adev->vcn.inst[i].fw_shared.cpu_addr;
+> +             memset(fw_shared, 0, sizeof(struct
+> amdgpu_vcn4_fw_shared));
+> +
+>               /* Init instance 0 sched_score to 1, so it's scheduled afte=
+r
+> other instances */
+>               if (i =3D=3D 0)
+>                       atomic_set(&adev->vcn.inst[i].sched_score, 1); @@ -
+> 161,21 +163,6 @@ static int vcn_v4_0_sw_init(void *handle)
+>               if (r)
+>                       return r;
+>
+> -             fw_shared =3D adev->vcn.inst[i].fw_shared.cpu_addr;
+> -             fw_shared->present_flag_0 =3D
+> cpu_to_le32(AMDGPU_FW_SHARED_FLAG_0_UNIFIED_QUEUE);
+> -             fw_shared->sq.is_enabled =3D 1;
+> -
+> -             fw_shared->present_flag_0 |=3D
+> cpu_to_le32(AMDGPU_VCN_SMU_DPM_INTERFACE_FLAG);
+> -             fw_shared->smu_dpm_interface.smu_interface_type =3D (adev-
+> >flags & AMD_IS_APU) ?
+> -                     AMDGPU_VCN_SMU_DPM_INTERFACE_APU :
+> AMDGPU_VCN_SMU_DPM_INTERFACE_DGPU;
+> -
+> -             if (amdgpu_ip_version(adev, VCN_HWIP, 0) =3D=3D
+> -                 IP_VERSION(4, 0, 2)) {
+> -                     fw_shared->present_flag_0 |=3D
+> AMDGPU_FW_SHARED_FLAG_0_DRM_KEY_INJECT;
+> -                     fw_shared->drm_key_wa.method =3D
+> -
+>       AMDGPU_DRM_KEY_INJECT_WORKAROUND_VCNFW_ASD_HANDSH
+> AKING;
+> -             }
+> -
+>               if (amdgpu_vcnfw_log)
+>                       amdgpu_vcn_fwlog_init(&adev->vcn.inst[i]);
+>       }
+> @@ -245,9 +232,33 @@ static int vcn_v4_0_sw_fini(void *handle)  static in=
+t
+> vcn_v4_0_hw_init(void *handle)  {
+>       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+> +     volatile struct amdgpu_vcn4_fw_shared *fw_shared;
+>       struct amdgpu_ring *ring;
+>       int i, r;
+>
+> +     for (i =3D 0; i < adev->vcn.num_vcn_inst; i++) {
+> +             if (adev->vcn.harvest_config & (1 << i))
+> +                     continue;
+> +
+> +             fw_shared =3D adev->vcn.inst[i].fw_shared.cpu_addr;
+> +             fw_shared->present_flag_0 |=3D
+> cpu_to_le32(AMDGPU_FW_SHARED_FLAG_0_UNIFIED_QUEUE);
+> +             fw_shared->sq.is_enabled =3D 1;
+> +
+> +             fw_shared->present_flag_0 |=3D
+> cpu_to_le32(AMDGPU_VCN_SMU_DPM_INTERFACE_FLAG);
+> +             fw_shared->smu_dpm_interface.smu_interface_type =3D (adev-
+> >flags & AMD_IS_APU) ?
+> +                     AMDGPU_VCN_SMU_DPM_INTERFACE_APU :
+> +AMDGPU_VCN_SMU_DPM_INTERFACE_DGPU;
+> +
+> +             if (amdgpu_ip_version(adev, VCN_HWIP, 0) =3D=3D
+> +                 IP_VERSION(4, 0, 2)) {
+> +                     fw_shared->present_flag_0 |=3D
+> AMDGPU_FW_SHARED_FLAG_0_DRM_KEY_INJECT;
+> +                     fw_shared->drm_key_wa.method =3D
+> +
+>       AMDGPU_DRM_KEY_INJECT_WORKAROUND_VCNFW_ASD_HANDSH
+> AKING;
+> +             }
+> +
+> +             if (amdgpu_vcnfw_log)
+> +                     fw_shared->present_flag_0 |=3D
+> cpu_to_le32(AMDGPU_VCN_FW_LOGGING_FLAG);
+> +     }
+> +
+>       if (amdgpu_sriov_vf(adev)) {
+>               r =3D vcn_v4_0_start_sriov(adev);
+>               if (r)
+> --
+> 2.34.1
+
