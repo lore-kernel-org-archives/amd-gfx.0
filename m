@@ -4,113 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63F12C4167B
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Nov 2023 14:14:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B33CC10DAA
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Nov 2023 14:24:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E10B910E53C;
-	Wed, 29 Nov 2023 14:14:01 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B29B10E53C
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Nov 2023 14:14:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dhg4x/Sx2wnJ9PmOeBwuXkLxxAAu5+Eya8wmJfxuUk9epKzdnF0FHueZgt0GRPeFTOY5WsVsMH3NvBWa2ijArkDAmGVraT/JyxswWLbXhDr57ANQWgV4/vErnlDSUsqypQ48KpwWDoaoQdBrXrxaZPtGPq21caNXer3CH/fI9DrDTncMjPoVflZtdmp6OTdN1NQy6WFCCk4Z9EqJglq7k74MTz8Oq2eo1nRzuY2LKBZSaXn19PV1CPTOv6vUYjSBWYfikDG2kZYH5W5AHkPfFtbclnbKgR3lvJWcRCetBCNtu8gbGG2vIHJHqp7Ti3tutVo21bBYNatgQ3ePUpnaEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XI+NoDlYjLuseAzCBGoKYbgQvXuDzCxa7dzB48jXqls=;
- b=I8hc6XWs4C7kQeui9S60D33jE+X+X57Zu4GBYtpdBuYjY/dNPe4PcSdQUotMl9lJ5di9aiIa55cDGl6J7hFY64luF/k63joVeK3KIipq8iVgQTKoPilqtaBX9C7+13lOhcHZU9L3B6bV5vCA9aDivj4hesZneQsU39l/Bry23WoU7SLX3Ytr4uIwoDuUErM7pUkuNb8KkwQ7o4eOrtyrs9imBHVs19ZtFvC/2R3GopblO/ByUWrZlOydsY9uDBBFqmplGp25/FxcKit4zlyiGYqifPB1x36ArFfJu7Rj57y2XC6rhPCywWm0g8rfz+3UMbdLsuQfOcR+gXrAqlBtZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XI+NoDlYjLuseAzCBGoKYbgQvXuDzCxa7dzB48jXqls=;
- b=UaXbduSIXn5P4RVn4kfzxq7TnAFGxpVazuC+Ksx58WzpywkhBYiSYEYembfuZlqab8mEnivahXlG8ACej+gY1Y9FwvatLjkZRx+z1KtL7oBWw1FQeKmK1vuloN7+yPU9f9NQ3+CvfXovasRpX9Jr0qvXGlEs8PdxwFTwIEcPQJQ=
-Received: from DS7PR12MB6071.namprd12.prod.outlook.com (2603:10b6:8:9d::11) by
- LV2PR12MB5845.namprd12.prod.outlook.com (2603:10b6:408:176::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.27; Wed, 29 Nov
- 2023 14:13:57 +0000
-Received: from DS7PR12MB6071.namprd12.prod.outlook.com
- ([fe80::3487:6cb4:7065:cdaa]) by DS7PR12MB6071.namprd12.prod.outlook.com
- ([fe80::3487:6cb4:7065:cdaa%5]) with mapi id 15.20.7025.022; Wed, 29 Nov 2023
- 14:13:57 +0000
-From: "Kamal, Asad" <Asad.Kamal@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: Restrict extended wait to PSP v13.0.6
-Thread-Topic: [PATCH] drm/amdgpu: Restrict extended wait to PSP v13.0.6
-Thread-Index: AQHaIsDHbmz9T6GveUemxkKHMwJc2rCRVweA
-Date: Wed, 29 Nov 2023 14:13:57 +0000
-Message-ID: <DS7PR12MB6071C4245F8BAB04465F34698E83A@DS7PR12MB6071.namprd12.prod.outlook.com>
-References: <20231129123655.1161175-1-lijo.lazar@amd.com>
-In-Reply-To: <20231129123655.1161175-1-lijo.lazar@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=8538a799-63ab-4ec0-b3e8-de658357da37;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-11-29T14:13:47Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB6071:EE_|LV2PR12MB5845:EE_
-x-ms-office365-filtering-correlation-id: 6b56ac2c-d6d0-4944-c25c-08dbf0e56d21
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: vDj+0CKUkblSnv3Qj4mcvf1gGkVq9aBlnyU1Qaa6vU/n93YJObo23ANYGcZixrilvR87Y4fwPThYtVC1DdvsVmNO/k2LJ+FkWHzzZD1jTdCdI2oGP4HhjwYa2EkPWPBdb4+n7axr3XQ1aqGHIcXOQmVt3Xb8otHTf539YDnUNNWpeK6Hc6ebgqwLbp6WHVbp43ZzqB6JVrUK6DF0ejYsWW+ihB6cNhWkqxsaouBq2meat7E0FOvLBTsmuRvODzhDUOf7k0FSufppCXvFwdWBVbVgtZSsVKu4FLsI50L2o7FO03RXDWs5ru5I4G4lGq9XxlhUTWjcV0mpDDl0RmnvG1SEsD/7WKrm8i+zQRvE+hVptdYIgCqdyKNNJfltKd6zsODAwGFuVFJ2fjthbNkA9LKc/HAlOisaPocHOiQohrF0aBdbrBN1z6oPKOPa38BfQlZvsOYb08EagGJDoTGrynZk/g0Eq5mtGjEZ275gcrGg0O3kICzjUe9v2oQma+UQWINj7oXw5xwmLUHr1g7LUSf23d8LWynLEcV4lmlG5IYVWjPO8HM5xoTjpZ/uAvAnHo6oDaimiqU0U74GeeEydZinTeVQ4nyf4vjPoctFLpB00dxahCK1wxx/z++ORviJ
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB6071.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(396003)(366004)(376002)(346002)(136003)(230922051799003)(64100799003)(451199024)(186009)(1800799012)(52536014)(4326008)(8936002)(71200400001)(8676002)(9686003)(6506007)(53546011)(7696005)(64756008)(66446008)(76116006)(66556008)(66946007)(110136005)(66476007)(316002)(54906003)(478600001)(86362001)(55016003)(33656002)(38100700002)(41300700001)(38070700009)(26005)(122000001)(2906002)(5660300002)(83380400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?4OZysUlUkii/+e0SnfZSP//YAEtqaNBq6YwFOgip3Rj9fQu0j2eHqsphVAcu?=
- =?us-ascii?Q?ChboV2DvfU4WzEfJzm6GVBSi7F6ZBwJGl1VK5HU1KNpUYovAWlWL6VugMmRi?=
- =?us-ascii?Q?s/lEWLPH+raprvnod+c7nY9ca6XtwdmUy0zRJqhzxOwmyOBtSE4C07Fuj8ZQ?=
- =?us-ascii?Q?js1zv0QOUICECk1zRRllTT9fImS5zsIaRMovliziNnOZzj49ti8AouZaag4T?=
- =?us-ascii?Q?aK3xkrrBIRMiIQbYFrE/G1QnAPernD/JkpxV1N0uRlOnKQjvwhcINHOjo0/S?=
- =?us-ascii?Q?yxmM+Nb7XXPPZAjGgHj9GyohOTI5Itz12Oz0tv7wlgetRhQk8pju7UiGbt6o?=
- =?us-ascii?Q?YwZ4+yX/lUhNzAcRFN9OijL/ruljeOq5fsMBl4VrjlfGOGsdl+E6zKZcHDYn?=
- =?us-ascii?Q?/twt/N1FSUG49hqomCsOX8ySrmQwnPJg69zmLSwv2Uod6Tf68szqwCkJIWn5?=
- =?us-ascii?Q?CCUZqM1uETbgTpuIL2l2gtAAfqR3Af/e5m+Z9nec2EtUPA7uznaQWVBzq3Pd?=
- =?us-ascii?Q?EH0CCBcyLXQC5lvnpSphp9ZIrAg5M/+njYpVPxfzW3NrVKqTQ3suh0NYSMnk?=
- =?us-ascii?Q?655hjh6I1nCsHwEKovs/aKTky9IJEoNqcCU2Ujn/pPB2s3D4pzX+utcKU4W1?=
- =?us-ascii?Q?yE2DG9LC0wZtRi6EeGB4Bn9xCAuTT+9eyB2fJ0mnscv9iGdMMemM5H/dV0qT?=
- =?us-ascii?Q?++n5T4Hi9m2I3zEHgIO3McA7CpwuOCggHtLq2OQze4AzSGAX6QikZby10YLW?=
- =?us-ascii?Q?RHogWTtIG4m8sB7EYv5eCRxzpNbyK+aW30z6XLKCTwnxE+rrtb/jSYrZe9z1?=
- =?us-ascii?Q?tLj1K28PyM2Gkw9kvDWs4uFq6KE4lV62Nu0ySjvrNE0isHFdOsRVpIEVTvWo?=
- =?us-ascii?Q?ycm/trAa4PAMeWsw+EX9V/F0tFYk46QBuefQMuabo3UnzUSFUfAfHcDAkVLs?=
- =?us-ascii?Q?fGcf1/Qt/QoWJHWbV7UBzp8GI4JOTbjlPX2NwefTpbmJAj1559USV4gmkFNb?=
- =?us-ascii?Q?Ur28nCfdwpfKtSQFEWkCKUkGQM0bu/lkitUCkMsvw4HtBNIhyb8uVd4rRRDa?=
- =?us-ascii?Q?yBKawgkBfyqyRGmqkMIGpHTvr4wcKFuFuV7SS9ODAZ3p/K0B8Juz5Fzttef9?=
- =?us-ascii?Q?Q6YxaEpXNuew7WRQ3jWczOfXEDK5laE1MnuUGkcdZYUpuMvss7F+c7+EdjGc?=
- =?us-ascii?Q?wEetY4Rx6QyzHQDOB3AeIkdV87aRGqZYqJpLySOmnPHq0AjxyQuzjonv+l0J?=
- =?us-ascii?Q?WJIaVex3YkMqQi0odE8PZUCkco5lzuUWBxAnji4Ql4o4bnPOtD9XAhZyevto?=
- =?us-ascii?Q?/A4QrpkIXsIscftCEsYFcvgXTd9mVxyGueSIhCgcOMJjs468yuLCeTJ6Ho0b?=
- =?us-ascii?Q?3ywk7kWx/kwcFdphNgrAf8w8+1rRXM1rbjxmd3eZmaeFDwLqQCtgIVQvO3J7?=
- =?us-ascii?Q?ifpWdPIybJNlJn3GZXUseoGV3Q0dQpuCAXmtr/PJvM4r+OdwwlQ81YCcq6qt?=
- =?us-ascii?Q?mttzV65d/Nf9LRlFK49cSjvQvgfUZ60VeH4ztDbaZSseFSId2EbBq+KUa0N/?=
- =?us-ascii?Q?2d/kt9f/1J8zwXL6QE4=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F25710E543;
+	Wed, 29 Nov 2023 14:24:41 +0000 (UTC)
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [IPv6:2001:4860:4864:20::2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DBA210E543
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Nov 2023 14:24:39 +0000 (UTC)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-1fa37df6da8so2047340fac.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Nov 2023 06:24:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1701267879; x=1701872679; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=V3IXZoOiBHV7I2i3RQo1isSRzOXMr4mEMAnUZglnzcI=;
+ b=CQyg56MYwR4mcPnRQjxKzaEHu74XiShstSQg80AHPfGkbHjiirxK+ie0vlfzoxiPqr
+ yk1e2wgvqSUz70c4LXsjR043idGLcL0AgqsQ6l6vqfEd6HyYj6sn0p6I7stSlTeBo6P0
+ TKO7wNO91xa6oasvKgUqzHXv7bUVETrA2aT76ESYSMiXLhjfgaHjRK6aAniwYW5kkkLB
+ /RYniq44DOZgRhMC9E/fmNcy+fi2+oi9hkEzp9/usQ4Lig/ppKsl9W8WIFLRV7KxBE4u
+ TU5vHgCpF0YOqPBAPi/2wc1I13BFPLiu3rqaM/O5ZQHeC7pJmqet4sjRSj6BUOdC2o8w
+ nZSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1701267879; x=1701872679;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=V3IXZoOiBHV7I2i3RQo1isSRzOXMr4mEMAnUZglnzcI=;
+ b=JRxcbwTuRHmpUuJS7y/bLI5RMKZUf9sw/FoQLTm6j6EKgJPxEOJrUPSl0rwSO00M+L
+ iOd7lW46RAOjIiBdEb6xENuYOit84SlNkcxG0tw8srvatKs90LVucn0rqFDHH7bV80C5
+ IkxdH7f9AbT8bCljVsoSxwtsf3Ml1OE9MDHWovbIYqUr77Di/WRXw89RetAabmVFaZ2r
+ xZb5dAGAnAGdsVlsQMy4NoNJbo1Rj+doSR1PA44j5tRHLsQPRbwR7pqUtgd23NJ9RdnE
+ NodRwuaaRxUu2yo8Omoe0VFD8YehQgcgHVNTkoz6WBTbEE2P8yZ2QgRhAmJXP4kMhlKh
+ kvcw==
+X-Gm-Message-State: AOJu0Ywwo6d+CqAMZFv4Tn23gmcScR+6/TlacK5jnb75OcHGv16H+92m
+ a09C0GuObB6bFCo4MOFMa2nuCgW3q8XXJuoYr7xpCvtO
+X-Google-Smtp-Source: AGHT+IHp5BxJm6omQJPBqj9MFqb2PSpP8oQnrqlSnCBwOTOKESRjithvu1ess2KHgf8S03ZgBR/1IKfJB/b4IAyC7Qo=
+X-Received: by 2002:a05:6870:be89:b0:1f5:ccc2:b21e with SMTP id
+ nx9-20020a056870be8900b001f5ccc2b21emr24143583oab.41.1701267878668; Wed, 29
+ Nov 2023 06:24:38 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6071.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b56ac2c-d6d0-4944-c25c-08dbf0e56d21
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Nov 2023 14:13:57.1546 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 2MqHN4guJokIJ1Coh54IqDWlVkl0+E6eOYTteGFZ5TigkjOE2spjsf/Gf17goKPPqyJRyU+EgwXzL2UAjF3Lug==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5845
+References: <20231129134629.1478602-1-tom.stdenis@amd.com>
+In-Reply-To: <20231129134629.1478602-1-tom.stdenis@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 29 Nov 2023 09:24:27 -0500
+Message-ID: <CADnq5_MBxsOnQsk6vFe2ijmaLMJz_DTZ07wAvWgrMBodALibnA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: Add SMUIO headers for 10.0.2
+To: Tom St Denis <tom.stdenis@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,75 +67,530 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Limonciello,
- Mario" <Mario.Limonciello@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+On Wed, Nov 29, 2023 at 9:22=E2=80=AFAM Tom St Denis <tom.stdenis@amd.com> =
+wrote:
+>
+> These were requested by a UMR user for debugging purposes.
+>
+> Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
 
-Reviewed-by: Asad Kamal <asad.kamal@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Thanks & Regards
-Asad
-
------Original Message-----
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Wednesday, November 29, 2023 6:07 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>; Limonciello, Mario <Mari=
-o.Limonciello@amd.com>
-Subject: [PATCH] drm/amdgpu: Restrict extended wait to PSP v13.0.6
-
-Only PSPv13.0.6 SOCs take a longer time to reach steady state. Other
-PSPv13 based SOCs don't need extended wait. Also, reduce PSPv13.0.6 wait ti=
-me.
-
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/psp_v13_0.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/psp_v13_0.c
-index 32048b805200..d335d1d2e93e 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-@@ -60,7 +60,7 @@ MODULE_FIRMWARE("amdgpu/psp_14_0_0_ta.bin");
- #define GFX_CMD_USB_PD_USE_LFB 0x480
-
- /* Retry times for vmbx ready wait */
--#define PSP_VMBX_POLLING_LIMIT 20000
-+#define PSP_VMBX_POLLING_LIMIT 3000
-
- /* VBIOS gfl defines */
- #define MBOX_READY_MASK 0x80000000
-@@ -161,14 +161,18 @@ static int psp_v13_0_wait_for_vmbx_ready(struct psp_c=
-ontext *psp)  static int psp_v13_0_wait_for_bootloader(struct psp_context *=
-psp)  {
-        struct amdgpu_device *adev =3D psp->adev;
--       int retry_loop, ret;
-+       int retry_loop, retry_cnt, ret;
-
-+       retry_cnt =3D
-+               (amdgpu_ip_version(adev, MP0_HWIP, 0) =3D=3D IP_VERSION(13,=
- 0, 6)) ?
-+                       PSP_VMBX_POLLING_LIMIT :
-+                       10;
-        /* Wait for bootloader to signify that it is ready having bit 31 of
-         * C2PMSG_35 set to 1. All other bits are expected to be cleared.
-         * If there is an error in processing command, bits[7:0] will be se=
-t.
-         * This is applicable for PSP v13.0.6 and newer.
-         */
--       for (retry_loop =3D 0; retry_loop < PSP_VMBX_POLLING_LIMIT; retry_l=
-oop++) {
-+       for (retry_loop =3D 0; retry_loop < retry_cnt; retry_loop++) {
-                ret =3D psp_wait_for(
-                        psp, SOC15_REG_OFFSET(MP0, 0, regMP0_SMN_C2PMSG_35)=
-,
-                        0x80000000, 0xffffffff, false);
---
-2.25.1
-
+> ---
+>  .../asic_reg/smuio/smuio_10_0_2_offset.h      | 102 ++++++++++
+>  .../asic_reg/smuio/smuio_10_0_2_sh_mask.h     | 184 ++++++++++++++++++
+>  2 files changed, 286 insertions(+)
+>  create mode 100644 drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_10_0=
+_2_offset.h
+>  create mode 100644 drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_10_0=
+_2_sh_mask.h
+>
+> diff --git a/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_10_0_2_offs=
+et.h b/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_10_0_2_offset.h
+> new file mode 100644
+> index 000000000000..a4dd372c0541
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_10_0_2_offset.h
+> @@ -0,0 +1,102 @@
+> +/*
+> + * Copyright (C) 2023  Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining=
+ a
+> + * copy of this software and associated documentation files (the "Softwa=
+re"),
+> + * to deal in the Software without restriction, including without limita=
+tion
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
+se,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be includ=
+ed
+> + * in all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
+SS
+> + * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTAB=
+ILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
+ALL
+> + * THE COPYRIGHT HOLDER(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIA=
+BILITY, WHETHER IN
+> + * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+> + * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFT=
+WARE.
+> + */
+> +#ifndef _smuio_10_0_2_OFFSET_HEADER
+> +
+> +// addressBlock: smuio_smuio_misc_SmuSmuioDec
+> +// base address: 0x5a000
+> +#define mmSMUIO_MCM_CONFIG                                              =
+                               0x0023
+> +#define mmSMUIO_MCM_CONFIG_BASE_IDX                                     =
+                               0
+> +#define mmIP_DISCOVERY_VERSION                                          =
+                               0x0000
+> +#define mmIP_DISCOVERY_VERSION_BASE_IDX                                 =
+                               1
+> +#define mmIO_SMUIO_PINSTRAP                                             =
+                               0x01b1
+> +#define mmIO_SMUIO_PINSTRAP_BASE_IDX                                    =
+                               1
+> +#define mmSCRATCH_REGISTER0                                             =
+                               0x01b2
+> +#define mmSCRATCH_REGISTER0_BASE_IDX                                    =
+                               1
+> +#define mmSCRATCH_REGISTER1                                             =
+                               0x01b3
+> +#define mmSCRATCH_REGISTER1_BASE_IDX                                    =
+                               1
+> +#define mmSCRATCH_REGISTER2                                             =
+                               0x01b4
+> +#define mmSCRATCH_REGISTER2_BASE_IDX                                    =
+                               1
+> +#define mmSCRATCH_REGISTER3                                             =
+                               0x01b5
+> +#define mmSCRATCH_REGISTER3_BASE_IDX                                    =
+                               1
+> +#define mmSCRATCH_REGISTER4                                             =
+                               0x01b6
+> +#define mmSCRATCH_REGISTER4_BASE_IDX                                    =
+                               1
+> +#define mmSCRATCH_REGISTER5                                             =
+                               0x01b7
+> +#define mmSCRATCH_REGISTER5_BASE_IDX                                    =
+                               1
+> +#define mmSCRATCH_REGISTER6                                             =
+                               0x01b8
+> +#define mmSCRATCH_REGISTER6_BASE_IDX                                    =
+                               1
+> +#define mmSCRATCH_REGISTER7                                             =
+                               0x01b9
+> +#define mmSCRATCH_REGISTER7_BASE_IDX                                    =
+                               1
+> +
+> +
+> +// addressBlock: smuio_smuio_reset_SmuSmuioDec
+> +// base address: 0x5a300
+> +#define mmSMUIO_MP_RESET_INTR                                           =
+                               0x00c1
+> +#define mmSMUIO_MP_RESET_INTR_BASE_IDX                                  =
+                               0
+> +#define mmSMUIO_SOC_HALT                                                =
+                               0x00c2
+> +#define mmSMUIO_SOC_HALT_BASE_IDX                                       =
+                               0
+> +#define mmSMUIO_GFX_MISC_CNTL                                           =
+                               0x00c8
+> +#define mmSMUIO_GFX_MISC_CNTL_BASE_IDX                                  =
+                               0
+> +
+> +
+> +// addressBlock: smuio_smuio_ccxctrl_SmuSmuioDec
+> +// base address: 0x5a000
+> +#define mmPWROK_REFCLK_GAP_CYCLES                                       =
+                               0x0001
+> +#define mmPWROK_REFCLK_GAP_CYCLES_BASE_IDX                              =
+                               1
+> +#define mmGOLDEN_TSC_INCREMENT_UPPER                                    =
+                               0x0004
+> +#define mmGOLDEN_TSC_INCREMENT_UPPER_BASE_IDX                           =
+                               1
+> +#define mmGOLDEN_TSC_INCREMENT_LOWER                                    =
+                               0x0005
+> +#define mmGOLDEN_TSC_INCREMENT_LOWER_BASE_IDX                           =
+                               1
+> +#define mmGOLDEN_TSC_COUNT_UPPER                                        =
+                               0x0025
+> +#define mmGOLDEN_TSC_COUNT_UPPER_BASE_IDX                               =
+                               1
+> +#define mmGOLDEN_TSC_COUNT_LOWER                                        =
+                               0x0026
+> +#define mmGOLDEN_TSC_COUNT_LOWER_BASE_IDX                               =
+                               1
+> +#define mmGFX_GOLDEN_TSC_SHADOW_UPPER                                   =
+                               0x0029
+> +#define mmGFX_GOLDEN_TSC_SHADOW_UPPER_BASE_IDX                          =
+                               1
+> +#define mmGFX_GOLDEN_TSC_SHADOW_LOWER                                   =
+                               0x002a
+> +#define mmGFX_GOLDEN_TSC_SHADOW_LOWER_BASE_IDX                          =
+                               1
+> +#define mmSOC_GOLDEN_TSC_SHADOW_UPPER                                   =
+                               0x002b
+> +#define mmSOC_GOLDEN_TSC_SHADOW_UPPER_BASE_IDX                          =
+                               1
+> +#define mmSOC_GOLDEN_TSC_SHADOW_LOWER                                   =
+                               0x002c
+> +#define mmSOC_GOLDEN_TSC_SHADOW_LOWER_BASE_IDX                          =
+                               1
+> +#define mmSOC_GAP_PWROK                                                 =
+                               0x002d
+> +#define mmSOC_GAP_PWROK_BASE_IDX                                        =
+                               1
+> +
+> +// addressBlock: smuio_smuio_swtimer_SmuSmuioDec
+> +// base address: 0x5ac40
+> +#define mmPWR_VIRT_RESET_REQ                                            =
+                               0x0110
+> +#define mmPWR_VIRT_RESET_REQ_BASE_IDX                                   =
+                               1
+> +#define mmPWR_DISP_TIMER_CONTROL                                        =
+                               0x0111
+> +#define mmPWR_DISP_TIMER_CONTROL_BASE_IDX                               =
+                               1
+> +#define mmPWR_DISP_TIMER2_CONTROL                                       =
+                               0x0113
+> +#define mmPWR_DISP_TIMER2_CONTROL_BASE_IDX                              =
+                               1
+> +#define mmPWR_DISP_TIMER_GLOBAL_CONTROL                                 =
+                               0x0115
+> +#define mmPWR_DISP_TIMER_GLOBAL_CONTROL_BASE_IDX                        =
+                               1
+> +#define mmPWR_IH_CONTROL                                                =
+                               0x0116
+> +#define mmPWR_IH_CONTROL_BASE_IDX                                       =
+                               1
+> +
+> +// addressBlock: smuio_smuio_svi0_SmuSmuioDec
+> +// base address: 0x6f000
+> +#define mmSMUSVI0_TEL_PLANE0                                            =
+                               0x520e
+> +#define mmSMUSVI0_TEL_PLANE0_BASE_IDX                                   =
+                               1
+> +#define mmSMUSVI0_PLANE0_CURRENTVID                                     =
+                               0x5217
+> +#define mmSMUSVI0_PLANE0_CURRENTVID_BASE_IDX                            =
+                               1
+> +
+> +#endif
+> diff --git a/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_10_0_2_sh_m=
+ask.h b/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_10_0_2_sh_mask.h
+> new file mode 100644
+> index 000000000000..d10ae61c346b
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_10_0_2_sh_mask.h
+> @@ -0,0 +1,184 @@
+> +/*
+> + * Copyright (C) 2023  Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining=
+ a
+> + * copy of this software and associated documentation files (the "Softwa=
+re"),
+> + * to deal in the Software without restriction, including without limita=
+tion
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
+se,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be includ=
+ed
+> + * in all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
+SS
+> + * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTAB=
+ILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
+ALL
+> + * THE COPYRIGHT HOLDER(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIA=
+BILITY, WHETHER IN
+> + * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+> + * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFT=
+WARE.
+> + */
+> +#ifndef _smuio_10_0_2_SH_MASK_HEADER
+> +
+> +// addressBlock: smuio_smuio_misc_SmuSmuioDec
+> +//SMUIO_MCM_CONFIG
+> +#define SMUIO_MCM_CONFIG__DIE_ID__SHIFT                                 =
+                                      0x0
+> +#define SMUIO_MCM_CONFIG__PKG_TYPE__SHIFT                               =
+                                      0x2
+> +#define SMUIO_MCM_CONFIG__SOCKET_ID__SHIFT                              =
+                                      0x5
+> +#define SMUIO_MCM_CONFIG__PKG_SUBTYPE__SHIFT                            =
+                                      0x6
+> +#define SMUIO_MCM_CONFIG__CONSOLE_K__SHIFT                              =
+                                      0x10
+> +#define SMUIO_MCM_CONFIG__CONSOLE_A__SHIFT                              =
+                                      0x11
+> +#define SMUIO_MCM_CONFIG__DIE_ID_MASK                                   =
+                                      0x00000003L
+> +#define SMUIO_MCM_CONFIG__PKG_TYPE_MASK                                 =
+                                      0x0000001CL
+> +#define SMUIO_MCM_CONFIG__SOCKET_ID_MASK                                =
+                                      0x00000020L
+> +#define SMUIO_MCM_CONFIG__PKG_SUBTYPE_MASK                              =
+                                      0x000000C0L
+> +#define SMUIO_MCM_CONFIG__CONSOLE_K_MASK                                =
+                                      0x00010000L
+> +#define SMUIO_MCM_CONFIG__CONSOLE_A_MASK                                =
+                                      0x00020000L
+> +//IP_DISCOVERY_VERSION
+> +#define IP_DISCOVERY_VERSION__IP_DISCOVERY_VERSION__SHIFT               =
+                                      0x0
+> +#define IP_DISCOVERY_VERSION__IP_DISCOVERY_VERSION_MASK                 =
+                                      0xFFFFFFFFL
+> +//IO_SMUIO_PINSTRAP
+> +#define IO_SMUIO_PINSTRAP__AUD_PORT_CONN__SHIFT                         =
+                                      0x0
+> +#define IO_SMUIO_PINSTRAP__AUD__SHIFT                                   =
+                                      0x3
+> +#define IO_SMUIO_PINSTRAP__AUD_PORT_CONN_MASK                           =
+                                      0x00000007L
+> +#define IO_SMUIO_PINSTRAP__AUD_MASK                                     =
+                                      0x00000018L
+> +//SCRATCH_REGISTER0
+> +#define SCRATCH_REGISTER0__ScratchPad0__SHIFT                           =
+                                      0x0
+> +#define SCRATCH_REGISTER0__ScratchPad0_MASK                             =
+                                      0xFFFFFFFFL
+> +//SCRATCH_REGISTER1
+> +#define SCRATCH_REGISTER1__ScratchPad1__SHIFT                           =
+                                      0x0
+> +#define SCRATCH_REGISTER1__ScratchPad1_MASK                             =
+                                      0xFFFFFFFFL
+> +//SCRATCH_REGISTER2
+> +#define SCRATCH_REGISTER2__ScratchPad2__SHIFT                           =
+                                      0x0
+> +#define SCRATCH_REGISTER2__ScratchPad2_MASK                             =
+                                      0xFFFFFFFFL
+> +//SCRATCH_REGISTER3
+> +#define SCRATCH_REGISTER3__ScratchPad3__SHIFT                           =
+                                      0x0
+> +#define SCRATCH_REGISTER3__ScratchPad3_MASK                             =
+                                      0xFFFFFFFFL
+> +//SCRATCH_REGISTER4
+> +#define SCRATCH_REGISTER4__ScratchPad4__SHIFT                           =
+                                      0x0
+> +#define SCRATCH_REGISTER4__ScratchPad4_MASK                             =
+                                      0xFFFFFFFFL
+> +//SCRATCH_REGISTER5
+> +#define SCRATCH_REGISTER5__ScratchPad5__SHIFT                           =
+                                      0x0
+> +#define SCRATCH_REGISTER5__ScratchPad5_MASK                             =
+                                      0xFFFFFFFFL
+> +//SCRATCH_REGISTER6
+> +#define SCRATCH_REGISTER6__ScratchPad6__SHIFT                           =
+                                      0x0
+> +#define SCRATCH_REGISTER6__ScratchPad6_MASK                             =
+                                      0xFFFFFFFFL
+> +//SCRATCH_REGISTER7
+> +#define SCRATCH_REGISTER7__ScratchPad7__SHIFT                           =
+                                      0x0
+> +#define SCRATCH_REGISTER7__ScratchPad7_MASK                             =
+                                      0xFFFFFFFFL
+> +
+> +// addressBlock: smuio_smuio_reset_SmuSmuioDec
+> +//SMUIO_MP_RESET_INTR
+> +#define SMUIO_MP_RESET_INTR__SMUIO_MP_RESET_INTR__SHIFT                 =
+                                      0x0
+> +#define SMUIO_MP_RESET_INTR__SMUIO_MP_RESET_INTR_MASK                   =
+                                      0x00000001L
+> +//SMUIO_SOC_HALT
+> +#define SMUIO_SOC_HALT__WDT_FORCE_PWROK_EN__SHIFT                       =
+                                      0x2
+> +#define SMUIO_SOC_HALT__WDT_FORCE_RESETn_EN__SHIFT                      =
+                                      0x3
+> +#define SMUIO_SOC_HALT__WDT_FORCE_PWROK_EN_MASK                         =
+                                      0x00000004L
+> +#define SMUIO_SOC_HALT__WDT_FORCE_RESETn_EN_MASK                        =
+                                      0x00000008L
+> +//SMUIO_GFX_MISC_CNTL
+> +#define SMUIO_GFX_MISC_CNTL__SMU_GFX_cold_vs_gfxoff__SHIFT              =
+                                      0x0
+> +#define SMUIO_GFX_MISC_CNTL__PWR_GFXOFF_STATUS__SHIFT                   =
+                                      0x1
+> +#define SMUIO_GFX_MISC_CNTL__PWR_GFX_DLDO_CLK_SWITCH__SHIFT             =
+                                      0x3
+> +#define SMUIO_GFX_MISC_CNTL__PWR_GFX_RLC_CGPG_EN__SHIFT                 =
+                                      0x4
+> +#define SMUIO_GFX_MISC_CNTL__SMU_GFX_cold_vs_gfxoff_MASK                =
+                                      0x00000001L
+> +#define SMUIO_GFX_MISC_CNTL__PWR_GFXOFF_STATUS_MASK                     =
+                                      0x00000006L
+> +#define SMUIO_GFX_MISC_CNTL__PWR_GFX_DLDO_CLK_SWITCH_MASK               =
+                                      0x00000008L
+> +#define SMUIO_GFX_MISC_CNTL__PWR_GFX_RLC_CGPG_EN_MASK                   =
+                                      0x00000010L
+> +
+> +// addressBlock: smuio_smuio_ccxctrl_SmuSmuioDec
+> +//PWROK_REFCLK_GAP_CYCLES
+> +#define PWROK_REFCLK_GAP_CYCLES__Pwrok_PreAssertion_clkgap_cycles__SHIFT=
+                                      0x0
+> +#define PWROK_REFCLK_GAP_CYCLES__Pwrok_PostAssertion_clkgap_cycles__SHIF=
+T                                     0x8
+> +#define PWROK_REFCLK_GAP_CYCLES__Pwrok_PreAssertion_clkgap_cycles_MASK  =
+                                      0x000000FFL
+> +#define PWROK_REFCLK_GAP_CYCLES__Pwrok_PostAssertion_clkgap_cycles_MASK =
+                                      0x0000FF00L
+> +//GOLDEN_TSC_INCREMENT_UPPER
+> +#define GOLDEN_TSC_INCREMENT_UPPER__GoldenTscIncrementUpper__SHIFT      =
+                                      0x0
+> +#define GOLDEN_TSC_INCREMENT_UPPER__GoldenTscIncrementUpper_MASK        =
+                                      0x00FFFFFFL
+> +//GOLDEN_TSC_INCREMENT_LOWER
+> +#define GOLDEN_TSC_INCREMENT_LOWER__GoldenTscIncrementLower__SHIFT      =
+                                      0x0
+> +#define GOLDEN_TSC_INCREMENT_LOWER__GoldenTscIncrementLower_MASK        =
+                                      0xFFFFFFFFL
+> +//GOLDEN_TSC_COUNT_UPPER
+> +#define GOLDEN_TSC_COUNT_UPPER__GoldenTscCountUpper__SHIFT              =
+                                      0x0
+> +#define GOLDEN_TSC_COUNT_UPPER__GoldenTscCountUpper_MASK                =
+                                      0x00FFFFFFL
+> +//GOLDEN_TSC_COUNT_LOWER
+> +#define GOLDEN_TSC_COUNT_LOWER__GoldenTscCountLower__SHIFT              =
+                                      0x0
+> +#define GOLDEN_TSC_COUNT_LOWER__GoldenTscCountLower_MASK                =
+                                      0xFFFFFFFFL
+> +//GFX_GOLDEN_TSC_SHADOW_UPPER
+> +#define GFX_GOLDEN_TSC_SHADOW_UPPER__GfxGoldenTscShadowUpper__SHIFT     =
+                                      0x0
+> +#define GFX_GOLDEN_TSC_SHADOW_UPPER__GfxGoldenTscShadowUpper_MASK       =
+                                      0x00FFFFFFL
+> +//GFX_GOLDEN_TSC_SHADOW_LOWER
+> +#define GFX_GOLDEN_TSC_SHADOW_LOWER__GfxGoldenTscShadowLower__SHIFT     =
+                                      0x0
+> +#define GFX_GOLDEN_TSC_SHADOW_LOWER__GfxGoldenTscShadowLower_MASK       =
+                                      0xFFFFFFFFL
+> +//SOC_GOLDEN_TSC_SHADOW_UPPER
+> +#define SOC_GOLDEN_TSC_SHADOW_UPPER__SocGoldenTscShadowUpper__SHIFT     =
+                                      0x0
+> +#define SOC_GOLDEN_TSC_SHADOW_UPPER__SocGoldenTscShadowUpper_MASK       =
+                                      0x00FFFFFFL
+> +//SOC_GOLDEN_TSC_SHADOW_LOWER
+> +#define SOC_GOLDEN_TSC_SHADOW_LOWER__SocGoldenTscShadowLower__SHIFT     =
+                                      0x0
+> +#define SOC_GOLDEN_TSC_SHADOW_LOWER__SocGoldenTscShadowLower_MASK       =
+                                      0xFFFFFFFFL
+> +//SOC_GAP_PWROK
+> +#define SOC_GAP_PWROK__soc_gap_pwrok__SHIFT                             =
+                                      0x0
+> +#define SOC_GAP_PWROK__soc_gap_pwrok_MASK                               =
+                                      0x00000001L
+> +
+> +// addressBlock: smuio_smuio_swtimer_SmuSmuioDec
+> +//PWR_VIRT_RESET_REQ
+> +#define PWR_VIRT_RESET_REQ__VF_FLR__SHIFT                               =
+                                      0x0
+> +#define PWR_VIRT_RESET_REQ__PF_FLR__SHIFT                               =
+                                      0x1f
+> +#define PWR_VIRT_RESET_REQ__VF_FLR_MASK                                 =
+                                      0x7FFFFFFFL
+> +#define PWR_VIRT_RESET_REQ__PF_FLR_MASK                                 =
+                                      0x80000000L
+> +//PWR_DISP_TIMER_CONTROL
+> +#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_COUNT__SHIFT             =
+                                      0x0
+> +#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_ENABLE__SHIFT            =
+                                      0x19
+> +#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_DISABLE__SHIFT           =
+                                      0x1a
+> +#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_MASK__SHIFT              =
+                                      0x1b
+> +#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_STAT_AK__SHIFT           =
+                                      0x1c
+> +#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_TYPE__SHIFT              =
+                                      0x1d
+> +#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_MODE__SHIFT              =
+                                      0x1e
+> +#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_COUNT_MASK               =
+                                      0x01FFFFFFL
+> +#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_ENABLE_MASK              =
+                                      0x02000000L
+> +#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_DISABLE_MASK             =
+                                      0x04000000L
+> +#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_MASK_MASK                =
+                                      0x08000000L
+> +#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_STAT_AK_MASK             =
+                                      0x10000000L
+> +#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_TYPE_MASK                =
+                                      0x20000000L
+> +#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_MODE_MASK                =
+                                      0x40000000L
+> +//PWR_DISP_TIMER2_CONTROL
+> +#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_COUNT__SHIFT            =
+                                      0x0
+> +#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_ENABLE__SHIFT           =
+                                      0x19
+> +#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_DISABLE__SHIFT          =
+                                      0x1a
+> +#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_MASK__SHIFT             =
+                                      0x1b
+> +#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_STAT_AK__SHIFT          =
+                                      0x1c
+> +#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_TYPE__SHIFT             =
+                                      0x1d
+> +#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_MODE__SHIFT             =
+                                      0x1e
+> +#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_COUNT_MASK              =
+                                      0x01FFFFFFL
+> +#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_ENABLE_MASK             =
+                                      0x02000000L
+> +#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_DISABLE_MASK            =
+                                      0x04000000L
+> +#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_MASK_MASK               =
+                                      0x08000000L
+> +#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_STAT_AK_MASK            =
+                                      0x10000000L
+> +#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_TYPE_MASK               =
+                                      0x20000000L
+> +#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_MODE_MASK               =
+                                      0x40000000L
+> +//PWR_DISP_TIMER_GLOBAL_CONTROL
+> +#define PWR_DISP_TIMER_GLOBAL_CONTROL__DISP_TIMER_PULSE_WIDTH__SHIFT    =
+                                      0x0
+> +#define PWR_DISP_TIMER_GLOBAL_CONTROL__DISP_TIMER_PULSE_EN__SHIFT       =
+                                      0xa
+> +#define PWR_DISP_TIMER_GLOBAL_CONTROL__DISP_TIMER_PULSE_WIDTH_MASK      =
+                                      0x000003FFL
+> +#define PWR_DISP_TIMER_GLOBAL_CONTROL__DISP_TIMER_PULSE_EN_MASK         =
+                                      0x00000400L
+> +//PWR_IH_CONTROL
+> +#define PWR_IH_CONTROL__MAX_CREDIT__SHIFT                               =
+                                      0x0
+> +#define PWR_IH_CONTROL__DISP_TIMER_TRIGGER_MASK__SHIFT                  =
+                                      0x5
+> +#define PWR_IH_CONTROL__DISP_TIMER2_TRIGGER_MASK__SHIFT                 =
+                                      0x6
+> +#define PWR_IH_CONTROL__PWR_IH_CLK_GATE_EN__SHIFT                       =
+                                      0x1f
+> +#define PWR_IH_CONTROL__MAX_CREDIT_MASK                                 =
+                                      0x0000001FL
+> +#define PWR_IH_CONTROL__DISP_TIMER_TRIGGER_MASK_MASK                    =
+                                      0x00000020L
+> +#define PWR_IH_CONTROL__DISP_TIMER2_TRIGGER_MASK_MASK                   =
+                                      0x00000040L
+> +#define PWR_IH_CONTROL__PWR_IH_CLK_GATE_EN_MASK                         =
+                                      0x80000000L
+> +
+> +// addressBlock: smuio_smuio_svi0_SmuSmuioDec
+> +//SMUSVI0_TEL_PLANE0
+> +#define SMUSVI0_TEL_PLANE0__SVI0_PLANE0_IDDCOR__SHIFT                   =
+                                      0x0
+> +#define SMUSVI0_TEL_PLANE0__SVI0_PLANE0_VDDCOR__SHIFT                   =
+                                      0x10
+> +#define SMUSVI0_TEL_PLANE0__SVI0_PLANE0_IDDCOR_MASK                     =
+                                      0x000000FFL
+> +#define SMUSVI0_TEL_PLANE0__SVI0_PLANE0_VDDCOR_MASK                     =
+                                      0x01FF0000L
+> +//SMUSVI0_PLANE0_CURRENTVID
+> +#define SMUSVI0_PLANE0_CURRENTVID__CURRENT_SVI0_PLANE0_VID__SHIFT       =
+                                      0x18
+> +#define SMUSVI0_PLANE0_CURRENTVID__CURRENT_SVI0_PLANE0_VID_MASK         =
+                                      0xFF000000L
+> +
+> +#endif
+> --
+> 2.40.1
+>
