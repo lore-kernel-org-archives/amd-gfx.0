@@ -4,114 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22426C4167B
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Nov 2023 18:54:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFC6EC4167B
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Nov 2023 21:30:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A586410E764;
-	Thu, 30 Nov 2023 18:54:29 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2069.outbound.protection.outlook.com [40.107.223.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC5BC10E76A
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Nov 2023 18:54:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=D1G3KgheWb/aXGBz7Vbrvi6TFJT3Cc+U8NC9N7p8wKRnRimKcBZxHEJbYp7x1H9+owW6qfHrr4+vpNsf+6FTDYpHSHDnMbBozM5CiFXYw6xwWAgEOnjXpDoW8Q9mkw2r4V9E5iUR8ykXgEmEgGb3j4XJEwgfGGnRgBmrFRJEh9j5ezlHC9A+3nAd7cSL/B1O5daul1A+Ppl+upa/D+lOWh4Ww2JmRPdapUiEz4K211LblJZCL89H02T7CR1qyf5BQkB7z9M2aXsMTyrCO2z/wNTaMUosjOqlCvJkxz51XRh7icrwC8+bQMUD7oeJ8zLWdkEUhZIHwcdXsvwK7/GG9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=beZSCExb3h0ZPql+MdpWfXpcfqYpA823PDjmIfZEUw8=;
- b=I8r85GETbnSQ77DddJPtAK2pzbWVMKPYKdzC2yAG7J0Sp911RW+p1YUCYZAEQzLqwIoA74f6mexTmeB1b8FJcFx+e2KrNDT5hoA2lEo2/MdnKcJ/46/2q+K7v2oU9shGv8PKTTrULg78ZCiwRwrhTDYAf6DKV8I/e5FKnV4RcC4a+MYrIiFEPemI7DOBPYgWps0Yflskf3VlJ3onTDjTmfh80GEuPmr4gbH27efeo6SHlNrjWRWF3LSnfvCyvySXdpJZ4lSrOa4s0jHCvZ63KkReEaAr4H4G0aFDbE6VYNovl+EI69MLZVYNiHMxqUNBMT6RdPKzQ19CJYqYV0RcuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=beZSCExb3h0ZPql+MdpWfXpcfqYpA823PDjmIfZEUw8=;
- b=qNaTF4G1ERSsiagpXfaE1VWUYfh3zN1lMPXkzsteXn6tXgD01BOhwETvhJPoT6UuQiPOmJftzdHehohChK55lGN84DCzP7t6Ze1HzT5dao8b6mU8rvVQdsFVrnEPsYvVCGuAxGxXTNStCV3YnGxtsbdDwxSPqsNGHsPjAZXiox8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by DM6PR12MB4139.namprd12.prod.outlook.com (2603:10b6:5:214::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.24; Thu, 30 Nov
- 2023 18:54:25 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::3a35:139f:8361:ab66]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::3a35:139f:8361:ab66%6]) with mapi id 15.20.7046.024; Thu, 30 Nov 2023
- 18:54:25 +0000
-Message-ID: <322db93d-8098-4776-94dd-58f95f964dfd@amd.com>
-Date: Thu, 30 Nov 2023 13:54:22 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Fix NULL pointer dereference at hibernate
-Content-Language: en-US
-To: Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20231129003509.246035-1-mario.limonciello@amd.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20231129003509.246035-1-mario.limonciello@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0396.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:108::28) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0557110E778;
+	Thu, 30 Nov 2023 21:30:14 +0000 (UTC)
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [IPv6:2607:f8b0:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F23E610E042;
+ Thu, 30 Nov 2023 21:30:11 +0000 (UTC)
+Received: by mail-oi1-x22f.google.com with SMTP id
+ 5614622812f47-3b843b61d8aso842021b6e.0; 
+ Thu, 30 Nov 2023 13:30:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1701379811; x=1701984611; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2AdLM7lBVKO5z85JUEsbZhnOFnXHXkAG5gRF28PcXpY=;
+ b=SW8U5WFQMKPZw8Tqsl/kbBbNPu/6glv2M9r9VOmfEZIuMHpY+OguTBH7a1yFqdgWdH
+ jHDhyTFxXwU+bx8I436huYPe2GS6ASm4i5KTqDygjx6SLMLcOv8ks7fUwhHmiLsOe/YZ
+ SeFcYjEXVOJzYFk83J30/vPT3JODBbncwUc+NX5tMKC+87vQX9BxQ7UqZmLQ62VOxCkr
+ OZH3NotvZ+N9CbMEGVPQ4FBhVz9zai+srDfnhpoKk/9MmLEVzRF+TCjaE5dmrW258n1n
+ /FD6dVI6apRL1r75x2rRYIlvnTeumBVghsC6Mc4J6+luRDQun3OYdtppMv/fX834tvlC
+ X7GA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1701379811; x=1701984611;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=2AdLM7lBVKO5z85JUEsbZhnOFnXHXkAG5gRF28PcXpY=;
+ b=f6EU2cMD9Q6kmchAFTCFHRJB8iZ2RGTIPmdYE7gNNUDyxpJJIAWJdsEdvEo7DGIFRg
+ nRuR9Q6ZSv0npXCY+ueiiOH+bK6i+ukgZEQUyVSX4FCKqxfVgNhwok4kdTcSbOd/+b3S
+ Xzw5l7OVtjVeJc7lh5+ywr6hK9Diq1sj/APqqCXY2gXjoIVA4CY0lPnB6QaS0HV6kcVV
+ 4GrkT46PTB9bvErl9dV1GkNNh+CDFFd8C5UtPSloTZcEfNUpVvRi+Jb5p6V+RBhC95Qg
+ UbDIN/XNHD0TG8Crs6AnSMB/YBhJ2Uj9jJnMyvjNGvzJZ1kzkIp4shasY9qJ09xdzpFg
+ U6WQ==
+X-Gm-Message-State: AOJu0YzfMEGBxxA/RZmwZGr0TN0kRJIx1sc765uYg2fyc3bqt12ouimY
+ 3BVYqX0WWCxxdA5++FlDiyb0ROUBM0/+WVdCWeo=
+X-Google-Smtp-Source: AGHT+IHRTBmBvngzFuhZ/hAvU/HjEpkJ6562bbm429mg+ZXfGWU9OhuYmYnadn/s6OrB7cxyCnXK4nnGzGZfGpj5Sms=
+X-Received: by 2002:a05:6870:9a90:b0:1fa:82:3d69 with SMTP id
+ hp16-20020a0568709a9000b001fa00823d69mr28555314oab.46.1701379811130; Thu, 30
+ Nov 2023 13:30:11 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|DM6PR12MB4139:EE_
-X-MS-Office365-Filtering-Correlation-Id: e11c1b7c-39ec-4fe8-7f22-08dbf1d5c596
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5xC80chL02zW59Yn56yNVGC6G33RBFADPxDEUNoFHxSMuVwBf4ZGzNzHZmUfaGXpgSFvZyO0c8q5CjeSIk0+9h+uvaP0LJMUncXQbl4ML63O0VvTqDnqY2CrnV/1MGarHoPNqIPNeixuQz5eliv0oJRaia4WNvHKv2GWfDQNvcTTGO6H1alIds2wC72xQiWcwewEJcjLUwrzdNoD+ua4bF++DTWMDZDOnfytxh9NMBEcLZDzf9+pXID6sBRu6B097cBS1Pugdze+X02IyE9XW+/EFwMQHSzoFdA8BWS8jRbRKwt381tDthXAwliladx+diI9J2+sKXadET7eeVx/k2XPpb9b9Ya3tJCaputVtQhhbjKq59fn03Y4ROaJoEpgIsF/BtrcuPzTpXZMqK303Vay0nDJ3gz3iqNCSWoPL7SDAWg7DMlnYMp+8tXNuqFIvwdUQsfo1KdjxLSfwU1pyUFE6HY5RCBdGHpKLNiBfeh9C7Gd/g3IP+nxGSAwOje9qTwfA+bvA3td7+ikO/18Cf5cIX/QixmeCD7FQWjTp94eBnJQNyJngtjYiAjEOFCaKIU/AOUEknxtivudMb+Ldu1kkzIPfwUeP1cgMu3fdHIgO9XiYToPa5jb0ZLz+UU5CSYdQbkrqkc/+f5neygwsQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(396003)(366004)(376002)(39860400002)(136003)(230922051799003)(451199024)(1800799012)(186009)(64100799003)(86362001)(66556008)(8676002)(8936002)(316002)(31696002)(44832011)(66476007)(41300700001)(6486002)(478600001)(966005)(36756003)(4326008)(66946007)(2906002)(5660300002)(4001150100001)(38100700002)(2616005)(6512007)(83380400001)(6506007)(53546011)(6666004)(26005)(31686004)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cU43K3hQNmV5Q1VuUkEwTVRjcWdnSXY5WmMyWDdtOFVjR1ByUG84SWVxNWFS?=
- =?utf-8?B?T1hjT3FCakw1WUdtRHkyZzZVc2laTXQveXVOMjVucHVjSnlEdlVFOW9vZGJa?=
- =?utf-8?B?Q3duNnAwM0ordGtTeC80b2RRc0FxNkM3VVRtaFFMaWVxaDMxVmQ3bTdHUlRR?=
- =?utf-8?B?NUNiUDBkdER1ekh1Sms2M2JzZjRZdDU0U25oMXhUd2FiOWFMOHRzaXp3ek53?=
- =?utf-8?B?Vkdka1J4RmJLUFZjVGpCNUtMNWh0WUNmVEQ5VDJCT1ZVUXBjRWZOU3c5d05j?=
- =?utf-8?B?ZGNhWXlYcGduZHRvKyszaG5tOWUxS1lnSlpqQ0cwbndKdGkxUFA3a1BZNWJk?=
- =?utf-8?B?YzFKRi9sZDhhQzQxMnZFSllaY1hDUjZNRzh5ZnZuWlFKZ1pkbWtVajFGS2FC?=
- =?utf-8?B?Zkk5T3VKRUZOSXhrTFFwKzVJWG1WZEJsY3VqVldlZDhNcjZRVjNhbktoaDZh?=
- =?utf-8?B?a1A2WS9jT3g2cFpyMGpRdUpOb21zeWw0MTRyeUlTcVdDSTRxRGUwcm1pYVky?=
- =?utf-8?B?TVFzNWZTS0NSM3RXcnJhbVduRW5NRlY4NnNGaWk3NkoxOUdwSyt0VWgvakZJ?=
- =?utf-8?B?c1NuSy94OFU3bWZ5OUNvRUdrV2JEWEJkazRZdy8ydjZVL3Z4ZVV2L0NYTmdB?=
- =?utf-8?B?TitRZXBxS204L1FBeG1YWUgwblIwVEFMM0FmcUZ3VkdIZkNoSWZBanp0ZGFq?=
- =?utf-8?B?Um9SR25ucFY2VDI2eEptSENUSVZsZTR2dGpqdW1jNVkrd0xibmZmTTNnYUFJ?=
- =?utf-8?B?VDc4ckpKS1I5U0gycmFFbzBNakhBc2RtKzNJWUZRVktCNjFYMDBFWEVIREFO?=
- =?utf-8?B?NWFvckNITmtReTlEbjB5MmxDMTVmQmxqWmFiWnZRUzlad015U2hiTWpDeVl0?=
- =?utf-8?B?eHdwTlJ0Q2JoOTBWMXJYT3FhKzRUQUtIcStSaEdwSWZ4SFYvR3Y2V0x0UFAz?=
- =?utf-8?B?U2dRLy9uOTgxOVRGRHpCaHJZa0s4ajl1cVZLQUs3bHpXZmYra3UwbjYwY1hS?=
- =?utf-8?B?RjJocXRJWlFxeTYrbStXV2ZSOHR2MDhRc2txWW1jbzk4Z01Nc0xTZmgza0Jq?=
- =?utf-8?B?ZXpDOVNlNXlHTzNSOHQ2bWF1Vzk4R1V6QngwalVmSk1ZOFJyaGdod2d2VmFy?=
- =?utf-8?B?SDFPZlBTU0V5eDJSWlhlSlNqMzQ4SkVPbVhpZHp3aExYVHN5OTRzWCt4L2lw?=
- =?utf-8?B?dkZnbnhQeHZoOGdHb2V4cUh3MTJ5WUV2a3FGQmY3aldVN0s3ZXNxSG1VSS9R?=
- =?utf-8?B?dFpuQ1lENWFwakRFYjRCSnBTRW9yT1hiUlk2VHNIQ2pCWFNNcCt6UkpxTFNE?=
- =?utf-8?B?RUE0UjVBQ01wdmZ2L1lTUlhnSTJ0cWZjMm5lNzgzamhJNnNCd0xTaG5lOXhv?=
- =?utf-8?B?bW9rM29XZDNmM1ZpaWJKOWlrTzlGTXBNZGxVVHA1cnBSQlFFVm9uUUxQM3VB?=
- =?utf-8?B?bm5JTC9iTStweW9FcS9wbVcwY1JLQ1hheWFveityRjRHUmZyOE9zYWw4THdo?=
- =?utf-8?B?K1lEQmxwaDB5M3d0Zy91NDJuaW4xUktDTUE3a3lEcHo4cndQVU5IUC9OK3RJ?=
- =?utf-8?B?T3VzbDA5Q0R3M2F0akFKTmFtYkZWRy8yWjllbnpsWjdJRXRITktiaHQrU3lw?=
- =?utf-8?B?YUl4K1N3OUZ2UUxvVG0zYkNKRmZ0cFo5ZGs0Sy92aS96blNlU29ZSUNRWlFN?=
- =?utf-8?B?N3JUSC9Ya0JXK1VqL1c2WlZKNDhiZ3VGVWxnN3JzdFE2Wld3bW1nWjM3MEdq?=
- =?utf-8?B?UmpVRTl4UGJjSWpvei9UTDh6SUdPWWJIUlQ5b0g0emxlVWFwdE5sdXN3QzRW?=
- =?utf-8?B?TStBdU5XMm5EaWpzMTRmVTN1T0cyakRRMkRtcEdVcXZ0ejF6d0ZpcmpmVWtN?=
- =?utf-8?B?YXhrOE9sVmFsUFlRTEpxZkNiOEFNVnA3b1hIQ3pUY2trRGxzYTM4N2sxYlFr?=
- =?utf-8?B?OUwxd1JKRnpTS0FyckRQOXBwdWI3WUNURStPa0Z6dW5iT2FYWERuckNRTWR5?=
- =?utf-8?B?UWpWVFdjWlpVTTl1am9XV1hQU1AxS3B0QkRMUlI4TzM4Y2VWVUVzdFYzOGlK?=
- =?utf-8?B?RUJpQlpCZWdTSDVRZi9BNURMcmhiVmdaUW9vb0FjcEthU3hueW9pVG5Xb3Fl?=
- =?utf-8?Q?Cl8u4LVoMwdw8a6nEDspRJBfo?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e11c1b7c-39ec-4fe8-7f22-08dbf1d5c596
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Nov 2023 18:54:25.0138 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: w253tT13Qj+L6jHH6lqsCCjox/wwu23plKXWhaHcKf10Wlx954YqBOGM2kuFeE+lfi2Tl9qi7b+fNVWwYlhdhw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4139
+References: <87edgv4x3i.fsf@vps.thesusis.net>
+ <559d0fa5-953a-4a97-b03b-5eb1287c83d8@leemhuis.info>
+ <CAPM=9tw-8pQWFso0zuLqpsqd5BSHWtc4As9ttdjY-DDr70EMqQ@mail.gmail.com>
+ <bdb238b6-60c7-4f26-81d0-9e62cd5dd326@gmail.com>
+ <CADnq5_NVGS1XykxGxpcu_bpPbzboCUJQkcCF3r+0N9a23KUgiQ@mail.gmail.com>
+ <96e2e13c-f01c-4baf-a9a3-cbaa48fb10c7@amd.com>
+ <CADnq5_NBfeAXEyQw0gnSd67=tR-bUKg8w=10+4z9pGGuRnP9uw@mail.gmail.com>
+ <87jzq2ixtm.fsf@vps.thesusis.net>
+ <CADnq5_Ou-MVVm0rdWDmDnJNLkWUayXzO26uCEtz3ucNa4Ghy2w@mail.gmail.com>
+ <95fe9b5b-05ce-4462-9973-9aca306bc44f@gmail.com>
+ <CADnq5_MYEWx=e1LBLeVs0UbR5_xEScjDyw_-75mLe8RAMnqh6g@mail.gmail.com>
+ <CADnq5_OC=JFpGcN0oGbTF5xYEt4X3r0=jEY6hJ12W8CzYq1+cA@mail.gmail.com>
+ <9595b8bf-e64d-4926-9263-97e18bcd7d05@gmail.com>
+ <CADnq5_N6DF-huOzgaVygvS5N_j_oNUEC1aa4zRsZTzx8GOD_aw@mail.gmail.com>
+ <CADnq5_PgMxoW=4iabtgeHydwye-6DvwvCyETdfBToEpuYWocmA@mail.gmail.com>
+ <CADnq5_P0S7Jem0e4K6mG2+bboG8P56nELaGC1p4Pfx-8eV-BjQ@mail.gmail.com>
+ <05a4dec0-1c07-4a64-9439-e2c306807ded@gmail.com>
+In-Reply-To: <05a4dec0-1c07-4a64-9439-e2c306807ded@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 30 Nov 2023 16:29:59 -0500
+Message-ID: <CADnq5_M6PtLPHxd7kaS6Rtkun5G2wNMs6aZ84pj58wniZ8Smsg@mail.gmail.com>
+Subject: Re: Radeon regression in 6.6 kernel
+To: Luben Tuikov <ltuikov89@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,45 +83,210 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rodrigo.Siqueira@amd.com
+Cc: Linux regressions mailing list <regressions@lists.linux.dev>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Danilo Krummrich <dakr@redhat.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Phillip Susi <phill@thesusis.net>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023-11-28 19:35, Mario Limonciello wrote:
-> During hibernate sequence the source context might not have a clk_mgr.
-> So don't use it to look for DML2 support.
-> 
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2980
-> Fixes: a2815ada8616 ("drm/amd/display: Introduce DML2")
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+On Wed, Nov 29, 2023 at 10:36=E2=80=AFPM Luben Tuikov <ltuikov89@gmail.com>=
+ wrote:
+>
+> On 2023-11-29 15:49, Alex Deucher wrote:
+> > On Wed, Nov 29, 2023 at 3:10=E2=80=AFPM Alex Deucher <alexdeucher@gmail=
+.com> wrote:
+> >>
+> >> Actually I think I see the problem.  I'll try and send out a patch
+> >> later today to test.
+> >
+> > Does the attached patch fix it?
+>
+> Thanks for the patch, Alex.
+>
+> Is it possible for AMD to also reproduce this issue and test this patch o=
+n a Navi23 system?
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+I haven't had a chance to dig into it much due to LPC and thanksgiving
+and other end of year stuff.
 
-Harry
+>
+> > From 96e75b5218f7a124eafa53853681eef8fe567ab8 Mon Sep 17 00:00:00 2001
+> > From: Alex Deucher <alexander.deucher@amd.com>
+> > Date: Wed, 29 Nov 2023 15:44:25 -0500
+> > Subject: [PATCH] drm/amdgpu: fix buffer funcs setting order on suspend
+> >
+> > We need to make disable this after the last eviction
+>
+> "make disable" --> "disable"
+>
+> > call, but before we disable the SDMA IP.
+> >
+> > Fixes: b70438004a14 ("drm/amdgpu: move buffer funcs setting up a level"=
+)
+> > Link: https://lists.freedesktop.org/archives/amd-gfx/2023-November/1011=
+97.html
+>
+> Link: https://lore.kernel.org/r/87edgv4x3i.fsf@vps.thesusis.net
+>
+> Let's link the start of the thread.
 
-> ---
->   drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> index f3a9fdd2340d..e1c02527d04a 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> @@ -4554,7 +4554,7 @@ void dc_resource_state_copy_construct(
->   	struct dml2_context *dml2 = NULL;
->   
->   	// Need to preserve allocated dml2 context
-> -	if (src_ctx->clk_mgr->ctx->dc->debug.using_dml2)
-> +	if (src_ctx->clk_mgr && src_ctx->clk_mgr->ctx->dc->debug.using_dml2)
->   		dml2 = dst_ctx->bw_ctx.dml2;
->   #endif
->   
-> @@ -4562,7 +4562,7 @@ void dc_resource_state_copy_construct(
->   
->   #ifdef CONFIG_DRM_AMD_DC_FP
->   	// Preserve allocated dml2 context
-> -	if (src_ctx->clk_mgr->ctx->dc->debug.using_dml2)
-> +	if (src_ctx->clk_mgr && src_ctx->clk_mgr->ctx->dc->debug.using_dml2)
->   		dst_ctx->bw_ctx.dml2 = dml2;
->   #endif
->   
+Thanks, I will update the patch.
+
+Alex
+
+>
+> Regards,
+> Luben
+>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: Phillip Susi <phill@thesusis.net>
+> > Cc: Luben Tuikov <ltuikov89@gmail.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_device.c
+> > index b5edf40b5d03..78553e027db4 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -4531,8 +4531,6 @@ int amdgpu_device_suspend(struct drm_device *dev,=
+ bool fbcon)
+> >
+> >       amdgpu_ras_suspend(adev);
+> >
+> > -     amdgpu_ttm_set_buffer_funcs_status(adev, false);
+> > -
+> >       amdgpu_device_ip_suspend_phase1(adev);
+> >
+> >       if (!adev->in_s0ix)
+> > @@ -4542,6 +4540,8 @@ int amdgpu_device_suspend(struct drm_device *dev,=
+ bool fbcon)
+> >       if (r)
+> >               return r;
+> >
+> > +     amdgpu_ttm_set_buffer_funcs_status(adev, false);
+> > +
+> >       amdgpu_fence_driver_hw_fini(adev);
+> >
+> >       amdgpu_device_ip_suspend_phase2(adev);
+>
+> >
+> > Alex
+> >
+> >>
+> >> Alex
+> >>
+> >> On Wed, Nov 29, 2023 at 1:52=E2=80=AFPM Alex Deucher <alexdeucher@gmai=
+l.com> wrote:
+> >>>
+> >>> On Wed, Nov 29, 2023 at 11:41=E2=80=AFAM Luben Tuikov <ltuikov89@gmai=
+l.com> wrote:
+> >>>>
+> >>>> On 2023-11-29 10:22, Alex Deucher wrote:
+> >>>>> On Wed, Nov 29, 2023 at 8:50=E2=80=AFAM Alex Deucher <alexdeucher@g=
+mail.com> wrote:
+> >>>>>>
+> >>>>>> On Tue, Nov 28, 2023 at 11:45=E2=80=AFPM Luben Tuikov <ltuikov89@g=
+mail.com> wrote:
+> >>>>>>>
+> >>>>>>> On 2023-11-28 17:13, Alex Deucher wrote:
+> >>>>>>>> On Mon, Nov 27, 2023 at 6:24=E2=80=AFPM Phillip Susi <phill@thes=
+usis.net> wrote:
+> >>>>>>>>>
+> >>>>>>>>> Alex Deucher <alexdeucher@gmail.com> writes:
+> >>>>>>>>>
+> >>>>>>>>>>> In that case those are the already known problems with the sc=
+heduler
+> >>>>>>>>>>> changes, aren't they?
+> >>>>>>>>>>
+> >>>>>>>>>> Yes.  Those changes went into 6.7 though, not 6.6 AFAIK.  Mayb=
+e I'm
+> >>>>>>>>>> misunderstanding what the original report was actually testing=
+.  If it
+> >>>>>>>>>> was 6.7, then try reverting:
+> >>>>>>>>>> 56e449603f0ac580700621a356d35d5716a62ce5
+> >>>>>>>>>> b70438004a14f4d0f9890b3297cd66248728546c
+> >>>>>>>>>
+> >>>>>>>>> At some point it was suggested that I file a gitlab issue, but =
+I took
+> >>>>>>>>> this to mean it was already known and being worked on.  -rc3 ca=
+me out
+> >>>>>>>>> today and still has the problem.  Is there a known issue I coul=
+d track?
+> >>>>>>>>>
+> >>>>>>>>
+> >>>>>>>> At this point, unless there are any objections, I think we shoul=
+d just
+> >>>>>>>> revert the two patches
+> >>>>>>> Uhm, no.
+> >>>>>>>
+> >>>>>>> Why "the two" patches?
+> >>>>>>>
+> >>>>>>> This email, part of this thread,
+> >>>>>>>
+> >>>>>>> https://lore.kernel.org/all/87r0kircdo.fsf@vps.thesusis.net/
+> >>>>>>>
+> >>>>>>> clearly states that reverting *only* this commit,
+> >>>>>>> 56e449603f0ac5 drm/sched: Convert the GPU scheduler to variable n=
+umber of run-queues
+> >>>>>>> *does not* mitigate the failed suspend. (Furthermore, this commit=
+ doesn't really change
+> >>>>>>> anything operational, other than using an allocated array, instea=
+d of a static one, in DRM,
+> >>>>>>> while the 2nd patch is solely contained within the amdgpu driver =
+code.)
+> >>>>>>>
+> >>>>>>> Leaving us with only this change,
+> >>>>>>> b70438004a14f4 drm/amdgpu: move buffer funcs setting up a level
+> >>>>>>> to be at fault, as the kernel log attached in the linked email ab=
+ove shows.
+> >>>>>>>
+> >>>>>>> The conclusion is that only b70438004a14f4 needs reverting.
+> >>>>>>
+> >>>>>> b70438004a14f4 was a fix for 56e449603f0ac5.  Without b70438004a14=
+f4,
+> >>>>>> 56e449603f0ac5 breaks amdgpu.
+> >>>>>
+> >>>>> We can try and re-enable it in the next kernel.  I'm just not sure
+> >>>>> we'll be able to fix this in time for 6.7 with the holidays and all
+> >>>>> and I don't want to cause a lot of scheduler churn at the end of th=
+e
+> >>>>> 6.7 cycle if we hold off and try and fix it.  Reverting seems like =
+the
+> >>>>> best short term solution.
+> >>>>
+> >>>> A lot of subsequent code has come in since commit 56e449603f0ac5, as=
+ it opened
+> >>>> the opportunity for a 1-to-1 relationship between an entity and a sc=
+heduler.
+> >>>> (Should've always been the case, from the outset. Not sure why it wa=
+s coded as
+> >>>> a fixed-size array.)
+> >>>>
+> >>>> Given that commit 56e449603f0ac5 has nothing to do with amdgpu, and =
+the problem
+> >>>> is wholly contained in amdgpu, and no other driver has this problem,=
+ there is
+> >>>> no reason to have to "churn", i.e. go back and forth in DRM, only to=
+ cover up
+> >>>> an init bug in amdgpu. See the response I just sent in @this thread:
+> >>>> https://lore.kernel.org/r/05007cb0-871e-4dc7-af58-1351f4ba43e2@gmail=
+.com
+> >>>>
+> >>>> And it's not like this issue is unknown. I first posted about it on =
+2023-10-16.
+> >>>>
+> >>>> Ideally, amdgpu would just fix their init code.
+> >>>
+> >>> You can't make changes to core code that break other drivers.
+> >>> Arguably 56e449603f0ac5 should not have gone in in the first place if
+> >>> it broke amdgpu.  b70438004a14f4 was the code to fix amdgpu's init
+> >>> code, but as a side effect it seems to have broken suspend for some
+> >>> users.
+> >>>
+> >>> Alex
