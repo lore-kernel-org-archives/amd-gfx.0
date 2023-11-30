@@ -4,92 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A077EC4167B
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Nov 2023 03:47:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60923C4167B
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Nov 2023 05:09:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDE4310E0FA;
-	Thu, 30 Nov 2023 03:47:56 +0000 (UTC)
-Received: from mail-yb1-xb2b.google.com (mail-yb1-xb2b.google.com
- [IPv6:2607:f8b0:4864:20::b2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B57B710E0FA;
- Thu, 30 Nov 2023 03:47:55 +0000 (UTC)
-Received: by mail-yb1-xb2b.google.com with SMTP id
- 3f1490d57ef6-dafe04717baso412863276.1; 
- Wed, 29 Nov 2023 19:47:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1701316075; x=1701920875; darn=lists.freedesktop.org;
- h=in-reply-to:autocrypt:references:cc:to:from:content-language
- :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=/ooAZonyzMtQr9Pp4WSy61Py6nyWIEIRAS3Y3o/ElNY=;
- b=HifcMTG697RUMJ0RjbwC5yEX+G60UQ35kRlcgbI+oFlwjQ8zI+3Kl+GAdFd7P8+Giu
- DQPxrK6i8NN3GfmmMjfUKVWA9BQdPMBQY9+cPtXYdHNv5YLaKN6JidBZ0QxPCbkTprxS
- q7hJMNlypsC1rhFrYyXe/4ZTj7p1ZcfiAXq2Krzv04rR7V58jO7SjA99GrykDHAUnl/E
- /sSSwdAZrf4AkhqCGY1j/i019yJvKz8dbN9lsE5+6mDVTFEQZEeagbnUyXwPVOfA3/bw
- I6XEEpItAt67iSruvUBS2ZLpjmG7SoGybAj/fyw0ZK9rqEGUgRMAuPuV6pBsnKKAV/my
- mW/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701316075; x=1701920875;
- h=in-reply-to:autocrypt:references:cc:to:from:content-language
- :subject:user-agent:mime-version:date:message-id:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=/ooAZonyzMtQr9Pp4WSy61Py6nyWIEIRAS3Y3o/ElNY=;
- b=UHuyHtc9NFexeCWg0GrimjvtlBGB0QeM7IyPaNxO33VjJyH13dWPOpQkCWOSGQbBvY
- P7Pl+YOnd0mYu0VwphhmCVjkEhuqa6TYmwTK6qMfwBH90FnoS6m7KszeWmUODkKzP51R
- +lz7B5ClOgqFQ+Q08QwTiOaRcgfon1tIdOxn+TCKhkuqDVVs79kUK9T2Kk9MISPsggxS
- 3fmyhO1OI6Zq4ta0oW15FPL5E0qivkNaHfnk8tbgwGdX52Ti583MoFSpz+vf+ZNYQ0Xg
- Opp8U4H6VsxkBRFPJJw/FXjrqGBCmopKGHLm/gKPXPxEq/x9Xpy+WOw92AHQuDtqa2lh
- Ve9g==
-X-Gm-Message-State: AOJu0Yyk4fsilkiKwnNS3FZVn6RBQEeGaetsCMBwt5S9vpXeQedRRTM5
- EN2V9VSU/TvbG5Hfxh+fWyE=
-X-Google-Smtp-Source: AGHT+IHX1U+rXwVKuihbTbuJM7yhIUCvWC7n7fi5i07dD04t+IWU500xlQBsGa36liUTyx5FKv8uJQ==
-X-Received: by 2002:a25:4f41:0:b0:da0:365d:9e21 with SMTP id
- d62-20020a254f41000000b00da0365d9e21mr19506616ybb.22.1701316074656; 
- Wed, 29 Nov 2023 19:47:54 -0800 (PST)
-Received: from [192.168.2.14] ([76.65.20.140])
- by smtp.gmail.com with ESMTPSA id
- e22-20020a0caa56000000b0067a56ff6bc6sm96268qvb.122.2023.11.29.19.47.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Nov 2023 19:47:54 -0800 (PST)
-Message-ID: <db75bcf5-13a7-4176-a2fb-94cd198a1a7b@gmail.com>
-Date: Wed, 29 Nov 2023 22:47:44 -0500
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1CB910E6AC;
+	Thu, 30 Nov 2023 05:09:39 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2056.outbound.protection.outlook.com [40.107.93.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B077F10E6AC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Nov 2023 05:09:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bB4wIA51ANV8xPv5HdshKYhJuIUFiWzZbgjwroWbEqk7xQAdH5GjDo8UpnFxmqVd+YGoylt/fHg88IrzTPrw4xykGdTcyOLiKxIaHHKi1RpEtRX2fX+lD9QiORr1ZfQTFi+ZOViPjcMkVENOxgVNmG7chm5ViJjyUOo0w7C1mhaGZAsU5qjLTdULyDzD4MqgZ6J3XvSRSzCbn7rcolxrfIN+2bsKWiAgRfuzkdDI3BX/u93y8NNQPJ8cvF2VATaNNW3wlFUR6GchgWHsY854LHRe2qw8cr+QZDAXvH6Qmk6MP328CJI1kVe+eLlHXysvuAVoUFOM3CBY5DD65zLrHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AluJ84CKAAp8oHcddz00EpJSwSfLFjmGXFPbmdKLOaY=;
+ b=M7omQlj/ibtONOYhWTjA65V6FGrlI9LLcX1aGAw/xKNzv0mWekLMQZQxk8KnVMrAJBKhyQTbhBDgn0wCvD75lR4BYvMRqR364kHx3tPiskHjRx8We+oT1X4fYIc2OcVnqCt8oTJjROj/MxJEbKYzWzMFDm0j3ZV5ahlhruTbl2mWmNEAEFV0vvkXSKYTazK77p9w0IjwGXuz21EM5nYLY1LftNaf8bZj2H6N/cQODz68ar925KBA4hTRX+mgb97Tqdl7dfUq2qJLUEGvo3MAk/mgMk4OQfNL9ygmLX052W3JuhP+uP07bds4m5S3lZVxAEcccr0UFHRL6a/ERcCFAg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AluJ84CKAAp8oHcddz00EpJSwSfLFjmGXFPbmdKLOaY=;
+ b=zQTKXsXES591kXmnK7Px0dbyLRuhMSrC4vj7TAIOxLsnt5t4a5lOZMk4++RsfoCFqRvUCOLkXDaP1GnBMEuDZBVL/Bj4pex6qxgrUxlZqz/tMwiVST9zER9glCuKQBdyOg+wynfZ+9yTTlgFGqAfh6BhMAtxlEGDt0oxxvIInI8=
+Received: from CY5PR15CA0148.namprd15.prod.outlook.com (2603:10b6:930:67::17)
+ by PH7PR12MB7453.namprd12.prod.outlook.com (2603:10b6:510:20a::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.27; Thu, 30 Nov
+ 2023 05:09:34 +0000
+Received: from CY4PEPF0000EDD5.namprd03.prod.outlook.com
+ (2603:10b6:930:67:cafe::80) by CY5PR15CA0148.outlook.office365.com
+ (2603:10b6:930:67::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.23 via Frontend
+ Transport; Thu, 30 Nov 2023 05:09:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD5.mail.protection.outlook.com (10.167.241.209) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7046.23 via Frontend Transport; Thu, 30 Nov 2023 05:09:33 +0000
+Received: from kevin-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 29 Nov
+ 2023 23:09:31 -0600
+From: Yang Wang <kevinyang.wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: fix miss to create mca debugfs node issue
+Date: Thu, 30 Nov 2023 13:09:19 +0800
+Message-ID: <20231130050919.1283614-1-kevinyang.wang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:115.0) Gecko/20100101
- Thunderbird/115.5.1
-Subject: Re: Radeon regression in 6.6 kernel
-Content-Language: en-CA, en-US
-From: Luben Tuikov <ltuikov89@gmail.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <87edgv4x3i.fsf@vps.thesusis.net>
- <559d0fa5-953a-4a97-b03b-5eb1287c83d8@leemhuis.info>
- <CAPM=9tw-8pQWFso0zuLqpsqd5BSHWtc4As9ttdjY-DDr70EMqQ@mail.gmail.com>
- <bdb238b6-60c7-4f26-81d0-9e62cd5dd326@gmail.com>
- <CADnq5_NVGS1XykxGxpcu_bpPbzboCUJQkcCF3r+0N9a23KUgiQ@mail.gmail.com>
- <96e2e13c-f01c-4baf-a9a3-cbaa48fb10c7@amd.com>
- <CADnq5_NBfeAXEyQw0gnSd67=tR-bUKg8w=10+4z9pGGuRnP9uw@mail.gmail.com>
- <87jzq2ixtm.fsf@vps.thesusis.net>
- <CADnq5_Ou-MVVm0rdWDmDnJNLkWUayXzO26uCEtz3ucNa4Ghy2w@mail.gmail.com>
- <95fe9b5b-05ce-4462-9973-9aca306bc44f@gmail.com>
- <CADnq5_MYEWx=e1LBLeVs0UbR5_xEScjDyw_-75mLe8RAMnqh6g@mail.gmail.com>
- <CADnq5_OC=JFpGcN0oGbTF5xYEt4X3r0=jEY6hJ12W8CzYq1+cA@mail.gmail.com>
- <9595b8bf-e64d-4926-9263-97e18bcd7d05@gmail.com>
- <CADnq5_N6DF-huOzgaVygvS5N_j_oNUEC1aa4zRsZTzx8GOD_aw@mail.gmail.com>
- <CADnq5_PgMxoW=4iabtgeHydwye-6DvwvCyETdfBToEpuYWocmA@mail.gmail.com>
- <CADnq5_P0S7Jem0e4K6mG2+bboG8P56nELaGC1p4Pfx-8eV-BjQ@mail.gmail.com>
- <05a4dec0-1c07-4a64-9439-e2c306807ded@gmail.com>
-Autocrypt: addr=ltuikov89@gmail.com; keydata=
- xjMEZTohOhYJKwYBBAHaRw8BAQdAWSq76k+GsENjDTMVCy9Vr4fAO9Rb57/bPT1APnbnnRHN
- Ikx1YmVuIFR1aWtvdiA8bHR1aWtvdjg5QGdtYWlsLmNvbT7CmQQTFgoAQRYhBJkj7+VmFO9b
- eaAl10wVR5QxozSvBQJlOiE6AhsDBQkJZgGABQsJCAcCAiICBhUKCQgLAgQWAgMBAh4HAheA
- AAoJEEwVR5QxozSvSm4BAOwCpX53DTQhE20FBGlTMqKCOQyJqlMcIQ9SO1qPWX1iAQCv3vfy
- JwktF7REl1yt7IU2Sye1qmQMfJxdt9JMbMNNBs44BGU6IToSCisGAQQBl1UBBQEBB0BT9wSP
- cCE8uGe7FWo8C+nTSyWPXKTx9F0gpEnlqReRBwMBCAfCfgQYFgoAJhYhBJkj7+VmFO9beaAl
- 10wVR5QxozSvBQJlOiE6AhsMBQkJZgGAAAoJEEwVR5QxozSvSsYA/2LIFjbxQ2ikbU5S0pKo
- aMDzO9eGz69uNhNWJcvIKJK6AQC9228Mqc1JeZMIyjYWr2HKYHi8S2q2/zHrSZwAWYYwDA==
-In-Reply-To: <05a4dec0-1c07-4a64-9439-e2c306807ded@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------7pD37DDt9F1Atwjm4Vbi6i4r"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD5:EE_|PH7PR12MB7453:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5d3e0cc4-29ea-4a6c-f670-08dbf1628acc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: k3OnzVLFZYEjOScgV81KY6EYn4Mfslk6u6STO5AtnHXbn5mADFd2SIESqgB/si6jEt+q6C+x4RfWQn38n7puT4+SXc27R7pT9fTLyLuAgTuJ6H953W2sXZJZvCTXgh2F33tiDg6zTTWfgoOtTIO7gIf1vb36UJblyHcnL+7I2uptcL6q5z2LU97VGPLTDAAcjdn2CRpl87tSz3ohHx9XkmgP6sAmG6wW11qPqGwsCTSJqRzL86wnTMp9Q1h72WliZJ+goEPXPH2wqgW2v55FjHddVkUd9bPbP254Ut0N2MqWCxOmYNb6uvqjfLw46GsHcmN9HN8NcViF8urA/EEQ46/giyhXHrYU/Tj0ATkLEbehohpQ7phG7d+vialuONBWBpTEGEXCoG9PmOgOeFO13+mNDJjMLaKVoWq55eB4492n4s732/+BH62f5m4pl4+FLYFaqaMgdtjTZOY1U9tIb+3cQ32fMCE+DaQHXDigq/NF0wo0xjDhGCp/YCaGhuLDLtIywMOJHWHP+MLK2c6VzHz1mHk5o3VFKFFkyTwM2TbG4l1MUZuS1mnds9uDy2wuY6L/RmdR87oyQwc9MBwlYpEvHq1o32hQRTgB4VvETSOl1h+IhAmjPr+LITtq9pAxY73dyfp4rju1ro25al4MuwMJQqF41kjzxp0wfrmprV9J9ZV45QU/5TDNav5vjo+pWy8a9eKquSgsyPBLd6zi5jLvo6/MwQcs5MML3EjXObGSx75KTVft58mFqf6FD2vsfR2gsiQvhPGtLqc0d6TgkVGuoAgJWExSnI2OVwmyux2o7I1am9eMuHpyRYi3C0tl
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(346002)(396003)(39860400002)(376002)(136003)(230922051799003)(64100799003)(451199024)(82310400011)(1800799012)(186009)(40470700004)(36840700001)(46966006)(36860700001)(70586007)(54906003)(426003)(336012)(316002)(8676002)(6916009)(70206006)(4326008)(8936002)(47076005)(40460700003)(83380400001)(2906002)(202311291699003)(36756003)(478600001)(86362001)(6666004)(7696005)(356005)(82740400003)(81166007)(41300700001)(16526019)(5660300002)(26005)(4744005)(2616005)(40480700001)(1076003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Nov 2023 05:09:33.9584 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5d3e0cc4-29ea-4a6c-f670-08dbf1628acc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD5.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7453
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,294 +97,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux regressions mailing list <regressions@lists.linux.dev>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Danilo Krummrich <dakr@redhat.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Phillip Susi <phill@thesusis.net>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: lijo.lazar@amd.com, Yang Wang <kevinyang.wang@amd.com>,
+ hawking.zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------7pD37DDt9F1Atwjm4Vbi6i4r
-Content-Type: multipart/mixed; boundary="------------62Pp0k0dWHdQX64XEdGln3dN";
- protected-headers="v1"
-From: Luben Tuikov <ltuikov89@gmail.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Phillip Susi <phill@thesusis.net>,
- Linux regressions mailing list <regressions@lists.linux.dev>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- linux-kernel@vger.kernel.org,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@redhat.com>
-Message-ID: <db75bcf5-13a7-4176-a2fb-94cd198a1a7b@gmail.com>
-Subject: Re: Radeon regression in 6.6 kernel
-References: <87edgv4x3i.fsf@vps.thesusis.net>
- <559d0fa5-953a-4a97-b03b-5eb1287c83d8@leemhuis.info>
- <CAPM=9tw-8pQWFso0zuLqpsqd5BSHWtc4As9ttdjY-DDr70EMqQ@mail.gmail.com>
- <bdb238b6-60c7-4f26-81d0-9e62cd5dd326@gmail.com>
- <CADnq5_NVGS1XykxGxpcu_bpPbzboCUJQkcCF3r+0N9a23KUgiQ@mail.gmail.com>
- <96e2e13c-f01c-4baf-a9a3-cbaa48fb10c7@amd.com>
- <CADnq5_NBfeAXEyQw0gnSd67=tR-bUKg8w=10+4z9pGGuRnP9uw@mail.gmail.com>
- <87jzq2ixtm.fsf@vps.thesusis.net>
- <CADnq5_Ou-MVVm0rdWDmDnJNLkWUayXzO26uCEtz3ucNa4Ghy2w@mail.gmail.com>
- <95fe9b5b-05ce-4462-9973-9aca306bc44f@gmail.com>
- <CADnq5_MYEWx=e1LBLeVs0UbR5_xEScjDyw_-75mLe8RAMnqh6g@mail.gmail.com>
- <CADnq5_OC=JFpGcN0oGbTF5xYEt4X3r0=jEY6hJ12W8CzYq1+cA@mail.gmail.com>
- <9595b8bf-e64d-4926-9263-97e18bcd7d05@gmail.com>
- <CADnq5_N6DF-huOzgaVygvS5N_j_oNUEC1aa4zRsZTzx8GOD_aw@mail.gmail.com>
- <CADnq5_PgMxoW=4iabtgeHydwye-6DvwvCyETdfBToEpuYWocmA@mail.gmail.com>
- <CADnq5_P0S7Jem0e4K6mG2+bboG8P56nELaGC1p4Pfx-8eV-BjQ@mail.gmail.com>
- <05a4dec0-1c07-4a64-9439-e2c306807ded@gmail.com>
-In-Reply-To: <05a4dec0-1c07-4a64-9439-e2c306807ded@gmail.com>
+Use amdgpu_ip_version() helper function to check ip version.
 
---------------62Pp0k0dWHdQX64XEdGln3dN
-Content-Type: multipart/mixed; boundary="------------Y9s0jSILn1S04HCmmGSyJ408"
+The ip verison contains other information,
+use the helper function to avoid reading wrong value.
 
---------------Y9s0jSILn1S04HCmmGSyJ408
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On 2023-11-29 22:36, Luben Tuikov wrote:
-> On 2023-11-29 15:49, Alex Deucher wrote:
->> On Wed, Nov 29, 2023 at 3:10=E2=80=AFPM Alex Deucher <alexdeucher@gmai=
-l.com> wrote:
->>>
->>> Actually I think I see the problem.  I'll try and send out a patch
->>> later today to test.
->>
->> Does the attached patch fix it?
->=20
-> Thanks for the patch, Alex.
->=20
-> Is it possible for AMD to also reproduce this issue and test this patch=
- on a Navi23 system?
->=20
->> From 96e75b5218f7a124eafa53853681eef8fe567ab8 Mon Sep 17 00:00:00 2001=
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+index 54f2f346579e..210aea590a52 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+@@ -485,7 +485,7 @@ DEFINE_DEBUGFS_ATTRIBUTE(mca_debug_mode_fops, NULL, amdgpu_mca_smu_debug_mode_se
+ void amdgpu_mca_smu_debugfs_init(struct amdgpu_device *adev, struct dentry *root)
+ {
+ #if defined(CONFIG_DEBUG_FS)
+-	if (!root || adev->ip_versions[MP1_HWIP][0] != IP_VERSION(13, 0, 6))
++	if (!root || amdgpu_ip_version(adev, MP1_HWIP, 0) != IP_VERSION(13, 0, 6))
+ 		return;
+ 
+ 	debugfs_create_file("mca_debug_mode", 0200, root, adev, &mca_debug_mode_fops);
+-- 
+2.34.1
 
->> From: Alex Deucher <alexander.deucher@amd.com>
->> Date: Wed, 29 Nov 2023 15:44:25 -0500
->> Subject: [PATCH] drm/amdgpu: fix buffer funcs setting order on suspend=
-
->>
->> We need to make disable this after the last eviction
->=20
-> "make disable" --> "disable"
->=20
->> call, but before we disable the SDMA IP.
->>
->> Fixes: b70438004a14 ("drm/amdgpu: move buffer funcs setting up a level=
-")
->> Link: https://lists.freedesktop.org/archives/amd-gfx/2023-November/101=
-197.html
->=20
-> Link: https://lore.kernel.org/r/87edgv4x3i.fsf@vps.thesusis.net
->=20
-> Let's link the start of the thread.
->=20
-> Regards,
-> Luben
->=20
->> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->> Cc: Phillip Susi <phill@thesusis.net>
->> Cc: Luben Tuikov <ltuikov89@gmail.com>
->> ---
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
->>  1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_device.c
->> index b5edf40b5d03..78553e027db4 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -4531,8 +4531,6 @@ int amdgpu_device_suspend(struct drm_device *dev=
-, bool fbcon)
->> =20
->>  	amdgpu_ras_suspend(adev);
->> =20
->> -	amdgpu_ttm_set_buffer_funcs_status(adev, false);
->> -
->>  	amdgpu_device_ip_suspend_phase1(adev);
->> =20
->>  	if (!adev->in_s0ix)
->> @@ -4542,6 +4540,8 @@ int amdgpu_device_suspend(struct drm_device *dev=
-, bool fbcon)
->>  	if (r)
->>  		return r;
->> =20
->> +	amdgpu_ttm_set_buffer_funcs_status(adev, false);
->> +
-
-If you're moving this past phase 1, there's another instance in amdgpu_de=
-vice_ip_suspend(),
-which may need to be moved down.
-
-Regards,
-Luben
-
->>  	amdgpu_fence_driver_hw_fini(adev);
->> =20
->>  	amdgpu_device_ip_suspend_phase2(adev);
->=20
->>
->> Alex
->>
->>>
->>> Alex
->>>
->>> On Wed, Nov 29, 2023 at 1:52=E2=80=AFPM Alex Deucher <alexdeucher@gma=
-il.com> wrote:
->>>>
->>>> On Wed, Nov 29, 2023 at 11:41=E2=80=AFAM Luben Tuikov <ltuikov89@gma=
-il.com> wrote:
->>>>>
->>>>> On 2023-11-29 10:22, Alex Deucher wrote:
->>>>>> On Wed, Nov 29, 2023 at 8:50=E2=80=AFAM Alex Deucher <alexdeucher@=
-gmail.com> wrote:
->>>>>>>
->>>>>>> On Tue, Nov 28, 2023 at 11:45=E2=80=AFPM Luben Tuikov <ltuikov89@=
-gmail.com> wrote:
->>>>>>>>
->>>>>>>> On 2023-11-28 17:13, Alex Deucher wrote:
->>>>>>>>> On Mon, Nov 27, 2023 at 6:24=E2=80=AFPM Phillip Susi <phill@the=
-susis.net> wrote:
->>>>>>>>>>
->>>>>>>>>> Alex Deucher <alexdeucher@gmail.com> writes:
->>>>>>>>>>
->>>>>>>>>>>> In that case those are the already known problems with the s=
-cheduler
->>>>>>>>>>>> changes, aren't they?
->>>>>>>>>>>
->>>>>>>>>>> Yes.  Those changes went into 6.7 though, not 6.6 AFAIK.  May=
-be I'm
->>>>>>>>>>> misunderstanding what the original report was actually testin=
-g.  If it
->>>>>>>>>>> was 6.7, then try reverting:
->>>>>>>>>>> 56e449603f0ac580700621a356d35d5716a62ce5
->>>>>>>>>>> b70438004a14f4d0f9890b3297cd66248728546c
->>>>>>>>>>
->>>>>>>>>> At some point it was suggested that I file a gitlab issue, but=
- I took
->>>>>>>>>> this to mean it was already known and being worked on.  -rc3 c=
-ame out
->>>>>>>>>> today and still has the problem.  Is there a known issue I cou=
-ld track?
->>>>>>>>>>
->>>>>>>>>
->>>>>>>>> At this point, unless there are any objections, I think we shou=
-ld just
->>>>>>>>> revert the two patches
->>>>>>>> Uhm, no.
->>>>>>>>
->>>>>>>> Why "the two" patches?
->>>>>>>>
->>>>>>>> This email, part of this thread,
->>>>>>>>
->>>>>>>> https://lore.kernel.org/all/87r0kircdo.fsf@vps.thesusis.net/
->>>>>>>>
->>>>>>>> clearly states that reverting *only* this commit,
->>>>>>>> 56e449603f0ac5 drm/sched: Convert the GPU scheduler to variable =
-number of run-queues
->>>>>>>> *does not* mitigate the failed suspend. (Furthermore, this commi=
-t doesn't really change
->>>>>>>> anything operational, other than using an allocated array, inste=
-ad of a static one, in DRM,
->>>>>>>> while the 2nd patch is solely contained within the amdgpu driver=
- code.)
->>>>>>>>
->>>>>>>> Leaving us with only this change,
->>>>>>>> b70438004a14f4 drm/amdgpu: move buffer funcs setting up a level
->>>>>>>> to be at fault, as the kernel log attached in the linked email a=
-bove shows.
->>>>>>>>
->>>>>>>> The conclusion is that only b70438004a14f4 needs reverting.
->>>>>>>
->>>>>>> b70438004a14f4 was a fix for 56e449603f0ac5.  Without b70438004a1=
-4f4,
->>>>>>> 56e449603f0ac5 breaks amdgpu.
->>>>>>
->>>>>> We can try and re-enable it in the next kernel.  I'm just not sure=
-
->>>>>> we'll be able to fix this in time for 6.7 with the holidays and al=
-l
->>>>>> and I don't want to cause a lot of scheduler churn at the end of t=
-he
->>>>>> 6.7 cycle if we hold off and try and fix it.  Reverting seems like=
- the
->>>>>> best short term solution.
->>>>>
->>>>> A lot of subsequent code has come in since commit 56e449603f0ac5, a=
-s it opened
->>>>> the opportunity for a 1-to-1 relationship between an entity and a s=
-cheduler.
->>>>> (Should've always been the case, from the outset. Not sure why it w=
-as coded as
->>>>> a fixed-size array.)
->>>>>
->>>>> Given that commit 56e449603f0ac5 has nothing to do with amdgpu, and=
- the problem
->>>>> is wholly contained in amdgpu, and no other driver has this problem=
-, there is
->>>>> no reason to have to "churn", i.e. go back and forth in DRM, only t=
-o cover up
->>>>> an init bug in amdgpu. See the response I just sent in @this thread=
-:
->>>>> https://lore.kernel.org/r/05007cb0-871e-4dc7-af58-1351f4ba43e2@gmai=
-l.com
->>>>>
->>>>> And it's not like this issue is unknown. I first posted about it on=
- 2023-10-16.
->>>>>
->>>>> Ideally, amdgpu would just fix their init code.
->>>>
->>>> You can't make changes to core code that break other drivers.
->>>> Arguably 56e449603f0ac5 should not have gone in in the first place i=
-f
->>>> it broke amdgpu.  b70438004a14f4 was the code to fix amdgpu's init
->>>> code, but as a side effect it seems to have broken suspend for some
->>>> users.
->>>>
->>>> Alex
-
---------------Y9s0jSILn1S04HCmmGSyJ408
-Content-Type: application/pgp-keys; name="OpenPGP_0x4C15479431A334AF.asc"
-Content-Disposition: attachment; filename="OpenPGP_0x4C15479431A334AF.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xjMEZTohOhYJKwYBBAHaRw8BAQdAWSq76k+GsENjDTMVCy9Vr4fAO9Rb57/bPT1A
-PnbnnRHNIkx1YmVuIFR1aWtvdiA8bHR1aWtvdjg5QGdtYWlsLmNvbT7CmQQTFgoA
-QRYhBJkj7+VmFO9beaAl10wVR5QxozSvBQJlOiE6AhsDBQkJZgGABQsJCAcCAiIC
-BhUKCQgLAgQWAgMBAh4HAheAAAoJEEwVR5QxozSvSm4BAOwCpX53DTQhE20FBGlT
-MqKCOQyJqlMcIQ9SO1qPWX1iAQCv3vfyJwktF7REl1yt7IU2Sye1qmQMfJxdt9JM
-bMNNBs44BGU6IToSCisGAQQBl1UBBQEBB0BT9wSPcCE8uGe7FWo8C+nTSyWPXKTx
-9F0gpEnlqReRBwMBCAfCfgQYFgoAJhYhBJkj7+VmFO9beaAl10wVR5QxozSvBQJl
-OiE6AhsMBQkJZgGAAAoJEEwVR5QxozSvSsYA/2LIFjbxQ2ikbU5S0pKoaMDzO9eG
-z69uNhNWJcvIKJK6AQC9228Mqc1JeZMIyjYWr2HKYHi8S2q2/zHrSZwAWYYwDA=3D=3D
-=3DqCaZ
------END PGP PUBLIC KEY BLOCK-----
-
---------------Y9s0jSILn1S04HCmmGSyJ408--
-
---------------62Pp0k0dWHdQX64XEdGln3dN--
-
---------------7pD37DDt9F1Atwjm4Vbi6i4r
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wnsEABYIACMWIQSZI+/lZhTvW3mgJddMFUeUMaM0rwUCZWgF4QUDAAAAAAAKCRBMFUeUMaM0r9fX
-AP9QwgLO57J2QN5j6jjzmu8/87+MFGO4zafYpRyOtpLoAQD/cErYjMxl6UEW1ZKf7xvkfz86Gj+C
-IMOlr5/qUUwMHAc=
-=nrQK
------END PGP SIGNATURE-----
-
---------------7pD37DDt9F1Atwjm4Vbi6i4r--
