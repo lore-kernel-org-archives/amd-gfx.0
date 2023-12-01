@@ -4,44 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3265C4167B
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Dec 2023 04:09:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 253D9C4167B
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Dec 2023 04:09:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4922110E012;
-	Fri,  1 Dec 2023 04:09:02 +0000 (UTC)
-X-Greylist: delayed 448 seconds by postgrey-1.36 at gabe;
- Fri, 01 Dec 2023 02:43:45 UTC
-Received: from out-172.mta1.migadu.com (out-172.mta1.migadu.com
- [IPv6:2001:41d0:203:375::ac])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FEF810E7AB
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 Dec 2023 02:43:45 +0000 (UTC)
-Message-ID: <9a741d8d-a699-4fe8-af59-f90c91014d01@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1701398175;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=EIETJb62GcJnMc0HG5pRvWQuoXMY9gZZynhystY1S+g=;
- b=ZZyzjJQWQ2LuSvhxg2XyMudBtyeZupmuAAnvmKHiwQ+cISrZEQwCONl2svSSzC0iMFByAQ
- u/8MQxOL1o4lub/0CjMMm58jAsESsW0JcN9g3bzVvzGoQAKuXcSu6dHSO9Zps4rSSQoC93
- iTR4J7EEcdkpBG1hYmDGsbImU9l4c6A=
-Date: Fri, 1 Dec 2023 10:36:08 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 152D010E00B;
+	Fri,  1 Dec 2023 04:09:07 +0000 (UTC)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCAA110E7AB;
+ Fri,  1 Dec 2023 02:44:50 +0000 (UTC)
+Received: from kwepemm000019.china.huawei.com (unknown [172.30.72.56])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4ShHNW3f3QzNnd0;
+ Fri,  1 Dec 2023 10:40:27 +0800 (CST)
+Received: from kwepemm000018.china.huawei.com (7.193.23.4) by
+ kwepemm000019.china.huawei.com (7.193.23.135) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Fri, 1 Dec 2023 10:44:46 +0800
+Received: from kwepemm000018.china.huawei.com ([7.193.23.4]) by
+ kwepemm000018.china.huawei.com ([7.193.23.4]) with mapi id 15.01.2507.035;
+ Fri, 1 Dec 2023 10:44:46 +0800
+From: zhuweixi <weixi.zhu@huawei.com>
+To: David Hildenbrand <david@redhat.com>, Dave Airlie <airlied@gmail.com>,
+ =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>
+Subject: RE: [RFC PATCH 0/6] Supporting GMEM (generalized memory management)
+ for external memory devices
+Thread-Topic: [RFC PATCH 0/6] Supporting GMEM (generalized memory management)
+ for external memory devices
+Thread-Index: AQHaIfl9wrtrX0lryUy6fTQuS5BXZrCPLVeAgAEOlwCAALjigIABe6QAgAFK01A=
+Date: Fri, 1 Dec 2023 02:44:46 +0000
+Message-ID: <f4ec70345800432caa94d662f49370f6@huawei.com>
+References: <20231128125025.4449-1-weixi.zhu@huawei.com>
+ <9308a79d-e312-4e6d-98fe-75dc6d0fbeda@amd.com>
+ <CAPM=9tx-d-Au_bjX0vYxv6OwqiSjmbbMC7ebWpTsQgFNddWDuw@mail.gmail.com>
+ <a07fd33c6f9e44418c528de06f89707e@huawei.com>
+ <188814aa-4f55-40c6-961c-6105c89d76f3@redhat.com>
+In-Reply-To: <188814aa-4f55-40c6-961c-6105c89d76f3@redhat.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.174.179.172]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Subject: Re: [1/8] drm/plane-helper: Move drm_plane_helper_atomic_check() into
- udl
-To: Thomas Zimmermann <tzimmermann@suse.de>, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, daniel@ffwll.ch, airlied@gmail.com
-References: <20231128104723.20622-2-tzimmermann@suse.de>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Sui Jingfeng <sui.jingfeng@linux.dev>
-In-Reply-To: <20231128104723.20622-2-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
-X-Mailman-Approved-At: Fri, 01 Dec 2023 04:08:58 +0000
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Fri, 01 Dec 2023 04:09:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,134 +59,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: javierm@redhat.com, amd-gfx@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, laurent.pinchart@ideasonboard.com
+Cc: "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "leonro@nvidia.com" <leonro@nvidia.com>,
+ "apopple@nvidia.com" <apopple@nvidia.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "mgorman@suse.de" <mgorman@suse.de>, "ziy@nvidia.com" <ziy@nvidia.com>,
+ "zhi.a.wang@intel.com" <zhi.a.wang@intel.com>,
+ "rcampbell@nvidia.com" <rcampbell@nvidia.com>,
+ "jgg@nvidia.com" <jgg@nvidia.com>,
+ "weixi.zhu@openeuler.sh" <weixi.zhu@openeuler.sh>,
+ "jhubbard@nvidia.com" <jhubbard@nvidia.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "mhairgrove@nvidia.com" <mhairgrove@nvidia.com>,
+ "zhenyuw@linux.intel.com" <zhenyuw@linux.intel.com>,
+ "jglisse@redhat.com" <jglisse@redhat.com>,
+ "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
+ "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
+ "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>,
+ "tvrtko.ursulin@linux.intel.com" <tvrtko.ursulin@linux.intel.com>,
+ "Felix.Kuehling@amd.com" <Felix.Kuehling@amd.com>,
+ "Xinhui.Pan@amd.com" <Xinhui.Pan@amd.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Zeng,
+ Oak" <oak.zeng@intel.com>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
+ "ogabbay@kernel.org" <ogabbay@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-
-
-On 2023/11/28 18:45, Thomas Zimmermann wrote:
-> The udl driver is the only caller of drm_plane_helper_atomic_check().
-> Move the function into the driver. No functional changes.
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->   drivers/gpu/drm/drm_plane_helper.c | 32 ------------------------------
->   drivers/gpu/drm/udl/udl_modeset.c  | 19 ++++++++++++++++--
->   include/drm/drm_plane_helper.h     |  2 --
->   3 files changed, 17 insertions(+), 36 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_plane_helper.c b/drivers/gpu/drm/drm_plane_helper.c
-> index 5e95089676ff8..7982be4b0306d 100644
-> --- a/drivers/gpu/drm/drm_plane_helper.c
-> +++ b/drivers/gpu/drm/drm_plane_helper.c
-> @@ -279,35 +279,3 @@ void drm_plane_helper_destroy(struct drm_plane *plane)
->   	kfree(plane);
->   }
->   EXPORT_SYMBOL(drm_plane_helper_destroy);
-> -
-> -/**
-> - * drm_plane_helper_atomic_check() - Helper to check plane atomic-state
-> - * @plane: plane to check
-> - * @state: atomic state object
-> - *
-> - * Provides a default plane-state check handler for planes whose atomic-state
-> - * scale and positioning are not expected to change since the plane is always
-> - * a fullscreen scanout buffer.
-> - *
-> - * This is often the case for the primary plane of simple framebuffers. See
-> - * also drm_crtc_helper_atomic_check() for the respective CRTC-state check
-> - * helper function.
-> - *
-> - * RETURNS:
-> - * Zero on success, or an errno code otherwise.
-> - */
-> -int drm_plane_helper_atomic_check(struct drm_plane *plane, struct drm_atomic_state *state)
-> -{
-> -	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state, plane);
-> -	struct drm_crtc *new_crtc = new_plane_state->crtc;
-> -	struct drm_crtc_state *new_crtc_state = NULL;
-> -
-> -	if (new_crtc)
-> -		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_crtc);
-> -
-> -	return drm_atomic_helper_check_plane_state(new_plane_state, new_crtc_state,
-> -						   DRM_PLANE_NO_SCALING,
-> -						   DRM_PLANE_NO_SCALING,
-> -						   false, false);
-> -}
-> -EXPORT_SYMBOL(drm_plane_helper_atomic_check);
-
-
-Since this function is removed, does the comments of the drm_crtc_helper_atomic_check()
-function (in the drm_crtc_helper.c) need to update as well? I'm ask because I see the
-comments of the drm_crtc_helper_atomic_check() still referencing this function.
-
-
-> diff --git a/drivers/gpu/drm/udl/udl_modeset.c b/drivers/gpu/drm/udl/udl_modeset.c
-> index 40876bcdd79a4..7702359c90c22 100644
-> --- a/drivers/gpu/drm/udl/udl_modeset.c
-> +++ b/drivers/gpu/drm/udl/udl_modeset.c
-> @@ -21,7 +21,6 @@
->   #include <drm/drm_gem_framebuffer_helper.h>
->   #include <drm/drm_gem_shmem_helper.h>
->   #include <drm/drm_modeset_helper_vtables.h>
-> -#include <drm/drm_plane_helper.h>
->   #include <drm/drm_probe_helper.h>
->   #include <drm/drm_vblank.h>
->   
-> @@ -261,6 +260,22 @@ static const uint64_t udl_primary_plane_fmtmods[] = {
->   	DRM_FORMAT_MOD_INVALID
->   };
->   
-> +static int udl_primary_plane_helper_atomic_check(struct drm_plane *plane,
-> +						 struct drm_atomic_state *state)
-> +{
-> +	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state, plane);
-> +	struct drm_crtc *new_crtc = new_plane_state->crtc;
-> +	struct drm_crtc_state *new_crtc_state = NULL;
-> +
-> +	if (new_crtc)
-> +		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_crtc);
-> +
-> +	return drm_atomic_helper_check_plane_state(new_plane_state, new_crtc_state,
-> +						   DRM_PLANE_NO_SCALING,
-> +						   DRM_PLANE_NO_SCALING,
-> +						   false, false);
-> +}
-> +
->   static void udl_primary_plane_helper_atomic_update(struct drm_plane *plane,
->   						   struct drm_atomic_state *state)
->   {
-> @@ -296,7 +311,7 @@ static void udl_primary_plane_helper_atomic_update(struct drm_plane *plane,
->   
->   static const struct drm_plane_helper_funcs udl_primary_plane_helper_funcs = {
->   	DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
-> -	.atomic_check = drm_plane_helper_atomic_check,
-> +	.atomic_check = udl_primary_plane_helper_atomic_check,
->   	.atomic_update = udl_primary_plane_helper_atomic_update,
->   };
->   
-> diff --git a/include/drm/drm_plane_helper.h b/include/drm/drm_plane_helper.h
-> index 3a574e8cd22f4..75f9c4830564a 100644
-> --- a/include/drm/drm_plane_helper.h
-> +++ b/include/drm/drm_plane_helper.h
-> @@ -26,7 +26,6 @@
->   
->   #include <linux/types.h>
->   
-> -struct drm_atomic_state;
->   struct drm_crtc;
->   struct drm_framebuffer;
->   struct drm_modeset_acquire_ctx;
-> @@ -42,7 +41,6 @@ int drm_plane_helper_update_primary(struct drm_plane *plane, struct drm_crtc *cr
->   int drm_plane_helper_disable_primary(struct drm_plane *plane,
->   				     struct drm_modeset_acquire_ctx *ctx);
->   void drm_plane_helper_destroy(struct drm_plane *plane);
-> -int drm_plane_helper_atomic_check(struct drm_plane *plane, struct drm_atomic_state *state);
->   
->   /**
->    * DRM_PLANE_NON_ATOMIC_FUNCS - Default plane functions for non-atomic drivers
+VGhhbmtzISBJIGFtIHBsYW5uaW5nIHRvIHByZXNlbnQgR01FTSBpbiBMaW51eCBNTSBBbGlnbm1l
+bnQgU2Vzc2lvbnMgc28gSSBjYW4gY29sbGVjdCBtb3JlIGlucHV0IGZyb20gdGhlIG1tIGRldmVs
+b3BlcnMuDQoNCkBDaHJpc3RpYW4gQE9hayBJIHdpbGwgYWxzbyBzZW5kIHlvdSBpbnZpdGF0aW9u
+cyBvbmNlIGEgcHJlc2VudGF0aW9uIGlzIHNjaGVkdWxlZC4gOikNCg0KLVdlaXhpDQoNCi0tLS0t
+T3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBEYXZpZCBIaWxkZW5icmFuZCA8ZGF2aWRAcmVk
+aGF0LmNvbT4gDQpTZW50OiBUaHVyc2RheSwgTm92ZW1iZXIgMzAsIDIwMjMgMTA6NTUgUE0NClRv
+OiB6aHV3ZWl4aSA8d2VpeGkuemh1QGh1YXdlaS5jb20+OyBEYXZlIEFpcmxpZSA8YWlybGllZEBn
+bWFpbC5jb20+OyBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQpD
+YzogbGludXgtbW1Aa3ZhY2sub3JnOyBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnOyBha3Bt
+QGxpbnV4LWZvdW5kYXRpb24ub3JnOyB3ZWl4aS56aHVAb3BlbmV1bGVyLnNoOyBtZ29ybWFuQHN1
+c2UuZGU7IGpnbGlzc2VAcmVkaGF0LmNvbTsgcmNhbXBiZWxsQG52aWRpYS5jb207IGpodWJiYXJk
+QG52aWRpYS5jb207IGFwb3BwbGVAbnZpZGlhLmNvbTsgbWhhaXJncm92ZUBudmlkaWEuY29tOyB6
+aXlAbnZpZGlhLmNvbTsgYWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbTsgWGluaHVpLlBhbkBhbWQu
+Y29tOyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgRmVsaXguS3VlaGxpbmdAYW1kLmNv
+bTsgb2dhYmJheUBrZXJuZWwub3JnOyBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBq
+Z2dAbnZpZGlhLmNvbTsgbGVvbnJvQG52aWRpYS5jb207IHpoZW55dXdAbGludXguaW50ZWwuY29t
+OyB6aGkuYS53YW5nQGludGVsLmNvbTsgaW50ZWwtZ3Z0LWRldkBsaXN0cy5mcmVlZGVza3RvcC5v
+cmc7IGludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGphbmkubmlrdWxhQGxpbnV4Lmlu
+dGVsLmNvbTsgam9vbmFzLmxhaHRpbmVuQGxpbnV4LmludGVsLmNvbTsgcm9kcmlnby52aXZpQGlu
+dGVsLmNvbTsgdHZydGtvLnVyc3VsaW5AbGludXguaW50ZWwuY29tDQpTdWJqZWN0OiBSZTogW1JG
+QyBQQVRDSCAwLzZdIFN1cHBvcnRpbmcgR01FTSAoZ2VuZXJhbGl6ZWQgbWVtb3J5IG1hbmFnZW1l
+bnQpIGZvciBleHRlcm5hbCBtZW1vcnkgZGV2aWNlcw0KDQpPbiAyOS4xMS4yMyAwOToyNywgemh1
+d2VpeGkgd3JvdGU6DQo+IEdsYWQgdG8gaGVhciB0aGF0IG1vcmUgc2hhcmFibGUgY29kZSBpcyBk
+ZXNpcmFibGUuDQo+IElNSE8sIGZvciBhIGNvbW1vbiBNTSBzdWJzeXN0ZW0sIGl0IGlzIG1vcmUg
+YmVuZWZpY2lhbCBmb3IgR01FTSB0byANCj4gZXh0ZW5kIGNvcmUgTU0gaW5zdGVhZCBvZiBidWls
+ZGluZyBhIHNlcGFyYXRlIG9uZS4NCg0KTW9yZSBjb3JlLW1tIGNvbXBsZXhpdHksIGF3ZXNvbWUs
+IHdlIGFsbCBsb3ZlIHRoYXQhIDspDQoNCi0tDQpDaGVlcnMsDQoNCkRhdmlkIC8gZGhpbGRlbmIN
+Cg0K
