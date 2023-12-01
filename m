@@ -4,38 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 136FBC10DCE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8001C07E97
 	for <amd-gfx@archiver.kernel.org>; Fri,  1 Dec 2023 14:09:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D5228916D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0F98897D4;
 	Fri,  1 Dec 2023 14:09:09 +0000 (UTC)
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D2E410E84A
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 Dec 2023 11:37:11 +0000 (UTC)
-Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1r91pU-0007HQ-To; Fri, 01 Dec 2023 12:37:08 +0100
-Message-ID: <da0efb19-c883-40c8-b284-7eb7f4d3640b@leemhuis.info>
-Date: Fri, 1 Dec 2023 12:37:08 +0100
+X-Greylist: delayed 40882 seconds by postgrey-1.36 at gabe;
+ Fri, 01 Dec 2023 13:57:41 UTC
+Received: from out-179.mta1.migadu.com (out-179.mta1.migadu.com
+ [95.215.58.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B07810E8AD
+ for <amd-gfx@lists.freedesktop.org>; Fri,  1 Dec 2023 13:57:40 +0000 (UTC)
+Message-ID: <af7717b2-cd10-491f-99c1-285016fabf84@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1701439059;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=TpJd6OhPomyp5ChF2rTctC6wWRE0tLx+lrrgumMFAT8=;
+ b=APm60MBJHMnUhRiRKzDRTK23FqD7Zh9GRI880BxjRs+qjL+MmWWRUQCsaA6MFa7BoqauHz
+ QuMJU/oNucHzFVhcHfWh6vcrc/B7VtcarG+072r+Q3jvs7xfqtFECZsxGtghHtUIKgqdq5
+ Cg1kztA9PqCJNsJvgm1L6ByCEnqPUrM=
+Date: Fri, 1 Dec 2023 21:57:26 +0800
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Fwd: Thinkpad X13 AMD: Problems with external monitor wake up
- after suspend
-Content-Language: en-US, de-DE
-To: Bagas Sanjaya <bagasdotme@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Regressions <regressions@lists.linux.dev>,
- Linux AMDGPU <amd-gfx@lists.freedesktop.org>
-References: <8da256ea-b069-44f0-9cc2-93482c2f5eec@gmail.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-In-Reply-To: <8da256ea-b069-44f0-9cc2-93482c2f5eec@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1701430631;
- 4fcffbb3; 
-X-HE-SMSGID: 1r91pU-0007HQ-To
+Subject: Re: [1/8] drm/plane-helper: Move drm_plane_helper_atomic_check() into
+ udl
+To: Thomas Zimmermann <tzimmermann@suse.de>, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, daniel@ffwll.ch, airlied@gmail.com
+References: <20231128104723.20622-2-tzimmermann@suse.de>
+ <9a741d8d-a699-4fe8-af59-f90c91014d01@linux.dev>
+ <038bc33b-1bc9-4dbc-bea3-d17a3d37abf0@suse.de>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Sui Jingfeng <sui.jingfeng@linux.dev>
+In-Reply-To: <038bc33b-1bc9-4dbc-bea3-d17a3d37abf0@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Fri, 01 Dec 2023 14:09:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -48,51 +55,175 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stylon Wang <stylon.wang@amd.com>, Oliver Schmidt <oliver@luced.de>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- Daniel Wheeler <daniel.wheeler@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>, Wayne Lin <wayne.lin@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, javierm@redhat.com,
+ dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ laurent.pinchart@ideasonboard.com, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[CCing stable list and Mario, who submitted this to 6.1.y]
+Hi,
 
-On 01.12.23 01:30, Bagas Sanjaya wrote:
-> 
-> I notice a regression report on Bugzilla [1]. Quoting from it:
-> 
->> Since kernel version 6.1.57 I have problems with external monitor
->> wakeup after suspend on Thinkpad X13 AMD Gen2 Notebook.
->> 
->> Notebook is in docking station with closed lid. Suspend & Resume.
->> The external monitor gets no signal. After randomly typing
->> Ctrl+Alt+Fn for switchung consoles, the monitor at some point gets
->> signal and is usable again.
->> 
->> It worked with kernel 6.1.56.
->> 
->> I managed to compile a 6.1.57 kernel and also a 6.1.64 kernel by
->> reverting the changes from commit ec5fa9 "drm/amd/display: Adjust
->> the MST resume flow"
->> (https://github.com/torvalds/linux/commit/ec5fa9fcdeca69edf7dab5ca3b2e0ceb1c08fe9a?diff=split&w=1?diff=split&w=1)
->> and with this suspend & resume worked like before without any
->> problems.
-> [...]
-> [1]: https://bugzilla.kernel.org/show_bug.cgi?id=218211
 
-We have a small problem here: that error might happen because
-ec5fa9fcdeca69 ("drm/amd/display: Adjust the MST resume flow")
-[v6.6-rc2] contains a bug or because something it needs was not
-backported to 6.1.y.
+On 2023/12/1 16:22, Thomas Zimmermann wrote:
+> Hi
+>
+> Am 01.12.23 um 03:36 schrieb Sui Jingfeng:
+>> Hi,
+>>
+>>
+>> On 2023/11/28 18:45, Thomas Zimmermann wrote:
+>>> The udl driver is the only caller of drm_plane_helper_atomic_check().
+>>> Move the function into the driver. No functional changes.
+>>>
+>>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>>> ---
+>>>   drivers/gpu/drm/drm_plane_helper.c | 32 
+>>> ------------------------------
+>>>   drivers/gpu/drm/udl/udl_modeset.c  | 19 ++++++++++++++++--
+>>>   include/drm/drm_plane_helper.h     |  2 --
+>>>   3 files changed, 17 insertions(+), 36 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_plane_helper.c 
+>>> b/drivers/gpu/drm/drm_plane_helper.c
+>>> index 5e95089676ff8..7982be4b0306d 100644
+>>> --- a/drivers/gpu/drm/drm_plane_helper.c
+>>> +++ b/drivers/gpu/drm/drm_plane_helper.c
+>>> @@ -279,35 +279,3 @@ void drm_plane_helper_destroy(struct drm_plane 
+>>> *plane)
+>>>       kfree(plane);
+>>>   }
+>>>   EXPORT_SYMBOL(drm_plane_helper_destroy);
+>>> -
+>>> -/**
+>>> - * drm_plane_helper_atomic_check() - Helper to check plane 
+>>> atomic-state
+>>> - * @plane: plane to check
+>>> - * @state: atomic state object
+>>> - *
+>>> - * Provides a default plane-state check handler for planes whose 
+>>> atomic-state
+>>> - * scale and positioning are not expected to change since the plane 
+>>> is always
+>>> - * a fullscreen scanout buffer.
+>>> - *
+>>> - * This is often the case for the primary plane of simple 
+>>> framebuffers. See
+>>> - * also drm_crtc_helper_atomic_check() for the respective 
+>>> CRTC-state check
+>>> - * helper function.
+>>> - *
+>>> - * RETURNS:
+>>> - * Zero on success, or an errno code otherwise.
+>>> - */
+>>> -int drm_plane_helper_atomic_check(struct drm_plane *plane, struct 
+>>> drm_atomic_state *state)
+>>> -{
+>>> -    struct drm_plane_state *new_plane_state = 
+>>> drm_atomic_get_new_plane_state(state, plane);
+>>> -    struct drm_crtc *new_crtc = new_plane_state->crtc;
+>>> -    struct drm_crtc_state *new_crtc_state = NULL;
+>>> -
+>>> -    if (new_crtc)
+>>> -        new_crtc_state = drm_atomic_get_new_crtc_state(state, 
+>>> new_crtc);
+>>> -
+>>> -    return drm_atomic_helper_check_plane_state(new_plane_state, 
+>>> new_crtc_state,
+>>> -                           DRM_PLANE_NO_SCALING,
+>>> -                           DRM_PLANE_NO_SCALING,
+>>> -                           false, false);
+>>> -}
+>>> -EXPORT_SYMBOL(drm_plane_helper_atomic_check);
+>>
+>>
+>> Since this function is removed, does the comments of the 
+>> drm_crtc_helper_atomic_check()
+>> function (in the drm_crtc_helper.c) need to update as well? I'm ask 
+>> because I see the
+>> comments of the drm_crtc_helper_atomic_check() still referencing this 
+>> function.
+>
+> Good point. I'll update that comment. Thanks for reviewing.
+>
+OK,  with this trivial problem solved:
 
-Maybe one of the developers among the recipients has a idea. Oliver, but
-if none of them replies any time soon, it would be best if you'd check
-if 6.6 (and/or 6.7-rc) is affected as well; and if reverting it there
-fixes it, too.
 
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
---
-Everything you wanna know about Linux kernel regression tracking:
-https://linux-regtracking.leemhuis.info/about/#tldr
-If I did something stupid, please tell me, as explained on that page.
+Acked-by: Sui Jingfeng <suijingfeng@loongson.cn>
+
+
+> Best regards
+> Thomas
+>
+>>
+>>
+>>> diff --git a/drivers/gpu/drm/udl/udl_modeset.c 
+>>> b/drivers/gpu/drm/udl/udl_modeset.c
+>>> index 40876bcdd79a4..7702359c90c22 100644
+>>> --- a/drivers/gpu/drm/udl/udl_modeset.c
+>>> +++ b/drivers/gpu/drm/udl/udl_modeset.c
+>>> @@ -21,7 +21,6 @@
+>>>   #include <drm/drm_gem_framebuffer_helper.h>
+>>>   #include <drm/drm_gem_shmem_helper.h>
+>>>   #include <drm/drm_modeset_helper_vtables.h>
+>>> -#include <drm/drm_plane_helper.h>
+>>>   #include <drm/drm_probe_helper.h>
+>>>   #include <drm/drm_vblank.h>
+>>> @@ -261,6 +260,22 @@ static const uint64_t 
+>>> udl_primary_plane_fmtmods[] = {
+>>>       DRM_FORMAT_MOD_INVALID
+>>>   };
+>>> +static int udl_primary_plane_helper_atomic_check(struct drm_plane 
+>>> *plane,
+>>> +                         struct drm_atomic_state *state)
+>>> +{
+>>> +    struct drm_plane_state *new_plane_state = 
+>>> drm_atomic_get_new_plane_state(state, plane);
+>>> +    struct drm_crtc *new_crtc = new_plane_state->crtc;
+>>> +    struct drm_crtc_state *new_crtc_state = NULL;
+>>> +
+>>> +    if (new_crtc)
+>>> +        new_crtc_state = drm_atomic_get_new_crtc_state(state, 
+>>> new_crtc);
+>>> +
+>>> +    return drm_atomic_helper_check_plane_state(new_plane_state, 
+>>> new_crtc_state,
+>>> +                           DRM_PLANE_NO_SCALING,
+>>> +                           DRM_PLANE_NO_SCALING,
+>>> +                           false, false);
+>>> +}
+>>> +
+>>>   static void udl_primary_plane_helper_atomic_update(struct 
+>>> drm_plane *plane,
+>>>                              struct drm_atomic_state *state)
+>>>   {
+>>> @@ -296,7 +311,7 @@ static void 
+>>> udl_primary_plane_helper_atomic_update(struct drm_plane *plane,
+>>>   static const struct drm_plane_helper_funcs 
+>>> udl_primary_plane_helper_funcs = {
+>>>       DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
+>>> -    .atomic_check = drm_plane_helper_atomic_check,
+>>> +    .atomic_check = udl_primary_plane_helper_atomic_check,
+>>>       .atomic_update = udl_primary_plane_helper_atomic_update,
+>>>   };
+>>> diff --git a/include/drm/drm_plane_helper.h 
+>>> b/include/drm/drm_plane_helper.h
+>>> index 3a574e8cd22f4..75f9c4830564a 100644
+>>> --- a/include/drm/drm_plane_helper.h
+>>> +++ b/include/drm/drm_plane_helper.h
+>>> @@ -26,7 +26,6 @@
+>>>   #include <linux/types.h>
+>>> -struct drm_atomic_state;
+>>>   struct drm_crtc;
+>>>   struct drm_framebuffer;
+>>>   struct drm_modeset_acquire_ctx;
+>>> @@ -42,7 +41,6 @@ int drm_plane_helper_update_primary(struct 
+>>> drm_plane *plane, struct drm_crtc *cr
+>>>   int drm_plane_helper_disable_primary(struct drm_plane *plane,
+>>>                        struct drm_modeset_acquire_ctx *ctx);
+>>>   void drm_plane_helper_destroy(struct drm_plane *plane);
+>>> -int drm_plane_helper_atomic_check(struct drm_plane *plane, struct 
+>>> drm_atomic_state *state);
+>>>   /**
+>>>    * DRM_PLANE_NON_ATOMIC_FUNCS - Default plane functions for 
+>>> non-atomic drivers
+>
