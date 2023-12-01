@@ -4,49 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 253D9C4167B
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Dec 2023 04:09:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69091C07E97
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Dec 2023 04:09:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 152D010E00B;
-	Fri,  1 Dec 2023 04:09:07 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCAA110E7AB;
- Fri,  1 Dec 2023 02:44:50 +0000 (UTC)
-Received: from kwepemm000019.china.huawei.com (unknown [172.30.72.56])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4ShHNW3f3QzNnd0;
- Fri,  1 Dec 2023 10:40:27 +0800 (CST)
-Received: from kwepemm000018.china.huawei.com (7.193.23.4) by
- kwepemm000019.china.huawei.com (7.193.23.135) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Fri, 1 Dec 2023 10:44:46 +0800
-Received: from kwepemm000018.china.huawei.com ([7.193.23.4]) by
- kwepemm000018.china.huawei.com ([7.193.23.4]) with mapi id 15.01.2507.035;
- Fri, 1 Dec 2023 10:44:46 +0800
-From: zhuweixi <weixi.zhu@huawei.com>
-To: David Hildenbrand <david@redhat.com>, Dave Airlie <airlied@gmail.com>,
- =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>
-Subject: RE: [RFC PATCH 0/6] Supporting GMEM (generalized memory management)
- for external memory devices
-Thread-Topic: [RFC PATCH 0/6] Supporting GMEM (generalized memory management)
- for external memory devices
-Thread-Index: AQHaIfl9wrtrX0lryUy6fTQuS5BXZrCPLVeAgAEOlwCAALjigIABe6QAgAFK01A=
-Date: Fri, 1 Dec 2023 02:44:46 +0000
-Message-ID: <f4ec70345800432caa94d662f49370f6@huawei.com>
-References: <20231128125025.4449-1-weixi.zhu@huawei.com>
- <9308a79d-e312-4e6d-98fe-75dc6d0fbeda@amd.com>
- <CAPM=9tx-d-Au_bjX0vYxv6OwqiSjmbbMC7ebWpTsQgFNddWDuw@mail.gmail.com>
- <a07fd33c6f9e44418c528de06f89707e@huawei.com>
- <188814aa-4f55-40c6-961c-6105c89d76f3@redhat.com>
-In-Reply-To: <188814aa-4f55-40c6-961c-6105c89d76f3@redhat.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.174.179.172]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by gabe.freedesktop.org (Postfix) with ESMTP id B56DF10E7B2;
+	Fri,  1 Dec 2023 04:09:30 +0000 (UTC)
+Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
+ [IPv6:2607:f8b0:4864:20::1035])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE24A10E78A
+ for <amd-gfx@lists.freedesktop.org>; Fri,  1 Dec 2023 00:30:45 +0000 (UTC)
+Received: by mail-pj1-x1035.google.com with SMTP id
+ 98e67ed59e1d1-28655c04da3so244944a91.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Nov 2023 16:30:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1701390645; x=1701995445; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:subject:from:cc:to:content-language
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=caGgQN2zt8grZs3U0xbayh8pbJ7WuHPF2boIZk41q/I=;
+ b=PVsgq7xg7O0VYcEFVJXNMbwgGpx0aauuLWi68lzYw0XkOjcZK+rIrPp1kZsW69dUs+
+ G6JtiNb7i5kcPvNVjieEjrgBQfs2rsxgBSrZ1xVbNgZO+KkH4VbYJ7pjNcLjq5pTE8NH
+ w7nOioAUmhW7LJX7NFx41kUOg+hUS1VuCWrlTQUmN1vPDv0jyoVV9QdpCGVTIOcnga1p
+ C9+O+u2OsELowW6qgaDnco/bHUW2fnrwv6RS5NBHCZKdUjcdQ/aNACnqtZwwy+u/zh8e
+ qHTI9gX8EJXgPVngYuwkRG1M4Rjuohp9lYDS/UZOck1gen7uAY426D5F/l6XxyIGOX0o
+ AHNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1701390645; x=1701995445;
+ h=content-transfer-encoding:subject:from:cc:to:content-language
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=caGgQN2zt8grZs3U0xbayh8pbJ7WuHPF2boIZk41q/I=;
+ b=IrEsxSow8ytDe5+ZDSZjztBpd43L7y21qSdrVO27sbm7HtTwmI3ITA70Xe9L5FfXJ7
+ kxvbYvJ9CCCOHZxYiaYtGov8pQOXmphpY1t2d5Oxb4HfnWH1mbFDuoNfBdND9XQ9IP7K
+ NIyjKRmD590lYNNwac0ql+lQztEo8m7iKxw0krD3Szq8Z21M/xLfiKP2PdGpNFwnAVwY
+ yGsfUhMkD+uEywhYioylQx2p9DLdblK5yQhM8VpmvIPZLiOTInMMj7LdDtW2ac309z3m
+ 2eAUkebA1WXNU0H9oGByxdQw1NawsioMSeWcVNofsRfg4dgKWa3x+RpR7K6BrTSBKxeS
+ fv2Q==
+X-Gm-Message-State: AOJu0Yz9c7A4wI2sMIox7zwXPyH42Vt4rvmZkKBr57zU23xrZOWtuom7
+ AyKF+fuq6gBNlBWT6NAS00Ennhp3yog28w==
+X-Google-Smtp-Source: AGHT+IGavLSgfLIFqgzeRpJJkSpkkqVUuQDRKrB/Bufnp+gm00i5dOUOGGZIZ3Pf4HupAYvGp4kBGg==
+X-Received: by 2002:a17:90a:62cb:b0:286:4827:807d with SMTP id
+ k11-20020a17090a62cb00b002864827807dmr3313646pjs.23.1701390645269; 
+ Thu, 30 Nov 2023 16:30:45 -0800 (PST)
+Received: from [192.168.0.106] ([103.131.18.64])
+ by smtp.gmail.com with ESMTPSA id
+ c12-20020a17090a020c00b0028089fdce19sm2092716pjc.52.2023.11.30.16.30.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 30 Nov 2023 16:30:44 -0800 (PST)
+Message-ID: <8da256ea-b069-44f0-9cc2-93482c2f5eec@gmail.com>
+Date: Fri, 1 Dec 2023 07:30:40 +0700
 MIME-Version: 1.0
-X-CFilter-Loop: Reflected
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Regressions <regressions@lists.linux.dev>,
+ Linux AMDGPU <amd-gfx@lists.freedesktop.org>
+From: Bagas Sanjaya <bagasdotme@gmail.com>
+Subject: Fwd: Thinkpad X13 AMD: Problems with external monitor wake up after
+ suspend
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 01 Dec 2023 04:09:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,61 +76,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>,
- "leonro@nvidia.com" <leonro@nvidia.com>,
- "apopple@nvidia.com" <apopple@nvidia.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "mgorman@suse.de" <mgorman@suse.de>, "ziy@nvidia.com" <ziy@nvidia.com>,
- "zhi.a.wang@intel.com" <zhi.a.wang@intel.com>,
- "rcampbell@nvidia.com" <rcampbell@nvidia.com>,
- "jgg@nvidia.com" <jgg@nvidia.com>,
- "weixi.zhu@openeuler.sh" <weixi.zhu@openeuler.sh>,
- "jhubbard@nvidia.com" <jhubbard@nvidia.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "mhairgrove@nvidia.com" <mhairgrove@nvidia.com>,
- "zhenyuw@linux.intel.com" <zhenyuw@linux.intel.com>,
- "jglisse@redhat.com" <jglisse@redhat.com>,
- "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
- "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
- "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>,
- "tvrtko.ursulin@linux.intel.com" <tvrtko.ursulin@linux.intel.com>,
- "Felix.Kuehling@amd.com" <Felix.Kuehling@amd.com>,
- "Xinhui.Pan@amd.com" <Xinhui.Pan@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Zeng,
- Oak" <oak.zeng@intel.com>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
- "ogabbay@kernel.org" <ogabbay@kernel.org>
+Cc: Stylon Wang <stylon.wang@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>, Oliver Schmidt <oliver@luced.de>,
+ Wayne Lin <wayne.lin@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VGhhbmtzISBJIGFtIHBsYW5uaW5nIHRvIHByZXNlbnQgR01FTSBpbiBMaW51eCBNTSBBbGlnbm1l
-bnQgU2Vzc2lvbnMgc28gSSBjYW4gY29sbGVjdCBtb3JlIGlucHV0IGZyb20gdGhlIG1tIGRldmVs
-b3BlcnMuDQoNCkBDaHJpc3RpYW4gQE9hayBJIHdpbGwgYWxzbyBzZW5kIHlvdSBpbnZpdGF0aW9u
-cyBvbmNlIGEgcHJlc2VudGF0aW9uIGlzIHNjaGVkdWxlZC4gOikNCg0KLVdlaXhpDQoNCi0tLS0t
-T3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBEYXZpZCBIaWxkZW5icmFuZCA8ZGF2aWRAcmVk
-aGF0LmNvbT4gDQpTZW50OiBUaHVyc2RheSwgTm92ZW1iZXIgMzAsIDIwMjMgMTA6NTUgUE0NClRv
-OiB6aHV3ZWl4aSA8d2VpeGkuemh1QGh1YXdlaS5jb20+OyBEYXZlIEFpcmxpZSA8YWlybGllZEBn
-bWFpbC5jb20+OyBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQpD
-YzogbGludXgtbW1Aa3ZhY2sub3JnOyBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnOyBha3Bt
-QGxpbnV4LWZvdW5kYXRpb24ub3JnOyB3ZWl4aS56aHVAb3BlbmV1bGVyLnNoOyBtZ29ybWFuQHN1
-c2UuZGU7IGpnbGlzc2VAcmVkaGF0LmNvbTsgcmNhbXBiZWxsQG52aWRpYS5jb207IGpodWJiYXJk
-QG52aWRpYS5jb207IGFwb3BwbGVAbnZpZGlhLmNvbTsgbWhhaXJncm92ZUBudmlkaWEuY29tOyB6
-aXlAbnZpZGlhLmNvbTsgYWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbTsgWGluaHVpLlBhbkBhbWQu
-Y29tOyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgRmVsaXguS3VlaGxpbmdAYW1kLmNv
-bTsgb2dhYmJheUBrZXJuZWwub3JnOyBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBq
-Z2dAbnZpZGlhLmNvbTsgbGVvbnJvQG52aWRpYS5jb207IHpoZW55dXdAbGludXguaW50ZWwuY29t
-OyB6aGkuYS53YW5nQGludGVsLmNvbTsgaW50ZWwtZ3Z0LWRldkBsaXN0cy5mcmVlZGVza3RvcC5v
-cmc7IGludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGphbmkubmlrdWxhQGxpbnV4Lmlu
-dGVsLmNvbTsgam9vbmFzLmxhaHRpbmVuQGxpbnV4LmludGVsLmNvbTsgcm9kcmlnby52aXZpQGlu
-dGVsLmNvbTsgdHZydGtvLnVyc3VsaW5AbGludXguaW50ZWwuY29tDQpTdWJqZWN0OiBSZTogW1JG
-QyBQQVRDSCAwLzZdIFN1cHBvcnRpbmcgR01FTSAoZ2VuZXJhbGl6ZWQgbWVtb3J5IG1hbmFnZW1l
-bnQpIGZvciBleHRlcm5hbCBtZW1vcnkgZGV2aWNlcw0KDQpPbiAyOS4xMS4yMyAwOToyNywgemh1
-d2VpeGkgd3JvdGU6DQo+IEdsYWQgdG8gaGVhciB0aGF0IG1vcmUgc2hhcmFibGUgY29kZSBpcyBk
-ZXNpcmFibGUuDQo+IElNSE8sIGZvciBhIGNvbW1vbiBNTSBzdWJzeXN0ZW0sIGl0IGlzIG1vcmUg
-YmVuZWZpY2lhbCBmb3IgR01FTSB0byANCj4gZXh0ZW5kIGNvcmUgTU0gaW5zdGVhZCBvZiBidWls
-ZGluZyBhIHNlcGFyYXRlIG9uZS4NCg0KTW9yZSBjb3JlLW1tIGNvbXBsZXhpdHksIGF3ZXNvbWUs
-IHdlIGFsbCBsb3ZlIHRoYXQhIDspDQoNCi0tDQpDaGVlcnMsDQoNCkRhdmlkIC8gZGhpbGRlbmIN
-Cg0K
+Hi,
+
+I notice a regression report on Bugzilla [1]. Quoting from it:
+
+> Since kernel version 6.1.57 I have problems with external monitor wakeup after suspend on Thinkpad X13 AMD Gen2 Notebook.
+> 
+> Notebook is in docking station with closed lid. Suspend & Resume. The external monitor gets no signal. After randomly typing Ctrl+Alt+Fn for switchung consoles, the monitor at some point gets signal and is usable again.
+> 
+> It worked with kernel 6.1.56.
+> 
+> I managed to compile a 6.1.57 kernel and also a 6.1.64 kernel by reverting the changes from commit ec5fa9 "drm/amd/display: Adjust the MST resume flow" (https://github.com/torvalds/linux/commit/ec5fa9fcdeca69edf7dab5ca3b2e0ceb1c08fe9a?diff=split&w=1?diff=split&w=1) and with this suspend & resume worked like before without any problems.
+> 
+> I reported this also to the Manjaro's support forum, since I tried this on Manjaro Linux (https://forum.manjaro.org/t/problems-with-external-monitor-wake-up-after-suspend/151840).
+
+See Bugzilla for the full thread.
+
+Anyway, I'm adding this regression to regzbot:
+
+#regzbot introduced: ec5fa9fcdeca69 https://bugzilla.kernel.org/show_bug.cgi?id=218211
+#regzbot title: MST resume flow adjustment breaks external monitor wakeup after suspend on Thinkpad X13
+#regzbot link: https://forum.manjaro.org/t/problems-with-external-monitor-wake-up-after-suspend/151840
+
+Thanks.
+
+[1]: https://bugzilla.kernel.org/show_bug.cgi?id=218211
+
+-- 
+An old man doll... just what I always wanted! - Clara
