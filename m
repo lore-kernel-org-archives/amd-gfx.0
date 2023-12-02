@@ -4,62 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CC6EC4167B
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Dec 2023 09:55:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB821C10DC1
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Dec 2023 09:55:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4B4110E2F2;
-	Mon,  4 Dec 2023 09:55:14 +0000 (UTC)
-Received: from mail-ua1-x933.google.com (mail-ua1-x933.google.com
- [IPv6:2607:f8b0:4864:20::933])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0BE810E1EB;
- Sat,  2 Dec 2023 14:50:49 +0000 (UTC)
-Received: by mail-ua1-x933.google.com with SMTP id
- a1e0cc1a2514c-7c46c7bc538so985252241.3; 
- Sat, 02 Dec 2023 06:50:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1701528648; x=1702133448; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1ixg28vCNyeYFge8+qwTnb3fR5Cn16tF+NefpRupJIo=;
- b=k1tbGjKJFz72vQQSJHBuAK1MdahleUWjkfNmYUmMZWuVK4Vaw18cJ2aauuXJZD7XTi
- iw6qORjLv71LdYiFdGXLUZDE8G95yWqpY6icntieVTQa89gIAm1ra5WszR3oI0l4Jxti
- NtwvC0k9TcP84OruN1D13i4KeWqrG8VufYshRF9i1S+MdoYyXBkCVtByj5Vpzh/yHAKK
- mr6cC+I3V5mZ4fQ8UMO6kjYGNVHWhueJnfyboKoFFqTtSV++tInsdrAk/jPBrhKjlH9R
- Hi7NP6cFsNqteRNNXC9vp45llDJAzd8yBdQhIXrzmAT474SwLIm9h1EvANCfdKRSRAiK
- kQAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701528648; x=1702133448;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=1ixg28vCNyeYFge8+qwTnb3fR5Cn16tF+NefpRupJIo=;
- b=CA39W95puG/uUxIlDtq0EAZuYHvVrRQnN5M/P7ooj8LlfWAfHRQkj/jy2Lg3HnKtTm
- V1xWAeW8UuFrl4VK51kt0rlERDrCMOIlta7KiWMvnSrFveD/2rhb6mwZyg4lEaHmUyfB
- JUADlamoeJrU+IzwQO4uv48eFv6E9+JRtyfssV7nLNNz1x4kz/0JaO8glgpsi9bplSI0
- yi2JuXZn/DumO87s8Y913cLLx8LWkExlmzl9V0jAGWzqf3KbYGX084tZ3bNmavHgZcjV
- ZixBtkCFvATQI625fshfjXwJFBcZbOWCFuoy3+tirzAxUz2Z67IJUPJ3T68W+sC3tBo9
- F/Ng==
-X-Gm-Message-State: AOJu0YwI2QDsNWEATAzefolpctxmOsMtVqRRX0prTc08DLxWWjqae/At
- KuXJDf2Ejs4NamJwvExxrJ5oJh1xcfVN8D3hqSU=
-X-Google-Smtp-Source: AGHT+IE8qec2C6k83JGXnys0GKx41rq3i+6tLZnIp70pSrjs+tyidT8f0JZ+1VYuv6XjXPDL9j5GVHRqH6qDQRBzggY=
-X-Received: by 2002:a67:e989:0:b0:464:4aca:51e8 with SMTP id
- b9-20020a67e989000000b004644aca51e8mr431734vso.35.1701528648668; Sat, 02 Dec
- 2023 06:50:48 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B51EF10E0CC;
+	Mon,  4 Dec 2023 09:55:50 +0000 (UTC)
+X-Greylist: delayed 412 seconds by postgrey-1.36 at gabe;
+ Sat, 02 Dec 2023 13:44:46 UTC
+Received: from mail-41103.protonmail.ch (mail-41103.protonmail.ch
+ [185.70.41.103])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35BE610E080
+ for <amd-gfx@lists.freedesktop.org>; Sat,  2 Dec 2023 13:44:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+ s=protonmail3; t=1701524261; x=1701783461;
+ bh=85110H6yIgPOqljYcjXnJosPqQ7jcUS7r3N+ugGRWZE=;
+ h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=pHS7y0FHw4Y5LLxNtiWtv7vVk0h3MTt38a/LSygT7TUOZ8bcXRDaF4WIAYJTRUeQh
+ zc7BP0zKlgUzgCwmfiNQN35qoMF3SAzi9PKEFudwpY5mGq1fBReXyubeyeE1WdjXy/
+ CKcDLkdnUW0Fk9/1CoVBYXDyzOPdmxBpv5WUyPmFm8W5wBh97DW+jBvw1WVm0XuFQV
+ JILGGXlQ6JCwoKSN1+YMLDPOgbDzG507eXRs7hCq4Q9O6wmx89xDSylfjWb01Mv+6R
+ ImUMCjTn1UHfWhNDuPYs0OUxGGbttXMrL0D1VfVAfsYppE85yNK/wF+gYnbCiGsyOo
+ lJtlAdN0fonIQ==
+Date: Sat, 02 Dec 2023 13:37:37 +0000
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+From: smesgr <smesgr@protonmail.com>
+Subject: radeon flooding "flip queue failed" in Xorg and system log
+Message-ID: <P89K8WZ24jHGrf9cnRFqNBAklwgGgtKW0zBdGDvx4GrqAYWT8LzC4ODyOQmiCFBcBOcJucOYNsjZjfV5uXA_TC-koclDP73EyZKw8QPGeEg=@protonmail.com>
+Feedback-ID: 38137127:user:proton
 MIME-Version: 1.0
-References: <20231128125025.4449-1-weixi.zhu@huawei.com>
- <20231128125025.4449-3-weixi.zhu@huawei.com>
- <e4eb5a24-e9cf-4944-9614-df5f5f3a7163@redhat.com>
-In-Reply-To: <e4eb5a24-e9cf-4944-9614-df5f5f3a7163@redhat.com>
-From: Pedro Falcato <pedro.falcato@gmail.com>
-Date: Sat, 2 Dec 2023 14:50:37 +0000
-Message-ID: <CAKbZUD25mwVXowDcN1Cj5Op9wRAopYhYZcesR0tk2r_Wn-d95g@mail.gmail.com>
-Subject: Re: [RFC PATCH 2/6] mm/gmem: add arch-independent abstraction to
- track address mapping status
-To: David Hildenbrand <david@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 04 Dec 2023 09:54:47 +0000
+Content-Type: multipart/alternative;
+ boundary="b1_63iqySnGBiLXzZ9rFqKr1TOwnqRDm2ri0VHecCkok"
+X-Mailman-Approved-At: Mon, 04 Dec 2023 09:54:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,149 +47,283 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org,
- linux-mm@kvack.org, leonro@nvidia.com, apopple@nvidia.com,
- amd-gfx@lists.freedesktop.org, mgorman@suse.de, ziy@nvidia.com,
- zhi.a.wang@intel.com, rcampbell@nvidia.com, jgg@nvidia.com,
- weixi.zhu@openeuler.sh, jhubbard@nvidia.com, intel-gfx@lists.freedesktop.org,
- mhairgrove@nvidia.com, zhenyuw@linux.intel.com, jglisse@redhat.com,
- Weixi Zhu <weixi.zhu@huawei.com>, rodrigo.vivi@intel.com,
- intel-gvt-dev@lists.freedesktop.org, jani.nikula@linux.intel.com,
- tvrtko.ursulin@linux.intel.com, Felix.Kuehling@amd.com, Xinhui.Pan@amd.com,
- linux-kernel@vger.kernel.org, christian.koenig@amd.com,
- alexander.deucher@amd.com, akpm@linux-foundation.org, ogabbay@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Dec 1, 2023 at 9:23=E2=80=AFAM David Hildenbrand <david@redhat.com>=
- wrote:
->
-> On 28.11.23 13:50, Weixi Zhu wrote:
-> > This patch adds an abstraction layer, struct vm_object, that maintains
-> > per-process virtual-to-physical mapping status stored in struct gm_mapp=
-ing.
-> > For example, a virtual page may be mapped to a CPU physical page or to =
-a
-> > device physical page. Struct vm_object effectively maintains an
-> > arch-independent page table, which is defined as a "logical page table"=
-.
-> > While arch-dependent page table used by a real MMU is named a "physical
-> > page table". The logical page table is useful if Linux core MM is exten=
-ded
-> > to handle a unified virtual address space with external accelerators us=
-ing
-> > customized MMUs.
->
-> Which raises the question why we are dealing with anonymous memory at
-> all? Why not go for shmem if you are already only special-casing VMAs
-> with a MMAP flag right now?
->
-> That would maybe avoid having to introduce controversial BSD design
-> concepts into Linux, that feel like going a step backwards in time to me
-> and adding *more* MM complexity.
->
-> >
-> > In this patch, struct vm_object utilizes a radix
-> > tree (xarray) to track where a virtual page is mapped to. This adds ext=
-ra
-> > memory consumption from xarray, but provides a nice abstraction to isol=
-ate
-> > mapping status from the machine-dependent layer (PTEs). Besides support=
-ing
-> > accelerators with external MMUs, struct vm_object is planned to further
-> > union with i_pages in struct address_mapping for file-backed memory.
->
-> A file already has a tree structure (pagecache) to manage the pages that
-> are theoretically mapped. It's easy to translate from a VMA to a page
-> inside that tree structure that is currently not present in page tables.
->
-> Why the need for that tree structure if you can just remove anon memory
-> from the picture?
->
-> >
-> > The idea of struct vm_object is originated from FreeBSD VM design, whic=
-h
-> > provides a unified abstraction for anonymous memory, file-backed memory=
-,
-> > page cache and etc[1].
->
-> :/
->
-> > Currently, Linux utilizes a set of hierarchical page walk functions to
-> > abstract page table manipulations of different CPU architecture. The
-> > problem happens when a device wants to reuse Linux MM code to manage it=
-s
-> > page table -- the device page table may not be accessible to the CPU.
-> > Existing solution like Linux HMM utilizes the MMU notifier mechanisms t=
-o
-> > invoke device-specific MMU functions, but relies on encoding the mappin=
-g
-> > status on the CPU page table entries. This entangles machine-independen=
-t
-> > code with machine-dependent code, and also brings unnecessary restricti=
-ons.
->
-> Why? we have primitives to walk arch page tables in a non-arch specific
-> fashion and are using them all over the place.
->
-> We even have various mechanisms to map something into the page tables
-> and get the CPU to fault on it, as if it is inaccessible (PROT_NONE as
-> used for NUMA balancing, fake swap entries).
->
-> > The PTE size and format vary arch by arch, which harms the extensibilit=
-y.
->
-> Not really.
->
-> We might have some features limited to some architectures because of the
-> lack of PTE bits. And usually the problem is that people don't care
-> enough about enabling these features on older architectures.
->
-> If we ever *really* need more space for sw-defined data, it would be
-> possible to allocate auxiliary data for page tables only where required
-> (where the features apply), instead of crafting a completely new,
-> auxiliary datastructure with it's own locking.
->
-> So far it was not required to enable the feature we need on the
-> architectures we care about.
->
-> >
-> > [1] https://docs.freebsd.org/en/articles/vm-design/
->
-> In the cover letter you have:
->
-> "The future plan of logical page table is to provide a generic
-> abstraction layer that support common anonymous memory (I am looking at
-> you, transparent huge pages) and file-backed memory."
->
-> Which I doubt will happen; there is little interest in making anonymous
-> memory management slower, more serialized, and wasting more memory on
-> metadata.
+This is a multi-part message in MIME format.
 
-Also worth noting that:
+--b1_63iqySnGBiLXzZ9rFqKr1TOwnqRDm2ri0VHecCkok
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
 
-1) Mach VM (which FreeBSD inherited, from the old BSD) vm_objects
-aren't quite what's being stated here, rather they are somewhat
-replacements for both anon_vma and address_space[1]. Very similarly to
-Linux, they take pages from vm_objects and map them in page tables
-using pmap (the big difference is anon memory, which has its
-bookkeeping in page tables, on Linux)
+SGksCgpJIGhhdmUgdXBkYXRlZCBteSBvbGQgRnVqaXRzdSBTOTIwIHdpdGggQU1EIEdYLTQyNEND
+IGZyb20gVWJ1bnR1IDIyLjA0IExUUyB0byBEZWJpYW4gMTIuClRoZSBzeXN0ZW0gd29ya2VkIGZp
+bmUgYmVmb3JlLCBhZnRlciB0aGUgaW5zdGFsbGF0aW9uIGNvbXBsZXRlZCwgbXkgbG9ncyBhcmUg
+Zmxvb2RlZCBieSB0aGUgZm9sbG93aW5nIGVycm9yIG1lc3NhZ2VzOgoKZG1lc2c6ClsgOTY3Ljg2
+OTE4M10gcmFkZW9uIDAwMDA6MDA6MDEuMDogMDAwMDAwMDAzYmEzYzgxMyBwaW4gZmFpbGVkClsg
+OTY3Ljg2OTIxMl0gW2RybTpyYWRlb25fY3J0Y19wYWdlX2ZsaXBfdGFyZ2V0IFtyYWRlb25dXSAq
+RVJST1IqIGZhaWxlZCB0byBwaW4gbmV3IHJibyBidWZmZXIgYmVmb3JlIGZsaXAKWyA5NjcuODg2
+MjU0XSByYWRlb24gMDAwMDowMDowMS4wOiAwMDAwMDAwMDUxYmUyMjE2IHBpbiBmYWlsZWQKWyA5
+NjcuODg2MjgyXSBbZHJtOnJhZGVvbl9jcnRjX3BhZ2VfZmxpcF90YXJnZXQgW3JhZGVvbl1dICpF
+UlJPUiogZmFpbGVkIHRvIHBpbiBuZXcgcmJvIGJ1ZmZlciBiZWZvcmUgZmxpcApbIDk2Ny45MDc5
+ODRdIHJhZGVvbiAwMDAwOjAwOjAxLjA6IDAwMDAwMDAwM2JhM2M4MTMgcGluIGZhaWxlZApbIDk2
+Ny45MDgwMTRdIFtkcm06cmFkZW9uX2NydGNfcGFnZV9mbGlwX3RhcmdldCBbcmFkZW9uXV0gKkVS
+Uk9SKiBmYWlsZWQgdG8gcGluIG5ldyByYm8gYnVmZmVyIGJlZm9yZSBmbGlwClsgOTY3LjkyNTU1
+MV0gcmFkZW9uIDAwMDA6MDA6MDEuMDogMDAwMDAwMDA1MWJlMjIxNiBwaW4gZmFpbGVkWyA5Njcu
+OTI1NTgwXSBbZHJtOnJhZGVvbl9jcnRjX3BhZ2VfZmxpcF90YXJnZXQgW3JhZGVvbl1dICpFUlJP
+UiogZmFpbGVkIHRvIHBpbiBuZXcgcmJvIGJ1ZmZlciBiZWZvcmUgZmxpcAoKWG9yZy5sb2cKWyA0
+Ny43NzddIChXVykgUkFERU9OKDApOiBmbGlwIHF1ZXVlIGZhaWxlZDogSW52YWxpZCBhcmd1bWVu
+dApbIDQ3Ljc3N10gKFdXKSBSQURFT04oMCk6IFBhZ2UgZmxpcCBmYWlsZWQ6IEludmFsaWQgYXJn
+dW1lbnRbIDQ3Ljc3N10gKEVFKSBSQURFT04oMCk6IHByZXNlbnQgZmxpcCBmYWlsZWQKCmxzcGNp
+OgowMDowMS4wIFZHQSBjb21wYXRpYmxlIGNvbnRyb2xsZXI6IEFkdmFuY2VkIE1pY3JvIERldmlj
+ZXMsIEluYy4gW0FNRC9BVEldIE11bGxpbnMgW1JhZGVvbiBSNC9SNSBHcmFwaGljc10gKHJldiAw
+MSkgKHByb2ctaWYgMDAgW1ZHQSBjb250cm9sbGVyXSkKU3Vic3lzdGVtOiBGdWppdHN1IFRlY2hu
+b2xvZ3kgU29sdXRpb25zIE11bGxpbnMgW1JhZGVvbiBSNC9SNSBHcmFwaGljc10KQ29udHJvbDog
+SS9PKyBNZW0rIEJ1c01hc3RlcisgU3BlY0N5Y2xlLSBNZW1XSU5WLSBWR0FTbm9vcC0gUGFyRXJy
+LSBTdGVwcGluZy0gU0VSUi0gRmFzdEIyQi0gRGlzSU5UeCsKU3RhdHVzOiBDYXArIDY2TUh6LSBV
+REYtIEZhc3RCMkItIFBhckVyci0gREVWU0VMPWZhc3QgPlRBYm9ydC0gPFRBYm9ydC0gPE1BYm9y
+dC0gPlNFUlItIDxQRVJSLSBJTlR4LQpMYXRlbmN5OiAwLCBDYWNoZSBMaW5lIFNpemU6IDY0IGJ5
+dGVzCkludGVycnVwdDogcGluIEEgcm91dGVkIHRvIElSUSAzNQpSZWdpb24gMDogTWVtb3J5IGF0
+IGY4MDAwMDAwICg2NC1iaXQsIHByZWZldGNoYWJsZSkgW3NpemU9NjRNXQpSZWdpb24gMjogTWVt
+b3J5IGF0IGZjMDAwMDAwICg2NC1iaXQsIHByZWZldGNoYWJsZSkgW3NpemU9OE1dClJlZ2lvbiA0
+OiBJL08gcG9ydHMgYXQgZjAwMCBbc2l6ZT0yNTZdClJlZ2lvbiA1OiBNZW1vcnkgYXQgZmViMDAw
+MDAgKDMyLWJpdCwgbm9uLXByZWZldGNoYWJsZSkgW3NpemU9MjU2S10KRXhwYW5zaW9uIFJPTSBh
+dCAwMDBjMDAwMCBbZGlzYWJsZWRdIFtzaXplPTEyOEtdCkNhcGFiaWxpdGllczogWzQ4XSBWZW5k
+b3IgU3BlY2lmaWMgSW5mb3JtYXRpb246IExlbj0wOCA8Pz4KQ2FwYWJpbGl0aWVzOiBbNTBdIFBv
+d2VyIE1hbmFnZW1lbnQgdmVyc2lvbiAzCkZsYWdzOiBQTUVDbGstIERTSS0gRDErIEQyKyBBdXhD
+dXJyZW50PTBtQSBQTUUoRDAtLEQxKyxEMissRDNob3QrLEQzY29sZC0pClN0YXR1czogRDAgTm9T
+b2Z0UnN0LSBQTUUtRW5hYmxlLSBEU2VsPTAgRFNjYWxlPTAgUE1FLQpDYXBhYmlsaXRpZXM6IFs1
+OF0gRXhwcmVzcyAodjIpIFJvb3QgQ29tcGxleCBJbnRlZ3JhdGVkIEVuZHBvaW50LCBNU0kgMDAK
+RGV2Q2FwOiBNYXhQYXlsb2FkIDI1NiBieXRlcywgUGhhbnRGdW5jIDAKRXh0VGFnKyBSQkUrIEZM
+UmVzZXQtCkRldkN0bDogQ29yckVyci0gTm9uRmF0YWxFcnItIEZhdGFsRXJyLSBVbnN1cFJlcS0K
+Umx4ZE9yZCsgRXh0VGFnKyBQaGFudEZ1bmMtIEF1eFB3ci0gTm9Tbm9vcCsKTWF4UGF5bG9hZCAy
+NTYgYnl0ZXMsIE1heFJlYWRSZXEgNTEyIGJ5dGVzCkRldlN0YTogQ29yckVyci0gTm9uRmF0YWxF
+cnIrIEZhdGFsRXJyLSBVbnN1cFJlcSsgQXV4UHdyLSBUcmFuc1BlbmQtCkRldkNhcDI6IENvbXBs
+ZXRpb24gVGltZW91dDogTm90IFN1cHBvcnRlZCwgVGltZW91dERpcy0gTlJPUHJQclAtIExUUi0K
+MTBCaXRUYWdDb21wLSAxMEJpdFRhZ1JlcS0gT0JGRiBOb3QgU3VwcG9ydGVkLCBFeHRGbXQrIEVF
+VExQUHJlZml4KywgTWF4RUVUTFBQcmVmaXhlcyAxCkVtZXJnZW5jeVBvd2VyUmVkdWN0aW9uIE5v
+dCBTdXBwb3J0ZWQsIEVtZXJnZW5jeVBvd2VyUmVkdWN0aW9uSW5pdC0KRlJTLQpBdG9taWNPcHND
+YXA6IDMyYml0LSA2NGJpdC0gMTI4Yml0Q0FTLQpEZXZDdGwyOiBDb21wbGV0aW9uIFRpbWVvdXQ6
+IDUwdXMgdG8gNTBtcywgVGltZW91dERpcy0gTFRSLSAxMEJpdFRhZ1JlcS0gT0JGRiBEaXNhYmxl
+ZCwKQXRvbWljT3BzQ3RsOiBSZXFFbi0KQ2FwYWJpbGl0aWVzOiBbYTBdIE1TSTogRW5hYmxlKyBD
+b3VudD0xLzEgTWFza2FibGUtIDY0Yml0KwpBZGRyZXNzOiAwMDAwMDAwMGZlZTA4MDA0IERhdGE6
+IDAwMjMKQ2FwYWJpbGl0aWVzOiBbMTAwIHYxXSBWZW5kb3IgU3BlY2lmaWMgSW5mb3JtYXRpb246
+IElEPTAwMDEgUmV2PTEgTGVuPTAxMCA8Pz4KQ2FwYWJpbGl0aWVzOiBbMjcwIHYxXSBTZWNvbmRh
+cnkgUENJIEV4cHJlc3MKTG5rQ3RsMzogTG5rRXF1SW50cnJ1cHRFbi0gUGVyZm9ybUVxdS0KTGFu
+ZUVyclN0YXQ6IDAKQ2FwYWJpbGl0aWVzOiBbMmIwIHYxXSBBZGRyZXNzIFRyYW5zbGF0aW9uIFNl
+cnZpY2UgKEFUUykKQVRTQ2FwOiBJbnZhbGlkYXRlIFF1ZXVlIERlcHRoOiAwMApBVFNDdGw6IEVu
+YWJsZS0sIFNtYWxsZXN0IFRyYW5zbGF0aW9uIFVuaXQ6IDAwCkNhcGFiaWxpdGllczogWzJjMCB2
+MV0gUGFnZSBSZXF1ZXN0IEludGVyZmFjZSAoUFJJKQpQUklDdGw6IEVuYWJsZS0gUmVzZXQtClBS
+SVN0YTogUkYtIFVQUkdJLSBTdG9wcGVkKwpQYWdlIFJlcXVlc3QgQ2FwYWNpdHk6IDAwMDAwMDIw
+LCBQYWdlIFJlcXVlc3QgQWxsb2NhdGlvbjogMDAwMDAwMDAKQ2FwYWJpbGl0aWVzOiBbMmQwIHYx
+XSBQcm9jZXNzIEFkZHJlc3MgU3BhY2UgSUQgKFBBU0lEKQpQQVNJRENhcDogRXhlYysgUHJpdiss
+IE1heCBQQVNJRCBXaWR0aDogMTAKUEFTSURDdGw6IEVuYWJsZS0gRXhlYy0gUHJpdi0KS2VybmVs
+IGRyaXZlciBpbiB1c2U6IHJhZGVvbiBLZXJuZWwgbW9kdWxlczogcmFkZW9uLCBhbWRncHUKCkkn
+bSBhIGJpdCBjb25mdXNlZC4gSXMgdGhpcyBhbiBrZXJuZWwgaXNzdWUsIFhvcmcgaXNzdWUgb3Ig
+c29tZXRoaW5nIGVsc2U/CgprZXJuZWw6CkxpbnV4IGRlYmlhbiA2LjEuMC0xMy1hbWQ2NCAjMSBT
+TVAgUFJFRU1QVF9EWU5BTUlDIERlYmlhbiA2LjEuNTUtMSAoMjAyMy0wOS0yOSkgeDg2XzY0IEdO
+VS9MaW51eAoKWG9yZzoKWyAzMy4xNDRdClguT3JnIFggU2VydmVyIDEuMjEuMS43ClggUHJvdG9j
+b2wgVmVyc2lvbiAxMSwgUmV2aXNpb24gMApbIDMzLjE0NF0gQ3VycmVudCBPcGVyYXRpbmcgU3lz
+dGVtOiBMaW51eCBkZWJpYW4gNi4xLjAtMTMtYW1kNjQgIzEgU01QIFBSRUVNUFRfRFlOQU1JQyBE
+ZWJpYW4gNi4xLjU1LTEgKDIwMjMtMDktMjkpIHg4Nl82NApbIDMzLjE0NF0gS2VybmVsIGNvbW1h
+bmQgbGluZTogQk9PVF9JTUFHRT0vYm9vdC92bWxpbnV6LTYuMS4wLTEzLWFtZDY0IHJvb3Q9VVVJ
+RD00MTAxYzU2OC1lMDczLTQyZjQtOGRmZS0wODM3M2ZjZWIxM2Mgcm8gcXVpZXQKWyAzMy4xNDRd
+IHhvcmctc2VydmVyIDI6MjEuMS43LTMgKGh0dHBzOi8vd3d3LmRlYmlhbi5vcmcvc3VwcG9ydCkK
+WyAzMy4xNDRdIEN1cnJlbnQgdmVyc2lvbiBvZiBwaXhtYW46IDAuNDIuMgpbIDMzLjE0NF0gQmVm
+b3JlIHJlcG9ydGluZyBwcm9ibGVtcywgY2hlY2sgaHR0cDovL3dpa2kueC5vcmcgdG8gbWFrZSBz
+dXJlIHRoYXQgeW91IGhhdmUgdGhlIGxhdGVzdCB2ZXJzaW9uLgoKSSBzZWFyY2hlZCBidWcgdHJh
+Y2tlciBhbmQgY291bGQgb25seSBmaW5kIHRoaXMgaXNzdWU6IGh0dHBzOi8vZ2l0bGFiLmZyZWVk
+ZXNrdG9wLm9yZy94b3JnL2RyaXZlci94Zjg2LXZpZGVvLWF0aS8tL2lzc3Vlcy8xODAgYnV0IEkg
+ZG9uJ3QgaGF2ZSBhIGJsYWNrIHNjcmVlbi4gVGhlIHN5c3RlbSBpcyByYXRoZXIgc2x1Z2dpc2gg
+YnV0IHNlZW1zIHRvIHdvcmsuCgpBbnkgaGludHMgd2hlcmUgdG8gZ28gbmV4dCBpcyB2ZXJ5IGFw
+cHJlY2lhdGVkLgoKQmVzdCBSZWdhcmRz
 
-2) These vm_objects were a horrendous mistake (see CoW chaining) and
-FreeBSD has to go to horrendous lengths to make them tolerable. The
-UVM paper/dissertation (by Charles Cranor) talks about these issues at
-length, and 20 years later it's still true.
+--b1_63iqySnGBiLXzZ9rFqKr1TOwnqRDm2ri0VHecCkok
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
 
-3) Despite Linux MM having its warts, it's probably correct to
-consider it a solid improvement over FreeBSD MM or NetBSD UVM
+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0
+cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwg
+MjU1KTsiPkhpLDwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiBBcmlhbCwgc2Fucy1zZXJp
+ZjsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyBiYWNrZ3JvdW5kLWNvbG9y
+OiByZ2IoMjU1LCAyNTUsIDI1NSk7Ij48YnI+PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6
+IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7
+IGJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsiPkkgaGF2ZSB1cGRhdGVkIG15
+IG9sZCBGdWppdHN1IFM5MjAgd2l0aCBBTUQgR1gtNDI0Q0MgZnJvbSBVYnVudHUgMjIuMDQgTFRT
+IHRvIERlYmlhbiAxMi48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMt
+c2VyaWY7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsgYmFja2dyb3VuZC1j
+b2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpOyI+VGhlIHN5c3RlbSB3b3JrZWQgZmluZSBiZWZvcmUs
+IGFmdGVyIHRoZSBpbnN0YWxsYXRpb24gY29tcGxldGVkLCBteSBsb2dzIGFyZSBmbG9vZGVkIGJ5
+IHRoZSBmb2xsb3dpbmcgZXJyb3IgbWVzc2FnZXM6PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1p
+bHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwg
+MCk7IGJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsiPjxicj48L2Rpdj48ZGl2
+IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsg
+Y29sb3I6IHJnYigwLCAwLCAwKTsgYmFja2dyb3VuZC1jb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUp
+OyI+ZG1lc2c6PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlm
+OyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGJhY2tncm91bmQtY29sb3I6
+IHJnYigyNTUsIDI1NSwgMjU1KTsiPjxzcGFuPlsgJm5ic3A7OTY3Ljg2OTE4M10gcmFkZW9uIDAw
+MDA6MDA6MDEuMDogMDAwMDAwMDAzYmEzYzgxMyBwaW4gZmFpbGVkPC9zcGFuPjxkaXY+PHNwYW4+
+WyAmbmJzcDs5NjcuODY5MjEyXSBbZHJtOnJhZGVvbl9jcnRjX3BhZ2VfZmxpcF90YXJnZXQgW3Jh
+ZGVvbl1dICpFUlJPUiogZmFpbGVkIHRvIHBpbiBuZXcgcmJvIGJ1ZmZlciBiZWZvcmUgZmxpcDwv
+c3Bhbj48L2Rpdj48ZGl2PjxzcGFuPlsgJm5ic3A7OTY3Ljg4NjI1NF0gcmFkZW9uIDAwMDA6MDA6
+MDEuMDogMDAwMDAwMDA1MWJlMjIxNiBwaW4gZmFpbGVkPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4+
+WyAmbmJzcDs5NjcuODg2MjgyXSBbZHJtOnJhZGVvbl9jcnRjX3BhZ2VfZmxpcF90YXJnZXQgW3Jh
+ZGVvbl1dICpFUlJPUiogZmFpbGVkIHRvIHBpbiBuZXcgcmJvIGJ1ZmZlciBiZWZvcmUgZmxpcDwv
+c3Bhbj48L2Rpdj48ZGl2PjxzcGFuPlsgJm5ic3A7OTY3LjkwNzk4NF0gcmFkZW9uIDAwMDA6MDA6
+MDEuMDogMDAwMDAwMDAzYmEzYzgxMyBwaW4gZmFpbGVkPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4+
+WyAmbmJzcDs5NjcuOTA4MDE0XSBbZHJtOnJhZGVvbl9jcnRjX3BhZ2VfZmxpcF90YXJnZXQgW3Jh
+ZGVvbl1dICpFUlJPUiogZmFpbGVkIHRvIHBpbiBuZXcgcmJvIGJ1ZmZlciBiZWZvcmUgZmxpcDwv
+c3Bhbj48L2Rpdj48ZGl2PjxzcGFuPlsgJm5ic3A7OTY3LjkyNTU1MV0gcmFkZW9uIDAwMDA6MDA6
+MDEuMDogMDAwMDAwMDA1MWJlMjIxNiBwaW4gZmFpbGVkPC9zcGFuPjwvZGl2PjxzcGFuPlsgJm5i
+c3A7OTY3LjkyNTU4MF0gW2RybTpyYWRlb25fY3J0Y19wYWdlX2ZsaXBfdGFyZ2V0IFtyYWRlb25d
+XSAqRVJST1IqIGZhaWxlZCB0byBwaW4gbmV3IHJibyBidWZmZXIgYmVmb3JlIGZsaXA8L3NwYW4+
+PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNp
+emU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGJhY2tncm91bmQtY29sb3I6IHJnYigyNTUs
+IDI1NSwgMjU1KTsiPjxicj48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNh
+bnMtc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsgYmFja2dyb3Vu
+ZC1jb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpOyI+WG9yZy5sb2c8L2Rpdj48ZGl2IHN0eWxlPSJm
+b250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJn
+YigwLCAwLCAwKTsgYmFja2dyb3VuZC1jb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpOyI+PHNwYW4+
+WyAmbmJzcDsgJm5ic3A7NDcuNzc3XSAoV1cpIFJBREVPTigwKTogZmxpcCBxdWV1ZSBmYWlsZWQ6
+IEludmFsaWQgYXJndW1lbnQ8L3NwYW4+PGRpdj48c3Bhbj5bICZuYnNwOyAmbmJzcDs0Ny43Nzdd
+IChXVykgUkFERU9OKDApOiBQYWdlIGZsaXAgZmFpbGVkOiBJbnZhbGlkIGFyZ3VtZW50PC9zcGFu
+PjwvZGl2PjxzcGFuPlsgJm5ic3A7ICZuYnNwOzQ3Ljc3N10gKEVFKSBSQURFT04oMCk6IHByZXNl
+bnQgZmxpcCBmYWlsZWQ8L3NwYW4+PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFs
+LCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGJhY2tn
+cm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsiPjxicj48L2Rpdj48ZGl2IHN0eWxlPSJm
+b250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJn
+YigwLCAwLCAwKTsgYmFja2dyb3VuZC1jb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpOyI+bHNwY2k6
+PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNp
+emU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGJhY2tncm91bmQtY29sb3I6IHJnYigyNTUs
+IDI1NSwgMjU1KTsiPjxzcGFuPjAwOjAxLjAgVkdBIGNvbXBhdGlibGUgY29udHJvbGxlcjogQWR2
+YW5jZWQgTWljcm8gRGV2aWNlcywgSW5jLiBbQU1EL0FUSV0gTXVsbGlucyBbUmFkZW9uIFI0L1I1
+IEdyYXBoaWNzXSAocmV2IDAxKSAocHJvZy1pZiAwMCBbVkdBIGNvbnRyb2xsZXJdKTwvc3Bhbj48
+ZGl2PjxzcGFuPglTdWJzeXN0ZW06IEZ1aml0c3UgVGVjaG5vbG9neSBTb2x1dGlvbnMgTXVsbGlu
+cyBbUmFkZW9uIFI0L1I1IEdyYXBoaWNzXTwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPglDb250cm9s
+OiBJL08rIE1lbSsgQnVzTWFzdGVyKyBTcGVjQ3ljbGUtIE1lbVdJTlYtIFZHQVNub29wLSBQYXJF
+cnItIFN0ZXBwaW5nLSBTRVJSLSBGYXN0QjJCLSBEaXNJTlR4Kzwvc3Bhbj48L2Rpdj48ZGl2Pjxz
+cGFuPglTdGF0dXM6IENhcCsgNjZNSHotIFVERi0gRmFzdEIyQi0gUGFyRXJyLSBERVZTRUw9ZmFz
+dCAmZ3Q7VEFib3J0LSAmbHQ7VEFib3J0LSAmbHQ7TUFib3J0LSAmZ3Q7U0VSUi0gJmx0O1BFUlIt
+IElOVHgtPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4+CUxhdGVuY3k6IDAsIENhY2hlIExpbmUgU2l6
+ZTogNjQgYnl0ZXM8L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj4JSW50ZXJydXB0OiBwaW4gQSByb3V0
+ZWQgdG8gSVJRIDM1PC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4+CVJlZ2lvbiAwOiBNZW1vcnkgYXQg
+ZjgwMDAwMDAgKDY0LWJpdCwgcHJlZmV0Y2hhYmxlKSBbc2l6ZT02NE1dPC9zcGFuPjwvZGl2Pjxk
+aXY+PHNwYW4+CVJlZ2lvbiAyOiBNZW1vcnkgYXQgZmMwMDAwMDAgKDY0LWJpdCwgcHJlZmV0Y2hh
+YmxlKSBbc2l6ZT04TV08L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj4JUmVnaW9uIDQ6IEkvTyBwb3J0
+cyBhdCBmMDAwIFtzaXplPTI1Nl08L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj4JUmVnaW9uIDU6IE1l
+bW9yeSBhdCBmZWIwMDAwMCAoMzItYml0LCBub24tcHJlZmV0Y2hhYmxlKSBbc2l6ZT0yNTZLXTwv
+c3Bhbj48L2Rpdj48ZGl2PjxzcGFuPglFeHBhbnNpb24gUk9NIGF0IDAwMGMwMDAwIFtkaXNhYmxl
+ZF0gW3NpemU9MTI4S108L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj4JQ2FwYWJpbGl0aWVzOiBbNDhd
+IFZlbmRvciBTcGVjaWZpYyBJbmZvcm1hdGlvbjogTGVuPTA4ICZsdDs/Jmd0Ozwvc3Bhbj48L2Rp
+dj48ZGl2PjxzcGFuPglDYXBhYmlsaXRpZXM6IFs1MF0gUG93ZXIgTWFuYWdlbWVudCB2ZXJzaW9u
+IDM8L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj4JCUZsYWdzOiBQTUVDbGstIERTSS0gRDErIEQyKyBB
+dXhDdXJyZW50PTBtQSBQTUUoRDAtLEQxKyxEMissRDNob3QrLEQzY29sZC0pPC9zcGFuPjwvZGl2
+PjxkaXY+PHNwYW4+CQlTdGF0dXM6IEQwIE5vU29mdFJzdC0gUE1FLUVuYWJsZS0gRFNlbD0wIERT
+Y2FsZT0wIFBNRS08L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj4JQ2FwYWJpbGl0aWVzOiBbNThdIEV4
+cHJlc3MgKHYyKSBSb290IENvbXBsZXggSW50ZWdyYXRlZCBFbmRwb2ludCwgTVNJIDAwPC9zcGFu
+PjwvZGl2PjxkaXY+PHNwYW4+CQlEZXZDYXA6CU1heFBheWxvYWQgMjU2IGJ5dGVzLCBQaGFudEZ1
+bmMgMDwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPgkJCUV4dFRhZysgUkJFKyBGTFJlc2V0LTwvc3Bh
+bj48L2Rpdj48ZGl2PjxzcGFuPgkJRGV2Q3RsOglDb3JyRXJyLSBOb25GYXRhbEVyci0gRmF0YWxF
+cnItIFVuc3VwUmVxLTwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPgkJCVJseGRPcmQrIEV4dFRhZysg
+UGhhbnRGdW5jLSBBdXhQd3ItIE5vU25vb3ArPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4+CQkJTWF4
+UGF5bG9hZCAyNTYgYnl0ZXMsIE1heFJlYWRSZXEgNTEyIGJ5dGVzPC9zcGFuPjwvZGl2PjxkaXY+
+PHNwYW4+CQlEZXZTdGE6CUNvcnJFcnItIE5vbkZhdGFsRXJyKyBGYXRhbEVyci0gVW5zdXBSZXEr
+IEF1eFB3ci0gVHJhbnNQZW5kLTwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPgkJRGV2Q2FwMjogQ29t
+cGxldGlvbiBUaW1lb3V0OiBOb3QgU3VwcG9ydGVkLCBUaW1lb3V0RGlzLSBOUk9QclByUC0gTFRS
+LTwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPgkJCSAxMEJpdFRhZ0NvbXAtIDEwQml0VGFnUmVxLSBP
+QkZGIE5vdCBTdXBwb3J0ZWQsIEV4dEZtdCsgRUVUTFBQcmVmaXgrLCBNYXhFRVRMUFByZWZpeGVz
+IDE8L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj4JCQkgRW1lcmdlbmN5UG93ZXJSZWR1Y3Rpb24gTm90
+IFN1cHBvcnRlZCwgRW1lcmdlbmN5UG93ZXJSZWR1Y3Rpb25Jbml0LTwvc3Bhbj48L2Rpdj48ZGl2
+PjxzcGFuPgkJCSBGUlMtPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4+CQkJIEF0b21pY09wc0NhcDog
+MzJiaXQtIDY0Yml0LSAxMjhiaXRDQVMtPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4+CQlEZXZDdGwy
+OiBDb21wbGV0aW9uIFRpbWVvdXQ6IDUwdXMgdG8gNTBtcywgVGltZW91dERpcy0gTFRSLSAxMEJp
+dFRhZ1JlcS0gT0JGRiBEaXNhYmxlZCw8L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj4JCQkgQXRvbWlj
+T3BzQ3RsOiBSZXFFbi08L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj4JQ2FwYWJpbGl0aWVzOiBbYTBd
+IE1TSTogRW5hYmxlKyBDb3VudD0xLzEgTWFza2FibGUtIDY0Yml0Kzwvc3Bhbj48L2Rpdj48ZGl2
+PjxzcGFuPgkJQWRkcmVzczogMDAwMDAwMDBmZWUwODAwNCAmbmJzcDtEYXRhOiAwMDIzPC9zcGFu
+PjwvZGl2PjxkaXY+PHNwYW4+CUNhcGFiaWxpdGllczogWzEwMCB2MV0gVmVuZG9yIFNwZWNpZmlj
+IEluZm9ybWF0aW9uOiBJRD0wMDAxIFJldj0xIExlbj0wMTAgJmx0Oz8mZ3Q7PC9zcGFuPjwvZGl2
+PjxkaXY+PHNwYW4+CUNhcGFiaWxpdGllczogWzI3MCB2MV0gU2Vjb25kYXJ5IFBDSSBFeHByZXNz
+PC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4+CQlMbmtDdGwzOiBMbmtFcXVJbnRycnVwdEVuLSBQZXJm
+b3JtRXF1LTwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPgkJTGFuZUVyclN0YXQ6IDA8L3NwYW4+PC9k
+aXY+PGRpdj48c3Bhbj4JQ2FwYWJpbGl0aWVzOiBbMmIwIHYxXSBBZGRyZXNzIFRyYW5zbGF0aW9u
+IFNlcnZpY2UgKEFUUyk8L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj4JCUFUU0NhcDoJSW52YWxpZGF0
+ZSBRdWV1ZSBEZXB0aDogMDA8L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj4JCUFUU0N0bDoJRW5hYmxl
+LSwgU21hbGxlc3QgVHJhbnNsYXRpb24gVW5pdDogMDA8L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj4J
+Q2FwYWJpbGl0aWVzOiBbMmMwIHYxXSBQYWdlIFJlcXVlc3QgSW50ZXJmYWNlIChQUkkpPC9zcGFu
+PjwvZGl2PjxkaXY+PHNwYW4+CQlQUklDdGw6IEVuYWJsZS0gUmVzZXQtPC9zcGFuPjwvZGl2Pjxk
+aXY+PHNwYW4+CQlQUklTdGE6IFJGLSBVUFJHSS0gU3RvcHBlZCs8L3NwYW4+PC9kaXY+PGRpdj48
+c3Bhbj4JCVBhZ2UgUmVxdWVzdCBDYXBhY2l0eTogMDAwMDAwMjAsIFBhZ2UgUmVxdWVzdCBBbGxv
+Y2F0aW9uOiAwMDAwMDAwMDwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPglDYXBhYmlsaXRpZXM6IFsy
+ZDAgdjFdIFByb2Nlc3MgQWRkcmVzcyBTcGFjZSBJRCAoUEFTSUQpPC9zcGFuPjwvZGl2PjxkaXY+
+PHNwYW4+CQlQQVNJRENhcDogRXhlYysgUHJpdissIE1heCBQQVNJRCBXaWR0aDogMTA8L3NwYW4+
+PC9kaXY+PGRpdj48c3Bhbj4JCVBBU0lEQ3RsOiBFbmFibGUtIEV4ZWMtIFByaXYtPC9zcGFuPjwv
+ZGl2PjxkaXY+PHNwYW4+CUtlcm5lbCBkcml2ZXIgaW4gdXNlOiByYWRlb248L3NwYW4+PC9kaXY+
+PHNwYW4+CUtlcm5lbCBtb2R1bGVzOiByYWRlb24sIGFtZGdwdTwvc3Bhbj48L2Rpdj48ZGl2IHN0
+eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsgY29s
+b3I6IHJnYigwLCAwLCAwKTsgYmFja2dyb3VuZC1jb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpOyI+
+PGJyPjwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiBBcmlhbCwgc2Fucy1zZXJpZjsgZm9u
+dC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyBiYWNrZ3JvdW5kLWNvbG9yOiByZ2Io
+MjU1LCAyNTUsIDI1NSk7Ij5JJ20gYSBiaXQgY29uZnVzZWQuIElzIHRoaXMgYW4ga2VybmVsIGlz
+c3VlLCBYb3JnIGlzc3VlIG9yIHNvbWV0aGluZyBlbHNlPzwvZGl2PjxkaXYgc3R5bGU9ImZvbnQt
+ZmFtaWx5OiBBcmlhbCwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAs
+IDAsIDApOyBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7Ij48YnI+PC9kaXY+
+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0
+cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwg
+MjU1KTsiPmtlcm5lbDo8L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMt
+c2VyaWY7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsgYmFja2dyb3VuZC1j
+b2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpOyI+PHNwYW4+TGludXggZGViaWFuIDYuMS4wLTEzLWFt
+ZDY0ICMxIFNNUCBQUkVFTVBUX0RZTkFNSUMgRGViaWFuIDYuMS41NS0xICgyMDIzLTA5LTI5KSB4
+ODZfNjQgR05VL0xpbnV4PC9zcGFuPjxicj48c3Bhbj48L3NwYW4+PC9kaXY+PGRpdiBzdHlsZT0i
+Zm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiBy
+Z2IoMCwgMCwgMCk7IGJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsiPjxicj48
+L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6
+ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsgYmFja2dyb3VuZC1jb2xvcjogcmdiKDI1NSwg
+MjU1LCAyNTUpOyI+WG9yZzo8YnI+PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFs
+LCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGJhY2tn
+cm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsiPjxzcGFuPlsgJm5ic3A7ICZuYnNwOzMz
+LjE0NF0gPC9zcGFuPjxkaXY+PHNwYW4+PGEgdGFyZ2V0PSJfYmxhbmsiIHJlbD0ibm9yZWZlcnJl
+ciBub2ZvbGxvdyBub29wZW5lciIgaHJlZj0iaHR0cDovL1guT3JnIj5YLk9yZzwvYT4gWCBTZXJ2
+ZXIgMS4yMS4xLjc8L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj5YIFByb3RvY29sIFZlcnNpb24gMTEs
+IFJldmlzaW9uIDA8L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj5bICZuYnNwOyAmbmJzcDszMy4xNDRd
+IEN1cnJlbnQgT3BlcmF0aW5nIFN5c3RlbTogTGludXggZGViaWFuIDYuMS4wLTEzLWFtZDY0ICMx
+IFNNUCBQUkVFTVBUX0RZTkFNSUMgRGViaWFuIDYuMS41NS0xICgyMDIzLTA5LTI5KSB4ODZfNjQ8
+L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj5bICZuYnNwOyAmbmJzcDszMy4xNDRdIEtlcm5lbCBjb21t
+YW5kIGxpbmU6IEJPT1RfSU1BR0U9L2Jvb3Qvdm1saW51ei02LjEuMC0xMy1hbWQ2NCByb290PVVV
+SUQ9NDEwMWM1NjgtZTA3My00MmY0LThkZmUtMDgzNzNmY2ViMTNjIHJvIHF1aWV0PC9zcGFuPjwv
+ZGl2PjxkaXY+PHNwYW4+WyAmbmJzcDsgJm5ic3A7MzMuMTQ0XSB4b3JnLXNlcnZlciAyOjIxLjEu
+Ny0zICg8YSB0YXJnZXQ9Il9ibGFuayIgcmVsPSJub3JlZmVycmVyIG5vZm9sbG93IG5vb3BlbmVy
+IiBocmVmPSJodHRwczovL3d3dy5kZWJpYW4ub3JnL3N1cHBvcnQiPmh0dHBzOi8vd3d3LmRlYmlh
+bi5vcmcvc3VwcG9ydDwvYT4pIDwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPlsgJm5ic3A7ICZuYnNw
+OzMzLjE0NF0gQ3VycmVudCB2ZXJzaW9uIG9mIHBpeG1hbjogMC40Mi4yPC9zcGFuPjwvZGl2Pjxk
+aXY+PHNwYW4+WyAmbmJzcDsgJm5ic3A7MzMuMTQ0XSAJQmVmb3JlIHJlcG9ydGluZyBwcm9ibGVt
+cywgY2hlY2sgPGEgdGFyZ2V0PSJfYmxhbmsiIHJlbD0ibm9yZWZlcnJlciBub2ZvbGxvdyBub29w
+ZW5lciIgaHJlZj0iaHR0cDovL3dpa2kueC5vcmciPmh0dHA6Ly93aWtpLngub3JnPC9hPjwvc3Bh
+bj48L2Rpdj48c3Bhbj4JdG8gbWFrZSBzdXJlIHRoYXQgeW91IGhhdmUgdGhlIGxhdGVzdCB2ZXJz
+aW9uLjwvc3Bhbj48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2Vy
+aWY7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsgYmFja2dyb3VuZC1jb2xv
+cjogcmdiKDI1NSwgMjU1LCAyNTUpOyI+PHNwYW4+PGJyPjwvc3Bhbj48L2Rpdj48ZGl2IHN0eWxl
+PSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6
+IHJnYigwLCAwLCAwKTsgYmFja2dyb3VuZC1jb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpOyI+PHNw
+YW4+SSBzZWFyY2hlZCBidWcgdHJhY2tlciBhbmQgY291bGQgb25seSBmaW5kIHRoaXMgaXNzdWU6
+Jm5ic3A7IDxzcGFuPjxhIHRhcmdldD0iX2JsYW5rIiByZWw9Im5vcmVmZXJyZXIgbm9mb2xsb3cg
+bm9vcGVuZXIiIGhyZWY9Imh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy94b3JnL2RyaXZl
+ci94Zjg2LXZpZGVvLWF0aS8tL2lzc3Vlcy8xODAiPmh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9w
+Lm9yZy94b3JnL2RyaXZlci94Zjg2LXZpZGVvLWF0aS8tL2lzc3Vlcy8xODA8L2E+PC9zcGFuPiBi
+dXQgSSBkb24ndCBoYXZlIGEgYmxhY2sgc2NyZWVuLiBUaGUgc3lzdGVtIGlzIHJhdGhlciBzbHVn
+Z2lzaCBidXQgc2VlbXMgdG8gd29yay48L3NwYW4+PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1p
+bHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwg
+MCk7IGJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsiPjxzcGFuPjxicj48L3Nw
+YW4+PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250
+LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGJhY2tncm91bmQtY29sb3I6IHJnYigy
+NTUsIDI1NSwgMjU1KTsiPjxzcGFuPkFueSBoaW50cyB3aGVyZSB0byBnbyBuZXh0IGlzIHZlcnkg
+PHNwYW4+YXBwcmVjaWF0ZWQ8L3NwYW4+Ljwvc3Bhbj48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZh
+bWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAw
+LCAwKTsgYmFja2dyb3VuZC1jb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpOyI+PHNwYW4+PGJyPjwv
+c3Bhbj48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZv
+bnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsgYmFja2dyb3VuZC1jb2xvcjogcmdi
+KDI1NSwgMjU1LCAyNTUpOyI+PHNwYW4+QmVzdCBSZWdhcmRzPGJyPjwvc3Bhbj48L2Rpdj4=
 
-And, finally, randomly tacking on core MM concepts from other systems
-is at best a *really weird* idea. Particularly when they aren't even
-what was stated!
 
-[1] If you really can't use PTEs, I don't see how you can't use file
-mappings and/or some vm_operations_struct workarounds, when the
-patch's vm_object is literally just an xarray with a different name
+--b1_63iqySnGBiLXzZ9rFqKr1TOwnqRDm2ri0VHecCkok--
 
---=20
-Pedro
