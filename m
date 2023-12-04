@@ -4,127 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 808C8C4167B
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Dec 2023 14:04:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25CFEC4167B
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Dec 2023 14:13:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D901910E1E0;
-	Mon,  4 Dec 2023 14:04:19 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E982E10E12C
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Dec 2023 10:21:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1701685268;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=VTEnGAuuATss7gyR221tz2RkYCsGvxGKol2rgrgK2qg=;
- b=EYlfZXWUFK1APVf1Y1owY8PINBjE4bW871GhJS3b5ZwhJv9z7cYSvJiEn0vuP19Rj6BN5/
- BgXKd1NksCHlvG1YNW5RQuzQqx+AyYDW15jFxxnKJB5cVagK3CaFO0PupJR7WWny97S8vw
- 5cnFJO21Ai6BSP/IWUJOZmIWBhAFYEA=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-43-adIG8cQhM0Of2qMBBugxrA-1; Mon, 04 Dec 2023 05:21:06 -0500
-X-MC-Unique: adIG8cQhM0Of2qMBBugxrA-1
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-40c068985e7so11172945e9.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 04 Dec 2023 02:21:06 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701685265; x=1702290065;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :references:cc:to:content-language:subject:user-agent:mime-version
- :date:message-id:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=VTEnGAuuATss7gyR221tz2RkYCsGvxGKol2rgrgK2qg=;
- b=Cr62IBwCR1xsVSnohLjfQcdfupM0bpNNCwGRNxL7z8DniQntCLeVHh/Pp/UUn9IoNN
- SDPWel3/Ox78DHxdYtWRsupSo/+IEEauykZeX050n6w/V0L5ZEkGABV9e2TZFxshwrY2
- 3L3DedpFy8yjNJ8G6DAon+6myOqpCbxc8cc7gOkYtZUpld90gMlqgpEeRtx6x+Jqfnqf
- DHNh4PYTxR/wlBZlNvQ/YdVNV+LMzHNvaSzpTmPZ47F77aOP2SpDceekbSUEgMG9Dvd8
- /ayLKY0LHwn13yyIDj0Pv51LWCvdPfslfBLboaiOOHxz/ZhaCts03DBU6qtPBLDsl9X2
- lHNA==
-X-Gm-Message-State: AOJu0Yy23gwyUsD6cnb/+938S0dmh5GZg1JY7Yx0WXxVRMkhVpp5ETej
- /Ilfr9qZcgGjteahuF3+n2qlh0BlXt2zQzJaj2sCsPzt0zCVfR5ZGYV7hhX2Nfq/nsjrgcmr6KM
- K4xSoovJWFQE7CrjeUTJuWfWDJw==
-X-Received: by 2002:a05:600c:310c:b0:40b:5f03:b3df with SMTP id
- g12-20020a05600c310c00b0040b5f03b3dfmr1338504wmo.257.1701685265578; 
- Mon, 04 Dec 2023 02:21:05 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFqbUQL384Zpt7twdFO2KJgNDZk0K0oiu/bJBZUXdOBu3Jm0w2bsEUrKNwq1dflJ6Fs9+6Qcg==
-X-Received: by 2002:a05:600c:310c:b0:40b:5f03:b3df with SMTP id
- g12-20020a05600c310c00b0040b5f03b3dfmr1338491wmo.257.1701685265077; 
- Mon, 04 Dec 2023 02:21:05 -0800 (PST)
-Received: from ?IPV6:2003:cb:c722:3700:6501:8925:6f9:fcdc?
- (p200300cbc72237006501892506f9fcdc.dip0.t-ipconnect.de.
- [2003:cb:c722:3700:6501:8925:6f9:fcdc])
- by smtp.gmail.com with ESMTPSA id
- iv11-20020a05600c548b00b0040b4cb14d40sm18172398wmb.19.2023.12.04.02.21.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Dec 2023 02:21:04 -0800 (PST)
-Message-ID: <1c68ee91-1b6a-41e8-b96f-bcaf9faffa08@redhat.com>
-Date: Mon, 4 Dec 2023 11:21:03 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EA3210E1DE;
+	Mon,  4 Dec 2023 14:13:35 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2073.outbound.protection.outlook.com [40.107.92.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC18210E1DE
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Dec 2023 14:13:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Jrzg/Yxur/gKhKWCSnfE0FgyAgkHQGX0dYWX5EIcBF98B+YNQuzCZe4MBHwQ+hocE7xeMK0H8w0E6TBlDMVyGw25jYwgRn3DKxAX6WMkNeTHG1d9uCJP4s+YiGPwMT5YHf/cel9eE6nM8FVvnosx8qVPs/nzeleAZpyxQG9Mhuu+leNqV1+KnW5JxJP+kcxT04oApTu5bV52yMNTs3PbvqlLqM7ldZK+s0EXaZH872XxlV4sPeoKSaFF570OCKZfYyniRQvkxvypGX35f3+yKUoCRn/qnzonb67Foe3XDZuzKbAuauPBReoCTb6Z04yObh4D/XhGqzugczMnR8zuxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bJLfk/KGOg2ckSgm9ji92eLfCnw5NPHEmIKsHJnWvKM=;
+ b=HJAJHzl6Qbtihi3uSQJlX2AazpE5F5qSoRnnE8kk2bqqthxeUKra5CsHh3MtS5GsAfmoD44eZV6QAdQ8UuvH4YUdbABIGLJkkpPP/95SM8r49FWSmUzc5oMYxCpX48rGl9GQ74kZmvFQJrHNhEjbpzlZOc1nLAkKKxPutre2WAIZL2quyWoiWm4dSgMSZitFX+gNfxsLxZSGzuMZyVa1DHMB7r+EBDG2iuJUFd0+qyLne3Sn/+JnxpKblgR2V/Spxb/zfZNKzHKiB0bPNUAnl7nMmxdinYsWFBPPnwveHkCtuI0XNtF/qf6ANNKgJx4NEOCVYMjoCOiBb1yZImKFkw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bJLfk/KGOg2ckSgm9ji92eLfCnw5NPHEmIKsHJnWvKM=;
+ b=RQun7Onk1xkbV7nwvqevT2t4Zy1WdkAxVxiRxWYuikLUSlMHXAbCNwj/fDLw7k3hz7/XScBeM/uZOo0zsSt6yhR8sowELv4dOnrG3tZAdtDjhurB5EZqTED8VDJAQ69MDz7okr+hmn55e8zBnrLH/0fvDpYFlP3D0neWF6Id20g=
+Received: from BL1PR13CA0016.namprd13.prod.outlook.com (2603:10b6:208:256::21)
+ by SJ0PR12MB6808.namprd12.prod.outlook.com (2603:10b6:a03:47a::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.33; Mon, 4 Dec
+ 2023 14:13:28 +0000
+Received: from MN1PEPF0000F0DE.namprd04.prod.outlook.com
+ (2603:10b6:208:256:cafe::b5) by BL1PR13CA0016.outlook.office365.com
+ (2603:10b6:208:256::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.23 via Frontend
+ Transport; Mon, 4 Dec 2023 14:13:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MN1PEPF0000F0DE.mail.protection.outlook.com (10.167.242.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7068.20 via Frontend Transport; Mon, 4 Dec 2023 14:13:28 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 4 Dec
+ 2023 08:13:27 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: fix buffer funcs setting order on suspend
+Date: Mon, 4 Dec 2023 09:13:07 -0500
+Message-ID: <20231204141307.20647-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 2/6] mm/gmem: add arch-independent abstraction to
- track address mapping status
-To: Pedro Falcato <pedro.falcato@gmail.com>
-References: <20231128125025.4449-1-weixi.zhu@huawei.com>
- <20231128125025.4449-3-weixi.zhu@huawei.com>
- <e4eb5a24-e9cf-4944-9614-df5f5f3a7163@redhat.com>
- <CAKbZUD25mwVXowDcN1Cj5Op9wRAopYhYZcesR0tk2r_Wn-d95g@mail.gmail.com>
-From: David Hildenbrand <david@redhat.com>
-Autocrypt: addr=david@redhat.com; keydata=
- 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
- WNyWQQ==
-Organization: Red Hat
-In-Reply-To: <CAKbZUD25mwVXowDcN1Cj5Op9wRAopYhYZcesR0tk2r_Wn-d95g@mail.gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 04 Dec 2023 14:04:11 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DE:EE_|SJ0PR12MB6808:EE_
+X-MS-Office365-Filtering-Correlation-Id: 85c89db2-6216-41c9-2065-08dbf4d32ffa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ALgX3dL8nHarQ9SzyUoj3DXkgdH2kqbnGx9DM3PSE3Ac6ptJvJxasmpcEa9M4yIjB9yQFEGKLZiQL2jnqkWel9myJW6qCmk1H0ytAYavGdNnNMpT7BpyQIqGbV41dsvhq7+x/hPXIj1YiCmSQEbCt0mGB0/bz/kH89XH5v2cdScYr7Qko7Bs9l49JjCJAUJz7KFkzfmHz9zkm8N0sqmR+o7s4E0RQUOJmy4HPtH/IRbZIOsX1UJQ5Cf6fVnmMlzihOb8unjZBByAiBrnChKrxVeUUZ0SM02OxJHLUCgze96SQ8LxdIEOEMh41DiGl4kNssxRjWzw/OO7Vw8lc2tLF3oR0qQnZlC444sqJKlxHaxlO5nnnecIBe0Q+k6xgOLpdGWyAe2h/dXanQTypd9etW8ToLNdFfbBrwD45ks/Mkc5mqmLcFBE+unM0Egw7nixC0MUY75Jh00wkBKnc4qK+g6pLMMkWGWn8wbrEiLetiASY7XNe6cpTWx/3wkungQfNfbW0RnO7N1uxPBOl3nGCcm6MWqtba/5JP3nFvsKeY5eAeedgdbbV0XkjifoPh8+zSUmAIkzWiWHpcIJ8ngwi9ds1U8Nw/mE0Oy2FgKSSZDIvG4o8Br25mw6AaYKPzvfP5e8wO0SQCvbCoklYYhue5Hr8SCOBAWijE3MxtsMROFtnNFh4MEVWjHk1+HdQUVks6jkQ9W056guPJ89CXZf8n4NlJ/Y0ON3EaST1XmIGuqWfPZeStQGzw9VSoSgwcqLMdjUmX+t5euHEyK7EqCcaA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(346002)(376002)(396003)(39860400002)(136003)(230922051799003)(64100799003)(82310400011)(1800799012)(186009)(451199024)(46966006)(40470700004)(36840700001)(1076003)(2616005)(4326008)(8676002)(8936002)(7696005)(47076005)(40480700001)(356005)(81166007)(83380400001)(36860700001)(16526019)(426003)(336012)(82740400003)(26005)(966005)(478600001)(40460700003)(6666004)(70206006)(70586007)(54906003)(316002)(6916009)(2906002)(36756003)(41300700001)(86362001)(5660300002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Dec 2023 14:13:28.2474 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85c89db2-6216-41c9-2065-08dbf4d32ffa
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0DE.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6808
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,135 +97,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org,
- linux-mm@kvack.org, leonro@nvidia.com, apopple@nvidia.com,
- amd-gfx@lists.freedesktop.org, mgorman@suse.de, ziy@nvidia.com,
- zhi.a.wang@intel.com, rcampbell@nvidia.com, jgg@nvidia.com,
- weixi.zhu@openeuler.sh, jhubbard@nvidia.com, intel-gfx@lists.freedesktop.org,
- mhairgrove@nvidia.com, zhenyuw@linux.intel.com, jglisse@redhat.com,
- Weixi Zhu <weixi.zhu@huawei.com>, rodrigo.vivi@intel.com,
- intel-gvt-dev@lists.freedesktop.org, jani.nikula@linux.intel.com,
- tvrtko.ursulin@linux.intel.com, Felix.Kuehling@amd.com, Xinhui.Pan@amd.com,
- linux-kernel@vger.kernel.org, christian.koenig@amd.com,
- alexander.deucher@amd.com, akpm@linux-foundation.org, ogabbay@kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, Phillip Susi <phill@thesusis.net>,
+ Luben Tuikov <ltuikov89@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 02.12.23 15:50, Pedro Falcato wrote:
-> On Fri, Dec 1, 2023 at 9:23 AM David Hildenbrand <david@redhat.com> wrote:
->>
->> On 28.11.23 13:50, Weixi Zhu wrote:
->>> This patch adds an abstraction layer, struct vm_object, that maintains
->>> per-process virtual-to-physical mapping status stored in struct gm_mapping.
->>> For example, a virtual page may be mapped to a CPU physical page or to a
->>> device physical page. Struct vm_object effectively maintains an
->>> arch-independent page table, which is defined as a "logical page table".
->>> While arch-dependent page table used by a real MMU is named a "physical
->>> page table". The logical page table is useful if Linux core MM is extended
->>> to handle a unified virtual address space with external accelerators using
->>> customized MMUs.
->>
->> Which raises the question why we are dealing with anonymous memory at
->> all? Why not go for shmem if you are already only special-casing VMAs
->> with a MMAP flag right now?
->>
->> That would maybe avoid having to introduce controversial BSD design
->> concepts into Linux, that feel like going a step backwards in time to me
->> and adding *more* MM complexity.
->>
->>>
->>> In this patch, struct vm_object utilizes a radix
->>> tree (xarray) to track where a virtual page is mapped to. This adds extra
->>> memory consumption from xarray, but provides a nice abstraction to isolate
->>> mapping status from the machine-dependent layer (PTEs). Besides supporting
->>> accelerators with external MMUs, struct vm_object is planned to further
->>> union with i_pages in struct address_mapping for file-backed memory.
->>
->> A file already has a tree structure (pagecache) to manage the pages that
->> are theoretically mapped. It's easy to translate from a VMA to a page
->> inside that tree structure that is currently not present in page tables.
->>
->> Why the need for that tree structure if you can just remove anon memory
->> from the picture?
->>
->>>
->>> The idea of struct vm_object is originated from FreeBSD VM design, which
->>> provides a unified abstraction for anonymous memory, file-backed memory,
->>> page cache and etc[1].
->>
->> :/
->>
->>> Currently, Linux utilizes a set of hierarchical page walk functions to
->>> abstract page table manipulations of different CPU architecture. The
->>> problem happens when a device wants to reuse Linux MM code to manage its
->>> page table -- the device page table may not be accessible to the CPU.
->>> Existing solution like Linux HMM utilizes the MMU notifier mechanisms to
->>> invoke device-specific MMU functions, but relies on encoding the mapping
->>> status on the CPU page table entries. This entangles machine-independent
->>> code with machine-dependent code, and also brings unnecessary restrictions.
->>
->> Why? we have primitives to walk arch page tables in a non-arch specific
->> fashion and are using them all over the place.
->>
->> We even have various mechanisms to map something into the page tables
->> and get the CPU to fault on it, as if it is inaccessible (PROT_NONE as
->> used for NUMA balancing, fake swap entries).
->>
->>> The PTE size and format vary arch by arch, which harms the extensibility.
->>
->> Not really.
->>
->> We might have some features limited to some architectures because of the
->> lack of PTE bits. And usually the problem is that people don't care
->> enough about enabling these features on older architectures.
->>
->> If we ever *really* need more space for sw-defined data, it would be
->> possible to allocate auxiliary data for page tables only where required
->> (where the features apply), instead of crafting a completely new,
->> auxiliary datastructure with it's own locking.
->>
->> So far it was not required to enable the feature we need on the
->> architectures we care about.
->>
->>>
->>> [1] https://docs.freebsd.org/en/articles/vm-design/
->>
->> In the cover letter you have:
->>
->> "The future plan of logical page table is to provide a generic
->> abstraction layer that support common anonymous memory (I am looking at
->> you, transparent huge pages) and file-backed memory."
->>
->> Which I doubt will happen; there is little interest in making anonymous
->> memory management slower, more serialized, and wasting more memory on
->> metadata.
-> 
-> Also worth noting that:
-> 
-> 1) Mach VM (which FreeBSD inherited, from the old BSD) vm_objects
-> aren't quite what's being stated here, rather they are somewhat
-> replacements for both anon_vma and address_space[1]. Very similarly to
-> Linux, they take pages from vm_objects and map them in page tables
-> using pmap (the big difference is anon memory, which has its
-> bookkeeping in page tables, on Linux)
-> 
-> 2) These vm_objects were a horrendous mistake (see CoW chaining) and
-> FreeBSD has to go to horrendous lengths to make them tolerable. The
-> UVM paper/dissertation (by Charles Cranor) talks about these issues at
-> length, and 20 years later it's still true.
-> 
-> 3) Despite Linux MM having its warts, it's probably correct to
-> consider it a solid improvement over FreeBSD MM or NetBSD UVM
-> 
-> And, finally, randomly tacking on core MM concepts from other systems
-> is at best a *really weird* idea. Particularly when they aren't even
-> what was stated!
+We need to disable this after the last eviction
+call, but before we disable the SDMA IP.
 
-Can you read my mind? :) thanks for noting all that, with which I 100% 
-agree.
+Fixes: b70438004a14 ("drm/amdgpu: move buffer funcs setting up a level")
+Link: https://lore.kernel.org/r/87edgv4x3i.fsf@vps.thesusis.net
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Phillip Susi <phill@thesusis.net>
+Cc: Luben Tuikov <ltuikov89@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index f29d0faf956e..b76ec5ec04c5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4593,8 +4593,6 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
+ 
+ 	amdgpu_ras_suspend(adev);
+ 
+-	amdgpu_ttm_set_buffer_funcs_status(adev, false);
+-
+ 	amdgpu_device_ip_suspend_phase1(adev);
+ 
+ 	if (!adev->in_s0ix)
+@@ -4604,6 +4602,8 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
+ 	if (r)
+ 		return r;
+ 
++	amdgpu_ttm_set_buffer_funcs_status(adev, false);
++
+ 	amdgpu_fence_driver_hw_fini(adev);
+ 
+ 	amdgpu_device_ip_suspend_phase2(adev);
 -- 
-Cheers,
-
-David / dhildenb
+2.42.0
 
