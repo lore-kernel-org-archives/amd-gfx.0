@@ -4,59 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB796C10F04
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Dec 2023 10:25:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEB4BC10DCE
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Dec 2023 14:04:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40F6F10E31C;
-	Mon,  4 Dec 2023 10:25:12 +0000 (UTC)
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0949610E12C;
- Mon,  4 Dec 2023 10:24:59 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- 46e09a7af769-6d9a6f756c3so228895a34.2; 
- Mon, 04 Dec 2023 02:24:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1701685499; x=1702290299; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=YFWwDfWuYKDzJoaI6ZRY85TeV2wN7kNmrNs2cUdQvx8=;
- b=eWXZJN3nnM3Rp3m5bKwGv5777Qa7OGd3oJmHjrmCcl1KpiPGwywQq850ZNH7/1p6s9
- nUO02znPWuvQha29GWlNcGAJW5Pt4Z1qDsZFAEXHmMD9kCShnVcrsWFMwnB3mtRTlI9Z
- lPlnW0R4JgY9b2XlSRpxhowVPPACUlPjSvrI3Vx2fHWESopUphL5janOJpFy/H74C0Vy
- PTall60GPS0YmhStpc8+4UFLVkQed+ttEnuS5bvjNvYENfvul4kdJJZGkztWNsCUCIGr
- 8VX1xwLlyHE8jmf9O9BltlaPjPLA59RAE2j1m5ePwP+hDgn7a9lZcZL2Pyqm0Hg9x+Wt
- sf0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701685499; x=1702290299;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=YFWwDfWuYKDzJoaI6ZRY85TeV2wN7kNmrNs2cUdQvx8=;
- b=P7S5agjxA8sEO5C4Tl79UunpScjHGmNQnL85aOudWsd1hbx9gyIvbrfLfAgV9TSS7e
- VL6sDrHAbj1I4klTZp+TqUHVbNTi0j2qCh+i9LAiDkuO3i+kcEEr/pNjFrQ2YymChgJD
- LJOkNRZNK77q6XkhArhCKins0xatm7FAQuQ1F14VWklk8Ehzgo+2cs5olfg0bsyyk93q
- MQa5kNl+OFWwIjWg8O0xtIJiGO20azqwiAEksaDVKIf8EwJFzXpFI0hDL7aaWVeXvfIT
- Q3dI7I1lqk2K5bEsUhMBWhzCYaBYZoCG+B/4YiaGXcfr86NFDZjxR/u2zR7HD4yv2e0P
- HSQw==
-X-Gm-Message-State: AOJu0YzO477qY16gHstldVkecSxoWNX3a8lH/dTIo5pjZ/PyCgNQmo9g
- wGUuKLxdRfqjACZQ7lZ8DArBjFJL83yunBjpLGc=
-X-Google-Smtp-Source: AGHT+IHGkRNTRTbTZQhFirRRD5A2IRs3d4pxRFeNNeut7yVnKoQ/U3bgcbBsI0K3NfKyZw8i1V+PhixojHzVojxIXOQ=
-X-Received: by 2002:a05:6870:4998:b0:1fb:2c68:6c0b with SMTP id
- ho24-20020a056870499800b001fb2c686c0bmr2924886oab.37.1701685499014; Mon, 04
- Dec 2023 02:24:59 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 051E610E1D5;
+	Mon,  4 Dec 2023 14:04:13 +0000 (UTC)
+X-Greylist: delayed 56331 seconds by postgrey-1.36 at gabe;
+ Mon, 04 Dec 2023 08:58:18 UTC
+Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net
+ (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B92D510E2EF;
+ Mon,  4 Dec 2023 08:58:10 +0000 (UTC)
+Received: from luzhipeng.223.5.5.5 (unknown [125.120.155.9])
+ by mail-app4 (Coremail) with SMTP id cS_KCgCHjTWblG1l1INIAA--.54724S2;
+ Mon, 04 Dec 2023 16:58:03 +0800 (CST)
+From: Zhipeng Lu <alexious@zju.edu.cn>
+To: alexious@zju.edu.cn
+Subject: [PATCH] [v2] drm/radeon/dpm: fix a memleak in sumo_parse_power_table
+Date: Mon,  4 Dec 2023 16:57:56 +0800
+Message-Id: <20231204085756.3303900-1-alexious@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20231204034309.3290173-1-alexious@zju.edu.cn>
-In-Reply-To: <20231204034309.3290173-1-alexious@zju.edu.cn>
-From: Amos Jianjun Kong <kongjianjun@gmail.com>
-Date: Mon, 4 Dec 2023 18:24:47 +0800
-Message-ID: <CAFeW=pap5t5_xBcpHhM5Sm-XE7wORnzkdQCGuSO8GMz_D95u7g@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon/trinity_dpm: fix a memleak in
- trinity_parse_power_table
-To: Zhipeng Lu <alexious@zju.edu.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: cS_KCgCHjTWblG1l1INIAA--.54724S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7KF1kGFyfGryUtr1xXFWrZrb_yoW8Jw4rpa
+ 1rGF909rW8Ja4jgr9FvF18tFWY9a1UG3yUGFZ7W3Wag3sxC3WjkF9ayrWjgryqvF4xur13
+ tF47Gr4xZF1j93DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26rxl
+ 6s0DM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+ 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+ n2IY04v7MxkIecxEwVAFwVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJV
+ W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
+ 1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6x
+ IIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvE
+ x4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvj
+ DU0xZFpf9x0JUP-B_UUUUU=
+X-CM-SenderInfo: qrsrjiarszq6lmxovvfxof0/
+X-Mailman-Approved-At: Mon, 04 Dec 2023 14:04:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,69 +57,45 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+ amd-gfx@lists.freedesktop.org, Jerome Glisse <jglisse@redhat.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Dec 4, 2023 at 5:55=E2=80=AFPM Zhipeng Lu <alexious@zju.edu.cn> wro=
-te:
->
-> The rdev->pm.dpm.ps allocated by kcalloc should be freed in every
-> following error-handling path. However, in the error-handling of
-> rdev->pm.power_state[i].clock_info the rdev->pm.dpm.ps is not freed,
-> resulting in a memleak in this function.
->
-> Fixes: d70229f70447 ("drm/radeon/kms: add dpm support for trinity asics")
-> Signed-off-by: Zhipeng Lu <alexious@zju.edu.cn>
-> ---
->  drivers/gpu/drm/radeon/trinity_dpm.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/radeon/trinity_dpm.c b/drivers/gpu/drm/radeo=
-n/trinity_dpm.c
-> index 08ea1c864cb2..8bf56fb7b933 100644
-> --- a/drivers/gpu/drm/radeon/trinity_dpm.c
-> +++ b/drivers/gpu/drm/radeon/trinity_dpm.c
-> @@ -1727,6 +1727,7 @@ static int trinity_parse_power_table(struct radeon_=
-device *rdev)
->                 non_clock_info =3D (struct _ATOM_PPLIB_NONCLOCK_INFO *)
->                         &non_clock_info_array->nonClockInfo[non_clock_arr=
-ay_index];
->                 if (!rdev->pm.power_state[i].clock_info)
-> +                       kfree(rdev->pm.dpm.ps);
+The rdev->pm.dpm.ps allocated by kcalloc should be freed in every
+following error-handling path. However, in the error-handling of
+rdev->pm.power_state[i].clock_info the rdev->pm.dpm.ps is not freed,
+resulting in a memleak in this function.
 
+Fixes: 80ea2c129c76 ("drm/radeon/kms: add dpm support for sumo asics (v2)")
+Signed-off-by: Zhipeng Lu <alexious@zju.edu.cn>
+---
 
-I just confirmed the memleak problem in the code. But the fix has a
-problem, it lacks the brackets.
+Changelog:
 
-diff --git a/drivers/gpu/drm/radeon/trinity_dpm.c
-b/drivers/gpu/drm/radeon/trinity_dpm.c
-index 08ea1c864cb2..ef1cc7bad20a 100644
---- a/drivers/gpu/drm/radeon/trinity_dpm.c
-+++ b/drivers/gpu/drm/radeon/trinity_dpm.c
-@@ -1726,8 +1726,10 @@ static int trinity_parse_power_table(struct
-radeon_device *rdev)
-                non_clock_array_index =3D power_state->v2.nonClockInfoIndex=
-;
-                non_clock_info =3D (struct _ATOM_PPLIB_NONCLOCK_INFO *)
+v2: Adding {} to make if statement correct.
+---
+ drivers/gpu/drm/radeon/sumo_dpm.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-&non_clock_info_array->nonClockInfo[non_clock_array_index];
--               if (!rdev->pm.power_state[i].clock_info)
-+               if (!rdev->pm.power_state[i].clock_info) {
-+                       kfree(rdev->pm.dpm.ps);
-                        return -EINVAL;
-+               }
-                ps =3D kzalloc(sizeof(struct sumo_ps), GFP_KERNEL);
-                if (ps =3D=3D NULL) {
-                        kfree(rdev->pm.dpm.ps);
+diff --git a/drivers/gpu/drm/radeon/sumo_dpm.c b/drivers/gpu/drm/radeon/sumo_dpm.c
+index f74f381af05f..d49c145db437 100644
+--- a/drivers/gpu/drm/radeon/sumo_dpm.c
++++ b/drivers/gpu/drm/radeon/sumo_dpm.c
+@@ -1493,8 +1493,10 @@ static int sumo_parse_power_table(struct radeon_device *rdev)
+ 		non_clock_array_index = power_state->v2.nonClockInfoIndex;
+ 		non_clock_info = (struct _ATOM_PPLIB_NONCLOCK_INFO *)
+ 			&non_clock_info_array->nonClockInfo[non_clock_array_index];
+-		if (!rdev->pm.power_state[i].clock_info)
++		if (!rdev->pm.power_state[i].clock_info) {
++			kfree(rdev->pm.dpm.ps);
+ 			return -EINVAL;
++		}
+ 		ps = kzalloc(sizeof(struct sumo_ps), GFP_KERNEL);
+ 		if (ps == NULL) {
+ 			kfree(rdev->pm.dpm.ps);
+-- 
+2.34.1
 
-
->                         return -EINVAL;
->                 ps =3D kzalloc(sizeof(struct sumo_ps), GFP_KERNEL);
->                 if (ps =3D=3D NULL) {
-> --
-> 2.34.1
->
