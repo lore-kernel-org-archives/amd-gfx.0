@@ -4,38 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A839C4167B
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Dec 2023 16:39:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F109C4167B
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Dec 2023 16:59:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9150810E1F6;
-	Mon,  4 Dec 2023 16:38:59 +0000 (UTC)
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 936E910E1F6
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Dec 2023 16:38:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1701707917; x=1701967117;
- bh=gSBe5yhPOz8G2ilDWkC1gBOAu52ayaeIlmW7Z02XXVo=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=ukjRP+J+qPrXsotUgCqJBEKD31R5ZcT34qPQi83YhbwwqJAR9D6ERMGjXnJVMd6Ee
- uregbNN6amw6tHj/O7EPvj3vwb6iyxeTz5Kr6nRP1Dy6zefsOVIS5TXqe1SCsh5cGI
- p37msnETk5xAG/M0As89K9NsvZhhsDcfU9LC7uURbt78GNxSZiKleuNqIIgq8cf6tt
- fBnJIG3MHHK5JVkExeyUMHJiI10nwt0gurY+u+BNo8BLVsE4HLTeFeUSWE9iOJUBlu
- WAzmylSTKHlrmrxfztdHEPWTb7iUKOcH+0Sazu48j2p7uc43KeXWLyqKyfodkl6GnN
- NoUoICepCXfbA==
-Date: Mon, 04 Dec 2023 16:38:20 +0000
-To: =?utf-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-From: smesgr <smesgr@protonmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E0C510E302;
+	Mon,  4 Dec 2023 16:59:01 +0000 (UTC)
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E967710E302
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Dec 2023 16:58:53 +0000 (UTC)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-40c0a03eb87so15286875e9.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 04 Dec 2023 08:58:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1701709132; x=1702313932; darn=lists.freedesktop.org;
+ h=in-reply-to:from:references:cc:to:content-language:subject
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=8lLEJBAXzKo3Px0U4/jT2hqZLff7YhUl0J8dygi4HjE=;
+ b=A0GuT0jJh9wwD9e9Mmoaa44yJYqVYSm8ydMLWKB+OSPOrPIU4ZBA3eaol59wK2+kI3
+ 2Mczs8lDcqRMsWc++m7ly+8mo1LTg8Qy7FNph1B/vNHX78plpnnfTA7VkNrgsUXC0c/0
+ Gl259XOBG090rb7nr/WwPoU3fmIAShIMXWqp89die4hmJwH+aSRDHZbpAKK/cPmScD74
+ 0Wi3DTAj0LTTXmCeta4V9WtLCRICP40deW7lYop27BlE3J209huXEzwWmuUIDxmpu8OJ
+ JAwyPg4J+YjHNVML3xaY6AT0epTw/Xncvvj3K6bELGg2N0EoBf0V8V9/eWZj11R6rRjK
+ SQMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1701709132; x=1702313932;
+ h=in-reply-to:from:references:cc:to:content-language:subject
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=8lLEJBAXzKo3Px0U4/jT2hqZLff7YhUl0J8dygi4HjE=;
+ b=mpqYYV+/hSMFyXOQY92MfO+VDJnvIQvA0mrPgNw2QZopQoRhPjTFlJVE1besmh9epM
+ Mvk2Ibnma9j5yGPusdH3AD+ALG3+FejanL0CiWstusKqq+VtRgNQIbjsOM3CZbhw9IxQ
+ vLI+VHBY6Pt4o1+Q7I0NP2yNRqXJxSzf1RMyRKZgv5OCTZfcTIAUafBk31zcOUpceVwu
+ YJBmQG7KV16gotyrdHI9VFkPTNsoFYk8P5El4SimNIvDKPSOItHdrhq3lyJwd3UAIpFm
+ hG/AqEUsjv9aktlxbS/NFTF2kTJWTz2uL5Pe66YU7WtL4540QfUMWdncTe7nA0dqGXbS
+ cByQ==
+X-Gm-Message-State: AOJu0YwgbVP7YT+/2t4As8BdUTD9ghZTtumGv7lSPOMLIarF9dSal2Hj
+ 7fcmqsPhDOzmMFHHtb5/68I=
+X-Google-Smtp-Source: AGHT+IGCzGH80sYF02cKbZ4RC57CAeRpe4EM4NE1d6Uv8JSiN9qSNo+jsph99Q/AWJVnOrm8af7VtA==
+X-Received: by 2002:a1c:7418:0:b0:40b:5e59:f726 with SMTP id
+ p24-20020a1c7418000000b0040b5e59f726mr1309523wmc.152.1701709131823; 
+ Mon, 04 Dec 2023 08:58:51 -0800 (PST)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ p23-20020a05600c1d9700b0040b3645a7c2sm19568068wms.40.2023.12.04.08.58.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 04 Dec 2023 08:58:51 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------WJq1byfXDCXCnw7sPzvdAm4e"
+Message-ID: <b4806f6f-b18d-4b49-9762-b2c85ff06bf9@gmail.com>
+Date: Mon, 4 Dec 2023 17:58:49 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
 Subject: Re: radeon flooding "flip queue failed" in Xorg and system log
-Message-ID: <_ghIPI7KEaEIZNuxoFM2Gui55Qu12bw_3fiiU7mO3rwnEBGwLyYT1fCdXb8o4xej6Pw0ApccKIgXRo2_lbeibCDx3EfM1jGkcTcdop9vSww=@protonmail.com>
-In-Reply-To: <deebdf5a-0502-4f0b-8bd6-73d2d5cee985@gmail.com>
+Content-Language: en-US
+To: smesgr <smesgr@protonmail.com>
 References: <u3yh82fTwsugAjP-wALhJy32bKLPaZ6_m4O6YbPTQqf9pk1Jf7b4N3nV-cyRd3wTvr9qWxaOe5z38kADdsWu_tJglXCpshEdMJXwbJ9FV70=@protonmail.com>
  <deebdf5a-0502-4f0b-8bd6-73d2d5cee985@gmail.com>
-Feedback-ID: 38137127:user:proton
-MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="b1_ZFtXKytjzGzeQxUsHXN70OalrJgIy1NdRp7JLaRpzs"
+ <_ghIPI7KEaEIZNuxoFM2Gui55Qu12bw_3fiiU7mO3rwnEBGwLyYT1fCdXb8o4xej6Pw0ApccKIgXRo2_lbeibCDx3EfM1jGkcTcdop9vSww=@protonmail.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <_ghIPI7KEaEIZNuxoFM2Gui55Qu12bw_3fiiU7mO3rwnEBGwLyYT1fCdXb8o4xej6Pw0ApccKIgXRo2_lbeibCDx3EfM1jGkcTcdop9vSww=@protonmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,332 +81,443 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 This is a multi-part message in MIME format.
+--------------WJq1byfXDCXCnw7sPzvdAm4e
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---b1_ZFtXKytjzGzeQxUsHXN70OalrJgIy1NdRp7JLaRpzs
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: base64
+Well, essentially we shouldn't print the error from the kernel in the 
+first place and just return the correct error code to the userspace 
+application.
 
-SGkgQ2hyaXNpdGFuLAoKeW91IGFyZSByaWdodCwgYWZ0ZXIgYnVtcGluZyB0aGUgbWVtb3J5IGlu
-IEJJT1MgdGhlIGVycm9yIGdvZXMgYXdheS4gU3RpbGwgd291bGQgYmUgbmljZSBpZiB0aGUgZXJy
-b3Igd291bGQgcG9pbnQgdG8gIm91dCBvZiBWTWVtIiBvciBzb21ldGhpbmcuCgpCZXN0IFJlZ2Fy
-ZHMKQ2hyaXN0aWFuIEvDtm5pZyA8Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+IHNj
-aHJpZWIgYW0gTW9udGFnLCA0LiBEZXplbWJlciAyMDIzIHVtIDE2OjE4OgoKPiBBbSAwMi4xMi4y
-MyB1bSAyMDowMCBzY2hyaWViIHNtZXNncjoKPgo+PiBIaSwKPj4KPj4gSSBoYXZlIGluc3RhbGxl
-ZCBEZWJpYW4gMTIgb24gbXkgb2xkIEZ1aml0c3UgUzkyMCB3aXRoIEFNRCBHWC00MjRDQy4KPj4g
-QWZ0ZXIgdGhlIGluc3RhbGxhdGlvbiBjb21wbGV0ZWQsIG15IGxvZ3MgYXJlIGZsb29kZWQgYnkg
-dGhlIGZvbGxvd2luZyBlcnJvciBtZXNzYWdlczoKPj4KPj4gZG1lc2c6Cj4+IFsgOTY3Ljg2OTE4
-M10gcmFkZW9uIDAwMDA6MDA6MDEuMDogMDAwMDAwMDAzYmEzYzgxMyBwaW4gZmFpbGVkCj4+IFsg
-OTY3Ljg2OTIxMl0gW2RybTpyYWRlb25fY3J0Y19wYWdlX2ZsaXBfdGFyZ2V0IFtyYWRlb25dXSAq
-RVJST1IqIGZhaWxlZCB0byBwaW4gbmV3IHJibyBidWZmZXIgYmVmb3JlIGZsaXAKPj4gWyA5Njcu
-ODg2MjU0XSByYWRlb24gMDAwMDowMDowMS4wOiAwMDAwMDAwMDUxYmUyMjE2IHBpbiBmYWlsZWQK
-Pj4gWyA5NjcuODg2MjgyXSBbZHJtOnJhZGVvbl9jcnRjX3BhZ2VfZmxpcF90YXJnZXQgW3JhZGVv
-bl1dICpFUlJPUiogZmFpbGVkIHRvIHBpbiBuZXcgcmJvIGJ1ZmZlciBiZWZvcmUgZmxpcAo+PiBb
-IDk2Ny45MDc5ODRdIHJhZGVvbiAwMDAwOjAwOjAxLjA6IDAwMDAwMDAwM2JhM2M4MTMgcGluIGZh
-aWxlZAo+PiBbIDk2Ny45MDgwMTRdIFtkcm06cmFkZW9uX2NydGNfcGFnZV9mbGlwX3RhcmdldCBb
-cmFkZW9uXV0gKkVSUk9SKiBmYWlsZWQgdG8gcGluIG5ldyByYm8gYnVmZmVyIGJlZm9yZSBmbGlw
-Cj4+IFsgOTY3LjkyNTU1MV0gcmFkZW9uIDAwMDA6MDA6MDEuMDogMDAwMDAwMDA1MWJlMjIxNiBw
-aW4gZmFpbGVkIFsgOTY3LjkyNTU4MF0gW2RybTpyYWRlb25fY3J0Y19wYWdlX2ZsaXBfdGFyZ2V0
-IFtyYWRlb25dXSAqRVJST1IqIGZhaWxlZCB0byBwaW4gbmV3IHJibyBidWZmZXIgYmVmb3JlIGZs
-aXAKPj4KPj4gWG9yZy5sb2cKPj4gWyA0Ny43NzddIChXVykgUkFERU9OKDApOiBmbGlwIHF1ZXVl
-IGZhaWxlZDogSW52YWxpZCBhcmd1bWVudAo+PiBbIDQ3Ljc3N10gKFdXKSBSQURFT04oMCk6IFBh
-Z2UgZmxpcCBmYWlsZWQ6IEludmFsaWQgYXJndW1lbnQgWyA0Ny43NzddIChFRSkgUkFERU9OKDAp
-OiBwcmVzZW50IGZsaXAgZmFpbGVkCj4+Cj4+IGxzcGNpOgo+PiAwMDowMS4wIFZHQSBjb21wYXRp
-YmxlIGNvbnRyb2xsZXI6IEFkdmFuY2VkIE1pY3JvIERldmljZXMsIEluYy4gW0FNRC9BVEldIE11
-bGxpbnMgW1JhZGVvbiBSNC9SNSBHcmFwaGljc10gKHJldiAwMSkgKHByb2ctaWYgMDAgW1ZHQSBj
-b250cm9sbGVyXSkKPj4gU3Vic3lzdGVtOiBGdWppdHN1IFRlY2hub2xvZ3kgU29sdXRpb25zIE11
-bGxpbnMgW1JhZGVvbiBSNC9SNSBHcmFwaGljc10KPj4gQ29udHJvbDogSS9PKyBNZW0rIEJ1c01h
-c3RlcisgU3BlY0N5Y2xlLSBNZW1XSU5WLSBWR0FTbm9vcC0gUGFyRXJyLSBTdGVwcGluZy0gU0VS
-Ui0gRmFzdEIyQi0gRGlzSU5UeCsKPj4gU3RhdHVzOiBDYXArIDY2TUh6LSBVREYtIEZhc3RCMkIt
-IFBhckVyci0gREVWU0VMPWZhc3QgPlRBYm9ydC0gPFRBYm9ydC0gPE1BYm9ydC0gPlNFUlItIDxQ
-RVJSLSBJTlR4LQo+PiBMYXRlbmN5OiAwLCBDYWNoZSBMaW5lIFNpemU6IDY0IGJ5dGVzCj4+IElu
-dGVycnVwdDogcGluIEEgcm91dGVkIHRvIElSUSAzNQo+PiBSZWdpb24gMDogTWVtb3J5IGF0IGY4
-MDAwMDAwICg2NC1iaXQsIHByZWZldGNoYWJsZSkgW3NpemU9NjRNXQo+PiBSZWdpb24gMjogTWVt
-b3J5IGF0IGZjMDAwMDAwICg2NC1iaXQsIHByZWZldGNoYWJsZSkgW3NpemU9OE1dCj4+IFJlZ2lv
-biA0OiBJL08gcG9ydHMgYXQgZjAwMCBbc2l6ZT0yNTZdCj4+IFJlZ2lvbiA1OiBNZW1vcnkgYXQg
-ZmViMDAwMDAgKDMyLWJpdCwgbm9uLXByZWZldGNoYWJsZSkgW3NpemU9MjU2S10KPj4gRXhwYW5z
-aW9uIFJPTSBhdCAwMDBjMDAwMCBbZGlzYWJsZWRdIFtzaXplPTEyOEtdCj4+IENhcGFiaWxpdGll
-czogWzQ4XSBWZW5kb3IgU3BlY2lmaWMgSW5mb3JtYXRpb246IExlbj0wOCA8Pz4KPj4gQ2FwYWJp
-bGl0aWVzOiBbNTBdIFBvd2VyIE1hbmFnZW1lbnQgdmVyc2lvbiAzCj4+IEZsYWdzOiBQTUVDbGst
-IERTSS0gRDErIEQyKyBBdXhDdXJyZW50PTBtQSBQTUUoRDAtLEQxKyxEMissRDNob3QrLEQzY29s
-ZC0pCj4+IFN0YXR1czogRDAgTm9Tb2Z0UnN0LSBQTUUtRW5hYmxlLSBEU2VsPTAgRFNjYWxlPTAg
-UE1FLQo+PiBDYXBhYmlsaXRpZXM6IFs1OF0gRXhwcmVzcyAodjIpIFJvb3QgQ29tcGxleCBJbnRl
-Z3JhdGVkIEVuZHBvaW50LCBNU0kgMDAKPj4gRGV2Q2FwOiBNYXhQYXlsb2FkIDI1NiBieXRlcywg
-UGhhbnRGdW5jIDAKPj4gRXh0VGFnKyBSQkUrIEZMUmVzZXQtCj4+IERldkN0bDogQ29yckVyci0g
-Tm9uRmF0YWxFcnItIEZhdGFsRXJyLSBVbnN1cFJlcS0KPj4gUmx4ZE9yZCsgRXh0VGFnKyBQaGFu
-dEZ1bmMtIEF1eFB3ci0gTm9Tbm9vcCsKPj4gTWF4UGF5bG9hZCAyNTYgYnl0ZXMsIE1heFJlYWRS
-ZXEgNTEyIGJ5dGVzCj4+IERldlN0YTogQ29yckVyci0gTm9uRmF0YWxFcnIrIEZhdGFsRXJyLSBV
-bnN1cFJlcSsgQXV4UHdyLSBUcmFuc1BlbmQtCj4+IERldkNhcDI6IENvbXBsZXRpb24gVGltZW91
-dDogTm90IFN1cHBvcnRlZCwgVGltZW91dERpcy0gTlJPUHJQclAtIExUUi0KPj4gMTBCaXRUYWdD
-b21wLSAxMEJpdFRhZ1JlcS0gT0JGRiBOb3QgU3VwcG9ydGVkLCBFeHRGbXQrIEVFVExQUHJlZml4
-KywgTWF4RUVUTFBQcmVmaXhlcyAxCj4+IEVtZXJnZW5jeVBvd2VyUmVkdWN0aW9uIE5vdCBTdXBw
-b3J0ZWQsIEVtZXJnZW5jeVBvd2VyUmVkdWN0aW9uSW5pdC0KPj4gRlJTLQo+PiBBdG9taWNPcHND
-YXA6IDMyYml0LSA2NGJpdC0gMTI4Yml0Q0FTLQo+PiBEZXZDdGwyOiBDb21wbGV0aW9uIFRpbWVv
-dXQ6IDUwdXMgdG8gNTBtcywgVGltZW91dERpcy0gTFRSLSAxMEJpdFRhZ1JlcS0gT0JGRiBEaXNh
-YmxlZCwKPj4gQXRvbWljT3BzQ3RsOiBSZXFFbi0KPj4gQ2FwYWJpbGl0aWVzOiBbYTBdIE1TSTog
-RW5hYmxlKyBDb3VudD0xLzEgTWFza2FibGUtIDY0Yml0Kwo+PiBBZGRyZXNzOiAwMDAwMDAwMGZl
-ZTA4MDA0IERhdGE6IDAwMjMKPj4gQ2FwYWJpbGl0aWVzOiBbMTAwIHYxXSBWZW5kb3IgU3BlY2lm
-aWMgSW5mb3JtYXRpb246IElEPTAwMDEgUmV2PTEgTGVuPTAxMCA8Pz4KPj4gQ2FwYWJpbGl0aWVz
-OiBbMjcwIHYxXSBTZWNvbmRhcnkgUENJIEV4cHJlc3MKPj4gTG5rQ3RsMzogTG5rRXF1SW50cnJ1
-cHRFbi0gUGVyZm9ybUVxdS0KPj4gTGFuZUVyclN0YXQ6IDAKPj4gQ2FwYWJpbGl0aWVzOiBbMmIw
-IHYxXSBBZGRyZXNzIFRyYW5zbGF0aW9uIFNlcnZpY2UgKEFUUykKPj4gQVRTQ2FwOiBJbnZhbGlk
-YXRlIFF1ZXVlIERlcHRoOiAwMAo+PiBBVFNDdGw6IEVuYWJsZS0sIFNtYWxsZXN0IFRyYW5zbGF0
-aW9uIFVuaXQ6IDAwCj4+IENhcGFiaWxpdGllczogWzJjMCB2MV0gUGFnZSBSZXF1ZXN0IEludGVy
-ZmFjZSAoUFJJKQo+PiBQUklDdGw6IEVuYWJsZS0gUmVzZXQtCj4+IFBSSVN0YTogUkYtIFVQUkdJ
-LSBTdG9wcGVkKwo+PiBQYWdlIFJlcXVlc3QgQ2FwYWNpdHk6IDAwMDAwMDIwLCBQYWdlIFJlcXVl
-c3QgQWxsb2NhdGlvbjogMDAwMDAwMDAKPj4gQ2FwYWJpbGl0aWVzOiBbMmQwIHYxXSBQcm9jZXNz
-IEFkZHJlc3MgU3BhY2UgSUQgKFBBU0lEKQo+PiBQQVNJRENhcDogRXhlYysgUHJpdissIE1heCBQ
-QVNJRCBXaWR0aDogMTAKPj4gUEFTSURDdGw6IEVuYWJsZS0gRXhlYy0gUHJpdi0KPj4gS2VybmVs
-IGRyaXZlciBpbiB1c2U6IHJhZGVvbiAgS2VybmVsIG1vZHVsZXM6IHJhZGVvbiwgYW1kZ3B1Cj4+
-Cj4+IEknbSBhIGJpdCBjb25mdXNlZC4gSXMgdGhpcyBhbiBrZXJuZWwgaXNzdWUsIFhvcmcgaXNz
-dWUgb3Igc29tZXRoaW5nIGVsc2U/Cj4KPiBXZWxsLCB3aGF0IGlzIGNvbm5lY3RlZCB0byB0aGUg
-R1BVPyBFLmcuIHdoYXQgbW9uaXRvciwgcHJvamVjdG9yIG9yIG90aGVyIGRpc3BsYXkgZGV2aWNl
-IGRvIHlvdSB1c2U/Cj4KPiBXaGF0IGhhcHBlbnMgaXMgdGhhdCBvbmx5IDY0TWlCIGlzIGFzc2ln
-bmVkIHRvIHRoZSBkZXZpY2UgYW5kIGZvciBzb21lIHJlYXNvbiBhIHByb2Nlc3MgKG1heWJlIHRo
-ZSBjb21wb3NpdG9yPykgSXMgdHJ5aW5nIHRvIGRvIGRvdWJsZSBvciB0cmlwbGUgYnVmZmVyaW5n
-IGFuZCBkb2Vzbid0IGhhcyBlbm91Z2ggbWVtb3J5IGZvciB0aGF0Lgo+Cj4gU28gaXQgZmFsbHMg
-YmFjayB0byBzaW5nbGUgYnVmZmVyaW5nLCB0aGF0IG1pZ2h0IHdvcmsgYnV0IHdpbGwgcHJvYmFi
-bHkgbm90IGxvb2sgYXMgZ29vZCBhbmQgeW91IHNlZSB0b25zIG9mIGVycm9yIG1lc3NhZ2VzLgo+
-Cj4gWW91IG1vc3QgbGlrZWx5IGNhbiBnbyBpbnRvIHRoZSBCSU9TIGFuZCByZXNlcnZlIG1vcmUg
-bWVtb3J5IHRvIHRoZSBHUFUgKGl0IHdpbGwganVzdCBiZSBzdG9sZW4gZnJvbSBzeXN0ZW0gbWVt
-b3J5KS4KPgo+IFJlZ2FyZHMsCj4gQ2hyaXN0aWFuLgo+Cj4+IGtlcm5lbDoKPj4gTGludXggZGVi
-aWFuIDYuMS4wLTEzLWFtZDY0ICMxIFNNUCBQUkVFTVBUX0RZTkFNSUMgRGViaWFuIDYuMS41NS0x
-ICgyMDIzLTA5LTI5KSB4ODZfNjQgR05VL0xpbnV4Cj4+Cj4+IFhvcmc6Cj4+IFsgMzMuMTQ0XQo+
-PiBYLk9yZyBYIFNlcnZlciAxLjIxLjEuNwo+PiBYIFByb3RvY29sIFZlcnNpb24gMTEsIFJldmlz
-aW9uIDAKPj4gWyAzMy4xNDRdIEN1cnJlbnQgT3BlcmF0aW5nIFN5c3RlbTogTGludXggZGViaWFu
-IDYuMS4wLTEzLWFtZDY0ICMxIFNNUCBQUkVFTVBUX0RZTkFNSUMgRGViaWFuIDYuMS41NS0xICgy
-MDIzLTA5LTI5KSB4ODZfNjQKPj4gWyAzMy4xNDRdIEtlcm5lbCBjb21tYW5kIGxpbmU6IEJPT1Rf
-SU1BR0U9L2Jvb3Qvdm1saW51ei02LjEuMC0xMy1hbWQ2NCByb290PVVVSUQ9NDEwMWM1NjgtZTA3
-My00MmY0LThkZmUtMDgzNzNmY2ViMTNjIHJvIHF1aWV0Cj4+IFsgMzMuMTQ0XSB4b3JnLXNlcnZl
-ciAyOjIxLjEuNy0zIChodHRwczovL3d3dy5kZWJpYW4ub3JnL3N1cHBvcnQpCj4+IFsgMzMuMTQ0
-XSBDdXJyZW50IHZlcnNpb24gb2YgcGl4bWFuOiAwLjQyLjIKPj4gWyAzMy4xNDRdIEJlZm9yZSBy
-ZXBvcnRpbmcgcHJvYmxlbXMsIGNoZWNrIGh0dHA6Ly93aWtpLngub3JnICB0byBtYWtlIHN1cmUg
-dGhhdCB5b3UgaGF2ZSB0aGUgbGF0ZXN0IHZlcnNpb24uCj4+Cj4+IEkgc2VhcmNoZWQgYnVnIHRy
-YWNrZXIgYW5kIGNvdWxkIG9ubHkgZmluZCB0aGlzIGlzc3VlOiBodHRwczovL2dpdGxhYi5mcmVl
-ZGVza3RvcC5vcmcveG9yZy9kcml2ZXIveGY4Ni12aWRlby1hdGkvLS9pc3N1ZXMvMTgwIGJ1dCBJ
-IGRvbid0IGhhdmUgYSBibGFjayBzY3JlZW4uIFRoZSBzeXN0ZW0gaXMgcmF0aGVyIHNsdWdnaXNo
-IGJ1dCBzZWVtcyB0byB3b3JrLgo+PiBJIGRpZCB0cnkgb2xkZXIgdmVyc2lvbiBvZiBEZWJpYW4g
-YmFjayB0byAxMC4xMy4gQWxsIGhhdmUgdGhpcyBpc3N1ZS4gSSdtIHZlcnkgc3VyZSB0aGUgZUx1
-eCB3aGljaCBjYW1lIHdpdGggdGhlIGJveCBkaWQgbm90IGhhdmUgdGhpcy4KPj4KPj4gQW55IGhp
-bnRzIHdoZXJlIHRvIGdvIG5leHQgaXMgdmVyeSBhcHByZWNpYXRlZC4KPj4KPj4gQmVzdCBSZWdh
-cmRz
+The userspace application/driver would then say: Oh, I don't have enough 
+memory for triple buffering, maybe I should just fallback to double 
+buffering....
 
---b1_ZFtXKytjzGzeQxUsHXN70OalrJgIy1NdRp7JLaRpzs
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: base64
+Retrying the same approach over and over again is not really a good 
+implementation from userspace.
 
-PGRpdj5IaSBDaHJpc2l0YW4sPC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBz
-YW5zLXNlcmlmOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGJhY2tncm91
-bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsiPjxicj48L2Rpdj48ZGl2IHN0eWxlPSJmb250
-LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigw
-LCAwLCAwKTsgYmFja2dyb3VuZC1jb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpOyI+eW91IGFyZSBy
-aWdodCwgYWZ0ZXIgYnVtcGluZyB0aGUgbWVtb3J5IGluIEJJT1MgdGhlIGVycm9yIGdvZXMgYXdh
-eS4gU3RpbGwgd291bGQgYmUgbmljZSBpZiB0aGUgZXJyb3Igd291bGQgcG9pbnQgdG8gIm91dCBv
-ZiBWTWVtIiBvciBzb21ldGhpbmcuPGJyPjwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiBB
-cmlhbCwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyBi
-YWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7Ij48YnI+PC9kaXY+PGRpdiBzdHls
-ZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0cHg7IGNvbG9y
-OiByZ2IoMCwgMCwgMCk7IGJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsiPkJl
-c3QgUmVnYXJkczxicj48L2Rpdj48ZGl2IGNsYXNzPSJwcm90b25tYWlsX3F1b3RlIj4NCiAgICAg
-ICAgQ2hyaXN0aWFuIEvDtm5pZyAmbHQ7Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20m
-Z3Q7IHNjaHJpZWIgYW0gTW9udGFnLCA0LiBEZXplbWJlciAyMDIzIHVtIDE2OjE4Ojxicj48YnI+
-DQogICAgICAgIDxibG9ja3F1b3RlIGNsYXNzPSJwcm90b25tYWlsX3F1b3RlIiB0eXBlPSJjaXRl
-Ij4NCiAgICAgICAgICAgIA0KICAgIEFtIDAyLjEyLjIzIHVtIDIwOjAwIHNjaHJpZWIgc21lc2dy
-Ojxicj4NCiAgICA8YmxvY2txdW90ZSB0eXBlPSJjaXRlIj4NCiAgICAgIA0KICAgICAgPHNwYW4g
-c3R5bGU9ImJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsiPkhpLDwvc3Bhbj4N
-CiAgICAgIDxkaXYgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsi
-Pjxicj4NCiAgICAgIDwvZGl2Pg0KICAgICAgPGRpdiBzdHlsZT0iYmFja2dyb3VuZC1jb2xvcjog
-cmdiKDI1NSwgMjU1LCAyNTUpOyI+SSBoYXZlDQogICAgICAgIGluc3RhbGxlZCBEZWJpYW4gMTIg
-b24gbXkgb2xkIEZ1aml0c3UgUzkyMCB3aXRoIEFNRCBHWC00MjRDQy48YnI+DQogICAgICA8L2Rp
-dj4NCiAgICAgIDxkaXYgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1
-KTsiPkFmdGVyIHRoZQ0KICAgICAgICBpbnN0YWxsYXRpb24gY29tcGxldGVkLCBteSBsb2dzIGFy
-ZSBmbG9vZGVkIGJ5IHRoZSBmb2xsb3dpbmcNCiAgICAgICAgZXJyb3IgbWVzc2FnZXM6PC9kaXY+
-DQogICAgICA8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7
-Ij48YnI+DQogICAgICA8L2Rpdj4NCiAgICAgIDxkaXYgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6
-IHJnYigyNTUsIDI1NSwgMjU1KTsiPmRtZXNnOjwvZGl2Pg0KICAgICAgPGRpdiBzdHlsZT0iYmFj
-a2dyb3VuZC1jb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpOyI+PHNwYW4+Ww0KICAgICAgICAgICA5
-NjcuODY5MTgzXSByYWRlb24gMDAwMDowMDowMS4wOiAwMDAwMDAwMDNiYTNjODEzIHBpbiBmYWls
-ZWQ8L3NwYW4+DQogICAgICAgIDxkaXY+PHNwYW4+WyAgOTY3Ljg2OTIxMl0gW2RybTpyYWRlb25f
-Y3J0Y19wYWdlX2ZsaXBfdGFyZ2V0DQogICAgICAgICAgICBbcmFkZW9uXV0gKkVSUk9SKiBmYWls
-ZWQgdG8gcGluIG5ldyByYm8gYnVmZmVyIGJlZm9yZSBmbGlwPC9zcGFuPjwvZGl2Pg0KICAgICAg
-ICA8ZGl2PjxzcGFuPlsgIDk2Ny44ODYyNTRdIHJhZGVvbiAwMDAwOjAwOjAxLjA6IDAwMDAwMDAw
-NTFiZTIyMTYNCiAgICAgICAgICAgIHBpbiBmYWlsZWQ8L3NwYW4+PC9kaXY+DQogICAgICAgIDxk
-aXY+PHNwYW4+WyAgOTY3Ljg4NjI4Ml0gW2RybTpyYWRlb25fY3J0Y19wYWdlX2ZsaXBfdGFyZ2V0
-DQogICAgICAgICAgICBbcmFkZW9uXV0gKkVSUk9SKiBmYWlsZWQgdG8gcGluIG5ldyByYm8gYnVm
-ZmVyIGJlZm9yZSBmbGlwPC9zcGFuPjwvZGl2Pg0KICAgICAgICA8ZGl2PjxzcGFuPlsgIDk2Ny45
-MDc5ODRdIHJhZGVvbiAwMDAwOjAwOjAxLjA6IDAwMDAwMDAwM2JhM2M4MTMNCiAgICAgICAgICAg
-IHBpbiBmYWlsZWQ8L3NwYW4+PC9kaXY+DQogICAgICAgIDxkaXY+PHNwYW4+WyAgOTY3LjkwODAx
-NF0gW2RybTpyYWRlb25fY3J0Y19wYWdlX2ZsaXBfdGFyZ2V0DQogICAgICAgICAgICBbcmFkZW9u
-XV0gKkVSUk9SKiBmYWlsZWQgdG8gcGluIG5ldyByYm8gYnVmZmVyIGJlZm9yZSBmbGlwPC9zcGFu
-PjwvZGl2Pg0KICAgICAgICA8ZGl2PjxzcGFuPlsgIDk2Ny45MjU1NTFdIHJhZGVvbiAwMDAwOjAw
-OjAxLjA6IDAwMDAwMDAwNTFiZTIyMTYNCiAgICAgICAgICAgIHBpbiBmYWlsZWQ8L3NwYW4+PC9k
-aXY+DQogICAgICAgIDxzcGFuPlsgIDk2Ny45MjU1ODBdIFtkcm06cmFkZW9uX2NydGNfcGFnZV9m
-bGlwX3RhcmdldCBbcmFkZW9uXV0NCiAgICAgICAgICAqRVJST1IqIGZhaWxlZCB0byBwaW4gbmV3
-IHJibyBidWZmZXIgYmVmb3JlIGZsaXA8L3NwYW4+PC9kaXY+DQogICAgICA8ZGl2IHN0eWxlPSJi
-YWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7Ij48YnI+DQogICAgICA8L2Rpdj4N
-CiAgICAgIDxkaXYgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsi
-PlhvcmcubG9nPC9kaXY+DQogICAgICA8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kLWNvbG9yOiByZ2Io
-MjU1LCAyNTUsIDI1NSk7Ij48c3Bhbj5bICANCiAgICAgICAgICAgNDcuNzc3XSAoV1cpIFJBREVP
-TigwKTogZmxpcCBxdWV1ZSBmYWlsZWQ6IEludmFsaWQgYXJndW1lbnQ8L3NwYW4+DQogICAgICAg
-IDxkaXY+PHNwYW4+WyAgICA0Ny43NzddIChXVykgUkFERU9OKDApOiBQYWdlIGZsaXAgZmFpbGVk
-Og0KICAgICAgICAgICAgSW52YWxpZCBhcmd1bWVudDwvc3Bhbj48L2Rpdj4NCiAgICAgICAgPHNw
-YW4+WyAgICA0Ny43NzddIChFRSkgUkFERU9OKDApOiBwcmVzZW50IGZsaXAgZmFpbGVkPC9zcGFu
-PjwvZGl2Pg0KICAgICAgPGRpdiBzdHlsZT0iYmFja2dyb3VuZC1jb2xvcjogcmdiKDI1NSwgMjU1
-LCAyNTUpOyI+PGJyPg0KICAgICAgPC9kaXY+DQogICAgICA8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5k
-LWNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7Ij5sc3BjaTo8L2Rpdj4NCiAgICAgIDxkaXYgc3R5
-bGU9ImJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsiPjxzcGFuPjAwOjAxLjAN
-CiAgICAgICAgICBWR0EgY29tcGF0aWJsZSBjb250cm9sbGVyOiBBZHZhbmNlZCBNaWNybyBEZXZp
-Y2VzLCBJbmMuDQogICAgICAgICAgW0FNRC9BVEldIE11bGxpbnMgW1JhZGVvbiBSNC9SNSBHcmFw
-aGljc10gKHJldiAwMSkgKHByb2ctaWYgMDANCiAgICAgICAgICBbVkdBIGNvbnRyb2xsZXJdKTwv
-c3Bhbj4NCiAgICAgICAgPGRpdj48c3Bhbj4gU3Vic3lzdGVtOiBGdWppdHN1IFRlY2hub2xvZ3kg
-U29sdXRpb25zIE11bGxpbnMNCiAgICAgICAgICAgIFtSYWRlb24gUjQvUjUgR3JhcGhpY3NdPC9z
-cGFuPjwvZGl2Pg0KICAgICAgICA8ZGl2PjxzcGFuPiBDb250cm9sOiBJL08rIE1lbSsgQnVzTWFz
-dGVyKyBTcGVjQ3ljbGUtIE1lbVdJTlYtDQogICAgICAgICAgICBWR0FTbm9vcC0gUGFyRXJyLSBT
-dGVwcGluZy0gU0VSUi0gRmFzdEIyQi0gRGlzSU5UeCs8L3NwYW4+PC9kaXY+DQogICAgICAgIDxk
-aXY+PHNwYW4+IFN0YXR1czogQ2FwKyA2Nk1Iei0gVURGLSBGYXN0QjJCLSBQYXJFcnItDQogICAg
-ICAgICAgICBERVZTRUw9ZmFzdCAmZ3Q7VEFib3J0LSAmbHQ7VEFib3J0LSAmbHQ7TUFib3J0LSAm
-Z3Q7U0VSUi0NCiAgICAgICAgICAgICZsdDtQRVJSLSBJTlR4LTwvc3Bhbj48L2Rpdj4NCiAgICAg
-ICAgPGRpdj48c3Bhbj4gTGF0ZW5jeTogMCwgQ2FjaGUgTGluZSBTaXplOiA2NCBieXRlczwvc3Bh
-bj48L2Rpdj4NCiAgICAgICAgPGRpdj48c3Bhbj4gSW50ZXJydXB0OiBwaW4gQSByb3V0ZWQgdG8g
-SVJRIDM1PC9zcGFuPjwvZGl2Pg0KICAgICAgICA8ZGl2PjxzcGFuPiBSZWdpb24gMDogTWVtb3J5
-IGF0IGY4MDAwMDAwICg2NC1iaXQsIHByZWZldGNoYWJsZSkNCiAgICAgICAgICAgIFtzaXplPTY0
-TV08L3NwYW4+PC9kaXY+DQogICAgICAgIDxkaXY+PHNwYW4+IFJlZ2lvbiAyOiBNZW1vcnkgYXQg
-ZmMwMDAwMDAgKDY0LWJpdCwgcHJlZmV0Y2hhYmxlKQ0KICAgICAgICAgICAgW3NpemU9OE1dPC9z
-cGFuPjwvZGl2Pg0KICAgICAgICA8ZGl2PjxzcGFuPiBSZWdpb24gNDogSS9PIHBvcnRzIGF0IGYw
-MDAgW3NpemU9MjU2XTwvc3Bhbj48L2Rpdj4NCiAgICAgICAgPGRpdj48c3Bhbj4gUmVnaW9uIDU6
-IE1lbW9yeSBhdCBmZWIwMDAwMCAoMzItYml0LA0KICAgICAgICAgICAgbm9uLXByZWZldGNoYWJs
-ZSkgW3NpemU9MjU2S108L3NwYW4+PC9kaXY+DQogICAgICAgIDxkaXY+PHNwYW4+IEV4cGFuc2lv
-biBST00gYXQgMDAwYzAwMDAgW2Rpc2FibGVkXSBbc2l6ZT0xMjhLXTwvc3Bhbj48L2Rpdj4NCiAg
-ICAgICAgPGRpdj48c3Bhbj4gQ2FwYWJpbGl0aWVzOiBbNDhdIFZlbmRvciBTcGVjaWZpYyBJbmZv
-cm1hdGlvbjoNCiAgICAgICAgICAgIExlbj0wOCAmbHQ7PyZndDs8L3NwYW4+PC9kaXY+DQogICAg
-ICAgIDxkaXY+PHNwYW4+IENhcGFiaWxpdGllczogWzUwXSBQb3dlciBNYW5hZ2VtZW50IHZlcnNp
-b24gMzwvc3Bhbj48L2Rpdj4NCiAgICAgICAgPGRpdj48c3Bhbj4gRmxhZ3M6IFBNRUNsay0gRFNJ
-LSBEMSsgRDIrIEF1eEN1cnJlbnQ9MG1BDQogICAgICAgICAgICBQTUUoRDAtLEQxKyxEMissRDNo
-b3QrLEQzY29sZC0pPC9zcGFuPjwvZGl2Pg0KICAgICAgICA8ZGl2PjxzcGFuPiBTdGF0dXM6IEQw
-IE5vU29mdFJzdC0gUE1FLUVuYWJsZS0gRFNlbD0wIERTY2FsZT0wDQogICAgICAgICAgICBQTUUt
-PC9zcGFuPjwvZGl2Pg0KICAgICAgICA8ZGl2PjxzcGFuPiBDYXBhYmlsaXRpZXM6IFs1OF0gRXhw
-cmVzcyAodjIpIFJvb3QgQ29tcGxleA0KICAgICAgICAgICAgSW50ZWdyYXRlZCBFbmRwb2ludCwg
-TVNJIDAwPC9zcGFuPjwvZGl2Pg0KICAgICAgICA8ZGl2PjxzcGFuPiBEZXZDYXA6IE1heFBheWxv
-YWQgMjU2IGJ5dGVzLCBQaGFudEZ1bmMgMDwvc3Bhbj48L2Rpdj4NCiAgICAgICAgPGRpdj48c3Bh
-bj4gRXh0VGFnKyBSQkUrIEZMUmVzZXQtPC9zcGFuPjwvZGl2Pg0KICAgICAgICA8ZGl2PjxzcGFu
-PiBEZXZDdGw6IENvcnJFcnItIE5vbkZhdGFsRXJyLSBGYXRhbEVyci0gVW5zdXBSZXEtPC9zcGFu
-PjwvZGl2Pg0KICAgICAgICA8ZGl2PjxzcGFuPiBSbHhkT3JkKyBFeHRUYWcrIFBoYW50RnVuYy0g
-QXV4UHdyLSBOb1Nub29wKzwvc3Bhbj48L2Rpdj4NCiAgICAgICAgPGRpdj48c3Bhbj4gTWF4UGF5
-bG9hZCAyNTYgYnl0ZXMsIE1heFJlYWRSZXEgNTEyIGJ5dGVzPC9zcGFuPjwvZGl2Pg0KICAgICAg
-ICA8ZGl2PjxzcGFuPiBEZXZTdGE6IENvcnJFcnItIE5vbkZhdGFsRXJyKyBGYXRhbEVyci0gVW5z
-dXBSZXErDQogICAgICAgICAgICBBdXhQd3ItIFRyYW5zUGVuZC08L3NwYW4+PC9kaXY+DQogICAg
-ICAgIDxkaXY+PHNwYW4+IERldkNhcDI6IENvbXBsZXRpb24gVGltZW91dDogTm90IFN1cHBvcnRl
-ZCwNCiAgICAgICAgICAgIFRpbWVvdXREaXMtIE5ST1ByUHJQLSBMVFItPC9zcGFuPjwvZGl2Pg0K
-ICAgICAgICA8ZGl2PjxzcGFuPiAxMEJpdFRhZ0NvbXAtIDEwQml0VGFnUmVxLSBPQkZGIE5vdCBT
-dXBwb3J0ZWQsDQogICAgICAgICAgICBFeHRGbXQrIEVFVExQUHJlZml4KywgTWF4RUVUTFBQcmVm
-aXhlcyAxPC9zcGFuPjwvZGl2Pg0KICAgICAgICA8ZGl2PjxzcGFuPiBFbWVyZ2VuY3lQb3dlclJl
-ZHVjdGlvbiBOb3QgU3VwcG9ydGVkLA0KICAgICAgICAgICAgRW1lcmdlbmN5UG93ZXJSZWR1Y3Rp
-b25Jbml0LTwvc3Bhbj48L2Rpdj4NCiAgICAgICAgPGRpdj48c3Bhbj4gRlJTLTwvc3Bhbj48L2Rp
-dj4NCiAgICAgICAgPGRpdj48c3Bhbj4gQXRvbWljT3BzQ2FwOiAzMmJpdC0gNjRiaXQtIDEyOGJp
-dENBUy08L3NwYW4+PC9kaXY+DQogICAgICAgIDxkaXY+PHNwYW4+IERldkN0bDI6IENvbXBsZXRp
-b24gVGltZW91dDogNTB1cyB0byA1MG1zLA0KICAgICAgICAgICAgVGltZW91dERpcy0gTFRSLSAx
-MEJpdFRhZ1JlcS0gT0JGRiBEaXNhYmxlZCw8L3NwYW4+PC9kaXY+DQogICAgICAgIDxkaXY+PHNw
-YW4+IEF0b21pY09wc0N0bDogUmVxRW4tPC9zcGFuPjwvZGl2Pg0KICAgICAgICA8ZGl2PjxzcGFu
-PiBDYXBhYmlsaXRpZXM6IFthMF0gTVNJOiBFbmFibGUrIENvdW50PTEvMSBNYXNrYWJsZS0NCiAg
-ICAgICAgICAgIDY0Yml0Kzwvc3Bhbj48L2Rpdj4NCiAgICAgICAgPGRpdj48c3Bhbj4gQWRkcmVz
-czogMDAwMDAwMDBmZWUwODAwNCAgRGF0YTogMDAyMzwvc3Bhbj48L2Rpdj4NCiAgICAgICAgPGRp
-dj48c3Bhbj4gQ2FwYWJpbGl0aWVzOiBbMTAwIHYxXSBWZW5kb3IgU3BlY2lmaWMgSW5mb3JtYXRp
-b246DQogICAgICAgICAgICBJRD0wMDAxIFJldj0xIExlbj0wMTAgJmx0Oz8mZ3Q7PC9zcGFuPjwv
-ZGl2Pg0KICAgICAgICA8ZGl2PjxzcGFuPiBDYXBhYmlsaXRpZXM6IFsyNzAgdjFdIFNlY29uZGFy
-eSBQQ0kgRXhwcmVzczwvc3Bhbj48L2Rpdj4NCiAgICAgICAgPGRpdj48c3Bhbj4gTG5rQ3RsMzog
-TG5rRXF1SW50cnJ1cHRFbi0gUGVyZm9ybUVxdS08L3NwYW4+PC9kaXY+DQogICAgICAgIDxkaXY+
-PHNwYW4+IExhbmVFcnJTdGF0OiAwPC9zcGFuPjwvZGl2Pg0KICAgICAgICA8ZGl2PjxzcGFuPiBD
-YXBhYmlsaXRpZXM6IFsyYjAgdjFdIEFkZHJlc3MgVHJhbnNsYXRpb24gU2VydmljZQ0KICAgICAg
-ICAgICAgKEFUUyk8L3NwYW4+PC9kaXY+DQogICAgICAgIDxkaXY+PHNwYW4+IEFUU0NhcDogSW52
-YWxpZGF0ZSBRdWV1ZSBEZXB0aDogMDA8L3NwYW4+PC9kaXY+DQogICAgICAgIDxkaXY+PHNwYW4+
-IEFUU0N0bDogRW5hYmxlLSwgU21hbGxlc3QgVHJhbnNsYXRpb24gVW5pdDogMDA8L3NwYW4+PC9k
-aXY+DQogICAgICAgIDxkaXY+PHNwYW4+IENhcGFiaWxpdGllczogWzJjMCB2MV0gUGFnZSBSZXF1
-ZXN0IEludGVyZmFjZSAoUFJJKTwvc3Bhbj48L2Rpdj4NCiAgICAgICAgPGRpdj48c3Bhbj4gUFJJ
-Q3RsOiBFbmFibGUtIFJlc2V0LTwvc3Bhbj48L2Rpdj4NCiAgICAgICAgPGRpdj48c3Bhbj4gUFJJ
-U3RhOiBSRi0gVVBSR0ktIFN0b3BwZWQrPC9zcGFuPjwvZGl2Pg0KICAgICAgICA8ZGl2PjxzcGFu
-PiBQYWdlIFJlcXVlc3QgQ2FwYWNpdHk6IDAwMDAwMDIwLCBQYWdlIFJlcXVlc3QNCiAgICAgICAg
-ICAgIEFsbG9jYXRpb246IDAwMDAwMDAwPC9zcGFuPjwvZGl2Pg0KICAgICAgICA8ZGl2PjxzcGFu
-PiBDYXBhYmlsaXRpZXM6IFsyZDAgdjFdIFByb2Nlc3MgQWRkcmVzcyBTcGFjZSBJRA0KICAgICAg
-ICAgICAgKFBBU0lEKTwvc3Bhbj48L2Rpdj4NCiAgICAgICAgPGRpdj48c3Bhbj4gUEFTSURDYXA6
-IEV4ZWMrIFByaXYrLCBNYXggUEFTSUQgV2lkdGg6IDEwPC9zcGFuPjwvZGl2Pg0KICAgICAgICA8
-ZGl2PjxzcGFuPiBQQVNJREN0bDogRW5hYmxlLSBFeGVjLSBQcml2LTwvc3Bhbj48L2Rpdj4NCiAg
-ICAgICAgPGRpdj48c3Bhbj4gS2VybmVsIGRyaXZlciBpbiB1c2U6IHJhZGVvbjwvc3Bhbj48L2Rp
-dj4NCiAgICAgICAgPHNwYW4+IEtlcm5lbCBtb2R1bGVzOiByYWRlb24sIGFtZGdwdTwvc3Bhbj48
-L2Rpdj4NCiAgICAgIDxkaXYgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwg
-MjU1KTsiPjxicj4NCiAgICAgIDwvZGl2Pg0KICAgICAgPGRpdiBzdHlsZT0iYmFja2dyb3VuZC1j
-b2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpOyI+SSdtIGEgYml0DQogICAgICAgIGNvbmZ1c2VkLiBJ
-cyB0aGlzIGFuIGtlcm5lbCBpc3N1ZSwgWG9yZyBpc3N1ZSBvciBzb21ldGhpbmcgZWxzZT88L2Rp
-dj4NCiAgICA8L2Jsb2NrcXVvdGU+DQogICAgPGJyPg0KICAgIFdlbGwsIHdoYXQgaXMgY29ubmVj
-dGVkIHRvIHRoZSBHUFU/IEUuZy4gd2hhdCBtb25pdG9yLCBwcm9qZWN0b3Igb3INCiAgICBvdGhl
-ciBkaXNwbGF5IGRldmljZSBkbyB5b3UgdXNlPzxicj4NCiAgICA8YnI+DQogICAgV2hhdCBoYXBw
-ZW5zIGlzIHRoYXQgb25seSA2NE1pQiBpcyBhc3NpZ25lZCB0byB0aGUgZGV2aWNlIGFuZCBmb3IN
-CiAgICBzb21lIHJlYXNvbiBhIHByb2Nlc3MgKG1heWJlIHRoZSBjb21wb3NpdG9yPykgSXMgdHJ5
-aW5nIHRvIGRvIGRvdWJsZQ0KICAgIG9yIHRyaXBsZSBidWZmZXJpbmcgYW5kIGRvZXNuJ3QgaGFz
-IGVub3VnaCBtZW1vcnkgZm9yIHRoYXQuPGJyPg0KICAgIDxicj4NCiAgICBTbyBpdCBmYWxscyBi
-YWNrIHRvIHNpbmdsZSBidWZmZXJpbmcsIHRoYXQgbWlnaHQgd29yayBidXQgd2lsbA0KICAgIHBy
-b2JhYmx5IG5vdCBsb29rIGFzIGdvb2QgYW5kIHlvdSBzZWUgdG9ucyBvZiBlcnJvciBtZXNzYWdl
-cy48YnI+DQogICAgPGJyPg0KICAgIFlvdSBtb3N0IGxpa2VseSBjYW4gZ28gaW50byB0aGUgQklP
-UyBhbmQgcmVzZXJ2ZSBtb3JlIG1lbW9yeSB0byB0aGUNCiAgICBHUFUgKGl0IHdpbGwganVzdCBi
-ZSBzdG9sZW4gZnJvbSBzeXN0ZW0gbWVtb3J5KS48YnI+DQogICAgPGJyPg0KICAgIFJlZ2FyZHMs
-PGJyPg0KICAgIENocmlzdGlhbi48YnI+DQogICAgPGJyPg0KICAgIDxibG9ja3F1b3RlIHR5cGU9
-ImNpdGUiPg0KICAgICAgPGRpdiBzdHlsZT0iYmFja2dyb3VuZC1jb2xvcjogcmdiKDI1NSwgMjU1
-LCAyNTUpOyI+PGJyPg0KICAgICAgPC9kaXY+DQogICAgICA8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5k
-LWNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7Ij5rZXJuZWw6PC9kaXY+DQogICAgICA8ZGl2IHN0
-eWxlPSJiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7Ij48c3Bhbj5MaW51eA0K
-ICAgICAgICAgIGRlYmlhbiA2LjEuMC0xMy1hbWQ2NCAjMSBTTVAgUFJFRU1QVF9EWU5BTUlDIERl
-YmlhbiA2LjEuNTUtMQ0KICAgICAgICAgICgyMDIzLTA5LTI5KSB4ODZfNjQgR05VL0xpbnV4PC9z
-cGFuPjxicj4NCiAgICAgICAgPHNwYW4+PC9zcGFuPjwvZGl2Pg0KICAgICAgPGRpdiBzdHlsZT0i
-YmFja2dyb3VuZC1jb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpOyI+PGJyPg0KICAgICAgPC9kaXY+
-DQogICAgICA8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7
-Ij5Yb3JnOjxicj4NCiAgICAgIDwvZGl2Pg0KICAgICAgPGRpdiBzdHlsZT0iYmFja2dyb3VuZC1j
-b2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpOyI+PHNwYW4+WyAgDQogICAgICAgICAgIDMzLjE0NF0g
-PC9zcGFuPg0KICAgICAgICA8ZGl2PjxzcGFuPjxhIHRhcmdldD0iX2JsYW5rIiByZWw9Im5vcmVm
-ZXJyZXIgbm9mb2xsb3cgbm9vcGVuZXIiIGhyZWY9Imh0dHA6Ly9YLk9yZyI+WC5Pcmc8L2E+IFgg
-U2VydmVyIDEuMjEuMS43PC9zcGFuPjwvZGl2Pg0KICAgICAgICA8ZGl2PjxzcGFuPlggUHJvdG9j
-b2wgVmVyc2lvbiAxMSwgUmV2aXNpb24gMDwvc3Bhbj48L2Rpdj4NCiAgICAgICAgPGRpdj48c3Bh
-bj5bICAgIDMzLjE0NF0gQ3VycmVudCBPcGVyYXRpbmcgU3lzdGVtOiBMaW51eCBkZWJpYW4NCiAg
-ICAgICAgICAgIDYuMS4wLTEzLWFtZDY0ICMxIFNNUCBQUkVFTVBUX0RZTkFNSUMgRGViaWFuIDYu
-MS41NS0xDQogICAgICAgICAgICAoMjAyMy0wOS0yOSkgeDg2XzY0PC9zcGFuPjwvZGl2Pg0KICAg
-ICAgICA8ZGl2PjxzcGFuPlsgICAgMzMuMTQ0XSBLZXJuZWwgY29tbWFuZCBsaW5lOg0KICAgICAg
-ICAgICAgQk9PVF9JTUFHRT0vYm9vdC92bWxpbnV6LTYuMS4wLTEzLWFtZDY0DQogICAgICAgICAg
-ICByb290PVVVSUQ9NDEwMWM1NjgtZTA3My00MmY0LThkZmUtMDgzNzNmY2ViMTNjIHJvIHF1aWV0
-PC9zcGFuPjwvZGl2Pg0KICAgICAgICA8ZGl2PjxzcGFuPlsgICAgMzMuMTQ0XSB4b3JnLXNlcnZl
-ciAyOjIxLjEuNy0zICg8YSBjbGFzcz0ibW96LXR4dC1saW5rLWZyZWV0ZXh0IiB0YXJnZXQ9Il9i
-bGFuayIgcmVsPSJub3JlZmVycmVyIG5vZm9sbG93IG5vb3BlbmVyIiBocmVmPSJodHRwczovL3d3
-dy5kZWJpYW4ub3JnL3N1cHBvcnQiPmh0dHBzOi8vd3d3LmRlYmlhbi5vcmcvc3VwcG9ydDwvYT4p
-DQogICAgICAgICAgPC9zcGFuPjwvZGl2Pg0KICAgICAgICA8ZGl2PjxzcGFuPlsgICAgMzMuMTQ0
-XSBDdXJyZW50IHZlcnNpb24gb2YgcGl4bWFuOiAwLjQyLjI8L3NwYW4+PC9kaXY+DQogICAgICAg
-IDxkaXY+PHNwYW4+WyAgICAzMy4xNDRdIEJlZm9yZSByZXBvcnRpbmcgcHJvYmxlbXMsIGNoZWNr
-IDxhIGNsYXNzPSJtb3otdHh0LWxpbmstZnJlZXRleHQiIHRhcmdldD0iX2JsYW5rIiByZWw9Im5v
-cmVmZXJyZXIgbm9mb2xsb3cgbm9vcGVuZXIiIGhyZWY9Imh0dHA6Ly93aWtpLngub3JnIj5odHRw
-Oi8vd2lraS54Lm9yZzwvYT48L3NwYW4+PC9kaXY+DQogICAgICAgIDxzcGFuPiB0byBtYWtlIHN1
-cmUgdGhhdCB5b3UgaGF2ZSB0aGUgbGF0ZXN0IHZlcnNpb24uPC9zcGFuPjwvZGl2Pg0KICAgICAg
-PGRpdiBzdHlsZT0iYmFja2dyb3VuZC1jb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpOyI+PHNwYW4+
-PGJyPg0KICAgICAgICA8L3NwYW4+PC9kaXY+DQogICAgICA8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5k
-LWNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7Ij48c3Bhbj5JDQogICAgICAgICAgc2VhcmNoZWQg
-YnVnIHRyYWNrZXIgYW5kIGNvdWxkIG9ubHkgZmluZCB0aGlzIGlzc3VlOiAgPHNwYW4+PGEgY2xh
-c3M9Im1vei10eHQtbGluay1mcmVldGV4dCIgdGFyZ2V0PSJfYmxhbmsiIHJlbD0ibm9yZWZlcnJl
-ciBub2ZvbGxvdyBub29wZW5lciIgaHJlZj0iaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3Jn
-L3hvcmcvZHJpdmVyL3hmODYtdmlkZW8tYXRpLy0vaXNzdWVzLzE4MCI+aHR0cHM6Ly9naXRsYWIu
-ZnJlZWRlc2t0b3Aub3JnL3hvcmcvZHJpdmVyL3hmODYtdmlkZW8tYXRpLy0vaXNzdWVzLzE4MDwv
-YT48L3NwYW4+DQogICAgICAgICAgYnV0IEkgZG9uJ3QgaGF2ZSBhIGJsYWNrIHNjcmVlbi4gVGhl
-IHN5c3RlbSBpcyByYXRoZXIgc2x1Z2dpc2gNCiAgICAgICAgICBidXQgc2VlbXMgdG8gd29yay48
-L3NwYW4+PC9kaXY+DQogICAgICA8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjU1
-LCAyNTUsIDI1NSk7Ij48c3Bhbj5JIGRpZCB0cnkNCiAgICAgICAgICBvbGRlciB2ZXJzaW9uIG9m
-IERlYmlhbiBiYWNrIHRvIDEwLjEzLiBBbGwgaGF2ZSB0aGlzIGlzc3VlLg0KICAgICAgICAgIEkn
-bSB2ZXJ5IHN1cmUgdGhlIGVMdXggd2hpY2ggY2FtZSB3aXRoIHRoZSBib3ggZGlkIG5vdCBoYXZl
-DQogICAgICAgICAgdGhpcy48YnI+DQogICAgICAgIDwvc3Bhbj48L2Rpdj4NCiAgICAgIDxkaXYg
-c3R5bGU9ImJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsiPjxzcGFuPjxicj4N
-CiAgICAgICAgPC9zcGFuPjwvZGl2Pg0KICAgICAgPGRpdiBzdHlsZT0iYmFja2dyb3VuZC1jb2xv
-cjogcmdiKDI1NSwgMjU1LCAyNTUpOyI+PHNwYW4+QW55IGhpbnRzDQogICAgICAgICAgd2hlcmUg
-dG8gZ28gbmV4dCBpcyB2ZXJ5IDxzcGFuPmFwcHJlY2lhdGVkPC9zcGFuPi48L3NwYW4+PC9kaXY+
-DQogICAgICA8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7
-Ij48c3Bhbj48YnI+DQogICAgICAgIDwvc3Bhbj48L2Rpdj4NCiAgICAgIDxzcGFuIHN0eWxlPSJi
-YWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7Ij48c3Bhbj5CZXN0DQogICAgICAg
-ICAgUmVnYXJkczwvc3Bhbj48L3NwYW4+DQogICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTog
-QXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsiIGNsYXNzPSJwcm90b25tYWlsX3Np
-Z25hdHVyZV9ibG9jayI+DQogICAgICA8L2Rpdj4NCiAgICA8L2Jsb2NrcXVvdGU+DQogICAgPGJy
-Pg0KICANCg0KDQogICAgICAgIDwvYmxvY2txdW90ZT48YnI+DQogICAgPC9kaXY+
+But devices with only 64MiB of VRAM are rare today, so....
 
+Regards,
+Christian.
 
---b1_ZFtXKytjzGzeQxUsHXN70OalrJgIy1NdRp7JLaRpzs--
+Am 04.12.23 um 17:38 schrieb smesgr:
+> Hi Chrisitan,
+>
+> you are right, after bumping the memory in BIOS the error goes away. 
+> Still would be nice if the error would point to "out of VMem" or 
+> something.
+>
+> Best Regards
+> Christian König <ckoenig.leichtzumerken@gmail.com> schrieb am Montag, 
+> 4. Dezember 2023 um 16:18:
+>
+>> Am 02.12.23 um 20:00 schrieb smesgr:
+>>> Hi,
+>>>
+>>> I have installed Debian 12 on my old Fujitsu S920 with AMD GX-424CC.
+>>> After the installation completed, my logs are flooded by the 
+>>> following error messages:
+>>>
+>>> dmesg:
+>>> [ 967.869183] radeon 0000:00:01.0: 000000003ba3c813 pin failed
+>>> [ 967.869212] [drm:radeon_crtc_page_flip_target [radeon]] *ERROR* 
+>>> failed to pin new rbo buffer before flip
+>>> [ 967.886254] radeon 0000:00:01.0: 0000000051be2216 pin failed
+>>> [ 967.886282] [drm:radeon_crtc_page_flip_target [radeon]] *ERROR* 
+>>> failed to pin new rbo buffer before flip
+>>> [ 967.907984] radeon 0000:00:01.0: 000000003ba3c813 pin failed
+>>> [ 967.908014] [drm:radeon_crtc_page_flip_target [radeon]] *ERROR* 
+>>> failed to pin new rbo buffer before flip
+>>> [ 967.925551] radeon 0000:00:01.0: 0000000051be2216 pin failed
+>>> [ 967.925580] [drm:radeon_crtc_page_flip_target [radeon]] *ERROR* 
+>>> failed to pin new rbo buffer before flip
+>>>
+>>> Xorg.log
+>>> [ 47.777] (WW) RADEON(0): flip queue failed: Invalid argument
+>>> [ 47.777] (WW) RADEON(0): Page flip failed: Invalid argument
+>>> [ 47.777] (EE) RADEON(0): present flip failed
+>>>
+>>> lspci:
+>>> 00:01.0 VGA compatible controller: Advanced Micro Devices, Inc. 
+>>> [AMD/ATI] Mullins [Radeon R4/R5 Graphics] (rev 01) (prog-if 00 [VGA 
+>>> controller])
+>>> Subsystem: Fujitsu Technology Solutions Mullins [Radeon R4/R5 Graphics]
+>>> Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- 
+>>> Stepping- SERR- FastB2B- DisINTx+
+>>> Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- 
+>>> <TAbort- <MAbort- >SERR- <PERR- INTx-
+>>> Latency: 0, Cache Line Size: 64 bytes
+>>> Interrupt: pin A routed to IRQ 35
+>>> Region 0: Memory at f8000000 (64-bit, prefetchable) [size=64M]
+>>> Region 2: Memory at fc000000 (64-bit, prefetchable) [size=8M]
+>>> Region 4: I/O ports at f000 [size=256]
+>>> Region 5: Memory at feb00000 (32-bit, non-prefetchable) [size=256K]
+>>> Expansion ROM at 000c0000 [disabled] [size=128K]
+>>> Capabilities: [48] Vendor Specific Information: Len=08 <?>
+>>> Capabilities: [50] Power Management version 3
+>>> Flags: PMEClk- DSI- D1+ D2+ AuxCurrent=0mA 
+>>> PME(D0-,D1+,D2+,D3hot+,D3cold-)
+>>> Status: D0 NoSoftRst- PME-Enable- DSel=0 DScale=0 PME-
+>>> Capabilities: [58] Express (v2) Root Complex Integrated Endpoint, MSI 00
+>>> DevCap: MaxPayload 256 bytes, PhantFunc 0
+>>> ExtTag+ RBE+ FLReset-
+>>> DevCtl: CorrErr- NonFatalErr- FatalErr- UnsupReq-
+>>> RlxdOrd+ ExtTag+ PhantFunc- AuxPwr- NoSnoop+
+>>> MaxPayload 256 bytes, MaxReadReq 512 bytes
+>>> DevSta: CorrErr- NonFatalErr+ FatalErr- UnsupReq+ AuxPwr- TransPend-
+>>> DevCap2: Completion Timeout: Not Supported, TimeoutDis- NROPrPrP- LTR-
+>>> 10BitTagComp- 10BitTagReq- OBFF Not Supported, ExtFmt+ EETLPPrefix+, 
+>>> MaxEETLPPrefixes 1
+>>> EmergencyPowerReduction Not Supported, EmergencyPowerReductionInit-
+>>> FRS-
+>>> AtomicOpsCap: 32bit- 64bit- 128bitCAS-
+>>> DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis- LTR- 
+>>> 10BitTagReq- OBFF Disabled,
+>>> AtomicOpsCtl: ReqEn-
+>>> Capabilities: [a0] MSI: Enable+ Count=1/1 Maskable- 64bit+
+>>> Address: 00000000fee08004 Data: 0023
+>>> Capabilities: [100 v1] Vendor Specific Information: ID=0001 Rev=1 
+>>> Len=010 <?>
+>>> Capabilities: [270 v1] Secondary PCI Express
+>>> LnkCtl3: LnkEquIntrruptEn- PerformEqu-
+>>> LaneErrStat: 0
+>>> Capabilities: [2b0 v1] Address Translation Service (ATS)
+>>> ATSCap: Invalidate Queue Depth: 00
+>>> ATSCtl: Enable-, Smallest Translation Unit: 00
+>>> Capabilities: [2c0 v1] Page Request Interface (PRI)
+>>> PRICtl: Enable- Reset-
+>>> PRISta: RF- UPRGI- Stopped+
+>>> Page Request Capacity: 00000020, Page Request Allocation: 00000000
+>>> Capabilities: [2d0 v1] Process Address Space ID (PASID)
+>>> PASIDCap: Exec+ Priv+, Max PASID Width: 10
+>>> PASIDCtl: Enable- Exec- Priv-
+>>> Kernel driver in use: radeon
+>>> Kernel modules: radeon, amdgpu
+>>>
+>>> I'm a bit confused. Is this an kernel issue, Xorg issue or something 
+>>> else?
+>>
+>> Well, what is connected to the GPU? E.g. what monitor, projector or 
+>> other display device do you use?
+>>
+>> What happens is that only 64MiB is assigned to the device and for 
+>> some reason a process (maybe the compositor?) Is trying to do double 
+>> or triple buffering and doesn't has enough memory for that.
+>>
+>> So it falls back to single buffering, that might work but will 
+>> probably not look as good and you see tons of error messages.
+>>
+>> You most likely can go into the BIOS and reserve more memory to the 
+>> GPU (it will just be stolen from system memory).
+>>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> kernel:
+>>> Linux debian 6.1.0-13-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.55-1 
+>>> (2023-09-29) x86_64 GNU/Linux
+>>>
+>>> Xorg:
+>>> [ 33.144]
+>>> X.Org <http://X.Org> X Server 1.21.1.7
+>>> X Protocol Version 11, Revision 0
+>>> [ 33.144] Current Operating System: Linux debian 6.1.0-13-amd64 #1 
+>>> SMP PREEMPT_DYNAMIC Debian 6.1.55-1 (2023-09-29) x86_64
+>>> [ 33.144] Kernel command line: 
+>>> BOOT_IMAGE=/boot/vmlinuz-6.1.0-13-amd64 
+>>> root=UUID=4101c568-e073-42f4-8dfe-08373fceb13c ro quiet
+>>> [ 33.144] xorg-server 2:21.1.7-3 (https://www.debian.org/support)
+>>> [ 33.144] Current version of pixman: 0.42.2
+>>> [ 33.144] Before reporting problems, check http://wiki.x.org
+>>> to make sure that you have the latest version.
+>>>
+>>> I searched bug tracker and could only find this issue: 
+>>> https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati/-/issues/180 
+>>> but I don't have a black screen. The system is rather sluggish but 
+>>> seems to work.
+>>> I did try older version of Debian back to 10.13. All have this 
+>>> issue. I'm very sure the eLux which came with the box did not have this.
+>>>
+>>> Any hints where to go next is very appreciated.
+>>>
+>>> Best Regards
+>>
+>
 
+--------------WJq1byfXDCXCnw7sPzvdAm4e
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    Well, essentially we shouldn't print the error from the kernel in
+    the first place and just return the correct error code to the
+    userspace application.<br>
+    <br>
+    The userspace application/driver would then say: Oh, I don't have
+    enough memory for triple buffering, maybe I should just fallback to
+    double buffering....<br>
+    <br>
+    Retrying the same approach over and over again is not really a good
+    implementation from userspace.<br>
+    <br>
+    But devices with only 64MiB of VRAM are rare today, so....<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <div class="moz-cite-prefix">Am 04.12.23 um 17:38 schrieb smesgr:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:_ghIPI7KEaEIZNuxoFM2Gui55Qu12bw_3fiiU7mO3rwnEBGwLyYT1fCdXb8o4xej6Pw0ApccKIgXRo2_lbeibCDx3EfM1jGkcTcdop9vSww=@protonmail.com">
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      <div>Hi Chrisitan,</div>
+      <div
+style="font-family: Arial, sans-serif; font-size: 14px; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"><br>
+      </div>
+      <div
+style="font-family: Arial, sans-serif; font-size: 14px; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">you
+        are right, after bumping the memory in BIOS the error goes away.
+        Still would be nice if the error would point to "out of VMem" or
+        something.<br>
+      </div>
+      <div
+style="font-family: Arial, sans-serif; font-size: 14px; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"><br>
+      </div>
+      <div
+style="font-family: Arial, sans-serif; font-size: 14px; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">Best
+        Regards<br>
+      </div>
+      <div class="protonmail_quote"> Christian König
+        <a class="moz-txt-link-rfc2396E" href="mailto:ckoenig.leichtzumerken@gmail.com">&lt;ckoenig.leichtzumerken@gmail.com&gt;</a> schrieb am Montag, 4.
+        Dezember 2023 um 16:18:<br>
+        <br>
+        <blockquote class="protonmail_quote" type="cite"> Am 02.12.23 um
+          20:00 schrieb smesgr:<br>
+          <blockquote type="cite"> <span
+              style="background-color: rgb(255, 255, 255);">Hi,</span>
+            <div style="background-color: rgb(255, 255, 255);"><br>
+            </div>
+            <div style="background-color: rgb(255, 255, 255);">I have
+              installed Debian 12 on my old Fujitsu S920 with AMD
+              GX-424CC.<br>
+            </div>
+            <div style="background-color: rgb(255, 255, 255);">After the
+              installation completed, my logs are flooded by the
+              following error messages:</div>
+            <div style="background-color: rgb(255, 255, 255);"><br>
+            </div>
+            <div style="background-color: rgb(255, 255, 255);">dmesg:</div>
+            <div style="background-color: rgb(255, 255, 255);"><span>[
+                967.869183] radeon 0000:00:01.0: 000000003ba3c813 pin
+                failed</span>
+              <div><span>[ 967.869212] [drm:radeon_crtc_page_flip_target
+                  [radeon]] *ERROR* failed to pin new rbo buffer before
+                  flip</span></div>
+              <div><span>[ 967.886254] radeon 0000:00:01.0:
+                  0000000051be2216 pin failed</span></div>
+              <div><span>[ 967.886282] [drm:radeon_crtc_page_flip_target
+                  [radeon]] *ERROR* failed to pin new rbo buffer before
+                  flip</span></div>
+              <div><span>[ 967.907984] radeon 0000:00:01.0:
+                  000000003ba3c813 pin failed</span></div>
+              <div><span>[ 967.908014] [drm:radeon_crtc_page_flip_target
+                  [radeon]] *ERROR* failed to pin new rbo buffer before
+                  flip</span></div>
+              <div><span>[ 967.925551] radeon 0000:00:01.0:
+                  0000000051be2216 pin failed</span></div>
+              <span>[ 967.925580] [drm:radeon_crtc_page_flip_target
+                [radeon]] *ERROR* failed to pin new rbo buffer before
+                flip</span></div>
+            <div style="background-color: rgb(255, 255, 255);"><br>
+            </div>
+            <div style="background-color: rgb(255, 255, 255);">Xorg.log</div>
+            <div style="background-color: rgb(255, 255, 255);"><span>[
+                47.777] (WW) RADEON(0): flip queue failed: Invalid
+                argument</span>
+              <div><span>[ 47.777] (WW) RADEON(0): Page flip failed:
+                  Invalid argument</span></div>
+              <span>[ 47.777] (EE) RADEON(0): present flip failed</span></div>
+            <div style="background-color: rgb(255, 255, 255);"><br>
+            </div>
+            <div style="background-color: rgb(255, 255, 255);">lspci:</div>
+            <div style="background-color: rgb(255, 255, 255);"><span>00:01.0
+                VGA compatible controller: Advanced Micro Devices, Inc.
+                [AMD/ATI] Mullins [Radeon R4/R5 Graphics] (rev 01)
+                (prog-if 00 [VGA controller])</span>
+              <div><span> Subsystem: Fujitsu Technology Solutions
+                  Mullins [Radeon R4/R5 Graphics]</span></div>
+              <div><span> Control: I/O+ Mem+ BusMaster+ SpecCycle-
+                  MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B-
+                  DisINTx+</span></div>
+              <div><span> Status: Cap+ 66MHz- UDF- FastB2B- ParErr-
+                  DEVSEL=fast &gt;TAbort- &lt;TAbort- &lt;MAbort-
+                  &gt;SERR- &lt;PERR- INTx-</span></div>
+              <div><span> Latency: 0, Cache Line Size: 64 bytes</span></div>
+              <div><span> Interrupt: pin A routed to IRQ 35</span></div>
+              <div><span> Region 0: Memory at f8000000 (64-bit,
+                  prefetchable) [size=64M]</span></div>
+              <div><span> Region 2: Memory at fc000000 (64-bit,
+                  prefetchable) [size=8M]</span></div>
+              <div><span> Region 4: I/O ports at f000 [size=256]</span></div>
+              <div><span> Region 5: Memory at feb00000 (32-bit,
+                  non-prefetchable) [size=256K]</span></div>
+              <div><span> Expansion ROM at 000c0000 [disabled]
+                  [size=128K]</span></div>
+              <div><span> Capabilities: [48] Vendor Specific
+                  Information: Len=08 &lt;?&gt;</span></div>
+              <div><span> Capabilities: [50] Power Management version 3</span></div>
+              <div><span> Flags: PMEClk- DSI- D1+ D2+ AuxCurrent=0mA
+                  PME(D0-,D1+,D2+,D3hot+,D3cold-)</span></div>
+              <div><span> Status: D0 NoSoftRst- PME-Enable- DSel=0
+                  DScale=0 PME-</span></div>
+              <div><span> Capabilities: [58] Express (v2) Root Complex
+                  Integrated Endpoint, MSI 00</span></div>
+              <div><span> DevCap: MaxPayload 256 bytes, PhantFunc 0</span></div>
+              <div><span> ExtTag+ RBE+ FLReset-</span></div>
+              <div><span> DevCtl: CorrErr- NonFatalErr- FatalErr-
+                  UnsupReq-</span></div>
+              <div><span> RlxdOrd+ ExtTag+ PhantFunc- AuxPwr- NoSnoop+</span></div>
+              <div><span> MaxPayload 256 bytes, MaxReadReq 512 bytes</span></div>
+              <div><span> DevSta: CorrErr- NonFatalErr+ FatalErr-
+                  UnsupReq+ AuxPwr- TransPend-</span></div>
+              <div><span> DevCap2: Completion Timeout: Not Supported,
+                  TimeoutDis- NROPrPrP- LTR-</span></div>
+              <div><span> 10BitTagComp- 10BitTagReq- OBFF Not Supported,
+                  ExtFmt+ EETLPPrefix+, MaxEETLPPrefixes 1</span></div>
+              <div><span> EmergencyPowerReduction Not Supported,
+                  EmergencyPowerReductionInit-</span></div>
+              <div><span> FRS-</span></div>
+              <div><span> AtomicOpsCap: 32bit- 64bit- 128bitCAS-</span></div>
+              <div><span> DevCtl2: Completion Timeout: 50us to 50ms,
+                  TimeoutDis- LTR- 10BitTagReq- OBFF Disabled,</span></div>
+              <div><span> AtomicOpsCtl: ReqEn-</span></div>
+              <div><span> Capabilities: [a0] MSI: Enable+ Count=1/1
+                  Maskable- 64bit+</span></div>
+              <div><span> Address: 00000000fee08004 Data: 0023</span></div>
+              <div><span> Capabilities: [100 v1] Vendor Specific
+                  Information: ID=0001 Rev=1 Len=010 &lt;?&gt;</span></div>
+              <div><span> Capabilities: [270 v1] Secondary PCI Express</span></div>
+              <div><span> LnkCtl3: LnkEquIntrruptEn- PerformEqu-</span></div>
+              <div><span> LaneErrStat: 0</span></div>
+              <div><span> Capabilities: [2b0 v1] Address Translation
+                  Service (ATS)</span></div>
+              <div><span> ATSCap: Invalidate Queue Depth: 00</span></div>
+              <div><span> ATSCtl: Enable-, Smallest Translation Unit: 00</span></div>
+              <div><span> Capabilities: [2c0 v1] Page Request Interface
+                  (PRI)</span></div>
+              <div><span> PRICtl: Enable- Reset-</span></div>
+              <div><span> PRISta: RF- UPRGI- Stopped+</span></div>
+              <div><span> Page Request Capacity: 00000020, Page Request
+                  Allocation: 00000000</span></div>
+              <div><span> Capabilities: [2d0 v1] Process Address Space
+                  ID (PASID)</span></div>
+              <div><span> PASIDCap: Exec+ Priv+, Max PASID Width: 10</span></div>
+              <div><span> PASIDCtl: Enable- Exec- Priv-</span></div>
+              <div><span> Kernel driver in use: radeon</span></div>
+              <span> Kernel modules: radeon, amdgpu</span></div>
+            <div style="background-color: rgb(255, 255, 255);"><br>
+            </div>
+            <div style="background-color: rgb(255, 255, 255);">I'm a bit
+              confused. Is this an kernel issue, Xorg issue or something
+              else?</div>
+          </blockquote>
+          <br>
+          Well, what is connected to the GPU? E.g. what monitor,
+          projector or other display device do you use?<br>
+          <br>
+          What happens is that only 64MiB is assigned to the device and
+          for some reason a process (maybe the compositor?) Is trying to
+          do double or triple buffering and doesn't has enough memory
+          for that.<br>
+          <br>
+          So it falls back to single buffering, that might work but will
+          probably not look as good and you see tons of error messages.<br>
+          <br>
+          You most likely can go into the BIOS and reserve more memory
+          to the GPU (it will just be stolen from system memory).<br>
+          <br>
+          Regards,<br>
+          Christian.<br>
+          <br>
+          <blockquote type="cite">
+            <div style="background-color: rgb(255, 255, 255);"><br>
+            </div>
+            <div style="background-color: rgb(255, 255, 255);">kernel:</div>
+            <div style="background-color: rgb(255, 255, 255);"><span>Linux
+                debian 6.1.0-13-amd64 #1 SMP PREEMPT_DYNAMIC Debian
+                6.1.55-1 (2023-09-29) x86_64 GNU/Linux</span><br>
+              <span></span></div>
+            <div style="background-color: rgb(255, 255, 255);"><br>
+            </div>
+            <div style="background-color: rgb(255, 255, 255);">Xorg:<br>
+            </div>
+            <div style="background-color: rgb(255, 255, 255);"><span>[
+                33.144] </span>
+              <div><span><a target="_blank"
+                    rel="noreferrer nofollow noopener"
+                    href="http://X.Org" moz-do-not-send="true">X.Org</a>
+                  X Server 1.21.1.7</span></div>
+              <div><span>X Protocol Version 11, Revision 0</span></div>
+              <div><span>[ 33.144] Current Operating System: Linux
+                  debian 6.1.0-13-amd64 #1 SMP PREEMPT_DYNAMIC Debian
+                  6.1.55-1 (2023-09-29) x86_64</span></div>
+              <div><span>[ 33.144] Kernel command line:
+                  BOOT_IMAGE=/boot/vmlinuz-6.1.0-13-amd64
+                  root=UUID=4101c568-e073-42f4-8dfe-08373fceb13c ro
+                  quiet</span></div>
+              <div><span>[ 33.144] xorg-server 2:21.1.7-3 (<a
+                    class="moz-txt-link-freetext" target="_blank"
+                    rel="noreferrer nofollow noopener"
+                    href="https://www.debian.org/support"
+                    moz-do-not-send="true">https://www.debian.org/support</a>)
+                </span></div>
+              <div><span>[ 33.144] Current version of pixman: 0.42.2</span></div>
+              <div><span>[ 33.144] Before reporting problems, check <a
+                    class="moz-txt-link-freetext" target="_blank"
+                    rel="noreferrer nofollow noopener"
+                    href="http://wiki.x.org" moz-do-not-send="true">http://wiki.x.org</a></span></div>
+              <span> to make sure that you have the latest version.</span></div>
+            <div style="background-color: rgb(255, 255, 255);"><span><br>
+              </span></div>
+            <div style="background-color: rgb(255, 255, 255);"><span>I
+                searched bug tracker and could only find this issue: <span><a
+                    class="moz-txt-link-freetext" target="_blank"
+                    rel="noreferrer nofollow noopener"
+href="https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati/-/issues/180"
+                    moz-do-not-send="true">https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati/-/issues/180</a></span>
+                but I don't have a black screen. The system is rather
+                sluggish but seems to work.</span></div>
+            <div style="background-color: rgb(255, 255, 255);"><span>I
+                did try older version of Debian back to 10.13. All have
+                this issue. I'm very sure the eLux which came with the
+                box did not have this.<br>
+              </span></div>
+            <div style="background-color: rgb(255, 255, 255);"><span><br>
+              </span></div>
+            <div style="background-color: rgb(255, 255, 255);"><span>Any
+                hints where to go next is very <span>appreciated</span>.</span></div>
+            <div style="background-color: rgb(255, 255, 255);"><span><br>
+              </span></div>
+            <span style="background-color: rgb(255, 255, 255);"><span>Best
+                Regards</span></span>
+            <div
+              style="font-family: Arial, sans-serif; font-size: 14px;"
+              class="protonmail_signature_block"> </div>
+          </blockquote>
+          <br>
+        </blockquote>
+        <br>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------WJq1byfXDCXCnw7sPzvdAm4e--
