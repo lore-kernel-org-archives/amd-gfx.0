@@ -4,46 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5A26C4167B
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Dec 2023 14:04:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE4CAC10DC1
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Dec 2023 14:04:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8761D10E257;
-	Mon,  4 Dec 2023 14:04:13 +0000 (UTC)
-X-Greylist: delayed 61495 seconds by postgrey-1.36 at gabe;
- Mon, 04 Dec 2023 10:22:07 UTC
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E3AA10E25E;
+	Mon,  4 Dec 2023 14:04:14 +0000 (UTC)
+X-Greylist: delayed 55793 seconds by postgrey-1.36 at gabe;
+ Mon, 04 Dec 2023 08:47:01 UTC
 Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net
- [207.46.229.174])
- by gabe.freedesktop.org (Postfix) with ESMTP id 36B3710E12C;
- Mon,  4 Dec 2023 10:22:01 +0000 (UTC)
-Received: from luzhipeng.223.5.5.5 (unknown [125.120.155.9])
- by mail-app4 (Coremail) with SMTP id cS_KCgBnbDRCqG1lCtdIAA--.53467S2;
- Mon, 04 Dec 2023 18:21:55 +0800 (CST)
-From: Zhipeng Lu <alexious@zju.edu.cn>
-To: alexious@zju.edu.cn
-Subject: [PATCH] [v2] drm/radeon/trinity_dpm: fix a memleak in
- trinity_parse_power_table
-Date: Mon,  4 Dec 2023 18:21:54 +0800
-Message-Id: <20231204102154.3309670-1-alexious@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+ [52.237.72.81])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4064310E17C;
+ Mon,  4 Dec 2023 08:47:00 +0000 (UTC)
+Received: from alexious$zju.edu.cn ( [124.90.105.255] ) by
+ ajax-webmail-mail-app4 (Coremail) ; Mon, 4 Dec 2023 16:46:54 +0800
+ (GMT+08:00)
+X-Originating-IP: [124.90.105.255]
+Date: Mon, 4 Dec 2023 16:46:54 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: alexious@zju.edu.cn
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Subject: Re: Re: [PATCH] drm/radeon/dpm: fix a memleak in
+ sumo_parse_power_table
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.2-cmXT5 build
+ 20230825(e13b6a3b) Copyright (c) 2002-2023 www.mailtech.cn
+ mispb-4df6dc2c-e274-4d1c-b502-72c5c3dfa9ce-zj.edu.cn
+In-Reply-To: <b1fa2827-61fb-4594-8f80-e5083be8d5fa@amd.com>
+References: <20231203171643.3287229-1-alexious@zju.edu.cn>
+ <b1fa2827-61fb-4594-8f80-e5083be8d5fa@amd.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: cS_KCgBnbDRCqG1lCtdIAA--.53467S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7KF1kur48WFyktF1DuF15Arb_yoW8Gr1kpr
- s5GF90krW5Ja42gFZrKF1IvrWrWa17GayUGFZ7uwnrG343G3WjkFZYk3yjvr90vrs29F15
- tF47KrWxZFyj93DanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkv14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
- JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc2xSY4AK67AK6r4D
- MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
- 0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
- wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
- W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAI
- cVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUd-B_UUUUU=
-X-CM-SenderInfo: qrsrjiarszq6lmxovvfxof0/
+Message-ID: <7a726f38.19f2f.18c340249f7.Coremail.alexious@zju.edu.cn>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: cS_KCgDHzTX_kW1lKXdIAA--.13484W
+X-CM-SenderInfo: qrsrjiarszq6lmxovvfxof0/1tbiAgUTAGVsUQg1KAABsY
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+ CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+ daVFxhVjvjDU=
 X-Mailman-Approved-At: Mon, 04 Dec 2023 14:04:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,45 +55,32 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+ amd-gfx@lists.freedesktop.org, Jerome Glisse <jglisse@redhat.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The rdev->pm.dpm.ps allocated by kcalloc should be freed in every
-following error-handling path. However, in the error-handling of
-rdev->pm.power_state[i].clock_info the rdev->pm.dpm.ps is not freed,
-resulting in a memleak in this function.
-
-Fixes: d70229f70447 ("drm/radeon/kms: add dpm support for trinity asics")
-Signed-off-by: Zhipeng Lu <alexious@zju.edu.cn>
----
-
-Changelog:
-
-v2: Adding {} to correct the if statement.
----
- drivers/gpu/drm/radeon/trinity_dpm.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/radeon/trinity_dpm.c b/drivers/gpu/drm/radeon/trinity_dpm.c
-index 08ea1c864cb2..ef1cc7bad20a 100644
---- a/drivers/gpu/drm/radeon/trinity_dpm.c
-+++ b/drivers/gpu/drm/radeon/trinity_dpm.c
-@@ -1726,8 +1726,10 @@ static int trinity_parse_power_table(struct radeon_device *rdev)
- 		non_clock_array_index = power_state->v2.nonClockInfoIndex;
- 		non_clock_info = (struct _ATOM_PPLIB_NONCLOCK_INFO *)
- 			&non_clock_info_array->nonClockInfo[non_clock_array_index];
--		if (!rdev->pm.power_state[i].clock_info)
-+		if (!rdev->pm.power_state[i].clock_info) {
-+			kfree(rdev->pm.dpm.ps);
- 			return -EINVAL;
-+		}
- 		ps = kzalloc(sizeof(struct sumo_ps), GFP_KERNEL);
- 		if (ps == NULL) {
- 			kfree(rdev->pm.dpm.ps);
--- 
-2.34.1
-
+PiBBbSAwMy4xMi4yMyB1bSAxODoxNiBzY2hyaWViIFpoaXBlbmcgTHU6Cj4gPiBUaGUgcmRldi0+
+cG0uZHBtLnBzIGFsbG9jYXRlZCBieSBrY2FsbG9jIHNob3VsZCBiZSBmcmVlZCBpbiBldmVyeQo+
+ID4gZm9sbG93aW5nIGVycm9yLWhhbmRsaW5nIHBhdGguIEhvd2V2ZXIsIGluIHRoZSBlcnJvci1o
+YW5kbGluZyBvZgo+ID4gcmRldi0+cG0ucG93ZXJfc3RhdGVbaV0uY2xvY2tfaW5mbyB0aGUgcmRl
+di0+cG0uZHBtLnBzIGlzIG5vdCBmcmVlZCwKPiA+IHJlc3VsdGluZyBpbiBhIG1lbWxlYWsgaW4g
+dGhpcyBmdW5jdGlvbi4KPiA+Cj4gPiBGaXhlczogODBlYTJjMTI5Yzc2ICgiZHJtL3JhZGVvbi9r
+bXM6IGFkZCBkcG0gc3VwcG9ydCBmb3Igc3VtbyBhc2ljcyAodjIpIikKPiA+IFNpZ25lZC1vZmYt
+Ynk6IFpoaXBlbmcgTHUgPGFsZXhpb3VzQHpqdS5lZHUuY24+Cj4gPiAtLS0KPiA+ICAgZHJpdmVy
+cy9ncHUvZHJtL3JhZGVvbi9zdW1vX2RwbS5jIHwgMSArCj4gPiAgIDEgZmlsZSBjaGFuZ2VkLCAx
+IGluc2VydGlvbigrKQo+ID4KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9u
+L3N1bW9fZHBtLmMgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3N1bW9fZHBtLmMKPiA+IGluZGV4
+IGY3NGYzODFhZjA1Zi4uYmRlNjQwMDUzNzA4IDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL3JhZGVvbi9zdW1vX2RwbS5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3N1
+bW9fZHBtLmMKPiA+IEBAIC0xNDk0LDYgKzE0OTQsNyBAQCBzdGF0aWMgaW50IHN1bW9fcGFyc2Vf
+cG93ZXJfdGFibGUoc3RydWN0IHJhZGVvbl9kZXZpY2UgKnJkZXYpCj4gPiAgIAkJbm9uX2Nsb2Nr
+X2luZm8gPSAoc3RydWN0IF9BVE9NX1BQTElCX05PTkNMT0NLX0lORk8gKikKPiA+ICAgCQkJJm5v
+bl9jbG9ja19pbmZvX2FycmF5LT5ub25DbG9ja0luZm9bbm9uX2Nsb2NrX2FycmF5X2luZGV4XTsK
+PiA+ICAgCQlpZiAoIXJkZXYtPnBtLnBvd2VyX3N0YXRlW2ldLmNsb2NrX2luZm8pCj4gPiArCQkJ
+a2ZyZWUocmRldi0+cG0uZHBtLnBzKTsKPiA+ICAgCQkJcmV0dXJuIC1FSU5WQUw7Cj4gCj4gVGhh
+dCBjaGFuZ2UgaXMgb2J2aW91c2x5IG5vdCBjb3JyZWN0IHNpbmNlIHlvdSBub3cgYWx3YXlzIHJl
+dHVybiAtRUlOVkFMLgo+IAo+IFlvdSBuZWVkIHRvIGF0IGxlYXN0IGFkZCB7fSBoZXJlLgo+IAoK
+SSdtIHNvcnJ5IGZvciBteSBtaXN0YWtlIGFuZCBJJ2xsIHNlbmQgYSBuZXcgcGF0Y2ggc29vbi4K
+ClJlZ2FyZHMsClpoaXBlbmcK
