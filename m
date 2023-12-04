@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B880CC10DC1
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Dec 2023 20:36:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F04A0C10DC3
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Dec 2023 20:36:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1AC410E3FD;
-	Mon,  4 Dec 2023 20:36:07 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38D6210E3F5;
- Mon,  4 Dec 2023 20:35:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4650110E3FA;
+	Mon,  4 Dec 2023 20:36:53 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB42D10E3FB;
+ Mon,  4 Dec 2023 20:36:49 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id AB6B9CE12EB;
- Mon,  4 Dec 2023 20:35:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB8F6C433C8;
- Mon,  4 Dec 2023 20:35:49 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 83D71B81216;
+ Mon,  4 Dec 2023 20:36:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77B52C433C8;
+ Mon,  4 Dec 2023 20:36:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1701722154;
- bh=a0s+k8aeyTC35CbI0jKcj2VEDUuAAbSTdZ1FtFsjqqI=;
+ s=k20201202; t=1701722207;
+ bh=7SpBkG5U3H0DpwISDYrm1eepjOwjk1foe+S2EwXq48I=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Al45rq+vzekfOwbePlSFKyw0NtukIY9X4RhmsLbz74CjEe6ja/u32J2jcJIl6rJ42
- JehVYq0q9a3zxCpmzHvxie80tvayoBFuNvZcvh99Zk5CY2/OOMB8fYRvitIVrM23Ig
- r6UMfGki6LnIF/1Ex24WmgUSMX3uMJqPNmGFeN/IM4hQc5oM2wJD6SgtJYYJd0W/xT
- TBUVXm51EQyztlLhOJVKSG3oTO1gdIISYvdLwaoqdT05vUCqN1CTb/wcLReKQty9Uy
- TcgQf8I1DmSAiM6M0eP/jV9XKP1ptBvP7KeLvc7QmwxF9Wh608062xoT0n/Tph8iw/
- uWSZoVZKT8WjA==
+ b=dlmCToECEuMdVMaLy1wjCa9pL2/ob+BwBgIzw6eO6KFAvjcdVkeDhmKyAU9A63jfv
+ a7B4yS8Fb6acQuDICsTPYjvxERV77uHqnHaORk7WYhXAvshFbaXe8b+ExeP/aUumfc
+ TLY09JCk+cqh8u+qtaO9nzXzkPmBE/8HkZCWwGKiRFfEtCkntYVmOBvab2N2u/kfJm
+ WO/GJzXkXghDMR6ovuoTrkZ2HBYcBBw2hmZk5pWvEH9k2iIwrNFOjEmfqxhK1mGhJA
+ V2ZmLmv4cjBeAXgLaizhQ4XTv93XyryTU3N1GtK3mp6hAHF4mt6KkoeNW2mSXPdN3X
+ KRMFAH16qtoPQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 13/17] drm/amd/display: update dcn315 lpddr pstate
- latency
-Date: Mon,  4 Dec 2023 15:34:58 -0500
-Message-ID: <20231204203514.2093855-13-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 09/10] drm/amdgpu: Fix cat debugfs
+ amdgpu_regs_didt causes kernel null pointer
+Date: Mon,  4 Dec 2023 15:36:06 -0500
+Message-ID: <20231204203616.2094529-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231204203514.2093855-1-sashal@kernel.org>
-References: <20231204203514.2093855-1-sashal@kernel.org>
+In-Reply-To: <20231204203616.2094529-1-sashal@kernel.org>
+References: <20231204203616.2094529-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.1.65
+X-stable-base: Linux 5.15.141
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,76 +55,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: aric.cyr@amd.com, trix@redhat.com, dri-devel@lists.freedesktop.org,
- Josip.Pavic@amd.com, Sasha Levin <sashal@kernel.org>,
- Charlene Liu <charlene.liu@amd.com>, airlied@gmail.com,
- Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org,
- harry.wentland@amd.com, HaoPing.Liu@amd.com, Jingwen.Zhu@amd.com,
- sunpeng.li@amd.com, Daniel Wheeler <daniel.wheeler@amd.com>,
- Tom Chung <chiahsuan.chung@amd.com>, qingqing.zhuo@amd.com, Xinhui.Pan@amd.com,
- christian.koenig@amd.com, Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
- Nicholas.Kazlauskas@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, tom.stdenis@amd.com,
+ Praful.Swarnakar@amd.com, srinivasan.shanmugam@amd.com,
+ shashank.sharma@amd.com, Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
+ victorchengchi.lu@amd.com, Lu Yao <yaolu@kylinos.cn>, le.ma@amd.com,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, andrealmeid@igalia.com,
+ airlied@gmail.com,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>
+From: Lu Yao <yaolu@kylinos.cn>
 
-[ Upstream commit c92da0403d373c03ea5c65c0260c7db6762013b0 ]
+[ Upstream commit 2161e09cd05a50d80736fe397145340d2e8f6c05 ]
 
-[WHY/HOW]
-Increase the pstate latency to improve ac/dc transition
+For 'AMDGPU_FAMILY_SI' family cards, in 'si_common_early_init' func, init
+'didt_rreg' and 'didt_wreg' to 'NULL'. But in func
+'amdgpu_debugfs_regs_didt_read/write', using 'RREG32_DIDT' 'WREG32_DIDT'
+lacks of relevant judgment. And other 'amdgpu_ip_block_version' that use
+these two definitions won't be added for 'AMDGPU_FAMILY_SI'.
 
-Reviewed-by: Charlene Liu <charlene.liu@amd.com>
-Acked-by: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+So, add null pointer judgment before calling.
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Lu Yao <yaolu@kylinos.cn>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c    | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-index 893991a0eb971..28b83133db910 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-@@ -324,7 +324,7 @@ static struct wm_table lpddr5_wm_table = {
- 		{
- 			.wm_inst = WM_A,
- 			.wm_type = WM_TYPE_PSTATE_CHG,
--			.pstate_latency_us = 11.65333,
-+			.pstate_latency_us = 129.0,
- 			.sr_exit_time_us = 11.5,
- 			.sr_enter_plus_exit_time_us = 14.5,
- 			.valid = true,
-@@ -332,7 +332,7 @@ static struct wm_table lpddr5_wm_table = {
- 		{
- 			.wm_inst = WM_B,
- 			.wm_type = WM_TYPE_PSTATE_CHG,
--			.pstate_latency_us = 11.65333,
-+			.pstate_latency_us = 129.0,
- 			.sr_exit_time_us = 11.5,
- 			.sr_enter_plus_exit_time_us = 14.5,
- 			.valid = true,
-@@ -340,7 +340,7 @@ static struct wm_table lpddr5_wm_table = {
- 		{
- 			.wm_inst = WM_C,
- 			.wm_type = WM_TYPE_PSTATE_CHG,
--			.pstate_latency_us = 11.65333,
-+			.pstate_latency_us = 129.0,
- 			.sr_exit_time_us = 11.5,
- 			.sr_enter_plus_exit_time_us = 14.5,
- 			.valid = true,
-@@ -348,7 +348,7 @@ static struct wm_table lpddr5_wm_table = {
- 		{
- 			.wm_inst = WM_D,
- 			.wm_type = WM_TYPE_PSTATE_CHG,
--			.pstate_latency_us = 11.65333,
-+			.pstate_latency_us = 129.0,
- 			.sr_exit_time_us = 11.5,
- 			.sr_enter_plus_exit_time_us = 14.5,
- 			.valid = true,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index beb199d13451b..632d8df04ef45 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -342,6 +342,9 @@ static ssize_t amdgpu_debugfs_regs_didt_read(struct file *f, char __user *buf,
+ 	if (size & 0x3 || *pos & 0x3)
+ 		return -EINVAL;
+ 
++	if (!adev->didt_rreg)
++		return -EOPNOTSUPP;
++
+ 	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
+ 	if (r < 0) {
+ 		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+@@ -401,6 +404,9 @@ static ssize_t amdgpu_debugfs_regs_didt_write(struct file *f, const char __user
+ 	if (size & 0x3 || *pos & 0x3)
+ 		return -EINVAL;
+ 
++	if (!adev->didt_wreg)
++		return -EOPNOTSUPP;
++
+ 	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
+ 	if (r < 0) {
+ 		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
 -- 
 2.42.0
 
