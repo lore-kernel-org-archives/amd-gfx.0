@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08FA1C10DC1
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Dec 2023 09:09:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19E4FC10DC1
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Dec 2023 09:09:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3E3110E306;
-	Mon,  4 Dec 2023 09:09:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C56C810E309;
+	Mon,  4 Dec 2023 09:09:22 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de
  [IPv6:2a07:de40:b251:101:10:150:64:2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A2FA10E2F4;
- Mon,  4 Dec 2023 09:09:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C31BB10E2F0;
+ Mon,  4 Dec 2023 09:09:05 +0000 (UTC)
 Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 646951FE61;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B0BFA1FE62;
  Mon,  4 Dec 2023 09:09:03 +0000 (UTC)
 Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 1DA5D13588;
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 68FFF13B47;
  Mon,  4 Dec 2023 09:09:03 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap2.dmz-prg2.suse.org with ESMTPSA id OM5DBi+XbWV+KAAAn2gu4w
+ by imap2.dmz-prg2.suse.org with ESMTPSA id eKezGC+XbWV+KAAAn2gu4w
  (envelope-from <tzimmermann@suse.de>); Mon, 04 Dec 2023 09:09:03 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: mripard@kernel.org, maarten.lankhorst@linux.intel.com, daniel@ffwll.ch,
  airlied@gmail.com, suijingfeng@loongson.cn
-Subject: [PATCH v2 6/8] drm/ofdrm: Do not include <drm/drm_plane_helper.h>
-Date: Mon,  4 Dec 2023 10:07:51 +0100
-Message-ID: <20231204090852.1650-7-tzimmermann@suse.de>
+Subject: [PATCH v2 7/8] drm/simpledrm: Do not include <drm/drm_plane_helper.h>
+Date: Mon,  4 Dec 2023 10:07:52 +0100
+Message-ID: <20231204090852.1650-8-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20231204090852.1650-1-tzimmermann@suse.de>
 References: <20231204090852.1650-1-tzimmermann@suse.de>
@@ -48,12 +48,12 @@ Authentication-Results: smtp-out2.suse.de; dkim=none;
  permitted nor denied by domain of tzimmermann@suse.de)
  smtp.mailfrom=tzimmermann@suse.de
 X-Rspamd-Server: rspamd2
-X-Spamd-Result: default: False [10.02 / 50.00]; RCVD_VIA_SMTP_AUTH(0.00)[];
- ARC_NA(0.00)[]; FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; R_MISSING_CHARSET(2.50)[];
- MIME_GOOD(-0.10)[text/plain];
+X-Spamd-Result: default: False [10.10 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ R_MISSING_CHARSET(2.50)[]; MIME_GOOD(-0.10)[text/plain];
  FREEMAIL_ENVRCPT(0.00)[gmail.com]; BROKEN_CONTENT_TYPE(1.50)[];
- R_SPF_SOFTFAIL(4.60)[~all]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_SPF_SOFTFAIL(4.60)[~all:c]; NEURAL_HAM_LONG(-1.00)[-1.000];
  R_RATELIMIT(0.00)[to_ip_from(RLw1715dab7ink4c1kuyfofm5y)];
  RCVD_COUNT_THREE(0.00)[3]; MX_GOOD(-0.01)[];
  RCPT_COUNT_TWELVE(0.00)[12]; MID_CONTAINS_FROM(1.00)[];
@@ -61,9 +61,9 @@ X-Spamd-Result: default: False [10.02 / 50.00]; RCVD_VIA_SMTP_AUTH(0.00)[];
  FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,ffwll.ch,gmail.com,loongson.cn]; 
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
  R_DKIM_NA(2.20)[]; MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
- BAYES_HAM(-0.77)[84.34%];
+ BAYES_HAM(-0.69)[83.20%];
  DMARC_POLICY_SOFTFAIL(0.10)[suse.de : No valid SPF, No valid DKIM,none]
-X-Rspamd-Queue-Id: 646951FE61
+X-Rspamd-Queue-Id: B0BFA1FE62
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,21 +89,21 @@ required by most drivers. No functional changes.
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 Reviewed-by: Sui Jingfeng <suijingfeng@loongson.cn>
 ---
- drivers/gpu/drm/tiny/ofdrm.c | 1 -
+ drivers/gpu/drm/tiny/simpledrm.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tiny/ofdrm.c b/drivers/gpu/drm/tiny/ofdrm.c
-index 05a72473cfc65..ab89b7fc7bf61 100644
---- a/drivers/gpu/drm/tiny/ofdrm.c
-+++ b/drivers/gpu/drm/tiny/ofdrm.c
-@@ -19,7 +19,6 @@
+diff --git a/drivers/gpu/drm/tiny/simpledrm.c b/drivers/gpu/drm/tiny/simpledrm.c
+index 34bbbd7b53dd9..7ce1c46176750 100644
+--- a/drivers/gpu/drm/tiny/simpledrm.c
++++ b/drivers/gpu/drm/tiny/simpledrm.c
+@@ -25,7 +25,6 @@
  #include <drm/drm_gem_shmem_helper.h>
  #include <drm/drm_managed.h>
  #include <drm/drm_modeset_helper_vtables.h>
 -#include <drm/drm_plane_helper.h>
  #include <drm/drm_probe_helper.h>
- #include <drm/drm_simple_kms_helper.h>
  
+ #define DRIVER_NAME	"simpledrm"
 -- 
 2.43.0
 
