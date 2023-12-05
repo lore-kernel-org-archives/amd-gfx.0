@@ -4,118 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A59B0C4167B
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Dec 2023 22:02:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9723AC4167B
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Dec 2023 07:22:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6155210E428;
-	Mon,  4 Dec 2023 22:02:07 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2073.outbound.protection.outlook.com [40.107.220.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7994310E420;
- Mon,  4 Dec 2023 22:02:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06B9410E417;
+	Tue,  5 Dec 2023 07:22:24 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2058.outbound.protection.outlook.com [40.107.244.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 791DD10E417
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Dec 2023 07:22:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QeFlNOLH2Xj9Qv5uv+13szjAfbr2hEUEwcHuBC4PPsFmSr3mIPh5qGCFA+tp1f/5km1DR2QI/gHwCg49yml5MrVu0rljefm7PRcVrWnvyG8EtFqYCUg1lyCXLI2b1BYfs57cablhVYWYLdShW8U20cbes/83vmvqCv1sBV1vuCKNfEOrSKlQ6cbO93WpeZfPEFw01zioYxsj+Auhzq3JI9HVmnLQmmDGH0ENeC/cQx75xq5KuR1rm8dItdtXFkWwZQFRn1VcdcG4qNXSD2h056O67lxJoDsxHwkzcwU4cEqvFTCiBU4XhKpFFdNOHpvmIwywDsPcYFZ6V6TTx9lrFA==
+ b=G4vTuCijQ/NnlVJ+Wh3WfNdzS+ax3vntxJuOUguQU4Cik00e8lZcPKu7spb0C1VVqF+UcqQE/OlQ26LNPFJq51L07bEApnq6dn3PqWE8IxGtoAgDXur6MPSCEoi+VOD5rK61QGSI/JDs6MC1S7w3ZmAPVuvLVgGwinxNHyCv0M9kRE2sWrQ3rMZYv/dRNXbwDG3C7wN3czzDpB9ZrBWyuDSmPQ/kAtXwSLafQgC7NAFNQcL273n92qycMJ4apzq0G9oLDMPq8IvFTESjEO9lZXYVbAbClJu8ohp22KBQgNAIKjKvBMaUuJAyjQlU35KPEYyvwq3rzCdhymhz2ksWsg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Sd+P41Ir9HW3wcp8ilfLwoF/5mQxjuZ61upbROgL/Kk=;
- b=WOKLuhyac9rAtgR4mavdc/i32pkEan49d0sMS7zK6P5PMeNw9gbPx2qNK11mDWwVGB/8tOZv737873myy21nr9F62r5Me3gDAhtJTVT95UPllzg6ZcSEXH/VdoE+INf2kmtv0spbd9+E8aurmwo4frVTkIn5OEA2vAZUF6hxjaxoDiLlGOL7OKVT+TEqcDbHFUFy8qB5NArAj7qLIlb1AtQ7lLDYJXPYYcxqFAy3eETsnzskktJocoXon2A+K4JNZLd5q9/kTSWAvbdcdiVA18ToTGx8MPcSPUXHbHYo3OualrQ3yuGH8so1N+jMFijk8hwQU9bhrX9BG8CwYaTEfQ==
+ bh=IujlPXLGAlVI6DhhUG8t6n7h1PeBtVYcUyz/Eec5P6g=;
+ b=DdPlAmcEQjcO0Du4EQClsAnE4LtAdxondc5BRa7s+peDEB+1IteBkXIqlkSiScwkURyn5NVs1x0c1RdfF/swmtgbCYcLhFiv1fKcp6M8A+PfmUPYtLXvaxMDg4UtAsLZwfdHmwlVpKh6Eg7z1LOzUA2dr1on/ewPvH37ozfL73DgnaKnBdkFmhRWICytUlOMMcqlPwtQOsXE9y7nGf7CMh1ZEVtmz+vT7WxZhrkLhie1MrGmNQfvDxRbNnheh4M1EerDRPwXdmWcXJtSSvilfFI+6NuP5KtUayjWBDyGlfzq5AqVNPA58+6ZVEZuz87/nQpnqHq9Xi6SsJwIbz6aLg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Sd+P41Ir9HW3wcp8ilfLwoF/5mQxjuZ61upbROgL/Kk=;
- b=OKJ77vYmhquN9iCOMFiqDYNrUu/kakkUVau9PpBLKRv+3C49D8QMAS+G+tCwLbRZMBzmD/5V3YIe6FyjPGh5v/UXodMaLwh7NsufLNVTPZty+XNsIm0Jx4QqUNnsd1eQIO++ulqAvpFKgbtVuBBaJWndrgnsBSP78fwP9lpRGFM=
+ bh=IujlPXLGAlVI6DhhUG8t6n7h1PeBtVYcUyz/Eec5P6g=;
+ b=vAon/PrEgQbJqVnjxBCS0Bd5JyrhOAluLE3p/eyGFsHemoxFivr6HbvMItjE6OxIZoEtPkcsnmuA2ncs5K1lr2X4s/Rm4HS4AbIPjBnA6A5R3cy0TQzkXAOgARxiww061n5z6bapqUF75JMRaIjtoBIPW7YpqPwyNWg6gKtBRWk=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by CY8PR12MB8299.namprd12.prod.outlook.com (2603:10b6:930:6c::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.29; Mon, 4 Dec
- 2023 22:01:57 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::7bfc:e32b:f362:60f3]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::7bfc:e32b:f362:60f3%5]) with mapi id 15.20.7046.033; Mon, 4 Dec 2023
- 22:01:57 +0000
-Message-ID: <734e2cb2-a666-4c8b-a37a-8cf605748ae6@amd.com>
-Date: Mon, 4 Dec 2023 17:01:55 -0500
+Received: from DM4PR12MB6351.namprd12.prod.outlook.com (2603:10b6:8:a2::6) by
+ MN2PR12MB4317.namprd12.prod.outlook.com (2603:10b6:208:1d0::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.34; Tue, 5 Dec
+ 2023 07:22:20 +0000
+Received: from DM4PR12MB6351.namprd12.prod.outlook.com
+ ([fe80::8650:7935:179:f18c]) by DM4PR12MB6351.namprd12.prod.outlook.com
+ ([fe80::8650:7935:179:f18c%4]) with mapi id 15.20.7046.033; Tue, 5 Dec 2023
+ 07:22:20 +0000
+Message-ID: <67fe48be-8e10-47f7-bf47-e819ed02e732@amd.com>
+Date: Tue, 5 Dec 2023 15:22:07 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] Revert "drm/prime: Unexport helpers for fd/handle
- conversion"
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-References: <20231201233438.1709981-1-Felix.Kuehling@amd.com>
- <408f223f-cb86-4ebc-b1db-26be0a964bfe@amd.com>
- <BL1PR12MB5144740B1E94C1BD2F7B73BBF786A@BL1PR12MB5144.namprd12.prod.outlook.com>
+Subject: Re: [PATCH v14 2/9] platform/x86/amd: Add support for AMD ACPI based
+ Wifi band RFI mitigation feature
+To: Hans de Goede <hdegoede@redhat.com>, Ma Jun <Jun.Ma2@amd.com>,
+ amd-gfx@lists.freedesktop.org, lenb@kernel.org, johannes@sipsolutions.net,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, alexander.deucher@amd.com, Lijo.Lazar@amd.com,
+ mario.limonciello@amd.com, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, platform-driver-x86@vger.kernel.org
+References: <20231129091348.3972539-1-Jun.Ma2@amd.com>
+ <20231129091348.3972539-3-Jun.Ma2@amd.com>
+ <99de0223-6d28-4379-ac2a-ef093ee0386c@redhat.com>
 Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <BL1PR12MB5144740B1E94C1BD2F7B73BBF786A@BL1PR12MB5144.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQXP288CA0026.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:c00:41::27) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+From: "Ma, Jun" <majun@amd.com>
+In-Reply-To: <99de0223-6d28-4379-ac2a-ef093ee0386c@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SG2PR01CA0163.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:28::19) To DM4PR12MB6351.namprd12.prod.outlook.com
+ (2603:10b6:8:a2::6)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CY8PR12MB8299:EE_
-X-MS-Office365-Filtering-Correlation-Id: d96cb71a-829c-4240-187b-08dbf514a26c
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6351:EE_|MN2PR12MB4317:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b29fc74-337c-4d8d-f8cf-08dbf562eae6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: m5JVyrcoRhL3idnRsoCnwqDdTafo1Xd1sfMVnX4S/IC9VJhmYuRqrwktsz7EWS1QdTm8x/M7sjzi59p0rnoPGeIcxMvP+PR/r3NjsWbGRWZbEfbx2XfZUthtVbMLD2hu60JNCA62qaqKb1vwDlooxgwnseEr+I9L/jDhnp3KxF94U8SRNrplssvIUg2eniRgcosflN81aufPQnEJfxoC01MGFtOaEOSKhXZ70ZBOyMuLTpDoNvE7iISMPcirPan35RFdy6Tw9B2AmEmA6u2IMh7tyoZEOjnV17bnSUuv+mKBjxz6qhmCwd8PEp498Ckhr0BhTp5bZpu4wGV0U6yEWonSB0XQgu9kMxAmjakGEz5wWCNkQgwqiEsqpifpS8aG/U6psUNF6hnyf0LJO7LXDQnwPYVDXLomZOvsXB//EUnKMM4/n/riioHGfG1ucADOZiWmmkExiKQ4aGS0eMDdg/NB8ZmJL8tFaZyE4PfIMsRMlonfXcEHqiQlKJKJ0ZOe8RC1cECqNLH8JT6U1WTZFwCm8MqiLxsr3HAdUw2DpT27jTUWog5CS9yqNMhVrKRlyCY9r3ZXom8pyQlCoXX09WaAkGOl2H83Wqv+nSxp1dUlRp8eAqc3NVySEKQzXv3oTCp4IN6PQzo/O9Tn+PaBOQ==
+X-Microsoft-Antispam-Message-Info: DsC0tE+n7kJlOFHx4M+Uu1qD2XOQVNsGVHyPA03a36/wbIYflT3iNfZ2BebPq4gfzvW8hd2o9nrW9+1tL/UOmPt+VyJGU3A3qcQbK1juSTMYvbJeoAg/gzdknPxN9WAbG+PWZTlRZapVEBo+I/mBY8CIEp2wAqksMH6B3VqWow0j9MbUlnFcE5kbOTJlXx/AO60PfnvJtvGm7Bt2oU2Zic3s+zYsTkwi8ogySF5jJO2bBQZVXD7HwI14DtCSUf5ZP80ZeXs4WL8+vREMAS8om1ItgQDEsIerFAqeqy3dL51bwwBXodfjMOz2TIZxOYdnWFYeCYMcJxfjPe2LQds3y1dWMaHL5f7RAJ8y4akZleNveZNMY1x0RQwA4UVU9bx8/J9mNvz7GXWgTXAJJUhKoTpSSBflHg7glAhs+qibIGGc4n/KamkfRthB/N3/syNJHvh1o34rI7DKfsWsqDQR9L1w553Lu5rXX5qN5NuRCfoXnMh/GSKIBSsw2BTSWDWwCZFg9QJdVy09TDEyhU2u7pztIemiJ5gjUFiGen8MSpvASb//L32YvEv+seuiCerLrmK/AyM2UaC09f7Xu5plRfFemaRun1DvO0AlgzPImpaVyqgPEUp/1frOgtOZIKQAnshralq+sNXIgBgYHuUFaqssYKydpd+982/zfxrShik=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(346002)(366004)(376002)(39860400002)(136003)(230922051799003)(186009)(1800799012)(451199024)(64100799003)(2906002)(31686004)(316002)(44832011)(478600001)(110136005)(53546011)(6512007)(66556008)(8676002)(6506007)(66946007)(41300700001)(5660300002)(966005)(4326008)(6486002)(26005)(66574015)(2616005)(83380400001)(66476007)(8936002)(54906003)(38100700002)(86362001)(31696002)(36756003)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6351.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(376002)(39860400002)(396003)(366004)(346002)(230922051799003)(451199024)(64100799003)(186009)(1800799012)(31686004)(921008)(6512007)(45080400002)(478600001)(6506007)(8676002)(6486002)(53546011)(2616005)(6666004)(26005)(110136005)(4326008)(66476007)(66556008)(66946007)(83380400001)(8936002)(316002)(38100700002)(7416002)(36756003)(41300700001)(5660300002)(31696002)(2906002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b1VhbnpGN09mbEQ0NklKN25BUlBkSytOZDJLc0tmbVFxdTYwb2kvQ2MxUVlq?=
- =?utf-8?B?VVpsdElwc0ZwRzdEbUFub1luWUhGb3IxeE5ZcGNvK2l0c1JoeXpVOFAxRklS?=
- =?utf-8?B?RnRac1k1TDZlWmFmYnA2Vm9mbDg0QnE4b1BSclh0RStZTkhXZmVOUFgxQ2tY?=
- =?utf-8?B?dFpJQXBMZEJLV0ZkR3hCU2llUjkxMCt4MFFCUExPYVFDLzZ3NFJhVTRtZWJ6?=
- =?utf-8?B?LzJISitqand3RytDZXozRDlpYkE4ZktCUjBsa3RySCtoOXNHS2ErVkVjTFZG?=
- =?utf-8?B?bHNhUlYwSWdDOGNORlhlVTF3UXd0M2xRdXBZM0lQeSsyNVpBK0M1dDd1citl?=
- =?utf-8?B?bE52UVIvWDZiZUNySG5FV01mbmhXMnJ0SndMaHhWR2NBcWhtRUVsQ3grd0Jx?=
- =?utf-8?B?c3NYQ01vcHFGUy80akdTaUdjSkRXZUxSNVJRbm1lV3JxNFZpb0xOU01JaU9T?=
- =?utf-8?B?SmJIMWFERlBBSEVmdytWUXJna1NRN0gxMktPS1d5dFpnQmRRT3ExalJJU0Z5?=
- =?utf-8?B?K2NWZEFGak9pK1l2UkgwUVlseUJxY2p3UUVLYjg2dHVaWG1nMDI4NU16bEVn?=
- =?utf-8?B?NGt6YjNzcllqTHRKQ296WkVNYzlMMUJtRWpiS3J4QlFvUXBKeVArc1l1U3NZ?=
- =?utf-8?B?UXYrZURseXMxVUhheDVITUlVVENKajMzdnV4ZnFMNkh2WktqRlh1NUd0WDc1?=
- =?utf-8?B?amo3MW5Ba0dOZW82b0Jrd3Z3c01aY1R2N2tIeG1jOFBKcXUvWXl1cWkxTUxw?=
- =?utf-8?B?eFkvaHFiVDBNOHZtcStSbVdRcnpIMVEyUUVFSFFCTEFsTkVCRVhJV0dIYzJt?=
- =?utf-8?B?bjhyVks1UEF4MTdpT2NybzFhc2hSWGt5bFZjUkxIMVI2UVpKYnZ6ZHlJWFox?=
- =?utf-8?B?ZHFEaGJZL2RnZWkzZGROM2VUYnFDVVF2c01rZlNMWWtlRUYrcnNucU14YTBL?=
- =?utf-8?B?ZWVEZlNoQkxIN2dIc281RC9NNkl6SmpNa2hSbTd5SHhub3ozYlhoN21WM1JL?=
- =?utf-8?B?YldkNzVOMFdZWmZoM1JCN0x4ZG8wWDlseDF4QWVxbzhhZ3p2dGxYSjNOTzJw?=
- =?utf-8?B?akVHaWwvMjlVY25jVitsdnFqekNrUko1Z0REUW8vTFN3YkVpbHY5YXRHcFZJ?=
- =?utf-8?B?UE0vV1ZLTkdZQ2FNNnJ4Um45VDJUYmVwMFFLamUyOWtqaU00VDBLQUl2OStF?=
- =?utf-8?B?NHh5UVpHOE9KV09QcHFLeUVTc1hUa1hoMlIxNi9hbVptaytSSDY5SFdBUFpu?=
- =?utf-8?B?cnN0SGszdHA3L2E2SkkvaWlLQ2drY0hmSWNWdUc1WlpkOEIzUXc2TDhFS3ha?=
- =?utf-8?B?V2FvTkFNS2FYazNMYXJGOUdxUGhIVENaa3JlT0lsRXdscmhZOEVieE10ZXJh?=
- =?utf-8?B?V3piL1hJckN1Y2U5WGVNVThKWXUvcURpOXAvTVJEQzNCekRINTdzcDBMZ0VX?=
- =?utf-8?B?emlybytHb2RRcUJBU2htVk9jSG1UUFNlWGtwRUV1RnlkQmNGcWRPRnZyVkds?=
- =?utf-8?B?RUsrTU5ONUk5cTdpcUxaK1BrQU1la21NUWJUSmpmRXFHK2tBZDVnaW9DVEJr?=
- =?utf-8?B?WURMYUZiRkdVQWk5ZnZSeXErbTMrVEZUenY2WkhXSHdyYTFCQzM1VXpyOVRz?=
- =?utf-8?B?MU40QWdFM3FQU3IzSUhIdi93TXhud1hZQjZrc0taS3cya0FqWmpKeDJ1M05j?=
- =?utf-8?B?Tk5rdzVLbGZQeUpkRXpMYngzUytQdkcvNjNvbnlyYUJsTCtnRkVlV0hTT1dj?=
- =?utf-8?B?N0t0TGlLNWFLN1VxQWpWNVpqbzNFNXpBMVNpNzI5NXM2OGRITk8wdkE0NXF5?=
- =?utf-8?B?K0taVkRySVBOdURWZHVpVnRsdzRCdXpDY29YYktDT09EbHhHNmNON253SXNx?=
- =?utf-8?B?L2pQdzRJayt4T1VhelczOVovTUZVZ0FIRGwyZEdEM3VwRjZONW5DY0hIV1NS?=
- =?utf-8?B?Y1dBeXhRWWJFei9DazJrdXZ5aG84elVJWjY4MHlxRmIwU3Y5dVR4OHdHQit3?=
- =?utf-8?B?NE81RnIrSERIcTJ3c0lCYVJsQ0ZpS3h0Z1UzUldtWkVNaDh4LzdXbFpGUXpK?=
- =?utf-8?B?SU9FQldhVUoxMjZKSzVkZ1EvdU1OWWc2bGxMa1owdHFzWmJzWElFZkpNS2JB?=
- =?utf-8?Q?XOgFAzs6gikIAdsnQqY1ipdkp?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dk15T1h0Q2gyU2tleWZQbG9qaWZoUExHWCtacmdXTUMxN1d3eGFWVllnVnFO?=
+ =?utf-8?B?ZUxUZGZwclY2aUUwYVh2bXhsZ09oZUdIS3p5ZGVSN1VuVDdza2RGaTVYOUoz?=
+ =?utf-8?B?ZGRiVlZvdWE5UnN5L1IwOVg2eVBoa2E2N2tnUHBoTVE4cEx1UVJhZ2JxVXc3?=
+ =?utf-8?B?TWwrMWJ6MmFNUDRrSzRUY0FRQWdYODlYQ0IzZFZac1YxU29tVFN3OE51OVRy?=
+ =?utf-8?B?UlJwaUdYcGtWeXd4NjRrUE96MElialNGQysydEJCZ3JZNENWZ0Y3TG1wNTRy?=
+ =?utf-8?B?UkNZUXRzTFlkMnVEa3dCVDYzRW5ERXVxVUdqQkI5V2MyWUtQYnBrdVYrMk1n?=
+ =?utf-8?B?WkJmODNtcDF1MnNXWHl6Zy8zblRhUG1Ca0Y1UCtnVTBYNk1lVW9FOGV2bW4w?=
+ =?utf-8?B?RUpORmRzMzBnZVEvbmpyUytxbnpGeWpHR2JXUDdCakJQWmtzMXNidi9LQkF0?=
+ =?utf-8?B?TmZNbXVtZXhKZkcxSis0Z0FXdGRpb3RIYkVZY0M5cGZpQkY0Ynp1VVQvejBT?=
+ =?utf-8?B?bUhpWmNjQ3FFYkpQdUZ6TVFHZm9xbmx2elJOQlg5LzA0V0ZkQmw4aWNiQlhE?=
+ =?utf-8?B?ckNZZUgwM3RUYVdTMzFodUsySkNoRVRhbTBpUlJ0amxRNTMrYjcyY3ZTaE02?=
+ =?utf-8?B?TE40R25nWHVBQ09iN0FLZG92UytzanRjRHkrNEtaNjJ5WEIxckRiSWZnSE9o?=
+ =?utf-8?B?bmZMd3R0eDRPRGhWTnlkc3VXRlNhNk11YWgweVRtTFZYdUdNamdoUC9tSlRD?=
+ =?utf-8?B?RnVJRWQzRCtIR3BnNFd6dGZrbmJpR1VuTDNrRXFaZ1dGYzMzbkRkVGY3cXpR?=
+ =?utf-8?B?WEVDVno2alNRcHlyUmkzNkJiaVo5VHR1V1F5YUdiRzJwdkt1bUZ2WjRxUEdH?=
+ =?utf-8?B?OUdLUDdqcFkvTnBNa1F4dms3RTQ2SExJNTlyeTZxc1dMSTNhOFZkc1FEVDlk?=
+ =?utf-8?B?cE42aFBjUlNiUnVheDZZOEUrTWRCb1lkei95MlBXb1NzZjZTbGZoUU9ZMlJN?=
+ =?utf-8?B?VlNUcUx5Ukw0ZDI1d2Qwekd2WVMzT1BFdE5zY2JvbTI2L0FXSVAxSFM4TXE3?=
+ =?utf-8?B?REdhSmJPbHBJS2tlR256Zkp2ZThCeDg4bWoxOWdMVGdsdkN2NUlGcFYxM1h5?=
+ =?utf-8?B?MFg0bE05UUlhbmkyWGNpYmxEZVd6M0xISlJoZXZnMEtnZHhEVURPckhCYlAv?=
+ =?utf-8?B?U25wdEJzZGt5SHRBbXRndyt0QVhyeHJiMnV2Rzh2Y0lZK0NqdjJvckZnOTQ3?=
+ =?utf-8?B?dDhYQlVTcVBrN05lU0k0OFc2VVZSZ1pnaW0rOFdLdytJVzAvVXEyMlhZMzBy?=
+ =?utf-8?B?a2RML2EzV1FGZzEzcEMwclREN2NwakFxNDBUNTBiTUxZSkh3Y2RtMnhxdWxu?=
+ =?utf-8?B?d1ppZjNLemhmWkRQWkk0R050eDNNL0k2Y2p4Qzg2TnEvL3ZBckZRYVFkRXZP?=
+ =?utf-8?B?SXhOYU04K3o0OFpkRk5PNlhPRUE0RkdKTTNmOHFsRlpmZlA5WldpeDBZVDRk?=
+ =?utf-8?B?d3B2RGZEWG1vVlZNakdGSWFvRWNqZmkyN0VOTEcxOWptd29ia0NMM255OEhS?=
+ =?utf-8?B?cnEvbUJlOFNScCt3N1F0NGlwZUJ6a3lXSVQwYzBYMVBqSGd4VEZQMGliTGhk?=
+ =?utf-8?B?NGlxWlBoOEdreXkyeEd0VjFvVnQzTmEvdjVIRWRpT2p3MlE5d2xycTJLNDdD?=
+ =?utf-8?B?aFhKNndxUmJnUlA2NkI0N0U4c1F4S05pTVdKY2k0ZU53NE04cFVOTmVseWdO?=
+ =?utf-8?B?cEZ0N3ZiSysrL0RnNGZQWWNheUNBMGIxQ0h2V2dLeWNYUEk5WTJOWE5uTlc1?=
+ =?utf-8?B?Y2lMaGxjQ1dFTVNzNGNaenl3WENZS01tall6S2lSQzE1ZHp4M0ZqckVwRGwz?=
+ =?utf-8?B?VXR1cW8rVUJEaEp3N1VrM3F2ZlExcjQvQTd0RzBoUUlNWnZOUnhlSkNOa3NQ?=
+ =?utf-8?B?YVgwRlNqUUJUeW9MTjBTYThFem9hOTZQN0twSEpybmpvODVBU2k0ZFhKZ1VG?=
+ =?utf-8?B?Q1hzK2VTbTl4T0t5VDl0TGFNWThnZG4vd0dhOVRzVTlSWEtJdHFqL3NBcTN1?=
+ =?utf-8?B?UXhpWDlhUFg0V1M0bUVlOWprZkFtY053bVhjYjl1aDh5V0J4T09jMHhGd3gw?=
+ =?utf-8?Q?b2oo8KXryhj0GBhXWSBTU5SJr?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d96cb71a-829c-4240-187b-08dbf514a26c
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b29fc74-337c-4d8d-f8cf-08dbf562eae6
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6351.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Dec 2023 22:01:57.8133 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Dec 2023 07:22:20.1019 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bWyZrkYv8zkVXBtdC+U+CmFBaWItfwWDHFQ88lQ9pFt57jlmAzqyX0puJiSXDqR6In1xA5sb3NO+P6S6T86KOA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8299
+X-MS-Exchange-CrossTenant-UserPrincipalName: VPndJ1BryngIR45G1rfY9+DLFRPMBmIB3oXXrrqY8GyVBOSuP0IDaPIYVD74g+J8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4317
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,192 +131,155 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Evan Quan <quanliangl@hotmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Hans,
 
-On 2023-12-04 12:49, Deucher, Alexander wrote:
-> [AMD Official Use Only - General]
->
->> -----Original Message-----
->> From: Kuehling, Felix <Felix.Kuehling@amd.com>
->> Sent: Friday, December 1, 2023 6:40 PM
->> To: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; Deucher,
->> Alexander <Alexander.Deucher@amd.com>
->> Cc: Daniel Vetter <daniel@ffwll.ch>; Koenig, Christian
->> <Christian.Koenig@amd.com>; Thomas Zimmermann
->> <tzimmermann@suse.de>
->> Subject: Re: [PATCH 1/6] Revert "drm/prime: Unexport helpers for fd/handle
->> conversion"
+On 12/4/2023 9:00 PM, Hans de Goede wrote:
+> Hi,
+> 
+> On 11/29/23 10:13, Ma Jun wrote:
+>> Due to electrical and mechanical constraints in certain platform designs
+>> there may be likely interference of relatively high-powered harmonics of
+>> the (G-)DDR memory clocks with local radio module frequency bands used
+>> by Wifi 6/6e/7.
 >>
->> Hi Alex,
+>> To mitigate this, AMD has introduced a mechanism that devices can use to
+>> notify active use of particular frequencies so that other devices can make
+>> relative internal adjustments as necessary to avoid this resonance.
 >>
->> I'm about to push patches 1-3 to the rebased amd-staging-drm-next. It would
->> be good to get patch 1 into drm-fixes so that Linux 6.6 will be the only kernel
->> without these prime helpers. That would minimize the hassle for DKMS driver
->> installations on future distros.
-> Already done:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=0514f63cfff38a0dcb7ba9c5f245827edc0c5107
-
-Thank you, all! I also saw Sasha Levin is backporting it to 6.6.
-
-Cheers,
-   Felix
-
-
->
-> Alex
->
->> Thanks,
->>     Felix
+>> Co-developed-by: Evan Quan <quanliangl@hotmail.com>
+>> Signed-off-by: Evan Quan <quanliangl@hotmail.com>
+>> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
 >>
->>
->> On 2023-12-01 18:34, Felix Kuehling wrote:
->>> This reverts commit 71a7974ac7019afeec105a54447ae1dc7216cbb3.
->>>
->>> These helper functions are needed for KFD to export and import DMABufs
->>> the right way without duplicating the tracking of DMABufs associated
->>> with GEM objects while ensuring that move notifier callbacks are
->>> working as intended.
->>>
->>> Acked-by: Christian König <christian.koenig@amd.com>
->>> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
->>> Acked-by: Daniel Vetter <daniel@ffwll.ch>
->>> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
->>> ---
->>>    drivers/gpu/drm/drm_prime.c | 33 ++++++++++++++++++---------------
->>>    include/drm/drm_prime.h     |  7 +++++++
->>>    2 files changed, 25 insertions(+), 15 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
->>> index 63b709a67471..834a5e28abbe 100644
->>> --- a/drivers/gpu/drm/drm_prime.c
->>> +++ b/drivers/gpu/drm/drm_prime.c
->>> @@ -278,7 +278,7 @@ void drm_gem_dmabuf_release(struct dma_buf
->> *dma_buf)
->>>    }
->>>    EXPORT_SYMBOL(drm_gem_dmabuf_release);
->>>
->>> -/*
->>> +/**
->>>     * drm_gem_prime_fd_to_handle - PRIME import function for GEM drivers
->>>     * @dev: drm_device to import into
->>>     * @file_priv: drm file-private structure @@ -292,9 +292,9 @@
->>> EXPORT_SYMBOL(drm_gem_dmabuf_release);
->>>     *
->>>     * Returns 0 on success or a negative error code on failure.
->>>     */
->>> -static int drm_gem_prime_fd_to_handle(struct drm_device *dev,
->>> -                                 struct drm_file *file_priv, int prime_fd,
->>> -                                 uint32_t *handle)
->>> +int drm_gem_prime_fd_to_handle(struct drm_device *dev,
->>> +                          struct drm_file *file_priv, int prime_fd,
->>> +                          uint32_t *handle)
->>>    {
->>>      struct dma_buf *dma_buf;
->>>      struct drm_gem_object *obj;
->>> @@ -360,6 +360,7 @@ static int drm_gem_prime_fd_to_handle(struct
->> drm_device *dev,
->>>      dma_buf_put(dma_buf);
->>>      return ret;
->>>    }
->>> +EXPORT_SYMBOL(drm_gem_prime_fd_to_handle);
->>>
->>>    int drm_prime_fd_to_handle_ioctl(struct drm_device *dev, void *data,
->>>                               struct drm_file *file_priv)
->>> @@ -408,7 +409,7 @@ static struct dma_buf
->> *export_and_register_object(struct drm_device *dev,
->>>      return dmabuf;
->>>    }
->>>
->>> -/*
->>> +/**
->>>     * drm_gem_prime_handle_to_fd - PRIME export function for GEM drivers
->>>     * @dev: dev to export the buffer from
->>>     * @file_priv: drm file-private structure @@ -421,10 +422,10 @@
->>> static struct dma_buf *export_and_register_object(struct drm_device *dev,
->>>     * The actual exporting from GEM object to a dma-buf is done through the
->>>     * &drm_gem_object_funcs.export callback.
->>>     */
->>> -static int drm_gem_prime_handle_to_fd(struct drm_device *dev,
->>> -                                 struct drm_file *file_priv, uint32_t handle,
->>> -                                 uint32_t flags,
->>> -                                 int *prime_fd)
->>> +int drm_gem_prime_handle_to_fd(struct drm_device *dev,
->>> +                          struct drm_file *file_priv, uint32_t handle,
->>> +                          uint32_t flags,
->>> +                          int *prime_fd)
->>>    {
->>>      struct drm_gem_object *obj;
->>>      int ret = 0;
->>> @@ -506,6 +507,7 @@ static int drm_gem_prime_handle_to_fd(struct
->>> drm_device *dev,
->>>
->>>      return ret;
->>>    }
->>> +EXPORT_SYMBOL(drm_gem_prime_handle_to_fd);
->>>
->>>    int drm_prime_handle_to_fd_ioctl(struct drm_device *dev, void *data,
->>>                               struct drm_file *file_priv)
->>> @@ -864,9 +866,9 @@
->> EXPORT_SYMBOL(drm_prime_get_contiguous_size);
->>>     * @obj: GEM object to export
->>>     * @flags: flags like DRM_CLOEXEC and DRM_RDWR
->>>     *
->>> - * This is the implementation of the &drm_gem_object_funcs.export
->>> functions
->>> - * for GEM drivers using the PRIME helpers. It is used as the default
->>> for
->>> - * drivers that do not set their own.
->>> + * This is the implementation of the &drm_gem_object_funcs.export
->>> + functions for GEM drivers
->>> + * using the PRIME helpers. It is used as the default in
->>> + * drm_gem_prime_handle_to_fd().
->>>     */
->>>    struct dma_buf *drm_gem_prime_export(struct drm_gem_object *obj,
->>>                                   int flags)
->>> @@ -962,9 +964,10 @@ EXPORT_SYMBOL(drm_gem_prime_import_dev);
->>>     * @dev: drm_device to import into
->>>     * @dma_buf: dma-buf object to import
->>>     *
->>> - * This is the implementation of the gem_prime_import functions for
->>> GEM
->>> - * drivers using the PRIME helpers. It is the default for drivers
->>> that do
->>> - * not set their own &drm_driver.gem_prime_import.
->>> + * This is the implementation of the gem_prime_import functions for
->>> + GEM drivers
->>> + * using the PRIME helpers. Drivers can use this as their
->>> + * &drm_driver.gem_prime_import implementation. It is used as the
->>> + default
->>> + * implementation in drm_gem_prime_fd_to_handle().
->>>     *
->>>     * Drivers must arrange to call drm_prime_gem_destroy() from their
->>>     * &drm_gem_object_funcs.free hook when using this function.
->>> diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h index
->>> a7abf9f3e697..2a1d01e5b56b 100644
->>> --- a/include/drm/drm_prime.h
->>> +++ b/include/drm/drm_prime.h
->>> @@ -60,12 +60,19 @@ enum dma_data_direction;
->>>
->>>    struct drm_device;
->>>    struct drm_gem_object;
->>> +struct drm_file;
->>>
->>>    /* core prime functions */
->>>    struct dma_buf *drm_gem_dmabuf_export(struct drm_device *dev,
->>>                                    struct dma_buf_export_info *exp_info);
->>>    void drm_gem_dmabuf_release(struct dma_buf *dma_buf);
->>>
->>> +int drm_gem_prime_fd_to_handle(struct drm_device *dev,
->>> +                          struct drm_file *file_priv, int prime_fd, uint32_t
->>> +*handle); int drm_gem_prime_handle_to_fd(struct drm_device *dev,
->>> +                          struct drm_file *file_priv, uint32_t handle,
->> uint32_t flags,
->>> +                          int *prime_fd);
->>> +
->>>    /* helper functions for exporting */
->>>    int drm_gem_map_attach(struct dma_buf *dma_buf,
->>>                     struct dma_buf_attachment *attach);
+>> --
+>> v11:
+>>  - fix typo(Simon)
+>> v12:
+>>  - Fix the code logic (Rafael)
+>>  - Move amd_wbrf.c to drivers/platform/x86/amd/wbrf.c
+>>  - Updated Evan's email because he's no longer at AMD.Thanks
+>> for his work in earlier versions.
+>> v13:
+>>  - Fix the format issue (IIpo Jarvinen)
+>>  - Add comment for some functions
+>> v14:
+>>  - Use the apci_check_dsm and acpi_evaluate_dsm (Hans de Goede)
+> 
+> Thank you this is much better.
+> 
+> I notice that the #define ACPI_AMD_WBRF_METHOD	"\\WBRF"
+> still exists though and that this is still used in
+> static bool acpi_amd_wbrf_supported_system(void).
+> 
+> I think it might be better to just remove
+> these 2 all together.
+> 
+> Checking if a DSM with the expected GUID is present
+> and if that has the correct bits set in its supported
+> mask should be enough.
+> 
+> And on future systems the implementer may decide to
+> not have a WBRF helper function at all and instead
+> handle everything in the _DSM method.
+> 
+> So the "\\WBRF" check seems to be checking for
+> what really is an implementation detail.
+> 
+Yes,you are right. I will fix these issues.
+Thanks for your review and suggestion. 
+
+Regards,
+Ma Jun
+> 2 other very small remark
+> 
+>> +/**
+>> + * acpi_amd_wbrf_supported_producer - determine if the WBRF can be enabled
+>> + *                                    for the device as a producer
+>> + *
+>> + * @dev: device pointer
+>> + *
+>> + * Check if the platform equipped with necessary implementations to
+>> + * support WBRF for the device as a producer.
+>> + *
+>> + * Return:
+>> + * true if WBRF is supported, otherwise returns false
+>> + */
+>> +bool acpi_amd_wbrf_supported_producer(struct device *dev)
+>> +{
+>> +	struct acpi_device *adev;
+>> +
+>> +	adev = ACPI_COMPANION(dev);
+>> +	if (!adev)
+>> +		return false;
+>> +
+>> +	if (!acpi_amd_wbrf_supported_system())
+>> +		return false;
+>> +
+>> +
+>> +	return acpi_check_dsm(adev->handle, &wifi_acpi_dsm_guid,
+>> +			      WBRF_REVISION, BIT(WBRF_RECORD));
+>> +}
+>> +EXPORT_SYMBOL_GPL(acpi_amd_wbrf_supported_producer);
+> 
+> Please don't use double empty lines, one empty line to separate things
+> is enough.
+> 
+>> +
+>> +/**
+>> + * acpi_amd_wbrf_supported_consumer - determine if the WBRF can be enabled
+>> + *                                    for the device as a consumer
+>> + *
+>> + * @dev: device pointer
+>> + *
+>> + * Determine if the platform equipped with necessary implementations to
+>> + * support WBRF for the device as a consumer.
+>> + *
+>> + * Return:
+>> + * true if WBRF is supported, otherwise returns false.
+>> + */
+>> +bool acpi_amd_wbrf_supported_consumer(struct device *dev)
+>> +{
+>> +	struct acpi_device *adev;
+>> +
+>> +	adev = ACPI_COMPANION(dev);
+>> +	if (!adev)
+>> +		return false;
+>> +
+>> +	if (!acpi_amd_wbrf_supported_system())
+>> +		return false;
+>> +
+>> +	return acpi_check_dsm(adev->handle, &wifi_acpi_dsm_guid,
+>> +			      WBRF_REVISION, BIT(WBRF_RETRIEVE));
+>> +}
+>> +EXPORT_SYMBOL_GPL(acpi_amd_wbrf_supported_consumer);
+>> +
+>> +/**
+>> + * amd_wbrf_retrieve_freq_band - retrieve current active frequency
+>> + *                                     bands
+> 
+> You may go a bit over the 80 chars limit, please just make this
+> a single line:
+> 
+>  * amd_wbrf_retrieve_freq_band - retrieve current active frequency bands
+> 
+>> + *
+>> + * @dev: device pointer
+>> + * @out: output structure containing all the active frequency bands
+>> + *
+>> + * Retrieve the current active frequency bands which were broadcasted
+>> + * by other producers. The consumer who calls this API should take
+>> + * proper actions if any of the frequency band may cause RFI with its
+>> + * own frequency band used.
+>> + *
+>> + * Return:
+>> + * 0 for getting wifi freq band successfully.
+>> + * Returns a negative error code for failure.
+>> + */
+> 
+> Regards,
+> 
+> Hans
+> 
