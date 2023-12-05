@@ -4,35 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AEEDC10F04
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Dec 2023 14:05:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF930C4167B
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Dec 2023 14:05:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9985810E545;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B35E10E543;
 	Tue,  5 Dec 2023 14:05:53 +0000 (UTC)
-X-Greylist: delayed 301 seconds by postgrey-1.36 at gabe;
- Tue, 05 Dec 2023 09:25:49 UTC
-Received: from xavier.telenet-ops.be (xavier.telenet-ops.be
- [IPv6:2a02:1800:120:4::f00:14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C7CA10E232
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Dec 2023 09:25:49 +0000 (UTC)
-Received: from ramsan.of.borg ([IPv6:2a02:1810:ac12:ed40:f143:dd2b:2cfe:eb7c])
- by xavier.telenet-ops.be with bizsmtp
- id JZLk2B00X5Tnyl201ZLk4P; Tue, 05 Dec 2023 10:20:46 +0100
-Received: from geert (helo=localhost)
- by ramsan.of.borg with local-esmtp (Exim 4.95)
- (envelope-from <geert@linux-m68k.org>) id 1rARbg-00B2oN-N4;
- Tue, 05 Dec 2023 10:20:44 +0100
-Date: Tue, 5 Dec 2023 10:20:44 +0100 (CET)
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: Dave Airlie <airlied@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, 
- =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>
-Subject: amdgpu header files (was: Re: [git pull] drm for 6.7-rc1)
-In-Reply-To: <CAPM=9txd+1FtqU-R_8Zr_UePUzu7QUWsDBV1syKBo16v_gx2XQ@mail.gmail.com>
-Message-ID: <45db1e4b-afbe-8bf5-6c4-945bdacb11f3@linux-m68k.org>
-References: <CAPM=9txd+1FtqU-R_8Zr_UePUzu7QUWsDBV1syKBo16v_gx2XQ@mail.gmail.com>
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3047E10E14D
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Dec 2023 13:23:08 +0000 (UTC)
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1rAVOE-0003ki-M3; Tue, 05 Dec 2023 14:23:06 +0100
+Message-ID: <d6849d4b-5b47-46e6-8cb3-a4a01f99f95c@leemhuis.info>
+Date: Tue, 5 Dec 2023 14:23:05 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII; format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: regression/bisected/6.7rc1: Instead of desktop I see a horizontal
+ flashing bar with a picture of the desktop background on white screen
+Content-Language: en-US, de-DE
+To: Alex Deucher <alexdeucher@gmail.com>, "Lee, Alvin" <Alvin.Lee2@amd.com>
+References: <CABXGCsNRb0QbF2pKLJMDhVOKxyGD6-E+8p-4QO6FOWa6zp22_A@mail.gmail.com>
+ <CABXGCsOqbLRHSkiz79NkVQ-wUtR7y-ZFHvhMw0+JJ_cY2AZmSw@mail.gmail.com>
+ <CABXGCsPE9=Qp3Jg5hkRsTQoNgODnS_cXFU1d+hg3Baob40AaAA@mail.gmail.com>
+ <edc5b75b-c08d-4c62-ae5e-089ffac27772@amd.com>
+ <CABXGCsO=pdxorK9pO7qBPJM-xvgPPtpZqxLvQO4t2AK5qW3vcA@mail.gmail.com>
+ <DM8PR12MB5400EAB81E5FA10F4309A732D1B1A@DM8PR12MB5400.namprd12.prod.outlook.com>
+ <CADnq5_P8aRkj340FtBJKsZDnV8iOCmdmCHDWKHGca+4UtfNy1A@mail.gmail.com>
+From: "Linux regression tracking (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+In-Reply-To: <CADnq5_P8aRkj340FtBJKsZDnV8iOCmdmCHDWKHGca+4UtfNy1A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1701782588;
+ 1c2f113c; 
+X-HE-SMSGID: 1rAVOE-0003ki-M3
 X-Mailman-Approved-At: Tue, 05 Dec 2023 14:05:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -45,95 +52,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
- LKML <linux-kernel@vger.kernel.org>
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
+Cc: Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>, "Wheeler,
+ Daniel" <Daniel.Wheeler@amd.com>, "Wu, Hersen" <hersenxs.wu@amd.com>, "Mahfooz,
+ Hamza" <Hamza.Mahfooz@amd.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 31 Oct 2023, Dave Airlie wrote:
-> This is the main drm pull request for 6.7.
+On 27.11.23 19:11, Alex Deucher wrote:
+> On Wed, Nov 15, 2023 at 1:52 PM Lee, Alvin <Alvin.Lee2@amd.com> wrote:
+>>
+>> [AMD Official Use Only - General]
+>>
+>> This change has a DMCUB dependency - are you able to update your DMCUB version as well?
+>>
+>> This version mismatch issue is something I'll need to fix in driver for Linux.
+> 
+> @Mahfooz, Hamza @Alvin Lee any update on a fix for this?
 
-> Highlights:
-> - AMD adds some more upcoming HW platforms
+Still no news afaics. Or was there any progress I missed?
 
-> Alex Deucher (24):
->      drm/amdgpu: update to the latest GC 11.5 headers
-
-> Candice Li (8):
->      drm/amd: Add umc v12_0_0 ip headers
-
-> Lang Yu (57):
->      drm/amdgpu: add gc headers for gc 11.5.0
->      drm/amdgpu: add mmhub 3.3.0 headers
->      drm/amdgpu: add VPE 6.1.0 header files
->      drm/amdgpu: add UMSCH 4.0 register headers
-
-> Li Ma (11):
->      drm/amdgpu: add header files for MP 14.0.0
->      drm/amdgpu: fix missing stuff in NBIO v7.11
-
-> Qingqing Zhuo (38):
->      drm/amd/display: Add dcn35 register header files
-
-> Saleemkhan Jamadar (9):
->      drm/amdgpu: add vcn 4_0_5 header files
-
-> Yang Wang (16):
->      drm/amd/pm: add smu_13_0_6 mca dump support
-
-> benl (3):
->      drm/amdgpu: add nbio 7.11 registers
-
-> .../amd/include/asic_reg/dcn/dcn_3_5_0_offset.h    | 15255 +++++
-> .../amd/include/asic_reg/dcn/dcn_3_5_0_sh_mask.h   | 53412 +++++++++++++++++
-> .../drm/amd/include/asic_reg/gc/gc_11_5_0_offset.h | 10000 ++++
-> .../amd/include/asic_reg/gc/gc_11_5_0_sh_mask.h    | 36579 ++++++++++++
-> .../include/asic_reg/mmhub/mmhub_3_3_0_offset.h    |  1395 +
-> .../include/asic_reg/mmhub/mmhub_3_3_0_sh_mask.h   |  6722 +++
-> .../amd/include/asic_reg/mp/mp_13_0_6_sh_mask.h    |    28 +
-> .../drm/amd/include/asic_reg/mp/mp_14_0_0_offset.h |   359 +
-> .../amd/include/asic_reg/mp/mp_14_0_0_sh_mask.h    |   534 +
-> .../amd/include/asic_reg/nbio/nbio_7_11_0_offset.h |  9400 +++
-> .../include/asic_reg/nbio/nbio_7_11_0_sh_mask.h    | 57857 +++++++++++++++++++
-> .../amd/include/asic_reg/umc/umc_12_0_0_offset.h   |    33 +
-> .../amd/include/asic_reg/umc/umc_12_0_0_sh_mask.h  |    95 +
-> .../amd/include/asic_reg/vcn/vcn_4_0_0_offset.h    |   422 +
-> .../amd/include/asic_reg/vcn/vcn_4_0_0_sh_mask.h   |   882 +
-> .../amd/include/asic_reg/vcn/vcn_4_0_5_offset.h    |  1797 +
-> .../amd/include/asic_reg/vcn/vcn_4_0_5_sh_mask.h   |  8614 +++
-> .../amd/include/asic_reg/vpe/vpe_6_1_0_offset.h    |  1553 +
-> .../amd/include/asic_reg/vpe/vpe_6_1_0_sh_mask.h   |  4393 ++
-
-These huge files can be reduced by 50%: all the *_SHIFT definitions are
-redundant, as they can be derived from the corresponding *_MASK
-definitions at compile-time, cfr. <linux/bitfield.h>.
-
-E.g.:
-
-#define AZCONTROLLER0_CORB_READ_POINTER__CORB_READ_POINTER__SHIFT        0x0
-#define AZCONTROLLER0_CORB_READ_POINTER__CORB_READ_POINTER_RESET__SHIFT  0xf
-#define AZCONTROLLER0_CORB_READ_POINTER__CORB_READ_POINTER_MASK          0x00FFL
-#define AZCONTROLLER0_CORB_READ_POINTER__CORB_READ_POINTER_RESET_MASK    0x8000L
-
-AZCONTROLLER0_CORB_READ_POINTER__CORB_READ_POINTER__SHIFT =
- 	__bf_shf(AZCONTROLLER0_CORB_READ_POINTER__CORB_READ_POINTER_MASK)
-AZCONTROLLER0_CORB_READ_POINTER__CORB_READ_POINTER_RESET__SHIFT =
- 	__bf_shf(AZCONTROLLER0_CORB_READ_POINTER__CORB_READ_POINTER_RESET_MASK)
-
-set_reg_field_value_masks() takes a shift and a mask, while it
-could calculate the shift at run-time.
-set_reg_field_values() takes pairs of shifts and masks, but the shifts
-are not needed; lots of tables can be halved, etc...
-
-Gr{oetje,eeting}s,
-
- 						Geert
-
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
 --
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Everything you wanna know about Linux kernel regression tracking:
+https://linux-regtracking.leemhuis.info/about/#tldr
+If I did something stupid, please tell me, as explained on that page.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
- 							    -- Linus Torvalds
+#regzbot poke
+
+>> -----Original Message-----
+>> From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+>> Sent: Wednesday, November 15, 2023 1:22 PM
+>> To: Mahfooz, Hamza <Hamza.Mahfooz@amd.com>
+>> Cc: Lee, Alvin <Alvin.Lee2@amd.com>; Wu, Hersen <hersenxs.wu@amd.com>; Wheeler, Daniel <Daniel.Wheeler@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Linux List Kernel Mailing <linux-kernel@vger.kernel.org>; amd-gfx list <amd-gfx@lists.freedesktop.org>
+>> Subject: Re: regression/bisected/6.7rc1: Instead of desktop I see a horizontal flashing bar with a picture of the desktop background on white screen
+>>
+>> On Wed, Nov 15, 2023 at 11:14 PM Hamza Mahfooz <hamza.mahfooz@amd.com> wrote:
+>>>
+>>> What version of DMUB firmware are you on?
+>>> The easiest way to find out would be using the following:
+>>>
+>>> # dmesg | grep DMUB
+>>>
+>>
+>> Sapphire AMD Radeon RX 7900 XTX PULSE OC:
+>> ❯ dmesg | grep DMUB
+>> [   14.341362] [drm] Loading DMUB firmware via PSP: version=0x07002100
+>> [   14.725547] [drm] DMUB hardware initialized: version=0x07002100
+>>
+>> Reference GIGABYTE Radeon RX 7900 XTX 24G:
+>> ❯ dmesg | grep DMUB
+>> [   11.405115] [drm] Loading DMUB firmware via PSP: version=0x07002100
+>> [   11.773395] [drm] DMUB hardware initialized: version=0x07002100
+>>
+>>
+>> --
+>> Best Regards,
+>> Mike Gavrilov.
