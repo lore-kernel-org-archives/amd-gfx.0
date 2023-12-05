@@ -4,51 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7EF2C07E97
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Dec 2023 13:34:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AEEDC10F04
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Dec 2023 14:05:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 896D110E534;
-	Tue,  5 Dec 2023 13:34:13 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C006F10E52F;
- Tue,  5 Dec 2023 13:34:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1701783250; x=1733319250;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=3ZG5O8x+XN9jfQ3hj5aUyeJvVs/G1In0ZVS8u9rOfn8=;
- b=R6bPzUjkI1eOGPThWtKmIifaBXGTOtTDDdIoenbHVTUAfjwcqZkjWuRR
- 9bM29kiSsW/CKjlyXVFjUFYVVVkglYKPDJiNCA39n20h3xQbrcmWFZ/fc
- KSmW1zl9Qdhkg9n2u2WSslict2c6m704fjde0SB8y7hdcB0/iFz/csjY1
- yYVhpeqyIQNeFT2w5ckerZDmBG1iFimgighnDl0PIkMP75gM0U/pRhafk
- hmRso7YPc01Xug2UWpPGbnMeTNTyGEvHBppvaXf4OXHghmw6aoSi0O5l9
- HfVl3/+YoNintB2xzjeUCIZbPrQ8Bgp2E/ZWPa4gUxOYYO5SNUZ8kEpZW g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="396688883"
-X-IronPort-AV: E=Sophos;i="6.04,252,1695711600"; d="scan'208";a="396688883"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2023 05:34:10 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="747232463"
-X-IronPort-AV: E=Sophos;i="6.04,252,1695711600"; d="scan'208";a="747232463"
-Received: from lkp-server02.sh.intel.com (HELO b07ab15da5fe) ([10.239.97.151])
- by orsmga006.jf.intel.com with ESMTP; 05 Dec 2023 05:34:08 -0800
-Received: from kbuild by b07ab15da5fe with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1rAVYp-000939-0g;
- Tue, 05 Dec 2023 13:34:05 +0000
-Date: Tue, 5 Dec 2023 21:32:52 +0800
-From: kernel test robot <lkp@intel.com>
-To: Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 5/6] drm/amdgpu: Auto-validate DMABuf imports in compute
- VMs
-Message-ID: <202312052136.JfzEpgBw-lkp@intel.com>
-References: <20231201233438.1709981-5-Felix.Kuehling@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9985810E545;
+	Tue,  5 Dec 2023 14:05:53 +0000 (UTC)
+X-Greylist: delayed 301 seconds by postgrey-1.36 at gabe;
+ Tue, 05 Dec 2023 09:25:49 UTC
+Received: from xavier.telenet-ops.be (xavier.telenet-ops.be
+ [IPv6:2a02:1800:120:4::f00:14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C7CA10E232
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Dec 2023 09:25:49 +0000 (UTC)
+Received: from ramsan.of.borg ([IPv6:2a02:1810:ac12:ed40:f143:dd2b:2cfe:eb7c])
+ by xavier.telenet-ops.be with bizsmtp
+ id JZLk2B00X5Tnyl201ZLk4P; Tue, 05 Dec 2023 10:20:46 +0100
+Received: from geert (helo=localhost)
+ by ramsan.of.borg with local-esmtp (Exim 4.95)
+ (envelope-from <geert@linux-m68k.org>) id 1rARbg-00B2oN-N4;
+ Tue, 05 Dec 2023 10:20:44 +0100
+Date: Tue, 5 Dec 2023 10:20:44 +0100 (CET)
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+To: Dave Airlie <airlied@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>
+Subject: amdgpu header files (was: Re: [git pull] drm for 6.7-rc1)
+In-Reply-To: <CAPM=9txd+1FtqU-R_8Zr_UePUzu7QUWsDBV1syKBo16v_gx2XQ@mail.gmail.com>
+Message-ID: <45db1e4b-afbe-8bf5-6c4-945bdacb11f3@linux-m68k.org>
+References: <CAPM=9txd+1FtqU-R_8Zr_UePUzu7QUWsDBV1syKBo16v_gx2XQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231201233438.1709981-5-Felix.Kuehling@amd.com>
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+X-Mailman-Approved-At: Tue, 05 Dec 2023 14:05:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,105 +45,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: oe-kbuild-all@lists.linux.dev
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
+ LKML <linux-kernel@vger.kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Felix,
+On Tue, 31 Oct 2023, Dave Airlie wrote:
+> This is the main drm pull request for 6.7.
 
-kernel test robot noticed the following build errors:
+> Highlights:
+> - AMD adds some more upcoming HW platforms
 
-[auto build test ERROR on next-20231201]
-[cannot apply to drm-misc/drm-misc-next drm/drm-next drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.7-rc3 v6.7-rc2 v6.7-rc1 v6.7-rc4]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+> Alex Deucher (24):
+>      drm/amdgpu: update to the latest GC 11.5 headers
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Felix-Kuehling/drm-amdkfd-Export-DMABufs-from-KFD-using-GEM-handles/20231202-073833
-base:   next-20231201
-patch link:    https://lore.kernel.org/r/20231201233438.1709981-5-Felix.Kuehling%40amd.com
-patch subject: [PATCH 5/6] drm/amdgpu: Auto-validate DMABuf imports in compute VMs
-config: x86_64-randconfig-161-20231203 (https://download.01.org/0day-ci/archive/20231205/202312052136.JfzEpgBw-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231205/202312052136.JfzEpgBw-lkp@intel.com/reproduce)
+> Candice Li (8):
+>      drm/amd: Add umc v12_0_0 ip headers
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202312052136.JfzEpgBw-lkp@intel.com/
+> Lang Yu (57):
+>      drm/amdgpu: add gc headers for gc 11.5.0
+>      drm/amdgpu: add mmhub 3.3.0 headers
+>      drm/amdgpu: add VPE 6.1.0 header files
+>      drm/amdgpu: add UMSCH 4.0 register headers
 
-All errors (new ones prefixed by >>):
+> Li Ma (11):
+>      drm/amdgpu: add header files for MP 14.0.0
+>      drm/amdgpu: fix missing stuff in NBIO v7.11
 
-   ld: drivers/gpu/drm/amd/amdgpu/amdgpu_gem.o: in function `amdgpu_gem_object_open':
->> drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c:208: undefined reference to `amdgpu_amdkfd_bo_validate_and_fence'
+> Qingqing Zhuo (38):
+>      drm/amd/display: Add dcn35 register header files
 
+> Saleemkhan Jamadar (9):
+>      drm/amdgpu: add vcn 4_0_5 header files
 
-vim +208 drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> Yang Wang (16):
+>      drm/amd/pm: add smu_13_0_6 mca dump support
 
-   156	
-   157	/*
-   158	 * Call from drm_gem_handle_create which appear in both new and open ioctl
-   159	 * case.
-   160	 */
-   161	static int amdgpu_gem_object_open(struct drm_gem_object *obj,
-   162					  struct drm_file *file_priv)
-   163	{
-   164		struct amdgpu_bo *abo = gem_to_amdgpu_bo(obj);
-   165		struct amdgpu_device *adev = amdgpu_ttm_adev(abo->tbo.bdev);
-   166		struct amdgpu_fpriv *fpriv = file_priv->driver_priv;
-   167		struct amdgpu_vm *vm = &fpriv->vm;
-   168		struct amdgpu_bo_va *bo_va;
-   169		struct mm_struct *mm;
-   170		int r;
-   171	
-   172		mm = amdgpu_ttm_tt_get_usermm(abo->tbo.ttm);
-   173		if (mm && mm != current->mm)
-   174			return -EPERM;
-   175	
-   176		if (abo->flags & AMDGPU_GEM_CREATE_VM_ALWAYS_VALID &&
-   177		    abo->tbo.base.resv != vm->root.bo->tbo.base.resv)
-   178			return -EPERM;
-   179	
-   180		r = amdgpu_bo_reserve(abo, false);
-   181		if (r)
-   182			return r;
-   183	
-   184		bo_va = amdgpu_vm_bo_find(vm, abo);
-   185		if (!bo_va)
-   186			bo_va = amdgpu_vm_bo_add(adev, vm, abo);
-   187		else
-   188			++bo_va->ref_count;
-   189		amdgpu_bo_unreserve(abo);
-   190	
-   191		/* Validate and add eviction fence to DMABuf imports with dynamic
-   192		 * attachment in compute VMs. Re-validation will be done by
-   193		 * amdgpu_vm_validate_evicted_bos and the fence will be updated by
-   194		 * amdgpu_vm_fence_imports in amdgpu_amdkfd_gpuvm_restore_process_bos.
-   195		 *
-   196		 * Nested locking below for the case that a GEM object is opened in
-   197		 * kfd_mem_export_dmabuf. Since the lock below is only taken for imports,
-   198		 * but not for export, this is a different lock class that cannot lead to
-   199		 * circular lock dependencies.
-   200		 */
-   201		if (!vm->is_compute_context || !vm->process_info)
-   202			return 0;
-   203		if (!obj->import_attach ||
-   204		    !dma_buf_is_dynamic(obj->import_attach->dmabuf))
-   205			return 0;
-   206		mutex_lock_nested(&vm->process_info->lock, 1);
-   207		if (!WARN_ON(!vm->process_info->eviction_fence)) {
- > 208			r = amdgpu_amdkfd_bo_validate_and_fence(abo, AMDGPU_GEM_DOMAIN_GTT,
-   209								&vm->process_info->eviction_fence->base);
-   210			if (r)
-   211				dev_warn(adev->dev, "%d: validate_and_fence failed: %d\n",
-   212					 vm->task_info.pid, r);
-   213		}
-   214		mutex_unlock(&vm->process_info->lock);
-   215	
-   216		return 0;
-   217	}
-   218	
+> benl (3):
+>      drm/amdgpu: add nbio 7.11 registers
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> .../amd/include/asic_reg/dcn/dcn_3_5_0_offset.h    | 15255 +++++
+> .../amd/include/asic_reg/dcn/dcn_3_5_0_sh_mask.h   | 53412 +++++++++++++++++
+> .../drm/amd/include/asic_reg/gc/gc_11_5_0_offset.h | 10000 ++++
+> .../amd/include/asic_reg/gc/gc_11_5_0_sh_mask.h    | 36579 ++++++++++++
+> .../include/asic_reg/mmhub/mmhub_3_3_0_offset.h    |  1395 +
+> .../include/asic_reg/mmhub/mmhub_3_3_0_sh_mask.h   |  6722 +++
+> .../amd/include/asic_reg/mp/mp_13_0_6_sh_mask.h    |    28 +
+> .../drm/amd/include/asic_reg/mp/mp_14_0_0_offset.h |   359 +
+> .../amd/include/asic_reg/mp/mp_14_0_0_sh_mask.h    |   534 +
+> .../amd/include/asic_reg/nbio/nbio_7_11_0_offset.h |  9400 +++
+> .../include/asic_reg/nbio/nbio_7_11_0_sh_mask.h    | 57857 +++++++++++++++++++
+> .../amd/include/asic_reg/umc/umc_12_0_0_offset.h   |    33 +
+> .../amd/include/asic_reg/umc/umc_12_0_0_sh_mask.h  |    95 +
+> .../amd/include/asic_reg/vcn/vcn_4_0_0_offset.h    |   422 +
+> .../amd/include/asic_reg/vcn/vcn_4_0_0_sh_mask.h   |   882 +
+> .../amd/include/asic_reg/vcn/vcn_4_0_5_offset.h    |  1797 +
+> .../amd/include/asic_reg/vcn/vcn_4_0_5_sh_mask.h   |  8614 +++
+> .../amd/include/asic_reg/vpe/vpe_6_1_0_offset.h    |  1553 +
+> .../amd/include/asic_reg/vpe/vpe_6_1_0_sh_mask.h   |  4393 ++
+
+These huge files can be reduced by 50%: all the *_SHIFT definitions are
+redundant, as they can be derived from the corresponding *_MASK
+definitions at compile-time, cfr. <linux/bitfield.h>.
+
+E.g.:
+
+#define AZCONTROLLER0_CORB_READ_POINTER__CORB_READ_POINTER__SHIFT        0x0
+#define AZCONTROLLER0_CORB_READ_POINTER__CORB_READ_POINTER_RESET__SHIFT  0xf
+#define AZCONTROLLER0_CORB_READ_POINTER__CORB_READ_POINTER_MASK          0x00FFL
+#define AZCONTROLLER0_CORB_READ_POINTER__CORB_READ_POINTER_RESET_MASK    0x8000L
+
+AZCONTROLLER0_CORB_READ_POINTER__CORB_READ_POINTER__SHIFT =
+ 	__bf_shf(AZCONTROLLER0_CORB_READ_POINTER__CORB_READ_POINTER_MASK)
+AZCONTROLLER0_CORB_READ_POINTER__CORB_READ_POINTER_RESET__SHIFT =
+ 	__bf_shf(AZCONTROLLER0_CORB_READ_POINTER__CORB_READ_POINTER_RESET_MASK)
+
+set_reg_field_value_masks() takes a shift and a mask, while it
+could calculate the shift at run-time.
+set_reg_field_values() takes pairs of shifts and masks, but the shifts
+are not needed; lots of tables can be halved, etc...
+
+Gr{oetje,eeting}s,
+
+ 						Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+ 							    -- Linus Torvalds
