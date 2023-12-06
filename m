@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 229F4C10DC1
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Dec 2023 21:44:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E07B0C4167B
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Dec 2023 22:11:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89CFF10E7B8;
-	Wed,  6 Dec 2023 21:44:53 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2079.outbound.protection.outlook.com [40.107.237.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C6C710E7B8
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Dec 2023 21:44:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8241D10E7C1;
+	Wed,  6 Dec 2023 22:11:27 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2085.outbound.protection.outlook.com [40.107.223.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49E4810E7C1;
+ Wed,  6 Dec 2023 22:11:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cSj3SYdg4SnxsncFw5vLD8bXCqfYGVXGhJwiebICguvtKLJduUNnSxeRG4c2Y36cCZscPILjt5Mnhv+X3NgFe8INo64dKFIiZHxiVn+XaTM3TO/GoP8z6lYidS4vduVoMnJAUQxOW9upV8rxQn8RZzeH7dzkHItnqKk6lqLM75xWMJMSemxcwoN8nww037aRbR+rXOzCImu18BwC/cFBhxFZPmXL1CSZHsXiEwK6uNPVKoUFf5DIdtdURmywnqE+dxwNN3/25VoJq6W873VLyBkmhokxgpY+V/riBDG0zztlwyX+r1zMDlvBXeMd/l+FPopeN5mBvA2yOA6nm0hD7A==
+ b=TU1QEkDVI9MBHPxoezw+L87JHQ2E/Ht4yrAUAt7lyvF3kvjUyXzzt8NrjomNSeqDigTBQCeeXyxuNMJnu3ha4y6++kz3NEtFu3od7szlCaCakjB0BgHA0D7Tm77s2fBVQnr7fHnQ72VeV66rmw2oECn3rFdxaIyZW2QZ8Fh7DZWSixz9sRuyHgOjQUWhYMVi1ChpQ8L2LWVWCb74ocaPpJH9LbbWty69BF0pSEseSXrBvn+MnbLfm1bCXWE+tzlamBaNW0l5SSu6ZU0ip95KGdvl9Maxe9E1Bouu4Ec17092/ykBya+4Gs8GLIzZ1nj+xEp0CSY/a9TQayQZt6xE8w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1oy4gHToZzKMMRUSa7cpXVDSAPJvp3NMQy6PPkEy6/I=;
- b=gXg/hccrHUFA5J/S6n7FTef+wZwNzxIxfO2ZfP72mZNudJpwcormKthhLc7Hu7DVKeS8VVb8lrQNPSGH4FI9lFiQ/CDWQ14Jd1mcpm2c7NSTlpyJn535c/QOa3k4GpudtsJHLd66WjLAeyHI7lHcSx6jo+/dwkuLLeEF0AAkp56MnAvdrHRU7YaAhKq4PckzNWqzIfhJ5iNXhAy4Qp34euhFvB8RyyabMlqUspn6SUVfZuOeNoCfPvUPl7m8poO08aB1MQ5jdAbGZnL1qvfy3HIWvvXdgkMhGWN/nIt7nmQqpwRKxOXXnSEuU5dK8uGdyP1cKQvFUGI2F1+gZXkFGA==
+ bh=hzArVwy11tTpswIoJc34fM+SQeLgl+GWY9vMJrMz2YQ=;
+ b=k2yqs0RP/T62VC55sqrsEcy+5UVqbaJfWNcXPiVv47lPPPRyRSrskttqWoJ0/d0UDPiO5oqVboSGCGnG4EHmVXkQqQn4COyjsryxo1JdUcvDxfUdxZDspKQV4cXVwMggQKJ+U+KoXJjCRifo0bun69N+Vn9rN5Ak5dL3NGI2myC9h9FxFaE64qXKimfCm8PwLlQT4cKqQhdgqHE2jguGM5heeCUmJwcSIUrql2gPmjnA/RGGd5dRHIvtUGV331i6AMlgKBgeWuGpc8ZvCqG1a5fhjbid42+4domsfsGAC5bp9fWm24brhu+1yRMte0x/hKVpuxMXEhivRo34sIEaJg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1oy4gHToZzKMMRUSa7cpXVDSAPJvp3NMQy6PPkEy6/I=;
- b=TJTlV6QyAuE3bLpiCSkUy7q4r4Jq16Bb5coV7tnkHI6p7LN6gfvpMNcwaIFWUB0lPwCWKBtOwQpFU2lqzRxj2xJg2QJrAT15pCl4Hj1Wv5eHoV8mb7inrN+ZT4D/ehVjgNg0UlB0W7D0puKZQB56aThBL7zk5vX9e9x0kGVDvKI=
-Received: from DM6PR11CA0044.namprd11.prod.outlook.com (2603:10b6:5:14c::21)
- by SA1PR12MB8917.namprd12.prod.outlook.com (2603:10b6:806:386::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.34; Wed, 6 Dec
- 2023 21:44:49 +0000
-Received: from DS1PEPF00017094.namprd03.prod.outlook.com
- (2603:10b6:5:14c:cafe::5) by DM6PR11CA0044.outlook.office365.com
- (2603:10b6:5:14c::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.34 via Frontend
- Transport; Wed, 6 Dec 2023 21:44:48 +0000
+ bh=hzArVwy11tTpswIoJc34fM+SQeLgl+GWY9vMJrMz2YQ=;
+ b=0qJbL5NMi5Gm1iPo1cKN4wMqK67xHZTYaH5Bg65DQIP5pYElTHFwdws9sLnBIiBKMKRwvmMsm+EZTiz5pGLdPMLaDyqstqzwjXneSiVrgHzUqZwu9IXYX61afr71X+/YB3I3+jkbQRJq55pUymqYItPgJm6t0r/mt+PpLGuUsQI=
+Received: from BYAPR21CA0028.namprd21.prod.outlook.com (2603:10b6:a03:114::38)
+ by PH0PR12MB7814.namprd12.prod.outlook.com (2603:10b6:510:288::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.25; Wed, 6 Dec
+ 2023 22:11:23 +0000
+Received: from DS2PEPF0000343F.namprd02.prod.outlook.com
+ (2603:10b6:a03:114::4) by BYAPR21CA0028.outlook.office365.com
+ (2603:10b6:a03:114::38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.5 via Frontend
+ Transport; Wed, 6 Dec 2023 22:11:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,47 +45,48 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF00017094.mail.protection.outlook.com (10.167.17.137) with Microsoft
+ DS2PEPF0000343F.mail.protection.outlook.com (10.167.18.42) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7068.20 via Frontend Transport; Wed, 6 Dec 2023 21:44:48 +0000
-Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.7068.20 via Frontend Transport; Wed, 6 Dec 2023 22:11:22 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 6 Dec
- 2023 15:44:47 -0600
-From: Felix Kuehling <Felix.Kuehling@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 1/2] drm/amdgpu: Auto-validate DMABuf imports in compute VMs
-Date: Wed, 6 Dec 2023 16:44:12 -0500
-Message-ID: <20231206214413.2440998-1-Felix.Kuehling@amd.com>
-X-Mailer: git-send-email 2.34.1
+ 2023 16:11:21 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+Subject: [pull] amdgpu drm-fixes-6.7
+Date: Wed, 6 Dec 2023 17:11:02 -0500
+Message-ID: <20231206221102.4995-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017094:EE_|SA1PR12MB8917:EE_
-X-MS-Office365-Filtering-Correlation-Id: f26827ae-f5e0-42a0-4896-08dbf6a491fc
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343F:EE_|PH0PR12MB7814:EE_
+X-MS-Office365-Filtering-Correlation-Id: f395ad0d-3d45-4628-ca83-08dbf6a84809
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2uj1Vzwi0Z71zQo8RiSVG4pMlGz3DP517hs8ZLQd7cRXEELqjt8Ach0zOSrHF28Y0gewqbz3TJe4uigT6DrRXrViewHjNPR062++LO7EolZcEIkQomEsIBofekL+bO5x+Pi+vmhqMBy4MR1SLV93PQ93pBsVXyvIFkIMYQjyge/iRXUdtit1TC+pR92JwctMKa2AngJvgSqdQmdbphDQfTdd2ieBMDgm4i3QOX/QtsHAJs4qEE2HP1/59SKtXOFZ3xjz+d8b/35RCfndrzjsjZfEog9GlWQOqkWGk1QmFUs2MnNLDMMQgSmdFdLiom8H2Z4mJNnErDemJ9wOaHW5a5nnLr2rFLjT0RnG3sIGoTnaWE79yvh8fcgIP7a/9KYxUnGPDFmk0/0CfavFQ8U4MiKBUSnDblXA0/ckhOKbCgefjMfSxvuFuT0Nw/7w+CkhNvMUErysa7BZBSIz4KMcFi1XI/h4qau99U/nFju8e7Jstb/mHe22/7KlU5Ghyn+MX3TohFHB/Mi9/cgMdI4V0Cmt/xUyix3uWaEV57Y5YS2BS3iBI3NInYgT0/t01+XAeZsXe86CiPN4ly2DCaC9IxUwgwnCJUap2q+2ORxnYMSrRouEVyacsYEHN4hDt1tJ5A65CuCGuj6RWTqAuewm60qjjsGELUtDqrnZaIyVKeKyyrQOVvgohdhT2MPZh2yVpN8U1jNIn70CqCbYfvif4fdjT+a56mIy3q0DxaW8rnXDPBZhisAqJ8nmhGrZb/W4zwCl4en95V7kMB+tqz9y1w==
+X-Microsoft-Antispam-Message-Info: D2aXhyGyu0FDl6JUL0LgMPJwc9fUNsD/j7E3pVf7nx/fCadW4ju3XpEU2q5YlwjDLRKk8zLSqD8XHNI+FecZnKcoR0ZSKc5g4sNxoSFR1fCe29PF4jGDyP73DVaLMyUg9cixncLHhRf8ZmDPjpY0X5H1U51Xnc/5/+F2HkWuwy/qSUGBqHv0lq56VelAw1AkzsDhrGkVHzdme/OKZ7F6Jq2rqlthyXcC9YQLo7s66nebvDZFjIzxiKNoc7FokYZQJaklLkPjjVeUb5Jc2h8kBfsyF03z+YMnOyRN+mVH/S+7iteUqrfO5YZTmdZ4sRHRBOiq5I7IwFXUP7qiEvgQHHAoKBcoE7JfmfBBsVFWQiMXyom3l/ENMoWufTlCnyZtXYXmDpCBbuo8YzSdz1tpjSMIqEebImShBjtlW7HqGcjTOzrUTjKKv2yQZePkv/nBp49v6E3DAyladIO8Q+F5WWyCZrnPvjpZLQuiOTRMxXXfaag05AjPudG0+vpl5Amt+QplD85C+G24732bbo7NC2T4c1U7bMRXqmIeY1D4rpc0eF1KueqdG8WeYdYms0Mh/ZgeuBK89fCM9bOIw81GEoCwC07fwYUPhYvvxb7O8QHkSPZqVWTEzJSuj1DfTlzYHmVx6Mv8HlnEKeDMlWLMCrv/DDsqA4RyUy/mcX0EDAdcBVfFJROBt5GyID/ezdU2WBQypIQm7K4+g0I9TQD3zIEYcRlf8zDID+yVe5a5RZsC7eSapebKAOfLc9uYnJG/Gu1j4EOQwL5Ooh6alyWkksIY3trntAollWceKcxwwmM=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(136003)(39860400002)(396003)(346002)(230922051799003)(451199024)(186009)(64100799003)(82310400011)(1800799012)(46966006)(40470700004)(36840700001)(1076003)(41300700001)(2616005)(36756003)(86362001)(426003)(40460700003)(83380400001)(26005)(336012)(16526019)(54906003)(316002)(70206006)(6916009)(8676002)(6666004)(4326008)(70586007)(8936002)(7696005)(478600001)(82740400003)(81166007)(356005)(36860700001)(40480700001)(2906002)(47076005)(30864003)(15650500001)(5660300002)(36900700001);
+ SFS:(13230031)(4636009)(396003)(376002)(346002)(136003)(39860400002)(230173577357003)(230273577357003)(230922051799003)(82310400011)(451199024)(1800799012)(186009)(64100799003)(40470700004)(36840700001)(46966006)(5660300002)(40460700003)(16526019)(26005)(1076003)(336012)(83380400001)(41300700001)(356005)(4326008)(81166007)(82740400003)(7696005)(8936002)(2616005)(8676002)(47076005)(426003)(36860700001)(70206006)(70586007)(36756003)(40480700001)(966005)(2906002)(86362001)(110136005)(478600001)(316002)(6666004)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2023 21:44:48.6575 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f26827ae-f5e0-42a0-4896-08dbf6a491fc
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2023 22:11:22.5815 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f395ad0d-3d45-4628-ca83-08dbf6a84809
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017094.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343F.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8917
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7814
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,490 +98,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: xiaogang.chen@amd.com, mukul.joshi@amd.com, ramesh.errabolu@amd.com,
- christian.koenig@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-DMABuf imports in compute VMs are not wrapped in a kgd_mem object on the
-process_info->kfd_bo_list. There is no explicit KFD API call to validate
-them or add eviction fences to them.
+Hi Dave, Sima,
 
-This patch automatically validates and fences dymanic DMABuf imports when
-they are added to a compute VM. Revalidation after evictions is handled
-in the VM code.
+Fixes for 6.7.
 
-v2:
-* Renamed amdgpu_vm_validate_evicted_bos to amdgpu_vm_validate
-* Eliminated evicted_user state, use evicted state for VM BOs and user BOs
-* Fixed and simplified amdgpu_vm_fence_imports, depends on reserved BOs
-* Moved dma_resv_reserve_fences for amdgpu_vm_fence_imports into
-  amdgpu_vm_validate, outside the vm->status_lock
-* Added dummy version of amdgpu_amdkfd_bo_validate_and_fence for builds
-  without KFD
+The following changes since commit 33924328498e903bea74727353e5012d29653aff:
 
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  10 ++
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  44 +++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c   |   4 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |  28 ++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 101 ++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |  10 +-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |  10 +-
- 8 files changed, 177 insertions(+), 36 deletions(-)
+  Merge tag 'drm-intel-fixes-2023-12-01-1' of git://anongit.freedesktop.org/drm/drm-intel into drm-fixes (2023-12-05 12:19:22 +1000)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index f262b9d89541..584a0cea5572 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -191,6 +191,9 @@ struct amdgpu_amdkfd_fence *to_amdgpu_amdkfd_fence(struct dma_fence *f);
- int amdgpu_amdkfd_remove_fence_on_pt_pd_bos(struct amdgpu_bo *bo);
- int amdgpu_amdkfd_evict_userptr(struct mmu_interval_notifier *mni,
- 				unsigned long cur_seq, struct kgd_mem *mem);
-+int amdgpu_amdkfd_bo_validate_and_fence(struct amdgpu_bo *bo,
-+					uint32_t domain,
-+					struct dma_fence *fence);
- #else
- static inline
- bool amdkfd_fence_check_mm(struct dma_fence *f, struct mm_struct *mm)
-@@ -216,6 +219,13 @@ int amdgpu_amdkfd_evict_userptr(struct mmu_interval_notifier *mni,
- {
- 	return 0;
- }
-+static inline
-+int amdgpu_amdkfd_bo_validate_and_fence(struct amdgpu_bo *bo,
-+					uint32_t domain,
-+					struct dma_fence *fence)
-+{
-+	return 0;
-+}
- #endif
- /* Shared API */
- int amdgpu_amdkfd_alloc_gtt_mem(struct amdgpu_device *adev, size_t size,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 5f445d856769..fbabb1e63a67 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -426,9 +426,9 @@ static int amdgpu_amdkfd_bo_validate(struct amdgpu_bo *bo, uint32_t domain,
- 	return ret;
- }
- 
--static int amdgpu_amdkfd_bo_validate_and_fence(struct amdgpu_bo *bo,
--					       uint32_t domain,
--					       struct dma_fence *fence)
-+int amdgpu_amdkfd_bo_validate_and_fence(struct amdgpu_bo *bo,
-+					uint32_t domain,
-+					struct dma_fence *fence)
- {
- 	int ret = amdgpu_bo_reserve(bo, false);
- 
-@@ -464,13 +464,15 @@ static int amdgpu_amdkfd_validate_vm_bo(void *_unused, struct amdgpu_bo *bo)
-  * again. Page directories are only updated after updating page
-  * tables.
-  */
--static int vm_validate_pt_pd_bos(struct amdgpu_vm *vm)
-+static int vm_validate_pt_pd_bos(struct amdgpu_vm *vm,
-+				 struct ww_acquire_ctx *ticket)
- {
- 	struct amdgpu_bo *pd = vm->root.bo;
- 	struct amdgpu_device *adev = amdgpu_ttm_adev(pd->tbo.bdev);
- 	int ret;
- 
--	ret = amdgpu_vm_validate_pt_bos(adev, vm, amdgpu_amdkfd_validate_vm_bo, NULL);
-+	ret = amdgpu_vm_validate(adev, vm, ticket,
-+				 amdgpu_amdkfd_validate_vm_bo, NULL);
- 	if (ret) {
- 		pr_err("failed to validate PT BOs\n");
- 		return ret;
-@@ -1310,14 +1312,15 @@ static int map_bo_to_gpuvm(struct kgd_mem *mem,
- 	return ret;
- }
- 
--static int process_validate_vms(struct amdkfd_process_info *process_info)
-+static int process_validate_vms(struct amdkfd_process_info *process_info,
-+				struct ww_acquire_ctx *ticket)
- {
- 	struct amdgpu_vm *peer_vm;
- 	int ret;
- 
- 	list_for_each_entry(peer_vm, &process_info->vm_list_head,
- 			    vm_list_node) {
--		ret = vm_validate_pt_pd_bos(peer_vm);
-+		ret = vm_validate_pt_pd_bos(peer_vm, ticket);
- 		if (ret)
- 			return ret;
- 	}
-@@ -1402,7 +1405,7 @@ static int init_kfd_vm(struct amdgpu_vm *vm, void **process_info,
- 	ret = amdgpu_bo_reserve(vm->root.bo, true);
- 	if (ret)
- 		goto reserve_pd_fail;
--	ret = vm_validate_pt_pd_bos(vm);
-+	ret = vm_validate_pt_pd_bos(vm, NULL);
- 	if (ret) {
- 		pr_err("validate_pt_pd_bos() failed\n");
- 		goto validate_pd_fail;
-@@ -2043,7 +2046,7 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
- 	    bo->tbo.resource->mem_type == TTM_PL_SYSTEM)
- 		is_invalid_userptr = true;
- 
--	ret = vm_validate_pt_pd_bos(avm);
-+	ret = vm_validate_pt_pd_bos(avm, NULL);
- 	if (unlikely(ret))
- 		goto out_unreserve;
- 
-@@ -2122,7 +2125,7 @@ int amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(
- 		goto unreserve_out;
- 	}
- 
--	ret = vm_validate_pt_pd_bos(avm);
-+	ret = vm_validate_pt_pd_bos(avm, NULL);
- 	if (unlikely(ret))
- 		goto unreserve_out;
- 
-@@ -2620,7 +2623,7 @@ static int validate_invalid_user_pages(struct amdkfd_process_info *process_info)
- 		}
- 	}
- 
--	ret = process_validate_vms(process_info);
-+	ret = process_validate_vms(process_info, NULL);
- 	if (ret)
- 		goto unreserve_out;
- 
-@@ -2880,11 +2883,6 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence __rcu *
- 
- 	amdgpu_sync_create(&sync_obj);
- 
--	/* Validate PDs and PTs */
--	ret = process_validate_vms(process_info);
--	if (ret)
--		goto validate_map_fail;
--
- 	/* Validate BOs and map them to GPUVM (update VM page tables). */
- 	list_for_each_entry(mem, &process_info->kfd_bo_list,
- 			    validate_list) {
-@@ -2935,6 +2933,13 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence __rcu *
- 	if (failed_size)
- 		pr_debug("0x%lx/0x%lx in system\n", failed_size, total_size);
- 
-+	/* Validate PDs, PTs and evicted DMABuf imports last. Otherwise BO
-+	 * validations above would invalidate DMABuf imports again.
-+	 */
-+	ret = process_validate_vms(process_info, &exec.ticket);
-+	if (ret)
-+		goto validate_map_fail;
-+
- 	/* Update mappings not managed by KFD */
- 	list_for_each_entry(peer_vm, &process_info->vm_list_head,
- 			vm_list_node) {
-@@ -3006,7 +3011,7 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence __rcu *
- 				   &process_info->eviction_fence->base,
- 				   DMA_RESV_USAGE_BOOKKEEP);
- 	}
--	/* Attach eviction fence to PD / PT BOs */
-+	/* Attach eviction fence to PD / PT BOs and DMABuf imports */
- 	list_for_each_entry(peer_vm, &process_info->vm_list_head,
- 			    vm_list_node) {
- 		struct amdgpu_bo *bo = peer_vm->root.bo;
-@@ -3014,6 +3019,11 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence __rcu *
- 		dma_resv_add_fence(bo->tbo.base.resv,
- 				   &process_info->eviction_fence->base,
- 				   DMA_RESV_USAGE_BOOKKEEP);
-+
-+		ret = amdgpu_vm_fence_imports(peer_vm, &exec.ticket,
-+					      &process_info->eviction_fence->base);
-+		if (ret)
-+			break;
- 	}
- 
- validate_map_fail:
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index e50be6500030..dc7fac778417 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -952,10 +952,10 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 	p->bytes_moved = 0;
- 	p->bytes_moved_vis = 0;
- 
--	r = amdgpu_vm_validate_pt_bos(p->adev, &fpriv->vm,
--				      amdgpu_cs_bo_validate, p);
-+	r = amdgpu_vm_validate(p->adev, &fpriv->vm, NULL,
-+			       amdgpu_cs_bo_validate, p);
- 	if (r) {
--		DRM_ERROR("amdgpu_vm_validate_pt_bos() failed.\n");
-+		DRM_ERROR("amdgpu_vm_validate() failed.\n");
- 		goto out_free_user_pages;
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-index decbbe3d4f06..055ba2ea4c12 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-@@ -377,6 +377,10 @@ amdgpu_dma_buf_move_notify(struct dma_buf_attachment *attach)
- 	struct amdgpu_vm_bo_base *bo_base;
- 	int r;
- 
-+	/* FIXME: This should be after the "if", but needs a fix to make sure
-+	 * DMABuf imports are initialized in the right VM list.
-+	 */
-+	amdgpu_vm_bo_invalidate(adev, bo, false);
- 	if (!bo->tbo.resource || bo->tbo.resource->mem_type == TTM_PL_SYSTEM)
- 		return;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index b1ce22a9b186..68bab2879696 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -187,7 +187,33 @@ static int amdgpu_gem_object_open(struct drm_gem_object *obj,
- 	else
- 		++bo_va->ref_count;
- 	amdgpu_bo_unreserve(abo);
--	return 0;
-+
-+	/* Validate and add eviction fence to DMABuf imports with dynamic
-+	 * attachment in compute VMs. Re-validation will be done by
-+	 * amdgpu_vm_validate and the fence will be updated by
-+	 * amdgpu_vm_fence_imports in amdgpu_amdkfd_gpuvm_restore_process_bos.
-+	 *
-+	 * Nested locking below for the case that a GEM object is opened in
-+	 * kfd_mem_export_dmabuf. Since the lock below is only taken for imports,
-+	 * but not for export, this is a different lock class that cannot lead to
-+	 * circular lock dependencies.
-+	 */
-+	if (!vm->is_compute_context || !vm->process_info)
-+		return 0;
-+	if (!obj->import_attach ||
-+	    !dma_buf_is_dynamic(obj->import_attach->dmabuf))
-+		return 0;
-+	mutex_lock_nested(&vm->process_info->lock, 1);
-+	if (!WARN_ON(!vm->process_info->eviction_fence)) {
-+		r = amdgpu_amdkfd_bo_validate_and_fence(abo, AMDGPU_GEM_DOMAIN_GTT,
-+							&vm->process_info->eviction_fence->base);
-+		if (r)
-+			dev_warn(adev->dev, "%d: validate_and_fence failed: %d\n",
-+				 vm->task_info.pid, r);
-+	}
-+	mutex_unlock(&vm->process_info->lock);
-+
-+	return r;
- }
- 
- static void amdgpu_gem_object_close(struct drm_gem_object *obj,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 7da71b6a9dc6..ab2662ab4ab8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -426,24 +426,29 @@ uint64_t amdgpu_vm_generation(struct amdgpu_device *adev, struct amdgpu_vm *vm)
- }
- 
- /**
-- * amdgpu_vm_validate_pt_bos - validate the page table BOs
-+ * amdgpu_vm_validate - validate evicted BOs tracked in the VM
-  *
-  * @adev: amdgpu device pointer
-  * @vm: vm providing the BOs
-+ * @ticket: optional reservation ticket used to reserve the VM
-  * @validate: callback to do the validation
-  * @param: parameter for the validation callback
-  *
-- * Validate the page table BOs on command submission if neccessary.
-+ * Validate the page table BOs and per-VM BOs on command submission if
-+ * necessary. If a ticket is given, also try to validate evicted user queue
-+ * BOs. They must already be reserved with the given ticket.
-  *
-  * Returns:
-  * Validation result.
-  */
--int amdgpu_vm_validate_pt_bos(struct amdgpu_device *adev, struct amdgpu_vm *vm,
--			      int (*validate)(void *p, struct amdgpu_bo *bo),
--			      void *param)
-+int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-+		       struct ww_acquire_ctx *ticket,
-+		       int (*validate)(void *p, struct amdgpu_bo *bo),
-+		       void *param)
- {
- 	struct amdgpu_vm_bo_base *bo_base;
- 	struct amdgpu_bo *shadow;
-+	struct dma_resv *resv;
- 	struct amdgpu_bo *bo;
- 	int r;
- 
-@@ -464,8 +469,27 @@ int amdgpu_vm_validate_pt_bos(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 		spin_unlock(&vm->status_lock);
- 
- 		bo = bo_base->bo;
-+		resv = bo->tbo.base.resv;
- 		shadow = amdgpu_bo_shadowed(bo);
- 
-+		if (resv != vm->root.bo->tbo.base.resv) {
-+			if (!ticket) {
-+				/* We need to move the BO out of the evicted
-+				 * list to avoid an infinite loop. It will be
-+				 * moved back to evicted in the next
-+				 * amdgpu_vm_handle_moved.
-+				 */
-+				amdgpu_vm_bo_invalidated(bo_base);
-+				spin_lock(&vm->status_lock);
-+				continue;
-+			}
-+			if (dma_resv_locking_ctx(resv) != ticket) {
-+				pr_warn_ratelimited("Evicted user BO is not reserved in pid %d\n",
-+						    vm->task_info.pid);
-+				return -EINVAL;
-+			}
-+		}
-+
- 		r = validate(param, bo);
- 		if (r)
- 			return r;
-@@ -475,7 +499,13 @@ int amdgpu_vm_validate_pt_bos(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 				return r;
- 		}
- 
--		if (bo->tbo.type != ttm_bo_type_kernel) {
-+		if (resv != vm->root.bo->tbo.base.resv) {
-+			/* Fence reservation for amdgpu_vm_fence_imports */
-+			r = dma_resv_reserve_fences(resv, 1);
-+			if (r)
-+				return r;
-+			amdgpu_vm_bo_invalidated(bo_base);
-+		} if (bo->tbo.type != ttm_bo_type_kernel) {
- 			amdgpu_vm_bo_moved(bo_base);
- 		} else {
- 			vm->update_funcs->map_table(to_amdgpu_bo_vm(bo));
-@@ -1425,11 +1455,21 @@ int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
- 		}
- 
- 		r = amdgpu_vm_bo_update(adev, bo_va, clear);
--		if (r)
--			return r;
- 
- 		if (unlock)
- 			dma_resv_unlock(resv);
-+		if (r)
-+			return r;
-+
-+		/* Remember evicted DMABuf imports in compute VMs for later
-+		 * validation
-+		 */
-+		if (vm->is_compute_context && bo_va->base.bo &&
-+		    bo_va->base.bo->tbo.base.import_attach &&
-+		    (!bo_va->base.bo->tbo.resource ||
-+		     bo_va->base.bo->tbo.resource->mem_type == TTM_PL_SYSTEM))
-+			amdgpu_vm_bo_evicted(&bo_va->base);
-+
- 		spin_lock(&vm->status_lock);
- 	}
- 	spin_unlock(&vm->status_lock);
-@@ -1437,6 +1477,51 @@ int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
- 	return 0;
- }
- 
-+/**
-+ * amdgpu_vm_fence_imports - add fence to valid DMABuf imports
-+ *
-+ * @vm: requested vm
-+ * @ticket: reservation ticket used to reserve the VM
-+ * @fence: fence to add
-+ *
-+ * Add the specified fence to all dynamic DMABuf imports that are valid.
-+ *
-+ * Returns:
-+ * 0 for success.
-+ */
-+int amdgpu_vm_fence_imports(struct amdgpu_vm *vm,
-+			    struct ww_acquire_ctx *ticket,
-+			    struct dma_fence *fence)
-+{
-+	struct amdgpu_bo_va *bo_va, *tmp;
-+	struct dma_resv *resv;
-+
-+	if (!vm->is_compute_context)
-+		return 0;
-+	if (!ticket)
-+		return -EINVAL;
-+
-+	spin_lock(&vm->status_lock);
-+	list_for_each_entry_safe(bo_va, tmp, &vm->idle, base.vm_status) {
-+		if (!bo_va->base.bo || !bo_va->base.bo->tbo.base.import_attach ||
-+		    !dma_buf_is_dynamic(bo_va->base.bo->tbo.base.import_attach->dmabuf))
-+			continue;
-+
-+		resv = bo_va->base.bo->tbo.base.resv;
-+		if (dma_resv_locking_ctx(resv) != ticket) {
-+			pr_warn_ratelimited("Imported BO is not reserved in pid %d\n",
-+					    vm->task_info.pid);
-+			continue;
-+		}
-+		dma_resv_add_fence(resv, fence,
-+				   DMA_RESV_USAGE_BOOKKEEP);
-+
-+	}
-+	spin_unlock(&vm->status_lock);
-+
-+	return 0;
-+}
-+
- /**
-  * amdgpu_vm_flush_compute_tlb - Flush TLB on compute VM
-  *
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index b6cd565562ad..eff301976eee 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -434,9 +434,10 @@ int amdgpu_vm_lock_pd(struct amdgpu_vm *vm, struct drm_exec *exec,
- 		      unsigned int num_fences);
- bool amdgpu_vm_ready(struct amdgpu_vm *vm);
- uint64_t amdgpu_vm_generation(struct amdgpu_device *adev, struct amdgpu_vm *vm);
--int amdgpu_vm_validate_pt_bos(struct amdgpu_device *adev, struct amdgpu_vm *vm,
--			      int (*callback)(void *p, struct amdgpu_bo *bo),
--			      void *param);
-+int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-+		       struct ww_acquire_ctx *ticket,
-+		       int (*callback)(void *p, struct amdgpu_bo *bo),
-+		       void *param);
- int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job, bool need_pipe_sync);
- int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
- 			  struct amdgpu_vm *vm, bool immediate);
-@@ -446,6 +447,9 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
- int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
- 			   struct amdgpu_vm *vm,
- 			   struct ww_acquire_ctx *ticket);
-+int amdgpu_vm_fence_imports(struct amdgpu_vm *vm,
-+			    struct ww_acquire_ctx *ticket,
-+			    struct dma_fence *fence);
- int amdgpu_vm_flush_compute_tlb(struct amdgpu_device *adev,
- 				struct amdgpu_vm *vm,
- 				uint32_t flush_type,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 2834fb351818..9f29bbdb9050 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1509,9 +1509,9 @@ static int svm_range_reserve_bos(struct svm_validate_context *ctx, bool intr)
- 			goto unreserve_out;
- 		}
- 
--		r = amdgpu_vm_validate_pt_bos(pdd->dev->adev,
--					      drm_priv_to_vm(pdd->drm_priv),
--					      svm_range_bo_validate, NULL);
-+		r = amdgpu_vm_validate(pdd->dev->adev,
-+				       drm_priv_to_vm(pdd->drm_priv), NULL,
-+				       svm_range_bo_validate, NULL);
- 		if (r) {
- 			pr_debug("failed %d validate pt bos\n", r);
- 			goto unreserve_out;
-@@ -1630,7 +1630,9 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 		goto free_ctx;
- 	}
- 
--	svm_range_reserve_bos(ctx, intr);
-+	r = svm_range_reserve_bos(ctx, intr);
-+	if (r)
-+		goto free_ctx;
- 
- 	p = container_of(prange->svms, struct kfd_process, svms);
- 	owner = kfd_svm_page_owner(p, find_first_bit(ctx->bitmap,
--- 
-2.34.1
+are available in the Git repository at:
 
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.7-2023-12-06
+
+for you to fetch changes up to dab96d8b61aab1a4f99d0b86964a6c40e7bb1756:
+
+  drm/amdgpu: fix buffer funcs setting order on suspend (2023-12-06 16:05:32 -0500)
+
+----------------------------------------------------------------
+amd-drm-fixes-6.7-2023-12-06:
+
+amdgpu:
+- Disable MCBP on gfx9
+- DC vbios fix
+- eDP fix
+- dml2 UBSAN fix
+- SMU 14 fix
+- RAS fixes
+- dml KASAN/KCSAN fix
+- PSP 13 fix
+- Clockgating fixes
+- Suspend fix
+
+----------------------------------------------------------------
+Alex Deucher (2):
+      drm/amd/display: Increase frame warning limit with KASAN or KCSAN in dml
+      drm/amdgpu: fix buffer funcs setting order on suspend
+
+Alvin Lee (1):
+      drm/amd/display: Use channel_width = 2 for vram table 3.0
+
+Hawking Zhang (1):
+      drm/amdgpu: Update fw version for boot time error query
+
+Ivan Lipski (1):
+      drm/amd/display: Add monitor patch for specific eDP
+
+Jiadong Zhu (1):
+      drm/amdgpu: disable MCBP by default
+
+Li Ma (1):
+      drm/amd/swsmu: update smu v14_0_0 driver if version and metrics table
+
+Lijo Lazar (4):
+      drm/amdgpu: Restrict extended wait to PSP v13.0.6
+      drm/amdgpu: Add NULL checks for function pointers
+      drm/amdgpu: Update HDP 4.4.2 clock gating flags
+      drm/amdgpu: Avoid querying DRM MGCG status
+
+Roman Li (1):
+      drm/amd/display: Fix array-index-out-of-bounds in dml2
+
+Yang Wang (2):
+      drm/amd/pm: support new mca smu error code decoding
+      drm/amdgpu: optimize the printing order of error data
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h            |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            | 17 +++++
+ drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c              |  5 ++
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0.c             | 12 ++--
+ drivers/gpu/drm/amd/amdgpu/soc15.c                 | 15 +++--
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  6 ++
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c |  8 ++-
+ drivers/gpu/drm/amd/display/dc/dml/Makefile        |  4 ++
+ .../drm/amd/display/dc/dml2/display_mode_core.c    |  6 +-
+ drivers/gpu/drm/amd/include/kgd_pp_interface.h     | 17 +++++
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      | 10 +++
+ .../pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0_0.h | 77 +++++++++++++---------
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   |  9 ++-
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c   | 46 ++++++++++++-
+ 15 files changed, 187 insertions(+), 53 deletions(-)
