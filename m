@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6ACC2C10F04
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C99AC4167B
 	for <amd-gfx@archiver.kernel.org>; Wed,  6 Dec 2023 07:31:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 491DE10E68E;
-	Wed,  6 Dec 2023 07:31:21 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2043.outbound.protection.outlook.com [40.107.244.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A297410E68E
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Dec 2023 07:31:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93EFF10E688;
+	Wed,  6 Dec 2023 07:31:20 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2056.outbound.protection.outlook.com [40.107.220.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7084E10E68E
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Dec 2023 07:30:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cjsPoxEuYUN+TwPRo642geRTVPbxNWfdEgPwAyneUR++wbAw0d7rcqbSLxGD0223bIyjSgo0uZC5Gu5w/jQEZ6BSb4yN3D1O+JerJmS3RQsI3RkWdo29uTaoqG3ruc+4at2+0+qWWAJzZ07B/r78jCJkvMTwwJW7YjFUH45xJQX0jGS83w0FXb+p48yjxa/TZMlaNSdpBoO5j20n9zfODgKmfltN+FFKF3q9Hagc3f/ZzL+D3Rt7Zp+cZ7zK/ys3GF87Y6Kow5nxvHJAgjBswW1hKDsFPIxVvXuCpDrk21MwZ8746KKG3exZupD7WVheFXXQ0fBgTYBZgpdg7wpGOw==
+ b=jrJLVSgkCd17/lYisjWAiYEpksFfGsC9vg+9oEglgL+uO4Uys34EoiP8oNMOdb40/8sHjpqSv11GRvEyqLp8Ju0+VZYSP7FTiZE/gbtKRbDtSEuHob6Xe/r6AFDFmtK1MqzK3l/GkxqZ9uwWNZ97Nj3jncaB1Crz4yFVo4ibSMR7i1QPxCPxboC3CjBmQhGGKXNjA9RF9jgGvban4fl4DcqzK+HvH7UtoXlZphO/2Xj7UkhNM47+lWQO1RdD2dCgbx+rZD7GjN/v6Wv5bLeuQKuBUDStP7boY23ygPWkBFe9itx9mcc0kBBswJ0CKKgzKuo3DYrBdhbQ2ToIJJdXrA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R1JydqCe69/rHv3/TqUqpijvwhn95PfTcCDHWLKbcPs=;
- b=fBlWd4CScsvYU80VQAvutECplrn7BZ7EUNhgbVKTQPQ2t/YjikTQ+eBTK3MMZyzK6pGcOFpJadNm2UTH9Gshel/qQ0fn5jQWIp8XPcmu+bwZhr1ftGSRQQwvHkMRZRhZgDN1Hlj4r9Ggir1qd6Xmr4MJSIUD28pvmcS8KPF1dEyH/7GCNheqXCzLu/yQceBkgT2ejIYhJMhy3F6IVfzH4ahv65qDMsZRXwCFgqZYn1qm/VI+RV7Y8zx82A76LthDAQzn/3KtFiylpAVqv6tbM8kbVECPEk+FicETmhfdjUSZNDqMhGBqNqDTilnNUEgteMsgusF+mZ4Ospg1Bs7IcA==
+ bh=jl85AFPE8/aLHYct/7xBMH1XWzlfxhgzYwHe8w3RUo4=;
+ b=VYVZFVX6jCg7TLA0hUiawdXYnfB37jY20sx8PLfZatntM+TAtgqCoV/dp7mhV+pc9um/+8I2hb/2k4i7aJKEmia/6esMVTU00hpaOqZhVNpJc4gCYzhRiITEcfJLEo9mVLFapDOPGslX/tNgbIu66Rr/TgZFrBhEUZUZYkzffYh0bRorwphoprqUxIBt7lyOMd2M2SliZ92rBls+PHjiZPknp5TBsA57dAbOJaNiAvjQOd/fDGM6Agh7WjL+9SE05nlUGObA4NHCX3CuctQXcKFzNmigUSrPJIBKAaK858MD7lAQEES/73fNczxfFc3IotmhTqyIcBTMrwWv0By+ng==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R1JydqCe69/rHv3/TqUqpijvwhn95PfTcCDHWLKbcPs=;
- b=g2W9PSzojse5DwKAnrl0IQcoHvYtb93vCR96jXsKpdSOXKnQm+JMzN2pw4JO4oCAMLPK0ZrJtB6b0616492mJyz3QRPg5rX5cCYaCQ5WglW0OriVjCKBK7ezZozyq5AMNqWMSx1MlaDOX0QGgk6TlLnLYcCzQdOWiC84EZCKCl8=
-Received: from MW4PR03CA0147.namprd03.prod.outlook.com (2603:10b6:303:8c::32)
- by DM6PR12MB4532.namprd12.prod.outlook.com (2603:10b6:5:2af::24) with
+ bh=jl85AFPE8/aLHYct/7xBMH1XWzlfxhgzYwHe8w3RUo4=;
+ b=2esMIbtlBkbE8KvhdYWMWtUqs2ZX/PxjeAN70HsT3bSxPMjPPmCM3oEuwGhg3QdjHb7Pr68NxJQ9I8hrnswogYDud1pqUfWxKBzcPQRd0fXI8dLVCuSppQn2tFST1rFIkle3NpFjy1njtp+ivTgKIOPEW+Pu/xKZJdFpuuavPGs=
+Received: from MW4PR03CA0124.namprd03.prod.outlook.com (2603:10b6:303:8c::9)
+ by SA3PR12MB7922.namprd12.prod.outlook.com (2603:10b6:806:314::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.25; Wed, 6 Dec
- 2023 07:31:14 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.34; Wed, 6 Dec
+ 2023 07:30:30 +0000
 Received: from CO1PEPF000044FB.namprd21.prod.outlook.com
- (2603:10b6:303:8c:cafe::e1) by MW4PR03CA0147.outlook.office365.com
- (2603:10b6:303:8c::32) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:303:8c:cafe::8a) by MW4PR03CA0124.outlook.office365.com
+ (2603:10b6:303:8c::9) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.34 via Frontend
- Transport; Wed, 6 Dec 2023 07:31:14 +0000
+ Transport; Wed, 6 Dec 2023 07:30:30 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,11 +47,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1PEPF000044FB.mail.protection.outlook.com (10.167.241.201) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7091.2 via Frontend Transport; Wed, 6 Dec 2023 07:31:14 +0000
+ 15.20.7091.2 via Frontend Transport; Wed, 6 Dec 2023 07:30:30 +0000
 Received: from compile-server.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 6 Dec
- 2023 01:31:08 -0600
+ 2023 01:30:24 -0600
 From: Ma Jun <Jun.Ma2@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <lenb@kernel.org>, <hdegoede@redhat.com>, 
  <johannes@sipsolutions.net>, <davem@davemloft.net>, <edumazet@google.com>, 
@@ -59,41 +59,41 @@ To: <amd-gfx@lists.freedesktop.org>, <lenb@kernel.org>, <hdegoede@redhat.com>,
  <Lijo.Lazar@amd.com>, <mario.limonciello@amd.com>, <netdev@vger.kernel.org>,
  <linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
  <linux-doc@vger.kernel.org>, <platform-driver-x86@vger.kernel.org>
-Subject: [PATCH v15 6/9] drm/amd/pm: setup the framework to support Wifi RFI
- mitigation feature
-Date: Wed, 6 Dec 2023 15:29:44 +0800
-Message-ID: <20231206072947.1331729-7-Jun.Ma2@amd.com>
+Subject: [PATCH v15 2/9] platform/x86/amd: Add support for AMD ACPI based Wifi
+ band RFI mitigation feature
+Date: Wed, 6 Dec 2023 15:29:40 +0800
+Message-ID: <20231206072947.1331729-3-Jun.Ma2@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231206072947.1331729-1-Jun.Ma2@amd.com>
 References: <20231206072947.1331729-1-Jun.Ma2@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044FB:EE_|DM6PR12MB4532:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3f497424-08e0-4723-8d2a-08dbf62d53c7
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044FB:EE_|SA3PR12MB7922:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5c4e9451-4985-4267-5c33-08dbf62d39bd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: X6C5d5Yl1NXYDSvDE+sM2CnOun5rx5WStypEvidQ6/WFkrL4LiR2XjRIxNxHEemdLMQ5U6fT3QK8J6XGloMGczkVHb/+FMci5h1bzZCZgdliJNi6jevE2tvUBgZq9PLFJaPgW1evXtJFGZCy3SZnbAfWeme1pwVoaiKOEZRe5JbvpPwNA0J3qRCjnJH4/TDMPzNjTMkzRigfoRsQaREE5EL0d0UPxzxfD8X3Ula/PAE/UHzi0dWTK0YGJNtK2HQqG9IM+AfSeK6T5VNr5dOOa4U9wtJeYZzmKEZT0+D+KtwYxQ/gfjWWpp+C/S3CMUQNVvxTxHwp8fnqVvqRxVA9iMZHpPNfCa69tJAWD/up0tUNxlvoFr9a4UUtBl1HUv4qgO5GvZLSxIv4pUT3DQM7SXb/si71i4UIzlRXUBf7Wor+FnP+I0GeGhqgTFZirbzk2OaENhvYaU3adbNfTKUy5tX68YjZYv4JQjTIyNYKErOHiXn0iU8XE6FrSINF1huFtPXctYwBjeYRtWho0vXQmfaiM9UTQ1pqJloS/74kUWrd9psIl6F0Q43aAJ2TmzMVhagmXJ6MC8PYpN2hcpxjwSGV59svupgBnvgBDEwwuM1brPySjWEOx6mIcHS19DmT6Yp1y3cWwO5kVurGeQ3E1/iKpV6H2nyTqDveWuvADqxkLBCBHDLN62mJ1E40ioqX33PEmX6v/VqdOkqhI4VNexHxx7FPTgTvqgbSp4i42mSH2Z00bsx1D4UlvC+Df5eaG5sHZ6wq9akAHOjtG3tpAAVBcdRAYd7ny4AOZVaFNkU=
+X-Microsoft-Antispam-Message-Info: fJ2onYbvQuHB3mZubYgdyrdcDhaF/tY3l0NhM88LTmWlhENtmXvFQP+XEqD7ZN5/lnUhuG27BrDys1zEDjiycLc88IbCaMNM3Njjf9n0N5bZ7olw0cq103cJHpaoTxebq5oogEyvUiKzug+TSb6ts4Bbft7OFkjsUzQ+Zq004D/QUsZ8Qa4XX3f+ddsAwDkTc/H3W89JBhVkWIOh+SCW/ysiyZHGwmHzsMKVHrmghiP48gfSm4uUob/H336TQ8ULP108HZICqkFE0DFb4G4EpXOwnKXZSrLO5/xN5Q8pnJztZuxcxCE+aQQH+YGw5jUndd5gaMdLGpaXO65JOi3yRqvGIA6R59rLJim/CjdZmobdiryHoLgm85g6wpRGXV9B9de3q/n4czMTx+ojmQedJYQaTfJlClUty8NbM6V6k4/qcf4JYsmZlqwttqx6C5YCxCOAKihC14lAK+mnrloBJ/GglStkLr5zc7x44zRnedvyFOyICHndPqMwwtgPVsJnIk35d8+1Ba+KA6/5jmROs7WbCc6L8DEqUT7npHVUrKGB54Ts9ywI6n3X3hxjvRC901TjSKec64s4++N0sFLnwddba+XXN83N36ca+7Qf6SGoS9SdduJYYY0hYMeCVupmFGPkbkCWnEtRfyc6G9iJndMVrYUa83LibZ2T20LWa3rv/URIfRmNu5kyclmHjjPwFB/6S8BM3ycpOd58kEun7lumK6P9pPgk/LtIIeFwVD2kcT4x+OcpmZOD1pa9giHFPE86+tOl1rGCEk/fOYUsuON+4VywSzusfcHGbO8vmSs=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(376002)(396003)(39860400002)(136003)(230922051799003)(1800799012)(451199024)(186009)(82310400011)(64100799003)(36840700001)(40470700004)(921008)(41300700001)(36756003)(40460700003)(30864003)(5660300002)(7416002)(86362001)(2906002)(32650700002)(356005)(81166007)(36860700001)(40480700001)(7696005)(26005)(16526019)(426003)(336012)(2616005)(1076003)(478600001)(83380400001)(82740400003)(6666004)(45080400002)(8676002)(4326008)(8936002)(54906003)(70586007)(70206006)(110136005)(316002)(36900700001);
+ SFS:(13230031)(4636009)(396003)(136003)(39860400002)(346002)(376002)(230922051799003)(1800799012)(82310400011)(186009)(451199024)(64100799003)(36840700001)(40470700004)(40480700001)(36860700001)(32650700002)(356005)(921008)(7416002)(41300700001)(5660300002)(30864003)(82740400003)(2906002)(83380400001)(6666004)(1076003)(426003)(336012)(16526019)(81166007)(7696005)(26005)(2616005)(40460700003)(45080400002)(110136005)(478600001)(36756003)(70206006)(70586007)(8936002)(86362001)(4326008)(316002)(8676002)(54906003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2023 07:31:14.0886 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f497424-08e0-4723-8d2a-08dbf62d53c7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2023 07:30:30.4010 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c4e9451-4985-4267-5c33-08dbf62d39bd
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044FB.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4532
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7922
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,374 +109,496 @@ Cc: Ma Jun <Jun.Ma2@amd.com>, Evan Quan <quanliangl@hotmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Evan Quan <quanliangl@hotmail.com>
+Due to electrical and mechanical constraints in certain platform designs
+there may be likely interference of relatively high-powered harmonics of
+the (G-)DDR memory clocks with local radio module frequency bands used
+by Wifi 6/6e/7.
 
-With WBRF feature supported, as a driver responding to the frequencies,
-amdgpu driver is able to do shadow pstate switching to mitigate possible
-interference(between its (G-)DDR memory clocks and local radio module
-frequency bands used by Wifi 6/6e/7).
+To mitigate this, AMD has introduced a mechanism that devices can use to
+notify active use of particular frequencies so that other devices can make
+relative internal adjustments as necessary to avoid this resonance.
 
+Co-developed-by: Evan Quan <quanliangl@hotmail.com>
 Signed-off-by: Evan Quan <quanliangl@hotmail.com>
-Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
 Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+
 --
-v1->v2:
-  - update the prompt for feature support(Lijo)
-v8->v9:
-  - update parameter document for smu_wbrf_event_handler(Simon)
-v9->v10:
-v10->v11:
- - correct the logics for wbrf range sorting(Lijo)
+v11:
+ - fix typo(Simon)
+v12:
+ - Fix the code logic (Rafael)
+ - Move amd_wbrf.c to drivers/platform/x86/amd/wbrf.c
+ - Updated Evan's email because he's no longer at AMD.Thanks
+for his work in earlier versions.
 v13:
  - Fix the format issue (IIpo Jarvinen)
-Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+ - Add comment for some functions
+v14:
+ - Use the apci_check_dsm and acpi_evaluate_dsm (Hans de Goede)
+v15:
+ - Drop redundant functions and fix format issue (Hans de Goede)
+ - Fix the compile error
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  17 ++
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 191 ++++++++++++++++++
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  22 ++
- drivers/gpu/drm/amd/pm/swsmu/smu_internal.h   |   3 +
- 5 files changed, 235 insertions(+)
+ drivers/platform/x86/amd/Kconfig  |  14 ++
+ drivers/platform/x86/amd/Makefile |   1 +
+ drivers/platform/x86/amd/wbrf.c   | 317 ++++++++++++++++++++++++++++++
+ include/linux/acpi_amd_wbrf.h     |  91 +++++++++
+ 4 files changed, 423 insertions(+)
+ create mode 100644 drivers/platform/x86/amd/wbrf.c
+ create mode 100644 include/linux/acpi_amd_wbrf.h
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 9d92ca157677..dc0712a9005c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -250,6 +250,8 @@ extern int amdgpu_seamless;
- extern int amdgpu_user_partt_mode;
- extern int amdgpu_agp;
+diff --git a/drivers/platform/x86/amd/Kconfig b/drivers/platform/x86/amd/Kconfig
+index 55f3a2fc6aec..54753213cc61 100644
+--- a/drivers/platform/x86/amd/Kconfig
++++ b/drivers/platform/x86/amd/Kconfig
+@@ -18,3 +18,17 @@ config AMD_HSMP
  
-+extern int amdgpu_wbrf;
+ 	  If you choose to compile this driver as a module the module will be
+ 	  called amd_hsmp.
 +
- #define AMDGPU_VM_MAX_NUM_CTX			4096
- #define AMDGPU_SG_THRESHOLD			(256*1024*1024)
- #define AMDGPU_WAIT_IDLE_TIMEOUT_IN_MS	        3000
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 8b33b130ea36..a194db09cde6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -208,6 +208,7 @@ int amdgpu_umsch_mm;
- int amdgpu_seamless = -1; /* auto */
- uint amdgpu_debug_mask;
- int amdgpu_agp = -1; /* auto */
-+int amdgpu_wbrf = -1;
- 
- static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
- 
-@@ -971,6 +972,22 @@ module_param_named(debug_mask, amdgpu_debug_mask, uint, 0444);
- MODULE_PARM_DESC(agp, "AGP (-1 = auto (default), 0 = disable, 1 = enable)");
- module_param_named(agp, amdgpu_agp, int, 0444);
- 
-+/**
-+ * DOC: wbrf (int)
-+ * Enable Wifi RFI interference mitigation feature.
-+ * Due to electrical and mechanical constraints there may be likely interference of
-+ * relatively high-powered harmonics of the (G-)DDR memory clocks with local radio
-+ * module frequency bands used by Wifi 6/6e/7. To mitigate the possible RFI interference,
-+ * with this feature enabled, PMFW will use either “shadowed P-State” or “P-State” based
-+ * on active list of frequencies in-use (to be avoided) as part of initial setting or
-+ * P-state transition. However, there may be potential performance impact with this
-+ * feature enabled.
-+ * (0 = disabled, 1 = enabled, -1 = auto (default setting, will be enabled if supported))
++config AMD_WBRF
++	bool "AMD Wifi RF Band mitigations (WBRF)"
++	depends on ACPI
++	help
++	  WBRF(Wifi Band RFI mitigation) mechanism allows Wifi drivers
++	  to notify the frequencies they are using so that other hardware
++	  can be reconfigured to avoid harmonic conflicts.
++
++	  AMD provides an ACPI based mechanism to support WBRF on platform with
++	  appropriate underlying support.
++
++	  This mechanism will only be activated on platforms that advertise a
++	  need for it.
+diff --git a/drivers/platform/x86/amd/Makefile b/drivers/platform/x86/amd/Makefile
+index f04932b7a7d1..dcec0a46f8af 100644
+--- a/drivers/platform/x86/amd/Makefile
++++ b/drivers/platform/x86/amd/Makefile
+@@ -8,3 +8,4 @@ obj-$(CONFIG_AMD_PMC)		+= pmc/
+ amd_hsmp-y			:= hsmp.o
+ obj-$(CONFIG_AMD_HSMP)		+= amd_hsmp.o
+ obj-$(CONFIG_AMD_PMF)		+= pmf/
++obj-$(CONFIG_AMD_WBRF)		+= wbrf.o
+diff --git a/drivers/platform/x86/amd/wbrf.c b/drivers/platform/x86/amd/wbrf.c
+new file mode 100644
+index 000000000000..dd197b3aebe0
+--- /dev/null
++++ b/drivers/platform/x86/amd/wbrf.c
+@@ -0,0 +1,317 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Wifi Frequency Band Manage Interface
++ * Copyright (C) 2023 Advanced Micro Devices
 + */
-+MODULE_PARM_DESC(wbrf,
-+	"Enable Wifi RFI interference mitigation (0 = disabled, 1 = enabled, -1 = auto(default)");
-+module_param_named(wbrf, amdgpu_wbrf, int, 0444);
 +
- /* These devices are not supported by amdgpu.
-  * They are supported by the mach64, r128, radeon drivers
-  */
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index e1a5ee911dbb..2c7507cf256b 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -1322,6 +1322,170 @@ static int smu_get_thermal_temperature_range(struct smu_context *smu)
- 	return ret;
- }
- 
-+/**
-+ * smu_wbrf_handle_exclusion_ranges - consume the wbrf exclusion ranges
-+ *
-+ * @smu: smu_context pointer
-+ *
-+ * Retrieve the wbrf exclusion ranges and send them to PMFW for proper handling.
-+ * Returns 0 on success, error on failure.
-+ */
-+static int smu_wbrf_handle_exclusion_ranges(struct smu_context *smu)
-+{
-+	struct wbrf_ranges_in_out wbrf_exclusion = {0};
-+	struct freq_band_range *wifi_bands = wbrf_exclusion.band_list;
-+	struct amdgpu_device *adev = smu->adev;
-+	uint32_t num_of_wbrf_ranges = MAX_NUM_OF_WBRF_RANGES;
-+	uint64_t start, end;
-+	int ret, i, j;
-+
-+	ret = amd_wbrf_retrieve_freq_band(adev->dev, &wbrf_exclusion);
-+	if (ret) {
-+		dev_err(adev->dev, "Failed to retrieve exclusion ranges!\n");
-+		return ret;
-+	}
-+
-+	/*
-+	 * The exclusion ranges array we got might be filled with holes and duplicate
-+	 * entries. For example:
-+	 * {(2400, 2500), (0, 0), (6882, 6962), (2400, 2500), (0, 0), (6117, 6189), (0, 0)...}
-+	 * We need to do some sortups to eliminate those holes and duplicate entries.
-+	 * Expected output: {(2400, 2500), (6117, 6189), (6882, 6962), (0, 0)...}
-+	 */
-+	for (i = 0; i < num_of_wbrf_ranges; i++) {
-+		start = wifi_bands[i].start;
-+		end = wifi_bands[i].end;
-+
-+		/* get the last valid entry to fill the intermediate hole */
-+		if (!start && !end) {
-+			for (j = num_of_wbrf_ranges - 1; j > i; j--)
-+				if (wifi_bands[j].start && wifi_bands[j].end)
-+					break;
-+
-+			/* no valid entry left */
-+			if (j <= i)
-+				break;
-+
-+			start = wifi_bands[i].start = wifi_bands[j].start;
-+			end = wifi_bands[i].end = wifi_bands[j].end;
-+			wifi_bands[j].start = 0;
-+			wifi_bands[j].end = 0;
-+			num_of_wbrf_ranges = j;
-+		}
-+
-+		/* eliminate duplicate entries */
-+		for (j = i + 1; j < num_of_wbrf_ranges; j++) {
-+			if ((wifi_bands[j].start == start) && (wifi_bands[j].end == end)) {
-+				wifi_bands[j].start = 0;
-+				wifi_bands[j].end = 0;
-+			}
-+		}
-+	}
-+
-+	/* Send the sorted wifi_bands to PMFW */
-+	ret = smu_set_wbrf_exclusion_ranges(smu, wifi_bands);
-+	/* Try to set the wifi_bands again */
-+	if (unlikely(ret == -EBUSY)) {
-+		mdelay(5);
-+		ret = smu_set_wbrf_exclusion_ranges(smu, wifi_bands);
-+	}
-+
-+	return ret;
-+}
-+
-+/**
-+ * smu_wbrf_event_handler - handle notify events
-+ *
-+ * @nb: notifier block
-+ * @action: event type
-+ * @_arg: event data
-+ *
-+ * Calls relevant amdgpu function in response to wbrf event
-+ * notification from kernel.
-+ */
-+static int smu_wbrf_event_handler(struct notifier_block *nb,
-+				  unsigned long action, void *_arg)
-+{
-+	struct smu_context *smu = container_of(nb, struct smu_context, wbrf_notifier);
-+
-+	switch (action) {
-+	case WBRF_CHANGED:
-+		smu_wbrf_handle_exclusion_ranges(smu);
-+		break;
-+	default:
-+		return NOTIFY_DONE;
-+	};
-+
-+	return NOTIFY_OK;
-+}
-+
-+/**
-+ * smu_wbrf_support_check - check wbrf support
-+ *
-+ * @smu: smu_context pointer
-+ *
-+ * Verifies the ACPI interface whether wbrf is supported.
-+ */
-+static void smu_wbrf_support_check(struct smu_context *smu)
-+{
-+	struct amdgpu_device *adev = smu->adev;
-+
-+	smu->wbrf_supported = smu_is_asic_wbrf_supported(smu) && amdgpu_wbrf &&
-+							acpi_amd_wbrf_supported_consumer(adev->dev);
-+
-+	if (smu->wbrf_supported)
-+		dev_info(adev->dev, "RF interference mitigation is supported\n");
-+}
-+
-+/**
-+ * smu_wbrf_init - init driver wbrf support
-+ *
-+ * @smu: smu_context pointer
-+ *
-+ * Verifies the AMD ACPI interfaces and registers with the wbrf
-+ * notifier chain if wbrf feature is supported.
-+ * Returns 0 on success, error on failure.
-+ */
-+static int smu_wbrf_init(struct smu_context *smu)
-+{
-+	struct amdgpu_device *adev = smu->adev;
-+	int ret;
-+
-+	if (!smu->wbrf_supported)
-+		return 0;
-+
-+	smu->wbrf_notifier.notifier_call = smu_wbrf_event_handler;
-+	ret = amd_wbrf_register_notifier(&smu->wbrf_notifier);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Some wifiband exclusion ranges may be already there
-+	 * before our driver loaded. To make sure our driver
-+	 * is awared of those exclusion ranges.
-+	 */
-+	ret = smu_wbrf_handle_exclusion_ranges(smu);
-+	if (ret)
-+		dev_err(adev->dev, "Failed to handle wbrf exclusion ranges\n");
-+
-+	return ret;
-+}
-+
-+/**
-+ * smu_wbrf_fini - tear down driver wbrf support
-+ *
-+ * @smu: smu_context pointer
-+ *
-+ * Unregisters with the wbrf notifier chain.
-+ */
-+static void smu_wbrf_fini(struct smu_context *smu)
-+{
-+	if (!smu->wbrf_supported)
-+		return;
-+
-+	amd_wbrf_unregister_notifier(&smu->wbrf_notifier);
-+}
-+
- static int smu_smc_hw_setup(struct smu_context *smu)
- {
- 	struct smu_feature *feature = &smu->smu_feature;
-@@ -1414,6 +1578,15 @@ static int smu_smc_hw_setup(struct smu_context *smu)
- 	if (ret)
- 		return ret;
- 
-+	/* Enable UclkShadow on wbrf supported */
-+	if (smu->wbrf_supported) {
-+		ret = smu_enable_uclk_shadow(smu, true);
-+		if (ret) {
-+			dev_err(adev->dev, "Failed to enable UclkShadow feature to support wbrf!\n");
-+			return ret;
-+		}
-+	}
-+
- 	/*
- 	 * With SCPM enabled, these actions(and relevant messages) are
- 	 * not needed and permitted.
-@@ -1512,6 +1685,15 @@ static int smu_smc_hw_setup(struct smu_context *smu)
- 	 */
- 	ret = smu_set_min_dcef_deep_sleep(smu,
- 					  smu->smu_table.boot_values.dcefclk / 100);
-+	if (ret) {
-+		dev_err(adev->dev, "Error setting min deepsleep dcefclk\n");
-+		return ret;
-+	}
-+
-+	/* Init wbrf support. Properly setup the notifier */
-+	ret = smu_wbrf_init(smu);
-+	if (ret)
-+		dev_err(adev->dev, "Error during wbrf init call\n");
- 
- 	return ret;
- }
-@@ -1567,6 +1749,13 @@ static int smu_hw_init(void *handle)
- 		return ret;
- 	}
- 
-+	/*
-+	 * Check whether wbrf is supported. This needs to be done
-+	 * before SMU setup starts since part of SMU configuration
-+	 * relies on this.
-+	 */
-+	smu_wbrf_support_check(smu);
-+
- 	if (smu->is_apu) {
- 		ret = smu_set_gfx_imu_enable(smu);
- 		if (ret)
-@@ -1733,6 +1922,8 @@ static int smu_smc_hw_cleanup(struct smu_context *smu)
- 	struct amdgpu_device *adev = smu->adev;
- 	int ret = 0;
- 
-+	smu_wbrf_fini(smu);
-+
- 	cancel_work_sync(&smu->throttling_logging_work);
- 	cancel_work_sync(&smu->interrupt_work);
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-index b1b1154d70a5..620e53cc3a61 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-@@ -22,6 +22,8 @@
- #ifndef __AMDGPU_SMU_H__
- #define __AMDGPU_SMU_H__
- 
++#include <linux/acpi.h>
 +#include <linux/acpi_amd_wbrf.h>
 +
- #include "amdgpu.h"
- #include "kgd_pp_interface.h"
- #include "dm_pp_interface.h"
-@@ -569,6 +571,10 @@ struct smu_context {
- 	struct delayed_work		swctf_delayed_work;
- 
- 	enum pp_xgmi_plpd_mode plpd_mode;
++/*
++ * Functions bit vector for WBRF method
++ *
++ * Bit 0: WBRF supported.
++ * Bit 1: Function 1 (Add / Remove frequency) is supported.
++ * Bit 2: Function 2 (Get frequency list) is supported.
++ */
++#define WBRF_ENABLED		0x0
++#define WBRF_RECORD			0x1
++#define WBRF_RETRIEVE		0x2
 +
-+	/* data structures for wbrf feature support */
-+	bool				wbrf_supported;
-+	struct notifier_block		wbrf_notifier;
- };
- 
- struct i2c_adapter;
-@@ -1365,6 +1371,22 @@ struct pptable_funcs {
- 	 * @notify_rlc_state: Notify RLC power state to SMU.
- 	 */
- 	int (*notify_rlc_state)(struct smu_context *smu, bool en);
++#define WBRF_REVISION		0x1
 +
-+	/**
-+	 * @is_asic_wbrf_supported: check whether PMFW supports the wbrf feature
++/*
++ * The data structure used for WBRF_RETRIEVE is not naturally aligned.
++ * And unfortunately the design has been settled down.
++ */
++struct amd_wbrf_ranges_out {
++	u32			num_of_ranges;
++	struct freq_band_range	band_list[MAX_NUM_OF_WBRF_RANGES];
++} __packed;
++
++static const guid_t wifi_acpi_dsm_guid =
++	GUID_INIT(0x7b7656cf, 0xdc3d, 0x4c1c,
++		  0x83, 0xe9, 0x66, 0xe7, 0x21, 0xde, 0x30, 0x70);
++
++/*
++ * Used to notify consumer (amdgpu driver currently) about
++ * the wifi frequency is change.
++ */
++static BLOCKING_NOTIFIER_HEAD(wbrf_chain_head);
++
++static int wbrf_record(struct acpi_device *adev, uint8_t action, struct wbrf_ranges_in_out *in)
++{
++	union acpi_object argv4;
++	union acpi_object *tmp;
++	union acpi_object *obj;
++	u32 num_of_ranges = 0;
++	u32 num_of_elements;
++	u32 arg_idx = 0;
++	int ret;
++	u32 i;
++
++	if (!in)
++		return -EINVAL;
++
++	for (i = 0; i < ARRAY_SIZE(in->band_list); i++) {
++		if (in->band_list[i].start && in->band_list[i].end)
++			num_of_ranges++;
++	}
++
++	/*
++	 * The num_of_ranges value in the "in" object supplied by
++	 * the caller is required to be equal to the number of
++	 * entries in the band_list array in there.
 +	 */
-+	bool (*is_asic_wbrf_supported)(struct smu_context *smu);
++	if (num_of_ranges != in->num_of_ranges)
++		return -EINVAL;
 +
-+	/**
-+	 * @enable_uclk_shadow: Enable the uclk shadow feature on wbrf supported
++	/*
++	 * Every input frequency band comes with two end points(start/end)
++	 * and each is accounted as an element. Meanwhile the range count
++	 * and action type are accounted as an element each.
++	 * So, the total element count = 2 * num_of_ranges + 1 + 1.
 +	 */
-+	int (*enable_uclk_shadow)(struct smu_context *smu, bool enable);
++	num_of_elements = 2 * num_of_ranges + 2;
 +
-+	/**
-+	 * @set_wbrf_exclusion_ranges: notify SMU the wifi bands occupied
++	tmp = kcalloc(num_of_elements, sizeof(*tmp), GFP_KERNEL);
++	if (!tmp)
++		return -ENOMEM;
++
++	argv4.package.type = ACPI_TYPE_PACKAGE;
++	argv4.package.count = num_of_elements;
++	argv4.package.elements = tmp;
++
++	/* save the number of ranges*/
++	tmp[0].integer.type = ACPI_TYPE_INTEGER;
++	tmp[0].integer.value = num_of_ranges;
++
++	/* save the action(WBRF_RECORD_ADD/REMOVE/RETRIEVE) */
++	tmp[1].integer.type = ACPI_TYPE_INTEGER;
++	tmp[1].integer.value = action;
++
++	arg_idx = 2;
++	for (i = 0; i < ARRAY_SIZE(in->band_list); i++) {
++		if (!in->band_list[i].start || !in->band_list[i].end)
++			continue;
++
++		tmp[arg_idx].integer.type = ACPI_TYPE_INTEGER;
++		tmp[arg_idx++].integer.value = in->band_list[i].start;
++		tmp[arg_idx].integer.type = ACPI_TYPE_INTEGER;
++		tmp[arg_idx++].integer.value = in->band_list[i].end;
++	}
++
++	obj = acpi_evaluate_dsm(adev->handle, &wifi_acpi_dsm_guid,
++				WBRF_REVISION, WBRF_RECORD, &argv4);
++
++	if (!obj)
++		return -EINVAL;
++
++	if (obj->type != ACPI_TYPE_INTEGER) {
++		ret = -EINVAL;
++		goto out;
++	}
++
++	ret = obj->integer.value;
++	if (ret)
++		ret = -EINVAL;
++
++out:
++	ACPI_FREE(obj);
++	kfree(tmp);
++
++	return ret;
++}
++
++/**
++ * acpi_amd_wbrf_add_remove - add or remove the frequency band the device is using
++ *
++ * @dev: device pointer
++ * @action: remove or add the frequency band into bios
++ * @in: input structure containing the frequency band the device is using
++ *
++ * Broadcast to other consumers the frequency band the device starts
++ * to use. Underneath the surface the information is cached into an
++ * internal buffer first. Then a notification is sent to all those
++ * registered consumers. So then they can retrieve that buffer to
++ * know the latest active frequency bands. Consumers that haven't
++ * yet been registered can retrieve the information from the cache
++ * when they register.
++ *
++ * Return:
++ * 0 for success add/remove wifi frequency band.
++ * Returns a negative error code for failure.
++ */
++int acpi_amd_wbrf_add_remove(struct device *dev, uint8_t action, struct wbrf_ranges_in_out *in)
++{
++	struct acpi_device *adev;
++	int ret;
++
++	adev = ACPI_COMPANION(dev);
++	if (!adev)
++		return -ENODEV;
++
++	ret = wbrf_record(adev, action, in);
++	if (ret)
++		return ret;
++
++	blocking_notifier_call_chain(&wbrf_chain_head, WBRF_CHANGED, NULL);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(acpi_amd_wbrf_add_remove);
++
++/**
++ * acpi_amd_wbrf_supported_producer - determine if the WBRF can be enabled
++ *                                    for the device as a producer
++ *
++ * @dev: device pointer
++ *
++ * Check if the platform equipped with necessary implementations to
++ * support WBRF for the device as a producer.
++ *
++ * Return:
++ * true if WBRF is supported, otherwise returns false
++ */
++bool acpi_amd_wbrf_supported_producer(struct device *dev)
++{
++	struct acpi_device *adev;
++
++	adev = ACPI_COMPANION(dev);
++	if (!adev)
++		return false;
++
++	return acpi_check_dsm(adev->handle, &wifi_acpi_dsm_guid,
++			      WBRF_REVISION, BIT(WBRF_RECORD));
++}
++EXPORT_SYMBOL_GPL(acpi_amd_wbrf_supported_producer);
++
++/**
++ * acpi_amd_wbrf_supported_consumer - determine if the WBRF can be enabled
++ *                                    for the device as a consumer
++ *
++ * @dev: device pointer
++ *
++ * Determine if the platform equipped with necessary implementations to
++ * support WBRF for the device as a consumer.
++ *
++ * Return:
++ * true if WBRF is supported, otherwise returns false.
++ */
++bool acpi_amd_wbrf_supported_consumer(struct device *dev)
++{
++	struct acpi_device *adev;
++
++	adev = ACPI_COMPANION(dev);
++	if (!adev)
++		return false;
++
++	return acpi_check_dsm(adev->handle, &wifi_acpi_dsm_guid,
++			      WBRF_REVISION, BIT(WBRF_RETRIEVE));
++}
++EXPORT_SYMBOL_GPL(acpi_amd_wbrf_supported_consumer);
++
++/**
++ * amd_wbrf_retrieve_freq_band - retrieve current active frequency bands
++ *
++ * @dev: device pointer
++ * @out: output structure containing all the active frequency bands
++ *
++ * Retrieve the current active frequency bands which were broadcasted
++ * by other producers. The consumer who calls this API should take
++ * proper actions if any of the frequency band may cause RFI with its
++ * own frequency band used.
++ *
++ * Return:
++ * 0 for getting wifi freq band successfully.
++ * Returns a negative error code for failure.
++ */
++int amd_wbrf_retrieve_freq_band(struct device *dev, struct wbrf_ranges_in_out *out)
++{
++	struct amd_wbrf_ranges_out acpi_out = {0};
++	struct acpi_device *adev;
++	union acpi_object *obj;
++	union acpi_object param;
++	int ret = 0;
++
++	adev = ACPI_COMPANION(dev);
++	if (!adev)
++		return -ENODEV;
++
++	param.type = ACPI_TYPE_STRING;
++	param.string.length = 0;
++	param.string.pointer = NULL;
++
++	obj = acpi_evaluate_dsm(adev->handle, &wifi_acpi_dsm_guid,
++							WBRF_REVISION, WBRF_RETRIEVE, &param);
++	if (!obj)
++		return -EINVAL;
++
++	/*
++	 * The return buffer is with variable length and the format below:
++	 * number_of_entries(1 DWORD):       Number of entries
++	 * start_freq of 1st entry(1 QWORD): Start frequency of the 1st entry
++	 * end_freq of 1st entry(1 QWORD):   End frequency of the 1st entry
++	 * ...
++	 * ...
++	 * start_freq of the last entry(1 QWORD)
++	 * end_freq of the last entry(1 QWORD)
++	 *
++	 * Thus the buffer length is determined by the number of entries.
++	 * - For zero entry scenario, the buffer length will be 4 bytes.
++	 * - For one entry scenario, the buffer length will be 20 bytes.
 +	 */
-+	int (*set_wbrf_exclusion_ranges)(struct smu_context *smu,
-+					struct freq_band_range *exclusion_ranges);
- };
- 
- typedef enum {
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-index 64766ac69c53..6f4d212607d7 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-@@ -98,6 +98,9 @@
- #define smu_set_config_table(smu, config_table)				smu_ppt_funcs(set_config_table, -EOPNOTSUPP, smu, config_table)
- #define smu_init_pptable_microcode(smu)					smu_ppt_funcs(init_pptable_microcode, 0, smu)
- #define smu_notify_rlc_state(smu, en)					smu_ppt_funcs(notify_rlc_state, 0, smu, en)
-+#define smu_is_asic_wbrf_supported(smu)			smu_ppt_funcs(is_asic_wbrf_supported, false, smu)
-+#define smu_enable_uclk_shadow(smu, enable)		smu_ppt_funcs(enable_uclk_shadow, 0, smu, enable)
-+#define smu_set_wbrf_exclusion_ranges(smu, freq_band_range)		smu_ppt_funcs(set_wbrf_exclusion_ranges, -EOPNOTSUPP, smu, freq_band_range)
- 
- #endif
- #endif
++	if (obj->buffer.length > sizeof(acpi_out) || obj->buffer.length < 4) {
++		dev_err(dev, "Wrong sized WBRT information");
++		ret = -EINVAL;
++		goto out;
++	}
++	memcpy(&acpi_out, obj->buffer.pointer, obj->buffer.length);
++
++	out->num_of_ranges = acpi_out.num_of_ranges;
++	memcpy(out->band_list, acpi_out.band_list, sizeof(acpi_out.band_list));
++
++out:
++	ACPI_FREE(obj);
++	return ret;
++}
++EXPORT_SYMBOL_GPL(amd_wbrf_retrieve_freq_band);
++
++/**
++ * amd_wbrf_register_notifier - register for notifications of frequency
++ *                                   band update
++ *
++ * @nb: driver notifier block
++ *
++ * The consumer should register itself via this API so that it can get
++ * notified on the frequency band updates from other producers.
++ *
++ * Return:
++ * 0 for registering a consumer driver successfully.
++ * Returns a negative error code for failure.
++ */
++int amd_wbrf_register_notifier(struct notifier_block *nb)
++{
++	return blocking_notifier_chain_register(&wbrf_chain_head, nb);
++}
++EXPORT_SYMBOL_GPL(amd_wbrf_register_notifier);
++
++/**
++ * amd_wbrf_unregister_notifier - unregister for notifications of
++ *                                     frequency band update
++ *
++ * @nb: driver notifier block
++ *
++ * The consumer should call this API when it is longer interested with
++ * the frequency band updates from other producers. Usually, this should
++ * be performed during driver cleanup.
++ *
++ * Return:
++ * 0 for unregistering a consumer driver.
++ * Returns a negative error code for failure.
++ */
++int amd_wbrf_unregister_notifier(struct notifier_block *nb)
++{
++	return blocking_notifier_chain_unregister(&wbrf_chain_head, nb);
++}
++EXPORT_SYMBOL_GPL(amd_wbrf_unregister_notifier);
+diff --git a/include/linux/acpi_amd_wbrf.h b/include/linux/acpi_amd_wbrf.h
+new file mode 100644
+index 000000000000..898f31d536d4
+--- /dev/null
++++ b/include/linux/acpi_amd_wbrf.h
+@@ -0,0 +1,91 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Wifi Band Exclusion Interface (AMD ACPI Implementation)
++ * Copyright (C) 2023 Advanced Micro Devices
++ */
++
++#ifndef _ACPI_AMD_WBRF_H
++#define _ACPI_AMD_WBRF_H
++
++#include <linux/device.h>
++#include <linux/notifier.h>
++
++/* The maximum number of frequency band ranges */
++#define MAX_NUM_OF_WBRF_RANGES		11
++
++/* Record actions */
++#define WBRF_RECORD_ADD		0x0
++#define WBRF_RECORD_REMOVE	0x1
++
++/**
++ * struct freq_band_range - Wifi frequency band range definition
++ * @start: start frequency point (in Hz)
++ * @end: end frequency point (in Hz)
++ */
++struct freq_band_range {
++	u64		start;
++	u64		end;
++};
++
++/**
++ * struct wbrf_ranges_in_out - wbrf ranges info
++ * @num_of_ranges: total number of band ranges in this struct
++ * @band_list: array of Wifi band ranges
++ */
++struct wbrf_ranges_in_out {
++	u64			num_of_ranges;
++	struct freq_band_range	band_list[MAX_NUM_OF_WBRF_RANGES];
++};
++
++/**
++ * enum wbrf_notifier_actions - wbrf notifier actions index
++ * @WBRF_CHANGED: there was some frequency band updates. The consumers
++ *               should retrieve the latest active frequency bands.
++ */
++enum wbrf_notifier_actions {
++	WBRF_CHANGED,
++};
++
++#if IS_ENABLED(CONFIG_AMD_WBRF)
++bool acpi_amd_wbrf_supported_producer(struct device *dev);
++int acpi_amd_wbrf_add_remove(struct device *dev, uint8_t action, struct wbrf_ranges_in_out *in);
++bool acpi_amd_wbrf_supported_consumer(struct device *dev);
++int amd_wbrf_retrieve_freq_band(struct device *dev, struct wbrf_ranges_in_out *out);
++int amd_wbrf_register_notifier(struct notifier_block *nb);
++int amd_wbrf_unregister_notifier(struct notifier_block *nb);
++#else
++static inline
++bool acpi_amd_wbrf_supported_consumer(struct device *dev)
++{
++	return false;
++}
++
++static inline
++int acpi_amd_wbrf_add_remove(struct device *dev, uint8_t action, struct wbrf_ranges_in_out *in)
++{
++	return -ENODEV;
++}
++
++static inline
++bool acpi_amd_wbrf_supported_producer(struct device *dev)
++{
++	return false;
++}
++static inline
++int amd_wbrf_retrieve_freq_band(struct device *dev, struct wbrf_ranges_in_out *out)
++{
++	return -ENODEV;
++}
++static inline
++int amd_wbrf_register_notifier(struct notifier_block *nb)
++{
++	return -ENODEV;
++}
++static inline
++int amd_wbrf_unregister_notifier(struct notifier_block *nb)
++{
++	return -ENODEV;
++}
++#endif /* CONFIG_AMD_WBRF */
++
++#endif /* _ACPI_AMD_WBRF_H */
 -- 
 2.34.1
 
