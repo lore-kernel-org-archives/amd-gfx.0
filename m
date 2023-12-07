@@ -4,55 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57F24C10DC3
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Dec 2023 17:38:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F51BC4167B
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Dec 2023 17:39:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9D6410E954;
-	Thu,  7 Dec 2023 17:38:23 +0000 (UTC)
-Received: from mail-oo1-xc32.google.com (mail-oo1-xc32.google.com
- [IPv6:2607:f8b0:4864:20::c32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B454910E201
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Dec 2023 17:38:21 +0000 (UTC)
-Received: by mail-oo1-xc32.google.com with SMTP id
- 006d021491bc7-59082c4aadaso106366eaf.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 07 Dec 2023 09:38:21 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CA6810E201;
+	Thu,  7 Dec 2023 17:39:16 +0000 (UTC)
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [IPv6:2001:4860:4864:20::2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2C6210E201
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Dec 2023 17:39:14 +0000 (UTC)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-1f5bd86ceb3so756844fac.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 07 Dec 2023 09:39:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1701970701; x=1702575501; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1701970754; x=1702575554; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=XY+ElXH/ptd4GrM5sf1xpUwvXuA/rMJStUHnsVXIuww=;
- b=enaJUb8J924qRLQnpgBmBJVqqKx+2HXE+Cml8FfvUWDmR9vzrvwA1sUXg2afc79iP8
- 5HHWlBA1mpWt/5Dl+eHbnyCrxV93ZHWSCUpycwJrniWTZdubD94BB/MvA/udZ40Plblo
- DxB7v4ijWvamiSwWYC8PTWHinbLQMKCt7/qV6TpH7KiNsF9EQMf+dQZ4R4QU+OsLhL0P
- Dz2ZBq+7prsc66klt8z7W4cEwxFK7WtSfVlQBfMJg5OZ9PFMB8q7+dF/8Gpsdl3piTXU
- 60Nc1/kcOJ5wqdAyWo3gC1zNGg3uMWze3KDJVD1aQxVK5KkYhc4j2b9tHQZLZ82aUty+
- cSdg==
+ bh=jGOgdlUjnFtZRdWXISZJ7WNUwZyI3gcTa/9KCldnxFs=;
+ b=IgPjwXXcWAkw94vuQppjeJ3w14cxC5zwOQ5F9h4Jm9OFkdXkwXYdT/6i1IY1BRWy96
+ Tyb3irICIKYH/HbBCrv9o0p8zLfmVmk31AKf7uOIU06xTyQ5dFmRsCTFsnn9ERKEmBqj
+ mJOGN8PXqxRNowAqDkBT8KqcMCC7zQ/sjfJpKgba0KD1MjNoZVaF6Hc1fbuZqaB4qStM
+ u2BPm1TWuSv0HB1BjtT0oGKk+uZqB8JcpL9ucKaNlOYnoRKDcsw7KstzSTywJ0Ped+qM
+ lXY2VCE6LMyFN3Ra2iAEQvicqHDlB2mpX3rpSy6HzC8bNYOKqamBazPHtJIenYF36hL1
+ hAjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701970701; x=1702575501;
+ d=1e100.net; s=20230601; t=1701970754; x=1702575554;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=XY+ElXH/ptd4GrM5sf1xpUwvXuA/rMJStUHnsVXIuww=;
- b=Vk6S7tZRoceQHGTrDNX315rnpMtbrxIdvbDpiq7X+7jYctArXKf0Ps7NP5sz+XMpdE
- WFeshCXZSLUApcYxxcXvMJRs9aRz57ht/cUJffkTllOSuNFxN6a8/f5Qh6GYeLsP23Mx
- ZhO9PUOwa29bO2SGbvFYlZkqKoMZBawW2xQ+09/7lyjJwQrfqAwA9raOiHlzJ3pioVD5
- R/adMKImlluP8f+QPlICanndkgC1LJGW2vRywSxyiHsS+5L2CNOGvXyk32rTVnnT/Yea
- exokyh14y6Vp31K787pmBlU12M80CfWkCbKt+2vm4zGTQNUH2qAu7/dgwkkZFhR9ZDqi
- xQRA==
-X-Gm-Message-State: AOJu0Ywt+u/+OlT1JbO9v6X+Rb81nTHxQSdgqBlpxVdkQ1EYeI+V5Xt8
- A7Hsex553nv5FqegLXClGy756UaaBEZxECQb8yo=
-X-Google-Smtp-Source: AGHT+IFMS2O0s4vPxNjhuK9ntKdu5XEkSaPjJQxTbCTLQGotAkfMfLOE/eXCbv3mOsPbOtvkiBlb3Fx4pfl+h/9Xt3Q=
-X-Received: by 2002:a05:6870:9728:b0:1fa:df7d:754a with SMTP id
- n40-20020a056870972800b001fadf7d754amr3352716oaq.5.1701970700874; Thu, 07 Dec
- 2023 09:38:20 -0800 (PST)
+ bh=jGOgdlUjnFtZRdWXISZJ7WNUwZyI3gcTa/9KCldnxFs=;
+ b=KiRlmDo79N4o4mF61xS4GODzGWL9TgAkc101EEgCQysdQAfdC1+MDSKn4avV7iiUGQ
+ SExeMcLvaaPe8InQBsnLpuye3YrqxU9u9ljBxi4AjrsnaEJ0nF8qunq7epbzWV4dST7M
+ yZOmm8nw4VI+uQsTVYpzcNnEuPNL+Prhp2MyiuedRaRBFcYmp7lQp4EQw2K6gZvOe/pv
+ Og5UxzwSu18iO3M62WEUurdRV5tBDGln2CzN0/v7REUzUGju6yiVybS+maHkBcsRrspN
+ CJHh76JIVrDOxSm+MD1B714cnmgVoHPXWKaJXbO3SlpnhNW9PmDdJVWGBudhWncqbuiz
+ ER+A==
+X-Gm-Message-State: AOJu0Yw+PdU7FgTl+u44edOACFRP1Ac/7p7dPhsGUjnnldw0kUD6fK2W
+ K9JwDoDnL0wR98t3MOux7+b4dg6BTrwb8BQodB04giJG
+X-Google-Smtp-Source: AGHT+IGmFszx53xyJSJCdH+ll1VYqlH61uqBncQpNGQc1TtC0REk0K0N6iZqra9AgJR2i4ELstlBhKmgV+aB+Z4KFoo=
+X-Received: by 2002:a05:6870:80d1:b0:1fb:412:c32c with SMTP id
+ r17-20020a05687080d100b001fb0412c32cmr3140933oab.32.1701970754129; Thu, 07
+ Dec 2023 09:39:14 -0800 (PST)
 MIME-Version: 1.0
-References: <20231117152339.28627-1-alexander.deucher@amd.com>
-In-Reply-To: <20231117152339.28627-1-alexander.deucher@amd.com>
+References: <20231127223234.891204-1-alexander.deucher@amd.com>
+In-Reply-To: <20231127223234.891204-1-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 7 Dec 2023 12:38:09 -0500
-Message-ID: <CADnq5_NdfMQDRV2hpcxSJOeC2JF799r6APCwx8b8f2S8+Fp+fg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu/atom: fix vram_usagebyfirmware parsing
+Date: Thu, 7 Dec 2023 12:39:03 -0500
+Message-ID: <CADnq5_OpHe527RoVPzgyj_TOw+RT=dZnfmfB7TGWD=8Zzt10cQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu/debugfs: fix error code when smc register
+ accessors are NULL
 To: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -71,69 +72,47 @@ Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping on this series.
+Ping on this series?
 
 Alex
 
-On Fri, Nov 17, 2023 at 11:17=E2=80=AFAM Alex Deucher <alexander.deucher@am=
-d.com> wrote:
+On Mon, Nov 27, 2023 at 5:52=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
+.com> wrote:
 >
-> The changes to support vram_usagebyfirmware v2.2 changed the behavior
-> to explicitly match 2.1 for everything older rather than just using it
-> by default.  If the version is 2.2 or newer, use the 2.2 parsing, for
-> everything else, use the 2.1 parsing.  This restores the previous
-> behavior for tables that didn't explicitly match 2.1.
+> Should be -EOPNOTSUPP.
 >
-> Fixes: 4864f2ee9ee2 ("drm/amdgpu: add vram reservation based on vram_usag=
-ebyfirmware_v2_2")
-> Link: https://bugzilla.opensuse.org/show_bug.cgi?id=3D1215802
+> Fixes: 5104fdf50d32 ("drm/amdgpu: Fix a null pointer access when the smc_=
+rreg pointer is NULL")
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c   | 18 +++++++++---------
->  1 file changed, 9 insertions(+), 9 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-> index fb2681dd6b33..d8393e3f2778 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-> @@ -181,18 +181,18 @@ int amdgpu_atomfirmware_allocate_fb_scratch(struct =
-amdgpu_device *adev)
->         int usage_bytes =3D 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_debugfs.c
+> index 0e61ebdb3f3e..8d4a3ff65c18 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> @@ -755,7 +755,7 @@ static ssize_t amdgpu_debugfs_regs_smc_read(struct fi=
+le *f, char __user *buf,
+>         int r;
 >
->         if (amdgpu_atom_parse_data_header(ctx, index, NULL, &frev, &crev,=
- &data_offset)) {
-> -               if (frev =3D=3D 2 && crev =3D=3D 1) {
-> -                       fw_usage_v2_1 =3D
-> -                               (struct vram_usagebyfirmware_v2_1 *)(ctx-=
->bios + data_offset);
-> -                       amdgpu_atomfirmware_allocate_fb_v2_1(adev,
-> -                                       fw_usage_v2_1,
-> -                                       &usage_bytes);
-> -               } else if (frev >=3D 2 && crev >=3D 2) {
-> +               if (frev >=3D 2 && crev >=3D 2) {
->                         fw_usage_v2_2 =3D
->                                 (struct vram_usagebyfirmware_v2_2 *)(ctx-=
->bios + data_offset);
->                         amdgpu_atomfirmware_allocate_fb_v2_2(adev,
-> -                                       fw_usage_v2_2,
-> -                                       &usage_bytes);
-> +                                                            fw_usage_v2_=
-2,
-> +                                                            &usage_bytes=
-);
-> +               } else {
-> +                       fw_usage_v2_1 =3D
-> +                               (struct vram_usagebyfirmware_v2_1 *)(ctx-=
->bios + data_offset);
-> +                       amdgpu_atomfirmware_allocate_fb_v2_1(adev,
-> +                                                            fw_usage_v2_=
-1,
-> +                                                            &usage_bytes=
-);
->                 }
->         }
+>         if (!adev->smc_rreg)
+> -               return -EPERM;
+> +               return -EOPNOTSUPP;
 >
+>         if (size & 0x3 || *pos & 0x3)
+>                 return -EINVAL;
+> @@ -814,7 +814,7 @@ static ssize_t amdgpu_debugfs_regs_smc_write(struct f=
+ile *f, const char __user *
+>         int r;
+>
+>         if (!adev->smc_wreg)
+> -               return -EPERM;
+> +               return -EOPNOTSUPP;
+>
+>         if (size & 0x3 || *pos & 0x3)
+>                 return -EINVAL;
 > --
-> 2.41.0
+> 2.42.0
 >
