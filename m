@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC133C10DCE
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Dec 2023 22:54:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 820F0C4167B
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Dec 2023 22:54:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3955E10E148;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8848910E200;
 	Thu,  7 Dec 2023 22:54:48 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2060a.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8b::60a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FB4110E0DF
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20611.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::611])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5731210E0E7
  for <amd-gfx@lists.freedesktop.org>; Thu,  7 Dec 2023 22:54:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eR3m1a6jDdR2qmXh0IpKKE/dFn3bbm5RiSuisDz4940alQZoAlvds6GV2GkSyoJd2f0q68D8jVYy4eQQX7KQiH6cgpExI06WCPBmUfRflVMWswYthT4yw0oiASd2Z+6d7O0MlYJSOeS2m2xb1Dek3C5FaxxmXZs6UZUaNT4koMONTa1dlHsg0dHqWShculGv9BWb2UWjQTxNSbEu4Fb9D0larsc/MLLXmIbC3AVwaI3msPhnCiMWNLnJxpu7TUQiKfwtVl9r4MWcF3n9uHXHcWyL1vK7CU+urgz6bVLOg3b/810IjE40UaY0xdk4W2NL/JvqKsipzfQPk0rFZn3Hsw==
+ b=kGLeORDdWqd4trC/gsdktEOw66vE9+noJWRMAv4SMmfqbsvFiGRCzicDJA8nzIPqQh4zZyMdwkGggvEuJo5sN0xKQTHBnwZsTvWRw83QmWHKu9qWa8T9lBwyAGP7Q5YiPyrDwzQLa/hnzywXX+hVBOlZsJYwNyVqCT0xZQ7uqcJw2cF+I3Pj7CoLFAX7ajN2CdMaHgyMGZBGhuzj7i50O5cwt4eCOth7bFhKKRng7bZyKJAhpWTiNZRDjry0hmMGnyl+2XyIyb2iPs8ypzgRR+guw60oB1MQlnC4q9Xd71MNGqofl1iRTWTqEoPgvpsk7LbEOU5/75Gpu7v+B7LVXQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+h4Eay5tq3jjBamZJYJmgeud/Ru9QvSd2klNaWgkB+o=;
- b=bbA2nBUahMzK/CyuZ6H4ltxrxtTfJh/nQUFe6bCrQRMuWuDZvzO0Q4RXeHK15wpAT03KqIJKBb5QJrOWt7PpP5TpBWiKQoAJeEKjuzOBBElMV/RWrC88lKB06aSoyFvHvUKZNTFOlkCfK3f1M4x2foydjpCP+kHVAGgpfPg5xIUkAi4qlHl2LJfLeUfaNnOqFFkKwA+Z05y+ddI2L6IsYupdVyRBcQxQYY9jwEgcCFhKQWCpjrvAsmLLD6OF65xVLpgcvw9r9eaGRBwczC7jroBuZ1xXuU9y7V2ioixD2GwQtdGrBsJKnn4A+mXqTxWSBuwMCnfDz8oFWAYnhFOW3A==
+ bh=yXvDw49j8UE4zlSf8AOXneaWRU2ZQu0Q9vqc08/BZJE=;
+ b=SpErgtMiVTrlnXd18SzGae3xcQu8aV++ecCzBnuQOhFiCzLXmDD2swa0LklN8TSiOKswkuBEb4cePw+qAKo/S+QCcgB+N0b2+x6HMkpbCTxRbYt8Gxb9Czjys9cMJSpt8m0amcsQacALfFIEvzM7gmct0urNjRJuJZfl7dGEIWFfsMtz29g27lOpNkvbCvAZPQqMN/q3c7IceWNSNMJVSLD+FNnsvH8Au4YvALOwjxPZf/fURKY7sDJaZQIzAYM69Imq+o6NjFT7lQ1DdIlaL006ab3QRnUdp8KL6kE98fB8Mqh9Dzt6otoRbKCif3/FTuNko6qWQfCvkxefUazsAQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+h4Eay5tq3jjBamZJYJmgeud/Ru9QvSd2klNaWgkB+o=;
- b=p4ysLajj6UK2XbqYQ93f90XNngsllS4PNY6NoIg1T9wXAkzqH3IDWMy7s574Vb1a/mKIqhGVdNOcSgyW8B36ZHduVPPVEZMvY7l5v1ytH9uzpUX8S4y75iCWLiSqaX/6cLEQViUCmVzPh/oQH09TgrC8a/FKCt2MBKK5zu1PrTc=
-Received: from CH2PR20CA0020.namprd20.prod.outlook.com (2603:10b6:610:58::30)
- by SA0PR12MB4432.namprd12.prod.outlook.com (2603:10b6:806:98::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.27; Thu, 7 Dec
+ bh=yXvDw49j8UE4zlSf8AOXneaWRU2ZQu0Q9vqc08/BZJE=;
+ b=3O974wavaz1V12CTZYjXp6DxjgE+mn/8Clq4khhHLUJvLzzNbSAD/d1aJcFHhWeEvwrtnJ966PMh7QgKdmHLG3qkFWffXn0ecvVjscHZJIljqTvRCM9OHm22y7GYbCfDUUZqE++Wof9gTvLpKXc9IFlhP3/LNEP1EVQp4CzymXY=
+Received: from CH2PR20CA0005.namprd20.prod.outlook.com (2603:10b6:610:58::15)
+ by DM4PR12MB7549.namprd12.prod.outlook.com (2603:10b6:8:10f::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.25; Thu, 7 Dec
  2023 22:54:41 +0000
 Received: from DS2PEPF0000343A.namprd02.prod.outlook.com
- (2603:10b6:610:58:cafe::6f) by CH2PR20CA0020.outlook.office365.com
- (2603:10b6:610:58::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.34 via Frontend
- Transport; Thu, 7 Dec 2023 22:54:40 +0000
+ (2603:10b6:610:58:cafe::ce) by CH2PR20CA0005.outlook.office365.com
+ (2603:10b6:610:58::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.33 via Frontend
+ Transport; Thu, 7 Dec 2023 22:54:41 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,16 +48,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DS2PEPF0000343A.mail.protection.outlook.com (10.167.18.37) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7068.20 via Frontend Transport; Thu, 7 Dec 2023 22:54:40 +0000
+ 15.20.7068.20 via Frontend Transport; Thu, 7 Dec 2023 22:54:41 +0000
 Received: from jz-tester2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 7 Dec
  2023 16:54:39 -0600
 From: James Zhu <James.Zhu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 08/23] drm/amdkfd: enable pc sampling destroy
-Date: Thu, 7 Dec 2023 17:54:07 -0500
-Message-ID: <20231207225422.4057292-9-James.Zhu@amd.com>
+Subject: [PATCH v2 09/23] drm/amdkfd: add interface to trigger pc sampling trap
+Date: Thu, 7 Dec 2023 17:54:08 -0500
+Message-ID: <20231207225422.4057292-10-James.Zhu@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231207225422.4057292-1-James.Zhu@amd.com>
 References: <20231207225422.4057292-1-James.Zhu@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF0000343A:EE_|SA0PR12MB4432:EE_
-X-MS-Office365-Filtering-Correlation-Id: 643a7b6f-6ab2-4dc7-0bac-08dbf7777f1e
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343A:EE_|DM4PR12MB7549:EE_
+X-MS-Office365-Filtering-Correlation-Id: eb7861f5-029d-4d17-1b99-08dbf7777f6f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qe6VWMgO7K77U03OvkURtEETsLk84tDLzQ+oTuBwO5tG1aHTsIm9iOVeMNd9Y57lZO3acDZ1Nf8K4iECDPZfbMDQOr3YM/HwHF09mhfXkVJM5yUeeUc3ReTjoL2oCs0akzoV60EsMvdE+hJFgfIiE4E+aeuoXK1JWFFF7zSi0chFhIS7ADOzR5jqNbokpQc43HbKU9Qe3Nax91+1dNuX45bdItTefLCycNtBsgvTCNE5qCLRKDS3x4CUTkcmRRW47RdwLRs4SkxVLEbCGgidvb73vrATGjaG7/59vFymI7+4SCND7Bhk97KjMqJs9GRZPFnaFS8NNZLwC8NgpVEfvdmDwJgQalNYN6c+xaI7cbK+yzJi9O7CrMk7nmGluP8gfIi7iMAvvGQdHMCdw8/sXfJidtTzdj4Yy2T58CQ0wV1NAXgBoc7vulh7c/cr/AaevUeaMVc4g7yDRKhH8IR+BrXEPXo+6+6Vj6eS3/FU7YDB4xcRr2KUnw8BQj43/crj+TD+nTXAFRzCyjdACj4RjnIVbtNuwX2A+0vRaNXfqBbgesxhbFAifsy0z4/7tV2H2A/qXVGwVCWTqZiFH6L7PPTyB9y3uyWpnDam84CASTSw2vi5bOJ4XSEQc4H3xc/34j6sdqeYzeb8hlSxFhY8lbzNnFF/7jj9p5yXEX8/h6j1SjSwwNyhvuOt0jsskioTeHPA8Sho42aw5BfuovgpvQG7ZUJ1mCHKmWc3NzmZsOk/6pVpX0nzYOuecTIidJAoCPGcRhzD7zYoroAGwqHSww==
+X-Microsoft-Antispam-Message-Info: DexcgfEE38/M9zQbkwr4NviL5QIiD7ynW27HSGWEegcerChzZFspya30b27tSPHwEZxGsWOohl1a+gyZCVRba9qvA55Ndbfi1ouW4o0XBM+hszwH5xxL4rhaLZiA1fv1FZGyABzJg498JnsLs5WH2dDwztnCV18r+pb9kRWmkqoGEATBa4n8En1vcWHlHXYc416BWzObWEqMJn+n/7lWoe6swfVokT7hnNbw5/lOqGfr/sR3kcboWHQLOcwfAWXQauhhfVHOH01b35C1L4KYlZjBEcFDmhsYqu40tcIdgz8D1CkBwjS8UVgEhyqOjkSGYWu8jiOM2Yt2nmy8JnX6OK1x+eUlIpC664GGht/GLNpI/ypGkwMEgiQ4gdrokPE0N8X7VGOMLWJTQRw07YuhekPRpViqG2mQpRcELaAjEemRfCsjOABgXJ5k4hDQO0yzbtaptxAl6XTLf0ka/T8v28xAPS4+ZYrjRVzwot7TwXWD6aRVIPU4egHrocWPHy0QA6Rwth3qSfTlSh0LRHEXdrO1ksr9loIZdiY3gbBDIquZwWAoUBJBli4V+9x4UIfgakxXTcPcm+ch/c6AjjI8a458eSRDz+myiup+w74r3bZmQd/5JN1bSJhU9ULUkZDczon8TR5yUEQoU26a8EhI8lJBe0HlksW8UXqutJnxM+Ij/zkxYOb4BhWaFf6lqu0ulTmgVRDHZpXoRBmG0Eg9Zcp2+UnVbdzGEkKaLensrwvEcYJ9DIpkaW3XBuxEN4FAw4aL1tfaXCpz6f/ejjdcPA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(136003)(396003)(346002)(376002)(39860400002)(230922051799003)(1800799012)(451199024)(82310400011)(64100799003)(186009)(40470700004)(36840700001)(46966006)(6666004)(83380400001)(36860700001)(16526019)(7696005)(8936002)(8676002)(336012)(26005)(426003)(2616005)(1076003)(40480700001)(47076005)(478600001)(40460700003)(6916009)(70206006)(316002)(54906003)(70586007)(41300700001)(86362001)(36756003)(5660300002)(356005)(82740400003)(81166007)(4326008)(2906002)(36900700001);
+ SFS:(13230031)(4636009)(136003)(346002)(39860400002)(396003)(376002)(230922051799003)(1800799012)(64100799003)(451199024)(186009)(82310400011)(46966006)(40470700004)(36840700001)(8676002)(8936002)(70206006)(70586007)(478600001)(4326008)(40480700001)(7696005)(6666004)(5660300002)(316002)(6916009)(54906003)(2616005)(40460700003)(2906002)(1076003)(26005)(36756003)(47076005)(81166007)(82740400003)(356005)(36860700001)(336012)(16526019)(426003)(41300700001)(86362001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Dec 2023 22:54:40.8120 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 643a7b6f-6ab2-4dc7-0bac-08dbf7777f1e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Dec 2023 22:54:41.3432 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: eb7861f5-029d-4d17-1b99-08dbf7777f6f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343A.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4432
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7549
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,53 +104,37 @@ Cc: Felix.kuehling@amd.com, joseph.greathouse@amd.com, jamesz@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable pc sampling destroy.
+Add interface to trigger pc sampling trap.
 
 Signed-off-by: James Zhu <James.Zhu@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c | 20 +++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/include/kgd_kfd_interface.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c b/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
-index e5aa87b2da4f..18fe06d712c5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
-@@ -169,10 +169,24 @@ static int kfd_pc_sample_create(struct kfd_process_device *pdd,
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+index 6d094cf3587d..05b0255aca37 100644
+--- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+@@ -33,6 +33,7 @@
+ #include <linux/dma-fence.h>
+ #include "amdgpu_irq.h"
+ #include "amdgpu_gfx.h"
++#include <uapi/linux/kfd_ioctl.h>
  
--static int kfd_pc_sample_destroy(struct kfd_process_device *pdd, uint32_t trace_id)
-+static int kfd_pc_sample_destroy(struct kfd_process_device *pdd, uint32_t trace_id,
-+					struct pc_sampling_entry *pcs_entry)
- {
--	return -EINVAL;
-+	pr_debug("free pcs_entry = %p, trace_id = 0x%x on gpu 0x%x",
-+		pcs_entry, trace_id, pdd->dev->id);
-+
-+	mutex_lock(&pdd->dev->pcs_data.mutex);
-+	pdd->dev->pcs_data.hosttrap_entry.base.use_count--;
-+	idr_remove(&pdd->dev->pcs_data.hosttrap_entry.base.pc_sampling_idr, trace_id);
+ struct pci_dev;
+ struct amdgpu_device;
+@@ -318,6 +319,11 @@ struct kfd2kgd_calls {
+ 	void (*program_trap_handler_settings)(struct amdgpu_device *adev,
+ 			uint32_t vmid, uint64_t tba_addr, uint64_t tma_addr,
+ 			uint32_t inst);
++	uint32_t (*trigger_pc_sample_trap)(struct amdgpu_device *adev,
++					uint32_t vmid,
++					uint32_t *target_simd,
++					uint32_t *target_wave_slot,
++					enum kfd_ioctl_pc_sample_method method);
+ };
  
-+	if (!pdd->dev->pcs_data.hosttrap_entry.base.use_count)
-+		memset(&pdd->dev->pcs_data.hosttrap_entry.base.pc_sample_info, 0x0,
-+			sizeof(struct kfd_pc_sample_info));
-+	mutex_unlock(&pdd->dev->pcs_data.mutex);
-+
-+	kvfree(pcs_entry);
-+
-+	return 0;
- }
- 
- int kfd_pc_sample(struct kfd_process_device *pdd,
-@@ -207,7 +221,7 @@ int kfd_pc_sample(struct kfd_process_device *pdd,
- 		if (pcs_entry->enabled)
- 			return -EBUSY;
- 		else
--			return kfd_pc_sample_destroy(pdd, args->trace_id);
-+			return kfd_pc_sample_destroy(pdd, args->trace_id, pcs_entry);
- 
- 	case KFD_IOCTL_PCS_OP_START:
- 		if (pcs_entry->enabled)
+ #endif	/* KGD_KFD_INTERFACE_H_INCLUDED */
 -- 
 2.25.1
 
