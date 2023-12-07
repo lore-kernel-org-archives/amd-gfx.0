@@ -4,120 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5CCFC4167B
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Dec 2023 14:59:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E54D3C10F05
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Dec 2023 14:59:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49AB410E1D6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFE6510E8BB;
 	Thu,  7 Dec 2023 14:59:32 +0000 (UTC)
-Received: from FRA01-PR2-obe.outbound.protection.outlook.com
- (mail-pr2fra01on2040.outbound.protection.outlook.com [40.107.12.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3555E10E893
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Dec 2023 13:11:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XSd6k8QTLqFxBl4MkXlT4/hY5qSs3mRetX0Jfs3hnmoDFaEjAqBbir738Ds+8Tmhbiwia0bq5DtaCEishn0b3aEkumIDwYBEnU2Q/9E+V32gu+0sYX1wdX4wzmqh3sO26TjZ/mjvxpigrzJKzYnNswR3JHhHBiQ0NQwUGux+pitXDufn2mYuGb0D6Jlhnj8ok6aXYFcOJ82Gk7W5H1ICRz/ca1LpjbPvyCHUQoC7jk9x7Lg+kcPjJdG1PHM4Ife/sd9670lhAIRJMqwN73qlJIMJHeczMr/aaK3B4DGGytF24YKQ5Zsw9AM4quT6s0DKuh3bfMyT9Jto3C8GgWm+zg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WYXQWDkH2VUYWPPnCyS9PYz2QdTqJ6bz6WO7+M8daLI=;
- b=MtAejVn3vb8ByZvP6NlmduHuzLnk4InEc7N1cOCP9c1AV5F/47qDOtp2xItrBKmsumH04FflsZUkZozm0H2MDfBkr9hzmEnGOj7XAHJI5/y4AA2KGChU448gGLxDdrTQNrlwBwMpFUYzCgZ693qsxf96s9sO5AnUuYv0rW+7tYFobHRBFRZfokwzHZfb5vkKYer8Ec3fwYBjwFKLUJR9rW+PhK7VRI359KYLPlKE0p8R/5ElnxtPQfNNjVg1EJ15OOp9y2kmeb6I/KGBlkG5//3vLM+U75cgw+lRkryU09PzSALcNzAHIM5fR69pq4og7AlCjCkxytQg4xyMyenUMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=csgroup.eu; dmarc=pass action=none header.from=csgroup.eu;
- dkim=pass header.d=csgroup.eu; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=csgroup.eu;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WYXQWDkH2VUYWPPnCyS9PYz2QdTqJ6bz6WO7+M8daLI=;
- b=HgMbKFm+js/PLon9eiQSB3JeQJdSASftlAFurJDHW4utGdo35iS5dBNFGzihGF6T9GnV+Mt7pe3cHETHDpFUjm2GyH4KK1OEuTCJUXNj4qz8fXMwes01XRleILHC2q9bDfdMElM8Yo/Zc+Y6z8no85HnUXHUpwSpyQ3IKbc9d2n/KWDHYLm5bL69ftcOvxkLszBt4wTvPUMuWRIk+acVJU214YMHasHRlC7dL5FndIxlDWFlOwmh9mzZXeleSPZeuDtbl4frv1Neh9Z8xSVpS5WM5A8802XkM8RBEwVnxIf8lQGH7SqdB1nWzOq7w4oGQBEFF4HuKaixi/ujLOu2aw==
-Received: from MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501:31::15)
- by PR1P264MB1630.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1b7::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.27; Thu, 7 Dec
- 2023 13:11:14 +0000
-Received: from MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
- ([fe80::5bfe:e2f2:6d89:8d97]) by MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
- ([fe80::5bfe:e2f2:6d89:8d97%3]) with mapi id 15.20.7068.027; Thu, 7 Dec 2023
- 13:11:14 +0000
-From: Christophe Leroy <christophe.leroy@csgroup.eu>
-To: Michael Ellerman <mpe@ellerman.id.au>, Daniel Kolesa
- <daniel@octaforge.org>, "linuxppc-dev@lists.ozlabs.org"
- <linuxppc-dev@lists.ozlabs.org>
-Subject: Re: [PATCH] drm/amdgpu: drop the long-double-128 powerpc check/hack
-Thread-Topic: [PATCH] drm/amdgpu: drop the long-double-128 powerpc check/hack
-Thread-Index: AQHZNm7r3WEeVVCCFEa5qktwP246sq8VEVGAgYqfhwA=
-Date: Thu, 7 Dec 2023 13:11:14 +0000
-Message-ID: <18cd1ce5-ebea-4cb6-a91c-23283f2fc999@csgroup.eu>
-References: <dab9cbd8-2626-4b99-8098-31fe76397d2d@app.fastmail.com>
- <87o7o9b396.fsf@mpe.ellerman.id.au>
-In-Reply-To: <87o7o9b396.fsf@mpe.ellerman.id.au>
-Accept-Language: fr-FR, en-US
-Content-Language: fr-FR
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla Thunderbird
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=csgroup.eu;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MRZP264MB2988:EE_|PR1P264MB1630:EE_
-x-ms-office365-filtering-correlation-id: c50ac048-83f0-45e3-a3d6-08dbf725fda8
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: IuwqnukU4xvUoC3OG/Tc2kKvzvZ5bH1ZaNUHEjL5OWAvHUzC1SKvWwBX86imlNty4fhqDI28VtLZVTaFTieu7iIpJYSAJgtRePEHsi48cpeFczwhIjdBxGCIiD+nZA65JV7KO8ZHKsZkoPjnh1yX+Q85h8e/O4OTZJ+4c7sbgPrAdFSu+rVCTx234lSSuRmZPnlxwIxtbPM0T0ccl0AOTnz7GO17av/vf14bXtrCrMXaqjdghBAH1vrhhTM3LhELwwHrlY/MgwefO5OEk+u1sUnkC9br/jy6TR2bAukQTavEVF/p8IU8QT8hAzO0cpWAqSk0DzQaBhTFdizWJ+cUmUguTYHEF0d38AICxsI8psOn6/fYrxQL2SwjFpGdXRI/RN7fESL8qwlXX0U5QCeOm+7v5GcSvdl26iu0QxgeQjDzLa1RCROLxwvL518rt+ueugEHJ6kHbIwrLfX7dfBS2o6gp7ji6ARVhCzKMTqNtUOaCxWUE9eAl6Gek0r2K6B43uSGErrtvrTRDZwY4eec9mKK6eyFzzkJY/s4rNDwOf3WxRu5zPUNo3QERA3UPbtg+Pd6yFjpvyioZrPXlCQijwgfkmc4KeXdnQBplSQU+ASB4JHi4yJb4uGlvc0u/T3N9ecJAIKFgqH61BiRE2kAhgi2vntOOQH3OA6rf65avo8=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(39850400004)(136003)(346002)(366004)(396003)(230922051799003)(64100799003)(451199024)(186009)(1800799012)(316002)(110136005)(66556008)(64756008)(66446008)(66946007)(91956017)(66476007)(76116006)(54906003)(966005)(36756003)(6506007)(41300700001)(26005)(2616005)(71200400001)(6486002)(38070700009)(478600001)(31696002)(122000001)(38100700002)(86362001)(66574015)(6512007)(44832011)(5660300002)(2906002)(31686004)(8936002)(8676002)(4326008)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?L045bWl0ZjkwZVZ2ZExLdGUrcUF6V08xdXl0eDR6ejBkWk9yZ1FpZWIzcmJr?=
- =?utf-8?B?YTE2aE9iMnYyeUUzc0xwREZXZnpnem4rUmI0cE5ZUkMxOHJMT1kzVzVsd1F5?=
- =?utf-8?B?MWt2TkozZzZhS3VQcnI2Sk1QQTArcmRPbkZ1akp3eGFhMHh5eWluWkNTK0VG?=
- =?utf-8?B?SlIyK3lIbWlzUDd3dURWK2NZNFFXaFhJOW1sWmFqRFN6cGlUWFJYV09nK2kv?=
- =?utf-8?B?SWtEeUpXT2NaN1NkMC8vWGpBUndLNlpRLzFhMEViME43b0diUzVMRmNTRjd4?=
- =?utf-8?B?VEFoUXRtZFh0N1hHMkpSWkZnL1BTdDE2YlpQQWFVdWFEWnFrZDVvR0tWdDBB?=
- =?utf-8?B?aExrNWxRVDJoVEdPcGpyUVpWQ3RBRVZuRlU2UGdnQ1NtZUo3Ym5lU24wT0pn?=
- =?utf-8?B?VDlGK2lLQVltbEpXLzVwZTRITjB4RjMzV2Ivbjh3MmF2SVF2SU93clFxKzhQ?=
- =?utf-8?B?YkRwM1FNY0g5WjdhNHk2WEhZNnE1MjlpSC9UTG8yMG15MVlXd1UrZWhFQkNa?=
- =?utf-8?B?SmZUU09VMWdsaUo1SnJMUkdCNWYvMStOWGdLdmRHYTJYQkc4NmM0UkVvaklS?=
- =?utf-8?B?T0Z4RjJZSGtFc2FGRGd5amJLSU5scTREc3A0LzlOZzdiQjBndWpxd2dBNkNt?=
- =?utf-8?B?b3pYK0lIWDRpMDhVVTRNWG51ZVVUaEpyc1dFTGRGNUNCTXpDSkJlZ0ZLUFpM?=
- =?utf-8?B?eUtJcmRNc1FrcHozUFI2TlZUTXpsdWpWM05UalQzTm1pTmZadFBtOHlDajdJ?=
- =?utf-8?B?YnpsN1VSQkhWODlJRnUvQ1dvMEdHM1JFTVRRbm92NlIyTU1qQ1BjdmltQWdw?=
- =?utf-8?B?TDhSdFpwUkUvdVNpL2xWZkk4S3I2anBIS1JvYys1WG1rNFg1TDlUU1BoNm1w?=
- =?utf-8?B?T2orOXNqUkk3SEw5TmczUXprdlZMTjF4Z0VqaEswOVNqTWVSMG5oa1dVdFY0?=
- =?utf-8?B?dU55Wm5MS052Ky9qVFBsY01mbzZ1NXZoTE1aV1J0dStEY1RYWGl5OUV5M3lI?=
- =?utf-8?B?Sy85ZTF6YmMzY1kwdWlvU1UwcEk0dmtiMG9XRDRqOUJzVHFPbmJoTC8zYmJx?=
- =?utf-8?B?b0J0R1BEcWw2QXN1TXFWZnVZSW5tWkRtb0RlYklZekZVMjN4b2FvUnhnejdJ?=
- =?utf-8?B?UnhMaTd6bnFTbDBMVGtxSXBjU3RXUElucU9mUlQyRlFsYXI3RVQ2T3ovcjJU?=
- =?utf-8?B?OFBFaUtZVHduNVUyQXFaYUZuSUJBT1JtOSs1TTVCQlh4QkJHdUV0cndvUGxz?=
- =?utf-8?B?VThKRlY5TldvNThyQ2RDblRVcVlYSUdmdDlpT2RpajNsQiswdnZ5eXFjQ3NI?=
- =?utf-8?B?TEhuek10emEwZjJ0ZFJPSHVQVWdCWFFTUDJKTzlsdVlMRTA4czVyR2FjV2tR?=
- =?utf-8?B?dkllSXR5MWpLRk0yN3dBTzVLRHQ5Tm9obGZYNDJPdjlDZzdlTDNrdUZqWkpm?=
- =?utf-8?B?Q1lYYlkvclkxUDZUOG9rS01XN3BkWmY2WndaaTdFaWdvcDdEVUVYQzR4TVdF?=
- =?utf-8?B?ZkZNR2xTcVJ0WG16VFN6M0xlMkxoT1pnNVFvRVhOQVhwVXU5YWNYSVdBMEkz?=
- =?utf-8?B?RHc4ZHM3aTZJQ0VGdnE5R0ozT1FuaUplRTBKalZ2aWEyQzU3TzRxcHJwSHBF?=
- =?utf-8?B?Ynp4SW4xKzlNZmVXTXRhYzJPckRJMmlRUThCWituNWU1ek1CUVpYR3hwVHh5?=
- =?utf-8?B?OFlQM1lsWFIzem96Yk55RklYU2d6WG4yakYzNnlWSEt2dHVPVlNTazV3WGlu?=
- =?utf-8?B?VldOVnpwNFJiVXc1aUhUdmtzbld3dUFSVkZsMndhSFEvZDdteUQ3aFRtNGV2?=
- =?utf-8?B?a3Jvb3B6d28vVEFpUUFldm9lejg5T2lMbEFaWE9iWnhacXZMOU8vUDVVcXBn?=
- =?utf-8?B?aURYNy80djRJME56RG0zbkpoZGZSbm0xTU9ONjh5d3dnZjBMbWpUV2k1ZWpG?=
- =?utf-8?B?WUJIbXViTGFONERzVUhoend5ZDArdVo0cUhtRWlDOFlOSTM2VnVLZStaME11?=
- =?utf-8?B?a2lsdHdaTHdocFNxQStRdnV4SmlOMlBkdmZidFg4bzIzZVJ1VDZCYmZ2NHUx?=
- =?utf-8?B?c0lmdWNUeVA5bjY3R0hqTnI2Qjh4SDQvREVpOWZXeEVGS0Y3ZFNsKzhlc0lH?=
- =?utf-8?Q?FVTVLchtpSLDwpJF3xJ9yL9gn?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <A7CA7FEB9EE4454E8B0F1C04927E6421@FRAP264.PROD.OUTLOOK.COM>
-Content-Transfer-Encoding: base64
+X-Greylist: delayed 387 seconds by postgrey-1.36 at gabe;
+ Thu, 07 Dec 2023 01:30:10 UTC
+Received: from smtp-relay-internal-0.canonical.com
+ (smtp-relay-internal-0.canonical.com [185.125.188.122])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4F3610E7CF
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Dec 2023 01:30:10 +0000 (UTC)
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id CBF483FAE7
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Dec 2023 01:23:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1701912220;
+ bh=emHLT4gqLmIch4z9XMPrHibuwF4mE/rTFPk45mjbu8s=;
+ h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+ To:Cc:Content-Type;
+ b=Egy47TRQ7SdX+tker6q9JCMasWQOWTbIzGkbAOe8oBcBdm6egFcNHYxu4koLxY0So
+ FF6pgFlYbYZ7kzYrolaeBFDZjYZ+5RDn+m5ZbHvMOoFeqh3WB1BwvzfOQptqs7GTij
+ RB6OTmVtX/5aCJSRTpb3PB4TIXplK9VNmuCg6Qewv8aBy5Q8N2HpvzC4kzMOeka9jV
+ 6Xq7Id5hRZzsvcfAbIhoaz8BzaGNX6j4GhUPdutkkK7MjNWkpyzt+tkt5mZHfoqOmV
+ 1WIJ32qOyRABa0IO0n7pSyanAuo6/uCxO+14vqMQNEEgSmD2WEJzsg79jRs4ij287X
+ 8s6zRdJdImDiw==
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-286da86884aso439030a91.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 06 Dec 2023 17:23:40 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1701912219; x=1702517019;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=emHLT4gqLmIch4z9XMPrHibuwF4mE/rTFPk45mjbu8s=;
+ b=Rf+m7e/OsyaH6k8NxPlRQQcTM+nyaFd8taGD6w8l7fSM4RKNZrsEQS0ujgBbdJBwSj
+ dcirg60kjewKVVFz8g05Tw1J0F8RfVegIHwMBqRt2N1+0irWPFSxyJ1amXxHL7Gk2d+v
+ xrWoDZATxS1rzX0P39+5Wg/YlvEqozmM5irRBp1la4Yxjf3Ss+Y6sXmRtO/HYyl4Z8hU
+ umS+E6UE1y6Qvpjb0EczP+NBkXgrI4BL50LHvbDzKJDE5QwrNea+c5WXAeEUpuL2tE4m
+ pzE++EqpwssdZQdnnqEJic8Oo8QydnjnBFzN5DnFCBKQY04wgNO3DxQWPaE/sOsjpcHX
+ xkJw==
+X-Gm-Message-State: AOJu0Yz0sjuP3RVpG/XeMPRuqskM0LOgwKiIAfatAkB5KyoEN+Oxk1Ee
+ PhETgR6Da3CtTDEgUy9Xhsjbf9XmLTb6eqqW0XU0nJREuo6vpVv4AVYusYctc2GAel0O6mkMaD/
+ 5YTM4alJGQsW5k6YaweuL8qAz5fvR1aImNZfkT4Sb/9+wed9SAT30AJKgdbs=
+X-Received: by 2002:a17:90b:1a8d:b0:286:8d69:9d0 with SMTP id
+ ng13-20020a17090b1a8d00b002868d6909d0mr1820616pjb.50.1701912219385; 
+ Wed, 06 Dec 2023 17:23:39 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFnx2t9z6ysDSDhto5DtiCntsKxH31WUjCWDHYq6T4wIHIahD+SJzbtGueDZZ6nVxFCeG+GLfOz/t1CvwQ8g+o=
+X-Received: by 2002:a17:90b:1a8d:b0:286:8d69:9d0 with SMTP id
+ ng13-20020a17090b1a8d00b002868d6909d0mr1820609pjb.50.1701912219036; Wed, 06
+ Dec 2023 17:23:39 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: csgroup.eu
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: c50ac048-83f0-45e3-a3d6-08dbf725fda8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Dec 2023 13:11:14.4150 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 9914def7-b676-4fda-8815-5d49fb3b45c8
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 2fq6+hbc7VwOvEJmqXgJmRsVLrYp0PSLZFcu17ldzSpU25QF463EEjunQD5U0UATX8u9hszzdOHku9bnchPbyTXPPydyXSc8YrRg6K2OX94=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR1P264MB1630
+References: <20231205201749.213912-1-hamza.mahfooz@amd.com>
+ <b369f492-a88b-460c-b614-51beb2dc2262@amd.com>
+In-Reply-To: <b369f492-a88b-460c-b614-51beb2dc2262@amd.com>
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Date: Thu, 7 Dec 2023 09:23:27 +0800
+Message-ID: <CAAd53p63BKUSyRd5GOuonN4yhOwt3d43mVUKY3WfGSUwSymKhg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: fix hw rotated modes when PSR-SU is
+ enabled
+To: Mario Limonciello <mario.limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 07 Dec 2023 14:59:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -130,46 +82,151 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "dan@danny.cz" <dan@danny.cz>,
- "alexdeucher@gmail.com" <alexdeucher@gmail.com>,
- "tpearson@raptorengineering.com" <tpearson@raptorengineering.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Leo Li <sunpeng.li@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Taimur Hassan <syed.hassan@amd.com>, amd-gfx@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org,
+ Harry Wentland <harry.wentland@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-DQoNCkxlIDMxLzAzLzIwMjMgw6AgMTI6NTMsIE1pY2hhZWwgRWxsZXJtYW4gYSDDqWNyaXTCoDoN
-Cj4gIkRhbmllbCBLb2xlc2EiIDxkYW5pZWxAb2N0YWZvcmdlLm9yZz4gd3JpdGVzOg0KPj4gQ29t
-bWl0IGM2NTNjNTkxNzg5YiAoImRybS9hbWRncHU6IFJlLWVuYWJsZSBEQ04gZm9yIDY0LWJpdCBw
-b3dlcnBjIikNCj4+IGludHJvZHVjZWQgdGhpcyBjaGVjayBhcyBhIHdvcmthcm91bmQgZm9yIHRo
-ZSBkcml2ZXIgbm90IGJ1aWxkaW5nDQo+PiB3aXRoIHRvb2xjaGFpbnMgdGhhdCBkZWZhdWx0IHRv
-IDY0LWJpdCBsb25nIGRvdWJsZS4NCj4gLi4uDQo+PiBJbiBtYWlubGluZSwgdGhpcyB3b3JrIGlz
-IG5vdyBmdWxseSBkb25lLCBzbyB0aGlzIGNoZWNrIGlzIGZ1bGx5DQo+PiByZWR1bmRhbnQgYW5k
-IGRvZXMgbm90IGRvIGFueXRoaW5nIGV4Y2VwdCBwcmV2ZW50aW5nIEFNREdQVSBEQw0KPj4gZnJv
-bSBiZWluZyBidWlsdCBvbiBzeXN0ZW1zIHN1Y2ggYXMgdGhvc2UgdXNpbmcgbXVzbCBsaWJjLiBU
-aGUNCj4+IGxhc3QgcGllY2Ugb2Ygd29yayB0byBlbmFibGUgdGhpcyB3YXMgY29tbWl0IGM5MmI3
-ZmUwZDkyYQ0KPj4gKCJkcm0vYW1kL2Rpc3BsYXk6IG1vdmUgcmVtYWluaW5nIEZQVSBjb2RlIHRv
-IGRtbCBmb2xkZXIiKQ0KPj4gYW5kIHRoaXMgaGFzIHNpbmNlIGJlZW4gYmFja3BvcnRlZCB0byA2
-LjEgc3RhYmxlIChpbiA2LjEuNykuDQo+Pg0KPj4gUmVsZXZhbnQgaXNzdWU6IGh0dHBzOi8vZ2l0
-bGFiLmZyZWVkZXNrdG9wLm9yZy9kcm0vYW1kLy0vaXNzdWVzLzIyODgNCj4gDQo+IEkgbG9va2Vk
-IHRvIHBpY2sgdGhpcyB1cCBmb3IgNi4zIGJ1dCB3YXMgc3RpbGwgc2VlaW5nIGJ1aWxkIGVycm9y
-cyB3aXRoDQo+IHNvbWUgY29tcGlsZXJzLiBJIGFzc3VtZWQgdGhhdCB3YXMgZHVlIHRvIHNvbWUg
-Zml4ZXMgY29taW5nIGluDQo+IGxpbnV4LW5leHQgdGhhdCBJIGRpZG4ndCBoYXZlLg0KPiANCj4g
-QnV0IGFwcGx5aW5nIHRoZSBwYXRjaCBvbiB2Ni4zLXJjNCBJIHN0aWxsIHNlZSBidWlsZCBlcnJv
-cnMuIFRoaXMgaXMNCj4gYnVpbGRpbmcgYWxseWVzY29uZmlnIHdpdGggdGhlIGtlcm5lbC5vcmcg
-R0NDIDEyLjIuMCAvIGJpbnV0aWxzIDIuMzkNCj4gdG9vbGNoYWluOg0KPiANCj4gICAgcG93ZXJw
-YzY0bGUtbGludXgtZ251LWxkOiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL2Rp
-c3BsYXlfbW9kZV9saWIubyB1c2VzIGhhcmQgZmxvYXQsIGFyY2gvcG93ZXJwYy9saWIvdGVzdF9l
-bXVsYXRlX3N0ZXAubyB1c2VzIHNvZnQgZmxvYXQNCj4gICAgcG93ZXJwYzY0bGUtbGludXgtZ251
-LWxkOiBmYWlsZWQgdG8gbWVyZ2UgdGFyZ2V0IHNwZWNpZmljIGRhdGEgb2YgZmlsZSBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL2Rpc3BsYXlfbW9kZV9saWIubw0KPiANCj4gZXRj
-Lg0KPiANCj4gQWxsIHRoZSBjb25mbGljdHMgYXJlIGJldHdlZW4gdGVzdF9lbXVsYXRlX3N0ZXAu
-byBhbmQgc29tZSBmaWxlIGluIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwuDQo+
-IA0KPiBTbyBldmVuIHdpdGggYWxsIHRoZSBoYXJkLWZsb2F0IGNvZGUgaXNvbGF0ZWQgaW4gdGhl
-IGRtbCBmb2xkZXIsIHdlDQo+IHN0aWxsIGhpdCBidWlsZCBlcnJvcnMsIGJlY2F1c2UgYWxseWVz
-Y29uZmlnIHdhbnRzIHRvIGxpbmsgdGhvc2UNCj4gaGFyZC1mbG9hdCB1c2luZyBvYmplY3RzIHdp
-dGggc29mdC1mbG9hdCBvYmplY3RzIGZyb20gZWxzZXdoZXJlIGluIHRoZQ0KPiBrZXJuZWwuDQo+
-IA0KPiBJdCBzZWVtcyBsaWtlIHRoZSBvbmx5IHdvcmthYmxlIGZpeCBpcyB0byBmb3JjZSB0aGUg
-a2VybmVsIGJ1aWxkIHRvIHVzZQ0KPiAxMjgtYml0IGxvbmcgZG91YmxlLiBJJ2xsIHNlbmQgYSBw
-YXRjaCBkb2luZyB0aGF0Lg0KPiANCg0KQ29tbWl0IDc4ZjA5Mjk4ODRkNCAoInBvd2VycGMvNjQ6
-IEFsd2F5cyBidWlsZCB3aXRoIDEyOC1iaXQgbG9uZyANCmRvdWJsZSIpIEkgZ3Vlc3MgPw0KDQpM
-ZXQncyBkcm9wIHRoaXMgcGF0Y2ggZnJvbSBwYXRjaHdvcmsgdGhlbi4NCg==
+On Wed, Dec 6, 2023 at 4:29=E2=80=AFAM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+> On 12/5/2023 14:17, Hamza Mahfooz wrote:
+> > We currently don't support dirty rectangles on hardware rotated modes.
+> > So, if a user is using hardware rotated modes with PSR-SU enabled,
+> > use PSR-SU FFU for all rotated planes (including cursor planes).
+> >
+>
+> Here is the email for the original reporter to give an attribution tag.
+>
+> Reported-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+
+For this particular issue,
+Tested-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+
+>
+> > Cc: stable@vger.kernel.org
+> > Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2952
+> > Fixes: 30ebe41582d1 ("drm/amd/display: add FB_DAMAGE_CLIPS support")
+> > Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    |  4 ++++
+> >   drivers/gpu/drm/amd/display/dc/dc_hw_types.h         |  1 +
+> >   drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c    | 12 ++++++++++-=
+-
+> >   .../gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c  |  3 ++-
+> >   4 files changed, 17 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/driver=
+s/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index c146dc9cba92..79f8102d2601 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -5208,6 +5208,7 @@ static void fill_dc_dirty_rects(struct drm_plane =
+*plane,
+> >       bool bb_changed;
+> >       bool fb_changed;
+> >       u32 i =3D 0;
+> > +
+>
+> Looks like a spurious newline here.
+>
+> >       *dirty_regions_changed =3D false;
+> >
+> >       /*
+> > @@ -5217,6 +5218,9 @@ static void fill_dc_dirty_rects(struct drm_plane =
+*plane,
+> >       if (plane->type =3D=3D DRM_PLANE_TYPE_CURSOR)
+> >               return;
+> >
+> > +     if (new_plane_state->rotation !=3D DRM_MODE_ROTATE_0)
+> > +             goto ffu;
+> > +
+>
+> I noticed that the original report was specifically on 180=C2=B0.  Since
+> you're also covering 90=C2=B0 and 270=C2=B0 with this check it sounds lik=
+e it's
+> actually problematic on those too?
+
+90 & 270 are problematic too. But from what I observed the issue is
+much more than just cursors.
+
+Kai-Heng
+
+>
+> >       num_clips =3D drm_plane_get_damage_clips_count(new_plane_state);
+> >       clips =3D drm_plane_get_damage_clips(new_plane_state);
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h b/drivers/gpu=
+/drm/amd/display/dc/dc_hw_types.h
+> > index 9649934ea186..e2a3aa8812df 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
+> > +++ b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
+> > @@ -465,6 +465,7 @@ struct dc_cursor_mi_param {
+> >       struct fixed31_32 v_scale_ratio;
+> >       enum dc_rotation_angle rotation;
+> >       bool mirror;
+> > +     struct dc_stream_state *stream;
+> >   };
+> >
+> >   /* IPP related types */
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c b/driver=
+s/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
+> > index 139cf31d2e45..89c3bf0fe0c9 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
+> > @@ -1077,8 +1077,16 @@ void hubp2_cursor_set_position(
+> >       if (src_y_offset < 0)
+> >               src_y_offset =3D 0;
+> >       /* Save necessary cursor info x, y position. w, h is saved in att=
+ribute func. */
+> > -     hubp->cur_rect.x =3D src_x_offset + param->viewport.x;
+> > -     hubp->cur_rect.y =3D src_y_offset + param->viewport.y;
+> > +     if (param->stream->link->psr_settings.psr_version >=3D DC_PSR_VER=
+SION_SU_1 &&
+> > +         param->rotation !=3D ROTATION_ANGLE_0) {
+>
+> Ditto on above about 90=C2=B0 and 270=C2=B0.
+>
+> > +             hubp->cur_rect.x =3D 0;
+> > +             hubp->cur_rect.y =3D 0;
+> > +             hubp->cur_rect.w =3D param->stream->timing.h_addressable;
+> > +             hubp->cur_rect.h =3D param->stream->timing.v_addressable;
+> > +     } else {
+> > +             hubp->cur_rect.x =3D src_x_offset + param->viewport.x;
+> > +             hubp->cur_rect.y =3D src_y_offset + param->viewport.y;
+> > +     }
+> >   }
+> >
+> >   void hubp2_clk_cntl(struct hubp *hubp, bool enable)
+> > diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/=
+drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+> > index 2b8b8366538e..ce5613a76267 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+> > @@ -3417,7 +3417,8 @@ void dcn10_set_cursor_position(struct pipe_ctx *p=
+ipe_ctx)
+> >               .h_scale_ratio =3D pipe_ctx->plane_res.scl_data.ratios.ho=
+rz,
+> >               .v_scale_ratio =3D pipe_ctx->plane_res.scl_data.ratios.ve=
+rt,
+> >               .rotation =3D pipe_ctx->plane_state->rotation,
+> > -             .mirror =3D pipe_ctx->plane_state->horizontal_mirror
+> > +             .mirror =3D pipe_ctx->plane_state->horizontal_mirror,
+> > +             .stream =3D pipe_ctx->stream
+>
+> As a nit; I think it's worth leaving a harmless trailing ',' so that
+> there is less ping pong in the future when adding new members to a struct=
+.
+>
+> >       };
+> >       bool pipe_split_on =3D false;
+> >       bool odm_combine_on =3D (pipe_ctx->next_odm_pipe !=3D NULL) ||
+>
+>
