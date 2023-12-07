@@ -4,116 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD52AC4167B
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Dec 2023 14:43:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E32C1C4167B
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Dec 2023 14:52:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2960F10E1EE;
-	Thu,  7 Dec 2023 14:43:01 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2078.outbound.protection.outlook.com [40.107.96.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DB0910E1EE
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Dec 2023 14:43:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5656410E8B6;
+	Thu,  7 Dec 2023 14:52:06 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2084.outbound.protection.outlook.com [40.107.220.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B282010E8B6
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Dec 2023 14:52:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=U8oNbU2ubb1df5687dGmvgFCZqMxBqcHX0YrmqKZh4d2k9yMgjYxTW7soZshCmD0SFk6xcykKmrwtA+kFdXPl5lpyBW4iQJD0eRmeSkPxaQFvZmSybOM0cq7LCZaNsVKf7ULq9mUghBwHIdKayv+i9nKzvIe9S3Rq0vehbtjJF4CoD2JaJIuJFkAhrNLnR5wcKjow5/yYqEoaOKtqtTq8czF8uKnY8571GNKnSYARghipszi+Mc7CF1fC6/lcnIpcVVFfNrhU3An8Wocsc1u2fdmzvb/7rKgcsIhHerwF2eF3nEnlchLQKWYYgOAZJVZBscTQQPDmHlGDOat7TmpkA==
+ b=HiRmSfGKyyeLR8BvObDZDL+GnTc1ictxpHtIQPcttMc5qknBACgfHiajk4JfJVKQsv+XJf8JwCDa2DoWo0Ts/VpFnfPmabqg9ar9oPRHt3gaNlc7LVS5EzFOPVYEy6TPEPF5eXxKJHO/snCCHbcByqi8ZdTkUnT/Oxo7XrZndPIH5TK7veWvvv3ke+RMkMImS8eaKPpQ5Wv58t80dfLP+7oNE//laXgatocDYRzz17yd38WCGJXEmQHpKgzTSEihoLvqmvjXLhAP8XcMYRhOdWjFC9BuXTCMbOrBWOFFlHrxSl/QCb8KCktbW8FGtaMTgH+pcECpRKi8pMhPi0M+AA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iNnG3kNVFysmBY0CwYmhsMOGesqTdNfjrgD+wnZpaLE=;
- b=GqjpPvQA/u5s9tH5fJywQJO2qu9D8cT1S1r0lR9VGMA4ZRjAf8swv4MdooC3PJNX1p2NAOzEAlG48RkiyOcMUcgRAGgXQ2SkOZb/R6xFxcFEsu8mpLd8XhHzmLP52s+z8PJM14sHB/G2YIWRHBXRtrarnESMWchKUFp0MnWo/2QOM0FsFPXm3f0sl7yXQKY24HfkaCU/Djpgm2N94NPzrMSLc9GpCkE9X8Bg113JEDot7w+gVGUM/wU58I+U7IBDmIwMh2zh87yOtpEnWT8vxnmeA5Y+4nQOCmalw/BDteXuMdJ3xcjpUxa7niRfnenD9+PkE9tt/gp9x3qbskAJTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=uEICp29xb+HmD0HUU9fYriDrKB3Ewy6G7GbmP6KNcs4=;
+ b=PUmBfPe7fl6fV8FG1ozSvXPHd41Uh0+MuF938WwliFAau76ZJIWz2OEzD9e+1RxNqxp9FUpzNIJBxrR+DWCgr5d+xzLeAoLMRKd3hLLAbbVEMgCDkfn4uc/VzzU9aqSL/CnCHAMZ3hYhJzWGqUMd2FdKxfepFo/AF8ls0jz5tkOTmAjdnKiy+jOdaFWKo1PjrKvu3dBFxkjGJSo26BecJk0tLtiqEK7O6PTis02vFwp7tzv/w/98+HKJfuvxHB5TsVTAlZdH4kHaA2RSS9eiWjDgH1tUqGkWJeWpCe0kewA0a+Q1FCKaUPbd2prIlR0VRGvTR1xhJGoMYsz0ZqdQJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iNnG3kNVFysmBY0CwYmhsMOGesqTdNfjrgD+wnZpaLE=;
- b=AuxmTkaoRxcEifeZcmvF/YTDyDs+1dthCPwP56pTSQlDIekgPKWAXfRRSpY9ohqT69qo9XXaaR5mfNm7KrzPHCeCHJk7NEBfZywvLnZ/1ohpEXGDYIapXQssGYzuW1mVxblbn5/ne7bV8/9bIP17NmseB27XfJOa/xClojfqnTI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) by
- SA3PR12MB7950.namprd12.prod.outlook.com (2603:10b6:806:31c::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.27; Thu, 7 Dec
- 2023 14:42:55 +0000
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::5358:4ba6:417e:c368]) by DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::5358:4ba6:417e:c368%6]) with mapi id 15.20.7068.025; Thu, 7 Dec 2023
- 14:42:55 +0000
-Message-ID: <b1acb1bc-33de-4f0b-8213-2a075578242b@amd.com>
-Date: Thu, 7 Dec 2023 09:42:52 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: fix hw rotated modes when PSR-SU is
- enabled
-To: Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20231205201749.213912-1-hamza.mahfooz@amd.com>
- <b369f492-a88b-460c-b614-51beb2dc2262@amd.com>
-Content-Language: en-US
+ bh=uEICp29xb+HmD0HUU9fYriDrKB3Ewy6G7GbmP6KNcs4=;
+ b=LreE+XzXalnt9SfGBGjy5DRBgPavCFFnF49uE+prwhPN8RHMM0mZ9izkKQCP+3RQM2u1VpXRJ9ndZ2dCBjNYZ/26bsTqFZFUMokEmXsdNl49Epr8/b1GqZkaGHMj5Y3w1XPjp68mxLDk4987UyO69BjfRz8iRYMgE99fh10PueM=
+Received: from CH2PR05CA0034.namprd05.prod.outlook.com (2603:10b6:610::47) by
+ DM3PR12MB9389.namprd12.prod.outlook.com (2603:10b6:0:46::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7068.25; Thu, 7 Dec 2023 14:52:02 +0000
+Received: from DS2PEPF00003445.namprd04.prod.outlook.com
+ (2603:10b6:610:0:cafe::5d) by CH2PR05CA0034.outlook.office365.com
+ (2603:10b6:610::47) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.24 via Frontend
+ Transport; Thu, 7 Dec 2023 14:52:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS2PEPF00003445.mail.protection.outlook.com (10.167.17.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7068.20 via Frontend Transport; Thu, 7 Dec 2023 14:52:02 +0000
+Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 7 Dec
+ 2023 08:51:59 -0600
 From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-In-Reply-To: <b369f492-a88b-460c-b614-51beb2dc2262@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0071.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:88::11) To DM4PR12MB6280.namprd12.prod.outlook.com
- (2603:10b6:8:a2::11)
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amd/display: fix hw rotated modes when PSR-SU is
+ enabled
+Date: Thu, 7 Dec 2023 09:51:44 -0500
+Message-ID: <20231207145144.7961-1-hamza.mahfooz@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6280:EE_|SA3PR12MB7950:EE_
-X-MS-Office365-Filtering-Correlation-Id: 32bbf940-e714-4d2e-7c5a-08dbf732cc92
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003445:EE_|DM3PR12MB9389:EE_
+X-MS-Office365-Filtering-Correlation-Id: f2062940-94a0-4072-7abc-08dbf7341269
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: mLn8nIgph5aeirYTozbJ8q5Lnfu50OKjKZt6vi3jZvG+Yy1KiRnFbE3G9TB7yOq7lDXhfSjsDl4/VHqJsZC7dttdciasJf/nuYqNrZRsi7vmbayO4Q5dYH3SGwxB8MI81dpSigbnU8JAUDfWEmbBS0yfOW6oqxmWEPPezLXdqvXICSUNUPfcTPcIpQW3h9QO10PFsisF4HqrpmuVgTdvWKYnbYfgvgnhG2B67vwbAQq7mlnxJ8oq65IKZevzA3ZDt4XIOCo1+18RNw4K7HjJ9W2ceAEnRTF/GV3PVEZb9+GtJKThsRpurECCoRUYFBnusZRZKLOpGBzb2nkfTacMM0H2AkNNiO0YArz+1Fl3aiL+UdKtZmzMPRGOnhffqoXzDgjgZeA3H3Ecn5FATJWqN3eEvKB84t1iAl2PNWlAa2yfpT2ruEp+1b8llculEzQ6rEj+1OcQAzOnU942jnulWmLEk0gpN7mdxHcmioSKcbA9xZIR7vffC65l5k50itjIwK0WYKqnrzRgCjrJ0atrv0pBzhwFg/SNZty4JrkJxCNVjGi97jD+E0y940lpUQLw1U5pcyn0sYNyeXC1BMeecupJjSU2kdQ+yuCyD0pcKYF7SBNN5d5TkpSudzF0WowRN9YuRr0tUU9j2v9CY8PfgA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6280.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(366004)(346002)(39860400002)(136003)(396003)(230922051799003)(1800799012)(64100799003)(451199024)(186009)(31686004)(38100700002)(41300700001)(5660300002)(2906002)(36756003)(8676002)(316002)(4326008)(478600001)(53546011)(6666004)(6512007)(6506007)(2616005)(54906003)(86362001)(66476007)(31696002)(66556008)(26005)(66946007)(8936002)(44832011)(966005)(83380400001)(6486002)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: MOknAAoFoaNeE0S0LaAfm76yvoQnj1Ssp2iWEPH2uMR1CJUY2CstDrq6WvsW+Eu9es9CUgH/qh3S0KoNVfUcJC4+3xfjQs9Hl9U/DSsVMOqRPjfUxKHNcnPxtNUDFphMLc4EW3qZLpqILZGOVdH+xLE9Qi3QsgOOF2x8LjKf5hTWnD8XSrHzQm87hL5pQIonuvaexaFf1beslvbbE6g2MUd/U1Z/iy5Q0DKwpIWGkhXso/RwtAbBT4dP+yGXUMKPUM0tEu60iOJMl6ZHQ7+1tCBd/xr4MWgMXFFnUpWJF7ygVBFahdidjBu5P2EPvAWxlGFxo5rloUGZR+oJKHoza/EZoY3l3+RM6xBFK2i4nqOHOTmtxwm27FOrECVFkqMRjcoGsLfaSUqZjxJ3oPJjBGtAv4+11i9BMttPo7BEg0jLVARa7HE4plWNvwqDFwxAjOGNIEMoOrXYb5GV4J/0CUNSl+gMagJsFbOpqRvKFneIejkwd1q0YsCQXWsMGtWdQ/kIZMm0XRuLmclPTSKphIUbY8ShbSAUSPls2B50pTMSwcXJA1ORE/JKwjk75ZXL/NMcu0/ZduXtj/TfvM3kOmEVS0QjKZBBDezc8TLPEQssaarTW2RtbWU0Ka15YbuVwgC7UFxYR780nGP/wIWWHDKJCU6RpA96sUWKXgHygPnT5wutdwEoO0E2FXkZ7uwG8ch6Aekf5s0sM5uQdeJQ+66xTzWyR+DGtoHdhLquBEIlI12nVcwwzCE4dTbYmYSU3AGU0msv8Gp9GYQscXA4eaZa/YKBMRs7oRFyW7APHUk=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(136003)(346002)(376002)(39860400002)(396003)(230922051799003)(1800799012)(64100799003)(451199024)(186009)(82310400011)(40470700004)(46966006)(36840700001)(40480700001)(36860700001)(5660300002)(44832011)(47076005)(82740400003)(6666004)(4326008)(86362001)(356005)(36756003)(8936002)(41300700001)(81166007)(8676002)(2906002)(40460700003)(316002)(426003)(26005)(6916009)(336012)(83380400001)(16526019)(1076003)(2616005)(966005)(70586007)(478600001)(70206006)(54906003)(16060500005)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ckJQVGJBZHc2dlR0MGY2ZnNaZmMzRThYcTlmSXc1eHhWcCtNa2t6YjRvTXhL?=
- =?utf-8?B?cDUvcm9COVJTRnRVbm8wWGErSnFMaW52bWFKZWFTZXBPQUtPMndlazNCdk52?=
- =?utf-8?B?aUJ1QTRCMUNNMmU2WUVMQWpxWFBFaW9sZ1hGQ0ZOcXdSc2JpUmY0ZWNiSHc4?=
- =?utf-8?B?eFdWMVJjMzlCNG5hMFlRNnlVbGJEN3RVZW9PSHREZnNIb2NhYndibFM4SVVO?=
- =?utf-8?B?Z2tMQzFMVWQrWGRRdVZmOFFKV3FObUhPVllPMk9zcGRzWnp1ajJFczk2Q0tq?=
- =?utf-8?B?NThvMTBIVHd4SFdoVWllbkUwaWR4UHRKSDRPVzQ3alZEQ2paSitMUkRQWG40?=
- =?utf-8?B?Y003enV2c0RjdUlkanVyaHdsVTZQaGx0OTB1bU9CbkFQTFR6WFF6c0Y3UTE0?=
- =?utf-8?B?NWNrZ2RWY29UNSt5dGpVV1BweGw5aVNOa0JCRVlYS1JFQWptVG1leElubEZ1?=
- =?utf-8?B?UFZ2dlVIM0pNNXJIQ3BIWVliZExpQmx1SFlEeW8xR1U0TXh4N1dVM3RVWW44?=
- =?utf-8?B?bFU4SWxtV2RDc0thM1dSODFybG1WeTFhTHdnRCtUS05Rd3JlVDlMcWV5ZWU1?=
- =?utf-8?B?SW96ZHArL2NvN2pKTCtCbVR2Q3NOWXUvOUt5WXdnUEU1QUQxNmVZNktiVFlu?=
- =?utf-8?B?dVlWczFMZmdhNUhXcGY0NzhONU5KYjNZY2NpWklobVpGdmw3QVFNMURLbUla?=
- =?utf-8?B?TVJZMEEzS1d2Z2d5bkNQN2JyT2lxK09TQnhSUzdBazNZRHFCY21TM2luWFZP?=
- =?utf-8?B?WWJKOTR2cmNVeXJuR1lYbi95NzYza2hTUVFINXBORUtBMkpzc1V3MWd0cjdj?=
- =?utf-8?B?dUR1bDVvMEw5WUdtN3V6cDdyanQxaFJ5Z3BFV09aT3JGUW0rRk42Vm44dW4z?=
- =?utf-8?B?NFk3Q2kzck8zYnY0V2RSTWhucUtIZWFNTkNodStjTTNWNURlRi9TNVdEM1Jv?=
- =?utf-8?B?dEhhaTlaVC9xbXl0YmpwTDJGWHFYc2k1TVFKaStFamhQQ0IyK29BeUxhSi9y?=
- =?utf-8?B?Z1RJK2FURW4vTzVMWXNTcDY3cnZVWVBGV3ExVDdmSHQ2bXE4azFXdGc5SmJ5?=
- =?utf-8?B?R09wbGRVMzlIa1d2dzkrVkkreVY0bE0vaFBqeDVBWTJsRXp0NEhNdGJEb0hq?=
- =?utf-8?B?RmJJWUYxUnJRTkhvMlRJL2xXMldRWWRrVDRQenVwTFFtaGk5Mm5yQUJXMWVB?=
- =?utf-8?B?Z2hkemNEeVN4U0VSQmhvbEwwMm84TUxzTnJHaXNhN2pjVEIwN2JpSXgwR2FS?=
- =?utf-8?B?Y2VoTDlHeGozZlozU293V2JuSVBma2tNZCtpWmhtb2lna3J6UEdldlZ3ZGNZ?=
- =?utf-8?B?WGFzK0QxcGJpUlQ4bC9ZelYrYUNrVU90WnErcHFUOGUyUkNScHdXM0hsRS9F?=
- =?utf-8?B?cGRaYm1YWTd6cTM0ZXdtMzNWVlRTays0QUQrelNsUXhPcGdBdzJKUFVORWZZ?=
- =?utf-8?B?MHVDc3ZXbEZIOGxHaUtabm1pSE1QRFl3QjgvV1AxWFRmN3JCam45MU5wT1Qz?=
- =?utf-8?B?SGtlT1RIMU5iSXF1YXM0emQ2ZkZPTjNicHdITTdWbTFSbHZBWlRERjc4US96?=
- =?utf-8?B?Z3BXcE9WNnpDQS9LK0t3M1BMUXBqMEkrVlJmWVNSZy9wU3NoQjR4ZldHNTNP?=
- =?utf-8?B?bnNwZFdMTzc4ckdvRVgwTUpRZjFJRCtmQlExdVJvVlEwaUVFRjVreUd5dXRi?=
- =?utf-8?B?dUh3REg3T24wTTVVYllWNUJPYWxZVzhxMXVPSEdSSmQ5V1dlNWxMQisxMnhV?=
- =?utf-8?B?ZXR0QWJnM2gyV09hdzRzejFmVnJWekJMVDVtSFRkZzMyUXBOVlFxSGZTWHZv?=
- =?utf-8?B?UURiWlJtaStxY0hwdmNuTGdzODNvMzFKbzJnUlIzRTdaUTdFSGVNcmU2d0hk?=
- =?utf-8?B?T24zSHMvVUhuK0E0QW1CbXk4a0g4SE1HNUFNQnFLOG1WYVA2SklNbjRybk1O?=
- =?utf-8?B?cS8xS0QyaUx1dk1IejdKT21JMU5VZzhESjBPQUxFVkVaYkNQcyswTEtGTlBo?=
- =?utf-8?B?a29Gb21yaDA3OU45dFdqK29LVmFDUENvM0MyaG1WVVRBVlZHUitPSUFaS0RJ?=
- =?utf-8?B?REFzVEFaUXVvajBqRFdkSXM5Z2ROZHgrRUd1UElobDBNU1FEY2hOaVBZSUpy?=
- =?utf-8?Q?e6s8cnhTTSNa2aYSWWJk7wiaP?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32bbf940-e714-4d2e-7c5a-08dbf732cc92
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6280.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Dec 2023 14:42:55.7146 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Dec 2023 14:52:02.1538 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f2062940-94a0-4072-7abc-08dbf7341269
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9W2QsypRxIoVbE8X6tGIHHBvDOvEJyPJrMwEWdM2AWZ0o+QjGTEQITH1buFOrmnwhooLGk3yiC8sftOKONvb+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7950
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003445.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9389
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,136 +98,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Taimur Hassan <syed.hassan@amd.com>, stable@vger.kernel.org,
+Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>, Bin Li <binli@gnome.org>,
+ Leo Li <sunpeng.li@amd.com>, Wenjing
+ Liu <wenjing.liu@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, stable@vger.kernel.org,
  Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
  Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/5/23 15:29, Mario Limonciello wrote:
-> On 12/5/2023 14:17, Hamza Mahfooz wrote:
->> We currently don't support dirty rectangles on hardware rotated modes.
->> So, if a user is using hardware rotated modes with PSR-SU enabled,
->> use PSR-SU FFU for all rotated planes (including cursor planes).
->>
-> 
-> Here is the email for the original reporter to give an attribution tag.
-> 
-> Reported-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
-> 
->> Cc: stable@vger.kernel.org
->> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2952
->> Fixes: 30ebe41582d1 ("drm/amd/display: add FB_DAMAGE_CLIPS support")
->> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
->> ---
->>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    |  4 ++++
->>   drivers/gpu/drm/amd/display/dc/dc_hw_types.h         |  1 +
->>   drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c    | 12 ++++++++++--
->>   .../gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c  |  3 ++-
->>   4 files changed, 17 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c 
->> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> index c146dc9cba92..79f8102d2601 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> @@ -5208,6 +5208,7 @@ static void fill_dc_dirty_rects(struct drm_plane 
->> *plane,
->>       bool bb_changed;
->>       bool fb_changed;
->>       u32 i = 0;
->> +
-> 
-> Looks like a spurious newline here.
-> 
->>       *dirty_regions_changed = false;
->>       /*
->> @@ -5217,6 +5218,9 @@ static void fill_dc_dirty_rects(struct drm_plane 
->> *plane,
->>       if (plane->type == DRM_PLANE_TYPE_CURSOR)
->>           return;
->> +    if (new_plane_state->rotation != DRM_MODE_ROTATE_0)
->> +        goto ffu;
->> +
-> 
-> I noticed that the original report was specifically on 180°.  Since 
-> you're also covering 90° and 270° with this check it sounds like it's 
-> actually problematic on those too?
+We currently don't support dirty rectangles on hardware rotated modes.
+So, if a user is using hardware rotated modes with PSR-SU enabled,
+use PSR-SU FFU for all rotated planes (including cursor planes).
 
-Ya it's problematic for 90 and 270 as well, though most mainstream
-compositors don't use hardware rotation for those cases under any
-circumstances. So, I doubt that many people would encounter this issue in
-the wild for them.
+Cc: stable@vger.kernel.org
+Fixes: 30ebe41582d1 ("drm/amd/display: add FB_DAMAGE_CLIPS support")
+Reported-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/2952
+Tested-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Tested-by: Bin Li <binli@gnome.org>
+Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+---
+v2: fix style issues and add tags
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    |  3 +++
+ drivers/gpu/drm/amd/display/dc/dc_hw_types.h         |  1 +
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c    | 12 ++++++++++--
+ .../gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c  |  3 ++-
+ 4 files changed, 16 insertions(+), 3 deletions(-)
 
-> 
->>       num_clips = drm_plane_get_damage_clips_count(new_plane_state);
->>       clips = drm_plane_get_damage_clips(new_plane_state);
->> diff --git a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h 
->> b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
->> index 9649934ea186..e2a3aa8812df 100644
->> --- a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
->> +++ b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
->> @@ -465,6 +465,7 @@ struct dc_cursor_mi_param {
->>       struct fixed31_32 v_scale_ratio;
->>       enum dc_rotation_angle rotation;
->>       bool mirror;
->> +    struct dc_stream_state *stream;
->>   };
->>   /* IPP related types */
->> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c 
->> b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
->> index 139cf31d2e45..89c3bf0fe0c9 100644
->> --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
->> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
->> @@ -1077,8 +1077,16 @@ void hubp2_cursor_set_position(
->>       if (src_y_offset < 0)
->>           src_y_offset = 0;
->>       /* Save necessary cursor info x, y position. w, h is saved in 
->> attribute func. */
->> -    hubp->cur_rect.x = src_x_offset + param->viewport.x;
->> -    hubp->cur_rect.y = src_y_offset + param->viewport.y;
->> +    if (param->stream->link->psr_settings.psr_version >= 
->> DC_PSR_VERSION_SU_1 &&
->> +        param->rotation != ROTATION_ANGLE_0) {
-> 
-> Ditto on above about 90° and 270°.
-> 
->> +        hubp->cur_rect.x = 0;
->> +        hubp->cur_rect.y = 0;
->> +        hubp->cur_rect.w = param->stream->timing.h_addressable;
->> +        hubp->cur_rect.h = param->stream->timing.v_addressable;
->> +    } else {
->> +        hubp->cur_rect.x = src_x_offset + param->viewport.x;
->> +        hubp->cur_rect.y = src_y_offset + param->viewport.y;
->> +    }
->>   }
->>   void hubp2_clk_cntl(struct hubp *hubp, bool enable)
->> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c 
->> b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
->> index 2b8b8366538e..ce5613a76267 100644
->> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
->> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
->> @@ -3417,7 +3417,8 @@ void dcn10_set_cursor_position(struct pipe_ctx 
->> *pipe_ctx)
->>           .h_scale_ratio = pipe_ctx->plane_res.scl_data.ratios.horz,
->>           .v_scale_ratio = pipe_ctx->plane_res.scl_data.ratios.vert,
->>           .rotation = pipe_ctx->plane_state->rotation,
->> -        .mirror = pipe_ctx->plane_state->horizontal_mirror
->> +        .mirror = pipe_ctx->plane_state->horizontal_mirror,
->> +        .stream = pipe_ctx->stream
-> 
-> As a nit; I think it's worth leaving a harmless trailing ',' so that 
-> there is less ping pong in the future when adding new members to a struct.
-> 
->>       };
->>       bool pipe_split_on = false;
->>       bool odm_combine_on = (pipe_ctx->next_odm_pipe != NULL) ||
-> 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index c146dc9cba92..3cd1d6a8fbdf 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5217,6 +5217,9 @@ static void fill_dc_dirty_rects(struct drm_plane *plane,
+ 	if (plane->type == DRM_PLANE_TYPE_CURSOR)
+ 		return;
+ 
++	if (new_plane_state->rotation != DRM_MODE_ROTATE_0)
++		goto ffu;
++
+ 	num_clips = drm_plane_get_damage_clips_count(new_plane_state);
+ 	clips = drm_plane_get_damage_clips(new_plane_state);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
+index 9649934ea186..e2a3aa8812df 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
+@@ -465,6 +465,7 @@ struct dc_cursor_mi_param {
+ 	struct fixed31_32 v_scale_ratio;
+ 	enum dc_rotation_angle rotation;
+ 	bool mirror;
++	struct dc_stream_state *stream;
+ };
+ 
+ /* IPP related types */
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
+index 139cf31d2e45..89c3bf0fe0c9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
+@@ -1077,8 +1077,16 @@ void hubp2_cursor_set_position(
+ 	if (src_y_offset < 0)
+ 		src_y_offset = 0;
+ 	/* Save necessary cursor info x, y position. w, h is saved in attribute func. */
+-	hubp->cur_rect.x = src_x_offset + param->viewport.x;
+-	hubp->cur_rect.y = src_y_offset + param->viewport.y;
++	if (param->stream->link->psr_settings.psr_version >= DC_PSR_VERSION_SU_1 &&
++	    param->rotation != ROTATION_ANGLE_0) {
++		hubp->cur_rect.x = 0;
++		hubp->cur_rect.y = 0;
++		hubp->cur_rect.w = param->stream->timing.h_addressable;
++		hubp->cur_rect.h = param->stream->timing.v_addressable;
++	} else {
++		hubp->cur_rect.x = src_x_offset + param->viewport.x;
++		hubp->cur_rect.y = src_y_offset + param->viewport.y;
++	}
+ }
+ 
+ void hubp2_clk_cntl(struct hubp *hubp, bool enable)
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+index 2b8b8366538e..cdb903116eb7 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+@@ -3417,7 +3417,8 @@ void dcn10_set_cursor_position(struct pipe_ctx *pipe_ctx)
+ 		.h_scale_ratio = pipe_ctx->plane_res.scl_data.ratios.horz,
+ 		.v_scale_ratio = pipe_ctx->plane_res.scl_data.ratios.vert,
+ 		.rotation = pipe_ctx->plane_state->rotation,
+-		.mirror = pipe_ctx->plane_state->horizontal_mirror
++		.mirror = pipe_ctx->plane_state->horizontal_mirror,
++		.stream = pipe_ctx->stream,
+ 	};
+ 	bool pipe_split_on = false;
+ 	bool odm_combine_on = (pipe_ctx->next_odm_pipe != NULL) ||
 -- 
-Hamza
+2.43.0
 
