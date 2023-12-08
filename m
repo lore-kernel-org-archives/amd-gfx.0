@@ -4,68 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 527A4C4167B
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Dec 2023 13:24:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AA8EC4167B
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Dec 2023 13:39:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 938FB10E1BE;
-	Fri,  8 Dec 2023 13:24:26 +0000 (UTC)
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A08EA10E1BE
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Dec 2023 13:24:24 +0000 (UTC)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3334a701cbbso2125881f8f.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 08 Dec 2023 05:24:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1702041863; x=1702646663; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=ZOcLPk4rPX3jDSIw82dL6cO5sH5pCmGSDNWWXhAuILo=;
- b=jSeAQXy0KPn3pTDKGGC2kZC+yeZ8C8GtBtJ0078M/4eZczdjaFEdSQGGBWjDcdKULN
- NvhbflCawPpt/sKqk0oUqwzstuQvC8DKiVpVKwfw4O4P1eqC4ehLarMe7zb70Fv20gRV
- T3203O2dmZLePMUBtP3R4aKtK4v391lkrEAEypy281w+BoLVcpoCLyfoMjJfRV/kvX+9
- Nz3Tm2bMJBUVM0VgIxIobR8fmUtvGndNeGnjHpQaLNQhzIBRur7wGk0qiytT+KiM5ggC
- 4kq/S1kvWTZDLjWL/7IuPjh7QVTqfctwg59N1nAazHNU7dEi5LDP0gnRIBT/eiEMnzhH
- YekQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702041863; x=1702646663;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ZOcLPk4rPX3jDSIw82dL6cO5sH5pCmGSDNWWXhAuILo=;
- b=fLfZsdIBffLUzlOhn/ykRaoWbm0kavlFiRBYyYE1uPsyaWzJLdpdCGOHdwJVwcBq4k
- nHArq1V9yl8N2/+eZwa+DFI4j/nNjNDLUsmaUU2YtfA84OlTLknSM41t2yy8wI98JHVb
- JeQT8HnwQPVGLoPrst0LPJOGtSEVbuSTdvoaCFsxgRVxMhAPTB5bgxkAV2/rCnY2fdpl
- Zaptw01gUWQp6S6YkENFmUtjFAkOG+C6su4XA4zFxbKnGrxT8Dp9JsgHVy/x79lpilIW
- tHBqCFjJptYFiuyL/hXklT78asQsHp0R7u+PE3IWYny0nP4cXo05oJsFcwVzEljyO3DK
- Xdyw==
-X-Gm-Message-State: AOJu0YyxcyuEfPKgBcYoqwPwHt+R0hfVzHNmKgDrYdDs28AlLCos00JC
- ju6O2T5bjMNrpnck/CJzAfI=
-X-Google-Smtp-Source: AGHT+IHjfPN7AMcvUdy92ta2xRqlfEIEqA+XcRQ9FVOIS1pOxqJD/5NwJBbNjmLe4ao6d/yTy6ZuCQ==
-X-Received: by 2002:a5d:6242:0:b0:333:3c06:b433 with SMTP id
- m2-20020a5d6242000000b003333c06b433mr16389wrv.0.1702041862796; 
- Fri, 08 Dec 2023 05:24:22 -0800 (PST)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- k18-20020a5d5192000000b0033339027c89sm2023394wrv.108.2023.12.08.05.24.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 08 Dec 2023 05:24:22 -0800 (PST)
-Message-ID: <84229452-a063-46d2-bc04-46c38b2911ff@gmail.com>
-Date: Fri, 8 Dec 2023 14:24:20 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id E126710E2B2;
+	Fri,  8 Dec 2023 13:39:06 +0000 (UTC)
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F9BE10E26F;
+ Fri,  8 Dec 2023 09:58:38 +0000 (UTC)
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3B899OeI013547; Fri, 8 Dec 2023 09:58:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding;
+ s=corp-2023-11-20; bh=2YndOjHyhkOb5ckp2udC88cU2qRc5IjcyuuMfvzEG5s=;
+ b=BqbDp0gTHP3wpVEIJustI0v+6svVIhsFfuHYNANgGfuwIT4RvHoQYSm3vvTRkjd1fnMz
+ /+ycAEhrvj/uRrzOZsWRP6qvbg5rNLmB18zpRFz/UZL8t+IKht1S7ldwXtw7kPgMuewD
+ F/aCkO6dH6aJ9t5WTCPF5DkRu4i1vTgcJQmCNvrCo4FUjbUHq/zfhK6Zxo2FXvXvvM/u
+ AbT0zgUn6yhYBsz2+l0HJETEtY5RFPwEn3DvzKY8zm4n30gMWedCUVw/JJBSDDQNYs3t
+ 1FmkooNXFe0ZI6OlSPLrTh1aFBEvFawy2uwpQu0Y+4QS3RFrMSnAar5ja0isslA469N2 oA== 
+Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3utdda5ny1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 08 Dec 2023 09:58:30 +0000
+Received: from pps.filterd
+ (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.17.1.19/8.17.1.19)
+ with ESMTP id 3B89q0Th037399; Fri, 8 Dec 2023 09:58:29 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 3utan8pwxw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 08 Dec 2023 09:58:29 +0000
+Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 3B89wSfL027743;
+ Fri, 8 Dec 2023 09:58:28 GMT
+Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com
+ [10.129.136.47])
+ by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id
+ 3utan8pwxb-1; Fri, 08 Dec 2023 09:58:28 +0000
+From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "David (ChunMing) Zhou" <David1.Zhou@amd.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Sherry Yang <sherry.yang@oracle.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sasha Levin <sashal@kernel.org>, Roman Li <roman.li@amd.com>,
+ Claudio Suarez <cssk@net-c.es>, hongao <hongao@uniontech.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/display: Fix memory leak in dm_set_writeback()
+Date: Fri,  8 Dec 2023 01:58:24 -0800
+Message-ID: <20231208095825.1291730-1-harshit.m.mogalapalli@oracle.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdgpu/debugfs: fix error code when smc register
- accessors are NULL
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20231127223234.891204-1-alexander.deucher@amd.com>
- <CADnq5_OpHe527RoVPzgyj_TOw+RT=dZnfmfB7TGWD=8Zzt10cQ@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CADnq5_OpHe527RoVPzgyj_TOw+RT=dZnfmfB7TGWD=8Zzt10cQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-08_05,2023-12-07_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ spamscore=0 malwarescore=0
+ suspectscore=0 mlxscore=0 adultscore=0 bulkscore=0 mlxlogscore=999
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2311290000
+ definitions=main-2312080082
+X-Proofpoint-GUID: -_K5URp7pXXN0p40jxNmPb_EV7voda20
+X-Proofpoint-ORIG-GUID: -_K5URp7pXXN0p40jxNmPb_EV7voda20
+X-Mailman-Approved-At: Fri, 08 Dec 2023 13:39:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,52 +88,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: harshit.m.mogalapalli@oracle.com, kernel-janitors@vger.kernel.org,
+ error27@gmail.com, dan.carpenter@linaro.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The second patch never made it into my inbox, but the first one is 
-Reviewed-by: Christian König <christian.koenig@amd.com>.
+'wb_info' needs to be freed on error paths or it would leak the memory.
 
-Christian.
+Smatch pointed this out.
 
-Am 07.12.23 um 18:39 schrieb Alex Deucher:
-> Ping on this series?
->
-> Alex
->
-> On Mon, Nov 27, 2023 at 5:52 PM Alex Deucher <alexander.deucher@amd.com> wrote:
->> Should be -EOPNOTSUPP.
->>
->> Fixes: 5104fdf50d32 ("drm/amdgpu: Fix a null pointer access when the smc_rreg pointer is NULL")
->> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 4 ++--
->>   1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->> index 0e61ebdb3f3e..8d4a3ff65c18 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->> @@ -755,7 +755,7 @@ static ssize_t amdgpu_debugfs_regs_smc_read(struct file *f, char __user *buf,
->>          int r;
->>
->>          if (!adev->smc_rreg)
->> -               return -EPERM;
->> +               return -EOPNOTSUPP;
->>
->>          if (size & 0x3 || *pos & 0x3)
->>                  return -EINVAL;
->> @@ -814,7 +814,7 @@ static ssize_t amdgpu_debugfs_regs_smc_write(struct file *f, const char __user *
->>          int r;
->>
->>          if (!adev->smc_wreg)
->> -               return -EPERM;
->> +               return -EOPNOTSUPP;
->>
->>          if (size & 0x3 || *pos & 0x3)
->>                  return -EINVAL;
->> --
->> 2.42.0
->>
+Fixes: c81e13b929df ("drm/amd/display: Hande writeback request from userspace")
+Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+---
+This is based on static analysis and only compile tested
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index afdcc43ea06c..333995f70239 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -8871,12 +8871,14 @@ static void dm_set_writeback(struct amdgpu_display_manager *dm,
+ 	acrtc = to_amdgpu_crtc(wb_conn->encoder.crtc);
+ 	if (!acrtc) {
+ 		DRM_ERROR("no amdgpu_crtc found\n");
++		kfree(wb_info);
+ 		return;
+ 	}
+ 
+ 	afb = to_amdgpu_framebuffer(new_con_state->writeback_job->fb);
+ 	if (!afb) {
+ 		DRM_ERROR("No amdgpu_framebuffer found\n");
++		kfree(wb_info);
+ 		return;
+ 	}
+ 
+-- 
+2.39.3
 
