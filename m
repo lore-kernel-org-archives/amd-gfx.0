@@ -4,88 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C0DEC4167B
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Dec 2023 00:42:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB445C4167B
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Dec 2023 08:19:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EEDD10E1A7;
-	Fri,  8 Dec 2023 00:42:43 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2046.outbound.protection.outlook.com [40.107.94.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFB1E10E1A7
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Dec 2023 00:42:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aa8c3fhS3xBqlhm7dC6IhCG/czFp9zBEq/hx5yywNpWdTKrMFbfVYSMVNckoJ+gbnnlmGS7ohxVVH6tKvKJlAW29WfaF6pU6F8e8Npv5z0HGZzMpI1YZwjQP7cgSa0zpXCSHM9VAJLdxBKArZ4CfSSGHGX4yXks3tx6VESM8V/zIxwaMemYbhVWp8iAPXzbUBXMzrDzOPBJuqYImJPunyCnB2m5RW+/pXCcXSqRbPdB9jtisD2SZKJmXuOWN+q8bzEAtEfD8H6ygIUosxxUK4Er38wr7S8qR9WWkpkuLqHfNp17yUa779Qbw98ee3v5C++W2kb3M+JMSNPgyXSkK/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3mx57GLyYwMR9Aqxg643qvHLvZ4ER2BgztzCdeQa8yM=;
- b=j6JWXKpvJbUcoh6gVlqtGf7KaHno4+CBZ59WlJwtLhlDtJczKCR/a0rI27Bx66mmu+B1mRuchPomowl3m2PRCyg3R34Pdtkrge/pQLt1HGQWUCuM+1+jhsRwgwNzCQr1Ji+N9oHocFb/lf8CuRaZJL6kxNupmpBApETdvGaxK2GCq6rGihjf/XDj131vJwPXVGmfYLtN0dWewjP7YFcA7CwpuZ9jZELQpDK4yTQFm+IBCj1QYeiDPGijoYmGdVVFkcAx8YfuGS8F5QPZi1TEc9Ozpcc4wg6KQ5NRctTXX1vYBAylIHSnMUchUgYsNqXRDOi/B3K2w3XSV8OVPIG7jg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3mx57GLyYwMR9Aqxg643qvHLvZ4ER2BgztzCdeQa8yM=;
- b=Nve8IiBK8AVxs4ju8wS8ZLGZ4UhvN7WvCL0cIGyETleMnEoWFpwJqjwPx4b+oHuWPTEAJ5AmDtH6hfUnFGaeXJi8hvc7bGqBFzYnwN4Xyctr/WECX0d2SMPLAjryDFFkz3+t1ycns7pPRMMnHhdwuu5mDn1bRyeQTrpAUpKIJfA=
-Received: from SN7PR04CA0052.namprd04.prod.outlook.com (2603:10b6:806:120::27)
- by LV3PR12MB9142.namprd12.prod.outlook.com (2603:10b6:408:198::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.27; Fri, 8 Dec
- 2023 00:42:39 +0000
-Received: from SN1PEPF00026369.namprd02.prod.outlook.com
- (2603:10b6:806:120:cafe::16) by SN7PR04CA0052.outlook.office365.com
- (2603:10b6:806:120::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.34 via Frontend
- Transport; Fri, 8 Dec 2023 00:42:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF00026369.mail.protection.outlook.com (10.167.241.134) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7068.20 via Frontend Transport; Fri, 8 Dec 2023 00:42:38 +0000
-Received: from H-4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 7 Dec
- 2023 18:42:37 -0600
-From: Vignesh Chander <Vignesh.Chander@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: xgmi_fill_topology_info
-Date: Thu, 7 Dec 2023 18:42:11 -0600
-Message-ID: <20231208004211.3720802-1-Vignesh.Chander@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B01210E25A;
+	Fri,  8 Dec 2023 08:19:27 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB48910E25A
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Dec 2023 08:19:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.de; s=s31663417;
+ t=1702023562; x=1702628362; i=friedrich.vock@gmx.de;
+ bh=prJeMVz0zr0lHid82lS8OH9O/z+mHWshjSuppbfC520=;
+ h=X-UI-Sender-Class:Date:Subject:To:Cc:References:From:
+ In-Reply-To;
+ b=t/dZBMV7sOkQRl0pjRZdT906se036N2cVOWm7GgTZyVmfaug4bUFRo6JjMRzGVzn
+ m8Vfj7rLA5avlyS8/oPnYN1kU4Wv19cuuA1qaoAPdBsVNz2q1lecdu6NUBYd9nflY
+ E4xE3NR7xYpeiDBnhoVqiyogm5epF4I9TrpzfIqztH+Pv7P/Fc1VvKghs6TlGwlWC
+ 71u7PP6Vxu823pbQwym3K1nY1H/twqJF1xKV7b2tV4R7StHXtTmLbCYlys0IYon+W
+ 1nc43QZyOtAJsvfp+Nz53pmB+XElxeO+JpHfilqWkrz7NJ6kLnSCG6Hq1er4yFLtX
+ 9REBKoxTKjQoxFMfSw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from [192.168.177.3] ([213.152.118.80]) by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1N8XPn-1rG07P0INN-014RAQ; Fri, 08
+ Dec 2023 09:19:22 +0100
+Message-ID: <3525f437-9537-4fb4-80d0-65acd9d55d2f@gmx.de>
+Date: Fri, 8 Dec 2023 09:19:21 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00026369:EE_|LV3PR12MB9142:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7a979539-3721-4036-e1ad-08dbf7869422
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5gTIBW7RPcGktrLvXufpfCVhXQkt2PlyD1PrPhpRDrtCJPkMGqonZ/2IgVSniiF/+LXiuhGS2BHBIuJlxGBEO/zovAHolnPCge+QZOCF2sYmrWPfG3cVG3kiX/YBG9SnQmjcjWR8fsvtXbPszFQdFaYcMmmAnLPZuZUHHIbNS1w1nldjBeAmy+y2zrmbY57jJU8IUFayBVyJVFkbER3raWfy3DHUfHzUBH4LSUPJUL6tDSU6XKPwlrQhvN7mNlPvSlv7Pf+kr8uqiqTKoUSzv2uyDMmAVExBJ9qAUxA50TdSPfcRLxjnR+GtN6kLYRUXtEoJPq56yiosUTlovbN9H2SfuHGKqiXR22A29+b4Y0swXDqyyj7Lwz7n/YsXGwBmqsrLJj7QMjvJFZA6IY6N7YjhIgRHSQmktLKHi8p/A6ClELdDeR8m4ke4iq2rB9W12/6/bqPzdhQe1cMwyTCqLxPGnAt3x195npn65w1OAxYe4AoS3akPJztLP1/dTmIKoHdiWT9ZwcGAhF1AMgCXiyZ/Hfyr2E2VNvAOwJap46xCpnuKb7almyYcU9672fcIMtifBfBdkZavbaUB8bzSf+RTq1okS2ZNcIVyWHIkr/8GexaRmbmmI9xaLXgrAT3wljw5EWxY/s7VcwVWQBIUfXi6lK9SltlmKm1Ky1+Xokjeng/izbOwt+oW4DUYXV5cRyxbHcPhAK4MwEgcYKMWXVapRL+C4dPcPiVr+48fRIl3jYdoPoTKBtEIDUQcffeRa51tFuSOoY0lN5wjcnVfCQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(346002)(136003)(39860400002)(396003)(230922051799003)(64100799003)(451199024)(1800799012)(82310400011)(186009)(40470700004)(36840700001)(46966006)(316002)(70206006)(6916009)(54906003)(70586007)(40460700003)(2906002)(41300700001)(5660300002)(86362001)(36756003)(81166007)(4326008)(356005)(82740400003)(8676002)(8936002)(26005)(336012)(83380400001)(6666004)(7696005)(16526019)(36860700001)(47076005)(1076003)(2616005)(40480700001)(478600001)(426003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2023 00:42:38.5424 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a979539-3721-4036-e1ad-08dbf7869422
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00026369.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9142
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Enable tunneling on high-priority compute
+ queues
+Content-Language: en-US
+To: amd-gfx@lists.freedesktop.org
+References: <20231202001740.120840-1-friedrich.vock@gmx.de>
+From: Friedrich Vock <friedrich.vock@gmx.de>
+Autocrypt: addr=friedrich.vock@gmx.de; keydata=
+ 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
+ f7+xmX0X3AMtWz/15Y+7cPO2
+In-Reply-To: <20231202001740.120840-1-friedrich.vock@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:gfXcfkcgzW/hHTn1941WaEfl5KSlv+PvFxx41t6etbkY/v9bCyC
+ KCRkHhpxlXR2SErWKNNSD5XcrsjQxkkQr6ut/y0geRmKTC/psFJsZb2w4K8zy6UT1EXr1IL
+ 46Grk7PQKpEU+ubTbOejOQiH5xrpJdCvAUnwfWuZj3bwET6Dh3eUapXePzQVyc5mfoXoJ3P
+ 5CK6mepxt2ein6AWxYRBA==
+UI-OutboundReport: notjunk:1;M01:P0:K5owJCQOwkM=;0au0qo03IsVMMyeFb4d76GHz+c1
+ PSMg/EvI4hBv9DVpGXskaSn2epPEyBSFPkgg9i3PmeS44pcoPiPw/YaoYPJecz7QwsWzCPs1h
+ U+Zli6NAH/6P6U2CPva3a6BWQYrDNmtSf0i8eDv5d9Bx5o7dsrLy28SukyoQfNRzZys6OdgZD
+ SZ7HoG4kQ3yef/fpFBz1207dpknEonLH1Pa1cbiYrob2NLG00C3+SOLifYglwrsF5KpoDkWaw
+ Tflg7c8i7D7xLoEYFAhzFf5I66AmBloujcIKu/Ndp6GvqEsaJOqWeGI4YIroAw+afjoIIRVVM
+ OnKsLPHzBH7+8aVA+f4gMmkFhyV5pSZPMG4UkSEXAi98sJeC6XeG+seDkUe/jICMHTma/EVd2
+ EUQcRHZkfR2Y0MZYhB0fIj/0Zob38CewYKK87J+c/jTzo3q6hKpK4GnQYmFuSYhF6UnOzVzj9
+ 36L2W+N+L8ZJcUNkSf7x7yoRYhdZMryxWL0KjbZ7ZA4R0mlBCpDh7L01DVyyfPxS8qA2MlfIm
+ oV5tg+J4zUDygjeVhp47bB2eOwHC3Xj6OdopHyrGkBi+hlVfy5RGmUnWMM7dzjtJgWDk403zD
+ E0Fa/Ufva/v2JwbkD6ZlAfzTqic56ZwFHeWfq0Kjin3FAw9AGiaPN/gFaCfiJkmNBujdudTD6
+ Ch5CVknQQ/wQdidJEiZmSTDvMppEEXyQnbJhxvCeZrWlIddnk/SxSzoPuBKQ+EmT9EOyvArvn
+ dv+rIkZjZTchG+gKob7tTc3lByR1wW6UsXlnISSiRC+sIG4qZvYu921zAh/RijPcQ3w9q7+Ca
+ obT/sPmLaqHm5GpdWmF0UZs0peCz+kAoINusLvHEz/fTGP0WpuR0V4G4zyYetQ/t+Y4z55cCr
+ 4rFIWEKMFgjH7JFQl9bXVu6moa0cyexwHAt/cwlatMtZYtf9AE6+COtBVZyYfm9ARxRmojrTf
+ F+bUNfB9gHhOMIwXE2Y17oHNzL0=
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,121 +104,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lijo.Lazar@amd.com, Zhigang.Luo@amd.com,
- Vignesh Chander <Vignesh.Chander@amd.com>, Jonathan.Kim@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-1. Use the mirrored topology info to fill links for VF.
-The new solution is required to simplify and optimize host driver logic.
-Only use the new solution for VFs that support full duplex and
-extended_peer_link_info otherwise the info would be incomplete.
+Friendly ping on this one.
+Userspace side got merged, so would be great to land this patch too :)
 
-2. avoid calling extended_link_info on VF as its not supported
-
-Signed-off-by: Vignesh Chander <Vignesh.Chander@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c  |  4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 58 ++++++++++++++++++++----
- 2 files changed, 52 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index a21045d018f2..1bf975b8d083 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -1433,8 +1433,8 @@ int psp_xgmi_get_topology_info(struct psp_context *psp,
- 			 get_extended_data) ||
- 			amdgpu_ip_version(psp->adev, MP0_HWIP, 0) ==
- 				IP_VERSION(13, 0, 6);
--		bool ta_port_num_support = psp->xgmi_context.xgmi_ta_caps &
--						EXTEND_PEER_LINK_INFO_CMD_FLAG;
-+		bool ta_port_num_support = amdgpu_sriov_vf(psp->adev) ? 0 :
-+				psp->xgmi_context.xgmi_ta_caps & EXTEND_PEER_LINK_INFO_CMD_FLAG;
- 
- 		/* popluate the shared output buffer rather than the cmd input buffer
- 		 * with node_ids as the input for GET_PEER_LINKS command execution.
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-index 44d8c1a11e1b..dd82d73daed6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -823,6 +823,28 @@ static int amdgpu_xgmi_initialize_hive_get_data_partition(struct amdgpu_hive_inf
- 	return 0;
- }
- 
-+void amdgpu_xgmi_fill_topology_info(struct amdgpu_device *adev,
-+	struct amdgpu_device *peer_adev)
-+{
-+	struct psp_xgmi_topology_info *top_info = &adev->psp.xgmi_context.top_info;
-+	struct psp_xgmi_topology_info *peer_info = &peer_adev->psp.xgmi_context.top_info;
-+
-+	for (int i = 0; i < peer_info->num_nodes; i++) {
-+		if (peer_info->nodes[i].node_id == adev->gmc.xgmi.node_id) {
-+			for (int j = 0; j < top_info->num_nodes; j++) {
-+				if (top_info->nodes[j].node_id == peer_adev->gmc.xgmi.node_id) {
-+					peer_info->nodes[i].num_hops = top_info->nodes[j].num_hops;
-+					peer_info->nodes[i].is_sharing_enabled =
-+							top_info->nodes[j].is_sharing_enabled;
-+					peer_info->nodes[i].num_links =
-+							top_info->nodes[j].num_links;
-+					return;
-+				}
-+			}
-+		}
-+	}
-+}
-+
- int amdgpu_xgmi_add_device(struct amdgpu_device *adev)
- {
- 	struct psp_xgmi_topology_info *top_info;
-@@ -897,18 +919,38 @@ int amdgpu_xgmi_add_device(struct amdgpu_device *adev)
- 				goto exit_unlock;
- 		}
- 
--		/* get latest topology info for each device from psp */
--		list_for_each_entry(tmp_adev, &hive->device_list, gmc.xgmi.head) {
--			ret = psp_xgmi_get_topology_info(&tmp_adev->psp, count,
--					&tmp_adev->psp.xgmi_context.top_info, false);
-+		if (amdgpu_sriov_vf(adev) &&
-+			psp->xgmi_context.xgmi_ta_caps & EXTEND_PEER_LINK_INFO_CMD_FLAG) {
-+			/* only get topology for VF being init if it can support full duplex */
-+			ret = psp_xgmi_get_topology_info(&adev->psp, count,
-+						&adev->psp.xgmi_context.top_info, false);
- 			if (ret) {
--				dev_err(tmp_adev->dev,
-+				dev_err(adev->dev,
- 					"XGMI: Get topology failure on device %llx, hive %llx, ret %d",
--					tmp_adev->gmc.xgmi.node_id,
--					tmp_adev->gmc.xgmi.hive_id, ret);
--				/* To do : continue with some node failed or disable the whole hive */
-+					adev->gmc.xgmi.node_id,
-+					adev->gmc.xgmi.hive_id, ret);
-+				/* To do: continue with some node failed or disable the whole hive*/
- 				goto exit_unlock;
- 			}
-+
-+			/* fill the topology info for peers instead of getting from PSP */
-+			list_for_each_entry(tmp_adev, &hive->device_list, gmc.xgmi.head) {
-+				amdgpu_xgmi_fill_topology_info(adev, tmp_adev);
-+			}
-+		} else {
-+			/* get latest topology info for each device from psp */
-+			list_for_each_entry(tmp_adev, &hive->device_list, gmc.xgmi.head) {
-+				ret = psp_xgmi_get_topology_info(&tmp_adev->psp, count,
-+					&tmp_adev->psp.xgmi_context.top_info, false);
-+				if (ret) {
-+					dev_err(tmp_adev->dev,
-+						"XGMI: Get topology failure on device %llx, hive %llx, ret %d",
-+						tmp_adev->gmc.xgmi.node_id,
-+						tmp_adev->gmc.xgmi.hive_id, ret);
-+					/* To do : continue with some node failed or disable the whole hive */
-+					goto exit_unlock;
-+				}
-+			}
- 		}
- 
- 		/* get topology again for hives that support extended data */
-
-base-commit: 44cb338138f7670ce2e1f8b9ef14e32c6ace282c
--- 
-2.25.1
-
+On 02.12.23 01:17, Friedrich Vock wrote:
+> This improves latency if the GPU is already busy with other work.
+> This is useful for VR compositors that submit highly latency-sensitive
+> compositing work on high-priority compute queues while the GPU is busy
+> rendering the next frame.
+>
+> Userspace merge request:
+> https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/26462
+>
+> Signed-off-by: Friedrich Vock <friedrich.vock@gmx.de>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 10 ++++++----
+>   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   |  3 ++-
+>   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   |  3 ++-
+>   4 files changed, 11 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 9505dc8f9d69..4b923a156c4e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -790,6 +790,7 @@ struct amdgpu_mqd_prop {
+>   	uint64_t eop_gpu_addr;
+>   	uint32_t hqd_pipe_priority;
+>   	uint32_t hqd_queue_priority;
+> +	bool allow_tunneling;
+>   	bool hqd_active;
+>   };
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> index 231d49132a56..4d98e8879be8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> @@ -620,6 +620,10 @@ static void amdgpu_ring_to_mqd_prop(struct amdgpu_ring *ring,
+>   				    struct amdgpu_mqd_prop *prop)
+>   {
+>   	struct amdgpu_device *adev = ring->adev;
+> +	bool is_high_prio_compute = ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE &&
+> +				    amdgpu_gfx_is_high_priority_compute_queue(adev, ring);
+> +	bool is_high_prio_gfx = ring->funcs->type == AMDGPU_RING_TYPE_GFX &&
+> +				amdgpu_gfx_is_high_priority_graphics_queue(adev, ring);
+>
+>   	memset(prop, 0, sizeof(*prop));
+>
+> @@ -637,10 +641,8 @@ static void amdgpu_ring_to_mqd_prop(struct amdgpu_ring *ring,
+>   	 */
+>   	prop->hqd_active = ring->funcs->type == AMDGPU_RING_TYPE_KIQ;
+>
+> -	if ((ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE &&
+> -	     amdgpu_gfx_is_high_priority_compute_queue(adev, ring)) ||
+> -	    (ring->funcs->type == AMDGPU_RING_TYPE_GFX &&
+> -	     amdgpu_gfx_is_high_priority_graphics_queue(adev, ring))) {
+> +	prop->allow_tunneling = is_high_prio_compute;
+> +	if (is_high_prio_compute || is_high_prio_gfx) {
+>   		prop->hqd_pipe_priority = AMDGPU_GFX_PIPE_PRIO_HIGH;
+>   		prop->hqd_queue_priority = AMDGPU_GFX_QUEUE_PRIORITY_MAXIMUM;
+>   	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index c8a3bf01743f..73f6d7e72c73 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -6593,7 +6593,8 @@ static int gfx_v10_0_compute_mqd_init(struct amdgpu_device *adev, void *m,
+>   	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, ENDIAN_SWAP, 1);
+>   #endif
+>   	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, UNORD_DISPATCH, 0);
+> -	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, TUNNEL_DISPATCH, 0);
+> +	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, TUNNEL_DISPATCH,
+> +			    prop->allow_tunneling);
+>   	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, PRIV_STATE, 1);
+>   	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, KMD_QUEUE, 1);
+>   	mqd->cp_hqd_pq_control = tmp;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> index c659ef0f47ce..bdcf96df69e6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -3847,7 +3847,8 @@ static int gfx_v11_0_compute_mqd_init(struct amdgpu_device *adev, void *m,
+>   	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, RPTR_BLOCK_SIZE,
+>   			    (order_base_2(AMDGPU_GPU_PAGE_SIZE / 4) - 1));
+>   	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, UNORD_DISPATCH, 0);
+> -	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, TUNNEL_DISPATCH, 0);
+> +	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, TUNNEL_DISPATCH,
+> +			    prop->allow_tunneling);
+>   	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, PRIV_STATE, 1);
+>   	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, KMD_QUEUE, 1);
+>   	mqd->cp_hqd_pq_control = tmp;
+> --
+> 2.43.0
+>
