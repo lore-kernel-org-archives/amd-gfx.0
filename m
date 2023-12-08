@@ -4,70 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B7E9C4167B
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Dec 2023 08:37:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C46FAC10DCE
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Dec 2023 08:37:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D474510EA43;
-	Fri,  8 Dec 2023 08:37:18 +0000 (UTC)
-Received: from mail-vk1-xa2f.google.com (mail-vk1-xa2f.google.com
- [IPv6:2607:f8b0:4864:20::a2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D11910E990
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Dec 2023 05:04:45 +0000 (UTC)
-Received: by mail-vk1-xa2f.google.com with SMTP id
- 71dfb90a1353d-4b2cef60577so452141e0c.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 07 Dec 2023 21:04:45 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AAB010EA3A;
+	Fri,  8 Dec 2023 08:37:20 +0000 (UTC)
+Received: from mail-pg1-x530.google.com (mail-pg1-x530.google.com
+ [IPv6:2607:f8b0:4864:20::530])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A80B810E9CA
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Dec 2023 05:55:04 +0000 (UTC)
+Received: by mail-pg1-x530.google.com with SMTP id
+ 41be03b00d2f7-5c5f0e325a6so1235286a12.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 07 Dec 2023 21:55:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=sifive.com; s=google; t=1702011884; x=1702616684; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=YCezDiITLYZlXZkoiENFPkRYgXSgvqAlJqwCHapkHlo=;
- b=cdYAnVD14BYHYe/SVCeTv+SjPXnX7YnIlbygAABMK7jfdvsovBAOR7EhmzWk1yV5S1
- JE+70m4g7rzU+0699JX4m6WHu/yLSN48Ztzk+G0JX9kcCn4YNAUWiSMkFytWdyllOZo+
- +WWxWyDUXhtUfle9pA48o8t24OYKrJPFNXmbUsWiu8QUjNbNeEHAK0veTR+QQmKmvw61
- X6mNpzOg9+dWsmMz6vFlTP0kYtHKrukkR3lBk3UQhMfOGP3uUaTsSyQquksFrS0mc9AC
- JtqyXLwbrSbRm3V/i+bjnshtF+kzFRkIS3pspoaDs6Cxfyg9QdW+TCz3MPXSXlDzPfLQ
- DrhQ==
+ d=sifive.com; s=google; t=1702014904; x=1702619704; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cT/f+zG+eBk9GDNM3PRDRS7FWs4vWVwDUJpda1v2enk=;
+ b=NYGr//KATa+FPqcXCvA61mLQ5wG2M23M8siz2Tbtzh6HCWlNlIIxDRxsq1mxbpiW7y
+ eNjSj/BJcDUPMqD/+2C5F5CTqXZV1kRd+1xZ+KMeOWev+KdFDAgK3cjXd8VTqw9LRUsD
+ OIwFYPqUVLtBu1czYnyoEJLMeY52qflmhZPMit41/2QV1L3Wc4bqkFXhhMvuxMRd34d7
+ AR0YVpOQQWalXH8owyJKey1k/FIZBUau5DOjsH8SO705D2tVaDcppO2SkoA/5Ip4lQog
+ riVAMzosqFGmFQEOKiry6Q6RjCnN6lhf2Y5q0WAKk9c9MQKl/eFIEelY9m8k97e3tybE
+ rcsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702011884; x=1702616684;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=YCezDiITLYZlXZkoiENFPkRYgXSgvqAlJqwCHapkHlo=;
- b=Hkwettg3F4HkcFnHcKU3UKBW2E3mcF2T8UZXAPwAXFBC8zIioIzqnn3dfOxyqQd3hL
- T1FRku2MlH41HeoA+ntm+9Zrr+/fk2bx/hsek11/yOEWq2CewelY8VIsSL54htGtdTmK
- ob42fgI4otkSul3nET6/8w9MpuKzhiGETJ+Lj/DBivM99MtnjEDy69ZQ27h3VQG80C6N
- lZa6oLqqIS/p46yd7zvhM3ed8v+3xUHjrYDaR5hw4RhricTbDUHlMV2THZSXnoXuLwh9
- 18pif3mOana/+UQn6yj583Bx+XeKGlfYBH/uuwMFEA2Jy/wdG923utWNwE7ZYJnYVepm
- ZVNg==
-X-Gm-Message-State: AOJu0YyBUNMJHyXhch56Y/y503UQ+6uicamfExfKiHjozrrINvJAjMQa
- sc6MXf3cbkcB0LpdxJ2mzsKOAA==
-X-Google-Smtp-Source: AGHT+IHd3xhGQZwcUIcLtaS/NPIhQH51OI4srkcBz6UdtbLizYUKJjw8nicEQTdHb0F/v/M3ROTE/Q==
-X-Received: by 2002:a1f:c843:0:b0:4b2:c555:389 with SMTP id
- y64-20020a1fc843000000b004b2c5550389mr2948641vkf.31.1702011884531; 
- Thu, 07 Dec 2023 21:04:44 -0800 (PST)
-Received: from ?IPV6:2600:1700:2000:b002:41c5:bf1:860b:1e95?
- ([2600:1700:2000:b002:41c5:bf1:860b:1e95])
+ d=1e100.net; s=20230601; t=1702014904; x=1702619704;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=cT/f+zG+eBk9GDNM3PRDRS7FWs4vWVwDUJpda1v2enk=;
+ b=Q2E+a1949HIDhRrNKrIGf92yWVJxc+ZedKLIdj3Tyw3CxSz8hyKu/YKf+87Rw8SugP
+ mbCr50C+4v7flpjkafRA+WQ9xKALAgMBJM8zQYsijZrbImg91Ho52jOxwK/FTznkNpSP
+ cKWkdPgcinWkzT/GwxroPxsx4wzn3Ex6wfKGeGVmnaCcXAdLVvfUppZWuLpN84OxVcZ0
+ 9k0dl/C70F5/2cYqWkjbpmMDQiv0IHWtkuhFwVrq/rIHXHiRv3u5XMr3THuN5TQFtUPC
+ S22228M3UIT+SAdcbGUj9VKCCFA86t4ghCZEGbkRSoDD9B60q6MB9k2az2fKoWPhFI08
+ xcdw==
+X-Gm-Message-State: AOJu0YwKuz2YuSGMdRg1j6AVEIyRAUTpcZR2BY/uXuv51SbXEvXPrsnP
+ GDWMgBZoH1PBV7BkrlGBKPZQsg==
+X-Google-Smtp-Source: AGHT+IHjHZOPQupU2gBIY1LJy6ZLE2Spe4muScdMLjHj9er/qEsoCLB+Of3eLXhwYzBMH5NUihe96w==
+X-Received: by 2002:a05:6a20:160a:b0:190:14d9:4797 with SMTP id
+ l10-20020a056a20160a00b0019014d94797mr1355279pzj.4.1702014904099; 
+ Thu, 07 Dec 2023 21:55:04 -0800 (PST)
+Received: from sw06.internal.sifive.com ([4.53.31.132])
  by smtp.gmail.com with ESMTPSA id
- i14-20020a0cf38e000000b0067a33133420sm494592qvk.110.2023.12.07.21.04.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Dec 2023 21:04:44 -0800 (PST)
-Message-ID: <4f277982-fffb-4fe1-bc02-007633400f31@sifive.com>
-Date: Thu, 7 Dec 2023 23:04:43 -0600
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] drm/amd/display: Support DRM_AMD_DC_FP on RISC-V
-Content-Language: en-US
-To: Nathan Chancellor <nathan@kernel.org>,
- Conor Dooley <conor.dooley@microchip.com>
-References: <20231122030621.3759313-1-samuel.holland@sifive.com>
- <20231122030621.3759313-4-samuel.holland@sifive.com>
- <20231123-headdress-mold-0dd7a74477f7@wendy>
- <20231130004224.GE2513828@dev-arch.thelio-3990X>
+ s22-20020a170902989600b001ce5b859a59sm786250plp.305.2023.12.07.21.55.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Dec 2023 21:55:03 -0800 (PST)
 From: Samuel Holland <samuel.holland@sifive.com>
-In-Reply-To: <20231130004224.GE2513828@dev-arch.thelio-3990X>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+To: linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, x86@kernel.org,
+ linux-riscv@lists.infradead.org, Christoph Hellwig <hch@infradead.org>
+Subject: [RFC PATCH 01/12] arch: Add ARCH_HAS_KERNEL_FPU_SUPPORT
+Date: Thu,  7 Dec 2023 21:54:31 -0800
+Message-ID: <20231208055501.2916202-2-samuel.holland@sifive.com>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20231208055501.2916202-1-samuel.holland@sifive.com>
+References: <20231208055501.2916202-1-samuel.holland@sifive.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 08 Dec 2023 08:37:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,56 +75,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: llvm@lists.linux.dev, arnd@arndb.de, Leo Li <sunpeng.li@amd.com>,
- David Airlie <airlied@gmail.com>, Pan Xinhui <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Palmer Dabbelt <palmer@dabbelt.com>,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, linux-riscv@lists.infradead.org,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Samuel Holland <samuel.holland@sifive.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Nathan,
+Several architectures provide an API to enable the FPU and run
+floating-point SIMD code in kernel space. However, the function names,
+header locations, and semantics are inconsistent across architectures,
+and FPU support may be gated behind other Kconfig options.
 
-On 2023-11-29 6:42 PM, Nathan Chancellor wrote:
-> On Thu, Nov 23, 2023 at 02:23:01PM +0000, Conor Dooley wrote:
->> On Tue, Nov 21, 2023 at 07:05:15PM -0800, Samuel Holland wrote:
->>> RISC-V uses kernel_fpu_begin()/kernel_fpu_end() like several other
->>> architectures. Enabling hardware FP requires overriding the ISA string
->>> for the relevant compilation units.
->>
->> Ah yes, bringing the joy of frame-larger-than warnings to RISC-V:
->> ../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c:58:13: warning: stack frame size (2416) exceeds limit (2048) in 'DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation' [-Wframe-larger-than]
-> 
-> :(
-> 
->> Nathan, have you given up on these being sorted out?
-> 
-> Does your configuration have KASAN (I don't think RISC-V supports
-> KCSAN)? It is possible that dml/dcn32 needs something similar to commit
-> 6740ec97bcdb ("drm/amd/display: Increase frame warning limit with KASAN
-> or KCSAN in dml2")?
-> 
-> I am not really interested in playing whack-a-mole with these warnings
-> like I have done in the past for the reasons I outlined here:
-> 
-> https://lore.kernel.org/20231019205117.GA839902@dev-arch.thelio-3990X/
+Provide a standard way for architectures to declare that kernel space
+FPU support is available. Architectures selecting this option must
+implement what is currently the most common API (kernel_fpu_begin() and
+kernel_fpu_end(), plus a new function kernel_fpu_available()) and
+provide the appropriate CFLAGS for compiling floating-point C code.
 
-I also see one of these with clang 17 even with KASAN disabled:
+Suggested-by: Christoph Hellwig <hch@infradead.org>
+Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
+---
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c:37:6:
-warning: stack frame size (2208) exceeds limit (2048) in 'dml32_recalculate'
-[-Wframe-larger-than]
-void dml32_recalculate(struct display_mode_lib *mode_lib)
+ Makefile     | 4 ++++
+ arch/Kconfig | 9 +++++++++
+ 2 files changed, 13 insertions(+)
 
-     ^
-1532/2208 (69.38%) spills, 676/2208 (30.62%) variables
-
-So I'm in favor of just raising the limit for these files for clang, like you
-suggested in the linked thread.
-
-Regards,
-Samuel
+diff --git a/Makefile b/Makefile
+index 511b5616aa41..e65c186cf2c9 100644
+--- a/Makefile
++++ b/Makefile
+@@ -969,6 +969,10 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_CFI)
+ export CC_FLAGS_CFI
+ endif
+ 
++# Architectures can define flags to add/remove for floating-point support
++export CC_FLAGS_FPU
++export CC_FLAGS_NO_FPU
++
+ ifneq ($(CONFIG_FUNCTION_ALIGNMENT),0)
+ KBUILD_CFLAGS += -falign-functions=$(CONFIG_FUNCTION_ALIGNMENT)
+ endif
+diff --git a/arch/Kconfig b/arch/Kconfig
+index f4b210ab0612..6df834e18e9c 100644
+--- a/arch/Kconfig
++++ b/arch/Kconfig
+@@ -1478,6 +1478,15 @@ config ARCH_HAS_NONLEAF_PMD_YOUNG
+ 	  address translations. Page table walkers that clear the accessed bit
+ 	  may use this capability to reduce their search space.
+ 
++config ARCH_HAS_KERNEL_FPU_SUPPORT
++	bool
++	help
++	  An architecture should select this option if it supports running
++	  floating-point code in kernel space. It must export the functions
++	  kernel_fpu_available(), kernel_fpu_begin(), and kernel_fpu_end() from
++	  <asm/fpu.h>, and define CC_FLAGS_FPU and/or CC_FLAGS_NO_FPU as
++	  necessary in its Makefile.
++
+ source "kernel/gcov/Kconfig"
+ 
+ source "scripts/gcc-plugins/Kconfig"
+-- 
+2.42.0
 
