@@ -4,67 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7205FC4167B
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Dec 2023 10:11:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67112C4167B
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Dec 2023 11:44:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7A2E10EA4B;
-	Fri,  8 Dec 2023 10:11:33 +0000 (UTC)
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C804910EA4B
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Dec 2023 10:11:31 +0000 (UTC)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-40b595bf5d2so22275325e9.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 08 Dec 2023 02:11:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1702030290; x=1702635090; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=im9nnALNwN7E//WCxEa1aZN0RojtWf9cHUEF5mzT8cc=;
- b=hKfce6GbcYqan3Ps/OpDEi3ggycIFKkstERMA7Z29/ygTvHEbjAbrGkc18aWZVRbyi
- lN2o/ax5vRvQ4a+OllWP86m/6UcB2qbmLn3EL+P30PhtaO8P200ZLKX4Mh80GiJv+0L/
- Tg4WC1rVfg/+4JpdXrwOBS/34o0lzz/T7TgUUuJSBdqni5AFbooSWT8YHd+4N8r2whCl
- GdP49mXXwcrufsBv67iG6U6LcbRjDa5bvst1G6qUMtQuOlxHKL5NTkU/JI4SgMBc3+nu
- +fATg9y30vMLk9nqOZLDEDkRB+hN3WLSctDxEabObH4Qmufm7i8L/EqIGGWQSc2ptn4w
- j6Sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702030290; x=1702635090;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=im9nnALNwN7E//WCxEa1aZN0RojtWf9cHUEF5mzT8cc=;
- b=sNfH+3IjzDvtzF8MyW6mxuxwCpUK3HjFUoMsoCc1F+7eO/AVKwe4elft+GtDufMpUo
- zrsNUtLxOlw5VIyQBLDd4jCdCdZM9Z1EGHb/BVjGosH8stxBCsRP84pnMBGUdQwHWWjB
- cG7aHgELEE7yujAgs64sLsDv3kXmnE8SqOEkunrQzHqnBNRD18xz5j3EzTa7mJf+Syvz
- bEYnCnpow1jJ6v8PgBPCxdwhS+cMRu5OeMSgGs7QGt8HuVA8+exzBQmtd8jdOMbwey+2
- Iup5NXUcRESiYILsRr69Sm80Kj2Y0X0U9JDARdvupF9NQAnOrmw4L/YjHRR89Y6tXqsv
- NB5A==
-X-Gm-Message-State: AOJu0YwE+iwKBYRkyDG2xGxIDw3MccKrhS75ImxmTX+mJmU7Wz/mfTUH
- e9LdgoAn7qkD+awhi31+g8GG1xOFtA0=
-X-Google-Smtp-Source: AGHT+IF0r5ma6il8jDSDiDeWMYx0Kx8GaC2ZYvhGNJCfRxCYlNty4j0giO6YcnEU7nbUYZq3uiahww==
-X-Received: by 2002:a05:600c:198d:b0:40b:5e1a:db91 with SMTP id
- t13-20020a05600c198d00b0040b5e1adb91mr1670501wmq.50.1702030289956; 
- Fri, 08 Dec 2023 02:11:29 -0800 (PST)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- g20-20020a05600c4ed400b0040c31bb66dcsm2200191wmq.20.2023.12.08.02.11.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 08 Dec 2023 02:11:29 -0800 (PST)
-Message-ID: <a6411c81-d0ea-4002-bfc6-a725a83eb9bf@gmail.com>
-Date: Fri, 8 Dec 2023 11:11:27 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03A5410E13C;
+	Fri,  8 Dec 2023 11:44:00 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8E6D10E13C
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Dec 2023 11:43:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.de; s=s31663417;
+ t=1702035833; x=1702640633; i=friedrich.vock@gmx.de;
+ bh=/JDnU67Z3oBRfKZscn+atOhlIhW7ziGsvQ5bf+dmndw=;
+ h=X-UI-Sender-Class:Date:Subject:To:Cc:References:From:
+ In-Reply-To;
+ b=EA9n10sbtfPbuLII7Xb8oR1JcmlodBkg337bsuFDT0lBwWHJ7h4p6LuBUseQlQ+0
+ b4JfUlMQfJiYC4q8CNJdnoaHD4nTfLShkqSlKkSlVHhAcAVTD6U90ALSIOVX+cG1/
+ x6FXmxkG8/Ey6zRqP86jYvapHqsGBCtdolAc6rCgmdif9XUe96/EybosEuZu2XPXB
+ 1zI/WENBbfqjYVeChC3WBGLL2QRKYs2EeFH7E1Wimpbb/6MpxKuF22XXmykQcpb6S
+ eT1ZQ8ISMUNZNgHEXeEUZ8+kGqr7ImP+gzyfUh1tcx+wOAagNdPHUcQpIEQD/eyAz
+ x1R3vzskwaJ8J2fwhA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from [192.168.177.3] ([213.152.118.80]) by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1N2DxE-1rNNBP2QIw-013cgF; Fri, 08
+ Dec 2023 12:43:53 +0100
+Message-ID: <1939f568-f780-4e34-b5c5-dab461f93b57@gmx.de>
+Date: Fri, 8 Dec 2023 12:43:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Fix sparse __rcu annotation warnings
+Subject: Re: [PATCH] drm/amdgpu: Enable tunneling on high-priority compute
+ queues
 Content-Language: en-US
-To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-References: <20231205222026.2108094-1-Felix.Kuehling@amd.com>
- <e879ea47-4281-4830-a4db-5a144999198a@amd.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <e879ea47-4281-4830-a4db-5a144999198a@amd.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20231202001740.120840-1-friedrich.vock@gmx.de>
+ <3525f437-9537-4fb4-80d0-65acd9d55d2f@gmx.de>
+ <3cf226b8-c80b-43f6-9f6c-9610d224717a@amd.com>
+From: Friedrich Vock <friedrich.vock@gmx.de>
+Autocrypt: addr=friedrich.vock@gmx.de; keydata=
+ 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
+ f7+xmX0X3AMtWz/15Y+7cPO2
+In-Reply-To: <3cf226b8-c80b-43f6-9f6c-9610d224717a@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:442wV03+vk5kBHBolZLOYiFUSNAThGUihU+mZ6xbkOTsgUdRrbX
+ 4oR7FXgkFnaHT4QH9X6o38AL5EMRD5H2tHkVDsWM6CBvRgyVYu3JvAwfI0BIxH9HgGJW01H
+ CPZXqYG0YBdsLsoCB3tfT8TDQ7Bre/jIuNEWpsfHg94pIF0Z/ubC5ccaZYkMv2trnl/ieav
+ QQF0dI+WHsNgCUwMZlzuQ==
+UI-OutboundReport: notjunk:1;M01:P0:MoaFK4L3QuE=;aEITo9PUzgl5DS1L4R2aAO5CWsp
+ 1ClAqKvyVrBJFXgem7/1rsHb7qVwYXc5BWQsyq6T7GJsE/TiVf5JEHRjyGIiPXtXONNOfKiuH
+ qJ7Fj+97XFVPXALiCXWt/vCqmlr9aplzb0twahrnqpEZQno4dlB6qVNFa6qSdpK5wGaf5wjen
+ Ni8tqCvWWWq+ff3LVKdsquOXmIPwEs5uH0v66t0JCvY8+5Q72yfI+ncu4lvd286PKpQtb4ZUb
+ TSBw2cA6VuLewzF7hFZ+G4HZsXWid02etpWSVzCOnU485WLMK3FShaySbl17j5jVwasY4c4lC
+ DBQnT/XTu2u0gbBb3Rpy6tl1iPwbi1znAbmKJUUZv7IkWTA8ss7nSZCybGq0y9jfZ4K4yccoE
+ es6TUhuEgyrVbxTsZ6ymkLrT01YnSlda4hIaI56hM+wSk83eS0JRXKsCH84LP5yRXzriRd2Xv
+ bKVAr8bcTaNjXP6VDWzB1eNL7gQ2mDknwq9vZcMiJK0XYvEcsmLc2VXp56MPAAj7kR65Q1zfw
+ Bc//LOUoXCtXLeTjvjxnQxCH2nyci92UjhRnd7/eUy9HVL04WYQaQk0Ea5or6Q82BK806/Wpx
+ YejPGGtl3RRNB7hthz1VIZL8xmr/fqaSCLgernL8gpDFljLCF7LMgiCi7LxmcqO2Xh2jORAxo
+ rS0F1nnjryVoxC/4vCqSCoDPRnrBBdV0KVsI3QVVPp+a2Py1GSDfk0H2TY1wRXBMIqDFVsi+r
+ dqx8tp3Lak1005GA6vApC7wT8oQLJOElaqZeUlZrs9I5zz+5rFrRo9OUBSMsGMiZnj5dAAGOj
+ BFHBWwaM6DgJuZwq/LhBvAkNLhtWjU6kfHVCQLHRHrxAYvsUs9l8xnP4ajdVZoEYuL7JyDaJY
+ gpBUd4aEFSbVX9RU7IES375nlP4pQM4pPXpTOm0Lm3Y6/jKzy0g98bzaAELlC4MjCUdrNA5S2
+ ZBu9MEoPh+JjPocq8hhc19O2l5o=
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,128 +107,160 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-mm@kvack.org, kernel test robot <lkp@intel.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Marek Olsak <Marek.Olsak@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 07.12.23 um 20:14 schrieb Felix Kuehling:
+On 08.12.23 10:51, Christian K=C3=B6nig wrote:
+> Well longer story short Alex and I have been digging up the
+> documentation for this and as far as we can tell this isn't correct.
+Huh. I initially talked to Marek about this, adding him in Cc.
 >
-> On 2023-12-05 17:20, Felix Kuehling wrote:
->> Properly mark kfd_process->ef as __rcu and consistently access it with
->> rcu_dereference_protected.
+> You need to do quite a bit more before you can turn on this feature.
+> What userspace side do you refer to?
+I was referring to the Mesa merge request I made
+(https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/26462).
+If/When you have more details about what else needs to be done, feel
+free to let me know.
+I'm happy to expand this to add the rest of what's needed as well.
+
+Thanks,
+Friedrich
+
+>
+> Regards,
+> Christian.
+>
+> Am 08.12.23 um 09:19 schrieb Friedrich Vock:
+>> Friendly ping on this one.
+>> Userspace side got merged, so would be great to land this patch too :)
 >>
->> Reported-by: kernel test robot <lkp@intel.com>
->> Closes: 
->> https://lore.kernel.org/oe-kbuild-all/202312052245.yFpBSgNH-lkp@intel.com/
->> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+>> On 02.12.23 01:17, Friedrich Vock wrote:
+>>> This improves latency if the GPU is already busy with other work.
+>>> This is useful for VR compositors that submit highly latency-sensitive
+>>> compositing work on high-priority compute queues while the GPU is busy
+>>> rendering the next frame.
+>>>
+>>> Userspace merge request:
+>>> https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/26462
+>>>
+>>> Signed-off-by: Friedrich Vock <friedrich.vock@gmx.de>
+>>> ---
+>>> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0 1 +
+>>> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 10 ++++++----
+>>> =C2=A0 drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c=C2=A0=C2=A0 |=C2=A0 3 ++=
+-
+>>> =C2=A0 drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c=C2=A0=C2=A0 |=C2=A0 3 ++=
+-
+>>> =C2=A0 4 files changed, 11 insertions(+), 6 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> index 9505dc8f9d69..4b923a156c4e 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> @@ -790,6 +790,7 @@ struct amdgpu_mqd_prop {
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uint64_t eop_gpu_addr;
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uint32_t hqd_pipe_priority;
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uint32_t hqd_queue_priority;
+>>> +=C2=A0=C2=A0=C2=A0 bool allow_tunneling;
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool hqd_active;
+>>> =C2=A0 };
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>> index 231d49132a56..4d98e8879be8 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>> @@ -620,6 +620,10 @@ static void amdgpu_ring_to_mqd_prop(struct
+>>> amdgpu_ring *ring,
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_mq=
+d_prop *prop)
+>>> =C2=A0 {
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_device *adev =3D ring->ad=
+ev;
+>>> +=C2=A0=C2=A0=C2=A0 bool is_high_prio_compute =3D ring->funcs->type =
+=3D=3D
+>>> AMDGPU_RING_TYPE_COMPUTE &&
+>>> + amdgpu_gfx_is_high_priority_compute_queue(adev, ring);
+>>> +=C2=A0=C2=A0=C2=A0 bool is_high_prio_gfx =3D ring->funcs->type =3D=3D
+>>> AMDGPU_RING_TYPE_GFX &&
+>>> + amdgpu_gfx_is_high_priority_graphics_queue(adev, ring);
+>>>
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 memset(prop, 0, sizeof(*prop));
+>>>
+>>> @@ -637,10 +641,8 @@ static void amdgpu_ring_to_mqd_prop(struct
+>>> amdgpu_ring *ring,
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 prop->hqd_active =3D ring->funcs->type =
+=3D=3D AMDGPU_RING_TYPE_KIQ;
+>>>
+>>> -=C2=A0=C2=A0=C2=A0 if ((ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COM=
+PUTE &&
+>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amdgpu_gfx_is_high_p=
+riority_compute_queue(adev, ring)) ||
+>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (ring->funcs->type =3D=3D =
+AMDGPU_RING_TYPE_GFX &&
+>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amdgpu_gfx_is_high_p=
+riority_graphics_queue(adev, ring))) {
+>>> +=C2=A0=C2=A0=C2=A0 prop->allow_tunneling =3D is_high_prio_compute;
+>>> +=C2=A0=C2=A0=C2=A0 if (is_high_prio_compute || is_high_prio_gfx) {
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 prop->hqd_pipe_=
+priority =3D AMDGPU_GFX_PIPE_PRIO_HIGH;
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 prop->hqd_queue=
+_priority =3D AMDGPU_GFX_QUEUE_PRIORITY_MAXIMUM;
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+>>> b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+>>> index c8a3bf01743f..73f6d7e72c73 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+>>> @@ -6593,7 +6593,8 @@ static int gfx_v10_0_compute_mqd_init(struct
+>>> amdgpu_device *adev, void *m,
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CO=
+NTROL, ENDIAN_SWAP, 1);
+>>> =C2=A0 #endif
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CO=
+NTROL, UNORD_DISPATCH, 0);
+>>> -=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, TUNN=
+EL_DISPATCH, 0);
+>>> +=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, TUNN=
+EL_DISPATCH,
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 prop->allow_tunneling);
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CO=
+NTROL, PRIV_STATE, 1);
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CO=
+NTROL, KMD_QUEUE, 1);
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mqd->cp_hqd_pq_control =3D tmp;
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>>> b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>>> index c659ef0f47ce..bdcf96df69e6 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>>> @@ -3847,7 +3847,8 @@ static int gfx_v11_0_compute_mqd_init(struct
+>>> amdgpu_device *adev, void *m,
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CO=
+NTROL, RPTR_BLOCK_SIZE,
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (order_base_2(AMDGPU_GPU_PAGE_SIZE / 4) =
+- 1));
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CO=
+NTROL, UNORD_DISPATCH, 0);
+>>> -=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, TUNN=
+EL_DISPATCH, 0);
+>>> +=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, TUNN=
+EL_DISPATCH,
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 prop->allow_tunneling);
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CO=
+NTROL, PRIV_STATE, 1);
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CO=
+NTROL, KMD_QUEUE, 1);
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mqd->cp_hqd_pq_control =3D tmp;
+>>> --
+>>> 2.43.0
+>>>
 >
-> ping.
->
-> Christian, would you review this patch, please?
-
-Looks a bit suspicious, especially the rcu_dereference_protected() use.
-
-What is the static checker complaining about in the first place?
-
-Regards,
-Christian.
-
->
-> Thanks,
->   Felix
->
->
->
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h       | 2 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 ++--
->>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h            | 2 +-
->>   drivers/gpu/drm/amd/amdkfd/kfd_process.c         | 6 ++++--
->>   4 files changed, 8 insertions(+), 6 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
->> index f2e920734c98..20cb266dcedd 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
->> @@ -314,7 +314,7 @@ void 
->> amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(struct kgd_mem *mem);
->>   int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, 
->> struct amdgpu_bo *bo);
->>     int amdgpu_amdkfd_gpuvm_restore_process_bos(void *process_info,
->> -                        struct dma_fence **ef);
->> +                        struct dma_fence __rcu **ef);
->>   int amdgpu_amdkfd_gpuvm_get_vm_fault_info(struct amdgpu_device *adev,
->>                             struct kfd_vm_fault_info *info);
->>   int amdgpu_amdkfd_gpuvm_import_dmabuf_fd(struct amdgpu_device 
->> *adev, int fd,
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->> index 7d91f99acb59..8ba6f6c8363d 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->> @@ -2806,7 +2806,7 @@ static void 
->> amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
->>       put_task_struct(usertask);
->>   }
->>   -static void replace_eviction_fence(struct dma_fence **ef,
->> +static void replace_eviction_fence(struct dma_fence __rcu **ef,
->>                      struct dma_fence *new_ef)
->>   {
->>       struct dma_fence *old_ef = rcu_replace_pointer(*ef, new_ef, true
->> @@ -2841,7 +2841,7 @@ static void replace_eviction_fence(struct 
->> dma_fence **ef,
->>    * 7.  Add fence to all PD and PT BOs.
->>    * 8.  Unreserve all BOs
->>    */
->> -int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct 
->> dma_fence **ef)
->> +int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct 
->> dma_fence __rcu **ef)
->>   {
->>       struct amdkfd_process_info *process_info = info;
->>       struct amdgpu_vm *peer_vm;
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h 
->> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> index 45366b4ca976..5a24097a9f28 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> @@ -917,7 +917,7 @@ struct kfd_process {
->>        * fence will be triggered during eviction and new one will be 
->> created
->>        * during restore
->>        */
->> -    struct dma_fence *ef;
->> +    struct dma_fence __rcu *ef;
->>         /* Work items for evicting and restoring BOs */
->>       struct delayed_work eviction_work;
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c 
->> b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> index 71df51fcc1b0..14b11d61f8dd 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> @@ -1110,6 +1110,8 @@ static void kfd_process_wq_release(struct 
->> work_struct *work)
->>   {
->>       struct kfd_process *p = container_of(work, struct kfd_process,
->>                            release_work);
->> +    struct dma_fence *ef = rcu_dereference_protected(p->ef,
->> +        kref_read(&p->ref) == 0);
->>         kfd_process_dequeue_from_all_devices(p);
->>       pqm_uninit(&p->pqm);
->> @@ -1118,7 +1120,7 @@ static void kfd_process_wq_release(struct 
->> work_struct *work)
->>        * destroyed. This allows any BOs to be freed without
->>        * triggering pointless evictions or waiting for fences.
->>        */
->> -    dma_fence_signal(p->ef);
->> +    dma_fence_signal(ef);
->>         kfd_process_remove_sysfs(p);
->>   @@ -1127,7 +1129,7 @@ static void kfd_process_wq_release(struct 
->> work_struct *work)
->>       svm_range_list_fini(p);
->>         kfd_process_destroy_pdds(p);
->> -    dma_fence_put(p->ef);
->> +    dma_fence_put(ef);
->>         kfd_event_free_process(p);
-
