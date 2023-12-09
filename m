@@ -4,45 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76258C4167B
-	for <amd-gfx@archiver.kernel.org>; Sat,  9 Dec 2023 05:17:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09A79C4167B
+	for <amd-gfx@archiver.kernel.org>; Sat,  9 Dec 2023 14:47:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E1E510E18B;
-	Sat,  9 Dec 2023 05:17:35 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D7BF10E18B
- for <amd-gfx@lists.freedesktop.org>; Sat,  9 Dec 2023 05:17:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1702099053; x=1733635053;
- h=date:from:to:cc:subject:message-id;
- bh=tqHQze1rHqZv5/4KyDqgvmchSTF0t65MboOC/77DuUM=;
- b=DMPqtygrCcZW5Bs5KBCIxqywse7CKXedZYpLXg8koQ0AVat6FRqpk3LO
- aVjifY74seJ+f5t7bVj/CGLljla9snCBY0iWX+YCC+xGU07A7SvLj8rp6
- HazReCq/wKO17tSCBJWE8MlsSUwuXyhga1nOY9xtKSpEWkfapOm1JE8A7
- y8Lr6TdB//YssOb7gsVfUYOl109hzdr5nf4ZmlP1ktKvpDQ4XNGcaQhoO
- rYjwQtbO3bm2ihJ5AA+quFLKZgfSrl8oM8QopwHyBJpb1aK3duemvOeWd
- 9P0AUp09l9O7+mbOTbnttJD5K/3aPVCfIiRilP9m5ZXWGMqOCLPk05CRN A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10918"; a="393362278"
-X-IronPort-AV: E=Sophos;i="6.04,262,1695711600"; d="scan'208";a="393362278"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2023 21:17:32 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10918"; a="863116292"
-X-IronPort-AV: E=Sophos;i="6.04,262,1695711600"; d="scan'208";a="863116292"
-Received: from lkp-server02.sh.intel.com (HELO b07ab15da5fe) ([10.239.97.151])
- by FMSMGA003.fm.intel.com with ESMTP; 08 Dec 2023 21:17:29 -0800
-Received: from kbuild by b07ab15da5fe with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1rBpiQ-000ErP-1v;
- Sat, 09 Dec 2023 05:17:26 +0000
-Date: Sat, 09 Dec 2023 13:13:47 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- bc63de6e6ba0b16652c5fb4b9c9916b9e7ca1f23
-Message-ID: <202312091341.5qerfweV-lkp@intel.com>
-User-Agent: s-nail v14.9.24
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BF5E10E18A;
+	Sat,  9 Dec 2023 14:47:36 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2059.outbound.protection.outlook.com [40.107.93.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70D9A10E18A
+ for <amd-gfx@lists.freedesktop.org>; Sat,  9 Dec 2023 14:47:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XbZzn/HEzlBMmUmyLDLjWZSpZMuLWp46w0pRyeUdGk1faCUBjbSxEl939gFcrSmTxp18yW9nWnqllFuoFDCcHzQlzw5WqYnYpxjzFGyhNWCW4AVQQjUiTPEOrbkLruvNSu+Z6Mv6ouVlmAbiCSdhsB5YZRHIjvkNhAOdjI26X+BI+Ij9rNEiC6c0ujp7Il3hJT0l6PZrsWGqX7Ryl6yUg8dlR9VyReS6Kjt8TSTsfABIw/jPgeEiZfPJRpXiHc5JLuaArc1xtM2LcK0KrVqTtYeQcb/hlKISCmSwscfF/+9XKS3e6GmRFPNZrbx4SCpoqH0iz+bDihvrIJDP8gcOUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t/WsdhENMJleByUmWIyRTgHNNlZNEwmclu6JKKk46oM=;
+ b=YiLTm8BmWtF+KhLkYtBXPJKuPeFC4Q/7UZAKiAKzQ2mWb0SOYc777HtuY5wISGedmLnc6ippzeOpypl4KU8mKgmhnS0UmgjoEoCYNDVEt5FDA/nGIOo6WkypbK+DoMX/gCvMW/BS/yPiT4yBFz3ZiHqFqgYI5XZTpclvt8deZR5Y7HsfEqR2H5WTs1i9ZtAlQ8zLbO+0+eieTDLMESmxCVvqn0jxzhFmwji6oOB8fc1SsdGD46DLAsblMLaH3TZLB9bnaW3V3WujEBuxvHpljfG0kUyO8P1z0pjj2ftyuUPsKpFXK04+GAiIcVtcUNrrbEO5w67w+VFKg+/FQAF0Nw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t/WsdhENMJleByUmWIyRTgHNNlZNEwmclu6JKKk46oM=;
+ b=Zj83w+pYffwTvbk60Agf3xcLIwLrZbjhothMdi3PXW5B1FGpDAH2cwYOAOLZv4nWIiNH6YOgD4qpZqgj1dULuPBwJHfKceL71wyqfqHI3nzb88NFEhI3GWbQT7w//EE2M4qvEQj/WIfH8KQavPfu63gWwzJVotIZNEOCFKqwMC0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by PH7PR12MB9101.namprd12.prod.outlook.com (2603:10b6:510:2f9::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.29; Sat, 9 Dec
+ 2023 14:47:25 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::83d7:9c4f:4d9b:1f2a]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::83d7:9c4f:4d9b:1f2a%5]) with mapi id 15.20.7068.030; Sat, 9 Dec 2023
+ 14:47:25 +0000
+Message-ID: <336ab1dd-c32c-4197-a334-6d25c94e0911@amd.com>
+Date: Sat, 9 Dec 2023 08:47:23 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V2] drm/amdgpu/sdma5.2: add begin/end_use ring callbacks
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20231208225328.25651-1-alexander.deucher@amd.com>
+Content-Language: en-US
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20231208225328.25651-1-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SA1PR03CA0019.namprd03.prod.outlook.com
+ (2603:10b6:806:2d3::21) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|PH7PR12MB9101:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3a62cd4e-7d0f-4c92-cd2c-08dbf8c5c216
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: pElEE6xM0qoCfXfDBeteqfXhn0amuDySufmgeRSSgHNafZ1e3uG2roCOy3CSnEsFAARewHELgcQXeKHI3ABn8Cbw3T1vfq5atydlup/fys0c4pWjGMfGibKcwKrHQ348tQqAeM77YjChH0iWc2oSmoilR7Ly45eBd0AjAI0UGQE9VPfxWCjhRxlaY3KWyPYn9hFvkU0DDJuFS2+SiCkrF1wLhWYnnb0yB2ZWhrN1CDObjnYtpxgmtAn7m2lZEnWZ+Q3uq3HiDhBe1Ql+04p0UMeeyDtH+e9uY+Xmz8IS9gjhLuvA7DasHSt7Me/1EOG4sPxMymx4JVEPWhhp6NmZNMKo+RCN/IJmqhRJX/rNAUpyVH1oGBnFrqvpe/gBVJR7VG4m0YbSLiLR6JjZi8b2uaBZuQwscxAXcm0chJGZAKwwxVW3JE7BQBlpc69qCvpsqRUnhCDI6NvQp9hdrjnU9DSo5TFTaMitYJHkyIG29nZFTWUVyy5er1XwGmICUjx44aHxVbCaZztXCzyplhPrD8w28ZOF2CZIW5hgV4vPj66smZjWuJKT59SHnf+CSsGYuSzh0xUjVwdk9q+FDUnhMKppCKxq/v3KhZYjxIpAVmkVH1kYrWIwrF68KiQHiftJbsh/dc9t5hC+wNSs5obb8g==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(346002)(366004)(396003)(376002)(136003)(39860400002)(230922051799003)(1800799012)(451199024)(64100799003)(186009)(31696002)(86362001)(36756003)(2906002)(6506007)(53546011)(5660300002)(6486002)(478600001)(83380400001)(6512007)(26005)(966005)(2616005)(316002)(66556008)(66946007)(66476007)(8936002)(8676002)(44832011)(31686004)(41300700001)(38100700002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?STlObXVQNW9OaExVRXJ2Ym1wdTVwOUV3aHd3dmJ5Njc0dVdweExURExFVzhk?=
+ =?utf-8?B?bmN4R2VZNjF3QisreW1GY2tJTTM0dk8vWnhSZXgwcCtKa2I2djlDc0VrY2h0?=
+ =?utf-8?B?dXpzRTNOMFZYRGppaVNzN0IrMnlQbDltcU9wVDFmQ25jTk4remtDKzNkNTYz?=
+ =?utf-8?B?UVlUM1hlNmUzbU1oQy9UWU0wb2djdzlEWVh0Tm1xczArWTZhVGhqOE5PQVZN?=
+ =?utf-8?B?bCtadkZtVzJic2xwZWpZU0crT1lMZEoyOVpiQlRhejRuTzFPcmNhTm5DRENI?=
+ =?utf-8?B?cVpkdkNVRk5iZ1k0Z3AzSDdnMTVSMFUxOXFqUXphOU9vVTVxZ0FNTGc5ZlJM?=
+ =?utf-8?B?ZWhJR1NiVkU2ZXpQbjJyRUpFSE1MMGVCQit4ZTMzMVdLelFIZThCN3g2RmpO?=
+ =?utf-8?B?R3IxMXBxVExNbSt2OGduai9PVGJMKzZaSTQrWlpkMnh4N3ljYmJLZXI2WHZM?=
+ =?utf-8?B?eFV1WElRYlNmLzcyYTQ5SHNNSXZnc2NrMXVxMnZ5TnRKQUxENnViRFhKTFRC?=
+ =?utf-8?B?SXF4Tysvamt6bzJ5aWNpQk9IN0RqbnpISzJ2cXdsdWpNaWMvaG4xZ1RYdHpm?=
+ =?utf-8?B?OVhoalhWejN1MXM4ODQ2R2RsOVYwOHhPdU8vRWJIeVhRd05naW9MWEQ1aDdP?=
+ =?utf-8?B?MlVUd0xQTTZhOUhsSkQzRHZCQjVia0lUZGlyVjhvc2d0VFcwMit1M3dDNmJO?=
+ =?utf-8?B?UUlaRGt2R0xUeXJPcFJXbVJiOFBab3F4MitQRERET3hmaXAwdWFaUFhDOWpW?=
+ =?utf-8?B?YmVBdHhKVWs2YVRFU0g3TUF3eFhhZGUvZE5hVktKVUk0dHNlTEc3eHBJa08z?=
+ =?utf-8?B?dTI4aWN4dGc0blVKem1pVnBnQXlvZWg2UXNhODZhcjE3MGtPbkNSeWViaXdy?=
+ =?utf-8?B?eDhvalMyU1B4VDF2WHhRUWhLbTVzT2IrWGlqbXkvRXp6RisxdmhYRVJkQmQx?=
+ =?utf-8?B?S0MzNHRFWlM4b2JkWnlxekxyZFAvWGVhVFVmR1dOSFUyY0dmZGErbllHSnVP?=
+ =?utf-8?B?dFh0dEpKaVBMSnZqd2FFYWRkNlFRTExWOU1oVEY2cmo2dFlmSDM5S1VNNHEr?=
+ =?utf-8?B?eGJsUUZnM2U0Ukw5S2Z4OUxJcysxeWprUEd2SFJGbGFWbTRKV2VYajJndFdE?=
+ =?utf-8?B?aVVXV0lQNktKRytvRmlzRXFCdVNLOUJaZGFXV3FmVkl6SXVnRlQ1UjZDUGdO?=
+ =?utf-8?B?RUFlNUU5ZVVXZWw3a0RKUGk3WjhEVmdzRzJ6TFh0T3R1dTNWWFNueXdGb2lY?=
+ =?utf-8?B?QzZPMVVFMzlrUUJGSC9jUXRQMjNqNWtaRVFyT01ORm0yQ3o4V0tsdTRidzdC?=
+ =?utf-8?B?cENjcHNyZXlqbDhONHc4TkpZL3Z0QWd0WVVHV0UzZjdKV1BZL0ZOYmFNTjlF?=
+ =?utf-8?B?eHVQUlJCWitMNVB2Y1NSQXdsdjRBNUQvdnptYUNITjFSU3c0dUtNSEN4emZS?=
+ =?utf-8?B?VGpFMm0zVFBDZ1IycmZmdmZIVFZNa2Vzd2RvQlRHVkZrWHQvY1A4bnNNTFZj?=
+ =?utf-8?B?aDQ2R0pKQlBLVzhaK0Z2emcyNXQ3NTgvcms1ZEYxWnN5NFcxdkJCK2dMelMv?=
+ =?utf-8?B?RHYyZmU1UEpXV3o2Qm9SdTlkL1FXMmNnekRGdndRL3JjUUZTbzlpR0RHK3BG?=
+ =?utf-8?B?bUo3cSttT0cyTlp5VHJMajZXTVA2VGNwYkVHZmhrdGVYbnFnVHppbGdUNjBO?=
+ =?utf-8?B?cUN6ZzlUcjN6dFlDZ1UvUWgva1JNcnY0WHlDV2hiL2lqZlF2SXNoczFUVWtW?=
+ =?utf-8?B?T2VOSjdpeU8zMThTeTJvd1N0eUltb2xWOGhRK01sVDhkRThrY1FhVVdhNU92?=
+ =?utf-8?B?akx3ZmUycFpVUm4xc014b0ZBaGx5Tm9yZnJaR2Q4aUVoNmpBQWxXeFhpU01L?=
+ =?utf-8?B?U2RTWUg3NjI5RnRJazV0SmljYldONU4velhNT0Z0ckFtSEZ3OWhwSWt4QlhK?=
+ =?utf-8?B?cHZqeWdjNUFkNitWY1lOcGdIdUU5SHM0djFyV1I3MWd4SjFLbytoaythTUlx?=
+ =?utf-8?B?bWppSHVHa216QWFFYjBQSS9Za1VMU1ZsM0ZtVUd0ekNDK2RNdWdnNDJ4NnBJ?=
+ =?utf-8?B?TzhEaTEvUytWMTUwdWpxeEtva0o4em9vTXVtYzlxeFowWEhHckVaU1I3Z2tQ?=
+ =?utf-8?Q?/xGqnhxVoEHayD4nuo2oFBFjg?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a62cd4e-7d0f-4c92-cd2c-08dbf8c5c216
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2023 14:47:25.3621 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OSX92zY7DIQEUsPT5XTf5PN9+jtzoGKo18UCJaZu91AYuZqciFA+6HRteQS4TrIaBbLGiJxzFmDze6I/Pa9Z4A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9101
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,432 +122,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-mips@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>, sparclinux@vger.kernel.org,
- ntfs3@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
- linux-leds@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: bc63de6e6ba0b16652c5fb4b9c9916b9e7ca1f23  Add linux-next specific files for 20231208
+On 12/8/2023 16:53, Alex Deucher wrote:
+> Add begin/end_use ring callbacks to disallow GFXOFF when
+> SDMA work is submitted and allow it again afterward.
+> 
+> This should avoid corner cases where GFXOFF is erroneously
+> entered when SDMA is still active.  For now just allow/disallow
+> GFXOFF in the begin and end helpers until we root cause the
+> issue.  This should not impact power as SDMA usage is pretty
+> minimal and GFXOSS should not be active when SDMA is active
+> anyway, this just makes it explicit.
+> 
+> v2: move everything into sdma5.2 code.  No reason for this
+> to be generic at this point.
+> 
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2220
+> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com> (v1)
+> Tested-by: Mario Limonciello <mario.limonciello@amd.com> (v1)
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
-Error/Warning reports:
+As SDMA5.2 is supported back to LTS ~5.15 I suggest also:
 
-https://lore.kernel.org/oe-kbuild-all/202312081716.LUUhSNS4-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202312081904.NkusJJO0-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202312081955.G3STkpFJ-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202312090117.DLMJTqST-lkp@intel.com
+Cc: stable@vger.kernel.org # 5.15+
 
-Error/Warning: (recently discovered and may have been fixed)
+> ---
+>   drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 16 ++++++++++++++++
+>   1 file changed, 16 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> index 2e35f3571774..89f7955739f7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> @@ -1643,6 +1643,20 @@ static void sdma_v5_2_get_clockgating_state(void *handle, u64 *flags)
+>   		*flags |= AMD_CG_SUPPORT_SDMA_LS;
+>   }
+>   
+> +static void sdma_v5_2_ring_begin_use(struct amdgpu_ring *ring)
+> +{
+> +	struct amdgpu_device *adev = ring->adev;
+> +
+> +	amdgpu_gfx_off_ctrl(adev, false);
+> +}
+> +
+> +static void sdma_v5_2_ring_end_use(struct amdgpu_ring *ring)
+> +{
+> +	struct amdgpu_device *adev = ring->adev;
+> +
+> +	amdgpu_gfx_off_ctrl(adev, true);
+> +}
+> +
+>   const struct amd_ip_funcs sdma_v5_2_ip_funcs = {
+>   	.name = "sdma_v5_2",
+>   	.early_init = sdma_v5_2_early_init,
+> @@ -1690,6 +1704,8 @@ static const struct amdgpu_ring_funcs sdma_v5_2_ring_funcs = {
+>   	.test_ib = sdma_v5_2_ring_test_ib,
+>   	.insert_nop = sdma_v5_2_ring_insert_nop,
+>   	.pad_ib = sdma_v5_2_ring_pad_ib,
+> +	.begin_use = sdma_v5_2_ring_begin_use,
+> +	.end_use = sdma_v5_2_ring_end_use,
+>   	.emit_wreg = sdma_v5_2_ring_emit_wreg,
+>   	.emit_reg_wait = sdma_v5_2_ring_emit_reg_wait,
+>   	.emit_reg_write_reg_wait = sdma_v5_2_ring_emit_reg_write_reg_wait,
 
-WARNING: modpost: vmlinux: section mismatch in reference: at91_poweroff_probe+0x8c (section: .text) -> at91_wakeup_status (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: at91_shdwc_probe+0xd8 (section: .text) -> at91_wakeup_status (section: .init.text)
-arch/mips/mm/cache.c:209:(.text+0x690): undefined reference to `r3k_cache_init'
-arch/powerpc/platforms/44x/warp.c:109:15: error: variable 'warp_gpio_leds' has initializer but incomplete type
-arch/powerpc/platforms/44x/warp.c:109:31: error: storage size of 'warp_gpio_leds' isn't known
-arch/powerpc/platforms/44x/warp.c:110:10: error: 'struct platform_device' has no member named 'name'
-arch/powerpc/platforms/44x/warp.c:110:19: warning: excess elements in struct initializer
-arch/powerpc/platforms/44x/warp.c:111:10: error: 'struct platform_device' has no member named 'id'
-arch/powerpc/platforms/44x/warp.c:112:10: error: 'struct platform_device' has no member named 'dev'
-arch/powerpc/platforms/44x/warp.c:112:19: error: extra brace group at end of initializer
-arch/powerpc/platforms/44x/warp.c:197:25: error: implicit declaration of function 'platform_device_register'; did you mean 'of_device_register'? [-Werror=implicit-function-declaration]
-drivers/usb/host/uhci-grlib.c:152:31: error: implicit declaration of function 'platform_get_drvdata'; did you mean 'pci_get_drvdata'? [-Werror=implicit-function-declaration]
-drivers/usb/host/uhci-grlib.c:152:31: warning: initialization of 'struct usb_hcd *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
-drivers/usb/host/uhci-grlib.c:184:15: error: variable 'uhci_grlib_driver' has initializer but incomplete type
-drivers/usb/host/uhci-grlib.c:184:31: error: storage size of 'uhci_grlib_driver' isn't known
-drivers/usb/host/uhci-grlib.c:185:10: error: 'struct platform_driver' has no member named 'probe'
-drivers/usb/host/uhci-grlib.c:185:27: warning: excess elements in struct initializer
-drivers/usb/host/uhci-grlib.c:186:10: error: 'struct platform_driver' has no member named 'remove_new'
-drivers/usb/host/uhci-grlib.c:187:10: error: 'struct platform_driver' has no member named 'shutdown'
-drivers/usb/host/uhci-grlib.c:188:10: error: 'struct platform_driver' has no member named 'driver'
-drivers/usb/host/uhci-grlib.c:188:19: error: extra brace group at end of initializer
-drivers/usb/host/uhci-grlib.c:92:36: error: invalid use of undefined type 'struct platform_device'
-drivers/usb/host/uhci-hcd.c:885:18: error: implicit declaration of function 'platform_driver_register' [-Werror=implicit-function-declaration]
-drivers/usb/host/uhci-hcd.c:902:9: error: implicit declaration of function 'platform_driver_unregister'; did you mean 'driver_unregister'? [-Werror=implicit-function-declaration]
-uffd-common.c:636:28: warning: unused variable 'uffdio_move' [-Wunused-variable]
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-randconfig-r083-20230821
-|   `-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-drivers-char-agp-alpha-agp.o
-|-- arc-randconfig-r132-20231208
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- arm-allyesconfig
-|   `-- qcom_stats.c:(.text):undefined-reference-to-__aeabi_uldivmod
-|-- arm-randconfig-r004-20221210
-|   `-- WARNING:modpost:drivers-pcmcia-omap_cf:section-mismatch-in-reference:omap_cf_driver-(section:.data)-omap_cf_remove-(section:.exit.text)
-|-- arm-randconfig-r112-20231208
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- i386-buildonly-randconfig-002-20230825
-|   `-- include-linux-compiler_types.h:error:call-to-__compiletime_assert_NNN-declared-with-attribute-error:BUILD_BUG_ON-failed:sizeof(-vcpup)-SMP_CACHE_BYTES
-|-- i386-randconfig-r133-20231208
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- loongarch-randconfig-r123-20231208
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- mips-allyesconfig
-|   `-- qcom_stats.c:(.text.qcom_ddr_stats_show):undefined-reference-to-__udivdi3
-|-- mips-fuloong2e_defconfig
-|   `-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-drivers-base-regmap-regmap-mmio.o
-|-- mips-randconfig-r021-20230212
-|   `-- arch-mips-mm-cache.c:(.text):undefined-reference-to-r3k_cache_init
-|-- parisc-allmodconfig
-|   `-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-drivers-tty-serial-8250_parisc.o
-|-- parisc-randconfig-r113-20231208
-|   |-- fs-ntfs3-ntfs.h:sparse:sparse:static-assertion-failed:sizeof(struct-ATTR_LIST_ENTRY)
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- powerpc-warp_defconfig
-|   |-- arch-powerpc-platforms-44x-warp.c:error:extra-brace-group-at-end-of-initializer
-|   |-- arch-powerpc-platforms-44x-warp.c:error:implicit-declaration-of-function-platform_device_register
-|   |-- arch-powerpc-platforms-44x-warp.c:error:storage-size-of-warp_gpio_leds-isn-t-known
-|   |-- arch-powerpc-platforms-44x-warp.c:error:struct-platform_device-has-no-member-named-dev
-|   |-- arch-powerpc-platforms-44x-warp.c:error:struct-platform_device-has-no-member-named-id
-|   |-- arch-powerpc-platforms-44x-warp.c:error:struct-platform_device-has-no-member-named-name
-|   |-- arch-powerpc-platforms-44x-warp.c:error:variable-warp_gpio_leds-has-initializer-but-incomplete-type
-|   `-- arch-powerpc-platforms-44x-warp.c:warning:excess-elements-in-struct-initializer
-|-- sparc-allmodconfig
-|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
-|   `-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
-|-- sparc-allnoconfig
-|   |-- arch-sparc-mm-leon_mm.c:warning:variable-paddrbase-set-but-not-used
-|   `-- arch-sparc-mm-srmmu.c:warning:variable-clear-set-but-not-used
-|-- sparc-defconfig
-|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
-|   |-- arch-sparc-mm-leon_mm.c:warning:variable-paddrbase-set-but-not-used
-|   `-- arch-sparc-mm-srmmu.c:warning:variable-clear-set-but-not-used
-|-- sparc-randconfig-001-20231208
-|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
-|   |-- arch-sparc-mm-leon_mm.c:warning:variable-paddrbase-set-but-not-used
-|   `-- arch-sparc-mm-srmmu.c:warning:variable-clear-set-but-not-used
-|-- sparc-randconfig-002-20231208
-|   `-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
-|-- sparc-randconfig-r015-20230509
-|   |-- drivers-usb-host-uhci-grlib.c:error:extra-brace-group-at-end-of-initializer
-|   |-- drivers-usb-host-uhci-grlib.c:error:implicit-declaration-of-function-platform_get_drvdata
-|   |-- drivers-usb-host-uhci-grlib.c:error:invalid-use-of-undefined-type-struct-platform_device
-|   |-- drivers-usb-host-uhci-grlib.c:error:storage-size-of-uhci_grlib_driver-isn-t-known
-|   |-- drivers-usb-host-uhci-grlib.c:error:struct-platform_driver-has-no-member-named-driver
-|   |-- drivers-usb-host-uhci-grlib.c:error:struct-platform_driver-has-no-member-named-probe
-|   |-- drivers-usb-host-uhci-grlib.c:error:struct-platform_driver-has-no-member-named-remove_new
-|   |-- drivers-usb-host-uhci-grlib.c:error:struct-platform_driver-has-no-member-named-shutdown
-|   |-- drivers-usb-host-uhci-grlib.c:error:variable-uhci_grlib_driver-has-initializer-but-incomplete-type
-|   |-- drivers-usb-host-uhci-grlib.c:warning:excess-elements-in-struct-initializer
-|   |-- drivers-usb-host-uhci-grlib.c:warning:initialization-of-struct-usb_hcd-from-int-makes-pointer-from-integer-without-a-cast
-|   |-- drivers-usb-host-uhci-hcd.c:error:implicit-declaration-of-function-platform_driver_register
-|   `-- drivers-usb-host-uhci-hcd.c:error:implicit-declaration-of-function-platform_driver_unregister
-|-- sparc-randconfig-r025-20221019
-|   `-- arch-sparc-kernel-head_32.S:(.head.text):relocation-truncated-to-fit:R_SPARC_WDISP22-against-init.text
-|-- sparc-randconfig-r031-20230609
-|   `-- arch-sparc-kernel-head_32.S:(.init.text):relocation-truncated-to-fit:R_SPARC_WDISP22-against-symbol-leon_smp_cpu_startup-defined-in-.text-section-in-arch-sparc-kernel-trampoline_32.o
-|-- sparc-randconfig-r054-20231208
-|   |-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
-|   `-- arch-sparc-mm-init_64.c:warning:variable-pagecv_flag-set-but-not-used
-|-- sparc-sparc32_defconfig
-|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
-|   |-- arch-sparc-mm-leon_mm.c:warning:variable-paddrbase-set-but-not-used
-|   `-- arch-sparc-mm-srmmu.c:warning:variable-clear-set-but-not-used
-|-- sparc64-allmodconfig
-|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
-|   `-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
-|-- sparc64-allyesconfig
-|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
-|   `-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
-|-- sparc64-defconfig
-|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
-|   `-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
-|-- sparc64-randconfig-001-20231208
-|   `-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
-|-- sparc64-randconfig-002-20231208
-|   `-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
-|-- sparc64-randconfig-r131-20231208
-|   |-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- um-randconfig-r111-20231208
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- x86_64-buildonly-randconfig-003-20230911
-|   `-- drivers-net-dsa-sja1105-sja1105.o:warning:objtool:sja1105_fast_age-falls-through-to-next-function-sja1105_setupcold()
-|-- x86_64-randconfig-121-20231208
-|   |-- drivers-gpu-drm-amd-amdgpu-..-amdkfd-kfd_process.c:sparse:sparse:incompatible-types-in-comparison-expression-(different-address-spaces):
-|   |-- drivers-gpu-drm-amd-amdgpu-..-amdkfd-kfd_process.c:sparse:struct-dma_fence
-|   |-- drivers-gpu-drm-amd-amdgpu-..-amdkfd-kfd_process.c:sparse:struct-dma_fence-noderef-__rcu
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_amdkfd_gpuvm.c:sparse:sparse:incompatible-types-in-comparison-expression-(different-address-spaces):
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_amdkfd_gpuvm.c:sparse:struct-dma_fence
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_amdkfd_gpuvm.c:sparse:struct-dma_fence-noderef-__rcu
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- x86_64-randconfig-122-20231208
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- x86_64-randconfig-123-20231208
-|   |-- drivers-soc-qcom-pmic_pdcharger_ulog.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-restricted-__le32-usertype-opcode-got-int
-|   |-- drivers-soc-qcom-pmic_pdcharger_ulog.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-restricted-__le32-usertype-owner-got-int
-|   |-- drivers-soc-qcom-pmic_pdcharger_ulog.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-restricted-__le32-usertype-type-got-int
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-`-- x86_64-rhel-8.3-bpf
-    `-- uffd-common.c:warning:unused-variable-uffdio_move
-clang_recent_errors
-|-- arm-defconfig
-|   |-- WARNING:modpost:vmlinux:section-mismatch-in-reference:at91_poweroff_probe-(section:.text)-at91_wakeup_status-(section:.init.text)
-|   `-- WARNING:modpost:vmlinux:section-mismatch-in-reference:at91_shdwc_probe-(section:.text)-at91_wakeup_status-(section:.init.text)
-|-- arm-randconfig-001-20231208
-|   |-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|   `-- ld.lld:error:undefined-symbol:arch_phys_to_idmap_offset
-|-- arm-randconfig-002-20231208
-|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|-- arm64-allmodconfig
-|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|-- arm64-allyesconfig
-|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|-- hexagon-allmodconfig
-|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|-- hexagon-allyesconfig
-|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|-- i386-allmodconfig
-|   |-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|   `-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
-|-- i386-allyesconfig
-|   |-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|   `-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
-|-- i386-buildonly-randconfig-001-20231208
-|   `-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
-|-- i386-buildonly-randconfig-003-20231208
-|   `-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
-|-- i386-buildonly-randconfig-005-20231208
-|   `-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
-|-- i386-buildonly-randconfig-006-20231208
-|   `-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
-|-- i386-randconfig-002-20231208
-|   `-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
-|-- i386-randconfig-053-20231208
-|   `-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
-|-- i386-randconfig-054-20231208
-|   `-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
-|-- i386-randconfig-061-20231208
-|   |-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|   |-- drivers-soc-qcom-pmic_pdcharger_ulog.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-restricted-__le32-usertype-opcode-got-int
-|   |-- drivers-soc-qcom-pmic_pdcharger_ulog.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-restricted-__le32-usertype-owner-got-int
-|   |-- drivers-soc-qcom-pmic_pdcharger_ulog.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-restricted-__le32-usertype-type-got-int
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- i386-randconfig-062-20231208
-|   |-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- i386-randconfig-063-20231208
-|   |-- drivers-soc-qcom-pmic_pdcharger_ulog.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-restricted-__le32-usertype-opcode-got-int
-|   |-- drivers-soc-qcom-pmic_pdcharger_ulog.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-restricted-__le32-usertype-owner-got-int
-|   |-- drivers-soc-qcom-pmic_pdcharger_ulog.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-restricted-__le32-usertype-type-got-int
-|   |-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- i386-randconfig-141-20231208
-|   `-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
-|-- powerpc-allmodconfig
-|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|-- powerpc-allyesconfig
-|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|-- s390-randconfig-r121-20231208
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- x86_64-allmodconfig
-|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|-- x86_64-allyesconfig
-|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|-- x86_64-buildonly-randconfig-006-20231208
-|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|-- x86_64-randconfig-101-20231208
-|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-`-- x86_64-randconfig-161-20231208
-    |-- lib-zstd-common-bits.h-ZSTD_countLeadingZeros32()-warn:inconsistent-indenting
-    |-- lib-zstd-common-bits.h-ZSTD_countTrailingZeros32()-warn:inconsistent-indenting
-    |-- lib-zstd-compress-..-common-bits.h-ZSTD_countLeadingZeros32()-warn:inconsistent-indenting
-    |-- lib-zstd-compress-..-common-bits.h-ZSTD_countLeadingZeros64()-warn:inconsistent-indenting
-    |-- lib-zstd-compress-..-common-bits.h-ZSTD_countTrailingZeros32()-warn:inconsistent-indenting
-    |-- lib-zstd-compress-..-common-bits.h-ZSTD_countTrailingZeros64()-warn:inconsistent-indenting
-    |-- lib-zstd-decompress-..-common-bits.h-ZSTD_countLeadingZeros32()-warn:inconsistent-indenting
-    `-- lib-zstd-decompress-..-common-bits.h-ZSTD_countTrailingZeros64()-warn:inconsistent-indenting
-
-elapsed time: 1469m
-
-configs tested: 178
-configs skipped: 2
-
-tested configs:
-alpha                             allnoconfig   gcc  
-alpha                            allyesconfig   gcc  
-alpha                               defconfig   gcc  
-arc                              allmodconfig   gcc  
-arc                               allnoconfig   gcc  
-arc                              allyesconfig   gcc  
-arc                                 defconfig   gcc  
-arc                   randconfig-001-20231208   gcc  
-arc                   randconfig-002-20231208   gcc  
-arm                              allmodconfig   gcc  
-arm                               allnoconfig   gcc  
-arm                              allyesconfig   gcc  
-arm                     am200epdkit_defconfig   clang
-arm                                 defconfig   clang
-arm                            dove_defconfig   clang
-arm                   randconfig-001-20231208   clang
-arm                   randconfig-002-20231208   clang
-arm                   randconfig-003-20231208   clang
-arm                   randconfig-004-20231208   clang
-arm64                            alldefconfig   gcc  
-arm64                            allmodconfig   clang
-arm64                             allnoconfig   gcc  
-arm64                               defconfig   gcc  
-arm64                 randconfig-001-20231208   clang
-arm64                 randconfig-002-20231208   clang
-arm64                 randconfig-003-20231208   clang
-arm64                 randconfig-004-20231208   clang
-csky                             allmodconfig   gcc  
-csky                              allnoconfig   gcc  
-csky                             allyesconfig   gcc  
-csky                                defconfig   gcc  
-csky                  randconfig-001-20231208   gcc  
-csky                  randconfig-002-20231208   gcc  
-hexagon                          allmodconfig   clang
-hexagon                           allnoconfig   clang
-hexagon                          allyesconfig   clang
-hexagon                             defconfig   clang
-hexagon               randconfig-001-20231208   clang
-hexagon               randconfig-002-20231208   clang
-i386                             allmodconfig   clang
-i386                              allnoconfig   clang
-i386                             allyesconfig   clang
-i386         buildonly-randconfig-001-20231208   clang
-i386         buildonly-randconfig-002-20231208   clang
-i386         buildonly-randconfig-003-20231208   clang
-i386         buildonly-randconfig-004-20231208   clang
-i386         buildonly-randconfig-005-20231208   clang
-i386         buildonly-randconfig-006-20231208   clang
-i386                                defconfig   gcc  
-i386                  randconfig-001-20231208   clang
-i386                  randconfig-002-20231208   clang
-i386                  randconfig-003-20231208   clang
-i386                  randconfig-004-20231208   clang
-i386                  randconfig-005-20231208   clang
-i386                  randconfig-006-20231208   clang
-i386                  randconfig-011-20231208   gcc  
-i386                  randconfig-012-20231208   gcc  
-i386                  randconfig-013-20231208   gcc  
-i386                  randconfig-014-20231208   gcc  
-i386                  randconfig-015-20231208   gcc  
-i386                  randconfig-016-20231208   gcc  
-loongarch                        allmodconfig   gcc  
-loongarch                         allnoconfig   gcc  
-loongarch                           defconfig   gcc  
-loongarch             randconfig-001-20231208   gcc  
-loongarch             randconfig-002-20231208   gcc  
-m68k                             allmodconfig   gcc  
-m68k                              allnoconfig   gcc  
-m68k                             allyesconfig   gcc  
-m68k                                defconfig   gcc  
-microblaze                       allmodconfig   gcc  
-microblaze                        allnoconfig   gcc  
-microblaze                       allyesconfig   gcc  
-microblaze                          defconfig   gcc  
-mips                              allnoconfig   clang
-mips                             allyesconfig   gcc  
-mips                        bcm63xx_defconfig   clang
-mips                          malta_defconfig   clang
-mips                        maltaup_defconfig   clang
-mips                          rb532_defconfig   gcc  
-nios2                         3c120_defconfig   gcc  
-nios2                            allmodconfig   gcc  
-nios2                             allnoconfig   gcc  
-nios2                            allyesconfig   gcc  
-nios2                               defconfig   gcc  
-nios2                 randconfig-001-20231208   gcc  
-nios2                 randconfig-002-20231208   gcc  
-openrisc                          allnoconfig   gcc  
-openrisc                         allyesconfig   gcc  
-openrisc                            defconfig   gcc  
-parisc                           allmodconfig   gcc  
-parisc                            allnoconfig   gcc  
-parisc                           allyesconfig   gcc  
-parisc                              defconfig   gcc  
-parisc                randconfig-001-20231208   gcc  
-parisc                randconfig-002-20231208   gcc  
-parisc64                            defconfig   gcc  
-powerpc                          allmodconfig   clang
-powerpc                           allnoconfig   gcc  
-powerpc                          allyesconfig   clang
-powerpc                    amigaone_defconfig   gcc  
-powerpc                    ge_imp3a_defconfig   clang
-powerpc               randconfig-001-20231208   clang
-powerpc               randconfig-002-20231208   clang
-powerpc               randconfig-003-20231208   clang
-powerpc                    socrates_defconfig   gcc  
-powerpc                     tqm5200_defconfig   clang
-powerpc                     tqm8541_defconfig   gcc  
-powerpc64             randconfig-001-20231208   clang
-powerpc64             randconfig-002-20231208   clang
-powerpc64             randconfig-003-20231208   clang
-riscv                            allmodconfig   gcc  
-riscv                             allnoconfig   clang
-riscv                            allyesconfig   gcc  
-riscv                               defconfig   gcc  
-riscv                 randconfig-001-20231208   clang
-riscv                 randconfig-002-20231208   clang
-riscv                          rv32_defconfig   clang
-s390                             allmodconfig   gcc  
-s390                              allnoconfig   gcc  
-s390                             allyesconfig   gcc  
-s390                                defconfig   gcc  
-s390                  randconfig-001-20231208   gcc  
-s390                  randconfig-002-20231208   gcc  
-sh                               allmodconfig   gcc  
-sh                                allnoconfig   gcc  
-sh                               allyesconfig   gcc  
-sh                                  defconfig   gcc  
-sh                    randconfig-001-20231208   gcc  
-sh                    randconfig-002-20231208   gcc  
-sh                           se7206_defconfig   gcc  
-sparc                            allmodconfig   gcc  
-sparc                       sparc32_defconfig   gcc  
-sparc64                          allmodconfig   gcc  
-sparc64                          allyesconfig   gcc  
-sparc64                             defconfig   gcc  
-sparc64               randconfig-001-20231208   gcc  
-sparc64               randconfig-002-20231208   gcc  
-um                               allmodconfig   clang
-um                                allnoconfig   clang
-um                               allyesconfig   clang
-um                                  defconfig   gcc  
-um                             i386_defconfig   gcc  
-um                    randconfig-001-20231208   clang
-um                    randconfig-002-20231208   clang
-um                           x86_64_defconfig   gcc  
-x86_64                            allnoconfig   gcc  
-x86_64                           allyesconfig   clang
-x86_64       buildonly-randconfig-001-20231208   clang
-x86_64       buildonly-randconfig-002-20231208   clang
-x86_64       buildonly-randconfig-003-20231208   clang
-x86_64       buildonly-randconfig-004-20231208   clang
-x86_64       buildonly-randconfig-005-20231208   clang
-x86_64       buildonly-randconfig-006-20231208   clang
-x86_64                              defconfig   gcc  
-x86_64                randconfig-001-20231208   gcc  
-x86_64                randconfig-002-20231208   gcc  
-x86_64                randconfig-003-20231208   gcc  
-x86_64                randconfig-004-20231208   gcc  
-x86_64                randconfig-005-20231208   gcc  
-x86_64                randconfig-006-20231208   gcc  
-x86_64                randconfig-011-20231208   clang
-x86_64                randconfig-012-20231208   clang
-x86_64                randconfig-013-20231208   clang
-x86_64                randconfig-014-20231208   clang
-x86_64                randconfig-015-20231208   clang
-x86_64                randconfig-016-20231208   clang
-x86_64                randconfig-071-20231208   clang
-x86_64                randconfig-072-20231208   clang
-x86_64                randconfig-073-20231208   clang
-x86_64                randconfig-074-20231208   clang
-x86_64                randconfig-075-20231208   clang
-x86_64                randconfig-076-20231208   clang
-x86_64                          rhel-8.3-rust   clang
-xtensa                            allnoconfig   gcc  
-xtensa                  nommu_kc705_defconfig   gcc  
-xtensa                randconfig-001-20231208   gcc  
-xtensa                randconfig-002-20231208   gcc  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
