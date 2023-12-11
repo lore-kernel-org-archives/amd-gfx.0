@@ -4,37 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0238EC10F13
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Dec 2023 13:53:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A13AC4167B
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Dec 2023 13:53:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 705FD10E3FD;
-	Mon, 11 Dec 2023 13:53:50 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A48A910E3FD;
- Mon, 11 Dec 2023 13:53:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B986310E40E;
+	Mon, 11 Dec 2023 13:53:54 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34FFC10E409;
+ Mon, 11 Dec 2023 13:53:53 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2C09D612AC;
- Mon, 11 Dec 2023 13:53:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FAB8C433D9;
- Mon, 11 Dec 2023 13:53:43 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 74C5BB80E58;
+ Mon, 11 Dec 2023 13:53:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E77BBC433C8;
+ Mon, 11 Dec 2023 13:53:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1702302825;
- bh=NXBnlBnAK5VH1xe11LnSdcoEO4WXNeFKs998K6Ux3e8=;
+ s=k20201202; t=1702302830;
+ bh=DW1V/g88A9QOnUh/NV26TJ2ZJH9JcE1sx0eUYfQ5GlE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=i1/Q5I/zK/7OQth177uZ0xyTpbId58dSH9DEokQGi43/k/7KxQeOeRt1WVwruzPjL
- 5S6EOnLL7a0oJAmq6/r9NhGq93M6IPbTPmOG8KiDOOyQ8UmROG4PXcBndf/FQFl4Qm
- 2tvOWE/CQaxlMEQjCCud2GNzxpWxxPhKysJP8nUXBdWMZpNi20kVnT2vog+kJzPWPh
- pX4r5D5vZNKqiH+QAzAvlSEbVlm40enKO3FbhOhLMFbr/Ee1G/wVTHODXwKGoAH7sl
- dyGnwasbKAeDCqRxu0SCdrwcTqPcAlu5Oivn9xsceZeo6CHNvIYrMVbfBkhOVuf02c
- cvtn/+yi6bcgg==
+ b=QE2w0QYgghCvC+lv4bGWo3FXq2WLRgpy3bTKJ6pGGftfrcHSYENHgA8cJrKr0j0W9
+ DKRkUjiCpMnQebxLBnSQpcoH7zNDTkBKlutv9+pDv8NJzpmcA5MNy10HinbAf37GSi
+ xvwTqGPnPph1rjyuLYVTf5uURb/uVo0+k9TGvhEIFjBtO8JyDO5h2YNxQMHFZHPLPj
+ CraQgw51d9aDtbcyP4KCxGxZ15PA8/NShgBGxd0uwYDSxIIpAhnp6pHJciiu8NqEA8
+ zma2o5Y8UnSZG19tmP6IbHVo1ECCIkvDL4UZuLlp+2AJ1FeVO7dAs2nLImUX5Vjci6
+ W2fztR5tuAZjg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.6 39/47] drm/amd/display: Add monitor patch for
- specific eDP
-Date: Mon, 11 Dec 2023 08:50:40 -0500
-Message-ID: <20231211135147.380223-39-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.6 40/47] drm/amdgpu: Add NULL checks for function
+ pointers
+Date: Mon, 11 Dec 2023 08:50:41 -0500
+Message-ID: <20231211135147.380223-40-sashal@kernel.org>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231211135147.380223-1-sashal@kernel.org>
 References: <20231211135147.380223-1-sashal@kernel.org>
@@ -54,57 +53,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, mikita.lipski@amd.com,
- Ivan Lipski <ivlipski@amd.com>, dri-devel@lists.freedesktop.org,
- Sun peng Li <sunpeng.li@amd.com>, airlied@gmail.com, qingqing.zhuo@amd.com,
- Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org,
- Daniel Wheeler <daniel.wheeler@amd.com>, aurabindo.pillai@amd.com,
- hamza.mahfooz@amd.com, daniel@ffwll.ch, Wayne.Lin@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, srinivasan.shanmugam@amd.com,
- harry.wentland@amd.com, christian.koenig@amd.com, sungjoon.kim@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Xinhui.Pan@amd.com,
+ Lijo Lazar <lijo.lazar@amd.com>, shane.xiao@amd.com,
+ amd-gfx@lists.freedesktop.org, sonny.jiang@amd.com, le.ma@amd.com,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, Likun.Gao@amd.com, James.Zhu@amd.com,
+ airlied@gmail.com, christian.koenig@amd.com,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ivan Lipski <ivlipski@amd.com>
+From: Lijo Lazar <lijo.lazar@amd.com>
 
-[ Upstream commit 3d71a8726e05a35beb9de394e86ce896d69e563f ]
+[ Upstream commit 81577503efb49f4ad76af22f9941d72900ef4aab ]
 
-[WHY]
-Some eDP panels's ext caps don't write initial value cause the value of
-dpcd_addr(0x317) is random.  It means that sometimes the eDP will
-clarify it is OLED, miniLED...etc cause the backlight control interface
-is incorrect.
+Check if function is implemented before making the call.
 
-[HOW]
-Add a new panel patch to remove sink ext caps(HDR,OLED...etc)
-
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Reviewed-by: Sun peng Li <sunpeng.li@amd.com>
-Acked-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-Signed-off-by: Ivan Lipski <ivlipski@amd.com>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/soc15.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 4b230933b28eb..87a1000b85729 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -63,6 +63,12 @@ static void apply_edid_quirks(struct edid *edid, struct dc_edid_caps *edid_caps)
- 		DRM_DEBUG_DRIVER("Disabling FAMS on monitor with panel id %X\n", panel_id);
- 		edid_caps->panel_patch.disable_fams = true;
- 		break;
-+	/* Workaround for some monitors that do not clear DPCD 0x317 if FreeSync is unsupported */
-+	case drm_edid_encode_panel_id('A', 'U', 'O', 0xA7AB):
-+	case drm_edid_encode_panel_id('A', 'U', 'O', 0xE69B):
-+		DRM_DEBUG_DRIVER("Clearing DPCD 0x317 on monitor with panel id %X\n", panel_id);
-+		edid_caps->panel_patch.remove_sink_ext_caps = true;
-+		break;
- 	default:
- 		return;
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+index f5be40d7ba367..e9c42186a6a25 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -1416,9 +1416,11 @@ static void soc15_common_get_clockgating_state(void *handle, u64 *flags)
+ 	if (amdgpu_sriov_vf(adev))
+ 		*flags = 0;
+ 
+-	adev->nbio.funcs->get_clockgating_state(adev, flags);
++	if (adev->nbio.funcs && adev->nbio.funcs->get_clockgating_state)
++		adev->nbio.funcs->get_clockgating_state(adev, flags);
+ 
+-	adev->hdp.funcs->get_clock_gating_state(adev, flags);
++	if (adev->hdp.funcs && adev->hdp.funcs->get_clock_gating_state)
++		adev->hdp.funcs->get_clock_gating_state(adev, flags);
+ 
+ 	if (adev->ip_versions[MP0_HWIP][0] != IP_VERSION(13, 0, 2)) {
+ 
+@@ -1434,9 +1436,11 @@ static void soc15_common_get_clockgating_state(void *handle, u64 *flags)
  	}
+ 
+ 	/* AMD_CG_SUPPORT_ROM_MGCG */
+-	adev->smuio.funcs->get_clock_gating_state(adev, flags);
++	if (adev->smuio.funcs && adev->smuio.funcs->get_clock_gating_state)
++		adev->smuio.funcs->get_clock_gating_state(adev, flags);
+ 
+-	adev->df.funcs->get_clockgating_state(adev, flags);
++	if (adev->df.funcs && adev->df.funcs->get_clockgating_state)
++		adev->df.funcs->get_clockgating_state(adev, flags);
+ }
+ 
+ static int soc15_common_set_powergating_state(void *handle,
 -- 
 2.42.0
 
