@@ -4,73 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29BC1C10F09
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Dec 2023 08:29:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C8EBC10F09
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Dec 2023 09:50:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9638410E35C;
-	Mon, 11 Dec 2023 08:29:07 +0000 (UTC)
-Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
- [IPv6:2607:f8b0:4864:20::733])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 260FE10E298
- for <amd-gfx@lists.freedesktop.org>; Sat,  9 Dec 2023 21:29:51 +0000 (UTC)
-Received: by mail-qk1-x733.google.com with SMTP id
- af79cd13be357-77f5b3fa323so69799685a.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 09 Dec 2023 13:29:51 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50FED10E38C;
+	Mon, 11 Dec 2023 09:50:34 +0000 (UTC)
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [IPv6:2a00:1450:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16C3710E38B;
+ Mon, 11 Dec 2023 09:50:31 +0000 (UTC)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-40c29f7b068so40315215e9.0; 
+ Mon, 11 Dec 2023 01:50:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=sifive.com; s=google; t=1702157390; x=1702762190; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=iFEUFFz09hiRyS0qcoPsXIF6VUSImKjj5WbLQv8dS3M=;
- b=DOgd0M+z7lZ3p+pHC33D5/LzVa9MxgBn5OlFCfRKN5+u8yYTn67vi/i7oyDsNMihnF
- ljvLWezibofoV0UuL0obaCRfdzrPXXnGnlrVvBP2s4G5LhkY3qS06qx6MP14LR/B890i
- 1liCKFLcDkM+oKRSlHQv0TNlrdGp7lwrjR/okmgoGfTia3R9Xs2dxhknOozq8U2OfKtX
- zgK/O67VQ2b6LEtjIWwCKQyS9NDT+z61QeZIzu/0JPzVTia08T8dmXVJ1a7OxzeK56sE
- HsYrPvfiNa+6YQBQ8iOhlzUwFGWxWJs+DUqgX/LAOMvhd//eTrX7LITGm93xnjQMSRGj
- m79Q==
+ d=gmail.com; s=20230601; t=1702288229; x=1702893029; darn=lists.freedesktop.org;
+ h=in-reply-to:from:references:cc:to:content-language:subject
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=McMkjnTstF1kyi4iy40vHAfwGgnk9K5v7Kf81mLP6FU=;
+ b=Ed7g6gQg7Q6MOk+aGNx1E5ARVr0f8cvbKM4Sc5+pnH1UAyFixSmtef6eOrLEzrqyHC
+ tiHzid6Eq1068GbvMY31VQ0d5b4HnpaeYdINOqlrUYJvhLi9+ZELXjNPDIYmfBeTeEEl
+ osiaetAHAoQkqdSQ4Z/BTu3VIWM92JP1mta7AO/90a2/jcDhffMxdkZ06f32gvE/myml
+ AXiB+mlldrv2yys6Rj6KRNWFRcQFVeWhLeHuLULEaVPiZgCft9u+Jo0sVLmqWLuyarK4
+ Ok60cUJ6egT8qaHbaB1I/k2WSSZiB0bO0hkqw9f6aH9Q34gVX+GWtm3fYUUxSZ02bnY/
+ d5pA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702157390; x=1702762190;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=iFEUFFz09hiRyS0qcoPsXIF6VUSImKjj5WbLQv8dS3M=;
- b=UnZjGGUYYIXvUXcdhXjlUfLA7zPHJJegqbC1cI5JGFrd7sgXH08YwZ3gMjo1JZjIlz
- el4Qn4ax/VY+mlpRdpPaQSsw5FdWg9qVIv4wA7xOCnRp8X3d8wu5bTa15z/wnJbBRbyH
- gBcg+JjEOtCQXWP/YIAQmX2G/w9LyohyxxbphNRAewcHgx08PSJQuSDrUPgKk6LjBq4Z
- rDXMPmL4pcbHyWF0US40rN3fRBxw1hBcgVgpglQp2rEuK9oRPSyxYzlRthLQ6TBwZMES
- 98mnIli5OMyFvrtSdVqquWZpZToT8v+wcZ3zqqpX7jJ4qoyH8J4Ch9P9Ry7LNBF38qx6
- jk3Q==
-X-Gm-Message-State: AOJu0Yyy+PrZw2hE1R2psyOx4tIZSuN3vevfwsgbqCpEuXvBlkt21LnJ
- nguoSRhutU7SgcTMCqRVwJhgLw==
-X-Google-Smtp-Source: AGHT+IFocs3LkyA/Jt/FCqhjxzgRz8AgbQ0brbt26sXxD73qHkqT5u0QLdYWPcmh/VTk8arvnDsjzw==
-X-Received: by 2002:a05:620a:8112:b0:77f:61d3:734c with SMTP id
- os18-20020a05620a811200b0077f61d3734cmr1598295qkn.43.1702157390147; 
- Sat, 09 Dec 2023 13:29:50 -0800 (PST)
-Received: from ?IPV6:2600:1700:2000:b002:f559:1d79:8a5d:590e?
- ([2600:1700:2000:b002:f559:1d79:8a5d:590e])
+ d=1e100.net; s=20230601; t=1702288229; x=1702893029;
+ h=in-reply-to:from:references:cc:to:content-language:subject
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=McMkjnTstF1kyi4iy40vHAfwGgnk9K5v7Kf81mLP6FU=;
+ b=WrPJTX3zBMJY1pkDsG0wZN2E5496MoZfA8P+mK5xBlVzyIsHsPS0EOVulyKHOyIvG5
+ fuSNGwdwzJOpFHx3QlLg+7TxOcGbRQuk+ayobmnRMrywfkfBSgUSeT5mpOLtNmCqpwgv
+ obebXz+spjWPqFvYTVBTqOfrankS4Jead9dYAR8Bm3k7UqCXTOuA3Wtcvn4iF0OefpAc
+ VyEOn9a7evx+kuVvxKHQ72PLmH5dQwCb57MS+dGx3OJa0Rwh3bCMcJQ1G4ejaZe36a0Q
+ BLB4pHY99mJoJcXRRUwky1QB4lj5c91XqHpKi215uFnm/kY1fmY9h9HK/Z52lbe6IDNL
+ /ddg==
+X-Gm-Message-State: AOJu0YwGipF0Rn8w9kQgHGJ5/M20HFDAklQLlKdEIpBKspkDGJqgt9Ue
+ gRC9czpCoDHyUwPskc8ekDk=
+X-Google-Smtp-Source: AGHT+IHUgPXi6Fg3unfCSfVOyaKAuvqFDAyxbFn70spYbyFgrDlEYj+prZv7RY51J+3zIPjsRxF7cw==
+X-Received: by 2002:a05:600c:1913:b0:40c:3742:59b with SMTP id
+ j19-20020a05600c191300b0040c3742059bmr2060847wmq.114.1702288229264; 
+ Mon, 11 Dec 2023 01:50:29 -0800 (PST)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- tn24-20020a05620a3c1800b0077f052fa73bsm1662198qkn.15.2023.12.09.13.29.48
+ s13-20020a05600c384d00b004030e8ff964sm14711679wmr.34.2023.12.11.01.50.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 09 Dec 2023 13:29:48 -0800 (PST)
-Message-ID: <07d27191-12b6-4c84-b80e-75c618df9de4@sifive.com>
-Date: Sat, 9 Dec 2023 15:29:47 -0600
+ Mon, 11 Dec 2023 01:50:28 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------O0WZ1HXXPQlxyBFlvwAPJ8RA"
+Message-ID: <473652dd-8ca1-436b-aa52-eb85eb0e98df@gmail.com>
+Date: Mon, 11 Dec 2023 10:50:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] drm/amd/display: Support DRM_AMD_DC_FP on RISC-V
+Subject: Re: [PATCH 2/2] drm/amdgpu: Enable clear page functionality
 Content-Language: en-US
-To: Arnd Bergmann <arnd@arndb.de>, Nathan Chancellor <nathan@kernel.org>,
- "Conor.Dooley" <conor.dooley@microchip.com>
-References: <20231122030621.3759313-1-samuel.holland@sifive.com>
- <20231122030621.3759313-4-samuel.holland@sifive.com>
- <20231123-headdress-mold-0dd7a74477f7@wendy>
- <20231130004224.GE2513828@dev-arch.thelio-3990X>
- <4f277982-fffb-4fe1-bc02-007633400f31@sifive.com>
- <5090a015-5b6f-44be-bb25-d2ca3fdf5d40@app.fastmail.com>
-From: Samuel Holland <samuel.holland@sifive.com>
-In-Reply-To: <5090a015-5b6f-44be-bb25-d2ca3fdf5d40@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 11 Dec 2023 08:29:01 +0000
+To: Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+References: <20231207151142.929349-1-Arunpravin.PaneerSelvam@amd.com>
+ <20231207151142.929349-2-Arunpravin.PaneerSelvam@amd.com>
+ <d30b7992-5c39-49f5-889c-c31d4994a5c3@amd.com>
+ <CADnq5_PdWUDVK0mvMgyTyogMnT-DD2nhXHarO+BLg9BjtGPRGA@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CADnq5_PdWUDVK0mvMgyTyogMnT-DD2nhXHarO+BLg9BjtGPRGA@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,69 +78,89 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: llvm@lists.linux.dev, Leo Li <sunpeng.li@amd.com>,
- Dave Airlie <airlied@gmail.com>, Pan Xinhui <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Palmer Dabbelt <palmer@dabbelt.com>,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, linux-riscv@lists.infradead.org,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: alexander.deucher@amd.com, dri-devel@lists.freedesktop.org,
+ matthew.auld@intel.com, amd-gfx@lists.freedesktop.org,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Arnd,
+This is a multi-part message in MIME format.
+--------------O0WZ1HXXPQlxyBFlvwAPJ8RA
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 2023-12-09 2:38 PM, Arnd Bergmann wrote:
-> On Fri, Dec 8, 2023, at 06:04, Samuel Holland wrote:
->> On 2023-11-29 6:42 PM, Nathan Chancellor wrote:
->>> On Thu, Nov 23, 2023 at 02:23:01PM +0000, Conor Dooley wrote:
->>>> On Tue, Nov 21, 2023 at 07:05:15PM -0800, Samuel Holland wrote:
->>>>> RISC-V uses kernel_fpu_begin()/kernel_fpu_end() like several other
->>>>> architectures. Enabling hardware FP requires overriding the ISA string
->>>>> for the relevant compilation units.
->>>>
->>>> Ah yes, bringing the joy of frame-larger-than warnings to RISC-V:
->>>> ../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c:58:13: warning: stack frame size (2416) exceeds limit (2048) in 'DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation' [-Wframe-larger-than]
->>>
->>> :(
->>>
->>>> Nathan, have you given up on these being sorted out?
->>>
->>> Does your configuration have KASAN (I don't think RISC-V supports
->>> KCSAN)? It is possible that dml/dcn32 needs something similar to commit
->>> 6740ec97bcdb ("drm/amd/display: Increase frame warning limit with KASAN
->>> or KCSAN in dml2")?
->>>
->>> I am not really interested in playing whack-a-mole with these warnings
->>> like I have done in the past for the reasons I outlined here:
->>>
->>> https://lore.kernel.org/20231019205117.GA839902@dev-arch.thelio-3990X/
+Am 08.12.23 um 20:53 schrieb Alex Deucher:
+> [SNIP]
+>> You also need a functionality which resets all cleared blocks to
+>> uncleared after suspend/resume.
 >>
->> I also see one of these with clang 17 even with KASAN disabled:
->>
->> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c:37:6:
->> warning: stack frame size (2208) exceeds limit (2048) in 'dml32_recalculate'
->> [-Wframe-larger-than]
->> void dml32_recalculate(struct display_mode_lib *mode_lib)
->>
->>      ^
->> 1532/2208 (69.38%) spills, 676/2208 (30.62%) variables
->>
->> So I'm in favor of just raising the limit for these files for clang, like you
->> suggested in the linked thread.
-> 
-> How about just adding a BUG_ON(IS_ENABLED(CONFIG_RISCV))
-> in that function? That should also avoid the build failure
-> but give a better indication of where the problem is
-> if someone actually runs into that function and triggers
-> a runtime stack overflow.
+>> No idea how to do this, maybe Alex knows of hand.
+> Since the buffers are cleared on creation, is there actually anything to do?
 
-Won't that break actual users of the driver, trading an unlikely but
-theoretically possible stack overflow for a guaranteed crash? The intent of this
-series is that I have one of these GPUs plugged in to a RISC-V board, and I want
-to use it.
+Well exactly that's the problem, the buffers are no longer always 
+cleared on creation with this patch.
 
-Regards,
-Samuel
+Instead we clear on free, track which areas are cleared and clear only 
+the ones which aren't cleared yet on creation.
 
+So some cases need special handling. E.g. when the engine is not 
+initialized yet or suspend/resume.
+
+In theory after a suspend/resume cycle the VRAM is cleared to zeros, but 
+in practice that's not always true.
+
+Christian.
+
+>
+> Alex
+--------------O0WZ1HXXPQlxyBFlvwAPJ8RA
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    Am 08.12.23 um 20:53 schrieb Alex Deucher:<br>
+    <blockquote type="cite"
+cite="mid:CADnq5_PdWUDVK0mvMgyTyogMnT-DD2nhXHarO+BLg9BjtGPRGA@mail.gmail.com">[SNIP]<span
+      style="white-space: pre-wrap">
+</span>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">You also need a functionality which resets all cleared blocks to
+uncleared after suspend/resume.
+
+No idea how to do this, maybe Alex knows of hand.
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+Since the buffers are cleared on creation, is there actually anything to do?</pre>
+    </blockquote>
+    <br>
+    Well exactly that's the problem, the buffers are no longer always
+    cleared on creation with this patch.<br>
+    <br>
+    Instead we clear on free, track which areas are cleared and clear
+    only the ones which aren't cleared yet on creation.<br>
+    <br>
+    So some cases need special handling. E.g. when the engine is not
+    initialized yet or suspend/resume.<br>
+    <br>
+    In theory after a suspend/resume cycle the VRAM is cleared to zeros,
+    but in practice that's not always true.<br>
+    <br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite"
+cite="mid:CADnq5_PdWUDVK0mvMgyTyogMnT-DD2nhXHarO+BLg9BjtGPRGA@mail.gmail.com">
+      <pre class="moz-quote-pre" wrap="">
+
+Alex
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------O0WZ1HXXPQlxyBFlvwAPJ8RA--
