@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B42C1C10F13
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Dec 2023 16:12:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66028C10DC3
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Dec 2023 16:12:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62A3E10E49A;
-	Mon, 11 Dec 2023 16:12:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49B6110E49B;
+	Mon, 11 Dec 2023 16:12:50 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [IPv6:2607:7c80:54:3::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E410F10E488
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Dec 2023 16:08:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4620C10E108
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Dec 2023 16:07:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
  :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=7/9PVAoW+mQkYndhB1mGTPqj7a0+NR0wxr/3ILbUkfI=; b=TeWHg8VZSEjB97ULraUC03LR2V
- 9GC7hrJ0A2gqejqPepZpofgeBkUk0EVbz/vD0fh6fK/Pusr93obgkapD9TgcuvEfVgLqAQyhawo1/
- QPRqUA+ePWr2UqnfeEquAZ6BVqZqgaTn3YvcN9HdTFXdhb/6CADXiwbbw1vcgtF2p9HTQXlKVlqSM
- eyF/Q02AbITgCJ7jsrkAJcFCeERnZF8MxEjneMz/1yh8P8Ty73TErCHiYVQIIlTHviIQXJooTFonT
- hJXhhHFfFXybb/NYo+IqCrGs2rePIPKcPL+CZA/221GjtLICb55HO+UalInlQyqUmSHQgFSksIjFb
- gemr5Klw==;
+ bh=voX1j54PoeLMwiQxMkFN5YaL2nBXSYPeTjd4yAFjCQA=; b=ifw6UNjUEDXllsbmZ4AL+dQpRW
+ W7b4XK9Kv2/xZ1tcblE7ZfPY/0dMQS0FEvx+i2C6aAE7Zt7MP/UVmUe/mhIExmXNoeKSWR72X4ReC
+ icB9zGsV3UObHyUoHkKwukaPk5sKzjyLMManm+Ed1NR3M9AXPCg7SGx6gNkh/lCOKPdmxYNuDiXKe
+ +vPv++gGyb9vO0onHi8hOeAukUR55fcRtmV0/FupL1Zz4rC0EOk2DlmrIbKBCnZ1/X9rpJ8qxM7fL
+ 5WaQwgOsHX/LIFPFPmJ7abBBvtKt5+kdFvtLwoI1y1PYRxUnUZ4Uky9Byl+Nm//eqRAtc8ufLM3GM
+ rJYlXhJg==;
 Received: from hch by bombadil.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1rCipZ-005fBl-02; Mon, 11 Dec 2023 16:08:29 +0000
-Date: Mon, 11 Dec 2023 08:08:28 -0800
+ Linux)) id 1rCioR-005edf-1j; Mon, 11 Dec 2023 16:07:19 +0000
+Date: Mon, 11 Dec 2023 08:07:19 -0800
 From: Christoph Hellwig <hch@infradead.org>
 To: Samuel Holland <samuel.holland@sifive.com>
-Subject: Re: [RFC PATCH 07/12] powerpc: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
-Message-ID: <ZXcz/Bi6xP1CYK60@infradead.org>
+Subject: Re: [RFC PATCH 05/12] lib/raid6: Use CC_FLAGS_FPU for NEON CFLAGS
+Message-ID: <ZXczty+Y6dTDL4Xi@infradead.org>
 References: <20231208055501.2916202-1-samuel.holland@sifive.com>
- <20231208055501.2916202-8-samuel.holland@sifive.com>
+ <20231208055501.2916202-6-samuel.holland@sifive.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20231208055501.2916202-8-samuel.holland@sifive.com>
+In-Reply-To: <20231208055501.2916202-6-samuel.holland@sifive.com>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
  bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mailman-Approved-At: Mon, 11 Dec 2023 16:12:41 +0000
@@ -57,12 +57,15 @@ Cc: linux-arch@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Dec 07, 2023 at 09:54:37PM -0800, Samuel Holland wrote:
-> PowerPC provides an equivalent to the common kernel-mode FPU API, but in
-> a different header and using different function names. The PowerPC API
-> also requires a non-preemptible context. Add a wrapper header, and
-> export the CFLAGS adjustments.
+> +CFLAGS_REMOVE_neon1.o += $(CC_FLAGS_NO_FPU)
+> +CFLAGS_REMOVE_neon2.o += $(CC_FLAGS_NO_FPU)
+> +CFLAGS_REMOVE_neon4.o += $(CC_FLAGS_NO_FPU)
+> +CFLAGS_REMOVE_neon8.o += $(CC_FLAGS_NO_FPU)
 
-Looks good:
+Btw, do we even really need the extra variables for compiler flags
+to remove?  Don't gcc/clang options work so that if you add a
+no-prefixed version of the option later it transparently gets removed?
+
+Except for that:
 
 Reviewed-by: Christoph Hellwig <hch@lst.de>
