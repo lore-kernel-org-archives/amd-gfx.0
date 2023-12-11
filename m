@@ -4,78 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65C16C4167B
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Dec 2023 13:57:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5EFFC4167B
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Dec 2023 13:57:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0494910E41B;
-	Mon, 11 Dec 2023 13:57:16 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B186C10E3C0
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Dec 2023 11:02:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1702292540;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=6s3YEkS59zuD6SVaNNZ9gLtFuddKXIASd6iTW1OMc6Y=;
- b=gfN0uLHE172xVtYxTCCOnqYGFb9Qfi97Rb5fcFwbhXo8DFupQzh+MmVgiHyYWUwzzC3zO9
- sc3McrVjpiMtiJ/CxlGwy5B2yk5JZ7d24a3Xo5/NOUC7VNBDE0MFmFkt4bs0cP5gndMAYN
- daHyfPOeRvtnG4q3Z6INmYRVNreG1Kk=
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
- [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-61-fZgX10o6Pni5ZGWBq5I6lA-1; Mon, 11 Dec 2023 06:02:19 -0500
-X-MC-Unique: fZgX10o6Pni5ZGWBq5I6lA-1
-Received: by mail-ed1-f72.google.com with SMTP id
- 4fb4d7f45d1cf-54f492cda78so1548237a12.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Dec 2023 03:02:19 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702292538; x=1702897338;
- h=content-transfer-encoding:subject:from:cc:to:content-language
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=6s3YEkS59zuD6SVaNNZ9gLtFuddKXIASd6iTW1OMc6Y=;
- b=quMSGKb6hK6WQbeTfXRcFP0MUntgljqp1v/UI5ZT/yCH5gEE7Eca5OdG1jLisyoRx6
- qhtyJ4d/R1FeeQDmn++mq8GUp+QIoXcushAW2EK94Qf/e+o0vJJnEtTPyBvlfUTzRLgs
- 0tzykBWOfHHyEBjlxKeNc8Lobsx5tLcsxVVXRtsi0PD1gEOjhzRY7Kus0fpN8LNR8ITc
- da33jzcnG0dLC+BC1nC38HT1Xn662e1c2zUNeoVoGKd6CPyvdAoa6ksymNR1d2RfdXxy
- AKrOMCaq2pZyMsMLWUYhljlQh/XadfN12g/02+DQGTiYVpYrf3dVweYnZ+oZVCr0UN0Y
- hp/w==
-X-Gm-Message-State: AOJu0Yzn/bStp2DYxMtKX0/AXLS2ZPaIYvljESEzwSzG66KmAx/h/qd9
- 13F6PET8n81rTCvbDAhyPDd5gMoExNv+0OWBUL8uaENhe+2SOGtdB/7qE1MXpV+HZxUN8hkNEmj
- 7+VmGUHpf0Qa9+QiedAxPSIMbWA==
-X-Received: by 2002:a50:99dd:0:b0:54b:1a4c:8711 with SMTP id
- n29-20020a5099dd000000b0054b1a4c8711mr2325947edb.2.1702292538390; 
- Mon, 11 Dec 2023 03:02:18 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IH/AgpHdfGR5nI/doFi+LibDrDycEv4PqF42QX5UBnnwO0XzaH8cQZnrQQZUPOkkdB9Rw4Yyg==
-X-Received: by 2002:a50:99dd:0:b0:54b:1a4c:8711 with SMTP id
- n29-20020a5099dd000000b0054b1a4c8711mr2325938edb.2.1702292538091; 
- Mon, 11 Dec 2023 03:02:18 -0800 (PST)
-Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
- (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
- by smtp.gmail.com with ESMTPSA id
- m11-20020a50cc0b000000b0054cb316499dsm3489357edi.10.2023.12.11.03.02.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Dec 2023 03:02:17 -0800 (PST)
-Message-ID: <6395b87b-7cb6-4412-b6e5-e6075353fb6d@redhat.com>
-Date: Mon, 11 Dec 2023 12:02:16 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B08110E437;
+	Mon, 11 Dec 2023 13:57:19 +0000 (UTC)
+Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1BEA10E3DA
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Dec 2023 12:23:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ellerman.id.au;
+ s=201909; t=1702297420;
+ bh=ODAUXRjain77XOmoPnKy1MNIInbnbbNcYLIa9FPn8ks=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=nIVA8V0yVj+ZMN8x89h2gJxxT4+cCTauZuj8Ht7cflzgnHnN4ITpBMOV1xWo7AIlq
+ Qb+tJKhKhRta6FIYqIPB6IjCP4IRbYllJ3J3dFQkrZ5gBhylzYOFVQ0olRQRq0XFRq
+ mToIUeHe7mjunplXY3/T3inRVriUXVwwqHAyMT8ZrNdDNjb78fGIZ7jZefsf1Xa8DY
+ kagFMIi8wqGn8H2LFlRDsc9/abaI9Ajeo1k+5RyvhTShHF9xXBTFIlBig9ReYi7rDb
+ 14jHwg99Lq6Mb4L4gts5PmojrjCNJA0P9GJfiVGM/34KY923DExlNs08GewB4rxZRl
+ xDIjF0NgfU/GA==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4Spgrp6jZHz4xGM;
+ Mon, 11 Dec 2023 23:23:38 +1100 (AEDT)
+From: Michael Ellerman <mpe@ellerman.id.au>
+To: Samuel Holland <samuel.holland@sifive.com>,
+ linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, x86@kernel.org,
+ linux-riscv@lists.infradead.org, Christoph Hellwig <hch@infradead.org>,
+ Timothy Pearson <tpearson@raptorengineering.com>
+Subject: Re: [RFC PATCH 10/12] drm/amd/display: Use ARCH_HAS_KERNEL_FPU_SUPPORT
+In-Reply-To: <20231208055501.2916202-11-samuel.holland@sifive.com>
+References: <20231208055501.2916202-1-samuel.holland@sifive.com>
+ <20231208055501.2916202-11-samuel.holland@sifive.com>
+Date: Mon, 11 Dec 2023 23:23:35 +1100
+Message-ID: <87h6kpdj20.fsf@mail.lhotse>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Johannes Berg <johannes@sipsolutions.net>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Ma Jun <Jun.Ma2@amd.com>, "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>
-From: Hans de Goede <hdegoede@redhat.com>
-Subject: [GIT PULL] mmutable branch between pdx86 amd wbrf branch and wifi /
- amdgpu due for the v6.8 merge window
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, nl
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 X-Mailman-Approved-At: Mon, 11 Dec 2023 13:57:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,62 +54,141 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- linux-wireless <linux-wireless@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Samuel Holland <samuel.holland@sifive.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Wifi and AMDGPU maintainers,
+Hi Samuel,
 
-Here is a pull-request for the platform-drivers-x86 parts of:
+Thanks for trying to clean all this up.
 
-https://lore.kernel.org/platform-driver-x86/20231211100630.2170152-1-Jun.Ma2@amd.com/
+One problem below.
 
-From my pov the pdx86 bits are ready and the platform-drivers-x86-amd-wbrf-v6.8-1 tag can be merged by you to merge the wifi-subsys resp. the amdgpu driver changes on top.
+Samuel Holland <samuel.holland@sifive.com> writes:
+> Now that all previously-supported architectures select
+> ARCH_HAS_KERNEL_FPU_SUPPORT, this code can depend on that symbol instead
+> of the existing list of architectures. It can also take advantage of the
+> common kernel-mode FPU API and method of adjusting CFLAGS.
+>
+> Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
+...
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+> index 4ae4720535a5..b64f917174ca 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+> @@ -87,20 +78,9 @@ void dc_fpu_begin(const char *function_name, const int line)
+>  	WARN_ON_ONCE(!in_task());
+>  	preempt_disable();
+>  	depth = __this_cpu_inc_return(fpu_recursion_depth);
+> -
+>  	if (depth == 1) {
+> -#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
+> +		BUG_ON(!kernel_fpu_available());
+>  		kernel_fpu_begin();
+> -#elif defined(CONFIG_PPC64)
+> -		if (cpu_has_feature(CPU_FTR_VSX_COMP))
+> -			enable_kernel_vsx();
+> -		else if (cpu_has_feature(CPU_FTR_ALTIVEC_COMP))
+> -			enable_kernel_altivec();
+ 
+Note altivec.
 
-This only adds kernel internal API, so if in the future the API needs work that can be done.
+> -		else if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
+> -			enable_kernel_fp();
+> -#elif defined(CONFIG_ARM64)
+> -		kernel_neon_begin();
+> -#endif
+>  	}
+>  
+>  	TRACE_DCN_FPU(true, function_name, line, depth);
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> index ea7d60f9a9b4..5aad0f572ba3 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> @@ -25,40 +25,8 @@
+>  # It provides the general basic services required by other DAL
+>  # subcomponents.
+>  
+> -ifdef CONFIG_X86
+> -dml_ccflags-$(CONFIG_CC_IS_GCC) := -mhard-float
+> -dml_ccflags := $(dml_ccflags-y) -msse
+> -endif
+> -
+> -ifdef CONFIG_PPC64
+> -dml_ccflags := -mhard-float -maltivec
+> -endif
 
-I've not merged this branch into pdx86/for-next yet, since I see little use in merging it without any users. I'll merge it once either the wifi or amdgpu changes are also merged
-(and if some blocking issues get identified before either are merged I can prepare a new pull-request fixing the issues).
+And altivec is enabled in the flags there.
 
-Regards,
+That doesn't match your implementation for powerpc in patch 7, which
+only deals with float.
 
-Hans
+I suspect the AMD driver actually doesn't need altivec enabled, but I
+don't know that for sure. It compiles without it, but I don't have a GPU
+to actually test. I've added Timothy on Cc who added the support for
+powerpc to the driver originally, hopefully he has a test system.
+
+Anyway if that's true that it doesn't need altivec we should probably do
+a lead-up patch that drops altivec from the AMD driver explicitly, eg.
+as below.
+
+cheers
 
 
-
-The following changes since commit b85ea95d086471afb4ad062012a4d73cd328fa86:
-
-  Linux 6.7-rc1 (2023-11-12 16:19:07 -0800)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86.git tags/platform-drivers-x86-amd-wbrf-v6.8-1
-
-for you to fetch changes up to 58e82a62669da52e688f4a8b89922c1839bf1001:
-
-  platform/x86/amd: Add support for AMD ACPI based Wifi band RFI mitigation feature (2023-12-11 11:33:44 +0100)
-
-----------------------------------------------------------------
-Immutable branch between pdx86 amd wbrf branch and wifi / amdgpu due for the v6.8 merge window
-
-platform-drivers-x86-amd-wbrf-v6.8-1: v6.7-rc1 + AMD WBRF support
-for merging into the wifi subsys and amdgpu driver for 6.8.
-
-----------------------------------------------------------------
-Ma Jun (2):
-      Documentation/driver-api: Add document about WBRF mechanism
-      platform/x86/amd: Add support for AMD ACPI based Wifi band RFI mitigation feature
-
- Documentation/driver-api/index.rst |   1 +
- Documentation/driver-api/wbrf.rst  |  78 +++++++++
- drivers/platform/x86/amd/Kconfig   |  14 ++
- drivers/platform/x86/amd/Makefile  |   1 +
- drivers/platform/x86/amd/wbrf.c    | 317 +++++++++++++++++++++++++++++++++++++
- include/linux/acpi_amd_wbrf.h      |  91 +++++++++++
- 6 files changed, 502 insertions(+)
- create mode 100644 Documentation/driver-api/wbrf.rst
- create mode 100644 drivers/platform/x86/amd/wbrf.c
- create mode 100644 include/linux/acpi_amd_wbrf.h
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+index 4ae4720535a5..0de16796466b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+@@ -92,11 +92,7 @@ void dc_fpu_begin(const char *function_name, const int line)
+ #if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
+ 		kernel_fpu_begin();
+ #elif defined(CONFIG_PPC64)
+-		if (cpu_has_feature(CPU_FTR_VSX_COMP))
+-			enable_kernel_vsx();
+-		else if (cpu_has_feature(CPU_FTR_ALTIVEC_COMP))
+-			enable_kernel_altivec();
+-		else if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
++		if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
+ 			enable_kernel_fp();
+ #elif defined(CONFIG_ARM64)
+ 		kernel_neon_begin();
+@@ -125,11 +121,7 @@ void dc_fpu_end(const char *function_name, const int line)
+ #if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
+ 		kernel_fpu_end();
+ #elif defined(CONFIG_PPC64)
+-		if (cpu_has_feature(CPU_FTR_VSX_COMP))
+-			disable_kernel_vsx();
+-		else if (cpu_has_feature(CPU_FTR_ALTIVEC_COMP))
+-			disable_kernel_altivec();
+-		else if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
++		if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
+ 			disable_kernel_fp();
+ #elif defined(CONFIG_ARM64)
+ 		kernel_neon_end();
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+index 6042a5a6a44f..554c39024a40 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+@@ -31,7 +31,7 @@ dml_ccflags := $(dml_ccflags-y) -msse
+ endif
+ 
+ ifdef CONFIG_PPC64
+-dml_ccflags := -mhard-float -maltivec
++dml_ccflags := -mhard-float
+ endif
+ 
+ ifdef CONFIG_ARM64
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/Makefile b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
+index acff3449b8d7..7b51364084b5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
+@@ -30,7 +30,7 @@ dml2_ccflags := $(dml2_ccflags-y) -msse
+ endif
+ 
+ ifdef CONFIG_PPC64
+-dml2_ccflags := -mhard-float -maltivec
++dml2_ccflags := -mhard-float
+ endif
+ 
+ ifdef CONFIG_ARM64
