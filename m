@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40C86C10DC3
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Dec 2023 13:57:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD2A5C4167B
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Dec 2023 14:00:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D56DA10E438;
-	Mon, 11 Dec 2023 13:57:28 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB6B010E436;
- Mon, 11 Dec 2023 13:57:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BDAB10E43D;
+	Mon, 11 Dec 2023 14:00:32 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1235710E43D;
+ Mon, 11 Dec 2023 14:00:31 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 1A2F9CE1296;
- Mon, 11 Dec 2023 13:57:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BF32C433C8;
- Mon, 11 Dec 2023 13:57:20 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 741F6B80E58;
+ Mon, 11 Dec 2023 14:00:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFB51C433CD;
+ Mon, 11 Dec 2023 14:00:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1702303042;
- bh=QCkztpmbiDjdaGJtvQXnvwHVIwZSVkwfiyfwnK69kxE=;
+ s=k20201202; t=1702303228;
+ bh=BsbHfkq9SpAJwpuBRSyj1VLuJD4MJZd6zPZwn3NhUTw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=QCmbPGDWYdJckuRhVjkZLYoYvZOYLjAhr8fLKyC0oZ2HUzGnGLYcnFki4tPUOUIBb
- yyxucs5GIJ3eQ08Vw+wf7urKTyFrPjcg7l+CDVhUt30Nj9L6ONAAsFwUoM66Z6swLF
- 8hOStDncJASyKqlhVq73d3/o8nXQnxqZqqrc1GtqkJrGLI6lqeaXqLAOTr3GMAs3yT
- l/x8rlH2PfTjUgJWpWt7GwggBmDbhJC8qnl9ciB6PFF0Bga3lRn6NwQyuotrLq76ky
- ibE8SO1x4sAJvODMNCpBi31y1IuskrhGnN5E7fuXVITY2+nwOLF0rhgT6aYWFEnARV
- H5yPUnz8jmsEg==
+ b=Qj994toShXveEVMVScWX3FYj5kUBsB3DWi77jNpnMmvm6j2BGg0zlJMb9hANhYojf
+ LBuzWfELGFwI2+f+YmVbJPVZqNJcrHv1MU0AFp5vQ7VYQ7gyLLaoEzX5P7PiycvPZs
+ lwsgBShe8Kqrq5Ft2ssQfMMd50+i8VAf8kswYjiAxEGA5U5QOQXRO7aWfDGKbrFEeH
+ dCghO83YxUTLnnMNr+5L8b1j/1UQjq0J2qlQ1Pu6qj4BdqpXRQJOOeGQ4MbSkRwSAQ
+ G5mCTofmdGS1P/Hq3qu25cwqP+78hRCDtbiL6bvSlnKHw8o1C5rjrYe9r+dDbXSOyL
+ B0SuRx7HxdmWQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 25/29] drm/amdgpu: Add NULL checks for function
+Subject: [PATCH AUTOSEL 5.15 16/19] drm/amdgpu: Add NULL checks for function
  pointers
-Date: Mon, 11 Dec 2023 08:54:09 -0500
-Message-ID: <20231211135457.381397-25-sashal@kernel.org>
+Date: Mon, 11 Dec 2023 08:57:50 -0500
+Message-ID: <20231211135908.385694-16-sashal@kernel.org>
 X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231211135457.381397-1-sashal@kernel.org>
-References: <20231211135457.381397-1-sashal@kernel.org>
+In-Reply-To: <20231211135908.385694-1-sashal@kernel.org>
+References: <20231211135908.385694-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.1.66
+X-stable-base: Linux 5.15.142
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,10 +79,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 8 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index 2eddd7f6cd41e..811dd3ea63620 100644
+index 529bb6c6ac6f5..e8c0e77e1b018 100644
 --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
 +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -1411,9 +1411,11 @@ static void soc15_common_get_clockgating_state(void *handle, u64 *flags)
+@@ -1615,9 +1615,11 @@ static void soc15_common_get_clockgating_state(void *handle, u32 *flags)
  	if (amdgpu_sriov_vf(adev))
  		*flags = 0;
  
@@ -95,9 +94,9 @@ index 2eddd7f6cd41e..811dd3ea63620 100644
 +	if (adev->hdp.funcs && adev->hdp.funcs->get_clock_gating_state)
 +		adev->hdp.funcs->get_clock_gating_state(adev, flags);
  
- 	if (adev->ip_versions[MP0_HWIP][0] != IP_VERSION(13, 0, 2)) {
+ 	if (adev->asic_type != CHIP_ALDEBARAN) {
  
-@@ -1429,9 +1431,11 @@ static void soc15_common_get_clockgating_state(void *handle, u64 *flags)
+@@ -1633,9 +1635,11 @@ static void soc15_common_get_clockgating_state(void *handle, u32 *flags)
  	}
  
  	/* AMD_CG_SUPPORT_ROM_MGCG */
