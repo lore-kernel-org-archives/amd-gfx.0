@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5EFFC4167B
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Dec 2023 13:57:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40C86C10DC3
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Dec 2023 13:57:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B08110E437;
-	Mon, 11 Dec 2023 13:57:19 +0000 (UTC)
-Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1BEA10E3DA
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Dec 2023 12:23:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ellerman.id.au;
- s=201909; t=1702297420;
- bh=ODAUXRjain77XOmoPnKy1MNIInbnbbNcYLIa9FPn8ks=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
- b=nIVA8V0yVj+ZMN8x89h2gJxxT4+cCTauZuj8Ht7cflzgnHnN4ITpBMOV1xWo7AIlq
- Qb+tJKhKhRta6FIYqIPB6IjCP4IRbYllJ3J3dFQkrZ5gBhylzYOFVQ0olRQRq0XFRq
- mToIUeHe7mjunplXY3/T3inRVriUXVwwqHAyMT8ZrNdDNjb78fGIZ7jZefsf1Xa8DY
- kagFMIi8wqGn8H2LFlRDsc9/abaI9Ajeo1k+5RyvhTShHF9xXBTFIlBig9ReYi7rDb
- 14jHwg99Lq6Mb4L4gts5PmojrjCNJA0P9GJfiVGM/34KY923DExlNs08GewB4rxZRl
- xDIjF0NgfU/GA==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4Spgrp6jZHz4xGM;
- Mon, 11 Dec 2023 23:23:38 +1100 (AEDT)
-From: Michael Ellerman <mpe@ellerman.id.au>
-To: Samuel Holland <samuel.holland@sifive.com>,
- linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, x86@kernel.org,
- linux-riscv@lists.infradead.org, Christoph Hellwig <hch@infradead.org>,
- Timothy Pearson <tpearson@raptorengineering.com>
-Subject: Re: [RFC PATCH 10/12] drm/amd/display: Use ARCH_HAS_KERNEL_FPU_SUPPORT
-In-Reply-To: <20231208055501.2916202-11-samuel.holland@sifive.com>
-References: <20231208055501.2916202-1-samuel.holland@sifive.com>
- <20231208055501.2916202-11-samuel.holland@sifive.com>
-Date: Mon, 11 Dec 2023 23:23:35 +1100
-Message-ID: <87h6kpdj20.fsf@mail.lhotse>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D56DA10E438;
+	Mon, 11 Dec 2023 13:57:28 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB6B010E436;
+ Mon, 11 Dec 2023 13:57:25 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 1A2F9CE1296;
+ Mon, 11 Dec 2023 13:57:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BF32C433C8;
+ Mon, 11 Dec 2023 13:57:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1702303042;
+ bh=QCkztpmbiDjdaGJtvQXnvwHVIwZSVkwfiyfwnK69kxE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=QCmbPGDWYdJckuRhVjkZLYoYvZOYLjAhr8fLKyC0oZ2HUzGnGLYcnFki4tPUOUIBb
+ yyxucs5GIJ3eQ08Vw+wf7urKTyFrPjcg7l+CDVhUt30Nj9L6ONAAsFwUoM66Z6swLF
+ 8hOStDncJASyKqlhVq73d3/o8nXQnxqZqqrc1GtqkJrGLI6lqeaXqLAOTr3GMAs3yT
+ l/x8rlH2PfTjUgJWpWt7GwggBmDbhJC8qnl9ciB6PFF0Bga3lRn6NwQyuotrLq76ky
+ ibE8SO1x4sAJvODMNCpBi31y1IuskrhGnN5E7fuXVITY2+nwOLF0rhgT6aYWFEnARV
+ H5yPUnz8jmsEg==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.1 25/29] drm/amdgpu: Add NULL checks for function
+ pointers
+Date: Mon, 11 Dec 2023 08:54:09 -0500
+Message-ID: <20231211135457.381397-25-sashal@kernel.org>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20231211135457.381397-1-sashal@kernel.org>
+References: <20231211135457.381397-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Mailman-Approved-At: Mon, 11 Dec 2023 13:57:12 +0000
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.1.66
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,141 +54,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Samuel Holland <samuel.holland@sifive.com>
+Cc: Sasha Levin <sashal@kernel.org>, Xinhui.Pan@amd.com,
+ Lijo Lazar <lijo.lazar@amd.com>, shane.xiao@amd.com,
+ amd-gfx@lists.freedesktop.org, sonny.jiang@amd.com, le.ma@amd.com,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, Likun.Gao@amd.com, James.Zhu@amd.com,
+ airlied@gmail.com, christian.koenig@amd.com,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Samuel,
+From: Lijo Lazar <lijo.lazar@amd.com>
 
-Thanks for trying to clean all this up.
+[ Upstream commit 81577503efb49f4ad76af22f9941d72900ef4aab ]
 
-One problem below.
+Check if function is implemented before making the call.
 
-Samuel Holland <samuel.holland@sifive.com> writes:
-> Now that all previously-supported architectures select
-> ARCH_HAS_KERNEL_FPU_SUPPORT, this code can depend on that symbol instead
-> of the existing list of architectures. It can also take advantage of the
-> common kernel-mode FPU API and method of adjusting CFLAGS.
->
-> Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
-...
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-> index 4ae4720535a5..b64f917174ca 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-> @@ -87,20 +78,9 @@ void dc_fpu_begin(const char *function_name, const int line)
->  	WARN_ON_ONCE(!in_task());
->  	preempt_disable();
->  	depth = __this_cpu_inc_return(fpu_recursion_depth);
-> -
->  	if (depth == 1) {
-> -#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
-> +		BUG_ON(!kernel_fpu_available());
->  		kernel_fpu_begin();
-> -#elif defined(CONFIG_PPC64)
-> -		if (cpu_has_feature(CPU_FTR_VSX_COMP))
-> -			enable_kernel_vsx();
-> -		else if (cpu_has_feature(CPU_FTR_ALTIVEC_COMP))
-> -			enable_kernel_altivec();
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/soc15.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+index 2eddd7f6cd41e..811dd3ea63620 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -1411,9 +1411,11 @@ static void soc15_common_get_clockgating_state(void *handle, u64 *flags)
+ 	if (amdgpu_sriov_vf(adev))
+ 		*flags = 0;
  
-Note altivec.
-
-> -		else if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
-> -			enable_kernel_fp();
-> -#elif defined(CONFIG_ARM64)
-> -		kernel_neon_begin();
-> -#endif
->  	}
->  
->  	TRACE_DCN_FPU(true, function_name, line, depth);
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> index ea7d60f9a9b4..5aad0f572ba3 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> @@ -25,40 +25,8 @@
->  # It provides the general basic services required by other DAL
->  # subcomponents.
->  
-> -ifdef CONFIG_X86
-> -dml_ccflags-$(CONFIG_CC_IS_GCC) := -mhard-float
-> -dml_ccflags := $(dml_ccflags-y) -msse
-> -endif
-> -
-> -ifdef CONFIG_PPC64
-> -dml_ccflags := -mhard-float -maltivec
-> -endif
-
-And altivec is enabled in the flags there.
-
-That doesn't match your implementation for powerpc in patch 7, which
-only deals with float.
-
-I suspect the AMD driver actually doesn't need altivec enabled, but I
-don't know that for sure. It compiles without it, but I don't have a GPU
-to actually test. I've added Timothy on Cc who added the support for
-powerpc to the driver originally, hopefully he has a test system.
-
-Anyway if that's true that it doesn't need altivec we should probably do
-a lead-up patch that drops altivec from the AMD driver explicitly, eg.
-as below.
-
-cheers
-
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-index 4ae4720535a5..0de16796466b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-@@ -92,11 +92,7 @@ void dc_fpu_begin(const char *function_name, const int line)
- #if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
- 		kernel_fpu_begin();
- #elif defined(CONFIG_PPC64)
--		if (cpu_has_feature(CPU_FTR_VSX_COMP))
--			enable_kernel_vsx();
--		else if (cpu_has_feature(CPU_FTR_ALTIVEC_COMP))
--			enable_kernel_altivec();
--		else if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
-+		if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
- 			enable_kernel_fp();
- #elif defined(CONFIG_ARM64)
- 		kernel_neon_begin();
-@@ -125,11 +121,7 @@ void dc_fpu_end(const char *function_name, const int line)
- #if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
- 		kernel_fpu_end();
- #elif defined(CONFIG_PPC64)
--		if (cpu_has_feature(CPU_FTR_VSX_COMP))
--			disable_kernel_vsx();
--		else if (cpu_has_feature(CPU_FTR_ALTIVEC_COMP))
--			disable_kernel_altivec();
--		else if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
-+		if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
- 			disable_kernel_fp();
- #elif defined(CONFIG_ARM64)
- 		kernel_neon_end();
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-index 6042a5a6a44f..554c39024a40 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-@@ -31,7 +31,7 @@ dml_ccflags := $(dml_ccflags-y) -msse
- endif
+-	adev->nbio.funcs->get_clockgating_state(adev, flags);
++	if (adev->nbio.funcs && adev->nbio.funcs->get_clockgating_state)
++		adev->nbio.funcs->get_clockgating_state(adev, flags);
  
- ifdef CONFIG_PPC64
--dml_ccflags := -mhard-float -maltivec
-+dml_ccflags := -mhard-float
- endif
+-	adev->hdp.funcs->get_clock_gating_state(adev, flags);
++	if (adev->hdp.funcs && adev->hdp.funcs->get_clock_gating_state)
++		adev->hdp.funcs->get_clock_gating_state(adev, flags);
  
- ifdef CONFIG_ARM64
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/Makefile b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
-index acff3449b8d7..7b51364084b5 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
-@@ -30,7 +30,7 @@ dml2_ccflags := $(dml2_ccflags-y) -msse
- endif
+ 	if (adev->ip_versions[MP0_HWIP][0] != IP_VERSION(13, 0, 2)) {
  
- ifdef CONFIG_PPC64
--dml2_ccflags := -mhard-float -maltivec
-+dml2_ccflags := -mhard-float
- endif
+@@ -1429,9 +1431,11 @@ static void soc15_common_get_clockgating_state(void *handle, u64 *flags)
+ 	}
  
- ifdef CONFIG_ARM64
+ 	/* AMD_CG_SUPPORT_ROM_MGCG */
+-	adev->smuio.funcs->get_clock_gating_state(adev, flags);
++	if (adev->smuio.funcs && adev->smuio.funcs->get_clock_gating_state)
++		adev->smuio.funcs->get_clock_gating_state(adev, flags);
+ 
+-	adev->df.funcs->get_clockgating_state(adev, flags);
++	if (adev->df.funcs && adev->df.funcs->get_clockgating_state)
++		adev->df.funcs->get_clockgating_state(adev, flags);
+ }
+ 
+ static int soc15_common_set_powergating_state(void *handle,
+-- 
+2.42.0
+
