@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E633C4167B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B42C1C10F13
 	for <amd-gfx@archiver.kernel.org>; Mon, 11 Dec 2023 16:12:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 769A910E498;
-	Mon, 11 Dec 2023 16:12:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62A3E10E49A;
+	Mon, 11 Dec 2023 16:12:48 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [IPv6:2607:7c80:54:3::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C850C10E0C7
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Dec 2023 16:11:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E410F10E488
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Dec 2023 16:08:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
  :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=OpglHNMJJzSYx4T/kW665rmi/jtAX7GsOChv2TFobqY=; b=ZBI0pwfXyKO4WzDr/GoqiD07Co
- m9H1p0cuX7jyp3zfEsid8e96EHf+FruxRo/h9Z7aOTec1EOYzK3w7twOUDO+5r7Uvy7TgMg4AhN5A
- XPpQFSaIDNbG/IBqRqkMg8PSNXaQJhQT+kmZwtDwtvsmC5rBu6G0SQKuKeXZ7OMu9/F0IkykBurtB
- EEhOu4Snnpdf9XEFPoOtR5CXbfp/Nzs620D3v3x75LY3An5m3oy0jj0x0sxyL/OfsYUpD8097DPzd
- N08o8m6dQi9yotKcqJ65fCfFOrsa2THZBmM8Ys+fEUKATZ5MecKZO9sg24Lt1Q188iC+k4EOk+doJ
- ZqUnAXFg==;
+ bh=7/9PVAoW+mQkYndhB1mGTPqj7a0+NR0wxr/3ILbUkfI=; b=TeWHg8VZSEjB97ULraUC03LR2V
+ 9GC7hrJ0A2gqejqPepZpofgeBkUk0EVbz/vD0fh6fK/Pusr93obgkapD9TgcuvEfVgLqAQyhawo1/
+ QPRqUA+ePWr2UqnfeEquAZ6BVqZqgaTn3YvcN9HdTFXdhb/6CADXiwbbw1vcgtF2p9HTQXlKVlqSM
+ eyF/Q02AbITgCJ7jsrkAJcFCeERnZF8MxEjneMz/1yh8P8Ty73TErCHiYVQIIlTHviIQXJooTFonT
+ hJXhhHFfFXybb/NYo+IqCrGs2rePIPKcPL+CZA/221GjtLICb55HO+UalInlQyqUmSHQgFSksIjFb
+ gemr5Klw==;
 Received: from hch by bombadil.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1rCisO-005gRx-1R; Mon, 11 Dec 2023 16:11:24 +0000
-Date: Mon, 11 Dec 2023 08:11:24 -0800
+ Linux)) id 1rCipZ-005fBl-02; Mon, 11 Dec 2023 16:08:29 +0000
+Date: Mon, 11 Dec 2023 08:08:28 -0800
 From: Christoph Hellwig <hch@infradead.org>
 To: Samuel Holland <samuel.holland@sifive.com>
-Subject: Re: [RFC PATCH 09/12] riscv: Add support for kernel-mode FPU
-Message-ID: <ZXc0rAdi7Vo8nbS8@infradead.org>
+Subject: Re: [RFC PATCH 07/12] powerpc: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
+Message-ID: <ZXcz/Bi6xP1CYK60@infradead.org>
 References: <20231208055501.2916202-1-samuel.holland@sifive.com>
- <20231208055501.2916202-10-samuel.holland@sifive.com>
+ <20231208055501.2916202-8-samuel.holland@sifive.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20231208055501.2916202-10-samuel.holland@sifive.com>
+In-Reply-To: <20231208055501.2916202-8-samuel.holland@sifive.com>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
  bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mailman-Approved-At: Mon, 11 Dec 2023 16:12:41 +0000
@@ -57,20 +57,12 @@ Cc: linux-arch@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> +#ifdef __riscv_f
-> +
-> +#define kernel_fpu_begin() \
-> +	static_assert(false, "floating-point code must use a separate translation unit")
-> +#define kernel_fpu_end() kernel_fpu_begin()
-> +
-> +#else
-> +
-> +void kernel_fpu_begin(void);
-> +void kernel_fpu_end(void);
-> +
-> +#endif
+On Thu, Dec 07, 2023 at 09:54:37PM -0800, Samuel Holland wrote:
+> PowerPC provides an equivalent to the common kernel-mode FPU API, but in
+> a different header and using different function names. The PowerPC API
+> also requires a non-preemptible context. Add a wrapper header, and
+> export the CFLAGS adjustments.
 
-I'll assume this is related to trick that places code in a separate
-translation unit, but I fail to understand it.  Can you add a comment
-explaining it?
+Looks good:
 
+Reviewed-by: Christoph Hellwig <hch@lst.de>
