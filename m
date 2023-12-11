@@ -4,44 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EFEEC4167B
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Dec 2023 13:57:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0CA5C10F05
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Dec 2023 13:57:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BFD610E41A;
-	Mon, 11 Dec 2023 13:57:07 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBFEE10E416;
- Mon, 11 Dec 2023 13:57:04 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 6B590B80E66;
- Mon, 11 Dec 2023 13:57:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 920EFC43395;
- Mon, 11 Dec 2023 13:57:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1702303023;
- bh=jA5ATd62nm6QKEUKH0AuLYKNFPPhQMQlHAKgb9v1MYs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=TkM9bYK8JGt1Cc/1Tm7BRdoCub2BYQi3BI2Zi/4tHV8c4fxELVq2/fN9daYRTzPyh
- bFsU1LBaxS51Z9eq7bRcFW+xmnP+NqEPAGPRuk7VXuqLNU03OfIk3wShQlvdt760kB
- 4+JU0nQZaXd9EV+6JRzOTdVEcVDwMNhOpCUNJcD8ntuPCPmbLLW1MrUyI1SftR3u8z
- DAZSHpETAb+6XQ6glvmB7sQEoVqlLdUgJjBHSbHKWNgCfek7tG2kCPI60BG58+8gwv
- gSp1NRs4FKvfMfiHtit6M+vQrQ4KS2nNEuOyB5/yAwB3TjgBU70NTdYv7RDFrD0FAC
- qFhJNS+o2S1HQ==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 24/29] drm/amd/display: Add monitor patch for
- specific eDP
-Date: Mon, 11 Dec 2023 08:54:08 -0500
-Message-ID: <20231211135457.381397-24-sashal@kernel.org>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231211135457.381397-1-sashal@kernel.org>
-References: <20231211135457.381397-1-sashal@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E2C210E425;
+	Mon, 11 Dec 2023 13:57:14 +0000 (UTC)
+X-Greylist: delayed 1840 seconds by postgrey-1.36 at gabe;
+ Mon, 11 Dec 2023 12:12:27 UTC
+Received: from sipsolutions.net (s3.sipsolutions.net
+ [IPv6:2a01:4f8:242:246e::2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1030F10E3DE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Dec 2023 12:12:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+ Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+ Resent-Cc:Resent-Message-ID; bh=tWsLt7SLpCw5MQDNBJrqaEYgF2X1wOT/u6YZ+/q7Ies=; 
+ t=1702296746; x=1703506346; b=DrxAAbzPHONlSP1oTTTe/OUMvx7TUZKQxnWevqO5lHk4xbg
+ Uh5LpeR5nYBJlXGSsb2XtzZjRxTOSDyFls29/Ri5aHfl8cfi++PcnVw5dqNzBsWe+ZsIfPN49KpMs
+ uvYJsYk6RWakvb/1vSllTU5adLob0f5dopxM92R30ETnoN65hwFJNE4sqpA4WklMbgYg29sxJ1PFv
+ PN8n8f+Fzg0bJWEmdZPjPHS/G2pr+W5tfEhfmcSCghD1qTY+px0aq5oFJsna7fD0prrczLGV6Mao0
+ bcbgCsZ9Xh10HUSnl/aZBazIQvgS8VXRJecNrqUew+W4VKWHCQvqd+IDobJUZpBA==;
+Received: by sipsolutions.net with esmtpsa
+ (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+ (Exim 4.97) (envelope-from <johannes@sipsolutions.net>)
+ id 1rCefQ-00000006k4P-0UCC; Mon, 11 Dec 2023 12:41:44 +0100
+Message-ID: <5e14be1fc61d9d7027cd50f4148eea52e40fb9d3.camel@sipsolutions.net>
+Subject: Re: [GIT PULL] mmutable branch between pdx86 amd wbrf branch and
+ wifi / amdgpu due for the v6.8 merge window
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Hans de Goede <hdegoede@redhat.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Ma Jun <Jun.Ma2@amd.com>, "Limonciello, Mario"
+ <Mario.Limonciello@amd.com>, "platform-driver-x86@vger.kernel.org"
+ <platform-driver-x86@vger.kernel.org>
+Date: Mon, 11 Dec 2023 12:41:42 +0100
+In-Reply-To: <6395b87b-7cb6-4412-b6e5-e6075353fb6d@redhat.com>
+References: <6395b87b-7cb6-4412-b6e5-e6075353fb6d@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.1.66
-Content-Transfer-Encoding: 8bit
+X-malware-bazaar: not-scanned
+X-Mailman-Approved-At: Mon, 11 Dec 2023 13:57:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,59 +58,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ivan Lipski <ivlipski@amd.com>, wenjing.liu@amd.com,
- dri-devel@lists.freedesktop.org, hamza.mahfooz@amd.com,
- srinivasan.shanmugam@amd.com, airlied@gmail.com,
- Sasha Levin <sashal@kernel.org>, Rodrigo.Siqueira@amd.com,
- amd-gfx@lists.freedesktop.org, aurabindo.pillai@amd.com,
- harry.wentland@amd.com, Sun peng Li <sunpeng.li@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>, mikita.lipski@amd.com,
- sungjoon.kim@amd.com, qingqing.zhuo@amd.com, Xinhui.Pan@amd.com,
- daniel@ffwll.ch, Wayne.Lin@amd.com, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com
+Cc: Ilpo =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ linux-wireless <linux-wireless@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ivan Lipski <ivlipski@amd.com>
+Hi,
 
-[ Upstream commit 3d71a8726e05a35beb9de394e86ce896d69e563f ]
+> Here is a pull-request for the platform-drivers-x86 parts of:
+>=20
+> https://lore.kernel.org/platform-driver-x86/20231211100630.2170152-1-Jun.=
+Ma2@amd.com/
+>=20
+> From my pov the pdx86 bits are ready and the platform-drivers-x86-amd-wbr=
+f-v6.8-1 tag can be merged by you to merge the wifi-subsys resp. the amdgpu=
+ driver changes on top.
+>=20
+> This only adds kernel internal API, so if in the future the API needs wor=
+k that can be done.
 
-[WHY]
-Some eDP panels's ext caps don't write initial value cause the value of
-dpcd_addr(0x317) is random.  It means that sometimes the eDP will
-clarify it is OLED, miniLED...etc cause the backlight control interface
-is incorrect.
+I've been fine with the wifi bits since around v3 of the patchset ;-)
 
-[HOW]
-Add a new panel patch to remove sink ext caps(HDR,OLED...etc)
+So the idea is that I'll pull this into wireless-next and then apply the
+two wireless patches on top, right?
 
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Reviewed-by: Sun peng Li <sunpeng.li@amd.com>
-Acked-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-Signed-off-by: Ivan Lipski <ivlipski@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+AFAICT, since the other patches don't depend on wireless for
+compilation, this is the only thing I need to do, i.e. no need to have
+another separate branch to send it further on, right?
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 9dc41f569a761..b13f7aba22960 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -64,6 +64,12 @@ static void apply_edid_quirks(struct edid *edid, struct dc_edid_caps *edid_caps)
- 		DRM_DEBUG_DRIVER("Disabling FAMS on monitor with panel id %X\n", panel_id);
- 		edid_caps->panel_patch.disable_fams = true;
- 		break;
-+	/* Workaround for some monitors that do not clear DPCD 0x317 if FreeSync is unsupported */
-+	case drm_edid_encode_panel_id('A', 'U', 'O', 0xA7AB):
-+	case drm_edid_encode_panel_id('A', 'U', 'O', 0xE69B):
-+		DRM_DEBUG_DRIVER("Clearing DPCD 0x317 on monitor with panel id %X\n", panel_id);
-+		edid_caps->panel_patch.remove_sink_ext_caps = true;
-+		break;
- 	default:
- 		return;
- 	}
--- 
-2.42.0
+johannes
 
