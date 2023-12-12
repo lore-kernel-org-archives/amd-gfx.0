@@ -4,88 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28F9DC4167B
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Dec 2023 17:21:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45913C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Dec 2023 17:37:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E11C10E63B;
-	Tue, 12 Dec 2023 17:21:45 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2086.outbound.protection.outlook.com [40.107.220.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C10D210E63B
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Dec 2023 17:21:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KzMKSZ0Md9LhF0GXy1VYd3gSNfzL7w11RpefLUoVaAlaHQcXR2xnnQouIaJkedX3C36k9tKef14JUEkcU6oLwTLPn2KTAX8h+3O163vjnvWb4iZ/y2y1EBjqxSAqr+MYNdX2B4duoIaF073YFE/bC4LktWI4fJT/uUZGn/pbJXKUXQ3P64G6ImBh/rYW/39gUcan1wYTGZwj0JDuv1ZHY5yYpgY21nBpQAWMC8IEkQLQPCv4bduPMXvQ5EtBuz68yKI7LsJR3IJiMOV/EVihUnugx6dMTHcP3+OcUCQWN2Q120s99s2TK2GQ68vxqzDcmBubjdK5I6fhaKUpxe7T2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eEfy3KooIK0Yct/CGwsOgEC14i41HNOppOT7Ay0Q/e8=;
- b=OvOHM/mq2GhGImL3vwYEqpXpbJLDCkre++njiwBFUIZdNcUi6RYNKtAipFdLc+gfzzI9roHn8+3nJzLSeUp4789Dqx+cz/EwolkZT2bVa0kTh6Ono32eL6vYwrFyDRgEPtc+apc+a2U4uje6GYuevA0tHmayw+eZB/SlaP31InezK0jV/uSJWJMPISqT907e8tj9o8zzW18nE9m2+MM3n3eoT+LyrjqsFNNpcIqDsOhnBLmKmtljatvC03ax8uMgB34H46y306RTp6n43G1hpMgzZIqwmcu2tUwWlufPcYMp11rhjB70qxQyWPstNKAOu63mifhki1J2a2ZL8K7Oog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eEfy3KooIK0Yct/CGwsOgEC14i41HNOppOT7Ay0Q/e8=;
- b=qmFskwTeRKVn/TSWjWAUJ1/eWFwelVN2JMxO2ez21AzE+3e9ixb9h7pGrwXGcBOzMncHOH/xzc8EG5emFKMzDu5H/Vb935Z8oNTD48/DCmTs9CyKe9cSiW79QQzSK6HOxD9E+N+jCMpEwxIshPdfyhndlMSF9KroYw9QDXj3fkE=
-Received: from SJ2PR07CA0002.namprd07.prod.outlook.com (2603:10b6:a03:505::25)
- by MN2PR12MB4254.namprd12.prod.outlook.com (2603:10b6:208:1d0::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.33; Tue, 12 Dec
- 2023 17:21:40 +0000
-Received: from MWH0EPF000989EB.namprd02.prod.outlook.com
- (2603:10b6:a03:505:cafe::6a) by SJ2PR07CA0002.outlook.office365.com
- (2603:10b6:a03:505::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.26 via Frontend
- Transport; Tue, 12 Dec 2023 17:21:39 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000989EB.mail.protection.outlook.com (10.167.241.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7091.26 via Frontend Transport; Tue, 12 Dec 2023 17:21:39 +0000
-Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 12 Dec
- 2023 11:21:38 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd: Fix a probing order problem on SDMA 2.4
-Date: Tue, 12 Dec 2023 01:09:16 -0600
-Message-ID: <20231212070916.141121-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id D314F10E097;
+	Tue, 12 Dec 2023 17:37:39 +0000 (UTC)
+Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
+ [IPv6:2001:4860:4864:20::2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EFF510E097
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Dec 2023 17:37:37 +0000 (UTC)
+Received: by mail-oa1-x2e.google.com with SMTP id
+ 586e51a60fabf-20307e91258so412407fac.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Dec 2023 09:37:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1702402656; x=1703007456; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dFkhAJLiwIxHh++89ELP8nkjMv4+dq2MXQkC+Zq/D5A=;
+ b=RYFOFrkLpwXnVjucPlvHpPlhSZLeAC/SwnHL9n6XtI9x7u9TGHInc/U1f9BNZnBu4R
+ kBtcmKy795X4k3iTDOvlmjIqtz/a+oWTcHPfbLc3TVnl08/uQmSh3c6KOShxRJgG8ElK
+ 4hRgxBArX7kLqB5EcOGvhr5bh2stSM5ZUyWFmhvsNSa7UFlnSjFd5bVqVPHFw/mEzrxb
+ gkdLkJJC6Ilo2X015TlaYVY4mCWKGeNm3KTdb9+VT+YZqb+DP4PA0ScKNGzSHmPtD2M1
+ 5g/m/oRcndEkh11K9Qob92U9qV8QpR8bTpaXeuS4OmE88DzZsnCrf4+xzmojSeu6c+LW
+ o2lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1702402656; x=1703007456;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=dFkhAJLiwIxHh++89ELP8nkjMv4+dq2MXQkC+Zq/D5A=;
+ b=XkBhZ8KEbop/J2S7AZX0aB/FBGr6uJdjzAHpIL3PKkVfCdVjZs+Oga8+hE2Un0V4JG
+ By9GKYZUj8DTty2YR0gW1BUoDlvxglIHvuxbhT1tA5HYQx9fl4obc+VFzkfS9FCLDKxu
+ t0Osyyz/ejaxPGQpU77LVJKmfyJ07i0gGWKmtRifFXTRcuSkZnlyEV6BBCXo21YWVSh0
+ q3yrrP8yvKIYvD0Lq2YfESGFJaKpj/2gpa7bxCR+0EeMNcJi18hvpLaSF/DX0/A0U48u
+ WFhaeAcrbxl0W5EHBkLqLgFtd6X1Ff91mYeht9GSB4nY/uO4Vjd+5ONUfMOQBZP3yU2w
+ nBQA==
+X-Gm-Message-State: AOJu0Yyhx8fFe9Cycy5unxfTo0w/ygutCdlgLbgA9pTJzuIxXxswUp6S
+ /YxnD646V/cEaZETGALZWSBuFCjGGhjlAm0JGnkKeKNe
+X-Google-Smtp-Source: AGHT+IHbNuai8febFp3np72wUeHmNJ/19KfbQR7tOmYIP2/k2aQddFz47WSqta3wsev8dtguosgC398kKxfTgxPLWLM=
+X-Received: by 2002:a05:6871:5ca:b0:1fb:75a:7794 with SMTP id
+ v10-20020a05687105ca00b001fb075a7794mr6501323oan.69.1702402656451; Tue, 12
+ Dec 2023 09:37:36 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989EB:EE_|MN2PR12MB4254:EE_
-X-MS-Office365-Filtering-Correlation-Id: 027799dc-f830-4de0-2b53-08dbfb36cd72
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DdhLP74UM2zAwUQQQT0v9eenlyWszpcxseemFif2pTepOj451DbFjn3RinxcoGjIsKeeTW9OtGecsbtyFTVtHt/77PpmsI5aOK+zBqrRtwAD81Er63prJWywLiprJoGRoWWsyJeei4sAMzGlA46Ogv8IaTSQQ1bSii8dPSLblflfX/ES0tei7TSef8NkYHYdBd/oMBJKBiomSPmWOtDEHEjWJ9NC+dpRS3BNUzdT3JJj/ctcEHg+myRxFHiARcinAkVuO75FU9vwD4Wbo1fU8ND2qvopT2S335ZoIcU0wKcc9kCB1lE22ofeMErM9M8AYHC/zyjTnkRWEI0F9lPNpQl1c3ICSWGvGsEpUKjVK57BpqLrMTg3DTJ1N0GI3lJadEbma/qWovxuqxfEKvCqDXbrA2sIB9328/jd4BPKLF9A2qZzwnF5hYb01c80ZmMNZRqgwowh0oAoLWwahDaZoB7lrN5V89imDQHYlnb1POaARxaZaowwwH2S225bNXO3rOOXdPatAtek4L+N6PtXz7+IIWamf2/e1N678uTrsGPV1+wBK4hN+d4Fz+34U18HOUvzBKNinCxL2ZdxVzOhyUpdQ18vbq9jxXNSErc/LUXf+in5j4meHcBCPzZNvuGcAknuqEW5SCPCnE/dGTZvolwfTHb3/txRBjWtkX4wMjH9mEhRITGW0y19VgALo9TDTnNLc4rTjHGQR1ORU11xh0JLKjgjeZYmdGmYgeNVDEfZUwWbnA5THyK0/Cls1RgV
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(376002)(396003)(136003)(39860400002)(230922051799003)(64100799003)(451199024)(82310400011)(186009)(1800799012)(36840700001)(46966006)(40470700004)(41300700001)(2906002)(40480700001)(44832011)(4326008)(426003)(336012)(6666004)(7696005)(8676002)(8936002)(40460700003)(6916009)(5660300002)(316002)(966005)(36756003)(82740400003)(356005)(70206006)(1076003)(2616005)(26005)(16526019)(478600001)(70586007)(86362001)(47076005)(81166007)(36860700001)(83380400001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2023 17:21:39.5111 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 027799dc-f830-4de0-2b53-08dbfb36cd72
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989EB.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4254
+References: <20231212070916.141121-1-mario.limonciello@amd.com>
+In-Reply-To: <20231212070916.141121-1-mario.limonciello@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 12 Dec 2023 12:37:25 -0500
+Message-ID: <CADnq5_MsKJVMya0n18oOmUFOyq8wYZwAAFuaA13KC-odT5N5Qw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: Fix a probing order problem on SDMA 2.4
+To: Mario Limonciello <mario.limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,43 +67,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-commit 751e293f2c99 ("drm/amd: Move microcode init from sw_init to
-early_init for SDMA v2.4") made a fateful mistake in
-`adev->sdma.num_instances` wasn't declared when sdma_v2_4_init_microcode()
-was run. This caused probing to fail.
+On Tue, Dec 12, 2023 at 12:30=E2=80=AFPM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+> commit 751e293f2c99 ("drm/amd: Move microcode init from sw_init to
+> early_init for SDMA v2.4") made a fateful mistake in
+> `adev->sdma.num_instances` wasn't declared when sdma_v2_4_init_microcode(=
+)
+> was run. This caused probing to fail.
+>
+> Move the declaration to right before sdma_v2_4_init_microcode().
+>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3043
+> Fixes: 751e293f2c99 ("drm/amd: Move microcode init from sw_init to early_=
+init for SDMA v2.4")
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-Move the declaration to right before sdma_v2_4_init_microcode().
+FWIW, looks like cik_sdma.c and sdma_v3_0.c never switched their
+microcode init to early init.
 
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3043
-Fixes: 751e293f2c99 ("drm/amd: Move microcode init from sw_init to early_init for SDMA v2.4")
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-index 45377a175250..8d5d86675a7f 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-@@ -813,12 +813,12 @@ static int sdma_v2_4_early_init(void *handle)
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 	int r;
- 
-+	adev->sdma.num_instances = SDMA_MAX_INSTANCE;
-+
- 	r = sdma_v2_4_init_microcode(adev);
- 	if (r)
- 		return r;
- 
--	adev->sdma.num_instances = SDMA_MAX_INSTANCE;
--
- 	sdma_v2_4_set_ring_funcs(adev);
- 	sdma_v2_4_set_buffer_funcs(adev);
- 	sdma_v2_4_set_vm_pte_funcs(adev);
--- 
-2.34.1
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd=
+/amdgpu/sdma_v2_4.c
+> index 45377a175250..8d5d86675a7f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+> @@ -813,12 +813,12 @@ static int sdma_v2_4_early_init(void *handle)
+>         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+>         int r;
+>
+> +       adev->sdma.num_instances =3D SDMA_MAX_INSTANCE;
+> +
+>         r =3D sdma_v2_4_init_microcode(adev);
+>         if (r)
+>                 return r;
+>
+> -       adev->sdma.num_instances =3D SDMA_MAX_INSTANCE;
+> -
+>         sdma_v2_4_set_ring_funcs(adev);
+>         sdma_v2_4_set_buffer_funcs(adev);
+>         sdma_v2_4_set_vm_pte_funcs(adev);
+> --
+> 2.34.1
+>
