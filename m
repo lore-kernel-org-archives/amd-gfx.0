@@ -4,55 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18807C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Dec 2023 10:36:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CE39C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Dec 2023 14:03:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C94D710E56A;
-	Tue, 12 Dec 2023 10:36:48 +0000 (UTC)
-X-Greylist: delayed 557 seconds by postgrey-1.36 at gabe;
- Tue, 12 Dec 2023 10:36:46 UTC
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1E0F10E5DC
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Dec 2023 10:36:46 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4SqFDG1T0dz9scX;
- Tue, 12 Dec 2023 11:27:26 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1702376846;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=58P3JNEYx9mmRZIOmo8kasp3J+9hMC6Zn51UD4g+cZ0=;
- b=kMveWgR/2QCGS6ptl94VUDYEgDMH+9M2rCqtsW4a7JKRZ3CT4iMPD6StvSEghuk/A07tOH
- nUcNGzRmQen5Tfz3VLdp6h9ri4vNESqW76dKwpv3Vyl3GAmfTndH3b43Wm1s2R4mxg4YAA
- EHNBs+l6wayLN8yIKABPj2XdZ9Yk0w9vgQ4bwQNfAy+ASLwXoxWj1JlXMZi5ywJE3WOX3m
- TzBHnd5VfGKfCCbjKqsBjopPTvkLWlVMdvALIx7HwJITXsiCKesEtErYv9YjRQERitlWc9
- 3990eiOF0fGTXSMCaT0un2PMNIWeV7ws/j4d0CaLf9hCqnSVYninLB2wMzNX6Q==
-Message-ID: <01dfba7e-59f8-4d82-938f-38ed2c2a68e9@mailbox.org>
-Date: Tue, 12 Dec 2023 11:27:24 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECAA610E03D;
+	Tue, 12 Dec 2023 14:03:44 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2069.outbound.protection.outlook.com [40.107.220.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 394C710E03D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Dec 2023 14:03:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WCcN4fZ/ANH2IrizSezNxG0Yzp3hAvD2RAIYiUMCwmtFzU1C20+1oe1i6TrIFC2+heAgGdhzpXRU2cH/2JPlY4LBjguX3WhIIw7kZO8cf6LIgnD3l2+FR6MS+k8JV+kBCgxLimsgN+GJY4lLxoan1kqp5nXFuPA5O9F4V5LuAkOx5PkGPp/mFwITvVRy9jvVjNapPepTOjvjHibf94bg0WkoSgH1d2sEFZQ/05JxIdLSuzZfeLfh/hJULh61aO1yo9HCFC5E+swhN3tnVvHc9LGc9qMVD1ofy+LTyj5nJQes4UGWkMEg2hYX1gCA8DqWvkGiXKFuu/O5xNlQfSBOPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=smV21adI1W86NUuEwBHP+4fowaMqIFgbMoWxWKe9SBY=;
+ b=j3tSaDoUS4y5y9gJtMW7auA5CKSH31z9rLPK8srM8uvs+0qh//n20RMGHGWNWA1A85VjW1ZMZcol4F9RfNecz3siEyVsKVp1mNLIlMOLkZwzVjS4hiEvkXc8rT1GBKZf9ap90OSGEkxjNTUESGp9GPp3VBzw860/942aCWgVNeFIPCSzMmwPJdgl+52QK3ngLhp+DT34sGOqoIole7PxBb6DyUMLkhGXFLpAbTu8Fv+1GXxMAuQBRLjxAiQ80ILZDdnt6AF3SaSo4RUHPLrDsG8tQZUx4LM1uURb9kkojPDumMcwBkcfqrDxKtrz7sKhGzrko0uYn2uMpMwr784nag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=smV21adI1W86NUuEwBHP+4fowaMqIFgbMoWxWKe9SBY=;
+ b=TlY+bGG3qjvXSDuuaSyrSbJkxC3cqitUUn0MdDmjI0hKZzZEbVLcp5n9GX/ezyMhI8VG6CUdSUPcMvgx7YzrhYSWxB9IIdajmRYw9Pwa9alXXnjVfM+JMeDdpsQ0tfVYo3/dB5dvkl42KJA38vaccXyoAkw8p0AuHe/gwbybw80=
+Received: from CH5PR05CA0016.namprd05.prod.outlook.com (2603:10b6:610:1f0::21)
+ by DS0PR12MB6606.namprd12.prod.outlook.com (2603:10b6:8:d2::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.32; Tue, 12 Dec
+ 2023 14:03:41 +0000
+Received: from SN1PEPF00026367.namprd02.prod.outlook.com
+ (2603:10b6:610:1f0:cafe::2f) by CH5PR05CA0016.outlook.office365.com
+ (2603:10b6:610:1f0::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.26 via Frontend
+ Transport; Tue, 12 Dec 2023 14:03:40 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF00026367.mail.protection.outlook.com (10.167.241.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7091.26 via Frontend Transport; Tue, 12 Dec 2023 14:03:40 +0000
+Received: from hawzhang-System-Product-Master.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.34; Tue, 12 Dec 2023 08:03:34 -0600
+From: Hawking Zhang <Hawking.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, Stanley Yang <Stanley.Yang@amd.com>,
+ "Yang Wang" <kevinyang.wang@amd.com>
+Subject: [PATCH] drm/amdgpu: Switch to aca bank for xgmi pcs err cnt
+Date: Tue, 12 Dec 2023 22:03:04 +0800
+Message-ID: <20231212140304.11894-1-Hawking.Zhang@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Subject: Re: [PATCH] drm/amdgpu: Enable tunneling on high-priority compute
- queues
-Content-Language: en-CA
-To: Alex Deucher <alexdeucher@gmail.com>, Joshua Ashton <joshua@froggi.es>
-References: <20231202001740.120840-1-friedrich.vock@gmx.de>
- <3525f437-9537-4fb4-80d0-65acd9d55d2f@gmx.de>
- <3cf226b8-c80b-43f6-9f6c-9610d224717a@amd.com>
- <1939f568-f780-4e34-b5c5-dab461f93b57@gmx.de>
- <8041be7c-64d5-4b1d-a734-4326db98f256@amd.com>
- <CAAxE2A6Kdj5TBCdZRoT_t+cABzf9tsNCvJLZAVCE66F5pz5yXQ@mail.gmail.com>
- <5de028e5-d24c-4e98-96aa-e3d18720ab6a@froggi.es>
- <CADnq5_PrvUZXvsLY6fsvigrF+SEwwKZCN5MCF=Zo-RggGJrd1A@mail.gmail.com>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-In-Reply-To: <CADnq5_PrvUZXvsLY6fsvigrF+SEwwKZCN5MCF=Zo-RggGJrd1A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: ea12223fad331156142
-X-MBO-RS-META: m7p6peqjtmjogbuos4wgs95rtuj8tep5
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00026367:EE_|DS0PR12MB6606:EE_
+X-MS-Office365-Filtering-Correlation-Id: 483dd30a-374f-4305-19d5-08dbfb1b24ff
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: dX7ywJQ1souqSDiL8znT8VOxFAL5IuBTvhydfyDwHhC/sABS7ZfhJ1UNEI6lgmzWMqyogNpdjdAxdIHqbZGoJgeyNWBzVeKOjSJSUj1KKcKcjnNZuCaKPBxCL6O5++2s4u5k+osCbi8uKzm4A3WS/9GoAXEvYcePdr/IBpMgVi8GeLQ3AehCaKcjZRWx7CvpUwsNnCIMKucVJfz3yGABwiBTKwwbKI0TAfehhSfMcWxc/GmV9F3hCEXqM6IIBY6E0/XIbACrZJ52us1mMS9LKFWfFrNhpli4xdliNr03/3ksi0KN/zZxN9JB6sTwqX/sw8bhplHIcIl32/Rr9CMmee+GZfbvDNnwlo3TGWAOQ3YUH5szJkYONSlQYif5eAeE5kwrSA8quw079pRidnmEwr1qpVUES1SoTAo2pzi4TZlIHjg5Wv749DdAs/9/7LsotUkzhV5DusB/IdvbuJFuh1ULpVhJubR8R+wud0sI/NurtzV+/x780Be7yV1Ua6Oegb5xauZCIpVdREDi4f4ze20nq9DxjeSaNVIXiuP7zDLTdurFuczihTWn0FG5yvBExyJ7M8WukndUqBV40nQXXabp4FQ9nOWJu6MvFM2Pq6NtiAz6WlvbhdqIjTIq751zBYY2vnmXFERliUWtNwqcSDPKPsFbPKcFe6z3ZZvdJSm+sI8dEJ0jp/YwE+8FL1UZth5LbPwjO+FutMDNk6NXllGxzDZmBY1GuzAtSDBpjdLH1ufoV+dOxKdX0ys1DpejHdHvzYLP0sIrJ9buvqGShA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(136003)(396003)(39860400002)(376002)(346002)(230922051799003)(64100799003)(82310400011)(451199024)(186009)(1800799012)(46966006)(36840700001)(40470700004)(40480700001)(41300700001)(2906002)(40460700003)(5660300002)(316002)(4326008)(8676002)(8936002)(70586007)(70206006)(6636002)(356005)(82740400003)(2616005)(36860700001)(110136005)(81166007)(86362001)(36756003)(47076005)(16526019)(6666004)(478600001)(336012)(1076003)(7696005)(26005)(426003)(83380400001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2023 14:03:40.4725 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 483dd30a-374f-4305-19d5-08dbfb1b24ff
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00026367.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6606
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,42 +97,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023-12-08 18:59, Alex Deucher wrote:
-> On Fri, Dec 8, 2023 at 12:27 PM Joshua Ashton <joshua@froggi.es> wrote:
->>
->> I heard some musings about dmabuf deadline kernel work recently, but not
->> sure if any of that is applicable to AMD.
-> 
-> I think something like a workload hint would be more useful.  We did a
-> few patch sets to allow userspace to provide a hint to the kernel
-> about the workload type so the kernel could adjust the power
-> management heuristics accordingly, but there were concerns that the
-> UMDs would have to maintain application lists to select which
-> heuristic worked best for each application.  Maybe it would be better
-> to provide a general classification?  E.g., if the GL or vulkan app
-> uses these extensions, it's probably a compute type application vs
-> something more graphics-y.  The usual trade-off between power and
-> performance.  In general, just letting the firmware pick the clock
-> based on perf counters generally seems to work the best.  Maybe a
-> general workload hint set by the compositor based on the content type
-> it's displaying would be a better option (video vs gaming vs desktop)?
+Instead of software managed counters.
 
-Low clocks can be an issue even for normal desktop workloads, so doubtful that this would be a complete solution.
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h              | 2 ++
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 6 ++++--
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
-
-> The deadline stuff doesn't really align well with what we can do with
-> our firmware and seems ripe for abuse.  Apps can just ask for high
-> clocks all the time which is great for performance, but not great for
-> power.
-
-Maybe the firmware power management heuristics could be derived from the system power profile and fence deadline? E.g. the power profile defines the upper and lower boundaries, the upper boundary is used while there's a pending fence deadline, otherwise the lower boundary.
-
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h
+index e51e8918e667..b399f1b62887 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h
+@@ -46,6 +46,8 @@
+ #define MCA_REG__STATUS__ERRORCODEEXT(x)	MCA_REG_FIELD(x, 21, 16)
+ #define MCA_REG__STATUS__ERRORCODE(x)		MCA_REG_FIELD(x, 15, 0)
+ 
++#define MCA_REG__MISC0__ERRCNT(x)		MCA_REG_FIELD(x, 43, 32)
++
+ #define MCA_REG__SYND__ERRORINFORMATION(x)	MCA_REG_FIELD(x, 17, 0)
+ 
+ enum amdgpu_mca_ip {
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index ddd782fbee7a..3998c9b31d07 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -2537,13 +2537,15 @@ static int mca_pcs_xgmi_mca_get_err_count(const struct mca_ras_info *mca_ras, st
+ 					  uint32_t *count)
+ {
+ 	u32 ext_error_code;
++	u32 err_cnt;
+ 
+ 	ext_error_code = MCA_REG__STATUS__ERRORCODEEXT(entry->regs[MCA_REG_IDX_STATUS]);
++	err_cnt = MCA_REG__MISC0__ERRCNT(entry->regs[MCA_REG_IDX_MISC0]);
+ 
+ 	if (type == AMDGPU_MCA_ERROR_TYPE_UE && ext_error_code == 0)
+-		*count = 1;
++		*count = err_cnt;
+ 	else if (type == AMDGPU_MCA_ERROR_TYPE_CE && ext_error_code == 6)
+-		*count = 1;
++		*count = err_cnt;
+ 
+ 	return 0;
+ }
 -- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
+2.17.1
 
