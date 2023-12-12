@@ -4,47 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1851EC4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Dec 2023 14:49:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 365FBC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Dec 2023 14:55:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49AC310E62D;
-	Tue, 12 Dec 2023 14:49:33 +0000 (UTC)
-Received: from sipsolutions.net (s3.sipsolutions.net
- [IPv6:2a01:4f8:242:246e::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E9D810E105
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Dec 2023 09:46:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
- Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
- Resent-Cc:Resent-Message-ID; bh=sVUr0dBPvE4hjj2hRHA9dzust08BK20shWiG7p98Mdo=; 
- t=1702374416; x=1703584016; b=W9CG72uGRZb0/h6Whij0HnNzpV5ckaTzglZF+9VWakYGTA9
- mkmDL35hPAMnJwR0zFpp8FK6pY8r4UPDStv3NYvoisI4apISBr2GUvPgP+NooTltvUQ0hC33VZ0P4
- td1LNtQdJg4vIrqbs3eF8Gajse6NAr70RvlksBHyUggkUxGeUk3+8yGt6tL8xw/auDGbZYp6j9/ks
- QMmJ7OrZ77gy2wQugi7ZFgw4MzyB/HKHjL+sVOAk97MPmpaptRbsOgxpK4C+5CNyNBBDc1Oi+UADd
- lqGF8Q31S/a+bXS/UhauvjcIRRQjpS3IRLHLGdM6Lqid7bRAbNqECjywDG/5CAKQ==;
-Received: by sipsolutions.net with esmtpsa
- (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
- (Exim 4.97) (envelope-from <johannes@sipsolutions.net>)
- id 1rCzLp-000000084TA-2X0d; Tue, 12 Dec 2023 10:46:53 +0100
-Message-ID: <3a06ae67808800386117c90714637ef9a0267b37.camel@sipsolutions.net>
-Subject: Re: [GIT PULL] mmutable branch between pdx86 amd wbrf branch and
- wifi / amdgpu due for the v6.8 merge window
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Hans de Goede <hdegoede@redhat.com>, Alex Deucher
- <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Ma Jun <Jun.Ma2@amd.com>, "Limonciello, Mario"
- <Mario.Limonciello@amd.com>, "platform-driver-x86@vger.kernel.org"
- <platform-driver-x86@vger.kernel.org>
-Date: Tue, 12 Dec 2023 10:46:52 +0100
-In-Reply-To: <6395b87b-7cb6-4412-b6e5-e6075353fb6d@redhat.com>
-References: <6395b87b-7cb6-4412-b6e5-e6075353fb6d@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 979D110E627;
+	Tue, 12 Dec 2023 14:55:35 +0000 (UTC)
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
+ [IPv6:2607:f8b0:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C94210E604;
+ Tue, 12 Dec 2023 14:55:33 +0000 (UTC)
+Received: by mail-oi1-x232.google.com with SMTP id
+ 5614622812f47-3b9db318839so4103512b6e.3; 
+ Tue, 12 Dec 2023 06:55:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1702392932; x=1702997732; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=FC/Vpfr7MIARIwnwGGWmXjjUlNgWi23Htq/xmbvsJCk=;
+ b=h8Gmi0276XNDO9IzKB7uvvJiruHn2vfDw3ntUg0J/qx9G8L//AQyP24TeEoSgLfbzp
+ 9cARCMTcO2F7JO74ALRbDZXmqqoAU9s5e64+8G2/dgJxAOZ7FvD5vC68Kyet6CjY+KVI
+ QK8zSVqaMVk4Mi53GQMy6MzKc03B3xOecvQDwdtULgRXcz0Sffe6BaCwmI7e36uktVka
+ w9usdl+Php5i6V2Aoqd6y0QUtmYEoaKF5DesJn/meDARf17EvktiyJZON0f9R6jQkKhh
+ YsihNoUfu7TIIyl4MQEdDytzKPEyyH173y5gpe30NAI/srPNdG4K+uru7pbZsDmL2oQA
+ 1KiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1702392932; x=1702997732;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=FC/Vpfr7MIARIwnwGGWmXjjUlNgWi23Htq/xmbvsJCk=;
+ b=ZpHrD/u6zBXpWG1Qey8AwezFxLsB6gM/TODWGxguIPDbyjD6soDer2nosmd7INU1FV
+ ZvU9oJIVrhvKcLUlFU7/3k8qGtYxrzeU9uFoYqpXVtwXebSxLVR7iTd31aVVgr68iloN
+ ug7TznziaVB1JP1vwB6q/K9mx1eXKZ+BtMuwAJDx0aT9AouzL4dticLU9EF96BDLECix
+ kK0N02vqKIUB8r0ejYrGFDWHeo4r9ZgtQAK4dWc5pk/1NKcfo1WXtPrKorxo66rntYhs
+ NA+47tB08JiiPMRmMRkWWHoVaYUr3nPNx/7e9iV0COBKt5voZ90TcRLIrMpsNju3vyEg
+ Pz6w==
+X-Gm-Message-State: AOJu0Yw1x6UULZhGrbsrSamlmfvepaSGUEP/y/XURk+oX1tH1LVyssd/
+ c31BWYYxnLfjdMxolP4+5z7BpAfgItBDrooOKvk=
+X-Google-Smtp-Source: AGHT+IHq+QzxCX8gQUM6S0hC7Fo7q1dTCZTgvw/J1vuRyfhGGu2MpPtuJGqJYnc/6KWnfR91d4qZpois0AOaWLPWIjw=
+X-Received: by 2002:a05:6870:f155:b0:1fb:75a:c417 with SMTP id
+ l21-20020a056870f15500b001fb075ac417mr5948435oac.64.1702392932689; Tue, 12
+ Dec 2023 06:55:32 -0800 (PST)
+MIME-Version: 1.0
+References: <87edgv4x3i.fsf@vps.thesusis.net>
+ <559d0fa5-953a-4a97-b03b-5eb1287c83d8@leemhuis.info>
+ <CAPM=9tw-8pQWFso0zuLqpsqd5BSHWtc4As9ttdjY-DDr70EMqQ@mail.gmail.com>
+ <bdb238b6-60c7-4f26-81d0-9e62cd5dd326@gmail.com>
+ <CADnq5_NVGS1XykxGxpcu_bpPbzboCUJQkcCF3r+0N9a23KUgiQ@mail.gmail.com>
+ <96e2e13c-f01c-4baf-a9a3-cbaa48fb10c7@amd.com>
+ <CADnq5_NBfeAXEyQw0gnSd67=tR-bUKg8w=10+4z9pGGuRnP9uw@mail.gmail.com>
+ <87jzq2ixtm.fsf@vps.thesusis.net>
+ <CADnq5_Ou-MVVm0rdWDmDnJNLkWUayXzO26uCEtz3ucNa4Ghy2w@mail.gmail.com>
+ <95fe9b5b-05ce-4462-9973-9aca306bc44f@gmail.com>
+ <CADnq5_MYEWx=e1LBLeVs0UbR5_xEScjDyw_-75mLe8RAMnqh6g@mail.gmail.com>
+ <CADnq5_OC=JFpGcN0oGbTF5xYEt4X3r0=jEY6hJ12W8CzYq1+cA@mail.gmail.com>
+ <9595b8bf-e64d-4926-9263-97e18bcd7d05@gmail.com>
+ <CADnq5_N6DF-huOzgaVygvS5N_j_oNUEC1aa4zRsZTzx8GOD_aw@mail.gmail.com>
+ <CADnq5_PgMxoW=4iabtgeHydwye-6DvwvCyETdfBToEpuYWocmA@mail.gmail.com>
+ <CADnq5_P0S7Jem0e4K6mG2+bboG8P56nELaGC1p4Pfx-8eV-BjQ@mail.gmail.com>
+ <CADnq5_Oy6RMyJ52TbsxVjZ=0p=wYJHduE4X8B3DiYnqHYJUAvw@mail.gmail.com>
+ <87edg3koka.fsf@vps.thesusis.net>
+ <CADnq5_PtSV1C6Up78XX8ejExqaiM-wzHVFhCRtxboS1Y4cF-Ow@mail.gmail.com>
+ <87y1e05me4.fsf@vps.thesusis.net> <87r0jsw9g3.fsf@vps.thesusis.net>
+In-Reply-To: <87r0jsw9g3.fsf@vps.thesusis.net>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 12 Dec 2023 09:55:21 -0500
+Message-ID: <CADnq5_MYSCd32p2doPMN1_vcrUZvHMDPn83LU-0oVBS6fuRVuA@mail.gmail.com>
+Subject: Re: Radeon regression in 6.6 kernel
+To: Phillip Susi <phill@thesusis.net>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
-MIME-Version: 1.0
-X-malware-bazaar: not-scanned
-X-Mailman-Approved-At: Tue, 12 Dec 2023 14:49:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,30 +86,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ilpo =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- linux-wireless <linux-wireless@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Linux regressions mailing list <regressions@lists.linux.dev>,
+ Luben Tuikov <ltuikov89@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Danilo Krummrich <dakr@redhat.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2023-12-11 at 12:02 +0100, Hans de Goede wrote:
-> Hi Wifi and AMDGPU maintainers,
->=20
-> Here is a pull-request for the platform-drivers-x86 parts of:
->=20
-> https://lore.kernel.org/platform-driver-x86/20231211100630.2170152-1-Jun.=
-Ma2@amd.com/
->=20
-> From my pov the pdx86 bits are ready and the platform-drivers-x86-amd-wbr=
-f-v6.8-1 tag can be merged by you to merge the wifi-subsys resp. the amdgpu=
- driver changes on top.
->=20
-> This only adds kernel internal API, so if in the future the API needs wor=
-k that can be done.
+On Mon, Dec 11, 2023 at 7:28=E2=80=AFPM Phillip Susi <phill@thesusis.net> w=
+rote:
+>
+> Phillip Susi <phill@thesusis.net> writes:
+>
+> > And it works, but 6.7-rc5 does not, even though it includes that patch.
+> > Here's the syslog from the attempt.  I'll start bisecting again.
+>
+> I checked out the patch that got merged upstream and it also fails.  I
+> looked at the two commits, and I see what happened.  Your original patch
+> MOVED the call to amdgpu_ttm_set_buffer_funcs_status().  The one that
+> got merged into Linus' tree instead DUPLICATES the call.  Oops?
+>
 
-OK, thanks! I've pulled this into wireless-next, and applied the two
-wireless related patches on top.
+Yeah, I messed up the patch somehow when I applied it.  Fix up already
+queued up to add the missing chunk.
 
-I guess if AMDGPU does the same, it will combine nicely in 6.8.
-
-johannes
+Alex
