@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D54DC4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Dec 2023 14:41:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FF2AC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Dec 2023 14:49:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A725710E1F3;
-	Tue, 12 Dec 2023 14:41:06 +0000 (UTC)
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
- [IPv6:2607:f8b0:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 298CD10E1F3;
- Tue, 12 Dec 2023 14:41:05 +0000 (UTC)
-Received: by mail-ot1-x330.google.com with SMTP id
- 46e09a7af769-6d9f069e9b0so3408101a34.3; 
- Tue, 12 Dec 2023 06:41:05 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90F9A10E605;
+	Tue, 12 Dec 2023 14:49:29 +0000 (UTC)
+Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
+ [IPv6:2001:4860:4864:20::29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AB3E10E636;
+ Tue, 12 Dec 2023 14:49:27 +0000 (UTC)
+Received: by mail-oa1-x29.google.com with SMTP id
+ 586e51a60fabf-1feeea75fbfso3832716fac.3; 
+ Tue, 12 Dec 2023 06:49:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1702392064; x=1702996864; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1702392566; x=1702997366; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=TKzQ2msQ9JsQFbq2shJBH473E1/Mt274oYTqz2qlwqo=;
- b=m7JEfve/BU3Rz+/NBLn+8R+RL/J6mEkm0/HPBcbYGSL25fNUX36wGmVXXWyjjRgWos
- LnGDH9a0u3C1P867cSJd3hltynkrKDuKyexE7aHmRy3i8n5A8RmKJj8RMlj++3Sq6UYl
- yoNZ3l3U17iSc3WG8q39WAmPJqOcSJ8ZIsGkFWYaOSiiqNHpC6tWBiBoKP4dqVI9JB6j
- JQ5YrGGUmBYtE6kNFBIWaV1OystOpxCMKH9rhUmIMhhfMJAW5rS9xUrpBBhT9VupG0mh
- KXwHbaRH7GHWHK+/fJUF1Kinp8vTaUVPIda3DED+VCgZGc8Cn5tMAYiGmvoErKXg8wK0
- 4rGQ==
+ bh=DgTjeJvWVAAyCDCbyX/bwHn2R9G65E0KphCM1IqMCd4=;
+ b=c4yW0DuaM+NvwTYzip2owAUtjF+k2dlCp7DKYE1Mi0jRZVUzdLwBQWHmrYd7qEg6gx
+ 6WXI4j/uLcXku3Io2xGCRdm78Rk8WP/0fxA+O7mgVkaffL/f8YKAQHkQU8BjoRGjP7h5
+ hrzBLqPQEYkJxEnOfUVgU48WxBfl5tSqTxsnzI2NgTLG4J0nWL6bna6iP1x75Yc/pHNX
+ /cWYmrXRfX58umGZAZs7e7Laat3XaR8KySFFudtYTVJgYqiyk5MOQstQdhX1/sJbqtjR
+ gr7FSws8RRtBirlR1lL0H60zXaRXNjrHYu3zEH2ipY2isC3czrOq31ETB3/tyjERZmAj
+ YRGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702392064; x=1702996864;
+ d=1e100.net; s=20230601; t=1702392566; x=1702997366;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=TKzQ2msQ9JsQFbq2shJBH473E1/Mt274oYTqz2qlwqo=;
- b=NwrgGhMKXBVhyCOy3mLqksYN9Ua8HEMVN8Y5EglfD2yQzMymcnu0+lxHKz3XI6BzII
- /UD2C6cc9bOX1v+Q58Fh2bK/7KghRHsXT1w6NqB1PbwVUsnUloJfi3XibW2qkU0vVsss
- poYO7FdOt9ueF0Hvrg8GC2Lo6rV21R9vpOsEE48FqbD6z6wPu8YrADYEuu+B7gVkS5TY
- qG1+slchCqJvsfemulYYSCtw0cP3RhIvwzaFdfevA/lp1JU6GXQ/zVlwfUcidyFLG5n+
- aCErXxnXqKXDt8Vs5zR27Zf4CQMxCoMOYMtOxIeiy5ATXoIjPT9Pi6v5i85ejtBuZU3R
- da7Q==
-X-Gm-Message-State: AOJu0YwZ+s1eI6Fl2SiYDiWSkGb3vNhMv8jC6/LCWTHRDG/2h3V2xQYt
- VO3+uszYGRnJ3MXlcnIpnrofGQcLrSWYYiRSjSLiC1U6
-X-Google-Smtp-Source: AGHT+IHqRTKGMOJW73XiLW3Vi6WxU7l6fK/EsKuj25NtRfyWPUO+EdjLqi/XDTjI32PSIe84nHwtERuB946KWnOFuAs=
-X-Received: by 2002:a05:6871:2306:b0:1fa:fe07:527f with SMTP id
- sf6-20020a056871230600b001fafe07527fmr7051185oab.11.1702392064206; Tue, 12
- Dec 2023 06:41:04 -0800 (PST)
+ bh=DgTjeJvWVAAyCDCbyX/bwHn2R9G65E0KphCM1IqMCd4=;
+ b=YUTdjI0YJU6sDVEZkASTebyhszVEHnUAlil7J8nXdg34vJr4ZM92/VP0g1snH4UAA1
+ 7viQNMASGfrHBxQ5oSbCIhlIVIgQvKFVvksPhxISbJymGM09BGfgWHnmHNrFAhNt9B6K
+ zasbkFcIBU4y6ciUpMdHOSANXsHKbE7eoRSylvJNaqIzlhtGeLTOehCBsx/I3e1vEGM9
+ hrVxXEWPxt96UCcly/eChnk4S1ShC4/oo6PmssE6nfkgjhqo2TgcF+/vQKRFfk/KQmVM
+ 56kq4QN+re8ZCaBfjNT8qcnSVGPE62PxUdqvE/lptajRlcoX6HqTThmC8kwmV7eFEhFv
+ Oo2w==
+X-Gm-Message-State: AOJu0YyFLxYxossrQW+ZzlIQqfNp6X9ciwFQjV6AXowasvr5rWzBFJTl
+ PWdKg4gAlX+nH/945y1Xkqj0KCwgPSP77ZgZ3jnUnApY
+X-Google-Smtp-Source: AGHT+IHDe08mrta9MqfG8PLSGxgOf1rYe4vW3KtVg6E89kn4J33kjleioJ8keDjg+uHcfgPqP8adfvclN2RGvxxRz9M=
+X-Received: by 2002:a05:6870:164d:b0:1fb:75a:c43d with SMTP id
+ c13-20020a056870164d00b001fb075ac43dmr6265445oae.102.1702392565918; Tue, 12
+ Dec 2023 06:49:25 -0800 (PST)
 MIME-Version: 1.0
-References: <20231212135338.3816669-1-jani.nikula@intel.com>
-In-Reply-To: <20231212135338.3816669-1-jani.nikula@intel.com>
+References: <20231212135309.3816484-1-jani.nikula@intel.com>
+In-Reply-To: <20231212135309.3816484-1-jani.nikula@intel.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 12 Dec 2023 09:40:53 -0500
-Message-ID: <CADnq5_N=pMJk1JrdjFP8-+UCsv0ky5RYKBGk95Hb2zvDyZCREw@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: include drm/drm_edid.h only where needed
+Date: Tue, 12 Dec 2023 09:49:14 -0500
+Message-ID: <CADnq5_MXryfUJpwgosfHCY4Z-Fd1mmDq8apr8BW5tJBMRzCcRQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: include drm/drm_edid.h only where needed
 To: Jani Nikula <jani.nikula@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -71,185 +71,116 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Applied with some minor fixups for our -next tree.
+
+Thanks!
 
 Alex
 
 On Tue, Dec 12, 2023 at 9:10=E2=80=AFAM Jani Nikula <jani.nikula@intel.com>=
  wrote:
 >
-> Including drm_edid.h from radeon_mode.h causes the rebuild of more than
-> a hundred files when drm_edid.h is modified, while there are only a
+> Including drm_edid.h from amdgpu_mode.h causes the rebuild of literally
+> hundreds of files when drm_edid.h is modified, while there are only a
 > handful of files that actually need to include drm_edid.h.
 >
 > Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 > ---
->  drivers/gpu/drm/radeon/atombios_encoders.c | 1 +
->  drivers/gpu/drm/radeon/dce3_1_afmt.c       | 1 +
->  drivers/gpu/drm/radeon/dce6_afmt.c         | 1 +
->  drivers/gpu/drm/radeon/evergreen.c         | 1 +
->  drivers/gpu/drm/radeon/evergreen_hdmi.c    | 1 +
->  drivers/gpu/drm/radeon/radeon_atombios.c   | 1 +
->  drivers/gpu/drm/radeon/radeon_audio.c      | 1 +
->  drivers/gpu/drm/radeon/radeon_audio.h      | 4 +++-
->  drivers/gpu/drm/radeon/radeon_combios.c    | 1 +
->  drivers/gpu/drm/radeon/radeon_encoders.c   | 1 +
->  drivers/gpu/drm/radeon/radeon_mode.h       | 2 +-
->  11 files changed, 13 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h                    | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c                    | 1 +
+>  drivers/gpu/drm/amd/amdgpu/atombios_encoders.c              | 1 +
+>  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c                      | 1 +
+>  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c                      | 1 +
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 1 +
+>  6 files changed, 6 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm=
-/radeon/atombios_encoders.c
-> index 4aca09cab4b8..6e537c5bd295 100644
-> --- a/drivers/gpu/drm/radeon/atombios_encoders.c
-> +++ b/drivers/gpu/drm/radeon/atombios_encoders.c
-> @@ -29,6 +29,7 @@
->  #include <linux/pci.h>
->
->  #include <drm/drm_crtc_helper.h>
-> +#include <drm/drm_edid.h>
->  #include <drm/drm_file.h>
->  #include <drm/drm_modeset_helper_vtables.h>
->  #include <drm/radeon_drm.h>
-> diff --git a/drivers/gpu/drm/radeon/dce3_1_afmt.c b/drivers/gpu/drm/radeo=
-n/dce3_1_afmt.c
-> index e8fe239b9d79..324e9b765098 100644
-> --- a/drivers/gpu/drm/radeon/dce3_1_afmt.c
-> +++ b/drivers/gpu/drm/radeon/dce3_1_afmt.c
-> @@ -21,6 +21,7 @@
->   * OTHER DEALINGS IN THE SOFTWARE.
->   */
->  #include <linux/hdmi.h>
-> +#include <drm/drm_edid.h>
->
->  #include "radeon.h"
->  #include "radeon_asic.h"
-> diff --git a/drivers/gpu/drm/radeon/dce6_afmt.c b/drivers/gpu/drm/radeon/=
-dce6_afmt.c
-> index 4a1d5447eac1..4c06f47453fd 100644
-> --- a/drivers/gpu/drm/radeon/dce6_afmt.c
-> +++ b/drivers/gpu/drm/radeon/dce6_afmt.c
-> @@ -21,6 +21,7 @@
->   *
->   */
->  #include <linux/hdmi.h>
-> +#include <drm/drm_edid.h>
->
->  #include "dce6_afmt.h"
->  #include "radeon.h"
-> diff --git a/drivers/gpu/drm/radeon/evergreen.c b/drivers/gpu/drm/radeon/=
-evergreen.c
-> index f0ae087be914..a424b86008b8 100644
-> --- a/drivers/gpu/drm/radeon/evergreen.c
-> +++ b/drivers/gpu/drm/radeon/evergreen.c
-> @@ -26,6 +26,7 @@
->  #include <linux/pci.h>
->  #include <linux/slab.h>
->
-> +#include <drm/drm_edid.h>
->  #include <drm/drm_vblank.h>
->  #include <drm/radeon_drm.h>
->  #include <drm/drm_fourcc.h>
-> diff --git a/drivers/gpu/drm/radeon/evergreen_hdmi.c b/drivers/gpu/drm/ra=
-deon/evergreen_hdmi.c
-> index 5f3078f8ab95..681119c91d94 100644
-> --- a/drivers/gpu/drm/radeon/evergreen_hdmi.c
-> +++ b/drivers/gpu/drm/radeon/evergreen_hdmi.c
-> @@ -26,6 +26,7 @@
->   */
->  #include <linux/hdmi.h>
->
-> +#include <drm/drm_edid.h>
->  #include <drm/radeon_drm.h>
->  #include "evergreen_hdmi.h"
->  #include "radeon.h"
-> diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c b/drivers/gpu/drm/r=
-adeon/radeon_atombios.c
-> index 85c4bb186203..3596ea4a8b60 100644
-> --- a/drivers/gpu/drm/radeon/radeon_atombios.c
-> +++ b/drivers/gpu/drm/radeon/radeon_atombios.c
-> @@ -27,6 +27,7 @@
->  #include <linux/pci.h>
->
->  #include <drm/drm_device.h>
-> +#include <drm/drm_edid.h>
->  #include <drm/radeon_drm.h>
->
->  #include "radeon.h"
-> diff --git a/drivers/gpu/drm/radeon/radeon_audio.c b/drivers/gpu/drm/rade=
-on/radeon_audio.c
-> index 279bf130a18c..053058c5c1fa 100644
-> --- a/drivers/gpu/drm/radeon/radeon_audio.c
-> +++ b/drivers/gpu/drm/radeon/radeon_audio.c
-> @@ -26,6 +26,7 @@
->  #include <linux/component.h>
->
->  #include <drm/drm_crtc.h>
-> +#include <drm/drm_edid.h>
->  #include <drm/drm_eld.h>
->  #include "dce6_afmt.h"
->  #include "evergreen_hdmi.h"
-> diff --git a/drivers/gpu/drm/radeon/radeon_audio.h b/drivers/gpu/drm/rade=
-on/radeon_audio.h
-> index 05e67867469b..dacaaa007051 100644
-> --- a/drivers/gpu/drm/radeon/radeon_audio.h
-> +++ b/drivers/gpu/drm/radeon/radeon_audio.h
-> @@ -27,7 +27,9 @@
->
->  #include <linux/types.h>
->
-> -#define RREG32_ENDPOINT(block, reg)            \
-> +struct cea_sad;
-> +
-> +#define RREG32_ENDPOINT(block, reg)                            \
->         radeon_audio_endpoint_rreg(rdev, (block), (reg))
->  #define WREG32_ENDPOINT(block, reg, v) \
->         radeon_audio_endpoint_wreg(rdev, (block), (reg), (v))
-> diff --git a/drivers/gpu/drm/radeon/radeon_combios.c b/drivers/gpu/drm/ra=
-deon/radeon_combios.c
-> index 2620efc7c675..6952b1273b0f 100644
-> --- a/drivers/gpu/drm/radeon/radeon_combios.c
-> +++ b/drivers/gpu/drm/radeon/radeon_combios.c
-> @@ -28,6 +28,7 @@
->  #include <linux/pci.h>
->
->  #include <drm/drm_device.h>
-> +#include <drm/drm_edid.h>
->  #include <drm/radeon_drm.h>
->
->  #include "radeon.h"
-> diff --git a/drivers/gpu/drm/radeon/radeon_encoders.c b/drivers/gpu/drm/r=
-adeon/radeon_encoders.c
-> index 9cb6401fe97e..3de3dce9e89d 100644
-> --- a/drivers/gpu/drm/radeon/radeon_encoders.c
-> +++ b/drivers/gpu/drm/radeon/radeon_encoders.c
-> @@ -26,6 +26,7 @@
->
->  #include <linux/pci.h>
->
-> +#include <drm/drm_edid.h>
->  #include <drm/drm_device.h>
->  #include <drm/radeon_drm.h>
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeo=
-n/radeon_mode.h
-> index 1decdcec0264..59c4db13d90a 100644
-> --- a/drivers/gpu/drm/radeon/radeon_mode.h
-> +++ b/drivers/gpu/drm/radeon/radeon_mode.h
-> @@ -32,13 +32,13 @@
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_mode.h
+> index 32fe05c810c6..3802ccdf6f55 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> @@ -32,7 +32,6 @@
 >
 >  #include <drm/display/drm_dp_helper.h>
 >  #include <drm/drm_crtc.h>
 > -#include <drm/drm_edid.h>
 >  #include <drm/drm_encoder.h>
 >  #include <drm/drm_fixed.h>
->  #include <drm/drm_modeset_helper_vtables.h>
->  #include <linux/i2c.h>
->  #include <linux/i2c-algo-bit.h>
->
+>  #include <drm/drm_framebuffer.h>
+> @@ -51,6 +50,7 @@ struct amdgpu_device;
+>  struct amdgpu_encoder;
+>  struct amdgpu_router;
+>  struct amdgpu_hpd;
 > +struct edid;
->  struct radeon_bo;
->  struct radeon_device;
 >
+>  #define to_amdgpu_crtc(x) container_of(x, struct amdgpu_crtc, base)
+>  #define to_amdgpu_connector(x) container_of(x, struct amdgpu_connector, =
+base)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_vkms.c
+> index db6fc0cb18eb..453a4b786cfc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+> @@ -1,6 +1,7 @@
+>  // SPDX-License-Identifier: GPL-2.0+
+>
+>  #include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_edid.h>
+>  #include <drm/drm_simple_kms_helper.h>
+>  #include <drm/drm_vblank.h>
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c b/drivers/gpu=
+/drm/amd/amdgpu/atombios_encoders.c
+> index 3ee219aa2891..7672abe6c140 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
+> @@ -28,6 +28,7 @@
+>
+>  #include <acpi/video.h>
+>
+> +#include <drm/drm_edid.h>
+>  #include <drm/amdgpu_drm.h>
+>  #include "amdgpu.h"
+>  #include "amdgpu_connectors.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd=
+/amdgpu/dce_v10_0.c
+> index bb666cb7522e..587ee632a3b8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> @@ -21,6 +21,7 @@
+>   *
+>   */
+>
+> +#include <drm/drm_edid.h>
+>  #include <drm/drm_fourcc.h>
+>  #include <drm/drm_modeset_helper.h>
+>  #include <drm/drm_modeset_helper_vtables.h>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/dce_v11_0.c
+> index 7af277f61cca..f22ec27365bd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+> @@ -21,6 +21,7 @@
+>   *
+>   */
+>
+> +#include <drm/drm_edid.h>
+>  #include <drm/drm_fourcc.h>
+>  #include <drm/drm_modeset_helper.h>
+>  #include <drm/drm_modeset_helper_vtables.h>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> index b599efda3b19..6f8128130b62 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> @@ -27,6 +27,7 @@
+>  #include <drm/display/drm_dp_mst_helper.h>
+>  #include <drm/drm_atomic.h>
+>  #include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_edid.h>
+>  #include <drm/drm_fixed.h>
+>  #include "dm_services.h"
+>  #include "amdgpu.h"
 > --
 > 2.39.2
 >
