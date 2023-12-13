@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21B3EC4332F
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Dec 2023 04:07:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62733C4167D
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Dec 2023 04:43:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E27010E185;
-	Wed, 13 Dec 2023 04:07:46 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2085.outbound.protection.outlook.com [40.107.96.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C17910E185
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Dec 2023 04:07:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2B6510E6CF;
+	Wed, 13 Dec 2023 04:43:16 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2058.outbound.protection.outlook.com [40.107.244.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BD1E10E6AA
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Dec 2023 04:43:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P2wU0X3hMwduq4uelsmjf9gtcKPmY3aMk1EK5hC15mAWL/WU78dphDW9CLGt5ygW0s0y/K+hSgaNSCy5XjiGFkzEQ5g4gPa093duaKqmuhgvkacqTBufDwKoz6c9rgdebmN4fwWIPx6hkd+wab4lqc3bJOiUFUvKAGGmg4/0Z7KDz73o+8KMvNPt5fkKstRncvCQJLdMUKZG3FfPq7jmIvyofsYzNvfNdwxUyYKJnesFzNS0S9/U1NUYJmqczUz1n0cQrQA7MMl6QrHxwysyRjrikTxUUA8q0MQb42SZBk6yH5ioYIMJ4PCbBcGXUrzk6N9KbA5OHuGg+AyL4gv6gQ==
+ b=YCCM5fG5h1PamENYofLkML56R8apQ0FLqtMRLWxRpV16avIsloxtwcnu6V6HvJTE7b8JlIqnVgrLjCAOjolZzYYeOs7pX1tG8N4aFHwWAJRRqFMAeim7FAOmbd/8YalH5gg99BmO80aPlanZwuAg5H6kSJLWmM1o4J+kIJ7o37HBQwxqg3j4MZ4tjAbgFegj5HFMPeQJ1t2BdgYIkPpZRh6NWaXMAajkHpJStilXmkz/UeZTJJmTVJkdMj6RTw7eg3DD4XcMyBdEaHEnh+RLL6CAuK/mr2YU/qyVZxHEnPuxFiat1YL2lDS7Z41ojONR8y8hZ05AVGp4cT1h/qMuhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OfSd+2Hn6zX6sCU6kZr3NX/fuUrwLhbudlb7oqMLLxk=;
- b=hPYQHCsL7eoledwILlBV+ZSndSazRzmz484iM1kGUm5mqQnIIC6MqzBgC07jY5lQBR3oiHrfTtMLunKMydc0nChBsGbPfc2x1jtbbDXgggVeNBI0AqyKhGIVSL1uwYtGpyMtuabKfG3TudeEZQpxicf+NHH0WK8HEZx1oES7ZSUnkjFKDZTzbP8mafGAP+BJwkUkl3QoHayOcPrKdUw8ZJDgvYHmdrKwFKJwPWfuqcGSxNxxXlRcHxgzrEJza/VMO6GBmn+IlKi9YfoLr59gSDNX0RbgDKxzbp4ju6geogGSBIb/TVsA4Oh5mCKSdA/mUcLkhDNEIbKEYREpZ8BLWg==
+ bh=/8u9ctJrJDU4d3Yk7Cn911HAk2DxuUCQEakjGUYc3gM=;
+ b=Aoqn4Am+g9J9LYYkCytVzs0vK1oUtVNTfY8m+Lni/heuNvhQwBmaPpRGN3TWtzQeaXhza7RmqWm59baCwM2XbD6meScxKI5TfTAX53JOLvIjUXwaCWxDZndSF+Vh3yYtmpIZE/dBM4wgx7HB+rdsZ3FM51kIeqzeO2w1ZDCSMNaUMPYAHY3WWTOi7xjGsrO39rX3YAW3gnrB/pgrpEkZmizxo64M4zLNxQyQ9YUNv4wrdrJUzd1R2Yu76h2aIbgxJ9w0hHOK2UX1Q5cTtR4MDfG09w4//+diZxo5/Ja33zr+9PitA4ifxsiMZyBdkw+DgmfeOeuBa/xWLImRH1F5Cg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OfSd+2Hn6zX6sCU6kZr3NX/fuUrwLhbudlb7oqMLLxk=;
- b=DMi8h323Q7Spy3scISQK2kZrYwYO3z+Sav23MeY3ih+k430odAVcFgWuW123EikWnkGzt5JZonu1SYlaTt0Ug63ImKpBL/1KsJYoyhzIIEBD/EH2/M5m8KzNzhyI8Mc34S6/wM3k0IMKYLiHdsujqs801iSbOZSN9mKohj0/O+8=
-Received: from CH0PR12MB5372.namprd12.prod.outlook.com (2603:10b6:610:d7::10)
- by MN0PR12MB6245.namprd12.prod.outlook.com (2603:10b6:208:3c3::21)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=/8u9ctJrJDU4d3Yk7Cn911HAk2DxuUCQEakjGUYc3gM=;
+ b=vLMMyvgKYH9c3fA/F1QjlbH9aS18+1IsxytEWkCm0HbKxuGtr5PpF8hsPmEa02MHe/AuDMlx/FG64ng7ysChV/24kvRdi7JXjB/JanrzKVIEWVh+9gIKKQchtTZuIwOyzenVYMQzSAwUJtE7j86ZRE2Ze0dmP7fGPwgoPqWHE9U=
+Received: from CY8PR12MB7435.namprd12.prod.outlook.com (2603:10b6:930:51::6)
+ by IA0PR12MB7531.namprd12.prod.outlook.com (2603:10b6:208:43f::12) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.26; Wed, 13 Dec
- 2023 04:07:40 +0000
-Received: from CH0PR12MB5372.namprd12.prod.outlook.com
- ([fe80::28b7:3ee9:2c4b:6ae]) by CH0PR12MB5372.namprd12.prod.outlook.com
- ([fe80::28b7:3ee9:2c4b:6ae%7]) with mapi id 15.20.7091.022; Wed, 13 Dec 2023
- 04:07:40 +0000
-From: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
-To: "Kim, Jonathan" <Jonathan.Kim@amd.com>, "Huang, JinHuiEric"
+ 2023 04:43:12 +0000
+Received: from CY8PR12MB7435.namprd12.prod.outlook.com
+ ([fe80::26b:275e:95a8:c54a]) by CY8PR12MB7435.namprd12.prod.outlook.com
+ ([fe80::26b:275e:95a8:c54a%3]) with mapi id 15.20.7068.033; Wed, 13 Dec 2023
+ 04:43:11 +0000
+From: "Kim, Jonathan" <Jonathan.Kim@amd.com>
+To: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>, "Huang, JinHuiEric"
  <JinHuiEric.Huang@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdkfd: fix mes set shader debugger process management
+Subject: RE: [PATCH] drm/amdkfd: fix mes set shader debugger process management
 Thread-Topic: [PATCH] drm/amdkfd: fix mes set shader debugger process
  management
-Thread-Index: AQHaLHdTu1pi6XN9kEyuJkcz/NdpHLCl7iQAgAAzU6CAAAsuAIAAAaNQgAACkYCAAAkqcIAADNaAgAAPVnCAABWggIAAKykd
-Date: Wed, 13 Dec 2023 04:07:40 +0000
-Message-ID: <CH0PR12MB5372A1E3E4C24B4F2C3C13BAF48DA@CH0PR12MB5372.namprd12.prod.outlook.com>
+Thread-Index: AQHaLHdMy6hjSboUMEi0ErCHNB+UVrCl7iUAgAA1WACAAAHBYIAACq+AgAAAWTCAABA2gIAAAsGwgAAUqYCAAAuy8IAAN00AgAAFFeA=
+Date: Wed, 13 Dec 2023 04:43:11 +0000
+Message-ID: <CY8PR12MB74359AD0C19743D7DD6F6E6B858DA@CY8PR12MB7435.namprd12.prod.outlook.com>
 References: <20231211211612.3109-1-Jonathan.Kim@amd.com>
  <c4fc2b14-07b1-4b27-b460-166dcb343d74@amd.com>
  <CH0PR12MB5372AA024278ED7F7F078EEFF48EA@CH0PR12MB5372.namprd12.prod.outlook.com>
@@ -56,71 +56,73 @@ References: <20231211211612.3109-1-Jonathan.Kim@amd.com>
  <CY8PR12MB7435E7214AF1FF85B32D20B1858EA@CY8PR12MB7435.namprd12.prod.outlook.com>
  <CH0PR12MB5372DEE37C77FD4CA22B8B2FF48DA@CH0PR12MB5372.namprd12.prod.outlook.com>
  <CY8PR12MB7435882A1367094CB9150448858DA@CY8PR12MB7435.namprd12.prod.outlook.com>
-In-Reply-To: <CY8PR12MB7435882A1367094CB9150448858DA@CY8PR12MB7435.namprd12.prod.outlook.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-CA
+ <CH0PR12MB5372A1E3E4C24B4F2C3C13BAF48DA@CH0PR12MB5372.namprd12.prod.outlook.com>
+In-Reply-To: <CH0PR12MB5372A1E3E4C24B4F2C3C13BAF48DA@CH0PR12MB5372.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-12-12T21:31:14.0000000Z;
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0; MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged
+ 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-12-12T21:31:14.0000000Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH0PR12MB5372:EE_|MN0PR12MB6245:EE_
-x-ms-office365-filtering-correlation-id: 095da8d0-0bea-4529-c7a6-08dbfb910c80
+x-ms-traffictypediagnostic: CY8PR12MB7435:EE_|IA0PR12MB7531:EE_
+x-ms-office365-filtering-correlation-id: 38898b44-b339-4d1f-7e96-08dbfb9602bd
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 41YV2gKYR1TfmcJl/evhoPwJF6X3oEizv3GUMWYA6vgoZsSzj7l9dKzbL1SXlYcTL3pdRAyhx0e0mCzmwmaF5wa7T9A/my+uguDfViwYFz62XStrGFXuoMI0xdDa61+ZLGbKRtsMQLIg/gbC9iSUqj+AiMA7Udu/nM18pYk/aqRiHIa1pb+2GB/CndCPR8CWXEzh7Ari92FfVtTVRvL2QNI3ewUHJ6ZI6lesa5yL5WA1oa0+VivaO6v7kcZE9Sgm455CZVTuK0KT1AStX8+I80Xe8Zu38ZRUSA+YS6/Gl8K5Hh984EdMIAicwO9UIu9oF5ACMz7e5kN+1wAcBhMWp63cgsWu5P4+yKvtZp50SOoafH6rmc/12AapK7UpIdqxsn5MZFbz+BfQ9i9mDAzZMX/Qmybbs+vXHY5QO90ikMTwfY0Eto3SZaApAVpTQXQu8qE6OcumWBGuhJRZ5H8288tDAj8GYpdBA5vu5FSqdz632n9KWQSALLwACrpQjyn+eleQ2N/X87EuuhrTZmv3ahARh2ij3pfCqOir1sTzPGl/jZEry1PyGUZvQHso5hdX8cIBPWRNVcRvn7cXJ6RIe9y+RDm35DW/sAxCJ2eWKVY=
+x-microsoft-antispam-message-info: IMr/P+Mhughq9ZLHLcQY0ckq3XLKKShc1Y12jJeNM6OhPpw1wu7/UhhiFlyQ3Vs2kXVaTbk+V9B+pW78o51ShhSiL7KFRBHZ9Jtoe1iul3QvwWozTdsjwH0xJB3fMkR7lBfRpFqmz9njlRhbatp7Jkq4sVDsWXb6CN1WKVpraCaRXqzLlz6K46uZG4aIpxrQSE0OhWELuJdcaYfe+1hfFaADOpeSnMB3rS/igKIbYnxMmfgTfUjvBAQ4+QiNOwtCPfDA7qpg7QCJ3BW5q+qPOaCtFKdkaAVeF0iSUR6v6tZPEimZJqrHRLwkne2DmOIY+veQ5pasqJnv+nVE+5fwtiGQWU7u5V6I2oN2EffYk0b8XK7d0m3eBtI/lu4UU/f8MAAyPc0urnzXcmFTgT4PeefvggG+nxT6SR0rqIPcdjmmXKasuwTRhIhKsHPWaGM2tpExAo4x3zOd4SCozu5mWeITWP5rzg+CyMzaLPvnfKJQeDurx/8iXdZWOziek5gCmql1VsjZPOdIJg/Z8J8IZzBNns9+HR+6fJAl8k9+jzYbTPPLz5cW+v/bQgEgF0Q/FNqLVqJ+R2kcmYZqAQWUrgJV0K8MxKMsUomSWVkVCbc=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5372.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(366004)(39860400002)(396003)(136003)(376002)(230922051799003)(451199024)(1800799012)(186009)(64100799003)(4001150100001)(2906002)(5660300002)(52536014)(30864003)(4326008)(8936002)(8676002)(66476007)(64756008)(316002)(66446008)(110136005)(66946007)(76116006)(66556008)(54906003)(55016003)(41300700001)(7696005)(6506007)(45080400002)(478600001)(71200400001)(53546011)(9686003)(26005)(83380400001)(122000001)(38100700002)(38070700009)(33656002)(166002)(86362001);
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7435.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(396003)(376002)(39860400002)(346002)(366004)(136003)(230922051799003)(451199024)(1800799012)(186009)(64100799003)(41300700001)(33656002)(30864003)(2906002)(4001150100001)(5660300002)(38070700009)(53546011)(9686003)(7696005)(6506007)(26005)(55016003)(71200400001)(45080400002)(86362001)(52536014)(38100700002)(83380400001)(8676002)(4326008)(8936002)(478600001)(76116006)(54906003)(166002)(66556008)(66446008)(64756008)(122000001)(110136005)(316002)(66946007)(66476007);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Tz4t2Ha4MYSnNvN+8b/N14YbPyu1GBRKk8qnjEPAdM7TKJPPNxktelAtxfW0?=
- =?us-ascii?Q?bi3XuJ5Bzx1yrPW94nYEfdMGUG0NeZ/9VEcjQxT3gKZklTl8v1YlGE+B3pdb?=
- =?us-ascii?Q?/wsdav5Xs3+7D+YguwpAEWEySXb69uoc1Lq3DzR1w+17PDCWXemgoDPY3u6k?=
- =?us-ascii?Q?H6kOAJd5WAAI63Kow3gOlX+uHuy4jc05ASrzAT5/C7eB4wR2czX+H16szGn2?=
- =?us-ascii?Q?0tZFbBMiHU4eWVQgClKe08cEdRt6oBkaVtyYe8tZu5x4nZhFUEyunXNNTQYj?=
- =?us-ascii?Q?sfPtpDxRK6y7y/44a3hJ9mYgHFTmsHIeTaR+7kvb0hTWhmLhIVy0NuF+dHUM?=
- =?us-ascii?Q?A748GZU0MUZhakv1esO7BCFWsagj88vlP4Gpvb9bJpX+RRJv5KUZv3BlZO8d?=
- =?us-ascii?Q?g+zugzABJFk3TXFSA3MdHwURaWWnuOTXQ0x7gvATi58HSTEGTGVG7oYV35w5?=
- =?us-ascii?Q?t8I+vHjn5BgHRbeHLH8XGxc3mkOBuTn31IpXjzQm9FcBeg2+H7BCRN+RVIXV?=
- =?us-ascii?Q?kJXxU6cTI3T9MW7W4jd0tQ0weFTo0uhtKLF4Dd9J2JkkpbFsLM98D7Q0n1iT?=
- =?us-ascii?Q?zBG7EKJG3/LBuVGFNuy1Givh1KfsOf7AxxWrfl9RSKlJygPFzRi56F2yFMio?=
- =?us-ascii?Q?zpfKaLVZ+BpULDdrFlXM5wakyl1/CjmCRCaWAXvidCQuqdV8cDJkUFu+GNBK?=
- =?us-ascii?Q?K+5Uu0E6ZUuQOLg8OFpqiiajKQAM/bQLChzpOiywSrqEKCm3q1btF+KJ1+CI?=
- =?us-ascii?Q?2GGdO8lojFJyteXrR7bKqUtcZyz9ZDOH0Vjrpvd+SEsn3xy7dj2dI30a4xfJ?=
- =?us-ascii?Q?Pv67ddbyR7POCL8fsUxM+xWI+foFDUhkgOKbs7mQhswg4T/31kaaIYcgHzf5?=
- =?us-ascii?Q?enjtEhoqcP+vjJG9eyr91LmvECWmxqm8TA2qgelzoQKkk3EFXfKe2OZtNGh/?=
- =?us-ascii?Q?3quVQcN9aRprXAYN91zbcnBuiQ1+Lq8I1ruuBJ9ArTfeQiHkYZUp18IOlp/R?=
- =?us-ascii?Q?QeW3A2n1ZSmtwKW+J//JoS02r/V0wsKFAyrlx2PJFK/zxasvroY+MVPPghS2?=
- =?us-ascii?Q?Q+IS2c0QiTyvyCjEZuguR+kXt3Um8L921RW8RXJhB7kcxHDSAFrlCLtHnpyc?=
- =?us-ascii?Q?cnt+J82IZ0BEA9ohQlW3VNjHvK/DmZsecVfkSahdzDZY0AlS5VZb4POAvMsm?=
- =?us-ascii?Q?VpoEz4vBGlEjIYqtXq9rZt5BAyUQ82d6rEoV/poA7VH7hz4JxpBFUCPCvgRE?=
- =?us-ascii?Q?/QgFKjSA2bLzK5Wogvel03nDUXp1Umd5E87o1gclewYOoki5pu/RjP3Z6VO6?=
- =?us-ascii?Q?KGpX39JTHZ8XBVeQ2Gykaj442+ioMIpvrNZCe1kX+XyKqgkYUu3y+Lmu2U9u?=
- =?us-ascii?Q?QPeXDqKBxorSC+6WpADruI4BgT6C5+0XbM1hMRnbwvM4lb5ZwT32jXxVkY/+?=
- =?us-ascii?Q?UDzLE+DKQSoNxYr9+tNlQhRt91tth2IDyaz4V2+PmcSijINiAqX1V3/AKHHh?=
- =?us-ascii?Q?xl8lYmf4ctM5iZUnbpeYHeNdXW1rWCpGk6IE8K2VWAf/jk1hWl2pTyHpxZlq?=
- =?us-ascii?Q?aWU7Ppq09meguJrwCF+uSu3dzxz3fIpzR/MPqgIM?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?5ZSI0bIG0D5IoIyM2R1J76zZZVVvqd1bMBD6O+Yz5yOW/0WHH7xRAyvyTEDH?=
+ =?us-ascii?Q?vz+3recKk64NPS7I7UyugLC5KDukX8OYSOiidmSu2C/3UqhiKmvwwevdrVr1?=
+ =?us-ascii?Q?4uNI8RzPDO0oDQ0MZZLw0j4aIgIORnD7Vg7H1t27r0ybh151n3k9WZGsTMRa?=
+ =?us-ascii?Q?zLfU2xeQYEq2jt1JR+1zQ9F++U0CfWE2VLN1sNOBih9cNN5Onwe3VnFzixkS?=
+ =?us-ascii?Q?DN1grAOOTGi+vrge64c61sjSrCfjfzpXY41CKqo5mxfAmXZQwcPUCzKBvhYp?=
+ =?us-ascii?Q?hR1BpGgp4x57WOuT8NlE7vc7zappcshv68WwhODi1g4ZA6cIK3KUmxOXi+0j?=
+ =?us-ascii?Q?hDZ1Qx3W+X4OtjlW1KAyxQXUJ00TzKW8kHGjEX1vg9xqDIXeGRdmMIdcZFaw?=
+ =?us-ascii?Q?UJT6Lb0hzEpw6HvJ+cxrN1Hx74A+Z1WIq0vfH8Kn1SPtk/G3T/ONRYPrUTjd?=
+ =?us-ascii?Q?mYRnLpNUe/XlY4pjvcEjFRL9+oJqqzNAWyyr6W82I3gE2SJMaEtJ5yIenpWG?=
+ =?us-ascii?Q?w5pWCBkwIxyM0ztAs9Ld2gKYMQLoHw27o+d3/F6yfFHsHOOagVSkEWnijZl9?=
+ =?us-ascii?Q?C+VWzsVKjryfLWDEdLrvHb7ebJoj/ti5GGMZPh3sWrQ03RT4P9kRymcVCVrr?=
+ =?us-ascii?Q?URRdFVKHtw3muF8jDJJ6jnVyIyCbp6c6PLgKNAnTbPWlOkA3w6nsosAyj8R8?=
+ =?us-ascii?Q?rt3IObDqS+otoLKfEIPyqRlAlaNUlMp8kGwFtyGZZGK0E+GHK+7vmZoPKwWx?=
+ =?us-ascii?Q?m9L0BDoMqhmx3DUyPrdPKdQi/LtSVGMB03P+nAN1dejANUjK1WWWMU4XeprF?=
+ =?us-ascii?Q?K+XwGYYxN+bj3UQUwtSarV1x8PPZFFUvfu/e7TfqI/C7OQAsge3ZXMlVeFGP?=
+ =?us-ascii?Q?5HQApaYe+GlNELLEgJ/4ZczsSgQMCvLxSCVG3xq03/+68diohY5QCUw0Tkj1?=
+ =?us-ascii?Q?F51y0IUqO9Ekn1DEr4/e8hpEYPmEOm3LNUPx7abwCPrpea/wmC9FFKVnJZ3p?=
+ =?us-ascii?Q?z40jKW2zuYV+VnnVYE5Tu6BWJanPmh0zbuSs0C6MrVb2DK0QO3Y6920oMZI4?=
+ =?us-ascii?Q?Nu3gocR58J/dHUr9o1rYEYhcm5jWwGDAnotuVn9/ARbQCdHWd8APwIkt1bF3?=
+ =?us-ascii?Q?1cus/SqsK2h4f/VqQlU9/LRtFosv7TOvfyZjtj9vamFHGPvTHlPT5+FB0z09?=
+ =?us-ascii?Q?ze0UdlPWLktQq4WWcxASJ9qi8aGS6SXf8vUq8L+hHuMd4Nmpxn2FgZWEjsn1?=
+ =?us-ascii?Q?lPwGjmuPk7SQnAb0vrLn/T/2ZY3u/Ute26bdIqfjws5zZyowh32Idz2eJDCJ?=
+ =?us-ascii?Q?o+ck5zfTa29it8PLjKTkS3SUgPse7HsnkKX6YyIYcMXvKpPWbCbFwnvnXH1w?=
+ =?us-ascii?Q?VD3V7ltXE4G4dl2NMhbMPMcpYxSXa9bwO3JBRH4j2gM1Jj87W2dySAxbuda0?=
+ =?us-ascii?Q?p515sH4/sQoS62RLuYVWt3B4+1IgNtw3oZq+El9Qj3x+BSSO/YB3qSewVn2V?=
+ =?us-ascii?Q?1fX7aL4BMiSNdogFe64GZJqWl9LZ7AuIF66qWXoLolNiWJOWKwR63kmLnISU?=
+ =?us-ascii?Q?VtPGGoWOLXXcDdniZ1Y=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_CH0PR12MB5372A1E3E4C24B4F2C3C13BAF48DACH0PR12MB5372namp_"
+ boundary="_000_CY8PR12MB74359AD0C19743D7DD6F6E6B858DACY8PR12MB7435namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5372.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 095da8d0-0bea-4529-c7a6-08dbfb910c80
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Dec 2023 04:07:40.1615 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7435.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38898b44-b339-4d1f-7e96-08dbfb9602bd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Dec 2023 04:43:11.2457 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ZFHDe1D3CT7wJ3F7nNZIJ7hiyk5UMi3t8a8u5C8QYvrUD5Z4g/O+nUMhlFKD8SKcaCMdz5CZ4RCnUI6eL8CqxQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6245
+X-MS-Exchange-CrossTenant-userprincipalname: ka89WjVZO3i8rR7q+rJhYkOmwtMOmAZyGPgkRnw70mWGLVf4iofDTP0g1fLtES6A
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7531
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,9 +140,43 @@ Cc: "Wong, Alice" <Shiwei.Wong@amd.com>, "Kuehling,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CH0PR12MB5372A1E3E4C24B4F2C3C13BAF48DACH0PR12MB5372namp_
+--_000_CY8PR12MB74359AD0C19743D7DD6F6E6B858DACY8PR12MB7435namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+[Public]
+
+Again, MES only knows to flush if there was something enqueued in the first=
+ place.
+SET_SHADER dictates what's on the process list.
+SET_SHADER can be the last call prior to process termination with nothing e=
+nqueued, hence no MES auto flush occurs.
+
+MES doesn't block anything on the flush flag request.
+The driver guarantees that flush is only done on process termination after =
+device dequeue, whether there were queues or not.
+MES has no idea what an invalid context is.
+It just has a value stored in its linked list that's associated with a driv=
+er allocated BO that no longer exists after process termination.
+
+If you're still not sure about this solution, then this should be discussed=
+ offline with the MES team.
+We're not going to gain ground discussing this here.  The solution has alre=
+ady been merged.
+Feel free to propose a better solution if you're not satisfied with this on=
+e.
+
+Jon
+
+From: Liu, Shaoyun <Shaoyun.Liu@amd.com>
+Sent: Tuesday, December 12, 2023 11:08 PM
+To: Kim, Jonathan <Jonathan.Kim@amd.com>; Huang, JinHuiEric <JinHuiEric.Hua=
+ng@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Wong, Alice <Shiwei.Wong@amd.com>; Kuehling, Felix <Felix.Kuehling@amd.=
+com>; Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
+Subject: Re: [PATCH] drm/amdkfd: fix mes set shader debugger process manage=
+ment
+
 
 [Public]
 
@@ -156,25 +192,33 @@ Shaoyun.liu
 
 Get Outlook for iOS<https://aka.ms/o0ukef>
 ________________________________
-From: Kim, Jonathan <Jonathan.Kim@amd.com>
+From: Kim, Jonathan <Jonathan.Kim@amd.com<mailto:Jonathan.Kim@amd.com>>
 Sent: Tuesday, December 12, 2023 8:19:09 PM
-To: Liu, Shaoyun <Shaoyun.Liu@amd.com>; Huang, JinHuiEric <JinHuiEric.Huang=
-@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Wong, Alice <Shiwei.Wong@amd.com>; Kuehling, Felix <Felix.Kuehling@amd.=
-com>; Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
+To: Liu, Shaoyun <Shaoyun.Liu@amd.com<mailto:Shaoyun.Liu@amd.com>>; Huang, =
+JinHuiEric <JinHuiEric.Huang@amd.com<mailto:JinHuiEric.Huang@amd.com>>; amd=
+-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@l=
+ists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Wong, Alice <Shiwei.Wong@amd.com<mailto:Shiwei.Wong@amd.com>>; Kuehling=
+, Felix <Felix.Kuehling@amd.com<mailto:Felix.Kuehling@amd.com>>; Kasiviswan=
+athan, Harish <Harish.Kasiviswanathan@amd.com<mailto:Harish.Kasiviswanathan=
+@amd.com>>
 Subject: RE: [PATCH] drm/amdkfd: fix mes set shader debugger process manage=
 ment
 
 [Public]
 
 > -----Original Message-----
-> From: Liu, Shaoyun <Shaoyun.Liu@amd.com>
+> From: Liu, Shaoyun <Shaoyun.Liu@amd.com<mailto:Shaoyun.Liu@amd.com>>
 > Sent: Tuesday, December 12, 2023 7:08 PM
-> To: Kim, Jonathan <Jonathan.Kim@amd.com>; Huang, JinHuiEric
-> <JinHuiEric.Huang@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Wong, Alice <Shiwei.Wong@amd.com>; Kuehling, Felix
-> <Felix.Kuehling@amd.com>; Kasiviswanathan, Harish
-> <Harish.Kasiviswanathan@amd.com>
+> To: Kim, Jonathan <Jonathan.Kim@amd.com<mailto:Jonathan.Kim@amd.com>>; Hu=
+ang, JinHuiEric
+> <JinHuiEric.Huang@amd.com<mailto:JinHuiEric.Huang@amd.com>>; amd-gfx@list=
+s.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+> Cc: Wong, Alice <Shiwei.Wong@amd.com<mailto:Shiwei.Wong@amd.com>>; Kuehli=
+ng, Felix
+> <Felix.Kuehling@amd.com<mailto:Felix.Kuehling@amd.com>>; Kasiviswanathan,=
+ Harish
+> <Harish.Kasiviswanathan@amd.com<mailto:Harish.Kasiviswanathan@amd.com>>
 > Subject: RE: [PATCH] drm/amdkfd: fix mes set shader debugger process
 > management
 >
@@ -215,26 +259,34 @@ Jon
 > Shaoyun.liu
 >
 > -----Original Message-----
-> From: Kim, Jonathan <Jonathan.Kim@amd.com>
+> From: Kim, Jonathan <Jonathan.Kim@amd.com<mailto:Jonathan.Kim@amd.com>>
 > Sent: Tuesday, December 12, 2023 6:07 PM
-> To: Liu, Shaoyun <Shaoyun.Liu@amd.com>; Huang, JinHuiEric
-> <JinHuiEric.Huang@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Wong, Alice <Shiwei.Wong@amd.com>; Kuehling, Felix
-> <Felix.Kuehling@amd.com>; Kasiviswanathan, Harish
-> <Harish.Kasiviswanathan@amd.com>
+> To: Liu, Shaoyun <Shaoyun.Liu@amd.com<mailto:Shaoyun.Liu@amd.com>>; Huang=
+, JinHuiEric
+> <JinHuiEric.Huang@amd.com<mailto:JinHuiEric.Huang@amd.com>>; amd-gfx@list=
+s.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+> Cc: Wong, Alice <Shiwei.Wong@amd.com<mailto:Shiwei.Wong@amd.com>>; Kuehli=
+ng, Felix
+> <Felix.Kuehling@amd.com<mailto:Felix.Kuehling@amd.com>>; Kasiviswanathan,=
+ Harish
+> <Harish.Kasiviswanathan@amd.com<mailto:Harish.Kasiviswanathan@amd.com>>
 > Subject: RE: [PATCH] drm/amdkfd: fix mes set shader debugger process
 > management
 >
 > [Public]
 >
 > > -----Original Message-----
-> > From: Liu, Shaoyun <Shaoyun.Liu@amd.com>
+> > From: Liu, Shaoyun <Shaoyun.Liu@amd.com<mailto:Shaoyun.Liu@amd.com>>
 > > Sent: Tuesday, December 12, 2023 5:44 PM
-> > To: Kim, Jonathan <Jonathan.Kim@amd.com>; Huang, JinHuiEric
-> > <JinHuiEric.Huang@amd.com>; amd-gfx@lists.freedesktop.org
-> > Cc: Wong, Alice <Shiwei.Wong@amd.com>; Kuehling, Felix
-> > <Felix.Kuehling@amd.com>; Kasiviswanathan, Harish
-> > <Harish.Kasiviswanathan@amd.com>
+> > To: Kim, Jonathan <Jonathan.Kim@amd.com<mailto:Jonathan.Kim@amd.com>>; =
+Huang, JinHuiEric
+> > <JinHuiEric.Huang@amd.com<mailto:JinHuiEric.Huang@amd.com>>; amd-gfx@li=
+sts.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+> > Cc: Wong, Alice <Shiwei.Wong@amd.com<mailto:Shiwei.Wong@amd.com>>; Kueh=
+ling, Felix
+> > <Felix.Kuehling@amd.com<mailto:Felix.Kuehling@amd.com>>; Kasiviswanatha=
+n, Harish
+> > <Harish.Kasiviswanathan@amd.com<mailto:Harish.Kasiviswanathan@amd.com>>
 > > Subject: RE: [PATCH] drm/amdkfd: fix mes set shader debugger process
 > > management
 > >
@@ -277,26 +329,35 @@ why
 > > Shaoyun.liu
 > >
 > > -----Original Message-----
-> > From: Kim, Jonathan <Jonathan.Kim@amd.com>
+> > From: Kim, Jonathan <Jonathan.Kim@amd.com<mailto:Jonathan.Kim@amd.com>>
 > > Sent: Tuesday, December 12, 2023 4:48 PM
-> > To: Liu, Shaoyun <Shaoyun.Liu@amd.com>; Huang, JinHuiEric
-> > <JinHuiEric.Huang@amd.com>; amd-gfx@lists.freedesktop.org
-> > Cc: Wong, Alice <Shiwei.Wong@amd.com>; Kuehling, Felix
-> > <Felix.Kuehling@amd.com>; Kasiviswanathan, Harish
-> > <Harish.Kasiviswanathan@amd.com>
+> > To: Liu, Shaoyun <Shaoyun.Liu@amd.com<mailto:Shaoyun.Liu@amd.com>>; Hua=
+ng, JinHuiEric
+> > <JinHuiEric.Huang@amd.com<mailto:JinHuiEric.Huang@amd.com>>; amd-gfx@li=
+sts.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+> > Cc: Wong, Alice <Shiwei.Wong@amd.com<mailto:Shiwei.Wong@amd.com>>; Kueh=
+ling, Felix
+> > <Felix.Kuehling@amd.com<mailto:Felix.Kuehling@amd.com>>; Kasiviswanatha=
+n, Harish
+> > <Harish.Kasiviswanathan@amd.com<mailto:Harish.Kasiviswanathan@amd.com>>
 > > Subject: RE: [PATCH] drm/amdkfd: fix mes set shader debugger process
 > > management
 > >
 > > [Public]
 > >
 > > > -----Original Message-----
-> > > From: Liu, Shaoyun <Shaoyun.Liu@amd.com>
+> > > From: Liu, Shaoyun <Shaoyun.Liu@amd.com<mailto:Shaoyun.Liu@amd.com>>
 > > > Sent: Tuesday, December 12, 2023 4:45 PM
-> > > To: Kim, Jonathan <Jonathan.Kim@amd.com>; Huang, JinHuiEric
-> > > <JinHuiEric.Huang@amd.com>; amd-gfx@lists.freedesktop.org
-> > > Cc: Wong, Alice <Shiwei.Wong@amd.com>; Kuehling, Felix
-> > > <Felix.Kuehling@amd.com>; Kasiviswanathan, Harish
-> > > <Harish.Kasiviswanathan@amd.com>
+> > > To: Kim, Jonathan <Jonathan.Kim@amd.com<mailto:Jonathan.Kim@amd.com>>=
+; Huang, JinHuiEric
+> > > <JinHuiEric.Huang@amd.com<mailto:JinHuiEric.Huang@amd.com>>; amd-gfx@=
+lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+> > > Cc: Wong, Alice <Shiwei.Wong@amd.com<mailto:Shiwei.Wong@amd.com>>; Ku=
+ehling, Felix
+> > > <Felix.Kuehling@amd.com<mailto:Felix.Kuehling@amd.com>>; Kasiviswanat=
+han, Harish
+> > > <Harish.Kasiviswanathan@amd.com<mailto:Harish.Kasiviswanathan@amd.com=
+>>
 > > > Subject: RE: [PATCH] drm/amdkfd: fix mes set shader debugger process
 > > > management
 > > >
@@ -316,26 +377,38 @@ why
 > > > Sshaoyun.liu
 > > >
 > > > -----Original Message-----
-> > > From: Kim, Jonathan <Jonathan.Kim@amd.com>
+> > > From: Kim, Jonathan <Jonathan.Kim@amd.com<mailto:Jonathan.Kim@amd.com=
+>>
 > > > Sent: Tuesday, December 12, 2023 4:33 PM
-> > > To: Liu, Shaoyun <Shaoyun.Liu@amd.com>; Huang, JinHuiEric
-> > > <JinHuiEric.Huang@amd.com>; amd-gfx@lists.freedesktop.org
-> > > Cc: Wong, Alice <Shiwei.Wong@amd.com>; Kuehling, Felix
-> > > <Felix.Kuehling@amd.com>; Kasiviswanathan, Harish
-> > > <Harish.Kasiviswanathan@amd.com>
+> > > To: Liu, Shaoyun <Shaoyun.Liu@amd.com<mailto:Shaoyun.Liu@amd.com>>; H=
+uang, JinHuiEric
+> > > <JinHuiEric.Huang@amd.com<mailto:JinHuiEric.Huang@amd.com>>; amd-gfx@=
+lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+> > > Cc: Wong, Alice <Shiwei.Wong@amd.com<mailto:Shiwei.Wong@amd.com>>; Ku=
+ehling, Felix
+> > > <Felix.Kuehling@amd.com<mailto:Felix.Kuehling@amd.com>>; Kasiviswanat=
+han, Harish
+> > > <Harish.Kasiviswanathan@amd.com<mailto:Harish.Kasiviswanathan@amd.com=
+>>
 > > > Subject: RE: [PATCH] drm/amdkfd: fix mes set shader debugger process
 > > > management
 > > >
 > > > [Public]
 > > >
 > > > > -----Original Message-----
-> > > > From: Liu, Shaoyun <Shaoyun.Liu@amd.com>
+> > > > From: Liu, Shaoyun <Shaoyun.Liu@amd.com<mailto:Shaoyun.Liu@amd.com>=
+>
 > > > > Sent: Tuesday, December 12, 2023 4:00 PM
-> > > > To: Huang, JinHuiEric <JinHuiEric.Huang@amd.com>; Kim, Jonathan
-> > > > <Jonathan.Kim@amd.com>; amd-gfx@lists.freedesktop.org
-> > > > Cc: Wong, Alice <Shiwei.Wong@amd.com>; Kuehling, Felix
-> > > > <Felix.Kuehling@amd.com>; Kasiviswanathan, Harish
-> > > > <Harish.Kasiviswanathan@amd.com>
+> > > > To: Huang, JinHuiEric <JinHuiEric.Huang@amd.com<mailto:JinHuiEric.H=
+uang@amd.com>>; Kim, Jonathan
+> > > > <Jonathan.Kim@amd.com<mailto:Jonathan.Kim@amd.com>>; amd-gfx@lists.=
+freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+> > > > Cc: Wong, Alice <Shiwei.Wong@amd.com<mailto:Shiwei.Wong@amd.com>>; =
+Kuehling, Felix
+> > > > <Felix.Kuehling@amd.com<mailto:Felix.Kuehling@amd.com>>; Kasiviswan=
+athan, Harish
+> > > > <Harish.Kasiviswanathan@amd.com<mailto:Harish.Kasiviswanathan@amd.c=
+om>>
 > > > > Subject: RE: [PATCH] drm/amdkfd: fix mes set shader debugger
 > > > > process management
 > > > >
@@ -377,14 +450,19 @@ why
 > > > >
 > > > >
 > > > > -----Original Message-----
-> > > > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> > > > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx=
+-bounces@lists.freedesktop.org>> On Behalf Of
 > > > > Eric Huang
 > > > > Sent: Tuesday, December 12, 2023 12:49 PM
-> > > > To: Kim, Jonathan <Jonathan.Kim@amd.com>; amd-
-> > > > gfx@lists.freedesktop.org
-> > > > Cc: Wong, Alice <Shiwei.Wong@amd.com>; Kuehling, Felix
-> > > > <Felix.Kuehling@amd.com>; Kasiviswanathan, Harish
-> > > > <Harish.Kasiviswanathan@amd.com>
+> > > > To: Kim, Jonathan <Jonathan.Kim@amd.com<mailto:Jonathan.Kim@amd.com=
+>>; amd-
+> > > > gfx@lists.freedesktop.org<mailto:gfx@lists.freedesktop.org>
+> > > > Cc: Wong, Alice <Shiwei.Wong@amd.com<mailto:Shiwei.Wong@amd.com>>; =
+Kuehling, Felix
+> > > > <Felix.Kuehling@amd.com<mailto:Felix.Kuehling@amd.com>>; Kasiviswan=
+athan, Harish
+> > > > <Harish.Kasiviswanathan@amd.com<mailto:Harish.Kasiviswanathan@amd.c=
+om>>
 > > > > Subject: Re: [PATCH] drm/amdkfd: fix mes set shader debugger
 > > > > process management
 > > > >
@@ -426,9 +504,12 @@ ion.
 > > > > > MES interface but are separated as KFD calls to avoid
 > > > > > conflicting with each other.
 > > > > >
-> > > > > Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
-> > > > > Tested-by: Alice Wong <shiwei.wong@amd.com>
-> > > > Reviewed-by: Eric Huang <jinhuieric.huang@amd.com>
+> > > > > Signed-off-by: Jonathan Kim <jonathan.kim@amd.com<mailto:jonathan=
+.kim@amd.com>>
+> > > > > Tested-by: Alice Wong <shiwei.wong@amd.com<mailto:shiwei.wong@amd=
+.com>>
+> > > > Reviewed-by: Eric Huang <jinhuieric.huang@amd.com<mailto:jinhuieric=
+.huang@amd.com>>
 > > > > > ---
 > > > > >   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c       | 31
 > > > > +++++++++++++++++++
@@ -575,70 +656,200 @@ gle_alu_op
 >
 >
 
-
---_000_CH0PR12MB5372A1E3E4C24B4F2C3C13BAF48DACH0PR12MB5372namp_
+--_000_CY8PR12MB74359AD0C19743D7DD6F6E6B858DACY8PR12MB7435namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Malgun Gothic";
+	panose-1:2 11 5 3 2 0 0 2 0 4;}
+@font-face
+	{font-family:"\@Malgun Gothic";}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;
+	mso-ligatures:none;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple" style=3D"word-wrap:brea=
+k-word">
 <p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;font=
 -style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
 [Public]<br>
 </p>
 <br>
 <div>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Again, MES only knows to flush if there was somethin=
+g enqueued in the first place.&nbsp;
+<o:p></o:p></p>
+<p class=3D"MsoNormal">SET_SHADER dictates what&#8217;s on the process list=
+.&nbsp; <o:p></o:p></p>
+<p class=3D"MsoNormal">SET_SHADER can be the last call prior to process ter=
+mination with nothing enqueued, hence no MES auto flush occurs.<o:p></o:p><=
+/p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">MES doesn&#8217;t block anything on the flush flag r=
+equest.&nbsp; <o:p>
+</o:p></p>
+<p class=3D"MsoNormal">The driver guarantees that flush is only done on pro=
+cess termination after device dequeue, whether there were queues or not.<o:=
+p></o:p></p>
+<p class=3D"MsoNormal">MES has no idea what an invalid context is.&nbsp; <o=
+:p></o:p></p>
+<p class=3D"MsoNormal">It just has a value stored in its linked list that&#=
+8217;s associated with a driver allocated BO that no longer exists after pr=
+ocess termination.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">If you&#8217;re still not sure about this solution, =
+then this should be discussed offline with the MES team.<o:p></o:p></p>
+<p class=3D"MsoNormal">We&#8217;re not going to gain ground discussing this=
+ here.&nbsp; The solution has already been merged.<o:p></o:p></p>
+<p class=3D"MsoNormal">Feel free to propose a better solution if you&#8217;=
+re not satisfied with this one.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Jon<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
 <div>
-<div dir=3D"ltr">
-<div dir=3D"ltr">You try to add one new interface to inform mes about the c=
-ontext flush after driver side finish process termination , from my underst=
-anding, mes already know the process context need to be purged after all th=
-e related queues been removed even
- without this notification. What do you expect mes to do about this context=
- flush flag ? Mes should block this process context for next set_sched comm=
-and? Mes can achieve &nbsp;this by ignore the set_sched command with trap d=
-isable parameter on an invalid process
- context .</div>
-<div dir=3D"ltr"><br>
-</div>
-<div dir=3D"ltr">Shaoyun.liu</div>
-</div>
-</div>
-<div id=3D"ms-outlook-mobile-signature">
-<div><br>
-</div>
-Get <a href=3D"https://aka.ms/o0ukef">Outlook for iOS</a></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kim, Jonathan &lt;Jon=
-athan.Kim@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, December 12, 2023 8:19:09 PM<br>
-<b>To:</b> Liu, Shaoyun &lt;Shaoyun.Liu@amd.com&gt;; Huang, JinHuiEric &lt;=
-JinHuiEric.Huang@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lis=
-ts.freedesktop.org&gt;<br>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Liu, Shaoyun &lt;Shaoyun.Liu@amd.com&gt=
+; <br>
+<b>Sent:</b> Tuesday, December 12, 2023 11:08 PM<br>
+<b>To:</b> Kim, Jonathan &lt;Jonathan.Kim@amd.com&gt;; Huang, JinHuiEric &l=
+t;JinHuiEric.Huang@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
 <b>Cc:</b> Wong, Alice &lt;Shiwei.Wong@amd.com&gt;; Kuehling, Felix &lt;Fel=
 ix.Kuehling@amd.com&gt;; Kasiviswanathan, Harish &lt;Harish.Kasiviswanathan=
 @amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amdkfd: fix mes set shader debugger process=
- management</font>
-<div>&nbsp;</div>
+<b>Subject:</b> Re: [PATCH] drm/amdkfd: fix mes set shader debugger process=
+ management<o:p></o:p></p>
 </div>
-<div class=3D"BodyFragment"><font face=3D"Times New Roman" size=3D"3"><span=
- style=3D"font-size:12pt;"><a name=3D"BM_BEGIN"></a>
-<div><font size=3D"2"><span style=3D"font-size:11pt;">[Public]<br>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
+t;Arial&quot;,sans-serif;color:green">[Public]<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal">You try to add one new interface to inform mes about=
+ the context flush after driver side finish process termination , from my u=
+nderstanding, mes already know the process context need to be purged after =
+all the related queues been removed
+ even without this notification. What do you expect mes to do about this co=
+ntext flush flag ? Mes should block this process context for next set_sched=
+ command? Mes can achieve &nbsp;this by ignore the set_sched command with t=
+rap disable parameter on an invalid process
+ context .<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Shaoyun.liu<o:p></o:p></p>
+</div>
+</div>
+</div>
+<div id=3D"ms-outlook-mobile-signature">
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<p class=3D"MsoNormal">Get <a href=3D"https://aka.ms/o0ukef">Outlook for iO=
+S</a><o:p></o:p></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Kim, Jonathan &lt;<a href=3D"mailto:Jonathan.Kim@am=
+d.com">Jonathan.Kim@amd.com</a>&gt;<br>
+<b>Sent:</b> Tuesday, December 12, 2023 8:19:09 PM<br>
+<b>To:</b> Liu, Shaoyun &lt;<a href=3D"mailto:Shaoyun.Liu@amd.com">Shaoyun.=
+Liu@amd.com</a>&gt;; Huang, JinHuiEric &lt;<a href=3D"mailto:JinHuiEric.Hua=
+ng@amd.com">JinHuiEric.Huang@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
+freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Wong, Alice &lt;<a href=3D"mailto:Shiwei.Wong@amd.com">Shiwei.Wo=
+ng@amd.com</a>&gt;; Kuehling, Felix &lt;<a href=3D"mailto:Felix.Kuehling@am=
+d.com">Felix.Kuehling@amd.com</a>&gt;; Kasiviswanathan, Harish &lt;<a href=
+=3D"mailto:Harish.Kasiviswanathan@amd.com">Harish.Kasiviswanathan@amd.com</=
+a>&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdkfd: fix mes set shader debugger process=
+ management</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><a name=3D"BM_BEGIN">=
+</a><span style=3D"font-family:&quot;Times New Roman&quot;,serif">[Public]<=
+br>
 <br>
 &gt; -----Original Message-----<br>
-&gt; From: Liu, Shaoyun &lt;Shaoyun.Liu@amd.com&gt;<br>
+&gt; From: Liu, Shaoyun &lt;<a href=3D"mailto:Shaoyun.Liu@amd.com">Shaoyun.=
+Liu@amd.com</a>&gt;<br>
 &gt; Sent: Tuesday, December 12, 2023 7:08 PM<br>
-&gt; To: Kim, Jonathan &lt;Jonathan.Kim@amd.com&gt;; Huang, JinHuiEric<br>
-&gt; &lt;JinHuiEric.Huang@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
-&gt; Cc: Wong, Alice &lt;Shiwei.Wong@amd.com&gt;; Kuehling, Felix<br>
-&gt; &lt;Felix.Kuehling@amd.com&gt;; Kasiviswanathan, Harish<br>
-&gt; &lt;Harish.Kasiviswanathan@amd.com&gt;<br>
+&gt; To: Kim, Jonathan &lt;<a href=3D"mailto:Jonathan.Kim@amd.com">Jonathan=
+.Kim@amd.com</a>&gt;; Huang, JinHuiEric<br>
+&gt; &lt;<a href=3D"mailto:JinHuiEric.Huang@amd.com">JinHuiEric.Huang@amd.c=
+om</a>&gt;; <a href=3D"mailto:amd-gfx@lists.freedesktop.org">
+amd-gfx@lists.freedesktop.org</a><br>
+&gt; Cc: Wong, Alice &lt;<a href=3D"mailto:Shiwei.Wong@amd.com">Shiwei.Wong=
+@amd.com</a>&gt;; Kuehling, Felix<br>
+&gt; &lt;<a href=3D"mailto:Felix.Kuehling@amd.com">Felix.Kuehling@amd.com</=
+a>&gt;; Kasiviswanathan, Harish<br>
+&gt; &lt;<a href=3D"mailto:Harish.Kasiviswanathan@amd.com">Harish.Kasiviswa=
+nathan@amd.com</a>&gt;<br>
 &gt; Subject: RE: [PATCH] drm/amdkfd: fix mes set shader debugger process<b=
 r>
 &gt; management<br>
@@ -682,13 +893,20 @@ Jon<br>
 &gt; Shaoyun.liu<br>
 &gt;<br>
 &gt; -----Original Message-----<br>
-&gt; From: Kim, Jonathan &lt;Jonathan.Kim@amd.com&gt;<br>
+&gt; From: Kim, Jonathan &lt;<a href=3D"mailto:Jonathan.Kim@amd.com">Jonath=
+an.Kim@amd.com</a>&gt;<br>
 &gt; Sent: Tuesday, December 12, 2023 6:07 PM<br>
-&gt; To: Liu, Shaoyun &lt;Shaoyun.Liu@amd.com&gt;; Huang, JinHuiEric<br>
-&gt; &lt;JinHuiEric.Huang@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
-&gt; Cc: Wong, Alice &lt;Shiwei.Wong@amd.com&gt;; Kuehling, Felix<br>
-&gt; &lt;Felix.Kuehling@amd.com&gt;; Kasiviswanathan, Harish<br>
-&gt; &lt;Harish.Kasiviswanathan@amd.com&gt;<br>
+&gt; To: Liu, Shaoyun &lt;<a href=3D"mailto:Shaoyun.Liu@amd.com">Shaoyun.Li=
+u@amd.com</a>&gt;; Huang, JinHuiEric<br>
+&gt; &lt;<a href=3D"mailto:JinHuiEric.Huang@amd.com">JinHuiEric.Huang@amd.c=
+om</a>&gt;; <a href=3D"mailto:amd-gfx@lists.freedesktop.org">
+amd-gfx@lists.freedesktop.org</a><br>
+&gt; Cc: Wong, Alice &lt;<a href=3D"mailto:Shiwei.Wong@amd.com">Shiwei.Wong=
+@amd.com</a>&gt;; Kuehling, Felix<br>
+&gt; &lt;<a href=3D"mailto:Felix.Kuehling@amd.com">Felix.Kuehling@amd.com</=
+a>&gt;; Kasiviswanathan, Harish<br>
+&gt; &lt;<a href=3D"mailto:Harish.Kasiviswanathan@amd.com">Harish.Kasiviswa=
+nathan@amd.com</a>&gt;<br>
 &gt; Subject: RE: [PATCH] drm/amdkfd: fix mes set shader debugger process<b=
 r>
 &gt; management<br>
@@ -696,15 +914,20 @@ r>
 &gt; [Public]<br>
 &gt;<br>
 &gt; &gt; -----Original Message-----<br>
-&gt; &gt; From: Liu, Shaoyun &lt;Shaoyun.Liu@amd.com&gt;<br>
+&gt; &gt; From: Liu, Shaoyun &lt;<a href=3D"mailto:Shaoyun.Liu@amd.com">Sha=
+oyun.Liu@amd.com</a>&gt;<br>
 &gt; &gt; Sent: Tuesday, December 12, 2023 5:44 PM<br>
-&gt; &gt; To: Kim, Jonathan &lt;Jonathan.Kim@amd.com&gt;; Huang, JinHuiEric=
-<br>
-&gt; &gt; &lt;JinHuiEric.Huang@amd.com&gt;; amd-gfx@lists.freedesktop.org<b=
-r>
-&gt; &gt; Cc: Wong, Alice &lt;Shiwei.Wong@amd.com&gt;; Kuehling, Felix<br>
-&gt; &gt; &lt;Felix.Kuehling@amd.com&gt;; Kasiviswanathan, Harish<br>
-&gt; &gt; &lt;Harish.Kasiviswanathan@amd.com&gt;<br>
+&gt; &gt; To: Kim, Jonathan &lt;<a href=3D"mailto:Jonathan.Kim@amd.com">Jon=
+athan.Kim@amd.com</a>&gt;; Huang, JinHuiEric<br>
+&gt; &gt; &lt;<a href=3D"mailto:JinHuiEric.Huang@amd.com">JinHuiEric.Huang@=
+amd.com</a>&gt;; <a href=3D"mailto:amd-gfx@lists.freedesktop.org">
+amd-gfx@lists.freedesktop.org</a><br>
+&gt; &gt; Cc: Wong, Alice &lt;<a href=3D"mailto:Shiwei.Wong@amd.com">Shiwei=
+.Wong@amd.com</a>&gt;; Kuehling, Felix<br>
+&gt; &gt; &lt;<a href=3D"mailto:Felix.Kuehling@amd.com">Felix.Kuehling@amd.=
+com</a>&gt;; Kasiviswanathan, Harish<br>
+&gt; &gt; &lt;<a href=3D"mailto:Harish.Kasiviswanathan@amd.com">Harish.Kasi=
+viswanathan@amd.com</a>&gt;<br>
 &gt; &gt; Subject: RE: [PATCH] drm/amdkfd: fix mes set shader debugger proc=
 ess<br>
 &gt; &gt; management<br>
@@ -758,15 +981,20 @@ d<br>
 &gt; &gt; Shaoyun.liu<br>
 &gt; &gt;<br>
 &gt; &gt; -----Original Message-----<br>
-&gt; &gt; From: Kim, Jonathan &lt;Jonathan.Kim@amd.com&gt;<br>
+&gt; &gt; From: Kim, Jonathan &lt;<a href=3D"mailto:Jonathan.Kim@amd.com">J=
+onathan.Kim@amd.com</a>&gt;<br>
 &gt; &gt; Sent: Tuesday, December 12, 2023 4:48 PM<br>
-&gt; &gt; To: Liu, Shaoyun &lt;Shaoyun.Liu@amd.com&gt;; Huang, JinHuiEric<b=
-r>
-&gt; &gt; &lt;JinHuiEric.Huang@amd.com&gt;; amd-gfx@lists.freedesktop.org<b=
-r>
-&gt; &gt; Cc: Wong, Alice &lt;Shiwei.Wong@amd.com&gt;; Kuehling, Felix<br>
-&gt; &gt; &lt;Felix.Kuehling@amd.com&gt;; Kasiviswanathan, Harish<br>
-&gt; &gt; &lt;Harish.Kasiviswanathan@amd.com&gt;<br>
+&gt; &gt; To: Liu, Shaoyun &lt;<a href=3D"mailto:Shaoyun.Liu@amd.com">Shaoy=
+un.Liu@amd.com</a>&gt;; Huang, JinHuiEric<br>
+&gt; &gt; &lt;<a href=3D"mailto:JinHuiEric.Huang@amd.com">JinHuiEric.Huang@=
+amd.com</a>&gt;; <a href=3D"mailto:amd-gfx@lists.freedesktop.org">
+amd-gfx@lists.freedesktop.org</a><br>
+&gt; &gt; Cc: Wong, Alice &lt;<a href=3D"mailto:Shiwei.Wong@amd.com">Shiwei=
+.Wong@amd.com</a>&gt;; Kuehling, Felix<br>
+&gt; &gt; &lt;<a href=3D"mailto:Felix.Kuehling@amd.com">Felix.Kuehling@amd.=
+com</a>&gt;; Kasiviswanathan, Harish<br>
+&gt; &gt; &lt;<a href=3D"mailto:Harish.Kasiviswanathan@amd.com">Harish.Kasi=
+viswanathan@amd.com</a>&gt;<br>
 &gt; &gt; Subject: RE: [PATCH] drm/amdkfd: fix mes set shader debugger proc=
 ess<br>
 &gt; &gt; management<br>
@@ -774,16 +1002,20 @@ ess<br>
 &gt; &gt; [Public]<br>
 &gt; &gt;<br>
 &gt; &gt; &gt; -----Original Message-----<br>
-&gt; &gt; &gt; From: Liu, Shaoyun &lt;Shaoyun.Liu@amd.com&gt;<br>
+&gt; &gt; &gt; From: Liu, Shaoyun &lt;<a href=3D"mailto:Shaoyun.Liu@amd.com=
+">Shaoyun.Liu@amd.com</a>&gt;<br>
 &gt; &gt; &gt; Sent: Tuesday, December 12, 2023 4:45 PM<br>
-&gt; &gt; &gt; To: Kim, Jonathan &lt;Jonathan.Kim@amd.com&gt;; Huang, JinHu=
-iEric<br>
-&gt; &gt; &gt; &lt;JinHuiEric.Huang@amd.com&gt;; amd-gfx@lists.freedesktop.=
-org<br>
-&gt; &gt; &gt; Cc: Wong, Alice &lt;Shiwei.Wong@amd.com&gt;; Kuehling, Felix=
-<br>
-&gt; &gt; &gt; &lt;Felix.Kuehling@amd.com&gt;; Kasiviswanathan, Harish<br>
-&gt; &gt; &gt; &lt;Harish.Kasiviswanathan@amd.com&gt;<br>
+&gt; &gt; &gt; To: Kim, Jonathan &lt;<a href=3D"mailto:Jonathan.Kim@amd.com=
+">Jonathan.Kim@amd.com</a>&gt;; Huang, JinHuiEric<br>
+&gt; &gt; &gt; &lt;<a href=3D"mailto:JinHuiEric.Huang@amd.com">JinHuiEric.H=
+uang@amd.com</a>&gt;; <a href=3D"mailto:amd-gfx@lists.freedesktop.org">
+amd-gfx@lists.freedesktop.org</a><br>
+&gt; &gt; &gt; Cc: Wong, Alice &lt;<a href=3D"mailto:Shiwei.Wong@amd.com">S=
+hiwei.Wong@amd.com</a>&gt;; Kuehling, Felix<br>
+&gt; &gt; &gt; &lt;<a href=3D"mailto:Felix.Kuehling@amd.com">Felix.Kuehling=
+@amd.com</a>&gt;; Kasiviswanathan, Harish<br>
+&gt; &gt; &gt; &lt;<a href=3D"mailto:Harish.Kasiviswanathan@amd.com">Harish=
+.Kasiviswanathan@amd.com</a>&gt;<br>
 &gt; &gt; &gt; Subject: RE: [PATCH] drm/amdkfd: fix mes set shader debugger=
  process<br>
 &gt; &gt; &gt; management<br>
@@ -807,16 +1039,20 @@ rocess context<br>
 &gt; &gt; &gt; Sshaoyun.liu<br>
 &gt; &gt; &gt;<br>
 &gt; &gt; &gt; -----Original Message-----<br>
-&gt; &gt; &gt; From: Kim, Jonathan &lt;Jonathan.Kim@amd.com&gt;<br>
+&gt; &gt; &gt; From: Kim, Jonathan &lt;<a href=3D"mailto:Jonathan.Kim@amd.c=
+om">Jonathan.Kim@amd.com</a>&gt;<br>
 &gt; &gt; &gt; Sent: Tuesday, December 12, 2023 4:33 PM<br>
-&gt; &gt; &gt; To: Liu, Shaoyun &lt;Shaoyun.Liu@amd.com&gt;; Huang, JinHuiE=
-ric<br>
-&gt; &gt; &gt; &lt;JinHuiEric.Huang@amd.com&gt;; amd-gfx@lists.freedesktop.=
-org<br>
-&gt; &gt; &gt; Cc: Wong, Alice &lt;Shiwei.Wong@amd.com&gt;; Kuehling, Felix=
-<br>
-&gt; &gt; &gt; &lt;Felix.Kuehling@amd.com&gt;; Kasiviswanathan, Harish<br>
-&gt; &gt; &gt; &lt;Harish.Kasiviswanathan@amd.com&gt;<br>
+&gt; &gt; &gt; To: Liu, Shaoyun &lt;<a href=3D"mailto:Shaoyun.Liu@amd.com">=
+Shaoyun.Liu@amd.com</a>&gt;; Huang, JinHuiEric<br>
+&gt; &gt; &gt; &lt;<a href=3D"mailto:JinHuiEric.Huang@amd.com">JinHuiEric.H=
+uang@amd.com</a>&gt;; <a href=3D"mailto:amd-gfx@lists.freedesktop.org">
+amd-gfx@lists.freedesktop.org</a><br>
+&gt; &gt; &gt; Cc: Wong, Alice &lt;<a href=3D"mailto:Shiwei.Wong@amd.com">S=
+hiwei.Wong@amd.com</a>&gt;; Kuehling, Felix<br>
+&gt; &gt; &gt; &lt;<a href=3D"mailto:Felix.Kuehling@amd.com">Felix.Kuehling=
+@amd.com</a>&gt;; Kasiviswanathan, Harish<br>
+&gt; &gt; &gt; &lt;<a href=3D"mailto:Harish.Kasiviswanathan@amd.com">Harish=
+.Kasiviswanathan@amd.com</a>&gt;<br>
 &gt; &gt; &gt; Subject: RE: [PATCH] drm/amdkfd: fix mes set shader debugger=
  process<br>
 &gt; &gt; &gt; management<br>
@@ -824,17 +1060,20 @@ org<br>
 &gt; &gt; &gt; [Public]<br>
 &gt; &gt; &gt;<br>
 &gt; &gt; &gt; &gt; -----Original Message-----<br>
-&gt; &gt; &gt; &gt; From: Liu, Shaoyun &lt;Shaoyun.Liu@amd.com&gt;<br>
+&gt; &gt; &gt; &gt; From: Liu, Shaoyun &lt;<a href=3D"mailto:Shaoyun.Liu@am=
+d.com">Shaoyun.Liu@amd.com</a>&gt;<br>
 &gt; &gt; &gt; &gt; Sent: Tuesday, December 12, 2023 4:00 PM<br>
-&gt; &gt; &gt; &gt; To: Huang, JinHuiEric &lt;JinHuiEric.Huang@amd.com&gt;;=
- Kim, Jonathan<br>
-&gt; &gt; &gt; &gt; &lt;Jonathan.Kim@amd.com&gt;; amd-gfx@lists.freedesktop=
-.org<br>
-&gt; &gt; &gt; &gt; Cc: Wong, Alice &lt;Shiwei.Wong@amd.com&gt;; Kuehling, =
-Felix<br>
-&gt; &gt; &gt; &gt; &lt;Felix.Kuehling@amd.com&gt;; Kasiviswanathan, Harish=
-<br>
-&gt; &gt; &gt; &gt; &lt;Harish.Kasiviswanathan@amd.com&gt;<br>
+&gt; &gt; &gt; &gt; To: Huang, JinHuiEric &lt;<a href=3D"mailto:JinHuiEric.=
+Huang@amd.com">JinHuiEric.Huang@amd.com</a>&gt;; Kim, Jonathan<br>
+&gt; &gt; &gt; &gt; &lt;<a href=3D"mailto:Jonathan.Kim@amd.com">Jonathan.Ki=
+m@amd.com</a>&gt;; <a href=3D"mailto:amd-gfx@lists.freedesktop.org">
+amd-gfx@lists.freedesktop.org</a><br>
+&gt; &gt; &gt; &gt; Cc: Wong, Alice &lt;<a href=3D"mailto:Shiwei.Wong@amd.c=
+om">Shiwei.Wong@amd.com</a>&gt;; Kuehling, Felix<br>
+&gt; &gt; &gt; &gt; &lt;<a href=3D"mailto:Felix.Kuehling@amd.com">Felix.Kue=
+hling@amd.com</a>&gt;; Kasiviswanathan, Harish<br>
+&gt; &gt; &gt; &gt; &lt;<a href=3D"mailto:Harish.Kasiviswanathan@amd.com">H=
+arish.Kasiviswanathan@amd.com</a>&gt;<br>
 &gt; &gt; &gt; &gt; Subject: RE: [PATCH] drm/amdkfd: fix mes set shader deb=
 ugger<br>
 &gt; &gt; &gt; &gt; process management<br>
@@ -894,18 +1133,21 @@ us way.<br>
 &gt; &gt; &gt; &gt;<br>
 &gt; &gt; &gt; &gt;<br>
 &gt; &gt; &gt; &gt; -----Original Message-----<br>
-&gt; &gt; &gt; &gt; From: amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org=
-&gt; On Behalf Of<br>
+&gt; &gt; &gt; &gt; From: amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lis=
+ts.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a>&gt; On Behalf=
+ Of<br>
 &gt; &gt; &gt; &gt; Eric Huang<br>
 &gt; &gt; &gt; &gt; Sent: Tuesday, December 12, 2023 12:49 PM<br>
-&gt; &gt; &gt; &gt; To: Kim, Jonathan &lt;Jonathan.Kim@amd.com&gt;; amd-<br=
->
-&gt; &gt; &gt; &gt; gfx@lists.freedesktop.org<br>
-&gt; &gt; &gt; &gt; Cc: Wong, Alice &lt;Shiwei.Wong@amd.com&gt;; Kuehling, =
-Felix<br>
-&gt; &gt; &gt; &gt; &lt;Felix.Kuehling@amd.com&gt;; Kasiviswanathan, Harish=
-<br>
-&gt; &gt; &gt; &gt; &lt;Harish.Kasiviswanathan@amd.com&gt;<br>
+&gt; &gt; &gt; &gt; To: Kim, Jonathan &lt;<a href=3D"mailto:Jonathan.Kim@am=
+d.com">Jonathan.Kim@amd.com</a>&gt;; amd-<br>
+&gt; &gt; &gt; &gt; <a href=3D"mailto:gfx@lists.freedesktop.org">gfx@lists.=
+freedesktop.org</a><br>
+&gt; &gt; &gt; &gt; Cc: Wong, Alice &lt;<a href=3D"mailto:Shiwei.Wong@amd.c=
+om">Shiwei.Wong@amd.com</a>&gt;; Kuehling, Felix<br>
+&gt; &gt; &gt; &gt; &lt;<a href=3D"mailto:Felix.Kuehling@amd.com">Felix.Kue=
+hling@amd.com</a>&gt;; Kasiviswanathan, Harish<br>
+&gt; &gt; &gt; &gt; &lt;<a href=3D"mailto:Harish.Kasiviswanathan@amd.com">H=
+arish.Kasiviswanathan@amd.com</a>&gt;<br>
 &gt; &gt; &gt; &gt; Subject: Re: [PATCH] drm/amdkfd: fix mes set shader deb=
 ugger<br>
 &gt; &gt; &gt; &gt; process management<br>
@@ -965,12 +1207,12 @@ s use the same<br>
 oid<br>
 &gt; &gt; &gt; &gt; &gt; conflicting with each other.<br>
 &gt; &gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt; &gt; &gt; Signed-off-by: Jonathan Kim &lt;jonathan.kim@amd.c=
-om&gt;<br>
-&gt; &gt; &gt; &gt; &gt; Tested-by: Alice Wong &lt;shiwei.wong@amd.com&gt;<=
-br>
-&gt; &gt; &gt; &gt; Reviewed-by: Eric Huang &lt;jinhuieric.huang@amd.com&gt=
-;<br>
+&gt; &gt; &gt; &gt; &gt; Signed-off-by: Jonathan Kim &lt;<a href=3D"mailto:=
+jonathan.kim@amd.com">jonathan.kim@amd.com</a>&gt;<br>
+&gt; &gt; &gt; &gt; &gt; Tested-by: Alice Wong &lt;<a href=3D"mailto:shiwei=
+.wong@amd.com">shiwei.wong@amd.com</a>&gt;<br>
+&gt; &gt; &gt; &gt; Reviewed-by: Eric Huang &lt;<a href=3D"mailto:jinhuieri=
+c.huang@amd.com">jinhuieric.huang@amd.com</a>&gt;<br>
 &gt; &gt; &gt; &gt; &gt; ---<br>
 &gt; &gt; &gt; &gt; &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_mes.=
 c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 31<br>
@@ -1227,12 +1469,15 @@ sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t u32all;<br>
 &gt; &gt;<br>
 &gt; &gt;<br>
 &gt;<br>
-&gt;<br>
-<br>
-</span></font></div>
-</span></font></div>
+&gt;</span><span style=3D"font-size:12.0pt;font-family:&quot;Times New Roma=
+n&quot;,serif"><o:p></o:p></span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </body>
 </html>
 
---_000_CH0PR12MB5372A1E3E4C24B4F2C3C13BAF48DACH0PR12MB5372namp_--
+--_000_CY8PR12MB74359AD0C19743D7DD6F6E6B858DACY8PR12MB7435namp_--
