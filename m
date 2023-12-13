@@ -4,62 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E07FC4332F
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Dec 2023 19:44:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57BFCC4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Dec 2023 20:31:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4B9610E7EE;
-	Wed, 13 Dec 2023 19:44:56 +0000 (UTC)
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
- [IPv6:2001:4860:4864:20::2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BFB110E7EE
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Dec 2023 19:44:55 +0000 (UTC)
-Received: by mail-oa1-x2c.google.com with SMTP id
- 586e51a60fabf-203198c9aa5so1039377fac.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Dec 2023 11:44:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1702496694; x=1703101494; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Jxz50Q9h5N8BuDMjDAXa/uil5mwnNC0OLP+UwU3EH78=;
- b=BZ5WOZT6t9fXxsTkzcL5Nd5e4dzrpuyZbz3DkfTsQ/mduAhguHRG1fKe+0NhYvVXTb
- 40usV2KzPLQT60lSImosAfz3p4kNeMR8EdIz3TQd3lt6bITlod7cyQwxBu9+w4bzRa41
- MVkc3tlb3GdqbLpPYPl0mcQaaVRFclOU3BKyXlfNe4Kx+iEn9tJH//eC9JvW0cq6/CQ/
- T0aVoNUJTxJLJvb29RN43gKLtrRMdxmDLpKE55fAhLtq92O/fDJVNViBxBEJd02NH+Ng
- wardALFVGuKGfm+dto3FTu3a1vHnQjSaXqiOXntCqAdJe6k+e4y4JpORONuh4+PGBuiW
- +v8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702496694; x=1703101494;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Jxz50Q9h5N8BuDMjDAXa/uil5mwnNC0OLP+UwU3EH78=;
- b=f1Q0A6ns98LUzwAMLVkfh+lijOWXOStP93YIZXJAuFSMqCpSez+JWikQvZWJ4FJLfF
- bUZnGSFB5lMsC4QoZjv+gHqM+p0aUCP79j5G2+BGM2Y8iNPF2gMrHMX2/V6eUPuzuH1Z
- 9G5DXcX2oMA8SeSdbTEteIm+3xoscAltMAtugZTW/llO+nuCz/dRJqle4tfBLFslG0BE
- F/FWGrvBwrVJsiJL4ftND1D3e89rK0gFvkXs12f/MgaIu6NRaPbVbAKlRCy8CDjqGa3c
- qTrTR9XG4IIfcx8E612puhUdw9sIFSfgskyFVzNljNm+iGF+D4wuOp1qXWNkcrAe53hs
- M1xw==
-X-Gm-Message-State: AOJu0YwhsVBZLonHIed6gKBecswRWeKoWS4+oB4Hk08xfmjVTfP6TeN0
- OohaniUrlwQz5MTE7rnsorIp4Sq1Pm2A4ZJNNhE=
-X-Google-Smtp-Source: AGHT+IFQ/IvfYvlggwT+lZ+IVE+tsFV5zNzne40K9JXV+ZmVEN1cRMMvqmS7G66NGtrnf5xewXXT/qDGfpcGFBy1hdg=
-X-Received: by 2002:a05:6871:146:b0:1fb:1373:c889 with SMTP id
- z6-20020a056871014600b001fb1373c889mr10223753oab.102.1702496694160; Wed, 13
- Dec 2023 11:44:54 -0800 (PST)
-MIME-Version: 1.0
-References: <20231213170454.5962-1-mario.limonciello@amd.com>
- <CADnq5_O=Kp+TkSEHXxSPEtWEYknFL_e_D7m5nXN=y8CJrR950g@mail.gmail.com>
- <38da4566-d936-42d9-9879-eee993270da0@amd.com>
- <13694238-418a-4fcb-8921-f9ab31e08120@amd.com>
-In-Reply-To: <13694238-418a-4fcb-8921-f9ab31e08120@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 13 Dec 2023 14:44:42 -0500
-Message-ID: <CADnq5_MkkWqLyC3VYbTXSX7JL2Q5aaeJ6sFT9ROXjqdVfsXgjw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Add a workaround for GFX11 systems that fail to
+	by gabe.freedesktop.org (Postfix) with ESMTP id D516110E153;
+	Wed, 13 Dec 2023 20:31:37 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2080.outbound.protection.outlook.com [40.107.243.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06EC710E153
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Dec 2023 20:31:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bSvVcWgSYxlv8HdIEvzwDRiSKZFTzTW7YfJ397m2+sWxHqT90cacGrfjI+Qlxzt+jnaWoiGS+j5RKuzvhnmXRkBp44BHjB3zYQDBv6VwjgVyu1o7mHsRI0+9QXgOcg9foo8oRPfYhon+k1MBrWtuyHUsh5TGhLkl1EW6FMYG1yMLutLwzDNB2jYKQueOkbgue20BYLIel6TpYcsYIm7rTjmAc6ozx2xRiypg6hz0r4p+ys43acn3CVN5k92Lh9JZKHwZsHPFNoD4rWVKhc1hPraoZLKfKYqSpVH/p899ufrDB+zHu3BuAAb2cyk5/JmiQhjq/Gt64wLq8HT0g8R35Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YhJlwcTRCoHiwqbj584NQJIEP/pW5TCqJgbuBJYnM4E=;
+ b=g6AOOR/bqvieIt64o/ihW9QPFMiuvrQNoqK35VPeoXRGUGgE4L9ZwpQoWyyt9CJgL644BNr77YfQwk1NVizIVZinjIWe7BIYmery7ek3GI1LYgMWyrFNrvruD0KibVXBomn31WQ6FMt7wynxEAN8G5UcYyqvvUayoQc4QB+GgjFUkGSV7xd+xuANPKffPbWMGWgLvzHvVZwP72TSaNbCzRFJdTxIgE9Qv0C+hV/Sm0rb822FpGMEOGmDwpYpG2G8Cp0B/FHJpXJQZ+vWGWCA7+WItPSQBChNKrr5IFM5ty/X2X36uGHDNqK4+bd2F0yEEQZWiil0riYGH43itQW9+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YhJlwcTRCoHiwqbj584NQJIEP/pW5TCqJgbuBJYnM4E=;
+ b=JYSsCsXNO7Bz1uYibkqTf+YrpSh3zMFq7CQwARlO5lTcSRnzKb9waYpTZAxG2BTii8atOvvB1VQgx8S2Ua1Xz9TFNaGcaugSTtwKDFUBWfK18x3ofvZ/wa63MviE0m8Lja1lVO/1K+y6P+4dJapr6r7Fg/gcvR9F7dCOsH7hugI=
+Received: from DS7P222CA0007.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::24) by
+ SA1PR12MB6948.namprd12.prod.outlook.com (2603:10b6:806:24f::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.26; Wed, 13 Dec
+ 2023 20:31:33 +0000
+Received: from DS2PEPF0000343D.namprd02.prod.outlook.com
+ (2603:10b6:8:2e:cafe::78) by DS7P222CA0007.outlook.office365.com
+ (2603:10b6:8:2e::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.26 via Frontend
+ Transport; Wed, 13 Dec 2023 20:31:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS2PEPF0000343D.mail.protection.outlook.com (10.167.18.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7091.26 via Frontend Transport; Wed, 13 Dec 2023 20:31:32 +0000
+Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 13 Dec
+ 2023 14:31:32 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amd: Add a workaround for GFX11 systems that fail to
  flush TLB
-To: Mario Limonciello <mario.limonciello@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Date: Wed, 13 Dec 2023 14:31:18 -0600
+Message-ID: <20231213203118.6428-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343D:EE_|SA1PR12MB6948:EE_
+X-MS-Office365-Filtering-Correlation-Id: 721fea56-bbd7-4a68-1ac7-08dbfc1a7ec4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: KPd0OETMGlHxNflpkJ9TIZnWujIsuvLYpMr0YL1DyyHWDxB/Cd8QWGAzj9bapv6BTI8fn9xecTRz+2FQxhwbFVI4wWYZaFUZay5mQGKPOi3iqy9YHn9FohL5PfAmcfrLm2vTA1XfbT3n/KUcu4YYRrkbHN5dKHK03UFy08Qf1i8w3pZCJvkJZBo9Hg9GjWTXbMKPCEwdc+zLfa+R3d+HBoYQ2++NIFliHlQJ/rDYDNF+DN2iSy5qGvL1betxpR0Pr/egY0yutd1vtDnG7Uz8Nfz18MfGnilSXLLFLhQoQkpBAJzauDSU0u8SHO4IjsH4oQvYW+AQdUlDcVInvfcSTAOjW127VZ92c9qPdlvPsG1/PvERRyOV6ICAmQtF2ovhY8vWsiQ1seAFIaF0Ssrlud5oxUm646QA/MmQBKC14J8K413CpYzxYoVElxSJjvD6W0LTDxXkUWWKk9EpU1yVqPlpbDo6CHEU/rD+v/RQ+wfpwZi/objEzRHfH9TOSjZmRCs5gE2ORLZ5rYIEAuM1xgwOjCRzoK1qkZ5SlFLqLtf/C6O/pTRp+Q7P7gIAe/IYImkhjRdV2FRUFJ5R3+xXEKbVL425N0C4VzofBK2/HO40B2lVBtkQZ6AO9yhfQZ/woNA2vQq9TBE2QyrrUfgcNEVl/PLpiy43peVA5ynIA0qy5Dgljn7ZqsLP8S3g7smRWRyhVw0NfqHn3WOQmyT2v5VVsbmLeWcUL8NEN+0VNN3lZf4h3j4y8j0rUIv+o/dF
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(136003)(39860400002)(396003)(376002)(346002)(230922051799003)(64100799003)(1800799012)(186009)(451199024)(82310400011)(40470700004)(36840700001)(46966006)(40480700001)(6666004)(44832011)(36860700001)(5660300002)(7696005)(966005)(40460700003)(4326008)(41300700001)(47076005)(8936002)(81166007)(82740400003)(36756003)(356005)(2906002)(86362001)(426003)(83380400001)(336012)(8676002)(70586007)(16526019)(1076003)(6916009)(70206006)(26005)(2616005)(478600001)(54906003)(316002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2023 20:31:32.8406 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 721fea56-bbd7-4a68-1ac7-08dbfc1a7ec4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6948
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,238 +98,125 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tim Huang <Tim.Huang@amd.com>, stable@vger.kernel.org,
- Christian Koenig <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Tim Huang <Tim.Huang@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, stable@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 13, 2023 at 2:32=E2=80=AFPM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> On 12/13/2023 13:12, Mario Limonciello wrote:
-> > On 12/13/2023 13:07, Alex Deucher wrote:
-> >> On Wed, Dec 13, 2023 at 1:00=E2=80=AFPM Mario Limonciello
-> >> <mario.limonciello@amd.com> wrote:
-> >>>
-> >>> Some systems with MP1 13.0.4 or 13.0.11 have a firmware bug that
-> >>> causes the first MES packet after resume to fail. This packet is
-> >>> used to flush the TLB when GART is enabled.
-> >>>
-> >>> This issue is fixed in newer firmware, but as OEMs may not roll this
-> >>> out to the field, introduce a workaround that will retry the flush
-> >>> when detecting running on an older firmware and decrease relevant
-> >>> error messages to debug while workaround is in use.
-> >>>
-> >>> Cc: stable@vger.kernel.org # 6.1+
-> >>> Cc: Tim Huang <Tim.Huang@amd.com>
-> >>> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3045
-> >>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> >>> ---
-> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 10 ++++++++--
-> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |  2 ++
-> >>>   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  | 17 ++++++++++++++++-
-> >>>   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  |  8 ++++++--
-> >>>   4 files changed, 32 insertions(+), 5 deletions(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> >>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> >>> index 9ddbf1494326..6ce3f6e6b6de 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> >>> @@ -836,8 +836,14 @@ int amdgpu_mes_reg_write_reg_wait(struct
-> >>> amdgpu_device *adev,
-> >>>          }
-> >>>
-> >>>          r =3D adev->mes.funcs->misc_op(&adev->mes, &op_input);
-> >>> -       if (r)
-> >>> -               DRM_ERROR("failed to reg_write_reg_wait\n");
-> >>> +       if (r) {
-> >>> +               const char *msg =3D "failed to reg_write_reg_wait\n";
-> >>> +
-> >>> +               if (adev->mes.suspend_workaround)
-> >>> +                       DRM_DEBUG(msg);
-> >>> +               else
-> >>> +                       DRM_ERROR(msg);
-> >>> +       }
-> >>>
-> >>>   error:
-> >>>          return r;
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> >>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> >>> index a27b424ffe00..90f2bba3b12b 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> >>> @@ -135,6 +135,8 @@ struct amdgpu_mes {
-> >>>
-> >>>          /* ip specific functions */
-> >>>          const struct amdgpu_mes_funcs   *funcs;
-> >>> +
-> >>> +       bool                            suspend_workaround;
-> >>>   };
-> >>>
-> >>>   struct amdgpu_mes_process {
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> >>> b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> >>> index 23d7b548d13f..e810c7bb3156 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> >>> @@ -889,7 +889,11 @@ static int gmc_v11_0_gart_enable(struct
-> >>> amdgpu_device *adev)
-> >>>                  false : true;
-> >>>
-> >>>          adev->mmhub.funcs->set_fault_enable_default(adev, value);
-> >>> -       gmc_v11_0_flush_gpu_tlb(adev, 0, AMDGPU_MMHUB0(0), 0);
-> >>> +
-> >>> +       do {
-> >>> +               gmc_v11_0_flush_gpu_tlb(adev, 0, AMDGPU_MMHUB0(0), 0)=
-;
-> >>> +               adev->mes.suspend_workaround =3D false;
-> >>> +       } while (adev->mes.suspend_workaround);
-> >>
-> >> Shouldn't this be something like:
-> >>
-> >>> +       do {
-> >>> +               gmc_v11_0_flush_gpu_tlb(adev, 0, AMDGPU_MMHUB0(0), 0)=
-;
-> >>> +               adev->mes.suspend_workaround =3D false;
-> >>> +               gmc_v11_0_flush_gpu_tlb(adev, 0, AMDGPU_MMHUB0(0), 0)=
-;
-> >>> +       } while (adev->mes.suspend_workaround);
-> >>
-> >> If we actually need the flush.  Maybe a better approach would be to
-> >> check if we are in s0ix in
-> >
-> > Ah you're right; I had shifted this around to keep less stateful
-> > variables and push them up the stack from when I first made it and that
-> > logic is wrong now.
-> >
-> > I don't think the one you suggested is right either; it's going to appl=
-y
-> > twice on ASICs that only need it once.
-> >
-> > I guess pending on what Christian comments on below I'll respin to logi=
-c
-> > that only calls twice on resume for these ASICs.
->
-> One more comment.  Tim and I both did an experiment for this (skipping
-> the flush) separately.  The problem isn't the flush itself, rather it's
-> the first MES packet after exiting GFXOFF.
->
-> So it seems that it pushes off the issue to the next thing which is a
-> ring buffer test:
->
-> [drm:amdgpu_ib_ring_tests [amdgpu]] *ERROR* IB test failed on comp_1.0.0
-> (-110).
-> [drm:process_one_work] *ERROR* ib ring test failed (-110).
->
-> So maybe a better workaround is a "dummy" command that is only sent for
-> the broken firmware that we don't care about the outcome and discard erro=
-rs.
->
-> Then the workaround doesn't need to get as entangled with correct flow.
+Some systems with MP1 13.0.4 or 13.0.11 have a firmware bug that
+causes the first MES packet after resume to fail. Typically this
+packet is used to flush the TLB when GART is enabled.
 
-Yeah. Something like that seems cleaner.  Just a question of where to
-put it since we skip GC and MES for s0ix.  Probably somewhere in
-gmc_v11_0_resume() before gmc_v11_0_gart_enable().  Maybe add a new
-mes callback.
+This issue is fixed in newer firmware, but as OEMs may not roll this
+out to the field, introduce a workaround that will add an extra dummy
+read on resume that the result is discarded.
 
-Alex
+Cc: stable@vger.kernel.org # 6.1+
+Cc: Tim Huang <Tim.Huang@amd.com>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3045
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+v1->v2:
+ * Add a dummy read callback instead and use that.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 19 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |  3 +++
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  | 11 +++++++++++
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  |  8 ++++++--
+ 4 files changed, 39 insertions(+), 2 deletions(-)
 
->
-> >
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> >> b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c in gmc_v11_0_flush_gpu_tlb():
-> >> index 23d7b548d13f..bd6d9953a80e 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> >> @@ -227,7 +227,8 @@ static void gmc_v11_0_flush_gpu_tlb(struct
-> >> amdgpu_device *adev, uint32_t vmid,
-> >>           * Directly use kiq to do the vm invalidation instead
-> >>           */
-> >>          if ((adev->gfx.kiq[0].ring.sched.ready ||
-> >> adev->mes.ring.sched.ready) &&
-> >> -           (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
-> >> +           (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev)) ||
-> >> +           !adev->in_s0ix) {
-> >>                  amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack,
-> >> inv_req,
-> >>                                  1 << vmid, GET_INST(GC, 0));
-> >>                  return;
-> >>
-> >> @Christian Koenig is this logic correct?
-> >>
-> >>          /* For SRIOV run time, driver shouldn't access the register
-> >> through MMIO
-> >>           * Directly use kiq to do the vm invalidation instead
-> >>           */
-> >>          if ((adev->gfx.kiq[0].ring.sched.ready ||
-> >> adev->mes.ring.sched.ready) &&
-> >>              (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
-> >>                  amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack,
-> >> inv_req,
-> >>                                  1 << vmid, GET_INST(GC, 0));
-> >>                  return;
-> >>          }
-> >>
-> >> We basically always use the MES with that logic.  If that is the case,
-> >> we should just drop the rest of that function.  Shouldn't we only use
-> >> KIQ or MES for SR-IOV?  gmc v10 has similar logic which also seems
-> >> wrong.
-> >>
-> >> Alex
-> >>
-> >>
-> >>>
-> >>>          DRM_INFO("PCIE GART of %uM enabled (table at 0x%016llX).\n",
-> >>>                   (unsigned int)(adev->gmc.gart_size >> 20),
-> >>> @@ -960,6 +964,17 @@ static int gmc_v11_0_resume(void *handle)
-> >>>          int r;
-> >>>          struct amdgpu_device *adev =3D (struct amdgpu_device *)handl=
-e;
-> >>>
-> >>> +       switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
-> >>> +       case IP_VERSION(13, 0, 4):
-> >>> +       case IP_VERSION(13, 0, 11):
-> >>> +               /* avoid problems with first TLB flush after resume *=
-/
-> >>> +               if ((adev->pm.fw_version & 0x00FFFFFF) < 0x004c4900)
-> >>> +                       adev->mes.suspend_workaround =3D adev->in_s0i=
-x;
-> >>> +               break;
-> >>> +       default:
-> >>> +               break;
-> >>> +       }
-> >>> +
-> >>>          r =3D gmc_v11_0_hw_init(adev);
-> >>>          if (r)
-> >>>                  return r;
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> >>> b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> >>> index 4dfec56e1b7f..84ab8c611e5e 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> >>> @@ -137,8 +137,12 @@ static int
-> >>> mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
-> >>>          r =3D amdgpu_fence_wait_polling(ring, ring->fence_drv.sync_s=
-eq,
-> >>>                        timeout);
-> >>>          if (r < 1) {
-> >>> -               DRM_ERROR("MES failed to response msg=3D%d\n",
-> >>> -                         x_pkt->header.opcode);
-> >>> +               if (mes->suspend_workaround)
-> >>> +                       DRM_DEBUG("MES failed to response msg=3D%d\n"=
-,
-> >>> +                                 x_pkt->header.opcode);
-> >>> +               else
-> >>> +                       DRM_ERROR("MES failed to response msg=3D%d\n"=
-,
-> >>> +                                 x_pkt->header.opcode);
-> >>>
-> >>>                  while (halt_if_hws_hang)
-> >>>                          schedule();
-> >>> --
-> >>> 2.34.1
-> >>>
-> >
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+index 9ddbf1494326..cd5e1a027bdf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+@@ -868,6 +868,25 @@ int amdgpu_mes_reg_wait(struct amdgpu_device *adev, uint32_t reg,
+ 	return r;
+ }
+ 
++void amdgpu_mes_reg_dummy_read(struct amdgpu_device *adev)
++{
++	struct mes_misc_op_input op_input = {
++		.op = MES_MISC_OP_READ_REG,
++		.read_reg.reg_offset = 0,
++		.read_reg.buffer_addr = adev->mes.read_val_gpu_addr,
++	};
++
++	if (!adev->mes.funcs->misc_op) {
++		DRM_ERROR("mes misc op is not supported!\n");
++		return;
++	}
++
++	adev->mes.silent_errors = true;
++	if (adev->mes.funcs->misc_op(&adev->mes, &op_input))
++		DRM_DEBUG("failed to amdgpu_mes_reg_dummy_read\n");
++	adev->mes.silent_errors = false;
++}
++
+ int amdgpu_mes_set_shader_debugger(struct amdgpu_device *adev,
+ 				uint64_t process_context_addr,
+ 				uint32_t spi_gdbg_per_vmid_cntl,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+index a27b424ffe00..d208e60c1d99 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+@@ -135,6 +135,8 @@ struct amdgpu_mes {
+ 
+ 	/* ip specific functions */
+ 	const struct amdgpu_mes_funcs   *funcs;
++
++	bool				silent_errors;
+ };
+ 
+ struct amdgpu_mes_process {
+@@ -356,6 +358,7 @@ int amdgpu_mes_unmap_legacy_queue(struct amdgpu_device *adev,
+ 				  u64 gpu_addr, u64 seq);
+ 
+ uint32_t amdgpu_mes_rreg(struct amdgpu_device *adev, uint32_t reg);
++void amdgpu_mes_reg_dummy_read(struct amdgpu_device *adev);
+ int amdgpu_mes_wreg(struct amdgpu_device *adev,
+ 		    uint32_t reg, uint32_t val);
+ int amdgpu_mes_reg_wait(struct amdgpu_device *adev, uint32_t reg,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index 23d7b548d13f..a2ba45f859ea 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -960,6 +960,17 @@ static int gmc_v11_0_resume(void *handle)
+ 	int r;
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
++	switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
++	case IP_VERSION(13, 0, 4):
++	case IP_VERSION(13, 0, 11):
++		/* avoid a lost packet @ first GFXOFF exit after resume */
++		if ((adev->pm.fw_version & 0x00FFFFFF) < 0x004c4900 && adev->in_s0ix)
++			amdgpu_mes_reg_dummy_read(adev);
++		break;
++	default:
++		break;
++	}
++
+ 	r = gmc_v11_0_hw_init(adev);
+ 	if (r)
+ 		return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+index 4dfec56e1b7f..71df5cb65485 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -137,8 +137,12 @@ static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
+ 	r = amdgpu_fence_wait_polling(ring, ring->fence_drv.sync_seq,
+ 		      timeout);
+ 	if (r < 1) {
+-		DRM_ERROR("MES failed to response msg=%d\n",
+-			  x_pkt->header.opcode);
++		if (mes->silent_errors)
++			DRM_DEBUG("MES failed to response msg=%d\n",
++				  x_pkt->header.opcode);
++		else
++			DRM_ERROR("MES failed to response msg=%d\n",
++				  x_pkt->header.opcode);
+ 
+ 		while (halt_if_hws_hang)
+ 			schedule();
+-- 
+2.34.1
+
