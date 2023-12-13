@@ -4,119 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20EEDC4332F
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Dec 2023 01:21:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 735B7C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Dec 2023 02:04:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDE7C10E14E;
-	Wed, 13 Dec 2023 01:21:53 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BAF110E14E
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Dec 2023 01:21:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E8D310E0D5;
+	Wed, 13 Dec 2023 02:04:42 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2062.outbound.protection.outlook.com [40.107.220.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C6AC10E0D5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Dec 2023 02:04:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IC9H4gvpUQsVpMFkeYlnazYNTMNqkWObEiBSgTA2LDkMEeOzyCd9wL38J18CHFJSJAQ++G9OzxCLnfZdFLEBM57qrv77jxHr2+6GxRw+Zb0SL8s90lg04RQbAQCN6SXEDVXbYJr/10yF2oEyYenzlGDXJHPZtqN33RYueAbtPNFWdxvnEDZB4FFD29wXNMFkvrqzGLksnULFkEvEVcAybyP2CzEM7zJ1eBMZCKq0Rx7iD9MvLFQODRBYCvouc46tmIzgOgHxjpbUXBDfteF9rsDYyALX3YptdOQ5GdLIuhV6f9sauVeryBz53fQfMcDJoQ13tyLrF8H09GXI5yx2Ow==
+ b=gKiAoYovi/xQ8laGhdYlD5DKzU2V2iVBeuO0SfCrqtkWwjuWXwwHH5OVybo630JCE3E0ZU7sWgd0RUS24O2vmwNJyGl/ZMxBXiYAWEaYPnZttsy/6jEmi4xOsXdK+8uywS5vCtyVmrb96fsN6SRanuBlQMHxcBBr4Cs4V3sjN4kkw5LPAe6bHdhtl8Qni6O2HbsP7PUXqZU0FISUguOyYnW2xQuxZIz8c3Tt1ZKK6UDx+nAT/jx/QeB+dOqIDYHzj4An82fv4LF4c3dPVqx1BUA5B2cH0HZ6vSEAmcviddlM+mHw5cyGFIBiSV+7Hf+yZ/cX5NlyAhNzhRtnfHGUsg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FMRB6T+d8waZ6u8m5BVWGjT+A5cCWYQUCJVaZh6eoGg=;
- b=G7fgFdZdUn8+UacSgTdNa2HII57DjG9kqBrxEvDDmUb6cz/yIy/J3SRboGjygfM/1gijYxRxREbY1iy8L1XFMJvRhluB4czM+OLbEg67JuczLNPPJlRZtBhuArxF0uiS1iPqQBPWQn+NIlHy8FsZbBHXZ4z0f1/JNU663SPbS/N+L23UEofdlnO0W8MpYM0gkvYHI1iAOcj4sMFvhF92njqFVuVR6dtM2XoWfr+ltyezhuacXFDXG11q2MOE4xzDFHraYO8UHgFu16sS5VvrBLW/3nCuXwpUBQJFGn/L1R+KHwLLLAeZRxlD/1P+HAaYdwqPSNV7KVfpAuiGQnBW3w==
+ bh=TCpsLgW7iGbvOucJkWQvS3dPyq9K29vYAONShGkZXcQ=;
+ b=dCvPi6pWf1lN9pmVTKDMddE2hN5ptCkKoqBq2MYvT3PbrlK+zSCMw28wYI1lLrHSwIqMHjOCdQIiZ2kW2j5oeM18Ww6dxGhI30jFHw0TNnFGdxGElyMuzU5IiBhgATT6uLKa2M9t33Kbz1AgbmwA8bKMsBPDQkOQ3dJ7HoH35h8hTddCcrqCkbbpRc6zvLkBK0+3AmieJSJ9+GU5krjEim+dOEGpdAmDyiwpG3gOpyWfeLa4LMVBDnnQR5GACjBdjK0ccAqTgxqaDiZp/DF22A1gd/TUlJmJlCXFlyAQS15qkICQytSTAZndxjTHpUPXA65Inso4tdfPUqYj5A0poQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FMRB6T+d8waZ6u8m5BVWGjT+A5cCWYQUCJVaZh6eoGg=;
- b=p74CppnnQ7hXn6W3NNy8RyTsTdlOjzK2CZZI80fR+TqgJm+aKl7t/IwFqiQ59IhRq+wdOUDu18Sv2OtAmpLbywTzrFqms8iKe4ME77x+QqjX5VaX6QL3TKqlIy9V54d8kPt7DWxN89okDMcoQKx/ty/Sjl6qta/dVrr+91JdGio=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by SA1PR12MB8917.namprd12.prod.outlook.com (2603:10b6:806:386::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.32; Wed, 13 Dec
- 2023 01:21:48 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::83d7:9c4f:4d9b:1f2a]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::83d7:9c4f:4d9b:1f2a%5]) with mapi id 15.20.7068.033; Wed, 13 Dec 2023
- 01:21:48 +0000
-Message-ID: <cfb9d9ea-c2ac-42d6-9122-57393c66dd6d@amd.com>
-Date: Tue, 12 Dec 2023 19:21:45 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Revert "drm/amd/display: Adjust the MST resume flow"
+ bh=TCpsLgW7iGbvOucJkWQvS3dPyq9K29vYAONShGkZXcQ=;
+ b=5OP47Gat6h8O8mgf7B2M4Emglg7QfeLukMEfbHXpaY1eBq+NiXTYqKGmRwdM5IbEzlrIwn0E6qVnyA3vLZPefW/KQAB2nOgvgsHLQ2Y7EAPmMfC1V+fWIqtaPczlLw0BNZtjZXkTQ3YmnXHdMUWyPaPBDFqUUO1GhNJA2U2vjTU=
+Received: from BY5PR12MB4194.namprd12.prod.outlook.com (2603:10b6:a03:210::7)
+ by DM3PR12MB9414.namprd12.prod.outlook.com (2603:10b6:0:47::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.26; Wed, 13 Dec
+ 2023 02:04:35 +0000
+Received: from BY5PR12MB4194.namprd12.prod.outlook.com
+ ([fe80::d0a9:48b7:231a:f627]) by BY5PR12MB4194.namprd12.prod.outlook.com
+ ([fe80::d0a9:48b7:231a:f627%5]) with mapi id 15.20.7068.033; Wed, 13 Dec 2023
+ 02:04:35 +0000
+From: "Wang, Beyond" <Wang.Beyond@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amdgpu: fix ftrace event amdgpu_bo_move always move
+Thread-Topic: [PATCH v2] drm/amdgpu: fix ftrace event amdgpu_bo_move always
+ move
+Thread-Index: AdotaGvI5IYYDAx4SXCooIvPfazAzQ==
+Date: Wed, 13 Dec 2023 02:04:35 +0000
+Message-ID: <BY5PR12MB4194EF791E7B45D0A2251CD4F78DA@BY5PR12MB4194.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Oliver Schmidt <oliver@luced.de>, "Lin, Wayne" <Wayne.Lin@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Wentland, Harry" <Harry.Wentland@amd.com>
-References: <20231205195436.16081-1-mario.limonciello@amd.com>
- <6e941b94-f3e0-4463-82cf-13bac0d22ebe@amd.com>
- <CO6PR12MB54895D053CC24153B3358344FC8EA@CO6PR12MB5489.namprd12.prod.outlook.com>
- <bb2212b2-5503-49d4-a607-bdf6885681f6@amd.com>
- <24cd225b-df66-14c1-d951-72c4a5509437@luced.de>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <24cd225b-df66-14c1-d951-72c4a5509437@luced.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SN7P222CA0018.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:124::27) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|SA1PR12MB8917:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5aac8175-1113-4784-c50b-08dbfb79e0ad
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gmk9G93f9oViFHlL37F7EW2DGKpENnnIXHyHhUc+BBit+Q5EUVDnicudK1fnelCICUOIBSb4DSHNO96eI1/ZMsLDi3qzna/ldFJq4OlNe15KSz/E422bAH0L5Ayy/E+7QiUswXO1Hvgzuyq4Ribf0B06OYsoBHew6QoIl8TYVTVnBTn5CImaycE2rs5SsdC/OTZ5s+G59wjORMThu5SsVcfTWaOVcsNqPYbdOVzufNEnKw6j9Dkn5yDi323T2plkqX2bJ0IdDSQE2Cml1Yd3LaP0TEwhG+nb3bDkxMHf09uJbcL4AUvS43UyngMKvYHA6CPX3+/eSRIJjwn8YoTtsryjdvyVYm4ZM2xbUK/0hHMugNH/DbEGTIrGlNlNBlhG1omKdi25uu3aYSmZ9AQdkok8SXNe8EIIJevb9J4oIXZEvH5klZRA63j8Oms98MbPBxkpSvczFjeyrouiFNYREiGFpvM8hcrtLSJp6ES/wyUIm2WWyfhSccAo4DKdldI0XDbZ33IkvVg/vi1a8MLgdVHQLXCpnWjh5KJ/K8SvQbf/2XAuATURXBtX9IQI14JcmIHjvhiTkrvLofjBXiqWzsbnf6p9o6yWQxTRWYwegqCnqUIXlyvTdUZGqDp+SqloNOo2piqTJWaRtRXQ4q/xoy53nT15Ritz2szP0oYojZkzabx67YkmOher8r5vcVGPqAI0zS/AlK1HICyPVjqBog==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(396003)(376002)(136003)(366004)(39860400002)(230273577357003)(230922051799003)(230173577357003)(451199024)(1800799012)(64100799003)(186009)(83380400001)(2906002)(41300700001)(478600001)(31686004)(86362001)(66556008)(6636002)(54906003)(6486002)(66476007)(66946007)(966005)(110136005)(6666004)(316002)(38100700002)(4326008)(31696002)(8676002)(8936002)(6512007)(44832011)(6506007)(36756003)(53546011)(5660300002)(26005)(2616005)(45980500001)(43740500002);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=c15f55c3-be0d-43f2-85f7-67d721c4b8f1;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-12-13T01:59:42Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BY5PR12MB4194:EE_|DM3PR12MB9414:EE_
+x-ms-office365-filtering-correlation-id: 2d551ab6-a23d-4107-65f1-08dbfb7fdaf0
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: QELjPQJXhIlBTLYOSiUiplaaTr+Hbqsa/LxzdpkSSg4kznNaX5/vvCAU0z/5W1QE2hS66eTp0KG2++SQGEzoySyzX+HenoIigsNSgY8Xo+jOaNfmCUZH56SewH6R9z6f7Ed9DrIGY0a1nYdY15QBTbiXohwr/RJpsKnAuZ9G3AQQGuBcK5VC4WbSJsc8cutch3EUTYmF5qZUkC62FNBtXYCEygAh7vex/VlJ5SWN+Hy6GvlPtkoa3TmfIZTtHquqysn3PcTeXi7+xFZ5ZHbPq0kkigpCxI7VszyWTrxoZvLzP2MlU6Rrmo8M25tybpEYY2sfIZIAoKTp13cQcQdo2qsrwnTxwjbMCGXHdKK+Gan50YldS+Bm2Tz5jTlFeYiJzm42JdIKINioQzEfZPNNgdsc6pmNuHtT3Sx+cngtu1txg6odsFuFl+8jf2uWBlj9fb15ugq5CJTVdUXFshwLZ7GWdfAva4CU45q6wxXySnoDYjJndZIgvY5c+2rqc/1f714+cLHNpEqIiNHfcntjFrPHRUTlFy6xzL34mPtIEIT6/d3bKmyFSRGphtadxSPWNc8lAG9N3sY5Cp25mH/jrSSMYobMOg6TY8JEPUrec/pqOuhWWQok+i1nEaf1XG1/
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BY5PR12MB4194.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(346002)(376002)(136003)(396003)(39860400002)(366004)(230922051799003)(451199024)(1800799012)(186009)(64100799003)(26005)(83380400001)(6506007)(9686003)(38100700002)(122000001)(7696005)(5660300002)(4326008)(8936002)(52536014)(8676002)(41300700001)(2906002)(478600001)(71200400001)(316002)(66476007)(66446008)(6916009)(64756008)(66556008)(66946007)(76116006)(33656002)(86362001)(38070700009)(55016003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OGpjRTd1VVZCcVQxbGVEUGNYSEdXN1kzNXBaM2RtaHRuNjczTWNqam9GOVRu?=
- =?utf-8?B?UVh5SjZDYkxDZUgzSm9qWHNNOTZjM1JXUWZNdXZrRGNRNFo1QjRLWU5jMnpj?=
- =?utf-8?B?anJ6cE5aZ1ppNEt6UkpRUVJDdExlVjJqVWlDVEwxR05obkNrNThIemp5cXk5?=
- =?utf-8?B?ZWlSbTJpcFNTYnNhZmlvYXMrMTVOY1ZlT1V5ZWRBV3pZUFc1TWorUEFHN1Vv?=
- =?utf-8?B?YlEyUDNxNHg0Rk52czUrZ2pQb01wRUNtbmpqWVUwMHVIYXFkbnZCbEU4Wms1?=
- =?utf-8?B?QVRDa3NYV3NzREhZM0lKV0oyUk52VTJ4aEZiZjBsb2UyMy95TzNnT3h5aHdp?=
- =?utf-8?B?UklQMVVleHRYUFVyTHI1UWxsZ29ZSnEwNmNnV21vc1BEYUdxTlEwa2Y3L1dM?=
- =?utf-8?B?YW15dUpFb3AyRHJHM250am9JUTkwTzRFTDVHMDBQOHRGQ2NKbWp4b1JZb2Rj?=
- =?utf-8?B?YldSVVBYQlFaQjB6N0NXVmM1Mm8rYU1GSzk5Ungyb3VmM1REcEt2RzA4b2NX?=
- =?utf-8?B?dW9TY0JXTzFwd2VCVDNRQ2ZjaGZYWFZNS1owVEhUbklHSmNBS21xemxpR0Z0?=
- =?utf-8?B?VVY3d1Zvcm1sMmE1andMQ1M1ek5hbVp4OUtmSkRsSzNBZ2NtV1ZZZ08xU1RI?=
- =?utf-8?B?Ylhma29ZeXRtVEc0SVdZQlJtUUp3Z2RxRTFwWFpQaVNBREhNWDBJMHhyTjlv?=
- =?utf-8?B?dzgrc0syeGZUNVZ5Z3lpQ0lnWWJSOURCTkFLUG9Wd3ZieXRPcVZoWGJCa0ty?=
- =?utf-8?B?azNPejM5NjJEUmlmMXRFZXFHY0ZhVzdTb2VNOTF5OUJmT01GclIxK1FqeUgw?=
- =?utf-8?B?YXE1NkszeVY3WkFEVWszZFNmaVJEczFKMnREK2YwcWdmZG5IVG0wSk5VVmkr?=
- =?utf-8?B?Umt0L1IrMGNqNE9zZXBtNnVRTXFTcTJqamFpbXlLOFJGNy9mN0ZoZUp2Q2pm?=
- =?utf-8?B?MlpaYk1vdHNtem1JTGlscDRvNXQxeVVlZEJDMzZXV25jU3Nock9LQXlydE5H?=
- =?utf-8?B?NTdsNkRZK2tKaXd6OFhhS2VITGEwUFJIYnF5Sk5Uc1QyeGF6OUxoS29ZT0RV?=
- =?utf-8?B?R3NUdG1ZUXBGQTBIWU5GQ21jZGhzcEQ3Vm12V0hQd1l4QS9QNDhxbkNWcDZw?=
- =?utf-8?B?TE1TbzBiYXNPWVRMVEI3YWNTSEpTdnJ6OTl3eXpUaGZZdk5VQ05Cb0FMNzAx?=
- =?utf-8?B?YWxLeGlqRDJaTmw2bDJldWpGc1piMEQ5QkllR1l0M3JiSWgwVm5vVWRtZ3Qr?=
- =?utf-8?B?dTV3Q0lEaDBBUy9tSDVESkh6VEErTUl4SDdjZjkyZzhBK1BQdmdMWldjQmVX?=
- =?utf-8?B?TUNDeWY0ODZFelZ2aDZ3ZERvcVdzZWhsZExhNmdpYXRzdm1zcFcyZmlOS0dQ?=
- =?utf-8?B?TjlxSG51WHE0T1pRQmZJbXM1QnhCUitTRjR3REY4djk5OWdld0JHdmN6QnJ4?=
- =?utf-8?B?dmtiQ2ZsNGVWL0h1cHZXWmV1U2Zza2NsbVBEUkVpWEYveEhJY2sxOE1veHdY?=
- =?utf-8?B?Y25tVjdaRTdlSGp5VksyaG1WOXM1V1NDWjJiTFdHSDZJYXdkTGYySndVMWZp?=
- =?utf-8?B?QitKV25NL1lEMk8xeVZaRlFtYnp5M1RydFdaNFBha0ZsSENLSk02YVVDN3RT?=
- =?utf-8?B?a25XSXVoeHpJaGMwZko0WlNjRkpHZTlSYWtrL2JRKzBwTEhuUWh1NFZrKzRa?=
- =?utf-8?B?eUlJMnFSSnVpNm1LV0FRV1ZyR0d5NWtOWUxzSjIyc1ZjN0RzQXRmb1NsL1d3?=
- =?utf-8?B?b0dRWGEvd3ovTmxNOVVad1U4U1lReHdZY1orV09JNDNoZGhsSzJ6N05Mclkw?=
- =?utf-8?B?dUFJaEQwNHdjb0pnbmM5U0gzT1hUQkIybStibWE0bzN2bTVTVFMxa3djYTln?=
- =?utf-8?B?eDJ5cmpSb0tpU2M3QlFaYjlpUmpia1dkV09weEUyRSt0QU42UmdXUTlVUlp5?=
- =?utf-8?B?dThvTmtlUGs2SG9oR2lSU0JJSjEwaXQ3Q00xZmE2cHhsUDFHSExPUy9SZkFu?=
- =?utf-8?B?ZHlGcmdWUU11MjNWVjlyZGY5bys2eHNpcmpFQnNPWTJpQ2VQVVphaUlacTdP?=
- =?utf-8?B?QlRtMk5FMW5UZ0FwcTRlTDZrbzBVNjUwZUx4WlJ0STV5OFN4aDZiVVJUMzBj?=
- =?utf-8?Q?9OHkUQ0PLxkWw6QaOF6YROP8Q?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?u2IsF0R0IolExm8YwQtdoBpTQ75epHYkve+YJCFb46LwC8tK0mKk6UGwWSt6?=
+ =?us-ascii?Q?elIKs+CI5FLPQt/BWRJiR8cEAZEgpqEftES0gfpuRLOONGJolm3ZEt2MF7jx?=
+ =?us-ascii?Q?uI0YU1sfZf1WvjyRMDiQtEwNL8DYVOpqmKV79V8fCsldybuJArrOAq6BHd0w?=
+ =?us-ascii?Q?6966EnXO1w2r34q1E33kuPzPiFH0isozSqy2uWtg6t4JxX2wac+igTnf+I1X?=
+ =?us-ascii?Q?AF/s5RMskFygf4mkOYlxtttQLvd820sBpCV6rMoRGqeLQQgq0gcE9KcveJBf?=
+ =?us-ascii?Q?j/ev0l35SMwCWl1iuL4eLjDTBpZU4mY8yklUZqaqUgo6p3Z1tl+ZSZFeY7fC?=
+ =?us-ascii?Q?yUMR2rzCy5fV+0Ei4wPpB1MjeJMx4d4tvAWdHPVGUAK5KH+fS9mZ9If8inj5?=
+ =?us-ascii?Q?jxUifugKs/7QwV92Mnd6eugfndnxAN04qxXX5VdpDx/qoODPC4iJOszhJBJR?=
+ =?us-ascii?Q?c2Z/8gQWkP8LYAIj75JCGFi4G7mz6Z+nqJUC1/LOEjw0nnzJcWT/lq4l5vC/?=
+ =?us-ascii?Q?GrYYb8Le+0bh4IRGjlXsHDCj/EH1fDOBrDBhPijz76kMrY/lar7EksQjBPki?=
+ =?us-ascii?Q?wOoBag45usNhRc0bk527AGQWR1Hb0oqUsuYtAkglyAipI+hqViPb/VDeZZBg?=
+ =?us-ascii?Q?Ud3+PV5SyIsgI0o638QBZq3Tx9kGV8ToWoYlRAzx8tBBvf7z6P+31v1JweEZ?=
+ =?us-ascii?Q?G3qTQuErj5Xw0i77ze0FwCqd+o8PG4y5E4DyrOKxCdPJd1mcr2JmAfwVhdJx?=
+ =?us-ascii?Q?BkzK+OhAOThpk/jTkw4UEsGW4lpJyySc9lhnZg6cxS0wBmsTLNo7ACDZcHVk?=
+ =?us-ascii?Q?i97YGPd1wRZB1Ztz6kcHQDlB0uPqwdfRg60sXPnjXgZ9pqwGmfDPiZZjtHhe?=
+ =?us-ascii?Q?oGK2VNMmFJrjFfvLS7WoWQqYN+vMM9z419HtaAeZjTG7+gqP+GIrPuymhW0M?=
+ =?us-ascii?Q?txOUG+tnhu6++lXxHH44p7C3HjqUMQqpZQI1oAH7vMgnDcOyxUqjRSbfn5Yh?=
+ =?us-ascii?Q?CHPoHlRKVgQMYw0eATmgjvMmUNbI8P55DGmnuyvin++UYrcN1QMoqtCa0LOI?=
+ =?us-ascii?Q?+GS8zBelDpC8WAfasfnK2B9190jTdEVgVVYbiptExkHTdwRcSeOlWUTPY5oL?=
+ =?us-ascii?Q?eR4QPb/0D4r1FHRbpyQX6nQbBMDgYTEHGGAuMU9WbRHYpzIcjF66Jifuw7Kr?=
+ =?us-ascii?Q?oVHFSlKW0PA1iXxEr93UGtRuwr+pZ37zP5G1+3DNMRIIwMFA85bN1OI7+jlj?=
+ =?us-ascii?Q?KnetSI0ea5A/v51vAB7t2v6VZkoBa/2Tluli4IPxKH+Cuakl11v6s/rpeekX?=
+ =?us-ascii?Q?Fq9LF9cXSCJbqp7urm+7z4pFHxaA0RzOcSD/YiB/Qqzyi5mPgPbdNLAmE/PU?=
+ =?us-ascii?Q?lWWfURiX6y6OEIbzxhsNknbFhsGePOPDUWwQZMGiGek1t+pSBGwuqaLz2WnM?=
+ =?us-ascii?Q?8vJJX9gTZAwVkq+culqWKQLDHEPsFE2O8t7eWv5PDjGnH3aMzoOX+9zKPT3S?=
+ =?us-ascii?Q?W5Wg7/3jlbNzbgxbEdl9IS/Qw+DFYdH3I3Cfu1nXpmL7hubc3Sx+eMBrlFXY?=
+ =?us-ascii?Q?3u3miOfOrY2HOTtDtRk=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BY5PR12MB4194EF791E7B45D0A2251CD4F78DABY5PR12MB4194namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5aac8175-1113-4784-c50b-08dbfb79e0ad
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2023 01:21:48.3604 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IvW83sCV5kl72HWAMnwkoz8IBUiwspiQm+06LVwKtla9mKqzcYZCYIf4jaYuvYnvW46euNFoJbVEvvYAog7PaA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8917
+X-MS-Exchange-CrossTenant-AuthSource: BY5PR12MB4194.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d551ab6-a23d-4107-65f1-08dbfb7fdaf0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Dec 2023 02:04:35.5124 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: fa1uQZkTQ3zQp20T6uLrbdO/8zkMdLjD5SzcQTkSsqGYlNpLRDCIFWt1gfYMUmQyS+jICnQjlGkvkorNs6n4pA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9414
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,258 +120,378 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>,
- Linux Regressions <regressions@lists.linux.dev>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
+Cc: "Jin, Jason\(Yong\)" <JasonYong.Jin@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/12/2023 18:08, Oliver Schmidt wrote:
-> Hi Wayne,
-> 
-> On 12.12.23 17:06, Mario Limonciello wrote:
->> I looked through your bugs related to this and I didn't see a reference to the
->> specific docking station model.
->> The logs mentioned "Thinkpad dock" but no model.
->> Could you share more about it so that AMD can try to reproduce it?
-> 
-> Yes, it is a ThinkPad Ultra Dockingstation, part number 40AJ0135EU, see also
-> https://support.lenovo.com/us/en/solutions/pd500173-thinkpad-ultra-docking-station-overview-and-service-parts
-> 
+--_000_BY5PR12MB4194EF791E7B45D0A2251CD4F78DABY5PR12MB4194namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-By chance do you have access to any other dock or monitor combinations 
-that you can conclude it only happens on this dock or only a certain 
-monitor, or only a certain monitor connected to this dock?
+[AMD Official Use Only - General]
 
-> Best regards,
-> Oliver
-> 
-> On 12.12.23 17:06, Mario Limonciello wrote:
->> On 12/12/2023 04:10, Lin, Wayne wrote:
->>> [Public]
->>>
->>> Hi Mario,
->>>
->>> Thanks for the help.
->>> My feeling is like this problem probably relates to specific dock. Need time
->>> to take
->>> further look.
->>
->> Oliver,
->>
->> I looked through your bugs related to this and I didn't see a reference to the
->> specific docking station model.
->> The logs mentioned "Thinkpad dock" but no model.
->>
->> Could you share more about it so that AMD can try to reproduce it?
->>
->>>
->>> Since reverting solves the issue now, feel free to add:
->>> Acked-by: Wayne Lin <wayne.lin@amd.com>
->>
->> Sure, thanks.
->>
->>>
->>> Thanks,
->>> Wayne
->>>
->>>> -----Original Message-----
->>>> From: Limonciello, Mario <Mario.Limonciello@amd.com>
->>>> Sent: Tuesday, December 12, 2023 12:15 AM
->>>> To: amd-gfx@lists.freedesktop.org; Wentland, Harry
->>>> <Harry.Wentland@amd.com>
->>>> Cc: Linux Regressions <regressions@lists.linux.dev>; stable@vger.kernel.org;
->>>> Wheeler, Daniel <Daniel.Wheeler@amd.com>; Lin, Wayne
->>>> <Wayne.Lin@amd.com>; Oliver Schmidt <oliver@luced.de>
->>>> Subject: Re: [PATCH] Revert "drm/amd/display: Adjust the MST resume flow"
->>>>
->>>> Ping on this one.
->>>>
->>>> On 12/5/2023 13:54, Mario Limonciello wrote:
->>>>> This reverts commit ec5fa9fcdeca69edf7dab5ca3b2e0ceb1c08fe9a.
->>>>>
->>>>> Reports are that this causes problems with external monitors after
->>>>> wake up from suspend, which is something it was directly supposed to help.
->>>>>
->>>>> Cc: Linux Regressions <regressions@lists.linux.dev>
->>>>> Cc: stable@vger.kernel.org
->>>>> Cc: Daniel Wheeler <daniel.wheeler@amd.com>
->>>>> Cc: Wayne Lin <wayne.lin@amd.com>
->>>>> Reported-by: Oliver Schmidt <oliver@luced.de>
->>>>> Link: https://bugzilla.kernel.org/show_bug.cgi?id=218211
->>>>> Link:
->>>>> https://forum.manjaro.org/t/problems-with-external-monitor-wake-up-aft
->>>>> er-suspend/151840
->>>>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3023
->>>>> Signed-off-by: Mario Limonciello <mario.limonciello
->>>>> <mario.limonciello@amd.com>
->>>>> ---
->>>>>     .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 93 +++--------------
->>>> -- 
->>>>>     1 file changed, 13 insertions(+), 80 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>>> index c146dc9cba92..1ba58e4ecab3 100644
->>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>>> @@ -2363,62 +2363,14 @@ static int dm_late_init(void *handle)
->>>>>       return detect_mst_link_for_all_connectors(adev_to_drm(adev));
->>>>>     }
->>>>>
->>>>> -static void resume_mst_branch_status(struct drm_dp_mst_topology_mgr
->>>>> *mgr) -{
->>>>> -   int ret;
->>>>> -   u8 guid[16];
->>>>> -   u64 tmp64;
->>>>> -
->>>>> -   mutex_lock(&mgr->lock);
->>>>> -   if (!mgr->mst_primary)
->>>>> -           goto out_fail;
->>>>> -
->>>>> -   if (drm_dp_read_dpcd_caps(mgr->aux, mgr->dpcd) < 0) {
->>>>> -           drm_dbg_kms(mgr->dev, "dpcd read failed - undocked during
->>>> suspend?\n");
->>>>> -           goto out_fail;
->>>>> -   }
->>>>> -
->>>>> -   ret = drm_dp_dpcd_writeb(mgr->aux, DP_MSTM_CTRL,
->>>>> -                            DP_MST_EN |
->>>>> -                            DP_UP_REQ_EN |
->>>>> -                            DP_UPSTREAM_IS_SRC);
->>>>> -   if (ret < 0) {
->>>>> -           drm_dbg_kms(mgr->dev, "mst write failed - undocked during
->>>> suspend?\n");
->>>>> -           goto out_fail;
->>>>> -   }
->>>>> -
->>>>> -   /* Some hubs forget their guids after they resume */
->>>>> -   ret = drm_dp_dpcd_read(mgr->aux, DP_GUID, guid, 16);
->>>>> -   if (ret != 16) {
->>>>> -           drm_dbg_kms(mgr->dev, "dpcd read failed - undocked during
->>>> suspend?\n");
->>>>> -           goto out_fail;
->>>>> -   }
->>>>> -
->>>>> -   if (memchr_inv(guid, 0, 16) == NULL) {
->>>>> -           tmp64 = get_jiffies_64();
->>>>> -           memcpy(&guid[0], &tmp64, sizeof(u64));
->>>>> -           memcpy(&guid[8], &tmp64, sizeof(u64));
->>>>> -
->>>>> -           ret = drm_dp_dpcd_write(mgr->aux, DP_GUID, guid, 16);
->>>>> -
->>>>> -           if (ret != 16) {
->>>>> -                   drm_dbg_kms(mgr->dev, "check mstb guid failed -
->>>> undocked during suspend?\n");
->>>>> -                   goto out_fail;
->>>>> -           }
->>>>> -   }
->>>>> -
->>>>> -   memcpy(mgr->mst_primary->guid, guid, 16);
->>>>> -
->>>>> -out_fail:
->>>>> -   mutex_unlock(&mgr->lock);
->>>>> -}
->>>>> -
->>>>>     static void s3_handle_mst(struct drm_device *dev, bool suspend)
->>>>>     {
->>>>>       struct amdgpu_dm_connector *aconnector;
->>>>>       struct drm_connector *connector;
->>>>>       struct drm_connector_list_iter iter;
->>>>>       struct drm_dp_mst_topology_mgr *mgr;
->>>>> +   int ret;
->>>>> +   bool need_hotplug = false;
->>>>>
->>>>>       drm_connector_list_iter_begin(dev, &iter);
->>>>>       drm_for_each_connector_iter(connector, &iter) { @@ -2444,15
->>>>> +2396,18 @@ static void s3_handle_mst(struct drm_device *dev, bool
->>>> suspend)
->>>>>                       if (!dp_is_lttpr_present(aconnector->dc_link))
->>>>>                               try_to_configure_aux_timeout(aconnector-
->>>>> dc_link->ddc,
->>>>> LINK_AUX_DEFAULT_TIMEOUT_PERIOD);
->>>>>
->>>>> -                   /* TODO: move resume_mst_branch_status() into
->>>> drm mst resume again
->>>>> -                    * once topology probing work is pulled out from mst
->>>> resume into mst
->>>>> -                    * resume 2nd step. mst resume 2nd step should be
->>>> called after old
->>>>> -                    * state getting restored (i.e.
->>>> drm_atomic_helper_resume()).
->>>>> -                    */
->>>>> -                   resume_mst_branch_status(mgr);
->>>>> +                   ret = drm_dp_mst_topology_mgr_resume(mgr, true);
->>>>> +                   if (ret < 0) {
->>>>> +
->>>>         dm_helpers_dp_mst_stop_top_mgr(aconnector->dc_link->ctx,
->>>>> +                                   aconnector->dc_link);
->>>>> +                           need_hotplug = true;
->>>>> +                   }
->>>>>               }
->>>>>       }
->>>>>       drm_connector_list_iter_end(&iter);
->>>>> +
->>>>> +   if (need_hotplug)
->>>>> +           drm_kms_helper_hotplug_event(dev);
->>>>>     }
->>>>>
->>>>>     static int amdgpu_dm_smu_write_watermarks_table(struct
->>>> amdgpu_device
->>>>> *adev) @@ -2849,8 +2804,7 @@ static int dm_resume(void *handle)
->>>>>       struct dm_atomic_state *dm_state = to_dm_atomic_state(dm-
->>>>> atomic_obj.state);
->>>>>       enum dc_connection_type new_connection_type =
->>>> dc_connection_none;
->>>>>       struct dc_state *dc_state;
->>>>> -   int i, r, j, ret;
->>>>> -   bool need_hotplug = false;
->>>>> +   int i, r, j;
->>>>>
->>>>>       if (dm->dc->caps.ips_support) {
->>>>>               dc_dmub_srv_exit_low_power_state(dm->dc);
->>>>> @@ -2957,7 +2911,7 @@ static int dm_resume(void *handle)
->>>>>                       continue;
->>>>>
->>>>>               /*
->>>>> -            * this is the case when traversing through already created end
->>>> sink
->>>>> +            * this is the case when traversing through already created
->>>>>                * MST connectors, should be skipped
->>>>>                */
->>>>>               if (aconnector && aconnector->mst_root) @@ -3017,27
->>>> +2971,6 @@
->>>>> static int dm_resume(void *handle)
->>>>>
->>>>>       dm->cached_state = NULL;
->>>>>
->>>>> -   /* Do mst topology probing after resuming cached state*/
->>>>> -   drm_connector_list_iter_begin(ddev, &iter);
->>>>> -   drm_for_each_connector_iter(connector, &iter) {
->>>>> -           aconnector = to_amdgpu_dm_connector(connector);
->>>>> -           if (aconnector->dc_link->type != dc_connection_mst_branch
->>>> ||
->>>>> -               aconnector->mst_root)
->>>>> -                   continue;
->>>>> -
->>>>> -           ret = drm_dp_mst_topology_mgr_resume(&aconnector-
->>>>> mst_mgr, true);
->>>>> -
->>>>> -           if (ret < 0) {
->>>>> -                   dm_helpers_dp_mst_stop_top_mgr(aconnector-
->>>>> dc_link->ctx,
->>>>> -                                   aconnector->dc_link);
->>>>> -                   need_hotplug = true;
->>>>> -           }
->>>>> -   }
->>>>> -   drm_connector_list_iter_end(&iter);
->>>>> -
->>>>> -   if (need_hotplug)
->>>>> -           drm_kms_helper_hotplug_event(ddev);
->>>>> -
->>>>>       amdgpu_dm_irq_resume_late(adev);
->>>>>
->>>>>       amdgpu_dm_smu_write_watermarks_table(adev);
->>>
->>
 
+Issue: during evict or validate happened on amdgpu_bo, the 'from' and
+'to' is always same in ftrace event of amdgpu_bo_move
+
+where calling the 'trace_amdgpu_bo_move', the comment says move_notify
+is called before move happens, but actually it is called after move
+happens, here the new_mem is same as bo->resource
+
+Fix: move trace_amdgpu_bo_move from move_notify to amdgpu_bo_move
+
+Signed-off-by: Wang, Beyond Wang.Beyond@amd.com<mailto:Wang.Beyond@amd.com>
+---
+drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 13 +------------
+drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  4 +---
+drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |  5 +++--
+3 files changed, 5 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_object.c
+index 7416799750c1..1870775d582c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1282,19 +1282,15 @@ int amdgpu_bo_get_metadata(struct amdgpu_bo *bo, vo=
+id *buffer,
+  * amdgpu_bo_move_notify - notification about a memory move
+  * @bo: pointer to a buffer object
+  * @evict: if this move is evicting the buffer from the graphics address s=
+pace
+- * @new_mem: new information of the bufer object
+  *
+  * Marks the corresponding &amdgpu_bo buffer object as invalid, also perfo=
+rms
+  * bookkeeping.
+  * TTM driver callback which is called when ttm moves a buffer.
+  */
+-void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
+-                          bool evict,
+-                          struct ttm_resource *new_mem)
++void amdgpu_bo_move_notify(struct ttm_buffer_object *bo, bool evict)
+{
+        struct amdgpu_device *adev =3D amdgpu_ttm_adev(bo->bdev);
+        struct amdgpu_bo *abo;
+-       struct ttm_resource *old_mem =3D bo->resource;
+
+        if (!amdgpu_bo_is_amdgpu_bo(bo))
+                return;
+@@ -1313,13 +1309,6 @@ void amdgpu_bo_move_notify(struct ttm_buffer_object =
+*bo,
+        /* remember the eviction */
+        if (evict)
+                atomic64_inc(&adev->num_evictions);
+-
+-       /* update statistics */
+-       if (!new_mem)
+-               return;
+-
+-       /* move_notify is called before move happens */
+-       trace_amdgpu_bo_move(abo, new_mem->mem_type, old_mem->mem_type);
+}
+
+void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_object.h
+index 876acde6b10a..dee2c577427e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -360,9 +360,7 @@ int amdgpu_bo_set_metadata (struct amdgpu_bo *bo, void =
+*metadata,
+int amdgpu_bo_get_metadata(struct amdgpu_bo *bo, void *buffer,
+                           size_t buffer_size, uint32_t *metadata_size,
+                           uint64_t *flags);
+-void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
+-                          bool evict,
+-                          struct ttm_resource *new_mem);
++void amdgpu_bo_move_notify(struct ttm_buffer_object *bo, bool evict);
+void amdgpu_bo_release_notify(struct ttm_buffer_object *bo);
+vm_fault_t amdgpu_bo_fault_reserve_notify(struct ttm_buffer_object *bo);
+void amdgpu_bo_fence(struct amdgpu_bo *bo, struct dma_fence *fence,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ttm.c
+index 41ed6a3e5a06..f0fffbf2bdd5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -576,10 +576,11 @@ static int amdgpu_bo_move(struct ttm_buffer_object *b=
+o, bool evict,
+                        return r;
+        }
+
++       trace_amdgpu_bo_move(abo, new_mem->mem_type, old_mem->mem_type);
+out:
+        /* update statistics */
+        atomic64_add(bo->base.size, &adev->num_bytes_moved);
+-       amdgpu_bo_move_notify(bo, evict, new_mem);
++       amdgpu_bo_move_notify(bo, evict);
+        return 0;
+}
+
+@@ -1852,7 +1853,7 @@ static int amdgpu_ttm_access_memory(struct ttm_buffer=
+_object *bo,
+static void
+amdgpu_bo_delete_mem_notify(struct ttm_buffer_object *bo)
+{
+-       amdgpu_bo_move_notify(bo, false, NULL);
++       amdgpu_bo_move_notify(bo, false);
+}
+
+static struct ttm_device_funcs amdgpu_bo_driver =3D {
+--
+2.34.1
+
+
+--_000_BY5PR12MB4194EF791E7B45D0A2251CD4F78DABY5PR12MB4194namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-ligatures:standardcontextual;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
+style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - General]<br>
+</p>
+<br>
+<div>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Issue: during evict or validate happened on amdgpu_b=
+o, the 'from' and<o:p></o:p></p>
+<p class=3D"MsoNormal">'to' is always same in ftrace event of amdgpu_bo_mov=
+e<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">where calling the 'trace_amdgpu_bo_move', the commen=
+t says move_notify<o:p></o:p></p>
+<p class=3D"MsoNormal">is called before move happens, but actually it is ca=
+lled after move<o:p></o:p></p>
+<p class=3D"MsoNormal">happens, here the new_mem is same as bo-&gt;resource=
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Fix: move trace_amdgpu_bo_move from move_notify to a=
+mdgpu_bo_move<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Signed-off-by: Wang, Beyond <a href=3D"mailto:Wang.B=
+eyond@amd.com">
+Wang.Beyond@amd.com</a><o:p></o:p></p>
+<p class=3D"MsoNormal">---<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 13 +---=
+---------<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |&nbsp; 4=
+ +---<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c&nbsp;&nbsp;&=
+nbsp; |&nbsp; 5 +++--<o:p></o:p></p>
+<p class=3D"MsoNormal">3 files changed, 5 insertions(+), 17 deletions(-)<o:=
+p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_objec=
+t.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<o:p></o:p></p>
+<p class=3D"MsoNormal">index 7416799750c1..1870775d582c 100644<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<o:p=
+></o:p></p>
+<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<o:p=
+></o:p></p>
+<p class=3D"MsoNormal">@@ -1282,19 +1282,15 @@ int amdgpu_bo_get_metadata(s=
+truct amdgpu_bo *bo, void *buffer,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; * amdgpu_bo_move_notify - notification about =
+a memory move<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; * @bo: pointer to a buffer object<o:p></o:p><=
+/p>
+<p class=3D"MsoNormal">&nbsp; * @evict: if this move is evicting the buffer=
+ from the graphics address space<o:p></o:p></p>
+<p class=3D"MsoNormal">- * @new_mem: new information of the bufer object<o:=
+p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; *<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; * Marks the corresponding &amp;amdgpu_bo buff=
+er object as invalid, also performs<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; * bookkeeping.<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; * TTM driver callback which is called when tt=
+m moves a buffer.<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; */<o:p></o:p></p>
+<p class=3D"MsoNormal">-void amdgpu_bo_move_notify(struct ttm_buffer_object=
+ *bo,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; bool evict,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; struct ttm_resource *new_mem)<o:p></o:p></p>
+<p class=3D"MsoNormal">+void amdgpu_bo_move_notify(struct ttm_buffer_object=
+ *bo, bool evict)<o:p></o:p></p>
+<p class=3D"MsoNormal">{<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct am=
+dgpu_device *adev =3D amdgpu_ttm_adev(bo-&gt;bdev);<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct am=
+dgpu_bo *abo;<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct ttm_res=
+ource *old_mem =3D bo-&gt;resource;<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdg=
+pu_bo_is_amdgpu_bo(bo))<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -1313,13 +1309,6 @@ void amdgpu_bo_move_notify(st=
+ruct ttm_buffer_object *bo,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* rememb=
+er the eviction */<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (evict=
+)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic64_inc(&amp;adev-&gt;num_evict=
+ions);<o:p></o:p></p>
+<p class=3D"MsoNormal">-<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* update stat=
+istics */<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!new_mem)<=
+o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<o:p></o:p></p>
+<p class=3D"MsoNormal">-<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* move_notify=
+ is called before move happens */<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; trace_amdgpu_b=
+o_move(abo, new_mem-&gt;mem_type, old_mem-&gt;mem_type);<o:p></o:p></p>
+<p class=3D"MsoNormal">}<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">void amdgpu_bo_get_memory(struct amdgpu_bo *bo,<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_objec=
+t.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h<o:p></o:p></p>
+<p class=3D"MsoNormal">index 876acde6b10a..dee2c577427e 100644<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h<o:p=
+></o:p></p>
+<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h<o:p=
+></o:p></p>
+<p class=3D"MsoNormal">@@ -360,9 +360,7 @@ int amdgpu_bo_set_metadata (stru=
+ct amdgpu_bo *bo, void *metadata,<o:p></o:p></p>
+<p class=3D"MsoNormal">int amdgpu_bo_get_metadata(struct amdgpu_bo *bo, voi=
+d *buffer,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size_t buffer_size, uint32_t *metadata_size,<=
+o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t *flags);<o:p></o:p></p>
+<p class=3D"MsoNormal">-void amdgpu_bo_move_notify(struct ttm_buffer_object=
+ *bo,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; bool evict,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; struct ttm_resource *new_mem);<o:p></o:p></p>
+<p class=3D"MsoNormal">+void amdgpu_bo_move_notify(struct ttm_buffer_object=
+ *bo, bool evict);<o:p></o:p></p>
+<p class=3D"MsoNormal">void amdgpu_bo_release_notify(struct ttm_buffer_obje=
+ct *bo);<o:p></o:p></p>
+<p class=3D"MsoNormal">vm_fault_t amdgpu_bo_fault_reserve_notify(struct ttm=
+_buffer_object *bo);<o:p></o:p></p>
+<p class=3D"MsoNormal">void amdgpu_bo_fence(struct amdgpu_bo *bo, struct dm=
+a_fence *fence,<o:p></o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c=
+ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<o:p></o:p></p>
+<p class=3D"MsoNormal">index 41ed6a3e5a06..f0fffbf2bdd5 100644<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">@@ -576,10 +576,11 @@ static int amdgpu_bo_move(stru=
+ct ttm_buffer_object *bo, bool evict,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; return r;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o=
+:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; trace_amdgpu_b=
+o_move(abo, new_mem-&gt;mem_type, old_mem-&gt;mem_type);<o:p></o:p></p>
+<p class=3D"MsoNormal">out:<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* update=
+ statistics */<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic64_=
+add(bo-&gt;base.size, &amp;adev-&gt;num_bytes_moved);<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_move=
+_notify(bo, evict, new_mem);<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_move=
+_notify(bo, evict);<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">}<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">@@ -1852,7 +1853,7 @@ static int amdgpu_ttm_access_m=
+emory(struct ttm_buffer_object *bo,<o:p></o:p></p>
+<p class=3D"MsoNormal">static void<o:p></o:p></p>
+<p class=3D"MsoNormal">amdgpu_bo_delete_mem_notify(struct ttm_buffer_object=
+ *bo)<o:p></o:p></p>
+<p class=3D"MsoNormal">{<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_move=
+_notify(bo, false, NULL);<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_move=
+_notify(bo, false);<o:p></o:p></p>
+<p class=3D"MsoNormal">}<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">static struct ttm_device_funcs amdgpu_bo_driver =3D =
+{<o:p></o:p></p>
+<p class=3D"MsoNormal">--<o:p></o:p></p>
+<p class=3D"MsoNormal">2.34.1<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BY5PR12MB4194EF791E7B45D0A2251CD4F78DABY5PR12MB4194namp_--
