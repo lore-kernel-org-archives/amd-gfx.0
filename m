@@ -4,89 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07C74C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Dec 2023 06:12:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F23A0C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Dec 2023 06:13:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D99C10E161;
-	Wed, 13 Dec 2023 06:12:58 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on20606.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8c::606])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66B4310E161
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Dec 2023 06:12:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8ED3B10E259;
+	Wed, 13 Dec 2023 06:13:03 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2055.outbound.protection.outlook.com [40.107.244.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 247C510E259
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Dec 2023 06:13:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kd9RUcocIGR4g9PaWg/5YrM/fos8hjTKWFtBnUXa3z3MgfOqdsM+vqpJktQwEcQFVHaD7pv6c5IqtQpikz4KTr4UvIZze0QVRpcX2iYHLrPaGuh7zYjHQ84n1woz5iyKRh5e7/A7IsKZxjWDygwXVDpAWKCEHjuxLvDOP9wqHRaqKaGPzjrUMlie98Y2yaR0imbWFb7qMeMSJOkyihpPxL+9MKhmBYc4FOFwYtrs6WsAmEV8Tqk2maLIym1KifjjZWdX1NL+PptBEKtx2ZAaiTeQglzVy4hzO24vXEDAkCDCdQCUqOcsbF7YsuPIu3VzpK+J9uOv8MpDvxrWXvyWdw==
+ b=TKg5TByjwuoCxmP5w7MciTnLvNoTc4KpqQ4nmsGt73TLUFXgRvE4i7aYDqDTZaVQjo9xRAVYNVAeGkoG16WW9Wi71cpT59id1wn/E/J0L2GcwF96IvAuUPjeDD7VwoZvD4IjyNlsxB3y4751Xd/1Dm7+9SDSn5NPb8ZQSSTG7HUIfoxgWsxM8xrrtLndd3psnEKWf6e7mRbTfzfquW19MgrdMEOnEUEonzFjWiZ4Pv7NmMBF1Bl0IgpAsAzZrdV2hb56KrV01jF136Z6p8jmtRvR73WYL1+aP47+mJRCw5Pxff/gdyryHJmI5cAFvivub/R7qhkeLsP/hOHIegc8Cg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MY7YH5+DwuIMOH1W3h5lJ2s/sGHRcmWRlPyxX9DrCiE=;
- b=Tf5a9IjiLXNWU4Kcm4KrXzTHT4N9o6Jn/pCShJ1xQXsgj2D7035XwpLQpe5H58WUxKeL6oLFPhTW/x6jEFnnwiVtMeOo1TH8lQv7ya2fzW3Nv3eyYf1fL7I9hZ+dMMx4yCfFFCsOeeJ1c9cBtAd5I2w5yYb35GcO/7SA759+oWJDWLJxOBIXPdZ+Kexu+0o41biZNDqPxFAtFa17XyPaJEcWoxFc4DWG1MZeHhG9lf0gRnkA8D4vblCzh0NSAEMSOmc+dLGefIrBgCxWJ0u4rfyyGBCml7B3QPR0wyuEIGTQ2gC1ni++zBgJ2Yu+m1CQgK6zIV3v6LUd17MPVvX7rQ==
+ bh=zdvpaERh11yCGpNigjEdV0yW8sqHobTiyX1/8zQIF8Y=;
+ b=CAOLYsjkKn6UkBBhfbqAXT5NqORRMS7JivbahGGtjSYCOSLAXZ893yZy2c1gUW+fAkMJBEUIspduXidiAk5lsI64JGf8taLjJAYmZ3+jPXkZZ6foNlVS1i0lTePPfBiHxqxH+xPQvvx8hfPNHTP36V9KWgBdtIo1N3FY0VnKUJdAnibkSB6nZeHd+bLFkpMmrXlVyc0oxuH9cq5h2Hv8WkqopXtADXVFhPuZXLDfAJBCPNdTWhJFP0vsuVfINNDSYkYQnoi/1/NhqR6GLXw8DU3iG1JQwnQEXK7HOSEVQKMohnomTep4MqxfUfzYaSYcK3a6rxg7Rij4I6/tDpnmAw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MY7YH5+DwuIMOH1W3h5lJ2s/sGHRcmWRlPyxX9DrCiE=;
- b=xYWubm6Qcr5Ntajhqrtmo2xcZaTMw6Uyjg+O7/x9yIfPPYzclGxHKA7gkcmqZjbt3F4/Ps8QUNdoHJAxFwU76y7iAGe42UiHy4Uxkun9kQwVQAztSee9B9qCxM59Mifr+UdpPJ+asAy8p3G2TUYEj1om87deiLC7k5qWguOoSCE=
-Received: from MW4PR03CA0256.namprd03.prod.outlook.com (2603:10b6:303:b4::21)
- by CH2PR12MB4213.namprd12.prod.outlook.com (2603:10b6:610:a4::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.26; Wed, 13 Dec
- 2023 06:12:52 +0000
-Received: from CO1PEPF000042A8.namprd03.prod.outlook.com
- (2603:10b6:303:b4:cafe::10) by MW4PR03CA0256.outlook.office365.com
- (2603:10b6:303:b4::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.26 via Frontend
- Transport; Wed, 13 Dec 2023 06:12:52 +0000
+ bh=zdvpaERh11yCGpNigjEdV0yW8sqHobTiyX1/8zQIF8Y=;
+ b=d3CswAQlylqIjhUaPUlp0KWDJtSDh9Q/XGu2TtLv91ktnzhZUhHrTd/5Swn2JZO4dZfnUDuD2twaadjzYsQGF+41aA9n3Al1BaID5p92V5uFwkoznxtPP+r3nx9rcQb5wQM12OWIPoBusa1fHkoWQvkWlN8leVcj78dGK7T+zAo=
+Received: from MW2PR16CA0007.namprd16.prod.outlook.com (2603:10b6:907::20) by
+ SJ2PR12MB9192.namprd12.prod.outlook.com (2603:10b6:a03:55d::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7091.26; Wed, 13 Dec 2023 06:12:58 +0000
+Received: from CO1PEPF000044FC.namprd21.prod.outlook.com
+ (2603:10b6:907:0:cafe::bc) by MW2PR16CA0007.outlook.office365.com
+ (2603:10b6:907::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.33 via Frontend
+ Transport; Wed, 13 Dec 2023 06:12:58 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000042A8.mail.protection.outlook.com (10.167.243.37) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1PEPF000044FC.mail.protection.outlook.com (10.167.241.202) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7091.26 via Frontend Transport; Wed, 13 Dec 2023 06:12:51 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7113.7 via Frontend Transport; Wed, 13 Dec 2023 06:12:58 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 13 Dec
- 2023 00:12:50 -0600
+ 2023 00:12:57 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Tue, 12 Dec
+ 2023 22:12:56 -0800
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Wed, 13 Dec 2023 00:12:40 -0600
+ Transport; Wed, 13 Dec 2023 00:12:52 -0600
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 00/25] DC Patches for Dec 18, 2023
-Date: Wed, 13 Dec 2023 14:12:02 +0800
-Message-ID: <20231213061227.1750663-1-Wayne.Lin@amd.com>
+Subject: [PATCH 01/25] drm/amd/display: do not send commands to DMUB if DMUB
+ is inactive from S3
+Date: Wed, 13 Dec 2023 14:12:03 +0800
+Message-ID: <20231213061227.1750663-2-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.37.3
+In-Reply-To: <20231213061227.1750663-1-Wayne.Lin@amd.com>
+References: <20231213061227.1750663-1-Wayne.Lin@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042A8:EE_|CH2PR12MB4213:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2c3893af-2352-414d-912c-08dbfba289d8
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044FC:EE_|SJ2PR12MB9192:EE_
+X-MS-Office365-Filtering-Correlation-Id: 99bb8364-1688-45e7-17c4-08dbfba28dac
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: KadxOoO3avALas/pgJg4HVCOzsmuEyV6cVWRAuomB/nv28LqEs85SiGYUFPWQuhdb0EaJE9nwwjby4Ubr6X9u/3W95kFkfleBXs9EfI1WdWHQ/HVRe8veI8OOzsxThqLKP7AILa3or/75i3evsR2mypzuSsdBeAe+NjrCgbKtHQnxFDm2Hl5maaPUaDq1lV7hTpbiRpKuyBRxFAGnzh5HjVnTWuDuxtYLvXdW15ndzfi9ooY+odKA8hU9iSRJFG5hDJen6o5wy4ItnAC3x7Du4AzZhStInub6LgnfkC0XN5AhVXGNZHucXHlce57rYcUDpIKg7mgke3kl9/TA19RmA8nopBp8/NePiPobA4OJCT8Z+UwWlbo4NEYh9JzDa99HZAxnXEdQ+iMt9sG83buV1bPnjd6ouP/Zy6oEETTukdD+1xQzRMCe5ZfuSQ5OZnXdR49EcEpejSC1zuYbX+gWtXKaxUAKWAOg10pNblgLcsPWX4oOeYRgWHcN7amRxxEGiJ+wSneQW+hNVIpj3MtWb5YlpxMyEiApIsAV+gyei/FdVpu8bWZn84JuoozopL8nunZjaKyWgPUiAqgbXRE/w3AKX+YmNAH96rURUA3Yf4tk846GGtrs4OxhzUpRkn2CXBQiQ/ugOH9BxoGGjLgKCYG+aic60hmg0D9sNbDUhNNXPwQsKVohzMdJsO4mLbTiUuS/RvGps6fpRG/TuvqxFn0DT3LlCIYHRDke27rQ+xvPn5+XovAmcewA6OjYF01WyGvDfU25xeO1nzb+6v7qQ==
+X-Microsoft-Antispam-Message-Info: iDjtbXduE+igxaPPI86Tef44SH2QwJCwMAxkRw3bPiK+JNfXneTgbl20c8Y5EULJdLTl3e0kREUkn66apC5aes9vAeeTq7OdvIPj4zLEHEs0pOcCemFH/8RY8ddLIZI4yf+3tej0nsHDGDcmjE62s2mQdojd8nh7JhzTnlYbJNThRM/MR0oQgeSZLBXrvkdVdNLZTx8EYxukKoc4hTkirwPgqqviZOiP1s39BKQi9pu13KpH0L87qcdAaqPKQUR/eL319L1vHo4vhT+h8jO3LU3dxfRt/VvwbMMyoYia2I1RPYtpsgx7appkD0cDn6LFyEOCPk15fFCnYVx6nwD/WstMbJ1jld5uGwR7I9QGBfQ9hfHX6CI3QNbJcRbj6liMvXhd/v+RgtfgHI80cyTYoCdIK8FUWaiUNiy5RIGzwDBrxOf41LY0T1254NcKGgbj1hD6DGEubWClFLZbGZNVz1vfLO5xXcH4QUJ5NQDcGyILOx/GuPB7Ia/4UQhWEMKJgnxIk1FN2tlNClBcWHWB70/OLoO8OkjAsARXsEawK/yagDEIlZMyx5WNBFSrDZnZ0U5ofNMyA03iw+TWtc/C2ks0F6t3sDps+nDspsYgCEL38caDxbkbToLgzUysrNL0nav4oywcuHxkBUeX+9sl4r4wF8/pBpwn2GesXFGQPRsmCn2VNK6JgSays4Q0gpCHTiMatyMJvlwqqWJ0LuYA42U9V6od6zETbljT9RpDRShuiooZ3vvOCIh3ydcqD3vuBmlteTD0QHrcMdsyOMre0w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(39860400002)(396003)(376002)(136003)(230922051799003)(186009)(82310400011)(451199024)(1800799012)(64100799003)(40470700004)(46966006)(36840700001)(40480700001)(40460700003)(70586007)(70206006)(82740400003)(356005)(81166007)(36756003)(86362001)(36860700001)(47076005)(26005)(336012)(83380400001)(426003)(1076003)(7696005)(2616005)(2906002)(54906003)(6916009)(316002)(478600001)(6666004)(5660300002)(8936002)(8676002)(4326008)(41300700001)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(376002)(346002)(396003)(39860400002)(136003)(230922051799003)(82310400011)(451199024)(186009)(1800799012)(64100799003)(36840700001)(46966006)(40470700004)(40480700001)(1076003)(2616005)(336012)(26005)(426003)(7696005)(6666004)(40460700003)(86362001)(81166007)(82740400003)(36756003)(356005)(5660300002)(8936002)(8676002)(4326008)(83380400001)(36860700001)(47076005)(54906003)(70206006)(70586007)(6916009)(41300700001)(2906002)(316002)(478600001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2023 06:12:51.7439 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c3893af-2352-414d-912c-08dbfba289d8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2023 06:12:58.1634 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 99bb8364-1688-45e7-17c4-08dbfba28dac
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042A8.namprd03.prod.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044FC.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4213
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9192
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,189 +105,186 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, chiahsuan.chung@amd.com, Sunpeng.Li@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Daniel Wheeler <daniel.wheeler@amd.com>, jerry.zuo@amd.com,
- Aurabindo.Pillai@amd.com, hersenxs.wu@amd.com, Wayne
- Lin <Wayne.Lin@amd.com>, Harry.Wentland@amd.com, agustin.gutierrez@amd.com
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, Samson Tam <samson.tam@amd.com>,
+ jerry.zuo@amd.com, Aurabindo.Pillai@amd.com, hersenxs.wu@amd.com,
+ wayne.lin@amd.com, Harry.Wentland@amd.com,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, agustin.gutierrez@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This DC patchset brings improvements in multiple areas. In summary, we highlight:
+From: Samson Tam <samson.tam@amd.com>
 
-- change static screen wait frame_count for ips
-- Fix hang/underflow when transitioning to ODM4:1
-- Only clear symclk otg flag for HDMI
-- Fix lightup regression with DP2 single display configs
-- Refactor phantom resource allocation
-- Refactor dc_state interface
-- Wake DMCUB before executing GPINT commands
-- Wake DMCUB before sending a command
-- Refactor DMCUB enter/exit idle interface
-- enable dcn35 idle power optimization
-- fix usb-c connector_type
-- add debug option for ExtendedVBlank DLG adjust
-- Set test_pattern_changed update flag on pipe enable
-- dereference variable before checking for zero
-- get dprefclk ss info from integration info table
-- skip error logging when DMUB is inactive from S3
-- make flip_timestamp_in_us a 64-bit variable
-- Add case for dcn35 to support usb4 dmub hpd event
-- Add function for dumping clk registers
-- Unify optimize_required flags and VRR adjustments
-- Revert using channel_width as 2 for vram table 3.0
-- remove HPO PG in driver side
-- do not send commands to DMUB if DMUB is inactive from S3
+[Why]
+On resume from S3, may get apply_idle_optimizations call while DMUB
+is inactive which will just time out.
 
-Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+[How]
+Set and track power state in dmub_srv and check power state before
+sending commands to DMUB.  Add interface in both dmub_srv and
+dc_dmub_srv
+
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Acked-by: Wayne Lin <wayne.lin@amd.com>
+Signed-off-by: Samson Tam <samson.tam@amd.com>
 ---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  3 +++
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  | 14 +++++++++++++
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h  |  2 ++
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h   | 21 +++++++++++++++++++
+ .../gpu/drm/amd/display/dmub/src/dmub_srv.c   | 15 +++++++++++++
+ 5 files changed, 55 insertions(+)
 
-Allen Pan (2):
-  drm/amd/display: fix usb-c connector_type
-  drm/amd/display: change static screen wait frame_count for ips
-
-Alvin Lee (2):
-  drm/amd/display: Revert " drm/amd/display: Use channel_width = 2 for
-    vram table 3.0"
-  drm/amd/display: Only clear symclk otg flag for HDMI
-
-Anthony Koo (1):
-  drm/amd/display: [FW Promotion] Release 0.0.197.0
-
-Aric Cyr (2):
-  drm/amd/display: Unify optimize_required flags and VRR adjustments
-  drm/amd/display: 3.2.265
-
-Charlene Liu (1):
-  drm/amd/display: get dprefclk ss info from integration info table
-
-Dillon Varone (2):
-  drm/amd/display: Refactor dc_state interface
-  drm/amd/display: Refactor phantom resource allocation
-
-George Shen (1):
-  drm/amd/display: Set test_pattern_changed update flag on pipe enable
-
-Ilya Bakoulin (1):
-  drm/amd/display: Fix hang/underflow when transitioning to ODM4:1
-
-Johnson Chen (1):
-  drm/amd/display: Add function for dumping clk registers
-
-Josip Pavic (2):
-  drm/amd/display: make flip_timestamp_in_us a 64-bit variable
-  drm/amd/display: dereference variable before checking for zero
-
-Michael Strauss (1):
-  drm/amd/display: Fix lightup regression with DP2 single display
-    configs
-
-Muhammad Ahmed (2):
-  drm/amd/display: remove HPO PG in driver side
-  drm/amd/display: add debug option for ExtendedVBlank DLG adjust
-
-Nicholas Kazlauskas (3):
-  drm/amd/display: Refactor DMCUB enter/exit idle interface
-  drm/amd/display: Wake DMCUB before sending a command
-  drm/amd/display: Wake DMCUB before executing GPINT commands
-
-Roman Li (1):
-  drm/amd/display: enable dcn35 idle power optimization
-
-Samson Tam (2):
-  drm/amd/display: do not send commands to DMUB if DMUB is inactive from
-    S3
-  drm/amd/display: skip error logging when DMUB is inactive from S3
-
-Wayne Lin (1):
-  drm/amd/display: Add case for dcn35 to support usb4 dmub hpd event
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  59 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  29 +-
- drivers/gpu/drm/amd/display/dc/Makefile       |   2 +-
- .../drm/amd/display/dc/bios/bios_parser2.c    |  27 +-
- .../drm/amd/display/dc/bios/command_table2.c  |  12 +-
- .../gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c  |   3 +-
- .../display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c  |   2 +-
- .../dc/clk_mgr/dcn314/dcn314_clk_mgr.c        |   2 +-
- .../dc/clk_mgr/dcn315/dcn315_clk_mgr.c        |   2 +-
- .../dc/clk_mgr/dcn316/dcn316_clk_mgr.c        |   2 +-
- .../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  |   9 +-
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 300 ++----
- .../drm/amd/display/dc/core/dc_hw_sequencer.c |  19 +-
- .../gpu/drm/amd/display/dc/core/dc_resource.c | 418 +--------
- .../gpu/drm/amd/display/dc/core/dc_state.c    | 861 ++++++++++++++++++
- .../gpu/drm/amd/display/dc/core/dc_stream.c   |  46 +-
- .../gpu/drm/amd/display/dc/core/dc_surface.c  |   6 +-
- drivers/gpu/drm/amd/display/dc/dc.h           |  33 +-
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  | 244 ++++-
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h  |  59 +-
- drivers/gpu/drm/amd/display/dc/dc_helper.c    |   6 +-
- drivers/gpu/drm/amd/display/dc/dc_hw_types.h  |   2 +-
- drivers/gpu/drm/amd/display/dc/dc_plane.h     |  38 +
- .../gpu/drm/amd/display/dc/dc_plane_priv.h    |  34 +
- drivers/gpu/drm/amd/display/dc/dc_state.h     |  78 ++
- .../gpu/drm/amd/display/dc/dc_state_priv.h    | 102 +++
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |  76 +-
- .../gpu/drm/amd/display/dc/dc_stream_priv.h   |  37 +
- drivers/gpu/drm/amd/display/dc/dc_types.h     |   5 +
- .../gpu/drm/amd/display/dc/dce/dmub_abm_lcd.c |  14 +-
- .../drm/amd/display/dc/dce/dmub_hw_lock_mgr.c |   2 +-
- .../gpu/drm/amd/display/dc/dce/dmub_outbox.c  |   2 +-
- drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c |  33 +-
- .../gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c |   2 +-
- .../display/dc/dcn31/dcn31_dio_link_encoder.c |   4 +-
- .../amd/display/dc/dcn31/dcn31_panel_cntl.c   |   4 +-
- .../display/dc/dcn32/dcn32_resource_helpers.c |  93 +-
- .../display/dc/dcn35/dcn35_dio_link_encoder.c |   5 +
- .../gpu/drm/amd/display/dc/dcn35/dcn35_init.c |   2 +-
- .../drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  |   5 +-
- .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |  51 +-
- .../amd/display/dc/dml2/display_mode_core.c   |   2 +-
- .../drm/amd/display/dc/dml2/dml2_dc_types.h   |   1 +
- .../amd/display/dc/dml2/dml2_mall_phantom.c   |  89 +-
- .../display/dc/dml2/dml2_translation_helper.c |  10 +-
- .../gpu/drm/amd/display/dc/dml2/dml2_utils.c  |  14 +-
- .../drm/amd/display/dc/dml2/dml2_wrapper.c    |   2 +-
- .../drm/amd/display/dc/dml2/dml2_wrapper.h    |  35 +-
- .../amd/display/dc/hwss/dce110/dce110_hwseq.c |  13 +-
- .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |  35 +-
- .../amd/display/dc/hwss/dcn10/dcn10_hwseq.h   |   7 +-
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |  79 +-
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.h   |   2 +-
- .../amd/display/dc/hwss/dcn201/dcn201_hwseq.c |   8 +-
- .../amd/display/dc/hwss/dcn201/dcn201_hwseq.h |   2 +-
- .../amd/display/dc/hwss/dcn21/dcn21_hwseq.c   |   4 +-
- .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   |  12 +-
- .../amd/display/dc/hwss/dcn31/dcn31_hwseq.c   |   7 +-
- .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |  78 +-
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   |  58 +-
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.h   |   6 +-
- .../drm/amd/display/dc/hwss/hw_sequencer.h    |   8 +-
- .../display/dc/hwss/hw_sequencer_private.h    |   1 +
- .../gpu/drm/amd/display/dc/inc/core_types.h   |  20 +-
- .../gpu/drm/amd/display/dc/inc/hw/clk_mgr.h   |  19 +
- .../gpu/drm/amd/display/dc/inc/hw/hw_shared.h |   1 +
- drivers/gpu/drm/amd/display/dc/inc/resource.h |   1 -
- .../dc/link/protocols/link_dp_capability.c    |   2 +-
- .../display/dc/link/protocols/link_dp_dpia.c  |   3 +-
- .../amd/display/dc/optc/dcn32/dcn32_optc.c    |   7 +
- .../amd/display/dc/optc/dcn35/dcn35_optc.c    |   7 +
- .../dc/resource/dcn32/dcn32_resource.c        | 134 +--
- .../dc/resource/dcn32/dcn32_resource.h        |  14 -
- .../dc/resource/dcn321/dcn321_resource.c      |  25 +-
- .../dc/resource/dcn35/dcn35_resource.c        |   8 +-
- drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |  22 +
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |   2 +-
- .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |  15 +
- .../display/include/grph_object_ctrl_defs.h   |   2 +
- 79 files changed, 2147 insertions(+), 1338 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/dc/core/dc_state.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/dc_plane.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/dc_plane_priv.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/dc_state.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/dc_state_priv.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/dc_stream_priv.h
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 9cce2e7b9208..84efa9e7c951 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2685,6 +2685,7 @@ static int dm_suspend(void *handle)
+ 	hpd_rx_irq_work_suspend(dm);
+ 
+ 	dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D3);
++	dc_dmub_srv_set_power_state(dm->dc->ctx->dmub_srv, DC_ACPI_CM_POWER_STATE_D3);
+ 
+ 	return 0;
+ }
+@@ -2880,6 +2881,7 @@ static int dm_resume(void *handle)
+ 		if (r)
+ 			DRM_ERROR("DMUB interface failed to initialize: status=%d\n", r);
+ 
++		dc_dmub_srv_set_power_state(dm->dc->ctx->dmub_srv, DC_ACPI_CM_POWER_STATE_D0);
+ 		dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D0);
+ 
+ 		dc_resume(dm->dc);
+@@ -2930,6 +2932,7 @@ static int dm_resume(void *handle)
+ 	}
+ 
+ 	/* power on hardware */
++	dc_dmub_srv_set_power_state(dm->dc->ctx->dmub_srv, DC_ACPI_CM_POWER_STATE_D0);
+ 	dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D0);
+ 
+ 	/* program HPD filter */
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+index 53400cc05b5b..1a4d615ccdec 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+@@ -1268,3 +1268,17 @@ void dc_dmub_srv_exit_low_power_state(const struct dc *dc)
+ 		ASSERT(0);
+ }
+ 
++void dc_dmub_srv_set_power_state(struct dc_dmub_srv *dc_dmub_srv, enum dc_acpi_cm_power_state powerState)
++{
++	struct dmub_srv *dmub;
++
++	if (!dc_dmub_srv)
++		return;
++
++	dmub = dc_dmub_srv->dmub;
++
++	if (powerState == DC_ACPI_CM_POWER_STATE_D0)
++		dmub_srv_set_power_state(dmub, DMUB_POWER_STATE_D0);
++	else
++		dmub_srv_set_power_state(dmub, DMUB_POWER_STATE_D3);
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
+index d4a60f53faab..c25ce7546f71 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
+@@ -102,4 +102,6 @@ void dc_dmub_srv_subvp_save_surf_addr(const struct dc_dmub_srv *dc_dmub_srv, con
+ bool dc_dmub_srv_is_hw_pwr_up(struct dc_dmub_srv *dc_dmub_srv, bool wait);
+ void dc_dmub_srv_notify_idle(const struct dc *dc, bool allow_idle);
+ void dc_dmub_srv_exit_low_power_state(const struct dc *dc);
++
++void dc_dmub_srv_set_power_state(struct dc_dmub_srv *dc_dmub_srv, enum dc_acpi_cm_power_state powerState);
+ #endif /* _DMUB_DC_SRV_H_ */
+diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+index df63aa8f01e9..d1a4ed6f5916 100644
+--- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
++++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+@@ -150,6 +150,13 @@ enum dmub_memory_access_type {
+ 	DMUB_MEMORY_ACCESS_DMA
+ };
+ 
++/* enum dmub_power_state type - to track DC power state in dmub_srv */
++enum dmub_srv_power_state_type {
++	DMUB_POWER_STATE_UNDEFINED = 0,
++	DMUB_POWER_STATE_D0 = 1,
++	DMUB_POWER_STATE_D3 = 8
++};
++
+ /**
+  * struct dmub_region - dmub hw memory region
+  * @base: base address for region, must be 256 byte aligned
+@@ -485,6 +492,8 @@ struct dmub_srv {
+ 	/* Feature capabilities reported by fw */
+ 	struct dmub_feature_caps feature_caps;
+ 	struct dmub_visual_confirm_color visual_confirm_color;
++
++	enum dmub_srv_power_state_type power_state;
+ };
+ 
+ /**
+@@ -889,6 +898,18 @@ enum dmub_status dmub_srv_clear_inbox0_ack(struct dmub_srv *dmub);
+  */
+ void dmub_srv_subvp_save_surf_addr(struct dmub_srv *dmub, const struct dc_plane_address *addr, uint8_t subvp_index);
+ 
++/**
++ * dmub_srv_set_power_state() - Track DC power state in dmub_srv
++ * @dmub: The dmub service
++ * @power_state: DC power state setting
++ *
++ * Store DC power state in dmub_srv.  If dmub_srv is in D3, then don't send messages to DMUB
++ *
++ * Return:
++ *   void
++ */
++void dmub_srv_set_power_state(struct dmub_srv *dmub, enum dmub_srv_power_state_type dmub_srv_power_state);
++
+ #if defined(__cplusplus)
+ }
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+index a329a6ecf4dd..53ac1c66dd86 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+@@ -713,6 +713,7 @@ enum dmub_status dmub_srv_hw_init(struct dmub_srv *dmub,
+ 		dmub->hw_funcs.reset_release(dmub);
+ 
+ 	dmub->hw_init = true;
++	dmub->power_state = DMUB_POWER_STATE_D0;
+ 
+ 	return DMUB_STATUS_OK;
+ }
+@@ -766,6 +767,9 @@ enum dmub_status dmub_srv_cmd_queue(struct dmub_srv *dmub,
+ 	if (!dmub->hw_init)
+ 		return DMUB_STATUS_INVALID;
+ 
++	if (dmub->power_state != DMUB_POWER_STATE_D0)
++		return DMUB_STATUS_INVALID;
++
+ 	if (dmub->inbox1_rb.rptr > dmub->inbox1_rb.capacity ||
+ 	    dmub->inbox1_rb.wrpt > dmub->inbox1_rb.capacity) {
+ 		return DMUB_STATUS_HW_FAILURE;
+@@ -784,6 +788,9 @@ enum dmub_status dmub_srv_cmd_execute(struct dmub_srv *dmub)
+ 	if (!dmub->hw_init)
+ 		return DMUB_STATUS_INVALID;
+ 
++	if (dmub->power_state != DMUB_POWER_STATE_D0)
++		return DMUB_STATUS_INVALID;
++
+ 	/**
+ 	 * Read back all the queued commands to ensure that they've
+ 	 * been flushed to framebuffer memory. Otherwise DMCUB might
+@@ -1100,3 +1107,11 @@ void dmub_srv_subvp_save_surf_addr(struct dmub_srv *dmub, const struct dc_plane_
+ 				subvp_index);
+ 	}
+ }
++
++void dmub_srv_set_power_state(struct dmub_srv *dmub, enum dmub_srv_power_state_type dmub_srv_power_state)
++{
++	if (!dmub || !dmub->hw_init)
++		return;
++
++	dmub->power_state = dmub_srv_power_state;
++}
 -- 
 2.37.3
 
