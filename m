@@ -4,68 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B462C4167D
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Dec 2023 08:27:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 968C4C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Dec 2023 08:27:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1592610E90B;
-	Thu, 14 Dec 2023 08:27:52 +0000 (UTC)
-Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
- [IPv6:2607:f8b0:4864:20::72c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA8AD10E8B7
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Dec 2023 01:03:22 +0000 (UTC)
-Received: by mail-qk1-x72c.google.com with SMTP id
- af79cd13be357-77f3183f012so426929085a.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Dec 2023 17:03:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=sifive.com; s=google; t=1702515802; x=1703120602; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Kotqopmhql9RPm3S4FTj2FqpufLgCsxyuc5LZys4ifw=;
- b=VatAgyVUW3qKZLBS6BCPthIpwyFI228pwHkeo9peQqX+1XCPszlKNyGJYeRKkuuudN
- 3Qr7LhXv7NPRG/Mt+b7VtgxDxlgfpxScuV+cV1nZoFlo4iR0ew3TcpdHf0MYDtEwyJHY
- j4mlAJAnlOzskqMgWRgV2V+MsxitxqYOEt7lGOu4s3VdcBr5Jp6IWWEuz8XMBDQgJRQN
- Hl/+7dMhMdQJ7ywA54fiSsr9jQeu8upuxfNqgPZqpCDghcTabz0VOEiBnD1aIViCiDAo
- pZOOg7z/txBZEWr+lCEDRVrvw0qeGi0jZ3KbxZOlAU5NCyr7PR3klB5NAqDVAlDJk9MC
- LehQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702515802; x=1703120602;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Kotqopmhql9RPm3S4FTj2FqpufLgCsxyuc5LZys4ifw=;
- b=SYr5eIi64y+++RakyelGuK2YGNHnx9N0egYcSeaqdJM+fyVWErvSLxlHVOqeZ+goX4
- V0xRCOySzcF4y5UN9bINBjYlD37b23QgDdHtAtcLLqF9sG/0mPyZ0e66m7weZom+1wix
- TDPqRoxKIQvTYdGBE+rJv74m8X48ZINw/wxteHgAtG1tNZftIsgiW26JIq6zthbs3R++
- xmnrPlJihsLgYjX7LRpm3eY0p6rNO/PdqpDwcKac9OlNjAvuZctnnOC9FBldqNMPMney
- XjwmXMeg4Goy+kZjFEt294JztggoPZFXfgO25zczEELMq/pa3JQk5RL7kyatqXbe6DcH
- Y44Q==
-X-Gm-Message-State: AOJu0Yx3n/+868ZKzawB5OLV1JcHbZ/gF9va29goKzYSzIj9Bxc0g3Qt
- dAKTh4qxk+byrpwPLHZFWgy2cQ==
-X-Google-Smtp-Source: AGHT+IFjYn4/wlSclY9FQAk7x1h05GKodk6C3zlVMTJ3BbOMNQ8WP5BrWLxO1hQ2sob52mgNqAJxdQ==
-X-Received: by 2002:a05:620a:1034:b0:77f:2734:4c5d with SMTP id
- a20-20020a05620a103400b0077f27344c5dmr9834012qkk.130.1702515801849; 
- Wed, 13 Dec 2023 17:03:21 -0800 (PST)
-Received: from ?IPV6:2600:1700:2000:b002:a1d1:dd74:a6de:fdf?
- ([2600:1700:2000:b002:a1d1:dd74:a6de:fdf])
- by smtp.gmail.com with ESMTPSA id
- ul9-20020a05620a6d0900b0077f0d3bac3bsm4896980qkn.76.2023.12.13.17.03.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Dec 2023 17:03:21 -0800 (PST)
-Message-ID: <7ed20fcf-8a9d-40d5-b913-b5d2da443cd6@sifive.com>
-Date: Wed, 13 Dec 2023 19:03:20 -0600
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+	by gabe.freedesktop.org (Postfix) with ESMTP id 908CD10E8E3;
+	Thu, 14 Dec 2023 08:27:53 +0000 (UTC)
+Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63E6410E179
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Dec 2023 04:45:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ellerman.id.au;
+ s=201909; t=1702529123;
+ bh=t7B9if0LOImFnd/AnccoK9V4d+WmshLVNwjLPY+Ohl0=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=PHvb5rAyITybLJhslCdr+FPB6weuYhVdwGVqwI6pjC0ArKwZkSJyMqDVTRdcLTEp8
+ CMM1zL432KtNyUzA4mhWgDTmzmIB20cDIEs1vpR4XVIlFKEuLTFGJUgQi2gSEUC13j
+ mfFynirXmkKm9bE2EICqv9unlGx62DyfXiv5i2BtZBd3f6O85asjT6i+pBGfgfPjyp
+ tkCdZSOpErcp/BMZpdsjN71xdXgGO4HsDEkHk/a+gxWH2FD87Y65cYU3IpDwO2jYA7
+ PzUo9wW0hAbsQZZzGnqcxC0mqh1VvcVv56nNl78AXywD3K6/8BH+V8bphra6maMQo3
+ RX1/dzF6mo1TA==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4SrKXf0VB5z4wcH;
+ Thu, 14 Dec 2023 15:45:21 +1100 (AEDT)
+From: Michael Ellerman <mpe@ellerman.id.au>
+To: Samuel Holland <samuel.holland@sifive.com>
 Subject: Re: [RFC PATCH 10/12] drm/amd/display: Use ARCH_HAS_KERNEL_FPU_SUPPORT
-Content-Language: en-US
-To: Michael Ellerman <mpe@ellerman.id.au>
+In-Reply-To: <7ed20fcf-8a9d-40d5-b913-b5d2da443cd6@sifive.com>
 References: <20231208055501.2916202-1-samuel.holland@sifive.com>
  <20231208055501.2916202-11-samuel.holland@sifive.com>
  <87h6kpdj20.fsf@mail.lhotse>
-From: Samuel Holland <samuel.holland@sifive.com>
-In-Reply-To: <87h6kpdj20.fsf@mail.lhotse>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ <7ed20fcf-8a9d-40d5-b913-b5d2da443cd6@sifive.com>
+Date: Thu, 14 Dec 2023 15:45:21 +1100
+Message-ID: <87bkatxuhq.fsf@mail.lhotse>
+MIME-Version: 1.0
+Content-Type: text/plain
 X-Mailman-Approved-At: Thu, 14 Dec 2023 08:27:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,147 +60,171 @@ Cc: linux-arch@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023-12-11 6:23 AM, Michael Ellerman wrote:
-> Hi Samuel,
-> 
-> Thanks for trying to clean all this up.
-> 
-> One problem below.
-> 
-> Samuel Holland <samuel.holland@sifive.com> writes:
->> Now that all previously-supported architectures select
->> ARCH_HAS_KERNEL_FPU_SUPPORT, this code can depend on that symbol instead
->> of the existing list of architectures. It can also take advantage of the
->> common kernel-mode FPU API and method of adjusting CFLAGS.
->>
->> Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
-> ...
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
->> index 4ae4720535a5..b64f917174ca 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
->> @@ -87,20 +78,9 @@ void dc_fpu_begin(const char *function_name, const int line)
->>  	WARN_ON_ONCE(!in_task());
->>  	preempt_disable();
->>  	depth = __this_cpu_inc_return(fpu_recursion_depth);
->> -
->>  	if (depth == 1) {
->> -#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
->> +		BUG_ON(!kernel_fpu_available());
->>  		kernel_fpu_begin();
->> -#elif defined(CONFIG_PPC64)
->> -		if (cpu_has_feature(CPU_FTR_VSX_COMP))
->> -			enable_kernel_vsx();
->> -		else if (cpu_has_feature(CPU_FTR_ALTIVEC_COMP))
->> -			enable_kernel_altivec();
->  
-> Note altivec.
-> 
->> -		else if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
->> -			enable_kernel_fp();
->> -#elif defined(CONFIG_ARM64)
->> -		kernel_neon_begin();
->> -#endif
->>  	}
+Samuel Holland <samuel.holland@sifive.com> writes:
+> On 2023-12-11 6:23 AM, Michael Ellerman wrote:
+>> Hi Samuel,
+>> 
+>> Thanks for trying to clean all this up.
+>> 
+>> One problem below.
+>> 
+>> Samuel Holland <samuel.holland@sifive.com> writes:
+>>> Now that all previously-supported architectures select
+>>> ARCH_HAS_KERNEL_FPU_SUPPORT, this code can depend on that symbol instead
+>>> of the existing list of architectures. It can also take advantage of the
+>>> common kernel-mode FPU API and method of adjusting CFLAGS.
+>>>
+>>> Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
+>> ...
+>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+>>> index 4ae4720535a5..b64f917174ca 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+>>> @@ -87,20 +78,9 @@ void dc_fpu_begin(const char *function_name, const int line)
+>>>  	WARN_ON_ONCE(!in_task());
+>>>  	preempt_disable();
+>>>  	depth = __this_cpu_inc_return(fpu_recursion_depth);
+>>> -
+>>>  	if (depth == 1) {
+>>> -#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
+>>> +		BUG_ON(!kernel_fpu_available());
+>>>  		kernel_fpu_begin();
+>>> -#elif defined(CONFIG_PPC64)
+>>> -		if (cpu_has_feature(CPU_FTR_VSX_COMP))
+>>> -			enable_kernel_vsx();
+>>> -		else if (cpu_has_feature(CPU_FTR_ALTIVEC_COMP))
+>>> -			enable_kernel_altivec();
 >>  
->>  	TRACE_DCN_FPU(true, function_name, line, depth);
->> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
->> index ea7d60f9a9b4..5aad0f572ba3 100644
->> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
->> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
->> @@ -25,40 +25,8 @@
->>  # It provides the general basic services required by other DAL
->>  # subcomponents.
->>  
->> -ifdef CONFIG_X86
->> -dml_ccflags-$(CONFIG_CC_IS_GCC) := -mhard-float
->> -dml_ccflags := $(dml_ccflags-y) -msse
->> -endif
->> -
->> -ifdef CONFIG_PPC64
->> -dml_ccflags := -mhard-float -maltivec
->> -endif
-> 
-> And altivec is enabled in the flags there.
-> 
-> That doesn't match your implementation for powerpc in patch 7, which
-> only deals with float.
-> 
-> I suspect the AMD driver actually doesn't need altivec enabled, but I
-> don't know that for sure. It compiles without it, but I don't have a GPU
-> to actually test. I've added Timothy on Cc who added the support for
-> powerpc to the driver originally, hopefully he has a test system.
+>> Note altivec.
+>> 
+>>> -		else if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
+>>> -			enable_kernel_fp();
+>>> -#elif defined(CONFIG_ARM64)
+>>> -		kernel_neon_begin();
+>>> -#endif
+>>>  	}
+>>>  
+>>>  	TRACE_DCN_FPU(true, function_name, line, depth);
+>>> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+>>> index ea7d60f9a9b4..5aad0f572ba3 100644
+>>> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
+>>> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+>>> @@ -25,40 +25,8 @@
+>>>  # It provides the general basic services required by other DAL
+>>>  # subcomponents.
+>>>  
+>>> -ifdef CONFIG_X86
+>>> -dml_ccflags-$(CONFIG_CC_IS_GCC) := -mhard-float
+>>> -dml_ccflags := $(dml_ccflags-y) -msse
+>>> -endif
+>>> -
+>>> -ifdef CONFIG_PPC64
+>>> -dml_ccflags := -mhard-float -maltivec
+>>> -endif
+>> 
+>> And altivec is enabled in the flags there.
+>> 
+>> That doesn't match your implementation for powerpc in patch 7, which
+>> only deals with float.
+>> 
+>> I suspect the AMD driver actually doesn't need altivec enabled, but I
+>> don't know that for sure. It compiles without it, but I don't have a GPU
+>> to actually test. I've added Timothy on Cc who added the support for
+>> powerpc to the driver originally, hopefully he has a test system.
+>
+> I tested this series on a POWER9 system with an AMD Radeon RX 6400 GPU (which
+> requires this FPU code to initialize), and got functioning graphics output.
 
-I tested this series on a POWER9 system with an AMD Radeon RX 6400 GPU (which
-requires this FPU code to initialize), and got functioning graphics output.
+Awesome.
 
-> Anyway if that's true that it doesn't need altivec we should probably do
-> a lead-up patch that drops altivec from the AMD driver explicitly, eg.
-> as below.
+>> Anyway if that's true that it doesn't need altivec we should probably do
+>> a lead-up patch that drops altivec from the AMD driver explicitly, eg.
+>> as below.
+>
+> That makes sense to me. Do you want to provide your Signed-off-by so I can send
+> this patch with your authorship?
 
-That makes sense to me. Do you want to provide your Signed-off-by so I can send
-this patch with your authorship?
+Yeah that'd be great. Patch below. Feel free to adjust the commit
+message as you see fit.
 
-Regards,
-Samuel
+cheers
 
-> cheers
-> 
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-> index 4ae4720535a5..0de16796466b 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-> @@ -92,11 +92,7 @@ void dc_fpu_begin(const char *function_name, const int line)
->  #if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
->  		kernel_fpu_begin();
->  #elif defined(CONFIG_PPC64)
-> -		if (cpu_has_feature(CPU_FTR_VSX_COMP))
-> -			enable_kernel_vsx();
-> -		else if (cpu_has_feature(CPU_FTR_ALTIVEC_COMP))
-> -			enable_kernel_altivec();
-> -		else if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
-> +		if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
->  			enable_kernel_fp();
->  #elif defined(CONFIG_ARM64)
->  		kernel_neon_begin();
-> @@ -125,11 +121,7 @@ void dc_fpu_end(const char *function_name, const int line)
->  #if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
->  		kernel_fpu_end();
->  #elif defined(CONFIG_PPC64)
-> -		if (cpu_has_feature(CPU_FTR_VSX_COMP))
-> -			disable_kernel_vsx();
-> -		else if (cpu_has_feature(CPU_FTR_ALTIVEC_COMP))
-> -			disable_kernel_altivec();
-> -		else if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
-> +		if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
->  			disable_kernel_fp();
->  #elif defined(CONFIG_ARM64)
->  		kernel_neon_end();
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> index 6042a5a6a44f..554c39024a40 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> @@ -31,7 +31,7 @@ dml_ccflags := $(dml_ccflags-y) -msse
->  endif
->  
->  ifdef CONFIG_PPC64
-> -dml_ccflags := -mhard-float -maltivec
-> +dml_ccflags := -mhard-float
->  endif
->  
->  ifdef CONFIG_ARM64
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml2/Makefile b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
-> index acff3449b8d7..7b51364084b5 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml2/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
-> @@ -30,7 +30,7 @@ dml2_ccflags := $(dml2_ccflags-y) -msse
->  endif
->  
->  ifdef CONFIG_PPC64
-> -dml2_ccflags := -mhard-float -maltivec
-> +dml2_ccflags := -mhard-float
->  endif
->  
->  ifdef CONFIG_ARM64
+
+From c8a2862d2ebe76a023eceb3267fd85262925c0ba Mon Sep 17 00:00:00 2001
+From: Michael Ellerman <mpe@ellerman.id.au>
+Date: Thu, 14 Dec 2023 15:39:05 +1100
+Subject: [PATCH] drm/amd/display: Only use hard-float, not altivec on powerpc
+
+The compiler flags enable altivec, but that is not required, hard-float
+is sufficient for the code to build and function.
+
+Drop altivec from the compiler flags and adjust the enable/disable code
+to only enable FPU use.
+
+Signed-off-by: Michael Ellerman <mpe@ellerman.id.au>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c | 12 ++----------
+ drivers/gpu/drm/amd/display/dc/dml/Makefile    |  2 +-
+ drivers/gpu/drm/amd/display/dc/dml2/Makefile   |  2 +-
+ 3 files changed, 4 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+index 4ae4720535a5..0de16796466b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+@@ -92,11 +92,7 @@ void dc_fpu_begin(const char *function_name, const int line)
+ #if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
+ 		kernel_fpu_begin();
+ #elif defined(CONFIG_PPC64)
+-		if (cpu_has_feature(CPU_FTR_VSX_COMP))
+-			enable_kernel_vsx();
+-		else if (cpu_has_feature(CPU_FTR_ALTIVEC_COMP))
+-			enable_kernel_altivec();
+-		else if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
++		if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
+ 			enable_kernel_fp();
+ #elif defined(CONFIG_ARM64)
+ 		kernel_neon_begin();
+@@ -125,11 +121,7 @@ void dc_fpu_end(const char *function_name, const int line)
+ #if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
+ 		kernel_fpu_end();
+ #elif defined(CONFIG_PPC64)
+-		if (cpu_has_feature(CPU_FTR_VSX_COMP))
+-			disable_kernel_vsx();
+-		else if (cpu_has_feature(CPU_FTR_ALTIVEC_COMP))
+-			disable_kernel_altivec();
+-		else if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
++		if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
+ 			disable_kernel_fp();
+ #elif defined(CONFIG_ARM64)
+ 		kernel_neon_end();
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+index 6042a5a6a44f..554c39024a40 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+@@ -31,7 +31,7 @@ dml_ccflags := $(dml_ccflags-y) -msse
+ endif
+ 
+ ifdef CONFIG_PPC64
+-dml_ccflags := -mhard-float -maltivec
++dml_ccflags := -mhard-float
+ endif
+ 
+ ifdef CONFIG_ARM64
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/Makefile b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
+index acff3449b8d7..7b51364084b5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
+@@ -30,7 +30,7 @@ dml2_ccflags := $(dml2_ccflags-y) -msse
+ endif
+ 
+ ifdef CONFIG_PPC64
+-dml2_ccflags := -mhard-float -maltivec
++dml2_ccflags := -mhard-float
+ endif
+ 
+ ifdef CONFIG_ARM64
+-- 
+2.43.0
+
 
