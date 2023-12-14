@@ -4,113 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78BDBC4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Dec 2023 03:23:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC4DBC4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Dec 2023 05:50:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E435410E8AE;
-	Thu, 14 Dec 2023 03:23:07 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2044.outbound.protection.outlook.com [40.107.92.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFD8A10E8AE
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Dec 2023 03:23:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nge+u9lencS3ZwIG6TOHAKZAgd/ra8eekFeGZZjux//a8WUMIHxnezc0NKh8MNKsXG4pKw7ne3WR2idvHq5ySktR9YzuwLLbkMf98QhRYTyERO/ENuwi8HXoNtjfYsR452gxAzPm+89rNFKyKJCD7B2H4Vsl0I88eDlazGzVc519OTHOoLqqTSCeIz7YURw8Jp05dD4I4xdO7n/fkwQWWAYX8RgZrRsINYON9LwWeeRD7hIREzO0L7Jr8JyhYFI3drAfF8v7aBWxScjXyG77L4QO6rSfz1oDy7sZIV7xMjE4FAUMDQRlVygCnbbmbaHmuyutYIj9/FeSJhpihG65KA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kfKhugEETQKZQ2WXV0EUSopKApoFGua4ohkrkWIDpNk=;
- b=ANkLayyOKItQY37EFbnyQiKtA/OGrjsXOVm+hpi95ZNztyAsCQEdEufR9bDijP+geiEl96NETFSgl7aII4SWwgov/cn27fyalNSNrEmVwxNuzKBxbK/xCqVKcNqqz3AUw0uPw7NazICkfXuWi67Tc99I4Ss8adLZEelFd9mfPtROqD1DHWKM2jahbyaveFO64n/VXw2vRlnjN2G3Zha4gYPIFIwzWZJHaUcKfZS28rT361AQkwQl98EOaq52rkDSQHYsA3b723IjBPOJOxi8VWVDUxBxFAKuMtWebbZW4MR6CHZl744w69/+Mmjgwo0HVkqJJXqQg/c63Cvv+oMS8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kfKhugEETQKZQ2WXV0EUSopKApoFGua4ohkrkWIDpNk=;
- b=3d2xUKjMGCACMVwq+uKb4QDF7bCmqsGgJSP1BzbNX+Q6a1K8tC6WlCS6gxr/Gd6Jp4rNiWPSPSAWiTpMTcV+A0QJTgaukqk0p9f/AeE227GtjPMCJDzl2xImSoEFlNgG5XT3L5it/a++p/LH/+9uFkKHSfVS/kEuCcSXpeWEs/M=
-Received: from DM4PR12MB5181.namprd12.prod.outlook.com (2603:10b6:5:394::22)
- by CY8PR12MB7194.namprd12.prod.outlook.com (2603:10b6:930:5a::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.28; Thu, 14 Dec
- 2023 03:23:03 +0000
-Received: from DM4PR12MB5181.namprd12.prod.outlook.com
- ([fe80::c177:cba4:d291:749a]) by DM4PR12MB5181.namprd12.prod.outlook.com
- ([fe80::c177:cba4:d291:749a%4]) with mapi id 15.20.7091.022; Thu, 14 Dec 2023
- 03:23:03 +0000
-From: "Gao, Likun" <Likun.Gao@amd.com>
-To: "Feng, Kenneth" <Kenneth.Feng@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/pm: add power save mode workload for smu 13.0.10
-Thread-Topic: [PATCH] drm/amd/pm: add power save mode workload for smu 13.0.10
-Thread-Index: AQHaLZJK/1y6zvKPwkSO1Soh4J9ArrCoHkZw
-Date: Thu, 14 Dec 2023 03:23:03 +0000
-Message-ID: <DM4PR12MB5181A8C1CDD1E33DB111F426EF8CA@DM4PR12MB5181.namprd12.prod.outlook.com>
-References: <20231213070157.972391-1-kenneth.feng@amd.com>
-In-Reply-To: <20231213070157.972391-1-kenneth.feng@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=dd8e1cbd-efeb-4f15-bbf9-db734aa13746;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-12-14T03:22:03Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5181:EE_|CY8PR12MB7194:EE_
-x-ms-office365-filtering-correlation-id: 2031da76-c613-4d63-48a1-08dbfc53fb78
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: JJZOFtO27l0TkmznT7717onV/F5VszmFo3J9mTzpVlWnis67cEGPHvu6tLpc8NHDv1J8eQzu+zXtOnr/FoDWbv2b6VIOaP1t1nSMw3zJJ2pgyC2pey1ajAhNbN4GbYxsp0nd3OEDUTJCH+6SrpTog8v6/+fYo8BFfxHuqnXjg1ybx1Xr8Qcuu88zzsGPhLZA/X+Clx0o6pt8kTMI8SIqg6UVi57OsW2i877/gl7njZf8QPRsvsiSnn+svdQYUO9AhXaLAK5Gk06qP3+S/zALC04JD0WazjpRaZnQ2j2cHNo+em0ZVyBdX4Zk4RGEHdNDvbNuRWeyVrFIPGW+km2Xhu0RX9MevlDUy3UWG/JA3c9+gVYDA49DmG3UkmxNvqXUUBNf9HGJX9/f4HtUTZmzHOYUG+3hoRDRlA2ZcDBG8kR+PT1nxJoST8dyTepugZdgxaz6pY0DhlzVJXL7hwloUD1BO6MhDW8B+T7PyE1KGfNGCnpCizwZpl0jMTvaIL6UqSFt1WswdcAWFm9DQRno40ZCQbkMrbR/JZi5XMTxWwxTktc41kPg1/w1erqaAkMtV7bwat3PDCSkiNZ2OUd6p+oRshPpqZhNPWbuq48fAUDmjagNQMEkTUsHSpiUp0UM
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5181.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(396003)(346002)(366004)(39860400002)(136003)(230922051799003)(1800799012)(186009)(451199024)(64100799003)(26005)(83380400001)(53546011)(6506007)(9686003)(122000001)(38100700002)(8936002)(8676002)(7696005)(5660300002)(4326008)(52536014)(41300700001)(2906002)(478600001)(71200400001)(316002)(110136005)(66446008)(66476007)(64756008)(66556008)(76116006)(66946007)(33656002)(86362001)(38070700009)(55016003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?s+Nf8tTYmJfffz326xJY4UZSspFQRKuysAXrCwUQ/yK+n6v8ghqBwrH7cGCO?=
- =?us-ascii?Q?kXilv1GRHKxrl/XpmApjJPm3QaMr4WBuP/F0zAkVcJ/Iy2RJth+UKZnADbF4?=
- =?us-ascii?Q?dBLxHooSXnJOsnM7+LDwql3qAYqweVoX5p1yNopMUnhT+wR3hPkhDbv8ciaw?=
- =?us-ascii?Q?y7gg4RIt5TdC2ygDt1Biz8MryLRt3Ff+6EdRqNhjZXUwlUlWoeelaVE/k0GA?=
- =?us-ascii?Q?zqC7zEykugo5lPJzZsPEQ89y1qsR2nWe3q7W4BtKjzUiUzLsw84kWUTpJZaX?=
- =?us-ascii?Q?jQ9XhOl7P4LxfU1pJYsA0TYxSBqQ7n4yEIfeaxi/VoAr092l+uEkWqzeusNm?=
- =?us-ascii?Q?dx8JKsKb70aKxiitAXkc/K7H1w7eZ5v29TMhg24vYP1d/bkZSSOOlwS702vA?=
- =?us-ascii?Q?mTRQLMvw1J5jZf5rGrgw0a+L/2ENpAAnNRztvenHWCEjW4wbxCdzdKy3eSIj?=
- =?us-ascii?Q?QiJB450vhSS/VkVDO0wC0EjbW99bw0+3uz76QpBIN+OjVtSUl7DeYCCNIyg9?=
- =?us-ascii?Q?vERxGZSQkXiPpg8JlhXh16RA/uq/JYfuHv+WXOB3oPOMQZJ5P4rZBLLkd8iY?=
- =?us-ascii?Q?L3sJzFej5MbLAxOj/PupSskIyElE0HAZ+4nxP7LNZyaG6MLJebUvHggw6zi/?=
- =?us-ascii?Q?6iNpVaUmlon+GzrsD63PK2WsB35z7uXP6fBaIO6f4DDIrqY1Ff4SpmiEGGZx?=
- =?us-ascii?Q?uFzYRjzRtUByiafEwRhN4miJkAStDJ9WfWKEYYo2rRGvv/u+NaZ0GefkFE2p?=
- =?us-ascii?Q?z5NGO+WX5nnV+OH8kUbB8FbQyBAB5MluSxmQFdNJlWz+Ib7kH4Nva6Lum/jL?=
- =?us-ascii?Q?fG2uoUrAWOstdBKpmdTZQMU890jKYxO0Ywv1ElfTFKIMB+c453lCmSm8tHU6?=
- =?us-ascii?Q?3LV6o8gD60rm7Th5r/WrRLTEr3sYhSSe0LgMGDdrdnZEIDOH7SOz3kM8z88Q?=
- =?us-ascii?Q?AJaNF/9ztT76eVyIISfvr4IxA5qV5zbJcE5pspmrDNt+2m/A1Pz8VMuqeFtu?=
- =?us-ascii?Q?JxJcaGH4ACZSDv7Jz6CP5HVW+2C86ab7MoAo9LC6FjQ7N4lFY8UsW09U7xF7?=
- =?us-ascii?Q?16TALHwcKac+GUhAJYM4bVV10xxqPMzlz8qTQFIGn7f5IIGXMFm8WdPxFYrQ?=
- =?us-ascii?Q?GzljaSX74rIFJQe0Yxdt22/W3NfzSXqsm4lZzDgcaasd+SWw9Banfmi7awg9?=
- =?us-ascii?Q?Ij+THngYRGj7tbuIiGw0bkp6Hyg2BsHF/iemjFzCXcDvI2bBzuRmTW6hSPwb?=
- =?us-ascii?Q?jZpZeFgyHwIR/kGfU+WkME3sJFvTgo3QTYR5T4fdt2A4ofQlVylgjTrRBl+f?=
- =?us-ascii?Q?ho4h5KTw0008tC1ofG2VGftZD343PnCALYgpK9sk4Sj8kx/ABlQL1msW4Yi1?=
- =?us-ascii?Q?qT8ovGRxFt8kvdy7MxlR6rI4CkJSTn4l4IIJPMX0Dp/RkMn0mpoD2OqZsCgS?=
- =?us-ascii?Q?GjVqLILfLqbedW9lrZiMp45snmGAReBXu299gozC/PCc0BrRpJx74eCTthKu?=
- =?us-ascii?Q?YRqygPQyNSlP49sQJ5SbitfelFy7K06zeYqidr5CaS16tWn8wwwORMK+IvNq?=
- =?us-ascii?Q?G8SMgfD+zi/rc+qkkz8=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5181.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2031da76-c613-4d63-48a1-08dbfc53fb78
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Dec 2023 03:23:03.4391 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: gLqb2z17Wf8Vfie5o37YN+gV0YvZRp8bEs41fgRqwSXelRfYh8/NUUgt4h3DS0R8
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7194
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F81510E09A;
+	Thu, 14 Dec 2023 05:50:01 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9419A10E09A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Dec 2023 05:49:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1702532999; x=1734068999;
+ h=date:from:to:cc:subject:message-id;
+ bh=/tvvCXJbjyaaTjRnMR0lHnsl03e4/xREQfN7AaDv2R8=;
+ b=LmQyDSUgVAAAnNhAzrS5PzWf8wrkfI6o6T6QcNJlAgibklrKa1iGcTr9
+ R88WpBJSlGKLn5U9ndbPfp98ux6MHvRxeYosSVQ0Ix89l8lCuSuUv/8+4
+ K8q5aVBYrJPDQUwBTIIFu7BmdgdbMJFfczrqekJjJYhB0sjqZgPRB54OB
+ s7lDnOnNbpKdvBQVzPnNZW2cHZGkjt/sRuOZK8P2izINNeB9mXzCWSpD5
+ W5xEhVO5LEls14qA0MTkNfzlzSivQssBtk1buj6efJOTwGSXEyDHF68VH
+ OUOgf7cqJq/F7FFAj6UvLl8XjRULynplK9PH7TaKSmynGZhEBxTcSCFW9 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10923"; a="2226166"
+X-IronPort-AV: E=Sophos;i="6.04,274,1695711600"; 
+   d="scan'208";a="2226166"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Dec 2023 21:49:58 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10923"; a="723942102"
+X-IronPort-AV: E=Sophos;i="6.04,274,1695711600"; d="scan'208";a="723942102"
+Received: from lkp-server02.sh.intel.com (HELO b07ab15da5fe) ([10.239.97.151])
+ by orsmga003.jf.intel.com with ESMTP; 13 Dec 2023 21:49:53 -0800
+Received: from kbuild by b07ab15da5fe with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1rDebX-000Le1-14;
+ Thu, 14 Dec 2023 05:49:51 +0000
+Date: Thu, 14 Dec 2023 13:49:37 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 48e8992e33abf054bcc0bb2e77b2d43bb899212e
+Message-ID: <202312141328.x0H6s9CL-lkp@intel.com>
+User-Agent: s-nail v14.9.24
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,81 +55,552 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Cc: linux-arch@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-bcachefs@vger.kernel.org,
+ mpi3mr-linuxdrv.pdl@broadcom.com, linux-csky@vger.kernel.org,
+ rcu@vger.kernel.org, Linux Memory Management List <linux-mm@kvack.org>,
+ amd-gfx@lists.freedesktop.org, linux-input@vger.kernel.org,
+ sparclinux@vger.kernel.org, ntfs3@lists.linux.dev,
+ linux-afs@lists.infradead.org, linux-leds@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 48e8992e33abf054bcc0bb2e77b2d43bb899212e  Add linux-next specific files for 20231213
 
-This patch is
-Reviewed-by: Likun Gao <Likun.Gao@amd.com>.
+Error/Warning reports:
 
-Regards,
-Likun
+https://lore.kernel.org/oe-kbuild-all/202312131758.NED6TvQK-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202312131823.hO2NP34f-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202312131907.mnyTUNnO-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202312140633.nmHowPIh-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202312140939.zA3tdSi2-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202312141227.C2h1IzfI-lkp@intel.com
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Kenneth =
-Feng
-Sent: Wednesday, December 13, 2023 3:02 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Feng, Kenneth <Kenneth.Feng@amd.com>
-Subject: [PATCH] drm/amd/pm: add power save mode workload for smu 13.0.10
+Error/Warning: (recently discovered and may have been fixed)
 
-add power save mode workload for smu 13.0.10, so that in compute mode, pmfw=
- will add 35mv voltage margin since some applications requres higher voltag=
-es.
+drivers/hid/hid-nintendo.c:371:13: error: initializer element is not constant
+fs/afs/callback.c:106:(.text+0x308): undefined reference to `__generic_xchg_called_with_bad_pointer'
+fs/afs/rotate.c:69:(.text+0x26c): undefined reference to `__generic_xchg_called_with_bad_pointer'
+fs/bcachefs/btree_iter.c:1442:28: warning: variable 'path' set but not used [-Wunused-but-set-variable]
+include/asm-generic/cmpxchg.h:76:(.text+0x1f6): undefined reference to `__generic_xchg_called_with_bad_pointer'
+include/linux/rcupdate.h:301:(.text+0x5cb2): relocation truncated to fit: R_CKCORE_PCREL_IMM16BY4 against `__jump_table'
+kernel/rcu/tree.c:2965:(.text+0x5b44): relocation truncated to fit: R_CKCORE_PCREL_IMM16BY4 against `__jump_table'
+ld.lld: error: undefined symbol: __bad_xchg
 
-Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
----
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 23 +++++++++++--------
- 1 file changed, 13 insertions(+), 10 deletions(-)
+Unverified Error/Warning (likely false positive, please contact us if interested):
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index a24aa886c636..231122622a9c 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -2545,16 +2545,19 @@ static int smu_v13_0_0_set_power_profile_mode(struc=
-t smu_context *smu,
+callback.c:(.text+0x214): relocation truncated to fit: R_NIOS2_CALL26 against `__generic_xchg_called_with_bad_pointer'
+drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn35/dcn35_hwseq.c:1127: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+drivers/scsi/mpi3mr/mpi3mr_app.c:1091 mpi3mr_map_data_buffer_dma() warn: returning -1 instead of -ENOMEM is sloppy
+drivers/scsi/mpi3mr/mpi3mr_app.c:712 mpi3mr_bsg_build_sgl() warn: missing unwind goto?
+fs/bcachefs/inode.c:1171 bch2_delete_dead_inodes() error: potentially using uninitialized 'ret'.
+rotate.c:(.text+0x20c): relocation truncated to fit: R_NIOS2_CALL26 against `__generic_xchg_called_with_bad_pointer'
 
-        workload_mask =3D 1 << workload_type;
+Error/Warning ids grouped by kconfigs:
 
--       /* Add optimizations for SMU13.0.0.  Reuse the power saving profile=
- */
--       if (smu->power_profile_mode =3D=3D PP_SMC_POWER_PROFILE_COMPUTE &&
--           (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) =3D=3D IP_VERSION(13=
-, 0, 0)) &&
--           ((smu->adev->pm.fw_version =3D=3D 0x004e6601) ||
--            (smu->adev->pm.fw_version >=3D 0x004e7400))) {
--               workload_type =3D smu_cmn_to_asic_specific_index(smu,
--                                                              CMN2ASIC_MAP=
-PING_WORKLOAD,
--                                                              PP_SMC_POWER=
-_PROFILE_POWERSAVING);
--               if (workload_type >=3D 0)
--                       workload_mask |=3D 1 << workload_type;
-+       /* Add optimizations for SMU13.0.0/10.  Reuse the power saving prof=
-ile */
-+       if (smu->power_profile_mode =3D=3D PP_SMC_POWER_PROFILE_COMPUTE) {
-+               if ((amdgpu_ip_version(smu->adev, MP1_HWIP, 0) =3D=3D IP_VE=
-RSION(13, 0, 0) &&
-+                       ((smu->adev->pm.fw_version =3D=3D 0x004e6601) ||
-+                       (smu->adev->pm.fw_version >=3D 0x004e7300))) ||
-+                       (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) =3D=3D I=
-P_VERSION(13, 0, 10) &&
-+                        smu->adev->pm.fw_version >=3D 0x00504500)) {
-+                       workload_type =3D smu_cmn_to_asic_specific_index(sm=
-u,
-+                                                                          =
-                                        CMN2ASIC_MAPPING_WORKLOAD,
-+                                                                          =
-                                        PP_SMC_POWER_PROFILE_POWERSAVING);
-+                       if (workload_type >=3D 0)
-+                               workload_mask |=3D 1 << workload_type;
-+               }
-        }
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- arc-allmodconfig
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- arc-allyesconfig
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- arc-randconfig-r112-20231213
+|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
+|-- arc-randconfig-r131-20231212
+|   `-- drivers-hwmon-max31827.c:sparse:sparse:dubious:x-y
+|-- arm-allmodconfig
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- arm-allyesconfig
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- csky-allmodconfig
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- csky-allyesconfig
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- csky-buildonly-randconfig-r005-20221115
+|   |-- fs-afs-callback.c:(.text):undefined-reference-to-__generic_xchg_called_with_bad_pointer
+|   |-- fs-afs-rotate.c:(.text):undefined-reference-to-__generic_xchg_called_with_bad_pointer
+|   `-- include-asm-generic-cmpxchg.h:(.text):undefined-reference-to-__generic_xchg_called_with_bad_pointer
+|-- csky-randconfig-002-20231213
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- csky-randconfig-r013-20230826
+|   |-- include-linux-rcupdate.h:(.text):relocation-truncated-to-fit:R_CKCORE_PCREL_IMM16BY4-against-__jump_table
+|   `-- kernel-rcu-tree.c:(.text):relocation-truncated-to-fit:R_CKCORE_PCREL_IMM16BY4-against-__jump_table
+|-- csky-randconfig-r111-20231213
+|   |-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-lib-zlib_inflate-zlib_inflate.o
+|   |-- arch-csky-kernel-vdso-vgettimeofday.c:sparse:sparse:function-__vdso_clock_gettime-with-external-linkage-has-definition
+|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
+|-- csky-randconfig-r113-20231213
+|   |-- arch-csky-kernel-vdso-vgettimeofday.c:sparse:sparse:function-__vdso_clock_gettime-with-external-linkage-has-definition
+|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
+|-- csky-randconfig-r121-20231213
+|   |-- arch-csky-kernel-vdso-vgettimeofday.c:sparse:sparse:function-__vdso_clock_gettime-with-external-linkage-has-definition
+|   |-- fs-bcachefs-btree_iter.c:warning:variable-path-set-but-not-used
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   |-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
+|-- i386-randconfig-014-20231213
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- i386-randconfig-015-20231213
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- i386-randconfig-016-20231213
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- loongarch-allmodconfig
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- loongarch-defconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-hwss-dcn35-dcn35_hwseq.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- loongarch-randconfig-001-20231213
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- m68k-allmodconfig
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- m68k-allyesconfig
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- microblaze-allmodconfig
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- microblaze-allyesconfig
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- mips-allyesconfig
+|   |-- fs-bcachefs-btree_iter.c:warning:variable-path-set-but-not-used
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- mips-decstation_r4k_defconfig
+|   `-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-lib-zlib_inflate-zlib_inflate.o
+|-- nios2-allmodconfig
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- nios2-allyesconfig
+|   |-- callback.c:(.text):relocation-truncated-to-fit:R_NIOS2_CALL26-against-__generic_xchg_called_with_bad_pointer
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   |-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- rotate.c:(.text):relocation-truncated-to-fit:R_NIOS2_CALL26-against-__generic_xchg_called_with_bad_pointer
+|-- nios2-randconfig-001-20231213
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- nios2-randconfig-r112-20231213
+|   |-- fs-afs-main.c:sparse:sparse:cast-removes-address-space-__rcu-of-expression
+|   `-- fs-afs-main.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-callback_head-head-got-struct-callback_head-noderef-__rcu
+|-- openrisc-allyesconfig
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- openrisc-randconfig-r122-20231213
+|   |-- fs-bcachefs-btree_iter.c:warning:variable-path-set-but-not-used
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   |-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
+|-- openrisc-randconfig-r131-20231213
+|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
+|-- parisc-allmodconfig
+|   |-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-drivers-tty-serial-8250_parisc.o
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- parisc-allyesconfig
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- parisc-randconfig-002-20231213
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- powerpc64-randconfig-r132-20231213
+|   |-- fs-bcachefs-btree_iter.c:warning:variable-path-set-but-not-used
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   |-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|   |-- lib-raid6-altivec4.c:sparse:incomplete-type-static-toplevel-unative_t
+|   |-- lib-raid6-altivec4.c:sparse:int-static-signed-toplevel-__preempt_count_sub(-...-)
+|   |-- lib-raid6-altivec4.c:sparse:int-static-signed-toplevel-disable_kernel_altivec(-...-)
+|   |-- lib-raid6-altivec4.c:sparse:int-static-toplevel-unative_t
+|   |-- lib-raid6-altivec8.c:sparse:incomplete-type-static-toplevel-unative_t
+|   |-- lib-raid6-altivec8.c:sparse:int-static-signed-toplevel-__preempt_count_sub(-...-)
+|   |-- lib-raid6-altivec8.c:sparse:int-static-signed-toplevel-disable_kernel_altivec(-...-)
+|   |-- lib-raid6-altivec8.c:sparse:int-static-toplevel-unative_t
+|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
+|-- powerpc64-randconfig-r133-20231213
+|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
+|-- riscv-allmodconfig
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- riscv-allyesconfig
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- s390-allmodconfig
+|   |-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-drivers-s390-block-dasd_diag_mod.o
+|   |-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-drivers-s390-block-dasd_eckd_mod.o
+|   |-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-drivers-s390-block-dasd_fba_mod.o
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- s390-allyesconfig
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- s390-defconfig
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- s390-randconfig-001-20231213
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- sh-allmodconfig
+|   |-- fs-bcachefs-btree_iter.c:warning:variable-path-set-but-not-used
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- sh-allyesconfig
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- sparc-allmodconfig
+|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
+|   |-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- sparc-allnoconfig
+|   |-- arch-sparc-mm-leon_mm.c:warning:variable-paddrbase-set-but-not-used
+|   `-- arch-sparc-mm-srmmu.c:warning:variable-clear-set-but-not-used
+|-- sparc-defconfig
+|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
+|   |-- arch-sparc-mm-leon_mm.c:warning:variable-paddrbase-set-but-not-used
+|   `-- arch-sparc-mm-srmmu.c:warning:variable-clear-set-but-not-used
+|-- sparc-randconfig-001-20231213
+|   |-- (.head.text):relocation-truncated-to-fit:R_SPARC_WDISP22-against-init.text
+|   |-- (.init.text):relocation-truncated-to-fit:R_SPARC_WDISP22-against-symbol-leon_smp_cpu_startup-defined-in-.text-section-in-arch-sparc-kernel-trampoline_32.o
+|   |-- arch-sparc-mm-leon_mm.c:warning:variable-paddrbase-set-but-not-used
+|   `-- arch-sparc-mm-srmmu.c:warning:variable-clear-set-but-not-used
+|-- sparc-randconfig-002-20231213
+|   |-- (.head.text):relocation-truncated-to-fit:R_SPARC_WDISP22-against-init.text
+|   |-- (.init.text):relocation-truncated-to-fit:R_SPARC_WDISP22-against-symbol-leon_smp_cpu_startup-defined-in-.text-section-in-arch-sparc-kernel-trampoline_32.o
+|   |-- arch-sparc-mm-leon_mm.c:warning:variable-paddrbase-set-but-not-used
+|   |-- arch-sparc-mm-srmmu.c:warning:variable-clear-set-but-not-used
+|   |-- parport_pc.c:(.text):undefined-reference-to-ebus_dma_irq_enable
+|   |-- parport_pc.c:(.text):undefined-reference-to-ebus_dma_register
+|   |-- sparc-linux-ld:parport_pc.c:(.text):undefined-reference-to-ebus_dma_irq_enable
+|   |-- sparc-linux-ld:parport_pc.c:(.text):undefined-reference-to-ebus_dma_unregister
+|   `-- sparc-linux-ld:parport_pc.c:(.text):undefined-reference-to-ns87303_lock
+|-- sparc-randconfig-r123-20231213
+|   |-- (.head.text):relocation-truncated-to-fit:R_SPARC_WDISP22-against-init.text
+|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
+|   |-- arch-sparc-mm-leon_mm.c:warning:variable-paddrbase-set-but-not-used
+|   |-- arch-sparc-mm-srmmu.c:warning:variable-clear-set-but-not-used
+|   |-- fs-ntfs3-ntfs.h:sparse:sparse:static-assertion-failed:sizeof(struct-ATTR_LIST_ENTRY)
+|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
+|-- sparc-sparc32_defconfig
+|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
+|   |-- arch-sparc-mm-leon_mm.c:warning:variable-paddrbase-set-but-not-used
+|   `-- arch-sparc-mm-srmmu.c:warning:variable-clear-set-but-not-used
+|-- sparc-sparc64_defconfig
+|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
+|   `-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
+|-- sparc64-allmodconfig
+|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
+|   |-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- sparc64-allyesconfig
+|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
+|   |-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- sparc64-defconfig
+|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
+|   `-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
+|-- sparc64-randconfig-001-20231213
+|   |-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
+|   |-- fs-bcachefs-btree_iter.c:warning:variable-path-set-but-not-used
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- sparc64-randconfig-002-20231213
+|   |-- fs-bcachefs-btree_iter.c:warning:variable-path-set-but-not-used
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|-- x86_64-allnoconfig
+|   `-- Warning:MAINTAINERS-references-a-file-that-doesn-t-exist:Documentation-devicetree-bindings-display-panel-synaptics-r63353.yaml
+|-- x86_64-randconfig-016-20231214
+|   `-- drivers-hid-hid-nintendo.c:error:initializer-element-is-not-constant
+|-- x86_64-randconfig-122-20231213
+|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
+|-- x86_64-randconfig-123-20231213
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   |-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
+|-- x86_64-randconfig-161-20231214
+|   |-- drivers-scsi-mpi3mr-mpi3mr_app.c-mpi3mr_bsg_build_sgl()-warn:missing-unwind-goto
+|   `-- drivers-scsi-mpi3mr-mpi3mr_app.c-mpi3mr_map_data_buffer_dma()-warn:returning-instead-of-ENOMEM-is-sloppy
+|-- xtensa-randconfig-001-20231213
+|   |-- fs-bcachefs-btree_iter.c:warning:variable-path-set-but-not-used
+|   |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+|   `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+`-- xtensa-randconfig-002-20231213
+    |-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-lib-zlib_inflate-zlib_inflate.o
+    |-- fs-bcachefs-btree_iter.c:warning:variable-path-set-but-not-used
+    |-- fs-bcachefs-chardev.c:warning:function-run_thread_with_file-might-be-a-candidate-for-gnu_printf-format-attribute
+    `-- fs-bcachefs-super.c:warning:function-__bch2_print-might-be-a-candidate-for-gnu_printf-format-attribute
+clang_recent_errors
+|-- arm-defconfig
+|   |-- WARNING:modpost:vmlinux:section-mismatch-in-reference:at91_poweroff_probe-(section:.text)-at91_wakeup_status-(section:.init.text)
+|   `-- WARNING:modpost:vmlinux:section-mismatch-in-reference:at91_shdwc_probe-(section:.text)-at91_wakeup_status-(section:.init.text)
+|-- arm-randconfig-003-20231213
+|   `-- ld.lld:error:undefined-symbol:__bad_xchg
+|-- arm64-allmodconfig
+|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
+|-- arm64-allyesconfig
+|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
+|-- hexagon-allmodconfig
+|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
+|-- hexagon-allyesconfig
+|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
+|-- i386-allmodconfig
+|   |-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
+|   `-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
+|-- i386-allyesconfig
+|   |-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
+|   `-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
+|-- i386-buildonly-randconfig-001-20231213
+|   `-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
+|-- i386-buildonly-randconfig-002-20231213
+|   `-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
+|-- i386-randconfig-001-20231213
+|   `-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
+|-- i386-randconfig-002-20231213
+|   `-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
+|-- i386-randconfig-003-20231213
+|   `-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
+|-- i386-randconfig-004-20231213
+|   `-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
+|-- i386-randconfig-006-20231213
+|   `-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
+|-- i386-randconfig-054-20231213
+|   `-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
+|-- i386-randconfig-062-20231213
+|   |-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
+|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
+|-- i386-randconfig-063-20231213
+|   |-- fs-ntfs3-ntfs.h:error:static-assertion-failed-due-to-requirement-sizeof(struct-ATTR_LIST_ENTRY):sizeof(struct-ATTR_LIST_ENTRY)
+|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
+|-- i386-randconfig-141-20231213
+|   |-- lib-zstd-common-bits.h-ZSTD_countLeadingZeros32()-warn:inconsistent-indenting
+|   |-- lib-zstd-common-bits.h-ZSTD_countTrailingZeros32()-warn:inconsistent-indenting
+|   |-- lib-zstd-decompress-..-common-bits.h-ZSTD_countLeadingZeros32()-warn:inconsistent-indenting
+|   |-- lib-zstd-decompress-..-common-bits.h-ZSTD_countTrailingZeros32()-warn:inconsistent-indenting
+|   `-- lib-zstd-decompress-..-common-bits.h-ZSTD_countTrailingZeros64()-warn:inconsistent-indenting
+|-- powerpc-allmodconfig
+|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
+|-- powerpc-allyesconfig
+|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
+|-- powerpc-randconfig-003-20231213
+|   `-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-lib-zlib_inflate-zlib_inflate.o
+|-- x86_64-allmodconfig
+|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
+|-- x86_64-allyesconfig
+|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
+|-- x86_64-buildonly-randconfig-002-20231213
+|   `-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-lib-zlib_inflate-zlib_inflate.o
+`-- x86_64-randconfig-161-20231213
+    |-- fs-bcachefs-inode.c-bch2_delete_dead_inodes()-error:potentially-using-uninitialized-ret-.
+    |-- lib-zstd-common-bits.h-ZSTD_countLeadingZeros32()-warn:inconsistent-indenting
+    |-- lib-zstd-common-bits.h-ZSTD_countTrailingZeros32()-warn:inconsistent-indenting
+    |-- lib-zstd-compress-..-common-bits.h-ZSTD_countLeadingZeros32()-warn:inconsistent-indenting
+    |-- lib-zstd-compress-..-common-bits.h-ZSTD_countLeadingZeros64()-warn:inconsistent-indenting
+    |-- lib-zstd-compress-..-common-bits.h-ZSTD_countTrailingZeros32()-warn:inconsistent-indenting
+    |-- lib-zstd-compress-..-common-bits.h-ZSTD_countTrailingZeros64()-warn:inconsistent-indenting
+    |-- lib-zstd-decompress-..-common-bits.h-ZSTD_countLeadingZeros32()-warn:inconsistent-indenting
+    `-- lib-zstd-decompress-..-common-bits.h-ZSTD_countTrailingZeros64()-warn:inconsistent-indenting
 
-        return smu_cmn_send_smc_msg_with_param(smu,
---
-2.34.1
+elapsed time: 1477m
 
+configs tested: 178
+configs skipped: 2
+
+tested configs:
+alpha                             allnoconfig   gcc  
+alpha                            allyesconfig   gcc  
+alpha                               defconfig   gcc  
+arc                              allmodconfig   gcc  
+arc                               allnoconfig   gcc  
+arc                              allyesconfig   gcc  
+arc                                 defconfig   gcc  
+arc                   randconfig-001-20231213   gcc  
+arc                   randconfig-002-20231213   gcc  
+arm                              allmodconfig   gcc  
+arm                               allnoconfig   gcc  
+arm                              allyesconfig   gcc  
+arm                         axm55xx_defconfig   gcc  
+arm                                 defconfig   clang
+arm                            hisi_defconfig   gcc  
+arm                       imx_v4_v5_defconfig   clang
+arm                         lpc18xx_defconfig   gcc  
+arm                   randconfig-001-20231213   clang
+arm                   randconfig-002-20231213   clang
+arm                   randconfig-003-20231213   clang
+arm                   randconfig-004-20231213   clang
+arm                        spear3xx_defconfig   clang
+arm64                            allmodconfig   clang
+arm64                             allnoconfig   gcc  
+arm64                               defconfig   gcc  
+arm64                 randconfig-001-20231213   clang
+arm64                 randconfig-002-20231213   clang
+arm64                 randconfig-003-20231213   clang
+arm64                 randconfig-004-20231213   clang
+csky                             allmodconfig   gcc  
+csky                              allnoconfig   gcc  
+csky                             allyesconfig   gcc  
+csky                                defconfig   gcc  
+csky                  randconfig-001-20231213   gcc  
+csky                  randconfig-002-20231213   gcc  
+hexagon                          allmodconfig   clang
+hexagon                           allnoconfig   clang
+hexagon                          allyesconfig   clang
+hexagon                             defconfig   clang
+hexagon               randconfig-001-20231213   clang
+hexagon               randconfig-002-20231213   clang
+i386                             allmodconfig   clang
+i386                              allnoconfig   clang
+i386                             allyesconfig   clang
+i386         buildonly-randconfig-001-20231213   clang
+i386         buildonly-randconfig-002-20231213   clang
+i386         buildonly-randconfig-003-20231213   clang
+i386         buildonly-randconfig-004-20231213   clang
+i386         buildonly-randconfig-005-20231213   clang
+i386         buildonly-randconfig-006-20231213   clang
+i386                                defconfig   gcc  
+i386                  randconfig-001-20231213   clang
+i386                  randconfig-002-20231213   clang
+i386                  randconfig-003-20231213   clang
+i386                  randconfig-004-20231213   clang
+i386                  randconfig-005-20231213   clang
+i386                  randconfig-006-20231213   clang
+i386                  randconfig-011-20231213   gcc  
+i386                  randconfig-012-20231213   gcc  
+i386                  randconfig-013-20231213   gcc  
+i386                  randconfig-014-20231213   gcc  
+i386                  randconfig-015-20231213   gcc  
+i386                  randconfig-016-20231213   gcc  
+loongarch                        allmodconfig   gcc  
+loongarch                         allnoconfig   gcc  
+loongarch                           defconfig   gcc  
+loongarch             randconfig-001-20231213   gcc  
+loongarch             randconfig-002-20231213   gcc  
+m68k                             allmodconfig   gcc  
+m68k                              allnoconfig   gcc  
+m68k                             allyesconfig   gcc  
+m68k                                defconfig   gcc  
+microblaze                       allmodconfig   gcc  
+microblaze                        allnoconfig   gcc  
+microblaze                       allyesconfig   gcc  
+microblaze                          defconfig   gcc  
+mips                              allnoconfig   clang
+mips                             allyesconfig   gcc  
+mips                 decstation_r4k_defconfig   gcc  
+nios2                            allmodconfig   gcc  
+nios2                             allnoconfig   gcc  
+nios2                            allyesconfig   gcc  
+nios2                               defconfig   gcc  
+nios2                 randconfig-001-20231213   gcc  
+nios2                 randconfig-002-20231213   gcc  
+openrisc                          allnoconfig   gcc  
+openrisc                         allyesconfig   gcc  
+openrisc                            defconfig   gcc  
+parisc                           allmodconfig   gcc  
+parisc                            allnoconfig   gcc  
+parisc                           allyesconfig   gcc  
+parisc                              defconfig   gcc  
+parisc                randconfig-001-20231213   gcc  
+parisc                randconfig-002-20231213   gcc  
+parisc64                            defconfig   gcc  
+powerpc                      acadia_defconfig   clang
+powerpc                          allmodconfig   clang
+powerpc                           allnoconfig   gcc  
+powerpc                          allyesconfig   clang
+powerpc               randconfig-001-20231213   clang
+powerpc               randconfig-002-20231213   clang
+powerpc               randconfig-003-20231213   clang
+powerpc                     tqm8541_defconfig   gcc  
+powerpc                      tqm8xx_defconfig   gcc  
+powerpc64             randconfig-001-20231213   clang
+powerpc64             randconfig-002-20231213   clang
+powerpc64             randconfig-003-20231213   clang
+riscv                            allmodconfig   gcc  
+riscv                             allnoconfig   clang
+riscv                            allyesconfig   gcc  
+riscv                               defconfig   gcc  
+riscv                    nommu_k210_defconfig   gcc  
+riscv                 randconfig-001-20231213   clang
+riscv                 randconfig-002-20231213   clang
+riscv                          rv32_defconfig   clang
+s390                             alldefconfig   clang
+s390                             allmodconfig   gcc  
+s390                              allnoconfig   gcc  
+s390                             allyesconfig   gcc  
+s390                                defconfig   gcc  
+s390                  randconfig-001-20231213   gcc  
+s390                  randconfig-002-20231213   gcc  
+sh                               allmodconfig   gcc  
+sh                                allnoconfig   gcc  
+sh                               allyesconfig   gcc  
+sh                                  defconfig   gcc  
+sh                    randconfig-001-20231213   gcc  
+sh                    randconfig-002-20231213   gcc  
+sh                          rsk7264_defconfig   gcc  
+sh                          sdk7786_defconfig   gcc  
+sh                           se7619_defconfig   gcc  
+sparc                            allmodconfig   gcc  
+sparc                       sparc32_defconfig   gcc  
+sparc                       sparc64_defconfig   gcc  
+sparc64                          allmodconfig   gcc  
+sparc64                          allyesconfig   gcc  
+sparc64                             defconfig   gcc  
+sparc64               randconfig-001-20231213   gcc  
+sparc64               randconfig-002-20231213   gcc  
+um                               allmodconfig   clang
+um                                allnoconfig   clang
+um                               allyesconfig   clang
+um                                  defconfig   gcc  
+um                             i386_defconfig   gcc  
+um                    randconfig-001-20231213   clang
+um                    randconfig-002-20231213   clang
+um                           x86_64_defconfig   gcc  
+x86_64                            allnoconfig   gcc  
+x86_64                           allyesconfig   clang
+x86_64       buildonly-randconfig-001-20231213   clang
+x86_64       buildonly-randconfig-002-20231213   clang
+x86_64       buildonly-randconfig-003-20231213   clang
+x86_64       buildonly-randconfig-004-20231213   clang
+x86_64       buildonly-randconfig-005-20231213   clang
+x86_64       buildonly-randconfig-006-20231213   clang
+x86_64                              defconfig   gcc  
+x86_64                randconfig-001-20231213   gcc  
+x86_64                randconfig-002-20231213   gcc  
+x86_64                randconfig-003-20231213   gcc  
+x86_64                randconfig-004-20231213   gcc  
+x86_64                randconfig-005-20231213   gcc  
+x86_64                randconfig-006-20231213   gcc  
+x86_64                randconfig-011-20231213   clang
+x86_64                randconfig-012-20231213   clang
+x86_64                randconfig-013-20231213   clang
+x86_64                randconfig-014-20231213   clang
+x86_64                randconfig-015-20231213   clang
+x86_64                randconfig-016-20231213   clang
+x86_64                randconfig-071-20231213   clang
+x86_64                randconfig-072-20231213   clang
+x86_64                randconfig-073-20231213   clang
+x86_64                randconfig-074-20231213   clang
+x86_64                randconfig-075-20231213   clang
+x86_64                randconfig-076-20231213   clang
+x86_64                          rhel-8.3-rust   clang
+xtensa                            allnoconfig   gcc  
+xtensa                randconfig-001-20231213   gcc  
+xtensa                randconfig-002-20231213   gcc  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
