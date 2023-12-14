@@ -4,62 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCD5EC4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Dec 2023 10:31:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FE48C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Dec 2023 11:14:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48A4110E09E;
-	Thu, 14 Dec 2023 10:31:41 +0000 (UTC)
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE5D510E09E;
- Thu, 14 Dec 2023 10:31:38 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3363ebb277bso1102819f8f.2; 
- Thu, 14 Dec 2023 02:31:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1702549897; x=1703154697; darn=lists.freedesktop.org;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pLYkJnJXd81g51cIVyhAsIiPmUBe4PKYI60TVdps6BA=;
- b=UpgPPRcyY3jIqP30tyIeUOj43WZ2G91XfyneUOFVjhmf70F2mdEiJHA6tvvLo5L0oj
- Eepg+k+uEHwwlhRsLbwVUm9qQRNQ10JgQtxw2JHzOZvQJ5ZMGHVnCdsgUs+YHUSS4gxP
- q3/wZ2u825cpCjiDAUdF+bPBYuN6fkvZfDwCnHsAR38sFM3eOgSZGukvGZKAEAVgdxwe
- 9hymBHt+Vyq+qggzCR1KWBQgw58QhhV+BsrNdXoecwpjMCEN3WLkpqBCAz4jgc36skGk
- gvtSuQJxsVD6xsI7xwoZiYn+B4Yy/Xogu9F+s86uAa1Lj9xZwKf0pL1poxlbQHx+QwtQ
- nyLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702549897; x=1703154697;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=pLYkJnJXd81g51cIVyhAsIiPmUBe4PKYI60TVdps6BA=;
- b=Zh2924jgSdncEspA6ZtDk3y3MKKAUmqHoJKjrsdrLrQrgjJ6jUpTsZZcOgwA0brHAS
- BK9DbO56Dxu7mEAmxXSQNSnjdQbzRnCgmpBUZYN2mP5rMA8vL/EOfc6newJO0Xoh5TVw
- yO1zUWWkkdw/r8tt9Vi/r/zxy/6CENuhZcE4Okgn7gNabal7xLiEgESxm59V3+1k0e2q
- 7cuVOHzYEsPW1oREm5LLZwj4VvrtXgINYtETGR24MXeEQq3rgYzBNv3KSd5K3kRsD0UP
- rMdMrRgMyiQ4a3XrKl2GzBUQ1QJ8TIkQc8OsCl3LgKFOoA82zrOz6/95NsnYGRpieiAl
- GRrQ==
-X-Gm-Message-State: AOJu0YzOTJ4udFJx+PMqh4K/YsSr7uSZSaGDjj8lEu5qCMdmkpdYqyje
- TBWFWqKj9G85sQEtXrMyjM4=
-X-Google-Smtp-Source: AGHT+IHqvSCkYo5JHFgUqPsD5mgCuoK+F9+KcMfU0Hr/XVqtip7bt8H8dmGWZRwLHv/7S1YKUx1QUw==
-X-Received: by 2002:adf:e40a:0:b0:336:352e:59e7 with SMTP id
- g10-20020adfe40a000000b00336352e59e7mr2367183wrm.48.1702549897073; 
- Thu, 14 Dec 2023 02:31:37 -0800 (PST)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- v23-20020adfa1d7000000b003364a5d1d20sm760865wrv.16.2023.12.14.02.31.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Dec 2023 02:31:36 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------850I555jbRoKUs2OoN505GX8"
-Message-ID: <b2db43bf-d89e-49ab-8cc3-588de5db5c1d@gmail.com>
-Date: Thu, 14 Dec 2023 11:31:34 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8766810E2CF;
+	Thu, 14 Dec 2023 11:14:15 +0000 (UTC)
+X-Greylist: delayed 70055 seconds by postgrey-1.36 at gabe;
+ Thu, 14 Dec 2023 11:14:13 UTC
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2577610E2CF;
+ Thu, 14 Dec 2023 11:14:12 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4SrV9F3bHXz9sbf;
+ Thu, 14 Dec 2023 12:14:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1702552449;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=jePK21pd5fRVIKqpdeda/RVt0zvWt6juLXVybTGbkl4=;
+ b=RHVo5sqGO7bQO9OQa2V6NehL7+V+FuP1FG1KCy42ICfEcbOO6AZFI1kkgkJRAKKxT6Q+z+
+ I0AcYPwu4j1lyG3qiE35kZi0RyynhdU68ZyMrhlE/pjEOH9dqJ78t4lSvm5viU1xUdmdw8
+ zK6Z5gs7ljPUjjp99biCFG7yRvcGqQJadHa5Bgo8TQTLwsJ8MwhIVsanc7NV/sYuqMB1RO
+ Fm180zsmiJF0++yvRNdw0267a4eNPHlhTM6woAzQcbbv1CgJjh0pKquW5uCem0PM6eYImW
+ 3CoJpYWvf0glsFeNhhJsRMOmNlTrI/jxaCLYvxEjMfUG3Zlqmsu/lIoReeKVBQ==
+Message-ID: <542b0362-90c2-46b2-aec4-1dd511d61c08@mailbox.org>
+Date: Thu, 14 Dec 2023 12:14:06 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 2/2] drm/amdgpu: Enable clear page functionality
-Content-Language: en-US
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+Content-Language: de-CH-frami, en-CA
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
  Felix Kuehling <felix.kuehling@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexdeucher@gmail.com>
@@ -72,8 +51,13 @@ References: <20231207151142.929349-1-Arunpravin.PaneerSelvam@amd.com>
  <86b95faa-fda4-4354-97bd-a1c15fed0771@amd.com>
  <8316182c-1b28-49cf-97ef-23c683c1140b@amd.com>
  <1aeaa28b-1929-4c35-9225-fade0a25987f@mailbox.org>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <1aeaa28b-1929-4c35-9225-fade0a25987f@mailbox.org>
+ <b2db43bf-d89e-49ab-8cc3-588de5db5c1d@gmail.com>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <b2db43bf-d89e-49ab-8cc3-588de5db5c1d@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: 68jwquwe381qfpkbdj7woepb7t436hky
+X-MBO-RS-ID: 7d3d9195329c10cd6b9
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,53 +69,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, dri-devel@lists.freedesktop.org,
- matthew.auld@intel.com, amd-gfx@lists.freedesktop.org,
+Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ matthew.auld@intel.com, dri-devel@lists.freedesktop.org,
  Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------850I555jbRoKUs2OoN505GX8
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+On 2023-12-14 11:31, Christian König wrote:
+> Am 13.12.23 um 16:46 schrieb Michel Dänzer:
+>> From a security PoV, the kernel should never return uncleared memory to (at least unprivileged) user space. This series seems like a big step in that direction.
+> 
+> Well please take a look at the MAP_UNINITIALIZED flag for mmap().
 
-Am 13.12.23 um 16:46 schrieb Michel Dänzer:
->  From a security PoV, the kernel should never return uncleared memory to (at least unprivileged) user space. This series seems like a big step in that direction.
+       MAP_UNINITIALIZED (since Linux 2.6.33)
+              Don't  clear  anonymous pages.  This flag is intended to improve
+              performance on embedded devices.  This flag is honored  only  if
+              the  kernel was configured with the CONFIG_MMAP_ALLOW_UNINITIAL‐
+              IZED option.  Because of the security implications, that  option
+              is  normally  enabled  only  on  embedded devices (i.e., devices
+              where one has complete control of the contents of user memory).
 
-Well please take a look at the MAP_UNINITIALIZED flag for mmap(). We 
-even have the functionality to return uninitialized system memory when 
-the kernel compile option for this is set since this is an important 
-optimization for many use cases.
 
-Regards,
-Christian.
---------------850I555jbRoKUs2OoN505GX8
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+> We even have the functionality to return uninitialized system memory when the kernel compile option for this is set
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    Am 13.12.23 um 16:46 schrieb Michel Dänzer:<br>
-    <blockquote type="cite"
-      cite="mid:1aeaa28b-1929-4c35-9225-fade0a25987f@mailbox.org"><span
-      style="white-space: pre-wrap">
-</span>
-      <pre class="moz-quote-pre" wrap="">From a security PoV, the kernel should never return uncleared memory to (at least unprivileged) user space. This series seems like a big step in that direction.</pre>
-    </blockquote>
-    <br>
-    Well please take a look at the MAP_UNINITIALIZED flag for mmap(). We
-    even have the functionality to return uninitialized system memory
-    when the kernel compile option for this is set since this is an
-    important optimization for many use cases.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-  </body>
-</html>
+From mm/Kconfig:
 
---------------850I555jbRoKUs2OoN505GX8--
+config MMAP_ALLOW_UNINITIALIZED 
+        bool "Allow mmapped anonymous memory to be uninitialized"
+        depends on EXPERT && !MMU
+        default n
+        help
+          Normally, and according to the Linux spec, anonymous memory obtained
+          from mmap() has its contents cleared before it is passed to
+          userspace.  Enabling this config option allows you to request that
+          mmap() skip that if it is given an MAP_UNINITIALIZED flag, thus
+          providing a huge performance boost.  If this option is not enabled,
+          then the flag will be ignored.
+          
+          This is taken advantage of by uClibc's malloc(), and also by
+          ELF-FDPIC binfmt's brk and stack allocator.
+          
+          Because of the obvious security issues, this option should only be
+          enabled on embedded devices where you control what is run in
+          userspace.  Since that isn't generally a problem on no-MMU systems,
+          it is normally safe to say Y here.
+        
+          See Documentation/admin-guide/mm/nommu-mmap.rst for more information.
+
+
+Both looks consistent with what I wrote.
+
+
+> since this is an important optimization for many use cases.
+
+Per above, it's available only on platforms without MMU.
+
+
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
+
