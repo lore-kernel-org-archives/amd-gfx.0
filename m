@@ -4,89 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEAC1C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Dec 2023 10:16:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DB41C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Dec 2023 10:28:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 291DC89CF6;
-	Thu, 14 Dec 2023 10:15:56 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2063.outbound.protection.outlook.com [40.107.244.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EFE110E2C0
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Dec 2023 10:15:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P1HvFQ7OflAKduTbW9uQVupOqKtDe195GP7lcwYuNvRgXmmVIvForHnaUGFau97O7gz7FmgASCAjYGihkqud9h8vdgBpJDjM7PNxY8gH5bNXW6i0qhOn3jB+BLHiWUgtQk3cHlJjgiqzgztGzV30sNMHgJHD8hcVnn2SgXI9U6B6wnV6CeFySrQQIahAACMVO7ur3qNWS/cc5F+c8LkAWYtW9v0Fzj6VlIJigLTLXMZxXyrWapTF7aoHCwujMpSMRErQ3/3incnUeMyL/lpauc3iURALglB9sFXr9JEurI3K51NaMAWDuKFceK8Mr/2r/+LcXbNmL0XK/8xZHDeJvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H040Hea9RAzna0LzXg8KPZd7vW9s4UOF3ONRw+C7lSk=;
- b=HIJvZIc4QHfskPTgmoCOPGzrb8BuP3dlgpLFZnzB4zoqaIxJkhFUOL7O6XNqh4eXwWyXW4o/0mCp2fZGXWplhvZTxDIgrZpB95qZxbqea+i9VA//vQ5o0uA22rHR56P5siSb/3IdQAuJo+q/nmyixawyZzxNDqGu+OSskp50MQeMYgL/sN9f3hHV8p85+6oaMqYVqGd5Polu3hImldUQJjNjJQU9HPKgTs2idJdqhB65UPpzJ+q+jZSCieLNjanF4cEnJcl13GN2+AKZj7w357dfWQxzG/nLY8YXP6bpxexl2T6W99U0H7IV1L24wGsC5ODxKTY1TDg1C1EulROwiA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H040Hea9RAzna0LzXg8KPZd7vW9s4UOF3ONRw+C7lSk=;
- b=XBougFH8hT1XPpDpvt60rYR6Ewnatq7LznVwPEo+Wfr/7uYXMSwdvulhmi8A8bTRraZ4lwVKbw5dnDnNlJVlf4A5lyuQgg/5uqGqYYJ8BAI9zOErpJrhbJX0FeRJ+oZa1/oFAFdVMiWEMQ/pPjGqV5Pr0299VAcA+mQ8eT7IGfE=
-Received: from BL1PR13CA0206.namprd13.prod.outlook.com (2603:10b6:208:2be::31)
- by IA1PR12MB6139.namprd12.prod.outlook.com (2603:10b6:208:3e9::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.38; Thu, 14 Dec
- 2023 10:15:43 +0000
-Received: from BL02EPF0001A108.namprd05.prod.outlook.com
- (2603:10b6:208:2be:cafe::71) by BL1PR13CA0206.outlook.office365.com
- (2603:10b6:208:2be::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.8 via Frontend
- Transport; Thu, 14 Dec 2023 10:15:43 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A108.mail.protection.outlook.com (10.167.241.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7091.26 via Frontend Transport; Thu, 14 Dec 2023 10:15:43 +0000
-Received: from jenkins-mali-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 14 Dec
- 2023 04:15:38 -0600
-From: Li Ma <li.ma@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/swsmu: relocate the smu v14_0_0 driver if version
- define
-Date: Thu, 14 Dec 2023 18:15:02 +0800
-Message-ID: <20231214101502.2123128-1-li.ma@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA0C110E0BD;
+	Thu, 14 Dec 2023 10:28:53 +0000 (UTC)
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 041CF10E0BD
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Dec 2023 10:28:49 +0000 (UTC)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-40c3ceded81so51100525e9.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Dec 2023 02:28:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1702549727; x=1703154527; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=WS74u1YdM90ymuqPvvVgOyS833lPLTSZYme54xVkA7U=;
+ b=MkHhOQeZko9VB1FRVCrZzSdb8beWhhnpdtLBoLgG+MSNHORIgkOCl0QAK6E9dj+TNU
+ wWGB3/SDgxSw1y/S05dVLEpWfgOolj/XBVp0WtCp0emOmbT5rS/O9mepe3tyt9F8VwhS
+ tWO8vphYc+C0LxKY2W7bKeumhxdJ9WqOpWSxIdVrbutQQLAm8snSpWC8AO7/GBTHojZM
+ 2+74Adii1+OQOxX0awZd/SQJ20HNLQGrL7Iu1dizyiTm8kNkQ3lKDWn1n0RkBXd3tE7K
+ xLMRvfke0wQGcSo+efAOgM4rlfjzTxYOWeTIwpv9MhBMLkr+eH90An6YvRn8bffU/hkR
+ WLaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1702549727; x=1703154527;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=WS74u1YdM90ymuqPvvVgOyS833lPLTSZYme54xVkA7U=;
+ b=PXtPwcFo7D/gvR6k5Pz8PVnC/gVuvm8eWOGMBZNGgJMu6+xyujL0OJ7lROWPiSTDfR
+ lp4VOSxKKLwge55RNZVK4WOpu6uMR4XharQaZigVgHEK1BvaX/XVQvMjEQg+kQelplUn
+ 4a+frtDYuhxiIAqqOVCUjdlEFCuildOkYXghOuSK9E/90Vr02FtHoYZfywger3bM+OOG
+ Tp4rdYzFnSGrAT32MaKjEOaguwz+hYbvOKIlu4Z350vRWx/P+5Pkx+xIGTIVR9dCtRiK
+ oisUrwlUbTKJe2kVcnXgXdFj0t3giYoz+sqNIDQ/FuBPx87q2a+8rUvbkQJ5VxXlP2IO
+ I/7Q==
+X-Gm-Message-State: AOJu0YzBOH5u/dABL5UiJXdVkfNoD0a+0cvh1BFu6+ymO0zh5WL72/T4
+ 5liJ0Px4Avdw4Yy9pqnoJ5f6mTZVBww=
+X-Google-Smtp-Source: AGHT+IGpjNTqP78grQMH2esWNz5HtAtJeBqniKJY+bGKLx7I0iIiSGuMdU2ShuAoEsYjnTCqL8wZBw==
+X-Received: by 2002:a05:600c:ac7:b0:40b:5e21:ec1e with SMTP id
+ c7-20020a05600c0ac700b0040b5e21ec1emr4890414wmr.80.1702549727257; 
+ Thu, 14 Dec 2023 02:28:47 -0800 (PST)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ he15-20020a05600c540f00b0040b5517ae31sm26287917wmb.6.2023.12.14.02.28.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Dec 2023 02:28:46 -0800 (PST)
+Message-ID: <184fa52b-2546-4ab3-b11d-3b58e5562b32@gmail.com>
+Date: Thu, 14 Dec 2023 11:28:43 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A108:EE_|IA1PR12MB6139:EE_
-X-MS-Office365-Filtering-Correlation-Id: 27a47ca6-f1a8-4420-9233-08dbfc8da157
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8ct2R+OPGCGemkU8IgIoOdUomcbApghEDUGN9fX481mX00Puu9rSVaOJKT9MtAv4/ZEcLToYiNZzna7R3e2UhXF32XzA5RDhmVEHtZI+ZK/XDZr8GoqAJPrNEN+G7OWbGkrvipEvbn/L/5pYS+0TvrnTEU0lWN1efzzGGwgsXzvtO1++hl/xB6xydbrH+NoXVYVa6tYip7vDc5Hko6eRiwjyfq9oiUm7VH/LzFHplxXtjJozK0Pu+3IzPocbcfTM3LDrUNA4durzcG0KA/Egyjhaf8aiALYuGHgdGV84ZLGl9jJHoKXS2h4361H1mFwhSEwjWoh+fiAkKk2vZmYeQzh0685oSg0s9AlsDlkOZFjWR9Gh3v2BhvePf0+kDI4Bo7gFok8h2p0zpHQDV6zquZbd2xpZc7UKEYzYSODLbij9UyyJ8+q1L23rxXzWjdUJuEA35gvrYZGYhDzmIEK6f5qyIdHGPb2BLIprLoaJ8Uf0f1x6TclVUXEFLMKadFZAsE95zJWMK5vRM5k3vPUgk3H5ZbQZZVQyDqn6gm6L65wFtuBa2lQd1EqY80HpOkS8/nItpLX10yULuEBMhJgjp3CckxliLAoP5O2Z7TtcrltRtBLVjVNC36q37h7kXw0Wu9FeIPIlRALqiXnKK2AnMCTpvrYtWKaV6BtU78RWc5IlHrSVa+PmANEoymeJiUVfG/oDCQSkmpodY8o7Cqv4ms6u6QZAuz/eDhFjtiKi6ArYDxKuijPMwcD8Zs1pSQzQeXBq+ciEfQK6vhk6Tmd8GA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(136003)(376002)(346002)(396003)(230922051799003)(1800799012)(451199024)(82310400011)(64100799003)(186009)(46966006)(36840700001)(40470700004)(86362001)(81166007)(356005)(36756003)(40480700001)(40460700003)(82740400003)(41300700001)(7696005)(6666004)(478600001)(70586007)(70206006)(54906003)(6916009)(1076003)(336012)(26005)(83380400001)(16526019)(2616005)(426003)(36860700001)(2906002)(316002)(44832011)(5660300002)(47076005)(4326008)(8676002)(8936002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Dec 2023 10:15:43.0047 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27a47ca6-f1a8-4420-9233-08dbfc8da157
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A108.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6139
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amd: Add a workaround for GFX11 systems that fail
+ to flush TLB
+Content-Language: en-US
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20231213203118.6428-1-mario.limonciello@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20231213203118.6428-1-mario.limonciello@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,49 +76,134 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, yifan1.zhang@amd.com, kenneth.feng@amd.com,
- lang.yu@amd.com, Li Ma <li.ma@amd.com>
+Cc: Tim Huang <Tim.Huang@amd.com>, stable@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There is a repeated define of smu v14_0_0 driver if version, so delete
-one and relocate the other define.
 
-Signed-off-by: Li Ma <li.ma@amd.com>
----
- .../gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0_0.h  | 2 +-
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h                    | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0_0.h
-index 8f42771e1f0a..42bdb06d4e86 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0_0.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0_0.h
-@@ -27,7 +27,7 @@
- // *** IMPORTANT ***
- // SMU TEAM: Always increment the interface version if
- // any structure is changed in this file
--#define PMFW_DRIVER_IF_VERSION 7
-+#define SMU14_DRIVER_IF_VERSION_SMU_V14_0_0 7
- 
- typedef struct {
-   int32_t value;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h
-index a5b569976f19..bfb731a980cf 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h
-@@ -24,10 +24,10 @@
- #define __SMU_V14_0_H__
- 
- #include "amdgpu_smu.h"
-+#include "smu14_driver_if_v14_0_0.h"
- 
- #define SMU14_DRIVER_IF_VERSION_INV 0xFFFFFFFF
- #define SMU14_DRIVER_IF_VERSION_SMU_V14_0_2 0x1
--#define SMU14_DRIVER_IF_VERSION_SMU_V14_0_0 0x6
- 
- #define FEATURE_MASK(feature) (1ULL << feature)
- 
--- 
-2.25.1
+Am 13.12.23 um 21:31 schrieb Mario Limonciello:
+> Some systems with MP1 13.0.4 or 13.0.11 have a firmware bug that
+> causes the first MES packet after resume to fail. Typically this
+> packet is used to flush the TLB when GART is enabled.
+>
+> This issue is fixed in newer firmware, but as OEMs may not roll this
+> out to the field, introduce a workaround that will add an extra dummy
+> read on resume that the result is discarded.
+>
+> Cc: stable@vger.kernel.org # 6.1+
+> Cc: Tim Huang <Tim.Huang@amd.com>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3045
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+> v1->v2:
+>   * Add a dummy read callback instead and use that.
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 19 +++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |  3 +++
+>   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  | 11 +++++++++++
+>   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  |  8 ++++++--
+>   4 files changed, 39 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> index 9ddbf1494326..cd5e1a027bdf 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> @@ -868,6 +868,25 @@ int amdgpu_mes_reg_wait(struct amdgpu_device *adev, uint32_t reg,
+>   	return r;
+>   }
+>   
+> +void amdgpu_mes_reg_dummy_read(struct amdgpu_device *adev)
+> +{
+> +	struct mes_misc_op_input op_input = {
+> +		.op = MES_MISC_OP_READ_REG,
+> +		.read_reg.reg_offset = 0,
+> +		.read_reg.buffer_addr = adev->mes.read_val_gpu_addr,
+> +	};
+> +
+> +	if (!adev->mes.funcs->misc_op) {
+> +		DRM_ERROR("mes misc op is not supported!\n");
+> +		return;
+> +	}
+> +
+> +	adev->mes.silent_errors = true;
+
+I really think we should not have hacks like that.
+
+Let's rather adjust the error message to note that updating the firmware 
+might help.
+
+Regards,
+Christian.
+
+> +	if (adev->mes.funcs->misc_op(&adev->mes, &op_input))
+> +		DRM_DEBUG("failed to amdgpu_mes_reg_dummy_read\n");
+> +	adev->mes.silent_errors = false;
+> +}
+> +
+>   int amdgpu_mes_set_shader_debugger(struct amdgpu_device *adev,
+>   				uint64_t process_context_addr,
+>   				uint32_t spi_gdbg_per_vmid_cntl,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> index a27b424ffe00..d208e60c1d99 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> @@ -135,6 +135,8 @@ struct amdgpu_mes {
+>   
+>   	/* ip specific functions */
+>   	const struct amdgpu_mes_funcs   *funcs;
+> +
+> +	bool				silent_errors;
+>   };
+>   
+>   struct amdgpu_mes_process {
+> @@ -356,6 +358,7 @@ int amdgpu_mes_unmap_legacy_queue(struct amdgpu_device *adev,
+>   				  u64 gpu_addr, u64 seq);
+>   
+>   uint32_t amdgpu_mes_rreg(struct amdgpu_device *adev, uint32_t reg);
+> +void amdgpu_mes_reg_dummy_read(struct amdgpu_device *adev);
+>   int amdgpu_mes_wreg(struct amdgpu_device *adev,
+>   		    uint32_t reg, uint32_t val);
+>   int amdgpu_mes_reg_wait(struct amdgpu_device *adev, uint32_t reg,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> index 23d7b548d13f..a2ba45f859ea 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> @@ -960,6 +960,17 @@ static int gmc_v11_0_resume(void *handle)
+>   	int r;
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>   
+> +	switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
+> +	case IP_VERSION(13, 0, 4):
+> +	case IP_VERSION(13, 0, 11):
+> +		/* avoid a lost packet @ first GFXOFF exit after resume */
+> +		if ((adev->pm.fw_version & 0x00FFFFFF) < 0x004c4900 && adev->in_s0ix)
+> +			amdgpu_mes_reg_dummy_read(adev);
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +
+>   	r = gmc_v11_0_hw_init(adev);
+>   	if (r)
+>   		return r;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> index 4dfec56e1b7f..71df5cb65485 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> @@ -137,8 +137,12 @@ static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
+>   	r = amdgpu_fence_wait_polling(ring, ring->fence_drv.sync_seq,
+>   		      timeout);
+>   	if (r < 1) {
+> -		DRM_ERROR("MES failed to response msg=%d\n",
+> -			  x_pkt->header.opcode);
+> +		if (mes->silent_errors)
+> +			DRM_DEBUG("MES failed to response msg=%d\n",
+> +				  x_pkt->header.opcode);
+> +		else
+> +			DRM_ERROR("MES failed to response msg=%d\n",
+> +				  x_pkt->header.opcode);
+>   
+>   		while (halt_if_hws_hang)
+>   			schedule();
 
