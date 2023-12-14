@@ -4,115 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16274C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Dec 2023 19:57:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79AAAC4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Dec 2023 20:04:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4647010E219;
-	Thu, 14 Dec 2023 19:57:48 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2068.outbound.protection.outlook.com [40.107.212.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C41D410E96C
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Dec 2023 19:57:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84C1310E26B;
+	Thu, 14 Dec 2023 20:04:10 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20619.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e88::619])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CA1E10E26B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Dec 2023 20:04:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dYakgJDYgdweQ5lK5zxu8Y6+hjgGlg726Km8cZlZND0yF77RlnSQ2rKAw1EdhYtfLZdUBujetVabxeX5hSCLz82cl7rCyOPXSNvJauj5kcxLVpgbkGpg/I/0+3pqdgJSbh0OgDjciK255XFXvZIvUzsxbq/O9km5dC+Jjs8IVgQTOZlv7q3tl2hSUGolO/w1qwB8wRZsoyVa/ac38UnnFGUr7T/owTLDlnPa/EEy96zpw1ywiBli3H6ISwKtOmXhNmM5+YWUcv7rvAr6jgtiXSN6HJf1C/pMhSA0lmTjYOlBbSBZ2rBy0fT7vc9mrJS1iieNa7ougFISRS5KRsJoAA==
+ b=QYKd8n/0SKybYSMRVODtElbKPifzh7bl9FVIwAKnP2ZccJJuxqkGWC8hgHH5fcyTXLyQOy+N9b16vJ34bUS1lI9LISmAab4qGO5kBmdbD+9CjlkvmM87kmTo3SL7lOyqadi+ReUb1n6dP9NUWHnAmPNtM7tPohIRdDsq7xAgiqMWreYi5cVcXVKy7S5jgvk5A6B1FuMEgHip2hzilfmx6KJQnrtnOOkrFpr+9vnh2BTcshk28/CI5HoI+MK/yzbFF2qBF4BsN8I9dgx6H7Re/6Duz5FjYUOkf/I3qcVQXktau8a3SlHB+oKcQP6fLk/FypawUzJYL0OnPI1mZyVVDg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xfNg7LhjMtdcFqcHQCquXAHhltV57C9hhiJs6zJf0YU=;
- b=UR2G1JShcJfn8jR53aLB5CTIFrnQyxsweF9fQZwjO71uXOvdkavVUzbMQFy/8xkZGnS7DT2y3pK2ifz8Xow23b3yqRJYcQ6pJ2F5w3YNWpMM0vzmGqLMTCQd9VZxBVq32+K1O7Sf2+3zJXnyEshav+bfcODatVtot8PXB9hh1v0/KzQCu9oNq9csZmEoXjbrp7rzENnYeUScJ8jQ83k2FtwJu4zhRBq2UrKGL3Wa+EJSgoIrG7SEBgRrnyXDh3WxTXmEm0v2YJvglnoKiSxmfD6W9zcTsrJUQkDtNzD5T0kN9kcI4aOiSTI+RxFLWXFTuZtFJs8+ByUCeIRl3i9SrQ==
+ bh=dz2dEJ7WuD/nYZE9T3gw+GfGbIye+fq89U6H9o1IMH0=;
+ b=KDoi2HQ2gtAKdNrNw/3bTSHCQ+YBjjEQyFfcNt30REsRjBxMuObLuIqmbV33V6+cP0JiobnMlz1wJ1X3yNdYdShutBH7IVEaRIriwX6mCcKlOxGL5Rsi326K6PFALhZsWEighR+fVbhDUzZmtzPe9tyiyu1Y9WATm9xCPqssq8iszLpSt/MMU6Gg1K9rRAGLPrvlir0jy/p1jsr5u1AvGIMebVR1iV8ltCJjfytRyAU4xHmC10thNhqhT9zyl8BKbs3SMPTtXpIlZcFXBvPxOISifQuIQ535aIta270BH/z7jJBJLoSVV4O2m8+WeDtymIIjObdm5IZ+JHl+hRcWKA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xfNg7LhjMtdcFqcHQCquXAHhltV57C9hhiJs6zJf0YU=;
- b=d3fNVt5pMklJ+WP26in7dmHTabjNx7qZPDtHZfGF4HDVTSLr/EjBHqhTp3rQsL8UU/FEtRl4FpHZkq0T04Ni5Ame3vIkVX8lvgdr397RBBUe0WhlP09I2q1lBH/+ISdZpo/JVQJTYCYvcLMpQ5XkRsc3majTYHGmfQtivjIgIUE=
+ bh=dz2dEJ7WuD/nYZE9T3gw+GfGbIye+fq89U6H9o1IMH0=;
+ b=1ylq8koey/Yj0ysCzmgWw/vS9KbjiD0/hgmLgTsNfvhNA5xLzeTgGwgQQgn1KB38p6589+RYA2sdz6jphUYZdudSTt3H3JGiSStTuhsXfQjDO8kRbCHodEVhkDM6Qo8viBd6SuIhXSDdwFh/K6s3po1CnUIpmEtae0HKPpA1vOw=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by IA1PR12MB6260.namprd12.prod.outlook.com (2603:10b6:208:3e4::17)
+ by MN0PR12MB6365.namprd12.prod.outlook.com (2603:10b6:208:3c2::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.28; Thu, 14 Dec
- 2023 19:57:41 +0000
+ 2023 20:04:03 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::7bfc:e32b:f362:60f3]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::7bfc:e32b:f362:60f3%5]) with mapi id 15.20.7091.028; Thu, 14 Dec 2023
- 19:57:41 +0000
-Message-ID: <1c318d42-c53a-4a61-9075-2fd78bbee1e3@amd.com>
-Date: Thu, 14 Dec 2023 14:57:39 -0500
+ 20:04:03 +0000
+Message-ID: <bf428c35-52df-47d6-9486-a44d3202d269@amd.com>
+Date: Thu, 14 Dec 2023 15:04:00 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: svm range always mapped flag not working on
- APU
+Subject: Re: [PATCH] drm/amd: Add a workaround for GFX11 systems that fail to
+ flush TLB
 Content-Language: en-US
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20231214185832.3355-1-Philip.Yang@amd.com>
+To: amd-gfx@lists.freedesktop.org
+References: <20231213170454.5962-1-mario.limonciello@amd.com>
+ <CADnq5_O=Kp+TkSEHXxSPEtWEYknFL_e_D7m5nXN=y8CJrR950g@mail.gmail.com>
+ <38da4566-d936-42d9-9879-eee993270da0@amd.com>
+ <13694238-418a-4fcb-8921-f9ab31e08120@amd.com>
+ <CADnq5_MkkWqLyC3VYbTXSX7JL2Q5aaeJ6sFT9ROXjqdVfsXgjw@mail.gmail.com>
+ <aacee34d-a62a-4af6-8fb8-de981e1dfc9c@gmail.com>
+ <CH0PR12MB537285E50B5A53BA1048FCD0F48CA@CH0PR12MB5372.namprd12.prod.outlook.com>
+ <CADnq5_OW=aAHrhi6Zwc4OGtLthYh3NKw2Gq-CppBtYJUE-ybEA@mail.gmail.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <20231214185832.3355-1-Philip.Yang@amd.com>
+In-Reply-To: <CADnq5_OW=aAHrhi6Zwc4OGtLthYh3NKw2Gq-CppBtYJUE-ybEA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0054.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:88::29) To BN9PR12MB5115.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQZPR01CA0131.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:87::19) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|IA1PR12MB6260:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2707a205-8057-42a7-368b-08dbfcdeee28
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MN0PR12MB6365:EE_
+X-MS-Office365-Filtering-Correlation-Id: a85c95ab-3162-4af7-7437-08dbfcdfd1c6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PDlD1sU2n8w1ccmzSn9P1stwFULtb3e2zE95owjkiZGpkZM3IClwuh4jsAq+fC+553ZeXPbDh6Xhg2zdCq8siC7EGM4rAb/QuZPHlsnYd0D0BhWy/kvsZ2oHRois6HIheMzS29w8ysxn6/QOORMu40/kYOilfkUJmHwJ3oQkV01ad1Ebog0yl9BVWYUuEArYngXCRzlvImv3qrhlGKyTzEysdfCEmpcq4mOLewtpqG651f6F76BQzJ8Gowpfg9a4UvGsBZBWYRGuBSjECYs2EygOkJgAyu8CkoicYTNLbkQwahImEitmS4dq+OPGYeX+qBBw6ztM9Mz0VdN1sNoJ6YFS/shPSvHBmc9QYsoO1GA3ofML28b3soEorA4d6dW1wrwWWxYlcXIGBgVlHD0c2pJEPuqTD6RrxVtJmjKLbwXwlkeIYj4i1+i4mRoN+DWQHp2f2O78CCwm9TIubFeXyeZVy21oUWuqdqIRw6/xIKbib3PRpbAzpF9BvQIpc79chEIb3uQYEJtBsC0TbZPXaD+YBiMhcFN1IwLaPNbapJ24Fq7EhnakMx5JORmGXLZM1Fy/SLt89VBgCgge4i3EXqWZ4bo+LyEWvWxXDZcawNNM6HKqw9Dhp/fmfwrw5J8c/9UJAm+fFsD7z7Leq2aWBg==
+X-Microsoft-Antispam-Message-Info: Onn0EKW6+YB1sHyUW29ADP0GDo9Xxu6BgxuirS5u6FA+bmXKCJVD7xogoRf6eCiFnCTK6YY8fjv5wTH/gFUhrzHXKXlzcJO9Fvq9g0is+7V8W8mKupBXu8vEBOKIjAE2vWDsKvK2ZdTROlFwiKzsCg7rxpAAxl+j58rav+5DUlx9gjClibtn15U5ae3dYhbTH7DKfXgIz9kyQonQf3XRlr4sN0kHuHizt7Bl8rYLLD8c17RzRrJ/pq3SR8ARvu53DmB+V9NVJWY+1XF5xQstRC/Q6U5leZ0Wcm+M11H0DgpTu1bjYtL5KNbrVP2B6UoWvbbbdvlN+lQY5rD7z9dO7oDndZZrvpaXDM3m7cbzH9ELmA3hp7zas/9Tscnt4Wg8UqESXZMgSfEgqXMg9ffcZxJP/+1wtKAyt3nxQo0mrqBXNkjfMbxq9d/t+WJjreW4w7ITZJrPdmPM7rVn8DwBsLGSPRWahsl3FLGRFQYNFdfUiNm4LxlmFsTOSzocac1DyF19k6zYwF9MejcQxj9zVbrfVludFamVDU6i3HgucV5pAzDAfyQqid+QyUdjyKzVL5m4YwBO0cUUY8D9jD1Gc0dyKSBbmIDSwDcL86S4FLiCSL7MxQC5crPIRNABugN4WC8gJZS+/bdrENgBUo8zhg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(376002)(366004)(396003)(346002)(39860400002)(230922051799003)(1800799012)(186009)(64100799003)(451199024)(6486002)(6512007)(8936002)(4326008)(8676002)(83380400001)(478600001)(31686004)(2616005)(44832011)(26005)(66556008)(66476007)(66946007)(316002)(53546011)(36916002)(6506007)(5660300002)(2906002)(41300700001)(86362001)(31696002)(4001150100001)(38100700002)(36756003)(43740500002)(45980500001);
+ SFS:(13230031)(136003)(39860400002)(346002)(396003)(376002)(366004)(230922051799003)(186009)(451199024)(64100799003)(1800799012)(31686004)(26005)(36916002)(66574015)(6506007)(2616005)(36756003)(31696002)(86362001)(38100700002)(5660300002)(83380400001)(44832011)(6512007)(53546011)(316002)(66946007)(6916009)(8676002)(6486002)(8936002)(66556008)(66476007)(4001150100001)(30864003)(41300700001)(2906002)(966005)(478600001)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dWlZaGpCamduWkdIemtOTmVURFVoZmNNQUtHYXZ4SDBxNXRjdm12RTErMVpO?=
- =?utf-8?B?aWdZUC81TGRzeGlPS2h0dXVrR2ZvNklhSTgvMWlSbkU5N0JxRmt3eTMzejdK?=
- =?utf-8?B?cUVMSGtsc3diK1ZDcmxxUnlSREJGcThmK3E1T1RDSGVTOGUxSnZDbGhUc3g3?=
- =?utf-8?B?WExhUUx6K1h4Z2xxaFpnLzBzQjQxRXZab2JoNkVwWFM4UzdEa2dHN0VJbFhi?=
- =?utf-8?B?SWJvQnVzdDQ5NENFeSttWHViVVh5R3ZsY2h1VEFWelZiWjdLaEs1U1ZBcmxi?=
- =?utf-8?B?d2IwQ1d1eE9yTFJyMjcvVmFKSTl5WGFYSWNLREpBa3JSSFZmS3FZTU5LMDBL?=
- =?utf-8?B?YkFrWGd1UlY1RjRpSUZSYm9JU29LYjZFZzFvMnNXUUV4MEVpSkR3bEY5dG50?=
- =?utf-8?B?QUpBQmlKRDVIRGIxdlVRTUtrWXBOUys1YzdveEYzc1JxbUV6WmdVTnFFZGR0?=
- =?utf-8?B?TXNZK0hCMUhhdVdhMTJhTzJpb3d4N3U1VENYajFXdVZIdUhTM1hob3F6Vm9H?=
- =?utf-8?B?M2lEQlIrcUtWYkJKZ01IMnRpMlRLQUpYVHBNVXlSSFlpdmlCcGpsRWI3QTZV?=
- =?utf-8?B?ZmhaVVUxdTdVTHdtN3FMMUFqREdOUHN4UEtHVnhEd05ZMEFFV0hYd0NSTFJV?=
- =?utf-8?B?ZldXbjBsK2FSZ0ZsUDdtOTQ2cTNpOWFTQTlPRThMVmgzRk5xTkV2WHc5R2pz?=
- =?utf-8?B?QkxPTVc1dExDSVp0VmhMZEs5eENkNTRiYnd6MGdwZlJSSlh3cGlvT1JxQ1RU?=
- =?utf-8?B?cURHcjA0MlBRQjV6TmJtallUQVpEUlN6cEVvQ3ZoVHMrYnM2cVJPbUJsWGF3?=
- =?utf-8?B?YVlsUFkySENNcUhYVm9pbVprZDZLdzBTVHhUbG91ZFVUeWcwS1VTcUlsSUNB?=
- =?utf-8?B?ZFNKZll2K1JHV0NyZzVJc1BxaUtRKzgzOFBuaG5xWUlVcGxWQUIzamlhdWZQ?=
- =?utf-8?B?MFhCc29IMU43Z0RCYVhHNE15MFl4ZytxanpVZ2t2WC9TY0tHZ09JdndRcnVk?=
- =?utf-8?B?N3FBZlpvOU5OSVR3NktsK1BuNmVSTWRsTkQ5MHpkMDVHN2IzZzd5SWhBNDJ0?=
- =?utf-8?B?UkdDQndlMFNqeWV0NWxYVUVnM1ZzK1piZExWVDVLZ0tqb3dCbGxoZXhDWm1P?=
- =?utf-8?B?eDJDR3pack1naG0yb3MrdnZRUDhiaW1UR1oreTNVdWJJZDZSRXFIS0dsZDlw?=
- =?utf-8?B?ellnbTM2N2tETXZsMkhMZ1RGS2Y3cWV0RCtnKzhhNHdsMWo0cUp0RnBmT2pv?=
- =?utf-8?B?UUVPcGFxbnhIamM3SHhmQXVkd1RPdUFDc2hGVjJSaU92bUdidjE1alFQazk5?=
- =?utf-8?B?eENIemQvUTRWcS9zZ25kT2IzdVNYVlVlMVFGekx0bHV3aHNYTXhnVFM3UUlT?=
- =?utf-8?B?SGFlV2hRZVZPMng0VkhqSXNSNzdDSXpXN240eGJCSk43QVE2NmRWMUZrdWQw?=
- =?utf-8?B?RDVoUGxETFBUeUY0eWVXTnA5aVhQeEVQTi9TcGdrOHlxeHluRktOckQ4MlFU?=
- =?utf-8?B?ZWhhbSs3QkRZZEp4VDEvZ2lxQVJLaFRMT2hndmtlWTAreEdKV3luckg1L2Fo?=
- =?utf-8?B?MHdWVE5GaW1iQ2h0VStTU281WldXVTlhRlg2MjdBd0x1TzhITGIzY0grajM3?=
- =?utf-8?B?eFF3MVVuNUYwa0FDd1pLK283N1N3MEVlS29VTVJra2xQWWtCbDJUNTh0eUFp?=
- =?utf-8?B?bkJEWDNHcUtON1hrUGQrWStVdXpaN2NXMHRpazU0VUFkUitzMS9mWCt3dGhm?=
- =?utf-8?B?RC95bS9wNnNOL3dWSFNzWHFTY3IzYnltdG9rMnVjK0pPZU9NVTBzYlJHT2Nl?=
- =?utf-8?B?K2xaUWlRUUtuNDJtTnRreXdRVndyRytXaWpVc0VBSXpFS3dNSkRqeGRYZGFK?=
- =?utf-8?B?ZHYyajlXcTA0ZTIzb2Vjb0hDaU5DTHhiWmx5QmtTZllidW9GZWtIU1lqbElK?=
- =?utf-8?B?M2I1Y1JaRG9aZmRxVndpVHROTjNjTEgwdU5TVUZUUENFUjRrZFBpU2taQWFQ?=
- =?utf-8?B?L3JMRi9WRGdQbzJhYmtWcmRhSXhsNWZPT3AwT2RCd2g0WWJtYWdoT2JDTE1G?=
- =?utf-8?B?RTZwT2NmOTR5NFNnUW5iM0hOUGVVZjlGd2FwNGxKM2dZU3FHeTJzQTRKTlAx?=
- =?utf-8?Q?rPVUvSMWUzL7280+viELqqayl?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c2s4RGpHYUY0TzQ0YlNGaUFBblNyOGZVK21kQjJmeFB1cXRscGZhNWVOUng5?=
+ =?utf-8?B?SWFxeFNPZlloY3A0bjlSNlhkV2tQTUYwR0lrOTUrQ3JWRjF2MGIvSlY3SWRY?=
+ =?utf-8?B?Y0Rubks3bzNnbTY4UHlpejF0ZGw1K1Y3RWtjcVFZUmlUUVJCUk40RGVrSlNF?=
+ =?utf-8?B?QWtwZXpzbXFXN0VSczY3ZmtZcVhBS3RpTmpUajhTalpEdVpTaTJnQ3hKaCt3?=
+ =?utf-8?B?QW9ZNEpicDJ6dVVzcnhLNDRVaytKYjg4S1BUTHd1cDBIQXgrQ043eFN4UEk4?=
+ =?utf-8?B?M1V4YmRia3pLQjZlaDJjbCtycjR0MjQ1UDlHWHkwZTk1SUpTZ3Q5bVl6eXRk?=
+ =?utf-8?B?SVM3aXBkc1VlNU1IZC83bnFNUTFEOTdQWjlVSm9vcFAydERvcHk5eHZhSnRJ?=
+ =?utf-8?B?SUlOSlo1Y2xrLzVhSlVSL0FIeWRXUklYRWhlUmJuN2pGYnlFQlR1T2VOajdP?=
+ =?utf-8?B?bVFHck1rWU0zNk9VbGRyWiswVWdvek5Ea3JOOW9Tajc3NWR3T2NrakVaZjVx?=
+ =?utf-8?B?Sk9xUDBWc0h2dEVsRnI4ZzNsTHdDcWNsZ3V0YUE3M0xIaXFEZitobzdzWHA1?=
+ =?utf-8?B?YkUyRUQ3bTBGUFRSZ0tDK0dnd2FLeHNSNVhkSzgvakFFOXRxdGJkSkdFTWs1?=
+ =?utf-8?B?Q1d6WStWblNHZ0I4YnhlTU9BRExINDMyemdqZFhpTnlyeVF3a3lBVHBweStW?=
+ =?utf-8?B?bFJwZVZjWklCdDM4NVFlcGF4c3JvdHNsRENMek1BckdTU0t4QUpJa2RLcm93?=
+ =?utf-8?B?dTd3NERSbTArVmIrTWthNllic1JLelRvWmtubHBIODVoTElaZGEwMWUyK3hm?=
+ =?utf-8?B?NWpHc3BHODh5SExaeW9MZUd0ZHJlS244QkVJQ0kvd3l5Y3JpRThRZlpwUkpa?=
+ =?utf-8?B?SUs1V0pxWEJoYTkwMDlTdkgyZlBCQzNWKzVTNjVkUENFdjNtN1c3N3NNYVc1?=
+ =?utf-8?B?NnJHVG1iVjYzVEdQNEcvWUdTMThBYTN6ZVNMTnZDdmJLaWpRR055d21GbEFH?=
+ =?utf-8?B?VW9zeDZPR2FRWHUxWGI4d2hYK2c3eVJZbU9QOUZBVGp2bkNXZUNXQ0ZwN1VO?=
+ =?utf-8?B?SXlkMmxlUU9jQiswazV0T0g1c3Vob2lJdFBHcnJveXJ5aHFxdXhOQXVaMXA0?=
+ =?utf-8?B?am9qcjkxVDlIUGZhdjFiMWozOGlNZnJQREpXN2pxVXpwSkF3Vi9SKzJYYzQx?=
+ =?utf-8?B?YkUvaFlsdmVLeWlvV0pldStIclZaUVZWV1I5TDZMVDJlUm5qamwwempta2VO?=
+ =?utf-8?B?amw4VVJ3YWFaVjc2ZEV1TVYvckQ1YW5FYmpWOGhTUE5uSXVDNk5tNzIwT2xm?=
+ =?utf-8?B?QmhmbU96ZVJvSGhLdHFPTWVZMStFMzRLZGc5a0w2ZUFyRmpSMUx1bWpsSERK?=
+ =?utf-8?B?RlV3L1RFS3ViYVNKSjdQbExtSWx5Z2diWXptVFVGK1B0LzhCaGhody8wM2xU?=
+ =?utf-8?B?bUw1TTY0ODNydTYwUGNXWVBNQnNwV2JZMmNXUHdYN0syekNZZlkyRktxb2l1?=
+ =?utf-8?B?Mnp5eXFZc1l5c3kvVldPREk2Rm9kdy96Nk42UEhUMERlRFN4L0lqM0JKdUsx?=
+ =?utf-8?B?dTFBODVOREdpdDFVb0NIYzhaUXBTRVl0MlYrL1BCZlQ2NjJMZytRS3RGRkZE?=
+ =?utf-8?B?QWlsRzdvV24xR2EzSWJEOGNCVFFHOUJIV3pGSm9BMFhDTnZ5MXNLd0UxcEpD?=
+ =?utf-8?B?dWVtaWZTeXVDNW5QM0FEQnljMGZGcGZ5WG9kcVhobmkzbFdpQzdwKzV3anA4?=
+ =?utf-8?B?dlJYOVpKTTIwT2NoSHNKZWROK0ZqR3dacytKZ3g0Y2lxQ20xSkVmZkwxVFZz?=
+ =?utf-8?B?cWtrSERzK0NmMDdvOEsycVp6OEtWVk1UZFhSeG9FbVNMWFJxSE9RVVMxVms5?=
+ =?utf-8?B?Rk4zZ3pOZk5pZCtFMytTMnQzVGVaZXloS05RYWRJcUk2amlGMjdDaWUzVXl1?=
+ =?utf-8?B?RVJZNkluazg5S0RkWHd4T1FZTkRENHZNV0I0L3hmK3MyNnU5K0ExWFczdHJm?=
+ =?utf-8?B?L0hya2lvcjRUN2JPajA4WUQvbFp4R1A4K1FNYkZoZEFLVUl1RmRvSUFWMmZD?=
+ =?utf-8?B?SVhBOWQvR0lGVUthY3UxQjdncHFsTHJrcjBkNDd1QWNXbU9NM1lpY1lsTERo?=
+ =?utf-8?Q?ePNZLA66oKEZbxaUMUzv9dSkf?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2707a205-8057-42a7-368b-08dbfcdeee28
+X-MS-Exchange-CrossTenant-Network-Message-Id: a85c95ab-3162-4af7-7437-08dbfcdfd1c6
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Dec 2023 19:57:41.3666 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Dec 2023 20:04:03.1614 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l0WGt9m3O2hRDpovgV/KeK+rSckH55P1eUJw+rRbJTU5KqWom62kTw4Ml/L9nYGkV60p2kJDEnPG6MpDq1WlPw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6260
+X-MS-Exchange-CrossTenant-UserPrincipalName: oyVGxNbxm6Z/SkYruYo2hhiZefqo70uyU4Mn26398H8XKh8c77TnNvRYsTUJ2apmsl/cWos1nmKZlEoyGFdAFw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6365
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,75 +132,262 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rajneesh.bhardwaj@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 2023-12-14 13:58, Philip Yang wrote:
-> On gfx943 APU there is VRAM and page migration,
+On 2023-12-14 10:06, Alex Deucher wrote:
+> On Thu, Dec 14, 2023 at 9:24 AM Liu, Shaoyun <Shaoyun.Liu@amd.com> wrote:
+>> [AMD Official Use Only - General]
+>>
+>> The gmc flush tlb function is used on both  baremetal and sriov.   But the  function  amdgpu_virt_kiq_reg_write_reg_wait is defined in amdgpu_virt.c with  name  'virt'  make it appear as a SRIOV only function, this sounds confusion . Will it make more sense to move the function out of amdgpu_virt.c file and  rename it as amdgpu_kig_reg_write_reg_wait ?
+>>
+>> Another thing I'm not sure is inside amdgpu_virt_kiq_reg_write_reg_wait , has below logic :
+>>          if (adev->mes.ring.sched.ready) {
+>>                  amdgpu_mes_reg_write_reg_wait(adev, reg0, reg1,
+>>                                                ref, mask);
+>>                  return;
+>>          }
+>> On MES enabled situation , it will always call to mes queue to do the register write and  wait .  Shouldn't this OP been directly send to kiq itself ?  The ring for kiq and  mes is different ,  driver should use kiq(adev->gfx.kiq[0].ring) for these register read/write or wait operation  and  mes ( adev->mes.ring) for add/remove queues  etc.
+>>
+> I understand why it is needed for SR-IOV.  Is there a reason to use
+> the MES or KIQ for TLB invalidation rather than the register method on
+> bare metal?  It looks like the register method is never used anymore.
+>   Seems like we should either, make the KIQ/MES method SR-IOV only, or
+> drop the register method and just always use KIQ/MES.
 
-Is there a "no" missing here?
+It can be useful as a fallback or workaround for FW issues. We also use 
+it when running without HWS (amdgpu.sched_policy=2). This is not the 
+production code path, but can be useful for triaging on GPUs without MES.
+
+Regards,
+   Felix
 
 
->   queue CWSR area, svm
-> range with always mapped flag, is not mapped to GPU correctly. This
-> works fine if retry fault on CWSR area can be recovered, but could cause
-> deadlock if there is another retry fault recover waiting for CWSR to
-> finish.
 >
-> Fix this by mapping svm range with always mapped flag to GPU with ACCESS
-> attribute if XNACK ON.
+> Alex
 >
-> There is side effect, because all GPUs have ACCESS attribute by default
-> on new svm range with XNACK on, the CWSR area will be mapped to all GPUs
-> after this change. This side effect will be fixed with Thunk change to
-> set CWSR svm range with ACCESS_IN_PLACE attribute on the GPU that user
-> queue is created.
 >
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-
-With the commit description fixed, this patch is
-
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-
-
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 18 ++++++++++++------
->   1 file changed, 12 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 2834fb351818..41656e85ee57 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1607,18 +1607,24 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
->   			if (test_bit(gpuidx, prange->bitmap_access))
->   				bitmap_set(ctx->bitmap, gpuidx, 1);
->   		}
-> +
-> +		/*
-> +		 * If prange is already mapped or with always mapped flag,
-> +		 * update mapping on GPUs with ACCESS attribute
-> +		 */
-> +		if (bitmap_empty(ctx->bitmap, MAX_GPU_INSTANCE)) {
-> +			if (prange->mapped_to_gpu ||
-> +			    prange->flags & KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED)
-> +				bitmap_copy(ctx->bitmap, prange->bitmap_access, MAX_GPU_INSTANCE);
-> +		}
->   	} else {
->   		bitmap_or(ctx->bitmap, prange->bitmap_access,
->   			  prange->bitmap_aip, MAX_GPU_INSTANCE);
->   	}
->   
->   	if (bitmap_empty(ctx->bitmap, MAX_GPU_INSTANCE)) {
-> -		bitmap_copy(ctx->bitmap, prange->bitmap_access, MAX_GPU_INSTANCE);
-> -		if (!prange->mapped_to_gpu ||
-> -		    bitmap_empty(ctx->bitmap, MAX_GPU_INSTANCE)) {
-> -			r = 0;
-> -			goto free_ctx;
-> -		}
-> +		r = 0;
-> +		goto free_ctx;
->   	}
->   
->   	if (prange->actual_loc && !prange->ttm_res) {
+>> Regards
+>> Shaoyun.liu
+>>
+>> -----Original Message-----
+>> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Christian König
+>> Sent: Thursday, December 14, 2023 4:22 AM
+>> To: Alex Deucher <alexdeucher@gmail.com>; Limonciello, Mario <Mario.Limonciello@amd.com>
+>> Cc: Huang, Tim <Tim.Huang@amd.com>; amd-gfx@lists.freedesktop.org; Koenig, Christian <Christian.Koenig@amd.com>; stable@vger.kernel.org
+>> Subject: Re: [PATCH] drm/amd: Add a workaround for GFX11 systems that fail to flush TLB
+>>
+>> Am 13.12.23 um 20:44 schrieb Alex Deucher:
+>>> On Wed, Dec 13, 2023 at 2:32 PM Mario Limonciello
+>>> <mario.limonciello@amd.com> wrote:
+>>>> On 12/13/2023 13:12, Mario Limonciello wrote:
+>>>>> On 12/13/2023 13:07, Alex Deucher wrote:
+>>>>>> On Wed, Dec 13, 2023 at 1:00 PM Mario Limonciello
+>>>>>> <mario.limonciello@amd.com> wrote:
+>>>>>>> Some systems with MP1 13.0.4 or 13.0.11 have a firmware bug that
+>>>>>>> causes the first MES packet after resume to fail. This packet is
+>>>>>>> used to flush the TLB when GART is enabled.
+>>>>>>>
+>>>>>>> This issue is fixed in newer firmware, but as OEMs may not roll
+>>>>>>> this out to the field, introduce a workaround that will retry the
+>>>>>>> flush when detecting running on an older firmware and decrease
+>>>>>>> relevant error messages to debug while workaround is in use.
+>>>>>>>
+>>>>>>> Cc: stable@vger.kernel.org # 6.1+
+>>>>>>> Cc: Tim Huang <Tim.Huang@amd.com>
+>>>>>>> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3045
+>>>>>>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+>>>>>>> ---
+>>>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 10 ++++++++--
+>>>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |  2 ++
+>>>>>>>     drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  | 17 ++++++++++++++++-
+>>>>>>>     drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  |  8 ++++++--
+>>>>>>>     4 files changed, 32 insertions(+), 5 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+>>>>>>> index 9ddbf1494326..6ce3f6e6b6de 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+>>>>>>> @@ -836,8 +836,14 @@ int amdgpu_mes_reg_write_reg_wait(struct
+>>>>>>> amdgpu_device *adev,
+>>>>>>>            }
+>>>>>>>
+>>>>>>>            r = adev->mes.funcs->misc_op(&adev->mes, &op_input);
+>>>>>>> -       if (r)
+>>>>>>> -               DRM_ERROR("failed to reg_write_reg_wait\n");
+>>>>>>> +       if (r) {
+>>>>>>> +               const char *msg = "failed to
+>>>>>>> + reg_write_reg_wait\n";
+>>>>>>> +
+>>>>>>> +               if (adev->mes.suspend_workaround)
+>>>>>>> +                       DRM_DEBUG(msg);
+>>>>>>> +               else
+>>>>>>> +                       DRM_ERROR(msg);
+>>>>>>> +       }
+>>>>>>>
+>>>>>>>     error:
+>>>>>>>            return r;
+>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+>>>>>>> index a27b424ffe00..90f2bba3b12b 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+>>>>>>> @@ -135,6 +135,8 @@ struct amdgpu_mes {
+>>>>>>>
+>>>>>>>            /* ip specific functions */
+>>>>>>>            const struct amdgpu_mes_funcs   *funcs;
+>>>>>>> +
+>>>>>>> +       bool                            suspend_workaround;
+>>>>>>>     };
+>>>>>>>
+>>>>>>>     struct amdgpu_mes_process {
+>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+>>>>>>> b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+>>>>>>> index 23d7b548d13f..e810c7bb3156 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+>>>>>>> @@ -889,7 +889,11 @@ static int gmc_v11_0_gart_enable(struct
+>>>>>>> amdgpu_device *adev)
+>>>>>>>                    false : true;
+>>>>>>>
+>>>>>>>            adev->mmhub.funcs->set_fault_enable_default(adev, value);
+>>>>>>> -       gmc_v11_0_flush_gpu_tlb(adev, 0, AMDGPU_MMHUB0(0), 0);
+>>>>>>> +
+>>>>>>> +       do {
+>>>>>>> +               gmc_v11_0_flush_gpu_tlb(adev, 0, AMDGPU_MMHUB0(0), 0);
+>>>>>>> +               adev->mes.suspend_workaround = false;
+>>>>>>> +       } while (adev->mes.suspend_workaround);
+>>>>>> Shouldn't this be something like:
+>>>>>>
+>>>>>>> +       do {
+>>>>>>> +               gmc_v11_0_flush_gpu_tlb(adev, 0, AMDGPU_MMHUB0(0), 0);
+>>>>>>> +               adev->mes.suspend_workaround = false;
+>>>>>>> +               gmc_v11_0_flush_gpu_tlb(adev, 0, AMDGPU_MMHUB0(0), 0);
+>>>>>>> +       } while (adev->mes.suspend_workaround);
+>>>>>> If we actually need the flush.  Maybe a better approach would be to
+>>>>>> check if we are in s0ix in
+>>>>> Ah you're right; I had shifted this around to keep less stateful
+>>>>> variables and push them up the stack from when I first made it and
+>>>>> that logic is wrong now.
+>>>>>
+>>>>> I don't think the one you suggested is right either; it's going to
+>>>>> apply twice on ASICs that only need it once.
+>>>>>
+>>>>> I guess pending on what Christian comments on below I'll respin to
+>>>>> logic that only calls twice on resume for these ASICs.
+>>>> One more comment.  Tim and I both did an experiment for this
+>>>> (skipping the flush) separately.  The problem isn't the flush itself,
+>>>> rather it's the first MES packet after exiting GFXOFF.
+>> Well that's an ugly one. Can that happen every time GFXOFF kicks in?
+>>
+>>>> So it seems that it pushes off the issue to the next thing which is a
+>>>> ring buffer test:
+>>>>
+>>>> [drm:amdgpu_ib_ring_tests [amdgpu]] *ERROR* IB test failed on
+>>>> comp_1.0.0 (-110).
+>>>> [drm:process_one_work] *ERROR* ib ring test failed (-110).
+>>>>
+>>>> So maybe a better workaround is a "dummy" command that is only sent
+>>>> for the broken firmware that we don't care about the outcome and discard errors.
+>>>>
+>>>> Then the workaround doesn't need to get as entangled with correct flow.
+>>> Yeah. Something like that seems cleaner.  Just a question of where to
+>>> put it since we skip GC and MES for s0ix.  Probably somewhere in
+>>> gmc_v11_0_resume() before gmc_v11_0_gart_enable().  Maybe add a new
+>>> mes callback.
+>> Please try to keep it completely outside of the TLB invalidation and VM flush handling.
+>>
+>> Regards,
+>> Christian.
+>>
+>>> Alex
+>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+>>>>>> b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c in gmc_v11_0_flush_gpu_tlb():
+>>>>>> index 23d7b548d13f..bd6d9953a80e 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+>>>>>> @@ -227,7 +227,8 @@ static void gmc_v11_0_flush_gpu_tlb(struct
+>>>>>> amdgpu_device *adev, uint32_t vmid,
+>>>>>>             * Directly use kiq to do the vm invalidation instead
+>>>>>>             */
+>>>>>>            if ((adev->gfx.kiq[0].ring.sched.ready ||
+>>>>>> adev->mes.ring.sched.ready) &&
+>>>>>> -           (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
+>>>>>> +           (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev)) ||
+>>>>>> +           !adev->in_s0ix) {
+>>>>>>                    amdgpu_virt_kiq_reg_write_reg_wait(adev, req,
+>>>>>> ack, inv_req,
+>>>>>>                                    1 << vmid, GET_INST(GC, 0));
+>>>>>>                    return;
+>>>>>>
+>>>>>> @Christian Koenig is this logic correct?
+>>>>>>
+>>>>>>            /* For SRIOV run time, driver shouldn't access the
+>>>>>> register through MMIO
+>>>>>>             * Directly use kiq to do the vm invalidation instead
+>>>>>>             */
+>>>>>>            if ((adev->gfx.kiq[0].ring.sched.ready ||
+>>>>>> adev->mes.ring.sched.ready) &&
+>>>>>>                (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
+>>>>>>                    amdgpu_virt_kiq_reg_write_reg_wait(adev, req,
+>>>>>> ack, inv_req,
+>>>>>>                                    1 << vmid, GET_INST(GC, 0));
+>>>>>>                    return;
+>>>>>>            }
+>>>>>>
+>>>>>> We basically always use the MES with that logic.  If that is the
+>>>>>> case, we should just drop the rest of that function.  Shouldn't we
+>>>>>> only use KIQ or MES for SR-IOV?  gmc v10 has similar logic which
+>>>>>> also seems wrong.
+>>>>>>
+>>>>>> Alex
+>>>>>>
+>>>>>>
+>>>>>>>            DRM_INFO("PCIE GART of %uM enabled (table at 0x%016llX).\n",
+>>>>>>>                     (unsigned int)(adev->gmc.gart_size >> 20), @@
+>>>>>>> -960,6 +964,17 @@ static int gmc_v11_0_resume(void *handle)
+>>>>>>>            int r;
+>>>>>>>            struct amdgpu_device *adev = (struct amdgpu_device
+>>>>>>> *)handle;
+>>>>>>>
+>>>>>>> +       switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
+>>>>>>> +       case IP_VERSION(13, 0, 4):
+>>>>>>> +       case IP_VERSION(13, 0, 11):
+>>>>>>> +               /* avoid problems with first TLB flush after resume */
+>>>>>>> +               if ((adev->pm.fw_version & 0x00FFFFFF) < 0x004c4900)
+>>>>>>> +                       adev->mes.suspend_workaround = adev->in_s0ix;
+>>>>>>> +               break;
+>>>>>>> +       default:
+>>>>>>> +               break;
+>>>>>>> +       }
+>>>>>>> +
+>>>>>>>            r = gmc_v11_0_hw_init(adev);
+>>>>>>>            if (r)
+>>>>>>>                    return r;
+>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+>>>>>>> b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+>>>>>>> index 4dfec56e1b7f..84ab8c611e5e 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+>>>>>>> @@ -137,8 +137,12 @@ static int
+>>>>>>> mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
+>>>>>>>            r = amdgpu_fence_wait_polling(ring, ring->fence_drv.sync_seq,
+>>>>>>>                          timeout);
+>>>>>>>            if (r < 1) {
+>>>>>>> -               DRM_ERROR("MES failed to response msg=%d\n",
+>>>>>>> -                         x_pkt->header.opcode);
+>>>>>>> +               if (mes->suspend_workaround)
+>>>>>>> +                       DRM_DEBUG("MES failed to response msg=%d\n",
+>>>>>>> +                                 x_pkt->header.opcode);
+>>>>>>> +               else
+>>>>>>> +                       DRM_ERROR("MES failed to response msg=%d\n",
+>>>>>>> +                                 x_pkt->header.opcode);
+>>>>>>>
+>>>>>>>                    while (halt_if_hws_hang)
+>>>>>>>                            schedule();
+>>>>>>> --
+>>>>>>> 2.34.1
+>>>>>>>
