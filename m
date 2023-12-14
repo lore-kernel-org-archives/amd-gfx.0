@@ -4,94 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66B72C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Dec 2023 00:24:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7345CC4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Dec 2023 02:07:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93F2310E894;
-	Thu, 14 Dec 2023 00:24:42 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20619.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::619])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C29B010E894
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Dec 2023 00:24:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B44C110E873;
+	Thu, 14 Dec 2023 02:07:03 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2088.outbound.protection.outlook.com [40.107.244.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1011610E17A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Dec 2023 02:07:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SVldwEe0AtGd9koPsJ3qDMp0/wOZV7buJUV7fnrEwNvzRVpZSEusxMUh8AT9F9Rwvc7UD2/TPHqHc82f7canM4I6Nei3VX2IWGZjMp+9zYe2XDDDpjUoEgZpfQ5tjprxiDSy2yBqVqQQQeKpHJWQfwwbQaASadV28eUFpYC5cvI0xnVsxHA883P/NreIMg5AsByqsmzeZqnatzkMp8FIficp12TZDs62KdjBuTdCI5Ryuy9nzSe8Lalj5I95ZFe3nqtD1ayoO3L8vROi6a5EcSGWT7x2l5QMcRQex46buj4bKV1p6btKqBHKcKiBhKaRgnOPH5bPeNh7p9+rn8BqYg==
+ b=Sf+56BOTJni5KlyVrF+khOSbqaisXIoV5/oQFpUka6ktBQh4OTA8RjQqdav5bDh+IjJKmpIvSafF7pOyl+xrH+x0EMYp+yXPB8MfPSXn1XoIqGf9bCRXb5lzHt4IWh1lyXy6MKvw47AaM9o/Zck25tnRetq+WBDoCxuxnY138Y5sCXr1MaObGWajZs0E7exU27xPCNmfixt7D++ksLw4aPfjmqPSNtNZo3D50PGYRoFW2hy9cNVknBdKdC4b7YXx1FwOj7CWiUaOFuM0ljfi8rUkUFPx0CPjTAWsKhp0fxi8xvtPmMR3HvGcKiT2PAeM85tn16DRy7d2iFFBZeQpnw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gPxdERs63F7CbSQbj8Ox6VMDhWyKWG82whfqEJZwjs8=;
- b=NIlkcUzzH03PUbYMkQcW1z0p0G9kGMykwB0zN7QGKlkfSfZFYLtN8wAOEeBQbwbpum93QNHgm7evm3SW5ntudX1jV5PFcInnnYe16lvvBKfkkgDWlhVGBsVayxa+r3nKJZMp3S6oTlAa9xkYg5xGfqbOC04Bw9/+NX7J9QE3Lq30uMHi+ZJZrlqgsomZ6+dITyymhk99ve0f6mNP6NxDgAaiS9q57C6kSIW2BglNaUkY2nXzHjuPgqjwizbXmrlvFg9yiE5EgVE2d9P6MTcI/lzy1oKnyfupG77zByeQIa2a97hzdxPjYPnV4JYzGtLjSpNjWNcrHW1tRlmfzq22CA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=DiSw/xaAOWXXc0GJycEvvnCQulh3Tt7Y9BGSfNNgdp4=;
+ b=PA/tcXGgShvM/2tTyziwG/ePUhhPe6M8r7ZV99gP9+8iNGII2ASWEwJSSGPWFYrZ6DPg63+0B5IrSvlF7x6xHsgtxUy1Yk8WULwQAJAKcSTyQzm3VNOyAVn5g+VOn2SP6D26TC7695kJ27rJMtXD+H0Qr5oPcWjqhI8COaN5LG+TyWReO8EeZekdjSIHCNR/+804PjjnGmajrBA6JRieu1oWVfYtSMkh6AZ4ICsVgQZQVHc2CspT/LrbBymS2LA4FZ7dN+w3Bsmi1gmtmS/f2BqjfqSFvW6lAezYx1HXMgjiZ1+uAS7Em+kQ3zdVZ2kMhg/KBdn6JALe0/XpDRyE2A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gPxdERs63F7CbSQbj8Ox6VMDhWyKWG82whfqEJZwjs8=;
- b=pIRO/6C+IlCE9Nzc+rOjVco8ta1Uq7h5RiotnFPKCmk8Mun818J8Y/uQzpYnuuQnSTomNM32h2rET5G6FtfusFx2sj3Atuf5FAwWGadbzv5vA+NLe8aP0RWaMVuMulYKLg7WbmIPb9eFFVtpFAvBVepHLTN/Clr0vxp7W9ExS7g=
-Received: from CYXPR02CA0015.namprd02.prod.outlook.com (2603:10b6:930:cf::16)
- by MN0PR12MB6127.namprd12.prod.outlook.com (2603:10b6:208:3c5::11)
+ bh=DiSw/xaAOWXXc0GJycEvvnCQulh3Tt7Y9BGSfNNgdp4=;
+ b=4vPQgOK0w78xHo9eOz7qf35Fa2ZBYSjfHIzXIMU1CmiCM5m0IvPiRwKhNkQfAnp1oCcAGPVu5FZZEw84+mIJg2pTX0Fy3Qo106s/tNuPvNgv8BANnjkmwgqv2pR8i8ozwHZ16Si5jkDTb4MvRrc1Xw9953N6WPSfXdEwhhIGHPI=
+Received: from MW6PR12MB8898.namprd12.prod.outlook.com (2603:10b6:303:246::8)
+ by CH3PR12MB9147.namprd12.prod.outlook.com (2603:10b6:610:19a::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.26; Thu, 14 Dec
- 2023 00:24:37 +0000
-Received: from CY4PEPF0000EDD6.namprd03.prod.outlook.com
- (2603:10b6:930:cf:cafe::5e) by CYXPR02CA0015.outlook.office365.com
- (2603:10b6:930:cf::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.26 via Frontend
- Transport; Thu, 14 Dec 2023 00:24:37 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CY4PEPF0000EDD6.mail.protection.outlook.com (10.167.241.210) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7091.26 via Frontend Transport; Thu, 14 Dec 2023 00:24:37 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 13 Dec
- 2023 18:24:36 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Wed, 13 Dec
- 2023 16:24:36 -0800
-Received: from Xiaogang-ROCM-Dev.attlocal.net (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.34
- via Frontend Transport; Wed, 13 Dec 2023 18:24:31 -0600
-From: Xiaogang.Chen <xiaogang.chen@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v4] drm/amdkfd: Use partial hmm page walk during buffer
- validation in SVM
-Date: Wed, 13 Dec 2023 18:24:13 -0600
-Message-ID: <20231214002413.8485-1-xiaogang.chen@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD6:EE_|MN0PR12MB6127:EE_
-X-MS-Office365-Filtering-Correlation-Id: 311a1144-c186-4300-d7cf-08dbfc3b0e23
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: iAErgn/0W6/ZOILU2l+WjjHKzfqcldEGrmmo1oClrbVqCVb8lA/OR1NoQMSQF0ZbEKUQT4c2nBjOchUARFh7pNrKsSrzFvXUedkxjpTdDJclp6/aLxUOedvQSB9p21kRWMk/QO0Tg76NrvDoHEU6WIdIK+W6Kz+ZAZ2sUgAongKlW9NHjn7394rxJXFCG659KmVM30fMHueYvGb3bPZ9O8V+i/YjA+LKBWKYYW5Ewf0iYqnkMJCR6747aAIlVlXK2B2nPz7u7nVTgtV1mByduyh1YYICTPazlsVhp80l9eHLegMSZErdzNqeTqi76e/qHXycX/1NGwMG2klDhlelor4bj0DVbuhGFx/jiTNteXAzPOed0Sb6QBFXzPVZiMgmWY2A014Uj07nqKZwVX9pWZezsOH5RgeQDGeIC87n2lRjDzHsE642bZtnlBEyeyWyTsWSosUzIN5RVPqhcTszy3SO9AP3l+q3YulsvhXi760XF+wvoJWi86QfGLhZk+cDKnctNmKgJurpbhpTWJbvo7ldblJPTBt5hCVF73ki3ZiiKJbOv9xtONINqjipV+aAkUkSoVn26yS1a7+8AWnMhKF54oWi3sAMvmAjzG401xWKJi9k68UaEoEk2QJqrD0aH5vOhLw15OdDDiNUmsabgO0lr/CffGc7kaueJn95er11vEwylDFwam8LrV1eNrL1C40kZt8zPzkRMvee3+b/5uj1/aur9cDjxfJRbguvkcBKLkUSlvJVwA+vsYYF08UHxanylGateQOrB0XXBVuRvw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(396003)(376002)(346002)(136003)(230922051799003)(82310400011)(451199024)(186009)(64100799003)(1800799012)(36840700001)(40470700004)(46966006)(41300700001)(36756003)(30864003)(5660300002)(2906002)(356005)(47076005)(82740400003)(36860700001)(40480700001)(83380400001)(6666004)(2616005)(1076003)(478600001)(26005)(8936002)(8676002)(4326008)(40460700003)(336012)(426003)(316002)(54906003)(70586007)(70206006)(81166007)(86362001)(6916009)(36900700001);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.28; Thu, 14 Dec
+ 2023 02:06:58 +0000
+Received: from MW6PR12MB8898.namprd12.prod.outlook.com
+ ([fe80::7b2b:ed83:1f7c:7498]) by MW6PR12MB8898.namprd12.prod.outlook.com
+ ([fe80::7b2b:ed83:1f7c:7498%5]) with mapi id 15.20.7091.028; Thu, 14 Dec 2023
+ 02:06:57 +0000
+From: "Yu, Lang" <Lang.Yu@amd.com>
+To: "Lee, Peyton" <Peyton.Lee@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 2/2] drm/amdgpu/vpe: enable vpe dpm
+Thread-Topic: [PATCH 2/2] drm/amdgpu/vpe: enable vpe dpm
+Thread-Index: AQHaLW7ME9xArjzRv0KoqqlpBQU8/rCoCUNg
+Date: Thu, 14 Dec 2023 02:06:57 +0000
+Message-ID: <MW6PR12MB8898E4EF96525EC46192931CFB8CA@MW6PR12MB8898.namprd12.prod.outlook.com>
+References: <20231213024909.1384762-1-peytolee@amd.com>
+ <20231213024909.1384762-2-peytolee@amd.com>
+In-Reply-To: <20231213024909.1384762-2-peytolee@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=2355c29b-df38-4366-aead-40241ef073c7;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
+ 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-12-14T02:06:52Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MW6PR12MB8898:EE_|CH3PR12MB9147:EE_
+x-ms-office365-filtering-correlation-id: 657d816a-5d99-4ccf-48ee-08dbfc495a05
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: g2TMFTNhGOwcCcnUL+8Th8aw8IdqbMpjdwZ2ek+45NrX+6ETkhssfQQdX8b8BE4Oc3WoWQPRxg3Z/XdP2hwbcTanzT6CpOcWQr8lNtyJN9gb7ia6W/V1Kh0QpyaYKcWrDs9gMuJKuSYWkRvLZvHDm0mdkAeZCC+N5+NEL3Dmwn3RmTmBYFwbrLfKIJ5yz8huNaJegZwLMSpRYfMOU16826jNxyaz9l39s3v1UARKdCsxo7G4BDzlev+D9baze1DMWrqWweAEKFnmn6fdRWkO7mHn7exY90QTrxzR7JdbW14DsntqyDh2z8F0n5DcYU/q87j2lqcMaQGS0gmFdcZhXVhGul3LXKkKltuu84HxWQdd9aNXi/Bzj7Y4njAWilE78GwuZUQClsjsh+f9BexeJxbFzhuS2BYpV5qIL/mshvl3KqsUsS8yM4MEyfzI8kDwZN7/qRso5RoikR6O/IpELYO362Z2O5I6DRa1TmgnWXvvGSq7pAj9WtivtsHapIBiWHopbiJN3aeXJKtN7De6cbEuHsUA0BexMJTsm/zqzw75sX2UKqspkTMT3Gpc6M0hUki0hRwBIyliHpfJBBcLl9NglqOZ3/6IaNi+KwVR1Ax5xKlk63doVsmzLtEjY4gy
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW6PR12MB8898.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376002)(136003)(396003)(346002)(39860400002)(366004)(230922051799003)(451199024)(1800799012)(186009)(64100799003)(26005)(6506007)(9686003)(7696005)(71200400001)(76116006)(5660300002)(52536014)(83380400001)(41300700001)(4326008)(2906002)(30864003)(478600001)(8676002)(66946007)(8936002)(110136005)(54906003)(64756008)(66446008)(66476007)(66556008)(316002)(33656002)(86362001)(122000001)(38100700002)(38070700009)(55016003);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?6UMzdOKRkQIMvkPuk9oG55z2S83DejtruIm7wUlUw9+Urvbu1B3vvusFn9Gs?=
+ =?us-ascii?Q?xsoRkDqvJ7xz+/M73pG6EvgEvaU/6t3S2UKh+C5OLA2KjlYPPlRlZvZRskre?=
+ =?us-ascii?Q?vGJJZgueHKGITDuAFp1vKhracTtctWBaV9fNyZY41bVleQJ+IoCWvpSvqkqz?=
+ =?us-ascii?Q?8WEdoIhstq+Mox263Ty6xTCZlVxLaLozNoOQO0MhxucVPTbGyax8ymwsLRZE?=
+ =?us-ascii?Q?9CN6wfggobC+zPAH64ErKuUcMxw/aMGHM0ts/AOqa5X4Z+aM7PLuBEgRKejn?=
+ =?us-ascii?Q?RlaeDve05eHHBiOWToIv+PpXqvk2RzAgCH3Ou2xDMRX8HjFtZbLmGf2xd6TZ?=
+ =?us-ascii?Q?IFlNim2c/SdI6dza6FJ/YgNQfWOgq2ML8hzDxB0LYyvsty5TMUwDA+IVHi47?=
+ =?us-ascii?Q?2fDKmDv4ZnehoQw9cQFX28IcQoH06GHLTwZnQ6agSN23b5d9Uzv3ZrC4OxNH?=
+ =?us-ascii?Q?BNPjIRK8lgwXev9xxEA5SJ48UOrGlKlzCusGdkW9Ojrzk3XN/pYDkTJ2ZaS2?=
+ =?us-ascii?Q?8OkhCmLFuwJdjNbxpWAdeBVwXd5xSAEmZcKkE9u2prB+pO/7sdjOCzEh3m4F?=
+ =?us-ascii?Q?puri9ks3XVqHUxctY2ugponFpffuRFBGo3iJMDWWn+SyrFbiroPYBUrrwWba?=
+ =?us-ascii?Q?457wusKGpG1aKagjREAYGUwR4B8PNwpeg0l8MCjnjlswKLnRet/m9HspP2V+?=
+ =?us-ascii?Q?s5hM1QhfhN4Ot6OGcB9Sx/M0XxbnfRZ0gpW2FmZt4hkh5Oit/KJAOiGbVuqO?=
+ =?us-ascii?Q?nEeF3KxXtOf5L2LnGu75EhK8ZmmdVx/Cy5CAVR6fzz5D9rl/AG8IdBKqdxqC?=
+ =?us-ascii?Q?EKsU2O9H17gTp7ToSX6dqIwGj2zW00Yiey4pxJj+kX4xxfUaGlGgb8qATBsL?=
+ =?us-ascii?Q?FnGOoE2lRMGozsOXrWhFa+OvM+6FTYmsscdf6yrUN1bM2RWJ0eGMKHYqhGlC?=
+ =?us-ascii?Q?yAw35nG/r+YY3H6OEl/rVzzleU0V4MwyoHfr5HhEDRltuy/WFgCJKyVpTXx6?=
+ =?us-ascii?Q?qFJcWu7USPiVZX6/q71aERluNI2i4EWn6nrRHqwzp1YcnQpnGTxYR36DRcmY?=
+ =?us-ascii?Q?tktJfVegklPmblw2FNAI+PRy/4JDPQtGY5y7/rxtEuYvSdtMHS5ygKW9St87?=
+ =?us-ascii?Q?N7gowp+ahQfjP3TOCjWrFAKZjYwHvOGxZJwGnIPPYxu6cI1mEowSmdD7w59U?=
+ =?us-ascii?Q?YPyZX1hm5EZdFCgRm+bxphXXiHLNKWXaTXTtsYdCGUe1FOQ0Z+d9v1OwMXVp?=
+ =?us-ascii?Q?Cdz3qkbHF3c6bW5inSM+He59VYm6DsrnN4G7bMXSvH3ChLrmvKbIqhsv82wt?=
+ =?us-ascii?Q?Co9hRuHikxAGOGgBrl7b3UW3dQkl87gUAhYXgjc0PWIOHUpuB0enFA7YBWBp?=
+ =?us-ascii?Q?nyO9E8loinAp8+fpPJOOyjJaMuBcNxq03Ynsx+QB7HCaYjL9pKyPDDf4i6hJ?=
+ =?us-ascii?Q?wWWeNUIm7Bcsh8cU3R+H7lY9suQo2Ew9ZhyPYiafE7As+UaurifaruFZDwQ/?=
+ =?us-ascii?Q?TJOaKpJVVI+jwuMt8lSm5zTottEJBjQXJ4SiubMpRw7GyPvC7BX+m1PPol9Q?=
+ =?us-ascii?Q?PnNDywQLowbTm+dWwxA=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Dec 2023 00:24:37.2463 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 311a1144-c186-4300-d7cf-08dbfc3b0e23
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD6.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6127
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MW6PR12MB8898.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 657d816a-5d99-4ccf-48ee-08dbfc495a05
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Dec 2023 02:06:57.5867 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: OZOaPnIJpGJ5NoZZ8N6hkbHhFh4S7hTUtIbZwnVfF+O4idhMr3jHjJ7lSvbyUfpElR92mtMBqSBgNvU74ZXcvA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9147
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,363 +124,477 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xiaogang Chen <Xiaogang.Chen@amd.com>, Philip.Yang@amd.com,
- felix.kuehling@amd.com
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang,
+ Yifan" <Yifan1.Zhang@amd.com>, "Ma, Li" <Li.Ma@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Xiaogang Chen <xiaogang.chen@amd.com>
+[Public]
 
-v2:
--not need calculate vram page number for new registered svm range, only
-do it for split vram pages.
+The series is.
 
-v3:
--use dma address to calculate vram page number of split svm range;
-use migrate_vma from hmm to calculate page number that migrate to vram.
+Reviewed-by: Lang Yu <lang.yu@amd.com>
 
-v4:
--combine calculating of vram page number of split svm range and page dma
-address copy in same loop if original svm range includes vram pages.
-
-SVM uses hmm page walk to valid buffer before map to gpu vm. After have partial
-migration/mapping do validation on same vm range as migration/map do instead of
-whole svm range that can be very large. This change is expected to improve svm
-code performance.
-
-Signed-off-by: Xiaogang Chen<Xiaogang.Chen@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 35 ++++-------
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 79 +++++++++++-------------
- 2 files changed, 48 insertions(+), 66 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index b854cbf06dce..3fb8e59acfbf 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -260,19 +260,6 @@ static void svm_migrate_put_sys_page(unsigned long addr)
- 	put_page(page);
- }
- 
--static unsigned long svm_migrate_successful_pages(struct migrate_vma *migrate)
--{
--	unsigned long cpages = 0;
--	unsigned long i;
--
--	for (i = 0; i < migrate->npages; i++) {
--		if (migrate->src[i] & MIGRATE_PFN_VALID &&
--		    migrate->src[i] & MIGRATE_PFN_MIGRATE)
--			cpages++;
--	}
--	return cpages;
--}
--
- static unsigned long svm_migrate_unsuccessful_pages(struct migrate_vma *migrate)
- {
- 	unsigned long upages = 0;
-@@ -402,6 +389,7 @@ svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
- 	struct dma_fence *mfence = NULL;
- 	struct migrate_vma migrate = { 0 };
- 	unsigned long cpages = 0;
-+	unsigned long mpages = 0;
- 	dma_addr_t *scratch;
- 	void *buf;
- 	int r = -ENOMEM;
-@@ -450,12 +438,13 @@ svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
- 	r = svm_migrate_copy_to_vram(node, prange, &migrate, &mfence, scratch, ttm_res_offset);
- 	migrate_vma_pages(&migrate);
- 
--	pr_debug("successful/cpages/npages 0x%lx/0x%lx/0x%lx\n",
--		svm_migrate_successful_pages(&migrate), cpages, migrate.npages);
--
- 	svm_migrate_copy_done(adev, mfence);
- 	migrate_vma_finalize(&migrate);
- 
-+	mpages = cpages - svm_migrate_unsuccessful_pages(&migrate);
-+	pr_debug("successful/cpages/npages 0x%lx/0x%lx/0x%lx\n",
-+			 mpages, cpages, migrate.npages);
-+
- 	kfd_smi_event_migration_end(node, p->lead_thread->pid,
- 				    start >> PAGE_SHIFT, end >> PAGE_SHIFT,
- 				    0, node->id, trigger);
-@@ -465,12 +454,12 @@ svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
- out_free:
- 	kvfree(buf);
- out:
--	if (!r && cpages) {
-+	if (!r && mpages) {
- 		pdd = svm_range_get_pdd_by_node(prange, node);
- 		if (pdd)
--			WRITE_ONCE(pdd->page_in, pdd->page_in + cpages);
-+			WRITE_ONCE(pdd->page_in, pdd->page_in + mpages);
- 
--		return cpages;
-+		return mpages;
- 	}
- 	return r;
- }
-@@ -498,7 +487,7 @@ svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
- 	struct vm_area_struct *vma;
- 	uint64_t ttm_res_offset;
- 	struct kfd_node *node;
--	unsigned long cpages = 0;
-+	unsigned long mpages = 0;
- 	long r = 0;
- 
- 	if (start_mgr < prange->start || last_mgr > prange->last) {
-@@ -540,15 +529,15 @@ svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
- 			pr_debug("failed %ld to migrate\n", r);
- 			break;
- 		} else {
--			cpages += r;
-+			mpages += r;
- 		}
- 		ttm_res_offset += next - addr;
- 		addr = next;
- 	}
- 
--	if (cpages) {
-+	if (mpages) {
- 		prange->actual_loc = best_loc;
--		prange->vram_pages = prange->vram_pages + cpages;
-+		prange->vram_pages = prange->vram_pages + mpages;
- 	} else if (!prange->actual_loc) {
- 		/* if no page migrated and all pages from prange are at
- 		 * sys ram drop svm_bo got from svm_range_vram_node_new
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 2834fb351818..61e363e388f8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -158,13 +158,12 @@ svm_is_valid_dma_mapping_addr(struct device *dev, dma_addr_t dma_addr)
- static int
- svm_range_dma_map_dev(struct amdgpu_device *adev, struct svm_range *prange,
- 		      unsigned long offset, unsigned long npages,
--		      unsigned long *hmm_pfns, uint32_t gpuidx, uint64_t *vram_pages)
-+		      unsigned long *hmm_pfns, uint32_t gpuidx)
- {
- 	enum dma_data_direction dir = DMA_BIDIRECTIONAL;
- 	dma_addr_t *addr = prange->dma_addr[gpuidx];
- 	struct device *dev = adev->dev;
- 	struct page *page;
--	uint64_t vram_pages_dev;
- 	int i, r;
- 
- 	if (!addr) {
-@@ -174,7 +173,6 @@ svm_range_dma_map_dev(struct amdgpu_device *adev, struct svm_range *prange,
- 		prange->dma_addr[gpuidx] = addr;
- 	}
- 
--	vram_pages_dev = 0;
- 	addr += offset;
- 	for (i = 0; i < npages; i++) {
- 		if (svm_is_valid_dma_mapping_addr(dev, addr[i]))
-@@ -184,7 +182,6 @@ svm_range_dma_map_dev(struct amdgpu_device *adev, struct svm_range *prange,
- 		if (is_zone_device_page(page)) {
- 			struct amdgpu_device *bo_adev = prange->svm_bo->node->adev;
- 
--			vram_pages_dev++;
- 			addr[i] = (hmm_pfns[i] << PAGE_SHIFT) +
- 				   bo_adev->vm_manager.vram_base_offset -
- 				   bo_adev->kfd.pgmap.range.start;
-@@ -201,14 +198,14 @@ svm_range_dma_map_dev(struct amdgpu_device *adev, struct svm_range *prange,
- 		pr_debug_ratelimited("dma mapping 0x%llx for page addr 0x%lx\n",
- 				     addr[i] >> PAGE_SHIFT, page_to_pfn(page));
- 	}
--	*vram_pages = vram_pages_dev;
-+
- 	return 0;
- }
- 
- static int
- svm_range_dma_map(struct svm_range *prange, unsigned long *bitmap,
- 		  unsigned long offset, unsigned long npages,
--		  unsigned long *hmm_pfns, uint64_t *vram_pages)
-+		  unsigned long *hmm_pfns)
- {
- 	struct kfd_process *p;
- 	uint32_t gpuidx;
-@@ -227,7 +224,7 @@ svm_range_dma_map(struct svm_range *prange, unsigned long *bitmap,
- 		}
- 
- 		r = svm_range_dma_map_dev(pdd->dev->adev, prange, offset, npages,
--					  hmm_pfns, gpuidx, vram_pages);
-+					  hmm_pfns, gpuidx);
- 		if (r)
- 			break;
- 	}
-@@ -885,14 +882,28 @@ static void svm_range_debug_dump(struct svm_range_list *svms)
- 
- static void *
- svm_range_copy_array(void *psrc, size_t size, uint64_t num_elements,
--		     uint64_t offset)
-+		     uint64_t offset, uint64_t *vram_pages)
- {
-+	unsigned char *src = (unsigned char *)psrc + offset;
- 	unsigned char *dst;
-+	dma_addr_t *temp;
- 
- 	dst = kvmalloc_array(num_elements, size, GFP_KERNEL);
- 	if (!dst)
- 		return NULL;
--	memcpy(dst, (unsigned char *)psrc + offset, num_elements * size);
-+
-+	if (!vram_pages) {
-+		memcpy(dst, src, num_elements * size);
-+		return (void *)dst;
-+	}
-+
-+	*vram_pages = 0;
-+	for (int i = 0; i < num_elements; i++) {
-+		temp = (dma_addr_t *)(dst + i*size);
-+		*temp = *(dma_addr_t *)(src + i*size);
-+		if (*temp&SVM_RANGE_VRAM_DOMAIN)
-+			(*vram_pages)++;
-+	}
- 
- 	return (void *)dst;
- }
-@@ -906,7 +917,7 @@ svm_range_copy_dma_addrs(struct svm_range *dst, struct svm_range *src)
- 		if (!src->dma_addr[i])
- 			continue;
- 		dst->dma_addr[i] = svm_range_copy_array(src->dma_addr[i],
--					sizeof(*src->dma_addr[i]), src->npages, 0);
-+					sizeof(*src->dma_addr[i]), src->npages, 0, NULL);
- 		if (!dst->dma_addr[i])
- 			return -ENOMEM;
- 	}
-@@ -917,7 +928,7 @@ svm_range_copy_dma_addrs(struct svm_range *dst, struct svm_range *src)
- static int
- svm_range_split_array(void *ppnew, void *ppold, size_t size,
- 		      uint64_t old_start, uint64_t old_n,
--		      uint64_t new_start, uint64_t new_n)
-+		      uint64_t new_start, uint64_t new_n, uint64_t *new_vram_pages)
- {
- 	unsigned char *new, *old, *pold;
- 	uint64_t d;
-@@ -929,11 +940,12 @@ svm_range_split_array(void *ppnew, void *ppold, size_t size,
- 		return 0;
- 
- 	d = (new_start - old_start) * size;
--	new = svm_range_copy_array(pold, size, new_n, d);
-+	/* get dma addr array for new range and calculte its vram page number */
-+	new = svm_range_copy_array(pold, size, new_n, d, new_vram_pages);
- 	if (!new)
- 		return -ENOMEM;
- 	d = (new_start == old_start) ? new_n * size : 0;
--	old = svm_range_copy_array(pold, size, old_n, d);
-+	old = svm_range_copy_array(pold, size, old_n, d, NULL);
- 	if (!old) {
- 		kvfree(new);
- 		return -ENOMEM;
-@@ -955,11 +967,15 @@ svm_range_split_pages(struct svm_range *new, struct svm_range *old,
- 	for (i = 0; i < MAX_GPU_INSTANCE; i++) {
- 		r = svm_range_split_array(&new->dma_addr[i], &old->dma_addr[i],
- 					  sizeof(*old->dma_addr[i]), old->start,
--					  npages, new->start, new->npages);
-+					  npages, new->start, new->npages,
-+					  ((old->actual_loc && old->ttm_res)) ?
-+					  &new->vram_pages : NULL);
- 		if (r)
- 			return r;
- 	}
- 
-+	old->vram_pages -= new->vram_pages;
-+
- 	return 0;
- }
- 
-@@ -982,11 +998,6 @@ svm_range_split_nodes(struct svm_range *new, struct svm_range *old,
- 	new->svm_bo = svm_range_bo_ref(old->svm_bo);
- 	new->ttm_res = old->ttm_res;
- 
--	/* set new's vram_pages as old range's now, the acurate vram_pages
--	 * will be updated during mapping
--	 */
--	new->vram_pages = min(old->vram_pages, new->npages);
--
- 	spin_lock(&new->svm_bo->list_lock);
- 	list_add(&new->svm_bo_list, &new->svm_bo->range_list);
- 	spin_unlock(&new->svm_bo->list_lock);
-@@ -1109,7 +1120,7 @@ static int
- svm_range_split_tail(struct svm_range *prange, uint64_t new_last,
- 		     struct list_head *insert_list, struct list_head *remap_list)
- {
--	struct svm_range *tail;
-+	struct svm_range *tail = NULL;
- 	int r = svm_range_split(prange, prange->start, new_last, &tail);
- 
- 	if (!r) {
-@@ -1124,7 +1135,7 @@ static int
- svm_range_split_head(struct svm_range *prange, uint64_t new_start,
- 		     struct list_head *insert_list, struct list_head *remap_list)
- {
--	struct svm_range *head;
-+	struct svm_range *head = NULL;
- 	int r = svm_range_split(prange, new_start, prange->last, &head);
- 
- 	if (!r) {
-@@ -1573,7 +1584,6 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 	struct svm_validate_context *ctx;
- 	unsigned long start, end, addr;
- 	struct kfd_process *p;
--	uint64_t vram_pages;
- 	void *owner;
- 	int32_t idx;
- 	int r = 0;
-@@ -1642,15 +1652,13 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 		}
- 	}
- 
--	vram_pages = 0;
--	start = prange->start << PAGE_SHIFT;
--	end = (prange->last + 1) << PAGE_SHIFT;
-+	start = map_start << PAGE_SHIFT;
-+	end = (map_last + 1) << PAGE_SHIFT;
- 	for (addr = start; !r && addr < end; ) {
- 		struct hmm_range *hmm_range;
- 		unsigned long map_start_vma;
- 		unsigned long map_last_vma;
- 		struct vm_area_struct *vma;
--		uint64_t vram_pages_vma;
- 		unsigned long next = 0;
- 		unsigned long offset;
- 		unsigned long npages;
-@@ -1677,13 +1685,11 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 		}
- 
- 		if (!r) {
--			offset = (addr - start) >> PAGE_SHIFT;
-+			offset = (addr - (prange->start << PAGE_SHIFT)) >> PAGE_SHIFT;
- 			r = svm_range_dma_map(prange, ctx->bitmap, offset, npages,
--					      hmm_range->hmm_pfns, &vram_pages_vma);
-+					      hmm_range->hmm_pfns);
- 			if (r)
- 				pr_debug("failed %d to dma map range\n", r);
--			else
--				vram_pages += vram_pages_vma;
- 		}
- 
- 		svm_range_lock(prange);
-@@ -1716,19 +1722,6 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 		addr = next;
- 	}
- 
--	if (addr == end) {
--		prange->vram_pages = vram_pages;
--
--		/* if prange does not include any vram page and it
--		 * has not released svm_bo drop its svm_bo reference
--		 * and set its actaul_loc to sys ram
--		 */
--		if (!vram_pages && prange->ttm_res) {
--			prange->actual_loc = 0;
--			svm_range_vram_node_free(prange);
--		}
--	}
--
- 	svm_range_unreserve_bos(ctx);
- 	if (!r)
- 		prange->validate_timestamp = ktime_get_boottime();
--- 
-2.25.1
+>-----Original Message-----
+>From: Lee, Peyton <Peyton.Lee@amd.com>
+>Sent: Wednesday, December 13, 2023 10:49 AM
+>To: amd-gfx@lists.freedesktop.org
+>Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Yifan
+><Yifan1.Zhang@amd.com>; Ma, Li <Li.Ma@amd.com>; Yu, Lang
+><Lang.Yu@amd.com>; Lee, Peyton <Peyton.Lee@amd.com>
+>Subject: [PATCH 2/2] drm/amdgpu/vpe: enable vpe dpm
+>
+>enable vpe dpm
+>
+>Signed-off-by: Peyton Lee <peytolee@amd.com>
+>---
+> drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c | 250
+>++++++++++++++++++++++++  drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.h |
+>12 ++
+> drivers/gpu/drm/amd/amdgpu/vpe_v6_1.c   |  15 ++
+> 3 files changed, 277 insertions(+)
+>
+>diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+>b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+>index e81579708e96..2020ddb4182a 100644
+>--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+>+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+>@@ -26,6 +26,7 @@
+> #include "amdgpu.h"
+> #include "amdgpu_ucode.h"
+> #include "amdgpu_vpe.h"
+>+#include "amdgpu_smu.h"
+> #include "soc15_common.h"
+> #include "vpe_v6_1.h"
+>
+>@@ -33,8 +34,186 @@
+> /* VPE CSA resides in the 4th page of CSA */
+> #define AMDGPU_CSA_VPE_OFFSET         (4096 * 3)
+>
+>+/* 1 second timeout */
+>+#define VPE_IDLE_TIMEOUT      msecs_to_jiffies(1000)
+>+
+>+#define VPE_MAX_DPM_LEVEL                     4
+>+#define FIXED1_8_BITS_PER_FRACTIONAL_PART     8
+>+#define GET_PRATIO_INTEGER_PART(x)            ((x) >>
+>FIXED1_8_BITS_PER_FRACTIONAL_PART)
+>+
+> static void vpe_set_ring_funcs(struct amdgpu_device *adev);
+>
+>+static inline uint16_t div16_u16_rem(uint16_t dividend, uint16_t
+>+divisor, uint16_t *remainder) {
+>+      *remainder =3D dividend % divisor;
+>+      return dividend / divisor;
+>+}
+>+
+>+static inline uint16_t complete_integer_division_u16(
+>+      uint16_t dividend,
+>+      uint16_t divisor,
+>+      uint16_t *remainder)
+>+{
+>+      return div16_u16_rem(dividend, divisor, (uint16_t *)remainder); }
+>+
+>+static uint16_t vpe_u1_8_from_fraction(uint16_t numerator, uint16_t
+>+denominator) {
+>+      bool arg1_negative =3D numerator < 0;
+>+      bool arg2_negative =3D denominator < 0;
+>+
+>+      uint16_t arg1_value =3D (uint16_t)(arg1_negative ? -numerator :
+>numerator);
+>+      uint16_t arg2_value =3D (uint16_t)(arg2_negative ? -denominator :
+>+denominator);
+>+
+>+      uint16_t remainder;
+>+
+>+      /* determine integer part */
+>+      uint16_t res_value =3D complete_integer_division_u16(
+>+              arg1_value, arg2_value, &remainder);
+>+
+>+      if (res_value > 127 /* CHAR_MAX */)
+>+              return 0;
+>+
+>+      /* determine fractional part */
+>+      {
+>+              unsigned int i =3D FIXED1_8_BITS_PER_FRACTIONAL_PART;
+>+
+>+              do {
+>+                      remainder <<=3D 1;
+>+
+>+                      res_value <<=3D 1;
+>+
+>+                      if (remainder >=3D arg2_value) {
+>+                              res_value |=3D 1;
+>+                              remainder -=3D arg2_value;
+>+                      }
+>+              } while (--i !=3D 0);
+>+      }
+>+
+>+      /* round up LSB */
+>+      {
+>+              uint16_t summand =3D (remainder << 1) >=3D arg2_value;
+>+
+>+              if ((res_value + summand) > 32767 /* SHRT_MAX */)
+>+                      return 0;
+>+
+>+              res_value +=3D summand;
+>+      }
+>+
+>+      if (arg1_negative ^ arg2_negative)
+>+              res_value =3D -res_value;
+>+
+>+      return res_value;
+>+}
+>+
+>+static uint16_t vpe_internal_get_pratio(uint16_t from_frequency,
+>+uint16_t to_frequency) {
+>+      uint16_t pratio =3D vpe_u1_8_from_fraction(from_frequency,
+>+to_frequency);
+>+
+>+      if (GET_PRATIO_INTEGER_PART(pratio) > 1)
+>+              pratio =3D 0;
+>+
+>+      return pratio;
+>+}
+>+
+>+/*
+>+ * VPE has 4 DPM levels from level 0 (lowerest) to 3 (highest),
+>+ * VPE FW will dynamically decide which level should be used according to
+>current loading.
+>+ *
+>+ * Get VPE and SOC clocks from PM, and select the appropriate four
+>+clock values,
+>+ * calculate the ratios of adjusting from one clock to another.
+>+ * The VPE FW can then request the appropriate frequency from the PMFW.
+>+ */
+>+int amdgpu_vpe_configure_dpm(struct amdgpu_vpe *vpe) {
+>+      struct amdgpu_device *adev =3D vpe->ring.adev;
+>+      uint32_t dpm_ctl;
+>+
+>+      if (adev->pm.dpm_enabled) {
+>+              struct dpm_clocks clock_table =3D { 0 };
+>+              struct dpm_clock *VPEClks;
+>+              struct dpm_clock *SOCClks;
+>+              uint32_t idx;
+>+              uint32_t pratio_vmax_vnorm =3D 0, pratio_vnorm_vmid =3D 0,
+>pratio_vmid_vmin =3D 0;
+>+              uint16_t pratio_vmin_freq =3D 0, pratio_vmid_freq =3D 0,
+>+pratio_vnorm_freq =3D 0, pratio_vmax_freq =3D 0;
+>+
+>+              dpm_ctl =3D RREG32(vpe_get_reg_offset(vpe, 0, vpe-
+>>regs.dpm_enable));
+>+              dpm_ctl |=3D 1; /* DPM enablement */
+>+              WREG32(vpe_get_reg_offset(vpe, 0, vpe->regs.dpm_enable),
+>dpm_ctl);
+>+
+>+              /* Get VPECLK and SOCCLK */
+>+              if (amdgpu_dpm_get_dpm_clock_table(adev, &clock_table)) {
+>+                      dev_dbg(adev->dev, "%s: get clock failed!\n", __fun=
+c__);
+>+                      goto disable_dpm;
+>+              }
+>+
+>+              SOCClks =3D clock_table.SocClocks;
+>+              VPEClks =3D clock_table.VPEClocks;
+>+
+>+              /* vpe dpm only cares 4 levels. */
+>+              for (idx =3D 0; idx < VPE_MAX_DPM_LEVEL; idx++) {
+>+                      uint32_t soc_dpm_level;
+>+                      uint32_t min_freq;
+>+
+>+                      if (idx =3D=3D 0)
+>+                              soc_dpm_level =3D 0;
+>+                      else
+>+                              soc_dpm_level =3D (idx * 2) + 1;
+>+
+>+                      /* clamp the max level */
+>+                      if (soc_dpm_level >
+>PP_SMU_NUM_VPECLK_DPM_LEVELS - 1)
+>+                              soc_dpm_level =3D
+>PP_SMU_NUM_VPECLK_DPM_LEVELS - 1;
+>+
+>+                      min_freq =3D (SOCClks[soc_dpm_level].Freq <
+>VPEClks[soc_dpm_level].Freq) ?
+>+                                 SOCClks[soc_dpm_level].Freq :
+>VPEClks[soc_dpm_level].Freq;
+>+
+>+                      switch (idx) {
+>+                      case 0:
+>+                              pratio_vmin_freq =3D min_freq;
+>+                              break;
+>+                      case 1:
+>+                              pratio_vmid_freq =3D min_freq;
+>+                              break;
+>+                      case 2:
+>+                              pratio_vnorm_freq =3D min_freq;
+>+                              break;
+>+                      case 3:
+>+                              pratio_vmax_freq =3D min_freq;
+>+                              break;
+>+                      default:
+>+                              break;
+>+                      }
+>+              }
+>+
+>+              if (pratio_vmin_freq && pratio_vmid_freq && pratio_vnorm_fr=
+eq
+>&& pratio_vmax_freq) {
+>+                      uint32_t pratio_ctl;
+>+
+>+                      pratio_vmax_vnorm =3D
+>(uint32_t)vpe_internal_get_pratio(pratio_vmax_freq, pratio_vnorm_freq);
+>+                      pratio_vnorm_vmid =3D
+>(uint32_t)vpe_internal_get_pratio(pratio_vnorm_freq, pratio_vmid_freq);
+>+                      pratio_vmid_vmin =3D
+>+(uint32_t)vpe_internal_get_pratio(pratio_vmid_freq, pratio_vmin_freq);
+>+
+>+                      pratio_ctl =3D pratio_vmax_vnorm | (pratio_vnorm_vm=
+id <<
+>9) | (pratio_vmid_vmin << 18);
+>+                      WREG32(vpe_get_reg_offset(vpe, 0, vpe-
+>>regs.dpm_pratio), pratio_ctl);                /* PRatio */
+>+                      WREG32(vpe_get_reg_offset(vpe, 0, vpe-
+>>regs.dpm_request_interval), 24000);   /* 1ms, unit=3D1/24MHz */
+>+                      WREG32(vpe_get_reg_offset(vpe, 0, vpe-
+>>regs.dpm_decision_threshold), 1200000);       /* 50ms */
+>+                      WREG32(vpe_get_reg_offset(vpe, 0, vpe-
+>>regs.dpm_busy_clamp_threshold), 1200000);/* 50ms */
+>+                      WREG32(vpe_get_reg_offset(vpe, 0, vpe-
+>>regs.dpm_idle_clamp_threshold), 1200000);/* 50ms */
+>+                      dev_dbg(adev->dev, "%s: configure vpe dpm pratio
+>done!\n", __func__);
+>+              } else {
+>+                      dev_dbg(adev->dev, "%s: invalid pratio parameters!\=
+n",
+>__func__);
+>+                      goto disable_dpm;
+>+              }
+>+      }
+>+      return 0;
+>+
+>+disable_dpm:
+>+      dpm_ctl =3D RREG32(vpe_get_reg_offset(vpe, 0, vpe->regs.dpm_enable)=
+);
+>+      dpm_ctl &=3D 0xfffffffe; /* Disable DPM */
+>+      WREG32(vpe_get_reg_offset(vpe, 0, vpe->regs.dpm_enable), dpm_ctl);
+>+      dev_dbg(adev->dev, "%s: disable vpe dpm\n", __func__);
+>+      return 0;
+>+}
+>+
+> int amdgpu_vpe_psp_update_sram(struct amdgpu_device *adev)  {
+>       struct amdgpu_firmware_info ucode =3D {
+>@@ -134,6 +313,20 @@ static int vpe_early_init(void *handle)
+>       return 0;
+> }
+>
+>+static void vpe_idle_work_handler(struct work_struct *work) {
+>+      struct amdgpu_device *adev =3D
+>+              container_of(work, struct amdgpu_device, vpe.idle_work.work=
+);
+>+      struct amdgpu_vpe *vpe =3D &adev->vpe;
+>+      unsigned int fences =3D 0;
+>+
+>+      fences +=3D amdgpu_fence_count_emitted(&adev->vpe.ring);
+>+
+>+      if (fences =3D=3D 0)
+>+              amdgpu_device_ip_set_powergating_state(adev,
+>AMD_IP_BLOCK_TYPE_VPE, AMD_PG_STATE_GATE);
+>+      else
+>+              schedule_delayed_work(&adev->vpe.idle_work,
+>VPE_IDLE_TIMEOUT); }
+>
+> static int vpe_common_init(struct amdgpu_vpe *vpe)  { @@ -150,6 +343,9 @@
+>static int vpe_common_init(struct amdgpu_vpe *vpe)
+>               return r;
+>       }
+>
+>+      vpe->context_started =3D false;
+>+      INIT_DELAYED_WORK(&adev->vpe.idle_work, vpe_idle_work_handler);
+>+
+>       return 0;
+> }
+>
+>@@ -219,6 +415,9 @@ static int vpe_hw_fini(void *handle)
+>
+>       vpe_ring_stop(vpe);
+>
+>+      /* Power off VPE */
+>+      amdgpu_device_ip_set_powergating_state(adev,
+>AMD_IP_BLOCK_TYPE_VPE,
+>+AMD_PG_STATE_GATE);
+>+
+>       return 0;
+> }
+>
+>@@ -226,6 +425,8 @@ static int vpe_suspend(void *handle)  {
+>       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+>
+>+      cancel_delayed_work_sync(&adev->vpe.idle_work);
+>+
+>       return vpe_hw_fini(adev);
+> }
+>
+>@@ -430,6 +631,21 @@ static int vpe_set_clockgating_state(void *handle,  s=
+tatic
+>int vpe_set_powergating_state(void *handle,
+>                                    enum amd_powergating_state state)  {
+>+      struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+>+      struct amdgpu_vpe *vpe =3D &adev->vpe;
+>+
+>+      if (!adev->pm.dpm_enabled)
+>+              dev_err(adev->dev, "Without PM, cannot support
+>powergating\n");
+>+
+>+      dev_dbg(adev->dev, "%s: %s!\n", __func__, (state =3D=3D
+>AMD_PG_STATE_GATE)
+>+? "GATE":"UNGATE");
+>+
+>+      if (state =3D=3D AMD_PG_STATE_GATE) {
+>+              amdgpu_dpm_enable_vpe(adev, false);
+>+              vpe->context_started =3D false;
+>+      } else {
+>+              amdgpu_dpm_enable_vpe(adev, true);
+>+      }
+>+
+>       return 0;
+> }
+>
+>@@ -595,6 +811,38 @@ static int vpe_ring_test_ib(struct amdgpu_ring *ring,=
+ long
+>timeout)
+>       return ret;
+> }
+>
+>+static void vpe_ring_begin_use(struct amdgpu_ring *ring) {
+>+      struct amdgpu_device *adev =3D ring->adev;
+>+      struct amdgpu_vpe *vpe =3D &adev->vpe;
+>+
+>+      cancel_delayed_work_sync(&adev->vpe.idle_work);
+>+
+>+      /* Power on VPE and notify VPE of new context  */
+>+      if (!vpe->context_started) {
+>+              uint32_t context_notify;
+>+
+>+              /* Power on VPE */
+>+              amdgpu_device_ip_set_powergating_state(adev,
+>AMD_IP_BLOCK_TYPE_VPE,
+>+AMD_PG_STATE_UNGATE);
+>+
+>+              /* Indicates that a job from a new context has been submitt=
+ed. */
+>+              context_notify =3D RREG32(vpe_get_reg_offset(vpe, 0, vpe-
+>>regs.context_indicator));
+>+              if ((context_notify & 0x1) =3D=3D 0)
+>+                      context_notify |=3D 0x1;
+>+              else
+>+                      context_notify &=3D ~(0x1);
+>+              WREG32(vpe_get_reg_offset(vpe, 0, vpe->regs.context_indicat=
+or),
+>context_notify);
+>+              vpe->context_started =3D true;
+>+      }
+>+}
+>+
+>+static void vpe_ring_end_use(struct amdgpu_ring *ring) {
+>+      struct amdgpu_device *adev =3D ring->adev;
+>+
+>+      schedule_delayed_work(&adev->vpe.idle_work, VPE_IDLE_TIMEOUT); }
+>+
+> static const struct amdgpu_ring_funcs vpe_ring_funcs =3D {
+>       .type =3D AMDGPU_RING_TYPE_VPE,
+>       .align_mask =3D 0xf,
+>@@ -625,6 +873,8 @@ static const struct amdgpu_ring_funcs vpe_ring_funcs =
+=3D {
+>       .init_cond_exec =3D vpe_ring_init_cond_exec,
+>       .patch_cond_exec =3D vpe_ring_patch_cond_exec,
+>       .preempt_ib =3D vpe_ring_preempt_ib,
+>+      .begin_use =3D vpe_ring_begin_use,
+>+      .end_use =3D vpe_ring_end_use,
+> };
+>
+> static void vpe_set_ring_funcs(struct amdgpu_device *adev) diff --git
+>a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.h
+>b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.h
+>index 29d56f7ae4a9..1153ddaea64d 100644
+>--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.h
+>+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.h
+>@@ -47,6 +47,15 @@ struct vpe_regs {
+>       uint32_t queue0_rb_wptr_lo;
+>       uint32_t queue0_rb_wptr_hi;
+>       uint32_t queue0_preempt;
+>+
+>+      uint32_t dpm_enable;
+>+      uint32_t dpm_pratio;
+>+      uint32_t dpm_request_interval;
+>+      uint32_t dpm_decision_threshold;
+>+      uint32_t dpm_busy_clamp_threshold;
+>+      uint32_t dpm_idle_clamp_threshold;
+>+      uint32_t dpm_request_lv;
+>+      uint32_t context_indicator;
+> };
+>
+> struct amdgpu_vpe {
+>@@ -63,12 +72,15 @@ struct amdgpu_vpe {
+>       struct amdgpu_bo                *cmdbuf_obj;
+>       uint64_t                        cmdbuf_gpu_addr;
+>       uint32_t                        *cmdbuf_cpu_addr;
+>+      struct delayed_work             idle_work;
+>+      bool                            context_started;
+> };
+>
+> int amdgpu_vpe_psp_update_sram(struct amdgpu_device *adev);  int
+>amdgpu_vpe_init_microcode(struct amdgpu_vpe *vpe);  int
+>amdgpu_vpe_ring_init(struct amdgpu_vpe *vpe);  int amdgpu_vpe_ring_fini(st=
+ruct
+>amdgpu_vpe *vpe);
+>+int amdgpu_vpe_configure_dpm(struct amdgpu_vpe *vpe);
+>
+> #define vpe_ring_init(vpe) ((vpe)->funcs->ring_init ? (vpe)->funcs-
+>>ring_init((vpe)) : 0)  #define vpe_ring_start(vpe) ((vpe)->funcs->ring_st=
+art ? (vpe)-
+>>funcs->ring_start((vpe)) : 0) diff --git
+>a/drivers/gpu/drm/amd/amdgpu/vpe_v6_1.c
+>b/drivers/gpu/drm/amd/amdgpu/vpe_v6_1.c
+>index 174f13eff575..d20060a51e05 100644
+>--- a/drivers/gpu/drm/amd/amdgpu/vpe_v6_1.c
+>+++ b/drivers/gpu/drm/amd/amdgpu/vpe_v6_1.c
+>@@ -96,6 +96,10 @@ static int vpe_v6_1_load_microcode(struct amdgpu_vpe
+>*vpe)
+>               adev->vpe.cmdbuf_cpu_addr[1] =3D f32_cntl;
+>
+>               amdgpu_vpe_psp_update_sram(adev);
+>+
+>+              /* Config DPM */
+>+              amdgpu_vpe_configure_dpm(vpe);
+>+
+>               return 0;
+>       }
+>
+>@@ -128,6 +132,8 @@ static int vpe_v6_1_load_microcode(struct amdgpu_vpe
+>*vpe)
+>       }
+>
+>       vpe_v6_1_halt(vpe, false);
+>+      /* Config DPM */
+>+      amdgpu_vpe_configure_dpm(vpe);
+>
+>       return 0;
+> }
+>@@ -264,6 +270,15 @@ static int vpe_v6_1_set_regs(struct amdgpu_vpe *vpe)
+>       vpe->regs.queue0_rb_wptr_hi =3D regVPEC_QUEUE0_RB_WPTR_HI;
+>       vpe->regs.queue0_preempt =3D regVPEC_QUEUE0_PREEMPT;
+>
+>+      vpe->regs.dpm_enable =3D regVPEC_PUB_DUMMY2;
+>+      vpe->regs.dpm_pratio =3D regVPEC_QUEUE6_DUMMY4;
+>+      vpe->regs.dpm_request_interval =3D regVPEC_QUEUE5_DUMMY3;
+>+      vpe->regs.dpm_decision_threshold =3D regVPEC_QUEUE5_DUMMY4;
+>+      vpe->regs.dpm_busy_clamp_threshold =3D regVPEC_QUEUE7_DUMMY2;
+>+      vpe->regs.dpm_idle_clamp_threshold =3D regVPEC_QUEUE7_DUMMY3;
+>+      vpe->regs.dpm_request_lv =3D regVPEC_QUEUE7_DUMMY1;
+>+      vpe->regs.context_indicator =3D regVPEC_QUEUE6_DUMMY3;
+>+
+>       return 0;
+> }
+>
+>--
+>2.34.1
 
