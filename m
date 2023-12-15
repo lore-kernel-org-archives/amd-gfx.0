@@ -4,115 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 001A7C35274
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Dec 2023 22:29:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E2E0C35274
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Dec 2023 22:52:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BE3810EAAF;
-	Fri, 15 Dec 2023 22:29:11 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2062f.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49EA010EAAF
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Dec 2023 22:29:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1157F10EACA;
+	Fri, 15 Dec 2023 22:52:34 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2047.outbound.protection.outlook.com [40.107.94.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE21B10EACA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Dec 2023 22:52:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jqUSBWCHG163423xZA5giGbJubhlqIoHsUWTviSlzLfFLDv1eFK5gnwJoJ2ggcMLH0EqBQhc56PXPJ6MntVq5xY54NImOMDQOd5U9sWUwlttCH5iBsYYw+m/rN4vU2sjcjCM/SXrjq7qHRUs3bo+mtsn3nCiAGVD7hbN624OeGF7LFYnVnFp/On2hrFy+ok9UkSSY/LD0beIMZvX3Uem02GjaMftEy7Tlv+erZzVYbJJJmYYencZnbWjIEQgCyDAinlR2NZOFA1fXTh8G2oEeGOyghaGKwYAzSqQjUBe2LzdDTVGSqrzhDSh9jP2sMI0haNlZ6EUND2NcLTiqN9ugA==
+ b=hcvIWeZzeOkLNESMyQHPRQQzS3DHghqAnL6Z26IAh5xSr6+GtuGW/1mpNNKqA8M7fBuvNOxdz5IUQwhWELbVBeuWRcqePwm3D6BGGHVUQalLWT5VKtXL1IYPus9aUC7acvYL/Tt4x0+kUOMPgILp+aRrq0wVv8YQ3xviwaERK4M9gH5efzxIjXZXI1L87eqozp2bYr+OSn0hCFpg22+jiGTNtcSzpJwAJXDDG86mg51CX05ufCYIEV5Ol7Yasg6Kpk48brbDE0j0o5bk0K+afH2he9nnRXem+ArfCa3VFw4mfm12Z4OfywAD6TT/BQ+5v9K4KfpZRfMC8Dm3WFIXyw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a6TvncKln45OFNlirGghdStmeQx3WNqNT6M+yppf/aE=;
- b=hAaLRO3OI7V31TalF94Y9Z+JwId9bxieiDgqOLjFLjv0CAdAZj/jppBYtSOrPVxpX3GUc2Kn1JpgwaQivJbdM767j3N0LROzRuElaTChoqvlmGtVxQtZ7NwJ4NYykSxmQqiLDrW1D7csmIuCUzZnjt5PM6B6KVVuUvdo9hMfgbLo+NPmaM1f2v3R+C5AJE7zc6u9sG2XpBqm2y9o2zcWCYiTB/Rdn3q+16y+1+M4PVt/srZKGTyN3k0GPr1TuwhjPCKt8sdRXJ+i8BWSX/oVQ3CJ/Ou3GrirjogpgVsrYkhcPh2xbajViom/U3ArMp1Zyigny299YzXyKgs/YDGcTg==
+ bh=c2HdhAZuI637Nt703ZGKyEevpmX3I6Hnf00QMjWpmYA=;
+ b=BHWcDOC/Ezr9326ips101P8Lq5b7BhrxpNflhUYQxI5TfCc6XYS4rYRXNlQTsHf6YcVSsDyCHDZx2cdQ+8YUIH8E7i2esUAUQFlxO6n74WsNoBGjWNi+3bZdwwDK5KtS0FcQHNZxeSWhuXQORxGrRaLXaN9RRsNd5T5ikQ3Yfedp3bnXiiOkVkfnM5mS9cxlw//RONniJtU70KM7dreA+u1oBIzpVwWUgS55/kSPiLnq4kIZR9le7A+9e2JPFXDX6Ua+wlMaK0HssPHWh4FR+GNt4CZXOfxxQzby6ZlrI1lprBKvU2DO65qFHLwl0hNWgC7iNREUgSL8JcjdxV9lAw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a6TvncKln45OFNlirGghdStmeQx3WNqNT6M+yppf/aE=;
- b=0d1pJ5ptJcky+ycS+gSht8Prx7YBIjFbNB+V8J1Nlg/Mlkx+iIPqxJsSmX98+VTZ9+PzRFYI1iXpGfHpMQCZ6JNPAiCIdQKnuMRjWH45oNkCEK9CartWxg/VKHosnyzowGLTlwqboeyf0fYawB0EUCCHEhdX9CjRcIgunZJ3Fgo=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by SJ1PR12MB6099.namprd12.prod.outlook.com (2603:10b6:a03:45e::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.28; Fri, 15 Dec
- 2023 22:29:05 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::f081:16c7:9129:c010]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::f081:16c7:9129:c010%3]) with mapi id 15.20.7091.032; Fri, 15 Dec 2023
- 22:29:05 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH v2] drm/amd: Add missing definitions for
- `SMU_MAX_LEVELS_VDDGFX`
-Thread-Topic: [PATCH v2] drm/amd: Add missing definitions for
- `SMU_MAX_LEVELS_VDDGFX`
-Thread-Index: AQHaL5acvwNT6UA3z0mPWipqsqe77rCq62LA
-Date: Fri, 15 Dec 2023 22:29:05 +0000
-Message-ID: <BL1PR12MB514433655A659883729CAE79F793A@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20231215203745.21874-1-mario.limonciello@amd.com>
-In-Reply-To: <20231215203745.21874-1-mario.limonciello@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-12-15T22:29:04.989Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-authentication-results: dkim=none (message not signed)
+ bh=c2HdhAZuI637Nt703ZGKyEevpmX3I6Hnf00QMjWpmYA=;
+ b=HQ8reMnW7M6G+TxMNjMXVuv+VJAl3RTzJrGr+mOhpFoL/TJFn3+sYoWgOhgmu56iTOoQM5qE39rWtlOj6oWgBd06xDw8N7Qog86Sj6dpHqmIMkLFSSjtsruGUUwGssmq+Qy47cTaMjUrkXlQlPcrfWgFgPNcTFwaS/KUy2hr1fg=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|SJ1PR12MB6099:EE_
-x-ms-office365-filtering-correlation-id: 3647d7cc-e979-4671-0b34-08dbfdbd3f2b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: gkYKIZISyf7KQkPQEbn0QOZIe/P+N/xHhFGy1C2XccqbA87ZE8b8dBku9gKZoOIK0vfYcdpKwGVv9HeLJUW1r3frHNTPQ8zKWEIDc3g64pUlXVtrIwvShmMT8tFF58gCNSp6eP90E8bWK9YTYDaCIugjhugp9CktDHHrNHI//9Tw5xV0ReelgBc3pP2N7d6zXEjfCC0T5oJ++cszEzXpovSElFh/boXDgQ0odxXw8MEe4GmqrixjHI3eXD1y/pSFV8IhUuOQtw3ewS2xVi1+c+1G+8LZRWBcJT1yWVwZ8r7xMT7FBtONI33ykJxhrvV2Ps8KlZdFLNVAOF25o/dCZoT6BLmNh6XFP0dUgACjRgE/Q3K4z7cOYb8+fyCdDNZMzVNENenWw37Wu87rcD+7TvkzhEQfEcRKvL0sZoNJNagM7lCO5CfyOjxiPOQHyL/6WKU5GtDZmF/z96XYM4JkRcjmAVrAnR3d8I3TCj+as83YQUumFbu3cnMPYnvb60Z/+wAM4uTLknmHSChGZ6yHcHRBV3ukLWTfc0UUZ5MgDxP963c3xOhWi12SsRwlMMTzb3fRvRQE8KYLXrzRyIWqI7bU6YNvZK7kuN/HTcVP8pIWTYwc6idIZp3n4aP34JKC
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(376002)(396003)(346002)(39860400002)(366004)(230922051799003)(1800799012)(186009)(64100799003)(451199024)(9686003)(71200400001)(19627405001)(966005)(8936002)(478600001)(8676002)(52536014)(26005)(110136005)(91956017)(55016003)(76116006)(64756008)(66556008)(66476007)(66446008)(316002)(66946007)(7696005)(53546011)(6506007)(5660300002)(2906002)(122000001)(41300700001)(166002)(86362001)(38100700002)(33656002)(38070700009)(81973001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?UmkVqSsOK7TOOydnd5IOeyG7xbiMwlb8YB0GdKJJUCKYXgT3rHLWBt3YWtRZ?=
- =?us-ascii?Q?nrFP0UDgLEYP75OXjgS3nW3bfSxBHTkn62eEKDo+nbl9tlmk3xsVDyg21pfu?=
- =?us-ascii?Q?xbmWa86hgGKdiOgduWA/QPNKXGCfCgLX7v/Rdk3DNTFSkp5XX0823wRJ7IN1?=
- =?us-ascii?Q?dSvA5PIH6ZJib+5pxRKbwAzaUJEovvNfz1sML7Gg7IeoRqYvfgbOqkS4y6FG?=
- =?us-ascii?Q?CtMFmh7Vqc1cx3bj/DyyiH7rXn+TsWHsiYTfRw+l59vZjdGFO42yXbzZETPl?=
- =?us-ascii?Q?1Cq6gRVa1McT1w5sFsJY4Pcytgh0vFwB9uxTwNIBH1FR/SGKwaD9iJ9g1wZl?=
- =?us-ascii?Q?J0zwEly9k4yT8v9saFQuPLu/2LZkaKiewiAE6Lu/3e3VP654RdzHC1vQrXr6?=
- =?us-ascii?Q?CEQ8uY7u8M1HOeaQbDh+uVkFBj2rNucWj0uI/IFD/HWYLpeiaVTCusXXAA7c?=
- =?us-ascii?Q?EHs1MRVgtQSx5ZLWhM0dGt0vBqvPNpeQnThwiz5Pf2btDLSisxT+mZQ5bxds?=
- =?us-ascii?Q?y8X+p0Qa5A49ARidYJWuJF2hKRC1NIZCapFcW3WvACkPoHZodgNOcqI0ebIQ?=
- =?us-ascii?Q?ochfDOVrNvTC8Cxf1PY+eiRQv3P8pTjMpVi33fzA3wYSYgQK0whT26YZkCqA?=
- =?us-ascii?Q?E8EJF+Lz7SFZIdiAWGJwowq/4YCgILYN0tZznzEG/GYe69lCGbXiJzU2Wlif?=
- =?us-ascii?Q?sRBcEWoDR03cK8sKZv9puJV/wCjZG/5bYk7VYuiHQUIJECBnTQLeaswvlWOQ?=
- =?us-ascii?Q?sjiwV9fT74J5muLcdqTMoMT040MOXNckI/Tw1V184dHvAw0Fg2df5jymn4OQ?=
- =?us-ascii?Q?ejra3FOig4iSXCM8dIWd8tFgpdUgQzO5UbCMiEyqtP/UHRVBar0/VRhDwYE7?=
- =?us-ascii?Q?p6XZAnAorZU2H5vW4SGjMBfLwWO2cY6vkG99vNM10HWWOJKOMBid+K7UagKx?=
- =?us-ascii?Q?3YVaFShWfupVxPedBP6aheyddttAxjdXVI/vH8urjOtLYWtyZuj4LYEsrnXW?=
- =?us-ascii?Q?X3OBOdRtVE/HhJjYJDBSnn+eDRw7/S2KVniqdu/kHGhFssi/6jx9KGgxDbQ2?=
- =?us-ascii?Q?p/cIug04rQd9IkEH9rbnGTuzUKRHPOfn5nC3sv8cuCuGh4NLy5uWrMKEWyGC?=
- =?us-ascii?Q?W5x+XAYkkqAfPTQzzAOzDTFAMlLJ/6LHA1VZneplFsyYyVWA7gKXrahpLgyR?=
- =?us-ascii?Q?GRRcBmdfT1mbGu7UXtQTFcpk/NW5ix3FTTSGqn3jmm4ZnVlIWxUC0IxA33R0?=
- =?us-ascii?Q?4julSEKJELFOXDiGEd7yLfVLjoSYer/JQKdOlzDU6L4zj1U6ZNNhvDG7fGEU?=
- =?us-ascii?Q?huzNaZom9ye4Ba/xnn/TUD0dY20nS6AJvYiZMN9x5lIKGtIj4y6ZmjxsAQpZ?=
- =?us-ascii?Q?+Xuhah4zElRwkxVzw68rMM1fYG3FjwPtlf/gbJV0xxMVLADhVJthw/PhmdlR?=
- =?us-ascii?Q?aUDxbWc3kIy9bdN3z/nnUm7Tkfeb5fn7nRxoBE1pLANyypvda9G8A/8y38We?=
- =?us-ascii?Q?xjq6ZO9mRR/QTqRYM+OFXJOlU3twMABl+ilGkv9UPbQ5vVtWG0Emx0TN7hVM?=
- =?us-ascii?Q?KF6DeIuCqLCCgoh/YS0=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB514433655A659883729CAE79F793ABL1PR12MB5144namp_"
+Received: from DS7PR12MB6095.namprd12.prod.outlook.com (2603:10b6:8:9c::19) by
+ PH7PR12MB6586.namprd12.prod.outlook.com (2603:10b6:510:212::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.28; Fri, 15 Dec
+ 2023 22:52:27 +0000
+Received: from DS7PR12MB6095.namprd12.prod.outlook.com
+ ([fe80::59a9:6428:ea3:2bb2]) by DS7PR12MB6095.namprd12.prod.outlook.com
+ ([fe80::59a9:6428:ea3:2bb2%6]) with mapi id 15.20.7091.032; Fri, 15 Dec 2023
+ 22:52:27 +0000
+Message-ID: <5d42649b-7e59-4887-bccb-227d3d0cc213@amd.com>
+Date: Fri, 15 Dec 2023 16:52:24 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: disable FPO and SubVP for older DMUB
+ versions on DCN32x
+To: Hamza Mahfooz <hamza.mahfooz@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20231215160116.17012-1-hamza.mahfooz@amd.com>
+Content-Language: en-US
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20231215160116.17012-1-hamza.mahfooz@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SA9PR13CA0020.namprd13.prod.outlook.com
+ (2603:10b6:806:21::25) To DS7PR12MB6095.namprd12.prod.outlook.com
+ (2603:10b6:8:9c::19)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS7PR12MB6095:EE_|PH7PR12MB6586:EE_
+X-MS-Office365-Filtering-Correlation-Id: a38b8a31-a464-4706-36c9-08dbfdc082d0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ADfgNx73lqOsqJoOfobk7ZrXQB/0KIu6PsxZQNiZqHiCTz/wd4GmZkbPply1Y5yNaq3wk9ssgK0eSZ8IJHAaHlrFYGrtUgz0YIfFLQ/fCk94bQkHMrA8V684k6fziuyg11Ul3UjYc98JcOT4Eb7mIN/94fiPiRMkybKl3cZbUxzuXuLjDCgRE68GUhY388zRIxOpBIRsOiYPM//jE4JWljyivt78yAXYlEYIWpAszOH92EPpxD3sUwx5ddbkIDWj34yVEHUFhl6RLo5xVwtJcQ5wYJCsekwTAdEj0uW5AyecgNcHPHp3cF/iUbk63aBrlW/AVNLoPAw1IvKIdcVkMgFz0QKh/PbHuMF9q7DfZpfoSQqZeVI5yUsQJ9jV+JVAngOw6/pUBF8/q3DNM0ESb/IbbbrlClMLqzto93aJZjW/Tf6Wogm0aoti5Ej7bBEgoGQ9SnXNrEILR1D9h2MFism3Uap5zRg+700RD+7dttn6f0uK4CWjcscvwfG1cgl7irbhoVbgvRC1M08SZBEhg53Uo4OIUI1hi+ZHW8jAqNLVcsKibymQRF2M+0QNzt2EUOxlbhjriglztslmtX0Ud24YNrfsUw6peT/aXxNkWaPhzDZamhVCcxek2u5PEvfuT6ZoqTkkYID7yMuacfLPzLR3P52ped33lsOi+yXtipU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6095.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376002)(346002)(366004)(396003)(39860400002)(136003)(230922051799003)(186009)(1800799012)(451199024)(64100799003)(38100700002)(4326008)(8936002)(2906002)(316002)(83380400001)(36756003)(8676002)(5660300002)(44832011)(26005)(31686004)(41300700001)(31696002)(6512007)(2616005)(478600001)(6666004)(54906003)(6486002)(6506007)(966005)(53546011)(66556008)(66476007)(66946007)(86362001)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U1VNR0JwbTl4OGo5NGRDZ1ZJcXpUeGlQN2R1bDgvRVdVS3VuSkZ3bDR4YTk0?=
+ =?utf-8?B?djNTQUYvN0hGNUVqRXVQbnAwSmlLWUx4ZC9EN1lOc21hekI4SFh3TkdjNW5s?=
+ =?utf-8?B?UkNLaloxMlM3WjVvSzdLV2NNVjRpYXlweFNBWGwxRDYrWW05dGl2Vk12eUV6?=
+ =?utf-8?B?YXlTNFU1d28vNnFTWVVhR3gxbTFjS0txSkd6Z3dWZXhQT3dvSEpLTzF3ZGxO?=
+ =?utf-8?B?MzRLQVY5cmxXdnFOcHBmK3dmN3JTdHdWVkcwSGliMnVRZkFMMWt2V3k3cTBG?=
+ =?utf-8?B?N2lvRjFFYWtLUDVPM0t5VUNFZjVobW13Tm95ZkRXNDUvekp4M2dZRDdLSGhm?=
+ =?utf-8?B?U1IxaHMxTVdITVBqcXlBbnNVQnFwejhOOEZqdHRyQUJ0NEoyVlJMUUMyeUFC?=
+ =?utf-8?B?Vk5SWkEzTVBZa1Ivdlg0cm15S2VtOEZSMTl1ZWt4bUVLcWFTKzBWR3NEblB1?=
+ =?utf-8?B?VTArcVEzUUEvUjBjdEsxSEdMNFZ1czJoak5hUDhoaDluWHpiVkw2NmJqMStW?=
+ =?utf-8?B?allMQ0RLeFVvZS9IWm9YOGJnOWdJNjNmY016Y0JUcGhUbXpyRi9Za0l4eE54?=
+ =?utf-8?B?RXhwVTZYVGQ2UWdDOVRNdnA2ZHFwWkxvMXJrdUlvaGFBMFVEektUNVBvVEdw?=
+ =?utf-8?B?cUVzN2lmV2VOaHMxZEt0aVpXN2dHK0x6ZXZqaFlrSFJsZlR2ZHMrTWw1VFVG?=
+ =?utf-8?B?MkxjWkZjcXBXdEF2eVdFQkxGdHNsOFRwbHpQYlNhcXV6N1VoWWtPVktydEVs?=
+ =?utf-8?B?dVY4azhuZDcvSUdZUEFybG5DcTNpOHRCUEVhTnhQQ2RFcEs3b0J3dCtkeUhO?=
+ =?utf-8?B?ejcwNUdYRHVaY1FQaXZ5Tzh2aXlWdXB0NWJLTm80ZlRNNFBwbUc0OWR0NlRm?=
+ =?utf-8?B?d3BxMTE1NVBSYzlRd1pRZm1wckVKSGY1MEtqamtTck1YOExKbExMdG91WnND?=
+ =?utf-8?B?TU5HNzM2TWNyZHpZR29UMndiUlpUclV6WVgvWmdINk5yc3hNUnRhczE4S1Ry?=
+ =?utf-8?B?QUN1QVh6d2t5YldTWk1NbHZHWGViY0JVMi8ybTAxcjRyaGdpcDhCRW9TT2lB?=
+ =?utf-8?B?WDNtWUpnZjdaZWViNnIxS2Mxc1dvZWp4eExlTHFpQUsxMEh5YUxDYUJlRks4?=
+ =?utf-8?B?MHVES3A2QXFmd25rN2luM0V4bHA5MkF1SVJZQzgySFRUeXdQSlBmR1BjM3Ry?=
+ =?utf-8?B?WDVERktnaXh3a3JqL29CaWpBNmE2K2Nnd1FwZm5QOGNMQURvcG95SW1JT1V3?=
+ =?utf-8?B?M1FZS1NLemM2SUxjTVNtbUpTR29ra2UxVTZOYVQvTDEyZmo3Y04zNnM1QmUy?=
+ =?utf-8?B?WXl5aTVPZEpsQmxqL3lFWmV0ZU1kcjhjYjgwYjk5QzIxYlZKS01yb0pmNWlq?=
+ =?utf-8?B?cnV5MzN6V01WWnlnQms5bW9vaFgyS3BRdU1keXRxSkQ2VjhBTFZWanZDdE9Q?=
+ =?utf-8?B?NUdXOEQ5S3JIZUhpYUxQWU10RzRqc1lHRXBOVkhEZ0pDTWZCckZLb01lbllu?=
+ =?utf-8?B?Z1NJWVNtbk1tWUFJTDNqMjk2MENIanIwQmI4MzZkbkRmLzk1bDRxKy9nZm5r?=
+ =?utf-8?B?VGN6b2dOblVpdjBVRVhoaC83TDlZRUJxY1V0WWFJcjc0YkxxZWtWcXVzNmFB?=
+ =?utf-8?B?NndyRzRmSERFcXdOaDN4TDRwQnZoamlDOHpBdzI1V283Y1NKVVhqaUpkV2JZ?=
+ =?utf-8?B?aGgrZUkwYy8xcnBJNjJ4WjlCNmZUS2JkUzBaVHhCblVtbWhaTmwyR2pDVUZq?=
+ =?utf-8?B?VXhKdUlSTkxDNElaejRhay9uanhYUE1hVHFqWW5nbTRGeXZWR2IvZ3RMZVZL?=
+ =?utf-8?B?TmprUWw0TG5iZXM5YUJkQTc0WHZZTDJ3MExxVmloaXU5QWlReXlpUm53Y3dQ?=
+ =?utf-8?B?TlE0dkNlWUQ0N0lScG1BdHhxaEdSdUhlTkkrSkFiMWsyYVpBRWkyQitWRmpH?=
+ =?utf-8?B?VUt6VVJYSElwcDRRaStDSkNpZ3N4REhLTnJnWkxGNUR0RVdtZm1LVUUxeDlT?=
+ =?utf-8?B?cyt1K3ZkYlRoTjFjSlozTmVQamFZaG41d3R6VjR5dnp2YmoybU82N2g1dWUr?=
+ =?utf-8?B?Y2VqVEkrWmhtL25TaGRzUnp3dEJoNnhVbDBFVHl0TVJrN1NhWlNOM2dpc0pp?=
+ =?utf-8?Q?Z5YayI/FmiM2nkxhahHoHI0PV?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a38b8a31-a464-4706-36c9-08dbfdc082d0
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6095.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3647d7cc-e979-4671-0b34-08dbfdbd3f2b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Dec 2023 22:29:05.3460 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: EbWvwX+/f2dmnjyAEBPAgKdobOTIFmw+vhvVYiI1G8tCoE5x7MKr0PpA7Uj85J/0wwy6ExHeC399zvY5GEnGGw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6099
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2023 22:52:27.5359 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MpG8mwmcJj5n2WKvVI35ERfRNutcuahU47lkUZn8Ji7aCHY6Hx9v89joqC8KBo28pFACOGpcY/lp792YbXXqxA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6586
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,232 +123,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Leo Li <sunpeng.li@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Samson Tam <samson.tam@amd.com>, Saaem Rizvi <syedsaaem.rizvi@amd.com>,
+ Alvin Lee <alvin.lee2@amd.com>,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org,
+ Jun Lei <jun.lei@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB514433655A659883729CAE79F793ABL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On 12/15/2023 10:01, Hamza Mahfooz wrote:
+> There have recently been changes that break backwards compatibility,
+> that were introduced into DMUB firmware (for DCN32x) concerning FPO and
+> SubVP. So, since those are just power optimization features, we can just
+> disable them unless the user is using a new enough version of DMUB
+> firmware.
+> 
+> Cc: stable@vger.kernel.org
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2870
+> Fixes: ed6e2782e974 ("drm/amd/display: For cursor P-State allow for SubVP")
+> Reported-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+> Closes: https://lore.kernel.org/r/CABXGCsNRb0QbF2pKLJMDhVOKxyGD6-E+8p-4QO6FOWa6zp22_A@mail.gmail.com/
+> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
 
-[Public]
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
 
-Would be cleaner to just add to the SMU_MAX_LEVELS_VDDC case.  E.g.,
+> ---
+>   drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c | 6 ++++++
+>   1 file changed, 6 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+> index 5c323718ec90..0f0972ad441a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+> @@ -960,6 +960,12 @@ void dcn32_init_hw(struct dc *dc)
+>   		dc->caps.dmub_caps.subvp_psr = dc->ctx->dmub_srv->dmub->feature_caps.subvp_psr_support;
+>   		dc->caps.dmub_caps.gecc_enable = dc->ctx->dmub_srv->dmub->feature_caps.gecc_enable;
+>   		dc->caps.dmub_caps.mclk_sw = dc->ctx->dmub_srv->dmub->feature_caps.fw_assisted_mclk_switch;
+> +
+> +		if (dc->ctx->dmub_srv->dmub->fw_version <
+> +		    DMUB_FW_VERSION(7, 0, 35)) {
+> +			dc->debug.force_disable_subvp = true;
+> +			dc->debug.disable_fpo_optimizations = true;
+> +		}
 
-       case SMU_MAX_LEVELS_VDDC:
-+       case SMU_MAX_LEVELS_VDDGFX:
-               return SMU71_MAX_LEVELS_VDDC;
+One potential improvement would be to emit a message in this case to let 
+the user know that this has happened and if they upgrade their firmware 
+they can get additional power optimizations.
 
-With that change, the patch is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Mario Li=
-monciello <mario.limonciello@amd.com>
-Sent: Friday, December 15, 2023 3:37 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Limonciello, Mario <Mario.Limonciello@amd.com>
-Subject: [PATCH v2] drm/amd: Add missing definitions for `SMU_MAX_LEVELS_VD=
-DGFX`
+>   	}
+>   }
+>   
 
-It is reported that on a Topaz dGPU the kernel emits:
-        amdgpu: can't get the mac of 5
-
-This is because there is no definition for max levels of VDDGFX
-declared for SMU71 or SMU7. The correct definition is VDDC so
-use this.
-
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3049
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
-v1->v2:
- * s/VDDGFX/VDDC/
----
- drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c      | 2 ++
- drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c | 2 ++
- 2 files changed, 4 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c b/drivers/=
-gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
-index 9e4228232f02..afe5e18f28db 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
-@@ -2303,6 +2303,8 @@ static uint32_t ci_get_mac_definition(uint32_t value)
-                 return SMU7_MAX_LEVELS_VDDCI;
-         case SMU_MAX_LEVELS_MVDD:
-                 return SMU7_MAX_LEVELS_MVDD;
-+       case SMU_MAX_LEVELS_VDDGFX:
-+               return SMU7_MAX_LEVELS_VDDC;
-         }
-
-         pr_debug("can't get the mac of %x\n", value);
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c b/dri=
-vers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c
-index 97d9802fe673..b4b2a3c96679 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c
-@@ -2268,6 +2268,8 @@ static uint32_t iceland_get_mac_definition(uint32_t v=
-alue)
-                 return SMU71_MAX_LEVELS_VDDCI;
-         case SMU_MAX_LEVELS_MVDD:
-                 return SMU71_MAX_LEVELS_MVDD;
-+       case SMU_MAX_LEVELS_VDDGFX:
-+               return SMU71_MAX_LEVELS_VDDC;
-         }
-
-         pr_warn("can't get the mac of %x\n", value);
---
-2.34.1
-
-
---_000_BL1PR12MB514433655A659883729CAE79F793ABL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;font=
--style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Would be cleaner to just add to the SMU_MAX_LEVELS_VDDC case.&nbsp; E.g.,</=
-div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof"><span style=3D"letter-spacing: normal; font-f=
-amily: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&quot;, &quo=
-t;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetic=
-a Neue&quot;, sans-serif; font-size: 14.6667px; font-weight: 400; color: rg=
-b(36, 36, 36); background-color: rgb(255, 255, 255);">&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;
- case SMU_MAX_LEVELS_VDDC:</span></div>
-<div class=3D"elementToProof"><span style=3D"letter-spacing: normal; font-f=
-amily: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&quot;, &quo=
-t;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetic=
-a Neue&quot;, sans-serif; font-size: 14.6667px; font-weight: 400; color: rg=
-b(36, 36, 36); background-color: rgb(255, 255, 255);">+&nbsp;
- &nbsp; &nbsp; &nbsp;case SMU_MAX_LEVELS_VDDGFX:</span></div>
-<div class=3D"elementToProof"><span style=3D"letter-spacing: normal; font-f=
-amily: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&quot;, &quo=
-t;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetic=
-a Neue&quot;, sans-serif; font-size: 14.6667px; font-weight: 400; color: rg=
-b(36, 36, 36); background-color: rgb(255, 255, 255);">&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- return SMU71_MAX_LEVELS_VDDC;</span></div>
-<div class=3D"elementToProof"><span style=3D"letter-spacing: normal; font-f=
-amily: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&quot;, &quo=
-t;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetic=
-a Neue&quot;, sans-serif; font-size: 14.6667px; font-weight: 400; color: rg=
-b(36, 36, 36); background-color: rgb(255, 255, 255);"><br>
-</span></div>
-<div class=3D"elementToProof"><span style=3D"letter-spacing: normal; font-f=
-amily: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&quot;, &quo=
-t;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetic=
-a Neue&quot;, sans-serif; font-size: 14.6667px; font-weight: 400; color: rg=
-b(36, 36, 36); background-color: rgb(255, 255, 255);">With
- that change, the patch is:</span></div>
-<div class=3D"elementToProof"><span style=3D"letter-spacing: normal; font-f=
-amily: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&quot;, &quo=
-t;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetic=
-a Neue&quot;, sans-serif; font-size: 14.6667px; font-weight: 400; color: rg=
-b(36, 36, 36); background-color: rgb(255, 255, 255);">Reviewed-by:
- Alex Deucher &lt;alexander.deucher@amd.com&gt;</span></div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Mario Limonciello &lt;mario.l=
-imonciello@amd.com&gt;<br>
-<b>Sent:</b> Friday, December 15, 2023 3:37 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Limonciello, Mario &lt;Mario.Limonciello@amd.com&gt;<br>
-<b>Subject:</b> [PATCH v2] drm/amd: Add missing definitions for `SMU_MAX_LE=
-VELS_VDDGFX`</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">It is reported that on a Topaz dGPU the kernel emi=
-ts:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu: can't get the mac of 5<b=
-r>
-<br>
-This is because there is no definition for max levels of VDDGFX<br>
-declared for SMU71 or SMU7. The correct definition is VDDC so<br>
-use this.<br>
-<br>
-Link: <a href=3D"https://gitlab.freedesktop.org/drm/amd/-/issues/3049">http=
-s://gitlab.freedesktop.org/drm/amd/-/issues/3049</a><br>
-Signed-off-by: Mario Limonciello &lt;mario.limonciello@amd.com&gt;<br>
----<br>
-v1-&gt;v2:<br>
-&nbsp;* s/VDDGFX/VDDC/<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; | 2 ++<br>
-&nbsp;drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c | 2 ++<br>
-&nbsp;2 files changed, 4 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c b/drivers/=
-gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c<br>
-index 9e4228232f02..afe5e18f28db 100644<br>
---- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c<br>
-+++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c<br>
-@@ -2303,6 +2303,8 @@ static uint32_t ci_get_mac_definition(uint32_t value)=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return SMU7_MAX_LEVELS_VDDCI;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case SMU_MAX_LEVELS_MVDD:<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return SMU7_MAX_LEVELS_MVDD;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case SMU_MAX_LEVELS_VDDGFX:<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return SMU7_MAX_LEVELS_VDDC;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;can't get t=
-he mac of %x\n&quot;, value);<br>
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c b/dri=
-vers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c<br>
-index 97d9802fe673..b4b2a3c96679 100644<br>
---- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c<br>
-+++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c<br>
-@@ -2268,6 +2268,8 @@ static uint32_t iceland_get_mac_definition(uint32_t v=
-alue)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return SMU71_MAX_LEVELS_VDDCI;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case SMU_MAX_LEVELS_MVDD:<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return SMU71_MAX_LEVELS_MVDD;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case SMU_MAX_LEVELS_VDDGFX:<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return SMU71_MAX_LEVELS_VDDC;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_warn(&quot;can't get th=
-e mac of %x\n&quot;, value);<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB514433655A659883729CAE79F793ABL1PR12MB5144namp_--
