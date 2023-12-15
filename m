@@ -4,91 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C2E7C46CA2
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Dec 2023 19:56:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 132AEC4167B
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Dec 2023 20:17:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D639010EA80;
-	Fri, 15 Dec 2023 19:56:24 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2060c.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eb2::60c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAE4610EA80
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Dec 2023 19:56:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B9F710EA82;
+	Fri, 15 Dec 2023 20:17:52 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2040.outbound.protection.outlook.com [40.107.220.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E13E110EA79
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Dec 2023 20:17:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l9kJ3N4HByz6VzulMgnrDi3Hr60LN6m41502iQd8KSL7Jam5LnGnfCa3b0ySQj40pZtBHDGRJAIoJu4E/Dsv8rS3F6GL47GQVnU/VgMFoSPJ8J/+zJSG29jW4JRCt9y0hKI8XGTGKpz2DVXI7WtJAWrueFoUQFRP/hPZni+Lp10taFa7tDMUqkXsFt2blwWrlUFlx57RDIZzChghkQAI7zfX2UrG+5fMwahG0rD+n7E76kkT8BXtkCvId7lSLgpEuD+WyEBUU4vWEqSx1husTl6cpzMptdg5geugRMDKGx3QK1Ck6pbjukuuMzvSl3nrzgZBXEsFD7ecKTDAsV27kg==
+ b=NsR8hL+iXPEPxvly2ktwj0ilw05cXfefhSHjlmr/i0gNdcp7pKvlEStqloWXeZojBafJS+pfkjmny1OhETIzCNbXYcKUlztLCXZAz4ahaCzKk3IlC2gLRalFV0VJaPW77isEJgRnqbHkgxCMqReK4Bt4xNjD6Az2RmQD0d3cU+Y32mpdSPp5zpjeRmmFZ6eOijkp7EO/txMUQPyguuWHxVbXnmAc8ZHV4h4+JCn/GdKSBUGSGLTyKXcoKokTO9sQpb6hIu01yKA0u+VFdEgtZ+gJk4hzRMr0kiNWFRwWr6JVGISyYf0zt+7UMNCg7rcNnvYzEKdcBq5kvY/HlFq7Fw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Hn8L9ImTT/rsdRs/ratyKvrP0KlOmUDKc1JeJbOTFzw=;
- b=fMLlTnbN42A+nkcuXNiwsypFPp97a2Zz6DIVb/HcxYpe3TQA8mUe9NnA6899j4+1LnFBJDyR1Q8DoQPhQ4WdT1Ls7ImMhZ+uazvpSWnGFY7rbVlSUi3t80Q2DreT4Jh2MB1M7rmKUV1K0ExBZn1CBRiakKwuT5q5IMEF3t8ilP17U+2tC+rgefOPvOJ5OYhkd4eXJ/9Dwm0N0+13ZfLMJik0u/66ZamLZxrbWYaFlVyvVkF7wYA7duEf8+0QzWqmEoDxbgSX9h2OoDBIHz6OGrfx/dAt0aU66XFizurfPsiChRuspOGus2fEWM2yqsnkSA5O8wuh/0yfl0ZDxKThAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=E4tpMH+LNRfOj38tqPjaJfw/LGi0vECph8QQPR4ULbY=;
+ b=CP36yYKETowZZZgKZJpB8jXbNT9F3OQRYnNzoKuvm6vPHcdM2VUVJuqoWUiSOG2x7hTuxqCzt4fBos3FZA2NSfMgy3+ZpkyhlJ4885UJNe9LRvNx6taRonxCIuzYtFvahVqYXuJTnlMeIpQFo2McKcYmAOvBNU10sHWfhs/4JspJ3Xv9fA5Foalr0KDVaTUtBel1X8llhG7dzSdaec7Tui7Ed/yWRq96ORVw+vqfG106NWLq/+dZjp7gtNPR5T7UYnf4n7hspO7wedXSc2AeL2e+oKGZLS5dT5DlLESKQavaXzPgiuvm02E00DEl3VB2SFHCwLSxrJlBYS+RwN8X0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Hn8L9ImTT/rsdRs/ratyKvrP0KlOmUDKc1JeJbOTFzw=;
- b=oeGTd7F5j65tbnDmAC/I4nK2MJFSUTo81QvTFJShQhY1xh4tu/L7zJ+deKfzAY8uDxTUDNsj+y/qtxvNjowYK/neMjz5tTX+4RzbNT7DSw9ZNeICdwc857Tl+unPesWbcOYEDl394+WAFoBab8l9Vb34yydbw7IHicgo2QeRmcc=
-Received: from MN2PR18CA0021.namprd18.prod.outlook.com (2603:10b6:208:23c::26)
- by DS7PR12MB8290.namprd12.prod.outlook.com (2603:10b6:8:d8::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.28; Fri, 15 Dec
- 2023 19:56:19 +0000
-Received: from BL6PEPF0001AB55.namprd02.prod.outlook.com
- (2603:10b6:208:23c:cafe::1) by MN2PR18CA0021.outlook.office365.com
- (2603:10b6:208:23c::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.28 via Frontend
- Transport; Fri, 15 Dec 2023 19:56:18 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB55.mail.protection.outlook.com (10.167.241.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7113.14 via Frontend Transport; Fri, 15 Dec 2023 19:56:18 +0000
-Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Fri, 15 Dec
- 2023 13:55:48 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v3 3/3] drm/amd: Retry delayed work handler if sensor is busy
-Date: Fri, 15 Dec 2023 13:55:36 -0600
-Message-ID: <20231215195536.20401-3-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231215195536.20401-1-mario.limonciello@amd.com>
-References: <20231215195536.20401-1-mario.limonciello@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB55:EE_|DS7PR12MB8290:EE_
-X-MS-Office365-Filtering-Correlation-Id: 74255a70-c9f5-41ce-32d8-08dbfda7e798
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dQn5aqM6VmIin7CTK8bwZ6XpIJZaAr00DRNsHRzSYSdayR4lNzwTyOil41hvIm31D4YgKT+BdT+bgbHcBKn9sP7MVmWvtRa1h3TuqqU6Kjf0VRDE9tVLRj8whvyoXN6SZV6uE45rdk95n2lCbN1SUV2BaQ7BZZk4RYvyo+CUZ5aNTzuKGDTt+H1hJxIdHnM+QdOIRll8u0KqY/NG05d8xXA/5+tLLG7DiebuEoj4AAWHp7n4VnsWgodLnm9jdANjqt9n7YExPfwuW7sGtdJpu4zKs0Vfzzb+a7fyNk1wJ2s8/vq/WP1opPOsYGzqRMO/YxQam02CdihFY827FG89Hck+w4o92fvOkuFN6KjDt1nVGXBcFnIA1SOqfuidu4bwyZ4pjBHWVDBIkGVlpvO7/MEhXiDRaugMhLryQ2EcbruAWdWTtut+9ZS0ITdjiRI1OWnmwoiV08FrSeNhtyzJIBKWAQW4G8X5FhmVjNk3UYOR5a8HyOsS/nbDNEvgvUCDznkZLYfMMAFRYc1aq+n/jnezb+OUEfuC33NyQHXcOuZ1DbxK/h6lSieXKyuIgvjGH5ED4uQJ2T5UCGm7SqqVbkZBGF8pgRwTWfyLuiacSMTn+aeTTOTNRC7XYRhPsKPd38yGpG9OD9EUdxNIwk1V29d45RrH+k/zvgz8TPWLf5fWwnO0yDUwez/BJ4za6Js8zdB6SdPE9K/1zXirZ/654tWlqeZW6YP/rb6iXADh5K/9IytBG+MT+CJ8aW/EUt3R+Z3UqsUz4XCC+GaEoAhTDw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(136003)(39860400002)(396003)(346002)(230922051799003)(451199024)(64100799003)(186009)(1800799012)(82310400011)(40470700004)(36840700001)(46966006)(6916009)(316002)(8676002)(8936002)(4326008)(1076003)(16526019)(336012)(426003)(47076005)(70206006)(7696005)(6666004)(45080400002)(478600001)(26005)(2616005)(44832011)(70586007)(5660300002)(2906002)(41300700001)(36756003)(81166007)(356005)(36860700001)(82740400003)(86362001)(40460700003)(40480700001)(36900700001);
+ bh=E4tpMH+LNRfOj38tqPjaJfw/LGi0vECph8QQPR4ULbY=;
+ b=O0d8MNpzKAcppMHJv0dcDNCknFT6PGFujDKuSTW9GH1EnWiKx+n9nf5kNZvA24TM79d0zWgg6v4IqFKiwMoG65bwbiTSdu1DZ6UbPBfTzwCeWGX5R/2h5N3g+oHCcf/V9gp5qyrOg/avRMCc8kPli15lO1SUgDczCyz9rQpMZSE=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by BY5PR12MB4305.namprd12.prod.outlook.com (2603:10b6:a03:213::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.31; Fri, 15 Dec
+ 2023 20:17:46 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::f081:16c7:9129:c010]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::f081:16c7:9129:c010%3]) with mapi id 15.20.7091.032; Fri, 15 Dec 2023
+ 20:17:45 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amd: Add missing definitions for
+ `SMU_MAX_LEVELS_VDDGFX`
+Thread-Topic: [PATCH] drm/amd: Add missing definitions for
+ `SMU_MAX_LEVELS_VDDGFX`
+Thread-Index: AQHaLtvjfl/qyjaRfk+wu5+WPV3i17CqxNbH
+Date: Fri, 15 Dec 2023 20:17:45 +0000
+Message-ID: <BL1PR12MB5144FC12F21B98A89DAB4CE3F793A@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20231214211153.45546-1-mario.limonciello@amd.com>
+In-Reply-To: <20231214211153.45546-1-mario.limonciello@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-12-15T20:17:45.388Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|BY5PR12MB4305:EE_
+x-ms-office365-filtering-correlation-id: 6c8bc4c8-aee5-43ab-818f-08dbfdaae69a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 6sp2kxZNy13UxodbrnfNT8djNrnECh13YUFVlJtPNnMDSrV4QyzTmlXwWFR5g5UWAWpuSJhIkOgQs9ACZpAQzrg5RFeTglBGhIrQnUcauO+TSolC8M0p6oEFXDnCkWUgyEMA1jWNPVa5hvrfmJ4fPNZxg7eoAPGD0W9hqqS4gFkRYym8lypJQpjVlSRIlyergcfyAih79GOQwIjEUtRcMAfA5xVB0ywHlxMYqrriH6eutSm0tUcGuQckh7aRaCrJ3Uws5wHHp69ZRtp/Dd0tztflpf4AV8PTeR0tUXQCb3IHK129W6jkvPHM53r8OzAHCtuEULHkJa4lIDXBys0cksNVGhLeeJ6kdkYU9EtoM2plBA3bFcFVvjC/r+3rdv/rZCbOx3qNwg/aMNT9Dlo8EQwHFGNtYY/UgXkgdoZDQohc+yVwgI6VW7jpPVWph1BMlg5M/9SEPZZoO5AXhgNjhTC1O1LFMaladM7WF+h1dfcvuiYvKZG0tlC82hskqOR+lccJNYsozffFH4UaRaJ9wiqIJmAMEyQ8lRQkWXyXK5a+diSgkJiRBnv4Vku6Wygha94ZZpSLmBZ/8z4KGjrdE9kktHYkv2+xmghw9lnvMfayhputu7FVidFFqMDeoWqQ
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(376002)(39860400002)(396003)(366004)(346002)(230922051799003)(1800799012)(186009)(451199024)(64100799003)(52536014)(55016003)(110136005)(316002)(66476007)(66446008)(64756008)(66556008)(66946007)(91956017)(8676002)(76116006)(6506007)(53546011)(8936002)(19627405001)(5660300002)(478600001)(7696005)(86362001)(41300700001)(71200400001)(2906002)(966005)(26005)(33656002)(9686003)(122000001)(166002)(38100700002)(38070700009)(81973001);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?KsF73G4S8h3gv+si6RoMZVguD2jATIKNbh9d38tO5RICG1cvG9EjW/GTmynL?=
+ =?us-ascii?Q?ZMg53HrAb0gu+zmSe2J83+eI98MPZw400wRcbqCVZRP2lebQdPUmIDnEvj9F?=
+ =?us-ascii?Q?KUjy7ugIGS0P2w07UfPL5FSDWhWl+k+mDWrISTP/q4RsILiYQOqrBY/fSllE?=
+ =?us-ascii?Q?H29rRodE1tT5bY0C6u0dSrjVjJORrcaIjn3YK0+LM1bMGmPGy90VU4Xr4fU/?=
+ =?us-ascii?Q?CvfV/Nf0eoWoOV+ZbZYHEqViqCKA5qfwGyJfiVkxKVh+rJd683oMZf+kxzHJ?=
+ =?us-ascii?Q?DvlpeArhwmgcjrWvRqTQHnuRv2676BHQIzsO+nZ6jdgWtWp3lyoQswhZ0shQ?=
+ =?us-ascii?Q?AB8l8Uen6gfo2rKTJt85bU9N89PyjJvHJeaoIAVzHNpgZVWyj0jDPTNKVId/?=
+ =?us-ascii?Q?YiJxcqOU98tnsPtsMlxrCBcLtq++VL+o+PabzlbBgcdjGAqthi8dS3FX8Sk9?=
+ =?us-ascii?Q?tC7NQ4g67Sb5j2wvkCE5xEIzKR54FOubrxm+cXNyQX4nToQq8gZRPi5XzaQa?=
+ =?us-ascii?Q?piLNKOWQnLGy/9yNRs+rvHbjfzF7w2DUvwQpNkP2cJE7dOUAeAUi80VhZpMw?=
+ =?us-ascii?Q?0gclmuBiNzl+t6tZ/S2ONqVB2MfU2Y9rbR2raCXHK1RbY5x4JYWUVFvX5Pko?=
+ =?us-ascii?Q?rpsEzdIc7QixM5F7cY96SXa9LgGXPrSZKFfzsa4s+0u/aPX/yk8tk295Mb2v?=
+ =?us-ascii?Q?cGQI5nSOHSoGjUM/Q9kRrbhiGpjEqwFc+cktAcJSIN+GTWnxjxYxZhMDSDhN?=
+ =?us-ascii?Q?RHbDljAAaHQncANiKvq6motXfivcCsyTqlvMzqVDKwl+2jOeNb0jrAO3IYS3?=
+ =?us-ascii?Q?WMDS7udHbhi0IqI/4OcY/M2MKFl1G8Y00hVpAab5BT1riN2/tvrBXHeMSmJE?=
+ =?us-ascii?Q?pgzkFgaMNUtBKGR5Gblustb4TMBRY75QzmaYunuZmuXvIqpwIigvucVV2Vtc?=
+ =?us-ascii?Q?xKJYLdHazkDDfc/8NEz+FqkUJVySFKQ44QcLO1oTCPt09vQxxaApEx8kKncK?=
+ =?us-ascii?Q?oy9KxQ37LrFN2g/+16Fw8NqSJufy15pArX+p5BfQZIzobKofa9v0Se1f5tmk?=
+ =?us-ascii?Q?iDsvEHoE618NPjFUPTaI3B16e2SWuP7mRDfBiMrVHqob079D4RrgPlAjNYb3?=
+ =?us-ascii?Q?QxDDpjQs2/02nqpBMfFIkuvnsYuzxetNKKJeWPNSn9GRA5Y2uiJZ+ZfB0W4M?=
+ =?us-ascii?Q?zFf7v9Hf0we2ixKBTMpmTcR9tIuhRkKofjF+LF7D1DzViq1iIto1r9YPFwbx?=
+ =?us-ascii?Q?apuxvujyGrTyVrva7gWVThxUbRm5q99PJ0m9DyYxbkKV3MXmIqeL5WHJw8Co?=
+ =?us-ascii?Q?Z9NIJcexvgyLUnqUAbiJWjUdx6WlIgX6bu+AWjrN8MCbi5bGwk2VFXN49xQS?=
+ =?us-ascii?Q?WHaVloYNKJq44FEPOF3tWgcLlOaowtnsFWcfX3HM26Q7zWp9iPQmoU7qDsaW?=
+ =?us-ascii?Q?6KvtcumZhElwk+0QgQre8l1clKrMRMpso1B3JtUnCQpAWnG0FYXoxAKts9Ca?=
+ =?us-ascii?Q?nDGk/jonmn2x6SsPUXQtq9qRTO13ZqcRwCNLKWkUAbr5IN1fcx0IEI0/bbM6?=
+ =?us-ascii?Q?GZHptR+qAntYMhxidP4=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB5144FC12F21B98A89DAB4CE3F793ABL1PR12MB5144namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2023 19:56:18.9465 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74255a70-c9f5-41ce-32d8-08dbfda7e798
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB55.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8290
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6c8bc4c8-aee5-43ab-818f-08dbfdaae69a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Dec 2023 20:17:45.7666 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: pbWtYFYihl79T6D9OwKKGY7lc2oDBYYwNfjM0mWyfAksAGdWphouj/qL869ptRfPzqCKZa40GDlRHXKLow6vpg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4305
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,38 +123,190 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The SW CTF delayed work handler triggers a shutdown if a sensor
-read failed for any reason.
+--_000_BL1PR12MB5144FC12F21B98A89DAB4CE3F793ABL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-The specific circumstance of a busy sensor should be retried
-however to ensure that a good value can be returned.
+[Public]
 
+VDDGFX should be matched to VDDC (e.g, SMU7_MAX_LEVELS_VDDC).
+
+Alex
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Mario Li=
+monciello <mario.limonciello@amd.com>
+Sent: Thursday, December 14, 2023 4:11 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Limonciello, Mario <Mario.Limonciello@amd.com>
+Subject: [PATCH] drm/amd: Add missing definitions for `SMU_MAX_LEVELS_VDDGF=
+X`
+
+It is reported that on a Topaz dGPU the kernel emits:
+        amdgpu: can't get the mac of 5
+
+This is because there is no definition for max levels of VDDGFX
+declared for SMU71 or SMU7. There is however an unused definition of
+VDDNB. Use this to return the max levels for VDDGFX.
+
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3049
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c      | 2 ++
+ drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c | 2 ++
+ 2 files changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 963cf6e76935..5eb46b6bad43 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -1182,6 +1182,12 @@ static void smu_swctf_delayed_work_handler(struct work_struct *work)
- 			if (hotspot_tmp / 1000 < range->software_shutdown_temp)
- 				return;
- 			break;
-+		case -EBUSY:
-+			dev_warn(adev->dev, "Unable to read hotspot sensor, retrying in %d ms\n",
-+				 AMDGPU_SWCTF_EXTRA_DELAY);
-+			schedule_delayed_work(&smu->swctf_delayed_work,
-+					      msecs_to_jiffies(AMDGPU_SWCTF_EXTRA_DELAY));
-+			return;
- 		default:
- 			dev_err(adev->dev, "Failed to read hotspot temperature: %d\n", r);
- 		}
--- 
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c b/drivers/=
+gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
+index 9e4228232f02..c5bccd382196 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
+@@ -2303,6 +2303,8 @@ static uint32_t ci_get_mac_definition(uint32_t value)
+                 return SMU7_MAX_LEVELS_VDDCI;
+         case SMU_MAX_LEVELS_MVDD:
+                 return SMU7_MAX_LEVELS_MVDD;
++       case SMU_MAX_LEVELS_VDDGFX:
++               return SMU7_MAX_LEVELS_VDDNB;
+         }
+
+         pr_debug("can't get the mac of %x\n", value);
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c b/dri=
+vers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c
+index 97d9802fe673..c9115eaa63c4 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c
+@@ -2268,6 +2268,8 @@ static uint32_t iceland_get_mac_definition(uint32_t v=
+alue)
+                 return SMU71_MAX_LEVELS_VDDCI;
+         case SMU_MAX_LEVELS_MVDD:
+                 return SMU71_MAX_LEVELS_MVDD;
++       case SMU_MAX_LEVELS_VDDGFX:
++               return SMU71_MAX_LEVELS_VDDNB;
+         }
+
+         pr_warn("can't get the mac of %x\n", value);
+--
 2.34.1
 
+
+--_000_BL1PR12MB5144FC12F21B98A89DAB4CE3F793ABL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;font=
+-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[Public]<br>
+</p>
+<br>
+<div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<span style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService,=
+ Calibri, Helvetica, sans-serif; color: rgb(0, 0, 0);">VDDGFX should be mat=
+ched to VDDC (e.g, SMU7_MAX_LEVELS_VDDC).</span></div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<span style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService,=
+ Calibri, Helvetica, sans-serif; color: rgb(0, 0, 0);"><br>
+</span></div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<span style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService,=
+ Calibri, Helvetica, sans-serif; color: rgb(0, 0, 0);">Alex</span></div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Mario Limonciello &lt;mario.l=
+imonciello@amd.com&gt;<br>
+<b>Sent:</b> Thursday, December 14, 2023 4:11 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Limonciello, Mario &lt;Mario.Limonciello@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd: Add missing definitions for `SMU_MAX_LEVEL=
+S_VDDGFX`</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">It is reported that on a Topaz dGPU the kernel emi=
+ts:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu: can't get the mac of 5<b=
+r>
+<br>
+This is because there is no definition for max levels of VDDGFX<br>
+declared for SMU71 or SMU7. There is however an unused definition of<br>
+VDDNB. Use this to return the max levels for VDDGFX.<br>
+<br>
+Link: <a href=3D"https://gitlab.freedesktop.org/drm/amd/-/issues/3049">http=
+s://gitlab.freedesktop.org/drm/amd/-/issues/3049</a><br>
+Signed-off-by: Mario Limonciello &lt;mario.limonciello@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; | 2 ++<br>
+&nbsp;drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c | 2 ++<br>
+&nbsp;2 files changed, 4 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c b/drivers/=
+gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c<br>
+index 9e4228232f02..c5bccd382196 100644<br>
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c<br>
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c<br>
+@@ -2303,6 +2303,8 @@ static uint32_t ci_get_mac_definition(uint32_t value)=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return SMU7_MAX_LEVELS_VDDCI;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case SMU_MAX_LEVELS_MVDD:<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return SMU7_MAX_LEVELS_MVDD;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case SMU_MAX_LEVELS_VDDGFX:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return SMU7_MAX_LEVELS_VDDNB;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;can't get t=
+he mac of %x\n&quot;, value);<br>
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c b/dri=
+vers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c<br>
+index 97d9802fe673..c9115eaa63c4 100644<br>
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c<br>
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c<br>
+@@ -2268,6 +2268,8 @@ static uint32_t iceland_get_mac_definition(uint32_t v=
+alue)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return SMU71_MAX_LEVELS_VDDCI;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case SMU_MAX_LEVELS_MVDD:<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return SMU71_MAX_LEVELS_MVDD;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case SMU_MAX_LEVELS_VDDGFX:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return SMU71_MAX_LEVELS_VDDNB;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_warn(&quot;can't get th=
+e mac of %x\n&quot;, value);<br>
+-- <br>
+2.34.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BL1PR12MB5144FC12F21B98A89DAB4CE3F793ABL1PR12MB5144namp_--
