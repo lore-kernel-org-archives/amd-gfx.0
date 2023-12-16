@@ -4,46 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15DDBC4167B
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Dec 2023 05:17:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4E3EC41535
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Dec 2023 17:46:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BDED10E052;
-	Sat, 16 Dec 2023 05:17:14 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6395D10E052
- for <amd-gfx@lists.freedesktop.org>; Sat, 16 Dec 2023 05:17:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1702703832; x=1734239832;
- h=date:from:to:cc:subject:message-id;
- bh=0DJx5tWAZSSJiCmdaCOvf0847AXdqKO1db2kTzxegmQ=;
- b=jbwKIVx2Y5MFNfUirqf4X+45kY7aBEC7auyGBUFtAaNQegFB+mbj7vhu
- jR84nsblT1Idbgta7UblTspI7LpgxxpQbFSiM4jhQBJ2X549SNVmnvHAd
- ULJ7zzJUdXRBJkQ7Q4EDlAuZaafb2wHM+pM14HvqTpYscThgRKeiCQetN
- oBBymA0caKkAryIC0rMwENkmoTErEphvD6jOvHMp/izGmj2j5hquxAYr6
- UgYXidrkT+d3PtTeagbyYpeRuJQau6V26Okvw9Y6zcRRW7m/zARZHtg5c
- UwlXWIeN7tbvCnv7XOK2KDyVcrXZuBmTcYAEdm7ZoqnUet91OpJeisvzT Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10925"; a="2535938"
-X-IronPort-AV: E=Sophos;i="6.04,280,1695711600"; 
-   d="scan'208";a="2535938"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Dec 2023 21:17:11 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10925"; a="893144840"
-X-IronPort-AV: E=Sophos;i="6.04,280,1695711600"; d="scan'208";a="893144840"
-Received: from lkp-server02.sh.intel.com (HELO b07ab15da5fe) ([10.239.97.151])
- by fmsmga002.fm.intel.com with ESMTP; 15 Dec 2023 21:17:07 -0800
-Received: from kbuild by b07ab15da5fe with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1rEN2v-0001Bj-2F;
- Sat, 16 Dec 2023 05:17:05 +0000
-Date: Sat, 16 Dec 2023 13:17:00 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 17cb8a20bde66a520a2ca7aad1063e1ce7382240
-Message-ID: <202312161352.wMZ6kGnT-lkp@intel.com>
-User-Agent: s-nail v14.9.24
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2087E10E0C7;
+	Sat, 16 Dec 2023 17:46:52 +0000 (UTC)
+X-Greylist: delayed 591 seconds by postgrey-1.36 at gabe;
+ Sat, 16 Dec 2023 17:46:50 UTC
+Received: from mail.itouring.de (mail.itouring.de [85.10.202.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A888610E0C7
+ for <amd-gfx@lists.freedesktop.org>; Sat, 16 Dec 2023 17:46:50 +0000 (UTC)
+Received: from tux.applied-asynchrony.com (p5ddd7509.dip0.t-ipconnect.de
+ [93.221.117.9])
+ by mail.itouring.de (Postfix) with ESMTPSA id E4B83103703
+ for <amd-gfx@lists.freedesktop.org>; Sat, 16 Dec 2023 18:36:57 +0100 (CET)
+Received: from [192.168.100.221] (hho.applied-asynchrony.com [192.168.100.221])
+ by tux.applied-asynchrony.com (Postfix) with ESMTP id 580A1F01600
+ for <amd-gfx@lists.freedesktop.org>; Sat, 16 Dec 2023 18:36:57 +0100 (CET)
+To: amd-gfx@lists.freedesktop.org
+From: =?UTF-8?Q?Holger_Hoffst=c3=a4tte?= <holger@applied-asynchrony.com>
+Subject: Regression in 6.6: trying to set DPMS mode kills radeon (r600)
+Organization: Applied Asynchrony, Inc.
+Message-ID: <c31dc9e8-b969-c736-709c-382c032f4979@applied-asynchrony.com>
+Date: Sat, 16 Dec 2023 18:36:57 +0100
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,396 +42,156 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arch@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-bcachefs@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- amd-gfx@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- intel-wired-lan@lists.osuosl.org, linux-csky@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-input@vger.kernel.org,
- sparclinux@vger.kernel.org, linux-afs@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 17cb8a20bde66a520a2ca7aad1063e1ce7382240  Add linux-next specific files for 20231215
+Hi,
 
-Error/Warning reports:
+since the last regression in 6.6.x was so popular I thought I'd post another
+one. :)
 
-https://lore.kernel.org/oe-kbuild-all/202312151816.munFeE4L-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202312151854.4k8dhWf6-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202312160153.ovUEsxo6-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202312160433.Oz8VJHH3-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202312161324.nZN1zCQT-lkp@intel.com
+The good news first: the symptoms described below do *not* reproduce with
+6.7-rc5-git as of today (c8e97fc6b4c0), and there's an acceptable workaround
+for 6.6.x as well.
 
-Error/Warning: (recently discovered and may have been fixed)
+The affected machine is an older SandyBridge dektop with a fanless
+r600 Redwood GPU, using the radeon driver. "Recently" - some time
+after the last few 6.6.x stable updates - it started to die with GPU
+lockups. I first blamed this on standby/resume - because why not? - but
+this turned out to be wrong; the real culprit is DPMS.
 
-arch/arm/include/asm/cmpxchg.h:111:(.text+0xf6c): undefined reference to `__bad_xchg'
-callback.c:(.rodata.cst4+0x18): undefined reference to `__xchg_called_with_bad_pointer'
-callback.c:(.text+0x114): undefined reference to `__xchg_called_with_bad_pointer'
-drivers/net/ethernet/intel/ice/ice_base.c:525:16: error: variable 'desc' has initializer but incomplete type
-drivers/net/ethernet/intel/ice/ice_base.c:525:28: error: storage size of 'desc' isn't known
-drivers/net/ethernet/intel/ice/ice_base.c:525:28: warning: unused variable 'desc' [-Wunused-variable]
-fs/bcachefs/btree_iter.c:3090:36: sparse:    struct btree_path *
-fs/bcachefs/btree_iter.c:3090:36: sparse:    struct btree_path [noderef] __rcu *
-fs/bcachefs/btree_locking.c:309:36: sparse:    struct btree_path *
-fs/bcachefs/btree_locking.c:309:36: sparse:    struct btree_path [noderef] __rcu *
-include/asm-generic/cmpxchg.h:76:(.text+0x1d0): relocation truncated to fit: R_NIOS2_CALL26 against `__generic_xchg_called_with_bad_pointer'
-include/linux/compiler_types.h:435:45: error: call to '__compiletime_assert_38' declared with attribute error: Unsupported size for __xchg_relaxed
-io.c:(.text+0x6): relocation truncated to fit: R_CKCORE_PCREL_IMM16BY4 against `__jump_table'
-m68k-linux-ld: callback.c:(.text+0x228): undefined reference to `__invalid_xchg_size'
-mm/ksm.c:344:13: warning: 'set_advisor_defaults' defined but not used [-Wunused-function]
-rotate.c:(.rodata.cst4+0x30): undefined reference to `__xchg_called_with_bad_pointer'
-scripts/kernel-doc: drivers/spi/spi-pl022.c:397: warning: Excess struct member 'cur_msg' description in 'pl022'
-scripts/kernel-doc: drivers/spi/spi-pl022.c:437: warning: Excess function parameter 'command' description in 'internal_cs_control'
-scripts/kernel-doc: drivers/spi/spi-pl022.c:437: warning: Function parameter or struct member 'enable' not described in 'internal_cs_control'
+I use xfce-power-manager as "screensaver" to turn off the display after
+inacitvity. This can be configured in two ways: "suspend" and "poweroff".
+I've been using "poweroff" since forever without problems, until now.
 
-Error/Warning ids grouped by kconfigs:
+The symptom is that everything works fine until the screensaver kicks in
+and tries to turn the monitor off, which sends the radeon driver and the GPU
+into a complete tailspin.
 
-gcc_recent_errors
-|-- arc-randconfig-002-20231215
-|   |-- drivers-net-ethernet-intel-ice-ice_base.c:error:storage-size-of-desc-isn-t-known
-|   |-- drivers-net-ethernet-intel-ice-ice_base.c:error:variable-desc-has-initializer-but-incomplete-type
-|   `-- drivers-net-ethernet-intel-ice-ice_base.c:warning:unused-variable-desc
-|-- arc-randconfig-r132-20231215
-|   |-- drivers-hwmon-max31827.c:sparse:sparse:dubious:x-y
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- arm-buildonly-randconfig-r002-20220918
-|   `-- arch-arm-include-asm-cmpxchg.h:(.text):undefined-reference-to-__bad_xchg
-|-- arm-lpc18xx_defconfig
-|   |-- scripts-kernel-doc:drivers-spi-spi-pl022.c:warning:Excess-function-parameter-command-description-in-internal_cs_control
-|   |-- scripts-kernel-doc:drivers-spi-spi-pl022.c:warning:Excess-struct-member-cur_msg-description-in-pl022
-|   `-- scripts-kernel-doc:drivers-spi-spi-pl022.c:warning:Function-parameter-or-struct-member-enable-not-described-in-internal_cs_control
-|-- csky-randconfig-001-20231215
-|   `-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-lib-zlib_inflate-zlib_inflate.o
-|-- csky-randconfig-r016-20220425
-|   `-- io.c:(.text):relocation-truncated-to-fit:R_CKCORE_PCREL_IMM16BY4-against-__jump_table
-|-- csky-randconfig-r113-20231215
-|   |-- arch-csky-kernel-vdso-vgettimeofday.c:sparse:sparse:function-__vdso_clock_gettime-with-external-linkage-has-definition
-|   |-- fs-bcachefs-btree_iter.c:sparse:sparse:incompatible-types-in-comparison-expression-(different-address-spaces):
-|   |-- fs-bcachefs-btree_iter.c:sparse:struct-btree_path
-|   |-- fs-bcachefs-btree_iter.c:sparse:struct-btree_path-noderef-__rcu
-|   |-- fs-bcachefs-btree_locking.c:sparse:sparse:incompatible-types-in-comparison-expression-(different-address-spaces):
-|   |-- fs-bcachefs-btree_locking.c:sparse:struct-btree_path
-|   |-- fs-bcachefs-btree_locking.c:sparse:struct-btree_path-noderef-__rcu
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- i386-randconfig-013-20231215
-|   `-- drivers-hid-hid-nintendo.c:error:initializer-element-is-not-constant
-|-- loongarch-defconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-hwss-dcn35-dcn35_hwseq.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|-- loongarch-randconfig-001-20231215
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-hwss-dcn35-dcn35_hwseq.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|-- loongarch-randconfig-002-20231215
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-hwss-dcn35-dcn35_hwseq.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|-- m68k-randconfig-r012-20211002
-|   `-- m68k-linux-ld:callback.c:(.text):undefined-reference-to-__invalid_xchg_size
-|-- microblaze-randconfig-r121-20231215
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- microblaze-randconfig-r122-20231215
-|   |-- drivers-soc-qcom-pmic_pdcharger_ulog.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-restricted-__le32-usertype-opcode-got-int
-|   |-- drivers-soc-qcom-pmic_pdcharger_ulog.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-restricted-__le32-usertype-owner-got-int
-|   |-- drivers-soc-qcom-pmic_pdcharger_ulog.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-restricted-__le32-usertype-type-got-int
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- mips-decstation_64_defconfig
-|   `-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-lib-zlib_inflate-zlib_inflate.o
-|-- mips-fuloong2e_defconfig
-|   |-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-drivers-base-regmap-regmap-mmio.o
-|   `-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-lib-zlib_inflate-zlib_inflate.o
-|-- mips-jazz_defconfig
-|   |-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-lib-zlib_inflate-zlib_inflate.o
-|   `-- cache.c:(.text):undefined-reference-to-r3k_cache_init
-|-- nios2-allyesconfig
-|   |-- callback.c:(.text):relocation-truncated-to-fit:R_NIOS2_CALL26-against-__generic_xchg_called_with_bad_pointer
-|   `-- rotate.c:(.text):relocation-truncated-to-fit:R_NIOS2_CALL26-against-__generic_xchg_called_with_bad_pointer
-|-- nios2-randconfig-r035-20230329
-|   `-- include-asm-generic-cmpxchg.h:(.text):relocation-truncated-to-fit:R_NIOS2_CALL26-against-__generic_xchg_called_with_bad_pointer
-|-- openrisc-randconfig-r016-20230621
-|   `-- mm-ksm.c:warning:set_advisor_defaults-defined-but-not-used
-|-- openrisc-randconfig-r111-20231215
-|   |-- drivers-hwmon-max31827.c:sparse:sparse:dubious:x-y
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- parisc-randconfig-001-20231215
-|   `-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-lib-zlib_inflate-zlib_inflate.o
-|-- parisc-randconfig-r015-20220820
-|   |-- callback.c:(.rodata.cst4):undefined-reference-to-__xchg_called_with_bad_pointer
-|   `-- rotate.c:(.rodata.cst4):undefined-reference-to-__xchg_called_with_bad_pointer
-|-- powerpc-randconfig-c003-20220424
-|   `-- include-linux-compiler_types.h:error:call-to-__compiletime_assert_NNN-declared-with-attribute-error:Unsupported-size-for-__xchg_relaxed
-|-- s390-randconfig-r133-20231215
-|   |-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-lib-zlib_inflate-zlib_inflate.o
-|   |-- drivers-hwmon-max31827.c:sparse:sparse:dubious:x-y
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- sparc-allmodconfig
-|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
-|   `-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
-|-- sparc-allnoconfig
-|   |-- arch-sparc-mm-leon_mm.c:warning:variable-paddrbase-set-but-not-used
-|   `-- arch-sparc-mm-srmmu.c:warning:variable-clear-set-but-not-used
-|-- sparc-defconfig
-|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
-|   |-- arch-sparc-mm-leon_mm.c:warning:variable-paddrbase-set-but-not-used
-|   `-- arch-sparc-mm-srmmu.c:warning:variable-clear-set-but-not-used
-|-- sparc-randconfig-001-20231215
-|   |-- (.head.text):relocation-truncated-to-fit:R_SPARC_WDISP22-against-init.text
-|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
-|   |-- arch-sparc-mm-leon_mm.c:warning:variable-paddrbase-set-but-not-used
-|   `-- arch-sparc-mm-srmmu.c:warning:variable-clear-set-but-not-used
-|-- sparc-randconfig-002-20231215
-|   |-- (.head.text):relocation-truncated-to-fit:R_SPARC_WDISP22-against-init.text
-|   |-- arch-sparc-mm-leon_mm.c:warning:variable-paddrbase-set-but-not-used
-|   |-- arch-sparc-mm-srmmu.c:warning:variable-clear-set-but-not-used
-|   |-- parport_pc.c:(.text):undefined-reference-to-ebus_dma_enable
-|   |-- parport_pc.c:(.text):undefined-reference-to-ebus_dma_irq_enable
-|   |-- parport_pc.c:(.text):undefined-reference-to-ebus_dma_register
-|   |-- sparc-linux-ld:parport_pc.c:(.text):undefined-reference-to-ebus_dma_enable
-|   |-- sparc-linux-ld:parport_pc.c:(.text):undefined-reference-to-ebus_dma_irq_enable
-|   |-- sparc-linux-ld:parport_pc.c:(.text):undefined-reference-to-ebus_dma_prepare
-|   |-- sparc-linux-ld:parport_pc.c:(.text):undefined-reference-to-ebus_dma_request
-|   |-- sparc-linux-ld:parport_pc.c:(.text):undefined-reference-to-ebus_dma_residue
-|   `-- sparc-linux-ld:parport_pc.c:(.text):undefined-reference-to-ebus_dma_unregister
-|-- sparc64-allmodconfig
-|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
-|   `-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
-|-- sparc64-allyesconfig
-|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
-|   `-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
-|-- sparc64-defconfig
-|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
-|   `-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
-|-- sparc64-randconfig-001-20231215
-|   `-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
-|-- sparc64-randconfig-002-20231215
-|   `-- arch-sparc-mm-init_64.c:warning:variable-pagecv_flag-set-but-not-used
-|-- sparc64-randconfig-r062-20231215
-|   `-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
-|-- x86_64-allnoconfig
-|   `-- Warning:MAINTAINERS-references-a-file-that-doesn-t-exist:Documentation-devicetree-bindings-display-panel-synaptics-r63353.yaml
-|-- x86_64-randconfig-001-20231215
-|   `-- drivers-hid-hid-nintendo.c:error:initializer-element-is-not-constant
-|-- x86_64-randconfig-r131-20231215
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-hwss-dcn35-dcn35_hwseq.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-hwmon-max31827.c:sparse:sparse:dubious:x-y
-`-- xtensa-randconfig-c024-20220216
-    `-- callback.c:(.text):undefined-reference-to-__xchg_called_with_bad_pointer
-clang_recent_errors
-|-- arm-defconfig
-|   |-- WARNING:modpost:vmlinux:section-mismatch-in-reference:at91_poweroff_probe-(section:.text)-at91_wakeup_status-(section:.init.text)
-|   `-- WARNING:modpost:vmlinux:section-mismatch-in-reference:at91_shdwc_probe-(section:.text)-at91_wakeup_status-(section:.init.text)
-|-- arm64-allmodconfig
-|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|-- arm64-allyesconfig
-|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|-- hexagon-allmodconfig
-|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|-- hexagon-allyesconfig
-|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|-- i386-allmodconfig
-|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|-- i386-buildonly-randconfig-006-20231215
-|   |-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-drivers-base-regmap-regmap-mmio.o
-|   `-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-lib-zlib_inflate-zlib_inflate.o
-|-- i386-randconfig-063-20231215
-|   |-- fs-afs-main.c:sparse:sparse:cast-removes-address-space-__rcu-of-expression
-|   |-- fs-afs-main.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-callback_head-head-got-struct-callback_head-noderef-__rcu
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- powerpc-allmodconfig
-|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|-- powerpc-allyesconfig
-|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|-- riscv-randconfig-r112-20231215
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- s390-randconfig-r123-20231215
-|   |-- drivers-hwmon-max31827.c:sparse:sparse:dubious:x-y
-|   `-- lib-zstd-compress-zstd_fast.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- x86_64-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-hwss-dcn35-dcn35_hwseq.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-|-- x86_64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-hwss-dcn35-dcn35_hwseq.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-leds-leds-max5970.c:warning:variable-num_leds-set-but-not-used
-`-- x86_64-randconfig-161-20231215
-    |-- lib-zstd-common-bits.h-ZSTD_countLeadingZeros32()-warn:inconsistent-indenting
-    |-- lib-zstd-common-bits.h-ZSTD_countTrailingZeros32()-warn:inconsistent-indenting
-    |-- lib-zstd-compress-..-common-bits.h-ZSTD_countLeadingZeros32()-warn:inconsistent-indenting
-    |-- lib-zstd-compress-..-common-bits.h-ZSTD_countLeadingZeros64()-warn:inconsistent-indenting
-    |-- lib-zstd-compress-..-common-bits.h-ZSTD_countTrailingZeros32()-warn:inconsistent-indenting
-    |-- lib-zstd-compress-..-common-bits.h-ZSTD_countTrailingZeros64()-warn:inconsistent-indenting
-    |-- lib-zstd-decompress-..-common-bits.h-ZSTD_countLeadingZeros32()-warn:inconsistent-indenting
-    `-- lib-zstd-decompress-..-common-bits.h-ZSTD_countTrailingZeros64()-warn:inconsistent-indenting
+Here is the GPU during boot - all good:
 
-elapsed time: 1467m
+Dec 12 12:47:54 ragnarok kernel: [drm] radeon kernel modesetting enabled.
+Dec 12 12:47:54 ragnarok kernel: Console: switching to colour dummy device 80x25
+Dec 12 12:47:54 ragnarok kernel: radeon 0000:01:00.0: vgaarb: deactivate vga console
+Dec 12 12:47:54 ragnarok kernel: [drm] initializing kernel modesetting (REDWOOD 0x1002:0x68DA 0x1043:0x0376 0x00).
+Dec 12 12:47:54 ragnarok kernel: ATOM BIOS: 68DA.12.19.0.3.AS01
+Dec 12 12:47:54 ragnarok kernel: radeon 0000:01:00.0: VRAM: 1024M 0x0000000000000000 - 0x000000003FFFFFFF (1024M used)
+Dec 12 12:47:54 ragnarok kernel: radeon 0000:01:00.0: GTT: 1024M 0x0000000040000000 - 0x000000007FFFFFFF
+Dec 12 12:47:54 ragnarok kernel: [drm] Detected VRAM RAM=1024M, BAR=256M
+Dec 12 12:47:54 ragnarok kernel: [drm] RAM width 128bits DDR
+Dec 12 12:47:54 ragnarok kernel: [drm] radeon: 1024M of VRAM memory ready
+Dec 12 12:47:54 ragnarok kernel: [drm] radeon: 1024M of GTT memory ready.
+Dec 12 12:47:54 ragnarok kernel: [drm] Loading REDWOOD Microcode
+Dec 12 12:47:54 ragnarok kernel: [drm] Internal thermal controller without fan control
+Dec 12 12:47:54 ragnarok kernel: [drm] radeon: dpm initialized
+Dec 12 12:47:54 ragnarok kernel: [drm] GART: num cpu pages 262144, num gpu pages 262144
+Dec 12 12:47:54 ragnarok kernel: [drm] enabling PCIE gen 2 link speeds, disable with radeon.pcie_gen2=0
+Dec 12 12:47:54 ragnarok kernel: [drm] PCIE GART of 1024M enabled (table at 0x000000000014C000).
+Dec 12 12:47:54 ragnarok kernel: radeon 0000:01:00.0: WB enabled
+Dec 12 12:47:54 ragnarok kernel: radeon 0000:01:00.0: fence driver on ring 0 use gpu addr 0x0000000040000c00
+Dec 12 12:47:54 ragnarok kernel: radeon 0000:01:00.0: fence driver on ring 3 use gpu addr 0x0000000040000c0c
+Dec 12 12:47:54 ragnarok kernel: radeon 0000:01:00.0: fence driver on ring 5 use gpu addr 0x000000000005c418
+Dec 12 12:47:54 ragnarok kernel: radeon 0000:01:00.0: radeon: MSI limited to 32-bit
+Dec 12 12:47:54 ragnarok kernel: radeon 0000:01:00.0: radeon: using MSI.
+Dec 12 12:47:54 ragnarok kernel: [drm] radeon: irq initialized.
+Dec 12 12:47:54 ragnarok kernel: [drm] ring test on 0 succeeded in 1 usecs
+Dec 12 12:47:54 ragnarok kernel: [drm] ring test on 3 succeeded in 2 usecs
+Dec 12 12:47:54 ragnarok kernel: [drm] ring test on 5 succeeded in 1 usecs
+Dec 12 12:47:54 ragnarok kernel: [drm] UVD initialized successfully.
+Dec 12 12:47:54 ragnarok kernel: [drm] ib test on ring 0 succeeded in 0 usecs
+Dec 12 12:47:54 ragnarok kernel: [drm] ib test on ring 3 succeeded in 0 usecs
+Dec 12 12:47:55 ragnarok kernel: [drm] ib test on ring 5 succeeded
+Dec 12 12:47:55 ragnarok kernel: [drm] Radeon Display Connectors
+Dec 12 12:47:55 ragnarok kernel: [drm] Connector 0:
+Dec 12 12:47:55 ragnarok kernel: [drm]   HDMI-A-1
+Dec 12 12:47:55 ragnarok kernel: [drm]   HPD2
+Dec 12 12:47:55 ragnarok kernel: [drm]   DDC: 0x6450 0x6450 0x6454 0x6454 0x6458 0x6458 0x645c 0x645c
+Dec 12 12:47:55 ragnarok kernel: [drm]   Encoders:
+Dec 12 12:47:55 ragnarok kernel: [drm]     DFP1: INTERNAL_UNIPHY2
+Dec 12 12:47:55 ragnarok kernel: [drm] Connector 1:
+Dec 12 12:47:55 ragnarok kernel: [drm]   DVI-I-1
+Dec 12 12:47:55 ragnarok kernel: [drm]   HPD1
+Dec 12 12:47:55 ragnarok kernel: [drm]   DDC: 0x6460 0x6460 0x6464 0x6464 0x6468 0x6468 0x646c 0x646c
+Dec 12 12:47:55 ragnarok kernel: [drm]   Encoders:
+Dec 12 12:47:55 ragnarok kernel: [drm]     DFP2: INTERNAL_UNIPHY1
+Dec 12 12:47:55 ragnarok kernel: [drm]     CRT1: INTERNAL_KLDSCP_DAC1
+Dec 12 12:47:55 ragnarok kernel: [drm] Connector 2:
+Dec 12 12:47:55 ragnarok kernel: [drm]   VGA-1
+Dec 12 12:47:55 ragnarok kernel: [drm]   DDC: 0x6470 0x6470 0x6474 0x6474 0x6478 0x6478 0x647c 0x647c
+Dec 12 12:47:55 ragnarok kernel: [drm]   Encoders:
+Dec 12 12:47:55 ragnarok kernel: [drm]     CRT2: INTERNAL_KLDSCP_DAC2
+Dec 12 12:47:55 ragnarok kernel: [drm] Initialized radeon 2.50.0 20080528 for 0000:01:00.0 on minor 0
+Dec 12 12:47:55 ragnarok kernel: [drm] fb mappable at 0xE034D000
+Dec 12 12:47:55 ragnarok kernel: [drm] vram apper at 0xE0000000
+Dec 12 12:47:55 ragnarok kernel: [drm] size 9216000
+Dec 12 12:47:55 ragnarok kernel: [drm] fb depth is 24
+Dec 12 12:47:55 ragnarok kernel: [drm]    pitch is 7680
+Dec 12 12:47:55 ragnarok kernel: fbcon: radeondrmfb (fb0) is primary device
+Dec 12 12:47:55 ragnarok kernel: Console: switching to colour frame buffer device 240x75
+Dec 12 12:47:55 ragnarok kernel: radeon 0000:01:00.0: [drm] fb0: radeondrmfb frame buffer device
 
-configs tested: 166
-configs skipped: 2
+Eventually the screensaver tries to switch off the monitor via DPMS "poweroff" method and
+this greatly upsets the GPU:
 
-tested configs:
-alpha                             allnoconfig   gcc  
-alpha                            allyesconfig   gcc  
-alpha                               defconfig   gcc  
-arc                              allmodconfig   gcc  
-arc                               allnoconfig   gcc  
-arc                              allyesconfig   gcc  
-arc                                 defconfig   gcc  
-arc                            hsdk_defconfig   gcc  
-arc                   randconfig-001-20231215   gcc  
-arc                   randconfig-002-20231215   gcc  
-arm                              allmodconfig   gcc  
-arm                               allnoconfig   gcc  
-arm                              allyesconfig   gcc  
-arm                     am200epdkit_defconfig   clang
-arm                                 defconfig   clang
-arm                            dove_defconfig   clang
-arm                            hisi_defconfig   gcc  
-arm                            mmp2_defconfig   clang
-arm                          pxa168_defconfig   clang
-arm                          pxa3xx_defconfig   gcc  
-arm                   randconfig-001-20231215   clang
-arm                   randconfig-002-20231215   clang
-arm                   randconfig-003-20231215   clang
-arm                   randconfig-004-20231215   clang
-arm                           stm32_defconfig   gcc  
-arm64                            allmodconfig   clang
-arm64                             allnoconfig   gcc  
-arm64                               defconfig   gcc  
-arm64                 randconfig-001-20231215   clang
-arm64                 randconfig-002-20231215   clang
-arm64                 randconfig-003-20231215   clang
-arm64                 randconfig-004-20231215   clang
-csky                             allmodconfig   gcc  
-csky                              allnoconfig   gcc  
-csky                             allyesconfig   gcc  
-csky                                defconfig   gcc  
-csky                  randconfig-001-20231215   gcc  
-csky                  randconfig-002-20231215   gcc  
-hexagon                          allmodconfig   clang
-hexagon                           allnoconfig   clang
-hexagon                          allyesconfig   clang
-hexagon                             defconfig   clang
-hexagon               randconfig-001-20231215   clang
-hexagon               randconfig-002-20231215   clang
-i386                             allmodconfig   clang
-i386                              allnoconfig   clang
-i386                             allyesconfig   clang
-i386         buildonly-randconfig-001-20231215   clang
-i386         buildonly-randconfig-002-20231215   clang
-i386         buildonly-randconfig-003-20231215   clang
-i386         buildonly-randconfig-004-20231215   clang
-i386         buildonly-randconfig-005-20231215   clang
-i386         buildonly-randconfig-006-20231215   clang
-i386                                defconfig   gcc  
-i386                  randconfig-001-20231215   clang
-i386                  randconfig-002-20231215   clang
-i386                  randconfig-003-20231215   clang
-i386                  randconfig-004-20231215   clang
-i386                  randconfig-005-20231215   clang
-i386                  randconfig-006-20231215   clang
-i386                  randconfig-011-20231215   gcc  
-i386                  randconfig-012-20231215   gcc  
-i386                  randconfig-013-20231215   gcc  
-i386                  randconfig-014-20231215   gcc  
-i386                  randconfig-015-20231215   gcc  
-i386                  randconfig-016-20231215   gcc  
-loongarch                        allmodconfig   gcc  
-loongarch                         allnoconfig   gcc  
-loongarch                           defconfig   gcc  
-loongarch             randconfig-001-20231215   gcc  
-loongarch             randconfig-002-20231215   gcc  
-m68k                             allmodconfig   gcc  
-m68k                              allnoconfig   gcc  
-m68k                             allyesconfig   gcc  
-m68k                          atari_defconfig   gcc  
-m68k                                defconfig   gcc  
-microblaze                       allmodconfig   gcc  
-microblaze                        allnoconfig   gcc  
-microblaze                       allyesconfig   gcc  
-microblaze                          defconfig   gcc  
-mips                              allnoconfig   clang
-mips                             allyesconfig   gcc  
-mips                  decstation_64_defconfig   gcc  
-mips                      fuloong2e_defconfig   gcc  
-mips                           jazz_defconfig   gcc  
-mips                      malta_kvm_defconfig   clang
-nios2                            allmodconfig   gcc  
-nios2                             allnoconfig   gcc  
-nios2                            allyesconfig   gcc  
-nios2                               defconfig   gcc  
-nios2                 randconfig-001-20231215   gcc  
-nios2                 randconfig-002-20231215   gcc  
-openrisc                          allnoconfig   gcc  
-openrisc                         allyesconfig   gcc  
-openrisc                            defconfig   gcc  
-openrisc                  or1klitex_defconfig   gcc  
-parisc                           allmodconfig   gcc  
-parisc                            allnoconfig   gcc  
-parisc                           allyesconfig   gcc  
-parisc                              defconfig   gcc  
-parisc                randconfig-001-20231215   gcc  
-parisc                randconfig-002-20231215   gcc  
-parisc64                            defconfig   gcc  
-powerpc                          allmodconfig   clang
-powerpc                           allnoconfig   gcc  
-powerpc                          allyesconfig   clang
-powerpc                  mpc885_ads_defconfig   clang
-powerpc               randconfig-001-20231215   clang
-powerpc               randconfig-002-20231215   clang
-powerpc               randconfig-003-20231215   clang
-powerpc64             randconfig-001-20231215   clang
-powerpc64             randconfig-002-20231215   clang
-powerpc64             randconfig-003-20231215   clang
-riscv                            allmodconfig   gcc  
-riscv                             allnoconfig   clang
-riscv                            allyesconfig   gcc  
-riscv                               defconfig   gcc  
-riscv                 randconfig-001-20231215   clang
-riscv                 randconfig-002-20231215   clang
-riscv                          rv32_defconfig   clang
-s390                             allmodconfig   gcc  
-s390                              allnoconfig   gcc  
-s390                             allyesconfig   gcc  
-s390                                defconfig   gcc  
-s390                  randconfig-001-20231215   gcc  
-s390                  randconfig-002-20231215   gcc  
-sh                               allmodconfig   gcc  
-sh                                allnoconfig   gcc  
-sh                               allyesconfig   gcc  
-sh                                  defconfig   gcc  
-sh                         ecovec24_defconfig   gcc  
-sh                          lboxre2_defconfig   gcc  
-sh                    randconfig-001-20231215   gcc  
-sh                    randconfig-002-20231215   gcc  
-sh                           se7721_defconfig   gcc  
-sh                           se7750_defconfig   gcc  
-sh                            shmin_defconfig   gcc  
-sparc                            allmodconfig   gcc  
-sparc64                          allmodconfig   gcc  
-sparc64                          allyesconfig   gcc  
-sparc64                             defconfig   gcc  
-sparc64               randconfig-001-20231215   gcc  
-sparc64               randconfig-002-20231215   gcc  
-um                               allmodconfig   clang
-um                                allnoconfig   clang
-um                               allyesconfig   clang
-um                                  defconfig   gcc  
-um                             i386_defconfig   gcc  
-um                    randconfig-001-20231215   clang
-um                    randconfig-002-20231215   clang
-um                           x86_64_defconfig   gcc  
-x86_64                            allnoconfig   gcc  
-x86_64                           allyesconfig   clang
-x86_64       buildonly-randconfig-001-20231215   clang
-x86_64       buildonly-randconfig-003-20231215   clang
-x86_64       buildonly-randconfig-005-20231215   clang
-x86_64                              defconfig   gcc  
-x86_64                randconfig-001-20231215   gcc  
-x86_64                randconfig-003-20231215   gcc  
-x86_64                randconfig-004-20231215   gcc  
-x86_64                randconfig-005-20231215   gcc  
-x86_64                randconfig-006-20231215   gcc  
-x86_64                          rhel-8.3-rust   clang
-xtensa                            allnoconfig   gcc  
-xtensa                randconfig-001-20231215   gcc  
-xtensa                randconfig-002-20231215   gcc  
+Dec 12 20:39:59 ragnarok kernel: radeon 0000:01:00.0: ring 0 stalled for more than 10140msec
+Dec 12 20:39:59 ragnarok kernel: radeon 0000:01:00.0: GPU lockup (current fence id 0x0000000000000002 last fence id 0x0000000000000003 on ring 0)
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+The above repeats many times until:
+
+Dec 12 20:40:18 ragnarok kernel: radeon 0000:01:00.0: GPU lockup (current fence id 0x0000000000000002 last fence id 0x0000000000000003 on ring 0)
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0: Saved 55 dwords of commands on ring 0.
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0: GPU softreset: 0x00000008
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   GRBM_STATUS               = 0xA0003828
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   GRBM_STATUS_SE0           = 0x00000007
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   GRBM_STATUS_SE1           = 0x00000007
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   SRBM_STATUS               = 0x200000C0
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   SRBM_STATUS2              = 0x00000000
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   R_008674_CP_STALLED_STAT1 = 0x00000000
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   R_008678_CP_STALLED_STAT2 = 0x00010100
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   R_00867C_CP_BUSY_STAT     = 0x00020180
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   R_008680_CP_STAT          = 0x80038042
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   R_00D034_DMA_STATUS_REG   = 0x44C83D57
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0: GRBM_SOFT_RESET=0x00004001
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0: SRBM_SOFT_RESET=0x00000100
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   GRBM_STATUS               = 0x00003828
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   GRBM_STATUS_SE0           = 0x00000007
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   GRBM_STATUS_SE1           = 0x00000007
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   SRBM_STATUS               = 0x200000C0
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   SRBM_STATUS2              = 0x00000000
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   R_008674_CP_STALLED_STAT1 = 0x00000000
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   R_008678_CP_STALLED_STAT2 = 0x00000000
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   R_00867C_CP_BUSY_STAT     = 0x00000000
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   R_008680_CP_STAT          = 0x00000000
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   R_00D034_DMA_STATUS_REG   = 0x44C83D57
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0: GPU reset succeeded, trying to resume
+Dec 12 20:40:19 ragnarok kernel: [drm] enabling PCIE gen 2 link speeds, disable with radeon.pcie_gen2=0
+Dec 12 20:40:19 ragnarok kernel: [drm] PCIE GART of 1024M enabled (table at 0x000000000014C000).
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0: WB enabled
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0: fence driver on ring 0 use gpu addr 0x0000000040000c00
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0: fence driver on ring 3 use gpu addr 0x0000000040000c0c
+Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0: fence driver on ring 5 use gpu addr 0x000000000005c418
+Dec 12 20:40:19 ragnarok kernel: debugfs: File 'radeon_ring_gfx' in directory '0' already present!
+Dec 12 20:40:19 ragnarok kernel: debugfs: File 'radeon_ring_dma1' in directory '0' already present!
+Dec 12 20:40:19 ragnarok kernel: [drm:r600_ring_test [radeon]] *ERROR* radeon: ring 0 test failed (scratch(0x8504)=0xCAFEDEAD)
+Dec 12 20:40:19 ragnarok kernel: [drm:evergreen_resume [radeon]] *ERROR* evergreen startup failed on resume
+Dec 12 20:40:29 ragnarok kernel: radeon 0000:01:00.0: ring 0 stalled for more than 10077msec
+Dec 12 20:40:29 ragnarok kernel: radeon 0000:01:00.0: GPU lockup (current fence id 0x0000000000000002 last fence id 0x0000000000000003 on ring 0)
+
+..at which point I have to poweroff the entire machine to reset the GPU; a simple
+reboot does not help.
+
+It took me a while to find the culprit (the DPMS poweroff method), and for now
+my workaround is to switch xfce-power-manager to use the "suspend" method instead.
+This has been working reliably for several days now, with many system suspend/resume
+and display suspend/wakeup cycles.
+
+I *think* this started to happen with 6.6.5, which had a lot of drm-amd-display
+patches (see[1]), so before I start bisecting and whatnot I was wondering if anybody
+has any suggestions what might be the cause here. I can gladly test additional
+patches or reverts. Even if 6.7-rc seems to be OK again I still think it's worthwile
+to fix this in 6.6 since it's an LTS kernel.
+
+Thanks for reading!
+Holger
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/stable/stable-queue.git/tree/queue-6.6?id=3601ed703d11a9140852b279482666d6f53e1c06
