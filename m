@@ -4,33 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4E3EC41535
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Dec 2023 17:46:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 798B8C35274
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Dec 2023 09:24:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2087E10E0C7;
-	Sat, 16 Dec 2023 17:46:52 +0000 (UTC)
-X-Greylist: delayed 591 seconds by postgrey-1.36 at gabe;
- Sat, 16 Dec 2023 17:46:50 UTC
-Received: from mail.itouring.de (mail.itouring.de [85.10.202.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A888610E0C7
- for <amd-gfx@lists.freedesktop.org>; Sat, 16 Dec 2023 17:46:50 +0000 (UTC)
-Received: from tux.applied-asynchrony.com (p5ddd7509.dip0.t-ipconnect.de
- [93.221.117.9])
- by mail.itouring.de (Postfix) with ESMTPSA id E4B83103703
- for <amd-gfx@lists.freedesktop.org>; Sat, 16 Dec 2023 18:36:57 +0100 (CET)
-Received: from [192.168.100.221] (hho.applied-asynchrony.com [192.168.100.221])
- by tux.applied-asynchrony.com (Postfix) with ESMTP id 580A1F01600
- for <amd-gfx@lists.freedesktop.org>; Sat, 16 Dec 2023 18:36:57 +0100 (CET)
-To: amd-gfx@lists.freedesktop.org
-From: =?UTF-8?Q?Holger_Hoffst=c3=a4tte?= <holger@applied-asynchrony.com>
-Subject: Regression in 6.6: trying to set DPMS mode kills radeon (r600)
-Organization: Applied Asynchrony, Inc.
-Message-ID: <c31dc9e8-b969-c736-709c-382c032f4979@applied-asynchrony.com>
-Date: Sat, 16 Dec 2023 18:36:57 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5CF710E0CB;
+	Mon, 18 Dec 2023 09:24:26 +0000 (UTC)
+Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
+ [IPv6:2607:f8b0:4864:20::c2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BA1910E6E4;
+ Sat, 16 Dec 2023 06:29:30 +0000 (UTC)
+Received: by mail-oo1-xc2d.google.com with SMTP id
+ 006d021491bc7-5908a63a83fso1014344eaf.1; 
+ Fri, 15 Dec 2023 22:29:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1702708169; x=1703312969; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2IJK4GaizgrLiis48CUXncVArYOoTGeQV2TlJ9v+4Jg=;
+ b=kFMwGAzeRoeLQU7eJ6g4wYEBizPOVx99OUhBw+6CbX+QRF7MMqOQ52q9LcIAvWdrle
+ oyfQyNo801eeKVXp0lXoIe5lR9srdhQTPk/JQdbPlGgCIJfz1p9XfZWiPyKxwCsRwTI2
+ 1+BHnXX7hSWBy87bBur8xDd/OELYQn0YsTVqN39wTQ0sbPuT65v7/1TCRxlFiAJxSrAV
+ REsuabN/no/sZkEIcLnJMrE5grrqJ6a20eVAKIv9Ai8CeRJxkcUPDKAeQ4RxYFgaDWpF
+ OROs/kbGIlJ+ouWi8yK6Y3JtNBzMR8HTbbhbl+uEWyIhjHefbe6ckXcaDXudeFM98+xW
+ WOtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1702708169; x=1703312969;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=2IJK4GaizgrLiis48CUXncVArYOoTGeQV2TlJ9v+4Jg=;
+ b=oqjn3XvbrZolIiK2MCSSZmKVlwc23uLrlZB+qF0Lo7AJpVMkV/qgBGj6YjEvq4FVrW
+ UfLj6QLYf/iH+si82W3Zb6cRqztnugcKLNKyL705CLJkozjq3glM06fVShfeOV/N8u2I
+ 5LribKaOPIouVw7EnGDXHa1RJE22kIJg2fntiwPwgVbW7SdoLje9h+n7fJkXrD9KvKFe
+ fsiT4hTbJm8gHK7hb+WwDgy2QaQ95rH6UFN1TsTURmFkPnQ/nwge7PRTkSAraooaX0tS
+ AFAagROe7cxhkB9bhtMzC6k6GQ8rKKgTV7N1P9pqa375WPNr++8kh438sl6G0ysJ6qv0
+ nCnA==
+X-Gm-Message-State: AOJu0YzGMb7vz0GCn5OztiYnqfjWan4Ir+my9awyH/crR9LA4cNIPXfF
+ zRa6I+tX+imF8Ue8W14oGi+m3Ff8VSAjucXaKYg=
+X-Google-Smtp-Source: AGHT+IFVO5b/fxJ9lhSJ879XvFrsRuenl9hZQvW04aqgkEzF+07nwoSmElUj5FpYOGXztsvQGXg3h5RRceSXZ0MAdHw=
+X-Received: by 2002:a05:6871:3a0b:b0:203:743e:37ef with SMTP id
+ pu11-20020a0568713a0b00b00203743e37efmr2548588oac.33.1702708169397; Fri, 15
+ Dec 2023 22:29:29 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <20231215052033.550509-1-ghanshyam1898@gmail.com>
+ <5a58e510-e5b4-42ae-95a3-257ca802212a@infradead.org>
+ <CAG-Bmocu0nL-AW=nR7ZaTG4fzRvw4XSq5grk4N-wDRF0opMR4Q@mail.gmail.com>
+ <CADnq5_P4CjkYvbbF=t++d6EDb45gvA7rWK8f5Dc1WBjYLOt6dQ@mail.gmail.com>
+In-Reply-To: <CADnq5_P4CjkYvbbF=t++d6EDb45gvA7rWK8f5Dc1WBjYLOt6dQ@mail.gmail.com>
+From: Ghanshyam Agrawal <ghanshyam1898@gmail.com>
+Date: Sat, 16 Dec 2023 11:58:53 +0530
+Message-ID: <CAG-Bmofw2rR34ov4YrYHx5wuq0YpnUNOayq9ZzWtoP2WSTRvZA@mail.gmail.com>
+Subject: Re: [PATCH] gpu: drm: amd: fixed typos
+To: Alex Deucher <alexdeucher@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 18 Dec 2023 09:24:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,156 +71,141 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Xinhui.Pan@amd.com, dri-devel@lists.freedesktop.org, lijo.lazar@amd.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Le.Ma@amd.com,
+ Randy Dunlap <rdunlap@infradead.org>, daniel@ffwll.ch,
+ alexander.deucher@amd.com, candice.li@amd.com, airlied@gmail.com,
+ christian.koenig@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+On Fri, Dec 15, 2023 at 9:28=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com=
+> wrote:
+>
+> On Fri, Dec 15, 2023 at 3:40=E2=80=AFAM Ghanshyam Agrawal
+> <ghanshyam1898@gmail.com> wrote:
+> >
+> > On Fri, Dec 15, 2023 at 10:59=E2=80=AFAM Randy Dunlap <rdunlap@infradea=
+d.org> wrote:
+> > >
+> > > Hi--
+> > >
+> > > On 12/14/23 21:20, Ghanshyam Agrawal wrote:
+> > > > Fixed multiple typos in atomfirmware.h
+> > > >
+> > > > Signed-off-by: Ghanshyam Agrawal <ghanshyam1898@gmail.com>
+> > > > ---
+> > > >  drivers/gpu/drm/amd/include/atomfirmware.h | 8 ++++----
+> > > >  1 file changed, 4 insertions(+), 4 deletions(-)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/g=
+pu/drm/amd/include/atomfirmware.h
+> > > > index fa7d6ced786f..41d553921adf 100644
+> > > > --- a/drivers/gpu/drm/amd/include/atomfirmware.h
+> > > > +++ b/drivers/gpu/drm/amd/include/atomfirmware.h
+> > > > @@ -210,7 +210,7 @@ atom_bios_string          =3D "ATOM"
+> > > >  };
+> > > >  */
+> > > >
+> > > > -#pragma pack(1)                          /* BIOS data must use byt=
+e aligment*/
+> > > > +#pragma pack(1)                          /* BIOS data must use byt=
+e alignment */
+> > > >
+> > > >  enum atombios_image_offset{
+> > > >    OFFSET_TO_ATOM_ROM_HEADER_POINTER          =3D 0x00000048,
+> > > > @@ -452,7 +452,7 @@ struct atom_dtd_format
+> > > >    uint8_t   refreshrate;
+> > > >  };
+> > > >
+> > > > -/* atom_dtd_format.modemiscinfo defintion */
+> > > > +/* atom_dtd_format.modemiscinfo definition */
+> > > >  enum atom_dtd_format_modemiscinfo{
+> > > >    ATOM_HSYNC_POLARITY    =3D 0x0002,
+> > > >    ATOM_VSYNC_POLARITY    =3D 0x0004,
+> > > > @@ -645,7 +645,7 @@ struct lcd_info_v2_1
+> > > >    uint32_t reserved1[8];
+> > > >  };
+> > > >
+> > > > -/* lcd_info_v2_1.panel_misc defintion */
+> > > > +/* lcd_info_v2_1.panel_misc definition */
+> > > >  enum atom_lcd_info_panel_misc{
+> > > >    ATOM_PANEL_MISC_FPDI            =3D0x0002,
+> > > >  };
+> > > > @@ -683,7 +683,7 @@ enum atom_gpio_pin_assignment_gpio_id {
+> > > >    /* gpio_id pre-define id for multiple usage */
+> > > >    /* GPIO use to control PCIE_VDDC in certain SLT board */
+> > > >    PCIE_VDDC_CONTROL_GPIO_PINID =3D 56,
+> > > > -  /* if PP_AC_DC_SWITCH_GPIO_PINID in Gpio_Pin_LutTable, AC/DC swi=
+thing feature is enable */
+> > > > +  /* if PP_AC_DC_SWITCH_GPIO_PINID in Gpio_Pin_LutTable, AC/DC swi=
+tching feature is enable */
+> > >
+> > > s/enable/enabled/
+> > >
+> > > >    PP_AC_DC_SWITCH_GPIO_PINID =3D 60,
+> > > >    /* VDDC_REGULATOR_VRHOT_GPIO_PINID in Gpio_Pin_LutTable, VRHot f=
+eature is enable */
+> > >
+> > > Ditto.
+> > > There may be a few more that need this same treatment.
+> > >
+> > > >    VDDC_VRHOT_GPIO_PINID =3D 61,
+> > >
+> > > The other changes look good as far as they go, but codespell reports
+> > > a few more misspellings to consider:
+> > >
+> > > atomfirmware.h:213: aligment =3D=3D> alignment
+> > > atomfirmware.h:257: Offest =3D=3D> Offset
+> > > atomfirmware.h:258: Offest =3D=3D> Offset
+> > > atomfirmware.h:390: Offest =3D=3D> Offset
+> > > atomfirmware.h:455: defintion =3D=3D> definition
+> > > atomfirmware.h:648: defintion =3D=3D> definition
+> > > atomfirmware.h:686: swithing =3D=3D> switching
+> > > atomfirmware.h:704: calcualted =3D=3D> calculated
+> > > atomfirmware.h:967: compability =3D=3D> compatibility
+> > > atomfirmware.h:981: intenal =3D=3D> internal
+> > > atomfirmware.h:993: intenal =3D=3D> internal
+> > > atomfirmware.h:3469: sequece =3D=3D> sequence
+> > > atomfirmware.h:3507: indiate =3D=3D> indicate
+> > > atomfirmware.h:4429: stucture =3D=3D> structure
+> > > atomfirmware.h:4430: stucture =3D=3D> structure
+> > > atomfirmware.h:4462: regiser =3D=3D> register
+> > >
+> > >
+> > > thanks.
+> > > --
+> > > #Randy
+> > > https://people.kernel.org/tglx/notes-about-netiquette
+> > > https://subspace.kernel.org/etiquette.html
+> >
+> > Hi Randy,
+> >
+> > Thanks for your feedback. I will correct the grammatical errors.
+> >
+> > Regarding the other codespell suggestions, if I make the changes
+> > then checkpatch script gives a lot of errors and warnings. Some
+> > are related to usage of tabs, line lengths etc. Being a beginner
+> > in the linux kernel development, I am not sure how to fix
+> > (or whether to ignore) those warnings. Would it be okay if I
+> > proceed with only the small number of changes I have suggested
+> > with this patch itself?
+>
+> How concerned are you with fixing these?  This file is owned by
+> firmware teams within AMD and shared across different OSes.  It
+> defines the structures present in the ROM on the board.  I'm inclined
+> to just leave it be to avoid churn when syncing it with the canonical
+> source.  We can certainly try and push the fixes back up into the
+> canonical code as well, but that may not be the easiest process.
+>
+> Alex
 
-since the last regression in 6.6.x was so popular I thought I'd post another
-one. :)
+Hi Alex,
 
-The good news first: the symptoms described below do *not* reproduce with
-6.7-rc5-git as of today (c8e97fc6b4c0), and there's an acceptable workaround
-for 6.6.x as well.
+Thanks for your review. I wanted to fix the typos because it helps
+someone while searching through the code using text/ code searching
+tools. If it is causing trouble as you suggested, we may as well
+leave it as is. Let the maintainers take a call on this.
 
-The affected machine is an older SandyBridge dektop with a fanless
-r600 Redwood GPU, using the radeon driver. "Recently" - some time
-after the last few 6.6.x stable updates - it started to die with GPU
-lockups. I first blamed this on standby/resume - because why not? - but
-this turned out to be wrong; the real culprit is DPMS.
-
-I use xfce-power-manager as "screensaver" to turn off the display after
-inacitvity. This can be configured in two ways: "suspend" and "poweroff".
-I've been using "poweroff" since forever without problems, until now.
-
-The symptom is that everything works fine until the screensaver kicks in
-and tries to turn the monitor off, which sends the radeon driver and the GPU
-into a complete tailspin.
-
-Here is the GPU during boot - all good:
-
-Dec 12 12:47:54 ragnarok kernel: [drm] radeon kernel modesetting enabled.
-Dec 12 12:47:54 ragnarok kernel: Console: switching to colour dummy device 80x25
-Dec 12 12:47:54 ragnarok kernel: radeon 0000:01:00.0: vgaarb: deactivate vga console
-Dec 12 12:47:54 ragnarok kernel: [drm] initializing kernel modesetting (REDWOOD 0x1002:0x68DA 0x1043:0x0376 0x00).
-Dec 12 12:47:54 ragnarok kernel: ATOM BIOS: 68DA.12.19.0.3.AS01
-Dec 12 12:47:54 ragnarok kernel: radeon 0000:01:00.0: VRAM: 1024M 0x0000000000000000 - 0x000000003FFFFFFF (1024M used)
-Dec 12 12:47:54 ragnarok kernel: radeon 0000:01:00.0: GTT: 1024M 0x0000000040000000 - 0x000000007FFFFFFF
-Dec 12 12:47:54 ragnarok kernel: [drm] Detected VRAM RAM=1024M, BAR=256M
-Dec 12 12:47:54 ragnarok kernel: [drm] RAM width 128bits DDR
-Dec 12 12:47:54 ragnarok kernel: [drm] radeon: 1024M of VRAM memory ready
-Dec 12 12:47:54 ragnarok kernel: [drm] radeon: 1024M of GTT memory ready.
-Dec 12 12:47:54 ragnarok kernel: [drm] Loading REDWOOD Microcode
-Dec 12 12:47:54 ragnarok kernel: [drm] Internal thermal controller without fan control
-Dec 12 12:47:54 ragnarok kernel: [drm] radeon: dpm initialized
-Dec 12 12:47:54 ragnarok kernel: [drm] GART: num cpu pages 262144, num gpu pages 262144
-Dec 12 12:47:54 ragnarok kernel: [drm] enabling PCIE gen 2 link speeds, disable with radeon.pcie_gen2=0
-Dec 12 12:47:54 ragnarok kernel: [drm] PCIE GART of 1024M enabled (table at 0x000000000014C000).
-Dec 12 12:47:54 ragnarok kernel: radeon 0000:01:00.0: WB enabled
-Dec 12 12:47:54 ragnarok kernel: radeon 0000:01:00.0: fence driver on ring 0 use gpu addr 0x0000000040000c00
-Dec 12 12:47:54 ragnarok kernel: radeon 0000:01:00.0: fence driver on ring 3 use gpu addr 0x0000000040000c0c
-Dec 12 12:47:54 ragnarok kernel: radeon 0000:01:00.0: fence driver on ring 5 use gpu addr 0x000000000005c418
-Dec 12 12:47:54 ragnarok kernel: radeon 0000:01:00.0: radeon: MSI limited to 32-bit
-Dec 12 12:47:54 ragnarok kernel: radeon 0000:01:00.0: radeon: using MSI.
-Dec 12 12:47:54 ragnarok kernel: [drm] radeon: irq initialized.
-Dec 12 12:47:54 ragnarok kernel: [drm] ring test on 0 succeeded in 1 usecs
-Dec 12 12:47:54 ragnarok kernel: [drm] ring test on 3 succeeded in 2 usecs
-Dec 12 12:47:54 ragnarok kernel: [drm] ring test on 5 succeeded in 1 usecs
-Dec 12 12:47:54 ragnarok kernel: [drm] UVD initialized successfully.
-Dec 12 12:47:54 ragnarok kernel: [drm] ib test on ring 0 succeeded in 0 usecs
-Dec 12 12:47:54 ragnarok kernel: [drm] ib test on ring 3 succeeded in 0 usecs
-Dec 12 12:47:55 ragnarok kernel: [drm] ib test on ring 5 succeeded
-Dec 12 12:47:55 ragnarok kernel: [drm] Radeon Display Connectors
-Dec 12 12:47:55 ragnarok kernel: [drm] Connector 0:
-Dec 12 12:47:55 ragnarok kernel: [drm]   HDMI-A-1
-Dec 12 12:47:55 ragnarok kernel: [drm]   HPD2
-Dec 12 12:47:55 ragnarok kernel: [drm]   DDC: 0x6450 0x6450 0x6454 0x6454 0x6458 0x6458 0x645c 0x645c
-Dec 12 12:47:55 ragnarok kernel: [drm]   Encoders:
-Dec 12 12:47:55 ragnarok kernel: [drm]     DFP1: INTERNAL_UNIPHY2
-Dec 12 12:47:55 ragnarok kernel: [drm] Connector 1:
-Dec 12 12:47:55 ragnarok kernel: [drm]   DVI-I-1
-Dec 12 12:47:55 ragnarok kernel: [drm]   HPD1
-Dec 12 12:47:55 ragnarok kernel: [drm]   DDC: 0x6460 0x6460 0x6464 0x6464 0x6468 0x6468 0x646c 0x646c
-Dec 12 12:47:55 ragnarok kernel: [drm]   Encoders:
-Dec 12 12:47:55 ragnarok kernel: [drm]     DFP2: INTERNAL_UNIPHY1
-Dec 12 12:47:55 ragnarok kernel: [drm]     CRT1: INTERNAL_KLDSCP_DAC1
-Dec 12 12:47:55 ragnarok kernel: [drm] Connector 2:
-Dec 12 12:47:55 ragnarok kernel: [drm]   VGA-1
-Dec 12 12:47:55 ragnarok kernel: [drm]   DDC: 0x6470 0x6470 0x6474 0x6474 0x6478 0x6478 0x647c 0x647c
-Dec 12 12:47:55 ragnarok kernel: [drm]   Encoders:
-Dec 12 12:47:55 ragnarok kernel: [drm]     CRT2: INTERNAL_KLDSCP_DAC2
-Dec 12 12:47:55 ragnarok kernel: [drm] Initialized radeon 2.50.0 20080528 for 0000:01:00.0 on minor 0
-Dec 12 12:47:55 ragnarok kernel: [drm] fb mappable at 0xE034D000
-Dec 12 12:47:55 ragnarok kernel: [drm] vram apper at 0xE0000000
-Dec 12 12:47:55 ragnarok kernel: [drm] size 9216000
-Dec 12 12:47:55 ragnarok kernel: [drm] fb depth is 24
-Dec 12 12:47:55 ragnarok kernel: [drm]    pitch is 7680
-Dec 12 12:47:55 ragnarok kernel: fbcon: radeondrmfb (fb0) is primary device
-Dec 12 12:47:55 ragnarok kernel: Console: switching to colour frame buffer device 240x75
-Dec 12 12:47:55 ragnarok kernel: radeon 0000:01:00.0: [drm] fb0: radeondrmfb frame buffer device
-
-Eventually the screensaver tries to switch off the monitor via DPMS "poweroff" method and
-this greatly upsets the GPU:
-
-Dec 12 20:39:59 ragnarok kernel: radeon 0000:01:00.0: ring 0 stalled for more than 10140msec
-Dec 12 20:39:59 ragnarok kernel: radeon 0000:01:00.0: GPU lockup (current fence id 0x0000000000000002 last fence id 0x0000000000000003 on ring 0)
-
-The above repeats many times until:
-
-Dec 12 20:40:18 ragnarok kernel: radeon 0000:01:00.0: GPU lockup (current fence id 0x0000000000000002 last fence id 0x0000000000000003 on ring 0)
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0: Saved 55 dwords of commands on ring 0.
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0: GPU softreset: 0x00000008
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   GRBM_STATUS               = 0xA0003828
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   GRBM_STATUS_SE0           = 0x00000007
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   GRBM_STATUS_SE1           = 0x00000007
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   SRBM_STATUS               = 0x200000C0
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   SRBM_STATUS2              = 0x00000000
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   R_008674_CP_STALLED_STAT1 = 0x00000000
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   R_008678_CP_STALLED_STAT2 = 0x00010100
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   R_00867C_CP_BUSY_STAT     = 0x00020180
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   R_008680_CP_STAT          = 0x80038042
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   R_00D034_DMA_STATUS_REG   = 0x44C83D57
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0: GRBM_SOFT_RESET=0x00004001
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0: SRBM_SOFT_RESET=0x00000100
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   GRBM_STATUS               = 0x00003828
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   GRBM_STATUS_SE0           = 0x00000007
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   GRBM_STATUS_SE1           = 0x00000007
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   SRBM_STATUS               = 0x200000C0
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   SRBM_STATUS2              = 0x00000000
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   R_008674_CP_STALLED_STAT1 = 0x00000000
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   R_008678_CP_STALLED_STAT2 = 0x00000000
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   R_00867C_CP_BUSY_STAT     = 0x00000000
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   R_008680_CP_STAT          = 0x00000000
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0:   R_00D034_DMA_STATUS_REG   = 0x44C83D57
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0: GPU reset succeeded, trying to resume
-Dec 12 20:40:19 ragnarok kernel: [drm] enabling PCIE gen 2 link speeds, disable with radeon.pcie_gen2=0
-Dec 12 20:40:19 ragnarok kernel: [drm] PCIE GART of 1024M enabled (table at 0x000000000014C000).
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0: WB enabled
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0: fence driver on ring 0 use gpu addr 0x0000000040000c00
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0: fence driver on ring 3 use gpu addr 0x0000000040000c0c
-Dec 12 20:40:19 ragnarok kernel: radeon 0000:01:00.0: fence driver on ring 5 use gpu addr 0x000000000005c418
-Dec 12 20:40:19 ragnarok kernel: debugfs: File 'radeon_ring_gfx' in directory '0' already present!
-Dec 12 20:40:19 ragnarok kernel: debugfs: File 'radeon_ring_dma1' in directory '0' already present!
-Dec 12 20:40:19 ragnarok kernel: [drm:r600_ring_test [radeon]] *ERROR* radeon: ring 0 test failed (scratch(0x8504)=0xCAFEDEAD)
-Dec 12 20:40:19 ragnarok kernel: [drm:evergreen_resume [radeon]] *ERROR* evergreen startup failed on resume
-Dec 12 20:40:29 ragnarok kernel: radeon 0000:01:00.0: ring 0 stalled for more than 10077msec
-Dec 12 20:40:29 ragnarok kernel: radeon 0000:01:00.0: GPU lockup (current fence id 0x0000000000000002 last fence id 0x0000000000000003 on ring 0)
-
-..at which point I have to poweroff the entire machine to reset the GPU; a simple
-reboot does not help.
-
-It took me a while to find the culprit (the DPMS poweroff method), and for now
-my workaround is to switch xfce-power-manager to use the "suspend" method instead.
-This has been working reliably for several days now, with many system suspend/resume
-and display suspend/wakeup cycles.
-
-I *think* this started to happen with 6.6.5, which had a lot of drm-amd-display
-patches (see[1]), so before I start bisecting and whatnot I was wondering if anybody
-has any suggestions what might be the cause here. I can gladly test additional
-patches or reverts. Even if 6.7-rc seems to be OK again I still think it's worthwile
-to fix this in 6.6 since it's an LTS kernel.
-
-Thanks for reading!
-Holger
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/stable/stable-queue.git/tree/queue-6.6?id=3601ed703d11a9140852b279482666d6f53e1c06
+Thanks & Regards,
+Ghanshyam Agrawal
