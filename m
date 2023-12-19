@@ -4,69 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFB6BC41535
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Dec 2023 09:45:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FB35C41535
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Dec 2023 10:37:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3982410E42C;
-	Tue, 19 Dec 2023 09:45:56 +0000 (UTC)
-Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
- [IPv6:2607:f8b0:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74D7910E44B;
- Tue, 19 Dec 2023 09:45:55 +0000 (UTC)
-Received: by mail-oi1-x233.google.com with SMTP id
- 5614622812f47-3b9f11fee25so447571b6e.1; 
- Tue, 19 Dec 2023 01:45:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1702979154; x=1703583954; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=MkQbC/xyNrZkIWiwDp6IMwy7SGyY0b5UmnK4l5m5LgI=;
- b=SlY2OVD3gTsznS/iL0YeCy2Vqz7zMZ6K54Gqnb2BR52bDYcXnuDX/tkq6aW2NW2O6s
- IEi2K7Qpy0RNJTwDwVJ5siPwGuED+BnB3zilnMPHoavpP7JGml7rfzSK00orkRsy6/5o
- 9zgu2DtQ+3XSVC8fACNnDfZB4LpXS7NWPNoPRWjAEy29LVUnZEqeX3dnxifKSFIxSC0x
- Xr7e1g+u0goa9LoDd77KiG9hLfgfM6nnJQMIfSzfYwb9L3VJcf2oYe9OmU6aO+7iWN6F
- lpn2tYsuVD3cMPOj4yskYi18TUgFZhNN9ADM3SelDuIbqiQyZRtPnbz+R6YteL+1hsig
- HJeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702979154; x=1703583954;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=MkQbC/xyNrZkIWiwDp6IMwy7SGyY0b5UmnK4l5m5LgI=;
- b=Rh6YqWpQ2SPSdeETuuQZ4r3hRp9h1z1chpjAYZCgMojguzJBoAc/u746sWNxT/zg9b
- NoMPv+ajw6hVQn0/7pSsbs4HVrwl2R4pHv98HdxYEo5793Mxo/1tmGSF2THEWXwrfLMd
- n5OunMxlrHYF0tr2yLKzKO/t2FCyusQ/Vs5OGDqZi1I9imy6GWpb2eOqP+X1uBO+9nY7
- 2pBq2kWxdEVrbsK6e9PVzpElNps1shQrLe2Vp5Dbx9ynJFVVi7lWDWiwqCfoJGDeXNIa
- k63SajjlswS4gfHPIz5LOvSBe4ljiX0Z68GO6NFioIgQTHrEPhBtbK7VeUYdWuMLaPrx
- ojGQ==
-X-Gm-Message-State: AOJu0YxWCQs2KwVAqbanWVa/+HgP3PKYgBHCuq4onsYj02vw9MKjiBeb
- 4+XAH3zBO9bCFmN3yXe+zSp/5l711OuXWfTW8qc=
-X-Google-Smtp-Source: AGHT+IGGNEiDhBcG8iHFE34HsdZISle57F+NS7CHQs5424Fk99e58FsftGrr8GxBUXq4xroikWAXO3kHBVOTaP4Fpj4=
-X-Received: by 2002:a05:6808:20a2:b0:3b9:de19:2fb9 with SMTP id
- s34-20020a05680820a200b003b9de192fb9mr34191884oiw.3.1702979154479; Tue, 19
- Dec 2023 01:45:54 -0800 (PST)
-MIME-Version: 1.0
-References: <CABXGCsMbqw2qzWSCDfp3cNrYVJ1oxLv8Aixfm_Dt91x1cvFX4w@mail.gmail.com>
- <a99e6def-68be-3f2b-4e01-ac26cdb80f49@gmail.com>
- <CABXGCsM7JPxtQm6B7vk+ZcXfphgQm=ArJZKiDUdbk9hujyRtmg@mail.gmail.com>
- <43016018-4d0a-94dc-ce93-b4bff2dce71c@gmail.com>
- <90b1c9f8-1674-e9ec-e6d8-2fa1967439b3@gmail.com>
- <CABXGCsN2NutEmi==JBDD5G2Bj=DJ6vm87_Cbubycz-WowUOh5w@mail.gmail.com>
- <e2975d53-840c-a104-8b2d-c302f502c894@gmail.com>
- <CABXGCsOJkF=c4B+oQm7cuEO7Fr_oknmH2iB6e6OCzmFy=KYtAw@mail.gmail.com>
- <5cbba992-c4ce-01c1-2691-ed65ce66aad5@gmail.com>
- <CABXGCsMBWwRFRA+EJKF0v6BwZ+uTQHr4Yn9E9_iYgZ6KRbwsJQ@mail.gmail.com>
- <8bce512e-abb6-495d-85a4-63648229859e@gmail.com>
-In-Reply-To: <8bce512e-abb6-495d-85a4-63648229859e@gmail.com>
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Tue, 19 Dec 2023 14:45:43 +0500
-Message-ID: <CABXGCsNAP_FOTOkNZ+BuJcPH8p1qpVsdiCyUEw9QWzJv81ut6w@mail.gmail.com>
-Subject: Re: amdgpu didn't start with pci=nocrs parameter, get error "Fatal
- error during GPU init"
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 811AF10E45E;
+	Tue, 19 Dec 2023 10:37:26 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2057.outbound.protection.outlook.com [40.107.101.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D4F110E45E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Dec 2023 10:37:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cvwWAytbj5yq5Gj9XLf6uGo6UWV5HbT8bAug5/XxjFn6DhM86Wuu4cKxUYzcaZ9W9ji0DE2cN/0FgPj/c+0Peqfs6++hjIFLn7a6IensRbpKHR7LDIXJERNEMdAGS6QjiLLF8RQPccV3TAoiqes9G4+BPl+sBCf6++pr5tRG9RMo0BlDm2qN0sJx26vq25A5iA4v04nw6oy0kP0OSeU2b6oiOfZzByhBt3FQ05gro6/fyhF8g1ejRisx5UoRU8RrfZxQZhza8ug+VsQg8Ivactf130gD6C0oC+Hp6KKTX6IDCK83Nx+wq1CxfUM31PPEKBEgzIo1yhLYm4eb0bOu+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=//doSwE7nuq3EBTMkgC8T6TFVVd51e9H4IBgIBGrcQ4=;
+ b=j9BWruNQ80LrzMklKzM5JZQnwk/2Lsxpo8Q1jzktrxSzlagk/yshCKmPKN82C4YGMon4KtYilSb7Um/y8QNzSIM1YOlGpOdecPJ3HxPf0tYw3omuX8DuS47CguWsRiKyl9YUSftdqbd+afzK8aHT7XShivcRe3v6+Kx9tvBzfh2rE/hclyASHibxa3DcRMsnkzdFkv6D4+p2VtrtdgY26lgFjJ9UbWXjP5knSA/s002Td7gqRhFJ6z85+ZNsuHza9AAZW6EwVVxPtMUqBAhw5msTkDCERNz0E786MRNEzIi6gvhBhYSvGcLvhCx7E1y/9XjZf1Zge9STCmIAdbnvSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=//doSwE7nuq3EBTMkgC8T6TFVVd51e9H4IBgIBGrcQ4=;
+ b=gXCPfRQ4MX6U+NkzzGqQyzY5NgcMu33AJM2qa7bKWfu2E/ajZngw40oQFnp5XGibT/dc4Ot1qRKQGO+W+lcz3LONLD5xOGrM9COL1/dpQCaIudHkMiT38B95AarTwPihYXiifWIj7cQ8KmHjFFJ4RsSrkimK6f98Q2T+7MRHzGU=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by LV2PR12MB5869.namprd12.prod.outlook.com (2603:10b6:408:176::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.38; Tue, 19 Dec
+ 2023 10:37:22 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::f0fa:4908:b418:96d2]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::f0fa:4908:b418:96d2%7]) with mapi id 15.20.7091.034; Tue, 19 Dec 2023
+ 10:37:21 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Xiao, Jack" <Jack.Xiao@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH] drm/amdgpu/gfx11: need acquire mutex before access
+ CP_VMID_RESET
+Thread-Topic: [PATCH] drm/amdgpu/gfx11: need acquire mutex before access
+ CP_VMID_RESET
+Thread-Index: AQHaMl0dZ00NLgCbR0iZqCdJ7eQufLCwaVKQ
+Date: Tue, 19 Dec 2023 10:37:21 +0000
+Message-ID: <BN9PR12MB5257E4DAE8AEC73DCC4B92A0FC97A@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20231219092340.1601929-1-Jack.Xiao@amd.com>
+In-Reply-To: <20231219092340.1601929-1-Jack.Xiao@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=4a8ede88-8165-4ac4-a658-4cc462ac262f;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-12-19T10:35:02Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|LV2PR12MB5869:EE_
+x-ms-office365-filtering-correlation-id: 9284e5ab-63e5-4636-f017-08dc007e7b69
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: SfDTOcsUyo5aJCaH7fSerYv950GT5ofie47oo5kOlgbebIHBK0G/CpHEWDQttW1q4dxcr/AmNn+LuGJ0xgnPXfWYGWtDDUegG0ytyL+/WS3EoFHf9uTU/ECp1IGyObTSBTOXTfj3tcM+dhEALJpm6JPfcwjuLLOPsrIUFiKnttPOK2L5/L4VwVT17ELkIRSPHOIDqwBNQ+tMeEd2haWecT/qv0gL2g5vILXjd6+vmWKGUOnDYbv0bxV3vin9nKc8UaVY2iUd71l5Fk327eq4tN1NfjbLQ6jn/S0M7Yr4AM1oU8UlcbQwf7yxnFCYeDe/z9vYI5RA0alANN6juB3gYvaxckg7ym1UVLYPcCHyoQ7LUCQgJ+4frbirnDn1TVC8oKDVaLGYY0Aom1uwhrVw1h3em9H8qQqdczDAlIkvdZYu7MFx+bdX/H/MgV3N/w05fzLajeNg7+3bpzp3OtriNa6l5jq0nITCD/xEINaSMUZAHAA1FHfYSo3bn4Aw9+Pj0e0s5BBBm4R3Bb74EB3mGwbKF/dIdsA+5it/pG7uGA8TWsBqNl0Roa8CwbQb5hgKvyZY621hRvqYNtBXz6YrbdlSC/ppCptmlr6KPE4JJNu9yDnpKviCQY+pCg+Lltiz
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(376002)(136003)(396003)(366004)(346002)(230922051799003)(451199024)(64100799003)(186009)(1800799012)(2906002)(122000001)(38100700002)(33656002)(38070700009)(41300700001)(86362001)(83380400001)(8936002)(8676002)(71200400001)(478600001)(55016003)(26005)(64756008)(66446008)(66476007)(6636002)(316002)(66556008)(76116006)(110136005)(66946007)(7696005)(6506007)(53546011)(52536014)(5660300002)(9686003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?gOF6h7uCIa5e8FxUnTjnijgwqdxmCU/PEmm/Q/fiNU70EGjrYuN/cgi++Dpu?=
+ =?us-ascii?Q?IPyHbCV7yhtD1tzXDcY7CStuUERVoY25ycIn5/gwLWZy4wKP5Ms8QNTR5CVl?=
+ =?us-ascii?Q?3M3mE/tDx6Z7bUR3FUcEgav07Zcv44WLB69L2+BQ3IbAJRPGNMEZM/2ygXIe?=
+ =?us-ascii?Q?vuR+4KjpzofdJ/tWLmUFJv4nmBn86EIQPrvfuCJj1Bh5JccvvnQDKkVnwFdZ?=
+ =?us-ascii?Q?yWqKyprFOPs857bBnJzPbkkRJVUTJMdCTZkHTC61KJOSiFbc/4fAHcpsn7fs?=
+ =?us-ascii?Q?nnI3IWThGAsLobHZtds+XE1Sq6wxYLkIshkSbDgK16Nkk/9XIYa7RgvxQ9sH?=
+ =?us-ascii?Q?xtcmwdAQZDx+9KODabsalqkMkm0xKyBjWsOHTYrr0enLT8dA3oxAJkjGIg3w?=
+ =?us-ascii?Q?G+rDnJWF8f8TNUbaRRExUT2EDSgsFukJF9IzmPQQwh065h55myI2oUFG+hSm?=
+ =?us-ascii?Q?fgSrOJo9W6BSgVFT9pqmPmXwOtGHYfSyIA7CufdpgkSMOJzT8WuCE3xucJeL?=
+ =?us-ascii?Q?c4kLhgVoYU9GJ8EkNWiITYkJxQomLDgdhUTRbW+ryhlu2BKW2RaMIBr4m+OU?=
+ =?us-ascii?Q?f7+ZDpTmJO1wyjAPQxUceVrSNqV8D9nYKqhGGMYZx94golOKc45HmXeXWCUg?=
+ =?us-ascii?Q?ImAVSqvC+IKV770kYM/dMqDmXG095RgdT0Qna6G07nGN/Sv6GFjsPP7KirZH?=
+ =?us-ascii?Q?v6Ltl6Z0fMAD0EkHIuAhCKR5i/pMv8PD9sV55FSZUt7DdB50B6NRwUB5TjBf?=
+ =?us-ascii?Q?96v/77jf2xh5zZkyDnt54RGH/bPHHaXzhM3oZoRsGmkMNTk5BTyYfSIJDikJ?=
+ =?us-ascii?Q?ZcBiZ13J9YVfAQHWgDSWpmvZp7fghC1lDWXKThi5j8GpfaJxtAJbssfHKz+o?=
+ =?us-ascii?Q?oFjSyRZ6/qUXPzc1bVR+iKvvC+8w/Cqn7LeSLXx39IeNviJU+DFARFT1touB?=
+ =?us-ascii?Q?pshZqcH+LQ0MxsiZzOJjvPpJXBoGJdl6n/G0mfqMWCggLqT/wj5Zt5ZcSn5V?=
+ =?us-ascii?Q?sQSspTEAC8nPgVxrdv9ibOByWF97qIlaD/U5rlwGPbpnEEvHbLkn8jfwWi1F?=
+ =?us-ascii?Q?imC999mVGc7Jpzdd7X3S1PeaTT4j+T5Rgzou17/dZ6fWIbqzus3e2qC92J5X?=
+ =?us-ascii?Q?7ynRZdOZclawPLK0JWG2XDZIbrTpl6luudT7M5Gt8AmdIAd6NWlyyy9qXPQh?=
+ =?us-ascii?Q?E4xZxpkJ+8+rKcx5g2NouuMmv1ORYDodEMDtWpu0vIz86k/ETF+z6yOUapok?=
+ =?us-ascii?Q?XqqejzNSkBsF0LGDtjiKqAV3/NbjecHFm3Ty09VmdL29taawHpSfXMPVwbrC?=
+ =?us-ascii?Q?fhTGjGWUBghzdzVYHOCCtHj/zXBKlK6cfhZtcr6Uh44DsTQx84gkLNw80BOs?=
+ =?us-ascii?Q?VijtytQStc0i+EQz/WZnjmbkPWFrjNlTj98bBZhc7ZTQOrYODKg10RfMuo/8?=
+ =?us-ascii?Q?NLJz59YgYjPPlcvt0kRiclli+gDQincTcHwdSueJxVB/k5KhxXsLbjR/he+i?=
+ =?us-ascii?Q?J+4y8yFGJk7v6nrRw9Hxc8KaJBL5sCNSDViOLKw+UwX+Fn0viME1sflhGp3S?=
+ =?us-ascii?Q?zjRVkBJo/odEK68kgNoUshVSVRjrsOSYS7jBTqBA?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9284e5ab-63e5-4636-f017-08dc007e7b69
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Dec 2023 10:37:21.5874 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: d3eRLFG/rjJYuUHiFW3igUAB14HOPOtNBSwzavZkbyBrb3uLHW4mA5PXdrfXpNDXIIIonWCznGH8knKfwODRow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5869
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,131 +125,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Dec 15, 2023 at 5:37=E2=80=AFPM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> I have no idea :)
->
->  From the logs I can see that the AMDGPU now has the proper BARs assigned=
-:
->
-> [    5.722015] pci 0000:03:00.0: [1002:73df] type 00 class 0x038000
-> [    5.722051] pci 0000:03:00.0: reg 0x10: [mem
-> 0xf800000000-0xfbffffffff 64bit pref]
-> [    5.722081] pci 0000:03:00.0: reg 0x18: [mem
-> 0xfc00000000-0xfc0fffffff 64bit pref]
-> [    5.722112] pci 0000:03:00.0: reg 0x24: [mem 0xfca00000-0xfcafffff]
-> [    5.722134] pci 0000:03:00.0: reg 0x30: [mem 0xfcb00000-0xfcb1ffff pre=
-f]
-> [    5.722368] pci 0000:03:00.0: PME# supported from D1 D2 D3hot D3cold
-> [    5.722484] pci 0000:03:00.0: 63.008 Gb/s available PCIe bandwidth,
-> limited by 8.0 GT/s PCIe x8 link at 0000:00:01.1 (capable of 252.048
-> Gb/s with 16.0 GT/s PCIe x16 link)
->
-> And with that the driver can work perfectly fine.
->
-> Have you updated the BIOS or added/removed some other hardware? Maybe
-> somebody added a quirk for your BIOS into the PCIe code or something
-> like that.
+[AMD Official Use Only - General]
 
-No, nothing changed in hardware.
-But I found the commit which fixes it.
++       /* release the gfx mutex */
++       tmp =3D REG_SET_FIELD(tmp, CP_GFX_INDEX_MUTEX, REQUEST, 0);
++       WREG32_SOC15(GC, 0, regCP_GFX_INDEX_MUTEX, tmp);
 
-> git bisect unfixed
-92e2bd56a5f9fc44313fda802a43a63cc2a9c8f6 is the first fixed commit
-commit 92e2bd56a5f9fc44313fda802a43a63cc2a9c8f6
-Author: Vasant Hegde <vasant.hegde@amd.com>
-Date:   Thu Sep 21 09:21:45 2023 +0000
+Shall we add a check by reading back CP_GFX_INDEX_MUTEX to ensure the relea=
+se is done correctly?
 
-    iommu/amd: Introduce iommu_dev_data.flags to track device capabilities
+Regards,
+Hawking
 
-    Currently we use struct iommu_dev_data.iommu_v2 to keep track of the de=
-vice
-    ATS, PRI, and PASID capabilities. But these capabilities can be enabled
-    independently (except PRI requires ATS support). Hence, replace
-    the iommu_v2 variable with a flags variable, which keep track of the de=
-vice
-    capabilities.
+-----Original Message-----
+From: Xiao, Jack <Jack.Xiao@amd.com>
+Sent: Tuesday, December 19, 2023 17:24
+To: amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@am=
+d.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
+Cc: Xiao, Jack <Jack.Xiao@amd.com>
+Subject: [PATCH] drm/amdgpu/gfx11: need acquire mutex before access CP_VMID=
+_RESET
 
-    From commit 9bf49e36d718 ("PCI/ATS: Handle sharing of PF PRI Capability
-    with all VFs"), device PRI/PASID is shared between PF and any associate=
-d
-    VFs. Hence use pci_pri_supported() and pci_pasid_features() instead of
-    pci_find_ext_capability() to check device PRI/PASID support.
+It's required to take the gfx mutex before access to CP_VMID_RESET, for the=
+re is a race condition with CP firmware to write the register.
 
-    Signed-off-by: Vasant Hegde <vasant.hegde@amd.com>
-    Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-    Reviewed-by: Jerry Snitselaar <jsnitsel@redhat.com>
-    Link: https://lore.kernel.org/r/20230921092147.5930-13-vasant.hegde@amd=
-.com
-    Signed-off-by: Joerg Roedel <jroedel@suse.de>
+Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
- drivers/iommu/amd/amd_iommu_types.h |  3 ++-
- drivers/iommu/amd/iommu.c           | 46 ++++++++++++++++++++++-----------=
-----
- 2 files changed, 30 insertions(+), 19 deletions(-)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/gfx_v11_0.c
+index bdcf96df69e6..ae3370d34d11 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -4518,6 +4518,22 @@ static int gfx_v11_0_soft_reset(void *handle)
+                }
+        }
 
++       /* Try to require the gfx mutex before access to CP_VMID_RESET */
++       for (i =3D 0; i < adev->usec_timeout; i++) {
++               /* Request with MeId=3D2, PipeId=3D0 */
++               tmp =3D REG_SET_FIELD(0, CP_GFX_INDEX_MUTEX, REQUEST, 1);
++               tmp =3D REG_SET_FIELD(tmp, CP_GFX_INDEX_MUTEX, CLIENTID, 4)=
+;
++               WREG32_SOC15(GC, 0, regCP_GFX_INDEX_MUTEX, tmp);
++               if (RREG32_SOC15(GC, 0, regCP_GFX_INDEX_MUTEX) =3D=3D tmp)
++                       break;
++               udelay(1);
++       }
++
++       if (i >=3D adev->usec_timeout) {
++               printk("Failed to require the gfx mutex during soft reset\n=
+");
++               return -EINVAL;
++       }
++
+        WREG32_SOC15(GC, 0, regCP_VMID_RESET, 0xfffffffe);
 
-> git bisect log
-git bisect start '--term-new=3Dfixed' '--term-old=3Dunfixed'
-# status: waiting for both good and bad commits
-# fixed: [33cc938e65a98f1d29d0a18403dbbee050dcad9a] Linux 6.7-rc4
-git bisect fixed 33cc938e65a98f1d29d0a18403dbbee050dcad9a
-# status: waiting for good commit(s), bad commit known
-# unfixed: [ffc253263a1375a65fa6c9f62a893e9767fbebfa] Linux 6.6
-git bisect unfixed ffc253263a1375a65fa6c9f62a893e9767fbebfa
-# unfixed: [7d461b291e65938f15f56fe58da2303b07578a76] Merge tag
-'drm-next-2023-10-31-1' of git://anongit.freedesktop.org/drm/drm
-git bisect unfixed 7d461b291e65938f15f56fe58da2303b07578a76
-# unfixed: [e14aec23025eeb1f2159ba34dbc1458467c4c347] s390/ap: fix AP
-bus crash on early config change callback invocation
-git bisect unfixed e14aec23025eeb1f2159ba34dbc1458467c4c347
-# unfixed: [be3ca57cfb777ad820c6659d52e60bbdd36bf5ff] Merge tag
-'media/v6.7-1' of
-git://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media
-git bisect unfixed be3ca57cfb777ad820c6659d52e60bbdd36bf5ff
-# fixed: [c0d12d769299e1e08338988c7745009e0db2a4a0] Merge tag
-'drm-next-2023-11-10' of git://anongit.freedesktop.org/drm/drm
-git bisect fixed c0d12d769299e1e08338988c7745009e0db2a4a0
-# fixed: [4bbdb725a36b0d235f3b832bd0c1e885f0442d9f] Merge tag
-'iommu-updates-v6.7' of
-git://git.kernel.org/pub/scm/linux/kernel/git/joro/iommu
-git bisect fixed 4bbdb725a36b0d235f3b832bd0c1e885f0442d9f
-# unfixed: [25b6377007ebe1c3ede773fd6979f613386db000] Merge tag
-'drm-next-2023-11-07' of git://anongit.freedesktop.org/drm/drm
-git bisect unfixed 25b6377007ebe1c3ede773fd6979f613386db000
-# unfixed: [67c0afb6424fee94238d9a32b97c407d0c97155e] Merge tag
-'exfat-for-6.7-rc1-part2' of
-git://git.kernel.org/pub/scm/linux/kernel/git/linkinjeon/exfat
-git bisect unfixed 67c0afb6424fee94238d9a32b97c407d0c97155e
-# unfixed: [3613047280ec42a4e1350fdc1a6dd161ff4008cc] Merge tag
-'v6.6-rc7' into core
-git bisect unfixed 3613047280ec42a4e1350fdc1a6dd161ff4008cc
-# fixed: [cedc811c76778bdef91d405717acee0de54d8db5] iommu/amd: Remove
-DMA_FQ type from domain allocation path
-git bisect fixed cedc811c76778bdef91d405717acee0de54d8db5
-# unfixed: [b0cc5dae1ac0c18748706a4beb636e3b726dd744] iommu/amd:
-Rename ats related variables
-git bisect unfixed b0cc5dae1ac0c18748706a4beb636e3b726dd744
-# fixed: [5a0b11a180a9b82b4437a4be1cf73530053f139b] iommu/amd: Remove
-iommu_v2 module
-git bisect fixed 5a0b11a180a9b82b4437a4be1cf73530053f139b
-# fixed: [92e2bd56a5f9fc44313fda802a43a63cc2a9c8f6] iommu/amd:
-Introduce iommu_dev_data.flags to track device capabilities
-git bisect fixed 92e2bd56a5f9fc44313fda802a43a63cc2a9c8f6
-# unfixed: [739eb25514c90aa8ea053ed4d2b971f531e63ded] iommu/amd:
-Introduce iommu_dev_data.ppr
-git bisect unfixed 739eb25514c90aa8ea053ed4d2b971f531e63ded
-# first fixed commit: [92e2bd56a5f9fc44313fda802a43a63cc2a9c8f6]
-iommu/amd: Introduce iommu_dev_data.flags to track device capabilities
+        // Read CP_VMID_RESET register three times.
+@@ -4526,6 +4542,10 @@ static int gfx_v11_0_soft_reset(void *handle)
+        RREG32_SOC15(GC, 0, regCP_VMID_RESET);
+        RREG32_SOC15(GC, 0, regCP_VMID_RESET);
 
---=20
-Best Regards,
-Mike Gavrilov.
++       /* release the gfx mutex */
++       tmp =3D REG_SET_FIELD(tmp, CP_GFX_INDEX_MUTEX, REQUEST, 0);
++       WREG32_SOC15(GC, 0, regCP_GFX_INDEX_MUTEX, tmp);
++
+        for (i =3D 0; i < adev->usec_timeout; i++) {
+                if (!RREG32_SOC15(GC, 0, regCP_HQD_ACTIVE) &&
+                    !RREG32_SOC15(GC, 0, regCP_GFX_HQD_ACTIVE))
+--
+2.41.0
+
