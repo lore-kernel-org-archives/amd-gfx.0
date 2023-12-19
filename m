@@ -4,59 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BEF2C41535
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Dec 2023 17:04:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FF60C41535
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Dec 2023 17:04:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78A2610E4F6;
-	Tue, 19 Dec 2023 17:04:32 +0000 (UTC)
-Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
- [IPv6:2001:4860:4864:20::30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86AF110E4F6
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Dec 2023 17:04:30 +0000 (UTC)
-Received: by mail-oa1-x30.google.com with SMTP id
- 586e51a60fabf-1fb33059466so3199524fac.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Dec 2023 09:04:30 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BED710E4FA;
+	Tue, 19 Dec 2023 17:04:36 +0000 (UTC)
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8052310E195;
+ Tue, 19 Dec 2023 14:19:33 +0000 (UTC)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-40c38de1ee4so46077135e9.0; 
+ Tue, 19 Dec 2023 06:19:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1703005469; x=1703610269; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3spGZBDe0Pi/VYD6DNIE9qFDQo4F4dfi8lDByABGa2o=;
- b=Vqbly8mRe/Ej7UIYWNVAAUQgAe93phHQu4vryc7PA9fk4RSTVfXRxSLdHYNm1yzjLJ
- xceZH7xiL144tu67GAqZpq8pqL4BAi5dqjrTI58PEByzCr85srbBQEBqYCIAaIH5vOxB
- i1ibbkVnOgK+3iSgFxd4ADbR8rBNClL1WTidRXxAg1L/bRi2ZPHONk0SG1zmSA0laBKH
- skT4ZbAyFZidLOu/Vy1GKpeIvdT4tWEWi3a/WslTmXmHwQNunSwMYpUCms2vSWAFcT+g
- YDBKEVKgesfjJMgTzHtFNhmmn4NZSOqwKZi2DpcB7rsTCf/c1VqZCyN4Tpv6wU2mMsdu
- yaMA==
+ d=gmail.com; s=20230601; t=1702995572; x=1703600372; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Pejp2iczdWxF7uQVAlzk9w8bQVEry9Ccx9GLBVSdAiw=;
+ b=VvGnAe607WqS+RxBOmHxZSAZW6Mp7VRwtYWffTHYw5eUyCkL/ab8MpY04fJ2h9MEot
+ pHUJjxcxx70swKG5KbsKTjNfgl3gRJ4KPia2nsni4RrXgEvdhuP5Ku2kikLBvoykCkPz
+ ipgZtDOW7oiuDE0gBADOrgIJtDvuHweI2sCcW+GR+yrwhrNtoTUhngebPrqsAb4U334H
+ neL2S1pfwTCbi1wTWmzCvjCeaKwRk6Ll2qqRuHEwXdFIhMTgxIeH1ajUVzblgSv9mUeV
+ X5kNF2xz/Iz7pkkazfPvWE5X0AnasRtziYsMvpfrZKqR1YNtYCpfzHuuFh+Qq7ySqQtS
+ CYEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1703005469; x=1703610269;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=3spGZBDe0Pi/VYD6DNIE9qFDQo4F4dfi8lDByABGa2o=;
- b=PlrEjpjs0f110gbg+FHqfAP6WQOd/+YNN8xXnRa14pXH5DhQJLxE0o5iqdk+/0gxs+
- j0+ogCCpVgGhlWQlgKXpI/NVdWNGDA2zszXfPj+gf4gzAwC6kDcZPlrc8eSmg4v/2itL
- 2kKjTauTxW0KUtIeX1gukfIB2LvcJe3CF74O0K+oicNYQgfmHFg79YadWoaDTaG726Cu
- B23tV/RoZmU8PHubLFYRhKjYPZC1FczX1mlyVguboOD6x+HBFkK6wC8+/6RaDF6PAXoh
- aaBm4hK6VenshCOYQ6y0eCkz+OEnr+9DhL2wEGLr9PK9JRB9hP3sCb5oMeqeiifbwUkW
- EA6w==
-X-Gm-Message-State: AOJu0YwCkD/8hZwL45X5yXQfMA+9Fxn8x2fSxHB2OqL8b2CC1KHXnZeW
- BnOYn36iKBguxWUleKUxFhpnNOA4mxJZ6laLgfJLnmvH
-X-Google-Smtp-Source: AGHT+IEu4TGtErG3iW9wLsuxcz0Rf6tgZbPRb27H6CblwshegXbW4WK6xq/EJT1UxLdgW7M10OTHY1fI1M3dBMWaSO4=
-X-Received: by 2002:a05:6870:b48d:b0:203:f9c5:7dda with SMTP id
- y13-20020a056870b48d00b00203f9c57ddamr612796oap.75.1703005469697; Tue, 19 Dec
- 2023 09:04:29 -0800 (PST)
+ d=1e100.net; s=20230601; t=1702995572; x=1703600372;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Pejp2iczdWxF7uQVAlzk9w8bQVEry9Ccx9GLBVSdAiw=;
+ b=IGwhu6apRiQ0u+9QPiOCvGia4rZrMP0B8Yry2V6Jk+dM0OQO+rDD1WCqkz6j45xe00
+ wbpcJQZWzx5RTo7GIwWlKZq3rkEEjSXSJHRwWUDdUbGgpJ+CzG2o0qKBCViLxKPiVS4+
+ vtF1zyF4QlYbPbZPlf4DHAGqaPDRXIVIZTPm0UhCUWX7XNXMsusX1rZSlm8ftqYHUV3d
+ fbrGTf4hITLx9/CgykdyFiZCq7FqGZcG7X98VLukLh/4LE3e0OzWSXL0hVhAkyxge+MD
+ WGby6T0c1SbQOU2g/8SKJSIxSL4P2LtoOrGbvRHz2FG8eI3WTRkHEvw1qTSnAA5gGP24
+ JmPg==
+X-Gm-Message-State: AOJu0YzHkcDeQHvGlzpPcygMhn6eYVV0ah3ApwW1QMieglHIV4af2X2a
+ 329cmkq0VUpX95Gp9W5yGg0=
+X-Google-Smtp-Source: AGHT+IF1aG81n3QckfqzCx5kXe1hHH5po9wN30gDtf7kGI9NGXY6aka+rEQuePN7k7d7rWgIRVEHuA==
+X-Received: by 2002:a05:600c:2043:b0:40c:6204:d597 with SMTP id
+ p3-20020a05600c204300b0040c6204d597mr4952779wmg.65.1702995571614; 
+ Tue, 19 Dec 2023 06:19:31 -0800 (PST)
+Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
+ [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
+ d1-20020adfe841000000b00333404e9935sm8390805wrn.54.2023.12.19.06.19.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 Dec 2023 06:19:31 -0800 (PST)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui.Pan@amd.com, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amd/display: remove redundant initialization of variable
+ remainder
+Date: Tue, 19 Dec 2023 14:19:30 +0000
+Message-Id: <20231219141930.367426-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-References: <20231219092340.1601929-1-Jack.Xiao@amd.com>
-In-Reply-To: <20231219092340.1601929-1-Jack.Xiao@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 19 Dec 2023 12:04:18 -0500
-Message-ID: <CADnq5_NAzBZj+SXc7iY5ZWUgxGCmt3A+PsVRRx59YWx4=toXYg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/gfx11: need acquire mutex before access
- CP_VMID_RESET
-To: Jack Xiao <Jack.Xiao@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 19 Dec 2023 17:04:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,70 +78,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org,
- Hawking.Zhang@amd.com
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Dec 19, 2023 at 4:30=E2=80=AFAM Jack Xiao <Jack.Xiao@amd.com> wrote=
-:
->
-> It's required to take the gfx mutex before access to CP_VMID_RESET,
-> for there is a race condition with CP firmware to write the register.
->
-> Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v11_0.c
-> index bdcf96df69e6..ae3370d34d11 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -4518,6 +4518,22 @@ static int gfx_v11_0_soft_reset(void *handle)
->                 }
->         }
->
+Variable remainder is being initialized with a value that is never read,
+the assignment is redundant and can be removed. Also add a newline
+after the declaration to clean up the coding style.
 
-We probably want a CPU mutex or spinlock to protect this as well
-unless this is already protected by the reset lock.
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ drivers/gpu/drm/amd/display/dc/basics/conversion.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/display/dc/basics/conversion.c b/drivers/gpu/drm/amd/display/dc/basics/conversion.c
+index e295a839ab47..1090d235086a 100644
+--- a/drivers/gpu/drm/amd/display/dc/basics/conversion.c
++++ b/drivers/gpu/drm/amd/display/dc/basics/conversion.c
+@@ -103,7 +103,8 @@ void convert_float_matrix(
+ 
+ static uint32_t find_gcd(uint32_t a, uint32_t b)
+ {
+-	uint32_t remainder = 0;
++	uint32_t remainder;
++
+ 	while (b != 0) {
+ 		remainder = a % b;
+ 		a = b;
+-- 
+2.39.2
 
-> +       /* Try to require the gfx mutex before access to CP_VMID_RESET */
-> +       for (i =3D 0; i < adev->usec_timeout; i++) {
-> +               /* Request with MeId=3D2, PipeId=3D0 */
-> +               tmp =3D REG_SET_FIELD(0, CP_GFX_INDEX_MUTEX, REQUEST, 1);
-> +               tmp =3D REG_SET_FIELD(tmp, CP_GFX_INDEX_MUTEX, CLIENTID, =
-4);
-> +               WREG32_SOC15(GC, 0, regCP_GFX_INDEX_MUTEX, tmp);
-> +               if (RREG32_SOC15(GC, 0, regCP_GFX_INDEX_MUTEX) =3D=3D tmp=
-)
-> +                       break;
-> +               udelay(1);
-> +       }
-> +
-> +       if (i >=3D adev->usec_timeout) {
-> +               printk("Failed to require the gfx mutex during soft reset=
-\n");
-> +               return -EINVAL;
-> +       }
-> +
->         WREG32_SOC15(GC, 0, regCP_VMID_RESET, 0xfffffffe);
->
->         // Read CP_VMID_RESET register three times.
-> @@ -4526,6 +4542,10 @@ static int gfx_v11_0_soft_reset(void *handle)
->         RREG32_SOC15(GC, 0, regCP_VMID_RESET);
->         RREG32_SOC15(GC, 0, regCP_VMID_RESET);
->
-> +       /* release the gfx mutex */
-> +       tmp =3D REG_SET_FIELD(tmp, CP_GFX_INDEX_MUTEX, REQUEST, 0);
-> +       WREG32_SOC15(GC, 0, regCP_GFX_INDEX_MUTEX, tmp);
-> +
->         for (i =3D 0; i < adev->usec_timeout; i++) {
->                 if (!RREG32_SOC15(GC, 0, regCP_HQD_ACTIVE) &&
->                     !RREG32_SOC15(GC, 0, regCP_GFX_HQD_ACTIVE))
-> --
-> 2.41.0
->
