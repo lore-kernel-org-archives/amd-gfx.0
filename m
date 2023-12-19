@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D30EBC41535
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Dec 2023 18:47:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B579EC41535
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Dec 2023 19:21:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D1A710E0A9;
-	Tue, 19 Dec 2023 18:47:06 +0000 (UTC)
-Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
- [IPv6:2001:4860:4864:20::35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D1D210E0A9
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Dec 2023 18:47:05 +0000 (UTC)
-Received: by mail-oa1-x35.google.com with SMTP id
- 586e51a60fabf-203fb334415so353570fac.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Dec 2023 10:47:05 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9222010E1D1;
+	Tue, 19 Dec 2023 19:21:25 +0000 (UTC)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6001D10E1C3;
+ Tue, 19 Dec 2023 19:21:24 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id
+ 46e09a7af769-6da5d410432so3063954a34.2; 
+ Tue, 19 Dec 2023 11:21:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1703011624; x=1703616424; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1703013683; x=1703618483; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SbidS0bTvnEtHIOS3+H+m846/MioW8M24+Egl2sOK88=;
- b=Uiq+SEQyS8YVCd6tJbNZMw5bqfARx912xpuANQyl4Dra+7TpmsGvRDJAxJ+mL8Obj6
- /Gs55Sp/D4VVr40XmhAsLKDwXKwIJ0yS5Uxy+63N5zr+MdJDnjGVpNvnBP1ldemVwzj7
- 6jcAjfkMZ8IMNFQm/5MF3CeIXdaxY9aQMmOwBJih4vdbIBUYUDc7cgmPlyLw3HZ75A17
- 5G3TUZxO2lFmDR1Qp5Am9Net+PZmQu9eawKbKA04mu7tbsbZxKvgRW4IZ75eT5ZeJU89
- KSoupL7YggSCCYSgGVEzFd8k2oBowokd/Xb/pVu0fFqAmcxIiIrFgjw5syzDa9iQU+DX
- 4d9w==
+ bh=2ETYb4p/dYwWhsBHF1nMWqW8fNK9SRI38gyUWxBP4t0=;
+ b=bNrIQoFBQCHS2oF+Q//EPu23ORWR8q4Zr5I/sSZekE8PbYWsBYFt5q+Isijn08b5wA
+ fa3HMtEUfp8lWYR+JWjp69bhY/FbgLbmLlPiwzA22QZhRTB6bn/PRfMC2L6tdhCuN/ha
+ Hx+oqcqDHcbdaGRb6dz6Qrcv8lu7W+AkbBtFYeeb/yBbAkImcwi6/8vUkhGs2bw/q4U7
+ P6272mF0yvP7vdGzVP1w1w6x97uNnWF3PQUD8FvFPYM0EXa2ODG4RgIZmAsI6vMW+Mvb
+ TTJoZa7wAG5QsLOy842NzeUJrncfNv0ThrkGzRMqB5Ci7/8JS6laz7mIxAOd8w1knvvN
+ 4cQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1703011624; x=1703616424;
+ d=1e100.net; s=20230601; t=1703013683; x=1703618483;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=SbidS0bTvnEtHIOS3+H+m846/MioW8M24+Egl2sOK88=;
- b=cGW7vZYPv+09xowZrfMnhjuXhBYO5GrxuoK1B4NZcavIfNagE9cTEk4280OFXe1tu2
- GHj7TpV2s5JoY7pfIqbgjn78Yu8OxwjvguHwX43R2MPFpXHznx0Pz4kseIFE2Yt+bRwA
- H5HS39idTprg/Ka+oGrFQM/QgyRQ8Q6bjTaHQEHBuKmwZcB+6ZgY5EWCryLbABUwDn+2
- bpEOo+bk9TUQksye1O8QJ+D8kjB3GUwELg4gAwudH7Rn12bqfgo8UFvYf8Qg6MtblFjE
- WMzALgIQy+nZ59eLKRnK7AekviUdAfgSiRYetPkQ96ejfw03jE8yTOVogImRT+hxF70V
- +uCw==
-X-Gm-Message-State: AOJu0YxcUYSzxwXOmz6pbjlJzhaXDmB/yAljr+4t41LPz1PmsQVROufT
- 9Wk9nYNJFAIPobsmQ4BnNiXmUNtw58IRGZO4pRdjf1rC
-X-Google-Smtp-Source: AGHT+IFKT9F8fqw25vUhe7gUvgYI7wUbtQ+U5onSTbzkO3nw7iO4QrSYp6DK1nqq5Y0u8Flzk0tdTJ7CfpreTniCiJQ=
-X-Received: by 2002:a05:6870:9a10:b0:203:e866:5141 with SMTP id
- fo16-20020a0568709a1000b00203e8665141mr2237931oab.56.1703011624668; Tue, 19
- Dec 2023 10:47:04 -0800 (PST)
+ bh=2ETYb4p/dYwWhsBHF1nMWqW8fNK9SRI38gyUWxBP4t0=;
+ b=xUuOP3Zq641ejbMvQeFBRxry4OS9Mpd8HRPs1WPoJjIdVmT7d3slJ8o0QOHyutXrEG
+ B//54FEZ6VdUtYLD33F8hO6M+OD/veqsh5tp5CBNcQwp5fPPB2IJqU4NIuXErMdukfc/
+ L83FzFz+kaBNin/EpJVhsrhfdM1BMKBnIm6fxPllUiKMCm8y4FuV/LAgqQnJwZAO3de1
+ 5BmxrTKbQoyA2X6vuvsMXOWxYfZ+LbUbz+hNkzbGDfqtoUuyyANhl4Qaa8t+UtMXGNOF
+ kKYF6moNnS1lITMl091XlSWPf2C1kl29PDoSzzEBUuGi21a4VWLestbKFC1itzEYtLGV
+ cTzQ==
+X-Gm-Message-State: AOJu0YyeFngG+eNjFxFIcK8cLLsj+98fu30BbU8Zfmv4WyI9RSBiIutg
+ nJdklqFOwqs6UmKbXk+N3Otyn0PLfmmnXukJXFUREt+Z
+X-Google-Smtp-Source: AGHT+IEZVSzHdhnBJF3ACTt4+Byj88TFSnsLe822jMawRK5DOWRBwmTecbWpBZ7A5KtB+207zqeJFbXxzgdOA1vZWXs=
+X-Received: by 2002:a05:6870:15d5:b0:203:eb72:7594 with SMTP id
+ k21-20020a05687015d500b00203eb727594mr2055316oad.19.1703013683353; Tue, 19
+ Dec 2023 11:21:23 -0800 (PST)
 MIME-Version: 1.0
-References: <c31dc9e8-b969-c736-709c-382c032f4979@applied-asynchrony.com>
- <a67cb2d1-f02b-9998-01c5-e0e18729da82@applied-asynchrony.com>
-In-Reply-To: <a67cb2d1-f02b-9998-01c5-e0e18729da82@applied-asynchrony.com>
+References: <20231219141930.367426-1-colin.i.king@gmail.com>
+In-Reply-To: <20231219141930.367426-1-colin.i.king@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 19 Dec 2023 13:46:53 -0500
-Message-ID: <CADnq5_MkYY+-_9XEWFOn_2G0zrd25+xMRbeCxXuDbu=7EX1Npw@mail.gmail.com>
-Subject: Re: Regression in 6.6: trying to set DPMS mode kills radeon (r600)
-To: =?UTF-8?Q?Holger_Hoffst=C3=A4tte?= <holger@applied-asynchrony.com>
+Date: Tue, 19 Dec 2023 14:21:11 -0500
+Message-ID: <CADnq5_Or8UGd1tarX9_Jvd20Lp3TcPYiGxCNicuExOJCiNUEmg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: remove redundant initialization of
+ variable remainder
+To: Colin Ian King <colin.i.king@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,61 +68,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, Leo Li <sunpeng.li@amd.com>,
+ David Airlie <airlied@gmail.com>, Xinhui.Pan@amd.com,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Dec 18, 2023 at 1:52=E2=80=AFPM Holger Hoffst=C3=A4tte
-<holger@applied-asynchrony.com> wrote:
->
-> On 2023-12-16 18:36, Holger Hoffst=C3=A4tte wrote:
->
-> <snip>
-> > The affected machine is an older SandyBridge dektop with a fanless
-> > r600 Redwood GPU, using the radeon driver. "Recently" - some time
-> > after the last few 6.6.x stable updates - it started to die with GPU
-> > lockups. I first blamed this on standby/resume - because why not? - but
-> > this turned out to be wrong; the real culprit is DPMS.
-> >
-> > I use xfce-power-manager as "screensaver" to turn off the display after
-> > inacitvity. This can be configured in two ways: "suspend" and "poweroff=
-".
-> > I've been using "poweroff" since forever without problems, until now.
-> >
-> > The symptom is that everything works fine until the screensaver kicks i=
-n
-> > and tries to turn the monitor off, which sends the radeon driver and th=
-e GPU
-> > into a complete tailspin.
->
-> <snip>
->
-> > Eventually the screensaver tries to switch off the monitor via DPMS "po=
-weroff" method and
-> > this greatly upsets the GPU:
-> >
-> > Dec 12 20:39:59 ragnarok kernel: radeon 0000:01:00.0: ring 0 stalled fo=
-r more than 10140msec
-> > Dec 12 20:39:59 ragnarok kernel: radeon 0000:01:00.0: GPU lockup (curre=
-nt fence id 0x0000000000000002 last fence id 0x0000000000000003 on ring 0)
->
-> In the meantime I have confirmed that all this is still more complicated:
-> even using the "suspend" method only works after boot, not after a system=
- suspend
-> cycle. Yes, weird but reproducible.
->
-> I have tried to chase down the problematic release, and as suspected this
-> started to happen with 6.6.5; 6.6.4 is fine.
->
-> Based on this information I found the offending commits and reverted them
-> in order from 6.6.7, which fixes everything for me:
->
-> b0399e22ada0 "drm/amd/display: Remove power sequencing check"
-> 45f98fccb1f6 "drm/amd/display: Refactor edp power control"
+Applied.  Thanks!
 
-Those patches are for amdgpu.  From the logs in your original post,
-you are using the radeon driver.  They two are completely separate
-drivers.  I don't see how those patches could be related.  That code
-would never even execute.
-
-Alex
+On Tue, Dec 19, 2023 at 12:40=E2=80=AFPM Colin Ian King <colin.i.king@gmail=
+.com> wrote:
+>
+> Variable remainder is being initialized with a value that is never read,
+> the assignment is redundant and can be removed. Also add a newline
+> after the declaration to clean up the coding style.
+>
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/basics/conversion.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/basics/conversion.c b/drivers=
+/gpu/drm/amd/display/dc/basics/conversion.c
+> index e295a839ab47..1090d235086a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/basics/conversion.c
+> +++ b/drivers/gpu/drm/amd/display/dc/basics/conversion.c
+> @@ -103,7 +103,8 @@ void convert_float_matrix(
+>
+>  static uint32_t find_gcd(uint32_t a, uint32_t b)
+>  {
+> -       uint32_t remainder =3D 0;
+> +       uint32_t remainder;
+> +
+>         while (b !=3D 0) {
+>                 remainder =3D a % b;
+>                 a =3D b;
+> --
+> 2.39.2
+>
