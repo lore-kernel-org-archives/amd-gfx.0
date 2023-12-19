@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26FEEC41535
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Dec 2023 13:38:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77D9BC41535
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Dec 2023 14:12:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA46210E191;
-	Tue, 19 Dec 2023 13:38:33 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20625.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8d::625])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF87B10E186
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Dec 2023 13:38:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F306B10E08E;
+	Tue, 19 Dec 2023 14:12:05 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2084.outbound.protection.outlook.com [40.107.220.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B829B10E08E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Dec 2023 14:12:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F0kx5YeJpCeQlwIeLZvnhuBDH3Hxi6vCqbMhfpf1NrpVvi11Tw8ahoROGlLID3vp0Y24KqYqP2CjN1xHsIZ+w4Mht3pLHmBlCe/X++Q0VyI33BcIjLyxIU8sTh7kb7CFwqcatu+pdsEwohbIXY4ywEhiQPeAbq5DfNiHnUhDHVEDLTXInQFhA2pfozUSuLHj1mhL9SV13W6A2vFt6ZvMWfboIvuea1hg8ih9EOlQS+jTEhF38nT+HtfQMPu1j9V+YtpZeK6yIaajYhznz3YylHwnrXwFTK09RWVWE4dfFJBvb3Z45OP/b20ZsTYvWYK7tFEtomE7C2wjmd2gWzH44Q==
+ b=g31d6AQMz4EsVpUlZwrU094FCUFBOqHBmP37HAs40Vjj8AeApwfw3BpBTKORVxSq9V2e9LaZ0XuTYiMA1fB5+q94sz+IQkIkV1//8xwDnedaHj5AdaH+Y6saKOWb/mrDTTrenMiaEqmpZSsJeEBwexaJlkFgtTavyr/TnFSAkTeHyGEDmecDkv5lbbM1+ntFYVGPbAcuNM3rCp5lj1JiQpqIScIG1Uiidb+phcABppUgnhPnjIppaEPu+Bo7lfg5G5F0grDfWTS/ymV01DMnJSfHfu2uuLZqq6Xdfk4GJiLGNxMLUgT3WHctmmaWgr2vzmSY9ry0iatFIjqbEZl1SA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XyNAMKZah2tQ06oHuB5kLBXJe1AEBUGuLug8/Kw9giQ=;
- b=HbX4VE+ZucjDdi0HUrKVXIb14N0j0WCc9zKeK6FS9By0xiLm0pvg0djmZCUiB/WyVRPgw4zyC3T7bof+c4dMmmFicJCO869vkrSFFPOdikCBT6wpSyJWe1TRWNvLtz6PV5yfiesnJpfRm1UImzsgCYlfVmCXbpEMWgIhcsrinELjpoK/bzDpXReI0aGVksNhXVaxd70zHU0jFqMDeL/QIpWEV7J8BEGCDgxIpgTmn9+Ivku30TttRKChJe5WJZkYITBrOhgaZgMqX25pdMFWxTkNF4u/yJyYJ7UQgiaCvxDAtFrnWCjHFVFmkHssyEpUe4wGKa7vocBDqLMTB0/W+Q==
+ bh=wLN41NWl8NfaSOYTKChzZtfEcPEoS4FREdqVxqDXR/Y=;
+ b=k3W+4Igh8wt0/xr4aYmycvrNiKVSvmMQlGODzT1CKxg/48RaM/lfhSB6/6KkNPSV9Lm5XkiBsYHwQ14ghf9LAt9JanALxXSt8a1EzrwqkepuBO4JsPMNKTJ2CaQgIyXOU+LP4Tu6+DJIOqfwZQ5b6aT7/6iFUAcRevyAHDw0CHDQeIKppvZFGSKw0vDorEMiBDFGAv/mma7alrLf4kTOV6FhE/Ba+pWB2eqTskKL+FKbkyj4Wq1WFrLzgf0CKg+/lj46o1iXfgatln/x0d9SqozRGltDOIE8eN9/0mfK1S0HXUKMT+YEshp8YG2YxuwLPLNXfXg4b08cnCzdXJQQhw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XyNAMKZah2tQ06oHuB5kLBXJe1AEBUGuLug8/Kw9giQ=;
- b=ygo9li24y36Xr854Ad5JybVW0hB+8ArQfH4LVjIlEVxY2oAHGrmXukjfwWBMh8WxPgOwX33QRb667OxrQ8HKCxbSgNGkIpzkprL24ivx73MLHmAcmZLWVKiB8DYDlB+QmDHsxVpkibhJ9x4gUVFLpeJ1ggiAkIJCS2jHZa+G8QM=
-Received: from BL0PR03CA0014.namprd03.prod.outlook.com (2603:10b6:208:2d::27)
- by SN7PR12MB8028.namprd12.prod.outlook.com (2603:10b6:806:341::8)
+ bh=wLN41NWl8NfaSOYTKChzZtfEcPEoS4FREdqVxqDXR/Y=;
+ b=Phcn8HX2qrKdG6GcWLq3gXlBRVgd571AKJthMdiKVvKZ89516N66WWZ+XFw74ooQbFs1T245vYNExvZw1Nuu9XYi4wXC+enrko9K9ggy4mVlAv5M1O+1CrwiqIDUpI7ZrfGbQLkW+KKZzgeLZriRYSoIS/ctmpId4OWsaya//TU=
+Received: from MN2PR08CA0028.namprd08.prod.outlook.com (2603:10b6:208:239::33)
+ by IA1PR12MB7662.namprd12.prod.outlook.com (2603:10b6:208:425::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.38; Tue, 19 Dec
- 2023 13:38:28 +0000
-Received: from MN1PEPF0000F0E3.namprd04.prod.outlook.com
- (2603:10b6:208:2d:cafe::19) by BL0PR03CA0014.outlook.office365.com
- (2603:10b6:208:2d::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.38 via Frontend
- Transport; Tue, 19 Dec 2023 13:38:28 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.18; Tue, 19 Dec
+ 2023 14:12:01 +0000
+Received: from BL02EPF0001A0FF.namprd03.prod.outlook.com
+ (2603:10b6:208:239:cafe::ce) by MN2PR08CA0028.outlook.office365.com
+ (2603:10b6:208:239::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.18 via Frontend
+ Transport; Tue, 19 Dec 2023 14:12:01 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -46,20 +45,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000F0E3.mail.protection.outlook.com (10.167.242.41) with Microsoft
+ BL02EPF0001A0FF.mail.protection.outlook.com (10.167.242.106) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7113.14 via Frontend Transport; Tue, 19 Dec 2023 13:38:28 +0000
+ 15.20.7113.14 via Frontend Transport; Tue, 19 Dec 2023 14:12:01 +0000
 Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.34; Tue, 19 Dec 2023 07:38:25 -0600
+ 15.1.2507.34; Tue, 19 Dec 2023 08:11:59 -0600
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: Aurabindo Pillai <aurabindo.pillai@amd.com>, Rodrigo Siqueira
- <Rodrigo.Siqueira@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: [PATCH] drm/amdgpu: Cleanup indenting in amdgpu_connector_dvi_detect()
-Date: Tue, 19 Dec 2023 19:08:07 +0530
-Message-ID: <20231219133807.542179-1-srinivasan.shanmugam@amd.com>
+Subject: [PATCH] drm/amdgpu: Use kzalloc instead of kmalloc+__GFP_ZERO in
+ amdgpu_ras.c
+Date: Tue, 19 Dec 2023 19:41:41 +0530
+Message-ID: <20231219141141.554794-1-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E3:EE_|SN7PR12MB8028:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9671130f-dd55-44b0-3346-08dc0097c875
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FF:EE_|IA1PR12MB7662:EE_
+X-MS-Office365-Filtering-Correlation-Id: 42e5068b-69b1-47d3-38de-08dc009c7872
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FQzYW4wKZKaT15KD3u5z4dvXZyIPX1Rgu/t5u2rzztpVnJHOkReJc4eLdkSW1zUvXrls2pZu6y8M7vBQnVLeD/W4B5HTQsZt15sGU8hlPlVGR0v3DjZxncJSTcUdJGbas2q8NdIXYHKnPpTRmyKikKgMmusAYm8dwox8vNboo93XA6EU7zx27RhvpIerU/BsG4Ks+/3iNOmSptB08Uz7WMoOEM4ZxunKoMP3x3+NBrrJ90TYaZ66yzAFwUNJhWG29SHcPdGlLHDVy+UL3mxqiqQwPD2+jQP77316Y2ofqeEAd09NvHMtUJDvxfokXvlJXUnq8GBzm70H2yinYG1CS4xyc1m5NyqClovNDrHHvFb7Mb4AZmTXxw1+OrMGnymuK015Obym9097OAOC3S610NjeTMGVHOmTRXPA3dLBEj/Ly5nDJwJrxlqKzNykLXUAkqPMWjCPNR6s658OPtPD0I1po97gkMQkjlyOgC60Idng/Q5APqGGQqeunrqs/5mTqzEwOeBC1CxKeXb/L0fFaFzZn7eAZEvbEnZRDh8gr5w8RJrn7T+q1dCtrh5yC20iwMKGVSb/cB10RvWJJrMNnAbyBOJeQs60C6QihOy7snMmpa3tIS3+z1oYDi7lnsIdX2LEIkZD82JZONgoKnFpPusgkjScBdeEriFtrvr+1gov+oSWT0mrS/aYsbItu4rHdaTbUr8UEImkupOuU9g5q/MReyic+1bDDasHqD13z5NF/tj1J5BEuLk2/yOirCU172aQoUUrnc3dwIpbEn62HQ==
+X-Microsoft-Antispam-Message-Info: wMC+cprwJf7iBP4b1kNRv0qj82arh1PjFAi4YhNct30DuljZYzzXvhwedIQZgy77i1Hq3u1nT605/4yBuTQjIy0q29aEF3JTgMUS9PrC/dw81yw6uKKu3hNb43DxiImT7wU1owTo690ADJE7VyDSMXq6Zbl2ITgx3Ut+GeQHTbFQ81btMLcWIT8xqD4nhCwfesbFOLE+J50w65T4HY1CrR9/4H/3zCIuMYSK2mikzBRuBVs/asDmyd/FEVgiEKkh6/EzRQvHLqE70KYeCwfRTZvAqS+hAcACpyOmCcn7CAYyTunD/SwxQ+EznKVnUyXClVhbXhtYepv+MGV+OH2SL0vDTO/RxmuZYJkdCdI7p0uuBRJzlXEYYSnVBQjDp8bNuJcaHJatldE2lq4sotgbj/hgsn7nDgIVPT56Kyg8fU2vm7sIcNJ6jc1rygyY+Chr4gYlLzOEt6iWiINc7w2yTxV6EOGADatpQ/68v3+2HpJx3q7F4dwCFqKIH3LYI28pwxPtoVkwUKWHIi4yChXAfNxpt0yJDinYyWKK7juqoaFXblNoBPT1Yadro0S7ntZ8CeYiGV34Hm2D7eKabtPuR67css70f2C+F4O0rZjuzV81VkUkBbdioY8Qc6b9go63vbxDyqsvtQXPCWrIAKA15GbPn/Xbww74YGzLzX0dpEvbIPWZk74ZghwpV/q3CKhy2SfgbejXU304HCZ0rb85oPPSqA6YnXEK8auV6ADaiK19eoViSLJXBe1wDJojucbOB2R+EcHh49JNcgeC9ExuMjpAy8xCj0gJ0zlbWke/14xt59umilgLuKkZJgFpz+i+
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(136003)(346002)(39860400002)(396003)(376002)(230922051799003)(186009)(451199024)(64100799003)(1800799012)(82310400011)(40470700004)(46966006)(36840700001)(40460700003)(36756003)(8676002)(8936002)(86362001)(110136005)(4326008)(316002)(44832011)(478600001)(70586007)(70206006)(6636002)(54906003)(41300700001)(5660300002)(2906002)(36860700001)(356005)(82740400003)(47076005)(81166007)(7696005)(2616005)(336012)(26005)(1076003)(6666004)(16526019)(83380400001)(66574015)(426003)(40480700001)(36900700001);
+ SFS:(13230031)(4636009)(39860400002)(136003)(376002)(396003)(346002)(230922051799003)(230173577357003)(230273577357003)(186009)(64100799003)(82310400011)(1800799012)(451199024)(46966006)(40470700004)(36840700001)(426003)(16526019)(336012)(2616005)(478600001)(41300700001)(1076003)(40480700001)(26005)(36860700001)(81166007)(70206006)(54906003)(70586007)(40460700003)(83380400001)(110136005)(6636002)(6666004)(316002)(86362001)(7696005)(356005)(82740400003)(36756003)(8936002)(8676002)(47076005)(2906002)(5660300002)(4326008)(44832011)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Dec 2023 13:38:28.2484 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9671130f-dd55-44b0-3346-08dc0097c875
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Dec 2023 14:12:01.4948 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42e5068b-69b1-47d3-38de-08dc009c7872
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E3.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FF.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8028
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7662
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,38 +99,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
  amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c:1106 amdgpu_connector_dvi_detect() warn: inconsistent indenting
+Fixes the below smatch warnings:
 
-'Fixes: 760817a60724 ("drm/amdgpu: Refactor
-'amdgpu_connector_dvi_detect' in amdgpu_connectors.c")'
+drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:2543 amdgpu_ras_recovery_init() warn: Please consider using kzalloc instead of kmalloc
+drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:2830 amdgpu_ras_init() warn: Please consider using kzalloc instead of kmalloc
+
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-index 96f63fd39b9e..9caba10315a8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-@@ -1103,7 +1103,7 @@ amdgpu_connector_dvi_detect(struct drm_connector *connector, bool force)
- 			 * DDC line.  The latter is more complex because with DVI<->HDMI adapters
- 			 * you don't really know what's connected to which port as both are digital.
- 			 */
--			 amdgpu_connector_shared_ddc(&ret, connector, amdgpu_connector);
-+			amdgpu_connector_shared_ddc(&ret, connector, amdgpu_connector);
- 		}
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index bad62141f708..e541e6925918 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -2540,7 +2540,7 @@ int amdgpu_ras_recovery_init(struct amdgpu_device *adev)
+ 		return 0;
+ 
+ 	data = &con->eh_data;
+-	*data = kmalloc(sizeof(**data), GFP_KERNEL | __GFP_ZERO);
++	*data = kzalloc(sizeof(**data), GFP_KERNEL);
+ 	if (!*data) {
+ 		ret = -ENOMEM;
+ 		goto out;
+@@ -2827,10 +2827,10 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
+ 	if (con)
+ 		return 0;
+ 
+-	con = kmalloc(sizeof(struct amdgpu_ras) +
++	con = kzalloc(sizeof(*con) +
+ 			sizeof(struct ras_manager) * AMDGPU_RAS_BLOCK_COUNT +
+ 			sizeof(struct ras_manager) * AMDGPU_RAS_MCA_BLOCK_COUNT,
+-			GFP_KERNEL|__GFP_ZERO);
++			GFP_KERNEL);
+ 	if (!con)
+ 		return -ENOMEM;
  
 -- 
 2.34.1
