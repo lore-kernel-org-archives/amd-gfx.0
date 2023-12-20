@@ -4,66 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC609C3DA6E
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Dec 2023 14:06:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDD71C3DA6E
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Dec 2023 14:07:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A94110E045;
-	Wed, 20 Dec 2023 14:06:30 +0000 (UTC)
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A86310E0E2
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Dec 2023 14:06:28 +0000 (UTC)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3364c9ff8e1so477679f8f.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Dec 2023 06:06:28 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B9BF10E0E2;
+	Wed, 20 Dec 2023 14:07:43 +0000 (UTC)
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E6E110E0E2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Dec 2023 14:07:42 +0000 (UTC)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-40c60dfa5bfso66811935e9.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Dec 2023 06:07:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1703081187; x=1703685987; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1703081261; x=1703686061; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=CDVPZ8hDOQoXwOv7U3NTl6AHUOGWxhGnp0qiseqmqKs=;
- b=SnPk6xOIYEobX2ht5/U+NtyWF2uwEGBhQX5sbkawJWeHPVf0CNDOdhPfxKqb2MkbMc
- AmGOaZDvOa0Xp4gKxTCDdzBtAFKDOVu0a3DG1RBPjTYn8wQuT3F8AcxYGtN9XQt2QIqO
- O08PI828FFBj5mxGLQt6bS87N2LXS0Izp7QKMVb6x8xrgYnHurH1MexeuqwbuVMwzgy+
- 9u+g7ynXRDsMBJFieGSEJSmuq55y/WpCySVr3LILvHToOXrpXu6ECiEjB2DRpdW/Ltjt
- wZSdEMGpa9ZOSN7JxsrtE+osNJmTsD4i5tLH+/jGcUISpcP69i2mEY6gYNP4ekHOcbW9
- wvhQ==
+ bh=U8G8v++S6GEhPE/ZDM2TQCDdV167QVMuiv+qcpYERSk=;
+ b=IKw8bwm0ynphJU7VJY2fFkMok5iF7HLV4ioAGBlfB+hkPX398Xp+4FLkES5Ip8Jz9Q
+ eI4IpK3ax7FQBfv63SFxvnPfitEXaRK2JTyetJH4W6wQn9V+JSSO5QxNwrLhESJ9b4AS
+ QUpXaOcDO5lLy1g2tnhIHEkbU5hiWFQTq6cNFHcJaDWHGbdJMIDV6ncQAGJf42xaM03H
+ YEDORKud3IJjNIe95f8VgBZsAcj49FHIMCo4L1Tp4iMOT/+nSmcCbtsRSrk13bMBAU6t
+ 5RPTZTuFOxFIQLvOA/wJ3ViRKRloKixyg004K9IrLjhbhlRrJdzmsNYHPlu0uHN1Hqcz
+ wV1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1703081187; x=1703685987;
+ d=1e100.net; s=20230601; t=1703081261; x=1703686061;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=CDVPZ8hDOQoXwOv7U3NTl6AHUOGWxhGnp0qiseqmqKs=;
- b=XI1vPMDJUljWXw8lULx5Z6VBvftSro3fKYOvP4/OWC2aHVzhC+/lh5MQyV3duSAS/Y
- Oxuq89tdzKEjDpN8dKdt4Iy8HUnlTvdQhjJq9cxRf/7gBiExlXFQnfG7l+4lmDPp1p6P
- kXI7LUjxJ9IrllCNfdHDKBOChNb89GhN7Mlr8o1oXZqsZdOrqanCXyOoSbVdHsGbDhPt
- L2mzrvUtQ4cEij2Ixp4rik4s9oyxdPNXmKgoq8wfGywK/Lp6cHtHrGeAg1phZXzYmUSf
- MzTNPLJX6brFCVcl+UyAG7DOQ6oNuFKHFSVVbWAcEkKaKiGgHsJ7cLLT5FTIy5dMrd1x
- r4vg==
-X-Gm-Message-State: AOJu0YyNHV4JnC69Jn4LA10o+Y6tLUVcBOy/70lucA+OYKZy/2GwHO0o
- so6dJBSMRqG9pocplrQFYIc=
-X-Google-Smtp-Source: AGHT+IGiNP88855IZh3fi+E/A15IS95a329VqHC9sBXuK9hPgRgrTQRvPcEFPU7fw5uPNSJGjB/K8w==
-X-Received: by 2002:a7b:cc8d:0:b0:40b:5e56:7b6e with SMTP id
- p13-20020a7bcc8d000000b0040b5e567b6emr1436322wma.183.1703081187246; 
- Wed, 20 Dec 2023 06:06:27 -0800 (PST)
+ bh=U8G8v++S6GEhPE/ZDM2TQCDdV167QVMuiv+qcpYERSk=;
+ b=E7QGZ8zc1CGY2IlY9Co1IY9xcfU7ss/i11Jd8+aU7of04v+dfNZUWZR7gUwDeDH4jq
+ eWJUCJSRX2ch9IEQ1mcnezpVgAlBPkjHMYTv+TtXu/ebyPH+Y1gfBcHjDCTelk4Be16x
+ sMWDovLajSH/z0ZpzqqaS6EO8qq1J0hVbjrS5CKhSxybRRUOuZD0Kf2MQS/kQsDUrJL3
+ h+LfVLKGEk0PZ/FnbBdfPsj2kz/l08TeAC/64e+SGPvGP6U6tbcooxRsljM2HNvJvKoz
+ 0veZS51kvX6qZcGtzyR+wmhxxvbYN6wNt8jZ0dWn4HDJziRgmdHkpU3gKoE42+kePEz/
+ y9MQ==
+X-Gm-Message-State: AOJu0Yw7PluunZD0eoitcraWkIFAtNaCu/EjiDIhe1nYsYZmsFaCP4BD
+ D9Szam7eKPHv0NjBKr+YwSuFsR+15Ic=
+X-Google-Smtp-Source: AGHT+IGWLi6mVZJIbIGHM5wMddNAnr9VWwP5qeiu5NE1dzs6Ao1v5pXF5n50msCDqy4e/olxBqMfsw==
+X-Received: by 2002:a05:600c:458b:b0:40d:3a7e:a4ef with SMTP id
+ r11-20020a05600c458b00b0040d3a7ea4efmr132353wmo.32.1703081260567; 
+ Wed, 20 Dec 2023 06:07:40 -0800 (PST)
 Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- m1-20020a05600c4f4100b0040c03c3289bsm7374405wmq.37.2023.12.20.06.06.24
+ m1-20020a05600c4f4100b0040c03c3289bsm7374405wmq.37.2023.12.20.06.07.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Dec 2023 06:06:25 -0800 (PST)
-Message-ID: <46bf9893-f31e-47cb-84a3-c609d13e3a65@gmail.com>
-Date: Wed, 20 Dec 2023 15:06:23 +0100
+ Wed, 20 Dec 2023 06:07:39 -0800 (PST)
+Message-ID: <f2cf8fbb-3057-40e0-a823-b8bd95b9348d@gmail.com>
+Date: Wed, 20 Dec 2023 15:07:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu/gfx11: need acquire mutex before access
- CP_VMID_RESET
+Subject: Re: [PATCH] drm/amdgpu: Cleanup indenting in
+ amdgpu_connector_dvi_detect()
 Content-Language: en-US
-To: "Xiao, Jack" <Jack.Xiao@amd.com>, Alex Deucher <alexdeucher@gmail.com>
-References: <20231219092340.1601929-1-Jack.Xiao@amd.com>
- <CADnq5_NAzBZj+SXc7iY5ZWUgxGCmt3A+PsVRRx59YWx4=toXYg@mail.gmail.com>
- <PH8PR12MB68417ECCDF64B44C09248DF3EF96A@PH8PR12MB6841.namprd12.prod.outlook.com>
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+References: <20231219133807.542179-1-srinivasan.shanmugam@amd.com>
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <PH8PR12MB68417ECCDF64B44C09248DF3EF96A@PH8PR12MB6841.namprd12.prod.outlook.com>
+In-Reply-To: <20231219133807.542179-1-srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -77,86 +79,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Well not the reset lock, but there should only be a single reset queue 
-which this runs on.
+Am 19.12.23 um 14:38 schrieb Srinivasan Shanmugam:
+> drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c:1106 amdgpu_connector_dvi_detect() warn: inconsistent indenting
+>
+> 'Fixes: 760817a60724 ("drm/amdgpu: Refactor
+> 'amdgpu_connector_dvi_detect' in amdgpu_connectors.c")'
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
-Regards,
-Christian.
+Acked-by: Christian König <christian.koenig@amd.com>
 
-Am 20.12.23 um 10:49 schrieb Xiao, Jack:
-> [AMD Official Use Only - General]
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> It's already protected by the reset lock. In my understanding, soft reset should not run in parallel.
->
-> Regards,
-> Jack
->
-> -----Original Message-----
-> From: Alex Deucher <alexdeucher@gmail.com>
-> Sent: Wednesday, December 20, 2023 1:04 AM
-> To: Xiao, Jack <Jack.Xiao@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
-> Subject: Re: [PATCH] drm/amdgpu/gfx11: need acquire mutex before access CP_VMID_RESET
->
-> On Tue, Dec 19, 2023 at 4:30 AM Jack Xiao <Jack.Xiao@amd.com> wrote:
->> It's required to take the gfx mutex before access to CP_VMID_RESET,
->> for there is a race condition with CP firmware to write the register.
->>
->> Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 20 ++++++++++++++++++++
->>   1 file changed, 20 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
->> b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
->> index bdcf96df69e6..ae3370d34d11 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
->> @@ -4518,6 +4518,22 @@ static int gfx_v11_0_soft_reset(void *handle)
->>                  }
->>          }
->>
-> We probably want a CPU mutex or spinlock to protect this as well unless this is already protected by the reset lock.
->
-> Alex
->
->> +       /* Try to require the gfx mutex before access to CP_VMID_RESET */
->> +       for (i = 0; i < adev->usec_timeout; i++) {
->> +               /* Request with MeId=2, PipeId=0 */
->> +               tmp = REG_SET_FIELD(0, CP_GFX_INDEX_MUTEX, REQUEST, 1);
->> +               tmp = REG_SET_FIELD(tmp, CP_GFX_INDEX_MUTEX, CLIENTID, 4);
->> +               WREG32_SOC15(GC, 0, regCP_GFX_INDEX_MUTEX, tmp);
->> +               if (RREG32_SOC15(GC, 0, regCP_GFX_INDEX_MUTEX) == tmp)
->> +                       break;
->> +               udelay(1);
->> +       }
->> +
->> +       if (i >= adev->usec_timeout) {
->> +               printk("Failed to require the gfx mutex during soft reset\n");
->> +               return -EINVAL;
->> +       }
->> +
->>          WREG32_SOC15(GC, 0, regCP_VMID_RESET, 0xfffffffe);
->>
->>          // Read CP_VMID_RESET register three times.
->> @@ -4526,6 +4542,10 @@ static int gfx_v11_0_soft_reset(void *handle)
->>          RREG32_SOC15(GC, 0, regCP_VMID_RESET);
->>          RREG32_SOC15(GC, 0, regCP_VMID_RESET);
->>
->> +       /* release the gfx mutex */
->> +       tmp = REG_SET_FIELD(tmp, CP_GFX_INDEX_MUTEX, REQUEST, 0);
->> +       WREG32_SOC15(GC, 0, regCP_GFX_INDEX_MUTEX, tmp);
->> +
->>          for (i = 0; i < adev->usec_timeout; i++) {
->>                  if (!RREG32_SOC15(GC, 0, regCP_HQD_ACTIVE) &&
->>                      !RREG32_SOC15(GC, 0, regCP_GFX_HQD_ACTIVE))
->> --
->> 2.41.0
->>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> index 96f63fd39b9e..9caba10315a8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> @@ -1103,7 +1103,7 @@ amdgpu_connector_dvi_detect(struct drm_connector *connector, bool force)
+>   			 * DDC line.  The latter is more complex because with DVI<->HDMI adapters
+>   			 * you don't really know what's connected to which port as both are digital.
+>   			 */
+> -			 amdgpu_connector_shared_ddc(&ret, connector, amdgpu_connector);
+> +			amdgpu_connector_shared_ddc(&ret, connector, amdgpu_connector);
+>   		}
+>   	}
+>   
 
