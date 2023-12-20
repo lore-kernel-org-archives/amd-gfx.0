@@ -4,90 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 345ADC3DA6E
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Dec 2023 16:37:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9795C3DA6E
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Dec 2023 16:48:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B3F910E5FF;
-	Wed, 20 Dec 2023 16:37:24 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2085.outbound.protection.outlook.com [40.107.244.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0731D10E5FC
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Dec 2023 16:37:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1840B10E12B;
+	Wed, 20 Dec 2023 16:48:52 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2063.outbound.protection.outlook.com [40.107.220.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 551F010E12B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Dec 2023 16:48:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XvH34Uuq9gtYh7Ne9Au5qMu/P0YCdSGD1svRMuLpcbkspmkAws7xkLletePMp1fs+q70XUjhYOuBRcPQQ+P0lLqWXLP8IxRiTQxiQcDz1jy5E2H7bzqlj+vQK080tPkHHCw92AJbjYlvZs/B3Tx7FLOlMDpzvnWvy/QUtyGQwAGrLlaLOUnaiYpKoSuJxpepHtUIbn5vjcBmr3W+Rs4d0iAG3Pav/kync4jq0kS9sxv/zlTyP5wqG8SsMReQHoueJ2VfJVuHtp5Yej5H4rZgSpxrTe9osqw5pATqr9YK5CpC+Q3f7nMT0GPUQ2xgEYpm9JSGmYbP5zA9mX+TRtxOFg==
+ b=gCTZLp+E7YRHShcH4BPc3j3Q9/XsXYCSRd/TwrEjye1ooY8GXI2XN3nCoisoYvGdU29WAHcJQKIyn1KGbczVQXidhQKdi55G8DD+oZjfo1eIgAqG/FswAA6GiwJ3GLM0Tc6h6pcjNXqVDY65TFX6R/e2RVsZPdtxCWHYp56qBViJWuk8ugZA63NHV0EC2DVvcqydN06lijrSLkCX4tPNTXkI0v5TiRhepnCbD+mJzuxPBHMHzoXIbfVAqA589BInwSMUtApO6PmsgU7PNNk23NZ5Wj1u84u1Yhgnrtkbnn4aagCuuSmlAS2l8Z8dxbE3k8B2GYqX0e2XSsOgOI+S9Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ACv46R7Gd4lneFGxyHwm4a0cD9KNL3nA+ZQzWKcAmLM=;
- b=XzetqQDBafhxK1AFgm76E0ZKpJLRhRus6GbKiB2oGxY11dG0hX9kGdEpmcxTX8QIjlTBHu83sjqEo4aUaUc5qEWf7OtzdrYy/E4HudDGQwOXL2ALJmQifkknT9OrF8igbMZ/UAYRDwPhsObM7GhLjzmdGFwlONOJ5rS0hQH6CG7Rq6YXUDCf0wWvt6KEeqI6bS21UFmsLIw4c8+L1HR/OjC1wN1k8aunXp2iPkxenBjzDxgr4JzXZKlm3n4PtApG4wq323T+trWOLdrqWSwGsVf/XQsby10isalxMklQfSSLjUpOyPrElW5U8/VaOiU/Yr4MrD3e6DHJBEg9qXgC4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=5QD7kOyqklHSmRdsd/+bDSHDvNVb8wOQsZLu5UPxhC4=;
+ b=QE8IPqtxABuB2CB3zFJ5J3Z86SJyQCMQjBjdbQzbMR5g2ef16YiU9RgiShq/5873mTY04frTVbo0JNjrTlbhAAX1921Xpu/4ueL/4e6ym3zzH2J6ne4UoScIxRUVJEXmsYy0TkHtxzTmGWRoEXsRFHUINll/b5qUuI3rpoXNTlOFLfW77g9ydyCPhmowXwJ2Ef0laEe68S0uGh04/ZXCyAKDR9RRmgW7GyzIf6EUlXkUP2dvWfC6/c7p8DvmmWhGQr3m5XZG5gk5zhADuQFMEXGB8yLtSFEmg+rRoROhZmwQqGBwkijkk6DFlC9NpQWzf6a66aPBDKpWaIRKTmzrSw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ACv46R7Gd4lneFGxyHwm4a0cD9KNL3nA+ZQzWKcAmLM=;
- b=Fo0vj5j1o2+S3Vp1QyT7xUILYMCHflzB1hZFg8my1lYuVTTLHviRVPavHPt/5QIyCXLV5csZFX4aGT48Ka8Lqx8sadzRFmzEDxCF3tQgLCUzDDhJ0pzqt17xTr6fdHSpCuRL1uCCcnAn9f/4Q74EQaEkpHmPsFeEtledlTFPGhM=
-Received: from BL1PR13CA0142.namprd13.prod.outlook.com (2603:10b6:208:2bb::27)
- by LV8PR12MB9232.namprd12.prod.outlook.com (2603:10b6:408:182::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.18; Wed, 20 Dec
- 2023 16:37:20 +0000
-Received: from BL02EPF0001A106.namprd05.prod.outlook.com
- (2603:10b6:208:2bb:cafe::56) by BL1PR13CA0142.outlook.office365.com
- (2603:10b6:208:2bb::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.18 via Frontend
- Transport; Wed, 20 Dec 2023 16:37:20 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A106.mail.protection.outlook.com (10.167.241.139) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7113.14 via Frontend Transport; Wed, 20 Dec 2023 16:37:20 +0000
-Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 20 Dec
- 2023 10:37:15 -0600
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 20/20] drm/amd/display: Add some functions for Panel Replay
-Date: Wed, 20 Dec 2023 09:33:52 -0700
-Message-ID: <20231220163538.1742834-21-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231220163538.1742834-1-Rodrigo.Siqueira@amd.com>
+ bh=5QD7kOyqklHSmRdsd/+bDSHDvNVb8wOQsZLu5UPxhC4=;
+ b=ruz2ajLekfHCRtNP/qKB7x3DCmTrVI286ORh2s1icCpHBjbRAjU5Rc5Yx2u35J56nmAldbgJ6Q/CPrtfS1ur911EDtPE8RVXIUZeA6cIs8sJGq3cuZ4jH1sbDv2KjywKuXJLD7iim4TdxaYgy+/koZIDWJGO8VUki5bXD9E4VVc=
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
+ SJ2PR12MB8944.namprd12.prod.outlook.com (2603:10b6:a03:53e::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7091.38; Wed, 20 Dec 2023 16:48:47 +0000
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::246:b20b:f0c1:bbf7]) by DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::246:b20b:f0c1:bbf7%7]) with mapi id 15.20.7113.016; Wed, 20 Dec 2023
+ 16:48:47 +0000
+From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
+To: "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 00/20] DC Patches December 20, 2023
+Thread-Topic: [PATCH 00/20] DC Patches December 20, 2023
+Thread-Index: AQHaM2K3IV0L6pBoJUmI0e+W0/sKfrCyYdpg
+Date: Wed, 20 Dec 2023 16:48:47 +0000
+Message-ID: <DS0PR12MB653474FD27E5419CB07BA8D59C96A@DS0PR12MB6534.namprd12.prod.outlook.com>
 References: <20231220163538.1742834-1-Rodrigo.Siqueira@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A106:EE_|LV8PR12MB9232:EE_
-X-MS-Office365-Filtering-Correlation-Id: 42580e84-c75e-46a8-412b-08dc0179ef89
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QPJ1Ca03ivDk4obhMtme7h5vkVDP5+9Q73aICl3ymXxQhghCSYJUEogp+tj/WL6/cdXj1YONWlYp56ci5LYLqPaQHbq/k0X1BoNaigPuNuUD73Ppvi++sVTjze1VUfchJRIwqULB9Ju2MG3b0GAuw8rvqhxJdhgKBHUZ2rlvWGh3/hemj49yPPFq6LVfvTpjN0HoINPCc9WoHImVAIAXZDD2gttnnCPjGAfEOZebmMmksNZm0oCKh5COFZUFQCbPHoRFHsr6LwNIUkNVG7Eu427gaMGNeqtNLCnWdljNjqQpdw5uNv0U6rn3DfRT9+HTtroz9a4adlKSM8ugyR2zHC1bikhqDMzUTTyfk2Obvb9trXkv4ZjhoX18VlTi315PsxI9j/+MuQovvg6Y3D6vD24LmtpYwc3MiEgxzakQE4U15bvBzYjZdnjnHggRIpAjkJ5/VIao9WnelB7yjPGn8fyTj+qd2pxlMppBGEXuDOIUqCswTggkmPRr6jfS7dMoWtJJZ3PcL08qVXixUXkzpzoMvI5yFjHBaaHv3Y13pB9ISvUloV7OWrBH6ZpINt7ennUDVslopFESE3OJkej3MfsWohsqSZfV+JlXwxHpeY6JhXXHIjJZxWx5gufglMXQ7wZU8i7tzy+xJU2d3CsYMnSl1FCbusxevgnKpr56KS1ipWIVWiONgViE4YQFywdgd2FPCkYqTDEvydMLNS7GA2o+MnBALUkgQFXwKa506RSbdYLmT6C67UW6LiH9w1bz4gQkPBBBPVWHS9fgS1eHHA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(346002)(136003)(396003)(39860400002)(230922051799003)(451199024)(186009)(1800799012)(82310400011)(64100799003)(36840700001)(40470700004)(46966006)(40460700003)(40480700001)(336012)(1076003)(6666004)(2616005)(26005)(16526019)(426003)(81166007)(356005)(82740400003)(2906002)(36756003)(86362001)(478600001)(36860700001)(8936002)(8676002)(41300700001)(4326008)(30864003)(83380400001)(47076005)(70206006)(316002)(6916009)(70586007)(54906003)(5660300002)(36900700001);
+In-Reply-To: <20231220163538.1742834-1-Rodrigo.Siqueira@amd.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=8c60078b-eb08-43e3-9118-0c65d0d7dc7d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
+ 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-12-20T16:48:22Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR12MB6534:EE_|SJ2PR12MB8944:EE_
+x-ms-office365-filtering-correlation-id: cd8f5c47-0def-4368-8722-08dc017b8959
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: fA+yjcqebUdcOSrL58qD+o38lH12CaxneqncKojC00qFiy9sd5FxvVV76KXiTO0PTUVktomMtCMOmVD/UKH76AQ4s/6W5OBFhkptxLiaQvBQpnHTQlf5dVmkgmMHwhcsnhb5Arjc8OLpgMJU3NLwuWApG/wRaAvcd5iVRgjPcfWbhKxxqcKpCKKXZrnIRUU4bPJccgLUBKSmQlS5TPRAe5dX9gikMXRHZ7UOgBzp+OsbkdB5WfKihfiiXlnO8wJCwOibRCZgH7RsbwVbSpitU4mGSiKvhjXLuitR1jd3gPxZ4l8tjiXOaiLUsTJpqMSiQ8kGRlyPYjG7c+CyxfiVQ6y9/b6+swYJFTnYc8dxh+ktwEXapC6fp1dbJcGF9MdHPm+dC0kRxzQkGIuGPhXB8PQSoMfcYtFuUahAA8UcEFDCRoxyX6SaYdl8kXpZrx3DDkqdpHH5fqpn209zzSfbAG48vxoVXdrfTmyh4Oxt9TwfABXLCDdCF8321f8IQHpp+szsCVUJSx2Psn2KyBkTUWaqYovTjnLBo5dIZm6TpYpncDHk714Z5nF2MTfBhMvHEpi4A2Ly1J0vO/D5mDYodBgFgMJ5lBLq3d+KZEC6pzT96/iDSnZmVIvcJcZn2lC9
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376002)(396003)(366004)(39860400002)(136003)(346002)(230922051799003)(451199024)(186009)(1800799012)(64100799003)(55016003)(7696005)(122000001)(9686003)(53546011)(19627235002)(71200400001)(26005)(6506007)(83380400001)(38100700002)(33656002)(38070700009)(2906002)(86362001)(478600001)(4326008)(41300700001)(8936002)(110136005)(8676002)(30864003)(5660300002)(66556008)(76116006)(52536014)(66476007)(54906003)(66446008)(64756008)(66946007)(316002);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?3vi/6DwnWL2lWQLIKNEH5U89M4mXO1SxE5GU8RaGA7cA5rxgCP+eH9lsvdju?=
+ =?us-ascii?Q?qfpW+l/wPMHXwYXiWVrXwrJoQEEcYVXqHVxU2zhHHscLQ9BhAmA8ZCFAZE8E?=
+ =?us-ascii?Q?ho3Pvz51vGgCMa27eudnAFqfMhHhJXYOECe1dMKX+aH92JgYkd4nOyTsR/TK?=
+ =?us-ascii?Q?IiOaYxFn90+EaoLF/AhUHezOzaXlNeeyI2E07CXszMAAgCC1y7uETqmzbjrF?=
+ =?us-ascii?Q?SdeuaikoAz3GUO2NEvcU5E9UlSl7YiT5ChGYsNt3d3fYQVnT1bagjHz7pUpL?=
+ =?us-ascii?Q?fQkzxZyzZcWE6Nv+hxfppT4DBmd+IIs+YgNMrVifxSseQO+n6a9TaeVl68m+?=
+ =?us-ascii?Q?dElffDfqjbra+nON3PVruYK9mPf7EfWERyAfqt4nLenHKraRQGfjUQOOa7r1?=
+ =?us-ascii?Q?uWsnqD7VvQNGf7tAPZO7bOTMszMuUtCWHQpNeqZg8WT9Se9uAYkAp6BO2p7R?=
+ =?us-ascii?Q?71diwJrWvUY8yr6eB3t37KezK3U5TUdM+34J1w+Nmp8NhvNueoKTn1ybI9wq?=
+ =?us-ascii?Q?JRBgRt9qmvDlpNlu8jLPWzmiuHlCzJPmDz5KCmjGKHH6x3akzF3TSs2VbX3u?=
+ =?us-ascii?Q?1Lz677LFPWaexuFp/Q+xlDJmjmTHSHU6XZbqomkJmJe3tR/l4oTtvvtvekLW?=
+ =?us-ascii?Q?E/ZURDi1NZ8QHzdLaYt5Y6eKtGUmC09nC7ijNMyjg/MpYYAnrc5o3Xi2bj4g?=
+ =?us-ascii?Q?jcKS6F2tiLwrObmSdzBnt1rTGrxltQbYGfdBTmxu9mU6/uKqfyyv+db5nmDK?=
+ =?us-ascii?Q?cfRkezGV+2bYSKn6JJCY4eeJM80R1hcXKB4bNiAL8WyMrcP1lDPrR9C5Md6Q?=
+ =?us-ascii?Q?fu2s9zTIOSE83sezBwLMFfBmibeWVDGzV3PhMW0uULfJHEb6Bjs1t995WV5M?=
+ =?us-ascii?Q?YA49KwHIY2yn5X85n1u0/kntjs+PD3MgMwP2vOUZnCtjKXj8GykixZJmiK19?=
+ =?us-ascii?Q?39oCv3Sti+83F9j7VQFvkRb0VECVtt0vLOntwSfjTycQklKFhyNL9aNkToCv?=
+ =?us-ascii?Q?M9L7hDaTPDTSoY5T+vDuNSe6e3E1lTLE0OIThYKgErbrqChtakDpnB4Fyy1o?=
+ =?us-ascii?Q?pl490DuYENThZ9p1UtjilvYArMde1Fn5a5dV1jGst9U0qfc/EQ/QZaf4tEjM?=
+ =?us-ascii?Q?+ztc5cx72F0PocgnoEnT6MuGiq0Ncqvi0fEVulskkaIg612K+ghKgB8TZu0H?=
+ =?us-ascii?Q?gnF391bjlbQzp/Ag4ya6HeVQsVgq8UFDRGkNW3wylb934+whqSJnsqYQnjJT?=
+ =?us-ascii?Q?ceRGxA/nFc15KbOTB2OhmTVHa2YhCSniKb+R4LgIT0R2CzjYedUJz7l++dc6?=
+ =?us-ascii?Q?MmhYlcFpkrx9X6og3GtTHcUtio2X1RDb1v8iF+iUTGF0wDmYUPnFKjOgybb9?=
+ =?us-ascii?Q?8ME/N6abe+1Z8QkjSasdUXzZzUJKll609Sg6IRShjkgg0VGtzFb5ITQqX1c5?=
+ =?us-ascii?Q?GKXBYf9seRwbwk3C+Pb41G7tc4FgWOa3RTUU3mRv24RQvg2RETFElNYhZSw0?=
+ =?us-ascii?Q?amLAQyNmH2spdxM23EjI4TkAQiyNVUa2XEfmLsXCUZCGHnUm3LoeU1PtUi8Q?=
+ =?us-ascii?Q?YNu6M5jIl9XmUDzOqZI=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2023 16:37:20.0719 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42580e84-c75e-46a8-412b-08dc0179ef89
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A106.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9232
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cd8f5c47-0def-4368-8722-08dc017b8959
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Dec 2023 16:48:47.6692 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 06/qDAQm0woJoXPy7d0YA6IPKZnIxYinSQANqO6M8tk2DEO56iMgqEDG+ZxSJVHMZsIAyezktQA9rAEELIHbLA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8944
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,477 +123,259 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, chiahsuan.chung@amd.com, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <rodrigo.siqueira@amd.com>, roman.li@amd.com,
- jerry.zuo@amd.com, Aurabindo.Pillai@amd.com, hersenxs.wu@amd.com,
- wayne.lin@amd.com, Harry.Wentland@amd.com, agustin.gutierrez@amd.com
+Cc: "Wang, Chao-kai \(Stylon\)" <Stylon.Wang@amd.com>, "Chung,
+ ChiaHsuan \(Tom\)" <ChiaHsuan.Chung@amd.com>, "Li,
+ Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Li, 
+ Roman" <Roman.Li@amd.com>, "Zuo, Jerry" <Jerry.Zuo@amd.com>, "Pillai,
+ Aurabindo" <Aurabindo.Pillai@amd.com>, "Wu, Hersen" <hersenxs.wu@amd.com>,
+ "Lin, Wayne" <Wayne.Lin@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>,
+ "Gutierrez, Agustin" <Agustin.Gutierrez@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tom Chung <chiahsuan.chung@amd.com>
+[Public]
 
-[WHY]
-Prepare for enabling the Panel Replay feature
+Hi all,
 
-[HOW]
-- Add some Panel Replay setting functions in DC
-- Add the Panel Replay resource in dcn35_resource.c
-- Add debug masks for Panel Replay
+This week this patchset was tested on the following systems:
+        * Lenovo ThinkBook T13s Gen4 with AMD Ryzen 5 6600U
+        * MSI Gaming X Trio RX 6800
+        * Gigabyte Gaming OC RX 7900 XTX
 
-Acked-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-Reviewed-by: Leo Li <sunpeng.li@amd.com>
-Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 34 +++++++
- .../drm/amd/display/dc/core/dc_link_exports.c |  7 ++
- drivers/gpu/drm/amd/display/dc/dc.h           | 23 +++++
- .../gpu/drm/amd/display/dc/dce/dmub_replay.c  | 96 +++++++++++++++++--
- .../gpu/drm/amd/display/dc/dce/dmub_replay.h  |  2 +
- drivers/gpu/drm/amd/display/dc/inc/link.h     |  2 +
- .../drm/amd/display/dc/link/link_factory.c    |  1 +
- .../link/protocols/link_edp_panel_control.c   | 27 ++++++
- .../link/protocols/link_edp_panel_control.h   |  2 +
- .../dc/resource/dcn35/dcn35_resource.c        | 13 +++
- .../amd/display/modules/power/power_helpers.c | 28 ++++++
- .../amd/display/modules/power/power_helpers.h |  5 +
- drivers/gpu/drm/amd/include/amd_shared.h      |  2 +
- 13 files changed, 236 insertions(+), 6 deletions(-)
+These systems were tested on the following display/connection types:
+        * eDP, (1080p 60hz [5650U]) (1920x1200 60hz [6600U]) (2560x1600 120=
+hz[6600U])
+        * VGA and DVI (1680x1050 60hz [DP to VGA/DVI, USB-C to VGA/DVI])
+        * DP/HDMI/USB-C (1440p 170hz, 4k 60hz, 4k 144hz, 4k 240hz [Includes=
+ USB-C to DP/HDMI adapters])
+        * Thunderbolt (LG Ultrafine 5k)
+        * MST (Startech MST14DP123DP [DP to 3x DP] and 2x 4k 60Hz displays)
+        * DSC (with Cable Matters 101075 [DP to 3x DP] with 3x 4k60 display=
+s, and HP Hook G2 with 1 4k60 display)
+        * USB 4 (Kensington SD5700T and 1x 4k 60Hz display)
+        * PCON (Club3D CAC-1085 and 1x 4k 144Hz display [at 4k 120HZ, as th=
+at is the max the adapter supports])
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index b7c2eaebf8bf..2d7205058c64 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -4770,6 +4770,38 @@ bool dc_set_psr_allow_active(struct dc *dc, bool enable)
- 	return true;
- }
- 
-+/* enable/disable eDP Replay without specify stream for eDP */
-+bool dc_set_replay_allow_active(struct dc *dc, bool active)
-+{
-+	int i;
-+	bool allow_active;
-+
-+	for (i = 0; i < dc->current_state->stream_count; i++) {
-+		struct dc_link *link;
-+		struct dc_stream_state *stream = dc->current_state->streams[i];
-+
-+		link = stream->link;
-+		if (!link)
-+			continue;
-+
-+		if (link->replay_settings.replay_feature_enabled) {
-+			if (active && !link->replay_settings.replay_allow_active) {
-+				allow_active = true;
-+				if (!dc_link_set_replay_allow_active(link, &allow_active,
-+					false, false, NULL))
-+					return false;
-+			} else if (!active && link->replay_settings.replay_allow_active) {
-+				allow_active = false;
-+				if (!dc_link_set_replay_allow_active(link, &allow_active,
-+					true, false, NULL))
-+					return false;
-+			}
-+		}
-+	}
-+
-+	return true;
-+}
-+
- void dc_allow_idle_optimizations(struct dc *dc, bool allow)
- {
- 	if (dc->debug.disable_idle_power_optimizations)
-@@ -5315,6 +5347,8 @@ bool dc_abm_save_restore(
- 	struct dc_link *link = stream->sink->link;
- 	struct dc_link *edp_links[MAX_NUM_EDP];
- 
-+	if (link->replay_settings.replay_feature_enabled)
-+		return false;
- 
- 	/*find primary pipe associated with stream*/
- 	for (i = 0; i < MAX_PIPES; i++) {
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
-index f365773d5714..c6c35037bdb8 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
-@@ -467,6 +467,13 @@ bool dc_link_setup_psr(struct dc_link *link,
- 	return link->dc->link_srv->edp_setup_psr(link, stream, psr_config, psr_context);
- }
- 
-+bool dc_link_set_replay_allow_active(struct dc_link *link, const bool *allow_active,
-+		bool wait, bool force_static, const unsigned int *power_opts)
-+{
-+	return link->dc->link_srv->edp_set_replay_allow_active(link, allow_active, wait,
-+			force_static, power_opts);
-+}
-+
- bool dc_link_get_replay_state(const struct dc_link *link, uint64_t *state)
- {
- 	return link->dc->link_srv->edp_get_replay_state(link, state);
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 565de7428b6c..f30a341bc090 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -463,6 +463,12 @@ enum dml_hostvm_override_opts {
- 	DML_HOSTVM_OVERRIDE_TRUE = 0x2,
- };
- 
-+enum dc_replay_power_opts {
-+	replay_power_opt_invalid		= 0x0,
-+	replay_power_opt_smu_opt_static_screen	= 0x1,
-+	replay_power_opt_z10_static_screen	= 0x10,
-+};
-+
- enum dcc_option {
- 	DCC_ENABLE = 0,
- 	DCC_DISABLE = 1,
-@@ -2077,6 +2083,20 @@ bool dc_link_setup_psr(struct dc_link *dc_link,
- 		const struct dc_stream_state *stream, struct psr_config *psr_config,
- 		struct psr_context *psr_context);
- 
-+/*
-+ * Communicate with DMUB to allow or disallow Panel Replay on the specified link:
-+ *
-+ * @link: pointer to the dc_link struct instance
-+ * @enable: enable(active) or disable(inactive) replay
-+ * @wait: state transition need to wait the active set completed.
-+ * @force_static: force disable(inactive) the replay
-+ * @power_opts: set power optimazation parameters to DMUB.
-+ *
-+ * return: allow Replay active will return true, else will return false.
-+ */
-+bool dc_link_set_replay_allow_active(struct dc_link *dc_link, const bool *enable,
-+		bool wait, bool force_static, const unsigned int *power_opts);
-+
- bool dc_link_get_replay_state(const struct dc_link *dc_link, uint64_t *state);
- 
- /* On eDP links this function call will stall until T12 has elapsed.
-@@ -2321,6 +2341,9 @@ void dc_hardware_release(struct dc *dc);
- void dc_mclk_switch_using_fw_based_vblank_stretch_shut_down(struct dc *dc);
- 
- bool dc_set_psr_allow_active(struct dc *dc, bool enable);
-+
-+bool dc_set_replay_allow_active(struct dc *dc, bool active);
-+
- void dc_z10_restore(const struct dc *dc);
- void dc_z10_save_init(struct dc *dc);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
-index 28149e53c2a6..38e4797e9476 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
-@@ -258,13 +258,97 @@ static void dmub_replay_residency(struct dmub_replay *dmub, uint8_t panel_inst,
- 		*residency = 0;
- }
- 
-+/**
-+ * Set REPLAY power optimization flags and coasting vtotal.
-+ */
-+static void dmub_replay_set_power_opt_and_coasting_vtotal(struct dmub_replay *dmub,
-+		unsigned int power_opt, uint8_t panel_inst, uint16_t coasting_vtotal)
-+{
-+	union dmub_rb_cmd cmd;
-+	struct dc_context *dc = dmub->ctx;
-+
-+	memset(&cmd, 0, sizeof(cmd));
-+	cmd.replay_set_power_opt_and_coasting_vtotal.header.type = DMUB_CMD__REPLAY;
-+	cmd.replay_set_power_opt_and_coasting_vtotal.header.sub_type =
-+		DMUB_CMD__REPLAY_SET_POWER_OPT_AND_COASTING_VTOTAL;
-+	cmd.replay_set_power_opt_and_coasting_vtotal.header.payload_bytes =
-+		sizeof(struct dmub_rb_cmd_replay_set_power_opt_and_coasting_vtotal);
-+	cmd.replay_set_power_opt_and_coasting_vtotal.replay_set_power_opt_data.power_opt = power_opt;
-+	cmd.replay_set_power_opt_and_coasting_vtotal.replay_set_power_opt_data.panel_inst = panel_inst;
-+	cmd.replay_set_power_opt_and_coasting_vtotal.replay_set_coasting_vtotal_data.coasting_vtotal = coasting_vtotal;
-+
-+	dc_wake_and_execute_dmub_cmd(dc, &cmd, DM_DMUB_WAIT_TYPE_WAIT);
-+}
-+
-+/**
-+ * send Replay general cmd to DMUB.
-+ */
-+static void dmub_replay_send_cmd(struct dmub_replay *dmub,
-+		enum replay_FW_Message_type msg, union dmub_replay_cmd_set *cmd_element)
-+{
-+	union dmub_rb_cmd cmd;
-+	struct dc_context *ctx = NULL;
-+
-+	if (dmub == NULL || cmd_element == NULL)
-+		return;
-+
-+	ctx = dmub->ctx;
-+	if (ctx != NULL) {
-+
-+		if (msg != Replay_Msg_Not_Support) {
-+			memset(&cmd, 0, sizeof(cmd));
-+			//Header
-+			cmd.replay_set_timing_sync.header.type = DMUB_CMD__REPLAY;
-+		} else
-+			return;
-+	} else
-+		return;
-+
-+	switch (msg) {
-+	case Replay_Set_Timing_Sync_Supported:
-+		//Header
-+		cmd.replay_set_timing_sync.header.sub_type =
-+			DMUB_CMD__REPLAY_SET_TIMING_SYNC_SUPPORTED;
-+		cmd.replay_set_timing_sync.header.payload_bytes =
-+			sizeof(struct dmub_rb_cmd_replay_set_timing_sync);
-+		//Cmd Body
-+		cmd.replay_set_timing_sync.replay_set_timing_sync_data.panel_inst =
-+						cmd_element->sync_data.panel_inst;
-+		cmd.replay_set_timing_sync.replay_set_timing_sync_data.timing_sync_supported =
-+						cmd_element->sync_data.timing_sync_supported;
-+		break;
-+	case Replay_Set_Residency_Frameupdate_Timer:
-+		//Header
-+		cmd.replay_set_frameupdate_timer.header.sub_type =
-+			DMUB_CMD__REPLAY_SET_RESIDENCY_FRAMEUPDATE_TIMER;
-+		cmd.replay_set_frameupdate_timer.header.payload_bytes =
-+			sizeof(struct dmub_rb_cmd_replay_set_frameupdate_timer);
-+		//Cmd Body
-+		cmd.replay_set_frameupdate_timer.data.panel_inst =
-+						cmd_element->panel_inst;
-+		cmd.replay_set_frameupdate_timer.data.enable =
-+						cmd_element->timer_data.enable;
-+		cmd.replay_set_frameupdate_timer.data.frameupdate_count =
-+						cmd_element->timer_data.frameupdate_count;
-+		break;
-+	case Replay_Msg_Not_Support:
-+	default:
-+		return;
-+		break;
-+	}
-+
-+	dc_wake_and_execute_dmub_cmd(ctx, &cmd, DM_DMUB_WAIT_TYPE_WAIT);
-+}
-+
- static const struct dmub_replay_funcs replay_funcs = {
--	.replay_copy_settings		= dmub_replay_copy_settings,
--	.replay_enable			= dmub_replay_enable,
--	.replay_get_state		= dmub_replay_get_state,
--	.replay_set_power_opt		= dmub_replay_set_power_opt,
--	.replay_set_coasting_vtotal	= dmub_replay_set_coasting_vtotal,
--	.replay_residency		= dmub_replay_residency,
-+	.replay_copy_settings				= dmub_replay_copy_settings,
-+	.replay_enable					= dmub_replay_enable,
-+	.replay_get_state				= dmub_replay_get_state,
-+	.replay_set_power_opt				= dmub_replay_set_power_opt,
-+	.replay_set_coasting_vtotal			= dmub_replay_set_coasting_vtotal,
-+	.replay_residency				= dmub_replay_residency,
-+	.replay_set_power_opt_and_coasting_vtotal	= dmub_replay_set_power_opt_and_coasting_vtotal,
-+	.replay_send_cmd				= dmub_replay_send_cmd,
- };
- 
- /*
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h
-index b3ee90a0b8b3..3613aff994d7 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h
-@@ -51,6 +51,8 @@ struct dmub_replay_funcs {
- 		uint8_t panel_inst);
- 	void (*replay_residency)(struct dmub_replay *dmub,
- 		uint8_t panel_inst, uint32_t *residency, const bool is_start, const bool is_alpm);
-+	void (*replay_set_power_opt_and_coasting_vtotal)(struct dmub_replay *dmub,
-+		unsigned int power_opt, uint8_t panel_inst, uint16_t coasting_vtotal);
- };
- 
- struct dmub_replay *dmub_replay_create(struct dc_context *ctx);
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/link.h b/drivers/gpu/drm/amd/display/dc/inc/link.h
-index 7439865d1b50..26fe81f213da 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/link.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/link.h
-@@ -289,6 +289,8 @@ struct link_service {
- 	bool (*edp_replay_residency)(const struct dc_link *link,
- 			unsigned int *residency, const bool is_start,
- 			const bool is_alpm);
-+	bool (*edp_set_replay_power_opt_and_coasting_vtotal)(struct dc_link *link,
-+			const unsigned int *power_opts, uint16_t coasting_vtotal);
- 
- 	bool (*edp_wait_for_t12)(struct dc_link *link);
- 	bool (*edp_is_ilr_optimization_required)(struct dc_link *link,
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_factory.c b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
-index 5464d8d26bd3..37d3027c32dc 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_factory.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
-@@ -216,6 +216,7 @@ static void construct_link_service_edp_panel_control(struct link_service *link_s
- 	link_srv->edp_send_replay_cmd = edp_send_replay_cmd;
- 	link_srv->edp_set_coasting_vtotal = edp_set_coasting_vtotal;
- 	link_srv->edp_replay_residency = edp_replay_residency;
-+	link_srv->edp_set_replay_power_opt_and_coasting_vtotal = edp_set_replay_power_opt_and_coasting_vtotal;
- 
- 	link_srv->edp_wait_for_t12 = edp_wait_for_t12;
- 	link_srv->edp_is_ilr_optimization_required =
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-index e8de68e62403..7f1196528218 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-@@ -1068,6 +1068,33 @@ bool edp_replay_residency(const struct dc_link *link,
- 	return true;
- }
- 
-+bool edp_set_replay_power_opt_and_coasting_vtotal(struct dc_link *link,
-+	const unsigned int *power_opts, uint16_t coasting_vtotal)
-+{
-+	struct dc  *dc = link->ctx->dc;
-+	struct dmub_replay *replay = dc->res_pool->replay;
-+	unsigned int panel_inst;
-+
-+	if (!dc_get_edp_link_panel_inst(dc, link, &panel_inst))
-+		return false;
-+
-+	/* Only both power and coasting vtotal changed, this func could return true */
-+	if (power_opts && link->replay_settings.replay_power_opt_active != *power_opts &&
-+		coasting_vtotal && link->replay_settings.coasting_vtotal != coasting_vtotal) {
-+		if (link->replay_settings.replay_feature_enabled &&
-+			replay->funcs->replay_set_power_opt_and_coasting_vtotal) {
-+			replay->funcs->replay_set_power_opt_and_coasting_vtotal(replay,
-+				*power_opts, panel_inst, coasting_vtotal);
-+			link->replay_settings.replay_power_opt_active = *power_opts;
-+			link->replay_settings.coasting_vtotal = coasting_vtotal;
-+		} else
-+			return false;
-+	} else
-+		return false;
-+
-+	return true;
-+}
-+
- static struct abm *get_abm_from_stream_res(const struct dc_link *link)
- {
- 	int i;
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.h b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.h
-index b7493ff4fcee..34e521af7bb4 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.h
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.h
-@@ -63,6 +63,8 @@ bool edp_set_coasting_vtotal(struct dc_link *link, uint16_t coasting_vtotal);
- bool edp_replay_residency(const struct dc_link *link,
- 	unsigned int *residency, const bool is_start, const bool is_alpm);
- bool edp_get_replay_state(const struct dc_link *link, uint64_t *state);
-+bool edp_set_replay_power_opt_and_coasting_vtotal(struct dc_link *link,
-+	const unsigned int *power_opts, uint16_t coasting_vtotal);
- bool edp_wait_for_t12(struct dc_link *link);
- bool edp_is_ilr_optimization_required(struct dc_link *link,
-        struct dc_crtc_timing *crtc_timing);
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-index 810cfe213632..685f87e2dbde 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-@@ -96,6 +96,7 @@
- #include "reg_helper.h"
- #include "dce/dmub_abm.h"
- #include "dce/dmub_psr.h"
-+#include "dce/dmub_replay.h"
- #include "dce/dce_aux.h"
- #include "dce/dce_i2c.h"
- #include "dml/dcn31/display_mode_vba_31.h" /*temp*/
-@@ -788,6 +789,7 @@ static const struct dc_panel_config panel_config_defaults = {
- 	.psr = {
- 		.disable_psr = false,
- 		.disallow_psrsu = false,
-+		.disallow_replay = false,
- 	},
- 	.ilr = {
- 		.optimize_edp_link_rate = true,
-@@ -1546,6 +1548,9 @@ static void dcn35_resource_destruct(struct dcn35_resource_pool *pool)
- 	if (pool->base.psr != NULL)
- 		dmub_psr_destroy(&pool->base.psr);
- 
-+	if (pool->base.replay != NULL)
-+		dmub_replay_destroy(&pool->base.replay);
-+
- 	if (pool->base.pg_cntl != NULL)
- 		dcn_pg_cntl_destroy(&pool->base.pg_cntl);
- 
-@@ -2030,6 +2035,14 @@ static bool dcn35_resource_construct(
- 		goto create_fail;
- 	}
- 
-+	/* Replay */
-+	pool->base.replay = dmub_replay_create(ctx);
-+	if (pool->base.replay == NULL) {
-+		dm_error("DC: failed to create replay obj!\n");
-+		BREAK_TO_DEBUGGER();
-+		goto create_fail;
-+	}
-+
- 	/* ABM */
- 	for (i = 0; i < pool->base.res_cap->num_timing_generator; i++) {
- 		pool->base.multiple_abms[i] = dmub_abm_create(ctx,
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power_helpers.c b/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
-index 1675314a3ff2..34b848c981e0 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
-+++ b/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
-@@ -973,6 +973,34 @@ bool psr_su_set_dsc_slice_height(struct dc *dc, struct dc_link *link,
- 	return true;
- }
- 
-+void set_replay_coasting_vtotal(struct dc_link *link,
-+	enum replay_coasting_vtotal_type type,
-+	uint16_t vtotal)
-+{
-+	link->replay_settings.coasting_vtotal_table[type] = vtotal;
-+}
-+
-+void calculate_replay_link_off_frame_count(struct dc_link *link,
-+	uint16_t vtotal, uint16_t htotal)
-+{
-+	uint8_t max_link_off_frame_count = 0;
-+	uint16_t max_deviation_line = 0,  pixel_deviation_per_line = 0;
-+
-+	max_deviation_line = link->dpcd_caps.pr_info.max_deviation_line;
-+	pixel_deviation_per_line = link->dpcd_caps.pr_info.pixel_deviation_per_line;
-+
-+	if (htotal != 0 && vtotal != 0)
-+		max_link_off_frame_count = htotal * max_deviation_line / (pixel_deviation_per_line * vtotal);
-+	else
-+		ASSERT(0);
-+
-+	link->replay_settings.link_off_frame_count_level =
-+		max_link_off_frame_count >= PR_LINK_OFF_FRAME_COUNT_BEST ? PR_LINK_OFF_FRAME_COUNT_BEST :
-+		max_link_off_frame_count >= PR_LINK_OFF_FRAME_COUNT_GOOD ? PR_LINK_OFF_FRAME_COUNT_GOOD :
-+		PR_LINK_OFF_FRAME_COUNT_FAIL;
-+
-+}
-+
- bool fill_custom_backlight_caps(unsigned int config_no, struct dm_acpi_atif_backlight_caps *caps)
- {
- 	unsigned int data_points_size;
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power_helpers.h b/drivers/gpu/drm/amd/display/modules/power/power_helpers.h
-index d9e0d67d67f7..c17bbc6fb38c 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power_helpers.h
-+++ b/drivers/gpu/drm/amd/display/modules/power/power_helpers.h
-@@ -54,6 +54,11 @@ bool dmub_init_abm_config(struct resource_pool *res_pool,
- 		unsigned int inst);
- 
- void init_replay_config(struct dc_link *link, struct replay_config *pr_config);
-+void set_replay_coasting_vtotal(struct dc_link *link,
-+	enum replay_coasting_vtotal_type type,
-+	uint16_t vtotal);
-+void calculate_replay_link_off_frame_count(struct dc_link *link,
-+	uint16_t vtotal, uint16_t htotal);
- 
- bool is_psr_su_specific_panel(struct dc_link *link);
- void mod_power_calc_psr_configs(struct psr_config *psr_config,
-diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-index 5cad456f2e10..da9b670fec86 100644
---- a/drivers/gpu/drm/amd/include/amd_shared.h
-+++ b/drivers/gpu/drm/amd/include/amd_shared.h
-@@ -244,6 +244,7 @@ enum DC_FEATURE_MASK {
- 	DC_DISABLE_LTTPR_DP2_0 = (1 << 6), //0x40, disabled by default
- 	DC_PSR_ALLOW_SMU_OPT = (1 << 7), //0x80, disabled by default
- 	DC_PSR_ALLOW_MULTI_DISP_OPT = (1 << 8), //0x100, disabled by default
-+	DC_REPLAY_MASK = (1 << 9), //0x200, disabled by default for dcn < 3.1.4
- };
- 
- enum DC_DEBUG_MASK {
-@@ -257,6 +258,7 @@ enum DC_DEBUG_MASK {
- 	DC_ENABLE_DPIA_TRACE = 0x80,
- 	DC_ENABLE_DML2 = 0x100,
- 	DC_DISABLE_PSR_SU = 0x200,
-+	DC_DISABLE_REPLAY = 0x400,
- };
- 
- enum amd_dpm_forced_level;
--- 
+The testing is a mix of automated and manual tests. Manual testing includes=
+ (but is not limited to):
+        * Changing display configurations and settings
+        * Benchmark testing
+        * Feature testing (Freesync, etc.)
+
+Automated testing includes (but is not limited to):
+        * Script testing (scripts to automate some of the manual checks)
+        * IGT testing
+
+The patchset consists of the amd-staging-drm-next branch (Head commit - 972=
+21259f157 drm/amd/display: 3.2.265) with new patches added on top of it.
+
+Tested on Ubuntu 22.04.3, on Wayland and X11, using KDE Plasma and Gnome.
+
+
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+
+
+Thank you and happy holidays,
+
+Dan Wheeler
+Sr. Technologist | AMD
+SW Display
+---------------------------------------------------------------------------=
+---------------------------------------
+1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
+amd.com
+
+-----Original Message-----
+From: Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>
+Sent: Wednesday, December 20, 2023 11:34 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
+i@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Pillai, Aurabindo=
+ <Aurabindo.Pillai@amd.com>; Li, Roman <Roman.Li@amd.com>; Lin, Wayne <Wayn=
+e.Lin@amd.com>; Wang, Chao-kai (Stylon) <Stylon.Wang@amd.com>; Gutierrez, A=
+gustin <Agustin.Gutierrez@amd.com>; Chung, ChiaHsuan (Tom) <ChiaHsuan.Chung=
+@amd.com>; Wu, Hersen <hersenxs.wu@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>=
+; Wheeler, Daniel <Daniel.Wheeler@amd.com>
+Subject: [PATCH 00/20] DC Patches December 20, 2023
+
+Here we are at the end of the year, the last set of patches for DC. This DC=
+ patch set brings improvements in multiple areas. In summary, we
+highlight:
+
+* Address SubVP issues
+* Update DMUB
+* Improve mechanisms for test
+
+Thanks
+Siqueira
+
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+
+Alvin Lee (4):
+  drm/amd/display: Fix subvp+drr logic errors
+  drm/amd/display: Don't allow FPO if no planes
+  drm/amd/display: Assign stream status for FPO + Vactive cases
+  drm/amd/display: For FPO and SubVP/DRR configs program vmin/max sel
+
+Camille Cho (1):
+  drm/amd/display: Correctly restore user_level
+
+Gabe Teeger (1):
+  drm/amd/display: Fix Mismatch between pipe and stream
+
+Josip Pavic (1):
+  drm/amd/display: Add null pointer guards where needed
+
+Leo (Hanghong) Ma (1):
+  drm/amd/display: Add HDMI capacity computations using fixed31_32
+
+Meenakshikumar Somasundaram (2):
+  drm/amd/display: Fix minor issues in BW Allocation Phase2
+  drm/amd/display: Add dpia display mode validation logic
+
+Nicholas Kazlauskas (4):
+  drm/amd/display: Always exit DMCUB idle when called
+  drm/amd/display: Wait forever for DMCUB to wake up
+  drm/amd/display: Switch DMCUB notify idle command to NO_WAIT
+  drm/amd/display: Verify disallow bits were cleared for idle
+
+Relja Vojvodic (3):
+  drm/amd/display: Add more mechanisms for tests
+  drm/amd/display: Add log end specifier
+  drm/amd/display: Fixing stream allocation regression
+
+Revalla (1):
+  drm/amd/display: Refactor INIT into component folder
+
+Tom Chung (1):
+  drm/amd/display: Add some functions for Panel Replay
+
+Wayne Lin (1):
+  drm/amd/display: pbn_div need be updated for hotplug event
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   3 +-
+ drivers/gpu/drm/amd/display/dc/Makefile       |   2 -
+ .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  |  90 ++++-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  76 +++-
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c | 172 +++++----
+ .../drm/amd/display/dc/core/dc_link_exports.c |   9 +-
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  17 +
+ .../gpu/drm/amd/display/dc/core/dc_stream.c   |   3 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |  29 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  32 +-
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h  |   6 +
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |   2 +
+ drivers/gpu/drm/amd/display/dc/dce/dce_abm.c  |   4 +-
+ drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c |   4 +-
+ .../gpu/drm/amd/display/dc/dce/dmub_abm_lcd.c |   4 +-
+ .../gpu/drm/amd/display/dc/dce/dmub_abm_lcd.h |   2 +-
+ .../gpu/drm/amd/display/dc/dce/dmub_replay.c  |  96 ++++-
+ .../gpu/drm/amd/display/dc/dce/dmub_replay.h  |   2 +
+ drivers/gpu/drm/amd/display/dc/dcn10/Makefile |   2 +-
+ drivers/gpu/drm/amd/display/dc/dcn20/Makefile |   2 +-
+ .../gpu/drm/amd/display/dc/dcn201/Makefile    |   3 +-
+ drivers/gpu/drm/amd/display/dc/dcn21/Makefile |   2 +-
+ drivers/gpu/drm/amd/display/dc/dcn30/Makefile |   4 +-
+ .../gpu/drm/amd/display/dc/dcn301/Makefile    |   2 +-
+ .../gpu/drm/amd/display/dc/dcn302/Makefile    |  12 -
+ drivers/gpu/drm/amd/display/dc/dcn31/Makefile |   2 +-
+ .../gpu/drm/amd/display/dc/dcn314/Makefile    |   3 +-
+ drivers/gpu/drm/amd/display/dc/dcn32/Makefile |   2 +-
+ .../display/dc/dcn32/dcn32_resource_helpers.c |  37 +-
+ drivers/gpu/drm/amd/display/dc/dcn35/Makefile |   2 +-
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |  73 ++--  .../display/dc/d=
+ml2/dml2_translation_helper.c |  16 +-
+ .../gpu/drm/amd/display/dc/dml2/dml2_utils.c  |   6 +-
+ drivers/gpu/drm/amd/display/dc/hwss/Makefile  |  28 +-
+ .../amd/display/dc/hwss/dce110/dce110_hwseq.c |   7 +-
+ .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |   7 +-
+ .../display/dc/{ =3D> hwss}/dcn10/dcn10_init.c  |   0
+ .../display/dc/{ =3D> hwss}/dcn10/dcn10_init.h  |   0
+ .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |  37 ++
+ .../display/dc/{ =3D> hwss}/dcn20/dcn20_init.c  |   0
+ .../display/dc/{ =3D> hwss}/dcn20/dcn20_init.h  |   0
+ .../dc/{ =3D> hwss}/dcn201/dcn201_init.c        |   0
+ .../dc/{ =3D> hwss}/dcn201/dcn201_init.h        |   0
+ .../display/dc/{ =3D> hwss}/dcn21/dcn21_init.c  |   0
+ .../display/dc/{ =3D> hwss}/dcn21/dcn21_init.h  |   0
+ .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   |   7 +-
+ .../display/dc/{ =3D> hwss}/dcn30/dcn30_init.c  |   0
+ .../display/dc/{ =3D> hwss}/dcn30/dcn30_init.h  |   0
+ .../dc/{ =3D> hwss}/dcn301/dcn301_init.c        |   0
+ .../dc/{ =3D> hwss}/dcn301/dcn301_init.h        |   0
+ .../dc/{ =3D> hwss}/dcn302/dcn302_init.c        |   0
+ .../dc/{ =3D> hwss}/dcn302/dcn302_init.h        |   0
+ .../dc/{ =3D> hwss}/dcn303/dcn303_init.c        |   0
+ .../dc/{ =3D> hwss}/dcn303/dcn303_init.h        |   0
+ .../amd/display/dc/hwss/dcn31/dcn31_hwseq.c   |   7 +-
+ .../display/dc/{ =3D> hwss}/dcn31/dcn31_init.c  |   0
+ .../display/dc/{ =3D> hwss}/dcn31/dcn31_init.h  |   0
+ .../dc/{ =3D> hwss}/dcn314/dcn314_init.c        |   0
+ .../dc/{ =3D> hwss}/dcn314/dcn314_init.h        |   0
+ .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |   7 +-
+ .../display/dc/{ =3D> hwss}/dcn32/dcn32_init.c  |   0
+ .../display/dc/{ =3D> hwss}/dcn32/dcn32_init.h  |   0
+ .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   |   7 +-
+ .../display/dc/{ =3D> hwss}/dcn35/dcn35_init.c  |   0
+ .../display/dc/{ =3D> hwss}/dcn35/dcn35_init.h  |   0
+ .../amd/display/dc/hwss/dcn351/CMakeLists.txt |   4 +
+ .../drm/amd/display/dc/hwss/dcn351/Makefile   |  17 +
+ .../amd/display/dc/hwss/dcn351/dcn351_init.c  | 171 +++++++++  .../amd/dis=
+play/dc/hwss/dcn351/dcn351_init.h  |  33 ++
+ .../drm/amd/display/dc/hwss/hw_sequencer.h    |   9 +-
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |  11 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/abm.h   |   2 +-
+ .../drm/amd/display/dc/inc/hw/panel_cntl.h    |   1 +
+ drivers/gpu/drm/amd/display/dc/inc/link.h     |   2 +
+ drivers/gpu/drm/amd/display/dc/inc/resource.h |   6 +-
+ .../drm/amd/display/dc/link/link_factory.c    |   1 +
+ .../drm/amd/display/dc/link/link_validation.h |   1 +
+ .../dc/link/protocols/link_dp_dpia_bw.c       | 337 ++++++++++--------
+ .../dc/link/protocols/link_dp_dpia_bw.h       |   4 +-
+ .../link/protocols/link_edp_panel_control.c   |  30 ++
+ .../link/protocols/link_edp_panel_control.h   |   2 +
+ .../dc/resource/dcn32/dcn32_resource.c        |   2 +-
+ .../dc/resource/dcn32/dcn32_resource.h        |   5 +-
+ .../dc/resource/dcn321/dcn321_resource.c      |   2 +-
+ .../dc/resource/dcn35/dcn35_resource.c        |  13 +
+ .../amd/display/modules/power/power_helpers.c |  28 ++
+ .../amd/display/modules/power/power_helpers.h |   5 +
+ drivers/gpu/drm/amd/include/amd_shared.h      |   2 +
+ 88 files changed, 1119 insertions(+), 397 deletions(-)  delete mode 100644=
+ drivers/gpu/drm/amd/display/dc/dcn302/Makefile
+ rename drivers/gpu/drm/amd/display/dc/{ =3D> hwss}/dcn10/dcn10_init.c (100=
+%)  rename drivers/gpu/drm/amd/display/dc/{ =3D> hwss}/dcn10/dcn10_init.h (=
+100%)  rename drivers/gpu/drm/amd/display/dc/{ =3D> hwss}/dcn20/dcn20_init.=
+c (100%)  rename drivers/gpu/drm/amd/display/dc/{ =3D> hwss}/dcn20/dcn20_in=
+it.h (100%)  rename drivers/gpu/drm/amd/display/dc/{ =3D> hwss}/dcn201/dcn2=
+01_init.c (100%)  rename drivers/gpu/drm/amd/display/dc/{ =3D> hwss}/dcn201=
+/dcn201_init.h (100%)  rename drivers/gpu/drm/amd/display/dc/{ =3D> hwss}/d=
+cn21/dcn21_init.c (100%)  rename drivers/gpu/drm/amd/display/dc/{ =3D> hwss=
+}/dcn21/dcn21_init.h (100%)  rename drivers/gpu/drm/amd/display/dc/{ =3D> h=
+wss}/dcn30/dcn30_init.c (100%)  rename drivers/gpu/drm/amd/display/dc/{ =3D=
+> hwss}/dcn30/dcn30_init.h (100%)  rename drivers/gpu/drm/amd/display/dc/{ =
+=3D> hwss}/dcn301/dcn301_init.c (100%)  rename drivers/gpu/drm/amd/display/=
+dc/{ =3D> hwss}/dcn301/dcn301_init.h (100%)  rename drivers/gpu/drm/amd/dis=
+play/dc/{ =3D> hwss}/dcn302/dcn302_init.c (100%)  rename drivers/gpu/drm/am=
+d/display/dc/{ =3D> hwss}/dcn302/dcn302_init.h (100%)  rename drivers/gpu/d=
+rm/amd/display/dc/{ =3D> hwss}/dcn303/dcn303_init.c (100%)  rename drivers/=
+gpu/drm/amd/display/dc/{ =3D> hwss}/dcn303/dcn303_init.h (100%)  rename dri=
+vers/gpu/drm/amd/display/dc/{ =3D> hwss}/dcn31/dcn31_init.c (100%)  rename =
+drivers/gpu/drm/amd/display/dc/{ =3D> hwss}/dcn31/dcn31_init.h (100%)  rena=
+me drivers/gpu/drm/amd/display/dc/{ =3D> hwss}/dcn314/dcn314_init.c (100%) =
+ rename drivers/gpu/drm/amd/display/dc/{ =3D> hwss}/dcn314/dcn314_init.h (1=
+00%)  rename drivers/gpu/drm/amd/display/dc/{ =3D> hwss}/dcn32/dcn32_init.c=
+ (100%)  rename drivers/gpu/drm/amd/display/dc/{ =3D> hwss}/dcn32/dcn32_ini=
+t.h (100%)  rename drivers/gpu/drm/amd/display/dc/{ =3D> hwss}/dcn35/dcn35_=
+init.c (100%)  rename drivers/gpu/drm/amd/display/dc/{ =3D> hwss}/dcn35/dcn=
+35_init.h (100%)  create mode 100644 drivers/gpu/drm/amd/display/dc/hwss/dc=
+n351/CMakeLists.txt
+ create mode 100644 drivers/gpu/drm/amd/display/dc/hwss/dcn351/Makefile
+ create mode 100644 drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.=
+c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.=
+h
+
+--
 2.42.0
 
