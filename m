@@ -4,119 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57555C3DA6E
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Dec 2023 16:58:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77B6DC3DA6E
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Dec 2023 19:22:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E53A610E5BF;
-	Wed, 20 Dec 2023 16:58:38 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20601.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2009::601])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46B3610E5BF
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Dec 2023 16:58:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZK7wVBotE/scufRBvWpaQ8NiyzwKkwEr/8B3LJJRgB6jBeNx5CMXHxqjqEE+PzvGyNzv4TDfKV1C+7yFwEs6WMs05YwIBQB2NvVs7pcXsvQf+f2GKKrktqJ5OkwDN77UXDXCjbaKKlt/3feDjdJCydnkneF//6yms646nXHKdJBCoomBEWG1lPrjkKMxRP3AaT/xoKPTqRysZK1UCnsmhXlgstb4oFteHDLOazJ9vjCXRHUnLrBDOFs9S0VpS4vaCiD82BGLGTzW0mJbLRAQRg3zobCVt8QPeuMa1B4sdJs1jKF9c14xU+xPFz06gPxoyGITlaNR4iVCnxXocWkL1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g4il+ajnZKpaFNQo1alIy223IKM/zXIqsGNj1u4T+0c=;
- b=kun5ZikFaWTrwjgEpb4LujbfgM9kzDehdBu3IPb0xbfIPwkG5wVp8yetgmFkX/rFxF9caWnNcZec1uENDAoMS5rwoakHfXIZ3kGNbcQbIT8zEbalXjG5LtBVaetJFV+Lfybre6Ax9/4Rgzduzeuv+6XXBd4Tw+LLjN1zQ2PxXSRID8JPOO7ZzXfk0OpERTd9/tb60OhObocgQ2o+c1XUgPtnoJlbXBH91OkHZFM4aLnD53W8DIA4akpeLTjoRwLOtfWk9z/uQ2wFCgIjvZKflfK9xLQblGXCZOMfTjAtgGavuUWCggYo0c+O3arUcuZzRCOBfzfL0zN9I8cw9q82RA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g4il+ajnZKpaFNQo1alIy223IKM/zXIqsGNj1u4T+0c=;
- b=jFLWUyEQUj1wCn6/OOGk2kgHpXJIEXG3O9z2neRljeCKPoRvd5C1P2CDOjrVcJDLUmeBaF+Zz2PlI85O8RH2Dm+EFw46IrM+VGxdc2U92zWJ8hwnJod1Hndls3m5BDgb6Rq8ymTe9+rlPkWg/i5RfOk4qpTMv7YpJsjFJEo4XWg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by CH3PR12MB9147.namprd12.prod.outlook.com (2603:10b6:610:19a::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.18; Wed, 20 Dec
- 2023 16:58:31 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::7bfc:e32b:f362:60f3]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::7bfc:e32b:f362:60f3%5]) with mapi id 15.20.7113.016; Wed, 20 Dec 2023
- 16:58:31 +0000
-Content-Type: multipart/alternative;
- boundary="------------kyKS40pYdhyQbwE7EUIGXQx2"
-Message-ID: <ef8c4273-d54d-42b6-ac60-fed5f8ed3848@amd.com>
-Date: Wed, 20 Dec 2023 11:58:28 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Fix sparse __rcu annotation warnings
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx@lists.freedesktop.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>
-References: <20231205222026.2108094-1-Felix.Kuehling@amd.com>
- <e879ea47-4281-4830-a4db-5a144999198a@amd.com>
- <a6411c81-d0ea-4002-bfc6-a725a83eb9bf@gmail.com>
- <7b67d4f1-cfcd-47a9-a80e-f4c1eee235a1@amd.com>
-In-Reply-To: <7b67d4f1-cfcd-47a9-a80e-f4c1eee235a1@amd.com>
-X-ClientProxiedBy: YQZPR01CA0012.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::10) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07A9B10E311;
+	Wed, 20 Dec 2023 19:22:11 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8279010E2FF;
+ Wed, 20 Dec 2023 19:22:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1703100129; x=1734636129;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=3OVxKw8WZqHFSbFxEPrBGINLGzJkEI0OW0NQzQrhGTM=;
+ b=Oegdkb/neyC9ArkbOSnQRFEP3Aj4laWEBB5fJ4VNOqNaCEXDVbugjGhA
+ /V7I9VSVTh9CLN12wDtyQWFPX7TBtp7+Bd2ZOktx6ghllTI/5I2UEgI0T
+ tf6/RWbC11Bj1Ez1UUKXJo2vZguXnrk/ZY/JrhXQhonZicch8sNtRyFW1
+ VLsKk+X6QPhJONSq8EU4XyscdIUzWeHTlQxplV4/auFtNJpyAjLbTCBul
+ NIgQkkRuYwKypSeG4ssb/nmy1uJLYwy233Z8BAXyCKd2AgTrfiP1H0h9E
+ gB/0vvrAEH/bSQmqbSLg5i2rXEUXxh79Xg+Ocl/xi9UKpK78+S44Kqpib w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10930"; a="394748191"
+X-IronPort-AV: E=Sophos;i="6.04,292,1695711600"; d="scan'208";a="394748191"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Dec 2023 11:22:08 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10930"; a="805356645"
+X-IronPort-AV: E=Sophos;i="6.04,292,1695711600"; d="scan'208";a="805356645"
+Received: from tmacmaho-mobl1.ger.corp.intel.com (HELO [10.252.11.228])
+ ([10.252.11.228])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Dec 2023 11:22:06 -0800
+Message-ID: <963893ce-5f79-458b-9607-3a2d98fd2098@intel.com>
+Date: Wed, 20 Dec 2023 19:21:37 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CH3PR12MB9147:EE_
-X-MS-Office365-Filtering-Correlation-Id: d3446bdc-1f32-48b0-cdfe-08dc017ce528
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pGhNysOGHVymfC+woacRUvvNBZmUF1cYtm8Z08Nc7Zad/jTsoKCc0KRZ6PxMngPfXN9CkdOXr4KNNzk3SGMItNCMk7QKWIxCIqL/YmU1fYkbruwUqpA6nyCWVXG3Rmvcg3ChlxIYM6v7V/JkNvIDc/vubQ1WSSLZ/vxs6HQJC3AJWv/JtnOCzYTxjsNgN0ebfBgjne1W9FNDGuR/bBT15lOyrLrdFsSjv5hWjstCjf7JQDj7ZEqFWeeXKjIKt81T1IxbkLa/AD90GxEgRuB2rgX+0oY7wTFafObpc6moaY1eYe2mDC7K+Mo7wHGlVfoaF+EWTr9AADlqLWXGe7tn9j+9DVdpYuik0uQrzHfBHUvx0NS+7/STzSV3hlHcGbT/H7pxTfkondJD6uqWZVJNXPGHaGMfESxcJvZmmQY7Zh6Ex1MxJ8zWXRD5pQMOo9d6TZ6qUib9NCJJawpS/Hlukp1VGWCSmHExY1gLzYsjuBs4zj7WmxTtqxDDeRosdxMIppOawQ4dKRKm9bUdnIZW7PkThC+pgs3g7ULb46OIwX1Jt8f2LIPQ8c5091h56M24+uQToaZudiI6cC+psTjQVehigb8IDIs0N7iLNId3BmRymjsTkY6JT8aCyu5/16am
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366004)(396003)(346002)(376002)(136003)(39860400002)(230922051799003)(1800799012)(451199024)(186009)(64100799003)(38100700002)(2906002)(36756003)(4001150100001)(8936002)(166002)(8676002)(5660300002)(30864003)(44832011)(4326008)(478600001)(26005)(2616005)(6486002)(41300700001)(966005)(66574015)(6506007)(31686004)(53546011)(6512007)(6666004)(83380400001)(66946007)(31696002)(86362001)(66476007)(66556008)(33964004)(6636002)(316002)(110136005)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c09OejdBN1NRSEIyNlNSUEU3Q3M4VWloREl1anNOTFVpZ3FaRE5CUnN5NFl4?=
- =?utf-8?B?Z2hNMzdJZzNjUEFWcUhvWTFPL2duMVd1R2dhWEFNY0ZndVNTcmZlVXFMa1FI?=
- =?utf-8?B?c3RUVXI3d0hhcHJXbHU1QTY4cHdWZEF6SHlqQkVTdGZPK1NZTmlONHZTeDFK?=
- =?utf-8?B?M1hodkFkNzN0Ky90SjhzSWZQQUZhMllTY0xGakJINVZ5OTRiZlZyMHRvRTdK?=
- =?utf-8?B?TFJOVmpmMWVSRXNPZ25sSEdkZWUrNFdZZ1JJNmlxZ0JpcEp1UG9TNmRlL0dT?=
- =?utf-8?B?aFdLUHVJbkZvams3TThQY3ZFbWthbklBc0w2dFNPSURiazZ0UEorTFA5Yk1x?=
- =?utf-8?B?cUsyYjRZekF0VnVyMVJ6RU9JRDhyUWVwendUR3RUdWRHSWFmT0hwNVhPdjlp?=
- =?utf-8?B?dkpQK244QldWZlBMa3dnVmVYdXpPVXFYUElhbEU1RXBCZlBwNUMwZmY3cXZF?=
- =?utf-8?B?VVJHU1l5VTBmUDR3YktIMGY5QXVSUHpyRTlLeDdlZWpZOVpLWERxQ0FrYXZZ?=
- =?utf-8?B?WWJFVzhLRGtCYTB6SHBIcy9GdmJqUGJvVS94WFZYZlNERjZ1TzRQb0h5V3dT?=
- =?utf-8?B?alpkZkhtQ2hUd0dCNHMvZnQrS3BUaXVMQzlLUXM4REF1NTB6c21vRzdLYzZo?=
- =?utf-8?B?N3JnU3RuNENvM1dEUTVrVjBHcHBReTJCNVhYWUU0bDEwbHd0bXRDM1VDSmNF?=
- =?utf-8?B?Z1hnOHhCMXFZOXhzenFDaVdYaHgzVDRSZlhFcUZTN1IrcjFKdHFUUi9MVWo3?=
- =?utf-8?B?cXpQUE5sNGdTQVcvUmZVWDJ6dVhjYTFsamNmUmlJSStQNVY0b1pVYUpab1ZP?=
- =?utf-8?B?Ky8zVDRaQTd2eXYrKzVwL2U5MkZ3UTJrNFhBclFOR2ZBYXlDN2R1eno3aHhE?=
- =?utf-8?B?VmMwR0draHhQM20wTUlnaWtWbmlERERwYmVCekd4c3RZZnN1WFlWdEd5QjNB?=
- =?utf-8?B?TlIwUE8xaC9odnNBYW1KaTFrWDZVZ01rNEhVQ21hdTl5alh0ZnNwcGkyM3pD?=
- =?utf-8?B?V0RVMHZHTURyMHgrdVlhNmsxUy9lRXRWdnpzbzBKUXpGMkxESGdaL0p4S2dR?=
- =?utf-8?B?NU9tblBpQnNuRzg0MitrRFh6MUVTK1F1QUVOR3d3ZCtCNFRia0YrL2M5RE95?=
- =?utf-8?B?ejJmelpudjVoTlB5R0hWVXlrRll0emtYd2dsVkRzTUI4Um1UZjJMRFRXb3lr?=
- =?utf-8?B?UjhVOElpN3ozQVdoazZzYUxDWVB5R2w5ODA0RFlJeUY3dW9XWnlJZVhCS0tm?=
- =?utf-8?B?dTNreCtYb01rWkFXYVpJdjRleWxmR0ZhdVgrbFd3MjVmQjRjRFUzL2d2aHVs?=
- =?utf-8?B?eHNvaHNwVFFHR3AyMFUvS0VIdXlpY2xBRXk3b0d1SGJPOU9raTFVZU5NakNo?=
- =?utf-8?B?Z09GV3hOZ0tnc1hBWUtwbzA4NDRrOG4yZ0xKakhPOXVYazd5Y2F3MzMweDNk?=
- =?utf-8?B?R3QwZTZnOHhnbkkrRlVVWHpxU1E0Vjc2dkJjNTFrbmlDbE5CMDlza3hadlRQ?=
- =?utf-8?B?RjBOSEJUcks0Z1RTREN0d0dDekl2ZUlhbXdmY2Y3L3VmR3VxWGxMaGpvalJR?=
- =?utf-8?B?NUh2Z2NXR2pESGx1UUpXbFVQOURvU2NXUzhRTkhaWEZpVk0rN3dvaVp1ekdp?=
- =?utf-8?B?VVlPWHVZajlmM2FGOUJ3K0VMbG93bTdWdzU3VFlnQm5Yais3WEJtNUtnZ293?=
- =?utf-8?B?MThXaE0yb1loVzNqWXlyVVhXejZ3THBqd2s2Z255dXJidnljZWNueXZTV3pa?=
- =?utf-8?B?b1RkTWJCSmNCQkJUL3BiVmxyMHFXcFNmTEtsdzZRUVc4VFNvRkVPWkV2VXQw?=
- =?utf-8?B?NVg3cjUvS2t1VUlHcnBaQW9xRVcxZzRYNG94c0RnbjJzb0RpSjJPdG5rbmV2?=
- =?utf-8?B?aVdvMmIyVmNHTTNBdDhvZmQzN3ZKTWZXdXN5WldSWlJ5bG9JSVpBZmVmVGtT?=
- =?utf-8?B?OE00cGhNWjlwOURvZkpvVHJvZjZZZTFiS2dUN1Y3OVNBRDBFVFA2MGg0akFK?=
- =?utf-8?B?U3dIZlEvOG1vcUNzTzVGbGRMdW9UbEp0RzR3UVoxcXZLUWJ5WUpnYWdORVls?=
- =?utf-8?B?bmxMOGF2VGxhR2JYajdka2U5VjQ4ZDdiZmFpUFk0OHBqYzNqQzhqeDU2bFcv?=
- =?utf-8?Q?ATvJ+YxObdbhr88W3BYgRN5fc?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3446bdc-1f32-48b0-cdfe-08dc017ce528
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2023 16:58:31.3368 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XUPCOJMtUuiKG2AMj5dWMLms18tKh79oEHNlzMMgLhIpKxsTIB1Cg5BZnI0Ev0Ohn13m8KLxOq8whahZJ3Xa+w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9147
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] drm/buddy: Implement tracking clear page feature
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20231214134240.3183-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20231214134240.3183-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,523 +60,558 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-mm@kvack.org, kernel test robot <lkp@intel.com>
+Cc: alexander.deucher@amd.com, felix.kuehling@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------kyKS40pYdhyQbwE7EUIGXQx2
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Hi,
 
-On 2023-12-11 10:56, Felix Kuehling wrote:
->
-> On 2023-12-08 05:11, Christian König wrote:
->> Am 07.12.23 um 20:14 schrieb Felix Kuehling:
->>>
->>> On 2023-12-05 17:20, Felix Kuehling wrote:
->>>> Properly mark kfd_process->ef as __rcu and consistently access it with
->>>> rcu_dereference_protected.
->>>>
->>>> Reported-by: kernel test robot <lkp@intel.com>
->>>> Closes: 
->>>> https://lore.kernel.org/oe-kbuild-all/202312052245.yFpBSgNH-lkp@intel.com/
->>>> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
->>>
->>> ping.
->>>
->>> Christian, would you review this patch, please?
->>
->> Looks a bit suspicious, especially the rcu_dereference_protected() use.
->>
->> What is the static checker complaining about in the first place?
-> From 
-> https://lore.kernel.org/oe-kbuild-all/202312052245.yFpBSgNH-lkp@intel.com/:
->
->>> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_process.c:1671:9: sparse: 
->>> sparse: incompatible types in comparison expression (different 
->>> address spaces):  >> 
->>> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_process.c:1671:9: sparse: 
-> struct dma_fence [noderef] __rcu * >> 
-> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_process.c:1671:9: sparse: 
-> struct dma_fence * ... >> 
-> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:2765:36: sparse: 
-> sparse: incompatible types in comparison expression (different address 
-> spaces): >> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:2765:36: 
-> sparse: struct dma_fence [noderef] __rcu * >> 
-> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:2765:36: sparse: 
-> struct dma_fence * >> 
-> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:2765:36: sparse: 
-> sparse: incompatible types in comparison expression (different address 
-> spaces): >> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:2765:36: 
-> sparse: struct dma_fence [noderef] __rcu * >> 
-> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:2765:36: sparse: 
-> struct dma_fence *
->
-> As far as I can tell, the reason is, that I'm using 
-> dma_fence_get_rcu_safe and rcu_replace_pointer to get and update 
-> kfd_process->ef, without annotating the fence pointers with __rcu. 
-> This patch fixes that by marking kfd_process->ef as an __rcu pointer. 
-> The only place that was dereferencing it directly was 
-> kfd_process_wq_release, where I added rcu_dereference_protected. The 
-> condition I'm using here is, that the process ref count is 0 at that 
-> point, which means nobody else is referencing the process or this 
-> fence pointer at the time.
+On 14/12/2023 13:42, Arunpravin Paneer Selvam wrote:
+> - Add tracking clear page feature.
+> 
+> - Driver should enable the DRM_BUDDY_CLEARED flag if it
+>    successfully clears the blocks in the free path. On the otherhand,
+>    DRM buddy marks each block as cleared.
+> 
+> - Track the available cleared pages size
+> 
+> - If driver requests cleared memory we prefer cleared memory
+>    but fallback to uncleared if we can't find the cleared blocks.
+>    when driver requests uncleared memory we try to use uncleared but
+>    fallback to cleared memory if necessary.
+> 
+> - When a block gets freed we clear it and mark the freed block as cleared,
+>    when there are buddies which are cleared as well we can merge them.
+>    Otherwise, we prefer to keep the blocks as separated.
 
-Hi Christian,
+I was not involved, but it looks like we have also tried enabling the 
+clear-on-free idea for VRAM in i915 and then also tracking that in the 
+allocator, however that work unfortunately is not upstream. The code is 
+open source though: 
+https://github.com/intel-gpu/intel-gpu-i915-backports/blob/backport/main/drivers/gpu/drm/i915/i915_buddy.c#L300
 
-We discussed offline that you think rcu_dereference_protected is not 
-needed in the teardown function. After reading over rcupdate.h, I think 
-a simpler alternative would be to use rcu_access_pointer, after a grace 
-period to ensure there can be no more readers. Based on this comment in 
-rcupdate.h:
+It looks like some of the design differences there are having two 
+separate free lists, so mm->clean and mm->dirty (sounds reasonable to 
+me). And also the inclusion of a de-fragmentation routine, since buddy 
+blocks are now not always merged back, we might choose to run the defrag 
+in some cases, which also sounds reasonable. IIRC in amdgpu userspace 
+can control the page-size for an allocation, so perhaps you would want 
+to run it first if the allocation fails, before trying to evict stuff?
 
-  * It is also permissible to use rcu_access_pointer() when read-side
-  * access to the pointer was removed at least one grace period ago, as is
-  * the case in the context of the RCU callback that is freeing up the data,
-  * or after a synchronize_rcu() returns.  This can be useful when tearing
-  * down multi-linked structures after a grace period has elapsed.  However,
-  * rcu_dereference_protected() is normally preferred for this use case.
-
-The last sentence sounds like rcu_dereference_protected should also be 
-OK, though. Either way, it sounds like I need to add a synchronize_rcu 
-call in any case, before freeing the fence. Do you agree with this proposal?
-
-Regards,
-   Felix
-
-
->
-> Regards,
->   Felix
->
->
->>
->> Regards,
->> Christian.
->>
->>>
->>> Thanks,
->>>   Felix
->>>
->>>
->>>
->>>> ---
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h       | 2 +-
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 ++--
->>>>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h            | 2 +-
->>>>   drivers/gpu/drm/amd/amdkfd/kfd_process.c         | 6 ++++--
->>>>   4 files changed, 8 insertions(+), 6 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h 
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
->>>> index f2e920734c98..20cb266dcedd 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
->>>> @@ -314,7 +314,7 @@ void 
->>>> amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(struct kgd_mem *mem);
->>>>   int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, 
->>>> struct amdgpu_bo *bo);
->>>>     int amdgpu_amdkfd_gpuvm_restore_process_bos(void *process_info,
->>>> -                        struct dma_fence **ef);
->>>> +                        struct dma_fence __rcu **ef);
->>>>   int amdgpu_amdkfd_gpuvm_get_vm_fault_info(struct amdgpu_device 
->>>> *adev,
->>>>                             struct kfd_vm_fault_info *info);
->>>>   int amdgpu_amdkfd_gpuvm_import_dmabuf_fd(struct amdgpu_device 
->>>> *adev, int fd,
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c 
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->>>> index 7d91f99acb59..8ba6f6c8363d 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->>>> @@ -2806,7 +2806,7 @@ static void 
->>>> amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
->>>>       put_task_struct(usertask);
->>>>   }
->>>>   -static void replace_eviction_fence(struct dma_fence **ef,
->>>> +static void replace_eviction_fence(struct dma_fence __rcu **ef,
->>>>                      struct dma_fence *new_ef)
->>>>   {
->>>>       struct dma_fence *old_ef = rcu_replace_pointer(*ef, new_ef, true
->>>> @@ -2841,7 +2841,7 @@ static void replace_eviction_fence(struct 
->>>> dma_fence **ef,
->>>>    * 7.  Add fence to all PD and PT BOs.
->>>>    * 8.  Unreserve all BOs
->>>>    */
->>>> -int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct 
->>>> dma_fence **ef)
->>>> +int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct 
->>>> dma_fence __rcu **ef)
->>>>   {
->>>>       struct amdkfd_process_info *process_info = info;
->>>>       struct amdgpu_vm *peer_vm;
->>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h 
->>>> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>>> index 45366b4ca976..5a24097a9f28 100644
->>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>>> @@ -917,7 +917,7 @@ struct kfd_process {
->>>>        * fence will be triggered during eviction and new one will 
->>>> be created
->>>>        * during restore
->>>>        */
->>>> -    struct dma_fence *ef;
->>>> +    struct dma_fence __rcu *ef;
->>>>         /* Work items for evicting and restoring BOs */
->>>>       struct delayed_work eviction_work;
->>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c 
->>>> b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>>> index 71df51fcc1b0..14b11d61f8dd 100644
->>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>>> @@ -1110,6 +1110,8 @@ static void kfd_process_wq_release(struct 
->>>> work_struct *work)
->>>>   {
->>>>       struct kfd_process *p = container_of(work, struct kfd_process,
->>>>                            release_work);
->>>> +    struct dma_fence *ef = rcu_dereference_protected(p->ef,
->>>> +        kref_read(&p->ref) == 0);
->>>>         kfd_process_dequeue_from_all_devices(p);
->>>>       pqm_uninit(&p->pqm);
->>>> @@ -1118,7 +1120,7 @@ static void kfd_process_wq_release(struct 
->>>> work_struct *work)
->>>>        * destroyed. This allows any BOs to be freed without
->>>>        * triggering pointless evictions or waiting for fences.
->>>>        */
->>>> -    dma_fence_signal(p->ef);
->>>> +    dma_fence_signal(ef);
->>>>         kfd_process_remove_sysfs(p);
->>>>   @@ -1127,7 +1129,7 @@ static void kfd_process_wq_release(struct 
->>>> work_struct *work)
->>>>       svm_range_list_fini(p);
->>>>         kfd_process_destroy_pdds(p);
->>>> -    dma_fence_put(p->ef);
->>>> +    dma_fence_put(ef);
->>>>         kfd_event_free_process(p);
->>
->
---------------kyKS40pYdhyQbwE7EUIGXQx2
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">On 2023-12-11 10:56, Felix Kuehling
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:7b67d4f1-cfcd-47a9-a80e-f4c1eee235a1@amd.com">
-      <br>
-      On 2023-12-08 05:11, Christian König wrote:
-      <br>
-      <blockquote type="cite">Am 07.12.23 um 20:14 schrieb Felix
-        Kuehling:
-        <br>
-        <blockquote type="cite">
-          <br>
-          On 2023-12-05 17:20, Felix Kuehling wrote:
-          <br>
-          <blockquote type="cite">Properly mark kfd_process-&gt;ef as
-            __rcu and consistently access it with
-            <br>
-            rcu_dereference_protected.
-            <br>
-            <br>
-            Reported-by: kernel test robot <a class="moz-txt-link-rfc2396E" href="mailto:lkp@intel.com">&lt;lkp@intel.com&gt;</a>
-            <br>
-            Closes:
-<a class="moz-txt-link-freetext" href="https://lore.kernel.org/oe-kbuild-all/202312052245.yFpBSgNH-lkp@intel.com/">https://lore.kernel.org/oe-kbuild-all/202312052245.yFpBSgNH-lkp@intel.com/</a><br>
-            Signed-off-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>
-            <br>
-          </blockquote>
-          <br>
-          ping.
-          <br>
-          <br>
-          Christian, would you review this patch, please?
-          <br>
-        </blockquote>
-        <br>
-        Looks a bit suspicious, especially the
-        rcu_dereference_protected() use.
-        <br>
-        <br>
-        What is the static checker complaining about in the first place?
-        <br>
-      </blockquote>
-      From
-<a class="moz-txt-link-freetext" href="https://lore.kernel.org/oe-kbuild-all/202312052245.yFpBSgNH-lkp@intel.com/">https://lore.kernel.org/oe-kbuild-all/202312052245.yFpBSgNH-lkp@intel.com/</a>:<br>
-      <br>
-      <blockquote type="cite">
-        <blockquote type="cite">drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_process.c:1671:9:
-          sparse: sparse: incompatible types in comparison expression
-          (different address spaces):&nbsp; &gt;&gt;
-          drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_process.c:1671:9:
-          sparse: </blockquote>
-      </blockquote>
-      struct dma_fence [noderef] __rcu * &gt;&gt;
-      drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_process.c:1671:9: sparse:
-      struct dma_fence * ... &gt;&gt;
-      drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:2765:36: sparse:
-      sparse: incompatible types in comparison expression (different
-      address spaces): &gt;&gt;
-      drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:2765:36: sparse:
-      struct dma_fence [noderef] __rcu * &gt;&gt;
-      drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:2765:36: sparse:
-      struct dma_fence * &gt;&gt;
-      drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:2765:36: sparse:
-      sparse: incompatible types in comparison expression (different
-      address spaces): &gt;&gt;
-      drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:2765:36: sparse:
-      struct dma_fence [noderef] __rcu * &gt;&gt;
-      drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:2765:36: sparse:
-      struct dma_fence *
-      <br>
-      <br>
-      As far as I can tell, the reason is, that I'm using
-      dma_fence_get_rcu_safe and rcu_replace_pointer to get and update
-      kfd_process-&gt;ef, without annotating the fence pointers with
-      __rcu. This patch fixes that by marking kfd_process-&gt;ef as an
-      __rcu pointer. The only place that was dereferencing it directly
-      was kfd_process_wq_release, where I added
-      rcu_dereference_protected. The condition I'm using here is, that
-      the process ref count is 0 at that point, which means nobody else
-      is referencing the process or this fence pointer at the time.
-      <br>
-    </blockquote>
-    <p>Hi Christian,</p>
-    <p>We discussed offline that you think rcu_dereference_protected is
-      not needed in the teardown function. After reading over
-      rcupdate.h, I think a simpler alternative would be to use
-      rcu_access_pointer, after a grace period to ensure there can be no
-      more readers. Based on this comment in rcupdate.h:</p>
-    <pre> * It is also permissible to use rcu_access_pointer() when read-side
- * access to the pointer was removed at least one grace period ago, as is
- * the case in the context of the RCU callback that is freeing up the data,
- * or after a synchronize_rcu() returns.  This can be useful when tearing
- * down multi-linked structures after a grace period has elapsed.  However,
- * rcu_dereference_protected() is normally preferred for this use case.
-</pre>
-    <p>The last sentence sounds like rcu_dereference_protected should
-      also be OK, though. Either way, it sounds like I need to add a
-      synchronize_rcu call in any case, before freeing the fence. Do you
-      agree with this proposal?</p>
-    <p>Regards,<br>
-      &nbsp; Felix<br>
-    </p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:7b67d4f1-cfcd-47a9-a80e-f4c1eee235a1@amd.com">
-      <br>
-      Regards,
-      <br>
-      &nbsp; Felix
-      <br>
-      <br>
-      <br>
-      <blockquote type="cite">
-        <br>
-        Regards,
-        <br>
-        Christian.
-        <br>
-        <br>
-        <blockquote type="cite">
-          <br>
-          Thanks,
-          <br>
-          &nbsp; Felix
-          <br>
-          <br>
-          <br>
-          <br>
-          <blockquote type="cite">---
-            <br>
-            &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 2 +-
-            <br>
-            &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 ++--
-            <br>
-            &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_priv.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 2 +-
-            <br>
-            &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_process.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 6
-            ++++--
-            <br>
-            &nbsp; 4 files changed, 8 insertions(+), 6 deletions(-)
-            <br>
-            <br>
-            diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-            b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-            <br>
-            index f2e920734c98..20cb266dcedd 100644
-            <br>
-            --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-            <br>
-            +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-            <br>
-            @@ -314,7 +314,7 @@ void
-            amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(struct kgd_mem
-            *mem);
-            <br>
-            &nbsp; int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device
-            *adev, struct amdgpu_bo *bo);
-            <br>
-            &nbsp; &nbsp; int amdgpu_amdkfd_gpuvm_restore_process_bos(void
-            *process_info,
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dma_fence **ef);
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dma_fence __rcu **ef);
-            <br>
-            &nbsp; int amdgpu_amdkfd_gpuvm_get_vm_fault_info(struct
-            amdgpu_device *adev,
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_vm_fault_info *info);
-            <br>
-            &nbsp; int amdgpu_amdkfd_gpuvm_import_dmabuf_fd(struct
-            amdgpu_device *adev, int fd,
-            <br>
-            diff --git
-            a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-            b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-            <br>
-            index 7d91f99acb59..8ba6f6c8363d 100644
-            <br>
-            --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-            <br>
-            +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-            <br>
-            @@ -2806,7 +2806,7 @@ static void
-            amdgpu_amdkfd_restore_userptr_worker(struct work_struct
-            *work)
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; put_task_struct(usertask);
-            <br>
-            &nbsp; }
-            <br>
-            &nbsp; -static void replace_eviction_fence(struct dma_fence **ef,
-            <br>
-            +static void replace_eviction_fence(struct dma_fence __rcu
-            **ef,
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dma_fence *new_ef)
-            <br>
-            &nbsp; {
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dma_fence *old_ef = rcu_replace_pointer(*ef,
-            new_ef, true
-            <br>
-            @@ -2841,7 +2841,7 @@ static void
-            replace_eviction_fence(struct dma_fence **ef,
-            <br>
-            &nbsp;&nbsp; * 7.&nbsp; Add fence to all PD and PT BOs.
-            <br>
-            &nbsp;&nbsp; * 8.&nbsp; Unreserve all BOs
-            <br>
-            &nbsp;&nbsp; */
-            <br>
-            -int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info,
-            struct dma_fence **ef)
-            <br>
-            +int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info,
-            struct dma_fence __rcu **ef)
-            <br>
-            &nbsp; {
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdkfd_process_info *process_info = info;
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vm *peer_vm;
-            <br>
-            diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-            b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-            <br>
-            index 45366b4ca976..5a24097a9f28 100644
-            <br>
-            --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-            <br>
-            +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-            <br>
-            @@ -917,7 +917,7 @@ struct kfd_process {
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * fence will be triggered during eviction and new one
-            will be created
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * during restore
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */
-            <br>
-            -&nbsp;&nbsp;&nbsp; struct dma_fence *ef;
-            <br>
-            +&nbsp;&nbsp;&nbsp; struct dma_fence __rcu *ef;
-            <br>
-            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Work items for evicting and restoring BOs */
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct delayed_work eviction_work;
-            <br>
-            diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-            b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-            <br>
-            index 71df51fcc1b0..14b11d61f8dd 100644
-            <br>
-            --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-            <br>
-            +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-            <br>
-            @@ -1110,6 +1110,8 @@ static void
-            kfd_process_wq_release(struct work_struct *work)
-            <br>
-            &nbsp; {
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process *p = container_of(work, struct
-            kfd_process,
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; release_work);
-            <br>
-            +&nbsp;&nbsp;&nbsp; struct dma_fence *ef =
-            rcu_dereference_protected(p-&gt;ef,
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kref_read(&amp;p-&gt;ref) == 0);
-            <br>
-            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_process_dequeue_from_all_devices(p);
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pqm_uninit(&amp;p-&gt;pqm);
-            <br>
-            @@ -1118,7 +1120,7 @@ static void
-            kfd_process_wq_release(struct work_struct *work)
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * destroyed. This allows any BOs to be freed without
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * triggering pointless evictions or waiting for
-            fences.
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */
-            <br>
-            -&nbsp;&nbsp;&nbsp; dma_fence_signal(p-&gt;ef);
-            <br>
-            +&nbsp;&nbsp;&nbsp; dma_fence_signal(ef);
-            <br>
-            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_process_remove_sysfs(p);
-            <br>
-            &nbsp; @@ -1127,7 +1129,7 @@ static void
-            kfd_process_wq_release(struct work_struct *work)
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svm_range_list_fini(p);
-            <br>
-            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_process_destroy_pdds(p);
-            <br>
-            -&nbsp;&nbsp;&nbsp; dma_fence_put(p-&gt;ef);
-            <br>
-            +&nbsp;&nbsp;&nbsp; dma_fence_put(ef);
-            <br>
-            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_event_free_process(p);
-            <br>
-          </blockquote>
-        </blockquote>
-        <br>
-      </blockquote>
-      <br>
-    </blockquote>
-  </body>
-</html>
-
---------------kyKS40pYdhyQbwE7EUIGXQx2--
+> 
+> v1: (Christian)
+>    - Depends on the flag check DRM_BUDDY_CLEARED, enable the block as
+>      cleared. Else, reset the clear flag for each block in the list.
+> 
+>    - For merging the 2 cleared blocks compare as below,
+>      drm_buddy_is_clear(block) != drm_buddy_is_clear(buddy)
+> 
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c  |   6 +-
+>   drivers/gpu/drm/drm_buddy.c                   | 169 +++++++++++++++---
+>   drivers/gpu/drm/i915/i915_ttm_buddy_manager.c |   6 +-
+>   drivers/gpu/drm/tests/drm_buddy_test.c        |  10 +-
+>   include/drm/drm_buddy.h                       |  18 +-
+>   5 files changed, 168 insertions(+), 41 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> index 08916538a615..d0e199cc8f17 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> @@ -556,7 +556,7 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+>   	return 0;
+>   
+>   error_free_blocks:
+> -	drm_buddy_free_list(mm, &vres->blocks);
+> +	drm_buddy_free_list(mm, &vres->blocks, 0);
+>   	mutex_unlock(&mgr->lock);
+>   error_fini:
+>   	ttm_resource_fini(man, &vres->base);
+> @@ -589,7 +589,7 @@ static void amdgpu_vram_mgr_del(struct ttm_resource_manager *man,
+>   
+>   	amdgpu_vram_mgr_do_reserve(man);
+>   
+> -	drm_buddy_free_list(mm, &vres->blocks);
+> +	drm_buddy_free_list(mm, &vres->blocks, 0);
+>   	mutex_unlock(&mgr->lock);
+>   
+>   	atomic64_sub(vis_usage, &mgr->vis_usage);
+> @@ -897,7 +897,7 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device *adev)
+>   		kfree(rsv);
+>   
+>   	list_for_each_entry_safe(rsv, temp, &mgr->reserved_pages, blocks) {
+> -		drm_buddy_free_list(&mgr->mm, &rsv->allocated);
+> +		drm_buddy_free_list(&mgr->mm, &rsv->allocated, 0);
+>   		kfree(rsv);
+>   	}
+>   	if (!adev->gmc.is_app_apu)
+> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+> index f57e6d74fb0e..d44172f23f05 100644
+> --- a/drivers/gpu/drm/drm_buddy.c
+> +++ b/drivers/gpu/drm/drm_buddy.c
+> @@ -57,6 +57,16 @@ static void list_insert_sorted(struct drm_buddy *mm,
+>   	__list_add(&block->link, node->link.prev, &node->link);
+>   }
+>   
+> +static void clear_reset(struct drm_buddy_block *block)
+> +{
+> +	block->header &= ~DRM_BUDDY_HEADER_CLEAR;
+> +}
+> +
+> +static void mark_cleared(struct drm_buddy_block *block)
+> +{
+> +	block->header |= DRM_BUDDY_HEADER_CLEAR;
+> +}
+> +
+>   static void mark_allocated(struct drm_buddy_block *block)
+>   {
+>   	block->header &= ~DRM_BUDDY_HEADER_STATE;
+> @@ -223,6 +233,12 @@ static int split_block(struct drm_buddy *mm,
+>   	mark_free(mm, block->left);
+>   	mark_free(mm, block->right);
+>   
+> +	if (drm_buddy_block_is_clear(block)) {
+> +		mark_cleared(block->left);
+> +		mark_cleared(block->right);
+> +		clear_reset(block);
+> +	}
+> +
+>   	mark_split(block);
+>   
+>   	return 0;
+> @@ -273,6 +289,13 @@ static void __drm_buddy_free(struct drm_buddy *mm,
+>   		if (!drm_buddy_block_is_free(buddy))
+>   			break;
+>   
+> +		if (drm_buddy_block_is_clear(block) !=
+> +		    drm_buddy_block_is_clear(buddy))
+> +			break;
+> +
+> +		if (drm_buddy_block_is_clear(block))
+> +			mark_cleared(parent);
+> +
+>   		list_del(&buddy->link);
+>   
+>   		drm_block_free(mm, block);
+> @@ -295,6 +318,9 @@ void drm_buddy_free_block(struct drm_buddy *mm,
+>   {
+>   	BUG_ON(!drm_buddy_block_is_allocated(block));
+>   	mm->avail += drm_buddy_block_size(mm, block);
+> +	if (drm_buddy_block_is_clear(block))
+> +		mm->clear_avail += drm_buddy_block_size(mm, block);
+> +
+>   	__drm_buddy_free(mm, block);
+>   }
+>   EXPORT_SYMBOL(drm_buddy_free_block);
+> @@ -305,10 +331,20 @@ EXPORT_SYMBOL(drm_buddy_free_block);
+>    * @mm: DRM buddy manager
+>    * @objects: input list head to free blocks
+>    */
+> -void drm_buddy_free_list(struct drm_buddy *mm, struct list_head *objects)
+> +void drm_buddy_free_list(struct drm_buddy *mm,
+> +			 struct list_head *objects,
+> +			 unsigned long flags)
+>   {
+>   	struct drm_buddy_block *block, *on;
+>   
+> +	if (flags & DRM_BUDDY_CLEARED) {
+> +		list_for_each_entry(block, objects, link)
+> +			mark_cleared(block);
+> +	} else {
+> +		list_for_each_entry(block, objects, link)
+> +			clear_reset(block);
+> +	}
+> +
+>   	list_for_each_entry_safe(block, on, objects, link) {
+>   		drm_buddy_free_block(mm, block);
+>   		cond_resched();
+> @@ -328,9 +364,11 @@ static inline bool contains(u64 s1, u64 e1, u64 s2, u64 e2)
+>   }
+>   
+>   static struct drm_buddy_block *
+> -alloc_range_bias(struct drm_buddy *mm,
+> -		 u64 start, u64 end,
+> -		 unsigned int order)
+> +__alloc_range_bias(struct drm_buddy *mm,
+> +		   u64 start, u64 end,
+> +		   unsigned int order,
+> +		   unsigned long flags,
+> +		   bool fallback)
+>   {
+>   	struct drm_buddy_block *block;
+>   	struct drm_buddy_block *buddy;
+> @@ -369,6 +407,15 @@ alloc_range_bias(struct drm_buddy *mm,
+>   
+>   		if (contains(start, end, block_start, block_end) &&
+>   		    order == drm_buddy_block_order(block)) {
+> +			if (!fallback) {
+> +				if (flags & DRM_BUDDY_CLEAR_ALLOCATION) {
+> +					if (!drm_buddy_block_is_clear(block))
+> +						continue;
+> +				} else {
+> +					if (drm_buddy_block_is_clear(block))
+> +						continue;
+> +				}
+> +			}
+>   			/*
+>   			 * Find the free block within the range.
+>   			 */
+> @@ -405,25 +452,58 @@ alloc_range_bias(struct drm_buddy *mm,
+>   }
+>   
+>   static struct drm_buddy_block *
+> -get_maxblock(struct drm_buddy *mm, unsigned int order)
+> +__drm_buddy_alloc_range_bias(struct drm_buddy *mm,
+> +			     u64 start, u64 end,
+> +			     unsigned int order,
+> +			     unsigned long flags)
+> +{
+> +	struct drm_buddy_block *block;
+> +	bool fallback = 0;
+> +
+> +	block = __alloc_range_bias(mm, start, end, order,
+> +				   flags, fallback);
+> +	if (IS_ERR(block))
+> +		return __alloc_range_bias(mm, start, end, order,
+> +					  flags, !fallback);
+> +
+> +	return block;
+> +}
+> +
+> +static struct drm_buddy_block *
+> +get_maxblock(struct drm_buddy *mm, unsigned int order,
+> +	     unsigned long flags)
+>   {
+> -	struct drm_buddy_block *max_block = NULL, *node;
+> +	struct drm_buddy_block *max_block = NULL, *block = NULL;
+>   	unsigned int i;
+>   
+>   	for (i = order; i <= mm->max_order; ++i) {
+> -		if (!list_empty(&mm->free_list[i])) {
+> -			node = list_last_entry(&mm->free_list[i],
+> -					       struct drm_buddy_block,
+> -					       link);
+> -			if (!max_block) {
+> -				max_block = node;
+> -				continue;
+> +		struct drm_buddy_block *tmp_block;
+> +
+> +		list_for_each_entry_reverse(tmp_block, &mm->free_list[i], link) {
+> +			if (flags & DRM_BUDDY_CLEAR_ALLOCATION) {
+> +				/* Find a cleared block */
+> +				if (!drm_buddy_block_is_clear(tmp_block))
+> +					continue;
+> +			} else {
+> +				if (drm_buddy_block_is_clear(tmp_block))
+> +					continue;
+>   			}
+>   
+> -			if (drm_buddy_block_offset(node) >
+> -			    drm_buddy_block_offset(max_block)) {
+> -				max_block = node;
+> -			}
+> +			block = tmp_block;
+> +			break;
+> +		}
+> +
+> +		if (!block)
+> +			continue;
+> +
+> +		if (!max_block) {
+> +			max_block = block;
+> +			continue;
+> +		}
+> +
+> +		if (drm_buddy_block_offset(block) >
+> +		    drm_buddy_block_offset(max_block)) {
+> +			max_block = block;
+>   		}
+>   	}
+>   
+> @@ -440,11 +520,35 @@ alloc_from_freelist(struct drm_buddy *mm,
+>   	int err;
+>   
+>   	if (flags & DRM_BUDDY_TOPDOWN_ALLOCATION) {
+> -		block = get_maxblock(mm, order);
+> +		block = get_maxblock(mm, order, flags);
+>   		if (block)
+>   			/* Store the obtained block order */
+>   			tmp = drm_buddy_block_order(block);
+>   	} else {
+> +		for (tmp = order; tmp <= mm->max_order; ++tmp) {
+> +			struct drm_buddy_block *tmp_block;
+> +
+> +			list_for_each_entry_reverse(tmp_block, &mm->free_list[tmp], link) {
+> +				if (flags & DRM_BUDDY_CLEAR_ALLOCATION) {
+> +					/* Find a cleared block */
+> +					if (!drm_buddy_block_is_clear(tmp_block))
+> +						continue;
+> +				} else {
+> +					if (drm_buddy_block_is_clear(tmp_block))
+> +						continue;
+> +				}
+> +
+> +				block = tmp_block;
+> +				break;
+> +			}
+> +
+> +			if (block)
+> +				break;
+> +		}
+> +	}
+> +
+> +	if (!block) {
+> +		/* Fallback method */
+>   		for (tmp = order; tmp <= mm->max_order; ++tmp) {
+>   			if (!list_empty(&mm->free_list[tmp])) {
+>   				block = list_last_entry(&mm->free_list[tmp],
+> @@ -454,10 +558,10 @@ alloc_from_freelist(struct drm_buddy *mm,
+>   					break;
+>   			}
+>   		}
+> -	}
+>   
+> -	if (!block)
+> -		return ERR_PTR(-ENOSPC);
+> +		if (!block)
+> +			return ERR_PTR(-ENOSPC);
+> +	}
+>   
+>   	BUG_ON(!drm_buddy_block_is_free(block));
+>   
+> @@ -524,6 +628,8 @@ static int __alloc_range(struct drm_buddy *mm,
+>   			mark_allocated(block);
+>   			total_allocated += drm_buddy_block_size(mm, block);
+>   			mm->avail -= drm_buddy_block_size(mm, block);
+> +			if (drm_buddy_block_is_clear(block))
+> +				mm->clear_avail -= drm_buddy_block_size(mm, block);
+>   			list_add_tail(&block->link, &allocated);
+>   			continue;
+>   		}
+> @@ -558,7 +664,7 @@ static int __alloc_range(struct drm_buddy *mm,
+>   		list_splice_tail(&allocated, blocks);
+>   		*total_allocated_on_err = total_allocated;
+>   	} else {
+> -		drm_buddy_free_list(mm, &allocated);
+> +		drm_buddy_free_list(mm, &allocated, 0);
+>   	}
+>   
+>   	return err;
+> @@ -624,11 +730,11 @@ static int __alloc_contig_try_harder(struct drm_buddy *mm,
+>   			list_splice(&blocks_lhs, blocks);
+>   			return 0;
+>   		} else if (err != -ENOSPC) {
+> -			drm_buddy_free_list(mm, blocks);
+> +			drm_buddy_free_list(mm, blocks, 0);
+>   			return err;
+>   		}
+>   		/* Free blocks for the next iteration */
+> -		drm_buddy_free_list(mm, blocks);
+> +		drm_buddy_free_list(mm, blocks, 0);
+>   	}
+>   
+>   	return -ENOSPC;
+> @@ -684,6 +790,8 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
+>   	list_del(&block->link);
+>   	mark_free(mm, block);
+>   	mm->avail += drm_buddy_block_size(mm, block);
+> +	if (drm_buddy_block_is_clear(block))
+> +		mm->clear_avail += drm_buddy_block_size(mm, block);
+>   
+>   	/* Prevent recursively freeing this node */
+>   	parent = block->parent;
+> @@ -695,6 +803,8 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
+>   	if (err) {
+>   		mark_allocated(block);
+>   		mm->avail -= drm_buddy_block_size(mm, block);
+> +		if (drm_buddy_block_is_clear(block))
+> +			mm->clear_avail -= drm_buddy_block_size(mm, block);
+>   		list_add(&block->link, blocks);
+>   	}
+>   
+> @@ -782,7 +892,8 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>   		do {
+>   			if (flags & DRM_BUDDY_RANGE_ALLOCATION)
+>   				/* Allocate traversing within the range */
+> -				block = alloc_range_bias(mm, start, end, order);
+> +				block = __drm_buddy_alloc_range_bias(mm, start, end,
+> +								     order, flags);
+>   			else
+>   				/* Allocate from freelist */
+>   				block = alloc_from_freelist(mm, order, flags);
+> @@ -808,6 +919,8 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>   
+>   		mark_allocated(block);
+>   		mm->avail -= drm_buddy_block_size(mm, block);
+> +		if (drm_buddy_block_is_clear(block))
+> +			mm->clear_avail -= drm_buddy_block_size(mm, block);
+>   		kmemleak_update_trace(block);
+>   		list_add_tail(&block->link, &allocated);
+>   
+> @@ -846,7 +959,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>   	return 0;
+>   
+>   err_free:
+> -	drm_buddy_free_list(mm, &allocated);
+> +	drm_buddy_free_list(mm, &allocated, 0);
+>   	return err;
+>   }
+>   EXPORT_SYMBOL(drm_buddy_alloc_blocks);
+> @@ -879,8 +992,8 @@ void drm_buddy_print(struct drm_buddy *mm, struct drm_printer *p)
+>   {
+>   	int order;
+>   
+> -	drm_printf(p, "chunk_size: %lluKiB, total: %lluMiB, free: %lluMiB\n",
+> -		   mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20);
+> +	drm_printf(p, "chunk_size: %lluKiB, total: %lluMiB, free: %lluMiB, clear_free: %lluMiB\n",
+> +		   mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, mm->clear_avail >> 20);
+>   
+>   	for (order = mm->max_order; order >= 0; order--) {
+>   		struct drm_buddy_block *block;
+> diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+> index 0d735d5c2b35..942345548bc3 100644
+> --- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+> +++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+> @@ -126,7 +126,7 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
+>   	return 0;
+>   
+>   err_free_blocks:
+> -	drm_buddy_free_list(mm, &bman_res->blocks);
+> +	drm_buddy_free_list(mm, &bman_res->blocks, 0);
+>   	mutex_unlock(&bman->lock);
+>   err_free_res:
+>   	ttm_resource_fini(man, &bman_res->base);
+> @@ -141,7 +141,7 @@ static void i915_ttm_buddy_man_free(struct ttm_resource_manager *man,
+>   	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
+>   
+>   	mutex_lock(&bman->lock);
+> -	drm_buddy_free_list(&bman->mm, &bman_res->blocks);
+> +	drm_buddy_free_list(&bman->mm, &bman_res->blocks, 0);
+>   	bman->visible_avail += bman_res->used_visible_size;
+>   	mutex_unlock(&bman->lock);
+>   
+> @@ -345,7 +345,7 @@ int i915_ttm_buddy_man_fini(struct ttm_device *bdev, unsigned int type)
+>   	ttm_set_driver_manager(bdev, type, NULL);
+>   
+>   	mutex_lock(&bman->lock);
+> -	drm_buddy_free_list(mm, &bman->reserved);
+> +	drm_buddy_free_list(mm, &bman->reserved, 0);
+>   	drm_buddy_fini(mm);
+>   	bman->visible_avail += bman->visible_reserved;
+>   	WARN_ON_ONCE(bman->visible_avail != bman->visible_size);
+> diff --git a/drivers/gpu/drm/tests/drm_buddy_test.c b/drivers/gpu/drm/tests/drm_buddy_test.c
+> index ea2af6bd9abe..e0860fce9ebd 100644
+> --- a/drivers/gpu/drm/tests/drm_buddy_test.c
+> +++ b/drivers/gpu/drm/tests/drm_buddy_test.c
+> @@ -83,7 +83,7 @@ static void drm_test_buddy_alloc_pathological(struct kunit *test)
+>   							  top, max_order);
+>   	}
+>   
+> -	drm_buddy_free_list(&mm, &holes);
+> +	drm_buddy_free_list(&mm, &holes, 0);
+>   
+>   	/* Nothing larger than blocks of chunk_size now available */
+>   	for (order = 1; order <= max_order; order++) {
+> @@ -95,7 +95,7 @@ static void drm_test_buddy_alloc_pathological(struct kunit *test)
+>   	}
+>   
+>   	list_splice_tail(&holes, &blocks);
+> -	drm_buddy_free_list(&mm, &blocks);
+> +	drm_buddy_free_list(&mm, &blocks, 0);
+>   	drm_buddy_fini(&mm);
+>   }
+>   
+> @@ -190,7 +190,7 @@ static void drm_test_buddy_alloc_pessimistic(struct kunit *test)
+>   
+>   	list_del(&block->link);
+>   	drm_buddy_free_block(&mm, block);
+> -	drm_buddy_free_list(&mm, &blocks);
+> +	drm_buddy_free_list(&mm, &blocks, 0);
+>   	drm_buddy_fini(&mm);
+>   }
+>   
+> @@ -236,7 +236,7 @@ static void drm_test_buddy_alloc_optimistic(struct kunit *test)
+>   							   size, size, &tmp, flags),
+>   						  "buddy_alloc unexpectedly succeeded, it should be full!");
+>   
+> -	drm_buddy_free_list(&mm, &blocks);
+> +	drm_buddy_free_list(&mm, &blocks, 0);
+>   	drm_buddy_fini(&mm);
+>   }
+>   
+> @@ -271,7 +271,7 @@ static void drm_test_buddy_alloc_limit(struct kunit *test)
+>   						drm_buddy_block_size(&mm, block),
+>   						BIT_ULL(mm.max_order) * PAGE_SIZE);
+>   
+> -	drm_buddy_free_list(&mm, &allocated);
+> +	drm_buddy_free_list(&mm, &allocated, 0);
+>   	drm_buddy_fini(&mm);
+>   }
+>   
+> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+> index a5b39fc01003..f7311b59f2b0 100644
+> --- a/include/drm/drm_buddy.h
+> +++ b/include/drm/drm_buddy.h
+> @@ -6,6 +6,7 @@
+>   #ifndef __DRM_BUDDY_H__
+>   #define __DRM_BUDDY_H__
+>   
+> +#include <linux/bitfield.h>
+>   #include <linux/bitops.h>
+>   #include <linux/list.h>
+>   #include <linux/slab.h>
+> @@ -25,15 +26,19 @@
+>   #define DRM_BUDDY_RANGE_ALLOCATION		BIT(0)
+>   #define DRM_BUDDY_TOPDOWN_ALLOCATION		BIT(1)
+>   #define DRM_BUDDY_CONTIGUOUS_ALLOCATION		BIT(2)
+> +#define DRM_BUDDY_CLEAR_ALLOCATION		BIT(3)
+> +#define DRM_BUDDY_CLEARED			BIT(4)
+>   
+>   struct drm_buddy_block {
+>   #define DRM_BUDDY_HEADER_OFFSET GENMASK_ULL(63, 12)
+>   #define DRM_BUDDY_HEADER_STATE  GENMASK_ULL(11, 10)
+> +#define DRM_BUDDY_HEADER_CLEAR  GENMASK_ULL(9, 9)
+> +
+>   #define   DRM_BUDDY_ALLOCATED	   (1 << 10)
+>   #define   DRM_BUDDY_FREE	   (2 << 10)
+>   #define   DRM_BUDDY_SPLIT	   (3 << 10)
+>   /* Free to be used, if needed in the future */
+> -#define DRM_BUDDY_HEADER_UNUSED GENMASK_ULL(9, 6)
+> +#define DRM_BUDDY_HEADER_UNUSED GENMASK_ULL(8, 6)
+>   #define DRM_BUDDY_HEADER_ORDER  GENMASK_ULL(5, 0)
+>   	u64 header;
+>   
+> @@ -86,6 +91,7 @@ struct drm_buddy {
+>   	u64 chunk_size;
+>   	u64 size;
+>   	u64 avail;
+> +	u64 clear_avail;
+>   };
+>   
+>   static inline u64
+> @@ -112,6 +118,12 @@ drm_buddy_block_is_allocated(struct drm_buddy_block *block)
+>   	return drm_buddy_block_state(block) == DRM_BUDDY_ALLOCATED;
+>   }
+>   
+> +static inline bool
+> +drm_buddy_block_is_clear(struct drm_buddy_block *block)
+> +{
+> +	return block->header & DRM_BUDDY_HEADER_CLEAR;
+> +}
+> +
+>   static inline bool
+>   drm_buddy_block_is_free(struct drm_buddy_block *block)
+>   {
+> @@ -150,7 +162,9 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
+>   
+>   void drm_buddy_free_block(struct drm_buddy *mm, struct drm_buddy_block *block);
+>   
+> -void drm_buddy_free_list(struct drm_buddy *mm, struct list_head *objects);
+> +void drm_buddy_free_list(struct drm_buddy *mm,
+> +			 struct list_head *objects,
+> +			 unsigned long flags);
+>   
+>   void drm_buddy_print(struct drm_buddy *mm, struct drm_printer *p);
+>   void drm_buddy_block_print(struct drm_buddy *mm,
