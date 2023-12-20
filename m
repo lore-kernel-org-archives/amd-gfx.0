@@ -4,119 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45EA6C41535
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Dec 2023 22:43:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C5C9C3DA6E
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Dec 2023 05:13:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3567910E05F;
-	Tue, 19 Dec 2023 22:43:43 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D04EF10E05F
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Dec 2023 22:43:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AC2010E075;
+	Wed, 20 Dec 2023 05:13:10 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2049.outbound.protection.outlook.com [40.107.93.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 143D810E075
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Dec 2023 05:13:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=npeoiA1o2GeL3Cg+Q7koXvCRpXhqf2lVtQxOBjgT8FRvna/1JqkHGNHv7W2tXENCtjhn5+osy9lICPiCzWAikjF/um78UMoxsBXzNX+uvo5T1AtUyKatWPWbGkcAgcHFYwaH6Jvo1XdniHfCaN2IwIygWowGRRuTHXlbfZTXBLXDt5IttxscT2A8VKwkE+m7haviJZr37HVvfTc/0MrRawkmL2qu85AKbJs6ums4VVS3kNPqNub9iZYUljBx773B8MbL1bc+/1obpjdioUKTz7pJ6KpSQGXqF35zyHAXPuXfpuZxbLq77C03JIU+ImF68rps8hYQIeuT+5dKc8PJ6g==
+ b=Rzrmk6V/WCG0TdKnaRj9lJhj7xE1S6vdeiSwbNs4JfFWURGk/vsCXQwpVxo6h9b87fJEwdSa8Dm3/dhFEv4mfGInDxssTJrLoZHJVDWbWwd6uDSf5GH5uX6JSgZDqZTafm/6XJoFnO7YKdW5uGGkmADaW1uxwDxbxil6OS+Ufp3vqy8wBs5ShKKhNvObK1+Cz0s3Vd5Rw8Y8YE4bsivnuEvu45HhzbLevYGHa18g0POaIUCTrhIIvUnzGKG9Z4ZOu4eIRRG0yUpoq4dBU0Ll1gm0bVn4K1I5jNONvcBanNW4ZItk+lss0Bta3HOfx/Zpofn0u2h4077eb99XOAGGzA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LiS4VZqvgsU6TjgzBgpEyifOzTrVZhQla/gXIRgHAU4=;
- b=KTt0fsbHZCJN7IxCn6RXGrjgicfesVSNhp9T9E0xm9HbrfEdl7u7ciotbHCiwrrB0XdBbpE/PfQNYsaUGM6KK8iSH/Ms/9zvTogizL86kPrSP84+Ev306+54owaRHJLYrRRGjPy61B8KnFGVDXRD9nWQ7kg1IWS/Z/rBZ67404o/mHtFUIP65GfUbPBSkIs5xTGOMSpLIEL3pXoaW/BoLx/fm5LdD+17QgpsUMWdk4ZCrDNxuO0PXizntSnmPWlGwVmMvEiJpkyfyy5DPZvj9/T68bakk52XQdxMBZD+lPm/siEYsQLINle0OYhznKaKfbUoQcbbPkRwdjkVrZoYDA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=uRRDyWSs64TiNMbCrStpba7C3TZ4THYQ+K4KSiRZ2Ng=;
+ b=KuZlXa1OSxNMfPw/tBNpRmWn9YLXWY0jwCVXZip8AOQNssmjjgG+dPS4M6wwB46zC785jfXFwZY00zAUENoPWf/LxrzIMDWWUvjTeEy5rUAmdaEKhJ7TB60odxBDX3JPcHeJFzVRAF6QqIgS8Uh5uzTsZTEfxkBORsJV0H1epa+9RTTcjG/Unlacw5BoO04/Q3zrsqsa7rxh1cb3PPqZe+c6o4O5Zm4GfOU2bBFF8ihPrT88dqR7JJAzQI9hxSDDPAWbldziRza/nN26cJOvbICd8j6tyd/FS+OUqNTGqZ3Qu8f85tj8mqjZzePqzcVLQUXUhazU4YXmtAbhv+53Ig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LiS4VZqvgsU6TjgzBgpEyifOzTrVZhQla/gXIRgHAU4=;
- b=ta23r1hmxzI2jeT9l4aPq0zLgs7C41CsZLubM/tdlWnbNiiJCa33wRX2pT88WVP47zw3Rel0qwoLSw44D2YGal1ny5ufWzn533/AlRy1mhgercE/q/5kCR3u8BPVhH95wNebGouMlhY7mROqFB15j+7ZaGsDWby1hXvpNJeHF7o=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5112.namprd12.prod.outlook.com (2603:10b6:208:316::16)
- by DS0PR12MB9346.namprd12.prod.outlook.com (2603:10b6:8:1be::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.38; Tue, 19 Dec
- 2023 22:43:38 +0000
-Received: from BL1PR12MB5112.namprd12.prod.outlook.com
- ([fe80::ee9b:7998:3d78:78b]) by BL1PR12MB5112.namprd12.prod.outlook.com
- ([fe80::ee9b:7998:3d78:78b%7]) with mapi id 15.20.7113.016; Tue, 19 Dec 2023
- 22:43:38 +0000
-Content-Type: multipart/alternative;
- boundary="------------6n2UT0bKXXFcJCH8sS8Haacv"
-Message-ID: <f37e19fe-4fc9-4580-9961-ccdcf7f9b35a@amd.com>
-Date: Tue, 19 Dec 2023 17:43:20 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] drm/amdgpu: Auto-validate DMABuf imports in
- compute VMs
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx@lists.freedesktop.org
-References: <20231214223001.218746-1-Felix.Kuehling@amd.com>
- <fe14d738-ab23-460f-ac44-2090ef9ab4c5@gmail.com>
- <3bce0db8-9da0-4f6e-a941-e5531518c908@amd.com>
- <346c1009-2930-4424-9cd4-589e5872877e@amd.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <346c1009-2930-4424-9cd4-589e5872877e@amd.com>
-X-ClientProxiedBy: YQBPR01CA0051.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:2::23) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ bh=uRRDyWSs64TiNMbCrStpba7C3TZ4THYQ+K4KSiRZ2Ng=;
+ b=kGp2Q2y5a61eTBm/i1Q1YuCODcsWcJMv1lGx5IYVEfHEuyqoAEp2mpP/Ou1a88ERMF8JGlUlTiC7EksXDBOgUHXMj192QkhDtslkjEo/EE42NK0yklQ4m8LacwDaRFHgtKE7RSwkf7HlQ+vDK1GDoQA3VvpC0B/MGTXgXCQxJFE=
+Received: from CY5PR15CA0140.namprd15.prod.outlook.com (2603:10b6:930:67::10)
+ by MW3PR12MB4364.namprd12.prod.outlook.com (2603:10b6:303:5c::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.38; Wed, 20 Dec
+ 2023 05:13:06 +0000
+Received: from CY4PEPF0000E9DA.namprd05.prod.outlook.com
+ (2603:10b6:930:67:cafe::4) by CY5PR15CA0140.outlook.office365.com
+ (2603:10b6:930:67::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.18 via Frontend
+ Transport; Wed, 20 Dec 2023 05:13:06 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000E9DA.mail.protection.outlook.com (10.167.241.79) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7113.14 via Frontend Transport; Wed, 20 Dec 2023 05:13:06 +0000
+Received: from amd-mlse-mangesh.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 19 Dec
+ 2023 23:13:03 -0600
+From: Mangesh Gadre <Mangesh.Gadre@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Hawking.Zhang@amd.com>,
+ <Lijo.Lazar@amd.com>
+Subject: [PATCH v4] drm/amdgpu : Add register read/write debugfs support for
+ AID's
+Date: Wed, 20 Dec 2023 13:12:34 +0800
+Message-ID: <20231220051234.2234962-1-Mangesh.Gadre@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5112:EE_|DS0PR12MB9346:EE_
-X-MS-Office365-Filtering-Correlation-Id: f5ec1564-3e70-467f-cbe6-08dc00e3e92f
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9DA:EE_|MW3PR12MB4364:EE_
+X-MS-Office365-Filtering-Correlation-Id: 284fe28d-77dd-466a-1ec0-08dc011a598d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6hlDhoJhJvfuvj5IQLcn4KTpN6GLPHuSHi3bR/LylmRWzFF7jbytup7e7XSIgg0aVVz4wN+xyPSs9iYfYfCMftfsaMnF2vl3u16u+Ry1LcovHTDKaAW/zNpsH9PFJAUPNgBmgx+67tUvKsVup5L38IRdkzGEdjGZPSzmNZMYqvg741mGS2CEtYpGwPzFmj40r6xfwr7a279qVvtqOrlY//T3tH/tMxtC3eOXnVR/W4RhutlNMCUEPQnRAWbog7IbIBED94FWDcwTEfRPTdh6h8O2y3/gQo5NWR1WrcbgX7XNov2UfKM9F8sGbpq2nxBp1lMxRlJl4sNQaRnl8Tl1zm+Fv0OxGdsGNn4xrR9Wc0zTmD6a8dORORnMDw61VZLTTb4Ons3BycNBvV0rtorsguWyFJ1cYFwP28w2N7EgwfDpJE5tU6fn9IA1gJti1oQSPg9BqKFZD1G8BJWmB2hvUGjlD4Vpt0mNJXWzCP/ExyGJsN/sFmtiSrG5np83BVPdVp0/rucNli/ygwAE1RcoAV5+cFoKzDLUvSmFbdNyZMR4N5zk6lJ9v2XS4iBEumFmdxH92BuJm1ga40yuATI0cliVNRfbe859sXa0OfLeP5SE5T9GIeJp259OCtvYLXlmN9r861hzUBv8nxIxmHjYpw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5112.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366004)(376002)(136003)(396003)(39860400002)(346002)(230922051799003)(64100799003)(451199024)(186009)(1800799012)(44832011)(66574015)(41300700001)(83380400001)(86362001)(8676002)(38100700002)(478600001)(8936002)(31696002)(6486002)(2906002)(66476007)(66946007)(5660300002)(2616005)(66556008)(6666004)(110136005)(4001150100001)(6506007)(26005)(33964004)(36756003)(4326008)(6512007)(316002)(15650500001)(53546011)(31686004)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: mWAUwCjS6QBp4Q7Zdf95iFtRPvNfZy3lTJouAOwnqV4MP3GU887XVkVle2yRvKT4T6N6dB/fNBycaz4kJQ4i9Tz7F/0Q9Xz3zedHaU74B/PsIQLfYbAp7Q0s5UAP8k0N+Qn47QVxRVsLgAdBPZ/+0gdMOUIMdhXAl3UKF6CMY948cdUkkea/kmkRCBijj4oQeihPVptPKzW400wDWNfasemL+j7H57BfJcp6G2flWKwuoPpLfrTUOQ2vtHAn6rJ+/PrF4kZuouAxh8v902En7t5GTnFXzR0gftaWYwJp2cTmL/o2OqDBSknlUJWuaSU+nCHVvAPI6ggu/0R5//DpQrcxiV7MHEQorIjYOd6GzC84Thmw8g2Qt4dy6LVfWjPpuPfG/xs8+bqerGavHMzTIqXF8Xxe6yTefCYKWumTaKdNQ9depZ8LCNba3tS1RwdyjyMFOdxOjAIlX6byVq+EbiWwYcxI1LFOYOfILGwKbfrZ83VvRXwSCZDHR+RdY8aLqu5ZAHxbuN1L0QGlCR9iph5FSHXTU7ZufHhPFEVEuE2elrFGgtmTLYQQ6nMq+ZiHwnpZl3fC/34BHgQo2w9FkVknGiitYsqgAATKpZVuBoQwWd1yAfvMmNoIdyB5GvZWAV64H9WcV6nQg8b81pykCcI19E7smuy984QmJHEEnmofz974FgHazi6dkD8C21NCt930IrQb9YijN56gPbqsdMm68B/fCsBTrsv/N6Va+P5xzRs8q7qWlx4BHQrIYBf0Oqr724WzW0LO/XlAdpro+w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(39860400002)(346002)(396003)(136003)(376002)(230922051799003)(64100799003)(82310400011)(186009)(1800799012)(451199024)(46966006)(40470700004)(36840700001)(82740400003)(40480700001)(36756003)(81166007)(356005)(86362001)(40460700003)(7696005)(6666004)(70586007)(478600001)(41300700001)(6636002)(54906003)(70206006)(336012)(26005)(16526019)(2616005)(47076005)(426003)(83380400001)(66574015)(1076003)(2906002)(110136005)(5660300002)(36860700001)(316002)(8936002)(4326008)(8676002)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YUg1QXRxak9qeXhuT3FXTVJiNFJTQkVLWjljb0poOVJjQnJuY3dkazRaSzIx?=
- =?utf-8?B?MWxhR2VlTER2TGVmTUJZUDE3M0ZrbXdzanBIbkRpaDhEbFpOdkNCNzk5Zlow?=
- =?utf-8?B?Q1VOUlZndGlyS0NPQVpOaVFaRHNlKzN0YlU3T2x3aE5mMmN2NVhXWC92UkI3?=
- =?utf-8?B?TVNJcHJYTkhCRVpBSWhmQzFsOGpaVWdWMGFUbVltdTZrRlk2OVpXLzBwV1Rl?=
- =?utf-8?B?WGx2NEg1dlV1enBSS1hVN3BTeEtSUHJlSzBVQWhxdVQrK3A5SnRQanZRSlNa?=
- =?utf-8?B?bExCd244ZXU3cllrZDlsMGZPR3RRZW40ZmtzanRwL2xoenY3bjM3VERhdkNk?=
- =?utf-8?B?QjE0MW0vQllWak1ZVi95VWMrVkV4K09jcU1PQk1YTnd4TnBsR0xBN2JPNGJk?=
- =?utf-8?B?Rk1qVkk2MFBnby8wV1RTMGNMQlhNUWU5MGZFMUVzdVZoYzVld2srVmNOMnZW?=
- =?utf-8?B?UEFzL25LdTUwS3V1N0h1OGovNmFXN0Y5QXAreWZCSGxBSXo0QlJkTXVuaFlE?=
- =?utf-8?B?b05GOFJpTHJzc1QxUmtVbFVLZWlxeERPZEg3anlSMk5FYVVPSHhOdG5SY2hU?=
- =?utf-8?B?bzJ2MUl6Z0U5bzRiT29tdnJhR3JBT1hSVHQ3TmFjS1VPVUhSOWt5WTdBT2Mw?=
- =?utf-8?B?aFlXWW95T1JNMTFpVEtxcDRvNzBNWE9NYVZBemUxRGh6MTdrTHM1K2tIY3ND?=
- =?utf-8?B?SlJ3ck93eFlYYWtXVmRsRGxCN29UZ096NlZKeDV3b0pPaldrQjVLbXB6eEor?=
- =?utf-8?B?QW1yelZMYzlFS2YxYzFyYkdKUXorOHhHVDZUeDhLQ05nK0s1K1ZpS0phamhT?=
- =?utf-8?B?MjVvTk11RU80TjNYb3Y2bW5Rd0ppbHZBUFZJRHBOaWRTMDd4TVZoWTVrci9O?=
- =?utf-8?B?VnNCOFpiNG5sU3FSTzZmRStyVjlLaXZSakJRZUxMMXBtSkx6OUwrY3g1QU5X?=
- =?utf-8?B?SXNqK2RtOXM3Q0k3STdrT1I5aFM4TE1kU1BscU9lenA0K200S3hISS8zdzJl?=
- =?utf-8?B?aTJENGY1YXRuMGhoQWpGWmlBRlBqeXZ5STJzbVkvUDFOUXhFN1ZMcEdDZUlC?=
- =?utf-8?B?NytlUHRxVUdkOW9nSkJIY2Via3RBbndkcDUzM3lHT2VpTk5IczY2ZSsySGVk?=
- =?utf-8?B?OXVqdnBCc2NYd3dRZzVEMzM0R0diNTNsS0JpY2dHOWFkK3o2NDYyb2dnNDFB?=
- =?utf-8?B?dG9HVWVGZmtoSCtWOEtpOTM3VTJ1dEhIbTd1bFp6cnRPYk1HUmJPY28xUldE?=
- =?utf-8?B?QXhJb1JqMTQ2Wk1hN3k1c3B6c1FtdEJMRkY5V1JQSUZwY3Z2RW1IN2F1OXAv?=
- =?utf-8?B?eVE0NERIZlVGQUhWTVMzNGFhd29peVpsZVk0T0FDbHhTV1BGTFBpdFF6bVY1?=
- =?utf-8?B?UW50aDZPVDFiNmgvOHhVM0hkTGR1MENHb1J1ZEZoOVRWbEtsSWZWbEEzSjEv?=
- =?utf-8?B?allTY2RlcVE3b2dEY05NOHR3aUJicnBRd0tnNXJmby9haWdlc2c5NFJidUFa?=
- =?utf-8?B?VnQzNk5kV0g0WVJ0R2JuYUFiYWg1QVg1VWt4WGhadkovK3dHWjNOdVF1cVhu?=
- =?utf-8?B?RHMvZGtaVkl1bUkyMmZoVmFSdzRyMmpKWnV3R1BuZ3ZTdnpCWWZ0L1BwMFNn?=
- =?utf-8?B?eEhQc2x2SHFIWW1ZellYdk9QUGwvT2ExRk01bW4yd2xDNStjd2hYanRSNDQ2?=
- =?utf-8?B?cUw5SUxCY1NlOFFQNEtERVFQQndiRTl6eHovY3MyTDVyOVVwclVBUWdNL21q?=
- =?utf-8?B?WUJTcVlyMll6MGM5SU91TTBWV1Bzdkc1WHEybVlIOVpPZzIvMWRNS25qaUtU?=
- =?utf-8?B?dHlNcU1QRVlsL210bm1wQXZZVWlUeTJwcUhtdUdsN0NiNlZtL0d2TlFDeHRV?=
- =?utf-8?B?bzZsQWVISFVuejRWWTRnNldDZHpkMTAyeWhTTHZGZ0pxVG5YNjFMNDNUc2ls?=
- =?utf-8?B?TithWmFJMUhCY3hmdDAyS1ZVZmhPTUVDR3pzck44Y1NpMTZsaUFyd3BGUDNL?=
- =?utf-8?B?VkVZbHNvUGhETlh5a1Q4WUpodmVYTWtBdnFFNkJydkRKTHRyYjA3L3pUcHl5?=
- =?utf-8?B?OHFxam1rM0NxOFV3ZG9XUjJ5VXRYaE1UMXZUZGcxZXQxZFEzQkh6R3pvVGho?=
- =?utf-8?Q?DHHiHeuWS5ZG0IAaUlhmravqO?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5ec1564-3e70-467f-cbe6-08dc00e3e92f
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Dec 2023 22:43:38.2115 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2023 05:13:06.1872 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 284fe28d-77dd-466a-1ec0-08dc011a598d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WnweEM9LnPl80RlN0s/uLtScr2u38LanN+zODI1zAc1fXnapggmyaxDZjgqocPlLiLsRe0e+c5Xww5PXElDicw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9346
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9DA.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4364
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,280 +99,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: xiaogang.chen@amd.com, mukul.joshi@amd.com, ramesh.errabolu@amd.com
+Cc: Mangesh Gadre <Mangesh.Gadre@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------6n2UT0bKXXFcJCH8sS8Haacv
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+SMN address is larger than 32 bits for registers on different AID's
+Updating existing interface to support access to such registers.
+
+Signed-off-by: Mangesh Gadre <Mangesh.Gadre@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+---
+v2 : Adding hardware family check for creating
+     debugfs interface for PCIe register access
+v3 : Instead of creating new debugfs interface,now using
+     existing interface with address range check for
+     call to appropriate interface (Lijo)
+v4 : Using available helper instead of explicit right 
+     shift operations (Christian)
 
 
-On 2023-12-19 3:10, Christian König wrote:
-> Am 15.12.23 um 16:19 schrieb Felix Kuehling:
->>
->> On 2023-12-15 07:30, Christian König wrote:
->>>> @@ -1425,11 +1451,21 @@ int amdgpu_vm_handle_moved(struct 
->>>> amdgpu_device *adev,
->>>>           }
->>>>             r = amdgpu_vm_bo_update(adev, bo_va, clear);
->>>> -        if (r)
->>>> -            return r;
->>>>             if (unlock)
->>>>               dma_resv_unlock(resv);
->>>> +        if (r)
->>>> +            return r;
->>>> +
->>>> +        /* Remember evicted DMABuf imports in compute VMs for later
->>>> +         * validation
->>>> +         */
->>>> +        if (vm->is_compute_context && bo_va->base.bo &&
->>>> +            bo_va->base.bo->tbo.base.import_attach &&
->>>> +            (!bo_va->base.bo->tbo.resource ||
->>>> + bo_va->base.bo->tbo.resource->mem_type == TTM_PL_SYSTEM))
->>>> +            amdgpu_vm_bo_evicted(&bo_va->base);
->>>> +
->>>
->>> The change looks mostly good now. Just one thing which worries me is 
->>> that when GFX and compute is mixed in the same VM this here might 
->>> cause problems when we run into an error during command submission.
->>>
->>> E.g. GFX validates the VM BOs, but then the IOCTL fails before 
->>> calling amdgpu_vm_handle_moved().
->>>
->>> In this case the DMA-buf wouldn't be validated any more.
->>
->> This code path shouldn't be relevant for command submission, but for 
->> the amdgpu_vm_handle_moved call in amdgpu_dma_buf_move_notify. That's 
->> where the BO is first found to be evicted and its PTEs invalidated. 
->> That's where we need to remember it so it can be validated in the 
->> next call to amdgpu_vm_validate.
->>
->> Currently the amdgpu_cs code path calls amdgpu_vm_validate with 
->> ticket=NULL, so it won't validate these imports. The only place that 
->> auto-validates evicted imports is amdgpu_amdkfd_restore_process_bos. 
->> So none of this should affect amdgpu_cs command submission.
->
-> Yeah, but ticket=NULL will result in removing those imports from the 
-> validation list.
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-I have a comment for that in amdgpu_vm_validate:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 96d634bfa448..391af8060704 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -559,7 +559,11 @@ static ssize_t amdgpu_debugfs_regs_pcie_read(struct file *f, char __user *buf,
+ 	while (size) {
+ 		uint32_t value;
+ 
+-		value = RREG32_PCIE(*pos);
++		if (upper_32_bits(*pos))
++			value = RREG32_PCIE_EXT(*pos);
++		else
++			value = RREG32_PCIE(*pos);
++
+ 		r = put_user(value, (uint32_t *)buf);
+ 		if (r)
+ 			goto out;
+@@ -619,7 +623,10 @@ static ssize_t amdgpu_debugfs_regs_pcie_write(struct file *f, const char __user
+ 		if (r)
+ 			goto out;
+ 
+-		WREG32_PCIE(*pos, value);
++		if (upper_32_bits(*pos))
++			WREG32_PCIE_EXT(*pos, value);
++		else
++			WREG32_PCIE(*pos, value);
+ 
+ 		result += 4;
+ 		buf += 4;
+-- 
+2.34.1
 
-                         if (!ticket) {
-                                 /* We need to move the BO out of the evicted
-                                  * list to avoid an infinite loop. It will be
-                                  * moved back to evicted in the next
-                                  * amdgpu_vm_handle_moved.
-                                  */
-                                 amdgpu_vm_bo_invalidated(bo_base);
-                                 spin_lock(&vm->status_lock);
-                                 continue;
-                         }
-
-The net result is that the BO is still tracked as evicted.
-
-
-> This could potentially result in not validating them should we ever 
-> mix GFX and Compute submissions in the same VM.
-
-My eviction test does exactly this, and it's working just fine.
-
-Regards,
-   Felix
-
-
->
-> For now that works, but we need to clean that up more thoughtfully I 
-> think.
->
-> Christian.
->
->>
->>
->> The flow for amdgpu_amdkfd_restore_process_bos is:
->>
->>  * amdgpu_vm_validate validates the evicted dmabuf imports (moves the
->>    bo_vas from "evicted" to "invalidated")
->>  * amdgpu_vm_handle_moved iterates over invalidated bo_vas and updates
->>    the PTEs with valid entries (moves the bo_vas to "done")
->>
->>
->> Regards,
->>   Felix
->>
->>
->>>
->>> Regards,
->>> Christian. 
->
---------------6n2UT0bKXXFcJCH8sS8Haacv
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2023-12-19 3:10, Christian König
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:346c1009-2930-4424-9cd4-589e5872877e@amd.com">Am
-      15.12.23 um 16:19 schrieb Felix Kuehling:
-      <br>
-      <blockquote type="cite">
-        <br>
-        On 2023-12-15 07:30, Christian König wrote:
-        <br>
-        <blockquote type="cite">
-          <blockquote type="cite">@@ -1425,11 +1451,21 @@ int
-            amdgpu_vm_handle_moved(struct amdgpu_device *adev,
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-            <br>
-            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = amdgpu_vm_bo_update(adev, bo_va, clear);
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;
-            <br>
-            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (unlock)
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dma_resv_unlock(resv);
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;
-            <br>
-            +
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Remember evicted DMABuf imports in compute VMs
-            for later
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * validation
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vm-&gt;is_compute_context &amp;&amp;
-            bo_va-&gt;base.bo &amp;&amp;
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bo_va-&gt;base.bo-&gt;tbo.base.import_attach
-            &amp;&amp;
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (!bo_va-&gt;base.bo-&gt;tbo.resource ||
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            bo_va-&gt;base.bo-&gt;tbo.resource-&gt;mem_type ==
-            TTM_PL_SYSTEM))
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_vm_bo_evicted(&amp;bo_va-&gt;base);
-            <br>
-            +
-            <br>
-          </blockquote>
-          <br>
-          The change looks mostly good now. Just one thing which worries
-          me is that when GFX and compute is mixed in the same VM this
-          here might cause problems when we run into an error during
-          command submission.
-          <br>
-          <br>
-          E.g. GFX validates the VM BOs, but then the IOCTL fails before
-          calling amdgpu_vm_handle_moved().
-          <br>
-          <br>
-          In this case the DMA-buf wouldn't be validated any more.
-          <br>
-        </blockquote>
-        <br>
-        This code path shouldn't be relevant for command submission, but
-        for the amdgpu_vm_handle_moved call in
-        amdgpu_dma_buf_move_notify. That's where the BO is first found
-        to be evicted and its PTEs invalidated. That's where we need to
-        remember it so it can be validated in the next call to
-        amdgpu_vm_validate.
-        <br>
-        <br>
-        Currently the amdgpu_cs code path calls amdgpu_vm_validate with
-        ticket=NULL, so it won't validate these imports. The only place
-        that auto-validates evicted imports is
-        amdgpu_amdkfd_restore_process_bos. So none of this should affect
-        amdgpu_cs command submission.
-        <br>
-      </blockquote>
-      <br>
-      Yeah, but ticket=NULL will result in removing those imports from
-      the validation list.</blockquote>
-    <p>I have a comment for that in amdgpu_vm_validate:</p>
-    <pre>                        if (!ticket) {
-                                /* We need to move the BO out of the evicted
-                                 * list to avoid an infinite loop. It will be
-                                 * moved back to evicted in the next
-                                 * amdgpu_vm_handle_moved.
-                                 */
-                                amdgpu_vm_bo_invalidated(bo_base);
-                                spin_lock(&amp;vm-&gt;status_lock);
-                                continue;
-                        }
-</pre>
-    <p>The net result is that the BO is still tracked as evicted.<br>
-    </p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:346c1009-2930-4424-9cd4-589e5872877e@amd.com"> This
-      could potentially result in not validating them should we ever mix
-      GFX and Compute submissions in the same VM.
-      <br>
-    </blockquote>
-    <p>My eviction test does exactly this, and it's working just fine.</p>
-    <p>Regards,<br>
-      &nbsp; Felix<br>
-    </p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:346c1009-2930-4424-9cd4-589e5872877e@amd.com">
-      <br>
-      For now that works, but we need to clean that up more thoughtfully
-      I think.
-      <br>
-      <br>
-      Christian.
-      <br>
-      <br>
-      <blockquote type="cite">
-        <br>
-        <br>
-        The flow for amdgpu_amdkfd_restore_process_bos is:
-        <br>
-        <br>
-        &nbsp;* amdgpu_vm_validate validates the evicted dmabuf imports
-        (moves the
-        <br>
-        &nbsp;&nbsp; bo_vas from &quot;evicted&quot; to &quot;invalidated&quot;)
-        <br>
-        &nbsp;* amdgpu_vm_handle_moved iterates over invalidated bo_vas and
-        updates
-        <br>
-        &nbsp;&nbsp; the PTEs with valid entries (moves the bo_vas to &quot;done&quot;)
-        <br>
-        <br>
-        <br>
-        Regards,
-        <br>
-        &nbsp; Felix
-        <br>
-        <br>
-        <br>
-        <blockquote type="cite">
-          <br>
-          Regards,
-          <br>
-          Christian. </blockquote>
-      </blockquote>
-      <br>
-    </blockquote>
-  </body>
-</html>
-
---------------6n2UT0bKXXFcJCH8sS8Haacv--
