@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27572C46CD3
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Dec 2023 16:37:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00E6EC46CD8
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Dec 2023 16:37:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94B8F10E5F1;
-	Wed, 20 Dec 2023 16:37:14 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2084.outbound.protection.outlook.com [40.107.244.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9355410E5F1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75DC610E5F2;
+	Wed, 20 Dec 2023 16:37:16 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E610110E5F1
  for <amd-gfx@lists.freedesktop.org>; Wed, 20 Dec 2023 16:37:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Dd1VoytO88MN8koEPgfIORpL+9d+8hxJAVmnUlwUZb5YVsWNHH1s3QR+biJvL5487NMnDE9DSSUPpCOTKqCh7MAdsgwMp1dGx8qQbJvW9IAN2DANOP96nOicUjFnVYstfUslol7RKjLe4du4GGwZuJ2j+m+95U5kamdGarOgFf+W/9VprqseJ9MU3eW6eflTAU0Ee41/sNxKxwDVsuS/18gdi+OGogUKrVgRQJGdyf8MD/Bmyv6RP24TNeW21EAbl/sM/mlTpSYwJLe0DyKoHrEe5kIf8ppKUHnrkKJ2fXhJjvhXKdSSDGI9ZHYjtBp9k8J3QyI2SIhUkDTPNtBmIw==
+ b=kIlKUbwHDvsX5YZcmi9TWJkzJzlWp+6oNR9azDy8nmP+E1WdJQxFXAt1S41FPSUGVIG0rJHN7A9yIrsX72RitkItOBHjn/DLp/cfS0CyT5lFtzwcpwpAMGdMgS1dvvrNqy7S+ZO5Bml2TPot7Fvpt90K2fQc3+IEeH+zGmKIkHpYOUNNe0l3fTDYbHKcFy54z/WGr9EAvfVmDbhwobiTGZiakziUsM12L8+SvKUajOGzzh/qN7v60PV+vUFesSwCk+LiTqMyjqgDAd8hZMEjarP4z7LHZsShRpA5RXaF2ChxX6uiLEcEYlwgVdKJde8jvd9tDDNKzC75yE8zcuCZ9w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OooKU7H1Q1dNRBig2pW12X7Jc1s5+btEwB40meP9jv4=;
- b=bCCoc7F3GM0B5iK3ttzaGJA3HbJOHxZSKXOLJI3vjLJFhH4R7E/MHwaS/P8ttOVAAd+x2vx3PqVfvug31wCmTbyYWKbVVdvk8mK9mWJGuItIsX79RPVUDWg/jMAlwr+S7bEipf/hv+/dtekA2qc0UJHYdmfdQXcHmWne98OSq/OTFXu1vyQRrkcRfl+WnmK0taS95nK93I/qRlPQjsChtGIaSJO3doZkvsrDdM5ZJA9LMsZko5I/2+0IG69OrPo05vv9YYliHc/NQYlw2fnFehsF/cvmD/bYBGmi5dMY66UczMpNS0C7oe3Nb/AqxMESfSqSUF3ehKaNp0CGCEWpYg==
+ bh=v5LTZwmAx5AwmGCA3+3D8QUarFq80Wj/4C5hWHPKDSs=;
+ b=RyTMacBfvAhrPGCLO0HuJP3tSPcQS9MXN7m6Eow7mKE+P+KTYMooeWVbrjRb6DYHz79l7FbDQS8c3DoiF8u+xSp9k1/WiqwS2+YJVh99u/iMMfDGMc3uaXOL+3J7IXoKUyE7ngKGedViqF3iQLBGr8nEL+uMMgStBiO7Hh8IiIHx/hzkZfapYkXmIj5hYdwXvwOGnpMknbyt9lKBS5fwVWsvjsgpjASGyBmW03h4lIiTe/iSVTp97JdmHMvG/pdB4WGtCf/c/9GIoJcLBRsPA1bc+FA0bh6/GNx7dBEEaakA02ABnf8wObtyUcMcovyDKJQHCMQNcENX5bXik3fUkQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OooKU7H1Q1dNRBig2pW12X7Jc1s5+btEwB40meP9jv4=;
- b=hbUSuZharEIiQx1wkZ9VnpgYTIfgC2BU4mfWxizFxmJfGdUtOHW2fT/cej6k9rfzSYe/i9kEiHXFcQI5ci1nUM5TvO3dP/qHmxZHDBnoAZgD78EIEUzVeG4I2wBfaHY1ic2JiYSJoX/U98AvPjUlA4OCMDr9FnuH6lHxg6rObfA=
-Received: from MN2PR16CA0058.namprd16.prod.outlook.com (2603:10b6:208:234::27)
- by DM6PR12MB4057.namprd12.prod.outlook.com (2603:10b6:5:213::9) with
+ bh=v5LTZwmAx5AwmGCA3+3D8QUarFq80Wj/4C5hWHPKDSs=;
+ b=p1FTzK6VsUTAMVhfinb7RnyuOIeDHLiPJcFTESueANJZsehsso2crH2Z6Pq7uu8Es5qC3BVJw9PMxKMWTeMVJuWuv+JmJzPTHV/CK5Y4ObqNZ+LspHW64f2J8iqFj9YtrCLuZntp7HZUB+Gw3LLkOYz/2PCTQTIEhKJxI1a2iuw=
+Received: from BL1P221CA0014.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:2c5::26)
+ by DS0PR12MB9275.namprd12.prod.outlook.com (2603:10b6:8:1be::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.18; Wed, 20 Dec
- 2023 16:37:11 +0000
-Received: from BL02EPF0001A104.namprd05.prod.outlook.com
- (2603:10b6:208:234:cafe::f1) by MN2PR16CA0058.outlook.office365.com
- (2603:10b6:208:234::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.38 via Frontend
+ 2023 16:37:10 +0000
+Received: from BL02EPF0001A106.namprd05.prod.outlook.com
+ (2603:10b6:208:2c5:cafe::25) by BL1P221CA0014.outlook.office365.com
+ (2603:10b6:208:2c5::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.18 via Frontend
  Transport; Wed, 20 Dec 2023 16:37:10 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
@@ -45,19 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A104.mail.protection.outlook.com (10.167.241.135) with Microsoft
+ BL02EPF0001A106.mail.protection.outlook.com (10.167.241.139) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
  15.20.7113.14 via Frontend Transport; Wed, 20 Dec 2023 16:37:10 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 20 Dec
- 2023 10:37:06 -0600
+ 2023 10:37:04 -0600
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 15/20] drm/amd/display: For FPO and SubVP/DRR configs program
- vmin/max sel
-Date: Wed, 20 Dec 2023 09:33:47 -0700
-Message-ID: <20231220163538.1742834-16-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 14/20] drm/amd/display: Add dpia display mode validation logic
+Date: Wed, 20 Dec 2023 09:33:46 -0700
+Message-ID: <20231220163538.1742834-15-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231220163538.1742834-1-Rodrigo.Siqueira@amd.com>
 References: <20231220163538.1742834-1-Rodrigo.Siqueira@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A104:EE_|DM6PR12MB4057:EE_
-X-MS-Office365-Filtering-Correlation-Id: e3400329-5aef-4661-467a-08dc0179ea0d
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A106:EE_|DS0PR12MB9275:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a95e7e4-91c3-47a6-ca0f-08dc0179e9e6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Eu1IyBj4IJjel+Bbi4KylaeICUoUw+Jyoz84xf+EjzyKcdR3tVCc6FMAE45g303wPIxia5O0SQLJyzXPHWE7Di/YI1bd4u3n4jUlYZfbdfjwhsOotkmz+Ag7TsYWRpBd+C1pUrU+onXGiFH2hurkDkhGfoJFGN4EPjbgx/GKOH+J7YoNNWjbhHR6wmMqZzO/qVl19JiQu00QjQkWGRNPYQTD7xVSvF+FmyMADNBWIzHb6jrlqQ+wMpwlCCkhgXLmNK80PXqPWY7BRaIs/TaKVtA2KwjBvHgQU/hSCWQC1qWLlEOxk4glrGUdaeye02tOAF9iAXMFgQV2inI7EklC764fwbo4XCbWtI/LrtihYpqLiaPJIGrbC4iTOIdY82/AK1qE23Qaqw6rDRKIie6fb03wnCwjMPEorJNwgbOHWOFBpGesJG0UKkOEDeBwrwBwoDVSCnt5jaxYDHz8oy7nMl49PuYecLrALDad/LcokI1/ToK4xlTNl6zsvLoQtNarbCkUd32oDweNgtrgfED/Kg7MY8W7qO7kWMpcRbZVn/j7RirwkzeDh9W4YPY1cT23BCCuUyNuwGBVI+88JcofL1jSUz7jyHbqlUHV7v4vv4xSAHRSeOzaMijRzr3pPT2HH7PiotxripEvzCyU3cv8yqCl/gJmGeqDj//30o65M4VqVXsluILGbEE0g78nP/iwlROvTf7c2aeEV08GF5sqe0YPP/mZNHQy/Jjjz4qI+B6ZSZzmhTNlXvJmIgafyrdez9GYm0/lRB3zjtCR7FGz2g==
+X-Microsoft-Antispam-Message-Info: 6H6LkW4kXP/ws50PNNSghgTlmczw3H8mkbx0SQfgj93gekiRFcDxDBeZ+NfJKCYJjQuJTp69HRhvGcBsPLar+JAUFGjc1l8tgSFuBR0C24BI26A2C593hy1zt+7HuIyu2ryrB+n9kXgDDZeUKCQpMOjYU9C/zaNu+6DeAgiMUFLEbgttjIJDsDUbUTEKi5rcB2eRYV75C8tUTzgO89FWI/ljQgUDYLRmk3jT5m6506PhMjCMZI7V1+8mD9vsFesUSAxkKk5cOoPrs+/O8R1uIKYZzTx87v92GYiPjNdy1HdrilMXcve4/8EpGCTtc9JkMNTe5jr3K+DOQGAgjV8XVxz985ZHW7xGYNKmBQJ/N0ZtmNkeLlhgAq58AzNSDaWRm6KPBZOR1e7YkigbihQMkZ32R0g5U3F+BULOHkbDq5TAAbhDVKdFkWbjyHvht0LQhW7W46G2E3m62EWm3tXwnDAwLycy+fSc/0tmJK8NPsJMPA6ou7hBaEAhyIwQv+ZvIOXM6KOUs3aK97ucLj68GDTZz+bmORobzWmks6/jBKITrlKA/isJlRuTdIr650i3x9NTUt8EGHLpLROLUIfIfa0/4IkLEHXMm74SWBZlmd+6YUYsI6IuaFkYDMaBwFjneWcqZ0zoNvzNLcnJGh5/tCeRUgnptHm51HCPsNw+TjbSMYZFn41sPwFsIH3/tOqwxizVoQEuR0N0uIPtT47Jn1+MWh0tYDTyaQ5iH767IjHhOKKsWgo5dcSPAGjW+ruEiTvYi+kVZZeMTBKjbKcDmQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(39860400002)(346002)(136003)(396003)(230922051799003)(451199024)(1800799012)(186009)(82310400011)(64100799003)(46966006)(40470700004)(36840700001)(36860700001)(2906002)(41300700001)(86362001)(81166007)(36756003)(47076005)(82740400003)(356005)(6666004)(54906003)(6916009)(8936002)(8676002)(70586007)(70206006)(336012)(426003)(16526019)(1076003)(4326008)(5660300002)(30864003)(26005)(83380400001)(2616005)(316002)(478600001)(40480700001)(40460700003)(36900700001);
+ SFS:(13230031)(4636009)(376002)(39860400002)(396003)(136003)(346002)(230922051799003)(64100799003)(186009)(1800799012)(451199024)(82310400011)(46966006)(40470700004)(36840700001)(40480700001)(36860700001)(356005)(47076005)(40460700003)(426003)(16526019)(66574015)(83380400001)(336012)(2616005)(1076003)(26005)(86362001)(36756003)(82740400003)(81166007)(478600001)(6666004)(316002)(6916009)(54906003)(70586007)(70206006)(30864003)(4326008)(8676002)(8936002)(5660300002)(2906002)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2023 16:37:10.8708 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3400329-5aef-4661-467a-08dc0179ea0d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2023 16:37:10.6185 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a95e7e4-91c3-47a6-ca0f-08dc0179e9e6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A104.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A106.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4057
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9275
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,250 +101,313 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Aric Cyr <aric.cyr@amd.com>, chiahsuan.chung@amd.com,
  Sunpeng.Li@amd.com, Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
- roman.li@amd.com, jerry.zuo@amd.com, Aurabindo.Pillai@amd.com,
- hersenxs.wu@amd.com, Alvin
- Lee <alvin.lee2@amd.com>, wayne.lin@amd.com, Harry.Wentland@amd.com,
+ roman.li@amd.com,
+ Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
+ jerry.zuo@amd.com, Aurabindo.Pillai@amd.com, hersenxs.wu@amd.com, PeiChen
+ Huang <peichen.huang@amd.com>, wayne.lin@amd.com, Harry.Wentland@amd.com,
  agustin.gutierrez@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <alvin.lee2@amd.com>
+From: Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
 
-For FPO and SubVP/DRR cases we need to ensure to program
-OTG_V_TOTAL_MIN/MAX_SEL, otherwise stretching the vblank in FPO / SubVP
-/ DRR cases will not have any effect and we could hit underflow /
-corruption.
+[Why]
+If bandwidth allocation feature is enabled, connection manager wont
+limit the dp tunnel bandwidth. So, need to do display mode validation
+for streams on dpia links to avoid oversubscription of dp tunnel
+bandwidth.
 
+[How]
+- To read non reduced link rate and lane count and update
+  reported link capability.
+- To calculate the bandwidth required for streams of dpia links
+  per host router and validate against the allocated bandwidth for
+  the host router.
+
+Reviewed-by: PeiChen Huang <peichen.huang@amd.com>
 Reviewed-by: Aric Cyr <aric.cyr@amd.com>
 Acked-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
+Signed-off-by: Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
 ---
- .../gpu/drm/amd/display/dc/core/dc_resource.c | 14 +++++++
- .../display/dc/dcn32/dcn32_resource_helpers.c | 14 -------
- .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 11 +++---
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   | 37 +++++++++++++++++++
- drivers/gpu/drm/amd/display/dc/inc/resource.h |  3 ++
- .../dc/resource/dcn32/dcn32_resource.c        |  2 +-
- .../dc/resource/dcn32/dcn32_resource.h        |  3 --
- .../dc/resource/dcn321/dcn321_resource.c      |  2 +-
- 8 files changed, 62 insertions(+), 24 deletions(-)
+ .../drm/amd/display/dc/core/dc_link_exports.c |   2 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |   4 +-
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h  |   6 +
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |   2 +
+ .../dc/link/protocols/link_dp_dpia_bw.c       | 130 +++++++++++++-----
+ 5 files changed, 104 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index f2abc1096ffb..57f0ddd15923 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -4986,6 +4986,20 @@ enum dc_status update_dp_encoder_resources_for_test_harness(const struct dc *dc,
- 	return DC_OK;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
+index ed94187c2afa..f365773d5714 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
+@@ -497,7 +497,7 @@ void dc_link_enable_hpd_filter(struct dc_link *link, bool enable)
+ 	link->dc->link_srv->enable_hpd_filter(link, enable);
  }
  
-+bool resource_subvp_in_use(struct dc *dc,
-+		struct dc_state *context)
+-bool dc_link_validate(struct dc *dc, const struct dc_stream_state *streams, const unsigned int count)
++bool dc_link_dp_dpia_validate(struct dc *dc, const struct dc_stream_state *streams, const unsigned int count)
+ {
+ 	return dc->link_srv->validate_dpia_bandwidth(streams, count);
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index c2ee80d6f64c..565de7428b6c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -2172,11 +2172,11 @@ int dc_link_dp_dpia_handle_usb4_bandwidth_allocation_for_link(
+  *
+  * @dc: pointer to dc struct
+  * @stream: pointer to all possible streams
+- * @num_streams: number of valid DPIA streams
++ * @count: number of valid DPIA streams
+  *
+  * return: TRUE if bw used by DPIAs doesn't exceed available BW else return FALSE
+  */
+-bool dc_link_validate(struct dc *dc, const struct dc_stream_state *streams,
++bool dc_link_dp_dpia_validate(struct dc *dc, const struct dc_stream_state *streams,
+ 		const unsigned int count);
+ 
+ /* Sink Interfaces - A sink corresponds to a display output device */
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+index eeeeeef4d717..1cb7765f593a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+@@ -1377,6 +1377,12 @@ struct dp_trace {
+ #ifndef DP_TUNNELING_STATUS
+ #define DP_TUNNELING_STATUS				0xE0025 /* 1.4a */
+ #endif
++#ifndef DP_TUNNELING_MAX_LINK_RATE
++#define DP_TUNNELING_MAX_LINK_RATE			0xE0028 /* 1.4a */
++#endif
++#ifndef DP_TUNNELING_MAX_LANE_COUNT
++#define DP_TUNNELING_MAX_LANE_COUNT			0xE0029 /* 1.4a */
++#endif
+ #ifndef DPTX_BW_ALLOCATION_MODE_CONTROL
+ #define DPTX_BW_ALLOCATION_MODE_CONTROL			0xE0030 /* 1.4a */
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
+index 870cd3932015..4f276169e05a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
+@@ -1151,6 +1151,8 @@ struct dc_dpia_bw_alloc {
+ 	int bw_granularity;    // BW Granularity
+ 	bool bw_alloc_enabled; // The BW Alloc Mode Support is turned ON for all 3:  DP-Tx & Dpia & CM
+ 	bool response_ready;   // Response ready from the CM side
++	uint8_t nrd_max_lane_count; // Non-reduced max lane count
++	uint8_t nrd_max_link_rate; // Non-reduced max link rate
+ };
+ 
+ #define MAX_SINKS_PER_LINK 4
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
+index d6e1f969bfd5..a7aa8c9da868 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
+@@ -59,6 +59,7 @@ static void reset_bw_alloc_struct(struct dc_link *link)
+ 	link->dpia_bw_alloc_config.estimated_bw = 0;
+ 	link->dpia_bw_alloc_config.bw_granularity = 0;
+ 	link->dpia_bw_alloc_config.response_ready = false;
++	link->dpia_bw_alloc_config.sink_allocated_bw = 0;
+ }
+ 
+ #define BW_GRANULARITY_0 4 // 0.25 Gbps
+@@ -104,6 +105,32 @@ static int get_estimated_bw(struct dc_link *link)
+ 	return bw_estimated_bw * (Kbps_TO_Gbps / link->dpia_bw_alloc_config.bw_granularity);
+ }
+ 
++static int get_non_reduced_max_link_rate(struct dc_link *link)
 +{
-+	uint32_t i;
++	uint8_t nrd_max_link_rate = 0;
 +
-+	for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
++	core_link_read_dpcd(
++			link,
++			DP_TUNNELING_MAX_LINK_RATE,
++			&nrd_max_link_rate,
++			sizeof(uint8_t));
 +
-+		if (dc_state_get_pipe_subvp_type(context, pipe) != SUBVP_NONE)
-+			return true;
-+	}
-+	return false;
++	return nrd_max_link_rate;
 +}
 +
- bool check_subvp_sw_cursor_fallback_req(const struct dc *dc, struct dc_stream_state *stream)
++static int get_non_reduced_max_lane_count(struct dc_link *link)
++{
++	uint8_t nrd_max_lane_count = 0;
++
++	core_link_read_dpcd(
++			link,
++			DP_TUNNELING_MAX_LANE_COUNT,
++			&nrd_max_lane_count,
++			sizeof(uint8_t));
++
++	return nrd_max_lane_count;
++}
++
+ /*
+  * Read all New BW alloc configuration ex: estimated_bw, allocated_bw,
+  * granuality, Driver_ID, CM_Group, & populate the BW allocation structs
+@@ -111,13 +138,20 @@ static int get_estimated_bw(struct dc_link *link)
+  */
+ static void init_usb4_bw_struct(struct dc_link *link)
  {
- 	if (!dc->debug.disable_subvp_high_refresh && is_subvp_high_refresh_candidate(stream))
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-index f698a7e63291..44ba1edb7f53 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-@@ -183,20 +183,6 @@ bool dcn32_all_pipes_have_stream_and_plane(struct dc *dc,
- 	return true;
+-	// Init the known values
++	reset_bw_alloc_struct(link);
++
++	/* init the known values */
+ 	link->dpia_bw_alloc_config.bw_granularity = get_bw_granularity(link);
+ 	link->dpia_bw_alloc_config.estimated_bw = get_estimated_bw(link);
++	link->dpia_bw_alloc_config.nrd_max_link_rate = get_non_reduced_max_link_rate(link);
++	link->dpia_bw_alloc_config.nrd_max_lane_count = get_non_reduced_max_lane_count(link);
+ 
+ 	DC_LOG_DEBUG("%s: bw_granularity(%d), estimated_bw(%d)\n",
+ 		__func__, link->dpia_bw_alloc_config.bw_granularity,
+ 		link->dpia_bw_alloc_config.estimated_bw);
++	DC_LOG_DEBUG("%s: nrd_max_link_rate(%d), nrd_max_lane_count(%d)\n",
++		__func__, link->dpia_bw_alloc_config.nrd_max_link_rate,
++		link->dpia_bw_alloc_config.nrd_max_lane_count);
  }
  
--bool dcn32_subvp_in_use(struct dc *dc,
--		struct dc_state *context)
--{
--	uint32_t i;
--
--	for (i = 0; i < dc->res_pool->pipe_count; i++) {
--		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
--
--		if (dc_state_get_pipe_subvp_type(context, pipe) != SUBVP_NONE)
--			return true;
--	}
--	return false;
--}
--
- bool dcn32_mpo_in_use(struct dc_state *context)
+ static uint8_t get_lowest_dpia_index(struct dc_link *link)
+@@ -142,39 +176,50 @@ static uint8_t get_lowest_dpia_index(struct dc_link *link)
+ }
+ 
+ /*
+- * Get the Max Available BW or Max Estimated BW for each Host Router
++ * Get the maximum dp tunnel banwidth of host router
+  *
+- * @link: pointer to the dc_link struct instance
+- * @type: ESTIMATD BW or MAX AVAILABLE BW
++ * @dc: pointer to the dc struct instance
++ * @hr_index: host router index
+  *
+- * return: response_ready flag from dc_link struct
++ * return: host router maximum dp tunnel bandwidth
+  */
+-static int get_host_router_total_bw(struct dc_link *link, uint8_t type)
++static int get_host_router_total_dp_tunnel_bw(const struct dc *dc, uint8_t hr_index)
  {
- 	uint32_t i;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-index 9f37f717a1f8..aa68d010cbfd 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-@@ -33,6 +33,7 @@
- #include "dcn30/dcn30_resource.h"
- #include "link.h"
- #include "dc_state_priv.h"
-+#include "resource.h"
+-	const struct dc *dc_struct = link->dc;
+-	uint8_t lowest_dpia_index = get_lowest_dpia_index(link);
+-	uint8_t idx = (link->link_index - lowest_dpia_index) / 2, idx_temp = 0;
+-	struct dc_link *link_temp;
++	uint8_t lowest_dpia_index = get_lowest_dpia_index(dc->links[0]);
++	uint8_t hr_index_temp = 0;
++	struct dc_link *link_dpia_primary, *link_dpia_secondary;
+ 	int total_bw = 0;
+-	int i;
+-
+-	for (i = 0; i < MAX_PIPES * 2; ++i) {
  
- #define DC_LOGGER_INIT(logger)
+-		if (!dc_struct->links[i] || dc_struct->links[i]->ep_type != DISPLAY_ENDPOINT_USB4_DPIA)
+-			continue;
++	for (uint8_t i = 0; i < MAX_PIPES * 2; ++i) {
  
-@@ -291,7 +292,7 @@ int dcn32_find_dummy_latency_index_for_fw_based_mclk_switch(struct dc *dc,
+-		link_temp = dc_struct->links[i];
+-		if (!link_temp || !link_temp->hpd_status)
++		if (!dc->links[i] || dc->links[i]->ep_type != DISPLAY_ENDPOINT_USB4_DPIA)
+ 			continue;
  
- 		/* for subvp + DRR case, if subvp pipes are still present we support pstate */
- 		if (vba->DRAMClockChangeSupport[vlevel][vba->maxMpcComb] == dm_dram_clock_change_unsupported &&
--				dcn32_subvp_in_use(dc, context))
-+				resource_subvp_in_use(dc, context))
- 			vba->DRAMClockChangeSupport[vlevel][context->bw_ctx.dml.vba.maxMpcComb] = temp_clock_change_support;
- 
- 		if (vlevel < context->bw_ctx.dml.vba.soc.num_states &&
-@@ -2272,7 +2273,7 @@ void dcn32_calculate_wm_and_dlg_fpu(struct dc *dc, struct dc_state *context,
- 	unsigned int dummy_latency_index = 0;
- 	int maxMpcComb = context->bw_ctx.dml.vba.maxMpcComb;
- 	unsigned int min_dram_speed_mts = context->bw_ctx.dml.vba.DRAMSpeed;
--	bool subvp_in_use = dcn32_subvp_in_use(dc, context);
-+	bool subvp_active = resource_subvp_in_use(dc, context);
- 	unsigned int min_dram_speed_mts_margin;
- 	bool need_fclk_lat_as_dummy = false;
- 	bool is_subvp_p_drr = false;
-@@ -2281,7 +2282,7 @@ void dcn32_calculate_wm_and_dlg_fpu(struct dc *dc, struct dc_state *context,
- 	dc_assert_fp_enabled();
- 
- 	/* need to find dummy latency index for subvp */
--	if (subvp_in_use) {
-+	if (subvp_active) {
- 		/* Override DRAMClockChangeSupport for SubVP + DRR case where the DRR cannot switch without stretching it's VBLANK */
- 		if (!pstate_en) {
- 			context->bw_ctx.dml.vba.DRAMClockChangeSupport[vlevel][maxMpcComb] = dm_dram_clock_change_vblank_w_mall_sub_vp;
-@@ -2467,7 +2468,7 @@ void dcn32_calculate_wm_and_dlg_fpu(struct dc *dc, struct dc_state *context,
- 				dc->clk_mgr->bw_params->clk_table.entries[min_dram_speed_mts_offset].memclk_mhz * 16;
+-		idx_temp = (link_temp->link_index - lowest_dpia_index) / 2;
+-
+-		if (idx_temp == idx) {
+-
+-			if (type == HOST_ROUTER_BW_ESTIMATED)
+-				total_bw += link_temp->dpia_bw_alloc_config.estimated_bw;
+-			else if (type == HOST_ROUTER_BW_ALLOCATED)
+-				total_bw += link_temp->dpia_bw_alloc_config.sink_allocated_bw;
++		hr_index_temp = (dc->links[i]->link_index - lowest_dpia_index) / 2;
++
++		if (hr_index_temp == hr_index) {
++			link_dpia_primary = dc->links[i];
++			link_dpia_secondary = dc->links[i + 1];
++
++			/**
++			 * If BW allocation enabled on both DPIAs, then
++			 * HR BW = Estimated(dpia_primary) + Allocated(dpia_secondary)
++			 * otherwise HR BW = Estimated(bw alloc enabled dpia)
++			 */
++			if ((link_dpia_primary->hpd_status &&
++				link_dpia_primary->dpia_bw_alloc_config.bw_alloc_enabled) &&
++				(link_dpia_secondary->hpd_status &&
++				link_dpia_secondary->dpia_bw_alloc_config.bw_alloc_enabled)) {
++				total_bw += link_dpia_primary->dpia_bw_alloc_config.estimated_bw +
++					link_dpia_secondary->dpia_bw_alloc_config.sink_allocated_bw;
++			} else if (link_dpia_primary->hpd_status &&
++					link_dpia_primary->dpia_bw_alloc_config.bw_alloc_enabled) {
++				total_bw = link_dpia_primary->dpia_bw_alloc_config.estimated_bw;
++			} else if (link_dpia_secondary->hpd_status &&
++				link_dpia_secondary->dpia_bw_alloc_config.bw_alloc_enabled) {
++				total_bw += link_dpia_secondary->dpia_bw_alloc_config.estimated_bw;
++			}
++			break;
  		}
+ 	}
  
--		if (!context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching && !subvp_in_use) {
-+		if (!context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching && !subvp_active) {
- 			/* find largest table entry that is lower than dram speed,
- 			 * but lower than DPM0 still uses DPM0
- 			 */
-@@ -3527,7 +3528,7 @@ void dcn32_set_clock_limits(const struct _vcs_dpi_soc_bounding_box_st *soc_bb)
- void dcn32_override_min_req_memclk(struct dc *dc, struct dc_state *context)
- {
- 	// WA: restrict FPO and SubVP to use first non-strobe mode (DCN32 BW issue)
--	if ((context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching || dcn32_subvp_in_use(dc, context)) &&
-+	if ((context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching || resource_subvp_in_use(dc, context)) &&
- 			dc->dml.soc.num_chans <= 8) {
- 		int num_mclk_levels = dc->clk_mgr->bw_params->clk_table.num_entries_per_clk.num_memclk_levels;
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-index 0dfcb3cdcd20..bc71a9b058fe 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-@@ -1882,6 +1882,42 @@ static void dcn20_program_pipe(
+@@ -194,7 +239,6 @@ static void dpia_bw_alloc_unplug(struct dc_link *link)
+ 	if (link) {
+ 		DC_LOG_DEBUG("%s: resetting bw alloc config for link(%d)\n",
+ 			__func__, link->link_index);
+-		link->dpia_bw_alloc_config.sink_allocated_bw = 0;
+ 		reset_bw_alloc_struct(link);
  	}
  }
+@@ -397,7 +441,7 @@ int dpia_handle_usb4_bandwidth_allocation_for_link(struct dc_link *link, int pea
+ 		if (!timeout)
+ 			ret = 0;// ERROR TIMEOUT waiting for response for allocating bw
+ 		else if (link->dpia_bw_alloc_config.sink_allocated_bw > 0)
+-			ret = get_host_router_total_bw(link, HOST_ROUTER_BW_ALLOCATED);
++			ret = link->dpia_bw_alloc_config.sink_allocated_bw;
+ 	}
+ 	//2. Cold Unplug
+ 	else if (!link->hpd_status)
+@@ -439,29 +483,41 @@ bool link_dp_dpia_allocate_usb4_bandwidth_for_stream(struct dc_link *link, int r
+ bool dpia_validate_usb4_bw(struct dc_link **link, int *bw_needed_per_dpia, const unsigned int num_dpias)
+ {
+ 	bool ret = true;
+-	int bw_needed_per_hr[MAX_HR_NUM] = { 0, 0 };
+-	uint8_t lowest_dpia_index = 0, dpia_index = 0;
+-	uint8_t i;
++	int bw_needed_per_hr[MAX_HR_NUM] = { 0, 0 }, host_router_total_dp_bw = 0;
++	uint8_t lowest_dpia_index, i, hr_index;
  
-+static void update_vmin_vmax_fams(struct dc *dc,
-+		struct dc_state *context)
-+{
-+	uint32_t i;
-+	struct drr_params params = {0};
-+	bool subvp_in_use = resource_subvp_in_use(dc, context);
+ 	if (!num_dpias || num_dpias > MAX_DPIA_NUM)
+ 		return ret;
+ 
+-	//Get total Host Router BW & Validate against each Host Router max BW
++	lowest_dpia_index = get_lowest_dpia_index(link[0]);
 +
-+	for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
-+
-+		if (resource_is_pipe_type(pipe, OTG_MASTER) &&
-+				((subvp_in_use && dc_state_get_pipe_subvp_type(context, pipe) != SUBVP_PHANTOM &&
-+				pipe->stream->allow_freesync) || (context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching && pipe->stream->fpo_in_use))) {
-+			if (!pipe->stream->vrr_active_variable && !pipe->stream->vrr_active_fixed) {
-+				struct timing_generator *tg = context->res_ctx.pipe_ctx[i].stream_res.tg;
-+
-+				/* DRR should be configured already if we're in active variable
-+				 * or active fixed, so only program if we're not in this state
-+				 */
-+				params.vertical_total_min = pipe->stream->timing.v_total;
-+				params.vertical_total_max = pipe->stream->timing.v_total;
-+				tg->funcs->set_drr(tg, &params);
-+			}
-+		} else {
-+			if (resource_is_pipe_type(pipe, OTG_MASTER) &&
-+					!pipe->stream->vrr_active_variable &&
-+					!pipe->stream->vrr_active_fixed) {
-+				struct timing_generator *tg = context->res_ctx.pipe_ctx[i].stream_res.tg;
-+				params.vertical_total_min = 0;
-+				params.vertical_total_max = 0;
-+				tg->funcs->set_drr(tg, &params);
-+			}
-+		}
++	/* get total Host Router BW with granularity for the given modes */
+ 	for (i = 0; i < num_dpias; ++i) {
++		int granularity_Gbps = 0;
++		int bw_granularity = 0;
+ 
+ 		if (!link[i]->dpia_bw_alloc_config.bw_alloc_enabled)
+ 			continue;
+ 
+-		lowest_dpia_index = get_lowest_dpia_index(link[i]);
+ 		if (link[i]->link_index < lowest_dpia_index)
+ 			continue;
+ 
+-		dpia_index = (link[i]->link_index - lowest_dpia_index) / 2;
+-		bw_needed_per_hr[dpia_index] += bw_needed_per_dpia[i];
+-		if (bw_needed_per_hr[dpia_index] > get_host_router_total_bw(link[i], HOST_ROUTER_BW_ALLOCATED)) {
++		granularity_Gbps = (Kbps_TO_Gbps / link[i]->dpia_bw_alloc_config.bw_granularity);
++		bw_granularity = (bw_needed_per_dpia[i] / granularity_Gbps) * granularity_Gbps +
++				((bw_needed_per_dpia[i] % granularity_Gbps) ? granularity_Gbps : 0);
+ 
+-			ret = false;
+-			break;
++		hr_index = (link[i]->link_index - lowest_dpia_index) / 2;
++		bw_needed_per_hr[hr_index] += bw_granularity;
 +	}
-+}
 +
- void dcn20_program_front_end_for_ctx(
- 		struct dc *dc,
- 		struct dc_state *context)
-@@ -1958,6 +1994,7 @@ void dcn20_program_front_end_for_ctx(
- 				&& context->res_ctx.pipe_ctx[i].stream)
- 			hws->funcs.blank_pixel_data(dc, &context->res_ctx.pipe_ctx[i], true);
++	/* validate against each Host Router max BW */
++	for (hr_index = 0; hr_index < MAX_HR_NUM; ++hr_index) {
++		if (bw_needed_per_hr[hr_index]) {
++			host_router_total_dp_bw = get_host_router_total_dp_tunnel_bw(link[0]->dc, hr_index);
++			if (bw_needed_per_hr[hr_index] > host_router_total_dp_bw) {
++				ret = false;
++				break;
++			}
+ 		}
+ 	}
  
-+	update_vmin_vmax_fams(dc, context);
- 
- 	/* Disconnect mpcc */
- 	for (i = 0; i < dc->res_pool->pipe_count; i++)
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/resource.h b/drivers/gpu/drm/amd/display/dc/inc/resource.h
-index c958ef37b78a..1d51fed12e20 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/resource.h
-@@ -609,6 +609,9 @@ bool dc_resource_acquire_secondary_pipe_for_mpc_odm_legacy(
- 		struct pipe_ctx *sec_pipe,
- 		bool odm);
- 
-+bool resource_subvp_in_use(struct dc *dc,
-+		struct dc_state *context);
-+
- /* A test harness interface that modifies dp encoder resources in the given dc
-  * state and bypasses the need to revalidate. The interface assumes that the
-  * test harness interface is called with pre-validated link config stored in the
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-index c4d71e7f18af..ac04a9c9a3d8 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-@@ -1899,7 +1899,7 @@ int dcn32_populate_dml_pipes_from_context(
- 
- static struct dc_cap_funcs cap_funcs = {
- 	.get_dcc_compression_cap = dcn20_get_dcc_compression_cap,
--	.get_subvp_en = dcn32_subvp_in_use,
-+	.get_subvp_en = resource_subvp_in_use,
- };
- 
- void dcn32_calculate_wm_and_dlg(struct dc *dc, struct dc_state *context,
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
-index 0c87b0fabba7..62611acd4bcb 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
-@@ -131,9 +131,6 @@ void dcn32_merge_pipes_for_subvp(struct dc *dc,
- bool dcn32_all_pipes_have_stream_and_plane(struct dc *dc,
- 		struct dc_state *context);
- 
--bool dcn32_subvp_in_use(struct dc *dc,
--		struct dc_state *context);
--
- bool dcn32_mpo_in_use(struct dc_state *context);
- 
- bool dcn32_any_surfaces_rotated(struct dc *dc, struct dc_state *context);
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-index 74412e5f03fe..e1ab207c46f1 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-@@ -1574,7 +1574,7 @@ static void dcn321_destroy_resource_pool(struct resource_pool **pool)
- 
- static struct dc_cap_funcs cap_funcs = {
- 	.get_dcc_compression_cap = dcn20_get_dcc_compression_cap,
--	.get_subvp_en = dcn32_subvp_in_use,
-+	.get_subvp_en = resource_subvp_in_use,
- };
- 
- static void dcn321_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params)
 -- 
 2.42.0
 
