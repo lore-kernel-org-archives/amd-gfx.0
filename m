@@ -4,88 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDF4DC35274
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Dec 2023 20:40:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11400C46CCD
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Dec 2023 20:41:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7800610E710;
-	Thu, 21 Dec 2023 20:40:28 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2046.outbound.protection.outlook.com [40.107.94.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 591A510E710
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Dec 2023 20:40:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A83710E703;
+	Thu, 21 Dec 2023 20:41:58 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2059.outbound.protection.outlook.com [40.107.220.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C27810E703
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Dec 2023 20:41:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BTsdv8bm3iL9h4zPUo9Jf6tHdGiBGmFWIfV9JElCKPAYXtYMwqxJKaztjzNiAjIaqtGkj+kDsCTc4X5YZjC6u54PUnhtPLbe6pCTilypGvIbdz4wKPGPu4wL4cuY1os9mfx5Nqbf7Ood/LRxTYAfo1Bxoj4hfcXIwF3ewsTJyLQevfrSYoS4CvhBgPwNVm/5Nt0FOnLYq1WsDrrxqhhI0bQlHX4P9XMuNaj8FT/dEFBtZaVCta4Mvqu4mpQxHfnWx8YqqwRqmvqLMUa1c3oPvx54O2WehqTeRMOA5LMEJm/Wbuw57o3YDbLpstDOfe6+FEaG91Hg7uC+YS+hyyAVvQ==
+ b=mKr6aPwfdFbyyVklsKZSVisahnyPLgrkCAiSYRyKv/71zc/NrhA1yGDw1B2o8HGl2QkwWzyVOVFc6HTSr1eB+9BDk3Wlz/e2Y/EUjHLhLGcYF2t/xNoveKHxXn0f6ZgjQUiOQogW2TKypjMTMnfdiXkclW8rE3KWo3r9AoO9rLVFORRqfzCamDN9tO1XxphvbR/RQPeQP+I8tTd0zvhoJjchAYOvly95axDFISyHyoyoF6Lk142FNk0NePwHO2DdOkidp8gD+zOA6fGS48/30xyDG3gP72kYiqEqPZliyUGkam9G0JneLhASxAGZcNPSUD78yy3ppxVb+T6aKQglOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t4boL1LO8A/nTURwGKX15dkyTU5ZLiEFVDSl+c7Ijy4=;
- b=j84u5anVvNhBEVDl/K4Pp5cJLAz5ru9EZoT0JK+nnWnPFMOINC6O7bCylvE4FveEhwNgcjlndNAsg0wXllnIMWOUf+dmSjT15QP8FQhruhBIC4ZeyYXzEGXjcWfICZ+QPEozFjz+wCk1YEUSVvgDOjAK/rIL0a9HEznTqJlRXzZ3KgvF2nSaNrwi+r9RaMscduP40bnLTN04T9eowT3tlgjufyPof/cVFcZ4QRkm2vSBYc46baf+qdSL24km9PulzFlIyGt57yNLH1jdIiC/RHyQAoVTCh1+wFpcEIq48dHc0j41BQUyF4lDgn3JAOZIHcGCm+BcJQWVT7c9vZ6JeA==
+ bh=NGqcQw23/nY9gE0/ysf7Or5MUPupQ6iann94ehUTbY4=;
+ b=by1p37tBKCBLvExfu5rLLd2dze8VuIArP3zOvULRme64itfNCRfm11ffnaam2YxM5OEehtj9qacK0v754LtB35A71jG3+QqBEcHWMg3aLSyh7BLT6UIbWlqsXAfn7p6FmxiVj5lxgcsVVC1xxMU0IldGA/ZDcZutMEOOPUyY3V5Bw7Xgqb5Ut0SyvTy/jeOYOQqhIFKfp7nEgucOgkTGSihFMksFWkI3DTFphynviQwbcoynQgTo0mljU8lcyZWsmPqPZn24sdWfSIciYzOFZ9DMqI0mblzbPDphwaG2GtFKv3HE5EIwX76cCvR8C7y9FxMhEShVk7wo5PLU0G3+tw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t4boL1LO8A/nTURwGKX15dkyTU5ZLiEFVDSl+c7Ijy4=;
- b=RJE1yE0eGuCucpXImRNFgTVdz+jDJXIicqwVwpKdYdDSV+LTMb06y3CoAIec8uDNO4mt+mkeujdq5RS3MkQYNdRItw+y0TLKXdx/9FjcGe3T5ThI4skUy4MSiP/9yqIrAcBNF7uHgXd+OXBkL1M4hAl2EXJ7Q0T1NhEr5znhLFA=
-Received: from PA7P264CA0097.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:348::15)
- by DS0PR12MB8456.namprd12.prod.outlook.com (2603:10b6:8:161::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.20; Thu, 21 Dec
- 2023 20:40:24 +0000
-Received: from SN1PEPF000252A1.namprd05.prod.outlook.com
- (2603:10a6:102:348:cafe::66) by PA7P264CA0097.outlook.office365.com
- (2603:10a6:102:348::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.34 via Frontend
- Transport; Thu, 21 Dec 2023 20:40:23 +0000
+ bh=NGqcQw23/nY9gE0/ysf7Or5MUPupQ6iann94ehUTbY4=;
+ b=dXBs4pNQpNqQdfk2hWn9MTZbw+r88XZUAQ18wWR8nzz9E0v+e/xu7NgK8iInZSFyiKuatkI2rrDP4o4MH+Lo3Hr1q+jHEyHXyK23teOyebIbMYE7a728z6xaNjf+by9RqBXLl22bHmPSqZ+PECd3qjgaQa0B15M6EKSLqiWZyA8=
+Received: from PH7PR17CA0045.namprd17.prod.outlook.com (2603:10b6:510:323::10)
+ by SJ0PR12MB5438.namprd12.prod.outlook.com (2603:10b6:a03:3ba::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.21; Thu, 21 Dec
+ 2023 20:41:55 +0000
+Received: from SA2PEPF000015CA.namprd03.prod.outlook.com
+ (2603:10b6:510:323:cafe::16) by PH7PR17CA0045.outlook.office365.com
+ (2603:10b6:510:323::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.21 via Frontend
+ Transport; Thu, 21 Dec 2023 20:41:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF000252A1.mail.protection.outlook.com (10.167.242.8) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SA2PEPF000015CA.mail.protection.outlook.com (10.167.241.200) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7113.14 via Frontend Transport; Thu, 21 Dec 2023 20:40:22 +0000
-Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7113.14 via Frontend Transport; Thu, 21 Dec 2023 20:41:55 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 21 Dec
- 2023 14:40:21 -0600
-From: Felix Kuehling <Felix.Kuehling@amd.com>
+ 2023 14:41:54 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 21 Dec
+ 2023 14:41:54 -0600
+Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
+ Transport; Thu, 21 Dec 2023 14:41:54 -0600
+From: Harry Wentland <harry.wentland@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: Fix lock dependency warning
-Date: Thu, 21 Dec 2023 15:40:04 -0500
-Message-ID: <20231221204004.830821-1-Felix.Kuehling@amd.com>
-X-Mailer: git-send-email 2.34.1
+Subject: [PATCH 2/2] drm/amd/display: Move fixpt_from_s3132 to amdgpu_dm
+Date: Thu, 21 Dec 2023 15:41:51 -0500
+Message-ID: <20231221204151.98967-2-harry.wentland@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20231221204151.98967-1-harry.wentland@amd.com>
+References: <20231221204151.98967-1-harry.wentland@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000252A1:EE_|DS0PR12MB8456:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a1a452f-ab15-4953-c72d-08dc02650e01
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015CA:EE_|SJ0PR12MB5438:EE_
+X-MS-Office365-Filtering-Correlation-Id: 715d7b9b-0861-4996-2337-08dc026544f6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: duR3VcEUmeawHiPJ3L/q7lnDuiipuYqLT02XYIn2gE6CRVyVtzaj99CUGIejU934WPBep+D4kUF5BvMGVoUf6ypUD4JhCgUiIKBIzMRua//WYRkuQ5hReeWPetygpUC72bYzwzpZKCC8OnggO27rp8Im7oRC3Jlfgbao2RqHimhzRfH2zagIp+LUCjSTRN7Pvrs4WxceV8Aj5w9xF796rmbwThSy4jWYYYEu65sFPgm3MitidUY7GVFCO6wIUMkqsXt3ZbHW8BSg0R2OFIGRXpdBPChoq7S0JSgjqAHPBCgco3YrX4tMXrwSm2kCulO/A0ktzLPGLXzZDMErdMS0CoNt9gT8Nt26qAEoPTjUKwlAv1Ol5Uom9Acp0Aica+ySAo2gIBPp3xA/RPpts9wKgey8lhUtDK9mOqzI02Y4/LZaYzyznfrtpo3i3vF2dBzx9hCoph0wNwaUF1oseA+e94IuykdSgijRn1xvrTPocyXjGPzPWBumd/12ij2c1tW5asI3PrIGiSYKFP77+m1g6qDkaYLwupzvsg2tSIX3B0OrygtVMrqnxbtKnQnROhlAu8UteZnJmQGOGJiUAK2ENpaOX7P106sNRn3H9DfeuvDNUARslYbLdH+4nvW816+VX9uYaNLx4rSZy2ufus+VhLvxIaGoMJd/tP1TUvDbUG1sRPI19PIBU3holhnQW+u9aIjzBWqv+0sDIN461R7Q38thfyHhcsZz6vlobV9DkGtpuMCA7CnOVg/FL+T/uktlgfhAntbrrqEBj3jffjIArmVrF9VxG0cCDbr4S88gLyPhc5FcT6YJQzZl0uYLrxbq
+X-Microsoft-Antispam-Message-Info: BwyWiEDiF+gZP1rfbGX9hxtGL+BP1iHCitqZU9rsG6DZzJ3HdJZgi6oA4pDGGvMfLKr7Ktg1o7a9jcsdEp1HVT5ICSJwlN8/fYbGvFl301t4neZIvibE+pusmyWf3zSw72Z1kWwiUjCX3GqFgZy4g8DJ1q+X6DpjGZVvZMI/Yv5Jfb0rdzMZv0sbziMyC0/wzC7Vf8gJruhlAqaBQjPqViW58AxxNkGf9mpI7zHdF/noA9FrKBmQOyulZvGgoROo0BpaGizyKTM0yABMgqqA5iFvJqKTIhSFUAgv7EjSpZs1VRsWGbioHcpbPgXUMpSeTcRZZLIKDEb72tJYGsuWkTJ7nLLrx7ptJPHbldKi2eBaoGIsYlroH0e1IpRZsrZJ57Vh7eHyoCKKdhy7smD2rZmUcNpAB2qReEyOQye5aV+QREUj0+4c0Opq8SolE6p1Uk7UZZLpBM1pMnvMoQArDauOSi0YkavnGossnUsOtxuvN+TzugGzUq/jXQJ29pTKCS3NQvwlDT3jAZGa9zwEpNQmNTFTAprR8Ylb8AXpk4Udiiq0leJVJfAbOURPcypNtkyQYvqVOFu7rgmx10wjKtV0CgG9jrnnvCwmqJfRj/Y6/1GAca9bXbnKDV5iixrT3lLyy0Jven5Wlslw/IczMwOCKFqPtr8Ird1c7gfohJxBIneRheHlYFcZCu4YeY2O19f71imhEnQ9X31SGp+oPdTR8naq1/CsR77FZXG8OuspfJi2jUebGSNgFOLjHE4zcGHA2M6DlFcOf8HSoKYF+g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(346002)(136003)(396003)(376002)(230922051799003)(230273577357003)(230173577357003)(82310400011)(451199024)(186009)(1800799012)(64100799003)(40470700004)(36840700001)(46966006)(6666004)(7696005)(2906002)(86362001)(36756003)(356005)(478600001)(36860700001)(26005)(41300700001)(1076003)(47076005)(83380400001)(16526019)(82740400003)(2616005)(336012)(426003)(81166007)(5660300002)(70206006)(54906003)(70586007)(40480700001)(316002)(8676002)(6916009)(8936002)(4326008)(40460700003)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(396003)(136003)(376002)(346002)(39860400002)(230922051799003)(451199024)(64100799003)(82310400011)(186009)(1800799012)(46966006)(40470700004)(36840700001)(47076005)(5660300002)(2906002)(44832011)(86362001)(82740400003)(41300700001)(356005)(81166007)(36860700001)(70586007)(70206006)(2616005)(40480700001)(1076003)(6916009)(26005)(426003)(336012)(316002)(6666004)(36756003)(478600001)(40460700003)(8936002)(8676002)(83380400001)(4326008)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Dec 2023 20:40:22.9092 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a1a452f-ab15-4953-c72d-08dc02650e01
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Dec 2023 20:41:55.1076 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 715d7b9b-0861-4996-2337-08dc026544f6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000252A1.namprd05.prod.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015CA.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8456
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5438
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,123 +103,92 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alex.sierra@amd.com, philip.yang@amd.com, xiaogang.chen@amd.com
+Cc: Harry Wentland <harry.wentland@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-======================================================
-WARNING: possible circular locking dependency detected
-6.5.0-kfd-fkuehlin #276 Not tainted
-------------------------------------------------------
-kworker/8:2/2676 is trying to acquire lock:
-ffff9435aae95c88 ((work_completion)(&svm_bo->eviction_work)){+.+.}-{0:0}, at: __flush_work+0x52/0x550
+Other environments don't like the unary minus operator on
+an unsigned value.
 
-but task is already holding lock:
-ffff9435cd8e1720 (&svms->lock){+.+.}-{3:3}, at: svm_range_deferred_list_work+0xe8/0x340 [amdgpu]
-
-which lock already depends on the new lock.
-
-the existing dependency chain (in reverse order) is:
-
--> #2 (&svms->lock){+.+.}-{3:3}:
-       __mutex_lock+0x97/0xd30
-       kfd_ioctl_alloc_memory_of_gpu+0x6d/0x3c0 [amdgpu]
-       kfd_ioctl+0x1b2/0x5d0 [amdgpu]
-       __x64_sys_ioctl+0x86/0xc0
-       do_syscall_64+0x39/0x80
-       entry_SYSCALL_64_after_hwframe+0x63/0xcd
-
--> #1 (&mm->mmap_lock){++++}-{3:3}:
-       down_read+0x42/0x160
-       svm_range_evict_svm_bo_worker+0x8b/0x340 [amdgpu]
-       process_one_work+0x27a/0x540
-       worker_thread+0x53/0x3e0
-       kthread+0xeb/0x120
-       ret_from_fork+0x31/0x50
-       ret_from_fork_asm+0x11/0x20
-
--> #0 ((work_completion)(&svm_bo->eviction_work)){+.+.}-{0:0}:
-       __lock_acquire+0x1426/0x2200
-       lock_acquire+0xc1/0x2b0
-       __flush_work+0x80/0x550
-       __cancel_work_timer+0x109/0x190
-       svm_range_bo_release+0xdc/0x1c0 [amdgpu]
-       svm_range_free+0x175/0x180 [amdgpu]
-       svm_range_deferred_list_work+0x15d/0x340 [amdgpu]
-       process_one_work+0x27a/0x540
-       worker_thread+0x53/0x3e0
-       kthread+0xeb/0x120
-       ret_from_fork+0x31/0x50
-       ret_from_fork_asm+0x11/0x20
-
-other info that might help us debug this:
-
-Chain exists of:
-  (work_completion)(&svm_bo->eviction_work) --> &mm->mmap_lock --> &svms->lock
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(&svms->lock);
-                               lock(&mm->mmap_lock);
-                               lock(&svms->lock);
-  lock((work_completion)(&svm_bo->eviction_work));
-
-I believe this cannot really lead to a deadlock in practice, because
-svm_range_evict_svm_bo_worker only takes the mmap_read_lock if the BO
-refcount is non-0. That means it's impossible that svm_range_bo_release
-is running concurrently. However, there is no good way to annotate this.
-
-To avoid the problem, take a BO reference in
-svm_range_schedule_evict_svm_bo instead of in the worker. That way it's
-impossible for a BO to get freed while eviction work is pending and the
-cancel_work_sync call in svm_range_bo_release can be eliminated.
-
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 13 ++++---------
- 1 file changed, 4 insertions(+), 9 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c    | 18 +++++++++++++++---
+ .../gpu/drm/amd/display/include/fixed31_32.h   | 12 ------------
+ 2 files changed, 15 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index afd98aace065..7683c96f0cbd 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -404,14 +404,9 @@ static void svm_range_bo_release(struct kref *kref)
- 		spin_lock(&svm_bo->list_lock);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index 36bf65a8cd6e..9b527bffe11a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -85,6 +85,18 @@ void amdgpu_dm_init_color_mod(void)
+ 	setup_x_points_distribution();
+ }
+ 
++static inline struct fixed31_32 amdgpu_dm_fixpt_from_s3132(__u64 x)
++{
++	struct fixed31_32 val;
++
++	/* If negative, convert to 2's complement. */
++	if (x & (1ULL << 63))
++		x = -(x & ~(1ULL << 63));
++
++	val.value = x;
++	return val;
++}
++
+ #ifdef AMD_PRIVATE_COLOR
+ /* Pre-defined Transfer Functions (TF)
+  *
+@@ -430,7 +442,7 @@ static void __drm_ctm_to_dc_matrix(const struct drm_color_ctm *ctm,
+ 		}
+ 
+ 		/* gamut_remap_matrix[i] = ctm[i - floor(i/4)] */
+-		matrix[i] = dc_fixpt_from_s3132(ctm->matrix[i - (i / 4)]);
++		matrix[i] = amdgpu_dm_fixpt_from_s3132(ctm->matrix[i - (i / 4)]);
  	}
- 	spin_unlock(&svm_bo->list_lock);
--	if (!dma_fence_is_signaled(&svm_bo->eviction_fence->base)) {
--		/* We're not in the eviction worker.
--		 * Signal the fence and synchronize with any
--		 * pending eviction work.
--		 */
-+	if (!dma_fence_is_signaled(&svm_bo->eviction_fence->base))
-+		/* We're not in the eviction worker. Signal the fence. */
- 		dma_fence_signal(&svm_bo->eviction_fence->base);
--		cancel_work_sync(&svm_bo->eviction_work);
--	}
- 	dma_fence_put(&svm_bo->eviction_fence->base);
- 	amdgpu_bo_unref(&svm_bo->bo);
- 	kfree(svm_bo);
-@@ -3444,6 +3439,8 @@ int svm_range_schedule_evict_svm_bo(struct amdgpu_amdkfd_fence *fence)
- 		return 0;
+ }
  
- 	if (fence->svm_bo) {
-+		/* Reference is dropped in svm_range_evict_svm_bo_worker */
-+		kref_get(&fence->svm_bo->kref);
- 		WRITE_ONCE(fence->svm_bo->evicting, 1);
- 		schedule_work(&fence->svm_bo->eviction_work);
+@@ -452,7 +464,7 @@ static void __drm_ctm_3x4_to_dc_matrix(const struct drm_color_ctm_3x4 *ctm,
+ 	 */
+ 	for (i = 0; i < 12; i++) {
+ 		/* gamut_remap_matrix[i] = ctm[i - floor(i/4)] */
+-		matrix[i] = dc_fixpt_from_s3132(ctm->matrix[i]);
++		matrix[i] = amdgpu_dm_fixpt_from_s3132(ctm->matrix[i]);
  	}
-@@ -3458,8 +3455,6 @@ static void svm_range_evict_svm_bo_worker(struct work_struct *work)
- 	int r = 0;
+ }
  
- 	svm_bo = container_of(work, struct svm_range_bo, eviction_work);
--	if (!svm_bo_ref_unless_zero(svm_bo))
--		return; /* svm_bo was freed while eviction was pending */
+@@ -1136,7 +1148,7 @@ amdgpu_dm_plane_set_color_properties(struct drm_plane_state *plane_state,
+ 	uint32_t shaper_size, lut3d_size, blend_size;
+ 	int ret;
  
- 	if (mmget_not_zero(svm_bo->eviction_fence->mm)) {
- 		mm = svm_bo->eviction_fence->mm;
+-	dc_plane_state->hdr_mult = dc_fixpt_from_s3132(dm_plane_state->hdr_mult);
++	dc_plane_state->hdr_mult = amdgpu_dm_fixpt_from_s3132(dm_plane_state->hdr_mult);
+ 
+ 	shaper_lut = __extract_blob_lut(dm_plane_state->shaper_lut, &shaper_size);
+ 	shaper_size = shaper_lut != NULL ? shaper_size : 0;
+diff --git a/drivers/gpu/drm/amd/display/include/fixed31_32.h b/drivers/gpu/drm/amd/display/include/fixed31_32.h
+index 84da1dd34efd..d4cf7ead1d87 100644
+--- a/drivers/gpu/drm/amd/display/include/fixed31_32.h
++++ b/drivers/gpu/drm/amd/display/include/fixed31_32.h
+@@ -69,18 +69,6 @@ static const struct fixed31_32 dc_fixpt_epsilon = { 1LL };
+ static const struct fixed31_32 dc_fixpt_half = { 0x80000000LL };
+ static const struct fixed31_32 dc_fixpt_one = { 0x100000000LL };
+ 
+-static inline struct fixed31_32 dc_fixpt_from_s3132(__u64 x)
+-{
+-	struct fixed31_32 val;
+-
+-	/* If negative, convert to 2's complement. */
+-	if (x & (1ULL << 63))
+-		x = -(x & ~(1ULL << 63));
+-
+-	val.value = x;
+-	return val;
+-}
+-
+ /*
+  * @brief
+  * Initialization routines
 -- 
-2.34.1
+2.43.0
 
