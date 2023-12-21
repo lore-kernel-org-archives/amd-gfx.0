@@ -4,117 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0F0CC46CD2
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Dec 2023 16:39:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7D62C35274
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Dec 2023 16:53:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9795510E0E1;
-	Thu, 21 Dec 2023 16:39:44 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2084.outbound.protection.outlook.com [40.107.243.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC00D10E0E1
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Dec 2023 16:39:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCF7410E0E5;
+	Thu, 21 Dec 2023 16:53:40 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2050.outbound.protection.outlook.com [40.107.101.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E621D10E0E5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Dec 2023 16:53:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WGs97drek82uNFWr4VhvHQDZ17H+Qjn1GTl6Eq3j+9Tw2xtfN5jTJTUKBNlkq/3PO6MjqD2QtBaFxAQUe35SEDqpgNfKL6AoBVraNud0h5/T1LpaXMx85Lp7yVstPE8nTv1ed3gywfFdS8MGAc5gN7VVcQLZeowK3Hrna8TaBpQN52TmgRYHQphy0THDn3fNSxLoMdTQZJ65YxJ8pOH5OcU4CWvmM38wersJSTslb91DNTvuLkXKQPDDA6w/j6RzZWaVGNV2ys0Grtskb5ZMJ1yJCNGwskIVIrp/301H5qGhgpyZNJmXHFhIzlMgRV0MpSYFsaxiEYJuEVW3s7QWsw==
+ b=ZcrTmp946aJ9TTBjY5D5vzHEO2Tm6SvPcKwb3lagW3r9FW2fYbdcqqII39eCc2dEMKMJuyy77SQQAl92yJzJqAnU5AI7mCR7gUnop88TAhwvc9DaWRpX+e8B1O5Krl6IT3e7LkAAdxby886fpPnjc5FEuiMAjyX+Yef/Ptgayf3cM4EalalV9syraJ41lkxtnwTtIuZ7wKjSev3NnmeuGXVGgHLRXjG4loAY+H22FWTdK+11c8DH29slNP7iaLVUXi+Xarzd9guWDGcOnrKNR9Vd5ZyXKrod+8dNlWSF7MrxyDApKoCpIZxdtMvwAO6B6b0mZz7YBKKg7uUU1LMnLg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XgRENTmo1mkvk/JirI8doeMwycveFRK3UANj7/nfAyU=;
- b=oF0q6PKbCV1RuGD4Nmk7mRRnQaxQsYFdk9G0a6WA96mUnmIJoOUhrBpf9PalrySPkigolr4E/RE63n7yjauIP/PPuImuj9GI+UsT2MgmpImSiFvoDvV/MF+/6R4Z7BHGTqD9YoJ9T4T7XEQfrCjGKRdwRPEWArGQr2wjfvK4PWBTOc/QVb8eDQfwd+NXQCLxr6cwcAzYgplUE5OB4f4VcBDtUy10JBduyR3krnw6RMqBoLRDIEn06pCmGZ9Uqlhp8lRSb5hm79b6DbuhheDHBrAPpZrgkmabpR6NoqH1A6hBTB4CNGtdVi4cpDdW3K2byz7Z9RYXkDX/CCXZTFLcKA==
+ bh=unRllx70+ilzyCcMhfem6uD2vuYNVOh3OI2eV4IFvAA=;
+ b=j+Ye+ajVw6VhenP00dHWfB3DeVCGUY3i34YFN3qmOeWfUlgPrUfbQg3R01Kla/gWcw6cNtADUw5xThIgerPIGN4vISUa5TrH1euPKo3WRxoGtYbnxBpGOqwECHveUXmvND1IJcVDCVSMRbb6dNQFbWvUaEGhNteLp4Ja0QOCGlHRaZZePAQUq+FATNgAl6u83yQnkS13Qqh+EnEC0MwWRzK0iLj8glD9r8o9pUg/pADc+iR31lJAXrBcVvD1g7T2ICa0RoQ2IOmJGb7seWtjGLsljpgOowsxLQSJKjWU6KP6TVD9/DgzteG3DW+FSB9x6xXRLLbMDbKvIMd30TaiJQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XgRENTmo1mkvk/JirI8doeMwycveFRK3UANj7/nfAyU=;
- b=GYJAYYcuRAqtp21cMyNy9TdzDclDANHgVXC/7qkYgQRLa3TGRVnTH8rMcXwPzf/92AMXhRCTBcFev6mgP6PILjuK1gnhCivZzAQlbUPYmX/xiX2OzSoUCustPD+I18IMptvNiqvvwGJLr2HXvWuQUxH79Sj5cqDAOSGsuhjjLZ4=
+ bh=unRllx70+ilzyCcMhfem6uD2vuYNVOh3OI2eV4IFvAA=;
+ b=ymlD59hSTbzeVTYrCHX+yX5H26HRdHaCT/F39dPUFg8KXP7QVyffEmAkQDXoy/uBmUcqxOnIDY1TRohqBX7VxJ8RXeeTeEbMu65BD093eeqS6oY9GQjan92izKIOa1wKoBDUctZaJtBqM8ys1Ou8vVqb1TOgXnRyXwCC95AT+YE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from MN2PR12MB2941.namprd12.prod.outlook.com (2603:10b6:208:a9::12)
- by DM3PR12MB9326.namprd12.prod.outlook.com (2603:10b6:0:3d::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.18; Thu, 21 Dec
- 2023 16:39:40 +0000
+ by IA1PR12MB6283.namprd12.prod.outlook.com (2603:10b6:208:3e5::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.20; Thu, 21 Dec
+ 2023 16:53:37 +0000
 Received: from MN2PR12MB2941.namprd12.prod.outlook.com
  ([fe80::5f1e:bfb0:43e5:dc81]) by MN2PR12MB2941.namprd12.prod.outlook.com
  ([fe80::5f1e:bfb0:43e5:dc81%2]) with mapi id 15.20.7113.019; Thu, 21 Dec 2023
- 16:39:40 +0000
-Message-ID: <3bc548fc-a9f6-4da9-b0ee-be56749face2@amd.com>
-Date: Thu, 21 Dec 2023 09:39:36 -0700
+ 16:53:37 +0000
+Message-ID: <15ebcc6f-7c87-4be5-88d7-d44f7f6713f8@amd.com>
+Date: Thu, 21 Dec 2023 09:53:34 -0700
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amd/display: Address function parameter 'context'
- not described in 'dc_state_rem_all_planes_for_stream' &
- 'populate_subvp_cmd_drr_info'
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>
-References: <20231219070154.110759-1-srinivasan.shanmugam@amd.com>
- <20231221162841.1382315-1-srinivasan.shanmugam@amd.com>
+Subject: Re: [PATCH] drm/amd/display: Adjust kdoc for
+ 'dcn35_hw_block_power_down' & 'dcn35_hw_block_power_up'
 Content-Language: en-US
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+References: <20231219073734.149142-1-srinivasan.shanmugam@amd.com>
 From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20231221162841.1382315-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20231219073734.149142-1-srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN9PR03CA0883.namprd03.prod.outlook.com
- (2603:10b6:408:13c::18) To MN2PR12MB2941.namprd12.prod.outlook.com
+X-ClientProxiedBy: BN9PR03CA0520.namprd03.prod.outlook.com
+ (2603:10b6:408:131::15) To MN2PR12MB2941.namprd12.prod.outlook.com
  (2603:10b6:208:a9::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB2941:EE_|DM3PR12MB9326:EE_
-X-MS-Office365-Filtering-Correlation-Id: 225006f8-100f-4867-20bb-08dc02436d8a
+X-MS-TrafficTypeDiagnostic: MN2PR12MB2941:EE_|IA1PR12MB6283:EE_
+X-MS-Office365-Filtering-Correlation-Id: 86635b1d-3c9b-4f2d-be13-08dc02456090
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: SL6LyChWJc7B10LYqEH/WcgcbQVoTCQu0Glp1VVLRusOEqOZQlQYeao6R4jcCepFWDwTHgcGc0XqRAJFQshroW78E/EjFfrVSsoO1WCs9uKoqcmmtE+SsBdQ0lEzM7zQtdMcYwCe9uxKdvzacZ8YjVrDz3TWxKFATqh9rMQ3rmVRrHkfFWRh69R/OOTEw7B6L+IM5V0FjyMEDNj0iX4ppJlP58MEL74lxbP2yX5WGoXMM4SO+ElnhqTVrjQu5fmnGhdycc+qVX/33yi/DVwxhqh9ZOWn9a0RpexbqdyWHYst/qlnCZmh5Kgz1nbxg7bMvr6TkyJ4Wl4I1RAxSEpQj6aoTJYUYDL26cnbYBLUnqGx6KusxYUep/Nv4zhLO2x1AS9Jau5Cz54kPfUY8twpXLDyageP9FDp0nCDijtCFEmLUBpOauORSF2/z+SohX17WMPy41fEdZ4pwOXI4LHSKbhc6naE8QJOzmBiX3kxKqBWWUxFOW3GApR5Z6YuwEO3dtAPMZqlr1IyRjs37YgyS+rXX1U//EBZrmMz+qmGgW4rPK58UQDEJUiKmExYWx28kDJuTo2jrlitoj1QssSx3mAp5Dn+1fukSlBSGOyGNZry2q2wfheH3f/5yc7x3oV96aCzJI2C7Dnj3X1/bi0zqnYsZE4VPYP3qHq9s6huf1CvCATm1VPvxcrqbJjMrjal
+X-Microsoft-Antispam-Message-Info: HhgtR7X2KAuLk2XY8fp+QFI+cYbP9n/i6kyA6lWH2nSDFWN4fCQEDPinj0yLUP/+NBcBaR2x8z2pw6sojJmJmXyTPMn99duDkitAMlxqEYKXPyFmdSMEHaNRkpJULcwk+xpoqKOtJCW1l3q0uz22vb5/s0KcYkNSQYpyzGKaEi/HO/QJnDl/Gx3qthaA2nJjZwwN3JGqWzzLc9LwaAZmabQPTnHLhwluwoMpVH1wPF84M6kM2jBpbuzZNWXvcJ7k3u6KFk82OQhQR9z0FjGl4zCaeH/jYRbAZ7lbCXufC76G5of4A4D/z9agDQrV/++DEU5n3dBm27OZyjq66iWxWZHw4lvoOiWoO7OwOziEhSfqq18C/xNQxjYbbXD9oMd6EpACEIdTAuIcLB85U/5mYqntuL/ma2tgKx2+o9JkalCIq7DxUqGsvjE0VrELFU1d1qr/mr0jPvM3nlKBOSI2hsoQ5A1iljQStsVsA7x8oEj/30kHqbV/8Hu3FwPTZT8RsaKVmM/bB1oInjGOAU6wExXaAbJbNk9l0RmY0MBnYlGmTvZEohGjQ9pstUVQBhkqrZ183aoslNWM5tYVu8T89tAsc7/agu6Pje5XrNgyJHo9thLUGDNxQf8UX0iPyreRD+JW1xHLRQVneMyMGYolg6EDxcWjq799HjFHlbWdDmnxVM+QoA2+T1HOZmZq62vq
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB2941.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(366004)(39860400002)(346002)(376002)(396003)(230273577357003)(230922051799003)(230173577357003)(186009)(1800799012)(64100799003)(451199024)(83380400001)(6512007)(2616005)(26005)(6506007)(6666004)(53546011)(5660300002)(4326008)(66556008)(8676002)(110136005)(8936002)(41300700001)(6486002)(66476007)(54906003)(6636002)(66946007)(316002)(478600001)(38100700002)(31696002)(86362001)(36756003)(2906002)(31686004)(45980500001)(43740500002);
+ SFS:(13230031)(136003)(39860400002)(376002)(366004)(346002)(396003)(230922051799003)(230173577357003)(230273577357003)(451199024)(186009)(1800799012)(64100799003)(6506007)(2906002)(6666004)(53546011)(31696002)(86362001)(36756003)(6512007)(478600001)(26005)(83380400001)(38100700002)(41300700001)(2616005)(5660300002)(6486002)(54906003)(110136005)(66476007)(66556008)(66946007)(31686004)(8936002)(8676002)(316002)(6636002)(4326008)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MjVOVHBHZ2g2KzFEdzNVK1NFenl1TmtLQTRPSXBOTThRZE1yMkIrcjBqOWlD?=
- =?utf-8?B?R2hoZHN2aFJCSzhaaVFXdFpyUUtaYXVabUtubE5nTW5yUkp6T3REQ3NFbzAx?=
- =?utf-8?B?Q2NScGs1am1Ld093VFNUOHlveXRUdmREbVBVUzNURUx1TUM5WW5TMklrQjJX?=
- =?utf-8?B?aWp0Wk1Wa0JKMlkrY0M2RENRMFJDQ2FiRmpDekJIdEVKVk8vUEg3QzkzYkxs?=
- =?utf-8?B?ZGtUenVET1lPOXNFa0d5QTRpUVIyNm5UOEliMXowUjFOYXhRbXRuMTB2cmkz?=
- =?utf-8?B?c3p4dVE4NGtJRUFvWlJXVlRDTURlVFRHUm5DV240cGIyakZoSHpFa05YT1ht?=
- =?utf-8?B?WE8xVnlXNHQ0a045bTZ0cU5VLzRZZE9uNTNTSDdheTRUemNOb0FIdVMwVmNH?=
- =?utf-8?B?WjM0VVhyVFkvNlNBbzA2bmJVellDWGJHVHE4VldnaFVKOVpwZFY2S2pBNjNL?=
- =?utf-8?B?cXQrOE1lMVJIeEVYQW1iaTAwR3VhcVExUGhTbWFncGZ0RlNSaTI5aXJ5a1Q0?=
- =?utf-8?B?SXVRM0wxYVdxd2Vldkp4b1d5dmxaQTYyNzVOekNQcjNQdVpIN2ZrQTdTNDh1?=
- =?utf-8?B?cHhROEVuZmRJNWt3bFJmQ0hZNDFXT1hGWFZITWRsQm41cTVaMWlkTE1KbXBO?=
- =?utf-8?B?TzRPTmF1TU9vVUVhWjlpeTAxMkpTblBSWHhYVElVZ3krdWZhWDcrZXc0SXlV?=
- =?utf-8?B?Y05meWwydnFBVWd0aEJXblk4UlEvWDlGWU5DOGYzOHJIbExneE5TQjBsY2Ja?=
- =?utf-8?B?RkswV0d2TWJUbE0xamlMT29ydk40QURUSjJ3ZzlCKzFGOEZwWUtVK1BKU3Ra?=
- =?utf-8?B?MTYzVzBOdUFIdHdLZzhKTUV3bU44YzV1SkNiWjUyNTcveEdseXR0OVNzcld1?=
- =?utf-8?B?NjVNVTYvVk5GbVhGTlFnM25pdjE5cnZHSWdXazMvKzV4d2w2RUZ6Z3cwRmpx?=
- =?utf-8?B?WVNKYW1EZkdZcTgzRkFDWTN3QVNrR2MxbUt2cm1xOWU5aGowS2hZckFnQzZK?=
- =?utf-8?B?Nm8xN2Q4OUlGQXRjeENNSEdKMzZrQXlzdVh4NVU1a1FFdUZ1eVJ4UitlbzYy?=
- =?utf-8?B?OVBJU2NZb25uMzF6TkRRMG5JaHcrZDFCWWV6VVhhcHd4MGFnZlhFcSttalpS?=
- =?utf-8?B?OENMei9LTmxVdnM0MDJiNlg0NnRCWmcxVTVpcVhvcytOTDhiRWZ0Y1NNRGpj?=
- =?utf-8?B?OEtPNUd6cDQrUVQ1ejlyWWF4bzFrcStmTFY2L0o2UHlraWRjdFdTT0F4ektw?=
- =?utf-8?B?YXQxOU5QRVBXeFF3by84ZEMxSDQwVkFrRk9ETFUrMGwveUplb1cxUTh1S2hr?=
- =?utf-8?B?eHhwY0dST3A3aTArK3Z0TWFOeDYrZThUcTEzeWViTzVFUzhiaTlvRzJWV2pl?=
- =?utf-8?B?SWtveUVVamFOWG5LaUFMakVvZDZodU5kMlBFelBCbTRac3QzWUhOY21zSXpw?=
- =?utf-8?B?SCtQQkRwdm1NbTNhU0ZXdWRnUG1xSUg5SExMR1RCdGVLdkUzOUtBQUZGVmNV?=
- =?utf-8?B?ZTVTRWt4cHB3ZEZuSGZnRnJGZlQxa29WM1lWcVlOQmx1SUVXQ3Y0SFhFMHNG?=
- =?utf-8?B?bUViUHQvL0FISkgzcjMrd29uYlk3bEN0dm1QeE9PNzhMM3ZpSThwWERnWGhQ?=
- =?utf-8?B?RmhRaUtkc21od0dIeE5ENVladmpveG10V1BSNlFaL3R3YkptdWVuTEpsS09N?=
- =?utf-8?B?NWNKSjFKdVdmTnhRdkg0UWNZZDhXWlZUa3hsRDhlRW9aVUpidUNLOWFnNUc1?=
- =?utf-8?B?Y3B0S2NyUGxJSklMVW8xRUxaNE4vMG12L3NVU0RnR1ZMWEFtbTBOWVUxQkRN?=
- =?utf-8?B?RVpmbWc2TW5BOGVETUlBUkR2b001VTJ0bmhFM2xpWC8zM1UwN1VrU3JOcTZ2?=
- =?utf-8?B?N3JzQTBxZjNiVXJqY1gvSWloSzJKa2JsYUcreFZXZThNV1BVd3VpYVdZWnNC?=
- =?utf-8?B?c1BVL3V3Q1hIRGhOaUEyb25IWTZaUmdtU0REZVV6di8waWdsNzZHNGc3SGp6?=
- =?utf-8?B?aHdqYXhJa1RMQzFSVU8yN285NWowTEY4RkdnMFZNaW9qdit0WXhMWlpmaFhH?=
- =?utf-8?B?RzVXRmFLeFBQaEpZTUt4WitFZWgyK2pad1czaldlWStKNzZKNVBYQTV6RS9G?=
- =?utf-8?Q?WPZYYsF/DfFov3VclakraBRFB?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MjgxVmw3cWlocStPaFRsUFlXL3N3YnZIQkdnbG1VWjRMaEVzZEpkTDd3M3kx?=
+ =?utf-8?B?UnBaNFNTWnZVSTM4aUhJaC9uMGIwZllCK3p5cDh4a2k0eG1iVE1HYjdma1Ja?=
+ =?utf-8?B?Mi9icXdXK2FycUhRMEFHd3BjVlo0UGxDSTBRZzkzSitObzYvcGpyemhOTHp5?=
+ =?utf-8?B?c3lBRjF2Sm1EMjZLSGk5eEJxdWp3OUlybVR5aUkxVUFUVElMS0daZ0RVZnFD?=
+ =?utf-8?B?L1czWkREWEptR200ZmlQMnAzcUFzZm8vK0xrNUNXQ3hqaDhJeXhnNlZoUGlO?=
+ =?utf-8?B?TFdnYzZhMHd2a2JtaG53cUhBTmtnRHJFejR1eFc4R2tFZkFMbkFINFhqUzdZ?=
+ =?utf-8?B?WFFqd1B4cnoycHVoMHlZZXplRmdUdmwwQ2RuWE81WDJBTHl5WVlNNmdVQ3Zr?=
+ =?utf-8?B?aGtISnVSZ1ZUVlhhL1l2c1pRZ1NwSTRkZVg5T2dWQldLRll3T0JieGEwc09W?=
+ =?utf-8?B?dzUyQURjVW44R3NSTlRVZ2VtZ2drM0NEallJUDdkN21sUFg2NGVQNlhpQXpz?=
+ =?utf-8?B?RE5WRnl1dkpSZmthUmExYkFSa1A1ZUZnZU1JYWhoZnorRk5hZzNLalJnMW13?=
+ =?utf-8?B?T0wzTmRPM2I3ZmdML05KNkExQlBPOWpLeW9tcVNtbXBrazR4OExpVWFYWjZZ?=
+ =?utf-8?B?SzZwRUZ1ZGMwUjBZZFJKYmJMekE4Y04rbUVZeXkvdUx4ZEVyZlE4K25UV0Z2?=
+ =?utf-8?B?Q1VwUEllY1oxaWVFRFVPL2YzTktTQ09zdWEyaHFLelc5UW51M0tzT1lEdFVL?=
+ =?utf-8?B?d2RoWTc2dTRoMkV5VjQwY0RYcmNXZWxQQUlFbEZMNUZTNFdQRXVRS2RCemM3?=
+ =?utf-8?B?dnVUeVI1cjdFaElyaW40OUw1blM3M0ZjRm5JVGxIZ2VNRk5oMG4vWExSTyt6?=
+ =?utf-8?B?WisxcGVNQllJSzkweWN3TjdHWmJFekNVOUdNRXYwSzNiMDBpV05ZSHQyN05r?=
+ =?utf-8?B?dmxQSHBSZFRVbGFiWVk3ZE1RTURNUkdDNUNZWGR6djh2dTZiaUZ5Z0FqUCtN?=
+ =?utf-8?B?UXNnN3VzcmRvY3MrMkE0MnBKbXJBb2hya1hPc1dQaTNmSm9VZWpNczZIYzB0?=
+ =?utf-8?B?UWkvVVZpQkh4blV1Ym9SVU9mNjQzVlhzcG1lTGFTWnRFZFdPZmZnOHBpNmVR?=
+ =?utf-8?B?Y3Q5VHErUDQrRmxwb3d3ZWFEREpPYnd1d1J6MVBlK1ZvakF2UFNnZ0hJN2Ux?=
+ =?utf-8?B?K1ZMTHlQd1kvczRLeTZodE4xcG1JTnU5NHdQbE9Td1ZLL0N4SmNkV1JCQ2Mx?=
+ =?utf-8?B?bFFYZ2cyWE5HdDlqU1NmZTBiRU9MV0JHc1ova3hYRTNqNEVXN0lvR3RMazJr?=
+ =?utf-8?B?amw1eEhiYUFpakpINnR5UHJHVUM1YXY4SHRRaEI5c1lNT3lHcitFOCtxVGhX?=
+ =?utf-8?B?QndCTlc4ajR3QjBHdWhJVmYxOHNEWDdYRUx1eEg0QWpKZDNZRmRsblpGWHJN?=
+ =?utf-8?B?eEJjK0dyMmI2d2RWVjBrUlhEYW1UeHFhTm9CK1YvVUlUeDhRTzJ4WDM0UnBW?=
+ =?utf-8?B?VmlHYmFIQldFV0RhTHltOW5kM1J4YnBGRzc3RXY0WnozdVJySWdaNDA2K3dC?=
+ =?utf-8?B?K3dMQW4yaWVpNUNteXZTOTFiT3kvaXJON3JHU1JOVVJPQ3hvRHZ6VjBidkJU?=
+ =?utf-8?B?NWoxcG5BVHVJZ3RhazJ3TVZWYVdRN01LNDcyOTEzOUFkR2MxVTJJVnJ5T2No?=
+ =?utf-8?B?Z0VjelpvZEpqOWp6UCtxWnNrU3pxQTd5UVhqUk5rZzJ1RzNaYVVuUVVXc0g1?=
+ =?utf-8?B?TlNSNjZSWkFMNm9XcGlPSFVPN3ZnWlBvWnQrT25JVzFtYnZ0UjYvb3ovTkEv?=
+ =?utf-8?B?M2Q0QW93bjFvMXZ3M2RVanR6bWJwU0dvZmNkWkpnRHd6UFlJM2oxWU9OaU9C?=
+ =?utf-8?B?RDFrcGVLSi83bytlK3hHa1MrYXlWM1lac0J3eDFoNjl3b0p2bHpKTVdJdHRI?=
+ =?utf-8?B?dUc2T1VIK2N1eWxTRElOLzg5dUE4alhZVDlseXMyMFJIRGROZ2VXNVQrc3NB?=
+ =?utf-8?B?YittVm9mSHZsbzBhRzlqZWxlbndmZzhaUTgwd2k2eHp4OXpBMkdnVW1oOHlQ?=
+ =?utf-8?B?SG1kR05BVVlvdjZQMUJiNTd1QmZtRXNoM3cyQnhsenRaQU04T1VlS1M2SXJU?=
+ =?utf-8?Q?JNW2wWflXbyG04ysSqrnne5oX?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 225006f8-100f-4867-20bb-08dc02436d8a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86635b1d-3c9b-4f2d-be13-08dc02456090
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2941.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Dec 2023 16:39:40.4783 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Dec 2023 16:53:37.7512 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gkuuLMoYVBDCinMwYbfGwyb+JtjXx6+Adtj9MhRl/zAoluFWQBlyTwh5RXsR87uc8BA1ap1aRtQ0VD98Y37t6Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9326
+X-MS-Exchange-CrossTenant-UserPrincipalName: dP9DTEyuT8i1Gyny93kwUwUMqhoqAO5F7dxtT1JXRoOokoYMIxNmN/Ii4F1EYVLXkf9FVkcwnHXG2eR0B7cBlQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6283
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,65 +125,129 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dillon Varone <dillon.varone@amd.com>, amd-gfx@lists.freedesktop.org,
- Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Jun Lei <jun.lei@amd.com>,
+Cc: Charlene Liu <charlene.liu@amd.com>, Muhammad Ahmed <ahmed.ahmed@amd.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, amd-gfx@lists.freedesktop.org,
  Srinath Rao <srinath.rao@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 12/21/23 09:28, Srinivasan Shanmugam wrote:
+On 12/19/23 00:37, Srinivasan Shanmugam wrote:
 > Fixes the following gcc with W=1:
 > 
-> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_state.c:524: warning: Function parameter or member 'state' not described in 'dc_state_rem_all_planes_for_stream'
-> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_state.c:524: warning: Excess function parameter 'context' description in 'dc_state_rem_all_planes_for_stream'
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c:540: warning: Function parameter or member 'context' not described in 'populate_subvp_cmd_drr_info'
+> drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn35/dcn35_hwseq.c:1124: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
 > 
-> Cc: Dillon Varone <dillon.varone@amd.com>
-> Cc: Jun Lei <jun.lei@amd.com>
+> Cc: Charlene Liu <charlene.liu@amd.com>
+> Cc: Muhammad Ahmed <ahmed.ahmed@amd.com>
 > Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
 > Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
 > Cc: Alex Deucher <alexander.deucher@amd.com>
 > Cc: Srinath Rao <srinath.rao@amd.com>
 > Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 > ---
->   drivers/gpu/drm/amd/display/dc/core/dc_state.c | 2 +-
->   drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c   | 3 ++-
->   2 files changed, 3 insertions(+), 2 deletions(-)
+>   .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   | 66 +++++++++++--------
+>   1 file changed, 39 insertions(+), 27 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_state.c b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
-> index dd52cab7ecdf..460a8010c79f 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_state.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
-> @@ -511,7 +511,7 @@ bool dc_state_remove_plane(
->    *
->    * @dc: Current dc state.
->    * @stream: Target stream, which we want to remove the attached plans.
-> - * @context: New context.
-> + * @state: context from which the planes are to be removed.
->    *
->    * Return:
->    * Return true if DC was able to remove all planes from the target
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-> index 1d315f7cdce3..a59b982e99bf 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-> @@ -519,10 +519,11 @@ void dc_dmub_srv_get_visual_confirm_color_cmd(struct dc *dc, struct pipe_ctx *pi
+> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
+> index ad710b4036de..782c26faf276 100644
+> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
+> @@ -1120,21 +1120,27 @@ void dcn35_calc_blocks_to_ungate(struct dc *dc, struct dc_state *context,
+>   		update_state->pg_res_update[PG_HPO] = true;
+>   
+>   }
+> +
 >   /**
->    * populate_subvp_cmd_drr_info - Helper to populate DRR pipe info for the DMCUB subvp command
->    *
-> - * @dc: [in] current dc state
-> + * @dc: [in] pointer to dc object
->    * @subvp_pipe: [in] pipe_ctx for the SubVP pipe
->    * @vblank_pipe: [in] pipe_ctx for the DRR pipe
->    * @pipe_data: [in] Pipe data which stores the VBLANK/DRR info
-> + * @context: [in] DC state for access to phantom stream
->    *
->    * Populate the DMCUB SubVP command with DRR pipe info. All the information
->    * required for calculating the SubVP + DRR microschedule is populated here.
+> -	 * power down sequence
+> -	 * ONO Region 3, DCPG 25: hpo - SKIPPED
+> -	 * ONO Region 4, DCPG 0: dchubp0, dpp0
+> -	 * ONO Region 6, DCPG 1: dchubp1, dpp1
+> -	 * ONO Region 8, DCPG 2: dchubp2, dpp2
+> -	 * ONO Region 10, DCPG 3: dchubp3, dpp3
+> -	 * ONO Region 1, DCPG 23: dchubbub dchvm dchubbubmem - SKIPPED. PMFW will pwr dwn at IPS2 entry
+> -	 * ONO Region 5, DCPG 16: dsc0
+> -	 * ONO Region 7, DCPG 17: dsc1
+> -	 * ONO Region 9, DCPG 18: dsc2
+> -	 * ONO Region 11, DCPG 19: dsc3
+> -	 * ONO Region 2, DCPG 24: mpc opp optc dwb
+> -	 * ONO Region 0, DCPG 22: dccg dio dcio - SKIPPED. will be pwr dwn after lono timer is armed
+> -*/
+> + * dcn35_hw_block_power_down() - power down sequence
 
-Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Maybe add a simple explanation phrase like this:
+
+   The following sequence describes the ON-OFF (ONO) sequence:
+
+Also, could you create another patch that adds ONO in our display 
+glossary at `Documentation/gpu/amdgpu/display/dc-glossary.rst`?
+
+> + *	ONO Region 3, DCPG 25: hpo - SKIPPED
+> + *	ONO Region 4, DCPG 0: dchubp0, dpp0
+> + *	ONO Region 6, DCPG 1: dchubp1, dpp1
+> + *	ONO Region 8, DCPG 2: dchubp2, dpp2
+> + *	ONO Region 10, DCPG 3: dchubp3, dpp3
+> + *	ONO Region 1, DCPG 23: dchubbub dchvm dchubbubmem - SKIPPED. PMFW will pwr dwn at IPS2 entry
+> + *	ONO Region 5, DCPG 16: dsc0
+> + *	ONO Region 7, DCPG 17: dsc1
+> + *	ONO Region 9, DCPG 18: dsc2
+> + *	ONO Region 11, DCPG 19: dsc3
+> + *	ONO Region 2, DCPG 24: mpc opp optc dwb
+> + *	ONO Region 0, DCPG 22: dccg dio dcio - SKIPPED. will be pwr dwn after lono timer is armed
+> + *
+> + * @dc: Current DC state
+> + * @update_state: update PG sequence states for HW block
+> + *
+> + * Return: void.
+
+I don't think you need to document return void.
+
+Thanks
+Siqueira
+
+> + */
+>   void dcn35_hw_block_power_down(struct dc *dc,
+>   	struct pg_block_update *update_state)
+>   {
+> @@ -1172,20 +1178,26 @@ void dcn35_hw_block_power_down(struct dc *dc,
+>   	//domain22, 23, 25 currently always on.
+>   
+>   }
+> +
+>   /**
+> -	 * power up sequence
+> -	 * ONO Region 0, DCPG 22: dccg dio dcio - SKIPPED
+> -	 * ONO Region 2, DCPG 24: mpc opp optc dwb
+> -	 * ONO Region 5, DCPG 16: dsc0
+> -	 * ONO Region 7, DCPG 17: dsc1
+> -	 * ONO Region 9, DCPG 18: dsc2
+> -	 * ONO Region 11, DCPG 19: dsc3
+> -	 * ONO Region 1, DCPG 23: dchubbub dchvm dchubbubmem - SKIPPED. PMFW will power up at IPS2 exit
+> -	 * ONO Region 4, DCPG 0: dchubp0, dpp0
+> -	 * ONO Region 6, DCPG 1: dchubp1, dpp1
+> -	 * ONO Region 8, DCPG 2: dchubp2, dpp2
+> -	 * ONO Region 10, DCPG 3: dchubp3, dpp3
+> -	 * ONO Region 3, DCPG 25: hpo - SKIPPED
+> + * dcn35_hw_block_power_up - power up sequence
+> + *	ONO Region 0, DCPG 22: dccg dio dcio - SKIPPED
+> + *	ONO Region 2, DCPG 24: mpc opp optc dwb
+> + *	ONO Region 5, DCPG 16: dsc0
+> + *	ONO Region 7, DCPG 17: dsc1
+> + *	ONO Region 9, DCPG 18: dsc2
+> + *	ONO Region 11, DCPG 19: dsc3
+> + *	ONO Region 1, DCPG 23: dchubbub dchvm dchubbubmem - SKIPPED. PMFW will power up at IPS2 exit
+> + *	ONO Region 4, DCPG 0: dchubp0, dpp0
+> + *	ONO Region 6, DCPG 1: dchubp1, dpp1
+> + *	ONO Region 8, DCPG 2: dchubp2, dpp2
+> + *	ONO Region 10, DCPG 3: dchubp3, dpp3
+> + *	ONO Region 3, DCPG 25: hpo - SKIPPED
+> + *
+> + * @dc: Current DC state
+> + * @update_state: update PG sequence states for HW block
+> + *
+> + * Return: void.
+>    */
+>   void dcn35_hw_block_power_up(struct dc *dc,
+>   	struct pg_block_update *update_state)
 
