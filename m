@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11400C46CCD
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Dec 2023 20:41:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A713C35274
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Dec 2023 20:42:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A83710E703;
-	Thu, 21 Dec 2023 20:41:58 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2059.outbound.protection.outlook.com [40.107.220.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C27810E703
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75A6B10E711;
+	Thu, 21 Dec 2023 20:42:00 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0039510E703
  for <amd-gfx@lists.freedesktop.org>; Thu, 21 Dec 2023 20:41:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mKr6aPwfdFbyyVklsKZSVisahnyPLgrkCAiSYRyKv/71zc/NrhA1yGDw1B2o8HGl2QkwWzyVOVFc6HTSr1eB+9BDk3Wlz/e2Y/EUjHLhLGcYF2t/xNoveKHxXn0f6ZgjQUiOQogW2TKypjMTMnfdiXkclW8rE3KWo3r9AoO9rLVFORRqfzCamDN9tO1XxphvbR/RQPeQP+I8tTd0zvhoJjchAYOvly95axDFISyHyoyoF6Lk142FNk0NePwHO2DdOkidp8gD+zOA6fGS48/30xyDG3gP72kYiqEqPZliyUGkam9G0JneLhASxAGZcNPSUD78yy3ppxVb+T6aKQglOQ==
+ b=O7kzxM/o2tlw9ySI+lTpwwaDawHsqEREl006q4P9of3X3FyT0uXhEE5dabusCNxJKnw3Zl1s5ehLUT9SPIcmYGwPksvfYs8IA40iCXHtUbkliycb1uv+BXI+ZNH4ZLX7DjUHLjHnv/Pls2TcEqN6GgCjisXVWLT8eu1xIzra31v/13eWGxwNE+962LlgIfCcLEOFBIZRfSkyH6GuUWiidJ0b9FZB4Ozf6PDY1U301l9xZEk13Zm+qYcRvMiiALzXc6+Us6Ig7asPtR7AC2Fk9ELsAY04s/TATDWruoI8CVyKwx5/xPJzTqzs23JeWLytRQj666nMMVOgNCzqEuCF5w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NGqcQw23/nY9gE0/ysf7Or5MUPupQ6iann94ehUTbY4=;
- b=by1p37tBKCBLvExfu5rLLd2dze8VuIArP3zOvULRme64itfNCRfm11ffnaam2YxM5OEehtj9qacK0v754LtB35A71jG3+QqBEcHWMg3aLSyh7BLT6UIbWlqsXAfn7p6FmxiVj5lxgcsVVC1xxMU0IldGA/ZDcZutMEOOPUyY3V5Bw7Xgqb5Ut0SyvTy/jeOYOQqhIFKfp7nEgucOgkTGSihFMksFWkI3DTFphynviQwbcoynQgTo0mljU8lcyZWsmPqPZn24sdWfSIciYzOFZ9DMqI0mblzbPDphwaG2GtFKv3HE5EIwX76cCvR8C7y9FxMhEShVk7wo5PLU0G3+tw==
+ bh=CSLe4/RgXVEc4hbWgtUyQsESzcgwwHec/lE9IaVXN4Q=;
+ b=bpzfjmN/1yhgUimjEwA9qL+JeWUT0Aej0BrVyflK8cUeNt0G/u4PCRt9W1oBRU+4b3eoW0XnTbdTiHZn9/ixaOQTgu3BmwPa9uv2SNzIwYzOAJJrtqx/esJiAeg7X8k78UrudciNMPtORom7oRRSh/fF9aD7Z9+utOZUHaizADJUIOV6AthxWT/M7dZWPKK29OFFwlw8hJrRpKQv4KmwCCAjj1uq5/NE4f3TZ/EbMxWtTLIrgrLAcVsB5W6zvxXU5DNc90mswZQjljMupSBnZj5kBrvraWe0uxQe6EkiSp5KhE9Z3EQUGB5AM8gHMuKIO8kZQxpy3iimrEYbTrq2sA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NGqcQw23/nY9gE0/ysf7Or5MUPupQ6iann94ehUTbY4=;
- b=dXBs4pNQpNqQdfk2hWn9MTZbw+r88XZUAQ18wWR8nzz9E0v+e/xu7NgK8iInZSFyiKuatkI2rrDP4o4MH+Lo3Hr1q+jHEyHXyK23teOyebIbMYE7a728z6xaNjf+by9RqBXLl22bHmPSqZ+PECd3qjgaQa0B15M6EKSLqiWZyA8=
-Received: from PH7PR17CA0045.namprd17.prod.outlook.com (2603:10b6:510:323::10)
- by SJ0PR12MB5438.namprd12.prod.outlook.com (2603:10b6:a03:3ba::23)
+ bh=CSLe4/RgXVEc4hbWgtUyQsESzcgwwHec/lE9IaVXN4Q=;
+ b=fGqb/vSOmNVs0VzC9/qbbvXz0ok4hA8TfaVFHVK0JMMzEp38uUT282eU04yZn1Z3zBL8rjcV/V8+37AHrKmbrCWXTS6B1MWIn0gPKW8PfD+iOeeHaOoXUzIiWas1kgbCCougJG5H8MN1bU6m2VzwXqHePZs4aGvkRsbFOx/zGnI=
+Received: from PH7PR17CA0030.namprd17.prod.outlook.com (2603:10b6:510:323::25)
+ by SN7PR12MB8819.namprd12.prod.outlook.com (2603:10b6:806:32a::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.21; Thu, 21 Dec
- 2023 20:41:55 +0000
+ 2023 20:41:54 +0000
 Received: from SA2PEPF000015CA.namprd03.prod.outlook.com
- (2603:10b6:510:323:cafe::16) by PH7PR17CA0045.outlook.office365.com
- (2603:10b6:510:323::10) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:510:323:cafe::8) by PH7PR17CA0030.outlook.office365.com
+ (2603:10b6:510:323::25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.21 via Frontend
- Transport; Thu, 21 Dec 2023 20:41:55 +0000
+ Transport; Thu, 21 Dec 2023 20:41:54 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,51 +47,49 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
  SA2PEPF000015CA.mail.protection.outlook.com (10.167.241.200) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7113.14 via Frontend Transport; Thu, 21 Dec 2023 20:41:55 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ 15.20.7113.14 via Frontend Transport; Thu, 21 Dec 2023 20:41:54 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 21 Dec
  2023 14:41:54 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 21 Dec
- 2023 14:41:54 -0600
+ 2023 14:41:53 -0600
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Thu, 21 Dec 2023 14:41:54 -0600
+ Transport; Thu, 21 Dec 2023 14:41:53 -0600
 From: Harry Wentland <harry.wentland@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/amd/display: Move fixpt_from_s3132 to amdgpu_dm
-Date: Thu, 21 Dec 2023 15:41:51 -0500
-Message-ID: <20231221204151.98967-2-harry.wentland@amd.com>
+Subject: [PATCH 1/2] drm/amd/display: Fix recent checkpatch errors in amdgpu_dm
+Date: Thu, 21 Dec 2023 15:41:50 -0500
+Message-ID: <20231221204151.98967-1-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20231221204151.98967-1-harry.wentland@amd.com>
-References: <20231221204151.98967-1-harry.wentland@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015CA:EE_|SJ0PR12MB5438:EE_
-X-MS-Office365-Filtering-Correlation-Id: 715d7b9b-0861-4996-2337-08dc026544f6
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015CA:EE_|SN7PR12MB8819:EE_
+X-MS-Office365-Filtering-Correlation-Id: cba38013-e2b6-4217-2744-08dc02654499
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: BwyWiEDiF+gZP1rfbGX9hxtGL+BP1iHCitqZU9rsG6DZzJ3HdJZgi6oA4pDGGvMfLKr7Ktg1o7a9jcsdEp1HVT5ICSJwlN8/fYbGvFl301t4neZIvibE+pusmyWf3zSw72Z1kWwiUjCX3GqFgZy4g8DJ1q+X6DpjGZVvZMI/Yv5Jfb0rdzMZv0sbziMyC0/wzC7Vf8gJruhlAqaBQjPqViW58AxxNkGf9mpI7zHdF/noA9FrKBmQOyulZvGgoROo0BpaGizyKTM0yABMgqqA5iFvJqKTIhSFUAgv7EjSpZs1VRsWGbioHcpbPgXUMpSeTcRZZLIKDEb72tJYGsuWkTJ7nLLrx7ptJPHbldKi2eBaoGIsYlroH0e1IpRZsrZJ57Vh7eHyoCKKdhy7smD2rZmUcNpAB2qReEyOQye5aV+QREUj0+4c0Opq8SolE6p1Uk7UZZLpBM1pMnvMoQArDauOSi0YkavnGossnUsOtxuvN+TzugGzUq/jXQJ29pTKCS3NQvwlDT3jAZGa9zwEpNQmNTFTAprR8Ylb8AXpk4Udiiq0leJVJfAbOURPcypNtkyQYvqVOFu7rgmx10wjKtV0CgG9jrnnvCwmqJfRj/Y6/1GAca9bXbnKDV5iixrT3lLyy0Jven5Wlslw/IczMwOCKFqPtr8Ird1c7gfohJxBIneRheHlYFcZCu4YeY2O19f71imhEnQ9X31SGp+oPdTR8naq1/CsR77FZXG8OuspfJi2jUebGSNgFOLjHE4zcGHA2M6DlFcOf8HSoKYF+g==
+X-Microsoft-Antispam-Message-Info: k2fQc5E81q2p2K8CKZn+zC2xbdvckNQ56y75jKJBiIb4urebcqDPKS996d8D6/EvB1WYU8wXIXrddvKcaQuBgsfSJ8Qv2hYUDOYu1kNJHENacjFtb2ZosuoOvtB59zClgOIG1J+AixLzt8lxqEnlWTbVS3FYTUpnQuLZsg2XH5AFT6QJz0hu68jArdga5weHP9rR6tOk2L/DuAlTze7LsfQf5H/zbJF+p9Ooo2OI/HgyebCPm4HR4QbY8xw1ZvCWrX/YBUvg3g+kB/cWhsPbnWV4BGYJaX6+rL+J6FzPhY/Veb5VxuZJ9tYV3LeFrysMZf2SQhx1iDp5vWrOlpB223Hhlqu1QkS8RPuOAz8bqD6YjwXwbYseWkbMewHXXAUVWiZ8EZz+zZdAIerB/wXmvqePvrIobBqZuiqWSxOBSKLothMvbmAuxVyvp8rVFfj95jj7NCAYT6nz3wuDqhQz3Pa0e0k6jOkGYtkUmWvRaJPKldUbN6II74FQAv38ZdbStVoBO7PJYlkNJ8aE6PJXwKab5fUQ+sWg3A8yxFrJdTT01iRQGV7Jb+xCRnlARJ3qeBWQK2OkTUp/kFeKz7vVDgp3JnjcohNFhl2gDf8IMPR5sVRGqjb8P7YcmZWJp8o1fTDzvgEjRBL5NkpFDXUx5kToVRvXkKhswoPneqfsNnAiudRczYPlTK9WMBfIUL17RDH64Xp97C+OtGTaeGBz7cGumFE3Mnhd8zj4w7pjCi6oQX4SjRClOF/hB4bSAqjUKpldhirSTZnTB+B8fmULrg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(136003)(376002)(346002)(39860400002)(230922051799003)(451199024)(64100799003)(82310400011)(186009)(1800799012)(46966006)(40470700004)(36840700001)(47076005)(5660300002)(2906002)(44832011)(86362001)(82740400003)(41300700001)(356005)(81166007)(36860700001)(70586007)(70206006)(2616005)(40480700001)(1076003)(6916009)(26005)(426003)(336012)(316002)(6666004)(36756003)(478600001)(40460700003)(8936002)(8676002)(83380400001)(4326008)(36900700001);
+ SFS:(13230031)(4636009)(396003)(39860400002)(346002)(136003)(376002)(230922051799003)(64100799003)(451199024)(186009)(82310400011)(1800799012)(46966006)(40470700004)(36840700001)(2616005)(40460700003)(26005)(336012)(426003)(1076003)(36860700001)(83380400001)(4326008)(47076005)(44832011)(8676002)(8936002)(41300700001)(2906002)(478600001)(316002)(6916009)(5660300002)(70586007)(70206006)(36756003)(82740400003)(86362001)(81166007)(356005)(40480700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Dec 2023 20:41:55.1076 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 715d7b9b-0861-4996-2337-08dc026544f6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Dec 2023 20:41:54.4983 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cba38013-e2b6-4217-2744-08dc02654499
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015CA.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5438
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8819
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,88 +105,74 @@ Cc: Harry Wentland <harry.wentland@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Other environments don't like the unary minus operator on
-an unsigned value.
+ - Use tabs, not spaces.
+ - Brace and parentheses placement
 
 Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c    | 18 +++++++++++++++---
- .../gpu/drm/amd/display/include/fixed31_32.h   | 12 ------------
- 2 files changed, 15 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h       | 4 ++--
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 5 ++---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c  | 2 +-
+ 3 files changed, 5 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 2d5af83d40b5..9c1871b866cc 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -747,7 +747,7 @@ enum amdgpu_transfer_function {
+ 	AMDGPU_TRANSFER_FUNCTION_GAMMA22_INV_EOTF,
+ 	AMDGPU_TRANSFER_FUNCTION_GAMMA24_INV_EOTF,
+ 	AMDGPU_TRANSFER_FUNCTION_GAMMA26_INV_EOTF,
+-        AMDGPU_TRANSFER_FUNCTION_COUNT
++	AMDGPU_TRANSFER_FUNCTION_COUNT
+ };
+ 
+ struct dm_plane_state {
+@@ -844,7 +844,7 @@ struct dm_crtc_state {
+ 
+ 	int abm_level;
+ 
+-        /**
++	/**
+ 	 * @regamma_tf:
+ 	 *
+ 	 * Pre-defined transfer function for converting internal FB -> wire
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index 36bf65a8cd6e..9b527bffe11a 100644
+index c6ed0d854b01..36bf65a8cd6e 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -85,6 +85,18 @@ void amdgpu_dm_init_color_mod(void)
- 	setup_x_points_distribution();
- }
- 
-+static inline struct fixed31_32 amdgpu_dm_fixpt_from_s3132(__u64 x)
-+{
-+	struct fixed31_32 val;
-+
-+	/* If negative, convert to 2's complement. */
-+	if (x & (1ULL << 63))
-+		x = -(x & ~(1ULL << 63));
-+
-+	val.value = x;
-+	return val;
-+}
-+
- #ifdef AMD_PRIVATE_COLOR
- /* Pre-defined Transfer Functions (TF)
-  *
-@@ -430,7 +442,7 @@ static void __drm_ctm_to_dc_matrix(const struct drm_color_ctm *ctm,
- 		}
- 
- 		/* gamut_remap_matrix[i] = ctm[i - floor(i/4)] */
--		matrix[i] = dc_fixpt_from_s3132(ctm->matrix[i - (i / 4)]);
-+		matrix[i] = amdgpu_dm_fixpt_from_s3132(ctm->matrix[i - (i / 4)]);
- 	}
- }
- 
-@@ -452,7 +464,7 @@ static void __drm_ctm_3x4_to_dc_matrix(const struct drm_color_ctm_3x4 *ctm,
+@@ -630,8 +630,7 @@ static int __set_input_tf(struct dc_color_caps *caps, struct dc_transfer_func *f
+ static enum dc_transfer_func_predefined
+ amdgpu_tf_to_dc_tf(enum amdgpu_transfer_function tf)
+ {
+-	switch (tf)
+-	{
++	switch (tf) {
+ 	default:
+ 	case AMDGPU_TRANSFER_FUNCTION_DEFAULT:
+ 	case AMDGPU_TRANSFER_FUNCTION_IDENTITY:
+@@ -1225,7 +1224,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+ 	 * plane and CRTC degamma at the same time. Explicitly reject atomic
+ 	 * updates when userspace sets both plane and CRTC degamma properties.
  	 */
- 	for (i = 0; i < 12; i++) {
- 		/* gamut_remap_matrix[i] = ctm[i - floor(i/4)] */
--		matrix[i] = dc_fixpt_from_s3132(ctm->matrix[i]);
-+		matrix[i] = amdgpu_dm_fixpt_from_s3132(ctm->matrix[i]);
- 	}
- }
+-	if (has_crtc_cm_degamma && ret != -EINVAL){
++	if (has_crtc_cm_degamma && ret != -EINVAL) {
+ 		drm_dbg_kms(crtc->base.crtc->dev,
+ 			    "doesn't support plane and CRTC degamma at the same time\n");
+ 			return -EINVAL;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index 4439e5a27362..6e715ef3a556 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -305,7 +305,7 @@ dm_crtc_additional_color_mgmt(struct drm_crtc *crtc)
+ {
+ 	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
  
-@@ -1136,7 +1148,7 @@ amdgpu_dm_plane_set_color_properties(struct drm_plane_state *plane_state,
- 	uint32_t shaper_size, lut3d_size, blend_size;
- 	int ret;
- 
--	dc_plane_state->hdr_mult = dc_fixpt_from_s3132(dm_plane_state->hdr_mult);
-+	dc_plane_state->hdr_mult = amdgpu_dm_fixpt_from_s3132(dm_plane_state->hdr_mult);
- 
- 	shaper_lut = __extract_blob_lut(dm_plane_state->shaper_lut, &shaper_size);
- 	shaper_size = shaper_lut != NULL ? shaper_size : 0;
-diff --git a/drivers/gpu/drm/amd/display/include/fixed31_32.h b/drivers/gpu/drm/amd/display/include/fixed31_32.h
-index 84da1dd34efd..d4cf7ead1d87 100644
---- a/drivers/gpu/drm/amd/display/include/fixed31_32.h
-+++ b/drivers/gpu/drm/amd/display/include/fixed31_32.h
-@@ -69,18 +69,6 @@ static const struct fixed31_32 dc_fixpt_epsilon = { 1LL };
- static const struct fixed31_32 dc_fixpt_half = { 0x80000000LL };
- static const struct fixed31_32 dc_fixpt_one = { 0x100000000LL };
- 
--static inline struct fixed31_32 dc_fixpt_from_s3132(__u64 x)
--{
--	struct fixed31_32 val;
--
--	/* If negative, convert to 2's complement. */
--	if (x & (1ULL << 63))
--		x = -(x & ~(1ULL << 63));
--
--	val.value = x;
--	return val;
--}
--
- /*
-  * @brief
-  * Initialization routines
+-	if(adev->dm.dc->caps.color.mpc.ogam_ram)
++	if (adev->dm.dc->caps.color.mpc.ogam_ram)
+ 		drm_object_attach_property(&crtc->base,
+ 					   adev->mode_info.regamma_tf_property,
+ 					   AMDGPU_TRANSFER_FUNCTION_DEFAULT);
 -- 
 2.43.0
 
