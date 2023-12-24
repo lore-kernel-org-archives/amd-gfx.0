@@ -4,43 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 714C4C3DA6E
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Dec 2023 10:11:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F20CEC3DA6E
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Dec 2023 10:18:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEF6C10E0F3;
-	Mon, 25 Dec 2023 10:11:51 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:3::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7578110E74D;
- Fri, 22 Dec 2023 05:09:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:Sender:Reply-To:Content-ID:Content-Description;
- bh=qv/4WGiqI5RbZ8+yGA8HWT/rnQNhck+h6ELpLX3MmQY=; b=F6DfyCULg5XHnTy+4wuTpM9wxk
- Hs3AwZ8tRZmisefjBm9ibPINppADr01EN3dIf8uRAFUuP4DBjeA+7ynMnzxqeacrR2tX8v4s5jo9e
- vb6dERMHAZ2x97TqbnpuX2IhTomk+qv5m4e7i3heCEwRgv+2pSxR9aHM3juS1LqyCSjzvWmsGD5u4
- 3SGUcjunrW73kUvkJ12ONNDmLxPSK2HjB+Olh5PDI4kEXwT5IaNRsu7lesJlrdCwQQcgWdyq1yIdl
- WfSgdNhghRnmBAQ8Sn8CuEU0feM/A4x6qQPU1ZzIHI6t6rHr3OgN3Ac5//7p/Y5jWWjGqn2I/es/n
- +YrrZrkg==;
-Received: from [50.53.46.231] (helo=[192.168.254.15])
- by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1rGXmO-004wFX-1m; Fri, 22 Dec 2023 05:09:00 +0000
-Message-ID: <536a5850-34af-4a7d-b65d-82147895ef04@infradead.org>
-Date: Thu, 21 Dec 2023 21:08:59 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8156910E0EC;
+	Mon, 25 Dec 2023 10:18:29 +0000 (UTC)
+Received: from zg8tmty3ljk5ljewns4xndka.icoremail.net
+ (zg8tmty3ljk5ljewns4xndka.icoremail.net [167.99.105.149])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 716A210E100;
+ Sun, 24 Dec 2023 08:23:30 +0000 (UTC)
+Received: from luzhipeng.223.5.5.5 (unknown [122.235.137.177])
+ by mail-app3 (Coremail) with SMTP id cC_KCgAHAhl46odlgshjAQ--.38024S2;
+ Sun, 24 Dec 2023 16:23:21 +0800 (CST)
+From: Zhipeng Lu <alexious@zju.edu.cn>
+To: alexious@zju.edu.cn
+Subject: [PATCH] drm/amd/pm/smu7: fix a memleak in smu7_hwmgr_backend_init
+Date: Sun, 24 Dec 2023 16:22:47 +0800
+Message-Id: <20231224082249.3539167-1-alexious@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: avoid stringop-overflow warnings for
- dp_decide_lane_settings()
-Content-Language: en-US
-To: Arnd Bergmann <arnd@kernel.org>, Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-References: <20231122221421.2944301-1-arnd@kernel.org>
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20231122221421.2944301-1-arnd@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 25 Dec 2023 10:11:51 +0000
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: cC_KCgAHAhl46odlgshjAQ--.38024S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uw18Gr4DWw1xuw4UAF1DZFb_yoW8WFy7pa
+ s3JrWvv34UAanrt3ZrAF1IgF1rC397JFyv9w1UK39Iv345Kr18uryDGa9IyF4qkFyxWw4S
+ qr12q3yUWr1j9wUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvC14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+ CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+ W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+ Y2ka0xkIwI1lc2xSY4AK67AK6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r
+ 1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CE
+ b7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0x
+ vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAI
+ cVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2Kf
+ nxnUUI43ZEXa7VUbasjUUUUUU==
+X-CM-SenderInfo: qrsrjiarszq6lmxovvfxof0/
+X-Mailman-Approved-At: Mon, 25 Dec 2023 10:18:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,82 +54,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Liu <haoping.liu@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Arnd Bergmann <arnd@arndb.de>, Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Michael Mityushkin <michael.mityushkin@amd.com>,
- Michael Strauss <michael.strauss@amd.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, George Shen <george.shen@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Jun Lei <Jun.Lei@amd.com>,
+Cc: dri-devel@lists.freedesktop.org, Ran Sun <sunran001@208suo.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Deepak R Varma <drv@mailo.com>,
+ Rex Zhu <Rex.Zhu@amd.com>, Ruan Jinjie <ruanjinjie@huawei.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Mario Limonciello <mario.limonciello@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Ken Wang <Qingqing.Wang@amd.com>, Evan Quan <evan.quan@amd.com>,
  David Airlie <airlied@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The hwmgr->backend, (i.e. data) allocated by kzalloc is not freed in
+the error-handling paths of smu7_get_evv_voltages and
+smu7_update_edc_leakage_table. However, it did be freed in the
+error-handling of phm_initializa_dynamic_state_adjustment_rule_settings,
+by smu7_hwmgr_backend_fini. So the lack of free in smu7_get_evv_voltages
+and smu7_update_edc_leakage_table is considered a memleak in this patch.
 
+Fixes: 599a7e9fe1b6 ("drm/amd/powerplay: implement smu7 hwmgr to manager asics with smu ip version 7.")
+Fixes: 8f0804c6b7d0 ("drm/amd/pm: add edc leakage controller setting")
+Signed-off-by: Zhipeng Lu <alexious@zju.edu.cn>
+---
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-On 11/22/23 14:13, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> gcc prints a warning about a possible array overflow for a couple of
-> callers of dp_decide_lane_settings() after commit 1b56c90018f0 ("Makefile:
-> Enable -Wstringop-overflow globally"):
-> 
-> drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c: In function 'dp_perform_fixed_vs_pe_training_sequence_legacy':
-> drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c:426:25: error: 'dp_decide_lane_settings' accessing 4 bytes in a region of size 1 [-Werror=stringop-overflow=]
->   426 |                         dp_decide_lane_settings(lt_settings, dpcd_lane_adjust,
->       |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->   427 |                                         lt_settings->hw_lane_settings, lt_settings->dpcd_lane_settings);
->       |                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c:426:25: note: referencing argument 4 of type 'union dpcd_training_lane[4]'
-> 
-> I'm not entirely sure what caused this, but changing the prototype to expect
-> a pointer instead of an array avoids the warnings.
-> 
-> Fixes: 7727e7b60f82 ("drm/amd/display: Improve robustness of FIXED_VS link training at DP1 rates")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-
-
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-Tested-by: Randy Dunlap <rdunlap@infradead.org> # build-tested
-
-Thanks.
-
-> ---
->  .../gpu/drm/amd/display/dc/link/protocols/link_dp_training.c    | 2 +-
->  .../gpu/drm/amd/display/dc/link/protocols/link_dp_training.h    | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
-> index 90339c2dfd84..5a0b04518956 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
-> @@ -807,7 +807,7 @@ void dp_decide_lane_settings(
->  		const struct link_training_settings *lt_settings,
->  		const union lane_adjust ln_adjust[LANE_COUNT_DP_MAX],
->  		struct dc_lane_settings hw_lane_settings[LANE_COUNT_DP_MAX],
-> -		union dpcd_training_lane dpcd_lane_settings[LANE_COUNT_DP_MAX])
-> +		union dpcd_training_lane *dpcd_lane_settings)
->  {
->  	uint32_t lane;
->  
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.h b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.h
-> index 7d027bac8255..851bd17317a0 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.h
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.h
-> @@ -111,7 +111,7 @@ void dp_decide_lane_settings(
->  	const struct link_training_settings *lt_settings,
->  	const union lane_adjust ln_adjust[LANE_COUNT_DP_MAX],
->  	struct dc_lane_settings hw_lane_settings[LANE_COUNT_DP_MAX],
-> -	union dpcd_training_lane dpcd_lane_settings[LANE_COUNT_DP_MAX]);
-> +	union dpcd_training_lane *dpcd_lane_settings);
->  
->  enum dc_dp_training_pattern decide_cr_training_pattern(
->  		const struct dc_link_settings *link_settings);
-
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+index 11372fcc59c8..b1a8799e2dee 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+@@ -2974,6 +2974,8 @@ static int smu7_hwmgr_backend_init(struct pp_hwmgr *hwmgr)
+ 		result = smu7_get_evv_voltages(hwmgr);
+ 		if (result) {
+ 			pr_info("Get EVV Voltage Failed.  Abort Driver loading!\n");
++			kfree(hwmgr->backend);
++			hwmgr->backend = NULL;
+ 			return -EINVAL;
+ 		}
+ 	} else {
+@@ -3019,8 +3021,10 @@ static int smu7_hwmgr_backend_init(struct pp_hwmgr *hwmgr)
+ 	}
+ 
+ 	result = smu7_update_edc_leakage_table(hwmgr);
+-	if (result)
++	if (result) {
++		smu7_hwmgr_backend_fini(hwmgr);
+ 		return result;
++	}
+ 
+ 	return 0;
+ }
 -- 
-#Randy
-https://people.kernel.org/tglx/notes-about-netiquette
-https://subspace.kernel.org/etiquette.html
+2.34.1
+
