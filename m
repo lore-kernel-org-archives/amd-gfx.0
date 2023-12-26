@@ -4,65 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88179C46CD2
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Dec 2023 16:12:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBD9EC47073
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Dec 2023 16:12:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FC22891A3;
-	Wed, 27 Dec 2023 16:12:37 +0000 (UTC)
-Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
- [IPv6:2607:f8b0:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95ACA10E03A
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Dec 2023 02:30:33 +0000 (UTC)
-Received: by mail-pf1-x42f.google.com with SMTP id
- d2e1a72fcca58-6d9ac0520b0so533598b3a.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Dec 2023 18:30:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1703644233; x=1704249033; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=0xBQFRljuS9xylNChmSTG+Qfitf8PreuDOuqdWWJFaE=;
- b=c7J680pWix3epOud5xEoysTtXUtWECsIwwL/nf6wuk4hhVNO4KpYUleSXZXqekj1t4
- nsASkUf2+rpLd8NrbysHAT8N+CNy3n1hRg9wjEN9fDAwSw21ZGnZnISe+AelwPNj2HbD
- Gilpioa/W0/ARw98UVrDZHIRVB7RhlMYmxqW8jRgmLd5+S3zO8kQrtG3la26Tf/7oqhK
- QVfw9rzBk58nzJ1D/D7pfLf85zvBOM3orKwSCG2WrgAFMNIJWI3LF9Awwrh0GmR7ndWO
- EKXn3TJEJl79vZBNUB1XUnFJd9sIjZ0o4ovdpjZ+YTgDwZHmwhzQM77BG8XPH455SwSJ
- +KvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1703644233; x=1704249033;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0xBQFRljuS9xylNChmSTG+Qfitf8PreuDOuqdWWJFaE=;
- b=gkcuipbHo5FLceuiOn8ruObzLWFvUDNTJEM73SHnf/6n9nKQry9jjFHTadRwgwQW2S
- gzeB9sr3KjPLdHz33d4njViQOmQh86HCLofa2PM6nLVB9Wa0uf6lKfhz4sqEnCugtzQO
- ajKVGNRpo11ypO09Moojr8UnsgLx6ds/UN1zSjVkeC9SrjehNLddYs3f5bpPXT/xQPyg
- 05PuQ/KmPGao/EPu+bwA2outWp9wkRB8ApQAZivER8D4TSid6LXrcoMNs66WRysqXN9A
- Y60TsskLYYWBjDHTnuYg4OUZydlc6aHLWKzZvFGYSfJecug3ita+ZjKZ8x3UDYqSSKNc
- CbVA==
-X-Gm-Message-State: AOJu0Yzu1racw2xbXb2tYe2SkT2PLAg0mKxAcqLkQ9Yh4GBF3Dl5nCK6
- EvJMM609oW2os59z8i+Teds=
-X-Google-Smtp-Source: AGHT+IG+MdvAkbNYUXMrY+Ex/TfjFJSwXDbSpWCZpzIXMEpnK2Ai7ihhFdQ35uuh+PBi/Ud8dCq35Q==
-X-Received: by 2002:a05:6a20:160c:b0:195:edf4:9e8f with SMTP id
- l12-20020a056a20160c00b00195edf49e8fmr674581pzj.66.1703644232903; 
- Tue, 26 Dec 2023 18:30:32 -0800 (PST)
-Received: from archie.me ([103.131.18.64]) by smtp.gmail.com with ESMTPSA id
- l13-20020a170902d34d00b001d4752f540esm1744485plk.198.2023.12.26.18.30.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Dec 2023 18:30:32 -0800 (PST)
-Received: by archie.me (Postfix, from userid 1000)
- id A304610205C65; Wed, 27 Dec 2023 09:30:29 +0700 (WIB)
-Date: Wed, 27 Dec 2023 09:30:29 +0700
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>,
- harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com
-Subject: Re: [PATCH] Removing duplicate copyright text
-Message-ID: <ZYuMRZU85plJiVWO@archie.me>
-References: <20231226235741.4376-1-marcelomspessoto@gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="ZGVgynaKhqIN2HVd"
-Content-Disposition: inline
-In-Reply-To: <20231226235741.4376-1-marcelomspessoto@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26C28892EA;
+	Wed, 27 Dec 2023 16:12:40 +0000 (UTC)
+X-Greylist: delayed 439 seconds by postgrey-1.36 at gabe;
+ Tue, 26 Dec 2023 10:06:39 UTC
+Received: from qs51p00im-qukt01072502.me.com (qs51p00im-qukt01072502.me.com
+ [17.57.155.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 988E710E06B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Dec 2023 10:06:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com;
+ s=1a1hai; t=1703584759;
+ bh=nTSG8UvRj0SnmBXP6fDaupYIG5SUl+AGsX/yawYM2qg=;
+ h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:To;
+ b=n8oQWuMdaZjf4i10MIFxvkkEGthvfTg1LmtsoGnQLJU5tsXZ+Gfu6V74lYym7yMUB
+ yljR/BxyjE4HAMx4zrPWNAP0YTlMoS9oZlGFXOdJp/hCFZcNcE04L8+qehLMkt+joX
+ nwhUDWtLPNXD3W7bcKU9k6goLkYwVD7Jgq99K35NXeOj6h2uubiYFiyNvKwG/VvDu1
+ ylAjYLtVSV93wHLxKeWEymtowK5MnREoZaxI+ig79L2/6JG+YdiVFpD6x0PdNgFS9e
+ ybAodXrZ93/b6uG8NsH9d7yEtmEoFRSWrD+az5T8YeEMISKln2x5Y/2ZJI6aOw5aEG
+ hebrhXlz5FMdw==
+Received: from smtpclient.apple (qs51p00im-dlb-asmtp-mailmevip.me.com
+ [17.57.155.28])
+ by qs51p00im-qukt01072502.me.com (Postfix) with ESMTPSA id 35BEC6EC01B3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Dec 2023 09:59:19 +0000 (UTC)
+From: Michael Roitzsch <reactorcontrol@icloud.com>
+Content-Type: text/plain;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.120.41.1.4\))
+Subject: Additional resolutions for virtual display
+Message-Id: <CDE9D7C5-36F5-47B9-A3C9-B450EE0856AB@icloud.com>
+Date: Tue, 26 Dec 2023 10:59:16 +0100
+To: amd-gfx@lists.freedesktop.org
+X-Mailer: Apple Mail (2.3696.120.41.1.4)
+X-Proofpoint-GUID: T0mDk9Hpk4qItkMOZzWYImMBEQmI5R5o
+X-Proofpoint-ORIG-GUID: T0mDk9Hpk4qItkMOZzWYImMBEQmI5R5o
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-26_04,2023-12-26_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ malwarescore=0 bulkscore=0
+ suspectscore=0 mlxscore=0 clxscore=1011 phishscore=0 mlxlogscore=375
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2308100000 definitions=main-2312260074
 X-Mailman-Approved-At: Wed, 27 Dec 2023 16:12:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,103 +61,23 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux AMDGPU <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hello,
 
---ZGVgynaKhqIN2HVd
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I am using the amdgpu virtual_display feature for display streaming from =
+a headless machine. However, I need resolutions other than the ones =
+available by default. I found that I can add one mode via the =
+video=3DVirtual-1:=E2=80=A6 kernel boot option. However, I would like to =
+switch between multiple non-default modes.
 
-On Tue, Dec 26, 2023 at 08:57:41PM -0300, Marcelo Mendes Spessoto Junior wr=
-ote:
-> Signed-off-by: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>
->=20
-> The file display/modules/inc/mod_freesync.h has two identical AMD
-> Copyright texts. This simple patch aims to remove the duplicate one.
+Is there a way to add more than one non-default mode to the virtual =
+display? My current workaround is to patch my resolutions to =
+amdgpu_vkms.c, but I wonder if there is an easier way.
 
-Hi Marcelo,
+The resolutions I need are 2x HiDPI versions of ones already available, =
+namely 2880x1800 and 5120x2880.
 
-The patch subject should have a subsystem prefix (e.g. the full subject
-should have been "[PATCH] drm/amdgpu: mod_freesync: Remove duplicate
-copyright boilerplate").
+Michael
 
-For patch description, I'd like to write it as "mod_freesync header file
-has duplicated copyright boilerplate. Drop the duplicate". And make
-sure that your Signed-off-by: trailer is on the bottom of description,
-before triple dashes (`git commit -s` does it for you).
-
->=20
-> ---
->  .../amd/display/modules/inc/mod_freesync.h    | 28 -------------------
->  1 file changed, 28 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h b/dri=
-vers/gpu/drm/amd/display/modules/inc/mod_freesync.h
-> index afe1f6cce..cc3dc9b58 100644
-> --- a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
-> +++ b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
-> @@ -1,31 +1,3 @@
-> -/*
-> - * Copyright 2016 Advanced Micro Devices, Inc.
-> - *
-> - * Permission is hereby granted, free of charge, to any person obtaining=
- a
-> - * copy of this software and associated documentation files (the "Softwa=
-re"),
-> - * to deal in the Software without restriction, including without limita=
-tion
-> - * the rights to use, copy, modify, merge, publish, distribute, sublicen=
-se,
-> - * and/or sell copies of the Software, and to permit persons to whom the
-> - * Software is furnished to do so, subject to the following conditions:
-> - *
-> - * The above copyright notice and this permission notice shall be includ=
-ed in
-> - * all copies or substantial portions of the Software.
-> - *
-> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
-SS OR
-> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
-TY,
-> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
-ALL
-> - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES=
- OR
-> - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> - * OTHER DEALINGS IN THE SOFTWARE.
-> - *
-> - * Authors: AMD
-> - *
-> - */
-> -
-> -
-> -
-> -
->  /*
->   * Copyright 2016 Advanced Micro Devices, Inc.
->   *
-
-The diff itself LGTM.
-
-Thanks.
-
---=20
-An old man doll... just what I always wanted! - Clara
-
---ZGVgynaKhqIN2HVd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZYuMQgAKCRD2uYlJVVFO
-o0qFAP48gatzxW12gHZZvhcbCTjbLWlzeSScerZ+QyttfS1K4QEAxEaqJj86R9nS
-X7dnpFXXjKu+pZ+rN8LzhrBwEQgndQk=
-=xonQ
------END PGP SIGNATURE-----
-
---ZGVgynaKhqIN2HVd--
