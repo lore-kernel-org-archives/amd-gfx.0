@@ -4,45 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35227C3DA6E
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Dec 2023 00:24:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8842BC46CD3
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Dec 2023 10:04:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5400210E1A9;
-	Tue, 26 Dec 2023 00:23:57 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FD0F10E1A3;
- Tue, 26 Dec 2023 00:23:55 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 9844660C86;
- Tue, 26 Dec 2023 00:23:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA0E3C433C8;
- Tue, 26 Dec 2023 00:23:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1703550234;
- bh=V9LLZOKMYg2cApF+yQE2TATMfBerVgJKTtP4pZS5U0A=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=K3uHcbwFKiuxL1Xr33wSYGdsDx3+XIrUr72+nclapr+B0PvgKfqvparD0rwIMdoxi
- Fc1FTLL0LIM9PHbgvg6CoYQ8tAkJwWdAcXAr5mjCt+4OCT6yKBFpgJe88C70vv53A8
- 8OMpqim2qYDti0mkBu/B2gOWqYIuIKfuTLOSxfqcPdJfV01hl4deQCodhqUCH5CQnT
- aCxuRC2O+IvRAsLFDAGhOrYyD8RKR2YZQqKXeHpdSNNisZVLinyVoGIMAsdsLRsX9T
- yREj+2nTVQtV25G+cOTalq890c82NTpfWvWfE58GQb3J/Ir4vX/ym3GjlOD/zvc3b1
- 9WgD9IJlNwoPQ==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 20/24] drm/amd/display: get dprefclk ss info from
- integration info table
-Date: Mon, 25 Dec 2023 19:22:13 -0500
-Message-ID: <20231226002255.5730-20-sashal@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20231226002255.5730-1-sashal@kernel.org>
-References: <20231226002255.5730-1-sashal@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3B1110E06F;
+	Tue, 26 Dec 2023 10:04:48 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2075.outbound.protection.outlook.com [40.107.93.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F5A310E06F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Dec 2023 10:04:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Cwz98IQP/TJ55o/9Cu6MswCZwh920z8+p6JKTeeochFOlyys5EDxfM3ZJ94CYMo6WHm/UVhRU2zTD7pWqfI4gln3V3VSgz9Qwj1lt0j8PL//94zz4wuavBJlUpsuSUf2jsOpuuSKfJ1BRkeLB1onGK8unrE1L+dfK1lZv8lTCAXPU5mesGjZsKK+kFMgn8KTsEB8uPPU6m6QhJLYNHmq1+1rVKtO/oi8Hb+Cle/VsUVm224nMBKPBaiH51zzQdILb53eQ+7wIYrdsae7tAIVlzZx2/hm9SeVgQCeH3YNxkjtxkEcVTrc9pfFt741J6oVJvTQ3hqSeDLRxE4XNegkfw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5YGytVdxEH1EOSlVDJtAGEWaUGzNjRWblvmTwY34MMw=;
+ b=L1QiDgWWEVyT5/KvlyiS7yyC0NefWmJ8EKgWuua8XkIQCh2SVhF9noCh0ICFlniLTzYTYnpMhRd/0h8JV3k9eU6bOhiPyIUQFuIVEg9CnI6sZrm/Ct3vDmvHAHFED8XQv6Ad8dM32u1C+ZmgfuXx6eDxtW3R3nvHzbdITHLfpAo5JJKqd4laHcpWg8mnpJ8hhI2gpYVVYVOt9N4SRBql/Nex8IBcAiXrlDxa7NbR/DorT2HM5dZjVGVgDdd3yJO3Cnb0RlV7ybqQ+stFtO5AX095wFEOrfyBOhGfvtuoh7/7Py0IfDw255ytVRCWuUhEZkZLk2BSzGpNLamQuoAKtg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5YGytVdxEH1EOSlVDJtAGEWaUGzNjRWblvmTwY34MMw=;
+ b=LViZK8qm6hV3He5wQSWPULFVpgUM7iudg8XTMyrtKiOSi99pMnSUyx1c7KAKU8SVa2sEyNtM6jDTxJP+2PKWVpPaKQ7N3Ol9wPZLCX3TA3MxlWmeis0QWTmgneT7jigiHJZgEEnEX4KSB7VZquS7XPGw95gqR25UAwZ8s6SYl+Q=
+Received: from SA1P222CA0030.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:22c::6)
+ by DS0PR12MB9276.namprd12.prod.outlook.com (2603:10b6:8:1a0::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.26; Tue, 26 Dec
+ 2023 10:04:45 +0000
+Received: from SN1PEPF0002BA4C.namprd03.prod.outlook.com
+ (2603:10b6:806:22c:cafe::ef) by SA1P222CA0030.outlook.office365.com
+ (2603:10b6:806:22c::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.27 via Frontend
+ Transport; Tue, 26 Dec 2023 10:04:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF0002BA4C.mail.protection.outlook.com (10.167.242.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7135.14 via Frontend Transport; Tue, 26 Dec 2023 10:04:44 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.34; Tue, 26 Dec 2023 04:04:42 -0600
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Subject: [PATCH v3] drm/amdgpu: Release 'adev->pm.fw' before return in
+ 'amdgpu_device_need_post()'
+Date: Tue, 26 Dec 2023 15:34:24 +0530
+Message-ID: <20231226100425.3129745-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.1.69
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4C:EE_|DS0PR12MB9276:EE_
+X-MS-Office365-Filtering-Correlation-Id: 01f8e2f2-3b82-4ca1-3746-08dc05fa161a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: VneYgNUPPkHsEcoSX1TdW0ipNPhrBN643ww+GpwVW0WsxErN48GleTFml01NkMBfF8nLwvegyb9WA+6TvfZbP84ZAQUh7gfVPyTR1qwzJgaVhVxHRAa/DX3i0Otq+XZ4aTv6BK3F7f46pd4fPxjQJKLLQIo9caWkIebchBIgCn7SjV8CkZF3kaAtCPyrkRZYF9dOuznNK7mAjmiauCQuS0wp1oxdjRKYl/2CAJ1xL/UqsfLG0yCquXQQ0iOYuZzR8RuXm/8+S5NptdUninjuKvs0O5ZDMJwcDCilzReVubG4mk1479zLO6rxfYnYjvKZgfSPvRJJ3Yco1/Y4bwdpDqTU0Z3tafkygFco13Ro8QMG2mBE/gWmVauBDKwpybURfMcQuU/18pb9+38PJJ7d2qa/qj6csu78yIpsfNqgCxjDAJPTvKoYvYbe8UCIRFXdCfuNpog1zZT9XCW2MHYK48U6lWjYmkzkY253fmEGKOqJznQCwSjxL5RqvqsO+3MO6jbV9VoCi0BoniuZKu8cg+CE/i/GLZvSVROuVBBhOZer5qQSgMFPC0JhuxDSq4aJun98NNJcUTMf0zpxHmWmhEbepIZVojW5mFw7G8eSJWPORYzZIg+P41OWGo/79zicFaENW0MQiJOZxljDN07BqO9T7L0pQuy+xwOJ/toIVxVF86V/NoD0WK3vRIkIBIrCeCQgwVkHlCFQs3vr1sZLKLcJZ10zw63iO0jY0PJss4tDTk7OgujudYaQ7ooeyBI1re9Uaruk2c5MvjbVYW+UWQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(376002)(346002)(396003)(136003)(39860400002)(230922051799003)(451199024)(186009)(64100799003)(82310400011)(1800799012)(46966006)(40470700004)(36840700001)(41300700001)(36860700001)(83380400001)(47076005)(36756003)(81166007)(356005)(82740400003)(44832011)(4326008)(8936002)(6636002)(70586007)(316002)(70206006)(54906003)(8676002)(2906002)(5660300002)(7696005)(6666004)(16526019)(2616005)(1076003)(426003)(336012)(26005)(66574015)(478600001)(110136005)(86362001)(40480700001)(40460700003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Dec 2023 10:04:44.9922 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01f8e2f2-3b82-4ca1-3746-08dc05fa161a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA4C.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9276
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,93 +99,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Charlene Liu <charlene.liu@amd.com>,
- sunran001@208suo.com, felipe.clark@amd.com, sunpeng.li@amd.com,
- airlied@gmail.com, dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, tony.tascioglu@amd.com, drv@mailo.com,
- Daniel Wheeler <daniel.wheeler@amd.com>, alvin.lee2@amd.com, daniel@ffwll.ch,
- Wayne Lin <wayne.lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- harry.wentland@amd.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- mario.limonciello@amd.com
+Cc: Lijo Lazar <lijo.lazar@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Monk Liu <Monk.Liu@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Charlene Liu <charlene.liu@amd.com>
+In function 'amdgpu_device_need_post(struct amdgpu_device *adev)' -
+'adev->pm.fw' may not be released before return.
 
-[ Upstream commit 51e7b64690776a9981355428b537af9048308a95 ]
+Using the function release_firmware() to release adev->pm.fw.
 
-[why & how]
-we have two SSC_En:
-we get ssc_info from dce_info for MPLL_SSC_EN.
-we used to call VBIOS cmdtbl's smu_info's SS persentage for DPRECLK SS info,
-is used for DP AUDIO and VBIOS' smu_info table was from systemIntegrationInfoTable.
+Thus fixing the below:
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:1571 amdgpu_device_need_post() warn: 'adev->pm.fw' from request_firmware() not released on lines: 1554.
 
-since dcn35 VBIOS removed smu_info, driver need to use integrationInfotable directly.
-
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Acked-by: Wayne Lin <wayne.lin@amd.com>
-Signed-off-by: Charlene Liu <charlene.liu@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+Cc: Monk Liu <Monk.Liu@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
- .../drm/amd/display/dc/bios/bios_parser2.c    | 19 ++++++++++++++-----
- .../display/include/grph_object_ctrl_defs.h   |  2 ++
- 2 files changed, 16 insertions(+), 5 deletions(-)
+v2:
+   release fw needs to be done only FIJI ASIC (Lijo)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-index e507d2e1410b7..93e40e0a15087 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-@@ -1018,13 +1018,20 @@ static enum bp_result get_ss_info_v4_5(
- 		DC_LOG_BIOS("AS_SIGNAL_TYPE_HDMI ss_percentage: %d\n", ss_info->spread_spectrum_percentage);
- 		break;
- 	case AS_SIGNAL_TYPE_DISPLAY_PORT:
--		ss_info->spread_spectrum_percentage =
-+		if (bp->base.integrated_info) {
-+			DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", bp->base.integrated_info->gpuclk_ss_percentage);
-+			ss_info->spread_spectrum_percentage =
-+					bp->base.integrated_info->gpuclk_ss_percentage;
-+			ss_info->type.CENTER_MODE =
-+					bp->base.integrated_info->gpuclk_ss_type;
-+		} else {
-+			ss_info->spread_spectrum_percentage =
- 				disp_cntl_tbl->dp_ss_percentage;
--		ss_info->spread_spectrum_range =
-+			ss_info->spread_spectrum_range =
- 				disp_cntl_tbl->dp_ss_rate_10hz * 10;
--		if (disp_cntl_tbl->dp_ss_mode & ATOM_SS_CENTRE_SPREAD_MODE)
--			ss_info->type.CENTER_MODE = true;
--
-+			if (disp_cntl_tbl->dp_ss_mode & ATOM_SS_CENTRE_SPREAD_MODE)
-+				ss_info->type.CENTER_MODE = true;
-+		}
- 		DC_LOG_BIOS("AS_SIGNAL_TYPE_DISPLAY_PORT ss_percentage: %d\n", ss_info->spread_spectrum_percentage);
- 		break;
- 	case AS_SIGNAL_TYPE_GPU_PLL:
-@@ -2830,6 +2837,8 @@ static enum bp_result get_integrated_info_v2_2(
- 	info->ma_channel_number = info_v2_2->umachannelnumber;
- 	info->dp_ss_control =
- 		le16_to_cpu(info_v2_2->reserved1);
-+	info->gpuclk_ss_percentage = info_v2_2->gpuclk_ss_percentage;
-+	info->gpuclk_ss_type = info_v2_2->gpuclk_ss_type;
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 4b694696930e..33f37efaf373 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1544,6 +1544,7 @@ bool amdgpu_device_need_post(struct amdgpu_device *adev)
+ 				return true;
  
- 	for (i = 0; i < NUMBER_OF_UCHAR_FOR_GUID; ++i) {
- 		info->ext_disp_conn_info.gu_id[i] =
-diff --git a/drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h b/drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h
-index bc96d02113608..813463ffe15c5 100644
---- a/drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h
-+++ b/drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h
-@@ -417,6 +417,8 @@ struct integrated_info {
- 	/* V2.1 */
- 	struct edp_info edp1_info;
- 	struct edp_info edp2_info;
-+	uint32_t gpuclk_ss_percentage;
-+	uint32_t gpuclk_ss_type;
- };
- 
- /*
+ 			fw_ver = *((uint32_t *)adev->pm.fw->data + 69);
++			release_firmware(adev->pm.fw);
+ 			if (fw_ver < 0x00160e00)
+ 				return true;
+ 		}
 -- 
-2.43.0
+2.34.1
 
