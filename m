@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F10AFC47074
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Dec 2023 10:02:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3ACBC4706F
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Dec 2023 10:02:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 244C410E145;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FD4F10E152;
 	Thu, 28 Dec 2023 10:02:16 +0000 (UTC)
-Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
- [IPv6:2607:f8b0:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B573710E02D
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Dec 2023 01:42:24 +0000 (UTC)
-Received: by mail-oi1-x22f.google.com with SMTP id
- 5614622812f47-3bbd11b2f95so106906b6e.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Dec 2023 17:42:24 -0800 (PST)
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDFC410E243
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Dec 2023 01:42:34 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id
+ 5614622812f47-3bbd1155377so117583b6e.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Dec 2023 17:42:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=sifive.com; s=google; t=1703727744; x=1704332544; darn=lists.freedesktop.org;
+ d=sifive.com; s=google; t=1703727754; x=1704332554; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=oKGphS+JVbRrpyRYNMXZcp4xlaDyNlE0PfrLYNqYsRU=;
- b=gxW9tShHPecOrrmnZwXt0ooYv/tTeIF0qVa75/UV1xcluzJyPVrRxCHDtzFtEz7Ymb
- vAXwP6XdcHexOrBqdni6SEPePVnNrCeCq/D8QiRsUl7GN1+gB3dF/yfIsoavU6Gn6BcN
- yMrF68wdSYzMMxpM38ZXqGivGPRfADfI3YQg4V9CvkBXtwwliIniVgTqGSR44jJAAvIU
- g7aablDVhlzRHQzlqXCXtZcvYLC+qVEpyRxkVig6ZxsDZozpOx56VJGD5ZSkvf8IzhVB
- ii8Maea+L7fVHQk2qOPjCV+IukKtv8Zc/GLtwNGh36OoKWvNtk0cgQ0eng3KxddWBUlD
- aDYw==
+ bh=eH3LxR+7tKPhQkN8usVAFkK9L6kG8awbjmN4hDMh6eY=;
+ b=MXpD836nnsiTsESxRuDQYr7qeMlFRWs6DFck0LWBcGixP4PMJUkklp/QsV4irUqpOT
+ IawOlNkKdEM5ZVPw10RzmyvVWBHWBfqmY3Iq0i9yAZL0Z7CT+ZrJxCL1608Jc/+1A0vn
+ 5KFZsoUV/Y3okir4p5jQ+iD/ujCdo+hfPjx9KwSPosD3yM0vgnLPgRpoWLK9pU2Jt1cJ
+ qzZL+N5NPYtVUXp62i4eaK8pnTSTrjWikn3ca7n08qqL/ZZTnzZo2es9BohphuVLrZLK
+ uQvuxbY6sZSt4iRYH4Ejep+pEecTWSWT4MNKmj5IW0mHqy2KDcpRGCmqrjdAEDGSrR3d
+ r+Og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1703727744; x=1704332544;
+ d=1e100.net; s=20230601; t=1703727754; x=1704332554;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=oKGphS+JVbRrpyRYNMXZcp4xlaDyNlE0PfrLYNqYsRU=;
- b=tkXGIgT5lYot78EBuYWQ+TajM0+1H2Qo495fC9geXIL5WEmzbeZb160XgwzjJbHO/s
- MobC721rVwbE6EIPUHzR+g83MOrfZjsOygQ6GTv/9EVaPT1KuQg9P+3OxFoSaEu8OTxl
- pt/7uGlA57wL+CUKVXUgu2r0NU4x+J+BCOs2zqrf7/lX3TZ7vdKLCFeoeJsoUyEpt5GC
- DlPhWAkaL7S3WvAcf4upDJS7bRMA7jevq6uWtU60Y61UpYmMxZyZFBK+81tIpaNFaqWT
- UAhmwwtaOH2G7mvaE77obrwWgGhKXTuLSdFL0lfSbE5XrExuwDiX7fng43TwloMc6FPl
- UhWg==
-X-Gm-Message-State: AOJu0YyV25vrk7Vy0GA8FRMe9Jarj+IuxtkKQBkggxsbi4zpUrDENbw0
- TXBy9T6HyqqR7KX6sgittRAcpWGm9GrZBg==
-X-Google-Smtp-Source: AGHT+IGR7JzQSXMREJRZ9KqB3ICpiol/e1N/urwMCX7a6QXa17U/0va7BA1tyl2KWzFhPtJJzwuFLA==
-X-Received: by 2002:aca:2413:0:b0:3bb:c658:40f with SMTP id
- n19-20020aca2413000000b003bbc658040fmr1920457oic.117.1703727743938; 
- Wed, 27 Dec 2023 17:42:23 -0800 (PST)
+ bh=eH3LxR+7tKPhQkN8usVAFkK9L6kG8awbjmN4hDMh6eY=;
+ b=UKCVw4nejbLNn2pbvk/Oi9F3agietEfKYW+o7WdA/E5stCWHUx7bTfq4gNfFNK6QZv
+ Ge4nMvVzWd8TKCT5GymfeB8W/1V7/bs2RRNFfz3S1q+Hpe44H/67lngFKqaJvqlA7hNU
+ h+hhu6XdgjgU3DmwU9B98VWMEl9q2LsWCTkL7NF3n6wHQOuGLctpW3eHJm8mR7vTcgTw
+ i8GHYVKsSmt7ENEBaIH9EPa000B8gDN4+KFWnkl3oxd3FRn3I3X1mnzGSYcxWpW4Nrin
+ nua88YCEXnnr0B3WJHXUvaT4raY7uryEvsVkSqfyedwNPYTQXYIykBfFUvyv+p87pa6H
+ a7Cg==
+X-Gm-Message-State: AOJu0YzbCRlJilGvizk3Hra/9wBSuOjrluai4p7VX0XkCwJ9oLxGUh6D
+ AWZF8Xnj9lB3R1aUoWDcHAJyBO7VP7NG0w==
+X-Google-Smtp-Source: AGHT+IFEpLCvQycB9Oz1224kGaB5IW+nw3w8GCtWHxMOhFrbIq/NPFVjqUIq8RXAsL/B2ql/Y5FiAg==
+X-Received: by 2002:a05:6808:2204:b0:3bb:6f23:8244 with SMTP id
+ bd4-20020a056808220400b003bb6f238244mr12160740oib.70.1703727754042; 
+ Wed, 27 Dec 2023 17:42:34 -0800 (PST)
 Received: from sw06.internal.sifive.com ([4.53.31.132])
  by smtp.gmail.com with ESMTPSA id
- g24-20020aa78758000000b006d49ed3effasm7335440pfo.63.2023.12.27.17.42.22
+ g24-20020aa78758000000b006d49ed3effasm7335440pfo.63.2023.12.27.17.42.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Dec 2023 17:42:23 -0800 (PST)
+ Wed, 27 Dec 2023 17:42:33 -0800 (PST)
 From: Samuel Holland <samuel.holland@sifive.com>
 To: linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
  x86@kernel.org, linux-riscv@lists.infradead.org,
  Christoph Hellwig <hch@lst.de>
-Subject: [PATCH v2 01/14] arch: Add ARCH_HAS_KERNEL_FPU_SUPPORT
-Date: Wed, 27 Dec 2023 17:41:51 -0800
-Message-ID: <20231228014220.3562640-2-samuel.holland@sifive.com>
+Subject: [PATCH v2 09/14] x86: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
+Date: Wed, 27 Dec 2023 17:41:59 -0800
+Message-ID: <20231228014220.3562640-10-samuel.holland@sifive.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231228014220.3562640-1-samuel.holland@sifive.com>
 References: <20231228014220.3562640-1-samuel.holland@sifive.com>
@@ -75,188 +75,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arch@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Samuel Holland <samuel.holland@sifive.com>,
- loongarch@lists.linux.dev
+Cc: linux-arch@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
+ Samuel Holland <samuel.holland@sifive.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Several architectures provide an API to enable the FPU and run
-floating-point SIMD code in kernel space. However, the function names,
-header locations, and semantics are inconsistent across architectures,
-and FPU support may be gated behind other Kconfig options.
+x86 already provides kernel_fpu_begin() and kernel_fpu_end(), but in a
+different header. Add a wrapper header, and export the CFLAGS
+adjustments as found in lib/Makefile.
 
-Provide a standard way for architectures to declare that kernel space
-FPU support is available. Architectures selecting this option must
-implement what is currently the most common API (kernel_fpu_begin() and
-kernel_fpu_end(), plus a new function kernel_fpu_available()) and
-provide the appropriate CFLAGS for compiling floating-point C code.
-
-Suggested-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
 ---
 
-Changes in v2:
- - Add documentation explaining the built-time and runtime APIs
- - Add a linux/fpu.h header for generic isolation enforcement
+(no changes since v1)
 
- Documentation/core-api/floating-point.rst | 78 +++++++++++++++++++++++
- Documentation/core-api/index.rst          |  1 +
- Makefile                                  |  5 ++
- arch/Kconfig                              |  6 ++
- include/linux/fpu.h                       | 12 ++++
- 5 files changed, 102 insertions(+)
- create mode 100644 Documentation/core-api/floating-point.rst
- create mode 100644 include/linux/fpu.h
+ arch/x86/Kconfig           |  1 +
+ arch/x86/Makefile          | 20 ++++++++++++++++++++
+ arch/x86/include/asm/fpu.h | 13 +++++++++++++
+ 3 files changed, 34 insertions(+)
+ create mode 100644 arch/x86/include/asm/fpu.h
 
-diff --git a/Documentation/core-api/floating-point.rst b/Documentation/core-api/floating-point.rst
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 3762f41bb092..1fe7f2d8d017 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -81,6 +81,7 @@ config X86
+ 	select ARCH_HAS_FORTIFY_SOURCE
+ 	select ARCH_HAS_GCOV_PROFILE_ALL
+ 	select ARCH_HAS_KCOV			if X86_64
++	select ARCH_HAS_KERNEL_FPU_SUPPORT
+ 	select ARCH_HAS_MEM_ENCRYPT
+ 	select ARCH_HAS_MEMBARRIER_SYNC_CORE
+ 	select ARCH_HAS_NMI_SAFE_THIS_CPU_OPS
+diff --git a/arch/x86/Makefile b/arch/x86/Makefile
+index 1a068de12a56..71576c8dbe79 100644
+--- a/arch/x86/Makefile
++++ b/arch/x86/Makefile
+@@ -70,6 +70,26 @@ export BITS
+ KBUILD_CFLAGS += -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx
+ KBUILD_RUSTFLAGS += -Ctarget-feature=-sse,-sse2,-sse3,-ssse3,-sse4.1,-sse4.2,-avx,-avx2
+ 
++#
++# CFLAGS for compiling floating point code inside the kernel.
++#
++CC_FLAGS_FPU := -msse -msse2
++ifdef CONFIG_CC_IS_GCC
++# Stack alignment mismatch, proceed with caution.
++# GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
++# (8B stack alignment).
++# See https://gcc.gnu.org/bugzilla/show_bug.cgi?id=53383
++#
++# The "-msse" in the first argument is there so that the
++# -mpreferred-stack-boundary=3 build error:
++#
++#  -mpreferred-stack-boundary=3 is not between 4 and 12
++#
++# can be triggered. Otherwise gcc doesn't complain.
++CC_FLAGS_FPU += -mhard-float
++CC_FLAGS_FPU += $(call cc-option,-msse -mpreferred-stack-boundary=3,-mpreferred-stack-boundary=4)
++endif
++
+ ifeq ($(CONFIG_X86_KERNEL_IBT),y)
+ #
+ # Kernel IBT has S_CET.NOTRACK_EN=0, as such the compilers must not generate
+diff --git a/arch/x86/include/asm/fpu.h b/arch/x86/include/asm/fpu.h
 new file mode 100644
-index 000000000000..a8d0d4b05052
+index 000000000000..b2743fe19339
 --- /dev/null
-+++ b/Documentation/core-api/floating-point.rst
-@@ -0,0 +1,78 @@
-+.. SPDX-License-Identifier: GPL-2.0+
++++ b/arch/x86/include/asm/fpu.h
+@@ -0,0 +1,13 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (C) 2023 SiFive
++ */
 +
-+Floating-point API
-+==================
++#ifndef _ASM_X86_FPU_H
++#define _ASM_X86_FPU_H
 +
-+Kernel code is normally prohibited from using floating-point (FP) registers or
-+instructions, including the C float and double data types. This rule reduces
-+system call overhead, because the kernel does not need to save and restore the
-+userspace floating-point register state.
++#include <asm/fpu/api.h>
 +
-+However, occasionally drivers or library functions may need to include FP code.
-+This is supported by isolating the functions containing FP code to a separate
-+translation unit (a separate source file), and saving/restoring the FP register
-+state around calls to those functions. This creates "critical sections" of
-+floating-point usage.
++#define kernel_fpu_available()	true
 +
-+The reason for this isolation is to prevent the compiler from generating code
-+touching the FP registers outside these critical sections. Compilers sometimes
-+use FP registers to optimize inlined ``memcpy`` or variable assignment, as
-+floating-point registers may be wider than general-purpose registers.
-+
-+Usability of floating-point code within the kernel is architecture-specific.
-+Additionally, because a single kernel may be configured to support platforms
-+both with and without a floating-point unit, FPU availability must be checked
-+both at build time and at run time.
-+
-+Several architectures implement the generic kernel floating-point API from
-+``linux/fpu.h``, as described below. Some other architectures implement their
-+own unique APIs, which are documented separately.
-+
-+Build-time API
-+--------------
-+
-+Floating-point code may be built if the option ``ARCH_HAS_KERNEL_FPU_SUPPORT``
-+is enabled. For C code, such code must be placed in a separate file, and that
-+file must have its compilation flags adjusted using the following pattern::
-+
-+    CFLAGS_foo.o += $(CC_FLAGS_FPU)
-+    CFLAGS_REMOVE_foo.o += $(CC_FLAGS_NO_FPU)
-+
-+Architectures are expected to define one or both of these variables in their
-+top-level Makefile as needed. For example::
-+
-+    CC_FLAGS_FPU := -mhard-float
-+
-+or::
-+
-+    CC_FLAGS_NO_FPU := -msoft-float
-+
-+Normal kernel code is assumed to use the equivalent of ``CC_FLAGS_NO_FPU``.
-+
-+Runtime API
-+-----------
-+
-+The runtime API is provided in ``linux/fpu.h``. This header cannot be included
-+from files implementing FP code (those with their compilation flags adjusted as
-+above). Instead, it must be included when defining the FP critical sections.
-+
-+.. c:function:: bool kernel_fpu_available( void )
-+
-+        This function reports if floating-point code can be used on this CPU or
-+        platform. The value returned by this function is not expected to change
-+        at runtime, so it only needs to be called once, not before every
-+        critical section.
-+
-+.. c:function:: void kernel_fpu_begin( void )
-+                void kernel_fpu_end( void )
-+
-+        These functions create a floating-point critical section. It is only
-+        valid to call ``kernel_fpu_begin()`` after a previous call to
-+        ``kernel_fpu_available()`` returned ``true``. These functions are only
-+        guaranteed to be callable from (preemptible or non-preemptible) process
-+        context.
-+
-+        Preemption may be disabled inside critical sections, so their size
-+        should be minimized. They are *not* required to be reentrant. If the
-+        caller expects to nest critical sections, it must implement its own
-+        reference counting.
-diff --git a/Documentation/core-api/index.rst b/Documentation/core-api/index.rst
-index 7a3a08d81f11..974beccd671f 100644
---- a/Documentation/core-api/index.rst
-+++ b/Documentation/core-api/index.rst
-@@ -48,6 +48,7 @@ Library functionality that is used throughout the kernel.
-    errseq
-    wrappers/atomic_t
-    wrappers/atomic_bitops
-+   floating-point
- 
- Low level entry and exit
- ========================
-diff --git a/Makefile b/Makefile
-index ee995fc2b0e5..79c9e0b56ab8 100644
---- a/Makefile
-+++ b/Makefile
-@@ -969,6 +969,11 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_CFI)
- export CC_FLAGS_CFI
- endif
- 
-+# Architectures can define flags to add/remove for floating-point support
-+CC_FLAGS_FPU	+= -D_LINUX_FPU_COMPILATION_UNIT
-+export CC_FLAGS_FPU
-+export CC_FLAGS_NO_FPU
-+
- ifneq ($(CONFIG_FUNCTION_ALIGNMENT),0)
- KBUILD_CFLAGS += -falign-functions=$(CONFIG_FUNCTION_ALIGNMENT)
- endif
-diff --git a/arch/Kconfig b/arch/Kconfig
-index f4b210ab0612..e1c01ce819ed 100644
---- a/arch/Kconfig
-+++ b/arch/Kconfig
-@@ -1478,6 +1478,12 @@ config ARCH_HAS_NONLEAF_PMD_YOUNG
- 	  address translations. Page table walkers that clear the accessed bit
- 	  may use this capability to reduce their search space.
- 
-+config ARCH_HAS_KERNEL_FPU_SUPPORT
-+	bool
-+	help
-+	  Architectures that select this option can run floating-point code in
-+	  the kernel, as described in Documentation/core-api/floating-point.rst.
-+
- source "kernel/gcov/Kconfig"
- 
- source "scripts/gcc-plugins/Kconfig"
-diff --git a/include/linux/fpu.h b/include/linux/fpu.h
-new file mode 100644
-index 000000000000..2fb63e22913b
---- /dev/null
-+++ b/include/linux/fpu.h
-@@ -0,0 +1,12 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+
-+#ifndef _LINUX_FPU_H
-+#define _LINUX_FPU_H
-+
-+#ifdef _LINUX_FPU_COMPILATION_UNIT
-+#error FP code must be compiled separately. See Documentation/core-api/floating-point.rst.
-+#endif
-+
-+#include <asm/fpu.h>
-+
-+#endif
++#endif /* ! _ASM_X86_FPU_H */
 -- 
 2.42.0
 
