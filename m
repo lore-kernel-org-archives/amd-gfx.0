@@ -4,52 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBD9EC47073
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Dec 2023 16:12:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B010DC3DA6E
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Dec 2023 10:02:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26C28892EA;
-	Wed, 27 Dec 2023 16:12:40 +0000 (UTC)
-X-Greylist: delayed 439 seconds by postgrey-1.36 at gabe;
- Tue, 26 Dec 2023 10:06:39 UTC
-Received: from qs51p00im-qukt01072502.me.com (qs51p00im-qukt01072502.me.com
- [17.57.155.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 988E710E06B
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Dec 2023 10:06:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com;
- s=1a1hai; t=1703584759;
- bh=nTSG8UvRj0SnmBXP6fDaupYIG5SUl+AGsX/yawYM2qg=;
- h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:To;
- b=n8oQWuMdaZjf4i10MIFxvkkEGthvfTg1LmtsoGnQLJU5tsXZ+Gfu6V74lYym7yMUB
- yljR/BxyjE4HAMx4zrPWNAP0YTlMoS9oZlGFXOdJp/hCFZcNcE04L8+qehLMkt+joX
- nwhUDWtLPNXD3W7bcKU9k6goLkYwVD7Jgq99K35NXeOj6h2uubiYFiyNvKwG/VvDu1
- ylAjYLtVSV93wHLxKeWEymtowK5MnREoZaxI+ig79L2/6JG+YdiVFpD6x0PdNgFS9e
- ybAodXrZ93/b6uG8NsH9d7yEtmEoFRSWrD+az5T8YeEMISKln2x5Y/2ZJI6aOw5aEG
- hebrhXlz5FMdw==
-Received: from smtpclient.apple (qs51p00im-dlb-asmtp-mailmevip.me.com
- [17.57.155.28])
- by qs51p00im-qukt01072502.me.com (Postfix) with ESMTPSA id 35BEC6EC01B3
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Dec 2023 09:59:19 +0000 (UTC)
-From: Michael Roitzsch <reactorcontrol@icloud.com>
-Content-Type: text/plain;
-	charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.120.41.1.4\))
-Subject: Additional resolutions for virtual display
-Message-Id: <CDE9D7C5-36F5-47B9-A3C9-B450EE0856AB@icloud.com>
-Date: Tue, 26 Dec 2023 10:59:16 +0100
-To: amd-gfx@lists.freedesktop.org
-X-Mailer: Apple Mail (2.3696.120.41.1.4)
-X-Proofpoint-GUID: T0mDk9Hpk4qItkMOZzWYImMBEQmI5R5o
-X-Proofpoint-ORIG-GUID: T0mDk9Hpk4qItkMOZzWYImMBEQmI5R5o
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-26_04,2023-12-26_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- malwarescore=0 bulkscore=0
- suspectscore=0 mlxscore=0 clxscore=1011 phishscore=0 mlxlogscore=375
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2308100000 definitions=main-2312260074
-X-Mailman-Approved-At: Wed, 27 Dec 2023 16:12:36 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29BAD10E00D;
+	Thu, 28 Dec 2023 10:02:15 +0000 (UTC)
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 618C410E02D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Dec 2023 01:42:28 +0000 (UTC)
+Received: by mail-oi1-x22e.google.com with SMTP id
+ 5614622812f47-3bbbc6bcc78so1364705b6e.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Dec 2023 17:42:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=sifive.com; s=google; t=1703727747; x=1704332547; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=UB0U1us+sHbYZzCVyIg23Xjh36gyEMV3F74ABUc7NA8=;
+ b=KFs9/5QCDVZUaufxcxoyF38bljhREEdvOPGqufktvshME+wiFjxg8880pHGqoJyTqv
+ ux7TTSJuAPa5m0MOjXBHqoCuyNy970kr6N7hBaOABN3aSKuZi4vByqcUZcBv137h8Nfh
+ qlbHWtqtnVd8hZumDoOLCW3uOtClwbnvRfQitDgQIv8aIawbgbpMCFZwz2CG7q0+D4vg
+ z3a0uAovRUhxhA1WmZjABd91Fn6XBw5aD1Duo2S7cbdiNzVDFxMeYLYY3cA/9EiBEWG2
+ BooK1JNE0idzvJdPItxf4bjoZhK3QWGPfYm3bF28G2DgmLpfghUhymfuIH16rJooOJ2T
+ kfBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1703727747; x=1704332547;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=UB0U1us+sHbYZzCVyIg23Xjh36gyEMV3F74ABUc7NA8=;
+ b=t72Z7QReeKDqASDZnjonFBT72A7yij3dMTr+B9grHf6BvzF+J+SL15A/YM+wqVjtNi
+ SN5pjCmeJXBMyE50QfIug2bkkaN3Rbs4gbvmUk6Jn8B+30FkZyPEK+j9XjCexM47SakX
+ vWo1CxaeIrkfr2Vj0+/Pal8A9i+1vH3B7OLY0suj6R/y6QTaOZ9h9OLRKgniTmlTB/W/
+ CDkwbtw7CruJR5Yyu6R7ekNxvJbQuFipRaigCrH3wpoFJAEh2Rkk55sZhZFPRWhzUjCe
+ UvHvX/Wul8LaM4uE629neks5Q5EqcVtfGtyY/JUbMZYwdnKhRTaM8RVwvrLaFfxhuqOq
+ Rz2Q==
+X-Gm-Message-State: AOJu0YyUxUnPaRMWaBHxIqiVMfVrqF/O+1ViKLYuZw8zGcokGvpU8FHI
+ Nw1VxxKeDeHrPsZha7EJ6UbJnAZB7jCEUQ==
+X-Google-Smtp-Source: AGHT+IGpivtFhMAB3UbcfS1StWXrUWSkj+hLT17JMH2Q4rov0k82hYGdvWTiR/shQbloO22mN5mO3A==
+X-Received: by 2002:a05:6808:148e:b0:3bb:c453:df38 with SMTP id
+ e14-20020a056808148e00b003bbc453df38mr2614480oiw.60.1703727747728; 
+ Wed, 27 Dec 2023 17:42:27 -0800 (PST)
+Received: from sw06.internal.sifive.com ([4.53.31.132])
+ by smtp.gmail.com with ESMTPSA id
+ g24-20020aa78758000000b006d49ed3effasm7335440pfo.63.2023.12.27.17.42.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 Dec 2023 17:42:27 -0800 (PST)
+From: Samuel Holland <samuel.holland@sifive.com>
+To: linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+ x86@kernel.org, linux-riscv@lists.infradead.org,
+ Christoph Hellwig <hch@lst.de>
+Subject: [PATCH v2 04/14] arm64: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
+Date: Wed, 27 Dec 2023 17:41:54 -0800
+Message-ID: <20231228014220.3562640-5-samuel.holland@sifive.com>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20231228014220.3562640-1-samuel.holland@sifive.com>
+References: <20231228014220.3562640-1-samuel.holland@sifive.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 28 Dec 2023 10:02:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,23 +75,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: linux-arch@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
+ Samuel Holland <samuel.holland@sifive.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+arm64 provides an equivalent to the common kernel-mode FPU API, but in a
+different header and using different function names. Add a wrapper
+header, and export CFLAGS adjustments as found in lib/raid6/Makefile.
 
-I am using the amdgpu virtual_display feature for display streaming from =
-a headless machine. However, I need resolutions other than the ones =
-available by default. I found that I can add one mode via the =
-video=3DVirtual-1:=E2=80=A6 kernel boot option. However, I would like to =
-switch between multiple non-default modes.
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
+---
 
-Is there a way to add more than one non-default mode to the virtual =
-display? My current workaround is to patch my resolutions to =
-amdgpu_vkms.c, but I wonder if there is an easier way.
+Changes in v2:
+ - Remove file name from header comment
 
-The resolutions I need are 2x HiDPI versions of ones already available, =
-namely 2880x1800 and 5120x2880.
+ arch/arm64/Kconfig           |  1 +
+ arch/arm64/Makefile          |  9 ++++++++-
+ arch/arm64/include/asm/fpu.h | 15 +++++++++++++++
+ 3 files changed, 24 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm64/include/asm/fpu.h
 
-Michael
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index 7b071a00425d..485ac389ac11 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -30,6 +30,7 @@ config ARM64
+ 	select ARCH_HAS_GCOV_PROFILE_ALL
+ 	select ARCH_HAS_GIGANTIC_PAGE
+ 	select ARCH_HAS_KCOV
++	select ARCH_HAS_KERNEL_FPU_SUPPORT if KERNEL_MODE_NEON
+ 	select ARCH_HAS_KEEPINITRD
+ 	select ARCH_HAS_MEMBARRIER_SYNC_CORE
+ 	select ARCH_HAS_NMI_SAFE_THIS_CPU_OPS
+diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
+index 9a2d3723cd0f..4a65f24c7998 100644
+--- a/arch/arm64/Makefile
++++ b/arch/arm64/Makefile
+@@ -36,7 +36,14 @@ ifeq ($(CONFIG_BROKEN_GAS_INST),y)
+ $(warning Detected assembler with broken .inst; disassembly will be unreliable)
+ endif
+ 
+-KBUILD_CFLAGS	+= -mgeneral-regs-only	\
++# The GCC option -ffreestanding is required in order to compile code containing
++# ARM/NEON intrinsics in a non C99-compliant environment (such as the kernel)
++CC_FLAGS_FPU	:= -ffreestanding
++# Enable <arm_neon.h>
++CC_FLAGS_FPU	+= -isystem $(shell $(CC) -print-file-name=include)
++CC_FLAGS_NO_FPU	:= -mgeneral-regs-only
++
++KBUILD_CFLAGS	+= $(CC_FLAGS_NO_FPU) \
+ 		   $(compat_vdso) $(cc_has_k_constraint)
+ KBUILD_CFLAGS	+= $(call cc-disable-warning, psabi)
+ KBUILD_AFLAGS	+= $(compat_vdso)
+diff --git a/arch/arm64/include/asm/fpu.h b/arch/arm64/include/asm/fpu.h
+new file mode 100644
+index 000000000000..2ae50bdce59b
+--- /dev/null
++++ b/arch/arm64/include/asm/fpu.h
+@@ -0,0 +1,15 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (C) 2023 SiFive
++ */
++
++#ifndef __ASM_FPU_H
++#define __ASM_FPU_H
++
++#include <asm/neon.h>
++
++#define kernel_fpu_available()	cpu_has_neon()
++#define kernel_fpu_begin()	kernel_neon_begin()
++#define kernel_fpu_end()	kernel_neon_end()
++
++#endif /* ! __ASM_FPU_H */
+-- 
+2.42.0
 
