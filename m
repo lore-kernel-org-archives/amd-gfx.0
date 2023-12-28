@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7A8BC47077
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Dec 2023 10:02:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 772F0C3DA6E
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Dec 2023 10:02:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F26FD10E25F;
-	Thu, 28 Dec 2023 10:02:16 +0000 (UTC)
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3879510E243
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Dec 2023 01:42:36 +0000 (UTC)
-Received: by mail-oi1-x22e.google.com with SMTP id
- 5614622812f47-3bbbd4d2b4aso1168148b6e.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Dec 2023 17:42:36 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06EAF10E25C;
+	Thu, 28 Dec 2023 10:02:34 +0000 (UTC)
+Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
+ [IPv6:2607:f8b0:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D05310E1B5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Dec 2023 01:42:30 +0000 (UTC)
+Received: by mail-pf1-x430.google.com with SMTP id
+ d2e1a72fcca58-6d9af1f12d5so2545755b3a.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Dec 2023 17:42:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=sifive.com; s=google; t=1703727755; x=1704332555; darn=lists.freedesktop.org;
+ d=sifive.com; s=google; t=1703727750; x=1704332550; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=7lB3PwOsXsU0eA+wVy54fia689m8tbEsIcyHsrS82lA=;
- b=XNbbXTtlllq+0lMz/49zQB6xj67/VthC5ypMxodIn1BztLa3DBnuC9IJSHfxQAIhYh
- 5QuYdgZg3e6yJD77KBg1gErxQjAsi2aoB2XkUE0s/wnRWwuFoIqayvtD+9vTeOmZ2GvS
- bemFYOAo3BrNVBbVajeGcdKJEM1ZbjoAHffzvzW1kHj2vDcM1HghgEQ4Hk0SgdNtlZxo
- g9yCoRSwZaIVUgwsa42LQnp41pHoqoj3l26VJZR9QjfA9X1jP4fg3glRTvMU1eLoX72u
- oEbq6Hs3dRpS2IXYc4C9Of/nsrmf/rc7rymayli9p7D7426lBfL3WOH2+w2LXP0hL7Vn
- Dw4w==
+ bh=5jd6BNzjMN3b9R+N9FmyfxlTWIL2mCpzUIRSa4mv1F0=;
+ b=PQ2mDChv12N+AW21l+qDyn23bSk8yLc3LMds5rxM6J9sMDg+NmCg5617EuHrEoDlgg
+ Q/IzkfkBLUgYkXfgsDKyp72ij31w5L1M+VfZy476aTvPObXnvLqqH/clDInZbzAGhtAP
+ 3bYpgc3jUDw4yUCdiIiN0i+0ZjU9ylSoPmQRi1844lqSTrbYb2+09eTPF7cDXGlVkqNC
+ ak5VmYEwBwXUmoKdpU0IqwEfc+WLm06hlULAg5+EKfpB+raHfXnt+leRM8CZ46C4YL7T
+ meZB3dfhpJV6r2Miu7Fl7odqYkxFMlKUhw2k3nDeNJEMLVVnU23Rh2XcjmMKwu74FwXz
+ RiWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1703727755; x=1704332555;
+ d=1e100.net; s=20230601; t=1703727750; x=1704332550;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=7lB3PwOsXsU0eA+wVy54fia689m8tbEsIcyHsrS82lA=;
- b=Mo0OrcbqYKVVCIyZR3mOQtIFsKALJwwCbuitInh4tJxJZbdP0rafGAbgzY3eEJjwE7
- sCeKrteFHLDkym4AcHQmw/uZT2sLxJRe8bwlY81wQeo51YCERjE2GOiYrU8M1ejZ/4M5
- WTizctYtz0GL5uSjoBWF4vI/AohvfKTH9Vibq5ETtIr74zikGQ5v+WPJyjfnwXR/qOvB
- lSziEtI0er3o74bZmjiB2ApatOgQOtInP4GZ28+uHVouFt2ZDG02lbB/N09/nJcFumP7
- sUkjl0lnXcf6ZbRmCBVYlLSww+xhWXqScL0xy/ACemMr83BAxu/xzW7sFfSfS5vUwWiv
- Wj8A==
-X-Gm-Message-State: AOJu0YyVpx19PB6uhVOn7MZzhIk6TiprEErnkLHPN5PFpAoFDDGkEk0O
- Qv21kRd8h6PiA84tFCJHUpsUsBNBcGdNgA==
-X-Google-Smtp-Source: AGHT+IGOumGBELysHMV6R76DMfrPeDaWnM5H7Bg8VEJaO8mkFNmjt6T/b5crzc3IAojRuB/OVWCSfQ==
-X-Received: by 2002:a05:6358:9213:b0:174:cf3a:749 with SMTP id
- d19-20020a056358921300b00174cf3a0749mr9824262rwb.36.1703727755495; 
- Wed, 27 Dec 2023 17:42:35 -0800 (PST)
+ bh=5jd6BNzjMN3b9R+N9FmyfxlTWIL2mCpzUIRSa4mv1F0=;
+ b=o8mv6H/MaA+OjwpxIQ91n4Snmh7JEgGlRt47MPYgDTbrDfFCL3UHDYLyr4MIh25Bpx
+ 9A6GHRhE/DotZK93j8ewJzLMH8ttg/Ms8PyMD7BBn1Z0xDzy0AGUx6CYYRz3Gjn/rOxt
+ lavuBZI54Ln+SjOGl8+cDi3OWpXDmMo0wrfbDjWZFFvBqIwdDynqoP41l2goZ5aEoZP7
+ /KhPnktqq00w4HuOp4UImLrjlh2C+er/OJQCBY6wO89Y2X7EW5y2PLDxKoEa+dFuXa8g
+ 6pePXb9lnAKQLWjT3L4+XIOUDP4DTVBkR8+7kvH6tEEAPyzYFgmMnJmI2hQ99WLs5jML
+ YdIw==
+X-Gm-Message-State: AOJu0YyNmmWCNDLCyKkPjE18OV+fVnakimMZ76ccSYtgtAdAmusPMZZI
+ qx3AHE9zFovZYKJbgBtqMxMbDVawxclzQw==
+X-Google-Smtp-Source: AGHT+IE0nmjtDXMxXkCsxA9jA/OWEHDhYnPM1dnj251PyNU2gTBGhxX93h+FmlGsyJJp6FOxSnIuVA==
+X-Received: by 2002:a05:6a00:214d:b0:6d9:f66a:b5f6 with SMTP id
+ o13-20020a056a00214d00b006d9f66ab5f6mr2059083pfk.34.1703727750207; 
+ Wed, 27 Dec 2023 17:42:30 -0800 (PST)
 Received: from sw06.internal.sifive.com ([4.53.31.132])
  by smtp.gmail.com with ESMTPSA id
- g24-20020aa78758000000b006d49ed3effasm7335440pfo.63.2023.12.27.17.42.34
+ g24-20020aa78758000000b006d49ed3effasm7335440pfo.63.2023.12.27.17.42.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Dec 2023 17:42:35 -0800 (PST)
+ Wed, 27 Dec 2023 17:42:29 -0800 (PST)
 From: Samuel Holland <samuel.holland@sifive.com>
 To: linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
  x86@kernel.org, linux-riscv@lists.infradead.org,
  Christoph Hellwig <hch@lst.de>
-Subject: [PATCH v2 10/14] riscv: Add support for kernel-mode FPU
-Date: Wed, 27 Dec 2023 17:42:00 -0800
-Message-ID: <20231228014220.3562640-11-samuel.holland@sifive.com>
+Subject: [PATCH v2 06/14] lib/raid6: Use CC_FLAGS_FPU for NEON CFLAGS
+Date: Wed, 27 Dec 2023 17:41:56 -0800
+Message-ID: <20231228014220.3562640-7-samuel.holland@sifive.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231228014220.3562640-1-samuel.holland@sifive.com>
 References: <20231228014220.3562640-1-samuel.holland@sifive.com>
@@ -81,119 +81,67 @@ Cc: linux-arch@vger.kernel.org, amd-gfx@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is motivated by the amdgpu DRM driver, which needs floating-point
-code to support recent hardware. That code is not performance-critical,
-so only provide a minimal non-preemptible implementation for now.
+Now that CC_FLAGS_FPU is exported and can be used anywhere in the source
+tree, use it instead of duplicating the flags here.
 
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
 ---
 
-Changes in v2:
- - Remove RISC-V architecture-specific preprocessor check
+(no changes since v1)
 
- arch/riscv/Kconfig                  |  1 +
- arch/riscv/Makefile                 |  3 +++
- arch/riscv/include/asm/fpu.h        | 16 ++++++++++++++++
- arch/riscv/kernel/Makefile          |  1 +
- arch/riscv/kernel/kernel_mode_fpu.c | 28 ++++++++++++++++++++++++++++
- 5 files changed, 49 insertions(+)
- create mode 100644 arch/riscv/include/asm/fpu.h
- create mode 100644 arch/riscv/kernel/kernel_mode_fpu.c
+ lib/raid6/Makefile | 31 ++++++++-----------------------
+ 1 file changed, 8 insertions(+), 23 deletions(-)
 
-diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
-index 24c1799e2ec4..4d4d1d64ce34 100644
---- a/arch/riscv/Kconfig
-+++ b/arch/riscv/Kconfig
-@@ -27,6 +27,7 @@ config RISCV
- 	select ARCH_HAS_GCOV_PROFILE_ALL
- 	select ARCH_HAS_GIGANTIC_PAGE
- 	select ARCH_HAS_KCOV
-+	select ARCH_HAS_KERNEL_FPU_SUPPORT if FPU
- 	select ARCH_HAS_MMIOWB
- 	select ARCH_HAS_NON_OVERLAPPING_ADDRESS_SPACE
- 	select ARCH_HAS_PMEM_API
-diff --git a/arch/riscv/Makefile b/arch/riscv/Makefile
-index a74be78678eb..2e719c369210 100644
---- a/arch/riscv/Makefile
-+++ b/arch/riscv/Makefile
-@@ -81,6 +81,9 @@ KBUILD_CFLAGS += -march=$(shell echo $(riscv-march-y) | sed -E 's/(rv32ima|rv64i
+diff --git a/lib/raid6/Makefile b/lib/raid6/Makefile
+index 1c5420ff254e..309fea97efc6 100644
+--- a/lib/raid6/Makefile
++++ b/lib/raid6/Makefile
+@@ -33,25 +33,6 @@ CFLAGS_REMOVE_vpermxor8.o += -msoft-float
+ endif
+ endif
  
- KBUILD_AFLAGS += -march=$(riscv-march-y)
+-# The GCC option -ffreestanding is required in order to compile code containing
+-# ARM/NEON intrinsics in a non C99-compliant environment (such as the kernel)
+-ifeq ($(CONFIG_KERNEL_MODE_NEON),y)
+-NEON_FLAGS := -ffreestanding
+-# Enable <arm_neon.h>
+-NEON_FLAGS += -isystem $(shell $(CC) -print-file-name=include)
+-ifeq ($(ARCH),arm)
+-NEON_FLAGS += -march=armv7-a -mfloat-abi=softfp -mfpu=neon
+-endif
+-CFLAGS_recov_neon_inner.o += $(NEON_FLAGS)
+-ifeq ($(ARCH),arm64)
+-CFLAGS_REMOVE_recov_neon_inner.o += -mgeneral-regs-only
+-CFLAGS_REMOVE_neon1.o += -mgeneral-regs-only
+-CFLAGS_REMOVE_neon2.o += -mgeneral-regs-only
+-CFLAGS_REMOVE_neon4.o += -mgeneral-regs-only
+-CFLAGS_REMOVE_neon8.o += -mgeneral-regs-only
+-endif
+-endif
+-
+ quiet_cmd_unroll = UNROLL  $@
+       cmd_unroll = $(AWK) -v N=$* -f $(srctree)/$(src)/unroll.awk < $< > $@
  
-+# For C code built with floating-point support, exclude V but keep F and D.
-+CC_FLAGS_FPU  := -march=$(shell echo $(riscv-march-y) | sed -E 's/(rv32ima|rv64ima)([^v_]*)v?/\1\2/')
-+
- KBUILD_CFLAGS += -mno-save-restore
- KBUILD_CFLAGS += -DCONFIG_PAGE_OFFSET=$(CONFIG_PAGE_OFFSET)
+@@ -75,10 +56,14 @@ targets += vpermxor1.c vpermxor2.c vpermxor4.c vpermxor8.c
+ $(obj)/vpermxor%.c: $(src)/vpermxor.uc $(src)/unroll.awk FORCE
+ 	$(call if_changed,unroll)
  
-diff --git a/arch/riscv/include/asm/fpu.h b/arch/riscv/include/asm/fpu.h
-new file mode 100644
-index 000000000000..91c04c244e12
---- /dev/null
-+++ b/arch/riscv/include/asm/fpu.h
-@@ -0,0 +1,16 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (C) 2023 SiFive
-+ */
-+
-+#ifndef _ASM_RISCV_FPU_H
-+#define _ASM_RISCV_FPU_H
-+
-+#include <asm/switch_to.h>
-+
-+#define kernel_fpu_available()	has_fpu()
-+
-+void kernel_fpu_begin(void);
-+void kernel_fpu_end(void);
-+
-+#endif /* ! _ASM_RISCV_FPU_H */
-diff --git a/arch/riscv/kernel/Makefile b/arch/riscv/kernel/Makefile
-index fee22a3d1b53..662c483e338d 100644
---- a/arch/riscv/kernel/Makefile
-+++ b/arch/riscv/kernel/Makefile
-@@ -62,6 +62,7 @@ obj-$(CONFIG_MMU) += vdso.o vdso/
- 
- obj-$(CONFIG_RISCV_MISALIGNED)	+= traps_misaligned.o
- obj-$(CONFIG_FPU)		+= fpu.o
-+obj-$(CONFIG_FPU)		+= kernel_mode_fpu.o
- obj-$(CONFIG_RISCV_ISA_V)	+= vector.o
- obj-$(CONFIG_SMP)		+= smpboot.o
- obj-$(CONFIG_SMP)		+= smp.o
-diff --git a/arch/riscv/kernel/kernel_mode_fpu.c b/arch/riscv/kernel/kernel_mode_fpu.c
-new file mode 100644
-index 000000000000..0ac8348876c4
---- /dev/null
-+++ b/arch/riscv/kernel/kernel_mode_fpu.c
-@@ -0,0 +1,28 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (C) 2023 SiFive
-+ */
-+
-+#include <linux/export.h>
-+#include <linux/preempt.h>
-+
-+#include <asm/csr.h>
-+#include <asm/fpu.h>
-+#include <asm/processor.h>
-+#include <asm/switch_to.h>
-+
-+void kernel_fpu_begin(void)
-+{
-+	preempt_disable();
-+	fstate_save(current, task_pt_regs(current));
-+	csr_set(CSR_SSTATUS, SR_FS);
-+}
-+EXPORT_SYMBOL_GPL(kernel_fpu_begin);
-+
-+void kernel_fpu_end(void)
-+{
-+	csr_clear(CSR_SSTATUS, SR_FS);
-+	fstate_restore(current, task_pt_regs(current));
-+	preempt_enable();
-+}
-+EXPORT_SYMBOL_GPL(kernel_fpu_end);
+-CFLAGS_neon1.o += $(NEON_FLAGS)
+-CFLAGS_neon2.o += $(NEON_FLAGS)
+-CFLAGS_neon4.o += $(NEON_FLAGS)
+-CFLAGS_neon8.o += $(NEON_FLAGS)
++CFLAGS_neon1.o += $(CC_FLAGS_FPU)
++CFLAGS_neon2.o += $(CC_FLAGS_FPU)
++CFLAGS_neon4.o += $(CC_FLAGS_FPU)
++CFLAGS_neon8.o += $(CC_FLAGS_FPU)
++CFLAGS_REMOVE_neon1.o += $(CC_FLAGS_NO_FPU)
++CFLAGS_REMOVE_neon2.o += $(CC_FLAGS_NO_FPU)
++CFLAGS_REMOVE_neon4.o += $(CC_FLAGS_NO_FPU)
++CFLAGS_REMOVE_neon8.o += $(CC_FLAGS_NO_FPU)
+ targets += neon1.c neon2.c neon4.c neon8.c
+ $(obj)/neon%.c: $(src)/neon.uc $(src)/unroll.awk FORCE
+ 	$(call if_changed,unroll)
 -- 
 2.42.0
 
