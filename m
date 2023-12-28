@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 550E3C47074
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Dec 2023 10:02:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B28CC47079
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Dec 2023 10:02:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0545A10E261;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EA2A10E265;
 	Thu, 28 Dec 2023 10:02:17 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F38A610E090
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D26CA10E080
  for <amd-gfx@lists.freedesktop.org>; Thu, 28 Dec 2023 06:27:24 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id 038DE68B05; Thu, 28 Dec 2023 07:19:31 +0100 (CET)
-Date: Thu, 28 Dec 2023 07:19:30 +0100
+ id 9513B68CFE; Thu, 28 Dec 2023 07:20:40 +0100 (CET)
+Date: Thu, 28 Dec 2023 07:20:40 +0100
 From: Christoph Hellwig <hch@lst.de>
 To: Samuel Holland <samuel.holland@sifive.com>
-Subject: Re: [PATCH v2 05/14] arm64: crypto: Use CC_FLAGS_FPU for NEON CFLAGS
-Message-ID: <20231228061930.GB12475@lst.de>
+Subject: Re: [PATCH v2 12/14] drm/amd/display: Use ARCH_HAS_KERNEL_FPU_SUPPORT
+Message-ID: <20231228062040.GD12475@lst.de>
 References: <20231228014220.3562640-1-samuel.holland@sifive.com>
- <20231228014220.3562640-6-samuel.holland@sifive.com>
+ <20231228014220.3562640-13-samuel.holland@sifive.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20231228014220.3562640-6-samuel.holland@sifive.com>
+In-Reply-To: <20231228014220.3562640-13-samuel.holland@sifive.com>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mailman-Approved-At: Thu, 28 Dec 2023 10:02:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -48,4 +48,3 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Looks good:
 
 Reviewed-by: Christoph Hellwig <hch@lst.de>
-
