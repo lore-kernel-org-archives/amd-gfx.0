@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14249C47077
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6478C47073
 	for <amd-gfx@archiver.kernel.org>; Thu, 28 Dec 2023 10:02:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 841F010E1A7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC53910E258;
 	Thu, 28 Dec 2023 10:02:16 +0000 (UTC)
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
- [IPv6:2607:f8b0:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9061410E02D
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Dec 2023 01:42:25 +0000 (UTC)
-Received: by mail-pf1-x431.google.com with SMTP id
- d2e1a72fcca58-6da16ec9be4so289624b3a.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Dec 2023 17:42:25 -0800 (PST)
+Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
+ [IPv6:2607:f8b0:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5845110E1D7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Dec 2023 01:42:41 +0000 (UTC)
+Received: by mail-oi1-x230.google.com with SMTP id
+ 5614622812f47-3bbbdf0b859so1421644b6e.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Dec 2023 17:42:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=sifive.com; s=google; t=1703727745; x=1704332545; darn=lists.freedesktop.org;
+ d=sifive.com; s=google; t=1703727760; x=1704332560; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=xuiZ+dA63qa6KuTRM/9EMSF12UiDXQURMhZ59hCd4g8=;
- b=dNbnBRiYnpE5I4pGw5jTWa0Gy/X4sN3l+A5jS7dA845nGGNQ/7sdgoGlXoo3rqVUpk
- zun60dSoVnGSzQET4N424kDI5R26vKtDoSPCMEmAOs/LzYPmGx1rkd3j3uiciIu+rU3L
- KK2xERrJMWNkpUfM3d1bn+8yq1mgg4suhq0/fTATSBRuSozIPp97ikApzqJBN6gfliwr
- yYyR8nsd7EBnoEwPs13zgNQMlJjFI8iDOb4M84dOmDiwQVUZ4FU3gb3+F5BZJczsSLmj
- 6oc0o0O01iSrskFKpGuQEVVfeoJWV+WhAYMmWSrT80FWzxbB19KlpdKOAvpbu2AxHIdJ
- cPJQ==
+ bh=2e+fg9SOqP34XnXL5jU4pEY4/pq3fOIOqFLUTdc21ng=;
+ b=YB0dzT+w5R+nLgwEFPRhYGCUCARmyF2qDDQcUHz9vcfAcbxJdgwzAxhFv+FH6llRRS
+ nEZ7AJ1mnUOFwDHa1zCvpgDhRSU4vjf0h1vbV5xCHVmnA9/Ofh947tXSEpt3bPXejP++
+ hQKNQ+Z65h+8g0Y+y6olPS0Dr2MTSugbbezSjr/XUbTT2x2FFMQz/7HUcvqAAXdvfWvn
+ eqv7VpYKgb+y9prR6g66NRkKKGKQUDSL+taUqRIN9cvHQ/83w/86oZod/7dgGGnolY0E
+ HWeEpmp6Ycz1cKvsWoJ7mKCbZOGLgQ3fQkBEyzIKrRdR1+vk2feAUk9yqHjp6kGLJn+f
+ siVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1703727745; x=1704332545;
+ d=1e100.net; s=20230601; t=1703727760; x=1704332560;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=xuiZ+dA63qa6KuTRM/9EMSF12UiDXQURMhZ59hCd4g8=;
- b=CgfxO2uYEvU3RI4KjLZqr8Vcrd62yEv+YGrdEc8Q0UUh/5Dv4fmG1vi/fkXW0FXr1y
- EWvCICxJa0/LTNcfthoAi8jdjJkm1bmxdpHxBkcVHGV8htaj9LPMory/LI0UJrBrnQFz
- 6XN10RaXNmEWxuPWJnH5q6NJXodwMnOW5rOmY/9oIlZr4xd90fkTQ1G2uHRo2GX6TMmL
- UtPJlIae87sKrSdTR+41kwRhCZ6A39ZQfJpVVs7g+N58uijrCDsLDm2p/BUoWMCnrDuy
- yA5BefKx/4x8CfwQhQzh91+DQvwYFzr8O5o1TeaBkMk1TTJOc1soym7kfRomKH9YRvMv
- 8IJA==
-X-Gm-Message-State: AOJu0Yxq+wtJm9vN1dbN9lqWv4a7MmKkEVLjUKer2bf400BPEH4Qx/BV
- a/+Crs+ONM1g/ubsfaVuIeUAxMNApl87Ig==
-X-Google-Smtp-Source: AGHT+IEILlR72JmnZxJTq7QER4Rq98IUb8qZ6aLblKynPh8gjQmZYjrM9YnZu6dduDjff4jpI/ud3w==
-X-Received: by 2002:aa7:9142:0:b0:6d9:cbb1:7818 with SMTP id
- 2-20020aa79142000000b006d9cbb17818mr4021989pfi.20.1703727745150; 
- Wed, 27 Dec 2023 17:42:25 -0800 (PST)
+ bh=2e+fg9SOqP34XnXL5jU4pEY4/pq3fOIOqFLUTdc21ng=;
+ b=EnVZmXYeJJEIGmZNlqGkeOh3dYuOjD0kSB8HLVc0A1GQGdN2otq4RemVcQaZjMbx68
+ xNJ47wkQLbcg7iQeHpt4y31WPphhxg+FnCdFejXvJ4QzElO/DxDEn07dwsXCxPEsHah/
+ kyI6IHpa5z1YtL+ZwsBNp4ijCbL1wxSEum9CVLD0Ld2AVMERzAahzQgFsljoSlUR3I6K
+ IplepMwO32tzuXak8Tn+z5BMq4qDTIj33+vFShtdyV6UwofywGh0krycBgf9NiaxC4um
+ uiuxGQrGtXdMRMHyIVRItOlfI22j8PzI77kpuUCIVmujfK5PSFsXuQdIQHUzU1Oagjbz
+ 5L+Q==
+X-Gm-Message-State: AOJu0YzODB3bhQFoK3D2MSE80R+h6htgCoPLdHjM+ZtB13P5q87XfpT6
+ CcaYVY8flCVpBaoYfw5f/2lUL4N9MPnm4Q==
+X-Google-Smtp-Source: AGHT+IFlBstkCmb/D17edCTs8sY4vteYMNaBpcxdbvjkI2D4UtEwweJgmB+5F+NfpsSlT4ktPGSvhA==
+X-Received: by 2002:a05:6808:159d:b0:3bb:76ca:f143 with SMTP id
+ t29-20020a056808159d00b003bb76caf143mr11199985oiw.54.1703727760626; 
+ Wed, 27 Dec 2023 17:42:40 -0800 (PST)
 Received: from sw06.internal.sifive.com ([4.53.31.132])
  by smtp.gmail.com with ESMTPSA id
- g24-20020aa78758000000b006d49ed3effasm7335440pfo.63.2023.12.27.17.42.24
+ g24-20020aa78758000000b006d49ed3effasm7335440pfo.63.2023.12.27.17.42.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Dec 2023 17:42:24 -0800 (PST)
+ Wed, 27 Dec 2023 17:42:40 -0800 (PST)
 From: Samuel Holland <samuel.holland@sifive.com>
 To: linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
  x86@kernel.org, linux-riscv@lists.infradead.org,
  Christoph Hellwig <hch@lst.de>
-Subject: [PATCH v2 02/14] ARM: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
-Date: Wed, 27 Dec 2023 17:41:52 -0800
-Message-ID: <20231228014220.3562640-3-samuel.holland@sifive.com>
+Subject: [PATCH v2 14/14] selftests/fpu: Allow building on other architectures
+Date: Wed, 27 Dec 2023 17:42:04 -0800
+Message-ID: <20231228014220.3562640-15-samuel.holland@sifive.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231228014220.3562640-1-samuel.holland@sifive.com>
 References: <20231228014220.3562640-1-samuel.holland@sifive.com>
@@ -81,74 +81,94 @@ Cc: linux-arch@vger.kernel.org, amd-gfx@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-ARM provides an equivalent to the common kernel-mode FPU API, but in a
-different header and using different function names. Add a wrapper
-header, and export CFLAGS adjustments as found in lib/raid6/Makefile.
+Now that ARCH_HAS_KERNEL_FPU_SUPPORT provides a common way to compile
+and run floating-point code, this test is no longer x86-specific.
 
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
 ---
 
-Changes in v2:
- - Remove file name from header comment
+(no changes since v1)
 
- arch/arm/Kconfig           |  1 +
- arch/arm/Makefile          |  7 +++++++
- arch/arm/include/asm/fpu.h | 15 +++++++++++++++
- 3 files changed, 23 insertions(+)
- create mode 100644 arch/arm/include/asm/fpu.h
+ lib/Kconfig.debug   |  2 +-
+ lib/Makefile        | 25 ++-----------------------
+ lib/test_fpu_glue.c |  5 ++++-
+ 3 files changed, 7 insertions(+), 25 deletions(-)
 
-diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
-index f8567e95f98b..92e21a4a2903 100644
---- a/arch/arm/Kconfig
-+++ b/arch/arm/Kconfig
-@@ -14,6 +14,7 @@ config ARM
- 	select ARCH_HAS_FORTIFY_SOURCE
- 	select ARCH_HAS_KEEPINITRD
- 	select ARCH_HAS_KCOV
-+	select ARCH_HAS_KERNEL_FPU_SUPPORT if KERNEL_MODE_NEON
- 	select ARCH_HAS_MEMBARRIER_SYNC_CORE
- 	select ARCH_HAS_NON_OVERLAPPING_ADDRESS_SPACE
- 	select ARCH_HAS_PTE_SPECIAL if ARM_LPAE
-diff --git a/arch/arm/Makefile b/arch/arm/Makefile
-index 5ba42f69f8ce..1dd860dba5f5 100644
---- a/arch/arm/Makefile
-+++ b/arch/arm/Makefile
-@@ -130,6 +130,13 @@ endif
- # Accept old syntax despite ".syntax unified"
- AFLAGS_NOWARN	:=$(call as-option,-Wa$(comma)-mno-warn-deprecated,-Wa$(comma)-W)
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index 4405f81248fb..4596100eeb14 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -2918,7 +2918,7 @@ config TEST_FREE_PAGES
  
-+# The GCC option -ffreestanding is required in order to compile code containing
-+# ARM/NEON intrinsics in a non C99-compliant environment (such as the kernel)
-+CC_FLAGS_FPU	:= -ffreestanding
-+# Enable <arm_neon.h>
-+CC_FLAGS_FPU	+= -isystem $(shell $(CC) -print-file-name=include)
-+CC_FLAGS_FPU	+= -march=armv7-a -mfloat-abi=softfp -mfpu=neon
+ config TEST_FPU
+ 	tristate "Test floating point operations in kernel space"
+-	depends on X86 && !KCOV_INSTRUMENT_ALL
++	depends on ARCH_HAS_KERNEL_FPU_SUPPORT && !KCOV_INSTRUMENT_ALL
+ 	help
+ 	  Enable this option to add /sys/kernel/debug/selftest_helpers/test_fpu
+ 	  which will trigger a sequence of floating point operations. This is used
+diff --git a/lib/Makefile b/lib/Makefile
+index e7cbd54944a2..b9f28558c9bd 100644
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -109,31 +109,10 @@ CFLAGS_test_fprobe.o += $(CC_FLAGS_FTRACE)
+ obj-$(CONFIG_FPROBE_SANITY_TEST) += test_fprobe.o
+ obj-$(CONFIG_TEST_OBJPOOL) += test_objpool.o
+ 
+-#
+-# CFLAGS for compiling floating point code inside the kernel. x86/Makefile turns
+-# off the generation of FPU/SSE* instructions for kernel proper but FPU_FLAGS
+-# get appended last to CFLAGS and thus override those previous compiler options.
+-#
+-FPU_CFLAGS := -msse -msse2
+-ifdef CONFIG_CC_IS_GCC
+-# Stack alignment mismatch, proceed with caution.
+-# GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
+-# (8B stack alignment).
+-# See https://gcc.gnu.org/bugzilla/show_bug.cgi?id=53383
+-#
+-# The "-msse" in the first argument is there so that the
+-# -mpreferred-stack-boundary=3 build error:
+-#
+-#  -mpreferred-stack-boundary=3 is not between 4 and 12
+-#
+-# can be triggered. Otherwise gcc doesn't complain.
+-FPU_CFLAGS += -mhard-float
+-FPU_CFLAGS += $(call cc-option,-msse -mpreferred-stack-boundary=3,-mpreferred-stack-boundary=4)
+-endif
+-
+ obj-$(CONFIG_TEST_FPU) += test_fpu.o
+ test_fpu-y := test_fpu_glue.o test_fpu_impl.o
+-CFLAGS_test_fpu_impl.o += $(FPU_CFLAGS)
++CFLAGS_test_fpu_impl.o += $(CC_FLAGS_FPU)
++CFLAGS_REMOVE_test_fpu_impl.o += $(CC_FLAGS_NO_FPU)
+ 
+ obj-$(CONFIG_TEST_LIVEPATCH) += livepatch/
+ 
+diff --git a/lib/test_fpu_glue.c b/lib/test_fpu_glue.c
+index 85963d7be826..eef282a2715f 100644
+--- a/lib/test_fpu_glue.c
++++ b/lib/test_fpu_glue.c
+@@ -17,7 +17,7 @@
+ #include <linux/module.h>
+ #include <linux/kernel.h>
+ #include <linux/debugfs.h>
+-#include <asm/fpu/api.h>
++#include <linux/fpu.h>
+ 
+ #include "test_fpu.h"
+ 
+@@ -38,6 +38,9 @@ static struct dentry *selftest_dir;
+ 
+ static int __init test_fpu_init(void)
+ {
++	if (!kernel_fpu_available())
++		return -EINVAL;
 +
- ifeq ($(CONFIG_THUMB2_KERNEL),y)
- CFLAGS_ISA	:=-Wa,-mimplicit-it=always $(AFLAGS_NOWARN)
- AFLAGS_ISA	:=$(CFLAGS_ISA) -Wa$(comma)-mthumb
-diff --git a/arch/arm/include/asm/fpu.h b/arch/arm/include/asm/fpu.h
-new file mode 100644
-index 000000000000..2ae50bdce59b
---- /dev/null
-+++ b/arch/arm/include/asm/fpu.h
-@@ -0,0 +1,15 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (C) 2023 SiFive
-+ */
-+
-+#ifndef __ASM_FPU_H
-+#define __ASM_FPU_H
-+
-+#include <asm/neon.h>
-+
-+#define kernel_fpu_available()	cpu_has_neon()
-+#define kernel_fpu_begin()	kernel_neon_begin()
-+#define kernel_fpu_end()	kernel_neon_end()
-+
-+#endif /* ! __ASM_FPU_H */
+ 	selftest_dir = debugfs_create_dir("selftest_helpers", NULL);
+ 	if (!selftest_dir)
+ 		return -ENOMEM;
 -- 
 2.42.0
 
