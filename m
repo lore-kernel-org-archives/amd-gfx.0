@@ -4,67 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33C01C47073
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Dec 2023 10:02:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91A0AC3DA6E
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Dec 2023 22:18:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51CE410E26D;
-	Thu, 28 Dec 2023 10:02:34 +0000 (UTC)
-Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
- [IPv6:2607:f8b0:4864:20::c36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A60F10E23D
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Dec 2023 01:42:40 +0000 (UTC)
-Received: by mail-oo1-xc36.google.com with SMTP id
- 006d021491bc7-58e256505f7so3617347eaf.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Dec 2023 17:42:40 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60A0610E04B;
+	Thu, 28 Dec 2023 22:18:17 +0000 (UTC)
+Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
+ [IPv6:2607:f8b0:4864:20::434])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 322DA10E066
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Dec 2023 22:18:16 +0000 (UTC)
+Received: by mail-pf1-x434.google.com with SMTP id
+ d2e1a72fcca58-6d9ac0520b0so1544198b3a.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Dec 2023 14:18:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=sifive.com; s=google; t=1703727759; x=1704332559; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cNUGRAFHmKzY6lG9DcfUZlQ4QTwCBjkCL5t9hP4xKAE=;
- b=fuvtlYGXsmBMZneEZsD/E++1jKgV/689TBYevffXpCZqLvTI4F7HdCgmP2kYECCfEN
- KkdopmFM7YiuS/yPR3Ty1EQTdV72jSKnEfzuwsfopfK4lLzKTtgyxjVpQnm41s75yZci
- n2uPWbOKUKvjLE53AZgciWpSmZM+aGlZOWo3KUIzJ96DKchijTFjAuuNsKFA/rcATDRm
- 23lsJHGhzo18OXenO8inyK3o3cOeEK5bLwYkeIuMBIetcnE3qm1udF1/Enwx8dp5kHtk
- M+2tPi/xkZHq83zTMoGbnHLgMO2VFxm3YlUpymK7GyCHOFVTH0hcCj2o2gmlCARKkSYf
- mqdQ==
+ d=gmail.com; s=20230601; t=1703801895; x=1704406695; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=InjhV79RwxavLTIGIl1BlCHqZ5mQpy1MOMNGvhjV260=;
+ b=c8NXJIAivQFcUhD7+g4QtN5/NkFnRcgPddybGoTKlwI29SyoQKARviQvQ9I9i2HIRp
+ EpE6fbzMkWCOubh53QcNZyqDvQkhqFbXtgHgCvHZ5Nfg7PY8MjBMlA9RQ4l93YvsN5gi
+ 7hr/tMg7nJcvw6QaiXMySe/ZKGz+REqk7HMYfA+cO5aNho19lpak+BTBwzc9oT3m0FB8
+ G6k9ERtZtzqUlFU4H90HsyfmWD4VK3Lw9UlChtWfsrrZz3KDTzxymWMF9tBpF9inw7BQ
+ oKlkVmAPLi7CRK5rmBqAo/9i1wsNFSmEiTE1EuL+LzyKuadM9svXWT+aXn9/SFH7SaOK
+ eO9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1703727759; x=1704332559;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cNUGRAFHmKzY6lG9DcfUZlQ4QTwCBjkCL5t9hP4xKAE=;
- b=dW1V/gamcUfk2wR9gP3I5iVNf+gu+9Fez1EoHmstGO1lsF/yjUG5acMsbjTG8j2o6c
- e/NHOZkzquCC6AmhlB/2uJvR4HaFvMtc7jTx1Yix/SDzFAGdRzXJtHw5R2OMZgyrMSFW
- DKj+pkHEQGTsXuG5DaY3IbTsAcpc5tDUoprVhG9ND9PV7FvkKVdkJk24zStFxrAqOqnr
- 6KeyDxTzxQ58aigZsBBxz3hZX5HrvNmXPINOPbvLUYifkoHsxobXK2G95qVFxBV5WYa0
- q3pZcT+CLYfHOJJxuTQ51OWyrmrI3/pS4k12uopVINsMGCaFQPvG0zqjAHMW1GWpJ6d3
- mBLg==
-X-Gm-Message-State: AOJu0Yzvt3R6hy7uaXfOcoMpxey0anSk1M/zOMUE3M9whEIt2M4PkrlK
- F/HI3NifPSa/MFS/ghBKl3k5GQL0nYMzRA==
-X-Google-Smtp-Source: AGHT+IGvfqTB3x7wwPMxp1qNsfQvBXkwAH7kyz4he4Bu1Z+L46cvb1psldcQ6vV6De8969ozhHXwqQ==
-X-Received: by 2002:a05:6358:3a1b:b0:172:c06c:fce3 with SMTP id
- g27-20020a0563583a1b00b00172c06cfce3mr5190091rwe.58.1703727759326; 
- Wed, 27 Dec 2023 17:42:39 -0800 (PST)
-Received: from sw06.internal.sifive.com ([4.53.31.132])
+ d=1e100.net; s=20230601; t=1703801895; x=1704406695;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=InjhV79RwxavLTIGIl1BlCHqZ5mQpy1MOMNGvhjV260=;
+ b=tMUVDZojc2UfCalFnoJ9ew7okyuiMw3CS1oyuewtYXTo8brZSBKPlaW2yacW+CROoo
+ t3zQkEmJdPZfvzJOA/zL3s8XZNsTW4vHanixYHIrLa0Y9NS5ioL9zec3zi68Ppkxitbd
+ 88256b7aYsCMAXiXayFkhJFK0K589XraclgF54CAL9hP8y2sn5hR9FnjFwXMmqIXKlOv
+ LiLclw5Q/wAjVZEMAaJlINSxga3kukSrlQ/pKSC7F9PKruiyvQ7ZKnTf3oAEML6gYMCk
+ GZnmrDGcdXZV8aRHicFJ7qZEmqT6eTYeXVJoDOKfKDXUv6e6Ojp94cuBTt3V6gA5+aRv
+ ET/g==
+X-Gm-Message-State: AOJu0YyRYMP8VBXgSjJ5tLB8nY643zuZ3WMTvQOhZov0hysTUoR/g6R1
+ G6k93jEcIxnpAGEpli5CHJA=
+X-Google-Smtp-Source: AGHT+IGUp4hcBY6aIN7ZfTcUq6LNxYWzOwRiH6uQlnwbMg+P91cL4b8ysFwVyJ6UY4N1g45ExosAkQ==
+X-Received: by 2002:a17:902:db02:b0:1d3:29be:efba with SMTP id
+ m2-20020a170902db0200b001d329beefbamr7578127plx.18.1703801895495; 
+ Thu, 28 Dec 2023 14:18:15 -0800 (PST)
+Received: from localhost.localdomain ([2804:1b3:a8c2:13af:e16c:ee4d:83e4:91a0])
  by smtp.gmail.com with ESMTPSA id
- g24-20020aa78758000000b006d49ed3effasm7335440pfo.63.2023.12.27.17.42.38
+ m5-20020a170902db8500b001d04c097d32sm14352542pld.270.2023.12.28.14.18.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Dec 2023 17:42:39 -0800 (PST)
-From: Samuel Holland <samuel.holland@sifive.com>
-To: linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
- x86@kernel.org, linux-riscv@lists.infradead.org,
- Christoph Hellwig <hch@lst.de>
-Subject: [PATCH v2 13/14] selftests/fpu: Move FP code to a separate
- translation unit
-Date: Wed, 27 Dec 2023 17:42:03 -0800
-Message-ID: <20231228014220.3562640-14-samuel.holland@sifive.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231228014220.3562640-1-samuel.holland@sifive.com>
-References: <20231228014220.3562640-1-samuel.holland@sifive.com>
+ Thu, 28 Dec 2023 14:18:15 -0800 (PST)
+From: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>
+To: harry.wentland@amd.com,
+	sunpeng.li@amd.com,
+	Rodrigo.Siqueira@amd.com
+Subject: [PATCH v2] drm/amd/display:  Removing duplicate copyright text
+Date: Thu, 28 Dec 2023 19:15:13 -0300
+Message-Id: <20231228221513.2069-1-marcelomspessoto@gmail.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 28 Dec 2023 10:02:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,148 +71,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arch@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
- Samuel Holland <samuel.holland@sifive.com>
+Cc: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This ensures no compiler-generated floating-point code can appear
-outside kernel_fpu_{begin,end}() sections, and some architectures
-enforce this separation.
+mod_freesync header file has duplicated copyright boilerplate. Drop the
+duplicate.
 
-Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
+Signed-off-by: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>
 ---
+v2:
+   fix the structure of the patch 
 
-Changes in v2:
- - Declare test_fpu() in a header
+ .../amd/display/modules/inc/mod_freesync.h    | 28 -------------------
+ 1 file changed, 28 deletions(-)
 
- lib/Makefile                        |  3 ++-
- lib/test_fpu.h                      |  8 +++++++
- lib/{test_fpu.c => test_fpu_glue.c} | 32 +------------------------
- lib/test_fpu_impl.c                 | 37 +++++++++++++++++++++++++++++
- 4 files changed, 48 insertions(+), 32 deletions(-)
- create mode 100644 lib/test_fpu.h
- rename lib/{test_fpu.c => test_fpu_glue.c} (71%)
- create mode 100644 lib/test_fpu_impl.c
-
-diff --git a/lib/Makefile b/lib/Makefile
-index 6b09731d8e61..e7cbd54944a2 100644
---- a/lib/Makefile
-+++ b/lib/Makefile
-@@ -132,7 +132,8 @@ FPU_CFLAGS += $(call cc-option,-msse -mpreferred-stack-boundary=3,-mpreferred-st
- endif
- 
- obj-$(CONFIG_TEST_FPU) += test_fpu.o
--CFLAGS_test_fpu.o += $(FPU_CFLAGS)
-+test_fpu-y := test_fpu_glue.o test_fpu_impl.o
-+CFLAGS_test_fpu_impl.o += $(FPU_CFLAGS)
- 
- obj-$(CONFIG_TEST_LIVEPATCH) += livepatch/
- 
-diff --git a/lib/test_fpu.h b/lib/test_fpu.h
-new file mode 100644
-index 000000000000..4459807084bc
---- /dev/null
-+++ b/lib/test_fpu.h
-@@ -0,0 +1,8 @@
-+/* SPDX-License-Identifier: GPL-2.0+ */
-+
-+#ifndef _LIB_TEST_FPU_H
-+#define _LIB_TEST_FPU_H
-+
-+int test_fpu(void);
-+
-+#endif
-diff --git a/lib/test_fpu.c b/lib/test_fpu_glue.c
-similarity index 71%
-rename from lib/test_fpu.c
-rename to lib/test_fpu_glue.c
-index e82db19fed84..85963d7be826 100644
---- a/lib/test_fpu.c
-+++ b/lib/test_fpu_glue.c
-@@ -19,37 +19,7 @@
- #include <linux/debugfs.h>
- #include <asm/fpu/api.h>
- 
--static int test_fpu(void)
--{
--	/*
--	 * This sequence of operations tests that rounding mode is
--	 * to nearest and that denormal numbers are supported.
--	 * Volatile variables are used to avoid compiler optimizing
--	 * the calculations away.
--	 */
--	volatile double a, b, c, d, e, f, g;
+diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
+index afe1f6cce..cc3dc9b58 100644
+--- a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
++++ b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
+@@ -1,31 +1,3 @@
+-/*
+- * Copyright 2016 Advanced Micro Devices, Inc.
+- *
+- * Permission is hereby granted, free of charge, to any person obtaining a
+- * copy of this software and associated documentation files (the "Software"),
+- * to deal in the Software without restriction, including without limitation
+- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+- * and/or sell copies of the Software, and to permit persons to whom the
+- * Software is furnished to do so, subject to the following conditions:
+- *
+- * The above copyright notice and this permission notice shall be included in
+- * all copies or substantial portions of the Software.
+- *
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- * OTHER DEALINGS IN THE SOFTWARE.
+- *
+- * Authors: AMD
+- *
+- */
 -
--	a = 4.0;
--	b = 1e-15;
--	c = 1e-310;
 -
--	/* Sets precision flag */
--	d = a + b;
 -
--	/* Result depends on rounding mode */
--	e = a + b / 2;
 -
--	/* Denormal and very large values */
--	f = b / c;
--
--	/* Depends on denormal support */
--	g = a + c * f;
--
--	if (d > a && e > a && g > a)
--		return 0;
--	else
--		return -EINVAL;
--}
-+#include "test_fpu.h"
- 
- static int test_fpu_get(void *data, u64 *val)
- {
-diff --git a/lib/test_fpu_impl.c b/lib/test_fpu_impl.c
-new file mode 100644
-index 000000000000..777894dbbe86
---- /dev/null
-+++ b/lib/test_fpu_impl.c
-@@ -0,0 +1,37 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+
-+#include <linux/errno.h>
-+
-+#include "test_fpu.h"
-+
-+int test_fpu(void)
-+{
-+	/*
-+	 * This sequence of operations tests that rounding mode is
-+	 * to nearest and that denormal numbers are supported.
-+	 * Volatile variables are used to avoid compiler optimizing
-+	 * the calculations away.
-+	 */
-+	volatile double a, b, c, d, e, f, g;
-+
-+	a = 4.0;
-+	b = 1e-15;
-+	c = 1e-310;
-+
-+	/* Sets precision flag */
-+	d = a + b;
-+
-+	/* Result depends on rounding mode */
-+	e = a + b / 2;
-+
-+	/* Denormal and very large values */
-+	f = b / c;
-+
-+	/* Depends on denormal support */
-+	g = a + c * f;
-+
-+	if (d > a && e > a && g > a)
-+		return 0;
-+	else
-+		return -EINVAL;
-+}
+ /*
+  * Copyright 2016 Advanced Micro Devices, Inc.
+  *
 -- 
-2.42.0
+2.39.2
 
