@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9375C47073
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Dec 2023 17:43:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0109C47077
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Dec 2023 17:43:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 477F410E2DB;
-	Fri, 29 Dec 2023 17:43:26 +0000 (UTC)
-Received: from mail-oo1-xc31.google.com (mail-oo1-xc31.google.com
- [IPv6:2607:f8b0:4864:20::c31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C07C10E2D5
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Dec 2023 17:43:25 +0000 (UTC)
-Received: by mail-oo1-xc31.google.com with SMTP id
- 006d021491bc7-5945ba54d54so2771981eaf.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Dec 2023 09:43:25 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 538BF10E2B8;
+	Fri, 29 Dec 2023 17:43:32 +0000 (UTC)
+Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
+ [IPv6:2607:f8b0:4864:20::c2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8902910E2B9
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Dec 2023 17:43:30 +0000 (UTC)
+Received: by mail-oo1-xc2e.google.com with SMTP id
+ 006d021491bc7-5944d1ce0c7so3147560eaf.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Dec 2023 09:43:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1703871804; x=1704476604; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1703871810; x=1704476610; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=zHXVABU2Kc6MEFqZvp4RESMPJbHxxLdFi2QVZ9raygU=;
- b=XymD87Grzv8bxOX9m1abpUrDOQdHX41JrL9Hcrme6Q+jEHCkIk+QAg+p1O+k8pCJeh
- HctrwsomMBCSB4sAoKqzSiJJDzWYV7pA9Ce1JzjumNQA3Lsb8nFuPQJn2qvQP2kEz7RA
- sNsHpc7WlbtfMaJ+dCimfBhyfiGxxhQlWFlgjJaggn10ElAGrqrNV/xSo8uVfpfIZaKg
- wJDNkl7ydN6NJYp+h3KhiRn844uEqEIRywKoZmQXhzcKiENkcxj3k5W6kMfMSavvZJX8
- XA0LyR/hVHzbNFceW7EWd5zE0oAhJZTjdkG94hY0zUMP1uu2tvQphSY6/bp76QJAAXzJ
- RrIQ==
+ bh=f/oN5Kgs8vOcS1tb3i3xf8rw/T12KctZbx72cIkcduU=;
+ b=QeBDX8MlW7MjslIsvDZs7yQjT7h8eP7oUrxc+28TW/abW0wWFPkp774/TZPRM+Ybqi
+ kR4yhmqJKBiahmvMK/dBiabzI00BhdX3bG6Z98ARRZEpT1ft4f8oQa0gztdiPTt8g8+6
+ vKzQqRR1ihXxGThbBSbU8c033ud6/kW5mbvn4om3BXBHZQHpUitXWiFXnedkaCxsCoj9
+ kG6vWOTtEzldySwm6AHVG27OMbW4k9hZ5C8TQgNBJjiie3wHYMlxhK6ckQtAsUnmI3IM
+ OvqXwKvTTGHtZEUzLFJH+EYCLJPZFmUg03G1M16TmpusU29hKGXCTsH9D8E7uKWmu/63
+ CaUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1703871804; x=1704476604;
+ d=1e100.net; s=20230601; t=1703871810; x=1704476610;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=zHXVABU2Kc6MEFqZvp4RESMPJbHxxLdFi2QVZ9raygU=;
- b=XhxkA77ti9URKcYMc3goMNza50vGDe2yvMoZGPi7dNkKIdUZJxpG03TgJOAG3UlyTX
- +3lLRVsJTn1fsBLrm1z5S2aaziR6hSfx3iWbXWrMI23qIBbtZ5GaqgOE8+wcbgJ0ytVL
- qtHUCNtbktTTtHdD/Fj56VEdqJmD7MuVrKWrjCPWoXolJFJ76jGBnavDu1fjTkmG+3L2
- omV8drTn8y1d8/kgtH8u2SreecdJnBg8d9vQ3n/MLQYgnGn+OzWAmsvr+jzmbUfvihq7
- fbVwYcQ35/Ch801egRKCh4fFETV1LLmjq7BG4HNQL7FoXPvquwzAdq6iuz6D2sPKeqUB
- Z37g==
-X-Gm-Message-State: AOJu0YxBcpoRoKKzFS+eGP7jOxr6a3OgwiMUYBM64BLSOmGzxzKXtMx7
- c/4OTqqnrJC6nRkhr/6BHTU=
-X-Google-Smtp-Source: AGHT+IGKbZCs5qvTUnAkZzE+ewvoZZgSHLgmUsD0XnSSUxEVXUxoDwwNtcEISJO0AvDyi+ZRZ2IdsQ==
-X-Received: by 2002:a05:6359:4c1c:b0:172:fc38:9404 with SMTP id
- kj28-20020a0563594c1c00b00172fc389404mr10495645rwc.2.1703871804079; 
- Fri, 29 Dec 2023 09:43:24 -0800 (PST)
+ bh=f/oN5Kgs8vOcS1tb3i3xf8rw/T12KctZbx72cIkcduU=;
+ b=G7xVrp6iHentfxJJ7TyobC3zG2MPuUNysEXaiDCzra0xRvBf6QenS2Xo1q7pOXns5U
+ 05U+uILZLARXszrWpvEujjflFrY3XauYRwJ4tIdMjpNS5AkP2770HC8awq8jFk54UH7Y
+ 8RfBS8FN/A8+judn8xIEv2WfUlzms59XIZNrI8Clk8j1Syt8i9fskWdg3dZLPWGOgZbz
+ lW9Adkk/nQ1XVOsJeQ3jRBwqIyIaaUKHbh1hQlsoJnXxBC/gt9wOgS7UqSs+aWeMfPnq
+ r6gp2RMBz98oNArZ7G4mEwn85WMJo94s+30sD68L/s8O+w4NF3BJaNX5Jd5XpGW68hdI
+ 0rqQ==
+X-Gm-Message-State: AOJu0YwOxsAK/v9Q6bfKOQ0vE88EsOdDJgYpNozY0/exhBjoFnwHSw4O
+ pQ7k89bgXR5BeyreWtwFKQM=
+X-Google-Smtp-Source: AGHT+IFK5BtUJCJs4SR68ACDgYXDH9JXmouhwYNPhMB0dEC5TFQ3tRf1Vl4wkjmufDdmG+/VPNesmg==
+X-Received: by 2002:a05:6358:591a:b0:170:f2f3:1de1 with SMTP id
+ g26-20020a056358591a00b00170f2f31de1mr12181467rwf.33.1703871809604; 
+ Fri, 29 Dec 2023 09:43:29 -0800 (PST)
 Received: from localhost.localdomain ([2804:1b3:a8c2:13af:e16c:ee4d:83e4:91a0])
  by smtp.gmail.com with ESMTPSA id
- m25-20020aa78a19000000b006d9b38f2e75sm10056424pfa.32.2023.12.29.09.43.21
+ m25-20020aa78a19000000b006d9b38f2e75sm10056424pfa.32.2023.12.29.09.43.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 Dec 2023 09:43:23 -0800 (PST)
+ Fri, 29 Dec 2023 09:43:29 -0800 (PST)
 From: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>
 To: harry.wentland@amd.com,
 	sunpeng.li@amd.com,
 	Rodrigo.Siqueira@amd.com
-Subject: [PATCH 1/7] drm/amd/display: Fix hdcp1_execution.c codestyle
-Date: Fri, 29 Dec 2023 14:41:50 -0300
-Message-Id: <20231229174156.1800-2-marcelomspessoto@gmail.com>
+Subject: [PATCH 2/7] drm/amd/display: Fix hdcp_psp.c codestyle
+Date: Fri, 29 Dec 2023 14:41:51 -0300
+Message-Id: <20231229174156.1800-3-marcelomspessoto@gmail.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231229174156.1800-1-marcelomspessoto@gmail.com>
 References: <20231229174156.1800-1-marcelomspessoto@gmail.com>
@@ -79,37 +79,35 @@ Cc: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove braces from single statement if expression in hdcp1_execution.c
-file
+Fix identation for hdcp_psp.c file
 
 Signed-off-by: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>
 ---
- drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c | 4 ++--
+ drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
-index 1ddb4f5ea..182e7532d 100644
---- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
-+++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
-@@ -63,6 +63,7 @@ static inline enum mod_hdcp_status check_hdcp_capable_dp(struct mod_hdcp *hdcp)
- static inline enum mod_hdcp_status check_r0p_available_dp(struct mod_hdcp *hdcp)
- {
- 	enum mod_hdcp_status status;
-+
- 	if (is_dp_hdcp(hdcp)) {
- 		status = (hdcp->auth.msg.hdcp1.bstatus &
- 				DP_BSTATUS_R0_PRIME_READY) ?
-@@ -131,9 +132,8 @@ static inline uint8_t get_device_count(struct mod_hdcp *hdcp)
- static inline enum mod_hdcp_status check_device_count(struct mod_hdcp *hdcp)
- {
- 	/* Avoid device count == 0 to do authentication */
--	if (0 == get_device_count(hdcp)) {
-+	if (get_device_count(hdcp) == 0)
- 		return MOD_HDCP_STATUS_HDCP1_DEVICE_COUNT_MISMATCH_FAILURE;
--	}
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
+index ee67a35c2..8c137d7c0 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
+@@ -443,7 +443,7 @@ enum mod_hdcp_status mod_hdcp_hdcp1_enable_dp_stream_encryption(struct mod_hdcp
+ 	for (i = 0; i < MAX_NUM_OF_DISPLAYS; i++) {
  
- 	/* Some MST display may choose to report the internal panel as an HDCP RX.
- 	 * To update this condition with 1(because the immediate repeater's internal
+ 		if (hdcp->displays[i].adjust.disable || hdcp->displays[i].state != MOD_HDCP_DISPLAY_ACTIVE)
+-				continue;
++			continue;
+ 
+ 		memset(hdcp_cmd, 0, sizeof(struct ta_hdcp_shared_memory));
+ 
+@@ -926,7 +926,7 @@ enum mod_hdcp_status mod_hdcp_hdcp2_enable_dp_stream_encryption(struct mod_hdcp
+ 
+ 	for (i = 0; i < MAX_NUM_OF_DISPLAYS; i++) {
+ 		if (hdcp->displays[i].adjust.disable || hdcp->displays[i].state != MOD_HDCP_DISPLAY_ACTIVE)
+-				continue;
++			continue;
+ 
+ 		hdcp_cmd->in_msg.hdcp2_enable_dp_stream_encryption.display_handle = hdcp->displays[i].index;
+ 		hdcp_cmd->in_msg.hdcp2_enable_dp_stream_encryption.session_handle = hdcp->auth.id;
 -- 
 2.39.2
 
