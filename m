@@ -4,42 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C621BC47073
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Dec 2023 16:38:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D8E4C47074
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Dec 2023 17:43:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35F9010E0A1;
-	Fri, 29 Dec 2023 16:38:30 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C3A910E0A1;
- Fri, 29 Dec 2023 16:38:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=ABg5Sqt7TFlZw1Klt78C3Soq+vNJU8zHohfV779ACh0=; b=ZCUUkAD+ao93/XPJ6PDudAlkS3
- jfNKaC/+Y27+ERYFG+t4/UzjGvF9tiuhp5DIbZbmPXzXHO51ubr9nknYfRVr/CD8rvx1vObNwch02
- DPdSscgoBYzxnRRlrsAEDW0vBZiVaQxS26Q9/DHdfj6oOiHZq4i5d4HsmhTLOw1+G1D82KbwRp+od
- DfsXtPBuktFtBNhM16upNBElWMkboZknJUmDqWLBl/4nhYsfCQ4cTuqeRlDo18eXjw7A8mP3/y8RH
- BmKiTvcq4jObNs4Lid7sxZnRVgVZYg1R7n5AtP0AgIikBTVlJRPtga77RkJ+lv2LOekl0QO8VbxhQ
- Thtr/JqQ==;
-Received: from [102.213.205.115] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1rJFsN-001Xtn-O0; Fri, 29 Dec 2023 17:38:23 +0100
-From: Melissa Wen <mwen@igalia.com>
-To: Harry Wentland <harry.wentland@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, qingqing.zhuo@amd.com
-Subject: [RFC PATCH] drm/amd/display: fix bandwidth validation failure on DCN
- 2.1
-Date: Fri, 29 Dec 2023 15:25:00 -0100
-Message-ID: <20231229163821.144599-1-mwen@igalia.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id DABE110E1A2;
+	Fri, 29 Dec 2023 17:43:14 +0000 (UTC)
+Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
+ [IPv6:2607:f8b0:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D9A810E1A2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Dec 2023 17:43:13 +0000 (UTC)
+Received: by mail-pf1-x433.google.com with SMTP id
+ d2e1a72fcca58-6da202aa138so1152028b3a.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Dec 2023 09:43:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1703871793; x=1704476593; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=X9X6ZB7FeanCSy1/xGxwiuRSlabOIimw2qpZmG+rkj0=;
+ b=TjCAr+RRHjkN9HsT74SpSDWAiVlAa1JviDK8ut0J/TyY5eMEFd9V2/xujKm+8Au7dI
+ cs8ZKx6ohjvL2u2aC+pbYxVsITgh7YG2lyWSBMuFa5iWz3HSQ9Q/uU22ofFjSZUoEE32
+ Ea+xRYTvm/MVyEPFl2i2JozxW7x1mFIdsq/gqu0qBIzOlbrT1JpJoVAUbz3NzWMbYBR2
+ pu5HY+z9Gm3OWB7gC7brBSEoz+UfaD44VRPZDZFe/l32uk5FpjTK1GpsI4BY37ntYgbI
+ d/wzvkmJ3DI+VPTGIxRz8ig/3HGu1pqStQYx1MlpxqU8ybAgE751u+MfL4ej65lBKcBU
+ s0dA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1703871793; x=1704476593;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=X9X6ZB7FeanCSy1/xGxwiuRSlabOIimw2qpZmG+rkj0=;
+ b=CBo6m9hZuBzRSXWNgiyVzfsid8Oso2ggTLNRLEI6uNIH4Ta3Ar/kUqZ+Udq6/19VFz
+ hw0DF8np6LvkO1nVaWPHKG1IzSriEEaOdYwVVwd6y+R+b7rhe4O1MR3S5cVi1UW0kgmG
+ 0ls7lyyM3ZVzyRleTQsiUt4hWRGS0nQQsdKI0JAtFG7ypHALPal/ycmEm0FMUm6Q86jX
+ Hnc6ks9D+oTv/mg+axDupTOPevtREK0LB2R7MrlMuHxgASdXiCiCQyknKzNYYNd43J8v
+ 9/bygo6lEoRgseFLOReu1gICyug45CxWTm3hYyTUwfJ58+pdZXtHAX/Sz2PQOpOWIxDB
+ Jvmg==
+X-Gm-Message-State: AOJu0YzYC2F1bWSyzj8SHf7e3+mLeGLZcfY4Hd3YyWUITro/tBszgcck
+ 4bzV26/6GF8Z3HsPJ1R9UqY=
+X-Google-Smtp-Source: AGHT+IH+pbX+C2WEJV/WSjLwjqHPRaxK4WTlhPmzpEl/rtDzQ96KbTjN21/NBsJB/16EbZCzSlBDLA==
+X-Received: by 2002:a05:6a00:2315:b0:6d9:c0a0:b1f2 with SMTP id
+ h21-20020a056a00231500b006d9c0a0b1f2mr8242705pfh.46.1703871792806; 
+ Fri, 29 Dec 2023 09:43:12 -0800 (PST)
+Received: from localhost.localdomain ([2804:1b3:a8c2:13af:e16c:ee4d:83e4:91a0])
+ by smtp.gmail.com with ESMTPSA id
+ m25-20020aa78a19000000b006d9b38f2e75sm10056424pfa.32.2023.12.29.09.43.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 29 Dec 2023 09:43:12 -0800 (PST)
+From: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>
+To: harry.wentland@amd.com,
+	sunpeng.li@amd.com,
+	Rodrigo.Siqueira@amd.com
+Subject: [PATCH 0/7] drm/amd/display: Fix codestyle issues for modules
+Date: Fri, 29 Dec 2023 14:41:49 -0300
+Message-Id: <20231229174156.1800-1-marcelomspessoto@gmail.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -53,102 +71,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
- Daniel Wheeler <daniel.wheeler@amd.com>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, Harry.Wentland@amd.com
+Cc: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-IGT `amdgpu/amd_color/crtc-lut-accuracy` fails right at the beginning of
-the test execution, during atomic check, because DC rejects the
-bandwidth state for a fb sizing 64x64. The test was previously working
-with the deprecated dc_commit_state(). Now using
-dc_validate_with_context() approach, the atomic check needs to perform a
-full state validation. Therefore, set fast_validation to false in the
-dc_validate_global_state call for atomic check.
+This patchset aims to fix most of codestyle issues present in the
+modules directory
 
-Fixes: b8272241ff9d ("drm/amd/display: Drop dc_commit_state in favor of dc_commit_streams")
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
+Marcelo Mendes Spessoto Junior (7):
+  Fix hdcp1_execution.c codestyle
+  Fix hdcp_psp.c codestyle
+  Fix freesync.c codestyle
+  Fix hdcp_psp.h codestyle
+  Fix hdcp2_execution.c codestyle
+  Fix hdcp_log.h codestyle
+  Fix power_helpers.c codestyle
 
-Hi,
+ .../gpu/drm/amd/display/modules/freesync/freesync.c    |  4 ++--
+ .../gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c |  4 ++--
+ .../gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c |  6 ++----
+ drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.h    | 10 ++++++----
+ drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c    |  4 ++--
+ drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.h    | 10 +++++-----
+ .../gpu/drm/amd/display/modules/power/power_helpers.c  |  2 +-
+ 7 files changed, 20 insertions(+), 20 deletions(-)
 
-It's a long story. I was inspecting this bug report:
-- https://gitlab.freedesktop.org/drm/amd/-/issues/2016
-and noticed the IGT test `igt@amdgpu/amd_color@crtc-lut-accuracy`
-mentioned there wasn't even being executed on a laptop with DCN 2.1
-(HP HP ENVY x360 Convertible 13-ay1xxx/8929). The test fails right at
-the beginning due to an atomic check rejection, as below:
-
-Starting subtest: crtc-lut-accuracy
-(amd_color:14772) igt_kms-CRITICAL: Test assertion failure function igt_display_commit_atomic, file ../lib/igt_kms.c:4530:
-(amd_color:14772) igt_kms-CRITICAL: Failed assertion: ret == 0
-(amd_color:14772) igt_kms-CRITICAL: Last errno: 22, Invalid argument
-(amd_color:14772) igt_kms-CRITICAL: error: -22 != 0
-Stack trace:
-  #0 ../lib/igt_core.c:1989 __igt_fail_assert()
-  #1 [igt_display_commit_atomic+0x44]
-  #2 ../tests/amdgpu/amd_color.c:159 __igt_unique____real_main395()
-  #3 ../tests/amdgpu/amd_color.c:395 main()
-  #4 ../sysdeps/nptl/libc_start_call_main.h:74 __libc_start_call_main()
-  #5 ../csu/libc-start.c:128 __libc_start_main@@GLIBC_2.34()
-  #6 [_start+0x21]
-Subtest crtc-lut-accuracy failed.
-
-Checking dmesg, we can see that a bandwidth validation failure causes
-the atomic check rejection:
-
-[  711.147663] amdgpu 0000:04:00.0: [drm] Mode Validation Warning: Unknown Status failed validation.
-[  711.147667] [drm:amdgpu_dm_atomic_check [amdgpu]] DC global validation failure: Bandwidth validation failure (BW and Watermark) (13)
-[  711.147772] [drm:amdgpu_irq_dispatch [amdgpu]] Unregistered interrupt src_id: 243 of client_id:8
-[  711.148033] [drm:amdgpu_dm_atomic_check [amdgpu]] Atomic check failed with err: -22
-
-I also noticed that the atomic check doesn't fail if I change the fb
-width and height used in the test from 64 to 66, and I can get the test
-execution back (and with success). However, I recall that all test cases
-of IGT `amd_color` were working in the past, so I bisected and found the
-first bad commit:
-
-b8272241ff9d drm/amd/display: Drop dc_commit_state in favor of dc_commit_streams
-
-Bringing the `dc_commit_state` machinery back also prevents the
-bandwidth validation failure, but the commit above says
-dc_commit_streams validation is more complete than dc_commit_state, so I
-discarded this approach.
-
-After some debugging and code inspection, I found out that avoiding fast
-validation on dc_validate_global_state during atomic check solves the
-issue, but I'm not sure if this change may affect performance. I
-compared exec time of some IGT tests and didn't see any differences, but
-I recognize it doesn't provide enough evidence.
-
-What do you think about this change? Should I examine other things? Do
-you see any potential issue that I should investigate? Could you
-recommend a better approach to assess any side-effect of not enabling
-fast validation in the atomic check?
-
-Please, let me know your thoughts.
-
-Happy New Year!
-
-Melissa
-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 2845c884398e..4f51a7ad7a3c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -10745,7 +10745,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 			DRM_DEBUG_DRIVER("drm_dp_mst_atomic_check() failed\n");
- 			goto fail;
- 		}
--		status = dc_validate_global_state(dc, dm_state->context, true);
-+		status = dc_validate_global_state(dc, dm_state->context, false);
- 		if (status != DC_OK) {
- 			DRM_DEBUG_DRIVER("DC global validation failure: %s (%d)",
- 				       dc_status_to_str(status), status);
 -- 
-2.43.0
+2.39.2
 
