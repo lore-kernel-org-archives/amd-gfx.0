@@ -4,90 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38750C47073
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Dec 2023 15:12:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C621BC47073
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Dec 2023 16:38:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8939010E12A;
-	Fri, 29 Dec 2023 15:12:49 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2056.outbound.protection.outlook.com [40.107.243.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F3F110E12A
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Dec 2023 15:12:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UEuXn1aBn1QABKmjj0Lm5Uj3bcBMKSp+2GeibgmQMxHJx+2NLRhBpshfsjLK27iEXN2gJ3OqSQh1557dXsGHb1GXqrCxlz4nI2ayMwdBCp3gA57oEErxso/ju+aK3hwSbPAfhMXSjcvbf2XAezPfwUVgGp7JB9qO1CfrVoGo54jPAVVQRWdIopskLZTHNGyUj+YxhJTK1/KOgIhfcAngTNRzA9/qG6eJSYghCmhxJwWC32JdjzhgPiPsy6pjYuDekv5tSJFfmIIqDq8jeT1iT06zyA+Ww6eew/AOsKoqUPmeTSSsUI9FnRhas/i+dVZMJCZOgdb1eDI1WoTVHDZ1dA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eBPSOqIagcgumieAjKpmDKxUwoyHndWrOqBWKbmItkc=;
- b=UGj8JrSL2xJ4mRb/TKlpzBp7yXSaHNXK66t7I+CccOQq4Xvgn7T2vOeo/sTIoTqtBUP9nRbBbw/4Ln5KvdrkQYLiSm4lk1Js4k1ix26anN0wz6jbdzLWygisBYD53Pztdrr4q3M2SHsoc1b3z/pkHvIObH3kZBxUiNRdnnKWbMstzT9dpW+SSgZuOQ2yTHteVZJ9huLFwfL3BWtoBXY97Xr5Jk9YXmDZqQRlHfsOPT0RG4uxOwGF/vPYbGlSH4Pdwkwk5BWGWhXQfXNclssrmGSWftIZam1tDToORnKuwFEYq7xA9u0lk5YllXuZEU6q92jSV9VLxz06X8eSx0FUIg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eBPSOqIagcgumieAjKpmDKxUwoyHndWrOqBWKbmItkc=;
- b=y0VG0AeIeO9dFGs8ccaH97kQqXvLpk884hgPfRgWnyixnX0yhx2GjhufmjJQlDOpZgoY69lFL8LErBK3W1o2cOVOYEzKIuhlUb37Mb+qioi3/sAqd/iIUp77f4hs46ybtBRQ56IPqjRvoospD6iDjN3xcqZQ8yutMfItnp0g88U=
-Received: from MW4PR03CA0101.namprd03.prod.outlook.com (2603:10b6:303:b7::16)
- by PH7PR12MB8794.namprd12.prod.outlook.com (2603:10b6:510:27d::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.21; Fri, 29 Dec
- 2023 15:12:44 +0000
-Received: from CO1PEPF000042AE.namprd03.prod.outlook.com
- (2603:10b6:303:b7:cafe::ad) by MW4PR03CA0101.outlook.office365.com
- (2603:10b6:303:b7::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.21 via Frontend
- Transport; Fri, 29 Dec 2023 15:12:44 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000042AE.mail.protection.outlook.com (10.167.243.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7159.9 via Frontend Transport; Fri, 29 Dec 2023 15:12:44 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.34; Fri, 29 Dec 2023 09:12:41 -0600
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Felix Kuehling
- <Felix.Kuehling@amd.com>
-Subject: [PATCH] drm/amdgpu: Drop 'fence' check in 'to_amdgpu_amdkfd_fence()'
-Date: Fri, 29 Dec 2023 20:42:26 +0530
-Message-ID: <20231229151226.175336-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35F9010E0A1;
+	Fri, 29 Dec 2023 16:38:30 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C3A910E0A1;
+ Fri, 29 Dec 2023 16:38:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=ABg5Sqt7TFlZw1Klt78C3Soq+vNJU8zHohfV779ACh0=; b=ZCUUkAD+ao93/XPJ6PDudAlkS3
+ jfNKaC/+Y27+ERYFG+t4/UzjGvF9tiuhp5DIbZbmPXzXHO51ubr9nknYfRVr/CD8rvx1vObNwch02
+ DPdSscgoBYzxnRRlrsAEDW0vBZiVaQxS26Q9/DHdfj6oOiHZq4i5d4HsmhTLOw1+G1D82KbwRp+od
+ DfsXtPBuktFtBNhM16upNBElWMkboZknJUmDqWLBl/4nhYsfCQ4cTuqeRlDo18eXjw7A8mP3/y8RH
+ BmKiTvcq4jObNs4Lid7sxZnRVgVZYg1R7n5AtP0AgIikBTVlJRPtga77RkJ+lv2LOekl0QO8VbxhQ
+ Thtr/JqQ==;
+Received: from [102.213.205.115] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1rJFsN-001Xtn-O0; Fri, 29 Dec 2023 17:38:23 +0100
+From: Melissa Wen <mwen@igalia.com>
+To: Harry Wentland <harry.wentland@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, qingqing.zhuo@amd.com
+Subject: [RFC PATCH] drm/amd/display: fix bandwidth validation failure on DCN
+ 2.1
+Date: Fri, 29 Dec 2023 15:25:00 -0100
+Message-ID: <20231229163821.144599-1-mwen@igalia.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042AE:EE_|PH7PR12MB8794:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2b53619f-d9bb-4102-b879-08dc08809bed
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FUn1dN2InYKFOJNpbOe7zhNPN3WD+BRRp/D9D/cVRiMAZIgmqNV2SYkBEQNix6I7S93m00MEI1t4UxoNZIuW6qF3L9anRCxW4Vxq6mq/BW65p6F26KDvH3p6MyNNf9oxj35Q8sLK/YF9QTrzW1qlyvtseX1iZOp0dJ3wPfOK4+r46VRNMEkYdZaCgrA2xB+V2NQdrgqMfBED5G9J7SBJrYa2ybjBk0RvYMO3LfkK09hnFjvOxuqd18uBq8/b2ZWf1vCGriiFbSY7g5lozhzk2G00JxTDqhYAUNjjPWMhak3KXj2yviv/XLv/2NQ3EHzIuTZbfjtScqDApCORt6n5XBx9woWS8UqAGdQf6lMYA414tVEwrvlIv3b0t46xGCBNeTZH3UbRHNiJl3c7mlI+8zNQ9xQyux2+FX6boCyBs6V5iJJvRC6ayvcCO1sWx8EffOnXRhzDNbY0iFoux+4YEgyvgqUMQhtkdYD5sH9IMmgcZdzmbOIYl1E8ZIMbQJ19KDqwj4zvYcMf8QPzbWigWL8eUSCtG2WAurmUSEsJgRhSJJvT52SCchAItBcVhACQNhXPHDmkXh1yaDauwtxORRfnmqcKWSbNOIZNoFy9cc900vForAk5YCzWAqUKxVTewSjzmQG9v5UeijRTDOiVecueqbRk8SMfFtuB6ppxeVmxJkexPc0g8FyWNX6OluVn8t13UK2i/Rh7Kw5Du2QJ5hUjCOV5hmqrMm1P8Hui6KbrDUi2kdlJVfiG88/8YQNqYfQbI4jzXomiCbygk4cQUQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(136003)(346002)(39860400002)(396003)(230922051799003)(451199024)(1800799012)(186009)(64100799003)(82310400011)(40470700004)(46966006)(36840700001)(2616005)(41300700001)(47076005)(1076003)(26005)(83380400001)(336012)(66574015)(356005)(81166007)(82740400003)(36860700001)(8676002)(8936002)(426003)(110136005)(316002)(54906003)(4326008)(2906002)(5660300002)(478600001)(16526019)(44832011)(6666004)(6636002)(70206006)(70586007)(7696005)(86362001)(36756003)(40480700001)(40460700003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Dec 2023 15:12:44.3245 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2b53619f-d9bb-4102-b879-08dc08809bed
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042AE.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8794
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,38 +53,102 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
+ Daniel Wheeler <daniel.wheeler@amd.com>, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com, Harry.Wentland@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Return value of container_of(...) can't be null, so null check is not
-required for 'fence'. Hence drop its NULL check.
+IGT `amdgpu/amd_color/crtc-lut-accuracy` fails right at the beginning of
+the test execution, during atomic check, because DC rejects the
+bandwidth state for a fb sizing 64x64. The test was previously working
+with the deprecated dc_commit_state(). Now using
+dc_validate_with_context() approach, the atomic check needs to perform a
+full state validation. Therefore, set fast_validation to false in the
+dc_validate_global_state call for atomic check.
 
-Fixes the below:
-drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c:93 to_amdgpu_amdkfd_fence() warn: can 'fence' even be NULL?
-
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Fixes: b8272241ff9d ("drm/amd/display: Drop dc_commit_state in favor of dc_commit_streams")
+Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c | 2 +-
+
+Hi,
+
+It's a long story. I was inspecting this bug report:
+- https://gitlab.freedesktop.org/drm/amd/-/issues/2016
+and noticed the IGT test `igt@amdgpu/amd_color@crtc-lut-accuracy`
+mentioned there wasn't even being executed on a laptop with DCN 2.1
+(HP HP ENVY x360 Convertible 13-ay1xxx/8929). The test fails right at
+the beginning due to an atomic check rejection, as below:
+
+Starting subtest: crtc-lut-accuracy
+(amd_color:14772) igt_kms-CRITICAL: Test assertion failure function igt_display_commit_atomic, file ../lib/igt_kms.c:4530:
+(amd_color:14772) igt_kms-CRITICAL: Failed assertion: ret == 0
+(amd_color:14772) igt_kms-CRITICAL: Last errno: 22, Invalid argument
+(amd_color:14772) igt_kms-CRITICAL: error: -22 != 0
+Stack trace:
+  #0 ../lib/igt_core.c:1989 __igt_fail_assert()
+  #1 [igt_display_commit_atomic+0x44]
+  #2 ../tests/amdgpu/amd_color.c:159 __igt_unique____real_main395()
+  #3 ../tests/amdgpu/amd_color.c:395 main()
+  #4 ../sysdeps/nptl/libc_start_call_main.h:74 __libc_start_call_main()
+  #5 ../csu/libc-start.c:128 __libc_start_main@@GLIBC_2.34()
+  #6 [_start+0x21]
+Subtest crtc-lut-accuracy failed.
+
+Checking dmesg, we can see that a bandwidth validation failure causes
+the atomic check rejection:
+
+[  711.147663] amdgpu 0000:04:00.0: [drm] Mode Validation Warning: Unknown Status failed validation.
+[  711.147667] [drm:amdgpu_dm_atomic_check [amdgpu]] DC global validation failure: Bandwidth validation failure (BW and Watermark) (13)
+[  711.147772] [drm:amdgpu_irq_dispatch [amdgpu]] Unregistered interrupt src_id: 243 of client_id:8
+[  711.148033] [drm:amdgpu_dm_atomic_check [amdgpu]] Atomic check failed with err: -22
+
+I also noticed that the atomic check doesn't fail if I change the fb
+width and height used in the test from 64 to 66, and I can get the test
+execution back (and with success). However, I recall that all test cases
+of IGT `amd_color` were working in the past, so I bisected and found the
+first bad commit:
+
+b8272241ff9d drm/amd/display: Drop dc_commit_state in favor of dc_commit_streams
+
+Bringing the `dc_commit_state` machinery back also prevents the
+bandwidth validation failure, but the commit above says
+dc_commit_streams validation is more complete than dc_commit_state, so I
+discarded this approach.
+
+After some debugging and code inspection, I found out that avoiding fast
+validation on dc_validate_global_state during atomic check solves the
+issue, but I'm not sure if this change may affect performance. I
+compared exec time of some IGT tests and didn't see any differences, but
+I recognize it doesn't provide enough evidence.
+
+What do you think about this change? Should I examine other things? Do
+you see any potential issue that I should investigate? Could you
+recommend a better approach to assess any side-effect of not enabling
+fast validation in the atomic check?
+
+Please, let me know your thoughts.
+
+Happy New Year!
+
+Melissa
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-index 469785d33791..1ef758ac5076 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-@@ -90,7 +90,7 @@ struct amdgpu_amdkfd_fence *to_amdgpu_amdkfd_fence(struct dma_fence *f)
- 		return NULL;
- 
- 	fence = container_of(f, struct amdgpu_amdkfd_fence, base);
--	if (fence && f->ops == &amdkfd_fence_ops)
-+	if (f->ops == &amdkfd_fence_ops)
- 		return fence;
- 
- 	return NULL;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 2845c884398e..4f51a7ad7a3c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -10745,7 +10745,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 			DRM_DEBUG_DRIVER("drm_dp_mst_atomic_check() failed\n");
+ 			goto fail;
+ 		}
+-		status = dc_validate_global_state(dc, dm_state->context, true);
++		status = dc_validate_global_state(dc, dm_state->context, false);
+ 		if (status != DC_OK) {
+ 			DRM_DEBUG_DRIVER("DC global validation failure: %s (%d)",
+ 				       dc_status_to_str(status), status);
 -- 
-2.34.1
+2.43.0
 
