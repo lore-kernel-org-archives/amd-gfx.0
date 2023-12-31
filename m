@@ -4,39 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C19CC46CD2
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jan 2024 14:16:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17E47C47074
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jan 2024 14:16:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6EF610E17D;
-	Tue,  2 Jan 2024 14:15:59 +0000 (UTC)
-Received: from mail02.habana.ai (habanamailrelay02.habana.ai [62.90.112.121])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 609D910E04E;
- Sun, 31 Dec 2023 14:39:11 +0000 (UTC)
-Received: internal info suppressed
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=habana.ai; s=default;
- t=1704033524; bh=Gbv3uhKrlYkpm1RVuHuU6BzQ7lY53S6ikSobyFwhv6Y=;
- h=From:To:Cc:Subject:Date:From;
- b=lsEnzn5ksU2xoJ8Y4Xoy2ykO582uniizlQ4Pdlh0xagK5lAM2df+paHZS9ZP/jROF
- VRYSFfQzAWIHolEr7gTmuL07TKsiMkxFpIWUD9eAxourBj+xJzCrkxy+AQsLWnP2Sv
- d7KZxu9RJOuh1h9teeI8P9C2kUJFM4kQ1nxdMRQkuZ2SshNNpdAZCrVqLzVudFbl3Z
- lBOUU7iVDBMm4Ca+I60mFZPBtjTB4VxZUidpO7cVGp6p/WXyIkqLJ7QYBFi24zmF+a
- 1IszGvUXRHErS3k3Nvz4w5Udv8q3Cc+CGpN6Tw6fZSDeIZH47zCdXvTJZKCbbfEQ7g
- uCVEOGdYT8o8Q==
-Received: from dhirschfeld-vm-u22.habana-labs.com (localhost [127.0.0.1])
- by dhirschfeld-vm-u22.habana-labs.com (8.15.2/8.15.2/Debian-22ubuntu3) with
- ESMTPS id 3BVEce03893872
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Sun, 31 Dec 2023 16:38:40 +0200
-Received: (from dhirschfeld@localhost)
- by dhirschfeld-vm-u22.habana-labs.com (8.15.2/8.15.2/Submit) id 3BVEceco893871;
- Sun, 31 Dec 2023 16:38:40 +0200
-From: Dafna Hirschfeld <dhirschfeld@habana.ai>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B70F10E1A6;
+	Tue,  2 Jan 2024 14:16:00 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2FA910E0A5;
+ Sun, 31 Dec 2023 23:45:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=4UQSHGziniGnMB7NB3w+rLgmWm7wn1IcPSwtTyIDPQc=; b=fsZruzZq3/gC4YuPz0Si6jeGQW
+ SubXgCd9D3v4qBY/LDs6G7GWJ48aO1uRapfRSCeIs64Ggf7MhXpBWXk88WY0OuZk2OuK6vFcg/dNG
+ 0xKJI5Rbip387B0tBhppYCHWUek8FwNn1nlRkT75GW+yIb7WgITLp/OD2XBfZRGf0Hm5uO9MpYt5x
+ mXdED7IzOLv+sj2EKB+Lcc367euS2GfoeKLejdX9B0KUqNnmrA0FBm+54zZNjOs4tmGmAqIpM+KSl
+ pvG4X8jWTfYFpdmcDXFixOKopTRlS0rXvleLY86H3q5wCf96SGK53+oG4c2a4/0zHO6iTM6J5SYhi
+ pHTrbkzQ==;
+Received: from [50.53.46.231] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1rK5US-005NBV-13; Sun, 31 Dec 2023 23:45:08 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
 To: dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amdkfd: fixes for HMM mem allocation
-Date: Sun, 31 Dec 2023 16:37:00 +0200
-Message-Id: <20231231143700.893822-1-dhirschfeld@habana.ai>
-X-Mailer: git-send-email 2.34.1
+Subject: [PATCH] drm/amd/display: dcn35_hwseq: use common comment to prevent
+ kernel-doc warnings
+Date: Sun, 31 Dec 2023 15:45:06 -0800
+Message-ID: <20231231234507.7685-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 02 Jan 2024 14:15:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -50,61 +48,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ogabbay@kernel.org, Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, Dafna Hirschfeld <dhirschfeld@habana.ai>,
- alexander.deucher@amd.com, Felix.Kuehling@amd.com, obitton@habana.ai
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Few fixes to amdkfd and the doc of
-devm_request_free_mem_region.
+Change non-kernel-doc comments to use "/*" to prevent warnings from
+scripts/kernel-doc.
 
-Signed-off-by: Dafna Hirschfeld <dhirschfeld@habana.ai>
+dcn35_hwseq.c:1124: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+         * power down sequence
+dcn35_hwseq.c:1124: warning: missing initial short description on line:
+         * power down sequence
+dcn35_hwseq.c:1176: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+         * power up sequence
+dcn35_hwseq.c:1176: warning: missing initial short description on line:
+         * power up sequence
+
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 6 +++---
- kernel/resource.c                        | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+I thought that I sent this patch but it's not in the lore archive
+so I'm sending it again. Apologies if you get it twice.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index 6c25dab051d5..b8680e0753ca 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -1021,7 +1021,7 @@ int kgd2kfd_init_zone_device(struct amdgpu_device *adev)
- 	} else {
- 		res = devm_request_free_mem_region(adev->dev, &iomem_resource, size);
- 		if (IS_ERR(res))
--			return -ENOMEM;
-+			return PTR_ERR(res);
- 		pgmap->range.start = res->start;
- 		pgmap->range.end = res->end;
- 		pgmap->type = MEMORY_DEVICE_PRIVATE;
-@@ -1037,10 +1037,10 @@ int kgd2kfd_init_zone_device(struct amdgpu_device *adev)
- 	r = devm_memremap_pages(adev->dev, pgmap);
- 	if (IS_ERR(r)) {
- 		pr_err("failed to register HMM device memory\n");
--		/* Disable SVM support capability */
--		pgmap->type = 0;
- 		if (pgmap->type == MEMORY_DEVICE_PRIVATE)
- 			devm_release_mem_region(adev->dev, res->start, resource_size(res));
-+		/* Disable SVM support capability */
-+		pgmap->type = 0;
- 		return PTR_ERR(r);
- 	}
+ drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff -- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
+@@ -1120,7 +1120,7 @@ void dcn35_calc_blocks_to_ungate(struct
+ 		update_state->pg_res_update[PG_HPO] = true;
  
-diff --git a/kernel/resource.c b/kernel/resource.c
-index 866ef3663a0b..fe890b874606 100644
---- a/kernel/resource.c
-+++ b/kernel/resource.c
-@@ -1905,8 +1905,8 @@ get_free_mem_region(struct device *dev, struct resource *base,
-  * devm_request_free_mem_region - find free region for device private memory
-  *
-  * @dev: device struct to bind the resource to
-- * @size: size in bytes of the device memory to add
-  * @base: resource tree to look in
-+ * @size: size in bytes of the device memory to add
-  *
-  * This function tries to find an empty range of physical address big enough to
-  * contain the new resource, so that it can later be hotplugged as ZONE_DEVICE
--- 
-2.34.1
-
+ }
+-/**
++/*
+ 	 * power down sequence
+ 	 * ONO Region 3, DCPG 25: hpo - SKIPPED
+ 	 * ONO Region 4, DCPG 0: dchubp0, dpp0
+@@ -1172,7 +1172,7 @@ void dcn35_hw_block_power_down(struct dc
+ 	//domain22, 23, 25 currently always on.
+ 
+ }
+-/**
++/*
+ 	 * power up sequence
+ 	 * ONO Region 0, DCPG 22: dccg dio dcio - SKIPPED
+ 	 * ONO Region 2, DCPG 24: mpc opp optc dwb
