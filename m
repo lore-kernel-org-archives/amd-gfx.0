@@ -4,116 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 073F4C46CD2
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jan 2024 19:45:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFD9AC46CD2
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jan 2024 20:08:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7625910E1F3;
-	Tue,  2 Jan 2024 19:45:24 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2078.outbound.protection.outlook.com [40.107.220.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B85D710E1F3
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jan 2024 19:45:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19A9310E203;
+	Tue,  2 Jan 2024 20:08:41 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2061c.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eaa::61c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E69EC10E203
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jan 2024 20:08:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nJ5IhUf2gUBOZZQS3L/+SJ4tGcNa/wL+fTZzBXYQXhUB0pahbUEs6cOnHOpN1vn9RH2Cvy4sPCelq61yU9PEzq+uGx732ixcL76cTNxfvMJBvpMrIaaYixoq3QEqm2FiMJxDEZwVhxnL8h6NWGPAe645HWeSqbSLSobCvFJgmHsPSmlagaRHPLSPGCubDndtfwmkhM+6KkWhosmEXiYVgguVc+vxTV7UFrvvkd++d40WDYNPtRsqN78GRC7Wy3UFESYpjDFViQcQWkkUIntpk1hYgyAbDDvdccw70nlfOwxFSqTAIzi6zUzTY098IB079KJ1yK6omDdVh1SpCAsDNw==
+ b=WQ7edWrIFofHlPAUO6MWnGE6mnwDy5dj4pr59mY2MA+h2WRVbkH7iryguPhBlGi2BpqdC6pXepLHkmVJ58+bNPPHB4NHEeOUMyTZKICI2UD2Q/GJ60BoDCKKP+zUtuFfBiTcRkrA3luuhB/oy+71LAb375Ws44cJuZ/ZLfVK4u+mFjAurKcIseAUXSkaGhcYfdJdv42D1NYVMH6qIlpO87+kknPhtxbj1T+Klle4jUg7J3uqvxsSAzW/7ZlKn6H/SNB64egq0Vlxd3VIff+oEOjwfi+pFIlo7+k0xuiNF96+1akAxVwW5VKDPMlWT+50aMHGIRAImnxFMVTG//qdrw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8eOZsVGEGNEGkdz/QK6ke/yQmXesTOZ+iPG0ZGeFWZA=;
- b=L4PBjEVQV1f4b6K7H+kTF9q2hMkv2NNofotgSl9ceWvygW1POOybdKTXPL3QHrNCJjWU8ubA4ljISRb/B7DlkaNeqSAcWFT2yhibuzO6j9eKsiALmZ3/0NpRSrjIPNf82+unFde2GaRIs+ZyjmdeFmSLbJUXsTTa1YfPJxImpQ//Zd+Hbrt65+4ajKPxFctK/LBwgOQ/djRrJIVvrCiwwBQuyVMbG4nuz0FUfgnUjYP6qJjlK6tNqNUJMEmzhquR5fsC1GTUeJ5Yf+uszY0ebT6Ckn4DypmRYd03Vj2Ex3uimXoLopyuO23eqSRffmxogvkQYfiTKXxqQE1pzDrZ/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=2TdOM2lILHWIH9jhZSxlet1lGP5xfWA78x5C5QGbGEs=;
+ b=HKbdOz6jEXUqkxP48ciVHgBcJTVQfT0HCoAW1F+VbDfULKco4fvJZzBhH1VKw4gG3YmL6TRYhPp6dnPmkhC7ZECfY0X1TM6oRTJcZFK94TBg6SDgf7N7Jf4tq1bxZhyrPAPDwgfP/XTmDW2vYuY4q/eAV+bf8L+j8TZ32jQVTsby6b0AAPcr7Ly0yEsTxs72p4s8Xnuk/5BiCHmIwAcPTQmvtGOCEcr9gYGDpEZiSa+GhlWNU7320IY7k1/Rfxk7nDTPTGMDhQDPIAkfQLVju8EODR00sOAHuZzfAgdgekVf58GOwrrwFbTYGIsIHTBl5h1poW78RvCbFP3UgzCL6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8eOZsVGEGNEGkdz/QK6ke/yQmXesTOZ+iPG0ZGeFWZA=;
- b=1+cR63Mvpnf6S+xVpwPeRtfurGx8qaKs97gZYbizDrskdgqnPOaJ7Sv1J1a92MvWAJJCNZlXmsgMMbbvkapQhW2Kn8DqGXzhImypIYiFUpfaW3r7w8YNZsDmO2JVW2mtldo+sD1jq+nRtw67BX8z6ac+dJrP0ZraPve/YcZHr7I=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by MN6PR12MB8516.namprd12.prod.outlook.com (2603:10b6:208:46f::13)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=2TdOM2lILHWIH9jhZSxlet1lGP5xfWA78x5C5QGbGEs=;
+ b=sTRtQiXUBGfzy0rGx0Xl3xybM7LZEbyExL6V+06aHPJbtc6BBgahyHwSL4MtamxxRtYzs1mb3roqy4VIJtu3sLlfbE+JGXQ+f/FuGJWZvwt6yHr1nB6zas1BDrr/Ia/Pbr1oMf7zqFkb0VhbtGLqR6srmeWp2lLhwMuoZ46m1po=
+Received: from SN6PR08CA0004.namprd08.prod.outlook.com (2603:10b6:805:66::17)
+ by DS0PR12MB8019.namprd12.prod.outlook.com (2603:10b6:8:14e::9) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.25; Tue, 2 Jan
- 2024 19:45:20 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::a952:d50:fdc8:fc95]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::a952:d50:fdc8:fc95%6]) with mapi id 15.20.7135.023; Tue, 2 Jan 2024
- 19:45:20 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Yang, 
- Stanley" <Stanley.Yang@amd.com>, "Wang, Yang(Kevin)"
- <KevinYang.Wang@amd.com>, "Chai, Thomas" <YiPeng.Chai@amd.com>, "Li, Candice"
- <Candice.Li@amd.com>
-Subject: Re: [PATCH 4/5] drm/amdgpu: Query boot status if discovery failed
-Thread-Topic: [PATCH 4/5] drm/amdgpu: Query boot status if discovery failed
-Thread-Index: AQHaPS4Ad8VKl4N0a02rlc1K6T8rMLDG7cdz
-Date: Tue, 2 Jan 2024 19:45:20 +0000
-Message-ID: <BL1PR12MB5144EF091E264ACF1A5F7232F761A@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20240102034341.16321-1-Hawking.Zhang@amd.com>
- <20240102034341.16321-5-Hawking.Zhang@amd.com>
-In-Reply-To: <20240102034341.16321-5-Hawking.Zhang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-01-02T19:45:20.186Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|MN6PR12MB8516:EE_
-x-ms-office365-filtering-correlation-id: d5670788-0193-487c-0e60-08dc0bcb5a9b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: TZVInyc0hixD0c/e2jIECEeioVHDkCH0qmO0BlJ+yPHOCUxp6/a2CPihTEBJS7pHir5ysKSqHgF41vPvwxP+auTyFoSwUgfdYbNuD0s1skLG/WGlAj/dTULOCYeJXQi69gakBCkNQnOtqp8n0mRc3EpJbiwYVkWAmnWd2f/NvEiq5RUMxAT0fYwrSiGr08QEeyb/Xk3uW7Cs/ZwCyeCYbRM/agKJO0HFM9XBxVeCetEOM7ectFzWhVArVcjHJuyJKhauE33F+mDAo4DDvSO7CENuZKdhu5lP68ucZ2C8Y5izKtHRJNvplp9MDFlG0kQsCIMQQMZuT3XqoD9Q+6ljs/8NsrHc2E1llSOsUCOeRF+WJKLTADEbluxnJnaJYQqUS4Kr++P+NnX2mIPrFuYQHC64HVT9HyvBvIGxgZZ/88RMMKwbejn6eil56ep4KCkhumXLUCtZNcvJjDSnt2Lmh++XRyRPYMimQ52Gr9THR7ZGlql8PJDXkG3MUexjQVc6NL1OUSn9QDgQoiJgYAvoD4buVZVSGji4Yd397ropLFVwe9Q8jAbhO1kCwNDxtEjLqXhkJWKcReC0tvq9XogFHRTErOBWjL0ie9qV/mBNna/gY0hbUFisbk8sa8mRnHES
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(346002)(396003)(366004)(39860400002)(136003)(230922051799003)(1800799012)(451199024)(186009)(64100799003)(5660300002)(2906002)(41300700001)(38100700002)(71200400001)(316002)(7696005)(38070700009)(8936002)(478600001)(6506007)(122000001)(33656002)(86362001)(53546011)(26005)(9686003)(83380400001)(52536014)(4326008)(8676002)(64756008)(66476007)(66446008)(66946007)(110136005)(54906003)(6636002)(66556008)(76116006)(921011)(19627405001)(55016003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?CnAHkI5NqZPgci6E3D05WXvdbg665YqlMwC7Ud4Qv3WQeQ64FSkr/A18DYTo?=
- =?us-ascii?Q?gmRPBZag/pzdL9ty2QvOtfLhH+x8NBPNWHcmya957m1/huqeqbfDklC/AQfg?=
- =?us-ascii?Q?9ayky76k3iFc1INH5Jlnob18FPoL9VYWd1EmcpdrVKqUR3mosvvLaihg4Chj?=
- =?us-ascii?Q?ieWRb82LITKZAABdIw1BO5kn1AY0rn2mfzEj6fv1IG1EOQYFs52+bYiqqnZl?=
- =?us-ascii?Q?vizMkFCli5FCeSG2R3BP5YXomOw6zPLsMlTCr3SP+qTyKC0QkFj7Y08juhyP?=
- =?us-ascii?Q?+16IA4F1fpUBBw27Eq3KBus1Usu4xcQt44qzyRpqDV+x0ZlSfpkHDtBpEk1A?=
- =?us-ascii?Q?U6VEk+c5VYUM/PgYDqx3DxyjLq0EUF2EEaURmoDQQMRGzRbU3zH0ljsWcm3T?=
- =?us-ascii?Q?CP1H38K1lAOJksI9zVCmrNhAxcsPkJApXcn8lkEclV0DIw03NrKz4THF8q68?=
- =?us-ascii?Q?MYYffj9bHWAf9eb2beN5NKyxy+vEUcxy2QNtoIoS/xVHFYqHvCE3p3bnGggn?=
- =?us-ascii?Q?fH9S4KdnV5s+K7p2KawWJ+xAHNC6czkAPdWb7mpbwKO8pxLC1S4rJD48xNAb?=
- =?us-ascii?Q?6mcfEA28Y8d/upP3wBa3OtlifxQayTY/mnu+PZBRlU5y33aZSQhoBvkLLvNV?=
- =?us-ascii?Q?un2hNTa1b6UtfUEjFGarYdJozduGCrX2S/XqVPUHSZKIkAVH/9qbdkgYXPfz?=
- =?us-ascii?Q?NR7pldqYEFgLXbHHxgyu7IwD4FOyiw79UdUUKd0oz7IBh4dDucu0sXX0tWI5?=
- =?us-ascii?Q?YDmygHq/C7bJqQwy9WBM+2bGRL8DLfBc9xwR7NEJ9BOnC4N4SFS60RpqyrkU?=
- =?us-ascii?Q?5d2qF/Mwv99yNTdIEELP73HKKLIa2TRgGOCl6/3dp3bMZeVfRUDoaEBe61iX?=
- =?us-ascii?Q?5LyUuxSTe8bVRGww6IdXpjrLoowy6dBJFSGDED6ya3cZxxpF+cgee9pt0nMO?=
- =?us-ascii?Q?fWsmfh+Pub4eVt56/Lig94ydlVZKlHSWBogGhHO1omip3OSK59YwcKW1L6vM?=
- =?us-ascii?Q?7m14lSS5aF2vjOzyqD83XBki+38RFh7OjYJNvSeGtLGyi18yhVhgP/GwkK2k?=
- =?us-ascii?Q?KuxQJfrGr87GjBYALdqtSnwWfBC72O1LAwNoNitrvz4a0RpRDQ+/9yDa3Z5P?=
- =?us-ascii?Q?iilkpFBk+Doa8OIHtbx5XQ2ykXN707QWZ+Nh8ksQ+b8hmhK7a9V5xbqNx7MS?=
- =?us-ascii?Q?cSbmXwfBQEMt6gvFgHpi0xXnAmbdQXzhi/H6+j9DOHn6w//vKpoS40rQxTjl?=
- =?us-ascii?Q?XAB/Ft9T+la/R3Rv2PYyMSANPywwMEp8dfr6KqQp2IzCal2AkFV2TzNF/VIK?=
- =?us-ascii?Q?Ogj5bDFXgEJCEem2xkPSOkwNezZ7XmIErajr6t2i7oWJrk2cijzoi2dEplFY?=
- =?us-ascii?Q?mTrO1yH9aifP6Xx7iLNk3O7mypOuAlg6VPVhHc4c+00na9CWEN+3qxAmEkLJ?=
- =?us-ascii?Q?p7RwEgMqbS0nlfppWQeHELjqRurpH57l2ydNC89qi+b1xPHNByMBDGCZMtTm?=
- =?us-ascii?Q?4oVjnEoGZtmCplrsMucoV68Hb5PHqUw866T1ycN21pcDQwl5jFHggFxhZR8/?=
- =?us-ascii?Q?eP7yZu/YW61l4W2BvSU=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5144EF091E264ACF1A5F7232F761ABL1PR12MB5144namp_"
+ 2024 20:08:35 +0000
+Received: from SN1PEPF0002636D.namprd02.prod.outlook.com
+ (2603:10b6:805:66:cafe::a0) by SN6PR08CA0004.outlook.office365.com
+ (2603:10b6:805:66::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.20 via Frontend
+ Transport; Tue, 2 Jan 2024 20:08:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF0002636D.mail.protection.outlook.com (10.167.241.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7159.9 via Frontend Transport; Tue, 2 Jan 2024 20:08:35 +0000
+Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 2 Jan
+ 2024 14:08:34 -0600
+From: Felix Kuehling <felix.kuehling@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amdkfd: Fix lock dependency warning
+Date: Tue, 2 Jan 2024 15:08:04 -0500
+Message-ID: <20240102200804.68030-1-felix.kuehling@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002636D:EE_|DS0PR12MB8019:EE_
+X-MS-Office365-Filtering-Correlation-Id: e9429e9a-4e20-4f98-fe88-08dc0bce99d6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: uXs7afXxOBRIm3A3gMM8GEcSHIYwWdeqHLfh9HAlJFlI6uDUSJDezLjJhWGennKYLcd9C7WrvNrpe81jZu3IH2DW6hQAz+DFAoXsHAPcX4dQkDCXl5DKYzBl/AN7R5NjonQny/w4wDoH+izyGx9RlnZrn7XcFrDqSXTD7A699xbPrl1J7x9+/5AMZsq4k6LHoaqZZKUUaA9HHMph/JHhLCvmd1OkYxWvGBbMWhftbBauvY+QuKMvJyGuqj5cBepBsjlT078Kif+5YbecHOXtEwpIbXymkyhMq/2TPgMvgAs3Okf292KmCiHkQdWc/q0ei2tfaBNDnGBbp91dbcggmsDxXRAcOOy67jlwAhN4/ePfbHVb/9xG2ud1afYsAIA5U/dXn3vexatkilpIbthzQW6HMa4x5peoy03no2nvzMFEs0tBqTGMnOR5hMW3MYWXWoWUrIpzOp7RjnhbZ722hZ7pPmDqnmTdofLDfHsKTRtpuwQAokV8iMsGeK5JJkExRodiAHvDNY08BFXvSZafK/ZrUFq0mhnZuexF8TiJbqwpxPSOJk9muO0UwnQkQWsCRosodz+4RDc/VHfLng1DvvCNztxhWfOjleKYCZa64NWWp7OKF/x+sHUXxB5oniG8V1vmOJnfaPl1zvuNKXdRObtb8KYaFOGEBEPucSMAlCwMKtRn+ztD0r85LOvCGbYf88IfrrQqJo97YcG+oGCAz6VA50GCphDn37Lp0c3892JVz8IRSpewe+TUg7XFAfddNLvxzwIwYaYZwlOS3yR38vmjC4emK/Cw1HrQYmW168cEYvvj6ldLTZrfCw5tIUi+
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(39860400002)(396003)(376002)(346002)(136003)(230173577357003)(230922051799003)(230273577357003)(186009)(64100799003)(82310400011)(1800799012)(451199024)(40470700004)(46966006)(36840700001)(40480700001)(40460700003)(41300700001)(2906002)(5660300002)(44832011)(8676002)(4326008)(316002)(6916009)(70586007)(70206006)(36756003)(82740400003)(81166007)(356005)(8936002)(478600001)(7696005)(86362001)(6666004)(36860700001)(2616005)(336012)(26005)(16526019)(426003)(83380400001)(1076003)(47076005)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5670788-0193-487c-0e60-08dc0bcb5a9b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jan 2024 19:45:20.5585 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 4Rb79mqawSuHjqUpxH8B11DVINOG5vf3evicF84XufcdRA135IgAUdtb5mRlB4g0o0gTZW77NqADhdoP6HcAOg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8516
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jan 2024 20:08:35.1315 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e9429e9a-4e20-4f98-fe88-08dc0bce99d6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002636D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8019
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,201 +98,140 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Ma, Le" <Le.Ma@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>
+Cc: philip.yang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5144EF091E264ACF1A5F7232F761ABL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+======================================================
+WARNING: possible circular locking dependency detected
+6.5.0-kfd-fkuehlin #276 Not tainted
+------------------------------------------------------
+kworker/8:2/2676 is trying to acquire lock:
+ffff9435aae95c88 ((work_completion)(&svm_bo->eviction_work)){+.+.}-{0:0}, at: __flush_work+0x52/0x550
 
-[AMD Official Use Only - General]
+but task is already holding lock:
+ffff9435cd8e1720 (&svms->lock){+.+.}-{3:3}, at: svm_range_deferred_list_work+0xe8/0x340 [amdgpu]
 
-Is mmIP_DISCOVERY_VERSION at the same offset across ASIC families?
+which lock already depends on the new lock.
 
-Alex
+the existing dependency chain (in reverse order) is:
 
-________________________________
-From: Hawking Zhang <Hawking.Zhang@amd.com>
-Sent: Monday, January 1, 2024 10:43 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Zhou1, T=
-ao <Tao.Zhou1@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; Wang, Yang(Ke=
-vin) <KevinYang.Wang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>; Li, Cand=
-ice <Candice.Li@amd.com>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Ma, Le <Le.Ma@amd.com>
-Subject: [PATCH 4/5] drm/amdgpu: Query boot status if discovery failed
+-> #2 (&svms->lock){+.+.}-{3:3}:
+       __mutex_lock+0x97/0xd30
+       kfd_ioctl_alloc_memory_of_gpu+0x6d/0x3c0 [amdgpu]
+       kfd_ioctl+0x1b2/0x5d0 [amdgpu]
+       __x64_sys_ioctl+0x86/0xc0
+       do_syscall_64+0x39/0x80
+       entry_SYSCALL_64_after_hwframe+0x63/0xcd
 
-Check and report boot status if discovery failed.
+-> #1 (&mm->mmap_lock){++++}-{3:3}:
+       down_read+0x42/0x160
+       svm_range_evict_svm_bo_worker+0x8b/0x340 [amdgpu]
+       process_one_work+0x27a/0x540
+       worker_thread+0x53/0x3e0
+       kthread+0xeb/0x120
+       ret_from_fork+0x31/0x50
+       ret_from_fork_asm+0x11/0x20
 
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+-> #0 ((work_completion)(&svm_bo->eviction_work)){+.+.}-{0:0}:
+       __lock_acquire+0x1426/0x2200
+       lock_acquire+0xc1/0x2b0
+       __flush_work+0x80/0x550
+       __cancel_work_timer+0x109/0x190
+       svm_range_bo_release+0xdc/0x1c0 [amdgpu]
+       svm_range_free+0x175/0x180 [amdgpu]
+       svm_range_deferred_list_work+0x15d/0x340 [amdgpu]
+       process_one_work+0x27a/0x540
+       worker_thread+0x53/0x3e0
+       kthread+0xeb/0x120
+       ret_from_fork+0x31/0x50
+       ret_from_fork_asm+0x11/0x20
+
+other info that might help us debug this:
+
+Chain exists of:
+  (work_completion)(&svm_bo->eviction_work) --> &mm->mmap_lock --> &svms->lock
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&svms->lock);
+                               lock(&mm->mmap_lock);
+                               lock(&svms->lock);
+  lock((work_completion)(&svm_bo->eviction_work));
+
+I believe this cannot really lead to a deadlock in practice, because
+svm_range_evict_svm_bo_worker only takes the mmap_read_lock if the BO
+refcount is non-0. That means it's impossible that svm_range_bo_release
+is running concurrently. However, there is no good way to annotate this.
+
+To avoid the problem, take a BO reference in
+svm_range_schedule_evict_svm_bo instead of in the worker. That way it's
+impossible for a BO to get freed while eviction work is pending and the
+cancel_work_sync call in svm_range_bo_release can be eliminated.
+
+v2: Use svm_bo_ref_unless_zero and explained why that's safe. Also
+removed redundant checks that are already done in
+amdkfd_fence_enable_signaling.
+
+Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 26 ++++++++++----------------
+ 1 file changed, 10 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_discovery.c
-index b8fde08aec8e..302b71e9f1e2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -27,6 +27,7 @@
- #include "amdgpu_discovery.h"
- #include "soc15_hw_ip.h"
- #include "discovery.h"
-+#include "amdgpu_ras.h"
-
- #include "soc15.h"
- #include "gfx_v9_0.h"
-@@ -98,6 +99,7 @@
- #define FIRMWARE_IP_DISCOVERY "amdgpu/ip_discovery.bin"
- MODULE_FIRMWARE(FIRMWARE_IP_DISCOVERY);
-
-+#define mmIP_DISCOVERY_VERSION  0x16A00
- #define mmRCC_CONFIG_MEMSIZE    0xde3
- #define mmMP0_SMN_C2PMSG_33     0x16061
- #define mmMM_INDEX              0x0
-@@ -518,7 +520,9 @@ static int amdgpu_discovery_init(struct amdgpu_device *=
-adev)
- out:
-         kfree(adev->mman.discovery_bin);
-         adev->mman.discovery_bin =3D NULL;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index afd98aace065..6b314e4d3ae0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -404,14 +404,9 @@ static void svm_range_bo_release(struct kref *kref)
+ 		spin_lock(&svm_bo->list_lock);
+ 	}
+ 	spin_unlock(&svm_bo->list_lock);
+-	if (!dma_fence_is_signaled(&svm_bo->eviction_fence->base)) {
+-		/* We're not in the eviction worker.
+-		 * Signal the fence and synchronize with any
+-		 * pending eviction work.
+-		 */
++	if (!dma_fence_is_signaled(&svm_bo->eviction_fence->base))
++		/* We're not in the eviction worker. Signal the fence. */
+ 		dma_fence_signal(&svm_bo->eviction_fence->base);
+-		cancel_work_sync(&svm_bo->eviction_work);
+-	}
+ 	dma_fence_put(&svm_bo->eviction_fence->base);
+ 	amdgpu_bo_unref(&svm_bo->bo);
+ 	kfree(svm_bo);
+@@ -3437,13 +3432,14 @@ svm_range_trigger_migration(struct mm_struct *mm, struct svm_range *prange,
+ 
+ int svm_range_schedule_evict_svm_bo(struct amdgpu_amdkfd_fence *fence)
+ {
+-	if (!fence)
+-		return -EINVAL;
 -
-+       if ((amdgpu_discovery !=3D 2) &&
-+           (RREG32(mmIP_DISCOVERY_VERSION) =3D=3D 4))
-+               amdgpu_ras_query_boot_status(adev, 4);
-         return r;
- }
+-	if (dma_fence_is_signaled(&fence->base))
+-		return 0;
+-
+-	if (fence->svm_bo) {
++	/* Dereferencing fence->svm_bo is safe here because the fence hasn't
++	 * signaled yet and we're under the protection of the fence->lock.
++	 * After the fence is signaled in svm_range_bo_release, we cannot get
++	 * here any more.
++	 *
++	 * Reference is dropped in svm_range_evict_svm_bo_worker.
++	 */
++	if (svm_bo_ref_unless_zero(fence->svm_bo)) {
+ 		WRITE_ONCE(fence->svm_bo->evicting, 1);
+ 		schedule_work(&fence->svm_bo->eviction_work);
+ 	}
+@@ -3458,8 +3454,6 @@ static void svm_range_evict_svm_bo_worker(struct work_struct *work)
+ 	int r = 0;
+ 
+ 	svm_bo = container_of(work, struct svm_range_bo, eviction_work);
+-	if (!svm_bo_ref_unless_zero(svm_bo))
+-		return; /* svm_bo was freed while eviction was pending */
+ 
+ 	if (mmget_not_zero(svm_bo->eviction_fence->mm)) {
+ 		mm = svm_bo->eviction_fence->mm;
+-- 
+2.34.1
 
---
-2.17.1
-
-
---_000_BL1PR12MB5144EF091E264ACF1A5F7232F761ABL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - General]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-Is&nbsp;<span style=3D"font-family: &quot;Segoe UI&quot;, &quot;Segoe UI We=
-b (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSyste=
-mFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px=
-; display: inline !important; color: rgb(36, 36, 36); background-color: rgb=
-(255, 255, 255);" class=3D"ContentPasted0">mmIP_DISCOVERY_VERSION
- at the same offset across ASIC families?</span></div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<span style=3D"font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West =
-European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, R=
-oboto, &quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px; displa=
-y: inline !important; color: rgb(36, 36, 36); background-color: rgb(255, 25=
-5, 255);" class=3D"ContentPasted0"><br>
-</span></div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<span style=3D"font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West =
-European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, R=
-oboto, &quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px; displa=
-y: inline !important; color: rgb(36, 36, 36); background-color: rgb(255, 25=
-5, 255);" class=3D"ContentPasted0">Alex</span></div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<span style=3D"font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West =
-European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, R=
-oboto, &quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px; displa=
-y: inline !important; color: rgb(36, 36, 36); background-color: rgb(255, 25=
-5, 255);" class=3D"ContentPasted0"><br>
-</span></div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Hawking Zhang &lt;Haw=
-king.Zhang@amd.com&gt;<br>
-<b>Sent:</b> Monday, January 1, 2024 10:43 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;; Yang, Stanley &lt;Stanley.Yang@a=
-md.com&gt;; Wang, Yang(Kevin) &lt;KevinYang.Wang@amd.com&gt;; Chai, Thomas =
-&lt;YiPeng.Chai@amd.com&gt;; Li, Candice &lt;Candice.Li@amd.com&gt;<br>
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Deucher, Alexander=
- &lt;Alexander.Deucher@amd.com&gt;; Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;;=
- Ma, Le &lt;Le.Ma@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 4/5] drm/amdgpu: Query boot status if discovery fail=
-ed</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Check and report boot status if discovery failed.<=
-br>
-<br>
-Signed-off-by: Hawking Zhang &lt;Hawking.Zhang@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 6 +++++-<br>
-&nbsp;1 file changed, 5 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_discovery.c<br>
-index b8fde08aec8e..302b71e9f1e2 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c<br>
-@@ -27,6 +27,7 @@<br>
-&nbsp;#include &quot;amdgpu_discovery.h&quot;<br>
-&nbsp;#include &quot;soc15_hw_ip.h&quot;<br>
-&nbsp;#include &quot;discovery.h&quot;<br>
-+#include &quot;amdgpu_ras.h&quot;<br>
-&nbsp;<br>
-&nbsp;#include &quot;soc15.h&quot;<br>
-&nbsp;#include &quot;gfx_v9_0.h&quot;<br>
-@@ -98,6 +99,7 @@<br>
-&nbsp;#define FIRMWARE_IP_DISCOVERY &quot;amdgpu/ip_discovery.bin&quot;<br>
-&nbsp;MODULE_FIRMWARE(FIRMWARE_IP_DISCOVERY);<br>
-&nbsp;<br>
-+#define mmIP_DISCOVERY_VERSION&nbsp; 0x16A00<br>
-&nbsp;#define mmRCC_CONFIG_MEMSIZE&nbsp;&nbsp;&nbsp; 0xde3<br>
-&nbsp;#define mmMP0_SMN_C2PMSG_33&nbsp;&nbsp;&nbsp;&nbsp; 0x16061<br>
-&nbsp;#define mmMM_INDEX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; 0x0<br>
-@@ -518,7 +520,9 @@ static int amdgpu_discovery_init(struct amdgpu_device *=
-adev)<br>
-&nbsp;out:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;mman.discov=
-ery_bin);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mman.discovery_bi=
-n =3D NULL;<br>
--<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((amdgpu_discovery !=3D 2) &amp;&a=
-mp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (RREG32(mmIP_=
-DISCOVERY_VERSION) =3D=3D 4))<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_ras_query_boot_status(adev, 4);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;}<br>
-&nbsp;<br>
--- <br>
-2.17.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB5144EF091E264ACF1A5F7232F761ABL1PR12MB5144namp_--
