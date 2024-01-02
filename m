@@ -4,67 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9B6DC47073
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jan 2024 21:37:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99043C4706F
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jan 2024 03:43:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51F6910E040;
-	Mon,  1 Jan 2024 21:37:02 +0000 (UTC)
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98B0F10E040
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jan 2024 21:37:01 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-40d858c56cbso18227485e9.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jan 2024 13:37:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=froggi.es; s=google; t=1704145020; x=1704749820; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=u2yO6Si82hzlAS0Mg+Gkj8IYdJ+Sm4Q4sE/QqIJi3Bs=;
- b=XBCOQq2ydo8FBAeUvaTUopaPKMLJmzVUwM2Yp89cqCiAq9U9BZA/HKT82/r34QqLPM
- YFYllIBbg6gaknJg3VVZdo1+9AEeGPNfJvC3vUQ7xFlI0VK/IGiM6cgI8fhPIwEFB6kA
- aS3sn9Wv8MWsbwU3pM+rZRdt6NkkfvK+9YebFnSutWCPUuHvNieWnt4BrPvyy/QoWTjw
- TgykUIujXoPV+VhpoUtVgqsnPuQDfEinfUxa351BYbHe8baDEi0py9AwRF6AfbV3FPTT
- QxiLqQMHOJbe2jEpghZ+biUKD7ZAYUU8rbmG5KPl0jsTJY0jS52T1KvG+OVqhH25qG3E
- qsww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704145020; x=1704749820;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=u2yO6Si82hzlAS0Mg+Gkj8IYdJ+Sm4Q4sE/QqIJi3Bs=;
- b=wnnu50YnYujM7ECsdoUC6cDqYRXNSaInWdZ7RwzORrGyj/ZQlncwwrY8HbxDO0Q/xw
- DcT6sj5N2CdY9YRX/THGwV5tED3FErlFRyddw0ASEcT3EtB47E1vFy88JGDu6cmkVysg
- rheyw1+DF0oyptJC9ocIBd/juj7pTVfagiSDSAaVakvD95ciOxfnmDwqqnVwwX7cPaC0
- qgRjNObWiah7qhIJWuDC+lG7QW9JNrfz+EiZjcmmDy07CzSmGLYCEG2u9bdQqqVHKLVa
- Ll1Qe/Z417JR5P94v6H4vQDcyCAwR/NKWDAV5vGf0VI+Sqa7BqnYvkLoMmkP9PzkiRk8
- 5WCQ==
-X-Gm-Message-State: AOJu0YwhOMalGLhK5uL8WMKBlcmA4+fHeTOKIumMCP47cPyqJjj0A2zz
- /Sc6tExSBqyPhHk/vexuedfBHIzvX45vHo588NEHcbNeq9Q=
-X-Google-Smtp-Source: AGHT+IEgMEXUpDu7I7Zc2VzQpNGutkKk5w9/Wcx6kk48K6cQV3kg/SbjfBKWT/ZZ4nBZ0w2QvCDwnw==
-X-Received: by 2002:a05:600c:3f8b:b0:40d:8a95:3196 with SMTP id
- fs11-20020a05600c3f8b00b0040d8a953196mr639048wmb.34.1704145019890; 
- Mon, 01 Jan 2024 13:36:59 -0800 (PST)
-Received: from [192.168.0.89]
- (darl-09-b2-v4wan-165404-cust288.vm5.cable.virginm.net. [86.17.61.33])
- by smtp.gmail.com with ESMTPSA id
- v7-20020a05600c444700b0040d83acde28sm9537346wmn.14.2024.01.01.13.36.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Jan 2024 13:36:59 -0800 (PST)
-Message-ID: <554945c2-bb85-497a-ba88-b486eadd8a3c@froggi.es>
-Date: Mon, 1 Jan 2024 21:36:58 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDE6F10E02D;
+	Tue,  2 Jan 2024 03:43:55 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2067.outbound.protection.outlook.com [40.107.243.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 869D710E02D
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jan 2024 03:43:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=l4f93TPqI4veLaaC1fwpZfgJon9pWKZIRCFpzmVFQsy7vUUDpwj2kmkZ7+PrbADuMBSswKFXRv+hG92167vrGG23LLG1DC+Sru+klwEy9crzRcRsQJ4uA08hr4P/Tdjgho9yuvBQcYbFbJ64sLcgThtDGZ33NLs6qZhDGAJ0s5a/3vZiYz6qSbHTRp905Et3b0CvhEvUupqw5syiNz5k0NHXlH3WYsUAaOv6fFWvGhTBhDjiJZHkxXQ13cKTzvFu3FYH6/UArrZaK1Pp0cigp8DfFZqGZsfJ42dDU4m+reW7zLu4alPGbdDNYPlv/xnyo2JZIOZdaBvO27aCbSBw4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xvNF25iiDwYofIUKaftG+ypkeKjoUIGO5W5CH7OseD0=;
+ b=O7MeAMcGKmcsEtdd/9cRkWIXImuRfnSZ1TIaaWS4kOp/weI7cHAZO+tXgV2Y/ka2kogG4fVQ/isdaTJfTEFCD87Ntg18SR+pJiBfYbnQo/z8sx645mKuhAna45R9JWCmc36LJmZB3+NpVtKAEJMinQnVUzk8p0ISHfLgCp0YLyawP77fe2s3Az5MejZCqRXNT3ijOYN4TJGtC2Zcnmk8UAJ7Sy7vN3BamVqH8L42U8x+1WTUmibTyIAZnHVL/xn00A2qCB6OkgLCGiJHYJiY7loyCUE6Yp3tVlxHIeWJvChxpuJ8yBDdOQHL0sCd/5W1+Toru+1hcJUExvTnrfbkow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xvNF25iiDwYofIUKaftG+ypkeKjoUIGO5W5CH7OseD0=;
+ b=at++5xrJRHndIKvPdGELvaym13CMQVwy9aXxaJ6MdzuVDdEC4FnJfLviEt0UJEQtARN7SxaT/9I74qKf78hTHZLHn6n8BHa4svmtLbW91EECphNNj+I87Qpx4/1GC7eGa47wgKwcbjIkrGabOa74YQBdUOWysweNpGTCTLOecvo=
+Received: from SA9PR13CA0075.namprd13.prod.outlook.com (2603:10b6:806:23::20)
+ by DM6PR12MB4220.namprd12.prod.outlook.com (2603:10b6:5:21d::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.25; Tue, 2 Jan
+ 2024 03:43:52 +0000
+Received: from SA2PEPF00001509.namprd04.prod.outlook.com
+ (2603:10b6:806:23:cafe::64) by SA9PR13CA0075.outlook.office365.com
+ (2603:10b6:806:23::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.11 via Frontend
+ Transport; Tue, 2 Jan 2024 03:43:51 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SA2PEPF00001509.mail.protection.outlook.com (10.167.242.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7159.9 via Frontend Transport; Tue, 2 Jan 2024 03:43:51 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 1 Jan
+ 2024 21:43:50 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 1 Jan
+ 2024 19:43:50 -0800
+Received: from hawzhang-System-Product-Next-Generation.amd.com
+ (10.180.168.240) by SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP
+ Server id 15.1.2507.34 via Frontend Transport; Mon, 1 Jan 2024 21:43:48 -0600
+From: Hawking Zhang <Hawking.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, Tao Zhou <tao.zhou1@amd.com>, "Stanley
+ Yang" <Stanley.Yang@amd.com>, Yang Wang <kevinyang.wang@amd.com>, YiPeng Chai
+ <YiPeng.Chai@amd.com>, Candice Li <Candice.Li@amd.com>
+Subject: [PATCH 0/5] Add boot time error reporting
+Date: Tue, 2 Jan 2024 11:43:36 +0800
+Message-ID: <20240102034341.16321-1-Hawking.Zhang@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Fix sending VSC (+ colorimetry) packets
- for DP/eDP displays without PSR
-To: amd-gfx@lists.freedesktop.org
-References: <20240101182836.817565-1-joshua@froggi.es>
-Content-Language: en-US
-From: Joshua Ashton <joshua@froggi.es>
-In-Reply-To: <20240101182836.817565-1-joshua@froggi.es>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00001509:EE_|DM6PR12MB4220:EE_
+X-MS-Office365-Filtering-Correlation-Id: 70c0dffe-f2ae-4c42-4073-08dc0b450921
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 2aDmTqzSNYgPcMKdliY1pPJwJZHlJAPJApDi0L//waW/XKr5WI2vv+8nkVYmnfoJkoO6uzrvb9Ug7ftBz1EjuYl6Soa0jsQaZQAvS3GwKqbkHmlm4jhbgB+AfuRBwULTi5WjMZiCPbVsZne0vyVQskuvZvPZ57AyLPxdbq0jUAjD8vNAeaOxiREzftAt4/cfl9+WeQ60q33B78fQabHxj1SSwgHRvf5WeYjXIFaGgVEznd7JViDbXJHYZFug0EesQPxWIE0bb30OAY6PyuQZj2Skp2UzI/h2aNvYm782BZrQQD+B3Y2BFLsvkJIVL+5li1rb0MmSQsARtw3jk2msNn27A5T7pIjB6q7mbpyKkxiUymJDx3CImfYhU5sTfSMTdOOtg/hNN5JH/QOja8izh4yFa/ssoPewu88y2yW+XjdSE2glVoeJTMOFBne17uAYqB57luvGm2zQat6P4t/tTaj8SCs2gvXe9BKCSpc/p8BWMo42Q9BDUHN9uCXY3p8ut8gpV/uLfw8ndsNz2sts9cws2TweCDhYePeO/qSps+Xj9Z+Lq99h8VMegEh5wQsfLEU6/XpvTHSEKeRM+40U8p+qy1udaHRYLENtfE0tiKN5T4o6HUNBM5YlanvLq/l2ALq8SphxIQiXLydushjXg5R2+j2mxzt2GQpNHFEXnhWSMN2L00+FcgtgwH5a+peYKtuEHGnQkv0tZ/OQxct28IuMHDbCFeo2yxSxw69u0C4c4Y4q7tlpOrwHLu1Pd/XrT+GaDqcSEzH62iEWg9SngQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(39860400002)(376002)(346002)(136003)(396003)(230922051799003)(451199024)(64100799003)(186009)(82310400011)(1800799012)(36840700001)(46966006)(40470700004)(426003)(1076003)(26005)(2616005)(336012)(36860700001)(81166007)(356005)(83380400001)(82740400003)(47076005)(110136005)(70586007)(70206006)(54906003)(316002)(36756003)(6636002)(478600001)(86362001)(5660300002)(4744005)(2906002)(8936002)(8676002)(4326008)(40480700001)(40460700003)(7696005)(41300700001)(6666004)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jan 2024 03:43:51.2965 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70c0dffe-f2ae-4c42-4073-08dc0b450921
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00001509.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4220
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,101 +102,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Melissa Wen <mwen@igalia.com>, Harry Wentland <harry.wentland@amd.com>,
- Xaver Hugl <xaver.hugl@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Le Ma <le.ma@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
- From the issue:
+For ASICs that support boot time error reporting, poll all
+the boot time errors cached in registers and make it available
+in kernel log.
 
-```
-Thank you for for fixing this!
-I built a custom kernel with this patch on the fedora rawhide kernel 
-(6.7.0-0.rc8.61.fc40.x86_64) and now the colors look correct. SDR 
-content is now displayed as sRGB and HDR/WCG content can use the full 
-capabilities of the display.
-I currently don't have a desktop mail client installed to comment on the 
-mailing list directly, so I'll post it here (not sure if it counts or 
-matters 😀 )
+Hawking Zhang (5):
+  drm/amdgpu: drop psp v13 query_boot_status implementation
+  drm/amdgpu: Init pcie_index/data address as fallback
+  drm/amdgpu: Add ras helper to query boot errors
+  drm/amdgpu: Query boot status if discovery failed
+  drm/amdgpu: Query boot status if boot failed
 
-Tested-By: Simon Berz <simon@berz.me>
-```
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 22 +++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |  6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       | 15 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h       |  4 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       | 95 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h       | 15 ++-
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0.c        | 89 ++---------------
+ 8 files changed, 141 insertions(+), 108 deletions(-)
 
-- Joshie 🐸✨
-
-On 1/1/24 18:28, Joshua Ashton wrote:
-> The check for sending the vsc infopacket to the display was gated behind
-> PSR (Panel Self Refresh) being enabled.
-> 
-> The vsc infopacket also contains the colorimetry (specifically the
-> container color gamut) information for the stream on modern DP.
-> 
-> PSR is typically only supported on mobile phone eDP displays, thus this
-> was not getting sent for typical desktop monitors or TV screens.
-> 
-> This functionality is needed for proper HDR10 functionality on DP as it
-> wants BT2020 RGB/YCbCr for the container color space.
-> 
-> Signed-off-by: Joshua Ashton <joshua@froggi.es>
-> 
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Xaver Hugl <xaver.hugl@gmail.com>
-> Cc: Melissa Wen <mwen@igalia.com>
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c   |  8 +++++---
->   .../amd/display/modules/info_packet/info_packet.c   | 13 ++++++++-----
->   2 files changed, 13 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 2845c884398e..6dff56408bf4 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -6233,8 +6233,9 @@ create_stream_for_sink(struct drm_connector *connector,
->   
->   	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
->   		mod_build_hf_vsif_infopacket(stream, &stream->vsp_infopacket);
-> -
-> -	if (stream->link->psr_settings.psr_feature_enabled || stream->link->replay_settings.replay_feature_enabled) {
-> +	else if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT ||
-> +			 stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST ||
-> +			 stream->signal == SIGNAL_TYPE_EDP) {
->   		//
->   		// should decide stream support vsc sdp colorimetry capability
->   		// before building vsc info packet
-> @@ -6250,8 +6251,9 @@ create_stream_for_sink(struct drm_connector *connector,
->   		if (stream->out_transfer_func->tf == TRANSFER_FUNCTION_GAMMA22)
->   			tf = TRANSFER_FUNC_GAMMA_22;
->   		mod_build_vsc_infopacket(stream, &stream->vsc_infopacket, stream->output_color_space, tf);
-> -		aconnector->psr_skip_count = AMDGPU_DM_PSR_ENTRY_DELAY;
->   
-> +		if (stream->link->psr_settings.psr_feature_enabled)
-> +			aconnector->psr_skip_count = AMDGPU_DM_PSR_ENTRY_DELAY;
->   	}
->   finish:
->   	dc_sink_release(sink);
-> diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-> index 84f9b412a4f1..738ee763f24a 100644
-> --- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-> +++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-> @@ -147,12 +147,15 @@ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
->   	}
->   
->   	/* VSC packet set to 4 for PSR-SU, or 2 for PSR1 */
-> -	if (stream->link->psr_settings.psr_version == DC_PSR_VERSION_SU_1)
-> -		vsc_packet_revision = vsc_packet_rev4;
-> -	else if (stream->link->replay_settings.config.replay_supported)
-> +	if (stream->link->psr_settings.psr_feature_enabled) {
-> +		if (stream->link->psr_settings.psr_version == DC_PSR_VERSION_SU_1)
-> +			vsc_packet_revision = vsc_packet_rev4;
-> +		else if (stream->link->psr_settings.psr_version == DC_PSR_VERSION_1)
-> +			vsc_packet_revision = vsc_packet_rev2;
-> +	}
-> +
-> +	if (stream->link->replay_settings.config.replay_supported)
->   		vsc_packet_revision = vsc_packet_rev4;
-> -	else if (stream->link->psr_settings.psr_version == DC_PSR_VERSION_1)
-> -		vsc_packet_revision = vsc_packet_rev2;
->   
->   	/* Update to revision 5 for extended colorimetry support */
->   	if (stream->use_vsc_sdp_for_colorimetry)
+-- 
+2.17.1
 
