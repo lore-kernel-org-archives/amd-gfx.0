@@ -4,116 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B594C46CD2
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jan 2024 16:46:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BFD3C46CD2
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jan 2024 16:53:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1D1010E0CE;
-	Tue,  2 Jan 2024 16:46:19 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2416::600])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DD2610E0CE
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jan 2024 16:46:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B71DB10E1EC;
+	Tue,  2 Jan 2024 16:53:17 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2065.outbound.protection.outlook.com [40.107.96.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63E4610E1EC
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jan 2024 16:53:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dFQ8NaTkKFZLwKgu4VdU7v1J/3qs0iwiUsNARp2NrC6NIX1ZvaX87kZlEswugSjc6/ndhbWZoI14E1MNTBnOSPkMZPSgbew487/ULw1CID8oX8pqNrcByEQBJYi6XDBI0o0mPuuWmMsM9crZOTfxgNg2fq9XWhii0XvvyxzhTmXyCQe79EvDsKIf2AKq25W7GWe4TAX2Y5DFS089QIoSRbwnvXVp2zcE2smD8r4yNB+KjYb4F3hzv+F+69mR5s1AloJW3i76NnGnO3W7XjZLxYhYPlsKtSqC1J0DvjzlhA3NmOzHw//M/KNImX+rfaXBsq7X4XayKKHU8MEJDXAu6A==
+ b=J+P+50eMLJmtE1Z2ZiCdQzSuZYOUn7l/k83k9IPN8GB/Fr/5k9xLot0R10WuioiYZjbITSHbmLWO4vdG5V9xEtbH7NRbXtGQ+TxlKvH6LS/kVztoStyWWFTX2msDbITVNcUcZNl2adT7TiMncdKxUcH+4nzTI7Envrc6dWbaz2Xe5FrOMuRaowJTlzcrwbaVp1BPTxcPz9wrGtW5HpiGddNN8nnxLrDwgJmVcFns/7syJF0vyXJRAdv03F9npoA8Kq37ZIPdxEsy1NeQb8Z/K03jZJ3bFndqUndp6FTpAwLYWmj8CWCTh87HfHHOnoExaV3EAOx6R/UGNmN2N5h+eQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ft2pN95XoX4dGOzw0oriXz3tX+OEhf4WombG/OXO6rE=;
- b=gu/V7m24SPe5cegxwI1fg7/aAcronbrbog+Wogy+XpGGe7obzves4A+xbRs0GW2Iy4VtmtbqxWzpXj30U0KbP9WkxPi+Im0e8iOLNAhkB7TFfvUoXhxOziz9y34uSLaMd0AsS27Gh3hmFtmIRKI3VjNdbbcCtOo85yrOsT5uRrnrULKxyVN7Vm23915xFW3W72TXi8UkPW6HgbQFmNXyTUzFoRLOeepF52/aD5bJGJIMoG44bnzSD9suxeffWTTWHC5/VgZced043a5GJkyjC8ekx2rDLI1vy1mpYbiS3S02IwK94gOrct+ycaji31aOhjpuRHCLam/WA5zx1m3R0A==
+ bh=2KtSPtcAJRxW3LKXdO0p0vXBbu82QwBfgLOIm53dsJA=;
+ b=QrE3k1I3IdSxRFyXLFswK72mtm1/O/F9/ChGOj39hvyxv8mYRdXS+akMqxoCQgGvXREsh8oSRlYrRxYZjINijEJ96VZOf13C2/qE3wXBEij0Zg5W1serLOcoJEKUUjB+kFP96KkzUii4PT35nCHoiC3nRF8ERs7XhhzNKZMSPNEAb/BxPmJDC5RDTLSYJIciwlgKsh4VO3op1u/ouyoQvNSyerQNr6oS0JYCvxjrWwISOhUj18ZQeL9TPT6LKBh2U6b/7xz5EqTq1oaubznemGlD4omvxZF8Lg/TITI/x1qo0hqnk4MMDF83nv03yWGpNyU4xg4SIxgl+xge6TGwbQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ft2pN95XoX4dGOzw0oriXz3tX+OEhf4WombG/OXO6rE=;
- b=d8rZx6qTVKaCMXjnlNtdbiTaukXmCVvZgmxZhLzdJW+CmMNLhXPRTtCtQx4dqDcSHka7JbmMt9vacDModgUeM2eHiZoaw+LTE/3n53/YSvLd7oUMx+8NiwhU+JU7FMBSVoEZj81HLrH/kWhaQI5G5wm0Y9KgKmxLDlx5vCzdArY=
+ bh=2KtSPtcAJRxW3LKXdO0p0vXBbu82QwBfgLOIm53dsJA=;
+ b=PAYpBJ49GErvDXYxaM85RD50S3gdKKB349/RbnfXecvajbAUfUfw55broVIO3iY3ftU7rfjddzQDCa82e3jXI3NAu9yMd+EeFTaGGCyM/6sSZKByzWs7MpbQDNd8t9OtaeJ+wPgXZHt/UaCJPtphZ1TPa6sVM6ON9I661S0NV7Q=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BY5PR12MB4225.namprd12.prod.outlook.com (2603:10b6:a03:211::20)
+ by BY5PR12MB4887.namprd12.prod.outlook.com (2603:10b6:a03:1c6::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.25; Tue, 2 Jan
- 2024 16:46:16 +0000
+ 2024 16:53:12 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::7bfc:e32b:f362:60f3]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::7bfc:e32b:f362:60f3%5]) with mapi id 15.20.7159.013; Tue, 2 Jan 2024
- 16:46:16 +0000
-Message-ID: <786e24cb-1bb8-44f9-aa31-f65279452e54@amd.com>
-Date: Tue, 2 Jan 2024 11:46:14 -0500
+ 16:53:11 +0000
+Message-ID: <75da98e4-bdef-405b-b7d3-2373275e2cb5@amd.com>
+Date: Tue, 2 Jan 2024 11:53:09 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Fix lock dependency warning
+Subject: Re: [PATCH v2] drm/amdkfd: Confirm list is non-empty before utilizing
+ list_first_entry in kfd_topology.c
 Content-Language: en-US
-To: Philip Yang <yangp@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20231221204004.830821-1-Felix.Kuehling@amd.com>
- <a4d70d39-4515-f1f3-ae0c-d7a4d0946db7@amd.com>
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+References: <20231222115339.1689926-1-srinivasan.shanmugam@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <a4d70d39-4515-f1f3-ae0c-d7a4d0946db7@amd.com>
+In-Reply-To: <20231222115339.1689926-1-srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0019.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::18) To BN9PR12MB5115.namprd12.prod.outlook.com
+X-ClientProxiedBy: YQZPR01CA0058.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:88::6) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|BY5PR12MB4225:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3e0ad3fe-6021-461b-c723-08dc0bb256a7
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|BY5PR12MB4887:EE_
+X-MS-Office365-Filtering-Correlation-Id: be971b16-aadb-4eec-ed93-08dc0bb34e09
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Sr8+6evq06VLRkfAghzrWgVIpGFPJWss6DNhNQmximv+Ya+6TERFC3ZtYHRAR61aKWQAgQww44WOFrCsdVbnFSV3jnLndtUT/ETJcaz8jT/hXcrryqvOJz4xN9LnXmPtKATn1OoWIw8yzuARIfBXffzZJHDg7ekLt9pH8AVXgRvOMnnFTgFKVlNvvRg3ch6mVDVmj2t5nQbbbiufmctEqEE40Lkvuxq6LMmMu7dX4yQ/bAuTJ7cFko9OK6jDva7I6p2+JOhXV7HCarw4u/Shko/bioNXcK4oZkXQAtOrZzlmu6tlHB39pz+4SRRulCXPxTLUML6j7e1xASOokQD0iKXMM9pI7ToGhLNLraqjxjoh2WdfjDqJg+t6ZexCL6mAr0oNrnXlRfStO3NvlUoNNY/8qqgSZyOCykucoiX+7DqHaSAvN5nA6ZZsUV/wg9C/EAWqsppVKj8bT5c5K24CYNwGED91o89XU/SHS2TP5BaJPdONwtGJfwKIoP8iwwps/zCq3hq6wApt1o1SvQShsKly1+xKIoL+etimVb5XWtwN+80dxJIVUg68nABvOJcT/lKakiW05XN4hR16bbgjf6DMvyDLJhXwOU/8e5q5ZI+c3q4HG8HHEGqBC30eXtLvGr6OaOwTR1f/jWQYc39YBe5EQkMVBHhDHHA0cdcDPwexmhxOYZvki3XsN8WACmYD
+X-Microsoft-Antispam-Message-Info: Qy04iel18ux2mnjfX490QlGd5YOUI8pUHKo5VDHG05Lpl+DQdBZUmZpBGElA/wW6wcjHy7PHvvM29gjZSeszO4EFjCFekaNr92d3+lxPkR0MCMv2kGpjBDS1dar2FxaddksQzg2moG2fpWehHyQtQds760BhkP+ukCoJNaZ6agX+WxPLX91w54kmMS59ks/Ehy2IdlALXM8An6yU92nCfkzAbbG6OpoZSJzrQH4zhPrnT2fIC102Y54iDx7h8tjm2JGe1YaU2fM5Tjji8w3v3jm2PsFeuSy4JbU7HpPP9J6cRHSuW3SBB8+C7+r1DiPC1b9N4ndWmia+6yfhDTYF3VE+retFJB5A9ZiaMowzSZeuGMEQ4ukjIu0hRL00wmiMV4RnC+o05/zNJ4IwEkPHT7NhraDwesnDv92pHZJeDa7E99G1agpVxRgKJ8UvzBdaEimaOfS0Mi/zv9uOlu+ZKsIm+xD8ogc9ySHOIlxpXo4OP2sA7p63JbLOtMPL9t82aTb5bDDK8wvCchIMI6zDGDoLzM9PZrgqoJ240tFYhY2gFPCOQ/3HCK5iPahdNGdiiDOiniXuaoQIjY80CejSdZ5NyEb7cZmGMSOGb2JrWNoQHTfz7ubbUFgxfyXUOuYntHxdlCslNAPbykFdbP+fjA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366004)(39850400004)(346002)(376002)(136003)(396003)(230922051799003)(230273577357003)(230173577357003)(186009)(451199024)(64100799003)(1800799012)(4001150100001)(66899024)(478600001)(38100700002)(5660300002)(6506007)(2906002)(83380400001)(6486002)(6512007)(53546011)(41300700001)(26005)(2616005)(36916002)(316002)(86362001)(4326008)(66476007)(31696002)(36756003)(66556008)(66946007)(44832011)(8936002)(8676002)(31686004)(45980500001)(43740500002);
+ SFS:(13230031)(39850400004)(366004)(376002)(396003)(346002)(136003)(230922051799003)(64100799003)(186009)(451199024)(1800799012)(36756003)(31686004)(66946007)(66556008)(6512007)(6506007)(66476007)(53546011)(6486002)(31696002)(86362001)(36916002)(83380400001)(2616005)(26005)(4001150100001)(38100700002)(2906002)(4326008)(5660300002)(6636002)(478600001)(44832011)(41300700001)(316002)(110136005)(8676002)(8936002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MndjdjFZZTlOb0R2UWYvL2hQanVxS2ZMN1RBSDBxMGVxYjdPL1B5dnlyZmVW?=
- =?utf-8?B?WGJ3NS9EZUVlaU45Qis0QS9MT2F0Zyt0M2JjdkZtNlpTL0IvR3dPeU94VjVT?=
- =?utf-8?B?Mm1yck5KUHhWd2dBZmFsSzRFakw2MTVXWklVZ0U2RjVDK0c3THhwM0xMR0k2?=
- =?utf-8?B?Nk1BNXQyUlNyRHk3dW50R1liRGpWTCtUcThKVXYzRU9icGF2NjRkUzdYcHF0?=
- =?utf-8?B?ejZZeGVwRDIwdkhFTkhGR25FUTJZODBLbXRnb2VHRC90bWM2ajRrWnFEc3B4?=
- =?utf-8?B?RHNVZFBTNFZzUHliY3BRc1g4SWZpdjhhN1FGU0I4Z21FMGEzbnFiek4wSTE2?=
- =?utf-8?B?NDhQMFB3dkxLbnVmOGpjNGMrL293azBtQmlwRmIxaHlocVgvUzBZVFNOOGo0?=
- =?utf-8?B?Zm9FWGIrelMrTVU1c3BPSENHOTgvWEwwWkd2bzFvQk1UaHVMYWQ3U3QvOWFr?=
- =?utf-8?B?Qkk5UkdqZEl4SjhPVDlGTDZUMkRIYlZLOWR3VFNvWFJ1bS9sRDFyYWdkdlVH?=
- =?utf-8?B?QjcydHc3ZDdvYit2d013NmIrb0h4RURxTTBMTWF5cDF5SnRpUzExNXJ1ZlM3?=
- =?utf-8?B?VnBVdUhUckF6Z3ZJYmlPaENZSjdRcU5sRE1xZTBuNEdNbU1vVi9QWlNrNHNK?=
- =?utf-8?B?KzlJVDVOTDYxK3RFblFFcHBqL2h4U3I3bElFVmJ6bG9tZlBsNmZRMjdyWHht?=
- =?utf-8?B?aWx5RWJwSEJZZUgwdy9WSmY1KzBJRmtrR1czU25uM2tzWEU3dzRrbVNrL0lj?=
- =?utf-8?B?RDFONDUxWUVIa0Z1OEQ5T0dMTGNtQndIQ2VncEU4N0t2TW1yM2N3eW0zd2h2?=
- =?utf-8?B?TGV1ZnJiQVJLZFNRMWd2RC9QMHFmTUhwTm5uOGNJdTF2NkJaRXlBOHRCUXJq?=
- =?utf-8?B?MmJ5VFZHMXFwRjFtLzBkRGJyamtHY1IwVzFoSzR0azFhK1ZDUStldUxEZnJM?=
- =?utf-8?B?cndEeTh3Y3ZnRDN5VE5KbVpZZjlKSVA0dGdGanJzSjBxNkMrSFh5YzNjdmJq?=
- =?utf-8?B?V2dsdEdDVkJYK3E5VCtsVUQ5Nkl5NC9nVkoxVXVQK3JDVjhZVXZ4c2xZYmh5?=
- =?utf-8?B?N1RqdG5oSHVhSUwzMmxtakUva2VmbTU0bFRPMkk0OEdBSlhsUlR6Tm9qSkpa?=
- =?utf-8?B?U1owME9yZTdXS1RndFFZd3ZLZnV3Qzdadm5TRVExbnVmZlRuMUJzdHJkaURZ?=
- =?utf-8?B?S1lJbVdZV2pFbktWNU5sSEVYckdKNUVPenNUNGxMN1BDaUZqWlVQQnBqYVpF?=
- =?utf-8?B?YllJeGJFa2R4RG5JV2w2MGpBNmt1NGZSOXdCb3R1VjlBQjFGaGdsQ2tjNDk1?=
- =?utf-8?B?VCs1RTB2anY1MUdjYnordVZQVnk4MEVRY3R2L2RaY0pQU1NZc2JvUlAvN1po?=
- =?utf-8?B?bWlKQWY4SW55R21GMUgxem9xcnNkZWhGcjFyL2pqK3dNeVE5YkxtTGZoWnB4?=
- =?utf-8?B?dHZtTVNJTis0bVJJNjVMbTFydWxBeTVSMWErWUVjQlo4UHZpblpLeWZKeUxS?=
- =?utf-8?B?MnIyR1pNMlg1ZDM3ZHhvQklSUWVWTEVad095Qk9rdXRlNVBiQ2kxZ0d6SnRH?=
- =?utf-8?B?Y1EyaVZ1ckcwVEdncjhaMnErVnZrdG1GZ3RlQWRKWUpMTWZlQlk3cDViSHBU?=
- =?utf-8?B?QXJKcjNtaEd5c3pBVTByVVpMaFd6bWVMRFB0dlgwNVduWTQvaTJyaU9ibk9s?=
- =?utf-8?B?dlJnM04xcDB5WHE1K1dvYkczWjVDb1dyVWhlaFJYWmlxQnc3N2lkcEVKNmVS?=
- =?utf-8?B?WmpzM0Z2Z3pEeTg0U3dNYmphRDdnR2ROa1VLSURmUXM2eTdPUjNtQWZhK21C?=
- =?utf-8?B?ZjZmVlJENkZqczIyM2RwVTFIK1kwMWlMUjZ3S0QwYTE0VW9raksvbTlTY3B5?=
- =?utf-8?B?ekEycGlKQlpSQmF6QmNnN28xSjUwRHdiWmFmNGVGWUVkb0gwVDdyTVN4RVVD?=
- =?utf-8?B?NkRDeWZCc091dWhkMlZvZGZ0M2UrN1NqaDBMaEpCOTI0ZEJEcEhEcjJkUm5h?=
- =?utf-8?B?OWd2eTV3dFRQV2dGWWUydUJ4aUlnYXZod1BHR3lMcHB1NGc2Q2V3aHBaeWgv?=
- =?utf-8?B?NktlYzJNME1uNU9uaWE3eWExLzVuQ2pMcmlnUFg2NWRneVBPZjJpa3NiVVg0?=
- =?utf-8?Q?9DI3XQKFSeomCMgVZHf3B3Xhk?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RDZkcmRGVDNCUTVoWFJWcmladnkzZFFtbGI4QkNtKzBCZXQzZEozNlZLdzJp?=
+ =?utf-8?B?NzVpakVDK29hUVZlaXUzd3hnZkpkbFdVQythS0huOHRmVXVieWFlcmZNQjVS?=
+ =?utf-8?B?WUFwbnhaS0NkUDVwOStYQ2IrR0pDdGxoWGVMS2ZNRjF2L3JMVWo0eHdZcllV?=
+ =?utf-8?B?MjZQV2pEc2wyVnBlb2tsV2MwamgrK1dXczhibTV1NzhhYy83Tk1WMTI0OWp4?=
+ =?utf-8?B?VXVYN2VLSm9FMm9jNHdFNW5xb3pTNDZLaVNKSGNVYlJoWmF2bVRsODlsRlNy?=
+ =?utf-8?B?cHJWOVlsaUJNVi81aEVtblNjZzhKM29Nd0JDR3pjVlBKS3lZckdBQUtuUUE3?=
+ =?utf-8?B?Ni9ORUtGYlVrMHZXQm5hVlJZcDRVMEppU3pqNjZXYTkvUzg0ZXVscWZnMU9i?=
+ =?utf-8?B?VzN5VWpsNnd2TnBiTExZcUN3dk5aN0ZYQlhqTHJjamU4UUpiak9SVTR0SnIy?=
+ =?utf-8?B?VUZOVW96ZHFDWks4OHV4dzdBeStFNFUyS2MvNm55UVhHYmpyK1JhZCtWR3hq?=
+ =?utf-8?B?T24vWVhVKytZLzZGREFXdzE3ZWZ6UEhiYmk0SzBXUU0vRzNXSjlkRU1IdW5n?=
+ =?utf-8?B?Y0NYNnZuTVlZTGpNdU1vRGpHQ2N3WmVtZTVpZU0wZUtxdjgzOXJuWGxVUEpU?=
+ =?utf-8?B?TnR2SVBoV3Yza0g0R2g5MjhWUXBKODJ6cVBSaHZmNXdxTGtRREhpeTNabDdm?=
+ =?utf-8?B?UHhlNkZSZmJxTmJ5UnJ3T3FDZjIrdVVwbjR1RHBFWUtXVlFUeGJnVlJsRkRW?=
+ =?utf-8?B?NXp2TWlvd0NGN2ZMcHB6ak9jSk9BUXBVNDF0SVhsMUJCSE82VWdQU2tLcElR?=
+ =?utf-8?B?aFNVdS9YT253SDcrQlVQejc1bGhTdVo3c1BtMkZPN3JjRnVsU1hqbCtOQlFi?=
+ =?utf-8?B?eXJOSjlCeTNrQTBKelFicC9hTDk4ekc5cjdqVm1JeW4zdlpsckV5Zkg3UW12?=
+ =?utf-8?B?TzJURU96KzNXd3JtVFFrN1BsSDZ2Qjk4RmRUNWd4aU5ScFZvbkxYYmF1N2pT?=
+ =?utf-8?B?R3pyR0ZwZndScVlqS2VsRmNzbUdwU0dqbWd6UDYwdzZwZS84RCt6ejBoYUVh?=
+ =?utf-8?B?NUFMK2dlYWp1UVVDOUpBZFZsR0ZTSmdnbDhTZi9QdjlzRkdCeEZ0d3QvVThD?=
+ =?utf-8?B?QjlCN3BUbXRQZGJEN0haSFVVWW52RzVWOGJGSHZiSDJGQ3BsblBWanFiNFU2?=
+ =?utf-8?B?TnhIQ0ZKd241c1BydmxyQXpUeVpma29qZUtadlZEczVRWElNK2hkVDZ2Rzcw?=
+ =?utf-8?B?SnVZbmpRZEx1d0N6Rlp3T3FKdmJRM1lXYys5R1FCZnppUXM4SVU3VVdOR3NW?=
+ =?utf-8?B?VzFHM1N3RjlaQUdRMEJlWnVhNVVwME5mTjdXSUZ6aHhWWUY3QzQzRDAxV1Fi?=
+ =?utf-8?B?dHlac2hGS1FDWUJKZ0hkQUdWaXFicUxNSHdha2xhU25HVGUzS09xNnozZTgv?=
+ =?utf-8?B?Qk5ZVFFzQjNtSFZaeXNhTGZGTk53dDZwbXZtRjcwUlVDWTBUQTZrN1hXOXBy?=
+ =?utf-8?B?ZEIvaW1jVnovU2lRcy96dEYzSGp2eGVkM3NuNDU5ZFNPeGdiM3pnT1ptUnVD?=
+ =?utf-8?B?bDlKbmllOHNBVnY0Yitkdmd6aEVDNFhPWHBuQk53UFM0ZEdNMXZPdGNKVXZn?=
+ =?utf-8?B?RHp1c0VOZ2ZwdDFDM01MMXhZaWdXdUoxdHE3c1NZS29iN09Ta2FHOUxlMGI1?=
+ =?utf-8?B?aVNmVkJDTVhNNVFURFNOK3NJS2M0dHpwb09leFhlNllrcVc1ait3ckRZMVFM?=
+ =?utf-8?B?R0xYWmJKMFJUZGFTTTc0Wmo0T1VYbEY0Q0NaYVNjU05uemFLQVNVTnVWU3RN?=
+ =?utf-8?B?REVpa1UxcEdOT1NwYmFBWkh4MnpzSEtXY1FKNVc0d0p5ZGZWV3RaSk1zYVVL?=
+ =?utf-8?B?OGx0ZGRhYTFnSVhER3QyN1p0Y2FGbVlhZmhFNGhPVm14UzZOWUFEWVhaLzBu?=
+ =?utf-8?B?S1NaSk45aGtoWmFZdGNuWEF2K3VWa0hMQmxNVDBIUHEyWWJvY2E2WFlPV3o2?=
+ =?utf-8?B?N3k3S1cxMTd6OVFxY1ZVTmk0NkRxSHU1ZXZEL2FKcEpiZXhSWitqRytNaWdD?=
+ =?utf-8?B?UENrN3FFV21salJocUVQOC9FdXViRnZjcEh5eE9rd2pmS3h3c0pFQ1IwcHhy?=
+ =?utf-8?Q?6xSMQnrs0r+F14KPW1EaAAY+e?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e0ad3fe-6021-461b-c723-08dc0bb256a7
+X-MS-Exchange-CrossTenant-Network-Message-Id: be971b16-aadb-4eec-ed93-08dc0bb34e09
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jan 2024 16:46:16.6905 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jan 2024 16:53:11.8428 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ll5rszMaABnp1IL+bvIl/HAwKjiLzS6SvEczW2HoEAx1Wu6ym1jD/PchzOML3Wvbqg6nuGRx/Ilk2FYwtSd1yQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4225
+X-MS-Exchange-CrossTenant-UserPrincipalName: iWnNX2nIzuglzNJP/Lj67RtRjH4cAHNX9BgfVNG4o+DCPssISY317YvJBbyNylSsfXAwgmjKejIif0gsMUnWHg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4887
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,153 +126,80 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alex.sierra@amd.com, philip.yang@amd.com, xiaogang.chen@amd.com
+Cc: Lijo Lazar <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 2023-12-28 18:11, Philip Yang wrote:
+On 2023-12-22 06:53, Srinivasan Shanmugam wrote:
+> Before using list_first_entry, make sure to check that list is not
+> empty, if list is empty return -ENODATA.
 >
+> Fixes the below:
+> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1347 kfd_create_indirect_link_prop() warn: can 'gpu_link' even be NULL?
+> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1428 kfd_add_peer_prop() warn: can 'iolink1' even be NULL?
+> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1433 kfd_add_peer_prop() warn: can 'iolink2' even be NULL?
 >
-> On 2023-12-21 15:40, Felix Kuehling wrote:
->> ======================================================
->> WARNING: possible circular locking dependency detected
->> 6.5.0-kfd-fkuehlin #276 Not tainted
->> ------------------------------------------------------
->> kworker/8:2/2676 is trying to acquire lock:
->> ffff9435aae95c88 ((work_completion)(&svm_bo->eviction_work)){+.+.}-{0:0}, at: __flush_work+0x52/0x550
->>
->> but task is already holding lock:
->> ffff9435cd8e1720 (&svms->lock){+.+.}-{3:3}, at: svm_range_deferred_list_work+0xe8/0x340 [amdgpu]
->>
->> which lock already depends on the new lock.
->>
->> the existing dependency chain (in reverse order) is:
->>
->> -> #2 (&svms->lock){+.+.}-{3:3}:
->>         __mutex_lock+0x97/0xd30
->>         kfd_ioctl_alloc_memory_of_gpu+0x6d/0x3c0 [amdgpu]
->>         kfd_ioctl+0x1b2/0x5d0 [amdgpu]
->>         __x64_sys_ioctl+0x86/0xc0
->>         do_syscall_64+0x39/0x80
->>         entry_SYSCALL_64_after_hwframe+0x63/0xcd
->>
->> -> #1 (&mm->mmap_lock){++++}-{3:3}:
->>         down_read+0x42/0x160
->>         svm_range_evict_svm_bo_worker+0x8b/0x340 [amdgpu]
->>         process_one_work+0x27a/0x540
->>         worker_thread+0x53/0x3e0
->>         kthread+0xeb/0x120
->>         ret_from_fork+0x31/0x50
->>         ret_from_fork_asm+0x11/0x20
->>
->> -> #0 ((work_completion)(&svm_bo->eviction_work)){+.+.}-{0:0}:
->>         __lock_acquire+0x1426/0x2200
->>         lock_acquire+0xc1/0x2b0
->>         __flush_work+0x80/0x550
->>         __cancel_work_timer+0x109/0x190
->>         svm_range_bo_release+0xdc/0x1c0 [amdgpu]
->>         svm_range_free+0x175/0x180 [amdgpu]
->>         svm_range_deferred_list_work+0x15d/0x340 [amdgpu]
->>         process_one_work+0x27a/0x540
->>         worker_thread+0x53/0x3e0
->>         kthread+0xeb/0x120
->>         ret_from_fork+0x31/0x50
->>         ret_from_fork_asm+0x11/0x20
->>
->> other info that might help us debug this:
->>
->> Chain exists of:
->>    (work_completion)(&svm_bo->eviction_work) --> &mm->mmap_lock --> &svms->lock
->>
->>   Possible unsafe locking scenario:
->>
->>         CPU0                    CPU1
->>         ----                    ----
->>    lock(&svms->lock);
->>                                 lock(&mm->mmap_lock);
->>                                 lock(&svms->lock);
->>    lock((work_completion)(&svm_bo->eviction_work));
->>
->> I believe this cannot really lead to a deadlock in practice, because
->> svm_range_evict_svm_bo_worker only takes the mmap_read_lock if the BO
->> refcount is non-0. That means it's impossible that svm_range_bo_release
->> is running concurrently. However, there is no good way to annotate this.
->>
->> To avoid the problem, take a BO reference in
->> svm_range_schedule_evict_svm_bo instead of in the worker. That way it's
->> impossible for a BO to get freed while eviction work is pending and the
->> cancel_work_sync call in svm_range_bo_release can be eliminated.
->>
->> Signed-off-by: Felix Kuehling<Felix.Kuehling@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 13 ++++---------
->>   1 file changed, 4 insertions(+), 9 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->> index afd98aace065..7683c96f0cbd 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->> @@ -404,14 +404,9 @@ static void svm_range_bo_release(struct kref *kref)
->>   		spin_lock(&svm_bo->list_lock);
->>   	}
->>   	spin_unlock(&svm_bo->list_lock);
->> -	if (!dma_fence_is_signaled(&svm_bo->eviction_fence->base)) {
->> -		/* We're not in the eviction worker.
->> -		 * Signal the fence and synchronize with any
->> -		 * pending eviction work.
->> -		 */
->> +	if (!dma_fence_is_signaled(&svm_bo->eviction_fence->base))
->> +		/* We're not in the eviction worker. Signal the fence. */
->>   		dma_fence_signal(&svm_bo->eviction_fence->base);
->> -		cancel_work_sync(&svm_bo->eviction_work);
->> -	}
->>   	dma_fence_put(&svm_bo->eviction_fence->base);
->>   	amdgpu_bo_unref(&svm_bo->bo);
->>   	kfree(svm_bo);
->> @@ -3444,6 +3439,8 @@ int svm_range_schedule_evict_svm_bo(struct amdgpu_amdkfd_fence *fence)
->>   		return 0;
->>   
->>   	if (fence->svm_bo) {
->> +		/* Reference is dropped in svm_range_evict_svm_bo_worker */
->> +		kref_get(&fence->svm_bo->kref);
+> 'Fixes: 0f28cca87e9a ("drm/amdkfd: Extend KFD device topology to surface
+> peer-to-peer links")'
+> Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+> Suggested-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+
+
+> ---
 >
-> I think there maybe racing condition if bo is already releasing,  get 
-> ref unless zero
+> v2:
+>    Changed to "if (list_empty(&kdev->io_link_props)) return -ENODATA;"
+> (Lijo)
 >
-If that's a concern, we should probably make sure that the fence->svm_bo 
-pointer holds a reference itself. We shouldn't have eviction fences with 
-dangling svm_bo pointers. And we should not let a BO refount go to 0 
-while there exists an unsignaled eviction fence pointing to it. I'll 
-look into that.
-
-
-> 	/* if svm_bo is getting released, eviction fence will be signaled */
-> 	if (!svm_bo_ref_unless_zero(svm_bo))
-> 		return 0;
+>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 21 ++++++++++++---------
+>   1 file changed, 12 insertions(+), 9 deletions(-)
 >
-> Another solution is to call svm_range_bo_unref_async from svm_range_vram_node_free.
-
-That's not ideal either. The eviction worker is already a worker thread. 
-Then we'd need to schedule another worker to actually release the 
-memory, adding more latency and scheduling overhead.
-
-Regards,
-   Felix
-
-
->
-> Regards,
-> Philip
->>   		WRITE_ONCE(fence->svm_bo->evicting, 1);
->>   		schedule_work(&fence->svm_bo->eviction_work);
->>   	}
->> @@ -3458,8 +3455,6 @@ static void svm_range_evict_svm_bo_worker(struct work_struct *work)
->>   	int r = 0;
->>   
->>   	svm_bo = container_of(work, struct svm_range_bo, eviction_work);
->> -	if (!svm_bo_ref_unless_zero(svm_bo))
->> -		return; /* svm_bo was freed while eviction was pending */
->>   
->>   	if (mmget_not_zero(svm_bo->eviction_fence->mm)) {
->>   		mm = svm_bo->eviction_fence->mm;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> index dc7c8312e8c7..1fc9d4616564 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> @@ -1342,10 +1342,11 @@ static int kfd_create_indirect_link_prop(struct kfd_topology_device *kdev, int g
+>   		num_cpu++;
+>   	}
+>   
+> +	if (list_empty(&kdev->io_link_props))
+> +		return -ENODATA;
+> +
+>   	gpu_link = list_first_entry(&kdev->io_link_props,
+> -					struct kfd_iolink_properties, list);
+> -	if (!gpu_link)
+> -		return -ENOMEM;
+> +				    struct kfd_iolink_properties, list);
+>   
+>   	for (i = 0; i < num_cpu; i++) {
+>   		/* CPU <--> GPU */
+> @@ -1423,15 +1424,17 @@ static int kfd_add_peer_prop(struct kfd_topology_device *kdev,
+>   				peer->gpu->adev))
+>   		return ret;
+>   
+> +	if (list_empty(&kdev->io_link_props))
+> +		return -ENODATA;
+> +
+>   	iolink1 = list_first_entry(&kdev->io_link_props,
+> -							struct kfd_iolink_properties, list);
+> -	if (!iolink1)
+> -		return -ENOMEM;
+> +				   struct kfd_iolink_properties, list);
+> +
+> +	if (list_empty(&peer->io_link_props))
+> +		return -ENODATA;
+>   
+>   	iolink2 = list_first_entry(&peer->io_link_props,
+> -							struct kfd_iolink_properties, list);
+> -	if (!iolink2)
+> -		return -ENOMEM;
+> +				   struct kfd_iolink_properties, list);
+>   
+>   	props = kfd_alloc_struct(props);
+>   	if (!props)
