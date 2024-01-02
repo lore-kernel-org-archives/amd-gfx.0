@@ -4,114 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA227C46CD2
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jan 2024 18:26:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 364FCC47074
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jan 2024 19:44:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CF0F10E17C;
-	Tue,  2 Jan 2024 18:26:51 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2086.outbound.protection.outlook.com [40.107.102.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B53910E17C;
- Tue,  2 Jan 2024 18:26:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=A5VvsCTWJqIuAZRO06lbt83J7caT9+n67Z1R0yBpN14ANrJyCVy5WUtYhVH0OJctJYpMEUXySH+p0xvNwyQs2Q2IivL1KBxLAtPrzxvLlO34u9r1AkWbRY8Tf3ICktAP+xCe1oLTvQkOaJfMSK0nTQTBnT2pwpc9ydUFeFZx0UtwWNnEVWzMwX/O7nCmfnGJdV6h679+mow7CMgz4SmSOALoVLVJPA9etAJXHHwt2IKf5jy5tumwSG44JibWLuuA1ndwl9kyam1w+fbuYScwSxG2HDBnKRF0k3UEWjWQ4d3ilDxNjEH+t96i9Q2eJiLySo63TZmMbl99zFHUj8fyqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4LYaiarbbBG7my+vMLLX20401EBwECNAklDQ5kCB8P0=;
- b=ZummBaCsvcuiXWSYHorppwfrvbfo7UrzC97KJuHid/+W8GpUfEs+Q6ckWToCwdpvslC8Yr0mFkQVnxyO8e6A1KuYeqpMnuaZFWUxMjmALzr0rwkAqRaWsLrC6H8U3NrczLgjCSKC+2B51Lby43BiogPpYk2H8+p47GUh3N+iR64twC5sMINZvLN0hJ2TFR2TfxZ5JOIzq/EQZjPHE536r1S+yJrwvP9nl2aP9xzMjIFiK47fHFHnCZrxXGQbZ2xQw3B2y4CmfS2VIiVgHifXW7VqT1bG9TtX1irs8/G2FpcdJEcZ8mGZgmL2lToxdIKbQUyF/MESHrqoabxX6v6ung==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4LYaiarbbBG7my+vMLLX20401EBwECNAklDQ5kCB8P0=;
- b=H7Bk24vyZtrhuv9n+yNMqZEUAlWDNZZv9EqdC8k4nXQcoZs4Nt6d+o+JLS4orKrA3az1G3zvc/0QN7pVmHiFQMUKtXEyq47A1hwYJctUk6/FHd2kIYhNW/moKNYXsZHHU1apxdVZLmGZRq5eVFeK8OSv0Tcuj42lPrQbdbk2Y/g=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DM4PR12MB6087.namprd12.prod.outlook.com (2603:10b6:8:b1::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.25; Tue, 2 Jan
- 2024 18:26:46 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::7bfc:e32b:f362:60f3]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::7bfc:e32b:f362:60f3%5]) with mapi id 15.20.7159.013; Tue, 2 Jan 2024
- 18:26:46 +0000
-Message-ID: <163aa450-dfb9-4e81-838e-505a31168dba@amd.com>
-Date: Tue, 2 Jan 2024 13:26:44 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: fixes for HMM mem allocation
-Content-Language: en-US
-To: Dafna Hirschfeld <dhirschfeld@habana.ai>, dri-devel@lists.freedesktop.org
-References: <20231231143700.893822-1-dhirschfeld@habana.ai>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20231231143700.893822-1-dhirschfeld@habana.ai>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0139.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:87::13) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DEF910E14A;
+	Tue,  2 Jan 2024 19:44:04 +0000 (UTC)
+Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
+ [IPv6:2001:4860:4864:20::32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83D2A10E148
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jan 2024 19:44:03 +0000 (UTC)
+Received: by mail-oa1-x32.google.com with SMTP id
+ 586e51a60fabf-20451ecbb80so4952652fac.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 02 Jan 2024 11:44:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1704224642; x=1704829442; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=T6N5edZ+25Aqc07in1Gsuqd9U2TqsukxmwXtZxk2B/E=;
+ b=U7rBhs1CjRw6mHt4oMZFvA1VCh+l022zC2BFG6uPHwGX6+R7aHR4eTZVlKZYEnxgPX
+ QKwm/lLRoda4PlLjHRX3YvaDbGuToKLoWxEB70/AdDG1aylFMcwQLN0txdoyUa8hM7TV
+ f0ABaM+HnTIpvo85gy6YJjS19TF5/YNDvIiliAZG119mfRjAscQTCxFZD9dig9WrhOaL
+ A3jpRyBa1wFOdnR7vbYRLSsd00TIt4vEOAKfddvruC01kfRFIih5OqZkNvpgCWBxW/vC
+ 8Ue4Mv5+95U9iGJZ5frutA1I4Maee2N5i62w4MoyyB2El7NsV0bXmP3A5sgZsBX7lYsR
+ /HtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1704224642; x=1704829442;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=T6N5edZ+25Aqc07in1Gsuqd9U2TqsukxmwXtZxk2B/E=;
+ b=syjYqHzDlleVMQmpRyQ2NY5X1DfNpKJgjzcdujXRpREPMDGwXHNPIYOgatJfdZGLgR
+ vbo+54YoNbMoVaEnzn6XADA9l8NKBHfNTZqEHNk66cz/xGmswbQNXC7jhnOjA0jrWtpk
+ G+nwNx5gYFc7LT8W0zkM+AnZKPJX3yY9/JjlJBpWWMnNpHGwMcVx0s/mRUY4Bafk/VHc
+ TnJ6Q4bYsORpNz70hnPBNmBBiGzIkJuoUeW7JYhGQgOBKuwEA5lXTPPAp8Qabaeh8mmQ
+ IXJDs2rzIOjzvHo3p6ldyKUSCrLtP4ZkWfQ9uWCuqrwDT9yLihtWTT7ouu+xbSn08W+V
+ yfSQ==
+X-Gm-Message-State: AOJu0YxTdKrzYsKpVkWBNfb0uL3uagGjkpEGb3uRlvmnwhqX1rXWnLVf
+ LRsq0rO/I/DcV+uHpZk/ySMxqSxFMMbdBsalvRY=
+X-Google-Smtp-Source: AGHT+IFFBmezn8cyzejeKYgtGTE51RmBHanX6jGLzT73nzYxRHjLdFP2hCti7y0zCB5MJjA+A5Zuojcjow4L1e4c8X4=
+X-Received: by 2002:a05:6871:688:b0:1fb:75b:99c8 with SMTP id
+ l8-20020a056871068800b001fb075b99c8mr16928066oao.119.1704224642235; Tue, 02
+ Jan 2024 11:44:02 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM4PR12MB6087:EE_
-X-MS-Office365-Filtering-Correlation-Id: 98ed8039-8c85-4ea3-7670-08dc0bc0608b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ypf2iOta7nlBRPfn2Tsn4Ecw9hk6F4gbHHjisHT5UL2IHaJAjEaWtUZsfKZzrgWqEpbgf7+LMwo21T5xjtoKGm2Z2LDXU4bYQiYeIhstZkXxvpjRJ10yNwP2S7Q4T0Z3sOTvWK9u9igeh1HENx7Qb4FVlSgpsDu5HufcT6tIQ+6S4uYvEb6JGvQSlVAACfmWHeGxZ+NXEZxihcS4olVI2V20gJFuwE5ULlo4ZyEYHINqw0lweWVz6g1HwOKRNZj1FlRDerfPzX96OxsSTKM2nCsbIcUXbOB/U2aUaOXg7tvXp2aahBIDhr7gBae8+93gSCeH+yJFwQo2hYbINw6RLhlAl5ej/peXXS+z5GfAzBifU1E/sAVAXhWok/KZf5HTMYKtnPSl3BodLqTNSoPH3nnALjbAt17Hg/9aWUDHVNYSemh4PZjAsp8SBQFME96Xq07m5PxNhPXtXdEHad4fxGufNwO0tfeYNX+8gpf9rbErcq4QrqKV0sTU4G8F7vIu1eJMyQ5WbpA3IfFb8mPxGFyl2Ye4IC0aED0michFIS+EINVYihWDj7CqfYX7p5aTvsplZGkSt4GYUqFRPftD4Zlft9BtvzoQ0uowUSB4vXayxB8J+Og9R3Z8MlqhfVQ9tKNNXou6ZdfhK9hpauCNyA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366004)(346002)(39860400002)(136003)(376002)(396003)(230922051799003)(186009)(1800799012)(451199024)(64100799003)(2906002)(31686004)(4001150100001)(8676002)(8936002)(4326008)(5660300002)(44832011)(36756003)(66556008)(66476007)(316002)(31696002)(86362001)(6486002)(478600001)(6506007)(41300700001)(53546011)(6512007)(36916002)(26005)(2616005)(83380400001)(38100700002)(66946007)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Ri9Pb2JxbTZaVUNiWnFvTERlSnQrZE5vcFRRVXYrR1Z6c0ZFWi9YRU56bC9R?=
- =?utf-8?B?NlNjcU9JaW0velRjWGk4bjB5TUl0ODNydEl0bW5NTVE4ZWNuNU5qU1FFamFU?=
- =?utf-8?B?dHkvYW90eTZuQ21FL1JyUmMrcDFRdm5XNjd2em9CdTluSit5eGc3UW1VVlFw?=
- =?utf-8?B?MEQvK21yRmRUWll5bGFhVXc2Q21tcGw5V25RSG1ZT2M5QlJ2aVo1SEpkYUh2?=
- =?utf-8?B?ZEd0V1BhZCtqREtDZ1VUTG40amdQUUVjM21tUjlHLzJNOFpGbnFqelRmS3hD?=
- =?utf-8?B?Rks0NmM0cVVTYjREL21lbFNRU2E4L3lHM0hyN0ZKcnRrUlVHMCsxTzExd0xC?=
- =?utf-8?B?TjJ5RWExTXJXa1F4c3BFVjdSUTUzU3htQnQwUWFvajRyd2FpcDJacGtFQU9X?=
- =?utf-8?B?U0duMkliRGpTb0ZWQXNZTzhxY3h2N1ljNnI1aTBYc0NrSXMxYXVSN3pHR1Vu?=
- =?utf-8?B?Y082Z0VhSHd5VTZqMUdDUUR1SnJkZlRySFYrQzRvcEIwT2tPYWF5cU9JeGtv?=
- =?utf-8?B?WjV1UjJtL0tLckRWWTU1ZkZ6aXBVNHdxbXBCbUpZVUJvbDBKVFErTU42QVdW?=
- =?utf-8?B?TkMyYmxUZ1FxS2w2a0VaUDRYeCt4NWtvb0s0UlZVK0JDYmVyK1pSdkxVQWhn?=
- =?utf-8?B?Q0xRenhmWlZ3eGtGSXhpdUNQUlBsUVJXdmJQYS9UeTM0dHcxdmIrekJ2bW9s?=
- =?utf-8?B?MFFwcmtMaFozazhDR0ZvZFZwNWpwdk92NGJZdEZHVzRkZXZXQldSVFBhaktD?=
- =?utf-8?B?K2w1d2ZNQUJudGxKTjlxU3NoU0pNUEN6bGJ0VytRT1M0UWNxMUVGU3RHcFV4?=
- =?utf-8?B?ME52dG1WaFdCR0QvU3BRV3BHcFlCTHpwOWR2eW1abXo3YzFtTTJid0FIM1VP?=
- =?utf-8?B?MDVhN3hjQ3AwQnd3VC9hcVFaaTdJaHQ2eVNEdGlTc0dmRHBjcDZCMUJMWG1R?=
- =?utf-8?B?Q2JUUjA1aW54OC92SDhrRXVSYlh4ckd0U3grdGMrTXRwRFRnQ0l0WGZkTW1S?=
- =?utf-8?B?bjh5V0hJVUdlaU82RmVSbTJUeHFxSCt3TjQ1RjJrY2d0UWNmV2dJanl6bUNL?=
- =?utf-8?B?eXphU00yZW81bXh2QjlGRWJPQ2lkV0k4V3N5WTBUSUhWTHFKSnBBSUhaSFY1?=
- =?utf-8?B?OUN0Ti9WNGppNCtUTnpUVW5uZXZTN2J1VTNWUUlrZlVYWm8wZCt4K2lyaS9Q?=
- =?utf-8?B?Zmo3d3p1a1FQdVFlc1NCNE1uUHhkNEdlV3VPZzQ2WEhpcEVaUjZJY3pER0Nr?=
- =?utf-8?B?UjI1WGVjMjJ6SzRQY1A4KzEydWRTanNWcUNyZzgyd0FXMUZvQldoa2JGK1Nv?=
- =?utf-8?B?Rm45T1dSY21hT2lRdjduV0ZxL3RYWWtEaTNUSHk3Yk1QNkxDNkJma0RsYldi?=
- =?utf-8?B?d2VOZHYvWGVxcDJCUTN3U2lYZ1VUdDFCUExLYUZnTGtyWWQrM244ZnZqZnBm?=
- =?utf-8?B?Wmdnc3JPamNOM3dtQzY0YmltWUVOQkFwQUp5a2xvb01TZzdQbTNTdjE0SlVn?=
- =?utf-8?B?M3FkMVJVWWFpTXU1L0JrYXNnQkpnVjZjWEtENzVtRDZvZVp6dXN2Rm1GVmV6?=
- =?utf-8?B?dUhKWXdwcy9LYldacWZ3MU42eDAzb2F4QXVmZnZYREYxeE43aTVlc0s0TmEv?=
- =?utf-8?B?NE05QnlIa21EVnpsRnBOS2tuOGhzMUUreGRtM01EWXBCRG9VRkNlWWdGVnAr?=
- =?utf-8?B?ZmZORzYzNnZoZXc5RjNQSXE5dVlKTlI5Mm10TXU2bjJVd0Qweko2V2ZqUTlo?=
- =?utf-8?B?VGNQUGE1TU5IakNleFFrUGdncjU1K2hUbjd3VndCYlJ0SmVJWHlaLytwRFp1?=
- =?utf-8?B?ZmxWVWpLNlUvUS9YRnY3T2Y3Y2FaN05YbEE5NnFqTTdIcmFwRVc5V2drd2F1?=
- =?utf-8?B?NVNzOWVVM3J2TDJsY1pLTWl5RVNXeTZSOU1GelVmWndDQXVudXRhNGdhU2tT?=
- =?utf-8?B?NjVVdi9TdXg2UWJwa29VblVyaWZ5U3cycWVPeUs2cXRYOU56RG8wd2NuWUFZ?=
- =?utf-8?B?RjMwYlc1R2JQNVJocDNpcUVsRGJXUlM4UWJNMEwwUU95cmgzOS9FVWZEM2Fr?=
- =?utf-8?B?Y0EvYUcvY0RIZThQYTRDYjl4KzJJZFhQNlFqS2k2UWpYbEFTcEExMDhza0lV?=
- =?utf-8?Q?W4nSJ7twjkBVQA+4mS1veqJTz?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98ed8039-8c85-4ea3-7670-08dc0bc0608b
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jan 2024 18:26:46.2380 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GXMG0sSC1gaj85T3poHmq3AT0APvZCA3OGuFCkMf2rN/p7U8SN+dpRiMcut2+KnBl0FO+PArG63teUDsx5drDA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6087
+References: <20240102034341.16321-1-Hawking.Zhang@amd.com>
+ <20240102034341.16321-3-Hawking.Zhang@amd.com>
+In-Reply-To: <20240102034341.16321-3-Hawking.Zhang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 2 Jan 2024 14:43:50 -0500
+Message-ID: <CADnq5_OXqvmzNdjyOS8mNe3kVqAyRuCFRm4GEdiC1v9cSe7hWw@mail.gmail.com>
+Subject: Re: [PATCH 2/5] drm/amdgpu: Init pcie_index/data address as fallback
+To: Hawking Zhang <Hawking.Zhang@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,66 +68,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ogabbay@kernel.org, Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
- obitton@habana.ai, alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: Lijo Lazar <lijo.lazar@amd.com>, Yang Wang <kevinyang.wang@amd.com>,
+ Tao Zhou <tao.zhou1@amd.com>, amd-gfx@lists.freedesktop.org,
+ Le Ma <le.ma@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>,
+ Stanley Yang <Stanley.Yang@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Candice Li <Candice.Li@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 2023-12-31 09:37, Dafna Hirschfeld wrote:
-> Few fixes to amdkfd and the doc of
-> devm_request_free_mem_region.
+On Mon, Jan 1, 2024 at 10:50=E2=80=AFPM Hawking Zhang <Hawking.Zhang@amd.co=
+m> wrote:
 >
-> Signed-off-by: Dafna Hirschfeld <dhirschfeld@habana.ai>
+> To allow using this helper for indirect access when
+> nbio funcs is not available. For instance, in ip
+> discovery phase.
+>
+> Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 6 +++---
->   kernel/resource.c                        | 2 +-
->   2 files changed, 4 insertions(+), 4 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 20 +++++++++++++++-----
+>  1 file changed, 15 insertions(+), 5 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> index 6c25dab051d5..b8680e0753ca 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> @@ -1021,7 +1021,7 @@ int kgd2kfd_init_zone_device(struct amdgpu_device *adev)
->   	} else {
->   		res = devm_request_free_mem_region(adev->dev, &iomem_resource, size);
->   		if (IS_ERR(res))
-> -			return -ENOMEM;
-> +			return PTR_ERR(res);
->   		pgmap->range.start = res->start;
->   		pgmap->range.end = res->end;
->   		pgmap->type = MEMORY_DEVICE_PRIVATE;
-> @@ -1037,10 +1037,10 @@ int kgd2kfd_init_zone_device(struct amdgpu_device *adev)
->   	r = devm_memremap_pages(adev->dev, pgmap);
->   	if (IS_ERR(r)) {
->   		pr_err("failed to register HMM device memory\n");
-> -		/* Disable SVM support capability */
-> -		pgmap->type = 0;
->   		if (pgmap->type == MEMORY_DEVICE_PRIVATE)
->   			devm_release_mem_region(adev->dev, res->start, resource_size(res));
-> +		/* Disable SVM support capability */
-> +		pgmap->type = 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 001a35fa0f19..873419a5b9aa 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -781,12 +781,22 @@ u32 amdgpu_device_indirect_rreg_ext(struct amdgpu_d=
+evice *adev,
+>         void __iomem *pcie_index_hi_offset;
+>         void __iomem *pcie_data_offset;
+>
+> -       pcie_index =3D adev->nbio.funcs->get_pcie_index_offset(adev);
+> -       pcie_data =3D adev->nbio.funcs->get_pcie_data_offset(adev);
+> -       if ((reg_addr >> 32) && (adev->nbio.funcs->get_pcie_index_hi_offs=
+et))
+> -               pcie_index_hi =3D adev->nbio.funcs->get_pcie_index_hi_off=
+set(adev);
+> -       else
+> +       if (unlikely(!adev->nbio.funcs)) {
+> +               pcie_index =3D (0x38 >> 2);
+> +               pcie_data =3D (0x3C >> 2);
+> +       } else {
+> +               pcie_index =3D adev->nbio.funcs->get_pcie_index_offset(ad=
+ev);
+> +               pcie_data =3D adev->nbio.funcs->get_pcie_data_offset(adev=
+);
+> +       }
+> +
+> +       if (reg_addr >> 32) {
+> +               if (unlikely(!adev->nbio.funcs))
+> +                       pcie_index_hi =3D (0x44 >> 2);
 
-Ooff, thanks for catching that. For the KFD driver changes you can add
+I'd still use a define for these, E.g.,
 
-Fixes: c83dee9b6394 ("drm/amdkfd: add SPM support for SVM")
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+#define AMDGPU_PCIE_INDEX_FALLBACK (0x38 >> 2)
+etc.
+Or something similar.
 
+Alex
 
->   		return PTR_ERR(r);
->   	}
->   
-> diff --git a/kernel/resource.c b/kernel/resource.c
-> index 866ef3663a0b..fe890b874606 100644
-> --- a/kernel/resource.c
-> +++ b/kernel/resource.c
-> @@ -1905,8 +1905,8 @@ get_free_mem_region(struct device *dev, struct resource *base,
->    * devm_request_free_mem_region - find free region for device private memory
->    *
->    * @dev: device struct to bind the resource to
-> - * @size: size in bytes of the device memory to add
->    * @base: resource tree to look in
-> + * @size: size in bytes of the device memory to add
->    *
->    * This function tries to find an empty range of physical address big enough to
->    * contain the new resource, so that it can later be hotplugged as ZONE_DEVICE
+> +               else
+> +                       pcie_index_hi =3D adev->nbio.funcs->get_pcie_inde=
+x_hi_offset(adev);
+> +       } else {
+>                 pcie_index_hi =3D 0;
+> +       }
+>
+>         spin_lock_irqsave(&adev->pcie_idx_lock, flags);
+>         pcie_index_offset =3D (void __iomem *)adev->rmmio + pcie_index * =
+4;
+> --
+> 2.17.1
+>
