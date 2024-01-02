@@ -4,119 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81B19C46CD2
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jan 2024 07:07:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5D61C47073
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jan 2024 08:49:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F6E710E11F;
-	Tue,  2 Jan 2024 07:07:46 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20601.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2416::601])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46ECF10E11F
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jan 2024 07:07:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72DA910E121;
+	Tue,  2 Jan 2024 08:49:13 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2044.outbound.protection.outlook.com [40.107.93.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DE6D10E121
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jan 2024 08:49:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GeJYfL2BtDI2KCczP2HqAwglxSWR6bzofYTAvQwtt7anfgTqaxSYYQK6j/LQbm8pa5huG/NN2dGIuItcTacWJNQXKuI6YWofKgJBJ7k30OxJxT4uwDF802VogNUL9oEFDI0SD4BL3fPQBnJbLEjOh8itI3F8Ij+0noWU/XywcPYQK4wNQNWtwGzsy38KGvTDDvEKz9/9CNJFgUW/21pHtA60ls2QyEHKh8Jo6pU4/qHDZ8kNNLXFikpnaTB+P6oh/gFkX1DOhuaDJFBMjtrZJN/ZQd2dltufcAGij5EHfeTWr0TFTQkK712dtFC+OgY3zIsIFrQIgjx26oPffWU8dg==
+ b=nlR2T4ErHcLgQN7C9cu3D6AZj+xLBAolUI6c66eQS1TSSLLwqTS08z9ZYK3kXgAEwwTKwRACClmiG6VHJL9xi6SLjtD2BAXO6T3uG6YqtSSGvlobm6WrTJVA4K39QNgLA+t532H0hCUSkLBSOiBZCOVzONcN9Y2V9V60afbeNUAr8KhJ22NUoApn0Su957wkA2H+ArbE2wEmTmIjD8Yv9vVqm65ui0sN133tM8C0LLd2dIC0dAbxtWE/HyJB5wv7kXBIqhe2kOnyRUCmVq8ebDn3oDpAlnyJ1gIz2gDoZvst+M3PKa3JXVZ4RSHuXdXme1kzQGNUwSeTX9srYHuxnw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/Fl06UPtK+pq0xyObFMbk6C8WvzPuNoyzzo4PmIokk0=;
- b=RlsAZjeRhPonon4Kv1EKLkI9N/mAkIN3vwM1yUIFYbGZEib4q4yntBdmMtMp/XHg9QTCNDcs6uQ0UnTiG5PcIOl/MI0ocQG88ZnDE42zUFjUP+VGR3OoidbIpnahNczs6aJtdSge0TOrtIUPCgLcF9qEapg/SblvaF+VKHAZxAQLzEhqulE583968s9qBmpKILZ9ak6JHgioyLXfDhOre/4pwqKDZPYC64GtSa3pJu0ZJuNqQ1Eq8ctE0AgVDjP+4O+j7pLOk4J1H3o/gLKcwVZseJV5iX74Lt8nxJhgqSfIG2lZhvsLJUhzM5mGGUn5vN6pR3Va4AB7T4MNz3WztA==
+ bh=0REFeY+SmRhCMfKavBMtk106ySNJv66Zmja6TjHoBM8=;
+ b=Z8evq27+MZFY2HfJcv7kUTAcYgyLZYnESFDaqqzfm+Knh8rpD1+pqVAAdnPB5xxZYSqCHs0tjjoyzL2QdUMSlHFAbKzoQyEJXvH8k5Qm2/CjT9xWCfcQ2cxZMjFdFrkR2KgtxvvsJMjprIwT7k/wlAAAfGI5/REFidA7MludC9sxme229mvaz7BIMfecHgObqkbJMLRmOcbKS58m975AEumTv9eB/lst0MdRZTj6qJd1cecTz2MlA0kABsEL1IOF/FOrRKiBet/aosMKTdKXmEODog8WqWStEAqSZFMXPVIv67KFrckv9KcKaf+IpEgNnOVeM/3Ipx20eXySukV5cg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/Fl06UPtK+pq0xyObFMbk6C8WvzPuNoyzzo4PmIokk0=;
- b=JiOo4aR24WI111cPSD5VGQ7w9EuNkJN+whC4Br3PWu/7v8yukpIAwS51GYU0jT02zKrRTCWSanv9WOEzsu1jYtwZHCqXkYINEMVesL2Yl26MmdE12nphGXPezlN8xS6LhK/4LHN7UBt5iM/xN6CzHaj+aamj20CqZ3PiV1Tn1Ko=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by BY5PR12MB4322.namprd12.prod.outlook.com (2603:10b6:a03:20a::20)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=0REFeY+SmRhCMfKavBMtk106ySNJv66Zmja6TjHoBM8=;
+ b=B1UEv2vMuy1Wwdl05M/xq4MN6xkDtF9VvwpKosOMYtqR091tHzO3S0jg8o2H2p2ww5/xaLLgyMn1pJYkWTvyqSIAD/vLwAWy6l+nSsOO7h6gRrnsENMi6AzWhqfTF5Kh7OSynPYO/yJaIuazt6gZJlAOUGUXeMcd87k+227VTJ0=
+Received: from PH7PR12MB8796.namprd12.prod.outlook.com (2603:10b6:510:272::22)
+ by DM4PR12MB6614.namprd12.prod.outlook.com (2603:10b6:8:bb::13) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.25; Tue, 2 Jan
- 2024 07:07:39 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::7ee2:4db2:1828:ba83]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::7ee2:4db2:1828:ba83%4]) with mapi id 15.20.7135.023; Tue, 2 Jan 2024
- 07:07:39 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Ma, Le" <Le.Ma@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Yang,
- Stanley" <Stanley.Yang@amd.com>, "Wang, Yang(Kevin)"
- <KevinYang.Wang@amd.com>, "Chai, Thomas" <YiPeng.Chai@amd.com>, "Li, Candice"
- <Candice.Li@amd.com>
-Subject: RE: [PATCH 3/5] drm/amdgpu: Add ras helper to query boot errors
-Thread-Topic: [PATCH 3/5] drm/amdgpu: Add ras helper to query boot errors
-Thread-Index: AQHaPS35IdYNba+H4kiPq/eslIAH57DGFBwAgAAGG+A=
-Date: Tue, 2 Jan 2024 07:07:39 +0000
-Message-ID: <BN9PR12MB52577C0AE902E3C8835BF445FC61A@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20240102034341.16321-1-Hawking.Zhang@amd.com>
- <20240102034341.16321-4-Hawking.Zhang@amd.com>
- <PH0PR12MB5404E107542E0272338B7D2DF661A@PH0PR12MB5404.namprd12.prod.outlook.com>
-In-Reply-To: <PH0PR12MB5404E107542E0272338B7D2DF661A@PH0PR12MB5404.namprd12.prod.outlook.com>
+ 2024 08:49:09 +0000
+Received: from PH7PR12MB8796.namprd12.prod.outlook.com
+ ([fe80::5866:efa0:7f40:cd66]) by PH7PR12MB8796.namprd12.prod.outlook.com
+ ([fe80::5866:efa0:7f40:cd66%3]) with mapi id 15.20.7135.023; Tue, 2 Jan 2024
+ 08:49:08 +0000
+From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Wang, Yang(Kevin)"
+ <KevinYang.Wang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Yang, Stanley" <Stanley.Yang@amd.com>,
+ "Chai, Thomas" <YiPeng.Chai@amd.com>, "Li, Candice" <Candice.Li@amd.com>
+Subject: RE: [PATCH 2/3] drm/amdgpu: Query ras capablity from psp
+Thread-Topic: [PATCH 2/3] drm/amdgpu: Query ras capablity from psp
+Thread-Index: AQHaPS4Q0BwjW/hMTEiNhgDyA1nyO7DF++UAgAAFi4CAADSeQA==
+Date: Tue, 2 Jan 2024 08:49:08 +0000
+Message-ID: <PH7PR12MB87967060AC513D9C21E7B8CBB061A@PH7PR12MB8796.namprd12.prod.outlook.com>
+References: <20240102034440.16376-1-Hawking.Zhang@amd.com>
+ <20240102034440.16376-3-Hawking.Zhang@amd.com>
+ <PH7PR12MB599727B1E79936287A6FD4F38261A@PH7PR12MB5997.namprd12.prod.outlook.com>
+ <BN9PR12MB525740D2D819B6626AB2393CFC61A@BN9PR12MB5257.namprd12.prod.outlook.com>
+In-Reply-To: <BN9PR12MB525740D2D819B6626AB2393CFC61A@BN9PR12MB5257.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=e5a43124-0c8b-428c-83d8-f9ce9122f86e;
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=ceb12e59-4c5f-4e48-abfe-0ce66c0726ba;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-01-02T06:41:50Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-01-02T05:10:03Z;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|BY5PR12MB4322:EE_
-x-ms-office365-filtering-correlation-id: 2d781f67-296b-43cb-0c01-08dc0b6181ba
+x-ms-traffictypediagnostic: PH7PR12MB8796:EE_|DM4PR12MB6614:EE_
+x-ms-office365-filtering-correlation-id: e7893a8d-7754-49f3-86a2-08dc0b6faee2
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: YKmP4UVehQ43HuRfVL86TtH+4zl4aezAUeetVzfq+5jYzD0S/Mp6yzSYKjrnNTRNdqygtF2xdmuL1DT1VvVu0jdRKH/DLI0UEf7Qd0xQhZVg0DclAnGXF5l/9LCjwP3GFpqVLZSZton0vOlAnVfth5Y1kG4XCSNiNJQLIvOmlXunUnNNw/gg5Wi4MzBFhFOL++wnjFhuCdBq3lyIDSNJ0H/viilAuRyRnvDvs2tbhynIYTYFEIrpD+n/y7Opww0tb9w4hSmkosLnyqlZcGUKGqSYN4gqGwQrWu2+UjtOYYtuyPckKaI3CoTuNv7JfP6FD1fVoGjjcgirVUNH+MBTjRmt6o0y2w5NmRHzojnYJ12zxXRx1T8lmqcoPev94TsyNdUAJiL/rIWHL6XpmpdADqWPE1voF3JiCzXWDT/e5Lh4VKbO0zZjd2CzmA25V9HaEGhrA0u+GGBs8s0gcHlm71DCKy1lSm5HeM4KWzvDnMjELgF8UJyqKkZYA0+ZkqA2ppZ1UZj0wtU5rs6sxHoJb+1WCP/Xp0ZlbG7/6wTkpHqNXVR9eSrfLd2dPzmcCPPFpuHPFsBzVrbKpbEQ+sJ5kwlWoTNikyOot9MrCgxHnD43y9/YKYLI1p511QxY2dfpN6i7djqSyAUW8bZVbCTMwg==
+x-microsoft-antispam-message-info: LJq/UoAWDa+oQuxrZqFWzqLaYlIaiJ8DUhXNwXyEWhvfCNFbXQRm+egcJoOjLYt3Bf1Ylol1hMUQGw5mbDBR4pTqa34Nfi0Dtu9A2HEm2OFePHyk8GhpIKRl6NPJUT6LQzjzU39SNi6S1glXmJhA0FBtxPIfUW7OyJdeUwoPjey2YB8HXjhsKyqMQak4WT3PfaRj0YkEqlB+5fGohBLY82VkWYXaIEUEctPoozlTbW9hWjVwI+t34f2RfIX0dogAPTucXervA2BwrhwJx4CLVIiGTRXh7+VxORwn/fwbcMCepeuHHO7KkcvkSrMDyylQT6gs1X+qwGob+GgE2CXoEYgL3miMNGwjlssYqoPfxWiafKnPq4UU9nz38/mBQGxv4zjEEpdfEkVs/bQRizwg85BuIm6vZDqIGN3B4DF8v+Qx9Xwf89cpHW9bx2g9WGJFgp+TLBpv7DAKNGPlR/okX2xTqW1U1bDoruLwl6pKBVp1Pil37vSxhPgaZSnf93RaYrKwHRGuvK5DHw8Scw5705bbcYqHyAvfReW2+IwnngReFvOEBTp07yQbqI443GPZS0AJlQ588pYayec8lnw+4oA8rVabtPUTv9SOsTTyh6eHuXqTppuFcobZ5htkBtU7P+jNo6YBS2boIWPgdr0dMw==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(39850400004)(366004)(376002)(396003)(136003)(230922051799003)(451199024)(186009)(1800799012)(64100799003)(9686003)(83380400001)(53546011)(26005)(8936002)(41300700001)(5660300002)(8676002)(4326008)(52536014)(7696005)(2906002)(478600001)(66446008)(71200400001)(6506007)(66556008)(316002)(66476007)(122000001)(64756008)(6636002)(54906003)(66946007)(76116006)(110136005)(38070700009)(33656002)(86362001)(38100700002)(921011)(55016003);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB8796.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(346002)(39860400002)(396003)(136003)(376002)(366004)(230922051799003)(186009)(1800799012)(64100799003)(451199024)(53546011)(41300700001)(6506007)(86362001)(7696005)(9686003)(4326008)(8676002)(8936002)(71200400001)(26005)(55016003)(38070700009)(33656002)(38100700002)(921011)(83380400001)(5660300002)(66476007)(66946007)(66556008)(66446008)(64756008)(54906003)(478600001)(2906002)(52536014)(122000001)(316002)(6636002)(76116006)(110136005);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ZypJxoe1Qs8VueoeeAD2QJCNK+TCytfa5gZJ7Cs8PkPyabMLRUqL3L/JxY0h?=
- =?us-ascii?Q?cfVfnY6h76XGlu2YGZoTuUNXkQ9PFL+sXik6MettdDRc7hPTYVMM28EGiT2V?=
- =?us-ascii?Q?U8KbJrHRKwUdn712BC4IWyZRXc0Po3nVW0IBhUVLj0ua5iQH+PgoDNMhUXYa?=
- =?us-ascii?Q?uL/ppZqgTnenBzEFY5SfK26SozyKQABi0h67oMXYmxb70iaT3iddsBHVNs6S?=
- =?us-ascii?Q?MhrndNV3pu/FGStkJ2yIpPkUMYXCBMpmImTLN2rcE7gGvKZ8OtaXt5CRYIdh?=
- =?us-ascii?Q?Ij41qvMwsVzL/bvzp7uyAVKkUgqk0jR50u+/gsfBFfctAqZFxPmcGBipqwu5?=
- =?us-ascii?Q?wMY1FfIJKeYyjVy8EMYDq+xoGO7Qh6zn065nlKVCBUw0sR6exci1NMnUwo5R?=
- =?us-ascii?Q?qZJaed8mEmclLAWjjSrmJLENHNeBRgkzOa8L2qxVIbLlADmAScb3BZ/VokeA?=
- =?us-ascii?Q?/dFpmedk+RWVxWMZoYuTNRmS1BcxwxLQyM5RvMs5Lf1LV23zyTWo0TkS9YWF?=
- =?us-ascii?Q?F+s4ISFmj9pxg669T4piiT4VtimiKRICPNDjebh0Db/W+LEO9tHFSSPt+jbK?=
- =?us-ascii?Q?vnskRZanwWV59HqiUe95QgEJgasndD09DFupgacJP63nyMJ6SpVSB+et1WG4?=
- =?us-ascii?Q?xWgPUGIPhtKUMGxx38Pm1h92JJ1El9wCR+cQnx7Vu9qZYQeI2AltQ/+UXiXD?=
- =?us-ascii?Q?uDUX8JPo114S1yUx2QyaWgp31sQyN1vaKToaT26Rkaka6Armgg4cf2q9qOUo?=
- =?us-ascii?Q?dK1dsSMWlcubrSquj+DxULt/F+y3CpQZ63hT+rKnGKJuZM7KBHc4TLqDDebj?=
- =?us-ascii?Q?R481d7Y/H3eYPXcY6dYi7CYsgaxY1gMRBIDhGDn5TUQ8SVlu0bWeu7KlkJl4?=
- =?us-ascii?Q?FQMWsbD7dv4wdia1pyt19cjPNywut17D5N2AyCW56gvz7P5b+fJM8e5UgQQi?=
- =?us-ascii?Q?5/UKSKgmLCQnoWB3XLvB0pSGHGY9f/hN3Xagh3MQx0f72eqEIsp9s50Ow9jC?=
- =?us-ascii?Q?KKjLWzv3epSk66kPIwXL6Syrp/zsBNUaCFZ6VA43yBnA42FBUXjaDDQXQBWw?=
- =?us-ascii?Q?bCFE+ofAtu+eqxM6AUZSTGklBpcY5a1mGm+SCArw1DeTQuJU4kfX4nRkZzPX?=
- =?us-ascii?Q?npKPteu54CFdOSAMR6qdEQm1s8exN/j3BIzsb9O9fEEqX+ExAq3rN8Y+JicM?=
- =?us-ascii?Q?gcXfmzGmet0+on9w73klTKKVQGQeA/LOygcY1TTp/la7GcZqyFOo4erM8R40?=
- =?us-ascii?Q?b3uSw9GT9GHvGvTXvxA1fbJptu/X7eMj9RH1J0vZpfChhRx7eRo8Ur60PDXv?=
- =?us-ascii?Q?B75qSgDpA3oQSbKEhwQyVVmi3qf4JTSAbwYZe9LqJgFhFpUj9yzbgs9N7x2T?=
- =?us-ascii?Q?uWc7vhP/RIzOsf7rSX98uPDLgiR1jhknlza35sVnojTvXmH4qY93Vu1VwQ4W?=
- =?us-ascii?Q?LsJ6S9G4KjrjVYJh1qyhwXIau1/ooQqvoxjlUGLsW/4IOfzaMYrUT3nRry9Z?=
- =?us-ascii?Q?tL7WMI6ejxlmV7uHM+jR23zCDgL/5F1jVJx7EHQigdgL8lI93HAklfB15wdd?=
- =?us-ascii?Q?RK+YUNQ2u+oHBMLs9pU=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?bstyZpCh1fHKNKHVNPdUc48B5gOYEk8T5LfuBNiFnXBpUTsXBsPkEuT8JLMU?=
+ =?us-ascii?Q?7/kNYUPNGpqY27qL3gKgv59RPwU1NSyEvhYsRy0Sfaz9HDooHWUHmjY5X7Bh?=
+ =?us-ascii?Q?ZkE6T98BmHm1vraqoGCUUoq3zf1yxWdSBgHbTqHdyGpYotJmHzBLnM7Jj60e?=
+ =?us-ascii?Q?1RFkinxictoGPos8I3jpAVkenAB+FtrxYFm9EK7d5EO/xT+qkz9G4dZVKuhm?=
+ =?us-ascii?Q?HmYifqYj0SxSQD+JpkUM53vempx6EDWyhHi6+ub9/yBzTrriuUCEeqpVRXX3?=
+ =?us-ascii?Q?Kk28N9cKHV5hNblf2GuxkOVQ6RfNc/zXusdMN0yoW3nZe9sM46SM2i5WZp0r?=
+ =?us-ascii?Q?8h+JAYXDlnHbzpgfh/cDcdhuzuTbAnTrdDRLWIrDKjY3KLHib6DTdvWm2DMp?=
+ =?us-ascii?Q?d6tpRi3pPD/rNXyZWt0kFTawks+AFJBosOK/HxqDXieoZfSo4Yxzb+G4zGcN?=
+ =?us-ascii?Q?w68lJpWLG1pvWACs+MOv7UYfr/ww0wBK4kE8cJYt4HIvZR7QfnsBXc7/8Reo?=
+ =?us-ascii?Q?O1SImcoiCViXjMocKrgjiNPfZ+XJzqvTJpMuA8p/ISCZLduAZSjyZwhA4xx7?=
+ =?us-ascii?Q?5VF8uTo222Ep/RDSZkGcFoukezNA+ZzpqlivIKGCK7R04xpxCh2RbyW3p1Hr?=
+ =?us-ascii?Q?rY/DAxFbJ7/QTzF8/IrijhQnNnNFaGygWTXrz+0PsSgh5bszDUY8KzzSsiIC?=
+ =?us-ascii?Q?ypj8P0xe2bmJcSOKTfXHqxGdFzGY29lO3Qxr4ZAS/eBcQPbzQUwICvUn6WfO?=
+ =?us-ascii?Q?8PDvweELWmHdoyPF09kRhvmi9gTI1obhrErX7RXuJhAOurkQdreqk3iK7u6v?=
+ =?us-ascii?Q?iHGfig/GUbQQH8rWDyXs43Y4OQm4d0KW7gw5F/XPFUy0iEQ1aJlfdR86Ubhi?=
+ =?us-ascii?Q?NbYSR0tjzElAtmgCoex3sFQnxYj0Ac3Sbf7sW1xsDrULCckWlOg0REcDs+Ig?=
+ =?us-ascii?Q?fLlIveKwNnM8mHYd1JXGNQ0MPf4Sdf8hETN0OstC59FbVtyYKRlNuMzCCp5D?=
+ =?us-ascii?Q?bUf+byG7j9+IkG6bBkagwKhKNY2aa/pq/jETz+YpNO8Wh5MQg6iDBTCfQh0b?=
+ =?us-ascii?Q?axC0Lfs1t6df6ZOQeRMR7WrBfbTtYGzh7VhOij2LJP7nazFuI1BcVD9Q9hUX?=
+ =?us-ascii?Q?GlZwqWWm7BrbdVOXsGLuJf7MZ50Uhkil09nJYGsOv2dlgcjSVocOUeMaSErX?=
+ =?us-ascii?Q?PONVx8QhJws/9LX2vT/wSWJeWSV55r5kLyA21M6cPrr4XjWi096Ukg1uTEcc?=
+ =?us-ascii?Q?LoAcojfuZYGMqfZU2OlT22HObXmb2PiQsB2868noLr7DWQ0lwga0orqJSBN3?=
+ =?us-ascii?Q?7eqeeSuEmY6Piq1QOcM9B4UsfIYvwPjCqEX4baDRHGtmMGvKYZrarKB0lWMs?=
+ =?us-ascii?Q?cO5eiyrs1ivEY4CJ16XAGtyQwyeBGUiOs4BnzEW++H0dVFSDT8okoiGEA3ZV?=
+ =?us-ascii?Q?uB6glzr19WEWC6sdKTQOWdeDFbknSql2UMv7i7lrFT/AAtyrfIuN9dHc2Mdm?=
+ =?us-ascii?Q?DPXopHkOAxWE/jb1RcYFT9qScV2hbyCr4oKtNXFYEdq0xrrvrqh4EyGtHoIp?=
+ =?us-ascii?Q?Fk7Dnf6cLT/TZ7sbGxg=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d781f67-296b-43cb-0c01-08dc0b6181ba
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jan 2024 07:07:39.5345 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB8796.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7893a8d-7754-49f3-86a2-08dc0b6faee2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jan 2024 08:49:08.2892 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Vsyf5MWOCM4U8N+wmO2uhOyAzJvqOktNZP1+y8TYnwy1SL1ZnAs1g42CXTGlzNewtTJGJaVqR3cEXb/LVQMTjQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4322
+X-MS-Exchange-CrossTenant-userprincipalname: 2KgisyUt6yL67R/X7DZPm/68mpwlViaHYLrXq6IlGb7SW6ekwU06pWU8rc17bN/j
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6614
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,250 +127,198 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Lazar,
- Lijo" <Lijo.Lazar@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Ma, Le" <Le.Ma@amd.com>,
+ "Lazar, Lijo" <Lijo.Lazar@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [AMD Official Use Only - General]
 
-Good point, Le, will switch to the existing helper for the cross die access=
- in v2.
-
-Regards,
-Hawking
-
------Original Message-----
-From: Ma, Le <Le.Ma@amd.com>
-Sent: Tuesday, January 2, 2024 14:45
-To: Zhang, Hawking <Hawking.Zhang@amd.com>; amd-gfx@lists.freedesktop.org; =
-Zhou1, Tao <Tao.Zhou1@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; Wang,=
- Yang(Kevin) <KevinYang.Wang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>; =
-Li, Candice <Candice.Li@amd.com>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>
-Subject: RE: [PATCH 3/5] drm/amdgpu: Add ras helper to query boot errors
-
-[AMD Official Use Only - General]
-
+> -----Original Message-----
+> From: Zhang, Hawking <Hawking.Zhang@amd.com>
+> Sent: Tuesday, January 2, 2024 1:38 PM
+> To: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; amd-
+> gfx@lists.freedesktop.org; Zhou1, Tao <Tao.Zhou1@amd.com>; Yang, Stanley
+> <Stanley.Yang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>; Li, Candice
+> <Candice.Li@amd.com>
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Lazar, Lijo
+> <Lijo.Lazar@amd.com>; Ma, Le <Le.Ma@amd.com>
+> Subject: RE: [PATCH 2/3] drm/amdgpu: Query ras capablity from psp
+>
+> [AMD Official Use Only - General]
+>
+> The ret gives us a chance to fallback to legacy query approach (from vbio=
+s).
+>
+>
+> You might want to see patch #3 of the series for more details, go to the =
+following
+> lines in patch #3
+>
+> +       /* query ras capability from psp */
+> +       if (amdgpu_psp_get_ras_capability(&adev->psp))
+> +               goto init_ras_enabled_flag;
+>
+>
+> Regards,
+> Hawking
+>
+> -----Original Message-----
+> From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
+> Sent: Tuesday, January 2, 2024 13:19
+> To: Zhang, Hawking <Hawking.Zhang@amd.com>; amd-gfx@lists.freedesktop.org=
+;
+> Zhou1, Tao <Tao.Zhou1@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>;
+> Chai, Thomas <YiPeng.Chai@amd.com>; Li, Candice <Candice.Li@amd.com>
+> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander
+> <Alexander.Deucher@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Ma, Le
+> <Le.Ma@amd.com>
+> Subject: RE: [PATCH 2/3] drm/amdgpu: Query ras capablity from psp
+>
+> [AMD Official Use Only - General]
+>
 > -----Original Message-----
 > From: Hawking Zhang <Hawking.Zhang@amd.com>
-> Sent: Tuesday, January 2, 2024 11:44 AM
-> To: amd-gfx@lists.freedesktop.org; Zhou1, Tao <Tao.Zhou1@amd.com>;
-> Yang, Stanley <Stanley.Yang@amd.com>; Wang, Yang(Kevin)
+> Sent: Tuesday, January 2, 2024 11:45 AM
+> To: amd-gfx@lists.freedesktop.org; Zhou1, Tao <Tao.Zhou1@amd.com>; Yang,
+> Stanley <Stanley.Yang@amd.com>; Wang, Yang(Kevin)
 > <KevinYang.Wang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>; Li,
 > Candice <Candice.Li@amd.com>
 > Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander
 > <Alexander.Deucher@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Ma, Le
 > <Le.Ma@amd.com>
-> Subject: [PATCH 3/5] drm/amdgpu: Add ras helper to query boot errors
+> Subject: [PATCH 2/3] drm/amdgpu: Query ras capablity from psp
 >
-> Add ras helper function to query boot time gpu errors.
+> Instead of traditional atomfirmware interfaces for RAS capability, host d=
+river can
+> query ras capability from psp starting from psp v13_0_6.
 >
 > Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  3 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 95
-> +++++++++++++++++++++++++  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |
-> 15 +++-
->  3 files changed, 112 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 13 +++++++++++++
+> drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  2 ++
+> drivers/gpu/drm/amd/amdgpu/psp_v13_0.c  | 26 +++++++++++++++++++++++++
+>  3 files changed, 41 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 616b6c911767..db44ec857a31 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1328,6 +1328,9 @@ int emu_soc_asic_init(struct amdgpu_device
-> *adev);  #define WREG32_FIELD_OFFSET(reg, offset, field, val) \
->       WREG32(mm##reg + offset, (RREG32(mm##reg + offset) &
-> ~REG_FIELD_MASK(reg, field)) | (val) << REG_FIELD_SHIFT(reg, field))
->
-> +#define AMDGPU_SMN_TARGET_AID(x) ((u64)(x) << 32) #define
-> +AMDGPU_SMN_CROSS_AID (1ULL << 34) #define AMDGPU_GET_REG_FIELD(x,
-> h, l)
-> +(((x) & GENMASK_ULL(h, l)) >> (l))
->  /*
->   * BIOS helpers.
->   */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> index 39399d0f2ce5..5f302b7693b3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -3764,3 +3764,98 @@ int amdgpu_ras_error_statistic_ce_count(struct
-> ras_err_data *err_data,
->
->       return 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> index 94b536e3cada..8a3847d3041f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -2125,6 +2125,19 @@ int amdgpu_psp_wait_for_bootloader(struct
+> amdgpu_device *adev)
+>         return ret;
 >  }
+>
+> +bool amdgpu_psp_get_ras_capability(struct psp_context *psp) {
+> +       bool ret;
 > +
-> +#define mmMP0_SMN_C2PMSG_92  0x1609C
-> +#define mmMP0_SMN_C2PMSG_126 0x160BE
-> +static void amdgpu_ras_boot_time_error_reporting(struct amdgpu_device
-> *adev,
-> +                                              u32 instance, u32
-> +boot_error) {
-> +     u32 socket_id, aid_id, hbm_id;
-> +     u32 reg_data;
-> +     u64 reg_addr;
-> +
-> +     socket_id =3D AMDGPU_RAS_GPU_ERR_SOCKET_ID(boot_error);
-> +     aid_id =3D AMDGPU_RAS_GPU_ERR_AID_ID(boot_error);
-> +     hbm_id =3D AMDGPU_RAS_GPU_ERR_HBM_ID(boot_error);
-> +
-> +     if (instance)
-> +             reg_addr =3D (mmMP0_SMN_C2PMSG_92 << 2) +
-> +                        AMDGPU_SMN_TARGET_AID(instance) +
-> +                        AMDGPU_SMN_CROSS_AID;
-Hi Hawking,
+> +       if (psp->funcs &&
+> +           psp->funcs->get_ras_capability) {
+> +               ret =3D psp->funcs->get_ras_capability(psp);
+> +               return ret;
 
-We have asic function "aqua_vanjaram_encode_ext_smn_addressing" for this st=
-uff, maybe it could also be re-used here.
+[Tao] I think the code can be simplified as:
 
-Thanks.
-> +     else
-> +             reg_addr =3D (mmMP0_SMN_C2PMSG_92 << 2);
-> +
-> +     reg_data =3D amdgpu_device_indirect_rreg_ext(adev, reg_addr);
-> +     dev_err(adev->dev, "socket: %d, aid: %d, firmware boot failed,
-> + fw
-> status is 0x%x\n",
-> +             socket_id, aid_id, reg_data);
-> +
-> +     if (AMDGPU_RAS_GPU_ERR_MEM_TRAINING(boot_error))
-> +             dev_info(adev->dev, "socket: %d, aid: %d, hbm: %d,
-> + memory
-> training failed\n",
-> +                      socket_id, aid_id, hbm_id);
-> +
-> +     if (AMDGPU_RAS_GPU_ERR_FW_LOAD(boot_error))
-> +             dev_info(adev->dev, "socket: %d, aid: %d, firmware load
-> + failed
-> at boot time\n",
-> +                      socket_id, aid_id);
-> +
-> +     if (AMDGPU_RAS_GPU_ERR_WAFL_LINK_TRAINING(boot_error))
-> +             dev_info(adev->dev, "socket: %d, aid: %d, wafl link
-> + training
-> failed\n",
-> +                      socket_id, aid_id);
-> +
-> +     if (AMDGPU_RAS_GPU_ERR_XGMI_LINK_TRAINING(boot_error))
-> +             dev_info(adev->dev, "socket: %d, aid: %d, xgmi link
-> + training
-> failed\n",
-> +                      socket_id, aid_id);
-> +
-> +     if (AMDGPU_RAS_GPU_ERR_USR_CP_LINK_TRAINING(boot_error))
-> +             dev_info(adev->dev, "socket: %d, aid: %d, usr cp link
-> + training
-> failed\n",
-> +                      socket_id, aid_id);
-> +
-> +     if (AMDGPU_RAS_GPU_ERR_USR_DP_LINK_TRAINING(boot_error))
-> +             dev_info(adev->dev, "socket: %d, aid: %d, usr dp link
-> + training
-> failed\n",
-> +                      socket_id, aid_id);
-> +
-> +     if (AMDGPU_RAS_GPU_ERR_HBM_MEM_TEST(boot_error))
-> +             dev_info(adev->dev, "socket: %d, aid: %d, hbm: %d, hbm
-> memory test failed\n",
-> +                      socket_id, aid_id, hbm_id);
-> +
-> +     if (AMDGPU_RAS_GPU_ERR_HBM_BIST_TEST(boot_error))
-> +             dev_info(adev->dev, "socket: %d, aid: %d, hbm: %d, hbm
-> + bist
-> test failed\n",
-> +                      socket_id, aid_id, hbm_id); }
-> +
-> +static int amdgpu_ras_wait_for_boot_complete(struct amdgpu_device *adev,
-> +                                          u32 instance, u32 *boot_error)=
- {
-> +     u32 reg_addr;
-> +     u32 reg_data;
-> +     int retry_loop;
-> +
-> +     if (instance)
-> +             reg_addr =3D (mmMP0_SMN_C2PMSG_126 << 2) +
-> +                        AMDGPU_SMN_TARGET_AID(instance) +
-> +                        AMDGPU_SMN_CROSS_AID;
-> +     else
-> +             reg_addr =3D (mmMP0_SMN_C2PMSG_126 << 2);
-> +
-> +     for (retry_loop =3D 0; retry_loop < 1000; retry_loop++) {
-> +             reg_data =3D amdgpu_device_indirect_rreg_ext(adev, reg_addr=
-);
-> +             if (AMDGPU_RAS_GPU_ERR_BOOT_STATUS(reg_data)) {
-> +                     *boot_error =3D reg_data;
-> +                     return 0;
-> +             }
-> +             msleep(1);
-> +     }
-> +
-> +     *boot_error =3D reg_data;
-> +     return -ETIME;
+return psp->funcs->get_ras_capability(psp);
+
+and drop the ret variable.
+
+> [kevin]:
+> This variable 'ret' seems to have no other purpose, can we remove it and =
+return
+> directly ?
+>
+> Best Regards,
+> Kevin
+> +       } else {
+> +               return false;
+> +       }
 > +}
 > +
-> +void amdgpu_ras_query_boot_status(struct amdgpu_device *adev, u32
-> +num_instances) {
-> +     u32 boot_error =3D 0;
-> +     u32 i;
-> +
-> +     for (i =3D 0; i < num_instances; i++) {
-> +             if (amdgpu_ras_wait_for_boot_complete(adev, i, &boot_error)=
-)
-> +                     amdgpu_ras_boot_time_error_reporting(adev, i,
-> boot_error);
-> +     }
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> index 76fb85628716..5785b705c692 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> @@ -32,6 +32,19 @@
+>  static int psp_hw_start(struct psp_context *psp)  {
+>         struct amdgpu_device *adev =3D psp->adev; diff --git
+> a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+> index 09d1f8f72a9c..652b0a01854a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+> @@ -134,6 +134,7 @@ struct psp_funcs {
+>         int (*update_spirom)(struct psp_context *psp, uint64_t fw_pri_mc_=
+addr);
+>         int (*vbflash_stat)(struct psp_context *psp);
+>         int (*fatal_error_recovery_quirk)(struct psp_context *psp);
+> +       bool (*get_ras_capability)(struct psp_context *psp);
+>  };
 >
->  struct amdgpu_iv_entry;
+>  struct ta_funcs {
+> @@ -537,4 +538,5 @@ int psp_spatial_partition(struct psp_context *psp, in=
+t
+> mode);  int is_psp_fw_valid(struct psp_bin_desc bin);
 >
-> +#define AMDGPU_RAS_GPU_ERR_MEM_TRAINING(x)
->       AMDGPU_GET_REG_FIELD(x, 0, 0)
-> +#define AMDGPU_RAS_GPU_ERR_FW_LOAD(x)
->       AMDGPU_GET_REG_FIELD(x, 1, 1)
-> +#define AMDGPU_RAS_GPU_ERR_WAFL_LINK_TRAINING(x)
->       AMDGPU_GET_REG_FIELD(x, 2, 2)
-> +#define AMDGPU_RAS_GPU_ERR_XGMI_LINK_TRAINING(x)
->       AMDGPU_GET_REG_FIELD(x, 3, 3)
-> +#define AMDGPU_RAS_GPU_ERR_USR_CP_LINK_TRAINING(x)
->       AMDGPU_GET_REG_FIELD(x, 4, 4)
-> +#define AMDGPU_RAS_GPU_ERR_USR_DP_LINK_TRAINING(x)
->       AMDGPU_GET_REG_FIELD(x, 5, 5)
-> +#define AMDGPU_RAS_GPU_ERR_HBM_MEM_TEST(x)
->       AMDGPU_GET_REG_FIELD(x, 6, 6)
-> +#define AMDGPU_RAS_GPU_ERR_HBM_BIST_TEST(x)
->       AMDGPU_GET_REG_FIELD(x, 7, 7)
-> +#define AMDGPU_RAS_GPU_ERR_SOCKET_ID(x)
->       AMDGPU_GET_REG_FIELD(x, 10, 8)
-> +#define AMDGPU_RAS_GPU_ERR_AID_ID(x)
->       AMDGPU_GET_REG_FIELD(x, 12, 11)
-> +#define AMDGPU_RAS_GPU_ERR_HBM_ID(x)
->       AMDGPU_GET_REG_FIELD(x, 13, 13)
-> +#define AMDGPU_RAS_GPU_ERR_BOOT_STATUS(x)
->       AMDGPU_GET_REG_FIELD(x, 31, 31)
-> +
->  #define AMDGPU_RAS_FLAG_INIT_BY_VBIOS                (0x1 << 0)
->  /* position of instance value in sub_block_index of
->   * ta_ras_trigger_error_input, the sub block uses lower 12 bits @@
-> -818,5
-> +831,5 @@ int amdgpu_ras_error_statistic_ce_count(struct ras_err_data
-> *err_data,  int amdgpu_ras_error_statistic_ue_count(struct
-> ras_err_data *err_data,
->               struct amdgpu_smuio_mcm_config_info *mcm_info,
->               struct ras_err_addr *err_addr, u64 count);
-> -
-> +void amdgpu_ras_query_boot_status(struct amdgpu_device *adev, u32
-> +num_instances);
+>  int amdgpu_psp_wait_for_bootloader(struct amdgpu_device *adev);
+> +bool amdgpu_psp_get_ras_capability(struct psp_context *psp);
 >  #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
+> b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
+> index 676bec2cc157..722b6066ce07 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
+> @@ -27,6 +27,7 @@
+>  #include "amdgpu_ucode.h"
+>  #include "soc15_common.h"
+>  #include "psp_v13_0.h"
+> +#include "amdgpu_ras.h"
+>
+>  #include "mp/mp_13_0_2_offset.h"
+>  #include "mp/mp_13_0_2_sh_mask.h"
+> @@ -770,6 +771,30 @@ static int psp_v13_0_fatal_error_recovery_quirk(stru=
+ct
+> psp_context *psp)
+>         return 0;
+>  }
+>
+> +static bool psp_v13_0_get_ras_capability(struct psp_context *psp) {
+> +       struct amdgpu_device *adev =3D psp->adev;
+> +       struct amdgpu_ras *con =3D amdgpu_ras_get_context(adev);
+> +       u32 reg_data;
+> +
+> +       /* query ras cap should be done from host side */
+> +       if (amdgpu_sriov_vf(adev))
+> +               return false;
+> +
+> +       if (!con)
+> +               return false;
+> +
+> +       if ((amdgpu_ip_version(adev, MP0_HWIP, 0) =3D=3D IP_VERSION(13, 0=
+, 6)) &&
+> +           (!(adev->flags & AMD_IS_APU))) {
+> +               reg_data =3D RREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_127);
+> +               adev->ras_hw_enabled =3D (reg_data & GENMASK_ULL(23, 0));
+> +               con->poison_supported =3D ((reg_data & GENMASK_ULL(24, 24=
+)) >> 24) ?
+> true : false;
+> +               return true;
+> +       } else {
+> +               return false;
+> +       }
+> +}
+> +
+>  static const struct psp_funcs psp_v13_0_funcs =3D {
+>         .init_microcode =3D psp_v13_0_init_microcode,
+>         .wait_for_bootloader =3D psp_v13_0_wait_for_bootloader_steady_sta=
+te,
+> @@ -792,6 +817,7 @@ static const struct psp_funcs psp_v13_0_funcs =3D {
+>         .update_spirom =3D psp_v13_0_update_spirom,
+>         .vbflash_stat =3D psp_v13_0_vbflash_status,
+>         .fatal_error_recovery_quirk =3D psp_v13_0_fatal_error_recovery_qu=
+irk,
+> +       .get_ras_capability =3D psp_v13_0_get_ras_capability,
+>  };
+>
+>  void psp_v13_0_set_psp_funcs(struct psp_context *psp)
 > --
 > 2.17.1
-
+>
+>
 
