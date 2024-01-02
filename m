@@ -4,119 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3A62C46CD2
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jan 2024 08:50:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01E46C46CD2
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jan 2024 08:52:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47A6710E133;
-	Tue,  2 Jan 2024 08:50:23 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2061e.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e83::61e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32A6D10E172
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jan 2024 08:50:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C35B10E126;
+	Tue,  2 Jan 2024 08:52:48 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2041.outbound.protection.outlook.com [40.107.94.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44AD210E126
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jan 2024 08:52:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gbKkOmfKpoZvB7XvvybfHshwyjaW+0YSqrEuPCPJpYXRPta/9WeaOEwOGTwXdMhoaz9ZcMs/4pg1LQ3pIyU59CRCHBzSwznvEWCNAkSbPG5Zwa9Xuo057cTvuKjq6JQZmw9fXxP/CF8QXJCVIjph8kN2w0GioQ2k9goBHZzyY3nPrU9toPnVlEugWSZz+JWMOw3VF59qyZaHGSgGFFixciTqklLQW3NtAfDfCVksRLNdiCoZ2Xg5eAhwQmjE87e6GnSJpZRNdccgCOVJW8ehpDOd69dimN2Z0d46HIVyAbVBld96lUkVJ1xWJmQVjz9kl3j+fJQrq9XKkQ0nVDsEjQ==
+ b=Ehwg8Aq2ZUGrvmur7jTNQPiu4l+yK7NPXz6mIP66/ObL87UMa9hTSSWxOaO9VClzNkPLy4TVGAlFovUzbAO6c6Naa0uKrmTZE0AaG1rMquADv7H3TJtczsPUulIt748iGsPqrtAF0ff+Wfaf2vJQymFQVgFA3ldVbdn3Xj1M0FQHkI+ywiER2vRnaYmslYdiVP9xF5eobQi0H+mEDpwFw1Ajc4q7txGAbEf8WDocSwqpZGyh7tPCUTSYeHhLMqZYJY6jnkASR/xtDtjq7UjSbnFbZt0wIo3NEs6WtYbFyAfZaaJVal+Xe7qrgrjTr4TgF20XYVrGfI0o+Twc7DwnaQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kRipVS5whjv16PHHyJ+gRyRpVjDC0QaDVzbz0asabXE=;
- b=SqjKSCAEe92BbAhNXEcfYc83IKAknnqAf6Z7KhsJzdyDNT+AG1aU64rQxJUkbLA/A+CBBqMNl/8Kgt14cVibwhW+rGp5ghL5xOx9Caw03TPYaqs29iexRoFraBET0/HaTXO3p4VqpX7td35M05CBnUeTrH8IPZPY88bwN12sbo+L5u1R/x67+CIizlRlYD4nW9k22eyE6j48NsVu89IMIrbcnUsZOZlogMeQUmLizusf5vTVc5WrFx9Lu00rQkv/lrtKqXIO1HH2jV6PLSIGwIh1fSKz5lS2aKXPYObseMoWgE/cz7G0KfdnTcOBlAxt6YRJSt162ESVkMCBPJJhMA==
+ bh=lNp4LqUvsmmm/Bi7m0ZpIvXhM/0WyFPXB1qtxU9UiHs=;
+ b=LBH8hJNKP6sMp6SopJzpPWFDUDR5IGwxzBs66xYW/lNBFrsDD66X/cnwgFTg48KDEWJPpOybDtvVJuy/LmgoDuCCh/KopaODDUipzMIw2TSPRNi55vjVnPO6/61HZAv7EKTZghL1FoS+uIVOTguS0Yh6JVH1hsh3aJlBIpa6T+m7Ylqvq63pM8plrW9a15gTr/AYDkvJi4DwoCtcEoqLfLooDOITCIMJxgMMae8ta28+xQXQb+9f6tAZDu9zp+ErLFwElLFwXeK2NwuJ95HQUMgImd5gUiIg2pz+iPjSQIDqv5lIUQxiGOT7x8+lyMqfylCbuCNkPxlvL6+zIbSzPg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kRipVS5whjv16PHHyJ+gRyRpVjDC0QaDVzbz0asabXE=;
- b=VIe8St1ZplItZL9DYU/Ltc6RXg5a/YCaJy/gTkfD4+P6sOcTFAf//bWfCuw85/NohPaFnho6vCfMSQ7z/1gO/l25hJCC/31kBX2adNEXOFfKDuIpB1azcx+eHP9PT5Az2r2FDY7iRSzdFlZdA5OgiVvIHpFaYbUs7iWSFsMb29A=
+ bh=lNp4LqUvsmmm/Bi7m0ZpIvXhM/0WyFPXB1qtxU9UiHs=;
+ b=qaBgt7p1G7e8CYq9TDRJFshpPleerKci67o9lco3zcRmjrIF57Pw5iRq+kQlfRz800PbQOslrZ5cgpfPneTTP9bQTqUbNrEw+2z3l7ZlBxtzxkPMNgZ6lQi0hWKe4d16PqWaXXBILEvfTo8rTje0+j8hQEXWOArYbbowlkvKSDw=
 Received: from PH7PR12MB8796.namprd12.prod.outlook.com (2603:10b6:510:272::22)
- by DM4PR12MB6614.namprd12.prod.outlook.com (2603:10b6:8:bb::13) with
+ by DS0PR12MB8248.namprd12.prod.outlook.com (2603:10b6:8:f3::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.25; Tue, 2 Jan
- 2024 08:50:19 +0000
+ 2024 08:52:45 +0000
 Received: from PH7PR12MB8796.namprd12.prod.outlook.com
  ([fe80::5866:efa0:7f40:cd66]) by PH7PR12MB8796.namprd12.prod.outlook.com
  ([fe80::5866:efa0:7f40:cd66%3]) with mapi id 15.20.7135.023; Tue, 2 Jan 2024
- 08:50:19 +0000
+ 08:52:44 +0000
 From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
 To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>, "Yang, Stanley" <Stanley.Yang@amd.com>,
  "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>, "Chai, Thomas"
  <YiPeng.Chai@amd.com>, "Li, Candice" <Candice.Li@amd.com>
-Subject: RE: [PATCH 3/3] drm/amdgpu: Centralize ras cap query to
- amdgpu_ras_check_supported
-Thread-Topic: [PATCH 3/3] drm/amdgpu: Centralize ras cap query to
- amdgpu_ras_check_supported
-Thread-Index: AQHaPS4VNmDrL80lpUag9ASgWZCIo7DGNvIg
-Date: Tue, 2 Jan 2024 08:50:19 +0000
-Message-ID: <PH7PR12MB87962AF7A5C6B7594F481A3EB061A@PH7PR12MB8796.namprd12.prod.outlook.com>
-References: <20240102034440.16376-1-Hawking.Zhang@amd.com>
- <20240102034440.16376-4-Hawking.Zhang@amd.com>
-In-Reply-To: <20240102034440.16376-4-Hawking.Zhang@amd.com>
+Subject: RE: [PATCH 3/3] drm/amdgpu: Replace DRM_* with dev_* in amdgpu_psp.c
+Thread-Topic: [PATCH 3/3] drm/amdgpu: Replace DRM_* with dev_* in amdgpu_psp.c
+Thread-Index: AQHaPS4zECNOoJ02Fk+Gbf2FZIYXm7DGN6XA
+Date: Tue, 2 Jan 2024 08:52:44 +0000
+Message-ID: <PH7PR12MB87966AC11787B9A690887DCAB061A@PH7PR12MB8796.namprd12.prod.outlook.com>
+References: <20240102034508.16426-1-Hawking.Zhang@amd.com>
+ <20240102034508.16426-3-Hawking.Zhang@amd.com>
+In-Reply-To: <20240102034508.16426-3-Hawking.Zhang@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=a6199345-de59-497e-816d-a15ecbdab916;
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=d8500a30-9936-46a6-a471-1f70ddd22d9c;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-01-02T08:49:53Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-01-02T08:52:23Z;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB8796:EE_|DM4PR12MB6614:EE_
-x-ms-office365-filtering-correlation-id: c9e9a8cc-6ca9-4556-6200-08dc0b6fd960
+x-ms-traffictypediagnostic: PH7PR12MB8796:EE_|DS0PR12MB8248:EE_
+x-ms-office365-filtering-correlation-id: 68751e40-8a81-44c4-3ebf-08dc0b702fef
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: gK+JnPSY3epR3JYohJiKoVAg01ec2YY69BYuMpzSFpwXW9YUtCbW+bknbM92mX/JH1cXeqFLys+Zth7OjbzAoH3Kd/V35X5SH2AQz0of0brdf4IU1d7ZUmyFNyg7uTHip7ctuMBw1p446Y5oDVPwCCwSrapHyWQfm3+6MbhePHbbI+5zaQMLjgotHW4o+BOUpAysR4ooOJPcm+ByXyaWEdLNSUSkUt9tH75LIdz7bAKyKV4QH/gRIcZslfmyQwWSPFw3ybg8tiBVnLydKMfkGn3X/7cXJwNoOBF0SPyh7XcZFsbZWe7v+b8ytZw+uhSO8GKxkUWqNrA3nRDu/enlWKBLjdRhmlFAMQAGyIDCLqgrSxtIiCU0h1dxrvq6373wCc4Ljlsi8Dxo0vZyEdmJiMUf0XsaZNaqWnMQVoo/Wp70ldhbByaEfHpP+jk9K0mi87Gbbs9di4t/5DaDim/TjQ4Q1tUKUbys9O/hC12B7JtSS0JH93aXQrVd14cqcKmbCWRMAHTIelSfsqIVI7bPVI+ckduI5NgTBBGxjv5NnqJdNS5yA1mWzkaWuwUy9wtYrRYnpsIZQ4AgS3Mw6GmRaXFUpFuaGVuAEoISD2GjBYYvsIK4pCvTBCgb8/eGQ+6OFI5fofBQ2afU9INYX3lg7w==
+x-microsoft-antispam-message-info: QAx+OZfAJF3DZI7OVjHiSPfJOMPHLEwXx7Xg31tUM6mR7lHR4dPwAg7m+wGF2c2t0Ad4tkkbgonwNE5V7nCGdKp3kt1fhArLKimwZ5T3YjelUsdz5mdfujDe4HXqV3DvVOJxvlvnCogBSA6cmFqOMR1nB6aZSu7FrVBl6J09duaBpM07GUu2YHNh2IztnI9xk41kbylH03k4xV9rBkWnk+O/eq3BadFiFWWyfpY4A34juX2GfE7LE5TkxoI+wUbcefR9/NqxqPQ5IUNwJrvh1pML/Yq41pgoVb4whgqu/a4Ed18Qw5v4tgthaAgJjhm5EQ/clrhIxLmVML8mNcLrlA36TLUHCBEuH/t0O61GtwBz09lmtAghqzQ7bukwnQXR9ZwPXyhcLb0MtlZUv2Cx6IWed0aKRhNGPw8dcDAcQ5omTlccIxlBGO6xS8N6brYwhOL0zxpaoKUBIIXITKB+hqCKE1+4sFy4BBUzVxU6I09TI3e/naSlZVs+gSXGBrRNyP8nifeak3H3jB6dweqOMo5KOZNrS8Y9WKtlV1XeAsJgC4l7ZozqpuoafyYoDpFNfx5SatyclwHY7fDx8TnEdeae+x8sUUoJA+B7jYgNsQrJLx3HHsStJweiK1wIODqP0lXHv2B1gvLWHGQh7shOpVUGrRLm3XkXUaYUyLQdbOoQCFqfDb6nSf9dGVlsGN7h
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB8796.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(39860400002)(396003)(136003)(376002)(366004)(230922051799003)(186009)(1800799012)(64100799003)(451199024)(53546011)(41300700001)(6506007)(86362001)(7696005)(9686003)(4326008)(8676002)(8936002)(71200400001)(26005)(55016003)(38070700009)(33656002)(38100700002)(921011)(83380400001)(5660300002)(66476007)(66946007)(66556008)(66446008)(64756008)(54906003)(478600001)(2906002)(52536014)(122000001)(316002)(6636002)(76116006)(110136005);
+ SFS:(13230031)(136003)(376002)(39860400002)(366004)(346002)(396003)(230922051799003)(230173577357003)(230273577357003)(1800799012)(186009)(64100799003)(451199024)(55016003)(6506007)(7696005)(9686003)(71200400001)(53546011)(921011)(478600001)(86362001)(38100700002)(38070700009)(33656002)(30864003)(41300700001)(2906002)(26005)(122000001)(52536014)(66476007)(64756008)(66446008)(110136005)(66946007)(4326008)(316002)(54906003)(66556008)(6636002)(76116006)(83380400001)(5660300002)(8676002)(8936002)(579004)(559001);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Nu/5mwiUB45sZOQ41r+9Uxe4F/l5A75Q22o57zCBfWRO6I0K0ma5Cam+6bck?=
- =?us-ascii?Q?4Sax28I4mjiZso8aR4n0vdQyK4xv5HEq1nVJ1bGYGbIyvxoRLhfrPj18lS1G?=
- =?us-ascii?Q?StywOB2BUaQrHDgGozQap76q8uXYH41JIikvGGZBR1MQ6dG0NEghEWjEAqi4?=
- =?us-ascii?Q?dlH7M1gzA08yMa/ONolGQsVRhe1P35PevxIWeKZ598cFaqFs85GpOcOCF0GX?=
- =?us-ascii?Q?YlKyqCTZsSKcZw2XcTEO19ixsuqX0EryPDVWTeSBvUGKjs7vNrUoECTFT5eP?=
- =?us-ascii?Q?Hqmsr2RWqwnQDRY6sGFfidjTIax3TmA8sNgfDwpg9MmqzlX4EnnXPqjlsno9?=
- =?us-ascii?Q?sByNhk6VFEXWnYux7vMRf5zrcy7PDMCtWhVHkK6nGC+hCN4oYHh/iwHiM2Zq?=
- =?us-ascii?Q?cC/O5XhM3LHVcwWKi1doq8y2IWnsp95ZScRqZ6SPuqxmDZthWpTioqxRwcUj?=
- =?us-ascii?Q?jTc2h2H0/mrbiLFZhViSgsHf+dvYlGDkt55KGl3WO+g+pAchewbrrlwLcBt8?=
- =?us-ascii?Q?L8GCzgUw6qzkM7D/S6URNUtrY0nB5rYm7q9zMEF6fUSoY1CkrV3vsH7CtXBA?=
- =?us-ascii?Q?AnM/04VapKzsE9YxEP0rOaTwWr3obfAQYa4RkILH1Sc0x2Cir0cC86fc0NCV?=
- =?us-ascii?Q?3/AnReEhSzlXs/fLZ9BQCA62RXMngSk/aE7p2IxlGZosZGhpZmN6U31fKupz?=
- =?us-ascii?Q?J/v3OiTyIDsjXaKIRkDjddvUR1u2qckvkn0+gEi3VodOh/Qvzcc2/q1DR7GA?=
- =?us-ascii?Q?0aPWvi0hXBEDvos0I4/QsYtvsO3uQ2RkBX483lf0vWsrkGjVU99cS2rX8bZs?=
- =?us-ascii?Q?IPOtwHy9OnZAqxyuKfxiKwOnZeO/QuqXAQbAixmpcfI5FAt8pMAVSqcTXuXw?=
- =?us-ascii?Q?GY8eHJhbaiChR8G6mPvWe/sgL3qQkmVfv+5jGG1YifG/7qN3jiNRZ6t5RWmS?=
- =?us-ascii?Q?LLeDK0GH5IHN0Wo8Ir73No6AX2Zy3awK0GrGOPYjV66SO76UMuRUwyqWgHG0?=
- =?us-ascii?Q?kQ/HY6r/GBUjajypFiDcJ7pRNjx9KQURzmuqwzG6/8aC7z13y71VilWspz7P?=
- =?us-ascii?Q?v18DS7fQyGYaCZkJM7sYTI5SgcbAnZ0/vEwjPg4jgHI1QpyhY2jiuZY/+y/1?=
- =?us-ascii?Q?DihnZN0ttLu3MyBqw60NjDwOKhWRnTp236iz09pmuQayo/DhcaLELBx96lgn?=
- =?us-ascii?Q?RUd4AvNcI/suNl3KOgygqZwZjVIJu15J18R9y0O5pEYN6zfLx9Ta8aeMfYoV?=
- =?us-ascii?Q?0kRzW9Lr0VNnWCShyHMLPZTdPvpyG43fKi59mUPYxMev3cEjKssF4Mo9Pdjq?=
- =?us-ascii?Q?YSfK3v8iqREDNWFip2yeIWs69y3jKyZKuBTafTPnoJEARb3Dq/EMEQJt++eD?=
- =?us-ascii?Q?PiRDmAq9qzgPxER6wKBiNkiR6fYUphBAJt3mYfH3ulqA+4mZBD6QZx2iePOn?=
- =?us-ascii?Q?af0m0pUEZoVpnTPUKjcZw4deTg1snOl06hMBW48R+3q4K+th1ah5kkyhmlyb?=
- =?us-ascii?Q?+43/fmu5DUmv03xlhSgy9sbAxMxmwfG4CBxoM5mYweTUHQrQESORlpE8zCYq?=
- =?us-ascii?Q?mMlJU5naQcuSxotOhM4=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?WuYEdFZ9JE+sKcxdr2BxmqnGCTyhqWi+w5vnEAR0HzY3Xq9X31gMQK2y6vx+?=
+ =?us-ascii?Q?9HKOrnNe77n/dfCcMxCmcVySybvPbowGvTew9J9l7AZhMFiCdAlBv66uWOEd?=
+ =?us-ascii?Q?eN80pSnNB9EqP4Ld2rfiEoI+VH3d0zW8zHUe4Q82FiWjRDcKbxEhs38qke5Y?=
+ =?us-ascii?Q?8bag2Nhgjqg4J17R3TR/4OyFwEjNHYHpceWiLqo1AlGnPhtYq/I8GkZKyZ19?=
+ =?us-ascii?Q?m/bxVMPIBkqEswFwKCufaH1vM7xrUM+2XQj4sWS70+Tl+n2beGtBgmQ4BkFa?=
+ =?us-ascii?Q?yruM51b1LaMyuNrsYm/+1S2EfUOGuEiZCnBtIUXnxnWWc8yQnmzI1ev9PYYH?=
+ =?us-ascii?Q?YrX/gclCaC5RXAwIOtrVO4begIxEi/7xEc0XR8DIfO7T+OisM3N8FQhYDZgH?=
+ =?us-ascii?Q?wnWrO243K6oRpZzvih+8t43MNlp8s3rcvhAI40MhzSEyzu6hXJ7tGwa7wLtU?=
+ =?us-ascii?Q?7DpsAhCHzwpvQ3omee0Iei8KlawwRd9N9wCFi9k7SNGSyZUXhWLDM9AzRdSk?=
+ =?us-ascii?Q?sxMqlRvrrXVnVQiTH7SPPuPhW/sYViH2Z4lzYCF+p4jNXx0VMyBRuleZVYHn?=
+ =?us-ascii?Q?0AxYJAsVowKT6DM8E6vGte1cgeBKIBPDTD9wzeeSurzRkvprs12bdXu/IscO?=
+ =?us-ascii?Q?oVPGB4WuzxilMEr4GeVZPBLMMvy0kI0RvF3a7iPq9CafB7NP/fZ4YXMQVFTp?=
+ =?us-ascii?Q?RH+ilIVCNO98aaeLi4FSytb9jJz5If+NnwahBbR47NDUviOtiwmq+x6kGsPd?=
+ =?us-ascii?Q?T9NUsTafKhR1CR3pDAkIaQYUKdqs0A4GSpZF9hPMCS9QJaGzNXYceKjNBlUT?=
+ =?us-ascii?Q?fwBshI9Ku8RX1BNQLAhJHI1P/WpfqeqXUj0MHfldVnGOLjnONSknTJsg8+9d?=
+ =?us-ascii?Q?oHJQSa9rHkaxt8rLUoqQ5Hfp8L2NIL3GntO6bmfjp53njH8jExBHUXUijQRE?=
+ =?us-ascii?Q?zhEy5Skx4gxMS60M6D95PK6S+iz9B2TbClviKmCS7CuCiP/+a3uTLPd7X2xy?=
+ =?us-ascii?Q?6qIuXBIOPWQnRheQdNoeE7pO/Dem8gcGEgzQgmH1O1eUShXn9KgVClweAXrM?=
+ =?us-ascii?Q?sO7f1vi4My9OYQ3Jsxxzd/c/jxZyEANMjRERT4aGZYpi42vEW+NrqTtAqthy?=
+ =?us-ascii?Q?OfYtGwrWAYBLUv52PF6pXFo65xRx1idCgLwSkinCze61SeWVL8kB+nwMAkE5?=
+ =?us-ascii?Q?W6GxCs/Ui61Es/HG3//4bIB4xxZ8MFwU3phwJbF6Ko02HQTNZlDRsfJJ9PlL?=
+ =?us-ascii?Q?wwc5x4skTr/pk1jVX7i7ZkaqphfzTR79UJVkXcMIMaH+kqf/kWsXupwe7YYI?=
+ =?us-ascii?Q?DdAQKmsT8Bj9MY68do5XNoQHOmDOzvzpB3f1xk98hrT/k7/Q/vbHqlpARjJP?=
+ =?us-ascii?Q?Rx2Vucoeu5F3rwoZHJhtcwt4sfSPQ9OEURaN3W+RXg1u28RZIFIBZi8v7K7Z?=
+ =?us-ascii?Q?BGbXZD5/+jMgIohzmcPBzm7nSCKDlRi4fmnmkmEdvzuCayFaiOeiAEoOpPxp?=
+ =?us-ascii?Q?7tpCH46SPLe8ZcMvCV+VX48j3wyyCtDWk8oz8x42SHbg5b1zGF97DOvgXuiF?=
+ =?us-ascii?Q?72DKm/ui2NwoQh88chs=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB8796.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9e9a8cc-6ca9-4556-6200-08dc0b6fd960
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jan 2024 08:50:19.5379 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 68751e40-8a81-44c4-3ebf-08dc0b702fef
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jan 2024 08:52:44.7938 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: uXPIYrLuaD6nPSOW9J8fEGhf1ErEiJVB2SqvpkVokT+dhFhCidcV3XyYNgpOFu7t
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6614
+X-MS-Exchange-CrossTenant-userprincipalname: KPvfUkqPL6aozyhTtQJWcQ3coAdFv3CKNxQU3XWkeQsp/N+52Hmmp+QrQQLdA7X2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8248
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,276 +148,649 @@ g
 > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Ma, Le
 > <Le.Ma@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Zhang, Hawking
 > <Hawking.Zhang@amd.com>
-> Subject: [PATCH 3/3] drm/amdgpu: Centralize ras cap query to
-> amdgpu_ras_check_supported
+> Subject: [PATCH 3/3] drm/amdgpu: Replace DRM_* with dev_* in amdgpu_psp.c
 >
-> Move ras capablity check to amdgpu_ras_check_supported.
-> Driver will query ras capablity through psp interace, or vbios interface,=
- or specific
-> ip callbacks.
+> So kernel message has the device pcie bdf information, which helps issue
+> debugging especially in multiple GPU system.
 >
 > Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 170 +++++++++++++-----------
->  1 file changed, 93 insertions(+), 77 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 144 ++++++++++++------------
+>  1 file changed, 75 insertions(+), 69 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> index 5f302b7693b3..72b6e41329b0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -39,6 +39,7 @@
->  #include "nbio_v7_9.h"
->  #include "atom.h"
->  #include "amdgpu_reset.h"
-> +#include "amdgpu_psp.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> index 8a3847d3041f..0d871479ff34 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -291,21 +291,22 @@ static int psp_memory_training_init(struct psp_cont=
+ext
+> *psp)
+>       struct psp_memory_training_context *ctx =3D &psp->mem_train_ctx;
 >
->  #ifdef CONFIG_X86_MCE_AMD
->  #include <asm/mce.h>
-> @@ -2680,6 +2681,87 @@ static void amdgpu_ras_get_quirks(struct
-> amdgpu_device *adev)
->               adev->ras_hw_enabled |=3D (1 << AMDGPU_RAS_BLOCK__GFX);  }
->
-> +/* Query ras capablity via atomfirmware interface */ static void
-> +amdgpu_ras_query_ras_capablity_from_vbios(struct amdgpu_device *adev) {
-> +     /* mem_ecc cap */
-> +     if (amdgpu_atomfirmware_mem_ecc_supported(adev)) {
-> +             dev_info(adev->dev, "MEM ECC is active.\n");
-> +             adev->ras_hw_enabled |=3D (1 << AMDGPU_RAS_BLOCK__UMC |
-> +                                      1 << AMDGPU_RAS_BLOCK__DF);
-> +     } else {
-> +             dev_info(adev->dev, "MEM ECC is not presented.\n");
-> +     }
-> +
-> +     /* sram_ecc cap */
-> +     if (amdgpu_atomfirmware_sram_ecc_supported(adev)) {
-> +             dev_info(adev->dev, "SRAM ECC is active.\n");
-> +             if (!amdgpu_sriov_vf(adev))
-> +                     adev->ras_hw_enabled |=3D ~(1 <<
-> AMDGPU_RAS_BLOCK__UMC |
-> +                                               1 <<
-> AMDGPU_RAS_BLOCK__DF);
-> +             else
-> +                     adev->ras_hw_enabled |=3D (1 <<
-> AMDGPU_RAS_BLOCK__PCIE_BIF |
-> +                                              1 <<
-> AMDGPU_RAS_BLOCK__SDMA |
-> +                                              1 <<
-> AMDGPU_RAS_BLOCK__GFX);
-> +
-> +             /*
-> +              * VCN/JPEG RAS can be supported on both bare metal and
-> +              * SRIOV environment
-> +              */
-> +             if (amdgpu_ip_version(adev, VCN_HWIP, 0) =3D=3D IP_VERSION(=
-2, 6,
-> 0) ||
-> +                 amdgpu_ip_version(adev, VCN_HWIP, 0) =3D=3D IP_VERSION(=
-4, 0,
-> 0) ||
-> +                 amdgpu_ip_version(adev, VCN_HWIP, 0) =3D=3D IP_VERSION(=
-4, 0,
-> 3))
-> +                     adev->ras_hw_enabled |=3D (1 <<
-> AMDGPU_RAS_BLOCK__VCN |
-> +                                              1 <<
-> AMDGPU_RAS_BLOCK__JPEG);
-> +             else
-> +                     adev->ras_hw_enabled &=3D ~(1 <<
-> AMDGPU_RAS_BLOCK__VCN |
-> +                                               1 <<
-> AMDGPU_RAS_BLOCK__JPEG);
-> +
-> +             /*
-> +              * XGMI RAS is not supported if xgmi num physical nodes
-> +              * is zero
-> +              */
-> +             if (!adev->gmc.xgmi.num_physical_nodes)
-> +                     adev->ras_hw_enabled &=3D ~(1 <<
-> AMDGPU_RAS_BLOCK__XGMI_WAFL);
-> +     } else {
-> +             dev_info(adev->dev, "SRAM ECC is not presented.\n");
-> +     }
-> +}
-> +
-> +/* Query poison mode from umc/df IP callbacks */ static void
-> +amdgpu_ras_query_poison_mode(struct amdgpu_device *adev) {
-> +     struct amdgpu_ras *con =3D amdgpu_ras_get_context(adev);
-> +     bool df_poison, umc_poison;
-> +
-> +     /* poison setting is useless on SRIOV guest */
-> +     if (amdgpu_sriov_vf(adev) || !con)
-> +             return;
-> +
-> +     /* Init poison supported flag, the default value is false */
-> +     if (adev->gmc.xgmi.connected_to_cpu ||
-> +         adev->gmc.is_app_apu) {
-> +             /* enabled by default when GPU is connected to CPU */
-> +             con->poison_supported =3D true;
-> +     } else if (adev->df.funcs &&
-> +         adev->df.funcs->query_ras_poison_mode &&
-> +         adev->umc.ras &&
-> +         adev->umc.ras->query_ras_poison_mode) {
-> +             df_poison =3D
-> +                     adev->df.funcs->query_ras_poison_mode(adev);
-> +             umc_poison =3D
-> +                     adev->umc.ras->query_ras_poison_mode(adev);
-> +
-> +             /* Only poison is set in both DF and UMC, we can support it=
- */
-> +             if (df_poison && umc_poison)
-> +                     con->poison_supported =3D true;
-> +             else if (df_poison !=3D umc_poison)
-> +                     dev_warn(adev->dev,
-> +                             "Poison setting is inconsistent in
-> DF/UMC(%d:%d)!\n",
-> +                             df_poison, umc_poison);
-> +     }
-> +}
-> +
->  /*
->   * check hardware's ras ability which will be saved in hw_supported.
->   * if hardware does not support ras, we can skip some ras initializtion =
-and @@ -
-> 2696,49 +2778,13 @@ static void amdgpu_ras_check_supported(struct
-> amdgpu_device *adev)
->       if (!amdgpu_ras_asic_supported(adev))
->               return;
->
-> -     if (!adev->gmc.xgmi.connected_to_cpu && !adev-
-> >gmc.is_app_apu) {
-> -             if (amdgpu_atomfirmware_mem_ecc_supported(adev)) {
-> -                     dev_info(adev->dev, "MEM ECC is active.\n");
-> -                     adev->ras_hw_enabled |=3D (1 <<
-> AMDGPU_RAS_BLOCK__UMC |
-> -                                                1 <<
-> AMDGPU_RAS_BLOCK__DF);
-> -             } else {
-> -                     dev_info(adev->dev, "MEM ECC is not presented.\n");
-> -             }
-> -
-> -             if (amdgpu_atomfirmware_sram_ecc_supported(adev)) {
-> -                     dev_info(adev->dev, "SRAM ECC is active.\n");
-> -                     if (!amdgpu_sriov_vf(adev))
-> -                             adev->ras_hw_enabled |=3D ~(1 <<
-> AMDGPU_RAS_BLOCK__UMC |
-> -                                                         1 <<
-> AMDGPU_RAS_BLOCK__DF);
-> -                     else
-> -                             adev->ras_hw_enabled |=3D (1 <<
-> AMDGPU_RAS_BLOCK__PCIE_BIF |
-> -                                                             1 <<
-> AMDGPU_RAS_BLOCK__SDMA |
-> -                                                             1 <<
-> AMDGPU_RAS_BLOCK__GFX);
-> -
-> -                     /* VCN/JPEG RAS can be supported on both bare metal
-> and
-> -                      * SRIOV environment
-> -                      */
-> -                     if (amdgpu_ip_version(adev, VCN_HWIP, 0) =3D=3D
-> -                                 IP_VERSION(2, 6, 0) ||
-> -                         amdgpu_ip_version(adev, VCN_HWIP, 0) =3D=3D
-> -                                 IP_VERSION(4, 0, 0) ||
-> -                         amdgpu_ip_version(adev, VCN_HWIP, 0) =3D=3D
-> -                                 IP_VERSION(4, 0, 3))
-> -                             adev->ras_hw_enabled |=3D (1 <<
-> AMDGPU_RAS_BLOCK__VCN |
-> -                                                     1 <<
-> AMDGPU_RAS_BLOCK__JPEG);
-> -                     else
-> -                             adev->ras_hw_enabled &=3D ~(1 <<
-> AMDGPU_RAS_BLOCK__VCN |
-> -                                                     1 <<
-> AMDGPU_RAS_BLOCK__JPEG);
-> +     /* query ras capability from psp */
-> +     if (amdgpu_psp_get_ras_capability(&adev->psp))
-> +             goto init_ras_enabled_flag;
->
-> -                     /*
-> -                      * XGMI RAS is not supported if xgmi num physical n=
-odes
-> -                      * is zero
-> -                      */
-> -                     if (!adev->gmc.xgmi.num_physical_nodes)
-> -                             adev->ras_hw_enabled &=3D ~(1 <<
-> AMDGPU_RAS_BLOCK__XGMI_WAFL);
-> -             } else {
-> -                     dev_info(adev->dev, "SRAM ECC is not presented.\n")=
-;
-> -             }
-> +     /* query ras capablity from bios */
-> +     if (!adev->gmc.xgmi.connected_to_cpu && !adev->gmc.is_app_apu) {
-> +             amdgpu_ras_query_ras_capablity_from_vbios(adev);
->       } else {
->               /* driver only manages a few IP blocks RAS feature
->                * when GPU is connected cpu through XGMI */ @@ -2747,8
-> +2793,13 @@ static void amdgpu_ras_check_supported(struct amdgpu_device
-> *adev)
->                                          1 <<
-> AMDGPU_RAS_BLOCK__MMHUB);
+>       if (ctx->init !=3D PSP_MEM_TRAIN_RESERVE_SUCCESS) {
+> -             DRM_DEBUG("memory training is not supported!\n");
+> +             dev_dbg(psp->adev->dev, "memory training is not
+> supported!\n");
+>               return 0;
 >       }
 >
-> +     /* apply asic specific settings (vega20 only for now) */
->       amdgpu_ras_get_quirks(adev);
+>       ctx->sys_cache =3D kzalloc(ctx->train_data_size, GFP_KERNEL);
+>       if (ctx->sys_cache =3D=3D NULL) {
+> -             DRM_ERROR("alloc mem_train_ctx.sys_cache failed!\n");
+> +             dev_err(psp->adev->dev, "alloc mem_train_ctx.sys_cache
+> failed!\n");
+>               ret =3D -ENOMEM;
+>               goto Err_out;
+>       }
 >
-> +     /* query poison mode from umc/df ip callback */
-> +     amdgpu_ras_query_poison_mode(adev);
+> -
+>       DRM_DEBUG("train_data_size:%llx,p2c_train_data_offset:%llx,c2p_trai=
+n
+> _data_offset:%llx.\n",
+> -               ctx->train_data_size,
+> -               ctx->p2c_train_data_offset,
+> -               ctx->c2p_train_data_offset);
+> +     dev_dbg(psp->adev->dev,
 > +
-> +init_ras_enabled_flag:
->       /* hw_supported needs to be aligned with RAS block mask. */
->       adev->ras_hw_enabled &=3D AMDGPU_RAS_BLOCK_MASK;
+>       "train_data_size:%llx,p2c_train_data_offset:%llx,c2p_train_data_off=
+set:
+> %llx.\n",
+> +             ctx->train_data_size,
+> +             ctx->p2c_train_data_offset,
+> +             ctx->c2p_train_data_offset);
+>       ctx->init =3D PSP_MEM_TRAIN_INIT_SUCCESS;
+>       return 0;
 >
-> @@ -2781,39 +2832,6 @@ static void amdgpu_ras_counte_dw(struct
-> work_struct *work)
->       pm_runtime_put_autosuspend(dev->dev);
+> @@ -407,7 +408,7 @@ static int psp_sw_init(void *handle)
+>
+>       psp->cmd =3D kzalloc(sizeof(struct psp_gfx_cmd_resp), GFP_KERNEL);
+>       if (!psp->cmd) {
+> -             DRM_ERROR("Failed to allocate memory to command
+> buffer!\n");
+> +             dev_err(adev->dev, "Failed to allocate memory to command
+> buffer!\n");
+>               ret =3D -ENOMEM;
+>       }
+>
+> @@ -454,13 +455,13 @@ static int psp_sw_init(void *handle)
+>       if (mem_training_ctx->enable_mem_training) {
+>               ret =3D psp_memory_training_init(psp);
+>               if (ret) {
+> -                     DRM_ERROR("Failed to initialize memory training!\n"=
+);
+> +                     dev_err(adev->dev, "Failed to initialize memory
+> training!\n");
+>                       return ret;
+>               }
+>
+>               ret =3D psp_mem_training(psp, PSP_MEM_TRAIN_COLD_BOOT);
+>               if (ret) {
+> -                     DRM_ERROR("Failed to process memory training!\n");
+> +                     dev_err(adev->dev, "Failed to process memory
+> training!\n");
+>                       return ret;
+>               }
+>       }
+> @@ -675,9 +676,11 @@ psp_cmd_submit_buf(struct psp_context *psp,
+>        */
+>       if (!skip_unsupport && (psp->cmd_buf_mem->resp.status || !timeout)
+> && !ras_intr) {
+>               if (ucode)
+> -                     DRM_WARN("failed to load ucode %s(0x%X) ",
+> -                               amdgpu_ucode_name(ucode->ucode_id),
+> ucode->ucode_id);
+> -             DRM_WARN("psp gfx command %s(0x%X) failed and response
+> status is (0x%X)\n",
+> +                     dev_warn(psp->adev->dev,
+> +                              "failed to load ucode %s(0x%X) ",
+> +                              amdgpu_ucode_name(ucode->ucode_id),
+> ucode->ucode_id);
+> +             dev_warn(psp->adev->dev,
+> +                      "psp gfx command %s(0x%X) failed and response stat=
+us
+> is (0x%X)\n",
+>                        psp_gfx_cmd_name(psp->cmd_buf_mem->cmd_id),
+> psp->cmd_buf_mem->cmd_id,
+>                        psp->cmd_buf_mem->resp.status);
+>               /* If any firmware (including CAP) load fails under SRIOV, =
+it
+> should @@ -807,7 +810,7 @@ static int psp_tmr_init(struct psp_context *ps=
+p)
+>           psp->fw_pri_buf) {
+>               ret =3D psp_load_toc(psp, &tmr_size);
+>               if (ret) {
+> -                     DRM_ERROR("Failed to load toc\n");
+> +                     dev_err(psp->adev->dev, "Failed to load toc\n");
+>                       return ret;
+>               }
+>       }
+> @@ -855,7 +858,7 @@ static int psp_tmr_load(struct psp_context *psp)
+>
+>       psp_prep_tmr_cmd_buf(psp, cmd, psp->tmr_mc_addr, psp->tmr_bo);
+>       if (psp->tmr_bo)
+> -             DRM_INFO("reserve 0x%lx from 0x%llx for PSP TMR\n",
+> +             dev_info(psp->adev->dev, "reserve 0x%lx from 0x%llx for PSP
+> TMR\n",
+>                        amdgpu_bo_size(psp->tmr_bo), psp->tmr_mc_addr);
+>
+>       ret =3D psp_cmd_submit_buf(psp, NULL, cmd, @@ -1113,7 +1116,7 @@
+> int psp_reg_program(struct psp_context *psp, enum psp_reg_prog_id reg,
+>       psp_prep_reg_prog_cmd_buf(cmd, reg, value);
+>       ret =3D psp_cmd_submit_buf(psp, NULL, cmd, psp->fence_buf_mc_addr);
+>       if (ret)
+> -             DRM_ERROR("PSP failed to program reg id %d", reg);
+> +             dev_err(psp->adev->dev, "PSP failed to program reg id %d\n"=
+,
+> reg);
+>
+>       release_psp_cmd_buf(psp);
+>
+> @@ -1526,22 +1529,22 @@ static void psp_ras_ta_check_status(struct
+> psp_context *psp)
+>       switch (ras_cmd->ras_status) {
+>       case TA_RAS_STATUS__ERROR_UNSUPPORTED_IP:
+>               dev_warn(psp->adev->dev,
+> -                             "RAS WARNING: cmd failed due to unsupported
+> ip\n");
+> +                      "RAS WARNING: cmd failed due to unsupported ip\n")=
+;
+>               break;
+>       case TA_RAS_STATUS__ERROR_UNSUPPORTED_ERROR_INJ:
+>               dev_warn(psp->adev->dev,
+> -                             "RAS WARNING: cmd failed due to unsupported
+> error injection\n");
+> +                      "RAS WARNING: cmd failed due to unsupported error
+> injection\n");
+>               break;
+>       case TA_RAS_STATUS__SUCCESS:
+>               break;
+>       case TA_RAS_STATUS__TEE_ERROR_ACCESS_DENIED:
+>               if (ras_cmd->cmd_id =3D=3D
+> TA_RAS_COMMAND__TRIGGER_ERROR)
+>                       dev_warn(psp->adev->dev,
+> -                                     "RAS WARNING: Inject error to criti=
+cal
+> region is not allowed\n");
+> +                              "RAS WARNING: Inject error to critical reg=
+ion is
+> not allowed\n");
+>               break;
+>       default:
+>               dev_warn(psp->adev->dev,
+> -                             "RAS WARNING: ras status =3D 0x%X\n", ras_c=
+md-
+> >ras_status);
+> +                      "RAS WARNING: ras status =3D 0x%X\n", ras_cmd-
+> >ras_status);
+>               break;
+>       }
+>  }
+> @@ -1565,7 +1568,7 @@ int psp_ras_invoke(struct psp_context *psp, uint32_=
+t
+> ta_cmd_id)
+>               return ret;
+>
+>       if (ras_cmd->if_version > RAS_TA_HOST_IF_VER) {
+> -             DRM_WARN("RAS: Unsupported Interface");
+> +             dev_warn(psp->adev->dev, "RAS: Unsupported Interface\n");
+>               return -EINVAL;
+>       }
+>
+> @@ -1715,7 +1718,7 @@ int psp_ras_initialize(struct psp_context *psp)
+>               psp->ras_context.context.initialized =3D true;
+>       else {
+>               if (ras_cmd->ras_status)
+> -                     dev_warn(psp->adev->dev, "RAS Init Status: 0x%X\n",
+> ras_cmd->ras_status);
+> +                     dev_warn(adev->dev, "RAS Init Status: 0x%X\n",
+> ras_cmd->ras_status);
+>
+>               /* fail to load RAS TA */
+>               psp->ras_context.context.initialized =3D false; @@ -2148,7
+> +2151,7 @@ static int psp_hw_start(struct psp_context *psp)
+>                   (psp->funcs->bootloader_load_kdb !=3D NULL)) {
+>                       ret =3D psp_bootloader_load_kdb(psp);
+>                       if (ret) {
+> -                             DRM_ERROR("PSP load kdb failed!\n");
+> +                             dev_err(adev->dev, "PSP load kdb failed!\n"=
+);
+>                               return ret;
+>                       }
+>               }
+> @@ -2157,7 +2160,7 @@ static int psp_hw_start(struct psp_context *psp)
+>                   (psp->funcs->bootloader_load_spl !=3D NULL)) {
+>                       ret =3D psp_bootloader_load_spl(psp);
+>                       if (ret) {
+> -                             DRM_ERROR("PSP load spl failed!\n");
+> +                             dev_err(adev->dev, "PSP load spl failed!\n"=
+);
+>                               return ret;
+>                       }
+>               }
+> @@ -2166,7 +2169,7 @@ static int psp_hw_start(struct psp_context *psp)
+>                   (psp->funcs->bootloader_load_sysdrv !=3D NULL)) {
+>                       ret =3D psp_bootloader_load_sysdrv(psp);
+>                       if (ret) {
+> -                             DRM_ERROR("PSP load sys drv failed!\n");
+> +                             dev_err(adev->dev, "PSP load sys drv failed=
+!\n");
+>                               return ret;
+>                       }
+>               }
+> @@ -2175,7 +2178,7 @@ static int psp_hw_start(struct psp_context *psp)
+>                   (psp->funcs->bootloader_load_soc_drv !=3D NULL)) {
+>                       ret =3D psp_bootloader_load_soc_drv(psp);
+>                       if (ret) {
+> -                             DRM_ERROR("PSP load soc drv failed!\n");
+> +                             dev_err(adev->dev, "PSP load soc drv
+> failed!\n");
+>                               return ret;
+>                       }
+>               }
+> @@ -2184,7 +2187,7 @@ static int psp_hw_start(struct psp_context *psp)
+>                   (psp->funcs->bootloader_load_intf_drv !=3D NULL)) {
+>                       ret =3D psp_bootloader_load_intf_drv(psp);
+>                       if (ret) {
+> -                             DRM_ERROR("PSP load intf drv failed!\n");
+> +                             dev_err(adev->dev, "PSP load intf drv
+> failed!\n");
+>                               return ret;
+>                       }
+>               }
+> @@ -2193,7 +2196,7 @@ static int psp_hw_start(struct psp_context *psp)
+>                   (psp->funcs->bootloader_load_dbg_drv !=3D NULL)) {
+>                       ret =3D psp_bootloader_load_dbg_drv(psp);
+>                       if (ret) {
+> -                             DRM_ERROR("PSP load dbg drv failed!\n");
+> +                             dev_err(adev->dev, "PSP load dbg drv
+> failed!\n");
+>                               return ret;
+>                       }
+>               }
+> @@ -2202,7 +2205,7 @@ static int psp_hw_start(struct psp_context *psp)
+>                   (psp->funcs->bootloader_load_ras_drv !=3D NULL)) {
+>                       ret =3D psp_bootloader_load_ras_drv(psp);
+>                       if (ret) {
+> -                             DRM_ERROR("PSP load ras_drv failed!\n");
+> +                             dev_err(adev->dev, "PSP load ras_drv
+> failed!\n");
+>                               return ret;
+>                       }
+>               }
+> @@ -2211,7 +2214,7 @@ static int psp_hw_start(struct psp_context *psp)
+>                   (psp->funcs->bootloader_load_sos !=3D NULL)) {
+>                       ret =3D psp_bootloader_load_sos(psp);
+>                       if (ret) {
+> -                             DRM_ERROR("PSP load sos failed!\n");
+> +                             dev_err(adev->dev, "PSP load sos failed!\n"=
+);
+>                               return ret;
+>                       }
+>               }
+> @@ -2219,7 +2222,7 @@ static int psp_hw_start(struct psp_context *psp)
+>
+>       ret =3D psp_ring_create(psp, PSP_RING_TYPE__KM);
+>       if (ret) {
+> -             DRM_ERROR("PSP create ring failed!\n");
+> +             dev_err(adev->dev, "PSP create ring failed!\n");
+>               return ret;
+>       }
+>
+> @@ -2229,7 +2232,7 @@ static int psp_hw_start(struct psp_context *psp)
+>       if (!psp_boottime_tmr(psp)) {
+>               ret =3D psp_tmr_init(psp);
+>               if (ret) {
+> -                     DRM_ERROR("PSP tmr init failed!\n");
+> +                     dev_err(adev->dev, "PSP tmr init failed!\n");
+>                       return ret;
+>               }
+>       }
+> @@ -2248,7 +2251,7 @@ static int psp_hw_start(struct psp_context *psp)
+>
+>       ret =3D psp_tmr_load(psp);
+>       if (ret) {
+> -             DRM_ERROR("PSP load tmr failed!\n");
+> +             dev_err(adev->dev, "PSP load tmr failed!\n");
+>               return ret;
+>       }
+>
+> @@ -2516,7 +2519,8 @@ static void psp_print_fw_hdr(struct psp_context *ps=
+p,
+>       }
 >  }
 >
-> -static void amdgpu_ras_query_poison_mode(struct amdgpu_device *adev) -{
-> -     struct amdgpu_ras *con =3D amdgpu_ras_get_context(adev);
-> -     bool df_poison, umc_poison;
-> -
-> -     /* poison setting is useless on SRIOV guest */
-> -     if (amdgpu_sriov_vf(adev) || !con)
-> -             return;
-> -
-> -     /* Init poison supported flag, the default value is false */
-> -     if (adev->gmc.xgmi.connected_to_cpu ||
-> -         adev->gmc.is_app_apu) {
-> -             /* enabled by default when GPU is connected to CPU */
-> -             con->poison_supported =3D true;
-> -     } else if (adev->df.funcs &&
-> -         adev->df.funcs->query_ras_poison_mode &&
-> -         adev->umc.ras &&
-> -         adev->umc.ras->query_ras_poison_mode) {
-> -             df_poison =3D
-> -                     adev->df.funcs->query_ras_poison_mode(adev);
-> -             umc_poison =3D
-> -                     adev->umc.ras->query_ras_poison_mode(adev);
-> -
-> -             /* Only poison is set in both DF and UMC, we can support it=
- */
-> -             if (df_poison && umc_poison)
-> -                     con->poison_supported =3D true;
-> -             else if (df_poison !=3D umc_poison)
-> -                     dev_warn(adev->dev,
-> -                             "Poison setting is inconsistent in
-> DF/UMC(%d:%d)!\n",
-> -                             df_poison, umc_poison);
-> -     }
-> -}
-> -
->  static int amdgpu_get_ras_schema(struct amdgpu_device *adev)  {
->       return  amdgpu_ras_is_poison_mode_supported(adev) ?
-> AMDGPU_RAS_ERROR__POISON : 0 | @@ -2918,8 +2936,6 @@ int
-> amdgpu_ras_init(struct amdgpu_device *adev)
->                       goto release_con;
+> -static int psp_prep_load_ip_fw_cmd_buf(struct amdgpu_firmware_info *ucod=
+e,
+> +static int psp_prep_load_ip_fw_cmd_buf(struct psp_context *psp,
+> +                                    struct amdgpu_firmware_info *ucode,
+>                                      struct psp_gfx_cmd_resp *cmd)  {
+>       int ret;
+> @@ -2529,7 +2533,7 @@ static int psp_prep_load_ip_fw_cmd_buf(struct
+> amdgpu_firmware_info *ucode,
+>
+>       ret =3D psp_get_fw_type(ucode, &cmd->cmd.cmd_load_ip_fw.fw_type);
+>       if (ret)
+> -             DRM_ERROR("Unknown firmware type\n");
+> +             dev_err(psp->adev->dev, "Unknown firmware type\n");
+>
+>       return ret;
+>  }
+> @@ -2540,7 +2544,7 @@ int psp_execute_ip_fw_load(struct psp_context *psp,
+>       int ret =3D 0;
+>       struct psp_gfx_cmd_resp *cmd =3D acquire_psp_cmd_buf(psp);
+>
+> -     ret =3D psp_prep_load_ip_fw_cmd_buf(ucode, cmd);
+> +     ret =3D psp_prep_load_ip_fw_cmd_buf(psp, ucode, cmd);
+>       if (!ret) {
+>               ret =3D psp_cmd_submit_buf(psp, ucode, cmd,
+>                                        psp->fence_buf_mc_addr);
+> @@ -2599,13 +2603,13 @@ static int psp_load_smu_fw(struct psp_context
+> *psp)
+>             amdgpu_ip_version(adev, MP0_HWIP, 0) =3D=3D IP_VERSION(11, 0,=
+ 2)))) {
+>               ret =3D amdgpu_dpm_set_mp1_state(adev,
+> PP_MP1_STATE_UNLOAD);
+>               if (ret)
+> -                     DRM_WARN("Failed to set MP1 state prepare for
+> reload\n");
+> +                     dev_err(adev->dev, "Failed to set MP1 state prepare=
+ for
+> reload\n");
 >       }
 >
-> -     amdgpu_ras_query_poison_mode(adev);
-> -
->       /* Get RAS schema for particular SOC */
->       con->schema =3D amdgpu_get_ras_schema(adev);
+>       ret =3D psp_execute_ip_fw_load(psp, ucode);
+>
+>       if (ret)
+> -             DRM_ERROR("PSP load smu failed!\n");
+> +             dev_err(adev->dev, "PSP load smu failed!\n");
+>
+>       return ret;
+>  }
+> @@ -2710,7 +2714,7 @@ static int psp_load_non_psp_fw(struct psp_context
+> *psp)
+>                   adev->virt.autoload_ucode_id : AMDGPU_UCODE_ID_RLC_G))
+> {
+>                       ret =3D psp_rlc_autoload_start(psp);
+>                       if (ret) {
+> -                             DRM_ERROR("Failed to start rlc autoload\n")=
+;
+> +                             dev_err(adev->dev, "Failed to start rlc
+> autoload\n");
+>                               return ret;
+>                       }
+>               }
+> @@ -2732,7 +2736,7 @@ static int psp_load_fw(struct amdgpu_device *adev)
+>
+>               ret =3D psp_ring_init(psp, PSP_RING_TYPE__KM);
+>               if (ret) {
+> -                     DRM_ERROR("PSP ring init failed!\n");
+> +                     dev_err(adev->dev, "PSP ring init failed!\n");
+>                       goto failed;
+>               }
+>       }
+> @@ -2747,13 +2751,13 @@ static int psp_load_fw(struct amdgpu_device *adev=
+)
+>
+>       ret =3D psp_asd_initialize(psp);
+>       if (ret) {
+> -             DRM_ERROR("PSP load asd failed!\n");
+> +             dev_err(adev->dev, "PSP load asd failed!\n");
+>               goto failed1;
+>       }
+>
+>       ret =3D psp_rl_load(adev);
+>       if (ret) {
+> -             DRM_ERROR("PSP load RL failed!\n");
+> +             dev_err(adev->dev, "PSP load RL failed!\n");
+>               goto failed1;
+>       }
+>
+> @@ -2773,7 +2777,7 @@ static int psp_load_fw(struct amdgpu_device *adev)
+>               ret =3D psp_ras_initialize(psp);
+>               if (ret)
+>                       dev_err(psp->adev->dev,
+> -                                     "RAS: Failed to initialize RAS\n");
+> +                             "RAS: Failed to initialize RAS\n");
+>
+>               ret =3D psp_hdcp_initialize(psp);
+>               if (ret)
+> @@ -2826,7 +2830,7 @@ static int psp_hw_init(void *handle)
+>
+>       ret =3D psp_load_fw(adev);
+>       if (ret) {
+> -             DRM_ERROR("PSP firmware loading failed\n");
+> +             dev_err(adev->dev, "PSP firmware loading failed\n");
+>               goto failed;
+>       }
+>
+> @@ -2873,7 +2877,7 @@ static int psp_suspend(void *handle)
+>           psp->xgmi_context.context.initialized) {
+>               ret =3D psp_xgmi_terminate(psp);
+>               if (ret) {
+> -                     DRM_ERROR("Failed to terminate xgmi ta\n");
+> +                     dev_err(adev->dev, "Failed to terminate xgmi ta\n")=
+;
+>                       goto out;
+>               }
+>       }
+> @@ -2881,46 +2885,46 @@ static int psp_suspend(void *handle)
+>       if (psp->ta_fw) {
+>               ret =3D psp_ras_terminate(psp);
+>               if (ret) {
+> -                     DRM_ERROR("Failed to terminate ras ta\n");
+> +                     dev_err(adev->dev, "Failed to terminate ras ta\n");
+>                       goto out;
+>               }
+>               ret =3D psp_hdcp_terminate(psp);
+>               if (ret) {
+> -                     DRM_ERROR("Failed to terminate hdcp ta\n");
+> +                     dev_err(adev->dev, "Failed to terminate hdcp ta\n")=
+;
+>                       goto out;
+>               }
+>               ret =3D psp_dtm_terminate(psp);
+>               if (ret) {
+> -                     DRM_ERROR("Failed to terminate dtm ta\n");
+> +                     dev_err(adev->dev, "Failed to terminate dtm ta\n");
+>                       goto out;
+>               }
+>               ret =3D psp_rap_terminate(psp);
+>               if (ret) {
+> -                     DRM_ERROR("Failed to terminate rap ta\n");
+> +                     dev_err(adev->dev, "Failed to terminate rap ta\n");
+>                       goto out;
+>               }
+>               ret =3D psp_securedisplay_terminate(psp);
+>               if (ret) {
+> -                     DRM_ERROR("Failed to terminate securedisplay ta\n")=
+;
+> +                     dev_err(adev->dev, "Failed to terminate securedispl=
+ay
+> ta\n");
+>                       goto out;
+>               }
+>       }
+>
+>       ret =3D psp_asd_terminate(psp);
+>       if (ret) {
+> -             DRM_ERROR("Failed to terminate asd\n");
+> +             dev_err(adev->dev, "Failed to terminate asd\n");
+>               goto out;
+>       }
+>
+>       ret =3D psp_tmr_terminate(psp);
+>       if (ret) {
+> -             DRM_ERROR("Failed to terminate tmr\n");
+> +             dev_err(adev->dev, "Failed to terminate tmr\n");
+>               goto out;
+>       }
+>
+>       ret =3D psp_ring_stop(psp, PSP_RING_TYPE__KM);
+>       if (ret)
+> -             DRM_ERROR("PSP ring stop failed\n");
+> +             dev_err(adev->dev, "PSP ring stop failed\n");
+>
+>  out:
+>       return ret;
+> @@ -2932,12 +2936,12 @@ static int psp_resume(void *handle)
+>       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+>       struct psp_context *psp =3D &adev->psp;
+>
+> -     DRM_INFO("PSP is resuming...\n");
+> +     dev_info(adev->dev, "PSP is resuming...\n");
+>
+>       if (psp->mem_train_ctx.enable_mem_training) {
+>               ret =3D psp_mem_training(psp, PSP_MEM_TRAIN_RESUME);
+>               if (ret) {
+> -                     DRM_ERROR("Failed to process memory training!\n");
+> +                     dev_err(adev->dev, "Failed to process memory
+> training!\n");
+>                       return ret;
+>               }
+>       }
+> @@ -2954,7 +2958,7 @@ static int psp_resume(void *handle)
+>
+>       ret =3D psp_asd_initialize(psp);
+>       if (ret) {
+> -             DRM_ERROR("PSP load asd failed!\n");
+> +             dev_err(adev->dev, "PSP load asd failed!\n");
+>               goto failed;
+>       }
+>
+> @@ -2978,7 +2982,7 @@ static int psp_resume(void *handle)
+>               ret =3D psp_ras_initialize(psp);
+>               if (ret)
+>                       dev_err(psp->adev->dev,
+> -                                     "RAS: Failed to initialize RAS\n");
+> +                             "RAS: Failed to initialize RAS\n");
+>
+>               ret =3D psp_hdcp_initialize(psp);
+>               if (ret)
+> @@ -3006,7 +3010,7 @@ static int psp_resume(void *handle)
+>       return 0;
+>
+>  failed:
+> -     DRM_ERROR("PSP resume failed\n");
+> +     dev_err(adev->dev, "PSP resume failed\n");
+>       mutex_unlock(&adev->firmware.mutex);
+>       return ret;
+>  }
+> @@ -3067,9 +3071,11 @@ int psp_ring_cmd_submit(struct psp_context *psp,
+>               write_frame =3D ring_buffer_start + (psp_write_ptr_reg /
+> rb_frame_size_dw);
+>       /* Check invalid write_frame ptr address */
+>       if ((write_frame < ring_buffer_start) || (ring_buffer_end < write_f=
+rame)) {
+> -             DRM_ERROR("ring_buffer_start =3D %p; ring_buffer_end =3D %p=
+;
+> write_frame =3D %p\n",
+> -                       ring_buffer_start, ring_buffer_end, write_frame);
+> -             DRM_ERROR("write_frame is pointing to address out of
+> bounds\n");
+> +             dev_err(adev->dev,
+> +                     "ring_buffer_start =3D %p; ring_buffer_end =3D %p;
+> write_frame =3D %p\n",
+> +                     ring_buffer_start, ring_buffer_end, write_frame);
+> +             dev_err(adev->dev,
+> +                     "write_frame is pointing to address out of bounds\n=
+");
+>               return -EINVAL;
+>       }
+>
+> @@ -3595,7 +3601,7 @@ static ssize_t psp_usbc_pd_fw_sysfs_read(struct
+> device *dev,
+>       int ret;
+>
+>       if (!adev->ip_blocks[AMD_IP_BLOCK_TYPE_PSP].status.late_initialized=
+) {
+> -             DRM_INFO("PSP block is not ready yet.");
+> +             dev_info(adev->dev, "PSP block is not ready yet\n.");
+>               return -EBUSY;
+>       }
+>
+> @@ -3604,7 +3610,7 @@ static ssize_t psp_usbc_pd_fw_sysfs_read(struct
+> device *dev,
+>       mutex_unlock(&adev->psp.mutex);
+>
+>       if (ret) {
+> -             DRM_ERROR("Failed to read USBC PD FW, err =3D %d", ret);
+> +             dev_err(adev->dev, "Failed to read USBC PD FW, err =3D %d\n=
+",
+> ret);
+>               return ret;
+>       }
+>
+> @@ -3626,7 +3632,7 @@ static ssize_t psp_usbc_pd_fw_sysfs_write(struct
+> device *dev,
+>       void *fw_pri_cpu_addr;
+>
+>       if (!adev->ip_blocks[AMD_IP_BLOCK_TYPE_PSP].status.late_initialized=
+) {
+> -             DRM_INFO("PSP block is not ready yet.");
+> +             dev_err(adev->dev, "PSP block is not ready yet.");
+>               return -EBUSY;
+>       }
+>
+> @@ -3659,7 +3665,7 @@ static ssize_t psp_usbc_pd_fw_sysfs_write(struct
+> device *dev,
+>       release_firmware(usbc_pd_fw);
+>  fail:
+>       if (ret) {
+> -             DRM_ERROR("Failed to load USBC PD FW, err =3D %d", ret);
+> +             dev_err(adev->dev, "Failed to load USBC PD FW, err =3D %d",=
+ ret);
+>               count =3D ret;
+>       }
+>
+> @@ -3706,7 +3712,7 @@ static ssize_t amdgpu_psp_vbflash_write(struct file
+> *filp, struct kobject *kobj,
+>
+>       /* Safeguard against memory drain */
+>       if (adev->psp.vbflash_image_size > AMD_VBIOS_FILE_MAX_SIZE_B) {
+> -             dev_err(adev->dev, "File size cannot exceed %u",
+> AMD_VBIOS_FILE_MAX_SIZE_B);
+> +             dev_err(adev->dev, "File size cannot exceed %u\n",
+> +AMD_VBIOS_FILE_MAX_SIZE_B);
+>               kvfree(adev->psp.vbflash_tmp_buf);
+>               adev->psp.vbflash_tmp_buf =3D NULL;
+>               adev->psp.vbflash_image_size =3D 0;
+> @@ -3725,7 +3731,7 @@ static ssize_t amdgpu_psp_vbflash_write(struct file
+> *filp, struct kobject *kobj,
+>       adev->psp.vbflash_image_size +=3D count;
+>       mutex_unlock(&adev->psp.mutex);
+>
+> -     dev_dbg(adev->dev, "IFWI staged for update");
+> +     dev_dbg(adev->dev, "IFWI staged for update\n");
+>
+>       return count;
+>  }
+> @@ -3745,7 +3751,7 @@ static ssize_t amdgpu_psp_vbflash_read(struct file
+> *filp, struct kobject *kobj,
+>       if (adev->psp.vbflash_image_size =3D=3D 0)
+>               return -EINVAL;
+>
+> -     dev_dbg(adev->dev, "PSP IFWI flash process initiated");
+> +     dev_dbg(adev->dev, "PSP IFWI flash process initiated\n");
+>
+>       ret =3D amdgpu_bo_create_kernel(adev, adev->psp.vbflash_image_size,
+>                                       AMDGPU_GPU_PAGE_SIZE,
+> @@ -3770,11 +3776,11 @@ static ssize_t amdgpu_psp_vbflash_read(struct fil=
+e
+> *filp, struct kobject *kobj,
+>       adev->psp.vbflash_image_size =3D 0;
+>
+>       if (ret) {
+> -             dev_err(adev->dev, "Failed to load IFWI, err =3D %d", ret);
+> +             dev_err(adev->dev, "Failed to load IFWI, err =3D %d\n", ret=
+);
+>               return ret;
+>       }
+>
+> -     dev_dbg(adev->dev, "PSP IFWI flash process done");
+> +     dev_dbg(adev->dev, "PSP IFWI flash process done\n");
+>       return 0;
+>  }
 >
 > --
 > 2.17.1
