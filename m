@@ -4,56 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58500C3DA6E
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jan 2024 14:36:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67174C3DA6E
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jan 2024 14:39:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04FDC10E29B;
-	Wed,  3 Jan 2024 14:36:20 +0000 (UTC)
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [IPv6:2001:4860:4864:20::2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FDBF10E29B
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jan 2024 14:36:18 +0000 (UTC)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-2044ecf7035so5320174fac.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 03 Jan 2024 06:36:18 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBD9C10E31E;
+	Wed,  3 Jan 2024 14:39:38 +0000 (UTC)
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
+ [IPv6:2607:f8b0:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12AB410E36C
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jan 2024 14:39:36 +0000 (UTC)
+Received: by mail-ot1-x329.google.com with SMTP id
+ 46e09a7af769-6dbb8698312so3845381a34.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 03 Jan 2024 06:39:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1704292577; x=1704897377; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1704292776; x=1704897576; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Mu3pDjy0Byjz+gBRKkBi0nBPeMmEouchXEnYU5yPVFs=;
- b=mE0fxgJJ07CRmQXwOiDjK4y5DCvHrf60TOienwOwOzuVtck3ePy09xpfb4VKr4Gelp
- uHk7h+xk3RtIRPCkUxEPWAjYW2VOUkdScxl+sTWc0iUB+M10mBKxCjRtsxSyA1hEhKiI
- ljcnIfqEBUtkCFfwIZBfTO2XB1Q1Jp0YqaTspw6by3LO+W8WzjxcEJO95hd2iGbeD5C+
- HOHrEOG9h4cS0uDSjzutnNolKEaMnydAmtG6OplnZ9gIOMFev4PryoxXhpb3o/yDQoCx
- k8p+eTcFbeMd5ykbO9t9HtXZDOMUtigCiG2xO6V/5IZObDBKWK8NOiTNgNV7fxSE+5gZ
- Zx7Q==
+ bh=MFOcwGcc4VrqpomCF+R8kTd6+GvKNqBno1US2CyOSMM=;
+ b=DOqmSZ1izVXBLRqDti1Wr1PcMAoA2lB1SpYGEmvoEJUUfLQAkbqfERn1pSENHaHfxx
+ TjM5qdeiwgad0gzdnm+uT8h+OEUShK0sFGDwyjgRSaCeUAqqRkBWA/7zfaJizSvEBQb1
+ Nu1DSS4G1ShTtQTPIwJzGzTThfRZkpjE/Jeyt1F1GoG8jgy6gL87lTVLx0Hn2QQJzKRU
+ 4pMZfZ5pAvwfN2ajW7Akn+FaECSX4HiG6BoIWapgBjOHZ4ni6/i3uHlrMz7bWDEP8THF
+ e5qnwHYtgszOhGyQEM45Tt2XdUcPBdg31B6qa5yBJyerdKMOwG8YXQeDMltGgwKvXcN5
+ z0Ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704292577; x=1704897377;
+ d=1e100.net; s=20230601; t=1704292776; x=1704897576;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Mu3pDjy0Byjz+gBRKkBi0nBPeMmEouchXEnYU5yPVFs=;
- b=DqRgMbtkWl/TXEaZh4jLmfeuPX3+1rlQnVt6Z+g9DJdcvXWn8UXDGiKEgDbjq/MLI/
- N1iFgfiePTK5gejUcnhUZAeP6giYZvZp9k83YELk5u6bZVdq+CC1sK/WUcdEoQBmOQQe
- xwdPp+J2Lk85hIJNxbGUZGLyekJWS6BY9A2t9cJcgasdTvEvxfLhojRGFSni9uvKd3Zq
- 8+AcNMHP3oleXbjfZouAiqRj1YGaMoWf8jY28ioV3HMunSjU5XP7HJ+sIylWRynrqThX
- J4eAyP5ixrYZCqAuReHlutP3C0V74JyAOLatY+d4qkytip7RkwOoTN0yLb+c4/LoStq/
- qlOA==
-X-Gm-Message-State: AOJu0YydjdwcnW8ThuCC7flX3BSc4QRGeEBT7HjcQzNTtVdcjWy+nTCr
- D2BJzBFR95dcdI4NmeGOSkCeDWNqqCUctR8IsNGjzqZd
-X-Google-Smtp-Source: AGHT+IG6PuCYV3bTxwSfzpRerywe0joHKYcVKI9YC7DLiUIMAjOi6QqfbjU1G2L6sf9Nrer7PjC1b56Frld5+F76vD8=
-X-Received: by 2002:a05:6870:7f10:b0:203:bc5d:cf06 with SMTP id
- xa16-20020a0568707f1000b00203bc5dcf06mr23363603oab.72.1704292577540; Wed, 03
- Jan 2024 06:36:17 -0800 (PST)
+ bh=MFOcwGcc4VrqpomCF+R8kTd6+GvKNqBno1US2CyOSMM=;
+ b=Gq3ujjUod97oVHdk2QHdjL/0fxuA+zt3t4CHRs3uG9r1y4P1ZLUuMQwsDClDOCJQtF
+ HOC6l9bYr36hCOHYEGiW1RybyU5SrZNHqtQ8/CU0ZxOW+uEowPJwTBKYqnmktkUk/6XO
+ ReM+z2hJ064bL4/sgTfwEljhrvvGksfqAL+zO+FY6tiYD73zDMBvvfAcdhq+gNKKHwrd
+ 6QhztaB2uyTtm0AkNW0JWcsSUDpBSIMEyxQF4YHTDhl7E7n282tkvIcjfKaHuoMF3YlT
+ ujQcOSlPoVYevRrkI6HGYBWBaLyW28g/B3eqfKAX/VsfkMgIiImWGy8J/vlGilK7F7ND
+ 6/ZQ==
+X-Gm-Message-State: AOJu0YwQjVoiYTL4efkMZOFg2IKpQt4/t427xQZjJ9O14VyxiXGuqaON
+ jib2r5zfCc4O0nyX0znb4O3eh3EgaYiiJCmdWQqHuEqh
+X-Google-Smtp-Source: AGHT+IFe+usCJzxmODaFUatRfGCjGbc+6SdOVQw4R/18zbf1vheE5zfisdb6B5687RGnDhcjZjSZCbggGRPEk5dBdbA=
+X-Received: by 2002:a05:6870:d627:b0:204:40c1:6925 with SMTP id
+ a39-20020a056870d62700b0020440c16925mr8703575oaq.5.1704292776264; Wed, 03 Jan
+ 2024 06:39:36 -0800 (PST)
 MIME-Version: 1.0
 References: <20231229174156.1800-1-marcelomspessoto@gmail.com>
- <20231229174156.1800-6-marcelomspessoto@gmail.com>
-In-Reply-To: <20231229174156.1800-6-marcelomspessoto@gmail.com>
+ <20231229174156.1800-7-marcelomspessoto@gmail.com>
+In-Reply-To: <20231229174156.1800-7-marcelomspessoto@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 3 Jan 2024 09:36:05 -0500
-Message-ID: <CADnq5_N20+rQDTCG1dEgHgWgUuxiXvqy74t1kQuKQXQU2NFrdQ@mail.gmail.com>
-Subject: Re: [PATCH 5/7] drm/amd/display: Fix hdcp2_execution.c codestyle
+Date: Wed, 3 Jan 2024 09:39:25 -0500
+Message-ID: <CADnq5_Ny4eVMCkn9WdATOZKuSUB3w5=rypNHfWPKQL+zopU0ng@mail.gmail.com>
+Subject: Re: [PATCH 6/7] drm/amd/display: Fix hdcp_log.h codestyle
 To: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -73,53 +73,46 @@ Cc: sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, harry.wentland@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Applied and added the missing semicolon.  Thanks!
 
-On Fri, Dec 29, 2023 at 12:43=E2=80=AFPM Marcelo Mendes Spessoto Junior
+Alex
+
+On Fri, Dec 29, 2023 at 1:20=E2=80=AFPM Marcelo Mendes Spessoto Junior
 <marcelomspessoto@gmail.com> wrote:
 >
-> Remove braces for single statement if expressions and change comparison
-> order for hdcp2_execution.c file
+> Place HDCP_EVENT_TRACE(hdcp, event) macro content inside do while loop
+> to avoid if-else issues in hdcp_log.h file
 >
 > Signed-off-by: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com=
 >
 > ---
->  drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
+>  drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.h | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c b=
-/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c
-> index 91c22b96e..733f22bed 100644
-> --- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c
-> +++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c
-> @@ -208,9 +208,8 @@ static inline uint8_t get_device_count(struct mod_hdc=
-p *hdcp)
->  static enum mod_hdcp_status check_device_count(struct mod_hdcp *hdcp)
->  {
->         /* Avoid device count =3D=3D 0 to do authentication */
-> -       if (0 =3D=3D get_device_count(hdcp)) {
-> +       if (get_device_count(hdcp) =3D=3D 0)
->                 return MOD_HDCP_STATUS_HDCP1_DEVICE_COUNT_MISMATCH_FAILUR=
-E;
-> -       }
->
->         /* Some MST display may choose to report the internal panel as an=
- HDCP RX.   */
->         /* To update this condition with 1(because the immediate repeater=
-'s internal */
-> @@ -689,9 +688,8 @@ static enum mod_hdcp_status validate_stream_ready(str=
-uct mod_hdcp *hdcp,
->         if (is_hdmi_dvi_sl_hdcp(hdcp)) {
->                 if (!process_rxstatus(hdcp, event_ctx, input, &status))
->                         goto out;
-> -               if (event_ctx->rx_id_list_ready) {
-> +               if (event_ctx->rx_id_list_ready)
->                         goto out;
-> -               }
->         }
->         if (is_hdmi_dvi_sl_hdcp(hdcp))
->                 if (!mod_hdcp_execute_and_set(check_stream_ready_availabl=
-e,
+> diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.h b/driver=
+s/gpu/drm/amd/display/modules/hdcp/hdcp_log.h
+> index c62df3bcc..55a2c5d4c 100644
+> --- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.h
+> +++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.h
+> @@ -86,10 +86,12 @@
+>  #define HDCP_CPIRQ_TRACE(hdcp) \
+>                 HDCP_LOG_FSM(hdcp, "[Link %d] --> CPIRQ", hdcp->config.in=
+dex)
+>  #define HDCP_EVENT_TRACE(hdcp, event) \
+> -               if (event =3D=3D MOD_HDCP_EVENT_WATCHDOG_TIMEOUT) \
+> -                       HDCP_TIMEOUT_TRACE(hdcp); \
+> -               else if (event =3D=3D MOD_HDCP_EVENT_CPIRQ) \
+> -                       HDCP_CPIRQ_TRACE(hdcp)
+> +               do { \
+> +                       if (event =3D=3D MOD_HDCP_EVENT_WATCHDOG_TIMEOUT)=
+ \
+> +                               HDCP_TIMEOUT_TRACE(hdcp); \
+> +                       else if (event =3D=3D MOD_HDCP_EVENT_CPIRQ) \
+> +                               HDCP_CPIRQ_TRACE(hdcp) \
+> +               } while (0)
+>  /* TODO: find some way to tell if logging is off to save time */
+>  #define HDCP_DDC_READ_TRACE(hdcp, msg_name, msg, msg_size) do { \
+>                 mod_hdcp_dump_binary_message(msg, msg_size, hdcp->buf, \
 > --
 > 2.39.2
 >
