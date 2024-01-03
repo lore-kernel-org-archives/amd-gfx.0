@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0023C3DA6E
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jan 2024 08:03:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 387DDC47079
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jan 2024 08:03:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4694410E248;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A39AE10E242;
 	Wed,  3 Jan 2024 08:03:54 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2088.outbound.protection.outlook.com [40.107.237.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1707510E242
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2040.outbound.protection.outlook.com [40.107.93.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42F2410E248
  for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jan 2024 08:03:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NM5XzPiytWE4pKDax7mtHDdoZyGKnypaHARPGGxfw3T7rV/96agoz2LhcSGSrQjBQzJwoxF/+FIPSHu+PVEQ1fESSH2T3VXD9lN9lb83e75DSe8VArMt4NNMle0BftWcEp7Dxv6ouKWOAs77lKkc5Z2BIZ68CUO5uVqKWzzFyu924hU+WTHxv71UUeMvDKnp+Zimnr48hUz+qYAvOcUcp8pt4iMMLIJla+JGqHoBDKwldeoAa2FTXHfs/21zso1GVFinKbGKUPm0hWFL12Un/23OAURbgeZ86fghF47VkyxalZS2FHrCrkYC9Dhj0yDevnLi26TuStWZg5eRv8bz9w==
+ b=DHPk1odfSXyvfkuNHu6FmcjOlXDKHWMaOq9BUlEuAvCeA5NVnu0tMcBVQFM6NFIYwsUNdcak1QYmRIlsYO0PzlacU4e5p8cJkalaV9oaKwnz3HWNyA8AzIoPBCPyPnoNkSMjj7LX2qIGnR30lh0FYPJQ0AFsSEjW1cBuvrPBNSu8DQWXUmeGa5c4FpPSwvOxHRUP27lf/5922lLfPrYrgunNPEbXVmoYYdnsdeUGaZuUXnMFUtV/OZKmrf1s4uLMrXRVFKEEvaWP3i+7fVxQKAu4SNljA6s8Efxr5Kwu5FqLYWvNBOjlua1WgQrRJ6mbg/uls0RDiABsre0IRMsUNw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3LUM1aqBhERlv2jzAvja6JO+t3rN+sqvPhcSkE+6T6M=;
- b=jyvBzV+/7ZYj/1k+03vmw3P6JkUwoV35ji8hA1NL6P8RTCn0rNwmLfCtvoFVXQs4wn3q1JkAXQkBnCBmePlOF3zDVXa7X47kXb4rhja77M5OGGaDnrWNEdn/ZBteIZY3C6GEivX8RJMBT4zGL7+9A3EKoyC7JRnpPsM98NNhb7yvXZpaU/fdZQ2+2/sOO2oWU06N0b3jrtmUVbYlfy/EPmhZOpJLY7Bw/lBecAx/SokLpWLfGhSGWLi5QBYCMOC3w+53wYbBqMgqj3G7wgQz0SeM9DjY7zzCre1iVvS2aM3vKwVcP0ydjR6JHrqVgwJSmNh+LQXJGrrLAKJi/DAtDQ==
+ bh=/wbql02lgoAkkNgcAja+NhkPRbG2SXL2OixTobQ2Lwk=;
+ b=ewYTL/V17IgmLS5qXgTB/L/QAF7RZiM9YTyQrRgoEAZhxrgWDfxLvS884IANW0RcB7rSeo8yx1TCMUjh5wRDH3b6CA/Xvv/kJura70zqds8N97RU1fJQHmbDHzSn4ahDjgccD0ZpY0UEev1v+f9WrWTASlUGpGWzb6KeHZ071DrFSDJ0439y2M2YCCtBKFzy13M8vC9YmEG0WR4feW6Wv+Q4kraO4T42OBKPPPbzF6jx0zKImHjJ2kac/U/zesEqBJKal++MbTs0bKm4LnnfxTgt0xhkpYvwtw8Qx0qLV3Nrxgz2BK6Gyb8tYuspyHxVtbLU8j+sFCEbf89CZzl+EQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3LUM1aqBhERlv2jzAvja6JO+t3rN+sqvPhcSkE+6T6M=;
- b=x+Hs4q/W42WZX6lwciSuYoKufWyXHJt2pjWobkyu7b33mobkUSspUVuYrNmIiXw8joZc/6mHFz/lsTVpgv7+x3jqrANCazO+zZk50AUWvlAG/MFCdzDrb5uyaJe2z65k0ktwpUJ+puWV+Mexk0eXU8mF3U0jrRoKqGttyh9v9Nc=
-Received: from SJ0PR05CA0036.namprd05.prod.outlook.com (2603:10b6:a03:33f::11)
- by PH8PR12MB6794.namprd12.prod.outlook.com (2603:10b6:510:1c5::17)
+ bh=/wbql02lgoAkkNgcAja+NhkPRbG2SXL2OixTobQ2Lwk=;
+ b=dUzPShD8/9InX/Qx1wB4YfsabkVQEdu0S+AMlks/z+xoKpW3pSyn7rgAxUER2O1hXtIy1Fbj4PHFB3dIwD9kZvtvhSQlxy6To3rRE266XAa5ujigMOIwuDn5OX5h4LotOQ1SOELVt56mwhvq5qBTvIKY0E+m/263g9EUMN1wg8Q=
+Received: from SJ0PR05CA0038.namprd05.prod.outlook.com (2603:10b6:a03:33f::13)
+ by LV8PR12MB9181.namprd12.prod.outlook.com (2603:10b6:408:18d::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.13; Wed, 3 Jan
- 2024 08:03:50 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.25; Wed, 3 Jan
+ 2024 08:03:49 +0000
 Received: from SJ5PEPF000001CA.namprd05.prod.outlook.com
- (2603:10b6:a03:33f:cafe::72) by SJ0PR05CA0036.outlook.office365.com
- (2603:10b6:a03:33f::11) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:a03:33f:cafe::12) by SJ0PR05CA0038.outlook.office365.com
+ (2603:10b6:a03:33f::13) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.12 via Frontend
- Transport; Wed, 3 Jan 2024 08:03:50 +0000
+ Transport; Wed, 3 Jan 2024 08:03:49 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  SJ5PEPF000001CA.mail.protection.outlook.com (10.167.242.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7159.9 via Frontend Transport; Wed, 3 Jan 2024 08:03:50 +0000
+ 15.20.7159.9 via Frontend Transport; Wed, 3 Jan 2024 08:03:48 +0000
 Received: from kevin-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 3 Jan
- 2024 02:03:47 -0600
+ 2024 02:03:10 -0600
 From: Yang Wang <kevinyang.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 05/14] drm/amdgpu: add amdgpu ras aca query interface
-Date: Wed, 3 Jan 2024 16:02:11 +0800
-Message-ID: <20240103080220.2815115-6-kevinyang.wang@amd.com>
+Subject: [PATCH 04/14] drm/amd/pm: add aca smu backend support for smu v13.0.6
+Date: Wed, 3 Jan 2024 16:02:10 +0800
+Message-ID: <20240103080220.2815115-5-kevinyang.wang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240103080220.2815115-1-kevinyang.wang@amd.com>
 References: <20240103080220.2815115-1-kevinyang.wang@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CA:EE_|PH8PR12MB6794:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6782f1bf-43c3-4a2a-26e8-08dc0c328536
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CA:EE_|LV8PR12MB9181:EE_
+X-MS-Office365-Filtering-Correlation-Id: 25af1410-a314-490f-0918-08dc0c328475
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1o1GK/eX7CMiCuB+5Vg3xjpkzOOPcHSDpSgrUqsknebIJQRf7rNcl1kHH4ZyWuE0utw3nQiblVpICMQxK2OlC/vzS3Q3WzLi09mOYQUEdxvAKhASUWW2Q4QMOW1JO6nB0z+KmVoUipYSOUaAOTCQUSKKdMJrZqrRBchCfn929AysRsyHSI8CCgbkqnuF+y10/dPABIAL9X2t8NTNIphXurDjzuOmHGYdF6sqQHIGy4JEV4ig19Nkc5y1/6/GyIT8XrkMnhnuMghvigc+UKQ5RXe8C34KIYY1FyjAhkIVED4oob+/AWbVeVipImvEq8YNyPN9IpRddqHk1rMlqx3j1RMGK+KgK7Qd1U7P5s+ZN1SnddP7ScogA/gbsjs5FJ7iLu7blHpeb+970ZK/cpY6dZ0ezpa0AFHJvuWMHTZ1ug4y4G1GR4kAEbGO/1PC2dAwzuOycyQIGym+7Uu0nfaYwq6YbLXzR6N26EgabBrOnQhSAGic3C2qLaMBjZzbNoI3s8fuG7hzZr3x4fZ17zOBM6V2O8JkDed7GYhZ942MD3hVYe8//Icm0B0KC9+pEO9oco4o4hkrkr7THIasBswahhe/oMQx/ER0InWgwo3WmikHa1npyFdKooiaSbIlzwJO7aqNHyiyxlN1O6vCXACsFIZow8Oho2kvwQ/g+clKQWHHbxFBxidBcI8m3GfTOtr6d0CKVbAdnlqznYXoQZk+trAiYXF4kb44GYyNgeP71VRa+QdLr1aLkP3nXNTYzjSqHvvbqc7a+jEiGjgTL5+6FQ==
+X-Microsoft-Antispam-Message-Info: wcbesKEoKuFRnesIx/CIrBsGKQ+xWDDjR1IK86eGgdaezrAwlAzSoSRlEgAW0wNgOfOVfW+Qch0wXSvcem/DfqpMEvaAfykpeKOwZWTLCvLlZGpDp5LJ6JiNt4mfM64FvNWUAheVsHSiAIXsr0M5NdPCsetfNFcHR3g7um+Xa3sBfqQyo5X9JDc53BH3XkwcR2ThKRZVLpv428UJoN4VR3/U5Hn56mFcVmvvKTbkER0D+RDFkDK99i0xtITWs9EfCVGrdbKWBuqrFnRGM3fBSMSHLAkSYGU4KqKK491AIeG1iCmFJaVZSZz1YHfDoy/rKh3udjAenoVulHCT1+I0bC6vK2sge8UamYcdEF1DlHTlXMcsh9fDPkWorKT3EpF82Z5FlliEjMUvEI1Ua2W3012nOjRDV9Sv3g8CU8fdV+8emG4TrE7x3o1lGQNsjVpeadWb51vHyHNXjV9vYvbxK3WzO9udiena+UYbxYOjRPyRM3eW8hqrlaLEh39XBKQL/kD4JpnU2VUma80SiU8WZ6RQ7MeOZm+k8pQQ9WmzMzJ4rS7pj4GR3b7ie3PaDZb6F46p6GM/Kc4IyZQfGj7vYjSNQVvLwayPzFLQzXikxiDN78rYL2l+ZaBcGeYiNMyAKKxJa2cuiAZPoHtCXLR9Ixtik3qQolyFH28/U7rV/71siVbL7nG8x3f7Myf10VE5igK5lDk63v+KEYVfqOLpx/Y1/vY+cMwWOi2HEyvpwR8wCh6Nhnc2NKPlRjlsKJCW+EAZW6RjPCB0KgHlzLe9sA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(39860400002)(136003)(346002)(376002)(230922051799003)(82310400011)(186009)(451199024)(64100799003)(1800799012)(46966006)(40470700004)(36840700001)(2906002)(82740400003)(5660300002)(81166007)(356005)(36756003)(1076003)(26005)(426003)(336012)(16526019)(478600001)(2616005)(6916009)(40480700001)(83380400001)(40460700003)(70206006)(70586007)(41300700001)(6666004)(7696005)(8676002)(8936002)(86362001)(4326008)(47076005)(316002)(54906003)(36860700001)(36900700001);
+ SFS:(13230031)(4636009)(39860400002)(136003)(376002)(346002)(396003)(230922051799003)(1800799012)(64100799003)(82310400011)(186009)(451199024)(40470700004)(46966006)(36840700001)(40460700003)(40480700001)(426003)(16526019)(336012)(83380400001)(1076003)(26005)(36756003)(86362001)(81166007)(82740400003)(356005)(8676002)(47076005)(4326008)(41300700001)(5660300002)(8936002)(2616005)(7696005)(36860700001)(70586007)(70206006)(54906003)(316002)(6916009)(478600001)(2906002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jan 2024 08:03:50.0553 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6782f1bf-43c3-4a2a-26e8-08dc0c328536
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jan 2024 08:03:48.8678 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25af1410-a314-490f-0918-08dc0c328475
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CA.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6794
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9181
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,244 +104,175 @@ Cc: yipeng.chai@amd.com, tao.zhou1@amd.com, Yang
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-use new ACA error query interface to instead of legacy MCA query.
+add aca smu backend support for smu v13.0.6.
 
 Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 88 ++++++++++++++++++++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h | 12 +++-
- 2 files changed, 79 insertions(+), 21 deletions(-)
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 139 ++++++++++++++++++
+ 1 file changed, 139 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 038bd1b17cef..bbae41f86e00 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1168,6 +1168,53 @@ static void amdgpu_rasmgr_error_data_statistic_update(struct ras_manager *obj, s
- 	}
- }
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index 4ebc6b421c2c..bed75af45369 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -45,6 +45,7 @@
+ #include <linux/pci.h>
+ #include "amdgpu_ras.h"
+ #include "amdgpu_mca.h"
++#include "amdgpu_aca.h"
+ #include "smu_cmn.h"
+ #include "mp/mp_13_0_6_offset.h"
+ #include "mp/mp_13_0_6_sh_mask.h"
+@@ -2855,6 +2856,143 @@ static const struct amdgpu_mca_smu_funcs smu_v13_0_6_mca_smu_funcs = {
+ 	.mca_get_valid_mca_count = mca_smu_get_valid_mca_count,
+ };
  
-+static struct ras_manager *get_ras_manager(struct amdgpu_device *adev, enum amdgpu_ras_block blk)
++static int aca_smu_set_debug_mode(struct amdgpu_device *adev, bool enable)
 +{
-+	struct ras_common_if head;
++	struct smu_context *smu = adev->powerplay.pp_handle;
 +
-+	memset(&head, 0, sizeof(head));
-+	head.block = blk;
-+
-+	return amdgpu_ras_find_obj(adev, &head);
++	return smu_v13_0_6_mca_set_debug_mode(smu, enable);
 +}
 +
-+int amdgpu_ras_bind_aca(struct amdgpu_device *adev, enum amdgpu_ras_block blk,
-+			const struct aca_info *aca_info, void *data)
++static int smu_v13_0_6_get_valid_aca_count(struct smu_context *smu, enum aca_error_type type, u32 *count)
 +{
-+	struct ras_manager *obj;
++	uint32_t msg;
++	int ret;
 +
-+	obj = get_ras_manager(adev, blk);
-+	if (!obj)
++	if (!count)
 +		return -EINVAL;
 +
-+	return amdgpu_aca_add_handle(adev, &obj->aca_handle, ras_block_str(blk), aca_info, data);
-+}
-+
-+int amdgpu_ras_unbind_aca(struct amdgpu_device *adev, enum amdgpu_ras_block blk)
-+{
-+	struct ras_manager *obj;
-+
-+	obj = get_ras_manager(adev, blk);
-+	if (!obj)
++	switch (type) {
++	case ACA_ERROR_TYPE_UE:
++		msg = SMU_MSG_QueryValidMcaCount;
++		break;
++	case ACA_ERROR_TYPE_CE:
++		msg = SMU_MSG_QueryValidMcaCeCount;
++		break;
++	default:
 +		return -EINVAL;
++	}
 +
-+	amdgpu_aca_remove_handle(&obj->aca_handle);
++	ret = smu_cmn_send_smc_msg(smu, msg, count);
++	if (ret) {
++		*count = 0;
++		return ret;
++	}
 +
 +	return 0;
 +}
 +
-+static int amdgpu_aca_log_ras_error_data(struct amdgpu_device *adev, enum amdgpu_ras_block blk,
-+					 enum aca_error_type type, struct ras_err_data *err_data)
++static int aca_smu_get_valid_aca_count(struct amdgpu_device *adev,
++				       enum aca_error_type type, u32 *count)
 +{
-+	struct ras_manager *obj;
++	struct smu_context *smu = adev->powerplay.pp_handle;
++	int ret;
 +
-+	obj = get_ras_manager(adev, blk);
-+	if (!obj)
-+		return -EINVAL;
++	switch (type) {
++	case ACA_ERROR_TYPE_UE:
++	case ACA_ERROR_TYPE_CE:
++		ret = smu_v13_0_6_get_valid_aca_count(smu, type, count);
++		break;
++	default:
++		ret = -EINVAL;
++		break;
++	}
 +
-+	return amdgpu_aca_get_error_data(adev, &obj->aca_handle, type, err_data);
++	return ret;
 +}
 +
- static int amdgpu_ras_query_error_status_helper(struct amdgpu_device *adev,
- 						struct ras_query_if *info,
- 						struct ras_err_data *err_data,
-@@ -1175,6 +1222,7 @@ static int amdgpu_ras_query_error_status_helper(struct amdgpu_device *adev,
- {
- 	enum amdgpu_ras_block blk = info ? info->head.block : AMDGPU_RAS_BLOCK_COUNT;
- 	struct amdgpu_ras_block_object *block_obj = NULL;
++static int __smu_v13_0_6_aca_bank_dump(struct smu_context *smu, enum aca_error_type type,
++				       int idx, int offset, u32 *val)
++{
++	uint32_t msg, param;
++
++	switch (type) {
++	case ACA_ERROR_TYPE_UE:
++		msg = SMU_MSG_McaBankDumpDW;
++		break;
++	case ACA_ERROR_TYPE_CE:
++		msg = SMU_MSG_McaBankCeDumpDW;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	param = ((idx & 0xffff) << 16) | (offset & 0xfffc);
++
++	return smu_cmn_send_smc_msg_with_param(smu, msg, param, (uint32_t *)val);
++}
++
++static int smu_v13_0_6_aca_bank_dump(struct smu_context *smu, enum aca_error_type type,
++				     int idx, int offset, u32 *val, int count)
++{
++	int ret, i;
++
++	if (!val)
++		return -EINVAL;
++
++	for (i = 0; i < count; i++) {
++		ret = __smu_v13_0_6_aca_bank_dump(smu, type, idx, offset + (i << 2), &val[i]);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
++static int aca_bank_read_reg(struct amdgpu_device *adev, enum aca_error_type type,
++			     int idx, int reg_idx, u64 *val)
++{
++	struct smu_context *smu = adev->powerplay.pp_handle;
++	u32 data[2] = {0, 0};
 +	int ret;
- 
- 	if (blk == AMDGPU_RAS_BLOCK_COUNT)
- 		return -EINVAL;
-@@ -1204,9 +1252,13 @@ static int amdgpu_ras_query_error_status_helper(struct amdgpu_device *adev,
- 			}
- 		}
- 	} else {
--		/* FIXME: add code to check return value later */
--		amdgpu_mca_smu_log_ras_error(adev, blk, AMDGPU_MCA_ERROR_TYPE_UE, err_data);
--		amdgpu_mca_smu_log_ras_error(adev, blk, AMDGPU_MCA_ERROR_TYPE_CE, err_data);
-+		ret = amdgpu_aca_log_ras_error_data(adev, blk, ACA_ERROR_TYPE_UE, err_data);
++
++	if (!val || reg_idx >= ACA_REG_IDX_COUNT)
++		return -EINVAL;
++
++	ret = smu_v13_0_6_aca_bank_dump(smu, type, idx, reg_idx * 8, data, ARRAY_SIZE(data));
++	if (ret)
++		return ret;
++
++	*val = (u64)data[1] << 32 | data[0];
++
++	dev_dbg(adev->dev, "mca read bank reg: type:%s, index: %d, reg_idx: %d, val: 0x%016llx\n",
++		type == ACA_ERROR_TYPE_UE ? "UE" : "CE", idx, reg_idx, *val);
++
++	return 0;
++}
++
++static int aca_smu_get_valid_aca_bank(struct amdgpu_device *adev,
++				      enum aca_error_type type, int idx, struct aca_bank *bank)
++{
++	int i, ret, count;
++
++	count = min_t(int, 16, ARRAY_SIZE(bank->regs));
++	for (i = 0; i < count; i++) {
++		ret = aca_bank_read_reg(adev, type, idx, i, &bank->regs[i]);
 +		if (ret)
 +			return ret;
++	}
 +
-+		ret = amdgpu_aca_log_ras_error_data(adev, blk, ACA_ERROR_TYPE_CE, err_data);
-+		if (ret)
-+			return ret;
- 	}
- 
- 	return 0;
-@@ -1254,7 +1306,7 @@ int amdgpu_ras_reset_error_count(struct amdgpu_device *adev,
- {
- 	struct amdgpu_ras_block_object *block_obj = amdgpu_ras_get_ras_block(adev, block, 0);
- 	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
--	const struct amdgpu_mca_smu_funcs *mca_funcs = adev->mca.mca_funcs;
-+	const struct aca_smu_funcs *smu_funcs = adev->aca.smu_funcs;
- 	struct amdgpu_hive_info *hive;
- 	int hive_ras_recovery = 0;
- 
-@@ -1265,7 +1317,7 @@ int amdgpu_ras_reset_error_count(struct amdgpu_device *adev,
- 	}
- 
- 	if (!amdgpu_ras_is_supported(adev, block) ||
--	    !amdgpu_ras_get_mca_debug_mode(adev))
-+	    !amdgpu_ras_get_aca_debug_mode(adev))
- 		return -EOPNOTSUPP;
- 
- 	hive = amdgpu_get_xgmi_hive(adev);
-@@ -1277,7 +1329,7 @@ int amdgpu_ras_reset_error_count(struct amdgpu_device *adev,
- 	/* skip ras error reset in gpu reset */
- 	if ((amdgpu_in_reset(adev) || atomic_read(&ras->in_recovery) ||
- 	    hive_ras_recovery) &&
--	    mca_funcs && mca_funcs->mca_set_debug_mode)
-+	    smu_funcs && smu_funcs->set_debug_mode)
- 		return -EOPNOTSUPP;
- 
- 	if (block_obj->hw_ops->reset_ras_error_count)
-@@ -1773,7 +1825,7 @@ void amdgpu_ras_debugfs_create_all(struct amdgpu_device *adev)
- 		}
- 	}
- 
--	amdgpu_mca_smu_debugfs_init(adev, dir);
-+	amdgpu_aca_smu_debugfs_init(adev, dir);
- }
- 
- /* debugfs end */
-@@ -3138,8 +3190,8 @@ int amdgpu_ras_late_init(struct amdgpu_device *adev)
- 	if (amdgpu_sriov_vf(adev))
- 		return 0;
- 
--	/* enable MCA debug on APU device */
--	amdgpu_ras_set_mca_debug_mode(adev, !!(adev->flags & AMD_IS_APU));
-+	/* enable ACA debug on APU device */
-+	amdgpu_ras_set_aca_debug_mode(adev, !!(adev->flags & AMD_IS_APU));
- 
- 	list_for_each_entry_safe(node, tmp, &adev->ras_list, node) {
- 		if (!node->ras_obj) {
-@@ -3422,7 +3474,7 @@ int amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool enable)
- 	if (con) {
- 		ret = amdgpu_mca_smu_set_debug_mode(adev, enable);
- 		if (!ret)
--			con->is_mca_debug_mode = enable;
-+			con->is_aca_debug_mode = enable;
- 	}
- 
- 	return ret;
-@@ -3436,22 +3488,22 @@ int amdgpu_ras_set_aca_debug_mode(struct amdgpu_device *adev, bool enable)
- 	if (con) {
- 		ret = amdgpu_aca_smu_set_debug_mode(adev, enable);
- 		if (!ret)
--			con->is_mca_debug_mode = enable;
-+			con->is_aca_debug_mode = enable;
- 	}
- 
- 	return ret;
- }
- 
--bool amdgpu_ras_get_mca_debug_mode(struct amdgpu_device *adev)
-+bool amdgpu_ras_get_aca_debug_mode(struct amdgpu_device *adev)
- {
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
--	const struct amdgpu_mca_smu_funcs *mca_funcs = adev->mca.mca_funcs;
-+	const struct aca_smu_funcs *smu_funcs = adev->aca.smu_funcs;
- 
- 	if (!con)
- 		return false;
- 
--	if (mca_funcs && mca_funcs->mca_set_debug_mode)
--		return con->is_mca_debug_mode;
-+	if (smu_funcs && smu_funcs->set_debug_mode)
-+		return con->is_aca_debug_mode;
- 	else
- 		return true;
- }
-@@ -3460,16 +3512,16 @@ bool amdgpu_ras_get_error_query_mode(struct amdgpu_device *adev,
- 				     unsigned int *error_query_mode)
- {
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
--	const struct amdgpu_mca_smu_funcs *mca_funcs = adev->mca.mca_funcs;
-+	const struct aca_smu_funcs *smu_funcs = adev->aca.smu_funcs;
- 
- 	if (!con) {
- 		*error_query_mode = AMDGPU_RAS_INVALID_ERROR_QUERY;
- 		return false;
- 	}
- 
--	if (mca_funcs && mca_funcs->mca_set_debug_mode)
-+	if (smu_funcs && smu_funcs->set_debug_mode)
- 		*error_query_mode =
--			(con->is_mca_debug_mode) ? AMDGPU_RAS_DIRECT_ERROR_QUERY : AMDGPU_RAS_FIRMWARE_ERROR_QUERY;
-+			(con->is_aca_debug_mode) ? AMDGPU_RAS_DIRECT_ERROR_QUERY : AMDGPU_RAS_FIRMWARE_ERROR_QUERY;
- 	else
- 		*error_query_mode = AMDGPU_RAS_DIRECT_ERROR_QUERY;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index 408e21c3cc88..2afac9aa381a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -442,7 +442,7 @@ struct amdgpu_ras {
- 	/* Indicates smu whether need update bad channel info */
- 	bool update_channel_flag;
- 	/* Record status of smu mca debug mode */
--	bool is_mca_debug_mode;
-+	bool is_aca_debug_mode;
- 
- 	/* Record special requirements of gpu reset caller */
- 	uint32_t  gpu_reset_flags;
-@@ -530,6 +530,8 @@ struct ras_manager {
- 	struct ras_ih_data ih_data;
- 
- 	struct ras_err_data err_data;
++	return 0;
++}
 +
-+	struct aca_handle aca_handle;
- };
- 
- struct ras_badpage {
-@@ -781,9 +783,9 @@ struct amdgpu_ras* amdgpu_ras_get_context(struct amdgpu_device *adev);
- 
- int amdgpu_ras_set_context(struct amdgpu_device *adev, struct amdgpu_ras *ras_con);
- 
--int amdgpu_ras_set_aca_debug_mode(struct amdgpu_device *adev, bool enable);
- int amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool enable);
--bool amdgpu_ras_get_mca_debug_mode(struct amdgpu_device *adev);
-+int amdgpu_ras_set_aca_debug_mode(struct amdgpu_device *adev, bool enable);
-+bool amdgpu_ras_get_aca_debug_mode(struct amdgpu_device *adev);
- bool amdgpu_ras_get_error_query_mode(struct amdgpu_device *adev,
- 				     unsigned int *mode);
- 
-@@ -821,4 +823,8 @@ int amdgpu_ras_error_statistic_ue_count(struct ras_err_data *err_data,
- 		struct amdgpu_smuio_mcm_config_info *mcm_info,
- 		struct ras_err_addr *err_addr, u64 count);
- 
-+int amdgpu_ras_bind_aca(struct amdgpu_device *adev, enum amdgpu_ras_block blk,
-+			       const struct aca_info *aca_info, void *data);
-+int amdgpu_ras_unbind_aca(struct amdgpu_device *adev, enum amdgpu_ras_block blk);
++static const struct aca_smu_funcs smu_v13_0_6_aca_smu_funcs = {
++	.max_ue_aca_count = 12,
++	.max_ce_aca_count = 12,
++	.set_debug_mode = aca_smu_set_debug_mode,
++	.get_valid_aca_count = aca_smu_get_valid_aca_count,
++	.get_valid_aca_bank = aca_smu_get_valid_aca_bank,
++};
 +
- #endif
+ static int smu_v13_0_6_select_xgmi_plpd_policy(struct smu_context *smu,
+ 					       enum pp_xgmi_plpd_mode mode)
+ {
+@@ -2967,4 +3105,5 @@ void smu_v13_0_6_set_ppt_funcs(struct smu_context *smu)
+ 	smu->smc_driver_if_version = SMU13_0_6_DRIVER_IF_VERSION;
+ 	smu_v13_0_set_smu_mailbox_registers(smu);
+ 	amdgpu_mca_smu_init_funcs(smu->adev, &smu_v13_0_6_mca_smu_funcs);
++	amdgpu_aca_set_smu_funcs(smu->adev, &smu_v13_0_6_aca_smu_funcs);
+ }
 -- 
 2.34.1
 
