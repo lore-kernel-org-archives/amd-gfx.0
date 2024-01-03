@@ -4,90 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88A18C3DA6E
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jan 2024 21:56:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 979C7C47074
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jan 2024 21:56:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A549910E34F;
-	Wed,  3 Jan 2024 21:55:58 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2073.outbound.protection.outlook.com [40.107.220.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D75E10E34C
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jan 2024 21:55:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=T6V69JYOV/HfT7vsydYzVLvfZd73J4mc5rdqBoip8MIAxNn/JT1H96m6dCHfS0atCqScKsN9uA5wVDUvi8R9g0aZCIUxlSvhKtwXYhoFpikFB+fzw7p863FThYOOpFyqvk9MrbUw4tsHeHuKTlo7Ndv9MLOGRXY0qZAMWqYVBRIGRBPb2PgfTTkQDfTJyCL94F+m3xRjEZenkhNNmgztE5C1zeMQ/z6J/8byx2g8hWv35GcW+rhCytzSKOV9e8SngCO30pGBi2jJoT4k6VOiAy5CAQTpR0CBFFg2LA+T/FNwItY7o9w+IemFX7BwwfjcWp0mocpBMR4zNecw2f37XA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AygIX+oKMIkIvZlQ35bUUKnfFIage2N9cU3UnfHFafI=;
- b=BZnNViywKAqgBxXBfB3jtFMUuIQcXUVPovrXbfQNzgaQWyLarUX/72pbRtAjlBVDNg/5/JPgbUDeLKOvW0/cvS7+9V0GV5czv1WootnFrZ8tZZwRW1CoSUNFFgZy/HWeVhlRkaiUUD3FNSLc3EnWuACI00PwJOwd363+BfNYOwQ0AZ1Q57cUGTKimKaPoxrKpFa9qfgIosuRupoGl22nQupDe9fwbB++X51dfo7VXtRJ85YmCJWj55ikTTI9RKxEgxrqJp+i8xJv0XpHDh1S5O4tcnoWDlPl1Fng+FEkg+NHzEZJmMw2XQYda/egDXk0Butaxob4QhsXTRmv9yLrcA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AygIX+oKMIkIvZlQ35bUUKnfFIage2N9cU3UnfHFafI=;
- b=l/NTu8xiKuhM07dnWAm4JiugQosBCFI31uHoWK7442iqD35Cem+P0fz9eJJ5rSHuE3SXBfJaGYXiDuc9NSDiuigrxkB9fTwCHx7EaI/Y6fcFzhHmNo/WQ4mzF4VD7XHzL3Dz9/ErlvRmIfojGLpZSOq7giAWxDGN/CvGMQGro3E=
-Received: from MW4P222CA0001.NAMP222.PROD.OUTLOOK.COM (2603:10b6:303:114::6)
- by DM4PR12MB5328.namprd12.prod.outlook.com (2603:10b6:5:39f::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.25; Wed, 3 Jan
- 2024 21:55:55 +0000
-Received: from CO1PEPF000044F3.namprd05.prod.outlook.com
- (2603:10b6:303:114:cafe::29) by MW4P222CA0001.outlook.office365.com
- (2603:10b6:303:114::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.13 via Frontend
- Transport; Wed, 3 Jan 2024 21:55:55 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000044F3.mail.protection.outlook.com (10.167.241.73) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7159.13 via Frontend Transport; Wed, 3 Jan 2024 21:55:55 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 3 Jan
- 2024 15:55:53 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 3/3] drm/amdgpu/gmc11: re-enable AGP
-Date: Wed, 3 Jan 2024 16:55:36 -0500
-Message-ID: <20240103215536.1780386-3-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20240103215536.1780386-1-alexander.deucher@amd.com>
-References: <20240103215536.1780386-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D6DD10E34B;
+	Wed,  3 Jan 2024 21:56:06 +0000 (UTC)
+Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
+ [46.235.227.194])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 921A310E08E;
+ Wed,  3 Jan 2024 21:42:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1704318173;
+ bh=UDWldnzmwuhR1wrr9eaxOZpeEBaoD3KrQiTn/z2ISa4=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=29AFP2b/4UB+1NRfxfgPk72jJaisg6OgdksozMENQ/jMI0bDAMIzAXJsUoonQwfyE
+ fRv0szC8+NM2/aFfbs3P8S3DU4Sv+yd77Kcvg8F7PweQbgbXx5Rzeru9eDxsRBN9hf
+ PoTrCUtDKBv/F7TitlqrsJACtuZ7ZBWxcLCV6qkIGQUzxWX9tIZu/vvpyrgguI4CYo
+ 6uzDsZHFKEEvw5e5ZTM0F7Q9CWNYmZYO7VHIHkNdLoMH5/aLtrF/12ehie1q4oVWyd
+ yJggqMRLo0O4FnYCdrdU0zJvPvMVTqWWX06RR6AzrK+ncJvo6pIa1nV8+LH8y8HSxU
+ wTGj/D09kWCNw==
+Received: from [100.109.49.129] (cola.collaboradmins.com [195.201.22.229])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id A4B0E37813CB;
+ Wed,  3 Jan 2024 21:42:51 +0000 (UTC)
+Message-ID: <de0381a6-2ad6-46a6-8d05-897799746456@collabora.com>
+Date: Thu, 4 Jan 2024 00:42:48 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F3:EE_|DM4PR12MB5328:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33a0f855-df90-4dbe-738e-08dc0ca6c2fa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bOWh/VMkDBUzUj+qkua330XJ+6Yi9NNL6rLwpmy8qAXkU6kRA/kFGDCtQKTDCZNRBDrDA1SyguyHAj4CB5G96Ky6GurA241OX0Qlz0ZZ0KLpHLq10DJRkI9hvwjEeIszFrE6lasv2JfJXMsja2ho2yATo0LJYGelUzEelhKQTp3/8kFiCiGzPDBx0382kxCVjfLfS2bw3SbEmo5728Apls1hlZDszAtArRjtT5A/4hvCqC5MR8iL24bX7/rUfAt2G5ZJR68uzye81upmqg6fkt9cHACa0GvaKCvE7bwnEcLGdZz9bEBEYBzldtenf9ZFxl64FSGSQQWGqu07GamkyqeQ2HPqQYzrOZh+6KgNAdMhXzWVmRnd11CV8Hw7weLnXRLeoiT//4WAUNLH/znlz6tDLymkto0xOy8zmnYl8/kVQkYToSvwCk0swxmrLc7iK8ynBOoNqHcnqQARb9NiWgDwbcSu7Ab0+WBmpcDtJUT5+OpPIkysxxOtkGT5Feky8+w513DXyH8jB0Z7xHYT1jDE06LMHa5Wz4ZYpdZMuBuV2zk01Q5wFjluY5EwcKZJfPHdYxjMJn270ZjMvKgIez5yTCo0NFnUJNjqLyciKu21XxRSxWsYnc1sGXK+MfGih4WLDunD44EHVKmzB0rlhuM6Oj8+nLMSszkpGQKlG7iF/5F5tpAwWH945Rkm2OZONR1RyEYDlvfXJOjtIBTS7YaDTWyzQ7j9b0X2y3+r9Mgr1o2kgyLLaUv4MR2Cnh2f0gX6xIMtl2ZEEbl8vtQlcg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(396003)(376002)(39860400002)(136003)(230922051799003)(1800799012)(451199024)(186009)(64100799003)(82310400011)(40470700004)(46966006)(36840700001)(426003)(26005)(336012)(16526019)(1076003)(2616005)(83380400001)(7696005)(47076005)(8676002)(6916009)(4744005)(41300700001)(36860700001)(70586007)(2906002)(8936002)(316002)(478600001)(70206006)(4326008)(86362001)(356005)(82740400003)(36756003)(81166007)(6666004)(5660300002)(40480700001)(40460700003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jan 2024 21:55:55.2722 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33a0f855-df90-4dbe-738e-08dc0ca6c2fa
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F3.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5328
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] drm/virtio: Implement RESOURCE_GET_LAYOUT ioctl
+Content-Language: en-US
+To: Julia Zhang <julia.zhang@amd.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, David Airlie <airlied@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org
+References: <20231221100016.4022353-1-julia.zhang@amd.com>
+ <20231221100016.4022353-2-julia.zhang@amd.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20231221100016.4022353-2-julia.zhang@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Wed, 03 Jan 2024 21:56:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,32 +60,180 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Daniel Stone <daniels@collabora.com>, Erik Faye-Lund <kusmabite@gmail.com>,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>,
+ Chen Jiqian <Jiqian.Chen@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Honglei Huang <honglei1.huang@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It should be fixed with
-commit ca0b006939f9 ("drm/amdgpu: fix AGP addressing when GART is not at 0")
-so re-enable it.
+On 12/21/23 13:00, Julia Zhang wrote:
+> From: Daniel Stone <daniels@collabora.com>
+> 
+> Add a new ioctl to allow the guest VM to discover how the guest
+> actually allocated the underlying buffer, which allows buffers to
+> be used for GL<->Vulkan interop and through standard window systems.
+> It's also a step towards properly supporting modifiers in the guest.
+> 
+> Signed-off-by: Daniel Stone <daniels@collabora.com>
+> Co-developed-by: Julia Zhang <julia.zhang@amd.com> # support query
+> stride before it's created
+> Signed-off-by: Julia Zhang <julia.zhang@amd.com>
+> ---
+>  drivers/gpu/drm/virtio/virtgpu_drv.c   |  1 +
+>  drivers/gpu/drm/virtio/virtgpu_drv.h   | 22 ++++++++-
+>  drivers/gpu/drm/virtio/virtgpu_ioctl.c | 66 ++++++++++++++++++++++++++
+>  drivers/gpu/drm/virtio/virtgpu_kms.c   |  8 +++-
+>  drivers/gpu/drm/virtio/virtgpu_vq.c    | 63 ++++++++++++++++++++++++
+>  include/uapi/drm/virtgpu_drm.h         | 21 ++++++++
+>  include/uapi/linux/virtio_gpu.h        | 30 ++++++++++++
+>  7 files changed, 208 insertions(+), 3 deletions(-)
+...
+> +static int virtio_gpu_resource_query_layout_ioctl(struct drm_device *dev,
+> +						  void *data,
+> +						  struct drm_file *file)
+> +{
+> +	struct drm_virtgpu_resource_query_layout *args = data;
+> +	struct virtio_gpu_device *vgdev = dev->dev_private;
+> +	struct drm_gem_object *obj = NULL;
+> +	struct virtio_gpu_object *bo = NULL;
+> +	struct virtio_gpu_query_info bo_info = {0};
+> +	int ret = 0;
+> +	int i;
+> +
+> +	if (!vgdev->has_resource_query_layout) {
+> +		DRM_ERROR("failing: no RQL on host\n");
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Please remove this message
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-index 6c68135cac9f..906f23d13975 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-@@ -643,7 +643,7 @@ static void gmc_v11_0_vram_gtt_location(struct amdgpu_device *adev,
- 	amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_HIGH);
- 	if (!amdgpu_sriov_vf(adev) &&
- 	    (amdgpu_ip_version(adev, GC_HWIP, 0) < IP_VERSION(11, 5, 0)) &&
--	    (amdgpu_agp == 1))
-+	    (amdgpu_agp != 0))
- 		amdgpu_gmc_agp_location(adev, mc);
- 
- 	/* base offset of vram pages */
+> +		return -EINVAL;
+
+return -ENOSYS
+
+> +	}
+> +
+> +	if (args->handle > 0) {
+> +		obj = drm_gem_object_lookup(file, args->handle);
+> +		if (obj == NULL) {
+> +			DRM_ERROR("invalid handle 0x%x\n", args->handle);
+> +			return -ENOENT;
+> +		}
+> +		bo = gem_to_virtio_gpu_obj(obj);
+> +	}
+> +
+> +	ret = virtio_gpu_cmd_get_resource_layout(vgdev, &bo_info, args->width,
+> +						 args->height, args->format,
+> +						 args->bind, bo ? bo->hw_res_handle : 0);
+
+What this special hw_res_handle=0 is doing? Why is it needed?
+
+> +	if (ret)
+> +		goto out;
+> +
+> +	ret = wait_event_timeout(vgdev->resp_wq,
+> +				 atomic_read(&bo_info.is_valid),
+> +				 5 * HZ);
+> +	if (!ret)
+> +		goto out;
+> +
+> +valid:
+> +	smp_rmb();
+> +	WARN_ON(atomic_read(&bo_info.is_valid));
+
+Please remove this WARN_ON and fix the kernelbot report
+
+> +	args->num_planes = bo_info.num_planes;
+> +	args->modifier = bo_info.modifier;
+> +	for (i = 0; i < args->num_planes; i++) {
+> +		args->planes[i].offset = bo_info.planes[i].offset;
+> +		args->planes[i].stride = bo_info.planes[i].stride;
+> +	}
+> +	for (; i < VIRTIO_GPU_MAX_RESOURCE_PLANES; i++) {
+> +		args->planes[i].offset = 0;
+> +		args->planes[i].stride = 0;
+> +	}
+> +	ret = 0;
+
+ret is already 0 here
+
+> +out:
+> +	if (obj)
+> +		drm_gem_object_put(obj);
+> +	return ret;
+> +}
+
+...
+> diff --git a/include/uapi/linux/virtio_gpu.h b/include/uapi/linux/virtio_gpu.h
+> index f556fde07b76..547575232376 100644
+> --- a/include/uapi/linux/virtio_gpu.h
+> +++ b/include/uapi/linux/virtio_gpu.h
+> @@ -65,6 +65,11 @@
+>   */
+>  #define VIRTIO_GPU_F_CONTEXT_INIT        4
+>  
+> +/*
+> + * VIRTIO_GPU_CMD_RESOURCE_QUERY_LAYOUT
+> + */
+> +#define VIRTIO_GPU_F_RESOURCE_QUERY_LAYOUT 5
+> +
+>  enum virtio_gpu_ctrl_type {
+>  	VIRTIO_GPU_UNDEFINED = 0,
+>  
+> @@ -95,6 +100,7 @@ enum virtio_gpu_ctrl_type {
+>  	VIRTIO_GPU_CMD_SUBMIT_3D,
+>  	VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB,
+>  	VIRTIO_GPU_CMD_RESOURCE_UNMAP_BLOB,
+> +	VIRTIO_GPU_CMD_RESOURCE_QUERY_LAYOUT,
+>  
+>  	/* cursor commands */
+>  	VIRTIO_GPU_CMD_UPDATE_CURSOR = 0x0300,
+> @@ -108,6 +114,7 @@ enum virtio_gpu_ctrl_type {
+>  	VIRTIO_GPU_RESP_OK_EDID,
+>  	VIRTIO_GPU_RESP_OK_RESOURCE_UUID,
+>  	VIRTIO_GPU_RESP_OK_MAP_INFO,
+> +	VIRTIO_GPU_RESP_OK_RESOURCE_LAYOUT,
+>  
+>  	/* error responses */
+>  	VIRTIO_GPU_RESP_ERR_UNSPEC = 0x1200,
+> @@ -453,4 +460,27 @@ struct virtio_gpu_resource_unmap_blob {
+>  	__le32 padding;
+>  };
+>  
+> +/* VIRTIO_GPU_CMD_RESOURCE_QUERY_LAYOUT */
+> +struct virtio_gpu_resource_query_layout {
+> +	struct virtio_gpu_ctrl_hdr hdr;
+> +	__le32 resource_id;
+> +	__le32 width;
+> +	__le32 height;
+> +	__le32 format;
+> +	__le32 bind;
+
+64b pad missing
+
+> +};
+> +
+> +
+> +/* VIRTIO_GPU_RESP_OK_RESOURCE_LAYOUT */
+> +#define VIRTIO_GPU_RES_MAX_PLANES 4
+> +struct virtio_gpu_resp_resource_layout {
+> +	struct virtio_gpu_ctrl_hdr hdr;
+> +	__le64 modifier;
+> +	__le32 num_planes;
+> +	struct virtio_gpu_resource_plane {
+> +		__le64 offset;
+> +		__le32 stride;
+> +	} planes[VIRTIO_GPU_RES_MAX_PLANES];
+> +};
+
+Virto-spec changes should have a corresponding doc update in [1].
+
+[1]
+https://github.com/oasis-tcs/virtio-spec/blob/master/device-types/gpu/description.tex
+
 -- 
-2.42.0
+Best regards,
+Dmitry
 
