@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 507DBC3DA6E
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jan 2024 10:55:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F644C3DA6E
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jan 2024 11:27:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4EB810E265;
-	Wed,  3 Jan 2024 10:55:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDD9710E28F;
+	Wed,  3 Jan 2024 11:27:20 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2079.outbound.protection.outlook.com [40.107.223.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC40610E265
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jan 2024 10:55:22 +0000 (UTC)
+ (mail-dm6nam11on2070.outbound.protection.outlook.com [40.107.223.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A70B10E28F
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jan 2024 11:27:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Dd8KKgnzCVra7DKg86sxhyzy3O7S0c66SmfIPpcjfR5uz4zbRgTHXsLujancPJrpshPqRJ/uxM/e8uQwGqw7rW56Yt2rIuKmCuX/eP69H2qOfuVqCHH0VMlthfBclb2jmVRFahefp0wvXPvOp1ppbaRFvpTs5Kh8hWx4xdmOIh6uY+dpMfiDGarCqbvsnwnRRplib6Uc1uGwrGzPnCQoxBvCUUijDSYBSe6yuajIbwu33zONExJxy1l+zzfr0d3waPkx1a7xojXuLr9iOenB4GNwGkbKExjOVBaOgeNlfTn2IwHRykUjMP7vkaJoM30JfBpbwvIgErbjDai1dvLh7g==
+ b=Q0R7RrPZz2hw1M1gX69Z/VBzENIXpTskgLKWtuCPKLwPeuODWFu13m5VoJ8eW2m/58prn2NHXb/JY6SmX8ru8gQx4uGl/Bj+6KCkeQbJeEhx71jI6baROuwULsN3rtfdofA9itVBBPGMJxFzvNo/proQUPdYNwb2L6lIeHeQIsQrIdstCsPlr9gkDP5JPpUyDBbK0b3FYFY2MuOMxZdFR3bxzExKpaUrobQpSrUTZVuiZyXUcdxKlflrID5Nd/IAc49vcy/lqKLSJ9s+ha9fD237cS67PCgl+r+Ch8rDYQ2nVddK9rgFCSuSBW+IJn4aZAL1IgKTbB+fbHrFFzoY/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JiloQ5ngDphV2TM2oCjWohrq7TsIznvcxxkeB24Ag7g=;
- b=JzFsFB0KXop0tklRSa9F0K2C9v5tLaqPtK9ZMstCJBNqsEv9t8jN0qPxLKYeOLFO0cuCVKko/1vD5Hhz9rk5B8TBbeEZGWl6B632Ht1CPVtCAcfIh16nVt0uUxnNWMH4V6OWAcL26bKqfHjH5UrBI/3LN5MZ0En7V2REVSrDvHaJI8pDCMo8IudBOb9CM8J7JKQOS4y3Czew4+9PcmkXzD5uNvll16Q8hfOLRq2KAm5y9vALEk+oWfIMk/gQu1Pfup3Dea2tOWESt9xijvXiSHEoaX1V7AR1LK2CTM3DavDHn9ZhYcOBCQMBf8w2BGnIGC5yPbKTqKmsCkKCvzda2g==
+ bh=ZG8CLhBMqK9AgvAbKwwAKxkLQ91TtQUf1jzkhO9+91Y=;
+ b=lMmYtKoBU0FVQNYAUmnAGftORKXuVVDF6SniD4VVguAi/ioG3fu9m3lA/JRwCAmScXGC0ySh8pvA6E85dH9SSYiuRWgyPxwU21xPCcVCXuEgaY369o170C9kXkuI6ZfTF/sHncnI7pHBvbVb0xOTma8lw5DMvspHUFr/trmT3GBk2GJFsXfAe7uSe2LhGOvM+6AIPsOV7/D5gVpSoGrO0FfIjNvfv4vQui9KLMVMo/XQjfYajIY9xEn4OVnv9a8aJ8lPMLaYir8RoNSRkJXewORwXYF7RVQHfsFK+Fue1u/mKig67F1PLicRdTZHmWRO4hEU83zFKSIjzuqEZIUFOA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JiloQ5ngDphV2TM2oCjWohrq7TsIznvcxxkeB24Ag7g=;
- b=l9BdEy0+QLiGzPuTQgWSIJHkLYBJAEePdwE1CvJS8JddTGcNGLqO5ztYB921zgPSyWOEfMlAEYjbzYUNvh4TSBgqQfEI8tbtOukwgBTY1CEJX5Vn/1cagiD5IwP8qZNHDrzkVWKGl9ljATBC53t3792VV7HxJ8kUO5WPt/L0Bm0=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by SJ2PR12MB8781.namprd12.prod.outlook.com (2603:10b6:a03:4d0::17)
+ bh=ZG8CLhBMqK9AgvAbKwwAKxkLQ91TtQUf1jzkhO9+91Y=;
+ b=eAfXGTPP4iaILSoEYwu4+vJnf02nIRuQDDTcIuSXtJuF6phsa2DiziDT74nbq6xdlXMyQggYJHQhZmhSeF8dxrsLCvz1U9lZsnLAgaJ5cL5hctL70GUdtVGH1p4ZbkDBcyEwz6NwpZHmZ7cxad+17WW/Nr0kwgPl3BQt659ALqo=
+Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
+ by LV2PR12MB5798.namprd12.prod.outlook.com (2603:10b6:408:17a::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.21; Wed, 3 Jan
- 2024 10:55:15 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::7ee2:4db2:1828:ba83]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::7ee2:4db2:1828:ba83%4]) with mapi id 15.20.7159.013; Wed, 3 Jan 2024
- 10:55:15 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.25; Wed, 3 Jan
+ 2024 11:27:13 +0000
+Received: from PH7PR12MB5997.namprd12.prod.outlook.com
+ ([fe80::61a8:83e4:c057:7790]) by PH7PR12MB5997.namprd12.prod.outlook.com
+ ([fe80::61a8:83e4:c057:7790%4]) with mapi id 15.20.7135.023; Wed, 3 Jan 2024
+ 11:27:12 +0000
+From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
 Subject: RE: [PATCH 01/14] drm/amdgpu: implement RAS ACA driver framework
 Thread-Topic: [PATCH 01/14] drm/amdgpu: implement RAS ACA driver framework
-Thread-Index: AQHaPhtLLn5iOkIOIkCNA8E4BZEKDLDHxG2AgAAewQCAAASlQA==
-Date: Wed, 3 Jan 2024 10:55:15 +0000
-Message-ID: <BN9PR12MB52572AD8A71D2C01974DD3ABFC60A@BN9PR12MB5257.namprd12.prod.outlook.com>
+Thread-Index: AQHaPhtLgSrrHjiUrU+miRaE+NmfMrDH0lmAgAAHkYCAABCJgIAAB5Qw
+Date: Wed, 3 Jan 2024 11:27:12 +0000
+Message-ID: <PH7PR12MB59974869DEFF986131E2B9F18260A@PH7PR12MB5997.namprd12.prod.outlook.com>
 References: <20240103080220.2815115-1-kevinyang.wang@amd.com>
  <20240103080220.2815115-2-kevinyang.wang@amd.com>
  <BL1PR12MB52541DF0F27B2BD258A9FB79FC60A@BL1PR12MB5254.namprd12.prod.outlook.com>
  <PH7PR12MB5997C7A71B27196BDAB86EFA8260A@PH7PR12MB5997.namprd12.prod.outlook.com>
-In-Reply-To: <PH7PR12MB5997C7A71B27196BDAB86EFA8260A@PH7PR12MB5997.namprd12.prod.outlook.com>
-Accept-Language: en-US
+ <BN9PR12MB52572AD8A71D2C01974DD3ABFC60A@BN9PR12MB5257.namprd12.prod.outlook.com>
+In-Reply-To: <BN9PR12MB52572AD8A71D2C01974DD3ABFC60A@BN9PR12MB5257.namprd12.prod.outlook.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
@@ -63,57 +64,57 @@ msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=c75913d1-8
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|SJ2PR12MB8781:EE_
-x-ms-office365-filtering-correlation-id: 8b57bc63-7781-4e37-954b-08dc0c4a77c9
+x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|LV2PR12MB5798:EE_
+x-ms-office365-filtering-correlation-id: a648add9-a1c8-4be8-0c55-08dc0c4eee34
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: rHYbMt6pF1yyK3KrUHNPOp2vFaLNmrysGuuRG40JL9QKrc2qGfWAe5AuwF53HFXgIFaFFSowiECazuvH47ZiqFrT8aq3UhsDtZvv4XIp8yQn/zMMn9XEQAWMkteWQV8WZoH4F7Z6e1d/wJVH9ywxAXeA6AYtmurdMb50S+GkUMIpR/lgafQKGrK6XL6laNAkpcE+1r0yr+tm6ANP/4ujBc+98r+NGsE/t+MoL7sxGYIXCA8f6GboRlWrPBfRFbobiW7Dmaiub5ddJyvgltlpFoImw+6Zgvh53cZGzuQMBjST9OBFUxRg7OmwzAXTtT2/8GLP/LLSBpFSbTO2YhhZzX6mFbo33u0XkY25rxp6N97fPTL6mBLQOQKSBbn9f07IbyFOBDFISNjnqaAipqTMhuPXOL1VRxKAzISlJCJbCs3NR3OJiYQoAJXiyrl87EY4q3DMPrp44xpkMlRmzb6mifQStb02cu1VJAuxovyvfQIj6ojaiSoF0xr4pUYHlzr1SACzFuAjP5jxvhcUY/GAQkY1gB2JgDKw/7XopnZo9GBznFv9/+NgQLvVuipyjeJLfwyxwjb8yj1w7m1wK6CIcnAq0iIdQ2kM/SOoAr7u68uPxkQD0HifZwuDwgAi6A7L45lQTjpksBzgC8e7qxTmYA==
+x-microsoft-antispam-message-info: 5I3AkIFgH14YJEAGTxoefl0r8t4nKUPjUBCaRv256ccO3JqA9P4O8/+zDBbcbiFgEzqI/KA9si94pEXLXbSACjT3Ecg9ukdYRvpQcRDCMhQyK19ebyoSDJ5ef8GXplymfr6UpjrAgis9KmocTMtxOdAl5qfGct0Q+71WPOBOMv2y2fbguCe/2zyM+W5oakVTv6E8T4+oWexzFYwJIxQdo7r+5F9GokQRorMMmEg8KaGY2BqBGveDXinCVPiNMOVyoL3ZGWZreY9Tc52uFHSTCZQIprAPprTRrI+W/4Ehjc08wPsk0Rp33Lc89Va4wV5Wpa52x2HmUaP/7dPr7LsI9lB7Q4inA9zE6DEub+Outcp7iWVjJyPKF8a5wubVLrNM0kgHqSD0R/XNs3JC764gaImpm+6OAkJyycidy07Cc+Dy07Nfeo1Or7XnSOm+zTE4Tl3s0PFqiKvRb34wJfbAsDH1vGr6QFARUrQ48fQ6oG1RY8ZqBAR4U+dFbqFQs+7sQc6D+5Bv/efHyuJ+Dw8sOVikr+P8LhXgvuqOyM2tqAoOS5jWLiyuMSxBF6eMwu1Okdu2sT+g8sesOvwwxxS+Fsyew6CnSgZRWaSeTHfe07oElyjALNpfPqZ2YixGdUizYoLM4o6JoX9SdK/7+utBPg==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(39860400002)(366004)(136003)(376002)(396003)(230922051799003)(64100799003)(451199024)(186009)(1800799012)(86362001)(26005)(83380400001)(38100700002)(41300700001)(122000001)(66899024)(38070700009)(71200400001)(30864003)(2906002)(478600001)(966005)(54906003)(52536014)(4326008)(66446008)(76116006)(55016003)(8936002)(5660300002)(66556008)(33656002)(8676002)(6506007)(110136005)(64756008)(316002)(66476007)(9686003)(66946007)(7696005)(21314003)(579004)(559001);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366004)(346002)(39860400002)(376002)(396003)(136003)(230922051799003)(64100799003)(186009)(1800799012)(451199024)(38100700002)(55016003)(66899024)(86362001)(33656002)(38070700009)(110136005)(6506007)(9686003)(26005)(83380400001)(478600001)(66946007)(122000001)(64756008)(966005)(66446008)(30864003)(66556008)(66476007)(76116006)(7696005)(316002)(71200400001)(5660300002)(54906003)(52536014)(8676002)(2906002)(4326008)(41300700001)(8936002)(21314003)(559001)(579004);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?w7YUeECiXCK2UzN8tO5vaq1I+MQd7b67UOstRym6yxSY23xRi7zl5RqHxb9T?=
- =?us-ascii?Q?pQyg4078LZKzUegjoVRvheQ6qVC8xaJaSnbxu5tlaxg/fAgoJAri1KDp1FEa?=
- =?us-ascii?Q?VOl+BiD+a75NvsTPeTdt9BycwAQLTZa+PclhtFJDjKkdb3f5hmDkNDLwzJdz?=
- =?us-ascii?Q?nd7tZR62z987y+M/NHdI5ibIzL3RiZxQHaFhp734Cl+SK+dY6FrhUZ1ig4+/?=
- =?us-ascii?Q?OBlmHLfWXTSnKRWQs2+hHuxUq6t89OUog876i9OLvaZN4B9kPYynhkX1I0c5?=
- =?us-ascii?Q?lrawHRAImgf39wsHSD7gk7Tpw/zsOzk5Cxv2V7WrMG89EOUXT1b2R7i4n9WL?=
- =?us-ascii?Q?2pI0UJ5msl07sMfyIptHJTEaADl7YmarZaOLmmLzqJJ4hBpORjWWrxiyk6Lc?=
- =?us-ascii?Q?pNeEw6NftlHs6vw1jFwY/r9+3xuI85GO6hX1q5z+pSbhr0DWJOr634jaMPrz?=
- =?us-ascii?Q?8hPL3+UnCc66uY0ta3JvpvxcNYbvVMoKH6apsQ5dzojolvZ5A7kdosksXvoE?=
- =?us-ascii?Q?CWzgK42Js1VHmryTL/qyNSldrjPZ9YrNgZoMv8hYx867Oxxh4tI9DQhDgZ7y?=
- =?us-ascii?Q?JYi7pEnyQBtABMVcQXjxk0uACoUqKs2YQeApJu+vK+613WJ9p3y2dr3rU5OF?=
- =?us-ascii?Q?9OBYhwMe9vC6whpHMxP8LubhHNNC+uu9d06ipIqPF6XWo1axfxgLl4IFDZG9?=
- =?us-ascii?Q?w886WvFuo3w0JfZTBBbrnHA7gso0/HNAxCBQI2Yl3AL0nbi+t8UDzY2urSME?=
- =?us-ascii?Q?D++f+rR5jF7UL2+qoMG09UEPLPw6U1/JGlDsjVhPYUejwdc6bLft7f8xDWCN?=
- =?us-ascii?Q?7Y1Yu9zkuGpn1y4kpcQx4BHJH7GH4b/J1Z3L1y3dCDV0X//JLHJLNh6obEGE?=
- =?us-ascii?Q?ynfgXLIlGxFc6Cra8xYWXsP0G11LVkpjCJb0qeDQ7FApuuAtm5+FC5UQkt7g?=
- =?us-ascii?Q?B5zss1wHJipxq4EtUOUYm2O3R0v3GK/C6HTLeKd5hQWoGeF+4rHqrzwGScbH?=
- =?us-ascii?Q?i9bTs+Vu/Qqld77diXOeFoyYr52/aKxohhC9m0j9yFeLMX8AJfiCJ8vIPqld?=
- =?us-ascii?Q?jyERkZz6TWuuTGtId9g3svVJEqh9G4geKqTmXUGy9+8qXcui2gjm5b+RRtMF?=
- =?us-ascii?Q?kGfykPMq7S9eeE4RuSoJCKHaO/VUkfmc0PSZpgerB+94Y6eOYfRsiV8GYQzi?=
- =?us-ascii?Q?vBNrZYY8B5KLSFDbr3Cho/bSMCO/37DhYiQHDmHr/RbmBf51lKRdcLvnJ6sy?=
- =?us-ascii?Q?NneNwV2FU4/hrA0xq9c2TegeF4Cgu4HfFnAo5/qHFi/n+iecon31T5H3XjPZ?=
- =?us-ascii?Q?2f9WC1M86n0uvhsjYrU5pfc1Y2J81mcqAMZMOQQl8qMwDypwaXN1HWADhClQ?=
- =?us-ascii?Q?sfiP6vAjGPSaaNIbrgyeyozS0hCdFhsUZ7qATF74qNQtHmYFAUH4QggnDVkT?=
- =?us-ascii?Q?Ph3ytneG+99WFRosCfdLnpV6Efb4qpEQFY3+EHImkkJbMkps5JaNW9zuaq7z?=
- =?us-ascii?Q?4ue4nUvpOk2rr729tSbg5PMznlFEFlIOv7OK/zr7CjoQUGndyiK2vDsqrQg8?=
- =?us-ascii?Q?TAOL1XZCF92ufjbgsK4lFno0UAFONQKcAXP0VhC4?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?QPgZWkg0jfKJ9Rt3W+ulYMgx+db15e5W0p0j4T0pZ1rB1GfAzoj+R+fbWlOJ?=
+ =?us-ascii?Q?UQ6K/o1yOiLx3DB/InnOeySIPqPBfJCaBzKsvZaCHSxAGtnY3fS0bQfNDEV3?=
+ =?us-ascii?Q?vwBw0tOVEmD9neuwiVgOaQyBFzoKpV8iQ/bi8MKg5KxT8hjO0yHH2zUiUkSs?=
+ =?us-ascii?Q?f8AwtFajxu2YJXyqDF5Pigpdbe7qaxUvotp+BhaNpZNhPey8IlvxjQmhraSU?=
+ =?us-ascii?Q?thc0bwEpsn5h9foXND9ZcchKYUxN5VRpPAze+I1qI7iND16MfNpFqyZg57WD?=
+ =?us-ascii?Q?FODlALF8nYkvgnlWneFCM6MpvEOyK3+BD/c4pYJT2MX8TurdjZvWSGkN0Cct?=
+ =?us-ascii?Q?qudMAEZwZiFqvY6MEn0zPR4FjHvndoEgiHtTOCIZJ7iUtAduAQBjq/QgZ13n?=
+ =?us-ascii?Q?EFhxriKGR3UVg5BWwTz9P5mARdq0umyt50pPq8SL1/nsQSYiVWj88ZqjJb40?=
+ =?us-ascii?Q?8D5uqZqaxvrSJDzySwfVshNG16l10SlcBRAo1a0nny9hJ2Gaf/kT1jS+vINA?=
+ =?us-ascii?Q?e/hB8edRTt4h8VWJgJlOIy6DcQppDLssNo1enMlhDsOgmY0D2zzzDhwWmmpO?=
+ =?us-ascii?Q?NCM3WnpfuX2NtMpKTdc6ODTdU7XBIf4faLy8+wfeqnBVnGTfJyXZ4raX2P0G?=
+ =?us-ascii?Q?Uh5J8cQ9ddyzx5z9jVHtRBQKE9vJa5OWQZIfA7ZlgNCZhf/JFm+zBUF4WVmm?=
+ =?us-ascii?Q?4foRGSyoQCD4WLpV1mC5a2i9gEqhEqOIHDm0PTaNzs5hPpIWzxRWUXHsE7IL?=
+ =?us-ascii?Q?CE4lrkfMQ461hvZjAYJnDGjZeMuEU6pmXYfZRrNJwRlu9mbmq7LGoEyllfBx?=
+ =?us-ascii?Q?5Eu/rm+2yuwfHbXa4H9OXX6zNXxEWhSzUUWcSiZbQV0yfAGtSPbMj5PQvMBh?=
+ =?us-ascii?Q?4v/Jth8O7StzFQUQuauV7RNZ+msPf4xJJuFECmYdFEYgAAJqWLjs+qDU4aqq?=
+ =?us-ascii?Q?v22+bwaKoj6exZQ1Z+eZqh/A+o8QLxrg1GCAZcKsfuMP0QePTBvtAfmN61IU?=
+ =?us-ascii?Q?wba46wFd6JFhs7bORe15KKdg2xADB+ydOQRSeSibxmjOikCuoDBnK8JwPOTd?=
+ =?us-ascii?Q?3BoU0VwAYbhOkdT5QEyzPQvjlhBldr2xb5FvUJB4FD14L/kp8PqYSRelI/om?=
+ =?us-ascii?Q?AKTn2w6iQYnx4qYB3h6mBygIPF7RnLzCgM18VvrCLOgmnGwdp9XbL/SW7lcU?=
+ =?us-ascii?Q?IsutqScDXlS5ysmBnqh1HdrRfzM8iNTNcGQVZpePUnM7g7D55I3uVwiHFgFi?=
+ =?us-ascii?Q?WD7tdtnHuW1xtfeZoeKZCXH8+90GpTUhcXMdFmFFpdWsEjC5EKNyJPfgczAM?=
+ =?us-ascii?Q?aBdGdKZwEdVz5Rp+KAkNyPlh8K2q4J8ZEu5NR0RQk6bl4SlO8cj4IFaOS5fu?=
+ =?us-ascii?Q?lw/LZGcNXnQNmBRPQcMflf99cRBeePx/LcdePEI4PfqLQOdXn+lIxw/q8tOL?=
+ =?us-ascii?Q?j6hEi9fxmSTWMgTWvfWXqBO2xGXTr4n2Re1hKM38rP8qDeEarTzOEn5Q4+8v?=
+ =?us-ascii?Q?AVeoAgTDdNqrHM9MGor5SCA2Mryfxrsfgx/89sBALKJRA3ku60spTfw67ngC?=
+ =?us-ascii?Q?5FevP+jJ+hrxWsWci8c=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_BN9PR12MB52572AD8A71D2C01974DD3ABFC60ABN9PR12MB5257namp_"
+ boundary="_000_PH7PR12MB59974869DEFF986131E2B9F18260APH7PR12MB5997namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8b57bc63-7781-4e37-954b-08dc0c4a77c9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jan 2024 10:55:15.6538 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a648add9-a1c8-4be8-0c55-08dc0c4eee34
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jan 2024 11:27:12.2739 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: nABPm5OzOvWHcWKjKDECUIOH398L3Lfp713yPP2z5J8PfZbZGhaXo5hYMAAdd6tUhHvnk5TLz6E2TPeDO2v9nA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8781
+X-MS-Exchange-CrossTenant-userprincipalname: AF6jeqDscgTvYGAMn1XyWkrAOLJmapnIR8c8aTLU5Ash1MBgWV3d2v0fWAw2WDg7
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5798
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,11 +130,24 @@ Cc: "Chai, Thomas" <YiPeng.Chai@amd.com>, "Zhou1, Tao" <Tao.Zhou1@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BN9PR12MB52572AD8A71D2C01974DD3ABFC60ABN9PR12MB5257namp_
+--_000_PH7PR12MB59974869DEFF986131E2B9F18260APH7PR12MB5997namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 [AMD Official Use Only - General]
+
+
+_____________________________________________
+From: Zhang, Hawking <Hawking.Zhang@amd.com>
+Sent: Wednesday, January 3, 2024 6:55 PM
+To: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; amd-gfx@lists.freedesktop.o=
+rg
+Cc: Zhou1, Tao <Tao.Zhou1@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>
+Subject: RE: [PATCH 01/14] drm/amdgpu: implement RAS ACA driver framework
+
+
+[AMD Official Use Only - General]
+
 
 
 Please check my comments inline.
@@ -142,10 +156,13 @@ Regards,
 Hawking
 
 _____________________________________________
-From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
+From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com<mailto:KevinYang.Wang@amd.c=
+om>>
 Sent: Wednesday, January 3, 2024 18:29
-To: Zhang, Hawking <Hawking.Zhang@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Zhou1, Tao <Tao.Zhou1@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>
+To: Zhang, Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.com>>; a=
+md-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+Cc: Zhou1, Tao <Tao.Zhou1@amd.com<mailto:Tao.Zhou1@amd.com>>; Chai, Thomas =
+<YiPeng.Chai@amd.com<mailto:YiPeng.Chai@amd.com>>
 Subject: RE: [PATCH 01/14] drm/amdgpu: implement RAS ACA driver framework
 
 
@@ -476,6 +493,9 @@ vcn/... both will point aca smu (0x01,0x01) hwid. (pls check patch #8/#9/#1=
  I'd expect this function could be retired in next generation since ACA ult=
 imately goes to the same error logging mechanism. It's okay with me to keep=
  the function for now.
+        [kevin]:
+        Yes, this cb function will be retried in next generation when these=
+ blocks have real aca.hwid bindings.
 +
 +       return bank_ops->aca_bank_is_valid(handle, bank, type, handle->data=
 );
@@ -1277,7 +1297,7 @@ index 76fb85628716..c36faf353b46 100644
 2.34.1
 
 
---_000_BN9PR12MB52572AD8A71D2C01974DD3ABFC60ABN9PR12MB5257namp_
+--_000_PH7PR12MB59974869DEFF986131E2B9F18260APH7PR12MB5997namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -1300,10 +1320,39 @@ D Official Use Only - General]<br>
 pan style=3D"font-size:12pt;"><br>
 
 </span></font></div>
+<div><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:11p=
+t;">&nbsp;</span></font></div>
+<div><font face=3D"DengXian" size=3D"2"><span style=3D"font-size:11pt;">___=
+__________________________________________<br>
+
+<b>From:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt; <br>
+
+<b>Sent:</b> Wednesday, January 3, 2024 6:55 PM<br>
+
+<b>To:</b> Wang, Yang(Kevin) &lt;KevinYang.Wang@amd.com&gt;; amd-gfx@lists.=
+freedesktop.org<br>
+
+<b>Cc:</b> Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;; Chai, Thomas &lt;YiPeng.Ch=
+ai@amd.com&gt;<br>
+
+<b>Subject:</b> RE: [PATCH 01/14] drm/amdgpu: implement RAS ACA driver fram=
+ework</span></font></div>
+<div><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:11p=
+t;">&nbsp;</span></font></div>
+<div><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:11p=
+t;">&nbsp;</span></font></div>
+<div style=3D"padding-right:5pt;padding-left:5pt;"><font face=3D"Arial" col=
+or=3D"blue">[AMD Official Use Only - General]<br>
+
+</font></div>
+<div><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:11p=
+t;"><br>
+
+</span></font></div>
 <div><font face=3D"Calibri" size=3D"2" color=3D"#ED7D31"><span style=3D"fon=
 t-size:11pt;">Please check my comments inline.</span></font></div>
-<div><font face=3D"Times New Roman" size=3D"2" color=3D"#ED7D31"><span styl=
-e=3D"font-size:11pt;">&nbsp;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2" color=3D"#ED7D31"><span style=3D"fon=
+t-size:11pt;">&nbsp;</span></font></div>
 <div><font face=3D"Calibri" size=3D"2" color=3D"#ED7D31"><span style=3D"fon=
 t-size:11pt;">Regards,<br>
 
@@ -1313,15 +1362,21 @@ t;">&nbsp;</span></font></div>
 <div><font face=3D"DengXian" size=3D"2"><span style=3D"font-size:11pt;">___=
 __________________________________________<br>
 
-<b>From:</b> Wang, Yang(Kevin) &lt;KevinYang.Wang@amd.com&gt; <br>
+<b>From:</b> Wang, Yang(Kevin) &lt;<a href=3D"mailto:KevinYang.Wang@amd.com=
+"><font color=3D"#0563C1"><u>KevinYang.Wang@amd.com</u></font></a>&gt;
+<br>
 
 <b>Sent:</b> Wednesday, January 3, 2024 18:29<br>
 
-<b>To:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; amd-gfx@lists.free=
-desktop.org<br>
+<b>To:</b> Zhang, Hawking &lt;<a href=3D"mailto:Hawking.Zhang@amd.com"><fon=
+t color=3D"#0563C1"><u>Hawking.Zhang@amd.com</u></font></a>&gt;; <a href=3D=
+"mailto:amd-gfx@lists.freedesktop.org"><font color=3D"#0563C1"><u>amd-gfx@l=
+ists.freedesktop.org</u></font></a><br>
 
-<b>Cc:</b> Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;; Chai, Thomas &lt;YiPeng.Ch=
-ai@amd.com&gt;<br>
+<b>Cc:</b> Zhou1, Tao &lt;<a href=3D"mailto:Tao.Zhou1@amd.com"><font color=
+=3D"#0563C1"><u>Tao.Zhou1@amd.com</u></font></a>&gt;; Chai, Thomas &lt;<a h=
+ref=3D"mailto:YiPeng.Chai@amd.com"><font color=3D"#0563C1"><u>YiPeng.Chai@a=
+md.com</u></font></a>&gt;<br>
 
 <b>Subject:</b> RE: [PATCH 01/14] drm/amdgpu: implement RAS ACA driver fram=
 ework</span></font></div>
@@ -1900,11 +1955,8 @@ e is still made confused, this number is used indicate valid MCA/ACA bank c=
 ount, it is not equal with error count.</b></span></font></div>
 <div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"><b>&=
 nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b><font color=3D"#ED7D31"><b>[Hawking=
-]: good point</b></font><font color=3D"#ED7D31"><b>, </b></font><font color=
-=3D"#ED7D31"><b>Kevin</b></font><font color=3D"#ED7D31"><b>. </b></font><fo=
-nt color=3D"#ED7D31"><b>then
-probably rename to max_</b></font><font color=3D"#ED7D31"><b>ue|ce_bank_cou=
-nt</b></font></span></font></div>
+]: good point, Kevin. then probably rename to max_ue|ce_bank_count</b></fon=
+t></span></font></div>
 <div><font face=3D"Times New Roman" size=3D"2" color=3D"#2F5496"><span styl=
 e=3D"font-size:11pt;">&nbsp;</span></font></div>
 <div><font face=3D"Times New Roman" size=3D"2" color=3D"#2F5496"><span styl=
@@ -2096,18 +2148,24 @@ tyle=3D"font-size:11pt;"><b>but for xgmi/umc ras block, it is not necessary=
 , and returns true.</b></span></font></div>
 <div><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:11p=
 t;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font face=3D"Calibri" color=
-=3D"#ED7D31"><b>[H</b></font><font face=3D"Calibri" color=3D"#ED7D31"><b>aw=
-king</b></font><font face=3D"Calibri" color=3D"#ED7D31"><b>]</b></font><fon=
-t face=3D"Calibri" color=3D"#ED7D31"><b>:
-</b></font></span></font></div>
+=3D"#ED7D31"><b>[Hawking]: </b></font></span></font></div>
 <div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2" color=
-=3D"#ED7D31"><span style=3D"font-size:11pt;"><b>I see, </b><b>it is caused =
-by the error logging mechanism in</b><b> Traditional MCA IP blocks v.s., Tr=
-aditional driver managed IP bl</b><b>ocks, right?
-</b><b>As discussed, I&#8217;d expect this function could be retired in nex=
-t generation since </b><b>ACA ultimately goes to the same error logging mec=
-hanism. It&#8217;s okay with me to keep the function for now.</b></span></f=
-ont></div>
+=3D"#ED7D31"><span style=3D"font-size:11pt;"><b>I see, it is caused by the =
+error logging mechanism in Traditional MCA IP blocks v.s., Traditional driv=
+er managed IP blocks, right? As discussed, I&#8217;d
+expect this function could be retired in next generation since ACA ultimate=
+ly goes to the same error logging mechanism. It&#8217;s okay with me to kee=
+p the function for now.</b></span></font></div>
+<div><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:11p=
+t;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font face=3D"Calibri" color=
+=3D"#70AD47"><b>[kevin]:</b></font></span></font></div>
+<div><font face=3D"Calibri" size=3D"2" color=3D"#70AD47"><span style=3D"fon=
+t-size:11pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Yes, </b><b>thi=
+s </b><b>cb</b><b> function will be retried in next g</b><b>eneration</b><b=
+> w</b><b>hen these </b><b>blocks</b><b> have real </b><b>aca.</b><b>hwid</=
+b><b>
+</b><b>bindings</b><font face=3D"DengXian"><b>.</b></font></span></font></d=
+iv>
 <div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+</s=
 pan></font></div>
 <div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
@@ -3913,7 +3971,7 @@ tyle=3D"font-size:11pt;"><b>#9 [Kevin]: same with #1/#2.</b></span></font><=
 /div>
 <div style=3D"text-indent:18pt;"><font face=3D"Calibri" size=3D"2" color=3D=
 "#ED7D31"><span style=3D"font-size:11pt;"><b>[Hawking]: Sure, let&#8217;s r=
-ename them to max_ue|ce_</b><b>bank_count</b></span></font></div>
+ename them to max_ue|ce_bank_count</b></span></font></div>
 <div style=3D"padding-left:36pt;"><font face=3D"Times New Roman" size=3D"2"=
  color=3D"#2F5496"><span style=3D"font-size:11pt;">&nbsp;</span></font></di=
 v>
@@ -4089,4 +4147,4 @@ t;">&nbsp;</span></font></div>
 </body>
 </html>
 
---_000_BN9PR12MB52572AD8A71D2C01974DD3ABFC60ABN9PR12MB5257namp_--
+--_000_PH7PR12MB59974869DEFF986131E2B9F18260APH7PR12MB5997namp_--
