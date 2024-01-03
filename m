@@ -4,56 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01D2DC3DA6E
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jan 2024 14:26:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27358C3DA6E
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jan 2024 14:28:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E14010E15D;
-	Wed,  3 Jan 2024 14:26:45 +0000 (UTC)
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [IPv6:2001:4860:4864:20::2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 760C810E15D
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jan 2024 14:26:44 +0000 (UTC)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-2044d093b3fso6850572fac.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 03 Jan 2024 06:26:44 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B977210E299;
+	Wed,  3 Jan 2024 14:28:00 +0000 (UTC)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8EFF10E299
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jan 2024 14:27:59 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id
+ 46e09a7af769-6dc6b99f215so673867a34.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 03 Jan 2024 06:27:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1704292003; x=1704896803; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1704292078; x=1704896878; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=yS0Tiu9O6BHbhBr7UL/rMuBSIZA1H/GdwjxPEwb8h2s=;
- b=QVpWz5G6Aifc9/EsFOmYbgyrJN+WxJC1LAAQk/BJPi3pwmtkjc/TeKnEGUyCdxLdrH
- aqxayK0M8z0Pqvam1KmcqXq+mhAi+TvbiulYQhAArmFTRiv3FEdizhUUgq87cyeTioPB
- WuND4jsaTS3lY+eZ2VU6lhZu/baEXBneRmshlGqGUAH3ZJcb3aTjgCCbPgA207im1rXG
- Fq6eJ45msb5rrNNE4bDp5lhUxCLzZ8x/mewNe+kMbHVwYU2sVLIHdfOpOWi1WWwK/UHs
- kR9wcS0500mvDockbzOCtSfd//tB+KaHXvpRa9MWq6x47TleggN6lOj19CcxaDy7zSA8
- ty6A==
+ bh=a349tfFo0Tz6+yladu1vGz3cOOaSViS9QyeDAzXiKtI=;
+ b=L2Zkvuh3j3vdQYPPPEkuZCQU93qdpprJqxmLWUxVe2Iuw15in6NSjIdSrsj+m7sSPO
+ SMcdQPiH0mRVHULtRBkZsjYkfvdjfD02zaZbqMmUCkpQ/U2ica/Soq/wb8pYC5SqUeCq
+ UXUaZR5oJz2WsNtzhJI+/ZgLeFqldD7hdlRxWf6O16gJOIrSyQ7r9kAxT18ZImf9ZJHz
+ hewrFewZJOSZvhGsodizh5gdDrfgGG9zdn5518jsSfRljcIKR65QSk5lcKzamUXooCdC
+ Kr5ENYMjbugyjFzIPWXJFg1DahUytAf6Uk7rR7E7oEVLcNLJSvbs71bSry2NAlFO3QuQ
+ m11A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704292003; x=1704896803;
+ d=1e100.net; s=20230601; t=1704292078; x=1704896878;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=yS0Tiu9O6BHbhBr7UL/rMuBSIZA1H/GdwjxPEwb8h2s=;
- b=M2hjYv4nYyFvayWNoYCz43hrWUO70ERzVCDuRZ58H2m1GUt6w1izMJbPGY8pX0gi38
- 3pWcyLK+vZT+ExJAWCXenAQTz8M/vJq1B7sl+wQT+sOMDF1a4nUQMsLg68FriYiyok2L
- HwWPAFFL4Ng8R+Y4QtMrKfmlwVhHpkZ92dMq3Mz0Lvjge6FAiaIooS7iWxg9ResH0flf
- dnSIeMiC6Ppuh7pq98eXuYzLXr54uVjwIWVMdtS+cWGcCitnyd6zDy5lXlLWBwuPhQeo
- AkHjvwv3nNTCt0JD5YjkJ8h2bOtj5o77EkqrolRbz4iN3YtVexwVBj/+2VRqIW/h4gd1
- JarA==
-X-Gm-Message-State: AOJu0Yx0tRxStKzvbIIW0HB+eFGJUxYA5ViCal9qxFV/cS2JKiU6DeVw
- OnpytuFl61RW677x2THgCoF5M3rNW2uGLzLbdfYC3thP
-X-Google-Smtp-Source: AGHT+IG2QcNU+8BPq6e0EC34kXUZchQ4jZoOgo4DBTWXr+IJwwkGoDENsu9uynK1suIg3T/OigKGWamJFDD5RjTzdNU=
-X-Received: by 2002:a05:6871:d209:b0:203:d603:db8a with SMTP id
- pk9-20020a056871d20900b00203d603db8amr23313628oac.7.1704292003652; Wed, 03
- Jan 2024 06:26:43 -0800 (PST)
+ bh=a349tfFo0Tz6+yladu1vGz3cOOaSViS9QyeDAzXiKtI=;
+ b=bA9scvrgXWSiN/oQ9DVozrRTjLGBIQBqt7f2FQDDpKhpkbRQ5AOEedgHO/kad6wZ6i
+ Mbo/J1BZ0rZHnDDQ23jno3PskpXiBeoBJT8qAalkNCeWOCOCdF+i5cQc1FULhPBRcQLj
+ VJk+53N8BCpTZLxGewv2QnNZYaSrgz1FePx9T5w3/uXxni89iG0xfoq2Oy90EmBTb212
+ 2d/UIOwddGoZS/98vi5nHBYY+b+XDkEuwV2WTD5o8OcWpbF7cdIPteD5b29g9crowpUo
+ VSVh+Y6nhUVsXr0/Iy7CM6QAXBvoP1zKQNnp+/CaKg+ZE2Ia/SxAxwhzChZ3Tn2gHiH+
+ wPsQ==
+X-Gm-Message-State: AOJu0YwD6BoTLu2IqlT5UTYi8hRhi5XiLpB4etO3AszivOWnRsEU62k6
+ /6YsZoPNQPAqV4n1iZSuC/oiFWt8fHUaCDYLnsI=
+X-Google-Smtp-Source: AGHT+IHjuxm+WsGold4msvLzUcwvASXsLbNWaImZQEtNmF+UM28LD4T6ctfH3u7LonFz90aecPkvdKH3c/Z8VWiEa/Q=
+X-Received: by 2002:a05:6871:2b02:b0:204:32f7:6668 with SMTP id
+ dr2-20020a0568712b0200b0020432f76668mr8870200oac.34.1704292078704; Wed, 03
+ Jan 2024 06:27:58 -0800 (PST)
 MIME-Version: 1.0
-References: <20231228221513.2069-1-marcelomspessoto@gmail.com>
-In-Reply-To: <20231228221513.2069-1-marcelomspessoto@gmail.com>
+References: <20231228014220.3562640-1-samuel.holland@sifive.com>
+In-Reply-To: <20231228014220.3562640-1-samuel.holland@sifive.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 3 Jan 2024 09:26:32 -0500
-Message-ID: <CADnq5_MuWGDF7LpQd8NvxsbV_35U2E9qLXZ25bwRbtK4VGRTng@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd/display: Removing duplicate copyright text
-To: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>
+Date: Wed, 3 Jan 2024 09:27:47 -0500
+Message-ID: <CADnq5_Pub0UULb6UqO2g+Eo6RCy=gqtWLN9txjEyp2Gmw9idww@mail.gmail.com>
+Subject: Re: [PATCH v2 00/14] Unified cross-architecture kernel-mode FPU API
+To: Samuel Holland <samuel.holland@sifive.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -67,76 +67,123 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, harry.wentland@amd.com,
- amd-gfx@lists.freedesktop.org
+Cc: linux-arch@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ x86@kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, loongarch@lists.linux.dev,
+ linux-riscv@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+ Christoph Hellwig <hch@lst.de>, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Thu, Dec 28, 2023 at 5:11=E2=80=AFAM Samuel Holland
+<samuel.holland@sifive.com> wrote:
+>
+> This series unifies the kernel-mode FPU API across several architectures
+> by wrapping the existing functions (where needed) in consistently-named
+> functions placed in a consistent header location, with mostly the same
+> semantics: they can be called from preemptible or non-preemptible task
+> context, and are not assumed to be reentrant. Architectures are also
+> expected to provide CFLAGS adjustments for compiling FPU-dependent code.
+> For the moment, SIMD/vector units are out of scope for this common API.
+>
+> This allows us to remove the ifdeffery and duplicated Makefile logic at
+> each FPU user. It then implements the common API on RISC-V, and converts
+> a couple of users to the new API: the AMDGPU DRM driver, and the FPU
+> self test.
+>
+> The underlying goal of this series is to allow using newer AMD GPUs
+> (e.g. Navi) on RISC-V boards such as SiFive's HiFive Unmatched. Those
+> GPUs need CONFIG_DRM_AMD_DC_FP to initialize, which requires kernel-mode
+> FPU support.
 
-Alex
+Series is:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Thu, Dec 28, 2023 at 5:35=E2=80=AFPM Marcelo Mendes Spessoto Junior
-<marcelomspessoto@gmail.com> wrote:
 >
-> mod_freesync header file has duplicated copyright boilerplate. Drop the
-> duplicate.
+> Previous versions:
+> v1: https://lore.kernel.org/linux-kernel/20231208055501.2916202-1-samuel.=
+holland@sifive.com/
+> v0: https://lore.kernel.org/linux-kernel/20231122030621.3759313-1-samuel.=
+holland@sifive.com/
 >
-> Signed-off-by: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com=
+> Changes in v2:
+>  - Add documentation explaining the built-time and runtime APIs
+>  - Add a linux/fpu.h header for generic isolation enforcement
+>  - Remove file name from header comment
+>  - Clean up arch/arm64/lib/Makefile, like for arch/arm
+>  - Remove RISC-V architecture-specific preprocessor check
+>  - Split altivec removal to a separate patch
+>  - Use linux/fpu.h instead of asm/fpu.h in consumers
+>  - Declare test_fpu() in a header
 >
-> ---
-> v2:
->    fix the structure of the patch
+> Michael Ellerman (1):
+>   drm/amd/display: Only use hard-float, not altivec on powerpc
 >
->  .../amd/display/modules/inc/mod_freesync.h    | 28 -------------------
->  1 file changed, 28 deletions(-)
+> Samuel Holland (13):
+>   arch: Add ARCH_HAS_KERNEL_FPU_SUPPORT
+>   ARM: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
+>   ARM: crypto: Use CC_FLAGS_FPU for NEON CFLAGS
+>   arm64: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
+>   arm64: crypto: Use CC_FLAGS_FPU for NEON CFLAGS
+>   lib/raid6: Use CC_FLAGS_FPU for NEON CFLAGS
+>   LoongArch: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
+>   powerpc: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
+>   x86: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
+>   riscv: Add support for kernel-mode FPU
+>   drm/amd/display: Use ARCH_HAS_KERNEL_FPU_SUPPORT
+>   selftests/fpu: Move FP code to a separate translation unit
+>   selftests/fpu: Allow building on other architectures
 >
-> diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h b/dri=
-vers/gpu/drm/amd/display/modules/inc/mod_freesync.h
-> index afe1f6cce..cc3dc9b58 100644
-> --- a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
-> +++ b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
-> @@ -1,31 +1,3 @@
-> -/*
-> - * Copyright 2016 Advanced Micro Devices, Inc.
-> - *
-> - * Permission is hereby granted, free of charge, to any person obtaining=
- a
-> - * copy of this software and associated documentation files (the "Softwa=
-re"),
-> - * to deal in the Software without restriction, including without limita=
-tion
-> - * the rights to use, copy, modify, merge, publish, distribute, sublicen=
-se,
-> - * and/or sell copies of the Software, and to permit persons to whom the
-> - * Software is furnished to do so, subject to the following conditions:
-> - *
-> - * The above copyright notice and this permission notice shall be includ=
-ed in
-> - * all copies or substantial portions of the Software.
-> - *
-> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
-SS OR
-> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
-TY,
-> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
-ALL
-> - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES=
- OR
-> - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> - * OTHER DEALINGS IN THE SOFTWARE.
-> - *
-> - * Authors: AMD
-> - *
-> - */
-> -
-> -
-> -
-> -
->  /*
->   * Copyright 2016 Advanced Micro Devices, Inc.
->   *
+>  Documentation/core-api/floating-point.rst     | 78 +++++++++++++++++++
+>  Documentation/core-api/index.rst              |  1 +
+>  Makefile                                      |  5 ++
+>  arch/Kconfig                                  |  6 ++
+>  arch/arm/Kconfig                              |  1 +
+>  arch/arm/Makefile                             |  7 ++
+>  arch/arm/include/asm/fpu.h                    | 15 ++++
+>  arch/arm/lib/Makefile                         |  3 +-
+>  arch/arm64/Kconfig                            |  1 +
+>  arch/arm64/Makefile                           |  9 ++-
+>  arch/arm64/include/asm/fpu.h                  | 15 ++++
+>  arch/arm64/lib/Makefile                       |  6 +-
+>  arch/loongarch/Kconfig                        |  1 +
+>  arch/loongarch/Makefile                       |  5 +-
+>  arch/loongarch/include/asm/fpu.h              |  1 +
+>  arch/powerpc/Kconfig                          |  1 +
+>  arch/powerpc/Makefile                         |  5 +-
+>  arch/powerpc/include/asm/fpu.h                | 28 +++++++
+>  arch/riscv/Kconfig                            |  1 +
+>  arch/riscv/Makefile                           |  3 +
+>  arch/riscv/include/asm/fpu.h                  | 16 ++++
+>  arch/riscv/kernel/Makefile                    |  1 +
+>  arch/riscv/kernel/kernel_mode_fpu.c           | 28 +++++++
+>  arch/x86/Kconfig                              |  1 +
+>  arch/x86/Makefile                             | 20 +++++
+>  arch/x86/include/asm/fpu.h                    | 13 ++++
+>  drivers/gpu/drm/amd/display/Kconfig           |  2 +-
+>  .../gpu/drm/amd/display/amdgpu_dm/dc_fpu.c    | 35 +--------
+>  drivers/gpu/drm/amd/display/dc/dml/Makefile   | 36 +--------
+>  drivers/gpu/drm/amd/display/dc/dml2/Makefile  | 36 +--------
+>  include/linux/fpu.h                           | 12 +++
+>  lib/Kconfig.debug                             |  2 +-
+>  lib/Makefile                                  | 26 +------
+>  lib/raid6/Makefile                            | 31 ++------
+>  lib/test_fpu.h                                |  8 ++
+>  lib/{test_fpu.c =3D> test_fpu_glue.c}           | 37 ++-------
+>  lib/test_fpu_impl.c                           | 37 +++++++++
+>  37 files changed, 343 insertions(+), 190 deletions(-)
+>  create mode 100644 Documentation/core-api/floating-point.rst
+>  create mode 100644 arch/arm/include/asm/fpu.h
+>  create mode 100644 arch/arm64/include/asm/fpu.h
+>  create mode 100644 arch/powerpc/include/asm/fpu.h
+>  create mode 100644 arch/riscv/include/asm/fpu.h
+>  create mode 100644 arch/riscv/kernel/kernel_mode_fpu.c
+>  create mode 100644 arch/x86/include/asm/fpu.h
+>  create mode 100644 include/linux/fpu.h
+>  create mode 100644 lib/test_fpu.h
+>  rename lib/{test_fpu.c =3D> test_fpu_glue.c} (71%)
+>  create mode 100644 lib/test_fpu_impl.c
+>
 > --
-> 2.39.2
+> 2.42.0
 >
