@@ -4,56 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4708C3DA6E
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jan 2024 14:30:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDEC5C3DA6E
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jan 2024 14:31:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60D3010E2F2;
-	Wed,  3 Jan 2024 14:30:17 +0000 (UTC)
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
- [IPv6:2001:4860:4864:20::33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C7E110E2F2;
- Wed,  3 Jan 2024 14:30:16 +0000 (UTC)
-Received: by mail-oa1-x33.google.com with SMTP id
- 586e51a60fabf-2046dee3c14so4013908fac.1; 
- Wed, 03 Jan 2024 06:30:16 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8732E10E0AE;
+	Wed,  3 Jan 2024 14:31:42 +0000 (UTC)
+Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
+ [IPv6:2001:4860:4864:20::30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F19E10E0AE
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jan 2024 14:31:40 +0000 (UTC)
+Received: by mail-oa1-x30.google.com with SMTP id
+ 586e51a60fabf-20451ecbb80so5288525fac.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 03 Jan 2024 06:31:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1704292216; x=1704897016; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1704292300; x=1704897100; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=WX1lPt29dCJY1lm7moFZL9vZknDJXTE84CiBdwPeikg=;
- b=EBQbNr21lNx2NXx8hoaWXpF9+Xr7/C/8v3MJffdymn6uikIPQ+53OCix5QN4skEiZa
- eqxFszK5kqufR8XOWemMTBh/8+hQFWYSOohBarMHczNo3X9WVML4WxeYZQ34hmGmo1Ob
- OEyHFWVgYY+Q0bVVkAEFXWQqeblkNbTCvcd7SWSB1bnaSj0G24p6leLo3PBA/gkkviKk
- 9rz+3DFxAjiXN9hsEqz/im43Gan2xmEsxbOVpNLmEtwrGkUQ/i+nclmD3FbYSVxpUdCt
- dBFTf/OuhSmANmLdypB91O6DWhuH9Hqo+7t/GXudlzaPNCC2oKpPeuQ7xm0qQ2N8UwxK
- d3yA==
+ bh=LbQ1Bat31yh1IyinMJYrf1fwn/zKqs3qi153WWFhhQA=;
+ b=Yhc21t63dqH5TkDcJ6U6qbWVsmM11pXZGlXkJSVpgClSpZ2aqECSmKJASAto1YxhRQ
+ ECcrp9Et8J8VTdST1eNeFsmyKBN/Pegbvhpp1VwrnWc02ws2/dmlkW3TVk6nhusmYDu8
+ wxTTbtiI4whzzxkjlN+w/3WpvBzgMBtU66peV/biqQF8W2dUx+IqYZhRJ0V/wmg6CSS5
+ T5V/00xKMG8lrugpocmAwMrtMlVr7fl0Lx0aqjb9IHlmXq0lrsqxHZJk4e73IP4KwmdN
+ ZUZvCnRrHIvdvufCBEZthM6ufoFig4Q/d/zO2VXwo8qOqfmiPEU3d3FN8L3h+usTHhLy
+ XgxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704292216; x=1704897016;
+ d=1e100.net; s=20230601; t=1704292300; x=1704897100;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=WX1lPt29dCJY1lm7moFZL9vZknDJXTE84CiBdwPeikg=;
- b=J+hczxxIRQsxJb6abLXZGGUYd0FC6MrKnYEaG5HJN5UQ01ruUCXTEZ3+nyBbARBi3a
- Y3r/Md1GQCSpmoUZ3tMNTTyRx+o7I+XDpZx3DmQC4rWIBZOWPUKe/prNj1nsPJ2Lc4d6
- MgeaGcqREIvNAoYLsQR3/NDSeai5ZlHoa97wUssuuet0S13mNd6b0W2fEkhGf5JDM2ux
- +R/WF+PJwfjWhDrKMf4kgvhpUh0zFV0Qf8lqTeA2rE380S3YDEO/C8udCsBvvKDKGzvY
- AIIJgbjVnR8Ir2Xdwx+IkLi0hHNZVgdv/VRjltfbK/NSyFZmxTWXLYJR7qBKJQCAAhTF
- 0sqg==
-X-Gm-Message-State: AOJu0YzQQoHkaT55ug+aK13DuzwDydbaa9Pr1AymQoKIxkEYS8NHbEQq
- dToK1VP6ifga7mnal/apXmkTirX+ffYOmQVlfLP2/G24
-X-Google-Smtp-Source: AGHT+IEZbfPBEDib/RU6p08tX4ysNOAhGE8Alxp+aBc7Hmb0TEYfeIIZMDhVl6/g8ugOqdTPytJCAXwjXk4Sqggcuss=
-X-Received: by 2002:a05:6870:b156:b0:203:e64a:eb73 with SMTP id
- a22-20020a056870b15600b00203e64aeb73mr16227470oal.69.1704292215727; Wed, 03
- Jan 2024 06:30:15 -0800 (PST)
+ bh=LbQ1Bat31yh1IyinMJYrf1fwn/zKqs3qi153WWFhhQA=;
+ b=uIf/565L8W/MqTNM0mA/ihXDIUObkQXqMLuA9pETULaed9RxpPn35rZruRZ7T73osG
+ Fkgw6IF2CZ/KZJFy0vNqdEDDa/Jra40+I7jyhQyoITWUtiMHmo8I+qU6LiTVqVvJdGL3
+ vx4dTfYUy1kX4N7hYS5iI/mv0zGCaiOBriO2yvTKperDw3Y40okCirhB9anqM9VF71mv
+ 9IgxiqD7mSbNu7fsellVsqIa9sDIE4ubSvKjEGZb1EqrStxuVDwCAQDsLd7uU2pikgmw
+ gJHCCTF5fErbI9AdNkTOuw5pEj/Js4ctdQqAqtwfyqjcwZa6GdYE7pjwgheFelENWjDa
+ PVRA==
+X-Gm-Message-State: AOJu0YzH1m0MJvBkazMl8FNW07sOdxQeWFB3mOdAbJRpOLRYVbGqhlP+
+ DBgOOBh3x90PMuaunsgcCXozua/uDjZhhBXAGSM=
+X-Google-Smtp-Source: AGHT+IH7xD7iqwBlFdmEdHzo3dfEomLmxyukxzwNexzK/bO62PFpi+907JMo13tCdHu5ccs8qjyhhS9O1BEP7AEpK3Y=
+X-Received: by 2002:a05:6870:4149:b0:203:5ce2:cd41 with SMTP id
+ r9-20020a056870414900b002035ce2cd41mr16831169oad.72.1704292299863; Wed, 03
+ Jan 2024 06:31:39 -0800 (PST)
 MIME-Version: 1.0
-References: <20231224082249.3539167-1-alexious@zju.edu.cn>
-In-Reply-To: <20231224082249.3539167-1-alexious@zju.edu.cn>
+References: <20231229174156.1800-1-marcelomspessoto@gmail.com>
+ <20231229174156.1800-2-marcelomspessoto@gmail.com>
+In-Reply-To: <20231229174156.1800-2-marcelomspessoto@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 3 Jan 2024 09:30:04 -0500
-Message-ID: <CADnq5_NrcF+Swf0T+upaM64=WYfxExEHyBEGKTDAB8P4Khyw1Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm/smu7: fix a memleak in smu7_hwmgr_backend_init
-To: Zhipeng Lu <alexious@zju.edu.cn>
+Date: Wed, 3 Jan 2024 09:31:28 -0500
+Message-ID: <CADnq5_M0NSy3juxRYsw6LrS1jure0bxjkVwNZnMVcAAASnGjcA@mail.gmail.com>
+Subject: Re: [PATCH 1/7] drm/amd/display: Fix hdcp1_execution.c codestyle
+To: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -67,67 +68,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ran Sun <sunran001@208suo.com>, Deepak R Varma <drv@mailo.com>,
- David Airlie <airlied@gmail.com>, Ruan Jinjie <ruanjinjie@huawei.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Ken Wang <Qingqing.Wang@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Evan Quan <evan.quan@amd.com>, Rex Zhu <Rex.Zhu@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>
+Cc: sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, harry.wentland@amd.com,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Mon, Dec 25, 2023 at 5:18=E2=80=AFAM Zhipeng Lu <alexious@zju.edu.cn> wr=
-ote:
+On Fri, Dec 29, 2023 at 12:43=E2=80=AFPM Marcelo Mendes Spessoto Junior
+<marcelomspessoto@gmail.com> wrote:
 >
-> The hwmgr->backend, (i.e. data) allocated by kzalloc is not freed in
-> the error-handling paths of smu7_get_evv_voltages and
-> smu7_update_edc_leakage_table. However, it did be freed in the
-> error-handling of phm_initializa_dynamic_state_adjustment_rule_settings,
-> by smu7_hwmgr_backend_fini. So the lack of free in smu7_get_evv_voltages
-> and smu7_update_edc_leakage_table is considered a memleak in this patch.
+> Remove braces from single statement if expression in hdcp1_execution.c
+> file
 >
-> Fixes: 599a7e9fe1b6 ("drm/amd/powerplay: implement smu7 hwmgr to manager =
-asics with smu ip version 7.")
-> Fixes: 8f0804c6b7d0 ("drm/amd/pm: add edc leakage controller setting")
-> Signed-off-by: Zhipeng Lu <alexious@zju.edu.cn>
+> Signed-off-by: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com=
+>
 > ---
->  drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/driver=
-s/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> index 11372fcc59c8..b1a8799e2dee 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> @@ -2974,6 +2974,8 @@ static int smu7_hwmgr_backend_init(struct pp_hwmgr =
-*hwmgr)
->                 result =3D smu7_get_evv_voltages(hwmgr);
->                 if (result) {
->                         pr_info("Get EVV Voltage Failed.  Abort Driver lo=
-ading!\n");
-> +                       kfree(hwmgr->backend);
-> +                       hwmgr->backend =3D NULL;
->                         return -EINVAL;
->                 }
->         } else {
-> @@ -3019,8 +3021,10 @@ static int smu7_hwmgr_backend_init(struct pp_hwmgr=
- *hwmgr)
->         }
+> diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c b=
+/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
+> index 1ddb4f5ea..182e7532d 100644
+> --- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
+> +++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
+> @@ -63,6 +63,7 @@ static inline enum mod_hdcp_status check_hdcp_capable_d=
+p(struct mod_hdcp *hdcp)
+>  static inline enum mod_hdcp_status check_r0p_available_dp(struct mod_hdc=
+p *hdcp)
+>  {
+>         enum mod_hdcp_status status;
+> +
+>         if (is_dp_hdcp(hdcp)) {
+>                 status =3D (hdcp->auth.msg.hdcp1.bstatus &
+>                                 DP_BSTATUS_R0_PRIME_READY) ?
+> @@ -131,9 +132,8 @@ static inline uint8_t get_device_count(struct mod_hdc=
+p *hdcp)
+>  static inline enum mod_hdcp_status check_device_count(struct mod_hdcp *h=
+dcp)
+>  {
+>         /* Avoid device count =3D=3D 0 to do authentication */
+> -       if (0 =3D=3D get_device_count(hdcp)) {
+> +       if (get_device_count(hdcp) =3D=3D 0)
+>                 return MOD_HDCP_STATUS_HDCP1_DEVICE_COUNT_MISMATCH_FAILUR=
+E;
+> -       }
 >
->         result =3D smu7_update_edc_leakage_table(hwmgr);
-> -       if (result)
-> +       if (result) {
-> +               smu7_hwmgr_backend_fini(hwmgr);
->                 return result;
-> +       }
->
->         return 0;
->  }
+>         /* Some MST display may choose to report the internal panel as an=
+ HDCP RX.
+>          * To update this condition with 1(because the immediate repeater=
+'s internal
 > --
-> 2.34.1
+> 2.39.2
 >
