@@ -4,56 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27358C3DA6E
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jan 2024 14:28:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4708C3DA6E
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jan 2024 14:30:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B977210E299;
-	Wed,  3 Jan 2024 14:28:00 +0000 (UTC)
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [IPv6:2607:f8b0:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8EFF10E299
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jan 2024 14:27:59 +0000 (UTC)
-Received: by mail-ot1-x331.google.com with SMTP id
- 46e09a7af769-6dc6b99f215so673867a34.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 03 Jan 2024 06:27:59 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60D3010E2F2;
+	Wed,  3 Jan 2024 14:30:17 +0000 (UTC)
+Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
+ [IPv6:2001:4860:4864:20::33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C7E110E2F2;
+ Wed,  3 Jan 2024 14:30:16 +0000 (UTC)
+Received: by mail-oa1-x33.google.com with SMTP id
+ 586e51a60fabf-2046dee3c14so4013908fac.1; 
+ Wed, 03 Jan 2024 06:30:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1704292078; x=1704896878; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1704292216; x=1704897016; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=a349tfFo0Tz6+yladu1vGz3cOOaSViS9QyeDAzXiKtI=;
- b=L2Zkvuh3j3vdQYPPPEkuZCQU93qdpprJqxmLWUxVe2Iuw15in6NSjIdSrsj+m7sSPO
- SMcdQPiH0mRVHULtRBkZsjYkfvdjfD02zaZbqMmUCkpQ/U2ica/Soq/wb8pYC5SqUeCq
- UXUaZR5oJz2WsNtzhJI+/ZgLeFqldD7hdlRxWf6O16gJOIrSyQ7r9kAxT18ZImf9ZJHz
- hewrFewZJOSZvhGsodizh5gdDrfgGG9zdn5518jsSfRljcIKR65QSk5lcKzamUXooCdC
- Kr5ENYMjbugyjFzIPWXJFg1DahUytAf6Uk7rR7E7oEVLcNLJSvbs71bSry2NAlFO3QuQ
- m11A==
+ bh=WX1lPt29dCJY1lm7moFZL9vZknDJXTE84CiBdwPeikg=;
+ b=EBQbNr21lNx2NXx8hoaWXpF9+Xr7/C/8v3MJffdymn6uikIPQ+53OCix5QN4skEiZa
+ eqxFszK5kqufR8XOWemMTBh/8+hQFWYSOohBarMHczNo3X9WVML4WxeYZQ34hmGmo1Ob
+ OEyHFWVgYY+Q0bVVkAEFXWQqeblkNbTCvcd7SWSB1bnaSj0G24p6leLo3PBA/gkkviKk
+ 9rz+3DFxAjiXN9hsEqz/im43Gan2xmEsxbOVpNLmEtwrGkUQ/i+nclmD3FbYSVxpUdCt
+ dBFTf/OuhSmANmLdypB91O6DWhuH9Hqo+7t/GXudlzaPNCC2oKpPeuQ7xm0qQ2N8UwxK
+ d3yA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704292078; x=1704896878;
+ d=1e100.net; s=20230601; t=1704292216; x=1704897016;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=a349tfFo0Tz6+yladu1vGz3cOOaSViS9QyeDAzXiKtI=;
- b=bA9scvrgXWSiN/oQ9DVozrRTjLGBIQBqt7f2FQDDpKhpkbRQ5AOEedgHO/kad6wZ6i
- Mbo/J1BZ0rZHnDDQ23jno3PskpXiBeoBJT8qAalkNCeWOCOCdF+i5cQc1FULhPBRcQLj
- VJk+53N8BCpTZLxGewv2QnNZYaSrgz1FePx9T5w3/uXxni89iG0xfoq2Oy90EmBTb212
- 2d/UIOwddGoZS/98vi5nHBYY+b+XDkEuwV2WTD5o8OcWpbF7cdIPteD5b29g9crowpUo
- VSVh+Y6nhUVsXr0/Iy7CM6QAXBvoP1zKQNnp+/CaKg+ZE2Ia/SxAxwhzChZ3Tn2gHiH+
- wPsQ==
-X-Gm-Message-State: AOJu0YwD6BoTLu2IqlT5UTYi8hRhi5XiLpB4etO3AszivOWnRsEU62k6
- /6YsZoPNQPAqV4n1iZSuC/oiFWt8fHUaCDYLnsI=
-X-Google-Smtp-Source: AGHT+IHjuxm+WsGold4msvLzUcwvASXsLbNWaImZQEtNmF+UM28LD4T6ctfH3u7LonFz90aecPkvdKH3c/Z8VWiEa/Q=
-X-Received: by 2002:a05:6871:2b02:b0:204:32f7:6668 with SMTP id
- dr2-20020a0568712b0200b0020432f76668mr8870200oac.34.1704292078704; Wed, 03
- Jan 2024 06:27:58 -0800 (PST)
+ bh=WX1lPt29dCJY1lm7moFZL9vZknDJXTE84CiBdwPeikg=;
+ b=J+hczxxIRQsxJb6abLXZGGUYd0FC6MrKnYEaG5HJN5UQ01ruUCXTEZ3+nyBbARBi3a
+ Y3r/Md1GQCSpmoUZ3tMNTTyRx+o7I+XDpZx3DmQC4rWIBZOWPUKe/prNj1nsPJ2Lc4d6
+ MgeaGcqREIvNAoYLsQR3/NDSeai5ZlHoa97wUssuuet0S13mNd6b0W2fEkhGf5JDM2ux
+ +R/WF+PJwfjWhDrKMf4kgvhpUh0zFV0Qf8lqTeA2rE380S3YDEO/C8udCsBvvKDKGzvY
+ AIIJgbjVnR8Ir2Xdwx+IkLi0hHNZVgdv/VRjltfbK/NSyFZmxTWXLYJR7qBKJQCAAhTF
+ 0sqg==
+X-Gm-Message-State: AOJu0YzQQoHkaT55ug+aK13DuzwDydbaa9Pr1AymQoKIxkEYS8NHbEQq
+ dToK1VP6ifga7mnal/apXmkTirX+ffYOmQVlfLP2/G24
+X-Google-Smtp-Source: AGHT+IEZbfPBEDib/RU6p08tX4ysNOAhGE8Alxp+aBc7Hmb0TEYfeIIZMDhVl6/g8ugOqdTPytJCAXwjXk4Sqggcuss=
+X-Received: by 2002:a05:6870:b156:b0:203:e64a:eb73 with SMTP id
+ a22-20020a056870b15600b00203e64aeb73mr16227470oal.69.1704292215727; Wed, 03
+ Jan 2024 06:30:15 -0800 (PST)
 MIME-Version: 1.0
-References: <20231228014220.3562640-1-samuel.holland@sifive.com>
-In-Reply-To: <20231228014220.3562640-1-samuel.holland@sifive.com>
+References: <20231224082249.3539167-1-alexious@zju.edu.cn>
+In-Reply-To: <20231224082249.3539167-1-alexious@zju.edu.cn>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 3 Jan 2024 09:27:47 -0500
-Message-ID: <CADnq5_Pub0UULb6UqO2g+Eo6RCy=gqtWLN9txjEyp2Gmw9idww@mail.gmail.com>
-Subject: Re: [PATCH v2 00/14] Unified cross-architecture kernel-mode FPU API
-To: Samuel Holland <samuel.holland@sifive.com>
+Date: Wed, 3 Jan 2024 09:30:04 -0500
+Message-ID: <CADnq5_NrcF+Swf0T+upaM64=WYfxExEHyBEGKTDAB8P4Khyw1Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm/smu7: fix a memleak in smu7_hwmgr_backend_init
+To: Zhipeng Lu <alexious@zju.edu.cn>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -67,123 +67,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arch@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- x86@kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, loongarch@lists.linux.dev,
- linux-riscv@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
- Christoph Hellwig <hch@lst.de>, linux-arm-kernel@lists.infradead.org
+Cc: Ran Sun <sunran001@208suo.com>, Deepak R Varma <drv@mailo.com>,
+ David Airlie <airlied@gmail.com>, Ruan Jinjie <ruanjinjie@huawei.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, Ken Wang <Qingqing.Wang@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Evan Quan <evan.quan@amd.com>, Rex Zhu <Rex.Zhu@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Dec 28, 2023 at 5:11=E2=80=AFAM Samuel Holland
-<samuel.holland@sifive.com> wrote:
->
-> This series unifies the kernel-mode FPU API across several architectures
-> by wrapping the existing functions (where needed) in consistently-named
-> functions placed in a consistent header location, with mostly the same
-> semantics: they can be called from preemptible or non-preemptible task
-> context, and are not assumed to be reentrant. Architectures are also
-> expected to provide CFLAGS adjustments for compiling FPU-dependent code.
-> For the moment, SIMD/vector units are out of scope for this common API.
->
-> This allows us to remove the ifdeffery and duplicated Makefile logic at
-> each FPU user. It then implements the common API on RISC-V, and converts
-> a couple of users to the new API: the AMDGPU DRM driver, and the FPU
-> self test.
->
-> The underlying goal of this series is to allow using newer AMD GPUs
-> (e.g. Navi) on RISC-V boards such as SiFive's HiFive Unmatched. Those
-> GPUs need CONFIG_DRM_AMD_DC_FP to initialize, which requires kernel-mode
-> FPU support.
+Applied.  Thanks!
 
-Series is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
+On Mon, Dec 25, 2023 at 5:18=E2=80=AFAM Zhipeng Lu <alexious@zju.edu.cn> wr=
+ote:
 >
-> Previous versions:
-> v1: https://lore.kernel.org/linux-kernel/20231208055501.2916202-1-samuel.=
-holland@sifive.com/
-> v0: https://lore.kernel.org/linux-kernel/20231122030621.3759313-1-samuel.=
-holland@sifive.com/
+> The hwmgr->backend, (i.e. data) allocated by kzalloc is not freed in
+> the error-handling paths of smu7_get_evv_voltages and
+> smu7_update_edc_leakage_table. However, it did be freed in the
+> error-handling of phm_initializa_dynamic_state_adjustment_rule_settings,
+> by smu7_hwmgr_backend_fini. So the lack of free in smu7_get_evv_voltages
+> and smu7_update_edc_leakage_table is considered a memleak in this patch.
 >
-> Changes in v2:
->  - Add documentation explaining the built-time and runtime APIs
->  - Add a linux/fpu.h header for generic isolation enforcement
->  - Remove file name from header comment
->  - Clean up arch/arm64/lib/Makefile, like for arch/arm
->  - Remove RISC-V architecture-specific preprocessor check
->  - Split altivec removal to a separate patch
->  - Use linux/fpu.h instead of asm/fpu.h in consumers
->  - Declare test_fpu() in a header
+> Fixes: 599a7e9fe1b6 ("drm/amd/powerplay: implement smu7 hwmgr to manager =
+asics with smu ip version 7.")
+> Fixes: 8f0804c6b7d0 ("drm/amd/pm: add edc leakage controller setting")
+> Signed-off-by: Zhipeng Lu <alexious@zju.edu.cn>
+> ---
+>  drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 >
-> Michael Ellerman (1):
->   drm/amd/display: Only use hard-float, not altivec on powerpc
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/driver=
+s/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+> index 11372fcc59c8..b1a8799e2dee 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+> @@ -2974,6 +2974,8 @@ static int smu7_hwmgr_backend_init(struct pp_hwmgr =
+*hwmgr)
+>                 result =3D smu7_get_evv_voltages(hwmgr);
+>                 if (result) {
+>                         pr_info("Get EVV Voltage Failed.  Abort Driver lo=
+ading!\n");
+> +                       kfree(hwmgr->backend);
+> +                       hwmgr->backend =3D NULL;
+>                         return -EINVAL;
+>                 }
+>         } else {
+> @@ -3019,8 +3021,10 @@ static int smu7_hwmgr_backend_init(struct pp_hwmgr=
+ *hwmgr)
+>         }
 >
-> Samuel Holland (13):
->   arch: Add ARCH_HAS_KERNEL_FPU_SUPPORT
->   ARM: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
->   ARM: crypto: Use CC_FLAGS_FPU for NEON CFLAGS
->   arm64: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
->   arm64: crypto: Use CC_FLAGS_FPU for NEON CFLAGS
->   lib/raid6: Use CC_FLAGS_FPU for NEON CFLAGS
->   LoongArch: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
->   powerpc: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
->   x86: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
->   riscv: Add support for kernel-mode FPU
->   drm/amd/display: Use ARCH_HAS_KERNEL_FPU_SUPPORT
->   selftests/fpu: Move FP code to a separate translation unit
->   selftests/fpu: Allow building on other architectures
+>         result =3D smu7_update_edc_leakage_table(hwmgr);
+> -       if (result)
+> +       if (result) {
+> +               smu7_hwmgr_backend_fini(hwmgr);
+>                 return result;
+> +       }
 >
->  Documentation/core-api/floating-point.rst     | 78 +++++++++++++++++++
->  Documentation/core-api/index.rst              |  1 +
->  Makefile                                      |  5 ++
->  arch/Kconfig                                  |  6 ++
->  arch/arm/Kconfig                              |  1 +
->  arch/arm/Makefile                             |  7 ++
->  arch/arm/include/asm/fpu.h                    | 15 ++++
->  arch/arm/lib/Makefile                         |  3 +-
->  arch/arm64/Kconfig                            |  1 +
->  arch/arm64/Makefile                           |  9 ++-
->  arch/arm64/include/asm/fpu.h                  | 15 ++++
->  arch/arm64/lib/Makefile                       |  6 +-
->  arch/loongarch/Kconfig                        |  1 +
->  arch/loongarch/Makefile                       |  5 +-
->  arch/loongarch/include/asm/fpu.h              |  1 +
->  arch/powerpc/Kconfig                          |  1 +
->  arch/powerpc/Makefile                         |  5 +-
->  arch/powerpc/include/asm/fpu.h                | 28 +++++++
->  arch/riscv/Kconfig                            |  1 +
->  arch/riscv/Makefile                           |  3 +
->  arch/riscv/include/asm/fpu.h                  | 16 ++++
->  arch/riscv/kernel/Makefile                    |  1 +
->  arch/riscv/kernel/kernel_mode_fpu.c           | 28 +++++++
->  arch/x86/Kconfig                              |  1 +
->  arch/x86/Makefile                             | 20 +++++
->  arch/x86/include/asm/fpu.h                    | 13 ++++
->  drivers/gpu/drm/amd/display/Kconfig           |  2 +-
->  .../gpu/drm/amd/display/amdgpu_dm/dc_fpu.c    | 35 +--------
->  drivers/gpu/drm/amd/display/dc/dml/Makefile   | 36 +--------
->  drivers/gpu/drm/amd/display/dc/dml2/Makefile  | 36 +--------
->  include/linux/fpu.h                           | 12 +++
->  lib/Kconfig.debug                             |  2 +-
->  lib/Makefile                                  | 26 +------
->  lib/raid6/Makefile                            | 31 ++------
->  lib/test_fpu.h                                |  8 ++
->  lib/{test_fpu.c =3D> test_fpu_glue.c}           | 37 ++-------
->  lib/test_fpu_impl.c                           | 37 +++++++++
->  37 files changed, 343 insertions(+), 190 deletions(-)
->  create mode 100644 Documentation/core-api/floating-point.rst
->  create mode 100644 arch/arm/include/asm/fpu.h
->  create mode 100644 arch/arm64/include/asm/fpu.h
->  create mode 100644 arch/powerpc/include/asm/fpu.h
->  create mode 100644 arch/riscv/include/asm/fpu.h
->  create mode 100644 arch/riscv/kernel/kernel_mode_fpu.c
->  create mode 100644 arch/x86/include/asm/fpu.h
->  create mode 100644 include/linux/fpu.h
->  create mode 100644 lib/test_fpu.h
->  rename lib/{test_fpu.c =3D> test_fpu_glue.c} (71%)
->  create mode 100644 lib/test_fpu_impl.c
->
+>         return 0;
+>  }
 > --
-> 2.42.0
+> 2.34.1
 >
