@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5B4EC47077
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jan 2024 08:04:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD816C3DA6E
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jan 2024 08:04:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7238B10E260;
-	Wed,  3 Jan 2024 08:04:10 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20601.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eae::601])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F91310E25B
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jan 2024 08:04:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E0A510E256;
+	Wed,  3 Jan 2024 08:04:13 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2089.outbound.protection.outlook.com [40.107.95.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E1A110E256
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jan 2024 08:04:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ro6uedISIHUsXUZcGh8fVe6s+YRv2w5n6YB4ovnDPloJPvMUR6QxS1xTKmumI7K0zTX/jNj8YrXQRWO/E5vT+GtyWhuNfQy7HRuo6I668SWLrPQc7avGo7C1ak/lwFBU3x2rXpZt+HwlRT4cQxm8I2mqhuw4x1J9TXDmIJKNLtFKEqUMGiL1Ig8kg1KjrlFpOoeJ5cvISgNY6jJKH10ddoEEgtoo/NRRV+0goWECVFWpwXHw9y0ib7mTeQaILga5SoJyNrmO1hrQhAsiXRrBakR67ERHhNVfesF8Y9D2hftRckSiYuFTfwdzPTxfZeAkLrTdeXGiP0whGfrIG6RECg==
+ b=nAkD19f9TtDz8czQnXtdjXIjIFevZjYvQsnF/cfEYLV46oJ9MZF1xzmTKLhe3qnq416vrw1PigGbp13lYKcQLa3K/xck9299aVlIascIiFlOcCdgMrzKCrRiqkb7EYHbIOp0y74eRKYiKd8VIrKBWGiMIt7t/yP8O6KfaA2/xBnG3683CLLyPnuHIJUvthYhH01qV8OE2tj53hzCbrOp8i98pLs1X2GHLS82D3SuGaHqwrWvp94eu2Zkq0ZxmCTUN7UHE6tFrwab22rTYOtEdiL5/4up3tjFiHCKAoTEa7qcUz6O3IZepvKcNBiuT9iqL8MxIcogqDWxGSLns6UFDg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PTca/ilKobO9dSQLGtt2qMx9qzwEcImbjqHGaN2cFYQ=;
- b=KA5me+nAZMJZjCdjg6o76a8bkl5e8bqe5w6+zBifas8T4FtaOv7rjBaQ5+WZ4i3mgzU/zZBYxrBAB7oYvQno1dM1SOCCmNihnhDDu24al8zDq9p3Cl3OrSY/N+nF3DXBEhBPzh4JrXdqcOSuSzxf+w+62IyLI+em6y1d4G3nkNdgzQReDlrlC9KuIhlvw4B/CGPrpV4BnmLsUOvGdzBZToNCBlmey2dD0a66bZVOqUwTLUWyl8+cdN8IQuN+mQHlH3S3ffhfWvJRRO4yrGh538ZvabmmjKxX/VPe8OhaHhQtwLKmLJ3sq+kDl/NaemV6uVwxyqHJHQXaq44f/ypVOw==
+ bh=pNCk+/XBzKAFeYWo6IuxFm+XcxDISfreuvEArPxEFe4=;
+ b=PVmFrxqZNf9wtm3HcFv9gRyVCgIBnb/F31qMnh1DjGp7M9RAksJk232Yi+YMFVJRVNKTt7DyioyZmYZsM++9/7qBggp/N78QCUS9A0GAxh1riHs0XHgh9ZQeIGTLkl3n5OZTtT36V0hAtBsKfcGEfMsEc9e42bC/lZF9xVfZGFVvjFPbZxYt29EAoF0sqEHw/qLq8g8YKsVWmiRBELQY/BCYzmt7PWbCzFYPupfpCDQeBkk0OolFakb9Lw/haLpVMY+/8DAb+b2XZVjwMu4dZyr/tXz1taLbz+9WRrhGMhcVppEJGaDhY/xKU/MM3t0SbOXSLnHjLHMENWPkX/IYqw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PTca/ilKobO9dSQLGtt2qMx9qzwEcImbjqHGaN2cFYQ=;
- b=eUs9rgiFEGlyKLcsIkJIAkzSvSYsh/LPwECeu+zwGJFuGuU0bAZESBZ+0FOaL1c+pvpTPPRRMgIoHotnqx7it2ENQoRRRfOIkuX9DJOxyr0SFFG9LXfajV0guZ3TIwigUJrUNUj7LVBm5Uo0GOPKuH3NR6sn8R5zSHip9UdUCPs=
-Received: from SJ0PR13CA0112.namprd13.prod.outlook.com (2603:10b6:a03:2c5::27)
- by CY8PR12MB9034.namprd12.prod.outlook.com (2603:10b6:930:76::15)
+ bh=pNCk+/XBzKAFeYWo6IuxFm+XcxDISfreuvEArPxEFe4=;
+ b=HPN0E3Zj1TTWHJTqoBaD0XMvDQ5UDesInVSyMrZwpz09xWgNsS2YKKIC6g2sSOuvWcxTWRZ6b+ekQdysR9nA01RNSTCIKtYmOT9YAWIJmM9I5XewVZp2YvYghoqwTguuBIxjR8CQQPCeT/ts2tT2ZdsJb44lMB+lSuf8Vy0GdZs=
+Received: from SJ0PR05CA0039.namprd05.prod.outlook.com (2603:10b6:a03:33f::14)
+ by LV2PR12MB5821.namprd12.prod.outlook.com (2603:10b6:408:17a::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.25; Wed, 3 Jan
- 2024 08:04:05 +0000
-Received: from SJ5PEPF000001C9.namprd05.prod.outlook.com
- (2603:10b6:a03:2c5:cafe::ce) by SJ0PR13CA0112.outlook.office365.com
- (2603:10b6:a03:2c5::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.11 via Frontend
- Transport; Wed, 3 Jan 2024 08:04:05 +0000
+ 2024 08:04:07 +0000
+Received: from SJ5PEPF000001CA.namprd05.prod.outlook.com
+ (2603:10b6:a03:33f:cafe::2a) by SJ0PR05CA0039.outlook.office365.com
+ (2603:10b6:a03:33f::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.12 via Frontend
+ Transport; Wed, 3 Jan 2024 08:04:07 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -46,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001C9.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ SJ5PEPF000001CA.mail.protection.outlook.com (10.167.242.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7159.9 via Frontend Transport; Wed, 3 Jan 2024 08:04:05 +0000
+ 15.20.7159.9 via Frontend Transport; Wed, 3 Jan 2024 08:04:07 +0000
 Received: from kevin-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 3 Jan
- 2024 02:04:02 -0600
+ 2024 02:04:05 -0600
 From: Yang Wang <kevinyang.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 13/14] drm/amd/pm: remove unused mca_smu_funcs
-Date: Wed, 3 Jan 2024 16:02:19 +0800
-Message-ID: <20240103080220.2815115-14-kevinyang.wang@amd.com>
+Subject: [PATCH 14/14] drm/amdgpu: remove unused smu mca smu driver
+Date: Wed, 3 Jan 2024 16:02:20 +0800
+Message-ID: <20240103080220.2815115-15-kevinyang.wang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240103080220.2815115-1-kevinyang.wang@amd.com>
 References: <20240103080220.2815115-1-kevinyang.wang@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001C9:EE_|CY8PR12MB9034:EE_
-X-MS-Office365-Filtering-Correlation-Id: 940c70db-abda-4e80-24dc-08dc0c328e4e
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CA:EE_|LV2PR12MB5821:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4694e264-c1e5-4fd1-0596-08dc0c328fa2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7QRBofuGeGR6ktRgackomXXPWfBk+ClMeq6oFQu/D9Q31bMmp+FSgNxRB5diYx6udzfIgz1dBihafzOYQIf50+oZhpafExAwqtz1I2GUjtgz6MUengmcMMG5ueSfy9vVUswyiE+vGlazV2MXeSYCcyHMxCym2M1rv2W7j7uK9jdQkFz/Ogb0GA0/KQ1Xb2KtRx5w6a45s7xfrsP1W66EKGsCW5Gbm+UesoPE7zyjU+FfigLqzGL0qV1t6Ilsye1RET2jRUpFPY1JOy8shzo7TdtD+x6w89b1v8XEEqphhoTcolQQH8efJzF+awRQK+XS726If70DaRe5jA4SJ2ld35RxNBtPpaf3A5S4p4DvW1q5zDTPxhB2hkBQ5c3twPYtjDJjJldwduvqePx/yhQdT7f7b+X8noEcJ3hUHZlWvoQYbZLQjNzX2z0Rm3P7PUHPmQDhteDUaLnNObRQI3VVqYr8GM2bTx+2qzIxpLQR4zkAOzBWAXqZHyg3W7QxnnapDERPnibeUCBUII6jGvmRQb57koDXqrawM5NyAcGf31I98AqOVxEOh31zMwBusnqgPcdhaPQn0TMsmvT1Z0lrOl4xNkZo82tR/Qkhdz9nyct8J2lL5xB/y+6ocF7vF+SGqmVzKqjCFhjr9Rv9L8zF3vAdhwYiJ7uhsh47infjh5JEM+Qd+jdNxmujR0lpKZFEZLYL3e8lymt6U3WADz46420SnlAr/V51VcvmWD8JUSc10gg1zNA7E+uLD4fXcgICXHZtsjmQBhVuiQ0g/YE13g==
+X-Microsoft-Antispam-Message-Info: Zj+5UX+E5zitbirYjtBGef8csjiU2gLQKdUxF6tlTWfNTOiwEXsDKQDKNkAtk+K0Z1zH/n+u0WUHUEOV4vQdb+poJCQLfs+5JYbpgkUo36kp+ECbGmaerpheCQPSvMGGD48lmRI7qPz5JiNxsfre2Uds677twiqywm2x4tMPUdpFfDMxIthHvGXV1gY+JrMiJLex6JX+HwmghtqJ8RnFWrjWAKBL/TRt8dknAHIsrgpfY/3IkDyKQxDlWuSFFPiQCfcpxWdYEnWP3fsBQudB/2N2PhPfoje8jafiv3hCI7KZoyBIhRA7JXXQmCB9ltW/PsM6p8t2/+88mpA3qYU4AbEg1Kasp/7gIMSsw91jtbLsPKpZNKx4OSzQYxojmwncIdx8CVb11lDd7ms2CPqNRZfPUVwSOywH92VpjNhKSvvszLVi/Gf+huDxrsu4zf/ety7hKmmYtTyOo/WFwnMWQe//+1UmNp4B0HdXDOA2klapXmPbFj6YL3EndtzPTHUOYmplkosODs2qnXEoNX2yknPlAiqukLmV5jNkysWhmNrhxXyblj2OfUUuKJM8JzFdp4FRunS/NBUjzrhVs87ydJ49o3yPqRQGkNCf3CfWYlcTz1FZ3FcpOlbxCBhBbaTVY9lme5yihU3Qdxrh55LfAwvNlsbFfDTAFBvKrJTcUk+3JK1yQVJms/hlOIclJIykJfdeV6s15zAmFpKAL/ujzi8el3XprhH9oWPfaz5tZZ+zhw50ww1K2XCINZN8gfvr0mcjwV+ixG00M8lMnu/oeA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(136003)(376002)(396003)(39860400002)(346002)(230922051799003)(186009)(1800799012)(64100799003)(82310400011)(451199024)(46966006)(40470700004)(36840700001)(36860700001)(478600001)(40460700003)(41300700001)(82740400003)(336012)(6916009)(356005)(4326008)(36756003)(81166007)(316002)(54906003)(70586007)(70206006)(86362001)(6666004)(47076005)(7696005)(1076003)(26005)(83380400001)(426003)(40480700001)(8936002)(16526019)(2616005)(8676002)(2906002)(5660300002)(30864003)(36900700001);
+ SFS:(13230031)(4636009)(376002)(39860400002)(346002)(136003)(396003)(230922051799003)(451199024)(64100799003)(82310400011)(1800799012)(186009)(36840700001)(46966006)(40470700004)(26005)(1076003)(426003)(2616005)(336012)(16526019)(36860700001)(81166007)(83380400001)(356005)(47076005)(82740400003)(70586007)(70206006)(316002)(6916009)(54906003)(36756003)(478600001)(86362001)(5660300002)(2906002)(4326008)(30864003)(8676002)(8936002)(40460700003)(40480700001)(7696005)(6666004)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jan 2024 08:04:05.3276 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 940c70db-abda-4e80-24dc-08dc0c328e4e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jan 2024 08:04:07.6176 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4694e264-c1e5-4fd1-0596-08dc0c328fa2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001C9.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CA.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB9034
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5821
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,553 +104,575 @@ Cc: yipeng.chai@amd.com, tao.zhou1@amd.com, Yang
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-remove unused mca smu backed interface.
+remove unused mca driver code.
 
 Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
 ---
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 505 ------------------
- 1 file changed, 505 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c | 360 ------------------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h | 114 --------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c |  14 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |   1 -
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.c  |   5 +-
+ 5 files changed, 1 insertion(+), 493 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index bed75af45369..f31c9eb84a41 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -43,13 +43,10 @@
- #include "thm/thm_11_0_2_sh_mask.h"
- #include "amdgpu_xgmi.h"
- #include <linux/pci.h>
--#include "amdgpu_ras.h"
--#include "amdgpu_mca.h"
- #include "amdgpu_aca.h"
- #include "smu_cmn.h"
- #include "mp/mp_13_0_6_offset.h"
- #include "mp/mp_13_0_6_sh_mask.h"
--#include "umc_v12_0.h"
- 
- #undef MP1_Public
- #undef smnMP1_FIRMWARE_FLAGS
-@@ -98,26 +95,6 @@ MODULE_FIRMWARE("amdgpu/smu_13_0_6.bin");
- 
- #define SMU_13_0_6_DSCLK_THRESHOLD 140
- 
--#define MCA_BANK_IPID(_ip, _hwid, _type) \
--	[AMDGPU_MCA_IP_##_ip] = { .hwid = _hwid, .mcatype = _type, }
--
--struct mca_bank_ipid {
--	enum amdgpu_mca_ip ip;
--	uint16_t hwid;
--	uint16_t mcatype;
--};
--
--struct mca_ras_info {
--	enum amdgpu_ras_block blkid;
--	enum amdgpu_mca_ip ip;
--	int *err_code_array;
--	int err_code_count;
--	int (*get_err_count)(const struct mca_ras_info *mca_ras, struct amdgpu_device *adev,
--			     enum amdgpu_mca_error_type type, struct mca_bank_entry *entry, uint32_t *count);
--	bool (*bank_is_valid)(const struct mca_ras_info *mca_ras, struct amdgpu_device *adev,
--			      enum amdgpu_mca_error_type type, struct mca_bank_entry *entry);
--};
--
- #define P2S_TABLE_ID_A 0x50325341
- #define P2S_TABLE_ID_X 0x50325358
- 
-@@ -2375,487 +2352,6 @@ static int smu_v13_0_6_smu_send_hbm_bad_page_num(struct smu_context *smu,
- 	return ret;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+index 8911310f98df..ed1c32c6d302 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+@@ -143,363 +143,3 @@ int amdgpu_mca_mpio_ras_sw_init(struct amdgpu_device *adev)
+ 	return 0;
  }
  
--static int mca_smu_set_debug_mode(struct amdgpu_device *adev, bool enable)
+-void amdgpu_mca_bank_set_init(struct mca_bank_set *mca_set)
 -{
--	struct smu_context *smu = adev->powerplay.pp_handle;
+-	if (!mca_set)
+-		return;
 -
--	return smu_v13_0_6_mca_set_debug_mode(smu, enable);
+-	memset(mca_set, 0, sizeof(*mca_set));
+-	INIT_LIST_HEAD(&mca_set->list);
 -}
 -
--static int smu_v13_0_6_get_valid_mca_count(struct smu_context *smu, enum amdgpu_mca_error_type type, uint32_t *count)
+-int amdgpu_mca_bank_set_add_entry(struct mca_bank_set *mca_set, struct mca_bank_entry *entry)
 -{
--	uint32_t msg;
--	int ret;
+-	struct mca_bank_node *node;
+-
+-	if (!entry)
+-		return -EINVAL;
+-
+-	node = kvzalloc(sizeof(*node), GFP_KERNEL);
+-	if (!node)
+-		return -ENOMEM;
+-
+-	memcpy(&node->entry, entry, sizeof(*entry));
+-
+-	INIT_LIST_HEAD(&node->node);
+-	list_add_tail(&node->node, &mca_set->list);
+-
+-	mca_set->nr_entries++;
+-
+-	return 0;
+-}
+-
+-void amdgpu_mca_bank_set_release(struct mca_bank_set *mca_set)
+-{
+-	struct mca_bank_node *node, *tmp;
+-
+-	list_for_each_entry_safe(node, tmp, &mca_set->list, node) {
+-		list_del(&node->node);
+-		kvfree(node);
+-	}
+-}
+-
+-void amdgpu_mca_smu_init_funcs(struct amdgpu_device *adev, const struct amdgpu_mca_smu_funcs *mca_funcs)
+-{
+-	struct amdgpu_mca *mca = &adev->mca;
+-
+-	mca->mca_funcs = mca_funcs;
+-}
+-
+-int amdgpu_mca_smu_set_debug_mode(struct amdgpu_device *adev, bool enable)
+-{
+-	const struct amdgpu_mca_smu_funcs *mca_funcs = adev->mca.mca_funcs;
+-
+-	if (mca_funcs && mca_funcs->mca_set_debug_mode)
+-		return mca_funcs->mca_set_debug_mode(adev, enable);
+-
+-	return -EOPNOTSUPP;
+-}
+-
+-static void amdgpu_mca_smu_mca_bank_dump(struct amdgpu_device *adev, int idx, struct mca_bank_entry *entry)
+-{
+-	dev_info(adev->dev, "[Hardware error] Accelerator Check Architecture events logged\n");
+-	dev_info(adev->dev, "[Hardware error] aca entry[%02d].STATUS=0x%016llx\n",
+-		 idx, entry->regs[MCA_REG_IDX_STATUS]);
+-	dev_info(adev->dev, "[Hardware error] aca entry[%02d].ADDR=0x%016llx\n",
+-		 idx, entry->regs[MCA_REG_IDX_ADDR]);
+-	dev_info(adev->dev, "[Hardware error] aca entry[%02d].MISC0=0x%016llx\n",
+-		 idx, entry->regs[MCA_REG_IDX_MISC0]);
+-	dev_info(adev->dev, "[Hardware error] aca entry[%02d].IPID=0x%016llx\n",
+-		 idx, entry->regs[MCA_REG_IDX_IPID]);
+-	dev_info(adev->dev, "[Hardware error] aca entry[%02d].SYND=0x%016llx\n",
+-		 idx, entry->regs[MCA_REG_IDX_SYND]);
+-}
+-
+-int amdgpu_mca_smu_log_ras_error(struct amdgpu_device *adev, enum amdgpu_ras_block blk, enum amdgpu_mca_error_type type, struct ras_err_data *err_data)
+-{
+-	struct amdgpu_smuio_mcm_config_info mcm_info;
+-	struct ras_err_addr err_addr = {0};
+-	struct mca_bank_set mca_set;
+-	struct mca_bank_node *node;
+-	struct mca_bank_entry *entry;
+-	uint32_t count;
+-	int ret, i = 0;
+-
+-	amdgpu_mca_bank_set_init(&mca_set);
+-
+-	ret = amdgpu_mca_smu_get_mca_set(adev, blk, type, &mca_set);
+-	if (ret)
+-		goto out_mca_release;
+-
+-	list_for_each_entry(node, &mca_set.list, node) {
+-		entry = &node->entry;
+-
+-		amdgpu_mca_smu_mca_bank_dump(adev, i++, entry);
+-
+-		count = 0;
+-		ret = amdgpu_mca_smu_parse_mca_error_count(adev, blk, type, entry, &count);
+-		if (ret)
+-			goto out_mca_release;
+-
+-		if (!count)
+-			continue;
+-
+-		mcm_info.socket_id = entry->info.socket_id;
+-		mcm_info.die_id = entry->info.aid;
+-
+-		if (blk == AMDGPU_RAS_BLOCK__UMC) {
+-			err_addr.err_status = entry->regs[MCA_REG_IDX_STATUS];
+-			err_addr.err_ipid = entry->regs[MCA_REG_IDX_IPID];
+-			err_addr.err_addr = entry->regs[MCA_REG_IDX_ADDR];
+-		}
+-
+-		if (type == AMDGPU_MCA_ERROR_TYPE_UE)
+-			amdgpu_ras_error_statistic_ue_count(err_data,
+-				&mcm_info, &err_addr, (uint64_t)count);
+-		else
+-			amdgpu_ras_error_statistic_ce_count(err_data,
+-				&mcm_info, &err_addr, (uint64_t)count);
+-	}
+-
+-out_mca_release:
+-	amdgpu_mca_bank_set_release(&mca_set);
+-
+-	return ret;
+-}
+-
+-
+-int amdgpu_mca_smu_get_valid_mca_count(struct amdgpu_device *adev, enum amdgpu_mca_error_type type, uint32_t *count)
+-{
+-	const struct amdgpu_mca_smu_funcs *mca_funcs = adev->mca.mca_funcs;
 -
 -	if (!count)
 -		return -EINVAL;
 -
--	switch (type) {
--	case AMDGPU_MCA_ERROR_TYPE_UE:
--		msg = SMU_MSG_QueryValidMcaCount;
--		break;
--	case AMDGPU_MCA_ERROR_TYPE_CE:
--		msg = SMU_MSG_QueryValidMcaCeCount;
--		break;
--	default:
--		return -EINVAL;
--	}
+-	if (mca_funcs && mca_funcs->mca_get_valid_mca_count)
+-		return mca_funcs->mca_get_valid_mca_count(adev, type, count);
 -
--	ret = smu_cmn_send_smc_msg(smu, msg, count);
--	if (ret) {
--		*count = 0;
--		return ret;
--	}
--
--	return 0;
+-	return -EOPNOTSUPP;
 -}
 -
--static int __smu_v13_0_6_mca_dump_bank(struct smu_context *smu, enum amdgpu_mca_error_type type,
--				       int idx, int offset, uint32_t *val)
+-int amdgpu_mca_smu_get_mca_set_error_count(struct amdgpu_device *adev, enum amdgpu_ras_block blk,
+-					    enum amdgpu_mca_error_type type, uint32_t *total)
 -{
--	uint32_t msg, param;
--
--	switch (type) {
--	case AMDGPU_MCA_ERROR_TYPE_UE:
--		msg = SMU_MSG_McaBankDumpDW;
--		break;
--	case AMDGPU_MCA_ERROR_TYPE_CE:
--		msg = SMU_MSG_McaBankCeDumpDW;
--		break;
--	default:
--		return -EINVAL;
--	}
--
--	param = ((idx & 0xffff) << 16) | (offset & 0xfffc);
--
--	return smu_cmn_send_smc_msg_with_param(smu, msg, param, val);
--}
--
--static int smu_v13_0_6_mca_dump_bank(struct smu_context *smu, enum amdgpu_mca_error_type type,
--				     int idx, int offset, uint32_t *val, int count)
--{
--	int ret, i;
--
--	if (!val)
--		return -EINVAL;
--
--	for (i = 0; i < count; i++) {
--		ret = __smu_v13_0_6_mca_dump_bank(smu, type, idx, offset + (i << 2), &val[i]);
--		if (ret)
--			return ret;
--	}
--
--	return 0;
--}
--
--static const struct mca_bank_ipid smu_v13_0_6_mca_ipid_table[AMDGPU_MCA_IP_COUNT] = {
--	MCA_BANK_IPID(UMC, 0x96, 0x0),
--	MCA_BANK_IPID(SMU, 0x01, 0x1),
--	MCA_BANK_IPID(MP5, 0x01, 0x2),
--	MCA_BANK_IPID(PCS_XGMI, 0x50, 0x0),
--};
--
--static void mca_bank_entry_info_decode(struct mca_bank_entry *entry, struct mca_bank_info *info)
--{
--	u64 ipid = entry->regs[MCA_REG_IDX_IPID];
--	u32 instidhi, instid;
--
--	/* NOTE: All MCA IPID register share the same format,
--	 * so the driver can share the MCMP1 register header file.
--	 * */
--
--	info->hwid = REG_GET_FIELD(ipid, MCMP1_IPIDT0, HardwareID);
--	info->mcatype = REG_GET_FIELD(ipid, MCMP1_IPIDT0, McaType);
--
--	/*
--	 * Unfied DieID Format: SAASS. A:AID, S:Socket.
--	 * Unfied DieID[4] = InstanceId[0]
--	 * Unfied DieID[0:3] = InstanceIdHi[0:3]
--	 */
--	instidhi = REG_GET_FIELD(ipid, MCMP1_IPIDT0, InstanceIdHi);
--	instid = REG_GET_FIELD(ipid, MCMP1_IPIDT0, InstanceIdLo);
--	info->aid = ((instidhi >> 2) & 0x03);
--	info->socket_id = ((instid & 0x1) << 2) | (instidhi & 0x03);
--}
--
--static int mca_bank_read_reg(struct amdgpu_device *adev, enum amdgpu_mca_error_type type,
--			     int idx, int reg_idx, uint64_t *val)
--{
--	struct smu_context *smu = adev->powerplay.pp_handle;
--	uint32_t data[2] = {0, 0};
+-	const struct amdgpu_mca_smu_funcs *mca_funcs = adev->mca.mca_funcs;
+-	struct mca_bank_set mca_set;
+-	struct mca_bank_node *node;
+-	struct mca_bank_entry *entry;
+-	uint32_t count;
 -	int ret;
 -
--	if (!val || reg_idx >= MCA_REG_IDX_COUNT)
+-	if (!total)
 -		return -EINVAL;
 -
--	ret = smu_v13_0_6_mca_dump_bank(smu, type, idx, reg_idx * 8, data, ARRAY_SIZE(data));
+-	if (!mca_funcs)
+-		return -EOPNOTSUPP;
+-
+-	if (!mca_funcs->mca_get_ras_mca_set || !mca_funcs->mca_get_valid_mca_count)
+-		return -EOPNOTSUPP;
+-
+-	amdgpu_mca_bank_set_init(&mca_set);
+-
+-	ret = mca_funcs->mca_get_ras_mca_set(adev, blk, type, &mca_set);
+-	if (ret)
+-		goto err_mca_set_release;
+-
+-	*total = 0;
+-	list_for_each_entry(node, &mca_set.list, node) {
+-		entry = &node->entry;
+-
+-		count = 0;
+-		ret = mca_funcs->mca_parse_mca_error_count(adev, blk, type, entry, &count);
+-		if (ret)
+-			goto err_mca_set_release;
+-
+-		*total += count;
+-	}
+-
+-err_mca_set_release:
+-	amdgpu_mca_bank_set_release(&mca_set);
+-
+-	return ret;
+-}
+-
+-int amdgpu_mca_smu_parse_mca_error_count(struct amdgpu_device *adev, enum amdgpu_ras_block blk,
+-					 enum amdgpu_mca_error_type type, struct mca_bank_entry *entry, uint32_t *count)
+-{
+-	const struct amdgpu_mca_smu_funcs *mca_funcs = adev->mca.mca_funcs;
+-	if (!count || !entry)
+-		return -EINVAL;
+-
+-	if (!mca_funcs || !mca_funcs->mca_parse_mca_error_count)
+-		return -EOPNOTSUPP;
+-
+-
+-	return mca_funcs->mca_parse_mca_error_count(adev, blk, type, entry, count);
+-}
+-
+-int amdgpu_mca_smu_get_mca_set(struct amdgpu_device *adev, enum amdgpu_ras_block blk,
+-			       enum amdgpu_mca_error_type type, struct mca_bank_set *mca_set)
+-{
+-	const struct amdgpu_mca_smu_funcs *mca_funcs = adev->mca.mca_funcs;
+-
+-	if (!mca_set)
+-		return -EINVAL;
+-
+-	if (!mca_funcs || !mca_funcs->mca_get_ras_mca_set)
+-		return -EOPNOTSUPP;
+-
+-	WARN_ON(!list_empty(&mca_set->list));
+-
+-	return mca_funcs->mca_get_ras_mca_set(adev, blk, type, mca_set);
+-}
+-
+-int amdgpu_mca_smu_get_mca_entry(struct amdgpu_device *adev, enum amdgpu_mca_error_type type,
+-				 int idx, struct mca_bank_entry *entry)
+-{
+-	const struct amdgpu_mca_smu_funcs *mca_funcs = adev->mca.mca_funcs;
+-	int count;
+-
+-	switch (type) {
+-	case AMDGPU_MCA_ERROR_TYPE_UE:
+-		count = mca_funcs->max_ue_count;
+-		break;
+-	case AMDGPU_MCA_ERROR_TYPE_CE:
+-		count = mca_funcs->max_ce_count;
+-		break;
+-	default:
+-		return -EINVAL;
+-	}
+-
+-	if (idx >= count)
+-		return -EINVAL;
+-
+-	if (mca_funcs && mca_funcs->mca_get_mca_entry)
+-		return mca_funcs->mca_get_mca_entry(adev, type, idx, entry);
+-
+-	return -EOPNOTSUPP;
+-}
+-
+-#if defined(CONFIG_DEBUG_FS)
+-static int amdgpu_mca_smu_debug_mode_set(void *data, u64 val)
+-{
+-	struct amdgpu_device *adev = (struct amdgpu_device *)data;
+-	int ret;
+-
+-	ret = amdgpu_ras_set_mca_debug_mode(adev, val ? true : false);
 -	if (ret)
 -		return ret;
 -
--	*val = (uint64_t)data[1] << 32 | data[0];
--
--	dev_dbg(adev->dev, "mca read bank reg: type:%s, index: %d, reg_idx: %d, val: 0x%016llx\n",
--		type == AMDGPU_MCA_ERROR_TYPE_UE ? "UE" : "CE", idx, reg_idx, *val);
+-	dev_info(adev->dev, "amdgpu set smu mca debug mode %s success\n", val ? "on" : "off");
 -
 -	return 0;
 -}
 -
--static int mca_get_mca_entry(struct amdgpu_device *adev, enum amdgpu_mca_error_type type,
--			     int idx, struct mca_bank_entry *entry)
+-static void mca_dump_entry(struct seq_file *m, struct mca_bank_entry *entry)
 -{
+-	int i, idx = entry->idx;
+-	int reg_idx_array[] = {
+-		MCA_REG_IDX_STATUS,
+-		MCA_REG_IDX_ADDR,
+-		MCA_REG_IDX_MISC0,
+-		MCA_REG_IDX_IPID,
+-		MCA_REG_IDX_SYND,
+-	};
+-
+-	seq_printf(m, "mca entry[%d].type: %s\n", idx, entry->type == AMDGPU_MCA_ERROR_TYPE_UE ? "UE" : "CE");
+-	seq_printf(m, "mca entry[%d].ip: %d\n", idx, entry->ip);
+-	seq_printf(m, "mca entry[%d].info: socketid:%d aid:%d hwid:0x%03x mcatype:0x%04x\n",
+-		   idx, entry->info.socket_id, entry->info.aid, entry->info.hwid, entry->info.mcatype);
+-
+-	for (i = 0; i < ARRAY_SIZE(reg_idx_array); i++)
+-		seq_printf(m, "mca entry[%d].regs[%d]: 0x%016llx\n", idx, reg_idx_array[i], entry->regs[reg_idx_array[i]]);
+-}
+-
+-static int mca_dump_show(struct seq_file *m, enum amdgpu_mca_error_type type)
+-{
+-	struct amdgpu_device *adev = (struct amdgpu_device *)m->private;
+-	struct mca_bank_entry *entry;
+-	uint32_t count = 0;
 -	int i, ret;
 -
--	/* NOTE: populated all mca register by default */
--	for (i = 0; i < ARRAY_SIZE(entry->regs); i++) {
--		ret = mca_bank_read_reg(adev, type, idx, i, &entry->regs[i]);
+-	ret = amdgpu_mca_smu_get_valid_mca_count(adev, type, &count);
+-	if (ret)
+-		return ret;
+-
+-	seq_printf(m, "amdgpu smu %s valid mca count: %d\n",
+-		   type == AMDGPU_MCA_ERROR_TYPE_UE ? "UE" : "CE", count);
+-
+-	if (!count)
+-		return 0;
+-
+-	entry = kmalloc(sizeof(*entry), GFP_KERNEL);
+-	if (!entry)
+-		return -ENOMEM;
+-
+-	for (i = 0; i < count; i++) {
+-		memset(entry, 0, sizeof(*entry));
+-
+-		ret = amdgpu_mca_smu_get_mca_entry(adev, type, i, entry);
 -		if (ret)
--			return ret;
+-			goto err_free_entry;
+-
+-		mca_dump_entry(m, entry);
 -	}
 -
--	entry->idx = idx;
--	entry->type = type;
+-err_free_entry:
+-	kfree(entry);
 -
--	mca_bank_entry_info_decode(entry, &entry->info);
--
--	return 0;
+-	return ret;
 -}
 -
--static int mca_decode_ipid_to_hwip(uint64_t val)
+-static int mca_dump_ce_show(struct seq_file *m, void *unused)
 -{
--	const struct mca_bank_ipid *ipid;
--	uint16_t hwid, mcatype;
--	int i;
--
--	hwid = REG_GET_FIELD(val, MCMP1_IPIDT0, HardwareID);
--	mcatype = REG_GET_FIELD(val, MCMP1_IPIDT0, McaType);
--
--	for (i = 0; i < ARRAY_SIZE(smu_v13_0_6_mca_ipid_table); i++) {
--		ipid = &smu_v13_0_6_mca_ipid_table[i];
--
--		if (!ipid->hwid)
--			continue;
--
--		if (ipid->hwid == hwid && ipid->mcatype == mcatype)
--			return i;
--	}
--
--	return AMDGPU_MCA_IP_UNKNOW;
+-	return mca_dump_show(m, AMDGPU_MCA_ERROR_TYPE_CE);
 -}
 -
--static int mca_umc_mca_get_err_count(const struct mca_ras_info *mca_ras, struct amdgpu_device *adev,
--				     enum amdgpu_mca_error_type type, struct mca_bank_entry *entry, uint32_t *count)
+-static int mca_dump_ce_open(struct inode *inode, struct file *file)
 -{
--	uint64_t status0;
--
--	status0 = entry->regs[MCA_REG_IDX_STATUS];
--
--	if (!REG_GET_FIELD(status0, MCMP1_STATUST0, Val)) {
--		*count = 0;
--		return 0;
--	}
--
--	if (type == AMDGPU_MCA_ERROR_TYPE_UE && umc_v12_0_is_uncorrectable_error(adev, status0))
--		*count = 1;
--	else if (type == AMDGPU_MCA_ERROR_TYPE_CE && umc_v12_0_is_correctable_error(adev, status0))
--		*count = 1;
--
--	return 0;
+-	return single_open(file, mca_dump_ce_show, inode->i_private);
 -}
 -
--static int mca_pcs_xgmi_mca_get_err_count(const struct mca_ras_info *mca_ras, struct amdgpu_device *adev,
--					  enum amdgpu_mca_error_type type, struct mca_bank_entry *entry,
--					  uint32_t *count)
--{
--	u32 ext_error_code;
--	u32 err_cnt;
--
--	ext_error_code = MCA_REG__STATUS__ERRORCODEEXT(entry->regs[MCA_REG_IDX_STATUS]);
--	err_cnt = MCA_REG__MISC0__ERRCNT(entry->regs[MCA_REG_IDX_MISC0]);
--
--	if (type == AMDGPU_MCA_ERROR_TYPE_UE && ext_error_code == 0)
--		*count = err_cnt;
--	else if (type == AMDGPU_MCA_ERROR_TYPE_CE && ext_error_code == 6)
--		*count = err_cnt;
--
--	return 0;
--}
--
--static bool mca_smu_check_error_code(struct amdgpu_device *adev, const struct mca_ras_info *mca_ras,
--				     uint32_t errcode)
--{
--	int i;
--
--	if (!mca_ras->err_code_count || !mca_ras->err_code_array)
--		return true;
--
--	for (i = 0; i < mca_ras->err_code_count; i++) {
--		if (errcode == mca_ras->err_code_array[i])
--			return true;
--	}
--
--	return false;
--}
--
--static int mca_gfx_mca_get_err_count(const struct mca_ras_info *mca_ras, struct amdgpu_device *adev,
--				     enum amdgpu_mca_error_type type, struct mca_bank_entry *entry, uint32_t *count)
--{
--	uint64_t status0, misc0;
--
--	status0 = entry->regs[MCA_REG_IDX_STATUS];
--	if (!REG_GET_FIELD(status0, MCMP1_STATUST0, Val)) {
--		*count = 0;
--		return 0;
--	}
--
--	if (type == AMDGPU_MCA_ERROR_TYPE_UE &&
--	    REG_GET_FIELD(status0, MCMP1_STATUST0, UC) == 1 &&
--	    REG_GET_FIELD(status0, MCMP1_STATUST0, PCC) == 1) {
--		*count = 1;
--		return 0;
--	} else {
--		misc0 = entry->regs[MCA_REG_IDX_MISC0];
--		*count = REG_GET_FIELD(misc0, MCMP1_MISC0T0, ErrCnt);
--	}
--
--	return 0;
--}
--
--static int mca_smu_mca_get_err_count(const struct mca_ras_info *mca_ras, struct amdgpu_device *adev,
--				     enum amdgpu_mca_error_type type, struct mca_bank_entry *entry, uint32_t *count)
--{
--	uint64_t status0, misc0;
--
--	status0 = entry->regs[MCA_REG_IDX_STATUS];
--	if (!REG_GET_FIELD(status0, MCMP1_STATUST0, Val)) {
--		*count = 0;
--		return 0;
--	}
--
--	if (type == AMDGPU_MCA_ERROR_TYPE_UE &&
--	    REG_GET_FIELD(status0, MCMP1_STATUST0, UC) == 1 &&
--	    REG_GET_FIELD(status0, MCMP1_STATUST0, PCC) == 1) {
--		if (count)
--			*count = 1;
--		return 0;
--	}
--
--	misc0 = entry->regs[MCA_REG_IDX_MISC0];
--	*count = REG_GET_FIELD(misc0, MCMP1_MISC0T0, ErrCnt);
--
--	return 0;
--}
--
--static bool mca_gfx_smu_bank_is_valid(const struct mca_ras_info *mca_ras, struct amdgpu_device *adev,
--				      enum amdgpu_mca_error_type type, struct mca_bank_entry *entry)
--{
--	uint32_t instlo;
--
--	instlo = REG_GET_FIELD(entry->regs[MCA_REG_IDX_IPID], MCMP1_IPIDT0, InstanceIdLo);
--	instlo &= GENMASK(31, 1);
--	switch (instlo) {
--	case 0x36430400: /* SMNAID XCD 0 */
--	case 0x38430400: /* SMNAID XCD 1 */
--	case 0x40430400: /* SMNXCD XCD 0, NOTE: FIXME: fix this error later */
--		return true;
--	default:
--		return false;
--	}
--
--	return false;
+-static const struct file_operations mca_ce_dump_debug_fops = {
+-	.owner = THIS_MODULE,
+-	.open = mca_dump_ce_open,
+-	.read = seq_read,
+-	.llseek = seq_lseek,
+-	.release = single_release,
 -};
 -
--static bool mca_smu_bank_is_valid(const struct mca_ras_info *mca_ras, struct amdgpu_device *adev,
--				  enum amdgpu_mca_error_type type, struct mca_bank_entry *entry)
+-static int mca_dump_ue_show(struct seq_file *m, void *unused)
 -{
--	struct smu_context *smu = adev->powerplay.pp_handle;
--	uint32_t errcode, instlo;
--
--	instlo = REG_GET_FIELD(entry->regs[MCA_REG_IDX_IPID], MCMP1_IPIDT0, InstanceIdLo);
--	instlo &= GENMASK(31, 1);
--	if (instlo != 0x03b30400)
--		return false;
--
--	if (!(adev->flags & AMD_IS_APU) && smu->smc_fw_version >= 0x00555600) {
--		errcode = MCA_REG__SYND__ERRORINFORMATION(entry->regs[MCA_REG_IDX_SYND]);
--		errcode &= 0xff;
--	} else {
--		errcode = REG_GET_FIELD(entry->regs[MCA_REG_IDX_STATUS], MCMP1_STATUST0, ErrorCode);
--	}
--
--	return mca_smu_check_error_code(adev, mca_ras, errcode);
+-	return mca_dump_show(m, AMDGPU_MCA_ERROR_TYPE_UE);
 -}
 -
--static int sdma_err_codes[] = { CODE_SDMA0, CODE_SDMA1, CODE_SDMA2, CODE_SDMA3 };
--static int mmhub_err_codes[] = {
--	CODE_DAGB0, CODE_DAGB0 + 1, CODE_DAGB0 + 2, CODE_DAGB0 + 3, CODE_DAGB0 + 4, /* DAGB0-4 */
--	CODE_EA0, CODE_EA0 + 1, CODE_EA0 + 2, CODE_EA0 + 3, CODE_EA0 + 4,	/* MMEA0-4*/
--	CODE_VML2, CODE_VML2_WALKER, CODE_MMCANE,
--};
--
--static const struct mca_ras_info mca_ras_table[] = {
--	{
--		.blkid = AMDGPU_RAS_BLOCK__UMC,
--		.ip = AMDGPU_MCA_IP_UMC,
--		.get_err_count = mca_umc_mca_get_err_count,
--	}, {
--		.blkid = AMDGPU_RAS_BLOCK__GFX,
--		.ip = AMDGPU_MCA_IP_SMU,
--		.get_err_count = mca_gfx_mca_get_err_count,
--		.bank_is_valid = mca_gfx_smu_bank_is_valid,
--	}, {
--		.blkid = AMDGPU_RAS_BLOCK__SDMA,
--		.ip = AMDGPU_MCA_IP_SMU,
--		.err_code_array = sdma_err_codes,
--		.err_code_count = ARRAY_SIZE(sdma_err_codes),
--		.get_err_count = mca_smu_mca_get_err_count,
--		.bank_is_valid = mca_smu_bank_is_valid,
--	}, {
--		.blkid = AMDGPU_RAS_BLOCK__MMHUB,
--		.ip = AMDGPU_MCA_IP_SMU,
--		.err_code_array = mmhub_err_codes,
--		.err_code_count = ARRAY_SIZE(mmhub_err_codes),
--		.get_err_count = mca_smu_mca_get_err_count,
--		.bank_is_valid = mca_smu_bank_is_valid,
--	}, {
--		.blkid = AMDGPU_RAS_BLOCK__XGMI_WAFL,
--		.ip = AMDGPU_MCA_IP_PCS_XGMI,
--		.get_err_count = mca_pcs_xgmi_mca_get_err_count,
--	},
--};
--
--static const struct mca_ras_info *mca_get_mca_ras_info(struct amdgpu_device *adev, enum amdgpu_ras_block blkid)
+-static int mca_dump_ue_open(struct inode *inode, struct file *file)
 -{
--	int i;
--
--	for (i = 0; i < ARRAY_SIZE(mca_ras_table); i++) {
--		if (mca_ras_table[i].blkid == blkid)
--			return &mca_ras_table[i];
--	}
--
--	return NULL;
+-	return single_open(file, mca_dump_ue_show, inode->i_private);
 -}
 -
--static int mca_get_valid_mca_count(struct amdgpu_device *adev, enum amdgpu_mca_error_type type, uint32_t *count)
--{
--	struct smu_context *smu = adev->powerplay.pp_handle;
--	int ret;
+-static const struct file_operations mca_ue_dump_debug_fops = {
+-	.owner = THIS_MODULE,
+-	.open = mca_dump_ue_open,
+-	.read = seq_read,
+-	.llseek = seq_lseek,
+-	.release = single_release,
+-};
 -
--	switch (type) {
--	case AMDGPU_MCA_ERROR_TYPE_UE:
--	case AMDGPU_MCA_ERROR_TYPE_CE:
--		ret = smu_v13_0_6_get_valid_mca_count(smu, type, count);
--		break;
--	default:
--		ret = -EINVAL;
--		break;
+-DEFINE_DEBUGFS_ATTRIBUTE(mca_debug_mode_fops, NULL, amdgpu_mca_smu_debug_mode_set, "%llu\n");
+-#endif
+-
+-void amdgpu_mca_smu_debugfs_init(struct amdgpu_device *adev, struct dentry *root)
+-{
+-#if defined(CONFIG_DEBUG_FS)
+-	if (!root || amdgpu_ip_version(adev, MP1_HWIP, 0) != IP_VERSION(13, 0, 6))
+-		return;
+-
+-	debugfs_create_file("mca_debug_mode", 0200, root, adev, &mca_debug_mode_fops);
+-	debugfs_create_file("mca_ue_dump", 0400, root, adev, &mca_ue_dump_debug_fops);
+-	debugfs_create_file("mca_ce_dump", 0400, root, adev, &mca_ce_dump_debug_fops);
+-#endif
+-}
+-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h
+index b399f1b62887..04d91c239a2b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h
+@@ -23,50 +23,6 @@
+ 
+ #include "amdgpu_ras.h"
+ 
+-#define MCA_MAX_REGS_COUNT	(16)
+-
+-#define MCA_REG_FIELD(x, h, l)			(((x) & GENMASK_ULL(h, l)) >> l)
+-#define MCA_REG__STATUS__VAL(x)			MCA_REG_FIELD(x, 63, 63)
+-#define MCA_REG__STATUS__OVERFLOW(x)		MCA_REG_FIELD(x, 62, 62)
+-#define MCA_REG__STATUS__UC(x)			MCA_REG_FIELD(x, 61, 61)
+-#define MCA_REG__STATUS__EN(x)			MCA_REG_FIELD(x, 60, 60)
+-#define MCA_REG__STATUS__MISCV(x)		MCA_REG_FIELD(x, 59, 59)
+-#define MCA_REG__STATUS__ADDRV(x)		MCA_REG_FIELD(x, 58, 58)
+-#define MCA_REG__STATUS__PCC(x)			MCA_REG_FIELD(x, 57, 57)
+-#define MCA_REG__STATUS__ERRCOREIDVAL(x)	MCA_REG_FIELD(x, 56, 56)
+-#define MCA_REG__STATUS__TCC(x)			MCA_REG_FIELD(x, 55, 55)
+-#define MCA_REG__STATUS__SYNDV(x)		MCA_REG_FIELD(x, 53, 53)
+-#define MCA_REG__STATUS__CECC(x)		MCA_REG_FIELD(x, 46, 46)
+-#define MCA_REG__STATUS__UECC(x)		MCA_REG_FIELD(x, 45, 45)
+-#define MCA_REG__STATUS__DEFERRED(x)		MCA_REG_FIELD(x, 44, 44)
+-#define MCA_REG__STATUS__POISON(x)		MCA_REG_FIELD(x, 43, 43)
+-#define MCA_REG__STATUS__SCRUB(x)		MCA_REG_FIELD(x, 40, 40)
+-#define MCA_REG__STATUS__ERRCOREID(x)		MCA_REG_FIELD(x, 37, 32)
+-#define MCA_REG__STATUS__ADDRLSB(x)		MCA_REG_FIELD(x, 29, 24)
+-#define MCA_REG__STATUS__ERRORCODEEXT(x)	MCA_REG_FIELD(x, 21, 16)
+-#define MCA_REG__STATUS__ERRORCODE(x)		MCA_REG_FIELD(x, 15, 0)
+-
+-#define MCA_REG__MISC0__ERRCNT(x)		MCA_REG_FIELD(x, 43, 32)
+-
+-#define MCA_REG__SYND__ERRORINFORMATION(x)	MCA_REG_FIELD(x, 17, 0)
+-
+-enum amdgpu_mca_ip {
+-	AMDGPU_MCA_IP_UNKNOW = -1,
+-	AMDGPU_MCA_IP_PSP = 0,
+-	AMDGPU_MCA_IP_SDMA,
+-	AMDGPU_MCA_IP_GC,
+-	AMDGPU_MCA_IP_SMU,
+-	AMDGPU_MCA_IP_MP5,
+-	AMDGPU_MCA_IP_UMC,
+-	AMDGPU_MCA_IP_PCS_XGMI,
+-	AMDGPU_MCA_IP_COUNT,
+-};
+-
+-enum amdgpu_mca_error_type {
+-	AMDGPU_MCA_ERROR_TYPE_UE = 0,
+-	AMDGPU_MCA_ERROR_TYPE_CE,
+-};
+-
+ struct amdgpu_mca_ras_block {
+ 	struct amdgpu_ras_block_object ras_block;
+ };
+@@ -80,55 +36,6 @@ struct amdgpu_mca {
+ 	struct amdgpu_mca_ras mp0;
+ 	struct amdgpu_mca_ras mp1;
+ 	struct amdgpu_mca_ras mpio;
+-	const struct amdgpu_mca_smu_funcs *mca_funcs;
+-};
+-
+-enum mca_reg_idx {
+-	MCA_REG_IDX_STATUS		= 1,
+-	MCA_REG_IDX_ADDR		= 2,
+-	MCA_REG_IDX_MISC0		= 3,
+-	MCA_REG_IDX_IPID		= 5,
+-	MCA_REG_IDX_SYND		= 6,
+-	MCA_REG_IDX_COUNT		= 16,
+-};
+-
+-struct mca_bank_info {
+-	int socket_id;
+-	int aid;
+-	int hwid;
+-	int mcatype;
+-};
+-
+-struct mca_bank_entry {
+-	int idx;
+-	enum amdgpu_mca_error_type type;
+-	enum amdgpu_mca_ip ip;
+-	struct mca_bank_info info;
+-	uint64_t regs[MCA_MAX_REGS_COUNT];
+-};
+-
+-struct mca_bank_node {
+-	struct mca_bank_entry entry;
+-	struct list_head node;
+-};
+-
+-struct mca_bank_set {
+-	int nr_entries;
+-	struct list_head list;
+-};
+-
+-struct amdgpu_mca_smu_funcs {
+-	int max_ue_count;
+-	int max_ce_count;
+-	int (*mca_set_debug_mode)(struct amdgpu_device *adev, bool enable);
+-	int (*mca_get_ras_mca_set)(struct amdgpu_device *adev, enum amdgpu_ras_block blk, enum amdgpu_mca_error_type type,
+-				   struct mca_bank_set *mca_set);
+-	int (*mca_parse_mca_error_count)(struct amdgpu_device *adev, enum amdgpu_ras_block blk, enum amdgpu_mca_error_type type,
+-					 struct mca_bank_entry *entry, uint32_t *count);
+-	int (*mca_get_valid_mca_count)(struct amdgpu_device *adev, enum amdgpu_mca_error_type type,
+-				       uint32_t *count);
+-	int (*mca_get_mca_entry)(struct amdgpu_device *adev, enum amdgpu_mca_error_type type,
+-				 int idx, struct mca_bank_entry *entry);
+ };
+ 
+ void amdgpu_mca_query_correctable_error_count(struct amdgpu_device *adev,
+@@ -149,25 +56,4 @@ int amdgpu_mca_mp0_ras_sw_init(struct amdgpu_device *adev);
+ int amdgpu_mca_mp1_ras_sw_init(struct amdgpu_device *adev);
+ int amdgpu_mca_mpio_ras_sw_init(struct amdgpu_device *adev);
+ 
+-void amdgpu_mca_smu_init_funcs(struct amdgpu_device *adev, const struct amdgpu_mca_smu_funcs *mca_funcs);
+-int amdgpu_mca_smu_set_debug_mode(struct amdgpu_device *adev, bool enable);
+-int amdgpu_mca_smu_get_valid_mca_count(struct amdgpu_device *adev, enum amdgpu_mca_error_type type, uint32_t *count);
+-int amdgpu_mca_smu_get_mca_set_error_count(struct amdgpu_device *adev, enum amdgpu_ras_block blk,
+-					   enum amdgpu_mca_error_type type, uint32_t *total);
+-int amdgpu_mca_smu_get_error_count(struct amdgpu_device *adev, enum amdgpu_ras_block blk,
+-				   enum amdgpu_mca_error_type type, uint32_t *count);
+-int amdgpu_mca_smu_parse_mca_error_count(struct amdgpu_device *adev, enum amdgpu_ras_block blk,
+-					 enum amdgpu_mca_error_type type, struct mca_bank_entry *entry, uint32_t *count);
+-int amdgpu_mca_smu_get_mca_set(struct amdgpu_device *adev, enum amdgpu_ras_block blk,
+-			       enum amdgpu_mca_error_type type, struct mca_bank_set *mca_set);
+-int amdgpu_mca_smu_get_mca_entry(struct amdgpu_device *adev, enum amdgpu_mca_error_type type,
+-				 int idx, struct mca_bank_entry *entry);
+-
+-void amdgpu_mca_smu_debugfs_init(struct amdgpu_device *adev, struct dentry *root);
+-
+-void amdgpu_mca_bank_set_init(struct mca_bank_set *mca_set);
+-int amdgpu_mca_bank_set_add_entry(struct mca_bank_set *mca_set, struct mca_bank_entry *entry);
+-void amdgpu_mca_bank_set_release(struct mca_bank_set *mca_set);
+-int amdgpu_mca_smu_log_ras_error(struct amdgpu_device *adev, enum amdgpu_ras_block blk, enum amdgpu_mca_error_type type, struct ras_err_data *err_data);
+-
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 7a5ba67c9884..ee56bf873933 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -3481,20 +3481,6 @@ int amdgpu_ras_reset_gpu(struct amdgpu_device *adev)
+ 	return 0;
+ }
+ 
+-int amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool enable)
+-{
+-	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+-	int ret = 0;
+-
+-	if (con) {
+-		ret = amdgpu_mca_smu_set_debug_mode(adev, enable);
+-		if (!ret)
+-			con->is_aca_debug_mode = enable;
 -	}
 -
 -	return ret;
 -}
 -
--static bool mca_bank_is_valid(struct amdgpu_device *adev, const struct mca_ras_info *mca_ras,
--			      enum amdgpu_mca_error_type type, struct mca_bank_entry *entry)
--{
--	if (mca_decode_ipid_to_hwip(entry->regs[MCA_REG_IDX_IPID]) != mca_ras->ip)
--		return false;
--
--	if (mca_ras->bank_is_valid)
--		return mca_ras->bank_is_valid(mca_ras, adev, type, entry);
--
--	return true;
--}
--
--static int __mca_smu_get_ras_mca_set(struct amdgpu_device *adev, const struct mca_ras_info *mca_ras,
--				     enum amdgpu_mca_error_type type, struct mca_bank_set *mca_set)
--{
--	struct mca_bank_entry entry;
--	uint32_t mca_cnt;
--	int i, ret;
--
--	ret = mca_get_valid_mca_count(adev, type, &mca_cnt);
--	if (ret)
--		return ret;
--
--	/* if valid mca bank count is 0, the driver can return 0 directly */
--	if (!mca_cnt)
--		return 0;
--
--	for (i = 0; i < mca_cnt; i++) {
--		memset(&entry, 0, sizeof(entry));
--		ret = mca_get_mca_entry(adev, type, i, &entry);
--		if (ret)
--			return ret;
--
--		if (mca_ras && !mca_bank_is_valid(adev, mca_ras, type, &entry))
--			continue;
--
--		ret = amdgpu_mca_bank_set_add_entry(mca_set, &entry);
--		if (ret)
--			return ret;
--	}
--
--	return 0;
--}
--
--static int mca_smu_get_ras_mca_set(struct amdgpu_device *adev, enum amdgpu_ras_block blk,
--				   enum amdgpu_mca_error_type type, struct mca_bank_set *mca_set)
--{
--	const struct mca_ras_info *mca_ras = NULL;
--
--	if (!mca_set)
--		return -EINVAL;
--
--	if (blk != AMDGPU_RAS_BLOCK_COUNT) {
--		mca_ras = mca_get_mca_ras_info(adev, blk);
--		if (!mca_ras)
--			return -EOPNOTSUPP;
--	}
--
--	return __mca_smu_get_ras_mca_set(adev, mca_ras, type, mca_set);
--}
--
--static int mca_smu_parse_mca_error_count(struct amdgpu_device *adev, enum amdgpu_ras_block blk, enum amdgpu_mca_error_type type,
--					 struct mca_bank_entry *entry, uint32_t *count)
--{
--	const struct mca_ras_info *mca_ras;
--
--	if (!entry || !count)
--		return -EINVAL;
--
--	mca_ras = mca_get_mca_ras_info(adev, blk);
--	if (!mca_ras)
--		return -EOPNOTSUPP;
--
--	if (!mca_bank_is_valid(adev, mca_ras, type, entry)) {
--		*count = 0;
--		return 0;
--	}
--
--	return mca_ras->get_err_count(mca_ras, adev, type, entry, count);
--}
--
--static int mca_smu_get_mca_entry(struct amdgpu_device *adev,
--				 enum amdgpu_mca_error_type type, int idx, struct mca_bank_entry *entry)
--{
--	return mca_get_mca_entry(adev, type, idx, entry);
--}
--
--static int mca_smu_get_valid_mca_count(struct amdgpu_device *adev,
--				       enum amdgpu_mca_error_type type, uint32_t *count)
--{
--	return mca_get_valid_mca_count(adev, type, count);
--}
--
--static const struct amdgpu_mca_smu_funcs smu_v13_0_6_mca_smu_funcs = {
--	.max_ue_count = 12,
--	.max_ce_count = 12,
--	.mca_set_debug_mode = mca_smu_set_debug_mode,
--	.mca_get_ras_mca_set = mca_smu_get_ras_mca_set,
--	.mca_parse_mca_error_count = mca_smu_parse_mca_error_count,
--	.mca_get_mca_entry = mca_smu_get_mca_entry,
--	.mca_get_valid_mca_count = mca_smu_get_valid_mca_count,
--};
--
- static int aca_smu_set_debug_mode(struct amdgpu_device *adev, bool enable)
+ int amdgpu_ras_set_aca_debug_mode(struct amdgpu_device *adev, bool enable)
  {
- 	struct smu_context *smu = adev->powerplay.pp_handle;
-@@ -3104,6 +2600,5 @@ void smu_v13_0_6_set_ppt_funcs(struct smu_context *smu)
- 	smu->table_map = smu_v13_0_6_table_map;
- 	smu->smc_driver_if_version = SMU13_0_6_DRIVER_IF_VERSION;
- 	smu_v13_0_set_smu_mailbox_registers(smu);
--	amdgpu_mca_smu_init_funcs(smu->adev, &smu_v13_0_6_mca_smu_funcs);
- 	amdgpu_aca_set_smu_funcs(smu->adev, &smu_v13_0_6_aca_smu_funcs);
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index 5c7212b1255f..0947eb79b6d5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -783,7 +783,6 @@ struct amdgpu_ras* amdgpu_ras_get_context(struct amdgpu_device *adev);
+ 
+ int amdgpu_ras_set_context(struct amdgpu_device *adev, struct amdgpu_ras *ras_con);
+ 
+-int amdgpu_ras_set_mca_debug_mode(struct amdgpu_device *adev, bool enable);
+ int amdgpu_ras_set_aca_debug_mode(struct amdgpu_device *adev, bool enable);
+ bool amdgpu_ras_get_aca_debug_mode(struct amdgpu_device *adev);
+ bool amdgpu_ras_get_error_query_mode(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+index aa0ce6103dae..9a6127824df4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+@@ -374,10 +374,7 @@ static int umc_v12_0_err_cnt_init_per_channel(struct amdgpu_device *adev,
+ static void umc_v12_0_ecc_info_query_ras_error_count(struct amdgpu_device *adev,
+ 					void *ras_error_status)
+ {
+-	amdgpu_mca_smu_log_ras_error(adev,
+-		AMDGPU_RAS_BLOCK__UMC, AMDGPU_MCA_ERROR_TYPE_CE, ras_error_status);
+-	amdgpu_mca_smu_log_ras_error(adev,
+-		AMDGPU_RAS_BLOCK__UMC, AMDGPU_MCA_ERROR_TYPE_UE, ras_error_status);
++	/* TODO: need to implement it base on new ACA driver. */
  }
+ 
+ static void umc_v12_0_ecc_info_query_ras_error_address(struct amdgpu_device *adev,
 -- 
 2.34.1
 
