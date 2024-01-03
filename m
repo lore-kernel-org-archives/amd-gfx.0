@@ -4,40 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43DF3C3DA6E
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jan 2024 16:02:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01250C3DA6E
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jan 2024 18:51:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAA7410E102;
-	Wed,  3 Jan 2024 16:02:19 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24DA710E050;
- Wed,  3 Jan 2024 15:41:16 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id C5E09601D5;
- Wed,  3 Jan 2024 15:41:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C20BDC433C8;
- Wed,  3 Jan 2024 15:41:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1704296474;
- bh=aEJnG2VlNw6NSwF4y8+XKqOc5IR7JWeAEFNGBBFHiLg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=qLFtTi2a/GL9P10mlSrOO9kHj1j77DENeV6ovGrlwE/FViNfIXSzY5oysBG1YO3mw
- lLisUCDB9n5oR6mngtgnlHotZXcb8M6Bc90NgQ1r5GqDpCBfHv4dQeONFGbpYU2G5X
- rLkaSRCCnpKPyP5hBCoZgHmTmb8muTuAgIXifoMk=
-Date: Wed, 3 Jan 2024 16:41:11 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Subject: Re: [RFC PATCH] drm/amd/display: fix bandwidth validation failure on
- DCN 2.1
-Message-ID: <2024010301-diameter-debatable-ec3b@gregkh>
-References: <20231229163821.144599-1-mwen@igalia.com>
- <e8d478fe-a66b-4165-b2bc-ca5b263034c5@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D4C310E1A2;
+	Wed,  3 Jan 2024 18:51:08 +0000 (UTC)
+Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
+ [IPv6:2001:4860:4864:20::2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FEDB10E1A2
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jan 2024 18:51:07 +0000 (UTC)
+Received: by mail-oa1-x2e.google.com with SMTP id
+ 586e51a60fabf-2046b2cd2d3so7143985fac.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 03 Jan 2024 10:51:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1704307866; x=1704912666; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ifBdMOVN3dUWnW8i45ra1ONqZTl6Lq40o6xbia0mdcs=;
+ b=Emezwqf9+WfPTLRducz+4dtoSOQcnbsM5q6ZZnRmpXPbggHj5xE7DLT7SsVOR6EO+C
+ PChlNMbaJ7lSMGx1uhL2IGMIVKEjH81Oa8rdrUGmgwXylLdp2SpxQBjM+sTsE/HmM/Hj
+ UJz7xoU7tCkeO0muRdfWTgUGqHLN8TAq5/dEfR0irlUD+Jus8lbeG1dqySoH6R7oMuDp
+ 06szrNy1UeQEih9quJOaiI90N1hN/eeb4omthtlvr6zeGTMauViooph2xPf8JL4m+0HG
+ 6HDZJpAcnGiRRqL93Fp46qm21PqZCtE/N7SxqmfInAuPOA6JnE1bHIW1e5K/rft9/Ah9
+ 69Zg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1704307866; x=1704912666;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ifBdMOVN3dUWnW8i45ra1ONqZTl6Lq40o6xbia0mdcs=;
+ b=nB2ltPcngCCr/ROzox64FxqWAJHMlRaUZjPl8VenSVOh7DNKw+czada59p8kmjer7P
+ 4V5Dfq7JL4Te1RO4pVwiRXKAsUpgOIycdYuDgxdlNPR36hkgitpZ2KMTAN+LtNFNa+xN
+ 8rd5T6vLHhrptg3eRCyjaf7msUU8GTqtRf4dtrme6I3cP9AHMXfsMuOduhG+fohIgJym
+ dDkfCsI3ZlJQ4AYNfDBhaaVejCFe2hQcoCUT4N6baCo8T93Zp8CHa02hlEcdYlsw5zVx
+ TjwtzyPeTRAJq+HHitbOv+EyzR0whDrNt7G0S2DYuMbVEjSsupGBr8d53h0RXQIv7PYH
+ nk0Q==
+X-Gm-Message-State: AOJu0YxbWnJoMX09ZznWx+G1iSCmDAW8yHyzU7RDEZ5l/eZFrcCqDkAz
+ LRZxFkayNTttetg+qjhRIFs+vwTDYc9cazXskFc=
+X-Google-Smtp-Source: AGHT+IHOP7qIYn2TOxkjIMKSUChfmkC2yL90eQTWa0qYcI4dYY5oHGWjbHsU1kmGTv2JtdOKQuTZkrUx5yV3Kmb4fQk=
+X-Received: by 2002:a05:6871:28f:b0:1fb:75c:3fe8 with SMTP id
+ i15-20020a056871028f00b001fb075c3fe8mr26438216oae.72.1704307866552; Wed, 03
+ Jan 2024 10:51:06 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e8d478fe-a66b-4165-b2bc-ca5b263034c5@amd.com>
-X-Mailman-Approved-At: Wed, 03 Jan 2024 16:02:17 +0000
+References: <20240103043000.23971-1-ent3rm4n@gmail.com>
+ <CADnq5_NexkgrEKbM39QVGo+hOmd2G0Yc0sui3jWuJsKAyb3ONg@mail.gmail.com>
+ <10b32f43-7b0c-1232-1070-cf51731c5d5f@amd.com>
+In-Reply-To: <10b32f43-7b0c-1232-1070-cf51731c5d5f@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 3 Jan 2024 13:50:54 -0500
+Message-ID: <CADnq5_PF8DrWHiSfwq3ju0eKkX0dN8JwZHwnCoBpzXFhucFmzA@mail.gmail.com>
+Subject: Re: [PATCH] Revert "drm/amdkfd: Relocate TBA/TMA to opposite side of
+ VM hole"
+To: Jay Cornwall <jay.cornwall@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,101 +70,111 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel-dev@igalia.com, sunpeng.li@amd.com, airlied@gmail.com,
- qingqing.zhuo@amd.com, Xinhui.Pan@amd.com,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, dri-devel@lists.freedesktop.org,
- Melissa Wen <mwen@igalia.com>, Alex Hung <alex.hung@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>, amd-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- Harry Wentland <harry.wentland@amd.com>, christian.koenig@amd.com
+Cc: Kaibo Ma <ent3rm4n@gmail.com>, "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 03, 2024 at 09:44:18AM -0500, Hamza Mahfooz wrote:
-> On 12/29/23 11:25, Melissa Wen wrote:
-> > IGT `amdgpu/amd_color/crtc-lut-accuracy` fails right at the beginning of
-> > the test execution, during atomic check, because DC rejects the
-> > bandwidth state for a fb sizing 64x64. The test was previously working
-> > with the deprecated dc_commit_state(). Now using
-> > dc_validate_with_context() approach, the atomic check needs to perform a
-> > full state validation. Therefore, set fast_validation to false in the
-> > dc_validate_global_state call for atomic check.
-> > 
-> > Fixes: b8272241ff9d ("drm/amd/display: Drop dc_commit_state in favor of dc_commit_streams")
-> > Signed-off-by: Melissa Wen <mwen@igalia.com>
-> > ---
-> > 
-> > Hi,
-> > 
-> > It's a long story. I was inspecting this bug report:
-> > - https://gitlab.freedesktop.org/drm/amd/-/issues/2016
-> > and noticed the IGT test `igt@amdgpu/amd_color@crtc-lut-accuracy`
-> > mentioned there wasn't even being executed on a laptop with DCN 2.1
-> > (HP HP ENVY x360 Convertible 13-ay1xxx/8929). The test fails right at
-> > the beginning due to an atomic check rejection, as below:
-> > 
-> > Starting subtest: crtc-lut-accuracy
-> > (amd_color:14772) igt_kms-CRITICAL: Test assertion failure function igt_display_commit_atomic, file ../lib/igt_kms.c:4530:
-> > (amd_color:14772) igt_kms-CRITICAL: Failed assertion: ret == 0
-> > (amd_color:14772) igt_kms-CRITICAL: Last errno: 22, Invalid argument
-> > (amd_color:14772) igt_kms-CRITICAL: error: -22 != 0
-> > Stack trace:
-> >    #0 ../lib/igt_core.c:1989 __igt_fail_assert()
-> >    #1 [igt_display_commit_atomic+0x44]
-> >    #2 ../tests/amdgpu/amd_color.c:159 __igt_unique____real_main395()
-> >    #3 ../tests/amdgpu/amd_color.c:395 main()
-> >    #4 ../sysdeps/nptl/libc_start_call_main.h:74 __libc_start_call_main()
-> >    #5 ../csu/libc-start.c:128 __libc_start_main@@GLIBC_2.34()
-> >    #6 [_start+0x21]
-> > Subtest crtc-lut-accuracy failed.
-> > 
-> > Checking dmesg, we can see that a bandwidth validation failure causes
-> > the atomic check rejection:
-> > 
-> > [  711.147663] amdgpu 0000:04:00.0: [drm] Mode Validation Warning: Unknown Status failed validation.
-> > [  711.147667] [drm:amdgpu_dm_atomic_check [amdgpu]] DC global validation failure: Bandwidth validation failure (BW and Watermark) (13)
-> > [  711.147772] [drm:amdgpu_irq_dispatch [amdgpu]] Unregistered interrupt src_id: 243 of client_id:8
-> > [  711.148033] [drm:amdgpu_dm_atomic_check [amdgpu]] Atomic check failed with err: -22
-> > 
-> > I also noticed that the atomic check doesn't fail if I change the fb
-> > width and height used in the test from 64 to 66, and I can get the test
-> > execution back (and with success). However, I recall that all test cases
-> > of IGT `amd_color` were working in the past, so I bisected and found the
-> > first bad commit:
-> > 
-> > b8272241ff9d drm/amd/display: Drop dc_commit_state in favor of dc_commit_streams
-> > 
-> > Bringing the `dc_commit_state` machinery back also prevents the
-> > bandwidth validation failure, but the commit above says
-> > dc_commit_streams validation is more complete than dc_commit_state, so I
-> > discarded this approach.
-> > 
-> > After some debugging and code inspection, I found out that avoiding fast
-> > validation on dc_validate_global_state during atomic check solves the
-> > issue, but I'm not sure if this change may affect performance. I
-> > compared exec time of some IGT tests and didn't see any differences, but
-> > I recognize it doesn't provide enough evidence.
-> > 
-> > What do you think about this change? Should I examine other things? Do
-> > you see any potential issue that I should investigate? Could you
-> > recommend a better approach to assess any side-effect of not enabling
-> > fast validation in the atomic check?
-> > 
-> > Please, let me know your thoughts.
-> 
-> We shouldn't be doing fast updates when lock_and_validation_needed is
-> true, so this seems to be correct.
-> 
-> Which is to say, applied, thanks!
-> 
-> Cc: stable@vger.kernel.org
+Applied.  Thanks!
 
-<formletter>
+Alex
 
-This is not the correct way to submit patches for inclusion in the
-stable kernel tree.  Please read:
-    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
-for how to do this properly.
-
-</formletter>
+On Wed, Jan 3, 2024 at 10:33=E2=80=AFAM Jay Cornwall <jay.cornwall@amd.com>=
+ wrote:
+>
+> On 1/3/2024 09:19, Alex Deucher wrote:
+> > + Jay, Felix
+> >
+> > On Wed, Jan 3, 2024 at 5:16=E2=80=AFAM Kaibo Ma <ent3rm4n@gmail.com> wr=
+ote:
+> >>
+> >> That commit causes NULL pointer dereferences in dmesgs when
+> >> running applications using ROCm, including clinfo, blender,
+> >> and PyTorch, since v6.6.1. Revert it to fix blender again.
+> >>
+> >> This reverts commit 96c211f1f9ef82183493f4ceed4e347b52849149.
+> >>
+> >> Closes: https://github.com/ROCm/ROCm/issues/2596
+> >> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/2991
+> >> Signed-off-by: Kaibo Ma <ent3rm4n@gmail.com>
+> >> ---
+> >>  drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c | 26 ++++++++++---------=
+-
+> >>  1 file changed, 13 insertions(+), 13 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c b/drivers/gp=
+u/drm/amd/amdkfd/kfd_flat_memory.c
+> >> index 62b205dac..6604a3f99 100644
+> >> --- a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
+> >> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
+> >> @@ -330,12 +330,6 @@ static void kfd_init_apertures_vi(struct kfd_proc=
+ess_device *pdd, uint8_t id)
+> >>         pdd->gpuvm_limit =3D
+> >>                 pdd->dev->kfd->shared_resources.gpuvm_size - 1;
+> >>
+> >> -       /* dGPUs: the reserved space for kernel
+> >> -        * before SVM
+> >> -        */
+> >> -       pdd->qpd.cwsr_base =3D SVM_CWSR_BASE;
+> >> -       pdd->qpd.ib_base =3D SVM_IB_BASE;
+> >> -
+> >>         pdd->scratch_base =3D MAKE_SCRATCH_APP_BASE_VI();
+> >>         pdd->scratch_limit =3D MAKE_SCRATCH_APP_LIMIT(pdd->scratch_bas=
+e);
+> >>  }
+> >> @@ -345,18 +339,18 @@ static void kfd_init_apertures_v9(struct kfd_pro=
+cess_device *pdd, uint8_t id)
+> >>         pdd->lds_base =3D MAKE_LDS_APP_BASE_V9();
+> >>         pdd->lds_limit =3D MAKE_LDS_APP_LIMIT(pdd->lds_base);
+> >>
+> >> -       pdd->gpuvm_base =3D PAGE_SIZE;
+> >> +        /* Raven needs SVM to support graphic handle, etc. Leave the =
+small
+> >> +         * reserved space before SVM on Raven as well, even though we=
+ don't
+> >> +         * have to.
+> >> +         * Set gpuvm_base and gpuvm_limit to CANONICAL addresses so t=
+hat they
+> >> +         * are used in Thunk to reserve SVM.
+> >> +         */
+> >> +        pdd->gpuvm_base =3D SVM_USER_BASE;
+> >>         pdd->gpuvm_limit =3D
+> >>                 pdd->dev->kfd->shared_resources.gpuvm_size - 1;
+> >>
+> >>         pdd->scratch_base =3D MAKE_SCRATCH_APP_BASE_V9();
+> >>         pdd->scratch_limit =3D MAKE_SCRATCH_APP_LIMIT(pdd->scratch_bas=
+e);
+> >> -
+> >> -       /*
+> >> -        * Place TBA/TMA on opposite side of VM hole to prevent
+> >> -        * stray faults from triggering SVM on these pages.
+> >> -        */
+> >> -       pdd->qpd.cwsr_base =3D pdd->dev->kfd->shared_resources.gpuvm_s=
+ize;
+> >>  }
+> >>
+> >>  int kfd_init_apertures(struct kfd_process *process)
+> >> @@ -413,6 +407,12 @@ int kfd_init_apertures(struct kfd_process *proces=
+s)
+> >>                                         return -EINVAL;
+> >>                                 }
+> >>                         }
+> >> +
+> >> +                        /* dGPUs: the reserved space for kernel
+> >> +                         * before SVM
+> >> +                         */
+> >> +                        pdd->qpd.cwsr_base =3D SVM_CWSR_BASE;
+> >> +                        pdd->qpd.ib_base =3D SVM_IB_BASE;
+> >>                 }
+> >>
+> >>                 dev_dbg(kfd_device, "node id %u\n", id);
+> >> --
+> >> 2.42.0
+> >>
+>
+> I saw a segfault issue in Mesa yesterday. Not sure about the others, but =
+I don't know how to make this change while compatibility with older UMDs.
+>
+> So I agree, let's revert it.
+>
+> Reviewed-by: Jay Cornwall <jay.cornwall@amd.com>
