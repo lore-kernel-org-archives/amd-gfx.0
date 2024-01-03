@@ -4,117 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52CEDC3DA6E
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jan 2024 12:28:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83B11C3DA6E
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jan 2024 14:19:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4EEB10E2A1;
-	Wed,  3 Jan 2024 12:28:00 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20620.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e88::620])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF10510E280
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jan 2024 12:27:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05C0210E2C8;
+	Wed,  3 Jan 2024 14:19:57 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2056.outbound.protection.outlook.com [40.107.95.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D08C10E2C8
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jan 2024 14:19:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NUCPhtEy4H9pXd/wkmnLGMOwTgETZi4Q1cn8RohYtEkHdBgOtJZJ4VmTRG+Oql3t/i9nL7jXMw4KUCMtQ0jxF2n5isIQeaqZ/UZZjpRlDKH7FL7QHxagvPHFOo93LJWh/nK9jAuBpBagynDspWVzcpEAuq4lB9e3pfpLFdDgEw5KhyF8n8z3h97N1OmcYNSqCEEgyIAFStH9CiFnlieicxf7BOkB1eaITi9CmfmaZPvTcq4H8KExYJ4KIXr+dLrB/oMCsVNDCxo6MH/kai+Usz6zWYzCUJ4QnxKgSio+TyBJg0k2jUzLLr4NFivoILSEmOEQNiWRjhj5VXEbPgO/aw==
+ b=fU90V6nZneQb49ARS6DcPwYIrjbVXTbN8oNs/krKOmKWMoDoDMkM1/2MokUJCj35wPk7x4+voLi5EV+3GEazBgLPgRKWS33+l85awIKz/Oc3Rmn8LEm5jk44uJTTvSqCE8Vg6+Q4lawQ3blCSYbrXpPcxAu5Vp/1wQtBKEV//OPyy7Zp6GdiiRlYRT6uU3qQVzdmrqLLz8tqmFCpHaez0NuXAxzNeEhFjEGuZQMiLMT0OSQQufR3a3vgZKbKozK+7ZYCE6oLQz3UbYW55UyOy9ItCX5Nt6aJ8BHeSEqCJ3jNR8JRvhjib22h/oYmKLF3aLizqxqi/FIQPFUWAB4OaA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=znL6uQ8KlmT08KIJ476/IzmzThV1S+XmdWA61DGiUNk=;
- b=m2NG6QmemuPjp28+K9xfDJCmChLampmFSJXQs3uCj6K6FxuRRWrV/y9qJkaZZZnt12+ViHKy9cSmB6NSLC1jK1se9qWjn4NyFvUohQNNsKBIzk0BBMwcHgfctM+VnbMjV998Njq/QAZa2i1QXJbUzJqDN1sCysUveOAZ/GW81um5+8ccysGq0JtEWvNetlPMDVW0hfB9oIAVENonHYjNBqPOfoG7ZDqnqHcT1igg0ZlDI3DmYub/2l/usKM2OIcDeV7SyXzdomcY4rLUMi7kwVw6GyUYHzhmAEb6Y/AlnxKVtHpxi8DZRmmHnxHmj3Sar6zvjmarz/bRTbwaaCAtnw==
+ bh=YPk0QZp846FMbFRvutGdAAotCIbgUyKGCaVz0KM6VFE=;
+ b=GrEwDNrQ+sRKNVyFNK2MYeLG8l7qiIQVxqdqa5XPrwC3u5Kr/mv4MWlR2Be1tmgNOcZ6h8ksZfK390BLuHmM8sweBptMhAyHghR/z2i1zEJGrJbQ6RPn2qIZ8aU3i9/RL0gOQnmDgfIKn4FS+sIKBj+4P7L8AdFA7rZ3WCPDecbqk84oFr26aO+nhsHntA33Ic0kg+NCwL3tXJqkY0Zca0ggIjdnFvfKzmExfIf1pZq/g1+UAF1OizT58cYFlS0ni9F060i7V6Zk9yzEhiVmO5wKr9FJLyBzavSp+r7RK/It1I5LI0IHs5ctVL7bhhmQfcsran4InGo7Utx2sACuow==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=znL6uQ8KlmT08KIJ476/IzmzThV1S+XmdWA61DGiUNk=;
- b=P6wUpJRZQ+fdY9gdswKY1v79EDzoKYAUp/XK4W5yHs780kcsscRVbFuADx/6DtGPh04habt7uvb9EX4ZvauzNv3b+VzyR7bmJBXKZzM+UL5RqKyjnKI+ijX0y3Csk1dW692iSylSqwHhm6GMMns/ljiQAFqcJ7yMpvpWAPcdNwY=
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
- by BN9PR12MB5340.namprd12.prod.outlook.com (2603:10b6:408:105::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.25; Wed, 3 Jan
- 2024 12:27:53 +0000
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::61a8:83e4:c057:7790]) by PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::61a8:83e4:c057:7790%4]) with mapi id 15.20.7135.023; Wed, 3 Jan 2024
- 12:27:52 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 01/14] drm/amdgpu: implement RAS ACA driver framework
-Thread-Topic: [PATCH 01/14] drm/amdgpu: implement RAS ACA driver framework
-Thread-Index: AQHaPhtLgSrrHjiUrU+miRaE+NmfMrDH0lmAgAAslYCAAAE3wA==
-Date: Wed, 3 Jan 2024 12:27:52 +0000
-Message-ID: <PH7PR12MB59975D1C119B26AB2C51C0A28260A@PH7PR12MB5997.namprd12.prod.outlook.com>
-References: <20240103080220.2815115-1-kevinyang.wang@amd.com>
- <20240103080220.2815115-2-kevinyang.wang@amd.com>
- <BL1PR12MB52541DF0F27B2BD258A9FB79FC60A@BL1PR12MB5254.namprd12.prod.outlook.com>
- <BN9PR12MB525798EAC8D30A4F6B39DC7BFC60A@BN9PR12MB5257.namprd12.prod.outlook.com>
-In-Reply-To: <BN9PR12MB525798EAC8D30A4F6B39DC7BFC60A@BN9PR12MB5257.namprd12.prod.outlook.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=c75913d1-84e2-4042-836e-9a5fefd2b5d1;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-01-03T08:39:09Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
+ bh=YPk0QZp846FMbFRvutGdAAotCIbgUyKGCaVz0KM6VFE=;
+ b=U2xVjVLzFzHnbIk0f8prheMXgnpNI/oWX6bjqfgUJROAqth7KlVz8njuUxpp876Nje5Y9d4LZ+C3LelAvIuIEbEXI4FCBAdvB0M6x2UpED3XoKNRbtGxbbT3X7o6Njd14JtponIrmKmpSbG7QAGalEoyqGUtJqbnKMnQwQ27W94=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|BN9PR12MB5340:EE_
-x-ms-office365-filtering-correlation-id: f0342053-a228-46dd-4fa8-08dc0c57681f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: jK7VzMScWdPS26IMksWWl5r7JDYQmW5UmT60IlgF+xnEXizoMpdeqSuBRr5NeFxx8UYPzvWsdV9FvIAk1ce9PKvKeNr0yFkSba3UsLXywPwiKIDjv0XQeiXa9n6SlgEgxGItQW+hjwOhYCPtmlSCYQLxBxgiElWkCXohq0JpA+lJmijkLWSoWw3rd4VFUGLpxg6GgIHhnKt3A+V3LLdq5ToPydOuyqP2GV3/bdkp6QOM/jjZm/id3ACtmr0LlO8hWotMU2eEs0VlOHmELoXlWJ1AYilEIU2Cq/RAZQJ3ezmvgDDIB4/n5e8AyqIdQzniE4omQIjC1+E2VKsOIoS3srwP3pyODghaVrIc/i7uLQICRdFCmiBcaCkqItCed5hqoa2P/5hSK88+ljhLQwvG5cWScoxOkgMS0nN64s92XjQZ4FOr+C6yAUhjZTYbUo4FGxZgO6Hdtv6S1CGIuIMPwPfwO27WFS1/A4Mmt1qM/2TNaKJgDP6rhSUvdrg+mCbVLn8+AY5pF+0TlNR7FOGkW6SdO3X7Yqn9YTeoOmFrLYp4CoZJPau+Yg/oNHQ5YHUB1xGd1HGpm8FGLla4rLR/qUDyaknXsJ51s1p6vAgQfzfqA67OlRy6+MyS6XA1ytGscNGPmBUXFH7/SoX7mhPtFg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(346002)(39860400002)(376002)(136003)(366004)(230922051799003)(64100799003)(451199024)(186009)(1800799012)(478600001)(7696005)(9686003)(6506007)(71200400001)(53546011)(30864003)(83380400001)(26005)(41300700001)(2906002)(64756008)(54906003)(4326008)(110136005)(5660300002)(76116006)(316002)(66476007)(8936002)(66946007)(66556008)(8676002)(66446008)(52536014)(38070700009)(38100700002)(122000001)(86362001)(33656002)(66899024)(55016003)(21314003)(559001)(579004);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?K1wtaXpvcCRpTLPcFJbmTBoKSL7EOSVTW76BzakS3pwapnHKDcu1aZsdwPvq?=
- =?us-ascii?Q?4Yshu6crcQEmnkD0LY5tLcwoqNWfMOcOzEy7lm1HF97duf+3CC4aOJc/6pFn?=
- =?us-ascii?Q?MyJmJMoAoPAr2Q68paQXEYivN5DYe4zAyUEbHxRTJQZsJgbfe1YiPS/3i6Sf?=
- =?us-ascii?Q?aksNCxqylac8i41OK2L845xV9MiaGfiXEQDPpmdab7BQqQLzTSShPpM19dwH?=
- =?us-ascii?Q?nIXXAYRsr2e94H1/7sELySlDKY0LmTSLJxsBuMpYubfTCBGg7b/XK2cJrZCc?=
- =?us-ascii?Q?EcO5rhgG7ovK7xyLt3tjMOvBYlL6QliEEbCxdTG0s7lGZ4tR/+I0KxazcDlZ?=
- =?us-ascii?Q?Qtvh462Z6cvIczGS0LRGxCpUEKcUZ8Jv78Gm+mlbySnIgaVh2zCd2pOaZ4bz?=
- =?us-ascii?Q?vIEzcjf4BP2VoGXz8JXam6wwAFF+IaLBznmsTBuFcqtRrPcIAhq52cd2WWdG?=
- =?us-ascii?Q?XV7JgfxMdu6FrcjffsLdJREs7WOx60mZmz9wcIujRGt7uY/CF8KZHvqcGwb7?=
- =?us-ascii?Q?UkBnplegmuqzRLnlAbvTWv/5DrU5NYlq2EGuwtKCZgmEykxAPMaPxEKtJScn?=
- =?us-ascii?Q?UVEgon6giui3+ZSWgNn0IaNatqBxcoxyN9WLUi2cWo4TZeLdTpHJ6DVUKfdh?=
- =?us-ascii?Q?OvKdBwnnzhYKdLRPR0E9wFDsbzDxf6MJJzpsD+9aNpmwigOfOF81xdRRUy9F?=
- =?us-ascii?Q?84cCrvExVDhNVLdphaSZdkJHcAXCVRYu4NDBZ+/NzNkjUKeiwIGsMXFkEyje?=
- =?us-ascii?Q?Ef/vJZN8K5mGCVS4+lS5UPxUR/7LedfaCxROnkgqpvhMu+UtSLdil0g/xMuk?=
- =?us-ascii?Q?dDNezhBvB2LBPiT+Fc97xrmtgSgRMcxckZyI1dvJX/kh2EXJYQIi9mR8Xidf?=
- =?us-ascii?Q?RFYzojAona1Yk2uYUpGw9qnbbeC7T9RTWRoMkkN+n0yKB/fMUbQOxwBg9Q5X?=
- =?us-ascii?Q?IjB9UgYmgVUlbHVTNHydptf1BhNBRClSDw+c8biEBT2p8F2lbUtPeRXOY6xq?=
- =?us-ascii?Q?r1I7KrGw9/dAF6+T26jiV6xcbbm2v0gZ3CLIm419YBerkTvwJfgsyH1eH7Ll?=
- =?us-ascii?Q?3izy5oDs0L3EvQnzgwvAuCU0YotPAzxjNE81bGrSIGBkGlSYTfofUlehCP9I?=
- =?us-ascii?Q?Yw5u26iVZt5Nc4GK9vcbGQukf6kCNacWNZlEGNjo2LgEwVfQW0vh4upS5cMA?=
- =?us-ascii?Q?kqF/vLk01aj1gQvE7gxqkZelCrPJkME2hZ560NTnGHOtboxIAIvJQP1SY/f+?=
- =?us-ascii?Q?H7kncn8kA7sdg9wqoBr28ogZvX0IeMaiL2UKFdWwNJbxCXeXqvi8tAPpKidX?=
- =?us-ascii?Q?WM9PyZjzlJE3Y6y5laNoFUdS90xcaRkBLDyYfrb5mfr69ZbfwB0OlLNIYPNS?=
- =?us-ascii?Q?+SLM5dsfje61MXEgAUCzDSHyaSj2cYYFgGNwJEF08LDwDPSUQvlTdhoHiYBe?=
- =?us-ascii?Q?CTtFfmw9AE2Eiwsn+ipcRgYTb/dhZUPGMtnaTz0M8mIBpCiajjhyS1s/Itnb?=
- =?us-ascii?Q?TK9KYKVW39+eSe/3C5mRQk2JtaTSIfcMQ0aeHd+G8xdQ9ACpxurzm5MWSBqe?=
- =?us-ascii?Q?PCM0edLBu36qXDEEcbk=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_PH7PR12MB59975D1C119B26AB2C51C0A28260APH7PR12MB5997namp_"
+Received: from MN2PR12MB4128.namprd12.prod.outlook.com (2603:10b6:208:1dd::15)
+ by BL1PR12MB5141.namprd12.prod.outlook.com (2603:10b6:208:309::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.14; Wed, 3 Jan
+ 2024 14:19:47 +0000
+Received: from MN2PR12MB4128.namprd12.prod.outlook.com
+ ([fe80::3508:1efc:dcab:74bb]) by MN2PR12MB4128.namprd12.prod.outlook.com
+ ([fe80::3508:1efc:dcab:74bb%4]) with mapi id 15.20.7135.023; Wed, 3 Jan 2024
+ 14:19:47 +0000
+Message-ID: <75975bd6-3885-4bdd-a584-671561df7f6d@amd.com>
+Date: Wed, 3 Jan 2024 19:49:35 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/amdkfd: Prefer kernel data types u8, u16, u32, u64
+ in amdkfd/kfd_priv.h
+Content-Language: en-GB
+To: Felix Kuehling <felix.kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+References: <20231229110325.81696-1-srinivasan.shanmugam@amd.com>
+ <247331b3-1216-4853-8c48-2a1c32b57e52@amd.com>
+From: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>
+In-Reply-To: <247331b3-1216-4853-8c48-2a1c32b57e52@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN2PR01CA0089.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:23::34) To MN2PR12MB4128.namprd12.prod.outlook.com
+ (2603:10b6:208:1dd::15)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4128:EE_|BL1PR12MB5141:EE_
+X-MS-Office365-Filtering-Correlation-Id: 800fdc0f-3a98-4f02-eff1-08dc0c670a47
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Vi8xqmCuOmkf3hAqlSOnSxbM2RdB+Qv0q+ZJvfEzFBEo5HJMC8AzsQh0BXUyMUAq7reUBje3/0fZUkgNYnwm4RF/ofkqwJ1s6qi4/Dbv4A13oo2OgeDgSVjEMT9IceQQ0MXeaUpCWnQcNnxiTuHEAwrtRi2bxqmiHegWDyxwrNzMcsMrFa/MraXbxpqzDRo3LOOExOIJZMI0EMis4QEqiCf2lgDOLyymfW89xS7XfrAouYzs71dVXgNeNBdve38YUeToleH1/XINyMl56+usE1fb6cu3JjaS/gCo+dpvX+UyQaB7eXCt/vMSirQlywqc3nrnKtF0e9jABgPw8Zj6vmKFRBEZuGwt/ULPmuAoul5WFojo34BFLaKU4bW+wFAC+7YAXYP73jVxaPsvWIEgQ9rzCcoGNHMuw4CeIVMrChR2brZWaAWgELBEvGkoOlPAsg5y8bUeHWBDSYd8KcaFVHFX0RGizMUYUX62odI7rnZCzja5gLLQNJMO9MtGUFjPB61sQcifWddvLtmpvgcqEuEpXRXfTFeekSCG6POMW+kWGFp94B0BQLVpGUI7zOTwkWcyzuetAukPEJs4VPCRmowoCV0ViCWwNRr7X9tcIEHSYQ7bwKK9uITiziC72/kkQQupePBLfQTIOtGgK/ZBgg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4128.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(396003)(136003)(366004)(376002)(39860400002)(346002)(230922051799003)(186009)(64100799003)(1800799012)(451199024)(5660300002)(30864003)(4001150100001)(2906002)(4326008)(8676002)(8936002)(316002)(66574015)(6636002)(110136005)(66556008)(66946007)(66476007)(31686004)(2616005)(6512007)(26005)(83380400001)(41300700001)(38100700002)(36756003)(86362001)(31696002)(6506007)(6666004)(478600001)(6486002)(966005)(53546011)(45980500001)(43740500002)(579004);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MlhwRWM4NGREcURqRjlDZm1ITlNnb2psZ2FuWmI4aGdzdWZEeHgxTzU4SjFS?=
+ =?utf-8?B?TjBlaGQ1U1ZVM2FXQjBCeFkrSWlPMGUrWEdRQWpiQThDZkRWanMrd05BT25F?=
+ =?utf-8?B?a0g2QXJneERRejVkK1ZZK05ScWh1djIwRytpdjJNQ3NmV3cwaE5MTEFBQlVV?=
+ =?utf-8?B?SEVZWGVBZnZUbnVZWW53MlhZZVYwdUNIbGQ4QXJXbndFVXlDeSs2QkpXVFU0?=
+ =?utf-8?B?Qjh5ekN5VWg1KzcvLzRWdmovN0tPQzNtbEI0WE9ycFo0enpMTjVjNnRBUEZD?=
+ =?utf-8?B?a0JIRGRpbDU5bVV0YXZPQmROZHdxS0QyTy94bW1EUmRWL1lSSmNVeTRvQmF3?=
+ =?utf-8?B?ZGZYamErODR3QzI5WU9TbHl0QS94U0hZLzJTeVBHTVlFV1diWEpUUURyVnBh?=
+ =?utf-8?B?T1ZpYTVaZkVYc0c3YTkvZUVyV25qS015UVpsZmtXT3NydnUrVXU1cFI0dWJn?=
+ =?utf-8?B?ZlBKeHoyQytobUs2MkxMZ01ndjJSczdHTmpKKzBaWFpOWUw5aEpKN3VWaHl3?=
+ =?utf-8?B?a0thaG9CR0lKTzVZdVBqZC9nNlN5aXdhdm9VZENrdUYwcmxPQWtyMWFESW85?=
+ =?utf-8?B?cTIxSVg4UHE4RHVGMEJGOGJMdDdrcWNqV0dBL3I5aU9pUWVGRllhZDlNRHZx?=
+ =?utf-8?B?UEgwR2JIbGZxRXB2Mnk2YTBteEh0M2JMV0lPWkptS1hFRFUxc0JhTGpxQWxZ?=
+ =?utf-8?B?NW5VZzBXWUo5NFFqR2c4dnV1eVBTRzlBTWhCdFhGQkNNUDJqek1sM2c0QzFh?=
+ =?utf-8?B?YzJHQjQ4S3RWYUs1d3VEdzVZcWxQM2RVTWN1WEU1RndSRjdOKzh1bEVQYUFF?=
+ =?utf-8?B?RVZDa0s5WE9CK2RoblNqZ09leHVza0xYU0UvVDBmK0YzdWRtZjZabDNHampo?=
+ =?utf-8?B?SGRWdFVsVkdBa0txVXZ4dlg2VUFBaDRuT202a3RTVHdYa2VCRWNpdUIvcysv?=
+ =?utf-8?B?dkhSTWJzOTdXVTVDQnJ5VXVnQzkwa3pYdHJkM3JscHZuL1laQms5TWwwdkpD?=
+ =?utf-8?B?bElaOFBkN0dFVGNVUHZNbUJEdTBJcEF0SlExY0RySzY2WmxmRUFOSEtEYTJK?=
+ =?utf-8?B?Q3VIOGVEWVgzZ09pMWpPRzJ5ZEFVbHZ4S2dwQlhOOENTRXZTdDg0NlgzRm9r?=
+ =?utf-8?B?Z1k4bWZxVGlkZWo4MEc2UjMyZ2w5MmtvMWFSb2xtYkVibUxDSk9mOCtrQWgw?=
+ =?utf-8?B?bmNRRzIyQUx2UEZsZ004UlN5NzZQTzlFc3M3NGR4aTJiMDZjSVFMbVhsbXpn?=
+ =?utf-8?B?a0hybXBKOTQ3d0krZjA5eHgxSktZWXhWZTFtUEFDbURXcXJ0OEJUU3kzeFoz?=
+ =?utf-8?B?SXl4RVZranB0N3hHZnFrWmE3SGVIdWEvTHdCWWtSTnd0SDZ0cUl6c3pRQWtx?=
+ =?utf-8?B?aytDeXMxaWFYaFlQS2pTUkk2SlNTMHdTL3R3V2hTOW1nUHd1dk43eWJaMys0?=
+ =?utf-8?B?Y2NTdndLUnlXa1NpQ3BiWS9QcDZwZVlLVXk5RS9wbXZJWlE5SFkxM21VRHZS?=
+ =?utf-8?B?Y0tXblpVaWdSTnE1VE5ldy9xVGpRVXVGRUhSUDl2MTA2TUNtRHN6aUYySXVy?=
+ =?utf-8?B?ZUhxejRpcmFOcEN1dzBqamFmTU1UbDhqd1dFNW0yNnBNdzVJRDNKVk5CeWhp?=
+ =?utf-8?B?YzV1ZjZKNy9ac2t2MnloK3JuTUx1K3pyb1lLMk1xbkhNUm1iVWZIRyt3YUVG?=
+ =?utf-8?B?T1JZL21BbXRqY3d6SjZBbldxdG0vSkMwWkxDZEdvUEJOYjN0VU8wOUoybFc1?=
+ =?utf-8?B?em5TNGhDZkhZOS9uYnBlbVloNnZyTVE0M3RnNWpkVVRXY21Fc2VFWDVHWC83?=
+ =?utf-8?B?TFlZWmtURFpVaUFCU1lTUkRuWkFRUUR4c3NpQnMwOEJTckFlenlzZmlIZGJZ?=
+ =?utf-8?B?YUJxWmY4YXZyaE5IcjRRa3VjUzB2MmtTdGdXZkRweUtMbFdwMEs5aW95a0tt?=
+ =?utf-8?B?bWVOdk1FSVN1cmxmL1hLWG1TTUZsNjE0Ynh3RmdDdUV5ZW9yVm5HUGxoSlBZ?=
+ =?utf-8?B?NE40ZTdaWXV1b1RaU3dyZ3N2cHltV2RHaUQ1TTZneTB6SzhnMUFYR0VmUWNj?=
+ =?utf-8?B?VzZ1U21tV01aaVR3R0huOTFWWXV0TFN3aHVVeVM3L3QrcTFETWw5bGkveFFC?=
+ =?utf-8?Q?i5jrgoZwtvsXIuvAWMXkNBjcJ?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 800fdc0f-3a98-4f02-eff1-08dc0c670a47
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4128.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f0342053-a228-46dd-4fa8-08dc0c57681f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jan 2024 12:27:52.8065 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JeqKDTDYYf+M56inPsVc2qnl4G1Lmb7YPM4ye0yYDoJ5uaH4NBFNjohodyUvejJi
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5340
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jan 2024 14:19:47.7951 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ib64jPwYO5dGfAKpIV9N+bQEMe3crLz2NeE7oeK8CSwiNKRntcKKHALcHmOmdpZdAIBmI2ihKj7TIf/cIt42zg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5141
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,6552 +126,1013 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Chai, Thomas" <YiPeng.Chai@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_PH7PR12MB59975D1C119B26AB2C51C0A28260APH7PR12MB5997namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
 
-[AMD Official Use Only - General]
+On 1/2/2024 9:57 PM, Felix Kuehling wrote:
+>
+> On 2023-12-29 06:03, Srinivasan Shanmugam wrote:
+>> Fix the following checks reported by checkpatch:
+>>
+>> CHECK: Prefer kernel type 'u8' over 'uint8_t'
+>> CHECK: Prefer kernel type 'u16' over 'uint16_t'
+>> CHECK: Prefer kernel type 'u64' over 'uint64_t'
+>> CHECK: Prefer kernel type 'u32' over 'uint32_t'
+>
+> This is a lot of churn. Why do this now, and why specifically for KFD. 
+> I see a lot of uint..._t in amdgpu as well. The kernel header files 
+> define both data types. Why is one preferred over the other? If there 
+> is agreement that u8/16/32/64 is preferred, should this change be 
+> applied to amdgpu as well?
 
-Hi Hawking,
+Hi Felix, Good Morning!
 
-+               if (!(adev->flags & AMD_IS_APU) && adev->pm.fw_version >=3D=
- 0x00555600) {
+Thanks for your feedbacks!
 
-It needs to be clarified that the above code is not used to distinguish bet=
-ween APU and DGPU.
-The real reason is that PMFW uses different versions in APU and DGPU althou=
-gh its share the same smu ip version 13.0.6, and adding a version check is =
-because the new PMFW uses another mca register to store error codes.
+1. This is was done mainly to eliminate the reports from 
+'scripts/checkpatch.pl --strict', when "uint32_t" was asked to retain 
+for consistency for the one of the comment below in the other patch - 
+'[PATCH] drm/amdkfd: Fix type of 'dbg_flags' in 'struct kfd_process'
 
-Best Regards,
-Kevin
+ >
+ >       /* Tracks debug per-vmid request for debug flags */
+ > -    bool dbg_flags;
+ > +    u32 dbg_flags;
 
-From: Zhang, Hawking <Hawking.Zhang@amd.com>
-Sent: Wednesday, January 3, 2024 8:09 PM
-To: Zhang, Hawking <Hawking.Zhang@amd.com>; Wang, Yang(Kevin) <KevinYang.Wa=
-ng@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Chai, Thomas <YiPeng.Chai@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>
-Subject: RE: [PATCH 01/14] drm/amdgpu: implement RAS ACA driver framework
+For consistency with the rest of this header file, I'd prefer we use
+uint32_t here. Other than that, the patch is
 
+2. Why is one preferred over the other?
 
-[AMD Official Use Only - General]
+Based on kernel's "Documentation/process/coding-style.rst"
 
-+       case IP_VERSION(13, 0, 6):
-+               if (!(adev->flags & AMD_IS_APU) && adev->pm.fw_version >=3D=
- 0x00555600) {
-+                       error_code =3D ACA_REG__SYND__ERRORINFORMATION(bank=
-->regs[ACA_REG_IDX_SYND]);
-+                       return error_code & 0xff;
+5) Typedefs
+-----------
 
-Btw, we will switch to ACA for APU as well, although it only covers a few d=
-river managed IP blocks. This also reminds me that we really need a flag (i=
-s_supported) in aca structure that gives us a chance to restrict the transi=
-tion to discrete gpu first.
+     u8/u16/u32 are perfectly fine typedefs, although they fit into
+     category (d) better than here.
+
+     .. note::
+
+       Again - there needs to be a **reason** for this. If something is
+       ``unsigned long``, then there's no reason to do
+
+        typedef unsigned long myflags_t;
+
+     but if there is a clear reason for why it under certain circumstances
+     might be an ``unsigned int`` and under other configurations might be
+     ``unsigned long``, then by all means go ahead and use a typedef.
+
+...
+
+(d) New types which are identical to standard C99 types, in certain
+     exceptional circumstances.
+
+     Although it would only take a short amount of time for the eyes and
+     brain to become accustomed to the standard types like ``uint32_t``,
+     some people object to their use anyway.
+
+     Therefore, the Linux-specific ``u8/u16/u32/u64`` types and their
+     signed equivalents which are identical to standard types are
+     permitted -- although they are not mandatory in new code of your
+     own.
+
+     When editing existing code which already uses one or the other set
+     of types, you should conform to the existing choices in that code.
+
+based on author of that document would prefer
+uint8_t but will accept u8. It also seems like if code is consistent
+about using a given type (as this code is) that it shouldn't be
+changed.
+
+But some other discussions in linux kernel open source
+https://patchwork.kernel.org/project/linux-input/patch/20131231193442.GA25208@core.coreip.homeip.net/#:~:text=When%20editing%20existing%20code%20which%20already%20uses,to%20the%20existing%20choices%20in%20that%20code.
+
+It's mentioned in this link:
+
+I prefer uXX in kernel because it matches __uXX that we publish in UAPI.
+Also here is Linus's response form the discussion that introduced that
+particular wording in CodingStyle [1]:
+
+"The problem with uint32_t is that it's ugly, it used to be unportable,
+and you can't use it in header files _anyway_.
+
+In other words, there's no _point_ to the "standard type".
+
+I really object to this whole thing. The fact is, "u8" and friends _are_
+the standard types as far as the kernel is concerned.  Claiming that
+they aren't is just silly.
+
+It's the "uint32_t" kind of thing that isn't standard within the kernel.
+You can't use that thing in public header files anyway due to name
+scoping rules, so they have basically no redeeming features."
+
+>
+> I also see a bunch of unrelated indentation changes in this patch.
+
+This indentations fixes, also were to eliminate the reports from 
+'scripts/checkpatch.pl --strict', on amdkfd/kfd_priv.h
+
+I am happy & open to accept your suggestions though!
+
+Thank you!
 
 Regards,
-Hawking
 
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
-@lists.freedesktop.org>> On Behalf Of Zhang, Hawking
-Sent: Wednesday, January 3, 2024 17:29
-To: Wang, Yang(Kevin) <KevinYang.Wang@amd.com<mailto:KevinYang.Wang@amd.com=
->>; amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-Cc: Chai, Thomas <YiPeng.Chai@amd.com<mailto:YiPeng.Chai@amd.com>>; Zhou1, =
-Tao <Tao.Zhou1@amd.com<mailto:Tao.Zhou1@amd.com>>
-Subject: RE: [PATCH 01/14] drm/amdgpu: implement RAS ACA driver framework
+Srini
 
-
-[AMD Official Use Only - General]
-
-[AMD Official Use Only - General]
-
-Please check my comments inline. I added index for each comment (9 in total=
-) since it is a long thread...
-
-Regards,
-Hawking
-
------Original Message-----
-From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com<mailto:KevinYang.Wang@amd.c=
-om>>
-Sent: Wednesday, January 3, 2024 16:02
-To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.com>>; Z=
-hou1, Tao <Tao.Zhou1@amd.com<mailto:Tao.Zhou1@amd.com>>; Chai, Thomas <YiPe=
-ng.Chai@amd.com<mailto:YiPeng.Chai@amd.com>>; Wang, Yang(Kevin) <KevinYang.=
-Wang@amd.com<mailto:KevinYang.Wang@amd.com>>
-Subject: [PATCH 01/14] drm/amdgpu: implement RAS ACA driver framework
-
-v1:
-implement new RAS ACA driver code framework.
-
-v2:
-- rename aca_bank_set to aca_banks.
-- rename aca_source_xxx to aca_handle_xxx
-
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com<mailto:kevinyang.wang@amd.=
-com>>
----
-drivers/gpu/drm/amd/amdgpu/Makefile        |   2 +-
-drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   4 +
-drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c    | 679 +++++++++++++++++++++
-drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h    | 196 ++++++
-drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   6 +
-drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h    |   1 +
-6 files changed, 887 insertions(+), 1 deletion(-)  create mode 100644 drive=
-rs/gpu/drm/amd/amdgpu/amdgpu_aca.c
-create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdg=
-pu/Makefile
-index 260e32ef7bae..4c989da4d2f3 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -80,7 +80,7 @@ amdgpu-y +=3D amdgpu_device.o amdgpu_doorbell_mgr.o amdgp=
-u_kms.o \
-         amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
-         amdgpu_fw_attestation.o amdgpu_securedisplay.o \
-         amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o \
--       amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o
-+       amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_aca.o
-
-amdgpu-$(CONFIG_PROC_FS) +=3D amdgpu_fdinfo.o
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu.h
-index 616b6c911767..9fa6f69a58a7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -107,6 +107,7 @@
-#include "amdgpu_smuio.h"
-#include "amdgpu_fdinfo.h"
-#include "amdgpu_mca.h"
-+#include "amdgpu_aca.h"
-#include "amdgpu_ras.h"
-#include "amdgpu_xcp.h"
-#include "amdgpu_seq64.h"
-@@ -1045,6 +1046,9 @@ struct amdgpu_device {
-         /* MCA */
-         struct amdgpu_mca               mca;
-
-+       /* ACA */
-+       struct amdgpu_aca               aca;
-+
-         struct amdgpu_ip_block          ip_blocks[AMDGPU_MAX_IP_NUM];
-         uint32_t                        harvest_ip_mask;
-         int                             num_ip_blocks;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_aca.c
-new file mode 100644
-index 000000000000..6a6f167b5380
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-@@ -0,0 +1,679 @@
-+/*
-+ * Copyright 2023 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person
-+obtaining a
-+ * copy of this software and associated documentation files (the
-+"Software"),
-+ * to deal in the Software without restriction, including without
-+limitation
-+ * the rights to use, copy, modify, merge, publish, distribute,
-+sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom
-+the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be
-+included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-+EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-+MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT
-+SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
-+DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-+OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
-+OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#include <linux/list.h>
-+#include "amdgpu.h"
-+#include "amdgpu_aca.h"
-+#include "amdgpu_ras.h"
-+
-+#define ACA_BANK_HWID(type, hwid, mcatype) [ACA_HWIP_TYPE_##type] =3D
-+{hwid, mcatype}
-+
-+typedef int bank_handler_t(struct aca_handle *handle, struct aca_bank
-+*bank, enum aca_error_type type, void *data);
-+
-+struct aca_banks {
-+       int nr_banks;
-+       struct list_head list;
-+};
-+
-+struct aca_hwip {
-+       int hwid;
-+       int mcatype;
-+};
-+
-+static struct aca_hwip aca_hwid_mcatypes[ACA_HWIP_TYPE_COUNT] =3D {
-+       ACA_BANK_HWID(SMU,      0x01,   0x01),
-+       ACA_BANK_HWID(PCS_XGMI, 0x50,   0x00),
-+       ACA_BANK_HWID(UMC,      0x96,   0x00),
-+};
-+
-+static void aca_banks_init(struct aca_banks *banks) {
-+       if (!banks)
-+               return;
-+
-+       memset(banks, 0, sizeof(*banks));
-+       INIT_LIST_HEAD(&banks->list);
-+}
-+
-+static int aca_banks_add_bank(struct aca_banks *banks, struct aca_bank
-+*bank) {
-+       struct aca_bank_node *node;
-+
-+       if (!bank)
-+               return -EINVAL;
-+
-+       node =3D kvzalloc(sizeof(*node), GFP_KERNEL);
-+       if (!node)
-+               return -ENOMEM;
-+
-+       memcpy(&node->bank, bank, sizeof(*bank));
-+
-+       INIT_LIST_HEAD(&node->node);
-+       list_add_tail(&node->node, &banks->list);
-+
-+       banks->nr_banks++;
-+
-+       return 0;
-+}
-+
-+static void aca_banks_release(struct aca_banks *banks) {
-+       struct aca_bank_node *node, *tmp;
-+
-+       list_for_each_entry_safe(node, tmp, &banks->list, node) {
-+               list_del(&node->node);
-+               kvfree(node);
-+       }
-+}
-+
-+static int aca_smu_get_valid_aca_count(struct amdgpu_device *adev, enum
-+aca_error_type type, u32 *count) {
-+       struct amdgpu_aca *aca =3D &adev->aca;
-+       const struct aca_smu_funcs *smu_funcs =3D aca->smu_funcs;
-+
-+       if (!count)
-+               return -EINVAL;
-+
-+       if (!smu_funcs || !smu_funcs->get_valid_aca_count)
-+               return -EOPNOTSUPP;
-+
-+       return smu_funcs->get_valid_aca_count(adev, type, count); }
-+
-+static int aca_smu_get_valid_aca_banks(struct amdgpu_device *adev, enum ac=
-a_error_type type,
-+                                      int start, int count,
-+                                      struct aca_banks *banks)
-+{
-+       struct amdgpu_aca *aca =3D &adev->aca;
-+       const struct aca_smu_funcs *smu_funcs =3D aca->smu_funcs;
-+       struct aca_bank bank;
-+       int i, max_count, ret;
-+
-+       if (!count)
-+               return 0;
-+
-+       if (!smu_funcs || !smu_funcs->get_valid_aca_bank)
-+               return -EOPNOTSUPP;
-+
-+       switch (type) {
-+       case ACA_ERROR_TYPE_UE:
-+               max_count =3D smu_funcs->max_ue_aca_count;
-
-  1.  [Hawking]: %s/max_ue_aca_count/max_ue_count
-
-
-+               break;
-+       case ACA_ERROR_TYPE_CE:
-+       case ACA_ERROR_TYPE_DEFERRED:
-+               max_count =3D smu_funcs->max_ce_aca_count;
-
-  1.  [Hawking]: %s/max_ce_aca_count/max_ce_count
-  2.  [Hawking]: I'll suggest treating DEFERRED as default for now. (i.e., =
-not supported yet)
-
-+               break;
-+       default:
-+               return -EINVAL;
-+       }
-+
-+       if (start + count >=3D max_count)
-+               return -EINVAL;
-+
-+       count =3D min_t(int, count, max_count);
-+       for (i =3D 0; i < count; i++) {
-+               memset(&bank, 0, sizeof(bank));
-+               ret =3D smu_funcs->get_valid_aca_bank(adev, type, start + i=
-, &bank);
-+               if (ret)
-+                       return ret;
-+
-+               ret =3D aca_banks_add_bank(banks, &bank);
-+               if (ret)
-+                       return ret;
-+       }
-+
-+       return 0;
-+}
-+
-+static bool aca_bank_hwip_is_matched(struct aca_bank *bank, enum
-+aca_hwip_type type) {
-+
-+       struct aca_hwip *hwip;
-+       int hwid, mcatype;
-+       u64 ipid;
-+
-+       if (!bank || type =3D=3D ACA_HWIP_TYPE_UNKNOW)
-+               return -EINVAL;
-+
-+       hwip =3D &aca_hwid_mcatypes[type];
-+       if (!hwip->hwid)
-+               return false;
-+
-+       ipid =3D bank->regs[ACA_REG_IDX_IPID];
-+       hwid =3D ACA_REG__IPID__HARDWAREID(ipid);
-+       mcatype =3D ACA_REG__IPID__MCATYPE(ipid);
-+
-+       return hwip->hwid =3D=3D hwid && hwip->mcatype =3D=3D mcatype; }
-+
-+static bool aca_bank_is_valid(struct aca_handle *handle, struct
-+aca_bank *bank, enum aca_error_type type) {
-+       const struct aca_bank_ops *bank_ops =3D handle->bank_ops;
-+
-+       if (!aca_bank_hwip_is_matched(bank, handle->hwip))
-+               return false;
-+
-+       if (!bank_ops->aca_bank_is_valid)
-+               return true;
-
-  1.  [Hawking]: does it apply to the case where the valid field is not ava=
-ilable? Can you please elaborate why return true in such case?
-
-+
-+       return bank_ops->aca_bank_is_valid(handle, bank, type, handle->data=
-);
-+}
-+
-+static struct aca_bank_error *new_bank_error(struct aca_error *aerr,
-+struct aca_bank_info *info) {
-+       struct aca_bank_error *bank_error;
-+
-+       bank_error =3D kvzalloc(sizeof(*bank_error), GFP_KERNEL);
-+       if (!bank_error)
-+               return NULL;
-+
-+       INIT_LIST_HEAD(&bank_error->node);
-+       memcpy(&bank_error->info, info, sizeof(*info));
-+
-+       mutex_lock(&aerr->lock);
-+       list_add_tail(&bank_error->node, &aerr->list);
-+       mutex_unlock(&aerr->lock);
-+
-+       return bank_error;
-+}
-+
-+static struct aca_bank_error *find_bank_error(struct aca_error *aerr,
-+struct aca_bank_info *info) {
-+       struct aca_bank_error *bank_error =3D NULL;
-+       struct aca_bank_info *tmp_info;
-+       bool found =3D false;
-+
-+       mutex_lock(&aerr->lock);
-+       list_for_each_entry(bank_error, &aerr->list, node) {
-+               tmp_info =3D &bank_error->info;
-+               if (tmp_info->socket_id =3D=3D info->socket_id &&
-+                   tmp_info->die_id =3D=3D info->die_id) {
-+                       found =3D true;
-+                       goto out_unlock;
-+               }
-+       }
-+
-+out_unlock:
-+       mutex_unlock(&aerr->lock);
-+
-+       return found ? bank_error : NULL;
-+}
-+
-+static void aca_bank_error_remove(struct aca_error *aerr, struct
-+aca_bank_error *bank_error) {
-+       if (!aerr || !bank_error)
-+               return;
-+
-+       list_del(&bank_error->node);
-+       aerr->nr_errors--;
-+
-+       kvfree(bank_error);
-+}
-+
-+static struct aca_bank_error *get_bank_error(struct aca_error *aerr,
-+struct aca_bank_info *info) {
-+       struct aca_bank_error *bank_error;
-+
-+       if (!aerr || !info)
-+               return NULL;
-+
-+       bank_error =3D find_bank_error(aerr, info);
-+       if (bank_error)
-+               return bank_error;
-+
-+       return new_bank_error(aerr, info);
-+}
-+
-+static int aca_error_inc_count(struct aca_error *aerr, struct
-+aca_bank_info *info, u64 count) {
-+       struct aca_bank_error *bank_error;
-+
-+       if (!info)
-+               return -EINVAL;
-+
-+       if (!count)
-+               return 0;
-+
-+       bank_error =3D get_bank_error(aerr, info);
-+       if (!bank_error)
-+               return -ENOMEM;
-+
-+       bank_error->count +=3D count;
-+
-+       return 0;
-+}
-+
-+static int aca_log_error_report(struct aca_handle *handle, enum aca_error_=
-type type,
-+                               struct aca_bank_report *report)
-+{
-+       struct aca_error_cache *error_cache =3D &handle->error_cache;
-+       struct aca_error *aerr;
-+
-+       if (!handle || !report)
-+               return -EINVAL;
-+
-+       aerr =3D &error_cache->errors[type];
-+       return aca_error_inc_count(aerr, &report->info, report->count); }
-+
-
-  1.  [Hawking]: Shall we merge the aca_error_inc_count with aca_log_error_=
-report? if you haven't name any function as aca_log_error, then just rename=
- aca_log_error_report to aca_log_errors.
-
-+static int aca_generate_bank_report(struct aca_handle *handle, struct aca_=
-bank *bank,
-+                                   enum aca_error_type type, struct aca_ba=
-nk_report *report) {
-+       const struct aca_bank_ops *bank_ops =3D handle->bank_ops;
-+
-+       if (!bank || !report)
-+               return -EINVAL;
-+
-+       if (!bank_ops->aca_bank_generate_report)
-+               return -EOPNOTSUPP;
-+
-+       memset(report, 0, sizeof(*report));
-+       return bank_ops->aca_bank_generate_report(handle, bank, type,
-+                                                 report, handle->data);
-+}
-+
-+static int handler_aca_log_bank_error(struct aca_handle *handle, struct ac=
-a_bank *bank,
-+                                     enum aca_error_type type, void *data)=
- {
-+       struct aca_bank_report report;
-+       int ret;
-+
-+       ret =3D aca_generate_bank_report(handle, bank, type, &report);
-+       if (ret)
-+               return ret;
-+
-+       if (!report.count)
-+               return 0;
-+
-+       ret =3D aca_log_error_report(handle, type, &report);
-+       if (ret)
-+               return ret;
-+
-+       return 0;
-+}
-+
-+static int aca_dispatch_bank(struct aca_handle_manager *mgr, struct aca_ba=
-nk *bank,
-+                            enum aca_error_type type, bank_handler_t handl=
-er, void *data) {
-+       struct aca_handle *handle;
-+       int ret;
-+
-+       if (list_empty(&mgr->list))
-+               return 0;
-+
-+       list_for_each_entry(handle, &mgr->list, node) {
-+               if (!aca_bank_is_valid(handle, bank, type))
-+                       continue;
-+
-+               ret =3D handler(handle, bank, type, data);
-+               if (ret)
-+                       return ret;
-+       }
-+
-+       return 0;
-+}
-+
-+static int aca_dispatch_banks(struct aca_handle_manager *mgr, struct aca_b=
-anks *banks,
-+                             enum aca_error_type type, bank_handler_t hand=
-ler, void *data)
-+{
-+       struct aca_bank_node *node;
-+       struct aca_bank *bank;
-+       int ret;
-+
-+       if (!mgr || !banks)
-+               return -EINVAL;
-+
-+       /* pre check to avoid unnecessary operations */
-+       if (list_empty(&mgr->list) || list_empty(&banks->list))
-+               return 0;
-+
-+       list_for_each_entry(node, &banks->list, node) {
-+               bank =3D &node->bank;
-+
-+               ret =3D aca_dispatch_bank(mgr, bank, type, handler, data);
-+               if (ret)
-+                       return ret;
-+       }
-+
-+       return 0;
-+}
-
-  1.  [Hawking]: Can we merge aca_dispatch_bank with aca_dispatch_banks?
-
-+
-+static int aca_bank_update(struct amdgpu_device *adev, enum aca_error_type=
- type,
-
-  1.  [Hawking]: let's name it aca_update_banks
-
-+                          bank_handler_t handler, void *data) {
-+       struct amdgpu_aca *aca =3D &adev->aca;
-+       struct aca_banks banks;
-+       u32 count =3D 0;
-+       int ret;
-+
-+       if (list_empty(&aca->mgr.list))
-+               return 0;
-+
-+       ret =3D aca_smu_get_valid_aca_count(adev, type, &count);
-+       if (ret)
-+               return ret;
-+
-+       if (!count)
-+               return 0;
-+
-+       aca_banks_init(&banks);
-+
-+       ret =3D aca_smu_get_valid_aca_banks(adev, type, 0, count, &banks);
-+       if (ret)
-+               goto err_release_banks;
-+
-+       if (list_empty(&banks.list)) {
-+               ret =3D 0;
-+               goto err_release_banks;
-+       }
-+
-+       ret =3D aca_dispatch_banks(&aca->mgr, &banks, type,
-+                                handler, data);
-+       if (ret)
-+               goto err_release_banks;
-+
-+err_release_banks:
-+       aca_banks_release(&banks);
-+
-+       return ret;
-+}
-+
-+static int aca_error_update(struct amdgpu_device *adev, enum
-+aca_error_type type) {
-+       return aca_bank_update(adev, type, handler_aca_log_bank_error, NULL=
-);
-+}
-
-  1.  [Hawking]: Shall we drop this function since it's just a wraper. It s=
-eems to the caller __aca_get_error_data does have all the input parameters =
-that can feed into aca_update_banks.
-
-+
-+static int aca_log_aca_error_data(struct aca_bank_error *bank_error,
-+enum aca_error_type type, struct ras_err_data *err_data) {
-+       struct aca_bank_info *info;
-+       struct amdgpu_smuio_mcm_config_info mcm_info;
-+
-+       if (!bank_error->count)
-+               return 0;
-+
-+       info =3D &bank_error->info;
-+       mcm_info.die_id =3D info->die_id;
-+       mcm_info.socket_id =3D info->socket_id;
-+
-+       switch (type) {
-+       case ACA_ERROR_TYPE_UE:
-+               amdgpu_ras_error_statistic_ue_count(err_data, &mcm_info, NU=
-LL, bank_error->count);
-+               break;
-+       case ACA_ERROR_TYPE_CE:
-+               amdgpu_ras_error_statistic_ce_count(err_data, &mcm_info, NU=
-LL, bank_error->count);
-+               break;
-+       case ACA_ERROR_TYPE_DEFERRED:
-+       default:
-+               break;
-+       }
-+
-+       return 0;
-+}
-+
-+static int aca_log_aca_error(struct aca_handle *handle, enum
-+aca_error_type type, struct ras_err_data *err_data) {
-+       struct aca_error_cache *error_cache =3D &handle->error_cache;
-+       struct aca_error *aerr =3D &error_cache->errors[type];
-+       struct aca_bank_error *bank_error, *tmp;
-+
-+       mutex_lock(&aerr->lock);
-+
-+       if (list_empty(&aerr->list))
-+               goto out_unlock;
-+
-+       list_for_each_entry_safe(bank_error, tmp, &aerr->list, node) {
-+               aca_log_aca_error_data(bank_error, type, err_data);
-+               aca_bank_error_remove(aerr, bank_error);
-+       }
-+
-+out_unlock:
-+       mutex_unlock(&aerr->lock);
-+
-+       return 0;
-+}
-+
-+static int __aca_get_error_data(struct amdgpu_device *adev, struct aca_han=
-dle *handle, enum aca_error_type type,
-+                               struct ras_err_data *err_data)
-+{
-+       int ret;
-+
-+       /* udpate aca bank to aca source error_cache first */
-+       ret =3D aca_error_update(adev, type);
-+       if (ret)
-+               return ret;
-+
-+       return aca_log_aca_error(handle, type, err_data); }
-+
-+static bool aca_handle_is_valid(struct aca_handle *handle) {
-+       if (!handle->mask || !list_empty(&handle->node))
-+               return false;
-+
-+       return true;
-+}
-+
-+int amdgpu_aca_get_error_data(struct amdgpu_device *adev, struct aca_handl=
-e *handle,
-+                             enum aca_error_type type, void *data) {
-+       struct ras_err_data *err_data =3D (struct ras_err_data *)data;
-+
-+       if (!handle || !err_data)
-+               return -EINVAL;
-+
-+       if (aca_handle_is_valid(handle))
-+               return -EOPNOTSUPP;
-+
-+       if (!(BIT(type) & handle->mask))
-+               return  0;
-+
-+       return __aca_get_error_data(adev, handle, type, err_data); }
-+
-+static void aca_error_init(struct aca_error *aerr, enum aca_error_type
-+type) {
-+       mutex_init(&aerr->lock);
-+       INIT_LIST_HEAD(&aerr->list);
-+       aerr->type =3D type;
-+       aerr->nr_errors =3D 0;
-+}
-+
-+static void aca_init_error_cache(struct aca_handle *handle) {
-+       struct aca_error_cache *error_cache =3D &handle->error_cache;
-+       int type;
-+
-+       for (type =3D ACA_ERROR_TYPE_UE; type < ACA_ERROR_TYPE_COUNT; type+=
-+)
-+               aca_error_init(&error_cache->errors[type], type); }
-+
-+static void aca_error_fini(struct aca_error *aerr) {
-+       struct aca_bank_error *bank_error, *tmp;
-+
-+       mutex_lock(&aerr->lock);
-+       list_for_each_entry_safe(bank_error, tmp, &aerr->list, node)
-+               aca_bank_error_remove(aerr, bank_error);
-+
-+       mutex_destroy(&aerr->lock);
-+}
-+
-+static void aca_fini_error_cache(struct aca_handle *handle) {
-+       struct aca_error_cache *error_cache =3D &handle->error_cache;
-+       int type;
-+
-+       for (type =3D ACA_ERROR_TYPE_UE; type < ACA_ERROR_TYPE_COUNT; type+=
-+)
-+               aca_error_fini(&error_cache->errors[type]);
-+}
-+
-+static int add_aca_handle(struct amdgpu_device *adev, struct aca_handle_ma=
-nager *mgr, struct aca_handle *handle,
-+                         const char *name, const struct aca_info *ras_info=
-, void *data) {
-+       memset(handle, 0, sizeof(*handle));
-+
-+       handle->adev =3D adev;
-+       handle->mgr =3D mgr;
-+       handle->name =3D name;
-+       handle->hwip =3D ras_info->hwip;
-+       handle->mask =3D ras_info->mask;
-+       handle->bank_ops =3D ras_info->bank_ops;
-+       handle->data =3D data;
-+       aca_init_error_cache(handle);
-+
-+       INIT_LIST_HEAD(&handle->node);
-+       list_add_tail(&handle->node, &mgr->list);
-+       mgr->nr_handles++;
-+
-+       return 0;
-+}
-+
-+int amdgpu_aca_add_handle(struct amdgpu_device *adev, struct aca_handle *h=
-andle,
-+                         const char *name, const struct aca_info *ras_info=
-, void *data) {
-+       struct amdgpu_aca *aca =3D &adev->aca;
-+
-+       return add_aca_handle(adev, &aca->mgr, handle, name, ras_info, data=
-);
-+}
-+
-+static void remove_aca(struct aca_handle *handle) {
-+       struct aca_handle_manager *mgr =3D handle->mgr;
-+
-+       aca_fini_error_cache(handle);
-+       list_del(&handle->node);
-+       mgr->nr_handles--;
-+}
-+
-+void amdgpu_aca_remove_handle(struct aca_handle *handle) {
-+       if (!handle || list_empty(&handle->node))
-+               return;
-+
-+       remove_aca(handle);
-+}
-+
-+static int aca_manager_init(struct aca_handle_manager *mgr) {
-+       INIT_LIST_HEAD(&mgr->list);
-+       mgr->nr_handles =3D 0;
-+
-+       return 0;
-+}
-+
-+static void aca_manager_fini(struct aca_handle_manager *mgr) {
-+       struct aca_handle *handle, *tmp;
-+
-+       list_for_each_entry_safe(handle, tmp, &mgr->list, node)
-+               remove_aca(handle);
-+}
-+
-+int amdgpu_aca_init(struct amdgpu_device *adev) {
-+       struct amdgpu_aca *aca =3D &adev->aca;
-+       int ret;
-+
-+       ret =3D aca_manager_init(&aca->mgr);
-+       if (ret)
-+               return ret;
-+
-+       return 0;
-+}
-+
-+void amdgpu_aca_fini(struct amdgpu_device *adev) {
-+       struct amdgpu_aca *aca =3D &adev->aca;
-+
-+       aca_manager_fini(&aca->mgr);
-+}
-+
-+void amdgpu_aca_set_smu_funcs(struct amdgpu_device *adev, const struct
-+aca_smu_funcs *smu_funcs) {
-+       struct amdgpu_aca *aca =3D &adev->aca;
-+
-+       WARN_ON(aca->smu_funcs);
-+       aca->smu_funcs =3D smu_funcs;
-+}
-+
-+int aca_bank_info_decode(struct aca_bank *bank, struct aca_bank_info
-+*info) {
-+       u64 ipid;
-+       u32 instidhi, instidlo;
-+
-+       if (!bank || !info)
-+               return -EINVAL;
-+
-+       ipid =3D bank->regs[ACA_REG_IDX_IPID];
-+       info->hwid =3D ACA_REG__IPID__HARDWAREID(ipid);
-+       info->mcatype =3D ACA_REG__IPID__MCATYPE(ipid);
-+       /*
-+        * Unfied DieID Format: SAASS. A:AID, S:Socket.
-+        * Unfied DieID[4:4] =3D InstanceId[0:0]
-+        * Unfied DieID[0:3] =3D InstanceIdHi[0:3]
-+        */
-+       instidhi =3D ACA_REG__IPID__INSTANCEIDHI(ipid);
-+       instidlo =3D ACA_REG__IPID__INSTANCEIDLO(ipid);
-+       info->die_id =3D ((instidhi >> 2) & 0x03);
-+       info->socket_id =3D ((instidlo & 0x1) << 2) | (instidhi & 0x03);
-+
-+       return 0;
-+}
-+
-+static int aca_bank_get_error_code(struct amdgpu_device *adev, struct
-+aca_bank *bank) {
-+       int error_code;
-+
-+       switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
-+       case IP_VERSION(13, 0, 6):
-+               if (!(adev->flags & AMD_IS_APU) && adev->pm.fw_version >=3D=
- 0x00555600) {
-+                       error_code =3D ACA_REG__SYND__ERRORINFORMATION(bank=
-->regs[ACA_REG_IDX_SYND]);
-+                       return error_code & 0xff;
-+               }
-+               break;
-+       default:
-+               break;
-+       }
-+
-+       /* NOTE: the true error code is encoded in status.errorcode[0:7] */
-+       error_code =3D
-+ACA_REG__STATUS__ERRORCODE(bank->regs[ACA_REG_IDX_STATUS]);
-+
-+       return error_code & 0xff;
-+}
-+
-+int aca_bank_check_error_codes(struct amdgpu_device *adev, struct
-+aca_bank *bank, int *err_codes, int size) {
-+       int i, error_code;
-+
-+       if (!bank || !err_codes)
-+               return -EINVAL;
-+
-+       error_code =3D aca_bank_get_error_code(adev, bank);
-+       for (i =3D 0; i < size; i++) {
-+               if (err_codes[i] =3D=3D error_code)
-+                       return 0;
-+       }
-+
-+       return -EINVAL;
-+}
-+
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_aca.h
-new file mode 100644
-index 000000000000..688907270ff7
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h
-@@ -0,0 +1,196 @@
-+/*
-+ * Copyright 2023 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person
-+obtaining a
-+ * copy of this software and associated documentation files (the
-+"Software"),
-+ * to deal in the Software without restriction, including without
-+limitation
-+ * the rights to use, copy, modify, merge, publish, distribute,
-+sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom
-+the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be
-+included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-+EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-+MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT
-+SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
-+DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-+OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
-+OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#ifndef __AMDGPU_ACA_H__
-+#define __AMDGPU_ACA_H__
-+
-+#include <linux/list.h>
-+
-+#define ACA_MAX_REGS_COUNT     (16)
-+
-+#define ACA_REG_FIELD(x, h, l)                 (((x) & GENMASK_ULL(h, l)) =
->> l)
-+#define ACA_REG__STATUS__VAL(x)                        ACA_REG_FIELD(x, 63=
-, 63)
-+#define ACA_REG__STATUS__OVERFLOW(x)           ACA_REG_FIELD(x, 62, 62)
-+#define ACA_REG__STATUS__UC(x)                 ACA_REG_FIELD(x, 61, 61)
-+#define ACA_REG__STATUS__EN(x)                 ACA_REG_FIELD(x, 60, 60)
-+#define ACA_REG__STATUS__MISCV(x)              ACA_REG_FIELD(x, 59, 59)
-+#define ACA_REG__STATUS__ADDRV(x)              ACA_REG_FIELD(x, 58, 58)
-+#define ACA_REG__STATUS__PCC(x)                        ACA_REG_FIELD(x, 57=
-, 57)
-+#define ACA_REG__STATUS__ERRCOREIDVAL(x)       ACA_REG_FIELD(x, 56, 56)
-+#define ACA_REG__STATUS__TCC(x)                        ACA_REG_FIELD(x, 55=
-, 55)
-+#define ACA_REG__STATUS__SYNDV(x)              ACA_REG_FIELD(x, 53, 53)
-+#define ACA_REG__STATUS__CECC(x)               ACA_REG_FIELD(x, 46, 46)
-+#define ACA_REG__STATUS__UECC(x)               ACA_REG_FIELD(x, 45, 45)
-+#define ACA_REG__STATUS__DEFERRED(x)           ACA_REG_FIELD(x, 44, 44)
-+#define ACA_REG__STATUS__POISON(x)             ACA_REG_FIELD(x, 43, 43)
-+#define ACA_REG__STATUS__SCRUB(x)              ACA_REG_FIELD(x, 40, 40)
-+#define ACA_REG__STATUS__ERRCOREID(x)          ACA_REG_FIELD(x, 37, 32)
-+#define ACA_REG__STATUS__ADDRLSB(x)            ACA_REG_FIELD(x, 29, 24)
-+#define ACA_REG__STATUS__ERRORCODEEXT(x)       ACA_REG_FIELD(x, 21, 16)
-+#define ACA_REG__STATUS__ERRORCODE(x)          ACA_REG_FIELD(x, 15, 0)
-+
-+#define ACA_REG__IPID__MCATYPE(x)              ACA_REG_FIELD(x, 63, 48)
-+#define ACA_REG__IPID__INSTANCEIDHI(x)         ACA_REG_FIELD(x, 47, 44)
-+#define ACA_REG__IPID__HARDWAREID(x)           ACA_REG_FIELD(x, 43, 32)
-+#define ACA_REG__IPID__INSTANCEIDLO(x)         ACA_REG_FIELD(x, 31, 0)
-+
-+#define ACA_REG__MISC0__VALID(x)               ACA_REG_FIELD(x, 63, 63)
-+#define ACA_REG__MISC0__OVRFLW(x)              ACA_REG_FIELD(x, 48, 48)
-+#define ACA_REG__MISC0__ERRCNT(x)              ACA_REG_FIELD(x, 43, 32)
-+
-+#define ACA_REG__SYND__ERRORINFORMATION(x)     ACA_REG_FIELD(x, 17, 0)
-+
-+/* NOTE: The following codes refers to the smu header file */
-+#define ACA_EXTERROR_CODE_CE                   0x3a
-+#define ACA_EXTERROR_CODE_FAULT                        0x3b
-+
-+#define ACA_ERROR_UE_MASK              BIT_MASK(ACA_ERROR_TYPE_UE)
-+#define ACA_ERROR_CE_MASK              BIT_MASK(ACA_ERROR_TYPE_CE)
-+#define ACA_ERROR_DEFERRED_MASK                BIT_MASK(ACA_ERROR_TYPE_DEF=
-ERRED)
-+
-+enum aca_reg_idx {
-+       ACA_REG_IDX_CTL                 =3D 0,
-+       ACA_REG_IDX_STATUS              =3D 1,
-+       ACA_REG_IDX_ADDR                =3D 2,
-+       ACA_REG_IDX_MISC0               =3D 3,
-+       ACA_REG_IDX_CONFG               =3D 4,
-+       ACA_REG_IDX_IPID                =3D 5,
-+       ACA_REG_IDX_SYND                =3D 6,
-+       ACA_REG_IDX_DESTAT              =3D 8,
-+       ACA_REG_IDX_DEADDR              =3D 9,
-+       ACA_REG_IDX_CTL_MASK            =3D 10,
-+       ACA_REG_IDX_COUNT               =3D 16,
-+};
-+
-+enum aca_hwip_type {
-+       ACA_HWIP_TYPE_UNKNOW =3D -1,
-+       ACA_HWIP_TYPE_PSP =3D 0,
-+       ACA_HWIP_TYPE_UMC,
-+       ACA_HWIP_TYPE_SMU,
-+       ACA_HWIP_TYPE_PCS_XGMI,
-+       ACA_HWIP_TYPE_COUNT,
-+};
-+
-+enum aca_error_type {
-+       ACA_ERROR_TYPE_INVALID =3D -1,
-+       ACA_ERROR_TYPE_UE =3D 0,
-+       ACA_ERROR_TYPE_CE,
-+       ACA_ERROR_TYPE_DEFERRED,
-+       ACA_ERROR_TYPE_COUNT
-+};
-+
-+struct aca_bank {
-+       u64 regs[ACA_MAX_REGS_COUNT];
-+};
-+
-+struct aca_bank_node {
-+       struct aca_bank bank;
-+       struct list_head node;
-+};
-+
-+struct aca_bank_info {
-+       int die_id;
-+       int socket_id;
-+       int hwid;
-+       int mcatype;
-+};
-+
-+struct aca_bank_report {
-+       enum aca_error_type type;
-+       struct aca_bank_info info;
-+       u64 count;
-+};
-+
-+struct aca_bank_error {
-+       struct list_head node;
-+       struct aca_bank_info info;
-+       u64 count;
-+};
-+
-+struct aca_error {
-+       struct list_head list;
-+       struct mutex lock;
-+       enum aca_error_type type;
-+       int nr_errors;
-+};
-+
-+struct aca_handle_manager {
-+       struct list_head list;
-+       int nr_handles;
-+};
-+
-+struct aca_error_cache {
-+       struct aca_error errors[ACA_ERROR_TYPE_COUNT]; };
-+
-+struct aca_handle {
-+       struct list_head node;
-+       enum aca_hwip_type hwip;
-+       struct amdgpu_device *adev;
-+       struct aca_handle_manager *mgr;
-+       struct aca_error_cache error_cache;
-+       const struct aca_bank_ops *bank_ops;
-+       const char *name;
-+       u32 mask;
-+       void *data;
-+};
-+
-+struct aca_bank_ops {
-+       int (*aca_bank_generate_report)(struct aca_handle *handle, struct a=
-ca_bank *bank, enum aca_error_type type,
-+                                       struct aca_bank_report *report, voi=
-d *data);
-+       bool (*aca_bank_is_valid)(struct aca_handle *handle, struct aca_ban=
-k *bank, enum aca_error_type type,
-+                                 void *data);
-+};
-+
-+struct aca_smu_funcs {
-+       int max_ue_aca_count;
-+       int max_ce_aca_count;
-
-  1.  [Hawking] rename them to max_ue_count, and max_ce_count respectively
-
-+       int (*set_debug_mode)(struct amdgpu_device *adev, bool enable);
-+       int (*get_valid_aca_count)(struct amdgpu_device *adev, enum aca_err=
-or_type type, u32 *count);
-+       int (*get_valid_aca_bank)(struct amdgpu_device *adev, enum
-+aca_error_type type, int idx, struct aca_bank *bank); };
-+
-+struct amdgpu_aca {
-+       struct aca_handle_manager mgr;
-+       const struct aca_smu_funcs *smu_funcs; };
-+
-+struct aca_info {
-+       enum aca_hwip_type hwip;
-+       const struct aca_bank_ops *bank_ops;
-+       u32 mask;
-+};
-+
-+int amdgpu_aca_init(struct amdgpu_device *adev); void
-+amdgpu_aca_fini(struct amdgpu_device *adev); void
-+amdgpu_aca_set_smu_funcs(struct amdgpu_device *adev, const struct
-+aca_smu_funcs *smu_funcs);
-+
-+int aca_bank_info_decode(struct aca_bank *bank, struct aca_bank_info
-+*info); int aca_bank_check_error_codes(struct amdgpu_device *adev,
-+struct aca_bank *bank, int *err_codes, int size);
-+
-+int amdgpu_aca_add_handle(struct amdgpu_device *adev, struct aca_handle *h=
-andle,
-+                         const char *name, const struct aca_info *aca_info=
-, void *data);
-+void amdgpu_aca_remove_handle(struct aca_handle *handle); int
-+amdgpu_aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *h=
-andle,
-+                                    enum aca_error_type type, void *data);=
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index 4b694696930e..dc03643a985e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4030,6 +4030,10 @@ int amdgpu_device_init(struct amdgpu_device *adev,
-
-         amdgpu_device_get_pcie_info(adev);
-
-+       r =3D amdgpu_aca_init(adev);
-+       if (r)
-+               return r;
-+
-         r =3D amdgpu_device_get_job_timeout_settings(adev);
-         if (r) {
-                 dev_err(adev->dev, "invalid lockup_timeout parameter synta=
-x\n"); @@ -4434,6 +4438,8 @@ void amdgpu_device_fini_sw(struct amdgpu_devic=
-e *adev)
-
-         amdgpu_reset_fini(adev);
-
-+       amdgpu_aca_fini(adev);
-+
-         /* free i2c buses */
-         if (!amdgpu_device_has_dc_support(adev))
-                 amdgpu_i2c_fini(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ras.h
-index 76fb85628716..c36faf353b46 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -29,6 +29,7 @@
-#include "ta_ras_if.h"
-#include "amdgpu_ras_eeprom.h"
-#include "amdgpu_smuio.h"
-+#include "amdgpu_aca.h"
-
-struct amdgpu_iv_entry;
-
---
-2.34.1
-
-
---_000_PH7PR12MB59975D1C119B26AB2C51C0A28260APH7PR12MB5997namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-p.emailquote, li.emailquote, div.emailquote
-	{mso-style-name:emailquote;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:1.0pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle19
-	{mso-style-type:personal;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-span.EmailStyle22
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;
-	mso-ligatures:none;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
-/* List Definitions */
-@list l0
-	{mso-list-id:651980197;
-	mso-list-template-ids:1136452014;}
-@list l0:level1
-	{mso-level-start-at:4;
-	mso-level-tab-stop:.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level2
-	{mso-level-tab-stop:1.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level3
-	{mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level4
-	{mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level5
-	{mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level6
-	{mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level7
-	{mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level8
-	{mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level9
-	{mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1
-	{mso-list-id:780992867;
-	mso-list-template-ids:-1143420844;}
-@list l1:level1
-	{mso-level-start-at:9;
-	mso-level-tab-stop:.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level2
-	{mso-level-tab-stop:1.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level3
-	{mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level4
-	{mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level5
-	{mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level6
-	{mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level7
-	{mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level8
-	{mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level9
-	{mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2
-	{mso-list-id:804741151;
-	mso-list-template-ids:-1745703304;}
-@list l2:level1
-	{mso-level-start-at:6;
-	mso-level-tab-stop:.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level2
-	{mso-level-tab-stop:1.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level3
-	{mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level4
-	{mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level5
-	{mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level6
-	{mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level7
-	{mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level8
-	{mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level9
-	{mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l3
-	{mso-list-id:1025326483;
-	mso-list-template-ids:-184360686;}
-@list l3:level1
-	{mso-level-start-at:5;
-	mso-level-tab-stop:.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l3:level2
-	{mso-level-tab-stop:1.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l3:level3
-	{mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l3:level4
-	{mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l3:level5
-	{mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l3:level6
-	{mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l3:level7
-	{mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l3:level8
-	{mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l3:level9
-	{mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4
-	{mso-list-id:1146700725;
-	mso-list-template-ids:-1892932566;}
-@list l4:level1
-	{mso-level-start-at:2;
-	mso-level-tab-stop:.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4:level2
-	{mso-level-tab-stop:1.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4:level3
-	{mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4:level4
-	{mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4:level5
-	{mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4:level6
-	{mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4:level7
-	{mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4:level8
-	{mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4:level9
-	{mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l5
-	{mso-list-id:1318218378;
-	mso-list-template-ids:344769326;}
-@list l5:level1
-	{mso-level-start-at:7;
-	mso-level-tab-stop:.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l5:level2
-	{mso-level-tab-stop:1.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l5:level3
-	{mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l5:level4
-	{mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l5:level5
-	{mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l5:level6
-	{mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l5:level7
-	{mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l5:level8
-	{mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l5:level9
-	{mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l6
-	{mso-list-id:1390181331;
-	mso-list-template-ids:775454602;}
-@list l6:level1
-	{mso-level-start-at:8;
-	mso-level-tab-stop:.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l6:level2
-	{mso-level-tab-stop:1.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l6:level3
-	{mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l6:level4
-	{mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l6:level5
-	{mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l6:level6
-	{mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l6:level7
-	{mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l6:level8
-	{mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l6:level9
-	{mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7
-	{mso-list-id:1596326246;
-	mso-list-template-ids:-1426548998;}
-@list l7:level1
-	{mso-level-tab-stop:.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7:level2
-	{mso-level-tab-stop:1.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7:level3
-	{mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7:level4
-	{mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7:level5
-	{mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7:level6
-	{mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7:level7
-	{mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7:level8
-	{mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7:level9
-	{mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-ol
-	{margin-bottom:0in;}
-ul
-	{margin-bottom:0in;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple" style=3D"word-wrap:brea=
-k-word">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - General]<br>
-</p>
-<br>
-<div>
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hi Hawking,<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(adev-&gt;flags &amp; <b>AMD_IS_APU<=
-/b>) &amp;&amp; adev-&gt;pm.fw_version &gt;=3D
-<b>0x00555600</b>) {<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">It needs to be clarified that the above code is not =
-used to distinguish between APU and DGPU.<o:p></o:p></p>
-<p class=3D"MsoNormal">The real reason is that PMFW uses different versions=
- in APU and DGPU although its share the same smu ip version 13.0.6, and add=
-ing a version check is because the new PMFW uses another mca register to st=
-ore error codes.
-<span style=3D"font-size:10.0pt"><o:p></o:p></span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Best Regards,<o:p></o:p></p>
-<p class=3D"MsoNormal">Kevin<span style=3D"font-size:10.0pt;font-family:&qu=
-ot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.co=
-m&gt; <br>
-<b>Sent:</b> Wednesday, January 3, 2024 8:09 PM<br>
-<b>To:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Wang, Yang(Kevin) =
-&lt;KevinYang.Wang@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
-<b>Cc:</b> Chai, Thomas &lt;YiPeng.Chai@amd.com&gt;; Zhou1, Tao &lt;Tao.Zho=
-u1@amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH 01/14] drm/amdgpu: implement RAS ACA driver fram=
-ework<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif;color:blue">[AMD Official Use Only - General]<o:p><=
-/o:p></span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSIO=
-N(13, 0, 6):<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,s=
-ans-serif"><o:p></o:p></span></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(adev-&gt;flags &amp; AMD_IS_APU) &a=
-mp;&amp; adev-&gt;pm.fw_version &gt;=3D 0x00555600) {<span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; error_code =3D ACA_REG__SYND__ERRORINFORMATION(bank-&gt;regs[ACA_REG=
-_IDX_SYND]);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,s=
-ans-serif"><o:p></o:p></span></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return error_code &amp; 0xff;<span style=3D"font-size:10.0pt;font-fa=
-mily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Btw, we will switch to ACA for APU as well, although=
- it only covers a few driver managed IP blocks. This also reminds me that w=
-e really need a flag (is_supported) in aca structure that gives us a chance=
- to restrict the transition to discrete
- gpu first.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Regards,<br>
-Hawking<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;<a href=3D"mailto:amd-gfx-b=
-ounces@lists.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a>&gt;
-<b>On Behalf Of </b>Zhang, Hawking<br>
-<b>Sent:</b> Wednesday, January 3, 2024 17:29<br>
-<b>To:</b> Wang, Yang(Kevin) &lt;<a href=3D"mailto:KevinYang.Wang@amd.com">=
-KevinYang.Wang@amd.com</a>&gt;;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a><br>
-<b>Cc:</b> Chai, Thomas &lt;<a href=3D"mailto:YiPeng.Chai@amd.com">YiPeng.C=
-hai@amd.com</a>&gt;; Zhou1, Tao &lt;<a href=3D"mailto:Tao.Zhou1@amd.com">Ta=
-o.Zhou1@amd.com</a>&gt;<br>
-<b>Subject:</b> RE: [PATCH 01/14] drm/amdgpu: implement RAS ACA driver fram=
-ework<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif;color:blue">[AMD Official Use Only - General]<o:p><=
-/o:p></span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif;color:blue">[AMD Official Use Only - General]</span><s=
-pan style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:=
-p></o:p></span></p>
-</div>
-<div style=3D"margin-top:5.0pt">
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:#2F5496">Please check my commen=
-ts inline. I added index for each comment (9 in total) since it is a long t=
-hread&#8230;</span><span style=3D"font-size:10.0pt;font-family:&quot;Arial&=
-quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:#2F5496">&nbsp;</span><span sty=
-le=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p=
-></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:#2F5496">Regards,</span><span s=
-tyle=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o=
-:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:#2F5496">Hawking</span><span st=
-yle=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:=
-p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">-----Original Message-----<br>
-From: Wang, Yang(Kevin) &lt;<a href=3D"mailto:KevinYang.Wang@amd.com">Kevin=
-Yang.Wang@amd.com</a>&gt;
-<br>
-Sent: Wednesday, January 3, 2024 16:02<br>
-To: <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesk=
-top.org</a><br>
-Cc: Zhang, Hawking &lt;<a href=3D"mailto:Hawking.Zhang@amd.com">Hawking.Zha=
-ng@amd.com</a>&gt;; Zhou1, Tao &lt;<a href=3D"mailto:Tao.Zhou1@amd.com">Tao=
-.Zhou1@amd.com</a>&gt;; Chai, Thomas &lt;<a href=3D"mailto:YiPeng.Chai@amd.=
-com">YiPeng.Chai@amd.com</a>&gt;; Wang, Yang(Kevin) &lt;<a href=3D"mailto:K=
-evinYang.Wang@amd.com">KevinYang.Wang@amd.com</a>&gt;<br>
-Subject: [PATCH 01/14] drm/amdgpu: implement RAS ACA driver framework<span =
-style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></=
-o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">v1:<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">implement new RAS ACA driver code framework.<span st=
-yle=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:=
-p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">v2:<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">- rename aca_bank_set to aca_banks.<span style=3D"fo=
-nt-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span>=
-</p>
-</div>
-<div>
-<p class=3D"MsoNormal">- rename aca_source_xxx to aca_handle_xxx<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Signed-off-by: Yang Wang &lt;<a href=3D"mailto:kevin=
-yang.wang@amd.com">kevinyang.wang@amd.com</a>&gt;<span style=3D"font-size:1=
-0.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">---<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/Makefile&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 2 +-<span style=3D"font-size:10.0pt=
-;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 4 +<span style=3D"font-size:10.0pt;=
-font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c&nbsp;&nbsp;&=
-nbsp; | 679 +++++++++++++++++++++<span style=3D"font-size:10.0pt;font-famil=
-y:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h&nbsp;&nbsp;&=
-nbsp; | 196 ++++++<span style=3D"font-size:10.0pt;font-family:&quot;Arial&q=
-uot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |&nbsp;&n=
-bsp; 6 +<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-=
-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h&nbsp;&nbsp;&=
-nbsp; |&nbsp;&nbsp; 1 +<span style=3D"font-size:10.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">6 files changed, 887 insertions(+), 1 deletion(-)&nb=
-sp; create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu=
-_aca.h<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-se=
-rif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/d=
-rivers/gpu/drm/amd/amdgpu/Makefile<span style=3D"font-size:10.0pt;font-fami=
-ly:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">index 260e32ef7bae..4c989da4d2f3 100644<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/Makefile<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/Makefile<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">@@ -80,7 +80,7 @@ amdgpu-y +=3D amdgpu_device.o amdg=
-pu_doorbell_mgr.o amdgpu_kms.o \<span style=3D"font-size:10.0pt;font-family=
-:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amd=
-gpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \<span style=3D"=
-font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></spa=
-n></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amd=
-gpu_fw_attestation.o amdgpu_securedisplay.o \<span style=3D"font-size:10.0p=
-t;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amd=
-gpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o \<span style=3D"fo=
-nt-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span>=
-</p>
-</div>
-<div>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_mu=
-x.o amdgpu_xcp.o amdgpu_seq64.o<span style=3D"font-size:10.0pt;font-family:=
-&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_mu=
-x.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_aca.o<span style=3D"font-size:10.0pt=
-;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">amdgpu-$(CONFIG_PROC_FS) +=3D amdgpu_fdinfo.o<span s=
-tyle=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o=
-:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/d=
-rivers/gpu/drm/amd/amdgpu/amdgpu.h<span style=3D"font-size:10.0pt;font-fami=
-ly:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">index 616b6c911767..9fa6f69a58a7 100644<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">@@ -107,6 +107,7 @@<span style=3D"font-size:10.0pt;f=
-ont-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">#include &quot;amdgpu_smuio.h&quot;<span style=3D"fo=
-nt-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span>=
-</p>
-</div>
-<div>
-<p class=3D"MsoNormal">#include &quot;amdgpu_fdinfo.h&quot;<span style=3D"f=
-ont-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span=
-></p>
-</div>
-<div>
-<p class=3D"MsoNormal">#include &quot;amdgpu_mca.h&quot;<span style=3D"font=
--size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></=
-p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#include &quot;amdgpu_aca.h&quot;<span style=3D"fon=
-t-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span><=
-/p>
-</div>
-<div>
-<p class=3D"MsoNormal">#include &quot;amdgpu_ras.h&quot;<span style=3D"font=
--size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></=
-p>
-</div>
-<div>
-<p class=3D"MsoNormal">#include &quot;amdgpu_xcp.h&quot;<span style=3D"font=
--size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></=
-p>
-</div>
-<div>
-<p class=3D"MsoNormal">#include &quot;amdgpu_seq64.h&quot;<span style=3D"fo=
-nt-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span>=
-</p>
-</div>
-<div>
-<p class=3D"MsoNormal">@@ -1045,6 +1046,9 @@ struct amdgpu_device {<span st=
-yle=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:=
-p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* =
-MCA */<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-se=
-rif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; str=
-uct amdgpu_mca&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; mca;<span style=3D"font-size:10.0pt;font-family:&qu=
-ot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* ACA */<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_=
-aca&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; aca;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&qu=
-ot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; str=
-uct amdgpu_ip_block&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i=
-p_blocks[AMDGPU_MAX_IP_NUM];<span style=3D"font-size:10.0pt;font-family:&qu=
-ot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uin=
-t32_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; harves=
-t_ip_mask;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,san=
-s-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; num_ip_blocks;<span style=3D"font-size:10.0pt;font-famil=
-y:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c=
- b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c<span style=3D"font-size:10.0pt;f=
-ont-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">new file mode 100644<span style=3D"font-size:10.0pt;=
-font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">index 000000000000..6a6f167b5380<span style=3D"font-=
-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p=
+> Regards,
+>   Felix
 >
-</div>
-<div>
-<p class=3D"MsoNormal">--- /dev/null<span style=3D"font-size:10.0pt;font-fa=
-mily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c<span s=
-tyle=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o=
-:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">@@ -0,0 +1,679 @@<span style=3D"font-size:10.0pt;fon=
-t-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+/*<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * Copyright 2023 Advanced Micro Devices, Inc.<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ *<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * Permission is hereby granted, free of charge, to=
- any person
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+obtaining a<span style=3D"font-size:10.0pt;font-fam=
-ily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * copy of this software and associated documentati=
-on files (the
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&quot;Software&quot;),<span style=3D"font-size:10.0=
-pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * to deal in the Software without restriction, inc=
-luding without
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+limitation<span style=3D"font-size:10.0pt;font-fami=
-ly:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * the rights to use, copy, modify, merge, publish,=
- distribute,
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+sublicense,<span style=3D"font-size:10.0pt;font-fam=
-ily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * and/or sell copies of the Software, and to permi=
-t persons to whom
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+the<span style=3D"font-size:10.0pt;font-family:&quo=
-t;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * Software is furnished to do so, subject to the f=
-ollowing conditions:<span style=3D"font-size:10.0pt;font-family:&quot;Arial=
-&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ *<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * The above copyright notice and this permission n=
-otice shall be
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+included in<span style=3D"font-size:10.0pt;font-fam=
-ily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * all copies or substantial portions of the Softwa=
-re.<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif=
-"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ *<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITH=
-OUT WARRANTY OF ANY KIND,
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+EXPRESS OR<span style=3D"font-size:10.0pt;font-fami=
-ly:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRAN=
-TIES OF <span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-=
-serif">
-<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+MERCHANTABILITY,<span style=3D"font-size:10.0pt;fon=
-t-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGE=
-MENT.&nbsp; IN NO EVENT
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+SHALL<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE F=
-OR ANY CLAIM,
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+DAMAGES OR<span style=3D"font-size:10.0pt;font-fami=
-ly:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRAC=
-T, TORT OR
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+OTHERWISE,<span style=3D"font-size:10.0pt;font-fami=
-ly:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE S=
-OFTWARE OR THE USE
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+OR<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * OTHER DEALINGS IN THE SOFTWARE.<span style=3D"fo=
-nt-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span>=
-</p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ *<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ */<span style=3D"font-size:10.0pt;font-family:&quo=
-t;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#include &lt;linux/list.h&gt;<span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#include &quot;amdgpu.h&quot;<span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#include &quot;amdgpu_aca.h&quot;<span style=3D"fon=
-t-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span><=
-/p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#include &quot;amdgpu_ras.h&quot;<span style=3D"fon=
-t-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span><=
-/p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_BANK_HWID(type, hwid, mcatype) [ACA_HWI=
-P_TYPE_##type] =3D
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+{hwid, mcatype}<span style=3D"font-size:10.0pt;font=
--family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+typedef int bank_handler_t(struct aca_handle *handl=
-e, struct aca_bank
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+*bank, enum aca_error_type type, void *data);<span =
-style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></=
-o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+struct aca_banks {<span style=3D"font-size:10.0pt;f=
-ont-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int nr_banks;<=
-span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o=
-:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct list_he=
-ad list;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-=
-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+};<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+struct aca_hwip {<span style=3D"font-size:10.0pt;fo=
-nt-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int hwid;<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int mcatype;<s=
-pan style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:=
-p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+};<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static struct aca_hwip aca_hwid_mcatypes[ACA_HWIP_T=
-YPE_COUNT] =3D {<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quo=
-t;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_BANK_HWID(=
-SMU,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x01,&nbsp;&nbsp; 0x01),<span style=3D"f=
-ont-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span=
-></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_BANK_HWID(=
-PCS_XGMI, 0x50,&nbsp;&nbsp; 0x00),<span style=3D"font-size:10.0pt;font-fami=
-ly:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_BANK_HWID(=
-UMC,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x96,&nbsp;&nbsp; 0x00),<span style=3D"f=
-ont-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span=
-></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+};<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static void aca_banks_init(struct aca_banks *banks)=
- {<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"=
-><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!banks)<sp=
-an style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p=
-></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<span style=3D"font-size:10.0pt;fo=
-nt-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(banks, =
-0, sizeof(*banks));<span style=3D"font-size:10.0pt;font-family:&quot;Arial&=
-quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_LIST_HEAD=
-(&amp;banks-&gt;list);<span style=3D"font-size:10.0pt;font-family:&quot;Ari=
-al&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static int aca_banks_add_bank(struct aca_banks *ban=
-ks, struct aca_bank
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+*bank) {<span style=3D"font-size:10.0pt;font-family=
-:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_ban=
-k_node *node;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,=
-sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!bank)<spa=
-n style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>=
-</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<span style=3D"font-size:1=
-0.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; node =3D kvzal=
-loc(sizeof(*node), GFP_KERNEL);<span style=3D"font-size:10.0pt;font-family:=
-&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!node)<spa=
-n style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>=
-</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -ENOMEM;<span style=3D"font-size:1=
-0.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(&amp;no=
-de-&gt;bank, bank, sizeof(*bank));<span style=3D"font-size:10.0pt;font-fami=
-ly:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_LIST_HEAD=
-(&amp;node-&gt;node);<span style=3D"font-size:10.0pt;font-family:&quot;Aria=
-l&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_add_tail(=
-&amp;node-&gt;node, &amp;banks-&gt;list);<span style=3D"font-size:10.0pt;fo=
-nt-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; banks-&gt;nr_b=
-anks++;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-s=
-erif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static void aca_banks_release(struct aca_banks *ban=
-ks) {<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-ser=
-if"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_ban=
-k_node *node, *tmp;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&=
-quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_for_each_=
-entry_safe(node, tmp, &amp;banks-&gt;list, node) {<span style=3D"font-size:=
-10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_del(&amp;node-&gt;node);<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kvfree(node);<span style=3D"font-size:10.=
-0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static int aca_smu_get_valid_aca_count(struct amdgp=
-u_device *adev, enum
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+aca_error_type type, u32 *count) {<span style=3D"fo=
-nt-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span>=
-</p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_=
-aca *aca =3D &amp;adev-&gt;aca;<span style=3D"font-size:10.0pt;font-family:=
-&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct a=
-ca_smu_funcs *smu_funcs =3D aca-&gt;smu_funcs;<span style=3D"font-size:10.0=
-pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!count)<sp=
-an style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p=
-></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<span style=3D"font-size:1=
-0.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu_funcs=
- || !smu_funcs-&gt;get_valid_aca_count)<span style=3D"font-size:10.0pt;font=
--family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EOPNOTSUPP;<span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return smu_fun=
-cs-&gt;get_valid_aca_count(adev, type, count); }<span style=3D"font-size:10=
-.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static int aca_smu_get_valid_aca_banks(struct amdgp=
-u_device *adev, enum aca_error_type type,<span style=3D"font-size:10.0pt;fo=
-nt-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; int start, int count,<span style=3D"font-size:10.0pt;=
-font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; struct aca_banks *banks)<span style=3D"font-size:10.0=
-pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+{<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_=
-aca *aca =3D &amp;adev-&gt;aca;<span style=3D"font-size:10.0pt;font-family:=
-&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct a=
-ca_smu_funcs *smu_funcs =3D aca-&gt;smu_funcs;<span style=3D"font-size:10.0=
-pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_ban=
-k bank;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-s=
-erif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, max_cou=
-nt, ret;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-=
-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!count)<sp=
-an style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p=
-></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<span style=3D"font-size:10.0pt;=
-font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu_funcs=
- || !smu_funcs-&gt;get_valid_aca_bank)<span style=3D"font-size:10.0pt;font-=
-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EOPNOTSUPP;<span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (type) =
-{<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">=
-<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case ACA_ERROR=
-_TYPE_UE:<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans=
--serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; max_count =3D smu_funcs-&gt;max_ue_aca_co=
-unt;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-seri=
-f"><o:p></o:p></span></p>
-</div>
-<ol start=3D"1" type=3D"1">
-<li class=3D"MsoNormal" style=3D"color:#2F5496;mso-margin-top-alt:auto;mso-=
-margin-bottom-alt:auto;mso-list:l7 level1 lfo1">
-<b>[Hawking]: %s/max_ue_aca_count/max_ue_count</b><o:p></o:p></li></ol>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:#2F5496">&nbsp;</span><span sty=
-le=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p=
-></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:#2F5496">&nbsp;</span><span sty=
-le=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p=
-></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<span style=3D"font-size:10.0pt;fon=
-t-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case ACA_ERROR=
-_TYPE_CE:<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans=
--serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case ACA_ERROR=
-_TYPE_DEFERRED:<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot=
-;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; max_count =3D smu_funcs-&gt;max_ce_aca_co=
-unt;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-seri=
-f"><o:p></o:p></span></p>
-</div>
-<ol start=3D"2" type=3D"1">
-<li class=3D"MsoNormal" style=3D"color:#2F5496;mso-margin-top-alt:auto;mso-=
-margin-bottom-alt:auto;mso-list:l4 level1 lfo2">
-<b>[Hawking]: %s/max_ce_aca_count/max_ce_count</b><o:p></o:p></li><li class=
-=3D"MsoNormal" style=3D"color:#2F5496;mso-margin-top-alt:auto;mso-margin-bo=
-ttom-alt:auto;mso-list:l4 level1 lfo2">
-<b>[Hawking]: I&#8217;ll suggest treating DEFERRED as default for now. (i.e=
-., not supported yet)</b><o:p></o:p></li></ol>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:#2F5496">&nbsp;</span><span sty=
-le=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p=
-></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<span style=3D"font-size:10.0pt;fon=
-t-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<span =
-style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></=
-o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<span style=3D"font-size:1=
-0.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (start + co=
-unt &gt;=3D max_count)<span style=3D"font-size:10.0pt;font-family:&quot;Ari=
-al&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<span style=3D"font-size:1=
-0.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count =3D min_=
-t(int, count, max_count);<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; =
-i &lt; count; i++) {<span style=3D"font-size:10.0pt;font-family:&quot;Arial=
-&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(&amp;bank, 0, sizeof(bank));<span =
-style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></=
-o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_funcs-&gt;get_valid_aca_bank(=
-adev, type, start + i, &amp;bank);<span style=3D"font-size:10.0pt;font-fami=
-ly:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<span style=3D"font-size:10.0pt;f=
-ont-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return ret;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&q=
-uot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D aca_banks_add_bank(banks, &amp;ba=
-nk);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-seri=
-f"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<span style=3D"font-size:10.0pt;f=
-ont-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return ret;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&q=
-uot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static bool aca_bank_hwip_is_matched(struct aca_ban=
-k *bank, enum
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+aca_hwip_type type) {<span style=3D"font-size:10.0p=
-t;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_hwi=
-p *hwip;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-=
-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int hwid, mcat=
-ype;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-seri=
-f"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 ipid;<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!bank || t=
-ype =3D=3D ACA_HWIP_TYPE_UNKNOW)<span style=3D"font-size:10.0pt;font-family=
-:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<span style=3D"font-size:1=
-0.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwip =3D &amp;=
-aca_hwid_mcatypes[type];<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hwip-&gt;=
-hwid)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-ser=
-if"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<span style=3D"font-size:10.=
-0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ipid =3D bank-=
-&gt;regs[ACA_REG_IDX_IPID];<span style=3D"font-size:10.0pt;font-family:&quo=
-t;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwid =3D ACA_R=
-EG__IPID__HARDWAREID(ipid);<span style=3D"font-size:10.0pt;font-family:&quo=
-t;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mcatype =3D AC=
-A_REG__IPID__MCATYPE(ipid);<span style=3D"font-size:10.0pt;font-family:&quo=
-t;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return hwip-&g=
-t;hwid =3D=3D hwid &amp;&amp; hwip-&gt;mcatype =3D=3D mcatype; }<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static bool aca_bank_is_valid(struct aca_handle *ha=
-ndle, struct
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+aca_bank *bank, enum aca_error_type type) {<span st=
-yle=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:=
-p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct a=
-ca_bank_ops *bank_ops =3D handle-&gt;bank_ops;<span style=3D"font-size:10.0=
-pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!aca_bank_=
-hwip_is_matched(bank, handle-&gt;hwip))<span style=3D"font-size:10.0pt;font=
--family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<span style=3D"font-size:10.=
-0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!bank_ops-=
-&gt;aca_bank_is_valid)<span style=3D"font-size:10.0pt;font-family:&quot;Ari=
-al&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;<span style=3D"font-size:10.0=
-pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<ol start=3D"4" type=3D"1">
-<li class=3D"MsoNormal" style=3D"color:#2F5496;mso-margin-top-alt:auto;mso-=
-margin-bottom-alt:auto;mso-list:l0 level1 lfo3">
-<b>[Hawking]: does it apply to the case where the valid field is not availa=
-ble? Can you please elaborate why return true in such case?</b><o:p></o:p><=
-/li></ol>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:#2F5496">&nbsp;</span><span sty=
-le=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p=
-></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return bank_op=
-s-&gt;aca_bank_is_valid(handle, bank, type, handle-&gt;data);
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static struct aca_bank_error *new_bank_error(struct=
- aca_error *aerr,
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+struct aca_bank_info *info) {<span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_ban=
-k_error *bank_error;<span style=3D"font-size:10.0pt;font-family:&quot;Arial=
-&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bank_error =3D=
- kvzalloc(sizeof(*bank_error), GFP_KERNEL);<span style=3D"font-size:10.0pt;=
-font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!bank_erro=
-r)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"=
-><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return NULL;<span style=3D"font-size:10.0=
-pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_LIST_HEAD=
-(&amp;bank_error-&gt;node);<span style=3D"font-size:10.0pt;font-family:&quo=
-t;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(&amp;ba=
-nk_error-&gt;info, info, sizeof(*info));<span style=3D"font-size:10.0pt;fon=
-t-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&am=
-p;aerr-&gt;lock);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&qu=
-ot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_add_tail(=
-&amp;bank_error-&gt;node, &amp;aerr-&gt;list);<span style=3D"font-size:10.0=
-pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&=
-amp;aerr-&gt;lock);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&=
-quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return bank_er=
-ror;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-seri=
-f"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static struct aca_bank_error *find_bank_error(struc=
-t aca_error *aerr,
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+struct aca_bank_info *info) {<span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_ban=
-k_error *bank_error =3D NULL;<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_ban=
-k_info *tmp_info;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&qu=
-ot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool found =3D=
- false;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-s=
-erif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&am=
-p;aerr-&gt;lock);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&qu=
-ot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_for_each_=
-entry(bank_error, &amp;aerr-&gt;list, node) {<span style=3D"font-size:10.0p=
-t;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp_info =3D &amp;bank_error-&gt;info;<sp=
-an style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p=
-></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (tmp_info-&gt;socket_id =3D=3D info-&g=
-t;socket_id &amp;&amp;<span style=3D"font-size:10.0pt;font-family:&quot;Ari=
-al&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp_info-&gt;die_=
-id =3D=3D info-&gt;die_id) {<span style=3D"font-size:10.0pt;font-family:&qu=
-ot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; found =3D true;<span style=3D"font-size:10.0pt;font-family:&quot;Ari=
-al&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; goto out_unlock;<span style=3D"font-size:10.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<span style=3D"font-size:10.0pt;font-fam=
-ily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+out_unlock:<span style=3D"font-size:10.0pt;font-fam=
-ily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&=
-amp;aerr-&gt;lock);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&=
-quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return found ?=
- bank_error : NULL;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&=
-quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static void aca_bank_error_remove(struct aca_error =
-*aerr, struct
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+aca_bank_error *bank_error) {<span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!aerr || !=
-bank_error)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sa=
-ns-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<span style=3D"font-size:10.0pt;fo=
-nt-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_del(&amp;=
-bank_error-&gt;node);<span style=3D"font-size:10.0pt;font-family:&quot;Aria=
-l&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aerr-&gt;nr_er=
-rors--;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-s=
-erif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kvfree(bank_er=
-ror);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-ser=
-if"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static struct aca_bank_error *get_bank_error(struct=
- aca_error *aerr,
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+struct aca_bank_info *info) {<span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_ban=
-k_error *bank_error;<span style=3D"font-size:10.0pt;font-family:&quot;Arial=
-&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!aerr || !=
-info)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-ser=
-if"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return NULL;<span style=3D"font-size:10.0=
-pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bank_error =3D=
- find_bank_error(aerr, info);<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bank_error=
-)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">=
-<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return bank_error;<span style=3D"font-siz=
-e:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return new_ban=
-k_error(aerr, info);<span style=3D"font-size:10.0pt;font-family:&quot;Arial=
-&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static int aca_error_inc_count(struct aca_error *ae=
-rr, struct
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+aca_bank_info *info, u64 count) {<span style=3D"fon=
-t-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span><=
-/p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_ban=
-k_error *bank_error;<span style=3D"font-size:10.0pt;font-family:&quot;Arial=
-&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!info)<spa=
-n style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>=
-</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<span style=3D"font-size:1=
-0.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!count)<sp=
-an style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p=
-></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<span style=3D"font-size:10.0pt;=
-font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bank_error =3D=
- get_bank_error(aerr, info);<span style=3D"font-size:10.0pt;font-family:&qu=
-ot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!bank_erro=
-r)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"=
-><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -ENOMEM;<span style=3D"font-size:1=
-0.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bank_error-&gt=
-;count +=3D count;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&q=
-uot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static int aca_log_error_report(struct aca_handle *=
-handle, enum aca_error_type type,<span style=3D"font-size:10.0pt;font-famil=
-y:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_bank_repo=
-rt *report)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sa=
-ns-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+{<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_err=
-or_cache *error_cache =3D &amp;handle-&gt;error_cache;<span style=3D"font-s=
-ize:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_err=
-or *aerr;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans=
--serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!handle ||=
- !report)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans=
--serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<span style=3D"font-size:1=
-0.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aerr =3D &amp;=
-error_cache-&gt;errors[type];<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return aca_err=
-or_inc_count(aerr, &amp;report-&gt;info, report-&gt;count); }<span style=3D=
-"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></sp=
-an></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<ol start=3D"5" type=3D"1">
-<li class=3D"MsoNormal" style=3D"color:#2F5496;mso-margin-top-alt:auto;mso-=
-margin-bottom-alt:auto;mso-list:l3 level1 lfo4">
-<b>[Hawking]: Shall we merge the aca_error_inc_count with aca_log_error_rep=
-ort? if you haven&#8217;t name any function as aca_log_error, then just ren=
-ame aca_log_error_report to aca_log_errors.
-</b><o:p></o:p></li></ol>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:#2F5496">&nbsp;</span><span sty=
-le=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p=
-></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static int aca_generate_bank_report(struct aca_hand=
-le *handle, struct aca_bank *bank,<span style=3D"font-size:10.0pt;font-fami=
-ly:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; enum aca_error_type type, struct aca_bank_report *report) {<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct a=
-ca_bank_ops *bank_ops =3D handle-&gt;bank_ops;<span style=3D"font-size:10.0=
-pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!bank || !=
-report)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-s=
-erif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<span style=3D"font-size:1=
-0.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!bank_ops-=
-&gt;aca_bank_generate_report)<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EOPNOTSUPP;<span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(report,=
- 0, sizeof(*report));<span style=3D"font-size:10.0pt;font-family:&quot;Aria=
-l&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return bank_op=
-s-&gt;aca_bank_generate_report(handle, bank, type,<span style=3D"font-size:=
-10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; report, handle-&gt;data);<span style=3D"font-size:10.0pt;font-=
-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static int handler_aca_log_bank_error(struct aca_ha=
-ndle *handle, struct aca_bank *bank,<span style=3D"font-size:10.0pt;font-fa=
-mily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; enum aca_error_type type, void *data) {<span style=3D"font-=
-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p=
 >
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_ban=
-k_report report;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quo=
-t;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<span =
-style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></=
-o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D aca_ge=
-nerate_bank_report(handle, bank, type, &amp;report);<span style=3D"font-siz=
-e:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<span =
-style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></=
-o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<span style=3D"font-size:10.0p=
-t;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!report.co=
-unt)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-seri=
-f"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<span style=3D"font-size:10.0pt;=
-font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D aca_lo=
-g_error_report(handle, type, &amp;report);<span style=3D"font-size:10.0pt;f=
-ont-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<span =
-style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></=
-o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<span style=3D"font-size:10.0p=
-t;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static int aca_dispatch_bank(struct aca_handle_mana=
-ger *mgr, struct aca_bank *bank,<span style=3D"font-size:10.0pt;font-family=
-:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum aca_error_type type, bank_handler=
-_t handler, void *data) {<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_han=
-dle *handle;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,s=
-ans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<span =
-style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></=
-o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (list_empty=
-(&amp;mgr-&gt;list))<span style=3D"font-size:10.0pt;font-family:&quot;Arial=
-&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<span style=3D"font-size:10.0pt;=
-font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_for_each_=
-entry(handle, &amp;mgr-&gt;list, node) {<span style=3D"font-size:10.0pt;fon=
-t-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!aca_bank_is_valid(handle, bank, type=
-))<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"=
-><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; continue;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quo=
-t;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D handler(handle, bank, type, data)=
-;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">=
-<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<span style=3D"font-size:10.0pt;f=
-ont-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return ret;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&q=
-uot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static int aca_dispatch_banks(struct aca_handle_man=
-ager *mgr, struct aca_banks *banks,<span style=3D"font-size:10.0pt;font-fam=
-ily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum aca_error_type type, bank_h=
-andler_t handler, void *data)
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+{<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_ban=
-k_node *node;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,=
-sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_ban=
-k *bank;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-=
-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<span =
-style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></=
-o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!mgr || !b=
-anks)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-ser=
-if"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<span style=3D"font-size:1=
-0.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* pre check t=
-o avoid unnecessary operations */<span style=3D"font-size:10.0pt;font-famil=
-y:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (list_empty=
-(&amp;mgr-&gt;list) || list_empty(&amp;banks-&gt;list))<span style=3D"font-=
-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p=
->
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<span style=3D"font-size:10.0pt;=
-font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_for_each_=
-entry(node, &amp;banks-&gt;list, node) {<span style=3D"font-size:10.0pt;fon=
-t-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bank =3D &amp;node-&gt;bank;<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D aca_dispatch_bank(mgr, bank, type=
-, handler, data);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&qu=
-ot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<span style=3D"font-size:10.0pt;f=
-ont-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return ret;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&q=
-uot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<ol start=3D"6" type=3D"1">
-<li class=3D"MsoNormal" style=3D"color:#2F5496;mso-margin-top-alt:auto;mso-=
-margin-bottom-alt:auto;mso-list:l2 level1 lfo5">
-<b>[Hawking]: Can we merge aca_dispatch_bank with aca_dispatch_banks?</b><o=
-:p></o:p></li></ol>
-<div>
-<p class=3D"MsoNormal">&nbsp;<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static int aca_bank_update(struct amdgpu_device *ad=
-ev, enum aca_error_type type,<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<ol start=3D"7" type=3D"1">
-<li class=3D"MsoNormal" style=3D"color:#2F5496;mso-margin-top-alt:auto;mso-=
-margin-bottom-alt:auto;mso-list:l5 level1 lfo6">
-<b>[Hawking]: let&#8217;s name it aca_update_banks</b><o:p></o:p></li></ol>
-<div>
-<p class=3D"MsoNormal">&nbsp;<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; bank_handler_t handler, void *data) {<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_=
-aca *aca =3D &amp;adev-&gt;aca;<span style=3D"font-size:10.0pt;font-family:=
-&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_ban=
-ks banks;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans=
--serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 count =3D =
-0;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"=
-><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<span =
-style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></=
-o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (list_empty=
-(&amp;aca-&gt;mgr.list))<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<span style=3D"font-size:10.0pt;=
-font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D aca_sm=
-u_get_valid_aca_count(adev, type, &amp;count);<span style=3D"font-size:10.0=
-pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<span =
-style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></=
-o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<span style=3D"font-size:10.0p=
-t;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!count)<sp=
-an style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p=
-></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<span style=3D"font-size:10.0pt;=
-font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aca_banks_init=
-(&amp;banks);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,=
-sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D aca_sm=
-u_get_valid_aca_banks(adev, type, 0, count, &amp;banks);<span style=3D"font=
--size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></=
-p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<span =
-style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></=
-o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_release_banks;<span style=3D"fon=
-t-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span><=
-/p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (list_empty=
-(&amp;banks.list)) {<span style=3D"font-size:10.0pt;font-family:&quot;Arial=
-&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D 0;<span style=3D"font-size:10.0pt=
-;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_release_banks;<span style=3D"fon=
-t-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span><=
-/p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D aca_di=
-spatch_banks(&amp;aca-&gt;mgr, &amp;banks, type,<span style=3D"font-size:10=
-.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; handler, data)=
-;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">=
-<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<span =
-style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></=
-o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_release_banks;<span style=3D"fon=
-t-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span><=
-/p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+err_release_banks:<span style=3D"font-size:10.0pt;f=
-ont-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aca_banks_rele=
-ase(&amp;banks);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quo=
-t;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<sp=
-an style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p=
-></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static int aca_error_update(struct amdgpu_device *a=
-dev, enum
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+aca_error_type type) {<span style=3D"font-size:10.0=
-pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return aca_ban=
-k_update(adev, type, handler_aca_log_bank_error, NULL);
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<ol start=3D"8" type=3D"1">
-<li class=3D"MsoNormal" style=3D"color:#2F5496;mso-margin-top-alt:auto;mso-=
-margin-bottom-alt:auto;mso-list:l6 level1 lfo7">
-<b>[Hawking]: Shall we drop this function since it&#8217;s just a wraper. I=
-t seems to the caller __aca_get_error_data does have all the input paramete=
-rs that can feed into aca_update_banks.</b><o:p></o:p></li></ol>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:#2F5496">&nbsp;</span><span sty=
-le=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p=
-></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static int aca_log_aca_error_data(struct aca_bank_e=
-rror *bank_error,
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+enum aca_error_type type, struct ras_err_data *err_=
-data) {<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-s=
-erif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_ban=
-k_info *info;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,=
-sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_=
-smuio_mcm_config_info mcm_info;<span style=3D"font-size:10.0pt;font-family:=
-&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!bank_erro=
-r-&gt;count)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,s=
-ans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<span style=3D"font-size:10.0pt;=
-font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; info =3D &amp;=
-bank_error-&gt;info;<span style=3D"font-size:10.0pt;font-family:&quot;Arial=
-&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mcm_info.die_i=
-d =3D info-&gt;die_id;<span style=3D"font-size:10.0pt;font-family:&quot;Ari=
-al&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mcm_info.socke=
-t_id =3D info-&gt;socket_id;<span style=3D"font-size:10.0pt;font-family:&qu=
-ot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (type) =
-{<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">=
-<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case ACA_ERROR=
-_TYPE_UE:<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans=
--serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ras_error_statistic_ue_count(err_d=
-ata, &amp;mcm_info, NULL, bank_error-&gt;count);<span style=3D"font-size:10=
-.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<span style=3D"font-size:10.0pt;fon=
-t-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case ACA_ERROR=
-_TYPE_CE:<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans=
--serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ras_error_statistic_ce_count(err_d=
-ata, &amp;mcm_info, NULL, bank_error-&gt;count);<span style=3D"font-size:10=
-.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<span style=3D"font-size:10.0pt;fon=
-t-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case ACA_ERROR=
-_TYPE_DEFERRED:<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot=
-;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<span =
-style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></=
-o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<span style=3D"font-size:10.0pt;fon=
-t-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static int aca_log_aca_error(struct aca_handle *han=
-dle, enum
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+aca_error_type type, struct ras_err_data *err_data)=
- {<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"=
-><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_err=
-or_cache *error_cache =3D &amp;handle-&gt;error_cache;<span style=3D"font-s=
-ize:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_err=
-or *aerr =3D &amp;error_cache-&gt;errors[type];<span style=3D"font-size:10.=
-0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_ban=
-k_error *bank_error, *tmp;<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&am=
-p;aerr-&gt;lock);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&qu=
-ot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (list_empty=
-(&amp;aerr-&gt;list))<span style=3D"font-size:10.0pt;font-family:&quot;Aria=
-l&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out_unlock;<span style=3D"font-size:=
-10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_for_each_=
-entry_safe(bank_error, tmp, &amp;aerr-&gt;list, node) {<span style=3D"font-=
-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p=
->
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aca_log_aca_error_data(bank_error, type, =
-err_data);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,san=
-s-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aca_bank_error_remove(aerr, bank_error);<=
-span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o=
-:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+out_unlock:<span style=3D"font-size:10.0pt;font-fam=
-ily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&=
-amp;aerr-&gt;lock);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&=
-quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static int __aca_get_error_data(struct amdgpu_devic=
-e *adev, struct aca_handle *handle, enum aca_error_type type,<span style=3D=
-"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></sp=
-an></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct ras_err_data =
-*err_data)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,san=
-s-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+{<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<span =
-style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></=
-o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* udpate aca =
-bank to aca source error_cache first */<span style=3D"font-size:10.0pt;font=
--family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D aca_er=
-ror_update(adev, type);<span style=3D"font-size:10.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<span =
-style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></=
-o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<span style=3D"font-size:10.0p=
-t;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return aca_log=
-_aca_error(handle, type, err_data); }<span style=3D"font-size:10.0pt;font-f=
-amily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static bool aca_handle_is_valid(struct aca_handle *=
-handle) {<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans=
--serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!handle-&g=
-t;mask || !list_empty(&amp;handle-&gt;node))<span style=3D"font-size:10.0pt=
-;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<span style=3D"font-size:10.=
-0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;<s=
-pan style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:=
-p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+int amdgpu_aca_get_error_data(struct amdgpu_device =
-*adev, struct aca_handle *handle,<span style=3D"font-size:10.0pt;font-famil=
-y:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum aca_error_type type, void *=
-data) {<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-s=
-erif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct ras_err=
-_data *err_data =3D (struct ras_err_data *)data;<span style=3D"font-size:10=
-.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!handle ||=
- !err_data)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sa=
-ns-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<span style=3D"font-size:1=
-0.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (aca_handle=
-_is_valid(handle))<span style=3D"font-size:10.0pt;font-family:&quot;Arial&q=
-uot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EOPNOTSUPP;<span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(BIT(type=
-) &amp; handle-&gt;mask))<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return&nbsp; 0;<span style=3D"font-size:1=
-0.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return __aca_g=
-et_error_data(adev, handle, type, err_data); }<span style=3D"font-size:10.0=
-pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static void aca_error_init(struct aca_error *aerr, =
-enum aca_error_type
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+type) {<span style=3D"font-size:10.0pt;font-family:=
-&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&am=
-p;aerr-&gt;lock);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&qu=
-ot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_LIST_HEAD=
-(&amp;aerr-&gt;list);<span style=3D"font-size:10.0pt;font-family:&quot;Aria=
-l&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aerr-&gt;type =
-=3D type;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans=
--serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aerr-&gt;nr_er=
-rors =3D 0;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sa=
-ns-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static void aca_init_error_cache(struct aca_handle =
-*handle) {<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,san=
-s-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_err=
-or_cache *error_cache =3D &amp;handle-&gt;error_cache;<span style=3D"font-s=
-ize:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int type;<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (type =3D =
-ACA_ERROR_TYPE_UE; type &lt; ACA_ERROR_TYPE_COUNT; type++)<span style=3D"fo=
-nt-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span>=
-</p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aca_error_init(&amp;error_cache-&gt;error=
-s[type], type); }<span style=3D"font-size:10.0pt;font-family:&quot;Arial&qu=
-ot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static void aca_error_fini(struct aca_error *aerr) =
-{<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">=
-<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_ban=
-k_error *bank_error, *tmp;<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&am=
-p;aerr-&gt;lock);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&qu=
-ot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_for_each_=
-entry_safe(bank_error, tmp, &amp;aerr-&gt;list, node)<span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aca_bank_error_remove(aerr, bank_error);<=
-span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o=
-:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_destroy(=
-&amp;aerr-&gt;lock);<span style=3D"font-size:10.0pt;font-family:&quot;Arial=
-&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static void aca_fini_error_cache(struct aca_handle =
-*handle) {<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,san=
-s-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_err=
-or_cache *error_cache =3D &amp;handle-&gt;error_cache;<span style=3D"font-s=
-ize:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int type;<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (type =3D =
-ACA_ERROR_TYPE_UE; type &lt; ACA_ERROR_TYPE_COUNT; type++)<span style=3D"fo=
-nt-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span>=
-</p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aca_error_fini(&amp;error_cache-&gt;error=
-s[type]);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans=
--serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static int add_aca_handle(struct amdgpu_device *ade=
-v, struct aca_handle_manager *mgr, struct aca_handle *handle,<span style=3D=
-"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></sp=
-an></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; const char *name, const struct aca_info *ras_info, void =
-*data) {<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-=
-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(handle,=
- 0, sizeof(*handle));<span style=3D"font-size:10.0pt;font-family:&quot;Aria=
-l&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; handle-&gt;ade=
-v =3D adev;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sa=
-ns-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; handle-&gt;mgr=
- =3D mgr;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans=
--serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; handle-&gt;nam=
-e =3D name;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sa=
-ns-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; handle-&gt;hwi=
-p =3D ras_info-&gt;hwip;<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; handle-&gt;mas=
-k =3D ras_info-&gt;mask;<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; handle-&gt;ban=
-k_ops =3D ras_info-&gt;bank_ops;<span style=3D"font-size:10.0pt;font-family=
-:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; handle-&gt;dat=
-a =3D data;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sa=
-ns-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aca_init_error=
-_cache(handle);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot=
-;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_LIST_HEAD=
-(&amp;handle-&gt;node);<span style=3D"font-size:10.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_add_tail(=
-&amp;handle-&gt;node, &amp;mgr-&gt;list);<span style=3D"font-size:10.0pt;fo=
-nt-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mgr-&gt;nr_han=
-dles++;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-s=
-erif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+int amdgpu_aca_add_handle(struct amdgpu_device *ade=
-v, struct aca_handle *handle,<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; const char *name, const struct aca_info *ras_info, void =
-*data) {<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-=
-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_=
-aca *aca =3D &amp;adev-&gt;aca;<span style=3D"font-size:10.0pt;font-family:=
-&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return add_aca=
-_handle(adev, &amp;aca-&gt;mgr, handle, name, ras_info, data);
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static void remove_aca(struct aca_handle *handle) {=
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_han=
-dle_manager *mgr =3D handle-&gt;mgr;<span style=3D"font-size:10.0pt;font-fa=
-mily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aca_fini_error=
-_cache(handle);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot=
-;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_del(&amp;=
-handle-&gt;node);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&qu=
-ot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mgr-&gt;nr_han=
-dles--;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-s=
-erif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+void amdgpu_aca_remove_handle(struct aca_handle *ha=
-ndle) {<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-s=
-erif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!handle ||=
- list_empty(&amp;handle-&gt;node))<span style=3D"font-size:10.0pt;font-fami=
-ly:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<span style=3D"font-size:10.0pt;fo=
-nt-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; remove_aca(han=
-dle);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-ser=
-if"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static int aca_manager_init(struct aca_handle_manag=
-er *mgr) {<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,san=
-s-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_LIST_HEAD=
-(&amp;mgr-&gt;list);<span style=3D"font-size:10.0pt;font-family:&quot;Arial=
-&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mgr-&gt;nr_han=
-dles =3D 0;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sa=
-ns-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static void aca_manager_fini(struct aca_handle_mana=
-ger *mgr) {<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sa=
-ns-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_han=
-dle *handle, *tmp;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&q=
-uot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_for_each_=
-entry_safe(handle, tmp, &amp;mgr-&gt;list, node)<span style=3D"font-size:10=
-.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; remove_aca(handle);<span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+int amdgpu_aca_init(struct amdgpu_device *adev) {<s=
-pan style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:=
-p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_=
-aca *aca =3D &amp;adev-&gt;aca;<span style=3D"font-size:10.0pt;font-family:=
-&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<span =
-style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></=
-o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D aca_ma=
-nager_init(&amp;aca-&gt;mgr);<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<span =
-style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></=
-o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<span style=3D"font-size:10.0p=
-t;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+void amdgpu_aca_fini(struct amdgpu_device *adev) {<=
-span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o=
-:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_=
-aca *aca =3D &amp;adev-&gt;aca;<span style=3D"font-size:10.0pt;font-family:=
-&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aca_manager_fi=
-ni(&amp;aca-&gt;mgr);<span style=3D"font-size:10.0pt;font-family:&quot;Aria=
-l&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+void amdgpu_aca_set_smu_funcs(struct amdgpu_device =
-*adev, const struct
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+aca_smu_funcs *smu_funcs) {<span style=3D"font-size=
-:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_=
-aca *aca =3D &amp;adev-&gt;aca;<span style=3D"font-size:10.0pt;font-family:=
-&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WARN_ON(aca-&g=
-t;smu_funcs);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,=
-sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aca-&gt;smu_fu=
-ncs =3D smu_funcs;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&q=
-uot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+int aca_bank_info_decode(struct aca_bank *bank, str=
-uct aca_bank_info
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+*info) {<span style=3D"font-size:10.0pt;font-family=
-:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 ipid;<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 instidhi, =
-instidlo;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans=
--serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!bank || !=
-info)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-ser=
-if"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<span style=3D"font-size:1=
-0.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ipid =3D bank-=
-&gt;regs[ACA_REG_IDX_IPID];<span style=3D"font-size:10.0pt;font-family:&quo=
-t;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; info-&gt;hwid =
-=3D ACA_REG__IPID__HARDWAREID(ipid);<span style=3D"font-size:10.0pt;font-fa=
-mily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; info-&gt;mcaty=
-pe =3D ACA_REG__IPID__MCATYPE(ipid);<span style=3D"font-size:10.0pt;font-fa=
-mily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Unfied=
- DieID Format: SAASS. A:AID, S:Socket.<span style=3D"font-size:10.0pt;font-=
-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Unfied=
- DieID[4:4] =3D InstanceId[0:0]<span style=3D"font-size:10.0pt;font-family:=
-&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Unfied=
- DieID[0:3] =3D InstanceIdHi[0:3]<span style=3D"font-size:10.0pt;font-famil=
-y:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<span =
-style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></=
-o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; instidhi =3D A=
-CA_REG__IPID__INSTANCEIDHI(ipid);<span style=3D"font-size:10.0pt;font-famil=
-y:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; instidlo =3D A=
-CA_REG__IPID__INSTANCEIDLO(ipid);<span style=3D"font-size:10.0pt;font-famil=
-y:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; info-&gt;die_i=
-d =3D ((instidhi &gt;&gt; 2) &amp; 0x03);<span style=3D"font-size:10.0pt;fo=
-nt-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; info-&gt;socke=
-t_id =3D ((instidlo &amp; 0x1) &lt;&lt; 2) | (instidhi &amp; 0x03);<span st=
-yle=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:=
-p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+static int aca_bank_get_error_code(struct amdgpu_de=
-vice *adev, struct
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+aca_bank *bank) {<span style=3D"font-size:10.0pt;fo=
-nt-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int error_code=
-;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">=
-<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (amdgpu=
-_ip_version(adev, MP1_HWIP, 0)) {<span style=3D"font-size:10.0pt;font-famil=
-y:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSIO=
-N(13, 0, 6):<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,s=
-ans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(adev-&gt;flags &amp; AMD_IS_APU) &a=
-mp;&amp; adev-&gt;pm.fw_version &gt;=3D 0x00555600) {<span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; error_code =3D ACA_REG__SYND__ERRORINFORMATION(bank-&gt;regs[ACA_REG=
-_IDX_SYND]);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,s=
-ans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return error_code &amp; 0xff;<span style=3D"font-size:10.0pt;font-fa=
-mily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<span style=3D"font-size:10.0pt;font-fam=
-ily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<span style=3D"font-size:10.0pt;fon=
-t-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<span =
-style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></=
-o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<span style=3D"font-size:10.0pt;fon=
-t-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* NOTE: the t=
-rue error code is encoded in status.errorcode[0:7] */<span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; error_code =3D=
- <span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">
-<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ACA_REG__STATUS__ERRORCODE(bank-&gt;regs[ACA_REG_ID=
-X_STATUS]);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sa=
-ns-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return error_c=
-ode &amp; 0xff;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot=
-;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+int aca_bank_check_error_codes(struct amdgpu_device=
- *adev, struct
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+aca_bank *bank, int *err_codes, int size) {<span st=
-yle=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:=
-p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, error_c=
-ode;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-seri=
-f"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!bank || !=
-err_codes)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,san=
-s-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<span style=3D"font-size:1=
-0.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; error_code =3D=
- aca_bank_get_error_code(adev, bank);<span style=3D"font-size:10.0pt;font-f=
-amily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; =
-i &lt; size; i++) {<span style=3D"font-size:10.0pt;font-family:&quot;Arial&=
-quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (err_codes[i] =3D=3D error_code)<span =
-style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></=
-o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return 0;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quo=
-t;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL=
-;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">=
-<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+}<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h=
- b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h<span style=3D"font-size:10.0pt;f=
-ont-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">new file mode 100644<span style=3D"font-size:10.0pt;=
-font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">index 000000000000..688907270ff7<span style=3D"font-=
-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p=
->
-</div>
-<div>
-<p class=3D"MsoNormal">--- /dev/null<span style=3D"font-size:10.0pt;font-fa=
-mily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h<span s=
-tyle=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o=
-:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">@@ -0,0 +1,196 @@<span style=3D"font-size:10.0pt;fon=
-t-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+/*<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * Copyright 2023 Advanced Micro Devices, Inc.<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ *<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * Permission is hereby granted, free of charge, to=
- any person
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+obtaining a<span style=3D"font-size:10.0pt;font-fam=
-ily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * copy of this software and associated documentati=
-on files (the
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&quot;Software&quot;),<span style=3D"font-size:10.0=
-pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * to deal in the Software without restriction, inc=
-luding without
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+limitation<span style=3D"font-size:10.0pt;font-fami=
-ly:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * the rights to use, copy, modify, merge, publish,=
- distribute,
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+sublicense,<span style=3D"font-size:10.0pt;font-fam=
-ily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * and/or sell copies of the Software, and to permi=
-t persons to whom
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+the<span style=3D"font-size:10.0pt;font-family:&quo=
-t;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * Software is furnished to do so, subject to the f=
-ollowing conditions:<span style=3D"font-size:10.0pt;font-family:&quot;Arial=
-&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ *<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * The above copyright notice and this permission n=
-otice shall be
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+included in<span style=3D"font-size:10.0pt;font-fam=
-ily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * all copies or substantial portions of the Softwa=
-re.<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif=
-"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ *<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITH=
-OUT WARRANTY OF ANY KIND,
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+EXPRESS OR<span style=3D"font-size:10.0pt;font-fami=
-ly:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRAN=
-TIES OF <span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-=
-serif">
-<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+MERCHANTABILITY,<span style=3D"font-size:10.0pt;fon=
-t-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGE=
-MENT.&nbsp; IN NO EVENT
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+SHALL<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE F=
-OR ANY CLAIM,
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+DAMAGES OR<span style=3D"font-size:10.0pt;font-fami=
-ly:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRAC=
-T, TORT OR
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+OTHERWISE,<span style=3D"font-size:10.0pt;font-fami=
-ly:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE S=
-OFTWARE OR THE USE
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+OR<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ * OTHER DEALINGS IN THE SOFTWARE.<span style=3D"fo=
-nt-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span>=
-</p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ *<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+ */<span style=3D"font-size:10.0pt;font-family:&quo=
-t;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#ifndef __AMDGPU_ACA_H__<span style=3D"font-size:10=
-.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define __AMDGPU_ACA_H__<span style=3D"font-size:10=
-.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#include &lt;linux/list.h&gt;<span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_MAX_REGS_COUNT&nbsp;&nbsp;&nbsp;&nbsp; =
-(16)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-seri=
-f"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG_FIELD(x, h, l)&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- (((x) &amp; GENMASK_ULL(h, l)) &gt;&gt; l)<span style=3D"font-size:10.0pt;=
-font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__STATUS__VAL(x)&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_FIELD(x, 63, 63)<span s=
-tyle=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o=
-:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__STATUS__OVERFLOW(x)&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_FIELD(x, 62, 62)<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__STATUS__UC(x)&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- ACA_REG_FIELD(x, 61, 61)<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__STATUS__EN(x)&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- ACA_REG_FIELD(x, 60, 60)<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__STATUS__MISCV(x)&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_FIELD(=
-x, 59, 59)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,san=
-s-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__STATUS__ADDRV(x)&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_FIELD(=
-x, 58, 58)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,san=
-s-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__STATUS__PCC(x)&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_FIELD(x, 57, 57)<span s=
-tyle=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o=
-:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__STATUS__ERRCOREIDVAL(x)&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_FIELD(x, 56, 56)<span style=3D"font-size:=
-10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__STATUS__TCC(x)&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_FIELD(x, 55, 55)<span s=
-tyle=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o=
-:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__STATUS__SYNDV(x)&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_FIELD(=
-x, 53, 53)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,san=
-s-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__STATUS__CECC(x)&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_F=
-IELD(x, 46, 46)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot=
-;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__STATUS__UECC(x)&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_F=
-IELD(x, 45, 45)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot=
-;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__STATUS__DEFERRED(x)&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_FIELD(x, 44, 44)<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__STATUS__POISON(x)&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_FIELD(x, 43=
-, 43)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-ser=
-if"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__STATUS__SCRUB(x)&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_FIELD(=
-x, 40, 40)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,san=
-s-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__STATUS__ERRCOREID(x)&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_FIELD(x, 37, 32)<span styl=
-e=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p>=
-</span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__STATUS__ADDRLSB(x)&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_FIELD(x, 29, 24)=
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__STATUS__ERRORCODEEXT(x)&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_FIELD(x, 21, 16)<span style=3D"font-size:=
-10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__STATUS__ERRORCODE(x)&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_FIELD(x, 15, 0)<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__IPID__MCATYPE(x)&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_FIELD(=
-x, 63, 48)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,san=
-s-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__IPID__INSTANCEIDHI(x)&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_FIELD(x, 47, 44)<span style=3D"=
-font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></spa=
-n></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__IPID__HARDWAREID(x)&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_FIELD(x, 43, 32)<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__IPID__INSTANCEIDLO(x)&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_FIELD(x, 31, 0)<span style=3D"f=
-ont-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span=
-></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__MISC0__VALID(x)&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_F=
-IELD(x, 63, 63)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot=
-;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__MISC0__OVRFLW(x)&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_FIELD(=
-x, 48, 48)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,san=
-s-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__MISC0__ERRCNT(x)&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_FIELD(=
-x, 43, 32)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,san=
-s-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_REG__SYND__ERRORINFORMATION(x)&nbsp;&nb=
-sp;&nbsp;&nbsp; ACA_REG_FIELD(x, 17, 0)<span style=3D"font-size:10.0pt;font=
--family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+/* NOTE: The following codes refers to the smu head=
-er file */<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,san=
-s-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_EXTERROR_CODE_CE&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; 0x3a<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot=
-;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_EXTERROR_CODE_FAULT&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x3b<span style=3D"font-size:10=
-.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_ERROR_UE_MASK&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BIT_MASK(ACA_ERROR_TYP=
-E_UE)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-ser=
-if"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_ERROR_CE_MASK&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BIT_MASK(ACA_ERROR_TYP=
-E_CE)<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-ser=
-if"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#define ACA_ERROR_DEFERRED_MASK&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BIT_=
-MASK(ACA_ERROR_TYPE_DEFERRED)<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+enum aca_reg_idx {<span style=3D"font-size:10.0pt;f=
-ont-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_IDX_CT=
-L&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; =3D 0,<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_IDX_ST=
-ATUS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; =3D 1,<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;=
-,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_IDX_AD=
-DR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; =3D 2,<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_IDX_MI=
-SC0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; =3D 3,<span style=3D"font-size:10.0pt;font-family:&quot;Arial&=
-quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_IDX_CO=
-NFG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; =3D 4,<span style=3D"font-size:10.0pt;font-family:&quot;Arial&=
-quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_IDX_IP=
-ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; =3D 5,<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_IDX_SY=
-ND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; =3D 6,<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_IDX_DE=
-STAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; =3D 8,<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;=
-,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_IDX_DE=
-ADDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; =3D 9,<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;=
-,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_IDX_CT=
-L_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
-=3D 10,<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-s=
-erif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_REG_IDX_CO=
-UNT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; =3D 16,<span style=3D"font-size:10.0pt;font-family:&quot;Arial=
-&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+};<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+enum aca_hwip_type {<span style=3D"font-size:10.0pt=
-;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_HWIP_TYPE_=
-UNKNOW =3D -1,<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;=
-,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_HWIP_TYPE_=
-PSP =3D 0,<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,san=
-s-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_HWIP_TYPE_=
-UMC,<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-seri=
-f"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_HWIP_TYPE_=
-SMU,<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-seri=
-f"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_HWIP_TYPE_=
-PCS_XGMI,<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans=
--serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_HWIP_TYPE_=
-COUNT,<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-se=
-rif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+};<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+enum aca_error_type {<span style=3D"font-size:10.0p=
-t;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_ERROR_TYPE=
-_INVALID =3D -1,<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quo=
-t;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_ERROR_TYPE=
-_UE =3D 0,<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,san=
-s-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_ERROR_TYPE=
-_CE,<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-seri=
-f"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_ERROR_TYPE=
-_DEFERRED,<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,san=
-s-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACA_ERROR_TYPE=
-_COUNT<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-se=
-rif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+};<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+struct aca_bank {<span style=3D"font-size:10.0pt;fo=
-nt-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 regs[ACA_M=
-AX_REGS_COUNT];<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot=
-;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+};<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+struct aca_bank_node {<span style=3D"font-size:10.0=
-pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_ban=
-k bank;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-s=
-erif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct list_he=
-ad node;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-=
-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+};<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+struct aca_bank_info {<span style=3D"font-size:10.0=
-pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int die_id;<sp=
-an style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p=
-></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int socket_id;=
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int hwid;<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int mcatype;<s=
-pan style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:=
-p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+};<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+struct aca_bank_report {<span style=3D"font-size:10=
-.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum aca_error=
-_type type;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sa=
-ns-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_ban=
-k_info info;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,s=
-ans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 count;<spa=
-n style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>=
-</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+};<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+struct aca_bank_error {<span style=3D"font-size:10.=
-0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct list_he=
-ad node;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-=
-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_ban=
-k_info info;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,s=
-ans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 count;<spa=
-n style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>=
-</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+};<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+struct aca_error {<span style=3D"font-size:10.0pt;f=
-ont-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct list_he=
-ad list;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-=
-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mutex l=
-ock;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-seri=
-f"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum aca_error=
-_type type;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sa=
-ns-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int nr_errors;=
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+};<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+struct aca_handle_manager {<span style=3D"font-size=
-:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct list_he=
-ad list;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-=
-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int nr_handles=
-;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">=
-<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+};<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+struct aca_error_cache {<span style=3D"font-size:10=
-.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_err=
-or errors[ACA_ERROR_TYPE_COUNT]; };<span style=3D"font-size:10.0pt;font-fam=
-ily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+struct aca_handle {<span style=3D"font-size:10.0pt;=
-font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct list_he=
-ad node;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-=
-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum aca_hwip_=
-type hwip;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,san=
-s-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_=
-device *adev;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,=
-sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_han=
-dle_manager *mgr;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&qu=
-ot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_err=
-or_cache error_cache;<span style=3D"font-size:10.0pt;font-family:&quot;Aria=
-l&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct a=
-ca_bank_ops *bank_ops;<span style=3D"font-size:10.0pt;font-family:&quot;Ari=
-al&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const char *na=
-me;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif=
-"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 mask;<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *data;<sp=
-an style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p=
-></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+};<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+struct aca_bank_ops {<span style=3D"font-size:10.0p=
-t;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*aca_bank=
-_generate_report)(struct aca_handle *handle, struct aca_bank *bank, enum ac=
-a_error_type type,<span style=3D"font-size:10.0pt;font-family:&quot;Arial&q=
-uot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_bank_report *report, void *data);<sp=
-an style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p=
-></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool (*aca_ban=
-k_is_valid)(struct aca_handle *handle, struct aca_bank *bank, enum aca_erro=
-r_type type,<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,s=
-ans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *da=
-ta);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-seri=
-f"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+};<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+struct aca_smu_funcs {<span style=3D"font-size:10.0=
-pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int max_ue_aca=
-_count;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-s=
-erif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int max_ce_aca=
-_count;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-s=
-erif"><o:p></o:p></span></p>
-</div>
-<ol start=3D"9" type=3D"1">
-<li class=3D"MsoNormal" style=3D"color:#2F5496;mso-margin-top-alt:auto;mso-=
-margin-bottom-alt:auto;mso-list:l1 level1 lfo8">
-<b>[Hawking] rename them to max_ue_count, and max_ce_count respectively</b>=
-<o:p></o:p></li></ol>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:#2F5496">&nbsp;</span><span sty=
-le=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p=
-></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_debu=
-g_mode)(struct amdgpu_device *adev, bool enable);<span style=3D"font-size:1=
-0.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*get_vali=
-d_aca_count)(struct amdgpu_device *adev, enum aca_error_type type, u32 *cou=
-nt);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-seri=
-f"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*get_vali=
-d_aca_bank)(struct amdgpu_device *adev, enum
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+aca_error_type type, int idx, struct aca_bank *bank=
-); };<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-ser=
-if"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+struct amdgpu_aca {<span style=3D"font-size:10.0pt;=
-font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct aca_han=
-dle_manager mgr;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quo=
-t;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct a=
-ca_smu_funcs *smu_funcs; };<span style=3D"font-size:10.0pt;font-family:&quo=
-t;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+struct aca_info {<span style=3D"font-size:10.0pt;fo=
-nt-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum aca_hwip_=
-type hwip;<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,san=
-s-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct a=
-ca_bank_ops *bank_ops;<span style=3D"font-size:10.0pt;font-family:&quot;Ari=
-al&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 mask;<span=
- style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p><=
-/o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+};<span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+int amdgpu_aca_init(struct amdgpu_device *adev); vo=
-id <span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif=
-">
-<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+amdgpu_aca_fini(struct amdgpu_device *adev); void <=
-span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">
-<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+amdgpu_aca_set_smu_funcs(struct amdgpu_device *adev=
-, const struct
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+aca_smu_funcs *smu_funcs);<span style=3D"font-size:=
-10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+int aca_bank_info_decode(struct aca_bank *bank, str=
-uct aca_bank_info
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+*info); int aca_bank_check_error_codes(struct amdgp=
-u_device *adev,
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+struct aca_bank *bank, int *err_codes, int size);<s=
-pan style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:=
-p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+int amdgpu_aca_add_handle(struct amdgpu_device *ade=
-v, struct aca_handle *handle,<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; const char *name, const struct aca_info *aca_info, void =
-*data);
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+void amdgpu_aca_remove_handle(struct aca_handle *ha=
-ndle); int
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+amdgpu_aca_get_error_data(struct amdgpu_device *ade=
-v, struct aca_handle *handle,<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; enum aca_error_type type, void *data); #endif<span style=3D"font-=
-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p=
->
-</div>
-<div>
-<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_devic=
-e.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<span style=3D"font-size:10=
-.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">index 4b694696930e..dc03643a985e 100644<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<spa=
-n style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>=
-</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<spa=
-n style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>=
-</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">@@ -4030,6 +4030,10 @@ int amdgpu_device_init(struct=
- amdgpu_device *adev,<span style=3D"font-size:10.0pt;font-family:&quot;Aria=
-l&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amd=
-gpu_device_get_pcie_info(adev);<span style=3D"font-size:10.0pt;font-family:=
-&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_a=
-ca_init(adev);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;=
-,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<span st=
-yle=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:=
-p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<span style=3D"font-size:10.0pt;=
-font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =
-=3D amdgpu_device_get_job_timeout_settings(adev);<span style=3D"font-size:1=
-0.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if =
-(r) {<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-ser=
-if"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(adev-&gt;dev, &quot;in=
-valid lockup_timeout parameter syntax\n&quot;); @@ -4434,6 +4438,8 @@ void =
-amdgpu_device_fini_sw(struct amdgpu_device *adev)<span style=3D"font-size:1=
-0.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amd=
-gpu_reset_fini(adev);<span style=3D"font-size:10.0pt;font-family:&quot;Aria=
-l&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_aca_fin=
-i(adev);<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-=
-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+<span style=3D"font-size:10.0pt;font-family:&quot;A=
-rial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* =
-free i2c buses */<span style=3D"font-size:10.0pt;font-family:&quot;Arial&qu=
-ot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if =
-(!amdgpu_device_has_dc_support(adev))<span style=3D"font-size:10.0pt;font-f=
-amily:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_i2c_fini(adev);<span st=
-yle=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:=
-p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h=
- b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h<span style=3D"font-size:10.0pt;f=
-ont-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">index 76fb85628716..c36faf353b46 100644<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h<span s=
-tyle=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o=
-:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h<span s=
-tyle=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o=
-:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">@@ -29,6 +29,7 @@<span style=3D"font-size:10.0pt;fon=
-t-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">#include &quot;ta_ras_if.h&quot;<span style=3D"font-=
-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p=
->
-</div>
-<div>
-<p class=3D"MsoNormal">#include &quot;amdgpu_ras_eeprom.h&quot;<span style=
-=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p><=
-/span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">#include &quot;amdgpu_smuio.h&quot;<span style=3D"fo=
-nt-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span>=
-</p>
-</div>
-<div>
-<p class=3D"MsoNormal">+#include &quot;amdgpu_aca.h&quot;<span style=3D"fon=
-t-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span><=
-/p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">struct amdgpu_iv_entry;<span style=3D"font-size:10.0=
-pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">--<span style=3D"font-size:10.0pt;font-family:&quot;=
-Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">2.34.1<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;<span style=3D"font-size:10.0pt;font-family:&q=
-uot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_PH7PR12MB59975D1C119B26AB2C51C0A28260APH7PR12MB5997namp_--
+>>
+>> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+>> ---
+>> v3:
+>>    - updated u32, u16, u64 for missed variables in v2
+>>
+>>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h | 448 +++++++++++++-------------
+>>   1 file changed, 226 insertions(+), 222 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h 
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> index 45366b4ca976..c161b5220fd7 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> @@ -74,7 +74,7 @@
+>>   #define KFD_MMAP_GPU_ID_SHIFT 46
+>>   #define KFD_MMAP_GPU_ID_MASK (((1ULL << KFD_GPU_ID_HASH_WIDTH) - 1) \
+>>                   << KFD_MMAP_GPU_ID_SHIFT)
+>> -#define KFD_MMAP_GPU_ID(gpu_id) ((((uint64_t)gpu_id) << 
+>> KFD_MMAP_GPU_ID_SHIFT)\
+>> +#define KFD_MMAP_GPU_ID(gpu_id) ((((u64)gpu_id) << 
+>> KFD_MMAP_GPU_ID_SHIFT)\
+>>                   & KFD_MMAP_GPU_ID_MASK)
+>>   #define KFD_MMAP_GET_GPU_ID(offset)    ((offset & 
+>> KFD_MMAP_GPU_ID_MASK) \
+>>                   >> KFD_MMAP_GPU_ID_SHIFT)
+>> @@ -91,7 +91,7 @@
+>>     /* Macro for allocating structures */
+>>   #define kfd_alloc_struct(ptr_to_struct)    \
+>> -    ((typeof(ptr_to_struct)) kzalloc(sizeof(*ptr_to_struct), 
+>> GFP_KERNEL))
+>> +    ((typeof(ptr_to_struct))kzalloc(sizeof(*ptr_to_struct), 
+>> GFP_KERNEL))
+>>     #define KFD_MAX_NUM_OF_PROCESSES 512
+>>   #define KFD_MAX_NUM_OF_QUEUES_PER_PROCESS 1024
+>> @@ -145,13 +145,13 @@ enum kfd_ioctl_flags {
+>>        */
+>>       KFD_IOC_FLAG_CHECKPOINT_RESTORE = BIT(0),
+>>   };
+>> +
+>>   /*
+>>    * Kernel module parameter to specify maximum number of supported 
+>> queues per
+>>    * device
+>>    */
+>>   extern int max_num_of_queues_per_device;
+>>   -
+>>   /* Kernel module parameter to specify the scheduling policy */
+>>   extern int sched_policy;
+>>   @@ -212,24 +212,24 @@ struct kfd_node;
+>>     struct kfd_event_interrupt_class {
+>>       bool (*interrupt_isr)(struct kfd_node *dev,
+>> -            const uint32_t *ih_ring_entry, uint32_t *patched_ihre,
+>> +                  const u32 *ih_ring_entry, u32 *patched_ihre,
+>>               bool *patched_flag);
+>>       void (*interrupt_wq)(struct kfd_node *dev,
+>> -            const uint32_t *ih_ring_entry);
+>> +                 const u32 *ih_ring_entry);
+>>   };
+>>     struct kfd_device_info {
+>> -    uint32_t gfx_target_version;
+>> +    u32 gfx_target_version;
+>>       const struct kfd_event_interrupt_class *event_interrupt_class;
+>>       unsigned int max_pasid_bits;
+>>       unsigned int max_no_of_hqd;
+>>       unsigned int doorbell_size;
+>>       size_t ih_ring_entry_size;
+>> -    uint8_t num_of_watch_points;
+>> -    uint16_t mqd_size_aligned;
+>> +    u8 num_of_watch_points;
+>> +    u16 mqd_size_aligned;
+>>       bool supports_cwsr;
+>>       bool needs_pci_atomics;
+>> -    uint32_t no_atomic_fw_version;
+>> +    u32 no_atomic_fw_version;
+>>       unsigned int num_sdma_queues_per_engine;
+>>       unsigned int num_reserved_sdma_queues_per_engine;
+>>       DECLARE_BITMAP(reserved_sdma_queues_bitmap, KFD_MAX_SDMA_QUEUES);
+>> @@ -239,17 +239,17 @@ unsigned int kfd_get_num_sdma_engines(struct 
+>> kfd_node *kdev);
+>>   unsigned int kfd_get_num_xgmi_sdma_engines(struct kfd_node *kdev);
+>>     struct kfd_mem_obj {
+>> -    uint32_t range_start;
+>> -    uint32_t range_end;
+>> -    uint64_t gpu_addr;
+>> -    uint32_t *cpu_ptr;
+>> +    u32 range_start;
+>> +    u32 range_end;
+>> +    u64 gpu_addr;
+>> +    u32 *cpu_ptr;
+>>       void *gtt_mem;
+>>   };
+>>     struct kfd_vmid_info {
+>> -    uint32_t first_vmid_kfd;
+>> -    uint32_t last_vmid_kfd;
+>> -    uint32_t vmid_num_kfd;
+>> +    u32 first_vmid_kfd;
+>> +    u32 last_vmid_kfd;
+>> +    u32 vmid_num_kfd;
+>>   };
+>>     #define MAX_KFD_NODES    8
+>> @@ -267,7 +267,7 @@ struct kfd_node {
+>>                             */
+>>       struct kfd_vmid_info vm_info;
+>>       unsigned int id;                /* topology stub index */
+>> -    uint32_t xcc_mask; /* Instance mask of XCCs present */
+>> +    u32 xcc_mask; /* Instance mask of XCCs present */
+>>       struct amdgpu_xcp *xcp;
+>>         /* Interrupts */
+>> @@ -281,7 +281,7 @@ struct kfd_node {
+>>        * from the HW ring into a SW ring.
+>>        */
+>>       bool interrupts_active;
+>> -    uint32_t interrupt_bitmap; /* Only used for GFX 9.4.3 */
+>> +    u32 interrupt_bitmap; /* Only used for GFX 9.4.3 */
+>>         /* QCM Device instance */
+>>       struct device_queue_manager *dqm;
+>> @@ -293,7 +293,7 @@ struct kfd_node {
+>>       /* Clients watching SMI events */
+>>       struct list_head smi_clients;
+>>       spinlock_t smi_lock;
+>> -    uint32_t reset_seq_num;
+>> +    u32 reset_seq_num;
+>>         /* SRAM ECC flag */
+>>       atomic_t sram_ecc_flag;
+>> @@ -326,7 +326,7 @@ struct kfd_dev {
+>>       struct mutex doorbell_mutex;
+>>         void *gtt_mem;
+>> -    uint64_t gtt_start_gpu_addr;
+>> +    u64 gtt_start_gpu_addr;
+>>       void *gtt_start_cpu_ptr;
+>>       void *gtt_sa_bitmap;
+>>       struct mutex gtt_sa_lock;
+>> @@ -336,9 +336,9 @@ struct kfd_dev {
+>>       bool init_complete;
+>>         /* Firmware versions */
+>> -    uint16_t mec_fw_version;
+>> -    uint16_t mec2_fw_version;
+>> -    uint16_t sdma_fw_version;
+>> +    u16 mec_fw_version;
+>> +    u16 mec2_fw_version;
+>> +    u16 sdma_fw_version;
+>>         /* CWSR */
+>>       bool cwsr_enabled;
+>> @@ -346,7 +346,7 @@ struct kfd_dev {
+>>       unsigned int cwsr_isa_size;
+>>         /* xGMI */
+>> -    uint64_t hive_id;
+>> +    u64 hive_id;
+>>         bool pci_atomic_requested;
+>>   @@ -362,7 +362,7 @@ struct kfd_dev {
+>>       unsigned int num_nodes;
+>>         /* Track per device allocated watch points */
+>> -    uint32_t alloc_watch_ids;
+>> +    u32 alloc_watch_ids;
+>>       spinlock_t watch_points_lock;
+>>         /* Kernel doorbells for KFD device */
+>> @@ -489,38 +489,38 @@ struct queue_properties {
+>>       enum kfd_queue_type type;
+>>       enum kfd_queue_format format;
+>>       unsigned int queue_id;
+>> -    uint64_t queue_address;
+>> -    uint64_t  queue_size;
+>> -    uint32_t priority;
+>> -    uint32_t queue_percent;
+>> -    uint32_t *read_ptr;
+>> -    uint32_t *write_ptr;
+>> +    u64 queue_address;
+>> +    u64  queue_size;
+>> +    u32 priority;
+>> +    u32 queue_percent;
+>> +    u32 *read_ptr;
+>> +    u32 *write_ptr;
+>>       void __iomem *doorbell_ptr;
+>> -    uint32_t doorbell_off;
+>> +    u32 doorbell_off;
+>>       bool is_interop;
+>>       bool is_evicted;
+>>       bool is_suspended;
+>>       bool is_being_destroyed;
+>>       bool is_active;
+>>       bool is_gws;
+>> -    uint32_t pm4_target_xcc;
+>> +    u32 pm4_target_xcc;
+>>       bool is_dbg_wa;
+>>       bool is_user_cu_masked;
+>>       /* Not relevant for user mode queues in cp scheduling */
+>>       unsigned int vmid;
+>>       /* Relevant only for sdma queues*/
+>> -    uint32_t sdma_engine_id;
+>> -    uint32_t sdma_queue_id;
+>> -    uint32_t sdma_vm_addr;
+>> +    u32 sdma_engine_id;
+>> +    u32 sdma_queue_id;
+>> +    u32 sdma_vm_addr;
+>>       /* Relevant only for VI */
+>> -    uint64_t eop_ring_buffer_address;
+>> -    uint32_t eop_ring_buffer_size;
+>> -    uint64_t ctx_save_restore_area_address;
+>> -    uint32_t ctx_save_restore_area_size;
+>> -    uint32_t ctl_stack_size;
+>> -    uint64_t tba_addr;
+>> -    uint64_t tma_addr;
+>> -    uint64_t exception_status;
+>> +    u64 eop_ring_buffer_address;
+>> +    u32 eop_ring_buffer_size;
+>> +    u64 ctx_save_restore_area_address;
+>> +    u32 ctx_save_restore_area_size;
+>> +    u32 ctl_stack_size;
+>> +    u64 tba_addr;
+>> +    u64 tma_addr;
+>> +    u64 exception_status;
+>>   };
+>>     #define QUEUE_IS_ACTIVE(q) ((q).queue_size > 0 &&    \
+>> @@ -537,8 +537,8 @@ enum mqd_update_flag {
+>>   struct mqd_update_info {
+>>       union {
+>>           struct {
+>> -            uint32_t count; /* Must be a multiple of 32 */
+>> -            uint32_t *ptr;
+>> +            u32 count; /* Must be a multiple of 32 */
+>> +            u32 *ptr;
+>>           } cu_mask;
+>>       };
+>>       enum mqd_update_flag update_flag;
+>> @@ -581,12 +581,12 @@ struct queue {
+>>       struct list_head list;
+>>       void *mqd;
+>>       struct kfd_mem_obj *mqd_mem_obj;
+>> -    uint64_t gart_mqd_addr;
+>> +    u64 gart_mqd_addr;
+>>       struct queue_properties properties;
+>>   -    uint32_t mec;
+>> -    uint32_t pipe;
+>> -    uint32_t queue;
+>> +    u32 mec;
+>> +    u32 pipe;
+>> +    u32 queue;
+>>         unsigned int sdma_id;
+>>       unsigned int doorbell_id;
+>> @@ -599,7 +599,7 @@ struct queue {
+>>       struct kobject kobj;
+>>         void *gang_ctx_bo;
+>> -    uint64_t gang_ctx_gpu_addr;
+>> +    u64 gang_ctx_gpu_addr;
+>>       void *gang_ctx_cpu_ptr;
+>>         struct amdgpu_bo *wptr_bo;
+>> @@ -622,11 +622,11 @@ enum KFD_PIPE_PRIORITY {
+>>   struct scheduling_resources {
+>>       unsigned int vmid_mask;
+>>       enum kfd_queue_type type;
+>> -    uint64_t queue_mask;
+>> -    uint64_t gws_mask;
+>> -    uint32_t oac_mask;
+>> -    uint32_t gds_heap_base;
+>> -    uint32_t gds_heap_size;
+>> +    u64 queue_mask;
+>> +    u64 gws_mask;
+>> +    u32 oac_mask;
+>> +    u32 gds_heap_base;
+>> +    u32 gds_heap_size;
+>>   };
+>>     struct process_queue_manager {
+>> @@ -663,28 +663,28 @@ struct qcm_process_device {
+>>       bool mapped_gws_queue;
+>>         /* All the memory management data should be here too */
+>> -    uint64_t gds_context_area;
+>> +    u64 gds_context_area;
+>>       /* Contains page table flags such as AMDGPU_PTE_VALID since 
+>> gfx9 */
+>> -    uint64_t page_table_base;
+>> -    uint32_t sh_mem_config;
+>> -    uint32_t sh_mem_bases;
+>> -    uint32_t sh_mem_ape1_base;
+>> -    uint32_t sh_mem_ape1_limit;
+>> -    uint32_t gds_size;
+>> -    uint32_t num_gws;
+>> -    uint32_t num_oac;
+>> -    uint32_t sh_hidden_private_base;
+>> +    u64 page_table_base;
+>> +    u32 sh_mem_config;
+>> +    u32 sh_mem_bases;
+>> +    u32 sh_mem_ape1_base;
+>> +    u32 sh_mem_ape1_limit;
+>> +    u32 gds_size;
+>> +    u32 num_gws;
+>> +    u32 num_oac;
+>> +    u32 sh_hidden_private_base;
+>>         /* CWSR memory */
+>>       struct kgd_mem *cwsr_mem;
+>>       void *cwsr_kaddr;
+>> -    uint64_t cwsr_base;
+>> -    uint64_t tba_addr;
+>> -    uint64_t tma_addr;
+>> +    u64 cwsr_base;
+>> +    u64 tba_addr;
+>> +    u64 tma_addr;
+>>         /* IB memory */
+>>       struct kgd_mem *ib_mem;
+>> -    uint64_t ib_base;
+>> +    u64 ib_base;
+>>       void *ib_kaddr;
+>>         /* doorbells for kfd process */
+>> @@ -707,7 +707,7 @@ struct qcm_process_device {
+>>    * idr_handle in the least significant 4 bytes
+>>    */
+>>   #define MAKE_HANDLE(gpu_id, idr_handle) \
+>> -    (((uint64_t)(gpu_id) << 32) + idr_handle)
+>> +    (((u64)(gpu_id) << 32) + idr_handle)
+>>   #define GET_GPU_ID(handle) (handle >> 32)
+>>   #define GET_IDR_HANDLE(handle) (handle & 0xFFFFFFFF)
+>>   @@ -738,12 +738,12 @@ struct kfd_process_device {
+>>       struct qcm_process_device qpd;
+>>         /*Apertures*/
+>> -    uint64_t lds_base;
+>> -    uint64_t lds_limit;
+>> -    uint64_t gpuvm_base;
+>> -    uint64_t gpuvm_limit;
+>> -    uint64_t scratch_base;
+>> -    uint64_t scratch_limit;
+>> +    u64 lds_base;
+>> +    u64 lds_limit;
+>> +    u64 gpuvm_base;
+>> +    u64 gpuvm_limit;
+>> +    u64 scratch_base;
+>> +    u64 scratch_limit;
+>>         /* VM context for GPUVM allocations */
+>>       struct file *drm_file;
+>> @@ -764,17 +764,17 @@ struct kfd_process_device {
+>>       enum kfd_pdd_bound bound;
+>>         /* VRAM usage */
+>> -    uint64_t vram_usage;
+>> +    u64 vram_usage;
+>>       struct attribute attr_vram;
+>>       char vram_filename[MAX_SYSFS_FILENAME_LEN];
+>>         /* SDMA activity tracking */
+>> -    uint64_t sdma_past_activity_counter;
+>> +    u64 sdma_past_activity_counter;
+>>       struct attribute attr_sdma;
+>>       char sdma_filename[MAX_SYSFS_FILENAME_LEN];
+>>         /* Eviction activity tracking */
+>> -    uint64_t last_evict_timestamp;
+>> +    u64 last_evict_timestamp;
+>>       atomic64_t evict_duration_counter;
+>>       struct attribute attr_evict;
+>>   @@ -810,30 +810,30 @@ struct kfd_process_device {
+>>       struct attribute attr_faults;
+>>       struct attribute attr_page_in;
+>>       struct attribute attr_page_out;
+>> -    uint64_t faults;
+>> -    uint64_t page_in;
+>> -    uint64_t page_out;
+>> +    u64 faults;
+>> +    u64 page_in;
+>> +    u64 page_out;
+>>         /* Exception code status*/
+>> -    uint64_t exception_status;
+>> +    u64 exception_status;
+>>       void *vm_fault_exc_data;
+>>       size_t vm_fault_exc_data_size;
+>>         /* Tracks debug per-vmid request settings */
+>> -    uint32_t spi_dbg_override;
+>> -    uint32_t spi_dbg_launch_mode;
+>> -    uint32_t watch_points[4];
+>> -    uint32_t alloc_watch_ids;
+>> +    u32 spi_dbg_override;
+>> +    u32 spi_dbg_launch_mode;
+>> +    u32 watch_points[4];
+>> +    u32 alloc_watch_ids;
+>>         /*
+>>        * If this process has been checkpointed before, then the user
+>>        * application will use the original gpu_id on the
+>>        * checkpointed node to refer to this device.
+>>        */
+>> -    uint32_t user_gpu_id;
+>> +    u32 user_gpu_id;
+>>         void *proc_ctx_bo;
+>> -    uint64_t proc_ctx_gpu_addr;
+>> +    u64 proc_ctx_gpu_addr;
+>>       void *proc_ctx_cpu_ptr;
+>>   };
+>>   @@ -893,7 +893,7 @@ struct kfd_process {
+>>        * one for each device the process is using.
+>>        */
+>>       struct kfd_process_device *pdds[MAX_GPU_INSTANCE];
+>> -    uint32_t n_pdds;
+>> +    u32 n_pdds;
+>>         struct process_queue_manager pqm;
+>>   @@ -954,8 +954,8 @@ struct kfd_process {
+>>       bool has_cwsr;
+>>         /* Exception code enable mask and status */
+>> -    uint64_t exception_enable_mask;
+>> -    uint64_t exception_status;
+>> +    u64 exception_enable_mask;
+>> +    u64 exception_status;
+>>         /* Used to drain stale interrupts */
+>>       wait_queue_head_t wait_irq_drain;
+>> @@ -1005,6 +1005,7 @@ struct amdkfd_ioctl_desc {
+>>       unsigned int cmd_drv;
+>>       const char *name;
+>>   };
+>> +
+>>   bool kfd_dev_is_large_bar(struct kfd_node *dev);
+>>     int kfd_process_create_wq(void);
+>> @@ -1015,37 +1016,38 @@ struct kfd_process *kfd_get_process(const 
+>> struct task_struct *task);
+>>   struct kfd_process *kfd_lookup_process_by_pasid(u32 pasid);
+>>   struct kfd_process *kfd_lookup_process_by_mm(const struct mm_struct 
+>> *mm);
+>>   -int kfd_process_gpuidx_from_gpuid(struct kfd_process *p, uint32_t 
+>> gpu_id);
+>> +int kfd_process_gpuidx_from_gpuid(struct kfd_process *p, u32 gpu_id);
+>>   int kfd_process_gpuid_from_node(struct kfd_process *p, struct 
+>> kfd_node *node,
+>> -                uint32_t *gpuid, uint32_t *gpuidx);
+>> +                u32 *gpuid, u32 *gpuidx);
+>>   static inline int kfd_process_gpuid_from_gpuidx(struct kfd_process *p,
+>> -                uint32_t gpuidx, uint32_t *gpuid) {
+>> +                        u32 gpuidx, u32 *gpuid) {
+>>       return gpuidx < p->n_pdds ? p->pdds[gpuidx]->dev->id : -EINVAL;
+>>   }
+>> +
+>>   static inline struct kfd_process_device 
+>> *kfd_process_device_from_gpuidx(
+>> -                struct kfd_process *p, uint32_t gpuidx) {
+>> +                struct kfd_process *p, u32 gpuidx) {
+>>       return gpuidx < p->n_pdds ? p->pdds[gpuidx] : NULL;
+>>   }
+>>     void kfd_unref_process(struct kfd_process *p);
+>> -int kfd_process_evict_queues(struct kfd_process *p, uint32_t trigger);
+>> +int kfd_process_evict_queues(struct kfd_process *p, u32 trigger);
+>>   int kfd_process_restore_queues(struct kfd_process *p);
+>>   void kfd_suspend_all_processes(void);
+>>   int kfd_resume_all_processes(void);
+>>     struct kfd_process_device *kfd_process_device_data_by_id(struct 
+>> kfd_process *process,
+>> -                             uint32_t gpu_id);
+>> +                             u32 gpu_id);
+>>   -int kfd_process_get_user_gpu_id(struct kfd_process *p, uint32_t 
+>> actual_gpu_id);
+>> +int kfd_process_get_user_gpu_id(struct kfd_process *p, u32 
+>> actual_gpu_id);
+>>     int kfd_process_device_init_vm(struct kfd_process_device *pdd,
+>>                      struct file *drm_file);
+>>   struct kfd_process_device *kfd_bind_process_to_device(struct 
+>> kfd_node *dev,
+>> -                        struct kfd_process *p);
+>> +                              struct kfd_process *p);
+>>   struct kfd_process_device *kfd_get_process_device_data(struct 
+>> kfd_node *dev,
+>> -                            struct kfd_process *p);
+>> +                               struct kfd_process *p);
+>>   struct kfd_process_device *kfd_create_process_device_data(struct 
+>> kfd_node *dev,
+>> -                            struct kfd_process *p);
+>> +                              struct kfd_process *p);
+>>     bool kfd_process_xnack_mode(struct kfd_process *p, bool supported);
+>>   @@ -1054,11 +1056,11 @@ int kfd_reserved_mem_mmap(struct kfd_node 
+>> *dev, struct kfd_process *process,
+>>     /* KFD process API for creating and translating handles */
+>>   int kfd_process_device_create_obj_handle(struct kfd_process_device 
+>> *pdd,
+>> -                    void *mem);
+>> +                     void *mem);
+>>   void *kfd_process_device_translate_handle(struct kfd_process_device 
+>> *p,
+>> -                    int handle);
+>> +                      int handle);
+>>   void kfd_process_device_remove_obj_handle(struct kfd_process_device 
+>> *pdd,
+>> -                    int handle);
+>> +                      int handle);
+>>   struct kfd_process *kfd_lookup_process_by_pid(struct pid *pid);
+>>     /* PASIDs */
+>> @@ -1076,13 +1078,13 @@ void kfd_doorbell_fini(struct kfd_dev *kfd);
+>>   int kfd_doorbell_mmap(struct kfd_node *dev, struct kfd_process 
+>> *process,
+>>                 struct vm_area_struct *vma);
+>>   void __iomem *kfd_get_kernel_doorbell(struct kfd_dev *kfd,
+>> -                    unsigned int *doorbell_off);
+>> +                      unsigned int *doorbell_off);
+>>   void kfd_release_kernel_doorbell(struct kfd_dev *kfd, u32 __iomem 
+>> *db_addr);
+>>   u32 read_kernel_doorbell(u32 __iomem *db);
+>>   void write_kernel_doorbell(void __iomem *db, u32 value);
+>>   void write_kernel_doorbell64(void __iomem *db, u64 value);
+>>   unsigned int kfd_get_doorbell_dw_offset_in_bar(struct kfd_dev *kfd,
+>> -                    struct kfd_process_device *pdd,
+>> +                           struct kfd_process_device *pdd,
+>>                       unsigned int doorbell_id);
+>>   phys_addr_t kfd_get_process_doorbells(struct kfd_process_device *pdd);
+>>   int kfd_alloc_process_doorbells(struct kfd_dev *kfd,
+>> @@ -1110,22 +1112,23 @@ void kfd_topology_shutdown(void);
+>>   int kfd_topology_add_device(struct kfd_node *gpu);
+>>   int kfd_topology_remove_device(struct kfd_node *gpu);
+>>   struct kfd_topology_device *kfd_topology_device_by_proximity_domain(
+>> -                        uint32_t proximity_domain);
+>> +                        u32 proximity_domain);
+>>   struct kfd_topology_device 
+>> *kfd_topology_device_by_proximity_domain_no_lock(
+>> -                        uint32_t proximity_domain);
+>> -struct kfd_topology_device *kfd_topology_device_by_id(uint32_t gpu_id);
+>> -struct kfd_node *kfd_device_by_id(uint32_t gpu_id);
+>> +                        u32 proximity_domain);
+>> +struct kfd_topology_device *kfd_topology_device_by_id(u32 gpu_id);
+>> +struct kfd_node *kfd_device_by_id(u32 gpu_id);
+>>   struct kfd_node *kfd_device_by_pci_dev(const struct pci_dev *pdev);
+>> -static inline bool kfd_irq_is_from_node(struct kfd_node *node, 
+>> uint32_t node_id,
+>> -                    uint32_t vmid)
+>> +static inline bool kfd_irq_is_from_node(struct kfd_node *node, u32 
+>> node_id,
+>> +                    u32 vmid)
+>>   {
+>>       return (node->interrupt_bitmap & (1 << node_id)) != 0 &&
+>>              (node->compute_vmid_bitmap & (1 << vmid)) != 0;
+>>   }
+>> +
+>>   static inline struct kfd_node *kfd_node_by_irq_ids(struct 
+>> amdgpu_device *adev,
+>> -                    uint32_t node_id, uint32_t vmid) {
+>> +                           u32 node_id, u32 vmid) {
+>>       struct kfd_dev *dev = adev->kfd.dev;
+>> -    uint32_t i;
+>> +    u32 i;
+>>         if (KFD_GC_VERSION(dev) != IP_VERSION(9, 4, 3))
+>>           return dev->nodes[0];
+>> @@ -1136,7 +1139,8 @@ static inline struct kfd_node 
+>> *kfd_node_by_irq_ids(struct amdgpu_device *adev,
+>>         return NULL;
+>>   }
+>> -int kfd_topology_enum_kfd_devices(uint8_t idx, struct kfd_node **kdev);
+>> +
+>> +int kfd_topology_enum_kfd_devices(u8 idx, struct kfd_node **kdev);
+>>   int kfd_numa_node_to_apic_id(int numa_node_id);
+>>     /* Interrupts */
+>> @@ -1149,8 +1153,8 @@ int kfd_interrupt_init(struct kfd_node *dev);
+>>   void kfd_interrupt_exit(struct kfd_node *dev);
+>>   bool enqueue_ih_ring_entry(struct kfd_node *kfd, const void 
+>> *ih_ring_entry);
+>>   bool interrupt_is_wanted(struct kfd_node *dev,
+>> -                const uint32_t *ih_ring_entry,
+>> -                uint32_t *patched_ihre, bool *flag);
+>> +             const u32 *ih_ring_entry,
+>> +                u32 *patched_ihre, bool *flag);
+>>   int kfd_process_drain_interrupts(struct kfd_process_device *pdd);
+>>   void kfd_process_close_interrupt_drain(unsigned int pasid);
+>>   @@ -1158,8 +1162,8 @@ void 
+>> kfd_process_close_interrupt_drain(unsigned int pasid);
+>>   int kfd_init_apertures(struct kfd_process *process);
+>>     void kfd_process_set_trap_handler(struct qcm_process_device *qpd,
+>> -                  uint64_t tba_addr,
+>> -                  uint64_t tma_addr);
+>> +                  u64 tba_addr,
+>> +                  u64 tma_addr);
+>>   void kfd_process_set_trap_debug_flag(struct qcm_process_device *qpd,
+>>                        bool enabled);
+>>   @@ -1181,19 +1185,19 @@ int kfd_process_init_cwsr_apu(struct 
+>> kfd_process *process, struct file *filep);
+>>   #define KFD_CRIU_PRIV_VERSION 1
+>>     struct kfd_criu_process_priv_data {
+>> -    uint32_t version;
+>> -    uint32_t xnack_mode;
+>> +    u32 version;
+>> +    u32 xnack_mode;
+>>   };
+>>     struct kfd_criu_device_priv_data {
+>>       /* For future use */
+>> -    uint64_t reserved;
+>> +    u64 reserved;
+>>   };
+>>     struct kfd_criu_bo_priv_data {
+>> -    uint64_t user_addr;
+>> -    uint32_t idr_handle;
+>> -    uint32_t mapped_gpuids[MAX_GPU_INSTANCE];
+>> +    u64 user_addr;
+>> +    u32 idr_handle;
+>> +    u32 mapped_gpuids[MAX_GPU_INSTANCE];
+>>   };
+>>     /*
+>> @@ -1207,44 +1211,44 @@ enum kfd_criu_object_type {
+>>   };
+>>     struct kfd_criu_svm_range_priv_data {
+>> -    uint32_t object_type;
+>> -    uint64_t start_addr;
+>> -    uint64_t size;
+>> +    u32 object_type;
+>> +    u64 start_addr;
+>> +    u64 size;
+>>       /* Variable length array of attributes */
+>>       struct kfd_ioctl_svm_attribute attrs[];
+>>   };
+>>     struct kfd_criu_queue_priv_data {
+>> -    uint32_t object_type;
+>> -    uint64_t q_address;
+>> -    uint64_t q_size;
+>> -    uint64_t read_ptr_addr;
+>> -    uint64_t write_ptr_addr;
+>> -    uint64_t doorbell_off;
+>> -    uint64_t eop_ring_buffer_address;
+>> -    uint64_t ctx_save_restore_area_address;
+>> -    uint32_t gpu_id;
+>> -    uint32_t type;
+>> -    uint32_t format;
+>> -    uint32_t q_id;
+>> -    uint32_t priority;
+>> -    uint32_t q_percent;
+>> -    uint32_t doorbell_id;
+>> -    uint32_t gws;
+>> -    uint32_t sdma_id;
+>> -    uint32_t eop_ring_buffer_size;
+>> -    uint32_t ctx_save_restore_area_size;
+>> -    uint32_t ctl_stack_size;
+>> -    uint32_t mqd_size;
+>> +    u32 object_type;
+>> +    u64 q_address;
+>> +    u64 q_size;
+>> +    u64 read_ptr_addr;
+>> +    u64 write_ptr_addr;
+>> +    u64 doorbell_off;
+>> +    u64 eop_ring_buffer_address;
+>> +    u64 ctx_save_restore_area_address;
+>> +    u32 gpu_id;
+>> +    u32 type;
+>> +    u32 format;
+>> +    u32 q_id;
+>> +    u32 priority;
+>> +    u32 q_percent;
+>> +    u32 doorbell_id;
+>> +    u32 gws;
+>> +    u32 sdma_id;
+>> +    u32 eop_ring_buffer_size;
+>> +    u32 ctx_save_restore_area_size;
+>> +    u32 ctl_stack_size;
+>> +    u32 mqd_size;
+>>   };
+>>     struct kfd_criu_event_priv_data {
+>> -    uint32_t object_type;
+>> -    uint64_t user_handle;
+>> -    uint32_t event_id;
+>> -    uint32_t auto_reset;
+>> -    uint32_t type;
+>> -    uint32_t signaled;
+>> +    u32 object_type;
+>> +    u64 user_handle;
+>> +    u32 event_id;
+>> +    u32 auto_reset;
+>> +    u32 type;
+>> +    u32 signaled;
+>>         union {
+>>           struct kfd_hsa_memory_exception_data memory_exception_data;
+>> @@ -1253,27 +1257,27 @@ struct kfd_criu_event_priv_data {
+>>   };
+>>     int kfd_process_get_queue_info(struct kfd_process *p,
+>> -                   uint32_t *num_queues,
+>> -                   uint64_t *priv_data_sizes);
+>> +                   u32 *num_queues,
+>> +                   u64 *priv_data_sizes);
+>>     int kfd_criu_checkpoint_queues(struct kfd_process *p,
+>> -             uint8_t __user *user_priv_data,
+>> -             uint64_t *priv_data_offset);
+>> +                   u8 __user *user_priv_data,
+>> +             u64 *priv_data_offset);
+>>     int kfd_criu_restore_queue(struct kfd_process *p,
+>> -               uint8_t __user *user_priv_data,
+>> -               uint64_t *priv_data_offset,
+>> -               uint64_t max_priv_data_size);
+>> +               u8 __user *user_priv_data,
+>> +               u64 *priv_data_offset,
+>> +               u64 max_priv_data_size);
+>>     int kfd_criu_checkpoint_events(struct kfd_process *p,
+>> -             uint8_t __user *user_priv_data,
+>> -             uint64_t *priv_data_offset);
+>> +                   u8 __user *user_priv_data,
+>> +             u64 *priv_data_offset);
+>>     int kfd_criu_restore_event(struct file *devkfd,
+>>                  struct kfd_process *p,
+>> -               uint8_t __user *user_priv_data,
+>> -               uint64_t *priv_data_offset,
+>> -               uint64_t max_priv_data_size);
+>> +               u8 __user *user_priv_data,
+>> +               u64 *priv_data_offset,
+>> +               u64 max_priv_data_size);
+>>   /* CRIU - End */
+>>     /* Queue Context Management */
+>> @@ -1283,19 +1287,19 @@ void print_queue_properties(struct 
+>> queue_properties *q);
+>>   void print_queue(struct queue *q);
+>>     struct mqd_manager *mqd_manager_init_cik(enum KFD_MQD_TYPE type,
+>> -        struct kfd_node *dev);
+>> +                     struct kfd_node *dev);
+>>   struct mqd_manager *mqd_manager_init_vi(enum KFD_MQD_TYPE type,
+>> -        struct kfd_node *dev);
+>> +                    struct kfd_node *dev);
+>>   struct mqd_manager *mqd_manager_init_v9(enum KFD_MQD_TYPE type,
+>> -        struct kfd_node *dev);
+>> +                    struct kfd_node *dev);
+>>   struct mqd_manager *mqd_manager_init_v10(enum KFD_MQD_TYPE type,
+>> -        struct kfd_node *dev);
+>> +                     struct kfd_node *dev);
+>>   struct mqd_manager *mqd_manager_init_v11(enum KFD_MQD_TYPE type,
+>> -        struct kfd_node *dev);
+>> +                     struct kfd_node *dev);
+>>   struct device_queue_manager *device_queue_manager_init(struct 
+>> kfd_node *dev);
+>>   void device_queue_manager_uninit(struct device_queue_manager *dqm);
+>>   struct kernel_queue *kernel_queue_init(struct kfd_node *dev,
+>> -                    enum kfd_queue_type type);
+>> +                       enum kfd_queue_type type);
+>>   void kernel_queue_uninit(struct kernel_queue *kq, bool hanging);
+>>   int kfd_dqm_evict_pasid(struct device_queue_manager *dqm, u32 pasid);
+>>   @@ -1311,7 +1315,7 @@ void 
+>> kfd_process_dequeue_from_all_devices(struct kfd_process *p);
+>>   int pqm_init(struct process_queue_manager *pqm, struct kfd_process 
+>> *p);
+>>   void pqm_uninit(struct process_queue_manager *pqm);
+>>   int pqm_create_queue(struct process_queue_manager *pqm,
+>> -                struct kfd_node *dev,
+>> +             struct kfd_node *dev,
+>>                   struct file *f,
+>>                   struct queue_properties *properties,
+>>                   unsigned int *qid,
+>> @@ -1319,31 +1323,31 @@ int pqm_create_queue(struct 
+>> process_queue_manager *pqm,
+>>                   const struct kfd_criu_queue_priv_data *q_data,
+>>                   const void *restore_mqd,
+>>                   const void *restore_ctl_stack,
+>> -                uint32_t *p_doorbell_offset_in_process);
+>> +                u32 *p_doorbell_offset_in_process);
+>>   int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned 
+>> int qid);
+>>   int pqm_update_queue_properties(struct process_queue_manager *pqm, 
+>> unsigned int qid,
+>> -            struct queue_properties *p);
+>> +                struct queue_properties *p);
+>>   int pqm_update_mqd(struct process_queue_manager *pqm, unsigned int 
+>> qid,
+>> -            struct mqd_update_info *minfo);
+>> +           struct mqd_update_info *minfo);
+>>   int pqm_set_gws(struct process_queue_manager *pqm, unsigned int qid,
+>> -            void *gws);
+>> +        void *gws);
+>>   struct kernel_queue *pqm_get_kernel_queue(struct 
+>> process_queue_manager *pqm,
+>> -                        unsigned int qid);
+>> +                      unsigned int qid);
+>>   struct queue *pqm_get_user_queue(struct process_queue_manager *pqm,
+>> -                        unsigned int qid);
+>> +                 unsigned int qid);
+>>   int pqm_get_wave_state(struct process_queue_manager *pqm,
+>>                  unsigned int qid,
+>>                  void __user *ctl_stack,
+>>                  u32 *ctl_stack_used_size,
+>>                  u32 *save_area_used_size);
+>>   int pqm_get_queue_snapshot(struct process_queue_manager *pqm,
+>> -               uint64_t exception_clear_mask,
+>> +               u64 exception_clear_mask,
+>>                  void __user *buf,
+>>                  int *num_qss_entries,
+>> -               uint32_t *entry_size);
+>> +               u32 *entry_size);
+>>     int amdkfd_fence_wait_timeout(struct device_queue_manager *dqm,
+>> -                  uint64_t fence_value,
+>> +                  u64 fence_value,
+>>                     unsigned int timeout_ms);
+>>     int pqm_get_queue_checkpoint_info(struct process_queue_manager *pqm,
+>> @@ -1369,22 +1373,22 @@ struct packet_manager {
+>>     struct packet_manager_funcs {
+>>       /* Support ASIC-specific packet formats for PM4 packets */
+>> -    int (*map_process)(struct packet_manager *pm, uint32_t *buffer,
+>> -            struct qcm_process_device *qpd);
+>> -    int (*runlist)(struct packet_manager *pm, uint32_t *buffer,
+>> -            uint64_t ib, size_t ib_size_in_dwords, bool chain);
+>> -    int (*set_resources)(struct packet_manager *pm, uint32_t *buffer,
+>> -            struct scheduling_resources *res);
+>> -    int (*map_queues)(struct packet_manager *pm, uint32_t *buffer,
+>> -            struct queue *q, bool is_static);
+>> -    int (*unmap_queues)(struct packet_manager *pm, uint32_t *buffer,
+>> -            enum kfd_unmap_queues_filter mode,
+>> -            uint32_t filter_param, bool reset);
+>> -    int (*set_grace_period)(struct packet_manager *pm, uint32_t 
+>> *buffer,
+>> -            uint32_t grace_period);
+>> -    int (*query_status)(struct packet_manager *pm, uint32_t *buffer,
+>> -            uint64_t fence_address,    uint64_t fence_value);
+>> -    int (*release_mem)(uint64_t gpu_addr, uint32_t *buffer);
+>> +    int (*map_process)(struct packet_manager *pm, u32 *buffer,
+>> +               struct qcm_process_device *qpd);
+>> +    int (*runlist)(struct packet_manager *pm, u32 *buffer,
+>> +               u64 ib, size_t ib_size_in_dwords, bool chain);
+>> +    int (*set_resources)(struct packet_manager *pm, u32 *buffer,
+>> +                 struct scheduling_resources *res);
+>> +    int (*map_queues)(struct packet_manager *pm, u32 *buffer,
+>> +              struct queue *q, bool is_static);
+>> +    int (*unmap_queues)(struct packet_manager *pm, u32 *buffer,
+>> +                enum kfd_unmap_queues_filter mode,
+>> +            u32 filter_param, bool reset);
+>> +    int (*set_grace_period)(struct packet_manager *pm, u32 *buffer,
+>> +                u32 grace_period);
+>> +    int (*query_status)(struct packet_manager *pm, u32 *buffer,
+>> +                u64 fence_address,    u64 fence_value);
+>> +    int (*release_mem)(u64 gpu_addr, u32 *buffer);
+>>         /* Packet sizes */
+>>       int map_process_size;
+>> @@ -1404,23 +1408,23 @@ extern const struct packet_manager_funcs 
+>> kfd_aldebaran_pm_funcs;
+>>   int pm_init(struct packet_manager *pm, struct device_queue_manager 
+>> *dqm);
+>>   void pm_uninit(struct packet_manager *pm, bool hanging);
+>>   int pm_send_set_resources(struct packet_manager *pm,
+>> -                struct scheduling_resources *res);
+>> +              struct scheduling_resources *res);
+>>   int pm_send_runlist(struct packet_manager *pm, struct list_head 
+>> *dqm_queues);
+>> -int pm_send_query_status(struct packet_manager *pm, uint64_t 
+>> fence_address,
+>> -                uint64_t fence_value);
+>> +int pm_send_query_status(struct packet_manager *pm, u64 fence_address,
+>> +             u64 fence_value);
+>>     int pm_send_unmap_queue(struct packet_manager *pm,
+>>               enum kfd_unmap_queues_filter mode,
+>> -            uint32_t filter_param, bool reset);
+>> +            u32 filter_param, bool reset);
+>>     void pm_release_ib(struct packet_manager *pm);
+>>   -int pm_update_grace_period(struct packet_manager *pm, uint32_t 
+>> grace_period);
+>> +int pm_update_grace_period(struct packet_manager *pm, u32 
+>> grace_period);
+>>     /* Following PM funcs can be shared among VI and AI */
+>>   unsigned int pm_build_pm4_header(unsigned int opcode, size_t 
+>> packet_size);
+>>   -uint64_t kfd_get_number_elems(struct kfd_dev *kfd);
+>> +u64 kfd_get_number_elems(struct kfd_dev *kfd);
+>>     /* Events */
+>>   extern const struct kfd_event_interrupt_class 
+>> event_interrupt_class_cik;
+>> @@ -1435,26 +1439,26 @@ int kfd_event_init_process(struct kfd_process 
+>> *p);
+>>   void kfd_event_free_process(struct kfd_process *p);
+>>   int kfd_event_mmap(struct kfd_process *process, struct 
+>> vm_area_struct *vma);
+>>   int kfd_wait_on_events(struct kfd_process *p,
+>> -               uint32_t num_events, void __user *data,
+>> -               bool all, uint32_t *user_timeout_ms,
+>> -               uint32_t *wait_result);
+>> -void kfd_signal_event_interrupt(u32 pasid, uint32_t partial_id,
+>> -                uint32_t valid_id_bits);
+>> +               u32 num_events, void __user *data,
+>> +               bool all, u32 *user_timeout_ms,
+>> +               u32 *wait_result);
+>> +void kfd_signal_event_interrupt(u32 pasid, u32 partial_id,
+>> +                u32 valid_id_bits);
+>>   void kfd_signal_hw_exception_event(u32 pasid);
+>> -int kfd_set_event(struct kfd_process *p, uint32_t event_id);
+>> -int kfd_reset_event(struct kfd_process *p, uint32_t event_id);
+>> -int kfd_kmap_event_page(struct kfd_process *p, uint64_t 
+>> event_page_offset);
+>> +int kfd_set_event(struct kfd_process *p, u32 event_id);
+>> +int kfd_reset_event(struct kfd_process *p, u32 event_id);
+>> +int kfd_kmap_event_page(struct kfd_process *p, u64 event_page_offset);
+>>     int kfd_event_create(struct file *devkfd, struct kfd_process *p,
+>> -             uint32_t event_type, bool auto_reset, uint32_t node_id,
+>> -             uint32_t *event_id, uint32_t *event_trigger_data,
+>> -             uint64_t *event_page_offset, uint32_t *event_slot_index);
+>> +             u32 event_type, bool auto_reset, u32 node_id,
+>> +             u32 *event_id, u32 *event_trigger_data,
+>> +             u64 *event_page_offset, u32 *event_slot_index);
+>>     int kfd_get_num_events(struct kfd_process *p);
+>> -int kfd_event_destroy(struct kfd_process *p, uint32_t event_id);
+>> +int kfd_event_destroy(struct kfd_process *p, u32 event_id);
+>>     void kfd_signal_vm_fault_event(struct kfd_node *dev, u32 pasid,
+>> -                struct kfd_vm_fault_info *info,
+>> +                   struct kfd_vm_fault_info *info,
+>>                   struct kfd_hsa_memory_exception_data *data);
+>>     void kfd_signal_reset_event(struct kfd_node *dev);
+>> @@ -1478,8 +1482,8 @@ static inline bool 
+>> kfd_flush_tlb_after_unmap(struct kfd_dev *dev)
+>>   }
+>>     int kfd_send_exception_to_runtime(struct kfd_process *p,
+>> -                unsigned int queue_id,
+>> -                uint64_t error_reason);
+>> +                  unsigned int queue_id,
+>> +                u64 error_reason);
+>>   bool kfd_is_locked(void);
+>>     /* Compute profile */
