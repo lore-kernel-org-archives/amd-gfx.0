@@ -4,58 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB43FC47074
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jan 2024 15:00:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E745C47074
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jan 2024 15:22:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C32A10E466;
-	Thu,  4 Jan 2024 15:00:50 +0000 (UTC)
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B17F610E466
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jan 2024 15:00:49 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- 46e09a7af769-6dc1fdc19b6so363875a34.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 04 Jan 2024 07:00:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1704380449; x=1704985249; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=wfmfr/iT1Uc4MWF+lPXyUAh4eFAvoReLU6oLe3/AS+s=;
- b=atsrAa7066Emg/IjAq2qsqzSevVlYlhifKHe5FbLevrI0hqxjLeDOvvWVTHIKvmqTd
- 8q3Xa5Jid5T2V1bWWo4RDrBwokiANTIlbt6uskTaI+uWiKCpCZT8blhwKAbFSKtIO3Py
- aB8MohTlE4wneb+yE2QvsVeqp3J7EJ49M2kEvI/Abc1UsXLJFbM9JnCLhqjozzDmrAKM
- k4AkFBOk+iqVqmcCFlnmwXtf7LjeECPKxbmXbbAIIFNetpVNC7RJH8ICxSOn17epXNcr
- mr2xlfApcFz/Of2+5ns7AYZYwUYWZ+Emzn/Aog8KLHMPuOzWFkLJO4crL73uwZRM12cE
- Fv9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704380449; x=1704985249;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=wfmfr/iT1Uc4MWF+lPXyUAh4eFAvoReLU6oLe3/AS+s=;
- b=VwO9w8BxsNl2z6Xwhro7TdVbwpxhbY2g2wtsX5rgaoWfGtEUVporfwGXEJPG/c6Y4L
- 7ecWduWS4VmfxR5hADzhdRDLFOo2z6+Hmcox6wZU4uT9Lv6Na+8yYjp80wO3pLDcNb08
- RUWX93y0hfnc9NeW7yOFqirgeboqcfzC+12YPXr9ZYLg9X62cdBmxo1Mzy10/tqG5X1R
- ENg0PJoZEhlkR+lZXlrCsEFXduLCkJyF0A8+e1J4gYOfmVnkcVHGvshIu0ApvvrgQZ1N
- ceMuTOiD26ZZOt3NQMPIGbBHUi+B3cO+5d4jSuqaSvAE7rkguXhBvQpGoo34EEcKWUUm
- kaQw==
-X-Gm-Message-State: AOJu0YxLRKCcqaHWrYvtY7oxyUbFlHQCMYrl9L3hYwBt+tMYLH/WyfND
- jDcgpwPzm29hRrwk6n9RkxBWE5nTkmEzcRUd6FwGyZKm0NE=
-X-Google-Smtp-Source: AGHT+IFBO+EqtVRG6fmraylq2qEyopSL+60oP7XpHC2+g9E/qSMSa2uEQDKLr5jKjmq2aHjp1IGJk5u93xcW+5Z8l6E=
-X-Received: by 2002:a05:6870:898b:b0:203:e3ec:9041 with SMTP id
- f11-20020a056870898b00b00203e3ec9041mr797385oaq.41.1704380448754; Thu, 04 Jan
- 2024 07:00:48 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E935310E4AB;
+	Thu,  4 Jan 2024 15:22:03 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2072.outbound.protection.outlook.com [40.107.220.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B65410E4A7;
+ Thu,  4 Jan 2024 15:22:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GU5Kg+LhZ1seI7PLacSgOvHiPveZotfNndTFopxytGDreBiZE1fk465GvIs6I5HZTG3OUOICCiCFHerV7NEwKxdW1E6+d6Qm0/oIzxC8UAxi4B88VdU8kwhAb5LPS2ZcQuv5MB4LR42N4v3DJLGDOGSoES4ekfpqM4ZY4uumwgdyanL1WH2kW/OccHir3lJDHikvCt3Sp4c9bKpcu3uvToHqmDPH5VlMIs+xfiF2nO3nDg4zq7NHkLpM8j+0YtYQ2Vwmc2TugYECXtqgqxBmrgbhBjVP3kdQtyX7QhHQPr/0cnnR4nQ6aInlhLWBWhTafkUjCB7CzeZh1kM+Vc13WA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mK2189P6dHsEXEuaH+szoWIb/jatMop7TqlYiJFopI0=;
+ b=NUdTpBpY4dPU+dAHmLE3JdPB+rTljnhAWFT/S+lsIZcsLgWmMIONHPLEpbfA/lR32ozJ+TaMysHE+Y7yvEyEE3/kP+2RSCeTpO8bw4ZdCJdOi121mErEwsSaMWQZ2zsWCkBsbp04yfJ65XqQuYrn2BDjQv68rbwLQ7XiEw+XVxFE5+eOftg/8Zf1WVHQdd+jnZ2NmDflHl6uyTO/g4yfkqboxnXCt9BeA3yaevu3J18RByaq4yvxVYsRD6yoBraVYFLFpJbEa7IuuiQ0zOeeOAbUCnPUojWkXmjvUkFWDsj47M9iHGIGb6Eztr1EKkpaK0BDM4Jd8NNZbiKp/Ow6LA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mK2189P6dHsEXEuaH+szoWIb/jatMop7TqlYiJFopI0=;
+ b=QZ+O+l5ZDCTNL6xalXPHSWFaTo0cNIpT9RmQTz/EF9ovbrPVHJOfB/xuLFKODJS6gTB8oqCM9eOXU9z+z10e5zu9ufe0Ndpn37Vqq5WnwtUk8Zu9cb/jJaQjM/ni70k6DLM/Wglsh/9ms1wxhzFN7SvsTVWXer9xjM1BuM31k1U=
+Received: from BY5PR04CA0013.namprd04.prod.outlook.com (2603:10b6:a03:1d0::23)
+ by SA1PR12MB6727.namprd12.prod.outlook.com (2603:10b6:806:256::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.25; Thu, 4 Jan
+ 2024 15:22:00 +0000
+Received: from MWH0EPF000971E8.namprd02.prod.outlook.com
+ (2603:10b6:a03:1d0:cafe::e4) by BY5PR04CA0013.outlook.office365.com
+ (2603:10b6:a03:1d0::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.15 via Frontend
+ Transport; Thu, 4 Jan 2024 15:21:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000971E8.mail.protection.outlook.com (10.167.243.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7159.9 via Frontend Transport; Thu, 4 Jan 2024 15:21:59 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 4 Jan
+ 2024 09:21:58 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+Subject: [pull] amdgpu drm-fixes-6.7
+Date: Thu, 4 Jan 2024 10:21:39 -0500
+Message-ID: <20240104152139.4931-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-References: <20240104053902.546605-1-Jun.Ma2@amd.com>
-In-Reply-To: <20240104053902.546605-1-Jun.Ma2@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 4 Jan 2024 10:00:37 -0500
-Message-ID: <CADnq5_McS5k_F8BonQ-F1nUhAaDd3teoMgxYv3O3kYgbZbDi=w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix the warning info in mode1 reset
-To: Ma Jun <Jun.Ma2@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E8:EE_|SA1PR12MB6727:EE_
+X-MS-Office365-Filtering-Correlation-Id: 95488dd6-39df-4edf-9be2-08dc0d38e561
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ZBfMfV90V8HuIX+0VrBnNK70Sft6QcX5d4dNckf/lrpGszc5fz/BlGS96zjubnziOpJBDJlbBIUMSvQBqVI1Vt3/XdEJnmdX5aNQe5pKnBOAez0Ju5srGSI1b4nFhpnlGK78FYCKfCubUwDav4meTV3B+OaGSzWwaohJVTyCaMRZljAY0ZviSjzvHZVN/nGmciNBYWKoGbs2LkVjXzUplwxNW7X/BFgO1AZgtorA6MbzPEVvqvvbygPnQLQvIyzJZluZyD6H1daK69RYWtNfkyKEnI8sFS/rj/KLOQViIQ7QlTg4FY8ora9lR0rCzGQOo4F/PKXTA86iGZjyRL90HpzM4yug8q6EClIVeXUj+ga9eKH4avthcbnT4wT4P1nr5fKVXln1Zj4ayK7TPn4dOJ8tigyPEorN3tSnECzXhA2kPyoGDVec91MIlF9DSthYmRFY29N260K7JRg7qk0y37ZoYBtYxNHMAxX6naz4RNMWqdA6/9uR+Fn+JvBg2190x93GvjvifqRwRieaM8eGPBr5amUm4CXPrqhfojOivoNUImtLtWT2dav7dGN4WghEFWQMNpSelTx4pld49SD/aaQJhIt/IjmavbTSWnJHm8komijXbn3ajXugMGBWwZ+SyL0sJA7yOSo8icPVm5w5uopNDyWKorj7Rsr9EjmIJlP+0U+PFCoho5P/wiQtz17ZUvzkoBhCpRwi2kd3aZw4rC9uSITE99DVDZFKQOA5Mm1jM8X8AJxX4odypqquojR4
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(376002)(346002)(39860400002)(396003)(136003)(230922051799003)(1800799012)(82310400011)(451199024)(186009)(64100799003)(46966006)(40470700004)(36840700001)(40460700003)(40480700001)(36756003)(70206006)(70586007)(86362001)(426003)(336012)(81166007)(16526019)(2906002)(6666004)(47076005)(1076003)(4001150100001)(2616005)(41300700001)(5660300002)(356005)(4326008)(478600001)(82740400003)(7696005)(316002)(36860700001)(966005)(8936002)(110136005)(83380400001)(8676002)(26005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2024 15:21:59.5289 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95488dd6-39df-4edf-9be2-08dc0d38e561
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E8.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6727
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,122 +98,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, christian.koenig@amd.com,
- amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 4, 2024 at 12:55=E2=80=AFAM Ma Jun <Jun.Ma2@amd.com> wrote:
->
-> Fix the warning info below during mode1 reset.
-> [  +0.000004] Call Trace:
-> [  +0.000004]  <TASK>
-> [  +0.000006]  ? show_regs+0x6e/0x80
-> [  +0.000011]  ? __flush_work.isra.0+0x2e8/0x390
-> [  +0.000005]  ? __warn+0x91/0x150
-> [  +0.000009]  ? __flush_work.isra.0+0x2e8/0x390
-> [  +0.000006]  ? report_bug+0x19d/0x1b0
-> [  +0.000013]  ? handle_bug+0x46/0x80
-> [  +0.000012]  ? exc_invalid_op+0x1d/0x80
-> [  +0.000011]  ? asm_exc_invalid_op+0x1f/0x30
-> [  +0.000014]  ? __flush_work.isra.0+0x2e8/0x390
-> [  +0.000007]  ? __flush_work.isra.0+0x208/0x390
-> [  +0.000007]  ? _prb_read_valid+0x216/0x290
-> [  +0.000008]  __cancel_work_timer+0x11d/0x1a0
-> [  +0.000007]  ? try_to_grab_pending+0xe8/0x190
-> [  +0.000012]  cancel_work_sync+0x14/0x20
-> [  +0.000008]  amddrm_sched_stop+0x3c/0x1d0 [amd_sched]
-> [  +0.000032]  amdgpu_device_gpu_recover+0x29a/0xe90 [amdgpu]
->
-> This warning info was printed after applying the patch
-> "drm/sched: Convert drm scheduler to use a work queue rather than kthread=
-".
-> The root cause is that amdgpu driver tries to use the uninitialized
-> work_struct in the struct drm_gpu_scheduler
->
-> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 16 +++++++++++++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c   |  3 ++-
->  2 files changed, 15 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index 4b1d5f42249f..7bac3019aa0a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -5575,6 +5575,16 @@ static inline void amdgpu_device_stop_pending_rese=
-ts(struct amdgpu_device *adev)
->
->  }
->
-> +static bool amdgpu_is_ring_sched_ready(struct amdgpu_ring *ring)
+Hi Dave, Sima,
 
-I would either rename this amdgpu_device_is_ring_sched_ready() for
-consistency, or move it to amdgpu_ring.c and rename it to
-amdgpu_ring_sched_ready().
+Happy New Year!
 
-Alex
+Fixes for 6.7.  The changes for SMU 13.0.6 are relatively big, but it's a new IP
+added in 6.7 and the changes are isolated to that IP so it should not affect
+anything else and this should make the IP fully functional for the 6.7 release.
+The rest are just bug fixes from the last few weeks.
 
-> +{
-> +       if (!ring)
-> +               return false;
-> +
-> +       if (ring->no_scheduler || !drm_sched_wqueue_ready(&ring->sched))
-> +               return false;
-> +
-> +       return true;
-> +}
->  /**
->   * amdgpu_device_gpu_recover - reset the asic and recover scheduler
->   *
-> @@ -5700,7 +5710,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device =
-*adev,
->                 for (i =3D 0; i < AMDGPU_MAX_RINGS; ++i) {
->                         struct amdgpu_ring *ring =3D tmp_adev->rings[i];
->
-> -                       if (!ring || !drm_sched_wqueue_ready(&ring->sched=
-))
-> +                       if (!amdgpu_is_ring_sched_ready(ring))
->                                 continue;
->
->                         drm_sched_stop(&ring->sched, job ? &job->base : N=
-ULL);
-> @@ -5776,7 +5786,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device =
-*adev,
->                 for (i =3D 0; i < AMDGPU_MAX_RINGS; ++i) {
->                         struct amdgpu_ring *ring =3D tmp_adev->rings[i];
->
-> -                       if (!ring || !drm_sched_wqueue_ready(&ring->sched=
-))
-> +                       if (!amdgpu_is_ring_sched_ready(ring))
->                                 continue;
->
->                         drm_sched_start(&ring->sched, true);
-> @@ -6265,7 +6275,7 @@ void amdgpu_pci_resume(struct pci_dev *pdev)
->         for (i =3D 0; i < AMDGPU_MAX_RINGS; ++i) {
->                 struct amdgpu_ring *ring =3D adev->rings[i];
->
-> -               if (!ring || !drm_sched_wqueue_ready(&ring->sched))
-> +               if (!amdgpu_is_ring_sched_ready(ring))
->                         continue;
->
->                 drm_sched_start(&ring->sched, true);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_ring.c
-> index 41266bc99345..3650e4d06e53 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> @@ -636,7 +636,8 @@ int amdgpu_ring_test_helper(struct amdgpu_ring *ring)
->                 DRM_DEV_DEBUG(adev->dev, "ring test on %s succeeded\n",
->                               ring->name);
->
-> -       ring->sched.ready =3D !r;
-> +       if (!ring->no_scheduler)
-> +               ring->sched.ready =3D !r;
->         return r;
->  }
->
-> --
-> 2.34.1
->
+The following changes since commit bc2fdea0065236fdf9fbba3ac77cf5f3d0891443:
+
+  Merge tag 'drm-intel-fixes-2023-12-28' of git://anongit.freedesktop.org/drm/drm-intel into drm-fixes (2024-01-03 14:17:37 +1000)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.7-2024-01-04
+
+for you to fetch changes up to f71cee97a644a6dfa3bc0eb69e29a53eab49b98d:
+
+  drm/amd/pm: Use gpu_metrics_v1_5 for SMUv13.0.6 (2024-01-04 09:51:24 -0500)
+
+----------------------------------------------------------------
+amdgpu:
+- DP MST fix
+- SMU 13.0.6 fixes
+- Fix displays on macbooks using vega12
+- Fix VSC and colorimetry on DP/eDP
+
+----------------------------------------------------------------
+Alex Deucher (2):
+      drm/amd/display: add nv12 bounding box
+      drm/amdgpu: skip gpu_info fw loading on navi12
+
+Asad Kamal (5):
+      drm/amd/pm: Use separate metric table for APU
+      drm/amd/pm: Update metric table for jpeg/vcn data
+      drm/amd/pm: Add mem_busy_percent for GCv9.4.3 apu
+      drm/amd/pm: Add gpu_metrics_v1_5
+      drm/amd/pm: Use gpu_metrics_v1_5 for SMUv13.0.6
+
+Joshua Ashton (1):
+      drm/amd/display: Fix sending VSC (+ colorimetry) packets for DP/eDP displays without PSR
+
+Wayne Lin (1):
+      drm/amd/display: pbn_div need be updated for hotplug event
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  11 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  11 +-
+ .../gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c   | 110 ++++++++++++++-
+ .../amd/display/modules/info_packet/info_packet.c  |  13 +-
+ drivers/gpu/drm/amd/include/kgd_pp_interface.h     |  80 +++++++++++
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c                 |   4 +-
+ .../amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_pmfw.h    | 100 +++++++++++++-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   | 153 ++++++++++++---------
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c             |   3 +
+ 9 files changed, 400 insertions(+), 85 deletions(-)
