@@ -4,90 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1DD1C4707B
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jan 2024 15:53:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D511C47073
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jan 2024 16:01:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5835D10E4CD;
-	Thu,  4 Jan 2024 15:53:38 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2086.outbound.protection.outlook.com [40.107.94.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 578CC10E4CD
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jan 2024 15:53:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CJzu2Hm5d7KMAp66ql2p4y51bQzDM/veSssaApKx/CAl9RpPItkiaTd7tFe3ZZ+PvNrb6oCTFuCyiYdaXh5xcmCPcU0SOCSLSsg8cKY0KVEvE54I663EWgq8vAjXnLsfrupLh1LJac4uWUNjY2Mn1tIQpflWFkdtuiSsAa35MHn/Czxj7VjovC2h3nuT99kLDMAruKfKeMQ2ni3UMlrRoKDVYy64BrSpvLYH4/sPoKziskoHyVoKw0dyXQktwVpVQrUR8dnhPe0wCaXnMCJGAFdzYOs1QLHWKfyU6pe7mwErRqaywNggqx/wsVfP2Fyui7Hjqm9tW8ZR51JgWBZJCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=csevnrADWp0+0PfzpPjsqsDH6lgj4SGyigX3/rP/B48=;
- b=SlJ6g1n6zk+VyEGpmtkER/3bfUcXNht8oeAvowKLjDl+/PeaprvaMSfTljWlVPXiORy6KH7tKGsxbZDVQYuX87HxP7nxcak/IF45Z809qolJ6k8R2CsxypsnmbdCFzoRMNwHVMCOBmqzm5ITCFQg2hSYMAl3aei97G+n247Q7YWiaZc5yzprncBWJOdjaLEMNdlNeK/EGRpgi/LwEaifFto5NlnQjBKgeC6oz2fgSjsEN9VMhexERsnPJBKXVqN0gCH1fWLkkEo0P/PvRwtJf44/h8lT9DpZ31xNrEWDuRjlnNObWuJvRRWWLwhmZfWXIzXL6BURoiICPrBFX2VWqQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=csevnrADWp0+0PfzpPjsqsDH6lgj4SGyigX3/rP/B48=;
- b=AbZji4iqw2KovG7BdmhtDq/5HU5MaFAy+Hmasx3QywQ9PlF+soQCn8QFJjwaiJnWZIENDVzw/y0wxrNuzwcCO0zGrUNGCl5wsf7mreRfdPVeQeZAei6xbgPu+3HUDxucOVyQZKlhKyB+aJtKdL/a1O8TcnynfPij0TTk0NUYPmc=
-Received: from DS7PR03CA0305.namprd03.prod.outlook.com (2603:10b6:8:2b::25) by
- LV8PR12MB9084.namprd12.prod.outlook.com (2603:10b6:408:18e::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.27; Thu, 4 Jan
- 2024 15:53:32 +0000
-Received: from SA2PEPF000015CA.namprd03.prod.outlook.com
- (2603:10b6:8:2b:cafe::12) by DS7PR03CA0305.outlook.office365.com
- (2603:10b6:8:2b::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.15 via Frontend
- Transport; Thu, 4 Jan 2024 15:53:31 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF000015CA.mail.protection.outlook.com (10.167.241.200) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7159.9 via Frontend Transport; Thu, 4 Jan 2024 15:53:31 +0000
-Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 4 Jan
- 2024 09:53:29 -0600
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 10/10] drm/amd/display: 3.2.266
-Date: Thu, 4 Jan 2024 08:51:06 -0700
-Message-ID: <20240104155238.454117-11-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240104155238.454117-1-Rodrigo.Siqueira@amd.com>
-References: <20240104155238.454117-1-Rodrigo.Siqueira@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B51910E4E7;
+	Thu,  4 Jan 2024 16:01:00 +0000 (UTC)
+Received: from mail-io1-xd30.google.com (mail-io1-xd30.google.com
+ [IPv6:2607:f8b0:4864:20::d30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1343E10E4BF
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jan 2024 15:58:30 +0000 (UTC)
+Received: by mail-io1-xd30.google.com with SMTP id
+ ca18e2360f4ac-7bb982d0f12so44429539f.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 04 Jan 2024 07:58:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=sifive.com; s=google; t=1704383909; x=1704988709; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=g+LkB4Vo+u25oWI7sGQO48sDZuLcvpPhc24u586CsWs=;
+ b=jAbp757oE03Nclc1jYY36OtweRdU2GqBqK2vt/ebiY5779h1xjfDNdAG6EMMk8CfHm
+ XtQQojLM7sBoDUIjsUdDqtLnwwwf1D/wPrtT6FXGdbcbvjx2OGAnm+FQY/oP4rNxVBFj
+ KMezXzW5W7ReS8etuI/Jd45ahqRt7g4Ufpij+7kP9bjiVbAhaTUGXghdLZEnHT4RdXzL
+ 2LdknT+FfCJ/LkE0OOrpMHCavQgK6utESNY8q9JMbfwl68YYRzmniZXDA/an2Vpno2Ae
+ eecQlC2sJrN2uTdXiJ1wVa7jF3vgXu0DtHwDls29ZFs4mZDG1HTkqHlYDUuipTP6okB2
+ HZ4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1704383909; x=1704988709;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=g+LkB4Vo+u25oWI7sGQO48sDZuLcvpPhc24u586CsWs=;
+ b=Qf7ito1MJ0vAqb1HPW4oHEU+iTcHixIJlJRVKXt1u029F5YFqwgQIH8tILSH0qWV1z
+ 74wBQyWQGDAE7+aDFerwDIF+OcPcInwdF0stsErrh3net0LDtBX2/QQrOXEIIF0q+Dp+
+ 1KJtEUB1XFVW/lKX3iSSZPFpiKyD8gjQPYjKEpVbu8KOCt2vq7uuErI1gOoeD/cuPQHW
+ GTKanWp71QpI/JlF+nNI9NUzWX4ec77zScAKxG8nC5p7zdk3u1D0BqWlmYZe2gZUlyeB
+ 68nF+V9LjdwqThPz8N7Dpsz+8HbmAqBp/ng0tmUVwgSonQIXmDNzPrDux+cpDlr2r5o4
+ Kbzw==
+X-Gm-Message-State: AOJu0Ywum9h2TVBam3SzfP2knNUYF7W2FU0GL2iDsPrn7lVig0DxGSUd
+ 8bct/nHV59yk+zX/oPskPKu0BYsSlN3dD5EVbTx8sD18jEQ=
+X-Google-Smtp-Source: AGHT+IH0j3oQCRY8sxvQe5xsZpHeGls13odOGuU65eTJqn0FYIyylaRiHWDyo9dxY5HyEPL4psyAAg==
+X-Received: by 2002:a05:6e02:b48:b0:35f:f023:f8e2 with SMTP id
+ f8-20020a056e020b4800b0035ff023f8e2mr508987ilu.17.1704383909345; 
+ Thu, 04 Jan 2024 07:58:29 -0800 (PST)
+Received: from ?IPV6:2605:a601:adae:4500:b86c:e734:b34:45c6?
+ ([2605:a601:adae:4500:b86c:e734:b34:45c6])
+ by smtp.gmail.com with ESMTPSA id
+ v16-20020a92d250000000b0035d6559c5b9sm9232707ilg.64.2024.01.04.07.58.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 04 Jan 2024 07:58:29 -0800 (PST)
+Message-ID: <84389bc3-f2e7-49c5-a820-de60ee00f8a7@sifive.com>
+Date: Thu, 4 Jan 2024 09:58:28 -0600
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 07/14] LoongArch: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
+Content-Language: en-US
+To: Huacai Chen <chenhuacai@kernel.org>
+References: <20231228014220.3562640-1-samuel.holland@sifive.com>
+ <20231228014220.3562640-8-samuel.holland@sifive.com>
+ <CAAhV-H5TJPqRcgS6jywWDSNsCvd-PsVacgxgoiF-fJ00ZnS4uA@mail.gmail.com>
+From: Samuel Holland <samuel.holland@sifive.com>
+In-Reply-To: <CAAhV-H5TJPqRcgS6jywWDSNsCvd-PsVacgxgoiF-fJ00ZnS4uA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015CA:EE_|LV8PR12MB9084:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe550e76-b59f-42aa-d2a0-08dc0d3d4d2c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9z+pFEMlrp0hSqYqQGSuJNbGdV9mOCoV6qeY2QtkYvnoj4LsyVkd/EzyQFxbTxrLS+IyN9uFmX12Qpx/xV5HaAtS35Rp4Nv7Ia+cUj1iYCee2IYBWITaQ6Pii76ehBpx19BWZuyU5cbCIn3LXk0hkxIAfvAFKYKj/oLvihSzL8jWr6e5CG0RRJFoTaENCCBUnTBJkZ06QgVuCHgjXjHLLX2SKi5zK8m/6oovBwxs3XevcfGGolLwNReZlKllsOJmh7NeU78zSXLimQ13kQ7M31o4tlnhulPFJMxkI7MOqppyJfcgWfTKlzzHTgxYCvHHfzcHGzGZ9lLfPzDMCH8pK6dJO7SRVN88FYEPmeHgZR//3OYJQT0db19JU0tXqHdY4nTAfqGl1mkgoFEfejY7owJhCpv31KamAAdp32+mm8XsKiaulBJeePP/lDtx3ulKxwdpBiC59BwalMC7XzF+A+JAN+e13PuzNvlBXk5ilEFdmN9mUvLGOp4dpGHyPsJibIm3205+XBXIiryHboCSNKuGoG/3D3oUfuM9oRmSNmx5hnu27B9hdxrnyIzSf+JirVqQj6Q6mJLyU1tanEGTn2BkrGBEjrCLlKTPpnQGUnVlR42QS++pVBn+ANWZ4b9RbGTTqsadoT8K28tf55z9h/9QJAxQ++P4SpMdFYr7xn8DqXT5q5LEGw1YF/EXhhrqQFm2mcBeFcWfaxAEwOzrPLfnAA3CmEkHMn9B92NKhoIVacI/ND0dnH4p4vspOJQ/kOgTPmPD2UJu9aoQS79NIg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(396003)(136003)(346002)(376002)(230922051799003)(1800799012)(82310400011)(64100799003)(186009)(451199024)(40470700004)(36840700001)(46966006)(26005)(336012)(426003)(1076003)(2616005)(16526019)(6666004)(36860700001)(5660300002)(4744005)(47076005)(4326008)(83380400001)(8936002)(2906002)(478600001)(6916009)(70586007)(41300700001)(54906003)(316002)(8676002)(70206006)(86362001)(356005)(81166007)(82740400003)(36756003)(40480700001)(40460700003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2024 15:53:31.7935 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe550e76-b59f-42aa-d2a0-08dc0d3d4d2c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015CA.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9084
+X-Mailman-Approved-At: Thu, 04 Jan 2024 16:00:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,42 +78,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Aric Cyr <aric.cyr@amd.com>, jerry.zuo@amd.com,
- Sunpeng.Li@amd.com, Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
- roman.li@amd.com, solomon.chiu@amd.com,
- Daniel Wheeler <daniel.wheeler@amd.com>, Aurabindo.Pillai@amd.com,
- hamza.mahfooz@amd.com, wayne.lin@amd.com, Harry.Wentland@amd.com,
- agustin.gutierrez@amd.com
+Cc: linux-arch@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, loongarch@lists.linux.dev,
+ WANG Xuerui <git@xen0n.name>, linux-riscv@lists.infradead.org,
+ linuxppc-dev@lists.ozlabs.org, Christoph Hellwig <hch@lst.de>,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aric Cyr <aric.cyr@amd.com>
+Hi Huacai,
 
-This version brings along following fixes:
+On 2024-01-04 3:55 AM, Huacai Chen wrote:
+> Hi, Samuel,
+> 
+> On Thu, Dec 28, 2023 at 9:42 AM Samuel Holland
+> <samuel.holland@sifive.com> wrote:
+>>
+>> LoongArch already provides kernel_fpu_begin() and kernel_fpu_end() in
+>> asm/fpu.h, so it only needs to add kernel_fpu_available() and export
+>> the CFLAGS adjustments.
+>>
+>> Acked-by: WANG Xuerui <git@xen0n.name>
+>> Reviewed-by: Christoph Hellwig <hch@lst.de>
+>> Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
+>> ---
+>>
+>> (no changes since v1)
+>>
+>>  arch/loongarch/Kconfig           | 1 +
+>>  arch/loongarch/Makefile          | 5 ++++-
+>>  arch/loongarch/include/asm/fpu.h | 1 +
+>>  3 files changed, 6 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
+>> index ee123820a476..65d4475565b8 100644
+>> --- a/arch/loongarch/Kconfig
+>> +++ b/arch/loongarch/Kconfig
+>> @@ -15,6 +15,7 @@ config LOONGARCH
+>>         select ARCH_HAS_CPU_FINALIZE_INIT
+>>         select ARCH_HAS_FORTIFY_SOURCE
+>>         select ARCH_HAS_KCOV
+>> +       select ARCH_HAS_KERNEL_FPU_SUPPORT if CPU_HAS_FPU
+>>         select ARCH_HAS_NMI_SAFE_THIS_CPU_OPS
+>>         select ARCH_HAS_NON_OVERLAPPING_ADDRESS_SPACE
+>>         select ARCH_HAS_PTE_SPECIAL
+>> diff --git a/arch/loongarch/Makefile b/arch/loongarch/Makefile
+>> index 4ba8d67ddb09..1afe28feaba5 100644
+>> --- a/arch/loongarch/Makefile
+>> +++ b/arch/loongarch/Makefile
+>> @@ -25,6 +25,9 @@ endif
+>>  32bit-emul             = elf32loongarch
+>>  64bit-emul             = elf64loongarch
+>>
+>> +CC_FLAGS_FPU           := -mfpu=64
+>> +CC_FLAGS_NO_FPU                := -msoft-float
+> We will add LoongArch32 support later, maybe it should be -mfpu=32 in
+> that case, and do other archs have the case that only support FP32?
 
-- Improve z8/z10 support
-- Revert some of the VRR optimization
-- Improve usb4 when using MST
+Do you mean that LoongArch32 does not support double-precision FP in hardware?
+At least both of the consumers in this series use double-precision, so my first
+thought is that LoongArch32 could not select ARCH_HAS_KERNEL_FPU_SUPPORT.
 
-Acked-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-Signed-off-by: Aric Cyr <aric.cyr@amd.com>
----
- drivers/gpu/drm/amd/display/dc/dc.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 7222f63caf28..5d7aa882416b 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -51,7 +51,7 @@ struct aux_payload;
- struct set_config_cmd_payload;
- struct dmub_notification;
- 
--#define DC_VER "3.2.265"
-+#define DC_VER "3.2.266"
- 
- #define MAX_SURFACES 3
- #define MAX_PLANES 6
--- 
-2.43.0
+Regards,
+Samuel
 
