@@ -4,56 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83C13C47074
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jan 2024 14:16:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 674BEC47074
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jan 2024 14:18:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 258D610E2CF;
-	Thu,  4 Jan 2024 14:16:43 +0000 (UTC)
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
- [IPv6:2001:4860:4864:20::2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 456F810E2CF
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jan 2024 14:16:42 +0000 (UTC)
-Received: by mail-oa1-x2c.google.com with SMTP id
- 586e51a60fabf-203fbbff863so198508fac.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 04 Jan 2024 06:16:42 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F25EC10E496;
+	Thu,  4 Jan 2024 14:18:38 +0000 (UTC)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9373510E48F
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jan 2024 14:18:38 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id
+ 46e09a7af769-6dbcebaf9a9so292673a34.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 04 Jan 2024 06:18:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1704377801; x=1704982601; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1704377918; x=1704982718; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ECoa2sluMYZfoCNR+bLvb8/iITWmOTNyx3ruNLtEdJ8=;
- b=DE8qjZJP47eqCPzWFWzZ4jGwIqIi87YdrHF/sYiv3OaUuKMnvwDEveHUhDgKj3jbqv
- 90v2We2aQIaSYsL0ls3ZHTDkFPsepqO8qRsfI5IDC4oWZ1RYJwgDPxBrVB9DRDc/ORQX
- IGz85xKYOazaNTyrGBqNLBtP4fvOtA6OGA/mIK1UU8iNwkI89hNib+HIF9kOQYbmrN6x
- sGNdKTQqOjgQ+ZDQXKAaYUqdSUzc19pB0ZFRJkvy77bZv6znCA8FuUXnUXuk8CkS6Cb9
- 4swiz1CmzmXW/Db7MpcKDmxBXc9Zt5SeQAXht/P3byo7hh+/70jkRnvOfsXJyStZQwkj
- /uQA==
+ bh=dFyeXzhcbf6RF19nq9A7WS0cTvtT8nPdsRm5jwN059o=;
+ b=PzyPMVWxu5MnoroCWj4j7F3XprFjWVuqEXNz9lHBh4jbSWVYxXhgiC9gEa1ylO3xNY
+ djREkggkQZfB2/fF6xz8y5Fx36KOYLWz0tV+N3s3x7+5/WqmPA2FOQEvWg/qtlPQOcw7
+ ZeT3vz/KsfojvHy1sH69QFhfHtMXHYUxeoJ0IQgCHfFKb5TsrlHVUWQcOEHdwvGZxkJm
+ l+Jcn2aEegU3i4sdOKuhyXTnv9Vsr+Hrw10P6GHFNdpVqMNocGn6U5rhyALTd0vvm30n
+ exLLENzyFM0ta/eDhDhitP4ZiGSMLNBkZ91PekDXKXpGOA1MpEplti54rV8XSB7fWWP7
+ gbnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704377801; x=1704982601;
+ d=1e100.net; s=20230601; t=1704377918; x=1704982718;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ECoa2sluMYZfoCNR+bLvb8/iITWmOTNyx3ruNLtEdJ8=;
- b=RYsHweQM8st/AXMBUFf4Usc5GQbQZFCfXqqpmDWD+euulL87bk1lyzYvonvqECR+qZ
- JzcwgSBlezvICCAXneBJ3ZcN3BkeC1pyYeDfCOEqiCfaKo/WooqpgOCeR3sd6xxT+Iy0
- ZgErS7q0HV6yIM7GZEXp9d5Y8TtuO+Me4uDDeR2ATeKX08oUSAfFahWt8bhVAYi4y2vo
- YCL2c//42TrXzysPtmfIf8YUCVASjK9yYqJG6yH46yEmzcnv8OI3rA9wOFtA49hkTGGS
- B+rBsiq5ZLWQ9vDprXNtnacO+f0NMccF13KPJ4U8Mdm/D3XdNizMX5fMsuALCMOHo9JS
- aeEw==
-X-Gm-Message-State: AOJu0Yz0UBCKt42E7pyYvHtbCGjc7iyoZVCCixsg8/IwadmidVavhSnL
- aq7Tcj3p5ZP/Q7e3uNhjht/DzTtkUkAkQg+LigncL2P/
-X-Google-Smtp-Source: AGHT+IEyIigMO+SHYFH9WpC0xfEJrUt9lQIMp5z8l503dEZyBqa0+dPegebpI0RzKyPaoaueMyD2WpO9AZMZDIelvu0=
-X-Received: by 2002:a05:6870:658d:b0:205:c7ca:fbf6 with SMTP id
- fp13-20020a056870658d00b00205c7cafbf6mr168046oab.49.1704377801424; Thu, 04
- Jan 2024 06:16:41 -0800 (PST)
+ bh=dFyeXzhcbf6RF19nq9A7WS0cTvtT8nPdsRm5jwN059o=;
+ b=mOOLXkN7y1DPCShN6jwwyaNUkIFYDLpQ6aigvuPNhWJdsJlTLMeGqvofc1nktanHWZ
+ xqyN7SEX91qWjdLwAvQDjF10DqhpRKdtj61gDzbFU5SKhMQtW+YY6CUxT48focmLtT0P
+ VNvQtR5AVbEp0wHZVF6EdBIsABOl3RXmFkmzFC6WnCpUYhKoz8CYFkubbinHyqxxGd8B
+ 7DTHVTVD8GWgO+1nHypaeknSNQyjzcaE/GpzJ4plcMQFbRwQPTFnTW8D+TKJ6bWHHJS+
+ SOwOwizDuNPw5ncrVVfFJYw+FIgfSQ/DmOA3gbAPyDEim+Yhhq7pdjH95Y/skAKyPVry
+ pNHg==
+X-Gm-Message-State: AOJu0YytqcZbBJ2rYorIKE3JlCsmb2sbG2uqIONmMgqb79sdT6CfrGCY
+ 5cESOKvBl3Rg9UaHagFrpwvrkuaH2jNzzrof7Ns=
+X-Google-Smtp-Source: AGHT+IF2g/vnSg4G/PQnBqjngB7mQMKX7TCJXLT/8jbh/wxNUj4p2qkPo2DDtF2Dco810VcBirdLvUHWBwacZIsN8BY=
+X-Received: by 2002:a05:6870:c68a:b0:204:60fd:8112 with SMTP id
+ cv10-20020a056870c68a00b0020460fd8112mr655975oab.14.1704377917683; Thu, 04
+ Jan 2024 06:18:37 -0800 (PST)
 MIME-Version: 1.0
-References: <20240104092637.2353130-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20240104092637.2353130-1-srinivasan.shanmugam@amd.com>
+References: <20231226100425.3129745-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20231226100425.3129745-1-srinivasan.shanmugam@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 4 Jan 2024 09:16:30 -0500
-Message-ID: <CADnq5_PHRC3j9FVYE3vPMhTbf7RxnW6gA0PJBD+RA9YFQEGHMQ@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: Fix '*fw' from request_firmware() not
- released in 'amdgpu_ucode_request()'
+Date: Thu, 4 Jan 2024 09:18:26 -0500
+Message-ID: <CADnq5_PjarkOhAs2wseVwgGg-ubGskP7REh=Bp3rUN6HJ+05Tw@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/amdgpu: Release 'adev->pm.fw' before return in
+ 'amdgpu_device_need_post()'
 To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -69,60 +69,53 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alex Deucher <alexander.deucher@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ amd-gfx@lists.freedesktop.org,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Mario Limonciello <mario.limonciello@amd.com>
+ Monk Liu <Monk.Liu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 4, 2024 at 4:46=E2=80=AFAM Srinivasan Shanmugam
+On Tue, Dec 26, 2023 at 5:10=E2=80=AFAM Srinivasan Shanmugam
 <srinivasan.shanmugam@amd.com> wrote:
 >
-> Fixes the below:
-> drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c:1404 amdgpu_ucode_request() war=
-n: '*fw' from request_firmware() not released on lines: 1404.
+> In function 'amdgpu_device_need_post(struct amdgpu_device *adev)' -
+> 'adev->pm.fw' may not be released before return.
 >
-> Cc: Mario Limonciello <mario.limonciello@amd.com>
-> Cc: Lijo Lazar <lijo.lazar@amd.com>
+> Using the function release_firmware() to release adev->pm.fw.
+>
+> Thus fixing the below:
+> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:1571 amdgpu_device_need_post()=
+ warn: 'adev->pm.fw' from request_firmware() not released on lines: 1554.
+>
+> Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+> Cc: Monk Liu <Monk.Liu@amd.com>
 > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
 > Cc: Alex Deucher <alexander.deucher@amd.com>
 > Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
 > v2:
->    - Fix some indendations.
->    - release the fw only when ucode validate fails.
+>    release fw needs to be done only FIJI ASIC (Lijo)
 >
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 1 +
+>  1 file changed, 1 insertion(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_ucode.c
-> index 1f67914568f6..d30c39cd8bb8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> @@ -1395,12 +1395,15 @@ int amdgpu_ucode_request(struct amdgpu_device *ad=
-ev, const struct firmware **fw,
->                          const char *fw_name)
->  {
->         int err =3D request_firmware(fw, fw_name, adev->dev);
-> -
-
-Leave this new line.  With that fixed, patch is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
->         if (err)
->                 return -ENODEV;
-> +
->         err =3D amdgpu_ucode_validate(*fw);
-> -       if (err)
-> +       if (err) {
->                 dev_dbg(adev->dev, "\"%s\" failed to validate\n", fw_name=
-);
-> +               release_firmware(*fw);
-> +               *fw =3D NULL;
-> +       }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 4b694696930e..33f37efaf373 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1544,6 +1544,7 @@ bool amdgpu_device_need_post(struct amdgpu_device *=
+adev)
+>                                 return true;
 >
->         return err;
->  }
+>                         fw_ver =3D *((uint32_t *)adev->pm.fw->data + 69);
+> +                       release_firmware(adev->pm.fw);
+>                         if (fw_ver < 0x00160e00)
+>                                 return true;
+>                 }
 > --
 > 2.34.1
 >
