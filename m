@@ -4,115 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73AD1C47074
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jan 2024 09:35:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59BEAC47074
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jan 2024 09:55:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2355C10E469;
-	Thu,  4 Jan 2024 09:35:46 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2047.outbound.protection.outlook.com [40.107.237.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C870F10E469
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jan 2024 09:35:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c8YoDVhdhD3af0g/ADN6iT3fjmdg75ZjwvSn63nIwgscYXtySvFo6/2lE6INjxZz00rlfDnRA89GCK7vHj5LOKtKmme6bMwK2EmPPahd5QPvNCQCTmnmyXB8Otmwoj4ycGAxhT0bqlBjqcbMYpEJNtaYLXn4iT8DFZW47k9S5Z3hc5fkdgi2Mte3gWTDL/Fy1mG5+bHuGvA35lOJPcLl4Fc4LlRcAg0S1LzZI0TkHP6zTskAoZ1cVF+ynM0ZBvCdtAfSBcu/jzGE/NNsAcbG65ddO3DmHXZXUbrOpfK1Ocgc54C9TFl9/ZE2pGiGkRGUCkLVoRhdWR2yPR9FV86tDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8f9UpNfsoRpSkBdf1RgIXNMVFOqEeQONiJuGz2sf1bM=;
- b=cNDOklA5Xe4YkLjNSZuUcZLL+QK5xhLPKtpl3ZGEMaMyhyKLe6xoaXFA/DafKirAztWPrO/8aVWISPLkdkQw9ROx6XmsdcZkrnBdh2GdAsJEqrRy2EjdhVu3SjCmAUoM1WxZYNk6I9h+S3FB1VcfLIvX9240Nwc/wlR9AIsdz3QxO+96GLuG2jecIsdYW16qaemBU9TJWOi/af4+wDw+xzWaLQOPNu3PeoZ0iLiwxd7EyrIqqrsGRwtOHcmXc4gb2wZ3LLF5GwhffdZjYGqInrZTzIn5ONTYk0aSoM9AEpn4QEvdVZbCASHKDFvi044EXgV0cGxSA/GGLh5UyfqeNQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8f9UpNfsoRpSkBdf1RgIXNMVFOqEeQONiJuGz2sf1bM=;
- b=AZNba8JNHJapp8lUgodGov32wi71mGuh58hxnUvSGEndeKAYs1JpvyjvUcxf+BdhTYixNCMd54D/7lcxquRHY+scysWB7666BeInb0xpehGsXdRcCMZ7BPRBSRM711E86GiWxa+7TKh5kmkqaP31KZVo8QKgtl0M9eZjyUTk1OI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA1PR12MB6209.namprd12.prod.outlook.com (2603:10b6:208:3e7::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.15; Thu, 4 Jan
- 2024 09:35:40 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::e1fb:4123:48b1:653]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::e1fb:4123:48b1:653%4]) with mapi id 15.20.7159.013; Thu, 4 Jan 2024
- 09:35:40 +0000
-Message-ID: <7bc2108e-85c5-47d6-ab7f-2122616a4cd6@amd.com>
-Date: Thu, 4 Jan 2024 10:35:36 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: Fix '*fw' from request_firmware() not
- released in 'amdgpu_ucode_request()'
-Content-Language: en-US
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20240104092637.2353130-1-srinivasan.shanmugam@amd.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20240104092637.2353130-1-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0132.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:94::12) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5CE110E3F6;
+	Thu,  4 Jan 2024 09:55:43 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C317510E3F6
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jan 2024 09:55:41 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id E52B9B815AA
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jan 2024 09:55:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45F33C433C8
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jan 2024 09:55:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1704362139;
+ bh=NUKoeng2TtOuvmS1QuUleD7BGl+JqWw7EjY22X+zMeE=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=OHFkUtqftfj+SZv9SeaQruKnYEQ+cq+CUVLhdhS4ctC5mJde61oZpomnZp+ecLocl
+ edGdjmqnCNVqcSE+r/1BHCS9HtiWkfJlVSxkDAqPGjrXpj3m1RESX+i8Du30XCZhoc
+ Phx4BiVKMLfV6iWckC4A+sp0BbGfUzv2NrDh9iOsqfiDWgJJBXqcmWjicme7o2UqjD
+ OMdDO97BJHjpoD64eKNTbxVRZi2a6R+/ZwjD90Vah4KdwTLgLKFVkFiJMEVPIBQPIC
+ QoCG2KHOziSdqLfOlz01MyVVY2UGekeYO2k3gZN/0V0FQCNOuMwCjTEqTwRZOK3QMU
+ ZsLwm/ZTJ1jcQ==
+Received: by mail-ej1-f43.google.com with SMTP id
+ a640c23a62f3a-a275b3a1167so35229366b.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 04 Jan 2024 01:55:39 -0800 (PST)
+X-Gm-Message-State: AOJu0YwBIxrwr2hjy2GeelTgYFcZX3GhPKQ4KQBLEtI2aKaYGWgkDeMd
+ 6wSDa92ZtvHKBPgJ5f0YojqnozcN439l9Ii6pkA=
+X-Google-Smtp-Source: AGHT+IEKmcnwqgygVH9sZZQyzsnOvSR/gqjMEXN+FYG4pXKZGSTboqY34lxGfMFTo2QI4qDTuxyc5MRzDYiHeKc4cMU=
+X-Received: by 2002:a17:906:a94:b0:a28:9633:d599 with SMTP id
+ y20-20020a1709060a9400b00a289633d599mr160134ejf.18.1704362137704; Thu, 04 Jan
+ 2024 01:55:37 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA1PR12MB6209:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8c8ca0de-b674-43fe-130d-08dc0d088400
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: SzDKtJTur8Ez5NdVAWhpEECdQJ9lFe1LIaT3vuQ1Sb8DRYhfga2YYmhIzBV02pttI6lf+2YIo86pz2yonPsPIaZgmXuyJxJPe63XpekPeByG1fiC6zGOTjOhR65pvsyeINRLpq2biBxzweKdxeoPI/ycsAzLUOhTTeFsKpS7qkQOnmdksXkf8qKktJRD9dUulJ85xV1zDECrHBAoZXOlUPtTh2Dc5K57ir8/flsmBFSvyYUYP+m+ss/xzVp+izMikaek/wUHY5HzKdqzf0laWs1pwftOXBjRyNKgcB+7qeRgVv5d+PlCglkLNC56IUKOKwx8S09zqSf7G+pVHC26E+EfVV95LNSoZfhWfAjum0uCvGCan08ntDjelKqgMJwmbau2oTySYrSNa5MjMXgOuBPbKz9oH+3Ybs73nmwSXFk8ylQkOJ0aMZZ+R3y/MuxMokSoaEjaQEapxUPawnSbkPQLO8FtAhmpCbSdoN4TW3t5ubOhTH8is8GlcwJt2jOiwbPm4hHe96s9SAfyvG2mXgBsDMUm+tdpDfq7R0MxCPjTt8KIOSb7+V0hzzj4uXQ2CZhEFrIRMfQYgkdxKeWOh1C+lGtTTUrXWZMvS7i/BPhDymQtpkKHyY3k0VZwo41TqiG05EQdWXWDcGCJGjEctQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(376002)(366004)(39860400002)(396003)(346002)(230922051799003)(451199024)(1800799012)(186009)(64100799003)(26005)(66574015)(2616005)(83380400001)(6506007)(6512007)(6666004)(38100700002)(5660300002)(2906002)(8676002)(41300700001)(478600001)(6486002)(8936002)(66476007)(4326008)(66946007)(6636002)(66556008)(316002)(110136005)(54906003)(31696002)(86362001)(36756003)(31686004)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bHlFYnB6cjhlTUdrZS9wT2VHRVoyOHZJUXZzS2FJR3hiZ2NtNG14THRacTl4?=
- =?utf-8?B?K1dLUlp4bklROUNMUlNrYzdWdzZIS1RQK1pYMDZnYW5RL094WWhMSEdrQmFH?=
- =?utf-8?B?RE8yOTc0VlNiSFRrRTQzS0VOQVNMb0k5WWdiWjBvTU42SHdNWFlMcGpqalJw?=
- =?utf-8?B?VkdqZE82L2hucG5xcFpRTTR4dlNuT3pYSEFQajdGaVFzQkV0dkUrQzFVelpi?=
- =?utf-8?B?SHNiZ0NiVGRWTmJFd0ZlbDhZTzJjVHAwTXdjN1gvZUkwWmowSTJUR0VVTEZQ?=
- =?utf-8?B?SWthQmcveWVJa20xNW4wUGhuSXp3ejNnazRxYW1CNFd5eGlYeXI0VnhUTzVV?=
- =?utf-8?B?VFhIMjBudFpHNVFUZyt0bW9TVHkzT3dHcDY4am14eHRzVjZDL3BpYWhzZWgr?=
- =?utf-8?B?NjNtcCtIWkZremFzZkRxOCttSHFmb3QyR0cwdnNQSXl2MWZINnUzemNxM3Q5?=
- =?utf-8?B?VW1TdzNYdmdnTlBxU2dxeTI5ZVpMN0NQaDJsVzlVL2w5Zzg5Y3hHdHFaMjNY?=
- =?utf-8?B?akQ1SGY0b0xYNmJoQXJsRk1MRTNxTDc2M3ZLRlQzU2Z4TFNmbmpXRTBLUEl0?=
- =?utf-8?B?SWxWSC9ybTJVeHIwbUVDQk5OSjRMdEN3ZExjakREVytFSVlFTkpWS0wxQkxL?=
- =?utf-8?B?QnNHdXdrc1ZDcURuNXRkUk50RnpETGJ4alBQWkpnL2RUZDFnZ1NvYkwzaVRJ?=
- =?utf-8?B?dFlSMDNLWDNjMjB0Z3g2OGVyUnNqY2JiTFllcW5PMitDakFNejVncVRVclZq?=
- =?utf-8?B?bE5vekh5OTdXYkZqeGFsS0w2b3hxeVBKeUw2bkdlUTBnUy9WVXZlcXF6WjhB?=
- =?utf-8?B?SVdpZzZOdFl2ekVWd3J5NzdFZnlLaklwSmxWM2FhTUUxZjRzOHJ4ZmJKK29y?=
- =?utf-8?B?MjdKL3pJVGNrU3RNbVVlemdoR0JSQ3ZpTVF2VnFvbitpQ08zYmdFNGFSek92?=
- =?utf-8?B?RCtvajZZMU9jZWk2cjVwQ1BpNGtWZkJON0U5dDlvZE9ydSt5WVA4ZEx6NGpt?=
- =?utf-8?B?QTg0N3YrUTBJSDBkL0lsWk5ZRTNOMU05Tk1tOVIyVmtldDFrSUZ5cUhJOWZR?=
- =?utf-8?B?TVZmRll0UCtBa1Z4dEhlL3NYZkJMSDVuU3R5b2VoY3BRdkx3TEc3MmZ4Z0sr?=
- =?utf-8?B?MElTNFZ0NFpOeFpEa0tnQ21PNW9vRTlWV3JsSjFwK1JRT1QyVkZsQVlnTVRp?=
- =?utf-8?B?U3hBbGp0cmU1bWhIRm44WGlzWGpDaTFMV090MFFlbUdSWDVOR3NoK1p0L0x1?=
- =?utf-8?B?L21ScVc1WUJFblJ5OUtmbVJ3WTZIbGliRTdOK1JGSEZHVjJxdXZWWHFLSUtI?=
- =?utf-8?B?Ykd1UmJWWHBBczZydm5UQnVyU0ZKL3YyYjgydVE1eFVmTW4rd0M5bEZMakdh?=
- =?utf-8?B?SE9qMEZFTmxjNXRLRkpaRUJiV2VOWHB0ZFd1cFJubXpqY2JaYWljeU5zYnN6?=
- =?utf-8?B?SGpPN1M0UCtPL2hRZUFRSmJDVWJ6d012MXpjK0Y2RWIvYU5WdHdTT1ZLSm5R?=
- =?utf-8?B?SnFqeWRDWnpDQWFOZnEvT1QwWlF2UW5IUjMzRm1hdUM2TnFpNlB2THMyM1Ir?=
- =?utf-8?B?OTRQaFE3aFRyMmxSaklsWDk3M0V1Vk1pTFdaRXRvSmdPRFNUZEk2aUNMZHdH?=
- =?utf-8?B?VitmTmpBQkpyakJjR3ZXK2kvYWQ2elJaZGN0SVdpSy9DdUo2bEEzVTBka3RD?=
- =?utf-8?B?RUJwRldSckVXRkZwSGpXWGw2OWdKQTEvNGVZTFJnMXZqY3I3L2VDalV6M1VD?=
- =?utf-8?B?Z1FWTXI2c1h5alVtUGdQMUFFV0E5QWJPWTN4MCs2cmErM2VJRGZ3L1JrbEZM?=
- =?utf-8?B?MEJxV1Zzd29WbG9qbEphMDAxSVBPZWNEenBkLzQ1THd6VnEzaEs2S1QyUGt5?=
- =?utf-8?B?SnVoUGtmR2ZweS9XUzhwNEw0enZPaHRNQWVHNVlwbTRFSllEakF3Mm02Y3Bn?=
- =?utf-8?B?UDNOQSs2MHRBVjZhWUFQYnpzeUN2cG52ODEzaDBSWFVqZzZHcDRtOWdwei9C?=
- =?utf-8?B?MDRBTU5CaHgvbEVVZUJldzVqMkhHUDBYMjBGOFpISkRlZWdhbTh1V1ZLZkZj?=
- =?utf-8?B?OGpjWnNOSm5vT2lVYktYMDUveStSaFhWd3JIaU9uMlVTcnZISVBwejRYaUp0?=
- =?utf-8?Q?lP7mE0CkTmlwLaWVbf01cAn8W?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8c8ca0de-b674-43fe-130d-08dc0d088400
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2024 09:35:40.8204 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mrW1RwOh3/xnpDL/M1vh9pp7f4gldadKP+2SeHSflKtgkSpFY3ZMxGYK4N2Yi1DN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6209
+References: <20231228014220.3562640-1-samuel.holland@sifive.com>
+ <20231228014220.3562640-8-samuel.holland@sifive.com>
+In-Reply-To: <20231228014220.3562640-8-samuel.holland@sifive.com>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Thu, 4 Jan 2024 17:55:32 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H5TJPqRcgS6jywWDSNsCvd-PsVacgxgoiF-fJ00ZnS4uA@mail.gmail.com>
+Message-ID: <CAAhV-H5TJPqRcgS6jywWDSNsCvd-PsVacgxgoiF-fJ00ZnS4uA@mail.gmail.com>
+Subject: Re: [PATCH v2 07/14] LoongArch: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
+To: Samuel Holland <samuel.holland@sifive.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,58 +59,89 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lijo Lazar <lijo.lazar@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: linux-arch@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, loongarch@lists.linux.dev,
+ WANG Xuerui <git@xen0n.name>, linux-riscv@lists.infradead.org,
+ linuxppc-dev@lists.ozlabs.org, Christoph Hellwig <hch@lst.de>,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi, Samuel,
 
-
-Am 04.01.24 um 10:26 schrieb Srinivasan Shanmugam:
-> Fixes the below:
-> drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c:1404 amdgpu_ucode_request() warn: '*fw' from request_firmware() not released on lines: 1404.
+On Thu, Dec 28, 2023 at 9:42=E2=80=AFAM Samuel Holland
+<samuel.holland@sifive.com> wrote:
 >
-> Cc: Mario Limonciello <mario.limonciello@amd.com>
-> Cc: Lijo Lazar <lijo.lazar@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> LoongArch already provides kernel_fpu_begin() and kernel_fpu_end() in
+> asm/fpu.h, so it only needs to add kernel_fpu_available() and export
+> the CFLAGS adjustments.
+>
+> Acked-by: WANG Xuerui <git@xen0n.name>
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
+> Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
 > ---
-> v2:
->     - Fix some indendations.
->     - release the fw only when ucode validate fails.
 >
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 7 +++++--
->   1 file changed, 5 insertions(+), 2 deletions(-)
+> (no changes since v1)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> index 1f67914568f6..d30c39cd8bb8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> @@ -1395,12 +1395,15 @@ int amdgpu_ucode_request(struct amdgpu_device *adev, const struct firmware **fw,
->   			 const char *fw_name)
->   {
->   	int err = request_firmware(fw, fw_name, adev->dev);
-> -
+>  arch/loongarch/Kconfig           | 1 +
+>  arch/loongarch/Makefile          | 5 ++++-
+>  arch/loongarch/include/asm/fpu.h | 1 +
+>  3 files changed, 6 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
+> index ee123820a476..65d4475565b8 100644
+> --- a/arch/loongarch/Kconfig
+> +++ b/arch/loongarch/Kconfig
+> @@ -15,6 +15,7 @@ config LOONGARCH
+>         select ARCH_HAS_CPU_FINALIZE_INIT
+>         select ARCH_HAS_FORTIFY_SOURCE
+>         select ARCH_HAS_KCOV
+> +       select ARCH_HAS_KERNEL_FPU_SUPPORT if CPU_HAS_FPU
+>         select ARCH_HAS_NMI_SAFE_THIS_CPU_OPS
+>         select ARCH_HAS_NON_OVERLAPPING_ADDRESS_SPACE
+>         select ARCH_HAS_PTE_SPECIAL
+> diff --git a/arch/loongarch/Makefile b/arch/loongarch/Makefile
+> index 4ba8d67ddb09..1afe28feaba5 100644
+> --- a/arch/loongarch/Makefile
+> +++ b/arch/loongarch/Makefile
+> @@ -25,6 +25,9 @@ endif
+>  32bit-emul             =3D elf32loongarch
+>  64bit-emul             =3D elf64loongarch
+>
+> +CC_FLAGS_FPU           :=3D -mfpu=3D64
+> +CC_FLAGS_NO_FPU                :=3D -msoft-float
+We will add LoongArch32 support later, maybe it should be -mfpu=3D32 in
+that case, and do other archs have the case that only support FP32?
 
-Please keep the empty line between declaration and code.
+Huacai
 
-Apart from that feel free to add my rb to the patch.
-
-Regards,
-Christian.
-
->   	if (err)
->   		return -ENODEV;
 > +
->   	err = amdgpu_ucode_validate(*fw);
-> -	if (err)
-> +	if (err) {
->   		dev_dbg(adev->dev, "\"%s\" failed to validate\n", fw_name);
-> +		release_firmware(*fw);
-> +		*fw = NULL;
-> +	}
->   
->   	return err;
->   }
-
+>  ifdef CONFIG_DYNAMIC_FTRACE
+>  KBUILD_CPPFLAGS +=3D -DCC_USING_PATCHABLE_FUNCTION_ENTRY
+>  CC_FLAGS_FTRACE :=3D -fpatchable-function-entry=3D2
+> @@ -46,7 +49,7 @@ ld-emul                       =3D $(64bit-emul)
+>  cflags-y               +=3D -mabi=3Dlp64s
+>  endif
+>
+> -cflags-y                       +=3D -pipe -msoft-float
+> +cflags-y                       +=3D -pipe $(CC_FLAGS_NO_FPU)
+>  LDFLAGS_vmlinux                        +=3D -static -n -nostdlib
+>
+>  # When the assembler supports explicit relocation hint, we must use it.
+> diff --git a/arch/loongarch/include/asm/fpu.h b/arch/loongarch/include/as=
+m/fpu.h
+> index c2d8962fda00..3177674228f8 100644
+> --- a/arch/loongarch/include/asm/fpu.h
+> +++ b/arch/loongarch/include/asm/fpu.h
+> @@ -21,6 +21,7 @@
+>
+>  struct sigcontext;
+>
+> +#define kernel_fpu_available() cpu_has_fpu
+>  extern void kernel_fpu_begin(void);
+>  extern void kernel_fpu_end(void);
+>
+> --
+> 2.42.0
+>
+>
