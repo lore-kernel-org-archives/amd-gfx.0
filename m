@@ -4,114 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCD51C47074
-	for <amd-gfx@archiver.kernel.org>; Sat,  6 Jan 2024 04:36:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41EB3C47074
+	for <amd-gfx@archiver.kernel.org>; Sat,  6 Jan 2024 06:48:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14D1110E6AF;
-	Sat,  6 Jan 2024 04:36:38 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2073.outbound.protection.outlook.com [40.107.94.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5846F10E664;
- Sat,  6 Jan 2024 04:36:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SpH7EmfgCRiwMdrmKRRs+XSLtk02m6LPgQYCIOSFcKM4TkoWLxqq2JVWRTef1n3yORvpjptqc8kmI3laCgORTLnmGiIzZWhmor1swAGp5CD0gGeuTWHAXssgtLNdVwplPF9RsWUyW1PYCEvo9gSJM6HYSAzjHifeA4iUXN/Pe6oZQ94q/5xHzMsgMZZrnAxbnSYKdaUhDKhsX5wFwpmZ+WDs/zGWrxZkk+zMfPG0sy3ht8Q5MLe1geiP3IkTfzqHYtz9+t9U4US+aCsV+v9tqzAqQE55uCxWwwsJ2e1NTOMveZRBWWDSL89O0Isk4RjpJWfNnt7TBZdCoSMS9LvSxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3nw9w4h8S1yEBPOp4oX3OY9jY1ik0Syb+z3Fb3xzxWg=;
- b=P9Ha2XgIqOMw4yJElwCiCGx+gf66EyQMvpcZkWU1mTkrgaGr3pnxSV3vId7hygzEDpIG7Wd1HBXZGBLFObECsTPDf14RTO43ZBhpQNpzQNLt0G9T7TmzyuLdBZJ3s2TANMSxyT3eLkOT8xsnDpJtMVLLPpOZkeiHa4Pp+EqSrzlX/LsieZqa0Poli92qUfvmIblqdJZju8VFAuC6dxy3Yuolijj062ziFvE7qtIC8KApsB+R3AYhbVm4y+0CcF6vuWnLg+WHs8tR7xQJO50dVAuBL9TBffjAuKZLxMqDB6z1FgTlhVv95jEShMoHM/WgC7HKX6mAgjwLoUJqayJR0w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3nw9w4h8S1yEBPOp4oX3OY9jY1ik0Syb+z3Fb3xzxWg=;
- b=uzHPqTHY8FxjJF6AZlijQul07iXM3ZsmcEYOaO3jDjbHjtGJs2T+yXYmXVaKWGnx/2H23VMSym30JG0V9ggg53M4cervWnVJUVfVyh/wXTM2Diip0FbcPCJQuCOLWh2QBO3wG/9WwVfkMnfyygbSZr3IT36hhsC1nyCb9l5hf/k=
-Received: from MN2PR12MB4128.namprd12.prod.outlook.com (2603:10b6:208:1dd::15)
- by CH0PR12MB8577.namprd12.prod.outlook.com (2603:10b6:610:18b::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.15; Sat, 6 Jan
- 2024 04:36:33 +0000
-Received: from MN2PR12MB4128.namprd12.prod.outlook.com
- ([fe80::3508:1efc:dcab:74bb]) by MN2PR12MB4128.namprd12.prod.outlook.com
- ([fe80::3508:1efc:dcab:74bb%4]) with mapi id 15.20.7159.015; Sat, 6 Jan 2024
- 04:36:33 +0000
-From: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-To: Dan Carpenter <dan.carpenter@linaro.org>, "Lee, Peyton"
- <Peyton.Lee@amd.com>
-Subject: RE: [bug report] drm/amdgpu/vpe: enable vpe dpm
-Thread-Topic: [bug report] drm/amdgpu/vpe: enable vpe dpm
-Thread-Index: AQHaP985BqqR6akhvUS/7F0QbQOXprDMM79Q
-Date: Sat, 6 Jan 2024 04:36:33 +0000
-Message-ID: <MN2PR12MB4128CF05AAA26BA602B8C79090652@MN2PR12MB4128.namprd12.prod.outlook.com>
-References: <efbcd813-8f22-44ad-a6e1-6bee6d3bb18c@moroto.mountain>
-In-Reply-To: <efbcd813-8f22-44ad-a6e1-6bee6d3bb18c@moroto.mountain>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=808c98db-8dbc-4c12-acd2-98f1e320c497;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2024-01-06T04:35:27Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MN2PR12MB4128:EE_|CH0PR12MB8577:EE_
-x-ms-office365-filtering-correlation-id: c70e8aef-b959-4ea6-8c14-08dc0e710f54
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 4tauK8Kt7gPawqkdaatTEc3L2OPxtHbHDT9E/xABhAJ5JX0mptNvRLtlOPnYyyFSYI46U9IyepayF5125BlOgvNQ9zp/Jj1DmXhRbRPhDHVwt0Z6EvvSr6Gnxj0sc1c0BFQGrR4YM5bqoegXex4/HoYYJMf31ZEb46TVMX0RsahdmfGzvQfH7fnnY04zshf6tTWrpiJPLKB4IqrItC1hpjO09GBmS2Be0wB4129+RCpQnuRlnLYIu8z1HQ914kR8zWWXHlSi+aWpmaxZPol3cFUbSh9U5dA13uDX2JzHFZswjhzhhwYB/LMVAqLCguy21COJrXNHosqgg0BlwBoBSq08rpXwEvWki0rjfizOm3yRdJGJLedgZ8JbUh9yCjeZjIH7I1VI1tQdZkmqfpMPycisz7khqulnPZ32HuqGyzLhbwJkShXOdObwrX2k9ww0FZBGu5ryd6ekzqcvPPyrGNliGVH9ZBNsh/HfKykaRu4CrlNowkLQzlR6SoC8rhTKoZzaAqRsjuUuJVRb8y1OYvWUrxaifmeR+Z9TMBBMmUHP89pA/v4QBRdlxNnvPrB2HtqPPBTY6m7293e7rrXwnpvMTqoXPC6SrnGx0Qye08I=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4128.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366004)(230273577357003)(230922051799003)(230173577357003)(186009)(451199024)(1800799012)(38070700009)(33656002)(86362001)(83380400001)(38100700002)(122000001)(7696005)(53546011)(26005)(9686003)(55236004)(6506007)(54906003)(498600001)(71200400001)(110136005)(8936002)(8676002)(76116006)(66556008)(6636002)(66446008)(66946007)(66476007)(64756008)(55016003)(2906002)(966005)(4326008)(5660300002)(52536014);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Ih0v/5gM9SPT5O+EOpzeQdnkPciHlzujGayuiVFQHJlZmH+djRWRuM4Y+o5w?=
- =?us-ascii?Q?Ui6FHoqVR6vBE8B7jgZQFdw5BhowxlkyOL61xTZUZMh2BFM/qCBnFuj3Szr0?=
- =?us-ascii?Q?W8gqZf8ztujEfZgTIT7x0cZD+6BVnTrrebMyQr3XHHQ1BjCYPGja/fjGPCy/?=
- =?us-ascii?Q?ze3NnQEGsl8G567ecC5hQTkHaow1KvBM8Y0spAUP0I8w8k30FsVS96F0gWx3?=
- =?us-ascii?Q?kpU5Y8IQfPB0+8utAD/OSUGjbKkqRNxGbQBg3rMQEi8ZhrOJUBQHPxssUHlu?=
- =?us-ascii?Q?0DYw7ybnoO+q1MhE4VakFwqRkfZ1CzzTn9safOdAsFtQjWfRHDLJ3e0P6U0p?=
- =?us-ascii?Q?BIDPtu5Kl1GT+ETyvP2XRlxqOEHyyuThv6gajsEt0T6Rg3rh+uw9wn9TgD4q?=
- =?us-ascii?Q?my+/x+mPe8xDuXVmp1Hk0ZymRR0ZPiIlEPJwlUszaOYi855Bk6/E8OtApjao?=
- =?us-ascii?Q?f4/61V+r7fNYd7LgWR9s1kaNpdWbLY5lnwmRYw5coFhnIF3B0xLSgmfpXX51?=
- =?us-ascii?Q?PiBoWQXe9s45KHO4SlMz+9w4vAN6DRzCrviMdgtjcVVm5mmCEwdQaY4P2B/U?=
- =?us-ascii?Q?yS0Ow6ROogVrd4GGa0yw7vllR+aqgr4pjFJ3Y8o5lb1dqpBqPvAT7sTYoiC4?=
- =?us-ascii?Q?5D9J0D0Sd8z2n0N5M43b1rBGXQ9HN/eW3zr/9vAo445VBQyXwUvyY8MdNGS6?=
- =?us-ascii?Q?s6i/ncNwoTLdnuXY26AEXdxaH+wH6D7/oE7Zy32bUvTwP+/Bh8M/5QEfuD85?=
- =?us-ascii?Q?IKnsULvQ4LGF0B+1GGf+Kp/J5Y5zQ0cygw8d+mIKPjfKOAbQV3iwUKED6Nca?=
- =?us-ascii?Q?W/H4uRy7Zf/7TjWDljGtlqAx7JSDRKexsmKKA6Bu+PsRKldh1Jj3iHn26Bgp?=
- =?us-ascii?Q?PkDESOmwvJaQemmc/hlYnkH2P+4VpOICfY2EMvWTWRBcsjOqnQ4/85l7cn+d?=
- =?us-ascii?Q?RLRBUuPfLBwfvrB1w6q6wjrIJdd5AS63z5zj/+/fYRMfw9ULR1whUtC7AvXN?=
- =?us-ascii?Q?ao9RO8Fo8P2Rjd1mKnZ+x4pluB0c45cBcmuBgsrTQ9MXSaTzgt7PXu9qjp1a?=
- =?us-ascii?Q?1npYLB9szb+qswr141fMsPBQOP9Uk4lrvzeXrMV3Omq8Lu7387yFig5xGRjn?=
- =?us-ascii?Q?2DyodmIOZMeaFEaXyPnszW1B96WAAomEIrCWBZDwJ5vs3HFkUEhYS96Bq1UU?=
- =?us-ascii?Q?pSdSHE43x6QIUbcj1/OvNpVuAtM/jshVRCczmn8qkGC7CFmDxzveZe31nbnr?=
- =?us-ascii?Q?n0ZdL0Dblm3HVpN1dWTE3Xj2RJY/3Cm83KXHn4+YDmbiTyPvfz+XUy6w8er/?=
- =?us-ascii?Q?3P/zxAtZEDmLVlcCOehuOuEzzjgU21HDxuBglXKVE8glCCQqqJwD7dfj38yE?=
- =?us-ascii?Q?nwl8J7iW2l9u8onVmgN6cvOswc5fhikaiIlPer2Z0g3e9l4gZw6eEpIVRy5y?=
- =?us-ascii?Q?SJuD5LA5A0GvpSaIlGM9VaPPOZbEwcysHC7bM2MOkzTNFm//bF5C1CL0PGJl?=
- =?us-ascii?Q?vVDn9qp8dmQ0OChYfFhF9JM5vUnqn1AVRA6qCHrs1KQTUEfnz/NRBH38pG7S?=
- =?us-ascii?Q?vVL0BWiX/DNvVeAzK4k=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A1B110E19D;
+	Sat,  6 Jan 2024 06:48:20 +0000 (UTC)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63E1B10E19D
+ for <amd-gfx@lists.freedesktop.org>; Sat,  6 Jan 2024 06:48:19 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-50e7e55c0f6so279178e87.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 05 Jan 2024 22:48:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1704523697; x=1705128497; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=FVk7hWTgzYxOSve/M83Fgrm7/rESL5SpmcXsZd2fj/Q=;
+ b=Ewqy1bG/pC2A7RVLAvw52/gEuFd1pEQq+Gg5tRoBw5suOz2q/fL32Qr8C2z2DNhZ79
+ OvaoU4jMEzDiQ5azgC44XyJ+jjiP/hhM3ueHwzjIGq6FKunPPbVzSAb2PzBMIe4o/ubx
+ dZjA5f2rvk8eflohF6yqn8yOX5l1KkKIbbRi1ZidtNk+X5Lut4enlO5pkUrNhj4Kdh6v
+ ZZfVxH0IN7mlFkyVYt+n69TWnx6JgLS5OS5NkKzryNUWIh8KZxQOcKUyEjpzMiln1Mb8
+ hdt9dyWqmRWIvT6QN0suyqlZ21nlPO7LMkcWMKR1IhTqjuudU9vT1J/K+as/m6qdTI0I
+ x+Ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1704523697; x=1705128497;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=FVk7hWTgzYxOSve/M83Fgrm7/rESL5SpmcXsZd2fj/Q=;
+ b=Dcl+2Ixb4w2HqJxmhbLOqDldIGOHSUfGqCcRhg5m4j3wo4vV0cV7ZpLFKYNjcE9q+q
+ EvtxSmqNWlir4u0pCGP3Y5RrmfrnQ7gE3OhJu3XJ9bzx4xhoZ7byHRtyQwkxDfNx3cIW
+ Vpv8b/BUQcTWWrmrvkX3FiWRlE+lRmxLoDvHpsQ1Zv2LFhku/9uD+72A1gg1RDLfPv0g
+ W+hGp/syKbWnD+9m29aV8xxyEFkSOfr8S9WQae7O5y7YO6t6NuZQR51VXcvvpJNeupJI
+ UC4IYhbO245nbK8ScZuTj5ZsogtR93Zr9x9rvez+hlwVdKHg7Ex/0RyLiD2qM3Jhthup
+ wtDA==
+X-Gm-Message-State: AOJu0YyP47P79T3KkD+XuM2SoWku8fBSmPXH6sCcRMLcHW4T2eTqWR06
+ fenw0CPnJDDMhLlwkv9dQyOubdSCt161Vy57xKc=
+X-Google-Smtp-Source: AGHT+IEmvG4rH9k+l19Vz/WzNRPH/eXq98hL6S4Z8BCBTOfBpsqVUzJN+ocpchfuKfgIXEuFrLYLDjVHkMy50PFqqro=
+X-Received: by 2002:a19:5f14:0:b0:50e:9132:5105 with SMTP id
+ t20-20020a195f14000000b0050e91325105mr86394lfb.181.1704523697233; Fri, 05 Jan
+ 2024 22:48:17 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4128.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c70e8aef-b959-4ea6-8c14-08dc0e710f54
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Jan 2024 04:36:33.0592 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: CSOXcKhITMNx2LgH8yd0h/6TkJ1BVFCGQa+bbwkqI3LQLSKkNiLv2K/U64LXjEVtax/+MjMqbvRQP4H2B1UNuQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8577
+References: <20240103043000.23971-1-ent3rm4n@gmail.com>
+ <CADnq5_NexkgrEKbM39QVGo+hOmd2G0Yc0sui3jWuJsKAyb3ONg@mail.gmail.com>
+ <10b32f43-7b0c-1232-1070-cf51731c5d5f@amd.com>
+ <0416969a-ddf5-4c6b-9017-6a6a4384b163@amd.com>
+ <2e8cd9ed-bdea-eb54-99f1-a7b854594b69@amd.com>
+ <CAAxE2A6YdbbC0EKWTdAMLQK9tKmO3v17+yPvhqfby2P_bfH1pw@mail.gmail.com>
+ <285317c2-4236-4a22-a6ba-26e2100dde54@amd.com>
+In-Reply-To: <285317c2-4236-4a22-a6ba-26e2100dde54@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Sat, 6 Jan 2024 01:48:04 -0500
+Message-ID: <CAAxE2A7+bJm7g+8S_Z3z99vinnSr_8CwjJs+YZVizOS94CekoA@mail.gmail.com>
+Subject: Re: [PATCH] Revert "drm/amdkfd: Relocate TBA/TMA to opposite side of
+ VM hole"
+To: Felix Kuehling <felix.kuehling@amd.com>
+Content-Type: multipart/alternative; boundary="0000000000007c2601060e4159e6"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,59 +72,303 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Cc: Alex Deucher <alexdeucher@gmail.com>, Kaibo Ma <ent3rm4n@gmail.com>,
+ Jay Cornwall <jay.cornwall@amd.com>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+--0000000000007c2601060e4159e6
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Dan Carpenter,
+The 32-bit address space means the high 32 bits are constant and
+predetermined and it's definitely somewhere in the upper range of the
+address space. If ROCm or KFD occupy that space, even accidentally, other
+UMDs that use libdrm for VA allocation won't be able to start. The VA range
+allocator is in libdrm.
 
-This was fixed in https://patchwork.freedesktop.org/patch/573477/?series=3D=
-128249&rev=3D1
+Marek
 
-Thank you!
+On Fri, Jan 5, 2024, 15:20 Felix Kuehling <felix.kuehling@amd.com> wrote:
 
-Regards,
-Srini
+> TBA/TMA were relocated to the upper half of the canonical address space.
+> I don't think that qualifies as 32-bit by definition. But maybe you're
+> using a different definition.
+>
+> That said, if Mesa manages its own virtual address space in user mode,
+> and KFD maps the TMA/TBA at an address that Mesa believes to be free, I
+> can see how that would lead to problems.
+>
+> That said, the fence refcount bug is another problem that may have been
+> exposed by the way that a crashing Mesa application shuts down.
+> Reverting Jay's patch certainly didn't fix that, but only hides the
+> problem.
+>
+> Regards,
+>    Felix
+>
+>
+> On 2024-01-04 13:29, Marek Ol=C5=A1=C3=A1k wrote:
+> > Hi,
+> >
+> > I have received information that the original commit makes all 32-bit
+> > userspace VA allocations fail, so UMDs like Mesa can't even initialize
+> > and they either crash or fail to load. If TBA/TMA was relocated to the
+> > 32-bit address range, it would explain why UMDs can't allocate
+> > anything in that range.
+> >
+> > Marek
+> >
+> > On Wed, Jan 3, 2024 at 2:50=E2=80=AFPM Jay Cornwall <jay.cornwall@amd.c=
+om>
+> wrote:
+> >> On 1/3/2024 12:58, Felix Kuehling wrote:
+> >>
+> >>> A segfault in Mesa seems to be a different issue from what's mentione=
+d
+> >>> in the commit message. I'd let Christian or Marek comment on
+> >>> compatibility with graphics UMDs. I'm not sure why this patch would
+> >>> affect them at all.
+> >> I was referencing this issue in OpenCL/OpenGL interop, which certainly
+> looked related:
+> >>
+> >> [   91.769002] amdgpu 0000:0a:00.0: amdgpu: bo 000000009bba4692 va
+> 0x0800000000-0x08000001ff conflict with 0x0800000000-0x0800000002
+> >> [   91.769141] ocltst[2781]: segfault at b2 ip 00007f3fb90a7c39 sp
+> 00007ffd3c011ba0 error 4 in radeonsi_dri.so[7f3fb888e000+1196000] likely =
+on
+> CPU 15 (core 7, socket 0)
+> >>
+> >>> Looking at the logs in the tickets, it looks like a fence reference
+> >>> counting error. I don't see how Jay's patch could have caused that. I
+> >>> made another change in that code recently that could make a differenc=
+e
+> >>> for this issue:
+> >>>
+> >>>      commit 8f08c5b24ced1be7eb49692e4816c1916233c79b
+> >>>      Author: Felix Kuehling <Felix.Kuehling@amd.com>
+> >>>      Date:   Fri Oct 27 18:21:55 2023 -0400
+> >>>
+> >>>           drm/amdkfd: Run restore_workers on freezable WQs
+> >>>
+> >>>           Make restore workers freezable so we don't have to explicit=
+ly
+> >>>      flush them
+> >>>           in suspend and GPU reset code paths, and we don't
+> accidentally
+> >>>      try to
+> >>>           restore BOs while the GPU is suspended. Not having to flush
+> >>>      restore_work
+> >>>           also helps avoid lock/fence dependencies in the GPU reset
+> case
+> >>>      where we're
+> >>>           not allowed to wait for fences.
+> >>>
+> >>>           A side effect of this is, that we can now have multiple
+> >>>      concurrent threads
+> >>>           trying to signal the same eviction fence. Rework eviction
+> fence
+> >>>      signaling
+> >>>           and replacement to account for that.
+> >>>
+> >>>           The GPU reset path can no longer rely on
+> restore_process_worker
+> >>>      to resume
+> >>>           queues because evict/restore workers can run independently =
+of
+> >>>      it. Instead
+> >>>           call a new restore_process_helper directly.
+> >>>
+> >>>           This is an RFC and request for testing.
+> >>>
+> >>>           v2:
+> >>>           - Reworked eviction fence signaling
+> >>>           - Introduced restore_process_helper
+> >>>
+> >>>           v3:
+> >>>           - Handle unsignaled eviction fences in restore_process_bos
+> >>>
+> >>>           Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> >>>           Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> >>>           Tested-by: Emily Deng <Emily.Deng@amd.com>
+> >>>           Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> >>>
+> >>>
+> >>> FWIW, I built a plain 6.6 kernel, and was not able to reproduce the
+> >>> crash with some simple tests.
+> >>>
+> >>> Regards,
+> >>>     Felix
+> >>>
+> >>>
+> >>>> So I agree, let's revert it.
+> >>>>
+> >>>> Reviewed-by: Jay Cornwall <jay.cornwall@amd.com>
+>
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Dan Carp=
-enter
-Sent: Friday, January 5, 2024 7:04 PM
-To: Lee, Peyton <Peyton.Lee@amd.com>
-Cc: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org
-Subject: [bug report] drm/amdgpu/vpe: enable vpe dpm
+--0000000000007c2601060e4159e6
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello Peyton Lee,
+<div dir=3D"auto">The 32-bit address space means the high 32 bits are const=
+ant and predetermined and it&#39;s definitely somewhere in the upper range =
+of the address space. If ROCm or KFD occupy that space, even accidentally, =
+other UMDs that use libdrm for VA allocation won&#39;t be able to start. Th=
+e VA range allocator is in libdrm.<div dir=3D"auto"><br></div><div dir=3D"a=
+uto">Marek</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
+=3D"gmail_attr">On Fri, Jan 5, 2024, 15:20 Felix Kuehling &lt;<a href=3D"ma=
+ilto:felix.kuehling@amd.com">felix.kuehling@amd.com</a>&gt; wrote:<br></div=
+><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1=
+px #ccc solid;padding-left:1ex">TBA/TMA were relocated to the upper half of=
+ the canonical address space. <br>
+I don&#39;t think that qualifies as 32-bit by definition. But maybe you&#39=
+;re <br>
+using a different definition.<br>
+<br>
+That said, if Mesa manages its own virtual address space in user mode, <br>
+and KFD maps the TMA/TBA at an address that Mesa believes to be free, I <br=
+>
+can see how that would lead to problems.<br>
+<br>
+That said, the fence refcount bug is another problem that may have been <br=
+>
+exposed by the way that a crashing Mesa application shuts down. <br>
+Reverting Jay&#39;s patch certainly didn&#39;t fix that, but only hides the=
+ problem.<br>
+<br>
+Regards,<br>
+=C2=A0=C2=A0 Felix<br>
+<br>
+<br>
+On 2024-01-04 13:29, Marek Ol=C5=A1=C3=A1k wrote:<br>
+&gt; Hi,<br>
+&gt;<br>
+&gt; I have received information that the original commit makes all 32-bit<=
+br>
+&gt; userspace VA allocations fail, so UMDs like Mesa can&#39;t even initia=
+lize<br>
+&gt; and they either crash or fail to load. If TBA/TMA was relocated to the=
+<br>
+&gt; 32-bit address range, it would explain why UMDs can&#39;t allocate<br>
+&gt; anything in that range.<br>
+&gt;<br>
+&gt; Marek<br>
+&gt;<br>
+&gt; On Wed, Jan 3, 2024 at 2:50=E2=80=AFPM Jay Cornwall &lt;<a href=3D"mai=
+lto:jay.cornwall@amd.com" target=3D"_blank" rel=3D"noreferrer">jay.cornwall=
+@amd.com</a>&gt; wrote:<br>
+&gt;&gt; On 1/3/2024 12:58, Felix Kuehling wrote:<br>
+&gt;&gt;<br>
+&gt;&gt;&gt; A segfault in Mesa seems to be a different issue from what&#39=
+;s mentioned<br>
+&gt;&gt;&gt; in the commit message. I&#39;d let Christian or Marek comment =
+on<br>
+&gt;&gt;&gt; compatibility with graphics UMDs. I&#39;m not sure why this pa=
+tch would<br>
+&gt;&gt;&gt; affect them at all.<br>
+&gt;&gt; I was referencing this issue in OpenCL/OpenGL interop, which certa=
+inly looked related:<br>
+&gt;&gt;<br>
+&gt;&gt; [=C2=A0 =C2=A091.769002] amdgpu 0000:0a:00.0: amdgpu: bo 000000009=
+bba4692 va 0x0800000000-0x08000001ff conflict with 0x0800000000-0x080000000=
+2<br>
+&gt;&gt; [=C2=A0 =C2=A091.769141] ocltst[2781]: segfault at b2 ip 00007f3fb=
+90a7c39 sp 00007ffd3c011ba0 error 4 in radeonsi_dri.so[7f3fb888e000+1196000=
+] likely on CPU 15 (core 7, socket 0)<br>
+&gt;&gt;<br>
+&gt;&gt;&gt; Looking at the logs in the tickets, it looks like a fence refe=
+rence<br>
+&gt;&gt;&gt; counting error. I don&#39;t see how Jay&#39;s patch could have=
+ caused that. I<br>
+&gt;&gt;&gt; made another change in that code recently that could make a di=
+fference<br>
+&gt;&gt;&gt; for this issue:<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 commit 8f08c5b24ced1be7eb49692e4816c191623=
+3c79b<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 Author: Felix Kuehling &lt;<a href=3D"mail=
+to:Felix.Kuehling@amd.com" target=3D"_blank" rel=3D"noreferrer">Felix.Kuehl=
+ing@amd.com</a>&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 Date:=C2=A0 =C2=A0Fri Oct 27 18:21:55 2023=
+ -0400<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0drm/amdkfd: Run restor=
+e_workers on freezable WQs<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Make restore workers f=
+reezable so we don&#39;t have to explicitly<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 flush them<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0in suspend and GPU res=
+et code paths, and we don&#39;t accidentally<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 try to<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0restore BOs while the =
+GPU is suspended. Not having to flush<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 restore_work<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0also helps avoid lock/=
+fence dependencies in the GPU reset case<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 where we&#39;re<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0not allowed to wait fo=
+r fences.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0A side effect of this =
+is, that we can now have multiple<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 concurrent threads<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0trying to signal the s=
+ame eviction fence. Rework eviction fence<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 signaling<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0and replacement to acc=
+ount for that.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0The GPU reset path can=
+ no longer rely on restore_process_worker<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 to resume<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0queues because evict/r=
+estore workers can run independently of<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 it. Instead<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0call a new restore_pro=
+cess_helper directly.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0This is an RFC and req=
+uest for testing.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0v2:<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0- Reworked eviction fe=
+nce signaling<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0- Introduced restore_p=
+rocess_helper<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0v3:<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0- Handle unsignaled ev=
+iction fences in restore_process_bos<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Signed-off-by: Felix K=
+uehling &lt;<a href=3D"mailto:Felix.Kuehling@amd.com" target=3D"_blank" rel=
+=3D"noreferrer">Felix.Kuehling@amd.com</a>&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Acked-by: Christian K=
+=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@amd.com" target=3D"_blank"=
+ rel=3D"noreferrer">christian.koenig@amd.com</a>&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Tested-by: Emily Deng =
+&lt;<a href=3D"mailto:Emily.Deng@amd.com" target=3D"_blank" rel=3D"noreferr=
+er">Emily.Deng@amd.com</a>&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Signed-off-by: Alex De=
+ucher &lt;<a href=3D"mailto:alexander.deucher@amd.com" target=3D"_blank" re=
+l=3D"noreferrer">alexander.deucher@amd.com</a>&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; FWIW, I built a plain 6.6 kernel, and was not able to reproduc=
+e the<br>
+&gt;&gt;&gt; crash with some simple tests.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Regards,<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0Felix<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; So I agree, let&#39;s revert it.<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; Reviewed-by: Jay Cornwall &lt;<a href=3D"mailto:jay.cornwa=
+ll@amd.com" target=3D"_blank" rel=3D"noreferrer">jay.cornwall@amd.com</a>&g=
+t;<br>
+</blockquote></div>
 
-The patch 5f82a0c90cca: "drm/amdgpu/vpe: enable vpe dpm" from Dec 12,
-2023 (linux-next), leads to the following Smatch static checker
-warning:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c:62 vpe_u1_8_from_fraction() warn: u=
-nsigned 'numerator' is never less than zero.
-drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c:63 vpe_u1_8_from_fraction() warn: u=
-nsigned 'denominator' is never less than zero.
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-    60 static uint16_t vpe_u1_8_from_fraction(uint16_t numerator, uint16_t =
-denominator)
-    61 {
---> 62         bool arg1_negative =3D numerator < 0;
-    63         bool arg2_negative =3D denominator < 0;
-
-uint16_t can't be negative.
-
-    64
-    65         uint16_t arg1_value =3D (uint16_t)(arg1_negative ? -numerato=
-r : numerator);
-    66         uint16_t arg2_value =3D (uint16_t)(arg2_negative ? -denomina=
-tor : denominator);
-    67
-    68         uint16_t remainder;
-    69
-
-regards,
-dan carpenter
+--0000000000007c2601060e4159e6--
