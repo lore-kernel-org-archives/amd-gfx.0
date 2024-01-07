@@ -4,52 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D910C47073
-	for <amd-gfx@archiver.kernel.org>; Sun,  7 Jan 2024 17:56:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5D09C47074
+	for <amd-gfx@archiver.kernel.org>; Sun,  7 Jan 2024 18:51:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AC3510E0ED;
-	Sun,  7 Jan 2024 17:56:39 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B94910E0CE;
- Sun,  7 Jan 2024 17:56:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1704650198; x=1736186198;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=5ugHrpFBnKf/CLc1I/2bD5evFi4fe42YoHYlgKnnI6E=;
- b=Okdu1KCbyeb9aLLYWZfFgKdo2p90HMa1hKbtmirJFlmas1JDltYovaz7
- l96rOW0/SiUmr10XfEvEAt4RZwMovemcD0o0IbDyERXLC6NEY8gDrM4RQ
- 4BD/MantR676iorz6L1nu1LY9GyZNTcgdWvac+09OIK9ZXGxOlZyxAXST
- Bpc/YZyNEgx6H4xtJmfHj7vCqbgjOcsHXeZ67fHYMAXg3yW7r3O7SIZ5v
- y9kTDULTZdXeoswsq5IVCBi7qPP1sf4it0bZxB3PkBq+AHwcMKX8WlDUa
- ljCqYh7Nddnji3jM/yAlQFMjAY8AJ7REVIqjFpBqqAXH8PKweh65QXbLN g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10946"; a="397467899"
-X-IronPort-AV: E=Sophos;i="6.04,339,1695711600"; d="scan'208";a="397467899"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jan 2024 09:56:37 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.04,339,1695711600"; d="scan'208";a="22951534"
-Received: from lkp-server02.sh.intel.com (HELO b07ab15da5fe) ([10.239.97.151])
- by orviesa002.jf.intel.com with ESMTP; 07 Jan 2024 09:56:34 -0800
-Received: from kbuild by b07ab15da5fe with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1rMXNw-000408-0N;
- Sun, 07 Jan 2024 17:56:32 +0000
-Date: Mon, 8 Jan 2024 01:56:20 +0800
-From: kernel test robot <lkp@intel.com>
-To: Dipam Turkar <dipamt1729@gmail.com>, alexander.deucher@amd.com
-Subject: Re: [PATCH 1/1] Refactor radeon driver to use
- drm_gem_create_map_offset() instead of its custom implementation for
- associating GEM object with a fake offset. Since, we already have a generic
- implementation, we don't need the custom function and it is better to
- standardize the code.
-Message-ID: <202401080151.JsIVh6p0-lkp@intel.com>
-References: <20240106141422.10734-1-dipamt1729@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C5D010E0A3;
+	Sun,  7 Jan 2024 18:51:36 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51CCE10E0A3
+ for <amd-gfx@lists.freedesktop.org>; Sun,  7 Jan 2024 18:51:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=sUz+0QVkHBY4pG2AAr/KLwUCaKSA8dFj+XVgW7d2Jjg=; b=SWtQPFzjOTHUla4KJNuXiM1PH4
+ Wx/WkAiksCm8m/e4tKtWT+P4EotRRCGbuf2e+QKOBxIFtvaMBLDm/TZP+SIBEo0+DPgXUBGv8PD1Q
+ 2g+/K69+GaHHZHWmJHuDSzkrqr2UjZoLNVH9Cwz59QLAZ/EXLDrvBetqEAca915GuoIGhQSUTnj6Y
+ E5C/qd2YSFdvntbx6cqXhz8xtbZkXDlTyAE4qWYHPjDkHpUogrlcCevsVYXIw4Kuhn/sRT7sV7VTA
+ /T+M3q2A5a2iocc/9hnrM4nYYR69hRrTnR0IUDqd7ea0FCUEPfa+Glb4gC0bAcLSHcq0U1IYTlQAG
+ js0F7pNg==;
+Received: from [102.213.205.115] (helo=mail.igalia.com)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1rMYF9-003y8U-7L; Sun, 07 Jan 2024 19:51:31 +0100
+Date: Sun, 7 Jan 2024 17:51:05 -0100
+From: Melissa Wen <mwen@igalia.com>
+To: "LIPSKI, IVAN" <IVAN.LIPSKI@amd.com>
+Subject: Re: [PATCH 1/1] Revert "drm/amd/display: fix bandwidth validation
+ failure on DCN 2.1"
+Message-ID: <ryht25fuarcj5yl4g6fp4cafx4btwvfjchep6nujlaq6omgvu5@p6tnynn2umjz>
+References: <20240106004050.1506869-1-ivlipski@amd.com>
+ <PH7PR12MB793974E3D84089FD35D19E25E7652@PH7PR12MB7939.namprd12.prod.outlook.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240106141422.10734-1-dipamt1729@gmail.com>
+In-Reply-To: <PH7PR12MB793974E3D84089FD35D19E25E7652@PH7PR12MB7939.namprd12.prod.outlook.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,54 +52,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dipam Turkar <dipamt1729@gmail.com>, Xinhui.Pan@amd.com,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- oe-kbuild-all@lists.linux.dev, airlied@gmail.com, christian.koenig@amd.com
+Cc: "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Choi,
+ Nicholas" <Nicholas.Choi@amd.com>, "Mahfooz, Hamza" <Hamza.Mahfooz@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dipam,
+On 01/06, LIPSKI, IVAN wrote:
+> [AMD Official Use Only - General]
+> 
+> @Siqueira, Rodrigo<mailto:Rodrigo.Siqueira@amd.com>
+> ________________________________
+> From: LIPSKI, IVAN <IVAN.LIPSKI@amd.com>
+> Sent: January 5, 2024 7:40 PM
+> To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+> Cc: rodrigo.siquiera@amd.com <rodrigo.siquiera@amd.com>; Choi, Nicholas <Nicholas.Choi@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; LIPSKI, IVAN <IVAN.LIPSKI@amd.com>; Melissa Wen <mwen@igalia.com>; Mahfooz, Hamza <Hamza.Mahfooz@amd.com>
+> Subject: [PATCH 1/1] Revert "drm/amd/display: fix bandwidth validation failure on DCN 2.1"
+> 
+> From: Ivan Lipski <ivlipski@amd.com>
+> 
+> This commit causes dmesg-warn on several IGT tests on DCN 3.1.6:
+> *ERROR* link_enc_cfg_validate: Invalid link encoder assignments - 0x1c
+> 
+> Affected IGT tests include:
+> amdgpu/[amd_assr|amd_plane|amd_hotplug]
+> kms_atomic
+> kms_color
+> kms_flip
+> kms_properties
+> kms_universal_plane
+> 
+> and some other tests
+> 
+> This reverts commit b7ebd39e2922f642c7ee63ade4a4a5a1ef675d84.
 
-kernel test robot noticed the following build errors:
+I'm not opposed to reverting this in the short term, but I don't see the
+connection between doing a full validation and link encoder assignment
+errors. It seems more like the change unveiled an underlying issue
+rather than causing the error. I don't see those errors on DCN 2.1 and
+3.0.1.
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on linus/master v6.7-rc8 next-20240105]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Unfortunately, I don't have a DCN 3.1.6 for debugging :( It'd deserve
+further investigation.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Dipam-Turkar/Refactor-radeon-driver-to-use-drm_gem_create_map_offset-instead-of-its-custom-implementation-for-associating-GEM-object-/20240106-221755
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20240106141422.10734-1-dipamt1729%40gmail.com
-patch subject: [PATCH 1/1] Refactor radeon driver to use drm_gem_create_map_offset() instead of its custom implementation for associating GEM object with a fake offset. Since, we already have a generic implementation, we don't need the custom function and it is better to standardize the code.
-config: s390-allmodconfig (https://download.01.org/0day-ci/archive/20240108/202401080151.JsIVh6p0-lkp@intel.com/config)
-compiler: s390-linux-gcc (GCC) 13.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240108/202401080151.JsIVh6p0-lkp@intel.com/reproduce)
+Melissa
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202401080151.JsIVh6p0-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/radeon/radeon_gem.c:34:10: fatal error: drm/dem_gem.h: No such file or directory
-      34 | #include <drm/dem_gem.h>
-         |          ^~~~~~~~~~~~~~~
-   compilation terminated.
-
-
-vim +34 drivers/gpu/drm/radeon/radeon_gem.c
-
-    31	
-    32	#include <drm/drm_device.h>
-    33	#include <drm/drm_file.h>
-  > 34	#include <drm/dem_gem.h>
-    35	#include <drm/drm_gem_ttm_helper.h>
-    36	#include <drm/radeon_drm.h>
-    37	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> 
+> Cc: Melissa Wen <mwen@igalia.com>
+> Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
+> 
+> Signed-off-by: Ivan Lipski <ivlipski@amd.com>
+> 
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index d77fc79f3542..111c6f51f0ae 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -10752,7 +10752,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+>                          DRM_DEBUG_DRIVER("drm_dp_mst_atomic_check() failed\n");
+>                          goto fail;
+>                  }
+> -               status = dc_validate_global_state(dc, dm_state->context, false);
+> +               status = dc_validate_global_state(dc, dm_state->context, true);
+>                  if (status != DC_OK) {
+>                          DRM_DEBUG_DRIVER("DC global validation failure: %s (%d)",
+>                                         dc_status_to_str(status), status);
+> --
+> 2.34.1
+> 
