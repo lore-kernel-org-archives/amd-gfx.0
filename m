@@ -4,63 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98A4CC46CD2
-	for <amd-gfx@archiver.kernel.org>; Sat,  6 Jan 2024 14:15:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6C30C46CD2
+	for <amd-gfx@archiver.kernel.org>; Sun,  7 Jan 2024 02:39:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDC7510E0C4;
-	Sat,  6 Jan 2024 14:15:01 +0000 (UTC)
-Received: from mail-oo1-xc33.google.com (mail-oo1-xc33.google.com
- [IPv6:2607:f8b0:4864:20::c33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE6C110E0C4;
- Sat,  6 Jan 2024 14:14:59 +0000 (UTC)
-Received: by mail-oo1-xc33.google.com with SMTP id
- 006d021491bc7-59822d59158so270220eaf.3; 
- Sat, 06 Jan 2024 06:14:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1704550499; x=1705155299; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=70BmQ1AAqBQF/HMHseYDQ1nTDNOHkvcVEOwfs5CBfAw=;
- b=d9EoVQMRdB2j4L7Hm55G4HGg1E3oHW8nCCtcnqDjW0KNDpK2TJtKANxKemHsAdOO/s
- m4sj98HqfSv5NCdX06AEDakRGgPSnj/ZxrKMYQubMQ5hrLMC8kLkQG9+zsvy1sP+SmHe
- 6vDBy8nEXOCnvaLi3jYmH4XpUXfgv0Yy3afIqKb81gj8fNpyJYLq+vJg+NjDbMmgG0YF
- 7r9VDlrJNiPi5KTHDPIr8ZgU9DQovCR/UMDeYgIewX3HIBJF19CH+AODxZX/f2Tpgi6i
- tuHUEJYDIeMkS7Zt6VgeKNH0EscadXSz94TGoaKBRVG7glDnkd7wun5P4lATYGi2JiGE
- aXzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704550499; x=1705155299;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=70BmQ1AAqBQF/HMHseYDQ1nTDNOHkvcVEOwfs5CBfAw=;
- b=a+TD93MTnX4bhCJ6tdfgGdzuE8XaSRYmjFj+cKaHxgE6rTTJVWIoeiBdFg3t9243f3
- Lkl+maZY8fATS8WJpu7enBCN4Fl0aAfr5eOw7U6GeRcO425t5n3DPULZ2BCKjx6+V+YK
- QBNNeNb3WFGhm92oDn8RITpFVjNLuCnis10DQM6U8s8s8mWL1G1oDrJUqIbKYTl7HviI
- mxVn9il9EMSltdRxX0vz4Dft7JOk/kCC9/EgGF0z+7ddabycrTsPX1vzjnnvscQHGQS+
- 9KtEfpixKPZ/Qe35gB6Ch4KtGIAosOipDcyhKFjf5CejFktXwRkXycyVZYi7vHvdXA8g
- KUGw==
-X-Gm-Message-State: AOJu0YxVjv8czaNFiC+uNxuMmawA2OiLYAWeBG708rwWa0yhu/NnCQ2W
- pITCeCBzdDDhnOtRszvDmr4=
-X-Google-Smtp-Source: AGHT+IGSdb9c7+Nu8KHp/gytkNLMwMgd3BPpCK1bPyMhFIqjH0pYoq/PPNkGN5lmBKH/185POMYmVA==
-X-Received: by 2002:a05:6358:70c:b0:170:ee27:bfa1 with SMTP id
- e12-20020a056358070c00b00170ee27bfa1mr986956rwj.5.1704550498730; 
- Sat, 06 Jan 2024 06:14:58 -0800 (PST)
-Received: from anfanite396-Predator-PH315-51.. ([202.43.120.140])
- by smtp.gmail.com with ESMTPSA id
- qj14-20020a17090b28ce00b0028afdb88d08sm3050268pjb.23.2024.01.06.06.14.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 06 Jan 2024 06:14:58 -0800 (PST)
-From: Dipam Turkar <dipamt1729@gmail.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH 1/1] Refactor radeon driver to use drm_gem_create_map_offset()
- instead of its custom implementation for associating GEM object with a fake
- offset. Since, we already have a generic implementation,
- we don't need the custom function and it is better to standardize the code.
-Date: Sat,  6 Jan 2024 19:44:23 +0530
-Message-Id: <20240106141422.10734-1-dipamt1729@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0CE910E00F;
+	Sun,  7 Jan 2024 02:39:19 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26A3310E00F
+ for <amd-gfx@lists.freedesktop.org>; Sun,  7 Jan 2024 02:39:18 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id E916A60B4C
+ for <amd-gfx@lists.freedesktop.org>; Sun,  7 Jan 2024 02:39:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9225CC433CD
+ for <amd-gfx@lists.freedesktop.org>; Sun,  7 Jan 2024 02:39:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1704595156;
+ bh=jJbJktSdzhdzV2bS3gu5EK0DeDy7WfVB0EYasXcaPjw=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=G/2dWfbsLN9WwONooqF8NP5eFXFFOXQ5R6pDJXrL/Xza8jKUMjyzLISO/JNRMvYNn
+ ebjH0gTMb0U4Prs0XDY60enG/LtvrGLzWjVf7Zzw8H2mYYP9S0qsp8K7Ce6UKsNFDs
+ luwaMAnTvjVJM9HUnldij5bMjLFAarf4NscxczzeoYtSCV5eoStKqOMNDLTmu19xze
+ aMrbfKIfNiIj8X1DZgs468Zb9C+7WcgK9ZNAOjucthSo1/0cLBg7F7C6N6JPLcTfxU
+ QUG04tPdXEPjgcJtJhrAkM9utpizPYOwvU0ipsvKaL5YnYtdbnpOYvyKg5CDhYcl0N
+ TIVY824fazJig==
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-50e7ddd999bso811326e87.1
+ for <amd-gfx@lists.freedesktop.org>; Sat, 06 Jan 2024 18:39:16 -0800 (PST)
+X-Gm-Message-State: AOJu0YzLwQLSzcGS++r6Lpsz6v9I7t5cue9jiw8uqi1NIRS5B2vDaiDN
+ f2ltxQV60t9dUroUVDcH5QiqZMsp59+Q+fK6oz8=
+X-Google-Smtp-Source: AGHT+IE666iz2mwVRCBnzGP5r7CatHWfsTic6W1ztccc+lpU8OH145j+/Z8tY3bo1scDBlBwbi74pfIJZJaXjjloGT8=
+X-Received: by 2002:a05:6512:3a82:b0:50e:8ead:3889 with SMTP id
+ q2-20020a0565123a8200b0050e8ead3889mr731610lfu.75.1704595154779; Sat, 06 Jan
+ 2024 18:39:14 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20231228014220.3562640-1-samuel.holland@sifive.com>
+ <20231228014220.3562640-8-samuel.holland@sifive.com>
+ <CAAhV-H5TJPqRcgS6jywWDSNsCvd-PsVacgxgoiF-fJ00ZnS4uA@mail.gmail.com>
+ <84389bc3-f2e7-49c5-a820-de60ee00f8a7@sifive.com>
+In-Reply-To: <84389bc3-f2e7-49c5-a820-de60ee00f8a7@sifive.com>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Sun, 7 Jan 2024 10:39:07 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H4JxP-j5A7KuNSBncZkHF9i3O1njCtMjVkd3=RNbE5Q7w@mail.gmail.com>
+Message-ID: <CAAhV-H4JxP-j5A7KuNSBncZkHF9i3O1njCtMjVkd3=RNbE5Q7w@mail.gmail.com>
+Subject: Re: [PATCH v2 07/14] LoongArch: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
+To: Samuel Holland <samuel.holland@sifive.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,79 +61,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dipam Turkar <dipamt1729@gmail.com>, Xinhui.Pan@amd.com,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, airlied@gmail.com,
- christian.koenig@amd.com
+Cc: linux-arch@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, loongarch@lists.linux.dev,
+ WANG Xuerui <git@xen0n.name>, linux-riscv@lists.infradead.org,
+ linuxppc-dev@lists.ozlabs.org, Christoph Hellwig <hch@lst.de>,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Signed-off-by: Dipam Turkar <dipamt1729@gmail.com>
----
- drivers/gpu/drm/radeon/radeon_drv.c |  2 +-
- drivers/gpu/drm/radeon/radeon_gem.c | 24 ++----------------------
- 2 files changed, 3 insertions(+), 23 deletions(-)
+On Thu, Jan 4, 2024 at 11:58=E2=80=AFPM Samuel Holland
+<samuel.holland@sifive.com> wrote:
+>
+> Hi Huacai,
+>
+> On 2024-01-04 3:55 AM, Huacai Chen wrote:
+> > Hi, Samuel,
+> >
+> > On Thu, Dec 28, 2023 at 9:42=E2=80=AFAM Samuel Holland
+> > <samuel.holland@sifive.com> wrote:
+> >>
+> >> LoongArch already provides kernel_fpu_begin() and kernel_fpu_end() in
+> >> asm/fpu.h, so it only needs to add kernel_fpu_available() and export
+> >> the CFLAGS adjustments.
+> >>
+> >> Acked-by: WANG Xuerui <git@xen0n.name>
+> >> Reviewed-by: Christoph Hellwig <hch@lst.de>
+> >> Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
+> >> ---
+> >>
+> >> (no changes since v1)
+> >>
+> >>  arch/loongarch/Kconfig           | 1 +
+> >>  arch/loongarch/Makefile          | 5 ++++-
+> >>  arch/loongarch/include/asm/fpu.h | 1 +
+> >>  3 files changed, 6 insertions(+), 1 deletion(-)
+> >>
+> >> diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
+> >> index ee123820a476..65d4475565b8 100644
+> >> --- a/arch/loongarch/Kconfig
+> >> +++ b/arch/loongarch/Kconfig
+> >> @@ -15,6 +15,7 @@ config LOONGARCH
+> >>         select ARCH_HAS_CPU_FINALIZE_INIT
+> >>         select ARCH_HAS_FORTIFY_SOURCE
+> >>         select ARCH_HAS_KCOV
+> >> +       select ARCH_HAS_KERNEL_FPU_SUPPORT if CPU_HAS_FPU
+> >>         select ARCH_HAS_NMI_SAFE_THIS_CPU_OPS
+> >>         select ARCH_HAS_NON_OVERLAPPING_ADDRESS_SPACE
+> >>         select ARCH_HAS_PTE_SPECIAL
+> >> diff --git a/arch/loongarch/Makefile b/arch/loongarch/Makefile
+> >> index 4ba8d67ddb09..1afe28feaba5 100644
+> >> --- a/arch/loongarch/Makefile
+> >> +++ b/arch/loongarch/Makefile
+> >> @@ -25,6 +25,9 @@ endif
+> >>  32bit-emul             =3D elf32loongarch
+> >>  64bit-emul             =3D elf64loongarch
+> >>
+> >> +CC_FLAGS_FPU           :=3D -mfpu=3D64
+> >> +CC_FLAGS_NO_FPU                :=3D -msoft-float
+> > We will add LoongArch32 support later, maybe it should be -mfpu=3D32 in
+> > that case, and do other archs have the case that only support FP32?
+>
+> Do you mean that LoongArch32 does not support double-precision FP in hard=
+ware?
+> At least both of the consumers in this series use double-precision, so my=
+ first
+> thought is that LoongArch32 could not select ARCH_HAS_KERNEL_FPU_SUPPORT.
+Then is it possible to introduce CC_FLAGS_SP_FPU and CC_FLAGS_DP_FPU?
+I think there may be some place where SP FP is enough.
 
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index fa531493b111..f590ed65ffba 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -578,7 +578,7 @@ static const struct drm_driver kms_driver = {
- 	.ioctls = radeon_ioctls_kms,
- 	.num_ioctls = ARRAY_SIZE(radeon_ioctls_kms),
- 	.dumb_create = radeon_mode_dumb_create,
--	.dumb_map_offset = radeon_mode_dumb_mmap,
-+	.dumb_map_offset = drm_gem_dumb_map_offset,
- 	.fops = &radeon_driver_kms_fops,
- 
- 	.gem_prime_import_sg_table = radeon_gem_prime_import_sg_table,
-diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
-index 358d19242f4b..99794c550d2c 100644
---- a/drivers/gpu/drm/radeon/radeon_gem.c
-+++ b/drivers/gpu/drm/radeon/radeon_gem.c
-@@ -31,6 +31,7 @@
- 
- #include <drm/drm_device.h>
- #include <drm/drm_file.h>
-+#include <drm/dem_gem.h>
- #include <drm/drm_gem_ttm_helper.h>
- #include <drm/radeon_drm.h>
- 
-@@ -480,33 +481,12 @@ int radeon_gem_set_domain_ioctl(struct drm_device *dev, void *data,
- 	return r;
- }
- 
--int radeon_mode_dumb_mmap(struct drm_file *filp,
--			  struct drm_device *dev,
--			  uint32_t handle, uint64_t *offset_p)
--{
--	struct drm_gem_object *gobj;
--	struct radeon_bo *robj;
--
--	gobj = drm_gem_object_lookup(filp, handle);
--	if (gobj == NULL) {
--		return -ENOENT;
--	}
--	robj = gem_to_radeon_bo(gobj);
--	if (radeon_ttm_tt_has_userptr(robj->rdev, robj->tbo.ttm)) {
--		drm_gem_object_put(gobj);
--		return -EPERM;
--	}
--	*offset_p = radeon_bo_mmap_offset(robj);
--	drm_gem_object_put(gobj);
--	return 0;
--}
--
- int radeon_gem_mmap_ioctl(struct drm_device *dev, void *data,
- 			  struct drm_file *filp)
- {
- 	struct drm_radeon_gem_mmap *args = data;
- 
--	return radeon_mode_dumb_mmap(filp, dev, args->handle, &args->addr_ptr);
-+	return drm_gem_dumb_map_offset(filp, dev, args->handle, &args->addr_ptr);
- }
- 
- int radeon_gem_busy_ioctl(struct drm_device *dev, void *data,
--- 
-2.34.1
+Huacai
 
+>
+> Regards,
+> Samuel
+>
