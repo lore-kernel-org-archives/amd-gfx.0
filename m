@@ -4,51 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A455C4707B
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jan 2024 14:32:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 629CAC3DA6E
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jan 2024 14:32:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 818E110E12D;
-	Mon,  8 Jan 2024 14:32:48 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDD8D10E1F9;
- Mon,  8 Jan 2024 09:46:21 +0000 (UTC)
-X-UUID: 88c7ec6b451c482cb8107aa0b946676f-20240108
-X-CID-O-RULE: Release_Ham
-X-CID-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.35, REQID:286c5e78-a4fe-4060-8c6f-ac9c8d68c380, IP:20,
- URL:0,TC:0,Content:0,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTI
- ON:release,TS:5
-X-CID-INFO: VERSION:1.1.35, REQID:286c5e78-a4fe-4060-8c6f-ac9c8d68c380, IP:20,
- UR
- L:0,TC:0,Content:0,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:5
-X-CID-META: VersionHash:5d391d7, CLOUDID:bd3fed2e-1ab8-4133-9780-81938111c800,
- B
- ulkID:240108174111OIUGN40H,BulkQuantity:0,Recheck:0,SF:38|24|17|19|44|66|1
- 02,TC:nil,Content:0,EDM:-3,IP:-2,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,CO
- L:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
-X-CID-BVR: 0
-X-CID-BAS: 0,_,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD,TF_CID_SPAM_FSI
-X-UUID: 88c7ec6b451c482cb8107aa0b946676f-20240108
-X-User: lizhenneng@kylinos.cn
-Received: from localhost.localdomain [(116.128.244.171)] by mailgw
- (envelope-from <lizhenneng@kylinos.cn>) (Generic MTA)
- with ESMTP id 647686786; Mon, 08 Jan 2024 17:41:08 +0800
-From: Zhenneng Li <lizhenneng@kylinos.cn>
-To: Marek Olsak <marek.olsak@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH libdrm 2/2] amdgpu: change proirity value to be consistent
- with kernel
-Date: Mon,  8 Jan 2024 17:40:52 +0800
-Message-Id: <20240108094052.171721-2-lizhenneng@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240108094052.171721-1-lizhenneng@kylinos.cn>
-References: <20240108094052.171721-1-lizhenneng@kylinos.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A4A010E236;
+	Mon,  8 Jan 2024 14:32:50 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58A3C10E1D5
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jan 2024 09:37:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=nTS1Uj9X0YK5sE131pQWTs2iFDkjMx4GKaOmTl5jpqE=; b=Fy176uqqVZeORczKkanJckGA3E
+ rjRR9SFWlqdBWFeQhMUeo2x5lV8XpdYa4GI0iYUzJ6xe4JfoH/ClDNDCMVJub0LPMWEwUwd8I8dr0
+ WwH6zcQyiGmBNcE7Fs8axj5Vg+MNCFSetI0lVOGPKPgwxoNDApJeoPP6xe17PMl4YbYUkYENMyduB
+ f083OT27kxtEMpbQucthM3SKI66TxkTOiSrMzwOmJqYthGOqjcJQX6LHBVpu97K2Nyn2Uoe2m6xiJ
+ DGQPT42ehYs1d42jNISUDZY/OxsBiSJHVw2pJE0uDLbTxsdKq7BFvXx0o48duef+zb5iDUsv9NZhu
+ bOOsB0Vw==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.96 #2 (Red Hat
+ Linux)) id 1rMm44-004Uoy-0z; Mon, 08 Jan 2024 09:37:00 +0000
+Date: Mon, 8 Jan 2024 01:37:00 -0800
+From: Christoph Hellwig <hch@infradead.org>
+To: Huacai Chen <chenhuacai@kernel.org>
+Subject: Re: [PATCH v2 07/14] LoongArch: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
+Message-ID: <ZZvCPMcYq6KBs7ND@infradead.org>
+References: <20231228014220.3562640-1-samuel.holland@sifive.com>
+ <20231228014220.3562640-8-samuel.holland@sifive.com>
+ <CAAhV-H5TJPqRcgS6jywWDSNsCvd-PsVacgxgoiF-fJ00ZnS4uA@mail.gmail.com>
+ <84389bc3-f2e7-49c5-a820-de60ee00f8a7@sifive.com>
+ <CAAhV-H4JxP-j5A7KuNSBncZkHF9i3O1njCtMjVkd3=RNbE5Q7w@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAAhV-H4JxP-j5A7KuNSBncZkHF9i3O1njCtMjVkd3=RNbE5Q7w@mail.gmail.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mailman-Approved-At: Mon, 08 Jan 2024 14:32:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,58 +53,19 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Zhenneng Li <lizhenneng@kylinos.cn>
+Cc: linux-arch@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Samuel Holland <samuel.holland@sifive.com>,
+ loongarch@lists.linux.dev, WANG Xuerui <git@xen0n.name>,
+ linux-riscv@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+ Christoph Hellwig <hch@lst.de>, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In libdrm-amdgpu and amdgpu kernel driver, there are only such priority level:
+On Sun, Jan 07, 2024 at 10:39:07AM +0800, Huacai Chen wrote:
+> > Do you mean that LoongArch32 does not support double-precision FP in hardware?
+> > At least both of the consumers in this series use double-precision, so my first
+> > thought is that LoongArch32 could not select ARCH_HAS_KERNEL_FPU_SUPPORT.
+> Then is it possible to introduce CC_FLAGS_SP_FPU and CC_FLAGS_DP_FPU?
+> I think there may be some place where SP FP is enough.
 
-AMDGPU_CTX_PRIORITY_VERY_LOW,
-AMDGPU_CTX_PRIORITY_LOW,
-AMDGPU_CTX_PRIORITY_NORMAL,
-AMDGPU_CTX_PRIORITY_HIGH,
-AMDGPU_CTX_PRIORITY_VERY_HIGH
-
-If priority value is not the one of the above data, the kernel will treat it as invalid.
-If you set prority to HIGH or VERY_HIGH, please make sure the process have CAP_SYS_NICE
-capability or DRM_MASTER permission.
-
-Signed-off-by: Zhenneng Li <lizhenneng@kylinos.cn>
----
- amdgpu/amdgpu_cs.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/amdgpu/amdgpu_cs.c b/amdgpu/amdgpu_cs.c
-index eb72c638..d6d768ba 100644
---- a/amdgpu/amdgpu_cs.c
-+++ b/amdgpu/amdgpu_cs.c
-@@ -57,6 +57,7 @@ drm_public int amdgpu_cs_ctx_create2(amdgpu_device_handle dev,
- 	int i, j, k;
- 	int r;
- 	char *override_priority;
-+	int32_t override_prio;
- 
- 	if (!dev || !context)
- 		return -EINVAL;
-@@ -66,9 +67,16 @@ drm_public int amdgpu_cs_ctx_create2(amdgpu_device_handle dev,
- 		/* The priority is a signed integer. The variable type is
- 		 * wrong. If parsing fails, priority is unchanged.
- 		 */
--		if (sscanf(override_priority, "%i", &priority) == 1) {
-+		if (sscanf(override_priority, "%i", &override_prio) == 1) {
- 			printf("amdgpu: context priority changed to %i\n",
--			       priority);
-+			       override_prio);
-+			if (override_prio == 0) {
-+				priority = AMDGPU_CTX_PRIORITY_NORMAL;
-+			} else if (override_prio < 0) {
-+				priority = AMDGPU_CTX_PRIORITY_HIGH;
-+			} else {
-+				priority = AMDGPU_CTX_PRIORITY_LOW;
-+			}
- 		}
- 	}
- 
--- 
-2.34.1
-
+Let's defer that until it is actually neeed.
