@@ -4,117 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B85A1C3DA6E
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jan 2024 09:01:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B856AC3DA6E
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jan 2024 09:24:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 566A010E18C;
-	Mon,  8 Jan 2024 09:01:14 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2081.outbound.protection.outlook.com [40.107.220.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDE2710E18C
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jan 2024 09:01:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54DCB10E1FA;
+	Mon,  8 Jan 2024 09:24:48 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20628.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eaa::628])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BE9210E1FA
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jan 2024 09:24:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fRj97pwBAtFJC/hwCjcOtEoEmRxAv/A2qaxnA+AWQg3v0dLTHk9Qsgk+o2qs8orRtnejyRFc9oVqzH/KkxZVAmfSgyBXDidRBnbv/l1tHuLs43biBuS4FKnPGfAuYFkcocScILM4M5DUkFskCFFZAS64pkoeHtrRPeAIkvhDQiAOxsDIGcO/MbORokTGeRgUAkzK583PFpEb5EfJcOpg6O/VyR7iI91/GAiNDHmONAMf92y62Hq/Trccsq57nRhxc6XsSXm6dhYr1vT7qsnq2VYf5iRkN/B1a+dZt33+4BZiSZcfVgHL4X+ed/kCSatnSmlXzwK5WeZ92uW2lBltCQ==
+ b=mQs2+YyTzVwqLANPWrszh+HLlc9kjuIf8xqn7wNIKil4pulUPqjh6mIiGzvUnCvdXCuGj3C38oxil7i/RuW/B2Eds5b6xzDmoJ+KhSqmZ5sQewRTwIWimM1HOAOLZxs7GTKpU7OCK8SIwCVRBXiA8582Zy+yLIC0UOPraiVn6xSuKv6l/pjunxClMFdCKtPzS73Pogyn8cW+lEoMxqRg0Zy959nypzzPTo4UqnSl8as9BhF3BheEMS4U/YGpcaRAjKDdYYUd8XCJOyYLXyBCozJOCiHZnYILmA7Eky5kBYFiS4tPs+abMZV2EW69VZmkApLNTK95DVAQEZ22kHuh2Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jJBssTGoX5LtrG7+6Hyrtek5CWfRs6XF0slCtEXqlM0=;
- b=BTdUkWms182n43GanS4q7F811sa9tKqvMIOQR/OCqF1laGj14p0Tyuic7DEu9QP57Lx6cMYBkqUf4E0+GmSEbJ85rBRUdGmvlW2m1bNeI+Q5WpDIdEigRkg6xxOdFBFvyY+sUAaF/LfW0xiv96x75nNxU5AVIWYLdJVKYU5stpw6MQl+uoGP254+2aYThJwx9K1oiJtR0yAvJv2kKszdad+30IVv0Z26gmhrLmOeErN5rGK+70QZ1dYUlSqrtLa1rd0Z5dhpYQJyAEnXRf+GP3KO8S9dNhF77cpIjjVDS9kXmaHnCs1Eo0RYEBcK/iJzdb6xEKGnNIc06FOOfjqTVA==
+ bh=BCX7pvOxapPLYGYGKjD/IK3SpYGOfuhg3jhapVpAcuI=;
+ b=UJ6geQuCSNf5O7lEU8MscO+O1/sUwuirY0LqgcosigmqhRacJfkne3eKTbn5fjFpXmX7cFrRzvDC+nNH2ghnwoOao6ahuYo9B8LHEP0EKRLtjvzhYm1OWGtQgFg7wHZFTxx0X5WjTszbL03bt8QV0hxTAzSCKRv7caEwEIBK7i/hHND0D9APCN5B4oDVkBYl9epmtKdxbxRXChM5g4dw3QNUesk7W7L0NulwRdrnGp/MdI2fiKX4AUdm0AfkVeIOLC/zQ7598oTX/FD91d4rGEPHjXzCV8rUQCBMOhlX4C4GOeWuTWK954Xvz6FuZEYCbP49hMeJY5hhFTzKH3dqWA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jJBssTGoX5LtrG7+6Hyrtek5CWfRs6XF0slCtEXqlM0=;
- b=1ZcvdYe3/GTexeDm6THS0oSisTN/xZHEWpXuDDopJrhZ3juXs/jv++69LOLBLw0Mc0Uhe7ywZ2BkyIJEJyidwVHY2CLuNfTPetm23bGSN+GB/k/iRT00+lxAcj1X/baR3p1R4f2RwC04zhKUXItdoU3a1zKfcRWpGCxf3xNbF4M=
+ bh=BCX7pvOxapPLYGYGKjD/IK3SpYGOfuhg3jhapVpAcuI=;
+ b=e/lUPguKVpi4CGkH4aoI6hSqpWLgXjoFnjppmZQHchxrFXalmSDzcmUh334oVS9afQlsvPIbd8PvSeEmnJS/Ay/ylh6S1NS6aPDYoKCJdagt7ZB1EbjWuUez+RtJd51FFF8D6s6wY3g0JgrFnwKWr9hLCSP3wAu/ksYb/mDm+6E=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM4PR12MB7741.namprd12.prod.outlook.com (2603:10b6:8:103::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.21; Mon, 8 Jan
- 2024 09:01:10 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::e1fb:4123:48b1:653]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::e1fb:4123:48b1:653%4]) with mapi id 15.20.7159.020; Mon, 8 Jan 2024
- 09:01:10 +0000
-Message-ID: <9ef46565-5df6-4e90-8f04-99cde4a655db@amd.com>
-Date: Mon, 8 Jan 2024 10:01:05 +0100
+Received: from DM4PR12MB6351.namprd12.prod.outlook.com (2603:10b6:8:a2::6) by
+ DS7PR12MB6117.namprd12.prod.outlook.com (2603:10b6:8:9b::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7159.21; Mon, 8 Jan 2024 09:24:44 +0000
+Received: from DM4PR12MB6351.namprd12.prod.outlook.com
+ ([fe80::8650:7935:179:f18c]) by DM4PR12MB6351.namprd12.prod.outlook.com
+ ([fe80::8650:7935:179:f18c%5]) with mapi id 15.20.7159.020; Mon, 8 Jan 2024
+ 09:24:44 +0000
+Message-ID: <3f060c10-15be-4aef-916c-dbcb554c35c2@amd.com>
+Date: Mon, 8 Jan 2024 17:24:37 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Update irq disable flow during unload
+Subject: Re: [PATCH] drm/amdgpu: Check resize bar register when system uses
+ large bar
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20231219055802.304678-1-Jun.Ma2@amd.com>
+ <5c64d777-510d-4440-b1b6-aaccd7bb71a0@gmail.com>
+ <8fd5d4dc-e781-475e-b90f-b43001ab224b@amd.com>
+ <3d92db26-dc1b-48d7-84e1-2e509742f174@gmail.com>
 Content-Language: en-US
-To: "Lazar, Lijo" <lijo.lazar@amd.com>, "Kamal, Asad" <Asad.Kamal@amd.com>
-References: <20240105152100.471494-1-asad.kamal@amd.com>
- <5c1863cb-a528-4c12-9ad7-3c9589088863@amd.com>
- <DS7PR12MB60714005DFBD7DFF9754A23B8E6B2@DS7PR12MB6071.namprd12.prod.outlook.com>
- <1309eac6-7b01-4566-a83f-541dbc0a3132@amd.com>
- <d83c82ef-f9f3-46f0-99ed-8d115dbdd465@amd.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <d83c82ef-f9f3-46f0-99ed-8d115dbdd465@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: "Ma, Jun" <majun@amd.com>
+In-Reply-To: <3d92db26-dc1b-48d7-84e1-2e509742f174@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0283.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e6::12) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-ClientProxiedBy: TYCP286CA0159.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:383::18) To DM4PR12MB6351.namprd12.prod.outlook.com
+ (2603:10b6:8:a2::6)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB7741:EE_
-X-MS-Office365-Filtering-Correlation-Id: 82b6bf0c-7dd9-4fd0-3aae-08dc10285b7f
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6351:EE_|DS7PR12MB6117:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0ca9dbaf-903d-4cee-686f-08dc102ba633
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0JEhLdy93EVWkoMWczVoMQP4NfcMmS3QrX0mHFOULyAnzDJCxyWHm0iyOhxWdZomoTIopEKzodxshHD0d404jOEmvqzNokkEr59LVCeFIJCWrB+L9W2jhVA2vYEkBIDSwa5xbKnbSBiJRs5BLRob0KjVuEXPvfe+b6B3zH3vaci7pkHP0Ha8FV3foORqfDlm6g0Fqg+MJdqlyixDO/gY2mfF4azEzsUWdObYVQBN+uZbEGes0pQc9ZxVYXPkCmCbEy7sn/dRuNPdcHR0EkhPt1utuu9R/BguANXoQss6eL9/p8g0vhGhib5txc8PWimD/ZVqspJEVQGak0bD9YCyxjpl6UgdTk6XSMBrQFMeepYCrP9KBC6dMlfrNZLUB4ev+/zcGBZsXykD6IARZGd7KuzFELxU+2Q5b12j2vSHj+wIwXhrw9FB9ecI7ato8upKJo5cOukLU25pYu+e2McFJMKryg0Ehl4ytk1dNkJ+cwYTwnCJ3Aj7+Ssm8MFIU0NrFhCPEmzhuehc040Mb/ZkdIxVqBq0dNIDgbURUCugzXh+PSh4y+L9Uq3LjwZwOJwO1GCaaBcQGt/ACJO3ZiB5msmh8PL1G+lekN9XnSRUb8suF/F//Lx877SCQuR/oNcQVUee3LmDwyHD8tI7IcudYA==
+X-Microsoft-Antispam-Message-Info: QWasmebv2gZGMX6AfwcD9U0V0mqESvMckQDWNzKh7Zw2xHFu/7E/7RQ1TYiK2yujXMl5QniMtHfwNmYAihZFAOBXZXMz4O0/9U37vFp4Ob/gg1RnB6oqDckONllMqKcAN4MMWyFybEkcnvgbF4zm5pr2ZRMz99WAHF8hRAtdVQ4h+LzwKh8gdUN9/ajQ/2OAx4eti0TbMphoFQwvcOczdJGqab/SDsqO/lfIrbZ3iZy0MZjgNnU0jc4k8OoKvdLoGXzrPZn8C30yOjpxejp/P1bLCLF6cOJ6FTjYY4ZGbf2g52Z2kBjUY79E+pqZsJfN/OT3GsyR9pFdIz7LyZJLyt0aHxdG6weg/njuIUYQts9AQCSUpgyBqtP0m79WdnBrAFteUvyxsmoOevCglxb2dNDpQ4b9tbkgiBio2Rt+3Zo2v9rHeWEWdqOuxSdaqv18upTN34tJjLwWfdYPjX9X6DNKpbqNg49GxTTTacOobfcWLMBis19TbnAg4B1UkKt1tvwAfvCS5ANdr66GNZfbBXok5KoIlf41RsDs5nT80X9qMwCFe6TZhWxG1dNsOpTlRYo44dgF+xhGeDDaD2OTc6VQc4uTfCuYu9mjTl1eTk6B8igLS97bmqe1SrQFXPgv3nAejQciliAfWHpvu1CeEqlO9IDaOfsZQB+4zoI2NMJfwuflIOlJ+0Q0ToamNZM5
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(396003)(346002)(136003)(376002)(366004)(230922051799003)(64100799003)(186009)(451199024)(1800799012)(110136005)(54906003)(6636002)(316002)(86362001)(4326008)(66556008)(6486002)(66946007)(478600001)(31696002)(6666004)(66476007)(38100700002)(31686004)(26005)(2616005)(6512007)(53546011)(6506007)(66574015)(8936002)(8676002)(83380400001)(5660300002)(2906002)(36756003)(15650500001)(41300700001)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6351.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(396003)(366004)(39860400002)(376002)(136003)(346002)(230922051799003)(230173577357003)(230273577357003)(64100799003)(1800799012)(451199024)(186009)(6486002)(53546011)(26005)(2616005)(478600001)(6506007)(6512007)(6666004)(83380400001)(66574015)(2906002)(5660300002)(41300700001)(66476007)(66556008)(66946007)(4326008)(316002)(110136005)(8936002)(8676002)(38100700002)(31696002)(36756003)(31686004)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?LzNwL0FPVzJEbzhXYWQvTkRFMFVudUVLNldrOFpBV0hKb3VObysvRit6ZDRJ?=
- =?utf-8?B?THVWMFZVdVQwSG1obGZEUXlxd2g4dkpsOUQxV1FicitCWXFmYjdtajQzUENN?=
- =?utf-8?B?MEpHRW5PSFVBd2s2cSs4OEdpKys2QmU5VWx3b1F6M3I5TTRGeWZHZnM5bmxR?=
- =?utf-8?B?eVcrZFJiSlY3b3VjYi8rbWNiYW5MZzJyNG15enEzeFRWZGliZDdHU2xya2Zq?=
- =?utf-8?B?YnYvTmZBMG9MT3Nmbkl0am9lbFJOMWpzODdSRUJUcFlucU5jbGJYRFhXMUhn?=
- =?utf-8?B?ZzljdWM0dDR1dU9Cbm1yVjNpQkx6UURYZ3ExTFNuTDVqTDd5V203UlovcTdB?=
- =?utf-8?B?ajZoWHk3Z29STFpOZkx0c2NMRmlTZUFTUS9ZclNvTE9DKzI0SXRzQXExOFVG?=
- =?utf-8?B?eTJpVnVnMU83SHJSc0tqcGliemtRY3pWNkR5WC83cTVqbmxxaFlicmVMSEpi?=
- =?utf-8?B?UHAvVDAwMzJWZHNtbnloNHY2WHNYY2JMNTRMUlJVbzQzWExIWkQ1eVVIaThX?=
- =?utf-8?B?MForTU5GelFVQlBONE1UOXFRNEhCSmVaVm5JQmVDRHYyYTdGWmNibUg0OEVT?=
- =?utf-8?B?WmtRaGtJTmJVRkRDSURjUlJ4QWdQb3FlQWprM0kxS3hxODRSL0NVSWcyMFlV?=
- =?utf-8?B?Mk1Wcm9wSzhWRVBRaXFxcWl4RzB6WFo0ejdSVXcvNFNKRXVsQUZhQUdoYVhW?=
- =?utf-8?B?NjB2bUlRVCt3SE5ScWRmY2UxTjk1dVFibWJ2Nk5yMS9xNE9yNXpkVzNrRHVh?=
- =?utf-8?B?THBwTGx5TnorNGppaW9FRzltT0Qva2NQWC9adFNyM3ZPcWdLWVdlc016b0ZU?=
- =?utf-8?B?ZkdBdVJzenZId0s0dHBBTUgvUVY1SW9FbHlEM0dRNVVTcloyZE56Um9CUm1D?=
- =?utf-8?B?WGJtTWNqeHUvVGs2MjhHem1McGl2V3hlZHJrcGRqTS9RUjVtalRaYXVycUcy?=
- =?utf-8?B?K1VYMnNwYnRhc203RUZxZ2FITDh6OWN1U1RObTVNM2l6ZHVFTlJFb2pGVGh3?=
- =?utf-8?B?TDdRYlJtNmp3SWtMZFVCRDNpUi9kVzl5OWs4eWluNDZGV08vdzBOejUrZHVQ?=
- =?utf-8?B?SStyRHYzRVpPZmM0R0VqZ2ZqZnljOHRrM2ZxZS92YWx2ZlpPWDcyck9sSXdK?=
- =?utf-8?B?aDdrODZ0c1pJQmpDeGlRMlFVSGhlVVBjWHlsMG1lL1RKM3BNS2VuN0owN0dQ?=
- =?utf-8?B?OVFqTlVpd255dllvTHBESHMrODEzdjA1VmFubzlybWo0WnRuRXpSQlJVTHho?=
- =?utf-8?B?dkhGMVEycldIY0hmZG1aR3NzVXNoRXlRNy9FdGg3Nm1nU2d2bFlFelQvMEJs?=
- =?utf-8?B?bWR2bGZsaXF2VysxWnBoNHR0aUJORGhLSHJhWVFwa2J3bTJlNEVTOUgxSmVm?=
- =?utf-8?B?NUUrMEtJTEFWbW40SlgyTXR4RmRWbVQ0M242SUFDNFdBUUhmS0lSK2VJdWla?=
- =?utf-8?B?bVBkNG15MHB2Umx4aE1IUk9wQVpXbkFTYSt5K3A1QXp0anVRRmNWT0dUZ1Nm?=
- =?utf-8?B?dUxSak1mdHhmOTJQZVpnRWFnS2kzQWVlQVUzU3NqeEtHKzF3RjdRaEpmdENv?=
- =?utf-8?B?S1pVbXJ4VmU2UEsxNjNCdytpSkJjd1lHa09LRFNZUy84YU9ObzN1cVlFcFFk?=
- =?utf-8?B?aHI1enFrMjZJbmoxYUl1ZkYyRjNQenZMQU5aRFVVaHhEQWNic0R6OHVrSDZq?=
- =?utf-8?B?ZG9MQTdZSHdBSGRoNnZUUDhZZGFndmh4b05TN3hLZTRTZlA5YzFFOFliQlA3?=
- =?utf-8?B?ZDE3aGgxMzBZcVBUTGR6dVdieU5TNVduQ0pVS1JyZUNSVU5DZFRvTThvZmpa?=
- =?utf-8?B?d0U4aThiUU1SaU0vWEtaWE1XMkE0WUFtcFg5dUNsZys2Rjg2MmtHMEZCSlBw?=
- =?utf-8?B?aDVFSURXcU5xWHdhcElEY0t2cG8rVTE0NkszS0JhbGtOSk8wL0dJZWNpY0lz?=
- =?utf-8?B?N1luWnNKVVpoamJRc1NrdDJDaHlDQlBvekQ1REVCeWl4OStKemlnS1p5SWVa?=
- =?utf-8?B?dVBweElYK0k4YWNBS2ttaGNudW4reE9JVHZYQVJoMUh6ZWRoNVYwdVk4ejZj?=
- =?utf-8?B?a2ptVzhzQnJyTTk5cldRaEh0cENLK1NnNUhTSEF2R3h0V1VZWWxnejdQakRn?=
- =?utf-8?Q?tZZI/eHEqtHVX0TeVM0g6MVze?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZWxKZGlGU1BiaE50ZUE5TWcwR0FKM0RJOU50Z0MyeUczanhTY2RCWnlGTjhm?=
+ =?utf-8?B?ZkZuc1lRYyt3K0V0dmFVaENZYndsbEsxSVc5Ym8rdGRxTnBndjR5L1RhckJO?=
+ =?utf-8?B?QjNBYzYrcm82ZWgzaW92S1gxaEpFZURIbTdDWWhpK0hvZjVWRmtWdzN4Uy95?=
+ =?utf-8?B?SEFKV0xSTXFURDQ3ZVdJVXhGNllva1hlV3RDYlZSM255Zk1BdWdzYjhEVFIx?=
+ =?utf-8?B?cmNvbkNzN2NERmNuUnlNSjVadlNmYmd6VmZrTkZEREs4MmFOUGVVMEFDbmZV?=
+ =?utf-8?B?bjQ1SVUzRnFtdzZCeEJyYnk2MVNld21La01QOExBWjV1eTk3d2toaWJJa2U2?=
+ =?utf-8?B?R05hRVdTcHRUbWFYZ0NSM2ZrWm9Bc0lJQlQxSWZWcHVBeWJFZ0U0QXEyS1VO?=
+ =?utf-8?B?U0N2SzBQZ214RWd4S1ZhUk5jZGVvNnJPNzVhRWxBR3UwSTkyejdjTmNlcnF3?=
+ =?utf-8?B?ZGNOM1MvdEt2TUNzU0RCVEdoelBNTDVLakJXd05MTmxtSVlscG92YmNGbFRm?=
+ =?utf-8?B?OW9PUU41ZTBSc3pmeEhzVzRVTzdtU2Rjamh5WlFZTkwrbVJUT1Vndms1ckth?=
+ =?utf-8?B?djJlQmxYcjRhRmdLeUFobVdhOEhQVnJ0blhrK3QxTVdXZXJpNDlUMTVMVzBV?=
+ =?utf-8?B?aG5FNjJReTNJMEgxVFA1NDJDTXRhU09VU1lxZjB1b3B5Zm9WVXlTK3IyNGIv?=
+ =?utf-8?B?dzl6RUJhZm9FRFhEd2tPS2YyQmVsbm5QSHBXamhMYlZyeGRpYjF1ejN4UkVt?=
+ =?utf-8?B?UnF2aWZxQ2FnUUVvRE44dWg1YjBvcG5SS1dvUUYyai9WQkxxVEsrSitoUlE4?=
+ =?utf-8?B?cDZ5ckpmeExETWprVkFwakluVE4yVDRJeGtEdkVJL0JubThPL0RMeUpIcE5p?=
+ =?utf-8?B?eXE3TDlteVRxR3BIMUxXS3BaM2pqSUxTQnBjbXJwenlGM3FldDRVaW1rclZS?=
+ =?utf-8?B?WVdaMFJBZWEvUkFCSmdzcHgvSDd0ZHlab0FmWk9YaEl6bFB0ZFlOY2lobm04?=
+ =?utf-8?B?aW1tRHVISWNFUTFaeHkrMVZpajFZTVREblR2eE9pcVE3SGZsd29lb3VOcmF1?=
+ =?utf-8?B?QklZempwcmVuNHZETHVTTnpvcXIyR1VOQ21IZjhNVVowTGt0d2ZQYkdjbmln?=
+ =?utf-8?B?N1RlRjRYbUIxdStiSUxnNjFBTVF6SE9NU0JzanZTWWxXS2NuWnJqZzVNMkR4?=
+ =?utf-8?B?MXB5M2tSeXdoUGppNWFURXh4ZGFRMEdxWmZ3MHl6TEVodWllNjFSdGRpVWR1?=
+ =?utf-8?B?aTlkRWx5eVZCNnZtc21VMHVTTUdIcTZHQ204MGd4WUFMZnBnaVJaVXU4aWRt?=
+ =?utf-8?B?QXN4WXJ4N0F2RHhDTlNWc2ZzNHYveTJzRjRuc3ZQMVpHU1JhMEpvbFhDTTg0?=
+ =?utf-8?B?d0hDUUZhNWtkOS9Gem5TTUZFTTY5Y2ZTT21SdzV2WTZPRjNTRjBQNzV2Z3Fp?=
+ =?utf-8?B?d1lNZ1dOUHNTc2FsN2lQaDM4QXpMQUh6V3pXV0FQSG85RWRPYk9oQzRxYUJN?=
+ =?utf-8?B?QWlQeVRCR001a2gxTFl5ZC9HN0JGRVFoeTlib2ZEbFNPKzlrTm93a3haSEZl?=
+ =?utf-8?B?VmVGMTRtV0NGYUdVM0tGZEJQVklYbFZVWWlRMlBEVFMzR1hSdEVVbjFjZ0d4?=
+ =?utf-8?B?SHBlWVhmV05JMWFzbi9ocFoxdDhVNGlhT0lOeklKeEtCYlBqcFMxc0tQR01h?=
+ =?utf-8?B?M05LZjEyN2tyWTEzeXZheFQvdThOQmUwSjNmVTJSS29KN2JaZjV2blIxcE5z?=
+ =?utf-8?B?TnpCOTBZb3cxS2hCK2xzMXF6MnV4QnQ3aWtEQll6SStaWk0zZ1BHVDNoOWs1?=
+ =?utf-8?B?RDFQVjdmSDhTWUlWRFV4ai9XQmsyc29rSkc1MkNsUXRHb002dFpLTElWSDc5?=
+ =?utf-8?B?cGJmdENObXB4TzZIeElubEdVK3RHelBYd1dkTVhDSWhHdCtSbXVKTFNNU05i?=
+ =?utf-8?B?T3c0WjRGMkppNjF0MEZIaEFGZmljRHNoOGo2MjZqMGhaek80VXM4UVJVK2do?=
+ =?utf-8?B?UjYwT3Z5aytsR2NkbzRtTDUyZ3ZnQlc3blN1QUJKUmpyMmtCZFRJdWF6TzBa?=
+ =?utf-8?B?Q0E0d0JiN3N0MnlLaWhMeThyYzdiMStkSnVhR2pOMFJBTTB4MGk0andRdjBS?=
+ =?utf-8?Q?D2vKY8dsiUlHOo7emVQUegDVe?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82b6bf0c-7dd9-4fd0-3aae-08dc10285b7f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ca9dbaf-903d-4cee-686f-08dc102ba633
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6351.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2024 09:01:10.2547 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2024 09:24:44.0371 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WAQ/UzBFmhc59zlb/wELghwD6NtOI58ParWTotsjp2bxamjniP9ZETzl6dpQ9FQa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7741
+X-MS-Exchange-CrossTenant-UserPrincipalName: izffn0MYNlQXaCEPrXksEIQ7QeD5voNNOf+mrhd4wHNiwMrrl7NF3JsON+y2RYmu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6117
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,172 +128,110 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>
+Cc: Alexander.Deucher@amd.com, mario.limonciello@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 08.01.24 um 09:32 schrieb Lazar, Lijo:
-> On 1/8/2024 1:51 PM, Christian König wrote:
->> Am 08.01.24 um 09:13 schrieb Kamal, Asad:
->>> [AMD Official Use Only - General]
+Hi Christian,
+
+On 1/5/2024 9:39 PM, Christian König wrote:
+> Am 21.12.23 um 02:58 schrieb Ma, Jun:
+>> Hi Christian,
+>>
+>>
+>> On 12/20/2023 10:10 PM, Christian König wrote:
+>>> Am 19.12.23 um 06:58 schrieb Ma Jun:
+>>>> Print a warnning message if the system can't access
+>>>> the resize bar register when using large bar.
+>>> Well pretty clear NAK, we have embedded use cases where this would
+>>> trigger an incorrect warning.
 >>>
->>> Hi Christian,
+>>> What should that be good for in the first place?
 >>>
->>> Thank you for the comment.
->>>
->>> This is not normal reset, it is reset done during unload for smu 
->>> v_13_0_2.
+>> Some customer platforms do not enable mmconfig for various reasons, such as
+>> bios bug, and therefore cannot access the GPU extend configuration
+>> space through mmio.
 >>
->> Yeah, but this doesn't explain the rational for this.
+>> Therefore, when the system enters the d3cold state and resumes,
+>> the amdgpu driver fails to resume because the extend configuration
+>> space registers of GPU can't be restored. At this point, Usually we
+>> only see some failure dmesg log printed by amdgpu driver, it is
+>> difficult to find the root cause.
 >>
->> IRQ enable/disable should be balanced in hw_init()/hw_fini(), 
->> independent of what else you do.
->>
->> I'm not sure what you are trying to solve but this here is a complete 
->> no-go.
->>
->
-> This is a special reset done during module unload by this commit - 
-> f5c7e7797060 ("drm/amdgpu: Adjust removal control flow for smu
-> v13_0_2"). Without this commit, it seems driver reload doesnt' work.
->
-> In this particular case, a the reset is done during unload and only 
-> resume sequence of only select IPs are done (part of the workaround in 
-> the patch). For those IPs, irqs are enabled during 
-> late_init/ras_late_init, and not during hw_init(), that part gets 
-> skipped.
+>> So I thought it would be helpful to print some warning messages at
+>> the beginning to identify problems quickly.
+> 
+> Interesting bug, but we can't do this here. We have a couple of devices 
+> where the REBAR cap isn't enabled for some reason (or not correctly 
+> enabled).
+> 
+> In this case this would print a warning even when there isn't anything 
+> wrong.
+> 
+> What we could potentially do is to check for the MSI extension, that 
+> should always be there if I'm not completely mistaken.
+> 
+Do you mean MSI-X? There are no extended capability registers related with
+MSI or MSI-x.
 
-Please revert that immediately, this whole approach is completely broken 
-as far as I can see.
+How about reading the 0x100 register in the extended config space since the
+extended capabilities always start from the offset 0x100 according the pcie
+spec.
 
->
-> The module unload sequence causes a WARN trace during irq_put of those 
-> IPs during hw_fini(). Those are mix of generic irqs and ras irqs, so 
-> there is no clean way to untangle it.
+> But how does this hardware platform even works without the extended mmio 
+> space? I mean we can't even enable/disable MSI in that configuration if 
+> I'm not completely mistaken.
 
-This is WARN is just the tip of the iceberg here, the problem is that 
-you are not supposed to call amdgpu_device_ip_resume_phase1() as you do 
-in f5c7e7797060.
-
-Please sync up with Alex how to do this cleanly.
+I think the MSI related configuration registers are in the legacy
+configuration space. So the system don't need to use mmio to access these
+registers.
 
 Regards,
-Christian.
+Ma Jun
 
->
-> One thing that could be done is to add an extra check for 13.0.2 
-> version to make it clear that this workaround is done for only for 
-> those ASICs.
->
-> Thanks,
-> Lijo
->
->> Regards,
->> Christian.
+> 
+> Regards,
+> Christian.
+> 
 >>
->>>
->>> Thanks & Regards
->>> Asad
->>>
->>> -----Original Message-----
->>> From: Koenig, Christian <Christian.Koenig@amd.com>
->>> Sent: Monday, January 8, 2024 1:33 PM
->>> To: Kamal, Asad <Asad.Kamal@amd.com>
->>> Subject: Re: [PATCH] drm/amdgpu: Update irq disable flow during unload
->>>
->>> Am 05.01.24 um 16:21 schrieb Asad Kamal:
->>>> In certain special cases, e.g device reset before module unload, irq
->>>> gets disabled as part of reset sequence and won't get enabled back.
->>>> Add special check to cover such scenarios
->>> Well complete NAK to that. Resets shouldn't affect the IRQ state at 
->>> all!
->>>
->>> If this is an issue then something else is broken.
->>>
+>> Regards,
+>> Ma Jun
+>>
 >>> Regards,
 >>> Christian.
 >>>
->>>> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
->>>> Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+>>>> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
 >>>> ---
->>>>    drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 12 ++++++++++--
->>>>    drivers/gpu/drm/amd/amdgpu/soc15.c    | 13 +++++++++++--
->>>>    2 files changed, 21 insertions(+), 4 deletions(-)
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 +++++++++-
+>>>>    1 file changed, 9 insertions(+), 1 deletion(-)
 >>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->>>> b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->>>> index 372de9f1ce59..a4e1b9a58679 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->>>> @@ -2361,6 +2361,7 @@ static void gmc_v9_0_gart_disable(struct 
->>>> amdgpu_device *adev)
->>>>    static int gmc_v9_0_hw_fini(void *handle)
->>>>    {
->>>>        struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->>>> +     bool irq_release = true;
->>>>
->>>>        gmc_v9_0_gart_disable(adev);
->>>>
->>>> @@ -2378,9 +2379,16 @@ static int gmc_v9_0_hw_fini(void *handle)
->>>>        if (adev->mmhub.funcs->update_power_gating)
->>>> adev->mmhub.funcs->update_power_gating(adev, false);
->>>>
->>>> -     amdgpu_irq_put(adev, &adev->gmc.vm_fault, 0);
->>>> +     if (adev->shutdown)
->>>> +             irq_release = amdgpu_irq_enabled(adev, 
->>>> &adev->gmc.vm_fault, 0);
->>>>
->>>> -     if (adev->gmc.ecc_irq.funcs &&
->>>> +     if (irq_release)
->>>> +             amdgpu_irq_put(adev, &adev->gmc.vm_fault, 0);
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>> index 4b694696930e..e7aedb4bd66e 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>> @@ -1417,6 +1417,12 @@ void amdgpu_device_wb_free(struct amdgpu_device *adev, u32 wb)
+>>>>    		__clear_bit(wb, adev->wb.used);
+>>>>    }
+>>>>    
+>>>> +static inline void amdgpu_find_rb_register(struct amdgpu_device *adev)
+>>>> +{
+>>>> +	if (!pci_find_ext_capability(adev->pdev, PCI_EXT_CAP_ID_REBAR))
+>>>> +		DRM_WARN("System can't access the resize bar register,please check!!\n");
+>>>> +}
 >>>> +
->>>> +     if (adev->shutdown)
->>>> +             irq_release = amdgpu_irq_enabled(adev, 
->>>> &adev->gmc.ecc_irq, 0);
->>>> +
->>>> +     if (adev->gmc.ecc_irq.funcs && irq_release &&
->>>>                amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__UMC))
->>>>                amdgpu_irq_put(adev, &adev->gmc.ecc_irq, 0);
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c
->>>> b/drivers/gpu/drm/amd/amdgpu/soc15.c
->>>> index 15033efec2ba..7ee835049d57 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
->>>> @@ -1266,6 +1266,7 @@ static int soc15_common_hw_init(void *handle)
->>>>    static int soc15_common_hw_fini(void *handle)
->>>>    {
->>>>        struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->>>> +     bool irq_release = true;
->>>>
->>>>        /* Disable the doorbell aperture and selfring doorbell aperture
->>>>         * separately in hw_fini because 
->>>> soc15_enable_doorbell_aperture @@
->>>> -1280,10 +1281,18 @@ static int soc15_common_hw_fini(void *handle)
->>>>
->>>>        if (adev->nbio.ras_if &&
->>>>            amdgpu_ras_is_supported(adev, adev->nbio.ras_if->block)) {
->>>> -             if (adev->nbio.ras &&
->>>> +             if (adev->shutdown)
->>>> +                     irq_release = amdgpu_irq_enabled(adev,
->>>> +&adev->nbio.ras_controller_irq, 0);
->>>> +
->>>> +             if (adev->nbio.ras && irq_release &&
->>>> adev->nbio.ras->init_ras_controller_interrupt)
->>>>                        amdgpu_irq_put(adev, 
->>>> &adev->nbio.ras_controller_irq, 0);
->>>> -             if (adev->nbio.ras &&
->>>> +
->>>> +             if (adev->shutdown)
->>>> +                     irq_release = amdgpu_irq_enabled(adev,
->>>> + &adev->nbio.ras_err_event_athub_irq, 0);
->>>> +
->>>> +             if (adev->nbio.ras && irq_release &&
->>>> adev->nbio.ras->init_ras_err_event_athub_interrupt)
->>>>                        amdgpu_irq_put(adev, 
->>>> &adev->nbio.ras_err_event_athub_irq, 0);
->>>>        }
->>
->
-
+>>>>    /**
+>>>>     * amdgpu_device_resize_fb_bar - try to resize FB BAR
+>>>>     *
+>>>> @@ -1444,8 +1450,10 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
+>>>>    
+>>>>    	/* skip if the bios has already enabled large BAR */
+>>>>    	if (adev->gmc.real_vram_size &&
+>>>> -	    (pci_resource_len(adev->pdev, 0) >= adev->gmc.real_vram_size))
+>>>> +	    (pci_resource_len(adev->pdev, 0) >= adev->gmc.real_vram_size)) {
+>>>> +		amdgpu_find_rb_register(adev);
+>>>>    		return 0;
+>>>> +	}
+>>>>    
+>>>>    	/* Check if the root BUS has 64bit memory resources */
+>>>>    	root = adev->pdev->bus;
+> 
