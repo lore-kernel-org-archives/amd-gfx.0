@@ -4,118 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFC26C46CD2
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jan 2024 07:16:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A367C46CD2
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jan 2024 07:25:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 368AA10E358;
-	Tue,  9 Jan 2024 07:16:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BB4810E355;
+	Tue,  9 Jan 2024 07:25:43 +0000 (UTC)
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
  (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 658A0899D4;
- Tue,  9 Jan 2024 07:16:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0228410E35B
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jan 2024 07:25:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FJC4Cl5niSEn4XyewwUkoMdpHNzvG0UNpdQSvXr/dAB7/O5/kitiUx+kLBO2l8Lep58GNlpe4GIdnCxUthg9q3r1Cvk1cqIQF+ah0Kw+TeQ9HlGgigawP4mu+AVx2UmDoRG4pKnZQtDK8nq7slQnitq3YGyzblD1sMGeO+etmbrPZv80uP6Zkdbk2FtEqWyb+NZSTU0B5UN8jJXsfbO2HvIfh4CC3WoeJ1UbF1Tcds72E1cIzrgnqpaOOVgrIRd3aFsx8hjwkMMu7TPK0TeywPv3WbrfF/mUQsYyvcSFQRZSeKbNPyvsjypkGatuDMYdFbohBChXJZDuwsT2jnD4OQ==
+ b=Q8BrbfBO2tCvAeQdDciaPX0a2Al2khHi3bsm0UQvOW0Z3c0zirZqZHh0MhJizC28YyepG8uNAf/IuxqOqhTSXkorD/Kq+/HQZj0M5r/WM2Zex3lUsbUTLYtbrkNAbL7QR7bZBbOAJqWUcABt+kphlVDLGzR+Loz1e2A/A76ebB00eW4ez8WjG6nP0laX6NXETarRGBTS+LxxK0RON6QaPzoTKxXbiQWeY/n2JlQybrudvj9/4waNMpnNkY8hNkxKw4bUOxRH2pUpKUGdIvlF3bI9M2iUhdoJQ/4jj2/pcdMkI+JCKyvdripRGVTrJ8oaTcdC2NUlWgo0Y+atBV7k+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4B4HXS0Any3dtnzSlYxkwGkWT+7JgBN/1wCFpPIqik4=;
- b=k+IaIm0O+zb3cjA3D8k0e+GRGjpqCEf8OnXDG5ioys2LgP74X4N5CehWUNEQ7TivMgUPJNYTsfltExpuFZgEZY1b4hxsuAkSWshff9R+MqVWHxkj4d8nfWlsTH1AUcEqojxOigkhjOxu1r0cmUAmUB3egOHSOQ9Nh/qyABsbjTYFoAlj6EIyU/uxkd648WlJopisqz6/sbVi8FMqjkOLFyNVQkjPu2NhvlUgTyOpSqReP5vJsBQJl6XMaE0TYIqZQ5UU3WzarU9Ph6p3G+Otam+sw1+xvHAGAk1J69yUPLzGmtWhi94dakiW1Cxx1l3yzAtWYp6suOUGdZ+9VCSDhw==
+ bh=qbDf6+w0hKra22fFxqGu9QEYwjrQnl2mPhEwrNDAtv8=;
+ b=cAohs/tr2+xPJw3T6HzkuDRRIqW2M9PFg/co787TsWBc2Ni79Mn9xphLtOBTofC2DHg7HdIVZX5Vd7mUbM8LAy9IZo4lQVP7yHBs8qxhkVL8wh6uzB4LaA2DW1I+vt4xfZfGdhdNJ3uOQZci+trYmSH19D6iZLCI9FZJ/MUmJBVHRZz9wXYrRjzCk3zaXGlF7fkp3fz+/mo1SWxF4VGFy9PK4I2zQblQffTeU19z6TUXnwgrcqQ+LPS86NAczqLiYRcQ63Zz7PLUdY05lCM37jC9ewGC+6fGUhi9Pz4Xf2oysnbSM1hODBmt3e5EYQ7XIYcCEbPi2fh0oxDLC7MS/Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4B4HXS0Any3dtnzSlYxkwGkWT+7JgBN/1wCFpPIqik4=;
- b=WIHbz1V4Kueoa7Oike5Bd8U763OgvPq9jUBKOdzN+ULxmxPVe2owY9QNmtmpF2ePTZznQ+LT4tb8WgVyvrOmK9Zs+Ee8/m2fFmQ+SxStw1CgJecgtn8mJIMystOX297AzggCF1Um4j+7lZvIGUuuREV1+nDR1RhL6NZI+mUQj4k=
+ bh=qbDf6+w0hKra22fFxqGu9QEYwjrQnl2mPhEwrNDAtv8=;
+ b=TouIYQplWOEgNE2Nx+lnUqnwSyumLx4i+IqD9G6NRkJeWlZf79L6vscr/aSWqQMejlFtYJilsaQNRoaiIH+r0mokbGFmXIkyYEO5ytmz3c4UqbtCrw/1JosfW15PkR1+oK7d2IXSpQLYn12A96zt91k4LCArHomICDJSDnu59hQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ0PR12MB5676.namprd12.prod.outlook.com (2603:10b6:a03:42e::8)
+ by CYYPR12MB9013.namprd12.prod.outlook.com (2603:10b6:930:c2::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.23; Tue, 9 Jan
- 2024 07:15:59 +0000
+ 2024 07:25:38 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::e1fb:4123:48b1:653]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::e1fb:4123:48b1:653%4]) with mapi id 15.20.7159.020; Tue, 9 Jan 2024
- 07:15:59 +0000
-Content-Type: multipart/alternative;
- boundary="------------BMstbln6oo6DnkPiJQzsOB1m"
-Message-ID: <32ffe817-498b-48ba-bc33-3fc0fa3fb8dd@amd.com>
-Date: Tue, 9 Jan 2024 08:15:53 +0100
+ 07:25:38 +0000
+Message-ID: <71636a9c-9143-4f8c-b77f-bba7473ea857@amd.com>
+Date: Tue, 9 Jan 2024 08:25:32 +0100
 User-Agent: Mozilla Thunderbird
-Subject: =?UTF-8?B?UmU6IOWbnuWkjTogUmU6IFtQQVRDSCBsaWJkcm0gMS8yXSBhbWRncHU6?=
- =?UTF-8?Q?_fix_parameter_of_amdgpu=5Fcs=5Fctx=5Fcreate2?=
+Subject: Re: [PATCH] drm/amdgpu: move kiq_reg_write_reg_wait() out of
+ amdgpu_virt.c
 Content-Language: en-US
-To: =?UTF-8?B?5p2O55yf6IO9?= <lizhenneng@kylinos.cn>,
- Marek Olsak <marek.olsak@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx <amd-gfx@lists.freedesktop.org>
-References: <xrg6qu5muv-xriqmgzqig@nsmail7.0.0--kylin--1>
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20240108213811.18711-1-alexander.deucher@amd.com>
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <xrg6qu5muv-xriqmgzqig@nsmail7.0.0--kylin--1>
-X-ClientProxiedBy: FR4P281CA0076.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cd::20) To SJ0PR12MB5673.namprd12.prod.outlook.com
- (2603:10b6:a03:42b::13)
+In-Reply-To: <20240108213811.18711-1-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0082.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cd::12) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB5676:EE_
-X-MS-Office365-Filtering-Correlation-Id: 07612bf7-21a5-41bb-bb43-08dc10e2d42f
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CYYPR12MB9013:EE_
+X-MS-Office365-Filtering-Correlation-Id: 415028c5-1722-4448-1c36-08dc10e42d3d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PtGCCvowDrjMq0PjzE+6oOeo3Z9IaaXzLqmc5S0feKirSnfMX3ls7LZXTv5dnmLFyY3mr5sDtVRDQyg+Lom0Fh3kgj1WusJxa1UVOPlppti8P4kf7eGArEaWqewStakj4IZos1/FhKP6dTsTR0UvvWB1WUdE1rhcmaPPHIZaq99HuZy4X1/yQ3S2FI7UdNoaZQ2VZd36mNeUyh+23iZCR/yR5Nizi4IXfg9Janr+D2EacLL4ae+0xuIAFzZou5+mx4YZckqS61qxfysxkQuXk9JMRT3WmQ3Hh9Fc3nee1QctvM2UF4FI7pyQLfY/2E2uVPjVZDdHN1zJ9mUPezjwmN+dUbeuW9lsQMUzNj68uQzg6bVnVppoN2u6EA0EF0hVDoDiVMZ2RK1VWHYJSqyNMnypt9Fqg+3yXU5OEf90L+abAofQaVFm1v0atVpEN0l6Db8O133NfShYkTP+zWWcXwKdSRuRGkSy7uTkunHnJotKmsxraLtM0JipP03h5pByal2WxdiDm9KJ/s7IdlmlY17L8xsVbXTNlniY/3eQ+fZ8YCiIBGCbxI3DhXGT60Meta1w39XKtGPNUuhXKza0QgZPp4maoQTQ5qbevdu5CJeuBr0Rv/MmGL26WO+mNv2RgWLl6XFXyOPDi2Zlnv3v4w==
+X-Microsoft-Antispam-Message-Info: 5qLbbq7CTSq9UJYDoJF/tjH0Oyw4ikwAxaEZ4T+hAmnaHXGe5zUDz72AmDUrqmexI1xDFjED8B1lyIWP/IcO30gYnvs9RPJ0L0e+ORYVAui8Gpsfvp81MNpkBlO0vPwGkgEAbZ4Hek7SdM4Z6qvPrM1yiutdnJYzh6S7P9yTFR0yFOmJ48dtrjnfl9lQ0ZEO7dP5Bmo/fVr0b7Sflynl7tcEGa6tYrLIp7UMjWe1lJycfzh3Pyukw1jLXRl+Y8We+vceO34k9d1/Fl47vvlcMnPy2dPIcX2+R2p5Rl8iQxfsq/j5hg7SCBLDhon7I49wOYACoRfB1aP5FSHoO3H3DB3rsCZcBuPnxXPwxbWwoha/LRT/misiSaYX+bxbWfNHuk3FMFAggvEX4BbJbZowwxTFdq6us4XXkb5DGTp/k5BNa1iG7zSX60XtngRfYUNhD2A/5re6Q3yhIRG4oeLbSGm7bDDeHeTufN7CiGib3IlGQcLZ4zqqOrFbyfZ+pJ1nTOGMNHuHt6S84IzvGClnDuv2OCwSyXOSL1RRIpzj2hzYSm8TjRla/lxHO/MmjM0QtWpr7Jk4TDD6qcm1nfHCZu9M64XuJZa+68smV1BYUdwiXen4myOJiumwezy7ZpzhhkGwDv5LMVL3sdj3sl4qkw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(346002)(376002)(366004)(396003)(136003)(230922051799003)(451199024)(1800799012)(64100799003)(186009)(83380400001)(26005)(66574015)(5660300002)(6512007)(38100700002)(33964004)(2616005)(31686004)(6506007)(6486002)(31696002)(6666004)(478600001)(66946007)(110136005)(66476007)(66556008)(316002)(8936002)(36756003)(224303003)(41300700001)(86362001)(2906002)(43740500002)(45980500001);
+ SFS:(13230031)(396003)(376002)(346002)(366004)(136003)(39860400002)(230922051799003)(451199024)(186009)(64100799003)(1800799012)(5660300002)(2906002)(31696002)(86362001)(38100700002)(478600001)(36756003)(6486002)(83380400001)(66574015)(2616005)(6512007)(6506007)(26005)(6666004)(316002)(8936002)(4326008)(8676002)(41300700001)(66946007)(66556008)(66476007)(31686004)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YnhzUTBPVTFMQ3RzL0phSTNDeThnNVphZ0p3TnZOZXFVUkQwRU5oUnZ3VjJC?=
- =?utf-8?B?WkNzc3JEUDJ2U0xqOU5TSVN3dk0zemVUN0orQzArd0gwNTNOYlJKT2QwdFdn?=
- =?utf-8?B?NjZZU2VBVmlvcXJPd1FrSGtzK0cwdEduYmUxUThrVFU4UVJjeHB5eitnRTZP?=
- =?utf-8?B?dnp2dWZRbHlSYkNERVE4V0ZQeHRGZ1dKNm56K3k3ZHpYNmJNZWhlRUhTWlJU?=
- =?utf-8?B?eU1OdjRJUkEvNmxTUUhRZEtMSzN5cW51Z0VWTXZzYlg5c2dvMU1ySDhPV1kz?=
- =?utf-8?B?ODQ1MHJCbUN6NUtvYWU5N3FlTzhKUmQ3UVpURTVxajhqbmNDRi9ralhDTlNj?=
- =?utf-8?B?cEQ3WUdienFhL2c2R0JRQzl4cUdYckdHYXZQWnBtb1A1MHUxNVJONzJKNmNx?=
- =?utf-8?B?MUFSdVVDeUVoY0lBbHIyUUY0NytjenY4VG13UHA1b01EZ2hGaCtibldWa2hs?=
- =?utf-8?B?eTNFV0R0VXFvc1BkTWd0OWxvQTJGZHpSbDVwUDNZWkxLUjZSdUVjUUZKUUQ1?=
- =?utf-8?B?OGhxNkhBQUZOcGNnUWZFdUd6cVBuL3lJQXlMR0hMZ0xrTy9ab1FQSTFOK1NU?=
- =?utf-8?B?RUQwS2lDd2pjbm8yYi85UUpydTBRVTlkOHloa0lLbXZxdE5UUVorQmRHYS85?=
- =?utf-8?B?TUpENHhZZ1Frd0VoWmlueWRHVnBPMXg2YVd3WXZkT3VmUTNvRnVPTTdXakpK?=
- =?utf-8?B?OWNmM3BrUUk4Ykx4cEdza1NaRVo3NFBWRlFaQkt2T3l2Wld1YVlHbDNiMmdo?=
- =?utf-8?B?aFZqT0FSTmJDSytiSnNDdDJEaktsQnY1eXphSTlJVC94SVBYTE9qNC9yY3NM?=
- =?utf-8?B?bThqTUxXL0NnVklWcVNPMnVYeDNOQWhKcHZxRVpET1UyMGM3QjFsRHgzQUFa?=
- =?utf-8?B?V3NRK3ZjNm91c3UrWHlYdFVKazJKZVJlRmxpdEVkdEFKYUFuTDJEYm9MaVpr?=
- =?utf-8?B?LzgxamNNUlowUVI2TjlJOGxIY3IvNzZCNjdyaWhzUS9IczRPb0EvMzFuUzc2?=
- =?utf-8?B?VCs2RkY3SVpPc3NpdUV4WlA3SzdjZTZ4MmRvMm9CdFBtU1JuTlg5RVh1Z1VK?=
- =?utf-8?B?T0Y3ZXZHSUJwSFJ3a3RscFJpUHZqeXk5Wm5NcHhrSWYwZEw0b1ZBYi9JT0t2?=
- =?utf-8?B?RjFtREFRaTBpYzl4MkZvOXJDMGVQcUkxL1BOUmlTU1NiZ2xHTDNWeE16b2VG?=
- =?utf-8?B?aHRtbGxDNHMvQTR1QlJFMExqV2d6MXJlbUF5K2tFd3JONDVLN3JONVgzMkhq?=
- =?utf-8?B?blVFaHRMYkdXVHpscXYxS0lQeHdRWDJCNXBDaTNKcHhsdy9yQ3k4Mi9oMy9C?=
- =?utf-8?B?YWtzc2dYdVpsLzYycnB4TlhhRmlDU2cwbVNJM1NGcTZSbVpXNDNuRVorWDJG?=
- =?utf-8?B?OThhNVhyTTVFSjdldmpNSTFFakcxeGF6V3Q5TWJTSEFBUkxvZkZOdXRjejZr?=
- =?utf-8?B?OFR0TzlLYmI5Q0t0VGZWVHg0MGlDTmNuUlpEN3VFVGU2VHFWS1ZRTGd3OVBU?=
- =?utf-8?B?OFFUT2QvZTdtQ0luTVVRRmw5YVJqUEtlUy9LL0lyQU9PNWNhTHlvbFNrOXB3?=
- =?utf-8?B?UEowUnY1RnRUdzZDSHVLWjR3TGQ1clFsM1hpNlJudnU1VWtxZmpwL0pTekda?=
- =?utf-8?B?QUV4MDNyVlZkQU04aHYxWmhuM2NuSHE4dERjR24reUhpMzErbm5WSFNpai9x?=
- =?utf-8?B?M0VCNks3Y2U2QmcxNyttMXYyZUQzbUVQalJlREpST0tOSlZKcTFLdk8zS2lR?=
- =?utf-8?B?QjFLTnVrRjNkb0dWdlI3Z24yTkNVd2VONmR1VTFwWTA5aGxDeUhHUDB0RjVl?=
- =?utf-8?B?T2dMQ3VGZjRYcU5DY1BYaEM5MWtXMXpaeXE4YXN0YnJ3RXhQK243NFNaNEtT?=
- =?utf-8?B?dEJhZHQveTVGclEyc2dlM1NQdkw3TGg5SjVFMkNiZzZhUlNLTERsTmdlWTZ5?=
- =?utf-8?B?cXV4Qmo1N1I5VDcrT1FybmljTWRoc3VKay9obHMwdktTbkxDNG05bThQM1Q4?=
- =?utf-8?B?TThibFFaOENOcmRYRTFXejlUcmVTSW1PTDh3TUo1YVZhcm02UUFqeDJ6SU5X?=
- =?utf-8?B?bUVyMnZmeHhWOEdtTVR3bjZUYWVJQ2hjK3lDQzI1UlMyRE0xa3BFNnZWUHIx?=
- =?utf-8?Q?62vUp1p8JnfWsnEDnQgwQCFgQ?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N2dOdkp0akFubStCRGxGbjh4V2RNdE8vblluK3kvVUJzU2lSL213WVZFaUR5?=
+ =?utf-8?B?OVNEUENPZTlCWXpkS25BZ0h2UDN0bUlERTJrM041ZUdsOTlRb2gwbjRiRm53?=
+ =?utf-8?B?UE11Y3VLVXlNZjl0aEF3dVZaY21QeDRvME5uN1NuK0RsQVk3TU5zRUh4WHZy?=
+ =?utf-8?B?OEkrbkhKZDVpWnUxM1VwYmZxNm5iNTJFKzk4aXR0VDZQS3JNN2Fja1U3Qlg0?=
+ =?utf-8?B?dUxGcGlodmFVM1lZOWlCdVJ1ZmVNOHpsZGZycnZ0TktFNHBraWgyYWcvTTRw?=
+ =?utf-8?B?NFpLT25lSE1kTXk4V3hYOUN6c3hYT05RbVdxcDR0eWgrMWErVTl2bXF4bmVQ?=
+ =?utf-8?B?cXdLUHlxMDBIdzk3RUcxL1QwaW1GK0J5eXBJUWZ6UmNVQm9xYTZUaThUR2JM?=
+ =?utf-8?B?eFZzbHI1R2VDcHpCbFBac1ZISmdoNlE2N2ZTcEJPUnp1YTkzWlhmbDJsclVF?=
+ =?utf-8?B?b0duR3JDcDA5ZTBtQWpadjBEblA0ZlZNL1F3cCtGZmJOdTEwd2lOWHVoUjZR?=
+ =?utf-8?B?SmUvZ0YyMXdKd0tNcWY0dkR5TXZxSFNUUW55bVFlVXBJRXJUNkEzb3NoY1li?=
+ =?utf-8?B?ZUQ4YkgrSnJmSHVnZHEzYnZDMDBrdkE3MEMyejZIWW9GcmZtc1BlWHBIeWdE?=
+ =?utf-8?B?blQ2a3p2NUxkYWRTNldIeEVBQ0RWMHQxOWxLekJzYWV5MlVUSWZ0NWw3NnBI?=
+ =?utf-8?B?QXNLWUdwK1pXVmdmTEhVcUFXbksvdi9mTzJ4ZVRKcmkyNVRRSGN2ditVMDdq?=
+ =?utf-8?B?S0pJUDZDcDM3cXliOVRiamdHdGk3bzRtajQ4Y3BkR0g3VjMrRWt2VUhhUTRj?=
+ =?utf-8?B?UTdxc2VHTDdQcDJ2VkNiQzFtYWZlM0ZUc3Foa3duYW1zUTcvMWs0NFNjWG95?=
+ =?utf-8?B?VzhaTDZxNTJEMEFwLzdIS21XNU5QWHNaSG1rOFUvNWFhaEt4cDVDMEhvN1Mw?=
+ =?utf-8?B?dnk3ZStEbWRDcHZNOUJvaFhLY0NCQk5sSFR2dmZHdy96UXhIY0pDbkI4TXJL?=
+ =?utf-8?B?NXpCUHdYNitrMm5EN25TZ0pVWmdaMWp2TzJMajZWMFowdThmSCtaeWxOQlg4?=
+ =?utf-8?B?UTFIVE1BUy9VRk84UUVIQXovUWJlalluRmNXSW85VlJoZHJHWHpBNW53RzZZ?=
+ =?utf-8?B?VUo2MUp1MUR3L1FrNEhxekJpd3hGenFKOENpZXQzNFdScjN2NFlNZXEwb0JB?=
+ =?utf-8?B?WjRNajNuN0kxY3BGc0Z2STJhQXB5MmhPbTI5d0JUQktTYVhPMktJWGxGZzZV?=
+ =?utf-8?B?VGRaZ0lGNk9UWUVFMXZUZ29ZaE5LQVVBU21zb25EWXVoZVBjdG9EYkxCT1No?=
+ =?utf-8?B?OElPck9abHQzMlcwY2UvSkEvdkhBb1ZncktGNHM1VFZ1TFROcDQ3RDJOMlNH?=
+ =?utf-8?B?UW53ckYzdEpOOGhqcTB4MGlVL29VSkhYOXpCOUxmTTJvYXRxbmU1YllqQmZK?=
+ =?utf-8?B?QjcwaTFYTURpK3Z3VitVdExvSmFYeW9qemVwdVF6Y1FxalZXSFVPYXBTVHcz?=
+ =?utf-8?B?N0laejlkbDdjNVRuMGVpaTY2VUxSdDNnRUU2QWZaLzhiK2RhdnNkdkFaSlBR?=
+ =?utf-8?B?cDRaanlNbTZFRnRVSlFpMzBwUmZhSTJTakhRR21WcEh0VXdPbE1zOVJaQXdt?=
+ =?utf-8?B?MzYwMkM0VUp2OVVDMzVzaEVRZC9GSG5aN0g0c1hGOGRObXl1NmFsNUppYTd1?=
+ =?utf-8?B?NTVmOTRIVFJXYnBPN3UyaWFhcnlGUzJKSTlESWhqVnM1YUFQVDVJOW13c05S?=
+ =?utf-8?B?aHpUMGJ1aHJnalZQK3dtYnRaOWUyaWE0TExoaDh4SitkQ0JicDBRdlRPWGxt?=
+ =?utf-8?B?SStiRTQ0dlN3Y1pBd2VMbkQ0dWJ2TStJTnFTT0VxTWdzRnlUR3V1akEzNHdK?=
+ =?utf-8?B?bFFaem1zNXhOUmtZc3d0eXJNbkdWNklyaHNOOG1vblZiT25hVXdoOW9HZy9r?=
+ =?utf-8?B?OWtJb0p1cHlSVWx5T0oxZHBIMlJMNmt6WExSUE1kMDJiQjNBVnpBNjhEbXp3?=
+ =?utf-8?B?MjFkWlVmellTek9PREM2dkVpQUI3NkVQTHppcVFMTlREdHJ6b2x3OVRyeW85?=
+ =?utf-8?B?VlcvTWlqZXJ3MVlkZlF3SmQrT3NDMHFMRThCeitWQ1A1TjVpOHJlc3ZPc1Ex?=
+ =?utf-8?Q?cTrv1JeFF3uK2Zt7us6bPaiaf?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07612bf7-21a5-41bb-bb43-08dc10e2d42f
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 415028c5-1722-4448-1c36-08dc10e42d3d
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2024 07:15:59.4435 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2024 07:25:38.0189 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fHfBTkDeztdUvndFegla5tRWR1qptvyNB+m+2jD9ftEL/YMOq1TJUzHJaSuQ2164
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5676
+X-MS-Exchange-CrossTenant-UserPrincipalName: dx9ml8UI8/GYBgVFEE3zu1GP4T+by+4xUbzU5QOeRKDfu1kOWlQriBPUpTE7hl1D
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB9013
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,237 +123,279 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Shaoyun.Liu@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------BMstbln6oo6DnkPiJQzsOB1m
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Am 08.01.24 um 22:38 schrieb Alex Deucher:
+> It's used for more than just SR-IOV now, so move it to
+> amdgpu_gmc.c and rename it to better match the functionality and
+> update the comments in the code paths to better document
+> when each path is used and why.  No functional change.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Shaoyun.Liu@amd.com
+> Cc: Christian.Koenig@amd.com
 
-Am 09.01.24 um 02:50 schrieb 李真能:
->
-> When the priority value is passed to the kernel, the kernel compares 
-> it with the following values:
->
-> #define AMDGPU_CTX_PRIORITY_VERY_LOW    -1023
-> #define AMDGPU_CTX_PRIORITY_LOW         -512
-> #define AMDGPU_CTX_PRIORITY_NORMAL      0
-> #define AMDGPU_CTX_PRIORITY_HIGH        512
-> #define AMDGPU_CTX_PRIORITY_VERY_HIGH   1023
->
-> If priority is uint32_t, we can't set LOW and VERY_LOW value to kernel 
-> context priority,
->
-
-Well that's nonsense.
-
-How the kernel handles the values and how userspace handles them are two 
-separate things. You just need to make sure that it's always 32 bits.
-
-In other words if you have signed or unsigned data type in userspace is 
-irrelevant for the kernel.
-
-> You can refer to the kernel function amdgpu_ctx_priority_permit, if 
-> priority is greater
->
-> than 0, and this process has not  CAP_SYS_NICE capibility or 
-> DRM_MASTER permission,
->
-> this process will be exited.
->
-
-Correct, that's intentional.
+I'm wondering if having an amdgpu_kiq.c wouldn't be better, but for now 
+the patch is Acked-by: Christian König <Christian.koenig@amd.com>
 
 Regards,
 Christian.
 
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c  | 53 ++++++++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h  |  4 ++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 53 ------------------------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h |  4 --
+>   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c   |  9 ++--
+>   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c   |  9 ++--
+>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c    | 12 +++---
+>   7 files changed, 74 insertions(+), 70 deletions(-)
 >
->
->
->
->
-> ----
->
->
->
->
-> *主　题：*Re: [PATCH libdrm 1/2] amdgpu: fix parameter of 
-> amdgpu_cs_ctx_create2
-> *日　期：*2024-01-09 00:28
-> *发件人：*Christian König
-> *收件人：*李真能;Marek Olsak;Pierre-Eric Pelloux-Prayer;dri-devel;amd-gfx;
->
-> Am 08.01.24 um 10:40 schrieb Zhenneng Li:
-> > In order to pass the correct priority parameter to the kernel,
-> > we must change priority type from uint32_t to int32_t.
->
-> Hui what? Why should it matter if the parameter is signed or not?
->
-> That doesn't seem to make sense.
->
-> Regards,
-> Christian.
->
-> >
-> > Signed-off-by: Zhenneng Li
-> > ---
-> > amdgpu/amdgpu.h | 2 +-
-> > amdgpu/amdgpu_cs.c | 2 +-
-> > 2 files changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h
-> > index 9bdbf366..f46753f3 100644
-> > --- a/amdgpu/amdgpu.h
-> > +++ b/amdgpu/amdgpu.h
-> > @@ -896,7 +896,7 @@ int amdgpu_bo_list_update(amdgpu_bo_list_handle 
-> handle,
-> > *
-> > */
-> > int amdgpu_cs_ctx_create2(amdgpu_device_handle dev,
-> > - uint32_t priority,
-> > + int32_t priority,
-> > amdgpu_context_handle *context);
-> > /**
-> > * Create GPU execution Context
-> > diff --git a/amdgpu/amdgpu_cs.c b/amdgpu/amdgpu_cs.c
-> > index 49fc16c3..eb72c638 100644
-> > --- a/amdgpu/amdgpu_cs.c
-> > +++ b/amdgpu/amdgpu_cs.c
-> > @@ -49,7 +49,7 @@ static int 
-> amdgpu_cs_reset_sem(amdgpu_semaphore_handle sem);
-> > * \return 0 on success otherwise POSIX Error code
-> > */
-> > drm_public int amdgpu_cs_ctx_create2(amdgpu_device_handle dev,
-> > - uint32_t priority,
-> > + int32_t priority,
-> > amdgpu_context_handle *context)
-> > {
-> > struct amdgpu_context *gpu_context;
->
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> index d2f273d77e59..331cf6384b12 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -746,6 +746,59 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
+>   	return r;
+>   }
+>   
+> +void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
+> +				      uint32_t reg0, uint32_t reg1,
+> +				      uint32_t ref, uint32_t mask,
+> +				      uint32_t xcc_inst)
+> +{
+> +	struct amdgpu_kiq *kiq = &adev->gfx.kiq[xcc_inst];
+> +	struct amdgpu_ring *ring = &kiq->ring;
+> +	signed long r, cnt = 0;
+> +	unsigned long flags;
+> +	uint32_t seq;
+> +
+> +	if (adev->mes.ring.sched.ready) {
+> +		amdgpu_mes_reg_write_reg_wait(adev, reg0, reg1,
+> +					      ref, mask);
+> +		return;
+> +	}
+> +
+> +	spin_lock_irqsave(&kiq->ring_lock, flags);
+> +	amdgpu_ring_alloc(ring, 32);
+> +	amdgpu_ring_emit_reg_write_reg_wait(ring, reg0, reg1,
+> +					    ref, mask);
+> +	r = amdgpu_fence_emit_polling(ring, &seq, MAX_KIQ_REG_WAIT);
+> +	if (r)
+> +		goto failed_undo;
+> +
+> +	amdgpu_ring_commit(ring);
+> +	spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> +
+> +	r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
+> +
+> +	/* don't wait anymore for IRQ context */
+> +	if (r < 1 && in_interrupt())
+> +		goto failed_kiq;
+> +
+> +	might_sleep();
+> +	while (r < 1 && cnt++ < MAX_KIQ_REG_TRY) {
+> +
+> +		msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
+> +		r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
+> +	}
+> +
+> +	if (cnt > MAX_KIQ_REG_TRY)
+> +		goto failed_kiq;
+> +
+> +	return;
+> +
+> +failed_undo:
+> +	amdgpu_ring_undo(ring);
+> +	spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> +failed_kiq:
+> +	dev_err(adev->dev, "failed to write reg %x wait reg %x\n", reg0, reg1);
+> +}
+> +
+>   /**
+>    * amdgpu_gmc_tmz_set -- check and set if a device supports TMZ
+>    * @adev: amdgpu_device pointer
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> index e699d1ca8deb..17f40ea1104b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> @@ -417,6 +417,10 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+>   int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
+>   				   uint32_t flush_type, bool all_hub,
+>   				   uint32_t inst);
+> +void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
+> +				      uint32_t reg0, uint32_t reg1,
+> +				      uint32_t ref, uint32_t mask,
+> +				      uint32_t xcc_inst);
+>   
+>   extern void amdgpu_gmc_tmz_set(struct amdgpu_device *adev);
+>   extern void amdgpu_gmc_noretry_set(struct amdgpu_device *adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> index 0dcff2889e25..f5c66e0038b5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -71,59 +71,6 @@ void amdgpu_virt_init_setting(struct amdgpu_device *adev)
+>   		amdgpu_num_kcq = 2;
+>   }
+>   
+> -void amdgpu_virt_kiq_reg_write_reg_wait(struct amdgpu_device *adev,
+> -					uint32_t reg0, uint32_t reg1,
+> -					uint32_t ref, uint32_t mask,
+> -					uint32_t xcc_inst)
+> -{
+> -	struct amdgpu_kiq *kiq = &adev->gfx.kiq[xcc_inst];
+> -	struct amdgpu_ring *ring = &kiq->ring;
+> -	signed long r, cnt = 0;
+> -	unsigned long flags;
+> -	uint32_t seq;
+> -
+> -	if (adev->mes.ring.sched.ready) {
+> -		amdgpu_mes_reg_write_reg_wait(adev, reg0, reg1,
+> -					      ref, mask);
+> -		return;
+> -	}
+> -
+> -	spin_lock_irqsave(&kiq->ring_lock, flags);
+> -	amdgpu_ring_alloc(ring, 32);
+> -	amdgpu_ring_emit_reg_write_reg_wait(ring, reg0, reg1,
+> -					    ref, mask);
+> -	r = amdgpu_fence_emit_polling(ring, &seq, MAX_KIQ_REG_WAIT);
+> -	if (r)
+> -		goto failed_undo;
+> -
+> -	amdgpu_ring_commit(ring);
+> -	spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> -
+> -	r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
+> -
+> -	/* don't wait anymore for IRQ context */
+> -	if (r < 1 && in_interrupt())
+> -		goto failed_kiq;
+> -
+> -	might_sleep();
+> -	while (r < 1 && cnt++ < MAX_KIQ_REG_TRY) {
+> -
+> -		msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
+> -		r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
+> -	}
+> -
+> -	if (cnt > MAX_KIQ_REG_TRY)
+> -		goto failed_kiq;
+> -
+> -	return;
+> -
+> -failed_undo:
+> -	amdgpu_ring_undo(ring);
+> -	spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> -failed_kiq:
+> -	dev_err(adev->dev, "failed to write reg %x wait reg %x\n", reg0, reg1);
+> -}
+> -
+>   /**
+>    * amdgpu_virt_request_full_gpu() - request full gpu access
+>    * @adev:	amdgpu device.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> index d4207e44141f..1b49c007ff62 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> @@ -332,10 +332,6 @@ static inline bool is_virtual_machine(void)
+>   	((adev)->virt.gim_feature & AMDGIM_FEATURE_VCN_RB_DECOUPLE)
+>   bool amdgpu_virt_mmio_blocked(struct amdgpu_device *adev);
+>   void amdgpu_virt_init_setting(struct amdgpu_device *adev);
+> -void amdgpu_virt_kiq_reg_write_reg_wait(struct amdgpu_device *adev,
+> -					uint32_t reg0, uint32_t rreg1,
+> -					uint32_t ref, uint32_t mask,
+> -					uint32_t xcc_inst);
+>   int amdgpu_virt_request_full_gpu(struct amdgpu_device *adev, bool init);
+>   int amdgpu_virt_release_full_gpu(struct amdgpu_device *adev, bool init);
+>   int amdgpu_virt_reset_gpu(struct amdgpu_device *adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> index 6c5185608854..db89d13bd80d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> @@ -262,16 +262,17 @@ static void gmc_v10_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+>   	/* flush hdp cache */
+>   	adev->hdp.funcs->flush_hdp(adev, NULL);
+>   
+> -	/* For SRIOV run time, driver shouldn't access the register through MMIO
+> -	 * Directly use kiq to do the vm invalidation instead
+> +	/* This is necessary for SRIOV as well as for GFXOFF to function
+> +	 * properly under bare metal
+>   	 */
+>   	if (adev->gfx.kiq[0].ring.sched.ready && !adev->enable_mes &&
+>   	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
+> -		amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack, inv_req,
+> -				1 << vmid, GET_INST(GC, 0));
+> +		amdgpu_gmc_fw_reg_write_reg_wait(adev, req, ack, inv_req,
+> +						 1 << vmid, GET_INST(GC, 0));
+>   		return;
+>   	}
+>   
+> +	/* This path is needed before KIQ/MES/GFXOFF are set up */
+>   	hub_ip = (vmhub == AMDGPU_GFXHUB(0)) ? GC_HWIP : MMHUB_HWIP;
+>   
+>   	spin_lock(&adev->gmc.invalidate_lock);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> index c9c653cfc765..6c68135cac9f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> @@ -223,16 +223,17 @@ static void gmc_v11_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+>   	/* flush hdp cache */
+>   	adev->hdp.funcs->flush_hdp(adev, NULL);
+>   
+> -	/* For SRIOV run time, driver shouldn't access the register through MMIO
+> -	 * Directly use kiq to do the vm invalidation instead
+> +	/* This is necessary for SRIOV as well as for GFXOFF to function
+> +	 * properly under bare metal
+>   	 */
+>   	if ((adev->gfx.kiq[0].ring.sched.ready || adev->mes.ring.sched.ready) &&
+>   	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
+> -		amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack, inv_req,
+> -				1 << vmid, GET_INST(GC, 0));
+> +		amdgpu_gmc_fw_reg_write_reg_wait(adev, req, ack, inv_req,
+> +						 1 << vmid, GET_INST(GC, 0));
+>   		return;
+>   	}
+>   
+> +	/* This path is needed before KIQ/MES/GFXOFF are set up */
+>   	hub_ip = (vmhub == AMDGPU_GFXHUB(0)) ? GC_HWIP : MMHUB_HWIP;
+>   
+>   	spin_lock(&adev->gmc.invalidate_lock);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index f9039d64ff2d..9bff72356a37 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -829,23 +829,25 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+>   	req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
+>   	ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
+>   
+> -	/* This is necessary for a HW workaround under SRIOV as well
+> -	 * as GFXOFF under bare metal
+> -	 */
+>   	if (vmhub >= AMDGPU_MMHUB0(0))
+>   		inst = GET_INST(GC, 0);
+>   	else
+>   		inst = vmhub;
+> +
+> +	/* This is necessary for SRIOV as well as for GFXOFF to function
+> +	 * properly under bare metal
+> +	 */
+>   	if (adev->gfx.kiq[inst].ring.sched.ready &&
+>   	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
+>   		uint32_t req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
+>   		uint32_t ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
+>   
+> -		amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack, inv_req,
+> -						   1 << vmid, inst);
+> +		amdgpu_gmc_fw_reg_write_reg_wait(adev, req, ack, inv_req,
+> +						 1 << vmid, inst);
+>   		return;
+>   	}
+>   
+> +	/* This path is needed before KIQ/MES/GFXOFF are set up */
+>   	spin_lock(&adev->gmc.invalidate_lock);
+>   
+>   	/*
 
---------------BMstbln6oo6DnkPiJQzsOB1m
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    Am 09.01.24 um 02:50 schrieb 李真能:<br>
-    <blockquote type="cite" cite="mid:xrg6qu5muv-xriqmgzqig@nsmail7.0.0--kylin--1">
-      
-      <p>When the priority value is passed to the kernel, the kernel
-        compares it with the following values:</p>
-      <p>#define AMDGPU_CTX_PRIORITY_VERY_LOW&nbsp;&nbsp;&nbsp; -1023<br>
-        #define AMDGPU_CTX_PRIORITY_LOW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -512<br>
-        #define AMDGPU_CTX_PRIORITY_NORMAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0<br>
-        #define AMDGPU_CTX_PRIORITY_HIGH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 512<br>
-        #define AMDGPU_CTX_PRIORITY_VERY_HIGH&nbsp;&nbsp; 1023</p>
-      <p>If priority is uint32_t, we can't set LOW and VERY_LOW value to
-        kernel context priority,</p>
-    </blockquote>
-    <br>
-    Well that's nonsense.<br>
-    <br>
-    How the kernel handles the values and how userspace handles them are
-    two separate things. You just need to make sure that it's always 32
-    bits.<br>
-    <br>
-    In other words if you have signed or unsigned data type in userspace
-    is irrelevant for the kernel.<br>
-    <br>
-    <blockquote type="cite" cite="mid:xrg6qu5muv-xriqmgzqig@nsmail7.0.0--kylin--1">
-      <p>You can refer to the kernel function
-        amdgpu_ctx_priority_permit, if priority is greater</p>
-      <p>than 0, and this process has not&nbsp; CAP_SYS_NICE capibility or
-        DRM_MASTER permission,</p>
-      <p>this process will be exited.<br>
-      </p>
-    </blockquote>
-    <br>
-    Correct, that's intentional.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite" cite="mid:xrg6qu5muv-xriqmgzqig@nsmail7.0.0--kylin--1">
-      <p><br>
-        <br>
-        <br>
-        <br>
-        <br>
-        ----</p>
-      <p>&nbsp;</p>
-      <div id="re" style="margin-left: 0.5em; padding-left: 0.5em; border-left: 1px solid green;"><br>
-        <br>
-        <br>
-        <div style="background-color: #f5f7fa;"><strong>主　题：</strong><span id="subject">Re: [PATCH libdrm 1/2] amdgpu: fix parameter of
-            amdgpu_cs_ctx_create2</span> <br>
-          <strong>日　期：</strong><span id="date">2024-01-09 00:28</span> <br>
-          <strong>发件人：</strong><span id="from">Christian König</span> <br>
-          <strong>收件人：</strong><span id="to" style="word-break: break-all;">李真能;Marek Olsak;Pierre-Eric
-            Pelloux-Prayer;dri-devel;amd-gfx;</span></div>
-        <br>
-        <div id="content">
-          <div class="viewer_part" style="position: relative;">
-            <div>Am 08.01.24 um 10:40 schrieb Zhenneng Li:<br>
-              &gt; In order to pass the correct priority parameter to
-              the kernel,<br>
-              &gt; we must change priority type from uint32_t to
-              int32_t.<br>
-              <br>
-              Hui what? Why should it matter if the parameter is signed
-              or not?<br>
-              <br>
-              That doesn't seem to make sense.<br>
-              <br>
-              Regards,<br>
-              Christian.<br>
-              <br>
-              &gt;<br>
-              &gt; Signed-off-by: Zhenneng Li <br>
-              &gt; ---<br>
-              &gt; amdgpu/amdgpu.h | 2 +-<br>
-              &gt; amdgpu/amdgpu_cs.c | 2 +-<br>
-              &gt; 2 files changed, 2 insertions(+), 2 deletions(-)<br>
-              &gt;<br>
-              &gt; diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h<br>
-              &gt; index 9bdbf366..f46753f3 100644<br>
-              &gt; --- a/amdgpu/amdgpu.h<br>
-              &gt; +++ b/amdgpu/amdgpu.h<br>
-              &gt; @@ -896,7 +896,7 @@ int
-              amdgpu_bo_list_update(amdgpu_bo_list_handle handle,<br>
-              &gt; *<br>
-              &gt; */<br>
-              &gt; int amdgpu_cs_ctx_create2(amdgpu_device_handle dev,<br>
-              &gt; - uint32_t priority,<br>
-              &gt; + int32_t priority,<br>
-              &gt; amdgpu_context_handle *context);<br>
-              &gt; /**<br>
-              &gt; * Create GPU execution Context<br>
-              &gt; diff --git a/amdgpu/amdgpu_cs.c b/amdgpu/amdgpu_cs.c<br>
-              &gt; index 49fc16c3..eb72c638 100644<br>
-              &gt; --- a/amdgpu/amdgpu_cs.c<br>
-              &gt; +++ b/amdgpu/amdgpu_cs.c<br>
-              &gt; @@ -49,7 +49,7 @@ static int
-              amdgpu_cs_reset_sem(amdgpu_semaphore_handle sem);<br>
-              &gt; * \return 0 on success otherwise POSIX Error code<br>
-              &gt; */<br>
-              &gt; drm_public int
-              amdgpu_cs_ctx_create2(amdgpu_device_handle dev,<br>
-              &gt; - uint32_t priority,<br>
-              &gt; + int32_t priority,<br>
-              &gt; amdgpu_context_handle *context)<br>
-              &gt; {<br>
-              &gt; struct amdgpu_context *gpu_context;<br>
-              <br>
-            </div>
-          </div>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------BMstbln6oo6DnkPiJQzsOB1m--
