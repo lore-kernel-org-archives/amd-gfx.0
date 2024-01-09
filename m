@@ -4,66 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7467FC46CD2
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jan 2024 08:31:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A57CC47073
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jan 2024 09:30:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F16D210E384;
-	Tue,  9 Jan 2024 08:31:47 +0000 (UTC)
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA70F10E384
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jan 2024 08:31:46 +0000 (UTC)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-40e4582ed74so19373555e9.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 09 Jan 2024 00:31:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1704789105; x=1705393905; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Rn81nneouBWFr4SZjlBf+I4Wq0V5K933l5iMICD0kbQ=;
- b=kv2Y/BfgC/FsPXYoeXAXFTW1HQCIGZ5YQtWWg7hYW2fCCJ7IGK01PEXY1g7TMzdTri
- DdPGSAOdvfrkz0z215bTIKelq9u/ZJaYmnSQop3xd+VZ44rc1du8IRcj8wdP6hzLyTni
- f4YQo4exmxl2gqEYBzxC7zhTAVnEhPTUsGmlISP+c2I/fnT3Vl5/N3aCdkOSYghmepY+
- BYRsjZ4SGHgX19n76dneHlMsOMx6OweHwAdaUfCFgi8iN2WPB08w03wh+1fvjO45Fb5F
- f+6D1x5gryEb25TV5eLoc+azj+EbeduIXZhM7qlfr8NRfkQiN5CXjrsy3Zex/JTS0jeh
- KSiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704789105; x=1705393905;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Rn81nneouBWFr4SZjlBf+I4Wq0V5K933l5iMICD0kbQ=;
- b=sNv7RdNaPzUf/mZcb7ztdLTrPwrEdsKVrM4rfrX02nCGyvaGhHvixYnpUW8fvfOdVQ
- +asou7VRrb/L4gYnNDsaI/i7FJwlTSxcYQV7xMEvxFBEXFr0V78l3jZUR8/GDrla6PQx
- gNiKJW5gi3F2XmsaU5//4vpZDsjUReNlqq/iBdWABpd5R3ZxNvciSdLxTD9OEie/tRfC
- J1JCphnb7a96GNb7Y6VUXjgoSPUhSECpXLNx+yK8AJySLFSYTvHpvsfdHFOTC/OBvH/O
- 5jJ87+q2EK+XhM1qwZXm2m1SjhjntsL3LCbcpHws7yjK5MvaCks0rnZzYhN1otcSPPMZ
- Pbnw==
-X-Gm-Message-State: AOJu0YzDj612LLkJMAQDN+Ei277gWfxEyUvoYjD5feRcZH16OR3bdVTN
- N56sBFTGLAUOREy5a/8EKV0=
-X-Google-Smtp-Source: AGHT+IE1VaQeXILDAEg3VVHBW2C/2cK3V7+X3RGTIed0KVEDhvsnalpY7/KsGql3WEQPX6hYgBcQVA==
-X-Received: by 2002:a05:600c:511c:b0:40e:424d:5888 with SMTP id
- o28-20020a05600c511c00b0040e424d5888mr1068494wms.7.1704789104879; 
- Tue, 09 Jan 2024 00:31:44 -0800 (PST)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- d6-20020a05600c3ac600b0040c11fbe581sm2568188wms.27.2024.01.09.00.31.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Jan 2024 00:31:44 -0800 (PST)
-Message-ID: <43e7ff66-f6cf-4804-ab90-ee14546dc4b3@gmail.com>
-Date: Tue, 9 Jan 2024 09:31:42 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D1B310E3C9;
+	Tue,  9 Jan 2024 09:30:21 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A54C10E3C6;
+ Tue,  9 Jan 2024 09:30:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1704792619; x=1736328619;
+ h=message-id:date:mime-version:subject:to:references:from:
+ in-reply-to:content-transfer-encoding;
+ bh=k9+uIpdU1KNnwWWNPsn7wlXwUafN9nHj7vXwtok3fKQ=;
+ b=R2A3CeGpa8b1lxnW9A5BhjuszAI3VEbdwT39qH27qJnBBTMYZJHNlysg
+ QoOcvB7QgtxxSI+hW6VUPeTh7qHCOox/9cOYiLww3to3YwVLxN8QBFwGH
+ QY4Cymxn1taT9kJH5Oh01l2cFo3XqDamjrmaYPugRb997+nvV0yex26Lt
+ uJ2HqHpovLBrSi1Q74WLXdzCrUGR1eYOzoB+8ni2cX9A63Yz1H7NKI+7f
+ ksybxpxx5MRFJSC7Hsfz95cL0fqTHQY27pbgpZWVPw69/IizMT7Kbbvyh
+ JMAcSls/bASgj4asVWFHiWvBJlXw0GJ5HN/sJ0Eay1M1sLYnmzDkGBSGZ w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="395301214"
+X-IronPort-AV: E=Sophos;i="6.04,182,1695711600"; d="scan'208";a="395301214"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jan 2024 01:30:18 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="1028711891"
+X-IronPort-AV: E=Sophos;i="6.04,182,1695711600"; d="scan'208";a="1028711891"
+Received: from larnott-mobl1.ger.corp.intel.com (HELO [10.213.222.67])
+ ([10.213.222.67])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jan 2024 01:30:17 -0800
+Message-ID: <d2f7c614-228d-490c-9317-8eab0d87ee28@linux.intel.com>
+Date: Tue, 9 Jan 2024 09:30:15 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Documentation for RGB strip on RX 7900 XTX (Reference)
+Subject: Re: [PATCH 2/2] drm/amdgpu: add shared fdinfo stats
 Content-Language: en-US
-To: Alexander Koskovich <AKoskovich@protonmail.com>
-References: <oCYzPIgXFcQ3jdqAKY2upsY5qq23yOba06RkrzD5Bfai97jMWxGvBsaOiKi1k5oZvNg7IoJLE6jAA6BLGFXt08WbBEtdgJA4snn7khZ0JFM=@protonmail.com>
- <BL1PR12MB514454D5E625F71BB0E6A8B6F76B2@BL1PR12MB5144.namprd12.prod.outlook.com>
- <1b679a75-27ee-4682-8bf1-c0defcd9e949@gmail.com>
- <x5k4aAAKV_idHdVtHJSqsc8HjaGPyGe36A9cpXQl_tBbqgHrQ8TaVKm_zoQRodcwfFuGUj4GnnNASL5a7SKfL1H-NH5X4ma5G_vRkXSG35o=@protonmail.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <x5k4aAAKV_idHdVtHJSqsc8HjaGPyGe36A9cpXQl_tBbqgHrQ8TaVKm_zoQRodcwfFuGUj4GnnNASL5a7SKfL1H-NH5X4ma5G_vRkXSG35o=@protonmail.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>
+References: <20231207180225.439482-1-alexander.deucher@amd.com>
+ <20231207180225.439482-3-alexander.deucher@amd.com>
+ <5b231151-45fe-4d65-a9c2-63973267bdba@gmail.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <5b231151-45fe-4d65-a9c2-63973267bdba@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -77,69 +64,142 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 09.01.24 um 09:23 schrieb Alexander Koskovich:
-> Thanks for the info, will take a look.
->
-> Also just to clarify, this is the first party AMD 7900 XTX, not a third party AIB (e.g. Sapphire, ASRock, etc).
 
-Yeah, but that doesn't matter.
+On 09/01/2024 07:56, Christian König wrote:
+> Am 07.12.23 um 19:02 schrieb Alex Deucher:
+>> Add shared stats.  Useful for seeing shared memory.
+>>
+>> v2: take dma-buf into account as well
+>>
+>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>> Cc: Rob Clark <robdclark@gmail.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  4 ++++
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 11 +++++++++++
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  6 ++++++
+>>   3 files changed, 21 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+>> index 5706b282a0c7..c7df7fa3459f 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+>> @@ -97,6 +97,10 @@ void amdgpu_show_fdinfo(struct drm_printer *p, 
+>> struct drm_file *file)
+>>              stats.requested_visible_vram/1024UL);
+>>       drm_printf(p, "amd-requested-gtt:\t%llu KiB\n",
+>>              stats.requested_gtt/1024UL);
+>> +    drm_printf(p, "drm-shared-vram:\t%llu KiB\n", 
+>> stats.vram_shared/1024UL);
+>> +    drm_printf(p, "drm-shared-gtt:\t%llu KiB\n", 
+>> stats.gtt_shared/1024UL);
+>> +    drm_printf(p, "drm-shared-cpu:\t%llu KiB\n", 
+>> stats.cpu_shared/1024UL);
+>> +
+>>       for (hw_ip = 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
+>>           if (!usage[hw_ip])
+>>               continue;
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> index d79b4ca1ecfc..1b37d95475b8 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> @@ -1287,25 +1287,36 @@ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
+>>                 struct amdgpu_mem_stats *stats)
+>>   {
+>>       uint64_t size = amdgpu_bo_size(bo);
+>> +    struct drm_gem_object *obj;
+>>       unsigned int domain;
+>> +    bool shared;
+>>       /* Abort if the BO doesn't currently have a backing store */
+>>       if (!bo->tbo.resource)
+>>           return;
+>> +    obj = &bo->tbo.base;
+>> +    shared = (obj->handle_count > 1) || obj->dma_buf;
+> 
+> I still think that looking at handle_count is the completely wrong 
+> approach, we should really only look at obj->dma_buf.
 
-For the reference designs AMD basically just says how it should look 
-like and then somebody else stitches it together. The handling of for 
-example how connectors are detected is still the same.
+Yeah it is all a bit tricky with the handle table walk. I don't think it 
+is even possible to claim it is shared with obj->dma_buf could be the 
+same process creating say via udmabuf and importing into drm. It is a 
+wild scenario yes, but it could be private memory in that case. Not sure 
+where it would leave us if we said this is just a limitation of a BO 
+based tracking.
 
-AMD should somewhere have detailed documentation what's on that 
-reference board, but to be honest I have absolutely no idea who to ask 
-for that. It's simpler to just look into the tables used by all vendors.
+Would adding a new category "imported" help?
+
+Hmm or we simply change drm-usage-stats.rst:
+
+"""
+- drm-shared-<region>: <uint> [KiB|MiB]
+
+The total size of buffers that are shared with another file (ie. have 
+more than than a single handle).
+"""
+
+Changing ie into eg coule be get our of jail free card to allow the 
+"(obj->handle_count > 1) || obj->dma_buf;" condition?
+
+Because of the shared with another _file_ wording would cover my wild 
+udmabuf self-import case. Unless there are more such creative private 
+import options.
 
 Regards,
-Christian.
 
->
->
-> On Tuesday, January 9th, 2024 at 3:02 AM, Christian König <ckoenig.leichtzumerken@gmail.com> wrote:
->
->
->>
->> Am 08.01.24 um 23:32 schrieb Deucher, Alexander:
->>
->>> [Public]
->>>
->>>> -----Original Message-----
->>>> From: amd-gfx amd-gfx-bounces@lists.freedesktop.org On Behalf Of
->>>> Alexander Koskovich
->>>> Sent: Sunday, January 7, 2024 11:19 PM
->>>> To: amd-gfx@lists.freedesktop.org
->>>> Subject: Documentation for RGB strip on RX 7900 XTX (Reference)
->>>>
->>>> Hello,
->>>>
->>>> I was wondering if AMD would be able provide any documentation for the
->>>> RGB strip on the reference cooler
->>>> (https://www.amd.com/en/products/graphics/amd-radeon-rx-7900xtx)? It
->>>> looks to be handled via I2C commands to the SMU, but having proper
->>>> documentation would be extremely helpful.
->>>> It depends on the AIB/OEM and how they designed the specific board. The RGB controller will either be attached to the DDCVGA i2c bus on the display hardware or the second SMU i2c bus. The former will require changes to the amdgpu display code to register display i2c buses that are not used by the display connectors on the board so they can be used by 3rd party applications. Currently we only register i2c buses used for display connectors. The latter buses are already registered with the i2c subsystem since they are used for other things like EEPROMs on server and workstation cards and should be available via standard Linux i2c APIs. I'm not sure what i2c LED controllers each AIB vendor uses off hand. https://openrgb.org/index.html would probably be a good resource for that information.
->>
->>
->> It might also be a good idea to look some of the ATOMBIOS tables found
->> on your device.
->>
->> Those tables are filled in by the AIB/OEM with the information which
->> connectors (HDMI, DVI, DP etc...) are on the board and I bet that the
->> information which RGB controller is used and where to find it is
->> somewhere in there as well.
->>
->> Adding Harry from our display team, might be that he has some more hints
->> as well.
->>
->> Christian.
->>
->>> Alex
+Tvrtko
 
+> 
+> Regards,
+> Christian.
+> 
+>> +
+>>       domain = amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type);
+>>       switch (domain) {
+>>       case AMDGPU_GEM_DOMAIN_VRAM:
+>>           stats->vram += size;
+>>           if (amdgpu_bo_in_cpu_visible_vram(bo))
+>>               stats->visible_vram += size;
+>> +        if (shared)
+>> +            stats->vram_shared += size;
+>>           break;
+>>       case AMDGPU_GEM_DOMAIN_GTT:
+>>           stats->gtt += size;
+>> +        if (shared)
+>> +            stats->gtt_shared += size;
+>>           break;
+>>       case AMDGPU_GEM_DOMAIN_CPU:
+>>       default:
+>>           stats->cpu += size;
+>> +        if (shared)
+>> +            stats->cpu_shared += size;
+>>           break;
+>>       }
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+>> index d28e21baef16..0503af75dc26 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+>> @@ -138,12 +138,18 @@ struct amdgpu_bo_vm {
+>>   struct amdgpu_mem_stats {
+>>       /* current VRAM usage, includes visible VRAM */
+>>       uint64_t vram;
+>> +    /* current shared VRAM usage, includes visible VRAM */
+>> +    uint64_t vram_shared;
+>>       /* current visible VRAM usage */
+>>       uint64_t visible_vram;
+>>       /* current GTT usage */
+>>       uint64_t gtt;
+>> +    /* current shared GTT usage */
+>> +    uint64_t gtt_shared;
+>>       /* current system memory usage */
+>>       uint64_t cpu;
+>> +    /* current shared system memory usage */
+>> +    uint64_t cpu_shared;
+>>       /* sum of evicted buffers, includes visible VRAM */
+>>       uint64_t evicted_vram;
+>>       /* sum of evicted buffers due to CPU access */
+> 
