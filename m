@@ -4,117 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9BC7C3DA6E
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jan 2024 03:08:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFC26C46CD2
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jan 2024 07:16:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A6DE10E360;
-	Tue,  9 Jan 2024 03:08:43 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2055.outbound.protection.outlook.com [40.107.220.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B980A10E360
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jan 2024 03:08:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 368AA10E358;
+	Tue,  9 Jan 2024 07:16:05 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 658A0899D4;
+ Tue,  9 Jan 2024 07:16:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BqwqiwoJfFtzcDY84dM98xv5lY7/6Et3fVaMXgvN1s1gWQZ+88d0p/cdtakpabR6drAll+usImKTHck1L/+IOFtZJ003gsmEWQY8ZBYJcuRsjgA7TRuGRPmDqmZGDNSHn6UuTzhFhxTsuPEFWUVPEIZPSOCKL5wWMBc2W4PFafaQALpjjUg97iGda2CFTHKgDWEk3wqJh67ItJUZP1vafcgTo513p1OMtQXimQdD/bJiHYXh/v1zlCbIqtAkWeEPFGWwH6g54KU1g6JW7WhmjiWTzTpTB8M4fZhZkjUlE4vFtGClxujS9v/BAlugmfGAAuJvdivYF+dpi+bKMyFqEQ==
+ b=FJC4Cl5niSEn4XyewwUkoMdpHNzvG0UNpdQSvXr/dAB7/O5/kitiUx+kLBO2l8Lep58GNlpe4GIdnCxUthg9q3r1Cvk1cqIQF+ah0Kw+TeQ9HlGgigawP4mu+AVx2UmDoRG4pKnZQtDK8nq7slQnitq3YGyzblD1sMGeO+etmbrPZv80uP6Zkdbk2FtEqWyb+NZSTU0B5UN8jJXsfbO2HvIfh4CC3WoeJ1UbF1Tcds72E1cIzrgnqpaOOVgrIRd3aFsx8hjwkMMu7TPK0TeywPv3WbrfF/mUQsYyvcSFQRZSeKbNPyvsjypkGatuDMYdFbohBChXJZDuwsT2jnD4OQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FFET15wFOEw3FRQrciRMlVEq9ugC02sq5CdmvLIBqDY=;
- b=fdT6cCu1fY+NzyYM8lNYH2qkT+vhI4i09S9OYfDy4rMWknLuKl18lBAyNVBIhbddOfRWZMRDSmPdhodJf7+DMIkUzLD+xI/2x9tvK0ieQzZ7Uc+6dZnAi+9UA9S+TxnvSrJM0MPzq3XWUPQ7ZREJq9sFMCFKRfTvZPCNC0TU389ROfq3zzeMuTpaZ5eDzF0EK3ul1ftBm+AHVrTt6OAwyHabcJYYuSxFynSg2oFCkDj4YDacyCKWiJRgUTM5RLbEXFIrjYRCJpbqBpIg/pnlfwUhsXSU9KvtRtpo6Sby2Kwz0QPNA71uOG99PijCmuvX2WbH1MEjwrxRa15LnLjGdA==
+ bh=4B4HXS0Any3dtnzSlYxkwGkWT+7JgBN/1wCFpPIqik4=;
+ b=k+IaIm0O+zb3cjA3D8k0e+GRGjpqCEf8OnXDG5ioys2LgP74X4N5CehWUNEQ7TivMgUPJNYTsfltExpuFZgEZY1b4hxsuAkSWshff9R+MqVWHxkj4d8nfWlsTH1AUcEqojxOigkhjOxu1r0cmUAmUB3egOHSOQ9Nh/qyABsbjTYFoAlj6EIyU/uxkd648WlJopisqz6/sbVi8FMqjkOLFyNVQkjPu2NhvlUgTyOpSqReP5vJsBQJl6XMaE0TYIqZQ5UU3WzarU9Ph6p3G+Otam+sw1+xvHAGAk1J69yUPLzGmtWhi94dakiW1Cxx1l3yzAtWYp6suOUGdZ+9VCSDhw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FFET15wFOEw3FRQrciRMlVEq9ugC02sq5CdmvLIBqDY=;
- b=ZIw4C22wlBWj7U/5bFqTU1ZHPpoln8M1OAXSYPnc1X4VSk4KSw9acpkRgBen5oOmzqQy4Q+j4wqkP+XqyG32HeBWGYWtynN/8zaWXCZIEyq/ysNO6WzkoBL7j1ZzIQ7FGUgsdbTkzqcZs2i4UGw0pBZwjwUhDzaCkXVNRAIXXGE=
-Received: from CH3PR12MB8074.namprd12.prod.outlook.com (2603:10b6:610:12b::9)
- by SN7PR12MB7024.namprd12.prod.outlook.com (2603:10b6:806:26e::6)
+ bh=4B4HXS0Any3dtnzSlYxkwGkWT+7JgBN/1wCFpPIqik4=;
+ b=WIHbz1V4Kueoa7Oike5Bd8U763OgvPq9jUBKOdzN+ULxmxPVe2owY9QNmtmpF2ePTZznQ+LT4tb8WgVyvrOmK9Zs+Ee8/m2fFmQ+SxStw1CgJecgtn8mJIMystOX297AzggCF1Um4j+7lZvIGUuuREV1+nDR1RhL6NZI+mUQj4k=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ0PR12MB5676.namprd12.prod.outlook.com (2603:10b6:a03:42e::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.23; Tue, 9 Jan
- 2024 03:08:39 +0000
-Received: from CH3PR12MB8074.namprd12.prod.outlook.com
- ([fe80::24eb:726d:b108:e03]) by CH3PR12MB8074.namprd12.prod.outlook.com
- ([fe80::24eb:726d:b108:e03%5]) with mapi id 15.20.7159.020; Tue, 9 Jan 2024
- 03:08:38 +0000
-From: "Huang, Tim" <Tim.Huang@amd.com>
-To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v2 2/2] drm/amdgpu: update ATHUB_MISC_CNTL offset for nbio
- v3.3
-Thread-Topic: [PATCH v2 2/2] drm/amdgpu: update ATHUB_MISC_CNTL offset for
- nbio v3.3
-Thread-Index: AQHaQqgneG46Oe7tUUuDsy2dG+9gX7DQzH4w
-Date: Tue, 9 Jan 2024 03:08:38 +0000
-Message-ID: <CH3PR12MB8074A78166F81FC9F1C9E2BAF66A2@CH3PR12MB8074.namprd12.prod.outlook.com>
-References: <20240109030030.1138707-1-yifan1.zhang@amd.com>
- <20240109030030.1138707-2-yifan1.zhang@amd.com>
-In-Reply-To: <20240109030030.1138707-2-yifan1.zhang@amd.com>
-Accept-Language: en-US
+ 2024 07:15:59 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::e1fb:4123:48b1:653]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::e1fb:4123:48b1:653%4]) with mapi id 15.20.7159.020; Tue, 9 Jan 2024
+ 07:15:59 +0000
+Content-Type: multipart/alternative;
+ boundary="------------BMstbln6oo6DnkPiJQzsOB1m"
+Message-ID: <32ffe817-498b-48ba-bc33-3fc0fa3fb8dd@amd.com>
+Date: Tue, 9 Jan 2024 08:15:53 +0100
+User-Agent: Mozilla Thunderbird
+Subject: =?UTF-8?B?UmU6IOWbnuWkjTogUmU6IFtQQVRDSCBsaWJkcm0gMS8yXSBhbWRncHU6?=
+ =?UTF-8?Q?_fix_parameter_of_amdgpu=5Fcs=5Fctx=5Fcreate2?=
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=60265e2b-1fe8-4887-b206-3965ccf02748;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2024-01-09T03:07:24Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH3PR12MB8074:EE_|SN7PR12MB7024:EE_
-x-ms-office365-filtering-correlation-id: d3d80f35-7f34-43fd-38c1-08dc10c046e6
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: gPmvA/U4CxB0AlogMSi0p8HdAfgD34M88UHwrw7NaQIxypOYgAaSdG/oaV5wO7O+lqndCovuIgHM+qjNnFa0CnOEulCaefKEpm5Nw0nUodv3uZp/DN9Fw1eAlJ15/aIOpWB8tAURe0YkqWlp47H3WenNIR3YwWvvLrG6uerZ+9LoyQewljVJa/aktwP7MLCZ7GRksPj2CCRSp6Ss0zSV+mZL1nJZEY3IDXI7VGHB2SWu89IshY5Kqdx8S7VSU5AfNTrNQRs7+A3aZszM14o05mpWEKWGZ9LG5aZra7iUk4ByaYp5AVwFA3MaToIrQscKo763WX+wGNj4749pLiDMACJ6daMj8OKyKV6XTCSh0ZX5BAmn9jrjKmWm3wCqrhbaRLqVRL2c4qi1reFy7v/NGFQj6kjg/+ZaS2hbrhjorozWEWnny1pvfeDQ8FcptfDI/ryS5SlwESJCegPAaUGWZFkciz3/ga+DRlBY1X44qP0pXEArcuhThJ0xdDgZ0vaS4a00dVGCOwdry+o5ssqf5ql8vlJiOjtnJQJaq6F2Nw4tneUXC5uyI73GjL7jj0SfRqRVTAtP6OtClsNFN4UBF8iPd+U95BziuPIzZy6vzJ4AZ5IGAE5l6Jw4goQIHIGO
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH3PR12MB8074.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(366004)(396003)(376002)(39860400002)(136003)(230922051799003)(64100799003)(186009)(451199024)(1800799012)(55016003)(53546011)(9686003)(478600001)(26005)(6506007)(7696005)(71200400001)(122000001)(38100700002)(33656002)(86362001)(5660300002)(2906002)(15650500001)(41300700001)(83380400001)(110136005)(64756008)(54906003)(66476007)(66946007)(316002)(66446008)(66556008)(52536014)(8676002)(4326008)(8936002)(76116006)(38070700009);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ERf9KBH8fz1m7mJXowEGOOeCMynRD1cfJ5LGP6ckOhU1lt64KaMTo+CDl4/6?=
- =?us-ascii?Q?8GBHb5Zs/jagkabM+H+yuHserrnIkgQzDLw2VkzC7jtorUOeJdahlhFYIIyw?=
- =?us-ascii?Q?eYAJox4gn7pDZLUfvwMd9TshjLW+hn27KzjNH1TXKXNux3AqDZke4mwC47LC?=
- =?us-ascii?Q?oSQg/JX9Axsk+qoH6qaa/7+OM+gwXUL3tnFRiFLA3gG7bZg1Gx47ChZ8gFfz?=
- =?us-ascii?Q?icbBx0Sy35tJ0OWbh+PJD7vGk24SyBCML/oKaqF9NFDgpe5RGKkMQWK6bWW7?=
- =?us-ascii?Q?5WWZSDgMPPP6yNRjDF2j9QY57Ay6ThNeHVj9172HneZUf6/2m+VxEbJ0Z5xo?=
- =?us-ascii?Q?MfDJZTPE3wPahPXSLjC5quI15DzDYKCQp3ZVCm4TwJbi8XwLrVkh0/du/pEM?=
- =?us-ascii?Q?rrCleVdtXBUL7pr8y56aY6IfyAIaTfOTS8ikYbj7gf71aSM5YGc1aF6RWcxV?=
- =?us-ascii?Q?dlRzOXkr4gmmJkoDfrnQlRyQTxtJ7HJ/SjGlQH1IEuRJFwob1eWzOSo1onlj?=
- =?us-ascii?Q?6cgXXQcYEdVl4EDFc5eMRXhM+Pxkv5abWVneHkgdASpC3MvssToaZIPNwuqr?=
- =?us-ascii?Q?APA/XLkg1zUF/jczmpbH0e/M9BKzeVmpA8zfaApzKbHmQqXjUf0meooW5GI2?=
- =?us-ascii?Q?EmzAzrjWGNcqNoJ+TTL3myNdSS7TJuQQUx25lDG9c7FWPwJSuF5wDgxtrgnl?=
- =?us-ascii?Q?Nxobddb1r8GuR959cy0MS6ipkIvX0ANyp+XPbNc7tQ/is8MkkcPFHRlThBYO?=
- =?us-ascii?Q?qlFvTnNTLBKiFaB9roCoQYimSKMbg7tMSs5D+BXGVJtFEb/1l3ykfz0f0O5+?=
- =?us-ascii?Q?rUfeqZe0WBkYhI+tcGH9Qk1poeG0D+u+mmgrW+ETqgT5mSLXnlOCd48Xjmwg?=
- =?us-ascii?Q?eHVKSATuXcjNBfSfKdLCdsAFg4Nm+3WYsDWoIR60W0tqnkvuyKESK7C+6mRK?=
- =?us-ascii?Q?6UgJax5C9oVd8N2+N1oQFwVsJz0Cwn0LTHqI8guJ+thbSl6+OK7pjjjF8PtE?=
- =?us-ascii?Q?mBrHT6f65wDPDmZGwDTr82LgXNt6Z7Z0F9gY8P+6DmP/sHFBPZkVqh2hiwqm?=
- =?us-ascii?Q?ZpKB4N+5pS+iKGpJoIARgusEvIRmJAQOCFVHBQWraNNYYkfwIghdEJVhYyP1?=
- =?us-ascii?Q?hL3Ue1EMzcVFVnso9qYKLKHmagQagf8kOpavdXGMz+xeOvCdqAh6UhkZiRsd?=
- =?us-ascii?Q?shglN892e7Q++Ae1UWt7bW7H3R+wCep10alX1S8NGmo05h6M5boi6oURFPiq?=
- =?us-ascii?Q?ST2vxi1YDj5TI564+ooAmXFe/qkQfc9k+09uNvQfWh/Mln+T3lfWonyhiu5e?=
- =?us-ascii?Q?+FQDQR41HvdjnkySqvIBEozIHQZHrshBki96GGN3Id8cNKN26zHZGlIqppa4?=
- =?us-ascii?Q?baNbJx5Nk8jbIf5cFoOfB1w8LRBYzk9/nyTMmEPBl/EJdBnn01TmsWg4xiO+?=
- =?us-ascii?Q?ilhj2ocnhqlIv5/1c8SPfWtrJb9K+VLYs2chBU2JOc1kUyd+dNrg6qiXSCqn?=
- =?us-ascii?Q?wpu900bL9C1h/eawex6JtdwrjBtfrNFbeWp3/97KXMao6jk5tkJgZzUQqG3a?=
- =?us-ascii?Q?7L+EFflkpOD+cR1TH9E=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+To: =?UTF-8?B?5p2O55yf6IO9?= <lizhenneng@kylinos.cn>,
+ Marek Olsak <marek.olsak@amd.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx <amd-gfx@lists.freedesktop.org>
+References: <xrg6qu5muv-xriqmgzqig@nsmail7.0.0--kylin--1>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <xrg6qu5muv-xriqmgzqig@nsmail7.0.0--kylin--1>
+X-ClientProxiedBy: FR4P281CA0076.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cd::20) To SJ0PR12MB5673.namprd12.prod.outlook.com
+ (2603:10b6:a03:42b::13)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB5676:EE_
+X-MS-Office365-Filtering-Correlation-Id: 07612bf7-21a5-41bb-bb43-08dc10e2d42f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: PtGCCvowDrjMq0PjzE+6oOeo3Z9IaaXzLqmc5S0feKirSnfMX3ls7LZXTv5dnmLFyY3mr5sDtVRDQyg+Lom0Fh3kgj1WusJxa1UVOPlppti8P4kf7eGArEaWqewStakj4IZos1/FhKP6dTsTR0UvvWB1WUdE1rhcmaPPHIZaq99HuZy4X1/yQ3S2FI7UdNoaZQ2VZd36mNeUyh+23iZCR/yR5Nizi4IXfg9Janr+D2EacLL4ae+0xuIAFzZou5+mx4YZckqS61qxfysxkQuXk9JMRT3WmQ3Hh9Fc3nee1QctvM2UF4FI7pyQLfY/2E2uVPjVZDdHN1zJ9mUPezjwmN+dUbeuW9lsQMUzNj68uQzg6bVnVppoN2u6EA0EF0hVDoDiVMZ2RK1VWHYJSqyNMnypt9Fqg+3yXU5OEf90L+abAofQaVFm1v0atVpEN0l6Db8O133NfShYkTP+zWWcXwKdSRuRGkSy7uTkunHnJotKmsxraLtM0JipP03h5pByal2WxdiDm9KJ/s7IdlmlY17L8xsVbXTNlniY/3eQ+fZ8YCiIBGCbxI3DhXGT60Meta1w39XKtGPNUuhXKza0QgZPp4maoQTQ5qbevdu5CJeuBr0Rv/MmGL26WO+mNv2RgWLl6XFXyOPDi2Zlnv3v4w==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(346002)(376002)(366004)(396003)(136003)(230922051799003)(451199024)(1800799012)(64100799003)(186009)(83380400001)(26005)(66574015)(5660300002)(6512007)(38100700002)(33964004)(2616005)(31686004)(6506007)(6486002)(31696002)(6666004)(478600001)(66946007)(110136005)(66476007)(66556008)(316002)(8936002)(36756003)(224303003)(41300700001)(86362001)(2906002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YnhzUTBPVTFMQ3RzL0phSTNDeThnNVphZ0p3TnZOZXFVUkQwRU5oUnZ3VjJC?=
+ =?utf-8?B?WkNzc3JEUDJ2U0xqOU5TSVN3dk0zemVUN0orQzArd0gwNTNOYlJKT2QwdFdn?=
+ =?utf-8?B?NjZZU2VBVmlvcXJPd1FrSGtzK0cwdEduYmUxUThrVFU4UVJjeHB5eitnRTZP?=
+ =?utf-8?B?dnp2dWZRbHlSYkNERVE4V0ZQeHRGZ1dKNm56K3k3ZHpYNmJNZWhlRUhTWlJU?=
+ =?utf-8?B?eU1OdjRJUkEvNmxTUUhRZEtMSzN5cW51Z0VWTXZzYlg5c2dvMU1ySDhPV1kz?=
+ =?utf-8?B?ODQ1MHJCbUN6NUtvYWU5N3FlTzhKUmQ3UVpURTVxajhqbmNDRi9ralhDTlNj?=
+ =?utf-8?B?cEQ3WUdienFhL2c2R0JRQzl4cUdYckdHYXZQWnBtb1A1MHUxNVJONzJKNmNx?=
+ =?utf-8?B?MUFSdVVDeUVoY0lBbHIyUUY0NytjenY4VG13UHA1b01EZ2hGaCtibldWa2hs?=
+ =?utf-8?B?eTNFV0R0VXFvc1BkTWd0OWxvQTJGZHpSbDVwUDNZWkxLUjZSdUVjUUZKUUQ1?=
+ =?utf-8?B?OGhxNkhBQUZOcGNnUWZFdUd6cVBuL3lJQXlMR0hMZ0xrTy9ab1FQSTFOK1NU?=
+ =?utf-8?B?RUQwS2lDd2pjbm8yYi85UUpydTBRVTlkOHloa0lLbXZxdE5UUVorQmRHYS85?=
+ =?utf-8?B?TUpENHhZZ1Frd0VoWmlueWRHVnBPMXg2YVd3WXZkT3VmUTNvRnVPTTdXakpK?=
+ =?utf-8?B?OWNmM3BrUUk4Ykx4cEdza1NaRVo3NFBWRlFaQkt2T3l2Wld1YVlHbDNiMmdo?=
+ =?utf-8?B?aFZqT0FSTmJDSytiSnNDdDJEaktsQnY1eXphSTlJVC94SVBYTE9qNC9yY3NM?=
+ =?utf-8?B?bThqTUxXL0NnVklWcVNPMnVYeDNOQWhKcHZxRVpET1UyMGM3QjFsRHgzQUFa?=
+ =?utf-8?B?V3NRK3ZjNm91c3UrWHlYdFVKazJKZVJlRmxpdEVkdEFKYUFuTDJEYm9MaVpr?=
+ =?utf-8?B?LzgxamNNUlowUVI2TjlJOGxIY3IvNzZCNjdyaWhzUS9IczRPb0EvMzFuUzc2?=
+ =?utf-8?B?VCs2RkY3SVpPc3NpdUV4WlA3SzdjZTZ4MmRvMm9CdFBtU1JuTlg5RVh1Z1VK?=
+ =?utf-8?B?T0Y3ZXZHSUJwSFJ3a3RscFJpUHZqeXk5Wm5NcHhrSWYwZEw0b1ZBYi9JT0t2?=
+ =?utf-8?B?RjFtREFRaTBpYzl4MkZvOXJDMGVQcUkxL1BOUmlTU1NiZ2xHTDNWeE16b2VG?=
+ =?utf-8?B?aHRtbGxDNHMvQTR1QlJFMExqV2d6MXJlbUF5K2tFd3JONDVLN3JONVgzMkhq?=
+ =?utf-8?B?blVFaHRMYkdXVHpscXYxS0lQeHdRWDJCNXBDaTNKcHhsdy9yQ3k4Mi9oMy9C?=
+ =?utf-8?B?YWtzc2dYdVpsLzYycnB4TlhhRmlDU2cwbVNJM1NGcTZSbVpXNDNuRVorWDJG?=
+ =?utf-8?B?OThhNVhyTTVFSjdldmpNSTFFakcxeGF6V3Q5TWJTSEFBUkxvZkZOdXRjejZr?=
+ =?utf-8?B?OFR0TzlLYmI5Q0t0VGZWVHg0MGlDTmNuUlpEN3VFVGU2VHFWS1ZRTGd3OVBU?=
+ =?utf-8?B?OFFUT2QvZTdtQ0luTVVRRmw5YVJqUEtlUy9LL0lyQU9PNWNhTHlvbFNrOXB3?=
+ =?utf-8?B?UEowUnY1RnRUdzZDSHVLWjR3TGQ1clFsM1hpNlJudnU1VWtxZmpwL0pTekda?=
+ =?utf-8?B?QUV4MDNyVlZkQU04aHYxWmhuM2NuSHE4dERjR24reUhpMzErbm5WSFNpai9x?=
+ =?utf-8?B?M0VCNks3Y2U2QmcxNyttMXYyZUQzbUVQalJlREpST0tOSlZKcTFLdk8zS2lR?=
+ =?utf-8?B?QjFLTnVrRjNkb0dWdlI3Z24yTkNVd2VONmR1VTFwWTA5aGxDeUhHUDB0RjVl?=
+ =?utf-8?B?T2dMQ3VGZjRYcU5DY1BYaEM5MWtXMXpaeXE4YXN0YnJ3RXhQK243NFNaNEtT?=
+ =?utf-8?B?dEJhZHQveTVGclEyc2dlM1NQdkw3TGg5SjVFMkNiZzZhUlNLTERsTmdlWTZ5?=
+ =?utf-8?B?cXV4Qmo1N1I5VDcrT1FybmljTWRoc3VKay9obHMwdktTbkxDNG05bThQM1Q4?=
+ =?utf-8?B?TThibFFaOENOcmRYRTFXejlUcmVTSW1PTDh3TUo1YVZhcm02UUFqeDJ6SU5X?=
+ =?utf-8?B?bUVyMnZmeHhWOEdtTVR3bjZUYWVJQ2hjK3lDQzI1UlMyRE0xa3BFNnZWUHIx?=
+ =?utf-8?Q?62vUp1p8JnfWsnEDnQgwQCFgQ?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 07612bf7-21a5-41bb-bb43-08dc10e2d42f
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB8074.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3d80f35-7f34-43fd-38c1-08dc10c046e6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jan 2024 03:08:38.8426 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +Ha7OFESaMNwoqEPjbjedejluyXogY0e6iZrfw3fN4Vs6VHlqNOznX5vMKy+NItlLvKWvMCTRsWF3gYNEJGoiQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7024
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2024 07:15:59.4435 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fHfBTkDeztdUvndFegla5tRWR1qptvyNB+m+2jD9ftEL/YMOq1TJUzHJaSuQ2164
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5676
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,77 +127,237 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Yu,
- Lang" <Lang.Yu@amd.com>, "Ma, Li" <Li.Ma@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+--------------BMstbln6oo6DnkPiJQzsOB1m
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Series is
+Am 09.01.24 um 02:50 schrieb 李真能:
+>
+> When the priority value is passed to the kernel, the kernel compares 
+> it with the following values:
+>
+> #define AMDGPU_CTX_PRIORITY_VERY_LOW    -1023
+> #define AMDGPU_CTX_PRIORITY_LOW         -512
+> #define AMDGPU_CTX_PRIORITY_NORMAL      0
+> #define AMDGPU_CTX_PRIORITY_HIGH        512
+> #define AMDGPU_CTX_PRIORITY_VERY_HIGH   1023
+>
+> If priority is uint32_t, we can't set LOW and VERY_LOW value to kernel 
+> context priority,
+>
 
-Reviewed-by: Tim Huang <Tim.Huang@amd.com>
+Well that's nonsense.
 
-Best Regards,
-Tim Huang
+How the kernel handles the values and how userspace handles them are two 
+separate things. You just need to make sure that it's always 32 bits.
 
+In other words if you have signed or unsigned data type in userspace is 
+irrelevant for the kernel.
 
+> You can refer to the kernel function amdgpu_ctx_priority_permit, if 
+> priority is greater
+>
+> than 0, and this process has not  CAP_SYS_NICE capibility or 
+> DRM_MASTER permission,
+>
+> this process will be exited.
+>
 
------Original Message-----
-From: Zhang, Yifan <Yifan1.Zhang@amd.com>
-Sent: Tuesday, January 9, 2024 11:01 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Yu, Lang <Lang.Yu@amd.c=
-om>; Ma, Li <Li.Ma@amd.com>; Huang, Tim <Tim.Huang@amd.com>; Zhang, Yifan <=
-Yifan1.Zhang@amd.com>
-Subject: [PATCH v2 2/2] drm/amdgpu: update ATHUB_MISC_CNTL offset for nbio =
-v3.3
+Correct, that's intentional.
 
-This patch to update ATHUB_MISC_CNTL offset for nbio v3.3
+Regards,
+Christian.
 
-v2: correct a type (Tim)
+>
+>
+>
+>
+>
+> ----
+>
+>
+>
+>
+> *主　题：*Re: [PATCH libdrm 1/2] amdgpu: fix parameter of 
+> amdgpu_cs_ctx_create2
+> *日　期：*2024-01-09 00:28
+> *发件人：*Christian König
+> *收件人：*李真能;Marek Olsak;Pierre-Eric Pelloux-Prayer;dri-devel;amd-gfx;
+>
+> Am 08.01.24 um 10:40 schrieb Zhenneng Li:
+> > In order to pass the correct priority parameter to the kernel,
+> > we must change priority type from uint32_t to int32_t.
+>
+> Hui what? Why should it matter if the parameter is signed or not?
+>
+> That doesn't seem to make sense.
+>
+> Regards,
+> Christian.
+>
+> >
+> > Signed-off-by: Zhenneng Li
+> > ---
+> > amdgpu/amdgpu.h | 2 +-
+> > amdgpu/amdgpu_cs.c | 2 +-
+> > 2 files changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h
+> > index 9bdbf366..f46753f3 100644
+> > --- a/amdgpu/amdgpu.h
+> > +++ b/amdgpu/amdgpu.h
+> > @@ -896,7 +896,7 @@ int amdgpu_bo_list_update(amdgpu_bo_list_handle 
+> handle,
+> > *
+> > */
+> > int amdgpu_cs_ctx_create2(amdgpu_device_handle dev,
+> > - uint32_t priority,
+> > + int32_t priority,
+> > amdgpu_context_handle *context);
+> > /**
+> > * Create GPU execution Context
+> > diff --git a/amdgpu/amdgpu_cs.c b/amdgpu/amdgpu_cs.c
+> > index 49fc16c3..eb72c638 100644
+> > --- a/amdgpu/amdgpu_cs.c
+> > +++ b/amdgpu/amdgpu_cs.c
+> > @@ -49,7 +49,7 @@ static int 
+> amdgpu_cs_reset_sem(amdgpu_semaphore_handle sem);
+> > * \return 0 on success otherwise POSIX Error code
+> > */
+> > drm_public int amdgpu_cs_ctx_create2(amdgpu_device_handle dev,
+> > - uint32_t priority,
+> > + int32_t priority,
+> > amdgpu_context_handle *context)
+> > {
+> > struct amdgpu_context *gpu_context;
+>
 
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/athub_v3_0.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+--------------BMstbln6oo6DnkPiJQzsOB1m
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/athub_v3_0.c b/drivers/gpu/drm/amd/=
-amdgpu/athub_v3_0.c
-index f0737fb3a999..d1bba9c64e16 100644
---- a/drivers/gpu/drm/amd/amdgpu/athub_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/athub_v3_0.c
-@@ -30,6 +30,8 @@
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    Am 09.01.24 um 02:50 schrieb 李真能:<br>
+    <blockquote type="cite" cite="mid:xrg6qu5muv-xriqmgzqig@nsmail7.0.0--kylin--1">
+      
+      <p>When the priority value is passed to the kernel, the kernel
+        compares it with the following values:</p>
+      <p>#define AMDGPU_CTX_PRIORITY_VERY_LOW&nbsp;&nbsp;&nbsp; -1023<br>
+        #define AMDGPU_CTX_PRIORITY_LOW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -512<br>
+        #define AMDGPU_CTX_PRIORITY_NORMAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0<br>
+        #define AMDGPU_CTX_PRIORITY_HIGH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 512<br>
+        #define AMDGPU_CTX_PRIORITY_VERY_HIGH&nbsp;&nbsp; 1023</p>
+      <p>If priority is uint32_t, we can't set LOW and VERY_LOW value to
+        kernel context priority,</p>
+    </blockquote>
+    <br>
+    Well that's nonsense.<br>
+    <br>
+    How the kernel handles the values and how userspace handles them are
+    two separate things. You just need to make sure that it's always 32
+    bits.<br>
+    <br>
+    In other words if you have signed or unsigned data type in userspace
+    is irrelevant for the kernel.<br>
+    <br>
+    <blockquote type="cite" cite="mid:xrg6qu5muv-xriqmgzqig@nsmail7.0.0--kylin--1">
+      <p>You can refer to the kernel function
+        amdgpu_ctx_priority_permit, if priority is greater</p>
+      <p>than 0, and this process has not&nbsp; CAP_SYS_NICE capibility or
+        DRM_MASTER permission,</p>
+      <p>this process will be exited.<br>
+      </p>
+    </blockquote>
+    <br>
+    Correct, that's intentional.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite" cite="mid:xrg6qu5muv-xriqmgzqig@nsmail7.0.0--kylin--1">
+      <p><br>
+        <br>
+        <br>
+        <br>
+        <br>
+        ----</p>
+      <p>&nbsp;</p>
+      <div id="re" style="margin-left: 0.5em; padding-left: 0.5em; border-left: 1px solid green;"><br>
+        <br>
+        <br>
+        <div style="background-color: #f5f7fa;"><strong>主　题：</strong><span id="subject">Re: [PATCH libdrm 1/2] amdgpu: fix parameter of
+            amdgpu_cs_ctx_create2</span> <br>
+          <strong>日　期：</strong><span id="date">2024-01-09 00:28</span> <br>
+          <strong>发件人：</strong><span id="from">Christian König</span> <br>
+          <strong>收件人：</strong><span id="to" style="word-break: break-all;">李真能;Marek Olsak;Pierre-Eric
+            Pelloux-Prayer;dri-devel;amd-gfx;</span></div>
+        <br>
+        <div id="content">
+          <div class="viewer_part" style="position: relative;">
+            <div>Am 08.01.24 um 10:40 schrieb Zhenneng Li:<br>
+              &gt; In order to pass the correct priority parameter to
+              the kernel,<br>
+              &gt; we must change priority type from uint32_t to
+              int32_t.<br>
+              <br>
+              Hui what? Why should it matter if the parameter is signed
+              or not?<br>
+              <br>
+              That doesn't seem to make sense.<br>
+              <br>
+              Regards,<br>
+              Christian.<br>
+              <br>
+              &gt;<br>
+              &gt; Signed-off-by: Zhenneng Li <br>
+              &gt; ---<br>
+              &gt; amdgpu/amdgpu.h | 2 +-<br>
+              &gt; amdgpu/amdgpu_cs.c | 2 +-<br>
+              &gt; 2 files changed, 2 insertions(+), 2 deletions(-)<br>
+              &gt;<br>
+              &gt; diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h<br>
+              &gt; index 9bdbf366..f46753f3 100644<br>
+              &gt; --- a/amdgpu/amdgpu.h<br>
+              &gt; +++ b/amdgpu/amdgpu.h<br>
+              &gt; @@ -896,7 +896,7 @@ int
+              amdgpu_bo_list_update(amdgpu_bo_list_handle handle,<br>
+              &gt; *<br>
+              &gt; */<br>
+              &gt; int amdgpu_cs_ctx_create2(amdgpu_device_handle dev,<br>
+              &gt; - uint32_t priority,<br>
+              &gt; + int32_t priority,<br>
+              &gt; amdgpu_context_handle *context);<br>
+              &gt; /**<br>
+              &gt; * Create GPU execution Context<br>
+              &gt; diff --git a/amdgpu/amdgpu_cs.c b/amdgpu/amdgpu_cs.c<br>
+              &gt; index 49fc16c3..eb72c638 100644<br>
+              &gt; --- a/amdgpu/amdgpu_cs.c<br>
+              &gt; +++ b/amdgpu/amdgpu_cs.c<br>
+              &gt; @@ -49,7 +49,7 @@ static int
+              amdgpu_cs_reset_sem(amdgpu_semaphore_handle sem);<br>
+              &gt; * \return 0 on success otherwise POSIX Error code<br>
+              &gt; */<br>
+              &gt; drm_public int
+              amdgpu_cs_ctx_create2(amdgpu_device_handle dev,<br>
+              &gt; - uint32_t priority,<br>
+              &gt; + int32_t priority,<br>
+              &gt; amdgpu_context_handle *context)<br>
+              &gt; {<br>
+              &gt; struct amdgpu_context *gpu_context;<br>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
 
- #define regATHUB_MISC_CNTL_V3_0_1                      0x00d7
- #define regATHUB_MISC_CNTL_V3_0_1_BASE_IDX             0
-+#define regATHUB_MISC_CNTL_V3_3_0                      0x00d8
-+#define regATHUB_MISC_CNTL_V3_3_0_BASE_IDX             0
-
-
- static uint32_t athub_v3_0_get_cg_cntl(struct amdgpu_device *adev) @@ -40,=
-6 +42,9 @@ static uint32_t athub_v3_0_get_cg_cntl(struct amdgpu_device *ade=
-v)
-        case IP_VERSION(3, 0, 1):
-                data =3D RREG32_SOC15(ATHUB, 0, regATHUB_MISC_CNTL_V3_0_1);
-                break;
-+       case IP_VERSION(3, 3, 0):
-+               data =3D RREG32_SOC15(ATHUB, 0, regATHUB_MISC_CNTL_V3_3_0);
-+               break;
-        default:
-                data =3D RREG32_SOC15(ATHUB, 0, regATHUB_MISC_CNTL);
-                break;
-@@ -53,6 +58,9 @@ static void athub_v3_0_set_cg_cntl(struct amdgpu_device *=
-adev, uint32_t data)
-        case IP_VERSION(3, 0, 1):
-                WREG32_SOC15(ATHUB, 0, regATHUB_MISC_CNTL_V3_0_1, data);
-                break;
-+       case IP_VERSION(3, 3, 0):
-+               WREG32_SOC15(ATHUB, 0, regATHUB_MISC_CNTL_V3_3_0, data);
-+               break;
-        default:
-                WREG32_SOC15(ATHUB, 0, regATHUB_MISC_CNTL, data);
-                break;
---
-2.37.3
-
+--------------BMstbln6oo6DnkPiJQzsOB1m--
