@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F24DC4707B
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jan 2024 18:11:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A381C46CD2
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jan 2024 18:11:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CF9B10E4CF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98E4910E4D0;
 	Tue,  9 Jan 2024 18:11:49 +0000 (UTC)
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E336610E4C9
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jan 2024 18:11:34 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-40e4d515c9aso15953515e9.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 09 Jan 2024 10:11:34 -0800 (PST)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FEA610E4B2
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jan 2024 18:11:18 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-50e67e37661so3972557e87.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 09 Jan 2024 10:11:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=yngvason.is; s=google; t=1704823893; x=1705428693; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Ab6S82YVhL2fQWMl7n/iDflNvLFt/phlZFbHK/9RmUw=;
- b=K28g2QfdMDcMTjFibWYy4vS14Ld8cEvw/fXbFL/qO84S6D4C6gK4be2aKc9yx6yb13
- vCNqvDTdjPGdhYEvo1BNg+PI2Rd1CBiawxCScDjsAsH5YpgYnPVs0BboQrtItbzsQ/E0
- 8lHHorWvzHM1Ymq1UuUvxpbp0vlaCSy+HbI8E=
+ d=yngvason.is; s=google; t=1704823876; x=1705428676; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=/P8n3FbWL68F6TxA0R2WkA/gfn2dX46Rf9mM5caQ3iY=;
+ b=dVtup584BLfQj2OKFRtAVOiOBbOJqtunsTLshqLoz9yFkX2a//5a4jUf91P8PzG6h3
+ Ry3fZXuiBwOFBwNRcQEOI9tpgw+MFuuoPeZwBdyMcRl6nuzO8tdJTARfOy/TYuhFpqmV
+ L1lkCapC0ebmmptVIXbilIg7lmb90hE4JfXbk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704823893; x=1705428693;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Ab6S82YVhL2fQWMl7n/iDflNvLFt/phlZFbHK/9RmUw=;
- b=qOILSZePJP3f1bwfJb9wTo86LKvt1gg1HEYSHQGbFOPyrTa0w36ge0xBPt2ZcoxtPl
- vZ5CLMszAYkG/JEPtu6Cs4PDbXw4nUSm+ivqrTrGkIUOCE5ID9BPxJsWQUi8NCI/6XdC
- LDU+7pz9zCdf9LMn4xt+PtT9BRLUpSucbMG7EDb/vzaCejn+3eMlBB+ziTPTySzYTk83
- hDEyupiQvEX78s/nRD7P0Y/Fg6N8npz1w0B03z10YFTwFb9yGXp4CKc/BLZ8Q9gyKkrI
- nSw1G07DIYEeWNX+WimsQiPWFhKBJtEaO+2YwT9q3nKez8BBHyw+0YCWjADJ3zstl8Q2
- w+zw==
-X-Gm-Message-State: AOJu0YzOJdEt1eE2nEtmyPYeScaQjKg+m7shPzNmYDBAPYUdhFEEBDDY
- BP2Yrdm8qtMPYZ10TDC1G7/MAFeQFZ6Wig==
-X-Google-Smtp-Source: AGHT+IECX0laRRtfF4jvavSEkKwLcA9a4P5MCiLvTCxN6JaHCGAk1yoL0mgxvPQHa7eWzawwSwZVFQ==
-X-Received: by 2002:a05:600c:1c20:b0:40e:53f8:5242 with SMTP id
- j32-20020a05600c1c2000b0040e53f85242mr186194wms.72.1704823893245; 
- Tue, 09 Jan 2024 10:11:33 -0800 (PST)
+ d=1e100.net; s=20230601; t=1704823876; x=1705428676;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=/P8n3FbWL68F6TxA0R2WkA/gfn2dX46Rf9mM5caQ3iY=;
+ b=JwpOgE2VII9AkiC+rsvoLFIN1A/+INA8h6TNZ+Hw6mYdf1/qZFldxoGqKpsQMHXcvc
+ k2LXYJuUuqsz6dKhVBMJGrRywb5k1q4RJ/jpsoxuE2yTtKNscOEaqy1q4JfMBy355xG1
+ fWauRapk/cMr3kqFVbW6t9zcjdLjr/gv0VJXHq3V8we+a/Hf0DTzDkbCo6ixEK94PCRX
+ u672C7oCQSOE5LWeBgbFVOn0Wx4p2+N+F9Z+Y1YEnJdJNeNlE7DCmGWdOlhwH+jZA50G
+ HlWqyPGa2THY0zwPFK+tqiIosfdQmzAgbFD2PNPvAL567whsauj7JSt9ljX7MWYoCjiZ
+ qz5A==
+X-Gm-Message-State: AOJu0YxvOsjPuJDni/v/v2GB9c+81TC/4e1LusFbhDWvtGqjZr6kNzxV
+ f8Zn72Abh/9hEnoRqKwQYuyufanyAfLVVg==
+X-Google-Smtp-Source: AGHT+IHhF9LaN3kubE12wa/Q1/CdohNcShPSp8gh5kvPO8qnqS9yArqftswDYKp4dF2WmIezKVMLgw==
+X-Received: by 2002:a05:6512:3d0c:b0:50e:a6f8:aacf with SMTP id
+ d12-20020a0565123d0c00b0050ea6f8aacfmr3282849lfv.14.1704823876174; 
+ Tue, 09 Jan 2024 10:11:16 -0800 (PST)
 Received: from andri-workstation.turninn.appdynamic.com
  ([2a01:8280:aa07:ad:7285:c2ff:fef0:4baf])
  by smtp.gmail.com with ESMTPSA id
- n25-20020a05600c3b9900b0040e527602c8sm2104579wms.9.2024.01.09.10.11.30
+ n25-20020a05600c3b9900b0040e527602c8sm2104579wms.9.2024.01.09.10.11.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jan 2024 10:11:32 -0800 (PST)
+ Tue, 09 Jan 2024 10:11:15 -0800 (PST)
 From: Andri Yngvason <andri@yngvason.is>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
@@ -63,13 +62,10 @@ To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Subject: [PATCH 3/7] drm/amd/display: Add handling for new "active color
- format" property
-Date: Tue,  9 Jan 2024 18:11:00 +0000
-Message-ID: <20240109181104.1670304-4-andri@yngvason.is>
+Subject: [PATCH 0/7] New DRM properties for output color format
+Date: Tue,  9 Jan 2024 18:10:57 +0000
+Message-ID: <20240109181104.1670304-1-andri@yngvason.is>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240109181104.1670304-1-andri@yngvason.is>
-References: <20240109181104.1670304-1-andri@yngvason.is>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 09 Jan 2024 18:11:48 +0000
@@ -91,102 +87,55 @@ Cc: amd-gfx@lists.freedesktop.org, Simon Ser <contact@emersion.fr>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Werner Sembach <wse@tuxedocomputers.com>
+This is a subset of patches, originally submitted by Werner Sembach
+titled: New uAPI drm properties for color management [1]
 
-This commit implements the "active color format" drm property for the AMD
-GPU driver.
+I've rebased against the current master branch, made modifications where
+needed, and tested with both HDMI and DP on both Intel and AMD hardware,
+using modified sway [2] and wlroots [3].
 
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-Signed-off-by: Andri Yngvason <andri@yngvason.is>
-Tested-by: Andri Yngvason <andri@yngvason.is>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 42 ++++++++++++++++++-
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  4 ++
- 2 files changed, 45 insertions(+), 1 deletion(-)
+The original patch set added the following properties:
+ - active bpc
+ - active color format
+ - active color range
+ - preferred color format
+and consolidated "Broadcast RGB" into a single property.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 10e041a3b2545..b44d06c3b1706 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6882,6 +6882,24 @@ int convert_dc_color_depth_into_bpc(enum dc_color_depth display_color_depth)
- 	return 0;
- }
- 
-+static int convert_dc_pixel_encoding_into_drm_color_format(
-+	enum dc_pixel_encoding display_pixel_encoding)
-+{
-+	switch (display_pixel_encoding) {
-+	case PIXEL_ENCODING_RGB:
-+		return DRM_COLOR_FORMAT_RGB444;
-+	case PIXEL_ENCODING_YCBCR422:
-+		return DRM_COLOR_FORMAT_YCBCR422;
-+	case PIXEL_ENCODING_YCBCR444:
-+		return DRM_COLOR_FORMAT_YCBCR444;
-+	case PIXEL_ENCODING_YCBCR420:
-+		return DRM_COLOR_FORMAT_YCBCR420;
-+	default:
-+		break;
-+	}
-+	return 0;
-+}
-+
- static int dm_encoder_helper_atomic_check(struct drm_encoder *encoder,
- 					  struct drm_crtc_state *crtc_state,
- 					  struct drm_connector_state *conn_state)
-@@ -7436,8 +7454,10 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 				adev->mode_info.underscan_vborder_property,
- 				0);
- 
--	if (!aconnector->mst_root)
-+	if (!aconnector->mst_root) {
- 		drm_connector_attach_max_bpc_property(&aconnector->base, 8, 16);
-+		drm_connector_attach_active_color_format_property(&aconnector->base);
-+	}
- 
- 	aconnector->base.state->max_bpc = 16;
- 	aconnector->base.state->max_requested_bpc = aconnector->base.state->max_bpc;
-@@ -8969,6 +8989,26 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 		kfree(dummy_updates);
- 	}
- 
-+	/* Extract information from crtc to communicate it to userspace as connector properties */
-+	for_each_new_connector_in_state(state, connector, new_con_state, i) {
-+		struct drm_crtc *crtc = new_con_state->crtc;
-+		struct dc_stream_state *stream;
-+
-+		if (crtc) {
-+			new_crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-+			dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
-+			stream = dm_new_crtc_state->stream;
-+
-+			if (stream) {
-+				drm_connector_set_active_color_format_property(connector,
-+					convert_dc_pixel_encoding_into_drm_color_format(
-+						dm_new_crtc_state->stream->timing.pixel_encoding));
-+			}
-+		} else {
-+			drm_connector_set_active_color_format_property(connector, 0);
-+		}
-+	}
-+
- 	/**
- 	 * Enable interrupts for CRTCs that are newly enabled or went through
- 	 * a modeset. It was intentionally deferred until after the front end
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 11da0eebee6c4..a4d1b3ea8f81c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -600,6 +600,10 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
- 	if (connector->max_bpc_property)
- 		drm_connector_attach_max_bpc_property(connector, 8, 16);
- 
-+	connector->active_color_format_property = master->base.active_color_format_property;
-+	if (connector->active_color_format_property)
-+		drm_connector_attach_active_color_format_property(&aconnector->base);
-+
- 	connector->vrr_capable_property = master->base.vrr_capable_property;
- 	if (connector->vrr_capable_property)
- 		drm_connector_attach_vrr_capable_property(connector);
+I've elected to only include active and preferred color format in this
+patch set as I've very little interest in the other properties and,
+hopefully, this will be easier for others to review.
+
+[1]: https://lore.kernel.org/dri-devel/20210630151018.330354-1-wse@tuxedocomputers.com/
+[2]: https://github.com/swaywm/sway/pull/7903
+[3]: https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4509
+
+Werner Sembach (7):
+  drm/amd/display: Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check
+  drm/uAPI: Add "active color format" drm property as feedback for
+    userspace
+  drm/amd/display: Add handling for new "active color format" property
+  drm/i915/display: Add handling for new "active color format" property
+  drm/uAPI: Add "preferred color format" drm property as setting for
+    userspace
+  drm/amd/display: Add handling for new "preferred color format"
+    property
+  drm/i915/display: Add handling for new "preferred color format"
+    property
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  75 ++++++++++--
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |   8 ++
+ drivers/gpu/drm/drm_atomic_helper.c           |   4 +
+ drivers/gpu/drm/drm_atomic_uapi.c             |   4 +
+ drivers/gpu/drm/drm_connector.c               | 111 ++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_display.c  |  33 ++++++
+ drivers/gpu/drm/i915/display/intel_dp.c       |  23 ++--
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |  10 ++
+ drivers/gpu/drm/i915/display/intel_hdmi.c     |  16 ++-
+ include/drm/drm_connector.h                   |  27 +++++
+ 10 files changed, 289 insertions(+), 22 deletions(-)
+
+
+base-commit: 1f874787ed9a2d78ed59cb21d0d90ac0178eceb0
 -- 
 2.43.0
 
