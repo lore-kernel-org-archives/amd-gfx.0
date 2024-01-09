@@ -4,61 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFC63C47073
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jan 2024 08:24:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7467FC46CD2
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jan 2024 08:31:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5188710E6D3;
-	Tue,  9 Jan 2024 08:24:18 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3840D10E37D;
- Tue,  9 Jan 2024 08:10:04 +0000 (UTC)
-X-UUID: 3f655d7d5e3a46adb28f2139e8489694-20240109
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.35, REQID:36170c0d-e759-41ff-97ed-c29764401da0, IP:10,
- URL:0,TC:0,Content:-25,EDM:25,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,A
- CTION:release,TS:-5
-X-CID-INFO: VERSION:1.1.35, REQID:36170c0d-e759-41ff-97ed-c29764401da0, IP:10,
- UR
- L:0,TC:0,Content:-25,EDM:25,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACT
- ION:release,TS:-5
-X-CID-META: VersionHash:5d391d7, CLOUDID:bbdb0c8e-e2c0-40b0-a8fe-7c7e47299109,
- B
- ulkID:24010916095805H97UUD,BulkQuantity:0,Recheck:0,SF:66|38|24|17|19|44|1
- 02,TC:0,Content:0,EDM:5,IP:-2,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
- ,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
-X-CID-BVR: 0,NGT
-X-CID-BAS: 0,NGT,0,_
-X-CID-FACTOR: TF_CID_SPAM_FSD,TF_CID_SPAM_FSI,TF_CID_SPAM_SNR,TF_CID_SPAM_FAS
-X-UUID: 3f655d7d5e3a46adb28f2139e8489694-20240109
-Received: from node2.com.cn [(39.156.73.10)] by mailgw
- (envelope-from <lizhenneng@kylinos.cn>) (Generic MTA)
- with ESMTP id 999417023; Tue, 09 Jan 2024 16:09:55 +0800
-Received: from node2.com.cn (localhost [127.0.0.1])
- by node2.com.cn (NSMail) with SMTP id 3ECBFB807587;
- Tue,  9 Jan 2024 16:09:55 +0800 (CST)
-Received: by node2.com.cn (NSMail, from userid 0)
- id 3360BB807587; Tue,  9 Jan 2024 16:09:55 +0800 (CST)
-From: =?UTF-8?B?5p2O55yf6IO9?= <lizhenneng@kylinos.cn>
-Subject: =?UTF-8?B?5Zue5aSNOiBSZTog5Zue5aSNOiBSZTogW1BBVENIIGxpYmRybSAxLzJdIGFtZGdwdTogZml4IHBhcmFtZXRlciBvZiBhbWRncHVfY3NfY3R4X2NyZWF0ZTI=?=
-To: =?UTF-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>,
- =?UTF-8?B?TWFyZWsgT2xzYWs=?= <marek.olsak@amd.com>,
- =?UTF-8?B?UGllcnJlLUVyaWMgUGVsbG91eC1QcmF5ZXI=?=
- <pierre-eric.pelloux-prayer@amd.com>, 
- =?UTF-8?B?ZHJpLWRldmVs?= <dri-devel@lists.freedesktop.org>,
- =?UTF-8?B?YW1kLWdmeA==?= <amd-gfx@lists.freedesktop.org>,
-Date: Tue, 09 Jan 2024 16:09:54 +0800
-X-Mailer: NSMAIL 7.0.0
-Message-ID: <1uy9gy5eaet-1uyc0ts8e2e@nsmail7.0.0--kylin--1>
-References: 32ffe817-498b-48ba-bc33-3fc0fa3fb8dd@amd.com
-X-Israising: 0
-X-Seclevel-1: 0
-X-Seclevel: 0
-X-Delaysendtime: Tue, 09 Jan 2024 16:09:54 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id F16D210E384;
+	Tue,  9 Jan 2024 08:31:47 +0000 (UTC)
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA70F10E384
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jan 2024 08:31:46 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-40e4582ed74so19373555e9.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 09 Jan 2024 00:31:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1704789105; x=1705393905; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Rn81nneouBWFr4SZjlBf+I4Wq0V5K933l5iMICD0kbQ=;
+ b=kv2Y/BfgC/FsPXYoeXAXFTW1HQCIGZ5YQtWWg7hYW2fCCJ7IGK01PEXY1g7TMzdTri
+ DdPGSAOdvfrkz0z215bTIKelq9u/ZJaYmnSQop3xd+VZ44rc1du8IRcj8wdP6hzLyTni
+ f4YQo4exmxl2gqEYBzxC7zhTAVnEhPTUsGmlISP+c2I/fnT3Vl5/N3aCdkOSYghmepY+
+ BYRsjZ4SGHgX19n76dneHlMsOMx6OweHwAdaUfCFgi8iN2WPB08w03wh+1fvjO45Fb5F
+ f+6D1x5gryEb25TV5eLoc+azj+EbeduIXZhM7qlfr8NRfkQiN5CXjrsy3Zex/JTS0jeh
+ KSiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1704789105; x=1705393905;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Rn81nneouBWFr4SZjlBf+I4Wq0V5K933l5iMICD0kbQ=;
+ b=sNv7RdNaPzUf/mZcb7ztdLTrPwrEdsKVrM4rfrX02nCGyvaGhHvixYnpUW8fvfOdVQ
+ +asou7VRrb/L4gYnNDsaI/i7FJwlTSxcYQV7xMEvxFBEXFr0V78l3jZUR8/GDrla6PQx
+ gNiKJW5gi3F2XmsaU5//4vpZDsjUReNlqq/iBdWABpd5R3ZxNvciSdLxTD9OEie/tRfC
+ J1JCphnb7a96GNb7Y6VUXjgoSPUhSECpXLNx+yK8AJySLFSYTvHpvsfdHFOTC/OBvH/O
+ 5jJ87+q2EK+XhM1qwZXm2m1SjhjntsL3LCbcpHws7yjK5MvaCks0rnZzYhN1otcSPPMZ
+ Pbnw==
+X-Gm-Message-State: AOJu0YzDj612LLkJMAQDN+Ei277gWfxEyUvoYjD5feRcZH16OR3bdVTN
+ N56sBFTGLAUOREy5a/8EKV0=
+X-Google-Smtp-Source: AGHT+IE1VaQeXILDAEg3VVHBW2C/2cK3V7+X3RGTIed0KVEDhvsnalpY7/KsGql3WEQPX6hYgBcQVA==
+X-Received: by 2002:a05:600c:511c:b0:40e:424d:5888 with SMTP id
+ o28-20020a05600c511c00b0040e424d5888mr1068494wms.7.1704789104879; 
+ Tue, 09 Jan 2024 00:31:44 -0800 (PST)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ d6-20020a05600c3ac600b0040c11fbe581sm2568188wms.27.2024.01.09.00.31.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 Jan 2024 00:31:44 -0800 (PST)
+Message-ID: <43e7ff66-f6cf-4804-ab90-ee14546dc4b3@gmail.com>
+Date: Tue, 9 Jan 2024 09:31:42 +0100
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary=nsmail-1yaykhly3w8-1yazuffd5q1
-X-ns-mid: webmail-659cff52-1xvbt88k
-X-ope-from: <lizhenneng@kylinos.cn>
-X-Mailman-Approved-At: Tue, 09 Jan 2024 08:24:17 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: Documentation for RGB strip on RX 7900 XTX (Reference)
+Content-Language: en-US
+To: Alexander Koskovich <AKoskovich@protonmail.com>
+References: <oCYzPIgXFcQ3jdqAKY2upsY5qq23yOba06RkrzD5Bfai97jMWxGvBsaOiKi1k5oZvNg7IoJLE6jAA6BLGFXt08WbBEtdgJA4snn7khZ0JFM=@protonmail.com>
+ <BL1PR12MB514454D5E625F71BB0E6A8B6F76B2@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <1b679a75-27ee-4682-8bf1-c0defcd9e949@gmail.com>
+ <x5k4aAAKV_idHdVtHJSqsc8HjaGPyGe36A9cpXQl_tBbqgHrQ8TaVKm_zoQRodcwfFuGUj4GnnNASL5a7SKfL1H-NH5X4ma5G_vRkXSG35o=@protonmail.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <x5k4aAAKV_idHdVtHJSqsc8HjaGPyGe36A9cpXQl_tBbqgHrQ8TaVKm_zoQRodcwfFuGUj4GnnNASL5a7SKfL1H-NH5X4ma5G_vRkXSG35o=@protonmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,117 +77,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This message is in MIME format.
+Am 09.01.24 um 09:23 schrieb Alexander Koskovich:
+> Thanks for the info, will take a look.
+>
+> Also just to clarify, this is the first party AMD 7900 XTX, not a third party AIB (e.g. Sapphire, ASRock, etc).
 
---nsmail-1yaykhly3w8-1yazuffd5q1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Yeah, but that doesn't matter.
 
-PHA+VGhhbmtzITwvcD4KPHA+V2hhdCBhYm91dCB0aGUgc2Vjb25kIHBhdGNo
-PzwvcD4KPHA+VGhlIHNlY29uZCBwYXRjaDombmJzcDsmbmJzcDsgYW1kZ3B1
-OiBjaGFuZ2UgcHJvaXJpdHkgdmFsdWUgdG8gYmUgY29uc2lzdGVudCB3aXRo
-IGtlcm5lbC48L3A+CjxwPkFzIEkgd2FudCB0byBwYXNzIEFNREdQVV9DVFhf
-UFJJT1JJVFlfTE9XIHRvIGtlcm5lbCBtb2R1bGUgZHJtLXNjaGVkdWxlciwg
-aWYgdGhlc2UgdHdvIHBhdGNoZXMgYXJlIG5vdCBhcHBseWVkLCZuYnNwOzwv
-cD4KPHA+SXQgY2FuIG5vdCBwYXNzIExPVyBwcmlvcml0eSB0byBkcm0tc2No
-ZWR1bGVyLjwvcD4KPHA+RG8geW91IGhhdmUgYW55IG90aGVyIHN1Z2dlc3Rp
-b24/PC9wPgo8cD48YnI+PGJyPjxicj48YnI+PGJyPjxicj4tLS0tPC9wPgo8
-ZGl2IGlkPSJjczJjX21haWxfc2lnYXR1cmUiPjwvZGl2Pgo8cD4mbmJzcDs8
-L3A+CjxkaXYgaWQ9InJlIiBzdHlsZT0ibWFyZ2luLWxlZnQ6IDAuNWVtOyBw
-YWRkaW5nLWxlZnQ6IDAuNWVtOyBib3JkZXItbGVmdDogMXB4IHNvbGlkIGdy
-ZWVuOyI+PGJyPjxicj48YnI+CjxkaXYgc3R5bGU9ImJhY2tncm91bmQtY29s
-b3I6ICNmNWY3ZmE7Ij48c3Ryb25nPuS4u+OAgOmimO+8mjwvc3Ryb25nPjxz
-cGFuIGlkPSJzdWJqZWN0Ij5SZTog5Zue5aSNOiBSZTogW1BBVENIIGxpYmRy
-bSAxLzJdIGFtZGdwdTogZml4IHBhcmFtZXRlciBvZiBhbWRncHVfY3NfY3R4
-X2NyZWF0ZTI8L3NwYW4+IDxicj48c3Ryb25nPuaXpeOAgOacn++8mjwvc3Ry
-b25nPjxzcGFuIGlkPSJkYXRlIj4yMDI0LTAxLTA5IDE1OjE1PC9zcGFuPiA8
-YnI+PHN0cm9uZz7lj5Hku7bkurrvvJo8L3N0cm9uZz48c3BhbiBpZD0iZnJv
-bSI+Q2hyaXN0aWFuIEvDtm5pZzwvc3Bhbj4gPGJyPjxzdHJvbmc+5pS25Lu2
-5Lq677yaPC9zdHJvbmc+PHNwYW4gaWQ9InRvIiBzdHlsZT0id29yZC1icmVh
-azogYnJlYWstYWxsOyI+5p2O55yf6IO9O01hcmVrIE9sc2FrO1BpZXJyZS1F
-cmljIFBlbGxvdXgtUHJheWVyO2RyaS1kZXZlbDthbWQtZ2Z4Ozwvc3Bhbj48
-L2Rpdj4KPGJyPgo8ZGl2IGlkPSJjb250ZW50Ij4KPGRpdiBjbGFzcz0idmll
-d2VyX3BhcnQiIHN0eWxlPSJwb3NpdGlvbjogcmVsYXRpdmU7Ij4KPGRpdj5B
-bSAwOS4wMS4yNCB1bSAwMjo1MCBzY2hyaWViIOadjuecn+iDvTo8YnI+Cjxw
-PldoZW4gdGhlIHByaW9yaXR5IHZhbHVlIGlzIHBhc3NlZCB0byB0aGUga2Vy
-bmVsLCB0aGUga2VybmVsIGNvbXBhcmVzIGl0IHdpdGggdGhlIGZvbGxvd2lu
-ZyB2YWx1ZXM6PC9wPgo8cD4jZGVmaW5lIEFNREdQVV9DVFhfUFJJT1JJVFlf
-VkVSWV9MT1cmbmJzcDsmbmJzcDsmbmJzcDsgLTEwMjM8YnI+I2RlZmluZSBB
-TURHUFVfQ1RYX1BSSU9SSVRZX0xPVyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyAtNTEyPGJyPiNkZWZpbmUgQU1E
-R1BVX0NUWF9QUklPUklUWV9OT1JNQUwmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsgMDxicj4jZGVmaW5lIEFNREdQVV9DVFhfUFJJT1JJVFlfSElH
-SCZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyA1
-MTI8YnI+I2RlZmluZSBBTURHUFVfQ1RYX1BSSU9SSVRZX1ZFUllfSElHSCZu
-YnNwOyZuYnNwOyAxMDIzPC9wPgo8cD5JZiBwcmlvcml0eSBpcyB1aW50MzJf
-dCwgd2UgY2FuJ3Qgc2V0IExPVyBhbmQgVkVSWV9MT1cgdmFsdWUgdG8ga2Vy
-bmVsIGNvbnRleHQgcHJpb3JpdHksPC9wPgo8YnI+V2VsbCB0aGF0J3Mgbm9u
-c2Vuc2UuPGJyPjxicj5Ib3cgdGhlIGtlcm5lbCBoYW5kbGVzIHRoZSB2YWx1
-ZXMgYW5kIGhvdyB1c2Vyc3BhY2UgaGFuZGxlcyB0aGVtIGFyZSB0d28gc2Vw
-YXJhdGUgdGhpbmdzLiBZb3UganVzdCBuZWVkIHRvIG1ha2Ugc3VyZSB0aGF0
-IGl0J3MgYWx3YXlzIDMyIGJpdHMuPGJyPjxicj5JbiBvdGhlciB3b3JkcyBp
-ZiB5b3UgaGF2ZSBzaWduZWQgb3IgdW5zaWduZWQgZGF0YSB0eXBlIGluIHVz
-ZXJzcGFjZSBpcyBpcnJlbGV2YW50IGZvciB0aGUga2VybmVsLjxicj48YnI+
-CjxwPllvdSBjYW4gcmVmZXIgdG8gdGhlIGtlcm5lbCBmdW5jdGlvbiBhbWRn
-cHVfY3R4X3ByaW9yaXR5X3Blcm1pdCwgaWYgcHJpb3JpdHkgaXMgZ3JlYXRl
-cjwvcD4KPHA+dGhhbiAwLCBhbmQgdGhpcyBwcm9jZXNzIGhhcyBub3QmbmJz
-cDsgQ0FQX1NZU19OSUNFIGNhcGliaWxpdHkgb3IgRFJNX01BU1RFUiBwZXJt
-aXNzaW9uLDwvcD4KPHA+dGhpcyBwcm9jZXNzIHdpbGwgYmUgZXhpdGVkLjwv
-cD4KPGJyPkNvcnJlY3QsIHRoYXQncyBpbnRlbnRpb25hbC48YnI+PGJyPlJl
-Z2FyZHMsPGJyPkNocmlzdGlhbi48YnI+PGJyPgo8cD48YnI+PGJyPjxicj48
-YnI+PGJyPi0tLS08L3A+CjxwPiZuYnNwOzwvcD4KPGRpdiBpZD0icmUiIHN0
-eWxlPSJtYXJnaW4tbGVmdDogMC41ZW07IHBhZGRpbmctbGVmdDogMC41ZW07
-IGJvcmRlci1sZWZ0OiAxcHggc29saWQgZ3JlZW47Ij48YnI+PGJyPjxicj4K
-PGRpdiBzdHlsZT0iYmFja2dyb3VuZC1jb2xvcjogI2Y1ZjdmYTsiPjxzdHJv
-bmc+5Li744CA6aKY77yaPC9zdHJvbmc+PHNwYW4gaWQ9InN1YmplY3QiPlJl
-OiBbUEFUQ0ggbGliZHJtIDEvMl0gYW1kZ3B1OiBmaXggcGFyYW1ldGVyIG9m
-IGFtZGdwdV9jc19jdHhfY3JlYXRlMjwvc3Bhbj4gPGJyPjxzdHJvbmc+5pel
-44CA5pyf77yaPC9zdHJvbmc+PHNwYW4gaWQ9ImRhdGUiPjIwMjQtMDEtMDkg
-MDA6Mjg8L3NwYW4+IDxicj48c3Ryb25nPuWPkeS7tuS6uu+8mjwvc3Ryb25n
-PjxzcGFuIGlkPSJmcm9tIj5DaHJpc3RpYW4gS8O2bmlnPC9zcGFuPiA8YnI+
-PHN0cm9uZz7mlLbku7bkurrvvJo8L3N0cm9uZz48c3BhbiBpZD0idG8iIHN0
-eWxlPSJ3b3JkLWJyZWFrOiBicmVhay1hbGw7Ij7mnY7nnJ/og707TWFyZWsg
-T2xzYWs7UGllcnJlLUVyaWMgUGVsbG91eC1QcmF5ZXI7ZHJpLWRldmVsO2Ft
-ZC1nZng7PC9zcGFuPjwvZGl2Pgo8YnI+CjxkaXYgaWQ9ImNvbnRlbnQiPgo8
-ZGl2IGNsYXNzPSJ2aWV3ZXJfcGFydCIgc3R5bGU9InBvc2l0aW9uOiByZWxh
-dGl2ZTsiPgo8ZGl2PkFtIDA4LjAxLjI0IHVtIDEwOjQwIHNjaHJpZWIgWmhl
-bm5lbmcgTGk6PGJyPiZndDsgSW4gb3JkZXIgdG8gcGFzcyB0aGUgY29ycmVj
-dCBwcmlvcml0eSBwYXJhbWV0ZXIgdG8gdGhlIGtlcm5lbCw8YnI+Jmd0OyB3
-ZSBtdXN0IGNoYW5nZSBwcmlvcml0eSB0eXBlIGZyb20gdWludDMyX3QgdG8g
-aW50MzJfdC48YnI+PGJyPkh1aSB3aGF0PyBXaHkgc2hvdWxkIGl0IG1hdHRl
-ciBpZiB0aGUgcGFyYW1ldGVyIGlzIHNpZ25lZCBvciBub3Q/PGJyPjxicj5U
-aGF0IGRvZXNuJ3Qgc2VlbSB0byBtYWtlIHNlbnNlLjxicj48YnI+UmVnYXJk
-cyw8YnI+Q2hyaXN0aWFuLjxicj48YnI+Jmd0Ozxicj4mZ3Q7IFNpZ25lZC1v
-ZmYtYnk6IFpoZW5uZW5nIExpIDxicj4mZ3Q7IC0tLTxicj4mZ3Q7IGFtZGdw
-dS9hbWRncHUuaCB8IDIgKy08YnI+Jmd0OyBhbWRncHUvYW1kZ3B1X2NzLmMg
-fCAyICstPGJyPiZndDsgMiBmaWxlcyBjaGFuZ2VkLCAyIGluc2VydGlvbnMo
-KyksIDIgZGVsZXRpb25zKC0pPGJyPiZndDs8YnI+Jmd0OyBkaWZmIC0tZ2l0
-IGEvYW1kZ3B1L2FtZGdwdS5oIGIvYW1kZ3B1L2FtZGdwdS5oPGJyPiZndDsg
-aW5kZXggOWJkYmYzNjYuLmY0Njc1M2YzIDEwMDY0NDxicj4mZ3Q7IC0tLSBh
-L2FtZGdwdS9hbWRncHUuaDxicj4mZ3Q7ICsrKyBiL2FtZGdwdS9hbWRncHUu
-aDxicj4mZ3Q7IEBAIC04OTYsNyArODk2LDcgQEAgaW50IGFtZGdwdV9ib19s
-aXN0X3VwZGF0ZShhbWRncHVfYm9fbGlzdF9oYW5kbGUgaGFuZGxlLDxicj4m
-Z3Q7ICo8YnI+Jmd0OyAqLzxicj4mZ3Q7IGludCBhbWRncHVfY3NfY3R4X2Ny
-ZWF0ZTIoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LDxicj4mZ3Q7IC0gdWlu
-dDMyX3QgcHJpb3JpdHksPGJyPiZndDsgKyBpbnQzMl90IHByaW9yaXR5LDxi
-cj4mZ3Q7IGFtZGdwdV9jb250ZXh0X2hhbmRsZSAqY29udGV4dCk7PGJyPiZn
-dDsgLyoqPGJyPiZndDsgKiBDcmVhdGUgR1BVIGV4ZWN1dGlvbiBDb250ZXh0
-PGJyPiZndDsgZGlmZiAtLWdpdCBhL2FtZGdwdS9hbWRncHVfY3MuYyBiL2Ft
-ZGdwdS9hbWRncHVfY3MuYzxicj4mZ3Q7IGluZGV4IDQ5ZmMxNmMzLi5lYjcy
-YzYzOCAxMDA2NDQ8YnI+Jmd0OyAtLS0gYS9hbWRncHUvYW1kZ3B1X2NzLmM8
-YnI+Jmd0OyArKysgYi9hbWRncHUvYW1kZ3B1X2NzLmM8YnI+Jmd0OyBAQCAt
-NDksNyArNDksNyBAQCBzdGF0aWMgaW50IGFtZGdwdV9jc19yZXNldF9zZW0o
-YW1kZ3B1X3NlbWFwaG9yZV9oYW5kbGUgc2VtKTs8YnI+Jmd0OyAqIFxyZXR1
-cm4gMCBvbiBzdWNjZXNzIG90aGVyd2lzZSBQT1NJWCBFcnJvciBjb2RlPGJy
-PiZndDsgKi88YnI+Jmd0OyBkcm1fcHVibGljIGludCBhbWRncHVfY3NfY3R4
-X2NyZWF0ZTIoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LDxicj4mZ3Q7IC0g
-dWludDMyX3QgcHJpb3JpdHksPGJyPiZndDsgKyBpbnQzMl90IHByaW9yaXR5
-LDxicj4mZ3Q7IGFtZGdwdV9jb250ZXh0X2hhbmRsZSAqY29udGV4dCk8YnI+
-Jmd0OyB7PGJyPiZndDsgc3RydWN0IGFtZGdwdV9jb250ZXh0ICpncHVfY29u
-dGV4dDs8YnI+PGJyPjwvZGl2Pgo8L2Rpdj4KPC9kaXY+CjwvZGl2Pgo8L2Rp
-dj4KPC9kaXY+CjwvZGl2Pgo8L2Rpdj4=
+For the reference designs AMD basically just says how it should look 
+like and then somebody else stitches it together. The handling of for 
+example how connectors are detected is still the same.
 
---nsmail-1yaykhly3w8-1yazuffd5q1--
+AMD should somewhere have detailed documentation what's on that 
+reference board, but to be honest I have absolutely no idea who to ask 
+for that. It's simpler to just look into the tables used by all vendors.
+
+Regards,
+Christian.
+
+>
+>
+> On Tuesday, January 9th, 2024 at 3:02 AM, Christian König <ckoenig.leichtzumerken@gmail.com> wrote:
+>
+>
+>>
+>> Am 08.01.24 um 23:32 schrieb Deucher, Alexander:
+>>
+>>> [Public]
+>>>
+>>>> -----Original Message-----
+>>>> From: amd-gfx amd-gfx-bounces@lists.freedesktop.org On Behalf Of
+>>>> Alexander Koskovich
+>>>> Sent: Sunday, January 7, 2024 11:19 PM
+>>>> To: amd-gfx@lists.freedesktop.org
+>>>> Subject: Documentation for RGB strip on RX 7900 XTX (Reference)
+>>>>
+>>>> Hello,
+>>>>
+>>>> I was wondering if AMD would be able provide any documentation for the
+>>>> RGB strip on the reference cooler
+>>>> (https://www.amd.com/en/products/graphics/amd-radeon-rx-7900xtx)? It
+>>>> looks to be handled via I2C commands to the SMU, but having proper
+>>>> documentation would be extremely helpful.
+>>>> It depends on the AIB/OEM and how they designed the specific board. The RGB controller will either be attached to the DDCVGA i2c bus on the display hardware or the second SMU i2c bus. The former will require changes to the amdgpu display code to register display i2c buses that are not used by the display connectors on the board so they can be used by 3rd party applications. Currently we only register i2c buses used for display connectors. The latter buses are already registered with the i2c subsystem since they are used for other things like EEPROMs on server and workstation cards and should be available via standard Linux i2c APIs. I'm not sure what i2c LED controllers each AIB vendor uses off hand. https://openrgb.org/index.html would probably be a good resource for that information.
+>>
+>>
+>> It might also be a good idea to look some of the ATOMBIOS tables found
+>> on your device.
+>>
+>> Those tables are filled in by the AIB/OEM with the information which
+>> connectors (HDMI, DVI, DP etc...) are on the board and I bet that the
+>> information which RGB controller is used and where to find it is
+>> somewhere in there as well.
+>>
+>> Adding Harry from our display team, might be that he has some more hints
+>> as well.
+>>
+>> Christian.
+>>
+>>> Alex
+
