@@ -4,45 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50184C3DA6E
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 08:01:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E494C47073
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 08:02:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B17410E36D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66D8910E558;
 	Wed, 10 Jan 2024 08:01:55 +0000 (UTC)
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 454E410E4EF
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jan 2024 23:01:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1704841286; x=1705100486;
- bh=LZmVqhsHJSzkz7VL5lKnsUDcm+YTFQwyz0yZMgnoMzo=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=YK6qmmrNAlQ7JwnYObKqTEA9QgzjaXObDQ90+YALewAi4c14zxMP+zT7fkd3Fugt8
- Ie3xbPK787gzNNWAd4bWj5FKbYdey/ow5hCdzPutARywi3ygzemgWVWvqjCXW1ym/D
- oEEXsQEFK7BxnFQy/Zx9xH2rNAcDTreHN4KxXTEWU9vWXCDi7g+vbujOFjwgJpNUPc
- I2TkmkHJH+89OaOF6tpijPpk/fKMTbEMbFsAQWgJq0Svl9h9jNmQLg/Xk6hgst1e3P
- DYsPslLj9cl4mGYyCoyM6yEu7UQf8TcWuJ4Q2C77jfwzPCsdJxdjGqfu0L1bihczbL
- Kn8ISueeed2cQ==
-Date: Tue, 09 Jan 2024 23:01:11 +0000
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-From: Alexander Koskovich <AKoskovich@protonmail.com>
-Subject: RE: Documentation for RGB strip on RX 7900 XTX (Reference)
-Message-ID: <CQ1lqxoKApOV23Hn7-TzeyTw7bFRmjd50jWjrW_Uv6aezf4MU4myw_tl_EyPWJ0oKocBEhCHbSuKvJdo9Su3-RM6pB35mPwWmukIf8og6hs=@protonmail.com>
-In-Reply-To: <BL1PR12MB51448DA153067FE1F635FEB1F76A2@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <oCYzPIgXFcQ3jdqAKY2upsY5qq23yOba06RkrzD5Bfai97jMWxGvBsaOiKi1k5oZvNg7IoJLE6jAA6BLGFXt08WbBEtdgJA4snn7khZ0JFM=@protonmail.com>
- <BL1PR12MB514454D5E625F71BB0E6A8B6F76B2@BL1PR12MB5144.namprd12.prod.outlook.com>
- <xgXz7D0Xgjysg4ZLJpfd1ryjeEoM2fKFn9W5WIGBGxc6WSxcYxTZPzwKRNbqPYcDIf8P1zuDr5SYqSvl36GqzW8TimxvO7BGDq5S_zv8v3g=@protonmail.com>
- <BL1PR12MB5144D58D8EDA16731BA48102F76A2@BL1PR12MB5144.namprd12.prod.outlook.com>
- <Z8njgokdcTunZi6xnF-M7IGXA4_xj14qJE91X07_kII2oHfXkYWS45kIoKR3en9EIFyylWj5U_VFOjZkqcgbN_14JkeMlNtsRc13Jjvro58=@protonmail.com>
- <BL1PR12MB5144B46479ABF320088A4976F76A2@BL1PR12MB5144.namprd12.prod.outlook.com>
- <q_oRbF5mexY0ttw_MbcyqUd1KQIr1Ny7pg5sCCcIpor4AKUwktVDvuwoUpW0JO-rJXxJnyB5zOQ4JDYGRM2vNWeC2tMAsEto2JHlN6o-4Tk=@protonmail.com>
- <BL1PR12MB5144D4968D7C79D30F9D63F1F76A2@BL1PR12MB5144.namprd12.prod.outlook.com>
- <BL1PR12MB51448DA153067FE1F635FEB1F76A2@BL1PR12MB5144.namprd12.prod.outlook.com>
-Feedback-ID: 37836827:user:proton
+Received: from mail-yw1-x1135.google.com (mail-yw1-x1135.google.com
+ [IPv6:2607:f8b0:4864:20::1135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6558610E53D
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jan 2024 23:12:48 +0000 (UTC)
+Received: by mail-yw1-x1135.google.com with SMTP id
+ 00721157ae682-5f8cf76ef5bso22021087b3.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 09 Jan 2024 15:12:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=yngvason.is; s=google; t=1704841967; x=1705446767; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=LpxrwuyIpyyju2QtYPMpz+Gmdstpik2FIYHnxal2H/c=;
+ b=hjgUEXSY4tqDRLY/23k3Alm0DeMgraYocpKqpvhUlr0/JrtFP64MjZBr09RoLb/8Ug
+ +iVNy1h2Mc/LJvPD3VoleLcmRVkLz6xVwEirOrTTuswlMUOWdJAZrql3gbl9MeoJQPct
+ pFlw/CoYMU8O4NeXFZ2+w/PIUyhsf0yw6OWmc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1704841967; x=1705446767;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=LpxrwuyIpyyju2QtYPMpz+Gmdstpik2FIYHnxal2H/c=;
+ b=hRR/mjuhgYrxHuVMMwpbYHi1jD7oyYkvhc31XM5jIMoe93GK6cq8y9xn8aJNRjV447
+ 6HFYoYZJR7ajIe9Qj7cNKS2hUC/MM8qOQQvRybVQL9DfltloPwvTHhMoEadtZV3y0q5F
+ xnr57oiIF0lSiAlwmMo1Na6jkZeLPPybXzMOBbFjcXBWfQmNML8zzXrkP7UKgWLbSEz+
+ q0+/82IvNoHkshM6dM7LOyHniH5lsTcWjTtHgBk/cv9AsyWZbRcFO1c1qAo9Xhd3ruLW
+ ipBk69Efcs1AJ0AIXgRWCguuLt5Tw36EIL6N7NKsWO1z1EspZRZfwXRa1T2VtAyFSsLT
+ ahHg==
+X-Gm-Message-State: AOJu0YwIwonJAtfbiQAeOIefGKjVTNXET66/3SwXBELAyQ2Vv9A8yZYY
+ 9HNaguR6x+DmBibFH71xv+CBNwMa++ac5DncOHbPYcnfcKsgzg==
+X-Google-Smtp-Source: AGHT+IHjeS8ARWzwyLnzhdFEDGtQ5KzAPUEz3NT2gzsbBI58UWCNH/bG2gx8bvPH2kUetuxWELwNb6f0Mpy8gWKYLog=
+X-Received: by 2002:a0d:e848:0:b0:5fa:1942:ee01 with SMTP id
+ r69-20020a0de848000000b005fa1942ee01mr220445ywe.61.1704841967457; Tue, 09 Jan
+ 2024 15:12:47 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+References: <20240109181104.1670304-1-andri@yngvason.is>
+ <20240109181104.1670304-3-andri@yngvason.is>
+ <CAPj87rNan8B5urDFkmD_Vti4to6p3NmvXYsTFQTNg-Ue2ieDug@mail.gmail.com>
+In-Reply-To: <CAPj87rNan8B5urDFkmD_Vti4to6p3NmvXYsTFQTNg-Ue2ieDug@mail.gmail.com>
+From: Andri Yngvason <andri@yngvason.is>
+Date: Tue, 9 Jan 2024 23:12:11 +0000
+Message-ID: <CAFNQBQwiqqSRqzXAnC035UWCGF3=GGFR5SpDd=biPTOEA+cWbQ@mail.gmail.com>
+Subject: Re: [PATCH 2/7] drm/uAPI: Add "active color format" drm property as
+ feedback for userspace
+To: Daniel Stone <daniel@fooishbar.org>
+Content-Type: multipart/alternative; boundary="000000000000de6e41060e8b73ac"
 X-Mailman-Approved-At: Wed, 10 Jan 2024 08:01:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,182 +66,109 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Werner Sembach <wse@tuxedocomputers.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, intel-gfx@lists.freedesktop.org,
+ Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Simon Ser <contact@emersion.fr>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I initially tried reaching out to the Coolermaster technical email, but I g=
-ot no response. Is there a better contact for something like this?
+--000000000000de6e41060e8b73ac
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi Daniel,
 
+=C3=BEri., 9. jan. 2024 kl. 22:32 skrifa=C3=B0i Daniel Stone <daniel@fooish=
+bar.org>:
 
-On Tuesday, January 9th, 2024 at 5:58 PM, Deucher, Alexander <Alexander.Deu=
-cher@amd.com> wrote:
+> On Tue, 9 Jan 2024 at 18:12, Andri Yngvason <andri@yngvason.is> wrote:
+> > + * active color format:
+> > + *     This read-only property tells userspace the color format
+> actually used
+> > + *     by the hardware display engine "on the cable" on a connector.
+> The chosen
+> > + *     value depends on hardware capabilities, both display engine and
+> > + *     connected monitor. Drivers shall use
+> > + *     drm_connector_attach_active_color_format_property() to install
+> this
+> > + *     property. Possible values are "not applicable", "rgb",
+> "ycbcr444",
+> > + *     "ycbcr422", and "ycbcr420".
+>
+> How does userspace determine what's happened without polling? Will it
+> only change after an `ALLOW_MODESET` commit, and be guaranteed to be
+> updated after the commit has completed and the event being sent?
+> Should it send a HOTPLUG event? Other?
+>
 
+Userspace does not determine what's happened without polling. The purpose
+of this property is not for programmatic verification that the preferred
+property was applied. It is my understanding that it's mostly intended for
+debugging purposes. It should only change as a consequence of modesetting,
+although I didn't actually look into what happens if you set the "preferred
+color format" outside of a modeset.
 
->=20
->=20
-> [Public]
->=20
-> > -----Original Message-----
-> > From: amd-gfx amd-gfx-bounces@lists.freedesktop.org On Behalf Of
-> > Deucher, Alexander
-> > Sent: Tuesday, January 9, 2024 5:29 PM
-> > To: Alexander Koskovich AKoskovich@protonmail.com
-> > Cc: amd-gfx@lists.freedesktop.org
-> > Subject: RE: Documentation for RGB strip on RX 7900 XTX (Reference)
-> >=20
-> > > -----Original Message-----
-> > > From: Alexander Koskovich AKoskovich@protonmail.com
-> > > Sent: Tuesday, January 9, 2024 4:59 PM
-> > > To: Deucher, Alexander Alexander.Deucher@amd.com
-> > > Cc: amd-gfx@lists.freedesktop.org
-> > > Subject: RE: Documentation for RGB strip on RX 7900 XTX (Reference)
-> > >=20
-> > > Is the AIB/OEM for this board not AMD?
-> > > https://www.amd.com/en/products/graphics/amd-radeon-rx-7900xtx
-> >=20
-> > I'll double check (we usually don't produce reference boards with RGB),=
- but
-> > my understanding is that if any of the boards available for sale on amd=
-.com
-> > has RGB controls, the RGB control is provided by a third party vendor.
->=20
->=20
->=20
-> CoolerMaster provides the RGB solution. See:
-> https://www.amd.com/en/support/graphics/amd-radeon-rx-7000-series/amd-rad=
-eon-rx-7900-series/amd-radeon-rx-7900xtx
->=20
-> Alex
->=20
-> > Alex
-> >=20
-> > > On Tuesday, January 9th, 2024 at 4:53 PM, Deucher, Alexander
-> > > Alexander.Deucher@amd.com wrote:
-> > >=20
-> > > > [AMD Official Use Only - General]
-> > > >=20
-> > > > > -----Original Message-----
-> > > > > From: Alexander Koskovich AKoskovich@protonmail.com
-> > > > > Sent: Tuesday, January 9, 2024 3:27 PM
-> > > > > To: Deucher, Alexander Alexander.Deucher@amd.com
-> > > > > Cc: amd-gfx@lists.freedesktop.org
-> > > > > Subject: RE: Documentation for RGB strip on RX 7900 XTX
-> > > > > (Reference)
-> > > > >=20
-> > > > > Doe AMD have documentation on the i2c data that gets sent
-> > > > > currently though? I was hoping to figure out what you need to
-> > > > > change in the command that gets sent to change stuff like
-> > > > > brightness, color (red, green, blue), rainbow, morse code, etc.
-> > > >=20
-> > > > It depends on the LED controller used by the AIB/OEM. The
-> > > > programming
-> > > > sequence is dependent on the LED controller.
-> > > >=20
-> > > > Alex
-> > > >=20
-> > > > > On Tuesday, January 9th, 2024 at 10:10 AM, Deucher, Alexander
-> > > > > Alexander.Deucher@amd.com wrote:
-> > > > >=20
-> > > > > > [Public]
-> > > > > >=20
-> > > > > > > -----Original Message-----
-> > > > > > > From: Alexander Koskovich AKoskovich@protonmail.com
-> > > > > > > Sent: Monday, January 8, 2024 7:22 PM
-> > > > > > > To: Deucher, Alexander Alexander.Deucher@amd.com
-> > > > > > > Cc: amd-gfx@lists.freedesktop.org
-> > > > > > > Subject: RE: Documentation for RGB strip on RX 7900 XTX
-> > > > > > > (Reference)
-> > > > > > >=20
-> > > > > > > Currently the reference cooler from AMD does not have an
-> > > > > > > existing RGB controller for OpenRGB, that's why I was looking
-> > > > > > > for documentation on the I2C commands to send to the second
-> > > > > > > SMU, so I don't risk bricking my card by sending wrong
-> > > > > > > commands during development somehow.
-> > > > > > >=20
-> > > > > > > writeSetCMDWithData:
-> > >=20
-> > > **************************************************************
-> > >=20
-> > > > > > > adli2c.iSize =3D sizeof(ADLI2C)
-> > > > > > > adli2c.iAction =3D ADL_DL_I2C_ACTIONWRITE adli2c.iAddress =3D=
- 0xb4
-> > > > > > > adli2c.iSpeed =3D 100
-> > > > > > > 0 --------------------------------------------------
-> > > > > > > Dev 0: ADL_Display_WriteAndReadSMUI2C(0, &adli2c) =3D 0
-> > > > > > > adli2c.iDataSize =3D
-> > > > > > > 24 i2cData[0]~[24]
-> > > > > > > 40 51 2c 01 00 00 ff 00 ff ff ff cc 00 cc 00 00 00 ff ff ff f=
-f
-> > > > > > > ff ff ff
-> > > > > > >=20
-> > > > > > > From the RGB app's logs this is an example of what the
-> > > > > > > official AMD application on Windows is sending when it change=
-s
-> > > > > > > colors on the
-> > > > > > > RGB strip.
-> > > > > > >=20
-> > > > > > > From this can it be assumed the AMD card is using the latter
-> > > > > > > method you mentioned with the second SMU I2C bus, in which
-> > > > > > > case no driver changes would be needed?
-> > > > > >=20
-> > > > > > IIRC, each AIB/OEM uses its own preferred RGB controller. The
-> > > > > > reference board just defines which i2c buses can be used. The
-> > > > > > RGB control application is just a userspace app provided by the
-> > > > > > AIB/OEM that calls ADL to talk to whichever i2c bus the vendor
-> > > > > > put their RGB controller on. On Linux you can do something
-> > > > > > similar using the i2c_dev module to open a connection to the i2=
-c
-> > > > > > bus driver
-> > > > > > provided by the kernel. I believe that is what openRGB does tod=
-ay.
-> > > > > > It looks like you already have the programming sequence above.
-> > > > > >=20
-> > > > > > Alex
-> > > > > >=20
-> > > > > > > On Monday, January 8th, 2024 at 5:32 PM, Deucher, Alexander
-> > > > > > > Alexander.Deucher@amd.com wrote:
-> > > > > > >=20
-> > > > > > > > [Public]
-> > > > > > > >=20
-> > > > > > > > > -----Original Message-----
-> > > > > > > > > From: amd-gfx amd-gfx-bounces@lists.freedesktop.org On
-> > > > > > > > > Behalf Of Alexander Koskovich
-> > > > > > > > > Sent: Sunday, January 7, 2024 11:19 PM
-> > > > > > > > > To: amd-gfx@lists.freedesktop.org
-> > > > > > > > > Subject: Documentation for RGB strip on RX 7900 XTX
-> > > > > > > > > (Reference)
-> > > > > > > > >=20
-> > > > > > > > > Hello,
-> > > > > > > > >=20
-> > > > > > > > > I was wondering if AMD would be able provide any
-> > > > > > > > > documentation for the RGB strip on the reference cooler
-> > > > > > > > > (https://www.amd.com/en/products/graphics/amd-radeon-rx-
-> > > > > > > > > 7900xtx)?
-> > > > > > > > > It
-> > > > > > > > > looks to be handled via I2C commands to the SMU, but
-> > > > > > > > > having proper documentation would be extremely helpful.
-> > > > > > > >=20
-> > > > > > > > It depends on the AIB/OEM and how they designed the specifi=
-c
-> > > > > > > > board. The RGB controller will either be attached to the
-> > > > > > > > DDCVGA i2c bus on the display hardware or the second SMU i2=
-c
-> > > > > > > > bus. The former will require changes to the amdgpu display
-> > > > > > > > code to register display i2c buses that are not used by the
-> > > > > > > > display connectors on the board so they can be used by 3rd
-> > > > > > > > party
-> > > > > > > > applications.
-> > > > > > > > Currently we only register i2c buses used for display conne=
-ctors.
-> > > > > > > > The latter buses are already registered with the i2c
-> > > > > > > > subsystem since they are used for other things like EEPROMs
-> > > > > > > > on server and workstation cards and should be available via
-> > > > > > > > standard Linux i2c APIs. I'm not sure what i2c LED
-> > > > > > > > controllers each AIB vendor uses off hand.
-> > > > > > > > https://openrgb.org/index.html would probably be a good res=
-ource
-> > > > > > > > for that information.
-> > > > > > > >=20
-> > > > > > > > Alex
+The way I've implemented things in sway, calling the
+"preferred_signal_format" command triggers a modeset with the "preferred
+color format" set and calling "get_outputs", immediately queries the
+"actual color format" and displays it.
+
+Regards,
+Andri
+
+--000000000000de6e41060e8b73ac
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr">Hi Daniel,<br></div><br><div class=3D"gma=
+il_quote"><div dir=3D"ltr" class=3D"gmail_attr">=C3=BEri., 9. jan. 2024 kl.=
+ 22:32 skrifa=C3=B0i Daniel Stone &lt;<a href=3D"mailto:daniel@fooishbar.or=
+g">daniel@fooishbar.org</a>&gt;:<br></div><blockquote class=3D"gmail_quote"=
+ style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);p=
+adding-left:1ex">
+On Tue, 9 Jan 2024 at 18:12, Andri Yngvason &lt;<a href=3D"mailto:andri@yng=
+vason.is" target=3D"_blank">andri@yngvason.is</a>&gt; wrote:<br>
+&gt; + * active color format:<br>
+&gt; + *=C2=A0 =C2=A0 =C2=A0This read-only property tells userspace the col=
+or format actually used<br>
+&gt; + *=C2=A0 =C2=A0 =C2=A0by the hardware display engine &quot;on the cab=
+le&quot; on a connector. The chosen<br>
+&gt; + *=C2=A0 =C2=A0 =C2=A0value depends on hardware capabilities, both di=
+splay engine and<br>
+&gt; + *=C2=A0 =C2=A0 =C2=A0connected monitor. Drivers shall use<br>
+&gt; + *=C2=A0 =C2=A0 =C2=A0drm_connector_attach_active_color_format_proper=
+ty() to install this<br>
+&gt; + *=C2=A0 =C2=A0 =C2=A0property. Possible values are &quot;not applica=
+ble&quot;, &quot;rgb&quot;, &quot;ycbcr444&quot;,<br>
+&gt; + *=C2=A0 =C2=A0 =C2=A0&quot;ycbcr422&quot;, and &quot;ycbcr420&quot;.=
+<br>
+<br>
+How does userspace determine what&#39;s happened without polling? Will it<b=
+r>
+only change after an `ALLOW_MODESET` commit, and be guaranteed to be<br>
+updated after the commit has completed and the event being sent?<br>
+Should it send a HOTPLUG event? Other?<br></blockquote><div><br></div><div>=
+Userspace does not determine what&#39;s happened without polling. The purpo=
+se of this property is not for programmatic verification that the preferred=
+ property was applied. It is my understanding that it&#39;s mostly intended=
+ for debugging purposes. It should only change as a consequence of modesett=
+ing, although I didn&#39;t actually look into what happens if you set the &=
+quot;preferred color format&quot; outside of a modeset.</div><div><br></div=
+><div>The way I&#39;ve implemented things in sway, calling the &quot;prefer=
+red_signal_format&quot; command triggers a modeset with the &quot;preferred=
+ color format&quot; set and calling &quot;get_outputs&quot;, immediately qu=
+eries the &quot;actual color format&quot; and displays it.</div><div><br></=
+div><div>Regards,</div><div>Andri<br></div></div></div>
+
+--000000000000de6e41060e8b73ac--
