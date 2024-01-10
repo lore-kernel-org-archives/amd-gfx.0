@@ -4,67 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE769C3DA6E
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 08:50:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF484C3DA6E
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 09:27:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DF9910E574;
-	Wed, 10 Jan 2024 08:50:01 +0000 (UTC)
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F1F410E574
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 08:50:00 +0000 (UTC)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-40e5451c13aso8537895e9.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 00:50:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1704876599; x=1705481399; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Pi1mLl7CjXK+lpcfuAEBQxdfaYUV9mIx673HEV51gCo=;
- b=COvd4pByuYosfyuGzoVNrSRuTQEYDIywnJ7z2EUhqcQ9flELA2epc7X1PzP47Ccik6
- hvUVZ2RfDvYoLTxV2VmRsGMrdDgVNu7JBor0fOHZexSptehx0JiS0Xg3RtnsKU6WsPYK
- DOLd7k1MMBnyTM/hBSZPVedz6pbBcx05vubaK9oHj0UoHdYUfbddHAdUxVAm87CqO3RT
- j/ws5BHfdw9p/+aJ7OHBeFJADLh/k9z/AUXIbJRNH/eZ3VapZIdsCRuGaFYMV3X0ot2W
- sd62gFjMlBN9kX+afUyBErso8S087OlywNegNs2FN9koSUM0raZ2fGACknRNp7DYiXe/
- 6unA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704876599; x=1705481399;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Pi1mLl7CjXK+lpcfuAEBQxdfaYUV9mIx673HEV51gCo=;
- b=GPiWfG0WN6KzGWP/f/p0fvfOb82kXpf7z9+YXjz+YQw9ErWYRI3aKJ2Avqi4psRvAC
- HLagcZJ3CHCwqKzNysoJyALD6S8dHPOckxDNILbEHnGLSoadFL/uTx/PG5SIdlBfrs8N
- EDee9HnJA2kRncaKtyyDYl2ooKoE8IVsN73BsujCgLjrdABvT+alE1Czjs5f9AKEad3H
- 0UyPPSq3JBBEV7al3hWo6nXPoj1gi9BYocBp/d27Z39NBz3EL2DZO+6zjdK3Hv13EAOS
- XY/4bzUrt5J21L3oGj4YX/0TMEZpx4v0K9lPBSbNDcSmMUC5hwgebZSpFALVqsrgevj8
- DrRw==
-X-Gm-Message-State: AOJu0Yxe1SRwDsXskro5Lt2BH0XocaZ90OgOQagnmdQqq6/EH0vd0rp9
- UL/U3EC3KG7Fc7xGiKO9UiA=
-X-Google-Smtp-Source: AGHT+IEh+er0QSRGal1OEopoo572DHJcJl+OlhKPpMS3aG5JPMPSmxm5CC9Eiz80TPh4yPYCZLY7cA==
-X-Received: by 2002:a05:600c:331b:b0:40e:477f:3512 with SMTP id
- q27-20020a05600c331b00b0040e477f3512mr231432wmp.42.1704876598955; 
- Wed, 10 Jan 2024 00:49:58 -0800 (PST)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- p12-20020a05600c430c00b0040e596320bfsm22466wme.0.2024.01.10.00.49.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Jan 2024 00:49:58 -0800 (PST)
-Message-ID: <24b8d275-6fb4-4ebb-ab36-bbb63d1d3bf0@gmail.com>
-Date: Wed, 10 Jan 2024 09:49:57 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 880CD10E17B;
+	Wed, 10 Jan 2024 09:27:19 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6775110E17B;
+ Wed, 10 Jan 2024 09:27:18 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id B00BF615BA;
+ Wed, 10 Jan 2024 09:27:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09FA2C433F1;
+ Wed, 10 Jan 2024 09:27:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1704878837;
+ bh=nzNAaOqvaUL57D/V9epEYzVxZ7pYbWWXoeDDRRHs+/k=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=juD6hpZRALBSBgsoKCWJmV0pVswWCkfgSB5gygZYm22wB6tFLF/GCnNhGjsnwkKdp
+ pNVg/8oaNf172cQ4jZnmULRpAwB7yY7SpHQdeDgLRyfukjUp4YImdJiVITXeSb5RBj
+ lv6R8hPinxo9nMfphpcDsx9UccrLhocX9H1bpJzIuJFkMlz6oFuIwq1yEtfkZR0kMa
+ ksEy5xxZwq+mQg2B81zeC1VjRfTbPR0EMe2jyTC+HK4+ajT4zdWXPfZlkeH1+8y5Os
+ lgYbczWKk3EemUbeDmQxeMvWKGlmxqP7evxQ16nsZ3xVSDEfzuzwu0sIVAtE6d5fTf
+ T8fnq7PmuqINw==
+Date: Wed, 10 Jan 2024 10:27:14 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Andri Yngvason <andri@yngvason.is>
+Subject: Re: [PATCH 5/7] drm/uAPI: Add "preferred color format" drm property
+ as setting for userspace
+Message-ID: <qdwv7sagqs5nmmsy5lko5hypldanfodafyzamrs3loj3n7jzlr@n5bacxkknkj4>
+References: <20240109181104.1670304-1-andri@yngvason.is>
+ <20240109181104.1670304-6-andri@yngvason.is>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] drm/amdgpu: move debug options init prior to amdgpu
- device init
-Content-Language: en-US
-To: Le Ma <le.ma@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20240109101359.28362-1-le.ma@amd.com>
- <20240109101359.28362-3-le.ma@amd.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240109101359.28362-3-le.ma@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="f6j2j4rphibvcs2b"
+Content-Disposition: inline
+In-Reply-To: <20240109181104.1670304-6-andri@yngvason.is>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,42 +52,235 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lijo.Lazar@amd.com, Hawking.Zhang@amd.com
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, intel-gfx@lists.freedesktop.org,
+ Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
+ Jani Nikula <jani.nikula@linux.intel.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Werner Sembach <wse@tuxedocomputers.com>, Simon Ser <contact@emersion.fr>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 09.01.24 um 11:13 schrieb Le Ma:
-> To bring debug options into effect in early initialization phase
->
-> Signed-off-by: Le Ma <le.ma@amd.com>
 
-Reviewed-by: Christian König <christian.koenig@amd.com> for this one and 
-#1 in the series.
+--f6j2j4rphibvcs2b
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+Hi,
+
+On Tue, Jan 09, 2024 at 06:11:02PM +0000, Andri Yngvason wrote:
+> From: Werner Sembach <wse@tuxedocomputers.com>
+>=20
+> Add a new general drm property "preferred color format" which can be used
+> by userspace to tell the graphic drivers to which color format to use.
+>=20
+> Possible options are:
+>     - auto (default/current behaviour)
+>     - rgb
+>     - ycbcr444
+>     - ycbcr422 (not supported by both amdgpu and i915)
+>     - ycbcr420
+>=20
+> In theory the auto option should choose the best available option for the
+> current setup, but because of bad internal conversion some monitors look
+> better with rgb and some with ycbcr444.
+
+I looked at the patch and I couldn't find what is supposed to happen if
+you set it to something else than auto, and the driver can't match that.
+Are we supposed to fallback to the "auto" behaviour, or are we suppose
+to reject the mode entirely?
+
+The combination with the active output format property suggests the
+former, but we should document it explicitly.
+
+> Also, because of bad shielded connectors and/or cables, it might be
+> preferable to use the less bandwidth heavy ycbcr422 and ycbcr420 formats
+> for a signal that is less deceptible to interference.
+>=20
+> In the future, automatic color calibration for screens might also depend =
+on
+> this option being available.
+>=20
+> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+> Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+> Signed-off-by: Andri Yngvason <andri@yngvason.is>
+> Tested-by: Andri Yngvason <andri@yngvason.is>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 3e0e39a1b5ba..b67ffc3a9a3f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2234,6 +2234,8 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
->   
->   	pci_set_drvdata(pdev, ddev);
->   
-> +	amdgpu_init_debug_options(adev);
+>  drivers/gpu/drm/drm_atomic_helper.c |  4 +++
+>  drivers/gpu/drm/drm_atomic_uapi.c   |  4 +++
+>  drivers/gpu/drm/drm_connector.c     | 50 ++++++++++++++++++++++++++++-
+>  include/drm/drm_connector.h         | 17 ++++++++++
+>  4 files changed, 74 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_at=
+omic_helper.c
+> index 68ffcc0b00dca..745a43d9c5da3 100644
+> --- a/drivers/gpu/drm/drm_atomic_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> @@ -707,6 +707,10 @@ drm_atomic_helper_check_modeset(struct drm_device *d=
+ev,
+>  			if (old_connector_state->max_requested_bpc !=3D
+>  			    new_connector_state->max_requested_bpc)
+>  				new_crtc_state->connectors_changed =3D true;
 > +
->   	ret = amdgpu_driver_load_kms(adev, flags);
->   	if (ret)
->   		goto err_pci;
-> @@ -2314,8 +2316,6 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
->   			amdgpu_get_secondary_funcs(adev);
->   	}
->   
-> -	amdgpu_init_debug_options(adev);
-> -
->   	return 0;
->   
->   err_pci:
+> +			if (old_connector_state->preferred_color_format !=3D
+> +			    new_connector_state->preferred_color_format)
+> +				new_crtc_state->connectors_changed =3D true;
+>  		}
+> =20
+>  		if (funcs->atomic_check)
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
+ic_uapi.c
+> index 98d3b10c08ae1..eba5dea1249e5 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -798,6 +798,8 @@ static int drm_atomic_connector_set_property(struct d=
+rm_connector *connector,
+>  		state->max_requested_bpc =3D val;
+>  	} else if (property =3D=3D connector->privacy_screen_sw_state_property)=
+ {
+>  		state->privacy_screen_sw_state =3D val;
+> +	} else if (property =3D=3D connector->preferred_color_format_property) {
+> +		state->preferred_color_format =3D val;
+>  	} else if (connector->funcs->atomic_set_property) {
+>  		return connector->funcs->atomic_set_property(connector,
+>  				state, property, val);
+> @@ -881,6 +883,8 @@ drm_atomic_connector_get_property(struct drm_connecto=
+r *connector,
+>  		*val =3D state->max_requested_bpc;
+>  	} else if (property =3D=3D connector->privacy_screen_sw_state_property)=
+ {
+>  		*val =3D state->privacy_screen_sw_state;
+> +	} else if (property =3D=3D connector->preferred_color_format_property) {
+> +		*val =3D state->preferred_color_format;
+>  	} else if (connector->funcs->atomic_get_property) {
+>  		return connector->funcs->atomic_get_property(connector,
+>  				state, property, val);
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
+tor.c
+> index 30d62e505d188..4de48a38792cf 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -1061,6 +1061,14 @@ static const struct drm_prop_enum_list drm_dp_subc=
+onnector_enum_list[] =3D {
+>  	{ DRM_MODE_SUBCONNECTOR_Native,	     "Native"    }, /* DP */
+>  };
+> =20
+> +static const struct drm_prop_enum_list drm_preferred_color_format_enum_l=
+ist[] =3D {
+> +	{ 0, "auto" },
+> +	{ DRM_COLOR_FORMAT_RGB444, "rgb" },
+> +	{ DRM_COLOR_FORMAT_YCBCR444, "ycbcr444" },
+> +	{ DRM_COLOR_FORMAT_YCBCR422, "ycbcr422" },
+> +	{ DRM_COLOR_FORMAT_YCBCR420, "ycbcr420" },
+> +};
+> +
+>  static const struct drm_prop_enum_list drm_active_color_format_enum_list=
+[] =3D {
+>  	{ 0, "not applicable" },
+>  	{ DRM_COLOR_FORMAT_RGB444, "rgb" },
+> @@ -1398,11 +1406,20 @@ static const u32 dp_colorspaces =3D
+>   *	drm_connector_attach_max_bpc_property() to create and attach the
+>   *	property to the connector during initialization.
+>   *
+> + * preferred color format:
+> + *	This property is used by userspace to change the used color format. W=
+hen
+> + *	used the driver will use the selected format if valid for the hardwar=
+e,
+> + *	sink, and current resolution and refresh rate combination. Drivers to
+> + *	use the function drm_connector_attach_preferred_color_format_property=
+()
+> + *	to create and attach the property to the connector during
+> + *	initialization. Possible values are "auto", "rgb", "ycbcr444",
+> + *	"ycbcr422", and "ycbcr420".
+> + *
+>   * active color format:
+>   *	This read-only property tells userspace the color format actually used
+>   *	by the hardware display engine "on the cable" on a connector. The cho=
+sen
+>   *	value depends on hardware capabilities, both display engine and
+> - *	connected monitor. Drivers shall use
+> + *	connected monitor, and the "preferred color format". Drivers shall use
+>   *	drm_connector_attach_active_color_format_property() to install this
+>   *	property. Possible values are "not applicable", "rgb", "ycbcr444",
+>   *	"ycbcr422", and "ycbcr420".
+> @@ -2468,6 +2485,37 @@ int drm_connector_attach_max_bpc_property(struct d=
+rm_connector *connector,
+>  }
+>  EXPORT_SYMBOL(drm_connector_attach_max_bpc_property);
+> =20
+> +/**
+> + * drm_connector_attach_preferred_color_format_property - attach "prefer=
+red color format" property
+> + * @connector: connector to attach preferred color format property on.
+> + *
+> + * This is used to add support for selecting a color format on a connect=
+or.
+> + *
+> + * Returns:
+> + * Zero on success, negative errno on failure.
+> + */
+> +int drm_connector_attach_preferred_color_format_property(struct drm_conn=
+ector *connector)
+> +{
+> +	struct drm_device *dev =3D connector->dev;
+> +	struct drm_property *prop;
+> +
+> +	if (!connector->preferred_color_format_property) {
+> +		prop =3D drm_property_create_enum(dev, 0, "preferred color format",
+> +						drm_preferred_color_format_enum_list,
+> +						ARRAY_SIZE(drm_preferred_color_format_enum_list));
+> +		if (!prop)
+> +			return -ENOMEM;
+> +
+> +		connector->preferred_color_format_property =3D prop;
+> +	}
+> +
+> +	drm_object_attach_property(&connector->base, prop, 0);
+> +	connector->state->preferred_color_format =3D 0;
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(drm_connector_attach_preferred_color_format_property);
+> +
+>  /**
+>   * drm_connector_attach_active_color_format_property - attach "active co=
+lor format" property
+>   * @connector: connector to attach active color format property on.
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index 9ae73cfdceeb1..d7bc54c8b42cb 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -1026,6 +1026,16 @@ struct drm_connector_state {
+>  	 */
+>  	enum drm_privacy_screen_status privacy_screen_sw_state;
+> =20
+> +	/**
+> +	 * preferred_color_format: Property set by userspace to tell the GPU
 
+That's not the proper doc format, you're missing a @
+
+Maxime
+
+--f6j2j4rphibvcs2b
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZZ5i8QAKCRDj7w1vZxhR
+xUKrAQC6+1rVAO7umPgfBq9P7nimTGhAG69n4i9MYMS1adFqoAD/T5SQ1Tsm9Ybw
+vTELQXqv0M32Kqp1PKhW+w+WiQTzAQw=
+=CrvP
+-----END PGP SIGNATURE-----
+
+--f6j2j4rphibvcs2b--
