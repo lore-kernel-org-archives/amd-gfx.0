@@ -4,70 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A0ACC4707C
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 14:58:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C787C4707B
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 14:58:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E484B10E5F3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0DF310E5FC;
 	Wed, 10 Jan 2024 14:58:29 +0000 (UTC)
-Received: from mail-yb1-xb2d.google.com (mail-yb1-xb2d.google.com
- [IPv6:2607:f8b0:4864:20::b2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBCEF10E138
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 12:53:22 +0000 (UTC)
-Received: by mail-yb1-xb2d.google.com with SMTP id
- 3f1490d57ef6-dbed7c0744cso2954695276.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 04:53:22 -0800 (PST)
+Received: from mail-yw1-x112d.google.com (mail-yw1-x112d.google.com
+ [IPv6:2607:f8b0:4864:20::112d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F44A10E5E3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 13:43:01 +0000 (UTC)
+Received: by mail-yw1-x112d.google.com with SMTP id
+ 00721157ae682-5e734251f48so32402437b3.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 05:43:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=yngvason.is; s=google; t=1704891202; x=1705496002; darn=lists.freedesktop.org;
+ d=yngvason.is; s=google; t=1704894180; x=1705498980; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=tumM7ZgHm0hfd7iZgxyi6dhv3yMhPnlkKGS30wXR09c=;
- b=e56qb+FEVSFhxED5RQ+Xv80A6DXq76Wo0078EXmxbTRmEHL+ws1m2x/b+70rfuRUl1
- tzqAfwml2h1r5Eu/Q9ou1qZJLDs3F+l/EITAxaNy7rFVPgeMZLVXuH5JPngSMre6Sw74
- tmHsrFKO/hdPMvQgu+pBcTtTa/rQvu8cOZNwY=
+ bh=yQ/U0Sa8v/CRYiVU6kq/by3KQsxjn5M1baHcHHM4a3M=;
+ b=Ziqzmh1GRHmgTrQxBD6ozhrPqY2R5YswZhdunJ6XUieLQsssY9f0c1Zh9q1ai4RY9n
+ 8y0NyS1cLjU731V16YtfUaGwznfNNS/BH2yawKGppYpnEkhLwiDWViXyqNioMq3V/RPv
+ Il65HCrOMsZaY83AMOugFn8hLXaeWdHa1bDpA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704891202; x=1705496002;
+ d=1e100.net; s=20230601; t=1704894180; x=1705498980;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=tumM7ZgHm0hfd7iZgxyi6dhv3yMhPnlkKGS30wXR09c=;
- b=qUFmHnN/43zzNdMIWFEYe/x3jI54DwwXypI9CzHjSRQS+H6/pOejEU/Wf1cEaEzl3v
- tKtLm/A9rhGGr+P2LIAwgh4tzyICKEAwDHUr4Eb2vv95qRMTLeqpRkb9q9zhCU6cRY+S
- k9LDnyQVFINU39Z4/FwVBkCNbx/wP4UjV4Q+8usp4L1uZdYq85UOPafdnT9GCjuD/FRd
- UW48RIYGUE5XQwdhSRWXcRumEup4o7lrZZGuWS0BoDptjPkpfTtuuXRpYlbzZNL4hBKL
- lLn8xQQFgzzHRwOPbU/3CT67jXupNk4Ae9rIKvNKIVz5+1Z2QFsNxF2kTSFGZ6AoGZly
- L81Q==
-X-Gm-Message-State: AOJu0YyFD36ot3joTGIlbj8PoEpP0RiiFKlxfptvFcU7vth50CX0CWxn
- N1VI/Oar5fDfeJ+uePsLEdMyipMqEddG0F7Hkd0fvaCUQnoPyw==
-X-Google-Smtp-Source: AGHT+IEdEju6g56OensZJBuTZt9it0HPqzyt0o4DWwDRHwkW6tKsf3VmrtAhshl6Dqs1AQIYgIHNU9Hnp9bHW2jrsSo=
-X-Received: by 2002:a5b:d51:0:b0:dbd:ab70:4e8f with SMTP id
- f17-20020a5b0d51000000b00dbdab704e8fmr625799ybr.4.1704891201874; Wed, 10 Jan
- 2024 04:53:21 -0800 (PST)
+ bh=yQ/U0Sa8v/CRYiVU6kq/by3KQsxjn5M1baHcHHM4a3M=;
+ b=Nf5HrjgfqaipJSjfR/doeFalzG3VfjTfnzS201uwuE0EtXBzPLOM5y+BkObMKcklQ8
+ rgSNzJnykDhsAL0nS+FTtAIdrpoyPGlli9vUKj0QCyKTu/9L5BIAQqTEFTiwFrSRYN7b
+ 7GU9/ozUwVPwvnPXYuqNyXF5LQ6S+VlOhFZMQzgXjdfCeF9WF13b+iCXTiF6bcZCbm25
+ 5n9ybozLQEdmu5qzxTrfyV9mteNw+GvJpaH1hxOBST054d2KEPxwKuns1GObF+hiPDNy
+ InxefGO+YMKtuUKV3wbO1GZqeSetk0g3LQfyq1TV0Aq1uMNZVMvJpQ+aO7ZRYeH1beI9
+ SmXw==
+X-Gm-Message-State: AOJu0YyN23y4HKUqhC69dIzw/sMTw1Daw6xfOjuO4qEjKXEyzrK6bued
+ GoFHQnfIyXf0Sn3/mVujdI+7BvikEDsv9RTlNds571k73duJ6A==
+X-Google-Smtp-Source: AGHT+IGDsuO4mYJVVDxBUOZbdTOdu8bmcbR4SC1ZuMtCkzl9DP9p6Vo22kYDPHUl7Rp57fzCruInRV3SA2OPXVlQoBk=
+X-Received: by 2002:a0d:db57:0:b0:5e8:a75f:df63 with SMTP id
+ d84-20020a0ddb57000000b005e8a75fdf63mr49273ywe.47.1704894180474; Wed, 10 Jan
+ 2024 05:43:00 -0800 (PST)
 MIME-Version: 1.0
 References: <20240109181104.1670304-1-andri@yngvason.is>
- <20240109181104.1670304-4-andri@yngvason.is>
- <ZZ57Nl3CnRMPcfbj@phenom.ffwll.local>
-In-Reply-To: <ZZ57Nl3CnRMPcfbj@phenom.ffwll.local>
+ <20240109181104.1670304-6-andri@yngvason.is>
+ <qdwv7sagqs5nmmsy5lko5hypldanfodafyzamrs3loj3n7jzlr@n5bacxkknkj4>
+ <CAFNQBQzijyE4wR34AOLM45m+ryx128igVKO9zPJ5-M3afFQMxQ@mail.gmail.com>
+ <92e20f9b-2cbf-4efe-b61b-989da0cc1668@tuxedocomputers.com>
+In-Reply-To: <92e20f9b-2cbf-4efe-b61b-989da0cc1668@tuxedocomputers.com>
 From: Andri Yngvason <andri@yngvason.is>
-Date: Wed, 10 Jan 2024 12:52:46 +0000
-Message-ID: <CAFNQBQzo17cK4M-S=Mje8Lxub9Y74xFGj7iEq57vKJr47oiz5Q@mail.gmail.com>
-Subject: Re: [PATCH 3/7] drm/amd/display: Add handling for new "active color
- format" property
-To: Andri Yngvason <andri@yngvason.is>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, Simon Ser <contact@emersion.fr>, 
- Werner Sembach <wse@tuxedocomputers.com>
+Date: Wed, 10 Jan 2024 13:42:24 +0000
+Message-ID: <CAFNQBQxnMh4aPfm+U8vEfxoTdQ+FByfqwUUDnMTzgkrW2+ZZqw@mail.gmail.com>
+Subject: Re: [PATCH 5/7] drm/uAPI: Add "preferred color format" drm property
+ as setting for userspace
+To: Werner Sembach <wse@tuxedocomputers.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 10 Jan 2024 14:58:28 +0000
@@ -82,53 +70,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, intel-gfx@lists.freedesktop.org,
+ Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Simon Ser <contact@emersion.fr>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-mi=C3=B0., 10. jan. 2024 kl. 11:10 skrifa=C3=B0i Daniel Vetter <daniel@ffwl=
-l.ch>:
+mi=C3=B0., 10. jan. 2024 kl. 13:09 skrifa=C3=B0i Werner Sembach <wse@tuxedo=
+computers.com>:
 >
-> On Tue, Jan 09, 2024 at 06:11:00PM +0000, Andri Yngvason wrote:
-> > +     /* Extract information from crtc to communicate it to userspace a=
-s connector properties */
-> > +     for_each_new_connector_in_state(state, connector, new_con_state, =
-i) {
-> > +             struct drm_crtc *crtc =3D new_con_state->crtc;
-> > +             struct dc_stream_state *stream;
-> > +
-> > +             if (crtc) {
-> > +                     new_crtc_state =3D drm_atomic_get_new_crtc_state(=
-state, crtc);
-> > +                     dm_new_crtc_state =3D to_dm_crtc_state(new_crtc_s=
-tate);
-> > +                     stream =3D dm_new_crtc_state->stream;
-> > +
-> > +                     if (stream) {
-> > +                             drm_connector_set_active_color_format_pro=
-perty(connector,
-> > +                                     convert_dc_pixel_encoding_into_dr=
-m_color_format(
-> > +                                             dm_new_crtc_state->stream=
-->timing.pixel_encoding));
-> > +                     }
-> > +             } else {
-> > +                     drm_connector_set_active_color_format_property(co=
-nnector, 0);
+> Hi,
 >
-> Just realized an even bigger reason why your current design doesn't work:
-> You don't have locking here.
+> Am 10.01.24 um 11:11 schrieb Andri Yngvason:
+> > Hi,
+> >
+> > mi=C3=B0., 10. jan. 2024 kl. 09:27 skrifa=C3=B0i Maxime Ripard <mripard=
+@kernel.org>:
+> >> On Tue, Jan 09, 2024 at 06:11:02PM +0000, Andri Yngvason wrote:
+> >>> From: Werner Sembach <wse@tuxedocomputers.com>
+> >>>
+> >>> Add a new general drm property "preferred color format" which can be =
+used
+> >>> by userspace to tell the graphic drivers to which color format to use=
+.
+> >>>
+> >>> Possible options are:
+> >>>      - auto (default/current behaviour)
+> >>>      - rgb
+> >>>      - ycbcr444
+> >>>      - ycbcr422 (not supported by both amdgpu and i915)
+> >>>      - ycbcr420
+> >>>
+> >>> In theory the auto option should choose the best available option for=
+ the
+> >>> current setup, but because of bad internal conversion some monitors l=
+ook
+> >>> better with rgb and some with ycbcr444.
+> >> I looked at the patch and I couldn't find what is supposed to happen i=
+f
+> >> you set it to something else than auto, and the driver can't match tha=
+t.
+> >> Are we supposed to fallback to the "auto" behaviour, or are we suppose
+> >> to reject the mode entirely?
+> >>
+> >> The combination with the active output format property suggests the
+> >> former, but we should document it explicitly.
+> > It is also my understanding that it should fall back to the "auto"
+> > behaviour. I will add this to the documentation.
 >
-> And you cannot grab the required lock, which is
-> drm_dev->mode_config.mutex, because that would result in deadlocks. So
-> this really needs to use the atomic state based design I've described.
+> Yes, that was the intention, and then userspace can check, but it wasn't =
+well
+> received: https://gitlab.freedesktop.org/drm/amd/-/issues/476#note_964530
+>
+> Actually a lot of the thoughts that went into the original patch set can =
+be
+> found in that topic.
+>
+> There was another iteration of the patch set that I never finished and se=
+nt to
+> the LKML because I got discouraged by this:
+> https://lore.kernel.org/dri-devel/20210623102923.70877c1a@eldfell/
+
+Well, I've implemented this for sway and wlroots now and Simon has
+reacted positively, so this does appear likely to end up as a feature
+in wlroots based compositors.
+
+>
+> I can try to dig it up, but it is completely untested and I don't think I=
+ still
+> have the respective TODO list anymore, so I don't know if it is a better =
+or
+> worst starting point than the last iteration I sent to the LKML.
 >
 
-Maybe we should just drop "actual color format" and instead fail the
-modeset if the "preferred color format" property cannot be satisfied?
-It seems like the simplest thing to do here, though it is perhaps less
-convenient for userspace. In that case, the "preferred color format"
-property should just be called "color format".
+You can send the patches to me if you want and I can see if they're
+useful. I'm really only interested in the color format part though.
+Alternatively, you can continue your work and post it to LKML and I
+can focus on the userspace side and testing. By the way, I have an
+HDMI analyzer that can tell me the actual color format.
 
 Thanks,
 Andri
