@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C72EC47073
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 21:56:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFF96C47073
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 21:56:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD80F10E682;
-	Wed, 10 Jan 2024 21:56:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4270210E6A8;
+	Wed, 10 Jan 2024 21:56:59 +0000 (UTC)
 Received: from NAM12-DM6-obe.outbound.protection.outlook.com
  (mail-dm6nam12on20601.outbound.protection.outlook.com
  [IPv6:2a01:111:f403:2417::601])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 657BA10E682
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 21:56:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0182110E6A8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 21:56:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Rxk3W4fqnODj8fNaFSjraStnBx+gJmDtX+pH1WsgomFlj0KQr6PycoQCPj+TrLRIz4W+tlKEmlgG+eA1QMxzZU9WQ0IlaE9KhyqqVolAKk64meWv/XB7NHO97FYosP/+g5rA6ToMS8+qdQmxz3EfhCrmxAd5SipT2lg9Ai6pSBM72bX9VumSDH0SHHh58HMDCqI2ByUwNHro7HI2ufzTv7Esh28dtLztekWNvsBs4Fzn6ZopGaU+bU6P1pR5VcrcpyiT3k5Yl3Oev/ZFdYajJOf92R4Ga1+qrn4JVD9NVgfIn6V5lhogVMGFEpj+ocrxsMkhM0WudArgblKkBNCA1Q==
+ b=HEPqF19jO6Iv0Kg43bdlbv6JjjAQk/hZgDu3xo65GAcAEsiGFkdtifD+1rCJtLajTBM1xd4yBvuDCKNSnYcWhJpmJGMZVgZRW/0DsochVQhCizCXDYckEJOAu2/QxndMAYuyqJqo/50C5p+EsU+ZsX+rwGXtSlcTtrW2Zhu+sUSxgBVK8sW3GJPQAXs7fmCFan2ra5vRpeKUtxaHjGVCwuQl4uewZdvoel0I3otThznoFkRwF7Dw1+MGZj2aW8kiKVJE0XwGs65QOgDGTriiXyL1RedH9A3ofU3spxgJmeU2ni0in6N8ldu3/BBGiOwotPGkjWk5jiOiqClIBYe8pA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rU1Xxy/uvIst7RUmFCURqNg6322QLO6vvDFaE7xvHJw=;
- b=b9WNZmKXRc9GmC25zNTUMImaQPcVUxspkHIit3ia5ZY5DGekOOLSRBuwAlKogdIJXrSeQZ/Bnp4JeC4l16Md9pM3X+ddu0IyTc14khKyVJngjkIAGihYWeBfNgyYLupCzlddpNfXZQSbYuPaU4wuU4wOVhxSNyMFozvKtn9b7n3B2H3nyOlxDkD3AjDCURvXlN8+bKZ7o4B3gTdkWiaRxdPz3RK5x6jmocP/DVADd6/tbmO7foTRLQaRetXq8WzO2N16j913NN4NvmDriW03EXGhynszxTllAGM9H0ezKgTt9yxckV44HwqFp3iDqJoLnst9GAj5DrRovrGsYv/xYA==
+ bh=fMz8Aw72JbjgTshh5v/DL8QRk/p6fdU7STZR1kKTigo=;
+ b=e+q6sAqzW/rBFpYyrH3oLrvW5BLMUg2j3vbqu3lvvlezejOeiOyCZHQ5XLy/R1sxA/8FM/Exa1ibWfMnUJg7f+BviBjE5uyARE09rj3yhNVKue70G/c8SQmIrq88zSCgteMCKiX1/TIj6Y1kvXeWkRR0B+OmrDbO9ZoLdv7Rr9Ux+AU3aad9y8vFM7tvE0AzyGpheuxHvT7+KpLsOYvD5aQZ6cRqN0Js5kUwafL8OmKRxeK4GC6JowU8KJFWUwPXhjCXsS8fbqh7ZqbQt7pr4Nqh4jFwaFcGWZOwla/149bet3wG80vfrEZIboylvlLjkTDo3BCs6R+JmduFQB/eow==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rU1Xxy/uvIst7RUmFCURqNg6322QLO6vvDFaE7xvHJw=;
- b=W8ui14UIfu9+i9rwHG0MLOp5UL8R8OEL/UEsxXOtAJb+t/NUk0nTQst7hFNrmvmzA6C/YNYD5975dqPqkYmg1o1bGaQPp4H0M6IIiWt8Kga/Dl/XO3cjTcnFQTjZvQSx+tPy1KQTeXeo7d9f/D5JTNgVF3a7b3LG+8fyHpN7m6M=
-Received: from BYAPR02CA0002.namprd02.prod.outlook.com (2603:10b6:a02:ee::15)
- by DS7PR12MB8229.namprd12.prod.outlook.com (2603:10b6:8:ea::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.17; Wed, 10 Jan
- 2024 21:56:40 +0000
-Received: from MWH0EPF000989E9.namprd02.prod.outlook.com
- (2603:10b6:a02:ee:cafe::62) by BYAPR02CA0002.outlook.office365.com
- (2603:10b6:a02:ee::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.27 via Frontend
- Transport; Wed, 10 Jan 2024 21:56:40 +0000
+ bh=fMz8Aw72JbjgTshh5v/DL8QRk/p6fdU7STZR1kKTigo=;
+ b=E43kepyLGvgUcNxIjZhamjcq30RbWTzGsLmVaKjNhIHP2gK859KKWiUbl6+6wdqeP5k2R+2OkC1b64vkFpveOW5EyPHocWJfMPCJrT7R//tdNW/vW7QvdOSA2X4LssOmNJh5iP8Sy8kUEuj+KupLm/3FyrU1YngpsFh79VM8gcs=
+Received: from SJ0PR03CA0027.namprd03.prod.outlook.com (2603:10b6:a03:33a::32)
+ by SA1PR12MB8742.namprd12.prod.outlook.com (2603:10b6:806:373::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.23; Wed, 10 Jan
+ 2024 21:56:53 +0000
+Received: from MWH0EPF000989E6.namprd02.prod.outlook.com
+ (2603:10b6:a03:33a:cafe::e4) by SJ0PR03CA0027.outlook.office365.com
+ (2603:10b6:a03:33a::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.17 via Frontend
+ Transport; Wed, 10 Jan 2024 21:56:53 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -46,18 +46,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000989E9.mail.protection.outlook.com (10.167.241.136) with Microsoft
+ MWH0EPF000989E6.mail.protection.outlook.com (10.167.241.133) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7181.14 via Frontend Transport; Wed, 10 Jan 2024 21:56:40 +0000
+ 15.20.7181.13 via Frontend Transport; Wed, 10 Jan 2024 21:56:53 +0000
 Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 10 Jan
- 2024 15:56:37 -0600
+ 2024 15:56:50 -0600
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 11/19] drm/amd/display: Ensure populate uclk in bb construction
-Date: Wed, 10 Jan 2024 14:52:54 -0700
-Message-ID: <20240110215302.2116049-12-alex.hung@amd.com>
+Subject: [PATCH 12/19] drm/amd/display: Fix dml2 assigned pipe search
+Date: Wed, 10 Jan 2024 14:52:55 -0700
+Message-ID: <20240110215302.2116049-13-alex.hung@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240110215302.2116049-1-alex.hung@amd.com>
 References: <20240110215302.2116049-1-alex.hung@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989E9:EE_|DS7PR12MB8229:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0c7ab233-6f84-4a31-3133-08dc1227067b
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989E6:EE_|SA1PR12MB8742:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7f290e0e-e8f4-4c36-ae2d-08dc12270e44
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LoeC14z/qxJYvSNX9oprt07gn+WR4xaS4NoNT5A1A4rI3VmQya1HwAlh/zzcerc4X7fCjQFLs0aN+0hVClQ2PTPTq/LY91tYcfOBThupPzLPyb+V0VzhAlUeSeu/LabyykduDpUImRcTjKHljCwqUScr1s3f1HfnqG8FTaj78yY/H2oLznHL/1cNQJzjkdeV7giXhvZVCAvzt1zhz9FoNbmNLeL6ltXUI+/sqq/BHtx/yVGoDBabYZwbgQUILW7BHHTMfD85Vk8qFGGmj4U2KyPakrxqTazf6+hPYogx8M0VgQXSO8P6bWOxSm67s34sZXJs4jzK7wRmXh3bmTgYlTQdbedkodYHSf3ZuS7x4GJjT4UD/UbnCxN8rzZcrUiT6gWgst049PR67QH5PMvfpIh0iAcMqmGEHMwQzCVDfDkpGyKuLBnUgp4qRJF/1eg2ozqppzyQsSkCzFPtqdnn88U+7uGdbWxhqWT+Q3GeykNNRWBylvSXZv/H9DyKea1jzvuT9nBagagWfaliYmtI2K+vW8xltdhLBo4GTaWjsHa5vPdVkE2tjpQ+glCWUykHhAh49sqq2QsgCBpgpQRvPH12CNqsLLcUg2vRNc2mlNmVs7UyisJ8g4+iiImY5ymX7ZBqmfI/O/ESS2Zrn7OsH248z6RvEjwzuyEojEP9xrSlhd19jv0FRTiN/VYsVzUMKEuidPxolzI1D16tUDYBMrVK4Hocy7udWEjI4xGboupPJZYyKcQiZfl4awOTHcdP0OwjaSJppIsCLrzq0EDaT87TmnmjVWFb4WB7mMyLx4I=
+X-Microsoft-Antispam-Message-Info: lekAujmjkFpiZpQehWD7Lp7UrQ4MAHKWO1Vsy6H9fUcFORJHu4MsbFtDpaxLtx3g74QEIQgmPrxa2Y357kqN7l7kjTbEYNmfWueSPOcQDm8WjhfR9tXec5WYcOLc1fIjEMs15xyHl6hLW5zNnGwUE9xg0Qil8BvqSNQMkE5vzXYNt0TuY82jh7dBlnMgnYW5dXhrMLR+UvGdBJze10GwbO+GD6S+32T4Wa+I0NNWto3fODC5VqnTucmqdblCrFtMNACaYNjSz7T/+gmnEOTFaitGexL6HqHrAJT0W83pj1gtxJUADdhG2UZPEKjRbgeOsi9yOgr4wGJbWkOUnW8j9xXaE/VDLt8Tzd9hzveBapgCjiQSXhEO5iB+e2rflrtGJuBvzxgm3hS5GS6i1OPi50SVIWXCspNaraM8K0UGNZBp4wg15nAn0ZMx6oW3b1NVuiPwbmTC7oNfCfPvuQm9zEzDUBh7L0OOSkGgNYM0HG/3J5IKihv+BijKKOVWHSbt9tWDzlKgDzg8h5/fpDKL8358vMSMFWkon9dGncOpwzmPo//ZEoaKCz7mRETPpx8+8cacOX0KlNK7IMaCmNeN2W1hwCZj/tgFXkEryCEiOyq7TCiHaqfEA0+bNfbkmXnMzwuWn7BJdehyhRQL197Eh15krTCoC5UgTaI42Yx58CMgeMzpSl3VBkMnbKQrTVQC7UkPBLkaA5NdsxH5lppds2grnWb6dVc9lvRRacWLT5uNIAp6c9/4f8X9VFgd+aDCZQXjk+6uvDuFQrd97uQgzg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(346002)(39860400002)(136003)(376002)(230922051799003)(1800799012)(451199024)(186009)(82310400011)(64100799003)(46966006)(40470700004)(36840700001)(40480700001)(40460700003)(66899024)(83380400001)(81166007)(70586007)(41300700001)(70206006)(36756003)(86362001)(356005)(36860700001)(82740400003)(47076005)(426003)(16526019)(26005)(336012)(1076003)(2616005)(54906003)(2906002)(6916009)(478600001)(316002)(6666004)(7696005)(5660300002)(8936002)(4326008)(8676002)(44832011)(36900700001)(44824005);
+ SFS:(13230031)(4636009)(346002)(136003)(396003)(376002)(39860400002)(230922051799003)(82310400011)(186009)(64100799003)(451199024)(1800799012)(46966006)(36840700001)(40470700004)(82740400003)(40460700003)(40480700001)(6916009)(70586007)(36860700001)(70206006)(7696005)(81166007)(356005)(478600001)(54906003)(316002)(47076005)(8676002)(2906002)(8936002)(5660300002)(4326008)(1076003)(26005)(2616005)(36756003)(336012)(44832011)(41300700001)(16526019)(86362001)(83380400001)(426003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2024 21:56:40.0122 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c7ab233-6f84-4a31-3133-08dc1227067b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2024 21:56:53.0455 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f290e0e-e8f4-4c36-ae2d-08dc12270e44
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E9.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E6.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8229
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8742
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,158 +100,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, chiahsuan.chung@amd.com, Sunpeng.Li@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, Samson Tam <samson.tam@amd.com>,
+Cc: stylon.wang@amd.com, Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>,
+ chiahsuan.chung@amd.com, Sunpeng.Li@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, Gabe Teeger <gabe.teeger@amd.com>,
  Alex Hung <alex.hung@amd.com>, jerry.zuo@amd.com, Aurabindo.Pillai@amd.com,
- hersenxs.wu@amd.com, Alvin Lee <alvin.lee2@amd.com>, wayne.lin@amd.com,
- Chaitanya Dhere <chaitanya.dhere@amd.com>, Harry.Wentland@amd.com,
+ hersenxs.wu@amd.com, wayne.lin@amd.com, Harry.Wentland@amd.com,
  agustin.gutierrez@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <alvin.lee2@amd.com>
+From: Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>
 
-[Description]
-- For some SKUs, the optimal DCFCLK for each UCLK is less than the
-  smallest DCFCLK STA target due to low memory bandwidth. There is
-  an assumption that the DCFCLK STA targets will always be less
-  than one of the optimal DCFCLK values, but this is not true for
-  SKUs that have low memory bandwidth. In this case we need to
-  populate the optimal UCLK for each DCFCLK STA targets as the max
-  UCLK freq.
-- Also fix a bug in DML where start_state is not assigned and used
-  correctly.
+[Why & How]
+DML2 currently finds assigned pipes in array order rather than the
+existing linked list order. This results in rearranging pipe order
+on flip and more importantly otg inst and pipe idx mismatch.
 
-Reviewed-by: Samson Tam <samson.tam@amd.com>
-Reviewed-by: Chaitanya Dhere <chaitanya.dhere@amd.com>
+This change preserves the order of existing pipes and guarantees
+the head pipe will have matching otg inst and pipe idx.
+
+Reviewed-by: Gabe Teeger <gabe.teeger@amd.com>
 Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
+Signed-off-by: Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>
 ---
- .../display/dc/dml/dcn30/display_mode_vba_30.c   | 16 ++++++++--------
- .../drm/amd/display/dc/dml/dcn303/dcn303_fpu.c   | 11 +++++++++++
- .../display/dc/resource/dcn30/dcn30_resource.c   | 11 +++++++++++
- 3 files changed, 30 insertions(+), 8 deletions(-)
+ .../display/dc/dml2/dml2_dc_resource_mgmt.c   | 36 ++++++++++++++-----
+ 1 file changed, 28 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-index 63c48c29ba49..e7f4a2d491cc 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-@@ -4273,7 +4273,7 @@ void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
+index 0baf39d64a2d..a0ce681b26c6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
+@@ -141,14 +141,28 @@ static unsigned int find_pipes_assigned_to_plane(struct dml2_context *ctx,
+ {
+ 	int i;
+ 	unsigned int num_found = 0;
+-	unsigned int plane_id_assigned_to_pipe;
++	unsigned int plane_id_assigned_to_pipe = -1;
  
- 	//Calculate Swath, DET Configuration, DCFCLKDeepSleep
- 	//
--	for (i = 0; i < mode_lib->soc.num_states; ++i) {
-+	for (i = start_state; i < mode_lib->soc.num_states; ++i) {
- 		for (j = 0; j <= 1; ++j) {
- 			for (k = 0; k < v->NumberOfActivePlanes; ++k) {
- 				v->RequiredDPPCLKThisState[k] = v->RequiredDPPCLK[i][j][k];
-@@ -4576,7 +4576,7 @@ void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 
- 	//Calculate Return BW
- 
--	for (i = 0; i < mode_lib->soc.num_states; ++i) {
-+	for (i = start_state; i < mode_lib->soc.num_states; ++i) {
- 		for (j = 0; j <= 1; ++j) {
- 			for (k = 0; k <= v->NumberOfActivePlanes - 1; k++) {
- 				if (v->BlendingAndTiming[k] == k) {
-@@ -4635,7 +4635,7 @@ void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 					v->UrgentOutOfOrderReturnPerChannelVMDataOnly);
- 	v->FinalDRAMClockChangeLatency = (v->DRAMClockChangeLatencyOverride > 0 ? v->DRAMClockChangeLatencyOverride : v->DRAMClockChangeLatency);
- 
--	for (i = 0; i < mode_lib->soc.num_states; ++i) {
-+	for (i = start_state; i < mode_lib->soc.num_states; ++i) {
- 		for (j = 0; j <= 1; ++j) {
- 			v->DCFCLKState[i][j] = v->DCFCLKPerState[i];
- 		}
-@@ -4646,7 +4646,7 @@ void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 
- 		if (v->ClampMinDCFCLK) {
- 			/* Clamp calculated values to actual minimum */
--			for (i = 0; i < mode_lib->soc.num_states; ++i) {
-+			for (i = start_state; i < mode_lib->soc.num_states; ++i) {
- 				for (j = 0; j <= 1; ++j) {
- 					if (v->DCFCLKState[i][j] < mode_lib->soc.min_dcfclk) {
- 						v->DCFCLKState[i][j] = mode_lib->soc.min_dcfclk;
-@@ -4656,7 +4656,7 @@ void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 	for (i = 0; i < ctx->config.dcn_pipe_count; i++) {
+-		if (state->res_ctx.pipe_ctx[i].plane_state && get_plane_id(ctx, state, state->res_ctx.pipe_ctx[i].plane_state,
+-			state->res_ctx.pipe_ctx[i].stream->stream_id,
+-			ctx->v20.scratch.dml_to_dc_pipe_mapping.dml_pipe_idx_to_plane_index[state->res_ctx.pipe_ctx[i].pipe_idx], &plane_id_assigned_to_pipe)) {
+-			if (plane_id_assigned_to_pipe == plane_id)
+-				pipes[num_found++] = i;
++		struct pipe_ctx *pipe = &state->res_ctx.pipe_ctx[i];
++
++		if (!pipe->stream)
++			continue;
++
++		get_plane_id(ctx, state, pipe->plane_state, pipe->stream->stream_id,
++					ctx->v20.scratch.dml_to_dc_pipe_mapping.dml_pipe_idx_to_plane_index[pipe->pipe_idx],
++					&plane_id_assigned_to_pipe);
++		if (pipe->plane_state && plane_id_assigned_to_pipe == plane_id && !pipe->top_pipe && !pipe->prev_odm_pipe) {
++			while (pipe) {
++				struct pipe_ctx *mpo_pipe = pipe;
++
++				while (mpo_pipe) {
++					pipes[num_found++] = mpo_pipe->pipe_idx;
++					mpo_pipe = mpo_pipe->bottom_pipe;
++				}
++				pipe = pipe->next_odm_pipe;
++			}
++			break;
  		}
  	}
  
--	for (i = 0; i < mode_lib->soc.num_states; ++i) {
-+	for (i = start_state; i < mode_lib->soc.num_states; ++i) {
- 		for (j = 0; j <= 1; ++j) {
- 			v->IdealSDPPortBandwidthPerState[i][j] = dml_min3(
- 					v->ReturnBusWidth * v->DCFCLKState[i][j],
-@@ -4674,7 +4674,7 @@ void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+@@ -566,8 +580,14 @@ static unsigned int find_pipes_assigned_to_stream(struct dml2_context *ctx, stru
+ 	unsigned int num_found = 0;
  
- 	//Re-ordering Buffer Support Check
- 
--	for (i = 0; i < mode_lib->soc.num_states; ++i) {
-+	for (i = start_state; i < mode_lib->soc.num_states; ++i) {
- 		for (j = 0; j <= 1; ++j) {
- 			if ((v->ROBBufferSizeInKByte - v->PixelChunkSizeInKByte) * 1024 / v->ReturnBWPerState[i][j]
- 					> (v->RoundTripPingLatencyCycles + 32) / v->DCFCLKState[i][j] + ReorderingBytes / v->ReturnBWPerState[i][j]) {
-@@ -4692,7 +4692,7 @@ void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 		MaxTotalVActiveRDBandwidth = MaxTotalVActiveRDBandwidth + v->ReadBandwidthLuma[k] + v->ReadBandwidthChroma[k];
+ 	for (i = 0; i < ctx->config.dcn_pipe_count; i++) {
+-		if (state->res_ctx.pipe_ctx[i].stream && state->res_ctx.pipe_ctx[i].stream->stream_id == stream_id) {
+-			pipes[num_found++] = i;
++		struct pipe_ctx *pipe = &state->res_ctx.pipe_ctx[i];
++
++		if (pipe->stream && pipe->stream->stream_id == stream_id && !pipe->top_pipe && !pipe->prev_odm_pipe) {
++			while (pipe) {
++				pipes[num_found++] = pipe->pipe_idx;
++				pipe = pipe->next_odm_pipe;
++			}
++			break;
+ 		}
  	}
  
--	for (i = 0; i < mode_lib->soc.num_states; ++i) {
-+	for (i = start_state; i < mode_lib->soc.num_states; ++i) {
- 		for (j = 0; j <= 1; ++j) {
- 			v->MaxTotalVerticalActiveAvailableBandwidth[i][j] = dml_min(
- 					v->IdealSDPPortBandwidthPerState[i][j] * v->MaxAveragePercentOfIdealSDPPortBWDisplayCanUseInNormalSystemOperation / 100,
-@@ -4708,7 +4708,7 @@ void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 
- 	//Prefetch Check
- 
--	for (i = 0; i < mode_lib->soc.num_states; ++i) {
-+	for (i = start_state; i < mode_lib->soc.num_states; ++i) {
- 		for (j = 0; j <= 1; ++j) {
- 			int NextPrefetchModeState = MinPrefetchMode;
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.c
-index 3eb3a021ab7d..3f02bb806d42 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.c
-@@ -266,6 +266,17 @@ void dcn303_fpu_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_p
- 					optimal_uclk_for_dcfclk_sta_targets[i] =
- 							bw_params->clk_table.entries[j].memclk_mhz * 16;
- 					break;
-+				} else {
-+					/* condition where (dcfclk_sta_targets[i] >= optimal_dcfclk_for_uclk[j]):
-+					 * This is required for dcn303 because it just so happens that the memory
-+					 * bandwidth is low enough such that all the optimal DCFCLK for each UCLK
-+					 * is lower than the smallest DCFCLK STA target. In this case we need to
-+					 * populate the optimal UCLK for each DCFCLK STA target to be the max UCLK.
-+					 */
-+					if (j == num_uclk_states - 1) {
-+						optimal_uclk_for_dcfclk_sta_targets[i] =
-+								bw_params->clk_table.entries[j].memclk_mhz * 16;
-+					}
- 				}
- 			}
- 		}
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
-index 37a64186f324..ecc477ef8e3b 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
-@@ -2169,6 +2169,17 @@ void dcn30_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params
- 					optimal_uclk_for_dcfclk_sta_targets[i] =
- 							bw_params->clk_table.entries[j].memclk_mhz * 16;
- 					break;
-+				} else {
-+					/* condition where (dcfclk_sta_targets[i] >= optimal_dcfclk_for_uclk[j]):
-+					 * If it just so happens that the memory bandwidth is low enough such that
-+					 * all the optimal DCFCLK for each UCLK is lower than the smallest DCFCLK STA
-+					 * target, we need to populate the optimal UCLK for each DCFCLK STA target to
-+					 * be the max UCLK.
-+					 */
-+					if (j == num_uclk_states - 1) {
-+						optimal_uclk_for_dcfclk_sta_targets[i] =
-+								bw_params->clk_table.entries[j].memclk_mhz * 16;
-+					}
- 				}
- 			}
- 		}
 -- 
 2.34.1
 
