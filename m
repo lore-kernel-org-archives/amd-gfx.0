@@ -4,115 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DA78C3DA6E
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 10:57:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC8B1C47074
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 11:10:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0F3310E5A9;
-	Wed, 10 Jan 2024 10:57:50 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2079.outbound.protection.outlook.com [40.107.223.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61F2310E5A9
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 10:57:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Z7Vehs55594WjM9GN4/7i6lON7LkhhXrmoG7Uf0p8URrvkX6W6xAuBaOFgk+p0+DHs05dzSpTF401lZMpUDf+ZX368VoK3HAPowl+L0F3bUOUnK4mwTxaHOSeOVKGBus9HDPO84o596P9JvH3MmqTvym9zP5GSJalojL92flbXK6dNVNunDfCSUNsEBPkLeW/0f0NlmTPKEboZe8mwD/MSy5Z66XERZIYInX6Ms6SnSeFqvGCTWpSdvE+/WS2pho+sikU0NMXm8d4ZIjZ/AqN3Xm/1HDLe6IABrPd1brf0qvWA9oB6vii+MB082klCn7eIJDnNQwnpOZciIgUMEdSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ka7RpHmXEXqAsX8AtvwnknYq75LOCOG355IeyyBMS0U=;
- b=RVBZnhz0xlM/wg3qQDDdDTeSIyOmQJQDe3NFXzBQLGmd2C+HfdFmYSEheaAPVCBIFwBgkYVslAv+/+SnFvHUrmT8gNVWbKTUQ0TMpePQHaOYWepdCFPK2KQa304O9YXCf7V2uzbDEggoey5/lWAFu+HbMhlZ5d4uwb4HPCnTn0VTn8iZFtwzdEZ1USJ3gHms26Kp4Rok3QqYVRYgKTGfuYsNQtH5lKpB9aVF7ir0CBTSnTMFWbA3BqYU88lSRs5/3ehobCkLJKIRV1U1PXY1oBxOB9bUL4mS+iIJKGNtuQUTpNHqB4eNJSXEdjYy8Ioj+ULBLU/wU3Kd1TpJuhoBNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ka7RpHmXEXqAsX8AtvwnknYq75LOCOG355IeyyBMS0U=;
- b=O2fxyGDx/eWfkcgP5OjIB8A7GSnRBqxLETkxyGQ9OcGqz2nnYtrqPNOOovrS+O0mF4t0Y0nvWL0s2oVGIe+F9KAuYT9zeNVpfuqs4QBQyiT1RBWvCUddYkWPVHdZT4cfcg3JA+SXQbj7bbzyVWZbbNUXrxAaWjuyUI82QCu2LZ4=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by SA0PR12MB4368.namprd12.prod.outlook.com (2603:10b6:806:9f::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.27; Wed, 10 Jan
- 2024 10:57:44 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::7ee2:4db2:1828:ba83]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::7ee2:4db2:1828:ba83%4]) with mapi id 15.20.7159.020; Wed, 10 Jan 2024
- 10:57:44 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Li, Candice" <Candice.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 2/2] drm/amdgpu: Do bad page retirement for deferred errors
-Thread-Topic: [PATCH 2/2] drm/amdgpu: Do bad page retirement for deferred
- errors
-Thread-Index: AQHaQ6COb4Gb3xmKUUKdyv7m/3kwVbDS3fSw
-Date: Wed, 10 Jan 2024 10:57:44 +0000
-Message-ID: <BN9PR12MB5257F0C8622376B4FB98E182FC692@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20240110083856.412858-1-candice.li@amd.com>
- <20240110083856.412858-2-candice.li@amd.com>
-In-Reply-To: <20240110083856.412858-2-candice.li@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=8836cd97-217c-41a9-b39f-f8538ea82e81;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-01-10T10:48:54Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|SA0PR12MB4368:EE_
-x-ms-office365-filtering-correlation-id: 55b57b81-0c13-4245-1b70-08dc11caf98a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: X74GwdY7w2vH05vk+Cntt9cOtP48v7lw/mpimGMLBdRYtjo2QkJ01MhM3sXfzVOt4P0miNnB9/fjJ+y+P+bzRdwf39bfMOoH4FCgcM3ywFrJdbr8KrlhxT3+zibyPeqhy+S2m56cE1GNK07tP2/9LrayRNAXOfKYDXsqzj4m8D14cxNQNyqe+uh7cD3igbbdedvwzcBP0q3Q6QT4yhfj2f0cDctS3xjbFaCqsOLWSoWgZn3WFgzJQ3vnwETSNm2RIVjs5cEt9V/xw/X52ZuPzmEZhxwj2jbLHPKJPhvK1sgMy6wTrrkqHX9ci5raDRyD7pBaM7v3+2PTAMXZx4jKmEm/pTnhVcVp9y0+tUWINnNLthfXz82tplCqgHB4OpIAeGI0jGC4COSYbT7qUd3R/+CvOyMPcWnyOCNX/lAKiFAHna/s8qFlIbhDVQMyp4QYfTcmBbQ880GFjiFi7IhKb50N/Pml7wQlenYz8Je2Ih6yaJ3YSQ2dfaplH71bz3XLYIsRCJLRbXBiBehUIIvJVkZuaB4s0gWBETSvNC0u5bBMwIyGxRtnYcvchWLXlJzcQ5fn+n7G2R7ydbXn36SN4HTupzJrJb7bco9l8bT4CaTT+ZQ74S29xI9EZ4lF52is
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(376002)(136003)(396003)(366004)(346002)(230922051799003)(1800799012)(186009)(64100799003)(451199024)(76116006)(66476007)(66446008)(66946007)(66556008)(64756008)(26005)(110136005)(316002)(71200400001)(8676002)(52536014)(8936002)(4326008)(83380400001)(55016003)(7696005)(6506007)(9686003)(53546011)(5660300002)(2906002)(478600001)(122000001)(38100700002)(86362001)(41300700001)(38070700009)(33656002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?sWNrmVgabb3mhgRCMbWuJr6Y07TN9RtWtDuZPG4HekywWg8yqajCFXjIdBq2?=
- =?us-ascii?Q?iWleKg09k/QqPFBPhNCP53Yq/kDmq7gEpT6ptB15Gnj05m+zssLVd8FC9pvi?=
- =?us-ascii?Q?mgLOpRmcwWuVE2TCIDtEhxLRbt1Ph3of8SK6Q8+xaAy7SLPfuvCBc7k0ZLB4?=
- =?us-ascii?Q?ImnWSNihh+XcQ99sFAqdC+CkzX08j+wMXkfGSpopklju5VMsDB3s+6k1GWzv?=
- =?us-ascii?Q?PMBzDONvdl6Cf4lOvYL0zdr+S/P9ltfBoL7DxFje3utktXLjLxpP4lliDnYp?=
- =?us-ascii?Q?JVNXi8aXW87+on5oozyd5BBfdij/OUSCWcGC8bfGP1S09kMW+RuROsCfN9Z1?=
- =?us-ascii?Q?XX6+jawiAX7cVzeLj/Kc4nnGmRhqH1Jv/rn03WfwTCHDBSodujKg7TpPD9u8?=
- =?us-ascii?Q?r2qi2JCb408PrxOhWsVJQqDhWJUk4znw2g0itva8pMl07Afioiwg2kysbfig?=
- =?us-ascii?Q?fqlkEnE5colL6RU1zEA7/5x+uWsmJ/Y4eJzMDDOsgxzvRrLtBiL5K0LtfSMy?=
- =?us-ascii?Q?bNssb/FVc1oKZUX3S/exNrOXDx+iHbyI9+ov9UJjdLuNNhio3zT1vb5XNerc?=
- =?us-ascii?Q?zkl4xlotOy2A2gagEM+Z9XE3bfKmgRC5R3U+3c7QsyqPyRHcHMO0xz1U3yo1?=
- =?us-ascii?Q?CiRc3YAFRpJasOWUlKe1Vp5GVH/5TA8d6qUwyPQLTkwJyga+oEKQGpeoiiqJ?=
- =?us-ascii?Q?sxHG4I80QJlE5C2pYLD/KB6/RDFnTbEsFD4Ss+G2wmoBVc+jBpnYDyuefYWB?=
- =?us-ascii?Q?cFgWpgc9+cC1t8cVo6r957sEssROeAIIsNsp6aJplLYUbZR5ahfQtQXHNjeq?=
- =?us-ascii?Q?6xbPBnW+lF3YLE/D5VWa+DYyn6RKVJEuy2va9lymb8TYKeYJbqN/TyHWWILJ?=
- =?us-ascii?Q?wQLB4486YGgGL+XExSnnhTBXqn42wJBDPcnr5k3fIP345ZwEqlokTQTKJb+a?=
- =?us-ascii?Q?a+tiurJ6KVHM6MABusP/4aHkAFtIspscK+bvKX8BfVT2tURY14HWbxN6uj/G?=
- =?us-ascii?Q?tvO4l2r4gs/e0sdjdeYuEIxGES3EhD1qdu+dmyKUhY74sKGfDZT3IlcR5Dsu?=
- =?us-ascii?Q?lsm+tXJUbTk1Mc8QzZ9loyGNjoLHtM1JoMbtBSDcY7GA2fw06HKiQtFFKsB0?=
- =?us-ascii?Q?zmZuhKinmi92TRHh8u9oFfBwG1QVVYE2a0FrbJeM9x7ki8spufTmfTxPJI8D?=
- =?us-ascii?Q?OciH93Ts8o9ef2D3Y+PkOs4uOlyjYqzzNPQFN7uFGXdvjI2xQpCmNIwJRMtd?=
- =?us-ascii?Q?A6guRTbXOevbRqVcedV+cxiGd0QHpE22X6NIUPYBTlAcyS/sgeOmUxNTeRIN?=
- =?us-ascii?Q?lOjmOigxPco3GEHDZ/8qEUmtj20AKV253bTAQE75ES+aGCLzpfqkjCW8X2sO?=
- =?us-ascii?Q?d5dzVaXIZxY0h+6JJQI4mZafudBGdvQgCSJtJBgHhReZxCbpj2gHn/FHfiT5?=
- =?us-ascii?Q?vzdMVjandanK0b0eOuwUk4raiIAZE20Qj0Oydq9EP76FeTlWiSvvOlyB/42E?=
- =?us-ascii?Q?DdQ6YHplONOVEiEzZwZx7AgWgI4KQpFcgbn+oloCnv7FduunJYoiVSlG+sVX?=
- =?us-ascii?Q?E6LxXS2H2CF4d6m+O3UtdeEnYz57muPhT3u4nKYq?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74B7B10E75B;
+	Wed, 10 Jan 2024 11:10:52 +0000 (UTC)
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98C0310E75B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 11:10:50 +0000 (UTC)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a28cfca3c45so101984166b.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 03:10:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1704885049; x=1705489849; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=3QlF0rRTBRD1E5jWA0kISaH2vZgtmpP2AfnIty3q4TQ=;
+ b=GWX16YjwJXgapnM3J1eSZYjvbnsmYQGZSGR1n43N1zwx/7ldxaizqz3K4LSm/9AllY
+ nL8+LRYHKhHp0dFHLEvVWXL5eQelTaVGkHppHBGgU02zaUY7jl+NFBOHuH4FSPRWu2ZX
+ ha697XxMU5+dyfVlfdie7PqD5Fe+0fw34UIbk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1704885049; x=1705489849;
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=3QlF0rRTBRD1E5jWA0kISaH2vZgtmpP2AfnIty3q4TQ=;
+ b=GOWT9C925bMPlKSg48fnjY0iHzLyrAi4GaoM17fy55cXDJemRJlziGgeUcJ/Vzkr3R
+ qbjOCEubF4nO/tOxcuoGfQ8G2TQJU9bZoXFJqi5FgKWjCzY9iLohmLMYc8ETJgnjHucw
+ Ca5j22gb9Qo56FvQifG4iBaf8pHxhlRohO2KA1PCyHiY1Mms1NChvmIXyqWsaCP5lwUV
+ Ku3hDnQ1CEqPQRmbpB70xmJ5fSR5l43nddGL1Zwy0t9+ZGtl0/zTPegqsptd5XDGFJNo
+ C4O30FMPZaMCGWZ6NrPLHB2GjYyARnohhhGQfxKMN2ZVj3pUejXvHwZL2/REA2s0//Hx
+ Ob3Q==
+X-Gm-Message-State: AOJu0YwbglDp8JE5u9h5z5hbUSuaTO6u/y+324mk8B8O+CVBRHXWjPFt
+ JRCIhRq72GcO/lKtKphEGgYwXwKvwuqD6w==
+X-Google-Smtp-Source: AGHT+IH17mNNLFHB3A8wZSZTcWuwmMBTnERZR6Mu2RaoActQZZYYvzEUdcGN2VlFuia3B3Yo7xfaKw==
+X-Received: by 2002:a17:907:9445:b0:a27:7701:f16 with SMTP id
+ dl5-20020a170907944500b00a2777010f16mr1131131ejc.7.1704885048816; 
+ Wed, 10 Jan 2024 03:10:48 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id
+ m27-20020a1709062adb00b00a269f8e8869sm1976817eje.128.2024.01.10.03.10.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Jan 2024 03:10:48 -0800 (PST)
+Date: Wed, 10 Jan 2024 12:10:46 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Andri Yngvason <andri@yngvason.is>
+Subject: Re: [PATCH 3/7] drm/amd/display: Add handling for new "active color
+ format" property
+Message-ID: <ZZ57Nl3CnRMPcfbj@phenom.ffwll.local>
+Mail-Followup-To: Andri Yngvason <andri@yngvason.is>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ Simon Ser <contact@emersion.fr>,
+ Werner Sembach <wse@tuxedocomputers.com>
+References: <20240109181104.1670304-1-andri@yngvason.is>
+ <20240109181104.1670304-4-andri@yngvason.is>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 55b57b81-0c13-4245-1b70-08dc11caf98a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jan 2024 10:57:44.6915 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 1k1p9mimRkd/epieOCCbLiVjlXtuBWDfqfO4d0FHEd2Z3zPJYT0YqA0OVeueBKswQjEehEGq69iqqluigh+lgw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4368
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240109181104.1670304-4-andri@yngvason.is>
+X-Operating-System: Linux phenom 6.5.0-4-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,84 +91,140 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Li, Candice" <Candice.Li@amd.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Werner Sembach <wse@tuxedocomputers.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, intel-gfx@lists.freedesktop.org,
+ Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Simon Ser <contact@emersion.fr>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+On Tue, Jan 09, 2024 at 06:11:00PM +0000, Andri Yngvason wrote:
+> From: Werner Sembach <wse@tuxedocomputers.com>
+> 
+> This commit implements the "active color format" drm property for the AMD
+> GPU driver.
+> 
+> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+> Signed-off-by: Andri Yngvason <andri@yngvason.is>
+> Tested-by: Andri Yngvason <andri@yngvason.is>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 42 ++++++++++++++++++-
+>  .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  4 ++
+>  2 files changed, 45 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 10e041a3b2545..b44d06c3b1706 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -6882,6 +6882,24 @@ int convert_dc_color_depth_into_bpc(enum dc_color_depth display_color_depth)
+>  	return 0;
+>  }
+>  
+> +static int convert_dc_pixel_encoding_into_drm_color_format(
+> +	enum dc_pixel_encoding display_pixel_encoding)
+> +{
+> +	switch (display_pixel_encoding) {
+> +	case PIXEL_ENCODING_RGB:
+> +		return DRM_COLOR_FORMAT_RGB444;
+> +	case PIXEL_ENCODING_YCBCR422:
+> +		return DRM_COLOR_FORMAT_YCBCR422;
+> +	case PIXEL_ENCODING_YCBCR444:
+> +		return DRM_COLOR_FORMAT_YCBCR444;
+> +	case PIXEL_ENCODING_YCBCR420:
+> +		return DRM_COLOR_FORMAT_YCBCR420;
+> +	default:
+> +		break;
+> +	}
+> +	return 0;
+> +}
+> +
+>  static int dm_encoder_helper_atomic_check(struct drm_encoder *encoder,
+>  					  struct drm_crtc_state *crtc_state,
+>  					  struct drm_connector_state *conn_state)
+> @@ -7436,8 +7454,10 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+>  				adev->mode_info.underscan_vborder_property,
+>  				0);
+>  
+> -	if (!aconnector->mst_root)
+> +	if (!aconnector->mst_root) {
+>  		drm_connector_attach_max_bpc_property(&aconnector->base, 8, 16);
+> +		drm_connector_attach_active_color_format_property(&aconnector->base);
+> +	}
+>  
+>  	aconnector->base.state->max_bpc = 16;
+>  	aconnector->base.state->max_requested_bpc = aconnector->base.state->max_bpc;
+> @@ -8969,6 +8989,26 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+>  		kfree(dummy_updates);
+>  	}
+>  
+> +	/* Extract information from crtc to communicate it to userspace as connector properties */
+> +	for_each_new_connector_in_state(state, connector, new_con_state, i) {
+> +		struct drm_crtc *crtc = new_con_state->crtc;
+> +		struct dc_stream_state *stream;
+> +
+> +		if (crtc) {
+> +			new_crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
+> +			dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+> +			stream = dm_new_crtc_state->stream;
+> +
+> +			if (stream) {
+> +				drm_connector_set_active_color_format_property(connector,
+> +					convert_dc_pixel_encoding_into_drm_color_format(
+> +						dm_new_crtc_state->stream->timing.pixel_encoding));
+> +			}
+> +		} else {
+> +			drm_connector_set_active_color_format_property(connector, 0);
 
-Let's drop the following message.
+Just realized an even bigger reason why your current design doesn't work:
+You don't have locking here.
 
-+               dev_info(adev->dev, "%ld uncorrectable hardware errors and =
-"
-+                               "%ld deferred hardware errors detected in U=
-MC block\n",
-+                               err_data->ue_count, err_data->de_count);
+And you cannot grab the required lock, which is
+drm_dev->mode_config.mutex, because that would result in deadlocks. So
+this really needs to use the atomic state based design I've described.
 
-With that fixed, the series is
+A bit a tanget, but it would be really good to add a lockdep assert into
+drm_object_property_set_value, that at least for atomic drivers and
+connectors the above lock must be held for changing property values. But
+it will be quite a bit of audit to make sure all current users obey that
+rule.
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Cheers, Sima
+> +		}
+> +	}
+> +
+>  	/**
+>  	 * Enable interrupts for CRTCs that are newly enabled or went through
+>  	 * a modeset. It was intentionally deferred until after the front end
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> index 11da0eebee6c4..a4d1b3ea8f81c 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> @@ -600,6 +600,10 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
+>  	if (connector->max_bpc_property)
+>  		drm_connector_attach_max_bpc_property(connector, 8, 16);
+>  
+> +	connector->active_color_format_property = master->base.active_color_format_property;
+> +	if (connector->active_color_format_property)
+> +		drm_connector_attach_active_color_format_property(&aconnector->base);
+> +
+>  	connector->vrr_capable_property = master->base.vrr_capable_property;
+>  	if (connector->vrr_capable_property)
+>  		drm_connector_attach_vrr_capable_property(connector);
+> -- 
+> 2.43.0
+> 
 
-Regards,
-Hawking
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Candice =
-Li
-Sent: Wednesday, January 10, 2024 16:39
-To: amd-gfx@lists.freedesktop.org
-Cc: Li, Candice <Candice.Li@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: Do bad page retirement for deferred errors
-
-Needs to do bad page retirement for deferred errors.
-
-Signed-off-by: Candice Li <candice.li@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_umc.c
-index 848df7acdd3210..df61df7e9b155f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-@@ -93,6 +93,7 @@ static int amdgpu_umc_do_page_retirement(struct amdgpu_de=
-vice *adev,
-        struct ras_err_data *err_data =3D (struct ras_err_data *)ras_error_=
-status;
-        struct amdgpu_ras *con =3D amdgpu_ras_get_context(adev);
-        int ret =3D 0;
-+       unsigned long err_count;
-
-        kgd2kfd_set_sram_ecc_flag(adev->kfd.dev);
-        ret =3D amdgpu_dpm_get_ecc_info(adev, (void *)&(con->umc_ecc)); @@ =
--147,16 +148,17 @@ static int amdgpu_umc_do_page_retirement(struct amdgpu_d=
-evice *adev,
-        }
-
-        /* only uncorrectable error needs gpu reset */
--       if (err_data->ue_count) {
--               dev_info(adev->dev, "%ld uncorrectable hardware errors "
--                               "detected in UMC block\n",
--                               err_data->ue_count);
-+       if (err_data->ue_count || err_data->de_count) {
-+               dev_info(adev->dev, "%ld uncorrectable hardware errors and =
-"
-+                               "%ld deferred hardware errors detected in U=
-MC block\n",
-+                               err_data->ue_count, err_data->de_count);
-
-+               err_count =3D err_data->ue_count + err_data->de_count;
-                if ((amdgpu_bad_page_threshold !=3D 0) &&
-                        err_data->err_addr_cnt) {
-                        amdgpu_ras_add_bad_pages(adev, err_data->err_addr,
-                                                err_data->err_addr_cnt);
--                       amdgpu_ras_save_bad_pages(adev, &(err_data->ue_coun=
-t));
-+                       amdgpu_ras_save_bad_pages(adev, &err_count);
-
-                        amdgpu_dpm_send_hbm_bad_pages_num(adev, con->eeprom=
-_control.ras_num_recs);
-
---
-2.25.1
-
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
