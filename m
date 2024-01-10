@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03C35C4707B
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 21:55:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10738C47073
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 21:55:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 928FC10E6AA;
-	Wed, 10 Jan 2024 21:55:48 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2076.outbound.protection.outlook.com [40.107.244.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAD1710E6A8
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 21:55:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADD5210E7A5;
+	Wed, 10 Jan 2024 21:55:53 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2079.outbound.protection.outlook.com [40.107.243.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09E1010E7A5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 21:55:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SLf1uMSW307masuRjMnq5sgr+CpHz3JRpHhYOJ+fBI8b7b3Lvmwf8ugObyTvJ2DlL3FNubf3j8rcXzm0K86y/l6WwGOxZ5ZI4iLAhhg/E/MQ8H68OQxFjjACrmnNhacrGq8wWv3Gof37zbQhCYL9ov1+OZOhmn7VeHJ6OtN0z3RFRdJvLw70U8I4OQfjkjrn3r5WLYdkeqXeE9h027fWS0B3cCammffvRzpNKHwlyo1gHB4bmEnkGKqWqhRf0hSG/lV17NTSZq6lkp6rE/XF67m2FNXKxcnPLoCY5HqIgdhTU7VziW+zYIGI8G6CG+VheEaF9FCSJMacOVTKhLFFWQ==
+ b=FTN6u0wSyXBrGEW6uwCAgCNN5aX109saFZPlGFsd5e0ne6kvIm9bc3oDQrCvEs+s4wxXkzo9/RkkZRRmBKIJ/Api6LNPtezzcEn/83qf++kOAR7dq8edfGGqwfqUz2gdQ2nMdGLcZV7b8/86R6IRLVcSDPM2gykfHPN3kmYIk/hKFwo2p7x0dudC/4WMmO8EjzkUOwoSM3gKOA5MSgBogT4h7C5UWMdCXKEflM5RsMVPlI4K54k5HWTj/mF55SbJAm8NZzKtQarWKp4z0PNViWr4NYiGTi8UKOnN6/QvNkGfn1DSiZ9PYi1u1CTWnKnnkCAx3k7ADV92LJAqMe02tw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+NvRxj2BB8adILhgiGHG7gX7fZp5nyRslpYlPQvQtgg=;
- b=ngpd6IWVSenIMbuZw6ygreNxRpcxMQP73lS1HcXz3ROAdCg1zA1zw8C9J7+YpkEf2Vh9FxZnm2Jpu8jJeHSdk71bREEf1UTAP/yny9b57HLrhi1+ot+t+TtYp5GwfUisdXg8QajXGzQD76fnNIqCA6rXjcVXPQl/COb0VhA6OJXCLsYb33yDKSZwTfsuH0nGa0FaqTYWPewluTxFqSnNV2D4fOJlFCIc2g6bkBxTg5aNcnc8Ni5IqgyUbL4ynRRfFxSukQvnCo0RrC/B+wWj/ZY/REP1XUJdO3Buw4BjEmHjgohuh3E51HXiU3oGwokKp/r1LGKUF7sAwaUleLqJQA==
+ bh=CYLdqgc802PLEi4b64JFICvCy+ogdf1cYAOgjJ7puCo=;
+ b=VQQyhgEshxISF+AfwFHW21ztotb7s+Mq6ZajGVCkSFJy44CSP5xZIBJ2Is7jEwLecKPpiP9Rk0ngeNZmyyysZ4a6pMcnk9kj2EMaUPLNOkuIqH6sUECvPCo7AWgT6bNbeDEjc9suBbv6Runu1CX1F1Pq1UvyG3qhbdkAfYrgmvG2OEbF2qD/k8juJOJiSEOdJxyHuDxf2UtPaKA0Vb6eGRMNOcEj8IgmeMMdj3/lC+B4LpeJBOwI577IMYr76vVaw9Y5nY7dEMcmiw55WqtnsdbtJCd1t3EHtbFLA0VJpYF62xsWq0LTluFzmrt2BtT+Id1wNIOgid7mWgAmain4Hw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+NvRxj2BB8adILhgiGHG7gX7fZp5nyRslpYlPQvQtgg=;
- b=U/MFNt7TANeIAFQ2CeQA7yEKYKZ0bNb8tdJft7gfCoFHel/p84MCgp7bMQ5Y9vmXLC14rfMj3rBruhDsUcDEyWsjpn2M48SmoFfF2OhGI4UY3df7uHoXO1rMtZouwcIkXBG1m6E67b4N8pisD3IsTEA4mM4AaBG2PQzIHLIBYV8=
-Received: from MW4PR03CA0015.namprd03.prod.outlook.com (2603:10b6:303:8f::20)
- by IA1PR12MB9032.namprd12.prod.outlook.com (2603:10b6:208:3f3::19)
+ bh=CYLdqgc802PLEi4b64JFICvCy+ogdf1cYAOgjJ7puCo=;
+ b=MpUXvHJYAKSQwN6BXJC7yvkM4pGqedMCwTsql+pJTibXxzUSO6/68Be5q8TU4M9Ihif8r33Y9Vcp7eAI2wcz3SQBp6bvzHh0b3bbTXuCLGY4uqbgTQxKGEOsSB1fm5jiPmmW6rIH4/6YgwqPTMYxR+455gutTs6dxX9eeZP/6LQ=
+Received: from MW4PR03CA0022.namprd03.prod.outlook.com (2603:10b6:303:8f::27)
+ by PH7PR12MB6858.namprd12.prod.outlook.com (2603:10b6:510:1b4::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.24; Wed, 10 Jan
- 2024 21:55:41 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.23; Wed, 10 Jan
+ 2024 21:55:46 +0000
 Received: from MWH0EPF000989EB.namprd02.prod.outlook.com
- (2603:10b6:303:8f:cafe::5f) by MW4PR03CA0015.outlook.office365.com
- (2603:10b6:303:8f::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.18 via Frontend
- Transport; Wed, 10 Jan 2024 21:55:41 +0000
+ (2603:10b6:303:8f:cafe::40) by MW4PR03CA0022.outlook.office365.com
+ (2603:10b6:303:8f::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.17 via Frontend
+ Transport; Wed, 10 Jan 2024 21:55:43 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  MWH0EPF000989EB.mail.protection.outlook.com (10.167.241.138) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7181.14 via Frontend Transport; Wed, 10 Jan 2024 21:55:41 +0000
+ 15.20.7181.14 via Frontend Transport; Wed, 10 Jan 2024 21:55:43 +0000
 Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 10 Jan
- 2024 15:55:28 -0600
+ 2024 15:55:41 -0600
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 08/19] drm/amd/display: Fix DML2 watermark calculation
-Date: Wed, 10 Jan 2024 14:52:51 -0700
-Message-ID: <20240110215302.2116049-9-alex.hung@amd.com>
+Subject: [PATCH 09/19] drm/amd/display: Reenable windowed mpo odm support
+Date: Wed, 10 Jan 2024 14:52:52 -0700
+Message-ID: <20240110215302.2116049-10-alex.hung@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240110215302.2116049-1-alex.hung@amd.com>
 References: <20240110215302.2116049-1-alex.hung@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989EB:EE_|IA1PR12MB9032:EE_
-X-MS-Office365-Filtering-Correlation-Id: b1aad934-585e-4641-59c9-08dc1226e354
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989EB:EE_|PH7PR12MB6858:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3f27ee94-629e-4ca1-e53e-08dc1226e4e4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kdmWMq1vC6fVstAPEvfVa403/yVnRjBv+CE4hcRF2LJKevyB4Pn6p0dAYmuOfI57g3fyDhVvi1wk7s/+7HCMSlnLLESR+httdtO0BRjd4h8qZ3DWdtzv8cbffgk9gEiyOZgLZLps75Y9lJdVLxkVvRWUsZMh4ZvavDNTRPnqzg1tRQyZHmWQhIUWsdr1jVk3CRPfCuomEcVUMaZjqGqzV14YjQC9zakWtQENr550kgddqbqg2aFTI9jQ0Nk0PjKjOq8L/rXimSaQd9lHnxLOhfILGpZvpJDMiaLG9wzA8uBmY3xP0cJBABfDQK4HFYX6jgGCroxIciK12n2bWutP/4M7dXFyNW1boSy6JBXH9ieJowsGSpWKMyBK/VqmeKk93XiWaxzTKTY3X+bN8QDJQPh+79+6A4r2190wvmp1ATV2ERBAGXUfwrb9xFbTO80U0KqOgN1K7A9aWIX9oymmBq2lU/13WwAA1wZBZ46FIXnRYLWP9pPcjhZmKX7eaksB5uOEWa7gsCI3f488gIEo3noLCpeHIlipJu17xCbsqxBGTjdyUo5B/2P4jlUkzq8mFqy01xVYWxe/AfEVNeH1GVfPuagwm/Ja8SAUItQbLeQaYA2E6QiWQPdFZCS6ivsSzviC2HfTk7raMPYnhmsbdub/UAqEFpB0x/+9k/XLKGFWBWtmeutJid6FYqiGSsZz//ye8m/m1cYqR4+v9JTJVEYCa0poPN6S+Qlpkl0utijPORfTrEd/qojK3uyzousCyRTLXEFrnxKGOeYevjZ+uE1uTynkDxIg3sCHMW39Vfs=
+X-Microsoft-Antispam-Message-Info: 8JkFklv+YSSEzBTH3ySi6/7tHWHxgfLsoN4rDaf8p0oQ1kN4U7iS2KEr8S1ap7CqB9Dd3B3rD4uhJfp0xX2pi3YvD8A30/3bbZvs5UL7/1LQva/8cGoLWNC3yohMK37KnuWfdAEVvxSERthAiJLdPrNnYthnK0pf4ZeZbmkMOhWoKBNJzvBorzRIepXYawVnLBk2Quof1CgaogIJy/bQM5i4GU+QwFrfUtGsKb2DreoS0HpbCnxcc3LMLhqO7y6Dswb9qswK20mckQ4YoMp7pDxk13MBKo9z7zFVzy0kSwVwYM4Or++++2SZLhriCEIztCv3tMktcKCBKzFnzn9eCrFmOI1Eo67Lr7LLZcHk+KLBTe0FpzFN1WeyLnimN3NjS1lcyVLnhoRjRlus3xc8OJszkxHAljBbqcD7SDC/8GZDnvMpNg4zB3hEVwdHXUkX30ilCVUSFOapok/l+LuK/3lAtjpZNLbzNIPRJNsRWgt0Sv1c0IOmofBXwMGcWyOjGFbv03FZuxyTwTx6iTXorcuYeGopV2UJpyvkwCZj0fyCayosQFWQIbJqn4Z2Gy80wXNg7E5lV2edhbTl4aWjXK3+10h4CJcmR/sQd3KbgNjGeHRzRNLv77JPsZjo7CGStcp99yXXggN53RE8tpoi1a1hc3pdz/xGQ2+aK7XpC06YvQPJVogv2Xz0W7oDC0P7JY0kbI9k4YJjMrWTe1uQ+TABdZ80wGxg0cuNKxPfMNmVFyqkJLLKoAxeciKNeNchGNGKoha8E89XuX5CoNMA5Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(136003)(396003)(346002)(39860400002)(376002)(230922051799003)(1800799012)(186009)(451199024)(82310400011)(64100799003)(36840700001)(46966006)(40470700004)(41300700001)(83380400001)(336012)(426003)(1076003)(2616005)(26005)(36860700001)(47076005)(16526019)(8936002)(44832011)(8676002)(2906002)(6916009)(6666004)(7696005)(478600001)(4326008)(54906003)(5660300002)(70586007)(356005)(70206006)(36756003)(81166007)(82740400003)(86362001)(316002)(40480700001)(40460700003)(36900700001)(44824005);
+ SFS:(13230031)(4636009)(136003)(346002)(39860400002)(396003)(376002)(230922051799003)(1800799012)(451199024)(186009)(82310400011)(64100799003)(40470700004)(46966006)(36840700001)(1076003)(2616005)(336012)(26005)(478600001)(426003)(6666004)(7696005)(36860700001)(47076005)(6916009)(83380400001)(2906002)(41300700001)(44832011)(16526019)(70206006)(4326008)(316002)(8936002)(70586007)(8676002)(54906003)(5660300002)(356005)(82740400003)(36756003)(81166007)(86362001)(40480700001)(40460700003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2024 21:55:41.0374 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b1aad934-585e-4641-59c9-08dc1226e354
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2024 21:55:43.6624 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3f27ee94-629e-4ca1-e53e-08dc1226e4e4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989EB.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9032
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6858
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,60 +99,89 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Charlene Liu <charlene.liu@amd.com>,
- chiahsuan.chung@amd.com, Sunpeng.Li@amd.com, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, stable@vger.kernel.org, Alex Hung <alex.hung@amd.com>,
- jerry.zuo@amd.com, Aurabindo.Pillai@amd.com, hersenxs.wu@amd.com,
- Ovidiu Bunea <ovidiu.bunea@amd.com>, wayne.lin@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, Harry.Wentland@amd.com,
- agustin.gutierrez@amd.com, Mario Limonciello <mario.limonciello@amd.com>
+Cc: stylon.wang@amd.com, chiahsuan.chung@amd.com, Sunpeng.Li@amd.com,
+ Wenjing Liu <wenjing.liu@amd.com>, Martin Leung <martin.leung@amd.com>,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, Alex
+ Hung <alex.hung@amd.com>, jerry.zuo@amd.com, Aurabindo.Pillai@amd.com,
+ hersenxs.wu@amd.com, wayne.lin@amd.com, Harry.Wentland@amd.com,
+ agustin.gutierrez@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ovidiu Bunea <ovidiu.bunea@amd.com>
+From: Wenjing Liu <wenjing.liu@amd.com>
 
 [Why]
-core_mode_programming in DML2 should output watermark calculations
-to locals, but it incorrectly uses mode_lib
+The feature was disabled due to regression found during testing. Now
+that all the pending issues are addressed, we are reenabling the power
+saving feature again.
+
+The feature optimizes dispclk level when user is using MPO capable
+broswers or watching MPO capable videos in windowed mode. The feature
+achieves power optimization by utilizing free pipes to process incoming
+pixels in parallel. So it reduces max dispclk requirements for each
+pipe.
+
+Previously ODM power optimization will be disabled when MPO plane is
+present due to technical challeges. This is mainly because ODM divides
+pixel workload with respect to stream but MPO plane position and size
+are arbitrary with respect to stream. The pixel processing workload of
+an MPO plane is not guaranteed to be evenly distributed across DCN pipes.
+For example if a plane is moved inside single ODM slice, all the
+processing for the plane is distributed to the pipe in the current ODM
+slice, while the other ODM slices don't need to process this plane. If
+the plane is then moved to the middle crosing two ODM slices, each ODM
+slice gets half of the workload. This is especially difficult when the
+plane itself has a large source rect which can't be processed by single
+DCN pipe. In this case we can't enable ODM power optimization when the
+plane is only within one ODM slice.
 
 [How]
-update code to match HW DML2
+To overcome the challeges, new pipe resource management is in place to
+make sure a plane is validated with ODM power optimization support if
+it can be validated regardless of its position and the same pipe
+topology can be used regardless of the plane's position. When the plane
+is moved outside current ODM slice, we will set recout to 0 so the pipe
+can be idling without the need to update pipe topology. When the user
+resizes a plane, it may result in downscaling ratio changes. When the
+downscaling ratio is above single pipe's threshold, we will seamlessly
+exit ODM power optimization and applies MPC combine to support the plane.
+when downscaling ratio becomes smaller, we will seamlessly enter ODM
+power optimization again. All these pipe transitions happen
+automatically and quietly when the conditions are met without any visual
+impacts to the user.
 
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Reviewed-by: Martin Leung <martin.leung@amd.com>
 Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
+Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 ---
- .../drm/amd/display/dc/dml2/display_mode_core.c    | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c   | 1 +
+ drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
-index a6b938a12de1..9be5ebf3a8c0 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
-@@ -9446,13 +9446,13 @@ void dml_core_mode_programming(struct display_mode_lib_st *mode_lib, const struc
- 		CalculateWatermarks_params->CompressedBufferSizeInkByte = locals->CompressedBufferSizeInkByte;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+index c4d71e7f18af..5c24a769ce60 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+@@ -2104,6 +2104,7 @@ static bool dcn32_resource_construct(
+ 	dc->config.use_pipe_ctx_sync_logic = true;
  
- 		// Output
--		CalculateWatermarks_params->Watermark = &s->dummy_watermark; // Watermarks *Watermark
--		CalculateWatermarks_params->DRAMClockChangeSupport = &mode_lib->ms.support.DRAMClockChangeSupport[0];
--		CalculateWatermarks_params->MaxActiveDRAMClockChangeLatencySupported = &s->dummy_single_array[0][0]; // dml_float_t *MaxActiveDRAMClockChangeLatencySupported[]
--		CalculateWatermarks_params->SubViewportLinesNeededInMALL = &mode_lib->ms.SubViewportLinesNeededInMALL[j]; // dml_uint_t SubViewportLinesNeededInMALL[]
--		CalculateWatermarks_params->FCLKChangeSupport = &mode_lib->ms.support.FCLKChangeSupport[0];
--		CalculateWatermarks_params->MaxActiveFCLKChangeLatencySupported = &s->dummy_single[0]; // dml_float_t *MaxActiveFCLKChangeLatencySupported
--		CalculateWatermarks_params->USRRetrainingSupport = &mode_lib->ms.support.USRRetrainingSupport[0];
-+		CalculateWatermarks_params->Watermark = &locals->Watermark; // Watermarks *Watermark
-+		CalculateWatermarks_params->DRAMClockChangeSupport = &locals->DRAMClockChangeSupport;
-+		CalculateWatermarks_params->MaxActiveDRAMClockChangeLatencySupported = locals->MaxActiveDRAMClockChangeLatencySupported; // dml_float_t *MaxActiveDRAMClockChangeLatencySupported[]
-+		CalculateWatermarks_params->SubViewportLinesNeededInMALL = locals->SubViewportLinesNeededInMALL; // dml_uint_t SubViewportLinesNeededInMALL[]
-+		CalculateWatermarks_params->FCLKChangeSupport = &locals->FCLKChangeSupport;
-+		CalculateWatermarks_params->MaxActiveFCLKChangeLatencySupported = &locals->MaxActiveFCLKChangeLatencySupported; // dml_float_t *MaxActiveFCLKChangeLatencySupported
-+		CalculateWatermarks_params->USRRetrainingSupport = &locals->USRRetrainingSupport;
+ 	dc->config.dc_mode_clk_limit_support = true;
++	dc->config.enable_windowed_mpo_odm = true;
+ 	/* read VBIOS LTTPR caps */
+ 	{
+ 		if (ctx->dc_bios->funcs->get_lttpr_caps) {
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
+index 74412e5f03fe..b356fed1726d 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
+@@ -1760,6 +1760,7 @@ static bool dcn321_resource_construct(
+ 	dc->caps.color.mpc.ocsc = 1;
  
- 		CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport(
- 			&mode_lib->scratch,
+ 	dc->config.dc_mode_clk_limit_support = true;
++	dc->config.enable_windowed_mpo_odm = true;
+ 	/* read VBIOS LTTPR caps */
+ 	{
+ 		if (ctx->dc_bios->funcs->get_lttpr_caps) {
 -- 
 2.34.1
 
