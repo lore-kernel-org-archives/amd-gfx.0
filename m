@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DA0FC4707B
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 21:55:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97798C47258
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 21:55:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B688E10E69F;
-	Wed, 10 Jan 2024 21:55:08 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2416::600])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CE6810E6A5
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 21:55:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 231EB10E6A5;
+	Wed, 10 Jan 2024 21:55:33 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2064.outbound.protection.outlook.com [40.107.94.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 900C010E6A5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 21:55:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=W1nNvDM2XPws2tKp7N2coYUpc5fuPHaEsEvrvvNnTf3bS8kozBorhbefYNQ/3ZjKMernAil9m5BjtPz9pj6u2tFKouV7FyW2hlLYaposNmGd0r4f+g3K5C8OWyKdUQhYqBCT66U53d72zD3EkwA+Rwt+qaLzsuKgYhR5PiHRVfs1F9tuHdHi6Nm/4+DE3jbY30ir9rLTYU185xX0rXigUN4qq7R0Rky4jtJpqFjKLy8E5Vnn8w4aej5tFNm+7D0zxFQhrqdMR3mg34Ow8hl9bhGxXQmWWhswaFsUDsz2lEnw0ukaf06v4bOg3D7S3BRUxUbnlIWX+b06YWgG8QZyWg==
+ b=SMp4145+2cBan4H4m7exhF0MRHw76bBWQsDrAHa8igt15N+ipQU5mArUZwdVfWjMxD2iCXCzn5qPq/0zJX1fepPmYDAm/2tv5dKmAStRPcqHJ9mV0++pwxOpukwyzTMEey8E2EFhXe9GeNIzqDqH0RiD+ojJ05LkY5JIgY8FUzbjYrilEHb3ciOPoB/8obooHSks9QEYZmgWTqtXXZh6rgEfaonWMfZ7dnUVQy6l4LAEFwBf/fknEE4XzNFjT0gINGURK87PlkLOR4gkbWj1zsfpH7Yo42xKu/wOygtuT4CGsEM+zOBgo0B5VbY7f0JmS3Niw7Y9oWrLzuJehU75Mg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w4Vfyo0sbO+UfPzPFH7vUrltBlrTtHwUXGur3bVgXrM=;
- b=ZZCP/85RdMF54H/R63XDLwxsWah43DnJSWhcKchwFzsPowj66fdcgU+fzbndcfmSmHudamSOQwve9M3i+KCbw37BoEG3qL5fUN5aEpnd2HwYr+f8YC3LqvedeOZam2eX9skNrLxfLS5ZkKYM3YG2Md835FWc7YwUWSlS2oGI8l0BuiOg9KDesFYDR1D2EW3JK+MLEH0rL1ZRCOArGKFvDqgo5euSDq/Lf0dswiQ8XRzj5OT/npT+2a8sMYajkGhmFScqTS6MAES8gsEo3EA3l/kpx1ox7TLw0eo34RJ81sffw79XWxYBH3YtsSg3bj880Ma8wFxOYPGOL2ZEabB8eA==
+ bh=j/vIuXJUIFfH8WogDXbhAIIZdbwRvR8Reoe1LkNk+KY=;
+ b=daMWVD4SEsU6KpnCwij50Ccq07R4j6YU0NeyPE0wsPwlLdSc+/mw0OzsgEgDtw6gTifEpxuz2ShRSSkkAIvRlwVyHCdDGy2sO0O5J5DM+ZJjYw3Gvns+mN//KT5fOLIBApIupKRy7b0h6Au2O4DK9sPCGTtjaz/RWOTZqpXRSlvylsrdTH0HKBWiFRkHnHRqy3pwKc59xOTrJUpZ6+9Ep1lJ/NVTnm0el9xQ4SMLGPK1YxLDlJauzOcqi4BvdBwmYlHkGkSjdnW1x8DG2xwWaRX8i8sQ7IzPE8FaBzwixg+6ZLD/fZnfBWWUq53J6YiOpir4ans0nYncu61JgfKBzA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w4Vfyo0sbO+UfPzPFH7vUrltBlrTtHwUXGur3bVgXrM=;
- b=dS1Mb1hNWYGbiLUPsqLnoxaZ5v+Sq7gRKnhVgQsO0iXwb9zi/NdEvh0eLvSp/WFfWhBQfEobWrNTimf081Cm12yUAE4XsxbXv5UKFm/jl4bdVQO6dYKDqrdrsEdcnbsLComdLv4WpVAe633jBcyfZeq12gp4iE+KkIhUfS6VNok=
-Received: from MW4PR04CA0387.namprd04.prod.outlook.com (2603:10b6:303:81::32)
- by SJ0PR12MB5424.namprd12.prod.outlook.com (2603:10b6:a03:300::16)
+ bh=j/vIuXJUIFfH8WogDXbhAIIZdbwRvR8Reoe1LkNk+KY=;
+ b=KELKhpYxvsP097YBa5tQDXDFPCSaRvLp835Gk6bQqOf4Ny1oo13Pmhy3UV2fDZTZK9e5/HpRs0MBPJcoL08xXDwdU3VM9Lpi9dQ3dKSZpucJ7Xrk4P8JdVq+Rj7xTosEOBIqzwXql4qu/LACnBp/+YwMzozVKCsGCX/5JNFy8IA=
+Received: from BL1P223CA0025.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:2c4::30)
+ by PH7PR12MB5782.namprd12.prod.outlook.com (2603:10b6:510:1d1::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.18; Wed, 10 Jan
- 2024 21:55:05 +0000
-Received: from MWH0EPF000989EA.namprd02.prod.outlook.com
- (2603:10b6:303:81:cafe::8e) by MW4PR04CA0387.outlook.office365.com
- (2603:10b6:303:81::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.18 via Frontend
- Transport; Wed, 10 Jan 2024 21:55:05 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.23; Wed, 10 Jan
+ 2024 21:55:28 +0000
+Received: from MN1PEPF0000F0E3.namprd04.prod.outlook.com
+ (2603:10b6:208:2c4:cafe::7a) by BL1P223CA0025.outlook.office365.com
+ (2603:10b6:208:2c4::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.24 via Frontend
+ Transport; Wed, 10 Jan 2024 21:55:28 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -46,19 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000989EA.mail.protection.outlook.com (10.167.241.137) with Microsoft
+ MN1PEPF0000F0E3.mail.protection.outlook.com (10.167.242.41) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7181.13 via Frontend Transport; Wed, 10 Jan 2024 21:55:04 +0000
+ 15.20.7181.14 via Frontend Transport; Wed, 10 Jan 2024 21:55:27 +0000
 Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 10 Jan
- 2024 15:55:01 -0600
+ 2024 15:55:14 -0600
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 06/19] drm/amd/display: Floor to mhz when requesting dpp disp
- clock changes to SMU
-Date: Wed, 10 Jan 2024 14:52:49 -0700
-Message-ID: <20240110215302.2116049-7-alex.hung@amd.com>
+Subject: [PATCH 07/19] drm/amd/display: Clear OPTC mem select on disable
+Date: Wed, 10 Jan 2024 14:52:50 -0700
+Message-ID: <20240110215302.2116049-8-alex.hung@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240110215302.2116049-1-alex.hung@amd.com>
 References: <20240110215302.2116049-1-alex.hung@amd.com>
@@ -70,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989EA:EE_|SJ0PR12MB5424:EE_
-X-MS-Office365-Filtering-Correlation-Id: edd8ebbc-d960-4f13-41b8-08dc1226cddf
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E3:EE_|PH7PR12MB5782:EE_
+X-MS-Office365-Filtering-Correlation-Id: da31a593-75a2-4a81-2ef0-08dc1226db65
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kwau8IzqFF68f+C8MmAk72wdsZMJxArNBIa52p14IUW/VTdwQMK/i6rIUfesI4cc7LVPTRENouvHdTEk2luaSaoNip5f1x1fUXU+oWYE1zxHCy4NIZpc5NSB/NomidRJidcNIA+P2zYFX4a8OcXfRsJ3/qVhi/TEwX87SO/1K7FxTQ1n//daaa5paN4ZYbYFYZ4Cr0e4eSd5XdZxR3YFA957F7nrEt+EnqxPqPJsLbnUB/Eokew05+/MxG46sSW9AIudM92Qh3SlmbaCWAbJg+z/TiNmdV11yXmtQdY9hmdLmwd0H/1Yw+JjAVQkHvzDbUHMJpa9KxTX2kBBJTeLywVFe6MTMTMudAgB0Mng0OOYPMegRf0OEzdP6hwuQ0aTttgy/HNMlNajYQivPj8DEPRO7XLUsx7dezAY/NCIKqgrk5x0jZBzji/ujRkBByKZtbVKinxxSOGr/PfC1H+W5OtyC90XnwC+bmtmIPCY0UN9Z+A4K4d1sz8PDX5DNlFSRbUGyOumA3jPJ8iT4A3Qy7ypFn+dRnk4JrhGye68LlIdpwtA5hfTpY/JzqkFr5Dk6o6W0zlzVKG0wXb+IzesWBFPNzdO1zj2RLOlmToFIEQidBfUuvLnrjsxof3/VDU1sPDBRrjABtePBU+HRnAmvyCEKIPIuzLSwcAHBNP36EWel5VaTtslljT4uo2+KOkZK+vgTfrr8xAS/Se8dZQlo92S0aUELEjztXcWD1FdEpyIs1UTXMr84YgYxKP86XttmK4MpHMSBOuvOhAGrM636g==
+X-Microsoft-Antispam-Message-Info: WHncJltTzg9mp2QmchVeJPCZkHQSNhYpYpVnSiOSRP9feIXhxmKBbfidCh43sw/ZFAHshsRzR8Vbx6aFFV1ekYA9mRmUZdX98TLyrYzlmaA6bpis+5xWNem7g32yvinoSV3geYQwZkb+Hobli4ysN9H1CLhzecQJtfSwwv2D4EYD6KGbK5ccYeJRcYUPZifgB3GKA6kG+uUmsZsm3CnQQoIhtkkyY4SYfY3YYbpLByK29aU6U/lD2jk8jM0KNcnI37UWw4L8BZ44bkGq9RV2kI4yZMpxM/uH1oCwNV/6MX83yFca57fy7IgWEqr+c5fkgs+o3x37Qy07J3r6/Ew7VxsAWcnn3UiW2TIcbPXZrCVMAbfN8TttvbvPokMn6+zARse8SZE8qqfM0PylKB2VjiZ6bY4meiPfPbQ6edcJX1IhCKr9yZjKMvgatl+1jO5WY90MVdIaA1WP2z6tTZ+llDC2Oxk1LP54VZDws0yrLExxlz1d06BCoKhMIv0i75R3v+8HlRRmmBx477QA8DSncKwETpsHGTlZXKY4IwjMhbl2HBIk3MTi8xGQytS2tpIh+eYv6qoC2TjWeXwjPESDBSh4A10xMVE5DQXCVtTDgrRdq4ScCJSrxofbWaaa9zARoHnQWUfJk34PNmkCuI6JdiiULLCq3IcbB1zPFMW2acSK258k6U1JOuAWwLuU9b9xtCVNW0nZ3UxXprrc7vd4BIpn3fiobg07Iiz9Mpg2MK5Lg55fy240iG59bi4b1f9hR5tF4mCyZNllUJFmDGQaKg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(136003)(39860400002)(396003)(346002)(230922051799003)(82310400011)(186009)(451199024)(64100799003)(1800799012)(40470700004)(46966006)(36840700001)(4326008)(2906002)(36756003)(40480700001)(7696005)(5660300002)(82740400003)(6666004)(44832011)(47076005)(6916009)(40460700003)(478600001)(2616005)(1076003)(26005)(36860700001)(41300700001)(86362001)(83380400001)(336012)(426003)(16526019)(356005)(81166007)(70206006)(70586007)(8936002)(8676002)(54906003)(316002)(36900700001);
+ SFS:(13230031)(4636009)(136003)(346002)(376002)(396003)(39860400002)(230922051799003)(451199024)(186009)(64100799003)(82310400011)(1800799012)(40470700004)(46966006)(36840700001)(478600001)(83380400001)(40480700001)(40460700003)(16526019)(44832011)(4326008)(8676002)(8936002)(54906003)(47076005)(6916009)(70206006)(70586007)(316002)(82740400003)(36756003)(36860700001)(336012)(1076003)(2616005)(426003)(26005)(81166007)(356005)(7696005)(6666004)(86362001)(2906002)(5660300002)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2024 21:55:04.5379 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: edd8ebbc-d960-4f13-41b8-08dc1226cddf
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2024 21:55:27.8197 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: da31a593-75a2-4a81-2ef0-08dc1226db65
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989EA.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E3.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5424
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5782
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,123 +99,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, chiahsuan.chung@amd.com, Sunpeng.Li@amd.com,
- Wenjing Liu <wenjing.liu@amd.com>, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+Cc: stylon.wang@amd.com, Ilya
+ Bakoulin <ilya.bakoulin@amd.com>, chiahsuan.chung@amd.com,
+ Charlene Liu <charlene.liu@amd.com>, Sunpeng.Li@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, stable@vger.kernel.org,
  Alex Hung <alex.hung@amd.com>, jerry.zuo@amd.com, Aurabindo.Pillai@amd.com,
- hersenxs.wu@amd.com, Alvin Lee <alvin.lee2@amd.com>, wayne.lin@amd.com,
+ hersenxs.wu@amd.com, Mario Limonciello <mario.limonciello@amd.com>,
+ wayne.lin@amd.com, Alex Deucher <alexander.deucher@amd.com>,
  Harry.Wentland@amd.com, agustin.gutierrez@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wenjing Liu <wenjing.liu@amd.com>
+From: Ilya Bakoulin <ilya.bakoulin@amd.com>
 
 [Why]
-SMU uses discrete dpp and disp clock levels. When we submit SMU request
-for clock changes in Mhz we need to floor the requested value from Khz so
-SMU will choose the next higher clock level in Khz to set. If we ceil to
-Mhz, SMU will have to choose the next higher clock level after the ceil,
-which could result in unnecessarily jumpping to the next level.
+Not clearing the memory select bits prior to OPTC disable can cause DSC
+corruption issues when attempting to reuse a memory instance for another
+OPTC that enables ODM.
 
-For example, we request 1911,111Khz which is exactly one of the SMU preset
-level. If we pass 1912Mhz, SMU will choose 2150,000 khz. If we pass
-1911Mhz, SMU will choose 1911,111kHz, which is the expected value.
+[How]
+Clear the memory select bits prior to disabling an OPTC.
 
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+Reviewed-by: Charlene Liu <charlene.liu@amd.com>
 Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Ilya Bakoulin <ilya.bakoulin@amd.com>
 ---
- .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  | 40 +++++++++++++++++--
- .../amd/display/dc/inc/hw/clk_mgr_internal.h  |  5 +++
- 2 files changed, 41 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c | 3 +++
+ drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c | 3 +++
+ 2 files changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-index aadd07bc68c5..8fa0aae941c3 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-@@ -387,7 +387,15 @@ static void dcn32_update_clocks_update_dentist(
- 		uint32_t temp_dispclk_khz = (DENTIST_DIVIDER_RANGE_SCALE_FACTOR * clk_mgr->base.dentist_vco_freq_khz) / temp_disp_divider;
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c
+index 1788eb29474b..823493543325 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c
+@@ -173,6 +173,9 @@ static bool optc32_disable_crtc(struct timing_generator *optc)
+ 			OPTC_SEG3_SRC_SEL, 0xf,
+ 			OPTC_NUM_OF_INPUT_SEGMENT, 0);
  
- 		if (clk_mgr->smu_present)
--			dcn32_smu_set_hard_min_by_freq(clk_mgr, PPCLK_DISPCLK, khz_to_mhz_ceil(temp_dispclk_khz));
-+			/*
-+			 * SMU uses discrete dispclk presets. We applied
-+			 * the same formula to increase our dppclk_khz
-+			 * to the next matching discrete value. By
-+			 * contract, we should use the preset dispclk
-+			 * floored in Mhz to describe the intended clock.
-+			 */
-+			dcn32_smu_set_hard_min_by_freq(clk_mgr, PPCLK_DISPCLK,
-+					khz_to_mhz_floor(temp_dispclk_khz));
- 
- 		if (dc->debug.override_dispclk_programming) {
- 			REG_GET(DENTIST_DISPCLK_CNTL,
-@@ -426,7 +434,15 @@ static void dcn32_update_clocks_update_dentist(
- 
- 	/* do requested DISPCLK updates*/
- 	if (clk_mgr->smu_present)
--		dcn32_smu_set_hard_min_by_freq(clk_mgr, PPCLK_DISPCLK, khz_to_mhz_ceil(clk_mgr->base.clks.dispclk_khz));
-+		/*
-+		 * SMU uses discrete dispclk presets. We applied
-+		 * the same formula to increase our dppclk_khz
-+		 * to the next matching discrete value. By
-+		 * contract, we should use the preset dispclk
-+		 * floored in Mhz to describe the intended clock.
-+		 */
-+		dcn32_smu_set_hard_min_by_freq(clk_mgr, PPCLK_DISPCLK,
-+				khz_to_mhz_floor(clk_mgr->base.clks.dispclk_khz));
- 
- 	if (dc->debug.override_dispclk_programming) {
- 		REG_GET(DENTIST_DISPCLK_CNTL,
-@@ -734,7 +750,15 @@ static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
- 		clk_mgr_base->clks.dppclk_khz = new_clocks->dppclk_khz;
- 
- 		if (clk_mgr->smu_present && !dpp_clock_lowered)
--			dcn32_smu_set_hard_min_by_freq(clk_mgr, PPCLK_DPPCLK, khz_to_mhz_ceil(clk_mgr_base->clks.dppclk_khz));
-+			/*
-+			 * SMU uses discrete dppclk presets. We applied
-+			 * the same formula to increase our dppclk_khz
-+			 * to the next matching discrete value. By
-+			 * contract, we should use the preset dppclk
-+			 * floored in Mhz to describe the intended clock.
-+			 */
-+			dcn32_smu_set_hard_min_by_freq(clk_mgr, PPCLK_DPPCLK,
-+					khz_to_mhz_floor(clk_mgr_base->clks.dppclk_khz));
- 
- 		update_dppclk = true;
- 	}
-@@ -765,7 +789,15 @@ static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
- 			dcn32_update_clocks_update_dpp_dto(clk_mgr, context, safe_to_lower);
- 			dcn32_update_clocks_update_dentist(clk_mgr, context);
- 			if (clk_mgr->smu_present)
--				dcn32_smu_set_hard_min_by_freq(clk_mgr, PPCLK_DPPCLK, khz_to_mhz_ceil(clk_mgr_base->clks.dppclk_khz));
-+				/*
-+				 * SMU uses discrete dppclk presets. We applied
-+				 * the same formula to increase our dppclk_khz
-+				 * to the next matching discrete value. By
-+				 * contract, we should use the preset dppclk
-+				 * floored in Mhz to describe the intended clock.
-+				 */
-+				dcn32_smu_set_hard_min_by_freq(clk_mgr, PPCLK_DPPCLK,
-+						khz_to_mhz_floor(clk_mgr_base->clks.dppclk_khz));
- 		} else {
- 			/* if clock is being raised, increase refclk before lowering DTO */
- 			if (update_dppclk || update_dispclk)
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
-index 6f4c97543c14..e668cc21cd28 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
-@@ -393,6 +393,11 @@ static inline int khz_to_mhz_ceil(int khz)
- 	return (khz + 999) / 1000;
- }
- 
-+static inline int khz_to_mhz_floor(int khz)
-+{
-+	return khz / 1000;
-+}
++	REG_UPDATE(OPTC_MEMORY_CONFIG,
++			OPTC_MEM_SEL, 0);
 +
- int clk_mgr_helper_get_active_display_cnt(
- 		struct dc *dc,
- 		struct dc_state *context);
+ 	/* disable otg request until end of the first line
+ 	 * in the vertical blank region
+ 	 */
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
+index 3d6c1b2c2b4d..5b1547508850 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
+@@ -145,6 +145,9 @@ static bool optc35_disable_crtc(struct timing_generator *optc)
+ 			OPTC_SEG3_SRC_SEL, 0xf,
+ 			OPTC_NUM_OF_INPUT_SEGMENT, 0);
+ 
++	REG_UPDATE(OPTC_MEMORY_CONFIG,
++			OPTC_MEM_SEL, 0);
++
+ 	/* disable otg request until end of the first line
+ 	 * in the vertical blank region
+ 	 */
 -- 
 2.34.1
 
