@@ -4,66 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF2B8C4707B
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 17:46:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1DCCC4707B
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 18:40:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 736B210E637;
-	Wed, 10 Jan 2024 17:46:21 +0000 (UTC)
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [IPv6:2a00:1450:4864:20::52a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AE1C10E637
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 17:46:20 +0000 (UTC)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5571e662b93so3801241a12.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 09:46:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1704908778; x=1705513578; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=J8+xeHuCrOpZij85cRNo+iSlV7k0jyAELbK5l7zPqic=;
- b=geRKpLONXnXnYXkcsjSxv20vZaZZYBHqwfIADU6enArNiFKq1f92uuEPb9ZHQecZbo
- dgL3k8qntNGlsMpXjDJV7eyuslielhYTAvs5Xj4YPpw3j9xcVPP9LTeM01PGCx7Tny2q
- 89vpaEd26Wgm4yMqVaRNHf0UqPtHrOn0Dwz7FcsHERYTFg3AHN9jVTK/1vKNyk/FbAuB
- fh+kV6cDydiJaBYaiJ1iErbp5OmcTsFAhJYUy6GifqCkvZdTvzi+pAR4uDRyjOqSaAl8
- IuCpu7TA8gF0Yu27012TkZICjoFkBnB0zFeXYOWdrHoOBNSMUgJsYa/qF29S+J1YoBHH
- 3XbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704908778; x=1705513578;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=J8+xeHuCrOpZij85cRNo+iSlV7k0jyAELbK5l7zPqic=;
- b=fGloYaX/iQDHh8RJBYPPCmQN7vkze3ulFZhOZqRUhk8fQwke991kXDKlnrSw1m9UIj
- 3GULKd5fxBZPYYtgmIPttAF7ik2QBKzPjgQ3f9sDuUEEHmiE02cQqyKE/xRhNFBOTTTV
- R4HQOgCi0UJ9j8JzGG0k+BdqNjh8tKTnFEoGlHN/M2VlvsrpKx8cZ6zU52FvUo/iySe1
- 9GdP7eWA2K16N6F8Z/DE+Ws3ThyFK4TSzZxIuWU0JzlYQGG094tvLOAZOYHwbsX1prMo
- YYubepS7SDl+MxiVcIqMEVNgsJMWQ5Hybo81pyT8/KmhFkUXI6ac7Td8Jn2oKvwmr+T9
- /RjQ==
-X-Gm-Message-State: AOJu0Yy48HKITArhUptZEgLtZEk3UKForpyeacHxWV80BvuCVkDXPHy2
- BmytqUXIileMcc6KicmX99ng3DiY8dR2wNo9HVQ=
-X-Google-Smtp-Source: AGHT+IGw2jnRgrhygiDqsULlHi2poJ630ICWX4jYAmQH1cN51KBCOf0XKZoBlFeqEJtJXmgW8KYDPbVez8Zd9c+0YHw=
-X-Received: by 2002:a50:8ad9:0:b0:558:817:1215 with SMTP id
- k25-20020a508ad9000000b0055808171215mr703837edk.67.1704908778297; Wed, 10 Jan
- 2024 09:46:18 -0800 (PST)
-MIME-Version: 1.0
-References: <20240103043000.23971-1-ent3rm4n@gmail.com>
- <CADnq5_NexkgrEKbM39QVGo+hOmd2G0Yc0sui3jWuJsKAyb3ONg@mail.gmail.com>
- <10b32f43-7b0c-1232-1070-cf51731c5d5f@amd.com>
- <0416969a-ddf5-4c6b-9017-6a6a4384b163@amd.com>
- <2e8cd9ed-bdea-eb54-99f1-a7b854594b69@amd.com>
- <CAAxE2A6YdbbC0EKWTdAMLQK9tKmO3v17+yPvhqfby2P_bfH1pw@mail.gmail.com>
- <285317c2-4236-4a22-a6ba-26e2100dde54@amd.com>
- <CAAxE2A7+bJm7g+8S_Z3z99vinnSr_8CwjJs+YZVizOS94CekoA@mail.gmail.com>
-In-Reply-To: <CAAxE2A7+bJm7g+8S_Z3z99vinnSr_8CwjJs+YZVizOS94CekoA@mail.gmail.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Wed, 10 Jan 2024 12:45:41 -0500
-Message-ID: <CAAxE2A6c2pxv5j_Mums73Y0PYMXyASOJFoS3rXvUYuRGmbSj-g@mail.gmail.com>
-Subject: Re: [PATCH] Revert "drm/amdkfd: Relocate TBA/TMA to opposite side of
- VM hole"
-To: Felix Kuehling <felix.kuehling@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84D2B10E64E;
+	Wed, 10 Jan 2024 18:40:52 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2061.outbound.protection.outlook.com [40.107.94.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBFE410E64E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 18:40:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZlBgTmQ1Vx6tBIeUSqvpkY0v1nH5xhOf9cTBSToF+AtLKdQH+mSW2XZzou59chfdhaCQ618dX6R1TmzVAk31GAyy0XaFvnehA5BhIJNzH2MTuqQoqr77HTPub/Q17kl4XvZocibizuxfH4r5HSlM4VgpYwbdb4bj7qWcvvb08zjH7IzzmDCkac0vQZw7/Jz9bdEDd/eUo/LCQGQvlNyMMhHQKWZNOVyv0P//jCRJYWrhMGymnNwtC3AwdBgYsE1d8dNFsg6WGsElA6OI9KOSShTqLaV7k3V2f/mz8DoTwRRF49UByN/O+lqmceybHsIFm0YEPONSS+95JNv6gf3vcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gRVp2uV8/k76Ut4UT+vab6vUX6vfHoie7yfMqV0L/iI=;
+ b=D4NpybUaTZn3PUbAEhcfRYEfV0+5k7r1cSTgyH7cNdUyi399BhSeJQ2Jhtc4/m+0jwax0LeQngiFoDwnaQYaeVhnd4nadIblx03gwvzTyMasIaFI4Ksil02sdAIh9e9alVsEmkPbHwvKSNZusOeugQ2Rw8tO9OluFl3MSKmWzSdTD5OVFWPFGccUzd47viUt7CTWCTRDsxtcDxmUK91OP4y/giH/wWw1/mKKwGaSC0+9ia8p19/0Fj8roMGw9YExccOzjXSb8t/ztobeycRnmE3hnPfrFt+Mbc/f393u/3VgPBHZsteBvheDBl+n8tk9vCq2MXI5m5h2PVJo5NtyVg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gRVp2uV8/k76Ut4UT+vab6vUX6vfHoie7yfMqV0L/iI=;
+ b=2HBvl7fSyvaJZDV+6eHKMhhIrc3Dqm64QgLjxTdh4LT+f+ynfLrp1FFLHT21ThDvJe90LrUCSnhnE+P/Upq38DvjR6Rxec2AK+PttX0ZYQN1mUk3c/xaGx7tkMo7sa/ct/fV/z7LjbL5oiB5BkH6PeeLQh0d7cGvkrxiGsic4nE=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by SJ2PR12MB9140.namprd12.prod.outlook.com (2603:10b6:a03:55f::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.24; Wed, 10 Jan
+ 2024 18:40:46 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::a952:d50:fdc8:fc95]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::a952:d50:fdc8:fc95%7]) with mapi id 15.20.7159.020; Wed, 10 Jan 2024
+ 18:40:45 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: drop exp hw support check for GC 9.4.3
+Thread-Topic: [PATCH] drm/amdgpu: drop exp hw support check for GC 9.4.3
+Thread-Index: AQHaQxMxL+wSdy20a0ml83f/QtbXdbDTYtPQ
+Date: Wed, 10 Jan 2024 18:40:45 +0000
+Message-ID: <BL1PR12MB51440CC74F70DFC430F03C92F7692@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20240109154625.1608427-1-alexander.deucher@amd.com>
+In-Reply-To: <20240109154625.1608427-1-alexander.deucher@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=2adbc7c5-2557-4d3f-bf18-8180af112ac4;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
+ 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2024-01-10T18:40:36Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|SJ2PR12MB9140:EE_
+x-ms-office365-filtering-correlation-id: 93fe4338-7b21-4f63-8c5c-08dc120ba863
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 91xmnNQBmcz9WHHciXJr9lDxYWjec01zjt+rlhbNDnrm/XLJvU7QADAna0tx2zj3yAwXXNyyBRUGyroFaBUxYeApGLnGq3QVoUwZ6U6J8Wdnc5RdQYMWJmI2tCDvVLzPT+8VAJpde1WgB273WK9cvBqenLXyQT1RNTKpMZKTTX94kMqkrBm1MiV/1PqdlEVMyKwyygEbgRcxWCK473MbhkRhUCvfEP1vYf5yKnutgFxmNcZFldfYuvcDdIiZ8trCwLrvSkCxI6yUTy1EvbEEpAhKAEsok9qE3o73yd/G6KqiXzKhBxtQSs34C3dtrG4gs+I0EM8ZWAxiBE/0tD/pzb/P2vK2lpAF8q7NEy75PGAxP/cPQvTB1veGs795RsFukl652LJcYKOiWaTygZvZbN1RmIvrHVj5Escfef570wooozpC1/BDFvfsCu5Gvur9oPUwr7YhPdRiOz+164BdAkdqXDoqiYPkuTlemPhh0i6RKoKcCK3UWzbMlZCXCN3sAO8r1NhnN3vE1lCGwvwhYEMiDkEJeOLpjQMDwE+200VucJaCt68sLRa3OBFrGrmz7uxryuoOrX4aZKYbNwaT5W8z2ROlaKX3LIyALqPNU1HvJ5D1VchD3Ui208gPlNSb
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(346002)(136003)(39860400002)(366004)(376002)(396003)(230922051799003)(186009)(451199024)(64100799003)(1800799012)(38100700002)(478600001)(83380400001)(71200400001)(52536014)(122000001)(66476007)(8936002)(8676002)(66446008)(6916009)(66946007)(64756008)(76116006)(316002)(26005)(9686003)(53546011)(6506007)(66556008)(55016003)(7696005)(33656002)(86362001)(2906002)(5660300002)(41300700001)(38070700009);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?FRh7Is9fVqwoH3UzkHy7hjAkRnOky1iwY2sVUYQXwGiqIW03N15iCtxIRxHy?=
+ =?us-ascii?Q?WmN/u9SZ/Q329l9MQnPZNa/BzIELObQB50OpDxY9Ijx5D/dkdOePq3S2gVlj?=
+ =?us-ascii?Q?i138PwQ2td2WeVt+ecDgjP2mE+gbhqilJFZqHb+hCkTdm4M8HZXCCYn2aaVv?=
+ =?us-ascii?Q?sHwE7Xnvjgo4guBpQKK2Ui9HtTu/oxzfPnTVcPr+0Bjpu/GLvwSSiyuLxPKt?=
+ =?us-ascii?Q?5Lxgnam4DQSWtvcMSn4uHDHJRbE6N6yAmzl6pR+RRJDwMQLRCAMBFRaeFypv?=
+ =?us-ascii?Q?eGtpRVAV86yWAiTtwK/Tf5gsBBigk5uui7VyuqOvYpd/ik9GUOf8uue0k0Dp?=
+ =?us-ascii?Q?ZTEJ5UMTxXo1yCAesOFbIEzrCme+iyqFydJeg3AwUQo/0jJe4fYTgxIW/3z7?=
+ =?us-ascii?Q?lKV5f9IkicDnzF0M3D/3Cc3nPXoQU2/2VH5K0izvNzItGi3uMkNWe9RHtn8C?=
+ =?us-ascii?Q?iSvyZnVKc2wzifKz8XE9H67ynmvC966PkJwynJ9DMvOtxwIPZVW+VJvG+U1b?=
+ =?us-ascii?Q?0SRJlBZF3eqj+j8t1uVwBEte43L+fNzT4kW0TFlQBliojpiN22dZNkIcUD2q?=
+ =?us-ascii?Q?dm49Zc3LajmK0bin3sBIynoNLgiUOgaKesNtuBa8hDJA6d9oPVNe2QNQfIxz?=
+ =?us-ascii?Q?U2zdEYHnuKEQWd/qrtQ7DEfWm/cHaXjLjc/qyRy5wBB/XN0MnjNEC/P64YJh?=
+ =?us-ascii?Q?pYq0DrXmjkquvxk8l5q696qFaDBcQGpM7Oc+mqQY1xD9ugKQImu/RkPqZ5b+?=
+ =?us-ascii?Q?jsZk2sPc6GYNzpCo8NHowHv5NDtADaFIEJefwU8fQeKwvbrwbaa0bSzXRB1D?=
+ =?us-ascii?Q?eaC8OtX2c9cUdOhFABQKSB+mhQz/rn55ylltsft3oK5lgqrQXXNQ0jyZiDiT?=
+ =?us-ascii?Q?1iFEFgfNeYZCftcL38TrO9ykHVgT207LvDO7yIlvUtPTIu17D5uLG9CUNMkY?=
+ =?us-ascii?Q?4T9TqHSoDXUkIVL+FSRkpeOpgUFKtQnOByc10794/pnu5+baS8zKHAh6bydX?=
+ =?us-ascii?Q?V+MqRFbHsnFpXZ/dw1sz5eGG6kGDgmxw7NxDdWg1EAVBBbkJq2YXtyge4Fwx?=
+ =?us-ascii?Q?QqSCdC367J7zUw86IKuU/v0RA9OYRZhdHOP40ukNEGkYBI07aZJxzbeo4kVN?=
+ =?us-ascii?Q?hN7wrMGmZOchwhwbxmH6vSCKsOxEkY6QAw5addA8gaWuI021MT5NyANXdHOa?=
+ =?us-ascii?Q?rfv5vcP/L6OtpztYnfTlSUgiODN2ir+U3laQnI+V4rSIoREt1Vgz1R4mTJ62?=
+ =?us-ascii?Q?0tItwuCX3dY5gqvHaeTRsTUdAhA0m8DWsRnP1OHM8W9pOaNISMJyu0L29p8S?=
+ =?us-ascii?Q?uN3zXSDq7NqYkdlNe7jE4g5G/U8sAYNZ3UN4dfG7LxvhQldgZ1wL/85zk4gu?=
+ =?us-ascii?Q?B3OJ3IlZWSujKrKNUUe0e8giiW7H1j4jlJ2056R+vRjXzce9/vPkfYWCbL+t?=
+ =?us-ascii?Q?gb1bQg+l2ezYvbrdlUHOcQk5PRQ4Z/rglKMhSu9AC7iHDEXZ+XvTc0Xu4Cct?=
+ =?us-ascii?Q?qmWVf5ZfJd8emcneW2L5RSHI1r9pV6QTSA6VLl1oTtZG/Xe/oH9nyJmpv7aU?=
+ =?us-ascii?Q?2uoigaKFSRSWNAeWsbI=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 93fe4338-7b21-4f63-8c5c-08dc120ba863
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jan 2024 18:40:45.8342 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: vtRhh3nTCPaItImgYKge8xQJMwyW7P95CdKiyURC2x/RoZdAlmNUk4S3zNR2D2BqrkDv+3viFihVuBFDNltD6A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9140
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,145 +122,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexdeucher@gmail.com>, Kaibo Ma <ent3rm4n@gmail.com>,
- Jay Cornwall <jay.cornwall@amd.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It looks like this would cause failures even with regular 64-bit
-allocations because the virtual address range allocator in libdrm asks
-the kernel what ranges of addresses are free, and the kernel doesn't
-exclude the KFD allocation from that.
+[Public]
 
-Basically, no VM allocations can be done by the kernel outside the
-ranges reserved for the kernel.
+Ping!
 
-Marek
+> -----Original Message-----
+> From: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Sent: Tuesday, January 9, 2024 10:46 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: [PATCH] drm/amdgpu: drop exp hw support check for GC 9.4.3
+>
+> No longer needed.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 2 --
+>  1 file changed, 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> index b8fde08aec8e..f96811bbe40e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -1963,8 +1963,6 @@ static int
+> amdgpu_discovery_set_gc_ip_blocks(struct amdgpu_device *adev)
+>               amdgpu_device_ip_block_add(adev, &gfx_v9_0_ip_block);
+>               break;
+>       case IP_VERSION(9, 4, 3):
+> -             if (!amdgpu_exp_hw_support)
+> -                     return -EINVAL;
+>               amdgpu_device_ip_block_add(adev, &gfx_v9_4_3_ip_block);
+>               break;
+>       case IP_VERSION(10, 1, 10):
+> --
+> 2.42.0
 
-On Sat, Jan 6, 2024 at 1:48=E2=80=AFAM Marek Ol=C5=A1=C3=A1k <maraeo@gmail.=
-com> wrote:
->
-> The 32-bit address space means the high 32 bits are constant and predeter=
-mined and it's definitely somewhere in the upper range of the address space=
-. If ROCm or KFD occupy that space, even accidentally, other UMDs that use =
-libdrm for VA allocation won't be able to start. The VA range allocator is =
-in libdrm.
->
-> Marek
->
-> On Fri, Jan 5, 2024, 15:20 Felix Kuehling <felix.kuehling@amd.com> wrote:
->>
->> TBA/TMA were relocated to the upper half of the canonical address space.
->> I don't think that qualifies as 32-bit by definition. But maybe you're
->> using a different definition.
->>
->> That said, if Mesa manages its own virtual address space in user mode,
->> and KFD maps the TMA/TBA at an address that Mesa believes to be free, I
->> can see how that would lead to problems.
->>
->> That said, the fence refcount bug is another problem that may have been
->> exposed by the way that a crashing Mesa application shuts down.
->> Reverting Jay's patch certainly didn't fix that, but only hides the prob=
-lem.
->>
->> Regards,
->>    Felix
->>
->>
->> On 2024-01-04 13:29, Marek Ol=C5=A1=C3=A1k wrote:
->> > Hi,
->> >
->> > I have received information that the original commit makes all 32-bit
->> > userspace VA allocations fail, so UMDs like Mesa can't even initialize
->> > and they either crash or fail to load. If TBA/TMA was relocated to the
->> > 32-bit address range, it would explain why UMDs can't allocate
->> > anything in that range.
->> >
->> > Marek
->> >
->> > On Wed, Jan 3, 2024 at 2:50=E2=80=AFPM Jay Cornwall <jay.cornwall@amd.=
-com> wrote:
->> >> On 1/3/2024 12:58, Felix Kuehling wrote:
->> >>
->> >>> A segfault in Mesa seems to be a different issue from what's mention=
-ed
->> >>> in the commit message. I'd let Christian or Marek comment on
->> >>> compatibility with graphics UMDs. I'm not sure why this patch would
->> >>> affect them at all.
->> >> I was referencing this issue in OpenCL/OpenGL interop, which certainl=
-y looked related:
->> >>
->> >> [   91.769002] amdgpu 0000:0a:00.0: amdgpu: bo 000000009bba4692 va 0x=
-0800000000-0x08000001ff conflict with 0x0800000000-0x0800000002
->> >> [   91.769141] ocltst[2781]: segfault at b2 ip 00007f3fb90a7c39 sp 00=
-007ffd3c011ba0 error 4 in radeonsi_dri.so[7f3fb888e000+1196000] likely on C=
-PU 15 (core 7, socket 0)
->> >>
->> >>> Looking at the logs in the tickets, it looks like a fence reference
->> >>> counting error. I don't see how Jay's patch could have caused that. =
-I
->> >>> made another change in that code recently that could make a differen=
-ce
->> >>> for this issue:
->> >>>
->> >>>      commit 8f08c5b24ced1be7eb49692e4816c1916233c79b
->> >>>      Author: Felix Kuehling <Felix.Kuehling@amd.com>
->> >>>      Date:   Fri Oct 27 18:21:55 2023 -0400
->> >>>
->> >>>           drm/amdkfd: Run restore_workers on freezable WQs
->> >>>
->> >>>           Make restore workers freezable so we don't have to explici=
-tly
->> >>>      flush them
->> >>>           in suspend and GPU reset code paths, and we don't accident=
-ally
->> >>>      try to
->> >>>           restore BOs while the GPU is suspended. Not having to flus=
-h
->> >>>      restore_work
->> >>>           also helps avoid lock/fence dependencies in the GPU reset =
-case
->> >>>      where we're
->> >>>           not allowed to wait for fences.
->> >>>
->> >>>           A side effect of this is, that we can now have multiple
->> >>>      concurrent threads
->> >>>           trying to signal the same eviction fence. Rework eviction =
-fence
->> >>>      signaling
->> >>>           and replacement to account for that.
->> >>>
->> >>>           The GPU reset path can no longer rely on restore_process_w=
-orker
->> >>>      to resume
->> >>>           queues because evict/restore workers can run independently=
- of
->> >>>      it. Instead
->> >>>           call a new restore_process_helper directly.
->> >>>
->> >>>           This is an RFC and request for testing.
->> >>>
->> >>>           v2:
->> >>>           - Reworked eviction fence signaling
->> >>>           - Introduced restore_process_helper
->> >>>
->> >>>           v3:
->> >>>           - Handle unsignaled eviction fences in restore_process_bos
->> >>>
->> >>>           Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
->> >>>           Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->> >>>           Tested-by: Emily Deng <Emily.Deng@amd.com>
->> >>>           Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->> >>>
->> >>>
->> >>> FWIW, I built a plain 6.6 kernel, and was not able to reproduce the
->> >>> crash with some simple tests.
->> >>>
->> >>> Regards,
->> >>>     Felix
->> >>>
->> >>>
->> >>>> So I agree, let's revert it.
->> >>>>
->> >>>> Reviewed-by: Jay Cornwall <jay.cornwall@amd.com>
