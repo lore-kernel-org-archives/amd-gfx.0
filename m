@@ -4,79 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3E72C3DA6E
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 10:22:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA1B0C47073
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 10:44:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45D7910E739;
-	Wed, 10 Jan 2024 10:22:42 +0000 (UTC)
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE49A10E5C5
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 10:22:40 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a28f12a12e5so112071766b.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 02:22:40 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F406A10E5C0;
+	Wed, 10 Jan 2024 10:44:10 +0000 (UTC)
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [IPv6:2a00:1450:4864:20::52d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F18D710E5BD
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 10:44:08 +0000 (UTC)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-55369c59708so711592a12.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 02:44:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1704882159; x=1705486959; darn=lists.freedesktop.org; 
+ d=ffwll.ch; s=google; t=1704883447; x=1705488247; darn=lists.freedesktop.org; 
  h=in-reply-to:content-transfer-encoding:content-disposition
  :mime-version:references:mail-followup-to:message-id:subject:cc:to
  :from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=vonBdAg0LvaEk2nAqSFMFVmE1JxOhD+qsQeHCGVzxOw=;
- b=Kb6Z0ktHwmZkp4J87nffBqEFcBVKDQ8548owmrzEwVUjmfcFkYUkKhi4PamgpPUmNZ
- snE0pghVhW8yvi2OlKjOedz9MXC+lNhEOolEH2oaF0RQLH0AHRgk/n9fEzSDV62UysCT
- GlIpZ/Z73eJz4/BYlbc5TMq9Jp/e1Dky8AKz4=
+ bh=UMDg8vYs5fytU0eXd7i9MvEuOqrlrSDfuGIjAzp5aO8=;
+ b=HO6yBTXoYJ1aYySLjxuEV0M1zQ15IwQEHWIno4iy3e2LEaM9Lb3odb9k7nME7uYHSZ
+ ajuK3l8Mpsp/dr7/JYi28JOzJ/KUbBMNNUrUepblAUPD/9P6tPt7RGVBMBnHBkqqFff/
+ v9vLBe01r5Ac+890uU2UXJR3RPy3UOq43Y5ZU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704882159; x=1705486959;
+ d=1e100.net; s=20230601; t=1704883447; x=1705488247;
  h=in-reply-to:content-transfer-encoding:content-disposition
  :mime-version:references:mail-followup-to:message-id:subject:cc:to
  :from:date:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=vonBdAg0LvaEk2nAqSFMFVmE1JxOhD+qsQeHCGVzxOw=;
- b=K7iqLNStc3X2gY+IdlkbXWvQr65sfMrHDdO/Pi012PGPkUzcfz3KEWnAurLijLwjFJ
- vByNKnmn3dFelQkNP5LrjicdMA3/1kPReZVGOFitNv2oN93jSpMfog48gEUc9HCSidPv
- 6qOms69TmuiUiAwqZUPTFPerMEnoFSTFSGQsBU0++i39gpHiASHZAa9y2XOLkc6YqqtS
- wTS8wRMA0jJ9wSy89kbseSaLCLSLXSSM4/x0uaPIvsXXahBHrtRRRqUyW9jlpauTLmB2
- Egn+kGMZP6nKd78Gi6f6eZr3uyUWPJKpuaew9kmYrKOYyXgA7WXSv92wV93NuESqaYF5
- uenA==
-X-Gm-Message-State: AOJu0Yz7rO0XU5+sn31G5adubIyvq/QSput4aVrjG+1AFiuB0kUMQPs5
- oOJUHbI5COxVjs5nt1mgQ8OGQ5pDJ9ilUA==
-X-Google-Smtp-Source: AGHT+IF5Uo918ULQU9RGKMANCVKPSw+ES0zssHEYG5DvBYZMTxDb2s5Y+S7wmbD7j4Hg22z/hjoGrg==
-X-Received: by 2002:a17:907:d13:b0:a2b:339:f6b5 with SMTP id
- gn19-20020a1709070d1300b00a2b0339f6b5mr1541268ejc.1.1704882159309; 
- Wed, 10 Jan 2024 02:22:39 -0800 (PST)
+ bh=UMDg8vYs5fytU0eXd7i9MvEuOqrlrSDfuGIjAzp5aO8=;
+ b=wf+/4nnMFQYMNQ2L2n2q/vJRP5he1rIFZidZ81MlFmRQMUNfGqUDCN3mQDxsba4qPN
+ kdj9SudIV9VUs6u3tMZ7JqSrnWPqzvzj9GSaflU/4Kp4kMPLpj8SEkogwNMUB+VDMxqX
+ +KgzSGxLh3bOfdfZhy51DBOw58qazvrj4+FAYIpGc8F7fNMoUAiIW+aawDSvcdfE49w/
+ WPmQptBWxeyvEN3VvOdY3upuWP+5evsL26UEEqpQXP8Dsm+Sz4z5cMk6BCJByKOI+4EK
+ Am6gw0f3SFX1suIpVhfK6qR0Jop76TdimiWRlaQCLkiT7X+O+rOnq+NaQaMI9tZFpNZA
+ IAgg==
+X-Gm-Message-State: AOJu0YyZTifqlJjuilUbkuc63r8awGKyE8/xkjMOcaSwO0txrQO8xosP
+ B+YleU/zQQGu2oo0oCJbMnb2UFXpjtOmUtvVRmhSW9eEISg=
+X-Google-Smtp-Source: AGHT+IGq5gfRJlxZlKGWvfar8Z1t60a4l9NJUielIcSGPeGv8HnSSId42vEbByEzK0cy5OcGqHFXHg==
+X-Received: by 2002:a50:aacb:0:b0:557:1b89:4f01 with SMTP id
+ r11-20020a50aacb000000b005571b894f01mr910339edc.2.1704883447330; 
+ Wed, 10 Jan 2024 02:44:07 -0800 (PST)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
  by smtp.gmail.com with ESMTPSA id
- lg24-20020a170906f89800b00a2811f7ae1esm1944226ejb.21.2024.01.10.02.22.38
+ p31-20020a056402501f00b005585049ddc9sm569130eda.45.2024.01.10.02.44.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Jan 2024 02:22:38 -0800 (PST)
-Date: Wed, 10 Jan 2024 11:22:36 +0100
+ Wed, 10 Jan 2024 02:44:06 -0800 (PST)
+Date: Wed, 10 Jan 2024 11:44:04 +0100
 From: Daniel Vetter <daniel@ffwll.ch>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH 1/1] drm/virtio: Implement device_attach
-Message-ID: <ZZ5v7Fm-Iccw7nJR@phenom.ffwll.local>
-Mail-Followup-To: Christian =?iso-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, 
- Julia Zhang <julia.zhang@amd.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, David Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
+To: Andri Yngvason <andri@yngvason.is>
+Subject: Re: [PATCH 2/7] drm/uAPI: Add "active color format" drm property as
+ feedback for userspace
+Message-ID: <ZZ509L_kmVC4IUBW@phenom.ffwll.local>
+Mail-Followup-To: Andri Yngvason <andri@yngvason.is>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
  David Airlie <airlied@gmail.com>,
- Erik Faye-Lund <kusmabite@gmail.com>,
- Marek =?utf-8?B?T2zFocOhaw==?= <marek.olsak@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Honglei Huang <honglei1.huang@amd.com>,
- Chen Jiqian <Jiqian.Chen@amd.com>, Huang Rui <ray.huang@amd.com>
-References: <20240110095627.227454-1-julia.zhang@amd.com>
- <20240110095627.227454-2-julia.zhang@amd.com>
- <8ce0d90d-c751-4250-8656-fcab27aec6c2@amd.com>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ Simon Ser <contact@emersion.fr>,
+ Werner Sembach <wse@tuxedocomputers.com>
+References: <20240109181104.1670304-1-andri@yngvason.is>
+ <20240109181104.1670304-3-andri@yngvason.is>
+ <CAPj87rNan8B5urDFkmD_Vti4to6p3NmvXYsTFQTNg-Ue2ieDug@mail.gmail.com>
+ <CAFNQBQwiqqSRqzXAnC035UWCGF3=GGFR5SpDd=biPTOEA+cWbQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <8ce0d90d-c751-4250-8656-fcab27aec6c2@amd.com>
+In-Reply-To: <CAFNQBQwiqqSRqzXAnC035UWCGF3=GGFR5SpDd=biPTOEA+cWbQ@mail.gmail.com>
 X-Operating-System: Linux phenom 6.5.0-4-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,85 +96,98 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- amd-gfx@lists.freedesktop.org, Chen Jiqian <Jiqian.Chen@amd.com>,
- Erik Faye-Lund <kusmabite@gmail.com>, David Airlie <airlied@gmail.com>,
- Marek =?utf-8?B?T2zFocOhaw==?= <marek.olsak@amd.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Gurchetan Singh <gurchetansingh@chromium.org>, Huang Rui <ray.huang@amd.com>,
- Gerd Hoffmann <kraxel@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
- Honglei Huang <honglei1.huang@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@redhat.com>,
- Julia Zhang <julia.zhang@amd.com>, virtualization@lists.linux-foundation.org,
- Chia-I Wu <olvaffe@gmail.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Werner Sembach <wse@tuxedocomputers.com>, amd-gfx@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Daniel Stone <daniel@fooishbar.org>, Harry Wentland <harry.wentland@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Leo Li <sunpeng.li@amd.com>,
+ intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Simon Ser <contact@emersion.fr>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 10, 2024 at 11:19:37AM +0100, Christian König wrote:
-> Am 10.01.24 um 10:56 schrieb Julia Zhang:
-> > drm_gem_map_attach() requires drm_gem_object_funcs.get_sg_table to be
-> > implemented, or else return ENOSYS. Virtio has no get_sg_table
-> > implemented for vram object. To fix this, add a new device_attach to
-> > call drm_gem_map_attach() for shmem object and return 0 for vram object
-> > instead of calling drm_gem_map_attach for both of these two kinds of
-> > object.
+On Tue, Jan 09, 2024 at 11:12:11PM +0000, Andri Yngvason wrote:
+> Hi Daniel,
 > 
-> Well as far as I can see this is nonsense from the DMA-buf side of things.
+> þri., 9. jan. 2024 kl. 22:32 skrifaði Daniel Stone <daniel@fooishbar.org>:
 > 
-> SG tables are always needed as long as you don't re-import the same object
-> into your driver and then you shouldn't end up in this function in the first
-> place.
+> > On Tue, 9 Jan 2024 at 18:12, Andri Yngvason <andri@yngvason.is> wrote:
+> > > + * active color format:
+> > > + *     This read-only property tells userspace the color format
+> > actually used
+> > > + *     by the hardware display engine "on the cable" on a connector.
+> > The chosen
+> > > + *     value depends on hardware capabilities, both display engine and
+> > > + *     connected monitor. Drivers shall use
+> > > + *     drm_connector_attach_active_color_format_property() to install
+> > this
+> > > + *     property. Possible values are "not applicable", "rgb",
+> > "ycbcr444",
+> > > + *     "ycbcr422", and "ycbcr420".
+> >
+> > How does userspace determine what's happened without polling? Will it
+> > only change after an `ALLOW_MODESET` commit, and be guaranteed to be
+> > updated after the commit has completed and the event being sent?
+> > Should it send a HOTPLUG event? Other?
+> >
 > 
-> So that drm_gem_map_attach() requires get_sg_table to be implemented is
-> intentional and should never be overridden like this.
+> Userspace does not determine what's happened without polling. The purpose
+> of this property is not for programmatic verification that the preferred
+> property was applied. It is my understanding that it's mostly intended for
+> debugging purposes. It should only change as a consequence of modesetting,
+> although I didn't actually look into what happens if you set the "preferred
+> color format" outside of a modeset.
 
-See my reply, tldr; you're allowed to reject ->attach with -EBUSY to
-handle exactly this case of non-shareable buffer types. But definitely
-don't silently fail, that's a "we'll oops on map_attachment" kind of bug
-:-)
--Sima
+This feels a bit irky to me, since we don't have any synchronization and
+it kinda breaks how userspace gets to know about stuff.
 
+For context the current immutable properties are all stuff that's derived
+from the sink (like edid, or things like that). Userspace is guaranteed to
+get a hotplug event (minus driver bugs as usual) if any of these change,
+and we've added infrastructure so that the hotplug event even contains the
+specific property so that userspace can avoid re-read (which can cause
+some costly re-probing) them all.
+
+As an example you can look at drm_connector_set_link_status_property,
+which drivers follow by a call to drm_kms_helper_connector_hotplug_event
+to make sure userspace knows about what's up. Could be optimized I think.
+
+This thing here works entirely differently, and I think we need somewhat
+new semantics for this:
+
+- I agree it should be read-only for userspace, so immutable sounds right.
+
+- But I also agree with Daniel Stone that this should be tied more
+  directly to the modeset state.
+
+So I think the better approach would be to put the output type into
+drm_connector_state, require that drivers compute it in their
+->atomic_check code (which in the future would allow us to report it out
+for TEST_ONLY commits too), and so guarantee that the value is updated
+right after the kms ioctl returns (and not somewhen later for non-blocking
+commits).
+
+You probably need a bit of work to be able to handle immutable properties
+with the atomic state infrastructure, but I think otherwise this should
+fit all rather neatly.
+
+Cheers, Sima
+> 
+> The way I've implemented things in sway, calling the
+> "preferred_signal_format" command triggers a modeset with the "preferred
+> color format" set and calling "get_outputs", immediately queries the
+> "actual color format" and displays it.
 > 
 > Regards,
-> Christian.
-> 
-> > 
-> > Signed-off-by: Julia Zhang <julia.zhang@amd.com>
-> > ---
-> >   drivers/gpu/drm/virtio/virtgpu_prime.c | 14 +++++++++++++-
-> >   1 file changed, 13 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/gpu/drm/virtio/virtgpu_prime.c b/drivers/gpu/drm/virtio/virtgpu_prime.c
-> > index 44425f20d91a..f0b0ff6f3813 100644
-> > --- a/drivers/gpu/drm/virtio/virtgpu_prime.c
-> > +++ b/drivers/gpu/drm/virtio/virtgpu_prime.c
-> > @@ -71,6 +71,18 @@ static void virtgpu_gem_unmap_dma_buf(struct dma_buf_attachment *attach,
-> >   	drm_gem_unmap_dma_buf(attach, sgt, dir);
-> >   }
-> > +static int virtgpu_gem_device_attach(struct dma_buf *dma_buf,
-> > +				     struct dma_buf_attachment *attach)
-> > +{
-> > +	struct drm_gem_object *obj = attach->dmabuf->priv;
-> > +	struct virtio_gpu_object *bo = gem_to_virtio_gpu_obj(obj);
-> > +
-> > +	if (virtio_gpu_is_vram(bo))
-> > +		return 0;
-> > +
-> > +	return drm_gem_map_attach(dma_buf, attach);
-> > +}
-> > +
-> >   static const struct virtio_dma_buf_ops virtgpu_dmabuf_ops =  {
-> >   	.ops = {
-> >   		.cache_sgt_mapping = true,
-> > @@ -83,7 +95,7 @@ static const struct virtio_dma_buf_ops virtgpu_dmabuf_ops =  {
-> >   		.vmap = drm_gem_dmabuf_vmap,
-> >   		.vunmap = drm_gem_dmabuf_vunmap,
-> >   	},
-> > -	.device_attach = drm_gem_map_attach,
-> > +	.device_attach = virtgpu_gem_device_attach,
-> >   	.get_uuid = virtgpu_virtio_get_uuid,
-> >   };
-> 
+> Andri
 
 -- 
 Daniel Vetter
