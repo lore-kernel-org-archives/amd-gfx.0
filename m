@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54794C4707B
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 21:57:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AAE0C47073
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 21:57:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F21EE10E767;
-	Wed, 10 Jan 2024 21:57:24 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2051.outbound.protection.outlook.com [40.107.100.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7759810E767
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 21:57:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 306F510E7B3;
+	Wed, 10 Jan 2024 21:57:36 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2046.outbound.protection.outlook.com [40.107.92.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C7E810E7B3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 21:57:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=czaduhGXkirpuoyrg2Rsw/SR7sXkrToYGJVggJ9rsB/r2kDlxobaixd8tCj0U0YhiS7DzRRg6HsYWNWqwYkz/39XIWMJ4vMHWBV9HE0ZuQMdYiw9Igu5OcLmOdtnCRG1P8emATa4PvRO1FGBBQNJEqGT66OU4OQmwyzulAcuVKmzXuuZDOf6/PUdmeLSdPd65M53S1MlDBJoHXIJdY4+A2hZRU0Ldpdy4ZnwG4SvNj4l+B9GG6tO560t9/61vtl/2vhMHCpg6ahhZqgP1jyV69PsoRsYOWHNDCTpNpfdAKnr9nS9avCi/SYS+TUfCKu6ErHnL/A8p3Ky2TYfVgpfVg==
+ b=KykK70YX2EPAm/dBB8IzU3uVLMhE48INhvDe1QQdbJIL0WNxZofumzVRyyZGzU5/x8SF94jNsGAfaAxIASsxGirxWgg+06hKXkYJVaKNd5p4/FWJC7F26RgdiCjnALcc19VRD4F32KalHhhH73wfQgbFJV3tDeiiONtUih+0q86l6bobbCS7lWsrlflgUs00uS0YYPg3fHQEzMrMaY+VsYuVlnPdgQdTqr94HXua/d6bGysJTKupWDlpnQ1R6yjfcQOOiGn3Ze9l9mh8Q+aCgdjERxFQKyehVe72SCWUjizaamO4NFbLPmd8OZUMN6dgBXiNb+WVQY4dXSAWNj8XUw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sMepapeakWnuXJpMkvgL1QdLAcmIYUzN8alfsNm02as=;
- b=Ii00KEWn/09RzhJKrcufnyEa4sJk8Bbebh1qZj6FXS8ZsXAvrqDif0jpZRhOJAIiddntP7agNRkYnHzXNi8eftv39FrlImb7DkxnGlWSqwxDxmXQBjuO4Zd+v0p82/Zv4vVwU+abTWhYOmdT6WKcQRrCgin3+gmBc+dGHjxrw4WQEcGxR8gBnb3ApRO0gkRoqnh4bl17NEquRNwEvEEiolYgNAQasN93YJaJ487NLmmDkVWfCHBX1CMzXHHv6SXAfpbPTQsFk5gAfV6BOBCu5uBYl8Umuod6uGgLJh+Fj63YsTNnzvl4XSVDf/GpAyzv2fZx4N9V74wFz1blAHQdrA==
+ bh=jBTNf+L6C8s6DOdhP/Ig07D8C/DfYaNPmqunvH06TLI=;
+ b=avZTrxKgnqUnD03q6yM2QX/GYUgCI/4CbkWZ8U6jZg9R8jCY4IQjhWzJCXVAZdVmIkVTS14fszp+8GqBJ2nNNRSSB/Cqm5hgXUs5f0Dqpj5H7vdWOILk2gAJy7C4Ry/539oGIiBAZ88/GqdJ0NpKFp9oRifNy0Ef0p3qPmQ/COvBs5KricjTfg4qtGqKOko93t1Ky37C6GUsX3pw0xg00uMuXm8E6pasbKu5USePM6L/Kn0tZhGCE2ZeTfJ15jU+BjPouY5QUbJ2lR+VDFA1obyWnzotVAMoRN1vUTney8M0R2Ke8QJijs1P4nsrdSmVvkbeXRX0Qz+1XGzY/XIizA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sMepapeakWnuXJpMkvgL1QdLAcmIYUzN8alfsNm02as=;
- b=gEUQRCnupqdCjIN21gxC1fqv1B9pxrIDZ104HS32ZGW4A9M402C5IBsBHLrVvx+ZC/+fYxM2ZtWaSYdr54Z11VDfpn8AXmbDxsOF1mzURTy9u80XjmQc/5RaQoLutVX/idJNUnfTDQeoNksqSl0ttzVSczA8FmFDMY2Kiuoig/0=
-Received: from DM6PR08CA0060.namprd08.prod.outlook.com (2603:10b6:5:1e0::34)
- by BL0PR12MB4947.namprd12.prod.outlook.com (2603:10b6:208:17d::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.27; Wed, 10 Jan
- 2024 21:57:20 +0000
-Received: from DS3PEPF000099D5.namprd04.prod.outlook.com
- (2603:10b6:5:1e0:cafe::ed) by DM6PR08CA0060.outlook.office365.com
- (2603:10b6:5:1e0::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.17 via Frontend
- Transport; Wed, 10 Jan 2024 21:57:20 +0000
+ bh=jBTNf+L6C8s6DOdhP/Ig07D8C/DfYaNPmqunvH06TLI=;
+ b=qy+CfRilFLM1s3OUSOAtM3tAo3bjCbINAEH16x7pE2PYObp837IY2vzzkTXXSIbAYrTtbo3xyxEfagcXgvRfaRR5widez10ELHxfOyR4DrhM5BVg7/1WlCb5hdhga522Yd6fFtYG1PwlOMUKw5MFdx7aPXjnZENLkEKewSwnJPE=
+Received: from CH5PR05CA0023.namprd05.prod.outlook.com (2603:10b6:610:1f0::25)
+ by CY5PR12MB6478.namprd12.prod.outlook.com (2603:10b6:930:35::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.23; Wed, 10 Jan
+ 2024 21:57:32 +0000
+Received: from DS3PEPF000099D4.namprd04.prod.outlook.com
+ (2603:10b6:610:1f0:cafe::45) by CH5PR05CA0023.outlook.office365.com
+ (2603:10b6:610:1f0::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.18 via Frontend
+ Transport; Wed, 10 Jan 2024 21:57:32 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099D5.mail.protection.outlook.com (10.167.17.6) with Microsoft SMTP
+ DS3PEPF000099D4.mail.protection.outlook.com (10.167.17.5) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7181.14 via Frontend Transport; Wed, 10 Jan 2024 21:57:20 +0000
+ 15.20.7181.14 via Frontend Transport; Wed, 10 Jan 2024 21:57:32 +0000
 Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 10 Jan
- 2024 15:57:17 -0600
+ 2024 15:57:30 -0600
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 14/19] drm/amd/display: Enable Panel Replay for static screen
- use case
-Date: Wed, 10 Jan 2024 14:52:57 -0700
-Message-ID: <20240110215302.2116049-15-alex.hung@amd.com>
+Subject: [PATCH 15/19] drm/amd/display: Rework DC Z10 restore
+Date: Wed, 10 Jan 2024 14:52:58 -0700
+Message-ID: <20240110215302.2116049-16-alex.hung@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240110215302.2116049-1-alex.hung@amd.com>
 References: <20240110215302.2116049-1-alex.hung@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099D5:EE_|BL0PR12MB4947:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc3d3066-f04f-444f-9ca7-08dc12271e4e
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099D4:EE_|CY5PR12MB6478:EE_
+X-MS-Office365-Filtering-Correlation-Id: 66b4181c-2076-4478-7588-08dc12272576
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3gZRqEuCGr/gBAm952wFcZrAKBVIj4UWKv/TGqPoyPRhDGXA2Hep9Wv8FROeZ5SD6QuuJqxqUFB23k60TR7WBFigcbbG7jTd5w1gmQ3RS7A/mKU7xcvRezZRXcT9JhOmFcAOjUkmHNLTf6BionxOsG6xyYWAl3XSmYe/SzdHRJmq62thRrj2Pf9GEge8ElbgOWTit4GlloIwx25AzA7cmKl4TCnxNf50v0tnOzWp3UvJZntS1KqLvoPnNZI1BfylGClBSDUempaGQEGRjVLYh4/qpf61YvAxSP8nc6uGCDqCxKpPB8A7ckHR6LdZqM2XzkOkGcyHcr7v3HOSn9g4qKRBJYcEszxNJnwLXQBy4cqobf2W5uiuuHxw869b+WuTeHAo5iRAC2s5w7zQ8k3rc5cWeATVuSMc9qlgL3Ho7HPNQ/J5hHx/3zYkFjGw1PYzKMw0wdjishZNptrlLP/hvjXcwPnPcgftoLOlLFAVBYIqwUC+D1LEPQC7KY96ZC+6tVS4HKbF423nKKRuK85Zt51KjvVqE7H8aBrg9iddhT4U+EImVKkIa0KxIyaYDF9y2ruNWfd4SBw9JVsWU2FEDZZauuDjDWCcSDDyjF+1txw7Zotazhkq9tGWYmDLSAQOUua6Ykv2h8yYozmJrqZrkzgDJTXqF8P6TSXQ18sfvVoEb/Fg1xgCboEIBN6UNAVwmWIdK5FB1qxXu5o0MKNGE1WAOxWSkmb/mYq/6y2PrCqlj1hU9TLlALJPb1OX5jNPalMpa5qr2+Kkr2Bol+eOhQ==
+X-Microsoft-Antispam-Message-Info: /+b+ug3JUqZZfqwLFI0wYOTHTU0RuTjtB3pwOpWsdsgogWkA2p8COMz+2EPQlhOmb4uwfD73F1rDCPBGKrsWnX3zZePO8qPIj1aGpJP7Op+6DOhzGVIa91ncYjZP4kBSmpN3KJSpfWR3Ded1l7Kzp4gnwsjYPqEO+ay7AQPfM0CFTiogO1CxJOE52DS6bP+8EbFHFIynWvrLvBgwbB9LyS7BJxtycVtg2FL+VyyVQeQIbtifo+cSGHJYbVd6EMS51Gh8HcGe/sI3A01Uid+r7oKlcE9pxqFU3xrfksLJGVPZDf2gMCURMuXbYRBx1x5O3K/xDl5+N3D+3XJIzKxwK65+0sU309F+rSNPCbxzrGCESIlyuljS9jIujZIU9oFusRjMk5W8cLT26a1Mid76H4DXDI/eM9qclqMbZos3jGa5Gjmsmc4LWZQAB9CvwKo7y4De++4BZv+aOmZTYeKLGjxm1MfSZ8y535fq2Dn3/eYg1IcbxFVXPNIRcndv5Zup3jGBlVNTXckyZNgJmNKK5isKwLBiIduMaHGD7PrzS+QFGZcHa/A+oPbGXDTzg1rDzORP/K5bZVDbB1GRP39Wv2sRjW7nctXt8nqwK+o+7EQYaQ16Ugt1w5mheO/cIUuaxEE6YPMFn6E+uW+quUWeC0Hd7aeO94PBFyuC4V3Gl6hkST0hFh0NAHCgx9kjs+pSn2wNthJvYmKdTVqekCREjCxlIWXfS8PpovO8AN5IRm2J/xfc4UQpvHsfO0zXJoIbUgPAYV0j45ZFycsrBtUj9g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(39860400002)(376002)(396003)(136003)(230922051799003)(451199024)(1800799012)(186009)(64100799003)(82310400011)(46966006)(36840700001)(40470700004)(2616005)(26005)(1076003)(16526019)(478600001)(6666004)(336012)(426003)(7696005)(36860700001)(5660300002)(83380400001)(47076005)(30864003)(2906002)(44832011)(70206006)(41300700001)(70586007)(8936002)(4326008)(8676002)(6916009)(316002)(54906003)(81166007)(356005)(82740400003)(86362001)(36756003)(40480700001)(40460700003)(36900700001);
+ SFS:(13230031)(4636009)(39860400002)(346002)(136003)(396003)(376002)(230922051799003)(186009)(451199024)(1800799012)(82310400011)(64100799003)(46966006)(40470700004)(36840700001)(40480700001)(40460700003)(426003)(26005)(2616005)(1076003)(336012)(7696005)(478600001)(6666004)(36756003)(86362001)(81166007)(356005)(82740400003)(47076005)(83380400001)(41300700001)(36860700001)(5660300002)(316002)(2906002)(44832011)(16526019)(70206006)(8936002)(4326008)(6916009)(8676002)(54906003)(70586007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2024 21:57:20.0479 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc3d3066-f04f-444f-9ca7-08dc12271e4e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2024 21:57:32.0531 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66b4181c-2076-4478-7588-08dc12272576
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099D5.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099D4.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4947
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6478
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,417 +99,145 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, chiahsuan.chung@amd.com, Sun
- peng Li <sunpeng.li@amd.com>, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Alex Hung <alex.hung@amd.com>, jerry.zuo@amd.com, Aurabindo.Pillai@amd.com,
- hersenxs.wu@amd.com, wayne.lin@amd.com, Harry.Wentland@amd.com,
- agustin.gutierrez@amd.com
+Cc: stylon.wang@amd.com, Charlene Liu <charlene.liu@amd.com>,
+ Yihan Zhu <yihan.zhu@amd.com>, chiahsuan.chung@amd.com, Sunpeng.Li@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, Alex Hung <alex.hung@amd.com>,
+ jerry.zuo@amd.com, Aurabindo.Pillai@amd.com, hersenxs.wu@amd.com,
+ wayne.lin@amd.com, Harry.Wentland@amd.com,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, agustin.gutierrez@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tom Chung <chiahsuan.chung@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
 [Why]
-Enable the Panel Replay if eDP panel and ASIC support.
-(prioritize Panel Replay over PSR)
+The call currently does two things:
+1. Exits DMCUB from idle optimization if it was in
+2. Checks DMCUB scratch register to determine if we need to call
+   DMCUB to do deferred HW restore and then sends the command if it's
+   ready for it.
+
+By doing (1) we prevent driver idle from being renotified in the cases
+where driver had previously allowed DC level idle optimizations via
+dc_allow_idle_optimizations since it thinks:
+
+allow == dc->idle_optimizations_allowed
+
+...and that the operation is a no-op.
+
+We want driver idle to be resent at the next opprotunity to do so
+for video playback cases.
 
 [How]
-- Setup the Panel Replay config during the device init
-  (prioritize Panel Replay over PSR).
-- Separate the Replay init function into two functions
-  amdgpu_dm_link_setup_replay() and amdgpu_dm_set_replay_caps()
-  to fix the issue in the earlier commit that cause PSR and Replay
-  enabled at the same time.
+Migrate all usecases of dc_z10_restore to only perform (2).
 
-Reviewed-by: Sun peng Li <sunpeng.li@amd.com>
+Add extra calls to dc_allow_idle_optimizations to handle (1) and also
+keep SW state matching with when we requested enter/exit of DMCUB
+idle optimizations.
+
+Ensure cursor idle optimizations false always get called when IPS
+is supported.
+
+Further rework/redesign is needed to decide whether we need a separate
+level of DM allow vs DC allow and when to attempt re-entry.
+
+Reviewed-by: Yihan Zhu <yihan.zhu@amd.com>
+Reviewed-by: Charlene Liu <charlene.liu@amd.com>
 Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  42 ++++++-
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  59 +++++++--
- .../amd/display/amdgpu_dm/amdgpu_dm_replay.c  | 119 ++++++++++--------
- .../amd/display/amdgpu_dm/amdgpu_dm_replay.h  |   4 +-
- 4 files changed, 156 insertions(+), 68 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c              | 11 ++++++++++-
+ drivers/gpu/drm/amd/display/dc/core/dc_stream.c       |  9 +++++----
+ .../gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c   |  2 --
+ 3 files changed, 15 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 95ff3800fc87..f9e41006ac87 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -67,6 +67,7 @@
- #include "amdgpu_dm_debugfs.h"
- #endif
- #include "amdgpu_dm_psr.h"
-+#include "amdgpu_dm_replay.h"
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index aa7c02ba948e..af83ec23f3a0 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -1836,8 +1836,8 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
+ 	struct dc_state *old_state;
+ 	bool subvp_prev_use = false;
  
- #include "ivsrcid/ivsrcid_vislands30.h"
+-	dc_z10_restore(dc);
+ 	dc_allow_idle_optimizations(dc, false);
++	dc_z10_restore(dc);
  
-@@ -4393,6 +4394,7 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
- 	enum dc_connection_type new_connection_type = dc_connection_none;
- 	const struct dc_plane_cap *plane;
- 	bool psr_feature_enabled = false;
-+	bool replay_feature_enabled = false;
- 	int max_overlay = dm->dc->caps.max_slave_planes;
+ 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
+ 		struct pipe_ctx *old_pipe = &dc->current_state->res_ctx.pipe_ctx[i];
+@@ -3376,6 +3376,9 @@ static void commit_planes_for_stream_fast(struct dc *dc,
+ 	int i, j;
+ 	struct pipe_ctx *top_pipe_to_program = NULL;
+ 	struct dc_stream_status *stream_status = NULL;
++	if (dc->caps.ips_support)
++		dc_allow_idle_optimizations(dc, false);
++
+ 	dc_z10_restore(dc);
  
- 	dm->display_indexes_num = dm->dc->caps.max_streams;
-@@ -4504,6 +4506,23 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
- 		}
+ 	top_pipe_to_program = resource_get_otg_master_for_stream(
+@@ -3503,6 +3506,9 @@ static void commit_planes_for_stream(struct dc *dc,
+ 	// dc->current_state anymore, so we have to cache it before we apply
+ 	// the new SubVP context
+ 	subvp_prev_use = false;
++	if (dc->caps.ips_support)
++		dc_allow_idle_optimizations(dc, false);
++
+ 	dc_z10_restore(dc);
+ 	if (update_type == UPDATE_TYPE_FULL)
+ 		wait_for_outstanding_hw_updates(dc, context);
+@@ -4686,6 +4692,9 @@ void dc_set_power_state(
+ 	case DC_ACPI_CM_POWER_STATE_D0:
+ 		dc_state_construct(dc, dc->current_state);
+ 
++		if (dc->caps.ips_support)
++			dc_allow_idle_optimizations(dc, false);
++
+ 		dc_z10_restore(dc);
+ 
+ 		dc->hwss.init_hw(dc);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+index 54670e0b1518..23f4f3c070cb 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+@@ -309,7 +309,6 @@ bool dc_stream_set_cursor_attributes(
+ 
+ 	stream->cursor_attributes = *attributes;
+ 
+-	dc_z10_restore(dc);
+ 	/* disable idle optimizations while updating cursor */
+ 	if (dc->idle_optimizations_allowed) {
+ 		dc_allow_idle_optimizations(dc, false);
+@@ -381,12 +380,14 @@ bool dc_stream_set_cursor_position(
  	}
  
-+	/* Determine whether to enable Replay support by default. */
-+	if (!(amdgpu_dc_debug_mask & DC_DISABLE_REPLAY)) {
-+		switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
-+		case IP_VERSION(3, 1, 4):
-+		case IP_VERSION(3, 1, 5):
-+		case IP_VERSION(3, 1, 6):
-+		case IP_VERSION(3, 2, 0):
-+		case IP_VERSION(3, 2, 1):
-+		case IP_VERSION(3, 5, 0):
-+			replay_feature_enabled = true;
-+			break;
-+		default:
-+			replay_feature_enabled = amdgpu_dc_feature_mask & DC_REPLAY_MASK;
-+			break;
-+		}
-+	}
-+
- 	/* loops over all connectors on the board */
- 	for (i = 0; i < link_cnt; i++) {
- 		struct dc_link *link = NULL;
-@@ -4572,6 +4591,11 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
- 				amdgpu_dm_update_connector_after_detect(aconnector);
- 				setup_backlight_device(dm, aconnector);
+ 	dc = stream->ctx->dc;
+-	dc_z10_restore(dc);
  
-+				/* Disable PSR if Replay can be enabled */
-+				if (replay_feature_enabled)
-+					if (amdgpu_dm_set_replay_caps(link, aconnector))
-+						psr_feature_enabled = false;
-+
- 				if (psr_feature_enabled)
- 					amdgpu_dm_set_psr_caps(link);
- 
-@@ -8521,10 +8545,17 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 			dm_update_pflip_irq_state(drm_to_adev(dev),
- 						  acrtc_attach);
- 
--		if ((acrtc_state->update_type > UPDATE_TYPE_FAST) &&
--				acrtc_state->stream->link->psr_settings.psr_version != DC_PSR_VERSION_UNSUPPORTED &&
--				!acrtc_state->stream->link->psr_settings.psr_feature_enabled)
--			amdgpu_dm_link_setup_psr(acrtc_state->stream);
-+		if (acrtc_state->update_type > UPDATE_TYPE_FAST) {
-+			if (acrtc_state->stream->link->replay_settings.config.replay_supported &&
-+					!acrtc_state->stream->link->replay_settings.replay_feature_enabled) {
-+				struct amdgpu_dm_connector *aconn =
-+					(struct amdgpu_dm_connector *)acrtc_state->stream->dm_stream_context;
-+				amdgpu_dm_link_setup_replay(acrtc_state->stream->link, aconn);
-+			} else if (acrtc_state->stream->link->psr_settings.psr_version != DC_PSR_VERSION_UNSUPPORTED &&
-+					!acrtc_state->stream->link->psr_settings.psr_feature_enabled) {
-+				amdgpu_dm_link_setup_psr(acrtc_state->stream);
-+			}
-+		}
- 
- 		/* Decrement skip count when PSR is enabled and we're doing fast updates. */
- 		if (acrtc_state->update_type == UPDATE_TYPE_FAST &&
-@@ -8813,11 +8844,12 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
- 		}
- 	} /* for_each_crtc_in_state() */
- 
--	/* if there mode set or reset, disable eDP PSR */
-+	/* if there mode set or reset, disable eDP PSR, Replay */
- 	if (mode_set_reset_required) {
- 		if (dm->vblank_control_workqueue)
- 			flush_workqueue(dm->vblank_control_workqueue);
- 
-+		amdgpu_dm_replay_disable_all(dm);
- 		amdgpu_dm_psr_disable_all(dm);
+ 	/* disable idle optimizations if enabling cursor */
+-	if (dc->idle_optimizations_allowed && (!stream->cursor_position.enable || dc->debug.exit_idle_opt_for_cursor_updates)
+-			&& position->enable) {
++	if (dc->idle_optimizations_allowed &&
++	    (!stream->cursor_position.enable || dc->debug.exit_idle_opt_for_cursor_updates ||
++	     dc->caps.ips_support) &&
++	    position->enable) {
+ 		dc_allow_idle_optimizations(dc, false);
++		dc_z10_restore(dc);
+ 		reset_idle_optimizations = true;
  	}
  
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index 6e715ef3a556..f64c5ffed234 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -29,6 +29,7 @@
- #include "dc.h"
- #include "amdgpu.h"
- #include "amdgpu_dm_psr.h"
-+#include "amdgpu_dm_replay.h"
- #include "amdgpu_dm_crtc.h"
- #include "amdgpu_dm_plane.h"
- #include "amdgpu_dm_trace.h"
-@@ -95,6 +96,48 @@ bool amdgpu_dm_crtc_vrr_active(struct dm_crtc_state *dm_state)
- 	       dm_state->freesync_config.state == VRR_STATE_ACTIVE_FIXED;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
+index 8b6c49622f3b..da4f98de9b82 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
+@@ -708,8 +708,6 @@ void dcn35_z10_restore(const struct dc *dc)
+ 	if (dc->debug.disable_z10)
+ 		return;
+ 
+-	dc_dmub_srv_apply_idle_power_optimizations(dc, false);
+-
+ 	dcn31_z10_restore(dc);
  }
  
-+/**
-+ * The DRM vblank counter enable/disable action is used as the trigger to enable
-+ * or disable various panel self-refresh features:
-+ *
-+ * Panel Replay and PSR SU
-+ * - Enable when:
-+ *      - vblank counter is disabled
-+ *      - entry is allowed: usermode demonstrates an adequate number of fast
-+ *        commits)
-+ *     - CRC capture window isn't active
-+ * - Keep enabled even when vblank counter gets enabled
-+ *
-+ * PSR1
-+ * - Enable condition same as above
-+ * - Disable when vblank counter is enabled
-+ */
-+static void amdgpu_dm_crtc_set_panel_sr_feature(
-+	struct vblank_control_work *vblank_work,
-+	bool vblank_enabled, bool allow_sr_entry)
-+{
-+	struct dc_link *link = vblank_work->stream->link;
-+	bool is_sr_active = (link->replay_settings.replay_allow_active ||
-+				 link->psr_settings.psr_allow_active);
-+	bool is_crc_window_active = false;
-+
-+#ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
-+	is_crc_window_active =
-+		amdgpu_dm_crc_window_is_activated(&vblank_work->acrtc->base);
-+#endif
-+
-+	if (link->replay_settings.replay_feature_enabled &&
-+		allow_sr_entry && !is_sr_active && !is_crc_window_active) {
-+		amdgpu_dm_replay_enable(vblank_work->stream, true);
-+	} else if (vblank_enabled) {
-+		if (link->psr_settings.psr_version < DC_PSR_VERSION_SU_1 && is_sr_active)
-+			amdgpu_dm_psr_disable(vblank_work->stream);
-+	} else if (link->psr_settings.psr_feature_enabled &&
-+		allow_sr_entry && !is_sr_active && !is_crc_window_active) {
-+		amdgpu_dm_psr_enable(vblank_work->stream);
-+	}
-+}
-+
- static void amdgpu_dm_crtc_vblank_control_worker(struct work_struct *work)
- {
- 	struct vblank_control_work *vblank_work =
-@@ -123,18 +166,10 @@ static void amdgpu_dm_crtc_vblank_control_worker(struct work_struct *work)
- 	 * fill_dc_dirty_rects().
- 	 */
- 	if (vblank_work->stream && vblank_work->stream->link) {
--		if (vblank_work->enable) {
--			if (vblank_work->stream->link->psr_settings.psr_version < DC_PSR_VERSION_SU_1 &&
--			    vblank_work->stream->link->psr_settings.psr_allow_active)
--				amdgpu_dm_psr_disable(vblank_work->stream);
--		} else if (vblank_work->stream->link->psr_settings.psr_feature_enabled &&
--			   !vblank_work->stream->link->psr_settings.psr_allow_active &&
--#ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
--			   !amdgpu_dm_crc_window_is_activated(&vblank_work->acrtc->base) &&
--#endif
--			   vblank_work->acrtc->dm_irq_params.allow_psr_entry) {
--			amdgpu_dm_psr_enable(vblank_work->stream);
--		}
-+		amdgpu_dm_crtc_set_panel_sr_feature(
-+			vblank_work, vblank_work->enable,
-+			vblank_work->acrtc->dm_irq_params.allow_psr_entry ||
-+			vblank_work->stream->link->replay_settings.replay_feature_enabled);
- 	}
- 
- 	mutex_unlock(&dm->dc_lock);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
-index 5ce542b1f860..738a58eebba7 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
-@@ -60,21 +60,26 @@ static bool link_supports_replay(struct dc_link *link, struct amdgpu_dm_connecto
- 	if (!as_caps->dp_adap_sync_caps.bits.ADAPTIVE_SYNC_SDP_SUPPORT)
- 		return false;
- 
-+	// Sink shall populate line deviation information
-+	if (dpcd_caps->pr_info.pixel_deviation_per_line == 0 ||
-+		dpcd_caps->pr_info.max_deviation_line == 0)
-+		return false;
-+
- 	return true;
- }
- 
- /*
-- * amdgpu_dm_setup_replay() - setup replay configuration
-+ * amdgpu_dm_set_replay_caps() - setup Replay capabilities
-  * @link: link
-  * @aconnector: aconnector
-  *
-  */
--bool amdgpu_dm_setup_replay(struct dc_link *link, struct amdgpu_dm_connector *aconnector)
-+bool amdgpu_dm_set_replay_caps(struct dc_link *link, struct amdgpu_dm_connector *aconnector)
- {
--	struct replay_config pr_config;
-+	struct replay_config pr_config = { 0 };
- 	union replay_debug_flags *debug_flags = NULL;
- 
--	// For eDP, if Replay is supported, return true to skip checks
-+	// If Replay is already set to support, return true to skip checks
- 	if (link->replay_settings.config.replay_supported)
- 		return true;
- 
-@@ -87,27 +92,50 @@ bool amdgpu_dm_setup_replay(struct dc_link *link, struct amdgpu_dm_connector *ac
- 	if (!link_supports_replay(link, aconnector))
- 		return false;
- 
--	// Mark Replay is supported in link and update related attributes
-+	// Mark Replay is supported in pr_config
- 	pr_config.replay_supported = true;
--	pr_config.replay_power_opt_supported = 0;
--	pr_config.replay_enable_option |= pr_enable_option_static_screen;
--	pr_config.replay_timing_sync_supported = aconnector->max_vfreq >= 2 * aconnector->min_vfreq;
--
--	if (!pr_config.replay_timing_sync_supported)
--		pr_config.replay_enable_option &= ~pr_enable_option_general_ui;
- 
- 	debug_flags = (union replay_debug_flags *)&pr_config.debug_flags;
- 	debug_flags->u32All = 0;
- 	debug_flags->bitfields.visual_confirm =
- 		link->ctx->dc->debug.visual_confirm == VISUAL_CONFIRM_REPLAY;
- 
--	link->replay_settings.replay_feature_enabled = true;
--
- 	init_replay_config(link, &pr_config);
- 
- 	return true;
- }
- 
-+/*
-+ * amdgpu_dm_link_setup_replay() - configure replay link
-+ * @link: link
-+ * @aconnector: aconnector
-+ *
-+ */
-+bool amdgpu_dm_link_setup_replay(struct dc_link *link, struct amdgpu_dm_connector *aconnector)
-+{
-+	struct replay_config *pr_config;
-+
-+	if (link == NULL || aconnector == NULL)
-+		return false;
-+
-+	pr_config = &link->replay_settings.config;
-+
-+	if (!pr_config->replay_supported)
-+		return false;
-+
-+	pr_config->replay_power_opt_supported = 0x11;
-+	pr_config->replay_smu_opt_supported = false;
-+	pr_config->replay_enable_option |= pr_enable_option_static_screen;
-+	pr_config->replay_support_fast_resync_in_ultra_sleep_mode = aconnector->max_vfreq >= 2 * aconnector->min_vfreq;
-+	pr_config->replay_timing_sync_supported = false;
-+
-+	if (!pr_config->replay_timing_sync_supported)
-+		pr_config->replay_enable_option &= ~pr_enable_option_general_ui;
-+
-+	link->replay_settings.replay_feature_enabled = true;
-+
-+	return true;
-+}
- 
- /*
-  * amdgpu_dm_replay_enable() - enable replay f/w
-@@ -117,51 +145,23 @@ bool amdgpu_dm_setup_replay(struct dc_link *link, struct amdgpu_dm_connector *ac
-  */
- bool amdgpu_dm_replay_enable(struct dc_stream_state *stream, bool wait)
- {
--	uint64_t state;
--	unsigned int retry_count;
- 	bool replay_active = true;
--	const unsigned int max_retry = 1000;
--	bool force_static = true;
- 	struct dc_link *link = NULL;
- 
--
- 	if (stream == NULL)
- 		return false;
- 
- 	link = stream->link;
- 
--	if (link == NULL)
--		return false;
--
--	link->dc->link_srv->edp_setup_replay(link, stream);
--
--	link->dc->link_srv->edp_set_replay_allow_active(link, NULL, false, false, NULL);
--
--	link->dc->link_srv->edp_set_replay_allow_active(link, &replay_active, false, true, NULL);
--
--	if (wait == true) {
--
--		for (retry_count = 0; retry_count <= max_retry; retry_count++) {
--			dc_link_get_replay_state(link, &state);
--			if (replay_active) {
--				if (state != REPLAY_STATE_0 &&
--					(!force_static || state == REPLAY_STATE_3))
--					break;
--			} else {
--				if (state == REPLAY_STATE_0)
--					break;
--			}
--			udelay(500);
--		}
--
--		/* assert if max retry hit */
--		if (retry_count >= max_retry)
--			ASSERT(0);
--	} else {
--		/* To-do: Add trace log */
-+	if (link) {
-+		link->dc->link_srv->edp_setup_replay(link, stream);
-+		link->dc->link_srv->edp_set_coasting_vtotal(link, stream->timing.v_total);
-+		DRM_DEBUG_DRIVER("Enabling replay...\n");
-+		link->dc->link_srv->edp_set_replay_allow_active(link, &replay_active, wait, false, NULL);
-+		return true;
- 	}
- 
--	return true;
-+	return false;
- }
- 
- /*
-@@ -172,12 +172,31 @@ bool amdgpu_dm_replay_enable(struct dc_stream_state *stream, bool wait)
-  */
- bool amdgpu_dm_replay_disable(struct dc_stream_state *stream)
- {
-+	bool replay_active = false;
-+	struct dc_link *link = NULL;
- 
--	if (stream->link) {
-+	if (stream == NULL)
-+		return false;
-+
-+	link = stream->link;
-+
-+	if (link) {
- 		DRM_DEBUG_DRIVER("Disabling replay...\n");
--		stream->link->dc->link_srv->edp_set_replay_allow_active(stream->link, NULL, false, false, NULL);
-+		link->dc->link_srv->edp_set_replay_allow_active(stream->link, &replay_active, true, false, NULL);
- 		return true;
- 	}
- 
- 	return false;
- }
-+
-+/*
-+ * amdgpu_dm_replay_disable_all() - disable replay f/w
-+ * if replay is enabled on any stream
-+ *
-+ * Return: true if success
-+ */
-+bool amdgpu_dm_replay_disable_all(struct amdgpu_display_manager *dm)
-+{
-+	DRM_DEBUG_DRIVER("Disabling replay if replay is enabled on any stream\n");
-+	return dc_set_replay_allow_active(dm->dc, false);
-+}
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h
-index 01cba3cd6246..f0d30eb47312 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h
-@@ -40,7 +40,9 @@ enum replay_enable_option {
- 
- 
- bool amdgpu_dm_replay_enable(struct dc_stream_state *stream, bool enable);
--bool amdgpu_dm_setup_replay(struct dc_link *link, struct amdgpu_dm_connector *aconnector);
-+bool amdgpu_dm_set_replay_caps(struct dc_link *link, struct amdgpu_dm_connector *aconnector);
-+bool amdgpu_dm_link_setup_replay(struct dc_link *link, struct amdgpu_dm_connector *aconnector);
- bool amdgpu_dm_replay_disable(struct dc_stream_state *stream);
-+bool amdgpu_dm_replay_disable_all(struct amdgpu_display_manager *dm);
- 
- #endif /* AMDGPU_DM_AMDGPU_DM_REPLAY_H_ */
 -- 
 2.34.1
 
