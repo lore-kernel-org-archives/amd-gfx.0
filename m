@@ -4,49 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 676F0C4725D
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 13:14:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70BA8C4707B
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 13:18:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BFE010E7A0;
-	Wed, 10 Jan 2024 13:14:24 +0000 (UTC)
-X-Greylist: delayed 307 seconds by postgrey-1.36 at gabe;
- Wed, 10 Jan 2024 13:14:22 UTC
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18E6610E0E1;
+	Wed, 10 Jan 2024 13:18:03 +0000 (UTC)
 Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com
  [157.90.84.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85C2F10E7FF;
- Wed, 10 Jan 2024 13:14:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3F5C10E0E1;
+ Wed, 10 Jan 2024 13:18:01 +0000 (UTC)
 Received: from [192.168.42.20] (p5de453e7.dip0.t-ipconnect.de [93.228.83.231])
  (Authenticated sender: wse@tuxedocomputers.com)
- by mail.tuxedocomputers.com (Postfix) with ESMTPSA id C562B2FC005B;
- Wed, 10 Jan 2024 14:14:20 +0100 (CET)
+ by mail.tuxedocomputers.com (Postfix) with ESMTPSA id 1C8582FC0057;
+ Wed, 10 Jan 2024 14:09:12 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
- s=default; t=1704892461;
+ s=default; t=1704892153;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=D3XXWzf6RfsompBPEpJXXqoA3QY72hJE9BCknBlltgU=;
- b=tFOiG5JGP63gUPxytuSaXh/9yy7SdS7kKoiE7F9gkO9wjO53+5d/H/jqPdNpMuqTjvGHft
- 5DQe+5DPNJez8uLzSscCUnvJ3yoCroj6fr/rGUf0B+1bO27Wyr7h0rL9JcST9M0Q94BjTG
- ZJXjiUdQlmZjvUbgXnM+Tij+l93L6nA=
+ bh=RjmCj0ca8jaa062CnfpuGDxA7/7+921oq64gB2rF+Ig=;
+ b=bmxA38PGD1K6FPTSKTedfnYmsEGQy/MDis1bHTG7qt2F6Bkt7VAsjrUQ3P0tRW4d7z3+mA
+ 701MaIPi4w3uhfMbYOG4k1yqcC5vx9SY+iyX3XK+da1Qt7CN7eAM64ikLSjKcTpwXi2SUM
+ 5t0Zf0znq0run9e7S5M4qnzgEUgapis=
 Authentication-Results: mail.tuxedocomputers.com;
  auth=pass smtp.auth=wse@tuxedocomputers.com
  smtp.mailfrom=wse@tuxedocomputers.com
-Message-ID: <67808818-ee34-4d04-ad90-cd5c6eb9bb26@tuxedocomputers.com>
-Date: Wed, 10 Jan 2024 14:14:20 +0100
+Message-ID: <92e20f9b-2cbf-4efe-b61b-989da0cc1668@tuxedocomputers.com>
+Date: Wed, 10 Jan 2024 14:09:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/7] drm/amd/display: Add handling for new "active color
- format" property
+Subject: Re: [PATCH 5/7] drm/uAPI: Add "preferred color format" drm property
+ as setting for userspace
 Content-Language: en-US
-To: Daniel Vetter <daniel@ffwll.ch>, Andri Yngvason <andri@yngvason.is>
+To: Andri Yngvason <andri@yngvason.is>, Maxime Ripard <mripard@kernel.org>
 References: <20240109181104.1670304-1-andri@yngvason.is>
- <20240109181104.1670304-4-andri@yngvason.is>
- <ZZ57Nl3CnRMPcfbj@phenom.ffwll.local>
- <CAFNQBQzo17cK4M-S=Mje8Lxub9Y74xFGj7iEq57vKJr47oiz5Q@mail.gmail.com>
- <CAKMK7uGhMCwbztGdEmG4gFgpyhw6j-JFow-AaprFxcX710=qXA@mail.gmail.com>
+ <20240109181104.1670304-6-andri@yngvason.is>
+ <qdwv7sagqs5nmmsy5lko5hypldanfodafyzamrs3loj3n7jzlr@n5bacxkknkj4>
+ <CAFNQBQzijyE4wR34AOLM45m+ryx128igVKO9zPJ5-M3afFQMxQ@mail.gmail.com>
 From: Werner Sembach <wse@tuxedocomputers.com>
-In-Reply-To: <CAKMK7uGhMCwbztGdEmG4gFgpyhw6j-JFow-AaprFxcX710=qXA@mail.gmail.com>
+In-Reply-To: <CAFNQBQzijyE4wR34AOLM45m+ryx128igVKO9zPJ5-M3afFQMxQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -62,67 +59,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Simon Ser <contact@emersion.fr>, intel-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, intel-gfx@lists.freedesktop.org,
  Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
  dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- Maxime Ripard <mripard@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+ Simon Ser <contact@emersion.fr>, Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Hi,
 
-Am 10.01.24 um 14:09 schrieb Daniel Vetter:
-> On Wed, 10 Jan 2024 at 13:53, Andri Yngvason <andri@yngvason.is> wrote:
->> mið., 10. jan. 2024 kl. 11:10 skrifaði Daniel Vetter <daniel@ffwll.ch>:
->>> On Tue, Jan 09, 2024 at 06:11:00PM +0000, Andri Yngvason wrote:
->>>> +     /* Extract information from crtc to communicate it to userspace as connector properties */
->>>> +     for_each_new_connector_in_state(state, connector, new_con_state, i) {
->>>> +             struct drm_crtc *crtc = new_con_state->crtc;
->>>> +             struct dc_stream_state *stream;
->>>> +
->>>> +             if (crtc) {
->>>> +                     new_crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
->>>> +                     dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
->>>> +                     stream = dm_new_crtc_state->stream;
->>>> +
->>>> +                     if (stream) {
->>>> +                             drm_connector_set_active_color_format_property(connector,
->>>> +                                     convert_dc_pixel_encoding_into_drm_color_format(
->>>> +                                             dm_new_crtc_state->stream->timing.pixel_encoding));
->>>> +                     }
->>>> +             } else {
->>>> +                     drm_connector_set_active_color_format_property(connector, 0);
->>> Just realized an even bigger reason why your current design doesn't work:
->>> You don't have locking here.
+Am 10.01.24 um 11:11 schrieb Andri Yngvason:
+> Hi,
+>
+> mið., 10. jan. 2024 kl. 09:27 skrifaði Maxime Ripard <mripard@kernel.org>:
+>> On Tue, Jan 09, 2024 at 06:11:02PM +0000, Andri Yngvason wrote:
+>>> From: Werner Sembach <wse@tuxedocomputers.com>
 >>>
->>> And you cannot grab the required lock, which is
->>> drm_dev->mode_config.mutex, because that would result in deadlocks. So
->>> this really needs to use the atomic state based design I've described.
+>>> Add a new general drm property "preferred color format" which can be used
+>>> by userspace to tell the graphic drivers to which color format to use.
 >>>
->> Maybe we should just drop "actual color format" and instead fail the
->> modeset if the "preferred color format" property cannot be satisfied?
->> It seems like the simplest thing to do here, though it is perhaps less
->> convenient for userspace. In that case, the "preferred color format"
->> property should just be called "color format".
-> Yeah that's more in line with how other atomic properties work. This
-> way userspace can figure out what works with a TEST_ONLY commit too.
-> And for this to work you probably want to have an "automatic" setting
-> too.
-> -Sima
+>>> Possible options are:
+>>>      - auto (default/current behaviour)
+>>>      - rgb
+>>>      - ycbcr444
+>>>      - ycbcr422 (not supported by both amdgpu and i915)
+>>>      - ycbcr420
+>>>
+>>> In theory the auto option should choose the best available option for the
+>>> current setup, but because of bad internal conversion some monitors look
+>>> better with rgb and some with ycbcr444.
+>> I looked at the patch and I couldn't find what is supposed to happen if
+>> you set it to something else than auto, and the driver can't match that.
+>> Are we supposed to fallback to the "auto" behaviour, or are we suppose
+>> to reject the mode entirely?
+>>
+>> The combination with the active output format property suggests the
+>> former, but we should document it explicitly.
+> It is also my understanding that it should fall back to the "auto"
+> behaviour. I will add this to the documentation.
 
-The problem with TEST_ONLY probing is that color format settings are 
-interdependent: https://gitlab.freedesktop.org/drm/amd/-/issues/476#note_966634
+Yes, that was the intention, and then userspace can check, but it wasn't well 
+received: https://gitlab.freedesktop.org/drm/amd/-/issues/476#note_964530
 
-So changing any other setting may require every color format to be TEST_ONLY 
-probed again.
+Actually a lot of the thoughts that went into the original patch set can be 
+found in that topic.
+
+There was another iteration of the patch set that I never finished and sent to 
+the LKML because I got discouraged by this: 
+https://lore.kernel.org/dri-devel/20210623102923.70877c1a@eldfell/
+
+I can try to dig it up, but it is completely untested and I don't think I still 
+have the respective TODO list anymore, so I don't know if it is a better or 
+worst starting point than the last iteration I sent to the LKML.
 
 Greetings
 
 Werner
 
+>
+> Thanks,
+> Andri
