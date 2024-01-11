@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7C98C4725D
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E904C4707B
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1FDB10E872;
-	Thu, 11 Jan 2024 09:04:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C02910E876;
+	Thu, 11 Jan 2024 09:04:26 +0000 (UTC)
 Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.9])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6376510E036;
- Thu, 11 Jan 2024 02:03:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4ABD310E0A5;
+ Thu, 11 Jan 2024 03:23:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=y6vDa0DRaabKBySXAU
- ICJ5fEtOO8azvWflhkmAQ8vOg=; b=kCVHS4ptLgNfAVw7b48qFG1QK0YIuxdl3i
- d2YVZZBHOSY84bx32kZzP2kA+wkEXplg4slEypmtkpw5P3+PEftf5VM87zYa4Ajf
- cF1knzLybYQHrPoQzIWYWoopLq0vTaZ2TiegmfK3TqfHSfwklnoGQ8oI4BYy2TEA
- 4hAM9qvDA=
+ s=s110527; h=From:Subject:Date:Message-Id; bh=dshx51HI40zA1xqVFX
+ zADg2VlgDAFrz0WnOsTKSvvUw=; b=lhO/sXbpD8kmL5Zy69zMbiyZgZP82WkN2I
+ xhZb4hC4o2O9faM+D8P/ckSD8YzOBHCUx1KeyYUY584dTO3iTDMFh7kkT9plwwg1
+ XJ3VJVpL8uwd07wtJVmruQW4ZGxhzK7iF9iqF5sGG7+TFD3nXlrJzvL6Rbf9A0pk
+ eBN63YPl4=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g1-2 (Coremail) with SMTP id _____wDnr615TJ9l1gYtAA--.11544S2;
- Thu, 11 Jan 2024 10:03:37 +0800 (CST)
+ by gzga-smtp-mta-g0-1 (Coremail) with SMTP id _____wD3X4UwX59lAvWdAA--.60309S2;
+ Thu, 11 Jan 2024 11:23:28 +0800 (CST)
 From: chenxuebing <chenxb_99091@126.com>
-To: alexander.deucher@amd.com, airlied@gmail.com, daniel@ffwll.ch,
+To: daniel@ffwll.ch, airlied@gmail.com, alexander.deucher@amd.com,
  Xinhui.Pan@amd.com, christian.koenig@amd.com
-Subject: [PATCH] drm/amd/amdgpu: Clean up errors in amdgpu_umr.h
-Date: Thu, 11 Jan 2024 02:03:33 +0000
-Message-Id: <20240111020333.5611-1-chenxb_99091@126.com>
+Subject: [PATCH] drm/amdgpu: Clean up errors in dimgrey_cavefish_ip_offset.h
+Date: Thu, 11 Jan 2024 03:23:27 +0000
+Message-Id: <20240111032327.7402-1-chenxb_99091@126.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wDnr615TJ9l1gYtAA--.11544S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrKr47ZF1rJw1rAw4ruF45Wrg_yoWfZFc_C3
- yUCa47Xry3XFnIv3W29rWrXr1Dt3WrCFs7Wr1ftasayryxu34UXa4DCry7Xa1I9FnxCF1q
- q3WFgF15Z3ZrGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUU5CztUUUUU==
+X-CM-TRANSID: _____wD3X4UwX59lAvWdAA--.60309S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrtF1DCF48KF4ftF17Kr45ZFb_yoWfAFX_Ca
+ 43Xr1fW347ZFnrtF17Zanru3yj9w1kuFs7Xw15tr15trZrCr18W3y5Gr47ZrWruFZxKFnr
+ C3WkXFZ8XrnI9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRRK9atUUUUU==
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiHABixWV2zz4NxQABsQ
+X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiGAdixWVLZWQS9AABsw
 X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -47,39 +47,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: chenxuebing <chenxb_99091@126.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, chenxuebing <chenxb_99091@126.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-spaces required around that '=' (ctx:VxV)
+ERROR: open brace '{' following struct go on the same line
 
 Signed-off-by: chenxuebing <chenxb_99091@126.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/include/dimgrey_cavefish_ip_offset.h | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h
-index 107f9bb0e24f..5b27fc41ffbf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h
-@@ -69,12 +69,12 @@ struct amdgpu_debugfs_gprwave_data {
+diff --git a/drivers/gpu/drm/amd/include/dimgrey_cavefish_ip_offset.h b/drivers/gpu/drm/amd/include/dimgrey_cavefish_ip_offset.h
+index f84996a73de9..53cb4296df88 100644
+--- a/drivers/gpu/drm/amd/include/dimgrey_cavefish_ip_offset.h
++++ b/drivers/gpu/drm/amd/include/dimgrey_cavefish_ip_offset.h
+@@ -25,13 +25,11 @@
+ #define MAX_SEGMENT                                         6
+ 
+ 
+-struct IP_BASE_INSTANCE
+-{
++struct IP_BASE_INSTANCE {
+     unsigned int segment[MAX_SEGMENT];
  };
  
- enum AMDGPU_DEBUGFS_REGS2_CMDS {
--	AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE=0,
-+	AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE = 0,
- 	AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE_V2,
- };
+-struct IP_BASE
+-{
++struct IP_BASE {
+     struct IP_BASE_INSTANCE instance[MAX_INSTANCE];
+ } __maybe_unused;
  
- enum AMDGPU_DEBUGFS_GPRWAVE_CMDS {
--	AMDGPU_DEBUGFS_GPRWAVE_CMD_SET_STATE=0,
-+	AMDGPU_DEBUGFS_GPRWAVE_CMD_SET_STATE = 0,
- };
- 
- //reg2 interface
 -- 
 2.17.1
 
