@@ -4,40 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21BECC47077
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7828FC47DA6
 	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7375010E895;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B64F10E892;
 	Thu, 11 Jan 2024 09:04:29 +0000 (UTC)
-X-Greylist: delayed 365 seconds by postgrey-1.36 at gabe;
- Thu, 11 Jan 2024 07:44:45 UTC
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0234910E7F2;
- Thu, 11 Jan 2024 07:44:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=57+782vKmtQVIMhocg
- zTgERrVfKoYz+T2Ea2sdZaNjA=; b=hbImOb544Rm+1F2maG9xh08RwkxpTo9U55
- YrV21SRg05smP6fW8HNGcDoKMdGwHL4mUhY1lclrGVtT0sFYNL6ztqCjExdSoQsH
- LQTCyCSvmmlMkyEgiXfigKAuYTudnx+j1MUegV7fJuFwtr8D4MJEhAFmTVQygBP1
- cPwrwvKcM=
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
+ by gabe.freedesktop.org (Postfix) with ESMTP id A691E10E028;
+ Thu, 11 Jan 2024 02:26:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+ s=s110527; h=From:Subject:Date:Message-Id; bh=zK0YN430fRG/wJDkOy
+ RLzq+lusy5pMsnDcFSbdS1ltM=; b=AcDNtnxK4AP42mE+SXzZ2l0GbvwP18wR6/
+ XVmquiHVemvyVfdD8n0uqW8iOq0kVpxy6Nrz6ZjN80zLSPsHRnoJhUoLcbn67xRa
+ YUEGL7Jy5w+6Xve7AuSO1hltSBVyfMcnPqkueti9Sb4tPs0SELsKrf/p2x3Fg1om
+ m5UJ5n5ec=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g0-2 (Coremail) with SMTP id _____wDnr5NfnJ9lIN+SAA--.21184S2;
- Thu, 11 Jan 2024 15:44:32 +0800 (CST)
-From: GuoHua Chen <chenguohua_716@163.com>
-To: daniel@ffwll.ch, Xinhui.Pan@amd.com, airlied@gmail.com,
- christian.koenig@amd.com, alexander.deucher@amd.com
-Subject: [PATCH] drm/radeon/dpm: Clean up errors in sumo_dpm.c
-Date: Thu, 11 Jan 2024 07:44:30 +0000
-Message-Id: <20240111074430.10835-1-chenguohua_716@163.com>
+ by gzga-smtp-mta-g1-4 (Coremail) with SMTP id _____wD3P7u1UZ9lyIUtAA--.14199S2;
+ Thu, 11 Jan 2024 10:25:57 +0800 (CST)
+From: chenxuebing <chenxb_99091@126.com>
+To: christian.koenig@amd.com, daniel@ffwll.ch, Xinhui.Pan@amd.com,
+ alexander.deucher@amd.com, airlied@gmail.com
+Subject: [PATCH] drm/amdgpu: Clean up errors in amdgpu_gmc.c
+Date: Thu, 11 Jan 2024 02:25:56 +0000
+Message-Id: <20240111022556.6327-1-chenxb_99091@126.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wDnr5NfnJ9lIN+SAA--.21184S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXFWUXr18WF4fGFyDKr4rKrg_yoW5Xw15pr
- W0yFsYya4Fq340yrWSyFn8JFyUt34UtFW0krWDKFs7ua1DAr1DZF9Yyw45Wry0yFW0gF9x
- XryIgrW0vry3A37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UFdgAUUUUU=
+X-CM-TRANSID: _____wD3P7u1UZ9lyIUtAA--.14199S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrurW8Zw17Wry7Kr1ruw4UJwb_yoWDurX_Cr
+ W7Xwn5Kr13AF92qF13Z3yYqw1DtFy5ur4kWr12yFn3t343Z348AryjgryfXay8u3WxGFyD
+ uw1YgrWYya9xWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRRt8nDUUUUU==
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: xfkh0w5xrk3tbbxrlqqrwthudrp/xtbBEhli1mVOBk6xsAABsc
-X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:24 +0000
+X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiOhpixWVEuXoZjAAAsw
+X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,74 +47,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, GuoHua Chen <chenguohua_716@163.com>
+Cc: chenxuebing <chenxb_99091@126.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: that open brace { should be on the previous line
-ERROR: space prohibited before that close parenthesis ')'
-ERROR: spaces required around that '?' (ctx:VxW)
+ERROR: need consistent spacing around '-' (ctx:WxV)
 
-Signed-off-by: GuoHua Chen <chenguohua_716@163.com>
+Signed-off-by: chenxuebing <chenxb_99091@126.com>
 ---
- drivers/gpu/drm/radeon/sumo_dpm.c | 18 ++++++++----------
- 1 file changed, 8 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/radeon/sumo_dpm.c b/drivers/gpu/drm/radeon/sumo_dpm.c
-index d49c145db437..21d27e6235f3 100644
---- a/drivers/gpu/drm/radeon/sumo_dpm.c
-+++ b/drivers/gpu/drm/radeon/sumo_dpm.c
-@@ -33,8 +33,7 @@
- #define SUMO_MINIMUM_ENGINE_CLOCK 800
- #define BOOST_DPM_LEVEL 7
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index d2f273d77e59..a5d2cda33266 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -52,7 +52,7 @@ int amdgpu_gmc_pdb0_alloc(struct amdgpu_device *adev)
+ 	struct amdgpu_bo_param bp;
+ 	u64 vram_size = adev->gmc.xgmi.node_segment_size * adev->gmc.xgmi.num_physical_nodes;
+ 	uint32_t pde0_page_shift = adev->gmc.vmid0_page_table_block_size + 21;
+-	uint32_t npdes = (vram_size + (1ULL << pde0_page_shift) -1) >> pde0_page_shift;
++	uint32_t npdes = (vram_size + (1ULL << pde0_page_shift) - 1) >> pde0_page_shift;
  
--static const u32 sumo_utc[SUMO_PM_NUMBER_OF_TC] =
--{
-+static const u32 sumo_utc[SUMO_PM_NUMBER_OF_TC] = {
- 	SUMO_UTC_DFLT_00,
- 	SUMO_UTC_DFLT_01,
- 	SUMO_UTC_DFLT_02,
-@@ -52,8 +51,7 @@ static const u32 sumo_utc[SUMO_PM_NUMBER_OF_TC] =
- 	SUMO_UTC_DFLT_14,
- };
- 
--static const u32 sumo_dtc[SUMO_PM_NUMBER_OF_TC] =
--{
-+static const u32 sumo_dtc[SUMO_PM_NUMBER_OF_TC] = {
- 	SUMO_DTC_DFLT_00,
- 	SUMO_DTC_DFLT_01,
- 	SUMO_DTC_DFLT_02,
-@@ -109,11 +107,11 @@ static void sumo_mg_clockgating_enable(struct radeon_device *rdev, bool enable)
- 	local1 = RREG32(CG_CGTT_LOCAL_1);
- 
- 	if (enable) {
--		WREG32(CG_CGTT_LOCAL_0, (0 & CGCG_CGTT_LOCAL0_MASK) | (local0 & ~CGCG_CGTT_LOCAL0_MASK) );
--		WREG32(CG_CGTT_LOCAL_1, (0 & CGCG_CGTT_LOCAL1_MASK) | (local1 & ~CGCG_CGTT_LOCAL1_MASK) );
-+		WREG32(CG_CGTT_LOCAL_0, (0 & CGCG_CGTT_LOCAL0_MASK) | (local0 & ~CGCG_CGTT_LOCAL0_MASK));
-+		WREG32(CG_CGTT_LOCAL_1, (0 & CGCG_CGTT_LOCAL1_MASK) | (local1 & ~CGCG_CGTT_LOCAL1_MASK));
- 	} else {
--		WREG32(CG_CGTT_LOCAL_0, (0xFFFFFFFF & CGCG_CGTT_LOCAL0_MASK) | (local0 & ~CGCG_CGTT_LOCAL0_MASK) );
--		WREG32(CG_CGTT_LOCAL_1, (0xFFFFCFFF & CGCG_CGTT_LOCAL1_MASK) | (local1 & ~CGCG_CGTT_LOCAL1_MASK) );
-+		WREG32(CG_CGTT_LOCAL_0, (0xFFFFFFFF & CGCG_CGTT_LOCAL0_MASK) | (local0 & ~CGCG_CGTT_LOCAL0_MASK));
-+		WREG32(CG_CGTT_LOCAL_1, (0xFFFFCFFF & CGCG_CGTT_LOCAL1_MASK) | (local1 & ~CGCG_CGTT_LOCAL1_MASK));
- 	}
- }
- 
-@@ -702,9 +700,9 @@ static void sumo_post_notify_alt_vddnb_change(struct radeon_device *rdev,
- 	u32 nbps1_new = 0;
- 
- 	if (old_ps != NULL)
--		nbps1_old = (old_ps->flags & SUMO_POWERSTATE_FLAGS_FORCE_NBPS1_STATE)? 1 : 0;
-+		nbps1_old = (old_ps->flags & SUMO_POWERSTATE_FLAGS_FORCE_NBPS1_STATE) ? 1 : 0;
- 
--	nbps1_new = (new_ps->flags & SUMO_POWERSTATE_FLAGS_FORCE_NBPS1_STATE)? 1 : 0;
-+	nbps1_new = (new_ps->flags & SUMO_POWERSTATE_FLAGS_FORCE_NBPS1_STATE) ? 1 : 0;
- 
- 	if (nbps1_old == 0 && nbps1_new == 1)
- 		sumo_smu_notify_alt_vddnb_change(rdev, 1, 1);
+ 	memset(&bp, 0, sizeof(bp));
+ 	bp.size = PAGE_ALIGN((npdes + 1) * 8);
 -- 
 2.17.1
 
