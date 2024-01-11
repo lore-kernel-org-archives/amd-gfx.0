@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D763BC47DA9
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5146AC47DB3
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 343BA10E8B2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D525010E8B8;
 	Thu, 11 Jan 2024 09:04:31 +0000 (UTC)
 Received: from m16.mail.163.com (m15.mail.163.com [45.254.50.220])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0B54A10E7C8;
- Thu, 11 Jan 2024 08:15:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9EDD010E18A;
+ Thu, 11 Jan 2024 08:24:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=Vxs/9a7sqhQlJj4S3j
- 1ChSIbzxBuadcH2mbF7ZpIbfs=; b=EIqGb5+ESfJ3pp84gyeG2QDXQPulWO17Dc
- fIihFjNgjbRKMs1FayD9QI2PzpljkyXZxLme5Kur1tQAlxZDwRIvj5sIwaQFPyUz
- CV0NidyMLHD3pxvp2Z86wHnQyctK+v0SfWBJ1ZS+WXZMF02UiadFeauUERt3AAQ3
- c4Ef2qAV4=
+ s=s110527; h=From:Subject:Date:Message-Id; bh=6CAROB1lD1HLjhO4c1
+ 5hoRYXMOhnvVtgCZbVS+d/YhU=; b=lUOzuGBxHNPn6+7nV+zNlU8NYwUEJKXFm1
+ K7pwUJ4Gf1fJPPncmxA2rFzDk8hifpRegxJE7VMOM5Sw2lE8c/nndw3UVuByDDcs
+ wZT2a6RyISLg8wMYkflXbK5P1tgLU5C9H2bBfWtf7vym+zlOcBMp9ze7fjQq7Y8u
+ tZTxzCUlY=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g0-1 (Coremail) with SMTP id _____wDXnxODo59lsiURAA--.4147S2; 
- Thu, 11 Jan 2024 16:14:59 +0800 (CST)
+ by gzga-smtp-mta-g0-4 (Coremail) with SMTP id _____wDnT_OXpZ9l8XqUAA--.19048S2;
+ Thu, 11 Jan 2024 16:23:51 +0800 (CST)
 From: GuoHua Chen <chenguohua_716@163.com>
-To: daniel@ffwll.ch, Xinhui.Pan@amd.com, airlied@gmail.com,
- christian.koenig@amd.com, alexander.deucher@amd.com
-Subject: [PATCH] drm/radeon/btc_dpm: Clean up errors in btc_dpm.c
-Date: Thu, 11 Jan 2024 08:14:56 +0000
-Message-Id: <20240111081456.11404-1-chenguohua_716@163.com>
+To: daniel@ffwll.ch, Xinhui.Pan@amd.com, alexander.deucher@amd.com,
+ airlied@gmail.com, christian.koenig@amd.com
+Subject: [PATCH] drm/radeon: Clean up errors in radeon_display.c
+Date: Thu, 11 Jan 2024 08:23:49 +0000
+Message-Id: <20240111082349.11806-1-chenguohua_716@163.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wDXnxODo59lsiURAA--.4147S2
-X-Coremail-Antispam: 1Uf129KBjvAXoW3ur15ZF15WrW7Jry7Kw1xZrb_yoW8JryxJo
- WxAry5Xa1xWrW7XF17ZF1qqFy7Ww4Iy3ZIgan5Jw48Cr9rKFs2qryxGwn5GFZIgrn8KF15
- Z342y34rJ3s7Jr4kn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
- AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxU1vtZUUUUU
+X-CM-TRANSID: _____wDnT_OXpZ9l8XqUAA--.19048S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uFWxtr18JFyrAr47Xr15twb_yoW8tF1DpF
+ sxuw1vgw13tF4agryUJF4xuw1rua1kWaySkr17G39ruws0yrWxXFZIyFZFkw1rZry8GrW5
+ tryxCw17WF40yrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UFdgAUUUUU=
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: xfkh0w5xrk3tbbxrlqqrwthudrp/xtbBEARi1mVOBk95BAAAs-
+X-CM-SenderInfo: xfkh0w5xrk3tbbxrlqqrwthudrp/1tbiqBxi1mVOBlCRhgAAsq
 X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -47,334 +47,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, GuoHua Chen <chenguohua_716@163.com>
+Cc: GuoHua Chen <chenguohua_716@163.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
 ERROR: that open brace { should be on the previous line
-ERROR: space required before the open parenthesis '('
-ERROR: spaces required around that '+=' (ctx:VxV)
-ERROR: spaces required around that '=' (ctx:VxW)
+ERROR: space prohibited before that ',' (ctx:WxW)
 
 Signed-off-by: GuoHua Chen <chenguohua_716@163.com>
 ---
- drivers/gpu/drm/radeon/btc_dpm.c | 90 +++++++++++---------------------
- 1 file changed, 31 insertions(+), 59 deletions(-)
+ drivers/gpu/drm/radeon/radeon_display.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/btc_dpm.c b/drivers/gpu/drm/radeon/btc_dpm.c
-index 4e64ed38c439..70931b04bbac 100644
---- a/drivers/gpu/drm/radeon/btc_dpm.c
-+++ b/drivers/gpu/drm/radeon/btc_dpm.c
-@@ -53,8 +53,7 @@
- extern int ni_mc_load_microcode(struct radeon_device *rdev);
- 
- //********* BARTS **************//
--static const u32 barts_cgcg_cgls_default[] =
--{
-+static const u32 barts_cgcg_cgls_default[] = {
- 	/* Register,   Value,     Mask bits */
- 	0x000008f8, 0x00000010, 0xffffffff,
- 	0x000008fc, 0x00000000, 0xffffffff,
-@@ -107,8 +106,7 @@ static const u32 barts_cgcg_cgls_default[] =
+diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+index a44f78bdd4e5..94dc4f92587f 100644
+--- a/drivers/gpu/drm/radeon/radeon_display.c
++++ b/drivers/gpu/drm/radeon/radeon_display.c
+@@ -1365,8 +1365,8 @@ static const struct drm_prop_enum_list radeon_tmds_pll_enum_list[] = {
+ 	{ 1, "bios" },
  };
- #define BARTS_CGCG_CGLS_DEFAULT_LENGTH sizeof(barts_cgcg_cgls_default) / (3 * sizeof(u32))
  
--static const u32 barts_cgcg_cgls_disable[] =
--{
-+static const u32 barts_cgcg_cgls_disable[] = {
- 	0x000008f8, 0x00000010, 0xffffffff,
- 	0x000008fc, 0xffffffff, 0xffffffff,
- 	0x000008f8, 0x00000011, 0xffffffff,
-@@ -162,8 +160,7 @@ static const u32 barts_cgcg_cgls_disable[] =
+-static const struct drm_prop_enum_list radeon_tv_std_enum_list[] =
+-{	{ TV_STD_NTSC, "ntsc" },
++static const struct drm_prop_enum_list radeon_tv_std_enum_list[] = {
++	{ TV_STD_NTSC, "ntsc" },
+ 	{ TV_STD_PAL, "pal" },
+ 	{ TV_STD_PAL_M, "pal-m" },
+ 	{ TV_STD_PAL_60, "pal-60" },
+@@ -1376,25 +1376,25 @@ static const struct drm_prop_enum_list radeon_tv_std_enum_list[] =
+ 	{ TV_STD_SECAM, "secam" },
  };
- #define BARTS_CGCG_CGLS_DISABLE_LENGTH sizeof(barts_cgcg_cgls_disable) / (3 * sizeof(u32))
  
--static const u32 barts_cgcg_cgls_enable[] =
--{
-+static const u32 barts_cgcg_cgls_enable[] = {
- 	/* 0x0000c124, 0x84180000, 0x00180000, */
- 	0x00000644, 0x000f7892, 0x001f4080,
- 	0x000008f8, 0x00000010, 0xffffffff,
-@@ -217,8 +214,7 @@ static const u32 barts_cgcg_cgls_enable[] =
+-static const struct drm_prop_enum_list radeon_underscan_enum_list[] ={
++static const struct drm_prop_enum_list radeon_underscan_enum_list[] = {
+ 	{ UNDERSCAN_OFF, "off" },
+ 	{ UNDERSCAN_ON, "on" },
+ 	{ UNDERSCAN_AUTO, "auto" },
  };
- #define BARTS_CGCG_CGLS_ENABLE_LENGTH sizeof(barts_cgcg_cgls_enable) / (3 * sizeof(u32))
  
--static const u32 barts_mgcg_default[] =
--{
-+static const u32 barts_mgcg_default[] = {
- 	0x0000802c, 0xc0000000, 0xffffffff,
- 	0x00005448, 0x00000100, 0xffffffff,
- 	0x000055e4, 0x00600100, 0xffffffff,
-@@ -366,8 +362,7 @@ static const u32 barts_mgcg_default[] =
+-static const struct drm_prop_enum_list radeon_audio_enum_list[] ={
++static const struct drm_prop_enum_list radeon_audio_enum_list[] = {
+ 	{ RADEON_AUDIO_DISABLE, "off" },
+ 	{ RADEON_AUDIO_ENABLE, "on" },
+ 	{ RADEON_AUDIO_AUTO, "auto" },
  };
- #define BARTS_MGCG_DEFAULT_LENGTH sizeof(barts_mgcg_default) / (3 * sizeof(u32))
  
--static const u32 barts_mgcg_disable[] =
--{
-+static const u32 barts_mgcg_disable[] = {
- 	0x0000802c, 0xc0000000, 0xffffffff,
- 	0x000008f8, 0x00000000, 0xffffffff,
- 	0x000008fc, 0xffffffff, 0xffffffff,
-@@ -381,8 +376,7 @@ static const u32 barts_mgcg_disable[] =
+ /* XXX support different dither options? spatial, temporal, both, etc. */
+-static const struct drm_prop_enum_list radeon_dither_enum_list[] ={
++static const struct drm_prop_enum_list radeon_dither_enum_list[] = {
+ 	{ RADEON_FMT_DITHER_DISABLE, "off" },
+ 	{ RADEON_FMT_DITHER_ENABLE, "on" },
  };
- #define BARTS_MGCG_DISABLE_LENGTH sizeof(barts_mgcg_disable) / (3 * sizeof(u32))
  
--static const u32 barts_mgcg_enable[] =
--{
-+static const u32 barts_mgcg_enable[] = {
- 	0x0000802c, 0xc0000000, 0xffffffff,
- 	0x000008f8, 0x00000000, 0xffffffff,
- 	0x000008fc, 0x00000000, 0xffffffff,
-@@ -397,8 +391,7 @@ static const u32 barts_mgcg_enable[] =
- #define BARTS_MGCG_ENABLE_LENGTH sizeof(barts_mgcg_enable) / (3 * sizeof(u32))
- 
- //********* CAICOS **************//
--static const u32 caicos_cgcg_cgls_default[] =
--{
-+static const u32 caicos_cgcg_cgls_default[] = {
- 	0x000008f8, 0x00000010, 0xffffffff,
- 	0x000008fc, 0x00000000, 0xffffffff,
- 	0x000008f8, 0x00000011, 0xffffffff,
-@@ -450,8 +443,7 @@ static const u32 caicos_cgcg_cgls_default[] =
- };
- #define CAICOS_CGCG_CGLS_DEFAULT_LENGTH sizeof(caicos_cgcg_cgls_default) / (3 * sizeof(u32))
- 
--static const u32 caicos_cgcg_cgls_disable[] =
--{
-+static const u32 caicos_cgcg_cgls_disable[] = {
- 	0x000008f8, 0x00000010, 0xffffffff,
- 	0x000008fc, 0xffffffff, 0xffffffff,
- 	0x000008f8, 0x00000011, 0xffffffff,
-@@ -505,8 +497,7 @@ static const u32 caicos_cgcg_cgls_disable[] =
- };
- #define CAICOS_CGCG_CGLS_DISABLE_LENGTH sizeof(caicos_cgcg_cgls_disable) / (3 * sizeof(u32))
- 
--static const u32 caicos_cgcg_cgls_enable[] =
--{
-+static const u32 caicos_cgcg_cgls_enable[] = {
- 	/* 0x0000c124, 0x84180000, 0x00180000, */
- 	0x00000644, 0x000f7892, 0x001f4080,
- 	0x000008f8, 0x00000010, 0xffffffff,
-@@ -560,8 +551,7 @@ static const u32 caicos_cgcg_cgls_enable[] =
- };
- #define CAICOS_CGCG_CGLS_ENABLE_LENGTH sizeof(caicos_cgcg_cgls_enable) / (3 * sizeof(u32))
- 
--static const u32 caicos_mgcg_default[] =
--{
-+static const u32 caicos_mgcg_default[] = {
- 	0x0000802c, 0xc0000000, 0xffffffff,
- 	0x00005448, 0x00000100, 0xffffffff,
- 	0x000055e4, 0x00600100, 0xffffffff,
-@@ -640,8 +630,7 @@ static const u32 caicos_mgcg_default[] =
- };
- #define CAICOS_MGCG_DEFAULT_LENGTH sizeof(caicos_mgcg_default) / (3 * sizeof(u32))
- 
--static const u32 caicos_mgcg_disable[] =
--{
-+static const u32 caicos_mgcg_disable[] = {
- 	0x0000802c, 0xc0000000, 0xffffffff,
- 	0x000008f8, 0x00000000, 0xffffffff,
- 	0x000008fc, 0xffffffff, 0xffffffff,
-@@ -655,8 +644,7 @@ static const u32 caicos_mgcg_disable[] =
- };
- #define CAICOS_MGCG_DISABLE_LENGTH sizeof(caicos_mgcg_disable) / (3 * sizeof(u32))
- 
--static const u32 caicos_mgcg_enable[] =
--{
-+static const u32 caicos_mgcg_enable[] = {
- 	0x0000802c, 0xc0000000, 0xffffffff,
- 	0x000008f8, 0x00000000, 0xffffffff,
- 	0x000008fc, 0x00000000, 0xffffffff,
-@@ -671,8 +659,7 @@ static const u32 caicos_mgcg_enable[] =
- #define CAICOS_MGCG_ENABLE_LENGTH sizeof(caicos_mgcg_enable) / (3 * sizeof(u32))
- 
- //********* TURKS **************//
--static const u32 turks_cgcg_cgls_default[] =
--{
-+static const u32 turks_cgcg_cgls_default[] = {
- 	0x000008f8, 0x00000010, 0xffffffff,
- 	0x000008fc, 0x00000000, 0xffffffff,
- 	0x000008f8, 0x00000011, 0xffffffff,
-@@ -724,8 +711,7 @@ static const u32 turks_cgcg_cgls_default[] =
- };
- #define TURKS_CGCG_CGLS_DEFAULT_LENGTH  sizeof(turks_cgcg_cgls_default) / (3 * sizeof(u32))
- 
--static const u32 turks_cgcg_cgls_disable[] =
--{
-+static const u32 turks_cgcg_cgls_disable[] = {
- 	0x000008f8, 0x00000010, 0xffffffff,
- 	0x000008fc, 0xffffffff, 0xffffffff,
- 	0x000008f8, 0x00000011, 0xffffffff,
-@@ -779,8 +765,7 @@ static const u32 turks_cgcg_cgls_disable[] =
- };
- #define TURKS_CGCG_CGLS_DISABLE_LENGTH sizeof(turks_cgcg_cgls_disable) / (3 * sizeof(u32))
- 
--static const u32 turks_cgcg_cgls_enable[] =
--{
-+static const u32 turks_cgcg_cgls_enable[] = {
- 	/* 0x0000c124, 0x84180000, 0x00180000, */
- 	0x00000644, 0x000f7892, 0x001f4080,
- 	0x000008f8, 0x00000010, 0xffffffff,
-@@ -835,8 +820,7 @@ static const u32 turks_cgcg_cgls_enable[] =
- #define TURKS_CGCG_CGLS_ENABLE_LENGTH sizeof(turks_cgcg_cgls_enable) / (3 * sizeof(u32))
- 
- // These are the sequences for turks_mgcg_shls
--static const u32 turks_mgcg_default[] =
--{
-+static const u32 turks_mgcg_default[] = {
- 	0x0000802c, 0xc0000000, 0xffffffff,
- 	0x00005448, 0x00000100, 0xffffffff,
- 	0x000055e4, 0x00600100, 0xffffffff,
-@@ -935,8 +919,7 @@ static const u32 turks_mgcg_default[] =
- };
- #define TURKS_MGCG_DEFAULT_LENGTH sizeof(turks_mgcg_default) / (3 * sizeof(u32))
- 
--static const u32 turks_mgcg_disable[] =
--{
-+static const u32 turks_mgcg_disable[] = {
- 	0x0000802c, 0xc0000000, 0xffffffff,
- 	0x000008f8, 0x00000000, 0xffffffff,
- 	0x000008fc, 0xffffffff, 0xffffffff,
-@@ -950,8 +933,7 @@ static const u32 turks_mgcg_disable[] =
- };
- #define TURKS_MGCG_DISABLE_LENGTH sizeof(turks_mgcg_disable) / (3 * sizeof(u32))
- 
--static const u32 turks_mgcg_enable[] =
--{
-+static const u32 turks_mgcg_enable[] = {
- 	0x0000802c, 0xc0000000, 0xffffffff,
- 	0x000008f8, 0x00000000, 0xffffffff,
- 	0x000008fc, 0x00000000, 0xffffffff,
-@@ -972,8 +954,7 @@ static const u32 turks_mgcg_enable[] =
- 
- 
- //********* BARTS **************//
--static const u32 barts_sysls_default[] =
--{
-+static const u32 barts_sysls_default[] = {
- 	/* Register,   Value,     Mask bits */
- 	0x000055e8, 0x00000000, 0xffffffff,
- 	0x0000d0bc, 0x00000000, 0xffffffff,
-@@ -993,8 +974,7 @@ static const u32 barts_sysls_default[] =
- };
- #define BARTS_SYSLS_DEFAULT_LENGTH sizeof(barts_sysls_default) / (3 * sizeof(u32))
- 
--static const u32 barts_sysls_disable[] =
--{
-+static const u32 barts_sysls_disable[] = {
- 	0x000055e8, 0x00000000, 0xffffffff,
- 	0x0000d0bc, 0x00000000, 0xffffffff,
- 	0x000015c0, 0x00041401, 0xffffffff,
-@@ -1013,8 +993,7 @@ static const u32 barts_sysls_disable[] =
- };
- #define BARTS_SYSLS_DISABLE_LENGTH sizeof(barts_sysls_disable) / (3 * sizeof(u32))
- 
--static const u32 barts_sysls_enable[] =
--{
-+static const u32 barts_sysls_enable[] = {
- 	0x000055e8, 0x00000001, 0xffffffff,
- 	0x0000d0bc, 0x00000100, 0xffffffff,
- 	0x000015c0, 0x000c1401, 0xffffffff,
-@@ -1034,8 +1013,7 @@ static const u32 barts_sysls_enable[] =
- #define BARTS_SYSLS_ENABLE_LENGTH sizeof(barts_sysls_enable) / (3 * sizeof(u32))
- 
- //********* CAICOS **************//
--static const u32 caicos_sysls_default[] =
--{
-+static const u32 caicos_sysls_default[] = {
- 	0x000055e8, 0x00000000, 0xffffffff,
- 	0x0000d0bc, 0x00000000, 0xffffffff,
- 	0x000015c0, 0x000c1401, 0xffffffff,
-@@ -1053,8 +1031,7 @@ static const u32 caicos_sysls_default[] =
- };
- #define CAICOS_SYSLS_DEFAULT_LENGTH sizeof(caicos_sysls_default) / (3 * sizeof(u32))
- 
--static const u32 caicos_sysls_disable[] =
--{
-+static const u32 caicos_sysls_disable[] = {
- 	0x000055e8, 0x00000000, 0xffffffff,
- 	0x0000d0bc, 0x00000000, 0xffffffff,
- 	0x000015c0, 0x00041401, 0xffffffff,
-@@ -1072,8 +1049,7 @@ static const u32 caicos_sysls_disable[] =
- };
- #define CAICOS_SYSLS_DISABLE_LENGTH sizeof(caicos_sysls_disable) / (3 * sizeof(u32))
- 
--static const u32 caicos_sysls_enable[] =
--{
-+static const u32 caicos_sysls_enable[] = {
- 	0x000055e8, 0x00000001, 0xffffffff,
- 	0x0000d0bc, 0x00000100, 0xffffffff,
- 	0x000015c0, 0x000c1401, 0xffffffff,
-@@ -1092,8 +1068,7 @@ static const u32 caicos_sysls_enable[] =
- #define CAICOS_SYSLS_ENABLE_LENGTH sizeof(caicos_sysls_enable) / (3 * sizeof(u32))
- 
- //********* TURKS **************//
--static const u32 turks_sysls_default[] =
--{
-+static const u32 turks_sysls_default[] = {
- 	0x000055e8, 0x00000000, 0xffffffff,
- 	0x0000d0bc, 0x00000000, 0xffffffff,
- 	0x000015c0, 0x000c1401, 0xffffffff,
-@@ -1112,8 +1087,7 @@ static const u32 turks_sysls_default[] =
- };
- #define TURKS_SYSLS_DEFAULT_LENGTH sizeof(turks_sysls_default) / (3 * sizeof(u32))
- 
--static const u32 turks_sysls_disable[] =
--{
-+static const u32 turks_sysls_disable[] = {
- 	0x000055e8, 0x00000000, 0xffffffff,
- 	0x0000d0bc, 0x00000000, 0xffffffff,
- 	0x000015c0, 0x00041401, 0xffffffff,
-@@ -1132,8 +1106,7 @@ static const u32 turks_sysls_disable[] =
- };
- #define TURKS_SYSLS_DISABLE_LENGTH sizeof(turks_sysls_disable) / (3 * sizeof(u32))
- 
--static const u32 turks_sysls_enable[] =
--{
-+static const u32 turks_sysls_enable[] = {
- 	0x000055e8, 0x00000001, 0xffffffff,
- 	0x0000d0bc, 0x00000100, 0xffffffff,
- 	0x000015c0, 0x000c1401, 0xffffffff,
-@@ -1154,8 +1127,7 @@ static const u32 turks_sysls_enable[] =
- 
- #endif
- 
--u32 btc_valid_sclk[40] =
--{
-+u32 btc_valid_sclk[40] = {
- 	5000,   10000,  15000,  20000,  25000,  30000,  35000,  40000,  45000,  50000,
- 	55000,  60000,  65000,  70000,  75000,  80000,  85000,  90000,  95000,  100000,
- 	105000, 110000, 11500,  120000, 125000, 130000, 135000, 140000, 145000, 150000,
-@@ -1194,7 +1166,7 @@ void btc_apply_voltage_dependency_rules(struct radeon_clock_voltage_dependency_t
- 	if ((table == NULL) || (table->count == 0))
- 		return;
- 
--	for (i= 0; i < table->count; i++) {
-+	for (i = 0; i < table->count; i++) {
- 		if (clock <= table->entries[i].clk) {
- 			if (*voltage < table->entries[i].v)
- 				*voltage = (u16)((table->entries[i].v < max_voltage) ?
-@@ -1441,7 +1413,7 @@ void btc_program_mgcg_hw_sequence(struct radeon_device *rdev,
- 	u32 i, length = count * 3;
- 	u32 tmp;
- 
--	for (i = 0; i < length; i+=3) {
-+	for (i = 0; i < length; i += 3) {
- 		tmp = RREG32(sequence[i]);
- 		tmp &= ~sequence[i+2];
- 		tmp |= sequence[i+1] & sequence[i+2];
-@@ -2003,7 +1975,7 @@ static int btc_copy_vbios_mc_reg_table(struct atom_mc_reg_table *table,
- 	for (i = 0; i < table->num_entries; i++) {
- 		eg_table->mc_reg_table_entry[i].mclk_max =
- 			table->mc_reg_table_entry[i].mclk_max;
--		for(j = 0; j < table->last; j++)
-+		for (j = 0; j < table->last; j++)
- 			eg_table->mc_reg_table_entry[i].mc_data[j] =
- 				table->mc_reg_table_entry[i].mc_data[j];
- 	}
+-static const struct drm_prop_enum_list radeon_output_csc_enum_list[] ={
++static const struct drm_prop_enum_list radeon_output_csc_enum_list[] = {
+ 	{ RADEON_OUTPUT_CSC_BYPASS, "bypass" },
+ 	{ RADEON_OUTPUT_CSC_TVRGB, "tvrgb" },
+ 	{ RADEON_OUTPUT_CSC_YCBCR601, "ycbcr601" },
 -- 
 2.17.1
 
