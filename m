@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 623EEC47DB7
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BCB5C47DA7
 	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A446E10E8B6;
-	Thu, 11 Jan 2024 09:04:31 +0000 (UTC)
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4B04D10E070;
- Thu, 11 Jan 2024 02:59:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C706410E8AC;
+	Thu, 11 Jan 2024 09:04:30 +0000 (UTC)
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.7])
+ by gabe.freedesktop.org (Postfix) with ESMTP id CA34810E070;
+ Thu, 11 Jan 2024 02:55:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=V6R35R0+952N1XFVaV
- VFcQufmJRU97VsQf0bdd0bwRg=; b=Q+NG9STZKl5fZ/FZ1NJwn1EmYV+TLoFw5K
- Dz6IWgKX5ArPEMLqJIDXf4PlDxGvJmwbgZ/Cwvq6L1cm72vi2JMGChPH0iVyWEN2
- maoR6o0U4GaiV4r/fgmGMa+Jxm+KZPl88wmmiLEnZEQIq7gQsw7RmyPXpN85LW85
- DKDSxgABw=
+ s=s110527; h=From:Subject:Date:Message-Id; bh=6XnZjv2AWPiI5dqzax
+ Rd+P/BdNiXsS2TWUib8qNZYKo=; b=iBgjqxt4vjbfmHHDs60si/oISpoy7ig8nT
+ LTK3ltXA48wnW8Dfpbju1D9ZlHi6q3+y9JA7wVMbIHRZDJ9hVEfU1mH3MSmd1kOQ
+ t72tNk3nr6O7uRAIWUHmJ7tx21VrbISJjXZdpfV3GqZO85BDGMh+9t0VPDEVgoqk
+ D09sQzXRE=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g1-3 (Coremail) with SMTP id _____wD3P8JsWZ9lkFcuAA--.19717S2;
- Thu, 11 Jan 2024 10:58:52 +0800 (CST)
+ by gzga-smtp-mta-g0-3 (Coremail) with SMTP id _____wDnD9uXWJ9lwy+dAA--.10032S2;
+ Thu, 11 Jan 2024 10:55:19 +0800 (CST)
 From: chenxuebing <chenxb_99091@126.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, daniel@ffwll.ch,
- Xinhui.Pan@amd.com, airlied@gmail.com
-Subject: [PATCH] drm/amdgpu: Clean up errors in atom-bits.h
-Date: Thu, 11 Jan 2024 02:58:50 +0000
-Message-Id: <20240111025850.6778-1-chenxb_99091@126.com>
+To: Xinhui.Pan@amd.com, daniel@ffwll.ch, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com
+Subject: [PATCH] drm/amd/include: Clean up errors in arct_ip_offset.h
+Date: Thu, 11 Jan 2024 02:55:17 +0000
+Message-Id: <20240111025517.6687-1-chenxb_99091@126.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wD3P8JsWZ9lkFcuAA--.19717S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrKw15Gw1kWw47JF1UCw4rKrg_yoWftFX_C3
- WUZ392ga45WFyvkr1ay34qyFy2vFy5uan5Xr48Ka1ayF15Gr1DX3sIgryvqr1ruFs7CF95
- Ga1fXFW5A3ZxWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRR_OzPUUUUU==
+X-CM-TRANSID: _____wDnD9uXWJ9lwy+dAA--.10032S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrtF1DCF48Kry8Zr1xWw4rKrg_yoWfJrc_Ca
+ 4xJ395W3y7uFnFqF1akFn3u34j9a1ruFnYqw1fta4rtrZFkr4UW395Jr42qr4ruFs3CFsr
+ Z3WkXFW5ZrnIgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUUj2NtUUUUU==
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiOhlixWVEuXqx0gABsE
+X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiGA5ixWVLZWL-aQADsN
 X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -47,33 +47,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: chenxuebing <chenxb_99091@126.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, chenxuebing <chenxb_99091@126.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: space prohibited before that ',' (ctx:WxV)
+ERROR: open brace '{' following struct go on the same line
 
 Signed-off-by: chenxuebing <chenxb_99091@126.com>
 ---
- drivers/gpu/drm/amd/include/atom-bits.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/include/arct_ip_offset.h | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/include/atom-bits.h b/drivers/gpu/drm/amd/include/atom-bits.h
-index e8fae5c77514..2bfd6d0ff050 100644
---- a/drivers/gpu/drm/amd/include/atom-bits.h
-+++ b/drivers/gpu/drm/amd/include/atom-bits.h
-@@ -33,7 +33,7 @@ static inline uint8_t get_u8(void *bios, int ptr)
- #define CU8(ptr) get_u8(ctx->bios, (ptr))
- static inline uint16_t get_u16(void *bios, int ptr)
- {
--    return get_u8(bios ,ptr)|(((uint16_t)get_u8(bios, ptr+1))<<8);
-+    return get_u8(bios, ptr)|(((uint16_t)get_u8(bios, ptr+1))<<8);
- }
- #define U16(ptr) get_u16(ctx->ctx->bios, (ptr))
- #define CU16(ptr) get_u16(ctx->bios, (ptr))
+diff --git a/drivers/gpu/drm/amd/include/arct_ip_offset.h b/drivers/gpu/drm/amd/include/arct_ip_offset.h
+index af1c46991429..7dd876f7df74 100644
+--- a/drivers/gpu/drm/amd/include/arct_ip_offset.h
++++ b/drivers/gpu/drm/amd/include/arct_ip_offset.h
+@@ -25,13 +25,11 @@
+ #define MAX_SEGMENT                                         6
+ 
+ 
+-struct IP_BASE_INSTANCE
+-{
++struct IP_BASE_INSTANCE {
+     unsigned int segment[MAX_SEGMENT];
+ } __maybe_unused;
+ 
+-struct IP_BASE
+-{
++struct IP_BASE {
+     struct IP_BASE_INSTANCE instance[MAX_INSTANCE];
+ } __maybe_unused;
+ 
 -- 
 2.17.1
 
