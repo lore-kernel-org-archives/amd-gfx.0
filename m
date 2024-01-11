@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05BC8C47077
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FE4BC47DA6
 	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 14:03:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 209CB10E917;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F14710E93D;
 	Thu, 11 Jan 2024 14:03:32 +0000 (UTC)
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.9])
- by gabe.freedesktop.org (Postfix) with ESMTP id 2CF6510E838;
- Thu, 11 Jan 2024 09:12:11 +0000 (UTC)
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8183710E870;
+ Thu, 11 Jan 2024 09:32:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=ANEG89gYRf51+rapw8
- sx8ynu43x7AerI7oBF9GRbLlo=; b=ex1NxR6CodTaMLVBzT71AwNPP2j+61Geuv
- +OLrDfKpBTyt47SmaCsN8CsI39tgY/9icXG2b2+ZdobnyyuKbg/U/EdUTO/Ou0I8
- /2uhPkKvIm8OhvvYOFq3gjHBKnjPatCSKYbA4RcuWt1+m96nQP2BVBZf0tB1QlY1
- nka3V5kEg=
+ s=s110527; h=From:Subject:Date:Message-Id; bh=riPFQzIM0RxLBVk/VT
+ 8AduR0Cn36/f+IWZyvzIbiXBM=; b=YOzVROprbofOruBBAQaoWV1CXrTLiWpGfC
+ ekFpVev7x7ei5ifCRRQ5X+OUab1d4FEg0IkJgCeC6i/tcNorjHHdZxP3uIncr6ME
+ Nxg9xtpdkV0MI2g4l0PMCbtorJzWfu56S3hImvldfFtApPmA64ACu9Gyi0m75deA
+ rv0LAn25U=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g0-3 (Coremail) with SMTP id _____wDX36rgsJ9lRz+lAA--.34645S2;
- Thu, 11 Jan 2024 17:12:00 +0800 (CST)
+ by gzga-smtp-mta-g1-2 (Coremail) with SMTP id _____wD3f6ubtZ9lAbY2AA--.24753S2;
+ Thu, 11 Jan 2024 17:32:11 +0800 (CST)
 From: XueBing Chen <chenxb_99091@126.com>
 To: daniel@ffwll.ch, Xinhui.Pan@amd.com, alexander.deucher@amd.com,
  airlied@gmail.com, christian.koenig@amd.com
-Subject: [PATCH] drm/radeon/kms: Clean up errors in radeon_pm.c
-Date: Thu, 11 Jan 2024 09:11:59 +0000
-Message-Id: <20240111091159.13564-1-chenxb_99091@126.com>
+Subject: [PATCH] drm/radeon/dpm: Clean up errors in evergreen_smc.h
+Date: Thu, 11 Jan 2024 09:32:10 +0000
+Message-Id: <20240111093210.14000-1-chenxb_99091@126.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wDX36rgsJ9lRz+lAA--.34645S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrur48GrWrKF15Gr1xZw4fXwb_yoWkGFX_uF
- W8uFyUX34qv34kuF1a9a90yr9Igr4kur4UZw4ft3WfJry5ZF18XFy8ZFnrXr4UXF4rJFn8
- Jw4kWa43AFsF9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUUj2NtUUUUU==
+X-CM-TRANSID: _____wD3f6ubtZ9lAbY2AA--.24753S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZryxCFW5CF17Xr48uF4DJwb_yoW8Gr1kpF
+ WqgryaqrWUtFnrXry8GF43ZrZ3ta9xXF18GF47Zw1Y9F45JrWxCF4DCFWrA3y8Xw47K342
+ yF18tr48uF4ak3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRia9hUUUUU=
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiWQJixWVLYUQm5AAAs1
+X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiOgBixWVEuYCDxQAAsD
 X-Mailman-Approved-At: Thu, 11 Jan 2024 14:03:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,35 +54,45 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: space required before the open parenthesis '('
+ERROR: open brace '{' following struct go on the same line
 
 Signed-off-by: XueBing Chen <chenxb_99091@126.com>
 ---
- drivers/gpu/drm/radeon/radeon_pm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/radeon/evergreen_smc.h | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_pm.c b/drivers/gpu/drm/radeon/radeon_pm.c
-index b73fd9ab0252..4482c8c5f5ce 100644
---- a/drivers/gpu/drm/radeon/radeon_pm.c
-+++ b/drivers/gpu/drm/radeon/radeon_pm.c
-@@ -587,7 +587,7 @@ static ssize_t radeon_hwmon_set_pwm1_enable(struct device *dev,
- 	int err;
- 	int value;
+diff --git a/drivers/gpu/drm/radeon/evergreen_smc.h b/drivers/gpu/drm/radeon/evergreen_smc.h
+index 3a03ba37d043..b34d54b567b7 100644
+--- a/drivers/gpu/drm/radeon/evergreen_smc.h
++++ b/drivers/gpu/drm/radeon/evergreen_smc.h
+@@ -29,8 +29,7 @@
  
--	if(!rdev->asic->dpm.fan_ctrl_set_mode)
-+	if (!rdev->asic->dpm.fan_ctrl_set_mode)
- 		return -EINVAL;
+ #define SMC_EVERGREEN_MC_REGISTER_ARRAY_SIZE 16
  
- 	err = kstrtoint(buf, 10, &value);
-@@ -789,7 +789,7 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
- 		return 0;
+-struct SMC_Evergreen_MCRegisterAddress
+-{
++struct SMC_Evergreen_MCRegisterAddress {
+     uint16_t s0;
+     uint16_t s1;
+ };
+@@ -38,15 +37,13 @@ struct SMC_Evergreen_MCRegisterAddress
+ typedef struct SMC_Evergreen_MCRegisterAddress SMC_Evergreen_MCRegisterAddress;
  
- 	/* Skip vddc attribute if get_current_vddc is not implemented */
--	if(attr == &sensor_dev_attr_in0_input.dev_attr.attr &&
-+	if (attr == &sensor_dev_attr_in0_input.dev_attr.attr &&
- 		!rdev->asic->dpm.get_current_vddc)
- 		return 0;
  
+-struct SMC_Evergreen_MCRegisterSet
+-{
++struct SMC_Evergreen_MCRegisterSet {
+     uint32_t value[SMC_EVERGREEN_MC_REGISTER_ARRAY_SIZE];
+ };
+ 
+ typedef struct SMC_Evergreen_MCRegisterSet SMC_Evergreen_MCRegisterSet;
+ 
+-struct SMC_Evergreen_MCRegisters
+-{
++struct SMC_Evergreen_MCRegisters {
+     uint8_t                             last;
+     uint8_t                             reserved[3];
+     SMC_Evergreen_MCRegisterAddress     address[SMC_EVERGREEN_MC_REGISTER_ARRAY_SIZE];
 -- 
 2.17.1
 
