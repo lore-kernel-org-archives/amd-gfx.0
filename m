@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FF05C47077
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3182C4707B
 	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:05:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C045610E8C3;
-	Thu, 11 Jan 2024 09:05:11 +0000 (UTC)
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
- by gabe.freedesktop.org (Postfix) with ESMTP id E8D1410E1A0;
- Thu, 11 Jan 2024 08:44:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=4+7q/cJQbdUcZSZTlK
- ekvnUhkesNVgHuK7d6AEfDCjc=; b=kZayJxopMkdN6Qt8rH2r17nSmtjnYpLfRw
- JxXAv+IDWaOU6/6BXBDubESRja+oCuKjewSDZrfY+gd3Q1/VMdHUe0BTBg260CrZ
- 42xWinMJixPuCeJG+teLqoID0onyjpmc5wgozXwUEOPnGd9rLIwsXv2uHvgGFYsK
- ERmjvUMYc=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 185E910E8C6;
+	Thu, 11 Jan 2024 09:05:12 +0000 (UTC)
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.7])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5558810E03A;
+ Thu, 11 Jan 2024 06:27:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+ s=s110527; h=From:Subject:Date:Message-Id; bh=r0vUj6pGIqiH+JcHde
+ OSlMJWZuECSyT0n3RL5XfY9A8=; b=Jj/9k2Tx1hOHFZahBwBIiGAPuIam5CaiOD
+ lPjqNGa6Z+t/aN6AX1/7/Xtz5Hei5jNbN5d+kor7nKfD+wmaCe/7TF2QqEO9HgzL
+ M+FcjLyRoSBWV7S2luKqkGQZcK/7LGtB1Z157eoIt5FlFhcdEvqK8TVCsh3xHQ9/
+ TxvmPC+cA=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g0-0 (Coremail) with SMTP id _____wD33_Qvqp9lvS6VAA--.55985S2;
- Thu, 11 Jan 2024 16:43:27 +0800 (CST)
-From: GuoHua Chen <chenguohua_716@163.com>
-To: daniel@ffwll.ch, Xinhui.Pan@amd.com, alexander.deucher@amd.com,
- airlied@gmail.com, christian.koenig@amd.com
-Subject: [PATCH] drm/radeon/ci_dpm: Clean up errors in ci_dpm.c
-Date: Thu, 11 Jan 2024 08:43:25 +0000
-Message-Id: <20240111084325.12499-1-chenguohua_716@163.com>
+ by gzga-smtp-mta-g1-4 (Coremail) with SMTP id _____wDXX79Lip9lMYsyAA--.20534S2;
+ Thu, 11 Jan 2024 14:27:23 +0800 (CST)
+From: chenxuebing <chenxb_99091@126.com>
+To: christian.koenig@amd.com, alexander.deucher@amd.com, Xinhui.Pan@amd.com,
+ daniel@ffwll.ch, airlied@gmail.com
+Subject: [PATCH] drm/amdgpu: Clean up errors in displayobject.h
+Date: Thu, 11 Jan 2024 06:27:21 +0000
+Message-Id: <20240111062721.8519-1-chenxb_99091@126.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wD33_Qvqp9lvS6VAA--.55985S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Gw4furWkKr47Wry5ZFW5ZFb_yoW7AF18pr
- 4UurWvkrZYvFyYga15X3sFyF4F9r92v3yxua17Kw1S9395C348JF1rt3y7tF9xA340vFn0
- vF1qkryUXFZ2vFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UFdgAUUUUU=
+X-CM-TRANSID: _____wDXX79Lip9lMYsyAA--.20534S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3XFW5trWUJFyxGw1rXFWUArb_yoWxXFW7pF
+ 1jvr4DArZ5J3WjqrWUX39YvF95Ja1UCr1xKr9xWrnxtr1vg3ZrZr95t348Aa4Iqr4kKF4f
+ J3WUGFnxZrW5J37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UjPfdUUUUU=
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: xfkh0w5xrk3tbbxrlqqrwthudrp/1tbiqBNi1mVOBlEJBwAAs9
+X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiWQ1ixWVLYUHeCwAAso
 X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -47,141 +47,166 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: GuoHua Chen <chenguohua_716@163.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, chenxuebing <chenxb_99091@126.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: that open brace { should be on the previous line
-ERROR: need consistent spacing around '-' (ctx:WxV)
-ERROR: space required before the open parenthesis '('
-ERROR: "foo* bar" should be "foo *bar"
+ERROR: spaces required around that '=' (ctx:WxV)
+ERROR: space prohibited after that open parenthesis '('
 
-Signed-off-by: GuoHua Chen <chenguohua_716@163.com>
+Signed-off-by: chenxuebing <chenxb_99091@126.com>
 ---
- drivers/gpu/drm/radeon/ci_dpm.c | 31 +++++++++++++------------------
- 1 file changed, 13 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/amd/include/displayobject.h | 72 ++++++++++-----------
+ 1 file changed, 36 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/ci_dpm.c b/drivers/gpu/drm/radeon/ci_dpm.c
-index b8f4dac68d85..abe9d65cc460 100644
---- a/drivers/gpu/drm/radeon/ci_dpm.c
-+++ b/drivers/gpu/drm/radeon/ci_dpm.c
-@@ -46,36 +46,31 @@
- #define VOLTAGE_VID_OFFSET_SCALE1    625
- #define VOLTAGE_VID_OFFSET_SCALE2    100
- 
--static const struct ci_pt_defaults defaults_hawaii_xt =
--{
-+static const struct ci_pt_defaults defaults_hawaii_xt = {
- 	1, 0xF, 0xFD, 0x19, 5, 0x14, 0, 0xB0000,
- 	{ 0x2E,  0x00,  0x00,  0x88,  0x00,  0x00,  0x72,  0x60,  0x51,  0xA7,  0x79,  0x6B,  0x90,  0xBD,  0x79  },
- 	{ 0x217, 0x217, 0x217, 0x242, 0x242, 0x242, 0x269, 0x269, 0x269, 0x2A1, 0x2A1, 0x2A1, 0x2C9, 0x2C9, 0x2C9 }
+diff --git a/drivers/gpu/drm/amd/include/displayobject.h b/drivers/gpu/drm/amd/include/displayobject.h
+index 0f9529c40496..ce0c13e4e336 100644
+--- a/drivers/gpu/drm/amd/include/displayobject.h
++++ b/drivers/gpu/drm/amd/include/displayobject.h
+@@ -38,20 +38,20 @@
+ * Display Object Type Definition 
+ *****************************************************/
+ enum display_object_type {
+-DISPLAY_OBJECT_TYPE_NONE						=0x00,
+-DISPLAY_OBJECT_TYPE_GPU							=0x01,
+-DISPLAY_OBJECT_TYPE_ENCODER						=0x02,
+-DISPLAY_OBJECT_TYPE_CONNECTOR					=0x03
++DISPLAY_OBJECT_TYPE_NONE = 0x00,
++DISPLAY_OBJECT_TYPE_GPU	= 0x01,
++DISPLAY_OBJECT_TYPE_ENCODER = 0x02,
++DISPLAY_OBJECT_TYPE_CONNECTOR = 0x03
  };
  
--static const struct ci_pt_defaults defaults_hawaii_pro =
--{
-+static const struct ci_pt_defaults defaults_hawaii_pro = {
- 	1, 0xF, 0xFD, 0x19, 5, 0x14, 0, 0x65062,
- 	{ 0x2E,  0x00,  0x00,  0x88,  0x00,  0x00,  0x72,  0x60,  0x51,  0xA7,  0x79,  0x6B,  0x90,  0xBD,  0x79  },
- 	{ 0x217, 0x217, 0x217, 0x242, 0x242, 0x242, 0x269, 0x269, 0x269, 0x2A1, 0x2A1, 0x2A1, 0x2C9, 0x2C9, 0x2C9 }
+ /****************************************************
+ * Encorder Object Type Definition 
+ *****************************************************/
+ enum encoder_object_type {
+-ENCODER_OBJECT_ID_NONE							 =0x00,
+-ENCODER_OBJECT_ID_INTERNAL_UNIPHY				 =0x01,
+-ENCODER_OBJECT_ID_INTERNAL_UNIPHY1				 =0x02,
+-ENCODER_OBJECT_ID_INTERNAL_UNIPHY2				 =0x03,
++ENCODER_OBJECT_ID_NONE = 0x00,
++ENCODER_OBJECT_ID_INTERNAL_UNIPHY = 0x01,
++ENCODER_OBJECT_ID_INTERNAL_UNIPHY1 = 0x02,
++ENCODER_OBJECT_ID_INTERNAL_UNIPHY2 = 0x03,
  };
  
--static const struct ci_pt_defaults defaults_bonaire_xt =
--{
-+static const struct ci_pt_defaults defaults_bonaire_xt = {
- 	1, 0xF, 0xFD, 0x19, 5, 45, 0, 0xB0000,
- 	{ 0x79,  0x253, 0x25D, 0xAE,  0x72,  0x80,  0x83,  0x86,  0x6F,  0xC8,  0xC9,  0xC9,  0x2F,  0x4D,  0x61  },
- 	{ 0x17C, 0x172, 0x180, 0x1BC, 0x1B3, 0x1BD, 0x206, 0x200, 0x203, 0x25D, 0x25A, 0x255, 0x2C3, 0x2C5, 0x2B4 }
+ 
+@@ -60,14 +60,14 @@ ENCODER_OBJECT_ID_INTERNAL_UNIPHY2				 =0x03,
+ *****************************************************/
+ 
+ enum connector_object_type {
+-CONNECTOR_OBJECT_ID_NONE						  =0x00, 
+-CONNECTOR_OBJECT_ID_SINGLE_LINK_DVI_D			  =0x01,
+-CONNECTOR_OBJECT_ID_DUAL_LINK_DVI_D				  =0x02,
+-CONNECTOR_OBJECT_ID_HDMI_TYPE_A					  =0x03,
+-CONNECTOR_OBJECT_ID_LVDS						  =0x04,
+-CONNECTOR_OBJECT_ID_DISPLAYPORT					  =0x05,
+-CONNECTOR_OBJECT_ID_eDP							  =0x06,
+-CONNECTOR_OBJECT_ID_OPM							  =0x07
++CONNECTOR_OBJECT_ID_NONE = 0x00, 
++CONNECTOR_OBJECT_ID_SINGLE_LINK_DVI_D = 0x01,
++CONNECTOR_OBJECT_ID_DUAL_LINK_DVI_D = 0x02,
++CONNECTOR_OBJECT_ID_HDMI_TYPE_A = 0x03,
++CONNECTOR_OBJECT_ID_LVDS = 0x04,
++CONNECTOR_OBJECT_ID_DISPLAYPORT	= 0x05,
++CONNECTOR_OBJECT_ID_eDP = 0x06,
++CONNECTOR_OBJECT_ID_OPM = 0x07
  };
  
--static const struct ci_pt_defaults defaults_saturn_xt =
--{
-+static const struct ci_pt_defaults defaults_saturn_xt = {
- 	1, 0xF, 0xFD, 0x19, 5, 55, 0, 0x70000,
- 	{ 0x8C,  0x247, 0x249, 0xA6,  0x80,  0x81,  0x8B,  0x89,  0x86,  0xC9,  0xCA,  0xC9,  0x4D,  0x4D,  0x4D  },
- 	{ 0x187, 0x187, 0x187, 0x1C7, 0x1C7, 0x1C7, 0x210, 0x210, 0x210, 0x266, 0x266, 0x266, 0x2C9, 0x2C9, 0x2C9 }
+ 
+@@ -81,24 +81,24 @@ CONNECTOR_OBJECT_ID_OPM							  =0x07
+ *****************************************************/
+ 
+ enum object_enum_id {
+-OBJECT_ENUM_ID1									  =0x01,
+-OBJECT_ENUM_ID2									  =0x02,
+-OBJECT_ENUM_ID3									  =0x03,
+-OBJECT_ENUM_ID4									  =0x04,
+-OBJECT_ENUM_ID5									  =0x05,
+-OBJECT_ENUM_ID6									  =0x06
++OBJECT_ENUM_ID1 = 0x01,
++OBJECT_ENUM_ID2 = 0x02,
++OBJECT_ENUM_ID3 = 0x03,
++OBJECT_ENUM_ID4 = 0x04,
++OBJECT_ENUM_ID5	= 0x05,
++OBJECT_ENUM_ID6	= 0x06
  };
  
--static const struct ci_pt_config_reg didt_config_ci[] =
--{
-+static const struct ci_pt_config_reg didt_config_ci[] = {
- 	{ 0x10, 0x000000ff, 0, 0x0, CISLANDS_CONFIGREG_DIDT_IND },
- 	{ 0x10, 0x0000ff00, 8, 0x0, CISLANDS_CONFIGREG_DIDT_IND },
- 	{ 0x10, 0x00ff0000, 16, 0x0, CISLANDS_CONFIGREG_DIDT_IND },
-@@ -1216,7 +1211,7 @@ static void ci_thermal_initialize(struct radeon_device *rdev)
+ /****************************************************
+ *Object ID Bit definition 
+ *****************************************************/
+ enum object_id_bit {
+-OBJECT_ID_MASK									  =0x00FF,
+-ENUM_ID_MASK									  =0x0F00,
+-OBJECT_TYPE_MASK								  =0xF000,
+-OBJECT_ID_SHIFT									  =0x00,
+-ENUM_ID_SHIFT									  =0x08,
+-OBJECT_TYPE_SHIFT								  =0x0C
++OBJECT_ID_MASK = 0x00FF,
++ENUM_ID_MASK = 0x0F00,
++OBJECT_TYPE_MASK = 0xF000,
++OBJECT_ID_SHIFT = 0x00,
++ENUM_ID_SHIFT = 0x08,
++OBJECT_TYPE_SHIFT = 0x0C
+ };
  
- 	if (rdev->pm.fan_pulses_per_revolution) {
- 		tmp = RREG32_SMC(CG_TACH_CTRL) & ~EDGE_PER_REV_MASK;
--		tmp |= EDGE_PER_REV(rdev->pm.fan_pulses_per_revolution -1);
-+		tmp |= EDGE_PER_REV(rdev->pm.fan_pulses_per_revolution - 1);
- 		WREG32_SMC(CG_TACH_CTRL, tmp);
- 	}
  
-@@ -3333,7 +3328,7 @@ static int ci_populate_all_memory_levels(struct radeon_device *rdev)
- }
+@@ -106,7 +106,7 @@ OBJECT_TYPE_SHIFT								  =0x0C
+ * GPU Object definition - Shared with BIOS
+ *****************************************************/
+ enum gpu_objet_def {
+-GPU_ENUM_ID1                            = (DISPLAY_OBJECT_TYPE_GPU << OBJECT_TYPE_SHIFT | OBJECT_ENUM_ID1 << ENUM_ID_SHIFT)
++GPU_ENUM_ID1 = (DISPLAY_OBJECT_TYPE_GPU << OBJECT_TYPE_SHIFT | OBJECT_ENUM_ID1 << ENUM_ID_SHIFT)
+ };
  
- static void ci_reset_single_dpm_table(struct radeon_device *rdev,
--				      struct ci_single_dpm_table* dpm_table,
-+				      struct ci_single_dpm_table *dpm_table,
- 				      u32 count)
- {
- 	u32 i;
-@@ -3343,7 +3338,7 @@ static void ci_reset_single_dpm_table(struct radeon_device *rdev,
- 		dpm_table->dpm_levels[i].enabled = false;
- }
+ /****************************************************
+@@ -114,27 +114,27 @@ GPU_ENUM_ID1                            = (DISPLAY_OBJECT_TYPE_GPU << OBJECT_TYP
+ *****************************************************/
  
--static void ci_setup_pcie_table_entry(struct ci_single_dpm_table* dpm_table,
-+static void ci_setup_pcie_table_entry(struct ci_single_dpm_table *dpm_table,
- 				      u32 index, u32 pcie_gen, u32 pcie_lanes)
- {
- 	dpm_table->dpm_levels[index].value = pcie_gen;
-@@ -3503,7 +3498,7 @@ static int ci_find_boot_level(struct ci_single_dpm_table *table,
- 	u32 i;
- 	int ret = -EINVAL;
+ enum encoder_objet_def {
+-ENCODER_INTERNAL_UNIPHY_ENUM_ID1         = (DISPLAY_OBJECT_TYPE_ENCODER << OBJECT_TYPE_SHIFT |\
++ENCODER_INTERNAL_UNIPHY_ENUM_ID1 = (DISPLAY_OBJECT_TYPE_ENCODER << OBJECT_TYPE_SHIFT |\
+                                                  OBJECT_ENUM_ID1 << ENUM_ID_SHIFT |\
+                                                  ENCODER_OBJECT_ID_INTERNAL_UNIPHY << OBJECT_ID_SHIFT),
  
--	for(i = 0; i < table->count; i++) {
-+	for (i = 0; i < table->count; i++) {
- 		if (value == table->dpm_levels[i].value) {
- 			*boot_level = i;
- 			ret = 0;
-@@ -4304,7 +4299,7 @@ static int ci_set_mc_special_registers(struct radeon_device *rdev,
- 	for (i = 0, j = table->last; i < table->last; i++) {
- 		if (j >= SMU7_DISCRETE_MC_REGISTER_ARRAY_SIZE)
- 			return -EINVAL;
--		switch(table->mc_reg_address[i].s1 << 2) {
-+		switch (table->mc_reg_address[i].s1 << 2) {
- 		case MC_SEQ_MISC1:
- 			temp_reg = RREG32(MC_PMG_CMD_EMRS);
- 			table->mc_reg_address[j].s1 = MC_PMG_CMD_EMRS >> 2;
-@@ -4369,7 +4364,7 @@ static bool ci_check_s0_mc_reg_index(u16 in_reg, u16 *out_reg)
- {
- 	bool result = true;
+-ENCODER_INTERNAL_UNIPHY_ENUM_ID2         = (DISPLAY_OBJECT_TYPE_ENCODER << OBJECT_TYPE_SHIFT |\
++ENCODER_INTERNAL_UNIPHY_ENUM_ID2 = (DISPLAY_OBJECT_TYPE_ENCODER << OBJECT_TYPE_SHIFT |\
+                                                  OBJECT_ENUM_ID2 << ENUM_ID_SHIFT |\
+                                                  ENCODER_OBJECT_ID_INTERNAL_UNIPHY << OBJECT_ID_SHIFT),
  
--	switch(in_reg) {
-+	switch (in_reg) {
- 	case MC_SEQ_RAS_TIMING >> 2:
- 		*out_reg = MC_SEQ_RAS_TIMING_LP >> 2;
- 		break;
-@@ -4508,7 +4503,7 @@ static int ci_register_patching_mc_seq(struct radeon_device *rdev,
- 		for (i = 0; i < table->last; i++) {
- 			if (table->last >= SMU7_DISCRETE_MC_REGISTER_ARRAY_SIZE)
- 				return -EINVAL;
--			switch(table->mc_reg_address[i].s1 >> 2) {
-+			switch (table->mc_reg_address[i].s1 >> 2) {
- 			case MC_SEQ_MISC1:
- 				for (k = 0; k < table->num_entries; k++) {
- 					if ((table->mc_reg_table_entry[k].mclk_max == 125000) ||
-@@ -4683,7 +4678,7 @@ static void ci_convert_mc_reg_table_entry_to_smc(struct radeon_device *rdev,
- 	struct ci_power_info *pi = ci_get_pi(rdev);
- 	u32 i = 0;
+-ENCODER_INTERNAL_UNIPHY1_ENUM_ID1        = (DISPLAY_OBJECT_TYPE_ENCODER << OBJECT_TYPE_SHIFT |\
++ENCODER_INTERNAL_UNIPHY1_ENUM_ID1 = (DISPLAY_OBJECT_TYPE_ENCODER << OBJECT_TYPE_SHIFT |\
+                                                  OBJECT_ENUM_ID1 << ENUM_ID_SHIFT |\
+                                                  ENCODER_OBJECT_ID_INTERNAL_UNIPHY1 << OBJECT_ID_SHIFT),
  
--	for(i = 0; i < pi->mc_reg_table.num_entries; i++) {
-+	for (i = 0; i < pi->mc_reg_table.num_entries; i++) {
- 		if (memory_clock <= pi->mc_reg_table.mc_reg_table_entry[i].mclk_max)
- 			break;
- 	}
+-ENCODER_INTERNAL_UNIPHY1_ENUM_ID2        = (DISPLAY_OBJECT_TYPE_ENCODER << OBJECT_TYPE_SHIFT |\
++ENCODER_INTERNAL_UNIPHY1_ENUM_ID2 = (DISPLAY_OBJECT_TYPE_ENCODER << OBJECT_TYPE_SHIFT |\
+                                                  OBJECT_ENUM_ID2 << ENUM_ID_SHIFT |\
+                                                  ENCODER_OBJECT_ID_INTERNAL_UNIPHY1 << OBJECT_ID_SHIFT),
+ 
+-ENCODER_INTERNAL_UNIPHY2_ENUM_ID1        = (DISPLAY_OBJECT_TYPE_ENCODER << OBJECT_TYPE_SHIFT |\
++ENCODER_INTERNAL_UNIPHY2_ENUM_ID1 = (DISPLAY_OBJECT_TYPE_ENCODER << OBJECT_TYPE_SHIFT |\
+                                                  OBJECT_ENUM_ID1 << ENUM_ID_SHIFT |\
+                                                  ENCODER_OBJECT_ID_INTERNAL_UNIPHY2 << OBJECT_ID_SHIFT),
+ 
+-ENCODER_INTERNAL_UNIPHY2_ENUM_ID2        = (DISPLAY_OBJECT_TYPE_ENCODER << OBJECT_TYPE_SHIFT |\
++ENCODER_INTERNAL_UNIPHY2_ENUM_ID2 = (DISPLAY_OBJECT_TYPE_ENCODER << OBJECT_TYPE_SHIFT |\
+                                                  OBJECT_ENUM_ID2 << ENUM_ID_SHIFT |\
+                                                  ENCODER_OBJECT_ID_INTERNAL_UNIPHY2 << OBJECT_ID_SHIFT)
+ };
+@@ -151,7 +151,7 @@ CONNECTOR_LVDS_ENUM_ID1	= (DISPLAY_OBJECT_TYPE_CONNECTOR << OBJECT_TYPE_SHIFT |\
+                                                  CONNECTOR_OBJECT_ID_LVDS << OBJECT_ID_SHIFT),
+ 
+ 
+-CONNECTOR_eDP_ENUM_ID1	= (DISPLAY_OBJECT_TYPE_CONNECTOR << OBJECT_TYPE_SHIFT |\
++CONNECTOR_eDP_ENUM_ID1 = (DISPLAY_OBJECT_TYPE_CONNECTOR << OBJECT_TYPE_SHIFT |\
+                                                  OBJECT_ENUM_ID1 << ENUM_ID_SHIFT |\
+                                                  CONNECTOR_OBJECT_ID_eDP << OBJECT_ID_SHIFT),
+ 
 -- 
 2.17.1
 
