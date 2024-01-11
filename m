@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5146AC47DB3
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A786FC47DB0
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D525010E8B8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90CC510E899;
 	Thu, 11 Jan 2024 09:04:31 +0000 (UTC)
-Received: from m16.mail.163.com (m15.mail.163.com [45.254.50.220])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9EDD010E18A;
- Thu, 11 Jan 2024 08:24:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=6CAROB1lD1HLjhO4c1
- 5hoRYXMOhnvVtgCZbVS+d/YhU=; b=lUOzuGBxHNPn6+7nV+zNlU8NYwUEJKXFm1
- K7pwUJ4Gf1fJPPncmxA2rFzDk8hifpRegxJE7VMOM5Sw2lE8c/nndw3UVuByDDcs
- wZT2a6RyISLg8wMYkflXbK5P1tgLU5C9H2bBfWtf7vym+zlOcBMp9ze7fjQq7Y8u
- tZTxzCUlY=
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2045B10E070;
+ Thu, 11 Jan 2024 02:12:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+ s=s110527; h=From:Subject:Date:Message-Id; bh=9aR55xkwecnRVJ0nnM
+ w73iproCVEKWqgG1rUjSYKFBg=; b=AuZFHS7MqHdcUB1kQ9Q0cdu9sPeOr6yEyS
+ bOmbVOaZi4gUDoajsT8nD6YRgeVX9X37NHlN3l0mf6iX0/B78w3R0TG9Waf0kKQ9
+ QrD9+nLkge4hP9dIFbzqTw3bwYIT1V58zztzPFMKAZEzUpNk9rewhrXhdt7ITcNS
+ czw5X8BiA=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g0-4 (Coremail) with SMTP id _____wDnT_OXpZ9l8XqUAA--.19048S2;
- Thu, 11 Jan 2024 16:23:51 +0800 (CST)
-From: GuoHua Chen <chenguohua_716@163.com>
-To: daniel@ffwll.ch, Xinhui.Pan@amd.com, alexander.deucher@amd.com,
- airlied@gmail.com, christian.koenig@amd.com
-Subject: [PATCH] drm/radeon: Clean up errors in radeon_display.c
-Date: Thu, 11 Jan 2024 08:23:49 +0000
-Message-Id: <20240111082349.11806-1-chenguohua_716@163.com>
+ by gzga-smtp-mta-g1-5 (Coremail) with SMTP id _____wD3fzFmSp9l3IAsAA--.46727S2;
+ Thu, 11 Jan 2024 09:54:46 +0800 (CST)
+From: chenxuebing <chenxb_99091@126.com>
+To: christian.koenig@amd.com, airlied@gmail.com, alexander.deucher@amd.com,
+ Xinhui.Pan@amd.com, daniel@ffwll.ch
+Subject: [PATCH] drm/amdgpu: Clean up errors in navi10_ih.c
+Date: Thu, 11 Jan 2024 01:54:42 +0000
+Message-Id: <20240111015442.5343-1-chenxb_99091@126.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wDnT_OXpZ9l8XqUAA--.19048S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uFWxtr18JFyrAr47Xr15twb_yoW8tF1DpF
- sxuw1vgw13tF4agryUJF4xuw1rua1kWaySkr17G39ruws0yrWxXFZIyFZFkw1rZry8GrW5
- tryxCw17WF40yrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UFdgAUUUUU=
+X-CM-TRANSID: _____wD3fzFmSp9l3IAsAA--.46727S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrKFWDZrWxuFW8uFW5Jw4DCFg_yoWfGFb_Cr
+ W8AryfXr12vF1qqrn8Ar4Yv34kKF1F9rs3W342qFnayryUZr4rAa1qgryYqayruF43Wasx
+ Jrn8WF1YywnxCjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUUrHUDUUUUU==
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: xfkh0w5xrk3tbbxrlqqrwthudrp/1tbiqBxi1mVOBlCRhgAAsq
-X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:25 +0000
+X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiOgtixWVEuXlrAAAAsc
+X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,66 +47,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: GuoHua Chen <chenguohua_716@163.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, chenxuebing <chenxb_99091@126.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
 ERROR: that open brace { should be on the previous line
-ERROR: space prohibited before that ',' (ctx:WxW)
 
-Signed-off-by: GuoHua Chen <chenguohua_716@163.com>
+Signed-off-by: chenxuebing <chenxb_99091@126.com>
 ---
- drivers/gpu/drm/radeon/radeon_display.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
-index a44f78bdd4e5..94dc4f92587f 100644
---- a/drivers/gpu/drm/radeon/radeon_display.c
-+++ b/drivers/gpu/drm/radeon/radeon_display.c
-@@ -1365,8 +1365,8 @@ static const struct drm_prop_enum_list radeon_tmds_pll_enum_list[] = {
- 	{ 1, "bios" },
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+index e64b33115848..57d04ed20357 100644
+--- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+@@ -722,8 +722,7 @@ static void navi10_ih_set_interrupt_funcs(struct amdgpu_device *adev)
+ 		adev->irq.ih_funcs = &navi10_ih_funcs;
+ }
  
--static const struct drm_prop_enum_list radeon_tv_std_enum_list[] =
--{	{ TV_STD_NTSC, "ntsc" },
-+static const struct drm_prop_enum_list radeon_tv_std_enum_list[] = {
-+	{ TV_STD_NTSC, "ntsc" },
- 	{ TV_STD_PAL, "pal" },
- 	{ TV_STD_PAL_M, "pal-m" },
- 	{ TV_STD_PAL_60, "pal-60" },
-@@ -1376,25 +1376,25 @@ static const struct drm_prop_enum_list radeon_tv_std_enum_list[] =
- 	{ TV_STD_SECAM, "secam" },
- };
- 
--static const struct drm_prop_enum_list radeon_underscan_enum_list[] ={
-+static const struct drm_prop_enum_list radeon_underscan_enum_list[] = {
- 	{ UNDERSCAN_OFF, "off" },
- 	{ UNDERSCAN_ON, "on" },
- 	{ UNDERSCAN_AUTO, "auto" },
- };
- 
--static const struct drm_prop_enum_list radeon_audio_enum_list[] ={
-+static const struct drm_prop_enum_list radeon_audio_enum_list[] = {
- 	{ RADEON_AUDIO_DISABLE, "off" },
- 	{ RADEON_AUDIO_ENABLE, "on" },
- 	{ RADEON_AUDIO_AUTO, "auto" },
- };
- 
- /* XXX support different dither options? spatial, temporal, both, etc. */
--static const struct drm_prop_enum_list radeon_dither_enum_list[] ={
-+static const struct drm_prop_enum_list radeon_dither_enum_list[] = {
- 	{ RADEON_FMT_DITHER_DISABLE, "off" },
- 	{ RADEON_FMT_DITHER_ENABLE, "on" },
- };
- 
--static const struct drm_prop_enum_list radeon_output_csc_enum_list[] ={
-+static const struct drm_prop_enum_list radeon_output_csc_enum_list[] = {
- 	{ RADEON_OUTPUT_CSC_BYPASS, "bypass" },
- 	{ RADEON_OUTPUT_CSC_TVRGB, "tvrgb" },
- 	{ RADEON_OUTPUT_CSC_YCBCR601, "ycbcr601" },
+-const struct amdgpu_ip_block_version navi10_ih_ip_block =
+-{
++const struct amdgpu_ip_block_version navi10_ih_ip_block = {
+ 	.type = AMD_IP_BLOCK_TYPE_IH,
+ 	.major = 5,
+ 	.minor = 0,
 -- 
 2.17.1
 
