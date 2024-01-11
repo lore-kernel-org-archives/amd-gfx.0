@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94027C47DA2
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:05:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC758C4707B
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:05:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE24C10E8C1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 699B410E8BD;
 	Thu, 11 Jan 2024 09:05:08 +0000 (UTC)
 Received: from m16.mail.163.com (m15.mail.163.com [45.254.50.219])
- by gabe.freedesktop.org (Postfix) with ESMTP id 1D67710E1CB;
- Thu, 11 Jan 2024 08:27:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id AB30C10E1A0;
+ Thu, 11 Jan 2024 08:37:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=C41GvdsfCnJ5btfTlf
- 7ADFG8GCPBwf9UbjaedLoXgJ4=; b=EZHVndKzTLc0xLguuz56/JzUQpjoov5KMS
- K/oPLO8pet+bdyH3aOcrJorjs4neL5wC727T+R+F33Fl5tGwUzbM9dOOHuHWTvet
- c94D5tBU5k/3OMiWUYGEYuhKll7vTQINIJw6zdb9QwqF0jntr0czo7CJKAqet+fJ
- XV+x2fetc=
+ s=s110527; h=From:Subject:Date:Message-Id; bh=hFyLYRGrdMsKKrb572
+ UmJNs+TslUNdb4TSStKU71wo4=; b=DEhWlRLc5nBvJc7T1kmQf5FQf0jlfjkFW3
+ Hhnec7P3YSfo8sSEuXaPZh6Zo8tqBw508Gb6QmnpMCTo6GRaIL2FQuUqxPux05ko
+ 5WKs0iMfCHdvTVJNb08oxXKhZZHscYNnJJ616H9rt3dTmPpAdBd51Jf4NWTk9SSo
+ 84hhgL+lI=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g0-5 (Coremail) with SMTP id _____wCX__VDpp9lalCVAA--.15415S2;
- Thu, 11 Jan 2024 16:26:43 +0800 (CST)
+ by gzga-smtp-mta-g0-0 (Coremail) with SMTP id _____wDnb5SnqJ9l0suUAA--.19779S2;
+ Thu, 11 Jan 2024 16:36:55 +0800 (CST)
 From: GuoHua Chen <chenguohua_716@163.com>
 To: daniel@ffwll.ch, Xinhui.Pan@amd.com, alexander.deucher@amd.com,
  airlied@gmail.com, christian.koenig@amd.com
-Subject: [PATCH] drm/radeon: Clean up errors in uvd_v1_0.c
-Date: Thu, 11 Jan 2024 08:26:41 +0000
-Message-Id: <20240111082641.11892-1-chenguohua_716@163.com>
+Subject: [PATCH] drm/radeon: Clean up errors in r600.c
+Date: Thu, 11 Jan 2024 08:36:54 +0000
+Message-Id: <20240111083654.12411-1-chenguohua_716@163.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wCX__VDpp9lalCVAA--.15415S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrKw1xtFWUWFyUGF4rKryUJrb_yoW3ZFc_KF
- 4UZ3y5GwsrZ3Z7ZF12kFs8AF92yw45uFs3uw1Yqas3tryYqw4rWry7ury3Xw4rGFn3JF95
- Cw4vgFyfZFsxZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+X-CM-TRANSID: _____wDnb5SnqJ9l0suUAA--.19779S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrKFWDZrWxuFy5Kry8JFWfuFg_yoW3WFX_Ca
+ 48Xws5JFW0vasY9F1IvF4DZr92ya18u397Gw1xKFn3Kry2q3yfua95Gr1fX3y8JF42qF1D
+ Aan3XFy3CFsIvjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
  9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUUZXo7UUUUU==
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: xfkh0w5xrk3tbbxrlqqrwthudrp/xtbBEhxi1mVOBk+X-AACsx
-X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:25 +0000
+X-CM-SenderInfo: xfkh0w5xrk3tbbxrlqqrwthudrp/xtbBEAti1mVOBk-1wgACs4
+X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,26 +54,27 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: "(foo*)" should be "(foo *)"
+ERROR: that open brace { should be on the previous line
 
 Signed-off-by: GuoHua Chen <chenguohua_716@163.com>
 ---
- drivers/gpu/drm/radeon/uvd_v1_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/radeon/r600.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/uvd_v1_0.c b/drivers/gpu/drm/radeon/uvd_v1_0.c
-index 58557c2263a7..5684639d20a6 100644
---- a/drivers/gpu/drm/radeon/uvd_v1_0.c
-+++ b/drivers/gpu/drm/radeon/uvd_v1_0.c
-@@ -142,7 +142,7 @@ int uvd_v1_0_resume(struct radeon_device *rdev)
- 	addr = (rdev->uvd.gpu_addr >> 32) & 0xFF;
- 	WREG32(UVD_LMI_EXT40_ADDR, addr | (0x9 << 16) | (0x1 << 31));
+diff --git a/drivers/gpu/drm/radeon/r600.c b/drivers/gpu/drm/radeon/r600.c
+index a17b95eec65f..b5e97d95a19f 100644
+--- a/drivers/gpu/drm/radeon/r600.c
++++ b/drivers/gpu/drm/radeon/r600.c
+@@ -99,8 +99,7 @@ MODULE_FIRMWARE("radeon/SUMO_me.bin");
+ MODULE_FIRMWARE("radeon/SUMO2_pfp.bin");
+ MODULE_FIRMWARE("radeon/SUMO2_me.bin");
  
--	WREG32(UVD_FW_START, *((uint32_t*)rdev->uvd.cpu_addr));
-+	WREG32(UVD_FW_START, *((uint32_t *)rdev->uvd.cpu_addr));
- 
- 	return 0;
- }
+-static const u32 crtc_offsets[2] =
+-{
++static const u32 crtc_offsets[2] = {
+ 	0,
+ 	AVIVO_D2CRTC_H_TOTAL - AVIVO_D1CRTC_H_TOTAL
+ };
 -- 
 2.17.1
 
