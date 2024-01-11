@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EB96C47DA7
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B173C47DB0
 	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41A9D10E89F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DCA410E8A6;
 	Thu, 11 Jan 2024 09:04:30 +0000 (UTC)
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8B40E10E7FE;
- Thu, 11 Jan 2024 08:35:00 +0000 (UTC)
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 578D910E1AC;
+ Thu, 11 Jan 2024 08:16:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=4/Jx3JBI1HjdTdG8JO
- PlsexBLCUAbZM6wJbiVlJEdV0=; b=Vr0Vujg/9yithDZdETK1ydxLa6oOHOFsAs
- r/X1Y6mLJw7xhhlzG9ky7b/Mi/dP++d+EodnBo/FXuxxAiYIRPNUWaXAME+SBC2w
- 7bGxcimoOBzsFBwVMr0YZxMwzeGm9LviXGV9gvWJlwguoGlUwcT7iR5puVU+HSIp
- EfGpSWB7w=
+ s=s110527; h=From:Subject:Date:Message-Id; bh=6AZs02xj1/cbg0BiYo
+ +KmJRnfb8WZCPrXQoJKEmHzYI=; b=GGR2SuQrujnsc54YNSF+uxxnodPQeL2V9+
+ V7RNolEXZMjC8F4P2oQdDTfLHoOsRnlrb/ivLerLV0SXttB0lsXZv85InIUpJ595
+ TNdQEWO0tOFQkEyZ/FAMX00fgfq+s9q7Zv/AkttaErTfxFwJFv1tDJU9HCL5E4iY
+ dG2K2S8Mo=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g0-0 (Coremail) with SMTP id _____wD3X7AqqJ9lWq2UAA--.19387S2;
- Thu, 11 Jan 2024 16:34:50 +0800 (CST)
+ by gzga-smtp-mta-g0-5 (Coremail) with SMTP id _____wD3n1bdo59lXLCUAA--.18346S2;
+ Thu, 11 Jan 2024 16:16:30 +0800 (CST)
 From: GuoHua Chen <chenguohua_716@163.com>
-To: daniel@ffwll.ch, Xinhui.Pan@amd.com, alexander.deucher@amd.com,
- airlied@gmail.com, christian.koenig@amd.com
-Subject: [PATCH] drm/radeon: Clean up errors in si_dpm.h
-Date: Thu, 11 Jan 2024 08:34:48 +0000
-Message-Id: <20240111083448.12238-1-chenguohua_716@163.com>
+To: daniel@ffwll.ch, Xinhui.Pan@amd.com, airlied@gmail.com,
+ christian.koenig@amd.com, alexander.deucher@amd.com
+Subject: [PATCH] drm/radeon/kms: Clean up errors in rv6xx_dpm.h
+Date: Thu, 11 Jan 2024 08:16:28 +0000
+Message-Id: <20240111081628.11492-1-chenguohua_716@163.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wD3X7AqqJ9lWq2UAA--.19387S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tFWrKF1DWF1xKF1rXw4Utwb_yoW8uw4UpF
- srC343CrWkJr43ua43JFWUCF9I93srJrWIka1DG3yFy3WUZ34kCFn0kr4fZryxGrWF9w12
- yrn2gFy5Ww1a9rDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UFdgAUUUUU=
+X-CM-TRANSID: _____wD3n1bdo59lXLCUAA--.18346S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrtF1kXF13tr13Ww17CFWDCFg_yoWxuwb_Ca
+ 4xX3y7WrW2kFn5XF47Zrs8JryIva15uF48uw4fta4fGry7Xr1fWa4vgrW7Xa1FgFn3JF9x
+ Cw4kXFyfJFsFgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUjcTmDUUUUU==
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: xfkh0w5xrk3tbbxrlqqrwthudrp/1tbiqAti1mVOBlDTuwAAsC
-X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:24 +0000
+X-CM-SenderInfo: xfkh0w5xrk3tbbxrlqqrwthudrp/xtbBEB5i1mVOBk+DPwAAsk
+X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,92 +47,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: GuoHua Chen <chenguohua_716@163.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, GuoHua Chen <chenguohua_716@163.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
 ERROR: open brace '{' following struct go on the same line
-ERROR: open brace '{' following enum go on the same line
 
 Signed-off-by: GuoHua Chen <chenguohua_716@163.com>
 ---
- drivers/gpu/drm/radeon/si_dpm.h | 21 +++++++--------------
- 1 file changed, 7 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/radeon/rv6xx_dpm.h | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/si_dpm.h b/drivers/gpu/drm/radeon/si_dpm.h
-index aa857906ef93..4887edebd348 100644
---- a/drivers/gpu/drm/radeon/si_dpm.h
-+++ b/drivers/gpu/drm/radeon/si_dpm.h
-@@ -26,15 +26,13 @@
- #include "ni_dpm.h"
- #include "sislands_smc.h"
+diff --git a/drivers/gpu/drm/radeon/rv6xx_dpm.h b/drivers/gpu/drm/radeon/rv6xx_dpm.h
+index 8035d53ebea6..020c0dc8361d 100644
+--- a/drivers/gpu/drm/radeon/rv6xx_dpm.h
++++ b/drivers/gpu/drm/radeon/rv6xx_dpm.h
+@@ -28,8 +28,7 @@
+ #include "r600_dpm.h"
  
--enum si_cac_config_reg_type
+ /* Represents a single SCLK step. */
+-struct rv6xx_sclk_stepping
 -{
-+enum si_cac_config_reg_type {
- 	SISLANDS_CACCONFIG_MMR = 0,
- 	SISLANDS_CACCONFIG_CGIND,
- 	SISLANDS_CACCONFIG_MAX
- };
- 
--struct si_cac_config_reg
--{
-+struct si_cac_config_reg {
- 	u32 offset;
- 	u32 mask;
- 	u32 shift;
-@@ -42,8 +40,7 @@ struct si_cac_config_reg
- 	enum si_cac_config_reg_type type;
- };
- 
--struct si_powertune_data
--{
-+struct si_powertune_data {
- 	u32 cac_window;
- 	u32 l2_lta_window_size_default;
- 	u8 lts_truncate_default;
-@@ -56,8 +53,7 @@ struct si_powertune_data
- 	bool enable_powertune_by_default;
- };
- 
--struct si_dyn_powertune_data
--{
-+struct si_dyn_powertune_data {
- 	u32 cac_leakage;
- 	s32 leakage_minimum_temperature;
- 	u32 wintime;
-@@ -68,8 +64,7 @@ struct si_dyn_powertune_data
- 	bool disable_uvd_powertune;
- };
- 
--struct si_dte_data
--{
-+struct si_dte_data {
- 	u32 tau[SMC_SISLANDS_DTE_MAX_FILTER_STAGES];
- 	u32 r[SMC_SISLANDS_DTE_MAX_FILTER_STAGES];
- 	u32 k;
-@@ -122,8 +117,7 @@ struct si_mc_reg_table {
- #define SISLANDS_MCREGISTERTABLE_ULV_SLOT                   2
- #define SISLANDS_MCREGISTERTABLE_FIRST_DRIVERSTATE_SLOT     3
- 
--struct si_leakage_voltage_entry
--{
-+struct si_leakage_voltage_entry {
- 	u16 voltage;
- 	u16 leakage_index;
- };
-@@ -131,8 +125,7 @@ struct si_leakage_voltage_entry
- #define SISLANDS_LEAKAGE_INDEX0     0xff01
- #define SISLANDS_MAX_LEAKAGE_COUNT  4
- 
--struct si_leakage_voltage
--{
-+struct si_leakage_voltage {
- 	u16 count;
- 	struct si_leakage_voltage_entry entries[SISLANDS_MAX_LEAKAGE_COUNT];
++struct rv6xx_sclk_stepping {
+     u32 vco_frequency;
+     u32 post_divider;
  };
 -- 
 2.17.1
