@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46EFFC47DA7
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96674C47DA2
 	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0F5910E89A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69E7B10E893;
 	Thu, 11 Jan 2024 09:04:29 +0000 (UTC)
 Received: from m16.mail.163.com (m15.mail.163.com [45.254.50.220])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4F30E10E7C8;
- Thu, 11 Jan 2024 07:41:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 684A010E7FE;
+ Thu, 11 Jan 2024 08:28:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=+DHDA/okFd5/zQjOlF
- eYU+44Mfp5VcM5q+2X+PDnePE=; b=UeGsx9QKL1ErG0fgK8ko2xxlzJGWWwj4s3
- QKzCuom2iJWXDR8bJuCXqdNMEgB8bVN32ECJ37yQ6ry7gujPv8gWnbfXnnzWHXbe
- qHlpBTqQaaT1ow6anrliJb5BX9C/S9gEXlH8aNWAurAqudaSOuDpUIc9YF9nImvp
- xjDHfM57w=
+ s=s110527; h=From:Subject:Date:Message-Id; bh=2uSs31ukJxhgyhtx6q
+ nqpA4J3ZjguzlrdPXS+K8YQ9U=; b=TlJiP1Von4h/wT+OnnmoWgc/c2Rdmi2Twf
+ PElX1EvXVD9+iONV8/jINPYq/QXhMfcvpBKJjngVWx5GM1aZDcAXR3TQU3YQ6TT1
+ fir6xSkOencFfWjg9cbo9tuh/W6L+x2H0p85BEGBpusrYR++FdqTvQgi/L/7Idm7
+ jzHmzEcmc=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g0-3 (Coremail) with SMTP id _____wDXX5Som59lDeKSAA--.13761S2;
- Thu, 11 Jan 2024 15:41:28 +0800 (CST)
+ by gzga-smtp-mta-g0-3 (Coremail) with SMTP id _____wD3XwaRpp9lI7mVAA--.18703S2;
+ Thu, 11 Jan 2024 16:28:01 +0800 (CST)
 From: GuoHua Chen <chenguohua_716@163.com>
-To: daniel@ffwll.ch, Xinhui.Pan@amd.com, airlied@gmail.com,
- christian.koenig@amd.com, alexander.deucher@amd.com
-Subject: [PATCH] drm/radeon: Clean up errors in ni.c
-Date: Thu, 11 Jan 2024 07:41:27 +0000
-Message-Id: <20240111074127.10749-1-chenguohua_716@163.com>
+To: daniel@ffwll.ch, Xinhui.Pan@amd.com, alexander.deucher@amd.com,
+ airlied@gmail.com, christian.koenig@amd.com
+Subject: [PATCH] drm/radeon: Clean up errors in radeon_audio.h
+Date: Thu, 11 Jan 2024 08:27:59 +0000
+Message-Id: <20240111082759.11978-1-chenguohua_716@163.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wDXX5Som59lDeKSAA--.13761S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWr43Gw4DArW8Ar13tFW3GFg_yoW5Jw1DpF
- 45J34YkFZ5JFsxZa17Jw15AFyYk3Z2ka92ya1UGw4xXF1qkrykXFsrtayrAF98J3y8A3y7
- tF1kXrWI9F4UAw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID: _____wD3XwaRpp9lI7mVAA--.18703S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWrtF1kXF13tr13Wr4rXF47Arb_yoW8JF4Upa
+ 17u3s0yrZxK347WryxAFZ8Ar43K3W8Ja18uFWDuw15ursxtry8XFyaqr1rAF1rJr1Sk39r
+ trn7K347Za40yr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
  9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UFdgAUUUUU=
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: xfkh0w5xrk3tbbxrlqqrwthudrp/1tbiqBVi1mVOBk9-GgABsP
-X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:24 +0000
+X-CM-SenderInfo: xfkh0w5xrk3tbbxrlqqrwthudrp/xtbBEhxi1mVOBk+X-AAEs3
+X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,94 +47,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, GuoHua Chen <chenguohua_716@163.com>
+Cc: GuoHua Chen <chenguohua_716@163.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: that open brace { should be on the previous line
-ERROR: trailing statements should be on next line
+ERROR: open brace '{' following struct go on the same line
 
 Signed-off-by: GuoHua Chen <chenguohua_716@163.com>
 ---
- drivers/gpu/drm/radeon/ni.c | 21 ++++++++-------------
- 1 file changed, 8 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/radeon/radeon_audio.h | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/ni.c b/drivers/gpu/drm/radeon/ni.c
-index 927e5f42e97d..6f231a740ba5 100644
---- a/drivers/gpu/drm/radeon/ni.c
-+++ b/drivers/gpu/drm/radeon/ni.c
-@@ -66,8 +66,7 @@ void tn_smc_wreg(struct radeon_device *rdev, u32 reg, u32 v)
- 	spin_unlock_irqrestore(&rdev->smc_idx_lock, flags);
- }
+diff --git a/drivers/gpu/drm/radeon/radeon_audio.h b/drivers/gpu/drm/radeon/radeon_audio.h
+index dacaaa007051..a073dadd0638 100644
+--- a/drivers/gpu/drm/radeon/radeon_audio.h
++++ b/drivers/gpu/drm/radeon/radeon_audio.h
+@@ -34,8 +34,7 @@ struct cea_sad;
+ #define WREG32_ENDPOINT(block, reg, v)	\
+ 	radeon_audio_endpoint_wreg(rdev, (block), (reg), (v))
  
--static const u32 tn_rlc_save_restore_register_list[] =
+-struct radeon_audio_basic_funcs
 -{
-+static const u32 tn_rlc_save_restore_register_list[] = {
- 	0x98fc,
- 	0x98f0,
- 	0x9834,
-@@ -216,8 +215,7 @@ MODULE_FIRMWARE("radeon/ARUBA_me.bin");
- MODULE_FIRMWARE("radeon/ARUBA_rlc.bin");
- 
- 
--static const u32 cayman_golden_registers2[] =
--{
-+static const u32 cayman_golden_registers2[] = {
- 	0x3e5c, 0xffffffff, 0x00000000,
- 	0x3e48, 0xffffffff, 0x00000000,
- 	0x3e4c, 0xffffffff, 0x00000000,
-@@ -226,8 +224,7 @@ static const u32 cayman_golden_registers2[] =
- 	0x3e60, 0xffffffff, 0x00000000
++struct radeon_audio_basic_funcs {
+ 	u32  (*endpoint_rreg)(struct radeon_device *rdev, u32 offset, u32 reg);
+ 	void (*endpoint_wreg)(struct radeon_device *rdev,
+ 		u32 offset, u32 reg, u32 v);
+@@ -43,8 +42,7 @@ struct radeon_audio_basic_funcs
+ 		struct r600_audio_pin *pin, u8 enable_mask);
  };
  
--static const u32 cayman_golden_registers[] =
+-struct radeon_audio_funcs
 -{
-+static const u32 cayman_golden_registers[] = {
- 	0x5eb4, 0xffffffff, 0x00000002,
- 	0x5e78, 0x8f311ff1, 0x001000f0,
- 	0x3f90, 0xffff0000, 0xff000000,
-@@ -267,16 +264,14 @@ static const u32 cayman_golden_registers[] =
- 	0x8974, 0xffffffff, 0x00000000
- };
- 
--static const u32 dvst_golden_registers2[] =
--{
-+static const u32 dvst_golden_registers2[] = {
- 	0x8f8, 0xffffffff, 0,
- 	0x8fc, 0x00380000, 0,
- 	0x8f8, 0xffffffff, 1,
- 	0x8fc, 0x0e000000, 0
- };
- 
--static const u32 dvst_golden_registers[] =
--{
-+static const u32 dvst_golden_registers[] = {
- 	0x690, 0x3fff3fff, 0x20c00033,
- 	0x918c, 0x0fff0fff, 0x00010006,
- 	0x91a8, 0x0fff0fff, 0x00010006,
-@@ -333,8 +328,7 @@ static const u32 dvst_golden_registers[] =
- 	0x8974, 0xffffffff, 0x00000000
- };
- 
--static const u32 scrapper_golden_registers[] =
--{
-+static const u32 scrapper_golden_registers[] = {
- 	0x690, 0x3fff3fff, 0x20c00033,
- 	0x918c, 0x0fff0fff, 0x00010006,
- 	0x918c, 0x0fff0fff, 0x00010006,
-@@ -754,7 +748,8 @@ int ni_init_microcode(struct radeon_device *rdev)
- 		rlc_req_size = ARUBA_RLC_UCODE_SIZE * 4;
- 		mc_req_size = 0;
- 		break;
--	default: BUG();
-+	default:
-+		BUG();
- 	}
- 
- 	DRM_INFO("Loading %s Microcode\n", chip_name);
++struct radeon_audio_funcs {
+ 	void (*select_pin)(struct drm_encoder *encoder);
+ 	struct r600_audio_pin* (*get_pin)(struct radeon_device *rdev);
+ 	void (*write_latency_fields)(struct drm_encoder *encoder,
 -- 
 2.17.1
 
