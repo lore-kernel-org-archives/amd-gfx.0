@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E904C4707B
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 373ECC47DA2
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C02910E876;
-	Thu, 11 Jan 2024 09:04:26 +0000 (UTC)
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.9])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4ABD310E0A5;
- Thu, 11 Jan 2024 03:23:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F162310E875;
+	Thu, 11 Jan 2024 09:04:25 +0000 (UTC)
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 746E010E070;
+ Thu, 11 Jan 2024 02:16:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=dshx51HI40zA1xqVFX
- zADg2VlgDAFrz0WnOsTKSvvUw=; b=lhO/sXbpD8kmL5Zy69zMbiyZgZP82WkN2I
- xhZb4hC4o2O9faM+D8P/ckSD8YzOBHCUx1KeyYUY584dTO3iTDMFh7kkT9plwwg1
- XJ3VJVpL8uwd07wtJVmruQW4ZGxhzK7iF9iqF5sGG7+TFD3nXlrJzvL6Rbf9A0pk
- eBN63YPl4=
+ s=s110527; h=From:Subject:Date:Message-Id; bh=MqvsdNpdgdevTDXLx/
+ 3wHJ+fUvPHE2tkCRPaSkqqFnc=; b=i7ETgvLpkj+Tbbo+l+WL6t6bbaDDejUXEj
+ qCENh2JYuyyi9iPi/mULh1o3ePit2vHRLu0f9N5zNh+NcldamrNkmOPSYuZwBQNk
+ M5hxqckrQTUEXkEM7fYH3jZPlihxQmmm+EHnAX12MGTuYsReP1trzYKBTLppTdqo
+ SAaCtkOt0=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g0-1 (Coremail) with SMTP id _____wD3X4UwX59lAvWdAA--.60309S2;
- Thu, 11 Jan 2024 11:23:28 +0800 (CST)
+ by gzga-smtp-mta-g1-4 (Coremail) with SMTP id _____wDXH75oS59l9eMsAA--.11769S2;
+ Thu, 11 Jan 2024 09:59:05 +0800 (CST)
 From: chenxuebing <chenxb_99091@126.com>
-To: daniel@ffwll.ch, airlied@gmail.com, alexander.deucher@amd.com,
- Xinhui.Pan@amd.com, christian.koenig@amd.com
-Subject: [PATCH] drm/amdgpu: Clean up errors in dimgrey_cavefish_ip_offset.h
-Date: Thu, 11 Jan 2024 03:23:27 +0000
-Message-Id: <20240111032327.7402-1-chenxb_99091@126.com>
+To: daniel@ffwll.ch, alexander.deucher@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, Xinhui.Pan@amd.com
+Subject: [PATCH] drm/amdgpu: Clean up errors in clearstate_gfx9.h
+Date: Thu, 11 Jan 2024 01:59:03 +0000
+Message-Id: <20240111015903.5433-1-chenxb_99091@126.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wD3X4UwX59lAvWdAA--.60309S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtF1DCF48KF4ftF17Kr45ZFb_yoWfAFX_Ca
- 43Xr1fW347ZFnrtF17Zanru3yj9w1kuFs7Xw15tr15trZrCr18W3y5Gr47ZrWruFZxKFnr
- C3WkXFZ8XrnI9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRRK9atUUUUU==
+X-CM-TRANSID: _____wDXH75oS59l9eMsAA--.11769S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCF4rXF48CFyUJFWrJrWkWFg_yoW5tFWxpF
+ 1DAr1Ig3yxJ3WaqrWxtFs8KF1fGrZFv3Z2yr47K3WxG3Z5XayDXa4DJ3yrCrWUtFykZF1q
+ yF4vqrWUKay8Cw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UbF4iUUUUU=
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiGAdixWVLZWQS9AABsw
+X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiWQtixWVLYT1tUwAAs5
 X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,33 +54,96 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: open brace '{' following struct go on the same line
+ERROR: that open brace { should be on the previous line
 
 Signed-off-by: chenxuebing <chenxb_99091@126.com>
 ---
- drivers/gpu/drm/amd/include/dimgrey_cavefish_ip_offset.h | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/clearstate_gfx9.h | 27 +++++++-------------
+ 1 file changed, 9 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/include/dimgrey_cavefish_ip_offset.h b/drivers/gpu/drm/amd/include/dimgrey_cavefish_ip_offset.h
-index f84996a73de9..53cb4296df88 100644
---- a/drivers/gpu/drm/amd/include/dimgrey_cavefish_ip_offset.h
-+++ b/drivers/gpu/drm/amd/include/dimgrey_cavefish_ip_offset.h
-@@ -25,13 +25,11 @@
- #define MAX_SEGMENT                                         6
+diff --git a/drivers/gpu/drm/amd/amdgpu/clearstate_gfx9.h b/drivers/gpu/drm/amd/amdgpu/clearstate_gfx9.h
+index 567a904804bc..9c85ca6358c1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/clearstate_gfx9.h
++++ b/drivers/gpu/drm/amd/amdgpu/clearstate_gfx9.h
+@@ -21,8 +21,7 @@
+  *
+  */
  
- 
--struct IP_BASE_INSTANCE
+-static const unsigned int gfx9_SECT_CONTEXT_def_1[] =
 -{
-+struct IP_BASE_INSTANCE {
-     unsigned int segment[MAX_SEGMENT];
++static const unsigned int gfx9_SECT_CONTEXT_def_1[] = {
+     0x00000000, // DB_RENDER_CONTROL
+     0x00000000, // DB_COUNT_CONTROL
+     0x00000000, // DB_DEPTH_VIEW
+@@ -236,8 +235,7 @@ static const unsigned int gfx9_SECT_CONTEXT_def_1[] =
+     0x00000000, // PA_SC_VPORT_ZMIN_15
+     0x3f800000, // PA_SC_VPORT_ZMAX_15
  };
- 
--struct IP_BASE
+-static const unsigned int gfx9_SECT_CONTEXT_def_2[] =
 -{
-+struct IP_BASE {
-     struct IP_BASE_INSTANCE instance[MAX_INSTANCE];
- } __maybe_unused;
- 
++static const unsigned int gfx9_SECT_CONTEXT_def_2[] = {
+     0x00000000, // PA_SC_SCREEN_EXTENT_CONTROL
+     0x00000000, // PA_SC_TILE_STEERING_OVERRIDE
+     0x00000000, // CP_PERFMON_CNTX_CNTL
+@@ -521,15 +519,13 @@ static const unsigned int gfx9_SECT_CONTEXT_def_2[] =
+     0x00000000, // CB_MRT6_EPITCH
+     0x00000000, // CB_MRT7_EPITCH
+ };
+-static const unsigned int gfx9_SECT_CONTEXT_def_3[] =
+-{
++static const unsigned int gfx9_SECT_CONTEXT_def_3[] = {
+     0x00000000, // PA_CL_POINT_X_RAD
+     0x00000000, // PA_CL_POINT_Y_RAD
+     0x00000000, // PA_CL_POINT_SIZE
+     0x00000000, // PA_CL_POINT_CULL_RAD
+ };
+-static const unsigned int gfx9_SECT_CONTEXT_def_4[] =
+-{
++static const unsigned int gfx9_SECT_CONTEXT_def_4[] = {
+     0x00000000, // DB_DEPTH_CONTROL
+     0x00000000, // DB_EQAA
+     0x00000000, // CB_COLOR_CONTROL
+@@ -688,17 +684,14 @@ static const unsigned int gfx9_SECT_CONTEXT_def_4[] =
+     0x00000000, // VGT_GS_OUT_PRIM_TYPE
+     0x00000000, // IA_ENHANCE
+ };
+-static const unsigned int gfx9_SECT_CONTEXT_def_5[] =
+-{
++static const unsigned int gfx9_SECT_CONTEXT_def_5[] = {
+     0x00000000, // WD_ENHANCE
+     0x00000000, // VGT_PRIMITIVEID_EN
+ };
+-static const unsigned int gfx9_SECT_CONTEXT_def_6[] =
+-{
++static const unsigned int gfx9_SECT_CONTEXT_def_6[] = {
+     0x00000000, // VGT_PRIMITIVEID_RESET
+ };
+-static const unsigned int gfx9_SECT_CONTEXT_def_7[] =
+-{
++static const unsigned int gfx9_SECT_CONTEXT_def_7[] = {
+     0x00000000, // VGT_GS_MAX_PRIMS_PER_SUBGROUP
+     0x00000000, // VGT_DRAW_PAYLOAD_CNTL
+     0, // HOLE
+@@ -766,8 +759,7 @@ static const unsigned int gfx9_SECT_CONTEXT_def_7[] =
+     0x00000000, // VGT_STRMOUT_CONFIG
+     0x00000000, // VGT_STRMOUT_BUFFER_CONFIG
+ };
+-static const unsigned int gfx9_SECT_CONTEXT_def_8[] =
+-{
++static const unsigned int gfx9_SECT_CONTEXT_def_8[] = {
+     0x00000000, // PA_SC_CENTROID_PRIORITY_0
+     0x00000000, // PA_SC_CENTROID_PRIORITY_1
+     0x00001000, // PA_SC_LINE_CNTL
+@@ -924,8 +916,7 @@ static const unsigned int gfx9_SECT_CONTEXT_def_8[] =
+     0x00000000, // CB_COLOR7_DCC_BASE
+     0x00000000, // CB_COLOR7_DCC_BASE_EXT
+ };
+-static const struct cs_extent_def gfx9_SECT_CONTEXT_defs[] =
+-{
++static const struct cs_extent_def gfx9_SECT_CONTEXT_defs[] = {
+     {gfx9_SECT_CONTEXT_def_1, 0x0000a000, 212 },
+     {gfx9_SECT_CONTEXT_def_2, 0x0000a0d6, 282 },
+     {gfx9_SECT_CONTEXT_def_3, 0x0000a1f5, 4 },
 -- 
 2.17.1
 
