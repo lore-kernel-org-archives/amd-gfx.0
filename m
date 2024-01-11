@@ -4,51 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAD84C4707B
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67493C47DAC
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 003D010E88F;
-	Thu, 11 Jan 2024 09:04:28 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 669A610E787;
- Wed, 10 Jan 2024 17:39:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1704908379; x=1736444379;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=9ykZ03P15HHHdtkAazjV4WJ0Unrb8VCy2usHG2O8G+Q=;
- b=bf49bykl49wW4h+p/BAed8A+74vGoozZ3i/Qr2/w9ZwZQ5Lx1tnZmtV8
- MQ4ui6iq0yU135ISEEGiXN4KzQ4RqX8G+vUib0pvAc4RlyiOGxPz5rLB6
- p3m8N53/txGVr0UxBUaaUy+TEqMAHQ88SLZcVp5UDvrahRtTfacJK8m3s
- QM4Ho/n+zFonc8UR8si0qNnWooIzMzDNJL0/aIZx1byT1Ae/yggWyFGn1
- 5bbK6T4nGl1BcTDyvPIQN5aKVi7wlJS6PQMCOfFh0ChmJ5bCT+jAsPi0e
- mQ8yO9B7OOveme04E6I0AVRXg8abS0+D9G+eMpeLU1NCQsV0uAEG6oVZJ w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10949"; a="389029350"
-X-IronPort-AV: E=Sophos;i="6.04,184,1695711600"; d="scan'208";a="389029350"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2024 09:39:39 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10949"; a="785675954"
-X-IronPort-AV: E=Sophos;i="6.04,184,1695711600"; d="scan'208";a="785675954"
-Received: from fpallare-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.252.36.240])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2024 09:39:35 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org
-Subject: [PATCH 3/6] drm/amdgpu: prefer snprintf over sprintf
-Date: Wed, 10 Jan 2024 19:39:13 +0200
-Message-Id: <fea7a52924f98b1ac24f4a7e6ba21d7754422430.1704908087.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1704908087.git.jani.nikula@intel.com>
-References: <cover.1704908087.git.jani.nikula@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:25 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49F7C10E88E;
+	Thu, 11 Jan 2024 09:04:29 +0000 (UTC)
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 62E7710E070;
+ Thu, 11 Jan 2024 02:19:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+ s=s110527; h=From:Subject:Date:Message-Id; bh=Min6HQZdPP4HIWPzo8
+ E6GmraGnokuJZHOP0OMZ3zKh0=; b=iM3b7cxiG7g15xMQrddMpxGqs0tBY/caTn
+ aBpbznq4wNTbZF27trQ1WrUzDMwLF/eO65X9U0ihTZEMeuQJ+O/+GR+K6MQHZFIc
+ X+SdV1Ux4dAbGde0m9dW4L2XAZFF2uk4zXv7c2N2IDsvHTOJqajF5zHWbOui17lT
+ GRvrDgNKU=
+Received: from localhost.localdomain (unknown [182.148.14.173])
+ by gzga-smtp-mta-g0-5 (Coremail) with SMTP id _____wD3P18VUJ9lgSucAA--.27798S2;
+ Thu, 11 Jan 2024 10:19:01 +0800 (CST)
+From: chenxuebing <chenxb_99091@126.com>
+To: airlied@gmail.com, Xinhui.Pan@amd.com, christian.koenig@amd.com,
+ alexander.deucher@amd.com, daniel@ffwll.ch
+Subject: [PATCH] drm/amdgpu: Clean up errors in gfx_v9_4.c
+Date: Thu, 11 Jan 2024 02:19:00 +0000
+Message-Id: <20240111021900.6062-1-chenxb_99091@126.com>
+X-Mailer: git-send-email 2.17.1
+X-CM-TRANSID: _____wD3P18VUJ9lgSucAA--.27798S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrKFWDZrWxuFW8uFW5XFyfCrg_yoWDZrX_C3
+ yUtrnxur4q93Z2gF129w4rt34qqr9xZFZ7WF40ya4FkF1qq343K3srKrn3Xa18WFs3uF95
+ A3Z0gF13ZwnrGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRRubk5UUUUU==
+X-Originating-IP: [182.148.14.173]
+X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiGAJixWVLZWLE5AABs1
+X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,41 +47,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
-	Xinhui <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Pan@freedesktop.org
+Cc: chenxuebing <chenxb_99091@126.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This will trade the W=1 warning -Wformat-overflow to
--Wformat-truncation. This lets us enable -Wformat-overflow subsystem
-wide.
+Fix the following errors reported by checkpatch:
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Pan, Xinhui <Xinhui.Pan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+ERROR: that open brace { should be on the previous line
+
+Signed-off-by: chenxuebing <chenxb_99091@126.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index b9674c57c436..82b4b2019fca 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -329,7 +329,8 @@ int amdgpu_gfx_kiq_init_ring(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c
+index bc8416afb62c..f53b379d8971 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c
+@@ -970,8 +970,9 @@ static void gfx_v9_4_reset_ras_error_count(struct amdgpu_device *adev)
+ 	WREG32_SOC15(GC, 0, mmATC_L2_CACHE_4K_DSM_INDEX, 255);
+ }
  
- 	ring->eop_gpu_addr = kiq->eop_gpu_addr;
- 	ring->no_scheduler = true;
--	sprintf(ring->name, "kiq_%d.%d.%d.%d", xcc_id, ring->me, ring->pipe, ring->queue);
-+	snprintf(ring->name, sizeof(ring->name), "kiq_%d.%d.%d.%d",
-+		 xcc_id, ring->me, ring->pipe, ring->queue);
- 	r = amdgpu_ring_init(adev, ring, 1024, irq, AMDGPU_CP_KIQ_IRQ_DRIVER0,
- 			     AMDGPU_RING_PRIO_DEFAULT, NULL);
- 	if (r)
+-static const struct soc15_reg_entry gfx_v9_4_ea_err_status_regs =
+-	{ SOC15_REG_ENTRY(GC, 0, mmGCEA_ERR_STATUS), 0, 1, 32 };
++static const struct soc15_reg_entry gfx_v9_4_ea_err_status_regs = {
++	SOC15_REG_ENTRY(GC, 0, mmGCEA_ERR_STATUS), 0, 1, 32
++};
+ 
+ static void gfx_v9_4_query_ras_error_status(struct amdgpu_device *adev)
+ {
 -- 
-2.39.2
+2.17.1
 
