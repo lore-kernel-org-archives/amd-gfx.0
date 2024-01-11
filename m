@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5876AC47258
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 14:03:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E877C47422
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 14:03:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB18F10E901;
-	Thu, 11 Jan 2024 14:03:29 +0000 (UTC)
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
- by gabe.freedesktop.org (Postfix) with ESMTP id 702F110E8C2;
- Thu, 11 Jan 2024 09:05:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=mLot53AR6aiH5Wu6Ry
- wzmhBMvsIGYJAJhAMQ1/Sq9gY=; b=HZWDLfxEy0lzzfSLeDN2b1JqyKcD/l6VKF
- aSJsMuvz1/7N73jCF+Ir161PXR4zP7LP6TJ/UFjiO4bMWoU72vmwTpwonvAGk/94
- +EJvtmYMuoMNMLU5dWmdutQRA67zwRTxlys7e6uUHFeZoDvUMol9aWsW9bvP/srg
- 40uOm10BQ=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4722B10E932;
+	Thu, 11 Jan 2024 14:03:31 +0000 (UTC)
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4DFDB10E874;
+ Thu, 11 Jan 2024 09:39:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+ s=s110527; h=From:Subject:Date:Message-Id; bh=iz9UOzRHdTaijoax5t
+ rZJe5y011J0dv7M21KuYSpJpg=; b=AYHdkLOwn6mAA96ry0PtHnzosLx5znLfr5
+ MsP5Ue4xiY9pwHd2+ORbZsJX6syfdIqPwU33z0BnRimA1ZM/EqrAhSCspsCy1A/S
+ zgdqaPQi2xCf2PO0gS/XZ4yS5OjAkVbcTwXy7VAEdmmg8c6v2ofgCEHeRfyeEH6s
+ tl4nzuRmQ=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g0-5 (Coremail) with SMTP id _____wD3H6Vir59ldLCXAA--.13381S2;
- Thu, 11 Jan 2024 17:05:38 +0800 (CST)
-From: GuoHua Chen <chenguohua_716@163.com>
+ by gzga-smtp-mta-g0-2 (Coremail) with SMTP id _____wDXv_L_tp9l2bOlAA--.1501S2; 
+ Thu, 11 Jan 2024 17:38:08 +0800 (CST)
+From: XueBing Chen <chenxb_99091@126.com>
 To: daniel@ffwll.ch, Xinhui.Pan@amd.com, alexander.deucher@amd.com,
  airlied@gmail.com, christian.koenig@amd.com
-Subject: [PATCH] drm/radeon/kms: Clean up errors in smu7.h
-Date: Thu, 11 Jan 2024 09:05:36 +0000
-Message-Id: <20240111090536.13410-1-chenguohua_716@163.com>
+Subject: [PATCH] drm/radeon: Clean up errors in si.c
+Date: Thu, 11 Jan 2024 09:38:01 +0000
+Message-Id: <20240111093801.14260-1-chenxb_99091@126.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wD3H6Vir59ldLCXAA--.13381S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtF1kXF13tr13WF4fCr1kGrg_yoWDZFb_CF
- 1qg3Z5WrZFkFyvqr17AFW7CFZIyF4qvw1xK34Fg34fXrnIqa13urWvkrW7Xw1rWayfXF90
- yan0vF1fAFsxtjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUU9mR7UUUUU==
+X-CM-TRANSID: _____wDXv_L_tp9l2bOlAA--.1501S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3XFyUGw4fZr1xtFyDKw4fGrg_yoWxZw4xpF
+ nxXr4YkF4rGF45Zay3Jr1rAF1YkFnFkas0yw4UKr4xZF98CFyDXF47JayIyas8J3y8A3y7
+ tF1DXrWUta18Aw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRylkfUUUUU=
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: xfkh0w5xrk3tbbxrlqqrwthudrp/xtbBEhVi1mVOBlC+9wAAsH
+X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiWQFixWVLYUR98wAAs6
 X-Mailman-Approved-At: Thu, 11 Jan 2024 14:03:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -47,44 +47,227 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: GuoHua Chen <chenguohua_716@163.com>, amd-gfx@lists.freedesktop.org,
+Cc: XueBing Chen <chenxb_99091@126.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: open brace '{' following struct go on the same line
+ERROR: that open brace { should be on the previous line
+ERROR: trailing statements should be on next lineo
 
-Signed-off-by: GuoHua Chen <chenguohua_716@163.com>
+Signed-off-by: XueBing Chen <chenxb_99091@126.com>
 ---
- drivers/gpu/drm/radeon/smu7.h | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/radeon/si.c | 63 +++++++++++++------------------------
+ 1 file changed, 22 insertions(+), 41 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/smu7.h b/drivers/gpu/drm/radeon/smu7.h
-index 75a380a15292..985d720dbc0d 100644
---- a/drivers/gpu/drm/radeon/smu7.h
-+++ b/drivers/gpu/drm/radeon/smu7.h
-@@ -82,8 +82,7 @@
- #define SCRATCH_B_CURR_SAMU_INDEX_MASK  (0x7<<SCRATCH_B_CURR_SAMU_INDEX_SHIFT)
+diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
+index 85e9cba49cec..93f197d96d8f 100644
+--- a/drivers/gpu/drm/radeon/si.c
++++ b/drivers/gpu/drm/radeon/si.c
+@@ -138,8 +138,7 @@ static void si_fini_pg(struct radeon_device *rdev);
+ static void si_fini_cg(struct radeon_device *rdev);
+ static void si_rlc_stop(struct radeon_device *rdev);
  
- 
--struct SMU7_PIDController
+-static const u32 crtc_offsets[] =
 -{
-+struct SMU7_PIDController {
-     uint32_t Ki;
-     int32_t LFWindupUL;
-     int32_t LFWindupLL;
-@@ -117,8 +116,7 @@ typedef struct SMU7_PIDController SMU7_PIDController;
- #define SMU7_VCE_MCLK_HANDSHAKE_DISABLE                  0x00010000
- #define SMU7_VCE_SCLK_HANDSHAKE_DISABLE                  0x00020000
++static const u32 crtc_offsets[] = {
+ 	EVERGREEN_CRTC0_REGISTER_OFFSET,
+ 	EVERGREEN_CRTC1_REGISTER_OFFSET,
+ 	EVERGREEN_CRTC2_REGISTER_OFFSET,
+@@ -148,8 +147,7 @@ static const u32 crtc_offsets[] =
+ 	EVERGREEN_CRTC5_REGISTER_OFFSET
+ };
  
--struct SMU7_Firmware_Header
+-static const u32 si_disp_int_status[] =
 -{
-+struct SMU7_Firmware_Header {
-     uint32_t Digest[5];
-     uint32_t Version;
-     uint32_t HeaderSize;
++static const u32 si_disp_int_status[] = {
+ 	DISP_INTERRUPT_STATUS,
+ 	DISP_INTERRUPT_STATUS_CONTINUE,
+ 	DISP_INTERRUPT_STATUS_CONTINUE2,
+@@ -162,8 +160,7 @@ static const u32 si_disp_int_status[] =
+ #define DC_HPDx_INT_CONTROL(x)    (DC_HPD1_INT_CONTROL + (x * 0xc))
+ #define DC_HPDx_INT_STATUS_REG(x) (DC_HPD1_INT_STATUS  + (x * 0xc))
+ 
+-static const u32 verde_rlc_save_restore_register_list[] =
+-{
++static const u32 verde_rlc_save_restore_register_list[] = {
+ 	(0x8000 << 16) | (0x98f4 >> 2),
+ 	0x00000000,
+ 	(0x8040 << 16) | (0x98f4 >> 2),
+@@ -384,8 +381,7 @@ static const u32 verde_rlc_save_restore_register_list[] =
+ 	0x00000000
+ };
+ 
+-static const u32 tahiti_golden_rlc_registers[] =
+-{
++static const u32 tahiti_golden_rlc_registers[] = {
+ 	0xc424, 0xffffffff, 0x00601005,
+ 	0xc47c, 0xffffffff, 0x10104040,
+ 	0xc488, 0xffffffff, 0x0100000a,
+@@ -394,8 +390,7 @@ static const u32 tahiti_golden_rlc_registers[] =
+ 	0xf4a8, 0xffffffff, 0x00000000
+ };
+ 
+-static const u32 tahiti_golden_registers[] =
+-{
++static const u32 tahiti_golden_registers[] = {
+ 	0x9a10, 0x00010000, 0x00018208,
+ 	0x9830, 0xffffffff, 0x00000000,
+ 	0x9834, 0xf00fffff, 0x00000400,
+@@ -429,13 +424,11 @@ static const u32 tahiti_golden_registers[] =
+ 	0x15c0, 0x000c0fc0, 0x000c0400
+ };
+ 
+-static const u32 tahiti_golden_registers2[] =
+-{
++static const u32 tahiti_golden_registers2[] = {
+ 	0xc64, 0x00000001, 0x00000001
+ };
+ 
+-static const u32 pitcairn_golden_rlc_registers[] =
+-{
++static const u32 pitcairn_golden_rlc_registers[] = {
+ 	0xc424, 0xffffffff, 0x00601004,
+ 	0xc47c, 0xffffffff, 0x10102020,
+ 	0xc488, 0xffffffff, 0x01000020,
+@@ -443,8 +436,7 @@ static const u32 pitcairn_golden_rlc_registers[] =
+ 	0xc30c, 0xffffffff, 0x800000a4
+ };
+ 
+-static const u32 pitcairn_golden_registers[] =
+-{
++static const u32 pitcairn_golden_registers[] = {
+ 	0x9a10, 0x00010000, 0x00018208,
+ 	0x9830, 0xffffffff, 0x00000000,
+ 	0x9834, 0xf00fffff, 0x00000400,
+@@ -474,8 +466,7 @@ static const u32 pitcairn_golden_registers[] =
+ 	0x15c0, 0x000c0fc0, 0x000c0400
+ };
+ 
+-static const u32 verde_golden_rlc_registers[] =
+-{
++static const u32 verde_golden_rlc_registers[] = {
+ 	0xc424, 0xffffffff, 0x033f1005,
+ 	0xc47c, 0xffffffff, 0x10808020,
+ 	0xc488, 0xffffffff, 0x00800008,
+@@ -483,8 +474,7 @@ static const u32 verde_golden_rlc_registers[] =
+ 	0xc30c, 0xffffffff, 0x80010014
+ };
+ 
+-static const u32 verde_golden_registers[] =
+-{
++static const u32 verde_golden_registers[] = {
+ 	0x9a10, 0x00010000, 0x00018208,
+ 	0x9830, 0xffffffff, 0x00000000,
+ 	0x9834, 0xf00fffff, 0x00000400,
+@@ -539,8 +529,7 @@ static const u32 verde_golden_registers[] =
+ 	0x15c0, 0x000c0fc0, 0x000c0400
+ };
+ 
+-static const u32 oland_golden_rlc_registers[] =
+-{
++static const u32 oland_golden_rlc_registers[] = {
+ 	0xc424, 0xffffffff, 0x00601005,
+ 	0xc47c, 0xffffffff, 0x10104040,
+ 	0xc488, 0xffffffff, 0x0100000a,
+@@ -548,8 +537,7 @@ static const u32 oland_golden_rlc_registers[] =
+ 	0xc30c, 0xffffffff, 0x800000f4
+ };
+ 
+-static const u32 oland_golden_registers[] =
+-{
++static const u32 oland_golden_registers[] = {
+ 	0x9a10, 0x00010000, 0x00018208,
+ 	0x9830, 0xffffffff, 0x00000000,
+ 	0x9834, 0xf00fffff, 0x00000400,
+@@ -579,8 +567,7 @@ static const u32 oland_golden_registers[] =
+ 	0x15c0, 0x000c0fc0, 0x000c0400
+ };
+ 
+-static const u32 hainan_golden_registers[] =
+-{
++static const u32 hainan_golden_registers[] = {
+ 	0x9a10, 0x00010000, 0x00018208,
+ 	0x9830, 0xffffffff, 0x00000000,
+ 	0x9834, 0xf00fffff, 0x00000400,
+@@ -608,13 +595,11 @@ static const u32 hainan_golden_registers[] =
+ 	0x15c0, 0x000c0fc0, 0x000c0400
+ };
+ 
+-static const u32 hainan_golden_registers2[] =
+-{
++static const u32 hainan_golden_registers2[] = {
+ 	0x98f8, 0xffffffff, 0x02010001
+ };
+ 
+-static const u32 tahiti_mgcg_cgcg_init[] =
+-{
++static const u32 tahiti_mgcg_cgcg_init[] = {
+ 	0xc400, 0xffffffff, 0xfffffffc,
+ 	0x802c, 0xffffffff, 0xe0000000,
+ 	0x9a60, 0xffffffff, 0x00000100,
+@@ -743,8 +728,7 @@ static const u32 tahiti_mgcg_cgcg_init[] =
+ 	0xd8c0, 0xfffffff0, 0x00000100
+ };
+ 
+-static const u32 pitcairn_mgcg_cgcg_init[] =
+-{
++static const u32 pitcairn_mgcg_cgcg_init[] = {
+ 	0xc400, 0xffffffff, 0xfffffffc,
+ 	0x802c, 0xffffffff, 0xe0000000,
+ 	0x9a60, 0xffffffff, 0x00000100,
+@@ -841,8 +825,7 @@ static const u32 pitcairn_mgcg_cgcg_init[] =
+ 	0xd8c0, 0xfffffff0, 0x00000100
+ };
+ 
+-static const u32 verde_mgcg_cgcg_init[] =
+-{
++static const u32 verde_mgcg_cgcg_init[] = {
+ 	0xc400, 0xffffffff, 0xfffffffc,
+ 	0x802c, 0xffffffff, 0xe0000000,
+ 	0x9a60, 0xffffffff, 0x00000100,
+@@ -941,8 +924,7 @@ static const u32 verde_mgcg_cgcg_init[] =
+ 	0xd8c0, 0xfffffff0, 0x00000100
+ };
+ 
+-static const u32 oland_mgcg_cgcg_init[] =
+-{
++static const u32 oland_mgcg_cgcg_init[] = {
+ 	0xc400, 0xffffffff, 0xfffffffc,
+ 	0x802c, 0xffffffff, 0xe0000000,
+ 	0x9a60, 0xffffffff, 0x00000100,
+@@ -1021,8 +1003,7 @@ static const u32 oland_mgcg_cgcg_init[] =
+ 	0xd8c0, 0xfffffff0, 0x00000100
+ };
+ 
+-static const u32 hainan_mgcg_cgcg_init[] =
+-{
++static const u32 hainan_mgcg_cgcg_init[] = {
+ 	0xc400, 0xffffffff, 0xfffffffc,
+ 	0x802c, 0xffffffff, 0xe0000000,
+ 	0x9a60, 0xffffffff, 0x00000100,
+@@ -1098,8 +1079,7 @@ static const u32 hainan_mgcg_cgcg_init[] =
+ 	0xd8c0, 0xfffffff0, 0x00000100
+ };
+ 
+-static u32 verde_pg_init[] =
+-{
++static u32 verde_pg_init[] = {
+ 	0x353c, 0xffffffff, 0x40000,
+ 	0x3538, 0xffffffff, 0x200010ff,
+ 	0x353c, 0xffffffff, 0x0,
+@@ -1768,7 +1748,8 @@ static int si_init_microcode(struct radeon_device *rdev)
+ 		mc_req_size = mc2_req_size = OLAND_MC_UCODE_SIZE * 4;
+ 		smc_req_size = ALIGN(HAINAN_SMC_UCODE_SIZE, 4);
+ 		break;
+-	default: BUG();
++	default:
++		BUG();
+ 	}
+ 
+ 	/* this memory configuration requires special firmware */
 -- 
 2.17.1
 
