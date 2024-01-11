@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 316B6C47DB1
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD953C47077
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08E1010E8AD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FAF310E8AF;
 	Thu, 11 Jan 2024 09:04:31 +0000 (UTC)
-Received: from m16.mail.163.com (m15.mail.163.com [45.254.50.219])
- by gabe.freedesktop.org (Postfix) with ESMTP id E0FC310E03A;
- Thu, 11 Jan 2024 08:32:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=hIIhJMzptMNoGjn+eB
- 6+tS402J6MeF/y18vxlmoiacU=; b=fw+AI9iVomMHhAjUctpac32C9CXrLB4EU/
- J7YOg3q4dr/uzgK7xlqI2+awoVzvYrIlt2xrxoHH95cHxrh9p3o4qGAOifuFwDJO
- gJtE9MgL+XgaN5NMscWCEe/rhYPp8Wm6NESaUhYbmrLVUwYYJyCTaUO/fjy7svM1
- hsMvKvP/Q=
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4FC1C10E085;
+ Thu, 11 Jan 2024 03:11:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+ s=s110527; h=From:Subject:Date:Message-Id; bh=+2DGeQL1MVpOSJxUNH
+ cxtwdXajYv/cXBWYf6yhOsiEo=; b=oK1I6Jy597rgzqAc9BeAm5JlYjgD7Z74Hh
+ cwf3qe6U+CLWKfFAqqelhc7L/7dIqB7bCwOy6Vwsglr/zbnGTrvkHi9Q9Quco8gr
+ hfnr2ejQG3sDCYPi3eF+dHHT18KbApx8WOtbHBNHrBj+GRXbLtFOa2RxgP537jQ9
+ Lw+l5CIlE=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g0-5 (Coremail) with SMTP id _____wD3P2elp59lm66VAA--.22689S2;
- Thu, 11 Jan 2024 16:32:37 +0800 (CST)
-From: GuoHua Chen <chenguohua_716@163.com>
-To: daniel@ffwll.ch, Xinhui.Pan@amd.com, alexander.deucher@amd.com,
- airlied@gmail.com, christian.koenig@amd.com
-Subject: [PATCH] drm/radeon: Clean up errors in radeon_audio.c
-Date: Thu, 11 Jan 2024 08:32:35 +0000
-Message-Id: <20240111083235.12152-1-chenguohua_716@163.com>
+ by gzga-smtp-mta-g0-1 (Coremail) with SMTP id _____wD3X4VtXJ9lba+dAA--.60099S2;
+ Thu, 11 Jan 2024 11:11:41 +0800 (CST)
+From: chenxuebing <chenxb_99091@126.com>
+To: christian.koenig@amd.com, airlied@gmail.com, daniel@ffwll.ch,
+ alexander.deucher@amd.com, Xinhui.Pan@amd.com
+Subject: [PATCH] drm/amd: Clean up errors in vega10_ip_offset.h
+Date: Thu, 11 Jan 2024 03:11:39 +0000
+Message-Id: <20240111031139.7135-1-chenxb_99091@126.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wD3P2elp59lm66VAA--.22689S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tFy5Xry5ZFyxGr4UJryDtrb_yoW8tryrpa
- 17ua9YyrZIk34DWryxAFZxJFWYgw1kJa1xZrWDuw1fG393tryDXa4aqryUCFyrJFyFgay7
- tr1kKw12v3Wvkr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UFdgAUUUUU=
+X-CM-TRANSID: _____wD3X4VtXJ9lba+dAA--.60099S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrtF1DCF48Kr4kJw1Dtr48Crg_yoWfCrc_Ca
+ 4xXr4fGry7uFnFqF1IyFsrA3yjk3W8ZFn7Ww1ftF13JrsrGr18Way5Grs7XrWrur9IgFsr
+ Aan5XFW5XrnIgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRRK9atUUUUU==
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: xfkh0w5xrk3tbbxrlqqrwthudrp/xtbBEg1i1mVOBk-vRgAAsg
-X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:25 +0000
+X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiGBJixWVLZWPjuAAAse
+X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,62 +47,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: GuoHua Chen <chenguohua_716@163.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, chenxuebing <chenxb_99091@126.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: "foo* bar" should be "foo *bar"
-ERROR: that open brace { should be on the previous line
+ERROR: open brace '{' following struct go on the same line
 
-Signed-off-by: GuoHua Chen <chenguohua_716@163.com>
+Signed-off-by: chenxuebing <chenxb_99091@126.com>
 ---
- drivers/gpu/drm/radeon/radeon_audio.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/include/cyan_skillfish_ip_offset.h | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_audio.c b/drivers/gpu/drm/radeon/radeon_audio.c
-index 91b58fbc2be7..74753bb26d33 100644
---- a/drivers/gpu/drm/radeon/radeon_audio.c
-+++ b/drivers/gpu/drm/radeon/radeon_audio.c
-@@ -37,15 +37,14 @@
+diff --git a/drivers/gpu/drm/amd/include/cyan_skillfish_ip_offset.h b/drivers/gpu/drm/amd/include/cyan_skillfish_ip_offset.h
+index ce79e5de8ce3..1a73296a9a74 100644
+--- a/drivers/gpu/drm/amd/include/cyan_skillfish_ip_offset.h
++++ b/drivers/gpu/drm/amd/include/cyan_skillfish_ip_offset.h
+@@ -25,13 +25,11 @@
+ #define MAX_SEGMENT                                        5
  
- void dce6_audio_enable(struct radeon_device *rdev, struct r600_audio_pin *pin,
- 		u8 enable_mask);
--struct r600_audio_pin* r600_audio_get_pin(struct radeon_device *rdev);
--struct r600_audio_pin* dce6_audio_get_pin(struct radeon_device *rdev);
-+struct r600_audio_pin *r600_audio_get_pin(struct radeon_device *rdev);
-+struct r600_audio_pin *dce6_audio_get_pin(struct radeon_device *rdev);
- static void radeon_audio_hdmi_mode_set(struct drm_encoder *encoder,
- 	struct drm_display_mode *mode);
- static void radeon_audio_dp_mode_set(struct drm_encoder *encoder,
- 	struct drm_display_mode *mode);
  
--static const u32 pin_offsets[7] =
+-struct IP_BASE_INSTANCE
 -{
-+static const u32 pin_offsets[7] = {
- 	(0x5e00 - 0x5e00),
- 	(0x5e18 - 0x5e00),
- 	(0x5e30 - 0x5e00),
-@@ -361,7 +360,7 @@ static void radeon_audio_write_latency_fields(struct drm_encoder *encoder,
- 		radeon_encoder->audio->write_latency_fields(encoder, connector, mode);
- }
++struct IP_BASE_INSTANCE {
+     unsigned int segment[MAX_SEGMENT];
+ } __maybe_unused;
  
--struct r600_audio_pin* radeon_audio_get_pin(struct drm_encoder *encoder)
-+struct r600_audio_pin *radeon_audio_get_pin(struct drm_encoder *encoder)
- {
- 	struct radeon_device *rdev = encoder->dev->dev_private;
- 	struct radeon_encoder *radeon_encoder = to_radeon_encoder(encoder);
-@@ -528,7 +527,7 @@ static void radeon_audio_calc_cts(unsigned int clock, int *CTS, int *N, int freq
- 		*N, *CTS, freq);
- }
+-struct IP_BASE
+-{
++struct IP_BASE {
+     struct IP_BASE_INSTANCE instance[MAX_INSTANCE];
+ } __maybe_unused;
  
--static const struct radeon_hdmi_acr* radeon_audio_acr(unsigned int clock)
-+static const struct radeon_hdmi_acr *radeon_audio_acr(unsigned int clock)
- {
- 	static struct radeon_hdmi_acr res;
- 	u8 i;
 -- 
 2.17.1
 
