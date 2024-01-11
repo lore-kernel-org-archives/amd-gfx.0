@@ -4,38 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BCB5C47DA7
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B14EC47DA2
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C706410E8AC;
-	Thu, 11 Jan 2024 09:04:30 +0000 (UTC)
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.7])
- by gabe.freedesktop.org (Postfix) with ESMTP id CA34810E070;
- Thu, 11 Jan 2024 02:55:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=6XnZjv2AWPiI5dqzax
- Rd+P/BdNiXsS2TWUib8qNZYKo=; b=iBgjqxt4vjbfmHHDs60si/oISpoy7ig8nT
- LTK3ltXA48wnW8Dfpbju1D9ZlHi6q3+y9JA7wVMbIHRZDJ9hVEfU1mH3MSmd1kOQ
- t72tNk3nr6O7uRAIWUHmJ7tx21VrbISJjXZdpfV3GqZO85BDGMh+9t0VPDEVgoqk
- D09sQzXRE=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9762B10E8B5;
+	Thu, 11 Jan 2024 09:04:31 +0000 (UTC)
+X-Greylist: delayed 336 seconds by postgrey-1.36 at gabe;
+ Thu, 11 Jan 2024 07:28:55 UTC
+Received: from m16.mail.163.com (m15.mail.163.com [45.254.50.220])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8208810E7C8;
+ Thu, 11 Jan 2024 07:28:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:Subject:Date:Message-Id; bh=VpIczU8eqIB7d5YSOI
+ rPozjjZBz+2KSAjKt2ZpU6HC0=; b=OLM3nEJKreWwpVg/fnV2EJ/nDVx1wTazAG
+ lKQ9zNqAwq+vVlo2uvLh2+pPsTEPuOCtqUPKkMm0Y9wW4TSIPacWKWfue57O+wBI
+ MGlfvHjwbotJF3KNU8jENjCGt7eaz0oDCyMs7qIybbhtER0FRhg0B6dTIiinRkal
+ EDixCQaOw=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g0-3 (Coremail) with SMTP id _____wDnD9uXWJ9lwy+dAA--.10032S2;
- Thu, 11 Jan 2024 10:55:19 +0800 (CST)
-From: chenxuebing <chenxb_99091@126.com>
-To: Xinhui.Pan@amd.com, daniel@ffwll.ch, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com
-Subject: [PATCH] drm/amd/include: Clean up errors in arct_ip_offset.h
-Date: Thu, 11 Jan 2024 02:55:17 +0000
-Message-Id: <20240111025517.6687-1-chenxb_99091@126.com>
+ by gzga-smtp-mta-g0-2 (Coremail) with SMTP id _____wD3P5SimJ9lPviRAA--.21069S2;
+ Thu, 11 Jan 2024 15:28:34 +0800 (CST)
+From: GuoHua Chen <chenguohua_716@163.com>
+To: daniel@ffwll.ch, Xinhui.Pan@amd.com, airlied@gmail.com,
+ christian.koenig@amd.com, alexander.deucher@amd.com
+Subject: [PATCH] drm/radeon/trinity_dpm: Clean up errors in trinity_dpm.c
+Date: Thu, 11 Jan 2024 07:28:33 +0000
+Message-Id: <20240111072833.10316-1-chenguohua_716@163.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wDnD9uXWJ9lwy+dAA--.10032S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtF1DCF48Kry8Zr1xWw4rKrg_yoWfJrc_Ca
- 4xJ395W3y7uFnFqF1akFn3u34j9a1ruFnYqw1fta4rtrZFkr4UW395Jr42qr4ruFs3CFsr
- Z3WkXFW5ZrnIgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUUj2NtUUUUU==
+X-CM-TRANSID: _____wD3P5SimJ9lPviRAA--.21069S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGw1xCF4fAw4xGF4xJFWkZwb_yoW5ur4Upr
+ WDCrs8Kr4FqFy5ZrW3C3Z8JryUKryvva40krWUGFs7CFn8CF1DZrsYk3yrury0yFWj9Fy3
+ tFn2grWjvFW7A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UFtC7UUUUU=
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiGA5ixWVLZWL-aQADsN
-X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:24 +0000
+X-CM-SenderInfo: xfkh0w5xrk3tbbxrlqqrwthudrp/xtbBEh9i1mVOBk5iCQAAsx
+X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,40 +49,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, chenxuebing <chenxb_99091@126.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, GuoHua Chen <chenguohua_716@163.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: open brace '{' following struct go on the same line
+ERROR: space required before the open parenthesis '('
+ERROR: space prohibited before that close parenthesis ')'
+ERROR: that open brace { should be on the previous line
 
-Signed-off-by: chenxuebing <chenxb_99091@126.com>
+Signed-off-by: GuoHua Chen <chenguohua_716@163.com>
 ---
- drivers/gpu/drm/amd/include/arct_ip_offset.h | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/radeon/trinity_dpm.c | 22 +++++++++-------------
+ 1 file changed, 9 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/include/arct_ip_offset.h b/drivers/gpu/drm/amd/include/arct_ip_offset.h
-index af1c46991429..7dd876f7df74 100644
---- a/drivers/gpu/drm/amd/include/arct_ip_offset.h
-+++ b/drivers/gpu/drm/amd/include/arct_ip_offset.h
-@@ -25,13 +25,11 @@
- #define MAX_SEGMENT                                         6
+diff --git a/drivers/gpu/drm/radeon/trinity_dpm.c b/drivers/gpu/drm/radeon/trinity_dpm.c
+index ef1cc7bad20a..b9a2c7ccc881 100644
+--- a/drivers/gpu/drm/radeon/trinity_dpm.c
++++ b/drivers/gpu/drm/radeon/trinity_dpm.c
+@@ -39,8 +39,7 @@
+ #ifndef TRINITY_MGCG_SEQUENCE
+ #define TRINITY_MGCG_SEQUENCE  100
  
- 
--struct IP_BASE_INSTANCE
+-static const u32 trinity_mgcg_shls_default[] =
 -{
-+struct IP_BASE_INSTANCE {
-     unsigned int segment[MAX_SEGMENT];
- } __maybe_unused;
++static const u32 trinity_mgcg_shls_default[] = {
+ 	/* Register, Value, Mask */
+ 	0x0000802c, 0xc0000000, 0xffffffff,
+ 	0x00003fc4, 0xc0000000, 0xffffffff,
+@@ -122,8 +121,7 @@ static const u32 trinity_mgcg_shls_default[] =
+ #ifndef TRINITY_SYSLS_SEQUENCE
+ #define TRINITY_SYSLS_SEQUENCE  100
  
--struct IP_BASE
+-static const u32 trinity_sysls_disable[] =
 -{
-+struct IP_BASE {
-     struct IP_BASE_INSTANCE instance[MAX_INSTANCE];
- } __maybe_unused;
++static const u32 trinity_sysls_disable[] = {
+ 	/* Register, Value, Mask */
+ 	0x0000d0c0, 0x00000000, 0xffffffff,
+ 	0x0000d8c0, 0x00000000, 0xffffffff,
+@@ -146,8 +144,7 @@ static const u32 trinity_sysls_disable[] =
+ 	0x00006dfc, 0x0000007f, 0xffffffff
+ };
  
+-static const u32 trinity_sysls_enable[] =
+-{
++static const u32 trinity_sysls_enable[] = {
+ 	/* Register, Value, Mask */
+ 	0x000055e8, 0x00000001, 0xffffffff,
+ 	0x0000d0bc, 0x00000100, 0xffffffff,
+@@ -169,8 +166,7 @@ static const u32 trinity_sysls_enable[] =
+ };
+ #endif
+ 
+-static const u32 trinity_override_mgpg_sequences[] =
+-{
++static const u32 trinity_override_mgpg_sequences[] = {
+ 	/* Register, Value */
+ 	0x00000200, 0xE030032C,
+ 	0x00000204, 0x00000FFF,
+@@ -366,9 +362,9 @@ static void trinity_mg_clockgating_enable(struct radeon_device *rdev,
+ 		local1 = RREG32_CG(CG_CGTT_LOCAL_1);
+ 
+ 		WREG32_CG(CG_CGTT_LOCAL_0,
+-			  (0x00380000 & CGCG_CGTT_LOCAL0_MASK) | (local0 & ~CGCG_CGTT_LOCAL0_MASK) );
++			  (0x00380000 & CGCG_CGTT_LOCAL0_MASK) | (local0 & ~CGCG_CGTT_LOCAL0_MASK));
+ 		WREG32_CG(CG_CGTT_LOCAL_1,
+-			  (0x0E000000 & CGCG_CGTT_LOCAL1_MASK) | (local1 & ~CGCG_CGTT_LOCAL1_MASK) );
++			  (0x0E000000 & CGCG_CGTT_LOCAL1_MASK) | (local1 & ~CGCG_CGTT_LOCAL1_MASK));
+ 
+ 		WREG32(CGTS_SM_CTRL_REG, CGTS_SM_CTRL_REG_ENABLE);
+ 	} else {
+@@ -378,9 +374,9 @@ static void trinity_mg_clockgating_enable(struct radeon_device *rdev,
+ 		local1 = RREG32_CG(CG_CGTT_LOCAL_1);
+ 
+ 		WREG32_CG(CG_CGTT_LOCAL_0,
+-			  CGCG_CGTT_LOCAL0_MASK | (local0 & ~CGCG_CGTT_LOCAL0_MASK) );
++			  CGCG_CGTT_LOCAL0_MASK | (local0 & ~CGCG_CGTT_LOCAL0_MASK));
+ 		WREG32_CG(CG_CGTT_LOCAL_1,
+-			  CGCG_CGTT_LOCAL1_MASK | (local1 & ~CGCG_CGTT_LOCAL1_MASK) );
++			  CGCG_CGTT_LOCAL1_MASK | (local1 & ~CGCG_CGTT_LOCAL1_MASK));
+ 	}
+ }
+ 
+@@ -1434,7 +1430,7 @@ static void trinity_adjust_uvd_state(struct radeon_device *rdev,
+ 	if (pi->uvd_dpm && r600_is_uvd_state(rps->class, rps->class2)) {
+ 		high_index = trinity_get_uvd_clock_index(rdev, rps);
+ 
+-		switch(high_index) {
++		switch (high_index) {
+ 		case 3:
+ 		case 2:
+ 			low_index = 1;
 -- 
 2.17.1
 
