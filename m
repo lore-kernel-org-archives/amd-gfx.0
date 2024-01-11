@@ -4,38 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED4B0C4707B
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AF60C47DA6
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADC3B10E8AA;
-	Thu, 11 Jan 2024 09:04:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3872410E8B4;
+	Thu, 11 Jan 2024 09:04:31 +0000 (UTC)
 Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.9])
- by gabe.freedesktop.org (Postfix) with ESMTP id CDDE610E028;
- Thu, 11 Jan 2024 02:24:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8BC4D10E08C;
+ Thu, 11 Jan 2024 03:35:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=nbbVvUF/7Gsgkfq6Xu
- 1euEZczf3yX7tnXLat+g/jEbg=; b=V487I3661EHGOrtHEJZmbZzrAKmx1eYtqw
- bjlRIlNd35Bwg8dtgjQt6rb9z+QAzxA3xoPQdMRNsGglKIjWrlOf3Nxs0/+sITr+
- 9nwhILbhYRLul9cXM8NWSs8DGCTUedXsa93jyOR6aPlnhSOSlo0UtgWQgM+5Bi8Q
- C6BGBvTzc=
+ s=s110527; h=From:Subject:Date:Message-Id; bh=En1CBR0kBxa9quIwfp
+ /NIa2YsneYuX52TYhnjn5Zx/c=; b=pxEA2lEBZijLftPdfXwtP3vOjvN2IXaO8c
+ FWlVJ81D6ptczWK5Ecs8a4pfMgzBdi2c6XRxUDFiJD0zXg0q2Y3iGU3iBTcpV2Wo
+ qY89z6+TezDtesKBKDG0yYvrucHgLCBKAVC/shFGeM7+4BSja48SxeptdwhVTAA0
+ 2W7/0VVEQ=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g1-5 (Coremail) with SMTP id _____wD331ppUZ9lMjQtAA--.21367S2;
- Thu, 11 Jan 2024 10:24:41 +0800 (CST)
+ by gzga-smtp-mta-g1-0 (Coremail) with SMTP id _____wD3f6f7YZ9l2LwgAA--.42672S2;
+ Thu, 11 Jan 2024 11:35:23 +0800 (CST)
 From: chenxuebing <chenxb_99091@126.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, Xinhui.Pan@amd.com
-Subject: [PATCH] drm/amdgpu: Clean up errors in jpeg_v2_5.c
-Date: Thu, 11 Jan 2024 02:24:37 +0000
-Message-Id: <20240111022437.6239-1-chenxb_99091@126.com>
+To: daniel@ffwll.ch, alexander.deucher@amd.com, airlied@gmail.com,
+ Xinhui.Pan@amd.com, christian.koenig@amd.com
+Subject: [PATCH] drm/amd/include/navi14_ip_offset: Clean up errors in
+ navi14_ip_offset.h
+Date: Thu, 11 Jan 2024 03:35:22 +0000
+Message-Id: <20240111033522.7791-1-chenxb_99091@126.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wD331ppUZ9lMjQtAA--.21367S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7urWDWry7JF13Jry3Ary3twb_yoW8WFWUpa
- 93AFy5urs5CFnFv3ZrX3WDZFnYkw13u3W5CrWUJw1fu3W5Jr98X3s7tFy5Z340qFWxCrWI
- vr48t3y7X3WIvF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRijjPUUUUU=
+X-CM-TRANSID: _____wD3f6f7YZ9l2LwgAA--.42672S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrtF1DCF48KrW7JryUCrWruFg_yoW3KFX_Ca
+ 4xJ3s3WayxuFnFvFnFkFZ7Z34Ik3W09Fn3Xw1ftFy5trnrAr18W3y5Jrs7XrWruFnF9FZr
+ Z3WrXFy5ZrnIgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRRt8nDUUUUU==
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiHAxixWV2zz6PUgAAsI
-X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:25 +0000
+X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiHARixWV2zz-RdwABs7
+X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,63 +48,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, chenxuebing <chenxb_99091@126.com>
+Cc: chenxuebing <chenxb_99091@126.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: space required before the open parenthesis '('
-ERROR: that open brace { should be on the previous line
+ERROR: open brace '{' following struct go on the same line
 
 Signed-off-by: chenxuebing <chenxb_99091@126.com>
 ---
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/include/navi14_ip_offset.h | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-index e67a337457ed..99cd49ee8ef6 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-@@ -551,7 +551,7 @@ static int jpeg_v2_5_set_powergating_state(void *handle,
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 	int ret;
+diff --git a/drivers/gpu/drm/amd/include/navi14_ip_offset.h b/drivers/gpu/drm/amd/include/navi14_ip_offset.h
+index c39ef651adc6..508011288dea 100644
+--- a/drivers/gpu/drm/amd/include/navi14_ip_offset.h
++++ b/drivers/gpu/drm/amd/include/navi14_ip_offset.h
+@@ -25,13 +25,11 @@
+ #define MAX_SEGMENT                                        5
  
--	if(state == adev->jpeg.cur_state)
-+	if (state == adev->jpeg.cur_state)
- 		return 0;
  
- 	if (state == AMD_PG_STATE_GATE)
-@@ -559,7 +559,7 @@ static int jpeg_v2_5_set_powergating_state(void *handle,
- 	else
- 		ret = jpeg_v2_5_start(adev);
- 
--	if(!ret)
-+	if (!ret)
- 		adev->jpeg.cur_state = state;
- 
- 	return ret;
-@@ -754,8 +754,7 @@ static void jpeg_v2_5_set_irq_funcs(struct amdgpu_device *adev)
- 	}
- }
- 
--const struct amdgpu_ip_block_version jpeg_v2_5_ip_block =
+-struct IP_BASE_INSTANCE
 -{
-+const struct amdgpu_ip_block_version jpeg_v2_5_ip_block = {
- 		.type = AMD_IP_BLOCK_TYPE_JPEG,
- 		.major = 2,
- 		.minor = 5,
-@@ -763,8 +762,7 @@ const struct amdgpu_ip_block_version jpeg_v2_5_ip_block =
- 		.funcs = &jpeg_v2_5_ip_funcs,
++struct IP_BASE_INSTANCE {
+     unsigned int segment[MAX_SEGMENT];
  };
  
--const struct amdgpu_ip_block_version jpeg_v2_6_ip_block =
+-struct IP_BASE
 -{
-+const struct amdgpu_ip_block_version jpeg_v2_6_ip_block = {
- 		.type = AMD_IP_BLOCK_TYPE_JPEG,
- 		.major = 2,
- 		.minor = 6,
++struct IP_BASE {
+     struct IP_BASE_INSTANCE instance[MAX_INSTANCE];
+ } __maybe_unused;
+ 
 -- 
 2.17.1
 
