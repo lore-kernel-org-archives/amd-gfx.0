@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE286C47DA9
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8497C4707B
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8066510E880;
-	Thu, 11 Jan 2024 09:04:26 +0000 (UTC)
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.7])
- by gabe.freedesktop.org (Postfix) with ESMTP id 5D46D10E6AF;
- Thu, 11 Jan 2024 06:12:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=ehJAe3CSmeN3lDNYy/
- +b8hVNINSf7+zifOWAKLIOOx0=; b=ot0bgKDUZPCnkLRjhL1mmmjjES9ySLkLak
- xDvgDxqZhEvqHO56iRLNJFA1jVrtvUd+i/HaarGBI012sNjMefCIbVO9rEJQsyQg
- PhbGn3htWohn3ENjaN7ZGE9LzoOshnBLljCEnqSgHq7iMt4sbMr8YUzpD3Cjl06s
- eyFG++yt8=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3440010E883;
+	Thu, 11 Jan 2024 09:04:27 +0000 (UTC)
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D8D4310E7F7;
+ Thu, 11 Jan 2024 08:30:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:Subject:Date:Message-Id; bh=WrxlIiYF4btuCFh0aC
+ etWERXHg/rWpEIVM4RgNLUC68=; b=JPAjVZouOCDG7zhICxezC1YJuJUM5ZRwDB
+ eB1jqXlmmJwyXgjxkZ3OSA3wkXIiwLmLRgUMv0d/mfVRa/faJsOlS5UIwSMelrNf
+ rMynibOsMfZo6BhBjo3t80zFnHpRYs6blRbev1MI0CueP59avdWrDQfL339185UG
+ HI7L3pr0o=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g1-3 (Coremail) with SMTP id _____wD3f7nfhp9l5VwyAA--.62725S2;
- Thu, 11 Jan 2024 14:12:48 +0800 (CST)
-From: chenxuebing <chenxb_99091@126.com>
-To: christian.koenig@amd.com, alexander.deucher@amd.com, Xinhui.Pan@amd.com,
- daniel@ffwll.ch, airlied@gmail.com
-Subject: [PATCH] drm/amdgpu: Clean up errors in displayobject.h
-Date: Thu, 11 Jan 2024 06:11:27 +0000
-Message-Id: <20240111061127.8385-1-chenxb_99091@126.com>
+ by gzga-smtp-mta-g0-0 (Coremail) with SMTP id _____wDn79nqpp9laF6UAA--.52481S2;
+ Thu, 11 Jan 2024 16:29:30 +0800 (CST)
+From: GuoHua Chen <chenguohua_716@163.com>
+To: daniel@ffwll.ch, Xinhui.Pan@amd.com, alexander.deucher@amd.com,
+ airlied@gmail.com, christian.koenig@amd.com
+Subject: [PATCH] drm/radeon: Clean up errors in rs400.c
+Date: Thu, 11 Jan 2024 08:29:29 +0000
+Message-Id: <20240111082929.12064-1-chenguohua_716@163.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wD3f7nfhp9l5VwyAA--.62725S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrZFyUGryDZF48WrW5uw47twb_yoWkCFbEkr
- 17Gw4xW3yIvrnFgF1j9rZ8ZrW2kw4a9F4kXFyfJay7t3yfC3W5W34DKr4jqFZ5WF4UCF4q
- yw48XFy7XrWa9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUU0tC7UUUUU==
+X-CM-TRANSID: _____wDn79nqpp9laF6UAA--.52481S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrur45CrWxZrWDKry7ur1xXwb_yoWDZrg_WF
+ y3uw4kXayIvFn3Z3W8Zw4rKr9F9F45uF4fWa12yry5Kr13Zr1xXFWkGF1UWrWfG3ZrAr9r
+ Z3yvkF4SyrnFkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUUZXo7UUUUU==
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiWRdixWVLYUFHTAABst
-X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:24 +0000
+X-CM-SenderInfo: xfkh0w5xrk3tbbxrlqqrwthudrp/1tbiqA1i1mVOBlCy4AAAs+
+X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,34 +47,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, chenxuebing <chenxb_99091@126.com>
+Cc: GuoHua Chen <chenguohua_716@163.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: spaces required around that '=' (ctx:WxV)
-ERROR: space prohibited after that open parenthesis '('
+ERROR: space required before the open parenthesis '('
 
-Signed-off-by: chenxuebing <chenxb_99091@126.com>
+Signed-off-by: GuoHua Chen <chenguohua_716@163.com>
 ---
- drivers/gpu/drm/amd/include/displayobject.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/radeon/rs400.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/include/displayobject.h b/drivers/gpu/drm/amd/include/displayobject.h
-index ddbfe122b2dc..0f9529c40496 100644
---- a/drivers/gpu/drm/amd/include/displayobject.h
-+++ b/drivers/gpu/drm/amd/include/displayobject.h
-@@ -159,7 +159,7 @@ CONNECTOR_SINGLE_LINK_DVI_D_ENUM_ID1 = (DISPLAY_OBJECT_TYPE_CONNECTOR << OBJECT_
-                                                  OBJECT_ENUM_ID1 << ENUM_ID_SHIFT |\
-                                                  CONNECTOR_OBJECT_ID_SINGLE_LINK_DVI_D << OBJECT_ID_SHIFT),
- 
--CONNECTOR_SINGLE_LINK_DVI_D_ENUM_ID2 =(DISPLAY_OBJECT_TYPE_CONNECTOR << OBJECT_TYPE_SHIFT |\
-+CONNECTOR_SINGLE_LINK_DVI_D_ENUM_ID2 = (DISPLAY_OBJECT_TYPE_CONNECTOR << OBJECT_TYPE_SHIFT |\
-                                                  OBJECT_ENUM_ID2 << ENUM_ID_SHIFT |\
-                                                  CONNECTOR_OBJECT_ID_SINGLE_LINK_DVI_D << OBJECT_ID_SHIFT),
- 
+diff --git a/drivers/gpu/drm/radeon/rs400.c b/drivers/gpu/drm/radeon/rs400.c
+index 922a29e58880..d7f552d441ab 100644
+--- a/drivers/gpu/drm/radeon/rs400.c
++++ b/drivers/gpu/drm/radeon/rs400.c
+@@ -86,7 +86,7 @@ int rs400_gart_init(struct radeon_device *rdev)
+ 		return 0;
+ 	}
+ 	/* Check gart size */
+-	switch(rdev->mc.gtt_size / (1024 * 1024)) {
++	switch (rdev->mc.gtt_size / (1024 * 1024)) {
+ 	case 32:
+ 	case 64:
+ 	case 128:
+@@ -116,7 +116,7 @@ int rs400_gart_enable(struct radeon_device *rdev)
+ 	tmp |= RS690_DIS_OUT_OF_PCI_GART_ACCESS;
+ 	WREG32_MC(RS690_AIC_CTRL_SCRATCH, tmp);
+ 	/* Check gart size */
+-	switch(rdev->mc.gtt_size / (1024 * 1024)) {
++	switch (rdev->mc.gtt_size / (1024 * 1024)) {
+ 	case 32:
+ 		size_reg = RS480_VA_SIZE_32MB;
+ 		break;
 -- 
 2.17.1
 
