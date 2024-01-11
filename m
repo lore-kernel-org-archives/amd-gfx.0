@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2F58C47077
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7C98C4725D
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAE1D10E873;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1FDB10E872;
 	Thu, 11 Jan 2024 09:04:25 +0000 (UTC)
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.7])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9382810E08C;
- Thu, 11 Jan 2024 03:37:30 +0000 (UTC)
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.9])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6376510E036;
+ Thu, 11 Jan 2024 02:03:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=v57R1jLSOBEmIwmR3M
- h9K+MSfk+/r8sp7qXL2m+Pfrw=; b=GmqZkFBXrsDiphv9FErux9NQGsAFzMZZhS
- 99zqb6AX4hTnKIsqRQx2slI5zlIDZCJgO8Y5d3vIp/VkHRhqVLMo0lhFVvbNFUbb
- xQxZumR/BEsv9NBbVCUydg/HXckRVxRap3WUxdxsT0uqlyND3Iprq+BDuK2AwK9o
- Ud4LlvFIU=
+ s=s110527; h=From:Subject:Date:Message-Id; bh=y6vDa0DRaabKBySXAU
+ ICJ5fEtOO8azvWflhkmAQ8vOg=; b=kCVHS4ptLgNfAVw7b48qFG1QK0YIuxdl3i
+ d2YVZZBHOSY84bx32kZzP2kA+wkEXplg4slEypmtkpw5P3+PEftf5VM87zYa4Ajf
+ cF1knzLybYQHrPoQzIWYWoopLq0vTaZ2TiegmfK3TqfHSfwklnoGQ8oI4BYy2TEA
+ 4hAM9qvDA=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g1-1 (Coremail) with SMTP id _____wDnL9ptYp9l5TovAA--.18315S2;
- Thu, 11 Jan 2024 11:37:18 +0800 (CST)
+ by gzga-smtp-mta-g1-2 (Coremail) with SMTP id _____wDnr615TJ9l1gYtAA--.11544S2;
+ Thu, 11 Jan 2024 10:03:37 +0800 (CST)
 From: chenxuebing <chenxb_99091@126.com>
-To: daniel@ffwll.ch, alexander.deucher@amd.com, airlied@gmail.com,
+To: alexander.deucher@amd.com, airlied@gmail.com, daniel@ffwll.ch,
  Xinhui.Pan@amd.com, christian.koenig@amd.com
-Subject: [PATCH] drm/amdgpu: Clean up errors in v10_structs.h
-Date: Thu, 11 Jan 2024 03:37:16 +0000
-Message-Id: <20240111033716.7880-1-chenxb_99091@126.com>
+Subject: [PATCH] drm/amd/amdgpu: Clean up errors in amdgpu_umr.h
+Date: Thu, 11 Jan 2024 02:03:33 +0000
+Message-Id: <20240111020333.5611-1-chenxb_99091@126.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wDnL9ptYp9l5TovAA--.18315S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtF1DCF48KF1DurW3ZF15CFg_yoW3CFc_C3
- WUJw13WFyUZFnYga12kF4fAFyvyF15ua1kZw43tF9IyFnrAr45ZryDGrn7try8uFsxJF1q
- va1vgF1fArnxWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRRt8nDUUUUU==
+X-CM-TRANSID: _____wDnr615TJ9l1gYtAA--.11544S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrKr47ZF1rJw1rAw4ruF45Wrg_yoWfZFc_C3
+ yUCa47Xry3XFnIv3W29rWrXr1Dt3WrCFs7Wr1ftasayryxu34UXa4DCry7Xa1I9FnxCF1q
+ q3WFgF15Z3ZrGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUU5CztUUUUU==
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiWQBixWVLYT9d-QABsv
+X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiHABixWV2zz4NxQABsQ
 X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,27 +54,32 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: open brace '{' following struct go on the same line
+spaces required around that '=' (ctx:VxV)
 
 Signed-off-by: chenxuebing <chenxb_99091@126.com>
 ---
- drivers/gpu/drm/amd/include/v10_structs.h | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/include/v10_structs.h b/drivers/gpu/drm/amd/include/v10_structs.h
-index c0e98a98a641..58002a83d1df 100644
---- a/drivers/gpu/drm/amd/include/v10_structs.h
-+++ b/drivers/gpu/drm/amd/include/v10_structs.h
-@@ -24,8 +24,7 @@
- #ifndef V10_STRUCTS_H_
- #define V10_STRUCTS_H_
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h
+index 107f9bb0e24f..5b27fc41ffbf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h
+@@ -69,12 +69,12 @@ struct amdgpu_debugfs_gprwave_data {
+ };
  
--struct v10_gfx_mqd
--{
-+struct v10_gfx_mqd {
- 	uint32_t reserved_0; // offset: 0  (0x0)
- 	uint32_t reserved_1; // offset: 1  (0x1)
- 	uint32_t reserved_2; // offset: 2  (0x2)
+ enum AMDGPU_DEBUGFS_REGS2_CMDS {
+-	AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE=0,
++	AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE = 0,
+ 	AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE_V2,
+ };
+ 
+ enum AMDGPU_DEBUGFS_GPRWAVE_CMDS {
+-	AMDGPU_DEBUGFS_GPRWAVE_CMD_SET_STATE=0,
++	AMDGPU_DEBUGFS_GPRWAVE_CMD_SET_STATE = 0,
+ };
+ 
+ //reg2 interface
 -- 
 2.17.1
 
