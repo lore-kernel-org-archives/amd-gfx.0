@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B173C47DB0
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1631C47DA2
 	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DCA410E8A6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76D0910E8A5;
 	Thu, 11 Jan 2024 09:04:30 +0000 (UTC)
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
- by gabe.freedesktop.org (Postfix) with ESMTP id 578D910E1AC;
- Thu, 11 Jan 2024 08:16:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=6AZs02xj1/cbg0BiYo
- +KmJRnfb8WZCPrXQoJKEmHzYI=; b=GGR2SuQrujnsc54YNSF+uxxnodPQeL2V9+
- V7RNolEXZMjC8F4P2oQdDTfLHoOsRnlrb/ivLerLV0SXttB0lsXZv85InIUpJ595
- TNdQEWO0tOFQkEyZ/FAMX00fgfq+s9q7Zv/AkttaErTfxFwJFv1tDJU9HCL5E4iY
- dG2K2S8Mo=
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C752B10E08C;
+ Thu, 11 Jan 2024 03:38:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+ s=s110527; h=From:Subject:Date:Message-Id; bh=aEcTpox9RCNPCYEUFL
+ +GBRnJlzPshU0S0hi+Stnhftw=; b=oPMlqLtj7agSMf7fa0r31pi6jl/aXLB5Ck
+ hpebhpy44Zoztsi+AQMhp/1vLYJskOzkiOeq/jXvg88TYnJ5JdbTkV950cCPXqg3
+ DbOK0d9NSSit7uXGZFVK/1HzN42LX/rBv50LGSrX5QZZOocUQQpHT8qknzQjH3pA
+ btyRsiemc=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g0-5 (Coremail) with SMTP id _____wD3n1bdo59lXLCUAA--.18346S2;
- Thu, 11 Jan 2024 16:16:30 +0800 (CST)
-From: GuoHua Chen <chenguohua_716@163.com>
-To: daniel@ffwll.ch, Xinhui.Pan@amd.com, airlied@gmail.com,
- christian.koenig@amd.com, alexander.deucher@amd.com
-Subject: [PATCH] drm/radeon/kms: Clean up errors in rv6xx_dpm.h
-Date: Thu, 11 Jan 2024 08:16:28 +0000
-Message-Id: <20240111081628.11492-1-chenguohua_716@163.com>
+ by gzga-smtp-mta-g1-1 (Coremail) with SMTP id _____wD3H9usYp9lhT8vAA--.20674S2;
+ Thu, 11 Jan 2024 11:38:20 +0800 (CST)
+From: chenxuebing <chenxb_99091@126.com>
+To: daniel@ffwll.ch, alexander.deucher@amd.com, airlied@gmail.com,
+ Xinhui.Pan@amd.com, christian.koenig@amd.com
+Subject: [PATCH] drm/amd/amdgpu: Clean up errors in beige_goby_ip_offset.h
+Date: Thu, 11 Jan 2024 03:38:18 +0000
+Message-Id: <20240111033818.7968-1-chenxb_99091@126.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wD3n1bdo59lXLCUAA--.18346S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtF1kXF13tr13Ww17CFWDCFg_yoWxuwb_Ca
- 4xX3y7WrW2kFn5XF47Zrs8JryIva15uF48uw4fta4fGry7Xr1fWa4vgrW7Xa1FgFn3JF9x
- Cw4kXFyfJFsFgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUjcTmDUUUUU==
+X-CM-TRANSID: _____wD3H9usYp9lhT8vAA--.20674S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrtF1DCF48KF13Kr4kWFWxWFg_yoWfJrX_Ca
+ srGwn3GrWxZFs3XFyakFn3u34S93WF9F1kWw1SgFyrtr9ruF18W3yUJr4xXr4ruF9xCFsr
+ A3WkXFy5XrnIgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRRt8nDUUUUU==
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: xfkh0w5xrk3tbbxrlqqrwthudrp/xtbBEB5i1mVOBk+DPwAAsk
-X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:25 +0000
+X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiHAtixWV2zz-88wAAsc
+X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,8 +47,8 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, GuoHua Chen <chenguohua_716@163.com>
+Cc: chenxuebing <chenxb_99091@126.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
@@ -56,25 +56,31 @@ Fix the following errors reported by checkpatch:
 
 ERROR: open brace '{' following struct go on the same line
 
-Signed-off-by: GuoHua Chen <chenguohua_716@163.com>
+Signed-off-by: chenxuebing <chenxb_99091@126.com>
 ---
- drivers/gpu/drm/radeon/rv6xx_dpm.h | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/amd/include/beige_goby_ip_offset.h | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/rv6xx_dpm.h b/drivers/gpu/drm/radeon/rv6xx_dpm.h
-index 8035d53ebea6..020c0dc8361d 100644
---- a/drivers/gpu/drm/radeon/rv6xx_dpm.h
-+++ b/drivers/gpu/drm/radeon/rv6xx_dpm.h
-@@ -28,8 +28,7 @@
- #include "r600_dpm.h"
+diff --git a/drivers/gpu/drm/amd/include/beige_goby_ip_offset.h b/drivers/gpu/drm/amd/include/beige_goby_ip_offset.h
+index 26044cb285d2..48542ea6882a 100644
+--- a/drivers/gpu/drm/amd/include/beige_goby_ip_offset.h
++++ b/drivers/gpu/drm/amd/include/beige_goby_ip_offset.h
+@@ -26,13 +26,11 @@
+ #define MAX_SEGMENT                                         6
  
- /* Represents a single SCLK step. */
--struct rv6xx_sclk_stepping
+ 
+-struct IP_BASE_INSTANCE
 -{
-+struct rv6xx_sclk_stepping {
-     u32 vco_frequency;
-     u32 post_divider;
++struct IP_BASE_INSTANCE {
+     unsigned int segment[MAX_SEGMENT];
  };
+ 
+-struct IP_BASE
+-{
++struct IP_BASE {
+     struct IP_BASE_INSTANCE instance[MAX_INSTANCE];
+ };
+ 
 -- 
 2.17.1
 
