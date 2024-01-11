@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FE4BC47DA6
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 14:03:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06281C47DA2
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 14:03:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F14710E93D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5111810E93E;
 	Thu, 11 Jan 2024 14:03:32 +0000 (UTC)
 Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8183710E870;
- Thu, 11 Jan 2024 09:32:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 92A6010E805;
+ Thu, 11 Jan 2024 09:31:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=riPFQzIM0RxLBVk/VT
- 8AduR0Cn36/f+IWZyvzIbiXBM=; b=YOzVROprbofOruBBAQaoWV1CXrTLiWpGfC
- ekFpVev7x7ei5ifCRRQ5X+OUab1d4FEg0IkJgCeC6i/tcNorjHHdZxP3uIncr6ME
- Nxg9xtpdkV0MI2g4l0PMCbtorJzWfu56S3hImvldfFtApPmA64ACu9Gyi0m75deA
- rv0LAn25U=
+ s=s110527; h=From:Subject:Date:Message-Id; bh=SKtrUrIGdRmsfBc9it
+ 8ZXLO8jM/D3LjDPZUsNHDws34=; b=aMENAKH1QAo+qZGdbNe6CU75Q2pnw6Y3zD
+ a29K234H81vIu972ctzSRIXiIFT6a977M1SUPNxv0u/JyaAIfYnD8CUk+DwuP+bD
+ aVtPxH8AvZPSyrvh20p9zYf7LZFN45DbmDJ5jrJz5xskE4J1CUkFJXNWwYsCJjs7
+ SrtKW6rYM=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g1-2 (Coremail) with SMTP id _____wD3f6ubtZ9lAbY2AA--.24753S2;
- Thu, 11 Jan 2024 17:32:11 +0800 (CST)
+ by gzga-smtp-mta-g1-0 (Coremail) with SMTP id _____wD3X6VItZ9lwjsoAA--.52777S2;
+ Thu, 11 Jan 2024 17:30:48 +0800 (CST)
 From: XueBing Chen <chenxb_99091@126.com>
 To: daniel@ffwll.ch, Xinhui.Pan@amd.com, alexander.deucher@amd.com,
  airlied@gmail.com, christian.koenig@amd.com
-Subject: [PATCH] drm/radeon/dpm: Clean up errors in evergreen_smc.h
-Date: Thu, 11 Jan 2024 09:32:10 +0000
-Message-Id: <20240111093210.14000-1-chenxb_99091@126.com>
+Subject: [PATCH] drm/radeon: Clean up errors in clearstate_cayman.h
+Date: Thu, 11 Jan 2024 09:30:39 +0000
+Message-Id: <20240111093039.13914-1-chenxb_99091@126.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wD3f6ubtZ9lAbY2AA--.24753S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZryxCFW5CF17Xr48uF4DJwb_yoW8Gr1kpF
- WqgryaqrWUtFnrXry8GF43ZrZ3ta9xXF18GF47Zw1Y9F45JrWxCF4DCFWrA3y8Xw47K342
- yF18tr48uF4ak3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRia9hUUUUU=
+X-CM-TRANSID: _____wD3X6VItZ9lwjsoAA--.52777S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZryxCFWUWw43uryfZF17GFg_yoW8Xr1fpF
+ 4DWrn5Cw4rGa15XryxJr1DGryfGa92vFyIyrWDKw1fCw1kArZ7Was8JayxAryUtr97tr17
+ tFykZry2qa18Cw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRRbyNUUUUU=
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiOgBixWVEuYCDxQAAsD
+X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiGAtixWVLZWlXQgAAsD
 X-Mailman-Approved-At: Thu, 11 Jan 2024 14:03:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,41 +58,43 @@ ERROR: open brace '{' following struct go on the same line
 
 Signed-off-by: XueBing Chen <chenxb_99091@126.com>
 ---
- drivers/gpu/drm/radeon/evergreen_smc.h | 9 +++------
+ drivers/gpu/drm/radeon/clearstate_cayman.h | 9 +++------
  1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/evergreen_smc.h b/drivers/gpu/drm/radeon/evergreen_smc.h
-index 3a03ba37d043..b34d54b567b7 100644
---- a/drivers/gpu/drm/radeon/evergreen_smc.h
-+++ b/drivers/gpu/drm/radeon/evergreen_smc.h
-@@ -29,8 +29,7 @@
+diff --git a/drivers/gpu/drm/radeon/clearstate_cayman.h b/drivers/gpu/drm/radeon/clearstate_cayman.h
+index 4774e04c4da6..7693fb6624a3 100644
+--- a/drivers/gpu/drm/radeon/clearstate_cayman.h
++++ b/drivers/gpu/drm/radeon/clearstate_cayman.h
+@@ -23,8 +23,7 @@
  
- #define SMC_EVERGREEN_MC_REGISTER_ARRAY_SIZE 16
+ #include "clearstate_defs.h"
  
--struct SMC_Evergreen_MCRegisterAddress
+-static const u32 SECT_CONTEXT_def_1[] =
 -{
-+struct SMC_Evergreen_MCRegisterAddress {
-     uint16_t s0;
-     uint16_t s1;
++static const u32 SECT_CONTEXT_def_1[] = {
+     0x00000000, // DB_RENDER_CONTROL
+     0x00000000, // DB_COUNT_CONTROL
+     0x00000000, // DB_DEPTH_VIEW
+@@ -514,8 +513,7 @@ static const u32 SECT_CONTEXT_def_1[] =
+     0x00000000, // CB_BLEND6_CONTROL
+     0x00000000, // CB_BLEND7_CONTROL
  };
-@@ -38,15 +37,13 @@ struct SMC_Evergreen_MCRegisterAddress
- typedef struct SMC_Evergreen_MCRegisterAddress SMC_Evergreen_MCRegisterAddress;
- 
- 
--struct SMC_Evergreen_MCRegisterSet
+-static const u32 SECT_CONTEXT_def_2[] =
 -{
-+struct SMC_Evergreen_MCRegisterSet {
-     uint32_t value[SMC_EVERGREEN_MC_REGISTER_ARRAY_SIZE];
++static const u32 SECT_CONTEXT_def_2[] = {
+     0x00000000, // PA_CL_POINT_X_RAD
+     0x00000000, // PA_CL_POINT_Y_RAD
+     0x00000000, // PA_CL_POINT_SIZE
+@@ -523,8 +521,7 @@ static const u32 SECT_CONTEXT_def_2[] =
+     0x00000000, // VGT_DMA_BASE_HI
+     0x00000000, // VGT_DMA_BASE
  };
- 
- typedef struct SMC_Evergreen_MCRegisterSet SMC_Evergreen_MCRegisterSet;
- 
--struct SMC_Evergreen_MCRegisters
+-static const u32 SECT_CONTEXT_def_3[] =
 -{
-+struct SMC_Evergreen_MCRegisters {
-     uint8_t                             last;
-     uint8_t                             reserved[3];
-     SMC_Evergreen_MCRegisterAddress     address[SMC_EVERGREEN_MC_REGISTER_ARRAY_SIZE];
++static const u32 SECT_CONTEXT_def_3[] = {
+     0x00000000, // DB_DEPTH_CONTROL
+     0x00000000, // DB_EQAA
+     0x00000000, // CB_COLOR_CONTROL
 -- 
 2.17.1
 
