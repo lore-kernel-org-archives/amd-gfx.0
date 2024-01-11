@@ -4,38 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A276DC47DAC
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B514C47DBA
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D420A10E8B7;
-	Thu, 11 Jan 2024 09:04:31 +0000 (UTC)
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8D37510E036;
- Thu, 11 Jan 2024 02:53:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2799E10E884;
+	Thu, 11 Jan 2024 09:04:32 +0000 (UTC)
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.9])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0D47110E03A;
+ Thu, 11 Jan 2024 06:33:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=nd6Mj0RtoD5c7xd3/S
- D4+mpKUxvN4uC5t+EZUCKM8Tg=; b=aEVDtYQ9pXCiMSUMMF7Lo4e0QAr6MIxsHV
- fiqJRc69dJuGRtXF1AcDGUDtTi8Wob/wEIVMh5fRPu/Z6IzjVSyngXWAgnrC1vst
- vig1EDSxCLmfWAtbdPFAf7/ham9TwEt+z5Q3NMpOULHASOH1UDqSfnNEv5M8oBIR
- T0cLQGS3Y=
+ s=s110527; h=From:Subject:Date:Message-Id; bh=t732zg/+MQiSxojyTX
+ cqVLEyzZ2m2fg7s1KLd4hC/uA=; b=myfp5jWtvkRf7tSvYoWsZLGpXR8eSsF0yU
+ undp5bmE5dYG69ZuItk7zNiM1oeFEiUlOiIy60oMak4fTAEPU66N3pwy/mhaxm6/
+ VTYx3796wcy+dTfYj7PwN0Say3+iNnWEwlWRkCuPBXazE34MuIU/3MJixQmsakyw
+ clIOJv+jY=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g0-5 (Coremail) with SMTP id _____wD3n6HjV59ld++cAA--.11062S2;
- Thu, 11 Jan 2024 10:52:19 +0800 (CST)
+ by gzga-smtp-mta-g1-3 (Coremail) with SMTP id _____wD3P9iZi59lDsoyAA--.41287S2;
+ Thu, 11 Jan 2024 14:32:57 +0800 (CST)
 From: chenxuebing <chenxb_99091@126.com>
-To: airlied@gmail.com, Xinhui.Pan@amd.com, daniel@ffwll.ch,
- christian.koenig@amd.com, alexander.deucher@amd.com
-Subject: [PATCH] drm/amdgpu: Clean up errors in umc_v6_0.c
-Date: Thu, 11 Jan 2024 02:52:18 +0000
-Message-Id: <20240111025218.6599-1-chenxb_99091@126.com>
+To: airlied@gmail.com, christian.koenig@amd.com, daniel@ffwll.ch,
+ Xinhui.Pan@amd.com, alexander.deucher@amd.com
+Subject: [PATCH] drm/amd/include/vega20_ip_offset: Clean up errors in
+ vega20_ip_offset.h
+Date: Thu, 11 Jan 2024 06:32:56 +0000
+Message-Id: <20240111063256.8610-1-chenxb_99091@126.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wD3n6HjV59ld++cAA--.11062S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtr1fZw15Cw1kAr48tFyUAwb_yoWxZrb_Cr
- WUJ3sIqFsrAFn2qw1avwsxZFy0vF1rZFWkAF1jqa4Syry7Z345XrWqgr1kXr18ursxCF9r
- Xw4qgr45JasrCjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUU0tC7UUUUU==
+X-CM-TRANSID: _____wD3P9iZi59lDsoyAA--.41287S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3XrW3XFW3tF43WFy5WF4xXrb_yoWxZrWDpF
+ y5J34UGF409345JF13Jw1UGr45Jr4qyFyUtr1Utw13Jw1YqF1kJrn5tr48Ja1rGFy3Ka47
+ GF1kArWUXw4DWaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UUxhLUUUUU=
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiWQVixWVLYT6O6gAAsu
-X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:25 +0000
+X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiOhtixWVEuX4KIAAAsK
+X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,26 +55,196 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: space required after that ',' (ctx:VxV)
+ERROR: open brace '{' following struct go on the same line
+ERROR: spaces required around that '=' (ctx:WxV)
 
 Signed-off-by: chenxuebing <chenxb_99091@126.com>
 ---
- drivers/gpu/drm/amd/amdgpu/umc_v6_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../gpu/drm/amd/include/vega20_ip_offset.h    | 78 +++++++++----------
+ 1 file changed, 38 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/umc_v6_0.c
-index 0d6b50528d76..97fa88ed770c 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_0.c
-@@ -25,7 +25,7 @@
+diff --git a/drivers/gpu/drm/amd/include/vega20_ip_offset.h b/drivers/gpu/drm/amd/include/vega20_ip_offset.h
+index 1deb68f3d334..92cf2d9e767f 100644
+--- a/drivers/gpu/drm/amd/include/vega20_ip_offset.h
++++ b/drivers/gpu/drm/amd/include/vega20_ip_offset.h
+@@ -25,139 +25,137 @@
+ #define MAX_SEGMENT                                        6
  
- static void umc_v6_0_init_registers(struct amdgpu_device *adev)
- {
--	unsigned i,j;
-+	unsigned i, j;
  
- 	for (i = 0; i < 4; i++)
- 		for (j = 0; j < 4; j++)
+-struct IP_BASE_INSTANCE
+-{
++struct IP_BASE_INSTANCE {
+     unsigned int segment[MAX_SEGMENT];
+ };
+ 
+-struct IP_BASE
+-{
++struct IP_BASE {
+     struct IP_BASE_INSTANCE instance[MAX_INSTANCE];
+ } __maybe_unused;
+ 
+ 
+-static const struct IP_BASE ATHUB_BASE            ={ { { { 0x00000C20, 0, 0, 0, 0, 0 } },
++static const struct IP_BASE ATHUB_BASE = { { { { 0x00000C20, 0, 0, 0, 0, 0 } },
++                                         { { 0, 0, 0, 0, 0, 0 } },
++                                         { { 0, 0, 0, 0, 0, 0 } },
++                                         { { 0, 0, 0, 0, 0, 0 } },
++                                         { { 0, 0, 0, 0, 0, 0 } },
++                                         { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE CLK_BASE  = { { { { 0x00016C00, 0x00016E00, 0x00017000, 0x00017200, 0x0001B000, 0x0001B200 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } } } };
+-static const struct IP_BASE CLK_BASE            ={ { { { 0x00016C00, 0x00016E00, 0x00017000, 0x00017200, 0x0001B000, 0x0001B200 } },
++static const struct IP_BASE DCE_BASE = { { { { 0x00000012, 0x000000C0, 0x000034C0, 0, 0, 0 } },
++                                       { { 0, 0, 0, 0, 0, 0 } },
++                                       { { 0, 0, 0, 0, 0, 0 } },
++                                       { { 0, 0, 0, 0, 0, 0 } },
++                                       { { 0, 0, 0, 0, 0, 0 } },
++                                       { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE DF_BASE = { { { { 0x00007000, 0, 0, 0, 0, 0 } },
++                                      { { 0, 0, 0, 0, 0, 0 } },
++                                      { { 0, 0, 0, 0, 0, 0 } },
++                                      { { 0, 0, 0, 0, 0, 0 } },
++                                      { { 0, 0, 0, 0, 0, 0 } },
++                                      { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE FUSE_BASE = { { { { 0x00017400, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } } } };
+-static const struct IP_BASE DCE_BASE            ={ { { { 0x00000012, 0x000000C0, 0x000034C0, 0, 0, 0 } },
++static const struct IP_BASE GC_BASE = { { { { 0x00002000, 0x0000A000, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } } } };
+-static const struct IP_BASE DF_BASE            ={ { { { 0x00007000, 0, 0, 0, 0, 0 } },
++static const struct IP_BASE HDP_BASE = { { { { 0x00000F20, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } } } };
+-static const struct IP_BASE FUSE_BASE            ={ { { { 0x00017400, 0, 0, 0, 0, 0 } },
++static const struct IP_BASE MMHUB_BASE = { { { { 0x0001A000, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } } } };
+-static const struct IP_BASE GC_BASE            ={ { { { 0x00002000, 0x0000A000, 0, 0, 0, 0 } },
++static const struct IP_BASE MP0_BASE = { { { { 0x00016000, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } } } };
+-static const struct IP_BASE HDP_BASE            ={ { { { 0x00000F20, 0, 0, 0, 0, 0 } },
++static const struct IP_BASE MP1_BASE = { { { { 0x00016000, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } } } };
+-static const struct IP_BASE MMHUB_BASE            ={ { { { 0x0001A000, 0, 0, 0, 0, 0 } },
++static const struct IP_BASE NBIO_BASE = { { { { 0x00000000, 0x00000014, 0x00000D20, 0x00010400, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } } } };
+-static const struct IP_BASE MP0_BASE            ={ { { { 0x00016000, 0, 0, 0, 0, 0 } },
++static const struct IP_BASE OSSSYS_BASE = { { { { 0x000010A0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } } } };
+-static const struct IP_BASE MP1_BASE            ={ { { { 0x00016000, 0, 0, 0, 0, 0 } },
++static const struct IP_BASE SDMA0_BASE = { { { { 0x00001260, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } } } };
+-static const struct IP_BASE NBIO_BASE            ={ { { { 0x00000000, 0x00000014, 0x00000D20, 0x00010400, 0, 0 } },
++static const struct IP_BASE SDMA1_BASE = { { { { 0x00001860, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } } } };
+-static const struct IP_BASE OSSSYS_BASE            ={ { { { 0x000010A0, 0, 0, 0, 0, 0 } },
++static const struct IP_BASE SMUIO_BASE = { { { { 0x00016800, 0x00016A00, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } } } };
+-static const struct IP_BASE SDMA0_BASE            ={ { { { 0x00001260, 0, 0, 0, 0, 0 } },
++static const struct IP_BASE THM_BASE = { { { { 0x00016600, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } } } };
+-static const struct IP_BASE SDMA1_BASE            ={ { { { 0x00001860, 0, 0, 0, 0, 0 } },
++static const struct IP_BASE UMC_BASE = { { { { 0x00014000, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } } } };
+-static const struct IP_BASE SMUIO_BASE            ={ { { { 0x00016800, 0x00016A00, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } } } };
+-static const struct IP_BASE THM_BASE            ={ { { { 0x00016600, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } } } };
+-static const struct IP_BASE UMC_BASE            ={ { { { 0x00014000, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } } } };
+-static const struct IP_BASE UVD_BASE            ={ { { { 0x00007800, 0x00007E00, 0, 0, 0, 0 } },
++static const struct IP_BASE UVD_BASE = { { { { 0x00007800, 0x00007E00, 0, 0, 0, 0 } },
+                                         { { 0, 0x00009000, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } } } };
+ /* Adjust VCE_BASE to make vce_4_1 use vce_4_0 offset header files*/
+-static const struct IP_BASE VCE_BASE            ={ { { { 0x00007E00/* 0x00008800 */, 0, 0, 0, 0, 0 } },
++static const struct IP_BASE VCE_BASE = { { { { 0x00007E00/* 0x00008800 */, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } } } };
+-static const struct IP_BASE XDMA_BASE            ={ { { { 0x00003400, 0, 0, 0, 0, 0 } },
++static const struct IP_BASE XDMA_BASE = { { { { 0x00003400, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } } } };
+-static const struct IP_BASE RSMU_BASE            ={ { { { 0x00012000, 0, 0, 0, 0, 0 } },
++static const struct IP_BASE RSMU_BASE = { { { { 0x00012000, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
+                                         { { 0, 0, 0, 0, 0, 0 } },
 -- 
 2.17.1
 
