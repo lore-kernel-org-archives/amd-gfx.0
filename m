@@ -4,62 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7A0CC47077
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 17:45:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BC8FC47077
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 17:57:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ECD210E0E0;
-	Thu, 11 Jan 2024 17:45:07 +0000 (UTC)
-Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
- [IPv6:2607:f8b0:4864:20::112e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B608510E954
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jan 2024 17:18:23 +0000 (UTC)
-Received: by mail-yw1-x112e.google.com with SMTP id
- 00721157ae682-5e7467eb93aso46995797b3.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jan 2024 09:18:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=yngvason.is; s=google; t=1704993502; x=1705598302; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=reRg+juZFTzYLAuymnc77j283thAAyu9GtKD+8yi8oo=;
- b=LJwx82+PpQe12y2AkOAOnvM51TnhrkQql+XQIcSnVyR565gyuKNi3ATJMrcsBres59
- w+auoa90jx47KoVRXU6GBO6XiaL630fYIfdkiBic99G4xdSW5ArbYE0+o7lhJlbBQWLB
- Spztc1T0BPj43CLXAJMthJAZOPYLzqqzG1x+I=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704993502; x=1705598302;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=reRg+juZFTzYLAuymnc77j283thAAyu9GtKD+8yi8oo=;
- b=WZIV9lKprXpLZQ6Nr/2zKw6qZ6mIJ1vhES/8MHZeGoYGoRYpA03nQ56qoEKwTZ1em4
- 95aLTyD4KBU7xiWh8FxrUOGmtAKAaeS2KfaT5HvZ3C5pEC1MvPCX0QOEd9ZlilFunyvY
- jFeXsDJ3WGh1HWwaRwEy6cSqgZ/aDSJn+P0wGb4hXcxkSSLaV8IfgQ/L865Gw+QS0WbQ
- mi1Q2Erg/1lHmwNeRtb7vTe9FxaDXm5j91RTdOlBa44F1UkLusYnvhxCzcprn23BZnrF
- x4mAUQY9liJKxtTkBhBZFYW3mcxkz5BuIeRVdsEuxZlaCR+toQ4dxhIUia98R70Uslh/
- BlxQ==
-X-Gm-Message-State: AOJu0YyB67aaXYdHwSD5tQMtorParwUyOzk/qLNoUKmWpwW0NgK4oGIv
- j9iAHXqEHZOw2MrZa9Zv0NKDd7tP1dh+X+o4eq11qfPjQ3BgNQ==
-X-Google-Smtp-Source: AGHT+IE39wedx9qoJqNO6MjAU4E5XVco4roigw4JCooGGaUKrzldoRbPFpkW15iiHXNNuutcoyizp+NdmoWt5CbB2Gc=
-X-Received: by 2002:a81:84d1:0:b0:5e9:94dc:b77f with SMTP id
- u200-20020a8184d1000000b005e994dcb77fmr123269ywf.9.1704993502233; Thu, 11 Jan
- 2024 09:18:22 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDD2210E0EB;
+	Thu, 11 Jan 2024 17:57:43 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2044.outbound.protection.outlook.com [40.107.243.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E68410E0EB
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jan 2024 17:57:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DjM4Z6BsAUQbYES4OLiAxe1S8/M7ZfsfsH3LjeMa/tlpTcjcqX0O64U3sdWzyZl0MfLgqVqVzki3g33YDI8NtPvOKkbTzCEtQPntU02SAyLYVbjccGGzVFXPh/ZJqgAIkxlj6uA6rGU1JMIM4m4+oMcg2kWRjvninX50KvNYDX8XLJFzzDfh4KjLB4DmCBxw4YRU7KBCQ0WJqMuNxYHuIs4ykBIRpXSuVlnzfvuR55hm1oindCUQpkgCG86GBWqzp8U2nuFCE2n971Y4R6n/tBwPQHFH817WCFVTZPf7Yy3Rd8YOYcvBkrvjErpDd5jyFMSXpmZ6BHNtoUJbesCmGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=n3Ys5FVwyy8G3gtU240yxyJ3Jai5DfeF0Jb4Uf4Wwfg=;
+ b=exuX4EfgnliC/BFVxueqYWyAmsgbM1XcW6DyVOfVOWu11AZC3ni3/vvY4jOpgxhI/zkg32yHFmXptItdJMKrTWp3WHQp2aQ4JsgihLSLCukxrluatTyJQJI2IEzy1S0abbqu2lmJMNu43fOHnLyW6kURICZyhl+dXbousKG5YVgrJ2USu/CrOU6urWccYolb/9+/dgUInlEIN9jAs8xAp6afwcZ/161mzxyA0IeZfBJSFwIotT6k21mJe+91Go6HfUSaFo+amIjTtjsXFndgT3KX9eK8Ygwwpx9xn9u7WAXBy+CC+E5//luK00HjPx7sRfqzNyDykXtiK+1lJ32yiA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=n3Ys5FVwyy8G3gtU240yxyJ3Jai5DfeF0Jb4Uf4Wwfg=;
+ b=JQ/Do+bfmXgqh7UHpspND2o9+3xFuQ+1L41TSdC7aOk9m6ifUNkqqrWchzZrFS67XLZYiNDXnWtNEPEi+63bLbkTJTC8kpLLmsbYIIcaCX2KAuJ2enam/WXHNUG0xyOBMel/AbuOwzUQO7Zx/6ZT+AgKAyJ8SqlzrUelqgRW/+8=
+Received: from MW4PR04CA0211.namprd04.prod.outlook.com (2603:10b6:303:87::6)
+ by BL1PR12MB5190.namprd12.prod.outlook.com (2603:10b6:208:31c::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.21; Thu, 11 Jan
+ 2024 17:57:39 +0000
+Received: from CO1PEPF000044FB.namprd21.prod.outlook.com
+ (2603:10b6:303:87:cafe::44) by MW4PR04CA0211.outlook.office365.com
+ (2603:10b6:303:87::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.18 via Frontend
+ Transport; Thu, 11 Jan 2024 17:57:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000044FB.mail.protection.outlook.com (10.167.241.201) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7202.4 via Frontend Transport; Thu, 11 Jan 2024 17:57:39 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.34; Thu, 11 Jan 2024 11:57:36 -0600
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>
+Subject: [PATCH v2] drm/amd/display: Fix late derefrence 'dsc' check in
+ 'link_set_dsc_pps_packet()'
+Date: Thu, 11 Jan 2024 23:27:23 +0530
+Message-ID: <20240111175723.2807563-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20240109181104.1670304-1-andri@yngvason.is>
- <20240109181104.1670304-3-andri@yngvason.is>
- <CAPj87rNan8B5urDFkmD_Vti4to6p3NmvXYsTFQTNg-Ue2ieDug@mail.gmail.com>
- <CAFNQBQwiqqSRqzXAnC035UWCGF3=GGFR5SpDd=biPTOEA+cWbQ@mail.gmail.com>
- <ZZ509L_kmVC4IUBW@phenom.ffwll.local>
- <CAPj87rOiS8F=oDW3iE=bgFyfeJnYhy8kPF2v-uYOq3xgYtVPAg@mail.gmail.com>
-In-Reply-To: <CAPj87rOiS8F=oDW3iE=bgFyfeJnYhy8kPF2v-uYOq3xgYtVPAg@mail.gmail.com>
-From: Andri Yngvason <andri@yngvason.is>
-Date: Thu, 11 Jan 2024 17:17:46 +0000
-Message-ID: <CAFNQBQwjeJaX6B4oewpgASMUd5_nxZYMxUfdOG294CTVGBTd1w@mail.gmail.com>
-Subject: Re: [PATCH 2/7] drm/uAPI: Add "active color format" drm property as
- feedback for userspace
-To: Daniel Stone <daniel@fooishbar.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Thu, 11 Jan 2024 17:45:06 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044FB:EE_|BL1PR12MB5190:EE_
+X-MS-Office365-Filtering-Correlation-Id: 64b64f43-6ce2-429b-11bc-08dc12cecd26
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: hv7vPGeZ887VZtt9ju79OIFDsGaLPobgIm97qmrnW58AnGTOeODMQOTflPsiOcWyEJ4Ei9Y0x/oOUEVrlFNZZXRU0gUNm5SmMosRpxxxsrTrJ/eIOWJ5G51pVjtl9NSTPhwo+84+Z22rkDoktzTLKfjucK8bPmOftoWoLfaLlMMqzoCsaJnELvE5NMgzIRz93Eqx0W62qmot5qWo+qQAsK26srDhow9tbI1L0ZogYOzjrd8H5YFkL/ZmqczXhY59miFc6qvBR4FdOl4CWiohTMJ9vmzvqYFlRIsMvWhsZEzi4db4sgu89ZQTq6GPoidcxyUfC3KNy7LLddEkE4Qj9GXjVaP5XPweX5iOg6r7D8AK3D4dOSWk26HL6FWyuy45wkEcjFGadpBk6BIaqwu6SnLiKOHZiyvOYSc24f0rWXv6dWCH5D98NfQGvuiAPRsPdT4cSMIvywCr9HDGUke71o8gyeBrbn31JJVJ4t6ocelFLnX/wXBOraaXD2or/7XFTvnTFua0UCk45rwIeeNpuYqZg4N8zgrXxSD6WNdB6VEm9Qu+IbekHW7JMUflaQxfSZz66AcMJXZc3nfSGl9q6AMJEnl+QiDp5wY40erqeI/H56mNzMtIUibDaiSPX5GNSF/8RTukWdHrY7rJU69SN//QlzkrgnTCaM1aqv44eE7+E3jU6kwJaZoomf/+R+W1VeOpQH9cfH6hE+oI8bhihUGpP/sDDp+QhGtE0aCY7Nc0f3uw3D5bsrKKwVAtkrFAcf5nDNkgo7Dd0gsSlOtdjw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(136003)(39860400002)(346002)(376002)(396003)(230922051799003)(64100799003)(82310400011)(186009)(451199024)(1800799012)(46966006)(36840700001)(40470700004)(36756003)(1076003)(26005)(4326008)(2616005)(16526019)(336012)(426003)(44832011)(7696005)(8676002)(8936002)(40480700001)(47076005)(36860700001)(83380400001)(5660300002)(2906002)(478600001)(54906003)(316002)(6636002)(70206006)(70586007)(6666004)(110136005)(41300700001)(86362001)(82740400003)(40460700003)(356005)(81166007)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2024 17:57:39.2748 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 64b64f43-6ce2-429b-11bc-08dc12cecd26
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044FB.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5190
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,110 +99,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Simon Ser <contact@emersion.fr>, intel-gfx@lists.freedesktop.org,
- Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
- dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Werner Sembach <wse@tuxedocomputers.com>, amd-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
+ stable@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-mi=C3=B0., 10. jan. 2024 kl. 13:26 skrifa=C3=B0i Daniel Stone <daniel@foois=
-hbar.org>:
-> >
-> > This thing here works entirely differently, and I think we need somewha=
-t
-> > new semantics for this:
-> >
-> > - I agree it should be read-only for userspace, so immutable sounds rig=
-ht.
-> >
-> > - But I also agree with Daniel Stone that this should be tied more
-> >   directly to the modeset state.
-> >
-> > So I think the better approach would be to put the output type into
-> > drm_connector_state, require that drivers compute it in their
-> > ->atomic_check code (which in the future would allow us to report it ou=
-t
-> > for TEST_ONLY commits too), and so guarantee that the value is updated
-> > right after the kms ioctl returns (and not somewhen later for non-block=
-ing
-> > commits).
->
-> That's exactly the point. Whether userspace gets an explicit
-> notification or it has to 'know' when to read isn't much of an issue -
-> just as long as it's well defined. I think the suggestion of 'do it in
-> atomic_check and then it's guaranteed to be readable when the commit
-> completes' is a good one.
->
-> I do still have some reservations - for instance, why do we have the
-> fallback to auto when userspace has explicitly requested a certain
-> type? - but they may have been covered previously.
->
+In link_set_dsc_pps_packet(), 'struct display_stream_compressor *dsc'
+was dereferenced in a DC_LOGGER_INIT(dsc->ctx->logger); before the 'dsc'
+NULL pointer check.
 
-We discussed this further on IRC and this is summary of that discussion:
+Fixes the below:
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dpms.c:905 link_set_dsc_pps_packet() warn: variable dereferenced before check 'dsc' (see line 903)
 
-Sima proposed a new type of property that can be used to git feedback to
-userspace after atomic ioctl. The user supplies a list of output properties
-that they want to query and the kernel fills it in before returning from th=
-e
-ioctl. This would help to get some information about why things failed
-during TEST_ONLY.
+Cc: stable@vger.kernel.org
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Cc: Wenjing Liu <wenjing.liu@amd.com>
+Cc: Qingqing Zhuo <qingqing.zhuo@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+v2:
+ - Corrected the logic when !pipe_ctx->stream->timing.flags.DSC is true,
+   still skipping the !dsc NULL check
 
-Emersion raised the point that you might not know how much memory is needed
-beforehand for the returned properties, to which sima replied: blob
-property. There was some discussion about how that makes it possible to lea=
-k
-kernel memory, especially if userspace does not know about a new property
-blob. Emersion pointed out that userspace should only request properties
-that it understands and pq agreed.
+ drivers/gpu/drm/amd/display/dc/link/link_dpms.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-Emersion asked how the user should inform the kernel that it's done with th=
-e
-blob, to which sima replied: DRM_IOCTL_MODE_DESTROYPROPBLOB. Sima also
-mentioned using some sort of weak reference garbage collection scheme for
-properties and there was some further discussion, but I'm not sure there wa=
-s
-any conclusion.
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+index 3de148004c06..d084ac0d30b2 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+@@ -900,11 +900,15 @@ bool link_set_dsc_pps_packet(struct pipe_ctx *pipe_ctx, bool enable, bool immedi
+ {
+ 	struct display_stream_compressor *dsc = pipe_ctx->stream_res.dsc;
+ 	struct dc_stream_state *stream = pipe_ctx->stream;
+-	DC_LOGGER_INIT(dsc->ctx->logger);
+ 
+-	if (!pipe_ctx->stream->timing.flags.DSC || !dsc)
++	if (!pipe_ctx->stream->timing.flags.DSC)
++		return false;
++
++	if(!dsc)
+ 		return false;
+ 
++	DC_LOGGER_INIT(dsc->ctx->logger);
++
+ 	if (enable) {
+ 		struct dsc_config dsc_cfg;
+ 		uint8_t dsc_packed_pps[128];
+-- 
+2.34.1
 
-I asked if it made sense to add color format capabilities to the mode info
-struct, but the conclusion was that it wouldn't really be useful because we
-need TEST_ONLY anyway to see if the color format setting is compatible with
-other settings.
-
-I asked again if we should drop the "active color format" property as it
-seems to be more trouble than it's worth for now. pq mentioned that there
-are 2 separate use cases (in his words):
-- People playing with setting UI would like to know what "auto" would resul=
-t
-  in, but that's just nice to have
-- The other use case is the flicker-free boot into known configuration He
-  went on to point out that the main problem with "auto" is that any modese=
-t
-  could make the driver decide differently. This means that we cannot fully
-  rely on the previously set property.
-
-However, leaving out "active color property" did not put us in a worse
-situation than before, so the conclusion was that we should leave it out fo=
-r
-now. For GUI selectors, the current TEST_ONLY should be good enough, and al=
-l
-the fancy stuff discussed previously isn't needed for now.
-
-To summarise the summary: this means that we will drop the "active
-color format" property and rename the "preferred color format"
-property to "force color format" or just "color format" and failing to
-satisfy that constraint will fail the modeset rather than falling back
-to the "auto" behaviour.
-
-Cheers,
-Andri
