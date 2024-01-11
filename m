@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 752F1C4707B
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C251C47077
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BA9C10E869;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4C0810E86B;
 	Thu, 11 Jan 2024 09:04:25 +0000 (UTC)
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.7])
- by gabe.freedesktop.org (Postfix) with ESMTP id 844AA10E09B;
- Thu, 11 Jan 2024 05:42:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=CIiKcgzxPMZ8uXTepi
- Qzs/+KtYuuMjNy2tKnVKnI3W8=; b=BZ6FIXfwsgEwKlXe1AsxtOW4wJy99p9se0
- rXcfSZuqsKmG5GvUQnzByYhWPnC6YnglPjKxqJUZsFPRA7LWDy0EcVrRqrtGk9oa
- bpoHaGwKhr7xpIiCqxJrmLWyRbQlmNb8sTWOwgBFhWJmxsdQ0X3ZjqnjERpzeP9g
- lpGTr7UBo=
+Received: from m16.mail.163.com (m15.mail.163.com [45.254.50.220])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4229510E7F3;
+ Thu, 11 Jan 2024 07:59:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:Subject:Date:Message-Id; bh=CtQllylb5rBy8xA4pm
+ EMdjJuK4Xkx/RYOeVF0Un8bi0=; b=m2qMZ9WYQ8y6fIYNLa6VLyMFQzYCv7a1JA
+ M5R28m+zOSwNChTRuDX4zFhOxLguxNytXtYDsquX5j2tDfCznoRYucaNjbiqudDj
+ cR1zPgGMCxUGUz2lybSoBWfeEWrFBAKEkIEPIcCqxohEIOPWNCMwlGJnyyL8LCT3
+ 0GuXKLiIs=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g0-4 (Coremail) with SMTP id _____wDXH5HWf59lRw+gAA--.16881S2;
- Thu, 11 Jan 2024 13:42:47 +0800 (CST)
-From: chenxuebing <chenxb_99091@126.com>
-To: daniel@ffwll.ch, alexander.deucher@amd.com, airlied@gmail.com,
- Xinhui.Pan@amd.com, christian.koenig@amd.com
-Subject: [PATCH] drm/amdgpu: Clean up errors in discovery.h
-Date: Thu, 11 Jan 2024 05:42:45 +0000
-Message-Id: <20240111054245.8258-1-chenxb_99091@126.com>
+ by gzga-smtp-mta-g0-1 (Coremail) with SMTP id _____wDH9wPAn59lXj0QAA--.3875S2; 
+ Thu, 11 Jan 2024 15:58:56 +0800 (CST)
+From: GuoHua Chen <chenguohua_716@163.com>
+To: daniel@ffwll.ch, Xinhui.Pan@amd.com, airlied@gmail.com,
+ christian.koenig@amd.com, alexander.deucher@amd.com
+Subject: [PATCH] drm/radeon: Clean up errors in smu7_discrete.h
+Date: Thu, 11 Jan 2024 07:58:54 +0000
+Message-Id: <20240111075854.11116-1-chenguohua_716@163.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wDXH5HWf59lRw+gAA--.16881S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCw4fXFyDWryUWF17Cr4kZwb_yoW5ArWxpF
- s3JFnrKF45JFyIgr17Xrs3Zr43t397Ka48GFyq934Sgr4j9r18ta4rtF4YkFyYga48WwnF
- qw1ktw15Aan7u3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UUxhLUUUUU=
+X-CM-TRANSID: _____wDH9wPAn59lXj0QAA--.3875S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxKw4fur17XrWfKr17Zr13urg_yoW7CryUpF
+ WUKw4IgFZ5Ar13W345AwsYvr4agry5tr1UGr9ruw4Fqw42yrW2kF12ka1UCrWaqws3C393
+ JFsxtF12grWxAFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UwFxUUUUUU=
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiGBdixWVLZWY47gAAsT
+X-CM-SenderInfo: xfkh0w5xrk3tbbxrlqqrwthudrp/xtbBEBRi1mVOBk7vVQABso
 X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -47,121 +47,189 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: chenxuebing <chenxb_99091@126.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, GuoHua Chen <chenguohua_716@163.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
 ERROR: open brace '{' following struct go on the same line
-ERROR: "foo* bar" should be "foo *bar"
 
-Signed-off-by: chenxuebing <chenxb_99091@126.com>
+Signed-off-by: GuoHua Chen <chenguohua_716@163.com>
 ---
- drivers/gpu/drm/amd/include/discovery.h | 32 +++++++++----------------
- 1 file changed, 11 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/radeon/smu7_discrete.h | 51 +++++++++-----------------
+ 1 file changed, 17 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/include/discovery.h b/drivers/gpu/drm/amd/include/discovery.h
-index 7a9d473d0917..4a8b9eabcf03 100644
---- a/drivers/gpu/drm/amd/include/discovery.h
-+++ b/drivers/gpu/drm/amd/include/discovery.h
-@@ -32,8 +32,7 @@
- #define VCN_INFO_TABLE_ID               0x004E4356
- #define MALL_INFO_TABLE_ID              0x4C4C414D
+diff --git a/drivers/gpu/drm/radeon/smu7_discrete.h b/drivers/gpu/drm/radeon/smu7_discrete.h
+index 0b0b404ff091..1f63cbbd6515 100644
+--- a/drivers/gpu/drm/radeon/smu7_discrete.h
++++ b/drivers/gpu/drm/radeon/smu7_discrete.h
+@@ -35,8 +35,7 @@
+ #define SMU7_NUM_GPU_TES 1
+ #define SMU7_NUM_NON_TES 2
  
--typedef enum
+-struct SMU7_SoftRegisters
 -{
-+typedef enum {
- 	IP_DISCOVERY = 0,
- 	GC,
- 	HARVEST_INFO,
-@@ -45,16 +44,14 @@ typedef enum
++struct SMU7_SoftRegisters {
+     uint32_t        RefClockFrequency;
+     uint32_t        PmTimerP;
+     uint32_t        FeatureEnables;
+@@ -89,8 +88,7 @@ struct SMU7_SoftRegisters
  
- #pragma pack(1)
+ typedef struct SMU7_SoftRegisters SMU7_SoftRegisters;
  
--typedef struct table_info
+-struct SMU7_Discrete_VoltageLevel
 -{
-+typedef struct table_info {
- 	uint16_t offset;   /* Byte offset */
- 	uint16_t checksum; /* Byte sum of the table */
- 	uint16_t size;     /* Table size */
- 	uint16_t padding;
- } table_info;
++struct SMU7_Discrete_VoltageLevel {
+     uint16_t    Voltage;
+     uint16_t    StdVoltageHiSidd;
+     uint16_t    StdVoltageLoSidd;
+@@ -100,8 +98,7 @@ struct SMU7_Discrete_VoltageLevel
  
--typedef struct binary_header
+ typedef struct SMU7_Discrete_VoltageLevel SMU7_Discrete_VoltageLevel;
+ 
+-struct SMU7_Discrete_GraphicsLevel
 -{
-+typedef struct binary_header {
- 	/* psp structure should go at the top of this structure */
- 	uint32_t binary_signature; /* 0x7, 0x14, 0x21, 0x28 */
- 	uint16_t version_major;
-@@ -64,15 +61,13 @@ typedef struct binary_header
- 	table_info table_list[TOTAL_TABLES];
- } binary_header;
++struct SMU7_Discrete_GraphicsLevel {
+     uint32_t    Flags;
+     uint32_t    MinVddc;
+     uint32_t    MinVddcPhases;
+@@ -131,8 +128,7 @@ struct SMU7_Discrete_GraphicsLevel
  
--typedef struct die_info
+ typedef struct SMU7_Discrete_GraphicsLevel SMU7_Discrete_GraphicsLevel;
+ 
+-struct SMU7_Discrete_ACPILevel
 -{
-+typedef struct die_info {
- 	uint16_t die_id;
- 	uint16_t die_offset; /* Points to the corresponding die_header structure */
- } die_info;
++struct SMU7_Discrete_ACPILevel {
+     uint32_t    Flags;
+     uint32_t    MinVddc;
+     uint32_t    MinVddcPhases;
+@@ -153,8 +149,7 @@ struct SMU7_Discrete_ACPILevel
  
+ typedef struct SMU7_Discrete_ACPILevel SMU7_Discrete_ACPILevel;
  
--typedef struct ip_discovery_header
+-struct SMU7_Discrete_Ulv
 -{
-+typedef struct ip_discovery_header {
- 	uint32_t signature;    /* Table Signature */
- 	uint16_t version;      /* Table Version */
- 	uint16_t size;         /* Table Size */
-@@ -89,8 +84,7 @@ typedef struct ip_discovery_header
- 	};
- } ip_discovery_header;
++struct SMU7_Discrete_Ulv {
+     uint32_t    CcPwrDynRm;
+     uint32_t    CcPwrDynRm1;
+     uint16_t    VddcOffset;
+@@ -165,8 +160,7 @@ struct SMU7_Discrete_Ulv
  
--typedef struct ip
--{
-+typedef struct ip {
- 	uint16_t hw_id;           /* Hardware ID */
- 	uint8_t number_instance;  /* instance of the IP */
- 	uint8_t num_base_address; /* Number of Base Addresses */
-@@ -107,8 +101,7 @@ typedef struct ip
- 	uint32_t base_address[]; /* variable number of Addresses */
- } ip;
+ typedef struct SMU7_Discrete_Ulv SMU7_Discrete_Ulv;
  
--typedef struct ip_v3
+-struct SMU7_Discrete_MemoryLevel
 -{
-+typedef struct ip_v3 {
- 	uint16_t hw_id;                         /* Hardware ID */
- 	uint8_t instance_number;                /* Instance number for the IP */
- 	uint8_t num_base_address;               /* Number of base addresses*/
-@@ -145,15 +138,13 @@ typedef struct ip_v4 {
- 	} __packed;
- } ip_v4;
++struct SMU7_Discrete_MemoryLevel {
+     uint32_t    MinVddc;
+     uint32_t    MinVddcPhases;
+     uint32_t    MinVddci;
+@@ -206,8 +200,7 @@ struct SMU7_Discrete_MemoryLevel
  
--typedef struct die_header
--{
-+typedef struct die_header {
- 	uint16_t die_id;
- 	uint16_t num_ips;
- } die_header;
+ typedef struct SMU7_Discrete_MemoryLevel SMU7_Discrete_MemoryLevel;
  
--typedef struct ip_structure
+-struct SMU7_Discrete_LinkLevel
 -{
--	ip_discovery_header* header;
-+typedef struct ip_structure {
-+	ip_discovery_header *header;
- 	struct die
- 	{
- 		die_header *die_header;
-@@ -357,8 +348,7 @@ struct vcn_info_header {
-     uint32_t size_bytes; /* size of the entire header+data in bytes */
++struct SMU7_Discrete_LinkLevel {
+     uint8_t     PcieGenSpeed;
+     uint8_t     PcieLaneCount;
+     uint8_t     EnabledForActivity;
+@@ -220,8 +213,7 @@ struct SMU7_Discrete_LinkLevel
+ typedef struct SMU7_Discrete_LinkLevel SMU7_Discrete_LinkLevel;
+ 
+ 
+-struct SMU7_Discrete_MCArbDramTimingTableEntry
+-{
++struct SMU7_Discrete_MCArbDramTimingTableEntry {
+     uint32_t McArbDramTiming;
+     uint32_t McArbDramTiming2;
+     uint8_t  McArbBurstTime;
+@@ -230,15 +222,13 @@ struct SMU7_Discrete_MCArbDramTimingTableEntry
+ 
+ typedef struct SMU7_Discrete_MCArbDramTimingTableEntry SMU7_Discrete_MCArbDramTimingTableEntry;
+ 
+-struct SMU7_Discrete_MCArbDramTimingTable
+-{
++struct SMU7_Discrete_MCArbDramTimingTable {
+     SMU7_Discrete_MCArbDramTimingTableEntry entries[SMU__NUM_SCLK_DPM_STATE][SMU__NUM_MCLK_DPM_LEVELS];
  };
  
--struct vcn_instance_info_v1_0
+ typedef struct SMU7_Discrete_MCArbDramTimingTable SMU7_Discrete_MCArbDramTimingTable;
+ 
+-struct SMU7_Discrete_UvdLevel
 -{
-+struct vcn_instance_info_v1_0 {
- 	uint32_t instance_num; /* VCN IP instance number. 0 - VCN0; 1 - VCN1 etc*/
- 	union _fuse_data {
- 		struct {
++struct SMU7_Discrete_UvdLevel {
+     uint32_t VclkFrequency;
+     uint32_t DclkFrequency;
+     uint16_t MinVddc;
+@@ -250,8 +240,7 @@ struct SMU7_Discrete_UvdLevel
+ 
+ typedef struct SMU7_Discrete_UvdLevel SMU7_Discrete_UvdLevel;
+ 
+-struct SMU7_Discrete_ExtClkLevel
+-{
++struct SMU7_Discrete_ExtClkLevel {
+     uint32_t Frequency;
+     uint16_t MinVoltage;
+     uint8_t  MinPhases;
+@@ -260,8 +249,7 @@ struct SMU7_Discrete_ExtClkLevel
+ 
+ typedef struct SMU7_Discrete_ExtClkLevel SMU7_Discrete_ExtClkLevel;
+ 
+-struct SMU7_Discrete_StateInfo
+-{
++struct SMU7_Discrete_StateInfo {
+     uint32_t SclkFrequency;
+     uint32_t MclkFrequency;
+     uint32_t VclkFrequency;
+@@ -285,8 +273,7 @@ struct SMU7_Discrete_StateInfo
+ typedef struct SMU7_Discrete_StateInfo SMU7_Discrete_StateInfo;
+ 
+ 
+-struct SMU7_Discrete_DpmTable
+-{
++struct SMU7_Discrete_DpmTable {
+     SMU7_PIDController                  GraphicsPIDController;
+     SMU7_PIDController                  MemoryPIDController;
+     SMU7_PIDController                  LinkPIDController;
+@@ -406,23 +393,20 @@ typedef struct SMU7_Discrete_DpmTable SMU7_Discrete_DpmTable;
+ #define SMU7_DISCRETE_MC_REGISTER_ARRAY_SIZE 16
+ #define SMU7_DISCRETE_MC_REGISTER_ARRAY_SET_COUNT SMU7_MAX_LEVELS_MEMORY
+ 
+-struct SMU7_Discrete_MCRegisterAddress
+-{
++struct SMU7_Discrete_MCRegisterAddress {
+     uint16_t s0;
+     uint16_t s1;
+ };
+ 
+ typedef struct SMU7_Discrete_MCRegisterAddress SMU7_Discrete_MCRegisterAddress;
+ 
+-struct SMU7_Discrete_MCRegisterSet
+-{
++struct SMU7_Discrete_MCRegisterSet {
+     uint32_t value[SMU7_DISCRETE_MC_REGISTER_ARRAY_SIZE];
+ };
+ 
+ typedef struct SMU7_Discrete_MCRegisterSet SMU7_Discrete_MCRegisterSet;
+ 
+-struct SMU7_Discrete_MCRegisters
+-{
++struct SMU7_Discrete_MCRegisters {
+     uint8_t                             last;
+     uint8_t                             reserved[3];
+     SMU7_Discrete_MCRegisterAddress     address[SMU7_DISCRETE_MC_REGISTER_ARRAY_SIZE];
+@@ -431,8 +415,7 @@ struct SMU7_Discrete_MCRegisters
+ 
+ typedef struct SMU7_Discrete_MCRegisters SMU7_Discrete_MCRegisters;
+ 
+-struct SMU7_Discrete_FanTable
+-{
++struct SMU7_Discrete_FanTable {
+ 	uint16_t FdoMode;
+ 	int16_t  TempMin;
+ 	int16_t  TempMed;
 -- 
 2.17.1
 
