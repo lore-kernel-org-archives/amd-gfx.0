@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED9B9C47DA7
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 14:03:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78433C47422
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 14:03:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D31EA10E902;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF61810E919;
 	Thu, 11 Jan 2024 14:03:32 +0000 (UTC)
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.9])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4360110E887;
- Thu, 11 Jan 2024 09:33:15 +0000 (UTC)
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 058D410E80C;
+ Thu, 11 Jan 2024 09:41:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=lUESUWScUg7zl++lrC
- xFQNFSOv+99NUxm69O0wryTxk=; b=g74hUQK4mOq55L1qSMMqNf4GOEMnMEeidR
- Md2PSxSC+OXM+5OQ4PfvQ3OoYSfJ6ood5WBdm1VSmVub7jh1RjtbO8S+ptowtHqs
- PEDi2ZFOtvzkY4GXR3OysQgy4AG8Fs4mNsPd6FKSVbcwfDR0bw0bNM3YZfSephur
- RcRHoLsXY=
+ s=s110527; h=From:Subject:Date:Message-Id; bh=grwVG+AmXoGKqTy2la
+ H8uBXIiMvnlbZHKoSxHFDFIx0=; b=Kxd6mT6ou2yDWT6nJzl+KbGQfofmaClbZ1
+ rgXuVFC6Jd9CPH29TccLw5ksGML03L33ll7Vpixj9IFCLUPoMJA509LfUquo4eZr
+ FxLXCrmdDdHtz8OLvBZuTVwECMEaNvNpfwB/xH/H1EXX0Er20GZ9MIWlO1k2+Aab
+ 0RzY955jA=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g1-3 (Coremail) with SMTP id _____wDnb7nOtZ9lnr82AA--.6085S2; 
- Thu, 11 Jan 2024 17:33:02 +0800 (CST)
+ by gzga-smtp-mta-g1-3 (Coremail) with SMTP id _____wD3H7l_t59l0N42AA--.10079S2;
+ Thu, 11 Jan 2024 17:40:15 +0800 (CST)
 From: XueBing Chen <chenxb_99091@126.com>
 To: daniel@ffwll.ch, Xinhui.Pan@amd.com, alexander.deucher@amd.com,
  airlied@gmail.com, christian.koenig@amd.com
-Subject: [PATCH] drm/radeon: Clean up errors in ci_dpm.h
-Date: Thu, 11 Jan 2024 09:33:01 +0000
-Message-Id: <20240111093301.14086-1-chenxb_99091@126.com>
+Subject: [PATCH] drm/radeon/evergreen_cs: Clean up errors in evergreen_cs.c
+Date: Thu, 11 Jan 2024 09:40:13 +0000
+Message-Id: <20240111094013.14347-1-chenxb_99091@126.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wDnb7nOtZ9lnr82AA--.6085S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtF1kKrWDGw1kWFy3try5Arb_yoWDXrb_Cr
- yxXryDXrWj9r1rt3WDur1xX392vw4UWF4Fkw18KryfJF9rZr18Za9xAryDX3WUuan3JFs8
- JwsYqa43GFZ7KjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRRt8nDUUUUU==
+X-CM-TRANSID: _____wD3H7l_t59l0N42AA--.10079S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7XF1fZFWDGw45tF48GrWrAFb_yoWftrX_Cr
+ 4rX3s8X3sru3ZFkF1xZF48WFWvkFW5ZrW8Cayfta4fGry5AF10grWS9ryFqw45W3WUJFZ5
+ Aw4kWFW3Xr97WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRioUq5UUUUU==
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiOhJixWVEuYCGRAAAsV
+X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiHB1ixWV2z0UUrQAAsG
 X-Mailman-Approved-At: Thu, 11 Jan 2024 14:03:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,37 +54,30 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: open brace '{' following struct go on the same line
+ERROR: space required after that ',' (ctx:VxV)
+ERROR: spaces required around that '>' (ctx:VxV)
+ERROR: spaces required around that '<' (ctx:VxV)
 
 Signed-off-by: XueBing Chen <chenxb_99091@126.com>
 ---
- drivers/gpu/drm/radeon/ci_dpm.h | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/radeon/evergreen_cs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/ci_dpm.h b/drivers/gpu/drm/radeon/ci_dpm.h
-index ac12db5f2cf7..74b95c200222 100644
---- a/drivers/gpu/drm/radeon/ci_dpm.h
-+++ b/drivers/gpu/drm/radeon/ci_dpm.h
-@@ -87,8 +87,7 @@ struct ci_mc_reg_table {
- 	SMU7_Discrete_MCRegisterAddress mc_reg_address[SMU7_DISCRETE_MC_REGISTER_ARRAY_SIZE];
- };
+diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/radeon/evergreen_cs.c
+index 0de79f3a7e3f..1fe6e0d883c7 100644
+--- a/drivers/gpu/drm/radeon/evergreen_cs.c
++++ b/drivers/gpu/drm/radeon/evergreen_cs.c
+@@ -33,8 +33,8 @@
+ #include "evergreen_reg_safe.h"
+ #include "cayman_reg_safe.h"
  
--struct ci_ulv_parm
--{
-+struct ci_ulv_parm {
- 	bool supported;
- 	u32 cg_ulv_parameter;
- 	u32 volt_change_delay;
-@@ -113,8 +112,7 @@ struct ci_dpm_level_enable_mask {
- 	u32 pcie_dpm_enable_mask;
- };
+-#define MAX(a,b)                   (((a)>(b))?(a):(b))
+-#define MIN(a,b)                   (((a)<(b))?(a):(b))
++#define MAX(a, b)                   (((a) > (b)) ? (a) : (b))
++#define MIN(a, b)                   (((a) < (b)) ? (a) : (b))
  
--struct ci_vbios_boot_state
--{
-+struct ci_vbios_boot_state {
- 	u16 mvdd_bootup_value;
- 	u16 vddc_bootup_value;
- 	u16 vddci_bootup_value;
+ #define REG_SAFE_BM_SIZE ARRAY_SIZE(evergreen_reg_safe_bm)
+ 
 -- 
 2.17.1
 
