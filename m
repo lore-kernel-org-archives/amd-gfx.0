@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C67C3C4707B
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2F58C47077
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jan 2024 09:04:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5D3810E871;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAE1D10E873;
 	Thu, 11 Jan 2024 09:04:25 +0000 (UTC)
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
- by gabe.freedesktop.org (Postfix) with ESMTP id CC26610E028;
- Thu, 11 Jan 2024 02:32:12 +0000 (UTC)
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.7])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9382810E08C;
+ Thu, 11 Jan 2024 03:37:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=AOzGKHt46QvNHfyAsE
- g+vgxMfngoEk7dNjwEPlS5T4Y=; b=ZO5jHrfcpWEtByXtvuzg9f/6M8vnoKFdkF
- 5Vvfk0DwcLyjcollw3yB8/7Y08W0Zu1AJ+2aSpEB7csx1GhU2AlnirTBvpgQZw85
- t/hX1CTCzfb3KRqXNpk1W6Xje0mi7g0xWzMO0hnYtRvBCEg3avn6mRslvnJDqu4i
- CdPkLyfiE=
+ s=s110527; h=From:Subject:Date:Message-Id; bh=v57R1jLSOBEmIwmR3M
+ h9K+MSfk+/r8sp7qXL2m+Pfrw=; b=GmqZkFBXrsDiphv9FErux9NQGsAFzMZZhS
+ 99zqb6AX4hTnKIsqRQx2slI5zlIDZCJgO8Y5d3vIp/VkHRhqVLMo0lhFVvbNFUbb
+ xQxZumR/BEsv9NBbVCUydg/HXckRVxRap3WUxdxsT0uqlyND3Iprq+BDuK2AwK9o
+ Ud4LlvFIU=
 Received: from localhost.localdomain (unknown [182.148.14.173])
- by gzga-smtp-mta-g0-2 (Coremail) with SMTP id _____wB3tBUiU59l77CcAA--.9723S2; 
- Thu, 11 Jan 2024 10:32:02 +0800 (CST)
+ by gzga-smtp-mta-g1-1 (Coremail) with SMTP id _____wDnL9ptYp9l5TovAA--.18315S2;
+ Thu, 11 Jan 2024 11:37:18 +0800 (CST)
 From: chenxuebing <chenxb_99091@126.com>
-To: Xinhui.Pan@amd.com, alexander.deucher@amd.com, airlied@gmail.com,
- christian.koenig@amd.com, daniel@ffwll.ch
-Subject: [PATCH] drm/amdgpu: Clean up errors in clearstate_si.h
-Date: Thu, 11 Jan 2024 02:32:00 +0000
-Message-Id: <20240111023200.6506-1-chenxb_99091@126.com>
+To: daniel@ffwll.ch, alexander.deucher@amd.com, airlied@gmail.com,
+ Xinhui.Pan@amd.com, christian.koenig@amd.com
+Subject: [PATCH] drm/amdgpu: Clean up errors in v10_structs.h
+Date: Thu, 11 Jan 2024 03:37:16 +0000
+Message-Id: <20240111033716.7880-1-chenxb_99091@126.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wB3tBUiU59l77CcAA--.9723S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCF48Xw1UWFW8KFWrZFWxCrg_yoW5Wry3pF
- nrXr1xCw48G3W3XryIq3WDGryrGa92vFZFyryUKw1xA3WkJ397W34DJ3y8AryYqFy8Ar1v
- yF4vqryUtayxCw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRijjPUUUUU=
+X-CM-TRANSID: _____wDnL9ptYp9l5TovAA--.18315S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrtF1DCF48KF1DurW3ZF15CFg_yoW3CFc_C3
+ WUJw13WFyUZFnYga12kF4fAFyvyF15ua1kZw43tF9IyFnrAr45ZryDGrn7try8uFsxJF1q
+ va1vgF1fArnxWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRRt8nDUUUUU==
 X-Originating-IP: [182.148.14.173]
-X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiWQRixWVLYT4k0AAAs-
-X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:25 +0000
+X-CM-SenderInfo: hfkh05lebzmiizr6ij2wof0z/1tbiWQBixWVLYT9d-QABsv
+X-Mailman-Approved-At: Thu, 11 Jan 2024 09:04:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,94 +47,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, chenxuebing <chenxb_99091@126.com>
+Cc: chenxuebing <chenxb_99091@126.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: that open brace { should be on the previous line
+ERROR: open brace '{' following struct go on the same line
 
 Signed-off-by: chenxuebing <chenxb_99091@126.com>
 ---
- drivers/gpu/drm/amd/amdgpu/clearstate_si.h | 24 ++++++++--------------
- 1 file changed, 8 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/amd/include/v10_structs.h | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/clearstate_si.h b/drivers/gpu/drm/amd/amdgpu/clearstate_si.h
-index 66e39cdb5cb0..5fd96ddd7f0f 100644
---- a/drivers/gpu/drm/amd/amdgpu/clearstate_si.h
-+++ b/drivers/gpu/drm/amd/amdgpu/clearstate_si.h
-@@ -21,8 +21,7 @@
-  *
-  */
+diff --git a/drivers/gpu/drm/amd/include/v10_structs.h b/drivers/gpu/drm/amd/include/v10_structs.h
+index c0e98a98a641..58002a83d1df 100644
+--- a/drivers/gpu/drm/amd/include/v10_structs.h
++++ b/drivers/gpu/drm/amd/include/v10_structs.h
+@@ -24,8 +24,7 @@
+ #ifndef V10_STRUCTS_H_
+ #define V10_STRUCTS_H_
  
--static const u32 si_SECT_CONTEXT_def_1[] =
+-struct v10_gfx_mqd
 -{
-+static const u32 si_SECT_CONTEXT_def_1[] = {
-     0x00000000, // DB_RENDER_CONTROL
-     0x00000000, // DB_COUNT_CONTROL
-     0x00000000, // DB_DEPTH_VIEW
-@@ -236,8 +235,7 @@ static const u32 si_SECT_CONTEXT_def_1[] =
-     0x00000000, // PA_SC_VPORT_ZMIN_15
-     0x3f800000, // PA_SC_VPORT_ZMAX_15
- };
--static const u32 si_SECT_CONTEXT_def_2[] =
--{
-+static const u32 si_SECT_CONTEXT_def_2[] = {
-     0x00000000, // CP_PERFMON_CNTX_CNTL
-     0x00000000, // CP_RINGID
-     0x00000000, // CP_VMID
-@@ -511,8 +509,7 @@ static const u32 si_SECT_CONTEXT_def_2[] =
-     0x00000000, // CB_BLEND6_CONTROL
-     0x00000000, // CB_BLEND7_CONTROL
- };
--static const u32 si_SECT_CONTEXT_def_3[] =
--{
-+static const u32 si_SECT_CONTEXT_def_3[] = {
-     0x00000000, // PA_CL_POINT_X_RAD
-     0x00000000, // PA_CL_POINT_Y_RAD
-     0x00000000, // PA_CL_POINT_SIZE
-@@ -520,8 +517,7 @@ static const u32 si_SECT_CONTEXT_def_3[] =
-     0x00000000, // VGT_DMA_BASE_HI
-     0x00000000, // VGT_DMA_BASE
- };
--static const u32 si_SECT_CONTEXT_def_4[] =
--{
-+static const u32 si_SECT_CONTEXT_def_4[] = {
-     0x00000000, // DB_DEPTH_CONTROL
-     0x00000000, // DB_EQAA
-     0x00000000, // CB_COLOR_CONTROL
-@@ -680,16 +676,13 @@ static const u32 si_SECT_CONTEXT_def_4[] =
-     0x00000000, // VGT_GS_OUT_PRIM_TYPE
-     0x00000000, // IA_ENHANCE
- };
--static const u32 si_SECT_CONTEXT_def_5[] =
--{
-+static const u32 si_SECT_CONTEXT_def_5[] = {
-     0x00000000, // VGT_PRIMITIVEID_EN
- };
--static const u32 si_SECT_CONTEXT_def_6[] =
--{
-+static const u32 si_SECT_CONTEXT_def_6[] = {
-     0x00000000, // VGT_PRIMITIVEID_RESET
- };
--static const u32 si_SECT_CONTEXT_def_7[] =
--{
-+static const u32 si_SECT_CONTEXT_def_7[] = {
-     0x00000000, // VGT_MULTI_PRIM_IB_RESET_EN
-     0, // HOLE
-     0, // HOLE
-@@ -924,8 +917,7 @@ static const u32 si_SECT_CONTEXT_def_7[] =
-     0x00000000, // CB_COLOR7_CLEAR_WORD0
-     0x00000000, // CB_COLOR7_CLEAR_WORD1
- };
--static const struct cs_extent_def si_SECT_CONTEXT_defs[] =
--{
-+static const struct cs_extent_def si_SECT_CONTEXT_defs[] = {
-     {si_SECT_CONTEXT_def_1, 0x0000a000, 212 },
-     {si_SECT_CONTEXT_def_2, 0x0000a0d8, 272 },
-     {si_SECT_CONTEXT_def_3, 0x0000a1f5, 6 },
++struct v10_gfx_mqd {
+ 	uint32_t reserved_0; // offset: 0  (0x0)
+ 	uint32_t reserved_1; // offset: 1  (0x1)
+ 	uint32_t reserved_2; // offset: 2  (0x2)
 -- 
 2.17.1
 
