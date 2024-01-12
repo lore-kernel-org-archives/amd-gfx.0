@@ -4,49 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31B64C4706C
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jan 2024 04:09:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AA11C4706C
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jan 2024 06:26:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 039EF10E9E3;
-	Fri, 12 Jan 2024 04:09:50 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71D4D10E6D1;
- Fri, 12 Jan 2024 04:09:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1705032588; x=1736568588;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=pVRB3MRByX33opvAG8pnOGwsL58VgShsQteTI0gaCFc=;
- b=ZQV865OG9GkVfEVxJdXsOy6fRStUcNtM4mptgyy63/By++5DK/XdzG9i
- SoO6Lz6iAq8yGnx4dGOPnXh712voyX5TLZQzjKkXFzJRIiAID+3jnb4bU
- yPksdAIpWXsVw9xL9QQ5eKDWsmClHB/rUWOawr57LP5aCzw+GOFFfWiLX
- QlG/Gtq/9uFMrCEWwJXc4p7inHyCfBAFqIaVjkC7+YSWKLuFhbNwsnYrd
- F6VMPaTvpuwHnxMWb6poNgVUWcV8TP9uHTTOsycnGmzNiuFE5twZxVrMs
- s+N4aVvxEqhvYwO2znI2LEswDHy6GnfpWEUKbpqNsj7KABJQ00rqaNbyb g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10950"; a="463357607"
-X-IronPort-AV: E=Sophos;i="6.04,188,1695711600"; d="scan'208";a="463357607"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jan 2024 20:09:41 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10950"; a="873258213"
-X-IronPort-AV: E=Sophos;i="6.04,188,1695711600"; d="scan'208";a="873258213"
-Received: from lkp-server02.sh.intel.com (HELO b07ab15da5fe) ([10.239.97.151])
- by FMSMGA003.fm.intel.com with ESMTP; 11 Jan 2024 20:09:38 -0800
-Received: from kbuild by b07ab15da5fe with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1rO8rQ-000932-2r;
- Fri, 12 Jan 2024 04:09:36 +0000
-Date: Fri, 12 Jan 2024 12:09:36 +0800
-From: kernel test robot <lkp@intel.com>
-To: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 3/6] drm/amdgpu: prefer snprintf over sprintf
-Message-ID: <202401121126.i9VGrvMb-lkp@intel.com>
-References: <fea7a52924f98b1ac24f4a7e6ba21d7754422430.1704908087.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DB1810EA36;
+	Fri, 12 Jan 2024 06:26:40 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20601.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2418::601])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53B4C10EA36
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jan 2024 06:26:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=evOHJUMx0XaC+WlnUcWIzOjeZ3PoMGjpjFyIoQ3Rn0X/pWH9XGmXEW/VQ5Qw+6EcTusxKxxs3N+CBRR1u7XC2ImfC3Y17Ya6b/4l9sJFmUdaMYSGo6XsunbxFOkSgIB9nG5RLTKJvoD+lyePy0sQb69mvE+JxUr5Dx7BpLKe48f4JOV53kTIiZnEF2YHlBO3sVNyeVUkvveRxlNokpOoi+IvMCaPsQ/QunR4UbXMXS5VHpsjdTphocTkCp/3Eadqd4sqrGrRdSuV7euf2QrDcHo0QlDteIpfUmzU8FXYDL3fV8JeSJVjeqMGJ5P/DhLbY0uUaX2x1ZEpJDIuTO58TQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=i8a2Q2AWQcrrDy2380nCQ5Bf0r81LoppT55b6ewdNo8=;
+ b=gQbxbROx6+5yLhmuxjzvcL8lpL5mMgZEIrp1elbMxeM90sJ5uWT/X9J03I2KjNByT+htZXGbuydSKOYFakFfKCIrX1G2y3Pt/Cv4vn7V5w9kSQUW/hpfWlzto7mM3mM2oqA3MojiwIKK/gNu4Py8WXKi3z/oovcJlpHPGpuj4EN3iL/yiRjhKdZt1gpV+chPhyrOuqXPhI3taNbiykgZb01YhQurCSmbdSDjgjWn1Qc/3B3D+iTvq0YFo3FxcxTjBBuZWfKhGFOOf25iVQ4XA1aoqIw4n6ZwIsyu9Q45WWH0rDUw1m017QNEsGBZo7N5ATWitTw+r+JPkNsp1CmviA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=i8a2Q2AWQcrrDy2380nCQ5Bf0r81LoppT55b6ewdNo8=;
+ b=vSF3InqC39gWAHs5WHlAyEMWG+A8jjrG5rgjVPiysanAgudKoxhv0xCSHOkf9LWPVYYsvmA5EPBp7f/vMhu4VpAYICVHeU2boQOa56hBbSUycZF0EumY9qxZ+c+qAvtED8AOAlF3XGCaG3tfcTSCW+WNr7izKRJ9Bcb57awJRbw=
+Received: from BYAPR02CA0068.namprd02.prod.outlook.com (2603:10b6:a03:54::45)
+ by CY5PR12MB6252.namprd12.prod.outlook.com (2603:10b6:930:20::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.23; Fri, 12 Jan
+ 2024 06:26:37 +0000
+Received: from SJ5PEPF000001C9.namprd05.prod.outlook.com
+ (2603:10b6:a03:54:cafe::46) by BYAPR02CA0068.outlook.office365.com
+ (2603:10b6:a03:54::45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.21 via Frontend
+ Transport; Fri, 12 Jan 2024 06:26:36 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001C9.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7181.14 via Frontend Transport; Fri, 12 Jan 2024 06:26:36 +0000
+Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Fri, 12 Jan
+ 2024 00:26:33 -0600
+From: Ma Jun <Jun.Ma2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>,
+ <Alexander.Deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix the null pointer when load rlc firmware
+Date: Fri, 12 Jan 2024 14:26:08 +0800
+Message-ID: <20240112062608.778456-1-Jun.Ma2@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fea7a52924f98b1ac24f4a7e6ba21d7754422430.1704908087.git.jani.nikula@intel.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001C9:EE_|CY5PR12MB6252:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0316cd92-bd6a-473d-66f9-08dc13376de2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ASgQxwpu9q110NxYtNkD1Q50Z2GRQgh1GsT8+wvBwqmNRt8rAYeH0XScTbrptnhCm+YUxGZS17+IfVRulgduq0Ya6LYsF2FXtHS1EMTNaGZWTTcvpwTYky7FFk2gE3tfOjgTWCEv4St3ju93qOrXZHIIhqHpOAFS68hsTd9ar/qjl1Wtp1JQrDSoOvYIcv7UqAWs+Ux9zwyNa1TxmoHX+zRUUV6iMo+W+2Hu+IKB5Mdc60Hp3JfkO+UcR/nVRaVb4K2OhIqSHnDVfCeZRy0QQiP/FKP2u6+pQt5LD5Eu2dhOMcOT86CE6vYJFLOLdT1Nc7NkLRWDEa2zEowXzEtpC0oAx8xRF1EUKExjtMf4G2uk1lNeiFzZxsOh1PNnJ474dtUoKfYsul1eIQI3HKNdG+SIrvmKeyUNSf7aVUKacQ4LW7ULIp1OPhNKWSoUtsOEuov7pyHmY6TyZa2JwXT7XWJWGbQQvLgQMSlAu4C2dIwR8/ZVjojltg+LmPY5WH/WQL/JrlMrCcnjRhKupoivbamcgYPYk0ds/Lmqj/TG1OQiaFLIjewWHy+FFQJuBItJJJliG09LPCbMr6NA46Q454zJSDdut05urUfbFaIUxTAMTEy5CKrTg9ke2XlthLrDmnyCJOmsyjt5hlGt6wvfdx/JcHWr+d95oQ4zdPfzpqRx4kB5AzPhGT/C4i6q5a79OJPhZjP7fHltTiYyR2pd95hHtoR/94tYFOkRG6l6OJyX2l+S/QiRzUVTAPmNRgTD2W+3FTBSljg9EXsQbuOkrQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(396003)(39860400002)(346002)(376002)(136003)(230922051799003)(64100799003)(186009)(451199024)(82310400011)(1800799012)(40470700004)(36840700001)(46966006)(5660300002)(478600001)(7696005)(6666004)(2616005)(86362001)(1076003)(26005)(336012)(83380400001)(8936002)(110136005)(36756003)(70586007)(41300700001)(4326008)(426003)(6636002)(316002)(70206006)(36860700001)(81166007)(8676002)(82740400003)(356005)(16526019)(47076005)(2906002)(40460700003)(40480700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2024 06:26:36.6200 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0316cd92-bd6a-473d-66f9-08dc13376de2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001C9.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6252
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,91 +99,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pan@freedesktop.org, jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
- Xinhui <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
- oe-kbuild-all@lists.linux.dev, Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Ma Jun <Jun.Ma2@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Jani,
+If the RLC firmware is invalid because of wrong header size,
+the pointer to the rlc firmware is released in function
+amdgpu_ucode_request. There will be a null pointer error
+in subsequent use. So skip validation to fix it.
 
-kernel test robot noticed the following build warnings:
+Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 15 ++++++---------
+ 1 file changed, 6 insertions(+), 9 deletions(-)
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.7 next-20240111]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Jani-Nikula/drm-nouveau-acr-ga102-remove-unused-but-set-variable/20240111-014206
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/fea7a52924f98b1ac24f4a7e6ba21d7754422430.1704908087.git.jani.nikula%40intel.com
-patch subject: [PATCH 3/6] drm/amdgpu: prefer snprintf over sprintf
-config: sparc64-allmodconfig (https://download.01.org/0day-ci/archive/20240112/202401121126.i9VGrvMb-lkp@intel.com/config)
-compiler: sparc64-linux-gcc (GCC) 13.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240112/202401121126.i9VGrvMb-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202401121126.i9VGrvMb-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c: In function 'amdgpu_gfx_kiq_init_ring':
->> drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:332:61: warning: '%d' directive output may be truncated writing between 1 and 10 bytes into a region of size between 0 and 8 [-Wformat-truncation=]
-     332 |         snprintf(ring->name, sizeof(ring->name), "kiq_%d.%d.%d.%d",
-         |                                                             ^~
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:332:50: note: directive argument in the range [0, 2147483647]
-     332 |         snprintf(ring->name, sizeof(ring->name), "kiq_%d.%d.%d.%d",
-         |                                                  ^~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:332:9: note: 'snprintf' output between 12 and 41 bytes into a destination of size 16
-     332 |         snprintf(ring->name, sizeof(ring->name), "kiq_%d.%d.%d.%d",
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     333 |                  xcc_id, ring->me, ring->pipe, ring->queue);
-         |                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-vim +332 drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-
-   306	
-   307	int amdgpu_gfx_kiq_init_ring(struct amdgpu_device *adev,
-   308				     struct amdgpu_ring *ring,
-   309				     struct amdgpu_irq_src *irq, int xcc_id)
-   310	{
-   311		struct amdgpu_kiq *kiq = &adev->gfx.kiq[xcc_id];
-   312		int r = 0;
-   313	
-   314		spin_lock_init(&kiq->ring_lock);
-   315	
-   316		ring->adev = NULL;
-   317		ring->ring_obj = NULL;
-   318		ring->use_doorbell = true;
-   319		ring->xcc_id = xcc_id;
-   320		ring->vm_hub = AMDGPU_GFXHUB(xcc_id);
-   321		ring->doorbell_index =
-   322			(adev->doorbell_index.kiq +
-   323			 xcc_id * adev->doorbell_index.xcc_doorbell_range)
-   324			<< 1;
-   325	
-   326		r = amdgpu_gfx_kiq_acquire(adev, ring, xcc_id);
-   327		if (r)
-   328			return r;
-   329	
-   330		ring->eop_gpu_addr = kiq->eop_gpu_addr;
-   331		ring->no_scheduler = true;
- > 332		snprintf(ring->name, sizeof(ring->name), "kiq_%d.%d.%d.%d",
-   333			 xcc_id, ring->me, ring->pipe, ring->queue);
-   334		r = amdgpu_ring_init(adev, ring, 1024, irq, AMDGPU_CP_KIQ_IRQ_DRIVER0,
-   335				     AMDGPU_RING_PRIO_DEFAULT, NULL);
-   336		if (r)
-   337			dev_warn(adev->dev, "(%d) failed to init kiq ring\n", r);
-   338	
-   339		return r;
-   340	}
-   341	
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index d2c34436aefc..4d90e570b3cd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -3996,16 +3996,13 @@ static int gfx_v10_0_init_microcode(struct amdgpu_device *adev)
+ 
+ 	if (!amdgpu_sriov_vf(adev)) {
+ 		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_rlc.bin", ucode_prefix);
+-		err = amdgpu_ucode_request(adev, &adev->gfx.rlc_fw, fw_name);
+-		/* don't check this.  There are apparently firmwares in the wild with
+-		 * incorrect size in the header
+-		 */
+-		if (err == -ENODEV)
+-			goto out;
++		err = request_firmware(&adev->gfx.rlc_fw, fw_name, adev->dev);
+ 		if (err)
+-			dev_dbg(adev->dev,
+-				"gfx10: amdgpu_ucode_request() failed \"%s\"\n",
+-				fw_name);
++			goto out;
++
++		/* don't validate this firmware.  There are apparently firmwares
++		 * in the wild with incorrect size in the header
++		 */
+ 		rlc_hdr = (const struct rlc_firmware_header_v2_0 *)adev->gfx.rlc_fw->data;
+ 		version_major = le16_to_cpu(rlc_hdr->header.header_version_major);
+ 		version_minor = le16_to_cpu(rlc_hdr->header.header_version_minor);
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.34.1
+
