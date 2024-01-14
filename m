@@ -4,69 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BD67C4706C
-	for <amd-gfx@archiver.kernel.org>; Sat, 13 Jan 2024 22:55:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1669C4707B
+	for <amd-gfx@archiver.kernel.org>; Sun, 14 Jan 2024 13:00:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEE0710E1C4;
-	Sat, 13 Jan 2024 22:55:43 +0000 (UTC)
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3501110E1C4
- for <amd-gfx@lists.freedesktop.org>; Sat, 13 Jan 2024 22:55:42 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-33770772136so4076462f8f.3
- for <amd-gfx@lists.freedesktop.org>; Sat, 13 Jan 2024 14:55:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=froggi.es; s=google; t=1705186540; x=1705791340; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=oTM9dIGhg8HppSDbR++W5wyv6Uhch5Dm3NQVyrhOK78=;
- b=Eb5kx9rZUzRXdD9CMRJFq8hawubRegXVY1CnhCC0hJ7EA+taF6cCMQLdZSTceRxuJr
- pxoCqncvJNrvoyFeNrYL1mTigNXAG4J9BqyBm/9vraHxwrH2Mlg082RgfEptKPrxXMPo
- sIedPVwiDI+lQ7mHOK4tdIRubZD9A1ZdfnmNnjkz8TWgBdO4UPJ6ozVRChjbO8GtV3c0
- eXV3YsRJj4YgAqBJEN4YL02nEQ77OYn1ioB0QFjxZm5SwOstf1bZXo++LAvTQz/3yXGj
- dCyhJeAUjecDbcUGxSZ92VyCBHCgzNPutHs+laPEnyZCP8YTiS5rqWE6Y//C+0LS5R5J
- qgxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705186540; x=1705791340;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=oTM9dIGhg8HppSDbR++W5wyv6Uhch5Dm3NQVyrhOK78=;
- b=hD6j+fN/yObgdandbumpnJBHLUkyJs5Ifor2geMAhV0J6U4oshIMaXIfihia0ED/ek
- OIb382e6wpmvTVBXCSVXHOcw9J+QCm4JhT8nZfPa7UDx0bY/QUS3sgv9H2KG6eYc2dso
- 7PEFy4dJoxxMxifY9IcvRy4+kgd3EJMJCHBEJvSZ45av3Y3DmOdrjX2C+SMlCxh1jgge
- YnTTRtLFIJi3LlefDv5PQg86S7uuVnxr7GcI8dOfz1sbXp2nm+3+CJmiVFkHQFUgNz8v
- 59GzEjD0akf0ZlGO5dMhmKv/NWD/iE8hzZYdYYF25vSjoToJE5v0IS5hJ9KIFONdofpV
- PNew==
-X-Gm-Message-State: AOJu0Yzn9OWddG8d9osl5H5Av6lAFSjhwEQQroqBITL0Al5GxkVsquUw
- WxHscA/TBiOD+CDreX+Kvv/KpTJF63Wq4A==
-X-Google-Smtp-Source: AGHT+IG8ZY1qk1V1JAnqlGec7V3oUZ+ty3RypeJfghnR2SZyqgJBtll3AxF4Ol6z39eHoLmDmfmpPg==
-X-Received: by 2002:adf:db48:0:b0:333:a28:bfc5 with SMTP id
- f8-20020adfdb48000000b003330a28bfc5mr2072386wrj.70.1705186540467; 
- Sat, 13 Jan 2024 14:55:40 -0800 (PST)
-Received: from [192.168.0.89]
- (darl-09-b2-v4wan-165404-cust288.vm5.cable.virginm.net. [86.17.61.33])
- by smtp.gmail.com with ESMTPSA id
- q15-20020adfea0f000000b00336e6014263sm7701518wrm.98.2024.01.13.14.55.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 13 Jan 2024 14:55:40 -0800 (PST)
-Message-ID: <a88f1d5f-c13c-4b46-9bba-f96d43bd4e1a@froggi.es>
-Date: Sat, 13 Jan 2024 22:55:39 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BB0F10E082;
+	Sun, 14 Jan 2024 13:00:39 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65F7210E082
+ for <amd-gfx@lists.freedesktop.org>; Sun, 14 Jan 2024 13:00:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.de; s=s31663417;
+ t=1705237232; x=1705842032; i=friedrich.vock@gmx.de;
+ bh=d1EiUqV9QNyVLSuVVI3goT61s5eVAetbj4p77LRXWjE=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
+ b=JfpNLtjSThnpRTkC9dABYSuAAOVXtg5vNsQ/SsXvHxpDrWk0XxFfdatGPBFdVspU
+ eZBsPFqgNC1Z0JU3ajTLQNTgkw4A4M95q7w55RRQK7GlIMXqoAQzzi2i72wYeRqv8
+ mPc5KCzo6JjR70M9b/+qCdmodx38zfcTGSesLmSMyF+g+wFcjcStwLZ/CZn/SYxHI
+ i9vdplzoEQb+cJtWkrmftdud76FZIXPTM0X1NKnuSwtQjhz+PJCTtSwKOLcKpx0um
+ y99BKh7+5G6UUd638kHK54GKo53+5KdX8p2Z9S0PCRVZ7r6b948sr+4zNC6dzkmez
+ fSd5i4lq72lz0Kk52w==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from arch.fritz.box ([213.152.118.80]) by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MjjCL-1qiGUN1j8F-00lGC4; Sun, 14
+ Jan 2024 14:00:32 +0100
+From: Friedrich Vock <friedrich.vock@gmx.de>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/amdgpu: Reset IH OVERFLOW_CLEAR bit after writing rptr
+Date: Sun, 14 Jan 2024 14:00:07 +0100
+Message-ID: <20240114130008.868941-1-friedrich.vock@gmx.de>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: Mark ctx as guilty in ring_soft_recovery
- path
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-References: <20240113140206.2383133-1-joshua@froggi.es>
- <20240113140206.2383133-2-joshua@froggi.es>
- <66f8848f-13c8-4293-a207-012eadbc9018@igalia.com>
-Content-Language: en-US
-From: Joshua Ashton <joshua@froggi.es>
-In-Reply-To: <66f8848f-13c8-4293-a207-012eadbc9018@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:I89wkvWOgo5HXeIHYqjPGj6cncUsKZ0qpmRAa9jHLxqwyTFv7bc
+ 2Xm/asuzNmS+wQb9rR0RGvP8l+mIG7ynXiSr3nCf0iq9SgA4V8lTqbsF+FayfKl5irviCzC
+ 5245H8sv/B64wHHuhLMvHkDqh8F0D9kAd6xRFNRZTrzqBZifhEUo0hEZqREC0aNNpiS/9c0
+ mxcB92F/LLaXlzObjTcBg==
+UI-OutboundReport: notjunk:1;M01:P0:W/K3HoVEOH4=;FFzn3RUnSaVlpid0WALdKXC93fB
+ jTsUjZHDQsbmGo3WGro0IphHkxlACEXEYGdaupb7PlQ7l+blkUJyG0kuugV4tw2xMg99uSCXz
+ LeEFHAPI2Vq0fj4vSB9EqGm5srqSt2BKShBKwi0dizKCJXGMj5vs1WzwfMkYpgwcLATNJaPbQ
+ J35AKcZdGUGXgvH+rQwo7u0yNkuCY19f5WIBuwbj0RRp1a/Q9xOG1UpoDFGmFi08E4PLsWkAQ
+ 4UIaQPi7e1v7mOvLgS4VKN77lcsWK7nuxHrGzcutitdU7y82SzOfhkpMhn++YvGWffuQYgsS2
+ cS2nrsFuDhhyA+XdvTPIy+NQByipOXphpgfQXWJTdIdkbB+ieid/2mPVue+f04MWoH674gjLP
+ 8fKqmxp682tr+hJ5LJJK+yF9M0qQ5dj9D2+5s/N8zYwJZQVl0INGcmJeNL0XhnEcEugq58D1v
+ drL2jyGi6vNYJ4r2HwwYh0PnguPZ6ykuHyZUhfOMnh7ZLCj2zVpmzoEm1ZnVdca+YfUGiRJIb
+ UdYVV4f0YuItSLrhvFHAsUvGgEwHatTCTru9BOCh9P8R3ZzmOn0Z7P/P6mOXA82z29e69FJxg
+ 9b9gZTMZB0VAcFNEHL11OBto7HavDGMLGx9eoCA+dZMGHnGoFL7x1flENzbItGKVfPApmaMGK
+ 3Kaqf2KhPxGXLgQLGn8QXqofZ66yeW9MPBes7la2FRu4Caf8PJKdLiBaR4RmZTiwltP9+g0ry
+ LdhIkcXY6RGEL68htVK6fQex4LD6uRN3NEvkSVslsbAVFKFr73z4fHoVeu5ib2hNjEoLiUN5Q
+ 3qHmLu8w0oPR53Jpndpx/NkYa30XQ4cJ83F6yU0tpEWaXykYq26pYAP5IGRjG9mcGFWzbNyyt
+ DWKlDIjpL88hY4/+GtMI0m6Yg+/hFH1hWAp5pu/p56JEdw0RFvrdDIJ+/sUt7aoMOnqK2HCuD
+ wrXFKTvV/UDD3A7wDozx5Lw/pC4=
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,102 +64,434 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- Friedrich Vock <friedrich.vock@gmx.de>, amd-gfx@lists.freedesktop.org,
- stable@vger.kernel.org, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Friedrich Vock <friedrich.vock@gmx.de>, stable@vger.kernel.org,
+ Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+Marek
+Allows us to detect subsequent IH ring buffer overflows as well.
 
-On 1/13/24 21:35, André Almeida wrote:
-> Hi Joshua,
-> 
-> Em 13/01/2024 11:02, Joshua Ashton escreveu:
->> We need to bump the karma of the drm_sched job in order for the context
->> that we just recovered to get correct feedback that it is guilty of
->> hanging.
->>
->> Without this feedback, the application may keep pushing through the soft
->> recoveries, continually hanging the system with jobs that timeout.
->>
->> There is an accompanying Mesa/RADV patch here
->> https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/27050
->> to properly handle device loss state when VRAM is not lost.
->>
->> With these, I was able to run Counter-Strike 2 and launch an application
->> which can fault the GPU in a variety of ways, and still have Steam +
->> Counter-Strike 2 + Gamescope (compositor) stay up and continue
->> functioning on Steam Deck.
->>
-> 
-> I sent a similar patch in the past, maybe you find the discussion 
-> interesting:
-> 
-> https://lore.kernel.org/lkml/20230424014324.218531-1-andrealmeid@igalia.com/
+Cc: Joshua Ashton <joshua@froggi.es>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
 
-Thanks, I had a peruse through that old thread.
+Signed-off-by: Friedrich Vock <friedrich.vock@gmx.de>
+=2D--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h  |  2 ++
+ drivers/gpu/drm/amd/amdgpu/cik_ih.c     | 13 +++++++++++++
+ drivers/gpu/drm/amd/amdgpu/cz_ih.c      | 14 +++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/iceland_ih.c | 14 +++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/ih_v6_0.c    | 13 +++++++++++++
+ drivers/gpu/drm/amd/amdgpu/ih_v6_1.c    | 13 +++++++++++++
+ drivers/gpu/drm/amd/amdgpu/navi10_ih.c  | 12 ++++++++++++
+ drivers/gpu/drm/amd/amdgpu/si_ih.c      | 12 ++++++++++++
+ drivers/gpu/drm/amd/amdgpu/tonga_ih.c   | 13 +++++++++++++
+ drivers/gpu/drm/amd/amdgpu/vega10_ih.c  | 12 ++++++++++++
+ drivers/gpu/drm/amd/amdgpu/vega20_ih.c  | 12 ++++++++++++
+ 11 files changed, 128 insertions(+), 2 deletions(-)
 
-Marek definitely had the right idea here, given he mentions:
-"That supposedly depends on the compositor. There may be compositors for
-very specific cases (e.g. Steam Deck)"
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ih.h
+index 508f02eb0cf8..6041ec727f06 100644
+=2D-- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+@@ -69,6 +69,8 @@ struct amdgpu_ih_ring {
+ 	unsigned		rptr;
+ 	struct amdgpu_ih_regs	ih_regs;
 
-Given that is what I work on and also wrote this patch for that does 
-basically the same thing as was proposed. :-)
++	bool overflow;
++
+ 	/* For waiting on IH processing at checkpoint. */
+ 	wait_queue_head_t wait_process;
+ 	uint64_t		processed_timestamp;
+diff --git a/drivers/gpu/drm/amd/amdgpu/cik_ih.c b/drivers/gpu/drm/amd/amd=
+gpu/cik_ih.c
+index 6f7c031dd197..807cc30c9e33 100644
+=2D-- a/drivers/gpu/drm/amd/amdgpu/cik_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/cik_ih.c
+@@ -204,6 +204,7 @@ static u32 cik_ih_get_wptr(struct amdgpu_device *adev,
+ 		tmp =3D RREG32(mmIH_RB_CNTL);
+ 		tmp |=3D IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK;
+ 		WREG32(mmIH_RB_CNTL, tmp);
++		ih->overflow =3D true;
+ 	}
+ 	return (wptr & ih->ptr_mask);
+ }
+@@ -274,7 +275,19 @@ static void cik_ih_decode_iv(struct amdgpu_device *ad=
+ev,
+ static void cik_ih_set_rptr(struct amdgpu_device *adev,
+ 			    struct amdgpu_ih_ring *ih)
+ {
++	u32 tmp;
++
+ 	WREG32(mmIH_RB_RPTR, ih->rptr);
++
++	/* If we overflowed previously (and thus set the OVERFLOW_CLEAR bit),
++	 * reset it here to detect more overflows if they occur.
++	 */
++	if (ih->overflow) {
++		tmp =3D RREG32(mmIH_RB_CNTL);
++		tmp &=3D ~IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK;
++		WREG32(mmIH_RB_CNTL, tmp);
++		ih->overflow =3D false;
++	}
+ }
 
-For context though, I am less interested in Gamescope (the Steam Deck 
-compositor) hanging (we don't have code that hangs, if we go down, it's 
-likely Steam/CEF died with us anyway atm, can solve that battle some 
-other day) and more about the applications run under it.
+ static int cik_ih_early_init(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/cz_ih.c b/drivers/gpu/drm/amd/amdg=
+pu/cz_ih.c
+index b8c47e0cf37a..076559668573 100644
+=2D-- a/drivers/gpu/drm/amd/amdgpu/cz_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
+@@ -215,7 +215,7 @@ static u32 cz_ih_get_wptr(struct amdgpu_device *adev,
+ 	tmp =3D RREG32(mmIH_RB_CNTL);
+ 	tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+ 	WREG32(mmIH_RB_CNTL, tmp);
+-
++	ih->overflow =3D true;
 
-Marek is very right when he says applications that fault/hang will 
-submit one IB after another that also fault/hang -- especially if they 
-write to descriptors from the GPU (descriptor buffers), or use draw 
-indirect or anything bindless or...
-That's basically functionally equivalent to DOSing a system if it is not 
-prevented.
+ out:
+ 	return (wptr & ih->ptr_mask);
+@@ -266,7 +266,19 @@ static void cz_ih_decode_iv(struct amdgpu_device *ade=
+v,
+ static void cz_ih_set_rptr(struct amdgpu_device *adev,
+ 			   struct amdgpu_ih_ring *ih)
+ {
++	u32 tmp;
++
+ 	WREG32(mmIH_RB_RPTR, ih->rptr);
++
++	/* If we overflowed previously (and thus set the OVERFLOW_CLEAR bit),
++	 * reset it here to detect more overflows if they occur.
++	 */
++	if (ih->overflow) {
++		tmp =3D RREG32(mmIH_RB_CNTL);
++		tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
++		WREG32(mmIH_RB_CNTL, tmp);
++		ih->overflow =3D false;
++	}
+ }
 
-And that's exactly what I see even in a simple test app doing a fault -> 
-hang every frame.
+ static int cz_ih_early_init(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c b/drivers/gpu/drm/amd=
+/amdgpu/iceland_ih.c
+index aecad530b10a..1a5e668643d1 100644
+=2D-- a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
+@@ -214,7 +214,7 @@ static u32 iceland_ih_get_wptr(struct amdgpu_device *a=
+dev,
+ 	tmp =3D RREG32(mmIH_RB_CNTL);
+ 	tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+ 	WREG32(mmIH_RB_CNTL, tmp);
+-
++	ih->overflow =3D true;
 
-Right now, given that soft recovery never marks a context as guilty, it 
-means that every app I tested is never stopped from submitting garbage 
-That holds true for basically any app that GPU hangs and makes soft 
-recovery totally useless in my testing without this.
+ out:
+ 	return (wptr & ih->ptr_mask);
+@@ -265,7 +265,19 @@ static void iceland_ih_decode_iv(struct amdgpu_device=
+ *adev,
+ static void iceland_ih_set_rptr(struct amdgpu_device *adev,
+ 				struct amdgpu_ih_ring *ih)
+ {
++	u32 tmp;
++
+ 	WREG32(mmIH_RB_RPTR, ih->rptr);
++
++	/* If we overflowed previously (and thus set the OVERFLOW_CLEAR bit),
++	 * reset it here to detect more overflows if they occur.
++	 */
++	if (ih->overflow) {
++		tmp =3D RREG32(mmIH_RB_CNTL);
++		tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
++		WREG32(mmIH_RB_CNTL, tmp);
++		ih->overflow =3D false;
++	}
+ }
 
-(That being said, without my patches, RADV treats *any* reset from the 
-query as VK_ERROR_DEVICE_LOST, even if there was no VRAM lost and it was 
-not guilty, so any faulting/hanging application causes every Vulkan app 
-to die e_e. This is fixed in 
-https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/27050 )
+ static int iceland_ih_early_init(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c b/drivers/gpu/drm/amd/am=
+dgpu/ih_v6_0.c
+index d9ed7332d805..ce8f7feec713 100644
+=2D-- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+@@ -418,6 +418,8 @@ static u32 ih_v6_0_get_wptr(struct amdgpu_device *adev=
+,
+ 	tmp =3D RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
+ 	tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+ 	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
++	ih->overflow =3D true;
++
+ out:
+ 	return (wptr & ih->ptr_mask);
+ }
+@@ -459,6 +461,7 @@ static void ih_v6_0_irq_rearm(struct amdgpu_device *ad=
+ev,
+ static void ih_v6_0_set_rptr(struct amdgpu_device *adev,
+ 			       struct amdgpu_ih_ring *ih)
+ {
++	u32 tmp;
+ 	struct amdgpu_ih_regs *ih_regs;
 
-- Joshie 🐸✨
+ 	if (ih->use_doorbell) {
+@@ -472,6 +475,16 @@ static void ih_v6_0_set_rptr(struct amdgpu_device *ad=
+ev,
+ 		ih_regs =3D &ih->ih_regs;
+ 		WREG32(ih_regs->ih_rb_rptr, ih->rptr);
+ 	}
++
++	/* If we overflowed previously (and thus set the OVERFLOW_CLEAR bit),
++	 * reset it here to detect more overflows if they occur.
++	 */
++	if (ih->overflow) {
++		tmp =3D RREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl);
++		tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
++		WREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl, tmp);
++		ih->overflow =3D false;
++	}
+ }
 
-> 
->> Signed-off-by: Joshua Ashton <joshua@froggi.es>
->>
->> Cc: Friedrich Vock <friedrich.vock@gmx.de>
->> Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: André Almeida <andrealmeid@igalia.com>
->> Cc: stable@vger.kernel.org
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 2 ++
->>   1 file changed, 2 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
->> index 25209ce54552..e87cafb5b1c3 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
->> @@ -448,6 +448,8 @@ bool amdgpu_ring_soft_recovery(struct amdgpu_ring 
->> *ring, struct amdgpu_job *job)
->>           dma_fence_set_error(fence, -ENODATA);
->>       spin_unlock_irqrestore(fence->lock, flags);
->> +    if (job->vm)
->> +        drm_sched_increase_karma(&job->base);
->>       atomic_inc(&ring->adev->gpu_reset_counter);
->>       while (!dma_fence_is_signaled(fence) &&
->>              ktime_to_ns(ktime_sub(deadline, ktime_get())) > 0)
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c b/drivers/gpu/drm/amd/am=
+dgpu/ih_v6_1.c
+index 8fb05eae340a..668788ad34d9 100644
+=2D-- a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+@@ -418,6 +418,8 @@ static u32 ih_v6_1_get_wptr(struct amdgpu_device *adev=
+,
+ 	tmp =3D RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
+ 	tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+ 	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
++	ih->overflow =3D true;
++
+ out:
+ 	return (wptr & ih->ptr_mask);
+ }
+@@ -459,6 +461,7 @@ static void ih_v6_1_irq_rearm(struct amdgpu_device *ad=
+ev,
+ static void ih_v6_1_set_rptr(struct amdgpu_device *adev,
+ 			       struct amdgpu_ih_ring *ih)
+ {
++	u32 tmp;
+ 	struct amdgpu_ih_regs *ih_regs;
+
+ 	if (ih->use_doorbell) {
+@@ -472,6 +475,16 @@ static void ih_v6_1_set_rptr(struct amdgpu_device *ad=
+ev,
+ 		ih_regs =3D &ih->ih_regs;
+ 		WREG32(ih_regs->ih_rb_rptr, ih->rptr);
+ 	}
++
++	/* If we overflowed previously (and thus set the OVERFLOW_CLEAR bit),
++	 * reset it here to detect more overflows if they occur.
++	 */
++	if (ih->overflow) {
++		tmp =3D RREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl);
++		tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
++		WREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl, tmp);
++		ih->overflow =3D false;
++	}
+ }
+
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/=
+amdgpu/navi10_ih.c
+index e64b33115848..0bdac923cb4d 100644
+=2D-- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+@@ -442,6 +442,7 @@ static u32 navi10_ih_get_wptr(struct amdgpu_device *ad=
+ev,
+ 	tmp =3D RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
+ 	tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+ 	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
++	ih->overflow =3D true;
+ out:
+ 	return (wptr & ih->ptr_mask);
+ }
+@@ -483,6 +484,7 @@ static void navi10_ih_irq_rearm(struct amdgpu_device *=
+adev,
+ static void navi10_ih_set_rptr(struct amdgpu_device *adev,
+ 			       struct amdgpu_ih_ring *ih)
+ {
++	u32 tmp;
+ 	struct amdgpu_ih_regs *ih_regs;
+
+ 	if (ih =3D=3D &adev->irq.ih_soft)
+@@ -499,6 +501,16 @@ static void navi10_ih_set_rptr(struct amdgpu_device *=
+adev,
+ 		ih_regs =3D &ih->ih_regs;
+ 		WREG32(ih_regs->ih_rb_rptr, ih->rptr);
+ 	}
++
++	/* If we overflowed previously (and thus set the OVERFLOW_CLEAR bit),
++	 * reset it here to detect more overflows if they occur.
++	 */
++	if (ih->overflow) {
++		tmp =3D RREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl);
++		tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
++		WREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl, tmp);
++		ih->overflow =3D false;
++	}
+ }
+
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/si_ih.c b/drivers/gpu/drm/amd/amdg=
+pu/si_ih.c
+index 9a24f17a5750..ff35056d2b54 100644
+=2D-- a/drivers/gpu/drm/amd/amdgpu/si_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/si_ih.c
+@@ -119,6 +119,7 @@ static u32 si_ih_get_wptr(struct amdgpu_device *adev,
+ 		tmp =3D RREG32(IH_RB_CNTL);
+ 		tmp |=3D IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK;
+ 		WREG32(IH_RB_CNTL, tmp);
++		ih->overflow =3D true;
+ 	}
+ 	return (wptr & ih->ptr_mask);
+ }
+@@ -147,7 +148,18 @@ static void si_ih_decode_iv(struct amdgpu_device *ade=
+v,
+ static void si_ih_set_rptr(struct amdgpu_device *adev,
+ 			   struct amdgpu_ih_ring *ih)
+ {
++	u32 tmp;
++
+ 	WREG32(IH_RB_RPTR, ih->rptr);
++
++	/* If we overflowed previously (and thus set the OVERFLOW_CLEAR bit),
++	 * reset it here to detect more overflows if they occur.
++	 */
++	if (ih->overflow) {
++		tmp =3D RREG32(IH_RB_CNTL);
++		tmp &=3D ~IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK;
++		WREG32(IH_RB_CNTL, tmp);
++	}
+ }
+
+ static int si_ih_early_init(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c b/drivers/gpu/drm/amd/a=
+mdgpu/tonga_ih.c
+index 917707bba7f3..6f5090d3db48 100644
+=2D-- a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
+@@ -218,6 +218,7 @@ static u32 tonga_ih_get_wptr(struct amdgpu_device *ade=
+v,
+ 	tmp =3D RREG32(mmIH_RB_CNTL);
+ 	tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+ 	WREG32(mmIH_RB_CNTL, tmp);
++	ih->overflow =3D true;
+
+ out:
+ 	return (wptr & ih->ptr_mask);
+@@ -268,6 +269,8 @@ static void tonga_ih_decode_iv(struct amdgpu_device *a=
+dev,
+ static void tonga_ih_set_rptr(struct amdgpu_device *adev,
+ 			      struct amdgpu_ih_ring *ih)
+ {
++	u32 tmp;
++
+ 	if (ih->use_doorbell) {
+ 		/* XXX check if swapping is necessary on BE */
+ 		*ih->rptr_cpu =3D ih->rptr;
+@@ -275,6 +278,16 @@ static void tonga_ih_set_rptr(struct amdgpu_device *a=
+dev,
+ 	} else {
+ 		WREG32(mmIH_RB_RPTR, ih->rptr);
+ 	}
++
++	/* If we overflowed previously (and thus set the OVERFLOW_CLEAR bit),
++	 * reset it here to detect more overflows if they occur.
++	 */
++	if (ih->overflow) {
++		tmp =3D RREG32(mmIH_RB_CNTL);
++		tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
++		WREG32(mmIH_RB_CNTL, tmp);
++		ih->overflow =3D false;
++	}
+ }
+
+ static int tonga_ih_early_init(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/=
+amdgpu/vega10_ih.c
+index d364c6dd152c..bb005924f194 100644
+=2D-- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+@@ -372,6 +372,7 @@ static u32 vega10_ih_get_wptr(struct amdgpu_device *ad=
+ev,
+ 	tmp =3D RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
+ 	tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+ 	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
++	ih->overflow =3D true;
+
+ out:
+ 	return (wptr & ih->ptr_mask);
+@@ -413,6 +414,7 @@ static void vega10_ih_irq_rearm(struct amdgpu_device *=
+adev,
+ static void vega10_ih_set_rptr(struct amdgpu_device *adev,
+ 			       struct amdgpu_ih_ring *ih)
+ {
++	u32 tmp;
+ 	struct amdgpu_ih_regs *ih_regs;
+
+ 	if (ih =3D=3D &adev->irq.ih_soft)
+@@ -429,6 +431,16 @@ static void vega10_ih_set_rptr(struct amdgpu_device *=
+adev,
+ 		ih_regs =3D &ih->ih_regs;
+ 		WREG32(ih_regs->ih_rb_rptr, ih->rptr);
+ 	}
++
++	/* If we overflowed previously (and thus set the OVERFLOW_CLEAR bit),
++	 * reset it here to detect more overflows if they occur.
++	 */
++	if (ih->overflow) {
++		tmp =3D RREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl);
++		tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
++		WREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl, tmp);
++		ih->overflow =3D false;
++	}
+ }
+
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/=
+amdgpu/vega20_ih.c
+index ddfc6941f9d5..bb725a970697 100644
+=2D-- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+@@ -420,6 +420,7 @@ static u32 vega20_ih_get_wptr(struct amdgpu_device *ad=
+ev,
+ 	tmp =3D RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
+ 	tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+ 	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
++	ih->overflow =3D true;
+
+ out:
+ 	return (wptr & ih->ptr_mask);
+@@ -462,6 +463,7 @@ static void vega20_ih_irq_rearm(struct amdgpu_device *=
+adev,
+ static void vega20_ih_set_rptr(struct amdgpu_device *adev,
+ 			       struct amdgpu_ih_ring *ih)
+ {
++	u32 tmp;
+ 	struct amdgpu_ih_regs *ih_regs;
+
+ 	if (ih =3D=3D &adev->irq.ih_soft)
+@@ -478,6 +480,16 @@ static void vega20_ih_set_rptr(struct amdgpu_device *=
+adev,
+ 		ih_regs =3D &ih->ih_regs;
+ 		WREG32(ih_regs->ih_rb_rptr, ih->rptr);
+ 	}
++
++	/* If we overflowed previously (and thus set the OVERFLOW_CLEAR bit),
++	 * reset it here to detect more overflows if they occur.
++	 */
++	if (ih->overflow) {
++		tmp =3D RREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl);
++		tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
++		WREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl, tmp);
++		ih->overflow =3D false;
++	}
+ }
+
+ /**
+=2D-
+2.43.0
 
