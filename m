@@ -4,41 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 869D5C47258
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 09:07:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11254C47422
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 09:07:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 420C210E224;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F90710E22F;
 	Mon, 15 Jan 2024 09:07:14 +0000 (UTC)
-Received: from smtp.smtpout.orange.fr (smtp-24.smtpout.orange.fr
- [80.12.242.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21E1310E055
- for <amd-gfx@lists.freedesktop.org>; Sun, 14 Jan 2024 15:14:39 +0000 (UTC)
-Received: from fedora.home ([92.140.202.140]) by smtp.orange.fr with ESMTPA
- id P2ByrR95z2jhsP2ByrsvDy; Sun, 14 Jan 2024 16:14:37 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1705245277;
- bh=DyxncyBb2TGhjTPDIO5OZaofh3nX75GnWep1Sd7CadU=;
- h=From:To:Cc:Subject:Date;
- b=eFh0JmdMRV7qpGMY7yfPjvMU1f7MZ9qtKW1SDUmqvVE6fliw9diJPe3raZn5FO+GP
- SxeXoutXn9VX3VWk0Ej/CDg2zfoeuRmWlPljl4hsmridG6GvNs0vKJaXeMksK0YAoa
- qdD4qEMba+hVinVJGZwhvbL5faxuDs/mUdPojSqZfGOnlMjMVdOkQyqygAGM+iK5wY
- oOau+vxJtzypBmGxtbHo6Ico3qjfbysbGw8VViCiGzNL/1LWH8ifZB3FgqI0tlzqJ7
- jg84JR8MdXYdt0QOHCrEF2YZoNN+wMEGxepcuIzhKI96dPlNAV2NW4qVdD86Y7myvM
- BXpw7e72l5a3Q==
-X-ME-Helo: fedora.home
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Sun, 14 Jan 2024 16:14:37 +0100
-X-ME-IP: 92.140.202.140
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH] drm/amdgpu: Remove usage of the deprecated ida_simple_xx() API
-Date: Sun, 14 Jan 2024 16:14:27 +0100
-Message-ID: <c3b8e4bfb819d901e532e90a2ae0efa9eb661c55.1705245232.git.christophe.jaillet@wanadoo.fr>
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A65DB10E1E0;
+ Sun, 14 Jan 2024 23:24:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=8seE2zIZMjrbRlZUpr7wsQh/besw/Ag80LVcyAuejxw=; b=yay+tf3R846p+lMi4BztI7vFTJ
+ k1v18na/FUgdTagA0zVYUl0sSI8nnpLBUOLhPZdzfKGmk4MXhJrMX7/ma183DYvSEopvvQwVfQgvx
+ 1ZeHyqw/wz2+U0pnL25gs9m6LsO4vJDjM1yWqEBCufIYKFLQZyV+K6GW6T8k6RkzHPa1PbfMsaEjD
+ JDIe4iQ8BcDhu08Q/9cpIeq+HspDV3NT9TnjqrSpZPePFNLD5ZjnSRZ4kjohO6f4S5ABS19ISthnt
+ pUvuNknQEI7s3bC9QMavVNBgbkA5/fA2NMotTMHRP7lYZ+UhIUP5lxQDQnU/WSH3DJ9TrzD6/l4JU
+ rpfMs8pQ==;
+Received: from [50.53.46.231] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1rP9qG-007Uve-2i; Sun, 14 Jan 2024 23:24:36 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amd/display: remove kernel-doc misuses in dmub_replay.c
+Date: Sun, 14 Jan 2024 15:24:34 -0800
+Message-ID: <20240114232436.32426-1-rdunlap@infradead.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 15 Jan 2024 09:07:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -52,48 +47,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Randy Dunlap <rdunlap@infradead.org>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-ida_alloc() and ida_free() should be preferred to the deprecated
-ida_simple_get() and ida_simple_remove().
+Change non-kernel-doc comments from "/**" to common "/*" to prevent
+kernel-doc warnings:
 
-Note that the upper limit of ida_simple_get() is exclusive, but the one of
-ida_alloc_range() is inclusive. So a -1 has been added when needed.
+dmub_replay.c:262: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+ * Set REPLAY power optimization flags and coasting vtotal.
+dmub_replay.c:284: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+ * send Replay general cmd to DMUB.
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Cc: dri-devel@lists.freedesktop.org
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-index ddd0891da116..3d7fcdeaf8cf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-@@ -62,9 +62,8 @@ int amdgpu_pasid_alloc(unsigned int bits)
- 	int pasid = -EINVAL;
- 
- 	for (bits = min(bits, 31U); bits > 0; bits--) {
--		pasid = ida_simple_get(&amdgpu_pasid_ida,
--				       1U << (bits - 1), 1U << bits,
--				       GFP_KERNEL);
-+		pasid = ida_alloc_range(&amdgpu_pasid_ida, 1U << (bits - 1),
-+					(1U << bits) - 1, GFP_KERNEL);
- 		if (pasid != -ENOSPC)
- 			break;
- 	}
-@@ -82,7 +81,7 @@ int amdgpu_pasid_alloc(unsigned int bits)
- void amdgpu_pasid_free(u32 pasid)
- {
- 	trace_amdgpu_pasid_freed(pasid);
--	ida_simple_remove(&amdgpu_pasid_ida, pasid);
-+	ida_free(&amdgpu_pasid_ida, pasid);
+diff -- a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
+--- a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
+@@ -258,7 +258,7 @@ static void dmub_replay_residency(struct
+ 		*residency = 0;
  }
  
- static void amdgpu_pasid_free_cb(struct dma_fence *fence,
--- 
-2.43.0
-
+-/**
++/*
+  * Set REPLAY power optimization flags and coasting vtotal.
+  */
+ static void dmub_replay_set_power_opt_and_coasting_vtotal(struct dmub_replay *dmub,
+@@ -280,7 +280,7 @@ static void dmub_replay_set_power_opt_an
+ 	dc_wake_and_execute_dmub_cmd(dc, &cmd, DM_DMUB_WAIT_TYPE_WAIT);
+ }
+ 
+-/**
++/*
+  * send Replay general cmd to DMUB.
+  */
+ static void dmub_replay_send_cmd(struct dmub_replay *dmub,
