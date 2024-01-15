@@ -4,117 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F337C3DA79
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 18:58:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03836C3DA79
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 19:07:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBE4910E37D;
-	Mon, 15 Jan 2024 18:58:24 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CBB610E364;
- Mon, 15 Jan 2024 18:58:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EB1810E30A;
+	Mon, 15 Jan 2024 19:07:57 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2050.outbound.protection.outlook.com [40.107.94.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50B9A10E30A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 19:07:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bk0yyPKlb5ZAq1fQzKYH+lEhNeZbKGVKYtUyzzAEsWpnUdAl0BDSEAhFJ75dpe2AjRBZn6PCZyuFhjTovwZ5YCb3mFbFKR55Cl/xiwREWXpvbXLWcmwWMSMuOqnL5fvOmzymYYCUjfVIIbA09IL176RQqjXqIkAppU8RURnCb0tjvCmHD+zQucKicmGICspIAsD4dEPhKMtnGQ9eoAKwfJHmX5KUGITLv2IdhqzdLVmTYWSgFEHfDRIr9e6pZK63qVFUPSz8DE0FVWKuPEf5v4wfSlpcyKm8caLC82abR6+G7LcOqWcx8dTMBTbtiWa0f6WALHfJ3OCVFz6Asucjpg==
+ b=QZKl5fgec0FniwbSaB87uxFJaP88nlf5i/HyNHZrBHXCMH/4xOzC9C0/vNXz/i+OR/HoUkU+4mnkhL35V/uaQeAMHAkigeRlHZi1/QM6eyEl9A0VOpe8vHaDRZeVorUvFvxAUOVLk7XNKTdeZtb97pnbL4B6C/IUX8HZ4uB4tV4HDY+iWgGmWLeNtwwr5xyRc9zQbYZEtvn4aCg06PmuG2920swQC6JYVe1TKJg/l7ze/OENr/DZXHn0NTNy/3Wg7zgI2skwWjmQnKGMTdqbVm2BwJS1nDNmPB24f0il+cADVW3VlhTSzTgVLpM2vmZKDjUOHgOjxZDCNbGguMLXjw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=klcuwU8uIW5PYFmV2OecKTfFuU+ebKVyj37+BOA0JO0=;
- b=NIQAHYnRqigfrpKUtcwfUAmuCNYCf98RjisuIIds7XrIQsn2QLOUC2+Ry21COvtqhaal9yorVT9wtBokb+BxQJmBGCYX+CVluyJU0cTIpBHd45nlvGxvEHPBRLw47F403+5uXmlMDlauWy5KJGKR9SnObZ57VDejtxpOuxBZ5C3CceNRy5tMz/y1r35PZdKS8b4Oq4DFbAFCkv80HsiB4YNqJV6ePBzZV9HYXz0gImAbpFoRrkrocReqxktCRRV9jddkExvNXjpYMJoP6G57EiFCdBHUKs5EVqhAWrPki084Q4da2jfIE2In/jyBLv1ulWYc91Xd8LwajF47362IBg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=uWS50BzVKlcsWxYc6GFjPKdOV1S6cKwr3/uXvua6JXw=;
+ b=O7i+sMBQ3Y/rIgx/AvjL3ES7jffx5j7e2UydNQ32HR048NHr1wWpkGEw/H49vwO/vG83ybYXlYsMtpQTBFk9bazjgWsoRRWtgI9XR4hsYqXmlBqIVUrPQJ8+3sCp08piaXudeLcV+cV/98yT+HglA3s634LZ6zwOtvTUzijnj2CzecN6ijI3+gC6q24VJIJTBsgrNZDaIPnoezaRPV8reRHKcpq+UmHH/HQVhzoiF4/RasIFRTKvbzA/+RevfYcoaPXOJhpWxTn9ZJlf+OmPLY19f0DdHwWrn1Q8ASITXnPTirX5897N1cSK37997sXwa2Ka4iWtrBECUImYEJYZgA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=klcuwU8uIW5PYFmV2OecKTfFuU+ebKVyj37+BOA0JO0=;
- b=j9V0T3crz97llJdDbmqOj33YWuZZiXw7LJXEGJQd03+qU5/ItU+4uMWAAILRMSq5La85ojUlmBFyFuJA9ctANrrgAW9C3cR9ebeOYSf4GyFB2xpoRZCC5LvBzfvCbKzOOPPgHc0YF3kV+FRAWpRGCAwR1T/Ri3yWiElmn5WiyH0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by PH7PR12MB7426.namprd12.prod.outlook.com (2603:10b6:510:201::18)
+ bh=uWS50BzVKlcsWxYc6GFjPKdOV1S6cKwr3/uXvua6JXw=;
+ b=StSFPee2bVeYFg1PKL/Uo7Kn6oi1ieE8/M4vEwhudntRP3EYZJTJL2KplCSpBFITMyNFkApyjghqHjjR2LTEC9XQwoSvuKKFKOg6fhb4ah8s09AS7oxB/g8ID1MSAfloBt9rxMaKqKpnNNOnOs683YLZvVyvH/UEUIX8TPvkKCU=
+Received: from CY5PR15CA0227.namprd15.prod.outlook.com (2603:10b6:930:88::25)
+ by PH7PR12MB6884.namprd12.prod.outlook.com (2603:10b6:510:1ba::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.19; Mon, 15 Jan
- 2024 18:58:19 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::ed98:3dd5:fe85:ead7]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::ed98:3dd5:fe85:ead7%4]) with mapi id 15.20.7181.022; Mon, 15 Jan 2024
- 18:58:19 +0000
-Message-ID: <63a87925-9af4-412c-9edc-1619ccb542c7@amd.com>
-Date: Mon, 15 Jan 2024 13:58:18 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: Proposal to add CRIU support to DRM render nodes
-From: Felix Kuehling <felix.kuehling@amd.com>
-To: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Dave Airlie <airlied@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
- criu@openvz.org
-References: <03a9977c-2044-40c7-9688-9ab326abb81c@amd.com>
-Content-Language: en-US
-Organization: AMD Inc.
-In-Reply-To: <03a9977c-2044-40c7-9688-9ab326abb81c@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR01CA0109.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:1::9) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.17; Mon, 15 Jan
+ 2024 19:07:52 +0000
+Received: from CY4PEPF0000E9CD.namprd03.prod.outlook.com
+ (2603:10b6:930:88:cafe::1a) by CY5PR15CA0227.outlook.office365.com
+ (2603:10b6:930:88::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.26 via Frontend
+ Transport; Mon, 15 Jan 2024 19:07:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000E9CD.mail.protection.outlook.com (10.167.241.140) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7181.14 via Frontend Transport; Mon, 15 Jan 2024 19:07:52 +0000
+Received: from jc-d.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 15 Jan
+ 2024 13:07:51 -0600
+From: Jay Cornwall <jay.cornwall@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdkfd: Use S_ENDPGM_SAVED in trap handler
+Date: Mon, 15 Jan 2024 13:07:33 -0600
+Message-ID: <20240115190733.1483942-1-jay.cornwall@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|PH7PR12MB7426:EE_
-X-MS-Office365-Filtering-Correlation-Id: d56873d0-8d74-4c16-d4b8-08dc15fbf091
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9CD:EE_|PH7PR12MB6884:EE_
+X-MS-Office365-Filtering-Correlation-Id: f933f8cc-414b-4cee-2bd3-08dc15fd45c6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LZIMYKfCa2VZhpxbcmPWzuJp64HCw9uat0XQzwpY0+TGjUSiy2KgTXjeQnaULhE5wvRwfGxNGRmuYm0gQr/3csx6ec8F4MM7MtqGgSDlL8Tl3fbAYvEkjnjiDCPgyQr7qDeHN7HkC/tqgIm1IvUXV6i6ai0LjNqaCgVm7kaDNcGZwNtqMaEnF6ojYPkmCxDI5LAmfoCBbjDEH+YE8RxVudQZJUEytHWZf1DmJD4LhP56Q81IBBUU/rqJn5nbTfp3QW7NP9aPE6R5Cis96CB+c7ejY5eDsUmVDUBcqckLCQFBYFERcIINEy2wrjOGiilfcm49aZMsv8bByCBfuuenyTPS7IgBwQjumyMViG+sX1lIJzlZuogDeI5P+gpKX0rQzPEdD8sC8BFdOO2eOuSYcy2Y2YASjTmxwzGNoK3KtJgv/YAyN2+YN+vKtayZHXRnkTPfDCWeb0PVFFIJIqa3mUnCv4ZALaxzT0P6bu2kB5RfprN2nsKQxGwPbxVHkzEBIkJkCeDMwl81asZUcOzfLw3+6YvnOCh6NHUc1QlgSmyVLAPkgdR4+xJzQrNuyl/n+kMqBikzx3LC8tJsIvr3DfUIda+srCGbhktVzSKyj7yTUv2H8GX/xiNEsCvDyyHzPJZjMwt6P4X761EJ43TuuyPU6Kvg/yv3Vn85ASOiW9U=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(376002)(396003)(366004)(346002)(39860400002)(230922051799003)(1800799012)(64100799003)(186009)(451199024)(5660300002)(8676002)(8936002)(2906002)(4326008)(31686004)(44832011)(66556008)(66946007)(66476007)(54906003)(316002)(110136005)(66899024)(6512007)(966005)(6506007)(6486002)(478600001)(3613699003)(41300700001)(83380400001)(36756003)(26005)(38100700002)(53546011)(36916002)(86362001)(31696002)(2616005)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: G+5sXoEO6WMWdho2DFAU7M0TVxjD412/sdEnCJ3juHkH/TtY17/7ZLcQ6LEEFLTTM7jzh/8HBE69zJoOameOGa4ts+u9f2TyRL5T1htgn60udK4iNPQuehzkjW7ll27P63uh786Kew6lypYUFQ+qSJrS0CoLtUj1mb5g2e6HZSJbeOAdKGXhKF06HQq2aSCocEnQJjqn6opRitwdFkerlANzoQQqbSO4jmoTMqyjubP6FF862Ddxr9fqr9hSHaYyWOLIxiVKEV4CFk9ddg7n0/AHcyl+gSbT+yPR69GuYD9eDmBwwHHJZegEfbijCRXIsULAVOzxc8noHAth3h5hpNaTZtv46g0j6MNxhuDA8QiagUPCSD2EfnV08MUsj7uEUi9XC8PJ+Dve0BcBB2Fm6D0KndV9tJfN4bboLqReAS3kFIif9POiZE74fVZgqWDmiSmIaKM7oYfwtcns84vVpNvCM192TSybTKYfZKVhwZnk+GUEdX3T0Bre0dTrF+7Q4O+9mlsH6Eh5R2hpyhbkCicrz8zuGCSjCRtNBmnFn1YWIjggx5R1di1LuFt9ngtm9ofTdKdiKCqB4ieFoZ/0p0lW+pIokwm42pG6lIV1A/bhpaTLCtA+x5cclF/67vJdlUqaUnh98ZC0VzseC0wVLGefQCc2kR5lXu3Yyt3BkJIoPhB/4b7IrexElLEAu3XgdRAySywkmMfOaQVP+xIwG9vbkrQZ5nD9hyt1iybAQ02/dEMwnvjKDG3/dAMX6/KcUsz1Yk7+1UsuxtxaZGEY5Q==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(39860400002)(396003)(346002)(376002)(136003)(230922051799003)(1800799012)(82310400011)(186009)(451199024)(64100799003)(40470700004)(36840700001)(46966006)(40480700001)(40460700003)(83380400001)(426003)(336012)(36756003)(26005)(41300700001)(82740400003)(356005)(86362001)(70586007)(47076005)(16526019)(70206006)(81166007)(316002)(2616005)(1076003)(5660300002)(7696005)(4326008)(6666004)(36860700001)(6916009)(8676002)(44832011)(8936002)(2906002)(478600001)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UmJ0ZGlGM0M0TGpJdE94cmYySW9KbHFnYk1UbWRBR2ZhcEFrYW1XaHBiekY0?=
- =?utf-8?B?dEV1eklrd2xCN1hteWgyeUN5Vm1xUzU0NFN4THlHUjZHcXJRTEJGd1grUVhl?=
- =?utf-8?B?STlZSnlwTVlXODZkTXY3U2FmaDUyc2o2c0d6TUNJVXpQV1pscWNvS3NmQWs2?=
- =?utf-8?B?R2hGWWFRTllhMitWcWpHQk02d1dGZVFXekhwa1BGckE1M09EVXpMZ0pLSFBx?=
- =?utf-8?B?MjluYTJGSjc1UEQvaEZabGdqUkRFRkpVSWJURWIrdGVMSnV5ZjE2NlJJUmNI?=
- =?utf-8?B?QkhGRGZ2ZnU4RDJ3dkVHR0pmVy9KUVZLcTdjcDM5NlpqNlkrRElEV25OQWQw?=
- =?utf-8?B?am1JanZLeGRJV29Fb1BndHQ4bGs0ZStydW9wUkVWVUM1bzNNUWJsNkJXMFVB?=
- =?utf-8?B?dmdhUWxtNVc2T3AyaDh2T2tEVVFQcy94S25Tb3dGM1c0bVFJNnBRenJUdzhE?=
- =?utf-8?B?c3ExOXhqdFZKQmNOVHBsbWtuNEpxOEl2N0QrSTdTWVI0d0RKYmNKOGZqdWVl?=
- =?utf-8?B?ZHhBZTRHeUpsUVEyRXlNSUV1b1BKdVo2bXAyYVA1MHVGekx4cDlHUkZYYTlL?=
- =?utf-8?B?VXNOYlNWMDhVdlc0ZFduYkM5MHU4TUFNaFVsbmRnT2JvQnRtd0pJaURUWXZv?=
- =?utf-8?B?U2Y4T3J4QmJ3MUoyMVQ3UzVKVXFXcFlKNUJvendpaDN3K09IdVQrMmkyekJK?=
- =?utf-8?B?ZlVzR2tueCtzQVFKWG1XbVpDTlpqZVAxN3pYUTNZL3J3U0VTTUZrRHY2b2g0?=
- =?utf-8?B?aWFCMURONlJmUHQvMndCQjBVWFR4N2RYWHJTWTA3M0RMQ3VDN3lyUElyU01m?=
- =?utf-8?B?SDhoektHQU11cEVxb3FSMkwxZStPRm14c3dMYWM0djBJQ3pJcHl3aU81czF3?=
- =?utf-8?B?S2J4djh4WCt6am45Y1lJNmdaYVViL0dmaUlKQ2RvQXprT0Q3Zm1NTk5pTVB3?=
- =?utf-8?B?SXIrSmprcThkOVFFNjdhS0V2YWdHNWpMd0d5eEFQcEp4V2dWYU1JTW1TTGgr?=
- =?utf-8?B?MDJ4S2RvZmFOQzlxVmo5V2JHaExxa3ZZUHRleFdMK1YvSnBDZHM5Mmx6dG5a?=
- =?utf-8?B?VmcxMHBYa3FEWGNyd0Y5ZS9SNFVuU0xlTFVtN3ZYK0h1K3I5cHFaWHFJbDRJ?=
- =?utf-8?B?TGFDVkQ4N0RacEdkTmhJS1hJQ2RlUU1GQ211cjNtSG9PL3NPdzlLS1RhU2lM?=
- =?utf-8?B?Nk9Oa0FneHdBWGhFNi9xVHJmQ3RNNnJnUFlLZ1djcVEwYmcwLytqRWZpcVlX?=
- =?utf-8?B?ZWJ5a2taN1VkdlFyaU5pbkxRYUh4S3pLTnhsRWJHcUQ3YXBsU2NxOVREMVJ2?=
- =?utf-8?B?a3NmK2w3L2NveWtTWFVTZFNleGhKbnVKT0ZIaWRiZTZ3UDVrd3VmZWRjUmJN?=
- =?utf-8?B?d3RjTENFUWZJbGpGQ0dlczY3NkNhYVcwVTN0WTFjTVN4eVArSnl5UWN4VG5r?=
- =?utf-8?B?eGVXN0MvUWRPbmlpMklHYjRteFJGY2pISG1VNjJwTks2RGRZYTFmeldMVHBk?=
- =?utf-8?B?d09EWWFzeHNpNXJBemRGZlI1MFZTU3BSYUw1VzhDTSs0UXNMR1FyLzRyNWZ6?=
- =?utf-8?B?QjhsdnFWd0VaemxYdFJGemRuemZuVWlKYm4yOHlRTWVCR1RTamlMMjQ2UW4z?=
- =?utf-8?B?RXoyZVN0TjZaME0ybHBrUEU1ekQ5WTA5SnBaVXJLU1J1UDFmSlZia3FXTDZV?=
- =?utf-8?B?OHZVUGtlVDdieTJsTUZaTU1ULzM0K0I1VGdNbURUcEhzMnhvZFVJVldPby9I?=
- =?utf-8?B?Tzl0cy9paGU0RXU1bjhCb0ZEem44SE41eERWUmt2MFRGMGxHS29uRVlLRkRt?=
- =?utf-8?B?cld0bUpSVlYyVGdYZGs1dVhiSlBRUDY4RGxUSW1oWnJaUldCdWZqTEZQSFdN?=
- =?utf-8?B?Ymtnc1RaTTdEY3gxSWNUMmRTMTNmNGlhUmRLcWhabkM0OThKTGxEOHlMVmJW?=
- =?utf-8?B?dVkxMW9WcVBYU2dQMnFDaTdaMk5RVFk3bmNGazZSOU5iVFpEdUpvNXlRbmdk?=
- =?utf-8?B?TUM1Wi9HZExWay9BRXRPQ2VSanpLYnMxQU1JOUZITTRPUlBEK0d1WExTN0Jk?=
- =?utf-8?B?c1JYL0RJNDQyRHpBZTNpcUdMY2ZoZUt5cW9VdlU5VGtRekJ1d3d2Skd1Y2xZ?=
- =?utf-8?Q?zwkdmXAs/45PfWAXOhXJV5L8c?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d56873d0-8d74-4c16-d4b8-08dc15fbf091
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2024 18:58:19.7950 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2024 19:07:52.0354 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f933f8cc-414b-4cee-2bd3-08dc15fd45c6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XBOhkabsqNhOqT+qgnlcocgC7WN/FIaZbp05X2OjSiBUFmYJsuvGyZY3b6K5uzBj+rgbT+5eLEJ5BQ7ihYIqFQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7426
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9CD.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6884
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,165 +97,111 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Errabolu, Ramesh" <Ramesh.Errabolu@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Jay Cornwall <jay.cornwall@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I haven't seen any replies to this proposal. Either it got lost in the 
-pre-holiday noise, or there is genuinely no interest in this.
+This instruction has no functional difference to S_ENDPGM
+but allows performance counters to track save events correctly.
 
-If it's the latter, I would look for an AMDGPU driver-specific solution 
-with minimally invasive changes in DRM and DMABuf code, if needed. Maybe 
-it could be generalized later if there is interest then.
+Signed-off-by: Jay Cornwall <jay.cornwall@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h     | 14 +++++++-------
+ .../gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm |  2 +-
+ .../gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm  |  2 +-
+ 3 files changed, 9 insertions(+), 9 deletions(-)
 
-Regards,
-   Felix
+diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
+index df75863393fc..d1caaf0e6a7c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
++++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
+@@ -674,7 +674,7 @@ static const uint32_t cwsr_trap_gfx9_hex[] = {
+ 	0x86ea6a6a, 0x8f6e837a,
+ 	0xb96ee0c2, 0xbf800002,
+ 	0xb97a0002, 0xbf8a0000,
+-	0xbe801f6c, 0xbf810000,
++	0xbe801f6c, 0xbf9b0000,
+ };
+ 
+ static const uint32_t cwsr_trap_nv1x_hex[] = {
+@@ -1091,7 +1091,7 @@ static const uint32_t cwsr_trap_nv1x_hex[] = {
+ 	0xb9eef807, 0x876dff6d,
+ 	0x0000ffff, 0x87fe7e7e,
+ 	0x87ea6a6a, 0xb9faf802,
+-	0xbe80226c, 0xbf810000,
++	0xbe80226c, 0xbf9b0000,
+ 	0xbf9f0000, 0xbf9f0000,
+ 	0xbf9f0000, 0xbf9f0000,
+ 	0xbf9f0000, 0x00000000,
+@@ -1574,7 +1574,7 @@ static const uint32_t cwsr_trap_arcturus_hex[] = {
+ 	0x86ea6a6a, 0x8f6e837a,
+ 	0xb96ee0c2, 0xbf800002,
+ 	0xb97a0002, 0xbf8a0000,
+-	0xbe801f6c, 0xbf810000,
++	0xbe801f6c, 0xbf9b0000,
+ };
+ 
+ static const uint32_t cwsr_trap_aldebaran_hex[] = {
+@@ -2065,7 +2065,7 @@ static const uint32_t cwsr_trap_aldebaran_hex[] = {
+ 	0x86ea6a6a, 0x8f6e837a,
+ 	0xb96ee0c2, 0xbf800002,
+ 	0xb97a0002, 0xbf8a0000,
+-	0xbe801f6c, 0xbf810000,
++	0xbe801f6c, 0xbf9b0000,
+ };
+ 
+ static const uint32_t cwsr_trap_gfx10_hex[] = {
+@@ -2500,7 +2500,7 @@ static const uint32_t cwsr_trap_gfx10_hex[] = {
+ 	0x876dff6d, 0x0000ffff,
+ 	0x87fe7e7e, 0x87ea6a6a,
+ 	0xb9faf802, 0xbe80226c,
+-	0xbf810000, 0xbf9f0000,
++	0xbf9b0000, 0xbf9f0000,
+ 	0xbf9f0000, 0xbf9f0000,
+ 	0xbf9f0000, 0xbf9f0000,
+ };
+@@ -2944,7 +2944,7 @@ static const uint32_t cwsr_trap_gfx11_hex[] = {
+ 	0xb8eef802, 0xbf0d866e,
+ 	0xbfa20002, 0xb97af802,
+ 	0xbe80486c, 0xb97af802,
+-	0xbe804a6c, 0xbfb00000,
++	0xbe804a6c, 0xbfb10000,
+ 	0xbf9f0000, 0xbf9f0000,
+ 	0xbf9f0000, 0xbf9f0000,
+ 	0xbf9f0000, 0x00000000,
+@@ -3436,5 +3436,5 @@ static const uint32_t cwsr_trap_gfx9_4_3_hex[] = {
+ 	0x86ea6a6a, 0x8f6e837a,
+ 	0xb96ee0c2, 0xbf800002,
+ 	0xb97a0002, 0xbf8a0000,
+-	0xbe801f6c, 0xbf810000,
++	0xbe801f6c, 0xbf9b0000,
+ };
+diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm
+index e0140df0b0ec..71b3dc0c7363 100644
+--- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm
++++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm
+@@ -1104,7 +1104,7 @@ L_RETURN_WITHOUT_PRIV:
+ 	s_rfe_b64	s_restore_pc_lo						//Return to the main shader program and resume execution
+ 
+ L_END_PGM:
+-	s_endpgm
++	s_endpgm_saved
+ end
+ 
+ function write_hwreg_to_mem(s, s_rsrc, s_mem_offset)
+diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm
+index e506411ad28a..bb26338204f4 100644
+--- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm
++++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm
+@@ -921,7 +921,7 @@ L_RESTORE:
+ /*			the END						  */
+ /**************************************************************************/
+ L_END_PGM:
+-    s_endpgm
++    s_endpgm_saved
+ 
+ end
+ 
+-- 
+2.25.1
 
-
-On 2023-12-06 16:23, Felix Kuehling wrote:
-> Executive Summary: We need to add CRIU support to DRM render nodes in 
-> order to maintain CRIU support for ROCm application once they start 
-> relying on render nodes for more GPU memory management. In this email 
-> I'm providing some background why we are doing this, and outlining 
-> some of the problems we need to solve to checkpoint and restore render 
-> node state and shared memory (DMABuf) state. I have some thoughts on 
-> the API design, leaning on what we did for KFD, but would like to get 
-> feedback from the DRI community regarding that API and to what extent 
-> there is interest in making that generic.
->
-> We are working on using DRM render nodes for virtual address mappings 
-> in ROCm applications to implement the CUDA11-style VM API and improve 
-> interoperability between graphics and compute. This uses DMABufs for 
-> sharing buffer objects between KFD and multiple render node devices, 
-> as well as between processes. In the long run this also provides a 
-> path to moving all or most memory management from the KFD ioctl API to 
-> libdrm.
->
-> Once ROCm user mode starts using render nodes for virtual address 
-> management, that creates a problem for checkpointing and restoring 
-> ROCm applications with CRIU. Currently there is no support for 
-> checkpointing and restoring render node state, other than CPU virtual 
-> address mappings. Support will be needed for checkpointing GEM buffer 
-> objects and handles, their GPU virtual address mappings and memory 
-> sharing relationships between devices and processes.
->
-> Eventually, if full CRIU support for graphics applications is desired, 
-> more state would need to be captured, including scheduler contexts and 
-> BO lists. Most of this state is driver-specific.
->
-> After some internal discussions we decided to take our design process 
-> public as this potentially touches DRM GEM and DMABuf APIs and may 
-> have implications for other drivers in the future.
->
-> One basic question before going into any API details: Is there a 
-> desire to have CRIU support for other DRM drivers?
->
-> With that out of the way, some considerations for a possible DRM CRIU 
-> API (either generic of AMDGPU driver specific): The API goes through 
-> several phases during checkpoint and restore:
->
-> Checkpoint:
->
->  1. Process-info (enumerates objects and sizes so user mode can
->     allocate memory for the checkpoint, stops execution on the GPU)
->  2. Checkpoint (store object metadata for BOs, queues, etc.)
->  3. Unpause (resumes execution after the checkpoint is complete)
->
-> Restore:
->
->  1. Restore (restore objects, VMAs are not in the right place at this
->     time)
->  2. Resume (final fixups after the VMAs are sorted out, resume execution)
->
-> For some more background about our implementation in KFD, you can 
-> refer to this whitepaper: 
-> https://github.com/checkpoint-restore/criu/blob/criu-dev/plugins/amdgpu/README.md
->
-> Potential objections to a KFD-style CRIU API in DRM render nodes, I'll 
-> address each of them in more detail below:
->
->   * Opaque information in the checkpoint data that user mode can't
->     interpret or do anything with
->   * A second API for creating objects (e.g. BOs) that is separate from
->     the regular BO creation API
->   * Kernel mode would need to be involved in restoring BO sharing
->     relationships rather than replaying BO creation, export and import
->     from user mode
->
-> # Opaque information in the checkpoint
->
-> This comes out of ABI compatibility considerations. Adding any new 
-> objects or attributes to the driver/HW state that needs to be 
-> checkpointed could potentially break the ABI of the CRIU 
-> checkpoint/restore ioctl if the plugin needs to parse that 
-> information. Therefore, much of the information in our KFD CRIU ioctl 
-> API is opaque. It is written by kernel mode in the checkpoint, it is 
-> consumed by kernel mode when restoring the checkpoint, but user mode 
-> doesn't care about the contents or binary layout, so there is no user 
-> mode ABI to break. This is how we were able to maintain CRIU support 
-> when we added the SVM API to KFD without changing the CRIU plugin and 
-> without breaking our ABI.
->
-> Opaque information may also lend itself to API abstraction, if this 
-> becomes a generic DRM API with driver-specific callbacks that fill in 
-> HW-specific opaque data.
->
-> # Second API for creating objects
->
-> Creating BOs and other objects when restoring a checkpoint needs more 
-> information than the usual BO alloc and similar APIs provide. For 
-> example, we need to restore BOs with the same GEM handles so that user 
-> mode can continue using those handles after resuming execution. If BOs 
-> are shared through DMABufs without dynamic attachment, we need to 
-> restore pinned BOs as pinned. Validation of virtual addresses and 
-> handling MMU notifiers must be suspended until the virtual address 
-> space is restored. For user mode queues we need to save and restore a 
-> lot of queue execution state so that execution can resume cleanly.
->
-> # Restoring buffer sharing relationships
->
-> Different GEM handles in different render nodes and processes can 
-> refer to the same underlying shared memory, either by directly 
-> pointing to the same GEM object, or by creating an import attachment 
-> that may get its SG tables invalidated and updated dynamically through 
-> dynamic attachment callbacks. In the latter case it's obvious, who is 
-> the exporter and who is the importer. In the first case, either one 
-> could be the exporter, and it's not clear who would need to create the 
-> BO and who would need to import it when restoring the checkpoint. To 
-> further complicate things, multiple processes in a checkpoint get 
-> restored concurrently. So there is no guarantee that an exporter has 
-> restored a shared BO at the time an importer is trying to restore its 
-> import.
->
-> A proposal to deal with these problems would be to treat importers and 
-> exporters the same. Whoever restores first, ends up creating the BO 
-> and potentially attaching to it. The other process(es) can find BOs 
-> that were already restored by another process by looking it up with a 
-> unique ID that could be based on the DMABuf inode number. An 
-> alternative would be a two-pass approach that needs to restore BOs on 
-> two passes:
->
->  1. Restore exported BOs
->  2. Restore imports
->
-> With some inter-process synchronization in CRIU itself between these 
-> two passes. This may require changes in the core CRIU, outside our 
-> plugin. Both approaches depend on identifying BOs with some unique ID 
-> that could be based on the DMABuf inode number in the checkpoint. 
-> However, we would need to identify the processes in the same restore 
-> session, possibly based on parent/child process relationships, to 
-> create a scope where those IDs are valid during restore.
->
-> Finally, we would also need to checkpoint and restore DMABuf file 
-> descriptors themselves. These are anonymous file descriptors. The CRIU 
-> plugin could probably be taught to recreate them from the original 
-> exported BO based on the inode number that could be queried with fstat 
-> in the checkpoint. It would need help from the render node CRIU API to 
-> find the right BO from the inode, which may be from a different 
-> process in the same restore session.
->
-> Regards,
->   Felix
->
->
