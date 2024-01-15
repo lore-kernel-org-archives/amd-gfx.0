@@ -4,58 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31077C3DA79
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 17:03:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C672CC3DA79
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 17:10:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68C7E10E31C;
-	Mon, 15 Jan 2024 17:03:10 +0000 (UTC)
-Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
- [IPv6:2001:4860:4864:20::29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50B1D10E2F1;
- Mon, 15 Jan 2024 17:03:08 +0000 (UTC)
-Received: by mail-oa1-x29.google.com with SMTP id
- 586e51a60fabf-205f223639fso5656737fac.2; 
- Mon, 15 Jan 2024 09:03:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1705338187; x=1705942987; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1fgUZQcmOYmK00Ogyq1MRr9eNSSyjdevfo9jMdY5qKc=;
- b=izZMV7Nvhd0EXfwq/7tgCzijyVo/lZK7Ay/gVsaWtLcfh0XNgAuwfYfdCVvPUrxyDL
- ACb1BklkpfvQGe5nZ7nUckLUlKRIuOcFQv7yJJhtuFWA+vFUDkzo2gtHabFENylZgMmV
- HRwxvhD0tYQhs5T5BKVXkCQ4yuREa5/JeSI2X5HKiV0g55NdScMDXiN0Rsa6Uzc348qM
- xn+tyHSEcSPzhgIuzKqVxu7GLbKaLNEo+27diih2KSgAs6hq3Wi+TP/sUAGcHcm06yiT
- D1lc0IXqDS9F8sTSqarkSLUUa9p7vXqfvG+Qn6xOALn3b1PrxWqNkvHYR2zMHiKDCUQC
- lujw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705338187; x=1705942987;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=1fgUZQcmOYmK00Ogyq1MRr9eNSSyjdevfo9jMdY5qKc=;
- b=txHqPRQ2WwTQpXTkSM6xVN1Lh8WdbhGZKAacxOY8u2RryE3PTeFZHhuBIUwjFL/WcU
- 0FBRyqUcWrKKQsF08aU/YLidniBTBNmWRFk88T9mhfEyRp9UaL7DYC5rYfDeo3OqwUId
- hrk1ICw/cSPak8VPtx9ovaXpoY9pdDAYEe+blnb0x/N6yMWAOcOpbJYPp61XEMcfoBHn
- 06f9BlNVgxsQc4Xzy1sPbBoPL2gF0/dqXrjRCCiveBQhNLgZ7xxC9o0YmMicltQaMJgS
- w36qNPVdBEQuP2/pX1nE6p/hhMcY9ivMuLpIaN99U1l1ubTK+kcC/Cq5qSjlSiJIfI+r
- Y9Gw==
-X-Gm-Message-State: AOJu0YzF1Y7Mw+/WTCBg+tkPVzZsq47okJX0Dn4cMj15fOPyoVuPvKBZ
- TcWmwg8AR23lsI0FyYfHJRZZ0Ym9jxfn194IEWY=
-X-Google-Smtp-Source: AGHT+IFmx4SZyITP3d+ZK651GFMqNPBuYso6fpXg81BJnj4lbZuuy4vSQXVTwX0qy3cGNCgd17/hwjkyHjrdVGb8NJ0=
-X-Received: by 2002:a05:6871:8798:b0:205:c4d3:ef8d with SMTP id
- td24-20020a056871879800b00205c4d3ef8dmr8820687oab.104.1705338187418; Mon, 15
- Jan 2024 09:03:07 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 568AD10E34C;
+	Mon, 15 Jan 2024 17:10:00 +0000 (UTC)
+Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 738CF10E34C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 17:09:58 +0000 (UTC)
+Received: from [192.168.1.137] ([213.144.156.170])
+ by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
+ 01202401151809540098; Mon, 15 Jan 2024 18:09:54 +0100
+Message-ID: <1dbe811f-64a0-4ccd-88cf-3fd30f79f7bc@daenzer.net>
+Date: Mon, 15 Jan 2024 18:09:48 +0100
 MIME-Version: 1.0
-References: <20240110-amdgpu-display-enum-enum-conversion-v1-1-953ae94fe15e@kernel.org>
-In-Reply-To: <20240110-amdgpu-display-enum-enum-conversion-v1-1-953ae94fe15e@kernel.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 15 Jan 2024 12:02:55 -0500
-Message-ID: <CADnq5_OH_YtGww2HUG5vypVmYgR6t-0Hup=apmUwQx+tQszeLg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Avoid enum conversion warning
-To: Nathan Chancellor <nathan@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/amdgpu: Mark ctx as guilty in ring_soft_recovery
+ path
+Content-Language: de-CH-frami, en-CA
+To: Joshua Ashton <joshua@froggi.es>, Friedrich Vock <friedrich.vock@gmx.de>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20240113140206.2383133-1-joshua@froggi.es>
+ <20240113140206.2383133-2-joshua@froggi.es>
+ <c9b839cd-4c42-42a6-8969-9a7b54d4fbe8@amd.com>
+ <0e701278-a633-403c-b397-e4f772d66c5a@froggi.es>
+ <aca706e6-58bc-4c38-bbfe-19137f38c897@gmail.com>
+ <9a07c4e4-321c-4f75-aeae-81ed90038365@daenzer.net>
+ <f2153219-e791-4e97-96eb-26094d7acf87@froggi.es>
+ <5c99ec8c-142d-4877-9624-c8ce0373fccd@gmx.de>
+ <5ff32f43-46ea-4e74-8db4-c23e0b03b429@daenzer.net>
+ <8e5cd59e-075a-480e-8452-87924580122d@froggi.es>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
+Autocrypt: addr=michel@daenzer.net; keydata=
+ xsDiBDsehS8RBACbsIQEX31aYSIuEKxEnEX82ezMR8z3LG8ktv1KjyNErUX9Pt7AUC7W3W0b
+ LUhu8Le8S2va6hi7GfSAifl0ih3k6Bv1Itzgnd+7ZmSrvCN8yGJaHNQfAevAuEboIb+MaVHo
+ 9EMJj4ikOcRZCmQWw7evu/D9uQdtkCnRY9iJiAGxbwCguBHtpoGMxDOINCr5UU6qt+m4O+UD
+ /355ohBBzzyh49lTj0kTFKr0Ozd20G2FbcqHgfFL1dc1MPyigej2gLga2osu2QY0ObvAGkOu
+ WBi3LTY8Zs8uqFGDC4ZAwMPoFy3yzu3ne6T7d/68rJil0QcdQjzzHi6ekqHuhst4a+/+D23h
+ Za8MJBEcdOhRhsaDVGAJSFEQB1qLBACOs0xN+XblejO35gsDSVVk8s+FUUw3TSWJBfZa3Imp
+ V2U2tBO4qck+wqbHNfdnU/crrsHahjzBjvk8Up7VoY8oT+z03sal2vXEonS279xN2B92Tttr
+ AgwosujguFO/7tvzymWC76rDEwue8TsADE11ErjwaBTs8ZXfnN/uAANgPM0jTWljaGVsIERh
+ ZW56ZXIgPG1pY2hlbEBkYWVuemVyLm5ldD7CXgQTEQIAHgUCQFXxJgIbAwYLCQgHAwIDFQID
+ AxYCAQIeAQIXgAAKCRBaga+OatuyAIrPAJ9ykonXI3oQcX83N2qzCEStLNW47gCeLWm/QiPY
+ jqtGUnnSbyuTQfIySkLOwE0EOx6FRRAEAJZkcvklPwJCgNiw37p0GShKmFGGqf/a3xZZEpjI
+ qNxzshFRFneZze4f5LhzbX1/vIm5+ZXsEWympJfZzyCmYPw86QcFxyZflkAxHx9LeD+89Elx
+ bw6wT0CcLvSv8ROfU1m8YhGbV6g2zWyLD0/naQGVb8e4FhVKGNY2EEbHgFBrAAMGA/0VktFO
+ CxFBdzLQ17RCTwCJ3xpyP4qsLJH0yCoA26rH2zE2RzByhrTFTYZzbFEid3ddGiHOBEL+bO+2
+ GNtfiYKmbTkj1tMZJ8L6huKONaVrASFzLvZa2dlc2zja9ZSksKmge5BOTKWgbyepEc5qxSju
+ YsYrX5xfLgTZC5abhhztpcJGBBgRAgAGBQI7HoVFAAoJEFqBr45q27IAlscAnjICalDn2zB1
+ fXqoOkGsTwElvKa5AJ9FhyKJpysFRcejfdZwrwl9xb4oOg==
+In-Reply-To: <8e5cd59e-075a-480e-8452-87924580122d@froggi.es>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CTCH: RefID="str=0001.0A782F1F.65A566E3.0058,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
+ Spam="Unknown"; VOD="Unknown"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,72 +71,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, arnd@arndb.de, sunpeng.li@amd.com, llvm@lists.linux.dev,
- Rodrigo.Siqueira@amd.com, patches@lists.linux.dev,
- dri-devel@lists.freedesktop.org, cruise.hung@amd.com,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- harry.wentland@amd.com, christian.koenig@amd.com, peichen.huang@amd.com
+Cc: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On 2024-01-15 17:46, Joshua Ashton wrote:
+> On 1/15/24 16:34, Michel Dänzer wrote:
+>> On 2024-01-15 17:19, Friedrich Vock wrote:
+>>> On 15.01.24 16:43, Joshua Ashton wrote:
+>>>> On 1/15/24 15:25, Michel Dänzer wrote:
+>>>>> On 2024-01-15 14:17, Christian König wrote:
+>>>>>> Am 15.01.24 um 12:37 schrieb Joshua Ashton:
+>>>>>>> On 1/15/24 09:40, Christian König wrote:
+>>>>>>>> Am 13.01.24 um 15:02 schrieb Joshua Ashton:
+>>>>>>>>
+>>>>>>>>> Without this feedback, the application may keep pushing through
+>>>>>>>>> the soft
+>>>>>>>>> recoveries, continually hanging the system with jobs that timeout.
+>>>>>>>>
+>>>>>>>> Well, that is intentional behavior. Marek is voting for making
+>>>>>>>> soft recovered errors fatal as well while Michel is voting for
+>>>>>>>> better ignoring them.
+>>>>>>>>
+>>>>>>>> I'm not really sure what to do. If you guys think that soft
+>>>>>>>> recovered hangs should be fatal as well then we can certainly do
+>>>>>>>> this.
+>>>>>
+>>>>> A possible compromise might be making soft resets fatal if they
+>>>>> happen repeatedly (within a certain period of time?).
+>>>>
+>>>> No, no and no. Aside from introducing issues by side effects not
+>>>> surfacing and all of the stuff I mentioned about descriptor buffers,
+>>>> bda, draw indirect and stuff just resulting in more faults and hangs...
+>>>>
+>>>> You are proposing we throw out every promise we made to an application
+>>>> on the API contract level because it "might work". That's just wrong!
+>>>>
+>>>> Let me put this in explicit terms: What you are proposing is in direct
+>>>> violation of the GL and Vulkan specification.
+>>>>
+>>>> You can't just chose to break these contracts because you think it
+>>>> 'might' be a better user experience.
+>>>
+>>> Is the original issue that motivated soft resets to be non-fatal even an
+>>> issue anymore?
+>>>
+>>> If I read that old thread correctly, the rationale for that was that
+>>> assigning guilt to a context was more broken than not doing it, because
+>>> the compositor/Xwayland process would also crash despite being unrelated
+>>> to the hang.
+>>> With Joshua's Mesa fixes, this is not the case anymore, so I don't think
+>>> keeping soft resets non-fatal provides any benefit to the user experience.
+>>> The potential detriments to user experience have been outlined multiple
+>>> times in this thread already.
+>>>
+>>> (I suppose if the compositor itself faults it might still bring down a
+>>> session, but I've literally never seen that, and it's not like a
+>>> compositor triggering segfaults on CPU stays alive either.)
+>>
+>> That's indeed what happened for me, multiple times. And each time the session continued running fine for days after the soft reset.
+>>
+>> But apparently my experience isn't valid somehow, and I should have been forced to log in again to please the GL gods...
+>>
+>>
+>> Conversely, I can't remember hitting a case where an app kept running into soft resets. It's almost as if different people may have different experiences! ;)
+> 
+> Your anecdote of whatever application coincidentally managing to soldier through being hung is really not relevant.
 
-On Wed, Jan 10, 2024 at 3:56=E2=80=AFPM Nathan Chancellor <nathan@kernel.or=
-g> wrote:
->
-> Clang warns (or errors with CONFIG_WERROR=3Dy) when performing arithmetic
-> with different enumerated types, which is usually a bug:
->
->     drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_dpia_=
-bw.c:548:24: error: arithmetic between different enumeration types ('const =
-enum dc_link_rate' and 'const enum dc_lane_count') [-Werror,-Wenum-enum-con=
-version]
->       548 |                         link_cap->link_rate * link_cap->lane_=
-count * LINK_RATE_REF_FREQ_IN_KHZ * 8;
->           |                         ~~~~~~~~~~~~~~~~~~~ ^ ~~~~~~~~~~~~~~~=
-~~~~~
->     1 error generated.
->
-> In this case, there is not a problem because the enumerated types are
-> basically treated as '#define' values. Add an explicit cast to an
-> integral type to silence the warning.
->
-> Closes: https://github.com/ClangBuiltLinux/linux/issues/1976
-> Fixes: 5f3bce13266e ("drm/amd/display: Request usb4 bw for mst streams")
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-> ---
->  drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c | 5 +++-=
--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_b=
-w.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
-> index 4ef1a6a1d129..dd0d2b206462 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
-> @@ -544,8 +544,9 @@ int link_dp_dpia_get_dp_overhead_in_dp_tunneling(stru=
-ct dc_link *link)
->                  */
->                 const struct dc_link_settings *link_cap =3D
->                         dc_link_get_link_cap(link);
-> -               uint32_t link_bw_in_kbps =3D
-> -                       link_cap->link_rate * link_cap->lane_count * LINK=
-_RATE_REF_FREQ_IN_KHZ * 8;
-> +               uint32_t link_bw_in_kbps =3D (uint32_t)link_cap->link_rat=
-e *
-> +                                          (uint32_t)link_cap->lane_count=
- *
-> +                                          LINK_RATE_REF_FREQ_IN_KHZ * 8;
->                 link_mst_overhead =3D (link_bw_in_kbps / 64) + ((link_bw_=
-in_kbps % 64) ? 1 : 0);
->         }
->
->
-> ---
-> base-commit: 6e7a29f011ac03a765f53844f7c3f04cdd421715
-> change-id: 20240110-amdgpu-display-enum-enum-conversion-e2451adbf4a7
->
-> Best regards,
-> --
-> Nathan Chancellor <nathan@kernel.org>
->
+But yours is, got it.
+
+
+> It looks like Mutter already has some handling for GL robustness anyway...
+
+That's just for suspend/resume with the nvidia driver. It can't recover from GPU hangs yet.
+
+
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
+
