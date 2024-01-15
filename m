@@ -4,67 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5F8FC3DA79
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 23:38:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92D4DC4707B
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 23:43:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71C1910E306;
-	Mon, 15 Jan 2024 23:38:43 +0000 (UTC)
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
- [209.85.208.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 331E410E306
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 23:38:42 +0000 (UTC)
-Received: by mail-ed1-f50.google.com with SMTP id
- 4fb4d7f45d1cf-557bfc7f7b4so13865004a12.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 15:38:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1705361859; x=1705966659; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6SetjaLGUUTbnyV9ZrNGlfELsrZY2w11CNISKU15Ijs=;
- b=P+QguqJxX5R+TCJNuJZ1HUlcjyBmYz09AExwoxsmAeC6ym+UloF58EwB5YRYUg9kWx
- ZrdMuXqAZsZuMFe42lboecyYu49WvX4am5EMSZ4BwjazSaZJXzuHYeuwXydUi2X4J1mn
- u0eC4JF97RbrkR7nL7rzDxnMJQf74ArkfyWH9aV5SDRescf/rejt7MT7dXr13Oeo4yeY
- TZXBwegyUkSe3VdLIatRXkajdOemw4ajnXzYQDVfXJtjTh9y0EGeUZ68ss0dm6Lv4539
- 38ERMZy8JAL0Dcb+AOriGwsV217nIsMM+0tPj0RnltBN+4Vub5g6K/ji60zWJV+QsrzD
- 6GFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705361859; x=1705966659;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=6SetjaLGUUTbnyV9ZrNGlfELsrZY2w11CNISKU15Ijs=;
- b=PYxhrr+ubzAo3bH/FuvVWu6nJrNpyiIZMyAsfLfLuIYkiY5wkZ50pWNdD8PKSbbKal
- e1Mek2WDF6C9G6hTcb+CkqZAJndxwHXibP8Up7lehYE1jpXP8FqD4bft1IyzcLlWe4Ll
- 6s/xujL7TEgCz8YwdSVnsNoBg7e8GJcdSmGC3dwTNa8ubLxwPUezWbi8RG91EdypyFtX
- +qNzP55i2de9o0wu1gRhVXifbYCg/FwU7O4SmbTjG0dKFW/YhDw30X6sJqyWRgtuBwob
- fE5b4UyWA0RP4AADZ9Qn/QqN0ZKvwzoDIKIe8L6X28NR30deff5O+0g+snjld3A8e9ln
- 0NGQ==
-X-Gm-Message-State: AOJu0YyCKrvntk4GQEc2/mn5BoCHvGWSuNqLTz9LwVf4gKlxNGOsFWll
- hnZe6qZLAiAcDqD6Gb/yr8xARQ64WYXkECkdVVI=
-X-Google-Smtp-Source: AGHT+IFV92u59O4Ccxtkmesc+s9hyvOR005q9lfM8bM1Lt3RypNRmpwNSzdzlsg57dZJqMgKo0quK5+Q6Mqi1eRJ7Y0=
-X-Received: by 2002:aa7:de0f:0:b0:558:b975:1ff3 with SMTP id
- h15-20020aa7de0f000000b00558b9751ff3mr6313154edv.6.1705361858852; Mon, 15 Jan
- 2024 15:37:38 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6D0010E3C1;
+	Mon, 15 Jan 2024 23:43:52 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2064.outbound.protection.outlook.com [40.107.243.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5576610E3B5;
+ Mon, 15 Jan 2024 23:43:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EB1YHBBDTGjJpMQuHx+9fqy0U/qr5dTlP3CQCx0p9WeOQy4TIlIkXlW5hY2eAs2n+3e1KikIPGH3DM4h0lCzKaz8j5mwhSK/oOnkywrFnnQUfmQI5ie+Pg8NmG7U7amAF8m7ngwIoquTMUZ/Wnme/VUUf5TfznLpsBCpw4ZdEtPnl+IHLozppgyJvnEyroIwxlwzb3UQJ+T1quA9g2JTwc8elQZ4ySFmCEYZ9PcNz96aApmcm3xvPCnPJQZuress2qYZtQhy6Zy6De7S4Ovdz/cCx408u/UtYW2ite305qqYGADq8au7SO4Por/Wwz3UX+VJnSOF1wYxZBZ68tXvYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0NZjO3f6ID2iFeeagQ6z8R3jApU1BT8oESNw3oRZMQc=;
+ b=gNoFz8MQ9AfuAY/0B+837DlEZbuLlVOpWRjqj7Pw99OzAMG/C9iUHfnD6f42PZnfKo9pyT22bUG3jEa+mu2xNxQIbqXO2kHVM9LPlBLgIQRPBoHhVx7vUY4sCVzUtFP/1igzFp3lg27qoOGDOAwPtEXG8Y6YNQAoMk4fp0bV63nyp23N70S8c4LNZsdRJeOyDrGDe/fiNkE5eVeYLw7kHUBjNn0geEWRq3v4pixMn74OjUtv1i4QJwapK/dy335xQIVnlCePSrqH5hy8WfglkIkXGyfjgtAErTzy+aqoFyo8eV106FIf3wcmplzGANyN558pEiKGCcqIvhV43Xqsxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0NZjO3f6ID2iFeeagQ6z8R3jApU1BT8oESNw3oRZMQc=;
+ b=PbdMW5tq1hhraD7ld/5oQyquC3kp1ok44pPsJKDdIC1hIICkeAwXRwYf1VO8ujd+/U349LH4riGQyXE5daDlxO2gHGXsAMiIzkWemlSkq4lgwtxnShuPFtAJBksKM7EtRaFrUgaBtW19JCEhDUBdpkmKwO7bMgkjGNkXy8zOEcg=
+Received: from SA9PR13CA0033.namprd13.prod.outlook.com (2603:10b6:806:22::8)
+ by IA1PR12MB8406.namprd12.prod.outlook.com (2603:10b6:208:3da::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.19; Mon, 15 Jan
+ 2024 23:43:42 +0000
+Received: from SN1PEPF000252A2.namprd05.prod.outlook.com
+ (2603:10b6:806:22:cafe::65) by SA9PR13CA0033.outlook.office365.com
+ (2603:10b6:806:22::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.12 via Frontend
+ Transport; Mon, 15 Jan 2024 23:43:42 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF000252A2.mail.protection.outlook.com (10.167.242.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7202.16 via Frontend Transport; Mon, 15 Jan 2024 23:43:42 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 15 Jan
+ 2024 17:43:41 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+Subject: [pull] amdgpu, amdkfd drm-fixes-6.8
+Date: Mon, 15 Jan 2024 18:43:21 -0500
+Message-ID: <20240115234321.2206842-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-References: <20240113140206.2383133-1-joshua@froggi.es>
- <20240113140206.2383133-2-joshua@froggi.es>
- <c9b839cd-4c42-42a6-8969-9a7b54d4fbe8@amd.com>
- <0e701278-a633-403c-b397-e4f772d66c5a@froggi.es>
- <aca706e6-58bc-4c38-bbfe-19137f38c897@gmail.com>
- <9a07c4e4-321c-4f75-aeae-81ed90038365@daenzer.net>
- <f2153219-e791-4e97-96eb-26094d7acf87@froggi.es>
- <5c99ec8c-142d-4877-9624-c8ce0373fccd@gmx.de>
- <5ff32f43-46ea-4e74-8db4-c23e0b03b429@daenzer.net>
-In-Reply-To: <5ff32f43-46ea-4e74-8db4-c23e0b03b429@daenzer.net>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Mon, 15 Jan 2024 18:37:02 -0500
-Message-ID: <CAAxE2A6J_fTxjbNdDX37361NaSA_SntfC_g5Tf5rUePXhEk2UA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Mark ctx as guilty in ring_soft_recovery
- path
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000252A2:EE_|IA1PR12MB8406:EE_
+X-MS-Office365-Filtering-Correlation-Id: 076dc334-0a6d-466b-9bf2-08dc1623ce58
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: S0JMdWGsvvGpXFU8aGJKyyJ1Zcmf5mVp2+Q4NC6VzkXldUNnUNSbR1SkC94H9wVEc7/bbCPFZiBBmd0xptaJFE0CWHt8le4Fv5yEzS2y6hUTd5xNgXDrJyn3zi8ZyN057paZaMQ44L8G51hHmhWxGh+++onJztjSVchaj7phBpAqODhxFzmg6pKGVLNfvMcFN3waihs41pPEjIRu+A/PHZbkXpxkW1gs2Eln6wewzkcix+74P3VtQ/xVHA+dJyOxSpx+OlHPM0Jlk23Dpfktzavn8cimgrVyNFQ7Z02AVkDHgLl1ofYlAk+aCtsDiNr3q7C1Lvo1+ppDk3M8R7rGyvN0Jbtlf3wnQ/hO/Bb0/R/4paccVlMtxXYCKz5eMfIErvCJzcAmnLVXWnaS2E+QdlWWI0+KJxbRb5wNLqL7lENiU8rYNdJu/5eUEUWTegNhJz3fi0ipJC9qqu7go3XpXa0eT8o1ZXyK6TktCV1XAK7A7pijy4Hl/lJCQPfbbc3sOrH/+Lo9Pwk91pSslDmewS+u0HhB/9aGGKhq5Rbwhv2uYXfyWlWf+yIY2exEoFXKpvkitCqY67B0wo6XUZXXiZEpam8I+nrwwtq3fAP8UUJy14/r6ASEGtEsiw+Q5YqhB7S3qFvD7vUWSCECJIWX/6f6U+j0wCat5nYGHJmRlvNXcDechDJAV5BDZJZxer5HO1PDJxmabx+NpPY/KzCYp3lGZtif/4klsCNe+8wdjdIGF8T7Xvaa2Ss+/zVLr/sKC12FGHTTpQaH5BImlM3ffpmGZLPz/C4UejqgxoFjjQkBjbxMTVNNixRj+mPoTUTnv1v8ypDmWFQRmuCi4bPhqA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(136003)(346002)(376002)(396003)(39860400002)(230173577357003)(230922051799003)(230273577357003)(451199024)(82310400011)(64100799003)(1800799012)(186009)(46966006)(40470700004)(36840700001)(5660300002)(70206006)(40480700001)(8936002)(40460700003)(8676002)(4326008)(2906002)(316002)(70586007)(110136005)(7696005)(6666004)(966005)(478600001)(36860700001)(47076005)(83380400001)(81166007)(16526019)(36756003)(2616005)(336012)(426003)(1076003)(41300700001)(86362001)(82740400003)(356005)(26005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2024 23:43:42.0722 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 076dc334-0a6d-466b-9bf2-08dc1623ce58
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000252A2.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8406
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,98 +98,201 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- Friedrich Vock <friedrich.vock@gmx.de>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, amd-gfx@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Joshua Ashton <joshua@froggi.es>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 15, 2024 at 11:41=E2=80=AFAM Michel D=C3=A4nzer <michel@daenzer=
-.net> wrote:
->
-> On 2024-01-15 17:19, Friedrich Vock wrote:
-> > On 15.01.24 16:43, Joshua Ashton wrote:
-> >> On 1/15/24 15:25, Michel D=C3=A4nzer wrote:
-> >>> On 2024-01-15 14:17, Christian K=C3=B6nig wrote:
-> >>>> Am 15.01.24 um 12:37 schrieb Joshua Ashton:
-> >>>>> On 1/15/24 09:40, Christian K=C3=B6nig wrote:
-> >>>>>> Am 13.01.24 um 15:02 schrieb Joshua Ashton:
-> >>>>>>
-> >>>>>>> Without this feedback, the application may keep pushing through
-> >>>>>>> the soft
-> >>>>>>> recoveries, continually hanging the system with jobs that timeout=
-.
-> >>>>>>
-> >>>>>> Well, that is intentional behavior. Marek is voting for making
-> >>>>>> soft recovered errors fatal as well while Michel is voting for
-> >>>>>> better ignoring them.
-> >>>>>>
-> >>>>>> I'm not really sure what to do. If you guys think that soft
-> >>>>>> recovered hangs should be fatal as well then we can certainly do
-> >>>>>> this.
-> >>>
-> >>> A possible compromise might be making soft resets fatal if they
-> >>> happen repeatedly (within a certain period of time?).
-> >>
-> >> No, no and no. Aside from introducing issues by side effects not
-> >> surfacing and all of the stuff I mentioned about descriptor buffers,
-> >> bda, draw indirect and stuff just resulting in more faults and hangs..=
-.
-> >>
-> >> You are proposing we throw out every promise we made to an application
-> >> on the API contract level because it "might work". That's just wrong!
-> >>
-> >> Let me put this in explicit terms: What you are proposing is in direct
-> >> violation of the GL and Vulkan specification.
-> >>
-> >> You can't just chose to break these contracts because you think it
-> >> 'might' be a better user experience.
-> >
-> > Is the original issue that motivated soft resets to be non-fatal even a=
-n
-> > issue anymore?
-> >
-> > If I read that old thread correctly, the rationale for that was that
-> > assigning guilt to a context was more broken than not doing it, because
-> > the compositor/Xwayland process would also crash despite being unrelate=
-d
-> > to the hang.
-> > With Joshua's Mesa fixes, this is not the case anymore, so I don't thin=
-k
-> > keeping soft resets non-fatal provides any benefit to the user experien=
-ce.
-> > The potential detriments to user experience have been outlined multiple
-> > times in this thread already.
-> >
-> > (I suppose if the compositor itself faults it might still bring down a
-> > session, but I've literally never seen that, and it's not like a
-> > compositor triggering segfaults on CPU stays alive either.)
->
-> That's indeed what happened for me, multiple times. And each time the ses=
-sion continued running fine for days after the soft reset.
->
-> But apparently my experience isn't valid somehow, and I should have been =
-forced to log in again to please the GL gods...
->
->
-> Conversely, I can't remember hitting a case where an app kept running int=
-o soft resets. It's almost as if different people may have different experi=
-ences! ;)
->
-> Note that I'm not saying that case can't happen. Making soft resets fatal=
- only if they happen repeatedly could address both issues, rather than only=
- one or the other. Seems like a win-win.
+Hi Dave, Sima,
 
-This is exactly the comment that shouldn't have been sent, and you are
-not the only one.
+Fixes for 6.8.  Same PR as Friday, but with new clang warning fixed and
+dropped KFD changes at Felix' request.
 
-Nobody should ever care about subjective experiences. We can only do
-this properly by looking at the whole system and its rules and try to
-find a solution that works for everything on paper first. DrawIndirect
-is one case where the current system fails. "Works for me because I
-don't use DrawIndirect" is a horrible way to do this.
+The following changes since commit e54478fbdad20f2c58d0a4f99d01299ed8e7fe9c:
 
-Marek
+  Merge tag 'amd-drm-next-6.8-2024-01-05' of https://gitlab.freedesktop.org/agd5f/linux into drm-next (2024-01-09 09:07:50 +1000)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.8-2024-01-15-1
+
+for you to fetch changes up to d7643fe6fb76edb1f2f1497bf5e8b8f4774b5129:
+
+  drm/amd/display: Avoid enum conversion warning (2024-01-15 18:35:07 -0500)
+
+----------------------------------------------------------------
+amd-drm-fixes-6.8-2024-01-15-1:
+
+amdgpu:
+- SubVP fixes
+- VRR fixes
+- USB4 fixes
+- DCN 3.5 fixes
+- GFX11 harvesting fix
+- RAS fixes
+- Misc small fixes
+- KFD dma-buf import fixes
+- Power reporting fixes
+- ATHUB 3.3 fix
+- SR-IOV fix
+- Add missing fw release for fiji
+- GFX 11.5 fix
+- Debugging module parameter fix
+- SMU 13.0.6 fixes
+- Fix new clang warning
+
+amdkfd:
+- Fix lockdep warnings
+- Fix sparse __rcu warnings
+- HMM fix
+- SVM fix
+
+----------------------------------------------------------------
+Alex Deucher (4):
+      drm/amdgpu: fix avg vs input power reporting on smu7
+      drm/amdgpu: fall back to INPUT power for AVG power via INFO IOCTL
+      drm/amdgpu/pm: clarify debugfs pm output
+      drm/amdgpu: drop exp hw support check for GC 9.4.3
+
+Aric Cyr (1):
+      drm/amd/display: 3.2.266
+
+Candice Li (2):
+      drm/amdgpu: Drop unnecessary sentences about CE and deferred error.
+      drm/amdgpu: Support poison error injection via ras_ctrl debugfs
+
+Charlene Liu (1):
+      drm/amd/display: Update z8 latency
+
+Dafna Hirschfeld (1):
+      drm/amdkfd: fixes for HMM mem allocation
+
+Daniel Miess (1):
+      Revert "drm/amd/display: Fix conversions between bytes and KB"
+
+Felix Kuehling (2):
+      drm/amdkfd: Fix lock dependency warning
+      drm/amdkfd: Fix sparse __rcu annotation warnings
+
+George Shen (1):
+      drm/amd/display: Disconnect phantom pipe OPP from OPTC being disabled
+
+Hawking Zhang (1):
+      drm/amdgpu: Packed socket_id to ras feature mask
+
+Ivan Lipski (1):
+      Revert "drm/amd/display: fix bandwidth validation failure on DCN 2.1"
+
+James Zhu (1):
+      drm/amdgpu: make a correction on comment
+
+Le Ma (3):
+      Revert "drm/amdgpu: add param to specify fw bo location for front-door loading"
+      drm/amdgpu: add debug flag to place fw bo on vram for frontdoor loading
+      drm/amdgpu: move debug options init prior to amdgpu device init
+
+Lijo Lazar (2):
+      drm/amd/pm: Add error log for smu v13.0.6 reset
+      drm/amd/pm: Fix smuv13.0.6 current clock reporting
+
+Likun Gao (1):
+      drm/amdgpu: correct the cu count for gfx v11
+
+Martin Leung (2):
+      drm/amd/display: revert "for FPO & SubVP/DRR config program vmin/max"
+      drm/amd/display: revert "Optimize VRR updates to only necessary ones"
+
+Martin Tsai (1):
+      drm/amd/display: To adjust dprefclk by down spread percentage
+
+Meenakshikumar Somasundaram (1):
+      drm/amd/display: Dpia hpd status not in sync after S4
+
+Melissa Wen (1):
+      drm/amd/display: cleanup inconsistent indenting in amdgpu_dm_color
+
+Nathan Chancellor (1):
+      drm/amd/display: Avoid enum conversion warning
+
+Peichen Huang (1):
+      drm/amd/display: Request usb4 bw for mst streams
+
+Philip Yang (1):
+      drm/amdkfd: Fix lock dependency warning with srcu
+
+Srinivasan Shanmugam (6):
+      drm/amd/powerplay: Fix kzalloc parameter 'ATOM_Tonga_PPM_Table' in 'get_platform_power_management_table()'
+      drm/amdgpu: Fix with right return code '-EIO' in 'amdgpu_gmc_vram_checking()'
+      drm/amdgpu: Fix unsigned comparison with less than zero in vpe_u1_8_from_fraction()
+      drm/amdgpu: Release 'adev->pm.fw' before return in 'amdgpu_device_need_post()'
+      drm/amd/display: Fix variable deferencing before NULL check in edp_setup_replay()
+      drm/amdkfd: Fix 'node' NULL check in 'svm_range_get_range_boundaries()'
+
+Victor Lu (1):
+      drm/amdgpu: Do not program VM_L2_CNTL under SRIOV
+
+Yifan Zhang (3):
+      drm/amdgpu: update headers for nbio v7.11
+      drm/amdgpu: update ATHUB_MISC_CNTL offset for athub v3.3
+      drm/amdgpu: update regGL2C_CTRL4 value in golden setting
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                |  3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h         |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |  2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            | 15 ++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c            | 21 ++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c            |  7 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            | 26 ++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c          |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h             |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c            | 10 +--
+ drivers/gpu/drm/amd/amdgpu/athub_v3_0.c            |  8 +++
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             |  5 +-
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c           | 10 +--
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c             |  3 +-
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c             |  3 +-
+ drivers/gpu/drm/amd/amdgpu/umc_v6_7.c              |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c           |  6 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c           |  7 ++-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c               | 42 ++++++-------
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  2 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c    |  2 +-
+ .../amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c | 71 +++++++++++++++++++++-
+ .../amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.h | 11 ++++
+ drivers/gpu/drm/amd/display/dc/core/dc.c           | 14 +++--
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c  | 14 -----
+ drivers/gpu/drm/amd/display/dc/dc.h                |  3 +-
+ drivers/gpu/drm/amd/display/dc/dc_stream.h         |  2 +
+ drivers/gpu/drm/amd/display/dc/dc_types.h          | 12 ++--
+ drivers/gpu/drm/amd/display/dc/dce/dce_audio.c     |  2 +-
+ .../gpu/drm/amd/display/dc/dce/dce_clock_source.c  |  9 ++-
+ .../amd/display/dc/dcn32/dcn32_resource_helpers.c  | 14 +++++
+ .../gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c   | 11 ++--
+ .../gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c   |  6 +-
+ .../drm/amd/display/dc/dml2/display_mode_core.c    | 18 +++---
+ .../drm/amd/display/dc/hwss/dce110/dce110_hwseq.c  |  2 +-
+ .../drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c    |  2 +-
+ .../drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c    | 45 ++------------
+ drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h    |  1 +
+ drivers/gpu/drm/amd/display/dc/inc/resource.h      |  3 -
+ drivers/gpu/drm/amd/display/dc/link/link_dpms.c    | 42 ++++++++++---
+ .../gpu/drm/amd/display/dc/link/link_validation.c  | 60 ++++++++++++++----
+ .../amd/display/dc/link/protocols/link_dp_dpia.c   | 36 ++++++-----
+ .../display/dc/link/protocols/link_dp_dpia_bw.c    | 60 +++++++++++++-----
+ .../display/dc/link/protocols/link_dp_dpia_bw.h    |  9 +++
+ .../dc/link/protocols/link_edp_panel_control.c     | 11 ++--
+ .../gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c | 19 ++++--
+ .../gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c | 12 ++--
+ .../amd/display/dc/resource/dcn32/dcn32_resource.c |  2 +-
+ .../amd/display/dc/resource/dcn32/dcn32_resource.h |  3 +
+ .../display/dc/resource/dcn321/dcn321_resource.c   |  2 +-
+ drivers/gpu/drm/amd/display/include/audio_types.h  |  2 +-
+ .../amd/include/asic_reg/nbio/nbio_7_11_0_offset.h |  8 +--
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c                 | 28 ++++++---
+ .../amd/pm/powerplay/hwmgr/process_pptables_v1_0.c |  2 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c    | 17 +++++-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   | 15 +++--
+ 60 files changed, 492 insertions(+), 265 deletions(-)
