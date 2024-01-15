@@ -4,88 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48E1EC3DA79
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 20:04:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BD7DC3DA79
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 20:21:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9587510E38D;
-	Mon, 15 Jan 2024 20:04:29 +0000 (UTC)
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD6BC10E38D
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 20:04:27 +0000 (UTC)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-40e490c2115so45817985e9.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 12:04:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=froggi.es; s=google; t=1705349066; x=1705953866; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=OuYJEbBveEwBg5rh8GnH7i58FMYpqLX2Pb1zPznLXwc=;
- b=ly40HVQIYxIEgIFNb5/CiUO9IGQXKl35/vvfF7siPGQKb0IWuKwPjq5MgxoC8wO8T7
- QttWDt2sgs7z6HNVxU3GTCO79RD2MZm70FUuuWVcJO8hvriIupQ6mVM3vne8ofPkpZvc
- c0gjrdcXzuB6jTo68iH4MgjuRA7+Cjmq6wTF55ckLHFQ+bFmHDqpEKaClZUtqXqx+DTx
- nO9rM53tdZFutdN8Su0pWlMEEMm0DXzndu0ArE2ezh+Q1s/SsHw5AbQ5IYnN1lLmMQ7/
- 53EjKSZ6Lnn/XT0HkNlk3HaoZqQi+GANsiElmfDUGj9DMdL12N6pL17/bLnsGY0vLV5T
- w+lQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705349066; x=1705953866;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=OuYJEbBveEwBg5rh8GnH7i58FMYpqLX2Pb1zPznLXwc=;
- b=GmZLs1rQp8anAu9y0bNpVH1hbeN0hsSB3t9kuw36cXu+ErCZ2zLoPXgTaVxwAHrnbD
- qo7vS9GN6q+E+2oIsrHpUMG/jC8nWKK2DWnpLQ1iRWcryfrnR2CYrBdskU+9VAmBVQb6
- jSTkrRdl9WyYoZMYLKyy9ZC0FjSRWqZg8JZUCQ5ZkxNz6Xrag2XD0Xqsvdf/mll2+tV8
- l+zdRKA75xX/g6sjcbI0DhjtDyIR2rQ1VtPvVSZJhAofVowromGeJVyxxe+vxOtbNGrp
- cGDLdsYvwfz54sctWrfvWb+hwX4ZD7LUxsx1VzUfaVEqf0w/GUvFAbhSUY0QbGNH9obC
- szlw==
-X-Gm-Message-State: AOJu0YwzL8A4JPE5bcLf5XWFYJ6Sx9DCgac97h7PR6s25gAH70pMiX18
- DYyMRdYaW5BzOjd/bO/eQyM6bEBxS9mNqg==
-X-Google-Smtp-Source: AGHT+IGPiylhMwgL91f2sU1MhdytQXHqyuT4F5xY3Ee9zYX47EnIVWmSpCWM1X9ekC5M5tR1tAnboQ==
-X-Received: by 2002:a05:600c:1d0a:b0:40e:47d7:45fe with SMTP id
- l10-20020a05600c1d0a00b0040e47d745femr3842411wms.12.1705349066027; 
- Mon, 15 Jan 2024 12:04:26 -0800 (PST)
-Received: from [192.168.0.89]
- (darl-09-b2-v4wan-165404-cust288.vm5.cable.virginm.net. [86.17.61.33])
- by smtp.gmail.com with ESMTPSA id
- f18-20020adffcd2000000b0033642a9a1eesm12664045wrs.21.2024.01.15.12.04.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jan 2024 12:04:25 -0800 (PST)
-Message-ID: <24e313bc-dff1-4d79-8062-d81bd4e55761@froggi.es>
-Date: Mon, 15 Jan 2024 20:04:23 +0000
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4EB610E38C;
+	Mon, 15 Jan 2024 20:21:14 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2048.outbound.protection.outlook.com [40.107.94.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1580D10E38C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 20:21:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VWXgRuVlpIRAfmZic+eArEEt7x1yGhJqpbB5qhIdlAeaINEgYI1j/Xl28+DvPyrMo2zMl+0C4SA28aTPUV08VLBcE5kN8mTshm531TYo5QY+l6UxzPrBkUlOW46Zlc0FKHJgsHQnA5CvuuDqEL7Ca9UC/UalHRVpQueG+dyqf3OCHR5jABjcFtYLG6XRp8oEuWEfGSZaLW/4ZplcfjEAfe2rEaUMutbTSNS33bSlrX7WzHLzTV6MZ9GyBjR1/1K1V1Dv3gJ0b2hVdM+K7HyLZl1DcpHA0GdkL1Maezp1ZJfMabE23pUCMD+raWKzhxTDhupJkm1lfqeGlI3fFGyeVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uaZrDfjomXpMe1TTdduSPCmjDzoLWwuR7uTMl/ubZ2Y=;
+ b=g45JRqZxlrYHAm9nwnxbaZq5bIVvsSzBiZ8bNK3PjYr7De6tWJS9PP+EvBPbXIg1BKoqQiCBdpeTcpB5u7UNoIzYefGeL4wxwYeSNvWz7KGOVCF9n+kjkvDrfE8gYUXSC3QqlJ7GZl+Z8KPDs/VnysoQ6YFPmYcixwUHUlVIW56O/8h1pulMvKBQU4jJueHL/iKu6TT1eKyANReKBmkp3z9ULC1pc3eOs+ANnOqwvlW2JUqA+pDmFhA+PAMQJsq9QpTGExiWsQg5hy5DQMoA9GxzDxja3d8sH1+QMEbbPUTfuPm56Vm4SermnyZApwQ1BPmdNZWF4FBrDJDYgYBeqg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uaZrDfjomXpMe1TTdduSPCmjDzoLWwuR7uTMl/ubZ2Y=;
+ b=f1+l58D53yicIx1iHFI6d9khcYTw/RtXjPAGptYkyTPJwVDInDA7a9NG6FZV+vugXhltSiGHLelz2aSiWDoYCN3hinGOpX98kcPs0tVjnP4EiwHMQ33FGQQ55O11Q34KCQE/jkGSvJJgD7HagQ3jXrppiP0XakbqYujEdP9XSHE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by DS0PR12MB6533.namprd12.prod.outlook.com (2603:10b6:8:c2::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.17; Mon, 15 Jan
+ 2024 20:21:08 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::3a35:139f:8361:ab66]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::3a35:139f:8361:ab66%7]) with mapi id 15.20.7181.018; Mon, 15 Jan 2024
+ 20:21:08 +0000
+Message-ID: <29326bb0-ab25-424c-86c1-799c6d630e28@amd.com>
+Date: Mon, 15 Jan 2024 15:21:05 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: Mark ctx as guilty in ring_soft_recovery
- path
+Subject: Re: Documentation for RGB strip on RX 7900 XTX (Reference)
 Content-Language: en-US
 To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Friedrich Vock <friedrich.vock@gmx.de>
-References: <20240113140206.2383133-1-joshua@froggi.es>
- <0e701278-a633-403c-b397-e4f772d66c5a@froggi.es>
- <aca706e6-58bc-4c38-bbfe-19137f38c897@gmail.com>
- <9a07c4e4-321c-4f75-aeae-81ed90038365@daenzer.net>
- <f2153219-e791-4e97-96eb-26094d7acf87@froggi.es>
- <5c99ec8c-142d-4877-9624-c8ce0373fccd@gmx.de>
- <5ff32f43-46ea-4e74-8db4-c23e0b03b429@daenzer.net>
- <8e5cd59e-075a-480e-8452-87924580122d@froggi.es>
- <1dbe811f-64a0-4ccd-88cf-3fd30f79f7bc@daenzer.net>
- <c36400bd-b8f2-4026-b989-f4e1854b05ca@gmx.de>
- <7194a09a-afe8-4eae-8288-c72e2ac7d0a6@daenzer.net>
- <51b9ffc3-9ab3-4a06-9307-6b2a343f6bc6@gmx.de>
- <CAP+8YyGg91f_z2ktrd7HQMtOSHn34F-8x7O2iRv=TTrXo2NNoA@mail.gmail.com>
- <81a82ffc-c2e6-4ce6-9cc0-4f01dc8b9891@froggi.es>
- <bff749b8-5531-46bd-8e21-97d094e6b4c2@amd.com>
- <9e6fec7b-3786-4221-8024-6b949efd08e7@froggi.es>
- <bfe79411-7f77-48ab-8cfd-4727704739e8@amd.com>
- <3e284517-0372-4c75-9902-7039c09b73e9@froggi.es>
- <baa54077-cf89-4fb7-b505-a41716e66a23@gmail.com>
-From: Joshua Ashton <joshua@froggi.es>
-In-Reply-To: <baa54077-cf89-4fb7-b505-a41716e66a23@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Alexander Koskovich <AKoskovich@protonmail.com>
+References: <oCYzPIgXFcQ3jdqAKY2upsY5qq23yOba06RkrzD5Bfai97jMWxGvBsaOiKi1k5oZvNg7IoJLE6jAA6BLGFXt08WbBEtdgJA4snn7khZ0JFM=@protonmail.com>
+ <BL1PR12MB514454D5E625F71BB0E6A8B6F76B2@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <1b679a75-27ee-4682-8bf1-c0defcd9e949@gmail.com>
+ <x5k4aAAKV_idHdVtHJSqsc8HjaGPyGe36A9cpXQl_tBbqgHrQ8TaVKm_zoQRodcwfFuGUj4GnnNASL5a7SKfL1H-NH5X4ma5G_vRkXSG35o=@protonmail.com>
+ <43e7ff66-f6cf-4804-ab90-ee14546dc4b3@gmail.com>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <43e7ff66-f6cf-4804-ab90-ee14546dc4b3@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0314.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10a::25) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|DS0PR12MB6533:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3381191b-a8ff-4019-9592-08dc1607820c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: olA64RXgGvWWDj7nUtLqy8kccma63awGmWayKGfbF28RwdSN9i4aI/cmYdAZbkYSXra4Zpm3z2MTOlCo/jpxSakt89Zyfl0rEJf0Ulv7qHxRFLKKMcl5CtV5xaLDO8GH598Kmemka8Or4pZuo2j7UYeiaScGoKsxnzwMbPiqidnbG40Kf7fGa7ZGIbKmWdUSTd6EPD5NtYrL8Cyds71R4Ap9TUZIpQQYmppuwolVCGvXzlqVtNA7QqIsVdWZ7vlvd1WUKI04qWlsIYVEXFmRrliT4xcErnUHZ53NlqCTR7iRHml3xUics/szYjIyVaTFfQbS4NnexvYt/OcTuhqw/X7fJLEfmHAUqcMwgqqbtOLx3F/BwUpp5ynVuB8bGkYAds4RuKWUVhJjkmbf0MgBvW02YcrgFTuAtEcn0a5HMUhdkFqMrXne5zslFCILv8T1wAZ/uggSqPQR52mj/J2wZQAK6ou13pPrBZJjUUfYZJqrwTxg8wG5iQmVq3Cyq7szQyBmFVukSjRpvb8UsXjfTai0MyyPvXESGzCpMSRcd71TEXHzVWjE/AAKSM9oRNmm6qP4TaULld5BmEw1icv4LVtydafge50qL2nWne4pmKLdxjZKfuPLO4jAJUIltHt92tEra/KACvuzmFjwHMTplA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(376002)(39860400002)(396003)(366004)(346002)(230922051799003)(1800799012)(64100799003)(186009)(451199024)(5660300002)(2906002)(478600001)(44832011)(8676002)(8936002)(4326008)(53546011)(6666004)(6506007)(6512007)(66946007)(54906003)(316002)(110136005)(66476007)(66556008)(966005)(6486002)(41300700001)(31696002)(31686004)(86362001)(2616005)(36756003)(26005)(66574015)(38100700002)(83380400001)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UXlMRkJ5Vm44RUxqYXQ5TnJ5dWVtWHRncGFNSDh4dEpMbit2RnBKbmFtcWYy?=
+ =?utf-8?B?cUVBTjVLUHovUVdpbkdxdjdJaVBldm1reGhRSWpCdzJMNjM0WGtEZ3ZUNWFY?=
+ =?utf-8?B?MUN1a2NHQ1FIeFpITDhmaFBMa09lYjNXQTgzdlNZd1BiUldIT2JkMnpZTEFK?=
+ =?utf-8?B?Rlcxd25CalpYZDJEQkRVaC9OWm1FQ3VIQlA0bllObUxvbWYyems3eXdpdlI2?=
+ =?utf-8?B?MGFYRUYzbDMzZEJnUDdab1JlTlRlZHVTOW1CVDBRdDF4NFZMOFJyUkxQMVgv?=
+ =?utf-8?B?MW5HdFhHWW5UM3hxK3BjM0xoc2p1dEhZMUZVUEt2T1dadXpzaEhGdHhBL2FS?=
+ =?utf-8?B?MHp6QWw5YzBKMHBwN1ZVWXhXN2kvODRLVm02MVhrditzd3ByaGdTV1kwOXJz?=
+ =?utf-8?B?KzgxWE5oQWtQM2I5Rm5HaHhuSEVyQ2t6WGJsKytTZzg5MmtLZm55eVRDSXVB?=
+ =?utf-8?B?bjhFK2V6UFloaktpdUFUako0VjNZZUh3bEQ1WW52emVKdFc5aStNUVJYTHN5?=
+ =?utf-8?B?cDZRcEw5TldTNC80aEE1aGhxNmRaU0orTFRReGZ4NFBINW51Szh0WEkwKzZr?=
+ =?utf-8?B?Uld1a0FsODllazdBb3pkMTBudm1YQnRVelVoTnBIREJqQnAvbENsZmpNTmp0?=
+ =?utf-8?B?U2czUE5yK0JhbXlvMWhSZkJKZW40emQvdkN1V0s0Q0d4ejZWTG5sajkrclpJ?=
+ =?utf-8?B?WGlqbUIxekczVldNZGZwMXliN1B1Ny8rQXV3Z29yT3M4b2UxWkNqelorUC9H?=
+ =?utf-8?B?RnRKYjg5RXRjcWNETkdLUFVub25TbHF1aFZ4NFVCQlBnRG8rS3F5UWdzTFNL?=
+ =?utf-8?B?S09HZzgzMWF3c1dTQjlqYk43dmQxeTBJY1FEaDNvb1pFMG1DQWRtZ0FtMTNW?=
+ =?utf-8?B?VmpjWk9IWWxidzZ1TVFzQ0FxSitOcFlpb3pXNnFDK3ZJVDE4M3NTT0t4b3NJ?=
+ =?utf-8?B?KzZINWovVG84ZmJJNUJOV3pUOW54ay9MODNmN3BvbTF2M0RaZjcvOUpuNm5j?=
+ =?utf-8?B?MW54S3QrWFpsa3hEQmRVSDkrRzlBQnBZdEl6UHI2cWUxeDkvb2hzMUhxQmxY?=
+ =?utf-8?B?MG1IS2lDZ05IbU5lL3FFTk8xdUJURGYxZ2pWS211WWJtSE95UmVBWE5PZWNH?=
+ =?utf-8?B?MnN0WVA0QlZPUExwV1cwMWNmWXAxRmtiMEhKcjhUUHJ5MUlKMHNKVnpEcTZ2?=
+ =?utf-8?B?YU9PUGJFZGpEM0xjREE3c045VEt3cktWdVNGR0hWMDBjTW9xM1VkWmU3bzFq?=
+ =?utf-8?B?SUZTK0pqWHcyY01SaDRwOWF2SU5Lbytva05iY1JqcnAxNERxczBTSThSWUZv?=
+ =?utf-8?B?OENPSnphS2F4UjVCSy82c3FOVjNmR1V6dUkzR1FrcUo2amlVd0FlUjEyenNW?=
+ =?utf-8?B?cllqc3RJcUZIZWZ0QVM3YlJKSU5kYVdnT1orNGU1RURabTgyb3VOOWtJcGND?=
+ =?utf-8?B?WHcveU5rM1hJZjh4ODZTd0lIQ1FMTjRMTW1zMlc2andScVMzT3Fwb0EwTWcw?=
+ =?utf-8?B?WlZaamZlSjlKdkVORmhTdkhuRW9SSWt3NmNGZEU4MlZ3a2ZYUk1TejEzdjZ2?=
+ =?utf-8?B?QkRjb1dVTVpOYVdiTHdHcHNQVGNSZ2lIZ3h1Znlib1F4eEtmQVkwQ2JKTVh1?=
+ =?utf-8?B?akJZS1VPby9qeDNDcWNCNFovYmhFSWFQaFdKVjdFNnh0UGlpYzNvYVZ0K2NU?=
+ =?utf-8?B?R0ZFY2hVdlNGNFZJVkt3eUJONDJLeGluR09sZ2prNVBubnBUTmcxODh3R0tl?=
+ =?utf-8?B?RXQwSFdhOFUyTmgyU2xpR2VMTHF6SEdRMWdpdmswRzVtWDd1VEx3eTRzdCsv?=
+ =?utf-8?B?ejkxMVd5dEREMnFSenhENExRbjJldFpXTFZSQWZMMnN3amlmOGVmL2F1SU0v?=
+ =?utf-8?B?djBsTnRsalVzcStCUGlLQVUyTEZjUmplZ2lDbml5NTlLMGxqMnowdWpQM0NR?=
+ =?utf-8?B?M1pGMGlMaHFlWUNRY2ZVVzhOUXVXcGJvWVZlVC91SldHWG5LaWxxNlZIOERw?=
+ =?utf-8?B?dEFyQmFyYmVJZ3JVYS9XRHNSY3Y1dXFXeGFSTjFWN0N0SkZ6SXA0aXFxODBR?=
+ =?utf-8?B?Q2U5dlZadVl2bEphanN3RnBIQjhjTkVDUi9vSmd3cTJYbDRUMGhLbDdBYXkr?=
+ =?utf-8?Q?WBd5cGNhIl+Sxkc1klwm7lGMr?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3381191b-a8ff-4019-9592-08dc1607820c
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2024 20:21:08.4224 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QnBP6CvP2SRfWG1xenK9SfZd6jZbNda/CjGqQAi813x8VtkbHG67cbjk6le2/zObEmXejHdGhyPpoUXvbjOlcQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6533
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,184 +127,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
- =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- amd-gfx@lists.freedesktop.org
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 1/15/24 19:57, Christian König wrote:
-> Am 15.01.24 um 20:30 schrieb Joshua Ashton:
->> On 1/15/24 19:19, Christian König wrote:
->>> Am 15.01.24 um 20:13 schrieb Joshua Ashton:
->>>> On 1/15/24 18:53, Christian König wrote:
->>>>> Am 15.01.24 um 19:35 schrieb Joshua Ashton:
->>>>>> On 1/15/24 18:30, Bas Nieuwenhuizen wrote:
->>>>>>> On Mon, Jan 15, 2024 at 7:14 PM Friedrich Vock 
->>>>>>> <friedrich.vock@gmx.de <mailto:friedrich.vock@gmx.de>> wrote:
->>>>>>>
->>>>>>>     Re-sending as plaintext, sorry about that
->>>>>>>
->>>>>>>     On 15.01.24 18:54, Michel Dänzer wrote:
->>>>>>>      > On 2024-01-15 18:26, Friedrich Vock wrote:
->>>>>>>      >> [snip]
->>>>>>>      >> The fundamental problem here is that not telling 
->>>>>>> applications that
->>>>>>>      >> something went wrong when you just canceled their work 
->>>>>>> midway is an
->>>>>>>      >> out-of-spec hack.
->>>>>>>      >> When there is a report of real-world apps breaking 
->>>>>>> because of
->>>>>>>     that hack,
->>>>>>>      >> reports of different apps working (even if it's 
->>>>>>> convenient that they
->>>>>>>      >> work) doesn't justify keeping the broken code.
->>>>>>>      > If the breaking apps hit multiple soft resets in a row, 
->>>>>>> I've laid
->>>>>>>     out a pragmatic solution which covers both cases.
->>>>>>>     Hitting soft reset every time is the lucky path. Once GPU 
->>>>>>> work is
->>>>>>>     interrupted out of nowhere, all bets are off and it might as 
->>>>>>> well
->>>>>>>     trigger a full system hang next time. No hang recovery should 
->>>>>>> be able to
->>>>>>>     cause that under any circumstance.
->>>>>>>
->>>>>>>
->>>>>>> I think the more insidious situation is no further hangs but 
->>>>>>> wrong results because we skipped some work. That we skipped work 
->>>>>>> may e.g. result in some texture not being uploaded or some GPGPU 
->>>>>>> work not being done and causing further errors downstream (say if 
->>>>>>> a game is doing AI/physics on the GPU not to say anything of 
->>>>>>> actual GPGPU work one might be doing like AI)
->>>>>>
->>>>>> Even worse if this is compute on eg. OpenCL for something 
->>>>>> science/math/whatever related, or training a model.
->>>>>>
->>>>>> You could randomly just get invalid/wrong results without even 
->>>>>> knowing!
->>>>>
->>>>> Well on the kernel side we do provide an API to query the result of 
->>>>> a submission. That includes canceling submissions with a soft 
->>>>> recovery.
->>>>>
->>>>> What we just doesn't do is to prevent further submissions from this 
->>>>> application. E.g. enforcing that the application is punished for 
->>>>> bad behavior.
->>>>
->>>> You do prevent future submissions for regular resets though: Those 
->>>> increase karma which sets ctx->guilty, and if ctx->guilty then 
->>>> -ECANCELED is returned for a submission.
->>>>
->>>> ctx->guilty is never true for soft recovery though, as it doesn't 
->>>> increase karma, which is the problem this patch is trying to solve.
->>>>
->>>> By the submission result query API, I you assume you mean checking 
->>>> the submission fence error somehow? That doesn't seem very ergonomic 
->>>> for a Vulkan driver compared to the simple solution which is to just 
->>>> mark it as guilty with what already exists...
->>>
->>> Well as I said the guilty handling is broken for quite a number of 
->>> reasons.
->>>
->>> What we can do rather trivially is changing this code in 
->>> amdgpu_job_prepare_job():
->>>
->>>          /* Ignore soft recovered fences here */
->>>          r = drm_sched_entity_error(s_entity);
->>>          if (r && r != -ENODATA)
->>>                  goto error;
->>>
->>> This will bubble up errors from soft recoveries into the entity as 
->>> well and makes sure that further submissions are rejected.
+On 2024-01-09 03:31, Christian König wrote:
+> Am 09.01.24 um 09:23 schrieb Alexander Koskovich:
+>> Thanks for the info, will take a look.
 >>
->> That makes sense to do, but at least for GL_EXT_robustness, that will 
->> not tell the app that it was guilty.
+>> Also just to clarify, this is the first party AMD 7900 XTX, not a third party AIB (e.g. Sapphire, ASRock, etc).
 > 
-> No, it clearly gets that signaled. We should probably replace the guilty 
-> atomic with a calls to drm_sched_entity_error().
+> Yeah, but that doesn't matter.
 > 
-> It's just that this isn't what Marek and I had in mind for this, 
-> basically completely forget about AMDGPU_CTX_OP_QUERY_STATE or 
-> AMDGPU_CTX_OP_QUERY_STATE2.
+> For the reference designs AMD basically just says how it should look like and then somebody else stitches it together. The handling of for example how connectors are detected is still the same.
 > 
-> Instead just look at the return value of the CS or query fence result 
-> IOCTL.
-> 
-> When you get an -ENODATA you have been guilty of causing a soft 
-> recovery, when you get an -ETIME you are guilty of causing a timeout 
-> which had to be hard recovered. When you get an -ECANCELED you are an 
-> innocent victim of a hard recovery somebody else caused.
-> 
-> What we haven't defined yet is an error code for loosing VRAM, but that 
-> should be trivial to do.
-
-Thanks for the info, I will test things out here and likely send a patch 
-to change if (r && r != -ENODATA) -> if (r) if things work out.
-
-- Joshie 🐸✨
-
+> AMD should somewhere have detailed documentation what's on that reference board, but to be honest I have absolutely no idea who to ask for that. It's simpler to just look into the tables used by all vendors.
 > 
 > Regards,
 > Christian.
 > 
 >>
->> We could always return UNKNOWN_CONTEXT_RESET_EXT in that case, I guess.
 >>
->> I am not super sure what is wrong/egrigious about the ctx->guilty 
->> handling, is there a previous email thread explaining that?
+>> On Tuesday, January 9th, 2024 at 3:02 AM, Christian König <ckoenig.leichtzumerken@gmail.com> wrote:
 >>
->> - Joshie 🐸✨
 >>
 >>>
->>> Regards,
+>>> Am 08.01.24 um 23:32 schrieb Deucher, Alexander:
+>>>
+>>>> [Public]
+>>>>
+>>>>> -----Original Message-----
+>>>>> From: amd-gfx amd-gfx-bounces@lists.freedesktop.org On Behalf Of
+>>>>> Alexander Koskovich
+>>>>> Sent: Sunday, January 7, 2024 11:19 PM
+>>>>> To: amd-gfx@lists.freedesktop.org
+>>>>> Subject: Documentation for RGB strip on RX 7900 XTX (Reference)
+>>>>>
+>>>>> Hello,
+>>>>>
+>>>>> I was wondering if AMD would be able provide any documentation for the
+>>>>> RGB strip on the reference cooler
+>>>>> (https://www.amd.com/en/products/graphics/amd-radeon-rx-7900xtx)? It
+>>>>> looks to be handled via I2C commands to the SMU, but having proper
+>>>>> documentation would be extremely helpful.
+>>>>> It depends on the AIB/OEM and how they designed the specific board. The RGB controller will either be attached to the DDCVGA i2c bus on the display hardware or the second SMU i2c bus. The former will require changes to the amdgpu display code to register display i2c buses that are not used by the display connectors on the board so they can be used by 3rd party applications. Currently we only register i2c buses used for display connectors. The latter buses are already registered with the i2c subsystem since they are used for other things like EEPROMs on server and workstation cards and should be available via standard Linux i2c APIs. I'm not sure what i2c LED controllers each AIB vendor uses off hand. https://openrgb.org/index.html would probably be a good resource for that information.
+>>>
+>>>
+>>> It might also be a good idea to look some of the ATOMBIOS tables found
+>>> on your device.
+>>>
+>>> Those tables are filled in by the AIB/OEM with the information which
+>>> connectors (HDMI, DVI, DP etc...) are on the board and I bet that the
+>>> information which RGB controller is used and where to find it is
+>>> somewhere in there as well.
+>>>
+>>> Adding Harry from our display team, might be that he has some more hints
+>>> as well.
+>>>
+
+I don't know how the RGB strips are connected and controlled.
+
+Harry
+
 >>> Christian.
 >>>
->>>>
->>>> - Joshie 🐸✨
->>>>
->>>>>
->>>>>>
->>>>>> Now imagine this is VulkanSC displaying something in the car 
->>>>>> dashboard, or some medical device doing some compute work to show 
->>>>>> something on a graph...
->>>>>>
->>>>>> I am not saying you should be doing any of that with RADV + 
->>>>>> AMDGPU, but it's just food for thought... :-)
->>>>>>
->>>>>> As I have been saying, you simply cannot just violate API 
->>>>>> contracts like this, it's flatout wrong.
->>>>>
->>>>> Yeah, completely agree to that.
->>>>>
->>>>> Regards,
->>>>> Christian.
->>>>>
->>>>>>
->>>>>> - Joshie 🐸✨
->>>>>>
->>>>>>>
->>>>>>>      >
->>>>>>>      >
->>>>>>>      >> If mutter needs to be robust against faults it caused 
->>>>>>> itself, it
->>>>>>>     should be robust
->>>>>>>      >> against GPU resets.
->>>>>>>      > It's unlikely that the hangs I've seen were caused by mutter
->>>>>>>     itself, more likely Mesa or amdgpu.
->>>>>>>      >
->>>>>>>      > Anyway, this will happen at some point, the reality is it 
->>>>>>> hasn't
->>>>>>>     yet though.
->>>>>>>      >
->>>>>>>      >
->>>>>>>
->>>>>
->>>>
->>>> - Joshie 🐸✨
->>>
+>>>> Alex
 > 
-
 
