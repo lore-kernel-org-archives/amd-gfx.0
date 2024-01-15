@@ -4,88 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03836C3DA79
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 19:07:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCDFEC3DA79
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 19:13:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EB1810E30A;
-	Mon, 15 Jan 2024 19:07:57 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2050.outbound.protection.outlook.com [40.107.94.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50B9A10E30A
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 19:07:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QZKl5fgec0FniwbSaB87uxFJaP88nlf5i/HyNHZrBHXCMH/4xOzC9C0/vNXz/i+OR/HoUkU+4mnkhL35V/uaQeAMHAkigeRlHZi1/QM6eyEl9A0VOpe8vHaDRZeVorUvFvxAUOVLk7XNKTdeZtb97pnbL4B6C/IUX8HZ4uB4tV4HDY+iWgGmWLeNtwwr5xyRc9zQbYZEtvn4aCg06PmuG2920swQC6JYVe1TKJg/l7ze/OENr/DZXHn0NTNy/3Wg7zgI2skwWjmQnKGMTdqbVm2BwJS1nDNmPB24f0il+cADVW3VlhTSzTgVLpM2vmZKDjUOHgOjxZDCNbGguMLXjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uWS50BzVKlcsWxYc6GFjPKdOV1S6cKwr3/uXvua6JXw=;
- b=O7i+sMBQ3Y/rIgx/AvjL3ES7jffx5j7e2UydNQ32HR048NHr1wWpkGEw/H49vwO/vG83ybYXlYsMtpQTBFk9bazjgWsoRRWtgI9XR4hsYqXmlBqIVUrPQJ8+3sCp08piaXudeLcV+cV/98yT+HglA3s634LZ6zwOtvTUzijnj2CzecN6ijI3+gC6q24VJIJTBsgrNZDaIPnoezaRPV8reRHKcpq+UmHH/HQVhzoiF4/RasIFRTKvbzA/+RevfYcoaPXOJhpWxTn9ZJlf+OmPLY19f0DdHwWrn1Q8ASITXnPTirX5897N1cSK37997sXwa2Ka4iWtrBECUImYEJYZgA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uWS50BzVKlcsWxYc6GFjPKdOV1S6cKwr3/uXvua6JXw=;
- b=StSFPee2bVeYFg1PKL/Uo7Kn6oi1ieE8/M4vEwhudntRP3EYZJTJL2KplCSpBFITMyNFkApyjghqHjjR2LTEC9XQwoSvuKKFKOg6fhb4ah8s09AS7oxB/g8ID1MSAfloBt9rxMaKqKpnNNOnOs683YLZvVyvH/UEUIX8TPvkKCU=
-Received: from CY5PR15CA0227.namprd15.prod.outlook.com (2603:10b6:930:88::25)
- by PH7PR12MB6884.namprd12.prod.outlook.com (2603:10b6:510:1ba::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.17; Mon, 15 Jan
- 2024 19:07:52 +0000
-Received: from CY4PEPF0000E9CD.namprd03.prod.outlook.com
- (2603:10b6:930:88:cafe::1a) by CY5PR15CA0227.outlook.office365.com
- (2603:10b6:930:88::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.26 via Frontend
- Transport; Mon, 15 Jan 2024 19:07:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000E9CD.mail.protection.outlook.com (10.167.241.140) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7181.14 via Frontend Transport; Mon, 15 Jan 2024 19:07:52 +0000
-Received: from jc-d.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 15 Jan
- 2024 13:07:51 -0600
-From: Jay Cornwall <jay.cornwall@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: Use S_ENDPGM_SAVED in trap handler
-Date: Mon, 15 Jan 2024 13:07:33 -0600
-Message-ID: <20240115190733.1483942-1-jay.cornwall@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6847810E385;
+	Mon, 15 Jan 2024 19:13:15 +0000 (UTC)
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3153C10E385
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 19:13:14 +0000 (UTC)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-40e78238db9so12082835e9.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 11:13:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=froggi.es; s=google; t=1705345992; x=1705950792; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=AT42IZM1mCc00W22sVAda77bN1md4nTSKQv+ZPhZkr0=;
+ b=N05t3XJ827bF1ejmkH2YVb18FDzSWxyvWZxz/9tb5FZyEwiAEbpJE4olUwS74vgvWi
+ qv+ZVMbNswLgqsj1L7CCqBxu0CRhXNRMo4ZWLHJ7YdGQjBzSJAC+Rrn3kHKCiuVXmQXd
+ 7u4167CnDmaub7frjIGKoiG2IUIyVIKhZO/+mEcGh+WSQ640OC44barma3FYhFakA9Ev
+ o2h8rBx++U1Cvtty3VvlLqFgZFMbx6OCmZ/qT0HsuHNBDXJyFY5cEjo7mkwdNaihesto
+ 1mXsJNYrvL3mMvVnl68Ah5d8eXnWPn/wZvkHHNbWI25bQ9qFDVCRUq+slUz861uz+wwA
+ Rr4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1705345992; x=1705950792;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=AT42IZM1mCc00W22sVAda77bN1md4nTSKQv+ZPhZkr0=;
+ b=JLWs96d0txszNlN4csEeK1Vu/cfI9oJxYtln5Gu0P5ePv9639W8ae37ZLewqbQpnBi
+ bbreV2+XV8oPj1nCY+KefPDLDTdfbMW753HAveM6OsSW2+2z3AMnzCAmvuTQnVRCXrFU
+ znSt5eFT4M5dPA7PsdtiDsvfSDy3saPV6fYMN9/80vQ6MSbBAeFM1jiZvuyi541cnZbS
+ cznSZzwvJF0iZj5Dw+6YihRjwbiaLly2FKOOjegCVm6oGtafZnAfVZPBQgM5f26WxfpY
+ MuE2HiIn40JF8X4tcariCxEqBkaR+SmaAUOT/MhBCEvGzISFpRqckzTCK+YxjoUWB+SA
+ 1UmQ==
+X-Gm-Message-State: AOJu0Yyb/q0nyf5ZiR9+Na2tzHmN54NbCaCDleNNf6qmsFFpB1zJtvnW
+ /1ATTKClClBIjY0PUTLlIGhldlnQTe1S3w==
+X-Google-Smtp-Source: AGHT+IGkHsFx4W4+Pd9CZtRz5Gxj0jZrsPHubXSX2kWATVrJog9fZFILy2I3zm4bBTfjIytUWn5Q6g==
+X-Received: by 2002:a05:600c:6a0b:b0:40d:2921:2a55 with SMTP id
+ jj11-20020a05600c6a0b00b0040d29212a55mr3397212wmb.21.1705345992453; 
+ Mon, 15 Jan 2024 11:13:12 -0800 (PST)
+Received: from [192.168.0.89]
+ (darl-09-b2-v4wan-165404-cust288.vm5.cable.virginm.net. [86.17.61.33])
+ by smtp.gmail.com with ESMTPSA id
+ s4-20020a05600c45c400b0040e6ff60057sm8116243wmo.48.2024.01.15.11.13.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 Jan 2024 11:13:12 -0800 (PST)
+Message-ID: <9e6fec7b-3786-4221-8024-6b949efd08e7@froggi.es>
+Date: Mon, 15 Jan 2024 19:13:11 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/amdgpu: Mark ctx as guilty in ring_soft_recovery
+ path
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ Friedrich Vock <friedrich.vock@gmx.de>
+References: <20240113140206.2383133-1-joshua@froggi.es>
+ <20240113140206.2383133-2-joshua@froggi.es>
+ <c9b839cd-4c42-42a6-8969-9a7b54d4fbe8@amd.com>
+ <0e701278-a633-403c-b397-e4f772d66c5a@froggi.es>
+ <aca706e6-58bc-4c38-bbfe-19137f38c897@gmail.com>
+ <9a07c4e4-321c-4f75-aeae-81ed90038365@daenzer.net>
+ <f2153219-e791-4e97-96eb-26094d7acf87@froggi.es>
+ <5c99ec8c-142d-4877-9624-c8ce0373fccd@gmx.de>
+ <5ff32f43-46ea-4e74-8db4-c23e0b03b429@daenzer.net>
+ <8e5cd59e-075a-480e-8452-87924580122d@froggi.es>
+ <1dbe811f-64a0-4ccd-88cf-3fd30f79f7bc@daenzer.net>
+ <c36400bd-b8f2-4026-b989-f4e1854b05ca@gmx.de>
+ <7194a09a-afe8-4eae-8288-c72e2ac7d0a6@daenzer.net>
+ <51b9ffc3-9ab3-4a06-9307-6b2a343f6bc6@gmx.de>
+ <CAP+8YyGg91f_z2ktrd7HQMtOSHn34F-8x7O2iRv=TTrXo2NNoA@mail.gmail.com>
+ <81a82ffc-c2e6-4ce6-9cc0-4f01dc8b9891@froggi.es>
+ <bff749b8-5531-46bd-8e21-97d094e6b4c2@amd.com>
+From: Joshua Ashton <joshua@froggi.es>
+In-Reply-To: <bff749b8-5531-46bd-8e21-97d094e6b4c2@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9CD:EE_|PH7PR12MB6884:EE_
-X-MS-Office365-Filtering-Correlation-Id: f933f8cc-414b-4cee-2bd3-08dc15fd45c6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: G+5sXoEO6WMWdho2DFAU7M0TVxjD412/sdEnCJ3juHkH/TtY17/7ZLcQ6LEEFLTTM7jzh/8HBE69zJoOameOGa4ts+u9f2TyRL5T1htgn60udK4iNPQuehzkjW7ll27P63uh786Kew6lypYUFQ+qSJrS0CoLtUj1mb5g2e6HZSJbeOAdKGXhKF06HQq2aSCocEnQJjqn6opRitwdFkerlANzoQQqbSO4jmoTMqyjubP6FF862Ddxr9fqr9hSHaYyWOLIxiVKEV4CFk9ddg7n0/AHcyl+gSbT+yPR69GuYD9eDmBwwHHJZegEfbijCRXIsULAVOzxc8noHAth3h5hpNaTZtv46g0j6MNxhuDA8QiagUPCSD2EfnV08MUsj7uEUi9XC8PJ+Dve0BcBB2Fm6D0KndV9tJfN4bboLqReAS3kFIif9POiZE74fVZgqWDmiSmIaKM7oYfwtcns84vVpNvCM192TSybTKYfZKVhwZnk+GUEdX3T0Bre0dTrF+7Q4O+9mlsH6Eh5R2hpyhbkCicrz8zuGCSjCRtNBmnFn1YWIjggx5R1di1LuFt9ngtm9ofTdKdiKCqB4ieFoZ/0p0lW+pIokwm42pG6lIV1A/bhpaTLCtA+x5cclF/67vJdlUqaUnh98ZC0VzseC0wVLGefQCc2kR5lXu3Yyt3BkJIoPhB/4b7IrexElLEAu3XgdRAySywkmMfOaQVP+xIwG9vbkrQZ5nD9hyt1iybAQ02/dEMwnvjKDG3/dAMX6/KcUsz1Yk7+1UsuxtxaZGEY5Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(396003)(346002)(376002)(136003)(230922051799003)(1800799012)(82310400011)(186009)(451199024)(64100799003)(40470700004)(36840700001)(46966006)(40480700001)(40460700003)(83380400001)(426003)(336012)(36756003)(26005)(41300700001)(82740400003)(356005)(86362001)(70586007)(47076005)(16526019)(70206006)(81166007)(316002)(2616005)(1076003)(5660300002)(7696005)(4326008)(6666004)(36860700001)(6916009)(8676002)(44832011)(8936002)(2906002)(478600001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2024 19:07:52.0354 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f933f8cc-414b-4cee-2bd3-08dc15fd45c6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9CD.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6884
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,111 +94,112 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jay Cornwall <jay.cornwall@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
+ =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This instruction has no functional difference to S_ENDPGM
-but allows performance counters to track save events correctly.
 
-Signed-off-by: Jay Cornwall <jay.cornwall@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h     | 14 +++++++-------
- .../gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm |  2 +-
- .../gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm  |  2 +-
- 3 files changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
-index df75863393fc..d1caaf0e6a7c 100644
---- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
-+++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
-@@ -674,7 +674,7 @@ static const uint32_t cwsr_trap_gfx9_hex[] = {
- 	0x86ea6a6a, 0x8f6e837a,
- 	0xb96ee0c2, 0xbf800002,
- 	0xb97a0002, 0xbf8a0000,
--	0xbe801f6c, 0xbf810000,
-+	0xbe801f6c, 0xbf9b0000,
- };
- 
- static const uint32_t cwsr_trap_nv1x_hex[] = {
-@@ -1091,7 +1091,7 @@ static const uint32_t cwsr_trap_nv1x_hex[] = {
- 	0xb9eef807, 0x876dff6d,
- 	0x0000ffff, 0x87fe7e7e,
- 	0x87ea6a6a, 0xb9faf802,
--	0xbe80226c, 0xbf810000,
-+	0xbe80226c, 0xbf9b0000,
- 	0xbf9f0000, 0xbf9f0000,
- 	0xbf9f0000, 0xbf9f0000,
- 	0xbf9f0000, 0x00000000,
-@@ -1574,7 +1574,7 @@ static const uint32_t cwsr_trap_arcturus_hex[] = {
- 	0x86ea6a6a, 0x8f6e837a,
- 	0xb96ee0c2, 0xbf800002,
- 	0xb97a0002, 0xbf8a0000,
--	0xbe801f6c, 0xbf810000,
-+	0xbe801f6c, 0xbf9b0000,
- };
- 
- static const uint32_t cwsr_trap_aldebaran_hex[] = {
-@@ -2065,7 +2065,7 @@ static const uint32_t cwsr_trap_aldebaran_hex[] = {
- 	0x86ea6a6a, 0x8f6e837a,
- 	0xb96ee0c2, 0xbf800002,
- 	0xb97a0002, 0xbf8a0000,
--	0xbe801f6c, 0xbf810000,
-+	0xbe801f6c, 0xbf9b0000,
- };
- 
- static const uint32_t cwsr_trap_gfx10_hex[] = {
-@@ -2500,7 +2500,7 @@ static const uint32_t cwsr_trap_gfx10_hex[] = {
- 	0x876dff6d, 0x0000ffff,
- 	0x87fe7e7e, 0x87ea6a6a,
- 	0xb9faf802, 0xbe80226c,
--	0xbf810000, 0xbf9f0000,
-+	0xbf9b0000, 0xbf9f0000,
- 	0xbf9f0000, 0xbf9f0000,
- 	0xbf9f0000, 0xbf9f0000,
- };
-@@ -2944,7 +2944,7 @@ static const uint32_t cwsr_trap_gfx11_hex[] = {
- 	0xb8eef802, 0xbf0d866e,
- 	0xbfa20002, 0xb97af802,
- 	0xbe80486c, 0xb97af802,
--	0xbe804a6c, 0xbfb00000,
-+	0xbe804a6c, 0xbfb10000,
- 	0xbf9f0000, 0xbf9f0000,
- 	0xbf9f0000, 0xbf9f0000,
- 	0xbf9f0000, 0x00000000,
-@@ -3436,5 +3436,5 @@ static const uint32_t cwsr_trap_gfx9_4_3_hex[] = {
- 	0x86ea6a6a, 0x8f6e837a,
- 	0xb96ee0c2, 0xbf800002,
- 	0xb97a0002, 0xbf8a0000,
--	0xbe801f6c, 0xbf810000,
-+	0xbe801f6c, 0xbf9b0000,
- };
-diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm
-index e0140df0b0ec..71b3dc0c7363 100644
---- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm
-+++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm
-@@ -1104,7 +1104,7 @@ L_RETURN_WITHOUT_PRIV:
- 	s_rfe_b64	s_restore_pc_lo						//Return to the main shader program and resume execution
- 
- L_END_PGM:
--	s_endpgm
-+	s_endpgm_saved
- end
- 
- function write_hwreg_to_mem(s, s_rsrc, s_mem_offset)
-diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm
-index e506411ad28a..bb26338204f4 100644
---- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm
-+++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm
-@@ -921,7 +921,7 @@ L_RESTORE:
- /*			the END						  */
- /**************************************************************************/
- L_END_PGM:
--    s_endpgm
-+    s_endpgm_saved
- 
- end
- 
--- 
-2.25.1
+On 1/15/24 18:53, Christian König wrote:
+> Am 15.01.24 um 19:35 schrieb Joshua Ashton:
+>> On 1/15/24 18:30, Bas Nieuwenhuizen wrote:
+>>> On Mon, Jan 15, 2024 at 7:14 PM Friedrich Vock <friedrich.vock@gmx.de 
+>>> <mailto:friedrich.vock@gmx.de>> wrote:
+>>>
+>>>     Re-sending as plaintext, sorry about that
+>>>
+>>>     On 15.01.24 18:54, Michel Dänzer wrote:
+>>>      > On 2024-01-15 18:26, Friedrich Vock wrote:
+>>>      >> [snip]
+>>>      >> The fundamental problem here is that not telling applications 
+>>> that
+>>>      >> something went wrong when you just canceled their work midway 
+>>> is an
+>>>      >> out-of-spec hack.
+>>>      >> When there is a report of real-world apps breaking because of
+>>>     that hack,
+>>>      >> reports of different apps working (even if it's convenient 
+>>> that they
+>>>      >> work) doesn't justify keeping the broken code.
+>>>      > If the breaking apps hit multiple soft resets in a row, I've laid
+>>>     out a pragmatic solution which covers both cases.
+>>>     Hitting soft reset every time is the lucky path. Once GPU work is
+>>>     interrupted out of nowhere, all bets are off and it might as well
+>>>     trigger a full system hang next time. No hang recovery should be 
+>>> able to
+>>>     cause that under any circumstance.
+>>>
+>>>
+>>> I think the more insidious situation is no further hangs but wrong 
+>>> results because we skipped some work. That we skipped work may e.g. 
+>>> result in some texture not being uploaded or some GPGPU work not 
+>>> being done and causing further errors downstream (say if a game is 
+>>> doing AI/physics on the GPU not to say anything of actual GPGPU work 
+>>> one might be doing like AI)
+>>
+>> Even worse if this is compute on eg. OpenCL for something 
+>> science/math/whatever related, or training a model.
+>>
+>> You could randomly just get invalid/wrong results without even knowing!
+> 
+> Well on the kernel side we do provide an API to query the result of a 
+> submission. That includes canceling submissions with a soft recovery.
+> 
+> What we just doesn't do is to prevent further submissions from this 
+> application. E.g. enforcing that the application is punished for bad 
+> behavior.
 
+You do prevent future submissions for regular resets though: Those 
+increase karma which sets ctx->guilty, and if ctx->guilty then 
+-ECANCELED is returned for a submission.
+
+ctx->guilty is never true for soft recovery though, as it doesn't 
+increase karma, which is the problem this patch is trying to solve.
+
+By the submission result query API, I you assume you mean checking the 
+submission fence error somehow? That doesn't seem very ergonomic for a 
+Vulkan driver compared to the simple solution which is to just mark it 
+as guilty with what already exists...
+
+- Joshie 🐸✨
+
+> 
+>>
+>> Now imagine this is VulkanSC displaying something in the car 
+>> dashboard, or some medical device doing some compute work to show 
+>> something on a graph...
+>>
+>> I am not saying you should be doing any of that with RADV + AMDGPU, 
+>> but it's just food for thought... :-)
+>>
+>> As I have been saying, you simply cannot just violate API contracts 
+>> like this, it's flatout wrong.
+> 
+> Yeah, completely agree to that.
+> 
+> Regards,
+> Christian.
+> 
+>>
+>> - Joshie 🐸✨
+>>
+>>>
+>>>      >
+>>>      >
+>>>      >> If mutter needs to be robust against faults it caused itself, it
+>>>     should be robust
+>>>      >> against GPU resets.
+>>>      > It's unlikely that the hangs I've seen were caused by mutter
+>>>     itself, more likely Mesa or amdgpu.
+>>>      >
+>>>      > Anyway, this will happen at some point, the reality is it hasn't
+>>>     yet though.
+>>>      >
+>>>      >
+>>>
+> 
+
+- Joshie 🐸✨
