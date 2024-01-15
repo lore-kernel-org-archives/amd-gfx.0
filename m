@@ -4,63 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB5DAC3DA79
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 18:04:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B46AC3DA79
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 18:08:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B6E110E057;
-	Mon, 15 Jan 2024 18:04:35 +0000 (UTC)
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39AC610E057
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 18:04:34 +0000 (UTC)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-40e7e2e04f0so7353535e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 10:04:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=froggi.es; s=google; t=1705341872; x=1705946672; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=6C+JvXqWZ89XNdJd8IKYHLqPZOLLSRzJnvVUy+3MnVU=;
- b=nM14u3gvLN2KZG40UUXtRWAwmG0kfT1gS17Jw0I095uMTSv1tJ5fpa0Ye3bcnSbWfa
- tmCcdy5qPlJOdwzC5AWXVr+LR47QqrQoKIUELXT9q1w7GNwkl494eih3yai/ZcdErkgK
- 5hlen2Jc4kdqsxE4rqnLA6meAE3G0oN3U/ygvoWgTeXdriBkxzxzjZ35NUkFkLrcwURC
- bg5cHYK5aPBOYzlfWaGjThv3egO3iyplY9JZCNrefayQ0hLv2rJoM1JOe+Q2bsI3wzB8
- wu0aEh/LMNBvRNvDYgsCOCmERc6SWbebM2RuksJVgKcrX6Thy6AcTzi0zKeSbFYHIXcv
- xhMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705341872; x=1705946672;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=6C+JvXqWZ89XNdJd8IKYHLqPZOLLSRzJnvVUy+3MnVU=;
- b=UjdivXvHCnlDRIFWngUgzXf3j6vcmCH/lzEK8rEoznOZ89a8HjocOFQ0aREirTV2Cp
- +QjDleh7FLNGowKPWBTtnaNpcN7zyqsILhmv3iNckbxjlYVBMo23gTMmzLfqb0rsTVF2
- Q9m4VlR/oijrVxKRCsCw8HL4ztKXzv1X7sgX0BL8Am6/O2QDJNTz0042Tmzqy/Oftigw
- eIYIfg0VPmehNYj/fKyY2lJXc2HwQp2q5HkhgkW7rNjoFA302HAZRg9gYHQq7Xj0YYaO
- Db4hH/ngRzvz3buLOxrebx1UZqBMNWWgZJ1dso2C/z1jIqCqVQT4u+yLHRB/5gqbRPcq
- 6iFA==
-X-Gm-Message-State: AOJu0YwBCIY5YJXRqs8jnxnYfM0tJNJhRFzQn5JWQ8/yKeu8t7lOiVhY
- yRrVrqhcF6bsDjNu9abXGx/hr/+o6RFN9Q==
-X-Google-Smtp-Source: AGHT+IGNGkC/A7c6UaunhocdWL11IfBJDYXcDkCvUUXx+gktMxYjyF71uLsndlKOeRzpk3wUkkSV9g==
-X-Received: by 2002:a05:600c:b47:b0:40e:706a:5228 with SMTP id
- k7-20020a05600c0b4700b0040e706a5228mr1497268wmr.62.1705341872559; 
- Mon, 15 Jan 2024 10:04:32 -0800 (PST)
-Received: from [192.168.0.89]
- (darl-09-b2-v4wan-165404-cust288.vm5.cable.virginm.net. [86.17.61.33])
- by smtp.gmail.com with ESMTPSA id
- v23-20020a5d5917000000b00337876596d1sm12415845wrd.111.2024.01.15.10.04.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jan 2024 10:04:32 -0800 (PST)
-Message-ID: <ee2f3480-7f9b-4ba3-be7c-ae57130f3997@froggi.es>
-Date: Mon, 15 Jan 2024 18:04:31 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9EF610E349;
+	Mon, 15 Jan 2024 18:08:30 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8955410E349
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 18:08:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.de; s=s31663417;
+ t=1705342093; x=1705946893; i=friedrich.vock@gmx.de;
+ bh=Qk9n4IyBd4dfhdKZi8rQqbtAi/fg/cU3tIi4+mBfQuQ=;
+ h=X-UI-Sender-Class:Date:Subject:To:Cc:References:From:
+ In-Reply-To;
+ b=auK9yhEUcGHp+czVnBqbfkP+b/E6fyDI04sbYmg1CKlvYoWC4wCO7BHc/tmW/Esw
+ 0zKVLwepgY3qBdvhQK2FU9AWeIDjT0tpEzhVxuFCZZ5b/jKFb9ZgrbZQRFEhg9zzf
+ sxqyuvwlR2cnnaWG+zRHQZFZr2eVrsw8Q4j74qFTiaB2nZEymHB6s1bywg4wFNrxY
+ zJU0jOpx59b6jHefqOoAbKlS1ZjLIAMbUws7NvZnwuPWDXdPqbTQVkBmdDyTFmAaG
+ KH8DubCh7q5+t4DK9uvMa1RhXuuWLmC5uWPQqqyDqhqzBWnoMfrXFJj2m6gUjGWhw
+ iIHGQNNlSbz2xuM/HA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from [192.168.177.3] ([213.152.118.80]) by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MeU4y-1qpH9F1iSK-00aUXb; Mon, 15
+ Jan 2024 19:08:13 +0100
+Content-Type: multipart/alternative;
+ boundary="------------zn1UVTH60JxsYtjpg6AJANLk"
+Message-ID: <15b124bd-9855-4ecd-895f-763ce2833883@gmx.de>
+Date: Mon, 15 Jan 2024 19:08:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 2/2] drm/amdgpu: Mark ctx as guilty in ring_soft_recovery
  path
 Content-Language: en-US
 To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
- Friedrich Vock <friedrich.vock@gmx.de>,
+ Joshua Ashton <joshua@froggi.es>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  amd-gfx@lists.freedesktop.org
@@ -75,10 +52,63 @@ References: <20240113140206.2383133-1-joshua@froggi.es>
  <5ff32f43-46ea-4e74-8db4-c23e0b03b429@daenzer.net>
  <8e5cd59e-075a-480e-8452-87924580122d@froggi.es>
  <1dbe811f-64a0-4ccd-88cf-3fd30f79f7bc@daenzer.net>
-From: Joshua Ashton <joshua@froggi.es>
-In-Reply-To: <1dbe811f-64a0-4ccd-88cf-3fd30f79f7bc@daenzer.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ <c36400bd-b8f2-4026-b989-f4e1854b05ca@gmx.de>
+ <7194a09a-afe8-4eae-8288-c72e2ac7d0a6@daenzer.net>
+From: Friedrich Vock <friedrich.vock@gmx.de>
+Autocrypt: addr=friedrich.vock@gmx.de; keydata=
+ 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
+ f7+xmX0X3AMtWz/15Y+7cPO2
+In-Reply-To: <7194a09a-afe8-4eae-8288-c72e2ac7d0a6@daenzer.net>
+X-Provags-ID: V03:K1:jXKs0Xxj8Hvw3GoZ4rd0vuFyjIK2Tvm6xocyLPWkkTFI4IKR/ud
+ 4xgi39e3kSy8NsemeFdqcekHIdHjDlkifIkjLcGH8C0GNXUQHBZFtC+IjkhHX89k3Wsc/cx
+ A1aNE5TL8mCQi38ps/LOj3LNsZLkCMZrVA31KNlu1vPdHCKVCapXatiBmy6W0W1P4c3M8zB
+ sYdomKgnrrTVGLlNhaYjQ==
+UI-OutboundReport: notjunk:1;M01:P0:B0ELEr1WVFg=;axZRINS8yS5wOZ8h5lGXkQr7IVU
+ GfcVTlY0BNP2Gj3xBymzDonOwmS2Lo96tpoeKn/9HRGU3f90pBGKtvSJt13OaUudQUb1cKhFX
+ NPcPyk2nPiZ1w887ZJlCXI1FnCXx0a+E4zCegriydBv3D3uUKWaZJn9RT46T6T1caBG+KOija
+ n6baqhZfQgPzVVtsQU4E4W4tCaU5RNf/HaVGy9c2MMkLO+arD9u7JEep20j1EyX9OAehqGTud
+ CfNEJ9BMux8RaH4Yoi6iwXnhCHARN3J8cbgQ3XDbJf8thAQ05tdXg3tP77tToLxmAegUufWF6
+ 6+zKLqwT9UskJvcGYSBN7qqP1ye9CsybUKYkWIaiRwkybw6ll29iLioATc48n+oAygtuYuTrw
+ NI93C1KgwNkv3b0ww2LrgEKwZaAaJadEAV/SPsbzMAdgCGu2+6XllFN9zwblJG8iirQWNsumj
+ ubuCp887UNFLuSlKCa5l3uxPG3NOWNRFBEk330X1FHpcx0E/32c/P9Y250GleoYz0TeOV72Gl
+ F4h4jMuNCH2BtV9L+l1Y1lN3JXrPia6bqSa/sXBS27azhpPnGwDz4VA0HEkr8Y7VMC5flA8fH
+ iHFs751V8eXL0PU8uaP9mLkv3ag8Id/CTRxY2pfedtp28isws2A9XyyJmT7nZgyBVFwLPRIa5
+ 10206hhYNhJrGvC8nxBc9AXq73fxWidSer0CEUoN51a8dhaytDVxSSbPnjBZ4xrWWuKrcU2VR
+ 2GizNbCqwVopzJ74MsiB4FLHTlvizJVdkUHtX/drD7ojbmPBb1BYni4Oy8QzYpjP89n7cZLNB
+ 909FHtDFnjaN8tdPDrb/DA1YkJyFpyLDQ2eSAMxKpi54eXpIArkCzvU0F/t5nzWlITwY3QI9b
+ NAWDFzYYn0s3bpl76BzkbaCojZ5B7ESayWgxqo9AS8ngbXcpQS+2bgoVHlWhljkfzUnBMstGo
+ RA6SmdGZZxUb89Qej923UOZyrmk=
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,89 +125,101 @@ Cc: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+This is a multi-part message in MIME format.
+--------------zn1UVTH60JxsYtjpg6AJANLk
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+On 15.01.24 18:54, Michel D=C3=A4nzer wrote:
+> On 2024-01-15 18:26, Friedrich Vock wrote:
+> [snip]
+>> The fundamental problem here is that not telling applications that
+>> something went wrong when you just canceled their work midway is an
+>> out-of-spec hack.
+>> When there is a report of real-world apps breaking because of that hack=
+,
+>> reports of different apps working (even if it's convenient that they
+>> work) doesn't justify keeping the broken code.
+> If the breaking apps hit multiple soft resets in a row, I've laid out a =
+pragmatic solution which covers both cases.
+Hitting soft reset every time is the lucky path. Once GPU work is
+interrupted out of nowhere, all bets are off and it might as well
+trigger a full system hang next time. No hang recovery should be able to
+cause that under any circumstance.
+>
+>> If mutter needs to be robust against faults it caused itself, it should=
+ be robust
+>> against GPU resets.
+> It's unlikely that the hangs I've seen were caused by mutter itself, mor=
+e likely Mesa or amdgpu.
+>
+> Anyway, this will happen at some point, the reality is it hasn't yet tho=
+ugh.
+>
+>
+
+--------------zn1UVTH60JxsYtjpg6AJANLk
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-=
+8">
+  </head>
+  <body>
+    <div class=3D"moz-cite-prefix">On 15.01.24 18:54, Michel D=C3=A4nzer w=
+rote:<br>
+    </div>
+    <blockquote type=3D"cite"
+      cite=3D"mid:7194a09a-afe8-4eae-8288-c72e2ac7d0a6@daenzer.net">
+      <pre class=3D"moz-quote-pre" wrap=3D"">On 2024-01-15 18:26, Friedric=
+h Vock wrote:
+[snip]
+</pre>
+      <blockquote type=3D"cite"><span style=3D"white-space: pre-wrap">
+</span>
+        <pre class=3D"moz-quote-pre" wrap=3D"">The fundamental problem her=
+e is that not telling applications that
+something went wrong when you just canceled their work midway is an
+out-of-spec hack.
+When there is a report of real-world apps breaking because of that hack,
+reports of different apps working (even if it's convenient that they
+work) doesn't justify keeping the broken code.
+</pre>
+      </blockquote>
+      <pre class=3D"moz-quote-pre" wrap=3D"">
+If the breaking apps hit multiple soft resets in a row, I've laid out a pr=
+agmatic solution which covers both cases.
+</pre>
+    </blockquote>
+    Hitting soft reset every time is the lucky path. Once GPU work is
+    interrupted out of nowhere, all bets are off and it might as well
+    trigger a full system hang next time. No hang recovery should be
+    able to cause that under any circumstance.<br>
+    <blockquote type=3D"cite"
+      cite=3D"mid:7194a09a-afe8-4eae-8288-c72e2ac7d0a6@daenzer.net">
+      <pre class=3D"moz-quote-pre" wrap=3D"">
+
+</pre>
+      <blockquote type=3D"cite">
+        <pre class=3D"moz-quote-pre" wrap=3D"">If mutter needs to be robus=
+t against faults it caused itself, it should be robust
+against GPU resets.
+</pre>
+      </blockquote>
+      <pre class=3D"moz-quote-pre" wrap=3D"">
+It's unlikely that the hangs I've seen were caused by mutter itself, more =
+likely Mesa or amdgpu.
+
+Anyway, this will happen at some point, the reality is it hasn't yet thoug=
+h.
 
 
-On 1/15/24 17:09, Michel Dänzer wrote:
-> On 2024-01-15 17:46, Joshua Ashton wrote:
->> On 1/15/24 16:34, Michel Dänzer wrote:
->>> On 2024-01-15 17:19, Friedrich Vock wrote:
->>>> On 15.01.24 16:43, Joshua Ashton wrote:
->>>>> On 1/15/24 15:25, Michel Dänzer wrote:
->>>>>> On 2024-01-15 14:17, Christian König wrote:
->>>>>>> Am 15.01.24 um 12:37 schrieb Joshua Ashton:
->>>>>>>> On 1/15/24 09:40, Christian König wrote:
->>>>>>>>> Am 13.01.24 um 15:02 schrieb Joshua Ashton:
->>>>>>>>>
->>>>>>>>>> Without this feedback, the application may keep pushing through
->>>>>>>>>> the soft
->>>>>>>>>> recoveries, continually hanging the system with jobs that timeout.
->>>>>>>>>
->>>>>>>>> Well, that is intentional behavior. Marek is voting for making
->>>>>>>>> soft recovered errors fatal as well while Michel is voting for
->>>>>>>>> better ignoring them.
->>>>>>>>>
->>>>>>>>> I'm not really sure what to do. If you guys think that soft
->>>>>>>>> recovered hangs should be fatal as well then we can certainly do
->>>>>>>>> this.
->>>>>>
->>>>>> A possible compromise might be making soft resets fatal if they
->>>>>> happen repeatedly (within a certain period of time?).
->>>>>
->>>>> No, no and no. Aside from introducing issues by side effects not
->>>>> surfacing and all of the stuff I mentioned about descriptor buffers,
->>>>> bda, draw indirect and stuff just resulting in more faults and hangs...
->>>>>
->>>>> You are proposing we throw out every promise we made to an application
->>>>> on the API contract level because it "might work". That's just wrong!
->>>>>
->>>>> Let me put this in explicit terms: What you are proposing is in direct
->>>>> violation of the GL and Vulkan specification.
->>>>>
->>>>> You can't just chose to break these contracts because you think it
->>>>> 'might' be a better user experience.
->>>>
->>>> Is the original issue that motivated soft resets to be non-fatal even an
->>>> issue anymore?
->>>>
->>>> If I read that old thread correctly, the rationale for that was that
->>>> assigning guilt to a context was more broken than not doing it, because
->>>> the compositor/Xwayland process would also crash despite being unrelated
->>>> to the hang.
->>>> With Joshua's Mesa fixes, this is not the case anymore, so I don't think
->>>> keeping soft resets non-fatal provides any benefit to the user experience.
->>>> The potential detriments to user experience have been outlined multiple
->>>> times in this thread already.
->>>>
->>>> (I suppose if the compositor itself faults it might still bring down a
->>>> session, but I've literally never seen that, and it's not like a
->>>> compositor triggering segfaults on CPU stays alive either.)
->>>
->>> That's indeed what happened for me, multiple times. And each time the session continued running fine for days after the soft reset.
->>>
->>> But apparently my experience isn't valid somehow, and I should have been forced to log in again to please the GL gods...
->>>
->>>
->>> Conversely, I can't remember hitting a case where an app kept running into soft resets. It's almost as if different people may have different experiences! ;)
->>
->> Your anecdote of whatever application coincidentally managing to soldier through being hung is really not relevant.
-> 
-> But yours is, got it.
+</pre>
+    </blockquote>
+  </body>
+</html>
 
-Yes, as what I am stating is backed by the specification for the APIs we 
-are using.
-You previously said things are not black and white, but it very 
-explicitly is -- we have specifications for a reason!
-
-Your app just-so happening to survive a command buffer being ignored is 
-not a useful or valid addition to this discussion at all.
-
-- Joshie 🐸✨
-
-> 
-> 
->> It looks like Mutter already has some handling for GL robustness anyway...
-> 
-> That's just for suspend/resume with the nvidia driver. It can't recover from GPU hangs yet.
-> 
-> 
-
+--------------zn1UVTH60JxsYtjpg6AJANLk--
