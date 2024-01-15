@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EA13C4707B
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 22:51:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B9F2C47258
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 22:58:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAF0610E3BE;
-	Mon, 15 Jan 2024 22:51:42 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2049.outbound.protection.outlook.com [40.107.93.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F39B10E3BD
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 22:51:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E875D10E3A9;
+	Mon, 15 Jan 2024 22:58:04 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37E6110E3A9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 22:58:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CzP3VmB3MBF0LN00KHMe2q8czd/M543/SMQAINI+qZR7VS3nCL5dHQA6c2jeqc/XA8oovSk2FBJdUnhd8b78XL4vLFJE3PR9Cz1MOer0Jgay1xfD2ANhoAE1wiPPLR7w8LkCv7OS6kzA5C/YlPzWkfuq4SeYs9oWt/upXNOQ/bcjUkfh5nF2HZAisCW1335M9QIDiK8/uaZAI1N3l5fVIPACbFDGxoIq4HVKGgUXNkO9WTASrsJ2Fdw7SbFbexPCUXzZG4OvO2EofSUoSYcHdN8Qh+pC5hY6JYXfb3mVSbb3POzFExAzhPcJMvXsoKSSBLgtgtFq4JuOb6uGLExgLQ==
+ b=Jm17oh5dgACr6//c+WdWa+tgczxLn/zAw6nEzk0zG061qGzU6YdbjnUdgwpn7nLeyyo5p4ave/bQIFNzn3aZJ7KeCZVuaWpRUvVq3Jy/8r8LIpC4K0KUhluRZKne19W+8thNUt7Ac214QlgO8rqWLkrRvkblc6HedU1uOGniydplHtSVNhR6NmC+4Y4+HRf68Nl32KbWvUCyJHD4RhO5hNmZOp7JawXKtJWyXZV9SYfKu6JBNcH4xG1VSKsH29GhbWVzkzdEnWHfveLMgpGPvPj5FHYxVNcTiTeGs1P7Yso/aFT2HjCFh+Hq/6n9sX1HCfY08qsrj7DVIy7xPFcnFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YBDxw/BcctJVy4K9SjP8p5sRz9NOIc/5Pjfs1dnj+dU=;
- b=lEB2CDstu6xxjiHUqxhNP4+E61vPX92mTazN9snvlx9ZVv658pJaGBILcvIgelrpDtzVMhNw+QikzW5L2IKegd4gbdgfImpnTw+bIf2FgQjsbd9dcxQfMJPJrVvUS5UcnbrZRcI5l2RHVzQjFhIkJxgiDXF8egqLpHEOCWrIrMjbBgAHY9lOY7kSxbG7w2royloqFVzT+o1VxHcKEb3r4nq2Dj0ZU6Ix6IM9/1c/i0l3Bx2r5HZqIqLTYXxaIG4EsHom6QsAtzaRgw9sKcp/aDLm09R0lXKqVYziVu6ODq+JT0kbjCqlHSN9OuAt9W7uKwmpAryvI61wuhLvtq0ECg==
+ bh=1I+9GChd8T9B3x0N1so08skJo3PDgd8uTDjmXex7R7s=;
+ b=mP/qbhqL54y0Yp82+T2yof7FZKApXYW7L9+lucp/oxxF6VcZvLkvTVwUvhy58qNSnUV52DdcqmZ0C1599/HI0v79tdBHz+7Dw7PPQBNvnXRtK+IHHSoN+RT1GvuVlVuAyezN4yFHH682IpMmJO9ONZc4AvJuE67llStJsF2wmtwx1zoTr+fS+5HrID3eFxTBNzF5Ihhi51024MP07PFkB/HLPpclD2aQk10CUJb3XF5Mr+v8AMZDQxfxtLBICciiO2ATXfUUwWX1Dng9OuMAgrDZLG3FobzYSfODXQMxl3EEhjwzCt4DA216aTz7tVkInrhjdgb2WJ3gmGcTktV7ew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YBDxw/BcctJVy4K9SjP8p5sRz9NOIc/5Pjfs1dnj+dU=;
- b=28+WoTfjVC0lsvjBzcfj4aSMBaZAcGJ7XiVXxKTsJ0I3yKW9oeSyIU4D0LNS16VNO/94fygLmcqUA7OaEMYrT6JO3wR+M/gJ/kuiGvBw+KehfAwzepJ9FgBXxHg/zh8sOO8r1CoKkPtKvD0UEnc0IKiyW5sCzrPdDyHPlaLtwbQ=
-Received: from SA9PR13CA0156.namprd13.prod.outlook.com (2603:10b6:806:28::11)
- by BY5PR12MB4919.namprd12.prod.outlook.com (2603:10b6:a03:1d6::8)
+ bh=1I+9GChd8T9B3x0N1so08skJo3PDgd8uTDjmXex7R7s=;
+ b=QvN2G/RcWOQHKo0LqbVBfZvyzBRjaKdIhImBqNSlA6csuDiO9oxquDwgeiIemnH0O1HPdkUam+RJqcALYlGmlweIqPCICNyqLQL8a8M0cZmrOe7Bj8RTl3pXuODxYEWlrSRhp9RkwA5ByisjW/+FIe1bGfIdd4QvqDryb5k9kH8=
+Received: from BYAPR07CA0016.namprd07.prod.outlook.com (2603:10b6:a02:bc::29)
+ by BY5PR12MB5000.namprd12.prod.outlook.com (2603:10b6:a03:1d7::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.26; Mon, 15 Jan
- 2024 22:51:25 +0000
-Received: from SN1PEPF0002BA50.namprd03.prod.outlook.com
- (2603:10b6:806:28:cafe::74) by SA9PR13CA0156.outlook.office365.com
- (2603:10b6:806:28::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.19 via Frontend
- Transport; Mon, 15 Jan 2024 22:51:25 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.23; Mon, 15 Jan
+ 2024 22:57:45 +0000
+Received: from CO1PEPF000044EF.namprd05.prod.outlook.com
+ (2603:10b6:a02:bc:cafe::bd) by BYAPR07CA0016.outlook.office365.com
+ (2603:10b6:a02:bc::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.23 via Frontend
+ Transport; Mon, 15 Jan 2024 22:57:45 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,21 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF0002BA50.mail.protection.outlook.com (10.167.242.73) with Microsoft
+ CO1PEPF000044EF.mail.protection.outlook.com (10.167.241.69) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7202.16 via Frontend Transport; Mon, 15 Jan 2024 22:51:25 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.7202.16 via Frontend Transport; Mon, 15 Jan 2024 22:57:44 +0000
+Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 15 Jan
- 2024 16:51:23 -0600
-From: Philip Yang <Philip.Yang@amd.com>
+ 2024 16:57:44 -0600
+From: Felix Kuehling <felix.kuehling@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v4 7/7] drm/amdkfd: Wait update sdma fence before tlb flush
-Date: Mon, 15 Jan 2024 17:49:50 -0500
-Message-ID: <20240115224950.3300-7-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20240115224950.3300-1-Philip.Yang@amd.com>
-References: <20240115224950.3300-1-Philip.Yang@amd.com>
+Subject: [PATCH] drm/amdgpu: Remove unnecessary NULL check
+Date: Mon, 15 Jan 2024 17:57:27 -0500
+Message-ID: <20240115225727.1287832-1-felix.kuehling@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -68,26 +66,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA50:EE_|BY5PR12MB4919:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0cada165-92d0-4c89-d356-08dc161c80e1
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044EF:EE_|BY5PR12MB5000:EE_
+X-MS-Office365-Filtering-Correlation-Id: 52f5b561-2eb6-4379-5759-08dc161d6300
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bextEbjfTr0HK5VSgRkT5qj621QsK+ASaUtGRRkW59mLmS2Kx/Wavd1GPCNIMpGFPv4XnHGvDeOCwRUbq0wFJV5+AntrR3/r9Qw3PL29fBB19kyV9OBLi90zRdrLANZjeWdo5d/6TRSIkfVnY2hykWTLLeDWLbYDeQJhwpUjrV/hbbFI2P7f6pp6HJDjYA+yAQ7WDsZw8IVsynh17OjoD5X+WtgI+FtxuFXGCVtcNFY56p6K7fdr3XXQDLxPmQ+89yRPUud2HVl3pkUkv+iVjGJgR39flHMXkoFC6uy2bDwX4rgIGDIwgDeb5rOA1rQmfmxnTamS6asT76yz2zOeLtuM/W+Gq9kaAcqvosHGMr0nzxVMFtVr97UhDFRT3LQ0tUzya8cAq7gUFx6OxvSAlZ0OrNI1bgM1DKVYk6xjoz8fDXAq7t2Bk6p05PTa4cpe6s8mSGGF7ICm9Tz8NujmwCMQ6iHl8w+SaG2nuQJj1wvi7uOolCDvdJKyN9KkM6iebwBnJRgOrTlP3Eb/ba8oxXvmPWXUHF/XECGZHvVQHVI1RIVV84aPtjWFf67WNlqYe0gf1r8zJStwLZmHmIMqPO3kzFZs81rVaTRJPg+hGaBl4ygBQqoKPGj168N89e4Z93OxUbivv4DrVTQNBhfsfnMzCRR7yJ5VwyLJdy0tolKTvmJQ+ZJZxXRNAuhpxB8gsBVevuG/At3mtgVdzRZxg1tLSw58XvvhFXekC/YimgTlN/Zh98BYQ9i6KJFmkftcljEVu/Xh5DvqE449rDbAuw==
+X-Microsoft-Antispam-Message-Info: dDwtvr1D9lyG8ffB1cfD9NDq0G73cHMIUvpXxgIkrdfILoFotqBUf3JsEy801JYxEwKJj+AzKCelZomGiM1WkPUKeUsy3kfpe0WRduqI7WDHg0CgULjY1reaAjTn2dunA5NxUr9f7LB4ffZ3esfw/Lu6FRYb8lcdHMryFw8hpGtCsu2HSSy4tAnSZLDgb/ZZKThmkT+8qqpA+Pw6OcglNYofwrwUr9imJ4eppBDemQ/ALIf0OYwtIubzshDwEljLGio6++sATlPaz78Y7ZZp1/YC1eav8EG29Q8Yb4cWW9iOcS14u7o+eMxgguR/ocrL99HCvOCIzsilaK3cwlOhA+BG5FleSzK2+HiWb4CSpP6FoYYpbobRFHdvDpL0bEZ9yinIXytY4iI/7RL0A/LTc4unbWAik8f5fUaEBaSVbcvc2J5G0GXuL1qR9LnzAzgX62mLlQnq/KCrMCVF7TRx1MJ1Ws46sclQ3ZqidyuXK8HtV/OEfTklBmzIh0KpzGSfPsZbHVk7QluIIrsAadyKkHGNOyT4/joR/p44ifpbjpLiEz3rQwSaVSGTC5ztAek+DVQ8qIweLHUpgbcjCXYPO9AaU7iV4FRj6nf8QjOdmWzEgnoWdj1O8UmE2Gc/u8d4tMLfzSQYKkNvhWc97O8cLEywbxjMSU0vIEgd8yKuSlZaRG7DZZlFQMfiGWjOjBABfZ9H1nTL1tOB/4yf10RHgxL8Nmn2qR/quTVT1m2qS++tG+i65E71pyx+P2146DF1LgUMb7ugYztFJE1spmNYrw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(376002)(396003)(39860400002)(136003)(230922051799003)(1800799012)(64100799003)(451199024)(186009)(82310400011)(46966006)(36840700001)(40470700004)(40480700001)(40460700003)(426003)(26005)(336012)(16526019)(82740400003)(356005)(81166007)(86362001)(36756003)(316002)(83380400001)(2906002)(6666004)(7696005)(478600001)(2616005)(47076005)(6916009)(8936002)(8676002)(36860700001)(5660300002)(4326008)(41300700001)(70586007)(54906003)(70206006)(1076003)(15650500001)(36900700001);
+ SFS:(13230031)(4636009)(376002)(136003)(346002)(39860400002)(396003)(230922051799003)(186009)(82310400011)(451199024)(1800799012)(64100799003)(46966006)(40470700004)(36840700001)(8936002)(478600001)(7696005)(6916009)(6666004)(70586007)(8676002)(316002)(83380400001)(16526019)(36860700001)(426003)(336012)(1076003)(26005)(47076005)(70206006)(4326008)(2906002)(5660300002)(41300700001)(44832011)(36756003)(81166007)(356005)(82740400003)(86362001)(2616005)(40480700001)(40460700003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2024 22:51:25.6477 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0cada165-92d0-4c89-d356-08dc161c80e1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2024 22:57:44.9034 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52f5b561-2eb6-4379-5759-08dc161d6300
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA50.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044EF.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4919
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB5000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,105 +97,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip Yang <Philip.Yang@amd.com>, Felix.Kuehling@amd.com
+Cc: Dan Carpenter <dan.carpenter@linaro.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If using sdma update GPU page table, kfd flush tlb does nothing if vm
-update fence callback doesn't update vm->tlb_seq. This works now because
-retry fault will come and update page table again and flush tlb finally.
+A static checker pointed out, that bo_va->base.bo was already derefenced
+earlier in the same scope. Therefore this check is unnecessary here.
 
-With the bitmap_map flag, the retry fault recover will only update
-GPU page table once, have to wait sdma udate fence and then flush tlb.
-
-No change if using CPU update GPU page table for large bar because no vm
-update fence.
-
-Remove wait parameter in svm_range_validate_and_map because it is always
-called with true now.
-
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+Fixes: 79e7fdec71f2 ("drm/amdgpu: Auto-validate DMABuf imports in compute VMs")
+Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index b36d997e7a3d..9e5f6e12c498 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1677,7 +1677,7 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
- static int
- svm_range_map_to_gpus(struct svm_range *prange, unsigned long offset,
- 		      unsigned long npages, bool readonly,
--		      unsigned long *bitmap, bool wait, bool flush_tlb)
-+		      unsigned long *bitmap, bool flush_tlb)
- {
- 	struct kfd_process_device *pdd;
- 	struct amdgpu_device *bo_adev = NULL;
-@@ -1710,8 +1710,7 @@ svm_range_map_to_gpus(struct svm_range *prange, unsigned long offset,
- 
- 		r = svm_range_map_to_gpu(pdd, prange, offset, npages, readonly,
- 					 prange->dma_addr[gpuidx],
--					 bo_adev, wait ? &fence : NULL,
--					 flush_tlb);
-+					 bo_adev, &fence, flush_tlb);
- 		if (r)
- 			break;
- 
-@@ -1837,7 +1836,7 @@ static void *kfd_svm_page_owner(struct kfd_process *p, int32_t gpuidx)
- static int svm_range_validate_and_map(struct mm_struct *mm,
- 				      unsigned long map_start, unsigned long map_last,
- 				      struct svm_range *prange, int32_t gpuidx,
--				      bool intr, bool wait, bool flush_tlb)
-+				      bool intr, bool flush_tlb)
- {
- 	struct svm_validate_context *ctx;
- 	unsigned long start, end, addr;
-@@ -1950,7 +1949,7 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 				offset = map_start_vma - prange->start;
- 				npages = map_last_vma - map_start_vma + 1;
- 				r = svm_range_map_to_gpus(prange, offset, npages, readonly,
--							  ctx->bitmap, wait, flush_tlb);
-+							  ctx->bitmap, flush_tlb);
- 			}
- 		}
- 
-@@ -2041,7 +2040,7 @@ static void svm_range_restore_work(struct work_struct *work)
- 		mutex_lock(&prange->migrate_mutex);
- 
- 		r = svm_range_validate_and_map(mm, prange->start, prange->last, prange,
--					       MAX_GPU_INSTANCE, false, true, false);
-+					       MAX_GPU_INSTANCE, false, false);
- 		if (r)
- 			pr_debug("failed %d to map 0x%lx to gpus\n", r,
- 				 prange->start);
-@@ -3303,7 +3302,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
- 	mmap_read_lock(mm);
- 
- 	r = svm_range_validate_and_map(mm, start, last, prange, gpuidx, false,
--				       false, false);
-+				       false);
- 	if (r)
- 		pr_debug("failed %d to map svms 0x%p [0x%lx 0x%lx] to gpus\n",
- 			 r, svms, start, last);
-@@ -3847,7 +3846,7 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
- 		flush_tlb = !migrated && update_mapping &&
- 			    svm_range_partial_mapped(prange, prange->start, prange->last);
- 		r = svm_range_validate_and_map(mm, prange->start, prange->last, prange,
--					       MAX_GPU_INSTANCE, true, true, flush_tlb);
-+					       MAX_GPU_INSTANCE, true, flush_tlb);
- 		if (r)
- 			pr_debug("failed %d to map svm range\n", r);
- 
-@@ -3863,7 +3862,7 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
- 		mutex_lock(&prange->migrate_mutex);
- 		flush_tlb = svm_range_partial_mapped(prange, prange->start, prange->last);
- 		r = svm_range_validate_and_map(mm,  prange->start, prange->last, prange,
--					       MAX_GPU_INSTANCE, true, true, flush_tlb);
-+					       MAX_GPU_INSTANCE, true, flush_tlb);
- 		if (r)
- 			pr_debug("failed %d on remap svm range\n", r);
- 		mutex_unlock(&prange->migrate_mutex);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 77d015ebb201..b7f07cc52b1b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1477,7 +1477,7 @@ int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
+ 		/* Remember evicted DMABuf imports in compute VMs for later
+ 		 * validation
+ 		 */
+-		if (vm->is_compute_context && bo_va->base.bo &&
++		if (vm->is_compute_context &&
+ 		    bo_va->base.bo->tbo.base.import_attach &&
+ 		    (!bo_va->base.bo->tbo.resource ||
+ 		     bo_va->base.bo->tbo.resource->mem_type == TTM_PL_SYSTEM))
 -- 
-2.35.1
+2.34.1
 
