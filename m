@@ -4,113 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 456AEC3DA79
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 12:18:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3BD4C3DA79
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 13:17:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAC0E10E241;
-	Mon, 15 Jan 2024 12:18:10 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2051.outbound.protection.outlook.com [40.107.237.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1E8F10E241
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 12:18:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RZZ+gtnoflImI3GAH1lBE7X+3B2nWwl9gPuL6n4h5atQhvWUiSA683sk2EHUCHoUDuIAjTjfOvzdOSbDdFmYQDTan3TtxIrLlFfvyW3MTixHFiJVodF3MMloyItgUBC1H1LEHscOLnJ3M06cl2LSGpLx3ZdtbqfErTv9NyNLnaaYzn/eHXas1u72spPCO6LweGMVsOTRIDtLUhM+Ts2ZyoZMDk8fxcsDZdbXwFIxsLgZNYdgJgmVCG84xwhuGx856UNWCGUb4CzOazqcN4sXr2Px4l/RgreIv4/YL20w1F/s16/yGQ6I/U0V6LWmZjCZ/Bdv/cQQL0gNHaU1NyykgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dghFg5MXlTg2uvLSOpha297p0AmHlQ65tQZzcbqEx0Y=;
- b=fXPTS2uZUFi/HrQjWxzGwBdYqJ2DoDH4GPubT+UImmVSJHBBtY4fn2Qy1toUNz9WVjd22tKUsxlS6snxhsvXgK5MajplMVMH7Xe9SVDVxkK9GNvFVsf/BYYFO19kuUW7MJ8uBwTQUV8S6jkvMTs9yKiMldUAjvMMALa2uZWNDvxWRoDubmr+NIunOukvzLGpqR2MTu6bHEMcA/AHrdRw3Nk34apEy3Au1qAgNhlVp1CwKoQ9b8EBFun3RxYqrFAS7YY8dzM3wH8JKKHyASWQoh0KPg6nwPZypgRFqGp/S0oV4rAOD/4JA50MryyLg62JYqoLDpCCk7brlos02SlYug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dghFg5MXlTg2uvLSOpha297p0AmHlQ65tQZzcbqEx0Y=;
- b=Ok3vaGwqiWz/NHjRmlvsSHXEt16kBb/qFOQfH14Le1enwx3K9hEpjzIq4b+ET/TQTwsyqf6ulnmgfMSUBCx7ojzCvvxQwILX8xN+mCDxXBoCbcyEfc0RfUrhZXbJElhB0oIoLISrfKwyToQmexH2J7AB2keEZveN0Pss2W0lLlk=
-Received: from DS7PR12MB6071.namprd12.prod.outlook.com (2603:10b6:8:9d::11) by
- SJ0PR12MB6903.namprd12.prod.outlook.com (2603:10b6:a03:485::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7181.19; Mon, 15 Jan 2024 12:18:04 +0000
-Received: from DS7PR12MB6071.namprd12.prod.outlook.com
- ([fe80::1766:791f:b4a0:5edc]) by DS7PR12MB6071.namprd12.prod.outlook.com
- ([fe80::1766:791f:b4a0:5edc%4]) with mapi id 15.20.7181.019; Mon, 15 Jan 2024
- 12:18:04 +0000
-From: "Kamal, Asad" <Asad.Kamal@amd.com>
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: fix sdma ecc irq unbalanced issue
-Thread-Topic: [PATCH] drm/amdgpu: fix sdma ecc irq unbalanced issue
-Thread-Index: AQHaR6r5c/7AnD8hE0K4ym0ujQFtDLDayh7A
-Date: Mon, 15 Jan 2024 12:18:04 +0000
-Message-ID: <DS7PR12MB607127A5D05E2BF37874E8FF8E6C2@DS7PR12MB6071.namprd12.prod.outlook.com>
-References: <20240115120318.936129-1-kevinyang.wang@amd.com>
-In-Reply-To: <20240115120318.936129-1-kevinyang.wang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=f5784806-4000-4300-ad3e-e53ed6bf178d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-01-15T12:16:54Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB6071:EE_|SJ0PR12MB6903:EE_
-x-ms-office365-filtering-correlation-id: 72110a6e-9ecb-4933-2393-08dc15c4065b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 2AIKBa5R5hY4P01iIST8sDrBTnKPXnrYmSsgu0utXqZwezyxkM09bYsoox1kIChKtxg8ulSERbZAdyWEhORMGTBZxsGuJ08HBTE7072quOCGLcrcZXEvnKP6GzJRvEr4/DCscZC0S7yPGoyjokWLhaor2HWUUR9r3dTX4Ie41TVheK2NroA3nRo43YL1bbqQ0gVxgdo8jLSWlsIFfXIaiSxFKvDy2JRNPVIdGu8wbwzEG5M8dtJ/6Iga1fKytAixO8bc0YnjSSY/GRB0dgWq/obqpiEhkb3Jr3fnDcQUXQN2XVBqJkpOugD1YStudzNopISSFH5nvwqd+RfWm3ZENk1e7pzUaUxOAs6cow663Ri4a5vbitYo/Wakyu2wIJ/5ySN8Xn/eYBzoK6K7zhbj3DmnNI/Z2lXA03FWk6CXw6K7WZb7vLskb1WJYDupWwTb5DGxRbGu3hHshkIT55aoNS6PXgnDJlLRgTyhgQvmQlQcK/lrFo1n4/AuvYD2HOh3oJYrOZUPh2d6mRMp9ekWt7Vcl3PkkfGcFAWprIgJKPxbtS0NvG+D6enA0VZad9mAvy8oLe9pQn7Pqmtu9TWntcy150FQElMuIFv+hoVTaZE86gPiT5bAdDNeigDXnEBf
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB6071.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366004)(376002)(396003)(39860400002)(136003)(346002)(230922051799003)(1800799012)(64100799003)(186009)(451199024)(55016003)(110136005)(38070700009)(33656002)(86362001)(83380400001)(71200400001)(2906002)(4326008)(64756008)(53546011)(66476007)(26005)(122000001)(9686003)(5660300002)(66946007)(6506007)(54906003)(478600001)(66446008)(76116006)(66556008)(8676002)(316002)(8936002)(7696005)(52536014)(38100700002)(41300700001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?xHtGazE0zPAssM9GH90MW2vc+Bh30YfFWA3E6xs1AKdFyefzjiltwPOz6kI1?=
- =?us-ascii?Q?Cdm4g9PT5Ld75aNPywA2laxvym7ZfeJXM5XPDQAgAKw3TnVzZi1r8pIwFSZE?=
- =?us-ascii?Q?Q7UXMLI0ODGjTB//a0VirW/KMPXyVIb1RFFQx4RkL73hM6hhbzaHx0Z0Ft2P?=
- =?us-ascii?Q?5P+WHvLWvFGgfdng9Zn2km55B+VBs+1whxegOpjkfyvuLkB75mynRB/t9hll?=
- =?us-ascii?Q?tOoUcwAtN2PYlIMzBfAteKGNhnO9D3KqIZ3o3OC0K6pHFTWsyK57xS8fWprA?=
- =?us-ascii?Q?an/+wstiaCB1PgrQA6W1jyF/6mWLRLG314++I29jZvO5m5ySptE+Yi4OllyK?=
- =?us-ascii?Q?dz5JjoBEol/nWBGlHyQlPB807sKjuxOMR4NXBa944+anm47NG0LqdIdGHcpn?=
- =?us-ascii?Q?vGOGid8CUaek42nAn9JLuT8NW9F7oaqIxM1d12nMZ8++60oJC+z5kLkm/CE9?=
- =?us-ascii?Q?zM0By9GnNkJNpUQlGFG1LTTWmDYeXpjWP8K1PCr1aiPR0Ps1w9yqQWV2szxM?=
- =?us-ascii?Q?dj3Tr/B4Zplehq8TiZVRkEVLR82nPDv1l1Zxu3K9a0/bfAmCL4NRCW/5YzM+?=
- =?us-ascii?Q?2Ypg7Pdd3/bNPTAHuPD+oHT7VEeoCJK1FUx9rZnClSzpj6YLce7PtS3Sg6kE?=
- =?us-ascii?Q?Hn2VlZDFAJyF5iq8a46fgtJBKoTsOmifdarFvTRMdsA4lGkzLE2NXbtqdJKw?=
- =?us-ascii?Q?gy+uE/JLUcRgL5gw4bIUAO3E/ygd7PBqeAKtXbudWvBdpOVXNm20RaFNwxMs?=
- =?us-ascii?Q?EHbyMVZxQNl0N8802Ik7+FD3Sg3LikawzQALY7jPvfPs+8ztDBj9ROfu3S7+?=
- =?us-ascii?Q?LBAWApo6CFpFX4j55fM3tO2iP9/jYxlfo4Dq8cYIEpygysLV//5Foad58n5g?=
- =?us-ascii?Q?kY+dhrninxnzLaRls4CJcjhhN4UlSfzJp+3EPtBOfrP1bq3ovU3lehIw+V42?=
- =?us-ascii?Q?JvTCeY+tX8zMinGkN9YZ1lAij6x7DJngsVsryXmSsvVSfucobkWyEPjEAaaB?=
- =?us-ascii?Q?CYETHBXx/45R8vtGPWpF2QA+vtuyM6t0Y60N3dbiuGjv5uVXnIG1LO47hy98?=
- =?us-ascii?Q?FNj1cUsh4/vf28cImXkgdTofBC6fdO8OMjn6utuIKHq5zny5aqNh8aqOPNsQ?=
- =?us-ascii?Q?MjJyy8OlCDcpvdIsMqqcZNg859hZ7vC1u19Pt6XHthuG6vWmigI0w/sMdXt+?=
- =?us-ascii?Q?s1udUm0XmelAo319gwbilAxVorPlhU5HNtyCxOcyC6r3qcy2GgoxtdcLRQqH?=
- =?us-ascii?Q?UtvYUnu1Ysg6et5bKtu9w+3LgkriloeJh76FoKoOIQvZofXSva19eX7KgYpa?=
- =?us-ascii?Q?aaLwhlfZPHr4b5f4E7wQN2ChKIlXFxo3OwRxZfrX2yK+3qWWKzaJ9RDabmdn?=
- =?us-ascii?Q?TPF9QInV3I0AAhC9feNtGacyG/Eq2HujkJ7HcdkEs0nVv+KwWrU+z8lXZPZX?=
- =?us-ascii?Q?aI7YYc++7CErLx8zjlNOuoU2F1k9oB/+zsbchbO/HvR6ROsDWyrMiGebQQw7?=
- =?us-ascii?Q?cE9n10GnqzSZq/vyO7XqN28ybpVOsFoefFT0PVRKR9lQ4k/BBz9KNYdLM33z?=
- =?us-ascii?Q?1hIYZpm+BtsfseI7uKo=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6292E10E2C6;
+	Mon, 15 Jan 2024 13:17:20 +0000 (UTC)
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9141810E2AD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 13:17:19 +0000 (UTC)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-40e60e135a7so34939655e9.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 05:17:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1705324638; x=1705929438; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=sHqmYqO5l3paTKNamis6Xb+V+7+ixFL4LbDY6Cz+krc=;
+ b=VgDvUcwWtR4SO0Li9FES7RfEaDZqH298rnrgcpEJ0Xwdq9Tq7HqjPBuhXoUNakeWSL
+ U/YQfwRZvY79qlsED3v0gGXLMQdb6CKl8x+9MxEB+k9yMYGITupFeuiQUyUISVeZ97Pt
+ tTQR5rsbQMrWBEbkJ6WGiwb/KLeomO72ZrxfaaFJfScxKF/xr8BqifpNJU2/lM2Q9umE
+ Lom7c76j2LZtwMsiUhCZpuJa0j2eccTsxB8smu/HWDd0GgAOOCSiwfAYici6ZAvzhZIe
+ igEL5TaApFckLQLYVPR8aPOyDkSgcwDPM/ZoUS/S1g6lLpDusGTiEutQ/BrP+/WJAF3o
+ nP3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1705324638; x=1705929438;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=sHqmYqO5l3paTKNamis6Xb+V+7+ixFL4LbDY6Cz+krc=;
+ b=WoysIMFCuH9NhsCoECThAAFTzghTKOfT1WyQbHGSkB6UsrVcvg32mmtBOqzuLqKOh/
+ zZ4TqoYPHvN8Gcv9X9H8TWk9suYJiPGd/BdiMdifjOTjk0/1FmEnMFlYcSGZh6SOb8Vg
+ ypRMojGM++NV4b+S350oCXO/DPkPLCbLGkr2K5s42hQKcUiNSDu2k3bm62ohgX7btA6h
+ S9Jvro7AuVSIIa+IWyDp8/NEHzKAw9KSnPABtKxKvdg8aYJGVPUTUCg1B82ZWtrrFLsH
+ a50nMOd4+hWTNgSieYJqa4gbaslCCxfa+fXNniCYiqgOeZC8ohzCsUFWlp7B9NQkn74M
+ PpQQ==
+X-Gm-Message-State: AOJu0YyIF7KU3tWsnGU2LACFdj0/H+w0T6MezzC0vusbhZrSuA0Gbevo
+ DrdQRM1H1wvNxBAinZRhENc=
+X-Google-Smtp-Source: AGHT+IF0N2e36ubvxurfilESzO/eDrAEfGCaNhwTPAdvH8TPC2r9AYiOFLA9g9pfTc4Rbiog9sOPQA==
+X-Received: by 2002:a05:600c:6a8d:b0:40e:74db:87ad with SMTP id
+ jl13-20020a05600c6a8d00b0040e74db87admr1454113wmb.65.1705324637756; 
+ Mon, 15 Jan 2024 05:17:17 -0800 (PST)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ o21-20020a05600c4fd500b0040e34ca648bsm16032717wmq.0.2024.01.15.05.17.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 Jan 2024 05:17:17 -0800 (PST)
+Message-ID: <aca706e6-58bc-4c38-bbfe-19137f38c897@gmail.com>
+Date: Mon, 15 Jan 2024 14:17:14 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6071.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72110a6e-9ecb-4933-2393-08dc15c4065b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jan 2024 12:18:04.3889 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: B00o3WdHnDsTsvKBuzeFz0znyyY2G5u7+BUYDRbZeybcLZOnbKRU19pJcVhNyK4a1JtVJPoFUnstrFlQJt7jKw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6903
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/amdgpu: Mark ctx as guilty in ring_soft_recovery
+ path
+Content-Language: en-US
+To: Joshua Ashton <joshua@froggi.es>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, =?UTF-8?Q?Michel_D=C3=A4nzer?=
+ <michel@daenzer.net>
+References: <20240113140206.2383133-1-joshua@froggi.es>
+ <20240113140206.2383133-2-joshua@froggi.es>
+ <c9b839cd-4c42-42a6-8969-9a7b54d4fbe8@amd.com>
+ <0e701278-a633-403c-b397-e4f772d66c5a@froggi.es>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <0e701278-a633-403c-b397-e4f772d66c5a@froggi.es>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,66 +81,120 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Wang, Yang\(Kevin\)" <KevinYang.Wang@amd.com>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>
+Cc: Friedrich Vock <friedrich.vock@gmx.de>,
+ =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Am 15.01.24 um 12:37 schrieb Joshua Ashton:
+> On 1/15/24 09:40, Christian König wrote:
+>> Am 13.01.24 um 15:02 schrieb Joshua Ashton:
+>>> We need to bump the karma of the drm_sched job in order for the context
+>>> that we just recovered to get correct feedback that it is guilty of
+>>> hanging.
+>>
+>> Big NAK to that approach, the karma handling is completely deprecated.
+>>
+>> When you want to signal execution errors please use the fence error 
+>> code.
+>
+> The fence error code does not result in ctx's being marked as guilty, 
+> only the karma path does.
+>
+> See drm_sched_increase_karma.
+>
+> Are you proposing that we instead mark contexts as guilty with the 
+> fence error ourselves here?
 
-Reviewed-by: Asad Kamal <asad.kamal@amd.com>
+No, I'm proposing to completely abandon the concept of guilty contexts. 
+Basically what we should do is to return an error from the CS IOCTL 
+whenever a previous submission resulted in a fatal error as suggested by 
+Marek.
 
-Thanks & Regards
-Asad
+That we query the context for guilty was just a design decision we 
+copied over from our closed source drivers which turned out to 
+absolutely not solving anything.
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Yang Wan=
-g
-Sent: Monday, January 15, 2024 5:33 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; Zhang, Hawking <Hawking.Zha=
-ng@amd.com>
-Subject: [PATCH] drm/amdgpu: fix sdma ecc irq unbalanced issue
+Marek can probably comment as well why the whole idea of querying the 
+kernel if something fatal happens instead of just rejecting submissions 
+is broken by design.
 
-fix sdma ecc irq unblanced issue when do mode2 reset.
+>>
+>>> Without this feedback, the application may keep pushing through the 
+>>> soft
+>>> recoveries, continually hanging the system with jobs that timeout.
+>>
+>> Well, that is intentional behavior. Marek is voting for making soft 
+>> recovered errors fatal as well while Michel is voting for better 
+>> ignoring them.
+>>
+>> I'm not really sure what to do. If you guys think that soft recovered 
+>> hangs should be fatal as well then we can certainly do this.
+>
+> They have to be!
+>
+> As Marek and I have pointed out, applications that hang or fault will 
+> just hang or fault again, especially when they use things like draw 
+> indirect, buffer device address, descriptor buffers, etc.
 
-Fixes: 90b87f67124a ("drm/amdgpu: add sdma v4.4.2 ACA support")
+Ok, well then I now have two people (Marek and you) saying that soft 
+recovery should be fatal while Michel is saying that soft recovery being 
+non fatal improves stability for him :)
 
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 15 +++------------
- 1 file changed, 3 insertions(+), 12 deletions(-)
+Should we somehow make that configurable or depend it on if that's the 
+display server or if it's an user application?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd=
-/amdgpu/sdma_v4_4_2.c
-index 4bb055eacad5..fec5a3d1c4bc 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -2267,21 +2267,12 @@ static int sdma_v4_4_2_ras_late_init(struct amdgpu_=
-device *adev, struct ras_comm  {
-        int r;
+Regards,
+Christian.
 
--       r =3D amdgpu_ras_block_late_init(adev, ras_block);
-+       r =3D amdgpu_sdma_ras_late_init(adev, ras_block);
-        if (r)
-                return r;
-
--       r =3D amdgpu_ras_bind_aca(adev, AMDGPU_RAS_BLOCK__SDMA,
--                               &sdma_v4_4_2_aca_info, NULL);
--       if (r)
--               goto late_fini;
--
--       return 0;
--
--late_fini:
--       amdgpu_ras_block_late_fini(adev, ras_block);
--
--       return r;
-+       return amdgpu_ras_bind_aca(adev, AMDGPU_RAS_BLOCK__SDMA,
-+                                  &sdma_v4_4_2_aca_info, NULL);
- }
-
- static struct amdgpu_sdma_ras sdma_v4_4_2_ras =3D {
---
-2.34.1
+>
+> The majority of apps these days have a lot of side effects and 
+> persistence between frames and submissions.
+>
+> - Joshie 🐸✨
+>
+>>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> There is an accompanying Mesa/RADV patch here
+>>> https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/27050
+>>> to properly handle device loss state when VRAM is not lost.
+>>>
+>>> With these, I was able to run Counter-Strike 2 and launch an 
+>>> application
+>>> which can fault the GPU in a variety of ways, and still have Steam +
+>>> Counter-Strike 2 + Gamescope (compositor) stay up and continue
+>>> functioning on Steam Deck.
+>>>
+>>> Signed-off-by: Joshua Ashton <joshua@froggi.es>
+>>>
+>>> Cc: Friedrich Vock <friedrich.vock@gmx.de>
+>>> Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+>>> Cc: Christian König <christian.koenig@amd.com>
+>>> Cc: André Almeida <andrealmeid@igalia.com>
+>>> Cc: stable@vger.kernel.org
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 2 ++
+>>>   1 file changed, 2 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>> index 25209ce54552..e87cafb5b1c3 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>> @@ -448,6 +448,8 @@ bool amdgpu_ring_soft_recovery(struct 
+>>> amdgpu_ring *ring, struct amdgpu_job *job)
+>>>           dma_fence_set_error(fence, -ENODATA);
+>>>       spin_unlock_irqrestore(fence->lock, flags);
+>>> +    if (job->vm)
+>>> +        drm_sched_increase_karma(&job->base);
+>>>       atomic_inc(&ring->adev->gpu_reset_counter);
+>>>       while (!dma_fence_is_signaled(fence) &&
+>>>              ktime_to_ns(ktime_sub(deadline, ktime_get())) > 0)
+>>
+>
+>
 
