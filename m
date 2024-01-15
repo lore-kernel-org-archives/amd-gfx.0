@@ -4,75 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4363C3DA79
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 15:43:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8BE5C3DA79
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 16:11:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DFA610E2BC;
-	Mon, 15 Jan 2024 15:43:51 +0000 (UTC)
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FA1610E2BC
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 15:43:50 +0000 (UTC)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-336746c7b6dso7612475f8f.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 07:43:50 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C9A110E30B;
+	Mon, 15 Jan 2024 16:11:53 +0000 (UTC)
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82E3010E035
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 16:06:38 +0000 (UTC)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-40e7fce1abcso4555665e9.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 08:06:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=froggi.es; s=google; t=1705333429; x=1705938229; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Z2zcYbckF5d5AB6zybIpnTkn3BuZoyEhPoQBI81m3Ls=;
- b=NUMchIy3zdoOFh0OpgkB1gCrHqyMxrxKUmcT8YNCuaULo/2JfK+epbTSJn06ixXIjR
- 5MeUzvV842D+kiNSsxlV10+y4YkXi3hAUZ8A1qH8uN6qajqxw+5HF2xwUgTJYaDsnoyv
- 10xDIGrmx7NwqJpu0eV96EABIH/ts8o9ss+2c6ChxKDi68ckzTyVV+TDWKn3rl3sg3hQ
- NtavJri1VOZKfwY0gnZHWq5N9bWCc8Y/bKWjYIZe6a43l0u5mMSpvUtAu8mRca8jsmyu
- N5Hk0+hePixVTaEVB33dY33suXZH2Z4KHII151mg+mgad86+zEHdd5c+CVs922yHWvAs
- 8GQw==
+ d=yngvason.is; s=google; t=1705334797; x=1705939597; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=2nfzXYtohis0OwCD+AmIl/qoZqPN5SyFIj+AeVDGrUY=;
+ b=Vib1ZBP/CfjnsPKUneq3MhVGzPIEI7vK/Ip1teCt5rtjTfkszJoqZ2Dx6ykC+ReZB+
+ yCPqJeUbID0JHxCM2GTzdUapMBh2q6MSiZyV+4B+u2ESmElJPIBZZljH/pMfN5/WYvlC
+ QDAO2EnCGOlF6b2CBE6lmfWQQKHnCzeQN5NEg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705333429; x=1705938229;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Z2zcYbckF5d5AB6zybIpnTkn3BuZoyEhPoQBI81m3Ls=;
- b=KyIQQbbPHqM7O2zibNfaGvjnZnrcz8rPj4jESQiLOQ0TjlBQa2OvqDYfZA1mNHRjqZ
- LxJ3Jubn3dUV1irb8VWg0QGDq7cz7Fof28Ez1H9bubEgnADemPB0uM/D9DmGbGYNPBPw
- kBJh7oKs3uu/xgtpJKe41oxGYEmvYrtvDHqUEbyCaoWF35E97cdPekwcKJLyL+uqPwyR
- GNR8d04j8FRdYJ2CxrmIB5NCR0PniPwIMQeUOr02yQUOr2zNdnRsh7PVMVRaVCrtOprn
- hqF2s1PQBTXqGXC8l5jQREZYwJxJR+D1LFdrdIKV7z1+rR1zeKZsp760a5UMfc7Gf7PB
- 41dw==
-X-Gm-Message-State: AOJu0YzzDbuP3w9Y871oM4HnYeQuUCAkoRQy/mI0PsQYSR81/ExaYp+2
- HdqiH+R/tAjaWjamUZTwjt5hsHnzEdtRSjUM4UzApN2voX4=
-X-Google-Smtp-Source: AGHT+IGWUDk6US2gXA3c/NqTlA6h646Ny4irc4bxXsymeVT8J4kj8YyiIyvATt0FCc3Ao0fB37xjng==
-X-Received: by 2002:a5d:6505:0:b0:337:3f72:3de1 with SMTP id
- x5-20020a5d6505000000b003373f723de1mr2994573wru.37.1705333428804; 
- Mon, 15 Jan 2024 07:43:48 -0800 (PST)
-Received: from [192.168.0.89]
- (darl-09-b2-v4wan-165404-cust288.vm5.cable.virginm.net. [86.17.61.33])
+ d=1e100.net; s=20230601; t=1705334797; x=1705939597;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=2nfzXYtohis0OwCD+AmIl/qoZqPN5SyFIj+AeVDGrUY=;
+ b=a60nBKliLwnNHSZhAzWJTsj50P8n0qWc97BqezhSvwMOaeBXhkcr8gB5i1IpBxPcjE
+ g1qqmS6FDpdfGm9UghB2gRW2aFvm/vBxZQltI3Ez2nnv4HzCdT33JYrAwTkftnCAn7Jb
+ tpkHEzXu3gRMxf5sl1AeXcxgStxf07tCwxVNpDjiiktEpMEArSFcQ4wyq/lRusf3rlyg
+ IEDCaVX/KTzDil5PbfAamPIUuZtsClvIbt8sZdGHslT/BT1dmRMc4GyxoQjPgcN5fyWI
+ Up0HxRYGnTOiNrDhqss5B4elkUgNdh6dJTr7/OQMsdtnhPKl6D1aAF1ZwXhbZK/D4K1f
+ KGCQ==
+X-Gm-Message-State: AOJu0YylaeyuePxwL0L2OJfLOxF0NY0zqhQmGNS6wNUIra9zvGPxQh4a
+ gHorat/CrrlWZpaHLvIhLcgnvwvV2jeIeg==
+X-Google-Smtp-Source: AGHT+IEUUc5iRjuXbMJ2dngkv+RJCZlkEQjqC7ossePXJRfMhg+lS/5kV7bU5iCCs/lMM5nEnzQUkw==
+X-Received: by 2002:a7b:cbc7:0:b0:40e:6707:b758 with SMTP id
+ n7-20020a7bcbc7000000b0040e6707b758mr2317948wmi.178.1705334796754; 
+ Mon, 15 Jan 2024 08:06:36 -0800 (PST)
+Received: from andri-workstation.turninn.appdynamic.com
+ ([2a01:8280:aa07:ad:7285:c2ff:fef0:4baf])
  by smtp.gmail.com with ESMTPSA id
- co8-20020a0560000a0800b00336755f15b0sm12289208wrb.68.2024.01.15.07.43.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jan 2024 07:43:48 -0800 (PST)
-Message-ID: <f2153219-e791-4e97-96eb-26094d7acf87@froggi.es>
-Date: Mon, 15 Jan 2024 15:43:47 +0000
+ l22-20020a05600c4f1600b0040d6b91efd9sm20174140wmq.44.2024.01.15.08.06.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 15 Jan 2024 08:06:36 -0800 (PST)
+From: Andri Yngvason <andri@yngvason.is>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Subject: [PATCH v2 0/4] New DRM properties for output color format
+Date: Mon, 15 Jan 2024 16:05:50 +0000
+Message-ID: <20240115160554.720247-1-andri@yngvason.is>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: Mark ctx as guilty in ring_soft_recovery
- path
-Content-Language: en-US
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20240113140206.2383133-1-joshua@froggi.es>
- <20240113140206.2383133-2-joshua@froggi.es>
- <c9b839cd-4c42-42a6-8969-9a7b54d4fbe8@amd.com>
- <0e701278-a633-403c-b397-e4f772d66c5a@froggi.es>
- <aca706e6-58bc-4c38-bbfe-19137f38c897@gmail.com>
- <9a07c4e4-321c-4f75-aeae-81ed90038365@daenzer.net>
-From: Joshua Ashton <joshua@froggi.es>
-In-Reply-To: <9a07c4e4-321c-4f75-aeae-81ed90038365@daenzer.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 15 Jan 2024 16:11:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,67 +80,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Friedrich Vock <friedrich.vock@gmx.de>,
- =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Cc: amd-gfx@lists.freedesktop.org, Simon Ser <contact@emersion.fr>,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Werner Sembach <wse@tuxedocomputers.com>, Andri Yngvason <andri@yngvason.is>,
+ dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+After some discussion, we decided to drop the "active color format"
+property and rename the "preferred color format" property to "force
+color format". 
+
+The user can probe available color formats in combination with other
+properties using TEST_ONLY commits.
+
+v1: https://lore.kernel.org/dri-devel/20240109181104.1670304-1-andri@yngvason.is/
+
+v2
+ - Dropped "active color format"
+ - Replaced "preferred color format" with "force color format"
 
 
-On 1/15/24 15:25, Michel Dänzer wrote:
-> On 2024-01-15 14:17, Christian König wrote:
->> Am 15.01.24 um 12:37 schrieb Joshua Ashton:
->>> On 1/15/24 09:40, Christian König wrote:
->>>> Am 13.01.24 um 15:02 schrieb Joshua Ashton:
->>>>
->>>>> Without this feedback, the application may keep pushing through the soft
->>>>> recoveries, continually hanging the system with jobs that timeout.
->>>>
->>>> Well, that is intentional behavior. Marek is voting for making soft recovered errors fatal as well while Michel is voting for better ignoring them.
->>>>
->>>> I'm not really sure what to do. If you guys think that soft recovered hangs should be fatal as well then we can certainly do this.
-> 
-> A possible compromise might be making soft resets fatal if they happen repeatedly (within a certain period of time?).
-> 
+Werner Sembach (4):
+  drm/amd/display: Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check
+  drm/uAPI: Add "force color format" drm property as setting for
+    userspace
+  drm/amd/display: Add handling for new "force color format" property
+  drm/i915/display: Add handling for new "force color format" property
 
-No, no and no. Aside from introducing issues by side effects not 
-surfacing and all of the stuff I mentioned about descriptor buffers, 
-bda, draw indirect and stuff just resulting in more faults and hangs...
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 67 ++++++++++++++++---
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  4 ++
+ drivers/gpu/drm/drm_atomic_helper.c           |  4 ++
+ drivers/gpu/drm/drm_atomic_uapi.c             |  4 ++
+ drivers/gpu/drm/drm_connector.c               | 48 +++++++++++++
+ drivers/gpu/drm/i915/display/intel_dp.c       | 35 ++++++++--
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |  5 ++
+ drivers/gpu/drm/i915/display/intel_hdmi.c     | 29 ++++++--
+ include/drm/drm_connector.h                   | 16 +++++
+ 9 files changed, 190 insertions(+), 22 deletions(-)
 
-You are proposing we throw out every promise we made to an application 
-on the API contract level because it "might work". That's just wrong!
 
-Let me put this in explicit terms: What you are proposing is in direct 
-violation of the GL and Vulkan specification.
-
-You can't just chose to break these contracts because you think it 
-'might' be a better user experience.
-
-> 
->>> They have to be!
->>>
->>> As Marek and I have pointed out, applications that hang or fault will just hang or fault again, especially when they use things like draw indirect, buffer device address, descriptor buffers, etc.
->>
->> Ok, well then I now have two people (Marek and you) saying that soft recovery should be fatal while Michel is saying that soft recovery being non fatal improves stability for him :)
-> 
-> That's not quite what I wrote before.
-> 
-> I pointed out that my GNOME session has survived a soft reset without issues[0] on multiple occasions, whereas Marek's proposal at the time would have kicked me back to the login screen every time. > 0 vs effectively 0 chance of survival.
-
-The correct thing for GNOME/Mutter to do is to simply re-create it's 
-context, reimport it's DMABUFs, etc.
-
-The fact that it survives and keeps soldiering on with whatever side 
-effects missed is purely coincidental and not valid API usage.
-
-If you want such behaviour for hangs for Mutter, you should propose a 
-GL/VK extension for it, but I really doubt that will get anywhere.
-
-- Joshie 🐸✨
-
-> 
-> [0] Except for Firefox unnecessarily falling back to software rendering, which is a side note, not the main point.
-> 
-> 
+base-commit: 052d534373b7ed33712a63d5e17b2b6cdbce84fd
+-- 
+2.43.0
 
