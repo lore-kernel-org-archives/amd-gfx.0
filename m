@@ -4,74 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22313C4707B
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 14:00:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3561AC3DA79
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 14:04:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7E4110E044;
-	Mon, 15 Jan 2024 14:00:49 +0000 (UTC)
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDED610E044
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 14:00:48 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-336c9acec03so7316128f8f.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 06:00:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=froggi.es; s=google; t=1705327247; x=1705932047; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=SFgMWqZZzeVfJ0BqRYToYGxFbh3mG9YLb2S6nyGM1xo=;
- b=eSaWRtjxJ/ZWxZrhlmE0OX39FK11JxNemZNc/QomHCVPeKsJARUha8okz2U/hGMiJo
- a7w993tnRHgRc6YlYE+HyOI3/OdiOjVV8Bok8pjemQqo1t5G4Zl9LqQSVWuRIS8hz8HO
- 5Y+l2NlqUXZN4bihzCg3GgEuM3c17xy9Oi3hnbkmBFBUHgLcVHf0V0X93g85gbKxaWXV
- fEKM5dJenEnZfpT2nl9akoYfK2F/y+VTibQcaLTDLCKmiLyWFFpV4pSY4vfVxgJwj/gD
- oXilmEQGpWo8mVmk6/D9JDxFsVTwIxJZ7yQvYpH2qFupOHOZiDL3pEzedjESVmq5JEUb
- Uwcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705327247; x=1705932047;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=SFgMWqZZzeVfJ0BqRYToYGxFbh3mG9YLb2S6nyGM1xo=;
- b=kkF3KdsoUN0sTqMCVFqJ68h/VB5VapHqArBCjyr+1ZZRaKqzxfasL/btNZznQQuKZJ
- ECy4vzm1MjoTbxlB+76yHSRx6wR0ZGeJ5DPTipE3F2yy/an+Qj9a4r17s/GN6j3b3Wlk
- aa4UycR4qBI3wEjguJGigIGltVxlUZN6LPLTKoAd1ZAg1+98qzTJPPcoZ4a0d8GKOYBt
- kDK58GdgVIx7Ws8A19EoNJGxBUz+7GK2GRsitCAmPMURF7Ci6b6ZH/OHTqSOy/Cb9IWb
- pWV4iwkgpLFnMsqP7wZTDgzaUGvkVOHR3YUYD0SthgIsL3Qn5p6AfTLJzk59N+yumh3/
- w8FA==
-X-Gm-Message-State: AOJu0YwrxLItufSbOjymhAYEBJlO5/wuDN0KTF34o0me8KskKY//tBew
- 2eqIoG/PNPku872QH9XY74rKxqsu8FdiSA==
-X-Google-Smtp-Source: AGHT+IF+MoSyWSLAxyW59bSmFQq1rcoH06DfOJ6Dzssc/D8jgh/2zUTQeal28MoWVbCZP+8OxsLdPw==
-X-Received: by 2002:adf:a306:0:b0:337:6f4e:3833 with SMTP id
- c6-20020adfa306000000b003376f4e3833mr3329645wrb.12.1705327247030; 
- Mon, 15 Jan 2024 06:00:47 -0800 (PST)
-Received: from [192.168.0.89]
- (darl-09-b2-v4wan-165404-cust288.vm5.cable.virginm.net. [86.17.61.33])
- by smtp.gmail.com with ESMTPSA id
- d15-20020adf9c8f000000b00336c43b366fsm12011870wre.12.2024.01.15.06.00.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jan 2024 06:00:46 -0800 (PST)
-Message-ID: <4dc0c6c6-6f6e-4b04-b611-78b181e4d7a6@froggi.es>
-Date: Mon, 15 Jan 2024 14:00:46 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id D20BB10E2CA;
+	Mon, 15 Jan 2024 14:04:47 +0000 (UTC)
+Received: from mslow1.mail.gandi.net (mslow1.mail.gandi.net [217.70.178.240])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A4A910E231;
+ Mon, 15 Jan 2024 10:17:57 +0000 (UTC)
+Received: from relay5-d.mail.gandi.net (unknown [IPv6:2001:4b98:dc4:8::225])
+ by mslow1.mail.gandi.net (Postfix) with ESMTP id 058A3C2F7F;
+ Mon, 15 Jan 2024 10:17:55 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 06C7C1C0011;
+ Mon, 15 Jan 2024 10:17:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1705313871;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=ZEf3znytnn/5u2nQ5HISUI8I48juAUPjkUbskiAR5Kw=;
+ b=D+ToKPMERGdPs/q2d4zNP/9bvGUhVQK5CVJRXIH159Dbdok5XKx+SDxxvtWyXcnZl+cTOy
+ dL3W86EvwKpiOkK0aAxkybSxSMq9qtu97OctBkFrmHvFe0gftp3svl8uew5BfLFwZukvH8
+ jxD+NiNPB7+zisUpEPmBCMUPydiDjAPBJvIjo7lJ97qdOWGzdWXDlQXukLQIJFar083KFq
+ edoOYr0ljwhZ+dCALcpn8nmIei6LeU8A/pdQnm9MZCdkJkRvwHFzrXFgrW3zFTcHIvAKzP
+ n6NOzeTAt9wM9agfLe3th8vcIHBRBWJdza2d/Wuwr88nIU+WLv4IZO2in8cm0Q==
+Message-ID: <d3ffc899948961cd3327db1ad0e59970dcf87bca.camel@bootlin.com>
+Subject: Re: Failed to create a rescuer kthread for the amdgpu-reset-dev
+ workqueue
+From: Thomas Perrot <thomas.perrot@bootlin.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ alexander.deucher@amd.com, Xinhui.Pan@amd.com, lijo.lazar@amd.com, 
+ kenneth.feng@amd.com, guchun.chen@amd.com, evan.quan@amd.com, 
+ srinivasan.shanmugam@amd.com
+Date: Mon, 15 Jan 2024 11:17:49 +0100
+In-Reply-To: <95e791b0-4672-4a1a-940b-684d8c96e995@amd.com>
+References: <cf1a3a2b7599b7b6900ff45aa8b204169411687f.camel@bootlin.com>
+ <95e791b0-4672-4a1a-940b-684d8c96e995@amd.com>
+Autocrypt: addr=thomas.perrot@bootlin.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-cMV9dIg4T3JiQTgXtcRJ"
+User-Agent: Evolution 3.50.3 (3.50.3-1.fc39) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: Mark ctx as guilty in ring_soft_recovery
- path
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-References: <20240113140206.2383133-1-joshua@froggi.es>
- <20240113140206.2383133-2-joshua@froggi.es>
- <66f8848f-13c8-4293-a207-012eadbc9018@igalia.com>
- <a88f1d5f-c13c-4b46-9bba-f96d43bd4e1a@froggi.es>
- <c71cc2ba-72f3-4869-b804-51d5d6704f49@amd.com>
- <68936df5-3f5b-47a9-b861-eeaa4030c893@froggi.es>
- <d8039165-0d54-4a42-a46a-922c1f691c24@amd.com>
-From: Joshua Ashton <joshua@froggi.es>
-In-Reply-To: <d8039165-0d54-4a42-a46a-922c1f691c24@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-GND-Sasl: thomas.perrot@bootlin.com
+X-Mailman-Approved-At: Mon, 15 Jan 2024 14:04:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,110 +61,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Friedrich Vock <friedrich.vock@gmx.de>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- amd-gfx@lists.freedesktop.org, stable@vger.kernel.org,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
+--=-cMV9dIg4T3JiQTgXtcRJ
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 1/15/24 13:19, Christian König wrote:
-> Am 15.01.24 um 12:54 schrieb Joshua Ashton:
->> [SNIP]
->>>
->>> The question here is really if we should handled soft recovered 
->>> errors as fatal or not. Marek is in pro of that Michel is against it.
->>>
->>> Figure out what you want in userspace and I'm happy to implement it :)
->>>
->>>>
->>>> (That being said, without my patches, RADV treats *any* reset from 
->>>> the query as VK_ERROR_DEVICE_LOST, even if there was no VRAM lost 
->>>> and it was not guilty, so any faulting/hanging application causes 
->>>> every Vulkan app to die e_e. This is fixed in 
->>>> https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/27050 )
->>>
->>> That is actually intended behavior. When something disrupted the GPU 
->>> execution and the application is affected it is mandatory to forward 
->>> this error to the application.
->>
->> No. If said context was entirely unaffected, then it should be 
->> completely transparent to the application.
->>
->> Consider the following:
->>
->>  - I have Counter-Strike 2 running
->>  - I have Gamescope running
->>
->> I then go ahead and start HangApp that hangs the GPU.
->>
->> Soft recovery happens and that clears out all the work for the 
->> specific VMID for HangApp's submissions and signals the submission fence.
->>
->> In this instance, the Gamescope and Counter-Strike 2 ctxs are 
->> completely unaffected and don't need to report VK_ERROR_DEVICE_LOST as 
->> there was no impact to their work.
-> 
-> Ok, that is something I totally agree on. But why would the Gamescope 
-> and Counter-Strike 2 app report VK_ERROR_DEVICE_LOST for a soft recovery 
-> in the first place?
-> 
-> IIRC a soft recovery doesn't increment the reset counter in any way. So 
-> they should never be affected.
+Hello Christian,
 
-It does, and without assigning any guilt, amdgpu_ring_soft_recovery 
-calls atomic_inc(&ring->adev->gpu_reset_counter).
+On Fri, 2024-01-12 at 09:17 +0100, Christian K=C3=B6nig wrote:
+> Well the driver load is interrupted for some reason.
+>=20
+> Have you set any timeout for modprobe?
+>=20
 
+We don't set a modprobe timeout.
 
-> 
+Kind regards,
+Thomas
+
 > Regards,
 > Christian.
-> 
->>
->> Even if Gamescope or Counter-Strike 2 were occupying CUs in tandem 
->> with HangApp, FWIU the way that the clear-out works being vmid 
->> specific means that they would be unaffected, right?
->>
->> - Joshie 🐸✨
->>
->>>
->>> Regards,
->>> Christian.
->>>
->>>>
->>>> - Joshie 🐸✨
->>>>
->>>>>
->>>>>> Signed-off-by: Joshua Ashton <joshua@froggi.es>
->>>>>>
->>>>>> Cc: Friedrich Vock <friedrich.vock@gmx.de>
->>>>>> Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
->>>>>> Cc: Christian König <christian.koenig@amd.com>
->>>>>> Cc: André Almeida <andrealmeid@igalia.com>
->>>>>> Cc: stable@vger.kernel.org
->>>>>> ---
->>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 2 ++
->>>>>>   1 file changed, 2 insertions(+)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c 
->>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
->>>>>> index 25209ce54552..e87cafb5b1c3 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
->>>>>> @@ -448,6 +448,8 @@ bool amdgpu_ring_soft_recovery(struct 
->>>>>> amdgpu_ring *ring, struct amdgpu_job *job)
->>>>>>           dma_fence_set_error(fence, -ENODATA);
->>>>>>       spin_unlock_irqrestore(fence->lock, flags);
->>>>>> +    if (job->vm)
->>>>>> +        drm_sched_increase_karma(&job->base);
->>>>>> atomic_inc(&ring->adev->gpu_reset_counter);
->>>>>>       while (!dma_fence_is_signaled(fence) &&
->>>>>>              ktime_to_ns(ktime_sub(deadline, ktime_get())) > 0)
->>>>
->>>
->>
-> 
+>=20
+> Am 12.01.24 um 09:11 schrieb Thomas Perrot:
+> > Hello,
+> >=20
+> > We are updating the kernel from the 6.1 to the 6.6 and we observe
+> > an
+> > amdgpu=E2=80=99s regression with Radeon RX580 8GB and SiFive Unmatched:
+> > =E2=80=9Cworkqueue: Failed to create a rescuer kthread for wq 'amdgpu-
+> > reset-
+> > dev': -EINTR
+> > [drm:amdgpu_reset_create_reset_domain [amdgpu]] *ERROR* Failed to
+> > allocate wq for amdgpu_reset_domain!
+> > amdgpu 0000:07:00.0: amdgpu: Fatal error during GPU init
+> > amdgpu 0000:07:00.0: amdgpu: amdgpu: finishing device.
+> > amdgpu: probe of 0000:07:00.0 failed with error -12=E2=80=9D
+> >=20
+> > We tried to figure it out without success for the moment, do you
+> > have
+> > some advice to identify the root cause and to fix it?
+> >=20
+> > Kind regards,
+> > Thomas Perrot
+> >=20
+>=20
 
-- Joshie 🐸✨
+--=20
+Thomas Perrot, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
+
+
+--=-cMV9dIg4T3JiQTgXtcRJ
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAABCAAdFiEEh0B3xqajCiMDqBIhn8ALBXH+Cu0FAmWlBk0ACgkQn8ALBXH+
+Cu2j/Qv6A5oWfrKUk0H6c+EJltETug8YjAC0uUNMXeqZc3IunJYIEvifQbnwOU6P
+M8zc1K4C75r+6C8+x/fvc5Bb7mgFjr4nR2aDmNMMmsddH4o79Mm0djnce/m60L5+
+CsgEM/vxLaYv3w3/pAefbFSpkRA7JauCJYWPSnueSMxvuSeyVZB8agqqcrMbgh1i
+6NbuLsm3TGZToHCBN0HgSvh4fhYYeLDTO0kx510Dy3Ha6C2A/4LgPtlKg0Na4+2p
+gWVDlwN7iO3qGSA8SGy2rekwfZQ3qfZYeUmzu5ZxJeecH0f7Lu7H77zCJl6j0io4
+wGI6SkbhvR3BBDDRB/kV44MjYNiVsm08lZmzZQmFrD0k3SM20VJXkfaZb76q0Si4
+oEt3RZXqLPUSafMGPhtBQmmzgeAy2w+2jk/7iHw6uLcjM9qRxw8kXwwraRLqEke+
+8GZbG8kg9hoS40RRXuYk6YgCjD+8dDVj3Mh0wZkneyz3+/mPpw4YZg9KXNAEAxk9
+pC11KECt
+=z8NM
+-----END PGP SIGNATURE-----
+
+--=-cMV9dIg4T3JiQTgXtcRJ--
