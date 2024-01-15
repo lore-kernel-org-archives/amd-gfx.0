@@ -4,120 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76FEBC3DA79
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 13:19:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22313C4707B
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jan 2024 14:00:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0200210E281;
-	Mon, 15 Jan 2024 13:19:32 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2058.outbound.protection.outlook.com [40.107.92.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90D9910E281
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 13:19:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bZepMtbmfSH5ELwiXvc2aWwY19KRx1BbFbLVJJp4fVO1zwWImCiJb+TRmEJ9Ju8SK6RTt+RG/A2muwGAHROBTMT1G/P4kku067r0lGkpyBCenTieCzDiu6NYsW/6iWqhGsj6WmC5dq2/Qv3dHFtcWBQmuYEppO/+Z8LZgqeNJZeBHKhujXj5xjSaw+3O8JgHa86Otj3bzgymTXotld5rpXbtABZPh5Nm5mS9y0iRi7BqxFRZDyDEs3K/wmIHG8q/LpX1kp0nr8KLeOTskXNWrIudcO7XP6JvhamUHc9ILS6Yo0FapDXnVJZnuHDBWjTH4kyJCjqKb7EfbjFYMRaJsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V3AznJ8zWXccRVD6GcI246huSxJR/HqAsaLS8a/iv8g=;
- b=fiMUnqkFq8GRpTlg2gdFyeI6yxzHsaMqyZPVKS8q+X0twZoz9BqXCblvn4jDN2c5V2jxENVBpX2VHe8UPLyFxnkGBqVWaN6BjHDIRT9zLYmsL/wqRPAdAoM8afkuQ2BgI33guRdK4FPXY0ZN3W0LYL5r1KvqPAvXApUFeDJnFqPVan9QRJi0OMd6gzThfxxh6fy7Kjg+0LIri8BIdKgYm2sh4P+kfryIgX4rQlTG4rePaGqHiGtUFS2jUnE6TEkDvqYwo9fc/0pKsWEY9zIhl2pxBSct4b7zCFytjQbazWtf1yy9tCu9OflCJaJLV2oxdoPxdfJxUbpUbUFbsI5TAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V3AznJ8zWXccRVD6GcI246huSxJR/HqAsaLS8a/iv8g=;
- b=CQx163YrcZuqORQO7X/X2WZ7P/ceQmHNmZlnDAS+Wq4Vc74D0B16RZ3NH3HRYVLqtxBpwVR4CaGN8zPXNayLKs0MDS0o1EZPQMK7sGrLgiUd2DEMoSKqFeS/iZTQqe6/EJ05ffwcYocWsdZfOcqaJvVofhRN/Nr1gQe69k8majc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ2PR12MB8134.namprd12.prod.outlook.com (2603:10b6:a03:4fa::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.21; Mon, 15 Jan
- 2024 13:19:27 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::e1fb:4123:48b1:653]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::e1fb:4123:48b1:653%4]) with mapi id 15.20.7159.020; Mon, 15 Jan 2024
- 13:19:27 +0000
-Message-ID: <d8039165-0d54-4a42-a46a-922c1f691c24@amd.com>
-Date: Mon, 15 Jan 2024 14:19:21 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7E4110E044;
+	Mon, 15 Jan 2024 14:00:49 +0000 (UTC)
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDED610E044
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 14:00:48 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-336c9acec03so7316128f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 06:00:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=froggi.es; s=google; t=1705327247; x=1705932047; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=SFgMWqZZzeVfJ0BqRYToYGxFbh3mG9YLb2S6nyGM1xo=;
+ b=eSaWRtjxJ/ZWxZrhlmE0OX39FK11JxNemZNc/QomHCVPeKsJARUha8okz2U/hGMiJo
+ a7w993tnRHgRc6YlYE+HyOI3/OdiOjVV8Bok8pjemQqo1t5G4Zl9LqQSVWuRIS8hz8HO
+ 5Y+l2NlqUXZN4bihzCg3GgEuM3c17xy9Oi3hnbkmBFBUHgLcVHf0V0X93g85gbKxaWXV
+ fEKM5dJenEnZfpT2nl9akoYfK2F/y+VTibQcaLTDLCKmiLyWFFpV4pSY4vfVxgJwj/gD
+ oXilmEQGpWo8mVmk6/D9JDxFsVTwIxJZ7yQvYpH2qFupOHOZiDL3pEzedjESVmq5JEUb
+ Uwcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1705327247; x=1705932047;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=SFgMWqZZzeVfJ0BqRYToYGxFbh3mG9YLb2S6nyGM1xo=;
+ b=kkF3KdsoUN0sTqMCVFqJ68h/VB5VapHqArBCjyr+1ZZRaKqzxfasL/btNZznQQuKZJ
+ ECy4vzm1MjoTbxlB+76yHSRx6wR0ZGeJ5DPTipE3F2yy/an+Qj9a4r17s/GN6j3b3Wlk
+ aa4UycR4qBI3wEjguJGigIGltVxlUZN6LPLTKoAd1ZAg1+98qzTJPPcoZ4a0d8GKOYBt
+ kDK58GdgVIx7Ws8A19EoNJGxBUz+7GK2GRsitCAmPMURF7Ci6b6ZH/OHTqSOy/Cb9IWb
+ pWV4iwkgpLFnMsqP7wZTDgzaUGvkVOHR3YUYD0SthgIsL3Qn5p6AfTLJzk59N+yumh3/
+ w8FA==
+X-Gm-Message-State: AOJu0YwrxLItufSbOjymhAYEBJlO5/wuDN0KTF34o0me8KskKY//tBew
+ 2eqIoG/PNPku872QH9XY74rKxqsu8FdiSA==
+X-Google-Smtp-Source: AGHT+IF+MoSyWSLAxyW59bSmFQq1rcoH06DfOJ6Dzssc/D8jgh/2zUTQeal28MoWVbCZP+8OxsLdPw==
+X-Received: by 2002:adf:a306:0:b0:337:6f4e:3833 with SMTP id
+ c6-20020adfa306000000b003376f4e3833mr3329645wrb.12.1705327247030; 
+ Mon, 15 Jan 2024 06:00:47 -0800 (PST)
+Received: from [192.168.0.89]
+ (darl-09-b2-v4wan-165404-cust288.vm5.cable.virginm.net. [86.17.61.33])
+ by smtp.gmail.com with ESMTPSA id
+ d15-20020adf9c8f000000b00336c43b366fsm12011870wre.12.2024.01.15.06.00.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 Jan 2024 06:00:46 -0800 (PST)
+Message-ID: <4dc0c6c6-6f6e-4b04-b611-78b181e4d7a6@froggi.es>
+Date: Mon, 15 Jan 2024 14:00:46 +0000
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 2/2] drm/amdgpu: Mark ctx as guilty in ring_soft_recovery
  path
 Content-Language: en-US
-To: Joshua Ashton <joshua@froggi.es>, =?UTF-8?Q?Andr=C3=A9_Almeida?=
- <andrealmeid@igalia.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
 References: <20240113140206.2383133-1-joshua@froggi.es>
  <20240113140206.2383133-2-joshua@froggi.es>
  <66f8848f-13c8-4293-a207-012eadbc9018@igalia.com>
  <a88f1d5f-c13c-4b46-9bba-f96d43bd4e1a@froggi.es>
  <c71cc2ba-72f3-4869-b804-51d5d6704f49@amd.com>
  <68936df5-3f5b-47a9-b861-eeaa4030c893@froggi.es>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <68936df5-3f5b-47a9-b861-eeaa4030c893@froggi.es>
+ <d8039165-0d54-4a42-a46a-922c1f691c24@amd.com>
+From: Joshua Ashton <joshua@froggi.es>
+In-Reply-To: <d8039165-0d54-4a42-a46a-922c1f691c24@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0246.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f5::15) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB8134:EE_
-X-MS-Office365-Filtering-Correlation-Id: e38edfcc-f7e8-4c6a-ad89-08dc15cc992b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FKPqfJMXSTcLyXXuoKNotjBedmHnzdFc6EfY3VJ1HLVwo27GcTfyO/yjSkRzuIRXoyhE2fgEO9rloRtkBTKPJ2u2tCP6TiF2VaykUOGU1cW/yC+HeYkd0iJsc9d6OZgRg/vMLbMpmB8pHvBOEusUIrCSlJ/5vnzON0wVsc1nHSYmMvezHfO5+TFsD4kKMeLYlT7txzYwdMhTD6bp/opINVK5bpzLJcDxmpPdxpweLD7EjFSvYEHmTBifgxRfqTWxoG/N9zudYGXh6abFkac+9r2/ObMPvD54tCHEr9XCAysad1yMilQIIoqkT1u6sSdXOJmEDJQJCZuzYWuucAva/oBwdX746ARdU9JCswUhjksKsHNbx15uzK98t32xNsOPTrVAtgYMxAQILclXNj9tLmsA/3/lN1yfiuhKwtYadJ8czBANtI8nKU42nyHbhgwxAsTzL/X8IUgrXrsTrbQ2kMRf+0qyBW7nSUQVrSzkuJZCNBGGvxxT6BG8PNQmGc17Wk9FADswZBgaKsm3qAv7Y8oB4x5HV94bIN9s5jkYL1XDH/T0iA2lCTVABDyfRiPEr5GRXavpABOL+r6QkHeNXZI3kKmkUxIjAxw9FcgOy5OoYHGTi5MS5xTBB0MD2PDW
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(346002)(366004)(376002)(39860400002)(136003)(230922051799003)(64100799003)(186009)(451199024)(1800799012)(2906002)(38100700002)(86362001)(36756003)(31696002)(41300700001)(66574015)(4326008)(26005)(2616005)(66946007)(66476007)(6512007)(66556008)(54906003)(478600001)(6666004)(316002)(966005)(110136005)(6506007)(8676002)(31686004)(8936002)(5660300002)(83380400001)(6486002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?clBVRzQrNXIxRFR3UkRMbEpFNm1WbGtXeGxSazM0QS9iUkhxaW5Dai9PVURw?=
- =?utf-8?B?eXV3c3N3N2treTZJZmZGRXJNMGRwSllBR2I0TnZkNEt2ZG9MdzFjNFRGYnFT?=
- =?utf-8?B?WVVLZG5jblRmTFUvTy9nRTFDUklBWnRNNU15L2dsOUozaFBqYlVwT2srd2l0?=
- =?utf-8?B?T3E4VWRmcS94NUFwQU1QZ1hGQ1JHOC9XU2VCaFFlQ1lxOUo0eVhWZGdEeTYw?=
- =?utf-8?B?dU0zVEd4NkVyQXo5Q3V0cko1c0xmSzdQYzRFVXF2U2JTR21DZ1lQYkwxYzNi?=
- =?utf-8?B?TytpMzJCVWxGaG5XYzk0dnhMWjl3NVRmMm55N001TngyTXkzZ00zalZ1N0dJ?=
- =?utf-8?B?dDB5QlgrZ1NnZkdYMnNaSzNWZFJmSnBaUm9uaUJEUFdWZ1lLd1I4dm9zRlVK?=
- =?utf-8?B?N2hKRnBqaUZUWlcwMHk2VEpSRy8rY2pxUzZUTnRiY25Mby9pQ01STEFvdHFw?=
- =?utf-8?B?SXExb0p6ckJoNVJRUENwUzRJL3NZa2daODlCa0lsTmZFcElZODA1dElVNFJu?=
- =?utf-8?B?RDdwRzdVL1JJMkhpOVJHSytKMm1IQS9qb01KUFFSY05Zeld6Tzk1TmxIc1Ns?=
- =?utf-8?B?SlBKWmVhY0lpUjB2b1Z0bHVpaTcxbWFrV0RtZVY5QU0xa3BCd2tGcG5WRU03?=
- =?utf-8?B?LzgwWGQybjF4UEZKOEIyelFEMVhsQ2tnNmlFQ1pmeUJTYVc0d2NFa0NaYVhI?=
- =?utf-8?B?M1BrQm9lTFFMUDdxdFRmNXJSQ04rQk1McWgva0xZVWQxd09vTWZiT21iYmRZ?=
- =?utf-8?B?MDd2UCtRR2tZZmliNS95SHVIK3J4eVAyMUU4endaTlhUV2hWR2dmYzl4M3BK?=
- =?utf-8?B?QWkyQ0NCbmVMMzhOcTkybThmakJiQWtnSURFOVdjaHhOM1d4NWxrL2FsQmM5?=
- =?utf-8?B?TmQxRWhOU1hyRW15VFhCY21hZkZ0dG0zM1dxQkplczBJNDF3TGtjM2FWL3dw?=
- =?utf-8?B?OUNhcTZycVB5SnpnOFh1T3N0OFlzNWRjdnA3UmNGbkZ0OXB4dldnUzVyYmJw?=
- =?utf-8?B?enpGdTdUdzNqTEVXOUlYd3JjaFk4K2hqV0ZXajJUL2JHREpFb21HWTZpc0hX?=
- =?utf-8?B?dlJlQjA2bXFiZWtzQXVNQTdvZXBBOFV3RzFQWWRpb3lZL0tUYmdkMFpxZXo2?=
- =?utf-8?B?dDdPVGFZOXN2ejd6WjZnY1RncDZVTGdiaGx5QmJDRVZwSTFzOFZHTnFYMVdH?=
- =?utf-8?B?YWhkWkZleElUOEk3NGVRQmcva1RBZ2ZVekE5bER4YnEyWENBMjhpU21MY2xh?=
- =?utf-8?B?NjlXL3hRdzFrc2hOZGFNR1Q2TVZBaC8xc2dybWRBSkNKUkhnYzR2UVNnUTQ5?=
- =?utf-8?B?dUtqNzRVZGUvRDUzczdUTGtXM1ZhMXVkODhlanJGaUovRmJpdHlPTzFZSnV0?=
- =?utf-8?B?VkhzdDAxam1nMTl2Rk5YZE1OeFNCcnBIQXRTaFdzM1Blek83aXhXWHltQmFz?=
- =?utf-8?B?S2RhUTJnOCtLbXg3dDlhVUFjMmhOanAxdE8wbm9ocU5HQTl2WnNxdlhmV1cx?=
- =?utf-8?B?aldmOFFEYktsNWQ4dHdHby9YMEdyTTl6UzFNZmNZNE4rdFd6cHRHS1lsNnUx?=
- =?utf-8?B?MGtNWlpldS9TMlR2dHZLVHVpWGhDWWhTUUM0WlR6d0RsVkFqRGxIV1BaQVBF?=
- =?utf-8?B?UXEyMWdaUFgyUDZBQk1pSDRWRFgweklTQTF1cjFRYkI1QU5kTjJBQTR4Q09N?=
- =?utf-8?B?aThWUzVZT0d3bUQzYVZwUENYUFNuS1lONEozeGhER3ZodVFXOFQwRS9oeHF2?=
- =?utf-8?B?ZWd2aHdiMEtNclc4dHF5Ull3djQ0NW9CcFJLeHRabmJyb3pjT2JVdXFNVzh2?=
- =?utf-8?B?OW4xT05FVWhOaExHcm5HTTZOVVR3OTk3Tkg3TUw2ekJGSE9yYTNHcFFpSWhR?=
- =?utf-8?B?QldsNWhrVlA0MXo0OFgxaU11QWRDbUpGTHpkdUQ4bkRqTVhhQ2h1WURFVzB0?=
- =?utf-8?B?dkd0V3FEaVZqd2ZLby95cE9PT1lWVTlOdjluYUs5V29Yb3Q5TXc4RDZPSjdE?=
- =?utf-8?B?WmZNSnJuZTNzUzdZMEhZRC9WS1dzVkcwekJxSHlmZlR1WmhPRFZaditXbk5k?=
- =?utf-8?B?SVZrb0dKVERiR0FYc3ByanIvb2lRTjBQaTJEaFJkaTAwakt0RnhheHg2VGJU?=
- =?utf-8?Q?ss6DofEyF9u5KIxJsGQbvC4BA?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e38edfcc-f7e8-4c6a-ad89-08dc15cc992b
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2024 13:19:26.9609 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: q+93gTlY8gT9O1AqSWzC1/aT7GCUD5w60bTBKcmGcEhGrqLIFAmdQcf8NITh45df
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8134
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,93 +90,103 @@ Cc: Friedrich Vock <friedrich.vock@gmx.de>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 15.01.24 um 12:54 schrieb Joshua Ashton:
-> [SNIP]
->>
->> The question here is really if we should handled soft recovered 
->> errors as fatal or not. Marek is in pro of that Michel is against it.
->>
->> Figure out what you want in userspace and I'm happy to implement it :)
->>
+
+
+On 1/15/24 13:19, Christian König wrote:
+> Am 15.01.24 um 12:54 schrieb Joshua Ashton:
+>> [SNIP]
 >>>
->>> (That being said, without my patches, RADV treats *any* reset from 
->>> the query as VK_ERROR_DEVICE_LOST, even if there was no VRAM lost 
->>> and it was not guilty, so any faulting/hanging application causes 
->>> every Vulkan app to die e_e. This is fixed in 
->>> https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/27050 )
->>
->> That is actually intended behavior. When something disrupted the GPU 
->> execution and the application is affected it is mandatory to forward 
->> this error to the application.
->
-> No. If said context was entirely unaffected, then it should be 
-> completely transparent to the application.
->
-> Consider the following:
->
->  - I have Counter-Strike 2 running
->  - I have Gamescope running
->
-> I then go ahead and start HangApp that hangs the GPU.
->
-> Soft recovery happens and that clears out all the work for the 
-> specific VMID for HangApp's submissions and signals the submission fence.
->
-> In this instance, the Gamescope and Counter-Strike 2 ctxs are 
-> completely unaffected and don't need to report VK_ERROR_DEVICE_LOST as 
-> there was no impact to their work.
-
-Ok, that is something I totally agree on. But why would the Gamescope 
-and Counter-Strike 2 app report VK_ERROR_DEVICE_LOST for a soft recovery 
-in the first place?
-
-IIRC a soft recovery doesn't increment the reset counter in any way. So 
-they should never be affected.
-
-Regards,
-Christian.
-
->
-> Even if Gamescope or Counter-Strike 2 were occupying CUs in tandem 
-> with HangApp, FWIU the way that the clear-out works being vmid 
-> specific means that they would be unaffected, right?
->
-> - Joshie 🐸✨
->
->>
->> Regards,
->> Christian.
->>
+>>> The question here is really if we should handled soft recovered 
+>>> errors as fatal or not. Marek is in pro of that Michel is against it.
 >>>
->>> - Joshie 🐸✨
+>>> Figure out what you want in userspace and I'm happy to implement it :)
 >>>
 >>>>
->>>>> Signed-off-by: Joshua Ashton <joshua@froggi.es>
+>>>> (That being said, without my patches, RADV treats *any* reset from 
+>>>> the query as VK_ERROR_DEVICE_LOST, even if there was no VRAM lost 
+>>>> and it was not guilty, so any faulting/hanging application causes 
+>>>> every Vulkan app to die e_e. This is fixed in 
+>>>> https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/27050 )
+>>>
+>>> That is actually intended behavior. When something disrupted the GPU 
+>>> execution and the application is affected it is mandatory to forward 
+>>> this error to the application.
+>>
+>> No. If said context was entirely unaffected, then it should be 
+>> completely transparent to the application.
+>>
+>> Consider the following:
+>>
+>>  - I have Counter-Strike 2 running
+>>  - I have Gamescope running
+>>
+>> I then go ahead and start HangApp that hangs the GPU.
+>>
+>> Soft recovery happens and that clears out all the work for the 
+>> specific VMID for HangApp's submissions and signals the submission fence.
+>>
+>> In this instance, the Gamescope and Counter-Strike 2 ctxs are 
+>> completely unaffected and don't need to report VK_ERROR_DEVICE_LOST as 
+>> there was no impact to their work.
+> 
+> Ok, that is something I totally agree on. But why would the Gamescope 
+> and Counter-Strike 2 app report VK_ERROR_DEVICE_LOST for a soft recovery 
+> in the first place?
+> 
+> IIRC a soft recovery doesn't increment the reset counter in any way. So 
+> they should never be affected.
+
+It does, and without assigning any guilt, amdgpu_ring_soft_recovery 
+calls atomic_inc(&ring->adev->gpu_reset_counter).
+
+
+> 
+> Regards,
+> Christian.
+> 
+>>
+>> Even if Gamescope or Counter-Strike 2 were occupying CUs in tandem 
+>> with HangApp, FWIU the way that the clear-out works being vmid 
+>> specific means that they would be unaffected, right?
+>>
+>> - Joshie 🐸✨
+>>
+>>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>>
+>>>> - Joshie 🐸✨
+>>>>
 >>>>>
->>>>> Cc: Friedrich Vock <friedrich.vock@gmx.de>
->>>>> Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
->>>>> Cc: Christian König <christian.koenig@amd.com>
->>>>> Cc: André Almeida <andrealmeid@igalia.com>
->>>>> Cc: stable@vger.kernel.org
->>>>> ---
->>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 2 ++
->>>>>   1 file changed, 2 insertions(+)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c 
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
->>>>> index 25209ce54552..e87cafb5b1c3 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
->>>>> @@ -448,6 +448,8 @@ bool amdgpu_ring_soft_recovery(struct 
->>>>> amdgpu_ring *ring, struct amdgpu_job *job)
->>>>>           dma_fence_set_error(fence, -ENODATA);
->>>>>       spin_unlock_irqrestore(fence->lock, flags);
->>>>> +    if (job->vm)
->>>>> +        drm_sched_increase_karma(&job->base);
->>>>> atomic_inc(&ring->adev->gpu_reset_counter);
->>>>>       while (!dma_fence_is_signaled(fence) &&
->>>>>              ktime_to_ns(ktime_sub(deadline, ktime_get())) > 0)
+>>>>>> Signed-off-by: Joshua Ashton <joshua@froggi.es>
+>>>>>>
+>>>>>> Cc: Friedrich Vock <friedrich.vock@gmx.de>
+>>>>>> Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+>>>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>>>> Cc: André Almeida <andrealmeid@igalia.com>
+>>>>>> Cc: stable@vger.kernel.org
+>>>>>> ---
+>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 2 ++
+>>>>>>   1 file changed, 2 insertions(+)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c 
+>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>>>>> index 25209ce54552..e87cafb5b1c3 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>>>>> @@ -448,6 +448,8 @@ bool amdgpu_ring_soft_recovery(struct 
+>>>>>> amdgpu_ring *ring, struct amdgpu_job *job)
+>>>>>>           dma_fence_set_error(fence, -ENODATA);
+>>>>>>       spin_unlock_irqrestore(fence->lock, flags);
+>>>>>> +    if (job->vm)
+>>>>>> +        drm_sched_increase_karma(&job->base);
+>>>>>> atomic_inc(&ring->adev->gpu_reset_counter);
+>>>>>>       while (!dma_fence_is_signaled(fence) &&
+>>>>>>              ktime_to_ns(ktime_sub(deadline, ktime_get())) > 0)
+>>>>
 >>>
 >>
->
+> 
 
+- Joshie 🐸✨
