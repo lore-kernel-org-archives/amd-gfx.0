@@ -4,114 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75A54C3DA79
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 00:03:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93C69C3DA79
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 00:06:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D7F510E3CD;
-	Tue, 16 Jan 2024 00:03:09 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31E8710E3CA
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 00:03:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TCgK3e+ax51pPN0QxCfCi510rlH5KJ3LkDRvXRh38JyqxCHuzSTmmQeXAMUvrqkRYkjt3KrsvOimQxlRwliCSIS9G/lV4MxHq+GcP61kBO/oMQJbV53GBZ53XD4Q2aaoDVaN9kgSbq7S2sqVUogIVsfMCz8mRKXqqKtetPXHslfkTplGtEzilBc+4xIl7hyrmK4oFT28S6eLcpg7qrifRBrl0KNDFEAyWAUWEdsbGMXVXAnhTfgNMEoLFOzNRF4MsB0Prn2dkRjUQVPYIMw+UlNNoi305CMtFtWYLWplahQtLICK3PqVIRL3S7fLLzPXoWNfwAFxoqry1p/lQ5jHkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UTpTsPXkd5kNwoYNHz7FZ1uvj+TMOtzNFQ402yhaXxE=;
- b=Tib3oADo0n/onyM663EOKoSnnzyMiZ5gNbUNJAh20z0ci5AOOdDfvFaCa6miO/q3e3m6cjnLb+0gveqBmZu/B2j66i1bqT3EtsrJR3MWym7/bnFenPvacWTLP/2lAumFmgojSASPZaHCp/IG2SFV9Kg/VGQVGsiBSDdIEIk3cH6XRDZPyugDdcyRRVWqjcvJsyzIMrw0hb9IoqAPM0DMeEgD5T2sAwOaRTvHbwKSMQ1A4YI02nXKH6kTCimU5X95f49oWnkyn9dOrfrmrUbqj9taF2KKNVWaw5JrQWEg3z0P8hcaxI5EbcHuxQx06OaBSroKYW8Yc63oj29mLB/6Lw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UTpTsPXkd5kNwoYNHz7FZ1uvj+TMOtzNFQ402yhaXxE=;
- b=uOFputqO+qtxWdOUmsR/Zq+gMNMHfR8wOZmFb24YrpVocS6VaONy/wMRuz3QiUgfwRuJzy5smCIyGt0uF8qq56+ageOOPYpdkLruQJWOIbyYybJRFrLAfPgQ+hfnZyp8nQ7kRhL+GYcq5+j25wpHCRyLY3imaaiuxf2CjbkKKzs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB2600.namprd12.prod.outlook.com (2603:10b6:a03:69::30)
- by LV8PR12MB9112.namprd12.prod.outlook.com (2603:10b6:408:184::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.23; Tue, 16 Jan
- 2024 00:02:50 +0000
-Received: from BYAPR12MB2600.namprd12.prod.outlook.com
- ([fe80::8323:ac7:8a82:64e8]) by BYAPR12MB2600.namprd12.prod.outlook.com
- ([fe80::8323:ac7:8a82:64e8%6]) with mapi id 15.20.7181.026; Tue, 16 Jan 2024
- 00:02:49 +0000
-Message-ID: <aa8d4d01-bd3b-1b1f-66db-852fec75add2@amd.com>
-Date: Mon, 15 Jan 2024 18:02:46 -0600
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [PATCH] drm/amdkfd: Correct partial migration virtual addr
-Content-Language: en-US
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20240115220026.11436-1-Philip.Yang@amd.com>
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <20240115220026.11436-1-Philip.Yang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DS7P222CA0003.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::19)
- To BYAPR12MB2600.namprd12.prod.outlook.com
- (2603:10b6:a03:69::30)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC66610E3CA;
+	Tue, 16 Jan 2024 00:06:42 +0000 (UTC)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
+ [209.85.208.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E86210E3CA
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 00:06:38 +0000 (UTC)
+Received: by mail-ed1-f41.google.com with SMTP id
+ 4fb4d7f45d1cf-554fe147ddeso10374161a12.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 16:06:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1705363537; x=1705968337; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=aNK3pOaJ2uLGZ3OGzL/rlej3R/D7/Mb4Xsr8nCQ1VVw=;
+ b=blFx6CaYG8+rCtQicVsWHGaZZkH2xv/XSYQ4fDdQXGAn38dpnygQcn7TxuK0PmgRJK
+ OdxkizyKxCIW3uWm5SOeK7gjjaNoYeBw6sqoaNWeZHt2hqK7n2X4XRQgSNrL6W/YOig2
+ K1DoETHebit327l89u2iVe0zcx+4JA0benQVLYQmF0DluDxCrGbNId5mpDBs7NcWpUD/
+ N4zbFFPtHJPjR2tJw6vwuCSYQUe/oUHVLYezaY40tof9PyVHoiVdJHGSr2d1v03NK8uR
+ bfQ3xpScmfQB8MhNLX09Bjt6hTlZMsygyWQDs5d+KywOcpfl//UZ16ijZzSLQnT9iKw5
+ sHhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1705363537; x=1705968337;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=aNK3pOaJ2uLGZ3OGzL/rlej3R/D7/Mb4Xsr8nCQ1VVw=;
+ b=uFAr0mti7kN7TF7iV5P+uIkzdpv+lD5QIWZjZ1Hu4hJfw/s9772NYVoqr36d+jayPL
+ KjtRzQxPQB5pWyqGRi7GYhC0Qt489RPRQkXjOsAz5lI2oKieUJk+9QlI3EbBtZidXiCS
+ mWgd9c47yk636eb7VxJC/B/iV3cuGTWBDqrhprIWVHK661Sjrr0RhdODb+FordHUV1qZ
+ AQD6bGF3RO9gH0C4g99bxU7HRkYgOyFcU9pIwQKEwlEsuqPnTp826UM0hrSYX2pBI0a3
+ /6u2AKez+voEOs79xNFRt/84ZxJZ5xmQMPzEeK1YBBTe4Nstp2eQrXUrf6++iHF7pHjb
+ 4j3A==
+X-Gm-Message-State: AOJu0YwkfmivPdilAm2TMGqrjzknObRWK7JqrbBhsFzc6maCFVvHYNOi
+ FeGcLpeZQ4WzznI+kh7f/tF2ve0hUSSI8VgDkKs=
+X-Google-Smtp-Source: AGHT+IEo9ytBc3Ap76VPgW4nA1acAvC25sP/hfq5Kma2uIQwIEEd3X6AC8pLcJgG8+tgNlkOivxvqx8CmU92W4mTabM=
+X-Received: by 2002:a05:6402:1a24:b0:557:7e12:1c1b with SMTP id
+ be4-20020a0564021a2400b005577e121c1bmr1773125edb.116.1705363537087; Mon, 15
+ Jan 2024 16:05:37 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2600:EE_|LV8PR12MB9112:EE_
-X-MS-Office365-Filtering-Correlation-Id: 98263455-cc49-4f60-56c2-08dc16267a2b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5vL3HjUWnoF+JhvcjeSUowxPtS1+27foB5iScJKACKgOL9tPUn75pcC5skXq051JxoGb0CPHCpzpVTs3xeYypzjDEZ1BRHf6b7QgmWBsURxMMw6KsBGuk4ADH4NR0Epk2Xx0CARROZgD3V8pH7jSbgeP8LLNuw8YFW0OhAbUwsabaFdGXYjWCWftQm7m9rT8dp6M+kA4I8+mcXiGuHjfHZDSFWpny7wBYRvRgmUYIpZk7O1UdJh3tfB6e2elT8JrUB19riXvRsYs2hLXP5VgNIgVrQt66sq3J9FMyO3X/xoXH+cR4l6UsQYcMDKu2fpRnV0VuZaC8abcYefUl0tsEzlSHbAcnkD+MCrEKh1WX7CDOQVHo3uJVYyx9KwKMaiI0s2vhu4cKfJZP8gMiTEYXCsEUivDfQumn1/CHJF5kbOZr+UnJf8xJL5Jy8h0aj79tJtbwsmQIn+WLr57ItYbXfNRR3hvNPYCpMCgbLViwCDzGY73RBf7brhvpy3HA+nzNi01aHSfjprXdvIkKmJhdlFH19YRNz1AleW5ZwS1EkgxXp2+Zif2EBSQOFqWUjvU7HQlfxWQb5Rlh9Hu6Hi1KKMJLA+NaBm9KaBRRTdXrSQFTeg+XVsSPYgpDyWgAlmDoST6zmDheIB9v0bN67ajuw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB2600.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(39860400002)(366004)(376002)(136003)(346002)(230922051799003)(1800799012)(451199024)(64100799003)(186009)(31686004)(83380400001)(31696002)(86362001)(26005)(66946007)(36756003)(478600001)(5660300002)(38100700002)(53546011)(41300700001)(6512007)(6506007)(2616005)(66556008)(6486002)(2906002)(66476007)(316002)(6666004)(8936002)(8676002)(4326008)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UDFoZzJmN0t2bkRGZ1V3bVVHejNQSWV3UTlKSFdYNkhXQldYNSthT05Nd05v?=
- =?utf-8?B?MnVIU21SdkltQ1EyQWFyWFp0YTNkYURacGZXKzJ1SnN6ZDlRYnlERGdISFdS?=
- =?utf-8?B?VlJHRjJ2emxZcDBJNUxOZG5GblRnMEkyWVhzSEd6c0IyN1JWOVU5SXVDTG1G?=
- =?utf-8?B?bUpnVUR5RFI1eElhZy9rYXdWdGhsdTJISE5KSGVacytGUG1vTjhIVHRmYVUz?=
- =?utf-8?B?VURTT1VGUGtlaENXSGNtTERwVmtEdzdPeVpGODh2TUJvcmtJbXBoeGFmeUJH?=
- =?utf-8?B?WVJnd0RncjE1cmJkZVpGSi8wc0VBdUxzK2VnRmFGSUZhbmwxZU9COEtvY2xL?=
- =?utf-8?B?ZXpEVnRuZ090SmxHQ29ybjQwOVhRZlRVTlFEcGIyYU9QY3JDZC9NNzdCeW9w?=
- =?utf-8?B?bTI3Q3d0V2NQem5ndHBjWE1DQnJJM0QxbUFNaW9ZOU5VVithM3B4QmNOVlAw?=
- =?utf-8?B?MFJ4VlRzOFlidEYvcGZOS09OK05rckw4VEhndGxRWjVJbW9kSGM2MGh6bGJn?=
- =?utf-8?B?N3oxUy94TnVvUHlJdkh2MEV2TWIvYy82U1hTUkdHaTFsd0FLZGhlNHZJNGhl?=
- =?utf-8?B?THVrWlk3NTFpb291b3N1RWVDMmV3YU4vdXc0ZVBhUkUxSFN2MGgzd1VDaGRF?=
- =?utf-8?B?QW1QRTRmRk1zYkM1MkFDRG5OSUxUWlNQclpnZ2xjL2VoYWN6RTFMdDh0anl6?=
- =?utf-8?B?VGNXRENQaEFhS2t3a1R0NUsrQmV5czBpRk54UFRQb3BlaUNhVWxvVDZxZSt6?=
- =?utf-8?B?d0MzdWU2Y3lxWTVsalJZWG5xZVpvRHBQbTBhMEZNRk5KUEtveVlncVpWaENE?=
- =?utf-8?B?dVpONm13ekc5S0pkTFBhQUxYNXMwQ1EwM2UvZklyYWZveUxlMWlIMnFZYVZs?=
- =?utf-8?B?cjRoaHc3VlVneVpOQWoxY3pUckpOblR6bXJFNmFVR0xJUWZscDNmRkNZQjZF?=
- =?utf-8?B?cjZ2TUpkVnY0SlB6Q3ZrRWIzeUxXcnBTNVg5NUttL2lxUlRlbTJQTnlYa2xQ?=
- =?utf-8?B?L0prdmR0MVhIbkxScWVVb1ZNcVlxM3lCT3FrVE1jSkkrNkEzaEdZaE0rUVpa?=
- =?utf-8?B?eEJ3ekhUWkxTSUZzU0FYRzVBV1ZvSTE2S0dJblRESTU4Y0ZBVDk1NHB5anQ1?=
- =?utf-8?B?aFg5dzhKL29RbXltSXFCTmNlWWtiN2Evd1BHTEpFUmRFY082S3Jqc0s5L0Zo?=
- =?utf-8?B?UTNBUDdkdmoxbVhXd0M0MFRxT2xMSjZzVmZDVHNQR2tqOG1SYTk4YmdvNG04?=
- =?utf-8?B?a0wyWWk2VFk3WStiU3lwcTlsdmVJMnlpNTJVODlJV0ZHR3RsWnFYYUNEVkFr?=
- =?utf-8?B?WG1zT3V2T2NGd2FlS0Z1bVN1MFJuWk9ybnZoZkNvSVZZVkRCaS9IZ3lCSlpB?=
- =?utf-8?B?OTd0ZHkvbWcwQ0NFaDhVTG01ZzNvU0hldENQbnRoNTYrMUpIdXl0cUVwWTFp?=
- =?utf-8?B?amJkRW5EMWc3TmdVeDBsN1htdjQ0b29aRjJkQlRuaU5ISXVzRndVdUltOHBS?=
- =?utf-8?B?TVhPYUYrRnlhcW5EcHpuL0l1VXREYVNXMG9MMTVRaUNOSmFVN0prbTNka2FG?=
- =?utf-8?B?RTlwYW5rbXcxdFNOTGsyMnpjdkZIK3B0ZWNJSXc2cG1obkdwUUtKT2pRbWVj?=
- =?utf-8?B?bm44UmY1R0tXN3dWU0NsUFNqbW1lbSt4NXZrN3hkQXRiRUFlZ3FDUHl6YTBX?=
- =?utf-8?B?SXZWM0p5azRmVmRyTG9TdHpPK2c4SFdVTnRsb3RwOG9tQXZmZStjamQ5TXcx?=
- =?utf-8?B?bWpWWWJhRmpKWjNjc2hqcHlVUDgyT0tsc3U5ZWdHeWw1UUdrL3Nqc1lTbkpu?=
- =?utf-8?B?cUZ4WittVHdMSW1HQ3NVbWR2bWp2ODRZVjF6cVhvdTcySUtnWkxmMlc3VDZK?=
- =?utf-8?B?OXZKb2UybkNoTkhybFZpQzd0cTI5U3VHRm1VbkpFbTNDS2lsckdZcFdrT05Q?=
- =?utf-8?B?UXJJa0dUR2o3K25qRG9idlFKb1NBTVJ1VFRUMUNvMjI5MExWZWIwS3ZmaG5o?=
- =?utf-8?B?RVZGWHpuamFGdkN0ekViT1Zxalk1a2RTYmZyYlFJc2ZDa21kSC9HWFNBcVor?=
- =?utf-8?B?eVIvUURNU0lXWm9VN1NmM2QrVDlhZndDbWpvSk5zNWd1VWFiclR0RDhlWGI1?=
- =?utf-8?Q?4ic4=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98263455-cc49-4f60-56c2-08dc16267a2b
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB2600.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2024 00:02:49.5931 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bSSRQKPND0w1QSbILsNwJiuoisrAg5EG+b9At9ZFEbrYkaKHGBLInuSg8oNuTNhm
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9112
+References: <20240113140206.2383133-1-joshua@froggi.es>
+ <20240113140206.2383133-2-joshua@froggi.es>
+ <c9b839cd-4c42-42a6-8969-9a7b54d4fbe8@amd.com>
+ <0e701278-a633-403c-b397-e4f772d66c5a@froggi.es>
+ <aca706e6-58bc-4c38-bbfe-19137f38c897@gmail.com>
+ <9a07c4e4-321c-4f75-aeae-81ed90038365@daenzer.net>
+ <f2153219-e791-4e97-96eb-26094d7acf87@froggi.es>
+ <5c99ec8c-142d-4877-9624-c8ce0373fccd@gmx.de>
+ <5ff32f43-46ea-4e74-8db4-c23e0b03b429@daenzer.net>
+ <8e5cd59e-075a-480e-8452-87924580122d@froggi.es>
+ <1dbe811f-64a0-4ccd-88cf-3fd30f79f7bc@daenzer.net>
+ <c36400bd-b8f2-4026-b989-f4e1854b05ca@gmx.de>
+ <7194a09a-afe8-4eae-8288-c72e2ac7d0a6@daenzer.net>
+ <51b9ffc3-9ab3-4a06-9307-6b2a343f6bc6@gmx.de>
+ <CAP+8YyGg91f_z2ktrd7HQMtOSHn34F-8x7O2iRv=TTrXo2NNoA@mail.gmail.com>
+ <81a82ffc-c2e6-4ce6-9cc0-4f01dc8b9891@froggi.es>
+ <bff749b8-5531-46bd-8e21-97d094e6b4c2@amd.com>
+ <9e6fec7b-3786-4221-8024-6b949efd08e7@froggi.es>
+ <bfe79411-7f77-48ab-8cfd-4727704739e8@amd.com>
+ <3e284517-0372-4c75-9902-7039c09b73e9@froggi.es>
+ <baa54077-cf89-4fb7-b505-a41716e66a23@gmail.com>
+In-Reply-To: <baa54077-cf89-4fb7-b505-a41716e66a23@gmail.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Mon, 15 Jan 2024 19:05:00 -0500
+Message-ID: <CAAxE2A5v_RkZ9ex4=7jiBSKVb22_1FAj0AANBcmKtETt5c3gVA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Mark ctx as guilty in ring_soft_recovery
+ path
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,34 +88,145 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix.Kuehling@amd.com
+Cc: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ Friedrich Vock <friedrich.vock@gmx.de>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
+ amd-gfx@lists.freedesktop.org, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch is:
-
-Reviewed-by Xiaogang Chen <Xiaogang.Chen@amd.com>
-
-On 1/15/2024 4:00 PM, Philip Yang wrote:
-> Partial migration to system memory should use migrate.addr, not
-> prange->start as virtual address to allocate system memory page.
+On Mon, Jan 15, 2024 at 3:06=E2=80=AFPM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
 >
-> Fixes: 18eb61bd5a6a ("drm/amdkfd: Use partial migrations/mapping for GPU/CPU page faults in SVM"
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+> Am 15.01.24 um 20:30 schrieb Joshua Ashton:
+> > On 1/15/24 19:19, Christian K=C3=B6nig wrote:
+> >> Am 15.01.24 um 20:13 schrieb Joshua Ashton:
+> >>> On 1/15/24 18:53, Christian K=C3=B6nig wrote:
+> >>>> Am 15.01.24 um 19:35 schrieb Joshua Ashton:
+> >>>>> On 1/15/24 18:30, Bas Nieuwenhuizen wrote:
+> >>>>>> On Mon, Jan 15, 2024 at 7:14=E2=80=AFPM Friedrich Vock
+> >>>>>> <friedrich.vock@gmx.de <mailto:friedrich.vock@gmx.de>> wrote:
+> >>>>>>
+> >>>>>>     Re-sending as plaintext, sorry about that
+> >>>>>>
+> >>>>>>     On 15.01.24 18:54, Michel D=C3=A4nzer wrote:
+> >>>>>>      > On 2024-01-15 18:26, Friedrich Vock wrote:
+> >>>>>>      >> [snip]
+> >>>>>>      >> The fundamental problem here is that not telling
+> >>>>>> applications that
+> >>>>>>      >> something went wrong when you just canceled their work
+> >>>>>> midway is an
+> >>>>>>      >> out-of-spec hack.
+> >>>>>>      >> When there is a report of real-world apps breaking
+> >>>>>> because of
+> >>>>>>     that hack,
+> >>>>>>      >> reports of different apps working (even if it's
+> >>>>>> convenient that they
+> >>>>>>      >> work) doesn't justify keeping the broken code.
+> >>>>>>      > If the breaking apps hit multiple soft resets in a row,
+> >>>>>> I've laid
+> >>>>>>     out a pragmatic solution which covers both cases.
+> >>>>>>     Hitting soft reset every time is the lucky path. Once GPU
+> >>>>>> work is
+> >>>>>>     interrupted out of nowhere, all bets are off and it might as
+> >>>>>> well
+> >>>>>>     trigger a full system hang next time. No hang recovery should
+> >>>>>> be able to
+> >>>>>>     cause that under any circumstance.
+> >>>>>>
+> >>>>>>
+> >>>>>> I think the more insidious situation is no further hangs but
+> >>>>>> wrong results because we skipped some work. That we skipped work
+> >>>>>> may e.g. result in some texture not being uploaded or some GPGPU
+> >>>>>> work not being done and causing further errors downstream (say if
+> >>>>>> a game is doing AI/physics on the GPU not to say anything of
+> >>>>>> actual GPGPU work one might be doing like AI)
+> >>>>>
+> >>>>> Even worse if this is compute on eg. OpenCL for something
+> >>>>> science/math/whatever related, or training a model.
+> >>>>>
+> >>>>> You could randomly just get invalid/wrong results without even
+> >>>>> knowing!
+> >>>>
+> >>>> Well on the kernel side we do provide an API to query the result of
+> >>>> a submission. That includes canceling submissions with a soft
+> >>>> recovery.
+> >>>>
+> >>>> What we just doesn't do is to prevent further submissions from this
+> >>>> application. E.g. enforcing that the application is punished for
+> >>>> bad behavior.
+> >>>
+> >>> You do prevent future submissions for regular resets though: Those
+> >>> increase karma which sets ctx->guilty, and if ctx->guilty then
+> >>> -ECANCELED is returned for a submission.
+> >>>
+> >>> ctx->guilty is never true for soft recovery though, as it doesn't
+> >>> increase karma, which is the problem this patch is trying to solve.
+> >>>
+> >>> By the submission result query API, I you assume you mean checking
+> >>> the submission fence error somehow? That doesn't seem very ergonomic
+> >>> for a Vulkan driver compared to the simple solution which is to just
+> >>> mark it as guilty with what already exists...
+> >>
+> >> Well as I said the guilty handling is broken for quite a number of
+> >> reasons.
+> >>
+> >> What we can do rather trivially is changing this code in
+> >> amdgpu_job_prepare_job():
+> >>
+> >>          /* Ignore soft recovered fences here */
+> >>          r =3D drm_sched_entity_error(s_entity);
+> >>          if (r && r !=3D -ENODATA)
+> >>                  goto error;
+> >>
+> >> This will bubble up errors from soft recoveries into the entity as
+> >> well and makes sure that further submissions are rejected.
+> >
+> > That makes sense to do, but at least for GL_EXT_robustness, that will
+> > not tell the app that it was guilty.
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> index f856901055d3..bdc01ca9609a 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> @@ -574,7 +574,7 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
->   	pr_debug("svms 0x%p [0x%lx 0x%lx]\n", prange->svms, prange->start,
->   		 prange->last);
->   
-> -	addr = prange->start << PAGE_SHIFT;
-> +	addr = migrate->start;
->   
->   	src = (uint64_t *)(scratch + npages);
->   	dst = scratch;
+> No, it clearly gets that signaled. We should probably replace the guilty
+> atomic with a calls to drm_sched_entity_error().
+>
+> It's just that this isn't what Marek and I had in mind for this,
+> basically completely forget about AMDGPU_CTX_OP_QUERY_STATE or
+> AMDGPU_CTX_OP_QUERY_STATE2.
+>
+> Instead just look at the return value of the CS or query fence result IOC=
+TL.
+>
+> When you get an -ENODATA you have been guilty of causing a soft
+> recovery, when you get an -ETIME you are guilty of causing a timeout
+> which had to be hard recovered. When you get an -ECANCELED you are an
+> innocent victim of a hard recovery somebody else caused.
+>
+> What we haven't defined yet is an error code for loosing VRAM, but that
+> should be trivial to do.
+
+So far we have implemented the GPU reset and soft reset, but we
+haven't done anything to have a robust system recovery. Under the
+current system, things can easily keep hanging indefinitely because
+nothing prevents that.
+
+The reset status query should stay. Robust apps will use it to tell
+when they should recreate their context and resources even if they
+don't submit anything. Let's fully trust robust apps here. In the
+future we might change our mind about that, but for now, let's just
+focus on API conformance, and later we can change it as long as we
+stay API conformant.
+
+Non-robust apps must be terminated when they hang or are innocent but
+affected. Their existence is a security and usability problem and a
+source of frustrations for users. 100% guaranteed system recovery is
+impossible if they continue to live.
+
+IBs should be rejected for all guilty and affected innocent contexts
+unconditionally, both robust and non-robust ones, by the kernel.
+Userspace only forwards the reset status to apps for robust contexts
+and doesn't do anything else, but userspace may decide to terminate
+the process if any non-robust context is affected.
+
+
+Marek
