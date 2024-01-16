@@ -4,89 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1F4AC47077
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 11:02:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F311C47077
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 11:15:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E265F10E187;
-	Tue, 16 Jan 2024 11:02:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B6FE10E48F;
+	Tue, 16 Jan 2024 11:15:50 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2070.outbound.protection.outlook.com [40.107.223.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81C3310E187
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 11:02:48 +0000 (UTC)
+ (mail-dm6nam11on2081.outbound.protection.outlook.com [40.107.223.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62BB110E484
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 11:15:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Cl5eoJwZ1/3X6u7wfPXYR4Za0ZOPUnCiVMNXB1d+Hd4otdw1b5P14Ois9ngoratkjJPzhKHOS77PJBJPO8E8gyU6k1SKV1K+4E8w1ViVSISG+UmpsqaNkeW7nKfcTXXlRXOVsSi+RFURIkuuECiWUiHEz++EgrMTnHRQJaSXq073CZtoMrw1fE5xQVEquM/5SvJXEgMN+xL2Ke3VxQ4Hw1nLV32CKB3Tk27Gzy9H5+oQSnNF6wJBtWW0obyKFqyHADPfSeuoN3TPRJaDw8cS7aiSOj1aSP5pm9MV6nufPj2dLF5RzQGsx6PEBaLW5E8cK5jgOaG6my0FETB8mTkYFg==
+ b=Lj2jJXU1TRhtPQR5UXsthH1TOO6q29RDyoDml0qENo/g69nL7ECi117tSq7NxfVZGJmQVK/LrLjis45eqjY9h/nYHdxbx6C74bAsE6Dzfz8XFBgqJLam3mBVxU8e+roXHDE90CXTiZqMhblJ+OV81a4EVOkv1eUAutkstgD0MWQSshDcuspN6jj4aHC/awpYiNU4s5V3c6AuiwPpvpkg8k7pHZqlS6DV8aVoAF6CMkn7TAWAccNKXA7ysN0Tzz4s7RAol13RABL3pW+HCkZliQXC4Gxg9jmvZ/Km54//xMvSLM1QNz/szpIrxyAJkFEUWMwOMA16tYTtc7LHXOAmCw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sfvAfbWotS3O9AQmVdyaC+BDGD7OydCEziFsPgh0vY8=;
- b=HeWCtDMQfBWXR4+oY4PBSZU14t8+uTcesRhQYY6qZq7qlMi2+Z91mt6d9aFBSXPP3OgPcQ59fbOxMbZyWOyxA3lj/RT/qvi7H4Y5lxI2fZPcUzb55X4XOkgbgnuCTz5NCtU6NVV0rR+sZsBFMHJzQAsiQB2t/nrSUuPnvvJ1+a/jVJHcij+8akdRHfz+/HQNHvMyj6FkTXCwSnqSat7yD+i2yWTrCC0GscwidHbt27GeRoPuqTO/sJNtC7JHCCWiSFJiuS19Sojc5Y3InSSOCsiA5dfruwctPXMhYId9FlLNWNg5/9kGlT9Jfdii6WnbxhDXcw7cSclPEHN8hdLZVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=1eMLl6tnTwR+Umsaphgp0LSBV40yrzHCJEP5h3SCrzI=;
+ b=ifLO/SwuFfTn4+ckXEfuhzlTLmEdpLxvqd6uzG5CYMLykPnt0A0ZoIbnCeG8+hqaGoBCotkVPbgdOy9yUiEr70Zx93G0HKNyTMavCBrcUea4U9HKQp2IeEjQKAHqFQLekAnF2XEFF+uYAVItXyFmc5OnMFYqxlns5KDe/llqNIDFgzlc2tbAGxL44iv+Zktao+LaHOEnolqDGsouBHZMIeFKn5ckq30AcKz/UrI8RBFaxTcNHHTd6cFGlxZZajVIpwGNaneV7LjnJfTKgoiyMJWJXlQ2l9QMpCf9Gr8lvfw410PlDgVUFltgBSqKbrdVRk8IsxbaTEFE+rOp65ZxdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sfvAfbWotS3O9AQmVdyaC+BDGD7OydCEziFsPgh0vY8=;
- b=oBpEDyT2MIWDPty3AAAsijx/FtpvROUHxbviiMRlxEpRiwLeKHOrM1enIqxpV0QTPv1+FY/pY92enaCdCnSEGjprlkKN8NwYC7r+nEvgBXtW6kK5OAtSPo9AbaD/9M1v/TjXpy5gXsIlgwq+EnNhJReq1Vj3R18qZATmxvMvsGg=
-Received: from CY5PR22CA0031.namprd22.prod.outlook.com (2603:10b6:930:1d::15)
- by IA0PR12MB9047.namprd12.prod.outlook.com (2603:10b6:208:402::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.17; Tue, 16 Jan
- 2024 11:02:30 +0000
-Received: from CY4PEPF0000EE36.namprd05.prod.outlook.com
- (2603:10b6:930:1d:cafe::24) by CY5PR22CA0031.outlook.office365.com
- (2603:10b6:930:1d::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.23 via Frontend
- Transport; Tue, 16 Jan 2024 11:02:30 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE36.mail.protection.outlook.com (10.167.242.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7202.16 via Frontend Transport; Tue, 16 Jan 2024 11:02:30 +0000
-Received: from kevin-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 16 Jan
- 2024 05:02:28 -0600
-From: Yang Wang <kevinyang.wang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: fix UBSAN array-index-out-of-bounds for
+ bh=1eMLl6tnTwR+Umsaphgp0LSBV40yrzHCJEP5h3SCrzI=;
+ b=eK0RXJs5gDAEyC5o6nZCMtrTeL5pd+jjRoWYwO/NtopF9BBBb5lsgY3E8CLvkgNQXwLXoegRplIkgqwD72HZlWPeUxY36hlLXrCbZcdzMIQWRdjTuse+DxnXtJVf93r71s2wQtV4gPDj6pCvNsnljWIj7jv+8RUDWQtcU+rZ+6k=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB7820.namprd12.prod.outlook.com (2603:10b6:510:268::8)
+ by DM6PR12MB4044.namprd12.prod.outlook.com (2603:10b6:5:21d::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.23; Tue, 16 Jan
+ 2024 11:15:42 +0000
+Received: from PH7PR12MB7820.namprd12.prod.outlook.com
+ ([fe80::5b3b:867e:c8bd:8bf8]) by PH7PR12MB7820.namprd12.prod.outlook.com
+ ([fe80::5b3b:867e:c8bd:8bf8%6]) with mapi id 15.20.7181.018; Tue, 16 Jan 2024
+ 11:15:42 +0000
+Message-ID: <8da7b544-f868-4eb3-a28c-cd032fe79e22@amd.com>
+Date: Tue, 16 Jan 2024 16:45:32 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: fix UBSAN array-index-out-of-bounds for
  ras_block_string[]
-Date: Tue, 16 Jan 2024 19:02:04 +0800
-Message-ID: <20240116110204.1352227-1-kevinyang.wang@amd.com>
-X-Mailer: git-send-email 2.34.1
+Content-Language: en-US
+To: Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20240116110204.1352227-1-kevinyang.wang@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20240116110204.1352227-1-kevinyang.wang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0081.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:9a::20) To PH7PR12MB7820.namprd12.prod.outlook.com
+ (2603:10b6:510:268::8)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE36:EE_|IA0PR12MB9047:EE_
-X-MS-Office365-Filtering-Correlation-Id: a2e389ee-356f-4cfb-8a87-08dc1682a25f
+X-MS-TrafficTypeDiagnostic: PH7PR12MB7820:EE_|DM6PR12MB4044:EE_
+X-MS-Office365-Filtering-Correlation-Id: 42993d6a-e030-44cb-6a49-08dc16847a1e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: m3ds4VOfkx2Nn+0QxbZndBD6RWkZJLwIHrQPzvPx9kxYfjbsdyS4Aw0bxnb6z0QaF5No9/5PjnPYoWCZ5D88Thgj7QXa5QPsJJckHEym3eGy1l4WMv7t9em7XUTnYOESSt2h29KA4z/RVA3G2xMJACYus+bGjTCp2RqWgaAYBpJPOu560tin+96ALYqfUGzFo5P3QKC0KNq8VUGsJ8M+AL3nBby/gwynQTTOqtQpetcMrvhK2uvGlx1UbR3eCWCrUQPGQtD9Dh6A/GkFiIGf99Ivq0Sl+og+POopW1eviOcinZfSLGSV6irwDJXLkU1O1EPaU5fBDXsK9Llq6OlfRXTpOs46YxndhR787BGL6tM+sMxeDBeatEmUkBVJtC3MWsMPhYPjXjyxl02zbXuSgbZXkuaUvBGjhy5QO7UWFsCoSwBqkOUHIFMXl9UWYy7QUvjbvWf1rukEunf6H5cv6ayuqI1anfbwhZ9d2m9yrizneaM5oCT9aRayn0+Yv4rA4jvjkY8GeOiuqMf3T/ogE6NvpPW4cSoE3jPdag6EiiDCZ9pXBWF2mAttEFnDYWs3x4RgnchxAFR3OhS12F9ekcvLymE+AU7WKEzE+DI1QZBmULGrd/Iwu1tP649H6CZWHYvkGnCYRS5/RteQWP0raVWOA3/MW2mqPiJykTOTC/5VTK5fQXoDLEUXpbioCN4Vv3sjrDik971N6dWioO05M6uOUSr1Gwz80LvmImqN2ch+5ItbYC2YeWkjKLpbr/2ygH3T05RGKohSIc9fpo6WMA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(136003)(376002)(346002)(396003)(230922051799003)(1800799012)(82310400011)(64100799003)(451199024)(186009)(40470700004)(36840700001)(46966006)(4744005)(2906002)(5660300002)(41300700001)(40480700001)(83380400001)(478600001)(16526019)(336012)(1076003)(26005)(86362001)(2616005)(426003)(81166007)(356005)(7696005)(40460700003)(47076005)(6666004)(316002)(36860700001)(8676002)(8936002)(70206006)(4326008)(82740400003)(36756003)(70586007)(6916009)(54906003)(36900700001);
+X-Microsoft-Antispam-Message-Info: rNxZbTiqN90qZDurVsDIdPe+vpQfyOmLGRIa/FxcoLp0yuV340YxL9x2B92aXJJBV0OC6NP2irwg5GxNwX814tvoheN7Dipa1ysuHab6Hzj+6cJAbexDxcvYWKU9btFR3jhG/lO8JNpHuz3I35zUlLh0RWgEu39wcUalL0iKgrWGj0pkAYdjJIMs/YUYU9Q72CO4r+RJT66SvF7ttf8XSZAwSIOg6pBE3FryjQ5sTY4tz1iANzDSwsu53S9o33HgVjSrVzH+TVHsOOYJlruEbzcC/t13M3aNAVedLATxVicvMzBEMcvlfnYjAKfvUkQvN2zBSFQC9HjhT8mXhJWYv2aTJdPKFMhkdzTldf9MhiIJTSQH7lQyY+LkwWNRBnSDWtaD5N03MRs7uH82/MP0rjqfI9mg+py+FQ/gTZnYZngvt4HEw8fYUHkOCtkUYNQ/0CF7Esbet8jNX+lGUP22eJBCvqtq0XrTIrkkSKCahgwhlzfHiRPraVCSIREuj+ysVtoGth3cl1zCPC0uDeUYRLpNLb2MZ0WClaETmnDk1T8HLGa5zueqt9aGEWqqGj2peN/jqP8TNb0LaIMCvvxo/v+Ew9AJ/OOQYluTnqEFGt0njur3pZmq8/rUrTqXnOEylJJ78le47YQQaFARaJTSfQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB7820.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(346002)(136003)(376002)(396003)(39860400002)(366004)(230922051799003)(451199024)(1800799012)(186009)(64100799003)(6666004)(53546011)(26005)(2616005)(31696002)(6512007)(6506007)(478600001)(83380400001)(4326008)(5660300002)(2906002)(316002)(6486002)(66476007)(66946007)(8936002)(66556008)(8676002)(86362001)(36756003)(38100700002)(41300700001)(31686004)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WkdLdEdpbG5temsxZEwrZ3RSZGRHd1gzMzkwTmptSFlBZjV5b1ZFTUpCWk9Z?=
+ =?utf-8?B?SFRDSTFMNkZaejhPSXFOUTFhTnhtN0ZxNGM0RFM1WFBpWXlQR3FpNGc3YnU4?=
+ =?utf-8?B?akFJYmNiRGVHRFFNTEUyOVArRkdtVUtXc1ZQS1BuS1ZpK1hCam9rdDdXUGVG?=
+ =?utf-8?B?cDMzVi8yNTRINnJ1U1hNOTBvdlJOREJwNWdJWEt3MnduUnl6NktubmtWVmxO?=
+ =?utf-8?B?eGlLcFNEZllQcmtweVlWbTlnenJWUVFnZUtjYWgyS2JHRndmWElPV3RmK0Fy?=
+ =?utf-8?B?bnZXaElwSVlkb1IrRUlmRzlnSGpiRXhGSWpCT0w4d3VIQUczTW1LRTNYTi9t?=
+ =?utf-8?B?KzFhNXhEVWZwOG1WV1dCRHl1ZkdkYUx1UHJOdk5xa2Facm0rZURLb2c3L29o?=
+ =?utf-8?B?WmhpSXVPZjd3VGd6dlplQTFiYlI0dld5bmY4SnRvUG1kWTVPWlhOU0RNNloy?=
+ =?utf-8?B?dEliSm9wUExveTBFZ2JKUUpQWVAyaStwcGNOMEJ3UThOMFRTVEFwV1RQWDhq?=
+ =?utf-8?B?Nm9DQ3c4cjNLUnh6c2tSUnpFblFlemt1OUZJRGlZSnFKNnlvV2NuUmk2T3VC?=
+ =?utf-8?B?dDFTQWNYUmdraWJqZm5Hc0gxbGE1NGFPS3laZklVclAzSjRVUGNzK01nMWQz?=
+ =?utf-8?B?L1U4MHl2NTB6cmtVbUpKeStTcFBkNUFUczIwUE10eGJYQVlJaitSbm5tdVBt?=
+ =?utf-8?B?cVljTnJuY24raXVYa0dJcEptWWhJV1ZRZUdhRW1RUU02VDFyQVhTek5jTEx1?=
+ =?utf-8?B?NGV5NUpKTzlNRFNMcVN1bElCWUE1dDBGdTdmVFBoY3k1ekhTak1Ba0lOUGsr?=
+ =?utf-8?B?ZUFzKzhCQzQ2bEVGMmI1Y1VxTnRTSmRjMmk1ZnpoTkRHY05yMUdHaTQ4Q2Fh?=
+ =?utf-8?B?SzdtSVFZSEl3SzhoWUk0L1pGbk1IRGtqZ3Y5VnZ6cSsxTDF2dTIvVXkvSC9k?=
+ =?utf-8?B?M0ZmUW9CaW9JSWc0UXhtTDN2KzRrQy9WUGJIcUxjU2ZUVkFGbHFlVHN0QTR4?=
+ =?utf-8?B?Mjd2T1ZER1BTMDhvbCtjUjIrZzNGYldTMHlIa1dlOUc4dnlocFhkWTlGMkFF?=
+ =?utf-8?B?ck9naTdzS2hBR01vRjJTNXhrSHlNb2l0L2ZTUVBPQUlxTWk5TW1sZSt2dUNH?=
+ =?utf-8?B?RjJTK1RRbUQ3YmpuWTdjTHNzQlB3QUxMcERzNlpLZGpWSXNZdjE3SEd6Rndh?=
+ =?utf-8?B?QWRrN3psYjFxMC9peHF6Z3FtNUdlRlJ5Sk5xeENndXVGd0ZsaUtUaVU5RjZ1?=
+ =?utf-8?B?RFRRTkp4UHZEdGF1MHdnMFlsUjQvczBMdTZic3RjZ3NSNFAwcm1UVU45ZTJk?=
+ =?utf-8?B?cjc2cEZTSUZGWFUvR2ZnNTI4YkhrRTE0ZmRzVEg3K2c3b0dxUHp0eXR4T2hq?=
+ =?utf-8?B?K2lSbThBc0I1cE56d25VNHJrVUlWWjVSNkp1UkN4Ym1NTXZpbkx3U3pNQ1Yw?=
+ =?utf-8?B?NDA1bnl6M1VWMUtLQXpJNHUrTWwrSUVMbkRmZnRHOXRpbGtkK1loazJkanVC?=
+ =?utf-8?B?ekozaTc4M2NibU1pa05iZ3NTS2NHRkowaEpjSUdjUXlSK1R0clhnSlQ2VjB2?=
+ =?utf-8?B?WCtUQW96NVhzb2NTbFpMSGwwSjZDcnNUWlIwZEFtN21LN2x1cGI4TXJsM0x4?=
+ =?utf-8?B?UE40eW1BanVZOGJrL0djMTU4L1czcHdQUDQvNGNKUm5ROXF4UEp3K3FoNHMv?=
+ =?utf-8?B?VUsrUXRBWlpLeUU4enhFSTVxRnJMazRzOGJUOVJ3QW1VZmNJTk0yNmQxSDRD?=
+ =?utf-8?B?dlJqMGxTTnYyNDFjY1FZK09YWWNWeXBxcW1NT2RrckNTMDlnb0IrSWR2cnFm?=
+ =?utf-8?B?cERkdnZhWThUbDhTK1BhSEZYTW1TMTU4R1Z6VTA1eXNVMHMvN2tLL2hmbzF0?=
+ =?utf-8?B?TVZVQXR6V0ZERXBaZm8vRzNNY3Z0K2h4bmNnQ0IxWHFBRTdpZm5QakZuTm5M?=
+ =?utf-8?B?V1Z6aWhHd0ZwaWlzRmNBZUNmQmNuVk9LTEQ1V0VvWHR0eFdMb0tRcXJvVytI?=
+ =?utf-8?B?SXJVSmxybzAzNStWY2JQNWprYnc0eEZUbVMrTDhhRXBGYW1sT3VadHc3MFo0?=
+ =?utf-8?B?MFlIVTFJTTl3UTAwYTdUc0IyaXBTRCtFTXIrY3ljTDYrVVl2V3JSVlJZRURT?=
+ =?utf-8?Q?8xcTHcCUn+UQJh8rg32T8AECS?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2024 11:02:30.4403 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a2e389ee-356f-4cfb-8a87-08dc1682a25f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42993d6a-e030-44cb-6a49-08dc16847a1e
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7820.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2024 11:15:42.3667 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE36.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB9047
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CrIe3FSnrZWFeqVRCkMKz6hLoBuWjJlkhJ/BrSiF0S0wmaGqf0ECKPn5zkLcJ9CY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4044
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,42 +123,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yang Wang <kevinyang.wang@amd.com>, Hawking.Zhang@amd.com
+Cc: Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-fix array index out of bounds issue for ras_block_string[] array.
+On 1/16/2024 4:32 PM, Yang Wang wrote:
+> fix array index out of bounds issue for ras_block_string[] array.
+> 
+> Fixes: 2e3675fe4e3ee ("drm/amdgpu: Align ras block enum with firmware")
+> 
+> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 5 ++++-
+>   1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> index ff6f84714f68..8004863719d0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> @@ -74,6 +74,8 @@ const char *ras_block_string[] = {
+>   	"mca",
+>   	"vcn",
+>   	"jpeg",
+> +	"ih",
+> +	"mpio",
+>   };
+>   
+>   const char *ras_mca_block_string[] = {
+> @@ -95,7 +97,8 @@ const char *get_ras_block_str(struct ras_common_if *ras_block)
+>   	if (!ras_block)
+>   		return "NULL";
+>   
+> -	if (ras_block->block >= AMDGPU_RAS_BLOCK_COUNT)
+> +	if (ras_block->block >= AMDGPU_RAS_BLOCK_COUNT ||
+> +	    ras_block->block >= ARRAY_SIZE(ras_block_string))
 
-Fixes: 2e3675fe4e3ee ("drm/amdgpu: Align ras block enum with firmware")
+Better to keep another condition for this check and return a dynamic 
+string like "<block>_unnamed" or "<block>_nodesc"
 
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Thanks,
+Lijo
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index ff6f84714f68..8004863719d0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -74,6 +74,8 @@ const char *ras_block_string[] = {
- 	"mca",
- 	"vcn",
- 	"jpeg",
-+	"ih",
-+	"mpio",
- };
- 
- const char *ras_mca_block_string[] = {
-@@ -95,7 +97,8 @@ const char *get_ras_block_str(struct ras_common_if *ras_block)
- 	if (!ras_block)
- 		return "NULL";
- 
--	if (ras_block->block >= AMDGPU_RAS_BLOCK_COUNT)
-+	if (ras_block->block >= AMDGPU_RAS_BLOCK_COUNT ||
-+	    ras_block->block >= ARRAY_SIZE(ras_block_string))
- 		return "OUT OF RANGE";
- 
- 	if (ras_block->block == AMDGPU_RAS_BLOCK__MCA)
--- 
-2.34.1
+>   		return "OUT OF RANGE";
+>   
+>   	if (ras_block->block == AMDGPU_RAS_BLOCK__MCA)
 
