@@ -4,66 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90B85C47077
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 07:18:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E1D1C47077
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 07:48:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27C1310E38A;
-	Tue, 16 Jan 2024 07:18:49 +0000 (UTC)
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B91110E099
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 07:18:47 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-40e85595298so1561305e9.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 23:18:47 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54C2D10E3E3;
+	Tue, 16 Jan 2024 07:48:07 +0000 (UTC)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4F4210E3E3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 07:48:05 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-40e857ce7beso1534385e9.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 23:48:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1705389466; x=1705994266; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1705391224; x=1705996024; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=BW+W+dIv4lN7r4SC9Umj94UHkB8iKRe5wxYPF0vpeL0=;
- b=CQ/q2WS8IVecxOG9A5b6WMmETtaLxvDDhlPMpn5+KGG5b56s0rWuCEUBWH3kfBEosL
- iKp5L5o9U7kXp0oyWc0GGjiKq2YOqK/srXjEX1ASlvuI9rWT10qNOe3PBrzxyoYa77Zi
- XYbMPc6xF0q5IfmJTln+Ht35zNVgXAUXTu1i65CFOzxGVZRv3VUsQlWlgrWP9u1LtN+5
- dp5plRgg2RtTq3HEG5/WnJRn7V3js2jalfmxOhhFCkyMzPgePKQm+yh3mA5q+zUxjpry
- OpbXC5PwMUt6SI2K+/p4zvr1SIuh9SuBz96NqTe46cwGdP3eMQOVe1Rwlvy3XkzIz8UQ
- M7Eg==
+ bh=AMxh5xor5eTj60ZRN87ikpXLZsHHk4NQlHWUnEcY2qc=;
+ b=EIDzzpgibGxRV8ecjcLs2ISiSZjFijGiw99OfDLFzTEBA2gw62G05hDvZI3fB0Qg0I
+ TStrmOKHq6AmIPoF1iOwvCIXB9vK/pMlon25fG7auI1jhH5oTlnL3n5KDWbBsruvylOq
+ 3yuJhYBok9X5dIdyAOGfElXgeIOeqvesyZjUk3XR06Pj0jptZcGsavcpxA7zZLowE51S
+ ReLK+Nu34VU3pNWawQqhOvmKT0aU0Vbyl1Ns3mvOgVQoXCRQqA3eaZBuzrQ27D2BEA6N
+ b0abBWRMh4jeuLCBhaRRzrCApYL/1m77aJzpUvrLxRhwqa2fPJtsrHdmG6Ekvw13lmcU
+ Mfbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705389466; x=1705994266;
+ d=1e100.net; s=20230601; t=1705391224; x=1705996024;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=BW+W+dIv4lN7r4SC9Umj94UHkB8iKRe5wxYPF0vpeL0=;
- b=iBQL6qlUSww/oLyWQWEUs3sWAQLtoJtrwHLfecWbpx8mQUdt9TU8DKn0iRt/NniRR/
- VQ9dH1Ch853xhW3x3kuIORuiF7XF/K/GD5ISPIZP8wdjo/CzlGy8ML6bcFFfYyjnMoh+
- KaydFF08TaLzE8Fg3MSLsJ7t5q7mm0RelEsCrIRoK4Z3K0Ic9v/lXI/DR/3hxkD9pkE0
- S4xN76zr3NCdGQYPDteRxgZNzVBik+dkTqJgpv1Du3dmyf3OK4yq7yTaCiZ39z2zv3tn
- ninOimz9/lpHxqUkKAVw2kX2t+EBxOnGp5QXsX2ZmCaEK8NrXlnpy2zlyaL4YMYUOmiz
- eHbg==
-X-Gm-Message-State: AOJu0YyFJkqC3w3W2tWNHrZGBpUGaDmELexqoMkkm8KGsgDyjF0hLVfi
- Gi597V1D7cNH+TRKghJgzH4=
-X-Google-Smtp-Source: AGHT+IEFTD9mOGuy4O+1A27ae4lkNbmqjc8773lZH0WP+R2mfsYFBKQ9T5aqV8so5vOj3q10koJtkQ==
-X-Received: by 2002:a05:600c:4314:b0:40e:43dd:1e47 with SMTP id
- p20-20020a05600c431400b0040e43dd1e47mr2015713wme.261.1705389465598; 
- Mon, 15 Jan 2024 23:17:45 -0800 (PST)
+ bh=AMxh5xor5eTj60ZRN87ikpXLZsHHk4NQlHWUnEcY2qc=;
+ b=FzuY3s8Ax85iTE1Td9O1VL87AKnjOdS4REX2K67Jv20faCoioMSVhzlOQuyNBEa/mf
+ CBJ54uvLR0+BXs3OCXoUoRoz1ixpR/6yRM0eB3WFvfXD1BipfZoGF78cnbIgfUy4irIC
+ No047A9TOb/7F0Kgrzx1jKSQo73sZUjs+/ruxiPLHGS2CvSy1dCyhhZ8YiCrux5r48Rz
+ c6n1SOm7qVTSeF6zv/J2I9jQjuHmfN2KK/yt5VSODh9M8Uuz/WfYWLE5AdscdTqndCjw
+ 5YqNyYzGvsahIW0sjk7v90DBVAMB80BPBxgH7B8a2uNJyF7c98M2zKUaJdE1kd6ahouI
+ ijLQ==
+X-Gm-Message-State: AOJu0YycCaM6RcNPzc5ouJ170+PguuRiVehdzG+i6iS20zj31Lkbkacr
+ PBOqpvR+QzBF4AQ/e0Q468A=
+X-Google-Smtp-Source: AGHT+IGRamwc4vRzU0jlveFtNcWv7l8pkN6lwQHWE/arcZ4xBO+JePRMyWwclP4W3qNMsaI62TOOHA==
+X-Received: by 2002:a05:600c:3585:b0:40e:4556:5870 with SMTP id
+ p5-20020a05600c358500b0040e45565870mr3823161wmq.120.1705391224039; 
+ Mon, 15 Jan 2024 23:47:04 -0800 (PST)
 Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- iv11-20020a05600c548b00b0040d8ff79fd8sm18255442wmb.7.2024.01.15.23.17.44
+ k20-20020a05600c1c9400b0040e54f15d3dsm22101322wms.31.2024.01.15.23.47.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jan 2024 23:17:45 -0800 (PST)
-Message-ID: <3df101b7-8df6-44a0-8c53-aaec480a1907@gmail.com>
-Date: Tue, 16 Jan 2024 08:17:43 +0100
+ Mon, 15 Jan 2024 23:47:03 -0800 (PST)
+Message-ID: <de47a17b-3d19-4c74-b77a-e08b0e94cc69@gmail.com>
+Date: Tue, 16 Jan 2024 08:47:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: Process fences on IH overflow
+Subject: Re: [PATCH 2/2] drm/amdgpu: Mark ctx as guilty in ring_soft_recovery
+ path
 Content-Language: en-US
-To: Friedrich Vock <friedrich.vock@gmx.de>, amd-gfx@lists.freedesktop.org
-References: <20240114130008.868941-1-friedrich.vock@gmx.de>
- <20240114130008.868941-2-friedrich.vock@gmx.de>
- <ef01b29e-8529-43d2-befc-a3e3d8eaccf9@gmail.com>
- <8e81fd02-c5e3-4c0c-bb8f-b81217863ce2@gmx.de>
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+References: <20240113140206.2383133-1-joshua@froggi.es>
+ <aca706e6-58bc-4c38-bbfe-19137f38c897@gmail.com>
+ <9a07c4e4-321c-4f75-aeae-81ed90038365@daenzer.net>
+ <f2153219-e791-4e97-96eb-26094d7acf87@froggi.es>
+ <5c99ec8c-142d-4877-9624-c8ce0373fccd@gmx.de>
+ <5ff32f43-46ea-4e74-8db4-c23e0b03b429@daenzer.net>
+ <8e5cd59e-075a-480e-8452-87924580122d@froggi.es>
+ <1dbe811f-64a0-4ccd-88cf-3fd30f79f7bc@daenzer.net>
+ <c36400bd-b8f2-4026-b989-f4e1854b05ca@gmx.de>
+ <7194a09a-afe8-4eae-8288-c72e2ac7d0a6@daenzer.net>
+ <51b9ffc3-9ab3-4a06-9307-6b2a343f6bc6@gmx.de>
+ <CAP+8YyGg91f_z2ktrd7HQMtOSHn34F-8x7O2iRv=TTrXo2NNoA@mail.gmail.com>
+ <81a82ffc-c2e6-4ce6-9cc0-4f01dc8b9891@froggi.es>
+ <bff749b8-5531-46bd-8e21-97d094e6b4c2@amd.com>
+ <9e6fec7b-3786-4221-8024-6b949efd08e7@froggi.es>
+ <bfe79411-7f77-48ab-8cfd-4727704739e8@amd.com>
+ <3e284517-0372-4c75-9902-7039c09b73e9@froggi.es>
+ <baa54077-cf89-4fb7-b505-a41716e66a23@gmail.com>
+ <CAAxE2A5v_RkZ9ex4=7jiBSKVb22_1FAj0AANBcmKtETt5c3gVA@mail.gmail.com>
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <8e81fd02-c5e3-4c0c-bb8f-b81217863ce2@gmx.de>
+In-Reply-To: <CAAxE2A5v_RkZ9ex4=7jiBSKVb22_1FAj0AANBcmKtETt5c3gVA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -77,118 +93,145 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org,
+Cc: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ Friedrich Vock <friedrich.vock@gmx.de>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
+ amd-gfx@lists.freedesktop.org, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 15.01.24 um 12:19 schrieb Friedrich Vock:
-> On 15.01.24 11:26, Christian König wrote:
->> Am 14.01.24 um 14:00 schrieb Friedrich Vock:
->>> If the IH ring buffer overflows, it's possible that fence signal events
->>> were lost. Check each ring for progress to prevent job timeouts/GPU
->>> hangs due to the fences staying unsignaled despite the work being done.
+Am 16.01.24 um 01:05 schrieb Marek Olšák:
+> On Mon, Jan 15, 2024 at 3:06 PM Christian König
+> <ckoenig.leichtzumerken@gmail.com> wrote:
+>> Am 15.01.24 um 20:30 schrieb Joshua Ashton:
+>>> On 1/15/24 19:19, Christian König wrote:
+>>>> Am 15.01.24 um 20:13 schrieb Joshua Ashton:
+>>>>> On 1/15/24 18:53, Christian König wrote:
+>>>>>> Am 15.01.24 um 19:35 schrieb Joshua Ashton:
+>>>>>>> On 1/15/24 18:30, Bas Nieuwenhuizen wrote:
+>>>>>>>> On Mon, Jan 15, 2024 at 7:14 PM Friedrich Vock
+>>>>>>>> <friedrich.vock@gmx.de <mailto:friedrich.vock@gmx.de>> wrote:
+>>>>>>>>
+>>>>>>>>      Re-sending as plaintext, sorry about that
+>>>>>>>>
+>>>>>>>>      On 15.01.24 18:54, Michel Dänzer wrote:
+>>>>>>>>       > On 2024-01-15 18:26, Friedrich Vock wrote:
+>>>>>>>>       >> [snip]
+>>>>>>>>       >> The fundamental problem here is that not telling
+>>>>>>>> applications that
+>>>>>>>>       >> something went wrong when you just canceled their work
+>>>>>>>> midway is an
+>>>>>>>>       >> out-of-spec hack.
+>>>>>>>>       >> When there is a report of real-world apps breaking
+>>>>>>>> because of
+>>>>>>>>      that hack,
+>>>>>>>>       >> reports of different apps working (even if it's
+>>>>>>>> convenient that they
+>>>>>>>>       >> work) doesn't justify keeping the broken code.
+>>>>>>>>       > If the breaking apps hit multiple soft resets in a row,
+>>>>>>>> I've laid
+>>>>>>>>      out a pragmatic solution which covers both cases.
+>>>>>>>>      Hitting soft reset every time is the lucky path. Once GPU
+>>>>>>>> work is
+>>>>>>>>      interrupted out of nowhere, all bets are off and it might as
+>>>>>>>> well
+>>>>>>>>      trigger a full system hang next time. No hang recovery should
+>>>>>>>> be able to
+>>>>>>>>      cause that under any circumstance.
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> I think the more insidious situation is no further hangs but
+>>>>>>>> wrong results because we skipped some work. That we skipped work
+>>>>>>>> may e.g. result in some texture not being uploaded or some GPGPU
+>>>>>>>> work not being done and causing further errors downstream (say if
+>>>>>>>> a game is doing AI/physics on the GPU not to say anything of
+>>>>>>>> actual GPGPU work one might be doing like AI)
+>>>>>>> Even worse if this is compute on eg. OpenCL for something
+>>>>>>> science/math/whatever related, or training a model.
+>>>>>>>
+>>>>>>> You could randomly just get invalid/wrong results without even
+>>>>>>> knowing!
+>>>>>> Well on the kernel side we do provide an API to query the result of
+>>>>>> a submission. That includes canceling submissions with a soft
+>>>>>> recovery.
+>>>>>>
+>>>>>> What we just doesn't do is to prevent further submissions from this
+>>>>>> application. E.g. enforcing that the application is punished for
+>>>>>> bad behavior.
+>>>>> You do prevent future submissions for regular resets though: Those
+>>>>> increase karma which sets ctx->guilty, and if ctx->guilty then
+>>>>> -ECANCELED is returned for a submission.
+>>>>>
+>>>>> ctx->guilty is never true for soft recovery though, as it doesn't
+>>>>> increase karma, which is the problem this patch is trying to solve.
+>>>>>
+>>>>> By the submission result query API, I you assume you mean checking
+>>>>> the submission fence error somehow? That doesn't seem very ergonomic
+>>>>> for a Vulkan driver compared to the simple solution which is to just
+>>>>> mark it as guilty with what already exists...
+>>>> Well as I said the guilty handling is broken for quite a number of
+>>>> reasons.
+>>>>
+>>>> What we can do rather trivially is changing this code in
+>>>> amdgpu_job_prepare_job():
+>>>>
+>>>>           /* Ignore soft recovered fences here */
+>>>>           r = drm_sched_entity_error(s_entity);
+>>>>           if (r && r != -ENODATA)
+>>>>                   goto error;
+>>>>
+>>>> This will bubble up errors from soft recoveries into the entity as
+>>>> well and makes sure that further submissions are rejected.
+>>> That makes sense to do, but at least for GL_EXT_robustness, that will
+>>> not tell the app that it was guilty.
+>> No, it clearly gets that signaled. We should probably replace the guilty
+>> atomic with a calls to drm_sched_entity_error().
 >>
->> That's completely unnecessary and in some cases even harmful.
-> How is it harmful? The only effect it can have is prevent unnecessary
-> GPU hangs, no? It's not like it hides any legitimate errors that you'd
-> otherwise see.
-
-We have no guarantee that all ring buffers are actually fully 
-initialized to allow fence processing.
-
-Apart from that fence processing is the least of your problems when an 
-IV overflow occurs. Other interrupt source which are not repeated are 
-usually for more worse.
-
+>> It's just that this isn't what Marek and I had in mind for this,
+>> basically completely forget about AMDGPU_CTX_OP_QUERY_STATE or
+>> AMDGPU_CTX_OP_QUERY_STATE2.
 >>
->> We already have a timeout handler for that and overflows point to
->> severe system problem so they should never occur in a production system.
+>> Instead just look at the return value of the CS or query fence result IOCTL.
+>>
+>> When you get an -ENODATA you have been guilty of causing a soft
+>> recovery, when you get an -ETIME you are guilty of causing a timeout
+>> which had to be hard recovered. When you get an -ECANCELED you are an
+>> innocent victim of a hard recovery somebody else caused.
+>>
+>> What we haven't defined yet is an error code for loosing VRAM, but that
+>> should be trivial to do.
+> So far we have implemented the GPU reset and soft reset, but we
+> haven't done anything to have a robust system recovery. Under the
+> current system, things can easily keep hanging indefinitely because
+> nothing prevents that.
 >
-> IH ring buffer overflows are pretty reliably reproducible if you trigger
-> a lot of page faults, at least on Deck. Why shouldn't enough page faults
-> in quick succession be able to overflow the IH ring buffer?
-
-At least not on recent hw generations. Since gfx9 we have a rate limit 
-on the number of page faults generated.
-
-What could maybe do as well is to change the default of vm_fault_stop, 
-but for your case that would be even worse in production.
-
+> The reset status query should stay. Robust apps will use it to tell
+> when they should recreate their context and resources even if they
+> don't submit anything. Let's fully trust robust apps here. In the
+> future we might change our mind about that, but for now, let's just
+> focus on API conformance, and later we can change it as long as we
+> stay API conformant.
 >
-> The fence fallback timer as it is now is useless for this because it
-> only gets triggered once after 0.5s. I guess an alternative approach
-> would be to make a timer trigger for each work item in flight every
-> 0.5s, but why should that be better than just handling overflow errors
-> as they occur?
+> Non-robust apps must be terminated when they hang or are innocent but
+> affected. Their existence is a security and usability problem and a
+> source of frustrations for users. 100% guaranteed system recovery is
+> impossible if they continue to live.
+>
+> IBs should be rejected for all guilty and affected innocent contexts
+> unconditionally, both robust and non-robust ones, by the kernel.
+> Userspace only forwards the reset status to apps for robust contexts
+> and doesn't do anything else, but userspace may decide to terminate
+> the process if any non-robust context is affected.
 
-That is intentional. As I said an IH overflow just points out that there 
-is something massively wrong in the HW programming.
+Yeah, that absolutely works for me.
 
-After gfx9 the IH should never produce overflow any more, otherwise 
-either the ratelimit doesn't work or isn't enabled for some reason or 
-the IH ring buffer is just to small.
+Going to adjust the implementation accordingly.
 
-Regards,
 Christian.
 
 >
-> Regards,
-> Friedrich
 >
->>
->> Regards,
->> Christian.
->>
->>>
->>> Cc: Joshua Ashton <joshua@froggi.es>
->>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>> Cc: stable@vger.kernel.org
->>>
->>> Signed-off-by: Friedrich Vock <friedrich.vock@gmx.de>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c | 15 +++++++++++++++
->>>   1 file changed, 15 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
->>> index f3b0aaf3ebc6..2a246db1d3a7 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
->>> @@ -209,6 +209,7 @@ int amdgpu_ih_process(struct amdgpu_device *adev,
->>> struct amdgpu_ih_ring *ih)
->>>   {
->>>       unsigned int count;
->>>       u32 wptr;
->>> +    int i;
->>>
->>>       if (!ih->enabled || adev->shutdown)
->>>           return IRQ_NONE;
->>> @@ -227,6 +228,20 @@ int amdgpu_ih_process(struct amdgpu_device
->>> *adev, struct amdgpu_ih_ring *ih)
->>>           ih->rptr &= ih->ptr_mask;
->>>       }
->>>
->>> +    /* If the ring buffer overflowed, we might have lost some fence
->>> +     * signal interrupts. Check if there was any activity so the 
->>> signal
->>> +     * doesn't get lost.
->>> +     */
->>> +    if (ih->overflow) {
->>> +        for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
->>> +            struct amdgpu_ring *ring = adev->rings[i];
->>> +
->>> +            if (!ring || !ring->fence_drv.initialized)
->>> +                continue;
->>> +            amdgpu_fence_process(ring);
->>> +        }
->>> +    }
->>> +
->>>       amdgpu_ih_set_rptr(adev, ih);
->>>       wake_up_all(&ih->wait_process);
->>>
->>> -- 
->>> 2.43.0
->>>
->>
+> Marek
 
