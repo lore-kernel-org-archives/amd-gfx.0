@@ -4,84 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E1D1C47077
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 07:48:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 960C2C47077
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 08:21:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54C2D10E3E3;
-	Tue, 16 Jan 2024 07:48:07 +0000 (UTC)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4F4210E3E3
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 07:48:05 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-40e857ce7beso1534385e9.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 23:48:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1705391224; x=1705996024; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=AMxh5xor5eTj60ZRN87ikpXLZsHHk4NQlHWUnEcY2qc=;
- b=EIDzzpgibGxRV8ecjcLs2ISiSZjFijGiw99OfDLFzTEBA2gw62G05hDvZI3fB0Qg0I
- TStrmOKHq6AmIPoF1iOwvCIXB9vK/pMlon25fG7auI1jhH5oTlnL3n5KDWbBsruvylOq
- 3yuJhYBok9X5dIdyAOGfElXgeIOeqvesyZjUk3XR06Pj0jptZcGsavcpxA7zZLowE51S
- ReLK+Nu34VU3pNWawQqhOvmKT0aU0Vbyl1Ns3mvOgVQoXCRQqA3eaZBuzrQ27D2BEA6N
- b0abBWRMh4jeuLCBhaRRzrCApYL/1m77aJzpUvrLxRhwqa2fPJtsrHdmG6Ekvw13lmcU
- Mfbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705391224; x=1705996024;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=AMxh5xor5eTj60ZRN87ikpXLZsHHk4NQlHWUnEcY2qc=;
- b=FzuY3s8Ax85iTE1Td9O1VL87AKnjOdS4REX2K67Jv20faCoioMSVhzlOQuyNBEa/mf
- CBJ54uvLR0+BXs3OCXoUoRoz1ixpR/6yRM0eB3WFvfXD1BipfZoGF78cnbIgfUy4irIC
- No047A9TOb/7F0Kgrzx1jKSQo73sZUjs+/ruxiPLHGS2CvSy1dCyhhZ8YiCrux5r48Rz
- c6n1SOm7qVTSeF6zv/J2I9jQjuHmfN2KK/yt5VSODh9M8Uuz/WfYWLE5AdscdTqndCjw
- 5YqNyYzGvsahIW0sjk7v90DBVAMB80BPBxgH7B8a2uNJyF7c98M2zKUaJdE1kd6ahouI
- ijLQ==
-X-Gm-Message-State: AOJu0YycCaM6RcNPzc5ouJ170+PguuRiVehdzG+i6iS20zj31Lkbkacr
- PBOqpvR+QzBF4AQ/e0Q468A=
-X-Google-Smtp-Source: AGHT+IGRamwc4vRzU0jlveFtNcWv7l8pkN6lwQHWE/arcZ4xBO+JePRMyWwclP4W3qNMsaI62TOOHA==
-X-Received: by 2002:a05:600c:3585:b0:40e:4556:5870 with SMTP id
- p5-20020a05600c358500b0040e45565870mr3823161wmq.120.1705391224039; 
- Mon, 15 Jan 2024 23:47:04 -0800 (PST)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- k20-20020a05600c1c9400b0040e54f15d3dsm22101322wms.31.2024.01.15.23.47.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jan 2024 23:47:03 -0800 (PST)
-Message-ID: <de47a17b-3d19-4c74-b77a-e08b0e94cc69@gmail.com>
-Date: Tue, 16 Jan 2024 08:47:01 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21F9D10E41E;
+	Tue, 16 Jan 2024 08:21:30 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2081.outbound.protection.outlook.com [40.107.237.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3138910E41E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 08:21:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LbaQCsvnHteS11F61/N7C5Wy8LX4IMJBvylwQe98kqkRveT8zn9I0Lsm7QVjT8kEhI0mv3Uirxz4z63evwroO2ro8yJ9IifbHmHZMe6fTVjiGaX6XAtskMS8CTWyxNbv0fQW8IM/+qGK9IlRKKGsJcBlmTMVagHEMwGmUnJt8vOAHn60/VsfBg/lVCFdkd7Q15DYZuQdgkDaMx+WJRxemp+KXKOAEHetwqXQteIV4MBsOeWg7kbVfHcJwZguJUWQvPpzs0hXYVxu1mELH+McBvrWxYmwuSOlal2DeXyDbM5fUJqn2fi7aQGbjcp5KbtNIxg+bPdOMHNKWndhZ8r/Lw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hOsbGVSVLH7AFii2cOPlkvq9xDy4K18g21efqUo6tz0=;
+ b=iB+yMOR1HA9FXDW8Wq8zQJvYJ6KK7+xClXt484rfCJxwXifyDgE8snIQrkj7xG4G99lZqr98aBE6ZzcN8qyQfd83Pqqa4JIh9CtDFiKEdYOxO/TrnId/5OQzWnaLBgl6CoTss4JBg5hZih9rFANBTxnUYO0MTPtbxmB+YphXYIMcqe2sMQ98iK8YvqhbVjqG8vRRvQ8wYh3wJcxDJrmM+b9Z4Csipu4QBz1ebMliBDBaEk0JL+1j8UVRKo2y93TwlxV9XkL/RMjOD9U8pAoB9dk1XZctO5GqVyHDziY09GPTtutEfDjxd9mACttII91woSdjKibLES/MiLNDlgHyxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hOsbGVSVLH7AFii2cOPlkvq9xDy4K18g21efqUo6tz0=;
+ b=jIBHbvpes8B39m2WeS3gxtafsOE+VO3WCo4WeJamRxMalAz1jFfcJJWwZx0C8jweVDVjs+BGO1Gfy8UQRSSZLNLRYzgWMH7NTWKozR20gwQphsYOJ+y73NlafMhcG6aAnrkCjL19sYMbND4Z1UiGEIzyMj5VIuUQco2A57O3WRc=
+Received: from MN2PR05CA0064.namprd05.prod.outlook.com (2603:10b6:208:236::33)
+ by CH3PR12MB8728.namprd12.prod.outlook.com (2603:10b6:610:171::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.26; Tue, 16 Jan
+ 2024 08:21:16 +0000
+Received: from MN1PEPF0000F0E2.namprd04.prod.outlook.com
+ (2603:10b6:208:236:cafe::c1) by MN2PR05CA0064.outlook.office365.com
+ (2603:10b6:208:236::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.19 via Frontend
+ Transport; Tue, 16 Jan 2024 08:21:16 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MN1PEPF0000F0E2.mail.protection.outlook.com (10.167.242.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7202.16 via Frontend Transport; Tue, 16 Jan 2024 08:21:16 +0000
+Received: from thomas-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 16 Jan
+ 2024 02:21:13 -0600
+From: YiPeng Chai <YiPeng.Chai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 3/5] drm/amdgpu: Use asynchronous polling to handle umc_v12_0
+ poisoning
+Date: Tue, 16 Jan 2024 16:20:32 +0800
+Message-ID: <20240116082034.1739848-3-YiPeng.Chai@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240116082034.1739848-1-YiPeng.Chai@amd.com>
+References: <20240116082034.1739848-1-YiPeng.Chai@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: Mark ctx as guilty in ring_soft_recovery
- path
-Content-Language: en-US
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-References: <20240113140206.2383133-1-joshua@froggi.es>
- <aca706e6-58bc-4c38-bbfe-19137f38c897@gmail.com>
- <9a07c4e4-321c-4f75-aeae-81ed90038365@daenzer.net>
- <f2153219-e791-4e97-96eb-26094d7acf87@froggi.es>
- <5c99ec8c-142d-4877-9624-c8ce0373fccd@gmx.de>
- <5ff32f43-46ea-4e74-8db4-c23e0b03b429@daenzer.net>
- <8e5cd59e-075a-480e-8452-87924580122d@froggi.es>
- <1dbe811f-64a0-4ccd-88cf-3fd30f79f7bc@daenzer.net>
- <c36400bd-b8f2-4026-b989-f4e1854b05ca@gmx.de>
- <7194a09a-afe8-4eae-8288-c72e2ac7d0a6@daenzer.net>
- <51b9ffc3-9ab3-4a06-9307-6b2a343f6bc6@gmx.de>
- <CAP+8YyGg91f_z2ktrd7HQMtOSHn34F-8x7O2iRv=TTrXo2NNoA@mail.gmail.com>
- <81a82ffc-c2e6-4ce6-9cc0-4f01dc8b9891@froggi.es>
- <bff749b8-5531-46bd-8e21-97d094e6b4c2@amd.com>
- <9e6fec7b-3786-4221-8024-6b949efd08e7@froggi.es>
- <bfe79411-7f77-48ab-8cfd-4727704739e8@amd.com>
- <3e284517-0372-4c75-9902-7039c09b73e9@froggi.es>
- <baa54077-cf89-4fb7-b505-a41716e66a23@gmail.com>
- <CAAxE2A5v_RkZ9ex4=7jiBSKVb22_1FAj0AANBcmKtETt5c3gVA@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CAAxE2A5v_RkZ9ex4=7jiBSKVb22_1FAj0AANBcmKtETt5c3gVA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E2:EE_|CH3PR12MB8728:EE_
+X-MS-Office365-Filtering-Correlation-Id: e8d65318-4546-4b92-b2c7-08dc166c1c27
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: quQhGXHKJQt3CkKn/wc+AOMPyJyjhDv0Dbm6JbPUilfqGp4UbeQ/0+UHFZ7xzMIrqRUKtMv9/H4uJEMeWmog22nCPvlukW9ItgYfxXTJHKNvgw3O4f1dOcEXiimA4sf+Tx1QGjvtFdSScyeS6x/ZC+F7LqKqqvPtrI649Mrz7AjF9QmtNS8U5nVFBywCigFBQaeftoUsZzXJ7T2XNXwatGAm+H3KkuedyfHMpOauSoFVKssJz/iek61K3B/QBq40QveR86kO5w/c0KEpm41lqZsx+6f7J+k9E4+HgcSAPFsLHckc1HUqVhvT54Z/w43IF6uprzDWFvRWl4SmsheRE6lTxXFyrgdEPNy+GBj1l6qqvtr1Tdbsyip/Vn1ZG1FAoUuiYLDQdSGEoFv4FGRmDO8H3OKItCpyz9PtTkezUzwJf/PT/LkgP/63nFNQPVhx8DZFzgF2XXqMTDaC9pEL/WhBnW2LOJ2kNJFZ2q/5FEGyiSfkWc4xx/cHLt6IkAXsV6B+mKQyB9GFSjKMwsU856xo8VDKtI/IUiD5/T+8BjoUnZPvxBbe5sDfmXxueFeJePVqwkfBgjphRfuMF1K5mRHOdTsC5SKygaN6eznPS0rb1rkWBRpSZKEZ/jXTlvjABO2Eq0lwTjTziGRrNqxxamltLe42pyKkzr1O8ZGmrOITWTe7P7FnpOLL+emaVgAeeM0pLrC2Q3apsC4UWKZIU2WjwEJjzmUI/Rj5AzRBzqCJEE+ZbeWhQfPOa6jHPxv8XH9WxcICsDrOGIFfyuT+ZA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(376002)(136003)(346002)(39860400002)(396003)(230922051799003)(186009)(451199024)(1800799012)(64100799003)(82310400011)(46966006)(40470700004)(36840700001)(86362001)(47076005)(83380400001)(36860700001)(426003)(2616005)(1076003)(16526019)(26005)(336012)(81166007)(82740400003)(356005)(41300700001)(54906003)(70206006)(70586007)(316002)(6916009)(5660300002)(8676002)(2906002)(8936002)(4326008)(6666004)(7696005)(478600001)(36756003)(40480700001)(40460700003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2024 08:21:16.4098 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8d65318-4546-4b92-b2c7-08dc166c1c27
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E2.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8728
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,145 +100,243 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- Friedrich Vock <friedrich.vock@gmx.de>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
- amd-gfx@lists.freedesktop.org, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Joshua Ashton <joshua@froggi.es>
+Cc: KevinYang.Wang@amd.com, Tao.Zhou1@amd.com,
+ YiPeng Chai <YiPeng.Chai@amd.com>, Stanley.Yang@amd.com, yipechai@amd.com,
+ Candice.Li@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 16.01.24 um 01:05 schrieb Marek Olšák:
-> On Mon, Jan 15, 2024 at 3:06 PM Christian König
-> <ckoenig.leichtzumerken@gmail.com> wrote:
->> Am 15.01.24 um 20:30 schrieb Joshua Ashton:
->>> On 1/15/24 19:19, Christian König wrote:
->>>> Am 15.01.24 um 20:13 schrieb Joshua Ashton:
->>>>> On 1/15/24 18:53, Christian König wrote:
->>>>>> Am 15.01.24 um 19:35 schrieb Joshua Ashton:
->>>>>>> On 1/15/24 18:30, Bas Nieuwenhuizen wrote:
->>>>>>>> On Mon, Jan 15, 2024 at 7:14 PM Friedrich Vock
->>>>>>>> <friedrich.vock@gmx.de <mailto:friedrich.vock@gmx.de>> wrote:
->>>>>>>>
->>>>>>>>      Re-sending as plaintext, sorry about that
->>>>>>>>
->>>>>>>>      On 15.01.24 18:54, Michel Dänzer wrote:
->>>>>>>>       > On 2024-01-15 18:26, Friedrich Vock wrote:
->>>>>>>>       >> [snip]
->>>>>>>>       >> The fundamental problem here is that not telling
->>>>>>>> applications that
->>>>>>>>       >> something went wrong when you just canceled their work
->>>>>>>> midway is an
->>>>>>>>       >> out-of-spec hack.
->>>>>>>>       >> When there is a report of real-world apps breaking
->>>>>>>> because of
->>>>>>>>      that hack,
->>>>>>>>       >> reports of different apps working (even if it's
->>>>>>>> convenient that they
->>>>>>>>       >> work) doesn't justify keeping the broken code.
->>>>>>>>       > If the breaking apps hit multiple soft resets in a row,
->>>>>>>> I've laid
->>>>>>>>      out a pragmatic solution which covers both cases.
->>>>>>>>      Hitting soft reset every time is the lucky path. Once GPU
->>>>>>>> work is
->>>>>>>>      interrupted out of nowhere, all bets are off and it might as
->>>>>>>> well
->>>>>>>>      trigger a full system hang next time. No hang recovery should
->>>>>>>> be able to
->>>>>>>>      cause that under any circumstance.
->>>>>>>>
->>>>>>>>
->>>>>>>> I think the more insidious situation is no further hangs but
->>>>>>>> wrong results because we skipped some work. That we skipped work
->>>>>>>> may e.g. result in some texture not being uploaded or some GPGPU
->>>>>>>> work not being done and causing further errors downstream (say if
->>>>>>>> a game is doing AI/physics on the GPU not to say anything of
->>>>>>>> actual GPGPU work one might be doing like AI)
->>>>>>> Even worse if this is compute on eg. OpenCL for something
->>>>>>> science/math/whatever related, or training a model.
->>>>>>>
->>>>>>> You could randomly just get invalid/wrong results without even
->>>>>>> knowing!
->>>>>> Well on the kernel side we do provide an API to query the result of
->>>>>> a submission. That includes canceling submissions with a soft
->>>>>> recovery.
->>>>>>
->>>>>> What we just doesn't do is to prevent further submissions from this
->>>>>> application. E.g. enforcing that the application is punished for
->>>>>> bad behavior.
->>>>> You do prevent future submissions for regular resets though: Those
->>>>> increase karma which sets ctx->guilty, and if ctx->guilty then
->>>>> -ECANCELED is returned for a submission.
->>>>>
->>>>> ctx->guilty is never true for soft recovery though, as it doesn't
->>>>> increase karma, which is the problem this patch is trying to solve.
->>>>>
->>>>> By the submission result query API, I you assume you mean checking
->>>>> the submission fence error somehow? That doesn't seem very ergonomic
->>>>> for a Vulkan driver compared to the simple solution which is to just
->>>>> mark it as guilty with what already exists...
->>>> Well as I said the guilty handling is broken for quite a number of
->>>> reasons.
->>>>
->>>> What we can do rather trivially is changing this code in
->>>> amdgpu_job_prepare_job():
->>>>
->>>>           /* Ignore soft recovered fences here */
->>>>           r = drm_sched_entity_error(s_entity);
->>>>           if (r && r != -ENODATA)
->>>>                   goto error;
->>>>
->>>> This will bubble up errors from soft recoveries into the entity as
->>>> well and makes sure that further submissions are rejected.
->>> That makes sense to do, but at least for GL_EXT_robustness, that will
->>> not tell the app that it was guilty.
->> No, it clearly gets that signaled. We should probably replace the guilty
->> atomic with a calls to drm_sched_entity_error().
->>
->> It's just that this isn't what Marek and I had in mind for this,
->> basically completely forget about AMDGPU_CTX_OP_QUERY_STATE or
->> AMDGPU_CTX_OP_QUERY_STATE2.
->>
->> Instead just look at the return value of the CS or query fence result IOCTL.
->>
->> When you get an -ENODATA you have been guilty of causing a soft
->> recovery, when you get an -ETIME you are guilty of causing a timeout
->> which had to be hard recovered. When you get an -ECANCELED you are an
->> innocent victim of a hard recovery somebody else caused.
->>
->> What we haven't defined yet is an error code for loosing VRAM, but that
->> should be trivial to do.
-> So far we have implemented the GPU reset and soft reset, but we
-> haven't done anything to have a robust system recovery. Under the
-> current system, things can easily keep hanging indefinitely because
-> nothing prevents that.
->
-> The reset status query should stay. Robust apps will use it to tell
-> when they should recreate their context and resources even if they
-> don't submit anything. Let's fully trust robust apps here. In the
-> future we might change our mind about that, but for now, let's just
-> focus on API conformance, and later we can change it as long as we
-> stay API conformant.
->
-> Non-robust apps must be terminated when they hang or are innocent but
-> affected. Their existence is a security and usability problem and a
-> source of frustrations for users. 100% guaranteed system recovery is
-> impossible if they continue to live.
->
-> IBs should be rejected for all guilty and affected innocent contexts
-> unconditionally, both robust and non-robust ones, by the kernel.
-> Userspace only forwards the reset status to apps for robust contexts
-> and doesn't do anything else, but userspace may decide to terminate
-> the process if any non-robust context is affected.
+Use asynchronous polling to handle umc_v12_0 poisoning.
 
-Yeah, that absolutely works for me.
+Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c |   5 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c | 143 +++++++++++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h |   3 +
+ 3 files changed, 120 insertions(+), 31 deletions(-)
 
-Going to adjust the implementation accordingly.
-
-Christian.
-
->
->
-> Marek
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 856206e95842..44929281840e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -118,6 +118,8 @@ const char *get_ras_block_str(struct ras_common_if *ras_block)
+ /* typical ECC bad page rate is 1 bad page per 100MB VRAM */
+ #define RAS_BAD_PAGE_COVER              (100 * 1024 * 1024ULL)
+ 
++#define MAX_UMC_POISON_POLLING_TIME_ASYNC  100  //ms
++
+ enum amdgpu_ras_retire_page_reservation {
+ 	AMDGPU_RAS_RETIRE_PAGE_RESERVED,
+ 	AMDGPU_RAS_RETIRE_PAGE_PENDING,
+@@ -2670,6 +2672,9 @@ static int amdgpu_ras_page_retirement_thread(void *param)
+ 			atomic_read(&con->page_retirement_req_cnt));
+ 
+ 		atomic_dec(&con->page_retirement_req_cnt);
++
++		amdgpu_umc_poison_retire_page_polling_timeout(adev,
++				false, MAX_UMC_POISON_POLLING_TIME_ASYNC);
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+index 9d1cf41cf483..2dde29cb807d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+@@ -23,6 +23,7 @@
+ 
+ #include "amdgpu.h"
+ #include "umc_v6_7.h"
++#define MAX_UMC_POISON_POLLING_TIME_SYNC   20  //ms
+ 
+ static int amdgpu_umc_convert_error_address(struct amdgpu_device *adev,
+ 				    struct ras_err_data *err_data, uint64_t err_addr,
+@@ -85,17 +86,14 @@ int amdgpu_umc_page_retirement_mca(struct amdgpu_device *adev,
+ 	return ret;
+ }
+ 
+-static int amdgpu_umc_do_page_retirement(struct amdgpu_device *adev,
+-		void *ras_error_status,
+-		struct amdgpu_iv_entry *entry,
+-		bool reset)
++static void amdgpu_umc_handle_bad_pages(struct amdgpu_device *adev,
++			void *ras_error_status)
+ {
+ 	struct ras_err_data *err_data = (struct ras_err_data *)ras_error_status;
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+ 	int ret = 0;
+ 	unsigned long err_count;
+-
+-	kgd2kfd_set_sram_ecc_flag(adev->kfd.dev);
++	mutex_lock(&con->page_retirement_lock);
+ 	ret = amdgpu_dpm_get_ecc_info(adev, (void *)&(con->umc_ecc));
+ 	if (ret == -EOPNOTSUPP) {
+ 		if (adev->umc.ras && adev->umc.ras->ras_block.hw_ops &&
+@@ -163,19 +161,86 @@ static int amdgpu_umc_do_page_retirement(struct amdgpu_device *adev,
+ 				con->update_channel_flag = false;
+ 			}
+ 		}
+-
+-		if (reset) {
+-			/* use mode-2 reset for poison consumption */
+-			if (!entry)
+-				con->gpu_reset_flags |= AMDGPU_RAS_GPU_RESET_MODE2_RESET;
+-			amdgpu_ras_reset_gpu(adev);
+-		}
+ 	}
+ 
+ 	kfree(err_data->err_addr);
++
++	mutex_unlock(&con->page_retirement_lock);
++}
++
++static int amdgpu_umc_do_page_retirement(struct amdgpu_device *adev,
++		void *ras_error_status,
++		struct amdgpu_iv_entry *entry,
++		bool reset)
++{
++	struct ras_err_data *err_data = (struct ras_err_data *)ras_error_status;
++	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
++
++	kgd2kfd_set_sram_ecc_flag(adev->kfd.dev);
++	amdgpu_umc_handle_bad_pages(adev, ras_error_status);
++
++	if (err_data->ue_count && reset) {
++		/* use mode-2 reset for poison consumption */
++		if (!entry)
++			con->gpu_reset_flags |= AMDGPU_RAS_GPU_RESET_MODE2_RESET;
++		amdgpu_ras_reset_gpu(adev);
++	}
++
+ 	return AMDGPU_RAS_SUCCESS;
+ }
+ 
++int amdgpu_umc_poison_retire_page_polling_timeout(struct amdgpu_device *adev,
++			bool reset, uint32_t timeout_ms)
++{
++	struct ras_err_data err_data;
++	struct ras_common_if head = {
++		.block = AMDGPU_RAS_BLOCK__UMC,
++	};
++	struct ras_manager *obj = amdgpu_ras_find_obj(adev, &head);
++	uint32_t timeout = timeout_ms;
++
++	memset(&err_data, 0, sizeof(err_data));
++	amdgpu_ras_error_data_init(&err_data);
++
++	do {
++
++		amdgpu_umc_handle_bad_pages(adev, &err_data);
++
++		if (timeout && !err_data.de_count) {
++			msleep(1);
++			timeout--;
++		}
++
++	} while (timeout && !err_data.de_count);
++
++	if (!timeout)
++		dev_warn(adev->dev, "Page retirment executed, but did not find bad pages\n");
++
++	if (err_data.de_count)
++		dev_info(adev->dev, "Page retirment: ue:%ld, ce:%ld, de:%ld\n",
++				err_data.ue_count, err_data.ce_count, err_data.de_count);
++
++	if (obj) {
++		obj->err_data.ue_count += err_data.ue_count;
++		obj->err_data.ce_count += err_data.ce_count;
++		obj->err_data.de_count += err_data.de_count;
++	}
++
++	amdgpu_ras_error_data_fini(&err_data);
++
++	kgd2kfd_set_sram_ecc_flag(adev->kfd.dev);
++
++	if (reset) {
++		struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
++
++		/* use mode-2 reset for poison consumption */
++		con->gpu_reset_flags |= AMDGPU_RAS_GPU_RESET_MODE2_RESET;
++		amdgpu_ras_reset_gpu(adev);
++	}
++
++	return 0;
++}
++
+ int amdgpu_umc_poison_handler(struct amdgpu_device *adev, bool reset)
+ {
+ 	int ret = AMDGPU_RAS_SUCCESS;
+@@ -193,25 +258,41 @@ int amdgpu_umc_poison_handler(struct amdgpu_device *adev, bool reset)
+ 	}
+ 
+ 	if (!amdgpu_sriov_vf(adev)) {
+-		struct ras_err_data err_data;
+-		struct ras_common_if head = {
+-			.block = AMDGPU_RAS_BLOCK__UMC,
+-		};
+-		struct ras_manager *obj = amdgpu_ras_find_obj(adev, &head);
+-
+-		ret = amdgpu_ras_error_data_init(&err_data);
+-		if (ret)
+-			return ret;
+-
+-		ret = amdgpu_umc_do_page_retirement(adev, &err_data, NULL, reset);
+-
+-		if (ret == AMDGPU_RAS_SUCCESS && obj) {
+-			obj->err_data.ue_count += err_data.ue_count;
+-			obj->err_data.ce_count += err_data.ce_count;
+-			obj->err_data.de_count += err_data.de_count;
+-		}
++		if (amdgpu_ip_version(adev, UMC_HWIP, 0) != IP_VERSION(12, 0, 0)) {
++			struct ras_err_data err_data;
++			struct ras_common_if head = {
++				.block = AMDGPU_RAS_BLOCK__UMC,
++			};
++			struct ras_manager *obj = amdgpu_ras_find_obj(adev, &head);
++
++			ret = amdgpu_ras_error_data_init(&err_data);
++			if (ret)
++				return ret;
++
++			ret = amdgpu_umc_do_page_retirement(adev, &err_data, NULL, reset);
+ 
+-		amdgpu_ras_error_data_fini(&err_data);
++			if (ret == AMDGPU_RAS_SUCCESS && obj) {
++				obj->err_data.ue_count += err_data.ue_count;
++				obj->err_data.ce_count += err_data.ce_count;
++				obj->err_data.de_count += err_data.de_count;
++			}
++
++			amdgpu_ras_error_data_fini(&err_data);
++		} else {
++			if (reset) {
++				amdgpu_umc_poison_retire_page_polling_timeout(adev,
++							reset, MAX_UMC_POISON_POLLING_TIME_SYNC);
++			} else {
++				struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
++
++				dev_info(adev->dev, "Page retirement pending request count: %d\n",
++				atomic_read(&con->page_retirement_req_cnt));
++
++				atomic_inc(&con->page_retirement_req_cnt);
++
++				wake_up(&con->page_retirement_wq);
++			}
++		}
+ 	} else {
+ 		if (adev->virt.ops && adev->virt.ops->ras_poison_handler)
+ 			adev->virt.ops->ras_poison_handler(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
+index 417a6726c71b..ee487adce7e4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
+@@ -118,4 +118,7 @@ int amdgpu_umc_page_retirement_mca(struct amdgpu_device *adev,
+ 
+ int amdgpu_umc_loop_channels(struct amdgpu_device *adev,
+ 			umc_func func, void *data);
++
++int amdgpu_umc_poison_retire_page_polling_timeout(struct amdgpu_device *adev,
++			bool reset, uint32_t timeout_ms);
+ #endif
+-- 
+2.34.1
 
