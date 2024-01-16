@@ -4,43 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9233C47DA6
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 04:52:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE944C47077
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 07:05:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7132910E3D8;
-	Tue, 16 Jan 2024 04:52:19 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 213F610E087;
- Tue, 16 Jan 2024 04:52:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=sHiKHjxlfLZj03LdFNu2Rhv69O48QDTdcQSnj2uTU0A=; b=MeFyGB+vG98EyF2wWBv1iMVkyc
- 5ewLs3jJXDwFmn3yorly9N3YGNnGhXnU7UxD4FBPJTtiNS143HPOIGxo3DcHrSOmSP0UYXPU8FlwI
- izeKxad0m3Drq52tRbguwNJPCA8PaEXl8lez7+p7VOq8dpaifKDxUlqXGSKtwpnsknsRM31YIOXNR
- WGgC8CR6+WC9XmDuOWS7qWZu8COht1AHpdHxxIZ98s5R2fXbanoSVTtrWR/JY/Vv+icfpn3L0z306
- yLgbp2F0svvtinZU3O6UhVmLwZTDyQn/AeB99ze0kYSr1MLG0IwFIBUie/iQr8tgD41YYVGpc2Suu
- /PrSFNrQ==;
-Received: from [177.45.63.147] (helo=steammachine.lan)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1rPbQr-006r0R-Gc; Tue, 16 Jan 2024 05:52:13 +0100
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] drm/atomic: Allow drivers to write their own plane check
- for async flips
-Date: Tue, 16 Jan 2024 01:51:58 -0300
-Message-ID: <20240116045159.1015510-2-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240116045159.1015510-1-andrealmeid@igalia.com>
-References: <20240116045159.1015510-1-andrealmeid@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C545C10E0A2;
+	Tue, 16 Jan 2024 07:05:01 +0000 (UTC)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A749C10E0A2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 07:05:00 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-40e857ce704so1438855e9.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 23:05:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1705388639; x=1705993439; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=L+9hqiO/a/yAImlapzKy9nyuBSc+vgHNFVY0puoEe5Q=;
+ b=a4VFIVRVBwRp5RzXRlaPD0aCzOn/yl3I2KSiwBV4w5tiTiy0kRz7lGXUr4D8NKTDBD
+ jKADTC9FriF/Ygjvv9Wg7hQ2GIHLZJ8Lwm99sMKumn99lx01a1/1L297kjSroP0L5VIa
+ f0P48Y7u86DfYpOv5rbQinpybZan2RQqhbMVs/+BXmsw5DyuWOhqS4OBZtTnsID8+wFb
+ NkPPFyOQYm7j2kxxD3mZBXvkr6Vn7GEvMupFZjxigJzRCDcZARGuBE0gmmyOEA6/aj9F
+ oPTmYZ084I5yN1FMEHbOW9bByIWkwJJDhhPvMu68AhEpo8ZiuRadYIgJ8dzbjv9e8+pN
+ kvMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1705388639; x=1705993439;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=L+9hqiO/a/yAImlapzKy9nyuBSc+vgHNFVY0puoEe5Q=;
+ b=RY3H/NpWtXRL3UrxvGKMsgcFN6rWOicGMLAiDH+IToRi619XPrgoP8/XLsH6hHwJgM
+ mC3Z+lu8oau+y7uJkX5H/+NTdGYNLVJIlSE2UWrRJCp8dLObZjgH/XCs7nv0LSlLduDr
+ RqIiQLmvy5bwFkingLFMaR45nke5UvVc1NAgt2sfyidXCMVYXgZfg/KV4gXXjQD0S19o
+ p5LtR7RVLdhApvTrn1by833YVs+UAIVg/ua9Wdx9XC/nuPlhsFBgmcERqZU7MhI3e5jQ
+ f4oohZ+GKbw+wmrDbfbQ7mcZSqcEruStdOGymonD0qz5ECJbSzcOSsw/yuVtspLvNW6i
+ cSRw==
+X-Gm-Message-State: AOJu0YwDdQGkA18glYaYKxPa0NZ8lzqVVOnhy5fAmBpbBbtzfj1yUQGd
+ /7aOFUW9B9jJbmpjYGzE3nI=
+X-Google-Smtp-Source: AGHT+IGgR94QexAHb6814SYUSYS3y5+1vjXofY2FmaiQKDAotXhcQ6VmU0gZdJC1h/5ZvtYdDRz2Nw==
+X-Received: by 2002:a05:600c:3106:b0:40e:545a:4b5f with SMTP id
+ g6-20020a05600c310600b0040e545a4b5fmr2471599wmo.126.1705388638921; 
+ Mon, 15 Jan 2024 23:03:58 -0800 (PST)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ c8-20020a05600c0a4800b0040e4746d80fsm18244277wmq.19.2024.01.15.23.03.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 Jan 2024 23:03:58 -0800 (PST)
+Message-ID: <577a8451-0791-4bd1-8c6c-61a7cc293174@gmail.com>
+Date: Tue, 16 Jan 2024 08:03:56 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/amdgpu: Reset IH OVERFLOW_CLEAR bit after writing
+ rptr
+Content-Language: en-US
+To: Friedrich Vock <friedrich.vock@gmx.de>
+References: <20240114130008.868941-1-friedrich.vock@gmx.de>
+ <69cec077-4011-4738-bbb0-8fb1e6f52159@gmail.com>
+ <abdfec21-2642-4c68-8c51-cdfba54928aa@gmx.de>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <abdfec21-2642-4c68-8c51-cdfba54928aa@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -53,189 +77,530 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>, daniel@ffwll.ch,
- =?UTF-8?q?=27Marek=20Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
- Simon Ser <contact@emersion.fr>, Xaver Hugl <xaver.hugl@gmail.com>,
- Daniel Stone <daniel@fooishbar.org>, Pekka Paalanen <ppaalanen@gmail.com>,
- kernel-dev@igalia.com, alexander.deucher@amd.com,
- Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com,
- ville.syrjala@linux.intel.com
+Cc: Alex Deucher <alexander.deucher@amd.com>, Joshua Ashton <joshua@froggi.es>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Some hardware are more flexible on what they can flip asynchronously, so
-rework the plane check so drivers can implement their own check, lifting
-up some of the restrictions.
+Am 15.01.24 um 12:18 schrieb Friedrich Vock:
+> Adding the original Ccs from the thread since they seemed to be missing
+> in the reply.
+>
+> On 15.01.24 11:55, Christian König wrote:
+>> Am 14.01.24 um 14:00 schrieb Friedrich Vock:
+>>> Allows us to detect subsequent IH ring buffer overflows as well.
+>>
+>> Well that suggested handling here is certainly broken, see below.
+>>
+>>>
+>>> Cc: Joshua Ashton <joshua@froggi.es>
+>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>> Cc: stable@vger.kernel.org
+>>>
+>>> Signed-off-by: Friedrich Vock <friedrich.vock@gmx.de>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h  |  2 ++
+>>>   drivers/gpu/drm/amd/amdgpu/cik_ih.c     | 13 +++++++++++++
+>>>   drivers/gpu/drm/amd/amdgpu/cz_ih.c      | 14 +++++++++++++-
+>>>   drivers/gpu/drm/amd/amdgpu/iceland_ih.c | 14 +++++++++++++-
+>>>   drivers/gpu/drm/amd/amdgpu/ih_v6_0.c    | 13 +++++++++++++
+>>>   drivers/gpu/drm/amd/amdgpu/ih_v6_1.c    | 13 +++++++++++++
+>>>   drivers/gpu/drm/amd/amdgpu/navi10_ih.c  | 12 ++++++++++++
+>>>   drivers/gpu/drm/amd/amdgpu/si_ih.c      | 12 ++++++++++++
+>>>   drivers/gpu/drm/amd/amdgpu/tonga_ih.c   | 13 +++++++++++++
+>>>   drivers/gpu/drm/amd/amdgpu/vega10_ih.c  | 12 ++++++++++++
+>>>   drivers/gpu/drm/amd/amdgpu/vega20_ih.c  | 12 ++++++++++++
+>>>   11 files changed, 128 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+>>> index 508f02eb0cf8..6041ec727f06 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+>>> @@ -69,6 +69,8 @@ struct amdgpu_ih_ring {
+>>>       unsigned        rptr;
+>>>       struct amdgpu_ih_regs    ih_regs;
+>>>
+>>> +    bool overflow;
+>>> +
+>>>       /* For waiting on IH processing at checkpoint. */
+>>>       wait_queue_head_t wait_process;
+>>>       uint64_t        processed_timestamp;
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/cik_ih.c
+>>> b/drivers/gpu/drm/amd/amdgpu/cik_ih.c
+>>> index 6f7c031dd197..807cc30c9e33 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/cik_ih.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/cik_ih.c
+>>> @@ -204,6 +204,7 @@ static u32 cik_ih_get_wptr(struct amdgpu_device
+>>> *adev,
+>>>           tmp = RREG32(mmIH_RB_CNTL);
+>>>           tmp |= IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK;
+>>>           WREG32(mmIH_RB_CNTL, tmp);
+>>> +        ih->overflow = true;
+>>>       }
+>>>       return (wptr & ih->ptr_mask);
+>>>   }
+>>> @@ -274,7 +275,19 @@ static void cik_ih_decode_iv(struct
+>>> amdgpu_device *adev,
+>>>   static void cik_ih_set_rptr(struct amdgpu_device *adev,
+>>>                   struct amdgpu_ih_ring *ih)
+>>>   {
+>>> +    u32 tmp;
+>>> +
+>>>       WREG32(mmIH_RB_RPTR, ih->rptr);
+>>> +
+>>> +    /* If we overflowed previously (and thus set the OVERFLOW_CLEAR
+>>> bit),
+>>> +     * reset it here to detect more overflows if they occur.
+>>> +     */
+>>> +    if (ih->overflow) {
+>>> +        tmp = RREG32(mmIH_RB_CNTL);
+>>> +        tmp &= ~IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK;
+>>> +        WREG32(mmIH_RB_CNTL, tmp);
+>>> +        ih->overflow = false;
+>>> +    }
+>>
+>> Well that is an extremely bad idea. We already reset the overflow
+>> after reading the WPTR.
+>
+> This is not resetting the overflow bit. This is resetting a "clear
+> overflow" bit. I don't have the hardware docs, but the name (and my
+> observations) strongly suggest that setting this bit actually prevents
+> the hardware from setting the overflow bit ever again.
 
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
----
- drivers/gpu/drm/drm_atomic_uapi.c | 62 ++++++++++++++++++++++---------
- include/drm/drm_atomic_uapi.h     | 12 ++++++
- include/drm/drm_plane.h           |  5 +++
- 3 files changed, 62 insertions(+), 17 deletions(-)
+Well that doesn't make any sense at all. The hardware documentation 
+clearly states that this bit is write only and should always read as zero.
 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index aee4a65d4959..6d5b9fec90c7 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -620,7 +620,7 @@ static int drm_atomic_plane_set_property(struct drm_plane *plane,
- 	return 0;
- }
- 
--static int
-+int
- drm_atomic_plane_get_property(struct drm_plane *plane,
- 		const struct drm_plane_state *state,
- 		struct drm_property *property, uint64_t *val)
-@@ -683,6 +683,7 @@ drm_atomic_plane_get_property(struct drm_plane *plane,
- 
- 	return 0;
- }
-+EXPORT_SYMBOL(drm_atomic_plane_get_property);
- 
- static int drm_atomic_set_writeback_fb_for_connector(
- 		struct drm_connector_state *conn_state,
-@@ -1026,18 +1027,54 @@ int drm_atomic_connector_commit_dpms(struct drm_atomic_state *state,
- 	return ret;
- }
- 
--static int drm_atomic_check_prop_changes(int ret, uint64_t old_val, uint64_t prop_value,
-+int drm_atomic_check_prop_changes(int ret, uint64_t old_val, uint64_t prop_value,
- 					 struct drm_property *prop)
- {
- 	if (ret != 0 || old_val != prop_value) {
- 		drm_dbg_atomic(prop->dev,
--			       "[PROP:%d:%s] No prop can be changed during async flip\n",
-+			       "[PROP:%d:%s] This prop cannot be changed during async flip\n",
- 			       prop->base.id, prop->name);
- 		return -EINVAL;
- 	}
- 
- 	return 0;
- }
-+EXPORT_SYMBOL(drm_atomic_check_prop_changes);
-+
-+/* plane changes may have exceptions, so we have a special function for them */
-+static int drm_atomic_check_plane_changes(struct drm_property *prop,
-+					  struct drm_plane *plane,
-+					  struct drm_plane_state *plane_state,
-+					  struct drm_mode_object *obj,
-+					  u64 prop_value, u64 old_val)
-+{
-+	struct drm_mode_config *config = &plane->dev->mode_config;
-+	int ret;
-+
-+	if (plane->funcs->check_async_props)
-+		return plane->funcs->check_async_props(prop, plane, plane_state,
-+							     obj, prop_value, old_val);
-+
-+	/*
-+	 * if you are trying to change something other than the FB ID, your
-+	 * change will be either rejected or ignored, so we can stop the check
-+	 * here
-+	 */
-+	if (prop != config->prop_fb_id) {
-+		ret = drm_atomic_plane_get_property(plane, plane_state,
-+						    prop, &old_val);
-+		return drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
-+	}
-+
-+	if (plane_state->plane->type != DRM_PLANE_TYPE_PRIMARY) {
-+		drm_dbg_atomic(prop->dev,
-+			       "[OBJECT:%d] Only primary planes can be changed during async flip\n",
-+			       obj->id);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
- 
- int drm_atomic_set_property(struct drm_atomic_state *state,
- 			    struct drm_file *file_priv,
-@@ -1100,7 +1137,6 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
- 	case DRM_MODE_OBJECT_PLANE: {
- 		struct drm_plane *plane = obj_to_plane(obj);
- 		struct drm_plane_state *plane_state;
--		struct drm_mode_config *config = &plane->dev->mode_config;
- 
- 		plane_state = drm_atomic_get_plane_state(state, plane);
- 		if (IS_ERR(plane_state)) {
-@@ -1108,19 +1144,11 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
- 			break;
- 		}
- 
--		if (async_flip && prop != config->prop_fb_id) {
--			ret = drm_atomic_plane_get_property(plane, plane_state,
--							    prop, &old_val);
--			ret = drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
--			break;
--		}
--
--		if (async_flip && plane_state->plane->type != DRM_PLANE_TYPE_PRIMARY) {
--			drm_dbg_atomic(prop->dev,
--				       "[OBJECT:%d] Only primary planes can be changed during async flip\n",
--				       obj->id);
--			ret = -EINVAL;
--			break;
-+		if (async_flip) {
-+			ret = drm_atomic_check_plane_changes(prop, plane, plane_state,
-+							     obj, prop_value, old_val);
-+			if (ret)
-+				break;
- 		}
- 
- 		ret = drm_atomic_plane_set_property(plane,
-diff --git a/include/drm/drm_atomic_uapi.h b/include/drm/drm_atomic_uapi.h
-index 4c6d39d7bdb2..d65fa8fbbca0 100644
---- a/include/drm/drm_atomic_uapi.h
-+++ b/include/drm/drm_atomic_uapi.h
-@@ -29,6 +29,8 @@
- #ifndef DRM_ATOMIC_UAPI_H_
- #define DRM_ATOMIC_UAPI_H_
- 
-+#include <linux/types.h>
-+
- struct drm_crtc_state;
- struct drm_display_mode;
- struct drm_property_blob;
-@@ -37,6 +39,9 @@ struct drm_crtc;
- struct drm_connector_state;
- struct dma_fence;
- struct drm_framebuffer;
-+struct drm_mode_object;
-+struct drm_property;
-+struct drm_plane;
- 
- int __must_check
- drm_atomic_set_mode_for_crtc(struct drm_crtc_state *state,
-@@ -53,4 +58,11 @@ int __must_check
- drm_atomic_set_crtc_for_connector(struct drm_connector_state *conn_state,
- 				  struct drm_crtc *crtc);
- 
-+int drm_atomic_plane_get_property(struct drm_plane *plane,
-+				  const struct drm_plane_state *state,
-+				  struct drm_property *property, uint64_t *val);
-+
-+int drm_atomic_check_prop_changes(int ret, uint64_t old_val, uint64_t prop_value,
-+				  struct drm_property *prop);
-+
- #endif
-diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
-index c6565a6f9324..73dac8d76831 100644
---- a/include/drm/drm_plane.h
-+++ b/include/drm/drm_plane.h
-@@ -540,6 +540,11 @@ struct drm_plane_funcs {
- 	 */
- 	bool (*format_mod_supported)(struct drm_plane *plane, uint32_t format,
- 				     uint64_t modifier);
-+
-+	int (*check_async_props)(struct drm_property *prop, struct drm_plane *plane,
-+				 struct drm_plane_state *plane_state,
-+				 struct drm_mode_object *obj,
-+				 u64 prop_value, u64 old_val);
- };
- 
- /**
--- 
-2.43.0
+Setting this bit will clear the overflow flag in the WPTR register and 
+clearing it has no effect at all.
+
+I could only ping the hw engineer responsible for this block to double 
+check if the documentation is somehow outdated, but I really doubt so.
+
+> Right now, IH overflows, even if they occur repeatedly, only get
+> registered once. If not registering IH overflows can trivially lead to
+> system crashes, it's amdgpu's current handling that is broken.
+
+It's years that we last tested this but according to the HW 
+documentation this should work fine.
+
+What could potentially happen is that the IH has silenced the source of 
+the overflow. We never implemented resetting those, but in this case 
+that here won't help either.
+
+>
+> The possibility of a repeated IH overflow in between reading the wptr
+> and updating the rptr is a good point, but how can we detect that at
+> all? It seems to me like we can't set the OVERFLOW_CLEAR bit at all
+> then, because we're guaranteed to miss any overflows that happen while
+> the bit is set.
+
+When an IH overflow is signaled we clear that flag by writing 1 into the 
+OVERFLOW_CLEAR bit and skip one entry in the IH ring buffer.
+
+What can of course happen is that the IH ring buffer overflows more than 
+this single entry and we process IVs which are potentially corrupted, 
+but we won't miss any additional overflows since we only start 
+processing after resetting the flag.
+
+An IH overflow is also something you should *never* see in a production 
+system. This is purely for driver bringup and as fallback when there is 
+a severe incorrect programming of the HW.
+
+The only exception of that is page fault handling on MI products because 
+of a hardware bug, to mitigate this we are processing page faults on a 
+separate IH ring on those parts.
+
+On all other hw generations the IH should have some rate limit for the 
+number of faults generated per second, so that the CPU is always able to 
+catch up.
+
+Regards,
+Christian.
+
+>
+> Regards,
+> Friedrich
+>
+>>
+>> When you clear the overflow again when updating the RPTR you could
+>> loose another overflow which might have happened in between and so
+>> potentially process corrupted IVs.
+>>
+>> That can trivially crash the system.
+>>
+>> Regards,
+>> Christian.
+>>
+>>>   }
+>>>
+>>>   static int cik_ih_early_init(void *handle)
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/cz_ih.c
+>>> b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
+>>> index b8c47e0cf37a..076559668573 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/cz_ih.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
+>>> @@ -215,7 +215,7 @@ static u32 cz_ih_get_wptr(struct amdgpu_device
+>>> *adev,
+>>>       tmp = RREG32(mmIH_RB_CNTL);
+>>>       tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+>>>       WREG32(mmIH_RB_CNTL, tmp);
+>>> -
+>>> +    ih->overflow = true;
+>>>
+>>>   out:
+>>>       return (wptr & ih->ptr_mask);
+>>> @@ -266,7 +266,19 @@ static void cz_ih_decode_iv(struct amdgpu_device
+>>> *adev,
+>>>   static void cz_ih_set_rptr(struct amdgpu_device *adev,
+>>>                  struct amdgpu_ih_ring *ih)
+>>>   {
+>>> +    u32 tmp;
+>>> +
+>>>       WREG32(mmIH_RB_RPTR, ih->rptr);
+>>> +
+>>> +    /* If we overflowed previously (and thus set the OVERFLOW_CLEAR
+>>> bit),
+>>> +     * reset it here to detect more overflows if they occur.
+>>> +     */
+>>> +    if (ih->overflow) {
+>>> +        tmp = RREG32(mmIH_RB_CNTL);
+>>> +        tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
+>>> +        WREG32(mmIH_RB_CNTL, tmp);
+>>> +        ih->overflow = false;
+>>> +    }
+>>>   }
+>>>
+>>>   static int cz_ih_early_init(void *handle)
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
+>>> b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
+>>> index aecad530b10a..1a5e668643d1 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
+>>> @@ -214,7 +214,7 @@ static u32 iceland_ih_get_wptr(struct
+>>> amdgpu_device *adev,
+>>>       tmp = RREG32(mmIH_RB_CNTL);
+>>>       tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+>>>       WREG32(mmIH_RB_CNTL, tmp);
+>>> -
+>>> +    ih->overflow = true;
+>>>
+>>>   out:
+>>>       return (wptr & ih->ptr_mask);
+>>> @@ -265,7 +265,19 @@ static void iceland_ih_decode_iv(struct
+>>> amdgpu_device *adev,
+>>>   static void iceland_ih_set_rptr(struct amdgpu_device *adev,
+>>>                   struct amdgpu_ih_ring *ih)
+>>>   {
+>>> +    u32 tmp;
+>>> +
+>>>       WREG32(mmIH_RB_RPTR, ih->rptr);
+>>> +
+>>> +    /* If we overflowed previously (and thus set the OVERFLOW_CLEAR
+>>> bit),
+>>> +     * reset it here to detect more overflows if they occur.
+>>> +     */
+>>> +    if (ih->overflow) {
+>>> +        tmp = RREG32(mmIH_RB_CNTL);
+>>> +        tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
+>>> +        WREG32(mmIH_RB_CNTL, tmp);
+>>> +        ih->overflow = false;
+>>> +    }
+>>>   }
+>>>
+>>>   static int iceland_ih_early_init(void *handle)
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+>>> b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+>>> index d9ed7332d805..ce8f7feec713 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+>>> @@ -418,6 +418,8 @@ static u32 ih_v6_0_get_wptr(struct amdgpu_device
+>>> *adev,
+>>>       tmp = RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
+>>>       tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+>>>       WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
+>>> +    ih->overflow = true;
+>>> +
+>>>   out:
+>>>       return (wptr & ih->ptr_mask);
+>>>   }
+>>> @@ -459,6 +461,7 @@ static void ih_v6_0_irq_rearm(struct
+>>> amdgpu_device *adev,
+>>>   static void ih_v6_0_set_rptr(struct amdgpu_device *adev,
+>>>                      struct amdgpu_ih_ring *ih)
+>>>   {
+>>> +    u32 tmp;
+>>>       struct amdgpu_ih_regs *ih_regs;
+>>>
+>>>       if (ih->use_doorbell) {
+>>> @@ -472,6 +475,16 @@ static void ih_v6_0_set_rptr(struct
+>>> amdgpu_device *adev,
+>>>           ih_regs = &ih->ih_regs;
+>>>           WREG32(ih_regs->ih_rb_rptr, ih->rptr);
+>>>       }
+>>> +
+>>> +    /* If we overflowed previously (and thus set the OVERFLOW_CLEAR
+>>> bit),
+>>> +     * reset it here to detect more overflows if they occur.
+>>> +     */
+>>> +    if (ih->overflow) {
+>>> +        tmp = RREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl);
+>>> +        tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
+>>> +        WREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl, tmp);
+>>> +        ih->overflow = false;
+>>> +    }
+>>>   }
+>>>
+>>>   /**
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+>>> b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+>>> index 8fb05eae340a..668788ad34d9 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+>>> @@ -418,6 +418,8 @@ static u32 ih_v6_1_get_wptr(struct amdgpu_device
+>>> *adev,
+>>>       tmp = RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
+>>>       tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+>>>       WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
+>>> +    ih->overflow = true;
+>>> +
+>>>   out:
+>>>       return (wptr & ih->ptr_mask);
+>>>   }
+>>> @@ -459,6 +461,7 @@ static void ih_v6_1_irq_rearm(struct
+>>> amdgpu_device *adev,
+>>>   static void ih_v6_1_set_rptr(struct amdgpu_device *adev,
+>>>                      struct amdgpu_ih_ring *ih)
+>>>   {
+>>> +    u32 tmp;
+>>>       struct amdgpu_ih_regs *ih_regs;
+>>>
+>>>       if (ih->use_doorbell) {
+>>> @@ -472,6 +475,16 @@ static void ih_v6_1_set_rptr(struct
+>>> amdgpu_device *adev,
+>>>           ih_regs = &ih->ih_regs;
+>>>           WREG32(ih_regs->ih_rb_rptr, ih->rptr);
+>>>       }
+>>> +
+>>> +    /* If we overflowed previously (and thus set the OVERFLOW_CLEAR
+>>> bit),
+>>> +     * reset it here to detect more overflows if they occur.
+>>> +     */
+>>> +    if (ih->overflow) {
+>>> +        tmp = RREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl);
+>>> +        tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
+>>> +        WREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl, tmp);
+>>> +        ih->overflow = false;
+>>> +    }
+>>>   }
+>>>
+>>>   /**
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+>>> b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+>>> index e64b33115848..0bdac923cb4d 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+>>> @@ -442,6 +442,7 @@ static u32 navi10_ih_get_wptr(struct
+>>> amdgpu_device *adev,
+>>>       tmp = RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
+>>>       tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+>>>       WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
+>>> +    ih->overflow = true;
+>>>   out:
+>>>       return (wptr & ih->ptr_mask);
+>>>   }
+>>> @@ -483,6 +484,7 @@ static void navi10_ih_irq_rearm(struct
+>>> amdgpu_device *adev,
+>>>   static void navi10_ih_set_rptr(struct amdgpu_device *adev,
+>>>                      struct amdgpu_ih_ring *ih)
+>>>   {
+>>> +    u32 tmp;
+>>>       struct amdgpu_ih_regs *ih_regs;
+>>>
+>>>       if (ih == &adev->irq.ih_soft)
+>>> @@ -499,6 +501,16 @@ static void navi10_ih_set_rptr(struct
+>>> amdgpu_device *adev,
+>>>           ih_regs = &ih->ih_regs;
+>>>           WREG32(ih_regs->ih_rb_rptr, ih->rptr);
+>>>       }
+>>> +
+>>> +    /* If we overflowed previously (and thus set the OVERFLOW_CLEAR
+>>> bit),
+>>> +     * reset it here to detect more overflows if they occur.
+>>> +     */
+>>> +    if (ih->overflow) {
+>>> +        tmp = RREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl);
+>>> +        tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
+>>> +        WREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl, tmp);
+>>> +        ih->overflow = false;
+>>> +    }
+>>>   }
+>>>
+>>>   /**
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/si_ih.c
+>>> b/drivers/gpu/drm/amd/amdgpu/si_ih.c
+>>> index 9a24f17a5750..ff35056d2b54 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/si_ih.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/si_ih.c
+>>> @@ -119,6 +119,7 @@ static u32 si_ih_get_wptr(struct amdgpu_device
+>>> *adev,
+>>>           tmp = RREG32(IH_RB_CNTL);
+>>>           tmp |= IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK;
+>>>           WREG32(IH_RB_CNTL, tmp);
+>>> +        ih->overflow = true;
+>>>       }
+>>>       return (wptr & ih->ptr_mask);
+>>>   }
+>>> @@ -147,7 +148,18 @@ static void si_ih_decode_iv(struct amdgpu_device
+>>> *adev,
+>>>   static void si_ih_set_rptr(struct amdgpu_device *adev,
+>>>                  struct amdgpu_ih_ring *ih)
+>>>   {
+>>> +    u32 tmp;
+>>> +
+>>>       WREG32(IH_RB_RPTR, ih->rptr);
+>>> +
+>>> +    /* If we overflowed previously (and thus set the OVERFLOW_CLEAR
+>>> bit),
+>>> +     * reset it here to detect more overflows if they occur.
+>>> +     */
+>>> +    if (ih->overflow) {
+>>> +        tmp = RREG32(IH_RB_CNTL);
+>>> +        tmp &= ~IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK;
+>>> +        WREG32(IH_RB_CNTL, tmp);
+>>> +    }
+>>>   }
+>>>
+>>>   static int si_ih_early_init(void *handle)
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
+>>> b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
+>>> index 917707bba7f3..6f5090d3db48 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
+>>> @@ -218,6 +218,7 @@ static u32 tonga_ih_get_wptr(struct amdgpu_device
+>>> *adev,
+>>>       tmp = RREG32(mmIH_RB_CNTL);
+>>>       tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+>>>       WREG32(mmIH_RB_CNTL, tmp);
+>>> +    ih->overflow = true;
+>>>
+>>>   out:
+>>>       return (wptr & ih->ptr_mask);
+>>> @@ -268,6 +269,8 @@ static void tonga_ih_decode_iv(struct
+>>> amdgpu_device *adev,
+>>>   static void tonga_ih_set_rptr(struct amdgpu_device *adev,
+>>>                     struct amdgpu_ih_ring *ih)
+>>>   {
+>>> +    u32 tmp;
+>>> +
+>>>       if (ih->use_doorbell) {
+>>>           /* XXX check if swapping is necessary on BE */
+>>>           *ih->rptr_cpu = ih->rptr;
+>>> @@ -275,6 +278,16 @@ static void tonga_ih_set_rptr(struct
+>>> amdgpu_device *adev,
+>>>       } else {
+>>>           WREG32(mmIH_RB_RPTR, ih->rptr);
+>>>       }
+>>> +
+>>> +    /* If we overflowed previously (and thus set the OVERFLOW_CLEAR
+>>> bit),
+>>> +     * reset it here to detect more overflows if they occur.
+>>> +     */
+>>> +    if (ih->overflow) {
+>>> +        tmp = RREG32(mmIH_RB_CNTL);
+>>> +        tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
+>>> +        WREG32(mmIH_RB_CNTL, tmp);
+>>> +        ih->overflow = false;
+>>> +    }
+>>>   }
+>>>
+>>>   static int tonga_ih_early_init(void *handle)
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+>>> b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+>>> index d364c6dd152c..bb005924f194 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+>>> @@ -372,6 +372,7 @@ static u32 vega10_ih_get_wptr(struct
+>>> amdgpu_device *adev,
+>>>       tmp = RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
+>>>       tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+>>>       WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
+>>> +    ih->overflow = true;
+>>>
+>>>   out:
+>>>       return (wptr & ih->ptr_mask);
+>>> @@ -413,6 +414,7 @@ static void vega10_ih_irq_rearm(struct
+>>> amdgpu_device *adev,
+>>>   static void vega10_ih_set_rptr(struct amdgpu_device *adev,
+>>>                      struct amdgpu_ih_ring *ih)
+>>>   {
+>>> +    u32 tmp;
+>>>       struct amdgpu_ih_regs *ih_regs;
+>>>
+>>>       if (ih == &adev->irq.ih_soft)
+>>> @@ -429,6 +431,16 @@ static void vega10_ih_set_rptr(struct
+>>> amdgpu_device *adev,
+>>>           ih_regs = &ih->ih_regs;
+>>>           WREG32(ih_regs->ih_rb_rptr, ih->rptr);
+>>>       }
+>>> +
+>>> +    /* If we overflowed previously (and thus set the OVERFLOW_CLEAR
+>>> bit),
+>>> +     * reset it here to detect more overflows if they occur.
+>>> +     */
+>>> +    if (ih->overflow) {
+>>> +        tmp = RREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl);
+>>> +        tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
+>>> +        WREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl, tmp);
+>>> +        ih->overflow = false;
+>>> +    }
+>>>   }
+>>>
+>>>   /**
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+>>> b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+>>> index ddfc6941f9d5..bb725a970697 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+>>> @@ -420,6 +420,7 @@ static u32 vega20_ih_get_wptr(struct
+>>> amdgpu_device *adev,
+>>>       tmp = RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
+>>>       tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+>>>       WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
+>>> +    ih->overflow = true;
+>>>
+>>>   out:
+>>>       return (wptr & ih->ptr_mask);
+>>> @@ -462,6 +463,7 @@ static void vega20_ih_irq_rearm(struct
+>>> amdgpu_device *adev,
+>>>   static void vega20_ih_set_rptr(struct amdgpu_device *adev,
+>>>                      struct amdgpu_ih_ring *ih)
+>>>   {
+>>> +    u32 tmp;
+>>>       struct amdgpu_ih_regs *ih_regs;
+>>>
+>>>       if (ih == &adev->irq.ih_soft)
+>>> @@ -478,6 +480,16 @@ static void vega20_ih_set_rptr(struct
+>>> amdgpu_device *adev,
+>>>           ih_regs = &ih->ih_regs;
+>>>           WREG32(ih_regs->ih_rb_rptr, ih->rptr);
+>>>       }
+>>> +
+>>> +    /* If we overflowed previously (and thus set the OVERFLOW_CLEAR
+>>> bit),
+>>> +     * reset it here to detect more overflows if they occur.
+>>> +     */
+>>> +    if (ih->overflow) {
+>>> +        tmp = RREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl);
+>>> +        tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
+>>> +        WREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl, tmp);
+>>> +        ih->overflow = false;
+>>> +    }
+>>>   }
+>>>
+>>>   /**
+>>> -- 
+>>> 2.43.0
+>>>
+>>
 
