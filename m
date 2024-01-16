@@ -4,114 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F311C47077
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 11:15:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10846C47077
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 11:42:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B6FE10E48F;
-	Tue, 16 Jan 2024 11:15:50 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2081.outbound.protection.outlook.com [40.107.223.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62BB110E484
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 11:15:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Lj2jJXU1TRhtPQR5UXsthH1TOO6q29RDyoDml0qENo/g69nL7ECi117tSq7NxfVZGJmQVK/LrLjis45eqjY9h/nYHdxbx6C74bAsE6Dzfz8XFBgqJLam3mBVxU8e+roXHDE90CXTiZqMhblJ+OV81a4EVOkv1eUAutkstgD0MWQSshDcuspN6jj4aHC/awpYiNU4s5V3c6AuiwPpvpkg8k7pHZqlS6DV8aVoAF6CMkn7TAWAccNKXA7ysN0Tzz4s7RAol13RABL3pW+HCkZliQXC4Gxg9jmvZ/Km54//xMvSLM1QNz/szpIrxyAJkFEUWMwOMA16tYTtc7LHXOAmCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1eMLl6tnTwR+Umsaphgp0LSBV40yrzHCJEP5h3SCrzI=;
- b=ifLO/SwuFfTn4+ckXEfuhzlTLmEdpLxvqd6uzG5CYMLykPnt0A0ZoIbnCeG8+hqaGoBCotkVPbgdOy9yUiEr70Zx93G0HKNyTMavCBrcUea4U9HKQp2IeEjQKAHqFQLekAnF2XEFF+uYAVItXyFmc5OnMFYqxlns5KDe/llqNIDFgzlc2tbAGxL44iv+Zktao+LaHOEnolqDGsouBHZMIeFKn5ckq30AcKz/UrI8RBFaxTcNHHTd6cFGlxZZajVIpwGNaneV7LjnJfTKgoiyMJWJXlQ2l9QMpCf9Gr8lvfw410PlDgVUFltgBSqKbrdVRk8IsxbaTEFE+rOp65ZxdQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1eMLl6tnTwR+Umsaphgp0LSBV40yrzHCJEP5h3SCrzI=;
- b=eK0RXJs5gDAEyC5o6nZCMtrTeL5pd+jjRoWYwO/NtopF9BBBb5lsgY3E8CLvkgNQXwLXoegRplIkgqwD72HZlWPeUxY36hlLXrCbZcdzMIQWRdjTuse+DxnXtJVf93r71s2wQtV4gPDj6pCvNsnljWIj7jv+8RUDWQtcU+rZ+6k=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB7820.namprd12.prod.outlook.com (2603:10b6:510:268::8)
- by DM6PR12MB4044.namprd12.prod.outlook.com (2603:10b6:5:21d::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.23; Tue, 16 Jan
- 2024 11:15:42 +0000
-Received: from PH7PR12MB7820.namprd12.prod.outlook.com
- ([fe80::5b3b:867e:c8bd:8bf8]) by PH7PR12MB7820.namprd12.prod.outlook.com
- ([fe80::5b3b:867e:c8bd:8bf8%6]) with mapi id 15.20.7181.018; Tue, 16 Jan 2024
- 11:15:42 +0000
-Message-ID: <8da7b544-f868-4eb3-a28c-cd032fe79e22@amd.com>
-Date: Tue, 16 Jan 2024 16:45:32 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: fix UBSAN array-index-out-of-bounds for
- ras_block_string[]
-Content-Language: en-US
-To: Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20240116110204.1352227-1-kevinyang.wang@amd.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20240116110204.1352227-1-kevinyang.wang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0081.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:9a::20) To PH7PR12MB7820.namprd12.prod.outlook.com
- (2603:10b6:510:268::8)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53ADC10E481;
+	Tue, 16 Jan 2024 11:42:47 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A8D310E481
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 11:42:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1705405365;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Bo6gf18SH2bL+TPE+r/3plO3SeDnpw86MGw5k0EPWSY=;
+ b=gVVtaNqzPovgQp33bzvXTeXCXD4n6F00NTNqrGOLCAVIMlY6kTqJCVzMPXnED/RBtAJEH7
+ dZOjy8dFrKEneLd7hBbaBPw1ORwB3Pm1V/Yu9LCRCsSzhFI2ME6zEW0P0xIlIf6Ik/iZbI
+ GQJvncWFmGcdyGiLd31iPPEqqPniQn4=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-549-GI7IcSC3PJWcUxsNuZQphw-1; Tue, 16 Jan 2024 06:42:39 -0500
+X-MC-Unique: GI7IcSC3PJWcUxsNuZQphw-1
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-40e419b52d5so73640365e9.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 03:42:39 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1705405358; x=1706010158;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Bo6gf18SH2bL+TPE+r/3plO3SeDnpw86MGw5k0EPWSY=;
+ b=PPkPh/e9Mkgb3dhPgel4s3FDF4H5wAHIAcv2yaeJHXcj4E5vVV4VR2rKtDjViLxwDm
+ xE3MarsCaqJG+l9nhUjBRudg2vL4M6kE4VpdmXEu4UpkhErc0nch+fDv9X1YbqtV64tj
+ JPnSHD0C5NKwRIwKm5ri+Aq0UB+NU46XfW5T4yRR22CcAUTHKj4zut57kOGJ2/uq/Is/
+ k3VEQLFrbB+1KS+SZ3sDHD480Cl6GnyYsFOW2Cm2ksuc9cgQQszIK128GFPqoM6cjkWu
+ ODBJXORmirRDthKjmZRHrQDx4PT626/Pt6HFPNylDMCcgTzqzEFr8Qiid7LfzY7bRYn3
+ LxJw==
+X-Gm-Message-State: AOJu0YwqL76eYj4KQYYYig3b84TIGhSIBZ8+UK/jF+2R1WHPziVL+BPN
+ drrl+uroDmLGMxy14RbXMt7Jajf0Q4uKyIb8JksmbdKtQJRvqZcN+9o41gdIgFzctx5XLCx+IoV
+ HQHGVURZBM0J37dbSDn+vzuxt/kd1gxWdoA==
+X-Received: by 2002:a05:600c:474f:b0:40e:6ea5:cee5 with SMTP id
+ w15-20020a05600c474f00b0040e6ea5cee5mr2442052wmo.29.1705405358334; 
+ Tue, 16 Jan 2024 03:42:38 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IH76WWyVg2QBb+mBb5+P7gGuQHXsDv4635EvKWqzGC4Q5n1eMvxyc+SOOLkzznXOirB3N1WpA==
+X-Received: by 2002:a05:600c:474f:b0:40e:6ea5:cee5 with SMTP id
+ w15-20020a05600c474f00b0040e6ea5cee5mr2442039wmo.29.1705405357958; 
+ Tue, 16 Jan 2024 03:42:37 -0800 (PST)
+Received: from toolbox ([2001:9e8:89b3:b200:db6a:6268:cfcb:644d])
+ by smtp.gmail.com with ESMTPSA id
+ i17-20020a05600c355100b0040d5f466deesm18926543wmq.38.2024.01.16.03.42.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 16 Jan 2024 03:42:37 -0800 (PST)
+Date: Tue, 16 Jan 2024 12:42:35 +0100
+From: Sebastian Wick <sebastian.wick@redhat.com>
+To: Andri Yngvason <andri@yngvason.is>
+Subject: Re: [PATCH v2 2/4] drm/uAPI: Add "force color format" drm property
+ as setting for userspace
+Message-ID: <20240116114235.GA311990@toolbox>
+References: <20240115160554.720247-1-andri@yngvason.is>
+ <20240115160554.720247-3-andri@yngvason.is>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB7820:EE_|DM6PR12MB4044:EE_
-X-MS-Office365-Filtering-Correlation-Id: 42993d6a-e030-44cb-6a49-08dc16847a1e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: rNxZbTiqN90qZDurVsDIdPe+vpQfyOmLGRIa/FxcoLp0yuV340YxL9x2B92aXJJBV0OC6NP2irwg5GxNwX814tvoheN7Dipa1ysuHab6Hzj+6cJAbexDxcvYWKU9btFR3jhG/lO8JNpHuz3I35zUlLh0RWgEu39wcUalL0iKgrWGj0pkAYdjJIMs/YUYU9Q72CO4r+RJT66SvF7ttf8XSZAwSIOg6pBE3FryjQ5sTY4tz1iANzDSwsu53S9o33HgVjSrVzH+TVHsOOYJlruEbzcC/t13M3aNAVedLATxVicvMzBEMcvlfnYjAKfvUkQvN2zBSFQC9HjhT8mXhJWYv2aTJdPKFMhkdzTldf9MhiIJTSQH7lQyY+LkwWNRBnSDWtaD5N03MRs7uH82/MP0rjqfI9mg+py+FQ/gTZnYZngvt4HEw8fYUHkOCtkUYNQ/0CF7Esbet8jNX+lGUP22eJBCvqtq0XrTIrkkSKCahgwhlzfHiRPraVCSIREuj+ysVtoGth3cl1zCPC0uDeUYRLpNLb2MZ0WClaETmnDk1T8HLGa5zueqt9aGEWqqGj2peN/jqP8TNb0LaIMCvvxo/v+Ew9AJ/OOQYluTnqEFGt0njur3pZmq8/rUrTqXnOEylJJ78le47YQQaFARaJTSfQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB7820.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(136003)(376002)(396003)(39860400002)(366004)(230922051799003)(451199024)(1800799012)(186009)(64100799003)(6666004)(53546011)(26005)(2616005)(31696002)(6512007)(6506007)(478600001)(83380400001)(4326008)(5660300002)(2906002)(316002)(6486002)(66476007)(66946007)(8936002)(66556008)(8676002)(86362001)(36756003)(38100700002)(41300700001)(31686004)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WkdLdEdpbG5temsxZEwrZ3RSZGRHd1gzMzkwTmptSFlBZjV5b1ZFTUpCWk9Z?=
- =?utf-8?B?SFRDSTFMNkZaejhPSXFOUTFhTnhtN0ZxNGM0RFM1WFBpWXlQR3FpNGc3YnU4?=
- =?utf-8?B?akFJYmNiRGVHRFFNTEUyOVArRkdtVUtXc1ZQS1BuS1ZpK1hCam9rdDdXUGVG?=
- =?utf-8?B?cDMzVi8yNTRINnJ1U1hNOTBvdlJOREJwNWdJWEt3MnduUnl6NktubmtWVmxO?=
- =?utf-8?B?eGlLcFNEZllQcmtweVlWbTlnenJWUVFnZUtjYWgyS2JHRndmWElPV3RmK0Fy?=
- =?utf-8?B?bnZXaElwSVlkb1IrRUlmRzlnSGpiRXhGSWpCT0w4d3VIQUczTW1LRTNYTi9t?=
- =?utf-8?B?KzFhNXhEVWZwOG1WV1dCRHl1ZkdkYUx1UHJOdk5xa2Facm0rZURLb2c3L29o?=
- =?utf-8?B?WmhpSXVPZjd3VGd6dlplQTFiYlI0dld5bmY4SnRvUG1kWTVPWlhOU0RNNloy?=
- =?utf-8?B?dEliSm9wUExveTBFZ2JKUUpQWVAyaStwcGNOMEJ3UThOMFRTVEFwV1RQWDhq?=
- =?utf-8?B?Nm9DQ3c4cjNLUnh6c2tSUnpFblFlemt1OUZJRGlZSnFKNnlvV2NuUmk2T3VC?=
- =?utf-8?B?dDFTQWNYUmdraWJqZm5Hc0gxbGE1NGFPS3laZklVclAzSjRVUGNzK01nMWQz?=
- =?utf-8?B?L1U4MHl2NTB6cmtVbUpKeStTcFBkNUFUczIwUE10eGJYQVlJaitSbm5tdVBt?=
- =?utf-8?B?cVljTnJuY24raXVYa0dJcEptWWhJV1ZRZUdhRW1RUU02VDFyQVhTek5jTEx1?=
- =?utf-8?B?NGV5NUpKTzlNRFNMcVN1bElCWUE1dDBGdTdmVFBoY3k1ekhTak1Ba0lOUGsr?=
- =?utf-8?B?ZUFzKzhCQzQ2bEVGMmI1Y1VxTnRTSmRjMmk1ZnpoTkRHY05yMUdHaTQ4Q2Fh?=
- =?utf-8?B?SzdtSVFZSEl3SzhoWUk0L1pGbk1IRGtqZ3Y5VnZ6cSsxTDF2dTIvVXkvSC9k?=
- =?utf-8?B?M0ZmUW9CaW9JSWc0UXhtTDN2KzRrQy9WUGJIcUxjU2ZUVkFGbHFlVHN0QTR4?=
- =?utf-8?B?Mjd2T1ZER1BTMDhvbCtjUjIrZzNGYldTMHlIa1dlOUc4dnlocFhkWTlGMkFF?=
- =?utf-8?B?ck9naTdzS2hBR01vRjJTNXhrSHlNb2l0L2ZTUVBPQUlxTWk5TW1sZSt2dUNH?=
- =?utf-8?B?RjJTK1RRbUQ3YmpuWTdjTHNzQlB3QUxMcERzNlpLZGpWSXNZdjE3SEd6Rndh?=
- =?utf-8?B?QWRrN3psYjFxMC9peHF6Z3FtNUdlRlJ5Sk5xeENndXVGd0ZsaUtUaVU5RjZ1?=
- =?utf-8?B?RFRRTkp4UHZEdGF1MHdnMFlsUjQvczBMdTZic3RjZ3NSNFAwcm1UVU45ZTJk?=
- =?utf-8?B?cjc2cEZTSUZGWFUvR2ZnNTI4YkhrRTE0ZmRzVEg3K2c3b0dxUHp0eXR4T2hq?=
- =?utf-8?B?K2lSbThBc0I1cE56d25VNHJrVUlWWjVSNkp1UkN4Ym1NTXZpbkx3U3pNQ1Yw?=
- =?utf-8?B?NDA1bnl6M1VWMUtLQXpJNHUrTWwrSUVMbkRmZnRHOXRpbGtkK1loazJkanVC?=
- =?utf-8?B?ekozaTc4M2NibU1pa05iZ3NTS2NHRkowaEpjSUdjUXlSK1R0clhnSlQ2VjB2?=
- =?utf-8?B?WCtUQW96NVhzb2NTbFpMSGwwSjZDcnNUWlIwZEFtN21LN2x1cGI4TXJsM0x4?=
- =?utf-8?B?UE40eW1BanVZOGJrL0djMTU4L1czcHdQUDQvNGNKUm5ROXF4UEp3K3FoNHMv?=
- =?utf-8?B?VUsrUXRBWlpLeUU4enhFSTVxRnJMazRzOGJUOVJ3QW1VZmNJTk0yNmQxSDRD?=
- =?utf-8?B?dlJqMGxTTnYyNDFjY1FZK09YWWNWeXBxcW1NT2RrckNTMDlnb0IrSWR2cnFm?=
- =?utf-8?B?cERkdnZhWThUbDhTK1BhSEZYTW1TMTU4R1Z6VTA1eXNVMHMvN2tLL2hmbzF0?=
- =?utf-8?B?TVZVQXR6V0ZERXBaZm8vRzNNY3Z0K2h4bmNnQ0IxWHFBRTdpZm5QakZuTm5M?=
- =?utf-8?B?V1Z6aWhHd0ZwaWlzRmNBZUNmQmNuVk9LTEQ1V0VvWHR0eFdMb0tRcXJvVytI?=
- =?utf-8?B?SXJVSmxybzAzNStWY2JQNWprYnc0eEZUbVMrTDhhRXBGYW1sT3VadHc3MFo0?=
- =?utf-8?B?MFlIVTFJTTl3UTAwYTdUc0IyaXBTRCtFTXIrY3ljTDYrVVl2V3JSVlJZRURT?=
- =?utf-8?Q?8xcTHcCUn+UQJh8rg32T8AECS?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42993d6a-e030-44cb-6a49-08dc16847a1e
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7820.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2024 11:15:42.3667 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CrIe3FSnrZWFeqVRCkMKz6hLoBuWjJlkhJ/BrSiF0S0wmaGqf0ECKPn5zkLcJ9CY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4044
+In-Reply-To: <20240115160554.720247-3-andri@yngvason.is>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,48 +82,237 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Hawking.Zhang@amd.com
+Cc: dri-devel@lists.freedesktop.org,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Werner Sembach <wse@tuxedocomputers.com>, Leo Li <sunpeng.li@amd.com>,
+ David Airlie <airlied@gmail.com>, intel-gfx@lists.freedesktop.org, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 1/16/2024 4:32 PM, Yang Wang wrote:
-> fix array index out of bounds issue for ras_block_string[] array.
+On Mon, Jan 15, 2024 at 04:05:52PM +0000, Andri Yngvason wrote:
+> From: Werner Sembach <wse@tuxedocomputers.com>
 > 
-> Fixes: 2e3675fe4e3ee ("drm/amdgpu: Align ras block enum with firmware")
+> Add a new general drm property "force color format" which can be used
+> by userspace to tell the graphics driver which color format to use.
+
+I don't like the "force" in the name. This just selects the color
+format, let's just call it "color format" then.
+
+> Possible options are:
+>     - auto (default/current behaviour)
+>     - rgb
+>     - ycbcr444
+>     - ycbcr422 (supported by neither amdgpu or i915)
+>     - ycbcr420
 > 
-> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+> In theory the auto option should choose the best available option for the
+> current setup, but because of bad internal conversion some monitors look
+> better with rgb and some with ycbcr444.
+> 
+> Also, because of bad shielded connectors and/or cables, it might be
+> preferable to use the less bandwidth heavy ycbcr422 and ycbcr420 formats
+> for a signal that is less susceptible to interference.
+> 
+> In the future, automatic color calibration for screens might also depend on
+> this option being available.
+> 
+> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+> Signed-off-by: Andri Yngvason <andri@yngvason.is>
+> Tested-by: Andri Yngvason <andri@yngvason.is>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 5 ++++-
->   1 file changed, 4 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> index ff6f84714f68..8004863719d0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -74,6 +74,8 @@ const char *ras_block_string[] = {
->   	"mca",
->   	"vcn",
->   	"jpeg",
-> +	"ih",
-> +	"mpio",
->   };
->   
->   const char *ras_mca_block_string[] = {
-> @@ -95,7 +97,8 @@ const char *get_ras_block_str(struct ras_common_if *ras_block)
->   	if (!ras_block)
->   		return "NULL";
->   
-> -	if (ras_block->block >= AMDGPU_RAS_BLOCK_COUNT)
-> +	if (ras_block->block >= AMDGPU_RAS_BLOCK_COUNT ||
-> +	    ras_block->block >= ARRAY_SIZE(ras_block_string))
+> Changes in v2:
+>  - Renamed to "force color format" from "preferred color format"
+>  - Removed Reported-by pointing to invalid email address
+> 
+> ---
+>  drivers/gpu/drm/drm_atomic_helper.c |  4 +++
+>  drivers/gpu/drm/drm_atomic_uapi.c   |  4 +++
+>  drivers/gpu/drm/drm_connector.c     | 48 +++++++++++++++++++++++++++++
+>  include/drm/drm_connector.h         | 16 ++++++++++
+>  4 files changed, 72 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+> index 39ef0a6addeba..1dabd164c4f09 100644
+> --- a/drivers/gpu/drm/drm_atomic_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> @@ -707,6 +707,10 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
+>  			if (old_connector_state->max_requested_bpc !=
+>  			    new_connector_state->max_requested_bpc)
+>  				new_crtc_state->connectors_changed = true;
+> +
+> +			if (old_connector_state->force_color_format !=
+> +			    new_connector_state->force_color_format)
+> +				new_crtc_state->connectors_changed = true;
+>  		}
+>  
+>  		if (funcs->atomic_check)
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+> index 29d4940188d49..e45949bf4615f 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -776,6 +776,8 @@ static int drm_atomic_connector_set_property(struct drm_connector *connector,
+>  		state->max_requested_bpc = val;
+>  	} else if (property == connector->privacy_screen_sw_state_property) {
+>  		state->privacy_screen_sw_state = val;
+> +	} else if (property == connector->force_color_format_property) {
+> +		state->force_color_format = val;
+>  	} else if (connector->funcs->atomic_set_property) {
+>  		return connector->funcs->atomic_set_property(connector,
+>  				state, property, val);
+> @@ -859,6 +861,8 @@ drm_atomic_connector_get_property(struct drm_connector *connector,
+>  		*val = state->max_requested_bpc;
+>  	} else if (property == connector->privacy_screen_sw_state_property) {
+>  		*val = state->privacy_screen_sw_state;
+> +	} else if (property == connector->force_color_format_property) {
+> +		*val = state->force_color_format;
+>  	} else if (connector->funcs->atomic_get_property) {
+>  		return connector->funcs->atomic_get_property(connector,
+>  				state, property, val);
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+> index b0516505f7ae9..e0535e58b4535 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -1061,6 +1061,14 @@ static const struct drm_prop_enum_list drm_dp_subconnector_enum_list[] = {
+>  	{ DRM_MODE_SUBCONNECTOR_Native,	     "Native"    }, /* DP */
+>  };
+>  
+> +static const struct drm_prop_enum_list drm_force_color_format_enum_list[] = {
+> +	{ 0, "auto" },
+> +	{ DRM_COLOR_FORMAT_RGB444, "rgb" },
+> +	{ DRM_COLOR_FORMAT_YCBCR444, "ycbcr444" },
+> +	{ DRM_COLOR_FORMAT_YCBCR422, "ycbcr422" },
+> +	{ DRM_COLOR_FORMAT_YCBCR420, "ycbcr420" },
+> +};
+> +
+>  DRM_ENUM_NAME_FN(drm_get_dp_subconnector_name,
+>  		 drm_dp_subconnector_enum_list)
+>  
+> @@ -1396,6 +1404,15 @@ static const u32 dp_colorspaces =
+>   *	drm_connector_attach_max_bpc_property() to create and attach the
+>   *	property to the connector during initialization.
+>   *
+> + * force color format:
+> + *	This property is used by userspace to change the used color format. When
+> + *	used the driver will use the selected format if valid for the hardware,
 
-Better to keep another condition for this check and return a dynamic 
-string like "<block>_unnamed" or "<block>_nodesc"
+All properties are always "used", they just can have different values.
+You probably want to talk about the auto mode here.
 
-Thanks,
-Lijo
+> + *	sink, and current resolution and refresh rate combination. Drivers to
 
->   		return "OUT OF RANGE";
->   
->   	if (ras_block->block == AMDGPU_RAS_BLOCK__MCA)
+If valid? So when a value is not actually supported user space can still
+set it? What happens then? How should user space figure out if the
+driver and the sink support the format?
+
+For the Colorspace prop, the kernel just exposes all formats it supports
+(independent of the sink) and then makes it the job of user space to
+figure out if the sink supports it.
+
+The same could be done here. Property value is exposed if the driver
+supports it in general, commits can fail if the driver can't support it
+for a specific commit because e.g. the resolution or refresh rate. User
+space must look at the EDID/DisplayID/mode to figure out the supported
+format for the sink.
+
+> + *	use the function drm_connector_attach_force_color_format_property()
+> + *	to create and attach the property to the connector during
+> + *	initialization. Possible values are "auto", "rgb", "ycbcr444",
+> + *	"ycbcr422", and "ycbcr420".
+> + *
+>   * Connectors also have one standardized atomic property:
+>   *
+>   * CRTC_ID:
+> @@ -2457,6 +2474,37 @@ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
+>  }
+>  EXPORT_SYMBOL(drm_connector_attach_max_bpc_property);
+>  
+> +/**
+> + * drm_connector_attach_force_color_format_property - attach "force color format" property
+> + * @connector: connector to attach force color format property on.
+> + *
+> + * This is used to add support for selecting a color format on a connector.
+> + *
+> + * Returns:
+> + * Zero on success, negative errno on failure.
+> + */
+> +int drm_connector_attach_force_color_format_property(struct drm_connector *connector)
+> +{
+> +	struct drm_device *dev = connector->dev;
+> +	struct drm_property *prop;
+> +
+> +	if (!connector->force_color_format_property) {
+> +		prop = drm_property_create_enum(dev, 0, "force color format",
+> +						drm_force_color_format_enum_list,
+> +						ARRAY_SIZE(drm_force_color_format_enum_list));
+> +		if (!prop)
+> +			return -ENOMEM;
+> +
+> +		connector->force_color_format_property = prop;
+> +	}
+> +
+> +	drm_object_attach_property(&connector->base, prop, 0);
+> +	connector->state->force_color_format = 0;
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(drm_connector_attach_force_color_format_property);
+> +
+>  /**
+>   * drm_connector_attach_hdr_output_metadata_property - attach "HDR_OUTPUT_METADA" property
+>   * @connector: connector to attach the property on.
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index fe88d7fc6b8f4..9830e7c09c0ba 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -1026,6 +1026,14 @@ struct drm_connector_state {
+>  	 */
+>  	enum drm_privacy_screen_status privacy_screen_sw_state;
+>  
+> +	/**
+> +	 * @force_color_format: Property set by userspace to tell the GPU
+> +	 * driver which color format to use. It only gets applied if hardware,
+> +	 * meaning both the computer and the monitor, and the driver support the
+> +	 * given format at the current resolution and refresh rate.
+> +	 */
+> +	u32 force_color_format;
+> +
+>  	/**
+>  	 * @hdr_output_metadata:
+>  	 * DRM blob property for HDR output metadata
+> @@ -1699,6 +1707,12 @@ struct drm_connector {
+>  	 */
+>  	struct drm_property *privacy_screen_hw_state_property;
+>  
+> +	/**
+> +	 * @force_color_format_property: Default connector property for the
+> +	 * force color format to be driven out of the connector.
+> +	 */
+> +	struct drm_property *force_color_format_property;
+> +
+>  #define DRM_CONNECTOR_POLL_HPD (1 << 0)
+>  #define DRM_CONNECTOR_POLL_CONNECT (1 << 1)
+>  #define DRM_CONNECTOR_POLL_DISCONNECT (1 << 2)
+> @@ -2053,6 +2067,8 @@ void drm_connector_attach_privacy_screen_provider(
+>  	struct drm_connector *connector, struct drm_privacy_screen *priv);
+>  void drm_connector_update_privacy_screen(const struct drm_connector_state *connector_state);
+>  
+> +int drm_connector_attach_force_color_format_property(struct drm_connector *connector);
+> +
+>  /**
+>   * struct drm_tile_group - Tile group metadata
+>   * @refcount: reference count
+> -- 
+> 2.43.0
+> 
 
