@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5359C47DA7
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 04:52:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A02D2C4706C
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 04:52:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7AE510E3EF;
-	Tue, 16 Jan 2024 04:52:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A94710E3F3;
+	Tue, 16 Jan 2024 04:52:22 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D55610E087;
- Tue, 16 Jan 2024 04:52:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C93D10E3E5;
+ Tue, 16 Jan 2024 04:52:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=lClxhiG7kPciwzOgT7N9lpSqHzzXmh68CO/DdbLniM4=; b=WCWJvECMzP18zlfiqAgmLtYK9B
- 7FoSNN0Rx8W4NA4lp7OfrC+VCLJ6jNC7axeCVcvVI1qyTym5ARO2W/mYSCyEWBtctnhwpQ5h2lGqe
- 9cwx0Tr1wfwEp18q6n97bdVDNcrDdbTTOkyYQK88Fi1QKCMPNixb4lm8rdU6S/GoNhoy3KZcWheZQ
- YgD6jiSygxm2HKWkR+ReauFXYb5d9yPiVSGTo1lsbDRB0Il3LngupnHkt84qozAN31stOezZsjP7V
- oVRJBdKAmb8NySiMftR+adkjM1ZKOu7MDpM7TbsH6nH798+luyXOrn6esqueBgtdPDMmF3Ojh0Ns0
- mW7wAUwQ==;
+ bh=ooJddeRrdl0qjdwXSjPWH3RBZn8KCPwqLLnuVC6SkFA=; b=UxXeey57TMOjPuDhqLARRy+/N6
+ J6OGiSuQoA3z16aBc+38Bfl69hZvAHKpfArJWNgNgFq7x+RRerbdqeF3LLdII8ik+nDjw4Uytt2gM
+ BYJyrdTm4zYzPid+8uurnqtBStgSjCwgb3bXN+iP8XgupMobo7iYUymrYBV+BJKGAhst7UoPHpF0G
+ xXEnag4WJoB0DGpAyfICkNO8ZaucIU/6vyoJm7/avfILXEhV4QNQAw7VDmNMDiuLi2FqRMOVgsgwS
+ PaH3bUImusNrGArxxYxvDJkddCzskcStKYIk5D4xgylXvcsg8lFJTwSjaSMm/DN9cvoe7Ju6zQbLU
+ S7ff9d/A==;
 Received: from [177.45.63.147] (helo=steammachine.lan)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1rPbQn-006r0R-Be; Tue, 16 Jan 2024 05:52:09 +0100
+ id 1rPbQv-006r0R-Ox; Tue, 16 Jan 2024 05:52:18 +0100
 From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] drm/atomic: Allow drivers to write their own plane check
- for async 
-Date: Tue, 16 Jan 2024 01:51:57 -0300
-Message-ID: <20240116045159.1015510-1-andrealmeid@igalia.com>
+Subject: [PATCH 2/2] drm/amdgpu: Implement check_async_props for planes
+Date: Tue, 16 Jan 2024 01:51:59 -0300
+Message-ID: <20240116045159.1015510-3-andrealmeid@igalia.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240116045159.1015510-1-andrealmeid@igalia.com>
+References: <20240116045159.1015510-1-andrealmeid@igalia.com>
 MIME-Version: 1.0
-IME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -62,29 +62,69 @@ Cc: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>, daniel@ffwll.ch,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+AMD GPUs can do async flips with overlay planes and other props rather
+than just FB ID, so implement a custom check_async_props for AMD planes.
 
-AMD hardware can do more on the async flip path than just the primary plane, so
-to lift up the current restrictions, this patchset allows drivers to write their
-own check for planes for async flips.
+Signed-off-by: André Almeida <andrealmeid@igalia.com>
+---
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 30 +++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-I'm not sure if adding something new to drm_plane_funcs is the right way to do,
-because if we want to expand the other object types (crtc, connector) we would
-need to add their own drm_XXX_funcs, so feedbacks are welcome!
-
-	André
-
-André Almeida (2):
-  drm/atomic: Allow drivers to write their own plane check for async
-    flips
-  drm/amdgpu: Implement check_async_props for planes
-
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 30 +++++++++
- drivers/gpu/drm/drm_atomic_uapi.c             | 62 ++++++++++++++-----
- include/drm/drm_atomic_uapi.h                 | 12 ++++
- include/drm/drm_plane.h                       |  5 ++
- 4 files changed, 92 insertions(+), 17 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 116121e647ca..127cae1f9fb4 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -25,6 +25,7 @@
+  */
+ 
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_atomic_uapi.h>
+ #include <drm/drm_blend.h>
+ #include <drm/drm_gem_atomic_helper.h>
+ #include <drm/drm_plane_helper.h>
+@@ -1430,6 +1431,34 @@ static void amdgpu_dm_plane_drm_plane_destroy_state(struct drm_plane *plane,
+ 	drm_atomic_helper_plane_destroy_state(plane, state);
+ }
+ 
++static int amdgpu_dm_plane_check_async_props(struct drm_property *prop,
++					  struct drm_plane *plane,
++					  struct drm_plane_state *plane_state,
++					  struct drm_mode_object *obj,
++					  u64 prop_value, u64 old_val)
++{
++	struct drm_mode_config *config = &plane->dev->mode_config;
++	int ret;
++
++	if (prop != config->prop_fb_id &&
++	    prop != config->prop_in_fence_fd &&
++	    prop != config->prop_fb_damage_clips) {
++		ret = drm_atomic_plane_get_property(plane, plane_state,
++						    prop, &old_val);
++		return drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
++	}
++
++	if (plane_state->plane->type != DRM_PLANE_TYPE_PRIMARY
++	    && plane_state->plane->type != DRM_PLANE_TYPE_OVERLAY) {
++		drm_dbg_atomic(prop->dev,
++			       "[OBJECT:%d] Only primary or overlay planes can be changed during async flip\n",
++			       obj->id);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
+ static const struct drm_plane_funcs dm_plane_funcs = {
+ 	.update_plane	= drm_atomic_helper_update_plane,
+ 	.disable_plane	= drm_atomic_helper_disable_plane,
+@@ -1438,6 +1467,7 @@ static const struct drm_plane_funcs dm_plane_funcs = {
+ 	.atomic_duplicate_state = amdgpu_dm_plane_drm_plane_duplicate_state,
+ 	.atomic_destroy_state = amdgpu_dm_plane_drm_plane_destroy_state,
+ 	.format_mod_supported = amdgpu_dm_plane_format_mod_supported,
++	.check_async_props = amdgpu_dm_plane_check_async_props,
+ };
+ 
+ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
 -- 
 2.43.0
 
