@@ -4,86 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAACDC47077
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 12:25:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17557C47077
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 13:15:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BA9310E4C8;
-	Tue, 16 Jan 2024 12:25:36 +0000 (UTC)
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1832D10E4BE
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 12:25:30 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-40e76626170so21757345e9.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 04:25:30 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A371110E4C6;
+	Tue, 16 Jan 2024 13:15:29 +0000 (UTC)
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3603B10E4C6;
+ Tue, 16 Jan 2024 13:15:28 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-50ed808db11so7099081e87.2; 
+ Tue, 16 Jan 2024 05:15:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=froggi.es; s=google; t=1705407869; x=1706012669; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=pwXABFOvRBPzESNTSetN4pdlSIrSPtPHl6I6jKGTq0A=;
- b=BZb9LCRe9TUBkqlfrbMElyQrsFJ+kSTAPPSnyl6uYNL3stNThJXheiZKApunmvkSKk
- 1oWBFZ41xlGi5XigU4LDQzNnkZMjWMryQGVfc926kTTp2JTgMiXdk03BdNaMM5hC+mFE
- oqMFZ1WGczFWodNiK9GKrB2S+QXx5T8YZRqn+7ITw4KVdp1nxWoOIS9yaWIu8tbbfrwg
- 3mA+b9b1Mk+ZnK8cKVCIls7y/SSopucuoUT7GVjHtDHTiku2REgYl17CbRjJdu66z2C2
- /73jG4ORpTTquZk4tiHu4zcJMvWdPYr1fskPLS6+GLyIcaoEgBwc1hb4us9HMCXMEjqu
- mOxQ==
+ d=gmail.com; s=20230601; t=1705410866; x=1706015666; darn=lists.freedesktop.org;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=E5HYLxVw6fM3ypadLsACTrsy4pVl4M83eVfP/j5l+MM=;
+ b=dZnPYSCWY5HeJFRprjojo3dcBVw/smJ2Oibl8Ls/asKnA6+DuiWKaIOC8IrbkLjUpC
+ q4XoVoHaiDE9YYHm3R+1+wTH7xZHz4HK+thHCHUyQVvxJOS6TeEXHPtraQOZqhwOyYf2
+ dHmyOYUY9RNUAxVDvwGACp81T/eXJNAre0nLZhiRc3SdpfhFBC5Vdaylloz57enYiZEx
+ Dp2FDvJlKedbKyzZnROeTAIwcmQrVLaybFFbz50Zq2Z9XDmsWm7C4velum2Kbv2zbqAA
+ Mo/9RXT5MKWxPbeOER7qunNFZB+VpHNkPPnYkCxkYkRuXR8NorHnwQefTD95P4C6zR/Z
+ 9sPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705407869; x=1706012669;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=pwXABFOvRBPzESNTSetN4pdlSIrSPtPHl6I6jKGTq0A=;
- b=XRn8ngN8HedWYR01K/z/PoZGWKvzntpfbXIyHo4ri8TsaKccCOEqC8oxfekgMz69LL
- emtVKdSyez+StdiyrZ0n5cbJTjwSuyo14Xb1h1Bol3iOAs82Pkj3lQafp8E1KSnWBgal
- JvRx7EHxUQ6eddEOrmaDfO9VOWlC5evit+mjmC9VsnK7apWo4gFstGV5xumVWL1L3PrH
- ZsUcsQEpyvCwv532/D9f4MlUo/vZzJf2rjWhFILNFkiQmTpWH+IsGJDrFLzHrOmSauBu
- T+li94qNe3bQ59KYG6k53XCS2+7HNlDxKkEdRw5gie6BODejCrXwYP32y0xfngwBvfMX
- 9eXw==
-X-Gm-Message-State: AOJu0YzXoUyWYZTVKA4pXNZx3iShlWxNWPePFhRKhHs67OpJzlTCgol0
- ER8OyPcGZLCiuV7dM1mF74YHqWGunho0Qg==
-X-Google-Smtp-Source: AGHT+IEC2to/fQoWmDZH+shAB90O0o7GIvjRyxe3zWk4WjTC40wU6SjER2i+9vpv/OKdSF2A15vbJg==
-X-Received: by 2002:a05:600c:247:b0:40e:69da:f5f9 with SMTP id
- 7-20020a05600c024700b0040e69daf5f9mr2709734wmj.33.1705407868570; 
- Tue, 16 Jan 2024 04:24:28 -0800 (PST)
-Received: from [192.168.0.89]
- (darl-09-b2-v4wan-165404-cust288.vm5.cable.virginm.net. [86.17.61.33])
- by smtp.gmail.com with ESMTPSA id
- o12-20020a5d474c000000b00336aac53e75sm14470437wrs.97.2024.01.16.04.24.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Jan 2024 04:24:28 -0800 (PST)
-Message-ID: <2a9a1a92-a074-456e-8190-3ba0a30d3f30@froggi.es>
-Date: Tue, 16 Jan 2024 12:24:27 +0000
+ d=1e100.net; s=20230601; t=1705410866; x=1706015666;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=E5HYLxVw6fM3ypadLsACTrsy4pVl4M83eVfP/j5l+MM=;
+ b=ez7KQOfByyijKD4OzAdfXUFOEr2etfojb2zxKtmvvxVz2Twy1tXy8bQY1LLf4ojJCA
+ JCCHp8TTZ/cxYby9S7quN+ff+4p49PoaqudN19/bGXQ8Xnidw0p4CcB7oPlFl4cP4lGR
+ o11bZ/o3qcMlu91B7MJNuZxuLR148Vi8vwHgSZ/tYYdH5TpkaF6REgcOy63pCXIHb64/
+ u4DeKOxms6UJztokSXrwUkDDBfSRGNAbXHjCUy7rBNgOb6A/uriPAqwC/CXn+pkV2PNI
+ bxOFrRNe4PzkiKGk2AZj53+RB/MM0ZRIVH58G3yesHjQqREtKD///m1hcL7H33qu1F9R
+ 5oyg==
+X-Gm-Message-State: AOJu0Yw2/91rPMAnOPsahQUv432t1fKQ/d9m9M7p2lnoA87Goma5rMMm
+ 6HMkcv3SUVYW/TeRJVluWss=
+X-Google-Smtp-Source: AGHT+IHYkDYUaH4R12WjJHu/IEaUkPCn6D0JlewBPNsBKwyAmM+WY5OUDQc/8qPQn00n0BWlGsKp1w==
+X-Received: by 2002:a05:6512:3042:b0:50e:73fe:c4ab with SMTP id
+ b2-20020a056512304200b0050e73fec4abmr3983941lfb.94.1705410865335; 
+ Tue, 16 Jan 2024 05:14:25 -0800 (PST)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ u9-20020a056512040900b0050e3615f608sm1750943lfk.209.2024.01.16.05.14.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 16 Jan 2024 05:14:24 -0800 (PST)
+Date: Tue, 16 Jan 2024 15:14:14 +0200
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: =?UTF-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
+Subject: Re: [PATCH 0/2] drm/atomic: Allow drivers to write their own plane
+ check for async
+Message-ID: <20240116151414.10b831e6@eldfell>
+In-Reply-To: <a6099681-1ae9-48ef-99bc-d3c919007413@igalia.com>
+References: <20240116045159.1015510-1-andrealmeid@igalia.com>
+ <20240116114522.5b83d8b6@eldfell>
+ <a6099681-1ae9-48ef-99bc-d3c919007413@igalia.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: Mark ctx as guilty in ring_soft_recovery
- path
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-References: <20240113140206.2383133-1-joshua@froggi.es>
- <9a07c4e4-321c-4f75-aeae-81ed90038365@daenzer.net>
- <f2153219-e791-4e97-96eb-26094d7acf87@froggi.es>
- <5c99ec8c-142d-4877-9624-c8ce0373fccd@gmx.de>
- <5ff32f43-46ea-4e74-8db4-c23e0b03b429@daenzer.net>
- <8e5cd59e-075a-480e-8452-87924580122d@froggi.es>
- <1dbe811f-64a0-4ccd-88cf-3fd30f79f7bc@daenzer.net>
- <c36400bd-b8f2-4026-b989-f4e1854b05ca@gmx.de>
- <7194a09a-afe8-4eae-8288-c72e2ac7d0a6@daenzer.net>
- <51b9ffc3-9ab3-4a06-9307-6b2a343f6bc6@gmx.de>
- <CAP+8YyGg91f_z2ktrd7HQMtOSHn34F-8x7O2iRv=TTrXo2NNoA@mail.gmail.com>
- <81a82ffc-c2e6-4ce6-9cc0-4f01dc8b9891@froggi.es>
- <bff749b8-5531-46bd-8e21-97d094e6b4c2@amd.com>
- <9e6fec7b-3786-4221-8024-6b949efd08e7@froggi.es>
- <bfe79411-7f77-48ab-8cfd-4727704739e8@amd.com>
- <3e284517-0372-4c75-9902-7039c09b73e9@froggi.es>
- <baa54077-cf89-4fb7-b505-a41716e66a23@gmail.com>
- <CAAxE2A5v_RkZ9ex4=7jiBSKVb22_1FAj0AANBcmKtETt5c3gVA@mail.gmail.com>
- <de47a17b-3d19-4c74-b77a-e08b0e94cc69@gmail.com>
-Content-Language: en-US
-From: Joshua Ashton <joshua@froggi.es>
-In-Reply-To: <de47a17b-3d19-4c74-b77a-e08b0e94cc69@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; boundary="Sig_/i2t6EBxqq.bTAjLBweow2/Q";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,157 +73,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- Friedrich Vock <friedrich.vock@gmx.de>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
- amd-gfx@lists.freedesktop.org, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: daniel@ffwll.ch, 'Marek =?UTF-8?B?T2zFocOhayc=?= <maraeo@gmail.com>,
+ Simon Ser <contact@emersion.fr>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Xaver Hugl <xaver.hugl@gmail.com>,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, Daniel Stone <daniel@fooishbar.org>,
+ Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com,
+ ville.syrjala@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--Sig_/i2t6EBxqq.bTAjLBweow2/Q
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, 16 Jan 2024 08:50:59 -0300
+Andr=C3=A9 Almeida <andrealmeid@igalia.com> wrote:
+
+> Hi Pekka,
+>=20
+> Em 16/01/2024 06:45, Pekka Paalanen escreveu:
+> > On Tue, 16 Jan 2024 01:51:57 -0300
+> > Andr=C3=A9 Almeida <andrealmeid@igalia.com> wrote:
+> >  =20
+> >> Hi,
+> >>
+> >> AMD hardware can do more on the async flip path than just the primary =
+plane, so
+> >> to lift up the current restrictions, this patchset allows drivers to w=
+rite their
+> >> own check for planes for async flips. =20
+> >=20
+> > Hi,
+> >=20
+> > what's the userspace story for this, how could userspace know it could =
+do more?
+> > What kind of userspace would take advantage of this and in what situati=
+ons?
+> >=20
+> > Or is this not meant for generic userspace? =20
+>=20
+> Sorry, I forgot to document this. So the idea is that userspace will=20
+> query what they can do here with DRM_MODE_ATOMIC_TEST_ONLY calls,=20
+> instead of having capabilities for each prop.
+
+That's the theory, but do you have a practical example?
+
+What other planes and props would one want change in some specific use
+case?
+
+Is it just "all or nothing", or would there be room to choose and pick
+which props you change and which you don't based on what the driver
+supports? If the latter, then relying on TEST_ONLY might be yet another
+combinatorial explosion to iterate through.
 
 
-On 1/16/24 07:47, Christian König wrote:
-> Am 16.01.24 um 01:05 schrieb Marek Olšák:
->> On Mon, Jan 15, 2024 at 3:06 PM Christian König
->> <ckoenig.leichtzumerken@gmail.com> wrote:
->>> Am 15.01.24 um 20:30 schrieb Joshua Ashton:
->>>> On 1/15/24 19:19, Christian König wrote:
->>>>> Am 15.01.24 um 20:13 schrieb Joshua Ashton:
->>>>>> On 1/15/24 18:53, Christian König wrote:
->>>>>>> Am 15.01.24 um 19:35 schrieb Joshua Ashton:
->>>>>>>> On 1/15/24 18:30, Bas Nieuwenhuizen wrote:
->>>>>>>>> On Mon, Jan 15, 2024 at 7:14 PM Friedrich Vock
->>>>>>>>> <friedrich.vock@gmx.de <mailto:friedrich.vock@gmx.de>> wrote:
->>>>>>>>>
->>>>>>>>>      Re-sending as plaintext, sorry about that
->>>>>>>>>
->>>>>>>>>      On 15.01.24 18:54, Michel Dänzer wrote:
->>>>>>>>>       > On 2024-01-15 18:26, Friedrich Vock wrote:
->>>>>>>>>       >> [snip]
->>>>>>>>>       >> The fundamental problem here is that not telling
->>>>>>>>> applications that
->>>>>>>>>       >> something went wrong when you just canceled their work
->>>>>>>>> midway is an
->>>>>>>>>       >> out-of-spec hack.
->>>>>>>>>       >> When there is a report of real-world apps breaking
->>>>>>>>> because of
->>>>>>>>>      that hack,
->>>>>>>>>       >> reports of different apps working (even if it's
->>>>>>>>> convenient that they
->>>>>>>>>       >> work) doesn't justify keeping the broken code.
->>>>>>>>>       > If the breaking apps hit multiple soft resets in a row,
->>>>>>>>> I've laid
->>>>>>>>>      out a pragmatic solution which covers both cases.
->>>>>>>>>      Hitting soft reset every time is the lucky path. Once GPU
->>>>>>>>> work is
->>>>>>>>>      interrupted out of nowhere, all bets are off and it might as
->>>>>>>>> well
->>>>>>>>>      trigger a full system hang next time. No hang recovery should
->>>>>>>>> be able to
->>>>>>>>>      cause that under any circumstance.
->>>>>>>>>
->>>>>>>>>
->>>>>>>>> I think the more insidious situation is no further hangs but
->>>>>>>>> wrong results because we skipped some work. That we skipped work
->>>>>>>>> may e.g. result in some texture not being uploaded or some GPGPU
->>>>>>>>> work not being done and causing further errors downstream (say if
->>>>>>>>> a game is doing AI/physics on the GPU not to say anything of
->>>>>>>>> actual GPGPU work one might be doing like AI)
->>>>>>>> Even worse if this is compute on eg. OpenCL for something
->>>>>>>> science/math/whatever related, or training a model.
->>>>>>>>
->>>>>>>> You could randomly just get invalid/wrong results without even
->>>>>>>> knowing!
->>>>>>> Well on the kernel side we do provide an API to query the result of
->>>>>>> a submission. That includes canceling submissions with a soft
->>>>>>> recovery.
->>>>>>>
->>>>>>> What we just doesn't do is to prevent further submissions from this
->>>>>>> application. E.g. enforcing that the application is punished for
->>>>>>> bad behavior.
->>>>>> You do prevent future submissions for regular resets though: Those
->>>>>> increase karma which sets ctx->guilty, and if ctx->guilty then
->>>>>> -ECANCELED is returned for a submission.
->>>>>>
->>>>>> ctx->guilty is never true for soft recovery though, as it doesn't
->>>>>> increase karma, which is the problem this patch is trying to solve.
->>>>>>
->>>>>> By the submission result query API, I you assume you mean checking
->>>>>> the submission fence error somehow? That doesn't seem very ergonomic
->>>>>> for a Vulkan driver compared to the simple solution which is to just
->>>>>> mark it as guilty with what already exists...
->>>>> Well as I said the guilty handling is broken for quite a number of
->>>>> reasons.
->>>>>
->>>>> What we can do rather trivially is changing this code in
->>>>> amdgpu_job_prepare_job():
->>>>>
->>>>>           /* Ignore soft recovered fences here */
->>>>>           r = drm_sched_entity_error(s_entity);
->>>>>           if (r && r != -ENODATA)
->>>>>                   goto error;
->>>>>
->>>>> This will bubble up errors from soft recoveries into the entity as
->>>>> well and makes sure that further submissions are rejected.
->>>> That makes sense to do, but at least for GL_EXT_robustness, that will
->>>> not tell the app that it was guilty.
->>> No, it clearly gets that signaled. We should probably replace the guilty
->>> atomic with a calls to drm_sched_entity_error().
->>>
->>> It's just that this isn't what Marek and I had in mind for this,
->>> basically completely forget about AMDGPU_CTX_OP_QUERY_STATE or
->>> AMDGPU_CTX_OP_QUERY_STATE2.
->>>
->>> Instead just look at the return value of the CS or query fence result 
->>> IOCTL.
->>>
->>> When you get an -ENODATA you have been guilty of causing a soft
->>> recovery, when you get an -ETIME you are guilty of causing a timeout
->>> which had to be hard recovered. When you get an -ECANCELED you are an
->>> innocent victim of a hard recovery somebody else caused.
->>>
->>> What we haven't defined yet is an error code for loosing VRAM, but that
->>> should be trivial to do.
->> So far we have implemented the GPU reset and soft reset, but we
->> haven't done anything to have a robust system recovery. Under the
->> current system, things can easily keep hanging indefinitely because
->> nothing prevents that.
->>
->> The reset status query should stay. Robust apps will use it to tell
->> when they should recreate their context and resources even if they
->> don't submit anything. Let's fully trust robust apps here. In the
->> future we might change our mind about that, but for now, let's just
->> focus on API conformance, and later we can change it as long as we
->> stay API conformant.
->>
->> Non-robust apps must be terminated when they hang or are innocent but
->> affected. Their existence is a security and usability problem and a
->> source of frustrations for users. 100% guaranteed system recovery is
->> impossible if they continue to live.
->>
->> IBs should be rejected for all guilty and affected innocent contexts
->> unconditionally, both robust and non-robust ones, by the kernel.
->> Userspace only forwards the reset status to apps for robust contexts
->> and doesn't do anything else, but userspace may decide to terminate
->> the process if any non-robust context is affected.
-> 
-> Yeah, that absolutely works for me.
-> 
-> Going to adjust the implementation accordingly.
+Thanks,
+pq
 
-Awesome, please CC me know when you have something.
+> >> I'm not sure if adding something new to drm_plane_funcs is the right w=
+ay to do,
+> >> because if we want to expand the other object types (crtc, connector) =
+we would
+> >> need to add their own drm_XXX_funcs, so feedbacks are welcome!
+> >>
+> >> 	Andr=C3=A9
+> >>
+> >> Andr=C3=A9 Almeida (2):
+> >>    drm/atomic: Allow drivers to write their own plane check for async
+> >>      flips
+> >>    drm/amdgpu: Implement check_async_props for planes
+> >>
+> >>   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 30 +++++++++
+> >>   drivers/gpu/drm/drm_atomic_uapi.c             | 62 ++++++++++++++---=
+--
+> >>   include/drm/drm_atomic_uapi.h                 | 12 ++++
+> >>   include/drm/drm_plane.h                       |  5 ++
+> >>   4 files changed, 92 insertions(+), 17 deletions(-)
+> >> =20
+> >  =20
 
-In the short-term I have changed if (r && r != -ENODATA) to if (r) and 
-that seems to work nicely for me.
 
-- Joshie 🐸✨
+--Sig_/i2t6EBxqq.bTAjLBweow2/Q
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
-> 
-> Christian.
-> 
->>
->>
->> Marek
-> 
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmWmgSYACgkQI1/ltBGq
+qqcJGhAAmfkcI63j+PXidMJLZ9COPIfRspF9wDzlPbiyZOH2nvffM9dDdNKWIm+j
+8dMw6bbmp8/AjEdymqKUmqsI0u0G8/otViBEYHA5DPJTNZxmFDW5awvwPZo/86fL
+i8jfM9XTDN637bQKorVUR+QEu/CXag/IH5R19YT5QSRfmKGwvfvOYKkdHwAoe29m
+Zazcouunhbns8EeRQnxWrwFpn7+gQunM79AwaUt88CxyFFbpxN9t6iU0UThtNFnb
+CYKjIwIvYsE3ncULhV47giKpd05tSP0yRDBdPCVgzZO80n16yzvtZDe3pzQGZd2p
+4zxOzYmDlu8789qfQReCCzQWoAJ9Wn5H7o4WH09gygqbRtEhpaUbbjX+WQJVl5j5
+WCyH2ezdqOSz6mGN1Un9t1thK9oE13fM5v/EdCj+DWUsJbUEeoMcI2ymcBoHWB9C
+GSetbRreGTejPDnCvW7c5i4Aa1TxJHHuNWLeBH2MbjLIjzSE/TCBaSoyJr/lol1L
+xkDBFD6fnIIK9aNzkAFLjHZDZU/xOz06JlG/CtEE4cOmXfWrm/3PCzCXBF2C5FZn
+ppeC1BKzvDIlgA9+lwV+H1YIN7xAc4EDYbksjCWpQwmZAYTcfJrLv732nA7ysRdr
+92k6OK5F8WoaaZor9qs2dIT6lUbUoATCzJnY2yoXNl6si+ERA3g=
+=EpBy
+-----END PGP SIGNATURE-----
+
+--Sig_/i2t6EBxqq.bTAjLBweow2/Q--
